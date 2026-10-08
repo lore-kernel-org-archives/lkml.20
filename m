@@ -1,358 +1,278 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010017.outbound.protection.outlook.com [52.101.193.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com [209.85.128.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DF8336F428
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 03:24:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.17
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791429854; cv=fail; b=GaNG7fc+7YFcyZgXuqPCYB/zcCS48LcLoDrVaz6u83OGIxxgasD0NCkjIc+NQII+1GBZoz8BzVO9KwhVhjxqYfHh+bhFCyn7N3/3Xe/w3iaaS2OdIxJpg4EyHYBjZm02O9ZLS0mj4njDdM86gjTiXg7DiKUjetYEuQc2MK0q8Tc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791429854; c=relaxed/simple;
-	bh=IXwogZr4sLdFe3WOY86gAwrhJr5GDabh+7mCJj+iQVw=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bw7nBn22ZmxUGacrLhj19SiFr57iQjs7hISjPN4+qNZyAkYSRQdckMYdVPeXm3swhut4dib9DNUYqZXaV8nm3wYWBgxI/TrLpfAN2wf0bmx+Bazkznq0j1wbOCQFDlvzbcsy+RWoUExJJItLUc+YrdKF5RMP29TRIBDZNelDulA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=whzOFwdH; arc=fail smtp.client-ip=52.101.193.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1CB835677E
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 03:24:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.174
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791429855; cv=none; b=YB/5TV84zG7V+PEv0AXb0UEiV6DUszaDbFhp7m6M5HJ+6iIVdBLw+opLzYFCDzN0KNFNVIP5l4Pyy/N1wsznVJD4Kz34gVqqXLv/UCf9HRTr/YQexuH+UU1n47i4ma/Pjujb3U40gLFL7/k5L7PMTjSgn2qi8DosdwUNCwqAiDg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791429855; c=relaxed/simple;
+	bh=Vq5SK1jm4LUuxhcXSRHThL4R5vnxbBTVBbTUFu6uFxg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=idvPuxBLH6U87Qeklz6g5tRxWTQkXlEuuU8MLCXpfXy0nmpzqWpAmumNpIlHffxEX3EkPqSnahZrX6x4SIxCFMeQxSEe9M4zzbCVMN3zkNS+TEjmDB0VQmC1kuChCBshXJ64Ux1MdurmlfSGRpHW8KqPM+i8Y/+7ybxnajvn5is=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DkpwR9IL; arc=none smtp.client-ip=209.85.128.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="whzOFwdH"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CkW986NlNIvV4qk9g5pBVclMv9on7LmCNDzMhXhcpHLAEOPerOZzLlG1ac0nWQPGc9lMvs6jjLYHp3woNyz2wlt0spIfMzKKQAvDzdIGCEt+itw0wtu0r3/Rz8DmXroWad8Lj7VEPPQAaegTvfDaBbaj/xqB+lIeFj6hFapG8ezdEynDi4XAak1mDNBGh6Q7AuTw9peIiLjWCcGkjGu06DVYgeBhxr9u5DsRBaffqgYphuPDlOIoU/3ImeQHtjPsNDqXoGKzPakc4nIf+0zif1QeZOelA4038qisgTvRRuyBlYaPhYtZAnhvM8/khyhYE9JuveYq+8f8mFYzFPzBEQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KCfqh1xgjwgKsOaWhv4JGZcvzud5s0xU8IAxsA016No=;
- b=p2fb9hRbQYiIHWZYlUoH3LjVLYUOvc/zA5fOhw/CwM5GOrM7rwCWx1nkqGtJeTeYtWixu6iX9229l+ikvGcim42/eIQVKyZfm6RnrspdPhLcFSXiwNbseAb0n9d4WbsE5mBThxnh8yvhw1Mod2FMHSghtmwlj2PX69GrzeH1I5iZbgncgfPv4Rp5+uP0DNPF/yvdC7Zi3WiHSxuNOtqyd+j1blUz/SUwmyabZBYDf23FveOSEJAfHswcizNWmtKSUaCXjREGQjbrQn1UXk0aaNXc1PV/wYHGLjP1FlCzxeK7sulu29hb4xckMP8A9oMV/R8vTaBHENo2w9qyrr/Oow==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KCfqh1xgjwgKsOaWhv4JGZcvzud5s0xU8IAxsA016No=;
- b=whzOFwdHu9sBf63Vd3diLcyIRvVnaCyPmyhLC8d7VASX6pmeaZ1RxD8SarHDHPljMFJjl8AbccbR7CwWDyiA297xftJjwI2JkziBXLvvpgLSa/BQJnp9V7LkPVIJOaOl/iCSTNKufCo9AMssOEZOIiKdtofYbH6ySo/AEiYyk00=
-Received: from SJ0PR05CA0207.namprd05.prod.outlook.com (2603:10b6:a03:330::32)
- by DM4PR12MB8473.namprd12.prod.outlook.com (2603:10b6:8:183::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Thu, 8 Oct
- 2026 03:24:01 +0000
-Received: from SJ1PEPF000037AE.namprd03.prod.outlook.com
- (2603:10b6:a03:330:cafe::87) by SJ0PR05CA0207.outlook.office365.com
- (2603:10b6:a03:330::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.16 via Frontend Transport; Thu, 8
- Oct 2026 03:24:00 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF000037AE.mail.protection.outlook.com (10.167.244.183) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.14 via Frontend Transport; Thu, 8 Oct 2026 03:24:00 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 7 Oct
- 2026 22:23:59 -0500
-Received: from xsjdavidzha51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Wed, 7 Oct 2026 22:23:58 -0500
-From: David Zhang <yidong.zhang@amd.com>
-To: <quic_jhugo@quicinc.com>, <karol.wachowski@linux.intel.com>,
-	<max.zhen@amd.com>, <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
-	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-CC: David Zhang <yidong.zhang@amd.com>, <sonal.santan@amd.com>,
-	<mario.limonciello@amd.com>
-Subject: [PATCH V3 05/19] accel/amdxdna: Add NPU3 classic device support
-Date: Wed, 7 Oct 2026 20:23:34 -0700
-Message-ID: <20261008032348.2044667-6-yidong.zhang@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261008032348.2044667-1-yidong.zhang@amd.com>
-References: <yidong.zhang@amd.com>
- <20261008032348.2044667-1-yidong.zhang@amd.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DkpwR9IL"
+Received: by mail-yw1-f174.google.com with SMTP id 00721157ae682-836c8bde2dcso24955687b3.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 20:24:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791429849; x=1792034649; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=1QjFS0BxgyDFuUgadRLhJBbfGMZmEd0oyJgkkp9HNNU=;
+        b=DkpwR9ILKL8MSypskQDOBIFo3qZ3cpIsPD9rOlsQ9nTKXe5ZclURjbcRNvJG+wjskx
+         mHmaWwfcs/ff5OlnItlL6YZdujTv31iA4t4y/9XBDqYS2UEc61krssErpktFCQA88CC7
+         zrV9lRl80gAmDnOMCp3s/ioD8SWYdXWXyWQkK/erKQEk1wn32mmLs8N4Uia/XKWFO9BO
+         Hv1ZeOY8y3/ruhT9G83trLRSLKAHIvHT7Fg8c5sh7Sc7OE2uglQx6bScJVrXcfMsmXe/
+         bVL4c9Jr2ZA35jD+82QntGbxKTnjB/EVyyVf6/ohNfjP0fyAkDpP8kQLv88maPZstAUp
+         fA6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791429849; x=1792034649;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=1QjFS0BxgyDFuUgadRLhJBbfGMZmEd0oyJgkkp9HNNU=;
+        b=mlE79YW7gwtpBZZDwvIGKrN0rXx72n6WBY7jD7oe8oPSAzZH4iuB0sEa3QkWKpFh3P
+         k3RzHRMUo8XmfRJ3EX8N9Sovkslm2mp5tqHbr/dwqEeoSC5Ui68IqCdyZrkwB83SfJ3V
+         8K7LAzI6MjcccN6SuQMWdwEI0NgmKGFa8OlcGh1Kk3OHI4jtXT3j+hZi8Jf3UFsOrHm4
+         v4yomut4X3wd92nlqD15ABXq/XCijE7XUvzraPZAdyIKcvHJVKrFZCSS6BIH6vt/br6H
+         EBz34X4X5sylFF2wGm2ZAhAfFgNRlmngFcvnh+f5Fd0lk+dff0DLZEa77ddI/yYpmQll
+         cuiA==
+X-Forwarded-Encrypted: i=1; AKwUvBzN7qjoiZa0iWYf1qqDhO/2QCmaVeEuprGUj4z8lw3XykS5TWAerLm1RPbHruEK2IMo4at+tEpy0u4OVkg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIX/Z7xm12KhFl6C1aRowIs0qkZ5PvImg64Y1hJw2iW5GORQv5o
+	bWUVjoXyvrB896Ruj/uJnr1uHrjcP4DUsrPHfdfqP68s+LAVwQWd1YeV
+X-Gm-Gg: AYBFou17OL87U8vnRedPspTAnUn6U74TyozwkLh1Oug7Kn6BLrYGfrTVC62fbGDAnwU
+	tFRHMB5wtcfLVOgIk9rd3maODQcSIzp8ZtJ4eyRE/F5rq4YFYpMUdFQXxvcS2pyzFc+ZiLdfizE
+	41ez/lKx98/1D/kprfzPZco7Dafa2MhTZLo9SUCPlvK7K9dzGNwoDYFk0b+Mubpt4zaB67bkgrh
+	9iMVdpvt+1DTK2AKc2qoJfgAJ0ULaDNmhvoCjRnMDJdXeeOBBfOTzZN8pk1TsKz0Ou68ec+na0L
+	CgGPLlt/A9qkwMWGCAYCc/2rgFez5OY+DYlZ6Rl0CdMKrLkJlYoJs/m7NA7TLSX8IZg0oiBV/r7
+	BKY711B7n9FCkNcdjG9jZv61QtC9M6EQ6H11cmR2MFkzIIfpWDmWTO3jqG53w3GChThIVhrMKI0
+	2E2URr+sgLc0NZJSJaFcO2xLw9Z5MA2uahcmYrvazEy7egWmABbTu4ZLo7OTZmE8c8yIRpH7Q=
+X-Received: by 2002:a05:690e:bc7:b0:677:d93e:edfc with SMTP id 956f58d0204a3-6790a2e3740mr2705585d50.44.1791429848543;
+        Wed, 07 Oct 2026 20:24:08 -0700 (PDT)
+Received: from localhost ([2600:1702:7a90:6f9f:8bc4:8aec:108d:7a04])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6791b0beed8sm702875d50.17.2026.10.07.20.24.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 20:24:06 -0700 (PDT)
+From: Matt Turner <mattst88@gmail.com>
+Subject: [PATCH v2 0/6] alpha: hugetlb support using granularity hints
+Date: Wed, 07 Oct 2026 23:24:03 -0400
+Message-Id: <20261007-alpha-hugepages-v2-0-8e108af2d961@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000037AE:EE_|DM4PR12MB8473:EE_
-X-MS-Office365-Filtering-Correlation-Id: bed34324-63df-4d3d-0f93-08df24eb98ce
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|1800799024|36860700016|23010399003|3023799007|4143699003|10067099003|56012099006|11063799006|6133799003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	uDktLHHl9FVrE6hmwur3lnVRHlwT/+nx2FJ2m6VX96NgSzN3z53HwDcUh1oV2E4hz6o34l6bygNpRGd47vGgzO/bN7zwvwU//54GQrYen81iCRaI20919g6qVTrE3wFmaHUE4RD9c/OQs/w2irkpvT4gQ2z4sEKH4n7bGj3WK03p52rcJelSFrzXPivgFiImsRnmIAvj41JydelG9bteyVDjrEI9KCmLVdVV2O0I5Z3KgvsELF4UrO9yDnLeMQOG/2MV3sR66agchbsHqQuWpSfKsEF2aDAQpvRcIbhuAKzn9DBeIuEGXgaoLkFw8airqWcMvrAZoNOefY5RQLuWpDGvxDsNupTkK9ILmsEfOzkaZeqIUEJXFeh+01oVNUOTn54pJQEPJ9cC5UYImVg8BxadoxGwGiKhroTexQCplG2Bvni/J08zk3CaJ57WtOJv+UTDj0W+3hD7LbBc+b+nBe5J/vAY3SwvJHNK35sxBIkuCu8hsrKe3ETS2EgMXlAOuOVXAK5Xkxfh435atMuw44dbcwhXkkUIZX2pnpgtrsgE15tHnYUXlK+u2DF0e82Opxd2jokNXvD7yyjyk2Dgm5po8ruyLyw//t1Mrhyzz8U1DeU+P3YWktqhQvtB7hetjvESKZJ0ukPUtFLyU+senuDzEmKaNvCVtZnYcFqqfRDrcK9GZmvK2p7DqR951690L1ShOnp/8PCRBAHT5jsotw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(1800799024)(36860700016)(23010399003)(3023799007)(4143699003)(10067099003)(56012099006)(11063799006)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	SOEZsE416rkzAxEu27KSWahH2YFssltSxrjWORms6U0Rl8ts5qh8nikcWDQFkRD3Qm6P9l3FirdMyAP3oXUvCAYB6z+z7jHolLGUOec2rjSopr+ZNmC/pImNbjvYy1swNyHgnDdoVYDAhfpz9HsJwau61AHwzfIFWBNlBGlnnkfk6Zxh+auOmYkLKFqONefIsqy+D3Bycf+b5fsQzFGtKLfAcloV6cFZ4rAwqFSIzhYvqNP/XbqZykNdk3GFoneFaDlJyoChtbQRDZkXqex5c79uR8E1qfrMkXM/0MGdmh0BnI/gPrjdDsag8veMyhrrY3C+a4NX8xB9ulnuSpWIC/6xcPfVoHofNljwdoZbW99QUstuhhkJWMLLXixxGe9QqRMwFdow2jwxsAFy6YaR7DvDtuY+OPA5YZWjloNntNgmC3KaYRGTPahScoJA9OdJ
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 03:24:00.8196
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bed34324-63df-4d3d-0f93-08df24eb98ce
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000037AE.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8473
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2WNywrCMBBFf6XM2sgkYmpd9T+kizEdk4E+QqJFK
+ f13Y7cuz4F77gqZk3CGa7VC4kWyzFMBc6jABZo8K+kLg0FjsdFG0RADqfDyHMlzVuisu1uHTXP
+ uoaxi4oe89+KtKxwkP+f02Q8W/bN7SyPav9aiFSqy9Yn0hYhqbP1IMhzdPEK3bdsXpGK8e64AA
+ AA=
+X-Change-ID: 20260912-alpha-hugepages-0c6cb6c0995d
+To: Richard Henderson <richard.henderson@linaro.org>, 
+ Magnus Lindholm <linmag7@gmail.com>, 
+ Axel Rasmussen <axelrasmussen@google.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, Peter Xu <peterx@redhat.com>
+Cc: linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Matt Turner <mattst88@gmail.com>, stable@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9515; i=mattst88@gmail.com;
+ h=from:subject:message-id; bh=Vq5SK1jm4LUuxhcXSRHThL4R5vnxbBTVBbTUFu6uFxg=;
+ b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLKO81wRf92mEGobuXJJq47dHXWrasZwKZ/Uxd1JJ78ru
+ bPdM43u+MjCIMbFMFNMkSVuvSLLrLYdS31OS/+CmcPKBDJEWqSBAQhYGPhyE/NKjXSM9Ey1DfUM
+ gQwdo3iInB6DRmZxcWlqkW5aQZFDXn5JYklmfl6xXn5Bal5BeoFeWmZaSUZGflFxKtAIvbzUElN
+ XRzcjQwMTS0cLMycLR1MTZ2cnQyc3R0dnVycjS3MTA2dLRxNXS3MGLk4BmGvWX2D4nyi09GA88/
+ nyFS93Oezd6buSfT8/S8T+irq7WXO3RC+S9mBkuHph7rSFT/bc+n7cf+2Lq0/5r9polzSU2Bdz6
+ txcw3sriBkA
+X-Developer-Key: i=mattst88@gmail.com; a=openpgp;
+ fpr=3BB639E56F861FA2E86505690FDD682D974CA72A
 
-Add NPU3 classic device operations (aie4_classic_ops) and register
-definitions, as well as the PCI device ID and firmware declarations for
-NPU3 classic devices. Remove device IDs 0x1B0B and 0x1B0C because those
-devices will not be released.
+Alpha has no leaf entry above the last page table level, so the usual
+PMD sized huge page is not available to it. What it does have is the
+granularity hint, bits <6:5> of the PTE, described in Table 22-3 of the
+Alpha Architecture Reference Manual: a hint of order N marks a PTE as
+one of 8^N physically contiguous, naturally aligned pages that the
+translation buffer is permitted to map with a single entry. With 8KB
+pages that gives 64KB, 512KB and 4MB blocks, and this series registers
+all three as hstates.
 
-Also guard dev_heap_mm initialization and takedown against zero-sized
-device heap, as NPU3 does not configure a dedicated device memory heap.
+This works like arm64's contiguous PTE support rather than RISC-V's
+NAPOT: every PTE of a block keeps the frame number of its own page, so a
+block is written with set_ptes() and the frame number advances across
+it. There is no PMD sized huge page, and hence no transparent huge
+pages, no PMD page table sharing and no gigantic pages.
 
-Note: System suspend/resume support requires draining and managing
-in-flight commands by leveraging the kernel-mode queue (KMQ) infra.
-Full suspend and resume callbacks for all AIE4 device types are
-introduced in a subsequent patch with KMQ support.
+The architecture requires all PTEs of a block to agree in bits <15:0>
+(note 2 of Table 22-3), and both __ACCESS_BITS and __DIRTY_BITS reach
+into that range, so every update rewrites the whole block and
+huge_ptep_get() merges the young and dirty state back together.
+Rewriting a valid block in place would leave its PTEs disagreeing part
+way through, so changes to a valid block go through break before make,
+following the procedure in section 11.6.1. The invalidate there has to
+assume the hint is zero and so must cover every page of the block, which
+flush_tlb_range() on alpha already exceeds, since it rolls the address
+space number.
 
-Signed-off-by: David Zhang <yidong.zhang@amd.com>
+On SMP, break before make is only as good as the flush: flush_tlb_mm()
+has to reach every CPU that may hold a translation. Magnus Lindholm's
+TLB shootdown series [1] fixes flushes that miss a CPU after fork, under
+lazy TLB, or on the calling CPU, and this series depends on it there.
+
+[1] https://lore.kernel.org/linux-alpha/20260923074903.862898-1-linmag7@gmail.com/
+
+The hint is advisory. An implementation that ignores it still translates
+correctly through the individual PTEs, so this is safe on every Alpha,
+and gup_fast needs no changes. The console block that would report which
+hint sizes the translation buffer implements was never filled in by any
+console through EV7, so which sizes an implementation honors can only be
+established by measuring, as the last section does for EV7.
+
+Patches 1 and 2 are independent fixes. Patch 1 adds a
+page_table_check_pte_clear() call missing from alpha's
+ptep_get_and_clear(). Patch 2 fixes a BUG() that testing this series
+turned up: do_page_fault() fell through to BUG() on VM_FAULT_HWPOISON,
+reachable through UFFDIO_POISON without any memory failure support.
+Patch 3 replaces the "xxx" comments on the PTE read and write enable
+bits with their descriptions from Table 22-3. Patches 4 and 5 are
+groundwork and patch 6 is the implementation.
+
+Testing
+=======
+
+Tested on megalith (EV7 Marvel, 8GB), with two CPUs and again with one,
+cross-built with alpha-unknown-linux-gnu-gcc, with CONFIG_DEBUG_VM=y,
+CONFIG_DEBUG_VM_PGTABLE=y, CONFIG_PAGE_TABLE_CHECK_ENFORCED=y and
+CONFIG_CGROUP_HUGETLB=y. All three hint sizes register as hstates.
+
+mm selftests, the same in both configurations: hugetlb 10/10,
+userfaultfd and cow 7 pass 1 skip (uffd-wp-mremap), 0 fail, including
+uffd-stress hugetlb and hugetlb-private at 128MB/32 threads.
+debug_vm_pgtable validates clean at boot. No page_table_check reports
+and no DEBUG_VM splats in any run.
+
+Ad hoc tests written for this series also pass at all three sizes: dense
+per-base-page write and read back across a block, which catches a wrong
+frame number inside a block that a strided pattern would alias over;
+mprotect down to PROT_READ and back, including a middle-block-only case,
+exercising break before make; fork COW; hugetlbfs shared mappings
+checked through pread and through a second independent mapping; hole
+punch of a middle block with both neighbors and the refaulted hole
+checked; ftruncate down and back up; and the 4MB -> 512KB -> 64KB demote
+chain with exact count checks. All of it again with four concurrent
+copies, and the whole suite ten times in a row.
+
+An earlier revision of the series was also tested on up1500 (EV68AL
+Nautilus, UP, 4GB) with CONFIG_DEBUG_VM=y and
+CONFIG_PAGE_TABLE_CHECK_ENFORCED=y. That machine has not been retested
+with this revision.
+
+Magnus Lindholm also tested the series on SMP, on a UP2000+ (2x EV68AL
+833 MHz), including a multithreaded stress test. It found that
+huge_ptep_set_access_flags() broke and rewrote a block on every fault,
+so two threads on different CPUs could keep each other faulting: 17,316
+faults in 6 seconds after one permission change on a 4MB page. With the
+check now in patch 6 the same change causes one fault. No writes were
+lost with or without it.
+
+Magnus has since run v1 on the UP2000+ again, both as posted and on top
+of [1]: his test script 200 times, the hugetlb, userfaultfd and cow
+selftests (17 pass, 1 skip) and the stress test at all three sizes, with
+no lost writes and at most one fault after a permission change on either
+kernel. v2 changes only comments and changelogs; the code is unchanged.
+
+Hugepage migration is not enabled. It has no test coverage: the
+migration, rmap and ksm selftests do not cross-build for want of libnuma
+in the alpha sysroot, and neither machine is multi-node.
+
+Does the hint do anything?
+==========================
+
+On EV7, yes. Since the hint is advisory there is no way to ask the
+hardware whether it implements one, and the console block that would
+report it was never filled in, so the only way to find out is to
+measure.
+
+Comparing the three hint sizes against each other rather than against
+normal pages avoids the hugetlb-versus-anonymous confound. A random
+pointer chase touches one cache line per 8KB base page, with the
+permutation seeded only from the page count, so every backing walks an
+identical sequence over an identical footprint and the only variable is
+how many DTB entries the working set needs. EV6 and EV7 have a 128 entry
+fully associative DTB, so coverage is 128 times the page size: 1MB with
+base pages, 8MB at 64KB, 64MB at 512KB, 512MB at 4MB.
+
+Nanoseconds per access on megalith with one CPU, 8,000,000 accesses per
+pass. Each figure is the best of ten runs, every run on freshly
+allocated memory: single runs differ by 40% or more from one allocation
+to the next, at every page size including base pages, so the best run is
+the one to compare.
+
+     size      base(8KB)       64KB      512KB     4096KB
+      1 MB          11.24      11.11      15.02      11.72
+      4 MB         155.47     104.54     105.03     104.17
+     16 MB         156.69     127.50     109.55     105.52
+     64 MB         154.61     146.79     110.16     105.76
+    256 MB         172.56     171.34     175.74     107.47
+   1024 MB         232.40     230.08     222.15     190.03
+
+Each size keeps its advantage until the working set passes its own
+coverage and then converges on the base page column: 64KB is useful to
+about 8MB, 512KB to about 64MB, 4MB to about 512MB.
+
+Magnus Lindholm reports that EV68AL honors all three hint sizes too. On
+the UP2000+, retired instructions per access, which include the PALcode
+DTB fill, drop to the no-miss level exactly where each size fits the 128
+entry DTB, whose entries can each map 1, 8, 64 or 512 pages (21264/EV67
+Hardware Reference Manual, section 2.1.6.4).
+
+Signed-off-by: Matt Turner <mattst88@gmail.com>
 ---
- drivers/accel/amdxdna/aie4_pci.c        | 83 +++++++++++++++++++++++++
- drivers/accel/amdxdna/aie4_pci.h        |  1 +
- drivers/accel/amdxdna/amdxdna_pci_drv.c | 23 ++++---
- drivers/accel/amdxdna/amdxdna_pci_drv.h |  1 +
- drivers/accel/amdxdna/npu3_regs.c       | 14 +++++
- 5 files changed, 115 insertions(+), 7 deletions(-)
+Changes in v2:
+- Collect Reviewed-by and Tested-by tags from Magnus Lindholm.
+- Patch 1: say which BUG_ON() the missing call leads to, add Fixes.
+- Patch 2: Cc stable, note that any local user can reach the BUG() and
+  what a backport has to drop.
+- Patch 3: describe the enable bits as the Alpha Linux PTE (Table 22-3)
+  defines them rather than the OpenVMS one, move the 21264 Executive
+  mode detail to the changelog, and retitle to match (Magnus).
+- Patch 4: cite Table 22-3 rather than its Tru64 twin, Table 17-3.
+- Patch 5: name the commits that made the alignment the architecture's
+  job (Magnus).
+- Patch 6: cite note 2 of Table 22-3 as the reason for break before
+  make and section 11.6.1 as the procedure followed, in the changelog
+  and in set_huge_pte_at() (Magnus).
+- Cover letter: state the SMP dependency on the TLB shootdown series,
+  add the UP2000+ results for v1 and the EV68AL hint measurement.
+- Link to v1: https://lore.kernel.org/r/20261006-alpha-hugepages-v1-0-a673a18aaa70@gmail.com
 
-diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie4_pci.c
-index dbaf90af620f..d8c26655dbfd 100644
---- a/drivers/accel/amdxdna/aie4_pci.c
-+++ b/drivers/accel/amdxdna/aie4_pci.c
-@@ -365,6 +365,51 @@ static void aie4_vf_hw_stop(struct amdxdna_dev_hdl *ndev)
- 	aie4_mailbox_fini(ndev);
- }
- 
-+static int aie4_classic_hw_start(struct amdxdna_dev_hdl *ndev)
-+{
-+	int ret;
-+
-+	ret = aie4_fw_start(ndev);
-+	if (ret)
-+		return ret;
-+
-+	ret = aie4_mailbox_init(ndev);
-+	if (ret)
-+		goto stop_fw;
-+
-+	ret = aie4_query(ndev);
-+	if (ret)
-+		goto mailbox_fini;
-+
-+	ret = aie4_attach_work_buffer(ndev);
-+	if (ret)
-+		goto mailbox_fini;
-+
-+	ret = aie4_partition_init(ndev);
-+	if (ret)
-+		goto mailbox_fini;
-+
-+	return 0;
-+
-+mailbox_fini:
-+	aie4_mailbox_fini(ndev);
-+stop_fw:
-+	aie4_fw_stop(ndev);
-+	return ret;
-+}
-+
-+static void aie4_classic_hw_stop(struct amdxdna_dev_hdl *ndev)
-+{
-+	struct amdxdna_dev *xdna = ndev->aie.xdna;
-+
-+	drm_WARN_ON(&xdna->ddev, !mutex_is_locked(&xdna->dev_lock));
-+
-+	aie4_partition_fini(ndev);
-+	aie4_suspend_fw(ndev);
-+	aie4_mailbox_fini(ndev);
-+	aie4_fw_stop(ndev);
-+}
-+
- static int aie4_request_firmware(struct amdxdna_dev_hdl *ndev,
- 				 const struct firmware **npufw,
- 				 const struct firmware **certfw)
-@@ -627,6 +672,29 @@ static int aie4_vf_init(struct amdxdna_dev *xdna)
- 	return aie4_vf_hw_start(xdna->dev_handle);
- }
- 
-+static int aie4_classic_init(struct amdxdna_dev *xdna)
-+{
-+	int ret;
-+
-+	ret = aie4m_pcidev_init(xdna);
-+	if (ret)
-+		return ret;
-+
-+	ret = aie4_alloc_work_buffer(xdna->dev_handle);
-+	if (ret)
-+		return ret;
-+
-+	ret = aie4_classic_hw_start(xdna->dev_handle);
-+	if (ret)
-+		goto free_work_buf;
-+
-+	return 0;
-+
-+free_work_buf:
-+	aie4_free_work_buffer(xdna->dev_handle);
-+	return ret;
-+}
-+
- static void aie4_pf_fini(struct amdxdna_dev *xdna)
- {
- 	aie4_sriov_stop(xdna->dev_handle);
-@@ -639,6 +707,12 @@ static void aie4_vf_fini(struct amdxdna_dev *xdna)
- 	aie4_vf_hw_stop(xdna->dev_handle);
- }
- 
-+static void aie4_classic_fini(struct amdxdna_dev *xdna)
-+{
-+	aie4_classic_hw_stop(xdna->dev_handle);
-+	aie4_free_work_buffer(xdna->dev_handle);
-+}
-+
- const struct amdxdna_dev_ops aie4_pf_ops = {
- 	.init			= aie4_pf_init,
- 	.fini			= aie4_pf_fini,
-@@ -653,3 +727,12 @@ const struct amdxdna_dev_ops aie4_vf_ops = {
- 	.cmd_wait		= aie4_cmd_wait,
- 	.get_aie_info		= aie4_get_info,
- };
-+
-+const struct amdxdna_dev_ops aie4_classic_ops = {
-+	.init			= aie4_classic_init,
-+	.fini			= aie4_classic_fini,
-+	.hwctx_init		= aie4_hwctx_init,
-+	.hwctx_fini		= aie4_hwctx_fini,
-+	.cmd_wait		= aie4_cmd_wait,
-+	.get_aie_info		= aie4_get_info,
-+};
-diff --git a/drivers/accel/amdxdna/aie4_pci.h b/drivers/accel/amdxdna/aie4_pci.h
-index bdbb2d7cf0e7..940e67347d74 100644
---- a/drivers/accel/amdxdna/aie4_pci.h
-+++ b/drivers/accel/amdxdna/aie4_pci.h
-@@ -96,5 +96,6 @@ static inline int aie4_sriov_stop(struct amdxdna_dev_hdl *ndev)
- 
- extern const struct amdxdna_dev_ops aie4_pf_ops;
- extern const struct amdxdna_dev_ops aie4_vf_ops;
-+extern const struct amdxdna_dev_ops aie4_classic_ops;
- 
- #endif /* _AIE4_PCI_H_ */
-diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/amdxdna/amdxdna_pci_drv.c
-index 3140af69e29c..f5f7831c4e80 100644
---- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
-+++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
-@@ -28,8 +28,14 @@ MODULE_FIRMWARE("amdnpu/17f0_20/npu.sbin");
- MODULE_FIRMWARE("amdnpu/1502_00/npu_7.sbin");
- MODULE_FIRMWARE("amdnpu/17f0_10/npu_7.sbin");
- MODULE_FIRMWARE("amdnpu/17f0_11/npu_7.sbin");
-+MODULE_FIRMWARE("amdnpu/17f1_10/npu.sbin");
-+MODULE_FIRMWARE("amdnpu/17f1_10/cert.sbin");
- MODULE_FIRMWARE("amdnpu/17f2_10/npu.sbin");
- MODULE_FIRMWARE("amdnpu/17f2_10/cert.sbin");
-+MODULE_FIRMWARE("amdnpu/17f1_13/npu.sbin");
-+MODULE_FIRMWARE("amdnpu/17f1_13/cert.sbin");
-+MODULE_FIRMWARE("amdnpu/17f2_13/npu.sbin");
-+MODULE_FIRMWARE("amdnpu/17f2_13/cert.sbin");
- 
- /*
-  * 0.0: Initial version
-@@ -55,10 +61,9 @@ MODULE_FIRMWARE("amdnpu/17f2_10/cert.sbin");
- static const struct pci_device_id pci_ids[] = {
- 	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, 0x1502) },
- 	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, 0x17f0) },
-+	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, 0x17f1) },
- 	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, 0x17f2) },
- 	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, 0x17f3) },
--	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, 0x1B0B) },
--	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, 0x1B0C) },
- 	{0}
- };
- 
-@@ -69,10 +74,12 @@ static const struct amdxdna_device_id amdxdna_ids[] = {
- 	{ 0x17f0, 0x10, &dev_npu4_info },
- 	{ 0x17f0, 0x11, &dev_npu5_info },
- 	{ 0x17f0, 0x20, &dev_npu6_info },
-+	{ 0x17f1, 0x10, &dev_npu3_classic_info },
- 	{ 0x17f2, 0x10, &dev_npu3_pf_info },
- 	{ 0x17f3, 0x10, &dev_npu3_vf_info },
--	{ 0x1B0B, 0x10, &dev_npu3_pf_info },
--	{ 0x1B0C, 0x10, &dev_npu3_vf_info },
-+	{ 0x17f1, 0x13, &dev_npu3_classic_info },
-+	{ 0x17f2, 0x13, &dev_npu3_pf_info },
-+	{ 0x17f3, 0x13, &dev_npu3_vf_info },
- 	{0}
- };
- 
-@@ -140,8 +147,9 @@ static int amdxdna_drm_open(struct drm_device *ddev, struct drm_file *filp)
- 	mmgrab(client->mm);
- 	xa_init_flags(&client->hwctx_xa, XA_FLAGS_ALLOC);
- 	xa_init_flags(&client->dev_heap_xa, XA_FLAGS_ALLOC);
--	drm_mm_init(&client->dev_heap_mm, xdna->dev_info->dev_mem_base,
--		    xdna->dev_info->dev_heap_max_size);
-+	if (xdna->dev_info->dev_heap_max_size)
-+		drm_mm_init(&client->dev_heap_mm, xdna->dev_info->dev_mem_base,
-+			    xdna->dev_info->dev_heap_max_size);
- 	mutex_init(&client->mm_lock);
- 
- 	mutex_lock(&xdna->client_lock);
-@@ -176,7 +184,8 @@ static void amdxdna_client_cleanup(struct amdxdna_client *client)
- 	xa_for_each(&client->dev_heap_xa, heap_id, heap)
- 		drm_gem_object_put(to_gobj(heap));
- 	xa_destroy(&client->dev_heap_xa);
--	drm_mm_takedown(&client->dev_heap_mm);
-+	if (client->xdna->dev_info->dev_heap_max_size)
-+		drm_mm_takedown(&client->dev_heap_mm);
- 
- 	mutex_destroy(&client->mm_lock);
- 	mmdrop(client->mm);
-diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.h b/drivers/accel/amdxdna/amdxdna_pci_drv.h
-index 0002e6ef32ba..953bf783b3f7 100644
---- a/drivers/accel/amdxdna/amdxdna_pci_drv.h
-+++ b/drivers/accel/amdxdna/amdxdna_pci_drv.h
-@@ -169,6 +169,7 @@ struct amdxdna_client {
- 
- /* Add device info below */
- extern const struct amdxdna_dev_info dev_npu1_info;
-+extern const struct amdxdna_dev_info dev_npu3_classic_info;
- extern const struct amdxdna_dev_info dev_npu3_pf_info;
- extern const struct amdxdna_dev_info dev_npu3_vf_info;
- extern const struct amdxdna_dev_info dev_npu4_info;
-diff --git a/drivers/accel/amdxdna/npu3_regs.c b/drivers/accel/amdxdna/npu3_regs.c
-index 93f749acb5d5..c82433d62901 100644
---- a/drivers/accel/amdxdna/npu3_regs.c
-+++ b/drivers/accel/amdxdna/npu3_regs.c
-@@ -105,3 +105,17 @@ const struct amdxdna_dev_info dev_npu3_vf_info = {
- 	.cert_feature_tbl	= npu3_cert_feature_table,
- 	.ops			= &aie4_vf_ops,
- };
-+
-+const struct amdxdna_dev_info dev_npu3_classic_info = {
-+	.mbox_bar		= NPU3_MBOX_BAR,
-+	.sram_bar		= NPU3_MBOX_BUFFER_BAR,
-+	.psp_bar                = NPU3_PSP_BAR_INDEX,
-+	.smu_bar		= NPU3_SMU_BAR_INDEX,
-+	.doorbell_bar		= NPU3_DOORBELL_BAR,
-+	.default_vbnv		= "RyzenAI-npu3",
-+	.device_type		= AMDXDNA_DEV_TYPE_UMQ,
-+	.dev_priv		= &npu3_dev_priv,
-+	.fw_feature_tbl		= npu3_fw_feature_table,
-+	.cert_feature_tbl	= npu3_cert_feature_table,
-+	.ops			= &aie4_classic_ops,
-+};
+---
+Matt Turner (6):
+      alpha: add missing page_table_check_pte_clear() to ptep_get_and_clear()
+      alpha: handle VM_FAULT_HWPOISON in do_page_fault()
+      alpha: describe the PTE read and write enable bits
+      alpha: define granularity hint PTE bits
+      alpha: align hugetlb mappings in arch_get_unmapped_area()
+      alpha: implement hugetlb support
+
+ arch/alpha/Kconfig               |   1 +
+ arch/alpha/include/asm/hugetlb.h |  43 ++++++
+ arch/alpha/include/asm/page.h    |  13 ++
+ arch/alpha/include/asm/pgtable.h |  61 +++++++-
+ arch/alpha/kernel/osf_sys.c      |  14 +-
+ arch/alpha/mm/Makefile           |   2 +
+ arch/alpha/mm/fault.c            |  19 +++
+ arch/alpha/mm/hugetlbpage.c      | 308 +++++++++++++++++++++++++++++++++++++++
+ 8 files changed, 450 insertions(+), 11 deletions(-)
+---
+base-commit: e946efcc89066c5d80acbae42d015a4da33a11de
+change-id: 20260912-alpha-hugepages-0c6cb6c0995d
+
+Best regards,
 -- 
-2.34.1
+Matt Turner <mattst88@gmail.com>
 
