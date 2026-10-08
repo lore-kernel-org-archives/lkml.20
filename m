@@ -1,558 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14CBF3CB2D5;
-	Thu,  8 Oct 2026 19:22:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6F24361962
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 19:23:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791487375; cv=none; b=d384AxzRfGyrYzLQw5ZVb/K5afaMtsHyJ3pFFcjCQahi5lrKgvlXdiHrc/FunDkJGF11QiFCDfbfpZJDWf9bs+YJhewXxjDBXIKGYBeLjUUliwDzFvxejXnih6VdnwE1w+TSqyFafihV9MpQgxpFcwcCBRGbqgmtON92yYt1DLw=
+	t=1791487399; cv=none; b=hJqZKgs/y/uM3j9aSsKvYzIb40iGt8atAFXO3l9XUymJLmCiB5FhWqJq1YwrvCzE/WJqEIqvYC5m2p+ei6CzyvAn0MUJKjQSHp+nMvRFrSc0mbRQkYcLIUGa46Z2Wu0joqICLCy+HKmhrkReX13fAu+A8+MI45myDUXdP9yedvo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791487375; c=relaxed/simple;
-	bh=fIuSRGKUAikRdOYKGw8qem/1TYW3UMyYJRVbAVnasgE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=eIkAcuq3H2uyZF7TKx36yAPmv9DkOMZ8dulAHg2fneORzaI6ZFiZRcZ9zh3UjxvS5c/jsZ1yD31aRoeBR0Tfb9GYTUSOG6gQNqrg+R26tjZs9lTjY+q1I8hBFpzddszKGQbY+78Fc15+nW6IAnODg+GETBxt6Lzjds9UXV+wemU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HfiB1hHO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791487399; c=relaxed/simple;
+	bh=TqrV26qwnEQgYssaPOFp21VF1XSCiSFJ7XsLPRkDNxw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=M9BQSS67Dqhd1o6xd/anb2YdRBQcggbxRgkeN14ZvpZs5zU5QRJ2kx5iYTJ9JUdKigrrnhKvTsMa4/WD6BVUvSNz7dFYL5ZtU2UsvKKVIch7qT3MUeNk2SzKArwStb3yHdgmdfwEDPTnDNb8cfVa9PiLf7bHd51VYur7eSgNS7E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F5E8m/2f; arc=none smtp.client-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HfiB1hHO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 940041F000FF;
-	Thu,  8 Oct 2026 19:22:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791487373;
-	bh=CMTU46wfX55CPEHJu/18xWfK3y6eLr2C4LDeiKiZeQ0=;
-	h=From:To:Cc:Subject:Date;
-	b=HfiB1hHOomGQyj/8EnOiANamuYKUSCYI4XUu2S0DAwCvnNRFp30BpEVWOyj10vIJz
-	 trRLNiTLEn3HjNa1RPiGDYHuoqa13aGTh1NFBEQENkFKRcFHNGc4wmmDZJM7xlRMIR
-	 34e8dLzs2XtM+f9NSJbig20gMbpAlOmUoV+b11UTnGnKO+jplauA0b1CgrHeY+uXOM
-	 xH4RR9YucNOr/UomaAG47WxQ1IFgSto2O4ImPda5RCIYev7ItWMykFbz8oSAXKFKMC
-	 4R32hiYQTmy869UzuzZEH/QCq0apr9Wcf6JiF83Fkke97jO9A25tx8nluVIp+kQGil
-	 qpDLTpYlyhYnQ==
-From: Jakub Kicinski <kuba@kernel.org>
-To: torvalds@linux-foundation.org
-Cc: kuba@kernel.org,
-	davem@davemloft.net,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	pabeni@redhat.com
-Subject: [GIT PULL] Networking for v7.3-rc7
-Date: Thu,  8 Oct 2026 12:22:53 -0700
-Message-ID: <20261008192253.574195-1-kuba@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F5E8m/2f"
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso3164047eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 12:23:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791487397; x=1792092197; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Zt6yAaoBJC8VH8i4bJ6fKJQa1AiavMR0bK+hKvjahgk=;
+        b=F5E8m/2fZ3yIKoIXeeK/3wOe4I/PrQyuTF6QiBtiKnJ6N/vYKU8SZ3PkyYTapBkgle
+         xQg5gfGhO0jUsXVA8CdatlyxgX8Nvk+8PHY6LTEk7vItHqsrqvWAot+EZ05/+5mTUEKd
+         shzWSnd7u6lSoEJbjNXCLufO7Jue9UV6L150PjkseTk1ucyIFt+dThJbuXpjU3k1nZjg
+         HNjF6BltA9bMMM1XT98mY7TG+PiW74v4+9d3lQgO+6Kku43VYX7ecjPUjnRIrPlGIFSi
+         FyRm6Sj8BGfGdbOwvbiyJJ58h22EHzXQsfTgquR64MRYphQgjB8VCBF577ZMpL5Dp84R
+         eB6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791487397; x=1792092197;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Zt6yAaoBJC8VH8i4bJ6fKJQa1AiavMR0bK+hKvjahgk=;
+        b=wAUJoZurdheExVnTIxhhllGiw1gDjmmCpvjaKVjdkRYgE+S4THo782B6INwHDeaQ3Y
+         bYV66WyHEVSdopxKoPycE7P6/NVciy8QvPVDidtEDyAmvHH+A2Dxlg8dgrqgBeMH3ZK2
+         etgwWBjX46hB68B4HC/jC0SJqAU0JXpn4OJdjvanCURgSiOBQiE+VZQu9VzXAVGaA88g
+         OMqe1QjOwInB60qDTWHg8g3YkNJbCrLt+eU8s7Z5R16eEZan/QchA+dnqxNmwd71snXS
+         u1OjdyS8aOLDNRgjeB5aA85iAt4xW3pYfP/JzLk1aecUWPzPvJ8gawQKxmuIbjTKktHT
+         ltGQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzMjT+kjXRKuDny/m5UWoyCN2kPoDyoVVinx9GQW+ktRluGNuqnzXvur0zs2P+yTkfbXlJelTSC8U7AsI4=@vger.kernel.org
+X-Gm-Message-State: AFuF++l4wgJWFXHDv3COjoWTfinRizXFpqxTE+XbS1WPlx/+akticrlZ
+	vLrqIDAsBnKPIlNAZP8obH/H0lBjAjHnRC5XGKC16uOf45Jun5n34d13
+X-Gm-Gg: AYBFou0NYWm6rfQt4HR4Sg40iKmEYs6l27SfvHj3h9nM5O03qo0evuuOKvaB63JQ+iO
+	58LG1QuRJg2nFsapXQkFOaetp+GGsHZHRcLjPEs0fIDwifLcoX28R3M9nyUVHLGbnWa/tnvWO3a
+	hPRUn9XRRXjQ8eELwF6bJNnp3+j30T8zijKQRkHY/AvcDOUpEWceOF80jh4q32JmBuALbR9nJV5
+	3dntC3ilQbpZMNEA8c0HiBYfoPFGnOCezlqRTz8qqIBChbz1d5hVVbEpaYRZuMxLKCJOL1/tkNJ
+	VPwqT/TkJZAz/6tpTvtB+L19kPpMo8az3YmQPf9jSWGCQMTumLqC4Ws+0PaxM/FroImSnBhpyv2
+	Iw9/A+uy/zFLkfEVSWeb3ZFFDUMGOsM/D3JqUJYFKjLfqTF6WcEtJ40FJpBmMgvkQXNd6S+TR4C
+	8IIaWM4ArIwGcPJrsWC7nHtoX5AgpgDhbKcBDegeHoR/LAc1FSEFqid5oRb4v6rfau2q6I7Y5tF
+	6L7NKsLWWY0a8SE+ZIk7z6+FH/QEbhKyz/23sFa
+X-Received: by 2002:a05:7301:670c:b0:351:5b99:5f36 with SMTP id 5a478bee46e88-3515de80f23mr10101112eec.9.1791487396733;
+        Thu, 08 Oct 2026 12:23:16 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:3002:e11e:c053:ebcb])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca7133asm98286eec.14.2026.10.08.12.23.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 12:23:15 -0700 (PDT)
+Date: Thu, 8 Oct 2026 12:23:12 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: shashikiranah@chromium.org
+Cc: Jiri Kosina <jikos@kernel.org>, 
+	Benjamin Tissoires <bentiss@kernel.org>, Stephen Boyd <swboyd@chromium.org>, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Tzung-Bi Shih <tzungbi@chromium.org>, 
+	Sean O'Brien <seobrien@chromium.org>
+Subject: Re: [PATCH] HID: vivaldi: Validate Report ID and length in feature
+ mapping
+Message-ID: <asfk_jRVjY8pXzjt@google.com>
+References: <20261006-upstream-vivaldi-fix-v1-1-bbc9a7f14ea6@chromium.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-Hi Linus!
-
-Hope LPC is going well & wish I was there.
-
-Pretty sure you won't be impressed by the size of this PR
-but this is after we shaved off 50 fixes to net-next and
-asked sub-trees to significantly trim their PRs.
-Situation is what it is.
-
-The following changes since commit d24e8ac715de2e16a53c144005b1863660a5fbea:
-
-  Merge tag 'net-7.3-rc6' of git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net (2026-10-01 06:41:59 -0700)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git tags/net-7.3-rc7
-
-for you to fetch changes up to 37f12441f557468a56c1e27790413aa78c82afa2:
-
-  Merge branch 'net-macb-fix-software-fcs-handling-of-shared-and-requeued-skbs' (2026-10-08 11:48:54 -0700)
-
-----------------------------------------------------------------
-Including fixes from wireless, wireguard, CAN and Bluetooth.
-We have one known regression to wrap up in VLAN handling.
-
-Current release - regressions:
-
- - Bluetooth: RFCOMM: fix deadlock on rfcomm_mutex
-
-Previous releases - regressions:
-
- - can: fix regression in handling RPS after migrating metadata to skb_ext
-
- - eth: iavf: fix regressions in reconfig impacting bonding
-
- - eth: mana: fix packet forwarding performance regression
-
- - eth: stmmac: remove buggy VLAN acceleration support
-
-Previous releases - always broken:
-
- - a few high prio fixes for tun, and af_packet
-
- - amt: fix a UaF on tunnel teardown
-
- - eth: bnxt: fix PCIe AER recovery and FLR handling issues
-
- - eth: macb: don't modify Tx skbs before taking ownership
-
- - eth: axienet: don't leak Tx skbs on interface stop
-
- - wifi: nxpwifi: number of LLM-ish fixes
-
- - wifi: assorted mt76 fixes
-
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-
-----------------------------------------------------------------
-Aaron Ma (1):
-      wifi: mt76: mt7925: restore the legacy BSS after MLO teardown
-
-Aldo Ariel Panzardo (1):
-      Bluetooth: SCO: serialise sco_conn lifetime against sco_recv_scodata()
-
-Bryan Fraschetti (1):
-      ice: Restore Ordered MMIO Writes for Tx Doorbells
-
-Chengfeng Ye (6):
-      tipc: hold a reference to nodes found by link name
-      Bluetooth: hci_sock: Serialize dead-device detachment
-      Bluetooth: hci_sync: Fix command skb lifetime during scan setup
-      Bluetooth: ISO: Reject concurrent BIS listener setup
-      Bluetooth: ISO: Serialize concurrent connect calls
-      net/smc: protect clcsock lifetime in smc_getname
-
-Cristian Papa (1):
-      wifi: mt76: mt7603: initialize global station WCID
-
-Daehyeon Ko (9):
-      tcp: reject net_iov in zerocopy receive mapping hints
-      ip6_gre: remove obsolete ERSPAN PMTU update
-      vsock/virtio: account only unread bytes in read_skb()
-      ipv4: stop PMTU walk when nexthop group shrinks
-      ipv4: stop exception dump when nexthop group shrinks
-      ipv4: stop route notification sizing when nexthop group shrinks
-      cipso: adjust cached option offsets when removing CIPSO
-      ipv4: do not warn on route notification size race
-      ipv6: do not warn on route notification size race
-
-Daniel Machon (1):
-      net: sparx5: free the matchall entry on destroy
-
-David Carlier (2):
-      wifi: nxpwifi: fix inverted check in Tx BA stream entry deletion
-      wifi: nxpwifi: do not delete Rx reorder entries under RCU
-
-David S. Miller (1):
-      Merge branch 'dim-overflow' Shashank Mohan Jain says:
-
-Denis V. Lunev (1):
-      openvswitch: fix soft lockup in the netlink flow dump
-
-Devin Wittmayer (2):
-      wifi: mt76: mt7925: don't put the band auto marker in TGID
-      wifi: mt76: mt792x: pick the SAR table layout from the table itself
-
-Eric Dumazet (6):
-      ipv4: free inet_opt and ireq_opt after an RCU grace period
-      flow_dissector: avoid u16 truncation of skb->len when computing thoff
-      net: always dissect GSO packets in __virtio_net_hdr_to_skb()
-      selftests: net: tun: add test for VLAN-tagged GSO without NEEDS_CSUM
-      bnxt_en: fix DMA mapping length for padded small packets
-      flow_dissector: avoid u16 truncation of hlen in bpf_flow_dissect()
-
-Felix Fietkau (4):
-      wifi: mt76: mt7996: program a link again if the driver holds it
-      wifi: mt76: mt7996: take over connection monitoring
-      wifi: mt76: account non-AQL frames per peer rather than per link
-      wifi: mt76: use ALTX queue for packets to disassociated stations
-
-Fernando Fernandez Mancera (1):
-      net: openvswitch: validate transport header presence in set_ipv6_addr
-
-Frank Li (1):
-      net: allwinner: remove dmaengine_desc_free()
-
-François Roux (1):
-      wifi: mac80211: don't estimate airtime for unsupported rate widths
-
-Fredrik Nyberg (1):
-      net: usb: ax88179_178a: fix rx frame length for non-last packets
-
-Haishuang Yan (3):
-      devlink: fix devlink_rel reference leak when notify work is pending
-      pfcp: make sure the SEID is linear before reading it
-      bareudp: set the inner protocol to the protocol of the packet
-
-Hamza Mahfooz (1):
-      net: mana: reserve RX buffer headroom to fix forwarding performance
-
-Hui Peng (1):
-      sctp: copy zeroed stats to user in sctp_getsockopt_pr_streamstatus() when !streamoute
-
-Iaroslav Voitovych (1):
-      Bluetooth: MGMT: Fix status of pending commands flushed on power off
-
-Ilia Gavrilov (1):
-      vsock: Fix memory leak in vmci_transport_recv_dgram_cb()
-
-Jakub Kicinski (21):
-      Merge branch 'ibmveth-fix-open-fail-unwind-after-lan-registration'
-      Merge branch 'amt-send-the-relay-s-general-query-directly-from-the-receive-path'
-      bonding: fix the program leak when XDP is replaced
-      Merge branch 'intel-wired-lan-driver-updates-2026-09-28-idpf-ice-iavf'
-      net: make dev_xdp_sb_prog_count() see programs attached through a link
-      Merge branch '40GbE' of git://git.kernel.org/pub/scm/linux/kernel/git/tnguy/net-queue
-      Merge branch 'net-stmmac-fix-double-vlan-802-1ad-tag-handling'
-      Merge branch 'gve-various-xdp-fixes'
-      Revert "net: stmmac: propagate PTP addend and system time programming errors"
-      Merge branch 'net-always-dissect-gso-packets-in-__virtio_net_hdr_to_skb'
-      Merge branch 'ipv4-handle-nexthop-group-shrink-races'
-      Merge branch 'net-team-fix-transmit-skb-ownership'
-      Merge tag 'for-net-2026-10-05' of git://git.kernel.org/pub/scm/linux/kernel/git/bluetooth/bluetooth
-      Merge tag 'linux-can-fixes-for-7.3-20261001' of git://git.kernel.org/pub/scm/linux/kernel/git/mkl/linux-can
-      Merge tag 'wireless-2026-10-07' of https://git.kernel.org/pub/scm/linux/kernel/git/wireless/wireless
-      Merge branch 'bnxt_en-pcie-flr-aer-fixes'
-      Merge branch 'veth-fix-peer-netdev_xdp_act_ndo_xmit-after-gro-is-toggled-while-down'
-      Merge branch 'mlxsw-fix-port-range-register-leak'
-      Merge branch 'ipv4-ipv6-do-not-warn-on-route-notification-size-races'
-      Merge branch 'wireguard-fixes-for-7-3-rc7'
-      Merge branch 'net-macb-fix-software-fcs-handling-of-shared-and-requeued-skbs'
-
-Jamal Hadi Salim (1):
-      net/sched: em_text: reject unterminated algo before autoload
-
-Jason A. Donenfeld (1):
-      wireguard: noise: reject response consumption after intermediate initiation
-
-Ji-Ze Hong (Peter Hong) (1):
-      usb: f81604: fix struct f81604_int_data size mismatch
-
-Johannes Berg (4):
-      Merge tag 'mt76-fixes-2026-10-05' of https://github.com/nbd168/wireless
-      Merge tag 'nxpwifi-fixes-20261006-v2' of https://github.com/nxp-upstream/nxpwifi-next
-      Merge tag 'ath-current-20261006' of git://git.kernel.org/pub/scm/linux/kernel/git/ath/ath
-      Revert "wifi: libertas: reject short monitor TX frames"
-
-Jose Ignacio Tornos Martinez (3):
-      i40e: skip unnecessary VF reset when setting trust
-      iavf: send MAC change request synchronously
-      ice: skip unnecessary VF reset when setting trust
-
-Josef Bacik (3):
-      net: skbuff: don't leave stale bytes in skb_copy_and_csum_bits()
-      xen/netfront: drop RX packets with a short Ethernet header
-      xen/netfront: don't leak the skb when xennet_fill_frags() fails
-
-Joshua Washington (3):
-      gve: fix XSK buffer leak when rings are stopped
-      gve: fix XSK buffer leak on error descriptor
-      gve: fix napi_disable deadlock when attempting to disable XSK pools
-
-Junjie Cao (1):
-      wifi: mt76: mt792x: treat 0xff ACPI SAR entries as no limit
-
-Justin Chen (1):
-      net: bcmgenet: if UMAC was suspended in SW_RESET, restore it to SW_RESET
-
-Leto Liu (刘涛) (1):
-      net: airoha: Add retry mechanism to airoha_qdma_set_trtcm_param()
-
-Li RongQing (1):
-      net/mlx5e: Order ICOSQ cc update after CQ doorbell
-
-Linmao Li (7):
-      wifi: nxpwifi: protect sta_list against concurrent add and delete
-      wifi: nxpwifi: delete the station entry on the uAP deauth event
-      wifi: nxpwifi: wait for the wakeup timer before the adapter is freed
-      wifi: nxpwifi: free the aggregation buffer when the RA list disappears
-      wifi: nxpwifi: zero the channel statistics array
-      wifi: nxpwifi: fix the authentication frame length handling
-      wifi: nxpwifi: handle authentication frame allocation failures
-
-Lorenzo Bianconi (1):
-      net: stmmac: propagate PTP addend and system time programming errors
-
-Lu Huang (1):
-      wifi: mt76: mt7996: fix uninitialized buf read in mt7996_variant_fem_init()
-
-Maxim Skokov (1):
-      Bluetooth: RFCOMM: free the skb when the DLC has no owner
-
-Michael Chan (2):
-      bnxt_en: Add bnxt_clear_bars() helper
-      bnxt_en: Fix driver init in kdump kernel
-
-Michael S. Tsirkin (1):
-      ipv4: validate checksum_start before completing checksum
-
-Michele Dionisio (1):
-      wifi: brcmfmac: fix P2P device removal race in brcmf_detach()
-
-Mikhail Gavrilov (1):
-      Bluetooth: RFCOMM: connect the session socket without rfcomm_mutex
-
-Mingming Cao (2):
-      ibmveth: h_free logical LAN on open-fail after register
-      ibmveth: fix TX LTB and filter unwind on open-fail
-
-Nicolai Buchwitz (2):
-      net: macb: check TX ring before modifying skb
-      net: macb: copy shared skbs before appending the FCS
-
-Nicolas Cavallari (1):
-      wifi: mt76: mt7915: disable rx napi when removing device
-
-Oliver Hartkopp (1):
-      can: fix unique skb identifier regression under RPS
-
-Omar Ramadan (2):
-      amt: send the relay's General Query directly from the receive path
-      selftests: net: amt: check that the relay's queries bypass the amt device
-
-Or Har-Toov (2):
-      net/mlx5: Lag, split aggregate speed into oper and max helpers
-      Revert "net/mlx5: E-Switch, preserve max tx speed on vport state modification"
-
-Ovidiu Panait (5):
-      net: stmmac: Remove VLAN perfect matching dead code
-      net: stmmac: Stop toggling the EDVLP bit
-      net: stmmac: Rename double VLAN references to svlan
-      net: stmmac: Do not advertise S-VLAN stripping when it is disabled
-      net: stmmac: Disable S-Tag processing on dwmac4
-
-Palla Raghunath (1):
-      Bluetooth: RFCOMM: Fix NULL tty_dev dereference in rfcomm_dev_shutdown
-
-Pavan Chebbi (1):
-      bnxt_en: Re-write the BARs following any type of PCIe errors
-
-Petr Machata (2):
-      mlxsw: spectrum_flower: Fix port range register leak in tmplt_create()
-      selftests: mlxsw: Test port range occupancy on template create
-
-Quchaosheng (1):
-      net/packet: guard the ll header push in packet_rcv_spkt()
-
-Quentin Freimanis (1):
-      net: sparx5: start the TOD counters on non-PTP lan969x variants
-
-Ramses de Norre (1):
-      wireguard: queueing: preserve tstamp_type when encapsulating packet
-
-Ravindra (1):
-      Bluetooth: btintel_pcie: fix TX descriptor bounds check
-
-Runyu Xiao (1):
-      Bluetooth: btintel_pcie: use managed IRQ teardown
-
-Sabrina Dubroca (1):
-      strparser: make sure __strp_recv isn't running before tearing down the parser
-
-Sai Teja Aluvala (1):
-      Bluetooth: btintel_pcie: Add shared HW reset for clean start
-
-Sang-Hoon Choi (1):
-      cxgb4/ch_ktls: disable softirqs around tid_list erases
-
-Sebastien Royen (1):
-      net: dsa: microchip: fix KSZ8765 fiber detection
-
-Shashank Mohan Jain (2):
-      lib/dim: fix 32-bit overflow in dim_calc_stats() rates
-      lib/dim: add KUnit test for dim_calc_stats()
-
-Suraj Gupta (1):
-      net: xilinx: axienet: Free outstanding DMA buffers on dmaengine stop
-
-Tao Gong (1):
-      wifi: mt76: mt7996: fix struct mt7996_mcu_wed_rro_ba_delete_event layout
-
-Tianyi Gao (2):
-      veth: fix peer NETDEV_XDP_ACT_NDO_XMIT after GRO is toggled while down
-      selftests: net: veth: test peer ndo-xmit after GRO toggle while down
-
-Tony Nguyen (1):
-      e1000e: add system to disable K1 list
-
-Tristan Madani (1):
-      ice: fix metadata_dst refcount handling on representor teardown
-
-Vadim Fedorenko (1):
-      ptp: ocp: fix PCIe delay estimation calculation
-
-Victor Nogueira (2):
-      net/sched: cls_route: reject change with no routing attribute
-      selftests: tc-testing: add cls_route no-routing-attribute change tests
-
-Weiming Shi (2):
-      net: team: stop reusing skb after queue override
-      net: team: free skb when broadcast has no txable port
-
-Willem de Bruijn (1):
-      net/packet: call packet_parse_headers after virtio_net_hdr_to_skb
-
-Xuanqiang Luo (1):
-      ice: fix use-after-free in dynamic port cleanup
-
-Yingying Tang (1):
-      Revert "wifi: ath12k: add panic handler"
-
-Yuqi Xu (1):
-      tipc: destroy topsrv workqueues before closing connections
-
-Zixuan Chai (1):
-      net: bridge: avoid recursive multicast port cleanup
-
-zjamg (1):
-      can: dev: init_can_skb(): restore skb header initialization
-
- Documentation/networking/strparser.rst             |   2 +-
- arch/um/drivers/vector_transports.c                |   1 +
- drivers/bluetooth/btintel_pcie.c                   |  17 +-
- drivers/net/amt.c                                  |  48 ++---
- drivers/net/bareudp.c                              |   3 +-
- drivers/net/bonding/bond_main.c                    |   8 +-
- drivers/net/can/dev/skb.c                          |   4 +
- drivers/net/can/usb/f81604.c                       |   2 +-
- drivers/net/can/vxcan.c                            |   3 +
- drivers/net/dsa/microchip/ksz_common.h             |   2 +-
- drivers/net/ethernet/airoha/airoha_eth.c           |  32 +++-
- drivers/net/ethernet/airoha/airoha_eth.h           |   2 +
- drivers/net/ethernet/allwinner/sun4i-emac.c        |   5 +-
- drivers/net/ethernet/broadcom/bnxt/bnxt.c          | 199 +++++++++++++--------
- drivers/net/ethernet/broadcom/bnxt/bnxt.h          |   1 -
- drivers/net/ethernet/broadcom/genet/bcmgenet_wol.c |  11 ++
- drivers/net/ethernet/cadence/macb_main.c           |  80 +++++----
- .../chelsio/inline_crypto/ch_ktls/chcr_ktls.c      |   4 +-
- drivers/net/ethernet/google/gve/gve_main.c         |   8 +-
- drivers/net/ethernet/google/gve/gve_rx_dqo.c       |  13 +-
- drivers/net/ethernet/ibm/ibmveth.c                 |  22 +--
- drivers/net/ethernet/intel/e1000e/netdev.c         |   7 +
- drivers/net/ethernet/intel/i40e/i40e_virtchnl_pf.c |  35 ++--
- drivers/net/ethernet/intel/iavf/iavf.h             |  11 +-
- drivers/net/ethernet/intel/iavf/iavf_main.c        |  85 +++++++--
- drivers/net/ethernet/intel/iavf/iavf_virtchnl.c    |  99 ++++++++--
- drivers/net/ethernet/intel/ice/devlink/port.c      |   2 +-
- drivers/net/ethernet/intel/ice/ice_eswitch.c       |   2 +-
- drivers/net/ethernet/intel/ice/ice_sriov.c         |  32 +++-
- drivers/net/ethernet/intel/ice/ice_txrx.c          |   4 +-
- drivers/net/ethernet/mellanox/mlx5/core/en_rx.c    |   6 +-
- .../ethernet/mellanox/mlx5/core/esw/adj_vport.c    |  20 ---
- drivers/net/ethernet/mellanox/mlx5/core/lag/lag.c  |  79 +++++---
- drivers/net/ethernet/mellanox/mlx5/core/vport.c    |  24 ---
- drivers/net/ethernet/mellanox/mlxsw/spectrum.h     |   2 +
- drivers/net/ethernet/mellanox/mlxsw/spectrum_acl.c |  10 +-
- .../net/ethernet/mellanox/mlxsw/spectrum_flower.c  |   9 +-
- drivers/net/ethernet/microchip/sparx5/sparx5_ptp.c |  28 +--
- .../ethernet/microchip/sparx5/sparx5_tc_matchall.c |   1 +
- drivers/net/ethernet/microsoft/mana/mana_bpf.c     |   8 +-
- drivers/net/ethernet/microsoft/mana/mana_en.c      |  63 +++++--
- drivers/net/ethernet/microsoft/mana/mana_ethtool.c |  10 +-
- drivers/net/ethernet/stmicro/stmmac/hwif.h         |   2 +-
- drivers/net/ethernet/stmicro/stmmac/stmmac.h       |   2 +-
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  |  60 +++----
- .../net/ethernet/stmicro/stmmac/stmmac_selftests.c |  30 ++--
- drivers/net/ethernet/stmicro/stmmac/stmmac_vlan.c  |  65 ++-----
- drivers/net/ethernet/xilinx/xilinx_axienet.h       |   7 +-
- drivers/net/ethernet/xilinx/xilinx_axienet_main.c  |  53 ++++--
- drivers/net/pfcp.c                                 |   7 +
- drivers/net/team/team_core.c                       |  16 +-
- drivers/net/team/team_mode_broadcast.c             |   2 +
- drivers/net/tun.c                                  |  23 ++-
- drivers/net/usb/ax88179_178a.c                     |   6 +-
- drivers/net/veth.c                                 |   1 +
- drivers/net/virtio_net.c                           |   2 +
- drivers/net/wireguard/noise.c                      |   7 +-
- drivers/net/wireguard/queueing.h                   |   2 +
- drivers/net/wireless/ath/ath12k/core.c             |  33 +---
- drivers/net/wireless/ath/ath12k/core.h             |   3 -
- drivers/net/wireless/ath/ath12k/hif.h              |   9 -
- drivers/net/wireless/ath/ath12k/pci.c              |   8 -
- .../wireless/broadcom/brcm80211/brcmfmac/core.c    |  27 ++-
- drivers/net/wireless/marvell/libertas/tx.c         |   7 -
- drivers/net/wireless/mediatek/mt76/mt76.h          |   7 +
- drivers/net/wireless/mediatek/mt76/mt7603/init.c   |   1 +
- drivers/net/wireless/mediatek/mt76/mt7915/init.c   |   6 +
- drivers/net/wireless/mediatek/mt76/mt7915/main.c   |   2 +
- drivers/net/wireless/mediatek/mt76/mt7925/mac.c    |   3 +-
- drivers/net/wireless/mediatek/mt76/mt7925/main.c   |  12 ++
- .../net/wireless/mediatek/mt76/mt792x_acpi_sar.c   | 134 +++++++++-----
- .../net/wireless/mediatek/mt76/mt792x_acpi_sar.h   |   2 +
- drivers/net/wireless/mediatek/mt76/mt7996/init.c   |   3 +-
- drivers/net/wireless/mediatek/mt76/mt7996/main.c   |  10 +-
- drivers/net/wireless/mediatek/mt76/mt7996/mcu.h    |   3 +
- drivers/net/wireless/mediatek/mt76/tx.c            |  14 +-
- drivers/net/wireless/nxp/nxpwifi/11n.c             |   2 +-
- drivers/net/wireless/nxp/nxpwifi/11n_aggr.c        |   1 +
- drivers/net/wireless/nxp/nxpwifi/11n_rxreorder.c   |  11 +-
- drivers/net/wireless/nxp/nxpwifi/cfg80211.c        |  31 +++-
- drivers/net/wireless/nxp/nxpwifi/init.c            |   2 +-
- drivers/net/wireless/nxp/nxpwifi/main.c            |   4 +-
- drivers/net/wireless/nxp/nxpwifi/uap_event.c       |   1 +
- drivers/net/wireless/nxp/nxpwifi/util.c            |   8 +-
- drivers/net/xen-netfront.c                         |  16 +-
- drivers/ptp/ptp_ocp.c                              |   2 +-
- include/linux/can/core.h                           |   3 +-
- include/linux/can/skb.h                            |   4 +-
- include/linux/virtio_net.h                         |  64 +++----
- include/net/amt.h                                  |   4 -
- include/net/bluetooth/rfcomm.h                     |   1 +
- include/net/can.h                                  |   2 +
- include/net/ip.h                                   |   7 +
- include/net/mana/mana.h                            |  14 +-
- include/net/strparser.h                            |  10 +-
- lib/Kconfig.debug                                  |  15 ++
- lib/dim/Makefile                                   |   2 +
- lib/dim/dim.c                                      |  10 +-
- lib/dim/dim_kunit.c                                | 126 +++++++++++++
- net/bluetooth/hci_core.c                           |   4 +
- net/bluetooth/hci_sock.c                           |   2 +
- net/bluetooth/hci_sync.c                           |  10 +-
- net/bluetooth/iso.c                                |  52 ++++--
- net/bluetooth/mgmt.c                               |   2 +-
- net/bluetooth/rfcomm/core.c                        | 134 ++++++++++----
- net/bluetooth/rfcomm/sock.c                        |   5 +-
- net/bluetooth/rfcomm/tty.c                         |   2 +-
- net/bluetooth/sco.c                                |  87 ++++++---
- net/bridge/br_multicast.c                          |  23 ++-
- net/bridge/netfilter/nf_conntrack_bridge.c         |  10 +-
- net/can/af_can.c                                   |  47 +++--
- net/can/gw.c                                       |   3 +
- net/can/isotp.c                                    |  16 +-
- net/can/raw.c                                      |  10 +-
- net/core/dev.c                                     |  11 +-
- net/core/flow_dissector.c                          |  11 +-
- net/core/skbuff.c                                  |   6 +-
- net/devlink/core.c                                 |  10 +-
- net/ipv4/af_inet.c                                 |   2 +-
- net/ipv4/cipso_ipv4.c                              |   8 +
- net/ipv4/fib_semantics.c                           |   3 +
- net/ipv4/fib_trie.c                                |   2 -
- net/ipv4/ip_output.c                               |  10 +-
- net/ipv4/route.c                                   |   5 +
- net/ipv4/tcp.c                                     |   2 +
- net/ipv4/tcp_ipv4.c                                |   2 +-
- net/ipv6/ip6_gre.c                                 |   7 -
- net/ipv6/route.c                                   |   2 -
- net/mac80211/airtime.c                             |  18 ++
- net/netfilter/nfnetlink_queue.c                    |   7 +
- net/netfilter/xt_CHECKSUM.c                        |   6 +-
- net/openvswitch/actions.c                          |   7 +-
- net/openvswitch/datapath.c                         |   8 +
- net/packet/af_packet.c                             |  28 +--
- net/sched/cls_route.c                              |   6 +
- net/sched/em_text.c                                |   3 +
- net/sctp/socket.c                                  |   6 +-
- net/smc/af_smc.c                                   |   7 +-
- net/strparser/strparser.c                          |   6 +-
- net/tipc/node.c                                    |  10 +-
- net/tipc/topsrv.c                                  |  80 +++++++--
- net/vmw_vsock/af_vsock.c                           |   2 +
- net/vmw_vsock/virtio_transport_common.c            |   4 +-
- net/xfrm/xfrm_output.c                             |  16 +-
- .../selftests/drivers/net/mlxsw/port_range_occ.sh  |  26 +++
- tools/testing/selftests/net/amt.sh                 |  29 +++
- tools/testing/selftests/net/tun.c                  | 136 ++++++++++++++
- tools/testing/selftests/net/veth.sh                |  46 +++++
- .../tc-testing/tc-tests/filters/route.json         |  46 +++++
- 149 files changed, 2074 insertions(+), 824 deletions(-)
- create mode 100644 lib/dim/dim_kunit.c
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261006-upstream-vivaldi-fix-v1-1-bbc9a7f14ea6@chromium.org>
+
+Hi Shashikirana,
+
+On Tue, Oct 06, 2026 at 03:06:59PM +0000, Shashikirana H K via B4 Relay wrote:
+> From: Shashikirana H K <shashikiranah@chromium.org>
+> 
+> vivaldi_feature_mapping() currently passes the descriptor-declared
+> report_len as the received data size to hid_report_raw_event() instead
+> of the actual number of bytes returned by hid_hw_raw_request(). It also
+> does not verify that the returned Report ID matches the requested
+> report->id, or handle a zero-byte return before decrementing the length
+> for unnumbered reports.
+> 
+> Validate that hid_hw_raw_request() returns at least one byte and that
+> the returned Report ID matches report->id, and pass the actual received
+> byte count (ret) to hid_report_raw_event().
+> 
+> Fixes: 33bbe04a15f2 ("HID: google: extract Vivaldi hid feature mapping for use in hid-hammer")
+> Cc: Tzung-Bi Shih <tzungbi@chromium.org>
+> Cc: Sean O'Brien <seobrien@chromium.org>
+> Signed-off-by: Shashikirana H K <shashikiranah@chromium.org>
+> ---
+> Change-Id: I3cf03bd2457f44c6ed47835f3d603f235f5993de
+> ---
+>  drivers/hid/hid-vivaldi-common.c | 11 +++++++++--
+>  1 file changed, 9 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/hid/hid-vivaldi-common.c b/drivers/hid/hid-vivaldi-common.c
+> index b12bb5cc091aa..ea2c661e623d1 100644
+> --- a/drivers/hid/hid-vivaldi-common.c
+> +++ b/drivers/hid/hid-vivaldi-common.c
+> @@ -69,12 +69,18 @@ void vivaldi_feature_mapping(struct hid_device *hdev,
+>  	ret = hid_hw_raw_request(hdev, report->id, report_data,
+>  				 report_len, HID_FEATURE_REPORT,
+>  				 HID_REQ_GET_REPORT);
+> -	if (ret < 0) {
+> +	if (ret <= 0) {
+>  		dev_warn(&hdev->dev, "failed to fetch feature %d\n",
+>  			 field->report->id);
+>  		goto out;
+>  	}
+>  
+> +	if (report->id && report_data[0] != report->id) {
+
+I do not think checking whether report is numbered is needed. While
+transports handle numbered and non-numbered reports differently here I
+believe we always have report number (0 for unnumbered) in first byte.
+
+Also, shouldn't this check be in hid core if it is needed?
+
+> +		dev_warn(&hdev->dev, "report ID mismatch: expected %d got %d\n",
+> +			 report->id, report_data[0]);
+> +		goto out;
+> +	}
+> +
+>  	if (!report->id) {
+>  		/*
+>  		 * Undo the damage from hid_hw_raw_request() for unnumbered
+> @@ -82,10 +88,11 @@ void vivaldi_feature_mapping(struct hid_device *hdev,
+>  		 */
+>  		report_data++;
+>  		report_len--;
+> +		ret--;
+>  	}
+>  
+>  	ret = hid_report_raw_event(hdev, HID_FEATURE_REPORT, report_data,
+> -				   report_len, report_len, 0);
+> +				   report_len, ret, 0);
+
+Devices typically do not return short reports. Could you please tell me
+what prompted this change?
+
+Thanks.
+
+-- 
+Dmitry
