@@ -1,164 +1,218 @@
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 154BC43E4A2
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 12:49:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1610749E15F
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 12:51:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791463794; cv=none; b=LBJEM++Hwje6/gSo5a5zq0/5pac6479EGPiLRQVLGcKDy92icvvBTKB5Px1WvoCrW1mYmHRsXO/sbu5rimSf4xAi8gZrRIOuh6vT7pvYxVX9/Vbsrj/OMeZJa80ySg5ibH+oLhC4iiQ1UyosGW4vs7jRDGgiNMlWtJHeCQfup54=
+	t=1791463869; cv=none; b=CB/riprpUAhnPlkAvt0SEQFapzruCZN8wdQ1jFujp3VUfPj5sibG2eJiur+glSvvcuLnRAEQZpLZKiy2AyWmVkUpE3Gusytzy+xsB/rRCBu8FvJnAm7zLpicKo3GxVeSp2iGr2Rz0dENSSd3TZQiH36d1ifpvVePO0ZCmyDQLIQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791463794; c=relaxed/simple;
-	bh=B8O4UyYWgKHjCyiEvWQaDVeXppuTnbg4pu4xhsW+PqI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=V+1iEgXCua1DjFzVkbfz2WZg3cKNLv6Sb2tV7EaTbMohBCnn4oGrxM3hphXIq9jux7mCK/sSyj2p27jJxlLSKw2zKNgyVgKQ4u1RgY1zajGrY1q+2xAsDOaRA8J2M1LiQnAZGfjjhazANc6RzhP7IxolG+Ezs7AJa8/kJI0ImzY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=octane.security; spf=pass smtp.mailfrom=octane.security; dkim=pass (2048-bit key) header.d=octane.security header.i=@octane.security header.b=D5ep0zkr; arc=none smtp.client-ip=74.125.82.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=octane.security
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=octane.security
+	s=arc-20240116; t=1791463869; c=relaxed/simple;
+	bh=qUzrwIm9Vmn8z34coqmC8IGKY3W0zs8r4C2iagR5PFU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=mptBAHF87/dMt8Idd9KCI9Nj2WFMwVYIAhJSMThAgYmXAFRWjtbBUt6eUyPcznItjZ6S/qUyhE8TeVACgpN1zrywyI+jLAbAQZay3xoxUaNdNhd+v8qdbHd7P85blynhobodkoXZyBYjdR+eUpea0txpk18UTwmHYSWKkN9myU4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=cdcy/2dj; arc=none smtp.client-ip=113.46.200.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=octane.security header.i=@octane.security header.b="D5ep0zkr"
-Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-15354aa70e8so1572340c88.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 05:49:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=octane.security; s=google; t=1791463792; x=1792068592; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Aw49x50i74crGqe52PxPoi4v9QJFpR0yZ1MGPQQ+JH8=;
-        b=D5ep0zkrEryGfnWxMX+RdZE+AwDV8kcEJ07tImzs2AmXudax4OdKIeG7qm+F/WVmCB
-         UUGArDTPsIswq3R51y5L1TT59IqEFqL7WFsPMp71ttXUUDb3eaQr7K/uj4/MtH6/C+j8
-         DeX1FqSSves4gKO5Tjx/UwaBHZPZ2WLwvzBNL52ENaW3MuPSmslUtY8xA1J66PdxcHpS
-         c3tNv2ZrXvm8ovrbAwRrcIDFHZYBBe24Lt2ZIHRGV7jK1m5i5XHdQESohM5mzvZVjvOR
-         fXlgBMwm4doEsob3JQgLunxoGmQBCDbzmnrLzOCGmEgVDnYHJUAyzDCFzdcPOR+f+EUy
-         Ai3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791463792; x=1792068592;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Aw49x50i74crGqe52PxPoi4v9QJFpR0yZ1MGPQQ+JH8=;
-        b=qG61ORJg6S0kO4lDX9p9eu0WxbQh13xYXNZvOV+7HOd17HL8rn2foFAXMOM92Ft0gV
-         hFEc0c/h6NxWWc85VG77p917f5bxGt73VODW1EKE8aLtcDyxHci1PeSDctRo76xGh0pa
-         nTTbVI4eZiAK89X9T38ltDLvJNsIBxv65iBF9vgXVNXItL2PuM5Sn9Dosgyvry3//cZ+
-         tbXus39rTerZGAhxTuZN8vB7RNocpMEd6XM7yYHlm+GJ5FT3m7knUcET+o76G8aMgKMI
-         hizf/zTRXljB2oYq/CsXPoxqqS/xz8Jqfn8Ed2V6z1pjPnjpOl3W4ER4iu8tQrvGAZmH
-         7MqQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwni7+baEV7lyCoz07VRwJKZMd8xxsgb+1LH1ZSzZlmQLPQVpzd/1KwuS70h6Z2PaBR8Uk6crt7qWUQjWA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lwF2Z2jobXHRn2Y9r5E5RPT/L3fkraqI9C/5pbXxRNfsQ43rOz
-	AT4DrwrQbtD8FDhrVBPP6N5PoWnRejUMW4TrL572ojKzFU/7ZRaTW2cZv4/UixcEXGM=
-X-Gm-Gg: AYBFou1dsOAI8JCfUpfvo6EVVrV11IhmNku1oGx6cCcsiKZp2eB4xw9GaU8QQ0evGvv
-	fib4RaQWDm5bpm7pxUCJfDdTUthLU26vadCZCeKkHTC/O9c9ipyjoRHCILCqyeChghg9NkGFAVa
-	ZDZQbjcGkCvj26fnGbk6La36c4RwZ49DIxb7tM343FHnAzX1SFpR+clGFgJxUeZI5VI8HkP/WrZ
-	aIS3yPWQnAlX+Xt8/pZZltFihTMjfOealcfXFOJ/lEb4dpxj5twCiCWDeyu6KvjqFKCNwKf7N9r
-	U0b/tVaGrY6phnaBskTLChCwC3aBBGPtPPM9TWsZWh3H4B+jNvravGZF1wh26dvF6J97jdSH2Ye
-	gtfDR7os5pQmw4+0f9/jMQ8pS0CwGF1sRtcNAYvs2Hop2JyjT/GXo3CUkmPWWw/5r0v5k5iVdfW
-	bZZLM376vh3o/Cvs/h6iZ/dZT1mSg2fbJ80eWGgf+M4SM093G/H3XEGs/AFjtxN250Fe0jR1xhR
-	e4yg9KwpkjnTDajfatYzGM+9m25ngh4hYSNOuo9qy/rjTSmoLmyDO501etAX9/TLVQS2XbYeg5J
-	uE7YZNnc/rwPNw==
-X-Received: by 2002:a05:701b:2419:b0:168:3243:c911 with SMTP id a92af1059eb24-1683243ccb8mr540174c88.37.1791463787193;
-        Thu, 08 Oct 2026 05:49:47 -0700 (PDT)
-Received: from localhost.localdomain ([103.207.175.177])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1630180f6a5sm11100896c88.22.2026.10.08.05.49.43
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 08 Oct 2026 05:49:46 -0700 (PDT)
-From: Shubham Antil <shubham@octane.security>
-To: netdev@vger.kernel.org,
-	linux-rdma@vger.kernel.org
-Cc: Allison Henderson <achender@kernel.org>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Giovanni Vignone <gio@octane.security>,
-	sungbyeongchan <tjdqudcks0424@naver.com>
-Subject: [PATCH net v3] net/rds: ib: zero the unwritten tail of a short receive fragment
-Date: Thu,  8 Oct 2026 18:19:40 +0530
-Message-ID: <20261008124940.13371-1-shubham@octane.security>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="cdcy/2dj"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=azu39hy4sP9l9bRMcKId7i+KbDup1QkTOPoJ+2kNYCw=;
+	b=cdcy/2djDSiUkkPO0QEaErPKpvMVBP3ghfWe4K54nsje1g/e2wppO6EK36bXKK/gC6SPjDq4g
+	MZl/77my+iIk6VNg+ZZFh79SQu/VJt3dHA4IRb8SwoYyBKsiP07Lho2A92wcK2rcpEL/skRCsex
+	VlU74hvEOtmS6lwk0qd+HOg=
+Received: from mail.maildlp.com (unknown [172.19.163.104])
+	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4j0qKy1bMLz1T4JM;
+	Thu,  8 Oct 2026 20:38:46 +0800 (CST)
+Received: from dggpemr200003.china.huawei.com (unknown [7.185.36.25])
+	by mail.maildlp.com (Postfix) with ESMTPS id 4B1004057F;
+	Thu,  8 Oct 2026 20:50:59 +0800 (CST)
+Received: from [10.174.185.234] (10.174.185.234) by
+ dggpemr200003.china.huawei.com (7.185.36.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 8 Oct 2026 20:50:58 +0800
+Message-ID: <6890def8-168d-4951-b6bd-bcbbcbf3595a@huawei.com>
+Date: Thu, 8 Oct 2026 20:50:57 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RESEND][PATCH 0/2] Batch register access for live migration
+ optimization
+To: Marc Zyngier <maz@kernel.org>
+CC: <kvmarm@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <catalin.marinas@arm.com>, <will@kernel.org>,
+	<fuad.tabba@linux.dev>, <joey.gouly@arm.com>, <seiden@linux.ibm.com>,
+	<suzuki.poulose@arm.com>, <yuzenghui@huawei.com>, <mark.rutland@arm.com>,
+	<zhengchuan@huawei.com>, <jiangjiacheng@huawei.com>, <yize_w1110@163.com>
+References: <20260918081930.4014735-1-wangyize7@huawei.com>
+ <861paq69te.wl-maz@kernel.org>
+ <f70c6fe3-e3c5-4912-b4bb-8a418fec4346@huawei.com>
+ <86ece63kes.wl-maz@kernel.org>
+From: Yize Wang <wangyize7@huawei.com>
+In-Reply-To: <86ece63kes.wl-maz@kernel.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ dggpemr200003.china.huawei.com (7.185.36.25)
 
-rds_ib_process_recv() accepts an RDS/IB fragment once the receive
-completion reports at least an RDS header, and then trusts the
-header-declared message length h_len: rds_ib_inc_copy_to_user() later
-copies up to h_len bytes from the fragment pages to userspace on
-recvmsg().
 
-When a fragment carries fewer payload bytes than h_len accounts for, the
-bytes between the end of the received payload and h_len are read from the
-unwritten tail of the fragment page.  That page comes from the per-CPU
-receive cache and is not zeroed, so recvmsg() returns stale page contents
-to userspace.
+在 2026/10/3 22:53, Marc Zyngier 写道:
+> On Sun, 20 Sep 2026 10:15:25 +0100,
+> Yize Wang <wangyize7@huawei.com> wrote:
+>> 在 2026/9/18 20:08, Marc Zyngier 写道:
+>>> On Fri, 18 Sep 2026 09:18:13 +0100,
+>>> Yize Wang<wangyize7@huawei.com> wrote:
+>>>> This series adds batch register access support to KVM/arm64 to reduce
+>>>> syscall overhead during VM live migration.
+>>>>
+>>>> Currently, QEMU issues one ioctl per register when saving/restoring VGIC
+>>>> state. On large VM configurations this means tens of thousands of syscalls,
+>>>> where lock acquisition and context switch overhead dominates migration
+>>>> downtime. Thus, we provide a batch register method to allow userspace
+>>>> read/write multiple distributor and redistributor registers in a single call.
+>>>> In this way, we can significantly reduce syscalls and migration downtime.
+>>>>
+>>>> Test the VM migration time under pressure conditions.
+>>>> The VM specifications for migration are as follows:
+>>>> - VM use 4-K page;
+>>>> - the number of VCPU is 160;
+>>>> - the total memory is 320Gigabit;
+>>>> - use 'Redis SET-benchmark' to pressurize VM;
+>>>>
+>>>> Performance results (3-run average, ms):
+>>>>       | Metric              | Without patch | With patch | Improvement |
+>>>>       |---------------------|---------------|------------|-------------|
+>>>>       | Migration downtime  |        536    |     321    |     40%     |
+>>>>       | Source (total)      |        344    |     230    |     33%     |
+>>>>       |   - VGIC put        |        158    |      40    |     75%     |
+>>>>       |   - VGIC get        |        120    |      19    |     84%     |
+>>>>       | Destination (total) |        192    |      91    |     53%     |
+>>>>       |   - VGIC put        |        132    |      27    |     80%     |
+>>>>
+>>>> Yize Wang (2):
+>>>>     KVM: arm64: Add batch group constant and data structure to UAPI header
+>>>>     KVM: arm64: Add VGIC v3 batch register access implementation
+>>> Questions:
+>>>
+>>> - Why only the MMIO registers?
+>>>
+>>> - Why not the sysregs?
+>>>
+>>> - Why only the GIC?
+>>>
+>>> - Why not all of the state?
+>>>
+>>> - Where is the corresponding userspace code?
+>>>
+>>> More importantly, since this is about batching system calls:
+>>>
+>>> - Why can't this be done with io_uring instead?
+>>>
+>>> 	M.
+>>
+>> Hi, Marc! Thank you for the review.
+>>
+>>    These patches focus on optimizing GICv3 register access during live
+>> migration. We found that there are a large number of locks (kvm->lock,
+>> vcpus, config_lock) in the GIC, these lock operations wil cost large
+>> time waste. The batches of sysreg for vcpu optimization will come in
+>> follow as a separate series. And let me address these questions one by
+>> one.
+> All these locks should be non-blocking by the time you save anything
+> related to the GIC, because:
+>
+> - none of the vcpu can be running
+>
+> - this must be a single threaded operation
+>
+> So if you are seeing anything contended, this is either the sign of a
+> bad KVM bug, or an indication that you are violating the above
+> requirements.
+>
+> 	M.
 
-Zero the unwritten tail of a short fragment page on receipt, so the copy
-can only ever return received payload or zeros.  Fragments that fill the
-page are unaffected.
 
-Confirmed under KMSAN: without this change recvmsg() returns stale
-frag-page bytes and KMSAN flags an uninitialised copy in
-rds_ib_inc_copy_to_user(); with it the same over-read returns zeros and
-KMSAN is clean.
+Hi, Marc! Thanks for your review.
 
-Fixes: 1e23b3ee0e94 ("RDS/IB: Receive datagrams via IB")
-Reported-by: sungbyeongchan <tjdqudcks0424@naver.com>
-Closes: https://lore.kernel.org/netdev/20261006205204.1322102-1-tjdqudcks0424@naver.com/
-Reported-by: Shubham Antil <shubham@octane.security>
-Reported-by: Giovanni Vignone <gio@octane.security>
-Reported-by: Robert van Eijk <robert@octane.security>
-Reported-by: Paolo Gentry <paolo@octane.security>
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Shubham Antil <shubham@octane.security>
----
-v3:
- - Zero the unwritten fragment tail instead of dropping the connection.
-   A zero-copy send with a small iovec segment can legitimately produce a
-   non-final fragment shorter than RDS_FRAG_SIZE, so the v2 length check
-   could force a reconnect on well-formed traffic; zeroing the tail avoids
-   that while still keeping uninitialised bytes out of recvmsg().
-   (Raised by the Sashiko review.)
- - Drop Reviewed-by, since the approach changed.
-v2:
- - Add Reported-by (sungbyeongchan, first to report, and the Octane
-   Security reporters).
- net/rds/ib_recv.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+You are right that when saving the GIC state during live migration process, all vCPUs are not running and it is a single threaded operation. Our patches process the packaged register states from the userspace under the same lock. These operations only aim to reduce the lock opreation downtime and do not involve lock contention.
 
-diff --git a/net/rds/ib_recv.c b/net/rds/ib_recv.c
-index bd6cb3ffa..9695c7f24 100644
---- a/net/rds/ib_recv.c
-+++ b/net/rds/ib_recv.c
-@@ -35,6 +35,7 @@
- #include <linux/slab.h>
- #include <linux/pci.h>
- #include <linux/dma-mapping.h>
-+#include <linux/highmem.h>
- #include <rdma/rdma_cm.h>
- 
- #include "rds_single_path.h"
-@@ -949,6 +950,19 @@ static void rds_ib_process_recv(struct rds_connection *conn,
- 		}
- 	}
- 
-+	/* The device wrote only data_len bytes into this recycled fragment
-+	 * page.  Zero the unwritten tail so a later rds_ib_inc_copy_to_user(),
-+	 * which copies up to the peer-declared h_len, cannot hand stale page
-+	 * contents to userspace.
-+	 */
-+	if (data_len < RDS_FRAG_SIZE) {
-+		void *frag = kmap_local_page(sg_page(&recv->r_frag->f_sg));
-+
-+		memset(frag + recv->r_frag->f_sg.offset + data_len, 0,
-+		       RDS_FRAG_SIZE - data_len);
-+		kunmap_local(frag);
-+	}
-+
- 	list_add_tail(&recv->r_frag->f_item, &ibinc->ii_frags);
- 	recv->r_frag = NULL;
- 
--- 
-2.43.0
+In addition, these patches focus on reducing the syscalls of ioctl. Now, every register requires an ioctl, resulting in (num_cpu * registers_per_cpu) system calls. This will cost lots of time during the large-scale VM  migration. Our patches batch registers by category in qemu and then send them to kernel in batches. This operations significantly reduce the number of ioctl syscalls and save a great amount of downtime.
+
+The comparison is as follow:
+BEFORE:
+
+        QEMU (Userspace)                  Kernel (Kernelspace)
+   +------------------------+        +----------------------------+
+   |                        |        |                            |
+   |  kvm_arm_gicv3_get()   |        |  vgic_v3_attr_regs_access  |
+   |                        |        |                            |
+   |  for ncpu in num_cpu:  |        |                            |
+   |    for each register:  |        |                            |
+   |                        |        |                            |
+   |  GICR_CTLR             | ioctl->|  mutex_lock(&kvm->lock)    |
+   |                        |        |  kvm_trylock_all_vcpus     |
+   |                        |        |  mutex_lock(&config_lock)  |
+   |                        | <-val  |  read/write register       |
+   |                        |        |  mutex_unlock              |
+   |                        |        |  kvm_unlock_all_vcpus      |
+   |                        |        |  mutex_unlock(&kvm->lock)  |
+   |                        |        |                            |
+   |  GICR_STATUSR          | ioctl->|  (repeat lock/read         |
+   |                        | <-val  |   -> unlock)               |
+   |  ...                   |        |                            |
+   |                        |        |                            |
+   |  GICR_WAKER            | ioctl->|  (repeat lock/read         |
+   |                        | <-val  |   -> unlock)               |
+   |  ...                   |        |                            |
+   |                        |        |                            |
+   |  ICC_SRE_EL1           | ioctl->|  (repeat lock/read         |
+   |                        | <-val  |   -> unlock)               |
+   |  ...                   |        |                            |
+   |                        |        |                            |
+   +------------------------+        +----------------------------+
+
+
+AFTER:
+
+        QEMU (Userspace)                  Kernel (Kernelspace)
+   +------------------------+        +----------------------------+
+   |                        |        |                            |
+   |  kvm_arm_gicv3_get()   |        |  vgic_v3_batch_access      |
+   |                        |        |                            |
+   |  Collect Phase:        |        |                            |
+   |    add(GICR_CTLR)      |        |                            |
+   |    add(GICR_STATUSR)   |        |                            |
+   |    add(GICR_WAKER)     |        |                            |
+   |    add(GICR_IGROUPR0)  |        |                            |
+   |    ...                 |        |                            |
+   |    add(ICC_SRE_EL1)    |        |                            |
+   |    ...                 |        |                            |
+   |                        |        |                            |
+   |  Commit Phase:         | BATCH->|  copy_from_user            |
+   |    batch_commit()      |        |  mutex_lock(&kvm->lock)    |
+   |                        |        |  kvm_trylock_all_vcpus     |
+   |                        |        |  mutex_lock(&config_lock)  |
+   |                        |        |                            |
+   |                        |        |  Process Each Entry:       |
+   |                        |        |    entry[0]: GICR_CTLR     |
+   |                        |        |    entry[1]: GICR_STATUSR  |
+   |                        |        |    entry[2]: GICR_WAKER    |
+   |                        |        |    ...                     |
+   |                        |        |    entry[N]: ICC_SRE       |
+   |                        |        |    FLAG_LOCKED: skip       |
+   |                        |        |                            |
+   |  Unpack Phase:         |<-result|  mutex_unlock              |
+   |    Write back          |        |  kvm_unlock_all_vcpus      |
+   |    Post-process:       |        |  mutex_unlock(&kvm->lock)  |
+   |      unshuffle,split   |        |  copy_to_user              |
+   |                        |        |                            |
+   +------------------------+        +----------------------------+
+
+
 
