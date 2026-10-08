@@ -1,71 +1,71 @@
-Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com [209.85.161.46])
+Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com [209.85.210.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 947C939F160
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 16:45:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 548B3377AB3
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 16:45:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791477934; cv=none; b=iaNfVk7yQCspQ/rHa5zVZOzBKXFzFybKFCZZOJbFV5lrJt1jjN2ftW7uPZ1ibL7h1WNehmGHuHAkueDVkjdkuW31/jNmSfCqgIwjA03/KaaVPpv/7StuUbKEx76B0wG8UQxJKgJrRrw1z+vgA95Ea1WWsaS0olFG5osbR7d5fag=
+	t=1791477947; cv=none; b=B11eWVuR61rLctKHec0a33HHQnbyZ5Pj+giZhghh0OM5a8FIXGvhpjwCa+81wPP+ajXt8PV1jaBDBg6SIMhDnxddE4gbaS/TH1gsEtqexoy7sKgAukSrJB/3yyPthzE57YRQ2+x1MT37pjFmd6IU7ioqyNimulrA5FnpOUFWa90=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791477934; c=relaxed/simple;
-	bh=OslvAEuCF6cBCtTZDYW4H4/nIuq7etdvDTspNStbkGM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=PLuX61c12XJ4cmqOg23Lx8926gfYvVNMAKmby+vW7mHek7lDjxvz0G4xB9O8UxCgpwovKClzDNQhLIJA70A9dv+NwNCLmtH/l4GIUl8Qi4giBQ6VMStYrz42oJkWkIk+xDte6oAHJfA3kPtupazXE/48BmLW+jjgYenIecCMf/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l76V+QGp; arc=none smtp.client-ip=209.85.161.46
+	s=arc-20240116; t=1791477947; c=relaxed/simple;
+	bh=2Gm3oCZAH5xEPW2gFonKXTzdW+Tu4iKs/jZ3IkMSoYA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=iQGV6a646ncqPKexcOWgwkv9aTQqWS225Qv1wzybQugKzAkQ8rBIzzD4HXXGFOCxJZlGbxLNwcGXDTGrHIYTyMuYQxvWVo6Q7jzNWT7IK5TNl53aEm8/n7/Rf701BqAirOoEbnIWPSahW7QhdZm5MqYU4XgBy31eq+fZXPPSkBU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aWq+cAzP; arc=none smtp.client-ip=209.85.210.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l76V+QGp"
-Received: by mail-oo1-f46.google.com with SMTP id 006d021491bc7-6b19e291cc6so2721579eaf.2
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 09:45:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aWq+cAzP"
+Received: by mail-ot1-f42.google.com with SMTP id 46e09a7af769-81c5aac8478so2010764a34.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 09:45:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791477932; x=1792082732; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791477945; x=1792082745; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FKBPPF1RRr88KNBz9nrVdefWmPTx4J32YFZ8CbEMgRs=;
-        b=l76V+QGppBtZXxP9ocoa/t4oSSFyRdkJ8chvA7e5+dKLf8OVaxE6x6z3AiFV8FhP0+
-         bwFP8tyx0gybmA50MY5o9HItOk/3WUvPnF95Fi2KDhhTobqfWi1aDMZLXRExtHggFZWr
-         gL7Fef8qbQN8UxoGB5HPa2ZCp3CtA+ovs0ywgiaXyAj4J4/G3dkRe0eLgzz24cmGC0jk
-         27FbxNMeOgZ+LplhQAITc6sHBRcz2ZQf823J8nF8oy/FN+Uo/KGWxuUfvlf5dXKyhThG
-         xKzhqSYfGEOnPfOmIxUyButqkGp1+IFXFXdhmZNP3+JGOKUUE01lwz5fXYvL0+7rhVnH
-         3/ow==
+        bh=UCfPp+7/JHVdolqbV5gJwvu/HMj/BA+RBUV+QQaMos4=;
+        b=aWq+cAzPzQDEKT0AWeYSRGgYpaHhM2pf4VJNP5O5ggrzd5ialMgjxR6LMMu0AnyzP4
+         08DHTEz5WqGbMOuObg/jUZ+s9G/BeSCdVakLN8SEZgEP9seX3bIeB7MM/4d/tnmz2NSx
+         AgLRRi5t4L/68AW+qQzGm6ARg8zjIqJ3EjmklBUm+SJt27BfvBs6d/cAaJICYLY6JT5M
+         X3FqjZJmwrVHU4wX+3hRUVVf5zq8oruTjNWLvZ1fWzQ03LyUP5uVFHc2mGY2lYI6MPn0
+         wtfxAMZbME/rFW9Qze6Fc9kLz02ywrT/5thz+C0oXKbXhIoP5PxPIjZP679vDjeewkEG
+         5GaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791477932; x=1792082732;
+        d=1e100.net; s=20260707; t=1791477945; x=1792082745;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=FKBPPF1RRr88KNBz9nrVdefWmPTx4J32YFZ8CbEMgRs=;
-        b=ZEM/cUOOzkcah5JqLkotk7DrQVKzynWs0idFZhO6v971iMkoGxvP3BUKJ0lv3pYmws
-         gELJtHkJdQ/kHCHv9a06z6LbaUjmfwMczkJ0DYwgGPlq8ENLo2ucsLpY2QEH8l+hjTs+
-         dj9tQbvnUIwsYqlM9Jjie1cKaqGi6DV/f/QZILcdoXDU0zA/C40ipO1NEwvwS4usfl6o
-         qRSK+tQAD/VYIsV4V8aLWhDq2M+AfWuxIQr//zOruY8tSYORjZQ/zO+Vz115fNooNy9v
-         GWqPEAeT+t0iCRTn8avdmoBlbkVuwZ+L6WyOOMuLLTUu+1pwZgIZZnhGxHkaN13fggdv
-         0uLg==
-X-Forwarded-Encrypted: i=1; AKwUvByshtdn0Hsj6LPEczKySAFVOkRG0sRDu9HE76Ei7pSt67N0TKlBLhPeTHvYfozAmS4XQy5Y13TTaoQ96f8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mF6C69sylckD17mCx9CFlqklYtPl87vp36XU52CwulFh6Cqsjd
-	rdoNmfgRk4o11WVIcoVIKg7BkOjp//DLXRPZ4V6I+240IeTRPnzQMxG0
-X-Gm-Gg: AYBFou25uEtMTqzM+t/3588/6QsrjBcFtdnpMkKKMs36ZG+3WvuFulqokT+8b62B6f+
-	2U7+wxBrr455/dcTRTNsGxG8wCOwEi39PxEzwwPUIRzOeIflYYGA8YwMkDY0nvV6JrI0GCGBOdv
-	f5d6g8SYCJ+SDnHuEHKOBaiAMbMtmI62jZ02BahDxp7kuHJTjVLs7mXadyb+S75/H+6HvSu4E/h
-	NnIMdZziMfkmbL6o/wwIfEIxSKkdGHAWCoIRffilSP9j4NxZRtISzGoWPR+mYfO/wPemQDS6U8v
-	4rXvGui8uGAKDP2KnboMQL9G/kkZ+xiv1VbW1+ayhEUxcdM0Hqc0ivyNXkqGZwD061Qtuick0ou
-	UJO1tL5O8QH9skRDjcSnmof27rY+suwU6djRi8M0Rwwybw/yqSU5TYgjRXtwWLl8+UftL+IiH+K
-	7jZ+3/75Za//c2PmNsXekqJ446m7VNTTzpGUTHkjQ3IBWmHInnKgrjKBd78WizGTzSVGq0lpYJP
-	Xx7bWjfHSjckQ==
-X-Received: by 2002:a05:6820:61b:b0:6d7:cd0c:752a with SMTP id 006d021491bc7-6e7a899f44amr5561416eaf.54.1791477932256;
-        Thu, 08 Oct 2026 09:45:32 -0700 (PDT)
+        bh=UCfPp+7/JHVdolqbV5gJwvu/HMj/BA+RBUV+QQaMos4=;
+        b=Myn4t2ZRe7t4qBSyptmTdUgMUHpUG+MEJI71vrb7Qb3T9SEDAA6Wvwterf+WCIM8gz
+         MOQlLNdh8DtRo3SKa9/khwRIzGaQTK3Ztqd3dZWkLgCZpFFWkvOgpKqZoOG0lXD9vTOc
+         MpLk9lKUGzcIlndL8p6FQlzHKyYl2F7zZvdR/vkUugyEdcIiEHD8ITRTXTdxEffob0NC
+         OrGxaIc9PkarRBJFlYYbHD9lI+CW72tRywoyYd7GXkg0ARJLPDZLP6sFgg/k4WKhXS/o
+         Nt/DDExFN5W7xaXLdErFNgze4YlQ2tH/Xu2HKGsCerQL1Kt0OlOg/ybY23TeNdDsonrt
+         IVHg==
+X-Forwarded-Encrypted: i=1; AKwUvByJlAT9U3LBJn1p6YCIZLN5B6oo+9rINAgqmP89nZCxiHOAczJvDPMkZO2rEjAS/tZHCcgRme27zMDC5gE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kiICv4i2dzJ0t3YIUGiAVeRoMDWFIG9ec777W26wRn14A/AFVq
+	ufm2Jwg4gqwClD90+e6PuY8+YhhFX+h6VkWcv7jiJWuNT79yYziBrsed
+X-Gm-Gg: AYBFou3EiYcexUFrGbpx4AljUYfM0W4JvpRC9Ovhq7UFTjW3/w+CdShj2BUhqBgQjF4
+	diFBpuMzgHAc3SA3lvhGYRRnz+gu/t7yFIFfI8dRthjlEGjKT5kCtRq+cOlZwggEzq0saL8UXTh
+	Zf5xlPTdjldDLzdNmTe3NPT341LGS/uyCkvjFGYny1qBrJQMskuhIHYPxykHqSNjyYNJ/wfQHKd
+	nmwD/3HH8+38068qI6ORv6ecU/F3d/CVkn7Dsth1/GQgTrKKwXbTRuHYsocPcWHU/FhDfKHXyDH
+	zZsZQ+geTyNTMMubIveCSWj7so4Qmfi4wcmHJCAibwMNiiCMR4vh6fLmowO4SOcXx/fGRnxrGqM
+	MTpK0dOUHtLiHpOkS0Mg65nYKs1rjucPNL4SyjaKuvkTjZ1nQkFEPBX6brsewmonJTADx5o7+kY
+	bPR6BFFVsEpnY0aXETQFS4dn+GNoQrRA1jkSmLqFN7s0UDku/24NGmicbM59QrJQZLsVI0KnZ1b
+	onyF7I0gUbs
+X-Received: by 2002:a05:6830:6f41:b0:81f:138e:77a0 with SMTP id 46e09a7af769-82ad02b6843mr5713484a34.24.1791477945061;
+        Thu, 08 Oct 2026 09:45:45 -0700 (PDT)
 Received: from sheng2080.cmix.louisiana.edu ([130.70.15.5])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-82fc9fcb01bsm82763a34.23.2026.10.08.09.45.31
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-82fc9430991sm64416a34.17.2026.10.08.09.45.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 09:45:31 -0700 (PDT)
+        Thu, 08 Oct 2026 09:45:42 -0700 (PDT)
 From: Leizhen Zhang <lzsx618@gmail.com>
 To: nathan@kernel.org,
 	nsc@kernel.org
 Cc: julianbraha@gmail.com,
 	linux-kbuild@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] kconfig: fix dangling check_top after an unexpected recursive dependency
-Date: Thu,  8 Oct 2026 11:45:28 -0500
-Message-Id: <20261008164528.3685545-1-lzsx618@gmail.com>
+Subject: [PATCH v2] kconfig: use the value argument in sym_get_near_range_bound()
+Date: Thu,  8 Oct 2026 11:45:40 -0500
+Message-Id: <20261008164540.3686383-1-lzsx618@gmail.com>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -75,71 +75,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-If the last symbol of a recursive dependency is a choice value,
-sym_check_print_recursive() pushes the on-stack cv_stack onto the
-dependency stack. If the choice is then not found on the stack, the
-function prints "unexpected recursive dependency error" and returns
-without removing cv_stack again. check_top is left pointing into the
-stack frame of the returned function, and the next dep_stack_remove()
-dereferences it:
+sym_get_near_range_bound() is meant to check whether the given value is
+outside of the active range of an int/hex symbol, and is called with the
+symbol's current value from sym_calc_value() and with the default value
+from sym_get_string_default().
 
-  AddressSanitizer: stack-use-after-return ... in dep_stack_remove
+Since commit 9b8719973ee2 ("kconfig: use unsigned integers for hex range
+checks") it ignores its value argument and uses the current value of the
+symbol (via sym_get_range_val()) instead. As a result, an out-of-range
+default is no longer clamped in sym_get_string_default(), and
+savedefconfig writes out values that are equal to the effective default
+again, for example CONFIG_A=4 for:
 
-This can be triggered by an (invalid) Kconfig file in which a symbol is
-a choice value of two choices and the second choice depends on it:
-
-  choice
-  	prompt "c1"
   config A
-  	bool "a"
-  endchoice
+  	int "a"
+  	range 1 4
+  	default 8
 
-  choice
-  	prompt "c2"
-  	depends on A
-  config A
-  	bool "a"
-  endchoice
+The existing savedefconfig_range test did not catch this because it only
+covers symbols without a prompt.
 
-Jump to the existing cleanup at the end of the function instead of
-returning directly.
+Parse the value argument again, and add a test case for a symbol with a
+prompt.
 
-Found by fuzzing Kconfig input with ASan/UBSan.
+Found while fuzzing Kconfig input with ASan/UBSan.
 
-Fixes: d595cea62403 ("kconfig: print more info when we see a recursive dependency")
-Assisted-by: Claude:claude-opus-5-5 ASan UBSan libFuzzer
+Fixes: 9b8719973ee2 ("kconfig: use unsigned integers for hex range checks")
+Assisted-by: Claude:claude-opus-5-5
 Signed-off-by: Leizhen Zhang <lzsx618@gmail.com>
 ---
 v2:
  - Use my real name in the From and Signed-off-by lines. No code
    changes.
 
-v1: https://lore.kernel.org/r/20261005202509.3461632-1-lzsx618@gmail.com
+v1: https://lore.kernel.org/r/20261005202524.3461824-1-lzsx618@gmail.com
 
- scripts/kconfig/symbol.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ scripts/kconfig/symbol.c                          | 5 ++++-
+ scripts/kconfig/tests/savedefconfig_range/Kconfig | 7 +++++++
+ scripts/kconfig/tests/savedefconfig_range/config  | 1 +
+ 3 files changed, 12 insertions(+), 1 deletion(-)
 
 diff --git a/scripts/kconfig/symbol.c b/scripts/kconfig/symbol.c
-index dcb4b45e67..2e87af0985 100644
+index 2e87af0985..11302faa28 100644
 --- a/scripts/kconfig/symbol.c
 +++ b/scripts/kconfig/symbol.c
-@@ -1181,7 +1181,7 @@ static void sym_check_print_recursive(struct symbol *last_sym)
- 			break;
- 	if (!stack) {
- 		fprintf(stderr, "unexpected recursive dependency error\n");
--		return;
-+		goto out;
- 	}
+@@ -195,7 +195,10 @@ static struct symbol *sym_get_near_range_bound(struct symbol *sym,
+ 	prop = sym_get_range_prop(sym);
+ 	if (!prop)
+ 		return NULL;
+-	val = sym_get_range_val(sym, base);
++	if (base == 10)
++		val.s = strtoll(value, NULL, base);
++	else
++		val.u = strtoull(value, NULL, base);
+ 	range_sym = prop->expr->left.sym;
+ 	val2 = sym_get_range_val(range_sym, base);
  
- 	for (; stack; stack = stack->next) {
-@@ -1226,6 +1226,7 @@ static void sym_check_print_recursive(struct symbol *last_sym)
- 		"subsection \"Kconfig recursive dependency limitations\"\n"
- 		"\n");
- 
-+out:
- 	if (check_top == &cv_stack)
- 		dep_stack_remove();
- }
+diff --git a/scripts/kconfig/tests/savedefconfig_range/Kconfig b/scripts/kconfig/tests/savedefconfig_range/Kconfig
+index fd59d9082e..d879870a52 100644
+--- a/scripts/kconfig/tests/savedefconfig_range/Kconfig
++++ b/scripts/kconfig/tests/savedefconfig_range/Kconfig
+@@ -58,3 +58,10 @@ config INT_CONDITIONAL_DEFAULT
+ 	int
+ 	range 1 2
+ 	default 3 if USE_DEFAULT
++
++# Default outside of the range of a symbol with a prompt
++
++config INT_PROMPT_DEFAULT_ABOVE_RANGE
++	int "int with prompt"
++	range 1 4
++	default 8
+diff --git a/scripts/kconfig/tests/savedefconfig_range/config b/scripts/kconfig/tests/savedefconfig_range/config
+index d939cfe5fd..079a3107a0 100644
+--- a/scripts/kconfig/tests/savedefconfig_range/config
++++ b/scripts/kconfig/tests/savedefconfig_range/config
+@@ -5,3 +5,4 @@ CONFIG_HEX_DEFAULT_ABOVE_RANGE=0x20
+ CONFIG_INT_IMPLICIT_DEFAULT_ZERO=1
+ CONFIG_INT_CONDITIONAL_RANGE=2
+ CONFIG_INT_CONDITIONAL_DEFAULT=2
++CONFIG_INT_PROMPT_DEFAULT_ABOVE_RANGE=4
 -- 
 2.34.1
 
