@@ -1,109 +1,86 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D68D6495ADA;
-	Thu,  8 Oct 2026 12:47:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 917C1497B81
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 12:48:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791463655; cv=none; b=nYfsSMijWhv1A8ICd90IQ8xxgxFQ3BOIu6lGxST1AD0CUkO9LyG6MW0NdQO2cAAQCUmQXbI1V0TVwc8ZCrK/oa0WgKDctKskxOK5L7nHd9kzmnbG0ni2o+5XjsgupSTn58RJ1O+D5C6tvT0cBqag3bm0+k5K+JyE5iP8kbxXLHk=
+	t=1791463682; cv=none; b=O/68rdGEtwjnrwOuV82kh/6DM5KcW2odn8c2Xqc1SXtvLh1cgX6mlO3qGJXNP/eEVN/H5uE+lRkuse0e61nEXh0aJJ5aWrFoZIjaz+EhC+Mao9q0rSxvZ86oWQNoJYdfglCBgGMfmweLazPQXFSjoakAqMbjCJXswDQIyzH0/cI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791463655; c=relaxed/simple;
-	bh=+Ql/jKxiPASbigPDyJUHCQjLeMhmIoydTQWDRiK+5b8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DNs5ua/KJuS8rWZs4CG0G5lKNKUw+sXU17JcFyjpp2hvrUH72DUVTGAdXZGHDw37cJMQa9viaVf992vbloym4jzV9LxMwYYi0/9gS9zO5IB4aYZhk4DEEQTP5JN+0VaLr1CfLM5GKs+77pQdCIKyDKl6lJcVpmCtv1GHn7ZDN1M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=qgpFa3v8; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791463682; c=relaxed/simple;
+	bh=LV6/shKBT5pKWVf3EgNrs1KtHkV4PagZx7OmupPK8os=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ssP69QAEsUVPGLCyasZgzYECrUOzv4B4z/nMegUrETd1Dxz5ycniLICllSVKePCWktiCibBKolxB6nzsL8Ri4YdoVEyUcnBoVZPekcu20+220FiDsCxIjbGe0j9sji0JdP1mUTU71xiKez2+U/S173PuzcVK8SdjeheUhzz18bg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N5ZC6XZC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="qgpFa3v8"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 956501477;
-	Thu,  8 Oct 2026 05:47:28 -0700 (PDT)
-Received: from [10.0.129.161] (e122027.cambridge.arm.com [10.0.129.161])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5BA123F66F;
-	Thu,  8 Oct 2026 05:47:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791463652; bh=+Ql/jKxiPASbigPDyJUHCQjLeMhmIoydTQWDRiK+5b8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=qgpFa3v8E5vOLFaYvMn2S9FDaytDS1I7QVDbKKxT/PQGrvADaMt2lFLnKcpKdZ1hL
-	 bsmqy7P5x6zSoRIpPY0snfqqDOJc2FKTBsARVp5kvCHGkzWFos9/V8qFxKk99PrwRI
-	 IyVGSA55m2Rm83cv/zmqwcVEFXXCHOIwdgVe9m1E=
-Message-ID: <376f1a96-151f-46e3-b368-de5bf4f1765f@arm.com>
-Date: Thu, 8 Oct 2026 13:47:28 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N5ZC6XZC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EDAF1F00893
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 12:48:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791463681;
+	bh=LV6/shKBT5pKWVf3EgNrs1KtHkV4PagZx7OmupPK8os=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=N5ZC6XZCTkHjShr1cBVfTimo4MwQ7jBisVXf4sxN0jnwoqTpNJegdnNnSpWj8lurh
+	 zx5NFRxd1kS9INoJ1WvTByWNScpEPFlQ9QPpitfMmlIe/utcQbH7Bv3drrau6BOrlc
+	 avYUr9M4y3dRk7VjFG8lc+76ysRjXjlT6fcJVXdw6Y+90Ep394CGTN2PXWAZN61uA/
+	 p9yPW+20qRGzS9wlWJvUXzES2skDA0wj3WsKFwZy/LnZe4YjoM318TVRORYd/mUbQq
+	 33v5nlapaza/fdy412vGV6ax311xfDO25q59uAj8JrWFcv2CCJUfx0zmGpZkp0GXoZ
+	 SISx5gq0LmGcw==
+Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-3a9a1ed66b9so13370721fa.2
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 05:48:01 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxSl2qi/ywjYDbKrySGVAszUrc4fj5raETmQI/aDy8td/pu/MiGmpQHVbb5rDu1JcxcyKbu4xfn2CTJyVg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKEz78oTwERQ4rBavGUe+ITqadD1tGQtfe+4jy5XzuEIx3dBmjf
+	ISlcuqJB+Gz5UMAKoZCQooI7bikcB6DH8SDg1fqsgjNTeixFAreauf1FK0u9BdyKf89rSvHtFxW
+	tr7Rhb9fI6QgkVfkZzdMGnX+0ESBlgt/qpVDuRUndwg==
+X-Received: by 2002:a2e:b8c5:0:b0:3a6:5fd7:c98a with SMTP id
+ 38308e7fff4ca-3a9a2c6357dmr13064601fa.13.1791463680000; Thu, 08 Oct 2026
+ 05:48:00 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 8 Oct 2026 12:47:58 +0000
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 8 Oct 2026 12:47:58 +0000
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <CAD++jL=fkJNgCHb7M4mm5nc0nwb1GZmozngCEv-A5VCBULXD3A@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/panthor: Fix TOCTOU race between GROUP_REGISTERED
- check and erase
-To: Osama Abdelkader <osama.abdelkader@gmail.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Chia-I Wu <olvaffe@gmail.com>, Akash Goel <akash.goel@arm.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-References: <20261008100935.3059587-1-osama.abdelkader@gmail.com>
-From: Steven Price <steven.price@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20261008100935.3059587-1-osama.abdelkader@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261008090724.5423-1-bartosz.golaszewski@oss.qualcomm.com> <CAD++jL=fkJNgCHb7M4mm5nc0nwb1GZmozngCEv-A5VCBULXD3A@mail.gmail.com>
+Date: Thu, 8 Oct 2026 12:47:58 +0000
+X-Gmail-Original-Message-ID: <CAMRc=Mfx3a-vD9HoQuirjDL_4TF-tOw=mAC=PMcR6DRt_Kat5w@mail.gmail.com>
+X-Gm-Features: AclHuK_R7g7m4hPEKjqHgTKLRbJgKqk-mkMpcqjQPito5GqgoJTskotDp8Lpis8
+Message-ID: <CAMRc=Mfx3a-vD9HoQuirjDL_4TF-tOw=mAC=PMcR6DRt_Kat5w@mail.gmail.com>
+Subject: Re: [GIT PULL] Qualcomm pin control fixes for v7.3-rc7
+To: Linus Walleij <linusw@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, brgl@kernel.org, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 08/10/2026 11:09, Osama Abdelkader wrote:
-> panthor_group_destroy() checks the GROUP_REGISTERED mark and then calls
-> xa_erase() without holding the xarray lock across both. If the handle is
-> destroyed by another thread in between, and a concurrent GROUP_CREATE
-> reuses the freed ID, the first destroy erases and releases the new,
-> still-initializing group, leading to a use-after-free in
-> panthor_group_create().
-> 
-> Do the mark check and erase atomically under xa_lock().
-> 
-> Fixes: eec7e23d848d ("drm/panthor: Prevent potential UAF in group creation")
-> Assisted-by: Claude:claude-opus-5.5
-> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-> Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
+On Thu, 8 Oct 2026 13:39:59 +0200, Linus Walleij <linusw@kernel.org> said:
+> On Thu, Oct 8, 2026 at 11:07=E2=80=AFAM Bartosz Golaszewski
+> <bartosz.golaszewski@oss.qualcomm.com> wrote:
+>
+>> Please pull the following set of Qualcomm pin control driver fixes for t=
+he
+>> next RC. This is based on v7.3-rc5 where the previous set of pinctrl fix=
+es
+>> landed.
+>
+> OK pulled in!
+>
+> It's a bit weird to me that you merge in -rc5 instead of just rebasing on
+> -rc5 but I guess it makes sense if the fixes were queued before -rc5
+> was out and it checks out, so whatevs.
+>
 
-Reviewed-by: Steven Price <steven.price@arm.com>
+I really prefer to avoid rebases if I can. I typically queue patches all th=
+e
+time and just merge in upstream tags if needed. With merges you don't risk =
+any
+accidents with rebasing like dropping existing merge commits, etc.
 
-> ---
-> v2:
-> - added Assisted-by tag, no code changes.
-> ---
->  drivers/gpu/drm/panthor/panthor_sched.c | 14 ++++++++++----
->  1 file changed, 10 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-> index 0493858e55d7..a343c5180e01 100644
-> --- a/drivers/gpu/drm/panthor/panthor_sched.c
-> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
-> @@ -3770,12 +3770,18 @@ int panthor_group_destroy(struct panthor_file *pfile, u32 group_handle)
->  	struct panthor_group_pool *gpool = pfile->groups;
->  	struct panthor_device *ptdev = pfile->ptdev;
->  	struct panthor_scheduler *sched = ptdev->scheduler;
-> -	struct panthor_group *group;
-> +	struct panthor_group *group = NULL;
->  
-> -	if (!xa_get_mark(&gpool->xa, group_handle, GROUP_REGISTERED))
-> -		return -EINVAL;
-> +	/*
-> +	 * Check the mark and erase the entry atomically, so a concurrent
-> +	 * destroy + create can't make us erase a group that's still being
-> +	 * initialized and happens to reuse the same handle.
-> +	 */
-> +	xa_lock(&gpool->xa);
-> +	if (xa_get_mark(&gpool->xa, group_handle, GROUP_REGISTERED))
-> +		group = __xa_erase(&gpool->xa, group_handle);
-> +	xa_unlock(&gpool->xa);
->  
-> -	group = xa_erase(&gpool->xa, group_handle);
->  	if (!group)
->  		return -EINVAL;
->  
-
+Bart
