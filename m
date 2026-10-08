@@ -1,74 +1,71 @@
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFD781C2AA
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 04:54:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 494D52D0617
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 05:01:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791435264; cv=none; b=l521fsUNlifG5giIRenAWJAAuoPx7VH+pwno3Ip48mO9l7I5NgpYDZAUpJje6ec5DdcfUBG/UZMK5fu58mi1YRcgZTBYjOSV/NIg1RpUEAPyxU+gxWfxO3jRDHufZ4wc6mYmpSd8PNXAOgrBTApmW6pMxgR7qnDeYaMPvLyM39o=
+	t=1791435708; cv=none; b=oWZ6kCgZACk/BIYDQKi4n+keNzVuIa9zethaeQkrtjcqoGIjAfZuibIlMcoNyKOIuHzzf4lPuvv4Wa2sc5vORBBLEJk+CQKCOnGlvvzmkzRwA1xs815EJ18vRV81dI+zrge6CnZDsgwno2wsCfk2gqqGuJ1ko2UNACvodNjiDb4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791435264; c=relaxed/simple;
-	bh=svPYm/ErGNSTUaXVXCQZ7z4u10kek6ZBfJnn8TTMf1g=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=a6TZxU1lFWXgQK6JcUawHPzvK2lzsszyfy95pKpiRsl77kDUH4KiWVce5YAzHPO7ErKLEayo6LkQ61D1BZ+WTEQW1CgXelYS4GTodtDyoij6yK/4fkgFe4iJYZExTfKOiJU4Zv4mBs2jKJ+p00gbORq4430n6QGrLm36Soz1csM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rKKRRhhO; arc=none smtp.client-ip=209.85.216.51
+	s=arc-20240116; t=1791435708; c=relaxed/simple;
+	bh=Lr8R1biVw5Gr5KRv0ZFED/ZEj+95G+ohm4P7sF1PD50=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LzlhHGyItbcCL7fMqNZ1dmHsRQkHyf3DQDe3rscWdlFNaGrk+EHf8RcdMurLJJU8Kt42QFPtezYiBX6PoK+HzuJGyMVJlKas7jMlD75pa1oUxzR4oHUh2zZSFxiQdej28xNFK/jv0YixUARVVq2xRm+MF1VtPNP6kieccJ1zyto=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lsgduzHR; arc=none smtp.client-ip=209.85.210.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rKKRRhhO"
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3a886d6ad51so1852819a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 21:54:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lsgduzHR"
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-88d48da248eso2033030b3a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 22:01:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791435261; x=1792040061; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791435705; x=1792040505; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GmV84PAhQf1rP81PzhsTjjy7MoGjA1NeT69P9fECqzs=;
-        b=rKKRRhhO6fZVsHPrqUcBzKJXt4eHovRSHxyQ1JkecnmVda27ljUJJ1UZub6cvPO3q1
-         el7GYpIN1pswjbuoWomYXCxMThqY0/M+nFtYUVlGjWu/atg3aoKh6JOo82hzJXCNiYSn
-         yhOZ01/RRjEEAB13WUP/PlLsqiXGL4gK3b6gScXxXDy0KzsGot2SBPW308sZxJQfHMw1
-         pDj0YchjpfXTm8Fz6N9n7YFd/nbRE4p9wB2/3e887pcICVv8THoAgtE9kGsl86QHSPJ3
-         So2IktKxGW1Tnta9Dde94/ij0lpAGLn7ymJFkiWTCzvdd8ae09Xd3apXZfbsMSkq4izO
-         FYqg==
+        bh=ak5iTOIQGfouGHICnb+S+V/d3Pepokyc2hoELrEJXYU=;
+        b=lsgduzHRHcus9oGfRp8Bl8LlXDVe7JWhbHf+YY0WeIr4lp1BZWgu5bIcoYdO8fxD6f
+         Vt/1lE7lBHEeVO3naoKJf8zHdHLjF2FUNdRtWHG3CTnd37/yfnhQmmWgxwfrYIq8S/4/
+         VqEcyrKYTm/Ndmp6Y7WDcTlf+GD3IPPDfKR7OoniFTOOO9AEZHOtzbqVab2jUguCmEgu
+         KKooOgEhhgqRdd+jGXw0RpoEYM3gEoPYS/jJNri9fC2JIvhtKys0egcaB6RhVWdVWw0G
+         VozWjUQO0Ge1EYsdimy5a6eqbTmqrYbtM8Atna+L9X8ThNZuWuRcDG7tAWdkZ7gDYJdu
+         53cQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791435261; x=1792040061;
+        d=1e100.net; s=20260707; t=1791435705; x=1792040505;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=GmV84PAhQf1rP81PzhsTjjy7MoGjA1NeT69P9fECqzs=;
-        b=Fb0SvORyYKrVZfLnDSKhF67uc8FXA5v1etvwfhY8epjOkNrYjlhlPjB6faylasvK6N
-         2caduJlvnikEnyvcEzEG7PNNPmjGBoMbYGVuQvWfsxHms1bioByyWVBOUWlEAbpxHTyE
-         kCWriu7Y9y1YsIW0v5B7vvlDtAiXoczZzlSvY+UNfgwFLhoBVVUTyDX01/1d7+XV+JWi
-         tN7hMQ/hCAP6BeurwYstdI4UvF7ncpddzzfZA0H56ktmAsyI2ZOfBdNGCYFtBKQ3rxjp
-         DGjx/Qhd74inUCX2/pveSqCBtbLoDssMEazNYZxwea+/0Gp+OxFNLlhArxD552VHBNNj
-         1zJw==
-X-Forwarded-Encrypted: i=1; AKwUvBx60dNLIXTfuJdjQoIOrP1prNGXcMaVuvrNwz/r68Qf6rdDdOnfL+jGBD4WxKLj8qC28UUXC2Yxh99Ev6w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJwygf2uPFrvNPkplr9Vbfi8TxqHoRg3iDvAwESwV/mOTnL976Z
-	O8zAZlNHyGydTse809bf4rJKRcQqRc550zfZ2lfEUojq+wgcczkHxpPc
-X-Gm-Gg: AYBFou3G8Z8jln3nRFbcL13sJXaGX5koxUEgSauUa+PkX+chCS9R3QCC40bIZCIHACd
-	q6Ua3Prvc9itJI9LQg9FgiUb+GlGp0KJYNJbeyhL2ucwi3KDQgaPU6mLgpPZv+JWAuAy4rAmzzR
-	YXfp7G1S6cyDTHhU4YkpDlBVci7u7OCOUM7dnWZFaKZ0uIjyNkt4RlgCN4Z/rtyHbdxqLLuPDPc
-	01ofXxOM6mKCOD1JAowCeN5vBx+hTawb2sYIiiLkNyvVWYCjrEcp7GbCNE6OrBuF1R94wnVNY4X
-	5e1GSthLH3iPdd1W+O9QgU4ek4iKIYntqkyYrUk9bZwz/sVZie6Z6DSnYfBZMo9TLSkB5IqMkpm
-	DAQ5XmMTVR3XZYb5UJWK1Mt8tnBoBwRlSqdCJbars2QnlrbWp0iaINhJ4GvP/vmMacaD1UKHR6S
-	0dc4niqCdiFNeKI0EiNWMIdn1RqfHqoAohaPDRDGWGhpx0gGM1OK5xWIRhXeXIm4dxnZ9asmUCj
-	+Tkyg==
-X-Received: by 2002:a17:90b:5887:b0:3a7:cd7b:134 with SMTP id 98e67ed59e1d1-3a8a1974f13mr3974405a91.24.1791435261030;
-        Wed, 07 Oct 2026 21:54:21 -0700 (PDT)
+        bh=ak5iTOIQGfouGHICnb+S+V/d3Pepokyc2hoELrEJXYU=;
+        b=jTxf4Axbh6fk5jSKCX+071edfn4py8zY73vddQWBBwmOG/aMaGEjFXrOvCEhJ+RD6J
+         ee0YE+yBhh6YhYibjK/i1mexAb/7wQxaBKikAW8vKaXFfWmvUxvvRspktnG9IOdk1Ndp
+         mDS1Z7p4k4lDY7yNH0VXwOW9nYnRsyHl7F1Kh7HiLIyXFlCZLvjHQEGmxamBLP50LxS+
+         QkgyqZooV9M5Hq5S8sD0L5sb/3tMkphKZC78mBhq0aZdIeAkJGVsmQ88qrwIPcOx3SXm
+         7LE0RG3Q2+HBiwqKSd6MX5NBV8E0XvQeSeEBoH4AXsQujzrliC7mHbBbaEbQMpv650rD
+         Q5rg==
+X-Forwarded-Encrypted: i=1; AKwUvBw5HXFKyzFC2JpFs+1D24+e5O8JF4TTk8BeXGy07X+hx1bbPQ9fBH5kIY1DoMxyif4ev9kChEVNw2cTM7Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++mWnNfUnP1GMweByW5KvpLrxOiyxD2m+hJnf/cpt45VRa49V5vi
+	SbSP0nFKX6dFriOfxhag23/9+TTEPk87QU0FKSFIdRO4/jh8MzoVibWO
+X-Gm-Gg: AYBFou1OQ0xWLO+ctFHd+vtHX5Sn/kGvBS4mL5hLFwRTe/OfHrP9MACUeOYykn9un/V
+	cdYQmXvUCVgAeTvyP4jMsNasntDJQyzpCAMOPOEWDRZMX69yokJC7PHPf+6Q/q+b2BYbQdr7i58
+	cV/nFaHhof/1bVzCLtlueo0AVhCUi790BFwiHvMqR2TMKwIRlZDn1Pdfl3NdtwG1Y+iK3zN9VJU
+	v1f3zyEwSvfDS+UGNakTDqNBx4UX40v/kB5d95RYqoHyTcOFpD9QYFOA9+X2WAnlc128OeV0Kdd
+	LRPpyax2mLY+vGIz+RdZkKqm8iG/4zcrD5aTLGyLs7u8rJfdeAW1tcOwIiYD6TBNvogu9tX1yn/
+	2bA33Dur4OZQycSseYKwRfWrpaw4KWdQAFfIKD2jwhkUJaPFtnYOgvqrpcc9Nq4UofEZlaY/pUo
+	mXRl2ZpbL8hs7STC3XOquHtaElBWphsu4FFRhfk8pmZ7UblrjkjiOoRBCdAYxl+uHWvy8=
+X-Received: by 2002:a05:6a00:2183:b0:88b:7e32:d96 with SMTP id d2e1a72fcca58-891ae9e0ebamr3474162b3a.1.1791435705534;
+        Wed, 07 Oct 2026 22:01:45 -0700 (PDT)
 Received: from dungbv.. ([116.98.134.138])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3aa0cbea8d3sm2407809a91.16.2026.10.07.21.54.17
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-892bc07927csm1020989b3a.59.2026.10.07.22.01.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 21:54:20 -0700 (PDT)
+        Wed, 07 Oct 2026 22:01:44 -0700 (PDT)
 From: Bui Viet Dung <dungvn2345@gmail.com>
 To: Marcel Holtmann <marcel@holtmann.org>,
 	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: Ivan Pravdin <ipravdin.official@gmail.com>,
-	Paul Menzel <pmenzel@molgen.mpg.de>,
-	linux-bluetooth@vger.kernel.org,
+Cc: linux-bluetooth@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Bui Viet Dung <dungvn2345@gmail.com>
-Subject: [PATCH] Bluetooth: hci_vhci: Pin module for debugfs file operations
-Date: Thu,  8 Oct 2026 11:54:13 +0700
-Message-ID: <20261008045413.465999-1-dungvn2345@gmail.com>
+Subject: [PATCH] Bluetooth: hci_debugfs: Pin module for debugfs file operations
+Date: Thu,  8 Oct 2026 12:01:40 +0700
+Message-ID: <20261008050140.483853-1-dungvn2345@gmail.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -79,87 +76,126 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
 An open debugfs file retains its file_operations pointer in the
-debugfs proxy state. However, force_suspend_fops, force_wakeup_fops,
-aosp_capable_fops, and force_devcoredump_fops have no .owner set to
-THIS_MODULE. As a result, full_proxy_open_regular() calls fops_get()
-which succeeds without taking a reference to the hci_vhci module.
+debugfs proxy state. However, the file_operations defined in
+hci_debugfs.c (use_debug_keys_fops, sc_only_mode_fops,
+ssp_debug_mode_fops, force_bredr_smp_fops, force_static_address_fops,
+force_no_mitm_fops, dut_mode_fops, vendor_diag_fops, and the
+DEFINE_QUIRK_ATTRIBUTE macro) have no .owner set to THIS_MODULE.
 
-When userspace opens any of these debugfs files and later closes
-the /dev/vhci file descriptor (triggering vhci_release() and
-debugfs file removal), the open debugfs file descriptor remains valid
-in userspace. Because the module refcount was not incremented,
-the hci_vhci module can be unloaded via delete_module (rmmod hci_vhci).
+As a result, full_proxy_open_regular() calls fops_get() which succeeds
+without taking a reference to the bluetooth module. When a userspace
+process opens any of these debugfs files, a subsequent controller removal
+and module unload (rmmod bluetooth) can succeed while the file descriptor
+remains open.
 
-When the userspace process subsequently closes the debugfs file
-descriptor, full_proxy_release() accesses the already unmapped
-file_operations structure, resulting in a kernel page fault / oops:
+When the userspace process subsequently closes the descriptor,
+full_proxy_release() accesses the already unmapped file_operations
+structure, triggering a kernel oops in full_proxy_release():
 
-  BUG: unable to handle page fault for address: fffffbfff846f18b
+  BUG: unable to handle page fault for address: fffffbfff8056f03
   #PF: supervisor read access in kernel mode
-  #PF: error_code(0x0000) - not-present page
-  Oops: Oops: 0000 [#1] SMP KASAN NOPTI
+  Oops: 0000 [#1] SMP KASAN NOPTI
   RIP: 0010:full_proxy_release+0x8e/0x140
   Call Trace:
    <TASK>
    __fput+0x39f/0xa60
    fput_close_sync+0xff/0x200
    __x64_sys_close+0x8c/0xf0
-   do_syscall_64+0xc3/0x590
-   entry_SYSCALL_64_after_hwframe+0x76/0x7e
+   do_syscall_64+0x115/0x6a0
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
    </TASK>
-  Modules linked in: ... [last unloaded: hci_vhci(E)]
 
 The issue was discovered via manual code audit of
-drivers/bluetooth/hci_vhci.c and verified on a Linux 7.3-rc6 test VM
-with CONFIG_BT_VHCI=m by keeping a debugfs file open across controller
-teardown and module unload.
+net/bluetooth/hci_debugfs.c and verified on a Linux 7.3-rc6 test VM
+with CONFIG_BT=m.
 
-Set .owner = THIS_MODULE on all four file_operations structures so that
-debugfs pins the module until all file descriptors are closed.
+Set .owner = THIS_MODULE on all debugfs file_operations tables in
+hci_debugfs.c so that debugfs keeps the module loaded until close has
+finished.
 
-Fixes: 28010791193a ("Bluetooth: vhci: Prevent use-after-free by removing debugfs files early")
+Fixes: 0886aea6acd2 ("Bluetooth: Expose debug keys usage setting via debugfs")
 Cc: stable@vger.kernel.org
 Signed-off-by: Bui Viet Dung <dungvn2345@gmail.com>
 ---
- drivers/bluetooth/hci_vhci.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ net/bluetooth/hci_debugfs.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/drivers/bluetooth/hci_vhci.c b/drivers/bluetooth/hci_vhci.c
-index eddb32b30539..8f7db0102b25 100644
---- a/drivers/bluetooth/hci_vhci.c
-+++ b/drivers/bluetooth/hci_vhci.c
-@@ -155,6 +155,7 @@ static ssize_t force_suspend_write(struct file *file,
+diff --git a/net/bluetooth/hci_debugfs.c b/net/bluetooth/hci_debugfs.c
+index 2559fb6324d6..cd5ef398f238 100644
+--- a/net/bluetooth/hci_debugfs.c
++++ b/net/bluetooth/hci_debugfs.c
+@@ -65,6 +65,7 @@ static ssize_t __name ## _write(struct file *file,			      \
+ }									      \
+ 									      \
+ static const struct file_operations __name ## _fops = {			      \
++	.owner		= THIS_MODULE,					      \
+ 	.open		= simple_open,					      \
+ 	.read		= __name ## _read,				      \
+ 	.write		= __name ## _write,				      \
+@@ -283,6 +284,7 @@ static ssize_t use_debug_keys_read(struct file *file, char __user *user_buf,
  }
  
- static const struct file_operations force_suspend_fops = {
+ static const struct file_operations use_debug_keys_fops = {
 +	.owner		= THIS_MODULE,
  	.open		= simple_open,
- 	.read		= force_suspend_read,
- 	.write		= force_suspend_write,
-@@ -194,6 +195,7 @@ static ssize_t force_wakeup_write(struct file *file,
+ 	.read		= use_debug_keys_read,
+ 	.llseek		= default_llseek,
+@@ -301,6 +303,7 @@ static ssize_t sc_only_mode_read(struct file *file, char __user *user_buf,
  }
  
- static const struct file_operations force_wakeup_fops = {
+ static const struct file_operations sc_only_mode_fops = {
 +	.owner		= THIS_MODULE,
  	.open		= simple_open,
- 	.read		= force_wakeup_read,
- 	.write		= force_wakeup_write,
-@@ -263,6 +265,7 @@ static ssize_t aosp_capable_write(struct file *file,
+ 	.read		= sc_only_mode_read,
+ 	.llseek		= default_llseek,
+@@ -437,6 +440,7 @@ static ssize_t ssp_debug_mode_read(struct file *file, char __user *user_buf,
  }
  
- static const struct file_operations aosp_capable_fops = {
+ static const struct file_operations ssp_debug_mode_fops = {
 +	.owner		= THIS_MODULE,
  	.open		= simple_open,
- 	.read		= aosp_capable_read,
- 	.write		= aosp_capable_write,
-@@ -386,6 +389,7 @@ static ssize_t force_devcd_write(struct file *file, const char __user *user_buf,
+ 	.read		= ssp_debug_mode_read,
+ 	.llseek		= default_llseek,
+@@ -529,6 +533,7 @@ static ssize_t force_bredr_smp_write(struct file *file,
  }
  
- static const struct file_operations force_devcoredump_fops = {
+ static const struct file_operations force_bredr_smp_fops = {
 +	.owner		= THIS_MODULE,
  	.open		= simple_open,
- 	.write		= force_devcd_write,
- };
+ 	.read		= force_bredr_smp_read,
+ 	.write		= force_bredr_smp_write,
+@@ -778,6 +783,7 @@ static ssize_t force_static_address_write(struct file *file,
+ }
+ 
+ static const struct file_operations force_static_address_fops = {
++	.owner		= THIS_MODULE,
+ 	.open		= simple_open,
+ 	.read		= force_static_address_read,
+ 	.write		= force_static_address_write,
+@@ -1177,6 +1183,7 @@ static ssize_t force_no_mitm_write(struct file *file,
+ }
+ 
+ static const struct file_operations force_no_mitm_fops = {
++	.owner		= THIS_MODULE,
+ 	.open		= simple_open,
+ 	.read		= force_no_mitm_read,
+ 	.write		= force_no_mitm_write,
+@@ -1315,6 +1322,7 @@ static ssize_t dut_mode_write(struct file *file, const char __user *user_buf,
+ }
+ 
+ static const struct file_operations dut_mode_fops = {
++	.owner		= THIS_MODULE,
+ 	.open		= simple_open,
+ 	.read		= dut_mode_read,
+ 	.write		= dut_mode_write,
+@@ -1371,6 +1379,7 @@ static ssize_t vendor_diag_write(struct file *file, const char __user *user_buf,
+ }
+ 
+ static const struct file_operations vendor_diag_fops = {
++	.owner		= THIS_MODULE,
+ 	.open		= simple_open,
+ 	.read		= vendor_diag_read,
+ 	.write		= vendor_diag_write,
 -- 
 2.43.0
 
