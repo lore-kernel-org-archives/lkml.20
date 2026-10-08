@@ -1,414 +1,105 @@
-Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com [209.85.222.177])
+Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com [209.85.222.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48DE0439328
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 21:28:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A640238655E
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 21:28:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.176
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791494906; cv=pass; b=tfS/56EFbY18EOX/ev0UBsne2/c+rj5KoYXzJvkXFh08Grz7U0nCm91hr7GQMDf2ajwku2dh3JZuiRaMIbrHKsL461vhyrDroUli5SaZWGFzHYn3dWUZR64/Ssq4thWCFGN0fNrvCW+yi7ikoOM7YoWjNQKPbKlAPZPRIn37BgY=
+	t=1791494917; cv=pass; b=MjHxYK/4znCYYmerWnPx0R7bHIc4sRfP2ZZZ/Sxt9ZVADbz4EUbc/mA7ZYdyiwqVCvQI+b2D8ev+HcTLpNK2IJBtBt0z+MFKtgS9zJBuE4RR6mmuduZlE3Fq0kVnHRXtoAXX+i6IU5N+FygyiQ0fZILWUnI/SfFcN2RROqFAYAQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791494906; c=relaxed/simple;
-	bh=sOo5ZsNNGsGQiZwpgJJ2ixqV5Tik4GMRuotfh6aeKrE=;
+	s=arc-20240116; t=1791494917; c=relaxed/simple;
+	bh=hw71EnNIbbz++xqDviTBnAlWqT5921Me/DS4ajh3QtM=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nat+bJyKU5WXFTC0oppSrfAeyxKjbvCwJFPg18qA+2MU2Wfh3LlYTYxIa2iNirYyILYfD6Pj7QgC4Qaa+uABMLK+t4P0U3q3KvAIv+RJm/1Jz79RX1mMb6SsbXSYLOMbhVr6xlVhoOU+z8mznpT9MuStimVKkPcVSJjeQNY18lI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZWo8hRKZ; arc=pass smtp.client-ip=209.85.222.177
+	 To:Cc:Content-Type; b=GlH44OfYGGUaX2roPNecBVdlljJi498uOgCdC/rWvkq4/261Rlg9PjJywq7fRYvaScEWfdH4+ZYYVjNFFmNwTpMesRQrAj7A3+YBB10tCSW3zseseud+23UV5Y2pTc9Jih9R7Q//dDi5qA7cDCviBTp91akAGSAZf3XF/yXqfdY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bd5kijtB; arc=pass smtp.client-ip=209.85.222.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZWo8hRKZ"
-Received: by mail-qk1-f177.google.com with SMTP id af79cd13be357-93e64d52949so327056885a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 14:28:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791494903; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bd5kijtB"
+Received: by mail-qk1-f176.google.com with SMTP id af79cd13be357-93e64d52949so327076085a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 14:28:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791494915; cv=none;
         d=google.com; s=arc-20260327;
-        b=EvStkWvuYo92kMVjdxkStEmc87Xf96V0bw7MFSl6DaG+SxqvjpqD5QuqS0lqvgpjh0
-         9QZFaeJbJjwylyduli2ovoBxauJtaW0awca6pdwuO+fSRFiQoYSkZo5Es/3qTFToMbH5
-         Y0zHFF7nZEfbU+lw3BqblzbV5MaxBzZiCKFQmQrOGONKZQBiEmBxSdqUJwnJ6v67Bdk/
-         PieSZnhRCEx43TutKLQ8p1DVcH47eJdNQ67sOySdKveJtggx53m2g8dklf9hom6YdDA+
-         bIkOT3Nt1kE5o94vw4CMQVTxOW2opiTo/8QrLp7qTbfR9NiTLCZ9jOvxYA27vqZ0rEM1
-         zMEQ==
+        b=GSaumXSv2m6M2lm2HZsOOnxJKl/4pLWQ2iTC3SAvHGE0ifHdU2nZ5+Y/e0KcZYN5Qm
+         Wn6wXtcrlGC4Y2E1gKgOit1F//L3zgjH3G40cQkTgaXkNv1rAXlxdJ6wmkFB3QoWUREy
+         xXnwo3+0VgSGVEYUBN8TZJwm7I8NF4Qpm+gQBoAW+KSIEGQGItkD2kIliCywuntjIvgT
+         6XMg2fcjUiviCJm3AlPhC584j1KGoWiG00hBZrDRSOOO74cx4MkxjM+0F+sPn54kapEA
+         9jIBW1bXUwiLSuBzHkDeaV/2jgxvZ5vAk2A6RHB8ue4nCYXjFj3EhoPm8EqHZ3GA5k1Y
+         5eCw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=TKGh5fGyovMi1N0oy13od8GluCezAILkMvJB3lm88kk=;
-        fh=AMObjfo5FFTWedFCsXX7X8yCnB96jUeXYtjsrRUIfIs=;
-        b=kMia8tZ/ZzSmPoZEMqgJHmQcHlt1HpXECXuPTfdyc9Kjt26vIFnr2KUsquq16YD/ya
-         TKC6zQFLi+rVRCbDxrK1QrMhhWFgVZSy9O4JBKGP64DVXkmfQjByS8RPDKzzJiM7Jm+R
-         a02MwI1Ttn6GqFgltwXYiuqKY24qHZZ93VpNNx/ZbZzclb03uCMdqp0c5QTiXa9XqJGq
-         T8cU3v59cHEcJrxKNhW8Y2cgrnmhzPd0wcIpEEWWGplBvmH23DtG+jxZrelpYorOxmtx
-         KUTnnQqVr8T5puTpuIe24DMx/Rm7Gx46IgQKJWpvR07YQPZxpbsmZxE6jyLmanbWYz2f
-         crHA==;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=hw71EnNIbbz++xqDviTBnAlWqT5921Me/DS4ajh3QtM=;
+        fh=RN7coBH7gH7EIWtA/wIcKtBYako1hRvEZ9wzh5N4gSY=;
+        b=FrH1lXPeSp8nxzSfeL4aOo3dlpl6M3jBTf1iF9mfnVbciEUh988JKTbQmLrvHNGgZo
+         uNU8Y+PwdjYLlorvHs+5gkl2LsQSEhOX1Spae3/YVfVTiwtvWqzKYGWyDq2wmEg2/1E/
+         iGD+5K7skutSAVuBxXZ4CeJTUmLuxgv4RQjgNWQtWBuaYFzdncJVed/8rqUHLqYA56fn
+         LAL9BeuOiJWC50cHkjQYuHJ3VDdtXdTv2IjIUFRyK44rRklle/H9hLS236cWyRjePMNc
+         xzcmbxKJ9OsZSn8HHS+DD7ib3XmMBkaqVCzCH7KCXhyTNgKrO+dYIpmnfxXP0Xn0XQTc
+         D2TA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791494903; x=1792099703; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TKGh5fGyovMi1N0oy13od8GluCezAILkMvJB3lm88kk=;
-        b=ZWo8hRKZNTsBw+RVOwWbFqlY5R3L7Wunr594/4/Llreul6DG/jRiyIuFP2b7Y67RCl
-         Z0CZTpMH08K/5B9vVZOeX6yaRE1vEPv++DFs6Jd698erO+Aj05fg0SbKVF2EIExL7iIF
-         hqNJZWeJTnR+mRp4LMYtJ2Xw2fow9dUJ5bJM0JZdQBHZ1Fbg5BDHeMXBJfh9D8xXq9nK
-         09bf4JV47yi4BZLxXhYIAkOsRw1zF3GBv1PsKA8CPbQvUmU4DqOQYSHkG6B8hWBWf4WU
-         z9xjv/Z1ERPy310m7r/VRinVATMtfYuvpSnAy04FKl4T/UBMEJtbnWNBHdWJOHNCeG36
-         CihA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791494903; x=1792099703;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1791494915; x=1792099715; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=TKGh5fGyovMi1N0oy13od8GluCezAILkMvJB3lm88kk=;
-        b=YeHekyuYGNxppByl99LpE0+iYY8NqQFz5vJQaHly7soB8y2D6/Or4/FYn7zx7/h2z6
-         rP7ZQlgoCvlOaKRv6vWnsPlwT+HjIs622MdMO/SAQCbx6vKZ9UXcdSpXkAMpnkawY7A1
-         kbv/o0IooRY8mkoThUvBt7VHRg2jmSv8QKsCNXdv6Ve2LyZaljXgI/1hkoJljBRCLxNe
-         etiifPCFg/P48YpBMj6gLuA3au9rWIZNwFOzNDMwCKmt3Il7Y/k57mZAlvz+REOk6W75
-         H8sq9l+xls9GPlpSZM1M66hE0/Kp6f8wfvAk4My887kB6ePKC7XPtR1Mi06FDmQZ8I8E
-         fxZQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz0MBcHrcBO7gz6et10oO4En9dtggwdRYc2nDQ1pZHSMrqeqrNLUevRfyROV1N0WGu8ByUoEkNWv+8hplc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mLzzI7LOeImwuCOtEHGEwi3dxxHbopS5EQxapgS7QQMmnPO6+h
-	Z3SsE08NoMLmFkAGJ+4hnFYS6VeSGyb9g2dN3bD2dGPE/Ot30JIVvvj6ATfzBJkUGyklfjP+XxD
-	6NcR4JxCaMH1dyPAcI+dMMWiTd6cCdtQ=
-X-Gm-Gg: AYBFou0IyKA8DhoLKDNLrseySRT3YTKsvfJDyowLIHVhwpGm7N0HoaI3jerPmaz1KcP
-	WTX0zaAwy72XYo4PrC9WmlYu1elXaCZv7lTaJod7veDifFbiHLz101DZO/WX2XxToCtw4a3yiMx
-	RaIBe6L0ZZP4/KvN+xIaQ58v23YW7grcfL0ayGEwiphxbrKtCgLOioPZUSGHe9Ou6kij89y4r4H
-	NCcjlvs+ENHESzWBqsrimhQEZLcag9e5DWKM4iQ4SbGHqodpnkD4KZlGlbDNNIFbCB1ZJdTKoDz
-	muJR7P6qJ0hjTukeAfrpx//6mVDe9HWOhe1LUDVlnPLSFkUJifUk9d9PDbloxd1mjloaTVACNFh
-	jxWZBkpfd669s+g==
-X-Received: by 2002:a05:620a:1d03:b0:93e:9809:dbff with SMTP id
- af79cd13be357-93e9b8ecbf4mr1189424285a.82.1791494902782; Thu, 08 Oct 2026
- 14:28:22 -0700 (PDT)
+        bh=hw71EnNIbbz++xqDviTBnAlWqT5921Me/DS4ajh3QtM=;
+        b=Bd5kijtBRJHLwxAG6RdRDj2aCF/qwobpb7etpgOExy87iOCEFJN6XgJGNAi+N4S6qI
+         6ATQFsnpbCCiWCtR8eM+kVxkdlk9t2TJvDEw76pehYfVHCXZDxxf/TvRJCzUF4c4Ssd5
+         dPsAqG+pEssVhnRjWnad6ZKfyy+46GUHT+ULnFi5YZML07S+KukpdCTKFJNKsQ4NlZNj
+         pUQKcJY6H1AqyZ2vXVdZDQL+kbqiT9LsIA2juNyLWYk9YDlyuxTy52e1aVTkJ+33eovD
+         htM4vEjJR11FwMa6lN5vCNnCO1tcjEv6KZV/vkuCZYiI/M+5TuETWZM8SnVrX8zsco/v
+         7/KA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791494915; x=1792099715;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=hw71EnNIbbz++xqDviTBnAlWqT5921Me/DS4ajh3QtM=;
+        b=Df09+havLRJPVwhkU40cgUZljKb4MihX1sML9YNIfYUJFp54VoLBhZzrmIdTasnDkj
+         SmRGcNuWLSeS/OsAYUthmIR4IErN6XXKjAhKdY6jwQVITwEO6QfS17ERSGqySItyc/2b
+         a1sJaPRjB7LpdHAJLzo5IYv3GHx71ugrDm/ui86onOrotFFiHuLKL6leLRvwxM33EKi+
+         ZJtHMZfU9R6UjXkJIuIpbxuu238EHh1P0NHE1+se5Ej2ZIHMlqggTqh13CxFZ7cloXO5
+         1YF/t8FANc+sH/VcPWlqE+FlIo1sivp/nIjJgW5tgB3KV7aAOiYBx+3GirCAoPy/UYVE
+         j8oA==
+X-Forwarded-Encrypted: i=1; AKwUvBxwqrjaKSNo9vlXyYrrxVR9QXQjPjXj+R0bnwersGQ33Xg43aJEF32QkTgRukw25VFZsizs2NURvJ89f6Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++nvKBe2CBo+U/yrm9wHf1AekqQtrE1Xr4XpEbmMcJwRre9kWsbA
+	xeKmS6JJ9Yj14yYw9PW1n655wo52nfKG/hGDq/p34KxeQCCTCfy8UovysvCOouYHkGSK5mCF7Pw
+	pkWlKcy/oaPL5S/mXL4QPCrT2xlEPLIg=
+X-Gm-Gg: AYBFou2bkExwwO2KH1+KqXcqAZ/RPnF2HkGfIHFsSXci5tM6GyS/+rk3q3NQUkilrH5
+	56Rq90C+diszzZ6aXIVpB3TCPlCWXqLjwgu30C7BvliIEUTgx9xtQqq5iBt+X9OdqMrNRsO0ilF
+	umpyDyeE3aBBPTKhLxekkWIWMvKGg7pw2Ap9dJUno3xqdISeFa19H4rMQtNSi1g0uzPBHKbhEjA
+	9/iRDgJFO+M4m57csl+xZcsC+hWAxGRdsYp+GrTXxTXi0Ym2l6BxYUMxCgW1X+hMdCc49mu7PEj
+	cGBBQFHL0ANuLKReQonjx7ikTRPFCScmnGtcQrtzu1tGJThS97a4F1lwCL8ePUHeb80coFIwCAB
+	2ebfm9U62Ts1Q5fgOy6v1dngl
+X-Received: by 2002:a05:620a:2844:b0:93c:612e:9b57 with SMTP id
+ af79cd13be357-93e9b84f3a4mr1267578585a.56.1791494915507; Thu, 08 Oct 2026
+ 14:28:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260923074903.862898-1-linmag7@gmail.com>
-In-Reply-To: <20260923074903.862898-1-linmag7@gmail.com>
+References: <20260923074903.862898-1-linmag7@gmail.com> <20260923074903.862898-4-linmag7@gmail.com>
+In-Reply-To: <20260923074903.862898-4-linmag7@gmail.com>
 From: Matt Turner <mattst88@gmail.com>
-Date: Thu, 8 Oct 2026 17:28:03 -0400
-X-Gm-Features: AclHuK_W6VZSW0bCtKRqfPqEi9-k8rTDCPN2l5ScYxdMceoNLFljK9sdAQEknaE
-Message-ID: <CAEdQ38Fkyz6kPfX8smF8JkG_rA=4zkhj9HJ84k484Jrj4N7q0g@mail.gmail.com>
-Subject: Re: [PATCH v3 0/7] alpha: fix stale TLB translations breaking
- copy-on-write and writeback
+Date: Thu, 8 Oct 2026 17:28:11 -0400
+X-Gm-Features: AclHuK9egL7OGGTcAjait5dUGNk7qK_dDOKjCh1w7fS59DRwMwvQhD3rT6J8mjc
+Message-ID: <CAEdQ38G4G6QyYScfDGuAFvzjyzOXrd=2K-gQM+ob8EMsWUkD=Q@mail.gmail.com>
+Subject: Re: [PATCH v3 3/7] alpha: fix the local TLB invalidate in flush_tlb_page()
 To: Magnus Lindholm <linmag7@gmail.com>
 Cc: richard.henderson@linaro.org, linux-kernel@vger.kernel.org, 
-	linux-alpha@vger.kernel.org
+	linux-alpha@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 23, 2026 at 3:49=E2=80=AFAM Magnus Lindholm <linmag7@gmail.com>=
- wrote:
->
-> On Alpha, stale TLB translations can break copy-on-write and shared-mappi=
-ng
-> writeback: a multi-threaded process can lose stores to its own private
-> memory, read data belonging to its own child, and lose data written throu=
-gh
-> a shared file mapping. The copy-on-write failures need more than one CPU;
-> the writeback failure also happens on a uniprocessor.
->
-> Three related problems are fixed here.
->
-> Patch 1 is stranded deferred-ASN bookkeeping. check_mmu_context() clears
-> asn_lock and acts on need_new_asn, but it runs only as the tail of
-> switch_to(), after alpha_switch_to() returns. A newly forked task never
-> gets there: its first context switch resumes at ret_from_fork instead.
-> asn_lock is left set and the task goes on to run user space with it set a=
-nd
-> interrupts enabled, so a shootdown IPI arriving in that window takes the
-> deferred path, and the need_new_asn handshake meant to cover it never run=
-s.
-> finish_task_switch() calls finish_arch_post_lock_switch() with preemption
-> disabled, on the CPU that ran switch_mm(), which is where that bookkeepin=
-g
-> can be completed.
->
->   kthread_use_mm() and sched_force_init_mm() also reach the same hook,
->   outside the scheduler's preemption-disabled switch tail.
->   check_mmu_context() acts on per-CPU state, so it can only complete this
->   bookkeeping while still on the CPU that ran switch_mm(). The hook
->   therefore tests preemptible() directly: where migration is possible it
->   does nothing, while where preemption remains disabled, or is not
->   configured, completing the bookkeeping is safe. alpha selects
->   ARCH_NO_PREEMPT, so in an ordinary build preemptible() is a compile-tim=
-e
->   0 and the hook runs everywhere; the test only takes effect where
->   something turns on PREEMPT_COUNT.
->
-> The second problem is a targeted tbi() issued against the wrong context.
-> tbi() acts on the address space context currently loaded on a CPU, so it =
-is
-> only guaranteed to reach an mm's translations when a thread of that mm is
-> current. current->active_mm is not sufficient: under lazy TLB an idle or
-> kernel task keeps an mm as its active_mm while a different ASN is loaded,=
- so
-> the invalidate is issued against the wrong context and the mm's stale
-> translations can survive - and nothing retires the old ASN either,
-> mm->context[cpu] still being valid, so the resuming thread reuses it. Pat=
-ch 2
-> fixes the shootdown IPI handler, patch 3 the local side of
-> flush_tlb_page(), and patch 5 the uniprocessor flush_tlb_page().
->
-> The third is an omitted caller-side invalidate, covered by patches 4, 6
-> and 7: when the target mm is not the calling CPU's active_mm, nothing
-> invalidates that CPU at all, because smp_call_function() does not call ba=
-ck
-> into the caller. The UP flush_tlb_mm() and flush_icache_user_page() alrea=
-dy
-> contain exactly the missing branch. Their active_mm tests are left alone:
-> both load a fresh context through __load_new_mm_context() rather than a
-> targeted tbi() against whatever ASN happened to be loaded, and only the
-> targeted tbi() depends on which context is loaded.
->
-> None of these patches covers a task that borrowed an mm through
-> kthread_use_mm(), and patch 1 makes that case worse. Such a task has
-> current->mm set while ev5_switch_mm() has only prepared the PCB and nothi=
-ng
-> has installed it. Today asn_lock stays set for the whole of the borrow,
-> because check_mmu_context() runs only from switch_to(), so a shootdown IP=
-I
-> for that mm finds asn_locked() true and takes the conservative
-> flush_tlb_other() path, retiring mm->context[cpu]. With patch 1's hook th=
-e
-> lock is cleared when kthread_use_mm() returns, so the IPI instead issues =
-a
-> targeted tbi() against the context that is actually loaded and leaves the
-> slot valid. Loading the context on the direct switch closes that window;
-> where both are applied, that change belongs before patch 1. It is the thi=
-rd
-> patch of the follow-up series:
->
->   https://lore.kernel.org/linux-alpha/20260904162424.376504-1-linmag7@gma=
-il.com/
->
-> No user-space data race is involved in the reproducers: every slot is
-> written and read by one thread only, and the main thread inspects them on=
-ly
-> after joining the workers. The other writes come from forked children wit=
-h
-> their own address space, so observing one of those in the parent is the b=
-ug.
->
-> Deferred-path behaviour after the fixes, counted with the counters reset
-> before each 6-second run of the lost-store reproducer:
->
->                                lost stores    runs entering the window
->           no fixes               11 of 40      13 of 40, 11 of them lost
->           patched                 0 of 400     15 of 400, none lost
->
-> Where the remaining patches are reached, counted the same way, on a
-> CONFIG_COMPACTION=3Dn kernel:
->
->                                           thread of mm     lazily
->                                           current          borrowing
->           writeback of a shared mapping       51577          50688
->           reclaim under memory pressure       17609          14827
->           anonymous COW / fork                144237             0
->
->   About half the calls during writeback, and none at all on anonymous
->   memory, which is why patches 1 and 2 did not cover it. flush_tlb_mm() w=
-as
->   entered with the mm not this CPU's active_mm 2934 times over a fork-hea=
-vy
->   run and 632 times while otherwise idle.
->
->   The writeback row is config-dependent, which v2 did not say. With
->   CONFIG_COMPACTION=3Dy, asm/pgtable.h overrides ptep_clear_flush() to ca=
-ll
->   migrate_flush_tlb_page(), which rendezvouses with every CPU and handles
->   the context itself, so folio_mkclean() does not reach flush_tlb_page() =
-at
->   all. (That the override is guarded by CONFIG_COMPACTION rather
->   than CONFIG_MIGRATION looks like a defect of its own - MEMORY_HOTREMOVE=
-,
->   NUMA_MIGRATION, MEMORY_FAILURE and CMA all select MIGRATION without it =
--
->   but that is a separate patch.)
->
-> Reproducing it.  Two self-contained tests were written for this. Source f=
-or
-> both can be made available on request.
->
->   alpha-cow-smoketest.c covers patches 1 and 2 (pthreads only, ~40s, need=
-s
->   more than one CPU; confined to one with taskset -c 0 it does not fail).=
- A
->   failing run reports:
->
->         stale read after COW fault       FAIL
->             thread 2 read 0xdeadbeefcafebabe, expected 0x1000002   <- the=
- CHILD's value
->
->   Two details in it matter, because getting either wrong hides the bug:
->   slots are 128 bytes apart so several threads share a page, and a thread
->   writes its slot once then reads it many times, since a thread that keep=
-s
->   writing refreshes its own translation. Its lost-stores check fires in a=
-t
->   best a quarter of runs; the stale-read check is the reliable one.
->
->   mkclean4.c exercises the combined SMP fix in patches 3 and 4, and the U=
-P
->   fix in patch 5. It needs root and CONFIG_COMPACTION=3Dn. On SMP it take=
-s
->   both: the flusher kworker has no mm of its own, so patch 3's current->m=
-m
->   test sends it to the branch patch 4 adds, and without patch 4 the calli=
-ng
->   CPU - the one holding the writer's translations, and the one
->   smp_call_function() does not call back into - is still left alone. The =
-UP
->   implementation already has that branch, so patch 5 is the whole fix the=
-re.
->
->   A single thread writes a small MAP_SHARED file while background writeba=
-ck
->   cleans it, and the file is then compared against the mapping. It forces
->   two conditions that are rare in normal operation on SMP: the flusher
->   kworker and the writer on the same CPU, and a working set small enough =
-to
->   stay resident in the data TLB. That is also why this is hard to hit in =
-the
->   field - any faulting write from any CPU repairs the dirty state. On a
->   uniprocessor the first condition holds by construction, so no pinning i=
-s
->   needed there.
->
->   On COMPACTION=3Dy the test does not exercise this defect, for the reaso=
-n
->   above, and passes on an unpatched kernel: 0 failures in 103 rounds acro=
-ss
->   three unpatched
->   COMPACTION=3Dy configurations. v2's Testing section did not record whic=
-h
->   kernel its mkclean4 numbers came from, and this is the correction.
->
->   Nothing isolates patch 4 from patch 3; the two are exercised together
->   above. Patches 6 and 7 have no reproducer for the bug they fix; they ar=
-e
->   justified by the contract of the functions, by the UP implementations
->   already having the missing branch, and by the counts above. Patch 7's
->   path was exercised for regressions by driving gdb to set and clear a
->   breakpoint several hundred times, reaching copy_to_user_page() ->
->   flush_icache_user_page().
->
->   Originally found as intermittent heap corruption in glibc's
->   malloc/tst-malloc-fork-deadlock-malloc-check. glibc is not at fault: wi=
-th
->   MALLOC_CHECK_=3D3 it is simply a very effective detector, and every for=
-k()
->   runs __malloc_fork_unlock_child() in the child, which writes to allocat=
-or
->   state.
->
-> Testing.  ES40, EV68AL (21264C) Tsunami, 3 CPUs, on v7.2-rc2 and v7.2-rc6=
-.
->
->                                            before          after
->           smoke test, stale-read check     7 of 9 rounds   0 of 9
->           lost stores                      11 of 40        0 of 400
->           writeback (mkclean4), SMP [*]    10 of 10        0 of 10
->           writeback (mkclean4), UP  [*]    every round     0 of 8
->           tst-malloc-fork-deadlock-
->             malloc-check                   8 of 10 fail    25/25 pass
->           ptrace breakpoint exerciser      -               result matches
->
->           [*] CONFIG_COMPACTION=3Dn; see above.
->
->   Also 10/10 pass each for tst-malloc-fork-deadlock, tst-malloc-check,
->   tst-tcfree1-malloc-check and tst-tcfree2-malloc-check. No measurable
->   cost: 1470/1038/206 forks per second with 0/2/8 sibling threads against
->   1472/1043/199 unpatched. Patch 6 changes a function none of the
->   reproducers exercise, so it is covered for regressions only.
->
->   Also run with CONFIG_COMPACTION and CONFIG_MIGRATION enabled, with
->   compaction forced continuously underneath the tests: 368522 folios
->   migrated during the run, no failures.
->
->   Also built and tested with CONFIG_ALPHA_GENERIC and CONFIG_SMP=3Dn. Tha=
-t is
->   how patch 5 was found: arch/alpha/kernel/smp.c is not built there, so
->   patches 2, 3, 4, 6 and 7 are absent and patch 1 is inert, and mkclean4.=
-c
->   failed on every round because the uniprocessor flush_tlb_page() carries
->   the same defect. With patch 5 it passes 8 of 8, and the rest of the tes=
-ts
->   above pass there too.
->
->   Matt Turner tested this series on an ES47 (EV7) on v7.3-rc1, one CPU
->   online: no regressions in a gdb breakpoint exerciser, a fork/COW check,=
- or
->   a writeback test, on both an SMP-enabled and a CONFIG_SMP=3Dn kernel. H=
-e
->   could not reproduce the writeback failure on that machine on an unpatch=
-ed
->   kernel with CONFIG_COMPACTION either way, while confirming with counter=
-s
->   that the unpatched flush_tlb_page() does issue the targeted tbi() again=
-st
->   a foreign context a few hundred times per run. One reading is that the =
-EV7
->   PALcode invalidates by VA without matching the ASN, which would make th=
-e
->   same defect unobservable there. Patches 3 and 5 rest on the contract of
->   tbi() either way.
->
-> Changes since v2:
->   - patch 1 no longer claims that the hook does nothing after
->     kthread_use_mm(). alpha selects ARCH_NO_PREEMPT, so preemptible() is =
-a
->     compile-time 0 in an ordinary build and the hook runs there too,
->     clearing asn_lock; the claim held only for PREEMPT_COUNT=3Dy. Patch 2=
-'s
->     last paragraph carried the same error and is corrected with it. The
->     shootdown handlers therefore do not cover a borrowed mm, which is now
->     said plainly in both patches and in this cover letter.
->   - patch 1 records that moving the call from switch_to() to
->     finish_arch_post_lock_switch() means the bookkeeping now runs with
->     interrupts enabled, and why that window is safe. v2 described this as
->     no functional change, which undersold it.
->   - patch 1 now records that it makes the borrowed-mm case worse, rather
->     than v2's claim that swapping the active_mm test for current->mm leav=
-es
->     it unchanged. That comparison was right about the two tests and wrong
->     about the series, because patch 1 also changes when asn_lock is
->     cleared. Patch 2 no longer draws the "no worse" conclusion either.
->   - patch 3 says that its folio_mkclean() counts are from a
->     CONFIG_COMPACTION=3Dn kernel, and that COMPACTION=3Dy routes
->     folio_mkclean() away from flush_tlb_page() entirely.
->   - the reproducer is described as exercising patches 3 and 4 together on
->     SMP, and patch 5 on UP. v2 credited it to patches 3 and 5 and listed
->     patch 4 as having no reproducer, which was wrong: patch 3 alone leave=
-s
->     the calling CPU without any local invalidate.
->   - patches 2, 3 and 5 describe the targeted tbi() as guaranteed only whe=
-n
->     the target mm's context is loaded, rather than as failing on every
->     implementation. Matt's EV7 result is that a mismatched loaded ASN did
->     not produce the failure there, and the argument for these patches doe=
-s
->     not depend on which way that goes.
->   - the mkclean4 rows in Testing are labelled with the config they were
->     measured on, and the COMPACTION=3Dy result is recorded.
->   - rebased from v7.2-rc6 onto v7.3-rc1.
->   - no code changes.
->
->   Thanks to Matt Turner for the review, the EV7 testing, and for finding
->   the CONFIG_COMPACTION dependency.
->
->   v2: https://lore.kernel.org/linux-alpha/20260810193902.3286353-1-linmag=
-7@gmail.com/
->
-> Magnus Lindholm (7):
->   alpha: run check_mmu_context() from finish_arch_post_lock_switch()
->   alpha: only use a targeted tbi() when the target mm is really current
->   alpha: fix the local TLB invalidate in flush_tlb_page()
->   alpha: invalidate the local context in flush_tlb_page()
->   alpha: fix the local TLB invalidate in the UP flush_tlb_page()
->   alpha: invalidate the local context in flush_tlb_mm()
->   alpha: invalidate the local context in flush_icache_user_page()
+On Wed, Sep 23, 2026 at 09:47:46AM +0200, Magnus Lindholm wrote:
+> Test current->mm instead. The calling CPU then has no local invalidate
+> at all when the mm is only lazily borrowed; the next patch adds it.
 
-Reviewed-by: Matt Turner <mattst88@gmail.com>
-
-on patches 2, 5, 7 (and 6 with a change, see separate reply).
+Please swap this with 4/7. The else branch is correct on its own, since
+it only covers mm != active_mm until this patch widens it. In the
+current order a bisect that lands here has a lazy caller doing nothing
+locally, which is worse than before on a machine where the tbi()
+against the wrong ASN happens to work, as it appears to on EV7.
