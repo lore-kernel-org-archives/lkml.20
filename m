@@ -1,197 +1,112 @@
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com [209.85.167.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B19F27280A
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 01:24:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F9A0277007
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 01:24:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791422656; cv=none; b=iT56lgE7+ibOKdRdCd/WOc/CZk0QyC/dLYvTOxS9Bz21hXXw+u8kYSTfV1pGca7fLLpaLMC7LW2HiOlTBDWkh9kh/Z3ygT+/O1rE0U389s27LHMFEk/at4bPP1kxY5qECdtBf7OvLfLTMS5Zg9INNs0ziydH+JF88PazSEMsZ7U=
+	t=1791422671; cv=none; b=otZ13zS9AJDICaIFm3KA8FUZBRbis2KFJHdRUZZOPvjeEZyyCu7x69GI2Kn0S+uklQeaLDmVZ9onI3Gf5A3T2gqLbeshVi4IdbJMFDSd/FEMvsHsoPQejaAhfMIhTer56y+PdefaTBlf8elSIb0glj8aypMK2TufweihlJpLKOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791422656; c=relaxed/simple;
-	bh=QHrFURBA+G/0G8SIdBTX/sc3YxucPrQ6ndmK7X1/yco=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eaSFvbuaiRvA1Px43r+f0UOGms0zr3WFA0xK2dm100w3XRYvkvOSaSGfjwZJhtH40lKopEXgN0IkoShSUKpek+QNtL36sqisjQjBz1+4ZJmAKB3/bnq6jw88vgFN4L9Rls0g6qi35K26WVDhXwEDaCruLE32q1ro53FMElZxRDg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QVnmVvZk; arc=none smtp.client-ip=209.85.167.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791422671; c=relaxed/simple;
+	bh=aOKZGZ5CSaNk8bAYpcBFQuWB0cJkwnqFmR9dJ1mHt5Y=;
+	h=Mime-Version:Subject:From:To:CC:In-Reply-To:Message-ID:Date:
+	 Content-Type:References; b=akW53CI5x9733kGvw8/tprTLpOUjXOu4BfaxjvU//9t5XHU/3AmFgtrr37D7ZoizmvhsAhGCMDZ03eEdMKz5dO54VNvdlAkkBbFifbfyFuLHALS2KT/2ffasJc2yfVqVrfsH4A/OsMgzfcibHqWqt4Ylo0aOyvJ0tndeZwKpjfE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=kmdZHcJv; arc=none smtp.client-ip=203.254.224.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QVnmVvZk"
-Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5ba3adf78f5so3417989e87.3
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 18:24:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791422653; x=1792027453; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RZ3DcSTW+nO77dITj3/YKe4zOzGdIE2NRXQbJlHL3qw=;
-        b=QVnmVvZkL+pz4t8N4GsPg3iiZwRYhk/CX+/rrBERcYhn2fBRl1tL6Rp9Y96/Rn8cZ6
-         aSZrsohXbpC8WSCpMxNXQCKCESrIZpFu3mev/8Uezb12Hx9/0NAlGWBjWpsD60Jkql4V
-         M/pJmndQkuIzQX+kH9exkZas45t9YgDHcuDUBkZ4cZkHkTeWE/Iu4iEV8lY/W2rO96d0
-         wyVvu6QODM6F13R217aC/NjzVN+LWbq9FDzvNZeJFO25bn19WIaKut59qsaWyhGiK0U9
-         nkXD+pwjEH/zpoGjN5RafW/O391jAaM8kT0VANuODjluAYyZ2vd73PvlKDQvbrKmKiL9
-         zKwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791422653; x=1792027453;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RZ3DcSTW+nO77dITj3/YKe4zOzGdIE2NRXQbJlHL3qw=;
-        b=okeNZqEP5rpPRTX1meWzXM3dVoz0fSzN41NQs98hkYJ0RyWs7w94rEJwkCfYNk8OGV
-         NwlbHWtZw3tdJ+zXfK35MGq85h9fE6IZhwKlsAQfKNyZsS7hOkpwL5cIJ6zisMjZzD1p
-         Fd+68RwzdLCJPMQjgLhf8mVC1Ot9vUv3fNs2Uc8Zsk0a27G/1k8vkPr1GJvMN++/yBhl
-         hH8GHavDjKWUe6ouA8J8kXkp8zrMPgUxT4B9p1RFyD4LM0FYU7m89woKuvAMYA4dnJHC
-         0gplfr/arjdOrY2n5uoQ2RFAu14jXipd87/0vbWWDuyqvAfBgCTxF0LSo5I/6tWB7DKJ
-         6Uiw==
-X-Forwarded-Encrypted: i=1; AKwUvByeM9zmnolC2M9gdJ5DA6NtTVVGGGeaG/Bzo54tGBfn0yY/6WS45kUEcvGe6kS2iiAlaI9lws1nY+sAjTQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJkxrrDXQXExSg84fycPKQ7ESuwkkFqGLeGUnkD4UYGzJPkEwQs
-	ZPmy9ADWCXmzHU7Wtc0UDpdGtZ2AlH18YcoEg1fgttkfd14RPodCZhul
-X-Gm-Gg: AYBFou3mUV3EqP3yRHf0AB56roNU1selY9sWM843FjOFe/SAMQszlhc9EhcJj/NlVZN
-	pxN1t/rw8aB2h+xLpTvFvpCWCreIijgiH0zT0ivSpGSNys9ymVUb45TS+qzKhn5bZDke+HzRZhi
-	2eHdJ59kG/RNIqhNL+Vr3DFaQHMsh30OjXoA0EB/c5vCZOk8U8Irh3wdVWkqKM/yNImoKVEXQ8/
-	UhInpRiqszGoLraWkVC3bt4dVB4BhUXoQhfLqKj3fbVZCC2QkK/fQlHiAr1cM9Pnmwn0caTdYuC
-	HGzqO/fFsKURnFUUynNZu8c7z3Yp9aDHnL2dFZESFDNtp8h9YVIAyyBlj6fab1rxN7TDfItf+R8
-	BNyd2+u7iutZGsCd+zrkkuWnPko4MZ4E+0fOwiMqeX4CEiEhJ4yVLNrsJWdAusElVOTl1XM+Jib
-	UsUhJvz1z5pPHPOSGsbjpmYnuzULRLmNzJZu6kKh4j2dagqeWwvcypBnwfWVov9Uw72Lk4YOnf/
-	grwn2/uGdL4+WJHDStPd/zkwifjwCPYhq+muqfb2a4L
-X-Received: by 2002:a05:6512:428a:b0:5bc:d39d:aa20 with SMTP id 2adb3069b0e04-5bcd39daa59mr351682e87.10.1791422652918;
-        Wed, 07 Oct 2026 18:24:12 -0700 (PDT)
-Received: from dau-home-pc.. ([212.35.183.164])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bcd3016019sm605990e87.1.2026.10.07.18.24.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 18:24:12 -0700 (PDT)
-From: Anton Danilov <littlesmilingcloud@gmail.com>
-To: netdev@vger.kernel.org
-Cc: Eric Dumazet <edumazet@kernel.org>,
-	Florian Westphal <fw@strlen.de>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Simon Horman <horms@kernel.org>,
-	David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Mazin Al Haddad <mazin@getstate.dev>,
-	Matthias May <matthias.may@westermo.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v5] ip6_gre: use skb_vlan_inet_prepare() instead of pskb_inet_may_pull()
-Date: Thu,  8 Oct 2026 04:24:08 +0300
-Message-ID: <20261008012409.202607-1-littlesmilingcloud@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <179141499719.434549.15788178109134377075@kernel.org>
-References: <20261005231414.932997-1-littlesmilingcloud@gmail.com> <179141499719.434549.15788178109134377075@kernel.org>
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="kmdZHcJv"
+Received: from epcas2p1.samsung.com (unknown [182.195.41.53])
+	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261008012426epoutp025c8f449b4b486c9d0488b8720ba0649c~caWyTp0CD0184201842epoutp02c
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 01:24:26 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261008012426epoutp025c8f449b4b486c9d0488b8720ba0649c~caWyTp0CD0184201842epoutp02c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1791422666;
+	bh=aOKZGZ5CSaNk8bAYpcBFQuWB0cJkwnqFmR9dJ1mHt5Y=;
+	h=Subject:Reply-To:From:To:CC:In-Reply-To:Date:References:From;
+	b=kmdZHcJvX9T8u73FD4mBDxCALiPdKnx9OUJUFP5cG/IJIs98vXJVqbL3g7JxAWZw2
+	 M7xozcm3wY+0NUJCi//SuhrSS1mq1ehQ/UNQpSc4l28AlVGudxwYO9KqecfFHg1e8U
+	 R8Un7KKrrR9OX3nDh/Mk7UuGbWJDcwP9RYuIUGRY=
+Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
+	epcas2p4.samsung.com (KnoxPortal) with ESMTPS id
+	20261008012426epcas2p48941fe3a08e2fd1e99adf9308f33b7b0~caWxz8zFH3076630766epcas2p4g;
+	Thu,  8 Oct 2026 01:24:26 +0000 (GMT)
+Received: from epcas2p4.samsung.com (unknown [182.195.38.201]) by
+	epsnrtp01.localdomain (Postfix) with ESMTP id 4j0XMs6pKLz6B9m5; Thu,  8 Oct
+	2026 01:24:25 +0000 (GMT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Subject: RE:(2) [PATCH 2/2] ext4: track zeroed out blocks of unwritten
+ extents for fast commit
+Reply-To: daejun7.park@samsung.com
+Sender: Daejun Park <daejun7.park@samsung.com>
+From: Daejun Park <daejun7.park@samsung.com>
+To: Jan Kara <jack@suse.cz>
+CC: Theodore Ts'o <tytso@mit.edu>, "linux-ext4@vger.kernel.org"
+	<linux-ext4@vger.kernel.org>, Andreas Dilger <adilger.kernel@dilger.ca>,
+	Baokun Li <libaokun@linux.alibaba.com>, Ojaswin Mujoo
+	<ojaswin@linux.ibm.com>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Zhang Yi <yi.zhang@huawei.com>, Zhang Yi <yi.zhang@huaweicloud.com>, Harshad
+	Shirwadkar <harshadshirwadkar@gmail.com>, Li Chen <me@linux.beauty>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>, Daejun Park
+	<daejun7.park@samsung.com>
+X-Priority: 3
+X-Content-Kind-Code: NORMAL
+In-Reply-To: <vxase3lkctmatpkj3p4vvhgyrvauqyilkfd5dcz47jjtgfdipx@imb4onyzk3bw>
+X-CPGS-Detection: blocking_info_exchange
+X-Drm-Type: N,general
+X-Msg-Generator: Mail
+X-Msg-Type: PERSONAL
+X-Reply-Demand: N
+Message-ID: <20261008012425epcms2p1c4ddc3f2cc72dd30b0f18ee4f2ec9178@epcms2p1>
+Date: Thu, 08 Oct 2026 10:24:25 +0900
+X-CMS-MailID: 20261008012425epcms2p1c4ddc3f2cc72dd30b0f18ee4f2ec9178
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+X-CPGSPASS: Y
+X-CPGSPASS: Y
+cpgsPolicy: CPGSC10-223,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261007134122epcas2p261c7ea484933b17c10e745ec844b0aff
+References: <vxase3lkctmatpkj3p4vvhgyrvauqyilkfd5dcz47jjtgfdipx@imb4onyzk3bw>
+	<20261007-ext4-fc-zeroout-v1-0-b86de6439431@samsung.com>
+	<20261007-ext4-fc-zeroout-v1-2-b86de6439431@samsung.com>
+	<CGME20261007134122epcas2p261c7ea484933b17c10e745ec844b0aff@epcms2p1>
 
-On Wed, Oct 07, 2026 at 11:16:37PM +0000, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider.
+Hi Jan,
 
-Thanks. All three reads are real, and all three are the same without
-this patch; numbers below. The frames are written to the device through
-an AF_PACKET socket, on net (9b6c20f78847) and on net with this patch;
-the receiving end runs KMSAN and reads the packets with a packet socket.
-"reports" is the number of KMSAN reports there (kernel-infoleak in the
-packet socket, or uninit-value in the ICMPv6 error that quotes the
-packet).
+On Wed, Oct 07, 2026 at 15:41:17 +0200, Jan Kara wrote:
+> Also putting this into ext4_split_extent_zeroout() looks a bit too easy to
+> miss. In fact I think placing ext4_fc_track_range() into
+> ext4_issue_zeroout() would make sense because that is where the writing of
+> "data" really happens. This will fix the use in
+> ext4_split_extent_zeroout() as well as ext4_ext_convert_to_initialized().
+> And it will also fix the same class of problem which I think we have in
+> ext4_alloc_file_blocks()...
 
-[...]
->> +	if (dev->type != ARPHRD_ETHER && dev->header_ops) {
-[...]
-> [Severity: High]
-> The commit message says "This fixes the check and the skb_protocol()
-> dispatch in ip6gre_tunnel_xmit()". Can this branch still read an inner
-> header that was never pulled?
-[...]
-> The commit message lists this branch as a follow-up. Should the "This
-> fixes the check and the skb_protocol() dispatch" sentence be narrowed
-> to say this case is not covered yet?
+Thanks, that makes sense. In v2, ext4_issue_zeroout() and
+ext4_ext_zeroout() take the handle, and the range is tracked there once
+the zeroout has succeeded.
 
-Yes. That branch keeps pskb_inet_may_pull() byte for byte as net has
-it, and it is reachable only on an ip6gre device created without a
-remote and later given one with changelink. v6 narrows the sentence to
-ip6gretap and ip6gre devices created with a remote; the branch stays
-listed as a follow-up.
+ext4_alloc_file_blocks() zeroes out without a handle, so it passes NULL.
+As far as I can tell there is no gap there:
+ext4_convert_unwritten_extents() right after it tracks the blocks it
+converts through ext4_map_blocks(), and blocks that were already written
+keep their mapping. I also tried FALLOC_FL_WRITE_ZEROES on scsi_debug
+(lbpws=1 lbprz=1) over an unwritten extent, over one block in the middle
+of one, and over a hole, each followed by an in-place write, fsync and
+EXT4_IOC_SHUTDOWN. The written block survives replay on the base kernel
+as well, and the tracepoint shows the range tracked twice, at allocation
+and at conversion. If you had a different path in mind, please let me
+know.
 
->> +		if (skb_vlan_inet_prepare(skb, dev->type != ARPHRD_ETHER))
-[...]
-> [Severity: High]
-> This is a pre-existing issue, and the commit message lists
-> ip6_tnl_xmit() as a follow-up. Even so, can a short tagged frame whose
-> real inner type is not IP still cause an uninitialized read after this
-> check?
-[...]
-> That reads 7 or 8 bytes past the skb tail. Can that uninitialized byte
-> go out on the wire as the outer hop limit?
+I'll send v2 shortly.
 
-It can, on net and with this patch alike. The 18 byte tagged ARP frame
-from the review, with 0x0800 at bytes 8-9 (ip6gretap with a key) or at
-bytes 0-1 (ip6erspan v1), both devices with hoplimit inherit:
-
-                                     net             + patch
-  ip6gretap, bytes 8-9 = 0x0800      hop limit 0     hop limit 0 or 173
-                                     15 reports      15 reports
-  ip6gretap, bytes 8-9 = 0x86DD      0, 15           0, 15
-  ip6gretap, control (no 0x0800)     64, 0           64, 0
-  ip6erspan, bytes 0-1 = 0x0800      0, 17           0, 17
-  ip6erspan, control                 64, 15          64, 15
-
-The hop limit is whatever lies past the end of the frame: 0 in three
-runs, 173 in one, with KMSAN reporting it as uninitialized on net and
-with the patch alike. The 15 reports on the ip6erspan control frame
-are the TOS that erspan_build_header() reads past the end, see below.
-With the follow-up that makes ip6_tnl_xmit() walk the tags from the
-inner MAC header (it depends on this patch and will follow it) all
-rows give hop limit 64 and 0 reports.
-
-> The commit message describes this case as inheritance that "is still
-> taken from the wrong offset". Would it be more accurate to say it can
-> also read past the end of the packet?
-
-Yes; v6 says so.
-
->> +	skb->mac_len = 0;
->> +	if (skb_vlan_inet_prepare(skb, false))
-[...]
-> [Severity: High]
-> Does this check still let short frames reach erspan_build_header() and
-> erspan_build_header_v2()?
-[...]
-> Can this put uninitialized tailroom into ershdr->cos, and into the
-> ERSPAN VLAN field when the in-frame ethertype is 0x8100?
-
-It does, on net as well. The check here is for the inner IP header,
-which is what the skb_protocol() dispatch reads; the TOS and TCI reads
-in erspan_build_header{,_v2}() have had no length check of their own
-since 84e54fe0a5ea, and this patch only moves the minimum from 10 to
-14 bytes:
-
-  ip6erspan v1                        net          + patch
-  14B frame, EtherType 0x8100         18 reports   18 reports
-  14B non-IP frame                    15           15
-  18B tagged non-IP frame             15           15
-  10B frame via tun + mirred          3            dropped
-
-The 14 byte frame with 0x8100 is reported as "Bytes 62-63 of 84 are
-uninitialized": the ver/vlan word of the ERSPAN header. That is a
-separate fix with its own Fixes tags: two patches, queued after this
-one, that read the TCI with skb_header_pointer() and take the COS from
-the frame's own protocol; with them the rows above give 0 reports.
-
-> The commit message says the short ip6erspan frame is now dropped. This
-> looks like the same over-read, just a few bytes higher.
-
-Agreed. v6 lists erspan_build_header() as a follow-up instead of
-leaving "the short ip6erspan frame is now dropped" to suggest that all
-short frames are.
-
-v6 changes the commit message only; the code is identical to v4 and v5.
-
-pw-bot: cr
-
----
-
-Anton Danilov
+Daejun
