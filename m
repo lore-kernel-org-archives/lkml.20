@@ -1,64 +1,64 @@
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8242490BF0
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 09:58:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B8D7486E5A
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 09:59:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791453546; cv=none; b=MSwviVTmE5Z9kkDoDJvBqrBu8qtMuF7rI5jUQekDNlO02aND+fgfwHW6YR2E2ANPd2xJv4GuUD7R2jAoZ3ElcGB4pOY+h+nIYpZ8Ig3mgAJhHUvI26mBXmJC+aEtMWAf2ELOA0u3N+z5EJzvsI0DmMZKlosQPeNL7nPCYsCOu6c=
+	t=1791453547; cv=none; b=ZGkUCxGdsMj98i2T/QUaifjDw8jDgRIJq7kcX9vdHBHxMFkHHYW9+7af6796qeXbRJK9w3l8JkAlSUibtWRiH9gMYlbzPfarWmR6N9fEgc5OkdFbSlTVunfXB9UcRm9DaHPvUVjTkiyffmt/nFQQLyxxxKmX7zr/AMGxXB/fiyE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791453546; c=relaxed/simple;
-	bh=Z6qaIxJaGingMaN4boaRDh9T/UM3Xnfmj7Q0/xVd3ak=;
+	s=arc-20240116; t=1791453547; c=relaxed/simple;
+	bh=GFuLkfK4lxs3mDOS7RtEdGThemMaY0j+LMNlf9wngn8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ra78/vAkZRUaoX6GsGiBUwq2iajnEZZMzcAgdSqfV2vjZwaG2jgslN/SSp7wzDOfRTf613UbzVg04tucBvc/MJuEorFz5tMgW4plt17RLLqT8HJ0RWgxxy6QYG8mUdI0x1vXhkFbrOZ6NxudbuepBf8aesaQaKHbP80Yz5N55TM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P7sLT64H; arc=none smtp.client-ip=209.85.216.47
+	 MIME-Version; b=j4k6N5CDDfs9ODErqhKphST6psk7Vmq55LJhJjRlCXu8Z12SQEm/c30WbOHcgQdPmH3Zo2fR/PvkOsEqJ5FxFnjxmxzgvBZJKr2RtCAqMiNWJpOxmKTQec3ZO8B8LJkVglL1qNSm+1I/Y48MBn0XzXssBq/tZzvA5Rl3rdoB3nM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J2V9EjZu; arc=none smtp.client-ip=209.85.216.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P7sLT64H"
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-381b831d535so4967914a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 02:58:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J2V9EjZu"
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3a886d6ad51so2058244a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 02:59:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791453538; x=1792058338; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791453542; x=1792058342; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=0DcNR8Cbv/4VUc/D14BhTK0gGtmFxfgJ4zGRefSiR7M=;
-        b=P7sLT64HLDGLgl3w/pTIsOgwGpeY6xRkUJgeWCq4GeSbv8tANNqh7WUr2gNcQVKyxI
-         lx5P9JNEveqiZbfb+l+boOJTlOcc5MCytE/n0JTnyMRsJitLKo9Ed0Y2UmV5RC3KHiNS
-         2smh4ECluK62bhrNZ8VmFR6ifHloJet+Pl2nUWXWgYQVZf20/Guumrx52Y1w9Z0oiomU
-         pNG9ejuUhLdZaCRgY0FdrnksHjRChR7oHPriMow05pho2HQA30+CajGLK2bV2Mo76NYG
-         VJBASUJ2o2sXot9IcbAufqW2w9EwW9nN8Er233qp1C3BRk0VzFKvRyjcQs2sIe7jBUHl
-         dIbw==
+        bh=/mt0CRA7LFCfvbN90avDkf2CrVHUWq3hqZcA+p6fqK4=;
+        b=J2V9EjZuD0ujgcsZKwydM6UNtS7OgVID+uNMv9yGweab0EMIsZ4u28LzoboMOz0aoB
+         oeU3ukPIiOgQ1PgDAG8Qu2EQSzicmFmcXCFlsxJUhBo/9jccR+bu8U/PfLJ6cgTlZWWM
+         9huopyFuS9/Iq0jGt5J8OYhJ1+z6v8S3xKv/uy/mA99929ztxDn0HIjlaplOEGm04zXg
+         eoL6BdVyE4gZjeFlrvaZrZroYl+RKlGbwFf4tX8MJjzit1mRs3Iq4QsBG5W3E9A9JxHH
+         vkB/Bj+ML8BmMUBB0U1g4hOIwYri4DKcDZLTnnByqMe2nWKtFFkGBlnWIDSwfmDBlHFR
+         xYLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791453538; x=1792058338;
+        d=1e100.net; s=20260707; t=1791453542; x=1792058342;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0DcNR8Cbv/4VUc/D14BhTK0gGtmFxfgJ4zGRefSiR7M=;
-        b=TN8s8C6iVI3t77dijJdHrX4SlxbcX4anzosaYm1EXSGjRBlk9brwpZHHFpgoMwRYY/
-         UaspzA0hjwpiEc2HS6fsuJwfMk/KVo6rXw15h01pA6ijlhC1ygqNQnPKtZAnDMC1bQGJ
-         RAxV2n9RwEuXLLiJ49/zSzhTpxIMcLLVTeG/5n0wx1MzjFTd+zAnogqZIlmB5jENx4yj
-         bZ8gu+gBGHK6Q4stkQ+XqV0W7GvM4xCCa1p699JDR4XQbB/a0pXX2vpY8BwqU4IQ6QPZ
-         m+kVd6WnatpL0Ue4tzMDHybaUeQMn6YRbwh31LGQqpUuVDhX/DP2yCQZ8rU0EUkI8DlG
-         PFdw==
-X-Forwarded-Encrypted: i=1; AKwUvBz1aeo92P0F9Zvmok88sJ/xDtBGzRIOBISCaVvgJ9xWvwuqtujDImDBU9dJqGLeuDoyJ3RVEFoId1NUXhg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLNYw1id184GrRCR/VOM5n9SaoKmQaquATO68rZ2T61pArL1Lzb
-	A5eAlGu52kfomKJ20ahPXvM37S0DPrj9UXIcC9kURJXm1+LlUqK24kwf
-X-Gm-Gg: AYBFou0zEEgT37Sz/0kAcQuLtsw78kAx7udROjnp1HfYDLBCGnSoW8tmgpMwzUTPOIP
-	KkwE1YiERDNAzS0iSDN/8Uj+C36i3NFFP9eEG4mwy7qvrOhLndatdE/qlgkXKfBtxLgwZFHjcwi
-	VBdbFZd4nt4nLI8h/FgYgedrnzKZ5jPdx4v20BQJIFBgbhFIvuzfCNUKcCGvKD1jHZqkBxOyWOe
-	nbcZFucV1DcYy75Ru+pAgVn4vHJk00L3bGDMztgWNARkyNvl8e2FNTZDL5FjkaG2Uhis01e0UlO
-	Vee6GEqT2aiCVc7EBzRDwBlO3hASg3ZsECM+S2HO1t8yjJD0KTmsiQ3DbU7qrHY9gyjsFI0s4Kj
-	tSFr1+eSyv18tm/YxT7Jh8R4pvbSs/pnsG1XBdC0GLPsAY3S60WNvFhrrRtzKd6yx813MSqwTQT
-	45Qo7chJHk3Lt/7xPfo0xCfKkHg3j+ix1ar4+PH540eOu0CUCIR874Dv4MleQfZBoPM5s8XBH1Y
-	QH0hyoPEvnKH7zCrkiW525+qpUtX51ynl81ExZliuuV24OF6Csae2rR
-X-Received: by 2002:a17:90b:48c7:b0:39d:e213:9dd3 with SMTP id 98e67ed59e1d1-3a8a04bbc3cmr4012686a91.1.1791453537970;
-        Thu, 08 Oct 2026 02:58:57 -0700 (PDT)
+        bh=/mt0CRA7LFCfvbN90avDkf2CrVHUWq3hqZcA+p6fqK4=;
+        b=iqas1DBTLF/48Ptyp41k3jTcZzNCEWdBNIXEAhIa8sbu34n7545GRGR11HFjmoat6L
+         llKoW9Lho8eyDmfqL7ROfg3JIyXhTImCZctYqWgnBs4SmORUahTqDrjGeDBz39Evi/E1
+         wqQZZbZYXZZwGNkPDP243/XiHfWp5skpsm0A6Hd0BOfXN+HgeQKTyHtKH1ntbVyHFnxM
+         kVyIQ/nMkwsfH3v8eOKtc3CHbo6dhIQc4qNwI55Hc/0qDYx5KQrnAaIJchYKKoXUb9GJ
+         jfsVkNEt5bFH0+Rctfg8RPCYQmcVjhJWd4/5NR0x+M4d1bP+GievzlCKRd+bFTJZ0drY
+         QHUA==
+X-Forwarded-Encrypted: i=1; AKwUvBxRckEdEkE+Jd5J3FzKuBa8rOIRoRBgb2qcdyJpoJexIAEdJEKwG619Lsd1kONIXbjwYSLaxnwyZoFz1Eo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLiKj7MP+jigDmUtxbfGpMxL0nSOYqb5j3Lb1CYic0nhslOle6A
+	Vj7GpjfS531FrnkWBaFZxU63J2oNVrymV+QnIZwiHp2e6KgdrMh8vIRQ
+X-Gm-Gg: AYBFou0Iw54ILusb/upykLsM6f/vl8dKRtRD4tCu4rmVVMDHq6m9MCjAMCBETTaBsq8
+	s29Qp649bq3pTR9T2rfUc+dku9nX/he56doezFamSoesoyMpKrmhHD6y6DaTbGJfpPcm2VN/2aJ
+	SOdyHhkOgoEplnVtYGNYnc+90hJfDSsVWijVW14cVFv6EXRLAY91cjGhE1Re6+DcZLp39BeMfoH
+	fypPBUTShG2UQsVIoMvDaW7kxbFndZPbUbg6/q3e0eONoq6OuEN3gAI9hlRbmqlaKF3Sx44FTsc
+	ShbSWDUj7+71pCvash+CzC3/zH8v4tiS7zaaQF95Kq8XO/Ct2dbfQ/gOWmpQR+r0uw8urP4UkaO
+	S/tHMq3wdCK5Oi4h9aRQIJPQgkkKjvsXGY9cMoL3lRHd1iaDdjSeY2yFQ7G3JPICpfpClm1iars
+	cFO1z7x3vPFmvXbdmDf5ShkRor2v4QP3d6+HYuzheNwxv5TsBFKkOCipteEIDDACBasKM3z0EB9
+	q4G2wjTQLv15kHvIA6fqD+9+L+tt0pruNqSF3cowAwIWAgAOn2SqWsJ
+X-Received: by 2002:a17:90a:d00b:b0:3ab:4f1:4f7e with SMTP id 98e67ed59e1d1-3ab04f15107mr885794a91.28.1791453542004;
+        Thu, 08 Oct 2026 02:59:02 -0700 (PDT)
 Received: from yafangs-Air ([240e:46c:2100:3ace:b801:9432:769f:ff9d])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9ff7ff13esm3422790a91.7.2026.10.08.02.58.53
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9ff7ff13esm3422790a91.7.2026.10.08.02.58.58
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 08 Oct 2026 02:58:57 -0700 (PDT)
+        Thu, 08 Oct 2026 02:59:01 -0700 (PDT)
 From: Yafang Shao <laoar.shao@gmail.com>
 To: jpoimboe@kernel.org,
 	jikos@kernel.org,
@@ -69,9 +69,9 @@ To: jpoimboe@kernel.org,
 Cc: live-patching@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Yafang Shao <laoar.shao@gmail.com>
-Subject: [PATCH v11 3/9] livepatch: Make klp_find_func() non static
-Date: Thu,  8 Oct 2026 17:58:24 +0800
-Message-ID: <20261008095830.26308-4-laoar.shao@gmail.com>
+Subject: [PATCH v11 4/9] livepatch: Call klp_init_patch_early() earlier
+Date: Thu,  8 Oct 2026 17:58:25 +0800
+Message-ID: <20261008095830.26308-5-laoar.shao@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20261008095830.26308-1-laoar.shao@gmail.com>
 References: <20261008095830.26308-1-laoar.shao@gmail.com>
@@ -83,69 +83,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Make klp_find_func() non static to allow its use in other source files
-by an upcoming patch.
+Invoke klp_init_patch_early() during early initialization to avoid
+mixing for_each_() and for_each_*_static() variants later in the code.
 
-While at it, rename the parameter @old_func to @func to better reflect
-its generic purpose.
+No functional change. This prepares the code for an upcoming patch.
 
+Suggested-by: Petr Mladek <pmladek@suse.com>
 Signed-off-by: Yafang Shao <laoar.shao@gmail.com>
 Acked-by: Song Liu <song@kernel.org>
 Acked-by: Miroslav Benes <mbenes@suse.cz>
 Reviewed-by: Petr Mladek <pmladek@suse.com>
-Tested-by: Petr Mladek <pmladek@suse.com>
+Signed-off-by: Petr Mladek <pmladek@suse.com>
 ---
- kernel/livepatch/core.c | 18 +++++++++---------
- kernel/livepatch/core.h |  1 +
- 2 files changed, 10 insertions(+), 9 deletions(-)
+ kernel/livepatch/core.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/kernel/livepatch/core.c b/kernel/livepatch/core.c
-index 517fe427ff92..89251fafe86e 100644
+index 89251fafe86e..c0879b5d9dc0 100644
 --- a/kernel/livepatch/core.c
 +++ b/kernel/livepatch/core.c
-@@ -82,21 +82,21 @@ static bool klp_initialized(void)
- 	return !!klp_root_kobj;
- }
+@@ -1155,13 +1155,6 @@ int klp_enable_patch(struct klp_patch *patch)
  
--static struct klp_func *klp_find_func(struct klp_object *obj,
--				      struct klp_func *old_func)
-+/* Check if @func is present in @obj. */
-+struct klp_func *klp_find_func(struct klp_object *obj, struct klp_func *func)
- {
--	struct klp_func *func;
-+	struct klp_func *obj_func;
+ 	mutex_lock(&klp_mutex);
  
--	klp_for_each_func(obj, func) {
-+	klp_for_each_func(obj, obj_func) {
- 		/*
- 		 * Besides identical old_sympos, also consider old_sympos
- 		 * of 0 and 1 are identical.
- 		 */
--		if ((strcmp(old_func->old_name, func->old_name) == 0) &&
--		    ((old_func->old_sympos == func->old_sympos) ||
--		     (old_func->old_sympos == 0 && func->old_sympos == 1) ||
--		     (old_func->old_sympos == 1 && func->old_sympos == 0))) {
--			return func;
-+		if ((strcmp(obj_func->old_name, func->old_name) == 0) &&
-+		    ((obj_func->old_sympos == func->old_sympos) ||
-+		     (obj_func->old_sympos == 0 && func->old_sympos == 1) ||
-+		     (obj_func->old_sympos == 1 && func->old_sympos == 0))) {
-+			return obj_func;
- 		}
- 	}
+-	if (!klp_is_patch_compatible(patch)) {
+-		pr_err("Livepatch patch (%s) is not compatible with the already installed livepatches.\n",
+-			patch->mod->name);
+-		mutex_unlock(&klp_mutex);
+-		return -EINVAL;
+-	}
+-
+ 	if (!try_module_get(patch->mod)) {
+ 		mutex_unlock(&klp_mutex);
+ 		return -ENODEV;
+@@ -1169,6 +1162,13 @@ int klp_enable_patch(struct klp_patch *patch)
  
-diff --git a/kernel/livepatch/core.h b/kernel/livepatch/core.h
-index 38209c7361b6..361a0917a03f 100644
---- a/kernel/livepatch/core.h
-+++ b/kernel/livepatch/core.h
-@@ -17,6 +17,7 @@ void klp_free_patch_async(struct klp_patch *patch);
- void klp_free_replaced_patches_async(struct klp_patch *new_patch);
- void klp_unpatch_replaced_patches(struct klp_patch *new_patch);
- void klp_discard_nops(struct klp_patch *new_patch);
-+struct klp_func *klp_find_func(struct klp_object *obj, struct klp_func *func);
+ 	klp_init_patch_early(patch);
  
- static inline bool klp_is_object_loaded(struct klp_object *obj)
- {
++	if (!klp_is_patch_compatible(patch)) {
++		pr_err("Livepatch patch (%s) is not compatible with the already installed livepatches.\n",
++			patch->mod->name);
++		ret = -EINVAL;
++		goto err;
++	}
++
+ 	ret = klp_init_patch(patch);
+ 	if (ret)
+ 		goto err;
 -- 
 2.52.0
 
