@@ -1,160 +1,253 @@
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+Received: from va-2-29.ptr.blmpb.com (va-2-29.ptr.blmpb.com [209.127.231.29])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14BAE3CF05D
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 06:55:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.180
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791442519; cv=pass; b=f6pMCWuo8aZRJ23mFnkb+d50vBFPFhHnBsHEKch6z+76vg3hyI48QJt9S/UGdWXFXhtZnQyjoQhzCfIMJfneygbt7DS3QI/8t5f3/uDU6hPz5/dXBA+1u8Wk6DtqZjmIDJI8Uj60YSwZKbdbeWwCQfZcfjyr0ABqrCOH2XOP5zY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791442519; c=relaxed/simple;
-	bh=LAU+lAaONCsbyhUKz3NVx/NrIoGX2BWhWJ83XVPrkW0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QF1KTZAPMz3m2GpT8p8X7R+n5L0dBNqlikSNGm8WDofGpXaWRSyTccx3m1dGkL/D621PWCwnCYtrFXM0p4AWVfdKkgof6+0w7LjLnhxl0t+z37hLGkNNfp/a5vkUqn4sefL81eC4MxeAeFIqm/9WxSA5mWCJ176ywNkDtQJWr20=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JfA82dpf; arc=pass smtp.client-ip=209.85.215.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43DEE3CBE79
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 06:55:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.29
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791442551; cv=none; b=MwINkA0OCg4d+rdLOu5FKrhTC5nLMXTMPwBqaNBMf+zwriJ206njy3uKaWZVjZZTL68dNEutXqOoQCajqvgGJbtzZRHiP6Q/8Boik1nUSEgJOsH2gy2pcPiVk9qGdmCy1trjf115P+4+7qaFBX850TM/EKp23mOh/jRmDTZpy7k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791442551; c=relaxed/simple;
+	bh=BfxM8vd52dNsMCAjhUtelgVJyQ79sEInHUO+A70HhS8=;
+	h=To:Mime-Version:In-Reply-To:Date:References:Subject:Message-Id:Cc:
+	 From:Content-Type; b=X32OeCmwDO+qOlNog/LcUiSzj6D4ZNe89ppyIZKYbY+M1Ke721C7ok99WxrafV7dYpa/WwnEPBJFxugNNTl8EeFaxJqhWBRSCYhHcYXM8u3dxnTCdbafPm07RdHNuRRfCTduvBlUHkR+ymw6YQuvjhOcMJSW+6Z4ylNOV//cSUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lanxincomputing.com; spf=pass smtp.mailfrom=lanxincomputing.com; dkim=pass (2048-bit key) header.d=lanxincomputing-com.20200927.dkim.feishu.cn header.i=@lanxincomputing-com.20200927.dkim.feishu.cn header.b=hKkrnra6; arc=none smtp.client-ip=209.127.231.29
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lanxincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lanxincomputing.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JfA82dpf"
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cc52c1b8286so188728a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 23:55:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791442517; cv=none;
-        d=google.com; s=arc-20260327;
-        b=cWZPjNS5VJJmNHX4j9zlHO4eksDLeY6zB0lJ1eODjqTANcbJVP31QV3Nlmxo9/ruRX
-         DqmA5MliUEEkO18FJM/gCqYjCkBEaEMLClyeB2BzOAUefC31umzhoIp/KQV4ux1UiYiA
-         2JGPypgvDXmHNwH64o2f+Lx6wH3LtrdUuiUeDeWxxMBDjbjaTW19dLhlQ5JcCMZmLasn
-         E7LwufrnK35OsFlTF0mi7F7xBlHvmsjCVWQLknmitsGQ52877yrPvu1psReE1UVVVdJZ
-         f7lLyWHkF0crVMnr26tgNs+RoqU06tUO3JFrwffwIagF0MvfECeDAHsOjzgwdax1+Smn
-         2CSQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=GwVHKedpjNUKuB2nBCCOQbetrG9q4vZVX+BP70vaR40=;
-        fh=A5MrFGf5RZ5AFd7U1DvQzI9Kic+MkFAIYkLVMfI88NM=;
-        b=jv9AQ9Y/dmPVfQTrHspI4KvybIPqFgd+2owZltTZT7HCJOTw4Z/21NsXItYYqsZnT/
-         sSa/8p8dJ5b/CRJnfbnlzi+GUZzLTE+Syv/qs2xs72TZUVMCx26ljtoBMR8lh9IFXEEX
-         XRE8ITU9L5zCNj/wE8Ht0mzmthSoEa2/SytQ3bgb87DnY9bMXl2darhpfcN9UbdMbYdD
-         wzhhaplKG7uFRM+Nu3oDJcKLOJUdxq+qqREJ3RyIrLFB/C6nsLxSb+b2YxnECX1tst49
-         Y5Y3SpMvz33fmkrjKjFgUXI7oEvltT/DDwRVI3ZSkGiGqC45PBLaVEIABm8ogWr3atAB
-         C7TA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791442517; x=1792047317; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GwVHKedpjNUKuB2nBCCOQbetrG9q4vZVX+BP70vaR40=;
-        b=JfA82dpfOuVdgDazmoj+VL39H28VT2HM/BiZqQZJLKkhrONqnBZQI1g2IBB/YAezCp
-         6L2ubSBVe7N+kSpJVblp3DxCS3QFHffRp7ePqiVmBSfI1V/vjwFIBlMd1qJ4l4kBQIv4
-         Opbe/QAL89fcInWCeq/8guMlRNDWPIlLPp2agXMGzHX3kkQg1o/eTc4BpI804+3EKajh
-         I1+qVcp7TiVFxpRrFeQSiHHyhMZgA7R5+Cn4dfaxcaqdNZfUzVEnizuh5hm+2RT5/bQE
-         6FHQm5V6Qstlbv1jjfx7+8ntKfjKbTlKdt4MagxOtQ1q7B+zXWjJEO8vL3ZYs4YpJ/lZ
-         Dauw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791442517; x=1792047317;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GwVHKedpjNUKuB2nBCCOQbetrG9q4vZVX+BP70vaR40=;
-        b=Bt+DnyMh9dFLcG/meNDxZqPjZN/dHq04Vr1ctdioTSe5VjTLqYgQz7fbIqW2DZAM+Q
-         iqMnNmTYXG56MxwxkyKG3N2eWgk02sQMmU41GdNu0jW6DN5bwlwWY5mH03lk+Nbbkd7W
-         fnkiOE7TWQKanJOHcPbAlgJY9kRwYBlmyLW9vRC5DmjNcB3FAb89fbLvfhTT+5kKQuC3
-         vHlaea4v/tdq9xnruJwQ5o10e9tBorNaelUZkB9gd8f5CXwtW3DkooA8NpgTDvPXSZyu
-         6mk7pjyy6FOvsaS+kjK0wYDmXYrgMk/0cLtVJyP7vzPmtpmVo4DZULug9DcUxoCtTbp5
-         dH3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBy0vaKExPeOYjt0DElQmYYMkI0AjQjOxcK0vLj2dTw1PcSGGZCafadPIYGBkZimN0n8jpkoAFG3tMPE5Z8=@vger.kernel.org
-X-Gm-Message-State: AFuF++llSp4g1ABaGuaadlg5BOoQpUiq0QebbWPUN8iCh6eZy6WfBZWf
-	XdeLrN7eXmonrLbFv2GAPZwRvBMllLbAXU/tb4iopyZg2br5BtIk4q2WCcn7z4TbPeVWVJPlFFV
-	mUVcaC9Ggiin8QOT7/FGBuIxzlZQyTLw=
-X-Gm-Gg: AYBFou1vHktqVFae33HMiBJ9PlR9l+6LlP/uSN90VbKwx2iqQDMf++JohRHGDaTSCAN
-	TPi0FJNzUQw9Axp5s8WckQf/EL1fAhrCsMSEqH+ZMdrG151Lrd558MiJ8eay04qgeViu7fNLHof
-	Y19Svktvl+vGDATQRq3s1ryuiyH7qDaBRzhpZW8NvpT6g4DTkNHy2u2UkKQFls2iScqjk1zYd/3
-	d7UWeIWO0pacIJmmFJCeLO7h5vFkjpmVM7LlvWnna+5MgHJHMou1PvwRTlScVSkrvFdn7E7cfus
-	iwsc665Tqd1U8Wae6+RUFikicJhr4V6VjDeDPaPtVDLjoDqlPI8ivdBv2WwpTGuCZ3oeoNo=
-X-Received: by 2002:a05:6a21:3e09:b0:3de:3bfb:dc65 with SMTP id
- adf61e73a8af0-3e14c5a1255mr1132038637.34.1791442517344; Wed, 07 Oct 2026
- 23:55:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=lanxincomputing-com.20200927.dkim.feishu.cn header.i=@lanxincomputing-com.20200927.dkim.feishu.cn header.b="hKkrnra6"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=lanxincomputing-com.20200927.dkim.feishu.cn; t=1791441707;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=sL7T/hjodnqfA5MGKpC/p/9ovdpQBjVAPfJ0x9At1e0=;
+ b=hKkrnra6IIsGTabhd7BSwWpEk0z1OhY4lGg5G6TmU2OHNRlyV81+CClQNWyZMIiG7s0uZp
+ sXfnBGzPrPMgt3TYDcjrtZL6IFWkFe0iDz1B/JDVnINzUU/2m+TpmtMkFm81K7wqV0KCn0
+ +ObW7RZCqCEJma9ZZpAmwReITtzeo+8KPtdj4gAPkGOZx57jPIrkBlGzUHqQR8bxfWCD7z
+ H+RewnXDbrgprGDKp6CFKD47wkJZjBZSHWPM7E58xCOf+VHjiIfLCHgfrH/SpOWHQ7jpWT
+ YlTwIsp99RIwX9OTMpYJTvkwi3pP8HgRHttHMe2pa4bFu9hqLWRLqlhhkGfdig==
+To: "Anup Patel" <anup@brainfault.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20261005202731.153971-1-pmazzini@gmail.com> <20261005202731.153971-4-pmazzini@gmail.com>
- <20261007211626.GA338242-robh@kernel.org>
-In-Reply-To: <20261007211626.GA338242-robh@kernel.org>
-From: Pablo Mazzini <pmazzini@gmail.com>
-Date: Thu, 8 Oct 2026 07:54:59 +0100
-X-Gm-Features: AclHuK9HNWmbYmgrwOCN8Dj1r6Aaf0O489JwabVju8_e_8zgAdvV8DQG3O2TPc8
-Message-ID: <CAAxh=jsoFDfNGEtcWvxe5VNH-knf8LZg9aVh800LF9t-7m1qbA@mail.gmail.com>
-Subject: Re: [PATCH v3 03/11] dt-bindings: pinctrl: sun4i-a10: add Allwinner B288
-To: Rob Herring <robh@kernel.org>, andre.przywara@arm.com
-Cc: Chen-Yu Tsai <wens@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, Maxime Ripard <mripard@kernel.org>, 
-	Samuel Holland <samuel@sholland.org>, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+User-Agent: Mozilla Thunderbird
+In-Reply-To: <CAAhSdy0UgBGd2M=Zq3XiaTY-Y5uTrAcOtFF=haKgmFBRB1=ggw@mail.gmail.com>
+Date: Thu, 8 Oct 2026 14:41:39 +0800
+Content-Language: en-US
+References: <20260730093614.983508-1-xiangwencheng@lanxincomputing.com> <CAAhSdy0UgBGd2M=Zq3XiaTY-Y5uTrAcOtFF=haKgmFBRB1=ggw@mail.gmail.com>
+Subject: Re: [PATCH] riscv: KVM: Add hart-to-vCPU mapping for faster MSI injection
+Message-Id: <3c62dcd4-013f-4de1-93ee-dc74909060df@lanxincomputing.com>
+X-Lms-Return-Path: <lba+26ac73b29+288946+vger.kernel.org+xiangwencheng@lanxincomputing.com>
+Received: from [127.0.0.1] ([123.120.5.129]) by smtp.feishu.cn with ESMTPS; Thu, 08 Oct 2026 14:41:44 +0800
+Cc: <atish.patra@linux.dev>, <pjw@kernel.org>, <palmer@dabbelt.com>, 
+	<aou@eecs.berkeley.edu>, <alex@ghiti.fr>, <kvm@vger.kernel.org>, 
+	<kvm-riscv@lists.infradead.org>, <linux-riscv@lists.infradead.org>, 
+	<linux-kernel@vger.kernel.org>
+From: "BillXiang" <xiangwencheng@lanxincomputing.com>
 Content-Transfer-Encoding: quoted-printable
+X-Original-From: BillXiang <xiangwencheng@lanxincomputing.com>
+Content-Type: text/plain; charset=UTF-8
 
-Hi Rob,
+On 10/2/2026 2:53 PM, Anup Patel wrote:
+> On Thu, Jul 30, 2026 at 3:06=E2=80=AFPM BillXiang
+> <xiangwencheng@lanxincomputing.com> wrote:
+>>
+>> Replace linear searches over all vCPUs in MSI injection paths with a
+>> direct hart_index -> vCPU lookup table. This avoids O(n) scans on
+>> every injected interrupt and improves performance when the number of
+>> vCPUs is large.
+>>
+>> Both kvm_riscv_aia_inject_msi_by_id() and kvm_riscv_aia_inject_msi()
+>> now use the table instead of iterating over the vCPU list.
+>=20
+> The AIA hart_index bits for VCPUs are based on the IMSIC address
+> set by the KVM user-space and are not required to be contiguous hence
+> this patch is already broken.
 
-The B288 uses the same scheme as the A523, and the A733 queued for
-7.4, which the shared pinctrl-sunxi-dt helper parses, so I'd rather
-stay consistent with them.
-Andre, what do you think?
+Hi Anup,
 
-Thanks,
-Pablo
+Thanks for the review. You=E2=80=99re right =E2=80=94 hart_index is not gua=
+ranteed=20
+contiguous because it comes from the userspace-provided IMSIC address.=20
+Sizing the table by created_vcpus and bounds-checking against it is=20
+therefore wrong.
 
-On Wed, Oct 7, 2026 at 10:16=E2=80=AFPM Rob Herring <robh@kernel.org> wrote=
-:
->
-> On Mon, Oct 05, 2026 at 09:27:23PM +0100, Pablo Mazzini wrote:
-> > The B288 driver takes its mux values from the DT, so allwinner,pinmux
-> > becomes an allowed property here, required for this compatible only.
-> >
-> > Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
-> > ---
-> >  .../pinctrl/allwinner,sun4i-a10-pinctrl.yaml  | 22 +++++++++++++++++++
-> >  1 file changed, 22 insertions(+)
-> >
-> > diff --git a/Documentation/devicetree/bindings/pinctrl/allwinner,sun4i-=
-a10-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/allwinner,sun4=
-i-a10-pinctrl.yaml
-> > index 45b7a0b6c626..b1f093d218f5 100644
-> > --- a/Documentation/devicetree/bindings/pinctrl/allwinner,sun4i-a10-pin=
-ctrl.yaml
-> > +++ b/Documentation/devicetree/bindings/pinctrl/allwinner,sun4i-a10-pin=
-ctrl.yaml
-> > @@ -39,6 +39,7 @@ properties:
-> >        - allwinner,sun8i-a33-pinctrl
-> >        - allwinner,sun8i-a83t-pinctrl
-> >        - allwinner,sun8i-a83t-r-pinctrl
-> > +      - allwinner,sun8i-b288-pinctrl
-> >        - allwinner,sun8i-h3-pinctrl
-> >        - allwinner,sun8i-h3-r-pinctrl
-> >        - allwinner,sun8i-r40-pinctrl
-> > @@ -120,6 +121,15 @@ patternProperties:
-> >          $ref: /schemas/types.yaml#/definitions/uint32
-> >          enum: [10, 20, 30, 40]
-> >
-> > +      allwinner,pinmux:
-> > +        $ref: /schemas/types.yaml#/definitions/uint32-array
-> > +        description:
-> > +          Pinmux selector value, for each pin. Only used by SoCs whose
-> > +          driver takes the mux values from the DT instead of an in-dri=
-ver
-> > +          table. Almost every time this value is the same for all pins=
-, so
-> > +          any array shorter than the number of pins will repeat the la=
-st
-> > +          value, to allow just specifying a single cell, for all cells=
-.
->
-> Perhaps new platforms should move to the common 'pinmux' property?
->
-> Rob
+I'll use an xarray keyed by hart_index instead, or drop the optimization=20
+if that=E2=80=99s preferred.
+
+Regards,
+Bill
+
+>=20
+> NACK from my side.
+>=20
+> Regards,
+> Anup
+>=20
+>>
+>> Signed-off-by: BillXiang <xiangwencheng@lanxincomputing.com>
+>> ---
+>>   arch/riscv/include/asm/kvm_aia.h |  2 +
+>>   arch/riscv/kvm/aia_device.c      | 67 +++++++++++++++++++++-----------
+>>   2 files changed, 47 insertions(+), 22 deletions(-)
+>>
+>> diff --git a/arch/riscv/include/asm/kvm_aia.h b/arch/riscv/include/asm/k=
+vm_aia.h
+>> index c67ec5ac0..71240b0a2 100644
+>> --- a/arch/riscv/include/asm/kvm_aia.h
+>> +++ b/arch/riscv/include/asm/kvm_aia.h
+>> @@ -47,6 +47,8 @@ struct kvm_aia {
+>>
+>>          /* Internal state of APLIC */
+>>          void            *aplic_state;
+>> +
+>> +       struct kvm_vcpu **hart_to_vcpu;
+>>   };
+>>
+>>   struct kvm_vcpu_aia_csr {
+>> diff --git a/arch/riscv/kvm/aia_device.c b/arch/riscv/kvm/aia_device.c
+>> index be83c2d5f..595553817 100644
+>> --- a/arch/riscv/kvm/aia_device.c
+>> +++ b/arch/riscv/kvm/aia_device.c
+>> @@ -253,6 +253,14 @@ static int aia_init(struct kvm *kvm)
+>>          if (ret)
+>>                  return ret;
+>>
+>> +       aia->hart_to_vcpu =3D kcalloc(kvm->created_vcpus,
+>> +                                       sizeof(struct kvm_vcpu*),
+>> +                                       GFP_KERNEL);
+>> +       if (!aia->hart_to_vcpu) {
+>> +               ret =3D -ENOMEM;
+>> +               goto fail_cleanup_aplic;
+>> +       }
+>> +
+>>          /* Iterate over each VCPU */
+>>          kvm_for_each_vcpu(idx, vcpu, kvm) {
+>>                  vaia =3D &vcpu->arch.aia_context;
+>> @@ -274,6 +282,12 @@ static int aia_init(struct kvm *kvm)
+>>                  /* Update HART index of the IMSIC based on IMSIC base *=
+/
+>>                  vaia->hart_index =3D aia_imsic_hart_index(aia,
+>>                                                          vaia->imsic_add=
+r);
+>> +
+>> +               if (aia->hart_to_vcpu[vaia->hart_index]) {
+>> +                       ret =3D -EINVAL;
+>> +                       goto fail_cleanup_imsics;
+>> +               }
+>> +               aia->hart_to_vcpu[vaia->hart_index] =3D vcpu;
+>>
+>>                  /* Initialize IMSIC for this VCPU */
+>>                  ret =3D kvm_riscv_vcpu_aia_imsic_init(vcpu);
+>> @@ -293,6 +307,9 @@ static int aia_init(struct kvm *kvm)
+>>                          continue;
+>>                  kvm_riscv_vcpu_aia_imsic_cleanup(vcpu);
+>>          }
+>> +       kfree(aia->hart_to_vcpu);
+>> +       aia->hart_to_vcpu =3D NULL;
+>> +fail_cleanup_aplic:
+>>          kvm_riscv_aia_aplic_cleanup(kvm);
+>>          return ret;
+>>   }
+>> @@ -551,30 +568,28 @@ void kvm_riscv_vcpu_aia_deinit(struct kvm_vcpu *vc=
+pu)
+>>   int kvm_riscv_aia_inject_msi_by_id(struct kvm *kvm, u32 hart_index,
+>>                                     u32 guest_index, u32 iid)
+>>   {
+>> -       unsigned long idx;
+>>          struct kvm_vcpu *vcpu;
+>> +       struct kvm_aia *aia =3D &kvm->arch.aia;
+>>
+>>          /* Proceed only if AIA was initialized successfully */
+>>          if (!kvm_riscv_aia_initialized(kvm))
+>>                  return -EBUSY;
+>>
+>> -       /* Inject MSI to matching VCPU */
+>> -       kvm_for_each_vcpu(idx, vcpu, kvm) {
+>> -               if (vcpu->arch.aia_context.hart_index =3D=3D hart_index)
+>> -                       return kvm_riscv_vcpu_aia_imsic_inject(vcpu,
+>> -                                                              guest_ind=
+ex,
+>> -                                                              0, iid);
+>> -       }
+>> +       if (!aia->hart_to_vcpu || hart_index >=3D kvm->created_vcpus)
+>> +               return 0;
+>>
+>> -       return 0;
+>> +       vcpu =3D aia->hart_to_vcpu[hart_index];
+>> +       if (!vcpu)
+>> +               return 0;
+>> +
+>> +       return kvm_riscv_vcpu_aia_imsic_inject(vcpu, guest_index, 0, iid=
+);
+>>   }
+>>
+>>   int kvm_riscv_aia_inject_msi(struct kvm *kvm, struct kvm_msi *msi)
+>>   {
+>>          gpa_t tppn, ippn;
+>> -       unsigned long idx;
+>>          struct kvm_vcpu *vcpu;
+>> -       u32 g, toff, iid =3D msi->data;
+>> +       u32 g, toff, iid =3D msi->data, hart_index;
+>>          struct kvm_aia *aia =3D &kvm->arch.aia;
+>>          gpa_t target =3D (((gpa_t)msi->address_hi) << 32) | msi->addres=
+s_lo;
+>>
+>> @@ -589,18 +604,22 @@ int kvm_riscv_aia_inject_msi(struct kvm *kvm, stru=
+ct kvm_msi *msi)
+>>          g =3D tppn & (BIT(aia->nr_guest_bits) - 1);
+>>          tppn &=3D ~((gpa_t)(BIT(aia->nr_guest_bits) - 1));
+>>
+>> -       /* Inject MSI to matching VCPU */
+>> -       kvm_for_each_vcpu(idx, vcpu, kvm) {
+>> -               ippn =3D vcpu->arch.aia_context.imsic_addr >>
+>> -                                       IMSIC_MMIO_PAGE_SHIFT;
+>> -               if (ippn =3D=3D tppn) {
+>> -                       toff =3D target & (IMSIC_MMIO_PAGE_SZ - 1);
+>> -                       return kvm_riscv_vcpu_aia_imsic_inject(vcpu, g,
+>> -                                                              toff, iid=
+);
+>> -               }
+>> -       }
+>> +       if (!aia->hart_to_vcpu)
+>> +               return 0;
+>>
+>> -       return 0;
+>> +       hart_index =3D aia_imsic_hart_index(aia, target);
+>> +       if(hart_index >=3D kvm->created_vcpus)
+>> +               return 0;
+>> +
+>> +       vcpu =3D aia->hart_to_vcpu[hart_index];
+>> +       if (!vcpu)
+>> +               return 0;
+>> +
+>> +       ippn =3D vcpu->arch.aia_context.imsic_addr >> IMSIC_MMIO_PAGE_SH=
+IFT;
+>> +       if (ippn !=3D tppn)
+>> +               return 0;
+>> +       toff =3D target & (IMSIC_MMIO_PAGE_SZ - 1);
+>> +       return kvm_riscv_vcpu_aia_imsic_inject(vcpu, g, toff, iid);
+>>   }
+>>
+>>   int kvm_riscv_aia_inject_irq(struct kvm *kvm, unsigned int irq, bool l=
+evel)
+>> @@ -641,10 +660,14 @@ void kvm_riscv_aia_init_vm(struct kvm *kvm)
+>>
+>>   void kvm_riscv_aia_destroy_vm(struct kvm *kvm)
+>>   {
+>> +       struct kvm_aia *aia =3D &kvm->arch.aia;
+>>          /* Proceed only if AIA was initialized successfully */
+>>          if (!kvm_riscv_aia_initialized(kvm))
+>>                  return;
+>>
+>> +       kfree(aia->hart_to_vcpu);
+>> +       aia->hart_to_vcpu =3D NULL;
+>> +
+>>          /* Cleanup APLIC context */
+>>          kvm_riscv_aia_aplic_cleanup(kvm);
+>>   }
+>> --
+>> 2.53.0
