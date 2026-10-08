@@ -1,89 +1,71 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-4325.protonmail.ch (mail-4325.protonmail.ch [185.70.43.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DD4849504A;
-	Thu,  8 Oct 2026 12:41:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BEBF49504A
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 12:42:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791463314; cv=none; b=KpZGLbyFJwL+uKlA6BbtZVmaT7XK0a2SYtlC8HqOyxWc6uGis5wFjO+fxoWqzQGscJwOq+BWbOLRvPRL3cMT9gUAiSmxilWYY9c8nYTJzo1oitFgOIvOl8tEZ4QCyRD5GwrqLTTx+VfF22iJ0zMSAKaMFVNT/LQ+RENjG2Plhe4=
+	t=1791463359; cv=none; b=i7zzNOLaO/LurRe6qhFE7k1Yf+Lk5BMnp9IzZW9ye9XMt51AHhXTLn8GZLqjehcrvN3bSzUtXp56uMCBaJ4RT9o6i0Py20XE6boRGyMp0NfnaDvYGrVrQNNu2GfYD9EN53uZnm3OPj5UQ5yCC0nlh9PKCLgRTQmTM2iRWaRBIZY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791463314; c=relaxed/simple;
-	bh=OCqotSuxZr4Z730QVjyzGOGwqUGbZBIZ6YprAybunpQ=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=MM06hoMNunyjkvxeARAh00xpXcb9gcnxsdYgA0SpTmYg6IFbTDolYaHthCNKTnZdB06Tfgjl8ekG62InIe4Q80/qJ0qgNLn834FOifH/yk5bPDn0cavVdYgL25NMN4gPnvVJYCMIbCbnQJwmqNSq9YNDsaph+O5SCTjYqidLdOg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hzHTdVt5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791463359; c=relaxed/simple;
+	bh=M2aFLYqloUfwwoShMttWjRxEus8bFpakdomTjQhYs+0=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=I94Bn6+vVvhBvPUhWL2jQpwT2GlIduPmBMlz9klJAVsEcqldpX0A56plHNDBXu7cbD9HsMGtrFEwud/jovc6fwUTwC5CJbUV66Ph+U/r9yYRteevESA66W6BNLwe1W1smPnIp/eklhlnnplmxhK988wVXK2+6wTdGjJtJExgDeY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=rAqoglOA; arc=none smtp.client-ip=185.70.43.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hzHTdVt5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC1E31F000FF;
-	Thu,  8 Oct 2026 12:41:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791463313;
-	bh=Dlc101BIDIaplGW4R5sZhxWAgvCKBBbu6YHcPII3Cyo=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=hzHTdVt5cRYPI1jiwTeMeNTgipFnFFjXXqoujPi+ltqfbIm2PlqBaXKc/15S0iZbG
-	 CCdO7ssUJvgochr/CM8/D59+IldL/WfPdBx78DCOz36bLYAqcoZlJ7/aCe6E5RRM7V
-	 PrUFdmZhCoaXKt2gnl5Gb47tYVTc2K761gdu4wh30+dLFTVhSkmZdLK8fNgi+pVqo0
-	 VNnjOw8VFIMWTEYAw682fj5nrpOKXEjmQNtwnFCMzTqzvzDWGZpqDXe4tVsfO5/vTH
-	 9wRzyuBPXce6Y1VwQWlF0DsNpkn0jdmLPDm2AJvceSeTS8MrIe42wQ4mXdXJ7Y/elY
-	 v7YMasOPoJPzw==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jisheng Zhang <jszhang@kernel.org>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- Conor Dooley <conor.dooley@microchip.com>
-In-Reply-To: <20261005152633.25339-1-jszhang@kernel.org>
-References: <20261005152633.25339-1-jszhang@kernel.org>
-Subject: Re: [PATCH v2] regulator: dt-bindings: sy8827n: support standard
- properties
-Message-Id: <179145483318.2423942.13643555045309047556.b4-ty@b4>
-Date: Thu, 08 Oct 2026 12:20:33 +0200
+	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="rAqoglOA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1791463349; x=1791722549;
+	bh=M2aFLYqloUfwwoShMttWjRxEus8bFpakdomTjQhYs+0=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=rAqoglOA5yPd1zqizCCleom7c+7VWn7XUy3q+OmakrSura6oOYm4EJck0u5txby2x
+	 7uOvrqfHuyPKKCW2iETRKKPq380r6G1/muZuH9lBKvyZqUwqHoPrKMVReMlEj08yL5
+	 uj/zotzhYfrxMfGz4tBxlImcsZHl+VxwQCJZtKm82S0v9Z2nkFtY1xPKd2zkGWaUTn
+	 FFQXYeiReZ1NH9GR3k9xRzsRhNBOO21/SIxieqIHpXAyhkU9cL9wEDijvBglkb9uMb
+	 1LxRz6z2V1Q7R79XnUZCHbqv4EQDfHW/h45d7gwE7C3SQnJrTYvhku5CAgUHG4PykU
+	 phFDjZnbDeeNQ==
+Date: Thu, 08 Oct 2026 12:42:25 +0000
+To: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+From: Turritopsis Dohrnii Teo En Ming <teo.en.ming@protonmail.com>
+Cc: "ceo@teo-en-ming-corp.com" <ceo@teo-en-ming-corp.com>
+Subject: =?utf-8?Q?New_Linux_tech_compresses_memory_in_RAM,_as_RAM,_for_452x_speedup_=E2=80=94_new_CRAM_method_offers_giant_boost_to_compressed_memory_reads?=
+Message-ID: <Pb2gfcFKJBKwWOQb0xyS6u2pr0cKZfVl3VpYePkfAcXz16jxtVL-xvy5K8PqlIoFh5QMOFD2WRfAHIqcB3VxCP2Sd4Md_hOwjZwlNRz8Xpk=@protonmail.com>
+Feedback-ID: 39510961:user:proton
+X-Pm-Message-ID: bc67df6e95678f739b102d56ef156fb8a40081b1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1147; i=broonie@kernel.org;
- h=from:subject:message-id; bh=OCqotSuxZr4Z730QVjyzGOGwqUGbZBIZ6YprAybunpQ=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLKO93dvv5/9r6/14dJppzkEe9r3tnBUnyv65vRZSHFWJ
- 1Ng6pZDHaUsDGJcDLJiiixxWdwv60ter+E7uLANZg4rE8gQBi5OAZgIQyTD/4pm0ePp845PmSew
- JdNIcH59XECDtr7sjXJB1qvdXeKXjRgZrn9ZNIvlXFPk0tf+VtUPJBbxzIjdxiq85eaH0EzDwj2
- NLAA=
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 05 Oct 2026 23:26:33 +0800, Jisheng Zhang wrote:
-> regulator: dt-bindings: sy8827n: support standard properties
+Subject: New Linux tech compresses memory in RAM, as RAM, for 452x speedup =
+=E2=80=94 new CRAM method offers giant boost to compressed memory reads
 
-Applied to
+Good day from Singapore,
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.4
+Here is an article which I would like to share.
 
-Thanks!
+Article: New Linux tech compresses memory in RAM, as RAM, for 452x speedup =
+=E2=80=94 new CRAM method offers giant boost to compressed memory reads
+Link: https://www.tomshardware.com/software/linux/new-linux-tech-compresses=
+-memory-in-ram-as-ram-for-452x-speedup-new-cram-method-offers-giant-boost-t=
+o-compressed-memory-reads
 
-[1/1] regulator: dt-bindings: sy8827n: support standard properties
-      https://git.kernel.org/broonie/regulator/c/e46eeb24d707
+Thank you.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Regards,
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+Mr. Turritopsis Dohrnii Teo En Ming
+Targeted Individuals Singapore
+Government-Induced Schizophrenia, Government-Induced Health and Medical Pro=
+blems, and Government-Induced Extreme Poverty for the Past 20 Years (Govern=
+ment Persecution)
+8 Oct 2026 Thursday 8.42 PM Singapore Time
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
 
