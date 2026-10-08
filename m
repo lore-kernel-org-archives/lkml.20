@@ -1,114 +1,74 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95AD73A641D
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 16:46:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E2B63955C1;
+	Thu,  8 Oct 2026 16:47:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791478019; cv=none; b=Qjt8UFF4DHYtX01axP1iz2XnfDfH8ff8VFgYsVVLuQ/95ke2geFSkzWxVgg0paFbAr1emr7WFePIIKOnQyv7re5Yy5kvOL+65mx7UXrrYNeDLzayQgACpKPc/QfbrVhCVa/09zPyQTeYw1DEdQXG9NNiw0kFVvH/pOR/qKIIa8E=
+	t=1791478023; cv=none; b=frXUBfbrpRaiD/CnC6IYluYa4foF+h0V1VBPSL4XbILKMWLCat+fsEAduxcsGlqRYsBJAmTeJcQwlcLimAbuKIcmTsfUQsbavFQlI0dxKMcPnViPQF8UaM9TH/kWq6IHglEH0CjSswwCTd2RxDxI3FmFe/U/N7UiJVsUH4Hqeus=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791478019; c=relaxed/simple;
-	bh=3n0CrrFvPY7xQWhnAEYjghgZP3ue8dP5TePqYp4pD2M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kgookdzjgjK9hRCe4eAKCPB4+YBKuRQsPtJjCFk4M3yERnNtKJhd3UPRgTwgxwrfT9dlzKkXYc1j6jNrB6vnK/fpHXMS8bjHFEJVXruZnln64BtE5KS/a6BiCsA3hb3BfhL1nApV3UJR42de3BDtEzNRRri3yjoQz+HaB2xaKr8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=j7NtLxzv; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791478023; c=relaxed/simple;
+	bh=gp7PRv3WjAiMJrp0DvXpRvTv3mwC8R3NiezXzUE7FxE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=CPNkZ1BTit9hgvHZ69URq2VWIzCHcsqmelOMkQzpXHj6sBLALGyb0CveVYND60r1wGtO8AeVp2D+C8fEBWemJfpTCm0G3OMpITET3nS/PLyCFmC9iiXQNxrDoI7yjUvqpY3ttwfEawtopQwwCKrjT1V6bOrorELfvpn42QZpfR4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HP65iv9J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="j7NtLxzv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791478019; x=1823014019;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=3n0CrrFvPY7xQWhnAEYjghgZP3ue8dP5TePqYp4pD2M=;
-  b=j7NtLxzvb4puWHpkZtXXs1PpoNQUwAXrC6zMyKZFJwtHkirMvT/goWuD
-   RbubsKApP4W5AS8+y6loZcERgwU7S0QJEH85gJRZbkV0EFNn60f99ZYlV
-   ztDm/d+kQtdGBegRx3HiDB3/obxbjeC4cJFRXIfW6PYsUBMdReNtlUhH1
-   cNquFvh0k04s2k1d4WsVWIG5asXUdbf3Dxn22CBk7HXX0ooUEK9CSlFI9
-   zHI7KGE7YFotuh1h1gRT/lcZCr+n6rncmHNBdNKEbBWbg2uhUtEwL45uF
-   VSBUiZvKQWhlC3f26U7au5Nqx+SW9wTfnbC1+89ZilV6HK33tyt9l/EYo
-   A==;
-X-CSE-ConnectionGUID: /rA1fP8mRjmBt4MEAp3AZw==
-X-CSE-MsgGUID: BkkBKLMpT0ucZMwR0Irc+w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="279763"
-X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
-   d="scan'208";a="279763"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 09:46:58 -0700
-X-CSE-ConnectionGUID: JuhjDObATuqYSeGo+J1eEQ==
-X-CSE-MsgGUID: R6VAn1tyQGSLnz0CLAY6dw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
-   d="scan'208";a="1912919"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa012.fm.intel.com with ESMTP; 08 Oct 2026 09:46:54 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xErGc-000000004ey-2nl8;
-	Thu, 08 Oct 2026 16:46:50 +0000
-Date: Fri, 9 Oct 2026 00:46:36 +0800
-From: kernel test robot <lkp@intel.com>
-To: =?iso-8859-1?Q?Adri=E1n?= Larumbe <adrian.larumbe@collabora.com>,
-	Boris Brezillon <bbrezillon@kernel.org>,
-	Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Faith Ekstrand <faith.ekstrand@collabora.com>,
-	"Marty E. Plummer" <hanetzer@startmail.com>,
-	Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-	Collabora Kernel Team <kernel@collabora.com>,
-	=?iso-8859-1?Q?Adri=E1n?= Larumbe <adrian.larumbe@collabora.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v13 01/15] drm/panfrost: Move shrinker initialization and
- unplug one level down
-Message-ID: <202610090034.XP8OKWaV-lkp@intel.com>
-References: <20261008-claude-fixes-v13-1-d6a493185860@collabora.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HP65iv9J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 679881F000FF;
+	Thu,  8 Oct 2026 16:47:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791478022;
+	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=HP65iv9J+OJBjRzHDe+x3Q0fxoJqwG55CWjZ7g1cMsMf/MH3seGV4M2OkIJNbkBrK
+	 h0HADaT0ajp3QmdalQrnAdRdaHT+uCqqC5Wn1LEnjgkIBJHp2szA4zDo04sIpS9rnT
+	 u9VOnZyR5bzwVELda8eqpU4f0/WVDO+QUXbngNLyK5eF91h3XxIZUJOQnVVHLYsGao
+	 zUILcQ8Dc0LUQsZskSPZ9DhSDBCz3WWkc6UFQYbnqnyiOexbrJIJLmwFyauQe7VIZu
+	 kqCPrjrbL4785e37yZZ5W1OFWmD0+OrcWxA6Gx0aBQQkEkpEsEQqBOBhbRfxRIcfS8
+	 09yMvigG7A34w==
+From: netdev-bot+sinfo@kernel.org
+To: Haotian Zhang <vulab@iscas.ac.cn>
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: 
+ Re: [PATCH] net: phy: bcm7xxx: preserve __phy_write() error in write_mmd()
+Date: Thu, 08 Oct 2026 16:47:00 +0000
+Message-ID: <179147802087.2527009.5778359159706354094@kernel.org>
+In-Reply-To: <20261008164240.2694229-1-vulab@iscas.ac.cn>
+References: <20261008164240.2694229-1-vulab@iscas.ac.cn>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261008-claude-fixes-v13-1-d6a493185860@collabora.com>
 
-Hi Adrián,
+Hi!
 
-kernel test robot noticed the following build warnings:
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-[auto build test WARNING on 3ab04dcce43cd4fdaed94f08f4e6289be4921ea4]
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Adri-n-Larumbe/drm-panfrost-Move-shrinker-initialization-and-unplug-one-level-down/20261008-004244
-base:   3ab04dcce43cd4fdaed94f08f4e6289be4921ea4
-patch link:    https://lore.kernel.org/r/20261008-claude-fixes-v13-1-d6a493185860%40collabora.com
-patch subject: [PATCH v13 01/15] drm/panfrost: Move shrinker initialization and unplug one level down
-config: arm64-randconfig-1002-20261008 (https://download.01.org/0day-ci/archive/20261009/202610090034.XP8OKWaV-lkp@intel.com/config)
-compiler: clang version 17.0.6 (https://github.com/llvm/llvm-project 6009708b4367171ccdbf4b5905cb6a803753fe18)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261009/202610090034.XP8OKWaV-lkp@intel.com/reproduce)
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610090034.XP8OKWaV-lkp@intel.com/
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
-All warnings (new ones prefixed by >>):
-
->> Warning: drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c:98 function parameter 'pfdev' not described in 'panfrost_gem_shrinker_init'
->> Warning: drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c:98 Excess function parameter 'dev' description in 'panfrost_gem_shrinker_init' (did you mean one of: 'pfdev')
->> Warning: drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c:119 function parameter 'pfdev' not described in 'panfrost_gem_shrinker_fini'
->> Warning: drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c:119 expecting prototype for panfrost_gem_shrinker_cleanup(). Prototype was for panfrost_gem_shrinker_fini() instead
->> Warning: drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c:98 function parameter 'pfdev' not described in 'panfrost_gem_shrinker_init'
->> Warning: drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c:98 Excess function parameter 'dev' description in 'panfrost_gem_shrinker_init' (did you mean one of: 'pfdev')
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
