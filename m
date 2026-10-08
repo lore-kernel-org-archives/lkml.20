@@ -1,119 +1,99 @@
-Received: from out30-101.freemail.mail.aliyun.com (out30-101.freemail.mail.aliyun.com [115.124.30.101])
+Received: from out28-173.mail.aliyun.com (out28-173.mail.aliyun.com [115.124.28.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D307B4503B;
-	Thu,  8 Oct 2026 02:43:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 551F11A08AF;
+	Thu,  8 Oct 2026 02:45:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791427435; cv=none; b=czJq1H4VfpxU0i2+cHMpHiZzGMkdm9AjaxHvrAoVL2JXyyVJ5kxmvgIg7RPiTm8ksQOI6jnut5SKqlfszgFd5IAgkHT64t9dVI4TkyroJok6JDIvQ7suCEuOQKhpPybpN+9vpKwrVcu+rJ2he09IC5sZrA+plHel+StodplOCrQ=
+	t=1791427563; cv=none; b=SpSn7Gby7qNHXGLWiUKDLE2NsLbUCca1wVDm6OQtgEhkrmgyQBQa8HhAzA9z/KomnDe/mLOTlj7tznQHhl0ZLi2e7kILWFeNDNGIfST3/MbPiyh9/HfKJQU85eFDx3eTQaZFhponJomvrekO7DQLjFfO5jAbi7ufEqD6OVlHJIo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791427435; c=relaxed/simple;
-	bh=AsjIKhr8xNW7IfbX2vbS4si8f3rhS9x5rxDuh/UNBxE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pEKw0wqpk52lrp98fruW9jmD7lagVxAHfkI/pL8qaKthVIS9l312gV0D/n166Mf97jdI0CM5pMEBUBM9aIBCwJHVJ20eNByO8r8S0pFHqxmYFzFogHr5VqAdVR3hd0KNKCsOowm3cO+6vrMJYlFgg4b15+i8FCIT1bgoIFRKdHk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=xifM2OB9; arc=none smtp.client-ip=115.124.30.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1791427563; c=relaxed/simple;
+	bh=UfDhaCDDMm7kAZVIqt+mVGPSLmZKVM6WAVVA2x99/M8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=MT0zWSMOGgqaZeja//OPnruLlkVON4GQGxGTDDCS5PnN3iQEi851SKWz0hkcUHx5qjperBai8/ca1FByg4CAcYE+xy6074DRiUHQTrpSJj5sipE22vRuvMWd2AhP5/xHri79HZRcUmkzT6Qai5b/6D3XEqXxJtdIc3o1XQuHTuA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=B7bGeyL0; arc=none smtp.client-ip=115.124.28.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="xifM2OB9"
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="B7bGeyL0"
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1791427421; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=Q0FF2SeKg1bh3CoH0FEQjS2Yeuw6iX4vo4RREW53Gb0=;
-	b=xifM2OB949T29aP2DoC4ost4LpzFQWP/lddmZ13OiXLfMWTUTq+RJ+M2MjHx+FIms+OHK3SFlNRCWAkpiyGt5DAfoY3yvC8DlmM2JE95HufVXkIH80LT3vJm/Yl2T3MyNQj5mBxFlwxUdgMnThLQjpNEwC4nz6AIDQyWb79EfC8=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R101e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=libaokun@linux.alibaba.com;NM=1;PH=DS;RN=10;SR=0;TI=SMTPD_---0XCIaawL_1791427097;
-Received: from 30.221.130.64(mailfrom:libaokun@linux.alibaba.com fp:SMTPD_---0XCIaawL_1791427097 cluster:ay36)
+	d=xiaopeng.com; s=default;
+	t=1791427552; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=lI1GALVEJrn/SwrfBIlIqj+oyWhvCwuNikjGXJLM/cc=;
+	b=B7bGeyL0Sjt9ituliz5YB4DxXk1uRUCnOwYwbXchZEESertJtD1cbQPeQsY1qG+BQ+60OMH2TjLlthgQWCGEMbQHm/jYC4Q65zGkJTieqOoz4cAoyQXxobj3RrZuk2CVtdt5pJiiHFzdrXXnc360aYdmfylDvoKGRIMl0LfrT+w=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.08667126|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.141551-0.00588351-0.852565;FP=18319517013567864945|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033032053168;MF=guozh23@xiaopeng.com;NM=1;PH=DS;RN=16;RT=16;SR=0;TI=SMTPD_---.jWKvv6R_1791427549;
+Received: from localhost(mailfrom:guozh23@xiaopeng.com fp:SMTPD_---.jWKvv6R_1791427549 cluster:ay29)
           by smtp.aliyun-inc.com;
-          Thu, 08 Oct 2026 10:38:17 +0800
-Message-ID: <55d33a36-cf59-4c37-8d2c-1ed176236052@linux.alibaba.com>
-Date: Thu, 8 Oct 2026 10:38:17 +0800
+          Thu, 08 Oct 2026 10:45:50 +0800
+From: Guo Zihao <guozh23@xiaopeng.com>
+To: netdev-bot+sashiko@kernel.org
+Cc: Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>,
+	Phil Sutter <phil@nwl.cc>,
+	Nikolay Aleksandrov <razor@blackwall.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	bridge@lists.linux.dev,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] netfilter: ebtables: ebt_802_3: drop short frames before the match reads LLC
+Date: Thu,  8 Oct 2026 10:45:49 +0800
+Message-ID: <20261008024549.4115339-1-guozh23@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <179077865471.434549.9648522947578914338@kernel.org>
+References: <179077865471.434549.9648522947578914338@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ext4: do not accept rec_len 0 for block sizes below 64k
-To: hengyul@cs.unc.edu
-Cc: linux-ext4@vger.kernel.org, tytso@mit.edu, adilger.kernel@dilger.ca,
- jack@suse.cz, ojaswin@linux.ibm.com, ritesh.list@gmail.com,
- yi.zhang@huawei.com, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261006111546.3252481-1-hengyul@cs.unc.edu>
-Content-Language: en-US
-From: Baokun Li <libaokun@linux.alibaba.com>
-In-Reply-To: <20261006111546.3252481-1-hengyul@cs.unc.edu>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 2026/10/6 19:15, hengyul@cs.unc.edu wrote:
-> From: Hengyu Liang <hengyul@cs.unc.edu>
->
-> Commit afa6d5a16bf2 ("ext4: remove PAGE_SIZE checks for rec_len
-> conversion") made ext4_rec_len_from_disk() read a rec_len of 0 as "this
-> entry covers the whole block" for every block size.
->
-> However, this special value only exists for block sizes of 64k and
-> more. With smaller blocks, a rec_len of 0 means that the directory
-> block is corrupted. As of now, a directory block that has been
-> overwritten with zeroes is treated as an empty block. The kernel no
-> longer reports the corruption and can store new entries in that block,
-> while e2fsck still reports the block as corrupted.
->
-> The issue can be reproduced on a file system without metadata_csum:
->
->     mke2fs -q -t ext4 -b 1024 -O ^metadata_csum,^dir_index img 8M
->     mount -o loop img /mnt
->     mkdir /mnt/d
->     for i in $(seq 100); do touch /mnt/d/file_with_a_long_name_$i; done
->     umount /mnt
->     dd if=/dev/zero of=img bs=1024 count=1 conv=notrunc \
->         seek=$(debugfs -R "bmap d 1" img)
->     mount -o loop img /mnt
->     touch /mnt/d/new
->
-> Before commit afa6d5a16bf2 ("ext4: remove PAGE_SIZE checks for rec_len
-> conversion"), the last command fails with "Structure needs cleaning".
-> After that commit, it succeeds.
->
-> This patch makes ext4_rec_len_from_disk() return the on-disk value
-> unchanged when the block size is below 64k, as e2fsprogs does.
->
-> Fixes: afa6d5a16bf2 ("ext4: remove PAGE_SIZE checks for rec_len conversion")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+Hi,
 
-Looks good, thanks for the fix!
+Thanks for the review. All five findings check out against the source,
+and I have posted v2 addressing them:
 
-The extended rec_len encoding is only needed for block sizes >= 64k,
-so this matches what e2fsprogs does: ext2fs_get_rec_len() has had the
-same "blocksize < 65536" check since commit a4fdf09414e0 ("libext2fs:
-Don't use the extended rec_len encoding for standard file systems").
+https://lore.kernel.org/netdev/20261008024539.4106699-1-guozh23@xiaopeng.com/
 
-Reviewed-by: Baokun Li <libaokun@linux.alibaba.com>
+Point by point:
 
+[High] skb_header_pointer() negative offset. Agreed, and I was wrong to
+doubt __skb_header_pointer() in v1. v2 now uses
 
-> ---
->  fs/ext4/ext4.h | 7 +++++++
->  1 file changed, 7 insertions(+)
->
-> diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-> index 724a27e8be61..ab716a5ad6da 100644
-> --- a/fs/ext4/ext4.h
-> +++ b/fs/ext4/ext4.h
-> @@ -2611,6 +2611,13 @@ ext4_rec_len_from_disk(__le16 dlen, unsigned blocksize)
->  {
->  	unsigned len = le16_to_cpu(dlen);
->  
-> +	/*
-> +	 * Only blocks of 64k and more need the special encoding of rec_len.
-> +	 * For smaller blocks 0 and EXT4_MAX_REC_LEN are not valid lengths
-> +	 * and must not be taken for an entry that spans the whole block.
-> +	 */
-> +	if (blocksize < 65536)
-> +		return len;
->  	if (len == EXT4_MAX_REC_LEN || len == 0)
->  		return blocksize;
->  	return (len & 65532) | ((len & 3) << 16);
+    skb_header_pointer(skb, skb_mac_offset(skb), hlen, &_frame)
 
+which covers paged frames as well, instead of my hand-rolled linear-only
+check.
 
+[High] The abs(mac_offset) threshold was inconsistent across hooks.
+Gone with skb_header_pointer(); the requirement is now expressed as
+"bytes from the mac header" and follows whatever the hook did to the
+mac header, including the br_send_bpdu() path where mac_offset is 0.
+
+[High] hotdrop silently ignored by ebtables legacy. The match now
+returns false instead, the ebt_stp_mt() pattern, so legacy ebtables and
+nftables agree again. The commit message also points users who want such
+frames dropped at a plain "--802_3 -j DROP" rule rather than hiding a
+drop inside a SAP/TYPE check.
+
+[Medium] Reading 23 bytes for a SAP-only rule. v2 reads only
+offsetof(struct ebt_802_3_hdr, llc.ui.ctrl) = 16 bytes unless a TYPE
+constraint is set, so a 21-byte topology change BPDU still matches
+"--802_3 --802_3-sap 0x42 -j ACCEPT" like it did before (the union type
+and the control byte are only needed for the TYPE match).
+
+[Low] Fixes tag. v2 carries
+
+    Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+
+pw-bot: cr
+
+Guo Zihao
