@@ -1,203 +1,96 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013010.outbound.protection.outlook.com [40.107.162.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 502083A2576;
-	Thu,  8 Oct 2026 02:56:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.10
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791428179; cv=fail; b=dg54Yj2BmoDtaDxrze1yIjcFPtiy9sMnK+izru1U/ZMbLu5VsMZk5+sOPQQHnv9ZaNX/lTqwMoAia3pRac4Cu1FpV8yf3Uy47uDcvsKfJ7NBetKK7mwcKNidolJQ2MapM47ccBN3gT8+x0DNZn80kUimDq1ajER7gYB24DzhEHY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791428179; c=relaxed/simple;
-	bh=4qnsmJVdPlyIbcgDtSgBkAX9R8IR+JltEzxIu72AkAM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=YwYGiyQi2U8N/mAWd9oGblpHKFlJAzdWpQkkLHrxc279kFLAuU3cxO7s0/Qs+jpUmwmI6PE5dCKWKBN6BgmYrcVUoIuGG0Icb1lKVhiF9dVunPikWB8/meoGsvF3piGsth4JUWIyM5SxBW/tBsrmn9RFPahPHV2UFa/OJ30USBM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=xutFQUdb; arc=fail smtp.client-ip=40.107.162.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFDB125771;
+	Thu,  8 Oct 2026 02:58:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791428294; cv=none; b=I6I1N3VhNqvTA0SviXp91ssUeO+Xrb9FyIyr77on5Tx62C7rV3HagGgdgsB56OSY9Zs93fForS4K+2nX0xGoorozzEzuJ5P0nD2BGT9jaK+wVU01Ow61Hd2Vo52IicKN27xGAE2SoNK9WoqFfIcE4+wlC+7y66R8BmKaeWOjLH4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791428294; c=relaxed/simple;
+	bh=cHbILVKSdizFNPE4GEMMhNM1jFSHqMY5od3vYov6rSA=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=M15jLSfb7blYa8QRYcmwPe3bp4xehPHWY8nogmxHEj1juhZIOebnxeqz4l4oiIOAV/u07pexg5phraVkkIPU0pE/OT25ICdctnWyJOeyBugt+veGFP7z0BWO7lDF343mFQda1OirZzU/veTFswFWLXsstlH73vW/j1HebjesrT4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A25DeaQh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="xutFQUdb"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qPyIhd+kXVre0EM6gmdIffTlv3Oh82TT8o7mRxCLEqxG2GScQi87MdsbvEpo4S5kgxs/ncfxlbJqVl7VD50fBjNLD7qSRTeJGBkGYtqff3LF8dQqHYH81v3k2nofLJs02kC8TUUbvIkueovoYJIM9CU55z80Y2amihGXDm7HVsTGgR62WR1Gj6wjOpDXCYwK6ufzG0w1lbSRxfcbpmOVUwn6843Q5wEyPhXsCupyM9VSC4sh1mJhZicubUlt7H+sjH+K6FMmeiBh0D+m13b7mw8u8tUIVTzhPm6qfVAr3jZ4gVY8NPvjpdJBG/NzVf0D09vatqg4kKk2EBRvrSkH6A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vWdjA6rPCFw0mkiCc7ymMjv/MDAphL636XIZWH86Ltg=;
- b=E/fjyP+gPCvxtOT7JG0Ka0bl3BEdpj4CWs/rZhSYjCYxSxpisnpmSZywqi6Yfq54CqX3GTc0+csBvcf3IpQwLUNXRWP77QxjT2yhZQEc/G75KOM6a15LxCxXzFq21q4IFQhyYfhUotjQJiyrpTHp+5wPn6qEq4MaTPl5kOoOE2txgki9Wedi8ktIB8BdrU5CIGFqC5duepAcQ+s9gwJKm2LRCbGVps/I1VD6DY0BU21jOXpOCMzHjiBIFRciZzOe2431U7PtHnvtpZmQzK57V4jSGRroh7+oy5iaT01pUEr4bb+vOrVVRWvaR2FHdWZLXpQ6KEABDvYPNUuUdMkvWQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vWdjA6rPCFw0mkiCc7ymMjv/MDAphL636XIZWH86Ltg=;
- b=xutFQUdb+acsvKY8NX3fEOT6wuR5ddAxFuq7pUAxe8hk/X29zXxPyPLrfmtx+TDwPiRCB4pxv3gQI1kLQK5k4FIYZpZAvyoJAjTdJaBO8YoMwqG2UFwt+vb8iA4JA6/fLMCruxtqVFgJb92VNjjs+CXlXTYOXU5/85+Xed3fXtB3UciMTuZIzat4gwEY1MvAA3tdZQ36HC4CdDd/wLU2oQyjEbun5jz0x23hPx0qyjp5EX6g9322qTW7tuf2ryRDMSyPmr/Pv/Ues4mcQ+KZVkX8r2o3RhtPndILV3pB/AK9/vtVoYC2KFGAzZiQSEU+L4qaQan/MVxXQonEHvk3eg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
- by AS1PR04MB9360.eurprd04.prod.outlook.com (2603:10a6:20b:4da::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Thu, 8 Oct
- 2026 02:56:14 +0000
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0451.022; Thu, 8 Oct 2026
- 02:56:07 +0000
-Date: Thu, 8 Oct 2026 11:00:40 +0800
-From: Peng Fan <peng.fan@oss.nxp.com>
-To: Alison Schofield <alison.schofield@intel.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	"Gupta, Pankaj" <pankaj.gupta@amd.com>,
-	Dan Williams <djbw@kernel.org>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Dave Jiang <dave.jiang@intel.com>, linux-kernel@vger.kernel.org,
-	Peng Fan <peng.fan@nxp.com>, nvdimm@lists.linux.dev,
-	linux-cxl@vger.kernel.org
-Subject: Re: [PATCH] dax: use assign_bit() where applicable
-Message-ID: <ascHWPHVlaeH0/pi@shlinux89>
-References: <20260919130750.3041470-1-peng.fan@oss.nxp.com>
- <34be3233-87a7-4dbd-bf4a-56116f4e8cdb@amd.com>
- <20260922000813.3299a72d@jic23-hlaptop>
- <asb5FDTzTHyayd6U@aschofie-mobl2.lan>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <asb5FDTzTHyayd6U@aschofie-mobl2.lan>
-X-ClientProxiedBy: SG2PR02CA0136.apcprd02.prod.outlook.com
- (2603:1096:4:188::16) To AM8PR04MB7874.eurprd04.prod.outlook.com
- (2603:10a6:20b:24d::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A25DeaQh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD3141F000FF;
+	Thu,  8 Oct 2026 02:58:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791428293;
+	bh=kqQFBKuueEa6Y0WgZw0AeqBkSpOARrf4znZxbkxqu7c=;
+	h=From:Subject:Date:To:Cc;
+	b=A25DeaQhdfV9zQRboNNmj4SYXFFZ7xtbDE6aNJ1e83lub7wAuWaKF35VltWK2sayF
+	 W0I1Is5mB3mWdzthWIKnWh/nxSWm2JhF1Bl6Z/C2dziXw3hg6VrCnJcBbPDPTZ0zWZ
+	 AKoaaI0IzgWZw1PfzvE3ZfkvyGux8EC3HXMuwn4IHliKRJneygZAo0r4WfAbbkUupQ
+	 Aj2006Ms+vwYR2Z85Oapxv5St86MviIS3ZVPEc8pJveqOVOZdkRbc52AGPN9dDlNDH
+	 Gl143Xi/oYe9xjHYI3OcpNd884tpzKDb8CC7CGXc7K4CUCt0cRU6ZDkZnzJIt4lRtl
+	 Wm6taqbOVTlxw==
+From: Yixun Lan <dlan@kernel.org>
+Subject: [PATCH 0/2] clk: spacemit: extend to support pm domain driver
+Date: Thu, 08 Oct 2026 02:57:54 +0000
+Message-Id: <20261008-04-k3-clk-pm-aux-v1-0-8372d7307694@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|AS1PR04MB9360:EE_
-X-MS-Office365-Filtering-Correlation-Id: 36111a47-2c30-4c96-200c-08df24e7b32b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|19092799006|23010399003|366016|22082099003|10067099003|18002099003|4143699003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	LHMhbU5ZqmQ8e6nH6347A9J7V5LJyYS7aVPjCHxDt0eJY5DKWUJHae5G9+N94EF9KxzlJ+JkziAe5GLMPxebPdikK0ID6gjr58E5kS5rwWjRoFxtbGy3lJUbhfvtU4B6yMXC0mZuCpXkhwapcXZihvp5pkUcufn86zplOGUjyQ9z4OcGdqS8ZyfeYUE7hsSnPwot/OwP3O4dOrj0vMUKSsL2HQ4Stw20VL4lciV5HLJ2qkbDDlW20qEW+xm5Tb+ueu9T6l+BzcmZ0aX13s05EtCaPV5f+bM7WZhJAmd5PL/2+7ymFgqWdLl3Z4eUoq3oS8WOwSVm6UtG6GvUfF6ec8CwjMnoHFrZ57tIEBIhykk7mmqXSpSEUbePEtb4/XVQnNends/0KP5JhPQhLfZz7tJtX9G3NMvjEXzhaxi+GJCBCvZBc81RqZ4Rstx84iTEWGH4DIcaQCMLW/Ai93v7ZI4dbdcC9LVVne8qOAjaN8ttzbTmnXkw8/IytzfKAyPCMDY5ZB8OK7zgFPnl9APujmyUYVRsCfZyqbVDatZ1xB0MLMvw/gbnvskXIu0x6813MhYaj6SeNLVtlql/FVsWluxyR0USBVkoXGJUKWle/FHr34pDeXGEXHDbNn9kfMnymM6TkWhl9oXPvqpLJVqhaMYhTAXCDDklKy4DNv+KO+0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(19092799006)(23010399003)(366016)(22082099003)(10067099003)(18002099003)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?RL6IP9IiClHMAfrXdaM3OXyYq1swXjUs54TvTMW1Y5UFZGeY5d4ybyUXZwNt?=
- =?us-ascii?Q?cMnT+CB0Qb90QfewmpA0IRzMdabzG+Yob+n/Vcvdu4kah+ylinp/2y0YxBCW?=
- =?us-ascii?Q?t4B+ovSG9Glz2lpZpG0IAkhRvtbFtSfDdKng5SaAV637Fp4k7kMV3hs4vyr5?=
- =?us-ascii?Q?BVdUoEWQfma8Iynt7j7GOKupORek2DrU8RwNJBrCXnDjEpBBcYKV/qTeRWCG?=
- =?us-ascii?Q?S0t1D046oyHvofLjIzCJ/AcNrefujiSv2G+XqJkyZcDNZOuko2IYvDOd20fp?=
- =?us-ascii?Q?JDbFkEPMqEvZVcxBeSKPv8oWwDONr01cFfmVKA3+egJmtyTHD51pIxPOYI57?=
- =?us-ascii?Q?UUje01izN1wH4kB1QKxgXkD5Oak0ImJC6x2o+LIbzUwUwJARARySrh1d6uky?=
- =?us-ascii?Q?05+3u8Z6pe/g9LAHZWZTeyaDNmefloNPCUfWmwwhF3zVDOE9JB9CZJl+ZQuf?=
- =?us-ascii?Q?MRiB17mJRlTvHlgdYL1G7gNTfCMVqlfaEevGKJUcH7GkvOSD3JaLTlLnFLoS?=
- =?us-ascii?Q?HOaPkHc2Al4i6ZNFmGOGlEZWZHpvGRTmkW+cSXKCYdoVk140o2cb6B++jcIs?=
- =?us-ascii?Q?s1hJ1svGusv0XjGcTgmqjy6lK2FrT0tTVSCc51HzWPt9Z2uEtp0uEN5ZLu6r?=
- =?us-ascii?Q?LzgH619JWwTfSq6WFojal4lOHnrAO38Q+8YBk9CKJL2PNkCLw55ogf4aXm60?=
- =?us-ascii?Q?4DFRSjkcXzcuxa2BLWPSDbMmhcahnSfNIL6xm1R7PPhc7SD5Zrl0hI2inWNF?=
- =?us-ascii?Q?MsSaRttSj5Gzvoh3bm2mSb4A76/Ji4gkW0DqrDqJi8tq+FWhhCf0GReK1eoz?=
- =?us-ascii?Q?QeRD9HvOGLYNzAwUZQ2NAUpw9lq5xVbSCbMma53eLYo/IvQiczeRB4hcB1Ct?=
- =?us-ascii?Q?OzJ+W7SIS3975iePumpD6+gMF59fLiIeK4BeZU3h5Dx6dZ+aGJITYPYoJ4VV?=
- =?us-ascii?Q?50JCe75FGk/sCbZfO7XOg0qfDqPedFq0tVpRV14z8EBb1+ADXD7U7+9ZCuTy?=
- =?us-ascii?Q?y51plh92OGECfYVI/1V4GTqgf5NXbaMdwtgiDzlJLtz8kiBgGWTPYWz9lx2M?=
- =?us-ascii?Q?+Ig2tpNNlCPh/25hLBfVVTZYQFSwBpn8LwVy4i0ISG91U3I/3j8D2LBPKb5v?=
- =?us-ascii?Q?5z11QyNH2I/hZFff4J/vY5FPoxbeXTSGmieT4T0mHqHyB+AoqGGIBI/JFFVJ?=
- =?us-ascii?Q?WkZlX7Xf8yu1OdpkZ5Kq9eE1kZM3DLxwZUm32pmIxEpSQfXL7KO/6b4KFrSc?=
- =?us-ascii?Q?Jl5VjKI4ey3fpakFiZNw0J7k0/zXtU4w4kPoHvhEu/0ajVF1wysCF0I8Ye+C?=
- =?us-ascii?Q?vqxXr4Ny0zJONus+ubmtK70Ow5bg+/rpTqp2QCXLRBIZvYbM8G+y1m5UZ+Us?=
- =?us-ascii?Q?jeP58SsH9Tk04S7K/PKJjYg9/o1oJFdo5o90roJqLJQtK49rT3283deNPDli?=
- =?us-ascii?Q?KVCJhxX0thAcPh32qO7jz9KFJVQZv8mszzcKp95Pla8WqEMYfSvFOTw0pIES?=
- =?us-ascii?Q?C8m7tLslC7x6jYFAckIs9ye0rb6k92JCBvVLx3hFxjA05l5QEJrUy8a86il6?=
- =?us-ascii?Q?qQ0MIFrdLLluIihzzb91mgH30H/cQWtoAPQxtaINVYXo121pVC3qkUGEYV/c?=
- =?us-ascii?Q?Ke1b3ycWYAH88FrvB9OoLgESOf+dg7Uw2+RAxZEOzAOZiajbToOdFoczPIlW?=
- =?us-ascii?Q?1dK/BCIv1Xcs5I+qGZsfTkakZRdicbhWqySMRTweCt8BSZLh5kDaaniQ7i06?=
- =?us-ascii?Q?eU83G2COzRIeDWDamixEZ6i9O2r0f2Qy8PnDPp8zf16QC3CJEnGK?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 36111a47-2c30-4c96-200c-08df24e7b32b
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 02:56:07.3211
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5fvDv100+nSKq2H3zlWiJh830uVcPXAtaEG16D3PE1Xq4TLf6d7AHXJiAZR9jNpITf1yh4YaYk3uHML+U2HpnMGoR6FyTi4PUzTTtbq7vVgjrcmMFC7zo9Hr22O5+Oaf
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR04MB9360
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQqDMBBA4avIrDswakjEq5Qu0jjq+FdJqgji3
+ Y26/Bbv7RDYCwcokx08rxLkN0WkrwRca6eGUapoyCjTKVGBpLDP0Q09ziPaZUOTG63IKK2tg5j
+ NnmvZ7uX78zgs347d//rAcZy6z8zQdAAAAA==
+X-Change-ID: 20261008-04-k3-clk-pm-aux-7376407466ac
+To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>
+Cc: Alex Elder <elder@riscstar.com>, Icenowy Zheng <uwu@icenowy.me>, 
+ Iker Pedrosa <ikerpedrosam@gmail.com>, linux-clk@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, Yixun Lan <dlan@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=961; i=dlan@kernel.org;
+ h=from:subject:message-id; bh=cHbILVKSdizFNPE4GEMMhNM1jFSHqMY5od3vYov6rSA=;
+ b=owEB6QIW/ZANAwAKATGq6kdZTbvtAcsmYgBqxwa3CVMliR1Pf+TzndmUndjvfjIsh/fxobPrd
+ uxGemsKcxKJAq8EAAEKAJkWIQS1urjJwxtxFWcCI9wxqupHWU277QUCascGtxsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDJfFIAAAAAALgAoaXNzdWVyLWZwckBub3RhdGlvbnMub3BlbnBncC5
+ maWZ0aGhvcnNlbWFuLm5ldEI1QkFCOEM5QzMxQjcxMTU2NzAyMjNEQzMxQUFFQTQ3NTk0REJCRU
+ QACgkQMarqR1lNu+29CQ//RD/mM/4hWKkiJ4PA+22Q6lyJkZKFWszlUg6sxXmr+OjqfMOsV2Xyu
+ JtlaGQKKtcpArvZvWlp7V3y63FwfGh4DlFeyPu/w+lnstSvdfi78KlVfW+jEoLfbAJ9Tl9OII8B
+ +tJc5YBKyY1fdi6c3O4xEeUKZkdrLCUgTdsqySmX6XYWmnIFL33GTgL5wt/rh/t4AeTHOmmwwU5
+ EnkUqEfYfOFFA2m25tS60MWFXt4mtDUkxjBmNy+uGql5LFjrNYgc/dpOq23Bm9uWIeC2GYSXBVO
+ vF45wVYJZjG5LX2lwSpTlRnLVKUzy1dljhDP+LuaCP4mX92d4pfHO8djVkER7mhCrWz6Du4yqrM
+ yphrWO77pYYtoPFBtZ9eQbE6diFdWjz9pZPxrbVhuMONJVYPMBzc8AH5yHARxydC5TMdbbUd/mu
+ Z6mXj6mwKIVZJoakwFlPGQHBXTi+5FbogQizPQTFiFzOaS79/e6ms2virl/pk5d9U6bG9GOIqXE
+ szx28DIOx0v/2K+9x8AUACYF0d52Kzkjt1z/b9WVG9XRocMdFJM1KhTdJE4sa3FdjIklcLYpL2x
+ f2WL1HfHrqGfr99xaIRTGfQBBfvqfJhTJS3eahyRWVfIKVeo2xy4TiOWpuYNL1KX8Y9YWLw9RR4
+ PMIi1tCCv9Z4mcRmJQNq4TqiWolqBU=
+X-Developer-Key: i=dlan@kernel.org; a=openpgp;
+ fpr=50B03A1A5CBCD33576EF8CD7920C0DBCAABEFD55
 
-Hi Alison,
+The APMU (Application Subsystem Power Management Unit) register region block
+not only provides clock and reset support, but also the pm domain management
+capabilities, so registering pm domain driver via auxilary bus is feasible
+way to go.
 
-On Wed, Oct 07, 2026 at 06:59:48PM -0700, Alison Schofield wrote:
->On Tue, Sep 22, 2026 at 12:08:13AM +0100, Jonathan Cameron wrote:
->> On Mon, 21 Sep 2026 10:24:51 +0200
->> "Gupta, Pankaj" <pankaj.gupta@amd.com> wrote:
->> 
->> > > [You don't often get email from peng.fan@oss.nxp.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
->> > >
->> > > From: Peng Fan <peng.fan@nxp.com>
->> > >
->> > > Convert open-coded if/else with set_bit/clear_bit to the assign_bit API.
->> > >
->> > > Signed-off-by: Peng Fan <peng.fan@nxp.com>  
->> > 
->> > Reviewed-by: Pankaj Gupta <pankaj.gupta@amd.com>
->> 
->> A bit marginal wrt to churn but a good change in general.
->> Up to DAX maintainers on whether they want this type of small
->> focused improvement.
->
->I didn't see the improvement. When I peruse the file I see set_bit and
->clear_bit, and now I see a couple of those obfuscated by a new
->assign_bit, needlessly.
->
->If Peng wants to come back around with a 'why' then I'd take another
->look. I shared my NAK story here:
->
->https://lore.kernel.org/lkml/asb3hGpSWVQk93cX@aschofie-mobl2.lan/
+The series try to extend the CCU driver to do some preparation for addition
+of pm domain driver via the auxilary bus.
 
-Thanks for taking the time to explain, and for the link to your
-earlier reply - that was useful context.
+Signed-off-by: Yixun Lan <dlan@kernel.org>
+---
+Yixun Lan (2):
+      clk: spacemit: rename to generic ccu aux register function
+      clk: spacemit: register pm domain auxiliary driver
 
-This patch was done by a cocci rule.
-sorry for not providing a justification for this particular conversion or
-making the intent clearer. Converting only some of the call sites leaves the
-file with a mix of styles.
+ drivers/clk/spacemit/ccu-k1.c     |  1 +
+ drivers/clk/spacemit/ccu-k3.c     |  1 +
+ drivers/clk/spacemit/ccu_common.c | 16 ++++++++++------
+ drivers/clk/spacemit/ccu_common.h |  1 +
+ 4 files changed, 13 insertions(+), 6 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20261008-04-k3-clk-pm-aux-7376407466ac
 
-Free to drop the patch.
+Best regards,
+--  
+Yixun Lan <dlan@kernel.org>
 
-Thanks
-Peng
-
->
->
->> 
->> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
->> 
->> > 
->> > > ---
->> > >   drivers/dax/super.c | 5 +----
->> > >   1 file changed, 1 insertion(+), 4 deletions(-)
->> > >
->> > > diff --git a/drivers/dax/super.c b/drivers/dax/super.c
->> > > index 45f84b0eb909..60c4aec52ae1 100644
->> > > --- a/drivers/dax/super.c
->> > > +++ b/drivers/dax/super.c
->> > > @@ -385,10 +385,7 @@ EXPORT_SYMBOL_GPL(dax_flush);
->> > >
->> > >   void dax_write_cache(struct dax_device *dax_dev, bool wc)
->> > >   {
->> > > -       if (wc)
->> > > -               set_bit(DAXDEV_WRITE_CACHE, &dax_dev->flags);
->> > > -       else
->> > > -               clear_bit(DAXDEV_WRITE_CACHE, &dax_dev->flags);
->> > > +       assign_bit(DAXDEV_WRITE_CACHE, &dax_dev->flags, wc);
->> > >   }
->> > >   EXPORT_SYMBOL_GPL(dax_write_cache);
->> > >
->> > > --
->> > > 2.51.0
->> > >
->> > >  
->> > 
->> 
->
