@@ -1,110 +1,128 @@
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A63648D869
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 09:36:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791452167; cv=pass; b=tG0T/g1PyMOwlW1mDoKB4tAM0iIjiMIS2cYuB6vI2y6YNCLpUU+BJkH0TrF2bd1TZc5iYRJX8L2xz0QC1eDgynhfvQmNaxR+w/Amp4LXKjwXTzvHmVh3fGdoL3IWqa/TpGK7NTgeoBDt/8P50ibCcjHhutZs+8fIPekdAa0mhU4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791452167; c=relaxed/simple;
-	bh=CsXYTuo01XtZSg/MVmH+hBf2Z5KKaYx+e/CEG7TgInY=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=qAzkmkBEExo6bdIgb21EAcrMw6JGdfT6zEpi6p5OySdJ/fxGj5ngcXCxheGE3abUYKKNgeuDVdsN2kJ66tAGEClrDkxje1imFfTeAJQNvPwzuIsFJ3xND47oYuk0dXeCoPNPnPIqiDH8KzkTAFQdG3aJiD09ukj0ZGk3xsRsonE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=Ovbcn+Dp; arc=pass smtp.client-ip=165.173.182.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 757AE489881
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 09:37:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791452267; cv=none; b=TYZcfYlma0n4ct2slvCmh2T6tHcGQLLNNiXcQy2txaEQVfhH6Ed6mhSi7X6LSlTkH8X2QjNkanXigXr4yF4k8H8E40OuhaDymG1nXAev7zuqqHjwttbsPl1zks+QDuCTFMvKmsawWaZZW5jS1gNPiPl7tn/X9kzBTURMp8j9WYQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791452267; c=relaxed/simple;
+	bh=ABHrd/M354a4ArtA11rIE3Ji7DNnXn7w410eWOWDECk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Q7ttzZHDQ3cdBeCBk5GeXix4wWWEPGxFxdOHFZvaaTc7u+K+NfmXvgEz+S8YiEe3N407Lx9BBQm/nFLaTGR/COqO205yjnVKIhT5+G0vlVfXDkCF+dGR4NCk5SefFWotUsEz3wQ6XDLw2QdmDXbfg/C26zBNErn3fmkKwmFy5zs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sEpmL3Cn; arc=none smtp.client-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="Ovbcn+Dp"
-ARC-Seal: i=1; a=rsa-sha256; t=1791452151; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=EFzOhrqF0D6RuIeHK3Z2/DXsEUOj+JrWQ9MnFSNWYDF6l3jaTv9EU9Qn/7mz6oGsaoE0boIw0Rf1qfP8gEHkxBmO43LfWlJOR3Mco5gqPNOc4/J8Ef0IOopWiOnSQ25N5bzl0hj2X9AXim1T7/dbc+yTEA0tW72A9OjfU64yWYk=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1791452151; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=4VnOjx2KntnOr3fpM0koQeAVv8fD8ZmjHvdUfitA1NY=; 
-	b=l4Rn2lcc0fJA4FJgkZD44+XZEk2j+htHGejMFV/4mRYXYaiM0RLoiLKdICmqwIkJ7srcTkGmEr67tS0DOPqeVxl3s0BAix/8BvFZ/PBU8MWX6y9+EQ//yn8YZOaQzWGS68TfAbuiCpQJM00uSYw2uEEdy6QF3WuqWVXTtIo8/EM=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
-	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791452151;
-	s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=4VnOjx2KntnOr3fpM0koQeAVv8fD8ZmjHvdUfitA1NY=;
-	b=Ovbcn+DpQthlnuB5owvSuEw90A3H4zHhemwX43JTiNpXACYToaLlzcX+yQuYgak/
-	9b/s89n4kXQNwAeBUMAKauSWUuaUkQgPD6RfreQusEHcWhzdK2Ou5Z0iz6pczO36p95
-	OtKJFGov53ROX8QGw0vMghIID2zmafUpuahri99g=
-Received: by smtp.zohomail.com with SMTPS id 1791452150818849.5609116892517;
-	Thu, 8 Oct 2026 02:35:50 -0700 (PDT)
-Message-ID: <dae2c4c1-0b60-4975-83d6-924d5255db94@collabora.com>
-Date: Thu, 8 Oct 2026 12:35:44 +0300
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sEpmL3Cn"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48c14a06c95so2199391f8f.1
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 02:37:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791452262; x=1792057062; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wo1i32DV2TChJunGiO8ZGVGfgJd2TA+vlw3QeiBuT3o=;
+        b=sEpmL3Cn55e3XH51kO14gjsr3O0Ll2/lMXtbsKWog/n29kjs2447xJErsblo9WVLns
+         gaoX6y9qh5ZI5PnkM70mgS7S8pv4hps4e9wsF/oHJ19A7AdQDH3cEzwOtlnMk93eQzMi
+         +z5824F3rlmzm7HIFpMT6mSbcdNtSrPnXG3mVb3Y74MFTFrOp4Qo6IU5oPS+Zp2Opn0y
+         AcBlPkvM8Y5ybRB88F8dURJBDgcOpl3d9ppegxhAlwpn94RzspEhd6b6FwFK64OfQ8+Q
+         v0yVh1I+UB9e9BZ6OYfydnm6nKS90r3GoqwJn1twop21bYsJ75JoaUDDVu+LBG/vhX1W
+         qQ0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791452262; x=1792057062;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wo1i32DV2TChJunGiO8ZGVGfgJd2TA+vlw3QeiBuT3o=;
+        b=urd+hPGPj/D8/KEDhQIPOGaqbc2ulyoSSOM0GXXsgP+bGp3cmwjprXP0aUdsOUd6E5
+         wokIi5HE1YRK3m+/ZzlFPVQomNznnsLOkH8lCo59BvwJ7WH1BNOZZYOA99PCzBuVpAVr
+         hnipgEMh7FqRDd2h7ZE7r1pDJ3QOoB0deJBf+zZsj91Ud58pySvO1f3rHLAmNE/t/Y/V
+         91aQ47ExAu1CXVWYfsbW9esj/Uohj4fvB10dyQReqkqtuh0xI+JnDWN/JQB1flUfV0HK
+         TWwE2TQ8tcswF1DgSFnmDTH9TqxU0ZxfjP0tybyU3teYgEmZGcPqS1efxDepsAO+AsrL
+         zaeg==
+X-Forwarded-Encrypted: i=1; AKwUvBzUjS437X3j8q+aYuwb/tySlWolY5n+/WKwQ4COD06gC3OxfusCPKk4YqvWk4gPSHA7QxRJFhqqc9akMWw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKbWnpOmPHvDe1Irm8+yu6QTKn6tSsr840sB7Uvm5MOwSZEa5eC
+	KPdfZdxwoNfn9y0EqJhViqBCbl5EcIPjdZK3oeHANtzHI4sGOebl3tI=
+X-Gm-Gg: AYBFou2MCf+uOs1Tzk4srnz60N6SF98SZnRG1GYW4FTPBpv4ZeOHuRq4lgVePQxAA9x
+	DwfYiA+EonW2ltfXaulnJEmaL5SR2Xca0ltD9zYfzKohDBjLOpAyNZD5UK/wZPwIP3IaE4bZDTu
+	HtDbfsqbooQpukzu47tdGeIj1RlB+RZDsMWVsQZV63G3XRq2BTekjFh4qw8u5FPCZJQSEXTM37X
+	EUej5mZdtiNN8orkXovcxbtUedPF7fVBW8HW0KgHDwhkE8geFFXaqb0xqC5epwtmRD+0IozAINd
+	/ioYS5P8iY64/49Ozy3wXxcflPxo/09321+f20U0fWzQdeYH8SSbE4anNbkfstAjgCMch5qnwmy
+	tGxZONIu8F3kXGigq9PcWtOadTEvSU2sKLnw0HesIu+M0hk0uJGNushDJASWO1w5vjuI+sBwrff
+	l/N8PYM66W96yj2yqoG6d6z/fGbL7IKNM8OAXzsE0=
+X-Received: by 2002:a05:6000:2489:b0:48b:60d:2b28 with SMTP id ffacd0b85a97d-48c7288f27emr9932033f8f.39.1791452262200;
+        Thu, 08 Oct 2026 02:37:42 -0700 (PDT)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c7af45d94sm3649370f8f.12.2026.10.08.02.37.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 02:37:41 -0700 (PDT)
+From: Tristan Madani <tristmd@gmail.com>
+To: Zhu Yanjun <zyjzyj2000@gmail.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>
+Cc: linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH v5 0/2] RDMA/rxe: fix send-path TOCTOU races on shared WQEs
+Date: Thu,  8 Oct 2026 09:37:38 +0000
+Message-ID: <20261008093740.3034881-1-tristmd@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261007223222.2342804-1-tristmd@gmail.com>
+References: <20261007223222.2342804-1-tristmd@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] Revert "drm/virtio: Add pixel blend mode property to
- cursor plane"
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-To: David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
- <olvaffe@gmail.com>, Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20261007222244.295186-1-dmitry.osipenko@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20261007222244.295186-1-dmitry.osipenko@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
 
-On 10/8/26 01:22, Dmitry Osipenko wrote:
-> The cursor blending mode was added twice because the same change was
-> applied by accident from different patches. Revert the second patch.
-> 
-> Reported-by: Marek Szyprowski <m.szyprowski@samsung.com>
-> Link: https://lore.kernel.org/dri-devel/ce84d3d2-e78b-4939-aecf-9ef7267bd42a@samsung.com/
-> Fixes: 6947b78df4d2 ("drm/virtio: Add pixel blend mode property to cursor plane")
-> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-> ---
->  drivers/gpu/drm/virtio/virtgpu_plane.c | 13 -------------
->  1 file changed, 13 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_plane.c b/drivers/gpu/drm/virtio/virtgpu_plane.c
-> index b422eba42a5f..640815af4098 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_plane.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_plane.c
-> @@ -589,7 +589,6 @@ struct drm_plane *virtio_gpu_plane_init(struct virtio_gpu_device *vgdev,
->  	struct drm_plane *plane;
->  	const uint32_t *formats;
->  	int nformats;
-> -	int ret;
->  
->  	if (type == DRM_PLANE_TYPE_CURSOR) {
->  		formats = virtio_gpu_cursor_formats;
-> @@ -615,17 +614,5 @@ struct drm_plane *virtio_gpu_plane_init(struct virtio_gpu_device *vgdev,
->  		drm_plane_create_blend_mode_property(plane,
->  						     BIT(DRM_MODE_BLEND_PREMULTI));
->  
-> -	if (type == DRM_PLANE_TYPE_CURSOR) {
-> -		/*
-> -		 * The cursor plane exposes a format with an alpha channel,
-> -		 * which requires a blend mode property. The host blends
-> -		 * premultiplied alpha, matching the property's default.
-> -		 */
-> -		ret = drm_plane_create_blend_mode_property(plane,
-> -							   BIT(DRM_MODE_BLEND_PREMULTI));
-> -		if (ret)
-> -			return ERR_PTR(ret);
-> -	}
-> -
->  	return plane;
->  }
+From: Tristan Madani <tristan@talencesecurity.com>
 
-Marek, could you please give your r-b?
+The rxe driver maps send queues into userspace. Both the requester and
+completer read Work Queue Entries (WQEs) directly from this shared
+buffer. Userspace can modify WQE fields between kernel reads, causing
+inconsistent state in copy_data() and related paths.
+
+This series copies the send WQE to kernel-private buffers, mirroring
+the receive-path fixes (commits 22b8fbded65b8 and d6ab440240a04).
+
+Changes v4 -> v5:
+  - Use qp->sq.max_inline instead of qp->sq.max_sge * sizeof(rxe_sge)
+    for the copy size, avoiding integer division truncation when
+    max_inline_data is not a multiple of sizeof(struct ib_sge)
+
+Changes v3 -> v4:
+  - Use full queue element size (max_sge SGEs) for the copy instead of
+    per-WQE num_sge. Eliminates inline data gap, sizeof mismatch, and
+    simplifies both patches
+  - Invalidate requester copy on ERR flush path before writing status
+    to shared memory (prevents writeback from clobbering error state)
+  - Invalidate both caches on QP reset (rxe_qp.c changes added)
+
+Changes v2 -> v3:
+  - Add completer-path copy (patch 2/2) to close the remaining TOCTOU
+    window. The completer was still reading directly from shared memory
+  - Add smp_load_acquire()/smp_store_release() for state transitions
+    between requester and completer
+
+Changes v1 -> v2:
+  - Added writeback mechanism using WRITE_ONCE() and smp_store_release()
+  - Reuse kernel copy across multi-packet sends to preserve DMA state
+  - Invalidate on retry, QP reset, and error paths
+
+Tristan Madani (2):
+  RDMA/rxe: copy send WQE to kernel buffer before processing
+  RDMA/rxe: copy send WQE to kernel buffer in completer path
+
+ drivers/infiniband/sw/rxe/rxe_comp.c  | 53 ++++++++++++++++++++++++++++--
+ drivers/infiniband/sw/rxe/rxe_qp.c    |  2 ++
+ drivers/infiniband/sw/rxe/rxe_req.c   | 55 ++++++++++++++++++++++++++++++---
+ drivers/infiniband/sw/rxe/rxe_verbs.h | 12 ++++++++
+ 4 files changed, 116 insertions(+), 6 deletions(-)
 
 -- 
-Best regards,
-Dmitry
+2.39.5
