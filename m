@@ -1,192 +1,252 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 242D347CC82;
-	Thu,  8 Oct 2026 11:44:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791459843; cv=fail; b=p0JNgYZSNJdIxDdLJUge0Z7IuXbaC9yGRSNf0v8ASy3phDFj8SA+huuSzykw+ZVu4Dp2JOL9GTuCvQriDD8sJKT3mJ+GX3caIRt+hJDmWnN1XEnoo6hIi4jFpgHtfJs54XnpLmblOEDQbWU9UvAIJk4bw9NT/WVM/xsUHZF1Ahw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791459843; c=relaxed/simple;
-	bh=oK7SXisTTred1aoFgTfw0QUiVUq6KPtTViZLNc8tO/8=;
-	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=lN140gQuy/FChu9SyCMMiswoxKXU44jhA/i6g7NkvNxdi+iiZ6VppeGFx2ye0F1hN4kZjreeKVtwXyas//ejNjXUq224RMh1k6msFcIW1+2fEBoqHWxSEjXpsI9xkp70IMS6qQ3IHZfPCeBdou19VAvBdO3hznFklrNzJCqAU4o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mJ09cmOE; arc=fail smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D023A430CD8;
+	Thu,  8 Oct 2026 11:47:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791460030; cv=none; b=g2jkMOYQaBWCcDpRwGYLueJg81Myv4/MB9l3WtEG3sFLGkrOcFsv2I3Bv45l5uLX1rT67Fkgz/PVIL7bvvPbfW8BJOLafIFoDYvlqsXEH8bqByEHJ1itkSb5OMFY8wDJKMYpXwQ2ePUotUGJjEc3CjloQi78IbLRCHrs+XF/5n4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791460030; c=relaxed/simple;
+	bh=f6NaVjYjEH7tntHky0OJUM7sFhrZNGVbAGXHqPFGfbg=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=NqDGgTVT1e8swsDskhB3I+KW7XwKkFAL9imudxdlhdKGi71Nq1e8/Z5tKRHjaCG3kFo5FKwCCVjAuhE1akvMQA7r5bwNdFQKuw5513aYFYLzbtLz69dhdpzS3gdAL8x2XRpGPp0YXS+DzbdYNxH+rfQpuklc/IwxTlZktIFZjyU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WbW3cMZ6; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mJ09cmOE"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WbW3cMZ6"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791459842; x=1822995842;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=oK7SXisTTred1aoFgTfw0QUiVUq6KPtTViZLNc8tO/8=;
-  b=mJ09cmOE1mBF0i3gG21PxYChI2POAjIBsaONtzziC/J9H/lK8tGmdm19
-   3Tz9z1lw3wimceBoBQWk5bVMyCBTSrpdLpGVLroykwVL0pIF6DfbLF1D5
-   zRvqcDS1VAFUsQwUmbVmIG0qVneSYARnshxiKBhfIIWDjVrezhztuX//r
-   0kZFaUzDOUXs4kxXtvXo/Z54wP+AEt0FbVKtOyg10sxSf8zpG/yVvoDuP
-   4q+5cI3O5zcaKWv5uGhr7tUgXetNh1RDu4+/9e/uJ20nYQwoqLEDaQReF
-   LwJ/xyV8/YdJcGeJxuAiSrh6FFDhzFKtbdtKMgk2j1I40SnuFMSXJjkYQ
-   g==;
-X-CSE-ConnectionGUID: 3O1qWkW6QfyfGEtoj13cWA==
-X-CSE-MsgGUID: yoZzTtnCQdO08Mv5jFuf5g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="129388"
+  t=1791460029; x=1822996029;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=f6NaVjYjEH7tntHky0OJUM7sFhrZNGVbAGXHqPFGfbg=;
+  b=WbW3cMZ68XUbEyOSn4WinlCrmlcC3wS5tkIquqjlF/cqDMG5CFu9mjv0
+   jelhY5pvaCWX6Cc+/I2OFLFgdSHKvfTNDCghxQj4zyVDTr/zTt+eDkuhn
+   G7twWzRku2ak/aSNjJ0Sv5YIDKaDzKwOyGU681o0cFaO5hCo4/CDdQh2V
+   rlOqmkdzdYWkn7ci65dq09uRs64q+b3qkZsocjRha2+G0qzUM+Uu230G4
+   /+e4ChPmkrghm/WCz9qrW7ETr5x/rqpPelpeN/FIh92ak3h5c8OA750kn
+   Ua2ZheAnWFvp079eAmB8YOZpPLTFK0886eANIaqsQzbsBS7ix+9GlBd4O
+   Q==;
+X-CSE-ConnectionGUID: JfO9V8O5SVecDumWBLjilQ==
+X-CSE-MsgGUID: 2J5naLMFSR+dEiY/BjBW9Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="251036"
 X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
-   d="scan'208";a="129388"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 04:44:01 -0700
-X-CSE-ConnectionGUID: z1DmPUzFRaqthc6I8hTR/A==
-X-CSE-MsgGUID: 2g8zrqqHTqOhX1LfAWPWbw==
+   d="scan'208";a="251036"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 04:47:08 -0700
+X-CSE-ConnectionGUID: ooIp05pKQbSWWwLTVkwg3w==
+X-CSE-MsgGUID: qmnMBNXPRk2Q+5z1FXathw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
-   d="scan'208";a="25394"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
-  by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 04:44:01 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 8 Oct 2026 04:44:00 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Thu, 8 Oct 2026 04:44:00 -0700
-Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.0) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 8 Oct 2026 04:44:00 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XWSu9ZQCnOnlnTwCPBaNXXqH7nLqnI/aQFDLFCf+ygEJ/7rZ8HH95781cgdRnvZEHlIpU367kaVCVGNv0Lk65UZ+cwEa/GMROlVCKeazHzkJM0TW/qB6Umi1cunQPhsLd6uAT0sFTiDGnZxQWCNd+RlS8oNsrx8DHaKCDcbD60kYBCTH+HI0XHF1BNsvLFCyVqDUqLkX8hT/KYrWq1dfJOz+9MhQa1oVUNVAaErKCMzo9CV+BLRzLzkRWpw/cpWlNZ/Wa6g/WAlHed1i4L6gnnCjubneu3UOXsKJK5WHm3uJ8xsYIKQT9qtcnx+YoCXeVEHFVfZLouLHiGdwc4Y9ww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=85KCX7ncs6GkePR7dTBj8p1eXRHiaRS3eFl2SGZjxzI=;
- b=tWYW49lmCT163Ivxsy2y8zhZC5yBsxkkM4n2QZebIn1ixjErFY8xsb5dO/bIV/or8gGI8ls5E84BfCyLxNS+7gNwQXa7qaIjXkwbvSN+OVHskAXTsxQJedg9bwZBvAA7+/CIaVyyH/0X/UFL8jjOnXfHpFjJfT36zG1YJLHlWQoz7cIokYWDI8k0ZNiSjwBcCXJ5YeesAPgL2W5ETPBbvPfIcjlMBPYNUlIvV0w8Jiu7gfi4lG6CNz3Z0C+yJOpMu9Y28+TybA4uu2/QNSclI1maMGXqy9cBunv+BQo+c7sIqaBwW7qrt5GYVxUd0pBD8AsfIu5ed2FOLjSuu62z9Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH7PR11MB6006.namprd11.prod.outlook.com (2603:10b6:510:1e1::13)
- by SN7PR11MB7066.namprd11.prod.outlook.com (2603:10b6:806:299::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Thu, 8 Oct
- 2026 11:43:58 +0000
-Received: from PH7PR11MB6006.namprd11.prod.outlook.com
- ([fe80::4e2d:28f0:ede9:73bd]) by PH7PR11MB6006.namprd11.prod.outlook.com
- ([fe80::4e2d:28f0:ede9:73bd%6]) with mapi id 15.21.0496.015; Thu, 8 Oct 2026
- 11:43:52 +0000
-Message-ID: <d17960fd-154a-4975-aba5-e67c8bc53854@intel.com>
-Date: Thu, 8 Oct 2026 13:43:47 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 7/7] ALSA: seq: Don't lose partial read failure
-To: Takashi Iwai <tiwai@suse.de>
-CC: <linux-kernel@vger.kernel.org>, <linux-sound@vger.kernel.org>
-References: <20261007172533.14667-1-tiwai@suse.de>
- <20261007172533.14667-8-tiwai@suse.de>
- <aa22e14b-fa6d-4164-b8fa-6a77eb2a2d39@intel.com>
- <87o6d4609l.wl-tiwai@suse.de>
-Content-Language: en-US
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-In-Reply-To: <87o6d4609l.wl-tiwai@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: WA2PEPF000008C5.POLP291.PROD.OUTLOOK.COM
- (2603:10a6:1d8::68d) To PH7PR11MB6006.namprd11.prod.outlook.com
- (2603:10b6:510:1e1::13)
+   d="scan'208";a="473651"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.140])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 04:47:05 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Thu, 8 Oct 2026 14:47:01 +0300 (EEST)
+To: Rong Zhang <i@rong.moe>
+cc: "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+    Mark Pearson <mpearson-lenovo@squebb.ca>, Armin Wolf <W_Armin@gmx.de>, 
+    Hans de Goede <hansg@kernel.org>, Charles <hanker007@gmail.com>, 
+    "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>, 
+    LKML <linux-kernel@vger.kernel.org>, 
+    Navon John Lukose <navonjohnlukose@gmail.com>
+Subject: Re: [PATCH 0/9] platform/x86: lenovo-wmi-{other,capdata,helpers}:
+ Improve robustness on buggy firmware
+In-Reply-To: <372185f86fc1f5fbeddde42b1378a5d454f91e60.camel@rong.moe>
+Message-ID: <65e44beb-740a-8d41-9e3e-2ef1fa6cd6f1@linux.intel.com>
+References: <20260914-lwmi-wmi-new-api-v1-0-7a400f2f69f8@rong.moe>  <20260926210415.3465939-1-navonjohnlukose@gmail.com>  <E2EDCF4A-09BB-4FE7-9E67-5086401C0848@rong.moe>  <9789f452-d7eb-4f1e-8a13-7335332193a7@app.fastmail.com>  <55927121-62DB-43D7-B1BD-19519A775659@rong.moe>
+  <83776200-4A60-4756-A99F-D5A3BB4D834A@rong.moe>  <584854BC-16C5-44A1-83D1-63F6FDD51BEF@gmail.com>  <8e0f9c12-2e6a-089b-387e-25fbdc3dd5d8@linux.intel.com> <372185f86fc1f5fbeddde42b1378a5d454f91e60.camel@rong.moe>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR11MB6006:EE_|SN7PR11MB7066:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2eff3f0f-a530-40f4-24b3-08df25316cb4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|11063799006|4143699003|56012099006|22082099003|18002099003|10067099003;
-X-Microsoft-Antispam-Message-Info: fk5+uZMDKs2Hm9XH0TR/XVYXTkvpiaYOHCagscaguTVoIReOxoNc9vuZG30qSq1uZ5i9+5pMHKAXoQ1PwXMZAkuQpmxzGRiN+3HTxvpDtpKHalTpHZTCT38o/4U6KId8tWoXbAd0vIPKgdDJeGU7oP8X/5CVQZ0Y/7hQN1EsKUIZmISm3mMQ0QrRtIanAgpS8AsaHSNEP+1tt4rEUDbl5kNjMWzUFm4CIOPYDfHWWQrPgRSqkLDZGeqA3Uo5vloF1xwm1+XsyeGTJirvp7goLwx8xlLfHBedwasyl5n2T00vI2Sx40LW1stYRJceUZAD8mp5tP1pWI9UoHHsOdNBJredIe/FnqQkyqIMci7U+8K7ZoHBd5t+vjgkzukj4yhJ6wyIanE+L5MEf85m8sabstdFOqcbv9SmUOAZAJa0a3ByDy8twJobfYEhDpXmDt2ZcjIoLVFv9vzaNAofg6DDbKI8RsWGf2/SJonDZRL5zbXid9s3IWAhODDgJEYz5/H+pYIns7E069KhR7LnVMeZkIFrugdXeQbt8gpaQD2BC1NSQJ/mZjH8YBBu9n24I6lEaaMsf9Ijl90Wd2DNm80tJ4WZl5fYQaCMxhzz9ki9RF9ZpJ2mO8HEn/rvlmiGZ8XpnXCi11yOgoMm7Zvk47JbNAVlmIwRTRJCfWSheKDgDiQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR11MB6006.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UHF2YVJTTEpETEVBalB6SUcreVFPajVzY2plYlU1WHRwNVZ1VkxQb09vajlE?=
- =?utf-8?B?Unk0TGtoYm1oU2ZqckZvYUxUTkFYQnRzZVkxd21wZXU4Q0RvSUhGN0xFeDQy?=
- =?utf-8?B?MDRHNVc1NzZtQ2xybUM3S2Znd1I4cTZTc0F4cktoUXk0NGF6VHVidS8yS3Zr?=
- =?utf-8?B?TitESjJhN1YwYW0ydjgvVE1xaWI1YnFUQUV5cytUcnNTY0VCUVl1ZDdtUW8w?=
- =?utf-8?B?WHhnTG91OTFFQkU0SG1YeCtiNDZyVDA1c29CQmozd3JZSm5aYTUzZ2Q3ZXUr?=
- =?utf-8?B?WCtHSy91OGthMW56R1hoWHJJQzlieUpjdW9kWk9CVzE2RjA1TXNNME8xTGpN?=
- =?utf-8?B?WWJGMngvTXp5VU9lV0x1N05KWkh5enR5WVEwQVAwRk9WTm1rZkplTm5YY29l?=
- =?utf-8?B?enZvdXZzMnZvU3dGdklkeXJZSmE5ZjZ0bFZCTVNxTXZpOUxtMk15TzVpeWQ3?=
- =?utf-8?B?RWk4a2h3YjE3M205NkxtbXVoc1NDTFdSckd2MklRNnhUNTJwa2NmOGMvY2sy?=
- =?utf-8?B?Yk9TV2ZEdnNiSTdnbUR2aDlkaXI1eTJNMFMyM1RFWi8yR3QyaW5lL3MybnpD?=
- =?utf-8?B?U0J0N2RDRWFmVUwzNDN2Wlc5QTg1a0crWk9vV3QxczhKZnNOR1VudUN2TTR5?=
- =?utf-8?B?UmJHL2hCZFRVak9WNVRjOEZnRjJ5SVZ5SDV1ZDlrNlRBMlVNY3F3ZEtNd1hr?=
- =?utf-8?B?ZmNkNlNwOUZYS3RtQ1pLb3JpY2R2TkZlRDROMEtiSUo5am8zZ0t4MCs4OFU2?=
- =?utf-8?B?QmwzUTl5RGEwaldxbzJWUmV3RnlaSk9rRDl2QmR2SEtSaXFVbUJ0TEpiQzlE?=
- =?utf-8?B?QUEwbm05T2NFc292aFhPQ0hsbWk5SDFJcWUrbEk0VHFiU1dza2p2eHRmakRT?=
- =?utf-8?B?dXM1TDNkdTBYNG1VZG80SE9yMkFFZThTaHVxN0VxR0Rra21KUE5zUTZQOEcw?=
- =?utf-8?B?a2hTeW45NlRwY0ZkbjRGWWEzTDhOVU5SZTUxa2JXOWl2Z2tINUY0Umt4eXVL?=
- =?utf-8?B?SWgvZGMyRnFNNGpDUXhXaW5tUC9mSHg5ODdUR0lxN0tQRE1tR1RuZzJUdkNB?=
- =?utf-8?B?bm5YUkdWdUNwUW8yUVExRGdXNEVNQ2xSWHFrKzJxYUN4RlRJNWxtREtJNGUw?=
- =?utf-8?B?ZnRFK1RPMmxSZDlmRUFlL0tRTG5TNVhxaUVVYy93NFpjTWsvc1RyWVlsUmJs?=
- =?utf-8?B?Ym44dTdJV1Erd1BNNDY5Rjd6VW5SUEpodk9vK2tDVzBqcTEzMlBsYmthdGJ6?=
- =?utf-8?B?Z3d4cDVPdm1SRzZMY0lRT3dvU0N3RXlmTlRoYkRjY09XRmhVSFVQblVOUG5i?=
- =?utf-8?B?Ykh1VzRRaE5yNlpiWnVQa2NPOEhyTnlkbmdxZVdKOGtRSjRKKzQwRk5SYm92?=
- =?utf-8?B?MnRhcm5NbWRNeU5lT25EOHNYZVVxUllmSzgxd1FhZTUzUGdDdWhxN2JrTmNH?=
- =?utf-8?B?N0tXQ1RFbWJZbVZCTmxKbS81THpHamVPcW5jN1JCek9SaytuREpMSjdwRlhJ?=
- =?utf-8?B?L3BpRVAzY0IvL3Z6TFlaV3ptM2NMWURjK1k5VGlsM0tIaXFFK2o1T3lNTE1s?=
- =?utf-8?B?QWNWaSsxcXNnYkcrS3EySUhQUnRKMlFVSXFOTTBtRDhZcHREVVY0UUd5dnBy?=
- =?utf-8?B?dDl0dThUQXhSb25WeXNFeVc3a3BycEl6WlJkeVUycU1YMUk5Qnk3ZkR4ck1V?=
- =?utf-8?B?N1pJUGVxYmF0UHNpeldYWDZVNy9DeXY2a2RNd3JDbWhEUnMvQUVuS0dOTVVy?=
- =?utf-8?B?ZEkxY21aTmxkbjBEaG0ySFAvYU9wUFBrOTI3aU5xRlE5YjNYeW1vUXRBZEVm?=
- =?utf-8?B?NEs4QnhaUWFpYU1hazBtZ1VSSkNrZE4ybG9lS2tTRmdBamJNdFFtQTMraGRt?=
- =?utf-8?B?VkJIRzU5ZERNcUY3N3NjZFdUSnhLbk5YNDRld25YZWs3NUZMeEJuNC9Xb2l3?=
- =?utf-8?B?N0JYUEpFa0VVUUdTQ3h3U0l6OFYxQklZL1k5WUtuWHZYM05SN2tvcU8yWFdt?=
- =?utf-8?B?ZkovQW5tQU9HSVZxNUpHQk14R1pxTDFxdjRJQk4wUUhWdUR3dmkyWkxGQVFS?=
- =?utf-8?B?QTZXYVlYckFmQ1laTllzM0ZtT3hlTURxNVBZY1JqSTc3eWNpdi8weXBHWDhQ?=
- =?utf-8?B?SHc5MXFIc25Icjc5YUxvaGRhNERGS2hwR2JVUjUrenUyVERkSTR4eTd0OXIv?=
- =?utf-8?B?dUlxNmNqQmFIMFc3N0V0M29UaURSZ1ZhWDYxTEpuVEtzU2xXdmhGNWpTb1Jx?=
- =?utf-8?B?Z0toNmhiZUljZGtMZnNDT1dMTTd1akNUTTNpdk1WVGZjT3dpV01LdUEyaDFn?=
- =?utf-8?B?dHZIekx3WWVGOWM4ZlVCTmlSWUpKMnRBaEtyVHJHVW1NTFBjN29VUT09?=
-X-Exchange-RoutingPolicyChecked: CvokrC084HGygNqNaX4yQk3uhfCmKJ73K1bMeCL4muAJRScYrPh8k6HYFr0S9yRYN6+7uOnD4m3o6fNc5+RTyu1VQA8fbXCjp+Z9enrVeT3B8gkyd3xvUJETIHnpVsid44KaiegiU2keVQUXHZ7idE8tVKfONXAJ25suFwITYQgtOTzk9Hq6F2FMzpyQrDr3grHVrS0FLds2SVLGSYvzE86XblYlAK3O2yozrYn7gqDB8hJF36NY/ope4LTfIXRnbCoZNCXePiUhgy7CMMGuijDv82dNXvQ2GGnrvZmkeehOqJxmewV87ZI63rvX2JxnWWgDSWIRvkNW/7GwDch1TQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2eff3f0f-a530-40f4-24b3-08df25316cb4
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6006.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 11:43:52.0788
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oA0c+SxdOoi4wLa1881Wsuup7938gAo+aaGaE6BSETs5Hty+uqNmmu19fISmUzbeM68m3+dM9qw5hHdF1Czxe4q1j/RhTkmrZbEoa9P2J90=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR11MB7066
-X-OriginatorOrg: intel.com
+Content-Type: multipart/mixed; boundary="8323328-1185811386-1791460021=:1159"
 
-On 10/8/2026 10:53 AM, Takashi Iwai wrote:
-> On Thu, 08 Oct 2026 10:32:29 +0200,
-> Cezary Rojewski wrote:
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
->>> --- a/sound/core/seq/seq_clientmgr.c
->>> +++ b/sound/core/seq/seq_clientmgr.c
->>> @@ -480,11 +480,11 @@ static ssize_t snd_seq_read(struct file *file, char __user *buf, size_t count,
->>>  	if (err < 0) {
->>>  		if (cell)
->>>  			snd_seq_fifo_cell_putback(fifo, cell);
->>> -		if (err == -EAGAIN && result > 0)
->>> -			err = 0;
->>>  	}
->>>  
->>> -	return (err < 0) ? err : result;
->>> +	if (result > 0)
->>> +		return result;
->>> +	return err < 0 ? err : 0;
->>
->> Can 'err' even be positive? Looks to me as if 'result' holds the bytes
->> and flat 'return err' suffices.
-> 
-> Yes, it's just to make sure.
-It's not a blocker obviously, I'm just in favor of avoiding
-double-protection. I'd rather fix the problem that causes 'err' to be
-positive if somehow things turn that way.
+--8323328-1185811386-1791460021=:1159
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-Kind regards,
-Czarek
+On Thu, 8 Oct 2026, Rong Zhang wrote:
+
+> Hi Ilpo,
+>=20
+> On Wed, 2026-10-07 at 23:54 +0300, Ilpo J=C3=A4rvinen wrote:
+> > On Wed, 7 Oct 2026, Derek J. Clark wrote:
+> >=20
+> > > On October 7, 2026 11:30:00 AM PDT, Rong Zhang <i@rong.moe> wrote:
+> > > > Hi Mark, Armin,
+> > > >=20
+> > > > =E4=BA=8E 2026=E5=B9=B49=E6=9C=8829=E6=97=A5 GMT+08:00 01:53:18=EF=
+=BC=8CRong Zhang <i@rong.moe> =E5=86=99=E9=81=93=EF=BC=9A
+> > > > > Hi Mark,=20
+> > > > >=20
+> > > > > Thanks for the information.=20
+> > > > >=20
+> > > > > =E4=BA=8E 2026=E5=B9=B49=E6=9C=8829=E6=97=A5 GMT+08:00 00:04:14=
+=EF=BC=8CMark Pearson <mpearson-lenovo@squebb.ca> =E5=86=99=E9=81=93=EF=BC=
+=9A
+> > > > > >=20
+> > > > > >=20
+> > > > > > On Sat, Sep 26, 2026, at 11:01 PM, Rong Zhang wrote:
+> > > > > > > Hi Navon,
+> > > > > > >=20
+> > > > > > > Thanks a lot for your test.=20
+> > > > > > >=20
+> > > > > > >=20
+> > > > > > > =E4=BA=8E 2026=E5=B9=B49=E6=9C=8827=E6=97=A5 GMT+08:00 05:04:=
+15=EF=BC=8CNavon John Lukose=20
+> > > > > > > <navonjohnlukose@gmail.com> =E5=86=99=E9=81=93=EF=BC=9A
+> > > > > > > > Tested on a Yoga Pro 7 14IAH10 (83KF, BIOS QGCN35WW). Neith=
+er mainline
+> > > > > > > > nor the series binds here. This firmware has no
+> > > > > > > > LENOVO_CAPABILITY_DATA_01 in _WDG at all, so no component e=
+ver
+> > > > > > > > registers for that match and lwmi_om_master_bind() never ru=
+ns. Skipping
+> > > > > > > > the match for GUIDs the firmware doesn't declare fixes it:
+> > > > > > > >=20
+> > > > > > > > diff --git a/drivers/platform/x86/lenovo/wmi-capdata.c b/dr=
+ivers/platform/x86/lenovo/wmi-capdata.c
+> > > > > > > > index 805e36ef7..d64520be1 100644
+> > > > > > > > --- a/drivers/platform/x86/lenovo/wmi-capdata.c
+> > > > > > > > +++ b/drivers/platform/x86/lenovo/wmi-capdata.c
+> > > > > > > > @@ -76,11 +76,13 @@ enum lwmi_cd_type {
+> > > > > > > >  #define LWMI_CD_TABLE_ITEM(_type)=09=09\
+> > > > > > > >  =09[_type] =3D {=09=09=09=09\
+> > > > > > > >  =09=09.name =3D #_type,=09=09=09\
+> > > > > > > > +=09=09.guid =3D _type##_GUID,=09=09\
+> > > > > > > >  =09=09.type =3D _type,=09=09=09\
+> > > > > > > >  =09}
+> > > > > > > > =20
+> > > > > > > >  static const struct lwmi_cd_info {
+> > > > > > > >  =09const char *name;
+> > > > > > > > +=09const char *guid;
+> > > > > > > >  =09enum lwmi_cd_type type;
+> > > > > > > >  } lwmi_cd_table[] =3D {
+> > > > > > > >  =09LWMI_CD_TABLE_ITEM(LENOVO_CAPABILITY_DATA_00),
+> > > > > > > > @@ -166,6 +168,14 @@ void lwmi_cd_match_add_all(struct devi=
+ce *master, struct component_match **match
+> > > > > > > >  =09=09if (lwmi_cd_table[i].type =3D=3D LENOVO_FAN_TEST_DAT=
+A)
+> > > > > > > >  =09=09=09continue;
+> > > > > > > > =20
+> > > > > > > > +=09=09/*
+> > > > > > > > +=09=09 * Some firmware does not declare every capdata GUID=
+ at all, in
+> > > > > > > > +=09=09 * which case no component would ever register for i=
+t and the
+> > > > > > > > +=09=09 * master could never bind.
+> > > > > > > > +=09=09 */
+> > > > > > > > +=09=09if (!wmi_has_guid(lwmi_cd_table[i].guid))
+> > > > > > > > +=09=09=09continue;
+> > > > > > >=20
+> > > > > > > This was exactly what I did in the earlier revision while I w=
+as=20
+> > > > > > > introducing the support for capdata00 and capdata_fan.
+> > > > > > >=20
+> > > > > > > The wmi_has_guid() approach was eventually replaced by the=20
+> > > > > > > sub-component approach, because the use of the former is stro=
+ngly=20
+> > > > > > > discouraged.
+> > > > > > >=20
+> > > > > > > In the next revision I am going to convert capdata01 into a=
+=20
+> > > > > > > sub-component, too. In this manner some heavy and complex wor=
+k in the=20
+> > > > > > > series will become needless and can be simplified. While the=
+=20
+> > > > > > > sub-component approach itself is complex, we've had the infra=
+structure=20
+> > > > > > > to make it work. Therefore wiring it up should be a trivial w=
+ork.
+> > > > > > >=20
+> > > > > > > Mark, Derek,
+> > > > > > >=20
+> > > > > > > Do you know if there is any way to determine the existence of=
+ capdata01=20
+> > > > > > > using capdata00?=20
+> > > > > > >=20
+> > > > > > Note that I can see I'm afraid
+> > > >=20
+> > > > So there is no way to determine the existence of capdata01 using ca=
+pdata00, correct?
+> > > >=20
+> > > > > >=20
+> > > > > > I'm guessing the patch Armin posted on my thread "[RFC PATCH 5/=
+7] platform/x86: think-lmi: Initial ThinkLMI v2 driver" to check if it exis=
+ts won't help here?
+> > > > >=20
+> > > > > After some consideration, it seems that we don't really need to d=
+etermine the existence of capdata01 if we take the sub-component approach, =
+thanks to the fact that every functionality either depends on capdata00 or =
+depends on capdata01, but never both.
+> > > >=20
+> > > > Unfortunately, it turned out that it can't resolve the issue by sim=
+ply converting capdata01 into a sub-component, unless a virtual device is a=
+lso created to split the component matching list into two, which is more li=
+ke a dirty workaround.
+> > > >=20
+> > > > So yeah, the series needs the wmidev_exists() patch from Armin.=20
+> > > > Considering that the ThinkLMI v2 series is probably still at the RF=
+C=20
+> > > > stage, do you mind if I integrate the wmidev_exists() patch into my=
+=20
+> > > > series?=20
+> > >=20
+> > > Rong/Mark,
+> > >=20
+> > > My $0.02, I don't think it matters who sends it up. If Ilpo is okay w=
+ith=20
+> > > it of course, both series should include it as a prerequisite 1/X and=
+=20
+> > > whichever gets picked up first will get into next. Then that patch ca=
+n=20
+> > > be omitted from the other series when it gets picked. That way both=
+=20
+> > > series will build if you apply the mbox onto next until one is merged=
+=2E
+> >=20
+> > Hi,
+> >=20
+> > For me it's fine either way:
+> >=20
+> > 1) Have the same patch in both series.
+> >=20
+> > 2) If we know for sure we need the API anyway, just add it as a standal=
+one=20
+> > in advance.
+> >=20
+> > I suppose 2 would be slightly simpler but it's up to you which way you=
+=20
+> > prefer.
+> >=20
+> > Lets not make things more complicated than they have to be. :-)
+>=20
+> Thanks for you suggestion.
+>=20
+> The v2 patch is almost ready, and I will submit it today or tomorrow. It
+> will anyway depend on the wmidev_exists() patch to build, so I'd prefer
+> 1.
+>=20
+> Or we can combine 1 and 2 -- do a subset apply with the wmidev_exists()
+> patch if it looks good but my v2 series has issues. Then Mark and I can
+> rebase and resubmit.
+
+I've no problem in taking only a part of series as needed, if you prefer=20
+that.
+
+Armin had something to say about the interface but I suppose you saw that=
+=20
+already.
+
+--=20
+ i.
+
+--8323328-1185811386-1791460021=:1159--
