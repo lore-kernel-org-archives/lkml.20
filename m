@@ -1,16 +1,16 @@
 Received: from nbd.name (nbd.name [46.4.11.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A53EC4AD4AA;
-	Thu,  8 Oct 2026 14:33:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C5484AF665;
+	Thu,  8 Oct 2026 14:33:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.4.11.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791470002; cv=none; b=J/zTdRiVYJgzyvtX6RD63stnevGpCJNQR3PjB2kc/SmmjPbjSrDXlMraQfQ+HVLUp8km3tfctDgMV0uV0bZDY3NC+EmcIQxiwhcl7q37VHC50EUM6WGUyl8URSZVWI/FZQoPBl3xrAzACejsH3X6Rse/lpi/vw97UcbuJFLGE2s=
+	t=1791470005; cv=none; b=Lv3tt0r3hHUSjykS0S/VllXeEzCLyX0fYVJPZ9SEEGelADjQwlqqGn/vl4yHWFbZWnj8deXLZ/B8a6IZjcCVP1dp0vZJqtc3PX4D8gyWu5UXjxgeL3JPLChzoXzEunbazatzle+mn6zvjFqQKkxD9h+cUW+4flhJ/sLcbuMr7po=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791470002; c=relaxed/simple;
-	bh=TLHCZN9q2en/lKinUfv/rtZumghRAJTnK5+EToeoLfE=;
+	s=arc-20240116; t=1791470005; c=relaxed/simple;
+	bh=tb7LPVm64B0tRPXVoxNQfpxJdrtcmGRLsgEumauKuE0=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=hYg53cHQ3I1sVyca9MntbWh6EymbfgjkyVXKagQcyqkKVCJ/+uXGx9vn1kJ2wcHFm6VynWKQCpIZyViJ/wIjVH09j9xoE0kDhFpfZl8E6HXkFgx7WQCOHSdNiHlR6TvEH6WpKj2G5dyurUg3v1sZk8W6YZsravf7nqmzfR2voEs=
+	 MIME-Version; b=u5zXihFEOBfEWtAjKJg9SXpTLj4okN4CArrNMBoRQWm21BdYVFgumTLikHQoH3KY01WxqBAPTaB2O6Pxl9KZ/ZPneJ+fWMFK2TFu7/KTbM/Knh+jYGtHF+lN/kuxD1AXUqVRuU8HKmztCEY2FuJjxAkLQxBYCJtheLLEiJ6L8fY=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phrozen.org; spf=pass smtp.mailfrom=phrozen.org; arc=none smtp.client-ip=46.4.11.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phrozen.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phrozen.org
@@ -18,8 +18,8 @@ Received: from [2a04:4540:1400:26fc:ddc6:af15:b0f7:2808] (helo=bertha10..)
 	by ds12 with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.96)
 	(envelope-from <john@phrozen.org>)
-	id 1xEpBC-000l4X-1w;
-	Thu, 08 Oct 2026 16:33:06 +0200
+	id 1xEpBD-000l4X-0L;
+	Thu, 08 Oct 2026 16:33:07 +0200
 From: John Crispin <john@phrozen.org>
 To: "David S. Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@kernel.org>,
@@ -30,9 +30,9 @@ Cc: Simon Horman <horms@kernel.org>,
 	netdev@vger.kernel.org,
 	Andrew Lunn <andrew+netdev@lunn.ch>,
 	Christian Marangi <ansuelsmth@gmail.com>
-Subject: [RFC net-next 05/12] net: pon: add the conduit contract
-Date: Thu,  8 Oct 2026 16:32:42 +0200
-Message-Id: <20261008143249.3439762-6-john@phrozen.org>
+Subject: [RFC net-next 07/12] net: pon: add the OMCI channel
+Date: Thu,  8 Oct 2026 16:32:44 +0200
+Message-Id: <20261008143249.3439762-8-john@phrozen.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261008143249.3439762-1-john@phrozen.org>
 References: <20261008143249.3439762-1-john@phrozen.org>
@@ -44,662 +44,370 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A PON MAC on a system on chip has no DMA of its own, so its frames ride
-the rings of an ethernet controller, the conduit. The driver of the
-conduit registers it with pon_conduit_register() when its firmware node
-names the MAC through a pon-handle. The core pairs the two in whichever
-order they probe. Neither driver includes the headers of the other.
+OMCI is the management protocol of ITU-T G.988. It is the job of
+userspace. The kernel carries it over the pon netlink family, as nl80211
+carries management frames. One socket registers for the OMCI PDUs of a
+device, receives them as notifications and sends with omci-tx. The
+registration ends when the socket closes.
 
-Per frame information crosses as explicit arguments: the GEM port, the
-T-CONT channel and the queue on transmit, the GEM port and the OMCI
-flags on receive. pon_conduit_rx() delivers a frame to the OMCI channel,
-to the network device of its GEM port, or to the PON data interface. A
-frame for a PON network device that is down is dropped and counted.
+A PDU crosses the boundary bare, without its integrity field. The core
+checks the framing of a PDU to send against G.988 clause 11.2.3: 44
+bytes in the baseline format, the header and the stated contents length
+in the extended format. So every driver gets the same PDUs. A PDU that
+the MAC passed up unchecked is verified by the driver, which holds the
+OMCI integrity key. Received PDUs wait for the context of the instance
+in one queue bounded at 512, in the order they arrived, checked or not.
+A PDU that finds no owner or no room is dropped and counted.
 
-The conduit keeps the address of the data interface and the largest MTU
-among the PON network devices, never less than an extended OMCI PDU with
-its integrity field. A conduit that refuses the address or the MTU when
-it pairs is warned about and stays paired.
+The omci_xmit callback runs with bottom halves disabled, because it ends
+in the transmit path of the conduit.
 
-A netdev notifier follows the conduit up and down. The PON network
-devices keep their carrier only while the conduit is paired and up, so
-the carrier falls before the conduit closes or goes.
-
-pon_conduit_register(), pon_conduit_unregister() and pon_conduit_rx()
-have no caller in the core. The driver of the conduit calls them.
-pon_conduit_register() takes rtnl, so the driver calls it without rtnl.
-pon_conduit_xmit() has no caller in the core either: the MAC driver
-calls it from its transmit paths, because only the MAC driver can fill
-struct pon_tx_info. The core carries that structure from one driver to
-the other without reading it.
+A MAC can check the integrity of a downstream OMCI PDU inline. A PDU
+that it passes up unchecked goes to the omci_verify callback of the
+driver, which checks it with the OMCI integrity key. The key stays in
+the driver and the check can sleep, so the core defers the call to the
+lent context. The core has no key and never checks a MIC itself.
+Without omci_verify it drops an unchecked PDU.
 
 Assisted-by: LLM
 Signed-off-by: John Crispin <john@phrozen.org>
 ---
- net/pon/pon_conduit.c | 614 ++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 614 insertions(+)
- create mode 100644 net/pon/pon_conduit.c
+ net/pon/pon_omci.c | 326 +++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 326 insertions(+)
+ create mode 100644 net/pon/pon_omci.c
 
-diff --git a/net/pon/pon_conduit.c b/net/pon/pon_conduit.c
+diff --git a/net/pon/pon_omci.c b/net/pon/pon_omci.c
 new file mode 100644
-index 000000000000..ed0e0dff8cd3
+index 000000000000..c8093a9c3749
 --- /dev/null
-+++ b/net/pon/pon_conduit.c
-@@ -0,0 +1,614 @@
++++ b/net/pon/pon_omci.c
+@@ -0,0 +1,326 @@
 +// SPDX-License-Identifier: GPL-2.0-only
 +/* Copyright (C) 2026 John Crispin <john@phrozen.org> */
 +
-+#include <linux/etherdevice.h>
-+#include <linux/netdevice.h>
++#include <linux/atomic.h>
++#include <linux/bottom_half.h>
++#include <linux/netlink.h>
 +#include <linux/notifier.h>
-+#include <linux/property.h>
-+#include <linux/rtnetlink.h>
-+#include <linux/slab.h>
++#include <linux/skbuff.h>
++#include <linux/xarray.h>
++#include <linux/unaligned.h>
++#include <net/net_namespace.h>
 +#include <net/pon.h>
 +
 +#include "pon.h"
 +
-+/* One registered conduit. It stays on the list whether or not a PON MAC has
-+ * claimed it, so that a MAC which registers later, or registers again, finds
-+ * it.
-+ */
-+struct pon_conduit {
-+	struct list_head list;
-+	struct net_device *netdev;
-+	struct fwnode_handle *mac;
-+	const struct pon_conduit_ops *ops;
-+	struct pon_dev *pdev;
-+	bool up;
-+};
-+
-+/* guarded by pon_devs_lock */
-+static LIST_HEAD(pon_conduits);
++#define PON_OMCI_DEVID_OFF		3
++#define PON_OMCI_DEVID_BASELINE		0x0a
++#define PON_OMCI_DEVID_EXTENDED		0x0b
++#define PON_OMCI_CONTENTS_LEN_OFF	8
++#define PON_OMCI_EXTENDED_HDR_LEN	10
++#define PON_OMCI_BASELINE_LEN		44
++#define PON_OMCI_CB(skb)		((struct pon_omci_cb *)(skb)->cb)
 +
 +/**
-+ * pon_conduit_find() - look up the conduit of a network device
-+ * @netdev:	the ethernet device a driver registered as a conduit
-+ *
-+ * Context: Called with pon_devs_lock held.
-+ * Return: the conduit, or NULL when @netdev is not a registered conduit.
++ * struct pon_omci_cb - what the receive queue keeps with a PDU
++ * @unverified: the MAC did not check the integrity of the PDU, which still
++ *		ends with its MIC
 + */
-+static struct pon_conduit *pon_conduit_find(const struct net_device *netdev)
-+{
-+	struct pon_conduit *entry;
-+
-+	lockdep_assert_held(&pon_devs_lock);
-+	list_for_each_entry(entry, &pon_conduits, list)
-+		if (entry->netdev == netdev)
-+			return entry;
-+	return NULL;
-+}
-+
-+/**
-+ * pon_conduit_find_free() - look up an unclaimed conduit that names a MAC
-+ * @pdev:	PON device structure
-+ *
-+ * A conduit names its MAC through the firmware node of @pdev's parent.
-+ *
-+ * Context: Called with pon_devs_lock held.
-+ * Return: a conduit that names the MAC of @pdev and that no instance has
-+ * claimed, or NULL when there is none.
-+ */
-+static struct pon_conduit *pon_conduit_find_free(const struct pon_dev *pdev)
-+{
-+	struct fwnode_handle *mac = dev_fwnode(pdev->parent);
-+	struct pon_conduit *entry;
-+
-+	lockdep_assert_held(&pon_devs_lock);
-+	list_for_each_entry(entry, &pon_conduits, list)
-+		if (entry->mac == mac && !entry->pdev)
-+			return entry;
-+	return NULL;
-+}
-+
-+/**
-+ * pon_conduit_pair() - pair a conduit with an instance
-+ * @entry:	the conduit
-+ * @pdev:	PON device structure
-+ *
-+ * Takes a reference on the conduit's network device and publishes the
-+ * pointer from each side to the other for the receive and transmit paths.
-+ *
-+ * Context: Called with pon_devs_lock held.
-+ */
-+static void pon_conduit_pair(struct pon_conduit *entry, struct pon_dev *pdev)
-+{
-+	lockdep_assert_held(&pon_devs_lock);
-+
-+	entry->pdev = pdev;
-+	netdev_hold(entry->netdev, &pdev->conduit_tracker, GFP_KERNEL);
-+	rcu_assign_pointer(pdev->conduit, entry);
-+	rcu_assign_pointer(entry->netdev->pon_dev, pdev);
-+}
-+
-+/**
-+ * pon_conduit_unpair() - break the pairing of a conduit and its instance
-+ * @entry:	the conduit, paired with an instance
-+ *
-+ * The receive path finds the instance through the conduit and the transmit
-+ * path finds the conduit through the instance, both under RCU, so both
-+ * pointers go before the grace period and the reference after it.
-+ *
-+ * Context: Called with pon_devs_lock held. Sleeps.
-+ */
-+static void pon_conduit_unpair(struct pon_conduit *entry)
-+{
-+	struct pon_dev *pdev = entry->pdev;
-+
-+	lockdep_assert_held(&pon_devs_lock);
-+
-+	rcu_assign_pointer(entry->netdev->pon_dev, NULL);
-+	rcu_assign_pointer(pdev->conduit, NULL);
-+	synchronize_net();
-+	netdev_put(entry->netdev, &pdev->conduit_tracker);
-+	entry->pdev = NULL;
-+}
-+
-+/**
-+ * pon_conduit_hold() - hold the conduit across a call that may sleep
-+ * @pdev:	PON device structure
-+ * @ops:	where to store what the conduit's driver does, or NULL
-+ * @tracker:	the tracker of the reference
-+ *
-+ * Return: the conduit's ethernet device with a reference held, or NULL when
-+ * no driver has claimed the instance.
-+ */
-+struct net_device *pon_conduit_hold(struct pon_dev *pdev,
-+				    const struct pon_conduit_ops **ops,
-+				    netdevice_tracker *tracker)
-+{
-+	struct net_device *conduit = NULL;
-+	struct pon_conduit *entry;
-+
-+	rcu_read_lock();
-+	entry = rcu_dereference(pdev->conduit);
-+	if (entry) {
-+		conduit = entry->netdev;
-+		if (ops)
-+			*ops = entry->ops;
-+		netdev_hold(conduit, tracker, GFP_ATOMIC);
-+	}
-+	rcu_read_unlock();
-+
-+	return conduit;
-+}
-+
-+/**
-+ * pon_conduit_running() - whether the instance has a conduit that is up
-+ * @pdev:	PON device structure
-+ *
-+ * A conduit counts as up from NETDEV_UP until NETDEV_GOING_DOWN, so the PON
-+ * network devices lose their carrier before the conduit closes.
-+ *
-+ * Context: Any context.
-+ * Return: true when a conduit is paired with @pdev and is up.
-+ */
-+bool pon_conduit_running(struct pon_dev *pdev)
-+{
-+	struct pon_conduit *entry;
-+	bool up;
-+
-+	rcu_read_lock();
-+	entry = rcu_dereference(pdev->conduit);
-+	up = entry && READ_ONCE(entry->up);
-+	rcu_read_unlock();
-+
-+	return up;
-+}
-+
-+/**
-+ * pon_conduit_carrier_update() - set the carrier after a conduit change
-+ * @pdev:	PON device structure
-+ *
-+ * Context: Takes @pdev->lock. Called without it.
-+ */
-+static void pon_conduit_carrier_update(struct pon_dev *pdev)
-+{
-+	mutex_lock(&pdev->lock);
-+	if (pon_dev_is_registered(pdev))
-+		pon_dev_carrier_update(pdev);
-+	mutex_unlock(&pdev->lock);
-+}
-+
-+/**
-+ * pon_conduit_addr_set() - give the conduit the PON data interface's address
-+ * @pdev:	PON device structure
-+ * @addr:	the address the PON network devices carry
-+ *
-+ * The frame engine behind a conduit recognizes the frames addressed to the
-+ * ONU by the conduit's own address, so the two are kept the same. Called with
-+ * rtnl held.
-+ *
-+ * Return: 0, or what the conduit's driver answered.
-+ */
-+int pon_conduit_addr_set(struct pon_dev *pdev, const u8 *addr)
-+{
-+	struct sockaddr_storage ss = {};
-+	struct net_device *conduit;
-+	netdevice_tracker tracker;
-+	int err = 0;
-+
-+	ASSERT_RTNL();
-+
-+	conduit = pon_conduit_hold(pdev, NULL, &tracker);
-+	if (!conduit)
-+		return 0;
-+
-+	if (!ether_addr_equal(conduit->dev_addr, addr)) {
-+		ss.ss_family = conduit->type;
-+		memcpy(ss.__data, addr, ETH_ALEN);
-+		err = dev_set_mac_address(conduit, &ss, NULL);
-+	}
-+
-+	netdev_put(conduit, &tracker);
-+	return err;
-+}
-+EXPORT_SYMBOL_GPL(pon_conduit_addr_set);
-+
-+/**
-+ * pon_conduit_sync() - give a newly paired conduit the address and the MTU
-+ * @pdev:	PON device structure
-+ *
-+ * After a pairing, outside every lock: the conduit's driver programs its
-+ * address and its MTU under rtnl, which is never taken while an instance lock
-+ * is held. The carrier follows the new conduit. A conduit that refuses the
-+ * address or the MTU is warned about and stays paired.
-+ *
-+ * Does nothing once pon_dev_unregister() has begun. It tests that under rtnl,
-+ * which pon_dev_unregister() takes before it lets the driver free the data
-+ * network device, so the device read here is alive.
-+ *
-+ * Context: Takes rtnl and @pdev->lock. Called without rtnl, pon_devs_lock or
-+ * @pdev->lock held.
-+ */
-+void pon_conduit_sync(struct pon_dev *pdev)
-+{
-+	int err;
-+
-+	rtnl_lock();
-+	if (READ_ONCE(pdev->going_away)) {
-+		rtnl_unlock();
-+		return;
-+	}
-+	err = pon_conduit_addr_set(pdev, pdev->main_netdev->dev_addr);
-+	if (err)
-+		netdev_warn(pdev->main_netdev,
-+			    "the conduit refused the address: %pe\n",
-+			    ERR_PTR(err));
-+	err = pon_conduit_mtu_set(pdev, NULL, 0);
-+	if (err)
-+		netdev_warn(pdev->main_netdev,
-+			    "the conduit refused the MTU: %pe\n", ERR_PTR(err));
-+	rtnl_unlock();
-+
-+	pon_conduit_carrier_update(pdev);
-+}
-+
-+/**
-+ * pon_conduit_register() - offer a network device's rings to a PON MAC
-+ * @netdev:	the registered ethernet device, whose firmware node names the
-+ *		MAC through a pon-handle reference
-+ * @ops:	what the driver does for the MAC
-+ *
-+ * Neither side waits for the other. A MAC that registers later, or again,
-+ * finds the conduit. Until then its frames are dropped and the conduit's own
-+ * receive path keeps what arrives.
-+ *
-+ * Context: Takes rtnl. Called without it.
-+ * Return: 0 once registered, -ENOENT when the firmware node names no PON MAC,
-+ * -EBUSY when the network device is a conduit already, or a negative errno.
-+ */
-+int pon_conduit_register(struct net_device *netdev,
-+			 const struct pon_conduit_ops *ops)
-+{
-+	struct pon_dev *pdev = NULL, *iter;
-+	struct fwnode_handle *mac;
-+	struct pon_conduit *entry;
-+	unsigned long id;
-+
-+	mac = fwnode_find_reference(dev_fwnode(&netdev->dev), "pon-handle", 0);
-+	if (IS_ERR(mac))
-+		return PTR_ERR(mac);
-+
-+	entry = kzalloc_obj(*entry, GFP_KERNEL);
-+	if (!entry) {
-+		fwnode_handle_put(mac);
-+		return -ENOMEM;
-+	}
-+	entry->netdev = netdev;
-+	entry->mac = mac;
-+	entry->ops = ops;
-+
-+	rtnl_lock();
-+	mutex_lock(&pon_devs_lock);
-+
-+	if (pon_conduit_find(netdev)) {
-+		mutex_unlock(&pon_devs_lock);
-+		rtnl_unlock();
-+		fwnode_handle_put(mac);
-+		kfree(entry);
-+		return -EBUSY;
-+	}
-+	entry->up = netif_running(netdev);
-+	list_add_tail(&entry->list, &pon_conduits);
-+
-+	xa_for_each(&pon_devs, id, iter) {
-+		if (dev_fwnode(iter->parent) != mac ||
-+		    rcu_access_pointer(iter->conduit))
-+			continue;
-+		pon_conduit_pair(entry, iter);
-+		pon_dev_get(iter);
-+		pdev = iter;
-+		break;
-+	}
-+
-+	mutex_unlock(&pon_devs_lock);
-+	rtnl_unlock();
-+
-+	if (pdev) {
-+		pon_conduit_sync(pdev);
-+		pon_dev_put(pdev);
-+	}
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(pon_conduit_register);
-+
-+/**
-+ * pon_conduit_unregister() - take a network device's rings back
-+ * @netdev:	the device pon_conduit_register() was given
-+ *
-+ * Call before unregistering the device. A MAC the device served keeps
-+ * running without a conduit and its PON network devices lose their carrier.
-+ */
-+void pon_conduit_unregister(struct net_device *netdev)
-+{
-+	struct pon_conduit *entry;
-+	struct pon_dev *pdev;
-+
-+	mutex_lock(&pon_devs_lock);
-+	entry = pon_conduit_find(netdev);
-+	if (entry) {
-+		pdev = entry->pdev;
-+		if (pdev) {
-+			pon_conduit_unpair(entry);
-+			pon_conduit_carrier_update(pdev);
-+		}
-+		list_del(&entry->list);
-+	}
-+	mutex_unlock(&pon_devs_lock);
-+
-+	if (!entry)
-+		return;
-+
-+	fwnode_handle_put(entry->mac);
-+	kfree(entry);
-+}
-+EXPORT_SYMBOL_GPL(pon_conduit_unregister);
-+
-+/**
-+ * pon_conduit_netdev_event() - follow a conduit that goes up or down
-+ * @nb:		the notifier block
-+ * @event:	what happened to the network device
-+ * @ptr:	struct netdev_notifier_info of the network device
-+ *
-+ * A registered conduit counts as up from NETDEV_UP until NETDEV_GOING_DOWN.
-+ * The PON network devices of the instance it serves get their carrier
-+ * again, so they never carry traffic into a conduit that is down.
-+ *
-+ * Context: Called with rtnl held. Takes pon_devs_lock and the instance lock.
-+ * Return: NOTIFY_DONE.
-+ */
-+static int pon_conduit_netdev_event(struct notifier_block *nb,
-+				    unsigned long event, void *ptr)
-+{
-+	struct net_device *netdev = netdev_notifier_info_to_dev(ptr);
-+	struct pon_conduit *entry;
-+
-+	if (event != NETDEV_UP && event != NETDEV_GOING_DOWN)
-+		return NOTIFY_DONE;
-+
-+	mutex_lock(&pon_devs_lock);
-+	entry = pon_conduit_find(netdev);
-+	if (entry) {
-+		WRITE_ONCE(entry->up, event == NETDEV_UP);
-+		if (entry->pdev)
-+			pon_conduit_carrier_update(entry->pdev);
-+	}
-+	mutex_unlock(&pon_devs_lock);
-+
-+	return NOTIFY_DONE;
-+}
-+
-+static struct notifier_block pon_conduit_netdev_notifier = {
-+	.notifier_call = pon_conduit_netdev_event,
++struct pon_omci_cb {
++	bool unverified;
 +};
 +
 +/**
-+ * pon_conduit_notifier_register() - watch the conduits go up and down
++ * pon_omci_len_valid() - check the length of an OMCI PDU
++ * @len:	the length of the PDU in bytes
++ * @trailer:	the bytes the PDU carries after the message, PON_OMCI_MIC_LEN
++ *		when it still ends with its MIC, 0 otherwise
 + *
-+ * Return: 0, or the errno of register_netdevice_notifier().
++ * The limits are those of the extended message format, ITU-T G.988 clause
++ * 11.2.5 and Table 11.2-2.
++ *
++ * Return: true when @len lies between PON_OMCI_MIN_LEN and PON_OMCI_MAX_LEN,
++ * both plus @trailer, false otherwise.
 + */
-+int pon_conduit_notifier_register(void)
++static bool pon_omci_len_valid(unsigned int len, unsigned int trailer)
 +{
-+	return register_netdevice_notifier(&pon_conduit_netdev_notifier);
++	return len >= PON_OMCI_MIN_LEN + trailer &&
++	       len <= PON_OMCI_MAX_LEN + trailer;
 +}
 +
 +/**
-+ * pon_conduit_notifier_unregister() - stop the watch of the conduits
-+ */
-+void pon_conduit_notifier_unregister(void)
-+{
-+	unregister_netdevice_notifier(&pon_conduit_netdev_notifier);
-+}
-+
-+/**
-+ * pon_conduit_attach() - claim a waiting conduit for a new instance
-+ * @pdev:	PON device structure
++ * pon_omci_framing_valid() - check the framing of an OMCI PDU to send
++ * @pdu:	the PDU, without its MIC
++ * @len:	the length of @pdu in bytes, at least PON_OMCI_MIN_LEN
 + *
-+ * A new instance claims the conduit that names its MAC, if one is waiting.
++ * The device identifier of ITU-T G.988 clause 11.2.3 selects the format. A
++ * baseline PDU (Table 11.2-1) is 44 bytes without the MIC. An extended PDU
++ * (Table 11.2-2) is the 10 byte header and as many bytes of contents as its
++ * message contents length states.
 + *
-+ * Context: Called with pon_devs_lock held.
-+ * Return: true when a conduit was paired and there is an address to sync
-+ * with pon_conduit_sync() once the locks are dropped, false otherwise.
++ * Return: true when @len is the length the header of @pdu calls for, false
++ * otherwise.
 + */
-+bool pon_conduit_attach(struct pon_dev *pdev)
++static bool pon_omci_framing_valid(const u8 *pdu, unsigned int len)
 +{
-+	struct pon_conduit *entry;
++	unsigned int contents;
 +
-+	entry = pon_conduit_find_free(pdev);
-+	if (!entry)
++	switch (pdu[PON_OMCI_DEVID_OFF]) {
++	case PON_OMCI_DEVID_BASELINE:
++		return len == PON_OMCI_BASELINE_LEN;
++	case PON_OMCI_DEVID_EXTENDED:
++		contents = get_unaligned_be16(pdu + PON_OMCI_CONTENTS_LEN_OFF);
++		return len == PON_OMCI_EXTENDED_HDR_LEN + contents;
++	default:
 +		return false;
++	}
++}
 +
-+	pon_conduit_pair(entry, pdev);
++/**
++ * pon_omci_deliver() - hand one OMCI PDU to the owner of the OMCI channel
++ * @pdev:	PON device structure
++ * @skb:	the verified PDU, which is consumed
++ *
++ * A PDU that cannot be sent to the owner, or that arrives while no socket
++ * owns the channel, is dropped.
++ *
++ * Context: The instance's context, with @pdev->lock held.
++ */
++static void pon_omci_deliver(struct pon_dev *pdev, struct sk_buff *skb)
++{
++	if (pon_nl_omci_ntf(pdev, skb)) {
++		kfree_skb(skb);
++		return;
++	}
++
++	consume_skb(skb);
++}
++
++/**
++ * pon_omci_rx_verify() - check a received OMCI PDU through the driver
++ * @pdev:	PON device structure
++ * @skb:	the PDU the MAC passed up unchecked, ending with its MIC
++ *
++ * The driver's omci_verify callback checks and strips the MIC (ITU-T
++ * G.9807.1 clause C.15.7.2). A PDU that fails is freed. A PDU that cannot be
++ * made linear is freed too, because its integrity was never checked.
++ *
++ * Context: The instance's context, with @pdev->lock held.
++ * Return: true when the PDU passed and is now bare, false when it is gone.
++ */
++static bool pon_omci_rx_verify(struct pon_dev *pdev, struct sk_buff *skb)
++{
++	if (skb_linearize(skb) || pdev->ops->omci_verify(pdev, skb)) {
++		kfree_skb(skb);
++		return false;
++	}
++
 +	return true;
 +}
 +
 +/**
-+ * pon_conduit_detach() - release the conduit an instance has claimed
++ * pon_omci_rx_work() - verify and deliver the queued OMCI PDUs
 + * @pdev:	PON device structure
++ * @work:	the instance's @omci_rx_work
 + *
-+ * The conduit stays registered and waits for the next instance of its MAC.
-+ * Once this returns, no frame of the conduit reaches @pdev.
++ * Takes the PDUs in the order they arrived. One the MAC passed up unchecked
++ * goes through pon_omci_rx_verify() first. One the MAC verified goes to the
++ * owner as it is.
 + *
-+ * Context: Takes pon_devs_lock. Sleeps.
++ * Context: The instance's context, with @pdev->lock held.
 + */
-+void pon_conduit_detach(struct pon_dev *pdev)
++static void pon_omci_rx_work(struct pon_dev *pdev, struct pon_work *work)
 +{
-+	struct pon_conduit *entry;
++	struct sk_buff *skb;
 +
-+	mutex_lock(&pon_devs_lock);
-+	entry = rcu_dereference_protected(pdev->conduit,
-+					  lockdep_is_held(&pon_devs_lock));
-+	if (entry)
-+		pon_conduit_unpair(entry);
-+	mutex_unlock(&pon_devs_lock);
++	while ((skb = skb_dequeue(&pdev->omci_rxq))) {
++		if (PON_OMCI_CB(skb)->unverified &&
++		    !pon_omci_rx_verify(pdev, skb))
++			continue;
++
++		pon_omci_deliver(pdev, skb);
++	}
 +}
 +
 +/**
-+ * pon_conduit_mtu_largest() - the MTU the conduit needs
++ * pon_omci_conduit_rx() - take one OMCI PDU from the conduit
 + * @pdev:	PON device structure
-+ * @dev:	the PON network device whose MTU changes, or NULL when none does
-+ * @mtu:	the MTU @dev changes to
++ * @skb:	the PDU, starting at the transaction correlation id and ending
++ *		with its 4 byte MIC when @unverified
++ * @unverified:	the MAC did not check the integrity of the PDU
 + *
-+ * Takes @mtu for @dev and the current MTU of every other PON network device
-+ * of @pdev. The floor is the extended OMCI PDU with its MIC, 1980 bytes,
-+ * ITU-T G.988 clause 11.2.5.
++ * Runs in the conduit's NAPI context. The PDU waits for the instance's
++ * context, which verifies it through the driver when @unverified and hands
++ * it to the owner of the OMCI channel. Checked and unchecked PDUs share one
++ * queue, so the owner gets them in the order they arrived. A PDU is at most
++ * PON_OMCI_MAX_LEN bytes and PON_OMCI_MIC_LEN more when @unverified, because
++ * the driver strips the MIC only once it has checked it (ITU-T G.988 clause
++ * 11.2.5). A PDU that arrives while no socket owns the channel is dropped
++ * here.
 + *
-+ * Return: the largest of these MTUs.
++ * Return: 0, the skb is consumed.
 + */
-+static unsigned int pon_conduit_mtu_largest(struct pon_dev *pdev,
-+					    const struct net_device *dev,
-+					    unsigned int mtu)
++int pon_omci_conduit_rx(struct pon_dev *pdev, struct sk_buff *skb,
++			bool unverified)
 +{
-+	struct net_device *gem;
-+	unsigned long id;
-+
-+	mtu = max(mtu, PON_OMCI_MAX_LEN + PON_OMCI_MIC_LEN);
-+
-+	if (dev != pdev->main_netdev)
-+		mtu = max(mtu, READ_ONCE(pdev->main_netdev->mtu));
-+
-+	xa_for_each(&pdev->gem_netdevs, id, gem)
-+		if (dev != gem)
-+			mtu = max(mtu, READ_ONCE(gem->mtu));
-+
-+	return mtu;
-+}
-+
-+/**
-+ * pon_conduit_mtu_set() - make room on the conduit for a PON network device
-+ * @pdev:	PON device structure
-+ * @dev:	the PON network device whose MTU changes, or NULL when none does
-+ * @mtu:	the MTU @dev changes to
-+ *
-+ * The frames of every PON network device and the OMCI PDUs ride the conduit,
-+ * so the conduit takes the largest MTU among them and never less than the
-+ * longest OMCI PDU with its integrity field. Called with rtnl held.
-+ *
-+ * Return: 0, or what the conduit's driver answered.
-+ */
-+int pon_conduit_mtu_set(struct pon_dev *pdev, const struct net_device *dev,
-+			unsigned int mtu)
-+{
-+	const struct pon_conduit_ops *ops;
-+	struct net_device *conduit;
-+	netdevice_tracker tracker;
-+	int err = 0;
-+
-+	ASSERT_RTNL();
-+
-+	conduit = pon_conduit_hold(pdev, &ops, &tracker);
-+	if (!conduit)
++	if (!pon_omci_len_valid(skb->len, unverified ? PON_OMCI_MIC_LEN : 0) ||
++	    !READ_ONCE(pdev->omci_portid) ||
++	    (unverified && !pdev->ops->omci_verify) ||
++	    skb_queue_len_lockless(&pdev->omci_rxq) >= PON_OMCI_QUEUE_MAX) {
++		kfree_skb(skb);
 +		return 0;
-+
-+	mtu = pon_conduit_mtu_largest(pdev, dev, mtu);
-+	if (mtu != READ_ONCE(conduit->mtu))
-+		err = dev_set_mtu(conduit, mtu);
-+
-+	netdev_put(conduit, &tracker);
-+
-+	return err;
-+}
-+EXPORT_SYMBOL_GPL(pon_conduit_mtu_set);
-+
-+/**
-+ * pon_conduit_xmit() - send one frame through the conduit
-+ * @pdev:	PON device structure
-+ * @skb:	the frame, consumed whatever this returns
-+ * @info:	what the conduit needs to build the descriptor
-+ *
-+ * Return: 0 once the conduit has the frame, -ENETDOWN without a conduit,
-+ * -EBUSY when its ring is full.
-+ */
-+int pon_conduit_xmit(struct pon_dev *pdev, struct sk_buff *skb,
-+		     const struct pon_tx_info *info)
-+{
-+	struct pon_conduit *entry;
-+	netdev_tx_t ret;
-+
-+	rcu_read_lock();
-+	entry = rcu_dereference(pdev->conduit);
-+	if (!entry) {
-+		rcu_read_unlock();
-+		dev_kfree_skb_any(skb);
-+		return -ENETDOWN;
 +	}
-+	ret = entry->ops->xmit(entry->netdev, skb, info);
-+	rcu_read_unlock();
 +
-+	if (ret == NETDEV_TX_BUSY) {
-+		dev_kfree_skb_any(skb);
-+		return -EBUSY;
-+	}
++	PON_OMCI_CB(skb)->unverified = unverified;
++	skb_queue_tail(&pdev->omci_rxq, skb);
++	pon_work_queue(pdev, &pdev->omci_rx_work);
 +
 +	return 0;
 +}
-+EXPORT_SYMBOL_GPL(pon_conduit_xmit);
 +
 +/**
-+ * pon_conduit_rx() - hand one received frame to the PON MAC that owns it
-+ * @conduit:	the ethernet device the frame arrived on
-+ * @skb:	the frame, starting at its first byte: the MAC header of an
-+ *		Ethernet frame, the transaction id of an OMCI PDU
-+ * @info:	what the receive descriptor said about it
++ * pon_omci_xmit() - send one OMCI PDU to the OLT
++ * @pdev:	PON device structure
++ * @pdu:	the PDU, without its MIC
++ * @len:	the length of @pdu in bytes
++ * @extack:	netlink extended ack for the reason the core refuses the PDU,
++ *		or NULL
 + *
-+ * Runs in the conduit's NAPI context. An OMCI PDU goes to the socket that
-+ * owns the OMCI channel and is consumed here, a frame on a GEM port that
-+ * carries a network device of its own goes there and everything else goes
-+ * to the PON data interface. A frame for a network device that is down is
-+ * dropped and counted in its rx_dropped.
++ * Copies the PDU into an skb and hands it to the driver's omci_xmit
++ * callback with bottom halves disabled. The length must fit the extended
++ * message format, ITU-T G.988 clause 11.2.5 and Table 11.2-2, less the 4
++ * byte MIC, which @pdu does not carry. It must also be the length that the
++ * header of the PDU calls for, as pon_omci_framing_valid() checks, so the
++ * driver receives a bare PDU of a known format. Only that refusal sets
++ * @extack. An error of the driver leaves it alone.
 + *
-+ * Return: 1 when the frame belongs to a PON network device (now skb->dev)
-+ * and the conduit delivers it, 0 when it was consumed here, or -ENODEV when
-+ * no PON MAC owns the conduit and the frame stays the conduit's.
++ * Context: Called with @pdev->lock held, from the omci-tx netlink handler.
++ * Return: 0, -EINVAL for a length out of range or a length that does not
++ * match the format, -ENOMEM, or the driver's errno.
 + */
-+int pon_conduit_rx(struct net_device *conduit, struct sk_buff *skb,
-+		   const struct pon_rx_info *info)
++int pon_omci_xmit(struct pon_dev *pdev, const void *pdu, unsigned int len,
++		  struct netlink_ext_ack *extack)
 +{
-+	struct net_device *dev;
++	struct sk_buff *skb;
++	int err;
++
++	lockdep_assert_held(&pdev->lock);
++
++	if (!pon_omci_len_valid(len, 0) || !pon_omci_framing_valid(pdu, len)) {
++		NL_SET_ERR_MSG(extack,
++			       "OMCI PDU length does not match its format");
++		return -EINVAL;
++	}
++
++	skb = alloc_skb(len, GFP_KERNEL);
++	if (!skb)
++		return -ENOMEM;
++	skb_put_data(skb, pdu, len);
++
++	local_bh_disable();
++	err = pdev->ops->omci_xmit(pdev, skb);
++	local_bh_enable();
++
++	return err;
++}
++
++/**
++ * pon_omci_register() - claim the OMCI channel of a PON device for a socket
++ * @pdev:	PON device structure
++ * @portid:	the netlink port id of the socket
++ *
++ * The first socket to claim the channel owns it until it closes, when
++ * pon_omci_netlink_notify() releases it. A second claim by the owner
++ * succeeds.
++ *
++ * Context: Called with @pdev->lock held.
++ * Return: 0 when @portid owns the channel, -EBUSY when another socket does.
++ */
++int pon_omci_register(struct pon_dev *pdev, u32 portid)
++{
++	u32 owner;
++
++	lockdep_assert_held(&pdev->lock);
++
++	owner = cmpxchg(&pdev->omci_portid, 0, portid);
++
++	return owner && owner != portid ? -EBUSY : 0;
++}
++
++/**
++ * pon_omci_netlink_notify() - release the OMCI channels of a closed socket
++ * @nb:		the notifier block
++ * @state:	what happened to the socket
++ * @data:	struct netlink_notify of the socket
++ *
++ * Runs when a netlink socket is released. Every device in the netns of the
++ * socket that it owned the OMCI channel of loses its owner.
++ *
++ * Return: NOTIFY_DONE.
++ */
++static int pon_omci_netlink_notify(struct notifier_block *nb,
++				   unsigned long state, void *data)
++{
++	struct netlink_notify *notify = data;
 +	struct pon_dev *pdev;
-+	unsigned int len;
-+	int ret;
++	unsigned long id;
++
++	if (state != NETLINK_URELEASE || notify->protocol != NETLINK_GENERIC)
++		return NOTIFY_DONE;
 +
 +	rcu_read_lock();
-+
-+	pdev = rcu_dereference(conduit->pon_dev);
-+	if (!pdev) {
-+		ret = -ENODEV;
-+		goto out;
++	xa_for_each(&pon_devs, id, pdev) {
++		if (!net_eq(dev_net(pdev->main_netdev), notify->net))
++			continue;
++		cmpxchg(&pdev->omci_portid, notify->portid, 0);
 +	}
-+
-+	if (info->oam) {
-+		ret = pon_omci_conduit_rx(pdev, skb, info->mic_unchecked);
-+		goto out;
-+	}
-+
-+	dev = xa_load(&pdev->gem_netdevs, info->gem);
-+	if (!dev)
-+		dev = pdev->main_netdev;
-+
-+	if (!(READ_ONCE(dev->flags) & IFF_UP)) {
-+		dev_core_stats_rx_dropped_inc(dev);
-+		kfree_skb(skb);
-+		ret = 0;
-+		goto out;
-+	}
-+
-+	len = skb->len;
-+	skb->dev = dev;
-+	skb->protocol = eth_type_trans(skb, dev);
-+	dev_sw_netstats_rx_add(dev, len);
-+	ret = 1;
-+
-+out:
 +	rcu_read_unlock();
-+	return ret;
++
++	return NOTIFY_DONE;
 +}
-+EXPORT_SYMBOL_GPL(pon_conduit_rx);
++
++static struct notifier_block pon_omci_netlink_notifier = {
++	.notifier_call = pon_omci_netlink_notify,
++};
++
++/**
++ * pon_omci_notifier_register() - watch for closed netlink sockets
++ *
++ * Return: 0, or the errno of netlink_register_notifier().
++ */
++int pon_omci_notifier_register(void)
++{
++	return netlink_register_notifier(&pon_omci_netlink_notifier);
++}
++
++/**
++ * pon_omci_notifier_unregister() - stop the watch for closed netlink sockets
++ */
++void pon_omci_notifier_unregister(void)
++{
++	netlink_unregister_notifier(&pon_omci_netlink_notifier);
++}
++
++/**
++ * pon_omci_init() - prepare the OMCI receive path of a new PON device
++ * @pdev:	PON device structure
++ *
++ * Context: From pon_dev_create(), before the device is published.
++ */
++void pon_omci_init(struct pon_dev *pdev)
++{
++	skb_queue_head_init(&pdev->omci_rxq);
++	pon_work_init(&pdev->omci_rx_work, pon_omci_rx_work);
++}
++
++/**
++ * pon_omci_destroy() - free the OMCI PDUs still queued
++ * @pdev:	PON device structure
++ *
++ * Context: From pon_dev_unregister(), after the conduit is detached and the
++ * instance's work is canceled.
++ */
++void pon_omci_destroy(struct pon_dev *pdev)
++{
++	skb_queue_purge(&pdev->omci_rxq);
++}
 -- 
 2.34.1
 
