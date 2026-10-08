@@ -1,152 +1,146 @@
-Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5524B3B9927;
-	Thu,  8 Oct 2026 05:42:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=111.22.67.151
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791438176; cv=none; b=Iuigxkb7bLVSUYXEQVbwxpnmG9RXD1QzS4fK0PVsjrmF48hIMIWR8fz+MsEzI7rJGMXAsulGlqPJsZKkUzFE4sdKyDr4uvU7CnBXmAq5ZegRmfSZpEdVuVQHSwsLfoytcNK1qzNIi3oZr4ux764LcICeKrFL6eAirGYmVvKob1A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791438176; c=relaxed/simple;
-	bh=ygZeOiN67Rzk+FnquSronkA+wHQJCrOrkL8Gahj1UQ0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=c4d9Oor29Ou9UtNrnXTo5d0XYYZgKk3QqclmPUtn51avSZizLSS2y6IrScvU1kc0XPIImACwQlJ4xrRCx/uaYAwy8vBE7jSCX21MJJwZ0WM9DwNhBPCX699OU2KNs/Upb28sn1cMiweMWL4wS3RzrXPj6R90/NNZsJu8oCEBj8s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com; spf=pass smtp.mailfrom=cmss.chinamobile.com; dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.b=hLWiwyjd; arc=none smtp.client-ip=111.22.67.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23E0F2BEC34
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 05:43:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791438192; cv=pass; b=BGzfmg6hZfc12CYJ9T9QCoA32FPUMBxqJACF8cNc7BXtV2HOPSTZAxmJqWDT8hhjIpMhmydF9PwTwARVHVgU8Dn8wBLdEkY91FL1CqYqAlVe5blKQOfBCijL0N24i6lb32ALk7Zq25ls2P1bQhPwS5Dx8x86vdb1Xot/eInVQvc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791438192; c=relaxed/simple;
+	bh=HZ7ucweag9Bj3u4dkisTXz0QU0GWHhGPnKE9QX/3n9c=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=RefRO20+SafAVCc66DwFGkHGO6bSfy9WyuZtEDaVBl3BLgJifgi9h5VH9Y3x/S7xdU2KmEnjFZXChOkwfUkn5k4MeHtNLO6MR4pxlScI/h99exkOJP9oPtdBCmi0S0MegHaD5fEbiPVu0wr3VANz0Zbxu4CueYhI+2EnX59hs2I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com; spf=pass smtp.mailfrom=sifive.com; dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b=aNMSaC+u; arc=pass smtp.client-ip=209.85.208.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sifive.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.b="hLWiwyjd"
+	dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b="aNMSaC+u"
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6afbc363efeso6014538a12.3
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 22:43:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791438189; cv=none;
+        d=google.com; s=arc-20260327;
+        b=i9vLlHzyi3Xf2GIDuNaAPj+LUEM+Gh8GRBe+BgMUX3XrucroZ04a7D64bTpBaOp0xr
+         wnckLo2jVfJUSVrVCAlpzjoGhSw+pdUfHNNOOolxiRJfIwGMUcZ9heERLKW5gT2RdPi9
+         KhQ7cTdkW18po+4M04bAf5FsQcMyJicVUPXhvrgSQBwDeM54JKGRug1MO/eXGJJS8aKu
+         hONJMAczYg75RS+oORFr+X+I+zjfYDokKv8RUJBg2/Ah2t5DPQj8jU6H8iRe/xgc9qre
+         Xrj//g9hH0O3OoFuGeP7Vrw+M6PJWBWa329QvGMqpUKjX4Ba6dzZiAdoeS9a6tVpDiKS
+         Y71g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=oFQVP3Icf9nV+7X1cbKmKKwaGAM1phqqNnkrhrVM1G0=;
+        fh=F4ht9LIXGKSS81rqnBk2gCiSEzzXeKplU1ztkUs2XQg=;
+        b=N0M+jJN7EyA5TBWWOHR1+HBur+A3HOGaamYT9+PCLxElw3EQ9XYitUbg4SxUQ2yRWy
+         rlfqaYncDzylEATUMo3EUnhUyAJFzp31aCEHQUftunLOsUzPNbiMGX4npUgGJLjr/DLH
+         RQjYgkN7OCU8mxel2rNVXRWTHCw6sAj3/HowVFQ/pHMy+PKoQFJms0UNjZlkNWBHNq1Y
+         VrK5w/o8kpXeub/5/EpPjIEvsR7bc4ttvJ4w5HvxtLABDa3T5Fp0tTM9E+Ul+/3YNNgE
+         rxTgohzfWIs5K7mDvHO3bxSuC1btGtCwRVCSOjYmUV591laeqY2M71Yc1k0ShIE+f8hg
+         lTjw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=hLWiwyjdjz2A3l2lUmL+95cC6Q+rIBZnqySrLLGV/TzpXXdJAbOaAFAKRDLM3bJcTUbHGKyXy/y6B
-	 cMeo3oAUYWCLU8zx3zD0PqZjZu/swpjy2jsQb3fi8OmtX03pFev+JHevtZmdKHrHgjRHZg+xGIId90
-	 CLuJ6QIW4aRzokBk=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app02-12002 (RichMail) with SMTP id 2ee26ac72d4e7cb-eda89;
-	Thu, 08 Oct 2026 13:42:42 +0800 (CST)
-X-RM-TRANSID:2ee26ac72d4e7cb-eda89
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from localhost.localdomain (unknown[223.108.79.99])
-	by rmsmtp-syy-appsvr01-12001 (RichMail) with SMTP id 2ee16ac72d4794b-e52a2;
-	Thu, 08 Oct 2026 13:42:42 +0800 (CST)
-X-RM-TRANSID:2ee16ac72d4794b-e52a2
-From: lvjunyu <lvjunyu@cmss.chinamobile.com>
-To: pablo@netfilter.org
-Cc: fw@strlen.de,
-	phil@nwl.cc,
-	netfilter-devel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	lvjunyu <lvjunyu@cmss.chinamobile.com>
-Subject: [PATCH v3] netfilter: nf_nat: Fix stale outer UDP checksum on VXLAN encapsulated packets
-Date: Thu,  8 Oct 2026 13:42:28 +0800
-Message-ID: <20261008054228.752274-1-lvjunyu@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.43.0
+        d=sifive.com; s=google; t=1791438189; x=1792042989; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=oFQVP3Icf9nV+7X1cbKmKKwaGAM1phqqNnkrhrVM1G0=;
+        b=aNMSaC+uO68npw7cj4BtbssEo9lXieW4+XhkHExJfmh729+078KVeZy3FrPhV7B8MH
+         tNnYFUekvMltLyYehfh/szzDcnc9DmqWlZfYxB19iEfv/BmVeB+zFmI1mXow2emoPYJv
+         uAm5IPAb0dwErT6ogt8IRxNTx9ghQr/+htAqKN1pDea3B0IStx93pIND30J1sTfkDS3n
+         1E+Y4Zunb8ZtVK+NuEOEVdB1Xr/btA98vktwpjt8t+jCTZXHRjbW8iE/bHDq50b9YIzt
+         6P51VvWKNyrVmVNXH7tQ9yNPItMSKlA+17gWSv3jT1PvQf9Fb6AawDTjpJBe3R+hf39O
+         nbdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791438189; x=1792042989;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oFQVP3Icf9nV+7X1cbKmKKwaGAM1phqqNnkrhrVM1G0=;
+        b=R/7hEyL2g+1XhgdULo5MOYhOVewy3DUQa8wWwOuDWmY4y15VHCc8Jlv/ie2+AwGuLB
+         EnmCtVxtbVu3hS3qY9aM0A6SDVHvmfOr3nZxpAH5zK/bJspq8eQQ/EbGU0HFYgJESFZE
+         B4b/tJRwMSJztvPtQRp58aAkbKUO6RQoAWDAEojqOqzoOaYVHGC30oAxICyEWsx+sPU5
+         oYXG1hs8nbeJjOG2AucYCsrxcIxB2V0Wtaa4ZJu3DA8lobflvRkVoF5sLiVzq6r2WONB
+         R+nhVQP/2HCHI3TTiTdscu+2bhh8M6Y6uH92PlIP0ggzF/i5b21T5BZrus4IzFKN+t2M
+         FMaA==
+X-Forwarded-Encrypted: i=1; AKwUvBwAZxG0SbihEf9MX1qn2S2Ac2q9rQArYl4xmULUmKyRXEq2e3v3FS4Wd1crrUCOOYGC7fluE2SGEpDhfSE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKAi9hXPpGT2640MZQCB4BFVKtDJgsmCzxfUfCnnhCZfb14grxc
+	9GMvhPovz9cu7uXulWuH3miadptR50kCTJuZhktHkpdXauzjTdDYE9W+GKHRE9V9ENhpC/0y9Us
+	0NRLRG8moyj8Jky7P+L0xw5xSql71hV4k6RtgKjFxxw==
+X-Gm-Gg: AYBFou0efAw+GgWzhq0Bsf0ib+i2UlEas7OlOdXt9HpQaicuV0qN9E/5djZqz9BKg73
+	C+EuHeevfRysReBbl3QUDBzsEl3lBFTs6qnmUsBMvA1O38ZgUP4ZYYOQONqwMwTZ7Gmem8QT+fO
+	Rg59B7WdFIJ1ntvPHrANbGuQO4/Vaz5U1n2sJaicaD9rr8D8s9YFMBqfu2t5CituRAZ0+vSHZBG
+	R2bi+Kb70fTvQGBckE9Y7j7HrCS8s5vBKBuhlgpZVQl0tiupcUQvEUBXC9EOIkJX/McNORrz5zC
+	dB905RGOaXecH9ea0jCSYhNy+qReP9gdsdjQyidMeF/UC/pgDDyC42nYaw==
+X-Received: by 2002:a05:6402:3202:b0:6a7:ee54:f897 with SMTP id
+ 4fb4d7f45d1cf-6aff294e101mr4619974a12.27.1791438189378; Wed, 07 Oct 2026
+ 22:43:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261007155748.291814-1-samuel.holland@sifive.com>
+In-Reply-To: <20261007155748.291814-1-samuel.holland@sifive.com>
+From: Zong Li <zong.li@sifive.com>
+Date: Thu, 8 Oct 2026 13:42:58 +0800
+X-Gm-Features: AclHuK8I8WkGAy6FEtsbDPDqp3rqkxyTvnVbvD8DrWWrlvwiZCF72K8omXYE7co
+Message-ID: <CANXhq0qVzjx+WOZNZYTt-X=aEut4b1c6Yp9S0rQXN8+z1hrZVw@mail.gmail.com>
+Subject: Re: [PATCH 1/2] riscv: cfi: Bounds check restore token before swap
+To: Samuel Holland <samuel.holland@sifive.com>
+Cc: Paul Walmsley <pjw@kernel.org>, Deepak Gupta <debug@rivosinc.com>, linux-riscv@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-When MASQUERADE --random-fully rewrites the outer UDP source port and
-address of a VXLAN-encapsulated packet whose inner header has
-CHECKSUM_PARTIAL, the outer UDP checksum is not updated correctly.
+On Wed, Oct 7, 2026 at 11:57=E2=80=AFPM Samuel Holland
+<samuel.holland@sifive.com> wrote:
+>
+> Currently the user-provided shadow stack restore token is not checked
+> before being used as the address in ssamoswap.d. While an invalid
+> restore token will be caught and raise SIGSEGV, this happens after
+> writing 4 bytes of zeroes anywhere in the address space. Check that the
+> restore token is at least a valid user address before the swap to ensure
+> we do not scribble over kernel memory.
+>
+> Fixes: 66c9c713de59 ("riscv/signal: save and restore the shadow stack on =
+a signal")
+> Signed-off-by: Samuel Holland <samuel.holland@sifive.com>
+> ---
+>
+>  arch/riscv/kernel/usercfi.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+>
+> diff --git a/arch/riscv/kernel/usercfi.c b/arch/riscv/kernel/usercfi.c
+> index dec0ba5eff5ea..23c4d6d9d8cbc 100644
+> --- a/arch/riscv/kernel/usercfi.c
+> +++ b/arch/riscv/kernel/usercfi.c
+> @@ -206,10 +206,13 @@ int save_user_shstk(struct task_struct *tsk, unsign=
+ed long *saved_shstk_ptr)
+>   */
+>  int restore_user_shstk(struct task_struct *tsk, unsigned long shstk_ptr)
+>  {
+> +       unsigned long __user *token_ptr =3D (unsigned long __user *)shstk=
+_ptr;
+>         unsigned long token =3D 0;
+>
+> -       token =3D amo_user_shstk((unsigned long __user *)shstk_ptr, 0);
+> +       if (!access_ok(token_ptr, sizeof(token)))
+> +               return -EFAULT;
+>
+> +       token =3D amo_user_shstk(token_ptr, 0);
+>         if (token =3D=3D -1)
+>                 return -EFAULT;
+>
 
-udp_set_csum() takes the LCO (Local Checksum Offload) branch for
-encapsulated CHECKSUM_PARTIAL non-GSO packets, writing a complete
-(folded and complemented) checksum into uh->check while leaving
-csum_start pointing at the inner transport header.  In this state:
+LGTM.
 
-  - inet_proto_csum_replace2() is a no-op (pseudohdr=false,
-    CHECKSUM_PARTIAL)
-  - nf_csum_update() -> inet_proto_csum_replace4(pseudohdr=true)
-    takes the pseudo-header branch which treats uh->check as an
-    uncomplemented seed, applying the address delta with the wrong
-    sign
+Reviewed-by: Zong Li <zong.li@sifive.com>
 
-Fix this by using the offload target (csum_start + csum_offset) to
-distinguish the LCO state from the seed/offload state, and temporarily
-flipping ip_summed to CHECKSUM_NONE so both the address and port updates
-use csum_replace*() (the complete-checksum path).
-
-Test results (10 connections, single netns vxlan + veth environment):
-  Before fix: ~1080ms avg first-connection latency, 10 SYN retransmits,
-              UdpInCsumErrors incremented per connection
-  After fix:  ~29ms avg first-connection latency, 0 SYN retransmits,
-              UdpInCsumErrors unchanged
-
-Fixes: faec18dbb0405 ("netfilter: nat: remove l4proto->manip_pkt")
-Cc: stable@vger.kernel.org
-Signed-off-by: lvjunyu <lvjunyu@cmss.chinamobile.com>
-
----
-
-Changes in v3:
-- Reword comment to distinguish port delta (no-op) from address
-  delta (wrong sign) as suggested by Sashiko AI review
-
-Changes in v2:
-- Fix both address and port delta (v1 only fixed port delta)
-- Use offload-target test instead of skb->encapsulation as the LCO
-  discriminator (addresses Sashiko AI review feedback)
-- Update comment to describe both CHECKSUM_PARTIAL states
-
-v2: https://lore.kernel.org/netdev/20260921130312.686493-1-lvjunyu@cmss.chinamobile.com/
----
- net/netfilter/nf_nat_proto.c | 30 ++++++++++++++++++++++++++++++
- 1 file changed, 30 insertions(+)
-
-diff --git a/net/netfilter/nf_nat_proto.c b/net/netfilter/nf_nat_proto.c
-index 64b9bac228e..6779e9f2812 100644
---- a/net/netfilter/nf_nat_proto.c
-+++ b/net/netfilter/nf_nat_proto.c
-@@ -54,9 +54,39 @@ __udp_manip_pkt(struct sk_buff *skb,
- 		portptr = &hdr->dest;
- 	}
- 	if (do_csum) {
-+		/* When udp_set_csum() takes the LCO branch (encapsulated
-+		 * CHECKSUM_PARTIAL, non-GSO), uh->check holds a complete
-+		 * (folded and complemented) checksum while csum_start
-+		 * points at the inner transport header, not at this outer
-+		 * udphdr.  In that state:
-+		 *   - nf_csum_update() -> inet_proto_csum_replace4(pseudohdr=true)
-+		 *     takes the pseudo-header branch and applies the address
-+		 *     delta with the wrong sign (to an uncomplemented seed).
-+		 *   - inet_proto_csum_replace2(pseudohdr=false) is a no-op:
-+		 *     neither branch is taken for CHECKSUM_PARTIAL when
-+		 *     pseudohdr is false.
-+		 * Temporarily flip ip_summed so both use the csum_replace*()
-+		 * path that correctly updates the complete checksum.
-+		 *
-+		 * The seed/offload branch of udp_set_csum() sets csum_start
-+		 * to the outer UDP header, so the offload-target test
-+		 * below distinguishes the two states.
-+		 */
-+		bool lco = skb->ip_summed == CHECKSUM_PARTIAL &&
-+			   !skb_is_gso(skb) &&
-+			   (skb->head + skb->csum_start + skb->csum_offset) !=
-+			   (unsigned char *)&hdr->check;
-+
-+		if (lco)
-+			skb->ip_summed = CHECKSUM_NONE;
-+
- 		nf_csum_update(skb, iphdroff, &hdr->check, tuple, maniptype);
- 		inet_proto_csum_replace2(&hdr->check, skb, *portptr, newport,
- 					 false);
-+
-+		if (lco)
-+			skb->ip_summed = CHECKSUM_PARTIAL;
-+
- 		if (!hdr->check)
- 			hdr->check = CSUM_MANGLED_0;
- 	}
---
-2.43.0
-
-
-
+> --
+> 2.52.0
+>
+> base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
+> branch: up/cfi-fixes
