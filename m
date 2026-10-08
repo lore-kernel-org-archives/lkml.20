@@ -1,76 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-57.mta0.migadu.com [91.218.175.57])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA5D63DB310
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 09:26:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6524047C10D
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 09:26:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.57
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791451612; cv=none; b=iG15j+iO7tBSOBNjZAybjcA4MhWbGbTCAa9EvSUEEtxQi5wUpFalGgkL2G2AjzoUXcSgkPHcsBM3gy+9FJOyHnDJNDGVz4br7k2DSpLLa8cZokvHzKxHGeylOGul2+YPS8fBQAQum5m/jMw9XCLcHPQSOW8oGie3KNhYC6Hg8iE=
+	t=1791451618; cv=none; b=TMbxQ4fLpjzIU4XuG4VGqvpdli1Nj6LFvj3UPFNBrGZPRWzUyN7/AJ3EZG6AzXPEPtpD0pmUuOligjFCluPL0cffgxYwo2SUTwoomHtIRQt9Y53VPxGe3oFJOsxMFIgj90WEumFAADl7cg2LZVzV1erRO5jism4HH23WOFwDQII=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791451612; c=relaxed/simple;
-	bh=Gt9wOt6ppWinNnlK25gmA8B5TgnA7EoQQNGwpQhgqhY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jTH6DE3OuQjXkk9MMAyghsWN2ZGIuhszaQyPpQWVQj9DSacZyMLnRDt4cGMvg9ZCWeTdb+u5CwnM6XG15fjhAK+VIuqyusPMlm+NT75M9HuvvR0Fe2F5+jU+TlL59nhAFDyK1yh/gmNULmudks8R4yCg8ltWBM14u70k0SJDzPk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mjz5do9c; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791451618; c=relaxed/simple;
+	bh=Y1rf2j04YK4K3tregMLbbNu8jvv63q8HotPNJjCj6lQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Nun603peewQJtyWgPo3IHHwThFpCmzKmbc2hANW3eoG2eeIwwYvZNkJEXdaiUl6L+PMlrMZQLG4+Riful9O8nJkgJwu7pVF9ZM+gMXnD2iM99okSx4B1yny5JdbI+LmDh860SKsT+1D+Dqo1OqbonWFL/mdXHMffzjPbAQW0b0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=whPFHCmE; arc=none smtp.client-ip=91.218.175.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mjz5do9c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 678311F000FF
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 09:26:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791451610;
-	bh=Gt9wOt6ppWinNnlK25gmA8B5TgnA7EoQQNGwpQhgqhY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=mjz5do9cqfDHvrm+G7S07/jhE6GVNePDHu+bXqvTdKUk+YIB8+NfkjYZOfMPvHPe1
-	 SHZmL8QQ4DUuoF2rZY2XEEv6l+rltbK7ZK/9GTUVpIwoqWz7xBZuncJXupRoUEmMjs
-	 nKvVLlYS1E62dlGwRCCpSqmnLZt7fGjsFn2E3eRZuwPyWVVbhD1fummMM8cvy2DEsd
-	 TCF53VHltwQx9u/Y00sj0cukczKm1wSDeFVOet1JjtEDTyH2++rh9dbjPjEPT20Xvk
-	 PhhFn7/5C5VBM8AvxzPhyHxgx7Vtm0G11uT8APuZhrzHyI2NRNdUiu8T2xkW+j8KEF
-	 4N5RAXcFbZsqw==
-Received: by mail-oa1-f44.google.com with SMTP id 586e51a60fabf-49e0ee9e7afso1020542fac.2
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 02:26:50 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByfn5oghDYLo0o/fu00IzDfK+ntSnc1/dSZU6CqKQmVgL10JZZj62EphX5Gg3ocJUoCvrUYlJyt8jpaRvE=@vger.kernel.org
-X-Gm-Message-State: AFuF++md5zeZ2VIHsp6Jndnv3mT2EicnRtn4GcySw9fg+FkalYGHnpiO
-	sKaG9HprOKpC7dMYQcbo2aM9qG+DbUj9mDBpu2r+3fwPjtnNGzSca8IfW8hjFU24BJ6ul4Z1pux
-	RLKzp7KRtL6dhU0AnXiM5HiYprmwmsm8=
-X-Received: by 2002:a05:6871:3869:b0:49c:3eca:25ef with SMTP id
- 586e51a60fabf-4a2591d9e5dmr3983078fac.8.1791451609827; Thu, 08 Oct 2026
- 02:26:49 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="whPFHCmE"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Y1rf2j04YK4K3tregMLbbNu8jvv63q8HotPNJjCj6lQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791451611; v=1; x=1792056411;
+ b=whPFHCmEUwetvzBe7QSNGl3M/wiBvESnD4K2d/ZWz0ZIIRb/W1kJEeU0n4y+5h92aiUyaa5L
+ +gT2/hU0DqfdzXM6WEmDzusi6BhmYUiu8w4w/+Sfzt7Y7zEk8447SnFnEUK3VypGtEo8fdSkhay
+ xMc76MG0pt3dh9iTQzQhO+RU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 71b16418b4e1fdce;
+	Thu, 08 Oct 2026 09:26:51 +0000
+X-Mizu-Trace-ID: 71b16418b4e1fdce
+X-Migadu-Flow: FLOW_OUT
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: netdev@vger.kernel.org
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	Eric Dumazet <edumazet@google.com>,
+	Neal Cardwell <ncardwell@google.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Stephen Hemminger <stephen@networkplumber.org>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v3 0/3] tcp: fix a few divide-by-zero in congestion control modules
+Date: Thu,  8 Oct 2026 17:26:33 +0800
+Message-ID: <20261008092641.140777-1-jiayuan.chen@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260929-mali-c55-irq-supend-resume-v1-0-e3af34afff12@kernel.org> <CA+V-a8sSaGYcMUpXhX+mr2C44zLj2Hgnwj4pQS1t5YrZN1ejqQ@mail.gmail.com>
-In-Reply-To: <CA+V-a8sSaGYcMUpXhX+mr2C44zLj2Hgnwj4pQS1t5YrZN1ejqQ@mail.gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 8 Oct 2026 11:26:34 +0200
-X-Gmail-Original-Message-ID: <CAD++jLk-VZ+hv2+x++kq5K61ORxOgYgqmu_wCw_sX5k6-J2h3w@mail.gmail.com>
-X-Gm-Features: AclHuK-KUSWV_pbziOSS0NdajQVOl_Xc-5mQYGJWfN3ER9TYzr2GWSy9oAbKNzg
-Message-ID: <CAD++jLk-VZ+hv2+x++kq5K61ORxOgYgqmu_wCw_sX5k6-J2h3w@mail.gmail.com>
-Subject: Re: [PATCH 0/3] media: mali-c55: Fix IRQ lifetime and wake handling
-To: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Cc: Li Youhong <dayou5941@163.com>, Daniel Scally <dan.scally@ideasonboard.com>, 
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Hans Verkuil <hverkuil+cisco@kernel.org>, Nayden Kanchev <nayden.kanchev@arm.com>, 
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 6, 2026 at 1:43=E2=80=AFPM Lad, Prabhakar
-<prabhakar.csengg@gmail.com> wrote:
+Patch 1 and 2 were reported by VEGA <vega@nebusec.ai>.
 
-> Can you please share the dependency patches or branch, as these don't
-> apply cleanly. I tried the latest 'next' and 'media/next' branches
-> with no luck.
+Patch 3 was found while reviewing the other TCP congestion control
+modules for the same kind of divide-by-zero on module parameters.
 
-They are just based on a clean v7.3-rc1 from Torvalds:
-https://git.kernel.org/pub/scm/linux/kernel/git/linusw/linux-integrator.git=
-/log/?h=3Db4/mali-c55-irq-supend-resume
+Target net-next since it is not a big problem.
 
-I can rebase on media/next and resend if that's desirable?
+v2 -> v3:
+- Patch 3: spell out the divide by zero in the commit message (Kuba,
+  Neal), read beta once with READ_ONCE() (Eric).
+v2: https://lore.kernel.org/netdev/20261001112948.322463-1-jiayuan.chen@linux.dev/
 
-Yours,
-Linus Walleij
+v1 -> v2:
+- Patch 3: rework as suggested by Eric.
+- Patch 1 and 2: add Eric's Reviewed-by.
+v1: https://lore.kernel.org/netdev/20260930100937.206377-1-jiayuan.chen@linux.dev/
+
+Jiayuan Chen (3):
+  tcp_bic: fix divide by zero on max_increment == 0
+  tcp_hybla: fix divide by zero on rtt0 == 0
+  tcp_cubic: fix divide by zero and endless loop on bad module params
+
+ net/ipv4/tcp_bic.c   | 14 ++++++++++++--
+ net/ipv4/tcp_cubic.c | 14 ++++++++++++--
+ net/ipv4/tcp_hybla.c | 16 ++++++++++++++--
+ 3 files changed, 38 insertions(+), 6 deletions(-)
+
+-- 
+2.43.0
+
