@@ -1,156 +1,149 @@
-Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2100.outbound.protection.partner.outlook.cn [139.219.146.100])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31E88414A3E;
-	Thu,  8 Oct 2026 07:35:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.100
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791444928; cv=fail; b=TVZCDziHZsE3+aKRMZe0IG9VFt8q2NYGL9D4t/vLwLVJphs3ZdtBU7XpUAeNgsaTqTvt3SUR+C48N9+x0ljO6uHzH8qcLnuxC/Ouzl7mNJt04b6U9cHsRrwcXANSzvuGySSGH8VoaQjbYDkhmjlBtU8UbRNYpO2hjWF0wgg1xC4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791444928; c=relaxed/simple;
-	bh=ZPGcklLEdReNIbO8epmhYiWmzvc162C9uK+9huTxmhw=;
-	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=Gbwvt9L10al3JWidEK8NMg+qKBXSAlDtkWX6h+ztNPsb7z3bUanK4s4iqadAujYbCxw2JzeDu+bVLFDJLBeIXBmANFj33WqYWfznFRiMN0nQZHrhiofJBzH8Moxh0ShhM3BPMI7JGNTIOSlYb2Ov3I5cNhcFu3dCMbC8l9nJXBE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GPjbU1HLpcphuuziyBnShK6MJXzCavwc+/NWb+fo03VJ8B8MgDEtayq1ovSrOzIsPo3+RR2aze3kI1brLdweKGe5pkYOeRrVSL2fb0lYFSt4GDsj7J3nxlIFQ167j+M9GiSCnTv3DGgrdBfHA1dUmkTtoD3MBZfK+a71il3VyIuJ209PwxKePjDl4I4MNC6dgXJCgnGyVvoDETun39uzH9ETBucfJFfU7k1laIvn/Fk1vhNlGvGAyFkBWdKMnlOHlWkiFA9ZvinTaMn2lynP9lQu1JuTAleHdSVYY/t5FHNMpwzOpZH2/9AJc5jOkrUq58lbnc12bO/xI4hpJ9SC1w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=soMQzoI1wW/Ow04cqw/aqWQG/H80/sVWRAwfisG/540=;
- b=lO2EtFgTNY+PtlG9B8FB/cOyyTtsatcDuSGkEhE6OyxWW9ySv4kHNn3pLqrpp9r9L7u53cfv+0rE22gmeCrAugSbWntDQxXumf5+GYHum1WLS1gsQlhyroyuCyS0TlLDURSXrVbY7VsmN9+A/2g0/SGchTu5Bn0jcWev4jluXEue3nQZ5JCbmpJ8nsV//LEeBUlYuDNdwfJe6t76Hkrh3WmR43GTRADJjNF+vSZDKme6DmojUB9XiMdtpFF+KBYm9u8BMLE/ckq9Eu5Nj32/gk9L4BhE3OTHXMqo7nbhsFX73E5BUlVC6tmdfgCv1+tm4caLepchSkYT+KBH4dbaHg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1220.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:14::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Thu, 8 Oct
- 2026 07:20:10 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
- with mapi id 15.21.0496.015; Thu, 8 Oct 2026 07:20:10 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Guenter Roeck <linux@roeck-us.net>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Changhuang Liang <changhuang.liang@starfivetech.com>
-Subject: [PATCH v6 0/2] Add JHB100 Fan-Tach support
-Date: Thu,  8 Oct 2026 00:19:48 -0700
-Message-Id: <20261008071950.4772-1-changhuang.liang@starfivetech.com>
-X-Mailer: git-send-email 2.25.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SH0PR01CA0018.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c311:5::30) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6)
+Received: from mailgw1.hygon.cn (unknown [101.204.27.37])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2E43F3F58E9
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 07:35:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.204.27.37
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791444936; cv=none; b=qTrLp+ZcB7tt9SMgV/9Y6oTwMnwVm3sOyU95JsekUc5hQNkkfpoPPJcNl3awDM6oT5QAJOEfneQ7OYKPpopq9cqeH0k6ATQCzDFByDsjNRzv+tqzFbRsjR+rPpP5QPkEajaaqThuAl8ClPDdcrrR+AHz1vczs46badqKpcM9o1k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791444936; c=relaxed/simple;
+	bh=HZqRq/F/3jQ6IXMF7y8X96VYNXFgopBe7ubViHZyU38=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=PrKNn+1IY/MQKomDnSZ/Dim5ly50u3FF9aan4mSmRhTS0+iefdxa1081Kb0DK/Xe2qrXv3AhPi64WzA4H4tvMet0Bw9tk0yAz9Lkf5hCjciu5BLCHPuqH64d9i/PYdeRPKYwN5jyC1WQvwQRXPDDJtl2EhMUuVRCNCT73vaTIZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn; spf=pass smtp.mailfrom=hygon.cn; arc=none smtp.client-ip=101.204.27.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
+Received: from maildlp1.hygon.cn (unknown [127.0.0.1])
+	by mailgw1.hygon.cn (Postfix) with ESMTP id 4j0hbg28dKz12NY1;
+	Thu,  8 Oct 2026 15:35:11 +0800 (CST)
+Received: from maildlp1.hygon.cn (unknown [172.23.18.60])
+	by mailgw1.hygon.cn (Postfix) with ESMTP id 4j0hbf5pPZz12NY1;
+	Thu,  8 Oct 2026 15:35:10 +0800 (CST)
+Received: from cncheex06.Hygon.cn (unknown [172.23.18.116])
+	by maildlp1.hygon.cn (Postfix) with ESMTPS id AAF835948;
+	Thu,  8 Oct 2026 15:35:02 +0800 (CST)
+Received: from cncheex04.Hygon.cn (172.23.18.114) by cncheex06.Hygon.cn
+ (172.23.18.116) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Thu, 8 Oct
+ 2026 15:35:10 +0800
+Received: from cncheex04.Hygon.cn ([fe80::1b6f:6c58:58a4:430d]) by
+ cncheex04.Hygon.cn ([fe80::1b6f:6c58:58a4:430d%10]) with mapi id
+ 15.02.1544.036; Thu, 8 Oct 2026 15:35:10 +0800
+From: Jianyong Wu <wujianyong@hygon.cn>
+To: Tim Chen <tim.c.chen@linux.intel.com>, Peter Zijlstra
+	<peterz@infradead.org>
+CC: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>, Chen Yu <yu.c.chen@intel.com>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt
+	<rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman
+	<mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak
+	<kprateek.nayak@amd.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, Phil Auld
+	<pauld@redhat.com>, Andrew Morton <akpm@linux-foundation.org>, "David
+ Hildenbrand" <david@kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>,
+	"jianyong.wu@outlook.com" <jianyong.wu@outlook.com>, Yuan Zhong
+	<zhongyuan@hygon.cn>, Huangsj <huangsj@hygon.cn>, Fengyu Wang
+	<wangfengyu@hygon.cn>, Zhiwei Ying <yingzhiwei@hygon.cn>, "justin.he@arm.com"
+	<justin.he@arm.com>
+Subject: RE: [RFC PATCH v2 02/23] sched/topology: Introduce a NUMA distance
+ matrix with unique distance values
+Thread-Topic: [RFC PATCH v2 02/23] sched/topology: Introduce a NUMA distance
+ matrix with unique distance values
+Thread-Index: AQHdNiA3jheQVPdvikWpN4gB9aTKG7a3i1wAgCMFioCAAQKWYIAAjPiAgADjB/CAAIHNgIAF/bTAgAVsM4CACnnIsA==
+Date: Thu, 8 Oct 2026 07:35:10 +0000
+Message-ID: <4d2b5dede1f64350ac17ea9d0a5428a1@hygon.cn>
+References: <20260827122816.756234-1-wujianyong@hygon.cn>
+				 <20260827122816.756234-3-wujianyong@hygon.cn>
+				 <20260831115004.GF776954@noisy.programming.kicks-ass.net>
+			 <da32ba66d95fd88869ba052f97698b9a4d6c3dc6.camel@linux.intel.com>
+			 <09261c8222994a41a04ace5f342475df@hygon.cn>
+		 <ce95ec57af9dfaf4d9ed604ad7337441a543f538.camel@linux.intel.com>
+		 <f6ebab3d0e44412dad17ac64a3b93339@hygon.cn>
+	 <112e526b4013e23c70adf5b8883db8e75358b473.camel@linux.intel.com>
+	 <8a0c239b5bdf40c99b645087dec8fd18@hygon.cn>
+ <2a120db1b0c052eb88dcbc2ed1de6027a16542b4.camel@linux.intel.com>
+In-Reply-To: <2a120db1b0c052eb88dcbc2ed1de6027a16542b4.camel@linux.intel.com>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1220:EE_
-X-MS-Office365-Filtering-Correlation-Id: 12e63b2f-d5ad-4ba1-2abb-08df250c9644
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|52116014|23010399003|38350700014|56012099006|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	QJvkhweiPaMvc3U71X6jxdR5JmifQwKc2KC4zuBJqmvriCL8JIhm4a/Gu44waWpl/Ywr6yHg8eCKpT7o0oesenzzF7EQBuwWbk5ANxFdMflEEkfwcvcoipi5/wln1LI7A//DwHRAp66cLXzLmxZIPEt76gqF0wf+o6qNkVScNeavkwECOf9WgyiQBxjT7Bzl6s8/7kIUpc6SxPFzA7vKc9+fuT4K0w+fQYBUsn1ZgA+TUpJTVKthJYd3HIpKiNiC1GHYn2W1eQ7huHESW38JgQGSrI1Xe+XlLjOV2E6QvkI2fl+tjMDxYIGr0zdRGv6yf7Ymad0dGi5hRckMIel66lGDqx/2jDdM/iT1fyTkm6mbVs7TctOgFk3gqMTPPNEsqyhuYrVbxe/1fpt8JYOpFyP3N8NyvfgqRis2clm29ibMEWqMPzCBUXBcD+06D3lhS3kH95tupXqc0InOU0wH/SOL7tN5p5elJchRYP1T8HuzZtkA4I2+Tidc9hU0L/kQoxaXy3jGFuXmyq2xhwPehLFfEeWm6x7q7AMJO57+jIaT3LXqSTidsZVSHE7uoL5w
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(52116014)(23010399003)(38350700014)(56012099006)(10067099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?s0FjuQVLyPzZohcBd3XIBp8C0apG0tcIe4EncXBb2/8E8mTT+0pjZXj2SBoS?=
- =?us-ascii?Q?6JCeUWoxqS6g5W6ogbqB7eNRkI7D7qTsVcGx5iC+haITb5ae133ZO0RLdgdp?=
- =?us-ascii?Q?eMQx+evrByc5+/ATFpddtJGdlqSV5tQ9AP2GIqUjrC5U/K+sprsqxomKE9D3?=
- =?us-ascii?Q?vCylWI1yxjbR5CnWnM5PViYl+ZDSp6blfQWvkHitdOc9/Dwhoq0vFT+UkhYW?=
- =?us-ascii?Q?lPDXJO6JV5q0Ffutt7SrR5opNpdeMi7D5dheADDOIrfAiQdjQK1HF9HfDrEo?=
- =?us-ascii?Q?BpvDqf41tellmOYqem6+nMEsPPBA6jRQlBbN/4kQD46bc/Nrif3lLooxIvdc?=
- =?us-ascii?Q?I50FN0hfDIYk2g3v5rVBrsL48Hb/lw4QbOdirP5Cts/VYgyrSXh/R37KF9wq?=
- =?us-ascii?Q?25yVX7ttYDwH6wISErLrr8Bd4+V2oJI3AvxVAhVYC509jMV+ImNJ7zhK47hO?=
- =?us-ascii?Q?cc7MdXzWTIckOdVLx0vau9a+LkzSxd5VnPUk8YumAIQ99wIEvkr7pjhBuE8l?=
- =?us-ascii?Q?8cFAQjjDXWmKR9RIQmpsSrBkniYsDV1RPsIf63EXJAFySP4VsQT2myZO38L4?=
- =?us-ascii?Q?jBSQb84D5hYJETq34xGb/wzu4TAJ9zuLVotYiaUJJMlxMmcaBCKIGxRczztF?=
- =?us-ascii?Q?DXrvzC8fHalxrvMv93H9qggGngF77reliW1Bpgv/7xewYvIVDkgdN46xrHk+?=
- =?us-ascii?Q?2OIT4N+Euue0yy6krHhYRRx19JPCsqr8pY/9ELWMUiU99KYZHt/0QwvO7R8t?=
- =?us-ascii?Q?y2WjCu0PCE0RHk9wUbhJozA1b4kutfupI4yFo8L5mo2y7nIVehijDbiyMl9t?=
- =?us-ascii?Q?nhC7EmU8GdVXuYY7AilSNbNd9gCR1wvhSmt6WKQWOYNY7BVnl6m7y9EG9IWN?=
- =?us-ascii?Q?He1viX/TQwg3XgAZUPKfzVE8OCaUML99Pf6x2g+7pWqD4XScCvKsyMSddOTq?=
- =?us-ascii?Q?R4g7g6ier3TnWhlsK3vME5IaDGBWdhgSLqmWafbYKBETPRJHY9BKkAVQMFI7?=
- =?us-ascii?Q?6GDc6FR9bRxOLz0uZHHOierwceZcLIry13FHoEjzFoDXOosSlBGRuEY0f5/o?=
- =?us-ascii?Q?LI3uHiHq4S/c8eif6doZAMtb/WWxmBTg5an52UDDwJNH36SUnkaOE07Y3GiU?=
- =?us-ascii?Q?Ws9VHNH387YPKe4AfYFBOXNuZ17wEM5k7r1zkLWmkJKOe7567xFxx8sGbXl6?=
- =?us-ascii?Q?esMgDE4mjXAxUmWn0EOa9XiDZXbsDWBBhXrd/01wu/+/8UyQoJSvdBtudhUZ?=
- =?us-ascii?Q?7WTVEarZxFZrkJvP7QChQy5gYOYAzUlKckAYngG+dtT79uJJRnTrohm5uD+s?=
- =?us-ascii?Q?TaTLngqgAVZoph9kq19GHeXXbCH62N4E3a2t6+4RUx+icXvL7812ybP33tZ1?=
- =?us-ascii?Q?TM905eS2I1E8gGSOnd2ThSKsdbmavZbs5Shoc1ptCSZkHJHTxbrxk6bbraUz?=
- =?us-ascii?Q?GcRn9nJpGJzavXH7ywpTxuegiRTabndZJdF2cTsY/EDYspJLleNPDLgmHl0M?=
- =?us-ascii?Q?1U5dqFm4cyajbFvKB2AuPcmrbIxLk816ayj9yrdIgFBrDfiFdVT8TrFj0+R/?=
- =?us-ascii?Q?QCwG2t0cgOu9djo+QPe2KiuyvZ48bJFLGoq5BsW/3g8+P5l+ux3WGbjSJzYK?=
- =?us-ascii?Q?ezxB7630BhlZGrRCmFjdpItLHFU3t/NLX0h934SJvPw12+ScdHJG6CpGlffU?=
- =?us-ascii?Q?RIVU1h++bk31FGGl04dzgl0dbUWqopOOCo4M/qJZGDMOCtsejH357EDlmMnm?=
- =?us-ascii?Q?Gi+hokAjhfxHu8bz127I6vj33UtiXi42P6K5jONUmXPHK2piZ9AH?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 12e63b2f-d5ad-4ba1-2abb-08df250c9644
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 07:20:10.2122
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ffCArdFIlnGdLpQcqSCFDVSyBDxillz3YK/HEWyn2e3F8ft6zwkeWc98l1u58hqv8EHxG65qAqmNtg4FtNq7UXC27ZMqX9N14h+dLQO4npzgxoCtVuibYn23qczTVmfi
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1220
 
-StarFive Fan-Tach controller can support up to 16 fan tach input.
-The series has been tested on the EVB1 board.
+SGkgVGltLA0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IFRpbSBDaGVu
+IDx0aW0uYy5jaGVuQGxpbnV4LmludGVsLmNvbT4NCj4gU2VudDogRnJpZGF5LCBPY3RvYmVyIDIs
+IDIwMjYgNjowNCBBTQ0KPiBUbzogSmlhbnlvbmcgV3UgPHd1amlhbnlvbmdAaHlnb24uY24+OyBQ
+ZXRlciBaaWpsc3RyYQ0KPiA8cGV0ZXJ6QGluZnJhZGVhZC5vcmc+DQo+IENjOiBJbmdvIE1vbG5h
+ciA8bWluZ29AcmVkaGF0LmNvbT47IEp1cmkgTGVsbGkgPGp1cmkubGVsbGlAcmVkaGF0LmNvbT47
+DQo+IFZpbmNlbnQgR3VpdHRvdCA8dmluY2VudC5ndWl0dG90QGxpbmFyby5vcmc+OyBDaGVuIFl1
+DQo+IDx5dS5jLmNoZW5AaW50ZWwuY29tPjsgRGlldG1hciBFZ2dlbWFubg0KPiA8ZGlldG1hci5l
+Z2dlbWFubkBhcm0uY29tPjsgU3RldmVuIFJvc3RlZHQgPHJvc3RlZHRAZ29vZG1pcy5vcmc+Ow0K
+PiBCZW4gU2VnYWxsIDxic2VnYWxsQGdvb2dsZS5jb20+OyBNZWwgR29ybWFuIDxtZ29ybWFuQHN1
+c2UuZGU+Ow0KPiBWYWxlbnRpbiBTY2huZWlkZXIgPHZzY2huZWlkQHJlZGhhdC5jb20+OyBLIFBy
+YXRlZWsgTmF5YWsNCj4gPGtwcmF0ZWVrLm5heWFrQGFtZC5jb20+OyBTaHJpa2FudGggSGVnZGUg
+PHNzaGVnZGVAbGludXguaWJtLmNvbT47DQo+IFBoaWwgQXVsZCA8cGF1bGRAcmVkaGF0LmNvbT47
+IEFuZHJldyBNb3J0b24NCj4gPGFrcG1AbGludXgtZm91bmRhdGlvbi5vcmc+OyBEYXZpZCBIaWxk
+ZW5icmFuZCA8ZGF2aWRAa2VybmVsLm9yZz47DQo+IGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5v
+cmc7IGxpbnV4LW1tQGt2YWNrLm9yZzsNCj4gamlhbnlvbmcud3VAb3V0bG9vay5jb207IFl1YW4g
+WmhvbmcgPHpob25neXVhbkBoeWdvbi5jbj47IEh1YW5nc2oNCj4gPGh1YW5nc2pAaHlnb24uY24+
+OyBGZW5neXUgV2FuZyA8d2FuZ2Zlbmd5dUBoeWdvbi5jbj47IFpoaXdlaSBZaW5nDQo+IDx5aW5n
+emhpd2VpQGh5Z29uLmNuPjsganVzdGluLmhlQGFybS5jb20NCj4gU3ViamVjdDogUmU6IFtSRkMg
+UEFUQ0ggdjIgMDIvMjNdIHNjaGVkL3RvcG9sb2d5OiBJbnRyb2R1Y2UgYSBOVU1BDQo+IGRpc3Rh
+bmNlIG1hdHJpeCB3aXRoIHVuaXF1ZSBkaXN0YW5jZSB2YWx1ZXMNCj4gDQo+IE9uIE1vbiwgMjAy
+Ni0wOS0yOCBhdCAwOTozOSArMDAwMCwgSmlhbnlvbmcgV3Ugd3JvdGU6DQo+ID4gSGkgVGltLA0K
+PiA+DQo+ID4NCj4gPiBNYWtlcyBzZW5zZS4gU28sIHdoYXQgYWJvdXQgdGhlIGZvbGxvd2luZyBz
+b2x1dGlvbj8NCj4gPiBHaXZlbiBhIG5vZGUgYWZmaW5pdHkgc2VxdWVuY2UsIGEgbW92ZSBmcm9t
+IHNyYyB0byBkc3QgaW1wcm92ZXMgdGhlDQo+ID4gYWZmaW5pdHkgb2YgZXZlcnkgdGFzayB3aG9z
+ZSBwcmVmZXJyZWQgbm9kZSBpIHJhbmtzIGRzdCBiZXR0ZXIgdGhhbiBzcmMuDQo+IFRoZSBzY29y
+ZQ0KPiA+IGlzIHRoZW4NCj4gPg0KPiA+IERpID0gcmF3X2Rpc3Qoc3JjLCBpKSAtIHJhd19kaXN0
+KGRzdCwgaSkNCj4gPiBhZmZpbml0eV9iaWFzX2kgPSBwb3NpdGlvbiBvZiBzcmMgbWludXMgcG9z
+aXRpb24gb2YgZHN0IGluIG5vZGUgaSdzIGFmZmluaXR5DQo+ID4gICAgICAgICAgICAgIHNlcXVl
+bmNlLCBjb3VudGVkIGFtb25nIHRoZSBub2RlcyBhdCB0aGUgc2FtZQ0KPiBkaXN0YW5jZSBmcm9t
+DQo+ID4gICAgICAgICAgICAgIGkgKHplcm8gd2hlbiBEaSBpcyBub3QgemVybykNCj4gDQo+IERv
+IHdlIHJlYWxseSBuZWVkIGFuIGFmZmluaXR5IGJpYXM/ICBJIHRoaW5rIHlvdXIgaW50ZW50aW9u
+IGlzIHRvIHVzZSBpdCBmb3INCj4gYnJlYWtpbmcgYSB0aWUuDQo+IElmIHRoZXJlIGlzIGEgdGll
+IGluIGFmZmluaXR5IHNjb3JlICh3aXRob3V0IGluamVjdGluZyBiaWFzKSwNCj4ganVzdCB1c2Ug
+dGhlIHBvc2l0aW9uIGRpZmYgdG8gYnJlYWsgdGhlIHRpZS4gIEhhdmluZyBhIGJpYXMgZGlzdG9y
+dHMNCj4gdGhlIGFmZmluaXR5IHNjb3JlLg0KPiANCj4NCkkgdGhpbmsgdGhlcmUgaXMgYSBtaXN1
+bmRlcnN0YW5kaW5nIGFib3V0IHRoZSBwdXJwb3NlIG9mIHRoZSBiaWFzLg0KSXQgaXMgbm90IGlu
+dGVuZGVkIHRvIGJyZWFrIHRpZXMgYmV0d2VlbiBhZmZpbml0eSBzY29yZXMuIEkgd2FudCB0aGUN
+CnNjb3JlIGl0c2VsZiB0byByZWZsZWN0IG9wcG9ydHVuaXRpZXMgZm9yIGFnZ3JlZ2F0aW9uLCBp
+bmNsdWRpbmcgbW92ZXMNCnRoYXQgbGVhdmUgdGhlIHJhdyBOVU1BIGRpc3RhbmNlIHVuY2hhbmdl
+ZCBidXQgZm9sbG93IHRoZSBmaXhlZCBub2RlDQphZmZpbml0eSBvcmRlci4NCg0KVGhhdCBzYWlk
+LCBJIGFncmVlIHdpdGggeW91ciBjb25jZXJuIGFib3V0IHVzaW5nIGFydGlmaWNpYWwgbm9kZQ0K
+ZGlzdGFuY2VzIGluIHRoZSBzY29yZSBjYWxjdWxhdGlvbi4gVGhlIG1hZ25pdHVkZSBvZiBhbiBh
+cnRpZmljaWFsDQpkaXN0YW5jZSBvciByYW5rIGRpZmZlcmVuY2Ugc2hvdWxkIG5vdCBkZXRlcm1p
+bmUgdGhlIHdlaWdodCBvZiB0aG9zZQ0KYWdncmVnYXRpb24gb3Bwb3J0dW5pdGllcy4NCg0KSG93
+IGFib3V0IHRoZSBmb2xsb3dpbmcgYXBwcm9hY2g/DQoNCldoZW4gdGhlIHNvdXJjZSBhbmQgZGVz
+dGluYXRpb24gaGF2ZSBkaWZmZXJlbnQgcmF3IGRpc3RhbmNlcyB0byBhIHRhc2sncw0KcHJlZmVy
+cmVkIG5vZGUsIHdlIHVzZSB0aGUgcmF3IGRpc3RhbmNlIGRpZmZlcmVuY2UgYXMgdGhlIHdlaWdo
+dCwNCnByb3ZpZGVkIHRoZSBkZXN0aW5hdGlvbiBpcyBjbG9zZXIuDQoNCldoZW4gdGhvc2UgZGlz
+dGFuY2VzIGFyZSBlcXVhbCwgd2UgdXNlIHRoZSBmaXhlZCBub2RlIGFmZmluaXR5IHNlcXVlbmNl
+DQp0byBkZXRlcm1pbmUgZWxpZ2liaWxpdHkuIElmIHRoZSBkZXN0aW5hdGlvbiBjb21lcyBiZWZv
+cmUgdGhlIHNvdXJjZSwNCmVhY2ggZWxpZ2libGUgdGFzayBjb250cmlidXRlcyBhIHdlaWdodCBv
+ZiAxLiBPdGhlcndpc2UsIGl0IGNvbnRyaWJ1dGVzDQpub3RoaW5nLg0KDQpGb3IgZWFjaCBwcmVm
+ZXJyZWQgbm9kZSwgdGhlIGNhbGN1bGF0aW9uIHdvdWxkIGxvb2sgbGlrZSB0aGlzLg0KQSBzbWFs
+bGVyIHJhbmsgbWVhbnMgYW4gZWFybGllciBwb3NpdGlvbiBpbiB0aGUgYWZmaW5pdHkgc2VxdWVu
+Y2UuDQoNCiAgZGVsdGEgPSBub2RlX2Rpc3RhbmNlKHNyY19ub2RlLCBwcmVmX25vZGUpIC0NCiAg
+ICAgICAgICAgICAgbm9kZV9kaXN0YW5jZShkc3Rfbm9kZSwgcHJlZl9ub2RlKTsNCg0KICBpZiAo
+ZGVsdGEgPiAwKSB7DQogICAgd2VpZ2h0ID0gZGVsdGE7DQogIH0gZWxzZSBpZiAoZGVsdGEgPT0g
+MCAmJg0KICBhZmZpX25vZGVfcmFua19vZihwcmVmX25vZGUsIGRzdF9ub2RlKSA8DQogIGFmZmlf
+bm9kZV9yYW5rX29mKHByZWZfbm9kZSwgc3JjX25vZGUpKSB7DQogICAgd2VpZ2h0ID0gMTsNCiAg
+fSBlbHNlIHsNCiAgICBjb250aW51ZTsNCiAgfQ0KDQogIHNjb3JlICs9IG51bWFfY291bnRzW3By
+ZWZfbm9kZV0gKiB3ZWlnaHQ7DQoNCkhlcmUsIG51bWFfY291bnRzW3ByZWZfbm9kZV0gaXMgdGhl
+IG51bWJlciBvZiB0YXNrcyBvbiB0aGUgY2FuZGlkYXRlDQpzb3VyY2UgdGhhdCBwcmVmZXIgcHJl
+Zl9ub2RlLg0KDQpUaGlzIHdheSwgdGhlIGZpeGVkIG9yZGVyIGRldGVybWluZXMgZWxpZ2liaWxp
+dHksIGJ1dCB0aGUgcmFuayBkaWZmZXJlbmNlDQpkb2VzIG5vdCBhZmZlY3QgdGhlIHdlaWdodC4g
+Rm9yIGVxdWFsLWRpc3RhbmNlIG1vdmVzLCB0aGUgY29udHJpYnV0aW9uDQpzaW1wbHkgY291bnRz
+IHRoZSBlbGlnaWJsZSB0YXNrcy4gQSB6ZXJvIHdlaWdodCB3b3VsZCBsb3NlIHRoYXQNCmluZm9y
+bWF0aW9uLCBldmVuIHRob3VnaCB0aGVzZSBtb3ZlcyBjYW4gaGVscCBjb25jZW50cmF0ZSB0YXNr
+cyBvbiBmZXdlcg0Kbm9kZXMuDQoNClRoaXMgcmV0YWlucyBhIG1pbmltYWwgYWdncmVnYXRpb24g
+cHJlZmVyZW5jZSB3aXRob3V0IHVzaW5nIGFydGlmaWNpYWwNCmRpc3RhbmNlIHZhbHVlcyBpbiB0
+aGUgY2FsY3VsYXRpb24uIFdvdWxkIHRoaXMgYWRkcmVzcyB5b3VyIGNvbmNlcm4/DQoNClRoYW5r
+cw0KSmlhbnlvbmcNCg==
 
-Change since v5:
-PATCH 1:
-- Add Conor's "Reviewed-by" tag.
-
-PATCH 2:
-- Do not stop at the first failing channel in
-  starfive_pwm_fan_pwm_disable_all(). A PWM channel that fails to be
-  disabled no longer leaves the remaining, independent channels running
-  on driver removal or system suspend. The error is logged and the
-  first error code is returned once all channels have been handled.
-- Save the tachometer registers (channel enable, measure time and the
-  per-channel thresholds) in ->suspend() and restore them in ->resume()
-- Add a struct device pointer to struct starfive_pwm_fan_data for the
-  error messages.
-
-v5: https://lore.kernel.org/all/20260923130624.239499-1-changhuang.liang@starfivetech.com/
-v4: https://lore.kernel.org/all/20260830011941.40199-1-changhuang.liang@starfivetech.com/
-v3: https://lore.kernel.org/all/20260824030234.9321-1-changhuang.liang@starfivetech.com/
-v2: https://lore.kernel.org/all/20260819091601.41077-1-changhuang.liang@starfivetech.com/
-v1: https://lore.kernel.org/all/20260428082337.743546-1-changhuang.liang@starfivetech.com/
-
-Changhuang Liang (2):
-  dt-bindings: hwmon: Add starfive,jhb100-pwm-fan
-  hwmon: (starfive-pwm-fan) Add PWM fan driver for StarFive JHB100
-
- .../hwmon/starfive,jhb100-pwm-fan.yaml        |  87 ++
- Documentation/hwmon/index.rst                 |   1 +
- Documentation/hwmon/starfive-pwm-fan.rst      |  45 +
- MAINTAINERS                                   |   8 +
- drivers/hwmon/Kconfig                         |  15 +
- drivers/hwmon/Makefile                        |   1 +
- drivers/hwmon/starfive-pwm-fan.c              | 834 ++++++++++++++++++
- 7 files changed, 991 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/hwmon/starfive,jhb100-pwm-fan.yaml
- create mode 100644 Documentation/hwmon/starfive-pwm-fan.rst
- create mode 100644 drivers/hwmon/starfive-pwm-fan.c
-
---
-2.25.1
