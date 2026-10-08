@@ -1,118 +1,138 @@
-Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com [209.85.210.43])
+Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B29993AEF3A
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 21:20:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.43
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791494427; cv=none; b=Cov5EFqB7uya1RZvS0MXj60xH2OMGcVVv8aFuUbNuetQjVy3jnRa9aTZfwpjmwDfmXVQh6OH370U7u3HVA87jopO4YPYHZeOiOUnS4N6FMVKZ4lZntTLG9nKs5ZNnAxaiqQ54ebzoZqRyBZnvrEZ+/j0+JglojK+bkdZ9Hh0EyQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791494427; c=relaxed/simple;
-	bh=ZmRkpa96nlrJCixWgwASI4DUbhP3Ms77eFQ2CQkARmI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=uEUZOrH2YpuT1ErnhriI+CjJs+xKh6Cms2GG63PlrPgOlwomQQh8b3rLmkrq0M4dGZo19hNTXiN9uie0dr6WhMgebC//dVWuwe0vhD7fO1nAxUXRU4JVyq8XK/+NLGxGj2c37F5IuxQsUj81GtEDkcPh1ZPnYOLgX3ru6r/3JJA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=RPu3hBrW; arc=none smtp.client-ip=209.85.210.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9EC53DD86A
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 21:23:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.177
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791494634; cv=pass; b=sTWq0TXtV3VUZO2LMIxcsFEBmeWZrYIHKcxRrlBgpqxga1ZiE61rynmJqi2ers8pOE4BTGkqVt9KlejUYf0BrwZDwqmzUxonTssi/FHA2cAS4x2rvjv2+UaXEVaH5jlGiUQo2GDUYe+brdgvavU3arirIw7y1X8eWV6CB5+Suuo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791494634; c=relaxed/simple;
+	bh=M6CM2xvKkSIlGXfDQ5IHgePPERx3aiPmGN8gZP5u0+8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=GF24L56eUQ2n24p7dU4mj22Lq3Ummi9r09L0oUB8fQuF8Vr0iZ2QLx4Hb+gIn0k8MqC1WpQzfBOYEawb0ZakDMkwBozsxx+89yrl4owz+6BOupE0A4jzUl43g6N55+9nhXLmxBlw1T2kMnbgrkujJ9nQCIBc1DqPbDcRiwEr5cU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jg6zPswR; arc=pass smtp.client-ip=209.85.208.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="RPu3hBrW"
-Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-8256106635eso1771444a34.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 14:20:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jg6zPswR"
+Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-3a20f06cce6so16845221fa.1
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 14:23:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791494631; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TpRYHc1oqEOpTPAznX/AaaXmEcpeTBSB7kW+tpjJw22JjEL90ToVe6oH6Dp3/MWtGi
+         n1CMJFbcQKEAzVjOz1ePjIXOm7s81xZxJ1xsW2zKVBIMGvTixwiJERHZ3teD1lXeIt/P
+         GEXV3+mN8c+7v023W3ig7fV/Td/ylCHoyby1TonUnlvsy4cclOjJonXOFB6xNwNU0JW7
+         TRwilTXQBpqpPhleJKzcwA9Bv3CUd5sMF2qZmwsrbiKESfdSj8ro/b/P42+1hr2d25H3
+         vwiBrRVXlkp2OveoRes1IIB98ogbT2FjX1AoEjQfyi7U1Wg7Yl/vUVk8KOl5OuewwJ0+
+         x6hg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=M6CM2xvKkSIlGXfDQ5IHgePPERx3aiPmGN8gZP5u0+8=;
+        fh=H7ypoDQFyd0xpQU0fYbU1dqaOGBnzHXhtmwbf9yrARo=;
+        b=bCqEVxc4gEluSVZdi32BCmrKTSKMqnHJe9ofr13fiIu6SGLC4jGElCxvETRUVC4H6a
+         3CXa/htGw8NZpAFMIPPDGphd54tNCOVWj2zPMaHi7eye95ORaN4Jq+qntBxp5n1tKwyD
+         DTrcSlJx0fvOaeNTcGwynBvu4gc0gf0xX+DtHqQxNSm/GkWew7LJHi/FCbP+Ev07TRtF
+         oSRK3qHg/g054887IukDVKNS+ZpxNt+xG/fzVHXrPSSggBJq+GRtMXwdJi/bX3m6eZGK
+         tR8IW8MEzqeejtjDKg+mg/EzVQewh0fE285JqqVFyyTGrIenDhZ8cS7lmzov0NjtIeki
+         ARfA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openai.com; s=google; t=1791494424; x=1792099224; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=EcuCJfZ9Fs3HAtWAzguUXStL6q8t6MptiYwiyeKGOkM=;
-        b=RPu3hBrW407ubjSyb8jNZk609/4L1kJdimyhfh6WWwIpX/G5nhjtZbq0213qdU5qVu
-         v3hdJN38E7B1rR0VVIBVoY5Qao6ii75ApKGxQ6bebVl9iBOqsOXOxHdopZbxjeTWVAZq
-         xaoIMkMboQFXmhlhSijjNvgdfcE+sBnjsCMb0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791494424; x=1792099224;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1791494631; x=1792099431; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=EcuCJfZ9Fs3HAtWAzguUXStL6q8t6MptiYwiyeKGOkM=;
-        b=lCYi6+UBR791jyOVtqIpVbaGTQLG6inIIxzvaKIpTYYLyBEaJYUjflR7dIVkgPOcuL
-         5rzQdCmjmoyq570P3ucifhh/yyDNlAPHl/L+bi1YHppYiaiRlWm5CdO9ABJPNqDvoVVD
-         osPAuDK9DBjuUU6s2lPRmugVoItZe0Z/L/X2VS447RZQyJ12h5o7c/X5Mu2OrJDMUEIm
-         n5nvP8XLAxpuwB5xi/m6jsHhh4O/YuZ3/2yB7pUa1O5zjXEQZOeFpMaCpmXttFObF6JS
-         M3N64mR3piB3rLO9Sq2cODwrqHkZyloJ5d9Q6xQZICdnlCFGgzYlZjUjb9RzLvH47/Ew
-         3zww==
-X-Forwarded-Encrypted: i=1; AKwUvBxoskpXMOW43Rmfowdsd1d+VnJGvmYlATRdT1R9c677g9EcMetD64vOsTkkiMGY5gOM2rLOcQibt9eSxQI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lyiwclb3ibEcOPiChCLiR29lR/Xc/LRuizMhBVWWLGkAManoS5
-	Tb3MCSpca3MJnfuBsfjlxwWimcv8jRNL2x+LjCNXlFI9U6TCSXYOqBFwrnVmeX8Unn4=
-X-Gm-Gg: AYBFou0F1bd0ETf74GxDkfHqwPV/RTSC38QIMVGvKH2pPfyq6Uu+7cgti+9CEWVQRvv
-	9hFIZACojGnBa0shme2YRfedbaSd+f4JEgRzl3Tivo2n1tbqWiW5Zj82Z9EASszbBj4GjyO54JE
-	G9fzeHRdQUsAFgISe6W8Qi02BiYc3tlOrB4ssYQmb85EzI8zRZteM6M2T6FdBRZZHxUOLByUVBP
-	MzrwRAHea0r2MmJ5wYdqvH7asMA+INr83j29CMTzTltCk8a9zuIO5WGEK/5TivLcNthfSBY9hJx
-	Nm1BNwmuOnsOjHOaeZBdVJedA7+NeuFB27+btCAgxF6hmfGG0oUJdwjcBJP1hbXL5lvroDGXrbT
-	hOOB6k5kNH8Lgf9/eEl0fHxAiL3AemrqGhJmFXnBolIXFBtxfk637eQ3KffJ1qmBFmex2KdxTBU
-	hI+oXOXp6OdzCVN9/fGWtbAPPYmAdi6h2ylrj7kl+GT0ibtHIQKPmbWrcdm0inx3CP/+AFrfgXN
-	CthG/TOwN4FfAprsaVmNTylU5EXKwX1c4wPOy/xme6lN5xOuO82ARxQiEQHpvlXmyY3s+zIm4ms
-	yW7Jfx+2SmMWtA==
-X-Received: by 2002:a05:6830:6a14:b0:823:25c3:30a0 with SMTP id 46e09a7af769-82acfbb6d47mr8023946a34.18.1791494424614;
-        Thu, 08 Oct 2026 14:20:24 -0700 (PDT)
-Received: from com-68297.corp.openai.org ([199.47.143.0])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8303a328dccsm117624a34.22.2026.10.08.14.20.22
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 08 Oct 2026 14:20:24 -0700 (PDT)
-From: nramaswamy@openai.com
-To: Neal Cardwell <ncardwell.sw@gmail.com>
-Cc: Neil Ramaswamy <nramaswamy@openai.com>,
-	edumazet@kernel.org,
-	davem@davemloft.net,
-	horms@kernel.org,
-	jiayuan.chen@linux.dev,
-	kuba@kernel.org,
-	kuniyu@google.com,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	ncardwell@google.com,
-	netdev@vger.kernel.org,
-	pabeni@redhat.com,
-	shuah@kernel.org,
-	ycheng@google.com
-Subject: Re: [PATCH net v2 1/2] tcp: restore RACK list membership when undoing loss
-Date: Thu,  8 Oct 2026 14:20:01 -0700
-Message-ID: <20261008212007.11619-1-nramaswamy@openai.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261006141300.1722466-1-ncardwell.sw@gmail.com>
-References: <CAL4WiipKWgA-EcFWDQd3t7nBwU7AnkLvqs6j--he-dR-SAgqiw@mail.gmail.com> <20261006141300.1722466-1-ncardwell.sw@gmail.com>
+        bh=M6CM2xvKkSIlGXfDQ5IHgePPERx3aiPmGN8gZP5u0+8=;
+        b=Jg6zPswRk7LD3wZsJhgpW4eZOLFNFHVaJC9q7DLrP9cMsnLVynY0AiMQxOQAD/Hxzj
+         gDp/NMiDTeAg2ce+GZTMcrD1HYArtanEzTdOMPe5gkSg7DzIbC3NmgwvIBx94LVeH3Mb
+         qwDe9BM+GUthz2PW3BQVHce7VLFdfyanxMMoefDY05qu1KDfVXztfn5tZDpaRfvWeDVJ
+         BvzfRKNb4aDEDtMD4sVPj7TXhj/nZhbA9irxlhrSiMOT1AvWG254rI5D02wdpn2IWGq8
+         kC0ykcXH+0+K2Mco6XCYw9YPcL6u/K/B5UTyffxvCtTKq9/ndIvaVkcqzb1l6pRrzJfs
+         IbjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791494631; x=1792099431;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=M6CM2xvKkSIlGXfDQ5IHgePPERx3aiPmGN8gZP5u0+8=;
+        b=U9KqjN4Yo38uyd4/fdoTiaGGxpQ1aoD6VZQLAi+pP0UQUY2IkFbnQBU9Ix2IlBTfa5
+         xPm6k1vdmKrk3jcsc3SU4Qs28oHZRPa2YO5teBfn2uzJtwqfX+ibZvwGNS8XU4z12dhL
+         ap62qmZPmGFGzDLVuV2Wa8eDZe9Ih8YRo1mUfnA57D8bAJZh4Xkllakpqk04KpQYJ6Z6
+         PiFsW0gJFIqAny4Pylxadf9P+bP33meo90fONVOY1l6oj0V/tWtkVVRs+SkF5ncaxVWF
+         VMcAMHzXLaTn2zuukOELNlpo8QS/12zzXt9wnziZkq6UJnIMi1ZQHqFDYI3hwxIIgCBJ
+         wR4w==
+X-Forwarded-Encrypted: i=1; AKwUvBzaFrUeLwFGI1V5MrM4VCzs5PKY6hmhXmo3D4V03PnMUAOJM0iWOGNrjhXDrShJmLOkExh2+LauF9PUc9s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKKuPMH6mOZiw2xwRA8nSVzgqHDCjAAArdBNeT80MDjeJhc4u2R
+	c4JmCJJ74IiW7Up3bf417majawU/Yu3RavL7xyuIyuzrbjf+uAqYf9pmxKfAahSFGoZKW+fT4dB
+	BhjiqbQAldo7wlGxOMUTRIZObOLcUWjo=
+X-Gm-Gg: AYBFou36jJUZ4GGbeqg6kwr3DTWCvZ3+8h0rn8VuynrQeyP4w+Lu/UtbdeQQgfyZwns
+	7+oTtZkpAV6Lbk9hrTcu6pboFOPBmJl2hGwqNfFiRLdCvjiEWRFQoy1bDc0LPIO9ZqplbjJCEwu
+	uieV3F7BE1I5tIdTGvzRlN8EJN/MxOJ0WFyMktophqvaZaii5qAIlOVFxdlDuTcBHR6V3cMgWTH
+	ijNuSagPMBOuuii0NkU3ApOd1bp3A3bcoFTYo0kJ6mERVfRCeFModKQabFYEKHsuKYWw90y1bG+
+	QAMf2rZzLMh22v0bPe3HB2nG0Pwa9yQW6ooqDr40N3LQHwHbb/txZqFSkKF1BOr9FRHIEto/Uxv
+	/7J3ZoILlUxqNXfA=
+X-Received: by 2002:a05:651c:542:b0:3a6:5b56:8106 with SMTP id
+ 38308e7fff4ca-3a9c2c3095fmr906041fa.22.1791494630493; Thu, 08 Oct 2026
+ 14:23:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261008195608.965266-1-linmag7@gmail.com> <20261008195608.965266-4-linmag7@gmail.com>
+In-Reply-To: <20261008195608.965266-4-linmag7@gmail.com>
+From: Matt Turner <mattst88@gmail.com>
+Date: Thu, 8 Oct 2026 17:23:38 -0400
+X-Gm-Features: AclHuK89eYiVBvE5Lrwb__hHWrXIWel0f50BxkAl9nePVtCBE9ELUZ7tgaAtMas
+Message-ID: <CAEdQ38GMc=aH6yQpSGFvXpNZSmvrU7uzKqDN+T2W8GfqDchQMQ@mail.gmail.com>
+Subject: Re: [PATCH v2 3/3] alpha: do not skip TLB shootdown IPIs for
+ kthread-borrowed mms
+To: Magnus Lindholm <linmag7@gmail.com>
+Cc: richard.henderson@linaro.org, linux-kernel@vger.kernel.org, 
+	linux-alpha@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Neil Ramaswamy <nramaswamy@openai.com>
+On Thu, Oct 08, 2026 at 09:55:18PM +0200, Magnus Lindholm wrote:
+> A
+> CPU that does have the mm active keeps its slot, and that is the CPU the
+> IPI is there for.
 
-Hi Neal and Eric,
+That includes a CPU that only holds the mm lazily, idle since the task
+migrated away. ipi_flush_tlb_mm() and ipi_flush_icache_page() test
+active_mm, so it takes flush_tlb_current() and publishes a new ASN
+every time. It stays visible, and each flush_tlb_mm() from the
+single-threaded owner sends IPIs again until that CPU runs some other
+user task. munmap(), mprotect(), fork() and exit all go through there.
 
-Thanks for the detailed replies. Neal's approach is much cheaper than my
-original patch on a few UML microbenchmarks that I ran.
+Testing current->mm in those two handlers, as ipi_flush_tlb_page() now
+does, would send the lazy CPU to flush_tlb_other() instead. I have not
+measured this.
 
-I'm not entirely sure I understand Eric's usage of "often" when he mentioned
-the O(1) list splice, but the metrics that I've collected from my particular
-repro seem to suggest that Neal and Yuchung's assumption about LOST but not 
-EVER_RETRANS segments holds in the cases I captured, so I'd be happy with that
-approach.
+> A CPU that publishes a context is in turn ordered before it goes on to
+> access the mm, by two different barriers:
 
-(One super nit on the runtime complexity of it: in the comment for
-tcp_tsorted_relink_skb we say that it's O(1) amortized time, but I think it's
-more that during partial undo all relink calls together traverse the RACK list
-at most once.)
+check_mmu_context() is a third publisher. Its __load_new_mm_context()
+takes a slot from zero to nonzero after finish_lock_switch() has
+dropped the rq lock, and nothing orders that store before the return
+to user space. An smp_mb() after the WRITE_ONCE() in
+__load_new_mm_context() would cover every caller.
 
-For Neal's fix, I also did write up a small packetdrill that shows that segments
-that are already retransmitted and then marked LOST are not added back to the
-RACK list during partial undo, as intended. Happy to contribute that if useful
-for explicitly documenting that this is behavior we are okay with.
+> So a CPU either already holds a
+> context and is seen here, or it allocates a fresh one before going on to
+> use the mm, and a fresh ASN carries nothing over from the previous
+> context.
 
-How would you like to move forward here? Do you want me to fold this into a v3
-patch with attribution tags or do you want to send a new patch yourself?
+There is one way for a CPU to run the mm with its slot at zero. When
+ev5_switch_mm() allocates a new context it does not set need_new_asn.
+With the stale-TLB series, finish_task_switch() enables interrupts
+before check_mmu_context() runs. An IPI for the mm taken there sees
+asn_locked() and calls flush_tlb_other(), which zeroes the slot.
+check_mmu_context() then finds need_new_asn clear and does not reload,
+and the task returns to user space on a live ASN that
+mm_context_elsewhere() cannot see.
 
-Neil
+Setting need_new_asn in both branches of ev5_switch_mm() closes it,
+since check_mmu_context() only reloads when the slot is zero.
