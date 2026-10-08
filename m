@@ -1,73 +1,73 @@
-Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com [209.85.210.42])
+Received: from mail-oo1-f51.google.com (mail-oo1-f51.google.com [209.85.161.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D95143AEB29
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 16:40:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C8993AD526
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 16:40:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791477655; cv=none; b=HS1RqstmRLVGaIM8ehkcgp96SF2TJjV4eM2oGaSkLQy1GWj1LudOlHQwly3RMPKfqRFJyJNRR+ofzMKqn5WpFKdARvYV14I826M3Fkld5A8+WvEpfpTXUQEydZceNY6LBl5xvjVFpf11qvgNo8LNE6nb/YZOfEVjKdGNaqfyNRs=
+	t=1791477659; cv=none; b=a9byrZ0LLvhy80YqVSv6GGqfAdj41EJAebKiiH0cioabNVShU45DIR0iHv/svwW7j0fKk1K+ulrMmmKkisiDyVXmVMA+GLiicWuAUCG3ADENZ9TOi2GTiATPF2cFlehxSy3P7E3o9Dl9Q53coGxbeUIjnV83aSFDnaf4q71ZXNM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791477655; c=relaxed/simple;
-	bh=TbHXL5XflxbSzilJyxaLHrSNth6sSZOOxsGKAQPnCLw=;
+	s=arc-20240116; t=1791477659; c=relaxed/simple;
+	bh=a0Q5F0AmXKiNzoBKS3lSnAUeaKLJcNU3lOveVRrVoyU=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=EF4faSYMcBOba3JkPqRALiQr99a1B+CXmotiF+DLpMZUccbPGY85YO9aoJlcCHrIjQGt4f0XqhCutrairoukCeth+eTFOMohl/2VoFvyo0eH64DtepYbpuc53L8lLSeEUi0U1VBbEXwxw7aBi1elYdnIw6hLusAl/u63WnYeGso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qYLfoAI/; arc=none smtp.client-ip=209.85.210.42
+	 MIME-Version; b=DV2xrtXAyuU6PEQav8O2T3BtFKqgGWz3wCbmaaxY1eqsjWWPNjWuR7iCegoa9U2iT1+34QbSyCra7cQFTly7093jxgTU9hXsVz87stRQfMhf7tJvOs8RiPgTVogRbeNzdQ3ttqphTgD7q4ijli60UEBGIfyhw+5atKEjDIqQirg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iuJv5BdF; arc=none smtp.client-ip=209.85.161.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qYLfoAI/"
-Received: by mail-ot1-f42.google.com with SMTP id 46e09a7af769-8256106635eso1639158a34.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 09:40:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iuJv5BdF"
+Received: by mail-oo1-f51.google.com with SMTP id 006d021491bc7-6dd7070699eso3993832eaf.3
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 09:40:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791477653; x=1792082453; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791477655; x=1792082455; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=9MC7qaWcROmES00Hk96fpRE/Vor1YORtZHWPl0gQA1w=;
-        b=qYLfoAI/bXau7CJkOLKtgdo9ltU52ALqhUve/qGCzHpUHhBV1jMcrmmk6JmO98nlqR
-         kDBhYXsvE8VP9ngigT4JdtQlB18GAn+nkvuf9P9zRqICGjMXBCI4rSTlX2/cCMe3jYVH
-         FYeHwXOJEOqzsmHB14KBI6PXcunS6ZeC3EacNBbKvMa0iJJOhE2uQ3OurkjcrjMbNEFv
-         7une0vAdhLcLpR6UWfGEABdlE7nOLpc5uNglq7fvhj+77aTfNPejZ/b7oO0vvBDCY6md
-         KcPQjtKBHYRFpzeoTxoH4Jd+0wAanih9IDPlzZqJ6HZBGbHxjlyn1Lj/KpVljeVTbQYk
-         mRDQ==
+        bh=WpFBb8SAxU073g9j+68SAmlLBQHqt4SI1RVx+GlxzvU=;
+        b=iuJv5BdFGtAcMy1DAMKvhDxV874XGdPRw9FBV9XsH6cwNmazEqq07YobtgFCK8fr/w
+         GcER/boMS+6yjVsMB5EcN4R6+qCit9t1JqBxRNMtNnBrJRax2uIZvL0h74mhQbTQZgsX
+         4EnKRHeZnLQF9g+v33ehRtK5cq9fUXeP6G9aHtksSeEAZhjHifwgyD0mWbpeUiWRq+Ol
+         PIc/tuqC6dl9EHPTuMLx83Ot7754/usl8UQfdSc3a3XSBU6xOKzeOCLAddCkx1Z3KOjp
+         iOKBCrzxRlJAO8LHCr+eIl/qs6hhKGAHpAGPsFg0nZSXEPEIR41I5Ub5X3GnHBdBiyCH
+         bB3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791477653; x=1792082453;
+        d=1e100.net; s=20260707; t=1791477655; x=1792082455;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9MC7qaWcROmES00Hk96fpRE/Vor1YORtZHWPl0gQA1w=;
-        b=uJagk0J/bGJGGyM1LhqCOJEpWlplb+HtthwTvxWEn0NKUnzZxZ81/LjWZSq95FBFSW
-         /VHI7s6fmoU9M+lc/LTbJu5/pnRNBKC/9gRRhEDT2WutobYNlP9rjl6+qGNqsBW/8D9s
-         eHtnn4Jyl3Im0nFHzucS+iUW9f4LXVX96zXZGgtCx1+IfP2NPH71jlKufqXfo4VvwHI2
-         f2eWaiFdV1o5qoOCc1OBJKUugy5Ax2vYudfQ0SIkOIG/ZOYWDimEoBJQy1Uzode4MGA9
-         CyybyCxd4OxOzeC1J8V2XYtTcoW5gkDj3JaMbFVheObFcdn4kbNZLu4N7aS2H8EMTKwW
-         uhVA==
-X-Forwarded-Encrypted: i=1; AKwUvBzP7VIRMvM/QlTwrtFCf1ns8jGJKxqW0fghabhqEmFXElgF2fxTurWL6oB9Es7R4GURoyqxE2q9wvujzaA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nrLDpvkh+aZjoaRP1PheI0AuiggqnItB5HZHcWU2JA27P3EXQU
-	v8Avp9csxUBSVuWDu/4CUKirqMrEClHMobf5QH6FF1xdrWvceFEwqF/s
-X-Gm-Gg: AYBFou08hr2u9eYVbd8q3bEs6ZFyVTjxAWaLJlgCROIZak6k0pqRwJ2G5SlpQ2OoZye
-	ERsCKnJxfg8lGB7d2liki+6VXiHzjQeuxWSQpCZFYxObxaYiILIZXcKXDGCgWO86ZT3SqPd3gWx
-	a6nLHHfccZ5jWGRJUlc54CS3IOsHksLEdvQqNem33R0m0gig5MWsVDwbElSfbeLjdzJWmtd9RC8
-	tEyIV0LrY6oXfKKuZbtvwXzhDnX2RXsI0WQKlHOU/FfyUYGyb+okzpC8krmIounm7jsubOHCxH1
-	FIyUqumVz1qPHA3pO/AVkfQ6fhppRFK2NeWlhag9vPLTwBzJUTl9zyc7QcQ6HdoKC0X/EF7wlis
-	3bFjx4/Yh45KNkqzrU6U2oC3s+EIgO/BMfxxZeve1FnRY+7JXg6y70uygYT1JDqBOfNZAw5spkr
-	d1gbuRsgJ9OzZo/9pntksvc7NaLaA2UgIzzXVpW3u5BWh0hyxwf8QaRHQlKjuC+hrtz96qUbOgX
-	d2PR32UI0zB
-X-Received: by 2002:a05:6820:7089:20b0:6df:ac2e:85b7 with SMTP id 006d021491bc7-6e7a8996551mr3648031eaf.15.1791477652571;
-        Thu, 08 Oct 2026 09:40:52 -0700 (PDT)
+        bh=WpFBb8SAxU073g9j+68SAmlLBQHqt4SI1RVx+GlxzvU=;
+        b=uEJAK36ZTdARJ1cOOqtG8me/9HHUN0hVJu2s5Vtrv6dbdIxmiLFwfx66royo94OLjJ
+         n8T/jrTQnEw+iKRStpu0y1GX0fUB8lD4WkawTX/SAB7un4u8wWBMXkZ7sPBQYjYbnUHr
+         WB3xcD6d4wIHs/e1mOgWYnTHECv64gplTxGWJrqRjDlMczR9EdFfnBuisVyhp+UmLq8m
+         fNQ9J3QucdjakvUXq0TKEHzRgKUI0x5rdl1gRCW7LzLQiSciUJBWLYJY6QokZw825VFG
+         rJ6rWLnlwJbEarvhXzMElFadN+EiSJyw7DYOq5aKoyYyvNE7EboB37n0FPZQmypg5i6M
+         3EaQ==
+X-Forwarded-Encrypted: i=1; AKwUvByxKs0tDKNWAfVrIOq4USUd8frzeW8xSL7UQzyNc3wtIpK3LMbbzASLWioeFnpz/oZaAqKk4V73JaW3xJA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nLOnKa8V8pavMxoGmBpOcxm9KCZ3lrjDQRXtHJllSEzajw46Cq
+	wFz71+CYDHFD6tkwZxW2oxezDQ9NIXX3TJ6xdNEC2P9LgTrL2EZLjqiCJdNPpw==
+X-Gm-Gg: AYBFou1kZ2/RFo+MfaTDt2iHXoIjWoqaaw3b9PKJNqQ5U7fhly4mCnqp68OaOsbc3u+
+	jtyiIm6avlB8N+nS7352ewan01CwgwsChOVOHS4/36ENgOlUak30yZYhu+jhp/QytLic8RjVcde
+	ATdhMGvGvfJ+e+MftghxslqbnwvAPHEpTy4nO/kYAEFZsx5JoqHisdEalpzw6+wVvp76By72skK
+	K5TWzeWhOgyJH7a1tHuTNkOTBb8CZ2H/ZcXZ4RG/EaTqG0kn+nZBw1rGGq70Bqc6qikerQXQuli
+	X3yCow0eHorI7pekBGssru+WuTtGLdzGboj8NkPel7ihXpeF0zcffhgnQFjpr8KSEWH2A/BHxtp
+	vSHeW7sGfwCChMXyEN1JGwk00Z9GC11q+FskQAKfqi9IFIHpKc+y5LejDlPmcSH4niS3muFJEUe
+	5yOeFwgQCWzwFbvLxxLbK1zJTtUvED6cGG/A4ISLt4L/8eZKgY8JrU9++HKHyBV2uuFBGjUljcf
+	rdIP3eY/QV7QPM7fPQgFIU=
+X-Received: by 2002:a05:6820:1887:b0:6e0:e81:e5f5 with SMTP id 006d021491bc7-6e7a6c5ece7mr5641831eaf.47.1791477654868;
+        Thu, 08 Oct 2026 09:40:54 -0700 (PDT)
 Received: from sheng2080.cmix.louisiana.edu ([130.70.15.5])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6ee7a7d8f63sm45928eaf.9.2026.10.08.09.40.51
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6ee7a7d8f63sm45928eaf.9.2026.10.08.09.40.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 09:40:51 -0700 (PDT)
+        Thu, 08 Oct 2026 09:40:53 -0700 (PDT)
 From: Leizhen Zhang <lzsx618@gmail.com>
 To: nathan@kernel.org,
 	nsc@kernel.org
 Cc: rostedt@goodmis.org,
 	linux-kbuild@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 3/8] kallsyms: do not call qsort() with a NULL table
-Date: Thu,  8 Oct 2026 11:40:30 -0500
-Message-Id: <20261008164035.3668885-4-lzsx618@gmail.com>
+Subject: [PATCH v2 4/8] modpost: fix stack out-of-bounds read for unterminated PNP ids
+Date: Thu,  8 Oct 2026 11:40:31 -0500
+Message-Id: <20261008164035.3668885-5-lzsx618@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261008164035.3668885-1-lzsx618@gmail.com>
 References: <20261008164035.3668885-1-lzsx618@gmail.com>
@@ -79,52 +79,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-link-vmlinux.sh runs kallsyms on an empty input for the first link, in
-which case table is NULL and table_cnt is 0. Passing NULL to qsort() is
-undefined behaviour even for zero elements, and UBSan reports:
+do_pnp_device_entry() and do_pnp_card_entry() copy the PNP id into a
+local acpi_id[PNP_ID_LEN] buffer to upper-case it, and then print it with
+"%s". A PNP id that uses all PNP_ID_LEN characters, e.g. "PNP0C0F1", is
+accepted by the compiler without a terminating NUL (the kernel is built
+with -Wno-unterminated-string-initialization), so the local copy is not
+NUL-terminated and printing it reads past the end of the stack buffer:
 
-  scripts/kallsyms.c: runtime error: null pointer passed as argument 1,
-  which is declared to never be null
+  AddressSanitizer: stack-buffer-overflow ... in printf_common
+    ... do_pnp_device_entry scripts/mod/file2alias.c
 
-Skip the sort when there are no symbols.
+Limit the printed length to the size of the id buffers.
 
-Fixes: c442db3f49f2 ("kbuild: remove PROVIDE() for kallsyms symbols")
-Assisted-by: Claude:claude-opus-5-5 UBSan
+Found by fuzzing modpost with ASan/UBSan.
+
+Fixes: 72638f598ec9 ("PNP: fix broken pnp lowercasing for acpi module aliases")
+Assisted-by: Claude:claude-opus-5-5 ASan UBSan
 Signed-off-by: Leizhen Zhang <lzsx618@gmail.com>
 ---
 v2:
  - Use my real name in the From and Signed-off-by lines. No code
    changes.
 
-v1: https://lore.kernel.org/r/20261005104050.1786222-5-lzsx618@gmail.com
+v1: https://lore.kernel.org/r/20261005104050.1786222-6-lzsx618@gmail.com
 
- scripts/kallsyms.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ scripts/mod/file2alias.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/scripts/kallsyms.c b/scripts/kallsyms.c
-index bd9e9ce20e..9300e10ad6 100644
---- a/scripts/kallsyms.c
-+++ b/scripts/kallsyms.c
-@@ -390,7 +390,8 @@ static int compare_names(const void *a, const void *b)
- 
- static void sort_symbols_by_name(void)
- {
--	qsort(table, table_cnt, sizeof(table[0]), compare_names);
-+	if (table_cnt)
-+		qsort(table, table_cnt, sizeof(table[0]), compare_names);
+diff --git a/scripts/mod/file2alias.c b/scripts/mod/file2alias.c
+index 61a831c187..7685fb5135 100644
+--- a/scripts/mod/file2alias.c
++++ b/scripts/mod/file2alias.c
+@@ -573,8 +573,9 @@ static void do_pnp_device_entry(struct module *mod, void *symval)
+ 	/* fix broken pnp bus lowercasing */
+ 	for (unsigned int i = 0; i < sizeof(acpi_id); i++)
+ 		acpi_id[i] = toupper((*id)[i]);
+-	module_alias_printf(mod, false, "pnp:d%s*", *id);
+-	module_alias_printf(mod, false, "acpi*:%s:*", acpi_id);
++	module_alias_printf(mod, false, "pnp:d%.*s*", (int)sizeof(*id), *id);
++	module_alias_printf(mod, false, "acpi*:%.*s:*",
++			    (int)sizeof(acpi_id), acpi_id);
  }
  
- static void write_src(FILE *out_bin_file, const char *out_bin_name)
-@@ -822,7 +823,8 @@ static int compare_symbols(const void *a, const void *b)
+ /* looks like: "pnp:dD" for every device of the card */
+@@ -594,8 +595,9 @@ static void do_pnp_card_entry(struct module *mod, void *symval)
+ 			acpi_id[j] = toupper(id[j]);
  
- static void sort_symbols(void)
- {
--	qsort(table, table_cnt, sizeof(table[0]), compare_symbols);
-+	if (table_cnt)
-+		qsort(table, table_cnt, sizeof(table[0]), compare_symbols);
+ 		/* add an individual alias for every device entry */
+-		module_alias_printf(mod, false, "pnp:d%s*", id);
+-		module_alias_printf(mod, false, "acpi*:%s:*", acpi_id);
++		module_alias_printf(mod, false, "pnp:d%.*s*", PNP_ID_LEN, id);
++		module_alias_printf(mod, false, "acpi*:%.*s:*",
++				    PNP_ID_LEN, acpi_id);
+ 	}
  }
  
- int main(int argc, char **argv)
 -- 
 2.34.1
 
