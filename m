@@ -1,315 +1,192 @@
-Received: from mta0.migadu.com (out-108.mta0.migadu.com [91.218.175.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013039.outbound.protection.outlook.com [40.107.162.39])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2238F43712D
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 08:08:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.108
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791446938; cv=none; b=Hst+Q4T3TlAmgYayvVASZROTjCcR6FRmr2NU1Ez478ystsRfa+NEDbeKMYA8nVgHlwqdvvX8/dc4RSvtUWRZ3HoqlDP7IADtozT+Sl/EBCp9nRRF75SWiFtKRd/Kg2jx7R/DGB2fUqentcjVNsj7SHDRgtqgN9ivEVx4s5V4asQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791446938; c=relaxed/simple;
-	bh=Yhnnial9CyXjQfMJe0x/bX884j72gzHkQhTCBK9VwN4=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=ZZBScH2Wruj01iFKFDXtD7y0LByZG6IGSgPfxDAhOhfQZiutic1z8NQnTX0AlJLz2vdHNU/ZYumZCPnlwjtUsXYQsdVyh5GDKSYsHqUMBZZbYxDAxwcibnGbXqRYmNz6OxLnczJKkr0uV6VQ7owCoIex7ZjEw64acwrhK2PBwvE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=MYvdfg28; arc=none smtp.client-ip=91.218.175.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C056443498D;
+	Thu,  8 Oct 2026 08:09:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.39
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791446967; cv=fail; b=b2I50s/Vr7/EtcWYIlNPP//h9R4TTd99kyjPiXpfExC0/m3fHeAB3CGSk552ib8DvdJRAtGcf8ORb5mJV0JNTxzFgZWYRn0qxC01SKgotweUXfy6CftgzHX0cMqp9y79CgwdJhrZKznahTG/KKUc6u/LeQG1eG2DZ2cLz0+MUuI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791446967; c=relaxed/simple;
+	bh=OCI6Esl7NgZNk6qJB3kqDmiSGzy7StiVRcD9PoR9nC0=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=MzgodhE2Phj/cXBJP741h3//j05dj69sT0fQ99besdYdZETQAR0oeaR2KXd63+ADLuifRDzBkHVRYTOHy6WHgy3khSkgFQUKkP+GkXQxEnTNZ7ScsiymYElmW4d0S0wCrPVwH9OlZXZyPAZ6Q4xVDpPYSvdc+LFm3sVAqlv4VVA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=PVEztD2B; arc=fail smtp.client-ip=40.107.162.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="MYvdfg28"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Yhnnial9CyXjQfMJe0x/bX884j72gzHkQhTCBK9VwN4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791446929; v=1; x=1792051729;
- b=MYvdfg28EDDZxHLrbIMD8LSFd2V6WESK+O+0i94XAs8hY0qrmW42FaDC2R3O58GV0LOKy/E7
- JIVlOecD3PJedK8YS74Vj7myc9+i3YqthNLrwXLvk6PLJOy3pJjfaNmDXnnpCui7qNxLZ7jGKls
- SHw9KB7EZpnzCMu6gFVQDLTw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ef9c66e098076910;
-	Thu, 08 Oct 2026 08:08:38 +0000
-X-Mizu-Trace-ID: ef9c66e098076910
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <f70fd2a2-cf46-4c25-babf-9382aed69730@linux.dev>
-Date: Thu, 8 Oct 2026 16:09:41 +0800
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="PVEztD2B"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=i2PN4OPw0WjVRad607cOcLcBfe9rEeZtR4nggzM9Df0BO5P+pC/7eTQfkFksZNhWaoCAPStVspCExapAwKg5gUIQyu89dNhdOJOxjhUch6Qwz8+1mKAPU4FtfWoaEp1qBMy+nxDhetCGnKqjOrdnEujRDIZNcqjS6ODyvVGKMQFKbPRssYbcg5VHKEcxl+twBh9kSdi5XctnPKs3reqcgTtn2tVP4aDDJoipjSntBoeO13xVkA0cxn7Sw8vVoAN68BHzUp7GhWwQZK0hBO39mLP/JfupC6q/6njI24JShMNzrWji4fzYXiRo+vEWF7pRUa4S9WUlY8nJ+87cDhwXuA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1fM/NbUuCcz+NgvMURmV1EbbFKSjz9HBGBfgCogf+hI=;
+ b=WCmuInje1gKzwQpELLAHffmR3qGf6D8Y8DC/cGyNnGKb1HHLA1v+bFIK0bzXSm2+Z0Cw1ZH0676Y+jfCsJ5cPxnd3yfmCseld+xGWqp0dG9cxFx5PYKuLMGq/SGzTs7FZvo/V1TR1ZuJnEC649WPi8ZXd9CLhbc0YlShyTQyKiNZfY8FDPlFO5RqJ/QTd2Moot+iGc2ZCsFHcz8l+xBk14XEmxTZQjieQ8htXCEatTFs7XZJ3lRw3UvLePmZbHblAynGVbHyAmmSHvWhkuseKSL388TWTYSXlbj8o6vCKxdyWfgh2SkS3Whwe3y6d4odsZLJwI1xsFJCHmgfHNSsKg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1fM/NbUuCcz+NgvMURmV1EbbFKSjz9HBGBfgCogf+hI=;
+ b=PVEztD2BmPzvL3FVsQiaJF5WRUaXEHDAvjAYvF06G3DCo4qhFC2yTDi4B4pUd0rupRnwKYuSlm/lPPvjcmmd03kwkGhaFTzAbaDHB+Nr0ru3vvTJ0UsBY+s9NKaiuWoB3bJtNs1WNOA+eiCTBahC+lKaxKPdaw74ViBrA4RIDhv23FEl1gbYCpvcbZUARizrLhBongnxv3ProDml+VZ1USTdUahgVxwHrBSqDgdrT+5gDaysIyew1tFgnXPMRicoajb+8e+EJTUMYtYI8JvoCn3yH6KhO3p6ViY1jZpjY9Q9FF2lANlV6Sa5dc6VQK5nhL7czbE9oOJLKvJfhYiXvA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM0PR04MB6802.eurprd04.prod.outlook.com (2603:10a6:208:184::17)
+ by MI9PR04MB210814.eurprd04.prod.outlook.com (2603:10a6:290:c0::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Thu, 8 Oct
+ 2026 08:09:22 +0000
+Received: from AM0PR04MB6802.eurprd04.prod.outlook.com
+ ([fe80::dc36:17b6:e5b1:fa51]) by AM0PR04MB6802.eurprd04.prod.outlook.com
+ ([fe80::dc36:17b6:e5b1:fa51%6]) with mapi id 15.21.0496.015; Thu, 8 Oct 2026
+ 08:09:22 +0000
+Message-ID: <ccde4ec9-ec40-4715-93a0-3801c57809ee@oss.nxp.com>
+Date: Thu, 8 Oct 2026 16:09:12 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/1] i2c: imx-lpi2c: remove dmaengine_desc_free()
+To: Frank.Li@oss.nxp.com, Dong Aisheng <aisheng.dong@nxp.com>,
+ Andi Shyti <andi.shyti@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ "open list:FREESCALE IMX LPI2C DRIVER" <linux-i2c@vger.kernel.org>,
+ "open list:FREESCALE IMX LPI2C DRIVER" <imx@lists.linux.dev>,
+ "moderated list:ARM/FREESCALE IMX / MXC / LAYERSCAPE ARM ARCHIT..."
+ <linux-arm-kernel@lists.infradead.org>,
+ open list <linux-kernel@vger.kernel.org>
+Cc: vkoul@kernel.org
+References: <20260929190605.3516147-1-Frank.Li@oss.nxp.com>
+From: Carlos Song <carlos.song@oss.nxp.com>
+In-Reply-To: <20260929190605.3516147-1-Frank.Li@oss.nxp.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5P287CA0262.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1f1::16) To AM0PR04MB6802.eurprd04.prod.outlook.com
+ (2603:10a6:208:184::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 2/7] mm/vmalloc: undo partial mappings inside the
- mapping functions
-From: Hao Ge <hao.ge@linux.dev>
-To: Uladzislau Rezki <urezki@gmail.com>
-Cc: Suren Baghdasaryan <surenb@google.com>,
- Kent Overstreet <kent.overstreet@linux.dev>,
- Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
- Aaron Tomlin <atomlin@atomlin.com>, Andrew Morton
- <akpm@linux-foundation.org>, Alexander Potapenko <glider@google.com>,
- Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>,
- Vlastimil Babka <vbabka@kernel.org>, Michal Hocko <mhocko@suse.com>,
- Brendan Jackman <brendan.jackman@linux.dev>,
- Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-modules@vger.kernel.org, kasan-dev@googlegroups.com,
- Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-References: <20260929082014.160587-1-hao.ge@linux.dev>
- <20260929082014.160587-3-hao.ge@linux.dev> <arzgoe-bXAz1poAt@milan>
- <a15de109-a88a-49f8-80cc-7bf216d6954d@linux.dev>
-Content-Language: en-US
-In-Reply-To: <a15de109-a88a-49f8-80cc-7bf216d6954d@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM0PR04MB6802:EE_|MI9PR04MB210814:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5ba52355-3038-4ff2-8fdc-08df25137574
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|19092799006|1800799024|23010399003|366016|22082099003|18002099003|10067099003|921020|11063799006|5023799004|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	ncR3v0maBl0WZ/nvCPEGx2wWcCAN/vVTguemJo9fQNyY8fPYh5e/FqgrojFSkmtSN7G7LbSHuOqROVC0ADZVP2IFEThaTJeeugPSK5JnKhOXRa0uepwC3yQhVcKaFOXH87oRq+n+wu88A9Y3z4+vY+HSeic8enCowJ7XrVEmbWp0j/ZTU070K1n5Ccx7lqCNaAKHpyV0jQDRfpSadzG2kXT2aGmTseFeTntKWtujWXADt4K3w/px67Emiho6kmMCPcBfdM+BrzSwIoP0XIvxr6g8Y/X5GqxaRo6WzybkUdfKPm3dRYGdqvJdkNEA8TtOu1VkEy/t/tFf8DsTh8eGUTzJvM295SngpH+BqlgRYnBFMgHRzv7MRhfFwgmQAQWLPlCb4yiawlmug32cZE0R05FaJ8ySwo16YV5p40afgPN9whiwGFgiAFykusThNop18emsnWPqvPdSba5HK7oRTGYW/Mo7Don/7408cQg3NoISTTRc5R2sXnEgNfsRvzNpbSN2Rqk+xuIrDeDmeoMcTtYPT+xyxcXFVOa4NYWdBTCDwVqKbxVkBLY7jEXFzjjERxUBBppeNosqcGogF8yeCcQRyxnRwvVettdqM/cCPghWR06f2bn8gwk/OUSG+awLPmQxhOwO6O1nGJXN10MGglJ+HJpf7sWrkkmVXjGmtkhT/WRDvboLimYpQuxEAJkuy/ZnFahWSDY/l15/0c/XaA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB6802.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(19092799006)(1800799024)(23010399003)(366016)(22082099003)(18002099003)(10067099003)(921020)(11063799006)(5023799004)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?OVB0RDduV1Bpeit5WTgwQytjaU05MlFxN0w3VThnRGN3U0JCcnJKZzVHNUI2?=
+ =?utf-8?B?OURIVUVtdnluajBlL1RldTZaT3NiSjVEZ3E3bldJWDNwRXYvbHQrL3l4R3Ft?=
+ =?utf-8?B?ZmJaa0ppVHZncStiek42ZGw2dzlXY0FUL3R0KzBhWFdxY3NTb1RMbzdWVW5R?=
+ =?utf-8?B?NkpML2tZZlFEY0cxYVkzVUxEYXJ0cW1CUEJzMUNzaVFtUkxqdE5CSFNSUVdq?=
+ =?utf-8?B?MmgrTGJ2d05HSDVKcWF3NDgzTEtCOGJ0SzBUc0sxQ0dBbkMxQ0U0dXJwU2Ex?=
+ =?utf-8?B?d3E1dVY5eUFpWStNemlnek9BVzNXRENtZS90RDY3Z05KVVVKSERVUVg5N3R4?=
+ =?utf-8?B?eC80SkdvYncwVkZEcFVZdHgxbE4yckJYV1JiRGY2bElxV0FtaGM0Zk5iSGRK?=
+ =?utf-8?B?UXFsbnRhdXJzczJFTlptVXAraWsrVU9iWUxjNWRqT3EyRkVwV2JqTDJYR0c0?=
+ =?utf-8?B?NHk2YTQ3OVVlNS9IM3BDc1BKUERGdnM5S2VycnBoU0lWek9zaG9vVlNpU0RF?=
+ =?utf-8?B?aC84OGhlbExzY0RoYkNnbHpNTTV2am54aFdIaDBCVXc0T0ZqdUp6ODJKbnk4?=
+ =?utf-8?B?dXJlTXlIREFaS1dockM0YzlvSnkwVm9DSmRiZG8xb1NIV2ZxVHZ3eFNDL0Uw?=
+ =?utf-8?B?Q1AvSmJnUUVVU3B0cDRqdzdiUFJFdW5Ma0FuNXFteDkraTgrcU5PWk9iVWRJ?=
+ =?utf-8?B?OHRMYnlvdlYvZTRlOEt2K2NHSHpRbS9uUjlwK0xVUUZ3MlEvekNsenowYlhY?=
+ =?utf-8?B?SEtBa1YyYVRQdE1HZXFTWHE1bnZCVnpXRU16OGcrQjJJTE1PelJLWHlmbEVX?=
+ =?utf-8?B?Tk5lVGFXTWFlUFBtb0hWU1lPRDh1TlFCMEVVZkJxeS91em5jRGhaM3JyUDc1?=
+ =?utf-8?B?eXMyS2djZ0RlSDA4MmUyM0hhUUVtbmVJL2FhS2w2bUhlQ1Z3RUgrcDlxcyt1?=
+ =?utf-8?B?MUdtN3dNRURuUjl1d0Y3S3g0MnI4TW96WFFCS1FsUllJY29FVGhHQjg0TDY4?=
+ =?utf-8?B?d291Z0xXRDBQTklXTDlidmgvSEEzeS9KYUJRQTVlTlpsYXJSelJWc0FuajdQ?=
+ =?utf-8?B?VkhlU1hTRGNvNWpEcUdlek1SaHBGMmtJKzNYMVlubDU5Q1dzYXNPdUlJb01p?=
+ =?utf-8?B?L3dWV2F2L3JVR25ldUFFSFZPUzJEdmtnVEpXdFJlQkdIUWI2bHE4di9JYnBp?=
+ =?utf-8?B?K01USkpqUnV1eFVWK0xacy9wRUNxY01nR2hCa0FGajJUUEZ6YjJoeUNFY2JD?=
+ =?utf-8?B?ZEY5dm5CeVhCcUVBQ1FPM2crYzFlM2ZaUmJzTTJ4WFJiakkrQzBPK0NyTElU?=
+ =?utf-8?B?blgrNzB0VGl0V2JpQ244S1MzWUcyWENZdldYV1ZGSWNCbmRvN2lQdk1vK1ll?=
+ =?utf-8?B?Tmd6VEFwVk1NeDlHSmhkNndpelp1N0UyRU1oN2JYNGZZc1NzYUpQWVU2bUY0?=
+ =?utf-8?B?dzZxeStRaktITnczY1h1emhxTDlvSlZLZ0R6RnZrOFVaanhvS2YybDFnTlZC?=
+ =?utf-8?B?NHhiaHFFRUwvYWdnejNFRmRjZXF3VzlNNEx6ZVQza2tmWFZSZk5jTklDVzJQ?=
+ =?utf-8?B?RmFZa0xhMndEU1hzcWRvMVpJb3JDUWx0dWlLTDRGL0UxdDlsdnNFZEdTci9s?=
+ =?utf-8?B?eEtqKzR4NGMzYVBvVFY3M0xrZGJDcFZMeXZURWVaTG1WdzdTYlVxVC9YV0VE?=
+ =?utf-8?B?VXJUaGNqRVdJUCswcFE1UlJIQVg0WTVyTURSc2Fhd1NuVmRNa0tiSVhSMDBx?=
+ =?utf-8?B?OTBBeDY0dmU2cGFvczNuUFZiZUNuZ0gxODZEMlpLVlllWmNURHV5dk9aOEJB?=
+ =?utf-8?B?NWlGeTdNbXo4Rm9pcnI5RjZ6YjJnSU9jaUpVK0x3ZHIvQ2xMOGx5anVuaFRF?=
+ =?utf-8?B?RVJqNmtVcStuYkpzYlFPbFpmVkYxN2wzK01aa2dKOUpJWjJtN3h3TWpDS3o1?=
+ =?utf-8?B?elJjQ1N1eUVYRnBtK3ozQm1BMmtnckFQTis0c3VWZ2hLVGgyWlpRUlExWnda?=
+ =?utf-8?B?VmNLUFAzOW1zR1NLM1VaamlmclFwZUxNVk9hU2xOZW1IcHVsbnUxb2VQakhB?=
+ =?utf-8?B?ODdHY0NwTjJFN0hvbWxNTG9MczRBaUUzY1p2SW80dDRLRWk5T3hyQ0RPbVh1?=
+ =?utf-8?B?U0xkekFWN0luaEZXK3kwd3pvZWRMSzlTYUhLQWR6ODdvSDJyS2R6TktrQVVV?=
+ =?utf-8?B?YTBlSjhGQ29jZ2dZeGNURHE2VG1XU1RReWNwdHYyQWg3Q1hoM0txWHlmeXZi?=
+ =?utf-8?B?U1FXb3duN1ZUL0o0cC9TY0c1c3pma2V1SFM0S0xNUTY5clRPNUhnaUlkVVFz?=
+ =?utf-8?B?YnRsY1hkakMwdkR2T0tqdWFvQjRyV0FyamNnQjd4OTdIeTZQVVVQQT09?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5ba52355-3038-4ff2-8fdc-08df25137574
+X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB6802.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 08:09:22.0384
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: dSijm5TXbcHP8V8uAKucvlZVYI5yEET8oRbVsw/07rmenXmE4NCOmVaOe8vBYwiWtY1k1+hhR29lAreUDjUZkA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI9PR04MB210814
 
 
 
-On 2026/10/8 14:53, Hao Ge wrote:
-> Hi Uladzislau
+
+
+
+
+> From: Frank Li <Frank.Li@nxp.com>
 > 
+> dmaengine_desc_free() is designed for DMA_CTRL_REUSE. If DMA_CTRL_REUSE
+> is not set, dmaengine_desc_free() will return -EPERM.
 > 
-> On 2026/9/30 18:12, Uladzislau Rezki wrote:
->> On Tue, Sep 29, 2026 at 04:20:09PM +0800, Hao Ge wrote:
->>> __vmap_pages_range_noflush() and friends can install some PTEs before
->>> failing and leave them mapped, and the kernel callers do not agree on
->>> who cleans them up. For example, pcpu_map_pages() and
->>> kmsan_ioremap_page_range() unmap the leftovers themselves, while
->>> vm_module_tags_populate() and the __GFP_NOFAIL retry loop in
->>> __vmalloc_area_node() relied on the mapping functions cleaning up and
->>> did not call anything like vunmap_range() themselves. When the same
->>> range is mapped again, the attempt hits the leftovers and fails, with
->>> BUG() in vmap_pte_range() for huge mappings.
->>>
->>> After discussing with Suren and Ulad, we decided the cleanup belongs
->>> to __vmap_pages_range_noflush() and friends, so the callers no longer
->>> need to unmap the partial mappings themselves. Each function now
->>> undoes the PTEs it installed itself.
->>>
->>> The rollback calls the low-level __vunmap_range_noflush(), it just
->>> clears the PTEs of the range it is given, which is all a rollback
->>> needs. It cannot use vunmap_range_noflush() because these mapping
->>> functions also map the KMSAN shadow and origin, and for a metadata
->>> range its hook would look up the metadata of the metadata, get 0
->>> and BUG() on addr >= end. The failed mappings were never accessed,
->>> no TLB flush needed.
->>>
->>> Fixes: 9376130c390a ("mm/vmalloc: add support for __GFP_NOFAIL")
->>> Fixes: 0f9b685626da ("alloc_tag: populate memory for module tags as needed")
->>> Reported-by: Sashiko <sashiko-bot@kernel.org>
->>> Cc: stable@vger.kernel.org
->>> Signed-off-by: Hao Ge <hao.ge@linux.dev>
->>> ---
->>>  mm/kmsan/shadow.c |  4 ++++
->>>  mm/vmalloc.c      | 31 +++++++++++++++++++++++++++++--
->>>  2 files changed, 33 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/mm/kmsan/shadow.c b/mm/kmsan/shadow.c
->>> index 0c88d89bf0d6..2166086d3dc3 100644
->>> --- a/mm/kmsan/shadow.c
->>> +++ b/mm/kmsan/shadow.c
->>> @@ -258,6 +258,10 @@ int kmsan_vmap_pages_range_noflush(unsigned long start, unsigned long end,
->>>  					    o_pages, page_shift);
->>>  	kmsan_leave_runtime();
->>>  	if (mapped) {
->>> +		/* Undo the shadow mapping set up above. */
->>> +		kmsan_enter_runtime();
->>> +		__vunmap_range_noflush(shadow_start, shadow_end);
->>> +		kmsan_leave_runtime();
->>>  		err = mapped;
->>>  		goto ret;
->>>  	}
->>>
->> Can we just do that inside the vmalloc? For example in the
->> __vmap_pages_range_noflush() as entry function for all(?) helpers?
->> So we do not need do it manually?
->>
-> The hunk was for the failure path in kmsan_vmap_pages_range_noflush().
-> Shadow and origin are mapped there as two separate calls, and when                                                                   
-> the origin one fails the shadow is already up. __vmap_pages_range_noflush()                                                          
-> cannot do that undo, it only sees its own range.
+> 	if (!dmaengine_desc_test_reuse(desc))
+> 		return -EPERM;
 > 
-> kmsan_vmap_pages_range_noflush() has a single caller, so if we were to move this
-> logic into vmalloc, it would require some modifications as follows:
+> So calling dmaengine_desc_free() does nothing. dmaengine_terminate_(a)sync()
+> will free all already allocated descriptors.
 > 
-> @@ -712,9 +724,14 @@ int vmap_pages_range_noflush(unsigned long addr, unsigned long end,
->         int ret = kmsan_vmap_pages_range_noflush(addr, end, prot, pages,
->                                                 page_shift, gfp_mask);
->  
-> +       if (!ret)
-> +               ret = __vmap_pages_range_noflush(addr, end, prot, pages,
-> +                                                page_shift);
-> +       /* Undo whatever was mapped before the failure. */
->         if (ret)
-> -               return ret;
-> -       return __vmap_pages_range_noflush(addr, end, prot, pages, page_shift);
-> +               kmsan_vunmap_range_noflush(addr, end);
-> +
-> +       return ret;
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+> ---
+>  drivers/i2c/busses/i2c-imx-lpi2c.c | 2 --
+>  1 file changed, 2 deletions(-)
+> 
+> diff --git a/drivers/i2c/busses/i2c-imx-lpi2c.c b/drivers/i2c/busses/i2c-imx-lpi2c.c
+> index 49aabef7f115c..d6f266e2d6bea 100644
+> --- a/drivers/i2c/busses/i2c-imx-lpi2c.c
+> +++ b/drivers/i2c/busses/i2c-imx-lpi2c.c
+> @@ -851,7 +851,6 @@ static int lpi2c_dma_rx_cmd_submit(struct lpi2c_imx_struct *lpi2c_imx)
+>  submit_err_exit:
+>  	dma_unmap_single(txchan->device->dev, dma->dma_tx_addr,
+>  			 dma->rx_cmd_buf_len, DMA_TO_DEVICE);
+> -	dmaengine_desc_free(rx_cmd_desc);
+>  	return -EINVAL;
 >  }
->
+>  
+> @@ -910,7 +909,6 @@ static int lpi2c_dma_submit(struct lpi2c_imx_struct *lpi2c_imx)
+>  
+>  submit_err_exit:
+>  	lpi2c_dma_unmap(dma);
+> -	dmaengine_desc_free(desc);
+>  	return -EINVAL;
+>  }
+>  
 
-I'd rather put this logic inside kmsan_vmap_pages_range_noflush
+Hi, Frank
 
-This function should clean things up on its own, not depend on the
-caller to do it, just like kmsan_ioremap_page_range.
+LGTM.
 
-https://elixir.bootlin.com/linux/v7.3-rc5/source/mm/kmsan/hooks.c#L185
+Reviewed-by: Carlos Song <carlos.song@nxp.com>
 
-Uladzislau，WDYT?
+-- 
+Best Regards,
+Carlos
 
-Thanks
-Best Regards
-Hao
-
->>> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
->>> index 859e6d2d57a3..9bbf75706627 100644
->>> --- a/mm/vmalloc.c
->>> +++ b/mm/vmalloc.c
->>> @@ -349,6 +349,10 @@ static int vmap_range_noflush(unsigned long addr, unsigned long end,
->>>  	if (mask & ARCH_PAGE_TABLE_SYNC_MASK)
->>>  		arch_sync_kernel_mappings(start, end);
->>>  
->>> +	/* Undo the PTEs installed before the failure. */
->>> +	if (err)
->>> +		__vunmap_range_noflush(start, end);
->>> +
->>>  	return err;
->>>  }
->>>  
->>> @@ -363,6 +367,9 @@ int vmap_page_range(unsigned long addr, unsigned long end,
->>>  	if (!err)
->>>  		err = kmsan_ioremap_page_range(addr, end, phys_addr, prot,
->>>  					       ioremap_max_page_shift);
->>> +	if (err)
->>> +		__vunmap_range_noflush(addr, end);
->>> +
->>>  	return err;
->>>  }
->>>  
->>> @@ -667,6 +674,10 @@ static int vmap_small_pages_range_noflush(unsigned long addr, unsigned long end,
->>>  	if (mask & ARCH_PAGE_TABLE_SYNC_MASK)
->>>  		arch_sync_kernel_mappings(start, end);
->>>  
->>> +	/* Undo the PTEs installed before the failure. */
->>> +	if (err)
->>> +		__vunmap_range_noflush(start, end);
->>> +
->>>  	return err;
->>>  }
->>>  
->> The only one user of that function is __vmap_pages_range_noflush()
->> so we can cover both cases there small and huge path.
->>
->> Is that enough just to do unroll in the below:
->>
->> __vmap_pages_range_noflush()
->> vmap_page_range()
->>
->> functions? It will also fix NOFAIL case:
->>
-> 
-> I see. right, __vmap_pages_range_noflush() is just above the
-> actual page‑table mapping, so it's low‑level enough.
-> Thanks a lot for your prototype.
-> 
-> I'm tidying up the code and will post a REF patch afterwards.
-> 
-> Thanks
-> Best Regards
-> Hao
-> 
->> <snip>
->> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
->> index 89c327a6ce7d..fa1f357ecf3f 100644
->> --- a/mm/vmalloc.c
->> +++ b/mm/vmalloc.c
->> @@ -359,10 +359,19 @@ int vmap_page_range(unsigned long addr, unsigned long end,
->>  
->>  	err = vmap_range_noflush(addr, end, phys_addr, pgprot_nx(prot),
->>  				 ioremap_max_page_shift);
->> +	if (err)
->> +		goto error_cleanup_range;
->> +
->>  	flush_cache_vmap(addr, end);
->> -	if (!err)
->> -		err = kmsan_ioremap_page_range(addr, end, phys_addr, prot,
->> +	err = kmsan_ioremap_page_range(addr, end, phys_addr, prot,
->>  					       ioremap_max_page_shift);
->> +	if (err)
->> +		goto error_cleanup_range;
->> +
->> +	return 0;
->> +
->> +error_cleanup_range:
->> +	__vunmap_range_noflush(addr, end);
->>  	return err;
->>  }
->>  
->> @@ -683,26 +692,35 @@ int __vmap_pages_range_noflush(unsigned long addr, unsigned long end,
->>  		pgprot_t prot, struct page **pages, unsigned int page_shift)
->>  {
->>  	unsigned int i, nr = (end - addr) >> PAGE_SHIFT;
->> +	unsigned long start = addr;
->> +	int err;
->>  
->> -	WARN_ON(page_shift < PAGE_SHIFT);
->> -
->> -	if (!IS_ENABLED(CONFIG_HAVE_ARCH_HUGE_VMALLOC) ||
->> -			page_shift == PAGE_SHIFT)
->> -		return vmap_small_pages_range_noflush(addr, end, prot, pages);
->> +	if (WARN_ON(addr >= end))
->> +		return -EINVAL;
->>  
->> -	for (i = 0; i < nr; i += 1U << (page_shift - PAGE_SHIFT)) {
->> -		int err;
->> +	if (WARN_ON(page_shift < PAGE_SHIFT))
->> +		return -EINVAL;
->>  
->> -		err = vmap_range_noflush(addr, addr + (1UL << page_shift),
->> +	if (!IS_ENABLED(CONFIG_HAVE_ARCH_HUGE_VMALLOC) ||
->> +		page_shift == PAGE_SHIFT) {
->> +		err = vmap_small_pages_range_noflush(addr, end, prot, pages);
->> +	} else {
->> +		for (i = 0; i < nr; i += 1U << (page_shift - PAGE_SHIFT)) {
->> +			err = vmap_range_noflush(addr, addr + (1UL << page_shift),
->>  					page_to_phys(pages[i]), prot,
->>  					page_shift);
->> -		if (err)
->> -			return err;
->> +			if (err)
->> +				break;
->>  
->> -		addr += 1UL << page_shift;
->> +			addr += 1UL << page_shift;
->> +		}
->>  	}
->>  
->> -	return 0;
->> +	if (err)
->> +		__vunmap_range_noflush(start, end);
->> +
->> +	/* 0 on success. */
->> +	return err;
->>  }
->>  
->>  int vmap_pages_range_noflush(unsigned long addr, unsigned long end,
->> @@ -714,7 +732,13 @@ int vmap_pages_range_noflush(unsigned long addr, unsigned long end,
->>  
->>  	if (ret)
->>  		return ret;
->> -	return __vmap_pages_range_noflush(addr, end, prot, pages, page_shift);
->> +
->> +	ret = __vmap_pages_range_noflush(addr, end, prot, pages, page_shift);
->> +	if (ret)
->> +		/* Cleanup KMSAN metadata. */
->> +		kmsan_vunmap_range_noflush(addr, end);
->> +
->> +	return ret;
->>  }
->>  
->>  static int __vmap_pages_range(unsigned long addr, unsigned long end,
->> <snip>
->>
->> --
->> Uladzislau Rezki
