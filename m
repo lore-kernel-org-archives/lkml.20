@@ -1,190 +1,144 @@
-Received: from canpmsgout12.his.huawei.com (canpmsgout12.his.huawei.com [113.46.200.227])
+Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010043.outbound.protection.outlook.com [52.101.229.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4FA137DAA9
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 07:45:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.227
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791445534; cv=none; b=Lj2T243IN+6QvOfWCBY1PWkeDR2TYcwClsx0XrRwTZ13j11C0dUiipnPoe/v6Okn+0mT1DwRIG+1Wzsv2GwJXXqEqLxCiSV3BH7KcCnnRRuVAYLGhcoffx4vh6NBwX8u7olLvdHl7i0Z0VHiO1xnI6SZC3uH1ojSOP6X3Dxybc0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791445534; c=relaxed/simple;
-	bh=03viI/wUOKtD0driVBrAMfFHQccwqyii1jrpW5FoCRw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=ubZqCNaOIqF/W3PZkF6WDrY71+ALx0uSFIqY+/gbpggHeovDhOhlpokVJpNmHz3Ew+eMFOO8rprwr8ajA/Pe358t00cP39MBuqxpeScl6oOPgDvE00mfgpHGDt5U9shXA19fbX8Iu6EMUbBEa6h2GEbMR0ne1EmpTqv6cllusRQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=Sgvf7B59; arc=none smtp.client-ip=113.46.200.227
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56E603ED11D;
+	Thu,  8 Oct 2026 07:45:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791445540; cv=fail; b=aEh7scNwPGTtCarOAQOrcGy4Fo5RMz1MYK/Ww24Eb9y5DLKwtzuiYGBSw90W3tELoWKZV0i3xn4e+3sIrepo6xHDvWLHR+4GUBjOcvD8wI5KPwtw/J6LQWc0uDmIxG9r6/A6jKNs+RcvJItFbf17FBj9ZMuUpt9ZhN+psVCsWjE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791445540; c=relaxed/simple;
+	bh=z7ouvLhSWQAvofx2WgWRfUHJWdcs+J+sKxqL5IZmgwg=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=XkQSAum8efiY73yMlQgUZ4FbkqCkkxs0MiiPz2bELFm5cTZpI4mTtrGZMkgjs/0aMeRsJHJEznUzch3KvLxBQBLFUvmwWapGCipc++xNjYwkssWCSIL+UcsAxwhx+lqd/6Z+aFL4cpIFOaphFga51qmWtXShG9b6cayOVMAeAyI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=qRLBOS4x; arc=fail smtp.client-ip=52.101.229.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="Sgvf7B59"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=JgMaUazBcpqvux2KQDW+vhUXwrg8xsyRivF3+Hr/oNo=;
-	b=Sgvf7B59ydpF9D5jY+B+heyPb50E82OAtETzIJuBlsByFUHSTjmArd7xNCixSIXjb0p2MggUx
-	WFV/UHdLl+c/mjnY4tQiOubY8pSnKYKq9W23opyxq2rRwEJ9jqATT3O/gCpI9ICn9RGuJQ3YfiR
-	oAhr8bQc9hfeeO7iDVRzG8g=
-Received: from mail.maildlp.com (unknown [172.19.163.200])
-	by canpmsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4j0hYl4FHDznTVd;
-	Thu,  8 Oct 2026 15:33:31 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 63B504055B;
-	Thu,  8 Oct 2026 15:45:27 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 8 Oct
- 2026 15:45:26 +0800
-Message-ID: <fcecf50e-6b0d-4441-a188-31074c8b099a@huawei.com>
-Date: Thu, 8 Oct 2026 15:45:25 +0800
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="qRLBOS4x"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qx45ayZjA8YTuRZAaj1HkGai3+MXDAO2bYhp8hoKIah93REI47q7aP6vIycilZ/wUm+BHEo7okfO1T9puME8dcUkAsGL1P5mXJ696afvHPFSQlXxD1Hmp+FhHPop0NTgmD/tTXSzacum8D2yy1k3H5wy99RG1yDR7N93R7JQK+PZ18BG31YKjWVO3Sth4+/EY4NTikkSL5cJxisC4DmOQ1LOgKlNWNCQhcmlkeolbN0HHHR8nARvbliJWYoKDJ6nnOZkn3R9WAgPN4a/iGyDdE7o+PPrORJBrrFlacqEqZkMcKYf7QeStXdHrbxxak+La8OocVIRvlFCAseohzciWA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OL6vKukJyOi305freXjbdykRjXqaAS9BxLQCol+sC/M=;
+ b=ZhRXEgLsYKs8rttYs+mdbr3nH1n9p0zjHfBhWa/UbDGdr1wOmuJvE4d8A1r4dv5h1gyun/suLYjtyyIgvr1Q3TQ2ksycb4LWxWnbJpWUNYOYih3Mmrkgc2Uuj9RSzLhc0KF5OcpQRkAFXJHji3GJ6lg7gaDJBSWGm0ygjstVybsWkIjQZjyxDpxHXGcdZ/V2wqLkwZ3iw950Z4vS59GCRsn9Q9FVaIlQiGtfwbM+6VYnSuQbTYIrj2aevyidxYsyRBSAFYAf9ZiihqPgxib433q7Z5MUhk5O8eZiezpGQCSLXvB/Lb+oe/jz4q9yulrQR1NbnndnT123MfceqwzEaA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OL6vKukJyOi305freXjbdykRjXqaAS9BxLQCol+sC/M=;
+ b=qRLBOS4xaPFgbrNZBbnZs3nrh2a5JMAborKxBo8zsU7eI9Hoch7Ynt+U2GUqmupTr1q9QqOsI2q+wgl1d2YaEt6rWbYCvhh8OAqFYsgjwpAegHOc2YOSvDkuNxurCZIUB3IK8INgeZGV4tpRz9N1OsZsjfG0JFJ2pIWAvgp4aG0=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com (2603:1096:405:18d::7)
+ by OSOPR01MB12281.jpnprd01.prod.outlook.com (2603:1096:604:2d9::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Thu, 8 Oct
+ 2026 07:45:35 +0000
+Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com
+ ([fe80::2f5b:8560:48ed:3828]) by TYRPR01MB13588.jpnprd01.prod.outlook.com
+ ([fe80::2f5b:8560:48ed:3828%4]) with mapi id 15.21.0496.015; Thu, 8 Oct 2026
+ 07:45:34 +0000
+From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+To: tomm.merciai@gmail.com,
+	prabhakar.mahadev-lad.rj@bp.renesas.com
+Cc: linux-renesas-soc@vger.kernel.org,
+	biju.das.jz@bp.renesas.com,
+	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
+	Peter Rosin <peda@lysator.liu.se>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	=?UTF-8?q?Alvin=20=C5=A0ipraga?= <alvin.sipraga@analog.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] Restore RZ/V2H(P) USB2PHY reset and VBENCTL mux state on resume
+Date: Thu,  8 Oct 2026 09:44:45 +0200
+Message-ID: <cover.1791389435.git.tommaso.merciai.xr@bp.renesas.com>
+X-Mailer: git-send-email 2.54.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: VI1PR0502CA0004.eurprd05.prod.outlook.com
+ (2603:10a6:803:1::17) To TYRPR01MB13588.jpnprd01.prod.outlook.com
+ (2603:1096:405:18d::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 05/21] KVM: arm64: Protect TPIDRRO_EL0 across guest
- entry/exit
-To: Will Deacon <will@kernel.org>, <linux-arm-kernel@lists.infradead.org>
-CC: <linux-kernel@vger.kernel.org>, Arnd Bergmann <arnd@arndb.de>, Ard
- Biesheuvel <ardb@kernel.org>, Ada Couprie Diaz <ada.coupriediaz@arm.com>,
-	David Hildenbrand <david@kernel.org>, Catalin Marinas
-	<catalin.marinas@arm.com>, Vladimir Murzin <vladimir.murzin@arm.com>, Mark
- Rutland <mark.rutland@arm.com>, Mostafa Saleh <smostafa@google.com>, Lorenzo
- Stoakes <ljs@kernel.org>, Oliver Upton <oupton@kernel.org>, Linus Walleij
-	<linusw@kernel.org>, Marc Zyngier <maz@kernel.org>
-References: <20260918161407.2300-1-will@kernel.org>
- <20260918161407.2300-6-will@kernel.org>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <20260918161407.2300-6-will@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYRPR01MB13588:EE_|OSOPR01MB12281:EE_
+X-MS-Office365-Filtering-Correlation-Id: b8e61880-c1ae-479d-90f6-08df251022db
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|52116014|1800799024|23010399003|366016|18002099003|10067099003|11063799006|56012099006|38350700014;
+X-Microsoft-Antispam-Message-Info:
+	HxvU+oniUBsK9UI0uqq/fUgW2Nlyb/Nc3NtwOVImIHOj5qHgUwiWpM/MCUMOTpe3SJsB54ZEtqFFg8K21jRmfReR9JAikyaqFi1Y6vWkrdGTuNoynG/+GS6CRg6WehL57Um3pN8GseQUxN4IwXXstAKdhtwo3shMLAgsP/v6nQPb2dOoj0H0n8DCj267ySl7AlQT0RyD81nmNqWqYLLEs2uSRDhxK9L8W9/SNooRMuOnA9jnPBkCC/TiZ6V/vDTkykoWgWRglm7kks+eOPvM/S3VqiXJN84cLNL1q1vsFyUHhDjua49O1ulB0p4+/dOmHbNLZ6sym+nmAFUVjErFICs8GTRNFEOZDZJf6C7Svs7PQrUVR+955At509WHLhesjlAEKcqLF+Q0U65ev77H8nBBsamN7vnFfEODLctGQWcKgpRr+5owQODSPAR7Ep+PZogkk26/t2KsbueCZffyZ8E1eADyWSdCSRnK5QXKwIyPuAuIugrSmZzTRYzap7bliJdjoaQHIl0NFZzLnDeKow2TswJ1RUCf8b4Bg20y7MSs1M84hVcPM+LagiN9/AeAt1yn8p77HykrljBQ8uTgffvfQsw57QEccILjEXSsYGczeUXb42qmCidbWKtKOJN9Ymzs0xJK/FG1HVajxK4Ii+VpMP1Yz+bF+BJmxTq4w9Ot0CY9nBQxphs7IJ76AY7ZGwRptKrdWVhglnJTBE5wmjBLB35bi5x9mVoZaleXEeM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYRPR01MB13588.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(52116014)(1800799024)(23010399003)(366016)(18002099003)(10067099003)(11063799006)(56012099006)(38350700014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?vAe1C0B4vcx9V5r0MX1usOBRgYFBeNCtNiLhF5acbWmYXWU2B43jrgaTktn+?=
+ =?us-ascii?Q?ttFBHYY0YyoGZ/rWOW13tIgJ4sWCMA20lzZYyWt/lIb/PkjMtD6lRZNha7Gi?=
+ =?us-ascii?Q?ZimXJvpXfSg4Col0bHkJcstIlmnhyngtJoffI/cXAlDOCOuHgWXbhvCJxylY?=
+ =?us-ascii?Q?aIRN6823P5lgD+D/m4IJyBCDmtdt1USznlwqT2Q6WgP1xdSS7BYqu/lXeGpo?=
+ =?us-ascii?Q?ExNVeDsMoXINrT4fFc0ARBs0/txiw8NTMl3HhlDm/U93+soLNbF0+KboI48x?=
+ =?us-ascii?Q?GaHwbcoM1aWsfyKX0tp/lSusWAzSX8ZJ/ywvFCuIZ0LxGA7axK8xzYbjXb8H?=
+ =?us-ascii?Q?1C7GfmwNCbmSiMKp3FEIgo2G4IvTMIh/nz2/OYhDR/MmCC2JfFdZs6L60rhm?=
+ =?us-ascii?Q?i21mSdxUJRHOfKaOK0vnqgS07nayFY1r3zwzWwIFVVeohF2hd+eKkRvuRHHN?=
+ =?us-ascii?Q?ojJW8nE9n3uz9y1b7niKtqM41Ri88SPPrFy2ud/D44wivFOcv9Lhp6Bk/sxr?=
+ =?us-ascii?Q?RpHwu9s2QCB5Qe1GdkzFUaggiayuwl3sWgr+OUCqDYuSIchMdsquUAMlUbiu?=
+ =?us-ascii?Q?nQq425HBXsb1ywNRScjCtrNsZ3gWTb+eQac2HCdi8ls2rnfjJ4TUVRE0u27W?=
+ =?us-ascii?Q?9FsKDWGLWNagbuJJE0wiqaezPnZeE4Iwou/6Ic/OVZokg9NR3n8i6eyGhof6?=
+ =?us-ascii?Q?1hNFy65zelvvctpA8NNdH+0BMZwBV0ozczwJ3JpHdBcySIsJlSWGMKn7zRmv?=
+ =?us-ascii?Q?yl+u8bcfAHuYvK6ufWS//JlW/AVa3Db6zQkESwfjx/zjgQCPiIsutGXoCtG4?=
+ =?us-ascii?Q?ahxg9CbrbGjbIdD7hpnl2K51zm5uLiWSoQDfRyHZTcOeury6xL7qW0iS4dAR?=
+ =?us-ascii?Q?IWPoKGziPBmV4ykPEnQx2H2hAHnwxqpLtB1R4mE5VSGa9MBOn5PTv7c3drlU?=
+ =?us-ascii?Q?qsvO3RyvcLNnxZH6FcGEEJy+72A92EXVoKcfiUG50Nui+AbpeVZtMaNoEGjd?=
+ =?us-ascii?Q?KQMVahIrV+FsmORSnm6dCgMH5g7ZZDl+vTKnKv4OzcohzLzq3whBwgd9U1MC?=
+ =?us-ascii?Q?R81H5Cr8LFN8d+xf+3aDhXjnnrR9OxY+SjGuFE//zFJy7LAQQQ70PVscX//Z?=
+ =?us-ascii?Q?9mF7jABTwRBM6REzkAWzv7bZFfa0+vEnjPWHE5IgpKIDHKDSAEysIqQ4IChn?=
+ =?us-ascii?Q?mTzFfCW/dopsHFW/ryXKOqTXtM+4ZCRCSgJarAmSm5K/Ip7v5yamilQIs0lG?=
+ =?us-ascii?Q?4s00CrQOpmt2vAgur+2QrVu15/SX2X+f9BYl26S6mQK1D3+M8tiYfuWTQG55?=
+ =?us-ascii?Q?RBmjYz+wqEo7U/kfxbqazRJjVtoiU2Ti9PmpKjcHEWFaE6OPGSarqH8PAo8w?=
+ =?us-ascii?Q?ZnvkBOnbPExG6qOl/rVCdKkAlptn4xNPuQbmm9URvhMBqxQkSn/JnoBE1Ogc?=
+ =?us-ascii?Q?dmA8z3yPvo9vgyEQAFjxpeFco+wFRQHAdsXzag2P0bpdoan+9f7hg3I6kFpL?=
+ =?us-ascii?Q?nCtBOXYcP8Euf1I+yUCDjc1iC30MTBgGJ/RUt7NUy3E5iUSUC+ihB402pTeJ?=
+ =?us-ascii?Q?3KyI15XtPccilKwBFi61A+HZzDM0cQHI29Zyp70auVDfWFu36DsZbJ9h9IhL?=
+ =?us-ascii?Q?Z+yBJA9BSEvorc6LUJDuTglOYM7zdTSaNWXDrJRDln+W6wfX0AGRIt+YOr7i?=
+ =?us-ascii?Q?0B9x1RBJsKvbyaVNZZav/IQ3Nop5WckYYVvNUAyMRLxz4JYZ2+Znbyr8azBf?=
+ =?us-ascii?Q?2bSkkNPzY107AvnDInQ5Qcak02IsDLu7QYeZMMXhYVK1rNV2Wy+5?=
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b8e61880-c1ae-479d-90f6-08df251022db
+X-MS-Exchange-CrossTenant-AuthSource: TYRPR01MB13588.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 07:45:34.8904
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: uYH16CxPRLXgVZFYhJSZovUK1eiyO84nL6134ChB9fbH3Z/JiQI+9/fEPzcqNZL7ZrsZyZoq6QUaAE7ywwPwtkQ7XHAm+koE0wC0pMZJ4gizia2a6z3qbMrTXnXlFlnH
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSOPR01MB12281
 
+Hi,
 
+This series adds suspend/resume support to the RZ/V2H(P) USB2PHY reset and
+VBENCTL mux drivers.
 
-在 2026/9/19 0:13, Will Deacon 写道:
-> From: Mostafa Saleh <smostafa@google.com>
-> 
-> To prepare for using TPIDRRO_EL0 to hold 'current' and repurposing
-> SP_EL0 as an overflow stack pointer, eagerly switch both registers when
-> entering and exiting the guest.
-> 
-> Signed-off-by: Mostafa Saleh <smostafa@google.com>
-> Signed-off-by: Will Deacon <will@kernel.org>
-> ---
->  arch/arm64/include/asm/kvm_asm.h           | 10 ++++++++++
->  arch/arm64/kernel/asm-offsets.c            |  1 +
->  arch/arm64/kvm/hyp/entry.S                 | 12 ++++++++----
->  arch/arm64/kvm/hyp/include/hyp/sysreg-sr.h |  2 --
->  4 files changed, 19 insertions(+), 6 deletions(-)
-> 
-> diff --git a/arch/arm64/include/asm/kvm_asm.h b/arch/arm64/include/asm/kvm_asm.h
-> index e5b92ac09e69..1cfe9216a2ff 100644
-> --- a/arch/arm64/include/asm/kvm_asm.h
-> +++ b/arch/arm64/include/asm/kvm_asm.h
-> @@ -408,6 +408,16 @@ void __noreturn __cold nvhe_hyp_panic_handler(u64 esr, u64 spsr, u64 elr_virt,
->  	msr	sp_el0, \tmp
->  .endm
->  
-> +.macro save_tpidrro_el0 ctxt, tmp
-> +	mrs	\tmp,	tpidrro_el0
-> +	str	\tmp,	[\ctxt, #CPU_TPIDRRO_EL0_OFFSET]
-> +.endm
-> +
-> +.macro restore_tpidrro_el0 ctxt, tmp
-> +	ldr	\tmp,	  [\ctxt, #CPU_TPIDRRO_EL0_OFFSET]
-> +	msr	tpidrro_el0, \tmp
-> +.endm
-> +
->  #endif
->  
->  #endif /* __ARM_KVM_ASM_H__ */
-> diff --git a/arch/arm64/kernel/asm-offsets.c b/arch/arm64/kernel/asm-offsets.c
-> index 6038ab3beb25..cb8448cc5f51 100644
-> --- a/arch/arm64/kernel/asm-offsets.c
-> +++ b/arch/arm64/kernel/asm-offsets.c
-> @@ -108,6 +108,7 @@ int main(void)
->    DEFINE(VCPU_HCR_EL2,		offsetof(struct kvm_vcpu, arch.hcr_el2));
->    DEFINE(CPU_USER_PT_REGS,	offsetof(struct kvm_cpu_context, regs));
->    DEFINE(CPU_ELR_EL2,		offsetof(struct kvm_cpu_context, sys_regs[ELR_EL2]));
-> +  DEFINE(CPU_TPIDRRO_EL0_OFFSET, offsetof(struct kvm_cpu_context, sys_regs[TPIDRRO_EL0]));
->    DEFINE(CPU_RGSR_EL1,		offsetof(struct kvm_cpu_context, sys_regs[RGSR_EL1]));
->    DEFINE(CPU_GCR_EL1,		offsetof(struct kvm_cpu_context, sys_regs[GCR_EL1]));
->    DEFINE(CPU_APIAKEYLO_EL1,	offsetof(struct kvm_cpu_context, sys_regs[APIAKEYLO_EL1]));
-> diff --git a/arch/arm64/kvm/hyp/entry.S b/arch/arm64/kvm/hyp/entry.S
-> index 308100ed25de..4c89931a6a92 100644
-> --- a/arch/arm64/kvm/hyp/entry.S
-> +++ b/arch/arm64/kvm/hyp/entry.S
-> @@ -30,8 +30,9 @@ SYM_FUNC_START(__guest_enter)
->  	// Store the hyp regs
->  	save_callee_saved_regs x1
->  
-> -	// Save hyp's sp_el0
-> +	// Save hyp's sp_el0 and tpidrro_el0
->  	save_sp_el0	x1, x2
-> +	save_tpidrro_el0 x1, x2
->  
->  	// Now the hyp state is stored if we have a pending RAS SError it must
->  	// affect the host or hyp. If any asynchronous exception is pending we
-> @@ -66,8 +67,9 @@ alternative_else_nop_endif
->  	// when this feature is enabled for kernel code.
->  	ptrauth_switch_to_guest x29, x0, x1, x2
->  
-> -	// Restore the guest's sp_el0
-> +	// Restore the guest's sp_el0 and tpidrro_el0
->  	restore_sp_el0 x29, x0
-> +	restore_tpidrro_el0 x29, x0
->  
->  	// Restore guest regs x0-x17
->  	ldp	x0, x1,   [x29, #CPU_XREG_OFFSET(0)]
-> @@ -146,8 +148,9 @@ SYM_INNER_LABEL(__guest_exit, SYM_L_GLOBAL)
->  	// Store the guest regs x18-x29, lr
->  	save_callee_saved_regs x1
->  
-> -	// Store the guest's sp_el0
-> +	// Store the guest's sp_el0 and tpidrro_el0
->  	save_sp_el0	x1, x2
-> +	save_tpidrro_el0 x1, x2
->  
->  	adr_this_cpu x2, kvm_hyp_ctxt, x3
->  
-> @@ -161,8 +164,9 @@ SYM_INNER_LABEL(__guest_exit, SYM_L_GLOBAL)
->  	// mte_switch_to_hyp(g_ctxt, h_ctxt, reg1)
->  	mte_switch_to_hyp x1, x2, x3
->  
-> -	// Restore hyp's sp_el0
-> +	// Restore hyp's sp_el0 and tpidrro_el0
->  	restore_sp_el0 x2, x3
-> +	restore_tpidrro_el0 x2, x3
+Thanks,
+Tommaso
 
-Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
+Tommaso Merciai (2):
+  reset: rzv2h-usb2phy: Add suspend/resume support
+  mux: rzv2h-vbenctl: Add suspend and resume support
 
->  
->  	// Now restore the hyp regs
->  	restore_callee_saved_regs x2
-> diff --git a/arch/arm64/kvm/hyp/include/hyp/sysreg-sr.h b/arch/arm64/kvm/hyp/include/hyp/sysreg-sr.h
-> index c382848d3194..b5f7ef8e6371 100644
-> --- a/arch/arm64/kvm/hyp/include/hyp/sysreg-sr.h
-> +++ b/arch/arm64/kvm/hyp/include/hyp/sysreg-sr.h
-> @@ -66,7 +66,6 @@ static inline void __sysreg_save_common_state(struct kvm_cpu_context *ctxt)
->  static inline void __sysreg_save_user_state(struct kvm_cpu_context *ctxt)
->  {
->  	ctxt_sys_reg(ctxt, TPIDR_EL0)	= read_sysreg(tpidr_el0);
-> -	ctxt_sys_reg(ctxt, TPIDRRO_EL0)	= read_sysreg(tpidrro_el0);
->  }
->  
->  static inline bool ctxt_has_mte(struct kvm_cpu_context *ctxt)
-> @@ -209,7 +208,6 @@ static inline void __sysreg_restore_common_state(struct kvm_cpu_context *ctxt)
->  static inline void __sysreg_restore_user_state(struct kvm_cpu_context *ctxt)
->  {
->  	write_sysreg(ctxt_sys_reg(ctxt, TPIDR_EL0),	tpidr_el0);
-> -	write_sysreg(ctxt_sys_reg(ctxt, TPIDRRO_EL0),	tpidrro_el0);
->  }
->  
->  static inline void __sysreg_restore_el1_state(struct kvm_cpu_context *ctxt,
+ drivers/mux/rzv2h-vbenctl.c         | 24 ++++++++++++
+ drivers/reset/reset-rzv2h-usb2phy.c | 61 +++++++++++++++++++++++++++--
+ 2 files changed, 81 insertions(+), 4 deletions(-)
 
 -- 
-Best regards,
-Jinjie
+2.54.0
 
