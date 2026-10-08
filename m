@@ -1,231 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 416DF38F65C;
-	Thu,  8 Oct 2026 17:08:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3906C3876A1;
+	Thu,  8 Oct 2026 17:08:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791479295; cv=none; b=mxvv8DFLFPgTS9Paom/fMZmWgRX55Eo12TZ/arOx3l1ICAzdcR6Bx1qIPXwz9/Dcslx0cBY4Slgo+Fm5Vit7lUORQQDZSb5lemems9SWnZT3umZ+u44K8Yey8j5RHxKQXDlgNSZpb+t+UPDGt7vDvnbPwqw1pmiFgUz+fV8bCps=
+	t=1791479316; cv=none; b=NQF4WK8Rt1XBaDqCxh177pE6kgrb8ZgVW9rCKV3NnImnqgnVNBdBiPxmOUYuJolDnMCJbg4D1eHbZUs2G/LpIdV0KJBly0JDv8gWDVZFZOvRhrT8b7O9d8WQtU8wpfrD3ly1e52nRzDMkFaOQ8fm+MIegqA4wGUtAkOQ6vdXOv4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791479295; c=relaxed/simple;
-	bh=0eBtMTu0/gfhzOhtCIIjYp5dd3J2nx+mqrVP8/rXKb4=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=dmfGvSX2JhHgujMuEkYAU2zJpKM7y3Fpek9DYt2q8Y/9iwafV2sVi5bSTf63kYVrkPOEQ+zvDGmzhMiEwH8hfpUccHVcRsxP2Tz71IwhEKGMWzLhqDtx1DDgus1w9EO+yGzbF277gRcjB7oS4DQf3UizoX3ne191fYP3SqlzkNs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=csdqprA4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791479316; c=relaxed/simple;
+	bh=uKhtdm15UpEJ6rf1smJSGQ/x5Ve0+w73qQ8J2jUc1/M=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=NJ8Kaxs0NfFSVNP9rKp4CTa2Ra9nFUpl2uPU693CfCJfBi+2C8qsKztRBN6M/+oi5JEQCpFJK9lLkitBEYMS3fokDaVGkLAeRnu6G+UE29oDhrajN2DBN77MsmW9Fdlzxh50mLqC8p60pf/CyC7iEF/83hDlQLkuyqzrlwqJIvU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=S+toEffk; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="csdqprA4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C96D1F000FF;
-	Thu,  8 Oct 2026 17:08:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1791479293;
-	bh=40UmGtsWvKZUKUpHoZBUqaWRitaTWsYb5pdsjbLrFbc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=csdqprA4ZZqt4Jvt9d+z8dNJvB443wlcluTVQvjFtrKp8TUZICyWcXqBapadTNldC
-	 QdYL+b8STFSRrWvvQ00GgMU8AixHHUkCp4+nWQmHNPkadSFl++BN356EwDBUdtaOTT
-	 HrH6+T3//qPRmIo+OQJijugBSP4K/KPyye8l/1aY=
-Date: Thu, 8 Oct 2026 10:08:12 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Joseph Qi <joseph.qi@linux.alibaba.com>
-Cc: Heming Zhao <heming.zhao@suse.com>, Anderson Ferneda
- <anderson.ferneda@braza.com.br>, Mark Fasheh <mark@fasheh.com>, Joel Becker
- <jlbec@evilplan.org>, ocfs2-devel@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] ocfs2: deal with legacy signed dir index name hash
- values
-Message-Id: <20261008100812.0969af222022821d4ed72fad@linux-foundation.org>
-In-Reply-To: <20261008122743.616779-1-joseph.qi@linux.alibaba.com>
-References: <20261008122743.616779-1-joseph.qi@linux.alibaba.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="S+toEffk"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 698EZOma3999550;
+	Thu, 8 Oct 2026 17:08:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=kNCkGa
+	XGMDGePOlXzA3Oop1Xv/eT8titudFVmWUrDq4=; b=S+toEffkKMldoLRVoY8UHg
+	KNt7i463vIzL9jMImhrg2f+lm3QQ4riWSwVkoseTLVydM/iZHZSisTiOg1T4yr5h
+	7csaSV3YvRm2EOx92NNJZN844B9s+VvxHFYajka4+Ifs8Z9/S80tO9+d/9RUldS6
+	38ZHM88ibYGg46/TYLW9vqUDI0yx1/ldn2DIl42idTlkHSvVLW2x08IOj+qUDanq
+	1LcJn8LCLWRzuDkM2nMXMlDrSq+oex+MtreyXWoDzoP9YG7yyFxQHcVfd9AyzA+t
+	XJzFHiZYFxD3u17CcU75guGYOPakATTh6DcoRsNCtcTFJap9uba2JBByik5RhlCA
+	==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h5xjw5bvh-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 08 Oct 2026 17:08:34 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 698EmXJf3594012;
+	Thu, 8 Oct 2026 17:08:33 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h5s34w139-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 08 Oct 2026 17:08:33 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 698H8TGd46465472
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 8 Oct 2026 17:08:29 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 23E9A2004B;
+	Thu,  8 Oct 2026 17:08:29 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id DA41D20043;
+	Thu,  8 Oct 2026 17:08:28 +0000 (GMT)
+Received: from thinkpad-T15 (unknown [9.224.89.120])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with SMTP;
+	Thu,  8 Oct 2026 17:08:28 +0000 (GMT)
+Date: Thu, 8 Oct 2026 19:08:27 +0200
+From: Gerald Schaefer <gerald.schaefer@linux.ibm.com>
+To: Heiko Carstens <hca@linux.ibm.com>
+Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
+        Sven Schnelle
+ <svens@linux.ibm.com>,
+        Vasily Gorbik <gor@linux.ibm.com>,
+        Christian
+ Borntraeger <borntraeger@linux.ibm.com>,
+        linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] s390/appldata: Emulate virtual timer with
+ delayed work
+Message-ID: <20261008190827.1b9762c0@thinkpad-T15>
+In-Reply-To: <20261006140113.3128582-2-hca@linux.ibm.com>
+References: <20261006140113.3128582-1-hca@linux.ibm.com>
+	<20261006140113.3128582-2-hca@linux.ibm.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: jmzUe_cXvLQQUTZfRN_oTTR6LKLEYkkf
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDA2OCBTYWx0ZWRfX6DA12v1f3E3m
+ xQeLCXfe7pSkC08tko9xOF6pK2fAv5Em9kF7fp0kweaq8rxc0jKYBZIWkIVCORSa6lcaneFe0vJ
+ 5suI7/hHG5tE6Rjmlw/vY5RRlWyBLiCfu0aGvsYVjWWTaAPc3jLfGlrtq4TkMaxpzqCRQyKPyTf
+ aMAZUuX0I7RoQ927h+bNasYZlyyfB/GQOB7jwjQvSSqmzCoT8Or1rzya3pOFsSLYzgMJBecpEBv
+ OHQ9Yd3YR9D+mRk9ydeY6EzAtbkBVj2y1rTYFRtWiidIHcpwUtHx69/qJYi2cGLUOLpN4FypYui
+ Xp/JcHPG2emKbdjwV5Lb7RZ42non+RGoeuI5Firu0mIIpRomd9MB6Qxibo3BqKkirprN6A0LrZz
+ knyGwyD6Evc6FTu98sH1ToYFZ1jphoHAf5oKb36+VOKn5VeTFsv90lOoJgPVeiox3/P6j9rRHKe
+ r/jSIl8/54HDSyDN/gA==
+X-Authority-Analysis: v=2.4 cv=cIt1IVeN c=1 sm=1 tr=0 ts=6ac7ce12 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8
+ a=h2POmDZ-lxQGII9KrcoA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDA2OCBTYWx0ZWRfX3XGnZGpAZSRc
+ 9lR9b9qR41y9Mrt8lO+Sf1g/cS82/rQ8iYQmnT1ZHIof3pIxLoNrnTKakjMKHYAs8a/3kSHWpWZ
+ Xwga/P4IXmIMsZMo8IS0qtgqmJ/cV6c=
+X-Proofpoint-ORIG-GUID: jmzUe_cXvLQQUTZfRN_oTTR6LKLEYkkf
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-08_05,2026-10-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 malwarescore=0 priorityscore=1501 adultscore=0 impostorscore=0
+ lowpriorityscore=0 suspectscore=0 spamscore=0 phishscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080068
 
-On Thu,  8 Oct 2026 20:27:42 +0800 Joseph Qi <joseph.qi@linux.alibaba.com> wrote:
+On Tue,  6 Oct 2026 16:01:12 +0200
+Heiko Carstens <hca@linux.ibm.com> wrote:
 
-> Commit 3bc753c06dd0 ("kbuild: treat char as always unsigned") set
-> -funsigned-char globally, which changed the result of the naked 'char'
-> load in str2hashbuf():
+> Emulate the virtual timer in appldata using delayed work: the work is
+> scheduled for the minimum possible wall-clock time until the
+> configured CPU-time interval elapses (remaining CPU time / number of
+> online CPUs), with a minimum delay of 100ms. The work then reads
+> per-CPU statistics of all online CPUs to check whether enough CPU time
+> has elapsed, and if so runs the registered callbacks.
 > 
-> 	val = msg[i] + (val << 8);
+> This is slightly more expensive, but allows to subsequently remove the
+> entire vtimer infrastructure.
 > 
-> A name byte >= 0x80 used to sign-extend and now zero-extends, so
-> ocfs2_dx_dir_name_hash() computes a different hash pair for every name
-> containing one.  The pair is written into the dx leaf when the entry is
-> created, so an index built by an older kernel no longer matches and
-> ocfs2_dx_dir_search() returns -ENOENT for a name that readdir still
-> lists.
-> 
-> Search with the current unsigned hash and, on a miss, retry with the
-> legacy signed one, as ext4 does in commit f3bbac32475b2 ("ext4: deal
-> with legacy signed xattr name hash values").  New entries are always
-> indexed under the unsigned hash.  Skip the retry when the two hashes
-> are equal, so that a miss on an ASCII name does not walk the index
-> twice.
-> 
-> The retry costs a second walk of the dx tree, so a negative lookup of a
-> name containing a byte >= 0x80 does twice the work.  That is bounded and
-> worth it, and directories whose dx root is still inline pay nothing
-> extra, since there the retry only rescans the root block that is already
-> loaded.  Nothing retires it at runtime: a legacy entry keeps its legacy
-> hash, because neither deleting nor updating an entry rewrites the dx
-> hash, and the only code that rehashes existing dirents is
-> ocfs2_expand_inline_dir() on the inline to extent conversion.
-> Rebuilding the index offline is what removes the cost for good.
-> 
-> Also spell out the signedness in str2hashbuf() instead of leaving the
-> current hash to -funsigned-char, as commit 854f0912f813 ("ext4: make
-> xattr char unsignedness in hash explicit") did, so that both variants
-> stay correct if this is backported to a kernel without the flag.
-> 
-> Reported-by: Anderson Ferneda <anderson.ferneda@braza.com.br>
-> Link: https://lore.kernel.org/ocfs2-devel/CP5P284MB2780AC2C3C2AB2CF2B6CB7AFBE942@CP5P284MB2780.BRAP284.PROD.OUTLOOK.COM/
-> Exposed-by: 3bc753c06dd0 ("kbuild: treat char as always unsigned")
-> Cc: stable@vger.kernel.org # 6.2+
-> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+> Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
 > ---
->  fs/ocfs2/dir.c | 76 ++++++++++++++++++++++++++++++++++++++++++--------
->  1 file changed, 65 insertions(+), 11 deletions(-)
-> 
-> diff --git a/fs/ocfs2/dir.c b/fs/ocfs2/dir.c
-> index 55c4a305a282..3f159a20a248 100644
-> --- a/fs/ocfs2/dir.c
-> +++ b/fs/ocfs2/dir.c
-> @@ -221,7 +221,8 @@ static void TEA_transform(__u32 buf[4], __u32 const in[])
->  	buf[1] += b1;
->  }
->  
-> -static void str2hashbuf(const char *msg, int len, __u32 *buf, int num)
-> +static void str2hashbuf(const char *msg, int len, __u32 *buf, int num,
-> +			bool legacy_signed)
->  {
->  	__u32	pad, val;
->  	int	i;
-> @@ -235,7 +236,10 @@ static void str2hashbuf(const char *msg, int len, __u32 *buf, int num)
->  	for (i = 0; i < len; i++) {
->  		if ((i % 4) == 0)
->  			val = pad;
-> -		val = msg[i] + (val << 8);
-> +		if (legacy_signed)
-> +			val = (signed char)msg[i] + (val << 8);
-> +		else
-> +			val = (unsigned char)msg[i] + (val << 8);
->  		if ((i % 4) == 3) {
->  			*buf++ = val;
->  			val = pad;
-> @@ -248,8 +252,9 @@ static void str2hashbuf(const char *msg, int len, __u32 *buf, int num)
->  		*buf++ = pad;
->  }
->  
-> -static void ocfs2_dx_dir_name_hash(struct inode *dir, const char *name, int len,
-> -				   struct ocfs2_dx_hinfo *hinfo)
-> +static void __ocfs2_dx_dir_name_hash(struct inode *dir, const char *name,
-> +				     int len, struct ocfs2_dx_hinfo *hinfo,
-> +				     bool legacy_signed)
->  {
->  	struct ocfs2_super *osb = OCFS2_SB(dir->i_sb);
->  	const char	*p;
-> @@ -279,7 +284,7 @@ static void ocfs2_dx_dir_name_hash(struct inode *dir, const char *name, int len,
->  
->  	p = name;
->  	while (len > 0) {
-> -		str2hashbuf(p, len, in, 4);
-> +		str2hashbuf(p, len, in, 4, legacy_signed);
->  		TEA_transform(buf, in);
->  		len -= 16;
->  		p += 16;
-> @@ -290,6 +295,19 @@ static void ocfs2_dx_dir_name_hash(struct inode *dir, const char *name, int len,
->  	hinfo->minor_hash = buf[1];
->  }
->  
-> +static void ocfs2_dx_dir_name_hash(struct inode *dir, const char *name, int len,
-> +				   struct ocfs2_dx_hinfo *hinfo)
-> +{
-> +	__ocfs2_dx_dir_name_hash(dir, name, len, hinfo, false);
-> +}
-> +
-> +static void ocfs2_dx_dir_name_hash_signed(struct inode *dir, const char *name,
-> +					  int len,
-> +					  struct ocfs2_dx_hinfo *hinfo)
-> +{
-> +	__ocfs2_dx_dir_name_hash(dir, name, len, hinfo, true);
-> +}
-> +
->  /*
->   * bh passed here can be an inode block or a dir data block, depending
->   * on the inode inline data flag.
-> @@ -1021,10 +1039,10 @@ static int ocfs2_dx_dir_lookup(struct inode *inode,
->  	return ret;
->  }
->  
-> -static int ocfs2_dx_dir_search(const char *name, int namelen,
-> -			       struct inode *dir,
-> -			       struct ocfs2_dx_root_block *dx_root,
-> -			       struct ocfs2_dir_lookup_result *res)
-> +static int __ocfs2_dx_dir_search(const char *name, int namelen,
-> +				 struct inode *dir,
-> +				 struct ocfs2_dx_root_block *dx_root,
-> +				 struct ocfs2_dir_lookup_result *res)
->  {
->  	int ret, i, found;
->  	u64 phys;
-> @@ -1037,8 +1055,6 @@ static int ocfs2_dx_dir_search(const char *name, int namelen,
->  	struct ocfs2_extent_list *dr_el;
->  	struct ocfs2_dx_entry_list *entry_list;
->  
-> -	ocfs2_dx_dir_name_hash(dir, name, namelen, &res->dl_hinfo);
-> -
->  	if (ocfs2_dx_root_inline(dx_root)) {
->  		entry_list = &dx_root->dr_entries;
->  		goto search;
-> @@ -1135,6 +1151,44 @@ static int ocfs2_dx_dir_search(const char *name, int namelen,
->  	return ret;
->  }
->  
-> +static int ocfs2_dx_dir_search(const char *name, int namelen,
-> +			       struct inode *dir,
-> +			       struct ocfs2_dx_root_block *dx_root,
-> +			       struct ocfs2_dir_lookup_result *res)
-> +{
-> +	struct ocfs2_dx_hinfo legacy;
-> +	int ret;
-> +
-> +	ocfs2_dx_dir_name_hash(dir, name, namelen, &res->dl_hinfo);
-> +
-> +	ret = __ocfs2_dx_dir_search(name, namelen, dir, dx_root, res);
-> +	if (ret != -ENOENT)
-> +		return ret;
-> +
-> +	/*
-> +	 * Nothing under the current hash.  The entry may have been indexed by
-> +	 * an older kernel, which sign-extended the name bytes when hashing.
-> +	 * New entries are always indexed under the unsigned hash, so only fall
-> +	 * back to the legacy signed one when it can actually differ: an ASCII
-> +	 * name hashes the same either way, and a genuine miss on one should
-> +	 * not have to walk the index twice.
-> +	 */
-> +	ocfs2_dx_dir_name_hash_signed(dir, name, namelen, &legacy);
-> +	if (legacy.major_hash == res->dl_hinfo.major_hash &&
-> +	    legacy.minor_hash == res->dl_hinfo.minor_hash)
-> +		return ret;
-> +
-> +	res->dl_hinfo = legacy;
-> +
-> +	ret = __ocfs2_dx_dir_search(name, namelen, dir, dx_root, res);
-> +	if (ret)
-> +		return ret;
-> +
-> +	pr_warn_once("ocfs2: directory index with signed name hash\n");
-> +
-> +	return 0;
-> +}
-> +
->  static int ocfs2_find_entry_dx(const char *name, int namelen,
->  			       struct inode *dir,
->  			       struct ocfs2_dir_lookup_result *lookup)
-> -- 
-> 2.39.3
+>  arch/s390/appldata/appldata_base.c | 171 ++++++++++++++++++-----------
+>  1 file changed, 107 insertions(+), 64 deletions(-)
+
+Nice improvement, with minimum wall-clock interval 100ms. Specifying a 1ms
+CPU-time interval was possible, but did not make much sense in practice.
+On very idle systems, the resulting wall-clock interval would also have
+been around 100ms, but as soon as they do some work, it would have become
+far too frequent.
+
+Also tested it, and on a busy system there is now no noticeable difference
+for interval values 1-100, while idle systems still behave like before.
+
+Reviewed-by: Gerald Schaefer <gerald.schaefer@linux.ibm.com>
+Tested-by: Gerald Schaefer <gerald.schaefer@linux.ibm.com>
