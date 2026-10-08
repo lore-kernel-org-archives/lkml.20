@@ -1,300 +1,643 @@
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010052.outbound.protection.outlook.com [40.93.198.52])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 228D6470421
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:51:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791913919; cv=fail; b=DDQlazX1P0v7Jx/zRh/zeMP2YqFOId/e7gOl7acsafhz8QyVykHorC3njeQ4uNe2OltgsP4MWTaAnEn8ZhDF2yCkSMtZ4saInLHM1aobB70E6nIJPK+6tSpGZXm37Vx0YeqD4R+2uFpHBnFsZevsNo/sNQxQYeYEVtCgVJJIXBM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791913919; c=relaxed/simple;
-	bh=6/qNzchy1o8RHgcUPpQBANm7ay2MJ77EAZ8GzCoVUrw=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=l1Gp4dLauzFaq4XkVducd8dY5eykubgQ7aAxp8j/UaFRE9k5TCe0UrCHEmhx8bbSS8UBgRRF3P8CTMuZY8v54UmaCGt5yMudPWvmNKaeXWAWg+cEiaxSCpbKJfPCbqp+mbSJF5Ft0NbWi8T+ciROIi/ApynRInteoxoWmiur2qQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=4laUUDn6; arc=fail smtp.client-ip=40.93.198.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D34594F5E09
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:51:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791913918; cv=none; b=jT4QGbT3oly/VOX7bUaSgTjMW7Dlg9JKFypFolhmr1uxAlC2lGpe/0sOXjJyaBK+Hmyz3RcszmYOhfd+kyNa9YR+B7pQFVt8G4qigjcg6QHN33An7rf5WCRpCqgP5K15aM7rS/4x7wKXfDhUoBqv/WkqvhAZD0CpZmXBqnqqFgk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791913918; c=relaxed/simple;
+	bh=4Damtj9C0Gh1uSIetXiJC02lHI5b1+Y3L1ZzZV2ZsqI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ITyk8kxFpi/bJQGp51Pbv8PmFREBQVBdP92N8a11ZzDEYZrMFl89RjBQNpjh/Y5tQYQmFVaUqmsEziOjGX61oClRtQKux1swLcU/ixJ9YHpsmiSGSiIDlBknuxrbL+PMYbQ04/Y7oNnMt+m6E1EoPriJBpz4EDaAcHRQJ9orMus=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=GsRwYQFr; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="4laUUDn6"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yrrrAtirrZMrsIoGFrKxawJe9HnX/guEGdavnMknhih4OUNgOAhZN4QlSBcNWPtSC7Nhd5kW5G4hYCFoD5DrPhyodtVR4a+HJYmlh927/PezqePK+DLqUuK+sRSq8ai1ZzRww2QkZeYbtD03unBtEGyioiyTdcyMRu0RD1vvdjeceXlgrMDl0OW/gBZ1C+g41I+R7bNoPm2OyOVJKbo4dRk1y3VUSNUFRF0NkUwXva8M8m9yl/VuO5TVeLVpdXPN4wtyzZczXt3JC0plVI4lN6zffAz4TinYo5cjmK1fVJqC8AVnLRLbQHSvpGZiSFl6xC+ZwNxt4UR8uH/+2qBzSA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9fCDF2RBHZGeIt5PL9YAdxU0RXBOFKIePMFGRGXlo+M=;
- b=YDHPmOHBAUq24dgE+P09JmHl8ym7g567z/fLmnHyaEUC16uegRinmB8C9KtFwboILNLx7lkBCGKfJBWumz8aKbTawWP9t2/wMXxSCPZQJPa+s8IIWVaJ3q3BjC+WmgWQ5o+TwFhutq0KztchnfjucOi3d11pMs1Z40wAJu4dA6qFb21utXccYKla2QUmfR/S9R5nJohW3ac00P1G45wORUGmwyJ8ad74bpSc3IeHB1fHa56Cj4luH1JAtItJlA8W8ZeiDxKoNNxmGX61IGQIVzvt9193c1Se0s8dOj/mmRLZeRBC3jOBHWWg+d6B/6l7G7UJ14pGkqmZUybJkqP+CA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9fCDF2RBHZGeIt5PL9YAdxU0RXBOFKIePMFGRGXlo+M=;
- b=4laUUDn6tS3j1Ycgvde7ELtKhm4xUW7HrswZ+d6z+eK63WL4WSexaucQDnzj1/G2IMx0eo/pc2pdhnlNJa/Nogol/PG0N+Awsn0PlROzFRlTULDkPHdWTHA2Q5TE87fRN81uqXDDr+OceovZEDEFELW0ulyZNsxseyI10NpMiWo=
-Received: from PH0PR07CA0032.namprd07.prod.outlook.com (2603:10b6:510:e::7) by
- DS0PR12MB7876.namprd12.prod.outlook.com (2603:10b6:8:148::9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.16; Tue, 13 Oct 2026 17:51:47 +0000
-Received: from CY6PEPF0000004D.namprd03.prod.outlook.com
- (2603:10b6:510:e:cafe::22) by PH0PR07CA0032.outlook.office365.com
- (2603:10b6:510:e::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Tue, 13
- Oct 2026 17:51:47 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CY6PEPF0000004D.mail.protection.outlook.com (10.167.247.138) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Tue, 13 Oct 2026 17:51:46 +0000
-Received: from purico-9dcchost.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 13 Oct
- 2026 12:51:40 -0500
-From: Melody Wang <huibo.wang@amd.com>
-To: <x86@kernel.org>
-CC: LKML <linux-kernel@vger.kernel.org>, Tom Lendacky
-	<thomas.lendacky@amd.com>, <ardb@kernel.org>, Melody Wang
-	<huibo.wang@amd.com>
-Subject: [PATCH v4 3/7] x86/sev: Route unsupported APIC register accesses to the hypervisor APIC emulation
-Date: Tue, 13 Oct 2026 17:50:50 +0000
-Message-ID: <2646bd1474e25dcb837fef5a3c24269664432a8a.1791912902.git.huibo.wang@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1791912902.git.huibo.wang@amd.com>
-References: <cover.1791912902.git.huibo.wang@amd.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="GsRwYQFr"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 3CF881A1217
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:51:54 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 08DD060362
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:51:54 +0000 (UTC)
+Received: by mail.galae.net (Postcow, from userid 0)
+	id 658CB11D718A0; Tue, 13 Oct 2026 19:49:07 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791913913; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=GW3kLCRR56U9eQq/mE5tYhVBEcD1tm1jAN2V0WASdBY=;
+	b=GsRwYQFrX/5zMPHvSqMu5BHBmfOrgTW3F/6NlTh37NCT862VV0sJujbmQuQd+F0y9XiPuz
+	oOUS7H0boSZIpMKuyKC9CGR4FngNvM+C4M77TbVklikNlHcXDq6YIVWHVxHNWwx+WJ2lvI
+	jj1kAVUTEUlZC/xxyI0M+ST0jXTjaKHDJuokPOd5O1P7HqUo+ijj5kHZ6tKY8OL8UHUH5V
+	dyrLmwuh2kF1B3w2mOl+szadG+AFsDv0HF9pqZdVMAGuqqibN/zSjtM8SlY1kruASAh4Bn
+	Pp3hByBvmgeOEKQfRrpk6TSOMXV+cjzgjK964m6LBXNqVPyR2mxxzZLgdv4quw==
+Authentication-Results: mail.galae.net;
+	none
+Message-ID: <35a238ae-0e06-49a9-8539-9139aeca1a30@bootlin.com>
+Date: Thu, 8 Oct 2026 12:19:19 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v2] net: Don't allow disabling napi kthread mode while
+ napi instances are disabled
+To: netdev-bot+sashiko@kernel.org
+Cc: andrew+netdev@lunn.ch, kuba@kernel.org, davem@davemloft.net,
+ edumazet@google.com, pabeni@redhat.com, horms@kernel.org,
+ linux@armlinux.org.uk, kuniyu@google.com, sdf.kernel@gmail.com,
+ thomas.petazzoni@bootlin.com, alexis.lothore@bootlin.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261006141119.85562-1-maxime.chevallier@bootlin.com>
+ <179142548474.434549.4875313383372623036@kernel.org>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <179142548474.434549.4875313383372623036@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY6PEPF0000004D:EE_|DS0PR12MB7876:EE_
-X-MS-Office365-Filtering-Correlation-Id: 86408cac-0605-4439-45f3-08df2952a685
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|376014|23010399003|82310400026|11063799006|56012099006|261009223027099003|22082099003|18002099003|3023799007|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	WcBTzhcdoB7qlbaf/1TwdJDutGJv1XwX2cODLyKuJS0nKbaDiRg6AfBpnDi9m6ZrHFhvVqPOgJZ1f9qwFy65qmRzcevfjHpYsed0Du7Renth6TyhILZkGevAv8YAGImnyq0V8TKzmZAhq6subTYx3eKsVdIEczyzT5mFfAQeh+A/CcgBYc/K0gorSBLVuvzr2J67HOFdGoSpeKb2JG1UFBHXmw546vM44heGI9U5xXvz8u3d5UhoMwqp1lPGqhEbsEJVM7fjjkmXuhec6FdOWDOE2K1uKCwaMNdGiJK/nRtwkP/EILiCpBcfKD6U0r6E9I84qQBWoQX6RyMMYROmkjmB+nt5czFelNI3Qu4zdKDgh4taa+JY+/p4QlSc00gIZ6lBxF54Ah591XARmU2f5/1czhlgYUM2hbQg767JI7DAYFypXu2Oe8QW1/ZycmXtLmIvyg7WrSJ5a4xGsgcwO+dQsjjwpXzNdTibafyNAoIkuBz/dW87aLD441KVhs+sLVgDPgMT1YuRYAzLUxzJ9A8raDDuVl97ug7y9JgvN7TuC1IUZdX/NB2l6ke5BR8sG8VNlUnI9nDoWyS3XiSgAdAxzOmWXnOzcXQx6VSPfg7jibCHP3pXnx6LarCoK8YsuA+d6Y86LL0oIfyIC1QWBhsy4U/A4Rp6UyzvPJ1WO6d8IvgD2rHGUUQwt3C2HbCJgHbCl5poZAk0ZQoiqKZrvg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(376014)(23010399003)(82310400026)(11063799006)(56012099006)(261009223027099003)(22082099003)(18002099003)(3023799007)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	PjJ/YUVJYOl/nGyLmOqROGyzKbYlUDEo8A7tQzvTeiKbaNiU5v9U/f/Yn6DVkijS2GvMt5Sdl3864UQn3mn4vBJ/JRMw62J6FPbMaG8zgnCkRS9cA74ue2dJ6u3N40iJr/L6FV18cEP1kSYMHMpcvAnV0+BMi+cIsqMRoXOXuQZUkacXffgniQ8z8jYg6PkdNsrfYiY70FMbsFNw/Trw5rGOLqrSbOsFS4qbISLS1L6XewxlekcPO/fbSN/iIj2SwQNvzk4jm7M1pSNtAUd5zbANip99wGpMhjnnK+pq2upZ4FF3by+vuL4pRfZYzroJQq9lJRDTXSNQ/GGjpv2Zl+JzcJZPA7Q0Qa7V0dUZopT91S+LUMug0n1q/VVdbSEkI53V714DzrCstt/cWATVjtINUu22ozylaEvERTQvLsmQQhMCdoIWGlsLgltvCRef
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 17:51:46.6808
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 86408cac-0605-4439-45f3-08df2952a685
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY6PEPF0000004D.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7876
+X-Last-TLS-Session-Version: None
+X-Rspamd-Queue-Id: 658CB11D718A0
+X-Spamd-Result: default: False [2.40 / 30.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	DATE_IN_PAST(1.00)[127];
+	MIME_GOOD(-0.10)[text/plain];
+	BAYES_SPAM(0.00)[33.12%];
+	TO_DN_NONE(0.00)[];
+	TAGGED_RCPT(0.00)[sashiko,netdev];
+	RCVD_COUNT_ZERO(0.00)[0];
+	BCC(0.00)[];
+	DKIM_SIGNED(0.00)[bootlin.com:s=dkim];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	FREEMAIL_CC(0.00)[lunn.ch,kernel.org,davemloft.net,google.com,redhat.com,armlinux.org.uk,gmail.com,bootlin.com,vger.kernel.org];
+	FROM_HAS_DN(0.00)[];
+	URIBL_BLOCKED(0.00)[localhost:rdns,localhost:helo,galae.net:url,davemloft.net:email,armlinux.org.uk:email,bootlin.com:email,bootlin.com:mid,bootlin.com:url,lunn.ch:email];
+	MAILCOW_DOMAIN_HEADER_FROM(0.00)[bootlin.com]
 
-The SVSM APIC emulation supports only a subset of the X2APIC MSRs.
-Right now only basic APIC functionality related to interrupt delivery is
-supported. Therefore, route the unsupported ones to the hypervisor's
-X2APIC emulation.
 
-Signed-off-by: Melody Wang <huibo.wang@amd.com>
----
- arch/x86/coco/sev/core.c            | 46 +++++++++++------------------
- arch/x86/include/asm/sev-common.h   |  1 +
- arch/x86/include/asm/sev.h          |  8 ++---
- arch/x86/kernel/apic/x2apic_savic.c |  8 ++---
- arch/x86/kernel/apic/x2apic_svsm.c  | 11 +++++--
- 5 files changed, 35 insertions(+), 39 deletions(-)
 
-diff --git a/arch/x86/coco/sev/core.c b/arch/x86/coco/sev/core.c
-index 900a7ff8b639..99df8d7f3e98 100644
---- a/arch/x86/coco/sev/core.c
-+++ b/arch/x86/coco/sev/core.c
-@@ -972,7 +972,7 @@ int __init sev_es_efi_map_ghcbs_cas(pgd_t *pgd)
- 	return 0;
- }
- 
--u64 savic_ghcb_msr_read(u32 reg)
-+static u64 __sev_apic_ghcb_msr_rw(u32 reg, u64 value, bool write)
- {
- 	u64 msr = APIC_BASE_MSR + (reg >> 4);
- 	struct pt_regs regs = { .cx = msr };
-@@ -981,49 +981,37 @@ u64 savic_ghcb_msr_read(u32 reg)
- 	enum es_result res;
- 	struct ghcb *ghcb;
- 
-+	if (write) {
-+		regs.ax = lower_32_bits(value);
-+		regs.dx = upper_32_bits(value);
-+	}
-+
- 	guard(irqsave)();
- 
- 	ghcb = __sev_get_ghcb(&state);
- 	vc_ghcb_invalidate(ghcb);
- 
--	res = __vc_handle_msr(ghcb, &ctxt, false);
-+	res = __vc_handle_msr(ghcb, &ctxt, write);
- 	if (res != ES_OK) {
--		pr_err("Secure AVIC MSR (0x%llx) read returned error (%d)\n", msr, res);
--		/* MSR read failures are treated as fatal errors */
--		sev_es_terminate(SEV_TERM_SET_LINUX, GHCB_TERM_SAVIC_FAIL);
-+		pr_err("APIC MSR via GHCB (0x%llx) %s returned error (%d)\n", msr, write ? "write" : "read", res);
-+		/* MSR read/write failures are treated as fatal errors */
-+		sev_es_terminate(SEV_TERM_SET_LINUX, GHCB_TERM_APIC_MSR_FAIL);
- 	}
- 
- 	__sev_put_ghcb(&state);
- 
-+	/* The return value will be ignored by the caller for a write */
- 	return regs.ax | regs.dx << 32;
- }
- 
--void savic_ghcb_msr_write(u32 reg, u64 value)
-+u64 sev_apic_ghcb_msr_read(u32 reg)
- {
--	u64 msr = APIC_BASE_MSR + (reg >> 4);
--	struct pt_regs regs = {
--		.cx = msr,
--		.ax = lower_32_bits(value),
--		.dx = upper_32_bits(value)
--	};
--	struct es_em_ctxt ctxt = { .regs = &regs };
--	struct ghcb_state state;
--	enum es_result res;
--	struct ghcb *ghcb;
--
--	guard(irqsave)();
--
--	ghcb = __sev_get_ghcb(&state);
--	vc_ghcb_invalidate(ghcb);
--
--	res = __vc_handle_msr(ghcb, &ctxt, true);
--	if (res != ES_OK) {
--		pr_err("Secure AVIC MSR (0x%llx) write returned error (%d)\n", msr, res);
--		/* MSR writes should never fail. Any failure is fatal error for SNP guest */
--		sev_es_terminate(SEV_TERM_SET_LINUX, GHCB_TERM_SAVIC_FAIL);
--	}
-+	return __sev_apic_ghcb_msr_rw(reg, 0, false);
-+}
- 
--	__sev_put_ghcb(&state);
-+void sev_apic_ghcb_msr_write(u32 reg, u64 value)
-+{
-+	__sev_apic_ghcb_msr_rw(reg, value, true);
- }
- 
- enum es_result savic_register_gpa(u64 gpa)
-diff --git a/arch/x86/include/asm/sev-common.h b/arch/x86/include/asm/sev-common.h
-index 095fbafe8a2c..585ddc44b6b4 100644
---- a/arch/x86/include/asm/sev-common.h
-+++ b/arch/x86/include/asm/sev-common.h
-@@ -210,6 +210,7 @@ struct snp_psc_desc {
- #define GHCB_TERM_SVSM_CA_REMAP_FAIL	11	/* SVSM is present but CA could not be remapped */
- #define GHCB_TERM_SAVIC_FAIL		12	/* Secure AVIC-specific failure */
- #define GHCB_TERM_ALT_INJ_FAIL		13	/* Alternate Injection-specific failure */
-+#define GHCB_TERM_APIC_MSR_FAIL		14	/* APIC MSR failure */
- 
- #define GHCB_RESP_CODE(v)		((v) & GHCB_MSR_INFO_MASK)
- 
-diff --git a/arch/x86/include/asm/sev.h b/arch/x86/include/asm/sev.h
-index ea248d9e1c49..93161b663d9b 100644
---- a/arch/x86/include/asm/sev.h
-+++ b/arch/x86/include/asm/sev.h
-@@ -541,8 +541,8 @@ void __init snp_secure_tsc_prepare(void);
- void __init snp_secure_tsc_init(void);
- enum es_result savic_register_gpa(u64 gpa);
- enum es_result savic_unregister_gpa(u64 *gpa);
--u64 savic_ghcb_msr_read(u32 reg);
--void savic_ghcb_msr_write(u32 reg, u64 value);
-+u64 sev_apic_ghcb_msr_read(u32 reg);
-+void sev_apic_ghcb_msr_write(u32 reg, u64 value);
- 
- static __always_inline void vc_ghcb_invalidate(struct ghcb *ghcb)
- {
-@@ -650,8 +650,8 @@ static inline void __init snp_secure_tsc_init(void) { }
- static inline void sev_evict_cache(void *va, int npages) {}
- static inline enum es_result savic_register_gpa(u64 gpa) { return ES_UNSUPPORTED; }
- static inline enum es_result savic_unregister_gpa(u64 *gpa) { return ES_UNSUPPORTED; }
--static inline void savic_ghcb_msr_write(u32 reg, u64 value) { }
--static inline u64 savic_ghcb_msr_read(u32 reg) { return 0; }
-+static inline void sev_apic_ghcb_msr_write(u32 reg, u64 value) { }
-+static inline u64 sev_apic_ghcb_msr_read(u32 reg) { return 0; }
- 
- #endif	/* CONFIG_AMD_MEM_ENCRYPT */
- 
-diff --git a/arch/x86/kernel/apic/x2apic_savic.c b/arch/x86/kernel/apic/x2apic_savic.c
-index 4bc6d7e018a5..990e4a379e07 100644
---- a/arch/x86/kernel/apic/x2apic_savic.c
-+++ b/arch/x86/kernel/apic/x2apic_savic.c
-@@ -72,7 +72,7 @@ static u32 savic_read(u32 reg)
- 	case APIC_LVT0:
- 	case APIC_LVT1:
- 	case APIC_LVTERR:
--		return savic_ghcb_msr_read(reg);
-+		return sev_apic_ghcb_msr_read(reg);
- 	case APIC_ID:
- 	case APIC_LVR:
- 	case APIC_TASKPRI:
-@@ -193,7 +193,7 @@ static void savic_icr_write(u32 icr_low, u32 icr_high)
- 
- 	icr_data = ((u64)icr_high) << 32 | icr_low;
- 	if (dsh != APIC_DEST_SELF)
--		savic_ghcb_msr_write(APIC_ICR, icr_data);
-+		sev_apic_ghcb_msr_write(APIC_ICR, icr_data);
- 	apic_set_reg64(this_cpu_ptr(savic_page), APIC_ICR, icr_data);
- }
- 
-@@ -210,7 +210,7 @@ static void savic_write(u32 reg, u32 data)
- 	case APIC_LVTTHMR:
- 	case APIC_LVTPC:
- 	case APIC_LVTERR:
--		savic_ghcb_msr_write(reg, data);
-+		sev_apic_ghcb_msr_write(reg, data);
- 		break;
- 	case APIC_TASKPRI:
- 	case APIC_EOI:
-@@ -316,7 +316,7 @@ static void savic_eoi(void)
- 		 * interrupts. Return to the guest from GHCB protocol event takes
- 		 * care of re-evaluating interrupt state.
- 		 */
--		savic_ghcb_msr_write(APIC_EOI, 0);
-+		sev_apic_ghcb_msr_write(APIC_EOI, 0);
- 	} else {
- 		/*
- 		 * Hardware clears APIC_ISR and re-evaluates the interrupt state
-diff --git a/arch/x86/kernel/apic/x2apic_svsm.c b/arch/x86/kernel/apic/x2apic_svsm.c
-index 6edfbcca2958..0a89c5b357f0 100644
---- a/arch/x86/kernel/apic/x2apic_svsm.c
-+++ b/arch/x86/kernel/apic/x2apic_svsm.c
-@@ -81,8 +81,15 @@ static u32 __svsm_apic_msr_rw(u32 reg, u32 v, bool write)
- 		}
- 		break;
- 	default:
--		pr_err("%s 0x%x not supported\n", call_reg_str, reg);
--		return 0;
-+		if (write) {
-+			/*
-+			 * Even if this will end up returning call.rdx_out,
-+			 * that is being ignored by the caller for a write.
-+			 */
-+			sev_apic_ghcb_msr_write(reg, v);
-+		} else {
-+			return sev_apic_ghcb_msr_read(reg);
-+		}
- 	}
- 
- 	return call.rdx_out;
--- 
-2.43.0
+On 10/8/26 04:11, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 4 potential
+> issue(s) to consider.
+> 
+> Critical: 0 · High: 1 · Medium: 2 · Low: 1
+> 
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+> 
+> - [High] The fix is incomplete.
+> - [Medium] The new guard in netif_set_threaded()
+>   (net/core/dev.c:7352-7354) treats NAPI_STATE_NPSVC as meaning 'this…
+> - [Medium] After this patch, writing 0 to /sys/class/net/<iface>/threaded
+>   (or calling netif_set_threaded()/dev_set_threaded() with 0) returns…
+> - [Low] The commit message gets the hang mechanism wrong.
+> 
+> --
+> 
+> net: Don't allow disabling napi kthread mode while napi instances are disabled
+> 
+> This patch makes netif_set_threaded() return -EBUSY for a request to
+> disable threaded mode when any NAPI instance with a kthread has
+> NAPI_STATE_NPSVC set. The patch uses that bit to mean the instance is
+> disabled. The goal is to avoid a hang in napi_stop_kthread() when threaded
+> mode is turned off on a down interface whose driver added its NAPIs at
+> probe time.
+> 
+>> Trying to disable the napi threaded state while the napi instance is
+>> disabled will hang forever in napi_stop_kthread(), as it waits for
+>> NAPIF_STATE_SCHED_THREADED to clear.
+> 
+> [Severity: Low]
+> Is this the right loop? On a disabled NAPI, SCHED is set and
+> SCHED_THREADED is clear. That means the hang is in the first wait loop of
+> napi_stop_kthread():
+> 
+> net/core/dev.c:napi_stop_kthread() {
+>     ...
+> 		if ((val & NAPIF_STATE_SCHED_THREADED) ||
+> 		    !(val & NAPIF_STATE_SCHED)) {
+> 			new = val & (~(NAPIF_STATE_THREADED |
+> 				       NAPIF_STATE_THREADED_BUSY_POLL));
+> 		} else {
+> 			msleep(20);
+> 			continue;
+> 		}
+>     ...
+> }
+> 
+> The second loop is the one that waits for SCHED_THREADED to clear. It
+> would exit right away, but the code never gets there.
+> 
+> The real blocking condition is that napi_disable() or netif_napi_add()
+> leaves SCHED set, and only napi_enable_locked() can clear it. That
+> function needs the netdev lock, which the caller already holds.
+> 
+> Could the description be updated to match? With the right root cause it
+> is easier to see whether other paths reach the same state (see the
+> rollback comment below).
+> 
+>> diff --git a/net/core/dev.c b/net/core/dev.c
+>> index e76762e29360e..83237591cfe85 100644
+>> --- a/net/core/dev.c
+>> +++ b/net/core/dev.c
+>> @@ -7347,6 +7347,12 @@ int netif_set_threaded(struct net_device *dev,
+>>  				}
+>>  			}
+>>  		}
+>> +	} else {
+>> +		list_for_each_entry(napi, &dev->napi_list, dev_list) {
+>> +			if (napi->thread &&
+>> +			    test_bit(NAPI_STATE_NPSVC, &napi->state))
+> 
+> [Severity: Medium]
+> Can NAPI_STATE_NPSVC be set here on a NAPI that is enabled? The bit is
+> documented as a netpoll servicing flag:
+> 
+> include/linux/netdevice.h:
+> 	NAPI_STATE_NPSVC,		/* Netpoll - don't dequeue from poll_list */
+> 
+> poll_one_napi() sets it for a short time around the poll, without holding
+> the netdev instance lock:
+> 
+> net/core/netpoll.c:poll_one_napi() {
+> 	if (test_and_set_bit(NAPI_STATE_NPSVC, &napi->state))
+> 		return;
+> 	...
+> 	work = napi->poll(napi, 0);
+> 	...
+> 	clear_bit(NAPI_STATE_NPSVC, &napi->state);
+> }
+> 
+> netpoll_poll_dev() only takes ni->dev_lock with down_trylock(), and
+> nothing serializes it against netif_set_threaded().
+> 
+> Suppose netconsole or bonding is polling the device when 0 is written to
+> /sys/class/net/<iface>/threaded. Would this return -EBUSY even though
+> every NAPI is enabled and disabling would be safe?
+> 
+> A disabled NAPI always has NPSVC set. The reverse doesn't hold: NPSVC
+> being set does not mean the NAPI is disabled.
+> 
+>> +				return -EBUSY;
+> 
+> [Severity: Medium]
+> Does this change the documented behaviour of
+> /sys/class/net/<iface>/threaded? For drivers that add their NAPIs at probe
+> time, writing 0 now fails with -EBUSY on any down interface. Enabling has
+> no matching check:
+> 
+>   ip link set eth0 down
+>   echo 1 > /sys/class/net/eth0/threaded   (succeeds, creates kthreads)
+>   echo 0 > /sys/class/net/eth0/threaded   (-EBUSY until link up)
+> 
+> Drivers that call netif_threaded_enable() at probe, such as atl1c and
+> ravb, cannot leave threaded mode before the first link-up. Drivers whose
+> NAPIs are added but never enabled can never leave it.
+> 
+> Documentation/ABI/testing/sysfs-class-net says the attribute lets the
+> user "enable/disable threaded mode for all napi belonging to this device,
+> without the need to do device up/down", and it lists no error cases.
+> 
+
+Ah true :/ hmmm ok is it even OK to have the check at disable time when there's
+this sentence in the doc then ?
+
+> 
+>> +		}
+>>  	}
+>>  
+>>  	WRITE_ONCE(dev->threaded, threaded);
+> 
+> [Severity: High]
+> Can the same hang still be reached through the rollback in the enable
+> path? The new check only runs in the else branch, which handles an
+> explicit disable. In the if (threaded) branch, napi_kthread_create() can
+> succeed for some NAPIs and then fail for a later one:
+> 
+> net/core/dev.c:netif_set_threaded() {
+> 	if (threaded) {
+> 		list_for_each_entry(napi, &dev->napi_list, dev_list) {
+> 			if (!napi->thread) {
+> 				err = napi_kthread_create(napi);
+> 				if (err) {
+> 					threaded = NETDEV_NAPI_THREADED_DISABLED;
+> 					break;
+> 				}
+> 			}
+> 		}
+> 	}
+>     ...
+> 	list_for_each_entry(napi, &dev->napi_list, dev_list)
+> 		WARN_ON_ONCE(napi_set_threaded(napi, threaded));
+>     ...
+> }
+> 
+> kthread_run() in napi_kthread_create() can fail with -ENOMEM. It can
+> also fail with -EINTR if a fatal signal reaches the writer during the
+> killable wait in kthread creation.
+> 
+> When that happens, threaded becomes DISABLED and napi_set_threaded(napi,
+> 0) runs on every listed NAPI without the NPSVC check. Some NAPIs may be
+> disabled but have a thread (SCHED and NPSVC set, SCHED_THREADED clear).
+> The thread may have been created moments earlier in the same loop, or
+> left over from before.
+> 
+> Each of those NAPIs would go into napi_stop_kthread() and spin in the
+> first msleep(20) loop with the netdev lock held. Only napi_enable_locked()
+> can clear SCHED, and it needs the same lock.
+> 
+> The first way to reach this is on a driver that adds its NAPIs at probe
+> time (the mvpp2 case from the commit message), when a kthread creation
+> fails part-way through:
+> 
+>   ip link set eth0 down
+>   echo 1 > /sys/class/net/eth0/threaded
+> 
+> The second is a probe-time netif_threaded_enable() after
+> netif_napi_add(). For example, ravb_probe() adds the RAVB_BE and RAVB_NC
+> NAPIs and then calls netif_threaded_enable(). If creating the second
+> kthread fails, would probe hang here?
+
+Is it a realistic thing to encounter though ? I'm ok with iterating on that,
+but this seems to be something very unlikely ?
+
+> 
+> Would it be better to handle disabled NAPIs in the stop path itself,
+> napi_stop_kthread() or napi_set_threaded(), rather than only guarding the
+> explicit disable branch?
+
+Hmmm maybe yes
+
+Maxime
+
+> 
+
+text:
+Return-Path: <netdev+bounces-342895-maxime.chevallier=bootlin.com@vger.kernel.org>
+Delivered-To: maxime.chevallier@bootlin.com
+Received: from mail.galae.net ([172.22.1.253])
+	by 9e7fea892943 with LMTP
+	id CEYGKT1ux2qJEhoAtaWaaQ
+	(envelope-from <netdev+bounces-342895-maxime.chevallier=bootlin.com@vger.kernel.org>)
+	for <maxime.chevallier@bootlin.com>; Thu, 08 Oct 2026 12:19:41 +0200
+X-Original-To: maxime.chevallier@bootlin.com
+Received: from smtpin-01.galae.net (smtpin-01.galae.net [51.159.2.148])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.galae.net (Postcow) with ESMTPS id 1E77E103307C1
+	for <maxime.chevallier@bootlin.com>; Thu,  8 Oct 2026 12:19:40 +0200 (CEST)
+Authentication-Results: mail.galae.net;
+	dkim=pass header.d=bootlin.com header.s=dkim header.b=VoC6YSQT;
+	arc=pass ("subspace.kernel.org:s=arc-20240116:i=1");
+	dmarc=pass (policy=reject) header.from=bootlin.com;
+	spf=pass (mail.galae.net: domain of "netdev+bounces-342895-maxime.chevallier=bootlin.com@vger.kernel.org" designates 172.105.105.114 as permitted sender) smtp.mailfrom="netdev+bounces-342895-maxime.chevallier=bootlin.com@vger.kernel.org"
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com;
+	s=dkim; t=1791454781;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:
+	 list-unsubscribe:list-subscribe:dkim-signature;
+	bh=TB48IzK2cT8dwGehSyh+nRTjfUL2HXktpEgQJCx59No=;
+	b=fhOA1ADTYvKGwVjVGa4HfW3VFGzxMWRf6rxBoNRGDbpBb81m1GFl26SfjoRfkxgm/EGZnr
+	OHpGIUtVyuH/xFPnQfyBlkYv+u2zseYifk8l/tyYIfMwMKUTr00t0mukGASFX+28gaV0RY
+	wXDm9cL0iNhukUv1QeoNIEBxgw8uMxJd05E1Sfiz6cOBf3RTQfhS/nAhqJUkY0O5SyY7Cz
+	jVmlZAgH+jx5PnynkW71Z00HtaA6V2S5+Olf/EpE39gG1OjaOgHW+amBwooSYiCgl2ZzZd
+	PX9nG9pdxMnQ6HfX4w9fxeQUEHMFZoTRPRUuf0oZncjeaZvEmmn+Ua+jUalKmQ==
+ARC-Authentication-Results: i=2;
+	mail.galae.net;
+	dkim=pass header.d=bootlin.com header.s=dkim header.b=VoC6YSQT;
+	arc=pass ("subspace.kernel.org:s=arc-20240116:i=1");
+	dmarc=pass (policy=reject) header.from=bootlin.com;
+	spf=pass (mail.galae.net: domain of "netdev+bounces-342895-maxime.chevallier=bootlin.com@vger.kernel.org" designates 172.105.105.114 as permitted sender) smtp.mailfrom="netdev+bounces-342895-maxime.chevallier=bootlin.com@vger.kernel.org"
+ARC-Seal: i=2; s=dkim; d=bootlin.com; t=1791454781; a=rsa-sha256; cv=pass;
+	b=13iM8SC5gOWIg1Vgn1FPRvaT46ET0VopY7+Tp0HgZJqkfaW7Jse3iazCA7VcLAZKkNANaJ
+	p0xyvesNzlJNJtrh1W6iIjAHzN+RpVdDZItWNad9SDuzV1LougzGYpj9SmXj1M6LOVmBBd
+	U0DbdCDAFgu0tmnwjGgfU3M72MTwPfWSq6ZSHuLwWmw74ssMavcBnuSGP3R1bdV+Nbe3CC
+	Af4Cl4/pzix+2/jkqNcyS4wDLe+gHStpMR1+YItipfIHJ/zyIq1pEimQGakqzt3IYYcUmV
+	1c7ZeC1conkhqeHnHluDXIe9MyLxn6JZsEpkTVF1gAkZ/hDLPSIttuVh3RXtLA==
+Received: from tor.lore.kernel.org (tor.lore.kernel.org [172.105.105.114])
+	by smtpin-01.galae.net (Postfix) with ESMTPS id 7BDB5342E42
+	for <maxime.chevallier@bootlin.com>; Thu,  8 Oct 2026 10:19:40 +0000 (UTC)
+Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
+	by tor.lore.kernel.org (Postfix) with ESMTP id 8D4C727E57
+	for <maxime.chevallier@bootlin.com>; Thu,  8 Oct 2026 10:19:33 +0000 (UTC)
+Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 583D1493621;
+	Thu,  8 Oct 2026 10:19:30 +0000 (UTC)
+X-Original-To: netdev@vger.kernel.org
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4C5448C8AE
+	for <netdev@vger.kernel.org>; Thu,  8 Oct 2026 10:19:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791454769; cv=none; b=SBIeW4dhML8Bzlg66xcgBA6qOCS0sH+YBFcqoHnOYGF9o9EBu4Hh/VuBj5lZBr/w3kaUfqWSOLEeH3poZm6NQYQZ31Ya2BmEedAPDeSdurTWpkPF+vqP3aiEjTMbiEUnxE5jXFFg0aU257uL4uaHvHF70gONM2vYrJ4/NUnKhmY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791454769; c=relaxed/simple;
+	bh=v9D1byBfiq9TEgLAAt3ZJv9mv/k9ZU10KYmWcDAZhTs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jyVxSymFOGBol1HIg1cPKxUgbQiK6Rn5fjBSUvvk3EVuKgoz6bC6AN7IzMbqtey8nZozIkLklhIhKT/U0akgXUw7GiEeRo2foX+3BE0lIsS2Drm+HUfkCfXjlI+5MO0CSHQpnvgdwjjsncaUpDuh3NhD7T+hV7QuDwCyz8IXPVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=VoC6YSQT; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 322001A1193;
+	Thu,  8 Oct 2026 10:19:25 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 0376D60341;
+	Thu,  8 Oct 2026 10:19:25 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 82049103307C1;
+	Thu,  8 Oct 2026 12:19:20 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791454763; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=TB48IzK2cT8dwGehSyh+nRTjfUL2HXktpEgQJCx59No=;
+	b=VoC6YSQTAF1xMvRN6XE05xuU0zzoe/zMDh0cuezJ1R5vKPuinnEuYIExpxxZLBeVyuXNBU
+	3J2blO1j2P0+kpMomYJGYcAyVpvjvrXb4UcnYI7Nf0o1z7GB1XArJ61vScsDy/UdiDy+aO
+	x0owYC6juKGoyWE65ro5Zysd5uCDCVluhviL5dQbux5Ra27hP4yX2zEKlu22zoIJxpf44/
+	u1FTaCTZC5u4u0Ls60x/4oaM5EjAuCjXlcBmVy9LdZjvFayuQhRcd3YOb9baVhyRyB9clT
+	xpfvgQK4/NRRadDKC2L3pVGwl7ayywKcloRilINMtRtTJG0Q5SAAg7L2wJSqxg==
+Message-ID: <35a238ae-0e06-49a9-8539-9139aeca1a30@bootlin.com>
+Date: Thu, 8 Oct 2026 12:19:19 +0200
+Precedence: bulk
+X-Mailing-List: netdev@vger.kernel.org
+List-Id: <netdev.vger.kernel.org>
+List-Subscribe: <mailto:netdev+subscribe@vger.kernel.org>
+List-Unsubscribe: <mailto:netdev+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v2] net: Don't allow disabling napi kthread mode while
+ napi instances are disabled
+To: netdev-bot+sashiko@kernel.org
+Cc: andrew+netdev@lunn.ch, kuba@kernel.org, davem@davemloft.net,
+ edumazet@google.com, pabeni@redhat.com, horms@kernel.org,
+ linux@armlinux.org.uk, kuniyu@google.com, sdf.kernel@gmail.com,
+ thomas.petazzoni@bootlin.com, alexis.lothore@bootlin.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261006141119.85562-1-maxime.chevallier@bootlin.com>
+ <179142548474.434549.4875313383372623036@kernel.org>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <179142548474.434549.4875313383372623036@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
+X-Last-TLS-Session-Version: TLSv1.3
+X-Spamd-Result: default: False [-7.38 / 30.00];
+	BAYES_HAM(-5.30)[99.52%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	IP_REPUTATION_HAM(-1.41)[asn: 63949(-0.40), country: SG(-0.01), ip: 172.105.105.114(-1.00)];
+	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[bootlin.com,reject];
+	R_SPF_ALLOW(-0.20)[+ip4:172.105.105.114:c];
+	R_DKIM_ALLOW(-0.20)[bootlin.com:s=dkim];
+	MAILLIST(-0.15)[generic];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	HAS_LIST_UNSUB(-0.01)[];
+	RCVD_TLS_LAST(0.00)[];
+	URIBL_BLOCKED(0.00)[tor.lore.kernel.org:helo,tor.lore.kernel.org:rdns,bootlin.com:mid,bootlin.com:dkim];
+	TAGGED_FROM(0.00)[bounces-342895-maxime.chevallier=bootlin.com];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	RCPT_MAILCOW_DOMAIN(0.00)[bootlin.com];
+	MIME_TRACE(0.00)[0:+];
+	BCC(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	MAILCOW_DOMAIN_HEADER_FROM(0.00)[bootlin.com];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	RBL_SENDERSCORE_REPUT_BLOCKED(0.00)[172.105.105.114:from];
+	DKIM_TRACE(0.00)[bootlin.com:+];
+	ARC_SIGNED(0.00)[bootlin.com:s=dkim:i=2];
+	TO_DN_NONE(0.00)[];
+	DNSWL_BLOCKED(0.00)[185.246.84.56:received,100.90.174.1:received,212.83.139.233:received,212.83.136.155:received,172.105.105.114:from];
+	PRECEDENCE_BULK(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[maxime.chevallier@bootlin.com,netdev@vger.kernel.org];
+	FREEMAIL_CC(0.00)[lunn.ch,kernel.org,davemloft.net,google.com,redhat.com,armlinux.org.uk,gmail.com,bootlin.com,vger.kernel.org];
+	NEURAL_HAM(-0.00)[-1.000];
+	DWL_DNSWL_BLOCKED(0.00)[bootlin.com:dkim];
+	ASN(0.00)[asn:63949, ipnet:172.105.96.0/20, country:SG];
+	MID_RHS_MATCH_FROM(0.00)[];
+	EXTERNAL_RELAY_AUTHENTICATED(0.00)[];
+	TAGGED_RCPT(0.00)[sashiko,netdev];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[7]
+X-Rspamd-Queue-Id: 1E77E103307C1
+
+
+
+On 10/8/26 04:11, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 4 potential
+> issue(s) to consider.
+> 
+> Critical: 0 · High: 1 · Medium: 2 · Low: 1
+> 
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+> 
+> - [High] The fix is incomplete.
+> - [Medium] The new guard in netif_set_threaded()
+>   (net/core/dev.c:7352-7354) treats NAPI_STATE_NPSVC as meaning 'this…
+> - [Medium] After this patch, writing 0 to /sys/class/net/<iface>/threaded
+>   (or calling netif_set_threaded()/dev_set_threaded() with 0) returns…
+> - [Low] The commit message gets the hang mechanism wrong.
+> 
+> --
+> 
+> net: Don't allow disabling napi kthread mode while napi instances are disabled
+> 
+> This patch makes netif_set_threaded() return -EBUSY for a request to
+> disable threaded mode when any NAPI instance with a kthread has
+> NAPI_STATE_NPSVC set. The patch uses that bit to mean the instance is
+> disabled. The goal is to avoid a hang in napi_stop_kthread() when threaded
+> mode is turned off on a down interface whose driver added its NAPIs at
+> probe time.
+> 
+>> Trying to disable the napi threaded state while the napi instance is
+>> disabled will hang forever in napi_stop_kthread(), as it waits for
+>> NAPIF_STATE_SCHED_THREADED to clear.
+> 
+> [Severity: Low]
+> Is this the right loop? On a disabled NAPI, SCHED is set and
+> SCHED_THREADED is clear. That means the hang is in the first wait loop of
+> napi_stop_kthread():
+> 
+> net/core/dev.c:napi_stop_kthread() {
+>     ...
+> 		if ((val & NAPIF_STATE_SCHED_THREADED) ||
+> 		    !(val & NAPIF_STATE_SCHED)) {
+> 			new = val & (~(NAPIF_STATE_THREADED |
+> 				       NAPIF_STATE_THREADED_BUSY_POLL));
+> 		} else {
+> 			msleep(20);
+> 			continue;
+> 		}
+>     ...
+> }
+> 
+> The second loop is the one that waits for SCHED_THREADED to clear. It
+> would exit right away, but the code never gets there.
+> 
+> The real blocking condition is that napi_disable() or netif_napi_add()
+> leaves SCHED set, and only napi_enable_locked() can clear it. That
+> function needs the netdev lock, which the caller already holds.
+> 
+> Could the description be updated to match? With the right root cause it
+> is easier to see whether other paths reach the same state (see the
+> rollback comment below).
+> 
+>> diff --git a/net/core/dev.c b/net/core/dev.c
+>> index e76762e29360e..83237591cfe85 100644
+>> --- a/net/core/dev.c
+>> +++ b/net/core/dev.c
+>> @@ -7347,6 +7347,12 @@ int netif_set_threaded(struct net_device *dev,
+>>  				}
+>>  			}
+>>  		}
+>> +	} else {
+>> +		list_for_each_entry(napi, &dev->napi_list, dev_list) {
+>> +			if (napi->thread &&
+>> +			    test_bit(NAPI_STATE_NPSVC, &napi->state))
+> 
+> [Severity: Medium]
+> Can NAPI_STATE_NPSVC be set here on a NAPI that is enabled? The bit is
+> documented as a netpoll servicing flag:
+> 
+> include/linux/netdevice.h:
+> 	NAPI_STATE_NPSVC,		/* Netpoll - don't dequeue from poll_list */
+> 
+> poll_one_napi() sets it for a short time around the poll, without holding
+> the netdev instance lock:
+> 
+> net/core/netpoll.c:poll_one_napi() {
+> 	if (test_and_set_bit(NAPI_STATE_NPSVC, &napi->state))
+> 		return;
+> 	...
+> 	work = napi->poll(napi, 0);
+> 	...
+> 	clear_bit(NAPI_STATE_NPSVC, &napi->state);
+> }
+> 
+> netpoll_poll_dev() only takes ni->dev_lock with down_trylock(), and
+> nothing serializes it against netif_set_threaded().
+> 
+> Suppose netconsole or bonding is polling the device when 0 is written to
+> /sys/class/net/<iface>/threaded. Would this return -EBUSY even though
+> every NAPI is enabled and disabling would be safe?
+> 
+> A disabled NAPI always has NPSVC set. The reverse doesn't hold: NPSVC
+> being set does not mean the NAPI is disabled.
+> 
+>> +				return -EBUSY;
+> 
+> [Severity: Medium]
+> Does this change the documented behaviour of
+> /sys/class/net/<iface>/threaded? For drivers that add their NAPIs at probe
+> time, writing 0 now fails with -EBUSY on any down interface. Enabling has
+> no matching check:
+> 
+>   ip link set eth0 down
+>   echo 1 > /sys/class/net/eth0/threaded   (succeeds, creates kthreads)
+>   echo 0 > /sys/class/net/eth0/threaded   (-EBUSY until link up)
+> 
+> Drivers that call netif_threaded_enable() at probe, such as atl1c and
+> ravb, cannot leave threaded mode before the first link-up. Drivers whose
+> NAPIs are added but never enabled can never leave it.
+> 
+> Documentation/ABI/testing/sysfs-class-net says the attribute lets the
+> user "enable/disable threaded mode for all napi belonging to this device,
+> without the need to do device up/down", and it lists no error cases.
+> 
+
+Ah true :/ hmmm ok is it even OK to have the check at disable time when there's
+this sentence in the doc then ?
+
+> 
+>> +		}
+>>  	}
+>>  
+>>  	WRITE_ONCE(dev->threaded, threaded);
+> 
+> [Severity: High]
+> Can the same hang still be reached through the rollback in the enable
+> path? The new check only runs in the else branch, which handles an
+> explicit disable. In the if (threaded) branch, napi_kthread_create() can
+> succeed for some NAPIs and then fail for a later one:
+> 
+> net/core/dev.c:netif_set_threaded() {
+> 	if (threaded) {
+> 		list_for_each_entry(napi, &dev->napi_list, dev_list) {
+> 			if (!napi->thread) {
+> 				err = napi_kthread_create(napi);
+> 				if (err) {
+> 					threaded = NETDEV_NAPI_THREADED_DISABLED;
+> 					break;
+> 				}
+> 			}
+> 		}
+> 	}
+>     ...
+> 	list_for_each_entry(napi, &dev->napi_list, dev_list)
+> 		WARN_ON_ONCE(napi_set_threaded(napi, threaded));
+>     ...
+> }
+> 
+> kthread_run() in napi_kthread_create() can fail with -ENOMEM. It can
+> also fail with -EINTR if a fatal signal reaches the writer during the
+> killable wait in kthread creation.
+> 
+> When that happens, threaded becomes DISABLED and napi_set_threaded(napi,
+> 0) runs on every listed NAPI without the NPSVC check. Some NAPIs may be
+> disabled but have a thread (SCHED and NPSVC set, SCHED_THREADED clear).
+> The thread may have been created moments earlier in the same loop, or
+> left over from before.
+> 
+> Each of those NAPIs would go into napi_stop_kthread() and spin in the
+> first msleep(20) loop with the netdev lock held. Only napi_enable_locked()
+> can clear SCHED, and it needs the same lock.
+> 
+> The first way to reach this is on a driver that adds its NAPIs at probe
+> time (the mvpp2 case from the commit message), when a kthread creation
+> fails part-way through:
+> 
+>   ip link set eth0 down
+>   echo 1 > /sys/class/net/eth0/threaded
+> 
+> The second is a probe-time netif_threaded_enable() after
+> netif_napi_add(). For example, ravb_probe() adds the RAVB_BE and RAVB_NC
+> NAPIs and then calls netif_threaded_enable(). If creating the second
+> kthread fails, would probe hang here?
+
+Is it a realistic thing to encounter though ? I'm ok with iterating on that,
+but this seems to be something very unlikely ?
+
+> 
+> Would it be better to handle disabled NAPIs in the stop path itself,
+> napi_stop_kthread() or napi_set_threaded(), rather than only guarding the
+> explicit disable branch?
+
+Hmmm maybe yes
+
+Maxime
+
+> 
+
 
