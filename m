@@ -1,201 +1,115 @@
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 494D52D0617
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 05:01:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791435708; cv=none; b=oWZ6kCgZACk/BIYDQKi4n+keNzVuIa9zethaeQkrtjcqoGIjAfZuibIlMcoNyKOIuHzzf4lPuvv4Wa2sc5vORBBLEJk+CQKCOnGlvvzmkzRwA1xs815EJ18vRV81dI+zrge6CnZDsgwno2wsCfk2gqqGuJ1ko2UNACvodNjiDb4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791435708; c=relaxed/simple;
-	bh=Lr8R1biVw5Gr5KRv0ZFED/ZEj+95G+ohm4P7sF1PD50=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LzlhHGyItbcCL7fMqNZ1dmHsRQkHyf3DQDe3rscWdlFNaGrk+EHf8RcdMurLJJU8Kt42QFPtezYiBX6PoK+HzuJGyMVJlKas7jMlD75pa1oUxzR4oHUh2zZSFxiQdej28xNFK/jv0YixUARVVq2xRm+MF1VtPNP6kieccJ1zyto=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lsgduzHR; arc=none smtp.client-ip=209.85.210.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79C1933F38A
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 05:03:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791435832; cv=pass; b=ca0exr4ZT65GXPB/u8uBXXPhZ0ELx5aKw02Ib/Iko5Jn7N8T9McfaCH1vQc0r+lReLL4yVadOO1MohP0P9PwAKOi+aXTE9aP1EpbOSpSgjaHSPl3+vhIiEzbndVmzj7PpspC2EIp5s5crZL+kD6G71lTE6rJOXqpEqBXhqRf3D8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791435832; c=relaxed/simple;
+	bh=GjoeoU74ZYSuGHxDYSGRd9MIPo/RtdO0E0uOpCYv/0Q=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=inSJDGoVJgOWVPB2+vuDqNZjryuLkhdHJatL7ympFnqFrXjAo1SsEoIdbNB9QfGnb6L6aOESRMTDT2knnOLK+Q6RuDlGrXorxnXPzIUnlV419waOFM2iSa6y0AGeHgYNCu3YAyFUkNKBEqqGsPy8HUU3GRWnLwQ742B2yXJNJYE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=UIKCFgt4; arc=pass smtp.client-ip=74.125.82.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lsgduzHR"
-Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-88d48da248eso2033030b3a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 22:01:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="UIKCFgt4"
+Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-150f88d22aeso1779118c88.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 22:03:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791435831; cv=none;
+        d=google.com; s=arc-20260327;
+        b=VjbgtDn2zdNXDbHoJQYjKAC33VvXG+9BpHYt/qfCc5utQOzRyxBUNcLFQZBkynUGWZ
+         XzgWXYKZjsbKJ0KP7BGEpvjMlOd7TFk/daYyut1sjPuRLFr0wH5+ffYij2xtbT7XFXHq
+         uueFeDicCpkouVRJwawgtFI0WOom6pEyW3ElTzdElbhVG+XKvkFJLkNyZenE7aV3vg4j
+         qGm4t/vOdutEMHHY4NHxv16+HuqzFN/woSj0kI3olisPmEu84ytlpJZ6g2uCAmoYGnBy
+         eFLOCmPwm5X9I+qfPdkMWafhnlpEEUonJKwX+S0XzcaH3nNcmPaDJBLSfePKGF6Aq6/+
+         JUUg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=GjoeoU74ZYSuGHxDYSGRd9MIPo/RtdO0E0uOpCYv/0Q=;
+        fh=UmsYJfOWCD3IzB0o/49qxainKVbxdB7qgzh/oH6vC3c=;
+        b=m778Od7WsGgU1brB9rE4o/weI3kUc+LtASAEdizWGWVp/51R+uoqITnlcc+CQjBh/8
+         4C0FnD1tNnx8YfmUHwbikfFQkMUYWogddbEeQQL9RhH2yHdT3ySZbB+1IzTt4ju7UAuc
+         2fLn7cpgIdkv9o46g+6W5PeH7xWQpcP2qcMLei90mxgZuCSQhpppafGQ9/TDsNrJH8LG
+         Ts4nunP5i7tmHJmUiKGZFqzw2JaasDU5yJ9+1nVe8kODuzaBWZFORzJJ0DvNHXjZv56L
+         UoAT+1JK4KOlQt4heqxi7UdDod0ZqUsghlqK34i46Z0Uo+jcyU7PLfXqb3ht9v7xMdWS
+         Qt2Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791435705; x=1792040505; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ak5iTOIQGfouGHICnb+S+V/d3Pepokyc2hoELrEJXYU=;
-        b=lsgduzHRHcus9oGfRp8Bl8LlXDVe7JWhbHf+YY0WeIr4lp1BZWgu5bIcoYdO8fxD6f
-         Vt/1lE7lBHEeVO3naoKJf8zHdHLjF2FUNdRtWHG3CTnd37/yfnhQmmWgxwfrYIq8S/4/
-         VqEcyrKYTm/Ndmp6Y7WDcTlf+GD3IPPDfKR7OoniFTOOO9AEZHOtzbqVab2jUguCmEgu
-         KKooOgEhhgqRdd+jGXw0RpoEYM3gEoPYS/jJNri9fC2JIvhtKys0egcaB6RhVWdVWw0G
-         VozWjUQO0Ge1EYsdimy5a6eqbTmqrYbtM8Atna+L9X8ThNZuWuRcDG7tAWdkZ7gDYJdu
-         53cQ==
+        d=google.com; s=20251104; t=1791435831; x=1792040631; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GjoeoU74ZYSuGHxDYSGRd9MIPo/RtdO0E0uOpCYv/0Q=;
+        b=UIKCFgt4EwNRHy9YlZUf7xhlnq5U5rrmiljdpYNahl/fK5tHJhhvhXG0h2gq0Ws5C1
+         2wJmNDtv11jQidwVKdGREFAkf57HPxgpiIWKpdmFsMXzUXeGwF/mB4yd0s3AN6cGvDw9
+         v9Ur8Jk4VaJFCQiTGX4Au2Tw+25mkg5v+oLtv0Rp85YFCv5VnxvUiJM8heqjuoJ6OmEY
+         B8LQPcPHgF6xJtLWncWRAYRmojdldBpF99LFdq9onwuuL9uTv8zLDaEAhKVxh1sD6rU6
+         StvB72OkJL8K+eE2YTQr2RBRiHKN7onz37SDUIh+G1/Lv0JW8jIIxsXIwK0p6iassLLK
+         n84A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791435705; x=1792040505;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ak5iTOIQGfouGHICnb+S+V/d3Pepokyc2hoELrEJXYU=;
-        b=jTxf4Axbh6fk5jSKCX+071edfn4py8zY73vddQWBBwmOG/aMaGEjFXrOvCEhJ+RD6J
-         ee0YE+yBhh6YhYibjK/i1mexAb/7wQxaBKikAW8vKaXFfWmvUxvvRspktnG9IOdk1Ndp
-         mDS1Z7p4k4lDY7yNH0VXwOW9nYnRsyHl7F1Kh7HiLIyXFlCZLvjHQEGmxamBLP50LxS+
-         QkgyqZooV9M5Hq5S8sD0L5sb/3tMkphKZC78mBhq0aZdIeAkJGVsmQ88qrwIPcOx3SXm
-         7LE0RG3Q2+HBiwqKSd6MX5NBV8E0XvQeSeEBoH4AXsQujzrliC7mHbBbaEbQMpv650rD
-         Q5rg==
-X-Forwarded-Encrypted: i=1; AKwUvBw5HXFKyzFC2JpFs+1D24+e5O8JF4TTk8BeXGy07X+hx1bbPQ9fBH5kIY1DoMxyif4ev9kChEVNw2cTM7Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++mWnNfUnP1GMweByW5KvpLrxOiyxD2m+hJnf/cpt45VRa49V5vi
-	SbSP0nFKX6dFriOfxhag23/9+TTEPk87QU0FKSFIdRO4/jh8MzoVibWO
-X-Gm-Gg: AYBFou1OQ0xWLO+ctFHd+vtHX5Sn/kGvBS4mL5hLFwRTe/OfHrP9MACUeOYykn9un/V
-	cdYQmXvUCVgAeTvyP4jMsNasntDJQyzpCAMOPOEWDRZMX69yokJC7PHPf+6Q/q+b2BYbQdr7i58
-	cV/nFaHhof/1bVzCLtlueo0AVhCUi790BFwiHvMqR2TMKwIRlZDn1Pdfl3NdtwG1Y+iK3zN9VJU
-	v1f3zyEwSvfDS+UGNakTDqNBx4UX40v/kB5d95RYqoHyTcOFpD9QYFOA9+X2WAnlc128OeV0Kdd
-	LRPpyax2mLY+vGIz+RdZkKqm8iG/4zcrD5aTLGyLs7u8rJfdeAW1tcOwIiYD6TBNvogu9tX1yn/
-	2bA33Dur4OZQycSseYKwRfWrpaw4KWdQAFfIKD2jwhkUJaPFtnYOgvqrpcc9Nq4UofEZlaY/pUo
-	mXRl2ZpbL8hs7STC3XOquHtaElBWphsu4FFRhfk8pmZ7UblrjkjiOoRBCdAYxl+uHWvy8=
-X-Received: by 2002:a05:6a00:2183:b0:88b:7e32:d96 with SMTP id d2e1a72fcca58-891ae9e0ebamr3474162b3a.1.1791435705534;
-        Wed, 07 Oct 2026 22:01:45 -0700 (PDT)
-Received: from dungbv.. ([116.98.134.138])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-892bc07927csm1020989b3a.59.2026.10.07.22.01.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 22:01:44 -0700 (PDT)
-From: Bui Viet Dung <dungvn2345@gmail.com>
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bui Viet Dung <dungvn2345@gmail.com>
-Subject: [PATCH] Bluetooth: hci_debugfs: Pin module for debugfs file operations
-Date: Thu,  8 Oct 2026 12:01:40 +0700
-Message-ID: <20261008050140.483853-1-dungvn2345@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1791435831; x=1792040631;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GjoeoU74ZYSuGHxDYSGRd9MIPo/RtdO0E0uOpCYv/0Q=;
+        b=CpFyCkV+oXpGl1nzr6f4qPwJZdvkuTdl4jwVR+U926nf4bRahIdnrn5IggYdCNOtEy
+         QN4egK/rKT+SYIssyvTj16UG7lj2shOaMrXtlz3orKOSY5cb159WKO/tSAJtzmCcuB26
+         0i5t8z3lg61TVnd/xO2NSceyhpKygh5HSN5BrejDG6AbEjNXgl3o3Zs+vgi6Sa6w7z+k
+         Nf/8B5uvlgt5bYSNGjObpvuf1uij6jT1sWiZsIXEQ8h9BFZroHOQo+jCbbWmOQA1uMmD
+         IXM+r6QU/k4MXlqEZTk3rRTmycT9agavXfUAoWqbe7DI6lDblE5bMxZYiq4KD4SO7DBX
+         hueQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzayyirlHnGj+swnMX9VWzj+Pxs0ohT0xWeCYmmxdTi3ODoZqFxPuqkHcFAaVy9JgMNv6tRFu/99NNjWnw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mFFzvvkdV93fws9e28a4/0d2lzsdu/TWWSltDEVysNa+OUuWGY
+	MBj3IhqtzbrnG6grHzWLrgaNBWHGf0Pp7IjN7qoy/NaJbU3arWKDZJ1u5rCh/zCS+xDh1vB13xJ
+	5eRKReTm20GkZa/P+se1aIqv1yvKiInVyuBkJe1Iz
+X-Gm-Gg: AYBFou3kl6ljZWtKMNmfzw8skNMdbO+zPDEzPDao4PAbhnqn+zOl7N/zcjtuu8/lhH2
+	0PmN/UQDq9qfGNaCt5bXRKK12egWpPXCs5pwbJovMRUjsJoyHBoY89ZtjhFK2+Ri2v6kn7pmij2
+	dAWbFwBCt6TBtG6pj5OPCLo2NMEOKlcGWI9jKCyQ2P2n0wQSRE2pgmkJ2jNLEN4AzhCaRzSbmSu
+	iMIS8J60OXLt4/h29BqinLD68xN4FENQ6JQ6kamD+wGax9m1uCdaD95rBokdZoDllxo3J8GFO9w
+	nz4nybLevi4u/WhDm8OCmomnbVxKfZ9OP844oVNwXAMXoCFC7wapraoI1/OubZ65soJFBqH+Xrb
+	TetNCRztlyc1mDGdUMpNcpu2AcljfCYnU6XYDbgiGtX8vdW+GrMiHKPF0ha5jNP8Rav1hRA2G4i
+	z4b8xDOF+2Cl1QVNYfcDI/NtxW
+X-Received: by 2002:a05:701b:2602:b0:161:3942:c07f with SMTP id
+ a92af1059eb24-1620a9a5ad6mr5199767c88.47.1791435829062; Wed, 07 Oct 2026
+ 22:03:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261005-work-unix-passpidfd-v4-0-350183b6e02a@amutable.com> <20261005-work-unix-passpidfd-v4-4-350183b6e02a@amutable.com>
+In-Reply-To: <20261005-work-unix-passpidfd-v4-4-350183b6e02a@amutable.com>
+From: Kuniyuki Iwashima <kuniyu@google.com>
+Date: Wed, 7 Oct 2026 22:03:37 -0700
+X-Gm-Features: AclHuK8bNKhRRVOZdGlnqbecyJoiNU6TF2RIFHGHC-yiG-BKj77USuxK7OP9UOM
+Message-ID: <CAAVpQUCK-AAQWMP3nM4maaHAVE1hvh8Dt0yLBhq9V_d9CVETEg@mail.gmail.com>
+Subject: Re: [PATCH v4 04/10] selftests/net: SO_PASSPIDFD_THREAD
+To: Andrew Halaney <andrew@amutable.com>
+Cc: Jakub Kicinski <kuba@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+	"David S. Miller" <davem@davemloft.net>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Willem de Bruijn <willemb@google.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
+	Alexander Mikhalitsyn <alexander@mihalicyn.com>, 
+	"Christian Brauner (Amutable)" <brauner@kernel.org>, Eric Dumazet <edumazet@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-An open debugfs file retains its file_operations pointer in the
-debugfs proxy state. However, the file_operations defined in
-hci_debugfs.c (use_debug_keys_fops, sc_only_mode_fops,
-ssp_debug_mode_fops, force_bredr_smp_fops, force_static_address_fops,
-force_no_mitm_fops, dut_mode_fops, vendor_diag_fops, and the
-DEFINE_QUIRK_ATTRIBUTE macro) have no .owner set to THIS_MODULE.
+On Mon, Oct 5, 2026 at 8:09=E2=80=AFAM Andrew Halaney <andrew@amutable.com>=
+ wrote:
+>
+> From: Christian Brauner <brauner@kernel.org>
+>
+> Extend the af_unix scm_pidfd selftest with SO_PASSPIDFD_THREAD tests.
+>
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+> Co-developed-by: Andrew Halaney <andrew@amutable.com>
+> Signed-off-by: Andrew Halaney <andrew@amutable.com>
 
-As a result, full_proxy_open_regular() calls fops_get() which succeeds
-without taking a reference to the bluetooth module. When a userspace
-process opens any of these debugfs files, a subsequent controller removal
-and module unload (rmmod bluetooth) can succeed while the file descriptor
-remains open.
-
-When the userspace process subsequently closes the descriptor,
-full_proxy_release() accesses the already unmapped file_operations
-structure, triggering a kernel oops in full_proxy_release():
-
-  BUG: unable to handle page fault for address: fffffbfff8056f03
-  #PF: supervisor read access in kernel mode
-  Oops: 0000 [#1] SMP KASAN NOPTI
-  RIP: 0010:full_proxy_release+0x8e/0x140
-  Call Trace:
-   <TASK>
-   __fput+0x39f/0xa60
-   fput_close_sync+0xff/0x200
-   __x64_sys_close+0x8c/0xf0
-   do_syscall_64+0x115/0x6a0
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-   </TASK>
-
-The issue was discovered via manual code audit of
-net/bluetooth/hci_debugfs.c and verified on a Linux 7.3-rc6 test VM
-with CONFIG_BT=m.
-
-Set .owner = THIS_MODULE on all debugfs file_operations tables in
-hci_debugfs.c so that debugfs keeps the module loaded until close has
-finished.
-
-Fixes: 0886aea6acd2 ("Bluetooth: Expose debug keys usage setting via debugfs")
-Cc: stable@vger.kernel.org
-Signed-off-by: Bui Viet Dung <dungvn2345@gmail.com>
----
- net/bluetooth/hci_debugfs.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
-
-diff --git a/net/bluetooth/hci_debugfs.c b/net/bluetooth/hci_debugfs.c
-index 2559fb6324d6..cd5ef398f238 100644
---- a/net/bluetooth/hci_debugfs.c
-+++ b/net/bluetooth/hci_debugfs.c
-@@ -65,6 +65,7 @@ static ssize_t __name ## _write(struct file *file,			      \
- }									      \
- 									      \
- static const struct file_operations __name ## _fops = {			      \
-+	.owner		= THIS_MODULE,					      \
- 	.open		= simple_open,					      \
- 	.read		= __name ## _read,				      \
- 	.write		= __name ## _write,				      \
-@@ -283,6 +284,7 @@ static ssize_t use_debug_keys_read(struct file *file, char __user *user_buf,
- }
- 
- static const struct file_operations use_debug_keys_fops = {
-+	.owner		= THIS_MODULE,
- 	.open		= simple_open,
- 	.read		= use_debug_keys_read,
- 	.llseek		= default_llseek,
-@@ -301,6 +303,7 @@ static ssize_t sc_only_mode_read(struct file *file, char __user *user_buf,
- }
- 
- static const struct file_operations sc_only_mode_fops = {
-+	.owner		= THIS_MODULE,
- 	.open		= simple_open,
- 	.read		= sc_only_mode_read,
- 	.llseek		= default_llseek,
-@@ -437,6 +440,7 @@ static ssize_t ssp_debug_mode_read(struct file *file, char __user *user_buf,
- }
- 
- static const struct file_operations ssp_debug_mode_fops = {
-+	.owner		= THIS_MODULE,
- 	.open		= simple_open,
- 	.read		= ssp_debug_mode_read,
- 	.llseek		= default_llseek,
-@@ -529,6 +533,7 @@ static ssize_t force_bredr_smp_write(struct file *file,
- }
- 
- static const struct file_operations force_bredr_smp_fops = {
-+	.owner		= THIS_MODULE,
- 	.open		= simple_open,
- 	.read		= force_bredr_smp_read,
- 	.write		= force_bredr_smp_write,
-@@ -778,6 +783,7 @@ static ssize_t force_static_address_write(struct file *file,
- }
- 
- static const struct file_operations force_static_address_fops = {
-+	.owner		= THIS_MODULE,
- 	.open		= simple_open,
- 	.read		= force_static_address_read,
- 	.write		= force_static_address_write,
-@@ -1177,6 +1183,7 @@ static ssize_t force_no_mitm_write(struct file *file,
- }
- 
- static const struct file_operations force_no_mitm_fops = {
-+	.owner		= THIS_MODULE,
- 	.open		= simple_open,
- 	.read		= force_no_mitm_read,
- 	.write		= force_no_mitm_write,
-@@ -1315,6 +1322,7 @@ static ssize_t dut_mode_write(struct file *file, const char __user *user_buf,
- }
- 
- static const struct file_operations dut_mode_fops = {
-+	.owner		= THIS_MODULE,
- 	.open		= simple_open,
- 	.read		= dut_mode_read,
- 	.write		= dut_mode_write,
-@@ -1371,6 +1379,7 @@ static ssize_t vendor_diag_write(struct file *file, const char __user *user_buf,
- }
- 
- static const struct file_operations vendor_diag_fops = {
-+	.owner		= THIS_MODULE,
- 	.open		= simple_open,
- 	.read		= vendor_diag_read,
- 	.write		= vendor_diag_write,
--- 
-2.43.0
-
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
