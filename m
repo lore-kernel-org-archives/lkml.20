@@ -1,76 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4998348F838
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 10:03:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F0BF2EA480;
+	Thu,  8 Oct 2026 10:03:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791453825; cv=none; b=s3mqq86I6/9rFN8FubxaR2v5GiFWac4fYFtvSunABOM07nMKXatCPo77fXLUZCNQBcP5edgOM9ia3zGJB1tfdxzVl5tR19nWLV7R+I/vj1FU3DLLwVFXsq/hc1HuQjyb8NSZgdzb5voHUKE4lfCwQV4eYvGepVPB7xPNvGUGMyc=
+	t=1791453836; cv=none; b=aOLPncfVboK2DGDPTntLA5Y5JmWkMQtTqMIYY2aZfUdID0LWwW6rKZW977BozhMcKdsMm91ptSEsWGyceptW1JiLIyp/4UYwcyOUdFjTz6I7snhnlu2G1+ILS1VaHNZIJQ8VOdlcfMtBX/vP+wTW/TpTUm8YreDiwSRgn+NrxiY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791453825; c=relaxed/simple;
-	bh=M/Ued0Ru8TDDLqW2AqKRyIpSE9vcc90fyzI1h1uvSeY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hiqjORTsjvh8lb0LqRpA25OIxh12TyVWTIpwLLSf4PW4v5EY4jfKVRd8D/pUgvxPEb+iuI+hQhasfpdsZu2WmCfcW2T+DaSafJZPfeeiv4qwMSQn/IZiKkIF1eFqWhXz1GbAeKFYSgc0ng933WUwxXS93u+4pJSlW0XQ6cum93M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hpqj7e9p; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791453836; c=relaxed/simple;
+	bh=EZo6s7HVLiF7s8bmIx9ZlZPqM7/flU9zhaAArFo0uFg=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=uur/AQwEn/o0YKbg3etfLfITR2RaLTWZ7oaLWOAnzntV5tHypJoBDijWLyqi9Dpm7gNtF3ml/84wX7+MPLPtugx5dJQrv+0ETeZ45q9av9euw9Qmf/qAreKgBLY1xHbvspdZbAAHi40f1f8M786/lJh3Dq0nRJ44bZTrQBCr9nc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=OBCx53cH; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hpqj7e9p"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9888C1F00893;
-	Thu,  8 Oct 2026 10:03:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791453823;
-	bh=hpUiMVYggDHC60dcd+5OU1osGuMwZpbWqR6frOfrR9k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hpqj7e9paR3mLUgx+I9fl3recU/uXrRAyWLlziTybAbQAZv3w4wLaBb349DuynC9F
-	 gpU0/ybWFt+MegvClIbMPIlw+5jwM835m4w4fgQLQo9mCFIWLglqVGCAKfkWNs4tT4
-	 BgdItEHFcwTpVS6UDVKECTXb3fzziR2cBA2x3BAkCipd5RIfqfIHQZ0ev1deRk1NS5
-	 aL4aIq4+KdrP5LitbApMC6W75iQC/uHL1CsV5g07gKFQVd6EBMnCgOGxPhJ3lMvBV1
-	 uq4rLCfDywOjVRNNzN1t7ij7pcko4oyb08JxMc8sd3gLXcgeh0BiwQDl3UoB85Yf27
-	 mEYh1YaM0IdWg==
-Date: Thu, 8 Oct 2026 12:03:38 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: tarunsahu@google.com
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>, dmatlack@google.com,
-	kexec@lists.infradead.org, linux-kernel@vger.kernel.org,
-	dev.jain@arm.com, Pratyush Yadav <pratyush@kernel.org>,
-	linux-mm@kvack.org
-Subject: Re: [PATCH v3 2/2] memblock: use binary search to locate candidate
- regions
-Message-ID: <asdqetdGMXGhtiBh@kernel.org>
-References: <20260926092448.4090401-1-tarunsahu@google.com>
- <20260926092448.4090401-2-tarunsahu@google.com>
- <asC1FwHVHOhBHDGK@kernel.org>
- <9huzy0c9siyn.fsf@tarunix.c.googlers.com>
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="OBCx53cH"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AFA51A1545;
+	Thu,  8 Oct 2026 12:03:45 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1791453828; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=wCtM3TrL4p1c/kySAbEeTVfJHqoyHvR+bK3Vqjg3Y+4=;
+	b=OBCx53cHpXK8zZyEBNytqH0KV7KYM4qlmepc5B4CSzfHQuPQZjYZPFj1lRBflXsNN5Pk5p
+	WNLAXt5GhfQzJx0ZR3QtgQ6+J/GOTNyKvw5Sx9y/zsp9ZgtRbVdaPXLje/BbBGGVBTZ7ZV
+	8xsMgVrvHI/HjvCjNMrGoXX3Zdqp6j9RwroyxdpqCl/jJ19lTtCYkXP1Tlj/OucVkDmCsR
+	vHmUQX2zIyj27pdyy5RQMfvHCb7V4Kb3eqMyT6zbLOpbxFe8kIrbsA0t9/2JNGJB9L0nqY
+	84TXyAOfcxO7VIMvz9/S0kkGYv+hSkafEXoMAEzcEJsJMPjErwJPP6sDEWW8pA==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <9huzy0c9siyn.fsf@tarunix.c.googlers.com>
+Date: Thu, 08 Oct 2026 12:03:45 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: netdev-bot+sashiko@kernel.org, florian.fainelli@broadcom.com,
+ justin.chen@broadcom.com
+Cc: opendmb@gmail.com, bcm-kernel-feedback-list@broadcom.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dave.stevenson@raspberrypi.com,
+ pierremarinleclercq88@gmail.com, f.fainelli@gmail.com
+Subject: Re: [PATCH net-next v3 6/8] net: bcmgenet: pad transmit frames out of
+ the packet ready window
+In-Reply-To: <179145241435.434549.3651092628869076790@kernel.org>
+References: <20261007-nb-genet-mtu-nn-v2-v3-6-74a796c019ce@tipi-net.de>
+ <179145241435.434549.3651092628869076790@kernel.org>
+Message-ID: <a4d4a29095a7b68ae2345d35074f6e2c@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, Oct 07, 2026 at 02:06:56PM +0000, tarunsahu@google.com wrote:
-> Mike Rapoport <rppt@kernel.org> writes:
->
-> >> +{
-> >> +	int mid, low = 0;
-> >> +	int high = type->cnt;
-> >> +
-> >> +	if (type->cnt && base >= type->regions[type->cnt - 1].base +
-> >> +				 type->regions[type->cnt - 1].size)
-> >> +		return type->cnt;
-> >
-> > Using local variables would make it more readable IMHO.
+Hi Clashiko
+
+On 8.10.2026 11:40, netdev-bot+sashiko@kernel.org wrote:
+
+> [...]
+
+> [Severity: Medium]
 > 
-> removing this as per next comment. Let me know what you think? Should we
-> keep this optimization or not.
+> What happens here when the GENET is the conduit for a DSA switch that
+> uses a tail tag? By the time the skb reaches bcmgenet_xmit(), the 
+> tagger
+> has already written the tag into the last bytes of the frame. This
+> skb_put_padto() then appends zeros after the tag.
+> 
+> The DSA core pads before tagging so that the conduit never has to add
+> bytes after a tail tag:
+> 
+> net/dsa/user.c:dsa_user_xmit() {
+>     ...
+> 	if (dev->needed_tailroom)
+> 		eth_skb_pad(skb);
+>     ...
+> }
+> 
+> For KSZ9477-class switches the tag holds the egress port mask, the
+> priority, and the override bit for link-local frames:
+> 
+> net/dsa/tag_ksz.c:ksz9477_xmit() {
+>     ...
+> 	if (is_link_local_ether_addr(hdr->h_dest))
+> 		val |= KSZ9477_TAIL_TAG_OVERRIDE;
+> 
+> 	*tag = cpu_to_be16(val);
+>     ...
+> }
+> 
+> lan937x_xmit() also always sets LAN937X_TAIL_TAG_VALID.
+> 
+> After padding, would the switch read an all-zero tag in place of these
+> fields, with the real tag left inside the payload? HSR/PRP RCT trailers
+> look like they would be corrupted the same way.
+> 
+> The commit message says these protocols "see the zeros instead". The
+> switch, though, would read the zeros as forwarding instructions: no 
+> port
+> mask, no override bit and no valid bit. Depending on the switch, the
+> frame could be dropped, forwarded by address lookup or flooded, 
+> whatever
+> egress port the host chose. That could break standalone port isolation,
+> and link-local frames would lose their forced egress port.
+> 
+> This path opens up once later patches in the series raise max_mtu. If a
+> user port MTU is raised above roughly 3806, dsa_user_change_mtu() calls
+> dev_set_mtu(conduit, new_conduit_mtu), which moves the conduit into the
+> MTU range that has the window. After that, whoever sends the traffic
+> decides whether a frame lands in the window, for example through the 
+> UDP
+> datagram size, IP fragment tails, or forwarded traffic.
+> 
+> Instead of padding after the trailer, would it be safer to check
+> netdev_uses_dsa() here and drop the frame? Another option would be to
+> refuse conduit MTUs that reach the window.
 
-Yeah, that's fine :)
- 
-> ~Tarun
+I do not think genet is ever a DSA conduit with tail tags. At least none
+of the boards I'm aware of + what appears in the tree...
 
--- 
-Sincerely yours,
-Mike.
+Broadcom switches use a head tag, and genet already reserves
+ENET_BRCM_TAG_LEN for it, so padding at the tail wont do any harm. On 
+the
+Broadcom SoCs that do have an integrated switch the conduit is 
+SYSTEMPORT,
+not genet, and that driver has the netdev_uses_dsa() checks.
+
+Every tagger listed is a tail tagger for a switch family that is not 
+paired
+with genet. Reaching this would need an out of tree board wiring one 
+behind
+a genet SoC and raising the user port MTU past 3808 (not 3806)...
+
+So I would keep the padding and the note in the commit message rather 
+than
+add a drop path for a configuration that does not exist?
+
+The only other way (which I don't really like), would be to cap the MTU 
+when
+attached to dsa in _change_mtu():
+
+	/* Padding a frame clear of the window would overwrite a DSA tail tag 
+*/
+	if (netdev_uses_dsa(dev) && new_mtu > ENET_MAX_PAD_FREE_MTU)
+		return -EINVAL;
+
+But if we do this, Clashiko would complain about the case where the dsa 
+is
+attached after the MTU is already set to something above the thresholds 
+...
+
+@Florian / Justin: Anything you are aware of in the stb universe?
+
+Thanks,
+Nicolai
+
