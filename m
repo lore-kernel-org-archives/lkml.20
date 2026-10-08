@@ -1,36 +1,40 @@
-Received: from mta0.migadu.com (out-58.mta0.migadu.com [91.218.175.58])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B757E3C1D76
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 06:53:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.58
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0E393CBE79
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 06:55:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791442423; cv=none; b=RB5de/SE9U04owbskjpo4rrIAM+iou7boAmUra1gAzlkimwmO3xczTO07XZQ86V7vuOPXmIvti0Q7thpS0brEfnhRIDftTgaVJUnHqjY33ZuF+6KsOytIm1wHXBuaSEU5qOAerztfK/sGnyAtEzY2wPtz2BNMN6Au7osJ7hV9ME=
+	t=1791442507; cv=none; b=GRm2GdI84r8sH7uMyG90V4lt/15gy8OwPe52BnGzJK5hlcyJAm/1ht8vniuDyXITLf5tZuvkLJuJt3BJgZyGPzeCH0gCf4qtFGgFTpqgCWRjMx3waL7Wu3c40XJ+nV+Y1d6EFNOjrowT335NhovFeeaJmwVJrzlgo9fWfmUMIg0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791442423; c=relaxed/simple;
-	bh=z2ehbjfdNRtNjl3Xf1WKPjKRNxEhnPWPrzzFO6wlB48=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=A41nIjlnyK0GQvepavEUeuYY5e94gY7GVTbAHJ/W84NRJwRw845N/wTQOGKKPV6RtQHr7b4A+PXFBID3DEuqRsidTOvn389vvSTzOJUDHfTx9TIvUPlYIIk+Q3U86ceYDORnL8Go3HBsowSIOeaeByhfJra8u18GZjm29HxzHvM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=doZeMxEJ; arc=none smtp.client-ip=91.218.175.58
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791442507; c=relaxed/simple;
+	bh=jICRMY7vD8zo5aVmu92ZJQedWWvFzzWowT6JET4rvVs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=tKv8THIsPwUwZKtGxF7b6OUTWK28+5G8Avj66SswJMsguqrV5eu49CvoOnxt8/uovx3lunUfQSAEEn8UnH8x3nCQFf4Jqtsw4UQQ/Kf8EYQRjisQMNYh4D/2bjYaLs+B8WeosS6qYLE9YBKO5/O/5TxoXJ/8ANv1l/v1U+j0VxE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=ucUuazig; arc=none smtp.client-ip=113.46.200.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="doZeMxEJ"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=z2ehbjfdNRtNjl3Xf1WKPjKRNxEhnPWPrzzFO6wlB48=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791442417; v=1; x=1792047217;
- b=doZeMxEJq3M+Ribv2UYlLjcTVwQgdFjMVCQzcDrgX3Dciuiw3O8QBBGF0nAo/LmK3tP/sqju
- 5k7nSQyOFcb80Vi9qYbxjUFwTZLdpXqOpB4+Yl/C/EVBu/VclVMWpxHmVUr7ui2zPjRS4+VM4OS
- 57orGijM8Pa/T8FwfbpKL5K8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8493ebbdacfda9ac;
-	Thu, 08 Oct 2026 06:53:37 +0000
-X-Mizu-Trace-ID: 8493ebbdacfda9ac
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <a15de109-a88a-49f8-80cc-7bf216d6954d@linux.dev>
-Date: Thu, 8 Oct 2026 14:53:02 +0800
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="ucUuazig"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=3Ele1vlbSomyiSBoUzoimnTmuiwSnUrUWA5wS4kbapQ=;
+	b=ucUuazigWRp1V1+LbQc2FgmgpLRTcMZsKgMnZIyYVef7EtpyHy9mG1fIIq0Y3wwm37+G21sd1
+	YB8i3ZPAcew4vA46UAaRmTsToMkdy7JfL8MCWraTfBqyapF5mt4bv+0UTIfp1eJEtdHt7PBCAIi
+	BdYBQCA5d+FaEJhpTSSH0iU=
+Received: from mail.maildlp.com (unknown [172.19.162.223])
+	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4j0gRX1FtWz12LHn;
+	Thu,  8 Oct 2026 14:43:04 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id B372D40577;
+	Thu,  8 Oct 2026 14:55:01 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 8 Oct
+ 2026 14:55:00 +0800
+Message-ID: <476fe846-af4f-4cdd-b98b-86cc053b37c2@huawei.com>
+Date: Thu, 8 Oct 2026 14:54:59 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,260 +42,82 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 2/7] mm/vmalloc: undo partial mappings inside the
- mapping functions
-To: Uladzislau Rezki <urezki@gmail.com>
-Cc: Suren Baghdasaryan <surenb@google.com>,
- =Kent Overstreet <kent.overstreet@linux.dev>,
- Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
- Aaron Tomlin <atomlin@atomlin.com>, Andrew Morton
- <akpm@linux-foundation.org>, Alexander Potapenko <glider@google.com>,
- Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>,
- Vlastimil Babka <vbabka@kernel.org>, Michal Hocko <mhocko@suse.com>,
- Brendan Jackman <brendan.jackman@linux.dev>,
- Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-modules@vger.kernel.org, kasan-dev@googlegroups.com,
- Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-References: <20260929082014.160587-1-hao.ge@linux.dev>
- <20260929082014.160587-3-hao.ge@linux.dev> <arzgoe-bXAz1poAt@milan>
-Content-Language: en-US
-From: Hao Ge <hao.ge@linux.dev>
-In-Reply-To: <arzgoe-bXAz1poAt@milan>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH v2 02/21] arm64: entry: Only check for stack overflow on
+ exceptions from EL1
+To: Will Deacon <will@kernel.org>, <linux-arm-kernel@lists.infradead.org>
+CC: <linux-kernel@vger.kernel.org>, Arnd Bergmann <arnd@arndb.de>, Ard
+ Biesheuvel <ardb@kernel.org>, Ada Couprie Diaz <ada.coupriediaz@arm.com>,
+	David Hildenbrand <david@kernel.org>, Catalin Marinas
+	<catalin.marinas@arm.com>, Vladimir Murzin <vladimir.murzin@arm.com>, Mark
+ Rutland <mark.rutland@arm.com>, Mostafa Saleh <smostafa@google.com>, Lorenzo
+ Stoakes <ljs@kernel.org>, Oliver Upton <oupton@kernel.org>, Linus Walleij
+	<linusw@kernel.org>, Marc Zyngier <maz@kernel.org>
+References: <20260918161407.2300-1-will@kernel.org>
+ <20260918161407.2300-3-will@kernel.org>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <20260918161407.2300-3-will@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-Hi Uladzislau
 
 
-On 2026/9/30 18:12, Uladzislau Rezki wrote:
-> On Tue, Sep 29, 2026 at 04:20:09PM +0800, Hao Ge wrote:
->> __vmap_pages_range_noflush() and friends can install some PTEs before
->> failing and leave them mapped, and the kernel callers do not agree on
->> who cleans them up. For example, pcpu_map_pages() and
->> kmsan_ioremap_page_range() unmap the leftovers themselves, while
->> vm_module_tags_populate() and the __GFP_NOFAIL retry loop in
->> __vmalloc_area_node() relied on the mapping functions cleaning up and
->> did not call anything like vunmap_range() themselves. When the same
->> range is mapped again, the attempt hits the leftovers and fails, with
->> BUG() in vmap_pte_range() for huge mappings.
->>
->> After discussing with Suren and Ulad, we decided the cleanup belongs
->> to __vmap_pages_range_noflush() and friends, so the callers no longer
->> need to unmap the partial mappings themselves. Each function now
->> undoes the PTEs it installed itself.
->>
->> The rollback calls the low-level __vunmap_range_noflush(), it just
->> clears the PTEs of the range it is given, which is all a rollback
->> needs. It cannot use vunmap_range_noflush() because these mapping
->> functions also map the KMSAN shadow and origin, and for a metadata
->> range its hook would look up the metadata of the metadata, get 0
->> and BUG() on addr >= end. The failed mappings were never accessed,
->> no TLB flush needed.
->>
->> Fixes: 9376130c390a ("mm/vmalloc: add support for __GFP_NOFAIL")
->> Fixes: 0f9b685626da ("alloc_tag: populate memory for module tags as needed")
->> Reported-by: Sashiko <sashiko-bot@kernel.org>
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Hao Ge <hao.ge@linux.dev>
->> ---
->>  mm/kmsan/shadow.c |  4 ++++
->>  mm/vmalloc.c      | 31 +++++++++++++++++++++++++++++--
->>  2 files changed, 33 insertions(+), 2 deletions(-)
->>
->> diff --git a/mm/kmsan/shadow.c b/mm/kmsan/shadow.c
->> index 0c88d89bf0d6..2166086d3dc3 100644
->> --- a/mm/kmsan/shadow.c
->> +++ b/mm/kmsan/shadow.c
->> @@ -258,6 +258,10 @@ int kmsan_vmap_pages_range_noflush(unsigned long start, unsigned long end,
->>  					    o_pages, page_shift);
->>  	kmsan_leave_runtime();
->>  	if (mapped) {
->> +		/* Undo the shadow mapping set up above. */
->> +		kmsan_enter_runtime();
->> +		__vunmap_range_noflush(shadow_start, shadow_end);
->> +		kmsan_leave_runtime();
->>  		err = mapped;
->>  		goto ret;
->>  	}
->>
-> Can we just do that inside the vmalloc? For example in the
-> __vmap_pages_range_noflush() as entry function for all(?) helpers?
-> So we do not need do it manually?
->
-The hunk was for the failure path in kmsan_vmap_pages_range_noflush().
-Shadow and origin are mapped there as two separate calls, and when                                                                   
-the origin one fails the shadow is already up. __vmap_pages_range_noflush()                                                          
-cannot do that undo, it only sees its own range.
-
-kmsan_vmap_pages_range_noflush() has a single caller, so if we were to move this
-logic into vmalloc, it would require some modifications as follows:
-
-@@ -712,9 +724,14 @@ int vmap_pages_range_noflush(unsigned long addr, unsigned long end,
-        int ret = kmsan_vmap_pages_range_noflush(addr, end, prot, pages,
-                                                page_shift, gfp_mask);
- 
-+       if (!ret)
-+               ret = __vmap_pages_range_noflush(addr, end, prot, pages,
-+                                                page_shift);
-+       /* Undo whatever was mapped before the failure. */
-        if (ret)
--               return ret;
--       return __vmap_pages_range_noflush(addr, end, prot, pages, page_shift);
-+               kmsan_vunmap_range_noflush(addr, end);
-+
-+       return ret;
- }
-
->> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
->> index 859e6d2d57a3..9bbf75706627 100644
->> --- a/mm/vmalloc.c
->> +++ b/mm/vmalloc.c
->> @@ -349,6 +349,10 @@ static int vmap_range_noflush(unsigned long addr, unsigned long end,
->>  	if (mask & ARCH_PAGE_TABLE_SYNC_MASK)
->>  		arch_sync_kernel_mappings(start, end);
->>  
->> +	/* Undo the PTEs installed before the failure. */
->> +	if (err)
->> +		__vunmap_range_noflush(start, end);
->> +
->>  	return err;
->>  }
->>  
->> @@ -363,6 +367,9 @@ int vmap_page_range(unsigned long addr, unsigned long end,
->>  	if (!err)
->>  		err = kmsan_ioremap_page_range(addr, end, phys_addr, prot,
->>  					       ioremap_max_page_shift);
->> +	if (err)
->> +		__vunmap_range_noflush(addr, end);
->> +
->>  	return err;
->>  }
->>  
->> @@ -667,6 +674,10 @@ static int vmap_small_pages_range_noflush(unsigned long addr, unsigned long end,
->>  	if (mask & ARCH_PAGE_TABLE_SYNC_MASK)
->>  		arch_sync_kernel_mappings(start, end);
->>  
->> +	/* Undo the PTEs installed before the failure. */
->> +	if (err)
->> +		__vunmap_range_noflush(start, end);
->> +
->>  	return err;
->>  }
->>  
-> The only one user of that function is __vmap_pages_range_noflush()
-> so we can cover both cases there small and huge path.
+在 2026/9/19 0:13, Will Deacon 写道:
+> Checking for kernel stack overflow on entry from EL0 is largely
+> pointless and gets in the way of using SPSel to switch to the overflow
+> stack. If the kernel stack overflows on entry from userspace, that
+> implies that it was unbalanced on the last exception return which means
+> we can't sensibly reason about the state of the system given that we
+> could've returned to an arbitrary virtual address in an arbitrary mode.
 > 
-> Is that enough just to do unroll in the below:
+> Remove the stack overflow check from the EL0 exception entry path.
 > 
-> __vmap_pages_range_noflush()
-> vmap_page_range()
+> Cc: Mark Rutland <mark.rutland@arm.com>
+> Signed-off-by: Will Deacon <will@kernel.org>
+> ---
+>  arch/arm64/kernel/entry.S | 6 ++++++
+>  1 file changed, 6 insertions(+)
 > 
-> functions? It will also fix NOFAIL case:
->
+> diff --git a/arch/arm64/kernel/entry.S b/arch/arm64/kernel/entry.S
+> index 59f045e496ec..b5d8277f608a 100644
+> --- a/arch/arm64/kernel/entry.S
+> +++ b/arch/arm64/kernel/entry.S
+> @@ -54,6 +54,8 @@
+>  	.endif
+>  
+>  	sub	sp, sp, #PT_REGS_SIZE
+> +
+> +	.if	\el == 1
+>  	/*
+>  	 * Test whether the SP has overflowed, without corrupting a GPR.
+>  	 * Task and IRQ stacks are aligned so that SP & (1 << THREAD_SHIFT)
+> @@ -64,8 +66,11 @@
+>  	tbnz	x0, #THREAD_SHIFT, 0f
+>  	sub	x0, sp, x0			// x0'' = sp' - x0' = (sp + x0) - sp = x0
+>  	sub	sp, sp, x0			// sp'' = sp' - x0 = (sp + x0) - x0 = sp
+> +	.endif
+> +
+>  	b	el\el\ht\()_\regsize\()_\label
+>  
+> +	.if	\el == 1
+>  0:
+>  	/*
+>  	 * Either we've just detected an overflow, or we've taken an exception
+> @@ -96,6 +101,7 @@
+>  	sub	sp, sp, x0
+>  	mrs	x0, tpidrro_el0
+>  	b	el\el\ht\()_\regsize\()_\label
+> +	.endif
 
-I see. right, __vmap_pages_range_noflush() is just above the
-actual page‑table mapping, so it's low‑level enough.
-Thanks a lot for your prototype.
+LGTM
+Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
 
-I'm tidying up the code and will post a REF patch afterwards.
+>  .org .Lventry_start\@ + 128	// Did we overflow the ventry slot?
+>  	.endm
+>  
 
-Thanks
-Best Regards
-Hao
+-- 
+Best regards,
+Jinjie
 
-> <snip>
-> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-> index 89c327a6ce7d..fa1f357ecf3f 100644
-> --- a/mm/vmalloc.c
-> +++ b/mm/vmalloc.c
-> @@ -359,10 +359,19 @@ int vmap_page_range(unsigned long addr, unsigned long end,
->  
->  	err = vmap_range_noflush(addr, end, phys_addr, pgprot_nx(prot),
->  				 ioremap_max_page_shift);
-> +	if (err)
-> +		goto error_cleanup_range;
-> +
->  	flush_cache_vmap(addr, end);
-> -	if (!err)
-> -		err = kmsan_ioremap_page_range(addr, end, phys_addr, prot,
-> +	err = kmsan_ioremap_page_range(addr, end, phys_addr, prot,
->  					       ioremap_max_page_shift);
-> +	if (err)
-> +		goto error_cleanup_range;
-> +
-> +	return 0;
-> +
-> +error_cleanup_range:
-> +	__vunmap_range_noflush(addr, end);
->  	return err;
->  }
->  
-> @@ -683,26 +692,35 @@ int __vmap_pages_range_noflush(unsigned long addr, unsigned long end,
->  		pgprot_t prot, struct page **pages, unsigned int page_shift)
->  {
->  	unsigned int i, nr = (end - addr) >> PAGE_SHIFT;
-> +	unsigned long start = addr;
-> +	int err;
->  
-> -	WARN_ON(page_shift < PAGE_SHIFT);
-> -
-> -	if (!IS_ENABLED(CONFIG_HAVE_ARCH_HUGE_VMALLOC) ||
-> -			page_shift == PAGE_SHIFT)
-> -		return vmap_small_pages_range_noflush(addr, end, prot, pages);
-> +	if (WARN_ON(addr >= end))
-> +		return -EINVAL;
->  
-> -	for (i = 0; i < nr; i += 1U << (page_shift - PAGE_SHIFT)) {
-> -		int err;
-> +	if (WARN_ON(page_shift < PAGE_SHIFT))
-> +		return -EINVAL;
->  
-> -		err = vmap_range_noflush(addr, addr + (1UL << page_shift),
-> +	if (!IS_ENABLED(CONFIG_HAVE_ARCH_HUGE_VMALLOC) ||
-> +		page_shift == PAGE_SHIFT) {
-> +		err = vmap_small_pages_range_noflush(addr, end, prot, pages);
-> +	} else {
-> +		for (i = 0; i < nr; i += 1U << (page_shift - PAGE_SHIFT)) {
-> +			err = vmap_range_noflush(addr, addr + (1UL << page_shift),
->  					page_to_phys(pages[i]), prot,
->  					page_shift);
-> -		if (err)
-> -			return err;
-> +			if (err)
-> +				break;
->  
-> -		addr += 1UL << page_shift;
-> +			addr += 1UL << page_shift;
-> +		}
->  	}
->  
-> -	return 0;
-> +	if (err)
-> +		__vunmap_range_noflush(start, end);
-> +
-> +	/* 0 on success. */
-> +	return err;
->  }
->  
->  int vmap_pages_range_noflush(unsigned long addr, unsigned long end,
-> @@ -714,7 +732,13 @@ int vmap_pages_range_noflush(unsigned long addr, unsigned long end,
->  
->  	if (ret)
->  		return ret;
-> -	return __vmap_pages_range_noflush(addr, end, prot, pages, page_shift);
-> +
-> +	ret = __vmap_pages_range_noflush(addr, end, prot, pages, page_shift);
-> +	if (ret)
-> +		/* Cleanup KMSAN metadata. */
-> +		kmsan_vunmap_range_noflush(addr, end);
-> +
-> +	return ret;
->  }
->  
->  static int __vmap_pages_range(unsigned long addr, unsigned long end,
-> <snip>
-> 
-> --
-> Uladzislau Rezki
