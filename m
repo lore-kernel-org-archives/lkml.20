@@ -1,170 +1,142 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f42.google.com (mail-oo1-f42.google.com [209.85.161.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B491A38836C;
-	Thu,  8 Oct 2026 18:17:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791483474; cv=none; b=orJlHW+bsk16CTmmoEQvhvGqyYoKtwucXoVbkufDG3L5s9iqL2t7k5jfBmPMUZLKbDnvQkkXGW+EdhNVREuWCjMHD69qNUdsCJ3GIu+iYbSK5rb4hwvAvUwiL8/MSbC12SBetAnxNeOW3lRV7L3/QS4V6Y4tkm3t2Ch9T29tfgY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791483474; c=relaxed/simple;
-	bh=Gx4ilfMhQUF7cyVqxlycVnXjjdeLDQtz1EYjm8vSauU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=erhq/dyzUgE7/y0AKiMsNv4LrA4Sz8Ox0vhsRaRft7k6g1Ihir0oibp8+vAfv16fbpEyvCQ2w96SgmMT2O7rZ4k7cb2DGG1DM4FLvcQ99yQFn99gqFhlpG9yI89bOvYEK32wPduD6wBUKq++SzaGAuE35isBkyYYzbQIpksCmxA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=MCFOyzn0; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC66B4EFFCB
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 18:18:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791483486; cv=pass; b=W+hyrWXochuQvzAioG+5WnKya7DU7rLGBDDcUJqYDh6PaGkxS6fEoXKnNUm8pd12YT0SHdDcUU/MTkS2u+9MogR0MlTmJjdoHvCL8Rlr/GHz9qzeRaaZcFJLh09VXXLNssPsj6QN5AExNxHprozN9hEQPThrvQSvpAZaPEGlOXk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791483486; c=relaxed/simple;
+	bh=+41a4tL7rmy8uEnlxaX7O6RIzsuBIdtZXxzVbeVDLW8=;
+	h=From:MIME-Version:Date:Message-ID:Subject:To:Cc:Content-Type; b=CfpO84HLuINuamif8/VOaPiT79GSPUF/1L5OVHQoHud3hxUm69PbpcVCTSG/d08hvEo2WykhGaLmZA3z2sA+qFcN+2N0KtyN4LcvJdhjxX8Kis/8LGwc8LWQ+/i7PWm/H+cWxFM0OAb2IW0icVDoBfWjZvLRXY23rvjB6BJDuxE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GXepuvMe; arc=pass smtp.client-ip=209.85.161.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="MCFOyzn0"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=NIFjAQDly0W7GvmafYnFnRQ5IyNA9GxyxzUzs3G7GY0=; b=MCFOyzn0Y7uJkjI3WYMmHmj3iA
-	QyQkD+3RKsrzlJPuXv3fV66hYqWXZVwhMAnYfmOZ5IPj8XMaIB2DjEjK4cW1pF/BcvkZtVlEwlCCR
-	bKeDTMP++Kc1pj43qMcrp9MWYvvV7bHJCj8iCXrBMBbaT4xw0KfsLmEv+3NUHBpQ4DyCOhbx0Gkxf
-	8YCTdgOge8Oz35JbnD4W9nXQasRe5oZpFn+5t8qc0aJq0PrY4WjKAqlPIZBc25lw+rDPoXceU13Hm
-	GKiU25vM9Uu0va02GLeH5xsAuqfwshw4Fy0Fo3CAKthAZXLhayBOXOTthIglspmagy/mCF7fgMr8p
-	9McMzPMQ==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1xEsgd-00000004r2R-2GzP;
-	Thu, 08 Oct 2026 18:17:47 +0000
-Message-ID: <2621089d-f087-4b0d-89bf-3cd1218b5f66@infradead.org>
-Date: Thu, 8 Oct 2026 11:17:46 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GXepuvMe"
+Received: by mail-oo1-f42.google.com with SMTP id 006d021491bc7-6de1ca1b05aso2274625eaf.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 11:18:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791483484; cv=none;
+        d=google.com; s=arc-20260327;
+        b=EaD3V7YWbe0YPPPjYT891hQOQV4x1pRAN2T6d8YPomzXCYiu0jkGp5+WHinb7HMzfY
+         CWke1GtHziY36FWJz2AG3pRm99psomEGc8WHdG4JYU+jq6wp87Rlz6F1ANBQVYrLSV1X
+         JGWmHrRmKr0Jzmh85Zjv+e8Y6F0lz4DJmARLHVSBWkjjPcD4nHHVWdT7jYJLt09DgF7V
+         s+laGHw2kD8ziKMyOEQzVupM9S4TafFTWXln4r4R5kuoReLzrzET0cInbCP2eNC8v5j1
+         dQddI0o+Vu1+nLpgC917fivI1hfZYRwV1NMSXRWdW8vkzoY5hBNjv5ZQukys/RHzu8+a
+         Hm+A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date
+         :mime-version:from:dkim-signature;
+        bh=oHPyJzRaQSbv83TUFxBBmSfU/l/8PyBXMjzEMcpYZTs=;
+        fh=c5XDIN3DuibLQY/ANT9mKKJq92UbeDeIB/WmlVRRHgk=;
+        b=MnBP08TOUm8lUgitKDgSJeyvAXh7JDr+elJV+CGoU3y9YdTsowlv3o9poY5Mpugw/m
+         09omdAqHTwQcAe2fGD8QLcHHlOSFm1ARC/N0RSreGLqxFfGDcRz1hPgoQOe+q6J58qyi
+         MRkgqCP28oKEF3fGcXqwNfTneBJ4DJf95yi5k4a6CVzzxai9KBfIZEVpuGT6QLWqbrzw
+         iqnB1DEmdE0LVhoO77gLpZYYG4ZZaiAs0c34p/KIX/FGd1Q8c5Mt8GMZTTGi//oDbA4V
+         QY7J1Q/hr/rnNm5yLwSMRmTCtp84NlyN70DKrXfiOFH+GqNT347bH3pDbhomRbvYWTtu
+         0Kzg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791483484; x=1792088284; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:mime-version:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oHPyJzRaQSbv83TUFxBBmSfU/l/8PyBXMjzEMcpYZTs=;
+        b=GXepuvMeskWA4LIciwNklp/gFg3uG3oDl/rVbCCAtwTF837w5IkdH5nJNAryhvMeqr
+         cuDWTgtyQuhDoqyFvhdga2l7HcrrSJEGRW1WH7uwRTdgLY5RfwgJYJPq3oM22IiKw+F6
+         VSKaQqLuvnjpBQVbyadLTJz4tadfmk8CFeZrTgP+lDXgy9m8QjJmg63O1uI3f1s12OI4
+         KQVZZXa2jZRLYB5swOdArceAiqsEDbf96TDi72CZ7/QTln6N5fWc2PJFwMB0jlfpljDu
+         mlIQ8QO7d8HHGX7PxbUX9j52qG2cF7sKop7KFFOP1PfQ3Xco8sT6jdbdUdUpVUsXwMnY
+         jlHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791483484; x=1792088284;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:mime-version:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=oHPyJzRaQSbv83TUFxBBmSfU/l/8PyBXMjzEMcpYZTs=;
+        b=EFIcJMBR73uu604Ye09m7cB1XgCG+5njaRcaQNzjYxQl7C4ob1uVrEj1XEVU+WBJmB
+         s1H6nrdV7dE+bdxwXi3vBH8mtzV/BTWmXV3KyCv+MW9FKD7oVsrxavxMuEiD6Emk8Ic4
+         D7V8ELM/IoTw0XoIiu3tvc5NLsf7wu7h19lOO8lfg5gwVB+HRRPk8qx9d2JqlF3MD50P
+         N1NB5hq7WHoFvnuxsUYt1I0rbfF/gGhFU/yYTpRjtgH5HcRq9vwHYqyefuNx7Od2znix
+         Li+vxb95/jKbBZLJdHnuEDq7GLLAlMfcf/XoWvhesF4U/Ns5w6rxx+XnwRvb0g3Rsqr/
+         9d8g==
+X-Gm-Message-State: AFuF++mTFkMYFhNCdq9gPGvnPc0lwCM6SQ2GYm5Kyc5T6d9Ugj7n0ar6
+	kO7g0ekL22r3N8qHWrM/dwCHsCGtedNknZrd5mUvFSPYC55hcO/zyuG4sB3gt5f2/a8/bkvIMvX
+	nHdBSNOYO+AK+lYf8iJ6ou3+12c3p75X8g0i0XbI=
+X-Gm-Gg: AYBFou0mPc9eLvxlevoL4I4/e1Z0XNpBh+00sYrtDo7HN4QxoqCJTEYHhYGJixMvV8f
+	QkLm8ni9xZQI2T1UmWrbBnNowxnRilsj3H5cfBZ70tADc7CnX0I7YKDekmY3XLPYuDZvDgCDN9k
+	53JeYoVAb1Ak3PlEq73TBQOlJ4jr8h8mDY19USDmBRWkC5IXBFimJRPua3fudKlFUgU/e/NhX4e
+	plZWVFAxzSmmfEuSh3P+VtFCbwjdDxlWwJoQfDiwDwME5XPXLqd0boSYJoS2ZIgIqHRqWepfi1s
+	pCUsQqBb9b53hMQMXtgx+GC6M4iy24zZdC6Iw3eGelABY2ik63wVoXmmbI+d1M3tsvBs4JOE67R
+	IrB3kBOLgVHyninmB4VZ5yVS1G82To9y88FQHa4g+TnHc/zhBs2TnR4C0
+X-Received: by 2002:a05:6820:2084:b0:6e0:e81:e5e3 with SMTP id
+ 006d021491bc7-6e7a7e3148cmr6456190eaf.33.1791483484475; Thu, 08 Oct 2026
+ 11:18:04 -0700 (PDT)
+Received: from 138594053405 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 8 Oct 2026 11:18:02 -0700
+Received: from 138594053405 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 8 Oct 2026 11:18:02 -0700
+From: adrimg3196@gmail.com
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] fuse: add negotiated per-inode open and release
- suppression
-To: Stanislav Kinsburskii <skinsburskii@gmail.com>,
- Miklos Szeredi <miklos@szeredi.hu>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Shuah Khan <shuah@kernel.org>
-Cc: Robert Byrnes <byrnes@wildpumpkin.net>, fuse-devel@lists.linux.dev,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org
-References: <20261008-fuse-per-inode-no-open-v2-0-39c60fe97728@gmail.com>
- <20261008-fuse-per-inode-no-open-v2-1-39c60fe97728@gmail.com>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20261008-fuse-per-inode-no-open-v2-1-39c60fe97728@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Date: Thu, 8 Oct 2026 11:18:02 -0700
+X-Gm-Features: AclHuK_7AdH4Yory6sLd1VtAgff9c8q80qhbw3Iv3U6cvMK2ds-zddzKV9dQhLA
+Message-ID: <CACO1+RQ5KXAAbjpiQ=cs0wLZ=z+=JQbW_-pgG+BM0f23W112Tg@mail.gmail.com>
+Subject: [PATCH v2] KEYS: Fix key_reject_and_link() race with keyring restriction
+To: linux-kernel@vger.kernel.org
+Cc: keyrings@vger.kernel.org, jarkko@kernel.org, dhowells@redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+Jarkko, you're right =E2=80=94 v1 arrived without the diff. Here's v2 with =
+the
+full patch.
 
-On 10/8/26 11:06 AM, Stanislav Kinsburskii wrote:
-> Filesystems serving cached content may not need per-open state for most
-> inodes, while still relying on OPEN for control files. The connection-wide
-> no-open behavior selected by ENOSYS cannot express this distinction.
-> 
-> Add FUSE_PER_INODE_NO_OPEN to INIT negotiation and FUSE_ATTR_NO_OPEN to
-> inode attributes. For marked inodes, use the existing zero-handle defaults
-> and normally omit OPEN/OPENDIR and the corresponding RELEASE/RELEASEDIR.
-> Remember whether each handle was opened locally, so later attribute updates
-> do not determine the release behavior of existing handles.
-> 
-> Retain RELEASE after a successful remote flock operation, even when OPEN
-> was skipped, so FUSE_RELEASE_FLOCK_UNLOCK can clean up server-side locks.
-> Servers negotiating remote flock must accept this RELEASE with a zero file
-> handle and no preceding OPEN, including after an explicit unlock.
-> 
-> Keep the release argument allocation for regular files, which pins the
-> inode while asynchronous I/O completes. Honor the hint for internal opens
-> used by file-attribute ioctls as well. The capability check excludes CUSE
-> before accessing its non-FUSE inode as a fuse_inode.
-> 
-> The per-inode hint does not suppress OPEN for atomic O_TRUNC, since the
-> server must perform the truncation. CREATE retains its existing handle
-> lifecycle. Connection-wide no-open/no-opendir behavior selected by ENOSYS
-> continues to take precedence.
-> 
-> Update the cached hint from LOOKUP, GETATTR, SETATTR and READDIRPLUS
-> attributes. Preserve it across STATX replies, which do not carry
-> fuse_attr.flags.
-> 
-> Document negotiation, cache and handle semantics, and the server's
-> responsibilities. No additional access-time or open-reference accounting
-> is introduced.
-> 
-> Signed-off-by: Stanislav Kinsburskii <skinsburskii@gmail.com>
-> ---
->  Documentation/filesystems/fuse/fuse-no-open.rst | 49 +++++++++++++++++++++++++
->  Documentation/filesystems/fuse/index.rst        |  1 +
->  fs/fuse/file.c                                  | 26 ++++++++++---
->  fs/fuse/fuse_i.h                                | 17 ++++++++-
->  fs/fuse/inode.c                                 |  9 +++++
->  fs/fuse/ioctl.c                                 |  3 +-
->  include/uapi/linux/fuse.h                       | 13 ++++++-
->  7 files changed, 110 insertions(+), 8 deletions(-)
-> 
-> diff --git a/Documentation/filesystems/fuse/fuse-no-open.rst b/Documentation/filesystems/fuse/fuse-no-open.rst
-> new file mode 100644
-> index 000000000000..4526512d358c
-> --- /dev/null
-> +++ b/Documentation/filesystems/fuse/fuse-no-open.rst
-> @@ -0,0 +1,49 @@
-> +.. SPDX-License-Identifier: GPL-2.0
-> +
-> +Per-inode open suppression
-> +=========================
+The restrict_link check in key_reject_and_link() is done before taking
+the keyring semaphore, racing with a concurrent keyring_restrict()
+that installs the restriction while holding the semaphore in write
+mode.
 
-Documentation/filesystems/fuse/fuse-no-open.rst:4: WARNING: Title underline too short.
+This is the same pattern that commit dd3ea3fc ("KEYS: Fix add_key()
+race with keyring restriction") just fixed in __key_create_or_update()
+by moving the restrict_link snapshot to after the semaphore is taken.
 
-Per-inode open suppression
-========================= [docutils]
+Move the check under __key_link_lock() so a restriction installed
+concurrently cannot be bypassed when linking a negative key.
 
-> +
-> +A filesystem can avoid OPEN and RELEASE requests for individual inodes by
-> +negotiating FUSE_PER_INODE_NO_OPEN in INIT and setting FUSE_ATTR_NO_OPEN in
-> +``fuse_attr.flags``.  For directories, the flag suppresses OPENDIR and
-> +RELEASEDIR instead.  This allows, for example, cached content files to avoid
-> +open round trips while control files on the same connection retain their
-> +open handlers.  Without the negotiated capability the attribute is ignored.
-> +
-> +The kernel updates the hint when it accepts attributes in replies such as
-> +LOOKUP, GETATTR, SETATTR and READDIRPLUS.  STATX replies do not carry
-> +``fuse_attr.flags`` and leave the hint unchanged.  The hint is cached inode
-> +state; it is not independently revalidated on every open.  A server changing
-> +the hint must arrange for fresh attributes to reach the kernel and tolerate
-> +concurrent opens using the previous value.
-> +
-> +For an open served locally, the file handle is zero, FOPEN_KEEP_CACHE is
-> +set, and directories also have FOPEN_CACHE_DIR set.  Subsequent requests
-> +identify the object by the node ID and may carry a zero file handle.  The
-> +server must support these requests without per-open state.  Whether OPEN was
-> +sent is recorded for each handle and is not changed by later attribute
-> +updates.  An existing server-opened handle still receives its matching
-> +RELEASE if the inode hint subsequently becomes set.
-> +
-> +Remote flock locking is an exception to RELEASE suppression.  When
-> +FUSE_FLOCK_LOCKS is negotiated and a handle has successfully performed a
-> +server-side flock operation, its final close sends RELEASE with
-> +FUSE_RELEASE_FLOCK_UNLOCK and the lock owner, even if OPEN was suppressed.
-> +The server must accept this RELEASE with a zero file handle and no preceding
-> +OPEN, and use the node ID and lock owner to remove any remaining flock locks.
-> +This also applies after an explicit unlock, since the kernel records whether
-> +a flock operation succeeded rather than tracking the server's current locks.
-> +
-> +When FUSE_ATOMIC_O_TRUNC is negotiated, an open with O_TRUNC still sends
-> +OPEN and receives a matching RELEASE, so the server can perform truncation.
-> +CREATE also retains its usual open and release semantics.  Connection-wide
-> +no-open behavior selected by an ENOSYS response continues to take precedence.
-> +
-> +The hint does not make an inode immutable, grant permissions, or suppress
-> +other operations such as FLUSH, FSYNC, locking or data I/O.  Servers supporting
-> +remote flock must implement the RELEASE cleanup described above.  A server must
-> +only set it when its access policy and file semantics permit the default
-> +open behavior described above.  Servers needing per-open authorization,
-> +nonzero handles, direct I/O, passthrough or other OPEN reply flags must keep
-> +handling OPEN for those inodes.  No additional access-time or open-reference
-> +accounting is performed by this feature.
+Signed-off-by: Adrian Martinez <adrimg3196@gmail.com>
+---
+ security/keys/key.c | 17 +++++++++++------
+ 1 file changed, 11 insertions(+), 6 deletions(-)
 
+--- a/security/keys/key.c
++++ b/security/keys/key.c
+@@ -588,10 +588,17 @@ int key_reject_and_link(struct key *key,
+ 	ret =3D -EBUSY;
 
--- 
-~Randy
-
+ 	if (keyring) {
+-		if (keyring->restrict_link)
+-			return -EPERM;
+-
+ 		link_ret =3D __key_link_lock(keyring, &key->index_key);
+ 		if (link_ret =3D=3D 0) {
++			/*
++			 * Check the restriction under the keyring semaphore.
++			 * keyring_restrict() installs it while holding the
++			 * semaphore, so testing it beforehand races with a
++			 * concurrent restriction install (cf. the fix for
++			 * __key_create_or_update()).
++			 */
++			if (keyring->restrict_link) {
++				__key_link_end(keyring, &key->index_key, edit);
++				return -EPERM;
++			}
+ 			link_ret =3D __key_link_begin(keyring, &key->index_key, &edit);
+ 			if (link_ret < 0)
+ 				__key_link_end(keyring, &key->index_key, edit);
