@@ -1,139 +1,315 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012056.outbound.protection.outlook.com [52.101.66.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-108.mta0.migadu.com [91.218.175.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E8E8439F9C;
-	Thu,  8 Oct 2026 08:08:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.56
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791446889; cv=fail; b=JQzVQWe1rfKSPvA3M7Q0p9mjubuAqHs7Vj9jn50eILHsLILTNJMC68KhAqcSgf5BxQ3xo0FcH3Haf8tYQBXa1d/H6E40YhBVh4bwk5qWSVPFiVCzO0Y7zEtj85KTnqnE6Yg5xK5cGTPYEqVxQ+Wbgu8tzOv+xN9B8zGEgZI5Dok=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791446889; c=relaxed/simple;
-	bh=VIp62dt7Sigz0wuSyFWCvSiffCDg/SbJTj/YAw6pZLs=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=VDbDcBFlGsyZMQVcaADkB1a7344N+JLaYryvJgkRiEc49DCuU8JYFHdiKafNoEssCaEB2kI5KF3L6b+7KzgHTYZVztyWwxMD1R08ArWVy4ox7NKsDnS2xj4mKzm4zlBapnKybCu3agi2E7VNabkFoW67RLxtIysDNr6C+pLeoS4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=ENwDeG/8; arc=fail smtp.client-ip=52.101.66.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2238F43712D
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 08:08:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.108
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791446938; cv=none; b=Hst+Q4T3TlAmgYayvVASZROTjCcR6FRmr2NU1Ez478ystsRfa+NEDbeKMYA8nVgHlwqdvvX8/dc4RSvtUWRZ3HoqlDP7IADtozT+Sl/EBCp9nRRF75SWiFtKRd/Kg2jx7R/DGB2fUqentcjVNsj7SHDRgtqgN9ivEVx4s5V4asQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791446938; c=relaxed/simple;
+	bh=Yhnnial9CyXjQfMJe0x/bX884j72gzHkQhTCBK9VwN4=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=ZZBScH2Wruj01iFKFDXtD7y0LByZG6IGSgPfxDAhOhfQZiutic1z8NQnTX0AlJLz2vdHNU/ZYumZCPnlwjtUsXYQsdVyh5GDKSYsHqUMBZZbYxDAxwcibnGbXqRYmNz6OxLnczJKkr0uV6VQ7owCoIex7ZjEw64acwrhK2PBwvE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=MYvdfg28; arc=none smtp.client-ip=91.218.175.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="ENwDeG/8"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pgJ//oXqVisR5zHuTCwLA3Xj4oHzms28zJaxtn8edJUFVzB4GWOuxd9If09jMQGqVTytStN0jSirbe6CDc0yDYwz3+jUFYQ6KdVrEnmVBE6xVlGlOnjVgf01okTiu5NMjfm4kMHV6170ei39MbU92A+VxsQLSToA4S473Kf6qfmagJh0KxHE8iixYWi4zy3UVSlkv/cYz8RTPnZr+eXmHVzF3WuwBmRIiDR1ThRxuk+uGsKf9e5yLtTOEr9uyCAuGlkQOxtfuqaHoOJWO5sZwS6OO44WOs/iymlFEsd1+BUcVGe9vesUb8B+qzHgNWc6hbT2xI+eubPLQD1P0O05sQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WKCx015lK2g2OLF1vwDffcMA+8pehqfv69v2WyISBF4=;
- b=oxOH4/0Vr9DPXJeHu3qB1PnAQs2XL6mbPK4jV93xCQPwAonMQebeiM0OGzO8LeR7VMR+bl5+Nw4f6PtVv2Dq5S+9dZBa3J3y9l+Bl62syjBURbs//dnQ5j+h9ruSVZ6creg8Ftn0yWr03lZDalyLfCmqHTR/oNIwsjPgAWazSD6axjwr17sOcjUvM9cldmp4qHWH3+cA2U4WQ4sjhpilyFqKd0Qeo+rZM/4sbtf8+nVJ9K5bZ1KKgcCEZOd+7qHrJiK43h3UyD38PXKmysfVGSzo2Lz/7kpbLN9yhQcQUkRCQtZdTfBkXJHyxI3E3YBxxSV1sFeuaXnv4afQYeYJIg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WKCx015lK2g2OLF1vwDffcMA+8pehqfv69v2WyISBF4=;
- b=ENwDeG/8HyPwC4eMKkicxNEUUHj/+xelMARMKaJHfNJsx4MCH2GAu1nvH8SnxAx9u1inR4oS+JR+EPqvLZFJTqdFFnk9ry8YiKjjGAJT9xnb6aVOWS1f1JpggJWaRKdV8qAQUP01/SZmM7I54MhMccBHIz+MZ7uPARiIYJCCFDDQ8FDzKBIARAVbiWQEFI2pvUp4YBLe8Z+qTdKTelnztGhnbyK551VBEg1EjMI/P6Su0mIHMkTfJCHd0ZPronOLBY+A9pzsRysBbgb96+6JEPOe4lt3ZnbLetl16bG0Y4iN5oHAa/y0LaouFXq9vFTOdC8H6hOtqP8lwnQWHXnWWw==
-Received: from DB8PR06CA0040.eurprd06.prod.outlook.com (2603:10a6:10:120::14)
- by DU0PR10MB5851.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:3bd::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Thu, 8 Oct
- 2026 08:08:03 +0000
-Received: from DB1PEPF000509FD.eurprd03.prod.outlook.com
- (2603:10a6:10:120:cafe::6e) by DB8PR06CA0040.outlook.office365.com
- (2603:10a6:10:120::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Thu, 8
- Oct 2026 08:08:03 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- DB1PEPF000509FD.mail.protection.outlook.com (10.167.242.39) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.14 via Frontend Transport; Thu, 8 Oct 2026 08:08:03 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 8 Oct
- 2026 10:13:49 +0200
-Received: from localhost (10.48.87.14) by STKDAG1NODE2.st.com (10.75.128.133)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 8 Oct
- 2026 10:07:43 +0200
-From: <gabriel.fernandez@foss.st.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
-	<mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>
-CC: <devicetree@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<gabriel.fernandez@foss.st.com>
-Subject: [PATCH] arm64: dts: st: add optee interrupt on stm32mp211
-Date: Thu, 8 Oct 2026 10:07:38 +0200
-Message-ID: <20261008080738.21355-1-gabriel.fernandez@foss.st.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="MYvdfg28"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Yhnnial9CyXjQfMJe0x/bX884j72gzHkQhTCBK9VwN4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791446929; v=1; x=1792051729;
+ b=MYvdfg28EDDZxHLrbIMD8LSFd2V6WESK+O+0i94XAs8hY0qrmW42FaDC2R3O58GV0LOKy/E7
+ JIVlOecD3PJedK8YS74Vj7myc9+i3YqthNLrwXLvk6PLJOy3pJjfaNmDXnnpCui7qNxLZ7jGKls
+ SHw9KB7EZpnzCMu6gFVQDLTw=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ef9c66e098076910;
+	Thu, 08 Oct 2026 08:08:38 +0000
+X-Mizu-Trace-ID: ef9c66e098076910
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <f70fd2a2-cf46-4c25-babf-9382aed69730@linux.dev>
+Date: Thu, 8 Oct 2026 16:09:41 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 2/7] mm/vmalloc: undo partial mappings inside the
+ mapping functions
+From: Hao Ge <hao.ge@linux.dev>
+To: Uladzislau Rezki <urezki@gmail.com>
+Cc: Suren Baghdasaryan <surenb@google.com>,
+ Kent Overstreet <kent.overstreet@linux.dev>,
+ Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
+ Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
+ Aaron Tomlin <atomlin@atomlin.com>, Andrew Morton
+ <akpm@linux-foundation.org>, Alexander Potapenko <glider@google.com>,
+ Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>,
+ Vlastimil Babka <vbabka@kernel.org>, Michal Hocko <mhocko@suse.com>,
+ Brendan Jackman <brendan.jackman@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-modules@vger.kernel.org, kasan-dev@googlegroups.com,
+ Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+References: <20260929082014.160587-1-hao.ge@linux.dev>
+ <20260929082014.160587-3-hao.ge@linux.dev> <arzgoe-bXAz1poAt@milan>
+ <a15de109-a88a-49f8-80cc-7bf216d6954d@linux.dev>
+Content-Language: en-US
+In-Reply-To: <a15de109-a88a-49f8-80cc-7bf216d6954d@linux.dev>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB1PEPF000509FD:EE_|DU0PR10MB5851:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9a02eb13-4a1b-45bb-3e71-08df25134708
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|376014|1800799024|36860700016|18002099003|10067099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	3xnG4/SdreCKxfeEUO2Ndie/AxTwzdrPiOxH10Ieq2ZphEqa4z3biqXbguk3de4upA/+vao/29YFdRYagjzt7PpM8cslchwlVbxJK65xEZg6zactlRz6A/E5GJjgrFrM/sNIjmV1PD2iT+RB9RauGfMoLNi+4n3t64p0r3W5SbwQZo9XDgEv9fcC1Kq7mrVp50e0byiE78GBcPocFdoy/HN5pLkKbG7/jnncSPLV+mfdcPcq2nXBAWoTOw+zQUNISE+IDh3pOum0GO9P97M4EkKlUqx1FLDLzjuwy5rEzuKy9xBqcVJJTq+flC6vGWwSar+Rms32mP0AEe5S8s1eg/OixydWAGrIqBZoYh/4jT4Qpzl1rsekENgKE9ChxT40iQYhGImhgBrnoYjiiCkRZzEr940SZ0P7wIDr7Ma1x15HujPGqcnL4b90d63jnrdO60GKgfjb2vnyuMTVZCuGcw5JcHP7gpghOqu7CccUfY/hiFeXVPUhmsSYeIhwAYa34rClmsCn+i/GRtw31CdQNdPLrf+fDDon3jOt9s4CrpU+QjirjBN2oAbMhdEEWvFdP1tBg5wBoYhWtms52u/Z0ct9dug4I0iGm8YxHlTZ9wl4kvI//KcDvOicaJnahvrpsMtYOS//Fny9pGPKAmGKUXp7VbciI+g0tCSuY61jDldLyGULLda6pgNGG7swA8hi+7uoVCcWu2gkW4lS5iF5KQ==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(376014)(1800799024)(36860700016)(18002099003)(10067099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	a3QM5WOOPMhnUtCcaBHlIjZFw7KA9k8OjoKqL9ve7bJssAW6Gh7TgFxEuCeHH3zhOQDUoMQoANleIvh60Yk6aOYQA2asONJ3+8i9zkBvul6ANvd00qLlMWL6aW7NK8jCGd3re43Q3Nb0SOVYe7I+nGX5fwtbnQOqPb2xgD6X+S9KH3qUnmzwgQiDyQ17KhWaX+VrsH8zeFntnSpqbvuHd6RSoIEFQtjOfBgg36ohqYY+oiUNSo4lBRZn7uVBh826Vtff42YcVCZ7WwBr292+uqyTANPVSnDkIW7x9lcBQoVVBbpmWeJurnIOXMYgA3NoHV6HjJ+7EUMPhTy2OTnJtec3XXN2FyfP/hdpyoRCiPwHyVX6izfKw1jQMoW9RaiXCH/FvQiernOpKxYI2LUZHRfh74QW8dc8WfadwrK6aikhh0xiCCxVGcVnm3YuIaCE
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 08:08:03.5060
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9a02eb13-4a1b-45bb-3e71-08df25134708
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DB1PEPF000509FD.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR10MB5851
 
-From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
 
-Describe the secure-world notification interrupt of the OP-TEE node
-by adding interrupt-parent and interrupts properties.
-OP-TEE uses the GIC PPI 15 (level low) as asynchronous notification
-to the non-secure OS.
 
-Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
----
- arch/arm64/boot/dts/st/stm32mp211.dtsi | 2 ++
- 1 file changed, 2 insertions(+)
+On 2026/10/8 14:53, Hao Ge wrote:
+> Hi Uladzislau
+> 
+> 
+> On 2026/9/30 18:12, Uladzislau Rezki wrote:
+>> On Tue, Sep 29, 2026 at 04:20:09PM +0800, Hao Ge wrote:
+>>> __vmap_pages_range_noflush() and friends can install some PTEs before
+>>> failing and leave them mapped, and the kernel callers do not agree on
+>>> who cleans them up. For example, pcpu_map_pages() and
+>>> kmsan_ioremap_page_range() unmap the leftovers themselves, while
+>>> vm_module_tags_populate() and the __GFP_NOFAIL retry loop in
+>>> __vmalloc_area_node() relied on the mapping functions cleaning up and
+>>> did not call anything like vunmap_range() themselves. When the same
+>>> range is mapped again, the attempt hits the leftovers and fails, with
+>>> BUG() in vmap_pte_range() for huge mappings.
+>>>
+>>> After discussing with Suren and Ulad, we decided the cleanup belongs
+>>> to __vmap_pages_range_noflush() and friends, so the callers no longer
+>>> need to unmap the partial mappings themselves. Each function now
+>>> undoes the PTEs it installed itself.
+>>>
+>>> The rollback calls the low-level __vunmap_range_noflush(), it just
+>>> clears the PTEs of the range it is given, which is all a rollback
+>>> needs. It cannot use vunmap_range_noflush() because these mapping
+>>> functions also map the KMSAN shadow and origin, and for a metadata
+>>> range its hook would look up the metadata of the metadata, get 0
+>>> and BUG() on addr >= end. The failed mappings were never accessed,
+>>> no TLB flush needed.
+>>>
+>>> Fixes: 9376130c390a ("mm/vmalloc: add support for __GFP_NOFAIL")
+>>> Fixes: 0f9b685626da ("alloc_tag: populate memory for module tags as needed")
+>>> Reported-by: Sashiko <sashiko-bot@kernel.org>
+>>> Cc: stable@vger.kernel.org
+>>> Signed-off-by: Hao Ge <hao.ge@linux.dev>
+>>> ---
+>>>  mm/kmsan/shadow.c |  4 ++++
+>>>  mm/vmalloc.c      | 31 +++++++++++++++++++++++++++++--
+>>>  2 files changed, 33 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/mm/kmsan/shadow.c b/mm/kmsan/shadow.c
+>>> index 0c88d89bf0d6..2166086d3dc3 100644
+>>> --- a/mm/kmsan/shadow.c
+>>> +++ b/mm/kmsan/shadow.c
+>>> @@ -258,6 +258,10 @@ int kmsan_vmap_pages_range_noflush(unsigned long start, unsigned long end,
+>>>  					    o_pages, page_shift);
+>>>  	kmsan_leave_runtime();
+>>>  	if (mapped) {
+>>> +		/* Undo the shadow mapping set up above. */
+>>> +		kmsan_enter_runtime();
+>>> +		__vunmap_range_noflush(shadow_start, shadow_end);
+>>> +		kmsan_leave_runtime();
+>>>  		err = mapped;
+>>>  		goto ret;
+>>>  	}
+>>>
+>> Can we just do that inside the vmalloc? For example in the
+>> __vmap_pages_range_noflush() as entry function for all(?) helpers?
+>> So we do not need do it manually?
+>>
+> The hunk was for the failure path in kmsan_vmap_pages_range_noflush().
+> Shadow and origin are mapped there as two separate calls, and when                                                                   
+> the origin one fails the shadow is already up. __vmap_pages_range_noflush()                                                          
+> cannot do that undo, it only sees its own range.
+> 
+> kmsan_vmap_pages_range_noflush() has a single caller, so if we were to move this
+> logic into vmalloc, it would require some modifications as follows:
+> 
+> @@ -712,9 +724,14 @@ int vmap_pages_range_noflush(unsigned long addr, unsigned long end,
+>         int ret = kmsan_vmap_pages_range_noflush(addr, end, prot, pages,
+>                                                 page_shift, gfp_mask);
+>  
+> +       if (!ret)
+> +               ret = __vmap_pages_range_noflush(addr, end, prot, pages,
+> +                                                page_shift);
+> +       /* Undo whatever was mapped before the failure. */
+>         if (ret)
+> -               return ret;
+> -       return __vmap_pages_range_noflush(addr, end, prot, pages, page_shift);
+> +               kmsan_vunmap_range_noflush(addr, end);
+> +
+> +       return ret;
+>  }
+>
 
-diff --git a/arch/arm64/boot/dts/st/stm32mp211.dtsi b/arch/arm64/boot/dts/st/stm32mp211.dtsi
-index 4bfd58b26b51..11929bf00ecd 100644
---- a/arch/arm64/boot/dts/st/stm32mp211.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp211.dtsi
-@@ -50,6 +50,8 @@ firmware {
- 		optee {
- 			compatible = "linaro,optee-tz";
- 			method = "smc";
-+			interrupt-parent = <&intc>;
-+			interrupts = <GIC_PPI 15 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LOW)>;
- 		};
- 
- 		scmi: scmi {
+I'd rather put this logic inside kmsan_vmap_pages_range_noflush
 
-base-commit: f831584128ac2a36fb4fa62fe106793d08c2dbf1
--- 
-2.43.0
+This function should clean things up on its own, not depend on the
+caller to do it, just like kmsan_ioremap_page_range.
 
+https://elixir.bootlin.com/linux/v7.3-rc5/source/mm/kmsan/hooks.c#L185
+
+Uladzislau，WDYT?
+
+Thanks
+Best Regards
+Hao
+
+>>> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+>>> index 859e6d2d57a3..9bbf75706627 100644
+>>> --- a/mm/vmalloc.c
+>>> +++ b/mm/vmalloc.c
+>>> @@ -349,6 +349,10 @@ static int vmap_range_noflush(unsigned long addr, unsigned long end,
+>>>  	if (mask & ARCH_PAGE_TABLE_SYNC_MASK)
+>>>  		arch_sync_kernel_mappings(start, end);
+>>>  
+>>> +	/* Undo the PTEs installed before the failure. */
+>>> +	if (err)
+>>> +		__vunmap_range_noflush(start, end);
+>>> +
+>>>  	return err;
+>>>  }
+>>>  
+>>> @@ -363,6 +367,9 @@ int vmap_page_range(unsigned long addr, unsigned long end,
+>>>  	if (!err)
+>>>  		err = kmsan_ioremap_page_range(addr, end, phys_addr, prot,
+>>>  					       ioremap_max_page_shift);
+>>> +	if (err)
+>>> +		__vunmap_range_noflush(addr, end);
+>>> +
+>>>  	return err;
+>>>  }
+>>>  
+>>> @@ -667,6 +674,10 @@ static int vmap_small_pages_range_noflush(unsigned long addr, unsigned long end,
+>>>  	if (mask & ARCH_PAGE_TABLE_SYNC_MASK)
+>>>  		arch_sync_kernel_mappings(start, end);
+>>>  
+>>> +	/* Undo the PTEs installed before the failure. */
+>>> +	if (err)
+>>> +		__vunmap_range_noflush(start, end);
+>>> +
+>>>  	return err;
+>>>  }
+>>>  
+>> The only one user of that function is __vmap_pages_range_noflush()
+>> so we can cover both cases there small and huge path.
+>>
+>> Is that enough just to do unroll in the below:
+>>
+>> __vmap_pages_range_noflush()
+>> vmap_page_range()
+>>
+>> functions? It will also fix NOFAIL case:
+>>
+> 
+> I see. right, __vmap_pages_range_noflush() is just above the
+> actual page‑table mapping, so it's low‑level enough.
+> Thanks a lot for your prototype.
+> 
+> I'm tidying up the code and will post a REF patch afterwards.
+> 
+> Thanks
+> Best Regards
+> Hao
+> 
+>> <snip>
+>> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+>> index 89c327a6ce7d..fa1f357ecf3f 100644
+>> --- a/mm/vmalloc.c
+>> +++ b/mm/vmalloc.c
+>> @@ -359,10 +359,19 @@ int vmap_page_range(unsigned long addr, unsigned long end,
+>>  
+>>  	err = vmap_range_noflush(addr, end, phys_addr, pgprot_nx(prot),
+>>  				 ioremap_max_page_shift);
+>> +	if (err)
+>> +		goto error_cleanup_range;
+>> +
+>>  	flush_cache_vmap(addr, end);
+>> -	if (!err)
+>> -		err = kmsan_ioremap_page_range(addr, end, phys_addr, prot,
+>> +	err = kmsan_ioremap_page_range(addr, end, phys_addr, prot,
+>>  					       ioremap_max_page_shift);
+>> +	if (err)
+>> +		goto error_cleanup_range;
+>> +
+>> +	return 0;
+>> +
+>> +error_cleanup_range:
+>> +	__vunmap_range_noflush(addr, end);
+>>  	return err;
+>>  }
+>>  
+>> @@ -683,26 +692,35 @@ int __vmap_pages_range_noflush(unsigned long addr, unsigned long end,
+>>  		pgprot_t prot, struct page **pages, unsigned int page_shift)
+>>  {
+>>  	unsigned int i, nr = (end - addr) >> PAGE_SHIFT;
+>> +	unsigned long start = addr;
+>> +	int err;
+>>  
+>> -	WARN_ON(page_shift < PAGE_SHIFT);
+>> -
+>> -	if (!IS_ENABLED(CONFIG_HAVE_ARCH_HUGE_VMALLOC) ||
+>> -			page_shift == PAGE_SHIFT)
+>> -		return vmap_small_pages_range_noflush(addr, end, prot, pages);
+>> +	if (WARN_ON(addr >= end))
+>> +		return -EINVAL;
+>>  
+>> -	for (i = 0; i < nr; i += 1U << (page_shift - PAGE_SHIFT)) {
+>> -		int err;
+>> +	if (WARN_ON(page_shift < PAGE_SHIFT))
+>> +		return -EINVAL;
+>>  
+>> -		err = vmap_range_noflush(addr, addr + (1UL << page_shift),
+>> +	if (!IS_ENABLED(CONFIG_HAVE_ARCH_HUGE_VMALLOC) ||
+>> +		page_shift == PAGE_SHIFT) {
+>> +		err = vmap_small_pages_range_noflush(addr, end, prot, pages);
+>> +	} else {
+>> +		for (i = 0; i < nr; i += 1U << (page_shift - PAGE_SHIFT)) {
+>> +			err = vmap_range_noflush(addr, addr + (1UL << page_shift),
+>>  					page_to_phys(pages[i]), prot,
+>>  					page_shift);
+>> -		if (err)
+>> -			return err;
+>> +			if (err)
+>> +				break;
+>>  
+>> -		addr += 1UL << page_shift;
+>> +			addr += 1UL << page_shift;
+>> +		}
+>>  	}
+>>  
+>> -	return 0;
+>> +	if (err)
+>> +		__vunmap_range_noflush(start, end);
+>> +
+>> +	/* 0 on success. */
+>> +	return err;
+>>  }
+>>  
+>>  int vmap_pages_range_noflush(unsigned long addr, unsigned long end,
+>> @@ -714,7 +732,13 @@ int vmap_pages_range_noflush(unsigned long addr, unsigned long end,
+>>  
+>>  	if (ret)
+>>  		return ret;
+>> -	return __vmap_pages_range_noflush(addr, end, prot, pages, page_shift);
+>> +
+>> +	ret = __vmap_pages_range_noflush(addr, end, prot, pages, page_shift);
+>> +	if (ret)
+>> +		/* Cleanup KMSAN metadata. */
+>> +		kmsan_vunmap_range_noflush(addr, end);
+>> +
+>> +	return ret;
+>>  }
+>>  
+>>  static int __vmap_pages_range(unsigned long addr, unsigned long end,
+>> <snip>
+>>
+>> --
+>> Uladzislau Rezki
