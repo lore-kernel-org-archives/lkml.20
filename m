@@ -1,213 +1,89 @@
-Received: from out30-132.freemail.mail.aliyun.com (out30-132.freemail.mail.aliyun.com [115.124.30.132])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03F2349BD69
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 12:59:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.132
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 438B64A092B;
+	Thu,  8 Oct 2026 13:00:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791464357; cv=none; b=a7MaRPds9kW+RXLJMWDHwAXD/14ZNcrVN1Dxbty8l1qLLku+M4gyImnM+R2b1hdBZwfOLqET05RMFFfknmGr33mjf1bHjVF9iIpF3cJGak2siE0Mo1wWJTDUi/2M8nzlTWX16iZyV/nFqJ0/xM3jK6YVqSfyUKmLtFhwImnjBHs=
+	t=1791464418; cv=none; b=aJjhsrfTDSUE9GL3CrHL0jaXzDTT5/xNmti09tW5hD0T/4QAYKZpRUYB9zUNc8Go3ppg3GmhFzhx8WvMIWiYGM4Vc7qOM7rV0RP+pd3hQYXZCTb24ktnH4aHk/x9vJ/N/avGZcZZSp3M31+g8n20JCPxb/8isE0T1o+e6iP6t7s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791464357; c=relaxed/simple;
-	bh=DgAsKS9JvwInHXRpeBq9EtB+MtkPMfsQVYaRjgxcRpc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:Cc:From:
-	 In-Reply-To:Content-Type; b=LxxEOOEnAleZeXbM3URorkuK40zBu3juWCK+HWw3vKb0sXFt5x2mQXY4+6z0bDA7duQikm2D4VvF7ZAub7gGY+dFK6djILkhuy4iu/D12KsHCuudBG3GOIGamBMPb3s33bXBkMdiSmzpe/H5yLeQqaBQnoJYAn/eqjxJTymMXow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=mB8bBy5R; arc=none smtp.client-ip=115.124.30.132
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1791464418; c=relaxed/simple;
+	bh=7mcO4IJ0qvNbPE87EW+lwG4kqnPNldps9fmnc96NRYc=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=ZlzMmAjcxHP4n41LSmcMLv8qbyCpyZ6R6GIQ5QsNU5YzFavNE3hWGm7FkBVtB7hlswOPRcx8hmc99+BQPrquU5kSupDZmIcn/ul5C5y3edEFQjOCw8K6IFnnok2NGdHdUqnR7r6oafWfZ2ysEeCMagnlhcRq2Q3OWs9+pWzarPI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=GD7jwf92; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="mB8bBy5R"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1791464347; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=UQ3AWBfwIgF+TFIDso++283qqFfL3TrJ8DKata4q3xI=;
-	b=mB8bBy5Rmcbao3R1/0A8VL7NIYJw3ntpRXcweX3C/6pwziH1anAmBX9x+/sXjqmcwxHGuO+Is2fr7X9lUiwt74ViQkIQhoTlWu3Xvs61gDllU0FLQDPXEPLpRafLMiXmYIRYV2gAx60yVEe+tVyscvSl6JzfgpqYkvZ3kIteCqA=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R211e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=8;SR=0;TI=SMTPD_---0XCQ7o1P_1791464346;
-Received: from 30.221.149.122(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XCQ7o1P_1791464346 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 08 Oct 2026 20:59:06 +0800
-Message-ID: <b5773b48-d9be-4789-845b-a8d94a701fa5@linux.alibaba.com>
-Date: Thu, 8 Oct 2026 20:59:05 +0800
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="GD7jwf92"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 8D2A01A118F;
+	Thu,  8 Oct 2026 13:00:13 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 603D460341;
+	Thu,  8 Oct 2026 13:00:13 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E0E74103302B9;
+	Thu,  8 Oct 2026 14:59:55 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791464412; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=oSZG6dmnuIR+9apVNS7t5YXATSgltycCVix57s1onZY=;
+	b=GD7jwf92tDHnef84bIJbxwWQsZ6qaiGak1sPQbw1PlsHrfs0uRaQ+38alGnxOFcY9O0im7
+	9nEA0xfhezl/zMRnR/Y6jVAOL31d4S8pGG+v08eY7oTmyz9bypmP4rGQF3LnbtNUSBiwbU
+	gTrxCdGMpiMkZYNGAwKPrm/ww4R1J4bGeROmVNulcMQfIm+L/URrcMdiCDULdWGM47HX9u
+	FAdXSF154TOUIrZxPRpcRi1E467DOZKmem900HKi3fgk+X5hIxT+b/w+OZokDjCYNI0nIr
+	gv4PODjglaROZpmgyqtWQjh+5GdjYayeiD0U+oltWv11GPYTWJR2rAJvPdlCSA==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] ocfs2: validate filecheck inode slots
-To: Jiale Yao <yaojiale02@163.com>
-References: <20261004070621.1514598-1-yaojiale02@163.com>
-Cc: Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>,
- Gang He <ghe@suse.com>, Andrew Morton <akpm@linux-foundation.org>,
- Heming Zhao <heming.zhao@suse.com>, ocfs2-devel@lists.linux.dev,
- linux-kernel@vger.kernel.org
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-In-Reply-To: <20261004070621.1514598-1-yaojiale02@163.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Date: Thu, 08 Oct 2026 14:59:55 +0200
+Message-Id: <DLZH4LPJ36YW.1CP7RL0J77DHN@bootlin.com>
+Subject: Re: [PATCH net v4] net: macb: rate limit netdev error info print in
+ the data path
+Cc: <stable@vger.kernel.org>, "Conor Dooley" <conor.dooley@microchip.com>,
+ "Andrew Lunn" <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, "Eric Dumazet" <edumazet@google.com>, "Jakub
+ Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>, "Jeff
+ Garzik" <jeff@garzik.org>, "Haavard Skinnemoen" <hskinnemoen@atmel.com>,
+ "open list:NETWORKING DRIVERS" <netdev@vger.kernel.org>, "open list"
+ <linux-kernel@vger.kernel.org>
+To: "taozj888" <taozj888@163.com>
+From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261007053211.572073-1-taozj888@163.com>
+ <DLYI3O7PFN94.V7VH3HSLKEMD@bootlin.com>
+ <63731290.3f0c.1a1198fe993.Coremail.taozj888@163.com>
+In-Reply-To: <63731290.3f0c.1a1198fe993.Coremail.taozj888@163.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
+Hello Zijin,
 
+ - I'll stop replying inline because you seem to be having issues with
+   your mailer. Please fix it to ease the discussion.
 
-On 10/4/26 3:06 PM, Jiale Yao wrote:
-> The online filecheck path reads inodes with
-> ocfs2_filecheck_validate_inode_block() instead of
-> ocfs2_validate_inode_block(). It does not check the slot fields used by
-> ocfs2_get_system_file_inode() to index slot-local system inodes.
-> 
-> A corrupted dinode can set OCFS2_ORPHANED_FL or
-> OCFS2_DIO_ORPHANED_FL while carrying an out-of-range orphan slot. An
-> out-of-range i_suballoc_slot can also bypass the normal validator through
-> the filecheck path. These values can later cause an out-of-bounds access
-> when used as slot indices.
-> 
-> Share predicate helpers between the normal and filecheck validators so
-> both paths enforce the same bounds while retaining their own logging and
-> error handling. Reject invalid slots in the repair path as well, since the
-> correct slot cannot be recovered.
-> 
-> This was reproduced on Linux 7.3-rc4 in an x86_64 QEMU guest with KASAN.
-> Online filecheck of a corrupted inode reported a slab-out-of-bounds read
-> in ocfs2_evict_inode(), reached from ocfs2_filecheck_attr_store().
-> 
-> Fixes: d56a8f32e4c6 ("ocfs2: check/fix inode block for online file check")
-> Signed-off-by: Jiale Yao <yaojiale02@163.com>
-> ---
-> 
-> Notes:
->     Changes in v2:
->     - Extract the slot validity conditions from ocfs2_validate_inode_block()
->       into predicates shared with the filecheck paths.
->     - Keep logging and error handling local to each validator.
->     - Fix the Fixes tag and include the KASAN reproduction information.
-> 
->  fs/ocfs2/inode.c | 68 +++++++++++++++++++++++++++++++++++++++++++-----
->  1 file changed, 62 insertions(+), 6 deletions(-)
-> 
-> diff --git a/fs/ocfs2/inode.c b/fs/ocfs2/inode.c
-> index 180107a11046..e5a7e53fffe5 100644
-> --- a/fs/ocfs2/inode.c
-> +++ b/fs/ocfs2/inode.c
-> @@ -249,6 +249,33 @@ static int ocfs2_dinode_has_extents(struct ocfs2_dinode *di)
->  	return 1;
->  }
->  
-> +static int
-> +ocfs2_dinode_has_invalid_suballoc_slot(struct super_block *sb,
-> +				       struct ocfs2_dinode *di)
-> +{
-> +	u16 slot = le16_to_cpu(di->i_suballoc_slot);
-> +
-> +	return slot != (u16)OCFS2_INVALID_SLOT &&
-> +	       slot >= OCFS2_SB(sb)->max_slots;
-> +}
+   See here how your email looks:
+   https://lore.kernel.org/netdev/63731290.3f0c.1a1198fe993.Coremail.taozj8=
+88@163.com/
 
-Use 'static bool' instead, to keep consistent with
-ocfs2_dinode_has_size_without_clusters().
+ - Your V4 commit message says "Fixes: 89e5785fc8a6" but that is wrong
+   with the current patch, it shold use 4df95131ea80. I don't
+   understand why you are talking about the changelog at the same time,
+   this is unrelated.
 
-And it seems your another patch also changes the same context, so please
-send the two together as a series.
+ - You skipped over explaining why your dropped the start_xmit diff.
 
-BTW, you should rebase on top of the latest linux-next. This conflicts
-with the series of 25bf9e549360 ("ocfs2: restrict OCFS2_INVALID_SLOT
-suballoc slot to system inodes"), and you have to teach the helper about
-OCFS2_SYSTEM_FL.
+I'll have to stop reviewing if you skip over parts of the messages.
+I gave you a TLDR and you skipped over the first bulletpoint.
 
 Thanks,
-Joseph
 
-> +
-> +static int
-> +ocfs2_dinode_has_invalid_orphan_slot(struct super_block *sb,
-> +				     struct ocfs2_dinode *di)
-> +{
-> +	return (le32_to_cpu(di->i_flags) & OCFS2_ORPHANED_FL) &&
-> +	       le16_to_cpu(di->i_orphaned_slot) >= OCFS2_SB(sb)->max_slots;
-> +}
-> +
-> +static int
-> +ocfs2_dinode_has_invalid_dio_orphan_slot(struct super_block *sb,
-> +					 struct ocfs2_dinode *di)
-> +{
-> +	return (le32_to_cpu(di->i_flags) & OCFS2_DIO_ORPHANED_FL) &&
-> +	       le16_to_cpu(di->i_dio_orphaned_slot) >=
-> +	       OCFS2_SB(sb)->max_slots;
-> +}
-> +
->  /*
->   * here's how inodes get read from disk:
->   * iget5_locked -> find_actor -> OCFS2_FIND_ACTOR
-> @@ -1520,24 +1547,21 @@ int ocfs2_validate_inode_block(struct super_block *sb,
->  		goto bail;
->  	}
->  
-> -	if (le16_to_cpu(di->i_suballoc_slot) != (u16)OCFS2_INVALID_SLOT &&
-> -	    (u32)le16_to_cpu(di->i_suballoc_slot) > OCFS2_SB(sb)->max_slots - 1) {
-> +	if (ocfs2_dinode_has_invalid_suballoc_slot(sb, di)) {
->  		rc = ocfs2_error(sb, "Invalid dinode %llu: suballoc slot %u\n",
->  				 (unsigned long long)bh->b_blocknr,
->  				 le16_to_cpu(di->i_suballoc_slot));
->  		goto bail;
->  	}
->  
-> -	if ((le32_to_cpu(di->i_flags) & OCFS2_ORPHANED_FL) &&
-> -	    le16_to_cpu(di->i_orphaned_slot) >= OCFS2_SB(sb)->max_slots) {
-> +	if (ocfs2_dinode_has_invalid_orphan_slot(sb, di)) {
->  		rc = ocfs2_error(sb, "Invalid dinode %llu: orphaned slot %u\n",
->  				 (unsigned long long)bh->b_blocknr,
->  				 le16_to_cpu(di->i_orphaned_slot));
->  		goto bail;
->  	}
->  
-> -	if ((le32_to_cpu(di->i_flags) & OCFS2_DIO_ORPHANED_FL) &&
-> -	    le16_to_cpu(di->i_dio_orphaned_slot) >= OCFS2_SB(sb)->max_slots) {
-> +	if (ocfs2_dinode_has_invalid_dio_orphan_slot(sb, di)) {
->  		rc = ocfs2_error(sb, "Invalid dinode %llu: DIO orphaned slot %u\n",
->  				 (unsigned long long)bh->b_blocknr,
->  				 le16_to_cpu(di->i_dio_orphaned_slot));
-> @@ -1835,6 +1859,33 @@ static int ocfs2_filecheck_validate_inode_block(struct super_block *sb,
->  		goto bail;
->  	}
->  
-> +	if (ocfs2_dinode_has_invalid_suballoc_slot(sb, di)) {
-> +		mlog(ML_ERROR,
-> +		     "Filecheck: invalid dinode #%llu: suballoc slot %u\n",
-> +		     (unsigned long long)bh->b_blocknr,
-> +		     le16_to_cpu(di->i_suballoc_slot));
-> +		rc = -OCFS2_FILECHECK_ERR_INVALIDINO;
-> +		goto bail;
-> +	}
-> +
-> +	if (ocfs2_dinode_has_invalid_orphan_slot(sb, di)) {
-> +		mlog(ML_ERROR,
-> +		     "Filecheck: invalid dinode #%llu: orphaned slot %u\n",
-> +		     (unsigned long long)bh->b_blocknr,
-> +		     le16_to_cpu(di->i_orphaned_slot));
-> +		rc = -OCFS2_FILECHECK_ERR_INVALIDINO;
-> +		goto bail;
-> +	}
-> +
-> +	if (ocfs2_dinode_has_invalid_dio_orphan_slot(sb, di)) {
-> +		mlog(ML_ERROR,
-> +		     "Filecheck: invalid dinode #%llu: DIO orphaned slot %u\n",
-> +		     (unsigned long long)bh->b_blocknr,
-> +		     le16_to_cpu(di->i_dio_orphaned_slot));
-> +		rc = -OCFS2_FILECHECK_ERR_INVALIDINO;
-> +		goto bail;
-> +	}
-> +
->  	if (ocfs2_dinode_has_size_without_clusters(sb, di)) {
->  		if (S_ISDIR(le16_to_cpu(di->i_mode)))
->  			mlog(ML_ERROR,
-> @@ -1893,6 +1944,11 @@ static int ocfs2_filecheck_repair_inode_block(struct super_block *sb,
->  		return -OCFS2_FILECHECK_ERR_VALIDFLAG;
->  	}
->  
-> +	if (ocfs2_dinode_has_invalid_suballoc_slot(sb, di) ||
-> +	    ocfs2_dinode_has_invalid_orphan_slot(sb, di) ||
-> +	    ocfs2_dinode_has_invalid_dio_orphan_slot(sb, di))
-> +		return -OCFS2_FILECHECK_ERR_INVALIDINO;
-> +
->  	if (le64_to_cpu(di->i_blkno) != bh->b_blocknr) {
->  		di->i_blkno = cpu_to_le64(bh->b_blocknr);
->  		changed = 1;
+--
+Th=C3=A9o Lebrun, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
