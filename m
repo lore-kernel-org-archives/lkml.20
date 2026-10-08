@@ -1,168 +1,109 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.ispras.ru (mail.ispras.ru [83.149.199.84])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F01738C2D0
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 19:18:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AABC938C2D0;
+	Thu,  8 Oct 2026 19:20:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.149.199.84
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791487135; cv=none; b=K5F5f3Vola67w2E5FkG1aEGRaSKDEXe6XpTyF1RpfxQl2sOyOK0j4t4br+wVoCwQby5qBaYyOLA0GkRbShD0wycMS5ogH9I9UbR//5o7nWpaoVA+/AesBPv30zN0om9TfPYTykouqDsPU93BAHfqRXhMrGO1/mj5TR4O2y7iuag=
+	t=1791487212; cv=none; b=UjN6mxmgqQZTzgXDKHi4+o4mDaAqkQrcNJGCqmUafzNbPQFHgb0Yjzf03ilwANI92jS0SmE9u5yBgasM1met+bPlyuwa840xLl9XyVe/1BDNmcg49Zggrklc5Oy8+MBO4SAgbz6JK506g1R2hCz8bLFJl0a4hLTIeqqw6AeaPq0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791487135; c=relaxed/simple;
-	bh=NtDq6e8LX1lDAOuEJn4iBhESf83UdpiEIuIR6bCr5Ks=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=snO5hX/K8q2nE8KSb1nCP0581sGwHGAR+vmpyDSXLY7a9fbwvA1glwdNG6bEL7FgJ4u70t4JnlhBn5DfSlVqrifi7CKzPe66+Sk9VjSjBQWkYf/luOj1OTSznEj7fg27xRvXx3+4OENudaB8Mo3U2h94WT0oO8rhuzzR5JQLLZg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YojI7yI1; arc=none smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791487212; c=relaxed/simple;
+	bh=fqtvXx7SuhVACWim03ZBe3zS9HB8AvdJ4R5T5U8Eqqk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OV0HErO1r5owNQiWTjDCx/KEumWsLSOP650cmUj5TS6ozw39sT4zjVXPUAzoTshFqtnOZJHsIQdEq05Sx+ZFKu67WXe7t5Ft+IazkIYZvupoefywXpZfA9veLxRAU0WqIxIGuIVQgaQZE9K3wtKW/hZYK67Xk1SSlgrEZ3NyS5c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ispras.ru; spf=pass smtp.mailfrom=ispras.ru; dkim=pass (1024-bit key) header.d=ispras.ru header.i=@ispras.ru header.b=TOG+mGXE; arc=none smtp.client-ip=83.149.199.84
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ispras.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ispras.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YojI7yI1"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48af4d4e61fso2216968f8f.2
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 12:18:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791487133; x=1792091933; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NvBBYt0QHaBsGt4sgK0v6LDNYZqIUkl6IROUmRuxWdQ=;
-        b=YojI7yI1wkldHLrvVqCPWDYkPwCDutcycnxzUVYgkY6MKJnwjsoC/hKFvv1HBt+8J4
-         al6RHuc72iv7FkpsjiBx3XNu2gskZlFxeBGgZkzl0UsGKdfnppMivXQ9djP9marlM1c8
-         WFZRg6/vp+D59u5tJXFyHt0wcWkrPLoBxmTto6ADyt3oQT4guDMakxMRbxDhjmQGxrib
-         pmDnnJYYa68LvE44GSRXtZINd+ujOJikCywnfrmurS8xbdqpec90Ob791Nw/biv7uNgs
-         YTtBJXwdbqM3fVX6+5EK6f7W+u87ymirT8gscZUm1WT9pLxkCA9kXP2Nup/sy/6A5aif
-         tAHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791487133; x=1792091933;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NvBBYt0QHaBsGt4sgK0v6LDNYZqIUkl6IROUmRuxWdQ=;
-        b=tWpxsJoRmk0qQ9LrzRa1wFL4o5Yt7fQzF1uGIZhvzp1+2wC1SPR9BPBXRd6ewgWApL
-         tYKxfRayftYXlS56f9ASGxtieVF6uA+69MB1Jdef3c7X6AtVGUDJV+3+d8aHlsnoMPPU
-         mtKU1wAmARHhoMSycCNXVHN22vDtJzGSbSIpEoVMUM0H1d3xphK3Kjd9levPnTTr2bKw
-         6JA7H08fBaX1WDPekl6406YlCgtpsWacehODTCKTvVknZtMHZqDqs5KlQJvHnIgh2N/2
-         C1XUUWqYq0n8nEGdDMQOEXE3tMmKe2x+fj6VBM1w6FulzN3pR8WjqSLIHqeE1iFRpU3G
-         eIgg==
-X-Forwarded-Encrypted: i=1; AKwUvBzH5Mnnf33i8I97zbuACfNt/t3f0cAIAGx6QkVgt5eSoTJXRqTX4scKqbAg57n0jqO8idU3nd4e6mL0R4w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIshSo8denchwBJZ6L5PSIgLemEStHteaUjOOoU74FHeEnSx8SJ
-	aIw0FJxxVZXE6zCjpjcgQzWjvqr08FTTrSknW1ybUMWbCx2SF7qOanB1
-X-Gm-Gg: AYBFou3E0ApNyF3U31nfS9FLMaHufl7GuZaHQIPZs0GTfc8pyKQrTX5xq/97d1iUjNV
-	8PRXWBK6ekszsqO/hadJzOYfp0MTLltz00gvM8FWUlL2nLJwQXNWCQa+tK+cJVXGqcqSJsEcLCE
-	wJdvFv0Zn9cr5IIJt421F3nsckfePV5XHN9TjA63wsCwkCja1mI22RYJ9JzCZwJO1E30At8XVrE
-	DcJ7KXuWYev77ojSpPTZ+uFoSNGHMam22+9BJIzqbhIl7Wj3ydEStwhKYRj9LuLbH9qEu/FESG5
-	UjG1PkFgphiVeMepsEnfmaXdq4wbHhtW28eqrGcM7+pCSDVyWBkm6lhmn1xd/9rHKYJkVRypT4g
-	MAa/hyQOM2zdIVCYBwB0DGRPO0RA1+ib7EztwtaRMyG2RvNz+sV6gGYxxY8fV0RqfZTS80IbhpY
-	5BA/d9Ym5RG9tJ26jZ2wtk2F/Oz1YaIG15nnzZ9YX3RitSQXKfDWatIOlSZfSottEairQySQ/3B
-	0/B0iinnBukLfyYeg9nCoU1b4uG7zRve7xPlc+0DuEWwRDeiD1+e3SdN5+8+mEDoYsl
-X-Received: by 2002:a5d:64c9:0:b0:48c:7037:aee9 with SMTP id ffacd0b85a97d-48c72890fdcmr12484231f8f.50.1791487132477;
-        Thu, 08 Oct 2026 12:18:52 -0700 (PDT)
-Received: from Raghu007.. (sgyl-44-b2-v4wan-174108-cust110.vm6.cable.virginm.net. [80.1.81.111])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db650fe17sm1104128f8f.9.2026.10.08.12.18.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 12:18:52 -0700 (PDT)
-From: Palla Raghunath <raghunathpalla.0209@gmail.com>
-To: Justin Tee <justin.tee@broadcom.com>,
-	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
-	Paul Ely <paul.ely@broadcom.com>,
-	Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>
-Cc: Keith Busch <kbusch@kernel.org>,
-	Daniel Wagner <dwagner@suse.de>,
-	Hannes Reinecke <hare@suse.de>,
-	linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Shuah Khan <shuah@kernel.org>,
-	Brigham Campbell <me@brighamcampbell.com>,
-	linux-kernel-mentees@lists.linux.dev,
-	raghunathpalla.0209@gmail.com,
-	syzbot+da94a51633758d13bd63@syzkaller.appspotmail.com
-Subject: [PATCH] nvmet-fc: don't drop the last assoc reference in nvmet_fc_delete_ctrl()
-Date: Thu,  8 Oct 2026 20:18:48 +0100
-Message-Id: <20261008191848.47066-1-raghunathpalla.0209@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=ispras.ru header.i=@ispras.ru header.b="TOG+mGXE"
+Received: from localhost (unknown [10.10.165.5])
+	by mail.ispras.ru (Postfix) with ESMTPSA id 14A18407617A;
+	Thu,  8 Oct 2026 19:19:59 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.ispras.ru 14A18407617A
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ispras.ru;
+	s=default; t=1791487199;
+	bh=jcK7/LghoFd1/EJFysr6Y0kYIb8jr/AM86zczc6LWtk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=TOG+mGXEoimluZjHiP2F8uGFZyIQHI6WhXAMQD11cJiE+Rd5LQCywBeX1/Kzv/RSt
+	 23iiV9lBqoiJ/nD4A9KpWV+3G0Ii861XoeOQXQ7k4SvmeW4vwOSsSt0BjaEItPWMkS
+	 MjyGKx+vERZDO+gyl9bFAr+mKq4voGF0qlRUy4JU=
+Date: Thu, 8 Oct 2026 22:19:58 +0300
+From: Fedor Pchelkin <pchelkin@ispras.ru>
+To: Alexander Martyniuk <alexevgmart@gmail.com>
+Cc: stable@vger.kernel.org, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, lvc-project@linuxtesting.org, 
+	Johannes Berg <johannes.berg@intel.com>, Thomas Pedersen <thomas@cozybit.com>, 
+	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzbot+63a84ea9c0f57d6133fa@syzkaller.appspotmail.com, netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>, 
+	Johannes Berg <johannes@sipsolutions.net>, "David S. Miller" <davem@davemloft.net>
+Subject: Re: [PATCH 5.10/5.15] wifi: mac80211: mesh: release the channel if
+ start fails
+Message-ID: <20261008220352-4a493878ce385d22bedcf4a4-pchelkin@ispras>
+References: <20261008115145.83101-1-alexevgmart@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261008115145.83101-1-alexevgmart@gmail.com>
 
-syzbot hit a recursive locking report on subsys->lock when a subsystem
-is unlinked from an FC port.
+On Thu, 08. Oct 14:51, Alexander Martyniuk wrote:
+> From: Johannes Berg <johannes.berg@intel.com>
+> 
+> commit ae97fff6495a8764bc0ef281cfe5444f701e527f upstream.
+> 
+> ieee80211_join_mesh() acquires a channel context and then calls
+> ieee80211_start_mesh(), which can fail. In that case, the chanctx
+> isn't released then interface removal will attempt to unassign it
+> after it's removed from the driver, hitting:
+> 
+>   wlan0: Failed check-sdata-in-driver check, flags: 0x0
+>   WARNING: net/mac80211/driver-ops.c:366 at drv_unassign_vif_chanctx
+>    ieee80211_assign_link_chanctx
+>    __ieee80211_link_release_channel
+>    ieee80211_link_release_channel
+>    ieee80211_teardown_sdata
+>    unregister_netdevice_many_notify
+>    _cfg80211_unregister_wdev
+>    ieee80211_remove_interfaces
+>    ieee80211_unregister_hw
+>    mac80211_hwsim_del_radio
+>    hwsim_exit_net
+> 
+> Correctly release the channel on start failures.
+> 
+> Assisted-by: LLM
+> Reported-by: syzbot+63a84ea9c0f57d6133fa@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=63a84ea9c0f57d6133fa
+> Fixes: 2b5e19677592 ("mac80211: cache mesh beacon")
+> Link: https://patch.msgid.link/20260908122838.201719-21-johannes@sipsolutions.net
+> Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+> Signed-off-by: Alexander Martyniuk <alexevgmart@gmail.com>
+> ---
+> Backport fix for CVE-2026-98326
+>  net/mac80211/cfg.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/net/mac80211/cfg.c b/net/mac80211/cfg.c
+> index afb1ad3e6ea1..bae9588ea913 100644
+> --- a/net/mac80211/cfg.c
+> +++ b/net/mac80211/cfg.c
+> @@ -2276,7 +2276,11 @@ static int ieee80211_join_mesh(struct wiphy *wiphy, struct net_device *dev,
+>  	if (err)
+>  		return err;
+>  
+> -	return ieee80211_start_mesh(sdata);
+> +	err = ieee80211_start_mesh(sdata);
+> +	if (err)
+> +		ieee80211_vif_release_channel(sdata);
 
-nvmet_port_del_ctrls() holds subsys->lock while it calls ->delete_ctrl()
-for each controller. nvmet_fc_delete_ctrl() grabs a reference on the
-association, queues del_work and then drops the reference. If del_work
-gets to run to completion before that put, ours is the last reference.
-Freeing the assoc tears down the queues, the last nvmet_cq_put() drops
-the last ctrl reference, and nvmet_ctrl_free() goes for subsys->lock
-again:
+In 5.10/5.15 ieee80211_vif_release_channel() requires &sdata->local->mtx
+to be held, it has the corresponding lockdep assertion.
 
-  WARNING: possible recursive locking detected
-  ...
-   nvmet_ctrl_free+0xa6/0x8e0 drivers/nvme/target/core.c:1766
-   nvmet_cq_put+0x158/0x200 drivers/nvme/target/core.c:848
-   nvmet_fc_target_assoc_free+0x418/0x2220 drivers/nvme/target/fc.c:1173
-   nvmet_fc_delete_ctrl+0x717/0x7e0 drivers/nvme/target/fc.c:1581
-   nvmet_port_del_ctrls+0xfb/0x150 drivers/nvme/target/core.c:311
-   nvmet_port_subsys_drop_link+0x1e8/0x310 drivers/nvme/target/configfs.c:1119
-
-It's a real hang, not only a lockdep warning. I reproduced it with
-fcloop by putting an msleep() before the put: rm on the configfs link
-gets stuck in D state for good.
-
-I don't think we need that reference at all. del_work does
-list_del_rcu() and synchronize_rcu() before it drops the initial
-reference, so an assoc we find on assoc_list can't go away before
-rcu_read_unlock(). nvmet_fc_schedule_delete_assoc() doesn't sleep, so
-just call it inside the RCU section and get rid of the get/put. If the
-assoc is already being deleted, terminating is set and the call is a
-no-op, which matches what happened before when the get failed.
-
-With the same msleep() in place the patched kernel unlinks cleanly and
-the assoc is freed from the workqueue.
-
-Fixes: 4049dc96b8de ("nvmet-fc: defer cleanup using RCU properly")
-Reported-by: syzbot+da94a51633758d13bd63@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=da94a51633758d13bd63
-Signed-off-by: Palla Raghunath <raghunathpalla.0209@gmail.com>
----
- drivers/nvme/target/fc.c | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/nvme/target/fc.c b/drivers/nvme/target/fc.c
-index 1b557775e033..eecdffefa24f 100644
---- a/drivers/nvme/target/fc.c
-+++ b/drivers/nvme/target/fc.c
-@@ -1567,8 +1567,14 @@ nvmet_fc_delete_ctrl(struct nvmet_ctrl *ctrl)
- 		list_for_each_entry_rcu(assoc, &tgtport->assoc_list, a_list) {
- 			queue = assoc->queues[0];
- 			if (queue && queue->nvme_sq.ctrl == ctrl) {
--				if (nvmet_fc_tgt_a_get(assoc))
--					found_ctrl = true;
-+				/*
-+				 * No assoc reference here: we're called with
-+				 * subsys->lock held, and if del_work beat us,
-+				 * our put would free the ctrl under that lock.
-+				 * RCU keeps the assoc alive until unlock.
-+				 */
-+				nvmet_fc_schedule_delete_assoc(assoc);
-+				found_ctrl = true;
- 				break;
- 			}
- 		}
-@@ -1576,11 +1582,8 @@ nvmet_fc_delete_ctrl(struct nvmet_ctrl *ctrl)
- 
- 		nvmet_fc_tgtport_put(tgtport);
- 
--		if (found_ctrl) {
--			nvmet_fc_schedule_delete_assoc(assoc);
--			nvmet_fc_tgt_a_put(assoc);
-+		if (found_ctrl)
- 			return;
--		}
- 
- 		spin_lock_irqsave(&nvmet_fc_tgtlock, flags);
- 	}
--- 
-2.34.1
-
+Besides, the backport uses a different release-function, relevant for old
+kernels.  I understand that's an adaptation but FWIW it's generally
+recommended to write a brief backporter's comment above one's SoB line if
+any non-trivial adaptation is done.
