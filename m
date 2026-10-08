@@ -1,85 +1,168 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5770C3839AC
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 14:47:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ABF34CEE49;
+	Thu,  8 Oct 2026 14:48:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791470847; cv=none; b=nn8LqBw3adFcF7wXu2y4DaSXYLbocCxN08ciqDdcZjIyz0g66R7OrNIDE77lDVglqichD9TpouxGk2JkpOgZN3aqajbUc6MT+5kONtJLStk8lgPMySN1XJujPHDvMBT2xTqlmKxYXBllJqTKjB5y8P78Kmnh0e2GxGnMdNWJ50I=
+	t=1791470926; cv=none; b=FnXyQ9at3Rv3Qf6gMZn0LL8LaiMgor9lf9oaO0Zt+tq/wQbntu3CcLZ6rQlHokvRlLNLW4MURXi/U0CioiwBeWRoFUzUnXjL9wIhyIeGMvs1IbLbUtMWtR3CFPp+BwhdGINyVge62OcWSNczqVNYSzUFOInXaW4IrPHkt0PxW9g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791470847; c=relaxed/simple;
-	bh=RyEyHIhBxJtf2c3PhcIBxsx8S5z4imV40tf6kOX9tR4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QV/sBtu/lwnkMsHBb+Di9vxTF1LZJnSur32BdMZ9CAEDceCVxgBdgsA6vtH3Ityvi+zurN7A7zqMbIWPCMLR1G3fXSdig9NWTmIT4U5hxs7++ewr7vzUjXRxMfDLG4XT7TBOJ4ztEzd/wfuUHtUC7wbICqFfMNTsP6JIHbfHL30=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aeV52aC2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791470926; c=relaxed/simple;
+	bh=zcrtJxpGwPvO6znnEoDATns333KcWtpWLnR9+E1tdmE=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=soCz2WA/jlHqXeM1TiM4D8sH1Mu9XstNODiynt0d7Jpnb5O/n6zpU6PrEDAqnro45ASDAge5GT9Wx/Gn3m3ORLb1wNDcW+TBIwMZHXWbeVht51uIn1ehHgkBFD1KCH0wqAIAM7WG+WlosaRlmR1GYMmkBeisgHhcSCHsBcADpDU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YTcxmFvo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aeV52aC2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F292C1F000FF;
-	Thu,  8 Oct 2026 14:47:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YTcxmFvo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EC351F000FF;
+	Thu,  8 Oct 2026 14:48:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791470841;
-	bh=wXTcdwnDzVIvGijsB17Q058yuGWjveFjoq9zAMPXR5A=;
-	h=From:To:Cc:Subject:Date;
-	b=aeV52aC2Dh4Cs48Pr3GtCvhFdwZS8oRmyVmefK15RYUXPNrNGNKj2z08ICWQMQDOU
-	 lJ+4ATDw2r6M9LyPUoct9Q7iu9pvT9Lyi42jxuXJJMe76Q1UuyEot3jIUlhbXH9aec
-	 9FcUjfCTd+wNcZRVbzeLG9Qia7XJwqMJj7uI/PmkXnr14ty+a7Op9O88l61RxdkXVg
-	 8c8SUorSO2tepEUNnVYHrQHip/sKKPyJMStTg6hn6WDHZdMRrL89BwcUzlGjYwNiQm
-	 zo22LQJMroxwoUfNK0nFza2PsmBhGZl7cfYPSPa2h9wQr/feY/44we/gXrNDNG9G9Y
-	 N99yDlUFpymCw==
-From: Dinh Nguyen <dinguyen@kernel.org>
-To: gregkh@linuxfoundation.org
-Cc: dinguyen@kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [GIT PULL] SoCFPGA firmware updates for v7.4
-Date: Thu,  8 Oct 2026 09:47:19 -0500
-Message-ID: <20261008144719.551095-1-dinguyen@kernel.org>
-X-Mailer: git-send-email 2.42.0.411.g813d9a9188
+	s=k20260515; t=1791470907;
+	bh=hhg87ZvJs973gY+K3g4YqzZQ00kR5hanhFZoI6UIECQ=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=YTcxmFvo4nIazgPGB+S7FCP8BffoJvVUq0q8cSifChVCRLpp6nQNnYfA/zjqcIZ1y
+	 0sUX12X5FfsVZIkz3Z/05Ws06XG4HLn6YwMp3oQ4F4woOW0CxGF0to6clmHAE1eCsV
+	 LCKFed7czRQYCM0XOuzTgSmJViHhqktGu59FN71bvARI6+9waeP4zmfXJBtNLe53TT
+	 z3GMjCG4+xzuHxN8VQM7NJSScaBJomOJ3RuynQgk7nj7nCE01rl8NRqu6wTSrOEJ6e
+	 W2GoowABmQg6BoQvqEcwLEDhmUqK4Jy9Vi9v5cSjxDrSc8JEmHyyZJkbojdXK/pyx2
+	 Cz219DC3eHFnQ==
+Content-Type: multipart/mixed; boundary="===============7558581794726513330=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-Id: <2d7ad17f07f7077431987fe4de72f17d1e87937bacc4250ec4f51586c4ca2a58@mail.kernel.org>
+In-Reply-To: <20261008-selftests-bpf-cgroup-stats-bpffs-v1-2-76b9a6d1be34@gmail.com>
+References: <20261008-selftests-bpf-cgroup-stats-bpffs-v1-2-76b9a6d1be34@gmail.com>
+Subject: Re: [PATCH bpf-next 2/2] selftests/bpf: Don't stack a bpffs in cgroup_hierarchical_stats
+From: bot+bpf-ci@kernel.org
+To: odys.yuan@gmail.com,andrii@kernel.org,eddyz87@gmail.com,ihor.solodrai@linux.dev,ast@kernel.org,daniel@iogearbox.net,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,shuah@kernel.org,yosry@kernel.org,haoluo@google.com
+Cc: bpf@vger.kernel.org,linux-kselftest@vger.kernel.org,linux-kernel@vger.kernel.org,odys.yuan@gmail.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Thu,  8 Oct 2026 14:48:25 +0000 (UTC)
 
-The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+--===============7558581794726513330==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+> selftests/bpf: Don't stack a bpffs in cgroup_hierarchical_stats
 
-are available in the Git repository at:
+TL;DR:
+- Commit message may be inaccurate: bpffs mounted before the cgroup
+  mount-namespace unshare seems never unmounted afterwards
+- Unanswered v1 question: drop the mounting code or add a common helper?
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/dinguyen/linux.git tags/socfpga_firmware_updates_for_v7.4
+> selftests/bpf: Don't stack a bpffs in cgroup_hierarchical_stats
+>
+> setup_bpffs() mounts a bpffs on /sys/fs/bpf even when one is already
+> there, while test_progs runs other tests that pin objects in /sys/fs/bpf
+> in parallel.
+>
+> The new, empty bpffs hides the old one until the test ends, so those
+> tests lose what they pinned or the directories they pin into.
+> bpftool_maps_access then fails to pin an iterator because
+> /sys/fs/bpf/test_bpftool_map doesn't exist anymore, and bpftool_metadata
+> can't find the program it pinned in /sys/fs/bpf/test_metadata.
+>
+> Mount a bpffs only if /sys/fs/bpf isn't one already.
+>
+> Fixes: 88886309d2e8 ("selftests/bpf: add a selftest for cgroup hierarchical stats collection")
+> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
 
-for you to fetch changes up to 580c64140e174c27cfeb3e499e2eb851571e0773:
+The changelog says the new bpffs hides the old one "until the test ends".
+Is that accurate?
 
-  firmware: stratix10-svc: Reduce polling interval for command status (2026-10-08 09:41:24 -0500)
+setup_hierarchy() calls setup_bpffs() first and setup_cgroups() second:
 
-----------------------------------------------------------------
-SoCFPGA Firmware update for v7.4
-- Turn off secondary CPUs using PSCI on Agilex7 and Stratix10
-  Warm resets on these platforms require a clean PSCI state.
-- Clean up stratix10_svc_free_memory() to reduce nesting
-- Add SMMU DMA coherent support on Agilex5
-  Use DMA-coherent buffers and IOVAs in the service driver for Agilex5
-- Set kaddr1 to res.a1 which matches the existing error path and allow
-  callers to retrieve firmware status details
-- Allow older firmware that excluded COMMAND_RSU_UPDATE and COMMAND_RSU_STATUS
-  to return SVC_STATUS_NO_SUPPORT so the firmware can continue instead of
-  waiting for a timeout.
-- Add support for SDM mailbox interrupt on async transactions
-- Reduce polling times by introducing polling modes(Fast and Slow)
+    static int setup_hierarchy(void)
+    {
+        return setup_bpffs() || setup_cgroups();
+    }
 
-----------------------------------------------------------------
-Adrian Ng Ho Yin (6):
-      firmware: stratix10-svc: add PSCI secondary CPU offline on warm reboot for agilex and stratix10
-      firmware: stratix10-svc: warn on unmatched free in stratix10_svc_free_memory
-      firmware: stratix10-svc: add Agilex5 SMMU DMA coherent support
-      firmware: stratix10-svc: populate kaddr1 from config status response
-      firmware: stratix10-svc: remove RSU exclusion from no-support path
-      firmware: stratix10-svc: Reduce polling interval for command status
+setup_cgroups() goes through setup_cgroup_environment(), which moves the
+process into a private mount namespace:
 
-Tze Yee Ng (1):
-      firmware: stratix10-svc: Add for SDM mailbox doorbell interrupt
+    tools/testing/selftests/bpf/cgroup_helpers.c:setup_cgroup_environment() {
+        ...
+        if (unshare(CLONE_NEWNS)) {
+        ...
+        if (mount("none", "/", NULL, MS_REC | MS_PRIVATE, NULL)) {
+        ...
+    }
 
- drivers/firmware/stratix10-svc.c             | 598 ++++++++++++++++++++++-----
- include/linux/firmware/intel/stratix10-smc.h |  44 ++
- 2 files changed, 541 insertions(+), 101 deletions(-)
+So a bpffs mounted by setup_bpffs() lands in the original mount namespace,
+and the test then continues in a private copy and never switches back
+(cgroup_helpers.c has no setns()).
+
+cleanup_bpffs() runs after cleanup_cgroups() from destroy_hierarchy(), so
+its umount(BPFFS_ROOT) only removes the private copy.  The empty bpffs in
+the original namespace seems to stay on top of the real one after the test
+ends, and other processes in that namespace would keep losing their pins.
+
+The same applies to the mounted_bpffs = true path that this patch keeps:
+the umount in cleanup_bpffs() does not undo the mount done in
+setup_bpffs().
+
+The check for an existing bpffs avoids the stacking, but should the
+changelog be reworded to describe this accurately?  Alternatively, could the
+bpffs setup be done after setup_cgroup_environment(), or the unmount be done
+in the original namespace?
+
+> diff --git a/tools/testing/selftests/bpf/prog_tests/cgroup_hierarchical_stats.c b/tools/testing/selftests/bpf/prog_tests/cgroup_hierarchical_stats.c
+> index a93b16ed629e..8e0b67df700b 100644
+> --- a/tools/testing/selftests/bpf/prog_tests/cgroup_hierarchical_stats.c
+> +++ b/tools/testing/selftests/bpf/prog_tests/cgroup_hierarchical_stats.c
+
+[ ... ]
+
+> @@ -88,13 +90,22 @@ static int read_from_file(const char *path, char *buf, size_t size)
+>  /* mounts bpffs and mkdir for reading stats, returns 0 on success. */
+>  static int setup_bpffs(void)
+>  {
+> +	struct statfs st;
+>  	int err;
+>
+> -	/* Mount bpffs */
+> -	err = mount("bpf", BPFFS_ROOT, "bpf", 0, NULL);
+> -	mounted_bpffs = !err;
+> -	if (ASSERT_FALSE(err && errno != EBUSY, "mount"))
+> +	/*
+> +	 * Mount bpffs unless it is already there. Mounting another one on top
+> +	 * would hide what other tests running in parallel pin in it.
+> +	 */
+> +	err = statfs(BPFFS_ROOT, &st);
+> +	if (!ASSERT_OK(err, "statfs " BPFFS_ROOT))
+>  		return err;
+> +	if (st.f_type != BPF_FS_MAGIC) {
+> +		err = mount("bpf", BPFFS_ROOT, "bpf", 0, NULL);
+> +		if (!ASSERT_OK(err, "mount"))
+> +			return err;
+> +		mounted_bpffs = true;
+> +	}
+
+Yosry Ahmed raised a design question on v1 that does not appear to have
+been answered.  The other tests that break (bpftool_maps_access and
+bpftool_metadata) do not mount bpffs themselves, they rely on it already
+existing:
+
+> Seems like both of these tests do not mount bpffs, but rely on its
+> existence. If it's generally expected that bpffs is mounted when the tests
+> are run, should we drop the mounting code here instead? Alternatively,
+> should we have a common helper for creating directories in bpffs that
+> mounts it if it isn't already there?
+
+Since this patch keeps the conditional mount in setup_bpffs(), should the
+mounting code be dropped here, or should a common helper that creates
+directories in bpffs and mounts it only when missing be introduced?
+
+[ ... ]
+
+
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/37792241939
+--===============7558581794726513330==--
