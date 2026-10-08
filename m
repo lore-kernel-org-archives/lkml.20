@@ -1,222 +1,108 @@
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C52C627280A
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 01:25:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13AAA2BE7DD;
+	Thu,  8 Oct 2026 01:27:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791422761; cv=none; b=UzNF+BHVzdDcW1YbOwWyE8DIJt7rKovjBJSm9sqlvHksmG86ZwAOEQ9EG0QEFfMOOEAxt+xTWtVLENUUg8j0UHgdRON+nABmR2/F0E/RggOTpalSYK9bta5OYuee3ZgWpJaRsfx+LV12lizIMX0uIIawxHRy0xeiiRXHD9zvR08=
+	t=1791422856; cv=none; b=MsgfqhNjjd1ibn4CcluGlsY7yAHwF/pfqmYzlPmxBq9zXkNLDm4kc26/O/0th2aaWcOE7F0hmeW/Dwo5pYJ1BxWW5Ts/emyN4+Bpb8MMFn/lJT7gk/SD6mIhnqBp8gPTMdmBHYo2Q0soce+wvzS/yb0/qWb1qaaDDYIH8Q/MOrw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791422761; c=relaxed/simple;
-	bh=L6FxWsQHeaxIM/XeyM/735QYT+ml7DRFuXuaskfSvvg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fZo/KYjbAIvMqUXV0oBpAuVCzCZrdDEe7s3I4aewxY0/zPQSToumi9czNcuqkBuGPHplfNl+7cy1te2QFlZK/FPg+wzczTPua6lafqdGuF7DRIPe/5DzZ1qvrEd6i8JK13QmzT0OgjivOh0dQq6EahMshSN6doCK93BevV4rrcs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OGSolTEv; arc=none smtp.client-ip=209.85.167.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791422856; c=relaxed/simple;
+	bh=voiX5AM7a9CdZVhAJPZ3c2WAyTNR7dfeQq1wQyEyGwg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=KekjLZPGCt7SGhy7F+1riP0U0GgXtzFR08DQ6S5k6DMwoweKBnlpRD0pRcGG5TIrnXF8j1Mt/AeRT8j3UMiU1xx8fk5GXf4QXfhY6gNLp5+FCHUqXPBlAu3KySJ81TkB5Th3fKJG4KTZVH2ao6r8sAhA6jIWfgvDurF9cpGkBoU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WcaREmhR; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OGSolTEv"
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5bcb2ecebb4so2268443e87.2
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 18:25:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791422758; x=1792027558; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AL66qoMRyA6L0GT8rHeIQAOMO/7RHdMXg0Z/7eR2L+0=;
-        b=OGSolTEvR8NWgy27MCEDeStAcRkzYvBpRRVq5pEPOuL1tPdXClDs8a6oEkar28WvPo
-         55Mo3yLpKUjq7/Ume6E/2mmAZ5JWgUmZNte8cvlLhGAkIkIcaOZyZwgTCHvaCAqIqIH5
-         BLKxcp3FyGb8z+LaUmi2/7UdG9No45wgWiiZ3pREJ/wlW7pQIlvexSfXuHwSwWPPc6Wj
-         bnNNBxXgJNNfdhXYVDTL/igktaalQESs8H5IBqUFNxPlLxaTgqK9C6OoiA2DAZr6jeUh
-         ZV5jxrSzWXGfH3i8IWKTRHHmm4UiinbdAfzYuiiQvf90knf6PRb0b+U+BfPiJBe4kb2j
-         MJgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791422758; x=1792027558;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AL66qoMRyA6L0GT8rHeIQAOMO/7RHdMXg0Z/7eR2L+0=;
-        b=jyxQ87RztyhZmTU/HXG6PpLCiEcHgCo+mmdL0IZvEg1c7vmmaOwjQyamBQj/r5Z/AT
-         mU3A85daIb1oaapQzm6abnhhQe+qRTXMR2kFe8g1BdaBhbCWUMvUjR5xol894vKUh6xB
-         BkqGepYa0HMzuNvu8Y7PFyNJPNXyQ/CcGxZ6AtHwjg61PBf1GHki0tVevAXrpvm6/sbl
-         KtEdu7CHy8n/3uy60ESb3jn9LjVZHxNudcdvzK5eo4apb7dxjgSfyuFTDAk1eLwT8XtZ
-         oJ+F/tQ65gU5cWxRlBjuRpV1LbYowIDVvud24KmnetcM32tBrKMeBR/d3Z6Qli55ebse
-         8VHw==
-X-Forwarded-Encrypted: i=1; AKwUvBzEBNQgRXdosJcS4Lh5mTW/gUkxQtxBQHyTWxpv3oPALAKuu1ysdVjGfMicNeofpdxYKVPtRgSiy3Rs5Kw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIjRJjaE50UwttNAfIJTZPU06VHQVRPq9S2D1AWktFwjyc4pbp5
-	qSuaU4dvN/zDQDQ3r7cv9EgUf90CWZMPR2JudsdIvtI0cYQQJLy2bZPDcmS8SioG5Gf+xA==
-X-Gm-Gg: AYBFou3oA2y1L4KkevLnOOPG/dfgKLrSh5AmaCvP/J4bjkmEb/D5mTHe504te2R34M7
-	0F3D0s7Z8eZOz3jhTu+FZ/GO+qty5rQH5/sfBQJlrZeaB3oaZT86Iaj5FD5n6TfFs2ulFmKP4bB
-	70nivOHE9DZknC0sjA54Aq+1K7R4PyT2ouC9kIq50RPxylkP7s39GHegoxKL3HjyP+lNfS+jzP7
-	yEyf/xsflmH602Tkb+WvGSo7gsFNcnjuk0kJr+pS2fUZjvejemwrh3iGSmKFxwATgfm7DIdO0dB
-	Bp4GbUTWzqv0wppwm5lHo6r7dGbXfxALI9aia8gj7MlCVsNatPL9VzJ8K6BfYGyARyjiNqUAiXY
-	D99Vxy/aaTR8LcDnt1PvkKLVty6reXJs7Y/+cJB8rdbPRM48no5Ris6sy6AlWZdxnoxTi7rta++
-	LsosHuLlccknFfjS4zpkgL5w1IbY671bRB7imwwKHBOoWFDeZlko5W+uzXoOnuH/J3EHag3zVw+
-	u0ty87aECecUh5AGF4wlPcEZIapxCUUt/bSswW4yrls
-X-Received: by 2002:a05:6512:3504:b0:5bc:ca67:c34c with SMTP id 2adb3069b0e04-5bcd07003f9mr1337796e87.49.1791422757552;
-        Wed, 07 Oct 2026 18:25:57 -0700 (PDT)
-Received: from dau-home-pc.. ([212.35.183.164])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bcd30745b8sm583013e87.28.2026.10.07.18.25.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 18:25:56 -0700 (PDT)
-From: Anton Danilov <littlesmilingcloud@gmail.com>
-To: netdev@vger.kernel.org
-Cc: Eric Dumazet <edumazet@kernel.org>,
-	Florian Westphal <fw@strlen.de>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Simon Horman <horms@kernel.org>,
-	David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Mazin Al Haddad <mazin@getstate.dev>,
-	Matthias May <matthias.may@westermo.com>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net v6] ip6_gre: use skb_vlan_inet_prepare() instead of pskb_inet_may_pull()
-Date: Thu,  8 Oct 2026 04:25:54 +0300
-Message-ID: <20261008012554.202925-1-littlesmilingcloud@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WcaREmhR"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 904BEC2BCB9;
+	Thu,  8 Oct 2026 01:27:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791422855;
+	bh=voiX5AM7a9CdZVhAJPZ3c2WAyTNR7dfeQq1wQyEyGwg=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=WcaREmhRT85/wBLe63GwqeyidTimys/j7bVfopyvpIhM/PNb5Rju5nzs+QetFW7/T
+	 K7JKWpVWiGcxpmmZhgDR1I05jTIr/isgWpkznrVzeXnBY4BxxcMlVg8VaLQvOspGeA
+	 Tf0cz0Jh4MO1QF1Fx73NqFiSYfhqYafdaOFvfzkycyXos9NE5xUZdgzYvq8jlhKF6Q
+	 oZSKzyKIMPavqyB0xLdgLOMcA4s2A0wU+/hCqpFYNu12drQHp3Nsrso33TVogYAQRi
+	 dVAl2ri1AwJBBsWZ0uAPHGBiYOvTHz+bvdeRUWM/3RsUwyfEsYK9/KirG4WKS/GiCW
+	 yhQQ2q/g6w9PA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 69BBECA6007;
+	Thu,  8 Oct 2026 01:27:35 +0000 (UTC)
+From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
+Date: Thu, 08 Oct 2026 04:27:29 +0300
+Subject: [PATCH] power: supply: gpio-charger: Report not charging without
+ input power
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261008-gpio-charger-offline-v1-1-78740b558402@iav.lv>
+X-B4-Tracking: v=1; b=H4sIAIDxxmoC/x2MQQqAIBAAvxJ7bkElI/pKdIjatYVQWSGC8O9Jx
+ 2GYeaGQChWYuxeUbimSYgPbd7CfWwyEcjQGZ9xojZkwZEnYlAZSTMyXRMKdvfWD26whhpZmJZb
+ n3y5rrR9T+dHQZgAAAA==
+To: Sebastian Reichel <sre@kernel.org>
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Igor Velkov <iav@iav.lv>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1681; i=iav@iav.lv;
+ h=from:subject:message-id;
+ bh=HbkCeasNYbp+Pz+uItepD7+gWxGT00Yxhsd3N6nIWzo=;
+ b=owGbwMvMwCVmNH1q96v4SmbG02pJDFnHPjYxH7OtKfXcqbNAuL14ZvG6sl0XL3ya+YX92msbt
+ SfiU46IdJSyMIhxMciKKbJMOKRxK2PJ1b/+HuYPYOawMoEMYeDiFICJRGgyMnycq2sZXzX9/4m1
+ 2g4xcRMlYwyTlawU1DdW+C/74HmCVZyR4e9ZhXbZ69N39D7btbFZNGVj7rxTxy2yt2cq+s75K8l
+ 3nx8A
+X-Developer-Key: i=iav@iav.lv; a=openpgp;
+ fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
+X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
+X-Original-From: Igor Velkov <iav@iav.lv>
+Reply-To: iav@iav.lv
 
-ip6gre_tunnel_xmit() and ip6erspan_tunnel_xmit() check the packet length
-with pskb_inet_may_pull(), which looks at skb->protocol only, while the
-code that follows parses the packet through VLAN tags with
-skb_protocol(skb, true). The parsing started to look through the tags
-with the two commits in the Fixes tags; the check was left as it was.
-A VLAN-tagged frame whose inner IPv4/IPv6 header is not in the linear
-area passes the check, and the inner header is read anyway. A 20 byte
-tagged frame on ip6gretap and a 10 byte frame on ip6erspan are sent
-out, while an untagged frame that is too short for its IP header is
-already dropped.
+From: Igor Velkov <iav@iav.lv>
 
-Use skb_vlan_inet_prepare(), as the IPv6 receive path does since
-commit 81c734dae203 ("ip6_tunnel: use skb_vlan_inet_prepare() in
-__ip6_tnl_rcv()"). The second argument (inner_proto_inherit) depends on
-the device: ip6gre_tunnel_xmit() serves both ip6gre (ARPHRD_IP6GRE, no
-MAC header) and ip6gretap (ARPHRD_ETHER), so it is
-dev->type != ARPHRD_ETHER there; ip6erspan is always an Ethernet device,
-so it is false. vxlan does the same with no_eth_encap.
+The status property follows only the charge-status GPIO. Without input
+power a charger such as the BQ24133 releases its open-drain STAT pin,
+and depending on the board the GPIO then reads as charging.
 
-skb_vlan_inet_prepare() walks the VLAN tags from skb->mac_len - VLAN_HLEN,
-or from ETH_HLEN if skb->mac_len is 0, and on transmit skb->mac_len is
-still what the skb was received with. For a packet that came in through
-an NBMA gre device and is routed out of a VLAN on ip6gretap or ip6erspan,
-the walk starts inside the inner IPv4 header. Clear skb->mac_len for
-Ethernet devices first.
+On Kobol Helios64 the board runs from its battery after a mains loss,
+and the charger reports online 0 with status "Charging".
 
-An ip6gre device created without a remote uses ip6gre_header_ops, and
-ip6gre_header() pushes a pseudo IPv6 header in front of the packet, so
-there skb->data is not where the packet starts. skb_vlan_inet_prepare()
-would move the network header onto that pseudo header, whose payload
-length and GRE words are never written, and an ICMPv6 error for the
-packet then quotes them: KMSAN reports uninit-value in
-icmpv6_push_pending_frames(). Keep pskb_inet_may_pull() for that case,
-as before this change.
+Report "Not charging" whenever the online GPIO is present and inactive.
 
-With this change the two short frames above are dropped. gre_gso.sh,
-l2_tos_ttl_inherit.sh and the mirror_gre, mirror_gre_vlan,
-mirror_gre_bridge_1q and mirror_gre_changes forwarding selftests pass.
-A constant true instead breaks the ip6gretap cases of mirror_gre.sh,
-and a constant false breaks the ip6gre GSO cases of gre_gso.sh.
+Tested on Helios64: on battery the status now reads "Not charging".
 
-This fixes the length check in both functions, and the skb_protocol()
-dispatch in ip6gre_tunnel_xmit() for ip6gretap and for ip6gre devices
-created with a remote. Four related, pre-existing problems are left for
-follow-up patches:
-
- - ip6_tnl_xmit() parses the VLAN tags once more after the GRE header
-   has been pushed, so for a tagged frame on ip6gretap with a key or
-   on ip6erspan the TTL and traffic class are not inherited, and if
-   the bytes that parse lands on happen to read as ETH_P_IP, an
-   inherited hop limit is taken from past the end of the frame;
- - erspan_build_header() and erspan_build_header_v2() read the TOS and,
-   behind an 0x8100 EtherType, the TCI without checking that the frame
-   is long enough, so a 14 to 19 byte frame that passes the check here
-   still gets bytes from past its end into the ERSPAN header;
- - the ip6gre header_ops branch kept above still has the check/parse
-   mismatch once a remote is set with changelink;
- - gre_tap_xmit(), erspan_xmit() and ip_tunnel_rcv() on the IPv4 side
-   have the same mismatch.
-
-Fixes: 3f8a8447fd0b ("ip6_gre: use actual protocol to select xmit")
-Fixes: b09ab9c92e50 ("ip6_tunnel: allow to inherit from VLAN encapsulated IP")
-Reported-by: syzbot+6023ea32e206eef7920a@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=6023ea32e206eef7920a
-Suggested-by: Eric Dumazet <edumazet@kernel.org>
-Cc: stable@vger.kernel.org
 Assisted-by: LLM
-Signed-off-by: Anton Danilov <littlesmilingcloud@gmail.com>
+Signed-off-by: Igor Velkov <iav@iav.lv>
 ---
-v6: no functional change from v5; commit message only. The AI review
-    of v5 again pointed at wording that reads wider than the code:
-    "fixes the dispatch in ip6gre_tunnel_xmit()" now excludes the
-    header_ops branch, which keeps the old check; the
-    erspan_build_header() reads on 14 to 19 byte frames are listed as
-    a follow-up instead of "the short frame is dropped" suggesting that
-    all of them are; and the ip6_tnl_xmit() item says that an inherited
-    hop limit can come from past the end of a crafted frame, not only
-    from the wrong offset. Measured on net and on this patch: the same
-    bytes, see the reply to the review.
-    Link: https://lore.kernel.org/netdev/179141499719.434549.15788178109134377075@kernel.org/
-v5: https://lore.kernel.org/netdev/20261005231414.932997-1-littlesmilingcloud@gmail.com/
-v4: https://lore.kernel.org/netdev/20261004145205.226974-1-littlesmilingcloud@gmail.com/
-v3: https://lore.kernel.org/netdev/20260119112512.28196-1-fw@strlen.de/
-v2: https://lore.kernel.org/netdev/20260106144529.1424886-1-edumazet@google.com/
-v1: https://lore.kernel.org/netdev/20260105100330.2258612-1-edumazet@google.com/
+ drivers/power/supply/gpio-charger.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
- net/ipv6/ip6_gre.c | 27 ++++++++++++++++++++++++---
- 1 file changed, 24 insertions(+), 3 deletions(-)
+diff --git a/drivers/power/supply/gpio-charger.c b/drivers/power/supply/gpio-charger.c
+index 2504190eba82..2fdff5f8b5ad 100644
+--- a/drivers/power/supply/gpio-charger.c
++++ b/drivers/power/supply/gpio-charger.c
+@@ -101,7 +101,10 @@ static int gpio_charger_get_property(struct power_supply *psy,
+ 		val->intval = gpiod_get_value_cansleep(gpio_charger->gpiod);
+ 		break;
+ 	case POWER_SUPPLY_PROP_STATUS:
+-		if (gpiod_get_value_cansleep(gpio_charger->charge_status))
++		/* Without input power the charger cannot charge, whatever its status pin says */
++		if (gpio_charger->gpiod && !gpiod_get_value_cansleep(gpio_charger->gpiod))
++			val->intval = POWER_SUPPLY_STATUS_NOT_CHARGING;
++		else if (gpiod_get_value_cansleep(gpio_charger->charge_status))
+ 			val->intval = POWER_SUPPLY_STATUS_CHARGING;
+ 		else
+ 			val->intval = POWER_SUPPLY_STATUS_NOT_CHARGING;
 
-diff --git a/net/ipv6/ip6_gre.c b/net/ipv6/ip6_gre.c
-index 04f7c70b7320..06dd53c5a9e2 100644
---- a/net/ipv6/ip6_gre.c
-+++ b/net/ipv6/ip6_gre.c
-@@ -883,8 +883,23 @@ static netdev_tx_t ip6gre_tunnel_xmit(struct sk_buff *skb,
- 	__be16 payload_protocol;
- 	int ret;
- 
--	if (!pskb_inet_may_pull(skb))
--		goto tx_err;
-+	if (dev->type != ARPHRD_ETHER && dev->header_ops) {
-+		/* ip6gre_header() has pushed a pseudo header in front of
-+		 * the packet, so skb->data is not where the packet starts.
-+		 */
-+		if (!pskb_inet_may_pull(skb))
-+			goto tx_err;
-+	} else {
-+		/* skb_vlan_inet_prepare() and the skb_protocol() dispatch
-+		 * below walk the VLAN tags from skb->mac_len - VLAN_HLEN, or
-+		 * from ETH_HLEN if it is 0; a forwarded skb still has the
-+		 * mac_len of the device it was received on.
-+		 */
-+		if (dev->type == ARPHRD_ETHER)
-+			skb->mac_len = 0;
-+		if (skb_vlan_inet_prepare(skb, dev->type != ARPHRD_ETHER))
-+			goto tx_err;
-+	}
- 
- 	if (!ip6_tnl_xmit_ctl(t, &t->parms.laddr, &t->parms.raddr))
- 		goto tx_err;
-@@ -933,7 +948,13 @@ static netdev_tx_t ip6erspan_tunnel_xmit(struct sk_buff *skb,
- 	__u32 mtu;
- 	int nhoff;
- 
--	if (!pskb_inet_may_pull(skb))
-+	/* skb_vlan_inet_prepare() below walks the VLAN tags from
-+	 * skb->mac_len - VLAN_HLEN, or from ETH_HLEN if it is 0, to check
-+	 * the length; a forwarded skb still has the mac_len of the device
-+	 * it was received on.
-+	 */
-+	skb->mac_len = 0;
-+	if (skb_vlan_inet_prepare(skb, false))
- 		goto tx_err;
- 
- 	if (!ip6_tnl_xmit_ctl(t, &t->parms.laddr, &t->parms.raddr))
+---
+base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
+change-id: 20261008-gpio-charger-offline-cf51542a10ef
+
+Best regards,
 -- 
-2.47.3
+Igor Velkov <iav@iav.lv>
+
 
