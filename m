@@ -1,111 +1,117 @@
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 612184F4744
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 18:55:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45F862DA76C
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 19:01:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791485750; cv=none; b=YkhUuExwcuS9e6l37zrOB00WVMBGq7gY3QVWLgYoxJ6C46ownFZ/Kl3idvP62Gv0JutL33x8qIFOlk5he6+m1tgEfA/5JANWCTde06B4/unInPEpDpyR1hnDE5tB3AQ/a+X4hewWqC3HMHjZ1slqcOOtkhH35v7J/ETtsrbXACA=
+	t=1791486078; cv=none; b=JySQCii4Pq6HlzpJvGptxyq9IQB23Vf7WGR0mEgRCCGTMmSor3cjAAA6RTrvJ7l5GIumk2OVYFHmg8vTd9YSJHyXsFBfuCREN0llCXUyA5m3MsW2h3qXD+LPxezVba4C2JCHJSO4twXgfGvWgbN+u6arnRYAbuJQhb0WblvKC0Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791485750; c=relaxed/simple;
-	bh=IgB3sZHNZ2GnpYpDmh39i8B9BgxADBtTRCiRUlW7RBs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qGtFCwmCyEC1pEHi28uZGU0WC5r6zzO88S1CTOfZGSPG23OkzwelHKuCD+XmaKlNJUAiW+9g9I9b7PPDYctuJkLUKbVGcuS97ijkxKuzq365THbfefY9SsjwcNW8vwapuPJoQGUUEQvEJDp4NvE0g/Kkp6/LyG1Kkfx2ZpPVuOE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rrell.co; spf=pass smtp.mailfrom=rrell.co; dkim=pass (2048-bit key) header.d=rrell.co header.i=@rrell.co header.b=hnlbnynh; arc=none smtp.client-ip=209.85.215.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rrell.co
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rrell.co
+	s=arc-20240116; t=1791486078; c=relaxed/simple;
+	bh=2ENKqBaTPDdQhMdT3t9NB4MtzLMzeAWRcMV4ixhE+9M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DkJJY0z2GqgAW+P9txnP1qI7ew1MHHjbERlzOwon5TNdGogaX1SrW+X6bEI8tD6y0xXZjyffO6G3mRvdY0dnhrO/fygysE9n2aOlPMiB9FKZCQMp9SPo7c3ODaiNlHsfmO4MBWW5c6chMGej0UOd1AdCDWM7x/EMlFcU4+FKoxQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=MBcEWciw; arc=none smtp.client-ip=74.125.82.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rrell.co header.i=@rrell.co header.b="hnlbnynh"
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-ccc7a6070b4so1786721a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 11:55:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="MBcEWciw"
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-3282db206d3so1897082eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 12:01:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rrell.co; s=google; t=1791485749; x=1792090549; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IgB3sZHNZ2GnpYpDmh39i8B9BgxADBtTRCiRUlW7RBs=;
-        b=hnlbnynhgEH+/YQ8wKGSrgMpsk5IoIcrcfS6uRXLrd5NZ40XmGepTnUpGynHJ6fY0f
-         VXgzDTiFv1kpoFV5gQQg0vvc6CDEJMY6W4XLFYPYgfaS+OZ0Bg9nTjB7IbwKPL0VW3Kf
-         A52vSdUDzOTxJF0MgI//OhOwv+Up6L6SCH3KC1TCkJ4lsnT4bM7BEZD1m958frarRwvn
-         LWWBjrYevGwKdwzo21zPkoxQRgF+8mp6rBaIHFtY3zEAFDlWyL7TOR1eS5hqFrddKtb5
-         qp4Hs3NCQvFpP8gYbMGrvd/mSkSTOAIhUXawj0FgkcDm8oPpsBR8BT2oj2eYW4MCvAMQ
-         8bHQ==
+        d=trailofbits.com; s=google; t=1791486076; x=1792090876; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FggUo6U2laVtXWdbUW1VXActXrfV6jQYFCULV8ijL9s=;
+        b=MBcEWciwLi1bYaNc9DFKUuNiSI53IjnLwgJCZhLQJiU/6yWp0TAhykhrCavg1MLjj6
+         xs2GQJ4I8t06iPv1pDScxfPYVMll87LDmRvrO+/y5Hz7uPUozpZdadgLAPHvB/INvwV4
+         0oweqVEyizdb8AYqdXoIlIX4BkS84zpQt+lYr8X+bJ2K8F2JEZMORSdXtPzx0QFSDdaW
+         2z+E61Yr8RQ6HpL8Ufik9o6DCJq5YMgrK8ydrxJ7hkUCAu/I0dkU4G0TjjzeFrWPEPnr
+         7v2Ad1TnAUs7AwVOZmAbkuJq56A/jKNKOJuyM9GKPwHLSLL5z2a5lNIvAZqScau5psRM
+         rkuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791485749; x=1792090549;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IgB3sZHNZ2GnpYpDmh39i8B9BgxADBtTRCiRUlW7RBs=;
-        b=Xh9akqBjYdEJKIUzN/iMW+/8l6LloqOguKKXDX2F8CigD0e6qKp+2lk+Y4LTPfvlxr
-         wEzkLKIDH5gXK33Ei/ZJ0o9C6jDl1jhhZCe6Nh9YVWnKLXTOgFNzvK+N3ULdvlJaS1e9
-         ZtvMKxzdLKe2Nu3Xa21lxGPyLjS/5BBcUw9xY4ey8z4p1BSMCK4MJ+2D7YlWbeRVnjed
-         yDs/cLATA4GXfYMgTEw14SMhpxJsJ8o8W+Aw5tjzVYKnm4CLbyxxm9NS6jK4ZnjJlWD3
-         h7uJI0tzEdiNTKi3QBiqzCv8qae2hDL9QmzKhqbExekNQYFFeL6NMvS4ESzE287mTEm+
-         vdPQ==
-X-Forwarded-Encrypted: i=1; AKwUvByuS8HL6HOQoIUSl+Xs7Sxmya7rvzJ1vBo6m5+MTo+MWbJp0Bb6wO8IPp6bqGM3ceM05YBBFAFROwK847Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYItQNYUlN6yvYRWaNISAsk+SgB8xai0Dv0GINAx8ow/jF2lJgv8
-	BXrpssMvmQF+G5wGjPvqbsPYGKTDNgV1QpyO0hGn4XxjOTLN0y7yetMFoEc0+vU06bo=
-X-Gm-Gg: AYBFou3cZN058e9vDXFxjRIvj7XDWyKqw7MA7nyraNSaCavvjFa7zk3TvYDAehDF1bg
-	jYK4oc0haPggXO3k7A0x+5p4fCLCqT6bhNXMPYsodjq20Hw8ib7EruPlHwXyRy3pI5HYkDAWIHp
-	EK70lDmnL/gmPluOPjqUv78DHSDQpJUssimNnxxER0ODUJiLEFD1tUMTSM9oGKfiuMz1TOkYxki
-	CC+0GkmUHJIBTjHVjY8bGCEOjtLj42mKeRLuieWEZh3iNaks1nu1sfR6bfmp79t0aO2YTSVoDGI
-	gbGuJ/hvc9BUBGUsS/E5kfd/zGKI2SEUHuhb1C/qjw4OF2npv269Oe7GMxG1HvTihvzCLrbYXve
-	51gdUiWMw3To1Rp01rBvDVAbIbf243JWko+5u5xgYsk0/2jpKOa6zPp1PxKbrRVlSc9UQNc0b7Q
-	hboQ3xVy5WneO4IFx4m3w+O9SdXRMB/kF7QpL065tFKuNX9k54ZjCIq3F2GqRLBVxmOkl5p48sp
-	m5T7g==
-X-Received: by 2002:a17:90b:28ce:b0:3a6:582e:5e17 with SMTP id 98e67ed59e1d1-3ab36d2514bmr5568a91.48.1791485748615;
-        Thu, 08 Oct 2026 11:55:48 -0700 (PDT)
-Received: from omarchy.tailc658b0.ts.net ([172.92.210.157])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab3690474esm54003a91.0.2026.10.08.11.55.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 11:55:48 -0700 (PDT)
-From: Darrell Gum <d@rrell.co>
-To: =?UTF-8?q?Francisco=20Beltr=C3=A1n=20Millal=C3=A9n?= <fbeltranmillalen@gmail.com>
-Cc: rafael@kernel.org,
-	bhelgaas@google.com,
-	linux-acpi@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	lenb@kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ACPI: PCI: take native PME control on Apple machines
-Date: Thu,  8 Oct 2026 11:55:45 -0700
-Message-ID: <20261008185546.86200-1-d@rrell.co>
+        d=1e100.net; s=20260707; t=1791486076; x=1792090876;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FggUo6U2laVtXWdbUW1VXActXrfV6jQYFCULV8ijL9s=;
+        b=teeFDlOZvwnguXUrT1Kr1dWiEgDphPcC1CqwHpwcYu0W1I0zU1pxl1Ny8bGZTARDKh
+         +mdENLj3QyitxWgfvoRmvxPHQUn6jPwe/ZnuZCCCBpQsKHn5nW7DcwEFWOkUP9XbLN/H
+         vc7Ta592w2BUhOkQF9qQxTz5lNh4pWMZwUxI023ShQlbjZgvNxwfyMQxcLoyBgXL9lTb
+         PH/48FyoBVobAza0MDcY3T5Cw1ku8jIb1h2rTkowxh0PmQ6qh3eAm1okoXuBMfkf2nPL
+         GvX8zeB2lKJwQvNsNYHSNa9ADedKwiVnnM/rS7YJo7aU6K2gMRQknRTAqZKwBxvEw/jr
+         fFmw==
+X-Forwarded-Encrypted: i=1; AKwUvBw/I44zBdpNXS2O/AAFVAnJUIeET+kDw6+lEnIr6OF4tG419y/WhLyI4nWci8Gtt1eHCZHM9QB0W+Ptqgc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJA7xPCXghUhvPTEkf23MXM+OUXCtJQqP2KizP3+2/GK0FFV1Kx
+	z8xG7Os9+EnXCsSEJtpEOIBmOd1Dtn57lFiCm4XIJuNot8fz4CrTa9Ydfh8Hgb0aO2c=
+X-Gm-Gg: AYBFou0nNchWsUaoWnjhcxCmBYBgPJxBXa4YGIpOPnCAtN8mVP52HAZCFhVyZHGdbBU
+	Z3e8iT1F7slgiIxaHOidKOwXsk+4WqAZ8/nbyy31NB2d9ZqYMJd/V1JIXKh3M9LcMnvZN67pNfa
+	WLfCZy7b0qkQyX7WgIpXfDhXsnKwtNNc93r38fiukmYFJx2wQGhT3MAB34ri4j27jNV3u1eW1t/
+	x20EKeEHvxkJLfjv9v3xsxJO2lCC9ORWU3p7UM6FqaUkMpStKh8z45/0ZJloHw204DvSDrVO63n
+	Ey/SAdr8B/zjKI4v6mVts3uKOsHIp99umnufubQMpT/QXcjGlmWrIS5iXJAIwxdeg8TmJqMOIPv
+	NwQdMmvNuAzD++NHmqoiASHLTWn5vBH9GTV7ON1GOi/y7Oj4baaLxKxRo7JObedjXfKYdz0HDli
+	zLrueIH8dn4ffaj5D0tEHyETS2KcaHZOTKS0MyyRMhkTG6GbM3+VXQu8rpBtfnOCKJt3n1a3iDv
+	E9leM0Y/q1xtZvkxHtboctrU/1Ev4SLXQ3pFC5qlgtRK6mD+TOz5OpcyIklkvzNzcgbHMQfOd18
+	BTfneoM=
+X-Received: by 2002:a05:7301:d194:b0:351:28eb:8cd8 with SMTP id 5a478bee46e88-3515ddee11cmr7825200eec.18.1791486073803;
+        Thu, 08 Oct 2026 12:01:13 -0700 (PDT)
+Received: from localhost.localdomain ([2603:8001:5f01:8bab:bc88:5ec1:4f8a:5b23])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537b3eccebsm405691eec.12.2026.10.08.12.01.11
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 08 Oct 2026 12:01:12 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: Artem Dinaburg <artem@trailofbits.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	=?utf-8?q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Mark Brown <broonie@kernel.org>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	sound-open-firmware@alsa-project.org,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+	linux-sound@vger.kernel.org,
+	Seppo Ingalsuo <seppo.ingalsuo@linux.intel.com>,
+	Liam Girdwood <liam.r.girdwood@intel.com>
+Subject: [PATCH 6.6.y 0/2] asoc: backport CVE-2025-21870
+Date: Thu,  8 Oct 2026 15:01:02 -0400
+Message-ID: <20261008190108.96660-1-artem@trailofbits.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260924132859.24751-1-fbeltranmillalen@gmail.com>
-References: <20260924132859.24751-1-fbeltranmillalen@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Thu, 24 Sep 2026 10:28:59 -0300, Francisco Beltrán Millalén wrote:
-> Since commit 7bc5a2bad0b8 ("ACPI: Support _OSI("Darwin") correctly")
-[...]
+Hi Greg, Sasha, and maintainers,
 
-Tested on a second MacBookPro14,3 on 7.2.5 (Omarchy's linux-omarchy
-7.2.5-3). Your PCI/PM v2 series and the Alpine Ridge quirk were
-applied as well. The full report is in reply to the series:
-https://lore.kernel.org/all/20260930141914.6678-1-fbeltranmillalen@gmail.com/
+I'm working through the smaller CVE backports still missing from 6.6.y.
+These 2 upstream changes belong together for CVE-2025-21870. They must be
+applied in this order because the later change depends on or completes the
+earlier one.
 
-Stock 7.2.5: with both Thunderbolt xHCIs (8086:15d4 at 07:00.0 and
-7d:00.0) runtime-suspended, plugging a USB 3 stick into any USB-C port
-produced no kernel messages at all. With power/control=on, it
-enumerated at SuperSpeed immediately.
+The complete series is already present in 6.12.y, 6.18.y, and 7.2.y.
+These fixes also affect 6.1.y, which will need a separate backport; this
+series is only for 6.6.y.
 
-With this patch, _OSC reads "OS assumes control of [PCIeHotplug
-SHPCHotplug PME AER PCIeCapability LTR DPC]". With both controllers
-left at power/control=auto, the same stick enumerated at SuperSpeed
-within about 1 s, and 7d:00.0 runtime-resumed on its own. A later
-run gave the same result: about 1 s when plugged in before a lid-close
-S3, and about 3 s for a replug about 2 min after resume, still with
-power/control=auto.
+Could you please consider this series for 6.6.y?
 
-The patches were tested together, not bisected. This is the result
-that maps most directly onto this one patch.
+Thanks,
+Artem Dinaburg
 
-Tested-by: Darrell Gum <d@rrell.co>
+Series:
+  1. ASoC: SOF: topology: Parse DAI type token for dspless mode
+  2. ASoC: SOF: ipc4-topology: Harden loops for looking up ALH copiers
+
+base: v6.6.157 (79643295eba17affbd16ca97f3ef04c90266b28c) plus stable-queue
+revision 958ddf240a33ef26b1771be944f0ea6c3b597472
