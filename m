@@ -1,69 +1,33 @@
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B154E492E46
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 12:54:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.46
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E8598435515;
+	Thu,  8 Oct 2026 12:55:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791464045; cv=none; b=myQsoqqK9dOt4yq3LEtxvhuHzSANI6z/n3A1pZVfLj0+jE+PodDwmguPG2KHManukCOL9ctic3EpkonahHhPUdi1Ife8Cvzjzfx2CSeuhR8pnV1EZ+Eu4W7lNV74YuEasliTLV0j9E9l5A3mrpDViau51WOwit/AJ5icebsKexk=
+	t=1791464142; cv=none; b=hafoMUTTDcCeb7CDk6NP9D0ljMMl4BVokaW8tBTU7NW5bFNoLxleObTOyykyUBBwGPWWxWmO5/jDGIGqsjzUieNJxuhMT8vDqf4Do3I/vRnkyIP4nbWm5/o/EEB6pxSHR7ZhOs56aaijPi/MuDyhBAhdondTYVyLabS1HL5u55c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791464045; c=relaxed/simple;
-	bh=JeHG9pIy1UQJeD/81cUOb3EBRdHL9JOyJ6u+VtgVjwI=;
+	s=arc-20240116; t=1791464142; c=relaxed/simple;
+	bh=3QdpwgfvX6sQmV3QX7F2pJoLE3Y/GJ9239PkdjVkR/k=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tJ61rE7i5hB99SYArn544TbbsDfHB4WDsY0xDqH+NFDoqMX4VGpG/PePBabfY3j/3ESq7+h26cDD7ANBtyCKR1BRdIreOTpPUIsKIg2GKaaJFarZc0BLO320Hbco77X0GvP5FPXr8QQhXGh/EJGjunBhj05idTbZNtaNpF7ThtY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y2N6mnas; arc=none smtp.client-ip=209.85.218.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 In-Reply-To:Content-Type; b=b8iEn+AaoH0c5WmHd22peryCz9yIjYS/2NUYmQDgDRmvXnjQ/YJmFcZzp0u/a9ESZa732Nrc5y2Vp3mxdBtpTS0exusCJ0wggT3LQV6ioZb/VsRaUo6c9l40hh1VRlgVxZiiI24RcLHyaRNJIZbS67g9+7yc7rkRPuxOfrs2p5I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=DkXEzDU3; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y2N6mnas"
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c2e8c710847so393798866b.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 05:54:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791464041; x=1792068841; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZOOwNvd1LPWlNAalgBjKqL+DRKIx4sSQk3LcKBQLXIU=;
-        b=Y2N6mnas+C7GFQW7uNyo8PktJDU+umDOsbdvPrw+so171d5enhf58pLFqj81zwbgpl
-         yxyTRDQlvue/F9xBRZXGJbekme/+40A0EQ1Rbi/pA1Hx7iNgWhLlyh6c7vbxvTQY0qu2
-         qp09tS+iq/C13zw/2gJvsFQaPboa/AV0Mxqk4X1hj54J5nTDRmfGT5j20M6efA3+Hgah
-         /xhXalgsuy4/l/lQSnbxyd3GfvfaFAPZmsCKsFcnLB47t2myFSlcqw/iundf+kj+4dPI
-         xs887GaoWdmreuXewswlSik+i66FMbuHIDBBzuNcoH6mzdKI6T7XhKWjKNCT7P3tuNhe
-         N4fg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791464041; x=1792068841;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZOOwNvd1LPWlNAalgBjKqL+DRKIx4sSQk3LcKBQLXIU=;
-        b=ZLGX3XMdqDM179yn/5B0E1oOoS8JWD89tIAUym+Y7Zmpi0yGzsg50jDnxSrDliysZM
-         bgiKbWQnzXw6HTcvc8zHBVAmRtoIvqNk9BiHdezRyEzAJmFHxQEuAzEo/m9P/cKlSe3V
-         uax1NU9DUQZW0XXolzi1UxAof4CO+/oZvVLMwuhXrMgv6jPX/a/danQcSxI+SUWIjnTy
-         Q3C2R1vyUDoWCy4mzK7sP+/sScjT7DcGlSP8C/vhs8ytNGXNxNqVWqiDtviPmQWIpQBr
-         MW+3c0VhW/1plOqqeoEzqTJxChwWDiIkkpsXIBbDnsNS1lzBaqd0wKCN3uexGyUec8Ak
-         DbqA==
-X-Forwarded-Encrypted: i=1; AKwUvBwNtJuwNciuL6xQdAd8k/iG8+IblOOugIK4ifXuLbRVkNPzveWN+aGFUA3S8log/9Jm7T8p6xdqYNEruzc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKfp/Z1nWCCYFTyfN1Wm66DGGUt5HfJWYmW4XSWVhHuWnqKjgrC
-	sNfih1w1gmgcXceODZdd+ke8s4KkvrbuKCPWIbcclAwL1L+f73SNVSZO
-X-Gm-Gg: AYBFou0KG85oqagLJqPULy5zayteKkJBrEkFJ6+qIZE1pzn7diRVFjxZjnlM9v0sMob
-	1yRxPsJjtF8zqTlRentBpEdjm5zHy1fWgN+1ItSRHKREcabCrVojKZLNXD4pc8EBhJbUl2K9VzT
-	wbmBakPTCeF85a4u+Ghf4BhLSd2vkL1E+cLhQexaCgOWZGWL8w8j6120KqU6kkoV+RLN0FMqsmb
-	U9hIJF3H5kLN8mV9+PD5y71Kirkr1OEu3N3sjllKAZnImiAPv8DO/znl2EaVbsCrtZHd0ZnQIsA
-	P5YnkuLPCw3GL2R+y0IN0pCLG8N9pxiVFjEi4l8xZFKH30OCdIQzUjscIisJofQnr9uuMIXFXTK
-	9woXhSjdlb+r4JYZwh/0n88C1S/KF6VSQVcxM6l7nwiftC3h1nwlml3+slYphho3VMVtL5BC2PP
-	YKLm32nKgDS3Kpr/ZLQ33oEwguWtHG50f5VPRcH8B1nmzI1Z+pMLFoOrKKM60V6E4xeownixTQZ
-	ULGAv3BVvyZSx8SKxy3lb40c+awYd9H2l0anW0+i5bxRU14WEix2DKfDH4eSRi/fRYXC1SG51MG
-	3A787FsWX7/1pFweHOi/af9mnvqtNAiWeV8l/c+FgRzbiz8s
-X-Received: by 2002:a17:907:3d51:b0:c29:4490:50d6 with SMTP id a640c23a62f3a-c317c0e090emr525786166b.47.1791464040879;
-        Thu, 08 Oct 2026 05:54:00 -0700 (PDT)
-Received: from ?IPV6:2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c? ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c317c1c4f7csm220428966b.35.2026.10.08.05.53.59
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 08 Oct 2026 05:54:00 -0700 (PDT)
-Message-ID: <7f377853-ae56-450b-889b-688ec335e81c@gmail.com>
-Date: Thu, 8 Oct 2026 13:53:51 +0100
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="DkXEzDU3"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F3DB71477;
+	Thu,  8 Oct 2026 05:55:36 -0700 (PDT)
+Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A5E043F66F;
+	Thu,  8 Oct 2026 05:55:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791464140; bh=3QdpwgfvX6sQmV3QX7F2pJoLE3Y/GJ9239PkdjVkR/k=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=DkXEzDU31uC0dYxOkRVh+wR9Y2Jsc46vC/kxrGo9RjXZjwEVDiYzU1xr8xcMcb7HV
+	 FcvEyng6+7pjkY1QBhYL6ix+o9Tmk0LkIzWjtkZbQ3xjf1pFB4LwNx3dzurE928/VL
+	 mGwWqUTkZOKmjHIvDoQ6Z0W/PCTOx1yxeyykH3DE=
+Message-ID: <d0e80505-b36f-40a9-a45f-957fff428c2a@arm.com>
+Date: Thu, 8 Oct 2026 13:55:36 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,78 +35,216 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] tcp: reject devmem tx with fastopen and repair
-To: Kaifeng Wang <kaifengw@google.com>, netdev@vger.kernel.org
-Cc: edumazet@google.com, ncardwell@google.com, kuniyu@google.com,
- davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- almasrymina@google.com, willemb@google.com, kaiyuanz@google.com,
- sdf@fomichev.me, linux-kernel@vger.kernel.org
-References: <20261005214002.3226574-1-kaifengw@google.com>
-Content-Language: en-US
-From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <20261005214002.3226574-1-kaifengw@google.com>
+Subject: Re: [PATCH RFC v5 3/6] iommu/arm-smmu-v3: Delay stream allocation to
+ inside the mutex
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>, Will Deacon <will@kernel.org>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>,
+ Jean-Philippe Brucker <jpb@kernel.org>, Nicolin Chen <nicolinc@nvidia.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Thierry Reding <thierry.reding@kernel.org>,
+ Krishna Reddy <vdumpa@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>
+Cc: linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org,
+ Peng Fan <peng.fan@nxp.com>
+References: <20261006-smmu-shared-sid-v5-0-169a59c671d3@nxp.com>
+ <20261006-smmu-shared-sid-v5-3-169a59c671d3@nxp.com>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20261006-smmu-shared-sid-v5-3-169a59c671d3@nxp.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 10/5/26 22:40, Kaifeng Wang wrote:
-> tcp_sendmsg_locked() enforces that devmem TX can only proceed if the
-> zero-copy path is active and a valid dmabuf binding exists. However,
-> subsequent branches in tcp_sendmsg_locked() can still intercept the
-> message before it reaches the devmem zero-copy loop:
+On 06/10/2026 1:19 pm, Peng Fan (OSS) wrote:
+> From: Peng Fan <peng.fan@nxp.com>
 > 
-> 1. TCP Fast Open (MSG_FASTOPEN or DEFER_CONNECT):
->     If TCP_FASTOPEN_CONNECT is set, the socket may have a valid dst with
->     NETIF_F_SG (so zc == MSG_ZEROCOPY and binding is present), but
->     tcp_sendmsg_fastopen() -> tcp_send_syn_data() will use
->     copy_page_from_iter() to byte-copy from the iterator. Since iov_base
->     represents dma-buf offsets rather than user virtual addresses, this
->     misinterprets offsets as user pointers and copies arbitrary user memory
->     into the SYN packet.
+> Move arm_smmu_stream allocation from upfront (before the mutex) into
+> the mutex-protected loop in arm_smmu_insert_master(). Instead of
+> pre-allocating all stream objects and then inserting them into the RB
+> tree, first look up whether the SID already exists in the tree. Only
+> allocate and insert a new stream when no existing entry is found, then
+> avoid unnecessary allocations when bridged PCI devices produce duplicated
+> IDs. Prepare the code for a subsequent patch that will reuse existing
+> streams when stream IDs are shared across masters.
 > 
-> 2. TCP repair mode:
->     If tp->repair is enabled with TCP_RECV_QUEUE, tcp_send_rcvq() similarly
->     calls skb_copy_datagram_from_iter(), byte-copying from the iterator.
+> The sort is also moved after the mutex section, since streams are now
+> populated inside the loop rather than beforehand.
 > 
-> Neither path supports or makes sense for devmem transmission. Reject devmem
-> sends if Fast Open or repair mode is active.
-> 
-> This pre-existing issue was identified by Sashiko AI review on commit
-> 125755776bc6 ("tcp: reject non zerocopy devmem tx") and has not been
-> hit in production.
-> 
-> Fixes: 125755776bc6 ("tcp: reject non zerocopy devmem tx")
-> Fixes: bd61848900bf ("net: devmem: Implement TX path")
-> Signed-off-by: Kaifeng Wang <kaifengw@google.com>
+> Assisted-by: LLM
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
 > ---
->   net/ipv4/tcp.c | 4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
+>   drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 102 +++++++++++++++-------------
+>   1 file changed, 53 insertions(+), 49 deletions(-)
 > 
-> diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
-> index 87ef6d5cbfeb..225e758c194a 100644
-> --- a/net/ipv4/tcp.c
-> +++ b/net/ipv4/tcp.c
-> @@ -1169,7 +1169,9 @@ int tcp_sendmsg_locked(struct sock *sk, struct msghdr *msg, size_t size)
->   			zc = MSG_SPLICE_PAGES;
+> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> index 9d34eac196a65..69c2c3596b06a 100644
+> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> @@ -4110,52 +4110,29 @@ static int arm_smmu_insert_master(struct arm_smmu_device *smmu,
+>   		return -ENOMEM;
 >   	}
 >   
-> -	if (!sockc_err && sockc.dmabuf_id && (zc != MSG_ZEROCOPY || !binding)) {
-> +	if (!sockc_err && sockc.dmabuf_id &&
-> +	    (zc != MSG_ZEROCOPY || !binding || tp->repair ||
-> +	     (flags & MSG_FASTOPEN) || inet_test_bit(DEFER_CONNECT, sk))) {
+> -	for (i = 0; i < fwspec->num_ids; i++) {
+> -		struct arm_smmu_stream *new_stream;
+> -
+> -		new_stream = kzalloc_obj(*new_stream, GFP_KERNEL);
+> -		if (!new_stream) {
+> -			ret = -ENOMEM;
+> -			goto out_free_streams;
+> -		}
+> -		new_stream->id = fwspec->ids[i];
+> -		new_stream->master = master;
+> -		master->streams[i] = new_stream;
+> -	}
+> -
+> -	/* Put the ids into order for sorted to_merge/to_unref arrays */
+> -	sort(master->streams, master->num_streams,
+> -	     sizeof(master->streams[0]), arm_smmu_stream_id_cmp,
+> -	     NULL);
+> -
+> -	/*
+> -	 * Clear after sorting: RB_CLEAR_NODE() records the node's own address,
+> -	 * which sort_nonatomic() invalidates by relocating the entries.
+> -	 */
+> -	for (i = 0; i < fwspec->num_ids; i++)
+> -		RB_CLEAR_NODE(&master->streams[i]->node);
+> -
+>   	mutex_lock(&smmu->streams_mutex);
+>   	for (i = 0; i < fwspec->num_ids; i++) {
+> -		struct arm_smmu_stream *new_stream = master->streams[i];
+> +		struct arm_smmu_stream *stream;
+>   		struct rb_node *existing;
+> -		u32 sid = new_stream->id;
+> +		u32 sid = fwspec->ids[i];
+>   
+>   		ret = arm_smmu_init_sid_strtab(smmu, sid);
+>   		if (ret)
+>   			break;
+>   
+> -		/* Insert into SID tree */
+> -		existing = rb_find_add(&new_stream->node, &smmu->streams,
+> -				       arm_smmu_streams_cmp_node);
+> +		existing = rb_find(&sid, &smmu->streams,
+> +				   arm_smmu_streams_cmp_key);
+>   		if (existing) {
+>   			struct arm_smmu_master *existing_master =
+>   				rb_entry(existing, struct arm_smmu_stream, node)
+>   					->master;
+>   
+>   			/* Bridged PCI devices may end up with duplicated IDs */
+> -			if (existing_master == master)
+> +			if (existing_master == master) {
+> +				master->streams[i] = rb_entry(existing,
+> +					struct arm_smmu_stream, node);
 
-It becomes unhandy, and taking into account the issue Stan commented
-about, I think it'd make sense to do the checks under the repair and
-fast open "ifs".
+If we're now making the whole stream allocation and tracking business 
+more dynamic anyway, could we not just skip inserting duplicate entries 
+entirely, and save all the hassle elsewhere?
 
-if (((1 << sk->sk_state) & ~(TCPF_ESTABLISHED | TCPF_CLOSE_WAIT)) &&
-     !tcp_passive_fastopen(sk)) {
-	if (binding) // fail;
-}
+IIRC, the only real reason for not actively deduplicating originally in
+563b5cbe334e ("iommu/arm-smmu-v3: Cope with duplicated Stream IDs") was 
+to keep it to the simplest fix that was easier to backport, and at the 
+time it was easy to get away with since it only mattered at that one 
+particular point. If we have to start copying the double-loop bodge 
+around to multiple places, it rather stops looking like the neatest 
+option...
 
-if (unlikely(tp->repair)) {
-	if (binding) // fail;	
-}
+Thanks,
+Robin.
 
--- 
-Pavel Begunkov
+>   				continue;
+> +			}
+>   
+>   			dev_warn(master->dev,
+>   				 "Aliasing StreamID 0x%x (from %s) unsupported, expect DMA to be broken\n",
+> @@ -4163,45 +4140,72 @@ static int arm_smmu_insert_master(struct arm_smmu_device *smmu,
+>   			ret = -ENODEV;
+>   			break;
+>   		}
+> +
+> +		stream = kzalloc_obj(*stream, GFP_KERNEL);
+> +		if (!stream) {
+> +			ret = -ENOMEM;
+> +			break;
+> +		}
+> +		stream->id = sid;
+> +		stream->master = master;
+> +
+> +		rb_find_add(&stream->node, &smmu->streams,
+> +			    arm_smmu_streams_cmp_node);
+> +		master->streams[i] = stream;
+>   	}
+>   
+>   	if (ret) {
+> -		for (i--; i >= 0; i--)
+> -			if (!RB_EMPTY_NODE(&master->streams[i]->node))
+> -				rb_erase(&master->streams[i]->node,
+> -					 &smmu->streams);
+> +		for (i--; i >= 0; i--) {
+> +			int j;
+> +
+> +			if (!master->streams[i])
+> +				continue;
+> +			/* Skip duplicated SID pointers already freed */
+> +			for (j = 0; j < i; j++)
+> +				if (master->streams[j] == master->streams[i])
+> +					break;
+> +			if (j < i)
+> +				continue;
+> +			rb_erase(&master->streams[i]->node, &smmu->streams);
+> +			kfree(master->streams[i]);
+> +		}
+>   		mutex_unlock(&smmu->streams_mutex);
+> -		goto out_free_streams;
+> +		kfree(master->streams);
+> +		kfree(master->build_invs);
+> +		return ret;
+>   	}
+>   	mutex_unlock(&smmu->streams_mutex);
+>   
+> -	return 0;
+> +	/* Put the ids into order for sorted to_merge/to_unref arrays */
+> +	sort(master->streams, master->num_streams,
+> +	     sizeof(master->streams[0]), arm_smmu_stream_id_cmp,
+> +	     NULL);
+>   
+> -out_free_streams:
+> -	for (i = 0; i < master->num_streams; i++)
+> -		kfree(master->streams[i]);
+> -	kfree(master->streams);
+> -	kfree(master->build_invs);
+> -	return ret;
+> +	return 0;
+>   }
+>   
+>   static void arm_smmu_remove_master(struct arm_smmu_master *master)
+>   {
+>   	int i;
+>   	struct arm_smmu_device *smmu = master->smmu;
+> -	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(master->dev);
+>   
+>   	if (!smmu || !master->streams)
+>   		return;
+>   
+>   	mutex_lock(&smmu->streams_mutex);
+> -	for (i = 0; i < fwspec->num_ids; i++)
+> -		if (!RB_EMPTY_NODE(&master->streams[i]->node))
+> -			rb_erase(&master->streams[i]->node, &smmu->streams);
+> -	mutex_unlock(&smmu->streams_mutex);
+> +	for (i = 0; i < master->num_streams; i++) {
+> +		int j;
+>   
+> -	for (i = 0; i < master->num_streams; i++)
+> +		/* Skip duplicated SID pointers already freed */
+> +		for (j = 0; j < i; j++)
+> +			if (master->streams[j] == master->streams[i])
+> +				break;
+> +		if (j < i)
+> +			continue;
+> +		rb_erase(&master->streams[i]->node, &smmu->streams);
+>   		kfree(master->streams[i]);
+> +	}
+> +	mutex_unlock(&smmu->streams_mutex);
+>   
+>   	kfree(master->streams);
+>   	kfree(master->build_invs);
+> 
 
