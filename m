@@ -1,251 +1,211 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A95D46D567
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 08:25:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791447908; cv=none; b=r5ojqmp/zjCNByTt9olaXgMgJLDdnt1+gCzta984uxz3LMDeWyr6AV2KDRC+QJlcNjI4Jnj46qEMGF3V/voFGaT0fKH75ThQpU3CWJ4nVj/T3Qq89EfZlOYxbIGn88uIAegLHZnRIy4XtwQxlwlda3kl8Y72znceJZ6iLIu13c4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791447908; c=relaxed/simple;
-	bh=k4EH924NdUEPU8L9M6Y1T9XBlcq8j4usVoJDeJarmuI=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=MfyGI/8o65GMtYma+W/WZxzDMH7jd2qEnqqUor4lu73I8eOHhL1J/7jo+IinhngEndxUbL3pd5JZKeFEgk3i1+xyIZr0aGnVBc+LxefP37uVHCpjG4QCWlLxXehiRfMK6O07aurXroNKMuwK4Q9Bg4FLeQ32SVLiRFkikMrquDs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=OOPjs/17; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D8ED3D6498;
+	Thu,  8 Oct 2026 08:25:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.16
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791447956; cv=fail; b=srVKxnZ2FliidZCojdSZZM1hyUIXPFQZ592P2O9RW1SV86VbQjIQWqvpFGC9CBwZpn5lgLOshLXdVtCO5cKo+jWej8XXl/XQlZyvXFI0biRkRrjC5VYw9qLslhcCLjB+BYytYqk7PFgzJtpFvK64XUX9XV3lRwioMzww3VHfbHI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791447956; c=relaxed/simple;
+	bh=+ll3S2rEsBHIPoEgyytGUuQ5DWO4+rFyjDIl918Zj7o=;
+	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=am7Ym3Xzzkmv/yw0+oCZdcZrutNABShlVcW0F+QIXmXiTXDb7Bu3zdJGRW5ztZqdYftIjm0A8W0aEnMcaEuVhjg8KzS4lnYi/CDywsh44i62h8lqMLn5y35fDX+GBr0rDDlQU1FMnkehA2U1xqI35sve69aX5aN8iWAKb9Fn4gU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=H98BhnpO; arc=fail smtp.client-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="OOPjs/17"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48441a2ba1bso2886118f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 01:25:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791447905; x=1792052705; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=W42EnwmE67etDA5kP9Ha0QuiGDOcv6prx44pdv7jZT8=;
-        b=OOPjs/17rAgSBoHvE9NGkQOuiDCVlTu4oMYsXCPPSPHNTUMRr0gYR/ETJJYJziCoQX
-         smBmm8bbNBczOWQ2vJoD2rYIQQ8gn6K7vkeNfixLNSXo1DijLmB3X1Z8P9vtO2fYLQPE
-         lT6vznhaoKCnqhxEMQOzUxma6QlxaF2k46wMUy9ms7FPjBFhGeQHMuvI0lQgNhc/nPYv
-         ShuuJMo18wNYJisEZPk0t76lfWiSbUOORWD6NuPZmVeMnNtyCqojv2neR7zFRtCz22/U
-         mdMoIJZ/qPvXzmkLJ8ZwOebw6O4Eam3qJQyRDSVy51qXNSNsFlWUogl3tJq7zI69ZXmx
-         /RRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791447905; x=1792052705;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=W42EnwmE67etDA5kP9Ha0QuiGDOcv6prx44pdv7jZT8=;
-        b=W6lodgolPotSI3pjYNX5ckihA01+l1vpOOMed51IrQRZuqatFYlKs80nAjU/BeSi7i
-         ktGlRbgY7v47kHueUSQe5F/6hKKlCNUUnuTynr4zPRhb2Z4cks6rVd4GSCiGzj6YfB1d
-         enUDpPHL+uw5qrNCcU+8s21zcR07t6/Q56BLon9YueFUHDHEUK2OkVsDKLJvPe7XY13+
-         M+chx5YcpzX/48nIdxNfwJSlq9p7yGXMZtL5ehtwsDVEK5E9X+FC2BOiNahGhcy0oESO
-         UCdWt0g1BrXzcXI1dzXWh1d8bfTVHBCFZA5mpePCDIvtpFx2vGBhoh+hE5IAtVa2YUti
-         jjRg==
-X-Forwarded-Encrypted: i=1; AKwUvBx6+KauoMXIfz5zTqolzuhaS5sSI10HaVUY1qjHwUKCFvuhb+c8OdLGh+LD0YY56RKTNtf48STyQEnoa/A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKhyTcW12OVJ2/6l2rS0aPzQq8cpkw7V0G4Rd5BGoOoUkHReQHg
-	J/yR8aw6vDYwEx+GFBQtgH0McVoBBsI+CwmXZLx++EbCe7UVwGtuBAc+pA/hq+mkAsA=
-X-Gm-Gg: AYBFou3Bzk8v+zCVcSsr2EtHwm6n1erryAyO3gFW2luURrvGyWJief6hROiMC1ubqU5
-	Pwy7YzV2Pxl3KFsRDOB7epmpwOdEDgAouq2Kd852IF5LUi33WNZe7GpIju3O2H433YcJGayc7Es
-	iqCQ//vA6f125LmkUKBy0G/hsZxpFSppUl0VbxrGRQ34qn2pMKJy6cp9kDAOTBTEInZcrrXF/ZU
-	dgQvtAlS0QoUep0S9agtIGuvRRxAkSlBKVwKggxrfFx9THxVTQuOmvPie211DVMnUnpMnMI/EgZ
-	y9k4ax8jbS3wIsexYZe+Z8wPGixnvsyI4lVKBVimA/bbcIds29XjmcFbG69Uop6de6KarnBCaIq
-	U6aeSCMyfPKbi3dQRcyU/PR3HEVqIcduqS9Bka7/ojTLalrXESEnkknmqP3i2KVD9M1q4F6p4f0
-	OabvRc7oAEVQHUIRsmxoMqUbeJehobPto7ZSOE28M/5Q0o3o2co7fPsqwsTrwheLCo8hfUymICK
-	ukDKnx+vVPSDQ6Rp1QBVs2I3kXR6iY=
-X-Received: by 2002:a05:6000:4818:b0:488:8751:e78e with SMTP id ffacd0b85a97d-48c72788373mr8448347f8f.16.1791447904535;
-        Thu, 08 Oct 2026 01:25:04 -0700 (PDT)
-Received: from [192.168.151.76] (90-182-211-1.rcp.o2.cz. [90.182.211.1])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71d2044fsm10204091f8f.31.2026.10.08.01.25.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 08 Oct 2026 01:25:04 -0700 (PDT)
-Message-ID: <2c1dc2eb-4404-4985-8263-22caab44485c@linaro.org>
-Date: Thu, 8 Oct 2026 10:25:02 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="H98BhnpO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791447956; x=1822983956;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=+ll3S2rEsBHIPoEgyytGUuQ5DWO4+rFyjDIl918Zj7o=;
+  b=H98BhnpOSAt2q8V/GqZswPXuG9P7cyi0OgOB+twEYnbM5J6K1JGZKk9w
+   QzZPiL6jshV0aDMfG3HpnTvCWMQQONQ+Z8bTtu91L22Fhe0kibdxCCoI4
+   YfTtLDJAQAS4nEgk6Q2/Pn78yxA5Rf89kWI2xWtgZ57Wt78RKW1hoQhNn
+   tzA92FcvCYV8Vj2h4IWoS6CbgX13Nd2DwKUCkK9E7tGcScDbicvShByYG
+   tFlscumRFehmuUTTFtV/yjCIQxixplOsdyqhrgYizWT/9KrN+ZHSXKUiw
+   WWC8pw7vYXdBZBAGq4bVHIpyGvjnWDczGDD5/DxhpMhFf8L6K5/E7IjP8
+   Q==;
+X-CSE-ConnectionGUID: ogBjQY+8SqakBjo1cqOaKQ==
+X-CSE-MsgGUID: CF8dowV0QVeet67n5+IPHA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="216706"
+X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
+   d="scan'208";a="216706"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 01:25:55 -0700
+X-CSE-ConnectionGUID: 7A4jc5skTwu60nQ1f+pC1Q==
+X-CSE-MsgGUID: oisvYU7cS0KyORBae5Tq+w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
+   d="scan'208";a="434004"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+  by fmviesa010.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 01:25:54 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 8 Oct 2026 01:25:39 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Thu, 8 Oct 2026 01:25:39 -0700
+Received: from BN1PR04CU002.outbound.protection.outlook.com (52.101.56.59) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 8 Oct 2026 01:25:38 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=F7kr56JFafr6K032QF7WChJi8xfywT7ug4pNb5ZmGKRjmmBXonmdcy9sxX5m9f3LhwCfwDZv4BymPPgJT6hvSB1cWGLVahtf/dKQ25r5pV2Jj/Ou59aVUGouZxzRJQFmGqzKTAZSO33Y+C0XlnEm2ad4jqk6T8BPKZB2UShbq5+vO34qnGTqkPT08ntQ8LrON0Qy6HsA3e9OI0AY0cbLiRxpi8yMolXgxru8wxvA1+h+DTr5QdXuCqlynQPKIdVhEliL+OBzLJvF37CCi9zqDduhlD4rCkHUQRPiHeSH4tiGjoOols8J4DdTU9SN/MM9xA1OcUssFr1ex1RFxCNO/Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CWJYMCXJUE1dyVuSOV1DKRf+pPux73i8gOxW//fSTPI=;
+ b=eXg3n1tJdZ2DmmpIxKEGP0YqksJmjNb0P74tHUlGyU+dyCI1E49HQ8pGu8BOJDkyMkyTPQjA08OQhtoCbdQnG1ivUk4WjSKUzV6unvvjaazwguso3jps2sNh58KXPD5mMqO+V/2cz3L8esqP1CaP8zf8P/yKoAk0uIFK4aeVdlU0GVfhNVjmp0hjUnH+iN/Fa9St21jZlj1WoSa6ycstQEE/ZeYcz/YAGcpoO8w15KKieyMsK7qbWGcyguTOj03vkY8gSECN3q6x0cQVechw/Kh5YGAOgW3tbTR7sHD4mDF9PifTwjJNf3/MNBTrpdClzqEWFQWuLruhfTk812Xidg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH7PR11MB6006.namprd11.prod.outlook.com (2603:10b6:510:1e1::13)
+ by PH3PPF4EB9556A6.namprd11.prod.outlook.com (2603:10b6:518:1::d1f) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Thu, 8 Oct
+ 2026 08:25:36 +0000
+Received: from PH7PR11MB6006.namprd11.prod.outlook.com
+ ([fe80::4e2d:28f0:ede9:73bd]) by PH7PR11MB6006.namprd11.prod.outlook.com
+ ([fe80::4e2d:28f0:ede9:73bd%6]) with mapi id 15.21.0496.015; Thu, 8 Oct 2026
+ 08:25:36 +0000
+Message-ID: <f6980bc7-28e6-4794-a88d-9ec8d0c6c8a5@intel.com>
+Date: Thu, 8 Oct 2026 10:25:28 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 0/2] ASoC: Intel: Add Yoga Book RT5677 support
+To: Mark Brown <broonie@kernel.org>, Maurizio Casciano
+	<mauriziocasciano7@gmail.com>
+CC: Liam Girdwood <liam.r.girdwood@linux.intel.com>, Peter Ujfalusi
+	<peter.ujfalusi@linux.intel.com>, Yung-Chuan Liao
+	<yung-chuan.liao@linux.intel.com>, Kai Vehmanen
+	<kai.vehmanen@linux.intel.com>, Pierre-Louis Bossart
+	<pierre-louis.bossart@linux.dev>, Jaroslav Kysela <perex@perex.cz>, "Takashi
+ Iwai" <tiwai@suse.com>, Yauhen Kharuzhy <jekhor@gmail.com>,
+	<linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+References: <20260925135915.338670-1-mauriziocasciano7@gmail.com>
+ <179138829586.2423942.18161759839325954291.b4-ty@b4>
+Content-Language: en-US
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+In-Reply-To: <179138829586.2423942.18161759839325954291.b4-ty@b4>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: VI1PR07CA0257.eurprd07.prod.outlook.com
+ (2603:10a6:803:b4::24) To PH7PR11MB6006.namprd11.prod.outlook.com
+ (2603:10b6:510:1e1::13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 4/4] drm/panel: st7703: Add DCLTek 300248 10.25in display
-To: Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>,
- Jessica Zhang <jesszhan0024@gmail.com>, =?UTF-8?Q?Guido_G=C3=BCnther?=
- <agx@sigxcpu.org>
-Cc: Ondrej Jirman <megi@xff.cz>, Purism Kernel Team <kernel@puri.sm>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Hugo Villeneuve <hvilleneuve@dimonoff.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Jerome Oufella <jerome.oufella@savoirfairelinux.com>,
- Felix Boucher <felix.boucher@savoirfairelinux.com>,
- Quentin Lehoux <quentin.lehoux@savoirfairelinux.com>
-References: <20261007201859.3709656-1-marc-olivier.champagne@savoirfairelinux.com>
- <20261007201859.3709656-5-marc-olivier.champagne@savoirfairelinux.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20261007201859.3709656-5-marc-olivier.champagne@savoirfairelinux.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR11MB6006:EE_|PH3PPF4EB9556A6:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4be856db-834c-499d-76b1-08df2515ba64
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|366016|1800799024|376014|23010399003|18002099003|10067099003|22082099003|11063799006|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info: YoHk52BlJlyqWzbwBb4GppJ2kK0WdjdTUK+/0hOwJC2Eq/m9tJYrXLaUE4OIp925qxiDMmeL44Q97cMeRN19Hj3zmD73jEYkCvXjRFjs68LFmPnGrISiKdtd3jdVBLmwATX37dyAM8BolqWTUUaidj3jc73eejn0Ygn2SNHdiHA17rO2+oBWfTVcsGqK4F0ie+He+a9gbMCjfsR2gWGFHFHAJBDGk/BCphcaQbxvnGURxPJ7f1NFUHoAWzejuDtLBJOvtYO5WUGWnR1nWSmKdYplXPdd8CCtO5rthW9Zt83AIyT2AeTjjvoTouKuOL7SXT745jv+AZhrFPvcnJCuZib26mHq2QJ8OXX/17q0kyTfN/b8vrV8Ia4B6OPlY4v/u7fgVQ/x3TcTqeHUeZADzYM7EA5LzfDRuFTFUJ0EP1oYKoeWKA7Amnm1leXHLTCW+phMxpTr3FAPI1O5tPJYZ/wqE1xONnJH6Fu2G3U65qSTjSkdEXwLcc9FOHX9eC6h6Y8o869TqmYQErSPH+EoJA+arIc+ZzWDuEeZgoBllVCn79gErYY1lY8XMNwZbBvSSCDuIimuC+bE5cmquPBr0cD8A125wPTkjEFgSlqQuZMn5xdN29oOw+Ga13d9yWM/t81SOAMlekiVofdNt4FSZuifejCv/kMFef/BIleVzrc=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR11MB6006.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(1800799024)(376014)(23010399003)(18002099003)(10067099003)(22082099003)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Tjd6YXZKRDE1ZGlXWVJiZFVwcUlNclFZMjI1eDhZSEhHRkdaVjlpUEkwTzcy?=
+ =?utf-8?B?RkFucktuVXRPTHhjdm8yWEhHM0s4REp3UDhMMW9VallqYVlTWDBsL3IzV2dr?=
+ =?utf-8?B?a01NRnhLU25xaHB0UTdCM0FydzhYS284cjg5eTBJbC9qMEpPNnVxTUNJdWZw?=
+ =?utf-8?B?cXVrK1N1NjRtM2pxMzYwWEVtcllmV295bkdrd0J5eWVBeTQrcjJXREUzTlc3?=
+ =?utf-8?B?OHNzL3hleDBvVWxiczBubTNRTVdmMkhmS2FtZGVBeittdk1ZYTlHbnB1bjgy?=
+ =?utf-8?B?UERIYVFURGs5VVNFR2YwZytySGZRZlY2ak5yRlNrVCtXdGZ4L0wza1RpQTNW?=
+ =?utf-8?B?cHBUTzdSU1F6V3RFcCtGWGt1V1dzYjZDNm9SWkRRZmFuU0hmcnRKaWNQaDgx?=
+ =?utf-8?B?Skd1WG5VVzlHcC9JT2hPdDByN3FnTjM2Q0hrZC95Y1p3ZDFmaHkyMXZEelh0?=
+ =?utf-8?B?eFRpNUFrQ2NaQVI4d01yZEFpUU5oZ3hTMTJ0NlFtZWNOaGJCM0V0ZDFYd1dU?=
+ =?utf-8?B?RjZTWUZBRzJRRW9FUE9yclJGQTdqWEtrRmduMG9FemxVam55TDNlMElWbktZ?=
+ =?utf-8?B?WW9TZUg3azF0c0RzU0tvQ0o2Ukk5Wm5WaTE4bUUvU3dCZHVQQ2k0Uzczczh3?=
+ =?utf-8?B?QWtJS1czRDFYcnVCK2Z1L0YwUFpnSms1OVg5QjdEZlUvckdYcFF5UXFMTlFl?=
+ =?utf-8?B?aDJibFh0b0d2enJyeXZma2ZkY01ITWFsdFdRc3FUd0VXOVBZaHFqOXdjbTJ4?=
+ =?utf-8?B?WHVFeW1GQUJ0UXpWdWZ5dWQ0cFBncVhmaEE3RWU3Yll1Qk9kY2NMOHFTZXN0?=
+ =?utf-8?B?N29LWU02cTc0emVvWHBqdHQ0allkeDVmbGNRMmlsUFg5U1lCRzJMNi9Uc0ox?=
+ =?utf-8?B?dHV6NEhDNTNBaXNGYUhlczlzQUJnMG0vakU1YVQ1ckFSN1RMY0VoZk9aa0R3?=
+ =?utf-8?B?TFY5aTl1eXpJdGQ4R2I4bEhjWjZUWFBxMTBFREQwTUNHRExVMjYzSXdGYVp3?=
+ =?utf-8?B?Z0JWcTRHWFdCcm93TU5OS0NSL25tSU1FQ3N2bnpqK01oKzl6bjJJVW5zclQw?=
+ =?utf-8?B?L2pKTTZWRnJPM25TK0NFZllEZjJRbWl5Ni8zMEorbWRLWmlnVUhheW43ZDZX?=
+ =?utf-8?B?S3N0VUs4VDhxdVlYeVI3a1Y1cXlwMUh6RGNEeTB0UVhpalJwWkJUbmVXbElZ?=
+ =?utf-8?B?WDdwRW01RzRHMzdpWmpvSUtuTmRoQkRWM09tdXlFQmY0QlBKYUlPVnNGTXVS?=
+ =?utf-8?B?Z3hIT25yMzJPUC9TY1hxZ01ZbytHMXlFdDJJaUpaU2pkdy9MTlRVWUQyMnBR?=
+ =?utf-8?B?a3UyTUsvYkZaZmhWVWRVWFZubk16bTlRME1ONVhVdFdaUW1IeSsreFFpK0lj?=
+ =?utf-8?B?UVZVZjgvK0ViRjhDRHdWZEEzNzBZRWY3UFoxZjZrZXlxMTFFa3l6WXk5R0pl?=
+ =?utf-8?B?T0Y4MTExZnhheU1wRHZSV0FBV3hsT3NhQ2lWM29xcjFKd0pOM0tPdUlzUVVM?=
+ =?utf-8?B?YkZ3NmE3MzZpYzZUV1drV1dOQ244aHZiTmpzaWpucXZ0RDlNeVhhUlhSbmlQ?=
+ =?utf-8?B?b0NmNkd1NG81NkFKL3p5U3ZpaldwN213cHBOMzN5djV0VURkZFZDT2tsYVQ3?=
+ =?utf-8?B?V3ZMSUZVYmNWRjRuZGJsbmprQXNlM0xpc0txaVBtb2pKcmhsbXJLcTRrOHM3?=
+ =?utf-8?B?amJNeU9SOTBmRWIvaExtcDNjUmxyaW0yM1B5NC9ueGVicHQrM251L2VjUnRw?=
+ =?utf-8?B?eUxTOXZTZXI3b3FPcDJSc0gxbkZTWGlFT2I4MkhQQURZbWkxMHdwVXZURUNo?=
+ =?utf-8?B?NjVXRmJzd3B5YVdWeWNDUVB6U01laHI4MjhabW0yeUk4am83VEM3TjlieUYw?=
+ =?utf-8?B?MDE3VC9JQk1PRVVhVG14V1Z6ZFlOeFYwbDlRSHQ0R2ptQlp1eFg0NHhwdmlm?=
+ =?utf-8?B?QUQ2RVBBb0lXMTRxS0hVRm1tcWhBZTdyanlqRHV5NDMrb3dqR0UyNXJnWWtp?=
+ =?utf-8?B?YmxHZ1k1RGdLd3VpQjJxMXhCQ1lJa0tVVzBqNkdMM1I3TEdNdm91N2NNcVVF?=
+ =?utf-8?B?UFpydjNZaitvWDVFbDl1SEpaL0Q2UkVQdzFmd2xsdS84OW9SUHcxeERuMFNV?=
+ =?utf-8?B?cmNuaEQrWXNHdlJjQ04vbllzWWpkRy9wRm1jZmxEUU4zcEZHeWdlRkkvdXgv?=
+ =?utf-8?B?c0o4NkU3OENPdDZxandxdW5BTTR3bFovTHd6TFljbXJUYlBjSTFQOUxaLzhy?=
+ =?utf-8?B?amc0TlI4b1dtaGkwK00zOHJBMWJYYmgzdWxNd1hkczh1SXBpb015QUgvamhH?=
+ =?utf-8?B?dkZRTGVCWUIwVTBCNWVwTDdGVHpFNjlPazl1a3l0eGVrTkxNTis3UT09?=
+X-Exchange-RoutingPolicyChecked: 4j5BKF9zieZv3/sfyWwDJVnQfLOFU3vW7DNkbVroUssBE/xBkZNK4uQOWKT/i8nR4Orzl8DUUsRc5ktMZMCP2UtHNpD6bNGNJE+5iFuuLaptEFNIn/RT9kiShrrp3kbZcQ+CLNEZ+A4r9wh2Q8VUIEZkXuYAZ2jC5v7JTO2C5113zI2Ph9RsEju+DXPO1w17Aosv84MC+FqgxHwsMXFRTt7koo4lG/nQmYkxvCPWZJZNudeDOVIwvhGWfE3JGu7NmeQdwLJIDK9kMj7FlfylnfvPIPpLI9CRW8+sJeBlQsvsTtYKG791Bk2PciUwj3cMeoABSzna3NmC+r+iApuftg==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4be856db-834c-499d-76b1-08df2515ba64
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6006.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 08:25:36.2616
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: QZs3KJMTWwA35k1Q24VG7H9FiQg7v9cVqopPBTr2oKrlus0AKb8krT6goJfC2rkmJbcmxaYEAF7eKK698KqDxRQFfs2P+17kPbHXBzq/wfM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH3PPF4EB9556A6
+X-OriginatorOrg: intel.com
 
-On 10/7/26 22:18, Marc-Olivier Champagne wrote:
-> The DCLTek dt300248 is an LCD panel using the Sitronix ST7703
-> controller. Add the panel to the driver.
+On 10/7/2026 5:51 PM, Mark Brown wrote:
+> On Fri, 25 Sep 2026 15:59:13 +0200, Maurizio Casciano wrote:
+>> ASoC: Intel: Add Yoga Book RT5677 support
+>>
+>> Hi,
+>>
+>> This series adds the Cherry Trail machine driver and machine-table entry
+>> needed by the Lenovo Yoga Book YB1-X91F/L with its RT5677 codec and
+>> TS3A227E headset detector.
+>>
+>> [...]
 > 
-> Suggested-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
-> Signed-off-by: Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>
-> ---
->   drivers/gpu/drm/panel/panel-sitronix-st7703.c | 97 +++++++++++++++++++
->   1 file changed, 97 insertions(+)
+> Applied to
 > 
-> diff --git a/drivers/gpu/drm/panel/panel-sitronix-st7703.c b/drivers/gpu/drm/panel/panel-sitronix-st7703.c
-> index f4635a7327de..b3abfe8c9ed9 100644
-> --- a/drivers/gpu/drm/panel/panel-sitronix-st7703.c
-> +++ b/drivers/gpu/drm/panel/panel-sitronix-st7703.c
-> @@ -768,6 +768,102 @@ static const struct st7703_panel_desc ayaneo_pocket_ds_lower_desc = {
->   	.init_sequence = ayaneo_pocket_ds_lower_init_sequence,
->   };
->   
-> +static void dcltek_dt300248_init_sequence(struct mipi_dsi_multi_context *dsi_ctx)
-> +{
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETEXTC, 0xf1, 0x12, 0x87);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETDISP, 0xe0, 0x05, 0xf8);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETRGBIF, 0x10, 0x10, 0x28,
-> +				     0x28, 0x03, 0xff, 0x00, 0x00, 0x00, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETCYC, 0x80);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETBGP, 0x0d, 0x0b);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETVCOM, 0x6d, 0x6d);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETPOWER_EXT, 0x25, 0x62,
-> +				     0x20, 0x03);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETMIPI,
-> +				     0x33, 0x81, 0x05, 0xf9, 0x0e, 0x0e, 0x20, 0x00,
-> +				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x44, 0x25,
-> +				     0x00, 0x91, 0x0a, 0x00, 0x00, 0x01, 0x4f, 0x01,
-> +				     0x00, 0x00, 0x37);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETVDC, 0x47);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_UNKNOWN_BF,
-> +				     0x02, 0x10, 0x00, 0x80, 0x04);
-> +
-> +	mipi_dsi_msleep(dsi_ctx, 20);
-> +
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETSCR,
-> +				     0x73, 0x73, 0x50, 0x50, 0xa0, 0x00, 0x12, 0x53,
-> +				     0x00);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETPOWER,
-> +				     0x25, 0x00, 0x32, 0x32, 0x77, 0xe4, 0x77, 0x77,
-> +				     0xcc, 0xcc, 0xff, 0xff, 0x11, 0x11, 0x00, 0x00,
-> +				     0x32);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETIO,
-> +				     0x10, 0x00, 0x0a, 0x00, 0x00, 0x00, 0x00, 0x00,
-> +				     0xed, 0xc5, 0x00, 0xa5);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETCABC,
-> +				     0x10, 0x40, 0x1e, 0x03);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETPANEL, 0x07);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETGAMMA,
-> +				     0x00, 0x13, 0x1a, 0x2c, 0x34, 0x3f, 0x4f, 0x3f,
-> +				     0x06, 0x0c, 0x0d, 0x14, 0x15, 0x13, 0x13, 0x11,
-> +				     0x19, 0x00, 0x13, 0x1a, 0x2c, 0x34, 0x3f, 0x4f,
-> +				     0x3f, 0x06, 0x0c, 0x0d, 0x14, 0x15, 0x13, 0x13,
-> +				     0x11, 0x19);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_UNKNOWN_E1,
-> +				     0x11, 0x11, 0x91, 0x00, 0x00, 0x00, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETEQ,
-> +				     0x07, 0x07, 0x0b, 0x0b, 0x0b, 0x0b, 0x00, 0x00,
-> +				     0x00, 0x00, 0x2f, 0x04, 0xc0, 0x10);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETGIP1,
-> +				     0xc8, 0x10, 0x0a, 0x10, 0x0e, 0x80, 0x38, 0x12,
-> +				     0x31, 0x23, 0x4f, 0x86, 0x80, 0x38, 0x47, 0x08,
-> +				     0x00, 0x0c, 0x04, 0x00, 0x00, 0x00, 0x00, 0x0c,
-> +				     0x04, 0x00, 0x00, 0x00, 0x8f, 0x44, 0x60, 0x28,
-> +				     0xba, 0x02, 0x88, 0x88, 0x88, 0x88, 0x88, 0x8f,
-> +				     0x45, 0x71, 0x38, 0xba, 0x13, 0x88, 0x88, 0x88,
-> +				     0x88, 0x88, 0x00, 0x00, 0x00, 0x01, 0x00, 0x80,
-> +				     0x38, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETGIP2,
-> +				     0x96, 0x18, 0x00, 0x00, 0x00, 0xb4, 0x01, 0x0b,
-> +				     0x41, 0x01, 0x02, 0x00, 0xf8, 0x43, 0x17, 0x58,
-> +				     0xba, 0x31, 0x88, 0x88, 0x88, 0x88, 0x88, 0xf8,
-> +				     0x42, 0x06, 0x48, 0xba, 0x20, 0x88, 0x88, 0x88,
-> +				     0x88, 0x88, 0x23, 0x00, 0x00, 0x00, 0xd7, 0x00,
-> +				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-> +				     0x00, 0x00, 0x07, 0x8b, 0x00, 0x00, 0x40, 0x80,
-> +				     0x81, 0x40, 0x80, 0x81, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_UNKNOWN_EF,
-> +				     0xff, 0xff, 0x01);
-> +}
-> +
-> +static const struct drm_display_mode dcltek_dt300248_mode = {
-> +	.clock		= (440 + 8 + 32 + 40) * (1920 + 41 + 8 + 6) * 60 / 1000,
-> +
-> +	.hdisplay	= 440,
-> +	.hsync_start	= 440 + 8,
-> +	.hsync_end	= 440 + 8 + 32,
-> +	.htotal		= 440 + 8 + 32 + 40,
-> +
-> +	.vdisplay	= 1920,
-> +	.vsync_start	= 1920 + 41,
-> +	.vsync_end	= 1920 + 41 + 8,
-> +	.vtotal		= 1920 + 41 + 8 + 6,
-> +
-> +	.width_mm	= 58,
-> +	.height_mm	= 253,
-> +	.flags		= DRM_MODE_FLAG_NHSYNC | DRM_MODE_FLAG_NVSYNC,
-> +};
-> +
-> +static const struct st7703_panel_desc dcltek_dt300248_desc = {
-> +	.mode = &dcltek_dt300248_mode,
-> +	.lanes = 4,
-> +	.mode_flags = MIPI_DSI_MODE_VIDEO |
-> +		MIPI_DSI_MODE_VIDEO_BURST | MIPI_DSI_MODE_VIDEO_SYNC_PULSE |
-> +		MIPI_DSI_MODE_LPM,
-> +	.format = MIPI_DSI_FMT_RGB888,
-> +	.init_sequence = dcltek_dt300248_init_sequence,
-> +};
-> +
->   static int st7703_enable(struct drm_panel *panel)
->   {
->   	struct st7703 *ctx = panel_to_st7703(panel);
-> @@ -1026,6 +1122,7 @@ static void st7703_remove(struct mipi_dsi_device *dsi)
->   static const struct of_device_id st7703_of_match[] = {
->   	{ .compatible = "anbernic,rg353v-panel-v2", .data = &rg353v2_desc },
->   	{ .compatible = "ayaneo,pocket-ds-lower-panel", .data = &ayaneo_pocket_ds_lower_desc },
-> +	{ .compatible = "dcltek,dt300248", .data = &dcltek_dt300248_desc },
->   	{ .compatible = "gameforce,chi-panel", .data = &gameforcechi_desc },
->   	{ .compatible = "powkiddy,rgb10max3-panel", .data = &rgb10max3_panel_desc },
->   	{ .compatible = "powkiddy,rgb30-panel", .data = &rgb30panel_desc },
+>    https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
+> 
+> Thanks!
+> 
+> [1/2] ASoC: Intel: Add Cherry Trail RT5677 machine driver
+>       https://git.kernel.org/broonie/sound/c/5a0c90cb911c
+> [2/2] ASoC: Intel: cht: Add Yoga Book RT5677 machine entry
+>       https://git.kernel.org/broonie/sound/c/a0448ff85187
+> 
+> All being well this means that it will be integrated into the linux-next
+> tree (usually sometime in the next 24 hours) and sent to Linus during
+> the next merge window (or sooner if it is a bug fix), however if
+> problems are discovered then the patch may be dropped or reverted.
+> 
+> You may get further e-mails resulting from automated or manual testing
+> and review of the tree, please engage with people reporting problems and
+> send followup patches addressing any issues that are reported if needed.
+> 
+> If any updates are required or you are submitting further changes they
+> should be sent as incremental updates against current git, existing
+> patches will not be replaced.
+> 
+> Please add any relevant lists and maintainers to the CCs when replying
+> to this mail.
+I'm sorry Mark, didn't find time to properly review v9. However, given
+the number of comments of mine addressed throughout the entire review of
+this board, and its existing state it LGTM:
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-
-Thanks,
-Neil
+Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
