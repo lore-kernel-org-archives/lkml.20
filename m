@@ -1,86 +1,164 @@
-Received: from mta1.migadu.com (out-237.mta1.migadu.com [95.215.58.237])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C9972DF126
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 05:47:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.237
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 663E5246788;
+	Thu,  8 Oct 2026 05:48:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791438433; cv=none; b=gWU/IMMTBm01JhmZ6MpWKw2v2aIQEqMN7BcSqPF16bycYqe0583uVl5b5mRuJOsfdgNLKzSvZa5Sl/3GVSLM8tWF/c5KvMfKGxy05AjXFuZcdIMPXG1dX62iTXySFEfGCfhQGvgR2RejMkrg46hvl1MKO8gMM5A3J4d/Xj+8Skw=
+	t=1791438528; cv=none; b=DfCN7CJmGUAILzH4Hs/46NtnxzedlVEWKrGc/fQWtxfaoDg4oFltTfslOJxz7woGhCXQsjIYCP9eQpzaOZuSEgCBnQxfY09UB+8zoRlCtp+qf2T64+E2PIzd6dXamKEjY3r9o7cZMg6gxY0A8FIacI9pI+p5aN8pnriqMD8h8dQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791438433; c=relaxed/simple;
-	bh=Oxi9M9WIAPNUTBUO7azXc2qlMNdidYUbADdfUbmOkDU=;
+	s=arc-20240116; t=1791438528; c=relaxed/simple;
+	bh=UQYmy2isNA91Eu1EVzESe03RFAFjECOdoWuzwaYO7U0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s09c5+Fi4YFui6IM2uANjQ/RsIIxxjfKOe20GD5vGmUv73Byxxhb7Vtgk4SgkiFxWlIlwuotM3QoRtC18tGnKSHQhFTguYamsL8BNjFhwqrKFTzHUhEeFMmAsnglwjuq2Ng8ciuM1bIq8Ue2psGWrR7kOM+O+N2ZtDqbuYeLAJ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wgRhgWdB; arc=none smtp.client-ip=95.215.58.237
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 Content-Type:Content-Disposition:In-Reply-To; b=f/xHwxR13wiDW8HJFqkauvJmTVC1Xe36cg/HaIwdXcj10O/1NdIwKdvqEHdZNIdJMvwr+H7/0kL6/S0aC0cXnA4J0e+O2ou/IJkwaMf11FT3m5TaYY1uRhm3TrmMkQzVxq7gPUgFlvbfftnCAbU1oa4zZDWy5XxT+IPZmaExI8U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=saJce94a; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wgRhgWdB"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Oxi9M9WIAPNUTBUO7azXc2qlMNdidYUbADdfUbmOkDU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791438429; v=1; x=1792043229;
- b=wgRhgWdB/f+satF80/R21WU8Ji31U9YZDFl3rdY91bcAowK5CgF7P2etgBFXaY71F7tUrt9D
- 8E1u2nNPYW+hyUaD5I6GmnhlGk1wfTKdYNYqx5WZsCZOuVHP4gvJrJ3F8fnsdtGyq1+n1XMQiN7
- tovEytfgHME2zbZHovm2EZuM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 46a23afb19c5ec56;
-	Thu, 08 Oct 2026 05:47:08 +0000
-X-Mizu-Trace-ID: 46a23afb19c5ec56
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 8 Oct 2026 13:47:33 +0800
-From: Chenguang Zhao <chenguang.zhao@linux.dev>
-To: Prathamesh Deshpande <prathameshdeshpande7@gmail.com>
-Cc: Leon Romanovsky <leon@kernel.org>, Tariq Toukan <tariqt@mellanox.com>,
-	Saeed Mahameed <saeedm@mellanox.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>, linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org, saeedm@nvidia.com, tariqt@nvidia.com
-Subject: Re: [PATCH rdma] RDMA/mlx5: Cancel deferred page-fault EQ work
- before teardown
-Message-ID: <20261008054733.GA256585@pc>
-References: <20261007234216.2765-1-prathameshdeshpande7@gmail.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="saJce94a"
+Received: from killaraus.ideasonboard.com (dynamic-2a00-1028-8389-0276-8139-a635-2d39-b80f.ipv6.o2.cz [IPv6:2a00:1028:8389:276:8139:a635:2d39:b80f])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 8DEF32C6;
+	Thu,  8 Oct 2026 07:46:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1791438406;
+	bh=UQYmy2isNA91Eu1EVzESe03RFAFjECOdoWuzwaYO7U0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=saJce94ai6LH4OkD37Uw8W+dL3vtNYEzXMLtsj7uTSfHSSPI5jKbbSmDUoWh99tN5
+	 G/g+9L8iwRww595BDAlIZsFkBfi+Yda0HC8NTZ6r47Q/8aJ/e+GTYNFupMc1zdAS3w
+	 rR+TwtXJzUaORct6iZ1yVDZ1anzFtSOQvFAG6qCU=
+Date: Thu, 8 Oct 2026 07:48:42 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Nicola Fiorillo <nicfio@gmail.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] media: v4l2-subdev: Fix NULL pointer dereference
+ in subdev_open()
+Message-ID: <20261008054842.GB683793@killaraus.ideasonboard.com>
+References: <20261008042600.275884-1-nicfio@gmail.com>
+ <20261008042600.275884-2-nicfio@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261007234216.2765-1-prathameshdeshpande7@gmail.com>
+In-Reply-To: <20261008042600.275884-2-nicfio@gmail.com>
 
-On Thu, Oct 08, 2026 at 12:42:11AM +0100, Prathamesh Deshpande wrote:
-> Page-fault EQ work can remain queued after the notifier is disabled.
-> Destroying the EQ before cancelling that work can let the worker access
-> freed EQ memory.
+On Thu, Oct 08, 2026 at 06:25:59AM +0200, Nicola Fiorillo wrote:
+> Unbinding a driver while something opens a /dev/v4l-subdevN node oopses
+> the kernel:
 > 
-> Cancel the deferred work before destroying the EQ.
+>   BUG: kernel NULL pointer dereference, address: 0000000000000008
+>   RIP: 0010:subdev_open+0x8a/0x190 [videodev]
+>   Call Trace:
+>    v4l2_open+0xa9/0x100 [videodev]
+>    chrdev_open+0xb2/0x230
+>    do_dentry_open+0x14c/0x440
+>    vfs_open+0x2e/0xe0
+>    path_openat+0x82e/0x12d0
+>    do_filp_open+0xc4/0x170
+>    do_sys_openat2+0xae/0xe0
+>    __x64_sys_openat+0x55/0xa0
 > 
-> Fixes: d5d284b829a6 ("{net,IB}/mlx5: Move Page fault EQ and ODP logic to RDMA")
-> Signed-off-by: Prathamesh Deshpande <prathameshdeshpande7@gmail.com>
+> v4l2_device_unregister_subdev() clears sd->v4l2_dev, then unregisters
+> the media entity, which clears sd->entity.graph_obj.mdev, and only then
+> unregisters the device node. Drivers that call media_device_unregister()
+> before v4l2_device_unregister(), as vimc does, clear
+> sd->entity.graph_obj.mdev even earlier, while the sub-device nodes are
+> still registered. subdev_open() dereferences both pointers. v4l2_open()
+> has checked that the node is registered, but it drops videodev_lock
+> before calling fops->open(), so the whole unregistration can run in
+> between. Reordering v4l2_device_unregister_subdev() would not help in
+> the second case, and checking the two pointers in subdev_open() would
+> only narrow the window.
+> 
+> Neither pointer is needed in subdev_open(). Both record that the
+> sub-device is registered, and are cleared on purpose when it goes away,
+> while open() runs on behalf of the device node. The node has its own
+> pointer to the same v4l2_device, vdev->v4l2_dev, which is set when the
+> node is registered and never cleared, and the V4L2 core already relies
+> on it for as long as the node exists: v4l2_release() dereferences it on
+> every close. The sub-device's entity is registered with
+> vdev->v4l2_dev->mdev, so that is also the media device to take the
+> module reference through.
+> 
+> That reference goes through mdev->dev->driver, which the driver core
+> clears once the media device's own driver has been unbound, as when
+> syzbot unbinds vimc. Read it once with READ_ONCE(), as
+> dev_driver_string() does, and fail the open with -ENODEV if it is gone:
+> unbinding does not unload the module, so the pointer read is either
+> still valid or NULL.
+> 
+> With this, subdev_open() no longer reads a pointer that the V4L2 core or
+> the driver core clears when a driver is unbound. It can still run on a
+> sub-device that has just been unregistered, exactly like a file handle
+> opened an instant earlier. The lifetime of the sub-device and of the
+> media device when a driver goes away with file handles open, and module
+> unloading, are a separate, known limitation that this does not address.
+> 
+> Reproduced on a CHUWI Hi10 X1 (Alder Lake-N, IPU6) running 6.12.86, at
+
+We don't develop or test patcheson 6.12.86.
+
+> cycle 7 of a loop unbinding and rebinding a sensor while four processes
+> opened every /dev/v4l-subdev*. syzbot hit the second dereference on the
+> same line by unbinding vimc, and so does a test in QEMU with KASAN that
+> opens vimc's sub-device nodes while vimc is unbound and rebound; with
+> this patch the same test shows no oops, KASAN report or warning.
+> 
+> Reported-by: syzbot+74de6401dbdd377b5746@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=74de6401dbdd377b5746
+> Fixes: 61f5db549dde ("[media] v4l: Make v4l2_subdev inherit from media_entity")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Nicola Fiorillo <nicfio@gmail.com>
 > ---
->  drivers/infiniband/hw/mlx5/odp.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/media/v4l2-core/v4l2-subdev.c | 12 ++++++++++--
+>  1 file changed, 10 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/infiniband/hw/mlx5/odp.c b/drivers/infiniband/hw/mlx5/odp.c
-> index b8618610737a..1f28c30095dc 100644
-> --- a/drivers/infiniband/hw/mlx5/odp.c
-> +++ b/drivers/infiniband/hw/mlx5/odp.c
-> @@ -1885,8 +1885,8 @@ mlx5_ib_odp_destroy_eq(struct mlx5_ib_dev *dev, struct mlx5_ib_pf_eq *eq)
->  	if (!eq->core)
->  		return 0;
->  	mlx5_eq_disable(dev->mdev, eq->core, &eq->irq_nb);
-> -	err = mlx5_eq_destroy_generic(dev->mdev, eq->core);
->  	cancel_work_sync(&eq->work);
-> +	err = mlx5_eq_destroy_generic(dev->mdev, eq->core);
->  	destroy_workqueue(eq->wq);
->  	mempool_destroy(eq->pool);
+> diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
+> index a07d77e58..c56ca328f 100644
+> --- a/drivers/media/v4l2-core/v4l2-subdev.c
+> +++ b/drivers/media/v4l2-core/v4l2-subdev.c
+> @@ -96,6 +96,7 @@ static int subdev_open(struct file *file)
+>  {
+>  	struct video_device *vdev = video_devdata(file);
+>  	struct v4l2_subdev *sd = vdev_to_v4l2_subdev(vdev);
+> +	struct media_device *mdev = vdev->v4l2_dev->mdev;
+>  	struct v4l2_subdev_fh *subdev_fh;
+>  	int ret;
 >  
-> -- 
-> 2.43.0
-> 
+> @@ -112,10 +113,17 @@ static int subdev_open(struct file *file)
+>  	v4l2_fh_init(&subdev_fh->vfh, vdev);
+>  	v4l2_fh_add(&subdev_fh->vfh, file);
+>  
+> -	if (sd->v4l2_dev->mdev && sd->entity.graph_obj.mdev->dev) {
+> +	if (mdev && mdev->dev) {
+> +		struct device_driver *drv = READ_ONCE(mdev->dev->driver);
+>  		struct module *owner;
+>  
+> -		owner = sd->entity.graph_obj.mdev->dev->driver->owner;
+> +		/* The media device's driver has been unbound meanwhile. */
+> +		if (!drv) {
+> +			ret = -ENODEV;
+> +			goto err;
+> +		}
+> +
+> +		owner = drv->owner;
 
-Looks correct. 
+All of this is a hack that may reduce a race window but it doesn't fix
+the problem.
 
-Reviewed-by: Chenguang Zhao <zhaochenguang@kylinos.cn>
+>  		if (!try_module_get(owner)) {
+>  			ret = -EBUSY;
+>  			goto err;
+
+-- 
+Regards,
+
+Laurent Pinchart
