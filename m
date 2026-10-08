@@ -1,144 +1,261 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E2303BE172;
-	Thu,  8 Oct 2026 11:09:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D4E13A6405
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 11:10:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791457775; cv=none; b=GwzY7GG9hrJ9dlajbnKF95kwomAFbxOVYbd+MCjN4lTWyA8PImBbuP7v/yhtYVoZx//bvIhNasMvgglgOB/1f+dpGDL/ndAx/11K+RNyaFl2ydsuH7Zl0qth4ekPgNQ7SnASXJRPif9r5EQGgCO9jBgf3L37xCpdYGEAL1XU5Uk=
+	t=1791457812; cv=none; b=nlG3qHjXcnPsKxUMJdzNLiLNu8fhGH79y49cnekKNUQ6WJ+yDoQc2SMWtm21wVnkNq7WE1LNjfq1UNtlExF74RuePOit06bteAoktHmn9Zvt/bFdqnnMeG3lftgT8C29K6CQbyWztKEdnHwaUixOytyNyl3pqCWaM2rXPELiku8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791457775; c=relaxed/simple;
-	bh=75s9Og1njdygxV8tnkbcGXlKjyNinTjM7/sgljM9zf4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=pgQns/BIOSxdCDyC+E7kXc5psWaTqbcPLAerEKh7qHMm92JybZRmC2kSS4sjizdfX4kKA3MjmNbYYN8BZpvD/T3ETt5j9ayUhAqC5zAE3rwVowOU/ck6sObEIfVdeMpzLL4UdRRrkjRoSqwrgCHcGWUhUrE3ZqnUrPARUyJKkWU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q1zI3Owf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791457812; c=relaxed/simple;
+	bh=OQ1sBuwp7i4mtiBMz3g9ZmE1aw++E1wr3jKq7s6Is9s=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=CWhoLCLcQWRcCMMeN+u59Z3RKpOjPDGHmzNfWPoJlTAVyqMcgWzTQ85HwoHDKgUCaU9zYQiTdY2i9GsC46V8JahOvESCoguCNsv5l0L48ss9zqQzqXY/NUnDQCz8pnXY2sm8BMwRtGp2FyxywMJXHFxELBrKJY5GPEmt7Hcl2ZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZogCWTIS; arc=none smtp.client-ip=209.85.215.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q1zI3Owf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29C771F00893;
-	Thu,  8 Oct 2026 11:09:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791457774;
-	bh=K/E2/Jsizusc3aaYESoZpCk7qa83D/rUYpDEILEV9xI=;
-	h=From:Date:Subject:To:Cc;
-	b=Q1zI3OwfGZmNM89ul2wQM2L4yfb/lebm/OoxtpntYe66nvoZd84HSApmhPwydW0Iz
-	 jCuYBVo0r9xyPu+xGQKP8dMk248yAIhYUEOWUhuWhnF1T5hk/F3v2JID3C/qLVCcBv
-	 rZqYQ1HQXemdEw22nFBuyOiV/tQ6kphwcfIomDXyRZ2qZvUx8DQmUM4M9juC8oiY6g
-	 gJJhmbBvIaTTeJOr4emp2V7NVRE2lmhkqW3uYbMawwsPQaH5047sLWS4yfBr6Y+wst
-	 SC7ZrRJd5CbNWOJ7pYoNZBfurmYCSPtFVUlgLrHn29tk/RWZs9/QdvkaO4g5DxZjUu
-	 8Qh4kzhL5jzTA==
-From: Nathan Chancellor <nathan@kernel.org>
-Date: Thu, 08 Oct 2026 13:08:49 +0200
-Subject: [PATCH] lib/base64: Silence clang-24 -Wconstant-conversion with
- diag pragmas
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZogCWTIS"
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cc7e79c1eaaso1371960a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 04:10:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791457811; x=1792062611; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ksAcPAYjWXgsbyCjE4ePPZl3/rW2axHKGjjtYG6aLyc=;
+        b=ZogCWTISGrhVp3jKAbuJxOTjT8gNSYBlxpfv6m8XpjPlI6v5mbiZGMdYdo0/aG2p/V
+         5N75kwWfz58v2J8EsCKioiFyURB1BT0OvZBFbxBgoBN7VrpVHdYarfhq4KrxP76LbYIY
+         nXYFquy+Fmhj+1x6SKS08Dvnb8vMJs3C+2KwDJQaPK9Cz326vRupsS2iSDzN7ORDmFdn
+         n9KvTxgGX9dyUg8dHDaaj495zz5nHGHepXAWSSTNPOEl0c8/X2F+f62RpTU//dc7XmrP
+         8b2xpwyJc5WfLKZaIqrGu3dEAonMWppuYOXH3N9rnZXWZ2+v1x+VDUXcO1JIoeyeGJ91
+         D+Uw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791457811; x=1792062611;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ksAcPAYjWXgsbyCjE4ePPZl3/rW2axHKGjjtYG6aLyc=;
+        b=I5lDNWVPGJdMHUGDy/1UtAewdOoHYKGwpCZUKT+253UkHeDRtzWf5JsN2VP6/ZZ//o
+         9wuLMVIRFhYkgzU0IpNPmz66PHZ0la5bNP+8m/3cbZmHKCNjEyGp5fYcxslsTnZuvR23
+         d4oNzIqhynJElpt8fRvpv0EnXRKAz3dhRqTHz411daw26Eq7XT8MKsrlu2G4ituV7zVj
+         A6XNRNI7aQ/Dp0FGvkscHVw0jT1RXfC7xexbRRzjRA8E8ra6XCP1bclQ5xU6z9pFC3oP
+         Qua5JN5MvpvmYn7/X81KpHtUboLzh7koT6hqjl9XJvVmvXE34CCS9gsSMUpjO1w6n7o7
+         gl8A==
+X-Forwarded-Encrypted: i=1; AKwUvBxtknJpfPL58KTPpQoJLI96iTHoU5chbIZYC8QrAVT8qWQIHED/fnE9IT0Xhe+vll0B0PAfwelValNbxAQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lHHjm54sRoRx2lHQIYVArEd+rVDLplFRQPzOeSiaWbWlp/Bjfb
+	U9OFE7g3CyhgNfBbKdKOertQZBHWdqEnYukGvX8QqLUmPpXKb3bYr6nD
+X-Gm-Gg: AYBFou1jQKwLKfQ0EaP5TsKcd+qkybUnhsRbgNnx6Qo1RW7xzyNYJFSuubhJBGgolfC
+	ZNtl9WbbNTLrgKPN/zoZQIJw/a1LpcusABTx5gIiUhkv/q4kHWD1J3Kr6dYAJbvFVqxln6l0hSI
+	rPykDmfZ6TY4PwSUOFo7YZ+/DjV2P2vEjxdIJqgydHjyRwyJ9Za2dkprM3WhelGRq9azMMYMaNY
+	3TAysKfHLHZq6f+1LUVdpbpYtplBtkt4p4BFBpIlA2h+5jSjkEd2RonT6jxldIErjKM7H18dLPn
+	6br+DaJqv+/gdSr7GOptLrRilVhy13e7SNvtU4hNpp7pUvqVjdDAW6/LtEZneBmsWkRzMr6KvLa
+	GTG4YMZw8tj4FoKAEMQf7K+APyyELm5VFaBvnrx6J6WzQDccFGbYWIxkU46cm/euoFe/stmhCOq
+	u217jVJmBUnJWzfFPlGJaX85yHYAnQSpc3kT5Jn6sT8ehKjefyIE78UND81xUAZJeMs1DiEJnCJ
+	jKP1QER
+X-Received: by 2002:a05:7301:fd05:b0:351:2958:1740 with SMTP id 5a478bee46e88-3515debbfc0mr4973570eec.37.1791457810536;
+        Thu, 08 Oct 2026 04:10:10 -0700 (PDT)
+Received: from ramesh.. ([124.123.89.203])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3515aeb5c2esm14847521eec.10.2026.10.08.04.10.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 04:10:09 -0700 (PDT)
+From: T S Rameshkumar <rameshsv06@gmail.com>
+X-Google-Original-From: T S Rameshkumar <rameshkumar.t@phytecembedded.in>
+To: matttbe@kernel.org,
+	martineau@kernel.org,
+	geliang@kernel.org
+Cc: netdev@vger.kernel.org,
+	mptcp@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	T S Rameshkumar <rameshkumar.t@phytecembedded.in>
+Subject: [PATCH mptcp-next] selftests: mptcp: sockopt: test passive Fast Open early write push
+Date: Thu,  8 Oct 2026 16:40:03 +0530
+Message-Id: <20261008111003.136143-1-rameshkumar.t@phytecembedded.in>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261008-base64-silence-clang-24-constant-conversion-v1-1-0858b60b23c8@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWN0QrCMAxFf2Xk2UBXZxn+ivjQxkwjI5OmDmHs3
- 2317R64nLOBcRY2OHcbZF7FZNEK/aEDekS9M8qtMnjnQ+/ciCkahwFNZlZipLme0A9Ii1qJWtp
- YOTcPpjB6CilNp3CEanxlnuTzq12uf7Z3ejKVloB9/wLpj7x9jwAAAA==
-X-Change-ID: 20261008-base64-silence-clang-24-constant-conversion-b682c6bbf563
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- Kuan-Wei Chiu <visitorckw@gmail.com>, 
- Guan-Chun Wu <409411716@gms.tku.edu.tw>, linux-kernel@vger.kernel.org, 
- llvm@lists.linux.dev, stable@vger.kernel.org, 
- Nathan Chancellor <nathan@kernel.org>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3702; i=nathan@kernel.org;
- h=from:subject:message-id; bh=75s9Og1njdygxV8tnkbcGXlKjyNinTjM7/sgljM9zf4=;
- b=owGbwMvMwCUmm602sfCA1DTG02pJDFnHK196bOqL3Nbwcetyr2kbOxn+8dbMUzzk634+kG/ij
- /+TZZtjOkpZGMS4GGTFFFmqH6seNzScc5bxxqlJMHNYmUCGMHBxCsBE5rUwMtzanjU/LvPm8cmi
- aqK2tlJvXDe/NH3vt/PhJuPkhz3Nyg+AKvjcfu+ZJ7RF7N6ukwo1/PIXF32S2+N9qqAj/sb9O97
- XGAA=
-X-Developer-Key: i=nathan@kernel.org; a=openpgp;
- fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
+Content-Transfer-Encoding: 8bit
 
-After a recent change in clang to warn on signed char conversions within
-array initializers [1], there are several instances of this warning from
-base64_rev_maps in lib/base64.c, which can break the build with W=e or
-CONFIG_WERROR=y:
+Add automated test coverage for passive Fast Open early write data
+push in mptcp_sockopt.c and mptcp_sockopt.sh.
 
-  lib/base64.c:58:18: error: implicit conversion from 'int' to 's8' (aka 'signed char') changes value from 131 to -125 [-Werror,-Wconstant-conversion]
-     58 |         [BASE64_IMAP] = BASE64_REV_INIT('+', ',')
-        |                         ^~~~~~~~~~~~~~~~~~~~~~~~~
-  lib/base64.c:52:2: note: expanded from macro 'BASE64_REV_INIT'
-     48 | #define BASE64_REV_INIT(ch_62, ch_63) { \
-        |                                       ~
-     49 |         [0 ... 0x1f] = -1, \
-     50 |         INIT_32(0x20, ch_62, ch_63), \
-     51 |         INIT_32(0x40, ch_62, ch_63), \
-     52 |         INIT_32(0x60, ch_62, ch_63), \
-        |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-  ...
-  lib/base64.c:34:42: note: expanded from macro 'INIT_1'
-     34 |                 : (v) >= '0' && (v) <= '9' ? (v) - '0' + 52 \
-        |                                              ~~~~~~~~~~^~~~
-  lib/base64.c:58:18: error: implicit conversion from 'int' to 's8' (aka 'signed char') changes value from 130 to -126 [-Werror,-Wconstant-conversion]
-     58 |         [BASE64_IMAP] = BASE64_REV_INIT('+', ',')
-        |                         ^~~~~~~~~~~~~~~~~~~~~~~~~
-  lib/base64.c:52:2: note: expanded from macro 'BASE64_REV_INIT'
-     48 | #define BASE64_REV_INIT(ch_62, ch_63) { \
-        |                                       ~
-     49 |         [0 ... 0x1f] = -1, \
-     50 |         INIT_32(0x20, ch_62, ch_63), \
-     51 |         INIT_32(0x40, ch_62, ch_63), \
-     52 |         INIT_32(0x60, ch_62, ch_63), \
-        |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-  ...
-  lib/base64.c:34:42: note: expanded from macro 'INIT_1'
-     34 |                 : (v) >= '0' && (v) <= '9' ? (v) - '0' + 52 \
-        |                                              ~~~~~~~~~~^~~~
-  ...
+The server enables TCP_FASTOPEN on an MPTCP listening socket, accepts
+an incoming connection with SYN payload data, and immediately writes
+reply bytes before the 3-way handshake fully completes. The client
+connects with TCP_FASTOPEN_CONNECT, sends request data, and validates
+reception of the server's reply over both IPv4 and IPv6.
 
-These are false positives, as the branch where the wraparound could
-happen is unreachable with the values that clang reports. This is not
-considered a bug by some clang folks [2][3], so silence the warnings
-using the __diag macros the kernel has to workaround compiler warnings
-when necessary.
-
-Cc: stable@vger.kernel.org
-Fixes: c4eb7ad32eab ("lib/base64: optimize base64_decode() with reverse lookup tables")
-Closes: https://github.com/ClangBuiltLinux/linux/issues/2181
-Link: https://github.com/llvm/llvm-project/commit/a5ef934a8d295dc03be3960f2b3744ec2e53238e [1]
-Link: https://github.com/llvm/llvm-project/issues/223923#issuecomment-6056856245 [2]
-Link: https://github.com/llvm/llvm-project/pull/226775#pullrequestreview-5454407389 [3]
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+Signed-off-by: T S Rameshkumar <rameshkumar.t@phytecembedded.in>
 ---
- lib/base64.c | 3 +++
- 1 file changed, 3 insertions(+)
+ .../selftests/net/mptcp/mptcp_sockopt.c       | 59 ++++++++++++++++++-
+ .../selftests/net/mptcp/mptcp_sockopt.sh      | 34 +++++++++++
+ 2 files changed, 91 insertions(+), 2 deletions(-)
 
-diff --git a/lib/base64.c b/lib/base64.c
-index 325c7332b049..e46be3a55585 100644
---- a/lib/base64.c
-+++ b/lib/base64.c
-@@ -52,11 +52,14 @@ static const char base64_tables[][65] = {
- 	INIT_32(0x60, ch_62, ch_63), \
- 	[0x80 ... 0xff] = -1 }
+diff --git a/tools/testing/selftests/net/mptcp/mptcp_sockopt.c b/tools/testing/selftests/net/mptcp/mptcp_sockopt.c
+index b6e58d936..04af7cebc 100644
+--- a/tools/testing/selftests/net/mptcp/mptcp_sockopt.c
++++ b/tools/testing/selftests/net/mptcp/mptcp_sockopt.c
+@@ -28,6 +28,7 @@
+ #include <linux/compiler.h>
  
-+__diag_push();
-+__diag_ignore(clang, all, "-Wconstant-conversion", "https://github.com/llvm/llvm-project/issues/223923");
- static const s8 base64_rev_maps[][256] = {
- 	[BASE64_STD] = BASE64_REV_INIT('+', '/'),
- 	[BASE64_URLSAFE] = BASE64_REV_INIT('-', '_'),
- 	[BASE64_IMAP] = BASE64_REV_INIT('+', ',')
- };
-+__diag_pop();
+ static int pf = AF_INET;
++static bool do_tfo;
  
- #undef BASE64_REV_INIT
- #undef INIT_32
-
----
-base-commit: 0c2669a9f4a1d607e7591ae50ccf3c432a0aff08
-change-id: 20261008-base64-silence-clang-24-constant-conversion-b682c6bbf563
-
-Best regards,
---  
-Cheers,
-Nathan
+ #ifndef IPPROTO_MPTCP
+ #define IPPROTO_MPTCP 262
+@@ -247,6 +248,14 @@ static int sock_connect_mptcp(const char * const remoteaddr,
+ 		if (sock < 0)
+ 			continue;
+ 
++		if (do_tfo) {
++			int one = 1;
++
++			if (setsockopt(sock, IPPROTO_TCP, TCP_FASTOPEN_CONNECT,
++				       &one, sizeof(one)) < 0)
++				die_perror("setsockopt TCP_FASTOPEN_CONNECT");
++		}
++
+ 		if (connect(sock, a->ai_addr, a->ai_addrlen) == 0)
+ 			break; /* success */
+ 
+@@ -264,7 +273,7 @@ static void parse_opts(int argc, char **argv)
+ {
+ 	int c;
+ 
+-	while ((c = getopt(argc, argv, "h6")) != -1) {
++	while ((c = getopt(argc, argv, "h6f")) != -1) {
+ 		switch (c) {
+ 		case 'h':
+ 			die_usage(0);
+@@ -272,6 +281,9 @@ static void parse_opts(int argc, char **argv)
+ 		case '6':
+ 			pf = AF_INET6;
+ 			break;
++		case 'f':
++			do_tfo = true;
++			break;
+ 		default:
+ 			die_usage(1);
+ 			break;
+@@ -719,13 +731,36 @@ static int server(int pipefd)
+ 		break;
+ 	}
+ 
++	if (do_tfo) {
++		int qlen = 5;
++
++		if (setsockopt(fd, IPPROTO_TCP, TCP_FASTOPEN, &qlen, sizeof(qlen)) < 0)
++			die_perror("setsockopt TCP_FASTOPEN");
++	}
++
+ 	r = write(pipefd, "conn", 4);
+ 	assert(r == 4);
+ 
+ 	alarm(15);
+ 	r = xaccept(fd);
+ 
+-	process_one_client(r, pipefd);
++	if (do_tfo) {
++		char buf[64] = {0};
++		ssize_t n;
++
++		n = read(r, buf, sizeof(buf) - 1);
++		if (n <= 0)
++			die_perror("read tfo syn data");
++
++		n = write(r, "PONG_REPLY", 10);
++		if (n != 10)
++			die_perror("write tfo reply");
++
++		n = read(r, buf, 1);
++		close(r);
++	} else {
++		process_one_client(r, pipefd);
++	}
+ 
+ 	close(fd);
+ 	return 0;
+@@ -775,6 +810,26 @@ static int client(int pipefd)
+ 
+ 	alarm(15);
+ 
++	if (do_tfo) {
++		const char *addr = (pf == AF_INET) ? "127.0.0.1" : "::1";
++		struct timeval tv = {.tv_sec = 5, .tv_usec = 0};
++		char buf[64] = {0};
++		ssize_t n;
++
++		fd = sock_connect_mptcp(addr, "15432", IPPROTO_MPTCP);
++		n = write(fd, "PING_DATA", 9);
++		if (n != 9)
++			die_perror("write PING_DATA");
++
++		setsockopt(fd, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
++		n = read(fd, buf, sizeof(buf) - 1);
++		if (n <= 0 || strcmp(buf, "PONG_REPLY") != 0)
++			xerror("Fastopen early write failed: received %zd bytes '%s'", n, buf);
++
++		close(fd);
++		return 0;
++	}
++
+ 	switch (pf) {
+ 	case AF_INET:
+ 		fd = sock_connect_mptcp("127.0.0.1", "15432", IPPROTO_MPTCP);
+diff --git a/tools/testing/selftests/net/mptcp/mptcp_sockopt.sh b/tools/testing/selftests/net/mptcp/mptcp_sockopt.sh
+index e850a8742..b3b523ce8 100755
+--- a/tools/testing/selftests/net/mptcp/mptcp_sockopt.sh
++++ b/tools/testing/selftests/net/mptcp/mptcp_sockopt.sh
+@@ -351,6 +351,39 @@ do_tcpinq_tests()
+ 	return $?
+ }
+ 
++do_fastopen_tests()
++{
++	local lret=0
++
++	ip netns exec "$ns_sbox" sysctl -q net.ipv4.tcp_fastopen=3
++
++	ip netns exec "$ns_sbox" ./mptcp_sockopt -f
++	lret=$?
++
++	print_title "Fast Open early write v4"
++	if [ $lret -ne 0 ]; then
++		mptcp_lib_pr_fail
++		mptcp_lib_result_fail "Fast Open early write v4"
++		ret=$lret
++		return
++	fi
++	mptcp_lib_pr_ok
++	mptcp_lib_result_pass "Fast Open early write v4"
++
++	ip netns exec "$ns_sbox" ./mptcp_sockopt -6 -f
++	lret=$?
++
++	print_title "Fast Open early write v6"
++	if [ $lret -ne 0 ]; then
++		mptcp_lib_pr_fail
++		mptcp_lib_result_fail "Fast Open early write v6"
++		ret=$lret
++		return
++	fi
++	mptcp_lib_pr_ok
++	mptcp_lib_result_pass "Fast Open early write v6"
++}
++
+ sin=$(mktemp)
+ sout=$(mktemp)
+ cin=$(mktemp)
+@@ -366,6 +399,7 @@ run_tests $ns1 $ns2 dead:beef:1::1
+ 
+ do_mptcp_sockopt_tests
+ do_tcpinq_tests
++do_fastopen_tests
+ 
+ mptcp_lib_result_print_all_tap
+ exit $ret
+-- 
+2.34.1
 
