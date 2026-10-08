@@ -1,190 +1,119 @@
-Received: from SY2PR01CU004.outbound.protection.outlook.com (mail-australiaeastazolkn19011057.outbound.protection.outlook.com [52.103.72.57])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com [209.85.221.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0965048EC71;
-	Thu,  8 Oct 2026 22:35:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.72.57
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791498917; cv=fail; b=nFCkV+SU3ANwAKIdy+2E3VA3IqHFFM1AWSTfT40/sioZLKSTTkZU578c1ezbJF/Zel7JCn4Qe0iivuEIvqdSYxi/7Di5irhhqiEYgWjFl4Rpv67ZgUxWHTReyYVtjQLorfbWB0SFvNObMvYGz3MfIHHZybtVXu9dhOttgBkGl18=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791498917; c=relaxed/simple;
-	bh=GEeCe6cs0bIvwLhmPimv176egNgOjSvGY5+nZx77gGk=;
-	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version; b=Qt6gYge+8nbCVdx2hWeHXk23RXaJt+5lnY1TzT/LfojYHvoXveokKpc5r2kGGCCAXMKh5U6WK+apClMUywBNnP8xpmtdkb35lqIdn9230jCi1Ufyg40DkQquXppF2+A3N4are0bnWhLXtlvLTwP1LjOPQg0Ad+K51fOvvLwK4l4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=YZnGtfNq; arc=fail smtp.client-ip=52.103.72.57
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8625044AB8A
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 22:37:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791499039; cv=none; b=uz+i+wYm/zVI7RxpM8ZP4693wrWd7l8Gzrp2EndpjUVAVxgfRUev0QtpEI76khturCYGktHdSm0TRZopVKofnEiPHaHGYP2S+6Pqi53lUZl53ronz4mT/fLZA88tvKUlBI4oDexttOi3bgTYy3MbLqTP5wO9VMpS52cAnsqjLsk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791499039; c=relaxed/simple;
+	bh=56Ig+iq1BKCTYcSM9xnOgOFWggZbgL06r7h/vH08FI0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=giLrvcjeKZIQfI2UXe2E52X7BY+mhCTodsK5Kx4XuEpzqO/akTZk5nb/206pRmrwmqTM7EFETTyiTUDMJ2uxrg/aWthTFAKBcVJEp6+SmX9PojbNEROP4V/11Bl6gb80yJ5CWrnsKtGeEqUWo6sICh4vYaxLHZqjrnreWITzFIU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l5Vz8d+6; arc=none smtp.client-ip=209.85.221.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="YZnGtfNq"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jp6ZIXYBrMH/ASxz903vzYYUDv7Bsrkeiee5RF8q+a3uLHwRithK/0uDjPf/Xv0P4j7aeUATsb1TG2RcrsXPeaNA75ZCirI8JGwUvn9wmeeHdtThxqc/ZSwOV0xvYTPokOpFfKhUr6pHymZVbvjJbQL+fNsRQz9W2E6IlspewOWPs+7D/uNhqqu0QEJ/WB7Nnaf4n/dZROTsY2LTNEB73ykxyFNsU+mZHjvS0LWr2AvA+JdEf4xyljdEaQoiCMv373JQd1308766GXiWvOKbihl6r1SSpGoa8NFjXucJjI/A9QsFKDRJvysU2EQ2sZICrw+2hFcWmSRgJ9L82ci2FA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ax9UvyFavi/xBxMij5FT+p1O4eUE9cHFgeXf+/OULjU=;
- b=KJjy02UuUrgHNuczPSkx+H5ZeWqxx1wfQAqZJiFpxG+SZXVqy+KSo4s9kykordgha3rFvPKa4U3ObcShx1on2BFGRs0GGQCHjZNDqruk96hlT5SXRkUYe6JUitAHIKIZe0lr6fFFAD+v2Og/FKg84EDnKJjk8OVsJttoPBWmNx4gn353lbAsu8iUr91/dkxjS+CPribRVrZpxZ+t9t+EkN0wI+x7MkF+QUNOws0v3sjducfOh5U+CQ0Wj9Aisl4a1WB7wwn1A3uD/TkpVowKxDNEYc5UAfATHi4AJ5a9LRyq+ZFwGc8GQiQRbwiS0As2YUMbRlF62tKrQXGsoSBlTw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ax9UvyFavi/xBxMij5FT+p1O4eUE9cHFgeXf+/OULjU=;
- b=YZnGtfNqHSUGiUu7CLPhljZds50asJw0QN2+6d/k6Sy0NbwF0XniYGhNaAPTIJAFVaeL7nDiviZ5+9pL7JWJMi9ZfrFDE38RyZsJxq3jOETdt5NSxqxon9cpYxomQ2nqdcSeAn6TVXbgu19qr7SQDHbGt6Dp5T5vO/EG7ZKvLBxMAvT6o8HOrayavHuJP/+we0VZwXSKyxiRwRlTdWe/1dFe4VVc/oNKEGioa4VNgVNuLNZhTHqlksJ/SSYxfgkg/UU0wcuFPUkr87KEsiL+d0HkR2PgN4nisAgCDu2A2TLDZ1ycL9H5exVXgoZJCC8PM1CNXKt6apoWarv40q1MiA==
-Received: from SY5PR01MB10600.ausprd01.prod.outlook.com (2603:10c6:10:32c::14)
- by SY3PPF346C5784E.ausprd01.prod.outlook.com (2603:10c6:18::40d) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.6; Thu, 8 Oct 2026
- 22:34:51 +0000
-Received: from SY5PR01MB10600.ausprd01.prod.outlook.com
- ([fe80::db5f:2818:b791:cc19]) by SY5PR01MB10600.ausprd01.prod.outlook.com
- ([fe80::db5f:2818:b791:cc19%3]) with mapi id 15.21.0522.002; Thu, 8 Oct 2026
- 22:34:51 +0000
-From: Zhang Jiaxi <Z1529105815@outlook.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
-	<lumag@kernel.org>
-CC: Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang
-	<jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
-	<marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Simona
- Vetter <simona@ffwll.ch>, "linux-arm-msm@vger.kernel.org"
-	<linux-arm-msm@vger.kernel.org>, "dri-devel@lists.freedesktop.org"
-	<dri-devel@lists.freedesktop.org>, "freedreno@lists.freedesktop.org"
-	<freedreno@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: [RFC PATCH 2/3] drm/msm: keep the commit vblank reference through
- completion
-Thread-Topic: [RFC PATCH 2/3] drm/msm: keep the commit vblank reference
- through completion
-Thread-Index: AQHdV3U74YrpLwuY9kaDASpRDvfFWA==
-Date: Thu, 8 Oct 2026 22:34:51 +0000
-Message-ID:
- <SY5PR01MB106007D885AFCA2DB1C92BD00A1932@SY5PR01MB10600.ausprd01.prod.outlook.com>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SY5PR01MB10600:EE_|SY3PPF346C5784E:EE_
-x-ms-office365-filtering-correlation-id: 5571b5d1-777f-4470-49cc-08df258c5e5d
-x-microsoft-antispam:
- BCL:0;ARA:14566002|51005399006|8062599012|19110799012|31061999003|8060799015|25010399006|25031999004|12121999013|704163111799003|15080799012|41001999006|2604032031799003|38102599003|24021099003|16051099003|102099032|2607281247196008|440099028|26104999009|3412199025|40105399003;
-x-microsoft-antispam-message-info:
- =?us-ascii?Q?9oGht4tSux9j46ES+ugqbfGuZ/5Z1OLcaktET+weJEoWYuOe+uukxUPG4WPm?=
- =?us-ascii?Q?4GMloTgFUc+o7P2NYFXyUbkAHTPS0fWWIKwqXHP1tIBDKIL+p77gBtBGypd5?=
- =?us-ascii?Q?qdTzggQDv1E2gBnUhItEU2lQlkfXXircwSIfRxtyDPcOEzwQ6CamoyfJ3BRv?=
- =?us-ascii?Q?Sv5CiDzvq5ZO/qkBj4rMIMb7N4483FXbLCl2FtKidgApEMbGgpdoJsmoCxiP?=
- =?us-ascii?Q?ToS+jO0kDL/4Vszk6mpiEjebKRDEWFdybp26pcnW8UQBt8Yub0txXT74qfBA?=
- =?us-ascii?Q?Wc5iJXxCn74dIuTOfIb2tHcpI0mavjZ8Vj1qB0TfTsz2GPEY31fIurKXBUJN?=
- =?us-ascii?Q?zu289Al/ktdhdFkws6/kH6doOtSWeUYTrctsl0ArKFw9sJFGve8Ox93/OZJ5?=
- =?us-ascii?Q?aMpdHW00fGQPGoL8WNsJP3VoPIYltENm6CM+r1V+rJLrCxZsVztT/Q9E9qbs?=
- =?us-ascii?Q?uxrerVA7QZAXYLZPkvroLxaDO0w04Wd/AT6cB8yBrc7kHPVis1wLRsreNsLH?=
- =?us-ascii?Q?u+A1lU86elYctDELa4EZ1D2s2anO7vX31zKkrkZINMKZ6b5NQt02567yPEt3?=
- =?us-ascii?Q?+hCNPboUjf+Lg0cXOrhEcI39rqbbo62hds1DxL4l7UpAvrtiJpKBMsZKkhGf?=
- =?us-ascii?Q?kbschA/14Vn4dMUA9yhtmONsjGKhpgjocXVFJNNGbNzOOkIkG+iN4vkBG/v1?=
- =?us-ascii?Q?/J7eFqNe+h4so2FZgesl8gLF1PMp90RGSgQv37JGdZK+4IckAhtyKiHcEnWt?=
- =?us-ascii?Q?M8+rDEM8JDEL6tRGfHgQVDBpwniOTwmWlutkTKZ8PnNl+YEB8eU0iz/uKcYr?=
- =?us-ascii?Q?/3hxVu8IjrJM67jVrJTKROs2d0BSQ3tIyEFv9DYE3JrWY5iNWPA5x74l9PMh?=
- =?us-ascii?Q?jGNcwFJcNlCxjWVH076TV5njHjh2AJsiJxyHaWQYgRKrRgaUJRW+vn9OvE6j?=
- =?us-ascii?Q?8T2vfLwRgspAmAdR58Wj/xm2UbNiC0odpSsScFVHeCY68bqYFvRTTM/9yG9y?=
- =?us-ascii?Q?SgvM2F+zfoKv/6xZzxcMrp3gsbx7maTS/X27KQLLXpdz/FE1nZLbY7GPib/Y?=
- =?us-ascii?Q?orU2sDHbSsFF3BSJRBEhuJE94IIJzFkVA/SAimaf59LloTVDoWoRUbmwDVZx?=
- =?us-ascii?Q?BvL91Ua0RXz55VsLTCaJpS6GFpheTxnuaIdPjGKv95CzQ25SfAC6sTA7FkoU?=
- =?us-ascii?Q?+Ub7VN/j8Eg2k75o?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?MK0i0l/RhlFjIS3YwUNW4AzGgs7ExAZ6Yzhehro67G+MGBiSYRmS5b3/2uHc?=
- =?us-ascii?Q?fyvkmDThU4/3sVY0HtFiID2I81Yp9q3z50aSwFCEy3/dV3KoF1piUgJ7IPFg?=
- =?us-ascii?Q?OapAH34GGNhd+CjNAMFiIyAD+EoCENcbqIHSr2H5KgqMIJjVf9ZID4u4IGnL?=
- =?us-ascii?Q?h2TqL1g1qbWu4C75EzWj+bh6pPBQsz5dOBHtM10Qw12situb79WpAq0nNuc+?=
- =?us-ascii?Q?MIjRS4H61kZMzTO02Ya9TxKaIfmTYBBgsm2DrPqg0IX8Q3WFWjhMKKUs9d5b?=
- =?us-ascii?Q?7knNo6gb1yC9CxNak4wPnX1JFW2iV/noCpqDrCh3/MB2qXH08cM9wtKMofgJ?=
- =?us-ascii?Q?I2gsDWLh1HZvgYIl/ocig3SIQ77BG5iFrCZLP0FFwOYjBwlCGevMmJTQSZ/k?=
- =?us-ascii?Q?coK8vanMADXNOnte1cjA4pbxoF8Pfi9+95qTv/ivq4PiMGOt+vUP24Q5Tibn?=
- =?us-ascii?Q?Gwzn1xQAvDL2+EUqzP/MLPaZt1USIOw1E3tyozRaDvR20VG0n48p7no/QK4d?=
- =?us-ascii?Q?Y5ryaD+OUN9E5bzqAde/ggW7AzfGAIH8/KmgKNHl5HgAlCdjd5FQwcGbym8U?=
- =?us-ascii?Q?TS0fylr4K0L6oPXvwQDtTTGTWLo8E9WlAZyt9mYoytaMDaTbpe0IF4xVrG5Q?=
- =?us-ascii?Q?s1o+n3bf+4z4rC2nh0CbZmAOXdHA15CW/5O8bAvLdet7Pk/lWGOwycTM73kX?=
- =?us-ascii?Q?BWvFhDPXFRVqiXMKf0JRtrFngDlrCXFiAu6tzs9deFTXbVztl82QqYKcezBD?=
- =?us-ascii?Q?wJF1e80duvkB7qlb9RDjylC1aPauk4fl4sB5NIPVPzVY/zNacOVyVc2+7iXP?=
- =?us-ascii?Q?UvOxnzMGK4Sa2hucI734oDJj5I+5una/L2cFwYfkv25mNv6CFVP4FaMOS9DJ?=
- =?us-ascii?Q?bBg0JQ7GAeknSZNRWwp0SfLOzcFMXhx8l5tu4y50LdnrcOz/I4rbVmLbSqfm?=
- =?us-ascii?Q?0+wEQqc0VvF++ylhDySJFVeRtusjKkbT/53rwd9PZ3bJNgWSOVom+c9z0/Zl?=
- =?us-ascii?Q?1w92WSQRQxBF23axcbwJtpCi0zyA3yZ/5xcBRUxw90wGCkqrmqGdzrhDQRYi?=
- =?us-ascii?Q?nYD82tVbZR+Y3f3UGq8HDbguAg1A+SjiBQ9Q2lx2Ddd4E47ySnMh3LU2VAD8?=
- =?us-ascii?Q?1lFyvbv78EdsODpu0937ae28dWnLiS0OTonYmNmuGarp5XbT+ZwJzs/wqGxi?=
- =?us-ascii?Q?SFsPHl9Wnr/57n+yOHrF0xaQFmzkBb9ZXIj2Yy75k7oM1DGVPQN9qDW5yZ+q?=
- =?us-ascii?Q?MwNwxrB09/k53CbHJScV9WbzFza9gS4IjORqkrnPeoXH8QYJuFeEb8c5r+eo?=
- =?us-ascii?Q?+1Su4IVMEc2u30980Vpp+qUU/4EYC/+8vKiVXPgRRKRp5xUIc2aKmDIDpzJL?=
- =?us-ascii?Q?BIXSE+KDpP4UO8rg2pQkJbxxhH7M?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l5Vz8d+6"
+Received: by mail-vk1-f171.google.com with SMTP id 71dfb90a1353d-5c82b4d250eso57336e0c.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 15:37:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791499037; x=1792103837; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PZACjmCS1oASftukGbD2aJ9Y7h6BQoT9c3bmi5RvtCg=;
+        b=l5Vz8d+6dOSkOlTVyGxGLaf1zfyQJWFowWGtpWIIzOg99KOGFDYoA0ZEy9/bcpynt3
+         S7ZD9UnPSFZwo6Ayo28MV45+xfCRV8n2iYcdIfK0498VkpACQJfbKLqlLQX3dQOx/0Im
+         xWJe4ug/PR0wx8a4d1N3C5OsVSwu46QychpJkcIcvxqYB0iBVjf1g+QbKpE6j4fN1J8R
+         qPX1joZM9Y18incYa5OUXZ9F2hfHgLF25PScTN93O6Ih9NWVNhu/1GOP6qv3jjkxZZmo
+         elDDoTDrY5hn6Pc8FhJlnHKFRdPs8BDtCatey9b55TL671gAQ6DWIXasfl8OqObxbFMb
+         20Dg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791499037; x=1792103837;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PZACjmCS1oASftukGbD2aJ9Y7h6BQoT9c3bmi5RvtCg=;
+        b=1MURYhBXEgaUnI8ehDGx2qUD1waj55xnlV99XPaaPSoYofAkW8iypWKyBnPWNxjLAd
+         wFXB9Q8R/i2w/eUFfWQEsk+B4m78fXqxw2MgZ7tSTFEWWuu7z82at43TWxrINMYR3Piq
+         ktps5QJC8IS1xVQu/3a7AdtRXGrUHjA/MfVBdxBIAusCTNKp3mels8jcsQHxDstd6m+v
+         kkurqM8aaX9kdL2d/T7bY/rxHj/GLPkjM/v5M480c+Y8zjD4mB9XdCWcptcxXYzJpXQY
+         97A/8caGXvs6mXdHJTcZC15NSezayeK3F4RR43eLw5/xQxHzQdOjF3skzKk0BjZfyQYY
+         8DQw==
+X-Forwarded-Encrypted: i=1; AKwUvBy6UFo1UUxeA1lct4/t8egYftXcMlRsCCSHIszglZtC5qkXKlBjlrF/eQiJpOY5raQ5gsveRebdxQaO0Ac=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLAl/iw4SwzPngvBLZ+WUSdg7npHGDoCsn/AE5RUuD2apuQUw7M
+	fy7mIZtinQCBRszv/rzBI9TI2GpoxpoqX07AFv+grPgE/lKWiy47YlqM
+X-Gm-Gg: AYBFou37Q0RPCP7gUCS8JcXmMagHw4jGauSPwcSzebOp2iaukma1XKgdP0SYCYFBHSE
+	s5ZPGXmcKiwTvu7OC3SFbydZ96czGegbnRoEdsRZx1npvJ39Zlz07gLqHMPSzpAQvA1DLXe4YfS
+	xXeFKAa2bgAB4arMSolQSHMiqoozfsoANJ+JsGQV1ljDStumumW9v1bbAy68FmF7w3davjXfmbM
+	NXtyrsqHBIeV6EqyCcYQGB6TAQ3IePrYNM8FL8m4niCfJkwCN/0aDLxfENgKnw7yAm9SNfXf1wH
+	YB56+Q5TvrcWgd3xFJtGuFA/U41A65VmMNH0+Z9vunZXZC1qXqad0vWXwR8O6INPz7qaeU3w41B
+	eNVzNWIeaDAZrhL5XQGyWWWlRuh+DppwFROBhziSoxjM6EFGjCRIN8GveJ0LEM17hmrfsAZY/mv
+	dhkL/g7DUhWxuBEEudV6FPhAywH65Ygf+Lcl2DnA/iZkZa0JjKnU9yt/KA6+7gaxRorc7W29jR7
+	TNVerZs3q6j/22WCg6EjDl6kWX+/k3fOHUjl4g3+GzXbxqwUfjXvboSc2hP2r2P1VOf+ztaEM9E
+	6oLanEtAq0B2apaNdjJloxV3CCOk9w==
+X-Received: by 2002:a05:6122:8711:b0:5e6:6546:84c7 with SMTP id 71dfb90a1353d-5e91f339ea0mr24904e0c.2.1791499037319;
+        Thu, 08 Oct 2026 15:37:17 -0700 (PDT)
+Received: from localhost.localdomain ([132.170.205.109])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5e91cab8c40sm393284e0c.3.2026.10.08.15.37.16
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 08 Oct 2026 15:37:16 -0700 (PDT)
+From: Sanan Hasanov <sanan.hasanou@gmail.com>
+To: "Martin K. Petersen" <mkp@kernel.org>
+Cc: Sanan Hasanov <sanan.hasanov@ucf.edu>,
+	linux-scsi@vger.kernel.org,
+	target-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+fa495e1497c48a6ed885@syzkaller.appspotmail.com
+Subject: [PATCH v2 0/2] scsi: target: rd: Fix oversized ramdisk allocations
+Date: Thu,  8 Oct 2026 18:37:08 -0400
+Message-ID: <20261008223712.49827-1-sanan.hasanou@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SY5PR01MB10600.ausprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5571b5d1-777f-4470-49cc-08df258c5e5d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Oct 2026 22:34:51.1658
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SY3PPF346C5784E
+Content-Transfer-Encoding: 8bit
 
-From: Jiaxi Zhang <z1529105815@outlook.com>=0A=
-=0A=
-The synchronous and async commit paths acquire a vblank reference before=0A=
-flush, then release it before calling complete_commit. The DPU completion=
-=0A=
-callback reaches dpu_crtc_complete_commit and _dpu_crtc_complete_flip, whic=
-h=0A=
-sends the pending page-flip event with drm_crtc_send_vblank_event. That=0A=
-function consumes the vblank counter and timestamp.=0A=
-=0A=
-Release the commit's reference after the completion callback returns.=0A=
-There is then no zero-reference interval between the commit's wait_flush=0A=
-and its remaining event delivery. This matters when immediate vblank=0A=
-IRQ disabling is enabled. Keep the existing enable_commit/disable_commit=0A=
-clock lifetime and CRTC locking, in both commit paths; no callback or wait=
-=0A=
-is moved outside that lifetime.=0A=
-=0A=
-This is a reference-lifetime correction, not an assertion that completion=
-=0A=
-waits for another TE interrupt. It does not impose an always-on IRQ policy=
-=0A=
-or change the encoder's transfer-completion mechanism.=0A=
-=0A=
-Signed-off-by: Jiaxi Zhang <z1529105815@outlook.com>=0A=
-=0A=
----=0A=
-diff --git a/drivers/gpu/drm/msm/msm_atomic.c b/drivers/gpu/drm/msm/msm_ato=
-mic.c=0A=
---- a/drivers/gpu/drm/msm/msm_atomic.c=0A=
-+++ b/drivers/gpu/drm/msm/msm_atomic.c=0A=
-@@ -91,9 +91,8 @@=0A=
- 	kms->funcs->wait_flush(kms, crtc_mask);=0A=
- 	trace_msm_atomic_wait_flush_finish(crtc_mask);=0A=
- =0A=
-+	kms->funcs->complete_commit(kms, crtc_mask);=0A=
- 	vblank_put(kms, crtc_mask);=0A=
--=0A=
--	kms->funcs->complete_commit(kms, crtc_mask);=0A=
- 	unlock_crtcs(kms, crtc_mask);=0A=
- 	kms->funcs->disable_commit(kms);=0A=
- =0A=
-@@ -310,10 +309,9 @@=0A=
- 	kms->funcs->wait_flush(kms, crtc_mask);=0A=
- 	trace_msm_atomic_wait_flush_finish(crtc_mask);=0A=
- =0A=
--	vblank_put(kms, crtc_mask);=0A=
--=0A=
- 	lock_crtcs(kms, crtc_mask);=0A=
- 	kms->funcs->complete_commit(kms, crtc_mask);=0A=
-+	vblank_put(kms, crtc_mask);=0A=
- 	unlock_crtcs(kms, crtc_mask);=0A=
- 	kms->funcs->disable_commit(kms);=0A=
- =0A=
+From: Sanan Hasanov <sanan.hasanov@ucf.edu>
+
+A ramdisk page count set through configfs (rd_pages=) has no upper bound.
+syzbot found that a large value makes rd_build_device_space() attempt a
+single sg table array allocation above the page allocator's maximum
+order, which triggers a WARNING. Patch 1 rejects page counts that
+exceed system RAM and allocates the array with kvzalloc so that valid
+large ramdisks also work.
+
+A page count close to system RAM still passes that check, and the
+backing pages are allocated with GFP_KERNEL, which invokes the OOM
+killer instead of failing. On a 1 GiB VM, rd_pages=250000 panics the
+system with "System is deadlocked on memory". Patch 2 allocates the
+backing pages with __GFP_RETRY_MAYFAIL so that enabling such a device
+fails with -ENOMEM instead.
+
+Tested on an arm64 QEMU VM with 1 GiB RAM, with the syzbot reproducer,
+normal and NULLIO ramdisks, DIF protection space, device removal, and
+rd_pages=250000.
+
+Changes in v2:
+- Allocate the sg table arrays with kvzalloc_objs() so that ramdisks
+  larger than 512 GiB do not hit the same WARNING (Sashiko AI review).
+- New patch 2 to avoid the OOM killer when the backing pages cannot be
+  allocated (Sashiko AI review).
+
+v1: https://lore.kernel.org/all/20261008215709.46014-1-sanan.hasanou@gmail.com/
+
+Sanan Hasanov (2):
+  scsi: target: rd: Fix oversized sg table array allocation
+  scsi: target: rd: Don't invoke the OOM killer for ramdisk pages
+
+ drivers/target/target_core_rd.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
+
+
+base-commit: 6c377d19d4a5116d9bec5203aa3c6c11523e7898
+-- 
+2.48.1
+
