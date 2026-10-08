@@ -1,91 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBA414D4882;
-	Thu,  8 Oct 2026 15:23:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6A35F4ACC93;
+	Thu,  8 Oct 2026 15:24:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791473012; cv=none; b=oHu9RZ8FjZSKa0Zsv/1IjXakqcET1noAI0fYH4XdVz9aJ/se7AT6A1wqs3bc0+pjLwh2BXSKoDisV5CmH3x41RAto/q52NPtX+bktIxhWJcGKFDvG/GsyIH/2q8WTX7lnNCXL6cDljr9kZveCZJlX9ffq4aMeKsJuBYetzLB9HQ=
+	t=1791473094; cv=none; b=js3RLwWEeHoG1T7Iimekvr0zwIoUSvtiJcnU8bXatidDqOp/Y/eDM8rJ4Qz8R19MQ5aEKs1ktraW5t4RWNFSRBkvx626GuRNauNoE0ix67m7Lep6xczzEqANaoCrQ6oK8g8GFk6TbZxD63NY+SseEo6RpM3KzNpVviV/wB0tdTY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791473012; c=relaxed/simple;
-	bh=d/577wEUSbn6X5ZPIoRW4VsvgqrlFtdBkNcXl7EbiEU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WbgzbNfhd/Tp3bKsAxTvct47f0EoHrVDXivTOKbeE2rJFtgdmNiiUCkJJ90ehDNjIBRiyEQRNj0Daf0ILjZgQGm+gyidfs9upcD/oz57tXf3juD+it6Tcrkg9HxJ3clUxvZbxhFh5YGxMXWkWy86Fraa3Hc4IcnwAvEnQYpb/FM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a0VjaNfl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791473094; c=relaxed/simple;
+	bh=FUPMSkx953zcMOD6YfhawZkPGLVfzGd1LnQyAeM8RZE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tgKP7a1uA7PcpaFnuIqiSJiq9T9dW8Ib337ilDVylxKGkPGA4yBEx1MZJtfkO4OQWVfzwgBx+WClIyrrOR3SkgB13Nq85QAZFxxGBaUm+vVjKRmpnlXeweamiqGF1Ul3iuYJdrGoPdudEZNwvvEpSYBS9r4Akan0jl7jzXyBPo8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=YOD6sPN6; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a0VjaNfl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 709631F000FF;
-	Thu,  8 Oct 2026 15:23:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791473008;
-	bh=lXPTEFqRzwTPeuTho68EfUuQN7bLJC0vw2xwMTTAJXY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=a0VjaNflmJMH1Rs3dHCed0pgOoUOBYUYqNeP3E0zb2FHNW9jQPCjPQMoWnjNpALdv
-	 rGhlhagAHjOLLDhgY6wSOiPeym974dEzQ+D4h+yI2me0wYsVbirGKeoJKBjHSgy1+l
-	 1oYmKBoNTrQOj6cdPy/F69WuVyBZwzGbnOylxrqyPI0wMiQJ1bAOCdc5ALvwh3iuNT
-	 0xNVGLnqtPcCvNc2dJtj0hFbKe4eRErp2kbSQfuEzz4IEXJ6ojWN1N0krKb6xkYS7L
-	 aUbOJnXLZTXNaEEW9FKQ9FJtMv365eLlQA8nbhJFYcJocLk+iJ808F9UzJhup7MfWo
-	 LugZ1P09Aa67Q==
-Date: Thu, 8 Oct 2026 11:23:25 -0400
-From: Sasha Levin <sashal@kernel.org>
-To: "Serge E. Hallyn" <serge@hallyn.com>
-Cc: Gregory Price <gourry@gourry.net>, linux-api@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org, linux-kbuild@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, workflows@vger.kernel.org,
-	tools@kernel.org, x86@kernel.org, Thomas Gleixner <tglx@kernel.org>,
-	"Paul E . McKenney" <paulmck@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Dmitry Vyukov <dvyukov@google.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Cyril Hrubis <chrubis@suse.cz>, Kees Cook <kees@kernel.org>,
-	Jake Edge <jake@lwn.net>,
-	David Laight <david.laight.linux@gmail.com>,
-	Gabriele Paoloni <gpaoloni@redhat.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Masahiro Yamada <masahiroy@kernel.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Subject: Re: [PATCH v5 05/11] kernel/api: add API specification for sys_open
-Message-ID: <ase1bUUdnxMdVubo@laps>
-References: <20261008084956.2911790-1-sashal@kernel.org>
- <20261008084956.2911790-6-sashal@kernel.org>
- <aseRXi7hMWBBc0tB@hallyn.com>
- <aseWPV6ZRQM3JOMN@gourry-fedora-PF4VCD3F>
- <asemkQ2v0di0Eea3@hallyn.com>
- <aseqx-uc_QySDiiw@laps>
- <asesqWv1gv0lPZhD@hallyn.com>
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="YOD6sPN6"
+Received: by linux.microsoft.com (Postfix, from userid 1216)
+	id 54A6F20B7166; Thu,  8 Oct 2026 08:23:53 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 54A6F20B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1791473033;
+	bh=GuE3fBNvvw/lypqoRPqiOAe7SHRjcBYe8FTnpFTNPYo=;
+	h=From:To:Cc:Subject:Date:From;
+	b=YOD6sPN6vrbVDjuMEyTeEeoL51dY4H5SOIjNsZR4p+OwnxywEzwptmwArbV+mJcMq
+	 SGpZ3ZMym7pzaU4dTXAxYqI+7gF5vWJ92cst1bc5pi+pBsNUEoCDXufwJLP1X9Qal9
+	 CJGowG8eco7rP5MIpqyiESHxqmcS7PRq0xw15XXk=
+From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+To: netdev@vger.kernel.org
+Cc: Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Dexuan Cui <decui@microsoft.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Erni Sri Satya Vennela <ernis@linux.microsoft.com>,
+	Aditya Garg <gargaditya@linux.microsoft.com>,
+	linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+Subject: [PATCH net-next] net: mana: add BQL support
+Date: Thu,  8 Oct 2026 11:23:02 -0400
+Message-ID: <20261008152302.3192778-1-hamzamahfooz@linux.microsoft.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <asesqWv1gv0lPZhD@hallyn.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 08, 2026 at 09:46:01AM -0500, Serge E. Hallyn wrote:
->My point was just that whether the docs are inline or not, they will go
->stale without that automation.  So if that's the case, then the docs do
->not need to be inline.
+MANA doesn't support byte queue limits, so each TX queue can hold 256
+WQEs by default, and up to 16384, of up to 64 KB TSO packets, before
+the qdisc layer sees any backpressure. This adds latency to all the
+flows sharing a queue, and defeats AQM qdiscs such as fq_codel, which
+rely on BQL to keep the driver queues short.
 
-Ah, sorry - got it.
+Report the bytes queued and completed to BQL. XDP_TX and XDP_REDIRECT
+packets go through the same SQs, so they are accounted too. BQL doesn't
+drop or delay them, since the XDP paths send even when the queue is
+stopped; it only holds back the stack's packets.
 
-The way I saw it working out is that the core part would be inline, but the
-"speccy" part would move to a different location.  
+Reset the BQL state when destroying the queues, once their NAPI is
+disabled, since the SKBs still pending after a drain timeout are freed
+without being completed.
 
-Ultimately, this is the call of the subsystem where those specs live, and I see
-different subsystems taking different approaches to this.
+Lost TX completions can now stop a queue sooner: it also stops when the
+bytes in flight exceed the BQL limit, not only when the SQ is full. The
+TX watchdog covers the queues stopped by BQL, and its handler resets the
+queues along with their BQL state.
 
+Tested on two Standard_D16ds_v6 Azure VMs in a proximity placement
+group, where the throughput is capped at 10.6 Gbps, with the DUT
+alternately booting net-next (c1c1f0a31712) with and without this
+patch applied.
+
+The throughput stays at the cap with 1, 8 and 64 TCP flows, and the
+idle TCP_RR latency doesn't change (p50 of 47 us with vs. without the
+patch). With 16 senders of 64-byte UDP packets, the DUT sends 3.7 to
+4.0 Mpps without the patch and 3.7 to 4.1 Mpps with it. With bulk TCP
+flows sharing the queues, the netperf TCP_RR latency drops (medians of
+6 runs):
+
+  16 queues, 64 flows: p50 4649 -> 2182 us, p99 5621 -> 2677 us
+  1 queue, 8 flows:    p50 2554 ->  418 us, p99 2723 ->  624 us
+
+The standing queue moves from the SQs to fq_codel, which now drops
+packets: about 2500 qdisc drops and 88K TCP retransmissions per 48 s
+run with 64 flows, against at most 29 retransmissions before. The
+retransmissions are about 0.2% of the segments sent. The TCP_RR flows
+lose no packets, and the packets of the bulk flows are dropped before
+they reach the wire, so the goodput changes by less than 0.01%.
+
+Signed-off-by: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+---
+ drivers/net/ethernet/microsoft/mana/mana_en.c | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
+index 2ba48a1c4b15..67048fe64d63 100644
+--- a/drivers/net/ethernet/microsoft/mana/mana_en.c
++++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
+@@ -543,6 +543,11 @@ netdev_tx_t mana_start_xmit(struct sk_buff *skb, struct net_device *ndev)
+ 	err = NETDEV_TX_OK;
+ 	atomic_inc(&txq->pending_sends);
+ 
++	/* Account the skb in BQL before the doorbell lets the hardware
++	 * complete it.
++	 */
++	netdev_tx_sent_queue(net_txq, len);
++
+ 	mana_gd_wq_ring_doorbell(gd->gdma_context, gdma_sq);
+ 
+ 	/* skb may be freed after mana_gd_post_work_request. Do not use it. */
+@@ -2009,10 +2014,12 @@ static void mana_poll_tx_cq(struct mana_cq *cq)
+ 	gdma_wq = txq->gdma_sq;
+ 	avail_space = mana_gd_wq_avail_space(gdma_wq);
+ 
++	net_txq = txq->net_txq;
++	netdev_tx_completed_queue(net_txq, pkt_transmitted, tx_bytes);
++
+ 	/* Ensure tail updated before checking q stop */
+ 	smp_mb();
+ 
+-	net_txq = txq->net_txq;
+ 	txq_stopped = netif_tx_queue_stopped(net_txq);
+ 
+ 	/* Ensure checking txq_stopped before apc->port_is_up. */
+@@ -2665,6 +2672,13 @@ static void mana_destroy_txq(struct mana_port_context *apc)
+ 			apc->tx_qp[i]->txq.napi_initialized = false;
+ 		}
+ 
++		/* Forget the SKBs freed without being completed after a drain
++		 * timeout, now that NAPI can't complete any. Doing it here also
++		 * covers the queues that a lower channel count won't recreate,
++		 * which could otherwise stay stopped.
++		 */
++		netdev_tx_reset_queue(apc->tx_qp[i]->txq.net_txq);
++
+ 		if (apc->tx_qp[i]->tx_object != INVALID_MANA_HANDLE)
+ 			mana_destroy_wq_obj(apc, GDMA_SQ, apc->tx_qp[i]->tx_object);
+ 
 -- 
-Thanks,
-Sasha
+2.56.0
+
