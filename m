@@ -1,43 +1,43 @@
-Received: from SY5PR01CU010.outbound.protection.outlook.com (mail-australiaeastazolkn19012015.outbound.protection.outlook.com [52.103.72.15])
+Received: from SY2PR01CU004.outbound.protection.outlook.com (mail-australiaeastazolkn19011031.outbound.protection.outlook.com [52.103.72.31])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E6A8390CBA;
-	Thu,  8 Oct 2026 22:34:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.72.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C137745041C;
+	Thu,  8 Oct 2026 22:34:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.72.31
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791498887; cv=fail; b=RQnUihuVvqb/1kTSAtfm5N0amquEEWfqcxN4t2r/ipYxkHEshmcEBXMr7kRv3CotV/yj2Y2UfZ7reCVOdPJQoKL6JlakYXIHfo0hiO1m5eUo/0LKhh42C2COShUcEd1PIILghbdYPPF56GA5gngmtNjnl/ka9ZapmdR+cbFy00k=
+	t=1791498889; cv=fail; b=dXV+Bf9VToLVDEsBfFCWbVWpos61NPuPGi5fkeyZKiVcihcyMQ4vNSES0j5hXbUCBY873xsdaDdCTrrhRzFMl0j42ieRG1xOeJjVohVL6/gV6dUI26rh+DeQG5FeH5ioq29noflEGzM7KfvY9BIsCzt8YYI0NZszdAii1Yvm4CE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791498887; c=relaxed/simple;
-	bh=VrbGpqK64DEAqNtPHocLpRyPPUyCsW3kkxTLkaIx0VA=;
-	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version; b=pIHBPEMg0NNGDOAdsWqKhEn2MZhjj4HaFXfhPmV26/tcnlu09MTRygRNH8IW06Z23/BFFohs8QT7242AR7GtcLVeaSJIWj8UXheXeS1BuPADbkmVg85CJJWUgzrXHqYFi1XrWdSSJu04G+/QvLaD3bpi6hQQ2/5Ve4ckDhOGeAY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=JwaVK+o+; arc=fail smtp.client-ip=52.103.72.15
+	s=arc-20240116; t=1791498889; c=relaxed/simple;
+	bh=m0LG02tSnfVkcWjrXesByQa6xfB80MhvnxJGHu1Vk7g=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version; b=JPkQvxgAv0f7Zv8VY5TO5/OfbmtSq0K4pEc9SmJZpSGFPLYFYDgkzYfWDlPHPowcIjTyuWVCz/a5vnYS9YVkXcgWlk/YxkUdCorz0N77mbsKZafaQ1CSehoDtAN8KLTWZcWYpj10oK5gIt4fAVEWJSpp0gaJKBim9OGHL/HEtFo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=ezkCjeNs; arc=fail smtp.client-ip=52.103.72.31
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="JwaVK+o+"
+	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="ezkCjeNs"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eejAe1pakisltQHvYtr23RhsiZVFeVQK7ciauBeBxo8ZT7nK10RKLBzYf6KFXoKoCgZ717fZc4y4bG14FDAriXbJrgsqBeRebch8OBhuLROzjP5hnf7UOkGQFaTPopPjCgM1xby96K+TJXQlvunhl23A8bTifeMM5vjJGRYM4ieCB1JC/gRo7HhdcZi2tL5gEtHX7gT607dn7FH2FSR3eFnD9Lg8Wi931thlk2JwuuNjUzVzN5BP76+dHmqjXPscTSPqP2UDafmFNBJ6r0FQsMI84RS8bvZJwnRyg8JQ3spy3zNSDZ0Dp6JkyJ9aI+9kJT115/eXlyTInuQ26ZZzvQ==
+ b=komik2Eu+mnhoFigOKgymm5jrReE/Ka+9TX5rAyzuZUwIkcT8N7Ng7oFwM/vC16zJrNR1kRS6UpmQhK+JsTpC0XR0VQtOU+HBE8HAAZAKKhnyP5R4fSrX62NHuQ43Y8QRb504sAxSLx0BZ4DBqMwsdIT/2gbYe0xHNPsbpskbdqcX1uwWwGtFcjD/0H9h+h1aNYstHgNfoCnisL7ezFw5xpvua4k9tjz/RR1/ZGJm+iE44o5H09LzCeIb0Id+kujNZ4yQQSoTOj3c7g1c66KadTBJ2BKvxrfdUTmi2kwHGr/JobvXgmdVmlNzICp/3dkZLjnCF/JTVZ1Ex8h2R22Yg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RpXzMJgjsKk12FkQlHs+EUnzB/PDygnbK2rrzsMc4ss=;
- b=EKV9yFMbHOgF95oNo/1aacD3/3CT1pqM+AS1mxtBlJ1X22G+c05ZjP69l8gYHKi+NAuVcCF047dt0R7Lrq/fSF8wSEWj8RyZi+AJ+F11NLFnhdCajaH6r2BZeHjbQUGaKi7dharbhl8+UXMLGwd0OCf4GE+bS/eOt3niZi4oFi0elfgnQunWg7+Hv1NwAuTdW1YyqHNyjf7RH7pENozFWvIvIEpn/0C/9DW7pyrjNCiCjQr2qh85IM1UWYIzyGVtQ2trdcSCIQGEvQjRZ4uwwHVPo87XIIWGEaKUe2Mbqbfr7+8Sm8VS5LTaUg4YGF6qz9b2ZlJBI3aUmTfRV2IayQ==
+ bh=WgMgRTBQCiYR8AV0alB83BZg1hQh9goOmhBtVWM2c4U=;
+ b=lZ9fxu7jKDb7wpBOlVviCd1mc1a4Bfhps5MheALOMdDFvRT2lVna994aGP8oEL7PGDc1s/nZHSNk9cN5OH2shNm46m9c25XAvN5PXZh7yXMXYzm9ud832fjTnxfsC5pR+x9FxfHrRq0D2hS4cDBDdFhDMfxT3CyoD7LJ/G1p99d9ibW67jJVzc4SktbJodYLtZNdnuiG5fEv5uvsTDyG7MeQiwzaOPEJmms3/kPJqElpqetW0X3J9pitbpHVkT+IUODpfMOJ354OcgNM74nVA/4TqBmXUzdrUde7YzMY7x+PyaY29ipTzFKUVMSc5dC/EO3qsW7opzI80wI+9NnbEg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RpXzMJgjsKk12FkQlHs+EUnzB/PDygnbK2rrzsMc4ss=;
- b=JwaVK+o+XaTPXFudEl4geZFvwx6PTvVnFbfqYo0KiNdqSw/B37Uh/S/w9R641NejAeY+9qTkQ+kWc1rvk1hFrxa3ZE9cTz35ycQtUFY1DjEkrYI+Qgb0wUPvLemdkxTmC7Ievh/aNQkUAloiaYRMdGGQuTXAm3GGaR99cP2X53E52K1zNttYNhPX2pVltaBbXIgxAesdNXdJMBhPwvTsVfx5OOfjALRfkPOdsVam3ym9TiFGBSBL6yYoWdSJ0tWu0LcbI+BfyHVlxbR82I03DdvVrI999tgOBGjdAA2ojzy9LfhZrwNBGOs2GUCLbzGhlQmD5ylw6EYcRn8YxbTkfw==
+ bh=WgMgRTBQCiYR8AV0alB83BZg1hQh9goOmhBtVWM2c4U=;
+ b=ezkCjeNsbaLZmu7yW0xFCoaFFDQynwyHsj+z6KngQeFLLa7JSulwSQmssDWJbV/iQXDxun7eAPw3gBT7rRrsfCevKZP28Bo0O+j/4xSXQjSOsXZHzVg9Q1IwU860U2uLj3bHbPIpx1QvIz0P2rQ0+CGCxjR2aQ+dKCHg0lj9ArJqrTCqpPFHeXAOlyjf+Y5QrgJFXh4pzUJgfLmV960jlc7/H6nf6aCqVANXnefXvUW8Vog5KFhhuKzqb9hTsxii/NFZfgjCO6FJ9+lzLS5+j2ZxcU9cKs4e/70SBRSgjfSmJ92Z3df+Xj25H5gN7d0aignMIAqumksY42MBQfZqdw==
 Received: from SY5PR01MB10600.ausprd01.prod.outlook.com (2603:10c6:10:32c::14)
- by SY6PR01MB8347.ausprd01.prod.outlook.com (2603:10c6:10:1da::9) with
+ by SY3PPF346C5784E.ausprd01.prod.outlook.com (2603:10c6:18::40d) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Thu, 8 Oct
- 2026 22:34:39 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.6; Thu, 8 Oct 2026
+ 22:34:38 +0000
 Received: from SY5PR01MB10600.ausprd01.prod.outlook.com
  ([fe80::db5f:2818:b791:cc19]) by SY5PR01MB10600.ausprd01.prod.outlook.com
  ([fe80::db5f:2818:b791:cc19%3]) with mapi id 15.21.0522.002; Thu, 8 Oct 2026
- 22:34:39 +0000
+ 22:34:37 +0000
 From: Zhang Jiaxi <Z1529105815@outlook.com>
 To: Srinivas Kandagatla <srini@kernel.org>, Liam Girdwood
 	<lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
@@ -45,68 +45,69 @@ CC: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
 	"linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>,
 	"linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
 	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: [RFC PATCH 3/4] ASoC: qcom: q6apm: synchronize readiness query and
- provider lifetime
-Thread-Topic: [RFC PATCH 3/4] ASoC: qcom: q6apm: synchronize readiness query
- and provider lifetime
-Thread-Index: AQHdV3Uzqli6TFCjvU+BTK8txYNLJg==
+Subject: [RFC PATCH 2/4] ASoC: qcom: q6apm: abort prepare when stopping the
+ graph fails
+Thread-Topic: [RFC PATCH 2/4] ASoC: qcom: q6apm: abort prepare when stopping
+ the graph fails
+Thread-Index: AQHdV3UzQFCO+4g1Yk6MP0nkiXNA+w==
 Date: Thu, 8 Oct 2026 22:34:37 +0000
 Message-ID:
- <SY5PR01MB106008FAA5C77DDF36D83A31CA1932@SY5PR01MB10600.ausprd01.prod.outlook.com>
+ <SY5PR01MB10600AE9EE74BAE7A40B23D19A1932@SY5PR01MB10600.ausprd01.prod.outlook.com>
 Accept-Language: zh-CN, en-US
 Content-Language: en-US
 X-MS-Has-Attach:
 X-MS-TNEF-Correlator:
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SY5PR01MB10600:EE_|SY6PR01MB8347:EE_
-x-ms-office365-filtering-correlation-id: d2ec35e8-5d12-471f-c1f5-08df258c5721
+x-ms-traffictypediagnostic: SY5PR01MB10600:EE_|SY3PPF346C5784E:EE_
+x-ms-office365-filtering-correlation-id: ade46269-816d-4b93-a679-08df258c5596
 x-microsoft-antispam:
- BCL:0;ARA:14566002|51005399006|41001999006|38102599003|24021099003|25010399006|15080799012|25031999004|31061999003|8060799015|19110799012|8062599012|40105399003|10035399007|2607281247196008|102099032|3412199025|26104999009|440099028;
+ BCL:0;ARA:14566002|51005399006|8062599012|19110799012|31061999003|8060799015|25010399006|25031999004|15080799012|41001999006|38102599003|24021099003|102099032|2607281247196008|440099028|26104999009|3412199025|12091999003|40105399003;
 x-microsoft-antispam-message-info:
- =?us-ascii?Q?SylHd/SvkLw2+UgRZqaW/zrkZMVbfVkS9lEIghGjyV/SVUu2mo3KffthQU51?=
- =?us-ascii?Q?IA03AzJhYHCIS2G3p3EUE3RPTHXQoK7qsD9+RuCq2xIj75CxQC4ysMuXIOOJ?=
- =?us-ascii?Q?G2t2ohtA+qVtJg/NSE6K1Nvy1aMfQoHziKj9McIBuzzIAetuLPQ6Oi49oDoA?=
- =?us-ascii?Q?4++OfDDoyPxi4JZBk4VG3aYXeINE3Z92FMCjhLx/7OW9Fm58eNWX3daM9sP5?=
- =?us-ascii?Q?06/ZpFsd78I/rP1r7ThiFVuZyO/fcr3oEetsx384vodBO0wF3Boxnxu59udm?=
- =?us-ascii?Q?4MXUyl9HmmdgM1Lp08ScYNS3lwzcMwyr6pyFKHBTaSqCq+8RzgnmhrjjL77t?=
- =?us-ascii?Q?gzM8Grull0juWFQQfDmHrG75wXmh9OLxd/3QQlpho8SY1jYALUaBlmgj3rAm?=
- =?us-ascii?Q?43gVLnN5rFkv33fvPzoRKT9liurxvGLlFn/H1PJWOeuK8Ndw9i5F0PMF2c5M?=
- =?us-ascii?Q?H3JIsOV1umbWEMc/ETzy2K4oRyZ6L62YvxSNr73QcJPOpcz3zajue9cBV849?=
- =?us-ascii?Q?eq961ws3pZh37q3XtS9xgyR9crZcrbK2RGiV83A/aACzS6jnUB01shDdPN2f?=
- =?us-ascii?Q?S0KQoASfpvB6JxEG3kEv5fIzL9QZrvgCTb94clN8bYfkdnxo/dxt57FAGBRI?=
- =?us-ascii?Q?ZZltrhUKxiYfAxuErYLYgu0rCa/4gCTPW3MXkRgdc85XEX5cjtabwUKLhkeS?=
- =?us-ascii?Q?NqSs6mghJj4VsUJwlhMw3F203nRAsPuO5IOfPaczEPMvatT+JibSR8YcVh23?=
- =?us-ascii?Q?Y/N1gYrfh9MsjoJ3hG4EucH/ofLJg7TL5Y/tzADhXoYoZq7OBjMAtSDSEuy1?=
- =?us-ascii?Q?lM5FZyfrqmstwnbq32pxA6Wg0tO0ILQ6Q+1OwqCIcyDJWh8X5hTpw7vMIH2O?=
- =?us-ascii?Q?QyWgNj0s6BMgyD0CjF60TD7iOQxIUhoaXvN3gXP+8hQF9xSUTCK3RIER2rKh?=
- =?us-ascii?Q?XjMNYXnSturxsY+ndVcx5wtvSZsdm1iZ9GyfqdBTR76sY2lQeoQLSagkFQ/3?=
- =?us-ascii?Q?1wNDCVB4DS/zK3/dRqn+8Ka/dQ=3D=3D?=
+ =?us-ascii?Q?fL6O8G9PjDbGdDxK0gHrsQD61/r/1kKn4RHX3BmAUFqGpzN4gax4KMJ5g2Pm?=
+ =?us-ascii?Q?OcQ2je6zEO2RHzrj+rVX7BtRH6o3QdXyD4TgMnI81rFj751HdqwHxBS/rEX/?=
+ =?us-ascii?Q?S2Lj7YCgdMbj+II0hW+U/c/aEmm0xb79UF4+W1yB1eEggEoDrGVqo4QX+1Qx?=
+ =?us-ascii?Q?hkRZ6RL0+1CKB2Hsdn/OQz0+ogyONAlKFQSv4fi193WAWHWA+8DtR1jZfkss?=
+ =?us-ascii?Q?oEA802nvfxb7VTafNRpIlk0uE7+oX97FJ7/vFmJjEpM2Sb2E5BXKPg2hlzvT?=
+ =?us-ascii?Q?s8nMw3VS9RfmG5S7E+qK3umB+8c+QXq6Ik7B0FwOYX4naDVqCQkfJysIzvYF?=
+ =?us-ascii?Q?/mAtX6bLgXbdycoQ++c0O3XS3b8VZtEIHVkJ9JzB1cC8MVLX2khZDAhwJhKH?=
+ =?us-ascii?Q?xo+10ttsby2FjmVGXpx/XPBrfWwlGEs+pL2tXvL91tdAhsl7H67Ide0dqmWv?=
+ =?us-ascii?Q?0Fxwk+xHEkLMT7aJqIvCQSq6OdiUx1Vyrp1Jj/lwOL57fqZbU19ayW2Jfaox?=
+ =?us-ascii?Q?7z7I6H60AR6Hy0dG6tXystR02iuAdETzh3AHXt6IRtGT0x6SX2s7bn/b/sy5?=
+ =?us-ascii?Q?TeFVHRUDFuWGN3JLm2w+1jPkN25ciiKo0357OX1zK2qCWOv6DL2FCT92WUNN?=
+ =?us-ascii?Q?fkSKPagTxlVoIo5JOVW7rYSE0FD8nKts81zcRyWN6ZVywqz++gJhOpzwasUA?=
+ =?us-ascii?Q?LcT+ukArULxtwwo5N8I/wlXI9PFxAGi209N31BlCfJvI3SvDwlDgsxAFH4ig?=
+ =?us-ascii?Q?MOwZWjWUKQvu8RTBWObqfOb9wjsreX6raqTfQx99lMwUx+KqJoTw6YVzeTR3?=
+ =?us-ascii?Q?X0UwMRPN885CHBsIel383bS7VSXx8TNOgvAQsreEhTMf4juhTfRpZBivKRFE?=
+ =?us-ascii?Q?GjagBHPZaXm7r6iJuHooB7uo/0KAp1FzHNcnKaLJi+zYHwJmqFLBvZ8Oq3/Z?=
+ =?us-ascii?Q?F4/3fxpaTHdD3MDGKdfkUuRGQ1W6O6YT7NRuIc4pGTMR+wcbPB4Fv5AaWke0?=
+ =?us-ascii?Q?gOAQsenTlDNezxlK58EurXjWtaqTYaoibH9faTTmoDDVigsMarH08giSR495?=
+ =?us-ascii?Q?56rawkY2?=
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?q66+BpQgkOYl4ns3u9xgkudWEEbeMI9/1gvAgSNj9qznOXu40ozaMMnKcUUa?=
- =?us-ascii?Q?hcesSc78AV9nO7pkcHjVfo+bK63YZozDNenA98slSbLOq3VWdFZx/OOEoemT?=
- =?us-ascii?Q?5PCPT4NLUlt/9U0lVbUPf0JD12wuezac0OwNfx9lG/LGZKO+XfzMhcsl4h9q?=
- =?us-ascii?Q?yqq5cYOmcmsNlfn1+TYGzKKcz+ddJfOTGSWL66DGRscHWbY2BB9vmMw9O/hL?=
- =?us-ascii?Q?OdcKAzcY4ynVfD3oryfXgEQ2TSj/CbkXqDViAcQHn/bLFblwyfNZFgtaqwQ3?=
- =?us-ascii?Q?VKktPOs0ASnMOlbuj+TsX/w0+IpVcvWRDKS3PZ4GAAbOFg9aEZ+JR4EkOXSX?=
- =?us-ascii?Q?FbFit3ftanQoIHwmcTI3xtoB202vVQ+X0HIMjywcychoDvEU+mcmnTA8ujW7?=
- =?us-ascii?Q?hpz8tgHmnHLFfL0ZtRfXBN7fv3p4IaJYcIIduqs0Ego3e8lE8JzetYaq2+Oa?=
- =?us-ascii?Q?tcrImvx6UigH2IjloQ+SzO/w8O7OmcVP+j04dWUMxufWLZXbs021t20wuASH?=
- =?us-ascii?Q?5Adfpt1sc6p5jAGJPFBlGDA0305d+fWfm4r5AM2Otby9uCqVobGVWSu8FNEb?=
- =?us-ascii?Q?HgQ26b1hHWSmx2SBLNMrkVzvmVzEAGUYBI2FxTde4QlcK3VdZMpH5izWlGN/?=
- =?us-ascii?Q?apocqXnjS9QNiVEIHIglIbF/g0uxEJKpOzl8TTfQqlawI0fXjfBRup4s+aQT?=
- =?us-ascii?Q?qltNOR42IgTXHvUos580eX6ECRkXdlPJshHYYSia1np/WUiMU+5ywMwbutzn?=
- =?us-ascii?Q?l1VUguSFdTDYU1O+0h8IZscU+aihdB1RqxB3zS4P8rKAhv1+snP9FnElbQhd?=
- =?us-ascii?Q?r5srR4G4B73aUwGp9CdQ1ub0xYVII4SRaaA+HKFNFQXKkDZVpYs2hPs3s48M?=
- =?us-ascii?Q?X7cTkvaL7YNzWerJtzAxotwXdHbWAIJcX+iJcBXu1fe6DVQo4uXYCW8DGbpV?=
- =?us-ascii?Q?be8cLnDrNmvVGzeWoJzF+QZZp/T6F58RHEyH9WL+kqjPTpaKqHBq4l07i34w?=
- =?us-ascii?Q?1UR3Flb6lsgoVU3ziRYmTuKNWAanQ710d62bJtrihpEDdsq8n2Gm8j7AEinD?=
- =?us-ascii?Q?SFai0euyFtfH4uxWgE0p4Z37B/9gw7Ln0R2KzthR6DzoPGl/Cga5KZ4jAJSk?=
- =?us-ascii?Q?04xSuwZA5y7DVjuIeb3brn9DIekAbfPghLAoqUCnD7cS2iSSQmPRFeqZmsVu?=
- =?us-ascii?Q?Q6lA5I8gD2h7S6v7LV9oIo+3YrUi/Y+FtSc03wARw6OBv/qYV6QQbxkWVW+z?=
- =?us-ascii?Q?dke/gU/fWc1p4kbOeR9F8/QWhZB2X8lIpW98CgC0IgVtKMhc5h4Ppbu6UZwI?=
- =?us-ascii?Q?GuRT6J+JZQO1IoUiLSDtm3rvYu56GNHCM9NDJFntVBEMrKYaZuW2a43lM1Ga?=
- =?us-ascii?Q?jRdN2DBenDVNK9vFahEqLyWHSj+s?=
+ =?us-ascii?Q?j2365sUob5+1QxXeTzUgZTiNMhWURXSDareVHUIqa40LKv+aKDiVhBMYXwua?=
+ =?us-ascii?Q?fh4EykS3coKjFcb92Rb/mac86Qw9PkgmWVpzj3ujC+KIi66aXxihe7RUQ751?=
+ =?us-ascii?Q?KpvOTAdRQsoieeNMu/fyWZN32hV8JxlEYXgz+gjerUdlUODrgKREnPmYzy9R?=
+ =?us-ascii?Q?ds637L1q94swVwWvUwpKbrbq+jfSgI1vPamGphMaBIRuY4fKw0Z6z9pTxlRJ?=
+ =?us-ascii?Q?nmwrsdbZJpC+qS4KTo//d2Dj2uWKgwgUFpOqFaeXwigGD0kLZ6my9h83puom?=
+ =?us-ascii?Q?N6DELhWPt1y5awJ9kjNgVJG/4kNXfg32aXCcwUNvi7IvHwVJ6N7Pf0n9IHCW?=
+ =?us-ascii?Q?8eeO6oqd350MPw2PW5RHfo1dWAwLbFknrovvYVd1ZxSsLDn9rCggO85Fezx+?=
+ =?us-ascii?Q?yDwbLxXB3gLv/2f88Uo4r1deJAdNlKnHKvDCMrK7RqDj7Wv8J3SyhtXMxZUp?=
+ =?us-ascii?Q?ued19tHWhD/Cv/c0yM0rU5HHA1VnOCQH3z1Xblu6UKwbraxexyGY4s3Zc9ul?=
+ =?us-ascii?Q?nhI7LsHgsPpED9Zl3l5r7E9M+UrmdnrborfQTw+fvNA7XGw2aJkX4BYHyv2k?=
+ =?us-ascii?Q?eWznL3a/2QXnkxwu85yhgOEWbW+sv+urssz6kODsX+nfQxqe9/p8792226On?=
+ =?us-ascii?Q?Oea0+B520gqcRXjXt3OYXcgtjOYONiuA4Mhg0A5MFmYC3jApMTgh+mdGGey1?=
+ =?us-ascii?Q?2yrQ427+n6RZFLBJ76P7ZzqNPVLJOCPvpdiiol4zSuyE8Su349/kwVkbDLP2?=
+ =?us-ascii?Q?17SrjSn0Ypu0xgGJRRbVYh97P7HRLcet0AnWWWXllwnly50WfbTc2aa2Titm?=
+ =?us-ascii?Q?bg6YDKtgTMFB5FP9t8WswY3zNiF2tNGx9WofSiprBlN8/1CqK1XbHqMK8/Pb?=
+ =?us-ascii?Q?T0QVIlvgAtBG39H/rN/ZxxEfELQpNb9RxNN/GuD6mfBVYy2BJGJfrRsnpxwD?=
+ =?us-ascii?Q?Pj7N4NjWHK4bBXVCZMjCXUootwoYW0rb8bPbc7c7QuR6kuu1ow4MHWScJOUe?=
+ =?us-ascii?Q?GjH62KpLEGSmOt+b+bZ7fw2EmfIfiZqocLV7kitCdcnYXN1yNhw8lX1jPiqr?=
+ =?us-ascii?Q?jB+7ABqK8gFdUEfpi0zIjvfbCd/7T6NjUY9hlXcO0fvvon/D+9sUmptTdC75?=
+ =?us-ascii?Q?ZeSBUZdpgNW+kREFBl4H6Ixuqt5NvLYh9qyTSUdwU1T19bjYMC0FX3Y7leG3?=
+ =?us-ascii?Q?exlGOdh81CNDroTQ9vYlvrAdHJLhEG/KqMWf6I1DUgMKriC2pu/uYUr0/7tV?=
+ =?us-ascii?Q?x4rcSdTEIXMmPdIuceWubaKqjAPLJaLDip/EFqZVpx4/bAgzFyYyr2ZIhyYO?=
+ =?us-ascii?Q?NO1fI3CctwBCwGMbvydoMs7AEaY+q/exRHUZKuc86RtvEix1WsESwOFVUXRr?=
+ =?us-ascii?Q?XMTMO3KaI5BlI9ARYGnxhacGPQHO?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
@@ -119,149 +120,67 @@ X-OriginatorOrg: outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: SY5PR01MB10600.ausprd01.prod.outlook.com
 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: d2ec35e8-5d12-471f-c1f5-08df258c5721
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Oct 2026 22:34:37.9497
+X-MS-Exchange-CrossTenant-Network-Message-Id: ade46269-816d-4b93-a679-08df258c5596
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Oct 2026 22:34:37.0990
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
 X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SY6PR01MB8347
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SY3PPF346C5784E
 
 From: Jiaxi Zhang <z1529105815@outlook.com>=0A=
 =0A=
-The private SPF-state query ignores its synchronous command error, while=0A=
-the bool API accepts a stale state or even a negative allocation error as=
+PCM prepare ignores a failed STOP and frees the existing fragment table=0A=
+before configuring and starting the graph again. The LPASS backend prepare=
 =0A=
-ready. Its q6prm probe caller consequently skips EPROBE_DEFER.=0A=
+also ignores STOP failure, clears its started flag and sends new format=0A=
+and PREPARE commands.=0A=
 =0A=
-The public Graphservices GET_SPF_STATE response defines READY as 1.=0A=
-Require this query to succeed and return that exact state. Protect the APM=
+Return the STOP error immediately in both callers. Do not discard the=0A=
+old fragment table or clear the backend's started flag on that path.=0A=
+The existing successful prepare path is unchanged.=0A=
 =0A=
-pointer for the entire query and state snapshot, serialize its publication=
-=0A=
-and removal, and clear it on failed component registration or population.=
-=0A=
-Run the initial probe query before publishing the provider; its error is=0A=
-still ignored by probe, so this does not add probe-time error recovery.=0A=
-Removal waits for a readiness query to finish before clearing the pointer=
-=0A=
-and returning to devres cleanup. The callback never takes this global mutex=
+PCM close, compressed free and backend shutdown still perform terminal=0A=
+graph cleanup. This caller correction leaves core reference accounting=0A=
+unchanged and does not define recovery from a lost STOP acknowledgment,=0A=
+close-time DSP recovery, retry policy or concurrent lifecycle serialization=
 .=0A=
-=0A=
-The existing per-APM command mutex remains responsible for command/result=
-=0A=
-serialization and waiting, and is released before the synchronous command=
-=0A=
-returns. The global mutex protects this public query's provider and=0A=
-snapshot without recursively taking the command mutex. It does not keep=0A=
-later SPF replies from overwriting the state or add reply correlation.=0A=
-APR callback draining, graph lifetime and DSP restart recovery remain=0A=
-separate lifecycle problems.=0A=
 =0A=
 Based on sound.git for-next=0A=
 62d9f9ffdfd44e88010412bf8f23732f0a93a9be. No target hardware result is clai=
 med.=0A=
 =0A=
-Link: https://github.com/AudioReach/audioreach-graphservices/blob/042cb60b4=
-e510fd30a944ef940a2c79af57aa7e3/spf/api/apm/apm_api.h#L1002=0A=
 Signed-off-by: Jiaxi Zhang <z1529105815@outlook.com>=0A=
 =0A=
 ---=0A=
-diff --git a/sound/soc/qcom/qdsp6/q6apm.c b/sound/soc/qcom/qdsp6/q6apm.c=0A=
---- a/sound/soc/qcom/qdsp6/q6apm.c=0A=
-+++ b/sound/soc/qcom/qdsp6/q6apm.c=0A=
-@@ -6,6 +6,7 @@=0A=
- #include <linux/jiffies.h>=0A=
- #include <linux/kernel.h>=0A=
- #include <linux/module.h>=0A=
-+#include <linux/mutex.h>=0A=
- #include <linux/of.h>=0A=
- #include <linux/of_platform.h>=0A=
- #include <linux/sched.h>=0A=
-@@ -28,6 +29,7 @@=0A=
- #define APM_GRAPH_MGMT_PSIZE(p, n) ALIGN(struct_size(p, sub_graph_id_list,=
- n), 8)=0A=
- =0A=
- static struct q6apm *g_apm;=0A=
-+static DEFINE_MUTEX(g_apm_lock);=0A=
- =0A=
- int q6apm_send_cmd_sync(struct q6apm *apm, struct gpr_pkt *pkt,=0A=
- 			uint32_t rsp_opcode)=0A=
-@@ -149,17 +151,19 @@=0A=
- 	if (IS_ERR(pkt))=0A=
- 		return PTR_ERR(pkt);=0A=
- =0A=
--	q6apm_send_cmd_sync(apm, pkt, APM_CMD_RSP_GET_SPF_STATE);=0A=
--=0A=
--	return apm->state;=0A=
-+	return q6apm_send_cmd_sync(apm, pkt, APM_CMD_RSP_GET_SPF_STATE);=0A=
- }=0A=
- =0A=
- bool q6apm_is_adsp_ready(void)=0A=
- {=0A=
-+	bool ready =3D false;=0A=
-+=0A=
-+	mutex_lock(&g_apm_lock);=0A=
- 	if (g_apm)=0A=
--		return q6apm_get_apm_state(g_apm);=0A=
--=0A=
--	return false;=0A=
-+		ready =3D !q6apm_get_apm_state(g_apm) && g_apm->state =3D=3D 1;=0A=
-+	mutex_unlock(&g_apm_lock);=0A=
-+=0A=
-+	return ready;=0A=
- }=0A=
- EXPORT_SYMBOL_GPL(q6apm_is_adsp_ready);=0A=
- =0A=
-@@ -862,6 +866,14 @@=0A=
- 	.remove_order   =3D SND_SOC_COMP_ORDER_LAST,=0A=
- };=0A=
- =0A=
-+static void q6apm_clear_global(struct q6apm *apm)=0A=
-+{=0A=
-+	mutex_lock(&g_apm_lock);=0A=
-+	if (g_apm =3D=3D apm)=0A=
-+		g_apm =3D NULL;=0A=
-+	mutex_unlock(&g_apm_lock);=0A=
-+}=0A=
-+=0A=
- static int apm_probe(gpr_device_t *gdev)=0A=
- {=0A=
- 	struct device *dev =3D &gdev->dev;=0A=
-@@ -887,26 +899,31 @@=0A=
- =0A=
- 	idr_init(&apm->modules_idr);=0A=
- =0A=
-+	q6apm_get_apm_state(apm);=0A=
-+=0A=
-+	mutex_lock(&g_apm_lock);=0A=
- 	g_apm =3D apm;=0A=
--=0A=
--	q6apm_get_apm_state(apm);=0A=
-+	mutex_unlock(&g_apm_lock);=0A=
- =0A=
- 	ret =3D snd_soc_register_component(dev, &q6apm_audio_component, NULL, 0);=
-=0A=
- 	if (ret < 0) {=0A=
- 		dev_err(dev, "failed to register q6apm: %d\n", ret);=0A=
-+		q6apm_clear_global(apm);=0A=
- 		return ret;=0A=
+diff --git a/sound/soc/qcom/qdsp6/q6apm-dai.c b/sound/soc/qcom/qdsp6/q6apm-=
+dai.c=0A=
+--- a/sound/soc/qcom/qdsp6/q6apm-dai.c=0A=
++++ b/sound/soc/qcom/qdsp6/q6apm-dai.c=0A=
+@@ -347,7 +347,9 @@=0A=
+ 	audioreach_set_default_channel_mapping(cfg.channel_map, runtime->channels=
+);=0A=
+ 	if (prtd->state) {=0A=
+ 		/* clear the previous setup if any  */=0A=
+-		q6apm_graph_stop(prtd->graph);=0A=
++		ret =3D q6apm_graph_stop(prtd->graph);=0A=
++		if (ret)=0A=
++			return ret;=0A=
+ 		q6apm_free_fragments(prtd->graph, substream->stream);=0A=
  	}=0A=
  =0A=
- 	ret =3D of_platform_populate(dev->of_node, NULL, NULL, dev);=0A=
--	if (ret)=0A=
-+	if (ret) {=0A=
-+		q6apm_clear_global(apm);=0A=
- 		snd_soc_unregister_component(dev);=0A=
-+	}=0A=
+diff --git a/sound/soc/qcom/qdsp6/q6apm-lpass-dais.c b/sound/soc/qcom/qdsp6=
+/q6apm-lpass-dais.c=0A=
+--- a/sound/soc/qcom/qdsp6/q6apm-lpass-dais.c=0A=
++++ b/sound/soc/qcom/qdsp6/q6apm-lpass-dais.c=0A=
+@@ -234,7 +234,9 @@=0A=
+ 	int rc;=0A=
  =0A=
- 	return ret;=0A=
- }=0A=
+ 	if (dai_data->is_port_started[dai->id]) {=0A=
+-		q6apm_graph_stop(dai_data->graph[dai->id]);=0A=
++		rc =3D q6apm_graph_stop(dai_data->graph[dai->id]);=0A=
++		if (rc)=0A=
++			return rc;=0A=
+ 		dai_data->is_port_started[dai->id] =3D false;=0A=
  =0A=
- static void apm_remove(gpr_device_t *gdev)=0A=
- {=0A=
--	g_apm =3D NULL;=0A=
-+	q6apm_clear_global(dev_get_drvdata(&gdev->dev));=0A=
- 	of_platform_depopulate(&gdev->dev);=0A=
- 	snd_soc_unregister_component(&gdev->dev);=0A=
- }=0A=
+ 	}=0A=
