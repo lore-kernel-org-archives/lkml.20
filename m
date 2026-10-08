@@ -1,168 +1,142 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D5894F0529
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 18:24:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B8AE346766;
+	Thu,  8 Oct 2026 18:24:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791483874; cv=none; b=Aul36Q22S5bgRzKCe7rJW2Wyh+mXKO7j0aQiWg2bxCuyrqWv4zU6ytqydu6ML9v3BJPNk7nOAZutcBUiaaBx5yIWF2tW0Q5YVVNT1MoHJ49vBHSQSUsJu9FIU4H69ypTrCHaPsbGHZ3+TvPQcRi+VAiDWf+FUv8kAyXLXBwosVo=
+	t=1791483899; cv=none; b=PBF6bCCrAlzde4qrvJ9LECILfcsJbzrnNwQ2Mzt0HdXkhGR8v2ftjnqONx4ZihiwAUmcyn54orYE1sHDXdcKnkpHrDZTjhagysPSYeQpydpnlD+V4hGQ4cmp1OhffIG90GdMaxasB804zJ1usj3Z3HXXOGjq3RpApGl7629meMk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791483874; c=relaxed/simple;
-	bh=Zw1eT3dzocKOcZpzU8R/f8QZZnuHnfZGs8I6ZHQijIY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KRQxGDZJuOCBfYtTbh/tJJxx9R2hiie3ZLmaNr1+VxDeQ0b0NgPlBJSCKs2wKEppO04omj2mBRozdnKRZWvkQKcpwu5Gby4AJCNXuKFkxtWBkTbyTa9KQP5l7+2ojx0AX4vdLWpIG7FHyzd5nFsk6iGFxaJMHUwfqYwIOAXjFgY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=c+8EvEU1; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="c+8EvEU1"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 8D6C140E0481;
-	Thu,  8 Oct 2026 18:24:28 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id sNt0bsNe_ZJp; Thu,  8 Oct 2026 18:24:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1791483857; bh=ArtIe0J/YtHNeMIRmnR0Ro+s/jjV/sVKo94Bg+mHdOk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=c+8EvEU16YMPCeKQ5i/icXx+OWIj8TWokrJ8eVHCV6XOUBlfACj8OFY3JBO9mshE9
-	 Yfsfs5t62zYmyTZJDIlwEm9OSjw04jQ6qivErFAHOhYSEpB/Kuzx6kACGa6wC/uoJk
-	 1AjWyeRSPyiX+kpdmYC7xPhga4NIIOOZ0SmMA4zqT/ouVQbMA1gHvShwasx1UT0f+M
-	 IrwsT2t5robKk71D4fkCYVUo+wSrfnz53+Grf6qAUkzFpnVAKTzSu43AlrMBNfLZlc
-	 TMBBwupTqB1vGLUJqRmVdsP3X24OPxjwoGZ315q1MNNzYVazWO/h5+ZxOnOUd611eL
-	 sTqq8hCpKWioAsUBJXyvNOh6SYPGhqgOAId+sXFW1dmMooVyqjcUykiM601ermDrMG
-	 O5aDKek9U5xL/uo9LJv6I8Plu0h7Yzf161HIfaUoATjtpIA6RPoxnmHLgCYE6LhUAq
-	 dn388REozKlRwmPhygPxvnIg5H0cbaPEX+6cr9w8OFrf81tlnlynAeuD1CYwohFkUU
-	 XNkTIZB7doKd6lhK6DFVgNSHNmpSmBeMHofhQH15ItNDiijgTgjdE3/ULYidRt+HL5
-	 7K9banhdUSv2r5zuc0kDqA16n+FzFzalHiKTq/juzAZfAWsizeYg5ymheA2CCC1uwt
-	 PvhDM9ERmaye6SWnI5Radwwk=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 364F540E00E5;
-	Thu,  8 Oct 2026 18:24:01 +0000 (UTC)
-Date: Thu, 8 Oct 2026 11:23:56 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Nikola Ciprich <nikola.ciprich@linuxbox.cz>
-Cc: David Laight <david.laight.linux@gmail.com>,
-	Rik van Riel <riel@surriel.com>, ljs@kernel.org, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, akpm@linux-foundation.org,
-	david@kernel.org, Mike Rapoport <rppt@kernel.org>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Pedro Falcato <pfalcato@suse.de>, Kiryl Shutsemau <kas@kernel.org>,
-	luizcap@redhat.com, pbonzini@redhat.com,
-	Tal Zussman <tz2294@columbia.edu>,
-	Matt Fleming <matt@readmodwrite.com>
-Subject: Re: hunting memory corruption bug in 6.18.x
-Message-ID: <20261008182356.GBasffvDuTemTu1VUY@fat_crate.local>
-References: <ar1Xl7PE2rcoT9h3@pcnci.linuxbox.cz>
- <ar63St2LBfCdyhwj@pcnci.linuxbox.cz>
- <ar9yRqq6cBxHDWKA@gremlin>
- <ar/F6+OUzj8qQ8YC@pcnci.linuxbox.cz>
- <asAE3kLFDUx5v0Nw@gremlin>
- <asKdhWiJb3qXeopz@pcnci.linuxbox.cz>
- <bd8e9b01ad88cafb12da33331f32a1ce315f590b.camel@surriel.com>
- <20261005132113.43548696@pumpkin>
- <asP5xK4axiUk7jun@pcnci.linuxbox.cz>
- <aseMsMGpGPT/G548@pcnci.linuxbox.cz>
+	s=arc-20240116; t=1791483899; c=relaxed/simple;
+	bh=Z6dDStlBha2SD7JvKL72qbGcPL+lvXsOt+9Uc6SfJQo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=raEWsZTv/m+4PCZH20CvikjvY2bz9++owpW1mfT6klCMSAYTVvl9/iD9U+s2Tux2UYaT0t9KyqY2YIpVtbsWt0e7fL9XiXHKD5mOsYNIB/rdJP9qw+ReTxwsyYls7Bw9WtIIuLYYq6x2ehQ6VJwr9P4/PPPjIvKjC3pNwfww838=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from fc87d0ffb700.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowABHTDrn38dqil8QCg--.13270S2;
+	Fri, 09 Oct 2026 02:24:40 +0800 (CST)
+From: Haotian Zhang <vulab@iscas.ac.cn>
+To: Stefan Agner <stefan@agner.ch>,
+	Lucas Stach <dev@lynxeye.de>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Boris Brezillon <bbrezillon@kernel.org>,
+	Dmitry Osipenko <digetx@gmail.com>
+Cc: linux-mtd@lists.infradead.org,
+	linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] mtd: rawnand: tegra: fix OF node leak in tegra_nand_chips_init()
+Date: Fri,  9 Oct 2026 02:24:42 +0800
+Message-Id: <20261008182442.2770036-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <aseMsMGpGPT/G548@pcnci.linuxbox.cz>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowABHTDrn38dqil8QCg--.13270S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxXw1UWr4DAF4rAr1DCF4xCrg_yoW5Jw43pr
+	WUCa90kw4jkF4xGa4Syan5Z3WYyw1xt3yUG3sa9as29wn5Jr1UGr98GFy0qFs8CFZ7C3W3
+	Xr45JF18Cr45ZaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9jb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
+	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVAC
+	Y4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVW8JV
+	WxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka
+	0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7
+	v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF
+	1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIx
+	AIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI
+	42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvf
+	C2KfnxnUUI43ZEXa7IU5qeHPUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRMOA2rHpDmH8wACsR
 
-On Thu, Oct 08, 2026 at 02:29:36PM +0200, Nikola Ciprich wrote:
-> [11402.940943] BUG: unable to handle page fault for address: ffffffff0c93001c
-> [11402.942273] #PF: supervisor read access in kernel mode
-> [11402.943629] #PF: error_code(0x0000) - not-present page
-> [11402.945025] PGD 6d6f83a067 P4D 6d6f83b067 PUD 0
-> [11402.946469] Oops: Oops: 0000 [#1] SMP NOPTI
-> [11402.947950] CPU: 23 UID: 0 PID: 704950 Comm: servercare-moni Kdump: loaded Tainted: G            E       6.18.55lb9.01 #1 PREEMPT(voluntary)
-> [11402.951254] Tainted: [E]=UNSIGNED_MODULE
-> [11402.952913] Hardware name: ASUSTeK COMPUTER INC. RS720A-E12-RS12/K14PP-D24 Series, BIOS 1201 08/25/2023
-> [11402.956569] RIP: 0010:__d_lookup_rcu+0x4d/0xe0
-> [11402.958452] Code: 48 8d 04 c2 f6 07 02 0f 85 a0 00 00 00 48 8b 10 48 89 d0 48 83 e0 fe 48 83 fa 01 77 0d e9 80 00 00 00 48 8b 00 48 85 c0 74 78 <44> 8b 58 fc 48 39 78 10 75 ee 48 83 78 08
+tegra_nand_chips_init() takes an extra reference on the child NAND node
+with of_get_next_child() and passes it to nand_set_flash_node(), which
+only stores the pointer in mtd->dev.of_node. None of the return paths,
+including the successful one, drop that reference, so the device node is
+leaked. The get/put pair performed by the MTD core in add_mtd_device()
+and mtd_release() is balanced and cannot compensate for it.
 
-What is that kernel?
+Release the reference with of_node_put() right after the node has been
+stored, and route the earlier error paths through an err_put_node label
+so that they release it as well.
 
-6.18.55lb9.01
+Fixes: d7d9f8ec77fe ("mtd: rawnand: add NVIDIA Tegra NAND Flash controller driver")
+Assisted-by: DeepSeek-V4.1-Flash
+Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
+---
+ drivers/mtd/nand/raw/tegra_nand.c | 19 ++++++++++++++-----
+ 1 file changed, 14 insertions(+), 5 deletions(-)
 
-The other machine has a 6.18.20lb9.03-something one.
-
-How can I look at the vmlinux you're running and the sources?
-
-rIP points to:
-
-[11402.958452] Code: 48 8d 04 c2 f6 07 02 0f 85 a0 00 00 00 48 8b 10 48 89 d0 48 83 e0 fe 48 83 fa 01 77 0d e9 80 00 00 00 48 8b 00 48 85 c0 74 78 <44> 8b 58 fc 48 39 78 10 75 ee 48 83 78 08
-All code
-========
-   0:   48 8d 04 c2             lea    (%rdx,%rax,8),%rax
-   4:   f6 07 02                testb  $0x2,(%rdi)
-   7:   0f 85 a0 00 00 00       jne    0xad
-   d:   48 8b 10                mov    (%rax),%rdx
-  10:   48 89 d0                mov    %rdx,%rax
-  13:   48 83 e0 fe             and    $0xfffffffffffffffe,%rax
-  17:   48 83 fa 01             cmp    $0x1,%rdx
-  1b:   77 0d                   ja     0x2a
-  1d:   e9 80 00 00 00          jmp    0xa2
-  22:   48 8b 00                mov    (%rax),%rax
-  25:   48 85 c0                test   %rax,%rax
-  28:   74 78                   je     0xa2
-  2a:*  44 8b 58 fc             mov    -0x4(%rax),%r11d         <-- trapping instruction
-  2e:   48 39 78 10             cmp    %rdi,0x10(%rax)
-  32:   75 ee                   jne    0x22
-  34:   48                      rex.W
-  35:   83                      .byte 0x83
-  36:   78 08                   js     0x40
-
-I need to be able to pinpoint it back to the source.
-
-I asked the last time:
-
-"Just to rule out any other issues which got fixed in the meantime, can you try
-mainline Linux and see if you can reproduce your observation with it?
-
-If so, you could share your crash core along with debug kernels yadda yadda so
-that I can poke at it.
-
-And before you do, make sure you have the latest BIOS and microcode installed on
-that machine.
-
-Also, where can I find full dmesg and /proc/cpuinfo from those machines which
-trigger this?"
-
-But still nothing.
-
-Imagine this issue has been fixed upstream but you don't have the fix in your
-kernels and we're basically chasing the same thing again...
-
-Sorry, but I have lost my debugging crystal ball which can help me guess what
-the machine does. :\
-
-> so we now know this didn't fixed it. however I didn't have tlbi=ipi set, so I'll
-> now try this.
-
-That won't help either but if you wanna try it.
-
-> any ideas on this new info?
-
-Yes, see above.
-
-Bottomline is: without sufficient debugging data and up-to-date hardware,
-there's not a lot I can do.
-
-Thx.
-
+diff --git a/drivers/mtd/nand/raw/tegra_nand.c b/drivers/mtd/nand/raw/tegra_nand.c
+index 7f9eb5f042a7..752ec3768b73 100644
+--- a/drivers/mtd/nand/raw/tegra_nand.c
++++ b/drivers/mtd/nand/raw/tegra_nand.c
+@@ -1086,19 +1086,22 @@ static int tegra_nand_chips_init(struct device *dev,
+ 	nsels = of_property_count_elems_of_size(np_nand, "reg", sizeof(u32));
+ 	if (nsels != 1) {
+ 		dev_err(dev, "Missing/invalid reg property\n");
+-		return -EINVAL;
++		ret = -EINVAL;
++		goto err_put_node;
+ 	}
+ 
+ 	/* Retrieve CS id, currently only single die NAND supported */
+ 	ret = of_property_read_u32(np_nand, "reg", &cs);
+ 	if (ret) {
+ 		dev_err(dev, "could not retrieve reg property: %d\n", ret);
+-		return ret;
++		goto err_put_node;
+ 	}
+ 
+ 	nand = devm_kzalloc(dev, sizeof(*nand), GFP_KERNEL);
+-	if (!nand)
+-		return -ENOMEM;
++	if (!nand) {
++		ret = -ENOMEM;
++		goto err_put_node;
++	}
+ 
+ 	nand->cs[0] = cs;
+ 
+@@ -1107,7 +1110,7 @@ static int tegra_nand_chips_init(struct device *dev,
+ 	if (IS_ERR(nand->wp_gpio)) {
+ 		ret = PTR_ERR(nand->wp_gpio);
+ 		dev_err(dev, "Failed to request WP GPIO: %d\n", ret);
+-		return ret;
++		goto err_put_node;
+ 	}
+ 
+ 	chip = &nand->chip;
+@@ -1119,6 +1122,7 @@ static int tegra_nand_chips_init(struct device *dev,
+ 	mtd->owner = THIS_MODULE;
+ 
+ 	nand_set_flash_node(chip, np_nand);
++	of_node_put(np_nand);
+ 
+ 	if (!mtd->name)
+ 		mtd->name = "tegra_nand";
+@@ -1141,6 +1145,11 @@ static int tegra_nand_chips_init(struct device *dev,
+ 	ctrl->chip = chip;
+ 
+ 	return 0;
++
++err_put_node:
++	of_node_put(np_nand);
++
++	return ret;
+ }
+ 
+ static int tegra_nand_probe(struct platform_device *pdev)
 -- 
-Regards/Gruss,
-    Boris.
+2.25.1
 
-https://people.kernel.org/tglx/notes-about-netiquette
