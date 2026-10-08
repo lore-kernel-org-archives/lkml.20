@@ -1,64 +1,64 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68D8F494A18
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 09:59:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D771A49482D
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 09:59:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791453568; cv=none; b=CQKaMiVi9aZPWqFkft0LfPR+YSwVmgvXdSA7mpaXsLbd6d+c3eVRibJR6V7ErJwocl9bpdvMPMi99W5sBC84N1uKAPFF6hKDHwoe5MXqqNhjaN0jl43E0W5geB3O7sXpkNpoQClRq61RUS/q7pb+D+x1tUK5r3ULWsHb/qN55FA=
+	t=1791453574; cv=none; b=GNv/3QiDroBPrkqmrEyY4xeU0vC+J8awwd3bYWoQie+foMBwQbGs0iapQQibgTCA7muage16bi3VFjI1T+mwow0xbqgmetpo2d/oR37Wk9yL3go43EJD9ZS/T+lAlyjstVtImWnGaoMBh78/D/bLEkUBkGFNxDUrlnWwGvI8ZBs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791453568; c=relaxed/simple;
-	bh=rgSr/Guj4GUF8wvvCOHx1p4og8x4bjpNWQ//b+9Zzu8=;
+	s=arc-20240116; t=1791453574; c=relaxed/simple;
+	bh=TTmm/JiwM7rex0JkiB1ropg5AYtieGpfIx6c4EeIo+8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MJvkC/WO/e6bMSfjS+GfYf978n7baeg2j1+MDQ+uQCJF8i2z1gbCwixZyB8v+skmO0ABYVT7HepELbcAt0q9IJ2Stn9quURpiaEvCjE96VIj/0ZU6caUV2PUdNKmFDYNDbZpca2LztxZmtqaSRQoqiFd3n5uGL5nCk8RvfPiMlc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rZMv2/+S; arc=none smtp.client-ip=209.85.216.53
+	 MIME-Version; b=M1oLV5XPg9UyiT3Oly22ICeVG8qfC2geZl3HFVBE/pZp7A08Fqx5ehV0gyFXT7QSm+tK3NcSdRrGnY2Jfw/5NKTnxcKf48N5U9Gz6aIn7MbDQLjBfP5rlKeHPRuaQXlLMfdl9HjpjigZBk92FAI0GCMEVWuOgK5IBgeHjpMDteo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pEkKd59r; arc=none smtp.client-ip=209.85.216.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rZMv2/+S"
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-39647aa9d52so397092a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 02:59:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pEkKd59r"
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3a4cdc9025bso2051465a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 02:59:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791453558; x=1792058358; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791453567; x=1792058367; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=QpRpBEaZCuebRAlGLna05hDbPxBUbWw7JtxZRFzQOJA=;
-        b=rZMv2/+SeW/AfTeTpDKwwZ/Lcut7qA9sbLmUjTbehgJHyJqB6n0rjnAoBEJgez0pej
-         ThoMbgFZ9vIdo07zp+Sub/gIW3KGJwPisC1ESbLGMdBjT7YxJ/9NuWRSffhs2bAb6FxT
-         yYmxN/xCIfDNOTpTWHO8tWRA8tztAxdC4u4YwfXonnI2M9KXD2/YXvqPIWgDmRsH40DV
-         jWTj7/4tzcmVTIvP3jo0YuoR/h69Hag9ybV8dAkwbzpXv4I4/PasqD3LE2l057qUnOWv
-         /UyWfKLaRIRKY7+x4qhhg/UOUAeFQKLDRriHZUJfxOiUz/ehhrVgQBTNI8JDzxUC+n75
-         q1Aw==
+        bh=OlPgHKy4wplHuzogabgKJQHpma7ybFczSL9aCnuSDNg=;
+        b=pEkKd59rM8GwTAnqZaJ5nGoe2UHVfQlqK7144ULFlZwBbF4mSw3EzDPBikhz1hMhcr
+         YSO6d3okudZ9UZQrX6e2/tokUvqniaI1dGTNAT5ldwIU+8nm099l5hwC2Wpo89XwdEVm
+         Rtqu5+J2Dohtj3q4iLB5JrIFLdS0v/NKYMzlSUhM9jU+QVjezm+o/q3Jwmu1vgqXD9aD
+         0selyD+aXtICmj9awErkNqLX4Xr2dvmPC46COyH5HRj8Yz6RGyISRiHMtXjntnxXqjnN
+         HEA+EtO0XfKFmDkUqCa/yT3nt+RtA/8TPFvXdxKSGEPa0oc5Iy/HVkJB49vCRncYrugh
+         Og9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791453558; x=1792058358;
+        d=1e100.net; s=20260707; t=1791453567; x=1792058367;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QpRpBEaZCuebRAlGLna05hDbPxBUbWw7JtxZRFzQOJA=;
-        b=D/bCkNHLWC8Zf816LUzUN25NaDmDRz5PjnTAP7paGax3xZRjd2IDFGLLmYiIuhr31E
-         ZL6dD5nF0uyDGzR5ylf6lRbTaaMzMxQV/ocpM5sg0JVhIur2JRVUIVr9oTZVnzifSbNe
-         DvM4geWA6BGf0lNuBjqmTx9uQX++T6Bp2yQ/aAtMBghsMROp9xWjkQpFBK4lSfnnGYLq
-         LQAP8Tro4zd5xDXEm+QLEgoQSQi6REuor7f2idBvb6+CYJBDeKQrBW1cbvH76Oi/wAw9
-         2U92Hc/xIX6Fn1cvnHKcEnJ1OLdgn+GJ79D4n0Cy3bcPh0mRjIVs+63udNqalQJTfiCF
-         YOuw==
-X-Forwarded-Encrypted: i=1; AKwUvBy4QALh/eDuao8+ulAQKTG7+u7ARo6w8DK48MSbnsrk6jzpvX5S0Lw5H5X9Nu5GQd87IXeh//lB0kVBuPM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKSYZDj0T65kOXbXV+Z9otL4G5nZ9YHp0/YRby7CtpnZ7ysoobI
-	CLoxkIyoRNcYfgoAwChstxOTd3uORBumA9JMZSeZeIVJT4rW0pwA0Mxu
-X-Gm-Gg: AYBFou2uoeOPqG89dVbv1z4sO8Nl47kg+egiIz/BTqQAD6sm+lgjWLBdyIIJfVB0kVn
-	YODXOrPLW1U0reUE60+xnsjGIPpr5pxytpljWt3v8GGlJbpfS4iKu1e3H/LmgShP1F50FbEEZSh
-	yji06zdmLcUXAYIcFU3CJKjVEmVWy75cJfxo8QZl6FRFNMM+Lg0DKJw9rpvD9fRGjyP+/CvLf0K
-	sIABzThozowKp2e8uoeg+d8LO9lE6LKL5Uyiqk4iQBEfKURFhDwExZNxszcBAiAC3f2NF8tGzuv
-	71+b81bDKNG/99aj6DM/cV5AIaYiHTT4BgeC4geYVkylhoLymhvAJCtTdkmJMQyy86WOUgxf1S7
-	/AjN6iSzFWyva2I1zmmBl+Jr9QgSUZYseF1+B6kXMb1O5gPDGG5HW9DBP37aTNPTtZM76oR+VIj
-	wbdYpsqei4A5T4K2VL0F6VjAiNYzqvW3lVAebNeVahptPEbEGJ4K1WiCRIkim4uRaYeDqtCnZ9Q
-	pPGGSg3ptwVushyYRViv85QD2f3UVjOiujJ35Cl0Mbtn2g4he2ZuntH
-X-Received: by 2002:a17:90a:e70e:b0:3a0:eaf4:a435 with SMTP id 98e67ed59e1d1-3aaedf942a5mr1152500a91.46.1791453557648;
-        Thu, 08 Oct 2026 02:59:17 -0700 (PDT)
+        bh=OlPgHKy4wplHuzogabgKJQHpma7ybFczSL9aCnuSDNg=;
+        b=VDwEqtskXMrpyyIP2h63IhYDKq2SH8yE26skTlmHKVVyndcQmiUxCreYUFiQbgTFkM
+         Rmy13th7sCX6EN3Cj5SWGa5eY9gCJgObkH8gaqCyzoOf4IX0g7knZzfrAPfnc7QNWQHx
+         POhtokgX/2UHAUXNABFXIaeI0ehU+FQVrW+Kw8BVX2gCMJszooxszbRwPg2cJYeFRbVG
+         CRQ2Sji0Vep6fE+iqQOoYCiM4/4vgj3uLHet1313pka93FjS2z+s9ByDpnw98cUj09g9
+         QojtKRRToPpY3LCf6RRIKVCjOeVh3hu9Ng4ghInhkyOOvbz1V7oBq8qGSIB+9WUwg8hc
+         hl8w==
+X-Forwarded-Encrypted: i=1; AKwUvBywunb0upyWAWoX2WeWeNRTFPKK+kChUuKy2sWAoTYjBFk/9/gyMIumHBl10Kxl2Md21Ib7JlB05bfGlg4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKlMb2UVWbyUsaNL8QWPqAQsbO6UZyAKDRLsPAFQHoaxIyQU9K5
+	tD9/S+zGXuFnNIgCzKfDd09EiVnf+ZYK5agO/H4AKNFXBghRABQA4mq5
+X-Gm-Gg: AYBFou1SwK2IMoBSm0ECZDuFk42ZExOyh2JvdGyRpCa4R6xhhJll6a3iWw1iuzaX6Yv
+	1DXlFYXMmzseffkncafoO4TZNrVrCs6/LrWazlEvvNI9h5+Hv+TPxKXLIiizFbSNWRfG3VgCIZD
+	73sPkcqgE2dk/6FZzrI4fdu1NBi8zShWVoeIHCHOcVTLv3nmqJ7gKbp/EoQMYIHBgX5uHXgjGqZ
+	/hPQlqKU4Re4MndL5sogEX4vkdM3F7tkQFhVyWX/qNW+qfIcsI3Z7xQ28aiHBoJHJ57ggruq3eO
+	bYPLa1PepyMqISFG3dvOBjr6bTh1YDiw0JO7oFKilBnN4quf5OB6PFo0GH+V7r0GtD7GXfEht4s
+	AE6nUIsYnoRAU329XuFWR7jNJAZp8afDRLul3gGCq0iEF5zWX/mk0+fsfl3cqCWX5f53I+0nF9d
+	m3u9Q/9U59PjwwVDyq+wA0BQDUrQKF7ym7ZCV1GJbGz0GRnC5GBrudRnlHW5gqRq2CKqaaYwTae
+	yFX9W+Iq6kSkwz6XuKWMRmMVVD+7Cbk/aw0tZp0M0e+/PWFB4o7cKsERRWh4kfpWa0=
+X-Received: by 2002:a17:90b:5102:b0:3ab:f38:2b3c with SMTP id 98e67ed59e1d1-3ab0f385291mr458671a91.28.1791453566932;
+        Thu, 08 Oct 2026 02:59:26 -0700 (PDT)
 Received: from yafangs-Air ([240e:46c:2100:3ace:b801:9432:769f:ff9d])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9ff7ff13esm3422790a91.7.2026.10.08.02.59.13
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9ff7ff13esm3422790a91.7.2026.10.08.02.59.21
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 08 Oct 2026 02:59:17 -0700 (PDT)
+        Thu, 08 Oct 2026 02:59:26 -0700 (PDT)
 From: Yafang Shao <laoar.shao@gmail.com>
 To: jpoimboe@kernel.org,
 	jikos@kernel.org,
@@ -69,9 +69,9 @@ To: jpoimboe@kernel.org,
 Cc: live-patching@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Yafang Shao <laoar.shao@gmail.com>
-Subject: [PATCH v11 7/9] selftests/livepatch: Add provides/obsoletes test scenarios
-Date: Thu,  8 Oct 2026 17:58:28 +0800
-Message-ID: <20261008095830.26308-8-laoar.shao@gmail.com>
+Subject: [PATCH v11 9/9] selftests/livepatch: Add function test for provides/obsoletes
+Date: Thu,  8 Oct 2026 17:58:30 +0800
+Message-ID: <20261008095830.26308-10-laoar.shao@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20261008095830.26308-1-laoar.shao@gmail.com>
 References: <20261008095830.26308-1-laoar.shao@gmail.com>
@@ -83,221 +83,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Now that the legacy "replace" field has been replaced by the
-provides/obsoletes mechanism, add test scenarios to verify the new
-behavior.
+Livepatches with different provides ids must not modify the same
+function, unless they share the same provides id or the second
+livepatch obsoletes the first one.
 
-The test modules gain provides/obsoletes module parameters, and
-test-provides-obsoletes.sh covers the new replace semantics: provides=0
-replacement, same-provides replacement, obsoletes-based replacement
-and coexistence of different provides ids.
+Add test scenarios that verify this rule on the combination of
+patched functions and provides ids.
 
 These tests are skipped on kernels that still support the legacy
 "replace" attribute.
 
-Assisted-by: LLM
+Suggested-by: Petr Mladek <pmladek@suse.com>
 Signed-off-by: Yafang Shao <laoar.shao@gmail.com>
-Acked-by: Miroslav Benes <mbenes@suse.cz>
 ---
- tools/testing/selftests/livepatch/Makefile    |   3 +-
- .../livepatch/test-provides-obsoletes.sh      | 229 ++++++++++++++++++
- .../test_modules/test_klp_callbacks_demo2.c   |  12 +-
- .../test_modules/test_klp_cmdline_lp.c        |  11 +-
- .../test_modules/test_klp_meminfo_lp.c        |  22 +-
- .../livepatch/test_modules/test_klp_state.c   |   5 +-
- .../livepatch/test_modules/test_klp_state2.c  |   5 +-
- 7 files changed, 261 insertions(+), 26 deletions(-)
- create mode 100755 tools/testing/selftests/livepatch/test-provides-obsoletes.sh
+ .../livepatch/test-provides-obsoletes.sh      | 188 ++++++++++++++++++
+ .../selftests/livepatch/test_modules/Makefile |   1 +
+ .../test_modules/test_klp_meminfo_lp2.c       |   2 +
+ 3 files changed, 191 insertions(+)
+ create mode 100644 tools/testing/selftests/livepatch/test_modules/test_klp_meminfo_lp2.c
 
-diff --git a/tools/testing/selftests/livepatch/Makefile b/tools/testing/selftests/livepatch/Makefile
-index a080eb54a215..38f98594d883 100644
---- a/tools/testing/selftests/livepatch/Makefile
-+++ b/tools/testing/selftests/livepatch/Makefile
-@@ -11,7 +11,8 @@ TEST_PROGS := \
- 	test-ftrace.sh \
- 	test-sysfs.sh \
- 	test-syscall.sh \
--	test-kprobe.sh
-+	test-kprobe.sh \
-+	test-provides-obsoletes.sh
- 
- TEST_FILES := settings
- 
 diff --git a/tools/testing/selftests/livepatch/test-provides-obsoletes.sh b/tools/testing/selftests/livepatch/test-provides-obsoletes.sh
-new file mode 100755
-index 000000000000..78a644f6ec56
---- /dev/null
+index b92188fcf45f..fce421a45fdb 100755
+--- a/tools/testing/selftests/livepatch/test-provides-obsoletes.sh
 +++ b/tools/testing/selftests/livepatch/test-provides-obsoletes.sh
-@@ -0,0 +1,229 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-2.0
-+# Copyright (C) 2026 Yafang Shao <laoar.shao@gmail.com>
+@@ -5,6 +5,7 @@
+ . $(dirname $0)/functions.sh
+ 
+ MOD_MEMINFO=test_klp_meminfo_lp
++MOD_MEMINFO2=test_klp_meminfo_lp2
+ MOD_CMDLINE=test_klp_cmdline_lp
+ MOD_STATE=test_klp_state
+ MOD_STATE2=test_klp_state2
+@@ -465,4 +466,191 @@ $MOD_STATE: free_loglevel_state: freeing space for the stored console_loglevel
+ livepatch: '$MOD_STATE': unpatching complete
+ % rmmod $MOD_STATE"
+ 
 +
-+. $(dirname $0)/functions.sh
++# - load two livepatches that modify the same function
++#   (meminfo_proc_show), both with provides=1. The second livepatch
++#   replaces the first one because of the same provides id, even
++#   though they share the patched function.
++# - verify that the first livepatch is gone from sysfs (replaced)
++#   and that the second one is enabled
++# - unload the replacing livepatch, then the replaced one
 +
-+MOD_MEMINFO=test_klp_meminfo_lp
-+MOD_CMDLINE=test_klp_cmdline_lp
++start_test "same function, replaced by provides"
 +
-+setup_config
-+detect_provides_attr
-+
-+# The provides/obsoletes based tests only run on kernels that no longer
-+# support the legacy "replace" attribute.
-+if [[ "$HAS_PROVIDES_ATTR" != "1" ]]; then
-+	skip_exit "kernel still supports the legacy replace attribute"
-+fi
-+
-+
-+# - load a livepatch with provides=0 (cmdline), then another with
-+#   provides=0 (meminfo). The second replaces the first (same provides).
-+# - unload the remaining livepatch
-+
-+start_test "provides 0 replaces provides 0"
-+
-+load_lp $MOD_CMDLINE provides=0
-+load_lp $MOD_MEMINFO provides=0
-+
-+check_sysfs_value "$MOD_MEMINFO" "enabled" "1"
-+
-+disable_lp $MOD_MEMINFO
-+unload_lp $MOD_MEMINFO
-+unload_lp $MOD_CMDLINE
-+
-+check_result "% insmod test_modules/$MOD_CMDLINE.ko provides=0
-+livepatch: enabling patch '$MOD_CMDLINE'
-+livepatch: '$MOD_CMDLINE': initializing patching transition
-+livepatch: '$MOD_CMDLINE': starting patching transition
-+livepatch: '$MOD_CMDLINE': completing patching transition
-+livepatch: '$MOD_CMDLINE': patching complete
-+% insmod test_modules/$MOD_MEMINFO.ko provides=0
-+livepatch: enabling patch '$MOD_MEMINFO'
-+livepatch: '$MOD_MEMINFO': initializing patching transition
-+livepatch: '$MOD_MEMINFO': starting patching transition
-+livepatch: '$MOD_MEMINFO': completing patching transition
-+livepatch: '$MOD_MEMINFO': patching complete
-+% echo 0 > $SYSFS_KLP_DIR/$MOD_MEMINFO/enabled
-+livepatch: '$MOD_MEMINFO': initializing unpatching transition
-+livepatch: '$MOD_MEMINFO': starting unpatching transition
-+livepatch: '$MOD_MEMINFO': completing unpatching transition
-+livepatch: '$MOD_MEMINFO': unpatching complete
-+% rmmod $MOD_MEMINFO
-+% rmmod $MOD_CMDLINE"
-+
-+
-+# - load a livepatch with provides=1 (cmdline), then another with
-+#   provides=1 (meminfo). The second replaces the first (same provides).
-+# - unload the remaining livepatch
-+
-+start_test "same provides replaces"
-+
-+load_lp $MOD_CMDLINE provides=1
 +load_lp $MOD_MEMINFO provides=1
 +
-+check_sysfs_value "$MOD_MEMINFO" "enabled" "1"
-+
-+disable_lp $MOD_MEMINFO
-+unload_lp $MOD_MEMINFO
-+unload_lp $MOD_CMDLINE
-+
-+check_result "% insmod test_modules/$MOD_CMDLINE.ko provides=1
-+livepatch: enabling patch '$MOD_CMDLINE'
-+livepatch: '$MOD_CMDLINE': initializing patching transition
-+livepatch: '$MOD_CMDLINE': starting patching transition
-+livepatch: '$MOD_CMDLINE': completing patching transition
-+livepatch: '$MOD_CMDLINE': patching complete
-+% insmod test_modules/$MOD_MEMINFO.ko provides=1
-+livepatch: enabling patch '$MOD_MEMINFO'
-+livepatch: '$MOD_MEMINFO': initializing patching transition
-+livepatch: '$MOD_MEMINFO': starting patching transition
-+livepatch: '$MOD_MEMINFO': completing patching transition
-+livepatch: '$MOD_MEMINFO': patching complete
-+% echo 0 > $SYSFS_KLP_DIR/$MOD_MEMINFO/enabled
-+livepatch: '$MOD_MEMINFO': initializing unpatching transition
-+livepatch: '$MOD_MEMINFO': starting unpatching transition
-+livepatch: '$MOD_MEMINFO': completing unpatching transition
-+livepatch: '$MOD_MEMINFO': unpatching complete
-+% rmmod $MOD_MEMINFO
-+% rmmod $MOD_CMDLINE"
-+
-+
-+# - load a livepatch with provides=1 (cmdline), then another with
-+#   provides=2 and obsoletes=[1] (meminfo). The second replaces the
-+#   first (obsoletes contains the first patch's provides id).
-+# - verify the provides/obsoletes sysfs values
-+# - unload the remaining livepatch
-+
-+start_test "obsoletes replaces"
-+
-+load_lp $MOD_CMDLINE provides=1
-+load_lp $MOD_MEMINFO provides=2 obsoletes=1
-+
-+check_sysfs_value "$MOD_MEMINFO" "provides" "2"
-+check_sysfs_value "$MOD_MEMINFO" "obsoletes" "1"
-+
-+disable_lp $MOD_MEMINFO
-+unload_lp $MOD_MEMINFO
-+unload_lp $MOD_CMDLINE
-+
-+check_result "% insmod test_modules/$MOD_CMDLINE.ko provides=1
-+livepatch: enabling patch '$MOD_CMDLINE'
-+livepatch: '$MOD_CMDLINE': initializing patching transition
-+livepatch: '$MOD_CMDLINE': starting patching transition
-+livepatch: '$MOD_CMDLINE': completing patching transition
-+livepatch: '$MOD_CMDLINE': patching complete
-+% insmod test_modules/$MOD_MEMINFO.ko provides=2 obsoletes=1
-+livepatch: enabling patch '$MOD_MEMINFO'
-+livepatch: '$MOD_MEMINFO': initializing patching transition
-+livepatch: '$MOD_MEMINFO': starting patching transition
-+livepatch: '$MOD_MEMINFO': completing patching transition
-+livepatch: '$MOD_MEMINFO': patching complete
-+% echo 0 > $SYSFS_KLP_DIR/$MOD_MEMINFO/enabled
-+livepatch: '$MOD_MEMINFO': initializing unpatching transition
-+livepatch: '$MOD_MEMINFO': starting unpatching transition
-+livepatch: '$MOD_MEMINFO': completing unpatching transition
-+livepatch: '$MOD_MEMINFO': unpatching complete
-+% rmmod $MOD_MEMINFO
-+% rmmod $MOD_CMDLINE"
-+
-+
-+# - load two livepatches with different provides ids that modify
-+#   different functions and verify that they coexist
-+# - in particular, verify that provides=0 does NOT replace a patch
-+#   with a different provides id
-+# - unload both livepatches
-+
-+start_test "provides 0 coexists with provides 1"
-+
-+load_lp $MOD_CMDLINE provides=0
-+load_lp $MOD_MEMINFO provides=1
-+
-+grep 'live patched' /proc/cmdline > /dev/kmsg
 +grep 'live patched' /proc/meminfo > /dev/kmsg
 +
-+disable_lp $MOD_CMDLINE
-+unload_lp $MOD_CMDLINE
-+disable_lp $MOD_MEMINFO
++load_lp $MOD_MEMINFO2 provides=1
++
++loop_until '[[ ! -e "$SYSFS_KLP_DIR/$MOD_MEMINFO" ]]' ||
++	die "failed to replace $MOD_MEMINFO"
++
++grep 'live patched' /proc/meminfo > /dev/kmsg
++
++check_sysfs_value "$MOD_MEMINFO2" "provides" "1"
++
++disable_lp $MOD_MEMINFO2
++unload_lp $MOD_MEMINFO2
++
++grep 'live patched' /proc/meminfo > /dev/kmsg
++
 +unload_lp $MOD_MEMINFO
 +
-+check_result "% insmod test_modules/$MOD_CMDLINE.ko provides=0
-+livepatch: enabling patch '$MOD_CMDLINE'
-+livepatch: '$MOD_CMDLINE': initializing patching transition
-+livepatch: '$MOD_CMDLINE': starting patching transition
-+livepatch: '$MOD_CMDLINE': completing patching transition
-+livepatch: '$MOD_CMDLINE': patching complete
-+% insmod test_modules/$MOD_MEMINFO.ko provides=1
++check_result "% insmod test_modules/$MOD_MEMINFO.ko provides=1
 +livepatch: enabling patch '$MOD_MEMINFO'
 +livepatch: '$MOD_MEMINFO': initializing patching transition
 +livepatch: '$MOD_MEMINFO': starting patching transition
 +livepatch: '$MOD_MEMINFO': completing patching transition
 +livepatch: '$MOD_MEMINFO': patching complete
-+$MOD_CMDLINE: this has been live patched
 +$MOD_MEMINFO: this has been live patched
-+% echo 0 > $SYSFS_KLP_DIR/$MOD_CMDLINE/enabled
-+livepatch: '$MOD_CMDLINE': initializing unpatching transition
-+livepatch: '$MOD_CMDLINE': starting unpatching transition
-+livepatch: '$MOD_CMDLINE': completing unpatching transition
-+livepatch: '$MOD_CMDLINE': unpatching complete
-+% rmmod $MOD_CMDLINE
++% insmod test_modules/$MOD_MEMINFO2.ko provides=1
++livepatch: enabling patch '$MOD_MEMINFO2'
++livepatch: '$MOD_MEMINFO2': initializing patching transition
++livepatch: '$MOD_MEMINFO2': starting patching transition
++livepatch: '$MOD_MEMINFO2': completing patching transition
++livepatch: '$MOD_MEMINFO2': patching complete
++$MOD_MEMINFO2: this has been live patched
++% echo 0 > $SYSFS_KLP_DIR/$MOD_MEMINFO2/enabled
++livepatch: '$MOD_MEMINFO2': initializing unpatching transition
++livepatch: '$MOD_MEMINFO2': starting unpatching transition
++livepatch: '$MOD_MEMINFO2': completing unpatching transition
++livepatch: '$MOD_MEMINFO2': unpatching complete
++% rmmod $MOD_MEMINFO2
++% rmmod $MOD_MEMINFO"
++
++
++# - load a livepatch that modifies meminfo_proc_show with provides=1,
++#   then try to load another livepatch that modifies the same
++#   function with a different provides id (provides=2).
++# - since the provides ids differ, the second livepatch would not
++#   replace the first one; the same function can not be handled by
++#   two different provides groups in parallel, so the load must fail.
++# - unload the first livepatch
++
++start_test "same function, can't be loaded in parallel"
++
++load_lp $MOD_MEMINFO provides=1
++load_failing_mod $MOD_MEMINFO2 provides=2
++
++disable_lp $MOD_MEMINFO
++unload_lp $MOD_MEMINFO
++
++check_result "% insmod test_modules/$MOD_MEMINFO.ko provides=1
++livepatch: enabling patch '$MOD_MEMINFO'
++livepatch: '$MOD_MEMINFO': initializing patching transition
++livepatch: '$MOD_MEMINFO': starting patching transition
++livepatch: '$MOD_MEMINFO': completing patching transition
++livepatch: '$MOD_MEMINFO': patching complete
++% insmod test_modules/$MOD_MEMINFO2.ko provides=2
++livepatch: Livepatch patch ($MOD_MEMINFO2) is not compatible with the already installed livepatches.
++insmod: ERROR: could not insert module test_modules/$MOD_MEMINFO2.ko: Invalid parameters
 +% echo 0 > $SYSFS_KLP_DIR/$MOD_MEMINFO/enabled
 +livepatch: '$MOD_MEMINFO': initializing unpatching transition
 +livepatch: '$MOD_MEMINFO': starting unpatching transition
@@ -306,36 +205,39 @@ index 000000000000..78a644f6ec56
 +% rmmod $MOD_MEMINFO"
 +
 +
-+# - load a livepatch with provides=2 and obsoletes=[1] (meminfo),
-+#   then another with provides=1 (cmdline). The second patch does not
-+#   list provides=2 in its own obsoletes list, so it does not replace
-+#   the first one: the obsoletes relationship is not symmetric and
-+#   both livepatches coexist.
-+# - verify that both livepatches remain active
-+# - unload both livepatches
-+#
-+#   MOD_MEMINFO(provides=2, obsoletes=[1])  -- loaded first
-+#   MOD_CMDLINE(provides=1)                 -- loaded second, coexists
++# - load a livepatch that modifies meminfo_proc_show with provides=1,
++#   then another livepatch with provides=1 that modifies a different
++#   function (cmdline_proc_show). The second one replaces the first
++#   one because of the same provides id.
++# - since the patched functions differ, the replacement does not need
++#   to restore the old function body; the transition only switches
++#   the ftrace nops, i.e. the atomic replace (nops) path.
++# - after the replacement /proc/meminfo is no longer patched, while
++#   /proc/cmdline is patched
++# - unload the replacing livepatch, then the replaced one
 +
-+start_test "obsoletes is not symmetric"
++start_test "different functions, atomic replace works (nops)"
 +
-+load_lp $MOD_MEMINFO provides=2 obsoletes=1
++load_lp $MOD_MEMINFO provides=1
++
++grep 'live patched' /proc/meminfo > /dev/kmsg
++
 +load_lp $MOD_CMDLINE provides=1
 +
-+grep 'live patched' /proc/cmdline > /dev/kmsg
 +grep 'live patched' /proc/meminfo > /dev/kmsg
++grep 'live patched' /proc/cmdline > /dev/kmsg
 +
 +disable_lp $MOD_CMDLINE
 +unload_lp $MOD_CMDLINE
-+disable_lp $MOD_MEMINFO
 +unload_lp $MOD_MEMINFO
 +
-+check_result "% insmod test_modules/$MOD_MEMINFO.ko provides=2 obsoletes=1
++check_result "% insmod test_modules/$MOD_MEMINFO.ko provides=1
 +livepatch: enabling patch '$MOD_MEMINFO'
 +livepatch: '$MOD_MEMINFO': initializing patching transition
 +livepatch: '$MOD_MEMINFO': starting patching transition
 +livepatch: '$MOD_MEMINFO': completing patching transition
 +livepatch: '$MOD_MEMINFO': patching complete
++$MOD_MEMINFO: this has been live patched
 +% insmod test_modules/$MOD_CMDLINE.ko provides=1
 +livepatch: enabling patch '$MOD_CMDLINE'
 +livepatch: '$MOD_CMDLINE': initializing patching transition
@@ -343,153 +245,87 @@ index 000000000000..78a644f6ec56
 +livepatch: '$MOD_CMDLINE': completing patching transition
 +livepatch: '$MOD_CMDLINE': patching complete
 +$MOD_CMDLINE: this has been live patched
-+$MOD_MEMINFO: this has been live patched
 +% echo 0 > $SYSFS_KLP_DIR/$MOD_CMDLINE/enabled
 +livepatch: '$MOD_CMDLINE': initializing unpatching transition
 +livepatch: '$MOD_CMDLINE': starting unpatching transition
 +livepatch: '$MOD_CMDLINE': completing unpatching transition
 +livepatch: '$MOD_CMDLINE': unpatching complete
 +% rmmod $MOD_CMDLINE
++% rmmod $MOD_MEMINFO"
++
++
++# - load two livepatches with different provides ids (1 and 2) that
++#   modify different functions (meminfo_proc_show and
++#   cmdline_proc_show). Neither of them replaces the other, so both
++#   livepatches must coexist.
++# - verify that both /proc/meminfo and /proc/cmdline are patched
++# - disable and unload both livepatches
++
++start_test "different functions, install in parallel"
++
++load_lp $MOD_MEMINFO provides=1
++
++grep 'live patched' /proc/meminfo > /dev/kmsg
++
++load_lp $MOD_CMDLINE provides=2
++
++grep 'live patched' /proc/meminfo > /dev/kmsg
++grep 'live patched' /proc/cmdline > /dev/kmsg
++
++disable_lp $MOD_MEMINFO
++unload_lp $MOD_MEMINFO
++disable_lp $MOD_CMDLINE
++unload_lp $MOD_CMDLINE
++
++check_result "% insmod test_modules/$MOD_MEMINFO.ko provides=1
++livepatch: enabling patch '$MOD_MEMINFO'
++livepatch: '$MOD_MEMINFO': initializing patching transition
++livepatch: '$MOD_MEMINFO': starting patching transition
++livepatch: '$MOD_MEMINFO': completing patching transition
++livepatch: '$MOD_MEMINFO': patching complete
++$MOD_MEMINFO: this has been live patched
++% insmod test_modules/$MOD_CMDLINE.ko provides=2
++livepatch: enabling patch '$MOD_CMDLINE'
++livepatch: '$MOD_CMDLINE': initializing patching transition
++livepatch: '$MOD_CMDLINE': starting patching transition
++livepatch: '$MOD_CMDLINE': completing patching transition
++livepatch: '$MOD_CMDLINE': patching complete
++$MOD_MEMINFO: this has been live patched
++$MOD_CMDLINE: this has been live patched
 +% echo 0 > $SYSFS_KLP_DIR/$MOD_MEMINFO/enabled
 +livepatch: '$MOD_MEMINFO': initializing unpatching transition
 +livepatch: '$MOD_MEMINFO': starting unpatching transition
 +livepatch: '$MOD_MEMINFO': completing unpatching transition
 +livepatch: '$MOD_MEMINFO': unpatching complete
-+% rmmod $MOD_MEMINFO"
++% rmmod $MOD_MEMINFO
++% echo 0 > $SYSFS_KLP_DIR/$MOD_CMDLINE/enabled
++livepatch: '$MOD_CMDLINE': initializing unpatching transition
++livepatch: '$MOD_CMDLINE': starting unpatching transition
++livepatch: '$MOD_CMDLINE': completing unpatching transition
++livepatch: '$MOD_CMDLINE': unpatching complete
++% rmmod $MOD_CMDLINE"
 +
-+exit 0
-diff --git a/tools/testing/selftests/livepatch/test_modules/test_klp_callbacks_demo2.c b/tools/testing/selftests/livepatch/test_modules/test_klp_callbacks_demo2.c
-index 6c46ce575f5c..93789470fe18 100644
---- a/tools/testing/selftests/livepatch/test_modules/test_klp_callbacks_demo2.c
-+++ b/tools/testing/selftests/livepatch/test_modules/test_klp_callbacks_demo2.c
-@@ -8,10 +8,9 @@
- #include <linux/livepatch.h>
+ exit 0
+diff --git a/tools/testing/selftests/livepatch/test_modules/Makefile b/tools/testing/selftests/livepatch/test_modules/Makefile
+index 732e0003930b..0c17754997d2 100644
+--- a/tools/testing/selftests/livepatch/test_modules/Makefile
++++ b/tools/testing/selftests/livepatch/test_modules/Makefile
+@@ -2,6 +2,7 @@ TESTMODS_DIR := $(realpath $(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
+ KDIR ?= /lib/modules/$(shell uname -r)/build
  
- #ifdef CONFIG_KLP_HAS_PROVIDES
--/*
-- * TODO: Add provides/obsoletes module parameters for the
-- * provides/obsoletes based tests (to be added later).
-- */
-+static unsigned int provides;
-+module_param(provides, uint, 0444);
-+MODULE_PARM_DESC(provides, "provides id (default=0)");
- #else
- static int replace;
- module_param(replace, int, 0644);
-@@ -87,10 +86,7 @@ static struct klp_patch patch = {
- static int test_klp_callbacks_demo2_init(void)
- {
- #ifdef CONFIG_KLP_HAS_PROVIDES
--	/*
--	 * TODO: Set provides/obsoletes from the module parameters
--	 * for the provides/obsoletes based tests (to be added later).
--	 */
-+	patch.provides = provides;
- #else
- 	patch.replace = replace;
- #endif
-diff --git a/tools/testing/selftests/livepatch/test_modules/test_klp_cmdline_lp.c b/tools/testing/selftests/livepatch/test_modules/test_klp_cmdline_lp.c
-index 88c6aed925fb..8a93f005a383 100644
---- a/tools/testing/selftests/livepatch/test_modules/test_klp_cmdline_lp.c
-+++ b/tools/testing/selftests/livepatch/test_modules/test_klp_cmdline_lp.c
-@@ -6,8 +6,14 @@
- #include <linux/module.h>
- #include <linux/kernel.h>
- #include <linux/livepatch.h>
--
- #include <linux/seq_file.h>
-+
-+#ifdef CONFIG_KLP_HAS_PROVIDES
-+static unsigned int provides;
-+module_param(provides, uint, 0444);
-+MODULE_PARM_DESC(provides, "provides id (default=0)");
-+#endif
-+
- static int livepatch_cmdline_proc_show(struct seq_file *m, void *v)
- {
- 	seq_printf(m, "%s: %s\n", THIS_MODULE->name,
-@@ -36,6 +42,9 @@ static struct klp_patch patch = {
- 
- static int test_klp_cmdline_lp_init(void)
- {
-+#ifdef CONFIG_KLP_HAS_PROVIDES
-+	patch.provides = provides;
-+#endif
- 	return klp_enable_patch(&patch);
- }
- 
-diff --git a/tools/testing/selftests/livepatch/test_modules/test_klp_meminfo_lp.c b/tools/testing/selftests/livepatch/test_modules/test_klp_meminfo_lp.c
-index 0c434a27672d..a3b433385148 100644
---- a/tools/testing/selftests/livepatch/test_modules/test_klp_meminfo_lp.c
-+++ b/tools/testing/selftests/livepatch/test_modules/test_klp_meminfo_lp.c
-@@ -8,10 +8,15 @@
- #include <linux/livepatch.h>
- 
- #ifdef CONFIG_KLP_HAS_PROVIDES
--/*
-- * TODO: Add provides/obsoletes module parameters for the
-- * provides/obsoletes based tests (to be added later).
-- */
-+static unsigned int provides;
-+module_param(provides, uint, 0444);
-+MODULE_PARM_DESC(provides, "provides id (default=0)");
-+
-+#define KLP_MAX_OBSOLETES 16
-+static unsigned int obsoletes[KLP_MAX_OBSOLETES];
-+static int nr_obsoletes;
-+module_param_array(obsoletes, uint, &nr_obsoletes, 0444);
-+MODULE_PARM_DESC(obsoletes, "obsoletes provides ids");
- #else
- static int replace;
- module_param(replace, int, 0644);
-@@ -51,10 +56,11 @@ static struct klp_patch patch = {
- static int test_klp_meminfo_lp_init(void)
- {
- #ifdef CONFIG_KLP_HAS_PROVIDES
--	/*
--	 * TODO: Set provides/obsoletes from the module parameters
--	 * for the provides/obsoletes based tests (to be added later).
--	 */
-+	patch.provides = provides;
-+	if (nr_obsoletes > 0) {
-+		patch.obsoletes = obsoletes;
-+		patch.nr_obsoletes = nr_obsoletes;
-+	}
- #else
- 	patch.replace = replace;
- #endif
-diff --git a/tools/testing/selftests/livepatch/test_modules/test_klp_state.c b/tools/testing/selftests/livepatch/test_modules/test_klp_state.c
-index 4d419a58cf65..f53eead9d55b 100644
---- a/tools/testing/selftests/livepatch/test_modules/test_klp_state.c
-+++ b/tools/testing/selftests/livepatch/test_modules/test_klp_state.c
-@@ -143,10 +143,7 @@ static struct klp_patch patch = {
- 	.objs = objs,
- 	.states = states,
- #ifdef CONFIG_KLP_HAS_PROVIDES
--	/*
--	 * TODO: Add provides/obsoletes module parameters for the
--	 * provides/obsoletes based tests (to be added later).
--	 */
-+	/* provides=0 by default, replaces all provides=0 patches */
- #else
- 	.replace = true,
- #endif
-diff --git a/tools/testing/selftests/livepatch/test_modules/test_klp_state2.c b/tools/testing/selftests/livepatch/test_modules/test_klp_state2.c
-index 4f70f0619967..5f07fe1be2b9 100644
---- a/tools/testing/selftests/livepatch/test_modules/test_klp_state2.c
-+++ b/tools/testing/selftests/livepatch/test_modules/test_klp_state2.c
-@@ -172,10 +172,7 @@ static struct klp_patch patch = {
- 	.objs = objs,
- 	.states = states,
- #ifdef CONFIG_KLP_HAS_PROVIDES
--	/*
--	 * TODO: Add provides/obsoletes module parameters for the
--	 * provides/obsoletes based tests (to be added later).
--	 */
-+	/* provides=0 by default, replaces all provides=0 patches */
- #else
- 	.replace = true,
- #endif
+ obj-m += test_klp_meminfo_lp.o \
++	test_klp_meminfo_lp2.o \
+ 	test_klp_callbacks_busy.o \
+ 	test_klp_callbacks_demo.o \
+ 	test_klp_callbacks_demo2.o \
+diff --git a/tools/testing/selftests/livepatch/test_modules/test_klp_meminfo_lp2.c b/tools/testing/selftests/livepatch/test_modules/test_klp_meminfo_lp2.c
+new file mode 100644
+index 000000000000..2b93c969b7ba
+--- /dev/null
++++ b/tools/testing/selftests/livepatch/test_modules/test_klp_meminfo_lp2.c
+@@ -0,0 +1,2 @@
++// SPDX-License-Identifier: GPL-2.0
++#include "test_klp_meminfo_lp.c"
 -- 
 2.52.0
 
