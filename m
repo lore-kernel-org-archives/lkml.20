@@ -1,162 +1,110 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 106EE46DFF6;
-	Thu,  8 Oct 2026 11:58:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 386BA46DFF6;
+	Thu,  8 Oct 2026 11:59:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791460698; cv=none; b=lD+qv+S1t1evkxt1XvVTe8PFSEiZTF3CDsSa9QzNF6pZKZt0MXl6BtYJQ7K69i3Dxb4F/HiCIryKn4kVXLjXw6N2iBTtOm1EEgF2ij9rRXBhCVtIyOgptd5ozBbgWklqR0lCIqEXBbt2ClElZVgbpM+ISec7eeD/8jIW25LXa14=
+	t=1791460766; cv=none; b=D7Dcz6C0qCo65iDgekNyOIGWzfSOOywvXVd6ude8x+X3ffiyenj7nWE48IwM1vZEkg5AhP10I/7VMPyIIAentcdHWfpJzkQPUsmvELqWXnXEqbo0yF/erQugnItelv4UDzjJEA78yagJL7ZTlexbY62Zd93TjgYiavSz/ODFXXw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791460698; c=relaxed/simple;
-	bh=QW656aZrKePz96ky3msNoBPX0EXK7DxqAh+Po0M75KY=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=lhfPRULOtEWPUbcwpwiLbMRa3BslYh3DTZxgbk4qSMGkl0zayrfqI6Nn8glnoYh2VV0mtynHZFimaRkA22TeMeEkxXkNYB0ogupMYAC602bXDnXAZsAjcb27ePM8V5+YWjD00apbtxZsEbpn8RahRGIEdVCxEfbmI6vRCQ5TYVA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=X6AzId9o; arc=none smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791460766; c=relaxed/simple;
+	bh=Qt8suwJWaxRG1L5CDEAXgFKnHkSqO9unr6jlAg3gR5g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dkty5lnh6xjhx+Br7oGHxoStHkzPzRAh6yaG7QLN3Xe+8tGB+sdcMW4zPYteFiTi5eGlclkZDzqnZ9sOIAMZS41neHkmJSRWqVgWj6OYgUfDZD9HHhc6+ILCJjypL/+V763Lg+Aa5BFTvch8lYFAh2cH13St8vSSYIYRw25PezE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=h9scnPu5; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="X6AzId9o"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791460697; x=1822996697;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=QW656aZrKePz96ky3msNoBPX0EXK7DxqAh+Po0M75KY=;
-  b=X6AzId9oMW1HcZU+KLwj0VOQmsmVy6Ou1rNWdjNeYU1QWRub2DmY1sT0
-   0rGbaIGYHmQGwsJ2Mj+nsqPyvQyTZAol+x+AiuIH2UKTsUpABJlZXdAQv
-   Tt0aKFRgk6soOy60tiuIXOGz5UsCX6MN5pLYbyeY6A2Dum9cfkZgcidNA
-   yCa5ibF1FMIqRrVr5rscAXP1adVlvfcrIjxq0EBZCHyQ55BO4/C4aULhh
-   EqZZMlqnE9l0biZMViZFoEKGAxqD6k3n56Sf3OSEq9x/Rn8LlIBrrTwhV
-   4+PqhT4Ba3ZUwEGTIPbZ9QlBPaVHtomnCQCJ2MxSf+lMHDdRbjX8kx8fv
-   A==;
-X-CSE-ConnectionGUID: jjEBL96kSQSXNCrRNPjlqQ==
-X-CSE-MsgGUID: mh9EwEItRbSMGu/Z3LQaXQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="125716"
-X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
-   d="scan'208";a="125716"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 04:58:17 -0700
-X-CSE-ConnectionGUID: 0d0aHGBwQw2zv4lNz8LzjA==
-X-CSE-MsgGUID: 2NaIShYTRIKFklUbohexTQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
-   d="scan'208";a="378815"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.140])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 04:58:14 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Thu, 8 Oct 2026 14:58:11 +0300 (EEST)
-To: Muralidhara M K <muralidhara.mk@amd.com>
-cc: platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v7 3/4] platform/x86/amd/hsmp: Hide server-only attributes
- on client platforms
-In-Reply-To: <20260924154947.1706669-4-muralidhara.mk@amd.com>
-Message-ID: <370cbc28-0628-fef7-cc35-b1b70f8fc9fc@linux.intel.com>
-References: <20260924154947.1706669-1-muralidhara.mk@amd.com> <20260924154947.1706669-4-muralidhara.mk@amd.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="h9scnPu5"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 67E561A1195;
+	Thu,  8 Oct 2026 11:59:20 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 2C6C060341;
+	Thu,  8 Oct 2026 11:59:20 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6901A103301F4;
+	Thu,  8 Oct 2026 13:59:15 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791460759; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=xkO25mB5BDH7ovWjVpJGWO1rosQkPbuoBI1tM3KF7co=;
+	b=h9scnPu53B0XT7ap+VXA3YM5UTxu3E7cvCiZ3uWalIPHXRwppJ+EBtuwc3of6iuVsTv7F0
+	qpspVjlNainyL+uA0IyXmHUqFwsHhz6ojo5FyKp0Mb6gcHqEwAorAJtHzigaG5aBuvkOnR
+	9LfFuYdta45DHoMjgn77JAacwKC0KkEhHPT/B7GEzMiJkobq3CTWtxtHsp7kSh18WJuJ2E
+	8VOMS7dvhZs3jrhwHP/oAP0Dq3p482ebvTHM7BmyrsMzHl0hSTbaxXy/ylODDR+sGeyny4
+	Nhep/BcMWwnOBId61LI/YEZjjR3CdSetxI7sjWTw3PZx9ukriIY7eHu9p4g6Xw==
+Date: Thu, 8 Oct 2026 13:59:13 +0200
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Liu Dalin <liudalin@kylinsec.com.cn>
+Cc: Dan Carpenter <error27@gmail.com>,
+	Hans Ulli Kroll <ulli.kroll@googlemail.com>,
+	Linus Walleij <linusw@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, linux-rtc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Deng Yingchao <dengyingchao@kylinsec.com.cn>,
+	Qin Yungao <qinyungao@kylinsec.com.cn>,
+	Luo Qiu <luoqiu@kylinsec.com.cn>
+Subject: Re: [PATCH] rtc: ftrtc010: fix negative offset handling and smatch
+ warning
+Message-ID: <20261008115913bfd12cb4@mail.local>
+References: <0C8AEB5636132B0C+20261008113732.581825-1-liudalin@kylinsec.com.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <0C8AEB5636132B0C+20261008113732.581825-1-liudalin@kylinsec.com.cn>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, 24 Sep 2026, Muralidhara M K wrote:
+On 08/10/2026 19:37:32+0800, Liu Dalin wrote:
+> A prior attempted to fix the 32-bit arithmetic overflow by turning
+> the implicit u32-to-timeu64_t cast into an explicit one. However,
+> all calculations still happen in u32, inheriting the existing
+> negative offset sign-extension bug, and the explicit cast triggers
+> smatch "cast after binop" warning.
+> 
 
-> Most ACPI sysfs device attributes are wired to hardcoded server
-> message IDs (HSMP_GET_SOCKET_POWER and friends); hwmon power
-> attributes registered from init_acpi() have the same problem. On a
-> Family 1Ah client platform these numeric IDs resolve against enum
-> hsmp_client_message_ids instead, and mostly collide with unrelated
-> client commands, e.g. HSMP_GET_SOCKET_POWER (4) is
-> HSMP_CLIENT_GET_METRICS_TABLE_VER on the client side.
+AI is lying to you, offset will never ever be negative.
+
+> The FTRTC010 RECORD register stores a signed 32-bit two's complement
+> offset exposed through readl() as a u32. Casting the whole u32
+> expression result to timeu64_t performs zero extension, so negative
+> offsets become huge positive values.
 > 
-> Hide the affected ACPI sysfs attributes on client platforms except
-> smu_fw_version and protocol_version, which report the same data in
-> both tables. Forward-declare hattr_smu_fw_version and
-> hattr_protocol_version ahead of their HSMP_DEV_ATTR() definitions.
-> Skip hsmp_create_sensor() in init_acpi() on client platforms for the
-> same reason.
+> Fix it by casting offset to s32 first to correctly interpret the
+> two's complement sign, then promote all operands to timeu64_t so all
+> calculations are done in 64-bit space. days/hour/min/sec are
+> non-negative hardware counters, so promoting them directly to
+> timeu64_t is safe.
 > 
-> The metrics_bin sysfs binary attribute has the same visibility problem:
-> hsmp_is_sock_attr_visible() gates it on hsmp_pdev->proto_ver against
-> HSMP_PROTO_VER6 with no is_client_platform() check. Exclude client
-> platforms outright there too, matching the ACPI sysfs attributes
-> above: the client set has its own telemetry table, read only through
-> HSMP_IOCTL_GET_TELEMETRY_DATA.
+> Fixes: 1d61d2592c1f ("rtc: gemini/ftrtc010: rename driver and symbols")
 > 
-> Signed-off-by: Muralidhara M K <muralidhara.mk@amd.com>
+> Signed-off-by: Liu Dalin <liudalin@kylinsec.com.cn>
 > ---
->  drivers/platform/x86/amd/hsmp/acpi.c | 29 ++++++++++++++++++++++++----
->  1 file changed, 25 insertions(+), 4 deletions(-)
+>  drivers/rtc/rtc-ftrtc010.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/platform/x86/amd/hsmp/acpi.c b/drivers/platform/x86/amd/hsmp/acpi.c
-> index 8b4bf57c3485..d775ea8ba603 100644
-> --- a/drivers/platform/x86/amd/hsmp/acpi.c
-> +++ b/drivers/platform/x86/amd/hsmp/acpi.c
-> @@ -300,16 +300,31 @@ static umode_t hsmp_is_sock_attr_visible(struct kobject *kobj,
->  	 * so that userspace which expects the file to exist gets a clear
->  	 * -EOPNOTSUPP from the read handler instead of -ENOENT, and is
->  	 * pointed at HSMP_IOCTL_GET_TELEMETRY_DATA as the supported path.
-> +	 * The client set has its own telemetry table, read only through
-> +	 * HSMP_IOCTL_GET_TELEMETRY_DATA; never show this file there.
->  	 */
-> -	if (hsmp_pdev->proto_ver >= HSMP_PROTO_VER6)
-> +	if (!is_client_platform() && hsmp_pdev->proto_ver >= HSMP_PROTO_VER6)
->  		return battr->attr.mode;
+> diff --git a/drivers/rtc/rtc-ftrtc010.c b/drivers/rtc/rtc-ftrtc010.c
+> index b29c96be40f4..65fe1e872239 100644
+> --- a/drivers/rtc/rtc-ftrtc010.c
+> +++ b/drivers/rtc/rtc-ftrtc010.c
+> @@ -72,7 +72,8 @@ static int ftrtc010_rtc_read_time(struct device *dev, struct rtc_time *tm)
+>  	days = readl(rtc->rtc_base + FTRTC010_RTC_DAYS);
+>  	offset = readl(rtc->rtc_base + FTRTC010_RTC_RECORD);
 >  
->  	return 0;
->  }
+> -	time = (timeu64_t)(offset + days * 86400 + hour * 3600 + min * 60 + sec);
+> +	time = (timeu64_t)(s32)offset + (timeu64_t)days * 86400 +
+> +	       (timeu64_t)hour * 3600 + (timeu64_t)min * 60 + (timeu64_t)sec;
 >  
-> +/* Defined below by HSMP_DEV_ATTR(); same message ID in both message tables */
-> +static struct hsmp_sys_attr hattr_smu_fw_version;
-> +static struct hsmp_sys_attr hattr_protocol_version;
-> +
->  static umode_t hsmp_is_sock_dev_attr_visible(struct kobject *kobj,
->  					     struct attribute *attr, int id)
->  {
-> +	/*
-> +	 * smu_fw_version and protocol_version map to the same data in both
-> +	 * message tables. Every other attribute here uses server-only
-> +	 * message IDs that resolve to unrelated client commands.
-> +	 */
-> +	if (is_client_platform() && attr != &hattr_smu_fw_version.dattr.attr &&
-> +	    attr != &hattr_protocol_version.dattr.attr)
-> +		return 0;
-> +
->  	return attr->mode;
->  }
+>  	rtc_time64_to_tm(time, tm);
 >  
-> @@ -564,9 +579,15 @@ static int init_acpi(struct device *dev)
->  			dev_info(dev, "Failed to init metric table\n");
->  	}
->  
-> -	ret = hsmp_create_sensor(dev, sock_ind);
-> -	if (ret)
-> -		dev_info(dev, "Failed to register HSMP sensors with hwmon\n");
-> +	/*
-> +	 * hwmon attributes use server-only message IDs, which resolve to
-> +	 * unrelated client commands on client platforms.
-> +	 */
-> +	if (!is_client_platform()) {
-> +		ret = hsmp_create_sensor(dev, sock_ind);
-> +		if (ret)
-> +			dev_info(dev, "Failed to register HSMP sensors with hwmon\n");
-> +	}
->  
->  	dev_set_drvdata(dev, &hsmp_pdev->sock[sock_ind]);
-
-This series still feels misordered.
-
-Can we like introduce is_client_platform() first, then add all these 
-checks before adding the client support in the first place? This 
-same ordering problem applies to the client/server check in patch 2 as 
-well.
-
-And would structs in patch 4 also needed earlier? This is not as bad 
-problem as the above ordering one but I'd tend to think we'd want to 
-introduce the struct before HSMP_CLIENT_GET_METRICS_TABLE actually works 
-which is after patch 1, right?
+> -- 
+> 2.43.0
+> 
 
 -- 
- i.
-
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
