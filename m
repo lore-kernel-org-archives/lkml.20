@@ -1,295 +1,123 @@
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6E5A4D0CF8
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 15:12:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 019264CB8D7;
+	Thu,  8 Oct 2026 15:12:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791472377; cv=none; b=M5lBQczmdqGWlHkMJ2SBiYVZQnYg24sXRSgfFCu4Zu9FWp3hGAzIUc6B5RO/G2uU/z4ssuLphGjJoyPXcsjNcPL96MLSt0RZY0QtdG9xP2r86pqQcKnH7B01HcmULy0sgaO0X5zDGtvo7Q+dWW3UvCiIE1stX1zxGWIcdntFH28=
+	t=1791472382; cv=none; b=C6wFuCuTv2aUp/PmElDzYjqj58vFiPC07TjcVHEnx6nt5zxjF9KS6kpPVtf7/e6hSUWp1IJ+Z0vrm61YOiQGesmaaBQuodqFJn+fkVHiowC/mwOMXZwk7d20eTOlDLcCKttvrVzON5V+aG1pLsjfag9GZk0QlyD+fDjW+JQV9b4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791472377; c=relaxed/simple;
-	bh=+3ZxAt5gH8K4Fud64fzK1lHdlYyPzhwyjCqMnbGz1iQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=L9LV7pWBPRiGodhJXepREHLFE5oonZGoCvAjV3fUZ/lk8tqhcukgLldXi+ed+E4sz3MCgqZrDXthAnqO/SlDeAY140vJjcyXL1YHNfxz17+VV6+6y4cYlN6OS20fXRWVorXBD26S6XO6tY8N8Zdlclsf1gMI4Ta1jId4JKwxo9E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rL8+0u97; arc=none smtp.client-ip=74.125.82.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791472382; c=relaxed/simple;
+	bh=S8Qj4JiVGmSAKNEHAdb2Qw61sB9GI38imUB2dF/Oqjo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JweDmZET5oBMC9fN7djeedgd4a1F3WI39nEjfSRYeBPHkQLecbDXcl/I+Tw9nyGeZYTdIDKh4jDfbHIIgjhtxDD5ZiJNmUfxf+oaWyECZp1h4zk31BpRp0cwJLPEH7l4xgWiK00rTJOXWjXwBBeg1+qn2kGcGGWLpSvcUgfEv5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=m2dIpx99; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rL8+0u97"
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-33bb5afa736so140829eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 08:12:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791472368; x=1792077168; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LoD1hY4sLkQRGt45oCPYFQ6FSh5m2/O5v+/4vfP25/0=;
-        b=rL8+0u97Ng7xRKJIb3Nk39JNcaT0zJIMsSrvBxifQY9NuA1bD4sbi7rIkWo3aNLKPh
-         UkDpLpGO9EuGIZIZQMv2RHlNZHSUU9KoVsPqsoK8ODcp0q3WAOKL2VuzSD0MtnzKw0sp
-         mLXSm6Fv0ppQmCLOkY7wA4TE+Jr1ZoKv1lNtT+j1OjE/WAefj+yxeL4Rev0z/rH4d8lp
-         YbiemmLCg/Ko9MR0yUDGDWPsfsoLPKK4SdEgVODPW+nU22toHLi17S3yPDITjt4WiBBn
-         xPFGnLLMkNm30I5gxi+kDkp8aAW+npP/bXr9JbjQn0jTC1Qk31y6azVvHxfF5BcOgIc/
-         xcZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791472368; x=1792077168;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LoD1hY4sLkQRGt45oCPYFQ6FSh5m2/O5v+/4vfP25/0=;
-        b=E0//oZQ95ow5zgymCwZezG5mfgjJreBLGOzLZd5vVwQYxwDLlcWYtxFg9sDI7kDcon
-         svddcMiKGri4KfxMvRW4rew70NmgrP20lZ1tiNk0Y9kRIJ3iLlWHQRwQQ3XHPPMXfmBc
-         BCeUDhLRyw2YCAwVem3leraGTi9FYIGoOLCDGPaYy9YnIoWLb9bIJ3czeO8G1Y0WgovO
-         xT6wSEisjnROSLKj80wP0lIojiB1PThGEeekR+nRtRT6nrYsmHHA+5jBhp+IGCdkJhH2
-         XZ73EtNf+57UNpW4E5LIl4hPxo+mWF6dVunbaxEyZyzMPaAElrMlyZlngx9jLpW0uWga
-         HPDg==
-X-Forwarded-Encrypted: i=1; AKwUvBwf5CP4321XFtepRcQ/KOH3mEaZTopIyXTZNSBLgkr0fODyKK/p3ifgopIxV7dX3KXEr9krapGo6eBvpDs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLdeoea8EOa2ulMU/eAcLyf3aBp5bc7C1CKw08+/jJIQxO8wbOf
-	yGE76xs/JeFYbJgu2X4Q5v5nT+uBZApIfd6MOcDGMwV07PC+JSdO23gX
-X-Gm-Gg: AYBFou14GNgzMfy3VFJF/ZXcTjyI/Uopq6YVMT4+tiI5BU9lg5FBSVeqIViD4Aqr0zD
-	swyezRXcpynFI6jxT0K8Az9DBtOBLMnztNHBi1Ve4zbquSUH2Ia4lfIZ7SEQhV03BKosy2PKja+
-	VNzJjUx5Qwe2LV5WDxoEyAC5G0b9KUu9jhmbQujk10casEfYq2mG42sO0xpyeNOIP2gGjmWpOcQ
-	nIIGK+qXCt3mKV+f8i4ZK3xKPCVebD5vcx5fjozTool7JyjjTaCRDRihfBnf7Z6LUGuCQjKPTPQ
-	kkVaiCrD5ZYz9jOVuwauQUYbshPd1OCfhkM0U4eyG9Frm+Lg2VW4WDle34l41YzJDwr6/A+fEPv
-	9OTOgxk2A2M63CF7YA8RAtWiv+4iwiwPLxSV7KDEbe1KePMEz6RcM287HTgBfYjwO/coREJBs0n
-	+25IAv3EJ/pVV1rSV2kXDDJuLinGwR9f+u0togAmOPGeUE2fRVAObYwuuZ+O2afM+r24twJB6J1
-	yvCnuXP7dzNLlWtuP+rQYX7scwJPfSKMYQe+b9u
-X-Received: by 2002:a05:7301:da16:b0:34c:f181:85e4 with SMTP id 5a478bee46e88-351755da249mr5325628eec.1.1791472368229;
-        Thu, 08 Oct 2026 08:12:48 -0700 (PDT)
-Received: from hitalo (190-33-161-131.in-addr.arpa.host.souuni.com. [131.161.33.190])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3515afd00e0sm18052389eec.23.2026.10.08.08.12.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 08:12:47 -0700 (PDT)
-From: Hitalo Souza <enghitalo@gmail.com>
-To: linux-bluetooth@vger.kernel.org
-Cc: marcel@holtmann.org,
-	luiz.dentz@gmail.com,
-	linux-kernel@vger.kernel.org,
-	Hitalo Souza <enghitalo@gmail.com>
-Subject: [PATCH v2 0/6] Bluetooth: Fix SCO setup failures after an abandoned setup
-Date: Thu,  8 Oct 2026 11:12:32 -0400
-Message-ID: <20261008151238.2138665-1-enghitalo@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="m2dIpx99"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791472375; x=1823008375;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=S8Qj4JiVGmSAKNEHAdb2Qw61sB9GI38imUB2dF/Oqjo=;
+  b=m2dIpx9936NO7BOs0z9l1uDVhZgMvEYBstCI5PwzFzv83up6lq9mQXxN
+   7g2h5mtTmgUj8ldcSaTUK2eF53XL8/2MeWTIlvk6qK1Wi97Bl4pPxcXYl
+   F0wD1CRhzbYFi3cbuYcj4cVlh5tlIqPUKq0gFf37NwfSNukco04VRvkLv
+   Fp5sBlmIIY3mANtR66SreObyI/jOi4wIH2yYbkhXNrSgZnFmEnZD5Cte/
+   rCtU7LQkikNrW0+3rkdK5tJ6DEEP8muyOf3l33s4onhcyGwMGz/5rCDmQ
+   34uG7vZ/1Esg+AsVm7lxs4MMHrOlpESIOmnXSIEFdQsDJhFy5pWjeq58L
+   A==;
+X-CSE-ConnectionGUID: GGW6VyVvTJiihNEhIG2I8w==
+X-CSE-MsgGUID: GCpKoEq4Qe6ItmZEqrYRiw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="256629"
+X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
+   d="scan'208";a="256629"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 08:12:50 -0700
+X-CSE-ConnectionGUID: jijYxYCQSB2qODj8Eg8ZTg==
+X-CSE-MsgGUID: 71MFXqMrTqevPhNcx3GKZQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
+   d="scan'208";a="427414"
+Received: from soc-cp83kr3.clients.intel.com (HELO [10.122.184.228]) ([10.122.184.228])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 08:12:48 -0700
+Message-ID: <bcb837c5-8a8d-4cba-9c14-73275c5a7bb0@intel.com>
+Date: Thu, 8 Oct 2026 10:12:40 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-
-Since commit a13f316e90fd ("Bluetooth: hci_conn: Consolidate code for
-aborting connections"), closing a SCO socket while its setup is pending
-deletes the hci_conn, after a Create Connection Cancel that cannot
-cancel a synchronous connection. When a new socket connects right away,
-e.g. PipeWire recreating the HFP transport after a codec negotiation as
-in bluez/bluez#2562, the abandoned setup can still complete, and:
-
- 1. It is matched to the new connection by address, the controller then
-    rejects the new connection's own setup, and the rejection handler
-    fails the first link on the ACL, which is now the connected one,
-    without disconnecting it (patch 1).
-
- 2. It is matched to the new connection before that connection's own
-    setup was sent: Enhanced Setup Synchronous Connection goes through
-    the cmd_sync queue, and any setup waits for the ACL to leave sniff
-    mode. The setup is then sent anyway and rejected. This is the order
-    of events in the report (patch 2).
-
- 3. Nothing takes it over, or it is a second link for a connection
-    that is already up: the link stays up in the controller with no
-    connection for it, and the controller rejects every further setup
-    for the device until the ACL drops (patch 4).
-
-Patches 3 and 5 make links that complete for an aborted connection be
-disconnected in general, as Luiz suggested, not only SCO ones. Patch 3:
-a link (ACL, SCO/eSCO or LE) that completes while its connection is
-being aborted, which then refuses the handle since 16e3b6429159
-("Bluetooth: hci_conn: Fix modifying handle while aborting") and, for
-LE, 181a42edddf5 ("Bluetooth: Make handle of hci_conn be unique").
-Patch 5: an incoming ACL connection aborted after it was accepted,
-which is deleted before its link completes. Patch 6 stops notifying
-the driver of the air mode of a SCO link that did not come up: with
-btusb, that notification and the one for the connection's deletion
-right after could stop the audio of another SCO connection. btusb can
-still do that when a SCO link that was up goes down while another one
-stays up; that is not changed here.
-
-In 1 and 2 the new connection keeps the link of the abandoned setup,
-with the parameters of that setup: the completion event does not say
-which setup it belongs to. Its Air_Mode would show a change between
-CVSD and transparent data, but the series does not act on it. An
-abandoned setup that fails after a new connection was made is likewise
-applied to that connection. Before a13f316e90fd both happened in
-another way, as the next socket reused the pending hci_conn.
-
-If a controller answers the setup of a SCO_LINK connection (only SCO
-packet types allowed, e.g. with the disable_esco parameter of sco.c)
-with an eSCO link, the connection does not take it and its connect
-times out. That predates a13f316e90fd and is not changed here; patch 4
-only makes sure such a link is not disconnected while the connection
-waits for its link.
-
-Changes in v2:
-- New patch 3, following Luiz's review: disconnect any link that
-  completes while its connection is being aborted, on Connection
-  Complete, Synchronous Connection Complete and LE Connection Complete.
-  It replaces the SCO-only handling of that case in v1's patch 3, and
-  covers the ACL and LE cases Sashiko pointed out.
-- Patch 4 (v1's patch 3) uses the helper of patch 3, and also
-  disconnects a second SCO link that completes with Connection Complete
-  for a connection that is already up (Sashiko).
-- New patch 5: disconnect an ACL link that completes after its
-  connection was aborted and deleted (an incoming connection).
-- New patch 6: notify the driver of the air mode only of a SCO link
-  that came up (Sashiko).
-- The disable_esco case is described as what it is: a controller
-  answering a SCO-only setup with an eSCO link.
-- New tests T5b, T7, T8 and T9.
-- v1: https://lore.kernel.org/linux-bluetooth/20261007154353.148223-1-enghitalo@gmail.com/
-
-Patch 2 relies on hci_enhanced_setup_sync() taking hdev->lock, since
-024e05f73a4c ("Bluetooth: hci_conn: Lock parent access during enhanced
-SCO setup"); a backport to a kernel without that commit needs the lock
-taken around the new checks.
-
-Testing:
-
-- QEMU/KVM, bluetooth-next at c85976511aa9 and with each patch applied
-  in turn, x86_64 defconfig + kvm_guest.config + BT=y, BT_HCIVHCI=y. A
-  userspace program emulates the controller and the headset over
-  hci_vhci; the controller allows one eSCO link per ACL and rejects
-  further setups with 0x0a (0x12 in T1, as in the report), except in
-  T5, where it allows a second one. Each case was run over Setup
-  Synchronous Connection (L), Enhanced Setup Synchronous Connection (E)
-  and Add SCO Connection (A, controller without eSCO):
-
-  T0  connect, receive SCO data, close
-  T1  close a socket with its setup pending, connect a new one; the
-      first setup completes, then the new one is rejected
-  T1b like T1, but the first setup completes before the new one is
-      sent, which waits for the ACL to leave sniff mode
-  T1c like T1b, but the new setup waits in the cmd_sync queue (E only)
-  T2  close a socket with its setup pending, the setup completes
-      afterwards, connect a new socket (cancel answered 0x0b and 0x02)
-  T2b like T2, but the setup completes while the abort still waits in
-      the cmd_sync queue
-  T3  a setup rejected with 0x0d in Command Status
-  T4  like T2, but the abandoned setup completes with 0x22
-  T5  like T1, but the new setup completes too, with a second link
-  T5b an incoming SCO connection is up, and a second SCO link to the
-      device completes with Connection Complete (A only)
-  T6  disable_esco set, and the emulated controller answers the
-      SCO-only setup with an eSCO link (L and E): no Disconnect while
-      the SCO connection waits for it (the connect still times out,
-      with and without the series)
-  T7  an ACL connect to another device is aborted while paging, and
-      the page succeeds as Create Connection Cancel arrives (cancel
-      answered 0x0b)
-  T8  with an emulated LE-only controller: an L2CAP LE connect is
-      aborted while LE Create Connection is pending, and the connection
-      completes as LE Create Connection Cancel arrives (cancel answered
-      0x0c); also with the cancel succeeding in time, where nothing may
-      be disconnected
-  T9  an incoming ACL connection is aborted with MGMT_OP_DISCONNECT
-      after it was accepted; Create Connection Cancel fails with 0x02,
-      then the link completes
-
-  In T1c the cmd_sync queue waits for a Read RSSI (from mgmt Get
-  Connection Information) that the emulator leaves unanswered; in T2b
-  it waits for an ACL connection to another device, whose Connection
-  Complete the emulator holds as during a page.
-
-                      T1   T1b  T1c  T2   T2b  T5   T5b  T7   T8   T9
-  bluetooth-next      FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL
-  + patch 1           pass FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL
-  + patches 1-2       pass (*)  pass FAIL FAIL FAIL FAIL FAIL FAIL FAIL
-  + patches 1-3       pass (*)  pass FAIL pass FAIL FAIL pass pass FAIL
-  + patches 1-4       pass pass pass pass pass pass pass pass pass FAIL
-  + patches 1-5       pass pass pass pass pass pass pass pass pass pass
-  + patches 1-6       pass pass pass pass pass pass pass pass pass pass
-
-  T0, T3, T4, T6 and the LE connect cancelled in time pass on every
-  row.
-
-  The results are the same on L, E and A, except (*): pass on L and E,
-  FAIL on A, where the abandoned link is not taken over by a connection
-  that has not started its setup, and stays up until patch 4.
-
-  Without the series, the new socket gets EINVAL in T1 (the emulator
-  rejects with 0x12) and EMLINK in T1b and T1c (its duplicate setup is
-  rejected with 0x0a), the next connect gets EMLINK in T2 and T2b, and
-  the second links in T5 and T5b and the ACL and LE links in T7, T8 and
-  T9 are not disconnected (they stay up until the ACL drops, or for
-  good). With it, the new sockets receive SCO data and no Create
-  Connection Cancel is sent for SCO; the links that nothing takes over
-  (T1b on A, T2, T2b, T7, T8, T9) and the second links in T5 and T5b
-  are disconnected as soon as they complete, and T4, T6 and the LE
-  connect cancelled in time send no Disconnect. No kernel warnings.
-  Patch 6 is not covered here, as hci_vhci has no notify callback.
-
-- BlueZ tools/sco-tester (master f8f352d) in the same VM, on the
-  debug kernel below plus CRYPTO_USER_API_{HASH,SKCIPHER}: 30 of 30
-  pass with and without the series.
-
-- Real hardware: a MediaTek MT7921 (USB 04ca:3802, legacy Setup
-  Synchronous Connection because of
-  HCI_QUIRK_BROKEN_ENHANCED_SETUP_SYNC_CONN) with a Sony WF-1000XM6, on
-  v7.1.13 with the series built as the bluetooth module (patch 2 needs
-  one change there, as hci_enhanced_setup_sync() does not take
-  hdev->lock in that version; the other functions touched are the same
-  as in bluetooth-next). With PipeWire 1.6.8 the abandoned setups were
-  first seen there: Create Connection Cancel was answered with Unknown
-  Connection Identifier, and the setup still completed afterwards.
-
-  A SCO socket was closed 150 ms into its setup and a new one connected
-  0.3 s or 2.5 s later, five times; each abandoned setup completed about
-  0.2 s after it started, before the new connect. Without the series the
-  first abandoned link after each ACL connect (two in the run) was left
-  up, and from then on the controller rejected every setup, plain
-  connects included, with Unsupported LMP Parameter Value (0x20) until
-  the ACL was dropped. With the series no Create Connection Cancel was
-  sent, each abandoned link was disconnected as soon as it completed,
-  and every new socket and the plain connects after them received SCO
-  data. An abandoned setup that failed (the headset rejects CVSD with
-  0x20) caused no Disconnect. Between the groups PipeWire switched the
-  headset from A2DP to HFP (mSBC) for a recording while I counted
-  aloud: speech was recorded all three times, with and without the
-  series. The cases of patches 1 and 2 did not occur there.
-
-- W=1 builds of net/bluetooth/ and drivers/bluetooth/, no warnings:
-  GCC 16.2.1 x86_64 allmodconfig and i386 defconfig, LLVM 22.1.8 arm64
-  defconfig, arm multi_v7_defconfig, riscv defconfig and powerpc
-  ppc64_defconfig (big-endian), with BT, BT_HCIBTUSB{,_MTK,_QCOM} and
-  BT_VIRTIO.
-
-- sparse v0.6.5-rc1 on the same directories: the same 16 reports with
-  and without the series, none on the lines touched here.
-
-- With the series, the same tests on a kernel with PROVE_LOCKING,
-  PROVE_RCU, KASAN, DEBUG_ATOMIC_SLEEP, DEBUG_LIST and
-  DEBUG_OBJECTS{,_WORK,_TIMERS} enabled: all pass on the three paths,
-  with no lockdep, KASAN or debugobjects reports.
-
-The patches, the commit messages, this letter and the test programs
-were prepared with an AI assistant (see the Assisted-by tags), which
-reproduced the report in the emulator and wrote and tested the fixes;
-the real-hardware runs were done on my laptop with my headset.
-
-Hitalo Souza (6):
-  Bluetooth: hci_event: Don't fail a connected SCO link on setup errors
-  Bluetooth: hci_conn: Don't set up a SCO link that is already up
-  Bluetooth: hci_event: Disconnect links that complete while being
-    aborted
-  Bluetooth: Don't leave abandoned SCO links up in the controller
-  Bluetooth: hci_event: Disconnect an ACL link that completes after its
-    abort
-  Bluetooth: hci_event: Notify the driver only of SCO links that came up
-
- net/bluetooth/hci_conn.c  |  24 ++++++-
- net/bluetooth/hci_event.c | 130 +++++++++++++++++++++++++++++++++-----
- net/bluetooth/hci_sync.c  |   8 +++
- 3 files changed, 143 insertions(+), 19 deletions(-)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] perf/x86/intel/uncore: Fix DMR CXL CM invert filter
+To: Guixiong Wei <weiguixiong@bytedance.com>, peterz@infradead.org
+Cc: Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo
+ <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, James Clark
+ <james.clark@linaro.org>, Thomas Gleixner <tglx@kernel.org>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
+ linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261008051953.6293-2-weiguixiong@bytedance.com>
+Content-Language: en-US
+From: "Chen, Zide" <zide.chen@intel.com>
+In-Reply-To: <20261008051953.6293-2-weiguixiong@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
 
-base-commit: c85976511aa95b5ba68b57b0b3c87c67f3cedcce
--- 
-2.55.0
+
+On 10/8/2026 12:19 AM, Guixiong Wei wrote:
+> The DMR CXL CM PMU places its invert filter at config bit 21 and its
+> 9-bit threshold at bits 23-31. However, dmr_uncore_cxlcm uses
+> GENERIC_PMON_RAW_EVENT_MASK, which covers the threshold through the
+> generic bit 23 invert field and bits 24-31 threshold field, but does not
+> include the relocated invert bit. As a result, uncore_pmu_event_init()
+> silently clears bit 21 and inv=1 programs the same configuration as
+> inv=0.
+> 
+> Add bit 21 to a DMR CXL CM-specific event mask so the requested invert
+> filter reaches hardware.
+> 
+> Fixes: 6daf2c35b835 ("perf/x86/intel/uncore: Add IMH PMON support for Diamond Rapids")
+> Signed-off-by: Guixiong Wei <weiguixiong@bytedance.com>
+> ---
+>  arch/x86/events/intel/uncore_snbep.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/x86/events/intel/uncore_snbep.c b/arch/x86/events/intel/uncore_snbep.c
+> index a97cd029db366..1b460cf27a10f 100644
+> --- a/arch/x86/events/intel/uncore_snbep.c
+> +++ b/arch/x86/events/intel/uncore_snbep.c
+> @@ -474,6 +474,9 @@
+>  /* DMR */
+>  #define DMR_IMH1_HIOP_MMIO_BASE			0x1ffff6ae7000
+>  #define DMR_HIOP_MMIO_SIZE			0x8000
+> +#define DMR_CXLCM_PMON_CTL_INVERT		BIT(21)
+> +#define DMR_CXLCM_PMON_RAW_EVENT_MASK		(GENERIC_PMON_RAW_EVENT_MASK | \
+> +						 DMR_CXLCM_PMON_CTL_INVERT)
+>  #define DMR_CXLCM_EVENT_MASK_EXT		0xf
+>  #define DMR_HAMVF_EVENT_MASK_EXT		0xffffffff
+>  #define DMR_PCIE4_EVENT_MASK_EXT		0xffffff
+> @@ -6696,7 +6699,7 @@ static struct event_constraint dmr_uncore_cxlcm_constraints[] = {
+>  
+>  static struct intel_uncore_type dmr_uncore_cxlcm = {
+>  	.name			= "cxlcm",
+> -	.event_mask		= GENERIC_PMON_RAW_EVENT_MASK,
+> +	.event_mask		= DMR_CXLCM_PMON_RAW_EVENT_MASK,
+
+Thanks for the fix!
+
+Reviewed-by: Zide Chen <zide.chen@intel.com>
+
+
+>  	.event_mask_ext		= DMR_CXLCM_EVENT_MASK_EXT,
+>  	.constraints		= dmr_uncore_cxlcm_constraints,
+>  	.format_group		= &dmr_cxlcm_uncore_format_group,
 
