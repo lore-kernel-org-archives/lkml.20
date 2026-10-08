@@ -1,95 +1,100 @@
 Received: from fout-b1-smtp.messagingengine.com (fout-b1-smtp.messagingengine.com [202.12.124.144])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22FCE48EC71
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 23:44:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 908B448CD4F
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 23:44:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.144
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791503080; cv=none; b=OyxmnmesK9I6QHpslyS1tcK15UcYb8BYEWrmue5BitjQDTCOqFxOURIjEzokZ3CvuWYF58kr4aIBmNmmzUx2NY4E+ZIplK22Smhz1/JZQpQBgjBIOVCWCgM1pkwsHrFEY+DpGx9HgtLLUbRSH4jVFbwAzQfc/FzBc+gW5KmOzQY=
+	t=1791503081; cv=none; b=MTywtwPBE9CjIIuskOua5Ykja6Ujkqz78cXr3/pZDAX5DNGE/e4rolJpSQ1YMDrxatcN9xrH9JTi5342PsY9jFmHlgLyrNKctNpCPIhrUQ4aAZt78WrEsJSqVasvadJMziHlCnQ+TP/XCpFNWjY7ZIvXb9rSSoU7e8eADskLNB0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791503080; c=relaxed/simple;
-	bh=+GF9EcW3rZi0GG3b7cLIYUo5wZWK4K/jseLnEGCmmms=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hs/bsruA0x4KRVa7SvNCNaVzD/SU5Ymo5CWNU0C5IE8OvwQ6kWeRr9//h/yaytjmmRrNMJ5EWzrOkcLOEh/6vuN08203sxluT+AhZWAdgfvbsqk6rK6yoQeqKSzm6BaMSLxc2JHz/2zACkj3wenQgBFUP4GKF0vIXfQCealZj8A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=MTvzh3eE; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=a5bhr9Hk; arc=none smtp.client-ip=202.12.124.144
+	s=arc-20240116; t=1791503081; c=relaxed/simple;
+	bh=NpAEVsK+d/iYaObVQOJoU8IjBWC6M6xmNMmQwxD6YYY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=WGdlZTZ8uH8babVVwdF+wDK+rVIVxyXXpjFEh9Z5FOQla2MqaFwqrKGVuyCJARL7611d1/FZ7HuD7R7mDF0fFKqUJ5Qv9tpHdQEo6hBJBU2u5cBThiyUUsMex7STKlEGLeL1rhsh678xhl+ngoZCwLR9hU7dvHj+xg+BpCuN0ew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=SazEZ2sz; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=IQFrD9jJ; arc=none smtp.client-ip=202.12.124.144
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="MTvzh3eE";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="a5bhr9Hk"
-Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
-	by mailfout.stl.internal (Postfix) with ESMTP id 2EDC51D0006C
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 19:44:37 -0400 (EDT)
+	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="SazEZ2sz";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="IQFrD9jJ"
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfout.stl.internal (Postfix) with ESMTP id D11B71D0006E
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 19:44:38 -0400 (EDT)
 Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-09.internal (MEProxy); Thu, 08 Oct 2026 19:44:37 -0400
+  by phl-compute-06.internal (MEProxy); Thu, 08 Oct 2026 19:44:38 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
 	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to; s=fm2; t=1791503076; x=1791589476; bh=+82jNvwFkn
-	AZoTMF152wtuGutSouyZ5AbCn25zKwT/Q=; b=MTvzh3eEOgiHbCxLu6lIDOCfTL
-	LKJcduFxA9Aixf0gucfXQtcUpVU6fjN0yxu1rPDDS7MVFwGu781LVGhJ2zGL/8ct
-	UVr6u+b7HJC2PiRDQYf8sbybuOsslp3t+HZ8+ZUCA0LLfSihXVl0Zk4Wuo+RRuy5
-	u5Xmf5TVRt/sIb6jkkuw2nt8UpfnOMW+S3Uj8qYUc5vAOwC3mf9SVGU+uDymKu6X
-	3BvV/VL4OpLwS3RcbXbuZcPYFptINBKcDwmcODP+fIjU/PjT6ry7WDpCsp8ONAw/
-	weS66bqXGQ8NbJZz/Ab5uSZM+8xItoBHhnJFz1O1BA/dS3FDUxScvIou+V2A==
+	:from:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm2; t=1791503078; x=
+	1791589478; bh=opGng8AXtztdTDD+jUjqtgUsqd5hCWOmDDq3s0Pi04I=; b=S
+	azEZ2szXULhhD21d+zfy5gf08CXQ8wr/uCaFb6A23ODyjAcJiO4vsuVbynOQlDWz
+	GhCqNmv78lAxa2Vkd7EmXi69McYc7Y3loAbkprNVznMCGbgy7ls1RrSWIWIRgYep
+	RVWQTKH4RYFjiy0/umcwfAWhQoo5RexquvpBvBMgVwlj1W1PZ8ocoX14R4VYxLg8
+	b8OoI1CjhxvI2Zm990wyKIYv2AoyLVG6ALJOSy8RdYTyGvP7pXWxzgUGqnd1LVjz
+	VpwWdJdmYV5PMo7kry47GZpEZYGj/lNYIenWeatC2RToxBv//q2qbfANnX5TjPGi
+	/8prdoQCltVdf0odosGQg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1791503076; x=1791589476; bh=+82jNvwFknAZoTMF152wtuGutSouyZ5AbCn
-	25zKwT/Q=; b=a5bhr9HkSrnu3mFUsgNq7cSv/5TkbOMzkHhiINAuDChBwf53IyO
-	3sIznHarm1gikULo/qUmdk7tM5P9FUMwkTPdHXd8WAC/Av7esmImisoLq18gKW4r
-	GgEwFmf7A1dYWl5WyiL5/ZS67Bu0UvOgNPfvGZgRDw/dgxcaCZ/hHqZTBaUVTeW8
-	HtFzOWKIw0Ka19gjhLxerQ0SO08YsmACG+4m4ewXFKwdkZle+uEandwp34VxVE7a
-	8Zb+q7BNeGtypAi+iE0oTLpSxn8MPMuC/gaMEJX8mh4tnmb8ZL0zTCPKlYS5Ek3/
-	jOAhTtRUhxZ9c4+i26OQglb0FBgVUJD5FkA==
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm2; t=1791503078; x=1791589478; bh=o
+	pGng8AXtztdTDD+jUjqtgUsqd5hCWOmDDq3s0Pi04I=; b=IQFrD9jJ4wM1bC8DG
+	j0swwDuRvV25ue0HxXKICX+nXiaotjM/fWHHcknbqP0rpO8muX9FTgJ0Wn4s+9Rn
+	YF63AY4xrL5gmuofHZL7rdbdU18PknKMBDNKkg0IKZX1JKm9eIB9VKrWFofbmZtY
+	Wmv5ok6ZSIQqhDdfpy6m+8ZgReD6BE3GucO0G3Amg4H2qa/n6AeJF15Z6cwdyN9o
+	mToglIWazh4L64Ei9XsssjtyXnIEbGCvBumY0U2wLBP1bLJg/PKQGTkg75NxggOQ
+	34Ac1k0owukdZWPOox6A1VdHKqHqIT7u6QnDwJJVgNKMxgs6fwFhYozNAYMGcqNF
+	We7vQ==
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
 	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
 	action=sign d=sakamocchi.jp a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791503076; d=sakamocchi.jp;
+DKIM2-Signature: i=1; m=1; t=1791503078; d=sakamocchi.jp;
 	mf=PG8tdGFrYXNoaUBzYWthbW9jY2hpLmpwPg==;
 	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:elHi3a/DvS35bDBSBDFLE+E2ABpnn4LChJSjpN8/wfGr1TC
-	Akw8zmp8mKdgqY1jSd8UzGLzjU1KmxuKnQnl4VmAMzPL/T3t2r0Lis5tNChGfuL1
-	sxxHheVb5CyHanvUzUL3yqwtX3Tzfqtx5LUezmJ42q5qJ+gqrbSy5E1xx999kTct
-	2X5agLRVh1Gon7mvEnUlwbTNP4yEO2DSg6JKShM0eUCP+pRTUpvVqMC6f/PTloCV
-	C9uqyJpRcijxuFzkOKZFb9j3yumXr/f9nLP1i9hEhme67fSs8Aa7qDhpuUlzCmqy
-	3RuJ/wVk32/Ngpzj2Q2l4gnUjdE96wXaYj+J4DA==;
+	s=fm2:rsa-sha256:rkOwJ+WAfP5XY2w53ED9pS8PIde9Kr5DiKnRf0hOocpSW7S
+	Slua7FjWXYcf13EO5Iyp/UMwA/UVEesVsKnYKrOJvkyEesfPtK3L0DL3mvagC1FU
+	twFSfI68QnX2AeBZ0glYcyhqg42dJ6ZPx3SMbFnQssgqh4ahsg5gEkQ0gbT/nnr9
+	Xfz1EHLMsgYQl1ctXb8ldwjsihktHucD3S6gy5Oy+VYgEaFByzaByvaeB+0zWbee
+	ojtBuhtTkA71jX7Bgcx6vO/s260LpWaNlOXe771YpPS9F47l8GJ20Fqh2GFLfQoH
+	/POzYFTxIqh3ypvXdgTemM0VTWJfdSMn3VD7hYw==;
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
 	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=9;
+	action=mi-m=1; hc=11;
 	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:YWymnG+8NctHC8URsh5dYaBEjlX72+8idvJH5LqNpHY=:+GF9EcW3rZi0GG3b7cLIYUo5wZWK4K/jseLnEGCmmms=;
-X-ME-Sender: <xms:5CrIapn7sOZyrWoiGnTyT4C3iGMehQdv3oQhPLxWk8QnNKocbyrGXw>
-    <xme:5CrIaizfTAI7rm_i_UIuOB0S2F1StLzOwhx4zR0dXaLw96e05AY_Or_pGAsuJVwon
-    OFUgZbsQZDeE-h1Fkg9mkM4ewTInV8AoOXyIZvEmDu46fkSxtPMjiVy>
-X-ME-Received: <xmr:5CrIanMLk9kC41qiFpdzUAFBB9BvpmUn-bqYbN6YT9tgv7Z1wOX5BRkX-aoMa8yNcqC5UGoR7zw7_gtd4nXQmrizMUZq6reacNxHAnmdx1homA>
-X-ME-Proxy-Cause: dmFkZTF9szZDzOwWCkTLM764F6AiJfl5bOO/wWB1ptdxENF0b+LTUoCbDvmSEeGeFHr9n3
-    OnjMf9qam0b8AWyrvSx1K/0rXi34jA2AMjetQ4H+k4OJPhfnJ/5Rc4EMS2RYGDQm4xqaKH
-    /8zzGAGBbaLzRcVxIufo59vhs/X0mVMhSrsCg0eW0tyt6aEVywiH5/TqKwiavO/t2FTezz
-    oBoa8BKXwxHEwMUMXGFYD+FpeZ3SpBQQoX7a5hOgVWEOAQAgco8MLFRDeoXAYN/eLzEkBt
-    sECa3oezqPcGdzPOciwzW5YOpnRCTNgChnM1kmmHxzsEeFwOjP8rea8KqlbJ6AsFRjGzdY
-    IuzEzQUX5XoRgGW6JOALtq6qGAcWZ0n9kLLKb4zpTc5JyGQt/DoNGWmqtQN0jh7ykHVH3e
-    zSvM8Rb71+AwpuqnVLmEW6Fn5X01bkduZndQnAH3ZFxrHvyXQuJ1k2cOrPQrbZfe/B3hID
-    sLlvEh8Z+AHeWfHF0vYST6jDzhH3bGBcqBsKdOV4QYkELydCdod1QZfcNmqlx8FZIuvAV+
-    XVdcFcbLS0frm6rqQkgIWg7aInZwBBwLlJ5PVFx8qbPO+P5/MPM2Emc9up2XawKjxOQiRQ
-    +aeUe9JAQsQRQ9UcEB+ePZeT5pRO2pOVDV4R/oTzoNZWCpFZM9kCjU+H8lPA
-X-ME-Proxy: <xmx:5CrIamQdgaWEfJPZZJCga7RS4KXTE3Q_Tfygr9WzpH0PC7bgWYbJlQ>
-    <xmx:5CrIalYOJiTo3OEP3Aq7RQkzBualSuJgFHI9_qaRUeZ2Axz0MZEG2A>
-    <xmx:5CrIaj1WLxIVC8tIfx_rky6zIRTUSwoYNlfxCupaQdonr9gRAEkydA>
-    <xmx:5CrIalWOXOD5R5fVzxsvJvrI_kZYIGhCD62FkSow7FXI992fT2_07A>
-    <xmx:5CrIar71Dv24uJgPQLrq3pkgvgswQJtCIhk8OgvBlXW4MWtYu5pnlTQI>
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:QZtKhkYRjPRtveA90APPUfotbdqMPeEoqjRwV1/0b9Q=:NpAEVsK+d/iYaObVQOJoU8IjBWC6M6xmNMmQwxD6YYY=;
+X-ME-Sender: <xms:5irIasa8I1y2obJDY-ZSPhLkqa5U1UDa0CGnBAvcgnlwEDoCUlFAUA>
+    <xme:5irIalWNMznCvbeuNbe4BIUHSkGhrnBi9SyZD6GgrDkiF8IQvGv6cr46z7phEwcrx
+    qGB6yVrviNd6TMH-wYaFYOiBaRgMAdjeaqIniRA_oyE4Y0VsZXwtJm_>
+X-ME-Received: <xmr:5irIaugIEJbQ4cPw6AMmKKnyyUgSBN6P4YKrLAD6IJUm1Jy1BecjbkBQsJxV28ZaPrX3A8kw5o8JeVRe9lJ9jNOA_eMIR58slHQawEQKJwT1oQ>
+X-ME-Proxy-Cause: dmFkZTFXiP3ByqRhi+bwfuEeoAus3yLRLtXhJHCwP6MTIYwZlCSl48rCsY0UEii+0QwUS9
+    xSx1ysA4oMb5BPpT1i5hTXOpWF8kB0fBm+jF7w8IjL9KNqD52nb/FIROI28s5WcMn/Sm3C
+    bb0rs+G4cgc9GOF7iMufmCeAHYWWbaMdrGiimryatdAJwvTko+Yk8d0JfUesu/g9kjRbuM
+    GszrLhc+YMK9NFdZ55jRsRqoU5n5N2Gk9DnvUfk5ZZ82Ux4K7iAVHDrwSBl0tF19iwVNWg
+    vr0npOA1jDggXakKdKRzmShW3vvNSVNQ1/A69o/HOmrHHA8oLUp1XCgW9uD0Czwoo/VLLk
+    ABvmei6zxFyXQmJsmKVbY3KhZiOzAHdDwYp4pGlBXN2CUI1BD60/fX9d31Hy4iHEZ8ug30
+    tQDzrUtBS6sPdC6+HVOfXn0xYaSlPWMX4RihflD5IDrcmAptXQYFnxjWCROPwBrLlPUFm2
+    O8Mx762UmJ2L7fHtSsJ6oVN67O/bN/dNmqDb7VXPU1XP5C5l4HOlHwR648qd1QGhKo9eWK
+    8lUZYWMAqZm5DUedgMwocLLnRp7jRXFHm+8NYW+s/gymRtOBy9xxYMXcpobm3+UK29RlWN
+    dp5jK5AaJ4qr6TZU836nmQ8napPdN8XV95MSFvd2B/zieXSq14EAQXqijIoQ
+X-ME-Proxy: <xmx:5irIajUmTFDcqr-RYD15Rs5lI-_a8NzVzh1-ILvf_m9e5jP4cYYjAw>
+    <xmx:5irIalOVMKVThPbv4egsibWnhpqIZ3i5RIA5RBtk1UeFmcZl5aQi4g>
+    <xmx:5irIavYdLlCZh86LAFYKTb3KKG8miAa3A6sD8xeAlS85rTTxhADOzQ>
+    <xmx:5irIahrO07l6czgISfzlnesjYgUxPQDHGaU4Lhg5iHm23E42wIxXDw>
+    <xmx:5irIahM8CAzMb59tXTp68HLUj85yXaZdYMERs9RWoybSzZTc9rwHAr0L>
 Feedback-ID: ie8e14432:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 8 Oct 2026 19:44:35 -0400 (EDT)
+ 8 Oct 2026 19:44:37 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: linux1394-devel@lists.sourceforge.net
 Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH 0/6] firewire: core: make execution context assumptions explicit
-Date: Fri,  9 Oct 2026 08:44:26 +0900
-Message-ID: <20261008234432.251412-1-o-takashi@sakamocchi.jp>
+Subject: [PATCH 1/6] firewire: core: use spinlock_irqsave() appropriately for transaction list lock
+Date: Fri,  9 Oct 2026 08:44:27 +0900
+Message-ID: <20261008234432.251412-2-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261008234432.251412-1-o-takashi@sakamocchi.jp>
+References: <20261008234432.251412-1-o-takashi@sakamocchi.jp>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -98,33 +103,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Recent code changes have guaranteed the execution contexts of several
-functions in the transaction layer. Based on this, this series adjusts
-the use of spinlock variants and adds might_sleep() calls where
-appropriate.
+The transaction.lock in the fw_card structure protects the transaction
+list from concurrent access. The list is mostly accessed from process
+context, with two exceptions: split_transaction_timeout_callback()
+acquires the lock in softIRQ context for the timer wheel, and
+__fw_send_request() acquires it in the caller's context, which can
+include hardIRQ context.
 
-It also adds sparse annotations and lockdep checks for several locks to
-document the expected locking context and help detect incorrect locking
-behavior.
+Use spinlock_irq() in process context and spinlock_irqsave() in the other
+contexts. Update the relevant scoped_guard() invocations accordingly and
+remove the unnecessary comments.
 
-Takashi Sakamoto (6):
-  firewire: core: use spinlock_irqsave() appropriately for transaction
-    list lock
-  firewire: core: add might_sleep() checks
-  firewire: core: use sparse annotations and lockdep checks for
-    transaction lock
-  firewire: core: use sparse annotations and lockdep checks for topology
-    map lock
-  firewire: core: use sparse annotations and lockdep checks for split
-    timeout lock
-  firewire: core: narrow the card lock scope when accessing node_id
+Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+---
+ drivers/firewire/core-transaction.c | 27 +++++----------------------
+ 1 file changed, 5 insertions(+), 22 deletions(-)
 
- drivers/firewire/core-topology.c    |  3 +
- drivers/firewire/core-transaction.c | 96 ++++++++++++++++++++---------
- 2 files changed, 70 insertions(+), 29 deletions(-)
-
-
-base-commit: a8cf19ce243bf2cd0d338823fa79cd927e34b830
+diff --git a/drivers/firewire/core-transaction.c b/drivers/firewire/core-transaction.c
+index a0379fc3e60e..39715cf79ab9 100644
+--- a/drivers/firewire/core-transaction.c
++++ b/drivers/firewire/core-transaction.c
+@@ -69,9 +69,7 @@ void fw_cancel_pending_transactions(struct fw_card *card)
+ 	struct fw_transaction *t, *tmp;
+ 	LIST_HEAD(pending_list);
+ 
+-	// NOTE: This can be without irqsave when we can guarantee that __fw_send_request() for
+-	// local destination never runs in any type of IRQ context.
+-	scoped_guard(spinlock_irqsave, &card->transactions.lock) {
++	scoped_guard(spinlock_irq, &card->transactions.lock) {
+ 		list_for_each_entry_safe(t, tmp, &card->transactions.list, link) {
+ 			if (try_cancel_split_timeout(t))
+ 				list_move(&t->link, &pending_list);
+@@ -121,10 +119,7 @@ int fw_cancel_transaction(struct fw_card *card, struct fw_transaction *transacti
+ 
+ 	// If the request packet has already been sent, we need to see if the transaction is still
+ 	// pending and remove it in that case (e.g. the split transaction).
+-	//
+-	// NOTE: This can be without irqsave when we can guarantee that __fw_send_request() for
+-	// local destination never runs in any type of IRQ context.
+-	scoped_guard(spinlock_irqsave, &card->transactions.lock) {
++	scoped_guard(spinlock_irq, &card->transactions.lock) {
+ 		if (!find_and_pop_transaction_entry(card, iter == transaction))
+ 			return -ENOENT;
+ 	}
+@@ -204,9 +199,7 @@ static void transmit_complete_callback(struct fw_packet *packet,
+ 			delta = card->split_timeout.jiffies;
+ 		}
+ 
+-		// NOTE: This can be without irqsave when we can guarantee that __fw_send_request() for
+-		// local destination never runs in any type of IRQ context.
+-		scoped_guard(spinlock_irqsave, &card->transactions.lock)
++		scoped_guard(spinlock_irq, &card->transactions.lock)
+ 			start_split_transaction_timeout(t, delta);
+ 		return;
+ 	}
+@@ -230,9 +223,7 @@ static void transmit_complete_callback(struct fw_packet *packet,
+ 		break;
+ 	}
+ 
+-	// NOTE: This can be without irqsave when we can guarantee that __fw_send_request() for
+-	// local destination never runs in any type of IRQ context.
+-	scoped_guard(spinlock_irqsave, &card->transactions.lock) {
++	scoped_guard(spinlock_irq, &card->transactions.lock) {
+ 		if (!find_and_pop_transaction_entry(card, iter == t))
+ 			return;
+ 	}
+@@ -399,8 +390,6 @@ void __fw_send_request(struct fw_card *card, struct fw_transaction *t, int tcode
+ 	 * the list while holding the card spinlock.
+ 	 */
+ 
+-	// NOTE: This can be without irqsave when we can guarantee that __fw_send_request() for
+-	// local destination never runs in any type of IRQ context.
+ 	scoped_guard(spinlock_irqsave, &card->transactions.lock)
+ 		tlabel = allocate_tlabel(card);
+ 	if (tlabel < 0) {
+@@ -423,16 +412,12 @@ void __fw_send_request(struct fw_card *card, struct fw_transaction *t, int tcode
+ 	timer_setup(&t->split_timeout_timer, split_transaction_timeout_callback, 0);
+ 	t->packet.callback = transmit_complete_callback;
+ 
+-	// NOTE: This can be without irqsave when we can guarantee that __fw_send_request() for
+-	// local destination never runs in any type of IRQ context.
+ 	scoped_guard(spinlock_irqsave, &card->lock) {
+ 		// The node_id field of fw_card can be updated when handling SelfIDComplete.
+ 		fw_fill_request(&t->packet, tcode, t->tlabel, destination_id, card->node_id,
+ 				generation, speed, offset, payload, length);
+ 	}
+ 
+-	// NOTE: This can be without irqsave when we can guarantee that __fw_send_request() for
+-	// local destination never runs in any type of IRQ context.
+ 	scoped_guard(spinlock_irqsave, &card->transactions.lock)
+ 		list_add_tail(&t->link, &card->transactions.list);
+ 
+@@ -1176,9 +1161,7 @@ void fw_core_handle_response(struct fw_card *card, struct fw_packet *p)
+ 		break;
+ 	}
+ 
+-	// NOTE: This can be without irqsave when we can guarantee that __fw_send_request() for
+-	// local destination never runs in any type of IRQ context.
+-	scoped_guard(spinlock_irqsave, &card->transactions.lock) {
++	scoped_guard(spinlock_irq, &card->transactions.lock) {
+ 		t = find_and_pop_transaction_entry(card,
+ 				iter->node_id == source && iter->tlabel == tlabel);
+ 	}
 -- 
 2.53.0
 
