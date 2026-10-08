@@ -1,64 +1,64 @@
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A2F84F55B7
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 18:28:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78E914A5EC8
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 18:28:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791484130; cv=none; b=uiKZRHWXEMfP2m5yPGvJx6VwF4d9+2GyOqgSfPc65zXrIc6ZRHY8gNePBxr9Dc0yctF9BQccAmF48s4cADApIHRlOA1i/W5q2GQyvkykpUs8YxkAmQI1YCDAtONNqwaPGIdFgR3/g6xgduqHhKyckQLAcEXYpxcJZyDAMwcK8YI=
+	t=1791484130; cv=none; b=Ba6nV0zx4W1Wx20DAnLOVQdplMNJt7KJ7nr7G4MHlvvvA5XkmjztjZa22ihgnddfLw+P45Wk1G+APcFnoyn0x2deUUfGJSQKSpRw2uHqP1ZmPiGaOxiHssRMF6ulhpJp2kvdR9O/9iRQu65J/T8SF8jN7/mGU3MnPmaPM1kpLn8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791484130; c=relaxed/simple;
-	bh=25uNfJVo7Y+Sfi7XhXghjxn885YmIU5R70j6mEoOG00=;
+	bh=IWTcp+2eziHJnOl2KhgfP+D2FcrXHN82wx6V+Ldr0lI=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=gyw9BfeKnatpIpWmYXCOHiAu8xzZ7gG6gJJmtY06MAzstpO3Hjdes1EEQb1zd8PegAVx6kNmrz0T1YyfOIg7ogHkpzpBuSmNc1EwaRvr1061LLmszWJmYg3L7lcB8Nnp/URavZkMbHIRdYPTBfgSqL3KEZz32DCRNexHKXy3vIU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lDrR5d0Q; arc=none smtp.client-ip=74.125.82.54
+	 MIME-Version; b=ki53vHLhJjgiv56s6P3Fk4vjFziHu1/oKaBBEjnBLqdmwr9CbBpHPgrkUujZkKrHJ4VExAkTApWLtJzC1M98c2IRz2GXmGrIeE5lkqNOexzE6D7uxxxKiNzIkRujAIGDsFk0COMHhTEFXPqBRO7h7rmL6DGPfuNnVzGORPwQGqc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Fxk+uqBp; arc=none smtp.client-ip=74.125.82.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lDrR5d0Q"
-Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-1419d3416ceso10781250c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 11:28:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Fxk+uqBp"
+Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-1438d9363fbso2225405c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 11:28:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791484112; x=1792088912; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791484110; x=1792088910; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=utdVWrZ7wDvsHiY5NKnbSY5PtnmQf+otNqNinuRgHkM=;
-        b=lDrR5d0Q7w42QPYmwLmikK+7xskqMexlGula09iIMV/F3yGjFA8Fsl/JvPtgiTqIGz
-         hfvoNuY2re8QlQigo4A+pf1hTr5X3bMI5depSKwzUHlCIS5LSPoxUZ+KqU3AHtP1Xn1g
-         MeElIcbmOFGecyB2ym3DZWdXcmyrs69FAttdqmHpkT0BwJw4GLb4fbT1CJmKhAjOX6r5
-         NA1GqbERwAXpKR+u63281LFuGi6JG1q6Aq/OgHZjmRbVJ9iT987BVncgDaqHp5bkY84t
-         v69+93+vXAXJgAxIuGinRuGdrcPvp6IN8uA1xeXraVp7T+FKupDLvT/LpdUnMTSwe/dn
-         Mfrg==
+        bh=KHEkYAP4Kvw/D7tGM2EVPaorXMSyBP1fknjXL4EHP88=;
+        b=Fxk+uqBpcLqIfbSEMoQGoaFpZAEQVuC+u7uo0A4Yy2E4TGFZ2mR/quM286XG9HOFNe
+         PkOx/dorFsBr6omKvEJsexMMhRmqhBYHwa1AdcYsVGFcRVCBmFnbG6aVjTz5kksNvg2p
+         yYgJBpgrDZO/2vMTaAIuvXzXAawFjWmDcj5t7MvJeBPU8yfbHMiysmSINwR+PirgJ9tZ
+         tUX6pFqvMgmU4Cnkf57HvdpzZq2i3gishz9V/Lue5f6e6FW0hliybpydJZmClPznr12T
+         ogIN1jhYe3aZEaw2JfZHooAb3uSSfpLMkYAk7KA1raOB1Tm5EOlVIl8gqvIoV4cZd2yw
+         VPmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791484112; x=1792088912;
+        d=1e100.net; s=20260707; t=1791484110; x=1792088910;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=utdVWrZ7wDvsHiY5NKnbSY5PtnmQf+otNqNinuRgHkM=;
-        b=TnDz+yT97+kRGMmuMvqMZfiilM7up445VGBOqhyk42VmhYMrxdRJy7EfFhIXL/nzV3
-         1Q9tqpBSLAVsNzmDHdBLSPi/AuYH57vkQY1lDN2DMA9xfCqOyqg9O5QSfWNhpqPsQDby
-         vHNmyEwfapV0azZA6UU88VL/1Xk8IBetUBzG/6Ix42PvNUR1jQWbvjuvmKQ6Vl9QlvHA
-         TOQxMKMiRsrpkiHmfDcJ6IiYTXBB3+AXl2H4okP6UqrBbk52I+0bPeT9UhyAhVFVrc+g
-         zFTXmCmIll/Rswfjd7msj3X4vo5cH6d74JQYoWzsHmYPg9fK5dUpJxB3u7jna2ZrGGiw
-         sLtg==
-X-Forwarded-Encrypted: i=1; AKwUvBy4y2ncnFWiAqPZiTndTkQiqSBs95WkqFEIjHK5ttRB5ikSJOrEWT8YxG/9mRV5kRJk0e30QE2kMMqnn8s=@vger.kernel.org
-X-Gm-Message-State: AFuF++k6l41954qZ6Vs3tojHmjbsEnh6jLVVcmj7inYt4k9U7COG2zZC
-	0djP1SQg1oB0shjabb9FGmPjRHhsR8G1usw5RqsZMOj20GRqX4oJCg7g
-X-Gm-Gg: AYBFou1pPmmsgWNVEAYpQppuiKBdWw32Gl1I24Nz2rsWUuAi+XYeIF/ky/qDoBnWJrH
-	qHchzwG38jylCzh9de/KqxOFRME9ywtvtOT1dhWicTUGx2RS4cXfDCGFNTaWIoZx/yQC+2r8u81
-	kItxHsCbuIcLj6pBS/BcIbUBNYfrx21T1h8OxSsL9yQXMVYfOIccWN6WC79Nl2wZJN1ylPA7DvR
-	KJKW0e32jwqw98rOKrulX8f6D171/Lwjvs33F9il9iGk3zaAGGURcvfQ+C0fkYRAOYZsQLPsIP9
-	YUwoWUv/IituPyQd3gmkwY2JojFOrJIKyf62Hr/9rEbdaNlkhHvDAX7YMnUjsUNHqoBVdlRfisZ
-	ao/aFd5oTrTIDrGb3FVwzlohpCFgWELx8c74RDCQxmAEd3/S3QVIyrX9T+RwG5Imv9MdACLiO6Z
-	MP40YSHJUPUE5zqExWqUPTtyWA+e6WqLPlqgNx68oSJtQVkxK56og+LgafLfNQzOswqrlqqrwPR
-	+oh0y3ykm2/jmXxp2ZAMg==
-X-Received: by 2002:a05:7022:f115:b0:14f:fb87:cf62 with SMTP id a92af1059eb24-16205cc1b15mr6242946c88.27.1791484111604;
-        Thu, 08 Oct 2026 11:28:31 -0700 (PDT)
+        bh=KHEkYAP4Kvw/D7tGM2EVPaorXMSyBP1fknjXL4EHP88=;
+        b=q1mW/mr4/DLBvi/4R1cwEMVYEajkRnN0fES2HNiXaFMmCINFNulxLBQZL9fDWuJSVQ
+         KBAsUMv5EQnsdRvRznbd44T/aAGaGIGFNLc9d/CnvtwJkxFF0/ofOU7u5w9KZO4Mkh9D
+         Dk/L3vKaf8FZBWNsZ2y6+7hrJy3rIq76XGuMqbF7C5ryk2zyEdzLHNMo79bHyRQ77wYV
+         Ul1ZjnBehqVLzB044ABQw19jnAFzD6KZFr/bkCT2rw3R6CTFk8O7rDNdx3GuSZJLLSm5
+         nu6vkBLhoaeQcZBesLnjC937cViHURNljg4aBeU01EBm5WMhz34RStVh4FSS5GBbB7w5
+         NMKA==
+X-Forwarded-Encrypted: i=1; AKwUvBybF98Xb+4DweJXNjCj3J90cpkg2ed18+D5tYGJVfVXa8rTQPEV7YCycRzDdkyr10sbafYHsGaILvIyjFE=@vger.kernel.org
+X-Gm-Message-State: AFuF++l0VfKzvcmo9OLeiUbzEpX01Wt6/1d5+yDy+ZctajqT4itdsu4S
+	AcOOR2nGsb+7MUR9pKz8rFaDq0HCKEUVCVHb0GNmqK2lk+qCf11xDUPc
+X-Gm-Gg: AYBFou2J+Sp6jxKOAnj3eG99hODmeDXqjR05d0GayLrCiX8MWlGbxGjQzIxLGI93wrb
+	mrNAIsXibPSfAkxOO0K3clOs/sKedmkKCaX7kGP6NhK4j+quRSCKUW31MFpm4ivcipv0ogCmkGn
+	tzJjRUn/8ui0wRaATpuIvl2NWioP3UWI4VjqnFnn1giKgWaQkFwP7HoCuqbZQ2wXJh9HpeNDvZk
+	UBPR3ZWZWvyqMMHULf9CJ95Ae3MWset1DnBHOo4V6qimBXU9nkRR5puEUoCXr798pCRA8vx9oEk
+	hK9SnOmmff7BY19lVzO9jAz53A5mq/yFZ5VSySoiE/QrAbGGjcLiafd2VfwUUjQ0kuKHpdKifsJ
+	EPUnzzJCHFZ1aXg63X1jfGt3+Dxce5P7+vqSFHOFh6DAgtmPovw4o8GkN24VqR6DlZ5gWe+UF7n
+	LRFTG54CZU/942v15AErsHS7wONe7/R75qC6P9PNc6ih/0DWCCDsI+OICO/5fnnUFjfl1/L+8WL
+	HmxVGI0nnM=
+X-Received: by 2002:a05:7022:5f04:b0:15c:20b8:7973 with SMTP id a92af1059eb24-165a3e83adfmr3350053c88.6.1791484110399;
+        Thu, 08 Oct 2026 11:28:30 -0700 (PDT)
 Received: from penguin.lxd ([12.187.136.98])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a2d2db98sm57236c88.10.2026.10.08.11.28.30
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a2d2db98sm57236c88.10.2026.10.08.11.28.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 11:28:31 -0700 (PDT)
+        Thu, 08 Oct 2026 11:28:29 -0700 (PDT)
 From: "Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
 To: hannes@cmpxchg.org,
 	yosry@kernel.org,
@@ -74,9 +74,9 @@ To: hannes@cmpxchg.org,
 Cc: rientjes@google.com,
 	willy@infradead.org,
 	senozhatsky@chromium.org
-Subject: [PATCH v1 2/8] crypto: acomp - Add bit to indicate segmentation support.
-Date: Thu,  8 Oct 2026 11:28:08 -0700
-Message-Id: <20261008182814.27450-3-kanchanapsridhar2026@gmail.com>
+Subject: [PATCH v1 1/8] crypto: acomp - Define a unit_size in struct acomp_req to enable batching. mm: zswap: Set the unit size for zswap to PAGE_SIZE.
+Date: Thu,  8 Oct 2026 11:28:07 -0700
+Message-Id: <20261008182814.27450-2-kanchanapsridhar2026@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261008182814.27450-1-kanchanapsridhar2026@gmail.com>
 References: <20261008182814.27450-1-kanchanapsridhar2026@gmail.com>
@@ -88,68 +88,134 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This patch adds segmentation support for compression.
+We add a new @unit_size data member to struct acomp_req along with a
+helper function acomp_request_set_unit_size() for kernel modules to set
+the unit size to use while breaking down the request's src/dst
+scatterlists.
 
-Add a bit to the crypto_alg flags to indicate support for segmentation.
-Also add a helper for acomp to test whether a given tfm supports
-segmentation.
+An acomp_alg can implement batching by using the @req->unit_size to
+break down the SG lists passed in via @req->dst and/or @req->src, to
+submit individual @req->slen/@req->unit_size compress jobs or
+@req->dlen/@req->unit_size decompress jobs, for batch compression and
+batch decompression respectively.
 
+In case of batch compression, the folio's pages for the batch can be
+retrieved from the @req->src scatterlist by using a struct sg_page_iter
+after determining the number of pages as @req->slen/@req->unit_size.
+
+Please note that acomp_request_set_callback() sets the @req->unit_size
+to 0.
+
+In zswap_cpu_comp_prepare(), after the call to
+acomp_request_set_callback(), we set the unit size for zswap to
+PAGE_SIZE.
+
+      acomp_request_set_unit_size(acomp_ctx->req, PAGE_SIZE);
+
+Suggested-by: Herbert Xu <herbert@gondor.apana.org.au>
 Co-developed-by: Herbert Xu <herbert@gondor.apana.org.au>
 Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
 Signed-off-by: Kanchana P Sridhar <kanchana.p.sridhar@intel.com>
 Signed-off-by: Kanchana P. Sridhar <kanchanapsridhar2026@gmail.com>
 ---
- include/crypto/algapi.h             | 5 +++++
- include/crypto/internal/acompress.h | 5 +++++
- include/linux/crypto.h              | 3 +++
- 3 files changed, 13 insertions(+)
+ include/crypto/acompress.h | 49 ++++++++++++++++++++++++++++++++++++++
+ mm/zswap.c                 |  6 +++++
+ 2 files changed, 55 insertions(+)
 
-diff --git a/include/crypto/algapi.h b/include/crypto/algapi.h
-index 05deea9dac5e..7d406cfe5751 100644
---- a/include/crypto/algapi.h
-+++ b/include/crypto/algapi.h
-@@ -280,6 +280,11 @@ static inline bool crypto_tfm_req_virt(struct crypto_tfm *tfm)
- 	return tfm->__crt_alg->cra_flags & CRYPTO_ALG_REQ_VIRT;
- }
+diff --git a/include/crypto/acompress.h b/include/crypto/acompress.h
+index 5d5358dfab73..6462fc46f4ec 100644
+--- a/include/crypto/acompress.h
++++ b/include/crypto/acompress.h
+@@ -79,6 +79,7 @@ struct acomp_req_chain {
+  * @dvirt:	Destination virtual address
+  * @slen:	Size of the input buffer
+  * @dlen:	Size of the output buffer and number of bytes produced
++ * @unit_size:	Unit size for the request for use in batching
+  * @chain:	Private API code data, do not use
+  * @__ctx:	Start of private context data
+  */
+@@ -94,6 +95,7 @@ struct acomp_req {
+ 	};
+ 	unsigned int slen;
+ 	unsigned int dlen;
++	unsigned int unit_size;
  
-+static inline bool crypto_tfm_req_seg(struct crypto_tfm *tfm)
-+{
-+	return tfm->__crt_alg->cra_flags & CRYPTO_ALG_REQ_SEG;
-+}
-+
- static inline u32 crypto_request_flags(struct crypto_async_request *req)
+ 	struct acomp_req_chain chain;
+ 
+@@ -329,9 +331,56 @@ static inline void acomp_request_set_callback(struct acomp_req *req,
  {
- 	return req->flags & ~CRYPTO_TFM_REQ_ON_STACK;
-diff --git a/include/crypto/internal/acompress.h b/include/crypto/internal/acompress.h
-index 9cd37df32dc4..93ae59623f13 100644
---- a/include/crypto/internal/acompress.h
-+++ b/include/crypto/internal/acompress.h
-@@ -189,6 +189,11 @@ static inline bool crypto_acomp_req_virt(struct crypto_acomp *tfm)
- 	return crypto_tfm_req_virt(&tfm->base);
+ 	flgs &= ~CRYPTO_ACOMP_REQ_PRIVATE;
+ 	flgs |= req->base.flags & CRYPTO_ACOMP_REQ_PRIVATE;
++	req->unit_size = 0;
+ 	crypto_request_set_callback(&req->base, flgs, cmpl, data);
  }
  
-+static inline bool crypto_acomp_req_seg(struct crypto_acomp *tfm)
++/**
++ * acomp_request_set_unit_size() -- Sets the unit size for the request.
++ *
++ * This is a helper function that enables batching for zswap, IPComp, etc.
++ * It allows multiple independent compression (or decompression) operations to
++ * be submitted in a single request's SG lists, where each SG list ("segment")
++ * is processed independently. The unit size helps derive segments from a
++ * single request. crypto_acomp does not expect the segments to be related in
++ * any way.
++ *
++ * Example usage model:
++ *
++ * A module such as zswap that's configured to use a batching compressor, can
++ * accomplish batch compression of "nr_pages" with crypto_acomp by creating an
++ * output SG table for the batch, initialized to contain "nr_pages" SG
++ * lists. Each scatterlist is mapped to the nth destination buffer for the
++ * batch. Depending on whether the @req is used for batch compress/decompress,
++ * zswap must set the @req's source/destination length to be
++ * "nr_pages * @req->unit_size" respectively.
++ *
++ * An acomp_alg can implement batch compression by using the @req->unit_size
++ * to break down the SG lists passed in via @req->dst to submit individual
++ * "@req->slen/@req->unit_size" compress jobs to be processed as a batch.
++ *
++ * Similarly, zswap can implement batch decompression by passing an
++ * SG table with "nr_pages" SG lists via @req->src to process
++ * "@req->dlen/@req->unit_size" decompress jobs as a batch.
++ *
++ * This API must be called after acomp_request_set_callback(),
++ * which sets @req->unit_size to 0. This makes it easy for users of
++ * crypto_acomp to rely on a default of not opting in to batching.
++ * Users such as zswap opt in to batching by defining @req->unit_size
++ * to a non-zero value for use by acomp_algs supporting batching.
++ *
++ * @du would be PAGE_SIZE for zswap, it could be the MTU for IPsec.
++ *
++ * @req:	asynchronous compress/decompress request
++ * @du:		data unit size of the input/output buffer scatterlist.
++ */
++static inline void acomp_request_set_unit_size(struct acomp_req *req,
++					       unsigned int du)
 +{
-+	return crypto_tfm_req_seg(&tfm->base);
++	req->unit_size = du;
 +}
 +
- void crypto_acomp_free_streams(struct crypto_acomp_streams *s);
- int crypto_acomp_alloc_streams(struct crypto_acomp_streams *s);
- 
-diff --git a/include/linux/crypto.h b/include/linux/crypto.h
-index b7c97f1c47c9..78c699ac3f82 100644
---- a/include/linux/crypto.h
-+++ b/include/linux/crypto.h
-@@ -139,6 +139,9 @@
- /* Set if the algorithm cannot have a fallback (e.g., phmac). */
- #define CRYPTO_ALG_NO_FALLBACK		0x00080000
- 
-+/* Set if the algorithm supports segmentation. */
-+#define CRYPTO_ALG_REQ_SEG		0x00100000
 +
- /* The high bits 0xff000000 are reserved for type-specific flags. */
+ /**
+  * acomp_request_set_params() -- Sets request parameters
+  *
+diff --git a/mm/zswap.c b/mm/zswap.c
+index ae19e301fced..ca513a9f89e3 100644
+--- a/mm/zswap.c
++++ b/mm/zswap.c
+@@ -845,6 +845,12 @@ static int zswap_cpu_comp_prepare(unsigned int cpu, struct hlist_node *node)
+ 	acomp_request_set_callback(acomp_ctx->req, CRYPTO_TFM_REQ_MAY_BACKLOG,
+ 				   crypto_req_done, &acomp_ctx->wait);
  
- /*
++	/*
++	 * This should be called after acomp_request_set_callback(),
++	 * which initializes req->unit_size to 0.
++	 */
++	acomp_request_set_unit_size(acomp_ctx->req, PAGE_SIZE);
++
+ 	mutex_init(&acomp_ctx->mutex);
+ 	return 0;
+ 
 -- 
 2.39.5
 
