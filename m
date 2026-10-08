@@ -1,70 +1,71 @@
-Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com [209.85.210.48])
+Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com [209.85.161.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99A2D384CCB
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 16:40:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11E703955C1
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 16:40:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791477620; cv=none; b=dGnjaVaq5n/SEgLrXnY7OAxJ0FN3GlSJi4Ihk2fydENEcP6aiWEWYn4WHnc4fvHIRgb2NlU0YFNcfQVh8zGPs+1vuv7h4FnPSkGW7VozQbFft37Ae+bWxEI0Mx41crs6zqHadgYSdh//mOrzxNycj8QE+B9P/VDzsDoKaz9zKq0=
+	t=1791477649; cv=none; b=QH+zv5PFcjjyJMezRP/1IAFO3Y9rBhveK+YvZIZq4Gl82VOivmPuIbbip96PpL9g3TA7qg5X665Dp+LJERCwexvC2XKEbyeLDVTgfUYhZmJ9H8Bk+rgBXNEiU9FYdsNKxQg4aTQGQsT7LIzx1tOGImYtU4LZeOqjCSEdKWV2oa0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791477620; c=relaxed/simple;
-	bh=qQebyK1qn4QyeS7i87/WFVsOqle2tm+F7iu/hTmqx94=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=dQV/TrVgK6glfeCCZ8c05y4V149r8UKaN+mFQyLya7Z3l4L7MpnzmLjP6Utin1DTs2Vm2jkwjuZJjT3kDmnfz/hs5QQNM9UD6VWkXf9V/t7MT9yzaZZCYY363T/5Z6tXY5pT2jlRq00RXyYRxAWclIhC9+QJ9JpG4hdvPFt8128=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A9pPOiGE; arc=none smtp.client-ip=209.85.210.48
+	s=arc-20240116; t=1791477649; c=relaxed/simple;
+	bh=Wry/tfYuTC7rWptBdzvZECOOBl9/wiK4tYyVY5TUF7M=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=BzdBW3LuI1UmPvQ9QQy5FoZBuqw6vBGSa9Vc6GOzm6/yxlTwAvkqIGgpOBvxGxnxHTZuQhV0+qQeUuxpR+po1oNOoW0qahuLtOqRCB+kq+llLMZAii/PU0+vkG69KsJEPCGv1pmB+3t8ZABAF0+iwlgmhmAhk7UXvX+C/9EmVT4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l0DkkHOe; arc=none smtp.client-ip=209.85.161.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A9pPOiGE"
-Received: by mail-ot1-f48.google.com with SMTP id 46e09a7af769-825b40f8a26so1574214a34.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 09:40:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l0DkkHOe"
+Received: by mail-oo1-f53.google.com with SMTP id 006d021491bc7-6d7a9e2eb24so3056914eaf.1
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 09:40:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791477618; x=1792082418; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791477646; x=1792082446; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=S4ia65KqaNKJzRA1TMQYjYE+pIU/sZEdHWr8kBySgNg=;
-        b=A9pPOiGERJZGQQKK9p9iqHdMwY7W+E2SyLKe/aWZsOfOj1i9/tYiDp5qD8wCgRghaB
-         nLkLAyq7MZkQb+Hd93/mf+JQh6R+M0oyUlXzHC670PGXYfyqxYEQX/SqecFENXCydQUG
-         cz3t8kGGv4n6E2NZBT8jCsUunC663mqXOHyqJmPhpZO+gJEm7xVK1gnc00h4bfWgMIh3
-         9IF5lWsPh1kEda0Za5LsS78J9CBv6b8pKuRolBN0FEk1oBWMfsT0kEAGEASZX6vMUnEP
-         4d2EiDCrur8px88FxY1GK8jqIXk3oaP78ndXU4ZTaHPSmjD8cYR/3em+VYwA4EtoADGa
-         Atzg==
+        bh=DQBUbTgzsBd0hnhaOE1QOAQqui1J5m3YnzwTsujlUWI=;
+        b=l0DkkHOershgQ9qVF2QPqH2ggvR64hFRYyPml0MAb6M6kIlRGAoQ8s5vaa2F7rJcbH
+         2LB3ttpVPVniDf+8W5vVde3CzSdhig5iHj5Q1E4p1lt/snUgw9xNhEiC7RxMjfvUqERC
+         9QHJ1r3ye5vEEuwdtS57fbHnr9uU073HljgbPch7vc1pEw+Fn5BDG8aKF6c0BSa4EufP
+         wRr+6xTwOFIBKH/2fmghToLmEBj6RKc8HNY5c+kGkMJ1Ee+YcTruinzHcsA+JsqBs9hu
+         KwcPLaVtS5n639BWAVEMC5WI3nmzBjufC/DnsJgFGnyyoTuwZQFrpTBFukTPBJkKFzdf
+         SsjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791477618; x=1792082418;
+        d=1e100.net; s=20260707; t=1791477646; x=1792082446;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=S4ia65KqaNKJzRA1TMQYjYE+pIU/sZEdHWr8kBySgNg=;
-        b=BpwmB8Xi2JxiikCJsev2A53EmEW5B8kjSw5VFKl2dJDprpl4NqQ5xkes4APftZvulP
-         dM/Tq7iJafefXbT+z0QGOqpy8dWvKpuo3pUeTIi34ZVt5mL7K7uPFFgRaUds3tvlo+An
-         7a1C2kpbN5jnMq9UUD2vscB89iVWjyApmkd5tRSfoZ3KHadGopZFk4cuv3RY7gg1Skse
-         bb3stvJgv9tixCAsqWevi0A4ytut/+3dgShAmKS6nD5pLjoNSo2F3ypevxt5qXVlDljb
-         fFHcmBwZ5wUQD38N4OtvJxmhZvOBtcC0zxlEW+/KbNugUZtIgu85V2cJwpNqJ6dps7fx
-         kOhw==
-X-Forwarded-Encrypted: i=1; AKwUvBz0p5RIUQTjhIouXyOpVTSDq+uelTknn0MWTobm6R/Plvu8Gshbf57V1taZfdX25VRY5nXgkIRzvoNVK+o=@vger.kernel.org
-X-Gm-Message-State: AFuF++kzO15k1EPBF7DoO9zNemLeyj5RtQibcmtcnC5gAuXdlwJtrkSO
-	GXdR77ORVU1vnBQlRI0X3W9N4xGtDD3uJlyacuRomFuuSzu98X7qRZlM
-X-Gm-Gg: AYBFou2Eh0SkoK5WK5sx42RVtBUoi02BbOsupMqDfRJTSWvhEP2GPMjOKu5+9hhVG/l
-	z4TmJa7Dk6k/7A4ts0CcBm51rjnWWAcfWGZLVQGwu7LQt+ih3ypIaNPs9Qecrqc6Bn/b4rAHGBt
-	jB3l1/u4lrzDXCtDjWqFZIeY3doQmIJXdPE8lq3OP9uNMU0KJPK/KoFqjhxTgzoyzFmiTb+zM1l
-	EQBgD6hJQSIQOVcw9nAYmEGpBKVbt5Vgdk9rirW41U97JtUmmytqRIUoS135RGj3Qo7VIMuhxLf
-	ipnQ2ozcj8e4fLvhwGM9n0olhEHCCw9dH6duN0xaGJUh66GLHsfxK574H0ggLxcHU6LVKaGdA6c
-	p01qVi4mmGqP+ffS4Vxkir/ER9qd/vsO5yWJR7YuX+ZMQl5nYFXsUOm2oSgCKNF2r7tEG30UUFd
-	txZhATAP/T1TMoelDE47L9eOGua4ctdVrVD+JZLAfCpveHS01tMjDJlOwI23wvEGQRcJfujYFdN
-	FKNGioNYTuA
-X-Received: by 2002:a05:6808:1b93:b0:4f4:6421:5ee8 with SMTP id 5614622812f47-4fc4646ddbemr4919307b6e.42.1791477618420;
-        Thu, 08 Oct 2026 09:40:18 -0700 (PDT)
+        bh=DQBUbTgzsBd0hnhaOE1QOAQqui1J5m3YnzwTsujlUWI=;
+        b=c06KdQrNu8EoghA+h3Rc6INSldI91E6lHsUVputO2YRxiU+qsaKjml37RQA5DXjizD
+         CvhU/9JaEd+LuBUwc3o9X+Wiby2A3/TSTTgcLG3nosCML1IiWKDYWa3lHU2miPkZtH/n
+         2vdYt9a+auAR7XHbbkbkEP5fs4Bk38ycEO7pzdC8dor+rL1y9W2vdg65/u1XEDB9L3Nz
+         s3UEsFZFjMf6zhHd9Ypj/+vfQnGx6RhxMzVjX9YqgRAJNKhdDijvBGGMbe5ya4AOsrZD
+         c4Eoa5JjMOPLHHwMFs5yQ1xcO0i8rebOSxzToqg4WemxDhpEzsvYz+nYCcvK/x7PMvbK
+         GK6Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxBVHIsriz17kNQM7XHWdOuOgLPXf3filcZG4+WkBRr6u9BK2V4EGZkpG70Z/Bx8fopWrghFljv3KRdyHg=@vger.kernel.org
+X-Gm-Message-State: AFuF++n/hpo4GPyDNxy80+QMa4k6Z77EUNd5nQejIipRBHYvix6C9ChB
+	3gvTlr5YHxGcf/4ALfjySXk9J7M4M23mGba2Igfv28U99uiDCweYk0dT
+X-Gm-Gg: AYBFou3VPtxA2eP+/wIvy2sGimsagnvwUVzURPO+pj7v3TuD8v8MiunT1lKJQ1a8LSH
+	kZNOE+ezDHiLi115A4UlC3Az6/YqNkMjndmdQnBNCPcGiwquqZN7lqqErhuhv3iFD/mdSNiEvNW
+	fAB3NzauGdqOgynU1ulE6uk6TEjAh3yLvy8c6I2HNERErejqmQ0ycu+62aRFvGGbsM8zsfC4q4u
+	fo8/Z5GsaDisbdxNAQFjjWvAXA4nyjNN2aPZX4vrab00hEOXpAhfu6QWtlSX+N3qkJ3IXtGqQ02
+	bhHYYWCLj0KRZ2bX5eI5t9sY4rxje1R1yOkPjd40IxicVGOckyZxFRrKyv6xCuh3SR39he6X5ls
+	YZ92H5V53I1BQwQRcNIKqCs3rWfip5EZ7SL/ddt/vZQUvqkdl/yz4oq5m9YMtYHEUZGGG1DEHFR
+	CBvDjNqe/q8ij0znBHrCScU+/hsjg+VkWt8NgDKc3AP9l+L+cls4fmsKzJ55pw66QLiJEzGm98C
+	PMQZNsA7Rf7
+X-Received: by 2002:a05:6820:c44c:20b0:6dd:9790:7dd9 with SMTP id 006d021491bc7-6e7a8050f53mr3686761eaf.80.1791477645795;
+        Thu, 08 Oct 2026 09:40:45 -0700 (PDT)
 Received: from sheng2080.cmix.louisiana.edu ([130.70.15.5])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4fc484f7366sm6562275b6e.5.2026.10.08.09.40.17
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6ee7a7d8f63sm45928eaf.9.2026.10.08.09.40.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 09:40:18 -0700 (PDT)
+        Thu, 08 Oct 2026 09:40:45 -0700 (PDT)
 From: Leizhen Zhang <lzsx618@gmail.com>
-To: dhowells@redhat.com,
-	akpm@linux-foundation.org
-Cc: keyrings@vger.kernel.org,
+To: nathan@kernel.org,
+	nsc@kernel.org
+Cc: rostedt@goodmis.org,
+	linux-kbuild@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] asn1_compiler: fix heap overflows on small or token-dense grammars
-Date: Thu,  8 Oct 2026 11:40:04 -0500
-Message-Id: <20261008164004.3668307-1-lzsx618@gmail.com>
+Subject: [PATCH v2 0/8] kbuild: fix memory safety and UB bugs in host tools found by fuzzing
+Date: Thu,  8 Oct 2026 11:40:27 -0500
+Message-Id: <20261008164035.3668885-1-lzsx618@gmail.com>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -74,88 +75,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-tokenise() allocates (len / 2) tokens on the assumption that there are
-never more tokens than half the number of input characters. That doesn't
-hold: single-character tokens may be adjacent, so "{}" yields two tokens
-from two bytes while only one slot is allocated, and a 1-byte grammar
-gets a zero-sized array. The tokeniser then writes past the end of the
-heap buffer:
+This series fixes bugs in kbuild host programs found by building them
+with AddressSanitizer and UndefinedBehaviorSanitizer and fuzzing their
+inputs. Most patches include a reproducer.
 
-  AddressSanitizer: heap-buffer-overflow
-  WRITE of size 2 ... in tokenise scripts/asn1_compiler.c:407
+Patch 1 fixes a bug that also triggers without sanitizers: a declaration
+such as "int a, f(int);" makes genksyms loop forever while allocating
+memory (since v6.14; earlier versions silently recorded wrong types for
+such declarations).
 
-Every token consumes at least one character, so size the array by the
-input length instead. Allocate one extra, zeroed slot as well, since
-build_type_list() points the stop-marker type at token_list[nr_tokens].
+Patches 2-8 fix out-of-bounds reads (fixdep, modpost) and undefined
+behaviour reported by UBSan (kallsyms, modpost, sorttable,
+tools/include byteshift helpers), several of which trigger on every
+normal x86_64 build when the host tools are built with UBSan.
 
-Additionally, build_type_list() iterates with "n < nr_tokens - 1" where
-nr_tokens is unsigned. A grammar that contains no tokens (for example a
-file holding only a comment) makes this underflow and read far beyond
-token_list:
+The series is based on next-20261002. With it applied, a defconfig +
+MODULES + MODVERSIONS x86_64 build succeeds, and for genksyms, the
+symtypes/CRCs of 149 preprocessed kernel sources are unchanged.
 
-  AddressSanitizer: heap-buffer-overflow
-  READ of size 1 ... in build_type_list scripts/asn1_compiler.c:753
-
-Use "n + 1 < nr_tokens" instead, so that such input is rejected with the
-existing "No defined types" error.
-
-The generated output for all in-tree .asn1 grammars is unchanged.
-
-Found by fuzzing asn1_compiler built with ASan/UBSan.
-
-Reproducers:
-  printf '{}' > a.asn1 && scripts/asn1_compiler a.asn1 a.c a.h
-  printf -- '-- x\n' > b.asn1 && scripts/asn1_compiler b.asn1 b.c b.h
-
-Fixes: 4520c6a49af8 ("X.509: Add simple ASN.1 grammar compiler")
-Assisted-by: Claude:claude-opus-5-5 ASan UBSan
-Signed-off-by: Leizhen Zhang <lzsx618@gmail.com>
----
-v2:
+Changes in v2:
  - Use my real name in the From and Signed-off-by lines. No code
    changes.
+ - Drop "kconfig: fix NULL pointer dereference for defaults taken from
+   choice members"; Julian Braha will fix that issue differently.
 
-v1: https://lore.kernel.org/r/20261005085707.872193-1-lzsx618@gmail.com
+v1: https://lore.kernel.org/r/20261005104050.1786222-1-lzsx618@gmail.com
 
- scripts/asn1_compiler.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+Leizhen Zhang (8):
+  genksyms: fix infinite loop on declarations with parameter lists
+  fixdep: fix out-of-bounds read on a comment ending with a backslash
+  kallsyms: do not call qsort() with a NULL table
+  modpost: fix stack out-of-bounds read for unterminated PNP ids
+  modpost: fix handling of short reads in read_text_file()
+  modpost: fix pointer arithmetic on NULL in parse_source_files()
+  sorttable: avoid pointer arithmetic overflow when locating sort_needed
+  tools/include: fix signed shift overflow in 32-bit unaligned accessors
 
-diff --git a/scripts/asn1_compiler.c b/scripts/asn1_compiler.c
-index 4c3f645065..1ae89637d5 100644
---- a/scripts/asn1_compiler.c
-+++ b/scripts/asn1_compiler.c
-@@ -349,10 +349,10 @@ static void tokenise(char *buffer, char *end)
- 	char *line, *nl, *start, *p, *q;
- 	unsigned tix, lineno;
- 
--	/* Assume we're going to have half as many tokens as we have
--	 * characters
-+	/* Every token consumes at least one character, so we can't have
-+	 * more tokens than we have characters
- 	 */
--	token_list = tokens = calloc((end - buffer) / 2, sizeof(struct token));
-+	token_list = tokens = calloc(end - buffer + 1, sizeof(struct token));
- 	if (!tokens) {
- 		perror(NULL);
- 		exit(1);
-@@ -749,7 +749,7 @@ static void build_type_list(void)
- 	unsigned nr, t, n;
- 
- 	nr = 0;
--	for (n = 0; n < nr_tokens - 1; n++)
-+	for (n = 0; n + 1 < nr_tokens; n++)
- 		if (token_list[n + 0].token_type == TOKEN_TYPE_NAME &&
- 		    token_list[n + 1].token_type == TOKEN_ASSIGNMENT)
- 			nr++;
-@@ -773,7 +773,7 @@ static void build_type_list(void)
- 
- 	t = 0;
- 	types[t].flags |= TYPE_BEGIN;
--	for (n = 0; n < nr_tokens - 1; n++) {
-+	for (n = 0; n + 1 < nr_tokens; n++) {
- 		if (token_list[n + 0].token_type == TOKEN_TYPE_NAME &&
- 		    token_list[n + 1].token_type == TOKEN_ASSIGNMENT) {
- 			types[t].name = &token_list[n];
+ scripts/basic/fixdep.c             |  2 +-
+ scripts/genksyms/parse.y           | 23 +++++++++++++++++++----
+ scripts/kallsyms.c                 |  6 ++++--
+ scripts/mod/file2alias.c           | 10 ++++++----
+ scripts/mod/modpost.c              |  6 +++++-
+ scripts/mod/sumversion.c           |  3 ++-
+ scripts/sorttable.c                |  2 +-
+ tools/include/tools/be_byteshift.h |  2 +-
+ tools/include/tools/le_byteshift.h |  2 +-
+ 9 files changed, 40 insertions(+), 16 deletions(-)
+
 -- 
 2.34.1
 
