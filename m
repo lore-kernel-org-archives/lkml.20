@@ -1,78 +1,133 @@
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7F663BB133
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 10:40:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE71549364C
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 10:41:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791456059; cv=none; b=mCrFjkrlGBGouOfqlnJ7G+EVcT4lfEWWUukWEyhnHYCyqyy0xtp8STGnpismvCQz1G8q2oGjFIBEVUQEU9sdsFflLgrGBbzZ7Wf4vrflVwCN2yZa3J/nh7Myz7v6c1ZZzrR8lEtX1yPag/nVtF+cUzxgzLjOa7loOq2Cgveng7c=
+	t=1791456067; cv=none; b=MzGvoZ/TFWcbSlGcrdJWn6NtK7ZNhbStNEOKWz/x3LOk91jaUTX+FdaNVmiBS5W/Q5XMrit+FIE8sqrkVnWsvj1FiGyn4w87iPlKn8h/Y9PvB3UtDhMTCBMQgUfbacGHfqEDQBcs1JOTKgFCTwWzZtTxzFQkuHmcTfnSxogW1wg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791456059; c=relaxed/simple;
-	bh=zyqVi6uRGacZJuyYnIV/rrUh2DaYU6AvckRl0AF+wGg=;
+	s=arc-20240116; t=1791456067; c=relaxed/simple;
+	bh=Z888BsRACHc4khVghw71yqQDS3j8iLQcHLU2iv4UfaM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bnBOSlwZhASV9oioBvUEWnb4Wk8cPSPrA0pvWKYpFlfczi5aOuoEZm+mg7S6Q6XnCdfxByhCWvZJB2Be9ievo+58cldeUCQjifPshaaYo6qerhGPRx6hrCpjocU1pq6eDa6ZkbMZrSlk27Civp3+fcy9dhzdsaCGW0cuezPSsOc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ozO1uH2x; arc=none smtp.client-ip=209.85.215.174
+	 MIME-Version; b=bRwWO5yoD7NyoKaM4PL6txR+mXyTaTenmF54wEOOu+KQ0EkEO0apEy0s73wp2W9olCnRt/E57grmXglshb812iQ7wKermttfZzHb2SXyb6vTaWjJ4PeFZMdm67Rtok+vjWYM18N0+SkHJzJf/ubOD9rcW7KU+wppiQfkKw3+Cns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KbNm8Vvh; arc=none smtp.client-ip=74.125.82.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ozO1uH2x"
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cc4d192643dso1261530a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 03:40:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KbNm8Vvh"
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-34ceab2900eso4963740eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 03:41:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791456058; x=1792060858; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791456065; x=1792060865; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=iOVAVdLWRpL18PaqCaCiNVQOBrQ2EgqTC57TyqXjPGs=;
-        b=ozO1uH2xPwZChxX299aHfpYyy8BJg2HWZdAjte9e2qooAXLl5htmGdQNem9DYQzvOg
-         V8LuKTGXdjTsHtBQ64yKqIWN6VDJe8szDctRNQkb9pZsE2R8J3sak+V4ccilsuQWeFUw
-         iPnXhY0LOt3+innIFC+VNcI990hL1/Tc10d8ReNEmMHz8VZLX5olWYN7H4mHxEd7r8sg
-         mAz9fZYW2wa5M4pRraou6QjWT4v1QIMtyMTNPApfJvM6oSyLV/oaegpA5yHXzIFyfU64
-         QaLnRdhrjFaFasJI5HnByvv6tAE1E5et7Dicf2A4asjwNmxdc0pFqI1LPjjUYh1xUP2T
-         as/g==
+        bh=YTcgEknypy3JpI9J/G9mPIrbfMp+7I5/710LUj+4UxE=;
+        b=KbNm8VvhkpiCrKqc89Fq4x9OFB+UNKL+d34wYccd6XOILhvesojNO6ZGOWE3YlFruQ
+         IQwVZtXJ7YIv1iDtJ3vSYtCiYoPp6Uk487ypZOJi68zwYu3XLls+Mt2b68GVnGT2LJGs
+         dhgCVOGZjqTWEYGrfUgqGt1TCONEB/Zhy33T71LL79sUi+VBgwXyXMAmfQO1z33xvGvV
+         H5UqAaZkFDn6UZ36FYSFGTmd1d5CaKrlEn2x6YmqDkstSiG/3epK2Unmgf5JwwGnbB+u
+         Bozz0Sy9sjW5Z0ef6UIGnqIHrFg8PDJA6i26vuP5S6+EmXy9ZMyTR3PO2ZYHUfddxLPV
+         Wptg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791456058; x=1792060858;
+        d=1e100.net; s=20260707; t=1791456065; x=1792060865;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iOVAVdLWRpL18PaqCaCiNVQOBrQ2EgqTC57TyqXjPGs=;
-        b=pKydyv2VaAmVivQwjq6aWsTqUR7QhemhEsWExCdLPXY72z7+KKGvWKlcrN3qBNi+Uu
-         78gfMiyxS7lcQ3TJ86zhPHPmSGD/dS1tDcYbnhh4EGS7Crqs70wHTXLlgNX+s9mICF6V
-         XFLOZm9aHmgtyZa2lTgxpQCTunuvY/nhCQUQy1vct/7axDZhwmf9c/4uKxBM6MmKag+q
-         G6RFLonbRbHuHVj+yk1Tnp3R9BJt8H+E6ua5SL8/4pELokaXIvyQeIOhsg4UGrUIb+by
-         OAWn75489Xla/YhPN0C/oVh0nTmZyL/ANbYfDhTGjBNM3KbHYfH5qJQvaVEkjDGai1jo
-         Tfdw==
-X-Forwarded-Encrypted: i=1; AKwUvBwm2iQL3433j3NyhZizmZMukW9/XGaqrg2VWuqyP1MqyXXUYLIL4hSlwonvI6uHr9gZTBmFBSTCK5+DBqU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL6eJE5dIA9atpS8tjWC7LMs9nEZJRi2vTwK92twCk7nVAddeZT
-	NTZ0AAUUTotfDpksygQ5s6lRPwopGynOvyESbNejfVhlvTTZOS3gHJmA
-X-Gm-Gg: AYBFou2D57bpJoAORH7xy/IeqnL5lX2qFjRhP8Kcmdq/vG8lqQql3TPoqT1+JW8rfAv
-	GX7NQc2cylTmEbpa7y5zRCszASb4oxgIB/xZu+/vhbfh80DaSHgJtReky566SJgIdnJCGh+vzAW
-	hAWPh6fD5gkSZTvt1ixSSawLMfoAoJxYBLvrVdLOFlYOgTN7gP6kT+cN4VClcvjrDqHMBJo6P/k
-	faK/wY9wmCJDryUatqgxJ6j0cqdAqV4dQ8TicMDmjaE0mIaisnqE/zaVEtNIRs+R1RJH7Iy3ReB
-	7moZljpVMU9LVcgluON7ueXbvhgY7/nVNDsXPPx77c/nSDCx6H/zNI0tVS+cOJoo1UX6uHmQg8Q
-	WjSiWkTxUFjDWFouM37/vWrJL57bXRQww4S3WMwEdjUVlZu8Qr2pGOXinUq+FliQqSYrbgN2rrT
-	bHbpUNimueU70CELYHhE/XubeseNM4phoojofHHJdt5x2bCHiGEViNeg/Aenec2a6mvfbC+KjoW
-	Xq0pXAyuAn2QpL2WEhkYSmmTg==
-X-Received: by 2002:a17:90b:5887:b0:3a4:fe48:d418 with SMTP id 98e67ed59e1d1-3a8a0851582mr4004998a91.19.1791456057998;
-        Thu, 08 Oct 2026 03:40:57 -0700 (PDT)
-Received: from celestia.taila51cc2.ts.net ([2001:d08:1334:29ed:db11:2c4c:ee4f:606])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9f1a51bf3sm3831271a91.1.2026.10.08.03.40.54
+        bh=YTcgEknypy3JpI9J/G9mPIrbfMp+7I5/710LUj+4UxE=;
+        b=UF+Ka+YKYDQsnY4ghaVBikhWx24Mt3D1pzczrroWV3icZNbmvkDqIjKH/R6Exn+nuc
+         UH0+HpKdFYb1XW1nS8/oV56tJznZ7K5/pO7tz8tpNFRDvq0juNak5/YWx56MGlK16NZY
+         GafDKu4vHiHAlfOSY+8LU1OPngO41NaMU70q2jM8Ys6QtGVP34D4ZHnP/VrWb/pu/SA/
+         UKDvED7VytSZADWkMw4CSFpW/7tu6VsqdVpxK5uSwrP8Q2Ir2Y4fOmbaY+oXD4XLjqHX
+         Q/pDIwVsCXB06TgjT8E3dKT2tE9aQJEOFsrlj8oTYB89dxF9/VHWBITSvUAKiQFnHh8k
+         yzDw==
+X-Forwarded-Encrypted: i=1; AKwUvByecoiLsiv8uoMWvTpB8+Lx8KfkHwn8IeRiVMOMMYqhXsbT5bXWsc209hBuWOLtveYnYHKN5+Hc1G6fzGo=@vger.kernel.org
+X-Gm-Message-State: AFuF++m2sZlCXzTsacdzj4pdt9NqVjOE1tP2CJKG9SoRbXDcX8IJQEIX
+	pzhT0FcnsYGw+Lq1bvaSUmCm2CP6vjARS8648+hmc6R2dmHK/J8EDVnT
+X-Gm-Gg: AYBFou1bPHSx6N+ci476afY5/Wrrqy+Si0ovscQw6ge11+hDfb4ZhpPPjJzb/VcCgpe
+	KD5H95KVNu2IgupGWSnTIWIMAnY4JGcCG4S4cUIn6VIXJJulyxfWmCwL+trgACXru9ZvpLBvic7
+	Rzy3bvDIvFFfdEqQ1DvZDyoqQKlMwx8t4ZaGcYQzXT48uVBQTA+AAgtbhcvCRg2aFI7HBaePWaH
+	Qe4VKwcWTGz2U4GCuzhBWDya7y9uFHcakovXGzIp1eqAEjdfQBqtDxV5iW57X5sC9dzDyCjTyFI
+	6nYUVAGONIhLFt05ZnE/oPgKHgysNaAFlGKppyIHkh+tZ6mLCDEzfdU2cT0qp7gFRsifnQq7zS2
+	+1oOC4R2RbpDcYkDEMTki1ZaLKJtFY5x2tJoK4btBJeyondpTiY0GYTxtSUK6nUeNPUPWHIY6uW
+	IXIqus/ZUoguSZlVfwSoWiyi8uZprrWYCIoSJhBKmzrvIuuBOCePN6xceBro9yJp3fDkQjA1g0+
+	xIDcuDKJdjhjEJtu8In6GeLZB1SIp/5Y2patLA//cWV2efkP/YtlwfQWCfA/K9YRzcf9EUIAxMT
+	8yY1CYzbpNViQA==
+X-Received: by 2002:a05:693c:880d:20b0:34b:f279:2c16 with SMTP id 5a478bee46e88-3515db9190dmr5490986eec.5.1791456064946;
+        Thu, 08 Oct 2026 03:41:04 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3517810b895sm7496369eec.17.2026.10.08.03.40.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 03:40:57 -0700 (PDT)
-From: Liew Rui Yan <aethernet65535@gmail.com>
-To: suhaas@s-joshi.in
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
+        Thu, 08 Oct 2026 03:41:04 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+	Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	povik+lin@cutebit.org,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Andrei Simion <andrei.simion@microchip.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	David Rhodes <david.rhodes@cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	Shengjiu Wang <shengjiu.wang@gmail.com>,
+	Xiubo Li <Xiubo.Lee@gmail.com>,
+	Fabio Estevam <festevam@gmail.com>,
+	Nicolin Chen <nicoleotsuka@gmail.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Cezary Rojewski <cezary.rojewski@intel.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: Kees Cook <kees@kernel.org>,
+	Syed Saba Kareem <syed.sabakareem@amd.com>,
+	wangdicheng <wangdicheng@kylinos.cn>,
+	Chris Bainbridge <chris.bainbridge@gmail.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Neo Chang <YLCHANG2@nuvoton.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	u.kleine-koenig@baylibre.com,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+	Hemanth Selam <hemanth.selam@gmail.com>,
+	Md Shofiqul Islam <shofiqtest@gmail.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Zain Aboobacker <zainaboobacker33@gmail.com>,
+	Sang-Heon Jeon <ekffu200098@gmail.com>,
+	Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
+	Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>,
+	Bo Shen <voice.shen@atmel.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	linux-sound@vger.kernel.org,
+	asahi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	patches@opensource.cirrus.com,
+	linuxppc-dev@lists.ozlabs.org,
+	imx@lists.linux.dev,
+	linux-rockchip@lists.infradead.org,
+	linux-renesas-soc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	SJ Park <sj@kernel.org>,
-	Liew Rui Yan <aethernet65535@gmail.com>
-Subject: [PATCH 1/2] mm/damon/core: Use only installed probe in damon_merge_two_regions()
-Date: Thu,  8 Oct 2026 18:40:29 +0800
-Message-ID: <20261008104112.4763-1-aethernet65535@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261007154851.45368-2-suhaas@s-joshi.in>
-References: <20261007154851.45368-2-suhaas@s-joshi.in>
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH 08/24] ASoC: apple: mca: Ensure the DAI is marked as started on success
+Date: Thu,  8 Oct 2026 17:38:15 +0700
+Message-ID: <20261008103831.542533-9-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261008103831.542533-1-phucduc.bui@gmail.com>
+References: <20261008103831.542533-1-phucduc.bui@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,137 +136,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Suhaas,
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-Thank you for your patches series!
+snd_pcm_hw_constraint_minmax() may return 1, which is then returned
+from mca_fe_startup(). ASoC only marks the DAI as started when
+.startup() returns 0.
 
-On Wed, 07 Oct 2026 21:18:45 +0530 Suhaas Joshi <suhaas@s-joshi.in> wrote:
+This currently has no functional impact, as mca_fe_ops has no
+.shutdown() callback. Still, return 0 explicitly on success to
+match what ASoC expects and ensure the DAI is correctly marked as
+started.
 
-> While merging 2 regions, we iterate over the entire probe_hits[] array,
-> whose size is determined by the DAMON_MAX_PROBES macro. It is possible,
-> however, that we have fewer probes installed than DAMON_MAX_PROBES. In such
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+---
+ sound/soc/apple/mca.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
-I find this a bit hard to read.  Could we change it to this?
+diff --git a/sound/soc/apple/mca.c b/sound/soc/apple/mca.c
+index be702b2942a5..3585432ad49b 100644
+--- a/sound/soc/apple/mca.c
++++ b/sound/soc/apple/mca.c
+@@ -516,6 +516,7 @@ static int mca_fe_startup(struct snd_pcm_substream *substream,
+ {
+ 	struct mca_cluster *cl = mca_dai_to_cluster(dai);
+ 	unsigned int mask, nchannels;
++	int ret;
+ 
+ 	if (cl->tdm_slots) {
+ 		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
+@@ -528,9 +529,13 @@ static int mca_fe_startup(struct snd_pcm_substream *substream,
+ 		nchannels = 2;
+ 	}
+ 
+-	return snd_pcm_hw_constraint_minmax(substream->runtime,
+-					    SNDRV_PCM_HW_PARAM_CHANNELS,
+-					    1, nchannels);
++	ret = snd_pcm_hw_constraint_minmax(substream->runtime,
++					   SNDRV_PCM_HW_PARAM_CHANNELS,
++					   1, nchannels);
++	if (ret < 0)
++		return ret;
++
++	return 0;
+ }
+ 
+ static int mca_fe_set_tdm_slot(struct snd_soc_dai *dai, unsigned int tx_mask,
+-- 
+2.43.0
 
-    "However, it is possible that we have fewer probes installed than
-    DAMON_MAX_PROBES."
-
-> cases, we end up making redundant iterations. Therefore, to remedy this,
-> iterate over the list of installed probes instead of iterating over the
-> entire array. For doing this, start accepting a struct damon_ctx in
-> damon_merge_two_regions(), and update calling functions to pass this
-> argument.
-> 
-> Update the damon_test_merge_two() test to use this new signature for
-> damon_merge_two_regions() as well.
-> 
-> Signed-off-by: Suhaas Joshi <suhaas@s-joshi.in>
-> ---
->  mm/damon/core.c             | 14 +++++++++-----
->  mm/damon/tests/core-kunit.h | 19 +++++++++++++++++--
->  2 files changed, 26 insertions(+), 7 deletions(-)
-> 
-> diff --git a/mm/damon/core.c b/mm/damon/core.c
-> index 733025b36745..a3af5ee685e1 100644
-> --- a/mm/damon/core.c
-> +++ b/mm/damon/core.c
-> @@ -3499,20 +3499,24 @@ static void damon_verify_merge_two_regions(
->  /*
->   * Merge two adjacent regions into one region
->   */
-> -static void damon_merge_two_regions(struct damon_target *t,
-> -		struct damon_region *l, struct damon_region *r)
-> +static void damon_merge_two_regions(struct damon_ctx *ctx, struct damon_target *t,
-> +				    struct damon_region *l, struct damon_region *r)
->  {
->  	unsigned long sz_l = damon_sz_region(l), sz_r = damon_sz_region(r);
->  	int i;
-> +	struct damon_probe *p;
->  
->  	l->nr_accesses = (l->nr_accesses * sz_l + r->nr_accesses * sz_r) /
->  			(sz_l + sz_r);
->  	l->age = (l->age * sz_l + r->age * sz_r) / (sz_l + sz_r);
->  	l->ar.end = r->ar.end;
-> -	/* todo: do this for only installed probes */
-> -	for (i = 0; i < DAMON_MAX_PROBES; i++)
-> +
-> +	i = 0;
-> +	damon_for_each_probe(p, ctx) {
->  		l->probe_hits[i] = (l->probe_hits[i] * sz_l + r->probe_hits[i]
->  				* sz_r) / (sz_l + sz_r);
-> +		++i;
-> +	}
->  	damon_verify_merge_two_regions(l, r);
->  	damon_destroy_region(r, t);
->  }
-> @@ -3565,7 +3569,7 @@ static void damon_merge_regions_of(struct damon_target *t, unsigned int thres,
->  			goto set_prev_continue;
->  		if (damon_sz_region(prev) + damon_sz_region(r) > sz_limit)
->  			goto set_prev_continue;
-> -		damon_merge_two_regions(t, prev, r);
-> +		damon_merge_two_regions(ctx, t, prev, r);
->  		continue;
->  set_prev_continue:
->  		prev = r;
-> diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
-> index df84d9cc7d20..5ad89c1d9fc2 100644
-> --- a/mm/damon/tests/core-kunit.h
-> +++ b/mm/damon/tests/core-kunit.h
-> @@ -182,13 +182,27 @@ static void damon_test_merge_two(struct kunit *test)
->  {
->  	struct damon_target *t;
->  	struct damon_region *r, *r2, *r3;
-> +	struct damon_probe *p;
-> +	struct damon_ctx *ctx;
->  	int i;
->  
-> +	p = damon_new_probe();
-> +	if (!p)
-> +		kunit_skip(test, "probe alloc fail");
-> +	ctx = damon_new_ctx();
-> +	if (!ctx) {
-> +		damon_destroy_probe(p);
-> +		kunit_skip(test, "context alloc fail");
-> +	}
-> +	damon_add_probe(ctx, p);
->  	t = damon_new_target();
-> -	if (!t)
-> +	if (!t) {
-> +		damon_destroy_ctx(ctx);
->  		kunit_skip(test, "target alloc fail");
-> +	}
->  	r = damon_new_region(0, 100);
->  	if (!r) {
-> +		damon_destroy_ctx(ctx);
->  		damon_free_target(t);
->  		kunit_skip(test, "region alloc fail");
->  	}
-> @@ -206,7 +220,7 @@ static void damon_test_merge_two(struct kunit *test)
->  	r2->age = 21;
->  	damon_add_region(r2, t);
->  
-> -	damon_merge_two_regions(t, r, r2);
-> +	damon_merge_two_regions(ctx, t, r, r2);
->  	KUNIT_EXPECT_EQ(test, r->ar.start, 0ul);
->  	KUNIT_EXPECT_EQ(test, r->ar.end, 300ul);
->  	KUNIT_EXPECT_EQ(test, r->nr_accesses, 16u);
-> @@ -220,6 +234,7 @@ static void damon_test_merge_two(struct kunit *test)
->  	}
->  	KUNIT_EXPECT_EQ(test, i, 1);
->  
-> +	damon_destroy_ctx(ctx);
->  	damon_free_target(t);
->  }
->  
-> -- 
-> 2.55.0
-
-Other than the commit message I just mentioned, and the issue reported
-[1] by Sashiko, LGTM.
-
-Reviewed-by: Liew Rui Yan <aethernet65535@gmail.com>
-
-[1] https://lore.kernel.org/damon/sashiko-outbox-163177@kernel.org
-
-Best regards,
-Rui Yan
