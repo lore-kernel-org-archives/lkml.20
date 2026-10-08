@@ -1,113 +1,150 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6E3D4E533F;
-	Thu,  8 Oct 2026 15:31:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BB414E534A;
+	Thu,  8 Oct 2026 15:31:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791473489; cv=none; b=rxphPjPrCnrV3t+ZtTjCoO/dDoLC3uNTpGm3ArG/a23htuMAYY8t+me/zkPYjMAvdjyYfvzvCtGYHF9a6bQ+qo5zbbeoXlDWx5ue+Qw5X+8GMl4q2DtvxZlDg+pCyRFHj/PzErq0Soy+vyKrFm1zdoXB6gieTmqpBU81k02v2TI=
+	t=1791473504; cv=none; b=lSUP+nCZE7UAGJ7b7318UOiRbPrgjQYHNSnCOGC9WtKbN90sJ4vMMABmjf4FRmQi6G5c4xkHkewOBViS0rSJ+4E3DnK90hMgvjsaYjkJVfuVcKvG6b/7h/tM3zvQpLi7mxcRcaF/8DNmsqRfw43c0q2gmH3Iyhfv+cM5trD/L0A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791473489; c=relaxed/simple;
-	bh=z5JyqdjBAFKr3gmdYDGazOEacf+lSxusgwLqGM0Levw=;
-	h=Date:From:To:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=lU1jDHgKWoB0KhyWpPKyh9aLaFETsB3szeJ05b0ueeVhHi/JBaLBE70nbU2aISseltmQgIgG5a14HfmSvUg/3J1oSop8C1rGs6tcGdStxDBlMmj5PRxXRcQGs7dROeCCh92PuK6NdWMgC6xbu/mW+PLAj4hrlW2BXhmvnsOgyIk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=notCj0oY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791473504; c=relaxed/simple;
+	bh=oKq3LCIVxlEANL5mRyYb815Z8ciFvkq79Mo9KztKqx4=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=WYO8LsFQUc57yy3oVL1OVmx+YQxuypZH1UuJxtNF6qcfEZDr8CPgvC9VLxaoOuguCYQcWDFJIfwTRDTgqwwDs2UgqEMImkZ0kxl5uVvjbbzeBSXAnemqvdJ6peS668ogVx5u54MU285CcwHpWwxAE/F0HHWHYwqiyKnZDjDH8ug=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Oo/yIYzx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="notCj0oY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06C501F000FF;
-	Thu,  8 Oct 2026 15:31:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1791473488;
-	bh=1C8aurPJzK/wJUnjdRt/POJZVmCHvh4rqZatlItZkIw=;
-	h=Date:From:To:Subject:In-Reply-To:References;
-	b=notCj0oYOmJTZdKJ1nQwQDZzte5321kXLZnZgmSnB8CCKK4MLhVBq3f7b7fo4KfWl
-	 e0pzoOLjGssbkrTRqAfMg032MTqcuGRkIjxMcF8DRaD4Lnl7lesVWIicUdcRQrpIlx
-	 XEEpb3ejC4rgB8SYVtXxji8IGLxk/RcbLZK8bhQM=
-Date: Thu, 8 Oct 2026 08:31:27 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Jan Kara <jack@suse.cz>, Ayush Ranjan <ayushr@modal.com>, Pedro Falcato
- <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>, Matthew Wilcox
- <willy@infradead.org>, Baolin Wang <baolin.wang@linux.alibaba.com>, David
- Hildenbrand <david@kernel.org>, Gregory Price <gourry@gourry.net>,
- linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Oo/yIYzx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41CB11F000FF;
+	Thu,  8 Oct 2026 15:31:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791473502;
+	bh=dJ+dI6fVl0ppHHe5Erg5+7zCijhVgWIpo/k6OR0FjDs=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Oo/yIYzxTW+k/cVURWxWXc417qbyMxV3LEU9s6d8Z3OWG1FS9l1g4tdPLMF2/Kiw6
+	 nYnYN16j5P1TWsVtZpjlOAHpw0zBTNBpEm+Pcl1wg5whKUHIqZu1Hc7FiyrDqSVpuw
+	 /MzDYJaEJkNFDe3Gx4VSVnVQbhsZlsf2iMbCUFfUm7tztYj9q0jK4DgXIbb/d7qfBp
+	 GTMOnLQrphst+qof2os1CUhS0TxryQ6Xh6eay2WZkzXP4VDAfa1jbKFe8pqeMmvWcJ
+	 1HF2kuRUJ9thxcQSG89Hy915C4iJGr+H7Tag9zptm+njcFFDC/ZdjGApwk2kSbk0js
+	 2J5qZpaUP3Vgw==
+Subject: Re: [PATCH net v3 1/4] dpll: zl3073x: reject output frequencies with
+ too small divisor
+From: netdev-bot+sashiko@kernel.org
+To: ivecera@redhat.com
+Cc: netdev@vger.kernel.org, min.li@microchip.com, vadim.fedorenko@linux.dev,
+ arkadiusz.kubalewski@intel.com, jiri@resnulli.us, kuba@kernel.org,
+ Prathosh.Satish@microchip.com, pabeni@redhat.com,
  linux-kernel@vger.kernel.org
-Subject: Re: [BUG] shmem: FALLOC_FL_PUNCH_HOLE vs fault-around race corrupts
- page cache / rss counters
-Message-Id: <20261008083127.0305bac995e8b84c67e46bbb@linux-foundation.org>
-In-Reply-To: <20261008082304.bc6f4bd6c80fe6432abd4fc5@linux-foundation.org>
-References: <20260924061708.1645968-1-ayushr@modal.com>
-	<arTdLsBENhrpOyk-@pedro-suse.tail5790ac.ts.net>
-	<20260925053027.1998394-1-ayushr@modal.com>
-	<20260925065013.3682431-1-ayushr@modal.com>
-	<20261003033107.1488699-1-ayushr@modal.com>
-	<20261004222831.bdd648a2b406f02747dd9e40@linux-foundation.org>
-	<fyswoh7wpxzlbnjjanggjd2jz6yispmeirhwjl3wzi57nacddb@bjkb6kxyfcal>
-	<20261008082304.bc6f4bd6c80fe6432abd4fc5@linux-foundation.org>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+Date: Thu, 08 Oct 2026 15:31:41 +0000
+Message-ID: <179147350175.434549.6966003929996681994@kernel.org>
+In-Reply-To: <20261006153116.347497-2-ivecera@redhat.com>
+References: <20261006153116.347497-2-ivecera@redhat.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
 
-On Thu, 8 Oct 2026 08:23:04 -0700 Andrew Morton <akpm@linux-foundation.org> wrote:
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-> A useful next step would be to instrument truncate_cleanup_folio(), e.g. warn
-> immediately after unmap_mapping_folio() if folio_mapped() is still true.
-> That should distinguish "unmap failed to remove an existing mapping" from
-> "some path installed a new mapping afterwards", and narrow this down
-> considerably.
+Low priority / nit picks for your consideration:
 
-does this seem useful?  If so I can add it to mm-new/linux-next for a
-while.
+- [Low] In N-div output mode, the new probe-time check in
+  zl3073x_pin_check_freq() (drivers/dpll/zl3073x/prop.c) only requires…
 
+--
 
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: mm/truncate: catch shmem folios still mapped after unmap
-Date: Thu Oct  8 08:29:04 AM PDT 2026
+dpll: zl3073x: reject output frequencies with too small divisor
 
-Instrument truncate_cleanup_folio() to determine where the shmem "still
-mapped when deleted" state is introduced.
+This patch tightens zl3073x_pin_check_freq() so output pin frequencies
+from firmware must divide the synth frequency with a divisor of at
+least 2. For the N-pin of an N-divided output the minimum is 4. It also
+rejects a zero frequency so the division cannot be by zero.
 
-truncate_inode_folio() calls truncate_cleanup_folio() under the folio
-lock, and truncate_cleanup_folio() calls unmap_mapping_folio() before
-filemap_remove_folio().  If a shmem folio is still mapped immediately
-after that unmap, then the unmap itself failed to remove all mappings (or
-a path outside the folio-lock serialization installed one concurrently).
+> diff --git a/drivers/dpll/zl3073x/prop.c b/drivers/dpll/zl3073x/prop.c
+> index ac9d41d0f978e..a4bdc3878590f 100644
+> --- a/drivers/dpll/zl3073x/prop.c
+> +++ b/drivers/dpll/zl3073x/prop.c
 
-If this warning does not fire but the later "still mapped when deleted"
-warning still does, the mapping must have appeared after this point.  That
-distinguishes the two cases without otherwise changing truncate behavior.
+[ ... ]
 
-Limit the diagnostic to shmem and dump the folio on the first occurrence.
+> @@ -41,18 +42,32 @@ zl3073x_pin_check_freq(struct zl3073x_dev *zldev, enum dpll_pin_direction dir,
 
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
+[ ... ]
 
- mm/truncate.c |   10 ++++++++++
- 1 file changed, 10 insertions(+)
+>  		/* Check the frequency divides synth frequency */
+> -		if (synth_freq % (u32)freq)
+> +		div = div_u64_rem(synth_freq, freq, &rem);
+> +		if (rem)
+> +			goto err_inv_freq;
+> +
+> +		/* The output divisor has to be at least 2. For the N-pin of an
+> +		 * N-divided output the effective divisor also includes the N
+> +		 * divider (>= 2), so the minimum is 4.
+> +		 */
+> +		out = zl3073x_out_state_get(zldev, out_id);
+> +		if (zl3073x_out_is_ndiv(out) && zl3073x_is_n_pin(id))
+> +			min_div = 4;
+> +		else
+> +			min_div = 2;
+> +		if (div < min_div)
+>  			goto err_inv_freq;
 
---- a/mm/truncate.c~shmem-truncate-unmap-debug
-+++ a/mm/truncate.c
-@@ -156,6 +156,16 @@ static void truncate_cleanup_folio(struc
- 	if (folio_mapped(folio))
- 		unmap_mapping_folio(folio);
- 
-+	/*
-+	 * Pin down where the shmem "still mapped when deleted" state appears:
-+	 * if the folio is clear here but mapped at removal, something installed
-+	 * a mapping after cleanup rather than surviving unmap_mapping_folio().
-+	 */
-+	if (shmem_mapping(folio->mapping) &&
-+	    WARN_ON_ONCE(folio_mapped(folio)))
-+		dump_page(&folio->page,
-+			  "shmem folio still mapped after unmap_mapping_folio");
-+
- 	if (folio_needs_release(folio))
- 		folio_invalidate(folio, 0, folio_size(folio));
- 
-_
+[Severity: Low]
+For N-divided outputs, the new check compares the effective divisor
+only against the synth. It does not look at the shared output divider
+(out->div). Does that let an N-pin frequency pass this filter even
+though no valid N divider exists for it?
 
+In this patch, zl3073x_dpll_output_pin_frequency_set() in
+drivers/dpll/zl3073x/dpll.c computes the N divider with a truncating
+division and only rejects a result of 0:
+
+drivers/dpll/zl3073x/dpll.c:zl3073x_dpll_output_pin_frequency_set() {
+    ...
+	} else {
+		...
+		out.esync_n_period = div64_u64(synth_freq, frequency * out.div);
+		if (!out.esync_n_period)
+			return -EINVAL;
+	}
+    ...
+}
+
+Take a 1 GHz synth with P-pin divider 10:
+
+  N-pin request of 100 MHz: div = 10 >= 4, so it passes here.
+  esync_n_period then works out to 1, and that is committed to
+  hardware.
+
+  N-pin request of 40 MHz: div = 25 >= 4, so it also passes.
+  esync_n_period is truncated from 2.5 to 2. The output runs at
+  50 MHz, but the call reports success.
+
+The P-pin branch has the same truncation and zero-only check:
+
+		out.esync_n_period = (out.esync_n_period * out.div) / new_div;
+		if (!out.esync_n_period)
+			return -EINVAL;
+
+The later commit in this series, "dpll: zl3073x: reject inexact
+frequencies for N-divided outputs", fixes this. It adds remainder
+checks and esync_n_period >= 2 checks to both branches, and returns
+-EINVAL with an extack message.
+
+After that commit, one gap remains. Some frequencies have an effective
+divisor that cannot be split into out_div >= 2 times n_div >= 2, such
+as synth/5. They still appear in freq_supported, but setting them is
+rejected. Since this check is necessary but not sufficient, should the
+commit message or the comment say so?
+
+>  	}
+>
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261006153116.347497-1-ivecera%40redhat.com
