@@ -1,129 +1,110 @@
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64A4C373C1A
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 05:27:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B5D53B8BBB
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 05:29:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791437221; cv=none; b=sipy8zdQFdvp7DlwwYHicNE0/5JA5WrsC//MFEjAv8+GWeZEfk5WiU0tKNrJhY0VgK6mxtr8Bm+FmpwsEybuRUG2vCfIqMDUa4qhS+bWv9aYy9M0W6tdpX5Hi6bOLaPEDKJ2kHi7A9ujDe55wfNfjrzGXn0mThoVOGvyat90YjQ=
+	t=1791437380; cv=none; b=gckWh7lftUcwPZ1d0yGjrmq1HVlqGKU73zBZLjtV+Al77ukBLUnu6z0FTfmRDc/monc5x1rQUMoEXCgwM12XiFcZR6Ehn33BmNcc7oVN71u08LRXh/fDCSkjQfsyky2Y1kv1+JVFkq+GPK2vCpG2snPtABiK5xL6vGUrttEvsFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791437221; c=relaxed/simple;
-	bh=kCpneSjNmiQ+uKN1uru50DEBeDjE1ps61mB5XGB9ArU=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=GDatFWdTocNRCJpNFzqF8U4e7PqL7d4Ouzw/lfEQKXvnkDCcEM5uS5lwz/2VhdEQWt+aDFSVlSaNY6Rzv25ogKUrv1DwsgIn1uG32FVI16GoLbG1nSOr+fJ+nzCdByLCKpiqcOxw67+MvDa/ApSBNycCh14mVcqt5aqkhX+oQw4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Rc6h+5Fl; arc=none smtp.client-ip=74.125.82.179
+	s=arc-20240116; t=1791437380; c=relaxed/simple;
+	bh=FujY0FuqAuIpkLZ3y+9g/MN53rcCMTlTeQOqOTnanCw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Wy2rkgTvRedGVbTHjr9ksKAazS+SAKCn223pukhNnGb0m1nXf8rNP1ra/X0oPiPJGdme2Nv6NOHgjA7nGJDDGAA0NVeuPcXsPDA7UQkpQg7BZLx9h1xg+GWBRKKOYeaD6Y0/aVFxSOefNrgatzKBzdmdzMUc7EIHpL2x8K0VYHA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n5I+NI90; arc=none smtp.client-ip=209.85.216.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Rc6h+5Fl"
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3516c82e96cso2077257eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 22:27:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n5I+NI90"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3a7fecf8440so1565129a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 22:29:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791437219; x=1792042019; darn=vger.kernel.org;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FUiKPJBB/QLn6JR/2soSQPjMVxJQocjLWOUnc2itzYU=;
-        b=Rc6h+5FllXUOPPwLUmpupRf3V3Cap+Z+NlqWYXjtEEsSYvjwLbCJGVe+/gLqQqqfnE
-         mwVpLga+h3phI1vj3AzAW4Te5qXYCbgIWYFcAQ47YliwLrkqfEM4b+OxJnVhyfvx/m45
-         q3T7v7IfML2FNJX+H0ZgViXwdVzx4Cf0WmG8ZYgk0Rhj7b0vk5pG0zPWrMkBcM5mNadL
-         mMv8uGV12NRbwcH4I0o7y0TJWoE83stVMiclEqhYiR/YZ7e6hu2VhwI32KDiMDMTGVhR
-         AF0yFAw7AvK+vLRNIwGYSo+CuGufuT47B0qHuebAJeELGJ2+FR2LNSlvxaY49nOlBi+J
-         hqHA==
+        d=gmail.com; s=20251104; t=1791437378; x=1792042178; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DLvhL5rr6s47bfQUS28f5Gkp9XOkJpXtZ7mZKPR0QEw=;
+        b=n5I+NI90Wi+5BHGbjKuqJzjvxnlBhtkl89NGTJK3c5ZNAEuMchJD7X1B+mF2GBf3xp
+         VpTnmPv148uVdg4gQOWEMyRylIq0x01pTh8MSNcClZBFXFCm5OMB5l9Un8mRd7K98czm
+         FZpA45l4gUvz1rdh6FgFMQDHyGWHlSnPQxDRvYOEpcj/r14jt8ovKQl5qFQU52wrWFi2
+         uxxdL13drp1LCD8kxU9K52WzrMP5bu1Eabg1ED1RKECZjgU6sVl/QnzwkZSJAaqVx7Zk
+         3kreTT8pHwqq5+NIbeF8X9OJBprYA405VXWULBUOovW5YyNi52XSAZHKQQOf2l4hmdkM
+         HVWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791437219; x=1792042019;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1791437378; x=1792042178;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=FUiKPJBB/QLn6JR/2soSQPjMVxJQocjLWOUnc2itzYU=;
-        b=k5Fa2DlHE/mieJA8pBQG6UGbvlfu5/neHUS/EgZPqWV4Hngu/3afYldIq2NpVKP2rx
-         CojjtAbck09vV8CAYPGmUFS5Sie6OTyN1ZoZF2/AvMfMNm4tzg1hWQjQV32/PLg8anuo
-         BBDmTzys6mgNJhFDO6rQq7+bIBPKhFCvHmlLO64XaWbDp0cSzvREBQHBp229yKH0TffE
-         gbKFIrzeqO0iPfyPDsB9pKji33sCKh3nUJFUReIwjxgeIFgGFZeKZ9A1p95k7eqUSnMB
-         QA4kS4qlr55LUY3FwML7bwqsPMU6adxUnaZbpbavGSWEgStCnikjSPHUMqyfvKknwHdg
-         SSXQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx8ly07c2AL8sOyCXHIJ/hUQyGtOZaFF+oON39NyGvKKp0AYsfdH5D7OSRAkYFV477Ry8yEOzRChy30R2Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++npFWZ51puu6OHPgsLYLxQPIjinVVWHV6FhZtIp/pfpW6kSnX6u
-	c9V02kyyJoQSih9dw7IM2XNb8dy6YcZT+8xOo4fYmfLzYn/yc4uI6L2k
-X-Gm-Gg: AYBFou3QMUkXXhikoJkxvNaUzDsW4pcSEXXDLIcOe/bdfKXuKoJPEU5lHJ50lyalTE1
-	qCwZeLqD5qp0ZilwVjSICKwnVH9pez+eAHudH3jb9KncgqMMaHImkvf+d+ngkht9g+K8VgLruQg
-	iqQmaWxXqoZiTWMfWIRm7M5snvO7UWDxUnl/MfvAxhrzGQinTAvcu+Sg33Icx22Qa+bhxpRL4mu
-	/H+AEh9aWTGiw1lfWJEAa1dO5hTSGv+VxKuv8MjREn/OBLOIuqbBqfJLKDnGqvOP5CckEcBE6wr
-	pTpxFB2BXqAA5odMzqUST1tWboHQE2kUbz1H7s297u/X/WoyiRIVvKN+vrxpWDD5eT/iEjVgPv7
-	7/KJ1Yv+rduXmf65I0Wj+BEZ5k2B40BR0uaDxAn80ObFZSrB6/8ahc+TgrkyMPQwMCF3Un6GjQc
-	mX3mxtKtbo9msJrQN+pTJ4WY2mg3v55aONcTk4oq5Rn00RbnU5EzZlrbmd+XVfO24E4SeXGm7Pv
-	QJF
-X-Received: by 2002:a05:7022:112:b0:166:780c:60b6 with SMTP id a92af1059eb24-166780c615amr1618720c88.9.1791437219119;
-        Wed, 07 Oct 2026 22:26:59 -0700 (PDT)
-Received: from localhost ([2804:30c:96c:bf00:7844:c38c:894:4054])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-16168f586f8sm13933072c88.13.2026.10.07.22.26.57
+        bh=DLvhL5rr6s47bfQUS28f5Gkp9XOkJpXtZ7mZKPR0QEw=;
+        b=i4Xye7hV26VFuFfueXNud4Wpc8Cm1eP/PGzOCSR6Ewxgaou7N0gX0I4DoWgQFOWbks
+         cA/PXcM0CLCskwcXkpJE/ISeXa32fFU9M1a/LyJoNXQIWaWe5uo6wlVc5WLj12T80Cax
+         y24tcNA3lEg7v0vffdmATmB/X0emB8WxrcjH+1BCH5+Xb8YzT5MTnhARRzlL2yNVL7/w
+         gEiZ4SihSV4bra+Ea+NIyZAnY+Onh9aSPThYJ1hzQB75G/8bOrU4r/pQa63OR5jiuK79
+         Snq34Jm373x1ChldhUP43OBC6mm7WTxfcvJBqTALkC3I21tdAvmkycjEypwj5KkrWvX6
+         FDHw==
+X-Forwarded-Encrypted: i=1; AKwUvBzapEeDg8GZThyGiaoJuJxuRoQWkKi/EjHwKxmZjqTZ2fXnJiYn5Wf7Om8TnUaUv5ejPDAe+HoNwL1OmzA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYId2qh6UUDwt4u4Gq2R3BZzdSOgKpEE0qjTWLi0SRiEIn4iXsfc
+	Cw93u4Tpuq4fRVcwvQEElQtzF51caVqyLuxVb71/hEU5l612TIG1PDRJ
+X-Gm-Gg: AYBFou1CHFBI7DM0TeNyQ3q8h6HMdmVx5SCTJ1tWGrxTKHa3zgeqqUlGTi0th+ecJpL
+	P4M6DZr+oymPX6vMO6UfA1SjPbODu+7fzAotfAdsb1FoqUCTn9ADgLzy5u8a7AWK3n+ciStOXMd
+	eGB/lrVTm60MMs2ZJL+GpR070epEoSwCxxEfnFwRD5TnE67cPuZHsf6w0YjUHhsjmtx0jNw6QUR
+	jtQFwOWhXxtvUJytZkWVCTNUvFo3AfBV4qmYZoqmJr2JTS23cW7tE13LE6UDJ/0ZB13k8U638Em
+	EhkAb3i1o+r0QzMjJ1V0hHQ7ptZ5XWuFMYa5Sk4IrQXODCCFUm1w8GoJUNyy1amyiVa1eqARp5d
+	x5Dca585OM3PrGt7FrruF3eQz6wuI9LtmhV9ROS4aFm7AM0I+JDFKeKY2S0NDdKFvDVTt1QY+0b
+	bT9QBhMV/Kq4dPY2OTnmcmAe3wzjAmdj3aoMoQsE2ctrJoVCV0B04+g/qa3Y+ghMSA8T6uyaQIN
+	eRSNsW9fnI=
+X-Received: by 2002:a17:90b:2584:b0:3a7:250:333e with SMTP id 98e67ed59e1d1-3a8a192b889mr3373640a91.11.1791437377539;
+        Wed, 07 Oct 2026 22:29:37 -0700 (PDT)
+Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a89dcc4e04sm3758223a91.1.2026.10.07.22.29.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 22:26:57 -0700 (PDT)
-Date: Thu, 8 Oct 2026 02:27:15 -0300
-From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-To: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: jic23@kernel.org, nuno.sa@analog.com, andy@kernel.org,
-	dlechner@baylibre.com, marcelo.schmitt1@gmail.com
-Subject: [PATCH v1 1/1] iio: Allow device drivers to specify IIO event unit
- type
-Message-ID: <e359fa003ebc61c8b0e37ba9810a04c70e5a300e.1791437050.git.marcelo.schmitt@analog.com>
+        Wed, 07 Oct 2026 22:29:37 -0700 (PDT)
+From: Daehyeon Ko <4ncienth@gmail.com>
+To: David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Amit Cohen <amcohen@nvidia.com>,
+	Roopa Prabhu <roopa@nvidia.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Daehyeon Ko <4ncienth@gmail.com>
+Subject: [PATCH net v2 0/2] ipv4/ipv6: do not warn on route notification size races
+Date: Thu,  8 Oct 2026 14:29:21 +0900
+Message-ID: <cover.1791423190.git.4ncienth@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-The IIO event ABI documentation distinguishes between interfaces that
-handle values in device-specific units (_raw) and event interfaces that
-handle values in real-world units (e.g. meters, Joules, lux, etc).
-However, the IIO event code infrastructure had never really implemented the
-bits to distinguish between those two types of interfaces.
+A nexthop group can grow between route notification sizing and filling.
+Both IPv4 and IPv6 can then legitimately return -EMSGSIZE, so remove the
+stale warnings while preserving their existing error paths.
 
-Because distinguishing between device (_raw) and real-world (_input) units
-only makes sense for value and hysteresis info, only add complementary enum
-item for those.
+Patch 1 is unchanged from v1.  Patch 2 adds the IPv6 counterpart requested
+by Ido.  No new build or runtime test was run; both changes only delete the
+stale comment and WARN_ON().
 
-Users of the IIO event ABI should, as much as possible, match the event
-unit type with the channel unit type. I.e. device drivers that present
-device-specific raw units for their channels ought to also provide event
-interfaces that handle raw units. Conversely, when IIO channels provide
-processed (_input) data, IIO events will generally be expected to operate
-over real-world units as well.
-
-Complement the IIO event info enum, allowing IIO drivers to specify what
-type of event info is used for their event interfaces.
-
-Signed-off-by: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
 ---
-This was originally a patch series [1], but the suggestions provided back then
-allowed it to be greatly simplified.
+v2:
+- Add the IPv6 counterpart.
 
-[1]: https://lore.kernel.org/linux-iio/cover.1768759292.git.marcelo.schmitt1@gmail.com/
+v1: <20261007045410.3806739-1-4ncienth@gmail.com>
 
- include/linux/iio/types.h | 4 ++++
- 1 file changed, 4 insertions(+)
+Daehyeon Ko (2):
+  ipv4: do not warn on route notification size race
+  ipv6: do not warn on route notification size race
 
-diff --git a/include/linux/iio/types.h b/include/linux/iio/types.h
-index d8944c9e5e90..bf03eb498753 100644
---- a/include/linux/iio/types.h
-+++ b/include/linux/iio/types.h
-@@ -15,7 +15,11 @@
- enum iio_event_info {
- 	IIO_EV_INFO_ENABLE,
- 	IIO_EV_INFO_VALUE,
-+	IIO_EV_INFO_VALUE_RAW,
-+	IIO_EV_INFO_VALUE_INPUT,
- 	IIO_EV_INFO_HYSTERESIS,
-+	IIO_EV_INFO_HYSTERESIS_RAW,
-+	IIO_EV_INFO_HYSTERESIS_INPUT,
- 	IIO_EV_INFO_PERIOD,
- 	IIO_EV_INFO_HIGH_PASS_FILTER_3DB,
- 	IIO_EV_INFO_LOW_PASS_FILTER_3DB,
+ net/ipv4/fib_trie.c | 2 --
+ net/ipv6/route.c    | 2 --
+ 2 files changed, 4 deletions(-)
 
-base-commit: 04434a1d0f311d76b1f15fa987918b471a0b8c6a
+
+base-commit: 23609bce9e1de525d1d0e73fc68c6e7971d0b49e
 -- 
-2.53.0
-
+2.55.0
