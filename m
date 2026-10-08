@@ -1,192 +1,104 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011013.outbound.protection.outlook.com [52.101.70.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6D7E2FD69E;
-	Thu,  8 Oct 2026 13:46:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791467188; cv=fail; b=AObrx/zmxJ0QmBDP2ntKonLLt+MwqAgAN/o/BcVY6MAXBJyALxV4A+55/z9dUN3y8Nofs8moOuC0rYhaOJhbdcKdj4+t3z6RMHbe2dr5Rxb5LrsX8EKd1hP2xprYLYWS0nksg2nSXlPqYgb2hOV0hzKoRCSPwaPHlyQuFQQUqSk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791467188; c=relaxed/simple;
-	bh=fKdT77d1t5yEXM2LoGB3EjsHl8HLu7S5oA7SCeksdDk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=cTWbHZoCrGOBH4bz8I8evWQXRaYBnxNm5Lai4Lr/jF/acQQVSmmQuw9dnyGn/clzW7vBR/ScoahkOYEVFcJn144Nt7lnr3Mn6Fqv/XSi7IJX6G7o5SoYEy9zo6Maj5rdEJwCufgjZXL8AMUUi3SYGkoM0idQdXr/7Bl76zp3lbY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=Z30OVrXW; arc=fail smtp.client-ip=52.101.70.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EACDF3C3F68
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 13:55:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791467761; cv=none; b=mcaxzDMGxt5QxHiFf4fE5UEkYAs4CK+tBMtB/nDCJ5EqT4sPkAfpKLNDtp5vbfuoVsZQI8PWWQdjGhmUqKWKntivlvslxCi6t/9VSZn5BuKYe2j/pnOp98Mg1yJdIOGn7eQX0TbH9VCUfIpztlLnhNxTlYJIknWyXq2mhuZd+PY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791467761; c=relaxed/simple;
+	bh=IugQtka+on0o0O1X2K0wrQ7qAcGaGS8gTystabNm8r4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=YDahd++5NjVcEoFx015G9MiRcydkBKAnOgBXcnoTMrL8aPyR0Jgvc9WB5stbr3C+ER20wWsPFbvH4SmDakJCeqSb2JE4LlgFovAUNFQvTkMJ4Jf9tx0DmDT5vva9MNBIS67V/ZVVK8jvKv+q7E2ljYDZQEPyxbr2CKQw7Hew5Zo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UUsLp4u6; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Z30OVrXW"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pfd2xBxnq0XI7ti197q1wz5VG5aBYVWWKBl1L7Z9+yE603LX9rm3KejOU36V3T9qUcAeOj8m/eEP1ZDTytjABK8bWLUlohaYNIC+F/YozjKIw+DkuaXhS9ClICZ9PyceFCOTWW1M5ip567BYbH1zuEs+N661UCVZw+wPBYaVJghI24hsFGDT2DSUky5qAHB9pTVlHeTsDOBb05KkowFKGmgpMD8wSnd1XPl1jDMUSo2Y3ToYXt4/Tc0Q7e2yJyVu/wInJMoPAKVkA0uu05C3N9hpvICCvGSVQbqxmMz9QJ8f+l5LPstNFBonVKpAw0pthsNEHkwdFHkVF5UzV6xxnw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MX72SXYd4THtPuUJES955yLGvALyUG5n+6Ipx8GtCrc=;
- b=mSS/4rp/8WF9PEb9sW++MGzeYhTA+sp7CoHBaJVq6fPNktqFUQEXGA5lDG96SN6XRYL2YnQtZ8NjGBieVUKJ96Ro4d9XjQ3JbrRhivKycLk8140x5wMnc7y1FPWP6kKkC1MKNWQlNXt3nUEM5pC9+z1Eg5OYCvKv70pdSVY3h5RfXObU1C4v5+kKSZyHpKq2aArGT7FJmj75jcbnyC5cC2tLjWJN4Bs/JXKNYcMUzJ/6xHTyPDAlTB4hKqKAzThxbDnuLrhO8nWmss6lSxkEUE+7ESrFZVosRNhovAF2A7BB1VxBOGUJzRTziD3Km/7/CdEs+vtN3JFYyDAcrPl5HA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MX72SXYd4THtPuUJES955yLGvALyUG5n+6Ipx8GtCrc=;
- b=Z30OVrXWMxah6JnFskQgGqqG2PC+zdKMwzY3gC2nLXX592RuQ7vTFDsQeZwixIxoUhv3UFePmaaOF0U+cnr71t44n3sffJDxu8YMIxNCzge4jPDqwqk4LjKHoHyXkFW7yVgk82BR1MiM9Dy84K8m15cfOIbyZledqra/lLpBZ/WSI7RFwALh0UoF/qFv0XT4wh4LUXJRIKABHh8czIv/Bjcy1SWWbwTcjVfWnGoqUJsPZqSV0ZIZaGVRuOmi7dgmgTBf1rfcK0VdVBBvpRfI0amCO2CQrCMU7NAB/XxTAFCR+f0QUFnNtYB9QF63Ob5FseEhwcnj9bzgbVUb2E1+PA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
- by AM7PR04MB7079.eurprd04.prod.outlook.com (2603:10a6:20b:11d::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Thu, 8 Oct
- 2026 13:46:23 +0000
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0496.010; Thu, 8 Oct 2026
- 13:46:23 +0000
-Date: Thu, 8 Oct 2026 21:50:54 +0800
-From: Peng Fan <peng.fan@oss.nxp.com>
-To: Nicolin Chen <nicolinc@nvidia.com>
-Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Jean-Philippe Brucker <jpb@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Krishna Reddy <vdumpa@nvidia.com>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org,
-	Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH RFC v5 3/6] iommu/arm-smmu-v3: Delay stream allocation to
- inside the mutex
-Message-ID: <asefvnqThUeyAEHZ@shlinux89>
-References: <20261006-smmu-shared-sid-v5-0-169a59c671d3@nxp.com>
- <20261006-smmu-shared-sid-v5-3-169a59c671d3@nxp.com>
- <asbb+ffdovx+q6Rd@nvidia.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <asbb+ffdovx+q6Rd@nvidia.com>
-X-ClientProxiedBy: MA5PR01CA0229.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1f4::8) To AM8PR04MB7874.eurprd04.prod.outlook.com
- (2603:10a6:20b:24d::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UUsLp4u6"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49fbb2acc90so28279585e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 06:55:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791467758; x=1792072558; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IugQtka+on0o0O1X2K0wrQ7qAcGaGS8gTystabNm8r4=;
+        b=UUsLp4u6II0xhEIeDZm2iP/EeXlbI0ANlAGU+a+kfjehcaXyeU0tsk3pSXjVvudqpS
+         6aKGwq+9BwoBEdGxhnUIU6wLZd96sL2RxAzP+X4Fxm6kuzQ9kGyywnee/yg1VxsUqvlx
+         qnyZkFOQawSZl4XDlkarBYmraTtOwwSky67ftveJkFKufRvJFSt3z4Mph+HKZ4WOrOVs
+         KKIivkEg3/B+xBXiL4EHs1Ac2ULYxHkuXUVDdjIUJvfJpxa+eWjfONcpTFEeu3vUif11
+         Q0fXYpY3NPqXnbUQVpKD9li7KVEDCkMvjE7VDNcOhHRqtn0aoPe+C94KY4DB7lEkCwOe
+         DcoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791467758; x=1792072558;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IugQtka+on0o0O1X2K0wrQ7qAcGaGS8gTystabNm8r4=;
+        b=urSm9Pyc9B7VWtD+btRJnnBi6xLDOZSC41rnyn8JWWAkqeCsO6WX0mNPsy9BkkialN
+         +4wk/ylIlH78mcO45go3yhbkxyY3V/3fhqgrnqOF8prv37SM5uJsMBrTic3KSm1FljfB
+         1XyaNgrXaf32g+ZE8aUEB9KJCVqIvL/tah2SZ/HflHCn/G26b5rlzaRQQ+HYXIsAlkPh
+         sSGVy8R/e0IPPP95mfXA/fQr5A7oWv4+jo5ccQJmoorH9Ge4hYoOhEqODnI/VCQEbAz3
+         WztU+WyCd1crPvLua69JqHHyyUNeI+kw602nkzqvu1lIX1Wy/8FLuvWC5NLGLUO06AQa
+         VbRA==
+X-Forwarded-Encrypted: i=1; AKwUvBzA1GkeosGWUGGf3QTWyaBjQhg71SvNoXKcObh4d569KqPR0sWCztXLDGlqKACAg0EXCnppIJ16SioZNdM=@vger.kernel.org
+X-Gm-Message-State: AFuF++nK7H9tU+1eBVtk2KkVaxCpTYuK2sEs07IB//g+V2bnhh1s+3dA
+	/9zvYo4KA6iZkFc1qGSD0m5dXXUgZhirJD5b9mMdGja7SaJ4yExva0KV
+X-Gm-Gg: AYBFou3BpVCYEpuDWuEgHinNkGuFrh//d4x0f2w8duSfglu4qcsaVLjH+6JqHx1iliY
+	vmFUxwaermm9Dc5U7Kd1TjTBKpZwlm0+2Zz0MFm4lWuWlbcNa/f6CuSYwhUp44cXN6YcWcY7FZ/
+	GV5RldhZSbPF5/iTHa/3DYHAiQfIDgtnGwMkXpSEz1mTff2+mfiBUKhxWwEBBgp1BSkv3P7/4vU
+	xg54OlIRoCd3KCIZWsoRmhON4iWZPgeeMGv8qKrPeKV181UffSynBjF5TylSHfSeu4vNM6wCRIo
+	fjqmAt0Cv58R1fgZLErIEkOhrP3ktpxNgls8wRTzwwqjD+BCBHu7YbeBCyj8UuJYs8ywuMjQeqL
+	g8LVTaJQwT1FfybOBTfhEmY7R0ARoSkFP/Ege/tq985tIc0RkyZA4oBnsmadnQkfIgRRPoXgPm4
+	DT36xkRVeJ5oloNJ3LHcCS1R6qoIBu3wDEgUs4jBE+kuppiZZvbNrwbAlGYgSS4/TTPs7JfLg4B
+	G16CcT05Ga0AZ7zf1dDVgQOZYlm1pvqxq/t0qOLVIhVyKkJAEvZQwgCUbC8VQgmoM1Pm78y0ZUE
+	s9wTDPsjDo0Co/XkyyydsQBRXkMnnJcM8Rw6ZPc6WHKX1y4C7G2juFsN9v1VjlSoCoNSomCNKUd
+	Up8ZqVhG1OVR8z2uOsmv8O7y9YK1b0EkF2T2MO1xF
+X-Received: by 2002:a05:600c:821a:b0:4a0:1e68:d28d with SMTP id 5b1f17b1804b1-4a180303f9cmr96009025e9.6.1791467757952;
+        Thu, 08 Oct 2026 06:55:57 -0700 (PDT)
+Received: from [127.0.1.1] (host-95-239-230-248.retail.telecomitalia.it. [95.239.230.248])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a17f493761sm224950695e9.2.2026.10.08.06.55.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 06:55:57 -0700 (PDT)
+From: Nicola Fiorillo <nicfio@gmail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil@kernel.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org, nicfio@gmail.com
+Subject: Re: [PATCH v3 2/2] media: v4l2-subdev: Fix NULL pointer dereference
+ in the EXT_CTRLS ioctls
+Date: Thu, 08 Oct 2026 15:55:55 +0200
+Message-ID: <179146775576.53729.7241687195832895526@gmail.com>
+In-Reply-To: <asdz93f28oRR-WPu@kekkonen.localdomain>
+References: <20261008042600.275884-1-nicfio@gmail.com>
+ <20261008042600.275884-3-nicfio@gmail.com>
+ <asdz93f28oRR-WPu@kekkonen.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|AM7PR04MB7079:EE_
-X-MS-Office365-Filtering-Correlation-Id: dfa5cd41-b6d7-457a-e1bf-08df25428a6d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|19092799006|1800799024|376014|7416014|23010399003|56012099006|11063799006|4143699003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	uX8AvAQ6JeXrrpY9y3LmIFLpawHTGmFohx+5pjpzkyq7xxuiO4acPUJnWVqnsQGFsNDaLeyWWlghBgnjges6nAg/ilT4lfccfuH8LxBrVPUk5Kt8UYVUnfdUNSB0Nhjun/npxAOtPSnAot48cD8kp5BinWAX+0Bv/iJmAM+L70wAOkkzWF3nFRTHVxm4xOCEUWA0ZAN1msP3n7GAL+gjJJkhjWrzlkCBAHVZPD5CZ133jCqcc3tQLMSDbZtdyyMTVMBo6Q83eknGokD0xXDfLac9au7eyBCdhq0RdCz+aMRy3aYEXha5aGz9YYM0Dfs4iW3AymHBMNLgrnzmzawrHwpDBKklJ8/QLTBn+8tzx09LYFYs88bZpezTupV3bSLq+vPGVKhVs5mONIoo57TUbBKvQpCG7RLEj0kuzRj8MTRBy/QtJVujpjvUxYDaqcNkjp9vhkEHsXEx44BnmnuRp7uMW0lMXFqPENpD1ufwxI+ybBqd/B0ylprKxde9OWxkrtWVieeWdeWOU+YGbPJKIY0tMbr4DA0QM3S9E7lDW6G1tz+pdqa0P68uB3UJpuQgEKEagHgfBfKVlzka03fB5+6avSEWkmE9hHtExYHN+NgznwvWEBOI1leqgrC64i7X6bubvPPQJjS/Sl4IkI8cjco4rhLcAwf06oDRRpimDQo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(1800799024)(376014)(7416014)(23010399003)(56012099006)(11063799006)(4143699003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?p/vLp8I+4laxhenM4tuPyA0k0goW1mZ3tHcR8ISA0e0uoDShwGxZtrsv/F02?=
- =?us-ascii?Q?dSXp9WIGwgly7YOwMEBEg/CVMlDSHLS1bGi2ESP2UVWtv4yIHuW5tjzOqM3K?=
- =?us-ascii?Q?R+xnPk0N/xMG+zqb7T7bEZiiM2Ezn5g7YJZFotW3lvNoWNy1rayq/RIKJAwX?=
- =?us-ascii?Q?wFTTHoB2VNTRQRX5ddBMBtn+hiW7gFPe9WpaqKWgNHNAFTfVaKZmbJPhwgoq?=
- =?us-ascii?Q?rySbdFseG3kDMMwNYPHv14cBg7M3whB41IhHUwpwhvY1Phd3VbV5kX3iGYtV?=
- =?us-ascii?Q?oqCgeNugx7P/rr4jKRRnV51gCBtfmLlHjPqvvnK1434y9AJtV2wsrdv76jKn?=
- =?us-ascii?Q?nBFDa0yqHftVu47SktmBDutaDsYlqE7yFGNhavdr54sdXrMpnAoNl0njXr/l?=
- =?us-ascii?Q?7aIdry204XLxBWMcZ6FWsdXnBk504tClOWWogOZE1/MYO3Tx+bQtIO3r9BX6?=
- =?us-ascii?Q?frW1fFJyaABjyJI1jzyx15vAWrsE++bwshCGeHLBZUuIoDj2YUtLgA5FjZPJ?=
- =?us-ascii?Q?IcLHN2FFaUpHyh1qliJLshCjJFmDZx1h57h8m56Xv23K+MB2UqTDH/Ylqzlh?=
- =?us-ascii?Q?NimC6RVQgLuIeeHAE6NA51Hj14YEovfXa9u0JxdN+kEvAZg/Xfon7puconrr?=
- =?us-ascii?Q?78HA0JbpnlomIUNw1iBfjpKdKKOcNqGB5MI+B8J7KnaO0cqW84GJqnhh7jX0?=
- =?us-ascii?Q?aCTvWq2OM/oTeSSYcL9ctT8/9oQFtD3HGnMuPPKd78RK3keY0CxW0V33oIf4?=
- =?us-ascii?Q?jrypuoe39FoqWjmVlqTtGJJvdRY4HHd/wOG9hT/JS/KLDR/+4m98P9sz1jsn?=
- =?us-ascii?Q?f5WbdttB3o4HvYQwYhkqId5VP+3WcBXw/6/ahyciWT9qSv4EL9qcb7fRYp6H?=
- =?us-ascii?Q?yeqFqBro0aNukJdkKcLG1tSd9Xr6BcoJyTO/zCiZAHglmNaR4YpKOGTITQHl?=
- =?us-ascii?Q?PBz9pb6Bkv8pXfhML0czS7/GZjAske/CkWW19OrZgIvKsjUJi/1tr/n8mocs?=
- =?us-ascii?Q?sGTV5LgTZZ5W0yUmzEplh0nLIWd/pnUpE/hxaxQiGrJhbLRZoXwJiPVZhYHX?=
- =?us-ascii?Q?DFmC4Gu5NqBw1ufntmbrg6WPYoIR6gghXQgGP0wfTv+sZ55uwFWeqB5xgkex?=
- =?us-ascii?Q?R4sYUil7jyxXiYFEosIDeCpevmFgAkHPV1+dFJXTCd9pKmbFto6YN5W5czSy?=
- =?us-ascii?Q?GXl/qh3Jt5X2YDncm3DneDnfaDJpckMangt21NXsjpC/VUDtA7G09SASuYkA?=
- =?us-ascii?Q?FX1HLoMmLrBHLzTvBn6JTo/wWVi+9u7RWMFxAjBH/qcnrxI0EyBKSQ9VA1rP?=
- =?us-ascii?Q?GQNNl5LB+Lfy6Dh4Gvydxh1BUQbSrwvU14y6uFs9gicP0JEB1RS25GlU0JJX?=
- =?us-ascii?Q?+rk6agLb22Xcy+YKSlPgrG3NIXgplVDPkhOeY1tZPoBsole0CzgtsauR0kG4?=
- =?us-ascii?Q?EhgBc9hZ7lRl4MsAb26t0ONjuD1nQPbov7BPDogAAuTkBDYLlQIucHLARxP0?=
- =?us-ascii?Q?4P2g5cKV1pmFxZP0lvCtt/haA8mPfN48OxKxR0qajpqtV4EJCNAoWVLnql/H?=
- =?us-ascii?Q?iNy6HhSxkhej1pVbsS2S/RqR19anpU/O92q+Te2OPHosShXnLGJ3yOB57dRk?=
- =?us-ascii?Q?mPrRLNmTfWtXVFHGdmSKzryuynPp7IxXdjNInpIvX2VkjPQLPKrOAwaPXujh?=
- =?us-ascii?Q?wNavsgJV+3HvqlXJQiDfKkKoF7dI6/9e/aAjO2b3M8utVFWAoM2yuzy9Bn0+?=
- =?us-ascii?Q?AVbbeCCX1fHjgLaWhBx30UmDy3GBtAsUMQ8YDUtplspcgK8lph7j?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dfa5cd41-b6d7-457a-e1bf-08df25428a6d
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 13:46:23.2673
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +neoVyLKSJDJocY9cedT1615qyuAfYyYJdKeYECUWLk/WdPoccHl/E7dv+pVPjWmbPqA7b6SmR7adV4Os2ZLAUzKtqNpxZmRif2mdiH+cY4VNAGegT+VcepmQACWXR3V
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB7079
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 
-On Wed, Oct 07, 2026 at 04:55:37PM -0700, Nicolin Chen wrote:
->On Tue, Oct 06, 2026 at 08:19:09PM +0800, Peng Fan (OSS) wrote:
->> @@ -4110,52 +4110,29 @@ static int arm_smmu_insert_master(struct arm_smmu_device *smmu,
->[...]
->> -		/* Insert into SID tree */
->> -		existing = rb_find_add(&new_stream->node, &smmu->streams,
->> -				       arm_smmu_streams_cmp_node);
->> +		existing = rb_find(&sid, &smmu->streams,
->> +				   arm_smmu_streams_cmp_key);
->>  		if (existing) {
->>  			struct arm_smmu_master *existing_master =
->>  				rb_entry(existing, struct arm_smmu_stream, node)
->>  					->master;
->>  
->>  			/* Bridged PCI devices may end up with duplicated IDs */
->> -			if (existing_master == master)
->> +			if (existing_master == master) {
->> +				master->streams[i] = rb_entry(existing,
->> +					struct arm_smmu_stream, node);
->
->This can be cleaned a bit by moving the arm_smmu_find_stream()
->from PATCH-4 to this patch.
->
->>  	if (ret) {
+Hi Sakari,
 
-...
+On Thu, Oct 08, 2026 at 01:44:07PM +0300, Sakari Ailus wrote:
+> Unregistering a sub-device node isn't doable safely currently. Addressing
+> this properly requires much more than this patch does, and also I'm afraid
+> this patch isn't part of properly addressing this either.
 
->> +		}
->
->Add a helper to share with arm_smmu_remove_master():
+Understood. As I wrote to Laurent earlier today, I have withdrawn the
+whole series: both patches only narrow the window, and the real issue is
+the lifetime of the objects, not something more checks in the file
+operations can fix.
 
-For both comments, I will address them in V6.
+Thank you and Laurent for taking the time to review it.
 
-Thanks
-Peng
-
->
->static void arm_smmu_free_master_streams(struct arm_smmu_master *master)
->{
->	struct arm_smmu_device *smmu = master->smmu;
->	int i;
->
->	lockdep_assert_held(&smmu->streams_mutex);
->
->	for (i = 0; i < master->num_streams; i++) {
->		int j;
->
->		if (!master->streams[i])
->			continue;
->		/* Skip duplicated SID pointers already freed */
->		for (j = 0; j < i; j++)
->			if (master->streams[j] == master->streams[i])
->				break;
->		if (j < i)
->			continue;
->		rb_erase(&master->streams[i]->node, &smmu->streams);
->		kfree(master->streams[i]);
->	}
->}
->
->Nicolin
->
+Thanks,
+Nicola
