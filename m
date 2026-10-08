@@ -1,186 +1,133 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2626544E67A
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 12:22:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791462131; cv=pass; b=c/TyIx7m5kSsrl2z6xFaT85dADUE9XxAmPuKfcuZseBhwGJh3g+APi+p9bhfAISpFrwyEwmBcGxMqrqd/gxDLX9A3Cxu36x5s5Q9boSkhNFtNuFCeiqt2YIqXX2hOdQS5/1jCphg0uB9z++KsYtESf8SeXrBDBw2uS5Oo/BXINA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791462131; c=relaxed/simple;
-	bh=+4j9FfZKR8IGCg47cVnrN1yTG8l/L0oUKeTDJQOU6mc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JcG+6B9HwB0GX/a3SFcXRt52n3GqVGQycqY+D8bPmbCfDSq1INx9Vzz7GelFJ56CpMzY+exOn89kr/aWAIc2WVgJ3nANwa0ma02QvFka419+LiD1IgQweQeW2cQ1KEkwo048OU124TTGAh1bsaLYbdMwfLaRWRSVNDlrivPwEhU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PSlQoHnb; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fUnCAw7v; arc=pass smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BE5C448BAC;
+	Thu,  8 Oct 2026 12:22:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791462158; cv=none; b=fYgD9AvOvlUlr6ci6xOe7Y0c8wjd7i1eReUwRTp+4sU3aNiqMph6RQ6MfAktNBBbMUBkYk7lFWKPFOLM7IHYPHHdx3kqe2KfYPsSFKNPAKcmFxC2DV5SOIuCE3dJ4n7eGWF3FkZy20rZR1p482dkKN4d8y7+CxXHpFDzoV6j4P0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791462158; c=relaxed/simple;
+	bh=dvlWwHCm/4ja7KPmp7PB6HF8tJSJAziBERiHZoCInYo=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=fnsoxSh/3ke4otIWRtBqfQNRdBEfWlPE/3wFpcsOBumXAr8sWITjgoji0sq045vo+GV9X6RM7Gen8AXJ6M86hW7ULr7XvBbbNlkOi5B3acdGKAoUxjJTYx3J/ssAc81ML8QsdKDgs+QlA5uha4X8DGFoUpoRUj+7BFyRm9m3LUA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EbN5RxH6; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PSlQoHnb";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fUnCAw7v"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 698BKEMb1708170
-	for <linux-kernel@vger.kernel.org>; Thu, 8 Oct 2026 12:22:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	+4j9FfZKR8IGCg47cVnrN1yTG8l/L0oUKeTDJQOU6mc=; b=PSlQoHnbsoQqCE1q
-	KWv2ipXNFwyawIB51ym7mtbKSWaIJ5GKoB+2wyBvbFOvEJCzuQMHCpzQZ6BQ+Tv5
-	foRGsm7S/gM3eabLuAkAm+s77Cnb+Jrv/IEIRhFf+ee7PdA0fzSuzgkMLdVrII4o
-	EX2pu9BeJWjEz46dxcMRmBKCgVOIsKt4DRxGHKAz7pO3WgHaXJyuU3eWHVT6xLKM
-	NRHUE4bp+FXrDEaYr9LN0TNdA34spBo/xomgdbz4ZkYNu3nstT+5ir6qaY06sCFN
-	pjz5MIKEBGfEycmCJMWq2xd1cW0knOJigkR2i/QD7dx4rvVdwUKP8vyQ0QmRwmN0
-	pu0VLw==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe3ata2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 12:22:08 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2e827b3a6b4so3090375ad.2
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 05:22:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791462123; cv=none;
-        d=google.com; s=arc-20260327;
-        b=FvwoPegXtwPL45q93u4lPl+28pBWpE9HMxdMtgn9M2Gs1vF0NLdnjaBvGTnZo/9Vsc
-         P3yhfxHM6Vep9PH7yiHjRvVLEjX2bgv7TeZsf7TG551VztiUzgG0p7k2M8p/UIL/lbn3
-         n835gGnls/e40+JfWzxmvjKNW4cgrkMnVRS4aM7URqmoU34AArlAwAj2jvUbKqoJZUS3
-         O8heUZctUwT17lTvhNlUj+ZmbvM+kG0kBCUnVb0+nCwxxj5ezqOXeI2OpTe6vBA6kwks
-         Jv2PSgRZKn97A5lY9N/HdbMCGFeBpcIKFlnCnDETahEK5CIZpnR/KD6VdefHuxj40DQ5
-         /9Cg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=+4j9FfZKR8IGCg47cVnrN1yTG8l/L0oUKeTDJQOU6mc=;
-        fh=Yke1JKO41/KEAzHHuUiI/cRFlWj1cOKIimVATlYtO70=;
-        b=Xhrl1p14I7g0LtV8T8zzpGu4kuRV62ZS6W30+9v25dyz3dbJuQruVLbQaT4Miz/hNq
-         bQO2ds2DMsgeLyVI0OTg0iM/CbbzmnwmRZMn9nL0njKtRwDzMsa2ttKvrPCfposFPVIP
-         SIty0Q7mT4GVJevN/ixxX72mfO4zSqxPdtRWjiVXvR58Wf19fRDqU7VlDQGVku4gcTd/
-         pJ0sKf68TJaKH7Dwojz5jU2QxHQJUY0hA+K+sFeDEJ/4dKUrmOP0OuQHLivstgkf60vt
-         S9p6nOOst43gjPmyxRj3x3+Tuszovt0LaonyL1zUuOMEMNP9NIgvsRI93SgHWboSBdAA
-         8DTw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791462123; x=1792066923; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+4j9FfZKR8IGCg47cVnrN1yTG8l/L0oUKeTDJQOU6mc=;
-        b=fUnCAw7v+6Y+SMXFHRJkZoWQ1iacf+BgAjuo1pB2HzuS6qDBXYjUdRapTmNVAYtsvX
-         sOwkYwVYM1wAD4endgtxjUazgbsqOvhIwcdnpROUgOqSGmjv5SXmhl890tcfGWj8S+bs
-         YGnoU6R1cp47fpG2TWCp/UCxJL0xweVQT6FX/Z2s6op9g15mLld4KxReRYF+p+xz4ttz
-         YukBNQnyaV2p3Ppi3DyXBjcYOFcStwwbv7fRC5gfoCFF9LQRufUjhKVKFr4yc9lOlFOB
-         7li63nc59LRTyF9j8sc87Zcf1/qnQ0oiPGjafe9sF5ohSs5kBXYKhCe3CpQ/3VDkcy8R
-         24LA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791462123; x=1792066923;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+4j9FfZKR8IGCg47cVnrN1yTG8l/L0oUKeTDJQOU6mc=;
-        b=R8FgfeIABDpA6VBFbuLzcYIh1W9gw725Pk1fZJXZlGDx2uw1CU7fVK8fTLTj8h8szN
-         oLvb4CXWbrJ+iWo7JzyMQOBXtn8F8/3rx47OOInEZQDEN8mMPtThw5ps9aVD6SaG74Uz
-         IXXmY9l1WA4IQFlesdmKziR6da4ydtFnN40wkRJ4204wpDm3MRCWK0bBq3zYl9ZNkCC1
-         +DtwVaO+uFvjH37HTlnvW1bTi6cFIfDaefBFDW/KJ08Vxyx+YwdB7pxHEKyknYt7EB2q
-         arJBlOiWOUmFGz0ER2WNxHiqyZOu4UQfMSYzJlGIR/A7X6T5MAr5JKOEfPMtbP0r84jS
-         GNsA==
-X-Forwarded-Encrypted: i=1; AKwUvBwnmPr0g4H2FW4Iy1lRuZ0QaEHoI5CB/6bZkh5f+wgcDS5km3Y6SzMSo7y+2IJBZc8xs9NLz8TQaJv63DY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK6Y2lGWBoblq7ack1rZk832kRWo6v6AxSqzZ8bUfcrN54WFz7L
-	afBzfqOt7+UCY+V+Mh4w56eWdR6YE7x7HRP8BwniJn+cMvpO4hg6RMemz38cVrwJJq8knC3OGH+
-	FGSozzyqDFKIxcAaHhJA3fqFpfdG/M4MRR4lEJjKQJzDwimZpBd0DsxxESY+1mKXsdgJaEczqAe
-	9jfWhOhlmeQn1maqC6nsP4x+YMgdx/bFy+d6dc1h+EXw==
-X-Gm-Gg: AYBFou23JBl1cz84XNdPs/tuIVRTwZQeAcrV9GQFBeFuLS3ssAfo3ib98myzpYKYpLi
-	UBHxNDH+dS8aP92rCxhklbj9c7MJBFkNHM4I+qwwLNpLWWuDf3F51Y7g0FUSz47MNFMRynI5ATA
-	MpHRwx2fHjFixSfqydJJi5gcjUKZjVp3qGkIJs0+AlH3/+7g62dclcEOBENaKZQ8io8HI8cKKUz
-	ixCE4+rLNbthwoV5g==
-X-Received: by 2002:a17:902:b905:b0:2e4:a338:3658 with SMTP id d9443c01a7336-2e60051d4a0mr35952285ad.42.1791462122976;
-        Thu, 08 Oct 2026 05:22:02 -0700 (PDT)
-X-Received: by 2002:a17:902:b905:b0:2e4:a338:3658 with SMTP id
- d9443c01a7336-2e60051d4a0mr35952055ad.42.1791462122438; Thu, 08 Oct 2026
- 05:22:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EbN5RxH6"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791462156; x=1822998156;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=dvlWwHCm/4ja7KPmp7PB6HF8tJSJAziBERiHZoCInYo=;
+  b=EbN5RxH6HfBDjiTb5ImnoSZmCx/+3h0WyOyXQkLS1eFsgn3lDeaqR6xi
+   /k6TqO6A0LzFJIO2Ryi86jtLJz61AgO2t3c01gbj1FN20/f5j2NiBlDHl
+   jC5OrxOGabsQJgXDFBI15+vL3fxM+Z+Gd5NWLdMKYg0COwajhVlfT7I8e
+   7ACqX049SfuGFuMTWe+2ZqKkmdr9IrX/LQrVhah/aLRvxd3KzVtuG5Tgp
+   aDSHo7mIUIZdOP1HSmD+lhEwzt/JfrtzsWkCrV6JEswJf4EswRj7Zz1Td
+   BzZWJYfJjUSZWRkmHYVUdEt2SfeiIlPWDSZvmg7jGTZ/dJJRqRVm42Oje
+   Q==;
+X-CSE-ConnectionGUID: JjQrTkG+RcqFrnvVhpNiyg==
+X-CSE-MsgGUID: DUe7r3PXRGqYLDUAl3sE4Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="141189"
+X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
+   d="scan'208";a="141189"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 05:22:35 -0700
+X-CSE-ConnectionGUID: rT6aSBc0T/ynEgQ1xZpcZg==
+X-CSE-MsgGUID: pMIukLpsRw6DlTATjlqZUA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
+   d="scan'208";a="348614"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.140])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 05:22:33 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Thu, 8 Oct 2026 15:22:29 +0300 (EEST)
+To: Bartu Alev <bartualev@gmail.com>
+cc: platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
+    Hans de Goede <hansg@kernel.org>, "Luke D . Jones" <luke@ljones.dev>, 
+    Denis Benato <benato.denis96@gmail.com>, stable@vger.kernel.org, 
+    Denis Benato <denis.benato@linux.dev>
+Subject: Re: [PATCH v2 1/2] platform/x86: asus-wmi: fix TUF keyboard power
+ state shutdown naming
+In-Reply-To: <20260926005625.171560-2-bartualev@gmail.com>
+Message-ID: <3d7a74f7-a092-3ffe-ca6a-6daaba3accfd@linux.intel.com>
+References: <20260925200744.129714-1-bartualev@gmail.com> <20260926005625.171560-1-bartualev@gmail.com> <20260926005625.171560-2-bartualev@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261005-s2idle_state-v1-0-3c402c66f388@oss.qualcomm.com>
- <20261005-s2idle_state-v1-2-3c402c66f388@oss.qualcomm.com> <20261006-romantic-stalwart-seriema-90e71d@sudeepholla>
-In-Reply-To: <20261006-romantic-stalwart-seriema-90e71d@sudeepholla>
-From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Date: Thu, 8 Oct 2026 14:21:49 +0200
-X-Gm-Features: AclHuK8ZT7r3xmegX1XclNDyrJeEDtHELpRcrHYyZXH39CoY5X64BysHsJ4sp3g
-Message-ID: <CAPx+jO-T_0KT3GytYu8w6QvrhXFQNZQzR496RL=McU6rnMtnPA@mail.gmail.com>
-Subject: Re: [PATCH 2/3] pmdomain: Add support for system-suspend-only states
-To: Sudeep Holla <sudeep.holla@kernel.org>
-Cc: Maulik Shah <maulik.shah@oss.qualcomm.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-GUID: maqG9k1q0QoDIE2MLcoCsH0zUIEPG54-
-X-Authority-Analysis: v=2.4 cv=QOz91QLL c=1 sm=1 tr=0 ts=6ac78af0 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8 a=3wAzXcUKBgoAJ-C3A44A:9
- a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDA0OSBTYWx0ZWRfXx++Hi1kBmTJA
- oVlCUeuidrBvT+faojUZk5wkMW1FDwq2SZiovjxbErZHxMgUL9PfXlr7sSkULXO94kiP4Ip12nK
- w6Rou46Wsdx65T6VztRmK6YZE6W+0ks=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDA0OSBTYWx0ZWRfX2w9Q8N0X99MU
- v/GAqlzGqHyxLn8YnemQqor1/r6ZxYvIV0noiVynn9lZ7rJVfuZ+lhuFDKDuW+J437Cp+YqFUG0
- vRy/+zzCXmMEaCuZE8SRAAIyV5gvH7ckg4YbuT5o4hRderAop+1YVBLbORPIswvFHT2BLK1WP4s
- ss6kHSOT2BYucY3IXPp57Krd2hntdTvK7YRlcHafpUbRS6NglBjwWfEH027auBPMiVMH9LLrEl2
- 0Wk7iL/SjQ7+HpN1FNJjgoKI8Kl3LzXp/k+p6MHp0/hTk5Ddk/9GYCYVnyepcPngO3GvTIlXm6U
- VKPka6hO30q5otJoC4O40a0DUEwC6SdHp7mpNOxM0mzWycvHXAG81KAVgrl38KDymI9ld/+HnHw
- 8LQyCLzRC214qpDwrMPguihWh0T3GfK3698ypnPwGeZxfqS4vDWnpQYXLPySMhQy7hWnSD3lmO7
- 4C+8PJoFSmAyCzkZYCg==
-X-Proofpoint-ORIG-GUID: maqG9k1q0QoDIE2MLcoCsH0zUIEPG54-
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-08_04,2026-10-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 lowpriorityscore=0 spamscore=0 phishscore=0
- impostorscore=0 adultscore=0 bulkscore=0 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080049
+Content-Type: text/plain; charset=US-ASCII
 
-On Tue, Oct 6, 2026 at 11:15=E2=80=AFAM Sudeep Holla <sudeep.holla@kernel.o=
-rg> wrote:
->
-> On Mon, Oct 05, 2026 at 08:59:43PM +0530, Maulik Shah wrote:
-> > Some domain idle states require system-wide coordination and should not=
- be
-> > selected during regular CPU idle. However those states remain valid for
-> > system-wide suspend like s2idle.
-> >
-> > Add a per-state system_state boolean and populate it from the system-st=
-ate
-> > property. Make the genpd governor skip these states during CPU idle. Le=
-ave
-> > the system wide suspend path unchanged so s2idle can select them.
-> >
->
-> Instead of this I am thinking if we can QoS cpu latency setting and block
-> system level states normally. Since s2idle is user driven, it should be
-> controllable via user-space and we don't have to define bindings again
-> if systems that use platform-coordinated needs this too. They may not
-> use domain-idle-states.
+On Sat, 26 Sep 2026, Bartu Alev wrote:
 
-Even if we likely could make that work, it's seems not correct to rely
-on userspace to make the kernel to pick the correct idle state, while
-the decision should be based on the characteristics of the HW.
+> The fourth state flag of kbd_rgb_state_index is currently named
+> "keyboard" and was historically assumed to have no effect. In hardware,
+> this bit (BIT(7) in the WMI DEVS payload) gates whether the keyboard
+> backlight remains illuminated during the ACPI S5 power-off sequence.
+> 
+> Hardware A/B testing on ASUS TUF Gaming A15 (FA507NV) confirms that
+> setting this bit causes the keyboard to light up white upon power-off,
+> while clearing it ensures a dark, clean shutdown.
+> 
+> Relabel this field from "keyboard" to "shutdown" to accurately describe
+> its hardware function and align it with userspace tooling (asusctl,
+> g-helper).
+> 
+> Fixes: 61f64515299e ("platform/x86: asus-wmi: Implement TUF laptop keyboard power states")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Denis Benato <denis.benato@linux.dev>
+> Signed-off-by: Bartu Alev <bartualev@gmail.com>
+> ---
+>  drivers/platform/x86/asus-wmi.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
+> index a65090429ca7..db6ee1974838 100644
+> --- a/drivers/platform/x86/asus-wmi.c
+> +++ b/drivers/platform/x86/asus-wmi.c
+> @@ -1119,10 +1119,10 @@ static ssize_t kbd_rgb_state_store(struct device *dev,
+>  				 struct device_attribute *attr,
+>  				 const char *buf, size_t count)
+>  {
+> -	u32 flags, cmd, boot, awake, sleep, keyboard;
+> +	u32 flags, cmd, boot, awake, sleep, shutdown;
+>  	int err;
+>  
+> -	if (sscanf(buf, "%d %d %d %d %d", &cmd, &boot, &awake, &sleep, &keyboard) != 5)
+> +	if (sscanf(buf, "%d %d %d %d %d", &cmd, &boot, &awake, &sleep, &shutdown) != 5)
+>  		return -EINVAL;
+>  
+>  	if (cmd)
+> @@ -1135,7 +1135,7 @@ static ssize_t kbd_rgb_state_store(struct device *dev,
+>  		flags |= BIT(3);
+>  	if (sleep)
+>  		flags |= BIT(5);
+> -	if (keyboard)
+> +	if (shutdown)
+>  		flags |= BIT(7);
+>  
+>  	/* 0xbd is the required default arg0 for the method. Nothing happens otherwise */
+> @@ -1149,7 +1149,7 @@ static ssize_t kbd_rgb_state_store(struct device *dev,
+>  static DEVICE_ATTR_WO(kbd_rgb_state);
+>  
+>  static DEVICE_STRING_ATTR_RO(kbd_rgb_state_index, 0444,
+> -			     "cmd boot awake sleep keyboard");
+> +			     "cmd boot awake sleep shutdown");
+>  
+>  static struct attribute *kbd_rgb_state_attrs[] = {
+>  	&dev_attr_kbd_rgb_state.attr,
+> 
 
-In regards to PSCI PC mode, I believe we should consider adding the
-similar DT property for the arm,idle-state binding and make a
-corresponding change for the regular CPUIdle path/governors. Although,
-it doesn't necessarily need to be part of the $subject series. I would
- be fine if that is handled later on too.
+Hi,
 
-Kind regards
-Uffe
+It seems we're missing Documentation for this interface... It would be 
+nice to add that as well (in a separate patch).
+
+-- 
+ i.
+
