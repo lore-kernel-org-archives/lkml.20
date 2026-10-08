@@ -1,54 +1,47 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EE7B1C3F0C;
-	Thu,  8 Oct 2026 02:49:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E43A820010A;
+	Thu,  8 Oct 2026 02:52:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791427780; cv=none; b=ZNpmQUvxJwb0rsdYxhS12Ww09Xk9mBH6HkDMU0SJw1C2lngkgHsnmh46UP5uv3ycmYLq3fipTSVS1Itwc1sjJFvtYn/ik2ofp1XMJ7Z3yesPcWfOP73EqYQgKk+fDGiTEuIKYD8UGkmCfv6f9Drh951EQ5ioovn5U+SgMUFgdyY=
+	t=1791427925; cv=none; b=EIWcnpblBNRBqe0ysw7kHwrHZYvyLzc+WejIgXROYRTmI79Zj2KnGoNum0OHHyoHgk3zRRxDvWxI4ffYUtEdQLjPGCx9mRfAocQn5Msv8mu2f4wYzCoATXN2E06Bac1WWyw/bDNY4QWA4pHpkRfTMcoZK0D7lxbJ8JYMHBiAklg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791427780; c=relaxed/simple;
-	bh=OKrmHgSPMHb2julbeoAI4VAzYmtWl/JEjrfi9IxqV+o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=S6yzxDETBBZ4jRDb4SOm1RtfWsGiDc0l0J04beo0nMe6AAxLoUJT4ZrflE0qgbfepxNMJ0iZ/kEaHsG2livwgR0X4ibV29wOtAZLDGP2EH/l0+Y+/3RsGEXz08PsKmEVHufLMsITYab6k/Ifj+DloCIGG+hnFovCwbJrja4B9hI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=WTLwa6Bp; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="WTLwa6Bp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=br
-	RJxqNT6EqFF7Z/m/5gnDQF3Ws+MJW+LSRnBiwaYeI=; b=WTLwa6BpUjSr+XT6Tg
-	iyn6QsrQowx7h3dGNjBfRZsIYSkV51QkVUGtzkQHgFWQAZwgZvzj2LKWmqRZOQmU
-	Uev7TmvH2FaiWL9e6HJXdwxQzsjYFYJWdlYFsGULSwsuuLi3QyvgdBo5lIIpgUX/
-	v/cfKDo0yAbwHTZzhswt1e1bs=
-Received: from localhost (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PigvCgDnz61eBMdq74OuDQ--.5313S2;
-	Thu, 08 Oct 2026 10:47:59 +0800 (CST)
-From: Hui Su <sh_def@163.com>
-To: sched-ext@lists.linux.dev,
-	tj@kernel.org
-Cc: void@manifault.com,
-	arighi@nvidia.com,
-	changwoo@igalia.com,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com,
-	yphbchou0911@gmail.com,
-	etsal@meta.com,
-	linux-kernel@vger.kernel.org,
-	Hui Su <sh_def@163.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3] sched_ext: Serialize user DSQ destruction against deferred reenqueues
-Date: Thu,  8 Oct 2026 11:47:53 +0900
-Message-ID: <20261008024753.4096008-1-sh_def@163.com>
-X-Mailer: git-send-email 2.55.0
+	s=arc-20240116; t=1791427925; c=relaxed/simple;
+	bh=+xbwlBBvR9CRiHYs+WTpCuPJVQXQl/8Ej0dbvlQqk9I=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=SHmqK1tEL2nTy+G4qyvcPDS0scxWDeE+rpw15G5JaR4i9R3t8Aqd2ApKhtzJGpDGQwWGC3i+QnSTdnnyw/X+CqJjwsY7e7tn0ibP4iRmc85z6GoiaQ3wXsdL+if/Z755mreBrA6Us5Z91WujzccqTllyXwOvSH5BvJ9F2787UTA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 386840b4c2c311f19a56ed5b684f684d-20261008
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:e253ccb0-8e6f-48d8-82de-b7ddf1079c75,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:20
+X-CID-META: VersionHash:7db8b62,CLOUDID:3019ea6ce21a8533f5a7e2926d08123e,BulkI
+	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99,EDM:5,IP
+	:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,
+	LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 386840b4c2c311f19a56ed5b684f684d-20261008
+X-User: luriwen@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <luriwen@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 718248067; Thu, 08 Oct 2026 10:51:54 +0800
+From: Riwen Lu <luriwen@kylinos.cn>
+To: rafael@kernel.org
+Cc: luriwen@kylinos.cn,
+	lenb@kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ACPI: PM: sleep: Drop unused sleep_no_lps0 define
+Date: Thu,  8 Oct 2026 10:51:52 +0800
+Message-Id: <20261008025152.153073-1-luriwen@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -56,120 +49,33 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PigvCgDnz61eBMdq74OuDQ--.5313S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXw4UAr4kZw1fXF4xGF1fCrg_yoWrWw1UpF
-	W0qry5Cw45tw42gr4ayw4xAF1fXws3uF43WryfGr4Skwn8uws2vFWIvF17uFs0qrs3Cwnx
-	tFnxK3WDKr4DtaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zi7GYPUUUUU=
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwh+kBGrHBF8OEgAA3X
 
-A deferred user-DSQ node can be detached by
-process_deferred_reenq_users() before the DSQ RCU callback reaches
-exit_dsq(). Once detached, exit_dsq() cannot find the node, while the
-deferred path continues using the raw DSQ pointer after dropping
-deferred_reenq_lock. The callback can free the DSQ before the deferred
-path checks its ID or calls reenq_user().
+The sleep_no_lps0 stub define in the !CONFIG_ACPI_SLEEP branch of
+sleep.c has no users left in that file: the LPS0 code consuming it
+was moved to drivers/acpi/x86/s2idle.c by commit fef98671194b ("ACPI:
+PM: s2idle: Move x86-specific code to the x86 directory"), which has
+its own static module parameter of the same name, so the define is
+no longer used.
 
-The first RCU grace period drains producers that found @dsq, but does not
-cover a consumer that detached its request and continues using @dsq.
+Drop it.
 
-Avoid adding reference counting to the deferred reenqueue hot path.
-Instead, synchronize the rare destruction path with outstanding users.
-After the initial grace period, take every rq lock with its deferred lock.
-This unlinks requests not yet detached and closes the detach-to-cursor
-window for active consumers. reenq_user() leaves its iteration cursor on
-@dsq->list until its final access. Since destroy_dsq() requires @dsq->nr
-to be zero, a non-empty list after the sweep indicates an outstanding
-cursor; defer reclamation through another RCU callback until it exits.
-
-A test-only pre-fix fixture invoked free_dsq_rcufn() after detaching a
-request and before its final DSQ access. KASAN reported the resulting
-use-after-free:
-
-    BUG: KASAN: slab-use-after-free in run_deferred+0x1312/0x1710
-    Read of size 8 at addr ffff8880087009b0 by task swapper/3/0
-    Call Trace:
-     <IRQ>
-     run_deferred+0x1312/0x1710
-     ttwu_do_activate+0x29a/0x600
-     try_to_wake_up+0x815/0x1700
-
-Fixes: 84b1a0ea0b7c ("sched_ext: Implement scx_bpf_dsq_reenq() for user DSQs")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hui Su <sh_def@163.com>
+Signed-off-by: Riwen Lu <luriwen@kylinos.cn>
 ---
-Tested on x86_64 KVM:
-- The pre-fix fixture reproduced the UAF under KASAN; the v3 cursor/reclamation
-  case completed without a report.
-- CONFIG_PROVE_LOCKING=y and CONFIG_LOCKDEP=y completed the same test without
-  lockdep warnings.
+ drivers/acpi/sleep.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-Changes in v3:
-- Drop the refcount approach per Tejun and move synchronization to rare DSQ
-  destruction.
-- Sweep rq/deferred locks and defer reclamation while a reenq_user() cursor
-  remains active.
-- v2 was accidentally posted without the version tag.
-
-v2 (posted without version tag):
-https://lore.kernel.org/lkml/20260930143443.2862150-1-sh_def@163.com/
----
- kernel/sched/ext/ext.c | 35 +++++++++++++++++++++++++++++++++++
- 1 file changed, 35 insertions(+)
-
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index 405d0d1038f8..293e5e223277 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -5579,6 +5579,35 @@ s32 scx_init_dsq(struct scx_dispatch_q *dsq, u64 dsq_id, struct scx_sched *sch)
- 	return 0;
+diff --git a/drivers/acpi/sleep.c b/drivers/acpi/sleep.c
+index 132a9df98471..a94bac4422d4 100644
+--- a/drivers/acpi/sleep.c
++++ b/drivers/acpi/sleep.c
+@@ -548,7 +548,6 @@ static void acpi_pm_end(void)
+ 	acpi_sleep_tts_switch(acpi_target_sleep_state);
  }
- 
-+/*
-+ * Synchronize DSQ destruction against deferred reenqueues.
-+ *
-+ * Taking each rq lock with its deferred lock removes requests not yet
-+ * detached and closes the detach-to-cursor window. A reenq_user() cursor
-+ * stays linked on @dsq->list until its final DSQ access.
-+ */
-+static bool drain_dsq_reenq_users(struct scx_dispatch_q *dsq)
-+{
-+	s32 cpu;
-+
-+	/* The first RCU grace period has drained producers which found @dsq. */
-+	for_each_possible_cpu(cpu) {
-+		struct scx_dsq_pcpu *pcpu = per_cpu_ptr(dsq->pcpu_user, cpu);
-+		struct scx_deferred_reenq_user *dru = &pcpu->deferred_reenq_user;
-+		struct rq *rq = cpu_rq(cpu);
-+
-+		scoped_guard (rq_lock_irqsave, rq) {
-+			guard(raw_spinlock)(&rq->scx.deferred_reenq_lock);
-+
-+			if (!list_empty(&dru->node))
-+				list_del_init(&dru->node);
-+		}
-+	}
-+
-+	guard(raw_spinlock_irqsave)(&dsq->lock);
-+	return list_empty(&dsq->list);
-+}
-+
- static void exit_dsq(struct scx_dispatch_q *dsq)
- {
- 	s32 cpu;
-@@ -5608,6 +5637,12 @@ static void free_dsq_rcufn(struct rcu_head *rcu)
- {
- 	struct scx_dispatch_q *dsq = container_of(rcu, struct scx_dispatch_q, rcu);
- 
-+	/* An active reenq_user() cursor still references @dsq. */
-+	if (!drain_dsq_reenq_users(dsq)) {
-+		call_rcu(&dsq->rcu, free_dsq_rcufn);
-+		return;
-+	}
-+
- 	exit_dsq(dsq);
- 	kfree(dsq);
- }
-
-base-commit: f2f095c87603b8dfb6752e130d902970371c3852
+ #else /* !CONFIG_ACPI_SLEEP */
+-#define sleep_no_lps0	(1)
+ #define acpi_target_sleep_state	ACPI_STATE_S0
+ #define acpi_sleep_default_s3	(1)
+ static inline void acpi_sleep_dmi_check(void) {}
+-- 
+2.25.1
 
