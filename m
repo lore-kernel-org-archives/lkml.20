@@ -1,159 +1,125 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A236B3D16FC
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 10:16:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6AD147FB09
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 10:16:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791454615; cv=none; b=WXOZd8hZmdt0yYMkdWTKAtY8cTYGhsHMgxfSHpVNIi0La/j7X2AfUfidJ7WK9uLYtIuMlxqlktxUV8vkpSwaLGSuHlrcX0+JRmIFMJdkA9/7aH8zxCdGQFgJdM5KWyJY2ldyjgi/YkNJfVwX1+jrVD7CD6MbwyDWOWtuZYzXAQM=
+	t=1791454618; cv=none; b=qD5Y0pJajDSES1zRuEZe9jGMR0ucLEkXH917qtnHWpU+Got65jP8ARqLMoISE1vOqKxhYhNkMSpTewk/gK27CYvScsNQtE8JzJ7Li0ryWCa/lUXT1bv+ZbqakJIeSBlUQFgyApXmOUE+mrqlxDTT5nt7KNyblCwQlix9Bd/WRDQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791454615; c=relaxed/simple;
-	bh=zr57d1ZsF5kLXjGYob37OWc0jqT5c2OOuPZtQUr/tHE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=I0XPKdVk4fyMppEofwzjdFzuI9PdtJWyBxjhGwbIMKJs97yrEeAaszuDKDKRkgqe/fQ8omiXkoIXQBSwyhbtwL3Zkr+jTFB+gYP4WQRsQklZgqy/0vDVH1y5MP6U5QwomZ9PWsm8SNrQuOLK6L+NQKyqNYATdt0km8G0SFlSkBE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=T9aRWkj7; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1791454618; c=relaxed/simple;
+	bh=fOswragu1AKcU46BJAJ04JSQ3/APl0pHvmtWXy9S58w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=N1OLt+66Bozc9yS/DD0/3yC5SFTB7bgUnm/1yWnV05SkKn68qZ09tCQnkHCEwzbWwp2LSlsgnaHifx+LN1t8WF0k8uk2MyOvPvc+WwppnIWOjwJSKb5cTQSicYKXs85m6bnRMtdopKuuOupgu2t2TXkHztNd9t2g0cGmemAk/vo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=RyO+WNwU; arc=none smtp.client-ip=210.118.77.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="T9aRWkj7"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a061a13884so24322295e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 03:16:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791454612; x=1792059412; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EnmV+GF5F+3o4WuN9B2P/gYsWL8ntjLMdxMPioE157g=;
-        b=T9aRWkj7HzYv/eZ5IrAqIUTUJbJ9XNMldTeHN3zkdAsDd3u6CJ8bch3Kb/SCLFabO6
-         YZKdlmq4rTQvwmVhk3jJGXaxNPMmHZpiTnqajCRD3YNV9q50fhHFFwQlYdO1OJ5DVdaI
-         qqip85qEjEuTJD8FWsN2gVRzqJ4rbIBkh9uKOHWZ5nHp7oOwpkdC94c8ldRLcweAcEfp
-         n60XS534iNS6O4nk65tFI1BY8YJaFR1Fs50UMvNP8BiDTxKucOOng+leH9cKPD0J3JEu
-         6Kd5yHmD9HQzKwP766oXH/WmykryCPqO2zbueMFOG9mSdopS+n3TXzVs3tA7wcvPpB3C
-         kDLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791454612; x=1792059412;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EnmV+GF5F+3o4WuN9B2P/gYsWL8ntjLMdxMPioE157g=;
-        b=iE4TVB9N7PYLo1UIArG74WtI2BhU1vR0+jv9FW85w4RRtf3EIhvQQRDJg8UYlaNEiN
-         tG8xORnu4V2zNwNtGD7v5mnO8VtUaR4hOMeFd/xpuRCyZ44LEWnTe3HmjmANXYnaznik
-         8m1RfFRVIeXO+AqJNxeqskQKh6nH43OkXT+W1IFamAmvJ/CMyVp1cCXXgFnDmG961VT4
-         gmL2mXfQuyKUbZNJkVmM0dWBKIhSJwzPh3JVwVTwZIwWKvhp1xO5yg6/eRpGAxi0I+xe
-         8uZ9jvM5xtjkbEFJg9Kd+Vwc94eHc2XGc26TM8mkE1e23wR0wk9r9qbuqjg+GinP5nOy
-         pi1Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwlOyVIfDFUTWd/pKHy/ryrqSmfYHOkVmEVezuTNt9IFre4Awc2L/OjJRgAIFpTettar7wmUbAASvbTjzM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lUogxCzUVyizOoXc0CPBzZmA8jC692fkhemS7UnCyIr9Ky0akK
-	KsVPqg1Z1PjpxDOQciEhxGwJgUk9KNZ2B4CkiJsKhj2n/MYMbqiYF3rki7pQJ6svUyQ=
-X-Gm-Gg: AYBFou1VYg8jbvj9hKOqhYvd8ish4+/3EDPZcTwWI1QDK+3s7QoyhMEdn4GbpXD70TM
-	9kRR5NJQQvziQtUI5BSQIcV/Ua9FySx/8kmx+dgV88WimTl2qEuVE1TX3pXPrOLcCbcK+VoTcJN
-	Tk63v8pDyz2Bdp7Hf+2jw+LaJrEetv8XJJdg+bxdSGpXhtn5ulKbmmhRicvOieTsRkSuBv+5DUr
-	1ZJbE/7TR3RZ0eP9pW+znzF+KWwvUCFX3jNJjcYfU7ltWPYh8CrNkv6YEtqWJpQrTuh7S5gBmE5
-	Y8a9Cw368Iy+SkB6gPpCudInv80J0TEdb9AcC6FFa5/VjQnfujFpCbNL+9ArvUafHU2RfnCDTcS
-	D+9ubve0hEzfEZtWQAGPK6RyYc7Y1faEOESmvzgt1hb5MO4VHPB6MGQQ98a9c2dJ6Yy+Yz9fdck
-	Kw//p2xZHrmaV5S/A1ti6BZhpCn6EcyZ+yfzr52Jp+0l4nNW9YmvusM/OGNt7QDhhxUT91fJOig
-	js=
-X-Received: by 2002:a05:600c:820d:b0:49f:fe39:5bc8 with SMTP id 5b1f17b1804b1-4a180423b6bmr85575205e9.12.1791454611842;
-        Thu, 08 Oct 2026 03:16:51 -0700 (PDT)
-Received: from [192.168.1.3] ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1842abdb9sm57441605e9.6.2026.10.08.03.16.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 08 Oct 2026 03:16:51 -0700 (PDT)
-Message-ID: <a8373961-8ca5-4e8f-9f81-69d099bcaf3c@linaro.org>
-Date: Thu, 8 Oct 2026 11:16:49 +0100
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="RyO+WNwU"
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261008101653euoutp0141698ddf2663860cdefc6fbf1f4266a3~chnrJt4eZ3261032610euoutp01c
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 10:16:53 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261008101653euoutp0141698ddf2663860cdefc6fbf1f4266a3~chnrJt4eZ3261032610euoutp01c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1791454613;
+	bh=mO4q4g0VGAokDsTnWCtbTL+H8XVcJzLn5OxmzhD0cdI=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=RyO+WNwUSfa24tfqEVn30FJVpxPoHsWDhqUoSf4SU6BUSj7n+E4ksCk0UftGrFtMJ
+	 epit+ff7Tyb2DfzpNjpAsUNl9hVBaVijdfNpwW+7ADftqkOShT6EwtJQATn+uOo/eb
+	 zfvVoWbPNEj4cEqDsviDE4pEITEe5ASd/J1DZfbY=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+	20261008101650eucas1p2fa4adb7e7ece5173cba39c726300b64b~chnoAgJC60145601456eucas1p2Q;
+	Thu,  8 Oct 2026 10:16:50 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261008101649eusmtip2ee55bcf0281241017f5f2c9511114ef9~chnnP_ko_2421124211eusmtip2t;
+	Thu,  8 Oct 2026 10:16:49 +0000 (GMT)
+Message-ID: <04643c93-7d1b-49f6-870e-15c4c7306a05@samsung.com>
+Date: Thu, 8 Oct 2026 12:16:48 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 03/14] perf cs-etm: Turn on context packet timestamps
- in per-thread mode
-To: Leo Yan <leo.yan@arm.com>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach
- <mike.leach@arm.com>, John Garry <john.g.garry@oracle.com>,
- Will Deacon <will@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>,
- Leo Yan <leo.yan@linux.dev>, linux-arm-kernel@lists.infradead.org,
- coresight@lists.linaro.org, linux-perf-users@vger.kernel.org,
- linux-kernel@vger.kernel.org, Arnaldo Carvalho de Melo <acme@redhat.com>,
- linux-doc@vger.kernel.org
-References: <20260821-james-cs-unformatted-per-thread-fix-v2-0-00c4fd0701b4@linaro.org>
- <20260821-james-cs-unformatted-per-thread-fix-v2-3-00c4fd0701b4@linaro.org>
- <20260826153648.GK8904@e132581.arm.com>
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH] swiotlb: fix default_swiotlb_limit() for non-growable
+ default pool
+To: iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
+	xen-devel@lists.xenproject.org
+Cc: Robin Murphy <robin.murphy@arm.com>, Christoph Hellwig <hch@lst.de>,
+	Petr Tesarik <petr.tesarik.ext@huawei.com>, Andreas Greve
+	<andreas.greve@a-greve.de>, James Dingwall <james@dingwall.me.uk>
 Content-Language: en-US
-From: James Clark <james.clark@linaro.org>
-In-Reply-To: <20260826153648.GK8904@e132581.arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <20261005070518.1590097-1-m.szyprowski@samsung.com>
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20261008101650eucas1p2fa4adb7e7ece5173cba39c726300b64b
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261005070528eucas1p18d16ec6ecc4e879d0adc66538122132c
+X-EPHeader: CA
+X-CMS-RootMailID: 20261005070528eucas1p18d16ec6ecc4e879d0adc66538122132c
+References: <CGME20261005070528eucas1p18d16ec6ecc4e879d0adc66538122132c@eucas1p1.samsung.com>
+	<20261005070518.1590097-1-m.szyprowski@samsung.com>
+
+On 05.10.2026 09:05, Marek Szyprowski wrote:
+> Commit ad96ce3252db ("swiotlb: determine potential physical address
+> limit") changed default_swiotlb_limit() to return the maximum physical
+> address that could ever be used by dynamically allocated pools, so that
+> the value stays constant when CONFIG_SWIOTLB_DYNAMIC=y. However,
+> io_tlb_default_mem.phys_limit is returned even when the default pool
+> cannot grow, e.g. when swiotlb_init_remap() is called with a remap
+> callback.
+>
+> This breaks Xen dom0 on x86: pci_xen_swiotlb_init() passes SWIOTLB_ANY
+> and xen_swiotlb_fixup(), so phys_limit is set to the top of dom0 memory,
+> although xen_swiotlb_fixup() makes the default pool below the 32-bit
+> boundary. xen_swiotlb_dma_supported() then rejects 32-bit DMA masks,
+> even though the bounce buffer is perfectly usable by such devices.
+>
+> Return phys_limit only if the default pool can actually grow, otherwise
+> report the real end of the default pool, like in the
+> !CONFIG_SWIOTLB_DYNAMIC case.
+>
+> Reported-by: Andreas Greve <andreas.greve@a-greve.de>
+> Reported-by: James Dingwall <james@dingwall.me.uk>
+> Fixes: ad96ce3252db ("swiotlb: determine potential physical address limit")
+> Closes: https://lore.kernel.org/xen-devel/f74668db-52fd-4575-8372-7bfdf10d62ac@a-greve.de/
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude Opus 5.5 (1M context) <noreply@anthropic.com>
+> Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+
+Applied to dma-mapping-fixes with additional "Tested-by: James Dingwall"
+tag, which I've received on priv.
 
 
+> ---
+>  kernel/dma/swiotlb.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+>
+> diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
+> index aa2f1c4588b9..5edea93ec635 100644
+> --- a/kernel/dma/swiotlb.c
+> +++ b/kernel/dma/swiotlb.c
+> @@ -1844,10 +1844,10 @@ phys_addr_t default_swiotlb_base(void)
+>  phys_addr_t default_swiotlb_limit(void)
+>  {
+>  #ifdef CONFIG_SWIOTLB_DYNAMIC
+> -	return io_tlb_default_mem.phys_limit;
+> -#else
+> -	return io_tlb_default_mem.defpool.end - 1;
+> +	if (io_tlb_default_mem.can_grow)
+> +		return io_tlb_default_mem.phys_limit;
+>  #endif
+> +	return io_tlb_default_mem.defpool.end - 1;
+>  }
+>  
+>  #ifdef CONFIG_DEBUG_FS
 
-On 26/08/2026 16:36, Leo Yan wrote:
-> On Fri, Aug 21, 2026 at 10:49:01AM +0100, James Clark wrote:
-> 
->> @@ -453,13 +453,22 @@ static int cs_etm_recording_options(struct auxtrace_record *itr,
->>   	 */
->>   	evsel__set_sample_bit(cs_etm_evsel, CPU);
->>   
->> -	/*
->> -	 * Also the case of per-cpu mmaps, need the contextID in order to be notified
->> -	 * when a context switch happened.
->> -	 */
->>   	if (!perf_cpu_map__is_any_cpu_or_is_empty(cpus)) {
->> +		/*
->> +		 * Timestamps are required to interleave samples from different
->> +		 * CPUs.
->> +		 */
->>   		evsel__set_config_if_unset(cs_etm_evsel, "timestamp", 1);
->> +		/* Context IDs are required to associate trace to a process */
->>   		evsel__set_config_if_unset(cs_etm_evsel, "contextid", 1);
->> +	} else {
->> +		/*
->> +		 * Enable context packet timestamps only (no periodic
-> 
->> +		 * timestamps). Even in per-thread mode with a single process we
->> +		 * still need to correlate trace to a specific mmap around
->> +		 * execs, which can be done with just context packet timestamps.
-> 
-> Could we use terminology that is aligned with the ETM spec?
-> 
->    "Disable periodic timestamps but generate timestamps for trace
->     synchronization  ... to a specific mmap around execs, which
->     can be done with just timestamps of trace synchronization."
-> 
-
-Done.
-
->> +		 */
->> +		evsel__set_config_if_unset(cs_etm_evsel, "timestamp", UINT64_MAX);
-> 
-> It seems this will eventually convert UINT64_MAX to 0xf for the
-> timestamp bit field. Why not use 0xf directly to avoid confusion?
-> 
-
-Then it wouldn't support the size of the field changing. I thought that 
-was the point of the kernel publishing the fields dynamically. Hard 
-coding widths and positions in userspace only caused issues in the past.
-
-I don't think "...MAX" is confusing for what the intention is, but maybe 
-a comment would be better than hard coding it?
-
->>   	}
->>   
->>   	/*
->>
->> -- 
->> 2.43.0
->>
+Best regards
+-- 
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
 
