@@ -1,169 +1,102 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A939C3B05A5;
-	Thu,  8 Oct 2026 17:36:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CA033B05A5;
+	Thu,  8 Oct 2026 17:37:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791481015; cv=none; b=uhlQFo09DSMfwvSkrCTpWsRqh6yEMCv+EGfa+HZ1rDltYWP+6N6H8D4nBUcVp3FyRyN5SWuaHwICKe8aw5NAAj1Gh9vgueUou+kS2oNWoe+cK/4GyQaZQng1IOt3JLvLc1uSqFzVY/FInV/1JwrHlQNvSYpgnvu0bkaV4uNIvfY=
+	t=1791481039; cv=none; b=kBU8LPEEIjOeZJzWLfHCtHlkKZSyt9RfRaniPJwOxfw+wtyi/fGbCUEn2c/LboHY8XBjZURw3dT0qxxpqi99Adgy9XDSAjskLPbIb8H8CQ1dQL7PIjOmgpTsJoK8mdJbibY4MKT6xD3FDvg1+2Gdad9xx+lBfJWNLDo2w5bkaAU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791481015; c=relaxed/simple;
-	bh=sGqOuJm8L0+gaTCh+pWJA5AoQg2y8B1Erk81m7k/dbg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=n0lH7XWdDXKV24kcG4cUcM3aK1KTbwpRa0eyvUGBoHiL8RR+GBV4p/+ZwnbLnPhXPb+I+X2YpV0k9V84GDkVy/GTiJ6QjC2jLgV8I0HKiO1lH0OeCDg33D+a4fpnpYxKt2ZDNsqdO4iOJxcfgy1lRYmfGZUJaMcafQOA6mRIY/U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=Ku5IO7c5; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1791481039; c=relaxed/simple;
+	bh=l9biZ42ciHgmp6AyO4QD+6TuVAF+G58zBEmMDzvB8LI=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=XWsjAuPdxNEtjIORfn2zRnSdVMw8jglmSKsZ28xiL2olv0nwxxoSkpJiUmL1uqMjqOsld7CuZ93Ch0L9MDRU8NRc1Q9m1tMjp62m/LLeXHe6APwMrrVxLo3kvGp34AtMQPSr3attazUmyLUUvTxnOpQ0Puut51qPp6krBz/AM+g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nSRH9aSn; arc=none smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="Ku5IO7c5"
-Received: from jeffbarnes-ThinkPad-P14s-Gen-2i.corp.microsoft.com (unknown [52.167.112.163])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 3B66420B7166;
-	Thu,  8 Oct 2026 10:35:54 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 3B66420B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1791480956;
-	bh=A8RQx+fik1nAgLPhUlMGBh2lF8JrPl+XwdH5+V2+NII=;
-	h=From:To:Cc:Subject:Date:From;
-	b=Ku5IO7c54PeOmd/+DKb1ICtuJh3p36JqBkyT91r4A94vfZ5nxZXplA49YaornScpC
-	 QH/cjtd8hyocTZg/651FgqckDZUOWqIP/R9FARHGJcO9j7iv9UAUo8c1ZEmquKbvx3
-	 k02kl2+G7Bcu+TuKDZEM2SGVPuB9tayCbCrlNhd0=
-From: Jeff Barnes <jeffbarnes@linux.microsoft.com>
-To: linux-pci@vger.kernel.org
-Cc: minghuan.Lian@nxp.com,
-	mingkai.hu@nxp.com,
-	roy.zang@nxp.com,
-	lpieralisi@kernel.org,
-	kwilczynski@kernel.org,
-	mani@kernel.org,
-	robh@kernel.org,
-	bhelgaas@google.com,
-	Zhiqiang.Hou@nxp.com,
-	easwar.hariharan@linux.microsoft.com,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-arm-kernel@lists.infradead.org,
-	imx@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v3] Revert "PCI: layerscape: Change default error response behavior"
-Date: Thu,  8 Oct 2026 13:36:41 -0400
-Message-ID: <20261008173641.199142-1-jeffbarnes@linux.microsoft.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nSRH9aSn"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791481037; x=1823017037;
+  h=from:to:cc:in-reply-to:references:subject:message-id:
+   date:mime-version:content-transfer-encoding;
+  bh=l9biZ42ciHgmp6AyO4QD+6TuVAF+G58zBEmMDzvB8LI=;
+  b=nSRH9aSnLvQlVsvTwo09Al7cfaEU24AEW/+DCG4+eq/YyPW4zbSn57Xq
+   dkwA5HpWzcgmM6H7rZweJAT2I86C2iOB7QK1t7LiNTQWjvGKmKDjG1vXl
+   Iaj+ain6MWFE8S7NbvttYV/qkpKEcXNLd9VcpPVYSvQv59wClmwD6xMCe
+   qBvhiWEVxErFu2qM/5oQIw4+LTIVReB+hIgIZW2Pj+F0fobExaLEqNlih
+   sOse8C3SSU/RhhC0XU2x5zdqIPVwAxUnGlRhIN30QvIFfwsEKmbk+OnSl
+   IhKPql8wX21ESUcjMQC1WeIw7wvbBYVDoNRDl2muwvdyZ14NjqCQBXPYe
+   g==;
+X-CSE-ConnectionGUID: OS1aQFt6Qt2dqbgkuWkYZQ==
+X-CSE-MsgGUID: ygrlrAFmQjiGVhI72kZzsQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="299251"
+X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
+   d="scan'208";a="299251"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 10:37:16 -0700
+X-CSE-ConnectionGUID: fTYn7KNoTQC21Js6kQuBcg==
+X-CSE-MsgGUID: eDo21s84RFeAUzrd85oFlg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
+   d="scan'208";a="428708"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.140])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 10:37:14 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, 
+ Hans de Goede <hansg@kernel.org>, Sanket Goswami <Sanket.Goswami@amd.com>, 
+ "Mario Limonciello (AMD)" <superm1@kernel.org>, Rong Zhang <i@rong.moe>
+Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260901-amd-pmf-fix-outlining-v1-0-b54ff94d3d45@rong.moe>
+References: <20260901-amd-pmf-fix-outlining-v1-0-b54ff94d3d45@rong.moe>
+Subject: Re: [PATCH 0/5] platform/x86/amd/pmf: Clean up undesirable
+ function outlining
+Message-Id: <179148102914.29028.5928287984821543239.b4-ty@b4>
+Date: Thu, 08 Oct 2026 20:37:09 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 
-This reverts commit 84d897d69938
-("PCI: layerscape: Change default error response behavior").
+On Tue, 01 Sep 2026 23:02:10 +0800, Rong Zhang wrote:
 
-The Layerscape PCIe driver programs the DesignWare
-AMBA_ERROR_RESPONSE_DEFAULT register at offset 0x8d0 with 0x9401.
+> The amd-pmf driver is notably bloated due to undesirable function
+> outlining and linkage. Simple and dump helper functions as well as
+> wrappers should really be static inline functions instead of global ones
+> from the very beginning, or else they are prone to the overhead of
+> function outlining and linkage, which bloats themselves and their
+> callers.
+> 
+> [...]
 
-For AXI, the documented default with AMBA_ERROR_RESPONSE_GLOBAL cleared
-returns OKAY with all-ones data for errors on non-posted requests.
-Setting AMBA_ERROR_RESPONSE_GLOBAL causes an AXI error response instead,
-with AMBA_ERROR_RESPONSE_MAP selecting SLVERR or DECERR for individual
-PCIe completion errors.
+Thank you for your contribution, it has been applied to my local
+review-ilpo-next branch. Note it will show up in the public
+platform-drivers-x86/review-ilpo-next branch only once I've pushed my
+local branch there, which might take a while.
 
-The value 0x9401 sets AMBA_ERROR_RESPONSE_GLOBAL and maps Unsupported
-Request, Completer Abort, and Completion Timeout to SLVERR.
+FYI [if applicable to your patch], as per Linus' policy change, also
+fixes are mostly routed through for-next unless the fix is for a
+commit introduced in the most recent cycle or is clearly a regression
+fix.
 
-A PCI configuration access can race with the link going down after
-dw_pcie_other_conf_map_bus() checks the link but before
-pci_generic_config_read() performs the MMIO access. If the transaction
-results in a Completion Timeout, the Layerscape error response setting
-propagates it to AXI as SLVERR, resulting in an asynchronous SError and
-kernel panic.
+The list of commits applied:
+[1/5] platform/x86/amd/pmf: Inline !AMD_PMF_DEBUG stub
+      commit: b8f7b92fcbd7e5801bbd18a42a9c10ef03e2ec35
+[2/5] platform/x86/amd/pmf: Inline simple helper functions of Core Layer
+      commit: c78d7b826cfc1642c78f5022b5acbf5ef09d88f9
+[3/5] platform/x86/amd/pmf: Inline simple helper function of SPS Layer
+      commit: 079cbf13340688ef697252b18bab9533acba3ecb
+[4/5] platform/x86/amd/pmf: Inline simple helper function of Smart PC TA interfaces
+      commit: ef1e7071c1f2832f3a7001be7f7c04bd872c14ae
+[5/5] platform/x86/amd/pmf: Inline wrappers of ap{mf,ts}_if_call_store_buffer()
+      commit: b21ebc6638d56f6007aff1fe93c5838dc138a364
 
-For example:
-
-Kernel panic - not syncing: Asynchronous SError Interrupt
-...
-Call trace:
-arm64_serror_panic+0x78/0x90
-do_serror+0x84/0x90
-el1h_64_error_handler+0x30/0x40
-el1h_64_error+0x68/0x70
-pci_generic_config_read+0x64/0xb0
-dw_pcie_rd_other_conf+0x1c/0x68
-pci_bus_read_config_word+0x68/0x118
-pcie_capability_read_word+0xa8/0xd8
-find_device_iter+0x8c/0x160
-pci_walk_bus+0x60/0xb8
-find_source_device+0x78/0xb0
-aer_isr+0x1dc/0x230
-
-Reproduce the race by obtaining the configuration-space mapping while
-the link is up, then disabling the link from another CPU immediately
-before performing the MMIO configuration read.
-
-With the error response override enabled, the overlapping configuration
-read results in an asynchronous SError and kernel panic. With the
-DesignWare default behavior restored, the same test returns 0xffffffff.
-AER reports a non-fatal Completion Timeout, and no SError or kernel
-panic occurs.
-
-Restore the documented DesignWare default error response behavior so a
-failed non-posted PCIe transaction does not become a fatal AXI error.
-
-Fixes: 84d897d69938 ("PCI: layerscape: Change default error response behavior")
-Cc: stable@vger.kernel.org
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Reviewed-by: Easwar Hariharan <easwar.hariharan@linux.microsoft.com>
-Signed-off-by: Jeff Barnes <jeffbarnes@linux.microsoft.com>
----
-Changes in v3:
-- Restore the kernel panic backtrace from v1, as requested by Easwar
- Hariharan.
-
-Changes in v2:
-- Change the subject to identify this as a revert, as requested by
- Frank Li.
-- Document the DesignWare AMBA_ERROR_RESPONSE_DEFAULT behavior and
- decode the 0x9401 setting used by Layerscape.
-- Clarify that the setting propagates Completion Timeout as AXI SLVERR
- rather than causing the underlying PCIe transaction failure.
-
- drivers/pci/controller/dwc/pci-layerscape.c | 12 ------------
- 1 file changed, 12 deletions(-)
-
-diff --git a/drivers/pci/controller/dwc/pci-layerscape.c b/drivers/pci/controller/dwc/pci-layerscape.c
-index 14d6ac4fc53f..d333f1ae8a41 100644
---- a/drivers/pci/controller/dwc/pci-layerscape.c
-+++ b/drivers/pci/controller/dwc/pci-layerscape.c
-@@ -28,8 +28,6 @@
- 
- /* PEX Internal Configuration Registers */
- #define PCIE_STRFMR1		0x71c /* Symbol Timer & Filter Mask Register1 */
--#define PCIE_ABSERR		0x8d0 /* Bridge Slave Error Response Register */
--#define PCIE_ABSERR_SETTING	0x9401 /* Forward error of non-posted request */
- 
- /* PF Message Command Register */
- #define LS_PCIE_PF_MCR		0x2c
-@@ -103,14 +101,6 @@ static void ls_pcie_drop_msg_tlp(struct ls_pcie *pcie)
- 	iowrite32(val, pci->dbi_base + PCIE_STRFMR1);
- }
- 
--/* Forward error response of outbound non-posted requests */
--static void ls_pcie_fix_error_response(struct ls_pcie *pcie)
--{
--	struct dw_pcie *pci = pcie->pci;
--
--	iowrite32(PCIE_ABSERR_SETTING, pci->dbi_base + PCIE_ABSERR);
--}
--
- static u32 ls_pcie_pf_lut_readl(struct ls_pcie *pcie, u32 off)
- {
- 	if (pcie->big_endian)
-@@ -180,8 +170,6 @@ static int ls_pcie_host_init(struct dw_pcie_rp *pp)
- 	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
- 	struct ls_pcie *pcie = to_ls_pcie(pci);
- 
--	ls_pcie_fix_error_response(pcie);
--
- 	dw_pcie_dbi_ro_wr_en(pci);
- 	ls_pcie_clear_multifunction(pcie);
- 	dw_pcie_dbi_ro_wr_dis(pci);
--- 
-2.43.0
+--
+ i.
 
