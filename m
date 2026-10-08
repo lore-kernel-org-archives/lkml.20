@@ -1,128 +1,193 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2DA5381EAB
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 16:04:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5738377563;
+	Thu,  8 Oct 2026 16:05:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791475495; cv=none; b=gbw3RucYuHYUM52hK2IP3fdTdPrb3NPJbr6VoHZ/gBb2M3Wm6mEI37oXk5VBbOhn8iouQfDx+M4ye3kFgCd0i4an+RwvdIqGffdsfmCXOoyodU15QlDd2pAbxz9xkB1vzQCNLSbmw+PgVxnzi/rzvBewnKman7oAPSC7e91Mlsc=
+	t=1791475560; cv=none; b=ll0Ih3N9dTqYlXO8P03FFuBSQyJ53DxvNk5NFZHOlkcd8xqAxe2Oe71TszAVz1XJhFt2cf5Upx/FuETAF2lAwvh9q6+7EWsVPP+PDFQq2mR87gX38NJLJQ1YS1/pAy3HVS1AP/hs/T/codjEq0B0VgbrIfithcl1o/TejU9jKH8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791475495; c=relaxed/simple;
-	bh=gp/guim2U2TXqMSDAlQK+Xx6LE7zPva5TPHf8VCElsk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=c3xhVWc8xVSm4SFHV6AEXpv1aqmSQbEHEV9JX4Mwjfjntt8yY+7FJR9kireIizT1lSRrbfnqt5CPZWzIGLRei11V8mJsL+GM7uGWfitawDxge0hFFea228wXIvmHau6jyafupZQLbxTQCfPSwEa8ch9FWQq1k59PZhU6eVhesUo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cQFUkCL2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791475560; c=relaxed/simple;
+	bh=IPuCAz6KAM2ikrswxsGTLj+U4HpMKQ6Y6Aig/+IwiOU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=TlSKkntMEZ/FjOQ4EA29qaDiPetgd8N7xMw9KN3939tWf8Cj59GJObBb5I4a9o40EFNOBDueImRJofNf4KIbaB2zxglZBxy2XvMmuynSqTclWzXNYPD4THRHKhIrjXxEuNj5+maR+7JxCuYCIjO1cbFzCdTpELYcOauLlQLC7/I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MVU8OMkt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cQFUkCL2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2613F1F000FF;
-	Thu,  8 Oct 2026 16:04:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MVU8OMkt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DF1E1F000FF;
+	Thu,  8 Oct 2026 16:05:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791475494;
-	bh=eguc3+mJSr4pZxNWl4wHcofhJ+5wcBB3WBZPc9PQ3Vg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=cQFUkCL2DdydsMsp3GjVaBQsqUR7zMxRxoophamo5scJ3M/OTC858rTZXg9I6oSxK
-	 SrMgqiA5sCsIYH7aVRS+5tI0YEXwuK3MzYpJ19orJJc8fgGX1Z5WF2fHBFXHkuSZ4p
-	 ueuW82xWgaZ8/6AThr5dgYyn7YaGw+Sz3HKQudfI5IHWE7AeWRclO3UTIANKlIFupG
-	 0kuQt6d9hKQiKtJplyfRebqeeo9MELeOaT++sCf7fn11No3RZluuSMBjRw6Fiu+DtN
-	 MNmqp2nxr8aw4CNjytlYO4JdyUcXf6ZeHRzRXVRErtJt6cmAE8ZpkpIGflmHr3Ffro
-	 AlG6rEyIIyfNw==
-Message-ID: <d9e61e64-e300-415d-9b3f-0030425ce24b@kernel.org>
-Date: Thu, 8 Oct 2026 18:04:50 +0200
+	s=k20260515; t=1791475559;
+	bh=BE1d6aX3DzFKOl8O8OkGEdiztekA68sOvPI7AtaYUJg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=MVU8OMktDOX1ONiI4xC+y2YN4aiCar1UvYAwMwo0vghHXNp9a5nq/tsB3rJ/KKSEH
+	 6MoABtmO3Zepe25Fe0U1dxprq/nlyjLubvoXvPcceMDHUW5yc16MPJ1SmPDHoZ+dkO
+	 lWeejQQ6Wy3vDEjKYEVWDfQdJrmMSLtsCRtqWxeBIUAy9CZQJLUd1jEothBoSlMvJQ
+	 OAme1fwsquxtIME9H7MbgV01E9iU/2T1y553XX1OPJOA1mu4ieISA0CimB9aDLixga
+	 N1GZcmEIA2by3rFWHKT2oeXa9Zjh+RXE/CM1qd30gw9MIq9XpsDF1zEUQMizW/TH85
+	 lfhCyf366H5ow==
+From: Jakub Kicinski <kuba@kernel.org>
+To: yongzhao.derek@gmail.com
+Cc: Jakub Kicinski <kuba@kernel.org>,
+	netdev@vger.kernel.org,
+	andrew@lunn.ch,
+	hkallweit1@gmail.com,
+	linux@armlinux.org.uk,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	pabeni@redhat.com,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v3] net: phy: qca83xx: read resolved QCA8337 link status
+Date: Thu,  8 Oct 2026 09:05:58 -0700
+Message-ID: <20261008160558.3966456-1-kuba@kernel.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261006160316.1356-1-yongzhao.derek@gmail.com>
+References: <20261006160316.1356-1-yongzhao.derek@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH] get_maintainer: only use THE REST as a fallback
-Content-Language: fr
-To: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-Cc: "Jason A. Donenfeld" <Jason@zx2c4.com>, Joe Perches <joe@perches.com>,
- linux-kernel@vger.kernel.org, users@kernel.org
-References: <20261008-get-maintainer-the-rest-fallback-v1-1-7d26d0b7aa34@linuxfoundation.org>
- <CAHmME9rh7k0vNrBt4yF7fOgir3yuhrFawPnmsJpeYBCLg-r6bA@mail.gmail.com>
- <20261008-quiet-lucky-ferret-3498cb@lemur>
- <e1f160bb-adef-49e0-acb6-628b259b7975@kernel.org>
- <20261008-quantum-polar-kraken-890dac@lemur>
-From: Matthieu Baerts <matttbe@kernel.org>
-Autocrypt: addr=matttbe@kernel.org; keydata=
- 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
- lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
-Organization: NGI0 Core
-In-Reply-To: <20261008-quantum-polar-kraken-890dac@lemur>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 08/10/2026 16:05, Konstantin Ryabitsev wrote:
-> On Thu, Oct 08, 2026 at 03:22:56PM +0200, Matthieu Baerts wrote:
->> Is this list actively being used? The risk I see with this list is
->> having someone sending a new version of an existing patch only to this
->> list: this version will then be picked by tools like b4. If the
->> maintainer doesn't pay attention to the info messages, a wrong version
->> might be applied instead. Maybe b4 should catch such patches?
-> 
-> I'm trying to think of how this would happen. If the submitter users
-> get-maintainer.pl, then they should always get the correct set of lists. If
-> they aren't using get-maintainer.pl, then they aren't really likely to use
-> just the patches archive list.
-> 
-> If they use b4 to send the patches, then even if they do manage to mess up the
-> recipients, somehow, the maintainer should still be able to find it via the
-> change-id search.
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
+---
+net: phy: qca83xx: read resolved QCA8337 link status
 
-Sorry, I meant to say: when someone is trying to discretely get a bad
-version applied on purpose. For example: user A sends a v1 using
-get_maintainer.pl, then user B (or A) could send a v2 (or a v1 with
-other content) only to patches@lists.linux.dev. In this case, a
-maintainer who wants to apply the original v1, might end-up applying the
-"bad" and "hidden" patch.
+This adds a read_status callback for the QCA8337 internal PHY. The callback
+wraps genphy_read_status() and, on an autoneg link transition, replaces
+speed and duplex with the values from the PHY-specific status register via
+at803x_read_specific_status(). It also resolves pause for the resulting
+duplex and reports mdix_ctrl as ETH_TP_MDI_INVALID.
 
-Or maybe "b4" already prevents that or is clear enough when picking a
-newer/different version than the given one?
+> diff --git a/drivers/net/phy/qcom/qca83xx.c b/drivers/net/phy/qcom/qca83xx.c
+> index bc70ed8efd86a..e70da092f424f 100644
+> --- a/drivers/net/phy/qcom/qca83xx.c
+> +++ b/drivers/net/phy/qcom/qca83xx.c
+> @@ -92,6 +92,42 @@ static int qca83xx_probe(struct phy_device *phydev)
+>  	return 0;
+>  }
+>  
+> +static int qca8337_read_status(struct phy_device *phydev)
+> +{
 
-Cheers,
-Matt
--- 
-Sponsored by the NGI0 Core fund.
+[ ... ]
 
+> +	ret = genphy_read_status(phydev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* genphy_read_status() derives speed and duplex from the
+> +	 * advertisements, which is wrong after a SmartSpeed downshift.
+> +	 * Whenever it has just done so, use what the PHY resolved instead.
+> +	 */
+> +	if (phydev->autoneg == AUTONEG_ENABLE && phydev->autoneg_complete &&
+> +	    !(old_link && phydev->link)) {
+> +		phydev->speed = SPEED_UNKNOWN;
+> +		phydev->duplex = DUPLEX_UNKNOWN;
+> +		phydev->pause = false;
+> +		phydev->asym_pause = false;
+> +
+> +		ret = at803x_read_specific_status(phydev, ss_mask);
+> +		if (ret)
+> +			return ret;
+
+[Severity: Medium]
+Suppose BMSR shows link up and autoneg complete before
+AT803X_SS_SPEED_DUPLEX_RESOLVED is set in AT803X_SPECIFIC_STATUS. What ends
+up in phydev->speed and phydev->duplex in that case?
+
+at803x_read_specific_status() only writes speed and duplex inside this
+block, and otherwise returns 0:
+
+drivers/net/phy/qcom/qcom-phy-lib.c:at803x_read_specific_status() {
+    ...
+	if (ss & AT803X_SS_SPEED_DUPLEX_RESOLVED) {
+		...
+	}
+
+	return 0;
+}
+
+The speed switch also has no case for the reserved field value 3.
+QCA808X_SS_SPEED_2500 is 4, and a 2-bit field can never hold 4.
+
+In both cases the genphy result has already been replaced with
+SPEED_UNKNOWN (and DUPLEX_UNKNOWN if the resolved bit is clear). The wrapper
+then returns 0 with link set, and phy_check_link_status() calls
+phy_link_up() without checking speed or duplex.
+
+On the next poll old_link && phydev->link is true, so genphy_read_status()
+returns early:
+
+	if (phydev->autoneg == AUTONEG_ENABLE && old_link && phydev->link)
+		return 0;
+
+The !(old_link && phydev->link) check here also skips the override. Would
+the unknown speed and duplex then stay until the link drops?
+
+With phylink, qca8k_phylink_mac_link_up() would get SPEED_UNKNOWN and fall
+into its default case (QCA8K_PORT_STATUS_LINK_AUTO). The duplex bit would
+not be set and flow control would stay off.
+
+I couldn't confirm that QCA8337 can actually show link up before the
+resolved bit is set, and the changelog says v3 has not been tested on
+hardware. However, marvell_read_status_page_an() handles the same register
+layout by forcing link down while the resolved bit is clear:
+
+	if (!(status & MII_M1011_PHY_STATUS_RESOLVED)) {
+		phydev->link = 0;
+		return 0;
+	}
+
+Commit 3b72f84f8fb6 added that check because the datasheet does not specify
+the timing between link status and the "Speed and Duplex Resolved" bit.
+
+qca808x_read_status() takes a different approach. It does not clear the
+genphy result before calling at803x_read_specific_status(), so an
+unresolved read keeps a valid fallback.
+
+Would either approach fit here?
+
+> +
+> +		phy_resolve_aneg_pause(phydev);
+> +	}
+> +
+> +	/* MDI-X configuration is not implemented */
+> +	phydev->mdix_ctrl = ETH_TP_MDI_INVALID;
+
+[Severity: Medium]
+at803x_read_specific_status() now fills in phydev->mdix as well. Can that
+value go stale?
+
+It is only refreshed inside the autoneg link-transition block above.
+genphy_read_status_fixed() never touches mdix. In phylib, mdix is only reset
+to ETH_TP_MDI_INVALID in the PHY_HALTED state.
+
+So once an autoneg link has reported MDI or MDI-X, the old value would stay
+in two cases:
+
+  - The link drops. autoneg_complete or the resolved bit is then clear, so
+    the helper leaves mdix alone.
+
+  - Autoneg is turned off with ethtool. The override block is then skipped
+    on every poll.
+
+phy_ethtool_ksettings_get() copies phydev->mdix straight into eth_tp_mdix.
+The ethtool uAPI says that field should be ETH_TP_MDI_INVALID when the
+status is unknown or not applicable.
+
+Before this patch, the driver never set mdix, so it stayed
+ETH_TP_MDI_INVALID.
+
+Should mdix also be reset to ETH_TP_MDI_INVALID when the resolved status is
+not read?
+
+> +
+> +	return 0;
+> +}
+
+[ ... ]
