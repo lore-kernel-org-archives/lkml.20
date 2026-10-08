@@ -1,126 +1,120 @@
-Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DC141E5B70
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 16:40:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ABBC3AC0F3
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 16:41:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791477663; cv=none; b=Dls7zVJ6ljTk37egK/g/CqARFhEQ8/o5kSxiVdloJGYWcnRVnHkOpWL1+kUQ+DhgHPQTH1nLHsbi0RWMFkgvUlUb+IStT127nmeL0MhQ+BtYW7BOhEr9C5EFh5mTwadOy0Y4R2oHtRybiv1wX52WpmMQ55X5gIlsekNOhkLQYCY=
+	t=1791477674; cv=none; b=Evtw0/eZvuqBuZHowmkTQpZOjSqrleB3TfzZKCjjkRlDj9pk2BiAJS1uhFR+uBd7ELgk1J+HpkuIdvpHkvmZLyWWQOKmVk2hr3rVu409ZnwYreFr0aYZ6kRqO4WkDWKzjEXpmJVIeL7gzkNyznwzGYvXtNfOsiGCQM9lSNItJvA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791477663; c=relaxed/simple;
-	bh=CGkt08J1CJ/VMUDa51WjoDDacvdEDDXnqieV0LWPOc0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Dxp628PHGiKksKlvDSwPVbUeBpb0IXfyRymJrb8Ry2aD8xpVw5ga9k2rkklW3ZUHUXXC+VhYr+GOWzbRb+JOkwBCqIKbXIVl2jfiIvmNpBuw6YV6rzRUYG2jioqJ7JyoaPdHyvjW34mWVwv/PelHyvoqjajDNwqek29P4I2sJC0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ncg9kAgQ; arc=none smtp.client-ip=209.85.161.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791477674; c=relaxed/simple;
+	bh=gb0WsiZhhHvYTv0DyD8MX/eH/RRxnQYOHtPCH1VAqd4=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=YEUI2Fj4u63acMwro1sIRy4a2/mISQic0PYKjXu0P4auCpR+ftaA4k2WGJ1QRTDGydCy0X1eXwDDU2jxhzKD124wg9ouhDr/pw1EXrIH4lv9wU8I3TX5GITvBrfppP7/5ZCaU/SUY8wr1y0S51mOWmoq21BhttFNfmqmndxIPgw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UZvAPLFN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ncg9kAgQ"
-Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-6e560e00a86so2110167eaf.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 09:40:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791477657; x=1792082457; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ol9KVV9igaZHeICPjqaqiMrJ1pRvQcCPa+Vpo3abd3M=;
-        b=ncg9kAgQHBns3QWBJ24TAwvTgAGHN46Z9BldkUYoqD42Zo9sK8BakrGsB8eYmRAuHd
-         vfOYGCsNJPGsoIwj9VLK0SMf/LyZBj6HK8V4H0gwJ6SQ1dgVzt/of5/6m6+4AI5OOMNZ
-         w1taSeXTEl48HTYWDHARpgVAUzlCX+/+Cys0gZ3fmOxUqSjyIAmL2q4QP3uXNffoARMe
-         IYOX9fB8FbKs32iRBWbPDF25dhLXBxcnhtonBJdWdezgetIaYQat8vxbCwmrw3mhl0x7
-         /KAPE3HC0XGN/WrbzYOBV7+L7U9uBi/ZjbJOeIyRTUbwTz41Er4qM7smYc+ZTavmfBUP
-         Y7yw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791477657; x=1792082457;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ol9KVV9igaZHeICPjqaqiMrJ1pRvQcCPa+Vpo3abd3M=;
-        b=zJsvz0TczAbp1QlqkDVSkbU4yZx1P+VgwFG672r1qoqB3MbkNtqoz0qD5kOtMrf21M
-         kOXZFxOl6+IGzYdWVjz0fzka6IiYTk0mi3ZSKaobSBEDU2hBgk74xy4DCcw+sQWmYi9I
-         nm34v0ScVbhudbgB+N8Rgo75jJA5FuF7A4ncknKSPSeG1WN85tXSRzFjW9ho+fACh0hJ
-         41KyMRo+PVUGvd19840pghznojYf4fjh8FT5t3F+da5BRWlqhhjzIxcal8X6qTYYcYFK
-         7gUI6rBslXUjVvtOZlsQTmMdlHkcg8PqNrop5u36Vfmx9Kji/7OMQi6UhXDm6cTpwd4v
-         dIPA==
-X-Forwarded-Encrypted: i=1; AKwUvBzaUCo9oHZWcruC9DVmtPT7orPOXHbAQR1VGjbAG9ttddCJ8DUt0eLOmW5PVEuTUynCTk3ujAZHpGOziTc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mM10wqHm5fmDTZ9/awp8x7x7Vz5/8PXk81DBBvPr04ri5cWEl3
-	E5AuEoIyBTqs44r0yBxywGVMA8e0FKV4r4mJuwyRE/5jrppFPp3BcCmj
-X-Gm-Gg: AYBFou2BG6YLsphw6ku96vbGJj4KNr2GRqhfWqPSlfzy+0b6OvWRrLI2zSiDp15Ik3E
-	ex0RQoDEA1fTFWxdULjLUnOiis2c6jwpohRbPfxfIACqksbPimgMh6SZzGOayqELL8aVNkiLPz6
-	25OF1Ja6KgP44ODTuZA8/svWaUPzxB1zEqOb7Pe2pIo1ox0pReUo/W1/JKOcJiexfnkyo8n2vHv
-	HvWl/779uqh6FP1Rx/waknn2VZCOSm5UgdPTS5gDrAKPC1Sriu/wTVA0cj9wcERPZH/dtkLb4qE
-	SO+lMG9PYzdkUXx4PJfv83fU78NMFSC5nwgUR0pVneKlVRPl1XuIwK2NNtEmSgNvylUrQxdGJ3C
-	VtBkVofVzM1R/XnPFoILgGwca0VobWp0GrmRabPmLogjz2p/mIvREyglBF+cxe9vfdtInWwSmul
-	AYqjcj/G3sPWAuKLp7rtQdA4tRh3Dv+xOgnEri7hlEb60Rjl2JxxhfhJPHPxkXUS1xIBK4jejzX
-	q7zXtctuAKJ
-X-Received: by 2002:a05:6820:1909:b0:6d7:69c6:5292 with SMTP id 006d021491bc7-6e7a87a417emr4835468eaf.45.1791477657232;
-        Thu, 08 Oct 2026 09:40:57 -0700 (PDT)
-Received: from sheng2080.cmix.louisiana.edu ([130.70.15.5])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6ee7a7d8f63sm45928eaf.9.2026.10.08.09.40.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 09:40:56 -0700 (PDT)
-From: Leizhen Zhang <lzsx618@gmail.com>
-To: nathan@kernel.org,
-	nsc@kernel.org
-Cc: rostedt@goodmis.org,
-	linux-kbuild@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 6/8] modpost: fix pointer arithmetic on NULL in parse_source_files()
-Date: Thu,  8 Oct 2026 11:40:33 -0500
-Message-Id: <20261008164035.3668885-7-lzsx618@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261008164035.3668885-1-lzsx618@gmail.com>
-References: <20261008164035.3668885-1-lzsx618@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UZvAPLFN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E57851F00893;
+	Thu,  8 Oct 2026 16:41:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791477669;
+	bh=SZsmK4vppoHWtoqpg/gnMTdL025sRiF1Xq2a4/OeFOA=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=UZvAPLFNxIDXLFkzCG9p6oTu/nlpwB4wpA0LyEZVTB/0QbNvVpvtLyDdxUrsfnqmV
+	 S/EE+yPrZkQKQELlpJXbweG4RMoDJr1UZLyGBfsaVnOq9RHrIASLtvMYgzD+SAtxk3
+	 WJZOVtcg78RNqgtflWEO+marjUd7BF0V4hTTpk8sx8yjW4mmFN25d2W5fVKfVjNqwm
+	 0VfFvN0uZ+Sdknd7MxUHsDRbgE+BYO/ANyoHz2k/8/JEXaHZPpM05zTHL7SzLnUJyl
+	 lE6oH8M5kUrnKdk8sljaEBvr14ualBuZnXd1DhwFnlfRDNPCbc+207o1Kcm+bdsREq
+	 v3atDYA4uRqHQ==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 1F7E0198003A;
+	Thu,  8 Oct 2026 12:41:06 -0400 (EDT)
+Received: from ams-imap-11 ([10.64.2.31])
+  by ams-compute-02.internal (MEProxy); Thu, 08 Oct 2026 12:41:06 -0400
+X-ME-Sender: <xms:n8fHau1JvBbOAzvD1mRGlf2KAmiUg-E8VDBtyIVJsbvu3MEiQE02zg>
+    <xme:n8fHar47oWBPAwgiRt-1fdalDHXuuiJpaIQ0Z79G_DRgXk9_RTlzr1s5g71hebuYZ
+    dtj1_Hj8ryaH-QcIIhVQPJTvYGTd8dNsAjS2JJc5bh1JtFT5N_i3Fs>
+X-ME-Proxy-Cause: dmFkZTEzFzB1wU7+qeMo+i+/axzQl+PUr2Jn75vjM4R/6QmGMltUQzY02zaHilTvbtCWyA
+    DgsIbJ9j4lJ2UgsU7UiqjQSpjJ6+Cevu3eoMakV2uyopDtEPYGxqUTo+suMUMyXSmHt9D1
+    qVYpNMbEVNUJjE92NlooqbwaVpraQ+JODZtwSt44/pr/DD/DZ9cHJ2LrkjXp16a/yZNG4J
+    fQ8EdMHBJELI9Zok8m6wj0pUDWg9ppRmN7lTLEhcHCBBKxBhffLye2SH2M+xlRCVoTc9gA
+    YlM7m7ozENg1yUXpC3mZnQZElqr27PD+mapnbsFl29Zt9SJ8hT+tXG+mODftbmRJNb32Ai
+    bn6f2Fa7lKJaaqGh4NSy0usWIJZMMHY04Ba7RPrR+ul69aMV1aSuR/5mZ+YYO9edPyPSG5
+    5GBl5TbJBf+Dzurifxw/+Wk+SHfFq+TrYRc7pB1C8wODqS/BGgJozTbvIafup0OUiscMoQ
+    n3diM1klL2Xl+m9+c2Alr4baWVVjEKT7nT0qyti0y27YC+q/jTyqqKPsss7Q36SiONIkzo
+    sv3d+znPhIwDifnJyxHlx5N4kky8nArjIJjbR7bL4Yhmb+SYLEbGSMRAfU1Zp5HnypCSGA
+    pnqJKKZxiB5FDhdpK+PVaCoLW5ATxqujmXI4hWe+ZZ6rdR522T8P7LAWkcug
+X-ME-Proxy: <xmx:osfHaulT3KOMGe5g1r6WlHV0oiPPnCx_x9vLj3p6ru0htQcJzxhAzA>
+    <xmx:osfHagMlNKifIUrEJLe3cfWLvDac1k7zn1NAHQRGfrAmSdF_huBJ5w>
+    <xmx:osfHaiwU_9x6AzEhmlRAUoqMYgq5WWG5q3uK-QkTB9xhzO5oKkI5og>
+    <xmx:osfHattCsiA8hFP_a9yY6uPbAnZUCpvQMT8yhYuUfFSNkBUMMjiELA>
+    <xmx:osfHalY-BjQKI9OaL6kpiXbzodST32DOyXdjG-UhXFUDlsaMr11rfCBH>
+Feedback-ID: ice86485a:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 5C462F8008E; Thu,  8 Oct 2026 12:41:03 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Thu, 08 Oct 2026 18:40:42 +0200
+From: "Ard Biesheuvel" <ardb@kernel.org>
+To: "Nathan Chancellor" <nathan@kernel.org>
+Cc: "Bill Wendling" <morbo@google.com>, "Kees Cook" <kees@kernel.org>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ "Nick Desaulniers" <ndesaulniers@google.com>,
+ "Justin Stitt" <justinstitt@google.com>, "Mark Brown" <broonie@kernel.org>,
+ "Marco Elver" <elver@google.com>, alan.maguire@oracle.com,
+ namjain@linux.microsoft.com, "Peter Zijlstra" <peterz@infradead.org>,
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
+ llvm@lists.linux.dev
+Message-Id: <eb644465-0c41-431c-85a3-f7eb6bd86cf3@app.fastmail.com>
+In-Reply-To: <20261008161724.GA459@ax162>
+References: <20261005102518.2400984-1-morbo@google.com>
+ <20261006094358.2948476-1-morbo@google.com> <202610060642.7C4125F@keescook>
+ <20261007090915.GA1504630@ax162>
+ <CAGG=3QXPAa-i4r3Vv6-q25A6EvsxGb5RDLn02z1=a5zo7W-7Vw@mail.gmail.com>
+ <20261007093641.GA1527653@ax162>
+ <bc2e2ae7-02e7-4148-8ad2-ab3c1af3dd7a@app.fastmail.com>
+ <20261008161724.GA459@ax162>
+Subject: Re: [PATCH v4] compiler_types: Allow opting out of __counted_by and
+ __counted_by_ptr
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-parse_source_files() checks whether a dependency is in the same directory
-as the object file with
 
-  (strstr(line, dir) + strlen(dir) - 1) == strrchr(line, '/')
 
-When the dependency is not below dir, strstr() returns NULL and the
-pointer arithmetic on NULL is undefined behaviour. This happens for
-every module with dependencies outside its own directory, and UBSan
-reports:
+On Thu, 8 Oct 2026, at 18:17, Nathan Chancellor wrote:
+> On Thu, Oct 08, 2026 at 04:50:44PM +0200, Ard Biesheuvel wrote:
+>> On Wed, 7 Oct 2026, at 11:36, Nathan Chancellor wrote:
+>> > On Wed, Oct 07, 2026 at 02:32:45AM -0700, Bill Wendling wrote:
+>> >> Ard,
+>> >> 
+>> >> What's the reason why x86 doesn't need the KBUILD_CFLAGS flags? Is
+>> >> there something that breaks things?
+>> >
+>> > I think it is mostly historical. See Kees's series to address it:
+>> >
+>> >   https://lore.kernel.org/20261006204210.i.137-kees@kernel.org/
+>> >
+>> 
+>> I've queued that up now in the EFI tree.
+>> 
+>> Do we still need this patch then?
+>
+> I don't think so, since the efistub should now get
+> '-fexperimental-late-parse-attributes' from the main KBUILD_CFLAGS,
+> which is what prompted this patch in the first place:
+>
+>   
+> https://lore.kernel.org/CAGG=3QWCmQ+LVvn2dtjEauj5WFwvx=pvg4Q6man_A2imdjRe7A@mail.gmail.com/
+>
+> As I mentioned up thread and to Kees in person, we should still consider
+> adding '-fexperimental-late-parse-attributes' into CC_FLAGS_DIALECT to
+> cover other areas that may see __counted_by_ptr use but it is probably
+> not as high priority.
+>
 
-  scripts/mod/sumversion.c: runtime error: applying non-zero offset
-  to null pointer
-
-Check the result of strstr() before using it.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Assisted-by: Claude:claude-opus-5-5 UBSan
-Signed-off-by: Leizhen Zhang <lzsx618@gmail.com>
----
-v2:
- - Use my real name in the From and Signed-off-by lines. No code
-   changes.
-
-v1: https://lore.kernel.org/r/20261005104050.1786222-8-lzsx618@gmail.com
-
- scripts/mod/sumversion.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/scripts/mod/sumversion.c b/scripts/mod/sumversion.c
-index 3dd28b4d00..4c59e7cfbc 100644
---- a/scripts/mod/sumversion.c
-+++ b/scripts/mod/sumversion.c
-@@ -364,7 +364,8 @@ static int parse_source_files(const char *objfile, struct md4_ctx *md)
- 		}
- 
- 		/* Check if this file is in same dir as objfile */
--		if ((strstr(line, dir)+strlen(dir)-1) == strrchr(line, '/')) {
-+		p = strstr(line, dir);
-+		if (p && p + dirlen - 1 == strrchr(line, '/')) {
- 			if (!parse_file(line, md)) {
- 				warn("could not open %s: %s\n",
- 				     line, strerror(errno));
--- 
-2.34.1
-
+Excellent.
