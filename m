@@ -1,193 +1,190 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5738377563;
-	Thu,  8 Oct 2026 16:05:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791475560; cv=none; b=ll0Ih3N9dTqYlXO8P03FFuBSQyJ53DxvNk5NFZHOlkcd8xqAxe2Oe71TszAVz1XJhFt2cf5Upx/FuETAF2lAwvh9q6+7EWsVPP+PDFQq2mR87gX38NJLJQ1YS1/pAy3HVS1AP/hs/T/codjEq0B0VgbrIfithcl1o/TejU9jKH8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791475560; c=relaxed/simple;
-	bh=IPuCAz6KAM2ikrswxsGTLj+U4HpMKQ6Y6Aig/+IwiOU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TlSKkntMEZ/FjOQ4EA29qaDiPetgd8N7xMw9KN3939tWf8Cj59GJObBb5I4a9o40EFNOBDueImRJofNf4KIbaB2zxglZBxy2XvMmuynSqTclWzXNYPD4THRHKhIrjXxEuNj5+maR+7JxCuYCIjO1cbFzCdTpELYcOauLlQLC7/I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MVU8OMkt; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 010E837E2E9;
+	Thu,  8 Oct 2026 16:06:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.18
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791475597; cv=fail; b=Wqja+wT15xv+KrGRMGVoKBS4yshAwDxMbrDUahRDB0ZRwv10ZlrpBsL1pLXkrA9UDIb/C+lPJrV9EoCutiHOzBEE3jNUA4HoCWE2N4e2PFLQ6QLB5Ea/vgfCbTK6TyB52c1QT587Q14H8WW6Pi8yiSlLeQzKjXmOyZ5/D9+hFzk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791475597; c=relaxed/simple;
+	bh=Nuk+b3ORLnfTv+x1sPykELMlYz7ZIvA9cHZiLjPhvcI=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=hDbc4swpBll4wbKPYeuUB5z/NHZo3Gg2tLPzeXyJnEEGJ/uIIVPXxqU/Rvn52JiGnOaLbbmLqrnrXQjrCsGFnaT7eMpjp0c+XoXjB0mChw0jqqKQwuZWkvR3MPy0er1Q04SfwYUven2kYLQMOx8b73TqU1mI2NJgv9HNzyvIpS0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VEZ+q77I; arc=fail smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MVU8OMkt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DF1E1F000FF;
-	Thu,  8 Oct 2026 16:05:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791475559;
-	bh=BE1d6aX3DzFKOl8O8OkGEdiztekA68sOvPI7AtaYUJg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MVU8OMktDOX1ONiI4xC+y2YN4aiCar1UvYAwMwo0vghHXNp9a5nq/tsB3rJ/KKSEH
-	 6MoABtmO3Zepe25Fe0U1dxprq/nlyjLubvoXvPcceMDHUW5yc16MPJ1SmPDHoZ+dkO
-	 lWeejQQ6Wy3vDEjKYEVWDfQdJrmMSLtsCRtqWxeBIUAy9CZQJLUd1jEothBoSlMvJQ
-	 OAme1fwsquxtIME9H7MbgV01E9iU/2T1y553XX1OPJOA1mu4ieISA0CimB9aDLixga
-	 N1GZcmEIA2by3rFWHKT2oeXa9Zjh+RXE/CM1qd30gw9MIq9XpsDF1zEUQMizW/TH85
-	 lfhCyf366H5ow==
-From: Jakub Kicinski <kuba@kernel.org>
-To: yongzhao.derek@gmail.com
-Cc: Jakub Kicinski <kuba@kernel.org>,
-	netdev@vger.kernel.org,
-	andrew@lunn.ch,
-	hkallweit1@gmail.com,
-	linux@armlinux.org.uk,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	pabeni@redhat.com,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v3] net: phy: qca83xx: read resolved QCA8337 link status
-Date: Thu,  8 Oct 2026 09:05:58 -0700
-Message-ID: <20261008160558.3966456-1-kuba@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261006160316.1356-1-yongzhao.derek@gmail.com>
-References: <20261006160316.1356-1-yongzhao.derek@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VEZ+q77I"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791475597; x=1823011597;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-id:content-transfer-encoding:
+   mime-version;
+  bh=Nuk+b3ORLnfTv+x1sPykELMlYz7ZIvA9cHZiLjPhvcI=;
+  b=VEZ+q77IokFyrUVXTsrrUFqrIf1LLr4fqvUmw7/EEsC1ChNUrmIZ2W3h
+   0/oxFCaQOwKS5Q9kT0wT1decU0ViEDW41S+j+ufn22PR7T2/MBTZTB+iW
+   8wojJSXS6RJDfoByq3YjeDk5bY1bIEgeOQiBVnV/9xc/CEF3fvvqjN+t4
+   f6l8VcMGvTeNz5+n+FNSiRupHLAN0Yv4+Swg0SA5TU5Z4vyBlfvAFaBj9
+   Onwpl5lkkpeE/T6NS5/BLV5j1aqEDu9WzhTLd9SjmwXBWT2UZWKK1W8Ce
+   YOE70IphOHSHp1bW6ed5PCHWVJk+g1q08XFqYbCqeR2QaPABo1ydHGnjy
+   Q==;
+X-CSE-ConnectionGUID: soK9cZTkSp+jYgajtutDWQ==
+X-CSE-MsgGUID: VhX465z4QreAWtH9d2rXig==
+X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="273725"
+X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
+   d="scan'208";a="273725"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 09:06:36 -0700
+X-CSE-ConnectionGUID: tWTel3zHTcCuH2wIeFCs7g==
+X-CSE-MsgGUID: LjXF+KXvQO2HYlcKOYoM7w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
+   d="scan'208";a="89014"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+  by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 09:06:36 -0700
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 8 Oct 2026 09:06:34 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Thu, 8 Oct 2026 09:06:34 -0700
+Received: from BN8PR05CU002.outbound.protection.outlook.com (52.101.57.51) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 8 Oct 2026 09:06:33 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=uEOsUeNyvlEM7usGl5zVw7Yf9D9mYNUPFWQhfOQV0fCGn+bJDl8hk+fhoQK3qGQY4ruTHFGc0bcVDau5zsGM3T1WpEfE79NxIznqxCz68l7dYvTWEJL2JXC8I12H7fE3VPANqTzDC9z0mK31Rz9CWAtv/s1OGn2Lyzf/ETXReNohkuvRvVFYRSP9/d2j6iHhmrKFo6zlNEigdGgnvyO0gIpkpY8PkSafYKHfP5Ho2hzMwYm/niK6y37O5cHA8Kfxr2dsdp/XjjAiMOtE2tdL4i31TbKlx/r+QFF3jiQxaHYvMBakGY2/oZvvFfJNW5LFXsUMQBKhRV9nNzHfdnToRw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Nuk+b3ORLnfTv+x1sPykELMlYz7ZIvA9cHZiLjPhvcI=;
+ b=pDhLGlZzLPzc52FUFwRBoey2HGmuu8glkltYUCdu+yXe3iJGHk5jstWxvRo+rphb9KQTboktsS2m6kssKvSb32PcwNldNq2jQem5prAEsLaskifWmXokDKiFSCdGPZiynWWlBWIWyrnXPp47DJ4mLseFIzvxcISk3xVz0IyYdQSi4FBXtgPVkxC3WVwcBdYAz8JNYgbYUNcDFeSBZLBK+FU0EdvbfdaTLdaUxc9r5jPdn3Xm3seVl+e8ozOoIObBm/4AXBn0Grgf2+glJ6cu13lt4/DRxE2ujTkBPwRoIyUEoN6tLbbdwyy4EhSLIFN5ytwPeIqwrFwUS5Lya0U6Pg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from PH7PR11MB6771.namprd11.prod.outlook.com (2603:10b6:510:1b5::20)
+ by DM3PPF027BB0053.namprd11.prod.outlook.com (2603:10b6:f:fc00::f05) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Thu, 8 Oct
+ 2026 16:06:28 +0000
+Received: from PH7PR11MB6771.namprd11.prod.outlook.com
+ ([fe80::effa:162e:c9c9:a1b4]) by PH7PR11MB6771.namprd11.prod.outlook.com
+ ([fe80::effa:162e:c9c9:a1b4%4]) with mapi id 15.21.0496.015; Thu, 8 Oct 2026
+ 16:06:27 +0000
+From: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
+To: "yilun.xu@linux.intel.com" <yilun.xu@linux.intel.com>
+CC: "kvm@vger.kernel.org" <kvm@vger.kernel.org>, "linux-coco@lists.linux.dev"
+	<linux-coco@lists.linux.dev>, "Li, Xiaoyao" <xiaoyao.li@intel.com>, "Hansen,
+ Dave" <dave.hansen@intel.com>, "dave.hansen@linux.intel.com"
+	<dave.hansen@linux.intel.com>, "baolu.lu@linux.intel.com"
+	<baolu.lu@linux.intel.com>, "Hunter, Adrian" <adrian.hunter@intel.com>,
+	"tony.lindgren@linux.intel.com" <tony.lindgren@linux.intel.com>,
+	"kas@kernel.org" <kas@kernel.org>, "artem.bityutskiy@linux.intel.com"
+	<artem.bityutskiy@linux.intel.com>, "Xu, Yilun" <yilun.xu@intel.com>,
+	"nik.borisov@suse.com" <nik.borisov@suse.com>, "Mehta, Sohil"
+	<sohil.mehta@intel.com>, "Duan, Zhenzhong" <zhenzhong.duan@intel.com>, "Gao,
+ Chao" <chao.gao@intel.com>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "Fang, Peter" <peter.fang@intel.com>,
+	"Maloor, Kishen" <kishen.maloor@intel.com>, "x86@kernel.org" <x86@kernel.org>
+Subject: Re: [PATCH v3 2/6] x86/virt/tdx: Configure add-on features on TDX
+ module init
+Thread-Topic: [PATCH v3 2/6] x86/virt/tdx: Configure add-on features on TDX
+ module init
+Thread-Index: AQHdVPFmExIGsUMl602vvqA16jCvyrbxMrAAgAHbloCAAMXIAA==
+Date: Thu, 8 Oct 2026 16:06:27 +0000
+Message-ID: <de96abb56350a2b91b9f1409a618bc4b90537d09.camel@intel.com>
+References: <20261006-tdx-module-ext-v3-0-db52cb05b918@linux.intel.com>
+	 <20261006-tdx-module-ext-v3-2-db52cb05b918@linux.intel.com>
+	 <51a0f0e33d523fa652b3c664ea1083a9459bd323.camel@intel.com>
+	 <ascZmXRuxiiAAv2+@yilunxu-OptiPlex-7050>
+In-Reply-To: <ascZmXRuxiiAAv2+@yilunxu-OptiPlex-7050>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+user-agent: Evolution 3.44.4-0ubuntu2.1 
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH7PR11MB6771:EE_|DM3PPF027BB0053:EE_
+x-ms-office365-filtering-correlation-id: 52352719-d824-450e-4a9f-08df25561bdb
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|7416014|376014|1800799024|23010399003|366016|22082099003|18002099003|10067099003|11063799006|4143699003|38070700021|56012099006;
+x-microsoft-antispam-message-info: kAo8HRmZmEMm062SXMnNoy5GNpEnQmESrME2I5Ojukf+kaO23pd1hAJIfSijFko0GZZ4LVok6F6g6uk8ChSdqIzLbY/nG7i9pAAFQuMP+R8zFa/KCBenhSSNE1IKLcl88y0o/zYsq2iIKt0Z6oVpD4pZmN0E11yD9dMSkMPVFnUKVxAS+ClikL/FuvO6oBg2/hGxEXSLsWscJlHUAov9WpiTntMz4czBBl23yHWlubrzgfgb+8TK6VFuK0KnNR0U/q4GO7+LpC6BWN45g3T/dd8LcVnF7ER1b5u6IXCoJl5wsrmYCWAtg9rRKbMHMhkhMyKLF8lu6jdiH4B7jg7pCDgpsOtaGVdHc/yi7vBCWerDIwa1auVcyDH72Ywt337gTD1U90evzrC5SnWllKyURzH5hquYX5Ye9+nPnKt+1W56n3gPYPNYiHcYEJV/9y303qIRtbp2YOoP99oRvNdZKBXtuexZ44L6IhPvbiKx8Q2MH3ZkByUHapP1Ce1B5gFx5Ao1Gsu++TrEw4Dt69DTlPvaRMbgUAFbLw4taqOY1QpO1mv7Dd/1mAOgAeTvyWFn+YHs0xc1YvZ1Adj7LsEsF1PBS9SYPSyjM2kkcscWZghNhS+WzVcEveimmTiOxIUfBiY9WC7FDUFb/lo9L7LYO9YWGwPbVkaPpMKTlddRqVAMYeXFMUetOjltXieLqL+ihAIqcQoqM/KD+DTgz8apFEPnnJpv+I3pN/q0/GN63iI=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR11MB6771.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(366016)(22082099003)(18002099003)(10067099003)(11063799006)(4143699003)(38070700021)(56012099006);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?Rzh0NzVrRmVmTC8vd1hvb01aUkhBUkVZYnlEUG50amlSOXlVaWZHbzl1VVAy?=
+ =?utf-8?B?OGR2Zm9nMjFZbEsyZmQxcmF1L0JWdUhqZFd4MzJrOEJnYVI3VGRSUDJDYWI2?=
+ =?utf-8?B?ZnMrYXJRc3oxdjZVSHpHRjBRQXpPOXVSYlJmaW9DcElBLy9CY0ZxRjl2K2RD?=
+ =?utf-8?B?OC8zOTFJWnlOdnZCRGdYRWJKOHJDcXkvNGhjdFF5Wkt4czNId3B5L3pid1hH?=
+ =?utf-8?B?UW9LZXhNdFo3LzI4YmNkVG9JdVl4RnpwSDBxSGxMeG9ZRkIrRThYdm9ZbW5W?=
+ =?utf-8?B?aTgvK0xLWXJ5ZVk1TGJCc2xLSjdXWEh1dlBnOVJtcXRNbVZSMEczNEhkRWFI?=
+ =?utf-8?B?dTBJekVLVno0WVNyTU9BY2EzQnd3ZXJkV1BHaEEwNGRlRHEvL2NZZWhEcm4z?=
+ =?utf-8?B?bncrSi8wMUtWN0FZSXEvRDZ2RXpidHo3OE9TOW9ObkNBem1jbjRKUG5xc1oy?=
+ =?utf-8?B?d1F6RXpoTVRqaVB6OElHNUZIaDFPc1ZMQmU3NXEzMjN2b0piUUwyTGFJaUI3?=
+ =?utf-8?B?RUF3YmtrYXJKUVFsRmVhSlIzWlo2dXF6eDQvK3RIbDdQNm9idXhrSER0UXVp?=
+ =?utf-8?B?RHhaV1BJNjNxbTNTWk5jcDAwTnQ1STA4WFk4ZW1vQXZTbnJCSE1Tck1KeVgx?=
+ =?utf-8?B?TXFTM25GcG9uRU81b2U5M3piODI4VFUwVzJrOS9SeVlFMzVxMitTWHExSkVN?=
+ =?utf-8?B?VVI1dSt1N283RDlDTllBM1NFbWIrSjVTRHc4djh3WjNDZE04S1kzYTFnODgx?=
+ =?utf-8?B?MjEvYnlpUDFYKzl3eGRpMVEvWDBrOW1RdEVJem5rRXJYanBtMkQwY2VpNVdx?=
+ =?utf-8?B?WlphaUhIbXIwOGE3SFArcW5sMXpRYUhWNFpESFdaajZJZ3BOUFhoUy94Z0xW?=
+ =?utf-8?B?RGFmdXAyYXRaSkl0TVlTdVkwT2hpb1U1KzNiMUxjTVJUMGl2ZE1wa21xSEdI?=
+ =?utf-8?B?aVU0ZjU2MitXZnRzb2ZHWEdhdzA3N0ZpUm1jT2YxOGRLaFNCeFpBL2FwQnhv?=
+ =?utf-8?B?SGVJeVZPRHFsb21Ua2lxOFVqbmVNUHhheG1iVG1jWmViUXQzZDJJYTJpaDd3?=
+ =?utf-8?B?NUtpYUJPa245REpyOFFzV1JILzNJYW5hOEtlK1hRV0RubmhLa3ljR1hMMllq?=
+ =?utf-8?B?S0x0TThCWjREZjNKeWZCNjFxUXZ5bURGVVFLNDJNSE10ZCtraEgzNllIWU11?=
+ =?utf-8?B?cUxXaXlQZUYwYnJIcnJNWUlLVmtROU05SmtUMEF1Y21QR3NMbnlRNUtDdHZn?=
+ =?utf-8?B?eGQ3S0U4ak5NYWVaZHlKMGc0Z2Q4SDh1eTA4QWxiV2RUQjZyNDJEWXBWZUIw?=
+ =?utf-8?B?MjhmeVgwNzZVSVRHY2xTWTlxVmlRdWRGeE1rb3gzL29LQjJmQXFuVFkzQ083?=
+ =?utf-8?B?WElDRjJpTU9UOVpQejRpRFlFd1h0cGFRbjFCV1pTSXRnemY2M0NzODJadjc1?=
+ =?utf-8?B?Ry9jdXZLTTZob3VYOHB6T1dybDhtcnVrRkhmeHY4OHUxaDM2Z0k2R1JpZlIw?=
+ =?utf-8?B?QUJjUUF4Uk9ES1BEU1FsSDZOZ1ByaFllYmlya0V3cVNQd1RLMmpPbTZLOUdr?=
+ =?utf-8?B?Y2hlRnR4K0pCK2tHUlhTemFBVy9oNGJDb2diZFZsSWhSZkRuNzgrWkxwSGJD?=
+ =?utf-8?B?a0tVRUpLL2FPOTB2VHBFK2RFL1l2bncwR2tJZ3o1UnYrbllqU2pxbEZzcnlk?=
+ =?utf-8?B?QSs2ODVXczdrcWs3Mm5jMlFEMTBENldURnNzQTJBbWMrMmtVM29Ta0M5MC9t?=
+ =?utf-8?B?ZzZMUm5iZGxZMGp3UHgvTDA3RVJjUzBNeGhNNFY5cng2NlEzUUxhRlBJbThz?=
+ =?utf-8?B?b3JvejV4NlJaR0VkeE1aSXp3eWNKNDY2QXJsQk82SW9iZUkyMWx2N0lPNjh2?=
+ =?utf-8?B?eUpRQjZObFcxMmNJdlJMdFZydkhPUUVxRndFY0QwYnB0bHhBTk9LVmVCc1px?=
+ =?utf-8?B?c0tpM3g1OE9BdlBBbFpZbTJZUkU4cUh5VFg0K2RYSjJDTStBU3k3Q0o3ZGFu?=
+ =?utf-8?B?cVAyeE9qc1U1enY1R3ZXWmZ3TUErWDBpRUR6emRYS3l0aVNZMFUxdSsvM3hs?=
+ =?utf-8?B?bzM4bW15NDlJOUNxSmVaVEJ6U1dLYzJFQjlrZkQxV1QvY0JhVnFGd0dpTUVM?=
+ =?utf-8?B?R0o0dzZ2NzJRTnNDWHZpQUxEL3kzTGgwT1JJZUo0dlZHSVU2cWtXVEorR25p?=
+ =?utf-8?B?TzJvbi9mSFdKNG9OQndRSGdkbitmNkJ6aENYZGR2ODQvSVpVWXo0dzE1c1Iz?=
+ =?utf-8?B?bjNFWHpOaDJkRVYyKzl0WGZ2U2k1Q3RsTHZqUXZQTE45UmJkT0w0a2VwekdG?=
+ =?utf-8?B?Vy9WeEJvN0pPZG9iWE80eVB2L3hUTzlXZkdnVjlWdStoazZCeTRUSHlmakxK?=
+ =?utf-8?Q?JLvPWLhbQn+fWPBc=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <64C755A50C7C874A810EA9DF8D509C17@namprd11.prod.outlook.com>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Exchange-RoutingPolicyChecked: Kh91Ncaa7DIfJp3Rhz3nE3DFu7Vzqae0fW00fKpTG1IUFnKxP9xedb//ZcW2JYenj8OgLP7c+nj1OSN+birgHD+Nz0Gn/TBuksg8Vzyjk6HSyv75vsZcwV1O3HaNJR5WC4YlpYN8LHx9TtkcQ7EC+VQICxmnBar1i6rXvPRZeqJpSVpH5lQVTjSCCFrybDwSWHJ8JSo9rdeJJowFeCrBFZKYG5Z2TYFGCaXETJLFaPHJ09TrskIqAh7zbIJGQUwJdd2uUo47Kh/cAr7ZXAt9ZyKsRH1GJ4h6ydlQWBQGdUg2tNW+ZxpTkUfVzgFIFbh078+NvmAB/Hi/wJJdXBMphg==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6771.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 52352719-d824-450e-4a9f-08df25561bdb
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Oct 2026 16:06:27.4350
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: yKagrPJk9SeGIDbDceKL8il2NKh+rjmEi1cURoSwbxFktEdqiFGTLGOAPqNHanRT8QFv7qT5r6bh/8SeVgwtrP5sd2oBPcOSANY5Ce90g1o=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PPF027BB0053
+X-OriginatorOrg: intel.com
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
----
-net: phy: qca83xx: read resolved QCA8337 link status
-
-This adds a read_status callback for the QCA8337 internal PHY. The callback
-wraps genphy_read_status() and, on an autoneg link transition, replaces
-speed and duplex with the values from the PHY-specific status register via
-at803x_read_specific_status(). It also resolves pause for the resulting
-duplex and reports mdix_ctrl as ETH_TP_MDI_INVALID.
-
-> diff --git a/drivers/net/phy/qcom/qca83xx.c b/drivers/net/phy/qcom/qca83xx.c
-> index bc70ed8efd86a..e70da092f424f 100644
-> --- a/drivers/net/phy/qcom/qca83xx.c
-> +++ b/drivers/net/phy/qcom/qca83xx.c
-> @@ -92,6 +92,42 @@ static int qca83xx_probe(struct phy_device *phydev)
->  	return 0;
->  }
->  
-> +static int qca8337_read_status(struct phy_device *phydev)
-> +{
-
-[ ... ]
-
-> +	ret = genphy_read_status(phydev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* genphy_read_status() derives speed and duplex from the
-> +	 * advertisements, which is wrong after a SmartSpeed downshift.
-> +	 * Whenever it has just done so, use what the PHY resolved instead.
-> +	 */
-> +	if (phydev->autoneg == AUTONEG_ENABLE && phydev->autoneg_complete &&
-> +	    !(old_link && phydev->link)) {
-> +		phydev->speed = SPEED_UNKNOWN;
-> +		phydev->duplex = DUPLEX_UNKNOWN;
-> +		phydev->pause = false;
-> +		phydev->asym_pause = false;
-> +
-> +		ret = at803x_read_specific_status(phydev, ss_mask);
-> +		if (ret)
-> +			return ret;
-
-[Severity: Medium]
-Suppose BMSR shows link up and autoneg complete before
-AT803X_SS_SPEED_DUPLEX_RESOLVED is set in AT803X_SPECIFIC_STATUS. What ends
-up in phydev->speed and phydev->duplex in that case?
-
-at803x_read_specific_status() only writes speed and duplex inside this
-block, and otherwise returns 0:
-
-drivers/net/phy/qcom/qcom-phy-lib.c:at803x_read_specific_status() {
-    ...
-	if (ss & AT803X_SS_SPEED_DUPLEX_RESOLVED) {
-		...
-	}
-
-	return 0;
-}
-
-The speed switch also has no case for the reserved field value 3.
-QCA808X_SS_SPEED_2500 is 4, and a 2-bit field can never hold 4.
-
-In both cases the genphy result has already been replaced with
-SPEED_UNKNOWN (and DUPLEX_UNKNOWN if the resolved bit is clear). The wrapper
-then returns 0 with link set, and phy_check_link_status() calls
-phy_link_up() without checking speed or duplex.
-
-On the next poll old_link && phydev->link is true, so genphy_read_status()
-returns early:
-
-	if (phydev->autoneg == AUTONEG_ENABLE && old_link && phydev->link)
-		return 0;
-
-The !(old_link && phydev->link) check here also skips the override. Would
-the unknown speed and duplex then stay until the link drops?
-
-With phylink, qca8k_phylink_mac_link_up() would get SPEED_UNKNOWN and fall
-into its default case (QCA8K_PORT_STATUS_LINK_AUTO). The duplex bit would
-not be set and flow control would stay off.
-
-I couldn't confirm that QCA8337 can actually show link up before the
-resolved bit is set, and the changelog says v3 has not been tested on
-hardware. However, marvell_read_status_page_an() handles the same register
-layout by forcing link down while the resolved bit is clear:
-
-	if (!(status & MII_M1011_PHY_STATUS_RESOLVED)) {
-		phydev->link = 0;
-		return 0;
-	}
-
-Commit 3b72f84f8fb6 added that check because the datasheet does not specify
-the timing between link status and the "Speed and Duplex Resolved" bit.
-
-qca808x_read_status() takes a different approach. It does not clear the
-genphy result before calling at803x_read_specific_status(), so an
-unresolved read keeps a valid fallback.
-
-Would either approach fit here?
-
-> +
-> +		phy_resolve_aneg_pause(phydev);
-> +	}
-> +
-> +	/* MDI-X configuration is not implemented */
-> +	phydev->mdix_ctrl = ETH_TP_MDI_INVALID;
-
-[Severity: Medium]
-at803x_read_specific_status() now fills in phydev->mdix as well. Can that
-value go stale?
-
-It is only refreshed inside the autoneg link-transition block above.
-genphy_read_status_fixed() never touches mdix. In phylib, mdix is only reset
-to ETH_TP_MDI_INVALID in the PHY_HALTED state.
-
-So once an autoneg link has reported MDI or MDI-X, the old value would stay
-in two cases:
-
-  - The link drops. autoneg_complete or the resolved bit is then clear, so
-    the helper leaves mdix alone.
-
-  - Autoneg is turned off with ethtool. The override block is then skipped
-    on every poll.
-
-phy_ethtool_ksettings_get() copies phydev->mdix straight into eth_tp_mdix.
-The ethtool uAPI says that field should be ETH_TP_MDI_INVALID when the
-status is unknown or not applicable.
-
-Before this patch, the driver never set mdix, so it stayed
-ETH_TP_MDI_INVALID.
-
-Should mdix also be reset to ETH_TP_MDI_INVALID when the resolved status is
-not read?
-
-> +
-> +	return 0;
-> +}
-
-[ ... ]
+T24gVGh1LCAyMDI2LTEwLTA4IGF0IDEyOjE4ICswODAwLCBYdSBZaWx1biB3cm90ZToNCj4gSG93
+IGFib3V0Og0KPiANCj4gCXN0cnVjdCB0ZHhfbW9kdWxlX2FyZ3MgYXJncyA9IHsNCj4gCQkucmN4
+ID0gX19wYSh0ZG1yX3BhX2FycmF5KSwNCj4gCQkucmR4ID0gbnJfdGRtcl9wYSwNCj4gCQkucjgg
+PSBnbG9iYWxfa2V5aWQsDQo+IAkJLnI5ID0gYWRkb25fZmVhdHVyZXMwLA0KPiAJfTsNCj4gDQo+
+IAkuLi4NCj4gDQo+IAlpZiAoYXJncy5yOSkNCj4gCQlhcmdzLnZlcnNpb24gPSAxOw0KDQpTb3Jy
+eSBpZiBpdCB3YXMgd3JpdHRlbiBpbiBhIGNvbmZ1c2luZyB3YXkuIEkgd2FzIGFjdHVhbGx5IHNh
+eWluZyBJIHRoaW5rIHRoZQ0KZXhpc3RpbmcgY29kZSBpcyBnb29kLiBCdXQgbG9nZ2luZyB0byB0
+aGUgbGlzdCB3aHksIHNpbmNlIEkgdGhpbmsgaXQgd2FzDQpkZWJhdGFibGUuDQo=
