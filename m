@@ -1,16 +1,16 @@
 Received: from nbd.name (nbd.name [46.4.11.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 916724AF679;
-	Thu,  8 Oct 2026 14:33:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4EAC4ACC93;
+	Thu,  8 Oct 2026 14:33:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.4.11.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791470005; cv=none; b=L7g6M1BsO5MKtOuiC4kceINVzoVi9MnZleOJCzM6BqlAKHNAC/082zljmlE8Ccmrz8JG46KE17XIj0oywiF7lYQ9SfB3B/ma0zT3f80esA6/jTkMmAS3DbuwzAX0NNM98AttGp1AduTqFkW91vElTT/FU80dD1b/DOMg+P0fg8E=
+	t=1791470004; cv=none; b=cVfY2QPrNlOjoI5n0LRXAuRWvwNwb5aqO0LDyPp5NldbBeTKLxDfBJavy3ThKsckgdGeD9opMGbzVvIg43Y8f9bUq5vnDwKXok6pkodmC3hODNYfEQbsWIzVeisZH3Kecb+BqvYrSj/muAj23EtoLHYMLS6o58Y6g8JGEAMxHA8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791470005; c=relaxed/simple;
-	bh=3kuls+AwrE1PgpKzYXU3NB1H0g+xNWri9YNM1Tj9fnM=;
+	s=arc-20240116; t=1791470004; c=relaxed/simple;
+	bh=a2orRDrG/G5UklM1m+5/g02DewxafPhYRBpqpINqyfM=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=nxrlMJUNFrMhNZQVdffTWEwNV6VgNSH21hvzgGgJh0O+gI2GYpVSPLX6/JQChi+H2KVBWBO2FeWLHxlVfSc6WW9Yh9HDMKTyNtghc1IyiG/Q0TR3VYZ1cTN9YkuzYaxavNMvjZBsD+MFO2DD6xWyWV/RGWOZrSuWYrmUlW0R7cw=
+	 MIME-Version; b=UGMpJpFxoGOC5P4tsAtElWbhZgXN1z4xr9Zk8BbVndG62PoUguFDeDUnIJddwOtvM19NFsdszSI5/z5HMS9UGUiJcqSHT7qwA8QozA2bnFcirDFAHaBvJrQLIdZ0z51kYKNMMBIUxOlRQMswG0n4QISlTl1AlAPHTYUssNUyQ6o=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phrozen.org; spf=pass smtp.mailfrom=phrozen.org; arc=none smtp.client-ip=46.4.11.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phrozen.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phrozen.org
@@ -18,21 +18,22 @@ Received: from [2a04:4540:1400:26fc:ddc6:af15:b0f7:2808] (helo=bertha10..)
 	by ds12 with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.96)
 	(envelope-from <john@phrozen.org>)
-	id 1xEpBD-000l4X-1v;
-	Thu, 08 Oct 2026 16:33:07 +0200
+	id 1xEpBB-000l4X-1w;
+	Thu, 08 Oct 2026 16:33:05 +0200
 From: John Crispin <john@phrozen.org>
 To: "David S. Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@kernel.org>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>
-Cc: Simon Horman <horms@kernel.org>,
-	linux-kernel@vger.kernel.org,
+Cc: Donald Hunter <donald.hunter@gmail.com>,
+	Simon Horman <horms@kernel.org>,
 	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	Andrew Lunn <andrew+netdev@lunn.ch>,
 	Christian Marangi <ansuelsmth@gmail.com>
-Subject: [RFC net-next 09/12] net: pon: add the device registration
-Date: Thu,  8 Oct 2026 16:32:46 +0200
-Message-Id: <20261008143249.3439762-10-john@phrozen.org>
+Subject: [RFC net-next 01/12] net: pon: add the netlink specification of the pon family
+Date: Thu,  8 Oct 2026 16:32:38 +0200
+Message-Id: <20261008143249.3439762-2-john@phrozen.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261008143249.3439762-1-john@phrozen.org>
 References: <20261008143249.3439762-1-john@phrozen.org>
@@ -44,496 +45,833 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-pon_dev_create() ties the components to one instance. It takes the data
-network device, the device and the ops of the MAC, pairs a waiting
-conduit and publishes the instance. The data network device must be
-bound to its network namespace, because the core looks a device up by
-that namespace.
+The pon generic netlink family configures the ONU side of an ITU-T
+passive optical network. The kernel owns activation (which the MAC
+driver runs) and the datapath objects. Userspace owns OMCI (the
+management plane) and expresses what the OLT asks for through this
+family.
 
-pon_dev_unregister() stops the upstream link and withdraws the instance:
-its conduit, its work, its GEM network devices and its objects. It
-disables the work item, so that a late queue runs nothing. It prints
-the lines that pon_dev_log() recorded until then, then disables the log
-work. The structure stays until the driver drops it with pon_dev_put(),
-so the interrupts and timers of a driver never name a freed device.
+The family carries the identity and the activation state of a device,
+the T-CONTs, the GEM ports, the upstream classifier rules and the OMCI
+channel. Notifications are levels, so a listener that loses one reads
+the state again. A write operation answers with the netlink ACK only.
+No key material crosses the family.
 
-The module registers the netlink family, the gem link kind, the notifier
-that releases the OMCI channels and the notifier that follows the
-conduits. A module alias loads it for the family. DOC: PON locking
-documents the lock order.
+The mode enum lists gpon, xg-pon and xgs-pon. No driver runs gpon or
+xg-pon yet. The enum keeps them so that the uapi order stays clean for
+the drivers that add them later. The core refuses them through the mode
+capability of the device: dev-set refuses a mode the device does not
+list, with an extack message and a line in the kernel log.
 
-The workqueue of an instance has high priority because the MAC driver
-runs the handlers of its activation timers on it. drv_priv is cleared
-only after synchronize_net(): a GEM transmit that read the ops under RCU
-can still reach the driver, which finds itself through drv_priv.
+pon.yaml is the source. The uapi header is generated from it with
+ynl-gen. The Makefile.deps of tools/net/ynl gets a line for the family,
+so that the header of the tree wins over an older copy that a
+distribution ships. The kernel side follows with the subsystem.
 
 Assisted-by: LLM
 Signed-off-by: John Crispin <john@phrozen.org>
 ---
- net/pon/pon_main.c | 454 +++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 454 insertions(+)
- create mode 100644 net/pon/pon_main.c
+ Documentation/netlink/specs/pon.yaml | 604 +++++++++++++++++++++++++++
+ include/uapi/linux/pon.h             | 166 ++++++++
+ tools/net/ynl/Makefile.deps          |   1 +
+ 3 files changed, 771 insertions(+)
+ create mode 100644 Documentation/netlink/specs/pon.yaml
+ create mode 100644 include/uapi/linux/pon.h
 
-diff --git a/net/pon/pon_main.c b/net/pon/pon_main.c
+diff --git a/Documentation/netlink/specs/pon.yaml b/Documentation/netlink/specs/pon.yaml
 new file mode 100644
-index 000000000000..977b2635a8ea
+index 000000000000..45780c179613
 --- /dev/null
-+++ b/net/pon/pon_main.c
-@@ -0,0 +1,454 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/* Copyright (C) 2026 John Crispin <john@phrozen.org> */
++++ b/Documentation/netlink/specs/pon.yaml
+@@ -0,0 +1,604 @@
++# SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause)
++---
++name: pon
 +
-+#include <linux/list.h>
-+#include <linux/module.h>
-+#include <linux/netdevice.h>
-+#include <linux/slab.h>
-+#include <linux/spinlock.h>
-+#include <linux/string.h>
-+#include <linux/workqueue.h>
-+#include <linux/xarray.h>
-+#include <net/pon.h>
++doc:
++  Passive Optical Network device configuration over generic netlink.
 +
-+#include "pon.h"
-+#include "pon-nl-gen.h"
++  A PON device represents the ONU-side MAC of a GPON or XG(S)-PON link. The
++  kernel owns activation (the PLOAM state machine, ranging and the key
++  hierarchy run in hardware or in the driver, driven by MAC interrupts) and
++  the datapath objects (T-CONTs and GEM ports). Userspace owns the management
++  plane, OMCI, whose PDUs this family carries between the OMCC and the one
++  socket that registered for them. This family also carries identity,
++  datapath object configuration, state notifications and counters.
 +
-+DEFINE_XARRAY_ALLOC1(pon_devs);
-+/* guards the pon_devs xarray, taken before any instance lock */
-+DEFINE_MUTEX(pon_devs_lock);
++  An operation is a set when it can change an object that already exists
++  and a new when it can only create one. A tcont-set rebinds a T-CONT, while
++  a gem-new refuses a GEM port that exists with other attributes.
++
++definitions:
++  -
++    type: enum
++    name: mode
++    doc: PON operating mode.
++    entries: [gpon, xg-pon, xgs-pon]
++  -
++    type: enum
++    name: ploam-state
++    doc: |
++      ITU-T G.9807.1 / G.984.3 ONU activation state. O5 is the only state in
++      which the OMCC carries traffic. G.9807.1 has one Serial Number state,
++      O2-3 (Table C.12.1), reported as o2. Only a G.984.3 device reports o3.
++    entries: [unknown, o1, o2, o3, o4, o5, o6, o7]
++  -
++    type: enum
++    name: gem-dir
++    doc: |
++      GEM port direction. The values are those of the direction attribute of
++      the GEM port network CTP managed entity of ITU-T G.988: UNI-to-ANI (1),
++      ANI-to-UNI (2) or bidirectional (3). An OMCI stack passes the value
++      through.
++    entries:
++      -
++        name: upstream
++        value: 1
++      -
++        name: downstream
++        value: 2
++      -
++        name: bidir
++        value: 3
++  -
++    type: enum
++    name: gem-key-ring
++    doc: |
++      Whether a GEM port is encrypted and with which keys, as the
++      encryption key ring attribute of the GEM port network CTP managed
++      entity of ITU-T G.988 clause 9.2.3 defines it.
++    entries:
++      -
++        name: none
++        doc: No encryption. Upstream is sent with key index 0.
++      -
++        name: unicast
++        doc: |
++          Unicast encryption in both directions, with the keys the ONU
++          generates.
++      -
++        name: broadcast
++        doc: |
++          Broadcast encryption, with the keys the OLT distributes over the
++          OMCI.
++      -
++        name: unicast-downstream
++        doc: |
++          Unicast encryption of the downstream only, with the keys the ONU
++          generates.
++  -
++    type: enum
++    name: gem-map-tag
++    doc: VLAN tag state an upstream classifier rule matches.
++    entries: [untagged, tagged]
++
++attribute-sets:
++  -
++    name: dev
++    attributes:
++      -
++        name: id
++        doc: PON device ID.
++        type: u32
++        checks:
++          min: 1
++      -
++        name: ifindex
++        doc: ifindex of the PON data network device (the PON MAC port).
++        type: u32
++      -
++        name: mode
++        doc: Active PON mode.
++        type: u32
++        enum: mode
++      -
++        name: modes-cap
++        doc: Bitmask of the modes the device supports.
++        type: u32
++        enum: mode
++        enum-as-flags: true
++      -
++        name: serial
++        doc: |
++          ONU serial number, 8 bytes: the 4 ASCII characters of the Vendor_ID
++          of ITU-T G.9807.1 clause C.11.2.6.1, then the 4 byte VSSN of clause
++          C.11.2.6.2. Eight 0x00 bytes address every ONU (Table C.11.23A) and
++          are refused.
++        type: binary
++        checks:
++          exact-len: 8
++      -
++        name: registration-id
++        doc: |
++          Registration_ID of the Registration message of ITU-T G.9807.1
++          (Table C.11.25), 1 to 36 bytes. An empty value is refused. The
++          kernel pads a shorter value with 0x00 bytes to 36, as the note of
++          the table recommends. Write only: it is a credential.
++        type: binary
++        checks:
++          max-len: 36
++      -
++        name: ploam-state
++        doc: Current activation state.
++        type: u32
++        enum: ploam-state
++      -
++        name: max-tconts
++        doc: Number of T-CONTs the device supports.
++        type: u32
++      -
++        name: max-gems
++        doc: |
++          Number of GEM ports gem-new can create, not counting the GEM port
++          of the OMCC. gem-new answers -ENOSPC beyond it.
++        type: u32
++      -
++        name: enable
++        doc: |
++          1 starts the ONU upstream link, 0 stops it. In a reply, whether the
++          link was last started.
++        type: u8
++        checks:
++          max: 1
++  -
++    name: tcont
++    attributes:
++      -
++        name: dev-id
++        doc: PON device ID.
++        type: u32
++        checks:
++          min: 1
++      -
++        name: index
++        doc: |
++          T-CONT index in the device, 0 based and below the max-tconts of
++          the device.
++        type: u32
++        checks:
++          max: 65534
++      -
++        name: alloc-id
++        doc: |
++          Alloc-ID bound to the T-CONT, as assigned by the OLT. ITU-T
++          G.9807.1 clause C.6.1.5.7 bounds it at 16383.
++        type: u32
++        checks:
++          max: 16383
++  -
++    name: gem
++    attributes:
++      -
++        name: dev-id
++        doc: PON device ID.
++        type: u32
++        checks:
++          min: 1
++      -
++        name: id
++        doc: |
++          GEM port ID, as the OLT assigns it over the OMCI. ITU-T G.9807.1
++          Table C.6.6 reserves 0 to 1020 for the default Port-ID (equal
++          to the ONU-ID, OMCC only) and 65535 for the idle Port-ID, so an
++          assigned GEM port is 1021 to 65534.
++        type: u32
++        checks:
++          min: 1021
++          max: 65534
++      -
++        name: dir
++        doc: Direction.
++        type: u32
++        enum: gem-dir
++      -
++        name: tcont-index
++        doc: |
++          T-CONT the upstream half rides. Required for an upstream or
++          bidirectional GEM port. A downstream GEM port rides no T-CONT and
++          is refused with this attribute.
++        type: u32
++        checks:
++          max: 65534
++      -
++        name: key-ring
++        doc: |
++          Encryption key ring of the GEM port. Absent means none. The
++          kernel refuses broadcast, since it takes no broadcast key.
++        type: u32
++        enum: gem-key-ring
++  -
++    name: gem-map
++    attributes:
++      -
++        name: dev-id
++        doc: PON device ID.
++        type: u32
++        checks:
++          min: 1
++      -
++        name: gem-id
++        doc: GEM port the matching frames map to, 1021 to 65534 as for gem id.
++        type: u32
++        checks:
++          min: 1021
++          max: 65534
++      -
++        name: tag
++        doc: Match the frame VLAN tag state. Absent matches either.
++        type: u32
++        enum: gem-map-tag
++      -
++        name: vid
++        doc: Match the outer VLAN ID. Absent matches any.
++        type: u32
++        checks:
++          max: 4094
++      -
++        name: pbit
++        doc: Match the outer VLAN priority. Absent matches any.
++        type: u32
++        checks:
++          max: 7
++      -
++        name: dscp
++        doc: Match the IP DSCP field. Absent matches any.
++        type: u32
++        checks:
++          max: 63
++  -
++    name: omci
++    attributes:
++      -
++        name: dev-id
++        doc: PON device ID.
++        type: u32
++        checks:
++          min: 1
++      -
++        name: pdu
++        doc: |
++          One OMCI PDU, from the transaction correlation id to the end of the
++          message contents: 44 bytes for the baseline format, the 10 byte
++          header and the contents for the extended format of ITU-T G.988
++          annex B. It carries no integrity field in either direction. The
++          MAC adds the MIC upstream and checks it downstream. Upstream the
++          device identifier selects the format and the length must match
++          it: 44 bytes for 0x0a, 10 bytes plus the message contents length
++          of the header for 0x0b. Any other PDU is refused.
++        type: binary
++        checks:
++          max-len: 1976
++
++operations:
++  list:
++    -
++      name: dev-get
++      doc: Get or dump PON devices.
++      attribute-set: dev
++      do:
++        request:
++          attributes:
++            - id
++        reply: &dev-all
++          attributes:
++            - id
++            - ifindex
++            - mode
++            - modes-cap
++            - serial
++            - ploam-state
++            - max-tconts
++            - max-gems
++            - enable
++        pre: pon-device-get-locked
++        post: pon-device-unlock
++      dump:
++        reply: *dev-all
++    -
++      name: dev-set
++      doc: |
++        Set the identity of a PON device, start or stop its upstream link, or
++        any combination. While the link is enabled, a mode or a serial number
++        other than the one the device holds is refused with EBUSY.
++        The settings are applied before the link moves.
++      attribute-set: dev
++      flags: [admin-perm]
++      do:
++        request:
++          attributes:
++            - id
++            - mode
++            - serial
++            - registration-id
++            - enable
++        pre: pon-device-get-locked
++        post: pon-device-unlock
++    -
++      name: dev-add-ntf
++      doc: Notification about a PON device appearing.
++      notify: dev-get
++      mcgrp: mgmt
++    -
++      name: dev-del-ntf
++      doc: |
++        Notification about a PON device disappearing. Every T-CONT, GEM port
++        and classifier rule of the device goes with it, without a
++        notification of its own.
++      notify: dev-get
++      mcgrp: mgmt
++    -
++      name: dev-change-ntf
++      doc: Notification about a PON device configuration change.
++      notify: dev-get
++      mcgrp: mgmt
++    -
++      name: ploam-ntf
++      doc: |
++        The activation state changed. Every transition is reported, so the
++        O5 edge, which is the OMCC becoming usable or unusable, is visible.
++      attribute-set: dev
++      mcgrp: state
++      event:
++        attributes:
++          - id
++          - ploam-state
++
++    -
++      name: tcont-get
++      doc: |
++        Get or dump T-CONTs. A dump with a device ID lists the T-CONTs of
++        that device only.
++      attribute-set: tcont
++      do:
++        request:
++          attributes:
++            - dev-id
++            - index
++        reply: &tcont-all
++          attributes:
++            - dev-id
++            - index
++            - alloc-id
++        pre: pon-device-get-locked
++        post: pon-device-unlock
++      dump:
++        request:
++          attributes:
++            - dev-id
++        reply: *tcont-all
++    -
++      name: tcont-set
++      doc: |
++        Bind an alloc-id to a T-CONT, or rebind it. A rebind moves the GEM
++        ports of the T-CONT too. If the driver refuses one, the old alloc-id
++        stays on the T-CONT and on its GEM ports and the request fails.
++      attribute-set: tcont
++      flags: [admin-perm]
++      do:
++        request:
++          attributes:
++            - dev-id
++            - index
++            - alloc-id
++        pre: pon-device-get-locked
++        post: pon-device-unlock
++    -
++      name: tcont-del
++      doc: |
++        Release a T-CONT. Fails with -EBUSY while a GEM port names the
++        T-CONT. Delete the GEM ports first.
++      attribute-set: tcont
++      flags: [admin-perm]
++      do:
++        request:
++          attributes:
++            - dev-id
++            - index
++        pre: pon-device-get-locked
++        post: pon-device-unlock
++    -
++      name: tcont-add-ntf
++      doc: A T-CONT object was created.
++      notify: tcont-get
++      mcgrp: mgmt
++    -
++      name: tcont-change-ntf
++      doc: A T-CONT object changed.
++      notify: tcont-get
++      mcgrp: mgmt
++    -
++      name: tcont-del-ntf
++      doc: A T-CONT object was removed.
++      notify: tcont-get
++      mcgrp: mgmt
++
++    -
++      name: gem-get
++      doc: |
++        Get or dump GEM ports. A dump with a device ID lists the GEM ports
++        of that device only.
++      attribute-set: gem
++      do:
++        request:
++          attributes:
++            - dev-id
++            - id
++        reply: &gem-all
++          attributes:
++            - dev-id
++            - id
++            - dir
++            - tcont-index
++            - key-ring
++        pre: pon-device-get-locked
++        post: pon-device-unlock
++      dump:
++        request:
++          attributes:
++            - dev-id
++        reply: *gem-all
++    -
++      name: gem-new
++      doc: |
++        Create a GEM port. A GEM port that exists with the same attributes
++        is accepted. One that exists with other attributes is refused.
++      attribute-set: gem
++      flags: [admin-perm]
++      do:
++        request:
++          attributes:
++            - dev-id
++            - id
++            - dir
++            - tcont-index
++            - key-ring
++        pre: pon-device-get-locked
++        post: pon-device-unlock
++    -
++      name: gem-del
++      doc: Destroy a GEM port.
++      attribute-set: gem
++      flags: [admin-perm]
++      do:
++        request:
++          attributes:
++            - dev-id
++            - id
++        pre: pon-device-get-locked
++        post: pon-device-unlock
++    -
++      name: gem-add-ntf
++      doc: A GEM port object was created.
++      notify: gem-get
++      mcgrp: mgmt
++    -
++      name: gem-del-ntf
++      doc: A GEM port object was removed.
++      notify: gem-get
++      mcgrp: mgmt
++
++    -
++      name: gem-map-get
++      doc: |
++        Dump the upstream classifier rules. The core keeps a copy of each
++        rule that the driver took. A dump with a device ID lists the rules of
++        that device only.
++      attribute-set: gem-map
++      dump:
++        request:
++          attributes:
++            - dev-id
++        reply:
++          attributes:
++            - dev-id
++            - gem-id
++            - tag
++            - vid
++            - pbit
++            - dscp
++    -
++      name: gem-map-new
++      doc: |
++        Add one upstream classifier rule mapping frames onto a GEM port.
++        A rule matches on the attributes it carries. A more specific rule
++        wins over a less specific one.
++      attribute-set: gem-map
++      flags: [admin-perm]
++      do:
++        request:
++          attributes:
++            - dev-id
++            - gem-id
++            - tag
++            - vid
++            - pbit
++            - dscp
++        pre: pon-device-get-locked
++        post: pon-device-unlock
++    -
++      name: gem-map-del
++      doc: Remove one upstream classifier rule.
++      attribute-set: gem-map
++      flags: [admin-perm]
++      do:
++        request:
++          attributes:
++            - dev-id
++            - gem-id
++            - tag
++            - vid
++            - pbit
++            - dscp
++        pre: pon-device-get-locked
++        post: pon-device-unlock
++    -
++      name: gem-map-add-ntf
++      doc: An upstream classifier rule was created.
++      notify: gem-map-get
++      mcgrp: mgmt
++    -
++      name: gem-map-del-ntf
++      doc: An upstream classifier rule was removed.
++      notify: gem-map-get
++      mcgrp: mgmt
++
++
++    -
++      name: omci-register
++      doc: |
++        Receive the OMCI PDUs of one device on this socket, as omci-ntf.
++        One socket at a time owns the OMCI channel of a device. Another
++        socket is refused with EBUSY until the owner closes. A registration
++        ends only when its socket closes.
++      attribute-set: omci
++      flags: [admin-perm]
++      do:
++        request:
++          attributes:
++            - dev-id
++        pre: pon-device-get-locked
++        post: pon-device-unlock
++    -
++      name: omci-tx
++      doc: |
++        Send one OMCI PDU to the OLT. Only the socket that owns the OMCI
++        channel of the device may send and the MAC refuses a PDU while the
++        ONU is not in O5.
++      attribute-set: omci
++      flags: [admin-perm]
++      do:
++        request:
++          attributes:
++            - dev-id
++            - pdu
++        pre: pon-device-get-locked
++        post: pon-device-unlock
++    -
++      name: omci-ntf
++      doc: |
++        One OMCI PDU from the OLT, sent only to the socket that owns the
++        OMCI channel of the device. A PDU that finds no room on that socket
++        is lost. The OLT retries.
++      attribute-set: omci
++      event:
++        attributes:
++          - dev-id
++          - pdu
++
++mcast-groups:
++  list:
++    -
++      name: mgmt
++    -
++      name: state
++
++...
+diff --git a/include/uapi/linux/pon.h b/include/uapi/linux/pon.h
+new file mode 100644
+index 000000000000..1fedadb44305
+--- /dev/null
++++ b/include/uapi/linux/pon.h
+@@ -0,0 +1,166 @@
++/* SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause) */
++/* Do not edit directly, auto-generated from: */
++/*	Documentation/netlink/specs/pon.yaml */
++/* YNL-GEN uapi header */
++/* To regenerate run: tools/net/ynl/ynl-regen.sh */
++
++#ifndef _UAPI_LINUX_PON_H
++#define _UAPI_LINUX_PON_H
++
++#define PON_FAMILY_NAME		"pon"
++#define PON_FAMILY_VERSION	1
++
++/*
++ * PON operating mode.
++ */
++enum pon_mode {
++	PON_MODE_GPON,
++	PON_MODE_XG_PON,
++	PON_MODE_XGS_PON,
++};
++
++/*
++ * ITU-T G.9807.1 / G.984.3 ONU activation state. O5 is the only state in which
++ * the OMCC carries traffic. G.9807.1 has one Serial Number state, O2-3 (Table
++ * C.12.1), reported as o2. Only a G.984.3 device reports o3.
++ */
++enum pon_ploam_state {
++	PON_PLOAM_STATE_UNKNOWN,
++	PON_PLOAM_STATE_O1,
++	PON_PLOAM_STATE_O2,
++	PON_PLOAM_STATE_O3,
++	PON_PLOAM_STATE_O4,
++	PON_PLOAM_STATE_O5,
++	PON_PLOAM_STATE_O6,
++	PON_PLOAM_STATE_O7,
++};
++
++/*
++ * GEM port direction. The values are those of the direction attribute of the
++ * GEM port network CTP managed entity of ITU-T G.988: UNI-to-ANI (1),
++ * ANI-to-UNI (2) or bidirectional (3). An OMCI stack passes the value through.
++ */
++enum pon_gem_dir {
++	PON_GEM_DIR_UPSTREAM = 1,
++	PON_GEM_DIR_DOWNSTREAM,
++	PON_GEM_DIR_BIDIR,
++};
 +
 +/**
-+ * DOC: PON locking
-+ *
-+ * pon_devs_lock protects the pon_devs xarray, the conduit list and the
-+ * pairing of a conduit with an instance.
-+ * Ordering is take the pon_devs_lock and then the instance lock.
-+ * rtnl is taken before them and never while an instance lock or pon_devs_lock
-+ * is held: the GEM netdevs are registered and unregistered outside them and
-+ * the conduit's address and MTU are set after a pairing once both are
-+ * dropped.
-+ * Each instance is protected by RCU and has a refcount.
-+ * When the driver unregisters, the instance gets flushed, but the struct
-+ * sticks around.
-+ *
-+ * The instance lock is also the activation lock. Every deferred report
-+ * reaches the state machine through pdev->wq, whose handler takes it. The
-+ * netlink handlers take the same lock in their pre_doit, so a userspace
-+ * transaction cannot interleave with a half run transition. pdev->work_lock
-+ * is the one lock below it, held only to add and remove work items from
-+ * hard interrupt context.
++ * enum pon_gem_key_ring - Whether a GEM port is encrypted and with which keys,
++ *   as the encryption key ring attribute of the GEM port network CTP managed
++ *   entity of ITU-T G.988 clause 9.2.3 defines it.
++ * @PON_GEM_KEY_RING_NONE: No encryption. Upstream is sent with key index 0.
++ * @PON_GEM_KEY_RING_UNICAST: Unicast encryption in both directions, with the
++ *   keys the ONU generates.
++ * @PON_GEM_KEY_RING_BROADCAST: Broadcast encryption, with the keys the OLT
++ *   distributes over the OMCI.
++ * @PON_GEM_KEY_RING_UNICAST_DOWNSTREAM: Unicast encryption of the downstream
++ *   only, with the keys the ONU generates.
 + */
++enum pon_gem_key_ring {
++	PON_GEM_KEY_RING_NONE,
++	PON_GEM_KEY_RING_UNICAST,
++	PON_GEM_KEY_RING_BROADCAST,
++	PON_GEM_KEY_RING_UNICAST_DOWNSTREAM,
++};
 +
-+/**
-+ * pon_tcont_find() - look up a T-CONT by its index
-+ * @pdev:	PON device structure
-+ * @index:	the T-CONT index
-+ *
-+ * Context: Called with @pdev->lock held.
-+ * Return: the T-CONT, or NULL when no T-CONT has @index.
++/*
++ * VLAN tag state an upstream classifier rule matches.
 + */
-+struct pon_tcont *pon_tcont_find(struct pon_dev *pdev, u16 index)
-+{
-+	struct pon_tcont *tcont;
++enum pon_gem_map_tag {
++	PON_GEM_MAP_TAG_UNTAGGED,
++	PON_GEM_MAP_TAG_TAGGED,
++};
 +
-+	lockdep_assert_held(&pdev->lock);
-+	list_for_each_entry(tcont, &pdev->tconts, list)
-+		if (tcont->cfg.index == index)
-+			return tcont;
-+	return NULL;
-+}
++enum {
++	PON_A_DEV_ID = 1,
++	PON_A_DEV_IFINDEX,
++	PON_A_DEV_MODE,
++	PON_A_DEV_MODES_CAP,
++	PON_A_DEV_SERIAL,
++	PON_A_DEV_REGISTRATION_ID,
++	PON_A_DEV_PLOAM_STATE,
++	PON_A_DEV_MAX_TCONTS,
++	PON_A_DEV_MAX_GEMS,
++	PON_A_DEV_ENABLE,
 +
-+/**
-+ * pon_gem_find() - look up a GEM port by its id
-+ * @pdev:	PON device structure
-+ * @gem_id:	the GEM port id
-+ *
-+ * Context: Called with @pdev->lock held.
-+ * Return: the GEM port, or NULL when no GEM port has @gem_id.
-+ */
-+struct pon_gem *pon_gem_find(struct pon_dev *pdev, u16 gem_id)
-+{
-+	struct pon_gem *gem;
++	__PON_A_DEV_MAX,
++	PON_A_DEV_MAX = (__PON_A_DEV_MAX - 1)
++};
 +
-+	lockdep_assert_held(&pdev->lock);
-+	list_for_each_entry(gem, &pdev->gems, list)
-+		if (gem->cfg.id == gem_id)
-+			return gem;
-+	return NULL;
-+}
++enum {
++	PON_A_TCONT_DEV_ID = 1,
++	PON_A_TCONT_INDEX,
++	PON_A_TCONT_ALLOC_ID,
 +
-+/**
-+ * pon_gem_channel() - the conduit transmit channel of a GEM port
-+ * @pdev:	PON device structure
-+ * @gem:	the GEM port
-+ *
-+ * Asks the driver's tcont_channel callback for the channel of the T-CONT
-+ * that @gem rides.
-+ *
-+ * Context: Called with @pdev->lock held.
-+ * Return: the channel, -ENOLINK when @gem rides no T-CONT, the T-CONT does
-+ * not exist, the driver has no tcont_channel callback or the T-CONT has no
-+ * channel yet, or another negative errno from the driver.
-+ */
-+int pon_gem_channel(struct pon_dev *pdev, const struct pon_gem *gem)
-+{
-+	struct pon_tcont *tcont;
++	__PON_A_TCONT_MAX,
++	PON_A_TCONT_MAX = (__PON_A_TCONT_MAX - 1)
++};
 +
-+	if (!gem->cfg.tcont_valid || !pdev->ops->tcont_channel)
-+		return -ENOLINK;
++enum {
++	PON_A_GEM_DEV_ID = 1,
++	PON_A_GEM_ID,
++	PON_A_GEM_DIR,
++	PON_A_GEM_TCONT_INDEX,
++	PON_A_GEM_KEY_RING,
 +
-+	tcont = pon_tcont_find(pdev, gem->cfg.tcont_index);
-+	if (!tcont)
-+		return -ENOLINK;
++	__PON_A_GEM_MAX,
++	PON_A_GEM_MAX = (__PON_A_GEM_MAX - 1)
++};
 +
-+	return pdev->ops->tcont_channel(pdev, &tcont->cfg);
-+}
++enum {
++	PON_A_GEM_MAP_DEV_ID = 1,
++	PON_A_GEM_MAP_GEM_ID,
++	PON_A_GEM_MAP_TAG,
++	PON_A_GEM_MAP_VID,
++	PON_A_GEM_MAP_PBIT,
++	PON_A_GEM_MAP_DSCP,
 +
-+/**
-+ * pon_gem_map_same() - test whether two classifier rules are the same rule
-+ * @existing:	the rule the instance holds
-+ * @requested:	the rule a request names
-+ *
-+ * A rule is identified by everything it matches on, because two rules for one
-+ * GEM that differ only in their VLAN are different rules.
-+ *
-+ * Return: true when @existing and @requested match on the same fields for the
-+ * same GEM port.
-+ */
-+static bool pon_gem_map_same(const struct pon_gem_map_cfg *existing,
-+			     const struct pon_gem_map_cfg *requested)
-+{
-+	return existing->gem_id == requested->gem_id &&
-+	       existing->tag_valid == requested->tag_valid &&
-+	       existing->tagged == requested->tagged &&
-+	       existing->vid_valid == requested->vid_valid &&
-+	       existing->vid == requested->vid &&
-+	       existing->pbit_valid == requested->pbit_valid &&
-+	       existing->pbit == requested->pbit &&
-+	       existing->dscp_valid == requested->dscp_valid &&
-+	       existing->dscp == requested->dscp;
-+}
++	__PON_A_GEM_MAP_MAX,
++	PON_A_GEM_MAP_MAX = (__PON_A_GEM_MAP_MAX - 1)
++};
 +
-+/**
-+ * pon_gem_map_find() - look up an upstream classifier rule
-+ * @pdev:	PON device structure
-+ * @cfg:	the rule to look for, compared with pon_gem_map_same()
-+ *
-+ * Context: Called with @pdev->lock held.
-+ * Return: the stored rule, or NULL when the instance holds no such rule.
-+ */
-+struct pon_gem_map *pon_gem_map_find(struct pon_dev *pdev,
-+				     const struct pon_gem_map_cfg *cfg)
-+{
-+	struct pon_gem_map *map;
++enum {
++	PON_A_OMCI_DEV_ID = 1,
++	PON_A_OMCI_PDU,
 +
-+	lockdep_assert_held(&pdev->lock);
-+	list_for_each_entry(map, &pdev->gem_maps, list)
-+		if (pon_gem_map_same(&map->cfg, cfg))
-+			return map;
-+	return NULL;
-+}
++	__PON_A_OMCI_MAX,
++	PON_A_OMCI_MAX = (__PON_A_OMCI_MAX - 1)
++};
 +
-+/**
-+ * pon_dev_create() - create and register a PON device
-+ * @netdev:	the PON data network device, already registered, with
-+ *		per-CPU transmit and receive statistics
-+ *		(NETDEV_PCPU_STAT_TSTATS) for the conduit's receive path to
-+ *		count into and bound to its network namespace
-+ *		(netns_immutable) since before it was registered
-+ * @parent:	the MAC's device, which the interfaces the core creates
-+ *		parent onto and whose firmware node a conduit names to be
-+ *		paired with this instance
-+ * @ops:	driver callbacks
-+ * @caps:	device capabilities
-+ * @mode:	the mode the MAC is configured for, enum pon_mode
-+ * @priv_ptr:	back-pointer to driver private data
-+ *
-+ * Syncs the conduit when one is already registered, so it takes rtnl and must
-+ * not be called with rtnl held. The activation state starts unknown. The driver
-+ * reports it through pon_dev_state_report() from its own work.
-+ *
-+ * Return: pointer to the allocated PON device, or ERR_PTR.
-+ */
-+struct pon_dev *pon_dev_create(struct net_device *netdev,
-+			       struct device *parent,
-+			       const struct pon_dev_ops *ops,
-+			       const struct pon_dev_caps *caps,
-+			       enum pon_mode mode, void *priv_ptr)
-+{
-+	static u32 last_id;
-+	struct pon_dev *pdev;
-+	bool paired;
-+	int err;
++enum {
++	PON_CMD_DEV_GET = 1,
++	PON_CMD_DEV_SET,
++	PON_CMD_DEV_ADD_NTF,
++	PON_CMD_DEV_DEL_NTF,
++	PON_CMD_DEV_CHANGE_NTF,
++	PON_CMD_PLOAM_NTF,
++	PON_CMD_TCONT_GET,
++	PON_CMD_TCONT_SET,
++	PON_CMD_TCONT_DEL,
++	PON_CMD_TCONT_ADD_NTF,
++	PON_CMD_TCONT_CHANGE_NTF,
++	PON_CMD_TCONT_DEL_NTF,
++	PON_CMD_GEM_GET,
++	PON_CMD_GEM_NEW,
++	PON_CMD_GEM_DEL,
++	PON_CMD_GEM_ADD_NTF,
++	PON_CMD_GEM_DEL_NTF,
++	PON_CMD_GEM_MAP_GET,
++	PON_CMD_GEM_MAP_NEW,
++	PON_CMD_GEM_MAP_DEL,
++	PON_CMD_GEM_MAP_ADD_NTF,
++	PON_CMD_GEM_MAP_DEL_NTF,
++	PON_CMD_OMCI_REGISTER,
++	PON_CMD_OMCI_TX,
++	PON_CMD_OMCI_NTF,
 +
-+	if (WARN_ON(!netdev || !parent || !ops || !caps ||
-+		    netdev->pcpu_stat_type != NETDEV_PCPU_STAT_TSTATS ||
-+		    !netdev->netns_immutable ||
-+		    !ops->tcont_set ||
-+		    !ops->tcont_clear ||
-+		    !ops->gem_add ||
-+		    !ops->gem_del ||
-+		    !ops->omci_xmit))
-+		return ERR_PTR(-EINVAL);
++	__PON_CMD_MAX,
++	PON_CMD_MAX = (__PON_CMD_MAX - 1)
++};
 +
-+	pdev = kzalloc_obj(*pdev, GFP_KERNEL);
-+	if (!pdev)
-+		return ERR_PTR(-ENOMEM);
++#define PON_MCGRP_MGMT	"mgmt"
++#define PON_MCGRP_STATE	"state"
 +
-+	pdev->main_netdev = netdev;
-+	pdev->parent = parent;
-+	pdev->ops = ops;
-+	pdev->caps = caps;
-+	pdev->mode = mode;
-+	pdev->drv_priv = priv_ptr;
-+	pdev->ploam = PON_PLOAM_STATE_UNKNOWN;
-+
-+	mutex_init(&pdev->lock);
-+	spin_lock_init(&pdev->work_lock);
-+	INIT_LIST_HEAD(&pdev->tconts);
-+	INIT_LIST_HEAD(&pdev->gems);
-+	INIT_LIST_HEAD(&pdev->gem_maps);
-+	xa_init(&pdev->gem_netdevs);
-+	INIT_LIST_HEAD(&pdev->work_list);
-+	INIT_WORK(&pdev->work, pon_work_worker);
-+	pon_log_init(pdev);
-+	refcount_set(&pdev->refcnt, 1);
-+
-+	/* Ordered, so that the work items run one at a time and in the order
-+	 * they were queued. High priority, because the activation and key
-+	 * exchange timers whose handlers a driver runs on it are short.
-+	 */
-+	pdev->wq = alloc_ordered_workqueue("pon-%s", WQ_HIGHPRI, netdev->name);
-+	if (!pdev->wq) {
-+		err = -ENOMEM;
-+		goto err_free;
-+	}
-+
-+	pon_omci_init(pdev);
-+
-+	mutex_lock(&pon_devs_lock);
-+	err = xa_alloc_cyclic(&pon_devs, &pdev->id, pdev, xa_limit_16b,
-+			      &last_id, GFP_KERNEL);
-+	if (err) {
-+		mutex_unlock(&pon_devs_lock);
-+		goto err_wq;
-+	}
-+	paired = pon_conduit_attach(pdev);
-+	mutex_lock(&pdev->lock);
-+	mutex_unlock(&pon_devs_lock);
-+
-+	pon_nl_notify_dev(pdev, PON_CMD_DEV_ADD_NTF);
-+
-+	rcu_assign_pointer(netdev->pon_dev, pdev);
-+
-+	mutex_unlock(&pdev->lock);
-+
-+	if (paired)
-+		pon_conduit_sync(pdev);
-+
-+	return pdev;
-+
-+err_wq:
-+	destroy_workqueue(pdev->wq);
-+err_free:
-+	mutex_destroy(&pdev->lock);
-+	kfree(pdev);
-+	return ERR_PTR(err);
-+}
-+EXPORT_SYMBOL_GPL(pon_dev_create);
-+
-+/**
-+ * pon_dev_free() - free a PON device once its last reference is gone
-+ * @pdev:	PON device structure
-+ *
-+ * Releases the device's id, destroys its workqueue and frees the structure
-+ * after an RCU grace period.
-+ *
-+ * Context: Process context. Takes pon_devs_lock and may sleep.
-+ */
-+static void pon_dev_free(struct pon_dev *pdev)
-+{
-+	mutex_lock(&pon_devs_lock);
-+	xa_erase(&pon_devs, pdev->id);
-+	mutex_unlock(&pon_devs_lock);
-+
-+	destroy_workqueue(pdev->wq);
-+	xa_destroy(&pdev->gem_netdevs);
-+	mutex_destroy(&pdev->lock);
-+	kfree_rcu(pdev, rcu);
-+}
-+
-+/**
-+ * pon_dev_put() - drop a reference to a PON device
-+ * @pdev:	PON device structure
-+ *
-+ * A driver drops the reference pon_dev_create() returned, once, after
-+ * pon_dev_unregister() and after it has released everything of its own that
-+ * names the device: its interrupts, its timers and the data network device.
-+ */
-+void pon_dev_put(struct pon_dev *pdev)
-+{
-+	if (refcount_dec_and_test(&pdev->refcnt))
-+		pon_dev_free(pdev);
-+}
-+EXPORT_SYMBOL_GPL(pon_dev_put);
-+
-+/**
-+ * pon_dev_unregister() - unregister a PON device
-+ * @pdev:	PON device structure
-+ *
-+ * Stops the upstream link through the driver's enable callback when it is
-+ * enabled, then withdraws the device. Once this returns no netlink request,
-+ * no work item and no network device of the core reaches the driver. The
-+ * lines that pon_dev_log() recorded until then are printed before it
-+ * returns.
-+ *
-+ * The device itself stays until the driver calls pon_dev_put(). What a
-+ * driver still reports to it in between, from an interrupt or from the data
-+ * network device, is refused.
-+ *
-+ * Unregisters network devices, so it takes rtnl and must not be called with
-+ * rtnl held.
-+ */
-+void pon_dev_unregister(struct pon_dev *pdev)
-+{
-+	struct pon_gem_map *map, *map_next;
-+	struct pon_tcont *tcont, *tcont_next;
-+	struct pon_gem *gem, *gem_next;
-+
-+	mutex_lock(&pon_devs_lock);
-+	mutex_lock(&pdev->lock);
-+
-+	/* Wait until pon_dev_free() to call xa_erase() so this id cannot be
-+	 * reused while references are still held. Storing NULL makes every
-+	 * netlink lookup fail from here on.
-+	 */
-+	xa_store(&pon_devs, pdev->id, NULL, GFP_KERNEL);
-+	pon_nl_obj_gen_inc();
-+	mutex_unlock(&pon_devs_lock);
-+
-+	if (pdev->enabled) {
-+		pdev->ops->enable(pdev, false, NULL);
-+		pdev->enabled = false;
-+	}
-+
-+	pon_nl_notify_dev(pdev, PON_CMD_DEV_DEL_NTF);
-+
-+	WRITE_ONCE(pdev->going_away, true);
-+	mutex_unlock(&pdev->lock);
-+
-+	/* First, so that no frame reaches the instance once its objects go. */
-+	pon_conduit_detach(pdev);
-+
-+	/* Drop what is queued before stopping the worker, or an item requeued
-+	 * by the one still running would outlive the cancel.
-+	 */
-+	pon_work_drain(pdev);
-+
-+	/* Each takes the instance lock, so none is waited for with it held. */
-+	disable_work_sync(&pdev->work);
-+	flush_work(&pdev->log_work);
-+	disable_work_sync(&pdev->log_work);
-+
-+	pon_gem_netdevs_unregister(pdev);
-+
-+	pon_omci_destroy(pdev);
-+
-+	mutex_lock(&pdev->lock);
-+
-+	list_for_each_entry_safe(tcont, tcont_next, &pdev->tconts, list) {
-+		list_del(&tcont->list);
-+		kfree(tcont);
-+	}
-+	list_for_each_entry_safe(gem, gem_next, &pdev->gems, list) {
-+		list_del(&gem->list);
-+		kfree(gem);
-+	}
-+	list_for_each_entry_safe(map, map_next, &pdev->gem_maps, list) {
-+		list_del(&map->list);
-+		kfree(map);
-+	}
-+
-+	rcu_assign_pointer(pdev->main_netdev->pon_dev, NULL);
-+
-+	WRITE_ONCE(pdev->ops, NULL);
-+	memzero_explicit(&pdev->identity, sizeof(pdev->identity));
-+
-+	mutex_unlock(&pdev->lock);
-+
-+	/* The GEM transmit path reads @ops under RCU. */
-+	synchronize_net();
-+
-+	/*
-+	 * Only now: a transmit that loaded @ops before the store above is
-+	 * still inside its read side section and reaches the driver, which
-+	 * reads @drv_priv to find itself.
-+	 */
-+	pdev->drv_priv = NULL;
-+}
-+EXPORT_SYMBOL_GPL(pon_dev_unregister);
-+
-+/**
-+ * pon_init() - register the PON core
-+ *
-+ * Registers the generic netlink family, the GEM link type, the netlink
-+ * notifier that releases the OMCI channels and the netdev notifier that
-+ * follows the conduits.
-+ *
-+ * Runs before the device drivers when built in, because an ethernet driver
-+ * registers its conduit from its own probe. A module carries the same
-+ * ordering through its dependencies.
-+ *
-+ * Return: 0, or a negative errno when a registration fails.
-+ */
-+static int __init pon_init(void)
-+{
-+	int err;
-+
-+	err = genl_register_family(&pon_nl_family);
-+	if (err)
-+		return err;
-+
-+	err = pon_gem_link_register();
-+	if (err)
-+		goto err_family;
-+
-+	err = pon_omci_notifier_register();
-+	if (err)
-+		goto err_link;
-+
-+	err = pon_conduit_notifier_register();
-+	if (err)
-+		goto err_omci;
-+
-+	return 0;
-+
-+err_omci:
-+	pon_omci_notifier_unregister();
-+err_link:
-+	pon_gem_link_unregister();
-+err_family:
-+	genl_unregister_family(&pon_nl_family);
-+	return err;
-+}
-+subsys_initcall(pon_init);
-+
-+/**
-+ * pon_exit() - unregister the PON core
-+ *
-+ * Undoes pon_init() in the reverse order.
-+ */
-+static void __exit pon_exit(void)
-+{
-+	pon_conduit_notifier_unregister();
-+	pon_omci_notifier_unregister();
-+	pon_gem_link_unregister();
-+	genl_unregister_family(&pon_nl_family);
-+}
-+module_exit(pon_exit);
-+
-+MODULE_ALIAS_GENL_FAMILY(PON_FAMILY_NAME);
-+MODULE_AUTHOR("John Crispin <john@phrozen.org>");
-+MODULE_DESCRIPTION("Passive optical network ONU support");
-+MODULE_LICENSE("GPL");
++#endif /* _UAPI_LINUX_PON_H */
+diff --git a/tools/net/ynl/Makefile.deps b/tools/net/ynl/Makefile.deps
+index 1e746e25e2bc..fc84485b2c8b 100644
+--- a/tools/net/ynl/Makefile.deps
++++ b/tools/net/ynl/Makefile.deps
+@@ -38,6 +38,7 @@ CFLAGS_ovs_datapath:=$(call get_hdr_inc,__LINUX_OPENVSWITCH_H,openvswitch.h)
+ CFLAGS_ovs_flow:=$(call get_hdr_inc,__LINUX_OPENVSWITCH_H,openvswitch.h)
+ CFLAGS_ovs_packet:=$(call get_hdr_inc,__LINUX_OPENVSWITCH_H,openvswitch.h)
+ CFLAGS_ovs_vport:=$(call get_hdr_inc,__LINUX_OPENVSWITCH_H,openvswitch.h)
++CFLAGS_pon:=$(call get_hdr_inc,_LINUX_PON_H,pon.h)
+ CFLAGS_psp:=$(call get_hdr_inc,_LINUX_PSP_H,psp.h)
+ CFLAGS_rt-addr:=$(call get_hdr_inc,__LINUX_RTNETLINK_H,rtnetlink.h) \
+ 	$(call get_hdr_inc,__LINUX_IF_ADDR_H,if_addr.h)
 -- 
 2.34.1
 
