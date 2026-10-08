@@ -1,145 +1,119 @@
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bkemail.birger-koblitz.de (bkemail.birger-koblitz.de [23.88.97.239])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C8C53B6C16
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 03:51:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 608AB3B9616;
+	Thu,  8 Oct 2026 03:51:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.88.97.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791431486; cv=none; b=kUJlKpWdg1VWt6rk7UrCpkah6pRJvdPlr8swsLL8uLNMyX4jCg3kWduMZxgcpoEmFcenNiL3Zvm3mpAMgGggIUqDZri+sISxAZ2oRokBEq2GrecUijYd3lHHycHjfXEER3uh4+Qafp6JfVnxrn4FPuEZtZN5y7t9FxOuwE/978k=
+	t=1791431490; cv=none; b=OB2qLMmHbKFZ9bWlEor6FDZ3Lovayq/FZXT58uhJCidUqxg36c5m6KymVXyR/j2Jz27QMJxi29HcrgFjfRMY+0OXNIKhPAc/EBNbBWVCMW9oDX45T+Vh0tPXMwJrifWmeRabUiJlondXEej+J6CjMB21HDHYuapWK+5gAX+u0A4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791431486; c=relaxed/simple;
-	bh=xhLkSd1D9jfqTLozRjJgJWeln/Fczbg9IndjTnOzr0s=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nIYGf7siiGJUXSY8SKgXgFT3fSiGnL3jaZSWJiFDAt5qemB8fN5FHLr+yBoYVTsL7m2HF0sb6mNROVmt585mz0NckA76itqzJAmTEZy+OVt0p0niRjIQSNU24khSF2EkzIuO1Hial9V7OhD2kN4D1NAgThe2ThiUm2fUvUmkU8o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a54SWN+T; arc=none smtp.client-ip=209.85.215.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791431490; c=relaxed/simple;
+	bh=MZfBOekyJVkD0zyE2lnjmd516UzXjDlS29Kh4yD/Nwg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=nnNuwnJXkYopCPj3WppDLOz4NbG5gK2liwh9TJ38WD8Z//mt+26ZzNtPat3O6yXdGy6B60taUC0PPy6VHycVWpkPleaEU+Wm0JckIJZApGn1VzxaANMIYt/8poRM2cBBA94xcQJx5bGRhV3zLtPO9ZqDUB9h5eS9MqhGUXDB7KE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de; spf=pass smtp.mailfrom=birger-koblitz.de; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=U67utxsI; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=2YVI9sCk; arc=none smtp.client-ip=23.88.97.239
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=birger-koblitz.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a54SWN+T"
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cc50ad2d650so1537118a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 20:51:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791431484; x=1792036284; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6O+xEMq4ZI9MDp+iEEfqaVQlLs3dagod9S+W0ern5k0=;
-        b=a54SWN+TAZan2/IpvR7DqyCuP67wX4RgfOJFJEUoS1xkI7rFfEhC3/gUNUv+qUhDI+
-         FY0b4R+JQu4aX2D2pv/Xn05uG5qOmFGbv3rD7EYhmWBxcvtGcczEKDXUInqNNXPW9uO7
-         zqQozt5amOGeRKg0qEfYE11sGSXHHfhufSn8DRgYEydfPec/PnBfHIM+OX7UX+YY+U8n
-         89iQ8KUSluoQkc4gcsfsZ6FwciNT4H3whZDHc5iaBgTASzkeWol7ThkWA5WdtE9A/je6
-         7k98N3Fo8PUsEf4pyZ2IPNy8SfXijaHKW3qXbwY3A5Q9NO3hWpSAHLe8w7+Xz48WQesC
-         pE1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791431484; x=1792036284;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6O+xEMq4ZI9MDp+iEEfqaVQlLs3dagod9S+W0ern5k0=;
-        b=rjiiBIaGumITOTxH9XgB8/NBzAkuvOE3bSr6k8kiNJzC2lsEjaCVMpdLhToeigtqra
-         WZlHlRiN0L8xKgfZth5PQzIHawHsTJUAyFlOOl5wu6v4HZzKsVf3emchrKiJiLLMnkxQ
-         oAjGNoYsnDnNpElSyuiL8FDE9UwFyY+x1we98wM1mxj6FJV14RZkSZL7y4TmApspsO0d
-         3Qq28j85+UkOfoYQFNxzM0o2wR5NW6VdswI85dDVIUnccoljwNAz1h9zFipPydVdSqwd
-         NlEwZxFzdE4bYk7684pnZD8TYyB+H/mw/D2C9h7Yq7g08zAftgQirwT3VTGTD24fCtxz
-         Zb6g==
-X-Forwarded-Encrypted: i=1; AKwUvBxfujLFST1HWpfKDQsOyQoM4Y0uzOBf0CIwdD4xzm4/RujP9bZB2cUdBmJF6Y+RIUrgrrTCZyybPCEOAD0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLl+WbaDVp6Cp8yFGv4bjfl54BfzRvGYtE7n/sNZvnOSWDcvvHS
-	AsMLaP9XQPQbGUH4Web4Gvooywn5vCOpG/uMAyGqzNbc1ylhBaeWXYVV
-X-Gm-Gg: AYBFou3Z/TgPYn+wsJmREVbCn2FeJJk7Fz1a1AIdUQsx80iDWFul8/hXAY7VhD37uKO
-	O24FGZKOWZUFe+yXtH6ncZ55AKf8gA35xckQcqMDZEg/jt6Is5S9XOwQYONPT9ckqfRBfumPEJo
-	li4ZmDMjf08UrTqEjloqUwpFW0y0eY0kRwGAixJ50kwshx5kl52d5zYP67sWK9316Yobce0Ukv8
-	7Ht9kBjnOBUE2eb9yN2nZRiDYmQ04tmADZ22P6UIjXKFTbhVUtZtuh5lbMDM/DlxHhYXSGgR5Nx
-	1ava+RqB1aWEmMsjkvfqPOv/lPSrGURDVDXbZzOksw2W1aeXp7haIO8b1JLIIMmaMt/EGv0aXQS
-	TZLzt7/fUSsIW6yz/xsoMbM7OJ4JkWD22oiGO8Ep1nELGrdRvsQe2MSI63EgLaakyX3jS+LHsQ1
-	NfeGnEZrayZ7efaqZO47MYQslHDWu9hdrC5e3FQ+CNP1X3G4BMYf9Rr/f/QwQ3uY0nJHUlfgaYW
-	vhfYVTCWSm+RjqG0kSOjUWGeNI92ojk3ivW0EpEdt07lLW9tyCoNm+hOXgIsG+j1KlizC3uqpXe
-	Sr0QngTo6zK2bolktHxqRuy8LC0CU1DviieGdG1iAJPmyzyk
-X-Received: by 2002:a17:90b:3d90:b0:3a0:8050:2ed1 with SMTP id 98e67ed59e1d1-3a8a14f00f2mr3686274a91.63.1791431484358;
-        Wed, 07 Oct 2026 20:51:24 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e34])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9f1a50d32sm2199520a91.2.2026.10.07.20.51.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 20:51:23 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: netdev@vger.kernel.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH net-next] net: ibm: emac: size RX buffers for the MTU
-Date: Wed,  7 Oct 2026 20:51:22 -0700
-Message-ID: <20261008035122.3182851-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="U67utxsI";
+	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="2YVI9sCk"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
+	s=default; t=1791431487;
+	bh=MZfBOekyJVkD0zyE2lnjmd516UzXjDlS29Kh4yD/Nwg=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=U67utxsI0Bn2eS6c1hKU+Z1DpfMMq4WBQNEtX7iEKXq6iXadymxI/IpkAx8MfOqWe
+	 m6EA2VYk62mjVseWn0g3ribtZWFAf0xKCw8qLyyFfYIb2unErcZSW+uQ2f6TgCcp9O
+	 T4q92eF8vJTcBrfggL71a99ewEQJnYf8G3E1Hyf3mR8Xz6miivW1FZb1QAM15qnye4
+	 yiIySAIpFKAwqLSYJMqLs/ThvEMiT5MnQVIMZwEYqvNaef6JeVxrDS54mQ1m1EtOm+
+	 ExT/uOlaxt0Bmn635+wQQd4HMAh+GxwbqtaYaZOcfheAji9HedcZ9UHmEm6hlTuu1Z
+	 5rRFgCyjod5hQ==
+Received: by bkemail.birger-koblitz.de (Postfix, from userid 109)
+	id A5FF847225; Thu,  8 Oct 2026 03:51:27 +0000 (UTC)
+X-Spam-Level: 
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
+	s=default; t=1791431477;
+	bh=MZfBOekyJVkD0zyE2lnjmd516UzXjDlS29Kh4yD/Nwg=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=2YVI9sCkIne/bsjIkjQcIArZ/CNrTk9MVcPtxkSAqnGwm1drhMbTYsL6V2ogDwlJe
+	 KHPo8rkzQNOdSRfBDkaNeJiuKTmI/QUKmNzTcNzWom6zjF+19ljS3QxmZba9S70y/p
+	 tyF/P4hawruVdES9aOO8pdmyUefO5XVFtf++3UpbiYKNcl4QDQzixVvjQK4ejaA2Pv
+	 HJpFWeq1a1chkXs/XlOXUflBnkKRLQzkXuzg8dJg5BI5EXKeBCXGWt5GgZakADgLlV
+	 SksU4W78KF1yJLVCP2b8hBXYOVBaCgMjjgEf9E05u3rhDy193TFMLQ8c2j9yEifv6Y
+	 7F+VAoXDx1Wsw==
+Received: from AMDDesktop.lan (unknown [IPv6:2a00:6020:47a3:e800:271c:c6c5:9fde:77cb])
+	by bkemail.birger-koblitz.de (Postfix) with ESMTPSA id BCD96471B6;
+	Thu,  8 Oct 2026 03:51:16 +0000 (UTC)
+From: Birger Koblitz <mail@birger-koblitz.de>
+Date: Thu, 08 Oct 2026 05:51:11 +0200
+Subject: [PATCH net-next v18 05/13] ax88179_178a: Add EEE configuration
+ support for AX88179A MACs
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261008-ax88179a-v18-5-6fa1d4c40422@birger-koblitz.de>
+References: <20261008-ax88179a-v18-0-6fa1d4c40422@birger-koblitz.de>
+In-Reply-To: <20261008-ax88179a-v18-0-6fa1d4c40422@birger-koblitz.de>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Russell King <linux@armlinux.org.uk>, 
+ Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
+ Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
+ Eric Dumazet <edumazet@kernel.org>, Eric Dumazet <edumazet@kernel.org>
+Cc: linux-usb@vger.kernel.org, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, loongarch@lists.linux.dev, 
+ Jianhui Xu <neuromoments@gmail.com>, 
+ Birger Koblitz <mail@birger-koblitz.de>
+X-Mailer: b4 0.14.2
 
-Any MTU above ETH_DATA_LEN selects the largest MAL buffer size of 4080
-bytes. A DSA conduit always runs with a slightly larger MTU for the
-switch tag (1502 for qca8k), so every received frame then uses an 8K
-slab object and a 4K cache invalidate even though it is at most 1520
-bytes long. Size the buffers for the MTU instead, capped at the MAL
-maximum as before. Larger jumbo frames still span several descriptors.
+The AX88179A uses a simple HW configuration for EEE
+via a single EEE configuration register without LPI timer support
+Add support for setting this EEE enable/disable register in implementations
+of mac_enable_tx_lpi/mac_disable_tx_lpi.
 
-emac_change_mtu() only resized the ring, which is also where the jumbo
-mode and the APM821xx maximum jumbo size are programmed, when the RX skb
-size changed. 1500 and 1502 now share a skb size, so also resize the
-ring whenever the old or new MTU is a jumbo one. Otherwise jumbo mode
-stays off and 1502 byte frames are dropped when the MTU is raised while
-the interface is up.
-
-Routing a single TCP stream through the qca8k switch of a Meraki MX60
-(APM82181, iperf3 median of 3, A/B in the same boot):
-
-          LAN->WAN   WAN->LAN  (Mbit/s)
-  before  538        476
-  after   564        498
-
-Assisted-by: LLM
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Signed-off-by: Birger Koblitz <mail@birger-koblitz.de>
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 ---
- drivers/net/ethernet/ibm/emac/core.c | 7 +++++--
- drivers/net/ethernet/ibm/emac/core.h | 5 +----
- 2 files changed, 6 insertions(+), 6 deletions(-)
+ drivers/net/usb/ax88179a_devices.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-diff --git a/drivers/net/ethernet/ibm/emac/core.c b/drivers/net/ethernet/ibm/emac/core.c
-index 248bc49ba8c6..1d2668905dcf 100644
---- a/drivers/net/ethernet/ibm/emac/core.c
-+++ b/drivers/net/ethernet/ibm/emac/core.c
-@@ -1116,8 +1116,11 @@ static int emac_change_mtu(struct net_device *ndev, int new_mtu)
- 	DBG(dev, "change_mtu(%d)" NL, new_mtu);
- 
- 	if (netif_running(ndev)) {
--		/* Check if we really need to reinitialize RX ring */
--		if (emac_rx_skb_size(ndev->mtu) != emac_rx_skb_size(new_mtu))
-+		/* Check if we really need to reinitialize RX ring. The
-+		 * jumbo frame settings are only updated by a resize.
-+		 */
-+		if (emac_rx_skb_size(ndev->mtu) != emac_rx_skb_size(new_mtu) ||
-+		    ndev->mtu > ETH_DATA_LEN || new_mtu > ETH_DATA_LEN)
- 			ret = emac_resize_rx_ring(dev, new_mtu);
- 	}
- 
-diff --git a/drivers/net/ethernet/ibm/emac/core.h b/drivers/net/ethernet/ibm/emac/core.h
-index 0e571475849e..8f8b75eaf565 100644
---- a/drivers/net/ethernet/ibm/emac/core.h
-+++ b/drivers/net/ethernet/ibm/emac/core.h
-@@ -56,10 +56,7 @@
- /* RX BD size for the given MTU */
- static inline int emac_rx_size(int mtu)
- {
--	if (mtu > ETH_DATA_LEN)
--		return MAL_MAX_RX_SIZE;
--	else
--		return mal_rx_size(ETH_DATA_LEN + EMAC_MTU_OVERHEAD);
-+	return mal_rx_size(max(mtu, ETH_DATA_LEN) + EMAC_MTU_OVERHEAD);
+diff --git a/drivers/net/usb/ax88179a_devices.c b/drivers/net/usb/ax88179a_devices.c
+index ebc6ac2c0b27333d60742422d81e63882ddb1005..692ede39c9e9a0cf546733c8d0f71a199385eb6f 100644
+--- a/drivers/net/usb/ax88179a_devices.c
++++ b/drivers/net/usb/ax88179a_devices.c
+@@ -395,10 +395,27 @@ static void ax88179a_mac_link_up(struct phylink_config *config,
+ 			 AX_MAC_RX_PATH_READY | AX_MAC_TX_PATH_READY);
  }
  
- /* Size of RX skb for the given MTU */
++static void ax88179a_mac_disable_tx_lpi(struct phylink_config *config)
++{
++	struct usbnet *dev = netdev_priv(to_net_dev(config->dev));
++
++	ax88179_write_cmd(dev, AX_GPHY_CTL, AX_GPHY_EEE_CTRL, false, 0, NULL);
++}
++
++static int ax88179a_mac_enable_tx_lpi(struct phylink_config *config, u32 timer, bool tx_clk_stop)
++{
++	struct usbnet *dev = netdev_priv(to_net_dev(config->dev));
++
++	/* AX88179A does not provide LPI timer registers */
++	return ax88179_write_cmd(dev, AX_GPHY_CTL, AX_GPHY_EEE_CTRL, true, 0, NULL);
++}
++
+ static const struct phylink_mac_ops ax88179a_phylink_mac_ops = {
+ 	.mac_config = ax88179a_mac_config,
+ 	.mac_link_down = ax88179a_mac_link_down,
+ 	.mac_link_up = ax88179a_mac_link_up,
++	.mac_disable_tx_lpi = ax88179a_mac_disable_tx_lpi,
++	.mac_enable_tx_lpi = ax88179a_mac_enable_tx_lpi,
+ };
+ 
+ static int ax88179a_phylink_setup(struct usbnet *dev)
+
 -- 
-2.56.0
+2.47.3
 
