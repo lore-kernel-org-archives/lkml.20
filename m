@@ -1,199 +1,136 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5186E37206F
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 16:02:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B8B231ED7C
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 16:02:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791475364; cv=none; b=J0XWRaNwxoFJrOzpLWhE+viQTJ86pi2nbuCw+xx4RiKnXFbMALrSGbMEWyl9Ylii/Lb5Zl5SL0ZiTO2sF+6ldZOXoNterDIsUBy9h9uYQApukgoTGKDnqZAIqHzBm1gsvMmXVlNrz8H8cUU4kymSMp8JhKilzSTycZcVvt41hqg=
+	t=1791475373; cv=none; b=e1JVJ7KoqdH5r4e8k1CL7XbZAclU3rFYRiItWHzw14/gdMUKsGV0LunH+sQ5R2AnsjFF8vFGQvPD+UNKuD/MyR+Ccn+zzlXGQ/xsbLemqQIsZ08SOn8YkP987UMTAQhrlb60Nlg5vOt2tloOI95c1nU2mL7L6pz03gD8lAKn748=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791475364; c=relaxed/simple;
-	bh=1I3B0zE9Jl3k4SV939nOeTDGmvV7FCqaULnQQve9RFk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=SF/78HUehE5fiMzADgo42r2JfhaTNwVgav1/pHeZnwMFwVRRDNvcJxcZsQyt3Y5iCF1lclZLYllqn0XXeLGfxjCY2zVIvVTBkjOH0CD8eJIHrcEAWGjLflXHl40EnoZoZaea0FdDsXMV1raE7zKwjbniahjG092V9PkvQL2jzKw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=fA21ARmn; arc=none smtp.client-ip=209.85.215.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="fA21ARmn"
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-ccce6d9abfeso2158477a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 09:02:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nexthop.ai; s=google; t=1791475362; x=1792080162; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=85BR7qHH4G0CBb5vxlCQpLUFJ3RuaLjxlde617uk3v4=;
-        b=fA21ARmngWFTKNZTyIgU5t90upxl99EZIhrACLg0dyl2vZpePPYWr/i/9TMKBDr82j
-         4ah4iBT9TzepMOAnWkKASXuwexqv04NrJBF3qn00zIyNcoFCJa756Ldh2GozIz81WLkb
-         jFRomPB+2PodOEWzv3I35C4sttDSIdb/9fkxf2zYWQBDexe++hsKaUtyw9PuHWcbVcJX
-         o1eZn++LdFkcOJ7n6AnH5NTFQrkbCu3PX4iGAWHDZBK2/6o1c24dCjnQceLeqlfbAQGW
-         cXic4LbEbN9qRdUzHcRpm10L3eN4CqkbtE6Oo2vR7WH/JmgNgrddqkfy+RJ4UTEZbrOn
-         QCLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791475362; x=1792080162;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=85BR7qHH4G0CBb5vxlCQpLUFJ3RuaLjxlde617uk3v4=;
-        b=UN0nH6bNlJXbQOatL3Y586P9hpvKxSRK+sEmRCElSBUhIraHuhM5potKTAEGHeNsSI
-         2XSSjfoK3QU8qx7Vr0ajxOqUmynptVm4D4JDTzlmgT/qDVpLunJXuW30Nio+hP4qGv10
-         JS108q08Z1oLldv3zSBqevr5rLcaqQOXG8Z/3PuWjXO1yGSipUX+yh5qVJ+SQl0O8iNn
-         pceorjMniEJttGEQu2wJYNVZ+xQHCARwrx83+9UbKgOX5w0ZU0U056Ba/jXVw4LLLuq1
-         KIM1XeMYWEa399KhqfueSbHu5DxQ2APS6yb+k6deDgPvT+TC5XGCWDNBZ3T4HgxElpuW
-         MC3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBySajPnxirLLfNZFlwD8L2X1bepcIYv4LTsylBRCNAFHIkW7myobk4i9bIoDBYRt+qyxyg3OTPMjnxHmEc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYICKkHNmpjpCnwG+9T+m6dWxwU8/5e8dGpvnRA/SdF9C/+3/IsM
-	ulE4SwY2D7bZX/CHHwK/141suipx4Rw1hMrnp3UNQ+fk5jRWgS1mAtobpGVbbXL65lDiEeKbE+4
-	RlRECi78=
-X-Gm-Gg: AYBFou0HE/SMU5JEPiXXt1Xp4hLF/YnlXtw0KEAj5Uec0iRv40KVrUB9f6DTl5Pb+gw
-	bkszoMS3SvWyXH/hAnVi9JxNecMDtyvI8xFUqEas3uJgTTEUIZ1rexg9l/1yiOv+uMAXnu+RUKl
-	uI+i7KBGjlY7AHCqC9+vU+aSBglfng3n3aGwWW8ygjxWHzXdk4n5331k5b9EMi2k5htKAZ0xYgo
-	IHrsrIQgHOWa3NKG77vVRcNqfjsX3e/9EfP/3RpiN2yppvkVfoAbz3o2Rrk74W8OVHlGvMLTkMd
-	4HUTFfON16vY/YL9CfaCN0sTSk5hcyAVwqEfIZ1Q3el2hZ/hsm6ugmCCn1AEDl7M2tdjhS5TWe5
-	hGo0L5KvxK6EgXTHv3Pq1zi4h3wyR6gRQIU15guEnxdd8+HV7hV58/UpUfQoYf1DJ6Y2XgLsqrJ
-	ilNORKQUtkNpRfgAfbojtCQKbo7BuRDccHhreJSjdgUtcTM+p4DzP7OtmgeDnkmoy3QKXQEwzNB
-	w==
-X-Received: by 2002:a17:903:2a84:b0:2e3:980:dfd6 with SMTP id d9443c01a7336-2e6004e9e7fmr50032605ad.38.1791475362381;
-        Thu, 08 Oct 2026 09:02:42 -0700 (PDT)
-Received: from [127.0.0.2] ([50.145.100.174])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e60494c323sm27461895ad.69.2026.10.08.09.02.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 09:02:41 -0700 (PDT)
-From: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Date: Thu, 08 Oct 2026 09:02:38 -0700
-Subject: [PATCH] i2c: xiic: NACK the last byte of an SMBus block read
+	s=arc-20240116; t=1791475373; c=relaxed/simple;
+	bh=k8kcPjLrvT/Z5owlfsYABtXFh/r1Q4aZ/KajH1z80Po=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=InucikDIjpE4iO4OvBOMRu92UgYuSDiMY4ZE1cq6AEp30B3P44aG+oLmfZ1lagVHR5lVx4XmgsC7z/Ms63rbbHnmbuBhvwJM3DcfIF41QjoNI+A+ASQEoVtwiaa9WGWiPLfqKRyurmk9EkUasbuHfJV0rsSb5BlxBbpso0mPH9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from fc87d0ffb700.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowAAHET+gvsdqK6INCg--.11345S2;
+	Fri, 09 Oct 2026 00:02:40 +0800 (CST)
+From: Haotian Zhang <vulab@iscas.ac.cn>
+To: Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ezequiel Garcia <ezequiel.garcia@imgtec.com>,
+	Govindraj Raja <govindraj.raja@imgtec.com>
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH] clocksource/drivers/pistachio: fix leaked iomap on error paths
+Date: Fri,  9 Oct 2026 00:02:43 +0800
+Message-Id: <20261008160243.2664167-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261008-i2c-xiic-block-read-nack-v1-1-94882af6e598@nexthop.ai>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBCF4avIrDsQIyr0KtJFMjPW0RIl0SKId
- 2+0u/ct3n9AkqiS4FkcEOWrSeeQUT4KoMGFt6ByNlhjm9KYFtUS7qqE/jPThFEcY3B5sfVtVXv
- HzBXk+xKl1/1Od6+/0+ZHofXqwXn+AHNvzQZ8AAAA
-X-Change-ID: 20261007-i2c-xiic-block-read-nack-d2b735baddd3
-To: Michal Simek <michal.simek@amd.com>, Andi Shyti <andi.shyti@kernel.org>, 
- Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Cc: linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Siddarth Chilukuri <siddarth@nexthop.ai>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791475360; l=4822;
- i=abdurrahman@nexthop.ai; s=20260510; h=from:subject:message-id;
- bh=1I3B0zE9Jl3k4SV939nOeTDGmvV7FCqaULnQQve9RFk=;
- b=WCxGw45Y+qEC2HCOsv+UZ77Ta8l/WlwVssXmZA2am4P0cqqr8eMPr1NWWN5yHOfRg+bHusd3a
- 4omlow0Y9A9BczNCaat7wN3FVEnQikLdXd1ANff9FGIVbAKr2Elz5GB
-X-Developer-Key: i=abdurrahman@nexthop.ai; a=ed25519;
- pk=omTm9cCAbO0ZhS32aKfJDKue0W3sQGpG9ub5eYHif8I=
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowAAHET+gvsdqK6INCg--.11345S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxWry8WF1fWF1UCr1xtrWDJwb_yoW5Xr1kp3
+	WSywsYvwsFqr4SgFZ3tw1kJF9akws7KFy7u3yxG3Z3ArnIyrW8Zr4IyFyUZFsxKr4fCwsF
+	yr48GFWUCF45ZFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkIb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_Jr0_Gr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
+	w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
+	vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUAVWUtwCF
+	04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r
+	18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vI
+	r41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr
+	1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvE
+	x4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU5L18JUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBggOA2rHgnhjmQABsv
 
-Commit e6fe3ea04f01 ("i2c: xiic: defer RX_FULL until all trailing bytes
-are in FIFO") raised the Rx FIFO threshold for an SMBus block read whose
-trailing bytes fit in the FIFO, so that the drain takes xiic_read_rx()'s
-bytes_rem == 0 path. That path skips the bytes_rem == 1 branch, the only
-place that sets NO_ACK, so every trailing byte is now ACKed. Having had
-its last byte ACKed, the target goes on to drive the next one, and the
-STOP that follows lands in the middle of it.
+pistachio_clksrc_of_init() maps the timer registers with of_iomap() and
+stores the result in the static global pcs_gpt.base, but every error path
+after the mapping (syscon lookup, regmap_update_bits, the two
+of_clk_get_by_name() calls and both clk_prepare_enable() calls) returns
+without calling iounmap(), leaking the mapping.
 
-Some targets ride this out; others are left wedged until the next
-transactions clock them free. A TDK FS1412 fails the two transfers that
-follow any block read, so it never probes: pmbus reads MFR_ID as a block
-and then VOUT_MODE as a byte. A Renesas RAA228246 and one RAA228244 on
-the same controller show the same pattern.
+Route all these error paths through a common err_unmap label that calls
+iounmap() and clears pcs_gpt.base.
 
-Program the threshold so that RX_FULL fires with one trailing byte still
-to come, letting xiic_read_rx() set NO_ACK for it on the bytes_rem == 1
-path, and set NO_ACK straight away when only one trailing byte remains.
-
-Twenty rounds per device of a block read and a PEC block read of MFR_ID,
-each followed by a byte read:
-
-               before                      after
-            block  PEC   byte after     block  PEC   byte after
-  FS1412    20/20  0/20  20/40 fail     20/20 20/20   0/40 fail
-  RAA228246  0/20 20/20  20/40 fail     20/20 20/20   0/40 fail
-  RAA228244  0/20 20/20  20/40 fail     20/20 20/20   0/40 fail
-
-A second RAA228244 and an Infineon XDPE1A2G5B passed every round before
-and after. PEC block reads, which that commit fixed, still pass.
-
-Fixes: e6fe3ea04f01 ("i2c: xiic: defer RX_FULL until all trailing bytes are in FIFO")
-Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Cc: stable@vger.kernel.org # v6.3+
+Fixes: 84583983c319 ("CLOCKSOURCE: Add Pistachio clocksource-only driver")
+Assisted-by: DeepSeek-V4.1-Flash
+Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
 ---
-A follow-up to my xiic block-read series, now in 7.3-rc as
-b7e6df2f52ed, e6fe3ea04f01 and 840d8acc8792. The second of those
-stopped NACKing the final byte of a block read that fits in the Rx
-FIFO, which leaves some PMBus targets wedged for the next couple of
-transfers.
+ drivers/clocksource/timer-pistachio.c | 20 ++++++++++++++------
+ 1 file changed, 14 insertions(+), 6 deletions(-)
 
-Tested on a 6.12 kernel carrying that series, against an AXI IIC
-controller with an FS1412, RAA228244/RAA228246 and XDPE1A2G5B behind
-it, using plain and PEC block reads and the byte reads that follow.
-
-The same happens on a second board, where two of four ISL68225s behind
-the same AXI IIC core fail plain block reads and the two transfers
-after them. A capture of SCL/SDA taken inside the FPGA shows the
-mechanism: after the last byte of an MFR_ID block read the master
-drives ACK, the target starts on the next byte with SDA low, and the
-STOP the master then attempts never appears, leaving SDA held low. With
-this change the last byte is NACKed and the STOP is clean, and all four
-pass.
-
-With this change a block read ends with a NACK, and so with TX_ERROR,
-like any other read. That puts it in the window Siddarth's patch closes,
-where xiic_process() sees TX_ERROR before RX_FULL and resets the core
-even though the data is already in the Rx FIFO:
-
-  https://lore.kernel.org/linux-i2c/20261005-i2c-xiic-rx-fifo-v1-1-0177ac5f72d7@nexthop.ai/
-
-The two touch different functions and apply cleanly to v7.3-rc6 in
-either order.
----
- drivers/i2c/busses/i2c-xiic.c | 20 ++++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/i2c/busses/i2c-xiic.c b/drivers/i2c/busses/i2c-xiic.c
-index 5e397a7e63f6..2714fd2231b4 100644
---- a/drivers/i2c/busses/i2c-xiic.c
-+++ b/drivers/i2c/busses/i2c-xiic.c
-@@ -568,12 +568,24 @@ static void xiic_smbus_block_read_setup(struct xiic_i2c *i2c)
- 			i2c->rx_msg->len = SMBUS_BLOCK_READ_MIN_LEN;
- 			i2c->smbus_actual_len = 1 + rxmsg_len + pec_len;
- 		} else {
-+			unsigned int tail = rxmsg_len + pec_len;
+diff --git a/drivers/clocksource/timer-pistachio.c b/drivers/clocksource/timer-pistachio.c
+index 57b2197a0b67..e94faed5009f 100644
+--- a/drivers/clocksource/timer-pistachio.c
++++ b/drivers/clocksource/timer-pistachio.c
+@@ -163,38 +163,41 @@ static int __init pistachio_clksrc_of_init(struct device_node *node)
+ 	if (IS_ERR(periph_regs)) {
+ 		pr_err("cannot get peripheral regmap (%ld)\n",
+ 		       PTR_ERR(periph_regs));
+-		return PTR_ERR(periph_regs);
++		ret = PTR_ERR(periph_regs);
++		goto err_unmap;
+ 	}
+ 
+ 	/* Switch to using the fast counter clock */
+ 	ret = regmap_update_bits(periph_regs, PERIP_TIMER_CONTROL,
+ 				 0xf, 0x0);
+ 	if (ret)
+-		return ret;
++		goto err_unmap;
+ 
+ 	sys_clk = of_clk_get_by_name(node, "sys");
+ 	if (IS_ERR(sys_clk)) {
+ 		pr_err("clock get failed (%ld)\n", PTR_ERR(sys_clk));
+-		return PTR_ERR(sys_clk);
++		ret = PTR_ERR(sys_clk);
++		goto err_unmap;
+ 	}
+ 
+ 	fast_clk = of_clk_get_by_name(node, "fast");
+ 	if (IS_ERR(fast_clk)) {
+ 		pr_err("clock get failed (%lu)\n", PTR_ERR(fast_clk));
+-		return PTR_ERR(fast_clk);
++		ret = PTR_ERR(fast_clk);
++		goto err_unmap;
+ 	}
+ 
+ 	ret = clk_prepare_enable(sys_clk);
+ 	if (ret < 0) {
+ 		pr_err("failed to enable clock (%d)\n", ret);
+-		return ret;
++		goto err_unmap;
+ 	}
+ 
+ 	ret = clk_prepare_enable(fast_clk);
+ 	if (ret < 0) {
+ 		pr_err("failed to enable clock (%d)\n", ret);
+ 		clk_disable_unprepare(sys_clk);
+-		return ret;
++		goto err_unmap;
+ 	}
+ 
+ 	rate = clk_get_rate(fast_clk);
+@@ -211,6 +214,11 @@ static int __init pistachio_clksrc_of_init(struct device_node *node)
+ 	raw_spin_lock_init(&pcs_gpt.lock);
+ 	sched_clock_register(pistachio_read_sched_clock, 32, rate);
+ 	return clocksource_register_hz(&pcs_gpt.cs, rate);
 +
- 			/*
--			 * All trailing bytes fit in the Rx FIFO. Defer RX_FULL
--			 * until every one of them is buffered, so the drain
--			 * takes xiic_read_rx()'s bytes_rem == 0 path.
-+			 * All trailing bytes fit in the Rx FIFO. The last one
-+			 * must be NACKed or the slave keeps driving SDA into
-+			 * the STOP. With one byte left, NACK it now; otherwise
-+			 * fire RX_FULL with one byte still to come so
-+			 * xiic_read_rx() sets NACK in its bytes_rem == 1 path.
- 			 */
--			rfd_set = rxmsg_len + pec_len - 1;
-+			if (tail == 1) {
-+				u8 cr = xiic_getreg8(i2c, XIIC_CR_REG_OFFSET);
-+
-+				xiic_setreg8(i2c, XIIC_CR_REG_OFFSET,
-+					     cr | XIIC_CR_NO_ACK_MASK);
-+				rfd_set = 0;
-+			} else {
-+				rfd_set = tail - 2;
-+			}
- 			i2c->rx_msg->len = rxmsg_len + 1 + pec_len;
- 		}
- 		xiic_setreg8(i2c, XIIC_RFD_REG_OFFSET, rfd_set);
-
----
-base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
-change-id: 20261007-i2c-xiic-block-read-nack-d2b735baddd3
-
-Best regards,
---  
-Abdurrahman Hussain <abdurrahman@nexthop.ai>
++err_unmap:
++	iounmap(pcs_gpt.base);
++	pcs_gpt.base = NULL;
++	return ret;
+ }
+ TIMER_OF_DECLARE(pistachio_gptimer, "img,pistachio-gptimer",
+ 		       pistachio_clksrc_of_init);
+-- 
+2.25.1
 
