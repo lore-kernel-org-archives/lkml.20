@@ -1,253 +1,136 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012061.outbound.protection.outlook.com [40.107.209.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B611B3BFE4C
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 23:21:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791501679; cv=none; b=Paz771igPIHaTByJlBOYShHIykdfYHq+1yhEk97O/qCKQ+3QMe+bFlq/MMC3ItYAoTOiUPQvNxQRL2eopD7QJDbivoVS1Fltf0O0ZBtYTa7+gKxC8jhxIzKJnzdXGeZhtBvwlZLkUFKZLWu30XOCCqqEe2jtpduEBB67o4/NVaU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791501679; c=relaxed/simple;
-	bh=4MJaZrtR4RgWJ4ai+292z6IPnXEaTKNgBrsy96VIl90=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cZP6gB5ZT23SZZTT9tcMMoGx87V6SyyEVHBFPhuNqAg/UiBkHYkoNd140pUi18sx2hhkmABkrP3DM2OCeY01DhOrN3XP5GS2jcS1mE93AlG1cv0hAWRatikPX8bKIZbxU4X/uuI08pxpcREmxsICVg8W9tjHvktOzaYLPkNAUrY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SLjXGBrb; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NzOs/gCE; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A951231832
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 23:24:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.61
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791501866; cv=fail; b=FKuADaBJNGkG160WDIrZcoaQl9BrcfxyzoYjIQ7eeZhwCooT5/o/WKZVherNkOT4xlhtXYHP6F+oyWdM/BmvwHdF/2+TRN3WrD1MnwjRgvy7vwCYRIoJm95evzUnTvoovyffxOv/7FfYvs73UNiruqTjNpIz101KWYFlz3UCe+g=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791501866; c=relaxed/simple;
+	bh=EsnaGFaC7f7Cr1dI4CuDk13mNpfFl27fNgMME0mdOhU=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Qdb4NUMQtaXansoklKRr3SQc57IEKitH12t8VDlFkPnJNPZpE9dW3xMF92pJckqu6SUbD+sy8BzLMLJiUM00MOHQ+pQdttXhoL3Nu1p+UCvyCyvC9Sq7zjW3T59OQBlqQSswpLPgVwsZOgvGL6Uuo/S583qgsF8ItMdUwQ8mPsc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=1FMigVHa; arc=fail smtp.client-ip=40.107.209.61
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SLjXGBrb";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NzOs/gCE"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 698L06XW808191
-	for <linux-kernel@vger.kernel.org>; Thu, 8 Oct 2026 23:21:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	+FLWS/ZRP3JLphZpvTJtWhtqU29QF4WSDgFqxaK31HQ=; b=SLjXGBrbBBAi4t92
-	w9IuXEF7bg+FSKwz4LD/g1g1A2x7E/F13/y98/gjLoyTsxflKTwylO1nHy1X6SOQ
-	bp8QvVXgF3cOqj6whYo7QYAhr35HouczPYyI+RJAGDD8BAQ2TJ5yauTCPj+cL5Hw
-	PZAYYHHG0MowVKN8CBKx3aczXFfL8qjBmKalqhOO4bJXh1uWCv65hYRQqteWNFBt
-	jT2tbuRpR9SuAIhIXLskeXWOd6YJFEn0n84KIniTIL6Bolk5CWtNggP5Ri4whc2p
-	v1rozX9bszMkCgFYDmhvrba5t4u0upcnlLmIjd1dvN+hn+nvomBBKsnt3Ibw2FTQ
-	XmfJAQ==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h6fxp10kn-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 23:21:16 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2cec4226c70so55773095ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 16:21:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791501676; x=1792106476; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+FLWS/ZRP3JLphZpvTJtWhtqU29QF4WSDgFqxaK31HQ=;
-        b=NzOs/gCE1YCbj/rwFWjn/2ElvzOrY5ZYDegXI/+KayagzVNPBw/pZPJLdtNhX4K1eS
-         VpRtA5ePvfeGN0S04B37fhrss+3TxycSh4EdCUbDwu/7LFkunXoW8QBpCzoM3T08fVe8
-         2xImSwyGaejsn9A79cj9wdFr0UL1Ao4Cnne40//fW2XzBijmd7JmG8JM4NTYf0+7hCzm
-         dBGsRJ0XvYgMKN/TypUvxjoBBAfEwzS93hkFmvsWBPVC3ylS6y0QKDJJR9NuKsbcEZ7/
-         JgPhjlxr4cDb+qc3eFOKenUEguqJMmjBJiSKTUgqqFnSR7FK4krW7hrVH/ogiYnDrCd3
-         o7NA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791501676; x=1792106476;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+FLWS/ZRP3JLphZpvTJtWhtqU29QF4WSDgFqxaK31HQ=;
-        b=GKj11fxQFbNUHeTv4ZwB5POX0dEAUYxa9zxYgGEApmioncsM41aDTujM8Ilpog+3o9
-         8KBa04PEQVIcsryDDtAA+Spx6fbWwe6FrS/kGmjruPYLuZBdIPSYDFFqzgOENh+mTUqi
-         Ax4TNvVJEQavoVNODlam6Pl1i5c0wl03a22lsaVplBOIlmmr4NhbAa98PyPy9IKZweC2
-         fG6r40tBRU/GqY70K7l2J7cIRQqgxpzshRFScggnlV2c7IBIY1PoTXB2+teODGYcS/tl
-         IMF15J3ZSdarZ3dsVdLEw38X3b9qZ9LJRU1dUNaIki4nJwgHPCVAX/+XA38y+wob87b4
-         uGQg==
-X-Forwarded-Encrypted: i=1; AKwUvBzkgeGA4ifNppbDtRXE+SU3ZN4h9J0NiSYwgjFZDmn7l7t1REhazt0Z9dxMgp/EPek01eB651bZciKKzSE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIgOm+2zW8Uim3yBtJ9iMnHEDj9TIHWsjNtw//DGwIrAnDxZ0zA
-	reEdWL88U+70cWS57+IkMV/vDAjMMg4w26LIbdSY/ON+fK63bzcpql7U0tWRSTzdXZzsh4FrBFK
-	BByE2TxyTZCsChpb7PTha+4ZAIGXhw0fQPpM3ovNJOR70d/pvL9WDVJQ6QAushwAT6A==
-X-Gm-Gg: AYBFou14Oy0C6E/h4cjPIHFr+CqnVQ4V2a94FOoHB5175yETlQxL8sN+Zkgz/Auna6t
-	pKCdjjv+Cq88If9nZ6CeB7cclofhzMhGu0/O7+epcX5WL+UrmloM16VGxhNN8muKF/CWUbji5tE
-	afA7sbusnHRYQLiRyOMkspjopabp8jlYPc/lGEOAmq2d/FFldeGdeAgq+0/lD0v3rCMNsuxkLbN
-	ffHLXs+f3REmfcQZA+IBsok72Gjqj4hK0ouOdVHrENzdhe6GWNRNoo7YBy+YFVxiHHcky9EDoTw
-	ewD4QSgY28bDduFvhDUfJI2zgsFW+TNxGaR9ar9BbWGl+2RhgV5kLmVUydwPUP5Jof2T37iFnJn
-	ZsxCkkR2MC28LaGtpzFAJTNhDcC0UHQWt
-X-Received: by 2002:a17:903:1b0e:b0:2e8:21a7:dd0a with SMTP id d9443c01a7336-2e842e0b04bmr1070265ad.63.1791501676137;
-        Thu, 08 Oct 2026 16:21:16 -0700 (PDT)
-X-Received: by 2002:a17:903:1b0e:b0:2e8:21a7:dd0a with SMTP id d9443c01a7336-2e842e0b04bmr1069975ad.63.1791501675602;
-        Thu, 08 Oct 2026 16:21:15 -0700 (PDT)
-Received: from [192.168.1.86] ([65.181.12.250])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3d9d49af2sm145399a12.2.2026.10.08.16.21.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 08 Oct 2026 16:21:14 -0700 (PDT)
-Message-ID: <2a3b8bdb-0f75-40ca-a653-3e4d45c9d358@oss.qualcomm.com>
-Date: Fri, 9 Oct 2026 10:21:06 +1100
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="1FMigVHa"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Z+OIsHXbK7LnDNEPHBuhxdbH6Fp4V1K3n6NYyCs7DWgzor7kb1mHsSGTVWYEKCPQxPwLBYyyrs8L20tVICIX/UlRFyg7CoVe6nabb8skf53X/tDsHhFQBhEgx4Afm4B2mkNipfbxJd8MQur1sqRtrCrqhKfjVxtJ56mY//T16iKSa700QBKEm4jDCLiC265sOpn95vIvNP8quJOqH0HrK700QCHChWlVNuFdRXPW/xjrTvhqmgRj9WBpzJhHW1hjVA7CQheQ6Q/Hw7fnouM8simdFvSm4t23hcH2tKiLOR4zJW6Deyp98vZfOWHfgq6QpqwtW4zwwDBKMLch+vjkBA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Y62j6lcAZyTVN01jVSyEcTwPcUxyW1Uzd+mAoRuXpCY=;
+ b=gNn2BvqWtHPBlC/Wka+yssqkrkUyxNqJNUhz5ticP/S91sgiT4/kpglByLkdN8fhLlArLUx5zUNTFCeOAqkmiTaWXo/e2XTOZ2F19Dg1JS65L/OrmVnYjh9A9j4RXkwY7B/xDhxknmp3LO4mzyJEyRlTZ4g2UHJKaWSaOIvKuSrWh71hd0LS0OOmJRCLqlWRszoeIY4YjJZCUrObw22s3KFErQ/sjB9QEh67rfJh9ZWyB77a/6nQHmqDQD5kvNsL0uqp881nB9A9HU1kY+VA4/fAPrRgqUV6PZOMZcOt3DwucigsG7NrMkDLsJF+OgPbNl64scEdbQ+Nx23rSmYQ+g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Y62j6lcAZyTVN01jVSyEcTwPcUxyW1Uzd+mAoRuXpCY=;
+ b=1FMigVHaj9xFcBla4d1GSmn+MdYaUacZCZKggh8m8AhONmWB3Cpck90a6RdUiG+e5RLyRe/mptVynx76Ap1YIARvSDp+9Kyc/1KphZRv1m9R7Rm5/stxm6OHqJjJobq9TVvaY/M4kzOWIlhTk8xhnEMgd5LzrLgAKZ4/roicaOQ=
+Received: from BN9PR03CA0886.namprd03.prod.outlook.com (2603:10b6:408:13c::21)
+ by IA0PR12MB9012.namprd12.prod.outlook.com (2603:10b6:208:485::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Thu, 8 Oct
+ 2026 23:24:21 +0000
+Received: from BL6PEPF0006C3DD.namprd02.prod.outlook.com
+ (2603:10b6:408:13c:cafe::72) by BN9PR03CA0886.outlook.office365.com
+ (2603:10b6:408:13c::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Thu, 8
+ Oct 2026 23:24:21 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BL6PEPF0006C3DD.mail.protection.outlook.com (10.167.249.232) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Thu, 8 Oct 2026 23:24:21 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 8 Oct
+ 2026 18:24:16 -0500
+Received: from xsjdavidzha51.xilinx.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Thu, 8 Oct 2026 18:24:15 -0500
+From: David Zhang <yidong.zhang@amd.com>
+To: <quic_jhugo@quicinc.com>, <karol.wachowski@linux.intel.com>,
+	<max.zhen@amd.com>, <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
+	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+CC: David Zhang <yidong.zhang@amd.com>, <sonal.santan@amd.com>,
+	<mario.limonciello@amd.com>
+Subject: [PATCH] accel/amdxdna: Reject device heap BO when dev_mem_size is not set
+Date: Thu, 8 Oct 2026 16:24:16 -0700
+Message-ID: <20261008232416.2646054-1-yidong.zhang@amd.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v2 0/8] tee: optee: add RPMI backend support on RISC-V
-To: Jens Wiklander <jens.wiklander@oss.qualcomm.com>
-Cc: Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>,
-        Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-        Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-        Rahul Pathak <rahul@summations.net>, Anup Patel <anup@brainfault.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Marouene Boubakri <marouene.boubakri@oss.nxp.com>,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        op-tee@lists.trustedfirmware.org, linux-riscv@lists.infradead.org,
-        devicetree@vger.kernel.org
-References: <20261005-rpmi-tee-service-grp-dev-v2-0-72f222e23ec1@oss.qualcomm.com>
- <CAGgiveXJXXaRNyfq6Gxk4moOHqM-vBuptugn5bHK5x9EeeGSQA@mail.gmail.com>
-Content-Language: en-US
-From: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
-In-Reply-To: <CAGgiveXJXXaRNyfq6Gxk4moOHqM-vBuptugn5bHK5x9EeeGSQA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: JqSnOxUTcJflBRDTOkQzxiKLq795bLJ9
-X-Proofpoint-GUID: JqSnOxUTcJflBRDTOkQzxiKLq795bLJ9
-X-Authority-Analysis: v=2.4 cv=LI3z05W9 c=1 sm=1 tr=0 ts=6ac8256c cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=9v5PfQ1E2GNzj2RibJmqVw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=4N8_HuqegsxoWIsicYAA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDA5MiBTYWx0ZWRfXxNHMLTRymJuQ
- BIvRtG3boficukmvkkW4UjXOq9MX4R7QIokDgrPT5FyPG7xFczE9yiVrljaer2sofBaw3DET+5Y
- 7EqytjxMgomgki2WBVk6D0CyKCcgUxY=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDA5MiBTYWx0ZWRfXzxjURy3cW8Ky
- 02iIeqmMdZorMWZdoRKqrgjf+5Vj26ly1gLPeNLWNW0qGVOZMh5lIQMNRThJci3oNdEmfjJk71o
- Lwwk6KXkBKdSs+0I4cDLglFLHoc6smW9j+69idRNTN9PN0sAEUg+gzk/vDh5MkrZu0xO2e9xVuo
- RwkLvpLDge+3DNhV7KClAPl3ve3rGo+0H4L0KEQleZp4/OvVjX+5334GcDd6Fk/HpFhy5UzberI
- pBGlUbp4p/lYgD1hXDrdlE3+hdJe3tCWVX5Fuv6cjWMzunQAWMSqM2xpzSkaEHXrFTwLI0uHIU2
- 0C6Kl4gOGti50pj6lKMRSHWkggnSUu98ClC7jDYlfiLJK9f20GyKTpkMZxysd2RqD8US8yk9Dyu
- 5TL3O34DclX0WpUKf6WOYB89/rWctuforo0yDVUkZinmvKhkSa3zdrp9vJpVqILherrspEX7YB6
- ActZM6xJR4fDkwri//A==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-08_07,2026-10-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 lowpriorityscore=0 impostorscore=0 adultscore=0 phishscore=0
- priorityscore=1501 spamscore=0 malwarescore=0 suspectscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080092
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0006C3DD:EE_|IA0PR12MB9012:EE_
+X-MS-Office365-Filtering-Correlation-Id: 085be6e4-71a0-4a55-d6a5-08df2593485c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|36860700016|82310400026|1800799024|376014|10067099003|11063799006|6133799003|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	X5IMYtxOInxEPaT9ZcOY02uMmJIMlZU8FEiF4LrDDsvpMxd33+xtFQu/YhNK1xwuv0hdVJB8Vt2OHmtedw5YD+103K6ss02dWQUfbJ3yogxHWYZXKa1igKMKaTju7kZVkyD+VOFVHxmhiL343uR1RNefwag2+GqhP9ED2Q02spPGyKlZyrA1rhGreaTfSFNKkn/L1+r1OQf4bK3760g4lJi+FgY57YnZ4dMc+7sxy0Thm7tsZNR7ReDuIiRhGo8mwRCitYzGhDmVYfdlTK+LOVULsJnfwaEHrot+i0o/0rZYA81fW+nW3fe7LimgzYMmMFys6ViQkwtyFDAuNWjMatVuh8SPa70A2rEr3m+ZJ4Jdc41NIbDNu3leu11f86DbCaXJHkAq8AWwv278/Xe+G2ujpM/ARkkKpxTcMjWJgSqsrh9rd3zuNUpEjXSUJG0WdW26c71H78pzMs1ocx468PJOPsQZzeZaEJ5GVO140JZEj4rd1mX0FmOOpVM14qGO8cxNczs4HC4MawvMuByP4yV4C5ndBJ9pG9QEh/w+e3OS6/WEdotoECuo+Rsx22fpvGNTLjutQwc0p4g6nV39BtWSxy2c5QzCGQzZdilzFitvCeNA6MUP6ZoTJiCr/n0Tzk8dmgESe5RMJdI87POJAHajeL++5mJEc+nSVBbplG/K4jiTSqpQUAZ6XzOyWn4tradjBuVMtUaosZlTD1/1DQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(82310400026)(1800799024)(376014)(10067099003)(11063799006)(6133799003)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	kBxzBtLcG4cPlWZqGosmvzfL7IshlkxbzZjxgtLH58k9Hax9en9dBobdAlLtmPsqAMwqLliaBCsfhZHsqSyQmQdy9rWW3QJ3pVs7U5Po45Aq9pBu8Kr9CcVhCt+66VU3qrDdDCsyHVquiuLtSeszWw7xMNqmSQFbNPwxAsHiqwxil+ctllCUUcW8JusYbqIKy1rX9rthYvUYua5GRjJmakIMC3x+TjS0pDKvvAvqntKClSg1Ir5meWE0Z3w4SYc5QJYGqD8Xkdj/jV//c56ofhFDiRCZZU+eaQbxZxynt3S/D9tPQHHbEob4HefUfqLFFKjH21vtlPenlEo2D8a11L24OBygyVEPT+9/M52QsQxEFeIgPuMCEOA5zVJXvr2JEBE3ytFJLTdemHCeaSm/QxfDnv+KoH11WVyXpgg+o0GG63e6myxsPYdAIj+6DbGG
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 23:24:21.3915
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 085be6e4-71a0-4a55-d6a5-08df2593485c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL6PEPF0006C3DD.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB9012
 
-Hi Jens,
+NPU3 devices do not set dev_mem_size, since they do not use a device
+heap. Creating an AMDXDNA_BO_DEV_HEAP BO on such a device hits the
+WARN_ON(!is_power_of_2(dev_mem_size)) check, which any user with
+access to the device node can trigger.
 
-On 10/8/2026 5:15 PM, Jens Wiklander wrote:
-> Hi Amir,
-> 
-> On Tue, Oct 6, 2026 at 2:39 AM Amirreza Zarrabi
-> <amirreza.zarrabi@oss.qualcomm.com> wrote:
->>
->> This series adds an RPMI backend to the OP-TEE driver for RISC-V.
->> It builds on the separately posted RPMI TEE transport series [1],
->> which provides service discovery, synchronous calls, memory parcels
->> and asynchronous signals.
->>
->> This revision is effectively a full rewrite of the original RFC.
->> The generic RPMI transport has been separated from the OP-TEE backend,
->> and the backend has been reworked around the service bus and a new
->> OP-TEE control ABI.
->>
->> Unlike v1, the OP-TEE backend no longer manages SBI MPXY mailbox
->> channels or implements RPMI TEE service-group operations directly.
->> It binds to the OP-TEE service UUID on the RPMI TEE bus and uses the
->> transport's public operations. No additional OP-TEE device-tree node
->> is required.
->>
->> The backend reuses the common OP-TEE session, shared-memory, argument
->> cache, call queue and RPC infrastructure. Shared memory is represented
->> by RPMI parcel IDs and nonces. Yielding calls pass command and RPC
->> buffer ranges within a parcel and resume suspended execution using
->> an opaque token returned by OP-TEE.
->>
->> The OP-TEE control ABI uses fixed-width little-endian messages carried
->> in TEE_CALL payloads rather than reproducing FF-A's register-based
->> message layout. Asynchronous notifications use an allocated TEE-to-REE
->> signal as a bottom-half doorbell, while ordinary logical notifications
->> continue through the common RPC path.
->>
->> Matching OP-TEE OS support for this ABI has not yet been implemented.
->> This remains an RFC for review of the backend integration and the
->> Linux-to-OP-TEE protocol.
->>
->> [1] RPMI TEE transport dependency:
->> https://lore.kernel.org/op-tee/20260928-riscv-rpmi-tee-abi-v1-0-04908b81d885@oss.qualcomm.com/
->>
->> Signed-off-by: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
->> ---
->> Changes in v2:
->> - Effectively rewrite the backend around the separately posted RPMI
->>   TEE transport and a new OP-TEE control ABI.
->> - Remove backend-owned per-hart mailbox channels and the OP-TEE-specific
->>   device-tree binding.
->> - Replace the register-like control payload with fixed-width messages,
->>   explicit command/RPC buffer ranges and opaque resume tokens.
->> - Add a parcel-reference parameter layout carrying the parcel ID,
->>   nonce, and 64-bit offset and size without changing parameter size.
->> - Make argument-offset support part of the baseline ABI and retain
->>   the common shared argument cache.
->> - Use a transport-allocated signal for asynchronous bottom-half
->>   notifications.
->> - Link to v1: https://lore.kernel.org/r/20260912-rpmi-tee-service-grp-dev-v1-0-1d1d35c2a859@oss.qualcomm.com
->>
->> ---
->> Amirreza Zarrabi (8):
->>       tee: optee: allow RPMI transport builds on RISC-V
->>       tee: optee: define the RPMI control and parcel-reference ABI
->>       tee: optee: add RPMI shared-memory and parameter support
->>       tee: optee: add RPMI dynamic shared-memory pool
->>       tee: optee: add RPMI RPC handling
->>       tee: optee: execute yielding RPMI calls
->>       tee: optee: bind RPMI services and negotiate backend capabilities
->>       tee: optee: support RPMI asynchronous notification doorbells
->>
->>  drivers/tee/Kconfig               |    3 +-
->>  drivers/tee/optee/Kconfig         |    3 +-
->>  drivers/tee/optee/Makefile        |    1 +
->>  drivers/tee/optee/call.c          |    2 +
->>  drivers/tee/optee/core.c          |   10 +-
->>  drivers/tee/optee/optee_msg.h     |   38 +-
->>  drivers/tee/optee/optee_private.h |   54 +-
->>  drivers/tee/optee/optee_rpmi.h    |  234 ++++++++
->>  drivers/tee/optee/rpmi_abi.c      | 1059 +++++++++++++++++++++++++++++++++++++
->>  9 files changed, 1389 insertions(+), 15 deletions(-)
-> 
-> The rpmi changes in the optee driver harmonize quite well with the
-> rest of the driver, but there are two things I'd like fixed:
-> - avoid <linux/cleanup.h> macros. They are distracting.
-> - use rc for the trivial int ERRNO values.
-> 
+Return -EOPNOTSUPP when dev_mem_size is 0.
 
-I'll make these changes.
+Fixes: d76856beb4a4 ("accel/amdxdna: Refactor GEM BO handling and add helper APIs for address retrieval")
+Signed-off-by: David Zhang <yidong.zhang@amd.com>
+---
+ drivers/accel/amdxdna/amdxdna_gem.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-> I would be great with a QEMU-based end-to-end prototype to demonstrate
-> that the ABI works.
-> 
-
-The OP-TEE side implementation is nearly complete. I'll incorporate your
-comments here and update the OP-TEE code accordingly. I haven't started
-the OpenSBI changes yet. Getting a QEMU-based end-to-end prototype working
-is my first priority before moving the series out of RFC.
-
-Apologies for the obvious oversights and bugs in this version. So far,
-I've only compile-tested the code; it still needs end-to-end validation.
-
-> More comments to come in the individual patches.
-
-Thanks, Jens, for the early comments and feedback. They are very helpful
-in shaping the final code and guiding the direction of the implementation.
-
-Best regards,
-Amir
-
-> 
-> Cheers,
-> Jens
+diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
+index f4832337ec31..f14484bc31ec 100644
+--- a/drivers/accel/amdxdna/amdxdna_gem.c
++++ b/drivers/accel/amdxdna/amdxdna_gem.c
+@@ -1140,6 +1140,11 @@ amdxdna_drm_create_dev_heap_bo(struct drm_device *dev,
+ 	struct amdxdna_gem_obj *abo;
+ 	int ret;
+ 
++	if (!xdna->dev_info->dev_mem_size) {
++		XDNA_DBG(xdna, "Device heap is not supported");
++		return ERR_PTR(-EOPNOTSUPP);
++	}
++
+ 	WARN_ON(!is_power_of_2(xdna->dev_info->dev_mem_size));
+ 	XDNA_DBG(xdna, "Requested dev heap size 0x%llx", args->size);
+ 	if (!args->size || !IS_ALIGNED(args->size, xdna->dev_info->dev_mem_size)) {
+-- 
+2.34.1
 
