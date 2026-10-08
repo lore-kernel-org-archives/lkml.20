@@ -1,99 +1,56 @@
-Received: from mta0.migadu.com (out-131.mta0.migadu.com [91.218.175.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 152BD379EF7
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 14:23:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36D9A37C923;
+	Thu,  8 Oct 2026 14:23:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791469419; cv=none; b=o0JvrNdg3ZwTGy0oWKHuNQGiPfc9i4t7iUEzubiHVOzrXwTXbU0xC349WdFhLrnXmXIfOoPCyCTLqkWj+rjO1Xds7TgEVc3KrRSliBu6hzhYMctirmEDeaAwrwqlIXOLDLOQDoYyavspQFkYbwSw10oMdlZovuwfPf3bQYe0iCo=
+	t=1791469436; cv=none; b=Ts1myz2u+yEP4ej58WiW+01JQGrA5hS4/G4bdKOOnI3ixfgkuYFUZi5VADbt8w2YQxAJ51xcsXIUDPgKXiczgGqtO4pTHo241LB2h8mu3KrXQxOyMbztVt6h3O5liqc9nYDzrow4ianlcNJFE6305UXia19H1nydCaeGcgZStfM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791469419; c=relaxed/simple;
-	bh=CkwK7lSN43JMJXrHHY9Mep3RaMJmHfCj7Up6o6iDiTw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=m2U9TcmB0ycAfFaM8cxcqsUiByrgCcVo/b4UPH+oxyeEXWlztqinKvegkETr8q7y7vigSgjY8nUDj5oZaXbHwKxBf6ocM0VOnY/fFWyZ5bvfqsKc+YZbhpXaQdi3/0FzYiLBDj00cGXm5dqDimXVVzWiNmwuvcKWy2sT8yXlMAw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=st3VYWWY; arc=none smtp.client-ip=91.218.175.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791469436; c=relaxed/simple;
+	bh=FH8K5T5iwcMbVb5eFlAnwSPC/DKlcLsYI7mBGzMZKrA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=okNITYfg7uGFe9pp7eJPjAmQrbrmMC/mm/4+Ok82DdldLk1uKRMF5vDALSZkfU2SYGWH2mG29pAfOzoDWO8b0lcFn/eejY4Goh0KR7mXocAPxz9BLCzvAqH6ix6gOdKTpHfT71elELeaFzasv8Q+7cFv2ixQuiVFU/IEu7Y89Kk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gtGwNC6g; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="st3VYWWY"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=CkwK7lSN43JMJXrHHY9Mep3RaMJmHfCj7Up6o6iDiTw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791469415; v=1; x=1792074215;
- b=st3VYWWYqkFmcA35F0khfrKTsP3SzeEuB1wnG7nJa6T8xB8lP0J4o2eq00vnqoON0iLbXRUW
- d/QWT0ix8kTVHqh3CPf7Zzvm5Gd+nYl7DVWNmAvuyJMDQJZ6s3KWyZTbvy2yDyp45F9n28pL91p
- YalHwUcej2OAjt1k5Wb8e80M=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b03a295ec336a66a;
-	Thu, 08 Oct 2026 14:23:34 +0000
-X-Mizu-Trace-ID: b03a295ec336a66a
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <248431ea-4bbf-4a48-a80e-72287ffbae22@linux.dev>
-Date: Thu, 8 Oct 2026 22:23:22 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gtGwNC6g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0FAB1F000FF;
+	Thu,  8 Oct 2026 14:23:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791469435;
+	bh=ubJhzmPg2cvyEPgOx3KoWhDFF3XbH8bTIRtTlGN1KxM=;
+	h=From:To:Cc:Subject:Date;
+	b=gtGwNC6gtXZV8s6YWPlANgjcED2Exy3wN9H51eUBiuoIq23KfiwC43xdj4ypPAUWJ
+	 +wJveputhusON/afhp5fcHUAeLM2SihWObAKrbERdBwP5gDWstj7u1trJuUlmaXV97
+	 arsdRGYFWj5+ZtFuA5g2PWwmkfUmRkRXS/6xisGo3ADUbUksrqTyJMvm0JLcXeOxeA
+	 RlPIoeEwpizs7A9rCYCDcKoo/pkX0Nff0QBEohaELOpsROyCGUbfjAlZHFijQqktBU
+	 4FZAZTQEOXpTib3APw/tp9rVp5tS+CG000CHr2X0iNWV7bLjczT+YrtTkGpcBuakIZ
+	 /p3B3rxJitQHw==
+From: Sasha Levin <sashal@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: Sasha Levin <sashal@kernel.org>,
+	linux-next@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Please add the kapi tree to linux-next
+Date: Thu,  8 Oct 2026 10:23:49 -0400
+Message-ID: <20261008142350.3067287-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 16/19] selftests/mm: add khugepaged race harness
-To: Muhammad Usama Anjum <usama.anjum@arm.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- "David Hildenbrand (Arm)" <david@kernel.org>,
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Kiryl Shutsemau (Meta)" <kas@kernel.org>, linux-mm@kvack.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
- Usama Arif <usama.arif@linux.dev>,
- "Nico Pache (Red Hat)" <nico.pache@linux.dev>, Zi Yan <ziy@nvidia.com>,
- Barry Song <baohua@kernel.org>, Dev Jain <dev.jain@arm.com>,
- Hugh Dickins <hughd@google.com>, Lance Yang <lance.yang@linux.dev>,
- "Liam R. Howlett" <liam@infradead.org>, Michal Hocko <mhocko@suse.com>,
- Ryan Roberts <ryan.roberts@arm.com>, Shuah Khan <shuah@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>,
- "Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
- Alexander Gordeev <agordeev@linux.ibm.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Leon Romanovsky <leon@kernel.org>, kernel-team@meta.com,
- Kiryl Shutsemau <kirill@shutemov.name>
-References: <20260919002451.496763-1-kirill@shutemov.name>
- <20260919002451.496763-17-kirill@shutemov.name>
- <85b3725a-6dde-4a57-b303-4ae2b53b60a5@linux.dev>
- <6e3c298f-9b93-43b2-840d-65c5ffa3bc36@arm.com>
-Content-Language: en-US
-From: Zenghui Yu <zenghui.yu@linux.dev>
-In-Reply-To: <6e3c298f-9b93-43b2-840d-65c5ffa3bc36@arm.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 10/8/26 4:18 PM, Muhammad Usama Anjum wrote:
+Hi Mark,
 
-> On 08/10/2026 8:30 am, Zenghui Yu wrote:
-> > On 9/19/26 8:24 AM, Kiryl Shutsemau wrote:
-> >
-> > > +		} else {	/* madvise */
-> > > +			while (now_ms() < end_ms && !corrupted) {
-> > > +				for (i = 0; i < nr_shared_areas; i++) {
-> > > +					madvise(region + i * hpage_pmd_size,
-> > > +						hpage_pmd_size, MADV_COLLAPSE);
-> >
-> > I got the following error when compiling it:
-> >
-> > khugepaged_race.c: In function ‘main’:
-> > khugepaged_race.c:506:23: error: ‘MADV_COLLAPSE’ undeclared (first use in this function); did you mean ‘MADV_COLD’?
-> >   506 |       hpage_pmd_size, MADV_COLLAPSE);
-> >       |                       ^~~~~~~~~~~~~
-> >       |                       MADV_COLD
-> > khugepaged_race.c:506:23: note: each undeclared identifier is reported only once for each function it appears in
-> > make: *** [../lib.mk:225: /data/code/mm/tools/testing/selftests/mm/khugepaged_race] Error 1
-> 
-> I've just tested with and without make headers on linux-next
-> which has this patch and I've not received such error.
-> 
-> If your system headers are old, running make headers can help.
+Could you please add the following branch to linux-next:
 
-I forgot to mention that this can be fixed like fd5295afae91.
+  git://git.kernel.org/pub/scm/linux/kernel/git/sashal/kapi.git spec
 
+It contains the kernel api specification framework which I intend to send to
+Linus.
+
+-- 
 Thanks,
-Zenghui
+Sasha
