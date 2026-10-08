@@ -1,334 +1,159 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA0A34749D7
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 08:48:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CE4A3EC829
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 08:48:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791449314; cv=none; b=eHJgf3DrLDwpjQvtQ9pI85gJXaAMZJLSO2dtVrsUIl7j/NJYpZlWyUfgtisCZrkBlO4WljtCJSOSgMyF2WZQxOSiD6dDGxP9+3TKHYI85Ug1ZGQdZwUuHUVcWSE/IcnV9idVLHm3FJMkvo/v0NMPFqDrNyXDYXsVv6Xs5MAr1v0=
+	t=1791449317; cv=none; b=dLstRnnHUv1OslL0xZkY2Oui/GMr9ogxkPsObrJYAUVpud0qsZznx1M5Jt7DLNcTz97QmQvBIsK4F5GL4D8zkHfv2fvrGeX5ngqc7j5a7KvVzoBRZ32vOA/oYnDm/Q2GQDi5NwOWDtVoLwhr8BkrMVv2rELQrmFC5QmIxcO1mrw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791449314; c=relaxed/simple;
-	bh=xhsGtCbtQodwqRexuobUDqMM+XhIRJKSVIyLoDoP9C0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OnyxW5q6qfEcTOMCf9Q3iKjYReFCEbyBaYO4iUG8MCrF0o6SmYnMN21IzxdJHAm5iehBmf8Wrgdqu+PxRA0pTvozl7k6TaiCMWW+4FHcn2xMEyoGYWw7sMBO4JOkbbOkY/QZTjGJ8A9ybOR60YDzgWXzNVEGNqQKkKBVBm0O4gE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=YndjyM4K; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791449317; c=relaxed/simple;
+	bh=M38zr4UDDSTutNGbAEBqRcN/i549+qASNFRF6ZXlXao=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=GKlU8lHLNPDSA51n8jHmzwYdfcuT/YtNYx4Wn2o/kkgmJUhgCv7Q1ZZxliOR/AiBvmbz0wDZB7rRIHv88bs+rus2D2bmcKaLMaiwt3vw+v5GY4rYwntE9ZlPVdQZQp88ppFViPeDYvdNrfI/CzpObjvGN+ZYmXdYPK5GMhrPKnc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=alXGJfJJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JHX5kbX6; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="YndjyM4K"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791449309;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TCfftdu3Rz0V3sHWcyb6LVLBLqYA4Wq6Mp5f6Oy0tgY=;
-	b=YndjyM4KR/6/cVC17fGpAZdZZH2Mpqq/x/dn3WTYqKQN4jSI7B1G3Zw7cKz7375hLL7en8
-	g4b9ecpG/Vw3o7dvF8FN1h9MhrB39QyfZEVdYg8SmcXlL6vx4usiB//WdW38s7ZOWGXkjF
-	1x89Sy+Zaw9IOXs7TtSfb7SRQwiNOxU=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-9-I8njYPAuOPaJM13H2nEzhQ-1; Thu, 8
- Oct 2026 08:48:27 +0000
-X-MC-Unique: I8njYPAuOPaJM13H2nEzhQ-1
-X-Mimecast-MFC-AGG-ID: I8njYPAuOPaJM13H2nEzhQ_1791449305
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id DA65E1955F30;
-	Thu,  8 Oct 2026 08:48:24 +0000 (UTC)
-Received: from warthog.com (unknown [10.44.32.90])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 17D5D1956086;
-	Thu,  8 Oct 2026 08:48:19 +0000 (UTC)
-From: David Howells <dhowells@redhat.com>
-To: Christian Brauner <christian@brauner.io>
-Cc: David Howells <dhowells@redhat.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Marc Dionne <marc.dionne@auristor.com>,
-	Stefan Metzmacher <metze@samba.org>,
-	Eric Van Hensbergen <ericvh@kernel.org>,
-	Dominique Martinet <asmadeus@codewreck.org>,
-	Ilya Dryomov <idryomov@gmail.com>,
-	netfs@lists.linux.dev,
-	linux-afs@lists.infradead.org,
-	linux-cifs@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	ceph-devel@vger.kernel.org,
-	v9fs@lists.linux.dev,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v16 7/8] netfs: Remove the rolling_buffer implementation
-Date: Thu,  8 Oct 2026 09:47:19 +0100
-Message-ID: <20261008084722.963948-8-dhowells@redhat.com>
-In-Reply-To: <20261008084722.963948-1-dhowells@redhat.com>
-References: <20261008084722.963948-1-dhowells@redhat.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="alXGJfJJ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JHX5kbX6"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6987KREo1846371
+	for <linux-kernel@vger.kernel.org>; Thu, 8 Oct 2026 08:48:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=lTF1ykEwo5DXZWlyE50I/v
+	qpScUvMcBObYB/UQq3D9Y=; b=alXGJfJJsfyOMO/kf6/xMm4Yr5Q4gP5iJIqCgZ
+	6MAmJSknJQdX/ur0aYRLyAVegkWSVranv2SIvv+faX4DPQjsIOrcZtqgTifd5sYv
+	js6o7IKgc+dfDbBc6N7lDLhkXUlZccugLGm3C15pe6bL0SIcGoQXmOJUSLQbWZwA
+	wdpajQJKjUnXMhwYx2czUsaus1e2JVKCRa+0fgJLpxtWCp3FZhbBB9kXyFiVJtTg
+	2KviL7vT+9AfWad3J8nWyqOiIyLN6vwSzRiiu7wEhoVbo90hIetximT9QcPobbdG
+	0M+Ozfh5jnHaQTlQsX3JyM4exrH9N2MqNPk58fiz4bWTjaRA==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe3j3cb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 08:48:34 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-313d1015161so14564659eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 01:48:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791449313; x=1792054113; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=lTF1ykEwo5DXZWlyE50I/vqpScUvMcBObYB/UQq3D9Y=;
+        b=JHX5kbX6FvooFNeR/RLesxcL9IKHkjULuuLuv1ULaO1SN2HweW6c26Q5qEKatoy27p
+         90oSrqx/Iqzn/aHJeMHaY8J2Qfa3qi987rjKaVNeQcObfA2IKD0ZhP913aies7c4dHPh
+         dtn2WXwlOETIwDMkS5cvXO5OV+7UcJriwJb0v1mIK8oxvrq83YRNqtr1zgN/qvj9TofW
+         95aKqBXIFrys3sLUI6oEdJVf3GL5TVr5AnkiqTqmS/YVHhIgc2S+KIvX6xmCZdC2XUlD
+         RCGqK+XZ9ttX03DHCutJnDwFFb+Go3dreEcuIYvCIR1l5v+Y2wuKS2iQx1lh6MOy6eb8
+         adMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791449313; x=1792054113;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=lTF1ykEwo5DXZWlyE50I/vqpScUvMcBObYB/UQq3D9Y=;
+        b=VKnGU7jz4wTs89dNNyciNwkUZxxr8OPQpsm4SZcPc4jzvY3TYIaa+5nYYLsnjRKbB9
+         Ow/vE5ZFTRhk7PUDavoTKFBhzv1ZQm7pYlmzt8sAP3Ma3i0yXz41A7YYEUDVdgwl6DER
+         x+0BWQmvOgMAIUcV2T1e864I4GqCl8/mOh9wH4jvH9TC9Edv9uAm/Ryy8QFq8Dvw+jTL
+         /SuKX+vR80+rz1iNx2YboWHGXncuRdGE3oEJe9tZJiuPj9M9bzBH+ELXs0AGC2ynCWsV
+         ao8DgSi1QA/gHYe0LVWUxuDc2SV7AebRp8P2ay9MrH0GyRuRrP1omy2j4uXUy/puQDxm
+         vCVw==
+X-Forwarded-Encrypted: i=1; AKwUvBxJcDohHheos9XJUYMWlVrhq85SvwRNPDSoFkv/sD6VNWKDlYWrq783UTjwU8bQT0LufpauO3X6MybASH4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJpVOff92ous2stzuElDCVecWnqicw1h7vCQZXQ77Ig776+p2RB
+	C3yJ4d87/dzjTBKZII/I2dsLcZ5SEqmwTFNyDXksgK+sthSYIgg/39VIEDmyYreoJZDJvfByl+3
+	alMJVizITHL+4gJU7Uu+rPSanPoA+JnbK2VzDLh9lKXKibgJQybYyJIE5fkXEN0X4Q00=
+X-Gm-Gg: AYBFou3Xpn+SA16YEslhxWWq8QI1l0Buw+/r6S9e3u2Nwdt6NpV3plo98U9bDYkb9rP
+	YP8MqISsSCdAF4i2vDnojZ1qSmxzlqKZKQhBuqm9pC+bO4V0IzdoQSNtGbE3EzJ2T4sXBE0yBtV
+	2f1YP1rWlazUMy2Wx1MtuF9lMcFQ1sZrDtX9ddDXReMVaIB4eb7AVzHeBjmtPWNvrhoQOUuc/Vx
+	1wPSOd7zckugppuGlfekJCJXfNpiJLrYeA2d/+U3fb6f/1g2dyxXNGF203XHwjD2EbjZZQtCRMG
+	xH6muPqQlaR58i3CaFa9go8vmSZH32t5DJreWSDWoo6vFDw50qWA9IktiTU5FvSIFJtkeQ8snDQ
+	uhsb8MlPMu+rMs5elDokUgMzZnTx4hhYIvl3Xepbd/xCaefAzN5tdAQnj5GgxoRfj51DGftcW4s
+	82TNS49B7OdY6A4nlX9G8o6vAIjjQw1A==
+X-Received: by 2002:a05:7301:670c:b0:351:5b99:5f36 with SMTP id 5a478bee46e88-3515de80f23mr7606188eec.9.1791449313151;
+        Thu, 08 Oct 2026 01:48:33 -0700 (PDT)
+X-Received: by 2002:a05:7301:670c:b0:351:5b99:5f36 with SMTP id 5a478bee46e88-3515de80f23mr7606146eec.9.1791449312571;
+        Thu, 08 Oct 2026 01:48:32 -0700 (PDT)
+Received: from hu-varada-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3515aff5dd6sm15302755eec.26.2026.10.08.01.48.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 01:48:32 -0700 (PDT)
+From: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+Date: Thu, 08 Oct 2026 14:18:24 +0530
+Subject: [PATCH] dt-bindings: crypto: qcom,prng: Document ipq5210
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261008-rng-v1-1-785580a8b48f@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIANdYx2oC/zXMSwqEMBBF0a2EGndBEvxvpXHgp9QaGLsrUQRx7
+ wbF4X08zgGehMlDpQ4Q2tjz4mKYj4JuatxIyH1ssNpmRuscxY1oijJpbZqkmS0gPn9CA++38q2
+ fFvqvEQvPCG3jCbtlnjlUytEe8AWhPs8LZjHjD4YAAAA=
+X-Change-ID: 20261007-rng-1894b2545628
+To: Herbert Xu <herbert@gondor.apana.org.au>,
+        "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDAzNCBTYWx0ZWRfX6+0IgYT/xRN+
+ M/cT+jfw7M48tjCRfYBVM9UbIpRUeaUjKpnjf4VbM+J4bJ8VwIRpXQIBwIuPqNQWPOd6HJrJGSc
+ npAV4/vZVpsh6yCXFjGCG/eCDzWKF58=
+X-Proofpoint-ORIG-GUID: tSyZx7z2c6UTigYO7eLU9gm8nvPnF52C
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDAzNCBTYWx0ZWRfX9mk4UZPJlYwA
+ jPrT3PevAwilHULTkky3B8s3aKk4XLfa/+kJ/iMeHMhGomlhjmVgeUZncRxK+3Rvlkoes2ZBJBB
+ MgD95mt4CGwpR0+EOvJZEPVWhknZsOhVOe2VfqtWCh8qQJVrDnMoIrlUsrZ/cMTpkgykNn3rqZq
+ pr2Tkh72DlWRGpeHu4hcHeJosKfqlV+Qc8z23V/gUH/Ofcsw9urpfhgXDijeCsvOn7ugQ2kklfS
+ yX2QIsOJK/dFhyxyygiyBEgmxNU/tzci8eedpTnlZS3CGGgups8wSUd2i9JZwGoGx7XjpXtG0AU
+ JbxKjjITqTBeeYoAJWeXgoI6yTXM1iCDcKorIPNEkZtf5Ib0UNn/5TD+YkJdtc6jPt45C01/32z
+ l1RfguNmz/tbITMbln1cVSowhtqVnU+IhTLS7WCyKn0MAhugBalteqpm2qmfD7ko4JRRnO8AMVy
+ wP9mCTnniyTAPOKrZvg==
+X-Authority-Analysis: v=2.4 cv=IIuXmQvG c=1 sm=1 tr=0 ts=6ac758e2 cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=8y1xNrmuCni0Qpi8TC4A:9 a=QEXdDO2ut3YA:10
+ a=bBxd6f-gb0O0v-kibOvt:22
+X-Proofpoint-GUID: tSyZx7z2c6UTigYO7eLU9gm8nvPnF52C
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-08_03,2026-10-06_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0 adultscore=0
+ priorityscore=1501 malwarescore=0 suspectscore=0 clxscore=1015 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080034
 
-Remove the rolling_buffer implementation as it has been replaced with the
-use of bvecq_pos.
+Document ipq5210 compatible for the True Random Number Generator.
 
-Signed-off-by: David Howells <dhowells@redhat.com>
-Reviewed-by: Paulo Alcantara <pc@manguebit.org>
-cc: Matthew Wilcox <willy@infradead.org>
-cc: netfs@lists.linux.dev
-cc: linux-fsdevel@vger.kernel.org
+Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
 ---
- fs/netfs/rolling_buffer.c      | 182 ---------------------------------
- include/linux/rolling_buffer.h |  47 ---------
- 2 files changed, 229 deletions(-)
- delete mode 100644 fs/netfs/rolling_buffer.c
- delete mode 100644 include/linux/rolling_buffer.h
+ Documentation/devicetree/bindings/crypto/qcom,prng.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/fs/netfs/rolling_buffer.c b/fs/netfs/rolling_buffer.c
-deleted file mode 100644
-index 66ce9add4012..000000000000
---- a/fs/netfs/rolling_buffer.c
-+++ /dev/null
-@@ -1,182 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-or-later
--/* Rolling buffer helpers
-- *
-- * Copyright (C) 2024 Red Hat, Inc. All Rights Reserved.
-- * Written by David Howells (dhowells@redhat.com)
-- */
--
--#include <linux/bitops.h>
--#include <linux/mempool.h>
--#include <linux/pagemap.h>
--#include <linux/rolling_buffer.h>
--#include <linux/slab.h>
--#include "internal.h"
--
--/*
-- * Initialise a rolling buffer.  We allocate an empty folio queue struct to so
-- * that the pointers can be independently driven by the producer and the
-- * consumer.
-- */
--int rolling_buffer_init(struct rolling_buffer *roll, unsigned int direction,
--			gfp_t gfp, bool for_writeback)
--{
--	struct bvecq *bq;
--
--	roll->for_writeback = for_writeback;
--
--	bq = bvecq_alloc_one(BVECQ_POOL_SLOTS, gfp, for_writeback);
--	if (!bq)
--		return -ENOMEM;
--
--	roll->head = bq;
--	roll->tail = bq;
--	iov_iter_bvec_queue(&roll->iter, direction, bq, 0, 0, 0);
--	return 0;
--}
--
--/*
-- * Add another bvecq to a rolling buffer if there's no space left.
-- */
--int rolling_buffer_make_space(struct rolling_buffer *roll, gfp_t gfp)
--{
--	struct bvecq *bq, *head = roll->head;
--
--	if (!bvecq_is_full(head))
--		return 0;
--
--	bq = bvecq_alloc_one(BVECQ_POOL_SLOTS, gfp, roll->for_writeback);
--	if (!bq)
--		return -ENOMEM;
--
--	roll->head = bq;
--	if (bvecq_is_full(head)) {
--		/* Make sure we don't leave the master iterator pointing to a
--		 * block that might get immediately consumed.
--		 */
--		if (roll->iter.bvecq == head &&
--		    roll->iter.bvecq_slot == head->nr_slots) {
--			roll->iter.bvecq = bq;
--			roll->iter.bvecq_slot = 0;
--		}
--	}
--
--	/* Make sure the initialisation is stored before the next pointer.
--	 *
--	 * [!] NOTE: After we set head->next, the consumer is at liberty to
--	 * immediately delete the old head.
--	 */
--	bvecq_append(head, bq);
--	return 0;
--}
--
--/*
-- * Decant the entire list of folios to read into a rolling buffer.
-- */
--ssize_t rolling_buffer_bulk_load_from_ra(struct rolling_buffer *roll,
--					 struct readahead_control *ractl,
--					 gfp_t gfp)
--{
--	struct bvecq *bq;
--	size_t loaded = 0;
--
--	while (ractl->_nr_pages - ractl->_batch_count > 0) {
--		struct page **pages;
--		unsigned int nr;
--
--		/* Allocate a bvecq to put some folios into and attach it to
--		 * the rolling buffer.
--		 */
--		bq = bvecq_alloc_one(BVECQ_POOL_SLOTS, gfp, false);
--		if (!bq)
--			goto nomem_unlock;
--		bq->mem_type = BVECQ_MEM_EXTERNAL; /* Folio cleanup handled separately. */
--
--		if (!roll->tail)
--			roll->tail = bq;
--		else
--			bvecq_append(roll->head, bq);
--		roll->head = bq;
--
--		/* Get a bunch of folios and note their sizes. */
--		pages = (struct page **)(bq->bv + bq->max_slots);
--		pages -= bq->max_slots;
--		nr = __readahead_batch(ractl, pages, bq->max_slots);
--		if (WARN_ON_ONCE(!nr))
--			break;
--
--		for (int slot = 0; slot < nr; slot++) {
--			struct folio *folio = page_folio(pages[slot]);
--			size_t len = folio_size(folio);
--
--			bvec_set_folio(&bq->bv[slot], folio, len, 0);
--			loaded += len;
--			trace_netfs_folio(folio, netfs_folio_trace_read);
--		}
--
--		bvecq_filled_to(bq, nr);
--	}
--
--	WRITE_ONCE(roll->iter.count, loaded);
--	iov_iter_bvec_queue(&roll->iter, ITER_DEST, roll->tail, 0, 0, loaded);
--	return loaded;
--
--nomem_unlock:
--	for (bq = roll->tail; bq; bq = bq->next) {
--		for (int slot = 0; slot < bq->nr_slots; slot++) {
--			struct folio *folio = bvec_folio(&bq->bv[slot]);
--
--			folio_unlock(folio);
--			folio_put(folio);
--		}
--	}
--	rolling_buffer_clear(roll);
--	roll->head = NULL;
--	roll->tail = NULL;
--	return -ENOMEM;
--}
--
--/*
-- * Append a folio to the rolling buffer.
-- */
--ssize_t rolling_buffer_append(struct rolling_buffer *roll, struct folio *folio,
--			      gfp_t gfp)
--{
--	ssize_t size = folio_size(folio);
--	int slot;
--
--	if (rolling_buffer_make_space(roll, gfp) < 0)
--		return -ENOMEM;
--
--	slot = roll->head->nr_slots;
--	bvec_set_folio(&roll->head->bv[slot], folio, size, 0);
--	bvecq_filled_to(roll->head, slot + 1);
--
--	WRITE_ONCE(roll->iter.count, roll->iter.count + size);
--	return size;
--}
--
--/*
-- * Delete a spent buffer from a rolling queue and return the next in line.  We
-- * don't return the last buffer to keep the pointers independent, but return
-- * NULL instead.
-- */
--struct bvecq *rolling_buffer_delete_spent(struct rolling_buffer *roll)
--{
--	struct bvecq *spent = roll->tail, *next = bvecq_next(spent);
--
--	if (!next)
--		return NULL;
--	next->prev = NULL;
--	roll->tail = next;
--	spent->next = NULL;
--	bvecq_put(spent);
--	return next;
--}
--
--/*
-- * Clear out a rolling queue.
-- */
--void rolling_buffer_clear(struct rolling_buffer *roll)
--{
--	bvecq_put(roll->tail);
--}
-diff --git a/include/linux/rolling_buffer.h b/include/linux/rolling_buffer.h
-deleted file mode 100644
-index 5c0bc4221f01..000000000000
---- a/include/linux/rolling_buffer.h
-+++ /dev/null
-@@ -1,47 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0-or-later */
--/* Rolling buffer of folios
-- *
-- * Copyright (C) 2024 Red Hat, Inc. All Rights Reserved.
-- * Written by David Howells (dhowells@redhat.com)
-- */
--
--#ifndef _ROLLING_BUFFER_H
--#define _ROLLING_BUFFER_H
--
--#include <linux/bvecq.h>
--#include <linux/uio.h>
--
--/*
-- * Rolling buffer.  Whilst the buffer is live and in use, folios and bvecq
-- * segments can be added to one end by one thread and removed from the other
-- * end by another thread.  The buffer isn't allowed to be empty; it must always
-- * have at least one bvecq in it so that neither side has to modify both queue
-- * pointers.
-- *
-- * The iterator in the buffer is extended as buffers are inserted.  It can be
-- * snapshotted to use a segment of the buffer.
-- */
--struct rolling_buffer {
--	struct bvecq		*head;		/* Producer's insertion point */
--	struct bvecq		*tail;		/* Consumer's removal point */
--	struct iov_iter		iter;		/* Iterator tracking what's left in the buffer */
--	u8			first_tail_slot; /* First slot in ->tail */
--	bool			for_writeback;	/* T if being used for writeback */
--};
--
--int rolling_buffer_init(struct rolling_buffer *roll, unsigned int direction,
--			gfp_t gfp, bool for_writeback);
--int rolling_buffer_make_space(struct rolling_buffer *roll, gfp_t gfp);
--ssize_t rolling_buffer_bulk_load_from_ra(struct rolling_buffer *roll,
--					 struct readahead_control *ractl,
--					 gfp_t gfp);
--ssize_t rolling_buffer_append(struct rolling_buffer *roll, struct folio *folio, gfp_t gfp);
--struct bvecq *rolling_buffer_delete_spent(struct rolling_buffer *roll);
--void rolling_buffer_clear(struct rolling_buffer *roll);
--
--static inline void rolling_buffer_advance(struct rolling_buffer *roll, size_t amount)
--{
--	iov_iter_advance(&roll->iter, amount);
--}
--
--#endif /* _ROLLING_BUFFER_H */
+diff --git a/Documentation/devicetree/bindings/crypto/qcom,prng.yaml b/Documentation/devicetree/bindings/crypto/qcom,prng.yaml
+index de323969fe64..2acb629e816c 100644
+--- a/Documentation/devicetree/bindings/crypto/qcom,prng.yaml
++++ b/Documentation/devicetree/bindings/crypto/qcom,prng.yaml
+@@ -19,6 +19,7 @@ properties:
+           - enum:
+               - qcom,glymur-trng
+               - qcom,hawi-trng
++              - qcom,ipq5210-trng
+               - qcom,ipq5332-trng
+               - qcom,ipq5424-trng
+               - qcom,ipq9574-trng
+
+---
+base-commit: cf4a8255a424f691f95dfa378e88336f33aa8ae4
+change-id: 20261007-rng-1894b2545628
+
+Best regards,
+-- 
+Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
 
