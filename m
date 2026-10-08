@@ -1,138 +1,222 @@
-Received: from out199-18.us.a.mail.aliyun.com (out199-18.us.a.mail.aliyun.com [47.90.199.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED8251799F
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 01:50:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=47.90.199.18
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 73C0B3655EE;
+	Thu,  8 Oct 2026 01:50:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791424231; cv=none; b=tbVWOLSdFzO4Q/Lh+kWLVhzOnOTGLZ9h9hLSktB6EYNEnbH4HyAgECVPB8oPmB7d+4eJgZut2DUQ3/h5MSuHMqwOd7ZA5CQZyqAzSf10qDS0hg9jHnl7TOfhuJAwQpSvUgHAzAe6UkuvyB97erIYRbZ+3+s9DD5H35VRmWd6H3A=
+	t=1791424245; cv=none; b=tjEIBopcmBa/aNxzQv6XmoeOjirV/RFG4ts/1qV8B6c8DPikimoKvras729ELKdrRIkTnxfu7/Ss2qA0C5IxiKu3rlgafpL/CbTuWejx/2B6GCMOeOK9UI5ix822YhUrUQ5X+X9l2b0uZi/XZC+y90o+BlvGi5R9SuefGlbKspk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791424231; c=relaxed/simple;
-	bh=6D1LPXX+dxoadjWWVq8Vuh93ftcDDRwfiXTSaDYmC4k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=X1utXglDvnC4wKAgKsAZv+mJkFZbvhyxhBivRJqHN7pCXnlryGF/WzPjmf9ZiwUdLY2z41824db0ZByY3Aar2TuBpC0TnJ2D/vYt4Ivhx2szrtw18Bu3AMTjGlfkWqT16SzmhrUDyiOLnMD96Y9akwEDHOxk6wXTSDXnYxAvyPk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=lcu90nEA; arc=none smtp.client-ip=47.90.199.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="lcu90nEA"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1791424211; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=zxvr0RhVyqkVNwZlzTLbBqT6dNG/BVYIaMV3U/7dCnQ=;
-	b=lcu90nEA2d9uF2CR3K9U3f4L1oYvt70acnhZzdl7Dc9psbfgU0M6DbVtXW0LCeXhC513BSne0dySVHWNUpfkOYDR446tCxJ+FKuca5b3AuJ1Ygqd3PANCqMX0riUsnX39b90b18F5FML35x+Uh8HFOUQ4I72NtsNzIndUfdBlok=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R191e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=27;SR=0;TI=SMTPD_---0XCIIuQW_1791424207;
-Received: from 30.74.144.149(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XCIIuQW_1791424207 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 08 Oct 2026 09:50:09 +0800
-Message-ID: <a14c2287-8d7f-468d-b0d4-1d445d2be277@linux.alibaba.com>
-Date: Thu, 8 Oct 2026 09:50:06 +0800
+	s=arc-20240116; t=1791424245; c=relaxed/simple;
+	bh=6H1sphCec9/JfHpvbPLJGtz2WgB9Ply+2cWrGuPViH8=;
+	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=X5TbAiysPrru2/PeXOZY6gXJRiaJL4huFaNvUgV9KZgq4foRrS/gSG60+oWVhVP40iRVej2z+WDlFR+RZ+E0l7BbmKELNgu/BzEuLwitfrW0lJ5GmNZ3RSPpynS//S/0sfodIGTGVLEGJs/eYIsC7oC5P7RGyOO/XuLA8lCSImY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.20.42.62])
+	by gateway (Coremail) with SMTP id _____8CxvtLo9sZqwo4TAA--.57130S3;
+	Thu, 08 Oct 2026 09:50:32 +0800 (CST)
+Received: from [10.20.42.62] (unknown [10.20.42.62])
+	by front1 (Coremail) with SMTP id qMiowJBxpMze9sZqTc0pAA--.61679S2;
+	Thu, 08 Oct 2026 09:50:22 +0800 (CST)
+Subject: Re: [PATCH] LoongArch: KVM: Add hypercall crash support
+To: Huacai Chen <chenhuacai@kernel.org>
+Cc: WANG Xuerui <kernel@xen0n.name>, kvm@vger.kernel.org,
+ loongarch@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20260909085350.2046788-1-maobibo@loongson.cn>
+ <CAAhV-H5uz3SM=tYG02Lz3WiN9stJocY7MQJFSKmVbNrNnz+9Gw@mail.gmail.com>
+From: Bibo Mao <maobibo@loongson.cn>
+Message-ID: <82f2c59a-59f5-8e49-f0c5-dc6feb4070df@loongson.cn>
+Date: Thu, 8 Oct 2026 09:51:46 +0800
+User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 07/14] mm: shmem: allow THP support determination at
- folio allocation time
-To: Luiz Capitulino <luizcap@redhat.com>,
- "David Hildenbrand (Arm)" <david@kernel.org>, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, ziy@nvidia.com, lance.yang@linux.dev
-Cc: corbet@lwn.net, tsbogend@alpha.franken.de, maddy@linux.ibm.com,
- mpe@ellerman.id.au, agordeev@linux.ibm.com, gerald.schaefer@linux.ibm.com,
- hca@linux.ibm.com, gor@linux.ibm.com, x86@kernel.org, tglx@kernel.org,
- mingo@redhat.com, bp@alien8.de, hughd@google.com,
- dave.hansen@linux.intel.com, djbw@kernel.org, vishal.l.verma@intel.com,
- dave.jiang@intel.com, akpm@linux-foundation.org, yintirui@huawei.com,
- dev.jain@arm.com, usama.arif@linux.dev
-References: <cover.1789695931.git.luizcap@redhat.com>
- <f74ada750d1910f8ea7e55955eb0c330747b93d4.1789695931.git.luizcap@redhat.com>
- <b63f546b-ee92-46c3-85bd-bc64dbaae367@kernel.org>
- <0162d0f5-8e75-458b-a0a1-6071f46d4b35@redhat.com>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <0162d0f5-8e75-458b-a0a1-6071f46d4b35@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+In-Reply-To: <CAAhV-H5uz3SM=tYG02Lz3WiN9stJocY7MQJFSKmVbNrNnz+9Gw@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJBxpMze9sZqTc0pAA--.61679S2
+X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
+X-Coremail-Antispam: 1Uk129KBj93XoW3GFyUAryxKr4UurWkJrWkuFX_yoWxWrW7pF
+	92yFs5GrW8Kr1fCws3twnI9ry3Grs7Gr1Iga429rWrAF4Y9wn5ur18KryDCFyDJ3y8Wa40
+	vF9Yq3s8ZFsrt3cCm3ZEXasCq-sJn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUv0b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+	Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
+	8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AK
+	xVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7I2V7IY0VAS07AlzV
+	AYIcxG8wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E
+	14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIx
+	kGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAF
+	wI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r
+	4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU8j-e5UU
+	UUU==
 
 
 
-On 10/3/26 11:09 PM, Luiz Capitulino wrote:
+On 2026/10/3 下午12:02, Huacai Chen wrote:
+> Hi, Bibo,
 > 
-> 
-> On 10/2/26 3:23 PM, David Hildenbrand (Arm) wrote:
->> On 9/18/26 03:45, Luiz Capitulino wrote:
->>> In order to enable THP support in shmem today, besides the user
->>> configuration required, the CPU must support PMD-sized pages. This
->>> is the case because of the following has_transparent_hugepage()
->>> usage:
->>>
->>> - shmem_parse_one() and shmem_parse_huge(): Check if THP is built-in and
->>>    if the CPU supports PMD-sized pages
->>>
->>> - shmem_init(): Since the CONFIG_TRANSPARENT_HUGEPAGE guard is outside
->>>    the code block calling has_transparent_hugepage(), the
->>>    has_transparent_hugepage() call is exclusively checking if the CPU
->>>    supports PMD-sized pages
->>>
->>> While it's necessary to check if CONFIG_TRANSPARENT_HUGEPAGE is enabled
->>> in all cases, shmem can determine THP size support at folio allocation
->>> time. Therefore, drop the has_transparent_hugepage() usage listed above
->>> while keeping the CONFIG_TRANSPARENT_HUGEPAGE checks.
->>>
->>> Additionally, we need to check if PMD size order is supported in
->>> shmem_getattr(). Use pgtable_has_pmd_leaves() for that.
->>>
->>> Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
->>> Signed-off-by: Luiz Capitulino <luizcap@redhat.com>
->>> ---
->>>   mm/shmem.c | 9 +++++----
->>>   1 file changed, 5 insertions(+), 4 deletions(-)
->>>
->>> diff --git a/mm/shmem.c b/mm/shmem.c
->>> index 776dff8a848e..930657d05375 100644
->>> --- a/mm/shmem.c
->>> +++ b/mm/shmem.c
->>> @@ -690,7 +690,7 @@ static int shmem_parse_huge(const char *str)
->>>       else
->>>           return -EINVAL;
->>> -    if (!has_transparent_hugepage() &&
->>> +    if (!IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE) &&
->>>           huge != SHMEM_HUGE_NEVER && huge != SHMEM_HUGE_DENY)
->>>           return -EINVAL;
->>> @@ -1524,6 +1524,8 @@ static int shmem_getattr(struct mnt_idmap *idmap,
->>>       generic_fillattr(idmap, request_mask, inode, stat);
->>>       orders = shmem_huge_global_enabled(inode, 0, 0, false, NULL, 0);
+> On Wed, Sep 9, 2026 at 5:01 PM Bibo Mao <maobibo@loongson.cn> wrote:
 >>
->> I'm curious: why is that not handled inside 
->> shmem_huge_global_enabled() ? If PMD
->> order is impossible (well, okay, it is possible, but we simply cannot 
->> map these
->> things through PMDs), I would expect that we never list them as 
->> "enabled".
-> 
-> Yes, you're right. What about renaming current 
-> shmem_huge_global_enabled() to
-> __shmem_huge_global_enabled() and then having:
-> 
-> static unsigned int shmem_huge_global_enabled(struct inode *inode, 
-> pgoff_t index,
->                            loff_t write_end, bool shmem_huge_force,
->                            struct vm_area_struct *vma,
->                            vm_flags_t vm_flags)
-> {
->      unsigned int orders;
-> 
->      orders = __shmem_huge_global_enabled(inode, index, write_end,
->                           shmem_huge_force, vma, vm_flags);
->      if (!pgtable_has_pmd_leaves())
->          orders &= ~BIT(PMD_ORDER);
-> 
->      return orders;
-> }
-> 
-> Would this be acceptable?
+>> Now generic pvpanic is supported in Linux kernel which will notify VMM
+>> with VM crash event. There is some limitations with pvpanic, such as it
+>> requires good kernel stack or CPU hardware context and panic() C function
+>> is in health state.
+>>
+>> Sometimes CPU hardware context or kernel/irq stack is corrupted. Hypercall
+>> code is more direct and low-level crash method, which is useful in
+>> exception entry with assmble language, here add one hypercall code to
+>> support VM crash function, so that VMM can capture CPU crash context
+>> in time.
+>>
+>> Signed-off-by: Bibo Mao <maobibo@loongson.cn>
+>> ---
+>>   arch/loongarch/include/asm/kvm_host.h      |  1 +
+>>   arch/loongarch/include/asm/kvm_para.h      | 15 +++++++++++++++
+>>   arch/loongarch/include/uapi/asm/kvm.h      |  1 +
+>>   arch/loongarch/include/uapi/asm/kvm_para.h |  1 +
+>>   arch/loongarch/kvm/exit.c                  | 11 +++++++++++
+>>   arch/loongarch/kvm/vm.c                    |  3 ++-
+>>   6 files changed, 31 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/arch/loongarch/include/asm/kvm_host.h b/arch/loongarch/include/asm/kvm_host.h
+>> index 65d91c3ce313..96f9f1317cad 100644
+>> --- a/arch/loongarch/include/asm/kvm_host.h
+>> +++ b/arch/loongarch/include/asm/kvm_host.h
+>> @@ -168,6 +168,7 @@ enum emulation_result {
+>>   #define LOONGARCH_PV_FEAT_MASK         (BIT(KVM_FEATURE_IPI) |         \
+>>                                           BIT(KVM_FEATURE_PREEMPT) |     \
+>>                                           BIT(KVM_FEATURE_STEAL_TIME) |  \
+>> +                                        BIT(KVM_FEATURE_CRASH) |       \
+>>                                           BIT(KVM_FEATURE_USER_HCALL) |  \
+>>                                           BIT(KVM_FEATURE_VIRT_EXTIOI))
+>>
+>> diff --git a/arch/loongarch/include/asm/kvm_para.h b/arch/loongarch/include/asm/kvm_para.h
+>> index fb17ba0fa101..3b183bb1aaa8 100644
+>> --- a/arch/loongarch/include/asm/kvm_para.h
+>> +++ b/arch/loongarch/include/asm/kvm_para.h
+>> @@ -14,6 +14,7 @@
+>>   #define KVM_HCALL_CODE_SERVICE         0
+>>   #define KVM_HCALL_CODE_SWDBG           1
+>>   #define KVM_HCALL_CODE_USER_SERVICE    2
+>> +#define KVM_HCALL_CODE_CRASH           3
+>>
+>>   #define KVM_HCALL_SERVICE              HYPERCALL_ENCODE(HYPERVISOR_KVM, KVM_HCALL_CODE_SERVICE)
+>>   #define  KVM_HCALL_FUNC_IPI            1
+>> @@ -22,6 +23,7 @@
+>>   #define KVM_HCALL_SWDBG                        HYPERCALL_ENCODE(HYPERVISOR_KVM, KVM_HCALL_CODE_SWDBG)
+>>
+>>   #define KVM_HCALL_USER_SERVICE         HYPERCALL_ENCODE(HYPERVISOR_KVM, KVM_HCALL_CODE_USER_SERVICE)
+>> +#define KVM_HCALL_CRASH                        HYPERCALL_ENCODE(HYPERVISOR_KVM, KVM_HCALL_CODE_CRASH)
+>>
+>>   /*
+>>    * LoongArch hypercall return code
+>> @@ -161,6 +163,19 @@ static __always_inline long kvm_hypercall5(u64 fid,
+>>          return ret;
+>>   }
+>>
+>> +static __always_inline long kvm_hypercall_crash(void)
+>> +{
+>> +       register long ret asm("a0");
+>> +
+>> +       __asm__ __volatile__(
+>> +               "hvcl "__stringify(KVM_HCALL_CRASH)
+>> +               : "=r" (ret)
+>> +               : : "memory"
+>> +               );
+>> +
+>> +       return ret;
+>> +}
+> Why this function has no caller?
+Currently we directly modify guest kernel and hard-code the hypercall 
+instruction to debug. This inline function is only example for howto 
+usage, the normal usage such as checking KVM_FEATURE_USER_HCALL feature 
++ kvm_hypercall_crash() is too complicated in exception entry assemble 
+language.
 
-Not a fan of re-adding the wrapper. I think you could refer to the 
-changes to shmem_allowable_huge_orders() in patch 14 and filter out the 
-'disabled_orders' in shmem_huge_global_enabled() directly.
+Regards
+Bibo Mao
+> 
+> 
+> Huacai
+> 
+>> +
+>>   #ifdef CONFIG_PARAVIRT
+>>   bool kvm_para_available(void);
+>>   unsigned int kvm_arch_para_features(void);
+>> diff --git a/arch/loongarch/include/uapi/asm/kvm.h b/arch/loongarch/include/uapi/asm/kvm.h
+>> index cd0b5c11ca9c..b222bfc48042 100644
+>> --- a/arch/loongarch/include/uapi/asm/kvm.h
+>> +++ b/arch/loongarch/include/uapi/asm/kvm.h
+>> @@ -106,6 +106,7 @@ struct kvm_fpu {
+>>   #define  KVM_LOONGARCH_VM_FEAT_PTW             8
+>>   #define  KVM_LOONGARCH_VM_FEAT_MSGINT          9
+>>   #define  KVM_LOONGARCH_VM_FEAT_PV_PREEMPT      10
+>> +#define  KVM_LOONGARCH_VM_FEAT_CRASH           11
+>>
+>>   /* Device Control API on vcpu fd */
+>>   #define KVM_LOONGARCH_VCPU_CPUCFG      0
+>> diff --git a/arch/loongarch/include/uapi/asm/kvm_para.h b/arch/loongarch/include/uapi/asm/kvm_para.h
+>> index d28cbcadd276..bf1a0c826ca6 100644
+>> --- a/arch/loongarch/include/uapi/asm/kvm_para.h
+>> +++ b/arch/loongarch/include/uapi/asm/kvm_para.h
+>> @@ -16,6 +16,7 @@
+>>   #define  KVM_FEATURE_IPI               1
+>>   #define  KVM_FEATURE_STEAL_TIME                2
+>>   #define  KVM_FEATURE_PREEMPT           3
+>> +#define  KVM_FEATURE_CRASH             4
+>>   /* BIT 24 - 31 are features configurable by user space vmm */
+>>   #define  KVM_FEATURE_VIRT_EXTIOI       24
+>>   #define  KVM_FEATURE_USER_HCALL                25
+>> diff --git a/arch/loongarch/kvm/exit.c b/arch/loongarch/kvm/exit.c
+>> index 4f58e6e2cf86..3b6daa946c76 100644
+>> --- a/arch/loongarch/kvm/exit.c
+>> +++ b/arch/loongarch/kvm/exit.c
+>> @@ -911,6 +911,17 @@ static int kvm_handle_hypercall(struct kvm_vcpu *vcpu, int ecode)
+>>                  vcpu->run->hypercall.ret = KVM_HCALL_INVALID_CODE;
+>>                  ret = RESUME_HOST;
+>>                  break;
+>> +       case KVM_HCALL_CRASH:
+>> +               if (!kvm_guest_has_pv_feature(vcpu, KVM_FEATURE_CRASH)) {
+>> +                       kvm_write_reg(vcpu, LOONGARCH_GPR_A0, KVM_HCALL_INVALID_CODE);
+>> +                       break;
+>> +               }
+>> +
+>> +               vcpu->run->exit_reason = KVM_EXIT_SYSTEM_EVENT;
+>> +               vcpu->run->system_event.type = KVM_SYSTEM_EVENT_CRASH;
+>> +               vcpu->run->system_event.ndata = 0;
+>> +               ret = RESUME_HOST;
+>> +               break;
+>>          case KVM_HCALL_SWDBG:
+>>                  /* KVM_HCALL_SWDBG only in effective when SW_BP is enabled */
+>>                  if (vcpu->guest_debug & KVM_GUESTDBG_SW_BP_MASK) {
+>> diff --git a/arch/loongarch/kvm/vm.c b/arch/loongarch/kvm/vm.c
+>> index 6dabb227a732..e5d10ceb5e67 100644
+>> --- a/arch/loongarch/kvm/vm.c
+>> +++ b/arch/loongarch/kvm/vm.c
+>> @@ -49,8 +49,9 @@ static void kvm_vm_init_features(struct kvm *kvm)
+>>                  kvm->arch.kvm_features |= BIT(KVM_LOONGARCH_VM_FEAT_PMU);
+>>
+>>          /* Enable all PV features by default */
+>> -       kvm->arch.pv_features |= BIT(KVM_FEATURE_IPI);
+>> +       kvm->arch.pv_features |= BIT(KVM_FEATURE_IPI) | BIT(KVM_FEATURE_CRASH);
+>>          kvm->arch.kvm_features |= BIT(KVM_LOONGARCH_VM_FEAT_PV_IPI);
+>> +       kvm->arch.kvm_features |= BIT(KVM_LOONGARCH_VM_FEAT_CRASH);
+>>          if (kvm_pvtime_supported()) {
+>>                  kvm->arch.pv_features |= BIT(KVM_FEATURE_PREEMPT);
+>>                  kvm->arch.pv_features |= BIT(KVM_FEATURE_STEAL_TIME);
+>>
+>> base-commit: df2908090cda368b01ff43709f51890076c56157
+>> --
+>> 2.39.3
+>>
+>>
+
