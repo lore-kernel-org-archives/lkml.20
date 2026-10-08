@@ -1,89 +1,207 @@
-Received: from va-1-115.ptr.blmpb.com (va-1-115.ptr.blmpb.com [209.127.230.115])
+Received: from va-1-114.ptr.blmpb.com (va-1-114.ptr.blmpb.com [209.127.230.114])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3F0D3E9C29
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 12:02:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.115
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 499DF3E9C29
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 12:03:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.114
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791460979; cv=none; b=h9q2hx5kvBfVvE2J9Dzje8AwwWU3yqiiZ1eYlOMQK/iDH0ar7nK7X6ctEOinOrCQtCHfNtmiIVhFE3mfgg99BEJl00+VZLMmuqtAjo+5MBvugCnN0T+uUAGXZuOzHjB/AL1CYoUCDXFsYsfr41IKfa1t2RcZRMq9S9InpfA3nJc=
+	t=1791460988; cv=none; b=jch6ZJFFW0S8VHUABYwtOYs1TTSFBgWkxj9pdX8R0QNLHVYCisuZLMIBr5VQAI/KjyeGDNyLdXJhhTdfWWDIBsaFRjYqVw72iipqnWAdNqS6GuZiTp7AwtbAJiMF+UTieHtdTd9MdaLiEzQywyVyyDLe/TrYNQtirbh07KMts+k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791460979; c=relaxed/simple;
-	bh=oA9TPSXruq9GjVV664jd3ankQEREuKLFI8yASbQLQ4Y=;
-	h=Cc:Message-Id:Mime-Version:To:From:Subject:Date:Content-Type; b=SeQjNdQ9OkxO5+26S8Ts4eNzA/ixDwgjDfxlSbIAv4TAx+l/B9yxpsbQC9vDdqC9QvAWZ9xg2OpEKvJnyYC9cN/Xh+eMQXb0XSEx98zpRYCHP/NC2ykAxW3XR875wZQ9Cqx6J7zBl5PxXJ69JUsvf2DmHtdrdKzZ4aQKW+ucQjE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=W/D58YqJ; arc=none smtp.client-ip=209.127.230.115
+	s=arc-20240116; t=1791460988; c=relaxed/simple;
+	bh=SqoFMWek5L2AYDuAdulDx3T6hXl+omsbKzxx3PKhTz8=;
+	h=Date:Message-Id:References:To:Content-Type:Cc:Subject:
+	 Mime-Version:In-Reply-To:From; b=MAo26WZD5VRrTf/KBVffVgEtspxcCfqPGAsiqb7jLgiQK/0Yje0YaGYJhUedPeISj7Nwxq8u7upxY1lXQdxw73hQ+jG961dthNAW4rU/q02Hj3A6Iyq48zBHEBWnzbKV/Dpr0tZ4gx/QbBhCwiyswk0v78sDzuVRYYBpsgVck08=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=pAmzh8Xf; arc=none smtp.client-ip=209.127.230.114
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="W/D58YqJ"
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="pAmzh8Xf"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1791460972; h=from:subject:
+ s=2212171451; d=bytedance.com; t=1791460980; h=from:subject:
  mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
  mime-version:in-reply-to:message-id;
- bh=tls5HbU/EWP2TtCFN2PAD3tmRnPe+a9FTxZqc+ipIBw=;
- b=W/D58YqJkui27FURFkIMzpeiI/QeIQ4jx9QidFFvY0d9KtZueQxrASBCqR3yKuFWNcvKqA
- shem7ZcIy1kY2GV4y7YdafYLBDuH7ONVbFQRjZYdb2tA2UUxkDSnLU/6Z0YU1CA0e7XTTT
- 5BYrSGD/lTfsvYY4izsTEa0XXWJVANcVMWIXhqUJH5gwriTpEtGJ3IveBbTysFiBnQh7WP
- 9RrRLbZccI+EbE9+6Ewp4blXpx8Zs2gVjh9CIHh9DXnK9vxEbDCbzBJ6ZDzoAnevH5Z674
- oKVmCl6TKYjFUjCsG8UYYwd0Hq/+aOdT/0P3ycHaIVE4FdFh1Ama16j32MwWbw==
+ bh=2dIBWWhdr4Ivn6SlDhoE9NR8/QzOV2fPo2kXiyccMjc=;
+ b=pAmzh8XfYG8ZnYj6GUlWk5BYx/qm/1t/ireD/f6IBiYUUnaxVxb4vG4heIgASm0uK6JRzq
+ r2CZncaCrPjEVHpqZx9TAcflYjWj9wpUURkcK6JHnZUG4hqOEGMAIVyj/1OUvScZlnxetx
+ qxs/d0FNC6yHwy4xaPyLLGF+4VO9ihYUBJkSKOOhBgGtoCfdjen8Nk7GzXjY4dWhrMNeD5
+ SYfoYygA7ncG+LKDHneG60BlZk587ixfHd2/qR/5XkxBTfaEzE+Nqp1qsDFSHQSkQ1Ygnb
+ BQrThRYApNt4KVFJzSksQ+/hz0guO+X0wQch3OcQbFdM4QKEaa0M1fCrbyKMzQ==
+X-Lms-Return-Path: <lba+26ac78672+1c3b03+vger.kernel.org+zhujia.zj@bytedance.com>
+Date: Thu,  8 Oct 2026 20:02:38 +0800
+Message-Id: <3ec4d10ebe03054d8b45a12c1cf484f9176877a4.1791452174.git.zhujia.zj@bytedance.com>
+References: <cover.1791452174.git.zhujia.zj@bytedance.com>
+Content-Transfer-Encoding: 7bit
+X-Original-From: Jia Zhu <zhujia.zj@bytedance.com>
+To: "Jan Kara" <jack@suse.cz>
+Content-Type: text/plain; charset=UTF-8
 Cc: "Jia Zhu" <zhujia.zj@bytedance.com>, <amir73il@gmail.com>, 
 	<linux-fsdevel@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Message-Id: <cover.1791452174.git.zhujia.zj@bytedance.com>
+Subject: [PATCH v2 1/2] inotify: drop fsnotify SRCU protection during event delivery
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-To: "Jan Kara" <jack@suse.cz>
-From: "Jia Zhu" <zhujia.zj@bytedance.com>
-X-Original-From: Jia Zhu <zhujia.zj@bytedance.com>
+In-Reply-To: <cover.1791452174.git.zhujia.zj@bytedance.com>
 X-Mailer: git-send-email 2.20.1
-Subject: [PATCH v2 0/2] fsnotify: drop SRCU across inotify event delivery
-Date: Thu,  8 Oct 2026 20:02:37 +0800
-X-Lms-Return-Path: <lba+26ac7866a+cb0b49+vger.kernel.org+zhujia.zj@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
+From: "Jia Zhu" <zhujia.zj@bytedance.com>
 
-We observed fsnotify teardown stalls in production. NMI backtraces
-showed inotify_handle_inode_event() in memcg reclaim, and the mark
-reaper, inotifywait and a systemd process were reported blocked for more
-than 327 seconds.
+Inotify event allocation can enter reclaim while holding the global
+fsnotify_mark_srcu read lock. This delays mark reclamation and can stall
+close or task exit in unrelated groups with marks awaiting destruction.
 
-We checked upstream and found the same issue: inotify allocates events
-under fsnotify_mark_srcu, and the global mark reaper waits in
-synchronize_srcu().
+Share the user-wait pinning implementation to pin iterator marks and drop
+SRCU around inotify event delivery. Preserve the all-or-nothing behavior
+of the existing fanotify user-wait interface.
 
-The production report shows multiple inotify release paths blocked
-behind the global mark reaper. Because SRCU and the reaper are shared
-across groups, a stalled delivery can delay other groups' close() and
-exit paths.
+Inotify watches on a directory and its child are independent. Skip marks
+that can no longer be pinned and clear their report bits, so removing one
+watch does not suppress delivery to the surviving watch. Keep all remaining
+iterator heads pinned, including those belonging to other groups, until
+SRCU is reacquired. If no reportable marks remain, roll back the pins and
+return with SRCU still held.
 
-Patch 1 pins the iterator marks and drops SRCU around inotify delivery.
-It retains fanotify's pinning semantics and preserves event delivery to
-a surviving inotify watch when another watch is removed. This leaves the
-reclaim stall itself unchanged.
+This lets unrelated mark reclamation proceed while a callback sleeps.
+Teardown still waits for pinned marks before flushing the group's event
+queue.
 
-Patch 2 skips the global reaper flush when only the closing group
-reference remains. As Jan noted on the earlier patch [1], this only
-helps groups with no outstanding marks. It is optional and can be
-dropped.
-
-The teardown fast path was checked in QEMU with a test-only SRCU holder.
-
-[1] https://lore.kernel.org/all/4467cbj7eivubtdwcawvr7mhrb7armgoc4xfqjjnncrbkxxag6@3mmou6nhviao/
-
-Jia Zhu (2):
-  inotify: drop fsnotify SRCU protection during event delivery
-  fsnotify: avoid unrelated mark reaper waits during group teardown
-
+Signed-off-by: Jia Zhu <zhujia.zj@bytedance.com>
+---
  fs/notify/fsnotify.c             | 15 ++++++++++++---
- fs/notify/group.c                | 26 +++++++++++++++-----------
  fs/notify/inotify/inotify_user.c |  3 ++-
  fs/notify/mark.c                 | 26 ++++++++++++++++++++++----
  include/linux/fsnotify_backend.h |  2 ++
- 5 files changed, 53 insertions(+), 19 deletions(-)
+ 4 files changed, 38 insertions(+), 8 deletions(-)
 
-
-base-commit: df2908090cda368b01ff43709f51890076c56157
+diff --git a/fs/notify/fsnotify.c b/fs/notify/fsnotify.c
+index 7e2f330fd2837..78d040399cbe7 100644
+--- a/fs/notify/fsnotify.c
++++ b/fs/notify/fsnotify.c
+@@ -341,7 +341,8 @@ static int send_to_group(__u32 mask, const void *data, int data_type,
+ 	__u32 marks_ignore_mask = 0;
+ 	bool is_dir = mask & FS_ISDIR;
+ 	struct fsnotify_mark *mark;
+-	int type;
++	int type, ret;
++	bool pin_events;
+ 
+ 	if (!iter_info->report_mask)
+ 		return 0;
+@@ -375,8 +376,16 @@ static int send_to_group(__u32 mask, const void *data, int data_type,
+ 						file_name, cookie, iter_info);
+ 	}
+ 
+-	return fsnotify_handle_event(group, mask, data, data_type, dir,
+-				     file_name, cookie, iter_info);
++	pin_events = group->flags & FSNOTIFY_GROUP_PIN_EVENTS;
++	if (pin_events && !fsnotify_prepare_inode_event(iter_info))
++		return 0;
++
++	ret = fsnotify_handle_event(group, mask, data, data_type, dir,
++				    file_name, cookie, iter_info);
++
++	if (pin_events)
++		fsnotify_finish_user_wait(iter_info);
++	return ret;
+ }
+ 
+ static struct fsnotify_mark *fsnotify_first_mark(struct fsnotify_mark_connector *const *connp)
+diff --git a/fs/notify/inotify/inotify_user.c b/fs/notify/inotify/inotify_user.c
+index 5f19c24ec187f..5955e4ae0816e 100644
+--- a/fs/notify/inotify/inotify_user.c
++++ b/fs/notify/inotify/inotify_user.c
+@@ -644,7 +644,8 @@ static struct fsnotify_group *inotify_new_group(unsigned int max_events)
+ 	struct inotify_event_info *oevent;
+ 
+ 	group = fsnotify_alloc_group(&inotify_fsnotify_ops,
+-				     FSNOTIFY_GROUP_USER);
++				     FSNOTIFY_GROUP_USER |
++				     FSNOTIFY_GROUP_PIN_EVENTS);
+ 	if (IS_ERR(group))
+ 		return group;
+ 
+diff --git a/fs/notify/mark.c b/fs/notify/mark.c
+index b2640d836a712..d0deae0c1ce3a 100644
+--- a/fs/notify/mark.c
++++ b/fs/notify/mark.c
+@@ -553,7 +553,8 @@ static void fsnotify_put_mark_wake(struct fsnotify_mark *mark)
+ 	}
+ }
+ 
+-bool fsnotify_prepare_user_wait(struct fsnotify_iter_info *iter_info)
++static bool fsnotify_prepare_wait(struct fsnotify_iter_info *iter_info,
++				  bool report_partial)
+ 	__releases(&fsnotify_mark_srcu)
+ {
+ 	int type;
+@@ -564,15 +565,19 @@ bool fsnotify_prepare_user_wait(struct fsnotify_iter_info *iter_info)
+ 		/* This can fail if mark is being removed */
+ 		while (mark && !fsnotify_get_mark_safe(mark)) {
+ 			if (mark->group == iter_info->current_group) {
+-				__release(&fsnotify_mark_srcu);
+-				goto fail;
++				if (!report_partial)
++					goto fail;
++				/* The next cursor may belong to another group. */
++				iter_info->report_mask &= ~(1U << type);
+ 			}
+-			/* This is a mark in an unrelated group, skip */
+ 			mark = fsnotify_next_mark(mark);
+ 			iter_info->marks[type] = mark;
+ 		}
+ 	}
+ 
++	if (report_partial && !iter_info->report_mask)
++		goto fail;
++
+ 	/*
+ 	 * Now that all marks are pinned by refcount in the inode / vfsmount / etc
+ 	 * lists, we can drop SRCU lock, and safely resume the list iteration
+@@ -583,11 +588,24 @@ bool fsnotify_prepare_user_wait(struct fsnotify_iter_info *iter_info)
+ 	return true;
+ 
+ fail:
++	__release(&fsnotify_mark_srcu);
+ 	for (type--; type >= 0; type--)
+ 		fsnotify_put_mark_wake(iter_info->marks[type]);
+ 	return false;
+ }
+ 
++bool fsnotify_prepare_user_wait(struct fsnotify_iter_info *iter_info)
++	__releases(&fsnotify_mark_srcu)
++{
++	return fsnotify_prepare_wait(iter_info, false);
++}
++
++bool fsnotify_prepare_inode_event(struct fsnotify_iter_info *iter_info)
++	__releases(&fsnotify_mark_srcu)
++{
++	return fsnotify_prepare_wait(iter_info, true);
++}
++
+ void fsnotify_finish_user_wait(struct fsnotify_iter_info *iter_info)
+ 	__acquires(&fsnotify_mark_srcu)
+ {
+diff --git a/include/linux/fsnotify_backend.h b/include/linux/fsnotify_backend.h
+index 618eed4d6d724..b3132e98a0c3f 100644
+--- a/include/linux/fsnotify_backend.h
++++ b/include/linux/fsnotify_backend.h
+@@ -234,6 +234,7 @@ struct fsnotify_group {
+ 
+ #define FSNOTIFY_GROUP_USER	0x01 /* user allocated group */
+ #define FSNOTIFY_GROUP_DUPS	0x02 /* allow multiple marks per object */
++#define FSNOTIFY_GROUP_PIN_EVENTS 0x04 /* pin marks during events */
+ 	int flags;
+ 	unsigned int owner_flags;	/* stored flags of mark_mutex owner */
+ 
+@@ -938,6 +939,7 @@ extern void fsnotify_put_mark(struct fsnotify_mark *mark);
+ struct fsnotify_mark *fsnotify_next_mark(struct fsnotify_mark *mark);
+ extern void fsnotify_finish_user_wait(struct fsnotify_iter_info *iter_info);
+ extern bool fsnotify_prepare_user_wait(struct fsnotify_iter_info *iter_info);
++bool fsnotify_prepare_inode_event(struct fsnotify_iter_info *iter_info);
+ extern void fsnotify_modify_mark_mask(struct fsnotify_mark *mark, u32 set, u32 clear);
+ 
+ static inline void fsnotify_init_event(struct fsnotify_event *event)
 -- 
 2.20.1
