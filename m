@@ -1,108 +1,67 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 710633B0AE4;
-	Thu,  8 Oct 2026 17:13:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 72893392C2E
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 17:13:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791479609; cv=none; b=ucMSLduvp/EBoz0z99nF4+KyMQQ5+fLwHzZeqQWlONVTdyu9BgjfnUDhN+kPeaP1q0YROMu3E+E6cyD9+cPnj/B3HCbeTo3LWK+5NUfYPAMx9+bTfKedOrDbKg8KzKoFsMfWq729UTRzDcUEE8XPgArs8y78eYzclnlSNHeoHPA=
+	t=1791479634; cv=none; b=utklv0TcRoPQ2Q0Zq6u9d3j5/dFKKuFQSvRf7lFc82p1IjPewkJD4+8g2mMqH0maZE3MlfeRgxuO9wt2wvP1pKjdTnMhP+0HofZOS4CwR9lJeOS0ZEatctOzvRhZs14PzpWUDErhfBgzoyqWopQci/xdSfjf8zVT4p3JsSLCt78=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791479609; c=relaxed/simple;
-	bh=R+N9wiAO3Nd5/Cw59xWltmx5Y4wb1achXpslW/0xbEg=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=JFs40zNJNvg6PhqcTsggHEFjYXiqQT7VbefsLeyM40J86e5Rm2QF3Ne0RsZxjGa3K/DKWL27b7D1eTIe4kvglgFqrJ+lVuq1iVkxUmebe4MLHWGZEunlx+cd6XhNPQk1XSlCcxmCpLEAOOkzrTzhuIsjLAwGRqQEtLM1gr1WDh8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OrCCt2WM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791479634; c=relaxed/simple;
+	bh=zyl3rjwI/SVIkAcHQJnHlvBX2sQuJv91dL4UcqEKTX4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iitmFxOI+2fn2DiEkcjm+u1UWiDeUX8Tz1LyILxG4C6BEdamvvYkfnLmUGPT3GL+lQH/aQHHHM1e0P26j9x7rkl61MvpsOHQSmUh+rWpZIoIH9HGJ2xo7edufJ/Zv1g7jia/CbtynL3PzximIBG/nzCV02+GtWWx8i+iNJZPY3k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=SoxsXxvJ; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OrCCt2WM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FC361F000FF;
-	Thu,  8 Oct 2026 17:13:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791479608;
-	bh=4Nab+5mJ9I+wun3TJcQDZJ7WvF2Rq36ItMB4cHrsCKw=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=OrCCt2WMVt+5aDSsNmHg9N/DS6J17uoRrJpnBlMklFqEPqd6ZGzjcLG6I/O7BlrNJ
-	 MPbzUTd95Bu8+j+VH9WHxvGZXAxWyb0PXJqEbbytQ7NpHX/fqqjhecraYDbXt7dYKN
-	 TyA74hSzNwedDkFNJQmrTnaZWIr0CuFaCmR23Qr0gYN723FYNnvLSeDtExfvWSu0FG
-	 ivdlD7/6gmh86JzGR27ksOQIl9LVNCAWepVxBf8gujnjZ6KUzJQeg3KYnxX7Tbgt8y
-	 e4FDcmssbPqFm9fdpvVDrcqEkxD/50Arnk6Gqn4J4Gr6PGWdp61tuMCWYCIN4c/4Jk
-	 o0TacztWTBiRg==
-Content-Type: multipart/mixed; boundary="===============6176424161200003919=="
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="SoxsXxvJ"
+Received: from eahariha-devbox.5bhznamrcrmeznzvghz2s0u2eh.xx.internal.cloudapp.net (unknown [20.114.54.184])
+	by linux.microsoft.com (Postfix) with ESMTPSA id DFC8820B7166;
+	Thu,  8 Oct 2026 10:12:55 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com DFC8820B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1791479575;
+	bh=5W2n9DShcQIUpKORkk5Vb4Cs1tY++EjPE7xgk+b2WuY=;
+	h=From:To:Cc:Subject:Date:From;
+	b=SoxsXxvJi6bZIi4ELJfl40kctUu3ORsPhL8jggtA6moj/ZzdUs846o3YDME687+xz
+	 rJnfmz6PGoG5GMD5zdH3R3Qs5IfwOBwHQiRo5yRGO1qJ1OhxMg/fOrLtEz+MSmPW+X
+	 mPJZue3ak/6Y/CAJbnI4IUymUaTZRfAkXY/EVTd0=
+From: Easwar Hariharan <easwar.hariharan@linux.microsoft.com>
+To: haiyangz@microsoft.com,
+	wei.liu@kernel.org,
+	decui@microsoft.com,
+	linux-kernel@vger.kernel.org (open list)
+Cc: Easwar Hariharan <easwar.hariharan@linux.microsoft.com>
+Subject: [PATCH] MAINTAINERS: Remove KY from the maintainers list
+Date: Thu,  8 Oct 2026 17:13:47 +0000
+Message-ID: <20261008171348.91738-1-easwar.hariharan@linux.microsoft.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <960fca850e45c39ab84ddde9b0063a89dc44d9faf0e3e750fec9e9d891f773a0@mail.kernel.org>
-In-Reply-To: <20261008161309.8179-2-janten@gmail.com>
-References: <20261008161309.8179-2-janten@gmail.com>
-Subject: Re: [PATCH bpf 1/2] bpf: Revalidate iterator programs on link update
-From: bot+bpf-ci@kernel.org
-To: janten@gmail.com,bpf@vger.kernel.org
-Cc: ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,john.fastabend@gmail.com,davem@davemloft.net,edumazet@kernel.org,kuba@kernel.org,pabeni@redhat.com,horms@kernel.org,jakub@cloudflare.com,jiayuan.chen@linux.dev,kuniyu@google.com,willemb@google.com,shuah@kernel.org,netdev@vger.kernel.org,linux-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Thu,  8 Oct 2026 17:13:25 +0000 (UTC)
+Content-Transfer-Encoding: 8bit
 
---===============6176424161200003919==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+KY has retired from Microsoft and his email is now bouncing. Remove the
+entry from Maintainers.
 
-> bpf: Revalidate iterator programs on link update
-
-TL;DR: Nit only: Documentation/bpf/bpf_iterators.rst may need updating for the
-new validate_target callback in struct bpf_iter_reg and for when it is invoked
-(BPF_LINK_UPDATE only). No code problems reported.
-
-> diff --git a/include/linux/bpf.h b/include/linux/bpf.h
-> index 0ecb9418dfbd..5aa786eba3ea 100644
-> --- a/include/linux/bpf.h
-> +++ b/include/linux/bpf.h
-
-[ ... ]
-
-> @@ -3024,6 +3026,7 @@ enum bpf_iter_feature {
->  struct bpf_iter_reg {
->  	const char *target;
->  	bpf_iter_attach_target_t attach_target;
-> +	bpf_iter_validate_target_t validate_target;
->  	bpf_iter_detach_target_t detach_target;
->  	bpf_iter_show_fdinfo_t show_fdinfo;
->  	bpf_iter_fill_link_info_t fill_link_info;
-
-This isn't a bug, but should Documentation/bpf/bpf_iterators.rst be updated
-for the new member?
-
-That file carries a copy of struct bpf_iter_reg that listed attach_target
-and detach_target exactly as they appeared in this header before the patch:
-
-    bpf_iter_attach_target_t attach_target;
-    bpf_iter_detach_target_t detach_target;
-
-It now lacks validate_target.
-
-The field table in the same file also describes the callbacks as:
-
-    attach_target and detach_target
-      Allows for target specific link_create action since some targets may
-      need special processing. Called during the user space link_create
-      stage.
-
-Nothing there says that validate_target is invoked only from
-bpf_iter_link_replace() (BPF_LINK_UPDATE), and that a target's
-attach_target has to call its validator itself at link_create time, since
-bpf_iter_link_attach() does not call it generically.
-
-A new iterator author working from the documentation would not learn that
-program-dependent checks belong in validate_target as well as in
-attach_target.
-
-Should the struct listing and the field table describe validate_target and
-when it is invoked?
-
-
+Signed-off-by: Easwar Hariharan <easwar.hariharan@linux.microsoft.com>
 ---
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+ MAINTAINERS | 1 -
+ 1 file changed, 1 deletion(-)
 
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/37809581821
---===============6176424161200003919==--
+diff --git a/MAINTAINERS b/MAINTAINERS
+index f53047aa8d3c1..f263ac010209e 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -12161,7 +12161,6 @@ S:	Maintained
+ F:	drivers/media/i2c/hi847.c
+ 
+ Hyper-V/Azure CORE AND DRIVERS
+-M:	"K. Y. Srinivasan" <kys@microsoft.com>
+ M:	Haiyang Zhang <haiyangz@microsoft.com>
+ M:	Wei Liu <wei.liu@kernel.org>
+ M:	Dexuan Cui <decui@microsoft.com>
+-- 
+2.43.0
+
