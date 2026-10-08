@@ -1,197 +1,144 @@
-Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com [74.125.224.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3D2943991C
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 20:58:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEB79357D08;
+	Thu,  8 Oct 2026 20:58:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791493091; cv=none; b=OLsXiRghOgn3H2ydWcDk7m+xjnYHYsawBZqq48+G0tGiQVe46S1fUbDCiSSFUHGfMrPifWS9WbpSDcNl+46G1JCvCxUOmmYrye5Awj9vqqQdJYUtzvE1sOX4ZMZojEXRFbfv37dfp4TGjPTrtH3/ShwNu+ygi1LPPwBxXqbCkW0=
+	t=1791493126; cv=none; b=hxx9s1OniTOGrdG06Wt/IYJ0DASvPlA4nlCKDEPmTOoeg9N8DHO2xoiy/zi13Fl6p61NAEaDjX/F2jI4JpMKSbj06tDYoM3vGeVsaKJbJ23JqP4velBHV6IAkEYhxyQYlPMvrP1AkGdLYoxFUgJTR36ocKQMNGBQEa8Ac4GWGns=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791493091; c=relaxed/simple;
-	bh=OO89bX2AlrtkrgWYdOos3CyMDWbPk6PcFxH+MWmltFQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=JdadvgJkdhZYNIh/nsFUcD5bNKxoMNdfAzpq0lR4gcALmkv83BZFktdohBopJdesAw9W7ArPiwyaQ3JfbdhHTAUnZ8n431unTGskREmTkytpAqCnhhUxF2UrLiKH0u/N140RUVrIcSrluDMKgxX2wqiyVm5JrK3yLM7oTd9H5J8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amutable.com; spf=pass smtp.mailfrom=amutable.com; dkim=pass (2048-bit key) header.d=amutable-com.20251104.gappssmtp.com header.i=@amutable-com.20251104.gappssmtp.com header.b=NV9yBnHQ; arc=none smtp.client-ip=74.125.224.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amutable.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amutable.com
+	s=arc-20240116; t=1791493126; c=relaxed/simple;
+	bh=lHg/uyQ0fkAT6uAgONudVUOSkjJurJvPC8rGOkEpNx4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=j0ugSbw9jcFh6y+XV4rYG8vuiY8hB1cPNqhACl8wFYPzULzNLBhgEbKabkg1HPrmkXJGjCJ8rlnUrsNv268QFI08CyE6fKjPyMHvwHzMlT11J5PhKuuXTlzwGEfSbEHQdmbDTY3RTkY4E95LbZRVQ/VgBb1T2i6sNk8cKc9L7TY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c3zw5MC3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amutable-com.20251104.gappssmtp.com header.i=@amutable-com.20251104.gappssmtp.com header.b="NV9yBnHQ"
-Received: by mail-yx1-f50.google.com with SMTP id 956f58d0204a3-676804a3a22so3342910d50.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 13:58:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amutable-com.20251104.gappssmtp.com; s=20251104; t=1791493087; x=1792097887; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7804DMseCiWMFbi8mF9JSi9WooE66/vdxlGSeU5B64g=;
-        b=NV9yBnHQJ8i1fm3XQlKFyVoMhMU3YmXQfL+1dMrtRds2FqMUOB5F7M5k/p6uluzDqa
-         YxbYRMFrcrYvbGksz8PcxvVlk52hrWpSWwwhj69NVPGm9fDW8M6bQNY2AtkV5tQiUUEE
-         ASRkRaV8VpojY/1B1CzSf+EQh0UAfLoNdcSgkHvkImsMwuoTE1fhxm/2V8BNgu7j7bQm
-         FsQuqW9PwHvrnXqkpOqsdoR9jPLR0dav8T7N+uWuaEHFFrp42grdxKl+J3KOqCsaUAw7
-         Zci/6L1wRjXKCleHWYtobEZ86/2n3eb2Aedi/wThVpQhzOZFti3KXrXRca9FGy5SWcFw
-         WTow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791493087; x=1792097887;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7804DMseCiWMFbi8mF9JSi9WooE66/vdxlGSeU5B64g=;
-        b=xjag0s+B2/gg/dmhmgY/iH6t/rOTJZNOmNTIiOYdxDS7TQictmU6VB4MFC+9JTYkyq
-         yfOnXH4yZOOGKYs+HUddpexKXnlhcmX6XDtAsq2D+LRdiANMcmPllni+YGHJdyzR1zAi
-         u6rlFoMzIblykR0L0v9coatJ7JwJqB2X7Y1uOTPJZ3fdpOhbtSuTy1sJ9AZKsXpFCBZx
-         ZCklSbYMdbEoQRBqY3O7C/foVbujO2aHfmJ8J0CQPf//61B8h0PVbN/pdSoHqcFT0jWY
-         YPEN3Ll9O7n+0KGqZhf81o6P/KwVN+NSPeOGo2PG3wJcoEvBVq0+LIhetmMQdCcUbKZW
-         fSHg==
-X-Forwarded-Encrypted: i=1; AKwUvBw//KobyBJA7AJh/bFCYRqaBDiyFLqUK9WmArug1mHE9bAsuYxQgc8ZgwaUUtXawSL6azT9DMaNrXUmBdM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK1ZGKSP6r0pNVXPhq5dXD5njDSQPliGEUGdVUb10d6RByAL4wI
-	LjJ7KH15qsDXeisiPXn2c0X62SJGriG9KXRA0A3DRAH/ibfmrH+rqB2mmgeZszLQ8YN5
-X-Gm-Gg: AYBFou3fhl0aIHSRsbU2WdTPIWAszjdw9cQCGHBq8ilPdYw2VzORSnDrZpMExe78fS8
-	FPHTxw9BbxGBLzatosXGJn4FJwGUOVBecsmyz0oT7PMvYhOQRmeFthFgTiYHevjPgD02Pv1+K5A
-	A24FDY0q/vwJikhspZEdQJ0Zr/4XzK7Ex1NelrlIjDdhl+h6ElsyRwfP/wAwjopF9qPFmTmMJu5
-	zKlkBijXza5oqrCiLXR4qnIBGQ/KZGxIPBSwkxsF8JF11fUQKho5xhxqfIcC6v/XVt9eWpKSlAn
-	IA9FMDdqm1PGwDuaPYEZpAfbihJolfgWg1yhRlcKPIP+VWAocNnoNWqhlJE+C5YRl71yktTvRTu
-	aRjcfDT0P/8EmGnrm8pq0WkQcZ7hEReONiaeMrplGs1JoXWLFxznZEXqcYUTOmO6TPfo2iyhl5e
-	1C3+UmJxQJ/syjiXouFeqRk9R/e+6oAbKOgJYYJF49ug5XeCEHpBon3Zerc9Rf3tKuRq/JxQWg2
-	Ke0H5h1smgIFkOY7yolHVYaAlgcfEk0EIZGs7A2V7lws0Ahhdiv55w=
-X-Received: by 2002:a05:690e:1445:b0:675:83c7:7382 with SMTP id 956f58d0204a3-67935ed66famr38766d50.1.1791493086647;
-        Thu, 08 Oct 2026 13:58:06 -0700 (PDT)
-Received: from [192.168.1.110] (104-53-165-62.lightspeed.stlsmo.sbcglobal.net. [104.53.165.62])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67935707401sm78814d50.24.2026.10.08.13.58.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 13:58:06 -0700 (PDT)
-From: Andrew Halaney <andrew@amutable.com>
-Date: Thu, 08 Oct 2026 15:57:36 -0500
-Subject: [PATCH bpf-next v2 2/3] keys: add KEY_SPEC_FS_VERITY_KEYRING
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c3zw5MC3"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id EB9761F000FF;
+	Thu,  8 Oct 2026 20:58:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791493125;
+	bh=pDwKVy4Aoq1GoydvAush+WkC9ECSHjmdPN6on930qJs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=c3zw5MC3zAEUmnxFTgRZR2kUn2UNZZEEnfO12xznqShOPXBfsMwZaeCZZN1aACNos
+	 nSonp/nbrMe69otjBlADe3+g63SR07Nk3Q0upHmFtsUvlKJvQOOCFgQA1OvgGaYTNI
+	 wXxJwol8EqS5hit41O6ihQVzQxEsmS7dU+VBlKrJQCMJSSzt1y5LZy66nAbqQRLnhK
+	 u5tANoj3kdmXo80sVPLCrH9FzNTAOPSZvZvzEOLsIkN0jyuiLcORNRbff1iUtf4PpM
+	 Er//1pjI3GjLCybp691L0sDY00dyE40ApqkDnM3puvoxBcZcKjppkW2JmbIQ4nWFZi
+	 GF9GLwMUJbgUQ==
+Date: Thu, 8 Oct 2026 23:58:41 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: adrimg3196@gmail.com
+Cc: linux-kernel@vger.kernel.org, keyrings@vger.kernel.org,
+	dhowells@redhat.com
+Subject: Re: [PATCH v2] KEYS: Fix key_reject_and_link() race with keyring
+ restriction
+Message-ID: <asgEAcvTSQ6PBI_m@kernel.org>
+References: <CACO1+RQ5KXAAbjpiQ=cs0wLZ=z+=JQbW_-pgG+BM0f23W112Tg@mail.gmail.com>
+ <asf5kyDXUQ3z6RMv@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261008-ajhalaney-dmverity-key-identifier-v2-2-008456d189cb@amutable.com>
-References: <20261008-ajhalaney-dmverity-key-identifier-v2-0-008456d189cb@amutable.com>
-In-Reply-To: <20261008-ajhalaney-dmverity-key-identifier-v2-0-008456d189cb@amutable.com>
-To: Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
- Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>, 
- Mikulas Patocka <mpatocka@redhat.com>, 
- Benjamin Marzinski <bmarzins@redhat.com>, 
- David Howells <dhowells@redhat.com>, Jarkko Sakkinen <jarkko@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
- "Serge E. Hallyn" <serge@hallyn.com>, Eric Biggers <ebiggers@kernel.org>, 
- "Theodore Y. Ts'o" <tytso@mit.edu>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: dm-devel@lists.linux.dev, linux-kernel@vger.kernel.org, 
- keyrings@vger.kernel.org, linux-security-module@vger.kernel.org, 
- bpf@vger.kernel.org, fsverity@lists.linux.dev, linux-doc@vger.kernel.org, 
- Andrew Halaney <andrew@amutable.com>, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>
-X-Mailer: b4 0.14.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <asf5kyDXUQ3z6RMv@kernel.org>
 
-Same problem as the dm-verity keyring: .fs-verity is allocated unlinked,
-so the only way for userspace to name it is to scrape /proc/keys.
+On Thu, Oct 08, 2026 at 11:14:16PM +0300, Jarkko Sakkinen wrote:
+> On Thu, Oct 08, 2026 at 11:18:02AM -0700, adrimg3196@gmail.com wrote:
+> > Jarkko, you're right — v1 arrived without the diff. Here's v2 with the
+> > full patch.
+> 
+> And it would not be your fault if it had gone to my PR as I have
+> ultimate responsibility for that part.
+> 
+> Anyhow, put side-notes under '---'. It's a good place for these
+> as it does not get pulled into the commit log.
+> 
+> For single-patch submission it is also great place to maintain
+> changelog.
+> 
+> > 
+> > The restrict_link check in key_reject_and_link() is done before taking
+> > the keyring semaphore, racing with a concurrent keyring_restrict()
+> > that installs the restriction while holding the semaphore in write
+> > mode.
+> > 
+> > This is the same pattern that commit dd3ea3fc ("KEYS: Fix add_key()
+> > race with keyring restriction") just fixed in __key_create_or_update()
+> > by moving the restrict_link snapshot to after the semaphore is taken.
+> > 
+> > Move the check under __key_link_lock() so a restriction installed
+> > concurrently cannot be bypassed when linking a negative key.
+> > 
+> 
+> Fixes: 5ac7eace2d00 ("KEYS: Add a facility to restrict new links into a keyring")o
+> > Signed-off-by: Adrian Martinez <adrimg3196@gmail.com>
+> > ---
+> Here.
+> >  security/keys/key.c | 17 +++++++++++------
+> >  1 file changed, 11 insertions(+), 6 deletions(-)
+> > 
+> > --- a/security/keys/key.c
+> > +++ b/security/keys/key.c
+> > @@ -588,10 +588,17 @@ int key_reject_and_link(struct key *key,
+> >  	ret = -EBUSY;
+> > 
+> >  	if (keyring) {
+> > -		if (keyring->restrict_link)
+> > -			return -EPERM;
+> > -
+> >  		link_ret = __key_link_lock(keyring, &key->index_key);
+> >  		if (link_ret == 0) {
+> > +			/*
+> > +			 * Check the restriction under the keyring semaphore.
+> > +			 * keyring_restrict() installs it while holding the
+> > +			 * semaphore, so testing it beforehand races with a
+> > +			 * concurrent restriction install (cf. the fix for
+> > +			 * __key_create_or_update()).
+> > +			 */
+> > +			if (keyring->restrict_link) {
+> > +				__key_link_end(keyring, &key->index_key, edit);
+> > +				return -EPERM;
+> > +			}
+> >  			link_ret = __key_link_begin(keyring, &key->index_key, &edit);
+> >  			if (link_ret < 0)
+> >  				__key_link_end(keyring, &key->index_key, edit);
+> 
+> 
+> Looks good to me, thank you.
+> 
+> Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
 
-Suggested-by: Christian Brauner (Amutable) <brauner@kernel.org>
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
-Reviewed-by: Christian Brauner (Amutable) <brauner@kernel.org>
-Signed-off-by: Andrew Halaney <andrew@amutable.com>
+So send v3 that addresses:
+
+(141) $ b4 shazam https://lore.kernel.org/keyrings/asf5kyDXUQ3z6RMv@kernel.org/T/#t
+Grabbing thread from lore.kernel.org/all/asf5kyDXUQ3z6RMv@kernel.org/t.mbox.gz
+Checking for newer revisions
+Grabbing search results from lore.kernel.org
+Analyzing 3 messages in the thread
+Checking attestation on all messages, may take a moment...
 ---
- fs/verity/signature.c        |  2 ++
- include/linux/key.h          |  1 +
- include/uapi/linux/keyctl.h  |  1 +
- security/keys/process_keys.c | 25 +++++++++++++++++++++++++
- 4 files changed, 29 insertions(+)
+  ✓ [PATCH v2] KEYS: Fix key_reject_and_link() race with keyring restriction
+    + Fixes: 5ac7eace2d00 ("KEYS: Add a facility to restrict new links into a keyring")o (✓ DKIM/kernel.org)
+    + Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org> (✓ DKIM/kernel.org)
+  ---
+  ✓ Signed: DKIM/gmail.com
+---
+Total patches: 1
+---
+Applying: KEYS: Fix key_reject_and_link() race with keyring restriction
+Patch failed at 0001 KEYS: Fix key_reject_and_link() race with keyring restriction
+error: corrupt patch at line 31
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+hint: When you have resolved this problem, run "git am --continue".
+hint: If you prefer to skip this patch, run "git am --skip" instead.
+hint: To restore the original branch and stop patching, run "git am --abort".
+hint: Disable this message with "git config advice.mergeConflict false"
 
-diff --git a/fs/verity/signature.c b/fs/verity/signature.c
-index 0302a4e506ec..07657e913b22 100644
---- a/fs/verity/signature.c
-+++ b/fs/verity/signature.c
-@@ -135,4 +135,6 @@ void __init fsverity_init_signature(void)
- 			      KEY_ALLOC_NOT_IN_QUOTA, NULL, NULL);
- 	if (IS_ERR(fsverity_keyring))
- 		panic("failed to allocate \".fs-verity\" keyring");
-+
-+	key_register_fs_verity_keyring(fsverity_keyring);
- }
-diff --git a/include/linux/key.h b/include/linux/key.h
-index ae8d3314fd93..dd386c56278c 100644
---- a/include/linux/key.h
-+++ b/include/linux/key.h
-@@ -442,6 +442,7 @@ extern int keyring_restrict(key_ref_t keyring, const char *type,
- 
- extern void key_register_bpf_keyring(struct key *keyring);
- extern void key_register_dm_verity_keyring(struct key *keyring);
-+extern void key_register_fs_verity_keyring(struct key *keyring);
- 
- extern struct key *key_lookup(key_serial_t id);
- 
-diff --git a/include/uapi/linux/keyctl.h b/include/uapi/linux/keyctl.h
-index 75923941f1b3..00cc0942203e 100644
---- a/include/uapi/linux/keyctl.h
-+++ b/include/uapi/linux/keyctl.h
-@@ -26,6 +26,7 @@
- #define KEY_SPEC_REQUESTOR_KEYRING	-8	/* - key ID for request_key() dest keyring */
- #define KEY_SPEC_BPF_KEYRING		-9	/* - key ID for the BPF-specific keyring */
- #define KEY_SPEC_DM_VERITY_KEYRING	-10	/* - key ID for the .dm-verity keyring */
-+#define KEY_SPEC_FS_VERITY_KEYRING	-11	/* - key ID for the .fs-verity keyring */
- 
- /* request-key default keyrings */
- #define KEY_REQKEY_DEFL_NO_CHANGE		-1
-diff --git a/security/keys/process_keys.c b/security/keys/process_keys.c
-index dba3df41638b..655c58a96fcb 100644
---- a/security/keys/process_keys.c
-+++ b/security/keys/process_keys.c
-@@ -29,6 +29,9 @@ static struct key *bpf_keyring __ro_after_init;
- static struct key *dm_verity_keyring;
- static DEFINE_SPINLOCK(dm_verity_keyring_lock);
- 
-+/* fs-verity keyring reachable through KEY_SPEC_FS_VERITY_KEYRING */
-+static struct key *fs_verity_keyring __ro_after_init;
-+
- /* The root user's tracking struct */
- struct key_user root_key_user = {
- 	.usage		= REFCOUNT_INIT(3),
-@@ -629,6 +632,20 @@ void key_register_dm_verity_keyring(struct key *keyring)
- }
- EXPORT_SYMBOL_GPL(key_register_dm_verity_keyring);
- 
-+/**
-+ * key_register_fs_verity_keyring - Publish the keyring for KEY_SPEC_FS_VERITY_KEYRING
-+ * @keyring: The keyring to publish
-+ *
-+ * Make @keyring reachable by userspace through the KEY_SPEC_FS_VERITY_KEYRING
-+ * special key ID, so that provisioning it does not require scraping its
-+ * serial out of /proc/keys first. Called once, from an initcall, and never
-+ * undone.
-+ */
-+void key_register_fs_verity_keyring(struct key *keyring)
-+{
-+	fs_verity_keyring = keyring;
-+}
-+
- /*
-  * Look up a key ID given us by userspace with a given permissions mask to get
-  * the key it refers to.
-@@ -799,6 +816,14 @@ key_ref_t lookup_user_key(key_serial_t id, unsigned long lflags,
- 		key_ref = make_key_ref(key, 0);
- 		break;
- 
-+	case KEY_SPEC_FS_VERITY_KEYRING:
-+		key = fs_verity_keyring;
-+		if (!key)
-+			goto error;
-+		__key_get(key);
-+		key_ref = make_key_ref(key, 0);
-+		break;
-+
- 	default:
- 		key_ref = ERR_PTR(-EINVAL);
- 		if (id < 1)
+You can retain my reviewed-by and please add fixes tag while at it.
 
--- 
-2.55.0
-
+Br, Jarkko
