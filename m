@@ -1,158 +1,190 @@
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CWXP265CU010.outbound.protection.outlook.com (mail-ukwestazon11022103.outbound.protection.outlook.com [52.101.101.103])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6F24361962
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 19:23:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.176
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791487399; cv=none; b=hJqZKgs/y/uM3j9aSsKvYzIb40iGt8atAFXO3l9XUymJLmCiB5FhWqJq1YwrvCzE/WJqEIqvYC5m2p+ei6CzyvAn0MUJKjQSHp+nMvRFrSc0mbRQkYcLIUGa46Z2Wu0joqICLCy+HKmhrkReX13fAu+A8+MI45myDUXdP9yedvo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791487399; c=relaxed/simple;
-	bh=TqrV26qwnEQgYssaPOFp21VF1XSCiSFJ7XsLPRkDNxw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=M9BQSS67Dqhd1o6xd/anb2YdRBQcggbxRgkeN14ZvpZs5zU5QRJ2kx5iYTJ9JUdKigrrnhKvTsMa4/WD6BVUvSNz7dFYL5ZtU2UsvKKVIch7qT3MUeNk2SzKArwStb3yHdgmdfwEDPTnDNb8cfVa9PiLf7bHd51VYur7eSgNS7E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F5E8m/2f; arc=none smtp.client-ip=74.125.82.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C57C3A5431;
+	Thu,  8 Oct 2026 19:24:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.101.103
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791487444; cv=fail; b=K9U2obFP6aHqepA2EWbwv+KrRb0H5N72p6NPCahvm3pVsbZNf+OPvipWd7rLbAb20CT/rsJ+lWG47eNnViG5B23AbSou5LefD5tl2QIuoup6hZS+7U8TdY5tL7qPf5Thg3SPUMGJ38f4q8ZPCpcF4CngjOZ8Qgi/LVAmBjsVh9k=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791487444; c=relaxed/simple;
+	bh=diJh+/hVdxqrwg+GBdTnRYznwUTunUcjYT5B6DX/KJA=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=BWdpnXdrOSe6doW8xob+X3jqSxA6aDfBOyU+rX3dL+TJJMrMx1eEqvSjZeM2c5Vl5cOF5mZt4d+R+rVkdnuZ0XAXa3uNfgQ6wcvoWXrturjORUv6DQOtEMzYuJKrxraoxAq1EvUOueUT0wv1cKCk1Ml+XHtrnjGwfXQPPkZx/uM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=VBvdNbTh; arc=fail smtp.client-ip=52.101.101.103
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F5E8m/2f"
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso3164047eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 12:23:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791487397; x=1792092197; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Zt6yAaoBJC8VH8i4bJ6fKJQa1AiavMR0bK+hKvjahgk=;
-        b=F5E8m/2fZ3yIKoIXeeK/3wOe4I/PrQyuTF6QiBtiKnJ6N/vYKU8SZ3PkyYTapBkgle
-         xQg5gfGhO0jUsXVA8CdatlyxgX8Nvk+8PHY6LTEk7vItHqsrqvWAot+EZ05/+5mTUEKd
-         shzWSnd7u6lSoEJbjNXCLufO7Jue9UV6L150PjkseTk1ucyIFt+dThJbuXpjU3k1nZjg
-         HNjF6BltA9bMMM1XT98mY7TG+PiW74v4+9d3lQgO+6Kku43VYX7ecjPUjnRIrPlGIFSi
-         FyRm6Sj8BGfGdbOwvbiyJJ58h22EHzXQsfTgquR64MRYphQgjB8VCBF577ZMpL5Dp84R
-         eB6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791487397; x=1792092197;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Zt6yAaoBJC8VH8i4bJ6fKJQa1AiavMR0bK+hKvjahgk=;
-        b=wAUJoZurdheExVnTIxhhllGiw1gDjmmCpvjaKVjdkRYgE+S4THo782B6INwHDeaQ3Y
-         bYV66WyHEVSdopxKoPycE7P6/NVciy8QvPVDidtEDyAmvHH+A2Dxlg8dgrqgBeMH3ZK2
-         etgwWBjX46hB68B4HC/jC0SJqAU0JXpn4OJdjvanCURgSiOBQiE+VZQu9VzXAVGaA88g
-         OMqe1QjOwInB60qDTWHg8g3YkNJbCrLt+eU8s7Z5R16eEZan/QchA+dnqxNmwd71snXS
-         u1OjdyS8aOLDNRgjeB5aA85iAt4xW3pYfP/JzLk1aecUWPzPvJ8gawQKxmuIbjTKktHT
-         ltGQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzMjT+kjXRKuDny/m5UWoyCN2kPoDyoVVinx9GQW+ktRluGNuqnzXvur0zs2P+yTkfbXlJelTSC8U7AsI4=@vger.kernel.org
-X-Gm-Message-State: AFuF++l4wgJWFXHDv3COjoWTfinRizXFpqxTE+XbS1WPlx/+akticrlZ
-	vLrqIDAsBnKPIlNAZP8obH/H0lBjAjHnRC5XGKC16uOf45Jun5n34d13
-X-Gm-Gg: AYBFou0NYWm6rfQt4HR4Sg40iKmEYs6l27SfvHj3h9nM5O03qo0evuuOKvaB63JQ+iO
-	58LG1QuRJg2nFsapXQkFOaetp+GGsHZHRcLjPEs0fIDwifLcoX28R3M9nyUVHLGbnWa/tnvWO3a
-	hPRUn9XRRXjQ8eELwF6bJNnp3+j30T8zijKQRkHY/AvcDOUpEWceOF80jh4q32JmBuALbR9nJV5
-	3dntC3ilQbpZMNEA8c0HiBYfoPFGnOCezlqRTz8qqIBChbz1d5hVVbEpaYRZuMxLKCJOL1/tkNJ
-	VPwqT/TkJZAz/6tpTvtB+L19kPpMo8az3YmQPf9jSWGCQMTumLqC4Ws+0PaxM/FroImSnBhpyv2
-	Iw9/A+uy/zFLkfEVSWeb3ZFFDUMGOsM/D3JqUJYFKjLfqTF6WcEtJ40FJpBmMgvkQXNd6S+TR4C
-	8IIaWM4ArIwGcPJrsWC7nHtoX5AgpgDhbKcBDegeHoR/LAc1FSEFqid5oRb4v6rfau2q6I7Y5tF
-	6L7NKsLWWY0a8SE+ZIk7z6+FH/QEbhKyz/23sFa
-X-Received: by 2002:a05:7301:670c:b0:351:5b99:5f36 with SMTP id 5a478bee46e88-3515de80f23mr10101112eec.9.1791487396733;
-        Thu, 08 Oct 2026 12:23:16 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:3002:e11e:c053:ebcb])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca7133asm98286eec.14.2026.10.08.12.23.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 12:23:15 -0700 (PDT)
-Date: Thu, 8 Oct 2026 12:23:12 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: shashikiranah@chromium.org
-Cc: Jiri Kosina <jikos@kernel.org>, 
-	Benjamin Tissoires <bentiss@kernel.org>, Stephen Boyd <swboyd@chromium.org>, linux-input@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Tzung-Bi Shih <tzungbi@chromium.org>, 
-	Sean O'Brien <seobrien@chromium.org>
-Subject: Re: [PATCH] HID: vivaldi: Validate Report ID and length in feature
- mapping
-Message-ID: <asfk_jRVjY8pXzjt@google.com>
-References: <20261006-upstream-vivaldi-fix-v1-1-bbc9a7f14ea6@chromium.org>
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="VBvdNbTh"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ai+CsKU9na4v7eeMOjfKxeHcUEoRBKJa4nho2q6FdubwiKW5+4/WTLvM8P8pcBRzOJjmNNY1E3xupU9Dj3wqJkD12sO57vZ1LJC1Do+aJEP0PqXody2IwZOVQw+c4kg4nvJ30fQe7GB0MNiQX7gAIw66EqsBdHmPjqKT+So6+hOTR2oGvEH6LaKVE5/7Tfcna8vIwLSq6NTVGJ2QeY12lohFPn/p8zTpDWLlBPyRMCq+BJF1WfWWZr7aUvGpXVW4lzF0TwzdO4tRYvm2yRN64qSEfWi9CL2V9ItJnNzEUcxfTmwsgDunrpdjh4RntzGhDeiUxQEQrnhPiB5C4SMfPg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fgsfhn7OX5czbLBwPNQJAhAaZ6nzbwSH2Ji4VQUUGIs=;
+ b=D8c8WK72U5unOYBlxL9GlA4NPXOqYGpIoqzS4S7g0wqzWORPwxDFrHjkWN5quPeiZpGAzEkffJvaIoK74t1H5hb7ovGsemuLqulXmrdBD0ByMxH/X5aXYSuwCzoPxE5xv3RR//1A2s+XY4J/hGf73LDK/fCr5V9HVUeSSQqwEj12AvC49VIcH8J0U+ZrivL1oZjroNH0lsbT5R/wcrO7tg97r/ODLosLDEPwdKCVrNpauKwoiP2487RFDdzjDZoROnqd3Wbca2DB5cLM8HwgCa7TVcg5462dkU2D2TmXUBoLoQKuGMqA/phY8AKq3+SOw9u97FQNORKTTDcWxDstyg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fgsfhn7OX5czbLBwPNQJAhAaZ6nzbwSH2Ji4VQUUGIs=;
+ b=VBvdNbThpj0rclqUKDK7EaKzuRcHTxDZWUZ9h8e/gdB/6s0a8mCB+4dya7s5dMM6ycmtDI4jRGzzwNAqFZiHVhA0VAx8f6CaBzlJ5grwB7mwCdRNhRnyM1gDHAKXM9EZB0Ygxphu/9eIVwBDw1Wi0dKKVVeEmd2RKjmTmJ8JB8s=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by CWXP265MB5864.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1af::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Thu, 8 Oct
+ 2026 19:23:55 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0496.015; Thu, 8 Oct 2026
+ 19:23:55 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 08 Oct 2026 20:23:55 +0100
+Message-Id: <DLZPAM0YRU3L.2TDZ2GLI7AS6S@garyguo.net>
+Cc: "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ "Gary Guo" <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
+ "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
+ <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Timur Tabi"
+ <ttabi@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] rust: uaccess: avoid unsafe unwrap_unchecked() in
+ strcpy_into_buf()
+From: "Gary Guo" <gary@garyguo.net>
+To: "Thorsten Blum" <blum@kernel.org>, "Alexandre Courbot"
+ <acourbot@nvidia.com>
+X-Mailer: aerc 0.22.0
+References: <20261008061326.177841-2-blum@kernel.org>
+ <DLZHGS3GBIT9.16N0JVOTMONZO@nvidia.com> <asflx_blsGkQ7Obn@kernel.org>
+In-Reply-To: <asflx_blsGkQ7Obn@kernel.org>
+X-ClientProxiedBy: LO6P123CA0050.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:310::6) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261006-upstream-vivaldi-fix-v1-1-bbc9a7f14ea6@chromium.org>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CWXP265MB5864:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7f0bd491-57ef-4e27-dbdc-08df2571b1e8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|10070799003|7416014|56012099006|4143699003|18002099003|10067099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	JdnliNs/rj2jIw+IjfWziam+ZWvErXgPSFcFmPBXTwhGYw4YqgFjCMu/oX/TzsfLs+Tbsdp4JHuCrVNFXp6PhWo/jkLc5KPNVYNXlPAFLPq/eSUsOSLGcmhbl3IithDo09s+jQWk1XLMMgXLOwotBRUwulK0QbyhYBd1VIOypATCS7h/ljAUvEu6HGQd/xm+QBwcatpg18CcwAGRZSXQhZkn0cDmk/VYaoowMCgRz6iteoj9ESb2qw0batrKgyKVFBiwyRektR4mozHLglgD4EGra+5PFbQdKvz1ExfZMrDSUVzOiDzJ95pSBgjpJZRG/OzUDt4IUEEgEHPCQuubl2CV/n+vs/67Ak4sXFwxHVETGlGu+PKP15oiKeOxiXVOmEoyAMBdq2WdxXrMm633iqes0LaVAekFY58RKL8BfnsgtbyQSL8ef8EQ0cGNWZ+vf6egEVwytZzBu4Dln+MWrB39QIR+2CN6Z+2h9n3sbUsr9h82Ivh9DoTxbn54aMAD78V6hnrbbeDrdSsU8Co2KTp2u5dKi7MiGvXUy78g4BtvNKuTyyoaKloNJClbE7mHWM9pxXMvZlv3nwJIBa3OHFvPfDgoHuKxMVtqW5CHxKimRlkppEzAUbT3CjYFiets3Av2UiJcjuh77XXJLJ5AnbnPXWEq8MhkgwGfdhJDomA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(10070799003)(7416014)(56012099006)(4143699003)(18002099003)(10067099003)(22082099003)(6133799003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MDhkbHQyYlI5d3Jsa202UzBFZlIrKysxWnB6VHhQUUZTWis5NkxLMVlmZlZS?=
+ =?utf-8?B?a1hGVEdKQXZTS3czN1dxOW1kTmZ2NmZyNmN2RlJTdEpPc2hHVVpFWnlVamdW?=
+ =?utf-8?B?Mkw5M3BjMHBWcmcydnppSStuRHNrM2dHcDFIMCtZZjYvNDVYLzlEVTh5OGwv?=
+ =?utf-8?B?UkI0bTVDVzZUOVRQbDVtQzRNaWV5NVBOYityMVNqbTBjTUp6SExqQm01U3pD?=
+ =?utf-8?B?UjhjWUhQeE9GRnhwa0cyaTdmYytMWkt6TEdYazFlN1VLS25xOHUzckV1R1c2?=
+ =?utf-8?B?SEZlUGdwMnhnRlhJZmlvb2ZoVnRzOCthVkxxUW43ZzZTY2l2UG5XZVFsM0tT?=
+ =?utf-8?B?WU1SNjc4OG0zKzRVRkZXbVBSenJhQU9taFZKN3I2ZmZVZHBRNXBLSTVXZ3Z6?=
+ =?utf-8?B?cEpmK1VMSWJTUFVHSzk5dzZ4TGl6OERiTUlqcC9IYUtlOW9xbWtvR1EvRm8z?=
+ =?utf-8?B?YU1GN1BudkxGenZKM3Nkai8wdDB0cFl3VjFldzdPU2crOWpIeVlVQml4Yzl4?=
+ =?utf-8?B?SFQ3MCtoelRnRGpOSUNsQkpWQnBJS0FwOE83NEw5Sy8rMlQvZzdkVzRsbCt1?=
+ =?utf-8?B?T1kyR1d2eldCZDhmZHdMOHZyQXpsRTBxL2F6NGtCbVpFWnZSd0dyQUFQbGJS?=
+ =?utf-8?B?d2d5a04xQkVCSkY4YVJ6MDVaWlZRZ2ZQdGZPZnRGZEJnSXVCck1aWFlzbTFD?=
+ =?utf-8?B?THk5TElUUjRmbXN0cWdpb3JUcjc5U1VwaW9wOWV1ck82VmlwREtKVStab2RU?=
+ =?utf-8?B?SUlPa2ZkeG5reGt4N0pYNWZCSlFtM0hHMHNsR1p0amw2cGRKWU5TZGNEMTlw?=
+ =?utf-8?B?ZWtYVUl0YVpCdG5mdTNIanhzQzU0bnN2NmFDR1ZJSkRtT1NlVUFIdURTWklB?=
+ =?utf-8?B?SHBSNHhUbmFPRXV3dlRXMlRKS1QrMElsWmhYc2dKWUJNbDcreFJQRjlaMlBZ?=
+ =?utf-8?B?ZFpSbWVyY0U1M2dITVlaMExWekNkUWRDa3czaTdhRzMzOXBBZTZ1M0JWYkFq?=
+ =?utf-8?B?bEFoQkovNThva3Z2Uy9Zd3Nnc1dGVU9GWThLNUhHYjdrQ0s0ZlB1Y3hLb1FK?=
+ =?utf-8?B?T25hcXVndCtkc1haZmwybGZ5SHMzUTQ2VGhHcHJlNk1iVTZDQ1pYdnJLV0lB?=
+ =?utf-8?B?VmZsSFNETTB5S00wSVhZTTVVRi9hbGJROWRWenZIbGM5QU5MKzZpY210WVZB?=
+ =?utf-8?B?Szd3WXpjZytpWG9EMTN6TWpSSHFCZkt4UzkreitYQXU4bWQyV0lWOFprWm16?=
+ =?utf-8?B?VU8yOUdpVTNHSmcyZjBaaUQ4V0k0M3BDNE9NMW0veTEwMTV4QzB0czFCZUg3?=
+ =?utf-8?B?cVYwLzUxN3JlNWpCMHlDR2xOSUdHYzZvZEZGTTNtMFc0NmlueE5IYkVHRmFy?=
+ =?utf-8?B?Q1R3Q1oyUTZaNzk5cS9PUXdJTGxFa2UvMFNtbkhuOHRVa01BaHpITFlyRWNE?=
+ =?utf-8?B?OWh0QlRWUkVyVDlzakFRblk2c2hRMGllUDgxbDdqRUNTWFJYamVPWVBlWXd2?=
+ =?utf-8?B?SEVad1JVU0dYREZvb3BJbk96WkdwSDRpWUh3M1JkcnNRYk4rUDFna0JZbTF2?=
+ =?utf-8?B?dmtWUDFXOWEwVG81aDZjVEs4ckMrR0VFcW5qVktSUGU3Q0gxRUt3MHV5SHBs?=
+ =?utf-8?B?VFlaOWlXZXRuVmtoTHFzZjFrS1JhV283Z2Nac1VOc3g2NW9jdDc1Nk5CMU9z?=
+ =?utf-8?B?MnlrWTlSbGsyWlpkWXZVekJuVjN4SmZYKzJzTndHZmdzeklKd2NPOWE0dVE3?=
+ =?utf-8?B?TUN5ZTFleFYyR0htRUowK0hvNk5UTzhwS2xwV21tVlY3Z1VZU3haZjF1ZjlP?=
+ =?utf-8?B?b2JUSk9vTjR0MGJrT2YvcTdJMnlpdU5VblEySVBaL0gycjRhY3BQSkErZ2Ev?=
+ =?utf-8?B?cTIya3RQcmh2REFnT2d2VnRNcVV0czhkT3c0MGJqQndFQ1RJTVo3dHo2NzRp?=
+ =?utf-8?B?NkIwaGJvdHN6SkJpSG01cENPQjJmeUhXY3o1UjdSQmdsOWszRUZNajNWcTVt?=
+ =?utf-8?B?QnJaQTNWV1gydzU2TVNBTzY3U1NvR3V0RFNDOFJyNTZOMVpYOXhVWnBVUWti?=
+ =?utf-8?B?RjZ4WlRGMzlrYWEzZU5OcXRNWXZlMzZBaGRzRVFOVElLemJBTUFoaDBXYmdy?=
+ =?utf-8?B?Z1BUZjczWUtHTWRwdDU4Mk5jalFoc0E1K2JSaURmS0VFemJSM0Ixd250UzRR?=
+ =?utf-8?B?NU5Zdkduend2d1Z4KzRUY3Q1UnZQY3BaR3JrUFVITStXdXI5TlBodUFzR3E1?=
+ =?utf-8?B?TlB5aFh6MlFjN2pWUk5Ba1R1WXZZVjFEVXBKUDRoMHcyRkEzWW1zMjd0bzh1?=
+ =?utf-8?B?UlBwcFdtb01NSHJyYnhTR0ZPdUMwZm0xQUFFSld0a04wR0FlQzVwSlBRcVdk?=
+ =?utf-8?Q?XT14i8DPQ2kxHzWtJ75XFgKfrlly4NkPtfUEY?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7f0bd491-57ef-4e27-dbdc-08df2571b1e8
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 19:23:55.7193
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DJkGM0EuPgPF0WYXalIYsDjzEcz3bAfgy7ejI5aEHhuB8R6yOmC4Lmwx3I7hXH6ohlba9fYPf3+rG4VVwjuN8g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP265MB5864
 
-Hi Shashikirana,
+On Thu Oct 8, 2026 at 7:49 PM BST, Thorsten Blum wrote:
+> On Thu, Oct 08, 2026 at 10:15:49PM +0900, Alexandre Courbot wrote:
+>> On Thu Oct 8, 2026 at 3:13 PM JST, Thorsten Blum wrote:
+>> > Since strcpy_into_buf() already rejects empty buffers, use ok_or()
+>> > instead of unwrap_unchecked() when NUL-terminating the buffer.
+>> >
+>> > Signed-off-by: Thorsten Blum <blum@kernel.org>
+>> > ---
+>> >  rust/kernel/uaccess.rs | 4 +---
+>> >  1 file changed, 1 insertion(+), 3 deletions(-)
+>> >
+>> > diff --git a/rust/kernel/uaccess.rs b/rust/kernel/uaccess.rs
+>> > index 5f6c4d7a1a51..2a0af795e75d 100644
+>> > --- a/rust/kernel/uaccess.rs
+>> > +++ b/rust/kernel/uaccess.rs
+>> > @@ -422,9 +422,7 @@ pub fn strcpy_into_buf<'buf>(self, buf: &'buf mut =
+[u8]) -> Result<&'buf CStr> {
+>> >              // This means that we filled the buffer exactly. In this =
+case, we add a NUL-terminator
+>> >              // and return it. Unlike the `len < dst.len()` branch, do=
+n't modify `len` because it
+>> >              // already represents the length including the NUL-termin=
+ator.
+>> > -            //
+>> > -            // SAFETY: Due to the check at the beginning, the buffer =
+is not empty.
+>> > -            unsafe { *buf.last_mut().unwrap_unchecked() =3D 0 };
+>> > +            *buf.last_mut().ok_or(EINVAL)? =3D 0;
+>>=20
+>> I am not sure this gives us much - we are trading an unsafe statement
+>> that is well-controlled (enforced by the first two lines of the method)
+>> for a runtime check. I'd say this is working as intended here.
+>
+> I checked the generated code before and after the patch and it is
+> identical since the compiler is able to remove the additional check.
+> Therefore, this removes an unsafe block without adding runtime cost.
+>
+> It also avoids relying on the buf.is_empty() check to prevent undefined
+> behavior.
 
-On Tue, Oct 06, 2026 at 03:06:59PM +0000, Shashikirana H K via B4 Relay wrote:
-> From: Shashikirana H K <shashikiranah@chromium.org>
-> 
-> vivaldi_feature_mapping() currently passes the descriptor-declared
-> report_len as the received data size to hid_report_raw_event() instead
-> of the actual number of bytes returned by hid_hw_raw_request(). It also
-> does not verify that the returned Report ID matches the requested
-> report->id, or handle a zero-byte return before decrementing the length
-> for unnumbered reports.
-> 
-> Validate that hid_hw_raw_request() returns at least one byte and that
-> the returned Report ID matches report->id, and pass the actual received
-> byte count (ret) to hid_report_raw_event().
-> 
-> Fixes: 33bbe04a15f2 ("HID: google: extract Vivaldi hid feature mapping for use in hid-hammer")
-> Cc: Tzung-Bi Shih <tzungbi@chromium.org>
-> Cc: Sean O'Brien <seobrien@chromium.org>
-> Signed-off-by: Shashikirana H K <shashikiranah@chromium.org>
-> ---
-> Change-Id: I3cf03bd2457f44c6ed47835f3d603f235f5993de
-> ---
->  drivers/hid/hid-vivaldi-common.c | 11 +++++++++--
->  1 file changed, 9 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/hid/hid-vivaldi-common.c b/drivers/hid/hid-vivaldi-common.c
-> index b12bb5cc091aa..ea2c661e623d1 100644
-> --- a/drivers/hid/hid-vivaldi-common.c
-> +++ b/drivers/hid/hid-vivaldi-common.c
-> @@ -69,12 +69,18 @@ void vivaldi_feature_mapping(struct hid_device *hdev,
->  	ret = hid_hw_raw_request(hdev, report->id, report_data,
->  				 report_len, HID_FEATURE_REPORT,
->  				 HID_REQ_GET_REPORT);
-> -	if (ret < 0) {
-> +	if (ret <= 0) {
->  		dev_warn(&hdev->dev, "failed to fetch feature %d\n",
->  			 field->report->id);
->  		goto out;
->  	}
->  
-> +	if (report->id && report_data[0] != report->id) {
+Adding an error returning path is worse for something that cannot happen is
+worse than invoking unsafe in my opinion.
 
-I do not think checking whether report is numbered is needed. While
-transports handle numbered and non-numbered reports differently here I
-believe we always have report number (0 for unnumbered) in first byte.
+Why not just unwrap?
 
-Also, shouldn't this check be in hid core if it is needed?
+    *buf.last_mut().unwrap() =3D 0;
 
-> +		dev_warn(&hdev->dev, "report ID mismatch: expected %d got %d\n",
-> +			 report->id, report_data[0]);
-> +		goto out;
-> +	}
-> +
->  	if (!report->id) {
->  		/*
->  		 * Undo the damage from hid_hw_raw_request() for unnumbered
-> @@ -82,10 +88,11 @@ void vivaldi_feature_mapping(struct hid_device *hdev,
->  		 */
->  		report_data++;
->  		report_len--;
-> +		ret--;
->  	}
->  
->  	ret = hid_report_raw_event(hdev, HID_FEATURE_REPORT, report_data,
-> -				   report_len, report_len, 0);
-> +				   report_len, ret, 0);
-
-Devices typically do not return short reports. Could you please tell me
-what prompted this change?
-
-Thanks.
-
--- 
-Dmitry
+Best,
+Gary
