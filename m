@@ -1,152 +1,79 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 226684AF17D;
-	Thu,  8 Oct 2026 15:19:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 913764B7A59
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 15:19:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791472749; cv=none; b=tPw8qZJ48DeoYAVOCJIZ39lFwzy+gCTL0gmOqyh89ZoEiSAK2JDVTuPPsIY6HqX8huokotMO7scqIcFiKZstv4LGhNs3CDOAeRM5ium2Y6buSurISDrpM1fcDrI4F2gYTCbfujMH84gvthSnYr/QMbZswPNv8H5HY1Ee3H8sMZg=
+	t=1791472766; cv=none; b=oaTmJQ2qH1f7EimmzcFggEcsotC6FLV01bKyz1ZfXlJTt2sGyHnRW+rh2CqiTSbK3u98iBM6B+fXyjctYGRQ+vLA3Ia9r2/3G1iDQb56G1D+JBSA3Co/EP7Dty6IKyJ01zGc+Tt7dTCCFLiwtpjtN6ktSFH89su6wBwI5qYzXmc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791472749; c=relaxed/simple;
-	bh=zLocd8S6vsDfdJeNEGvGbpecc0pDzrIpUYS+HDvnbNA=;
-	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
-	 Content-Type; b=pMaOcDU4iAJXz0hzf7bsqd+LBsL0lpruOi0fjVrkhUsHq0XiGIxLusn4rdWM/IidqB2anqj7kWVuILI0FG5o3H20nZxXXYJVLoEymmJXSkT9J2o0fNP7uOG3DgSGA3ayoXY9/+sbwqnPUvtE8Ae1UdFpOd8UtsMKokPytBLUWk4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=PordJEiR; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=Q98Ooxbb; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1791472766; c=relaxed/simple;
+	bh=UdmR1mYrdZml/gh1G8VUY9j2TPafpP25lNlynxHewVo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=mRxV6WiqcoVsOuR11R5UBTV0uMNUwasX32xzAUOTdqhhJAiCf6a3v1h9pRGMBR6EuFIZuZ7NMh7DwQNRdC1fQXOkQtiCshY934Fa4NApoVzfXW7NnuduMwQGNvdbbcsA56g5QL1jlqbc0CtMOClh2ucWS7FmAB0k0JkX0OUJ8PU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VaSSgG/e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="PordJEiR";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="Q98Ooxbb"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1791472743; bh=CBRBM8PtIaqj+scU0CJgr6o
-	WaSZaep3EtWrSSJ42qAA=; b=PordJEiRd13ricSUvH/8HcU7GaJSI1X3/HVtATsEqSuR6d8h9N
-	Cl0BnOXC3G11VXxuRf1vQoOrn4hytgPkcVwvoiad8bX9lgwVxTpbWjfxKUwEBpKO9Lwrv9ofPaZ
-	H+T24o/TWFpRnDFhi2E8va98DcQ03UsHkykPbcEKzQDmAVdkcrtXdAKU8YgC93A4q9C5dktwfbA
-	XJGGNB6J7+XBZSvFVeSwCo/klXeOl5T15f3M2+Hg+1Nn8KHMFGDCwU8tiIouOPZ5ITy3W1t5fj1
-	JS+wNmVOmS5FHQuIYPTH9rbDX4ja/6LYKqFxNUZMFDfuCvjqKM/lmAgeOKRbWA9hIQg==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1791472743; bh=CBRBM8PtIaqj+scU0CJgr6o
-	WaSZaep3EtWrSSJ42qAA=; b=Q98Ooxbb6gq5Sugu9VxfJ02jdmt3CSZK36OxBijB4HrsXbcQSy
-	TH3JyXHixFxzdAqHAvwU9HHAH2W6oQuFmNDw==;
-Date: Thu, 08 Oct 2026 16:19:03 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: pmladek@suse.com
-CC: bigeasy@linutronix.de, brauner@kernel.org, john.ogness@linutronix.de,
- linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, lkp@intel.com,
- oe-lkp@lists.linux.dev, oleg@redhat.com, oliver.sang@intel.com,
- ptikhomirov@virtuozzo.com, rostedt@goodmis.org, senozhatsky@chromium.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_nbcon/reboot=3A_Flush_nbc?=
- =?US-ASCII?Q?on_consoles_synchronously_on_reboot?=
-In-Reply-To: <20261008150852.8286-1-pmladek@suse.com>
-Message-ID: <CD188453-7954-45B3-8501-FE9574D5FF1A@mainlining.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VaSSgG/e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 630CB1F000FF;
+	Thu,  8 Oct 2026 15:19:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791472758;
+	bh=FWzAyf83sJMqlpcdExg7TKJ622UXmHtaI+HggcOSlVw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=VaSSgG/e1OFEOZeoSjyLzNDhrgxw/efV48ECagVYuF+B+AwcGwD/iOuhbngCe8xKs
+	 RbCzaFH3yZc1hT6N9KR9NOkQiGJR1VOfRLsGic46eV6Q5OPgrw0ZdqqBwXZHFX1SAU
+	 5pL8i42Dv/GJ1sRFL4tHw50cXg3tLdwm+XwQVmUs8ITyUg0AI2UGOA++UEv0u0yQxG
+	 oGaIpg4cn+xAnLJnB6llSH+YRYICMZMdB7L+/Wsw7vP76zgC8MgnolanOyEjhM18nV
+	 flGH8PsR3kZYSYbLJhfq1BK8SIsDpcPpz4K+H3/S1zUx7enXkG00FEDnEHM0r7A9Ap
+	 JZ5oqB8EPzbiQ==
+From: Will Deacon <will@kernel.org>
+To: Catalin Marinas <catalin.marinas@arm.com>,
+	Karl Mehltretter <kmehltretter@gmail.com>
+Cc: mark.rutland@arm.com,
+	kernel-team@android.com,
+	Will Deacon <will@kernel.org>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Andrey Konovalov <andreyknvl@gmail.com>,
+	Alexander Potapenko <glider@google.com>,
+	Dmitry Vyukov <dvyukov@google.com>,
+	kasan-dev@googlegroups.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: irq: exclude the softirq stack switch from KCOV
+Date: Thu,  8 Oct 2026 16:19:10 +0100
+Message-ID: <179136595191.1063015.6426776896396499376.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260926191325.79047-1-kmehltretter@gmail.com>
+References: <20260926191325.79047-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-On 8 October 2026 16:08:52 BST, Petr Mladek <pmladek@suse.com> wrote:
->NBCON consoles emit messages in a dedicated kthreads when the system
->is working properly. printk() tries to flush them synchronously in
->explicitly marked emergency context and in panic().
->
->Another situation where printk() could not rely on kthreads are the
->various
->reboot and halt code paths. They can be detected by the `system_state`
->variable.
->
->Let's default to NBCON_PRIO_EMERGENCY for the post-running states.
->printk() will automatically try flushing the consoles synchronously.
->Also do not rely on printk() and explicitly flush the consoles
->after these states are set.
->
->Note that suspend code paths have already been handled, see
->console_suspend_all() and console_suspend().
->
->Reported-by: kernel test robot <lkp@intel.com>
->Closes: https://lore.kernel.org/all/202608061008.48a1e76e-lkp@intel.com/
->Suggested-by: John Ogness <john.ogness@linutronix.de>
-
-Hi, this looks good to me reboot.c ended! :)
-
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
-
->Signed-off-by: Petr Mladek <pmladek@suse.com>
->---
->Hi,
->
->ah, this somehow fallen through cracks.
->I am sending it as a proper patch finally.
->
->I am sorry I have been somehow too busy before
->the Plumbers conference.
-
-That's ok :) I'm too unlucky as to not go to any conferences :c
-
->
->Best Regards,
->Petr
->---
-> kernel/printk/nbcon.c | 4 ++++
-> kernel/reboot.c       | 4 ++++
-> 2 files changed, 8 insertions(+)
->
->diff --git a/kernel/printk/nbcon.c b/kernel/printk/nbcon.c
->index fb1b37741952..d8f8ec836eea 100644
->--- a/kernel/printk/nbcon.c
->+++ b/kernel/printk/nbcon.c
->@@ -1446,6 +1446,10 @@ enum nbcon_prio nbcon_get_default_prio(void)
-> 	if (panic_on_this_cpu())
-> 		return NBCON_PRIO_PANIC;
+On Sat, 26 Sep 2026 21:13:25 +0200, Karl Mehltretter wrote:
+> On IRQ exit, __irq_exit_rcu() drops HARDIRQ_OFFSET before calling
+> invoke_softirq(). The arm64 do_softirq_own_stack() wrapper and its
+> ____do_softirq() trampoline run before __do_softirq() establishes
+> softirq context, so KCOV records their PCs in the interrupted task's
+> coverage buffer. They also run outside softirq accounting when
+> local_bh_enable() reaches do_softirq().
 > 
->+	/* Do not rely on kthreads when the system is going down. */
->+	if (system_state > SYSTEM_RUNNING)
->+		return NBCON_PRIO_EMERGENCY;
->+
-> 	cpu_emergency_nesting = nbcon_get_cpu_emergency_nesting();
-> 	if (*cpu_emergency_nesting)
-> 		return NBCON_PRIO_EMERGENCY;
->diff --git a/kernel/reboot.c b/kernel/reboot.c
->index d177d89fcc33..776784a82499 100644
->--- a/kernel/reboot.c
->+++ b/kernel/reboot.c
->@@ -8,6 +8,7 @@
-> #define pr_fmt(fmt)	"reboot: " fmt
-> 
-> #include <linux/atomic.h>
->+#include <linux/console.h>
-> #include <linux/ctype.h>
-> #include <linux/export.h>
-> #include <linux/kexec.h>
->@@ -94,6 +95,7 @@ void emergency_restart(void)
-> {
-> 	kmsg_dump(KMSG_DUMP_EMERG);
-> 	system_state = SYSTEM_RESTART;
->+	printk_trigger_flush();
-> 	machine_emergency_restart();
-> }
-> EXPORT_SYMBOL_GPL(emergency_restart);
->@@ -102,6 +104,7 @@ void kernel_restart_prepare(char *cmd)
-> {
-> 	blocking_notifier_call_chain(&reboot_notifier_list, SYS_RESTART, cmd);
-> 	system_state = SYSTEM_RESTART;
->+	printk_trigger_flush();
-> 	usermodehelper_disable();
-> 	device_shutdown();
-> }
->@@ -305,6 +308,7 @@ static void kernel_shutdown_prepare(enum system_states state)
-> 	blocking_notifier_call_chain(&reboot_notifier_list,
-> 		(state == SYSTEM_HALT) ? SYS_HALT : SYS_POWER_OFF, NULL);
-> 	system_state = state;
->+	printk_trigger_flush();
-> 	usermodehelper_disable();
-> 	device_shutdown();
-> }
->
+> [...]
 
---- Thanks!
-"I'm not a very positive person" - Linus torvalds
+Applied to arm64 (for-next/fixes), thanks!
+
+[1/1] arm64: irq: exclude the softirq stack switch from KCOV
+      https://git.kernel.org/arm64/c/a9cd14bfb0c1
+
+Cheers,
+-- 
+Will
+
+https://fixes.arm64.dev
+https://next.arm64.dev
+https://will.arm64.dev
