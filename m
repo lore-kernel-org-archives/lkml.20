@@ -1,87 +1,87 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C5A43B6379
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 06:10:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9430B3BB9F1
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 06:10:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791439821; cv=none; b=pj7+rnXmsR98LnOepwN2lGRL5Zq+s9bujCHpsH19j+M0z9xoyCPRI74aRCnbRPgDMFzj9eqcAdCCOU9UH5atrM3n2n3eAV3nzRk71bifxQxAICtrBJUHGdVoGWkXjNb1xQ4M3zhjPvgLXRcsDQWyz5thJUQzrhRJ+vZSYISThIg=
+	t=1791439853; cv=none; b=o9sOE6Nf5z2a4RQnkq03N7o1nvrV4DEaBH6RYZdvreRusm8FtwkZMM0fIvn7G3Ql6Yhs4aPGPENSGuJo82B0h/Tq9wj1x5F9aMDZjMVjvZvwZKs9V1KbQTLMm5nizuYvq/Lm6m35fgQthisL7g0fTv4tnBbUPKPdCC4/KXTPIm0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791439821; c=relaxed/simple;
-	bh=wNxN2LCMggRd7CtA2517GaI9Bsm/oZeFDoCQ3qU/flk=;
+	s=arc-20240116; t=1791439853; c=relaxed/simple;
+	bh=9sm8KXWdUgCKJZiCqooRJIQAmVgG+nvnpuC5U/+qK1E=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=i7yhKNdiLbehPafZixrdW1hg9Pnw2Li4hSKO9oLm6bkUUJFgzLSLUCXc/hFcaPEEjCYhb/96QizGeojz7txtxP1PBlViwm9DZDD1AV4WoFRfGorRayL+nZULEZviJsvY/zo3dDmc6oDwZ8CRvbbkWzXxUprv6V1UHkOkz5YLyBw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SFki8Ecj; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kge/4DMx; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:Content-Type; b=WJs9P8+f6CR0Vrd31lIT1/fUKrBfprFw21oVsNGIb77iNN91r6+Wh1d0DenYjGKxY9O77U0zFJLEFwM6HxR5js2OSpp0oOxr6c6mPDEBalDjH3V4Y2x0xBkUl6oMpmbF3Hj1WUOx42lgVmCahzJTvJe+OuhtLwroErLVaeloKKQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Dc4000Si; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=i0GVfskN; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SFki8Ecj";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kge/4DMx"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6984BhB2928691
-	for <linux-kernel@vger.kernel.org>; Thu, 8 Oct 2026 06:10:18 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Dc4000Si";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="i0GVfskN"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6984BitJ1776068
+	for <linux-kernel@vger.kernel.org>; Thu, 8 Oct 2026 06:10:52 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	E7NbTCcDpDJabqAVoHlppEnBCQ8nO+uP1Rh4RdDIQfw=; b=SFki8EcjVh/hhnd+
-	hw8bOPLPve/wMYu5Pt5d6YEqlWe8W48EV/ZQWOJGOfUH63ayf31w0+k/L21HI5jV
-	M31wBYEWWj6jiNTuSS0cpXKCdo+6GFOBdLVvYBrxj8DxBrkKmV0Yuh/rpHueK/KM
-	XCb/EFmOeEJbyxhEI72XHSdVdQ0bX7qwMYS4im4xGPbg+914JQvurSasgtIOHy2G
-	zB3SnqRE4uYkhDEN0X79Hf4W3ONUHN4uevChk1ESE8hw4V7rUW59G/AoWJHpLPEb
-	g7E/PUwCx4WmznWl4vOV/kHqAdWcZ3uNIC78n7Tf3hbCBsI+ctRv9DA+iaSOf4Ia
-	yXWrZQ==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe2sd32-1
+	zjPDQNHaNCvR8SSMd/7nciKslGSKiJYIqMIIEsRJhtg=; b=Dc4000SimgsXN83I
+	YITP31k18mKS8yvh2N0PkMiaGpEDdJ1SJkyWtWR8nd8dNsK08a+3gMNEiOkvWil+
+	f4ghUYYHSZSMorWYDYWU8JFLvLgghY3cIyOyKguNn6rcz3Yn4Tjok5whiWbOjXgK
+	H39+T5pc/gsps0BY71Vgfx8/2brr0pASt9UhMIwoE1GPgzE+RaYBSDajq2qrBMar
+	jR7f8c46nQwVFeP773jhNDSL1xmLKrNZ4awcU+2uSweWbNuFELm494VU06PrkbIY
+	nWzcf5O5T6yCObzS7izBeZhsxeUjQ/qExP79TwM8XwWujinvUluVIagcz+I2I3UU
+	gbeEew==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe39bhj-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 06:10:18 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93cb7f9bb86so965042185a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 23:10:18 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 06:10:51 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3a4b70941efso4143265a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 23:10:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791439817; x=1792044617; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1791439851; x=1792044651; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=E7NbTCcDpDJabqAVoHlppEnBCQ8nO+uP1Rh4RdDIQfw=;
-        b=kge/4DMx0Rjp9MYw8VZzdYuCNyFI+7kE/yOxEtLCRULZqfbdhOHpXnAFIYMaj+rM6P
-         FNRk5b4aEfuGNNRDdbF0BuoLJAFehiGg/6oCdsMsuuU7I2GZpELU6Ee4oUQBPbDc3B+/
-         cx9urhG6Fg1GjjBcSg+O1Xw8P/Qhq+o5amEN5Et1dBop4to7f3X/pUZqF4BVB8rp1R5W
-         i9lp2RZM5PqslvMMt+UJx2dEyIYkQL6YHnWOaKICX5ge/F1+jW0O5NCnxRKRT5Jr8Qm3
-         0DedbRemFeDvp1w6ut6WFa/YA9BBvh8hqYZbU/ErkPZ454nS0hJ5zjuvzaSJ8liaL9QG
-         +gCw==
+        bh=zjPDQNHaNCvR8SSMd/7nciKslGSKiJYIqMIIEsRJhtg=;
+        b=i0GVfskNnnonHBtPpzSvEjwBqR3BnWwL6togfrRB/t8YiApQ2QHi7ZngB0DkRi+RSa
+         q39bc3V1NitaDdBGHUbW1xbJeiCI+AZIKgLOrJseRCld1IGFuyHiuZB1fb1EJSSpFv3r
+         Pf74TwS+UjvMIrMOBzAk6hCOuc7z9y1h1Le5t6/tJax0eJXoG7xguszXXVLSdI+hkufO
+         bv/5mSHC0E6wuKbvlsR1y0rfPhwx2UUzQMxNO7k2/P0G6wk4qmdYznSwhNGR93lLAlsk
+         +DePcZVCxNqgiraigZOuMRK7lR3O3AhPmNHbaN8fN2qmSRn1vvLlAePSbwQClg5lbWGu
+         4U2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791439817; x=1792044617;
+        d=1e100.net; s=20260707; t=1791439851; x=1792044651;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=E7NbTCcDpDJabqAVoHlppEnBCQ8nO+uP1Rh4RdDIQfw=;
-        b=XWjCiIS98UxObkYBb2CuhK+EMGuaFwVwRM9Ck3728Vx01XWi01RSIhgGmkixI0RRkU
-         TX2zeiG01aMhBTyIxRwgfrMETur90Of8VJge+VDfWk2UowNVYQ67rJBXoB8Rvk4NYZ4W
-         PUixAi8uNOlwaob060h+omlQdJKzVa0TPydl+INDa+hG+Mm/UE6vB+X01rE+sOtAsJHs
-         LBxzfGvjUYRdxYGp7d/cK1HUlaDDQxETaIfm//Iq9lcOgXNkaROuoFlYxulQvYKzTFpO
-         EUAdiJtF1gvPtXxAXmFmwqIfH2dGpZYlzxE7N987MMSRROGL6iREVR+iZS8xU7UDz/Cj
-         Phtg==
-X-Forwarded-Encrypted: i=1; AKwUvBzkZ9/d779RglArmCxmuGeAh3uBKCat8ar+aj/tB0M3onSpBopLMG+VuW+svIwjdWl/xrLm420OE+aPJe4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lUKwuaUwrHJJwkCxirGvIaMaJ+cpYTGRz/Hp+W4aj6fduZGHfp
-	t+D+VTzFJ+gm/G6IVtKizMjLlxhVgmtGCxb6wL4+L02vgXNf0hG1/AMVXAB3cvro+58gSLqbq6b
-	dI/MAKN3wC3fUKVGs7ui8uSOLx8tdKiF10YDzLWnKMbyMuJcZlmyomLKO52o6ps7GHA8=
-X-Gm-Gg: AYBFou1BAdU0/kW92Dyu9OIh1272YoshPi20/luwgfYRLawxM1//s2/RELhb+XBtHg0
-	F4McatjV5VEokemO4a99obTo8x/YFSXBNAAVzCRV2kOQ2G1+LVawOOd+5QNQzVorcbEmApkQa/2
-	R4Ytcgow7mh269YU86zeYVjsuubbuOohluiIH6Oj4USVQafrd0Pjzr0KEPgqEtqajNvddogyYA+
-	erfnBwZG2dGhjGTvH0DIpPVp1Y+lVsAzRAaeQDbBJsMJAcU0Zd4M4ne2LNHkrNJ7/B7Uw+E2KYi
-	5pDgNV+LbVj3wu0FiNDUPTyCFFwJi/yU/By8M/b0YEnqqu8cahkQusuRzVIB2hI75iBn31pkfmu
-	fMcfidCKcfAeYADtKKYIj0LYyIVqaUWU0+73Kw1E=
-X-Received: by 2002:a05:620a:4555:b0:93e:6c77:6fc7 with SMTP id af79cd13be357-93e9b7add20mr856254085a.42.1791439817490;
-        Wed, 07 Oct 2026 23:10:17 -0700 (PDT)
-X-Received: by 2002:a05:620a:4555:b0:93e:6c77:6fc7 with SMTP id af79cd13be357-93e9b7add20mr856249685a.42.1791439816988;
-        Wed, 07 Oct 2026 23:10:16 -0700 (PDT)
-Received: from [192.168.1.31] ([85.196.172.179])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c7256434bsm9196324f8f.15.2026.10.07.23.10.15
+        bh=zjPDQNHaNCvR8SSMd/7nciKslGSKiJYIqMIIEsRJhtg=;
+        b=izYztG+X6X74aK5/wka06zcKPwV4sjx1dRoXAAnvHFFjuOG6Wv1bY7AkIDaXAUk8rg
+         NMT7Chep2zpQ3g8i7A9gbRuRAYV/MnAyJIJDo8NPIC9y4fY/mrnH26BWG+voGu0W3wqF
+         7Hq1SScoN924NrfxrvoJdd3PTlElek+Ez4shBQMhX3m8XpoXvR1kQb5MhilyqMkX/2l3
+         VduB7hk6aR4Mst3C3hZ9/1oVuDUxqP02/ZG/0l4jh7Ae0bwyivLsHDjOCDdl7wTu69zv
+         WtjlKrfhqcCu9XvmvTi8Oj2/I0p3nwwRAgJKOOsZRYGst3HUVEot5/O2RekgYBbOhM99
+         602w==
+X-Forwarded-Encrypted: i=1; AKwUvBz8b4hOxZ8tWQshy4C0BRN6bewB1s1rOP5q13xN9Ln+8s7EkFLzDusVxu1VqIJEj5Zg4Gg61ozt1AilvYs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLaGvWYs+ipDRSoB2ZftvLJHuXU3E8M6g06lgBGpowfWW8sV8ec
+	10ylHfATEB6JEAl5L47ioi8SnPOchJ+2yvm6eZxEO0j8NLHoJSCY44lYpW4xnZM25AEUBKcpPbB
+	nWzPtq79wF3eIA4YLLje8eQCsm7mwTHrrKqwQGECmPKuR1BgFAd1FFyN8tlTBY82ZSew=
+X-Gm-Gg: AYBFou1gwPE8mvTXGMJPeNnMPfHWXKv90NUzkRXZJm+/22l6O4EdCavF0qxSEBGEngc
+	EYT/zibK70W5VuKcrhVGtEMi5Rle3dmDdqlhboxUhXJ4ie3JBXucH65ij8boXfNViZnFQGddecf
+	vV41rkJVNrfGjuqMw3hSgULYpzeIYtHDCPQ+2h+JyNhfRzmmmqbvuYyevobTeT5Zs67WH4OaTlT
+	mSSNs9ct/HTIyR35uVHrixEf5Qb4mcOShfkk9CHGKkELCyy9HRgRxMja4NNLsgpOzsxC0yabYKP
+	O1UmBFt3+0Ahwb8VjSNfML6ZUSMN3OIkPmJ4y5aSExEpuT+wEENae1YWY8YiY/26fOGc8qV1owc
+	qAguD0mvfMBtaPw9qmGaa3Jfp8a/vJSU=
+X-Received: by 2002:a17:90a:da84:b0:3a6:fec5:c179 with SMTP id 98e67ed59e1d1-3a8a1b49b4fmr3492298a91.41.1791439851101;
+        Wed, 07 Oct 2026 23:10:51 -0700 (PDT)
+X-Received: by 2002:a17:90a:da84:b0:3a6:fec5:c179 with SMTP id 98e67ed59e1d1-3a8a1b49b4fmr3492280a91.41.1791439850602;
+        Wed, 07 Oct 2026 23:10:50 -0700 (PDT)
+Received: from [10.217.219.169] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3aa0cbc6e23sm2785258a91.14.2026.10.07.23.10.46
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 07 Oct 2026 23:10:16 -0700 (PDT)
-Message-ID: <035ae11f-0c69-415f-af9a-c7c903df3f14@oss.qualcomm.com>
-Date: Thu, 8 Oct 2026 09:10:13 +0300
+        Wed, 07 Oct 2026 23:10:50 -0700 (PDT)
+Message-ID: <f69b350a-63a6-4a66-afc7-8421ab86877b@oss.qualcomm.com>
+Date: Thu, 8 Oct 2026 11:40:45 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,104 +89,188 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 31/74] media: qcom: camss: vfe: Add support for updating
- multiple write-masters within an output group
-To: Bryan O'Donoghue <bod@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-        Daniel Scally <dan.scally@ideasonboard.com>,
-        Keke Li <keke.li@amlogic.com>,
-        Richard Acayan <mailingradian@gmail.com>,
-        Hans Verkuil
- <hverkuil@kernel.org>,
-        Gjorgji Rosikopulos <quic_grosikop@quicinc.com>,
-        Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>,
-        Robert Foss
- <rfoss@kernel.org>,
-        Milen Mitkov <quic_mmitkov@quicinc.com>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
- <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-31-ed985aefd611@kernel.org>
+Subject: Re: [PATCH v6 1/7] Add documentation for Sahara protocol
+To: Randy Dunlap <rdunlap@infradead.org>, Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+        Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>,
+        Oded Gabbay <ogabbay@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        mhi@lists.linux.dev
+References: <20260701-sahara_protocol_new_v2-v6-0-3a78362c4741@oss.qualcomm.com>
+ <20260701-sahara_protocol_new_v2-v6-1-3a78362c4741@oss.qualcomm.com>
+ <699644e7-2fc2-41b5-9e02-7f4dbc2aa3a7@infradead.org>
 Content-Language: en-US
-From: "Gjorgji Rosikopulos (Consultant)"
- <gjorgji.rosikopulos@oss.qualcomm.com>
-In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-31-ed985aefd611@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+From: Kishore Batta <kishore.batta@oss.qualcomm.com>
+In-Reply-To: <699644e7-2fc2-41b5-9e02-7f4dbc2aa3a7@infradead.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDAyNCBTYWx0ZWRfX5pjtTDDtzggR
- +mLwfR7Q91YV7kkIJdGkkqYleyXQEORwmCQzOuRF5CMFkYluTTM1mipc9oSxIWv1JbXN65Zf89y
- tyKr9BNI3hu/vbPI4UjF6EwguD2mNDo=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDAyNCBTYWx0ZWRfX8/Y8oj0hFIy7
- Vo+u9NdeVVL+ZmSs69jnr2LXuWS8gOli2RuDFXFAKX5IblbQMZlVCY6qGn2/rbWc3RvqXHFrl0Z
- w91w32P0FI9ekg44btdOzQbK+oBTkvepim0eIvb0dVDQfEBcReZfQz3luMLcn9NpDUGGMkxeocY
- CrRct9owSqZ9O9XROrW9QVdzcDBN/kg65CeWkqF4zb4q9CBnbAu6yXzjkqUCE/9SxDRXXyW7UMt
- 411TNqf7p5Tw6tp4aobu6EfW0fY+48VZWzTAxOQqWUvpSAMdXeH7DOvXtertlboPEszgnwfKbpU
- p/HaWT7s0PWi5lRpBRFDT2DZV2QbXhghE0VM6EeIMK5n7nb2NIe2wDg3UBtq/YuaSJGlfXnmuab
- NE6cLI3Vi7ZUiwVqJe/yaDCybP8NE+ZG/MTOgHFc8+A0VULVlXepCEHqyy8Xghs4UEasVFlQv6B
- M0Q6Nu6iYandbKfrsPQ==
-X-Proofpoint-ORIG-GUID: zdkTQqywZ9jVVR94Ek8u0JlunDeF53kk
-X-Proofpoint-GUID: zdkTQqywZ9jVVR94Ek8u0JlunDeF53kk
-X-Authority-Analysis: v=2.4 cv=CIm/zhrD c=1 sm=1 tr=0 ts=6ac733ca cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=Q/e3f29T3Hw2hnAEzBPF7w==:17
+X-Authority-Analysis: v=2.4 cv=J4s/fwnS c=1 sm=1 tr=0 ts=6ac733eb cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=VwQbUJbxAAAA:8 a=7O-2GFc335GU3a1fVM4A:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=QPSRtYdQVBWiSw6D44AA:9 a=QEXdDO2ut3YA:10 a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDAyNCBTYWx0ZWRfX7jz1EkNgb9ZM
+ cy2M0T03m65YoyIIMdC19MbBNspVKm6Z489c5PQnE5rWg4ufVrrL9mSbkvfCQK4deeVQxIjdDgz
+ UKZswy0haf5Jcw8ZPwgHiUaiceC3cDU=
+X-Proofpoint-GUID: FA4FVpjMT4Ifmresuon0ItcWzdpiabcJ
+X-Proofpoint-ORIG-GUID: FA4FVpjMT4Ifmresuon0ItcWzdpiabcJ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDAyNCBTYWx0ZWRfXwve477hZUnjl
+ cEfBmQTUTpQT4MhudxaETWI4/ihdhXbQUnLsY4g4TD6rSWFS9Dw5JsFkxeA7RN+V5WPpCCrw0fG
+ bfOzmHhPgspFqD5PbXcjb7o1JRnMy+V4RuPl5WyIARPyfinfBifiUkdElev2+Nz1WZfO1dGy1hj
+ iRU23fVPr03Hr7lPMJNCSDsejbrK/yqC5GfX9KR8AKOojtERJgel/8M/JP45zP4PX3s8YTJ9K7r
+ swrn1PVJ98nHLuvB1iMi/qWCYyLi65SIVs59XN/OvBl81FxQL8Ee+zgCtDHnM2+DnsIglhGixCK
+ bCyXlPFQFzR3IJL4nJmpmPLVqsn043+edcsq9zcpltjqQlNf7ZBNSE0zUZ/kb2AIsjmNWSrDRId
+ N53wEAEfLa+cMGhcUxZFto0j+ONFUCF5JRN8Tb4OVsoXsrYLcvDx4S80OVtEc+HiALIj0YWNlu5
+ 8zZ9JMV0HHxNRHBhBXg==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-08_02,2026-10-06_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0 adultscore=0
- spamscore=0 priorityscore=1501 suspectscore=0 clxscore=1015 malwarescore=0
+ impostorscore=0 spamscore=0 phishscore=0 clxscore=1015 lowpriorityscore=0
+ adultscore=0 priorityscore=1501 suspectscore=0 bulkscore=0 malwarescore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080024
 
-I think that all the changes for new API should come in one patch not sure why are you spiting them,
-they will create room of bisect errors.
 
-~Gjorgji
-
-On 10/5/2026 8:14 PM, Bryan O'Donoghue wrote:
-> Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
-> ---
->  drivers/media/platform/qcom/camss/camss-vfe.c | 14 ++++++++++----
->  1 file changed, 10 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
-> index c078af53b0758..20d8b3e1e4459 100644
-> --- a/drivers/media/platform/qcom/camss/camss-vfe.c
-> +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
-> @@ -673,8 +673,11 @@ static int vfe_enable_one_output(struct vfe_line *line, struct vfe_output *outpu
->  		if (!output->buf[i])
->  			break;
->  		output->gen2.active_num++;
-> -		ops->vfe_wm_update(vfe, output->wm[0].bus_client,
-> -				   output->buf[i]->addr[0], line);
-> +		if (ops->vfe_output_update)
-> +			ops->vfe_output_update(vfe, output, output->buf[i]);
-> +		else
-> +			ops->vfe_wm_update(vfe, output->wm[0].bus_client,
-> +					   output->buf[i]->addr[0], line);
->  		ops->reg_update(vfe, line->id);
->  	}
->  
-> @@ -741,8 +744,11 @@ int vfe_queue_buffer_v2(struct camss_video *vid,
->  	if (output->state == VFE_OUTPUT_ON &&
->  	    output->gen2.active_num < 2) {
->  		output->buf[output->gen2.active_num++] = buf;
-> -		ops->vfe_wm_update(vfe, output->wm[0].bus_client,
-> -				   buf->addr[0], line);
-> +		if (ops->vfe_output_update)
-> +			ops->vfe_output_update(vfe, output, buf);
-> +		else
-> +			ops->vfe_wm_update(vfe, output->wm[0].bus_client,
-> +					   buf->addr[0], line);
->  		ops->reg_update(vfe, line->id);
->  	} else {
->  		vfe_buf_add_pending(output, buf);
-> 
-
+On 7/8/2026 10:16 AM, Randy Dunlap wrote:
+> On 7/1/26 3:37 AM, Kishore Batta wrote:
+>> +The packet flow sequence is as follows :
+>> +
+>> +1. The target sends the hello packet to the host to initiate the protocol
+>> +   with the mode set to image transfer pending.
+>> +
+>> +2. The host sends a hello response packet with a success status and sets the
+>> +   mode to image transfer pending after it receives the hello packet and
+>> +   validates the protocol version running on the target.
+>> +
+>> +3. After the target receives the hello response, it initiates the data
+>> +   transfer by requesting the size of DDR training/calibration data.
+>> +
+>> +4. The host sends back the DDR training/calibration data to the target.
+>> +
+>> +5. The target decodes the training data and does not find valid DDR
+>> +   calibration data, target sends END_IMAGE_TX to interrupt the transfer.
+>> +
+>> +6. The host sends DONE after receives END_IMAGE_TX.
+>> +
+>> +7. The target sends DONE_RESP with mode = IMAGE_TX_PENDING because it has
+>> +   not received all images.
+>> +
+>> +8. The target executes DDR training process to generate valid DDR calibration
+>> +   data and prepares to push back to host.
+>> +
+>> +9. The target initiates protocol by sending a hello packet with COMMAND_MODE
+>> +   to the host.
+>> +
+>> +10. The host sends a hello response packet with a success status and sets the
+>> +    mode to COMMAND_MODE.
+>> +
+>> +11. The target sends CMD_READY to the host.
+>> +
+>> +12. The host receives CMD_READY and starts to get command IDs to be executed.
+>> +
+>> +13. The target sends CMD_ID = 9 to push DDR calibration data to host.
+>> +
+>> +14. The host executes CMD_ID = 9 to get DDR calibration data from the target.
+>> +
+>> +15. The target sends RAW_DATA with the payload which contains DDR calibration
+>> +    data to host.
+>> +
+>> +16. The host saves training data in the kernel buffer and exposes to userspace
+>> +    via the sysfs entry. The host sends CMD_SWITCH_MODE with the mode set to
+>> +    IMAGE_TX_PENDING to continue booting.
+>> +
+>> +17. After the target receives the CMD_SWITCH_MODE command, it sends HELLO to
+>> +    the host with the mode set to IMAGE_TX_PENDING. The target and the host
+>> +    repeat the packet flow for image transfer to get all booting-required
+>> +    images.
+>> +
+>> +18. Upon successful transfer of all images, the target sends an END_IMAGE_TX
+>> +    packet with a success status to the host.
+>> +
+>> +19. The host sends DONE after it receives END_IMAGE_TX.
+>> +
+>> +20. The target sends DONE_RESP with the mode set to IMAGE_TX_COMPLETE because
+>> +    it has received all images. The process has been completed after the host
+>> +    receives DONE_RESP with the mode set to IMAGE_TX_COMPLETE.
+>> +
+>> +Subsequent boot scenario with valid DDR calibration data
+>> +--------------------------------------------------------
+>> +
+>> +The below firgure shows the subsequent boot scenario with valid DDR calibration
+>> +data process being loaded from host to target.
+>> +
+>> +.. code-block:: text
+>> +
+>> +                        Host                       Target
+>> +                          |          HELLO            |
+>> +                          |   (mode = image transfer) |
+>> +                          |<--------------------------|
+>> +                          |                           |
+>> +                          |         HELLO RESP        |
+>> +                          |   (mode = image transfer) |
+>> +                          |-------------------------->|
+>> +                          |                           |
+>> +                          |         READ_DATA         |
+>> +                          |   (img ID:34, 0, offset,  |
+>> +                          | size of DDR training data)|
+>> +                          |<--------------------------|
+>> +                          |                           |
+>> +                          |         RAW_DATA          |
+>> +                          |(size of DDR training data)|
+>> +                          |-------------------------->|
+>> +                          |                           |
+>> +                          |                           |
+>> +                          |       END_IMAGE_TX        |
+>> +                          |<--------------------------|
+>> +                          |                           |
+>> +                          |                           |
+>> +                          |          DONE             |
+>> +                          |-------------------------->|
+>> +                          |                           |
+>> +                          |                           |
+>> +                          |         DONE_RESP         |
+>> +                          | (mode = IMAGE_TX_PENDING) |
+>> +                          |<--------------------------|
+>> +                          |                           |
+>> +                          | Subsequent boot scenario  |
+>> +                          | (valid calibration data)  |
+>> +                          | DDR driver configures DDR |
+>> +                          | using valid calibration   |
+>> +                          | data                      |
+>> +                          |                           |
+>> +                          |                           |
+>> +                          |          HELLO            |
+>> +                          | (mode = IMAGE_TX_PENDING) |
+>> +                          |<--------------------------|
+>> +                          |                           |
+>> +                          |         HELLO RESP        |
+>> +                          | (mode = IMAGE_TX_PENDING) |
+>> +                          |-------------------------->|
+>> +                          |                           |
+>> +                          | Boot/Load rest of the     |
+>> +                          |    images....             |
+>> +                          |                           |
+>> +                          |       END_IMAGE_TX        |
+>> +                          |<--------------------------|
+>> +                          |                           |
+>> +                          |                           |
+>> +                          |          DONE             |
+>> +                          |-------------------------->|
+>> +                          |                           |
+>> +                          |                           |
+>> +                          |         DONE_RESP         |
+>> +                          |(mode = IMAGE_TX_COMPLETE) |
+>> +                          |<--------------------------|
+>> +                          |                           |
+>> +
+>> +The packet flow is as follows :
+>> +
+> s/as follows :/as follows:/
+> in 2 places.
+ACK. will correct in next version.
+>> +1. The target sends the hello packet to the host to initiate the protocol
+>> +   with the mode set to image transfer pending.
