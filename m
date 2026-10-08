@@ -1,215 +1,109 @@
-Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com [209.85.167.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11300453A52
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 08:30:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6656A46D2A5
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 08:30:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791448206; cv=none; b=fukHR8qk3nJv1LS6aW/jPaNAOKhWetQxq2i3yTfEKgPbZWB5/i9Hf4FAe8BtchTLqgn7LLjQ+1TMCOYeUKN0mAMucsm7fBGTRxY0n5yyJyvdRZwJjHYmGj44CEo2d3ROmlraoyzn2rG0QYLmFG2MucrHZatwoijMmVbRMkdI1fU=
+	t=1791448212; cv=none; b=Jjou+anMWdfRNFhga6+66RE/uj1A5YjxdROSLjn1r4VFhNeZwVWBE6P+OYTd/iTUBirlph/bdOkF7M0N/mFuxHlSTjKd83OtsChdOMUSvbqH1tiKN5SZkSDIs//FDax6hy+Rf6DmMQlkiC3YAB0EKdxnyih5AIARLXeWvL6SMxo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791448206; c=relaxed/simple;
-	bh=CvyAdXyi6xGDl736hpXlyaXN7OAQj1NiCSx0Yb1chNk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=shSJ/fdB6VX4YbTLSBHpsAlrGcuPlT4Hx0pX6XxJsAz/jCLmvD25E0NHEgI7Kddd+huMHcgncKfKPZsIXBBQT8xgaaUz/CKzCIiklY6nE8lAvZJdEROHBNvizXD2yOaUPHQR2tqj6LzDRLOxXoDevEhB4Rbm2hSFY6XULjv3rVM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZuDzrxFz; arc=none smtp.client-ip=209.85.167.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791448212; c=relaxed/simple;
+	bh=Y2/Ewf5IkZDC5G7ubw4tGMSTAq4i4xDhgRpZcpWtjVo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gD6846jczuqD2Uq9sLgUrPUPI4LmJCo59S7x6kigXLaq22NN+DtogaEvx2yLPhgW9G+o6qQxAc+H4ISnfHbKS8JJk1SNdAfCRW9yb01PBA8qIpu1ZLKlS7ap/Jcr8VmOzE5+WVm/Pjm4rCsGkq4gAbUULl6qrC4TpNo0FGD53L0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=iwr/rdHs; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZuDzrxFz"
-Received: by mail-oi1-f178.google.com with SMTP id 5614622812f47-4b28d9537bcso333028b6e.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 01:30:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791448204; x=1792053004; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=x4YRBpZsbtDLH5v5QWzQXmBnOWEn6u15OsNxyb3RC5M=;
-        b=ZuDzrxFzjtufOZL/Ul2k0Ae/mFbPQEw0yRBz2OtbMrghZOC5yvaY9Q4ViCBeqw6M3W
-         aYS3LwWkC8YJerhdGqqMQzv4PakHOfeSjnWyso+2iNm/nzRWHmr/KK5YvuQzvTbmEU0E
-         gixS7UB8B1uROnJjvkI6T5xywvcYjF8JAplM6LmcLsQvJEP8bAzA8jOeTwJK255LegLQ
-         sJRXZ/9uutWw8ZF2k0mIEzSHwqqgaBymc59to3b5Gbw/qKTyEVgh2I2yosBEuIe4lRBO
-         ZMhb6ronOCgqrCedTUAEFUUNdwUhZRk8/Ggq5wwxWQJGBWcbRmRJamG0oSJyssBZUvVH
-         eD5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791448204; x=1792053004;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=x4YRBpZsbtDLH5v5QWzQXmBnOWEn6u15OsNxyb3RC5M=;
-        b=OlXfJERCotkb2A6xLj+1mvOZ5cF6BrJL9v4KUyenCzPVSh6bXduioKvJsz5WYlSKhx
-         tdPXv/1rRVVUgZFTxLxBXAwlwSseAkq/ExuXrrHxS5K5lIyTqM2lmKL2Mr2+U7oU+4b4
-         KZ8LUeH9OjC3fNHK7ikmcWqix30xBLsClgVs6jxwoLPtxngava++v5BqCkCj5rm+6CpA
-         K3qQZSJQWPVgF4Gff9akCmUaXX9UJ5WopluI6lLYGcYEQ4oE/Fi02pK6SFDL5vIfR6We
-         0boJvryHLTFM1ElzFeM+MdKP4D25SROgevtBuLZr1czafEjozxl5dO8Oh5GY4wOCXEEN
-         I3HA==
-X-Forwarded-Encrypted: i=1; AKwUvBxc4bZUYLZrjlJWBd5xepkp2sH/NURC0gimja7NEvciBfSCpoEmOn+vTxrSNEhgOvJB6LcQ9wf+lGH4MOo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mKEojY2cAkUXYW9hquFgOKu6V1WXMIfVDr71yDy+V6hd6kI65a
-	NccsIJlJU8wiYFE4Sm0e5dTtHOi7u9456LYbn2mmruEjg6ULbLwGCxGCTB5oGNFH
-X-Gm-Gg: AYBFou3xLxsU7yEyQGmX7c7Fq8FRXdsyl51P7Zidto0cYF3+jD6SB32bw489aKXhd3P
-	UvMFQr7tunmZ3ltSkxMiZgvTES8FIFOTYFm/L5GhLXqT+gKsm3qjW1j4dAyQ9b5lsPDUcg0mA4f
-	lK20rGN2yvMT/LdSAQ+i9cv5VCg13W9MhhjSymQKJJDjMq+ISODbm/dOksbWkKaPaNe/xFTGJls
-	EfDTICZE9wh2n9aSG0t2HqK9XnP8XCDwCfUajdmBbyPiAzrnegVRi4AZRJVYJSxs+C8+1ZUtu9d
-	wvAfvssuRSMcNOv/4087EMFnDH2/oL8TCHlHFM+qSMSwiA6F5eV1VskjY/MKT7llR0zY3cYhdsc
-	7/WE4VGpppa0En0jF14/n12pfjcgJB8+i7+TrL1nLhkvgY9a6yyZYQfSoqQyX5v48TPklgg9WDn
-	e8Bqw9Iak6pJe4sJMzcHAEyCepwpmudvVqfBlwUHXAi/lGNop22ur+/81dllQ105hlGrTvloNSz
-	Rgknq7zxLLJkItyXDR7
-X-Received: by 2002:a05:6808:f93:b0:4b8:46e3:e223 with SMTP id 5614622812f47-504ab40d32cmr1090276b6e.15.1791448203704;
-        Thu, 08 Oct 2026 01:30:03 -0700 (PDT)
-Received: from devvm29614.prn0.facebook.com ([2a03:2880:ff:4b::])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4fc4627177esm4877103b6e.1.2026.10.08.01.30.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 01:30:02 -0700 (PDT)
-Date: Thu, 8 Oct 2026 01:29:59 -0700
-From: Bobby Eshleman <bobbyeshleman@gmail.com>
-To: Mina Almasry <almasrymina@google.com>
-Cc: Stanislav Fomichev <sdf@fomichev.me>, Paolo Abeni <pabeni@redhat.com>,
-	Kaiyuan Zhang <kaiyuanz@google.com>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>,
-	Bobby Eshleman <bobbyeshleman@meta.com>,
-	Pavel Begunkov <asml.silence@gmail.com>,
-	Ralf Lici <ralf@mandelbit.com>
-Subject: Re: [PATCH net v1] net: devmem: prevent mixing fragments from
- different bindings
-Message-ID: <asdUh6wyCmvCJ9uw@devvm29614.prn0.facebook.com>
-References: <20261008033952.1399670-1-almasrymina@google.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="iwr/rdHs"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 73A7B1A1185;
+	Thu,  8 Oct 2026 08:30:07 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 45E9E60341;
+	Thu,  8 Oct 2026 08:30:07 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BE5B510333850;
+	Thu,  8 Oct 2026 10:30:02 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791448206; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=NX/RScijLlgmk9jFAka1C5iMtn80JrFrW2GWXIg3HGQ=;
+	b=iwr/rdHsWsqYD7Mi+W5+eTfQcFta6E+UJDQ63DaewWeqZWrO/boVErgHpuPNWI/D+PlnLT
+	hutoZoxlbr9fRk8ql6x0g5l8EBJnh9AMSPVjTzK2eOhZljYl9KpTzvS09cwCJFK0x2Cw96
+	3G67jdKzpIzELAHrpFN86Y6G1eTR3djLBSp1p94ZCzrU79dFG0Q3lCdfw88riHvzkD97Jn
+	oRreRkS+DcEFxIeK7Ah6bN7Ve0zI8rFKJRnsGLZqL0L4j83pZYmNW1XSX+oKhBpEEZ9/Y7
+	sGhnys8bZjnLkEz9+AgYgqatbieOcP7ALb8X3DtkHM03DbgKAXBxQ8v3yN2p+g==
+Message-ID: <cdf6cbfd-1892-45dd-aa44-754a3412500a@bootlin.com>
+Date: Thu, 8 Oct 2026 10:30:02 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261008033952.1399670-1-almasrymina@google.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net 02/10] net: hisilicon: hip04_eth: Move setting of
+ netops to fix crash
+To: David Yang <mmyangfl@gmail.com>, netdev@vger.kernel.org
+Cc: Jian Shen <shenjian15@huawei.com>, Jijie Shao <shaojijie@huawei.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Jacob Keller <jacob.e.keller@intel.com>, Nicolai Buchwitz <nb@tipi-net.de>,
+ Stanislav Fomichev <sdf@fomichev.me>, linux-kernel@vger.kernel.org
+References: <20261008022656.3592191-1-mmyangfl@gmail.com>
+ <20261008022656.3592191-3-mmyangfl@gmail.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20261008022656.3592191-3-mmyangfl@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, Oct 08, 2026 at 03:39:26AM +0000, Mina Almasry wrote:
-> validate_xmit_unreadable_skb() only inspects shinfo->frags[0] and
-> assumes all fragments in an unreadable skb belong to that same devmem
-> binding. However, tcp_sendmsg_locked() only checks that readability
-> matches the presence of a binding (skb_frags_readable(skb) != !binding),
-> allowing consecutive sendmsg() calls with different dmabuf bindings to
-> collapse into the same skb and bypass per-device and unbind checks in
-> validate_xmit_unreadable_skb().
+
+
+On 10/8/26 04:26, David Yang wrote:
+> hip04_mac_probe() calls of_phy_connect() before ndev->netdev_ops is
+> assigned. phy_attach_direct() -> phy_link_topo_add_phy() reads
+> dev->netdev_ops through netdev_need_ops_lock() since the commit in
+> question, so probing crashes with a NULL pointer dereference when
+> CONFIG_NET_SHAPER is enabled.
 > 
-> Add net_devmem_skb_binding() to query the binding associated with an
-> skb, reuse it in validate_xmit_unreadable_skb(), and check in
-> zerocopy_fill_skb_from_devmem() that existing fragments match the target
-> binding.
+> Assign netdev_ops before the PHY attach, as was done for emac in commit
+> 7c9f391ec89c ("net: emac: move setting of netops to fix crash").
 > 
-> Fixes: bd61848900bff ("net: devmem: Implement TX path")
-> Cc: Pavel Begunkov <asml.silence@gmail.com>
-> Cc: Stanislav Fomichev <sdf@fomichev.me>
-> Cc: Bobby Eshleman <bobbyeshleman@meta.com>
-> Signed-off-by: Mina Almasry <almasrymina@google.com>
+> Fixes: ded86da4bbb7 ("net: ethtool: relax ethnl_req_get_phydev() locking assertion")
+> Signed-off-by: David Yang <mmyangfl@gmail.com>
+
+Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+
+Thanks,
+
+Maxime
+
 > ---
->  net/core/datagram.c |  2 +-
->  net/core/dev.c      | 14 ++++----------
->  net/core/devmem.h   | 23 +++++++++++++++++++++++
->  3 files changed, 28 insertions(+), 11 deletions(-)
+>  drivers/net/ethernet/hisilicon/hip04_eth.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 > 
-> diff --git a/net/core/datagram.c b/net/core/datagram.c
-> index 173b5d97bd409..ed8f1045f3cca 100644
-> --- a/net/core/datagram.c
-> +++ b/net/core/datagram.c
-> @@ -712,7 +712,7 @@ zerocopy_fill_skb_from_devmem(struct sk_buff *skb, struct iov_iter *from,
->  	size_t virt_addr, size, off;
->  	struct net_iov *niov;
+> diff --git a/drivers/net/ethernet/hisilicon/hip04_eth.c b/drivers/net/ethernet/hisilicon/hip04_eth.c
+> index fc2c47dcfaab..d0409de5c553 100644
+> --- a/drivers/net/ethernet/hisilicon/hip04_eth.c
+> +++ b/drivers/net/ethernet/hisilicon/hip04_eth.c
+> @@ -976,6 +976,8 @@ static int hip04_mac_probe(struct platform_device *pdev)
+>  		goto init_fail;
+>  	}
 >  
-> -	if (i && skb_frags_readable(skb))
-> +	if (i && net_devmem_skb_binding(skb) != binding)
->  		return -EFAULT;
->  
->  	/* Devmem filling works by taking an IOVEC from the user where the
-> diff --git a/net/core/dev.c b/net/core/dev.c
-> index e76762e29360e..ad2b587dfee27 100644
-> --- a/net/core/dev.c
-> +++ b/net/core/dev.c
-> @@ -4054,8 +4054,7 @@ static struct sk_buff *sk_validate_xmit_skb(struct sk_buff *skb,
->  static struct sk_buff *validate_xmit_unreadable_skb(struct sk_buff *skb,
->  						    struct net_device *dev)
->  {
-> -	struct skb_shared_info *shinfo;
-> -	struct net_iov *niov;
-> +	struct net_devmem_dmabuf_binding *binding;
->  
->  	if (likely(skb_frags_readable(skb) ||
->  		   dev->netmem_tx == NETMEM_TX_NO_DMA))
-> @@ -4064,14 +4063,9 @@ static struct sk_buff *validate_xmit_unreadable_skb(struct sk_buff *skb,
->  	if (dev->netmem_tx == NETMEM_TX_NONE)
->  		goto out_free;
->  
-> -	shinfo = skb_shinfo(skb);
-> -
-> -	if (shinfo->nr_frags > 0) {
-> -		niov = netmem_to_net_iov(skb_frag_netmem(&shinfo->frags[0]));
-> -		if (net_is_devmem_iov(niov) &&
-> -		    READ_ONCE(net_devmem_iov_binding(niov)->dev) != dev)
-> -			goto out_free;
-> -	}
-> +	binding = net_devmem_skb_binding(skb);
-> +	if (binding && READ_ONCE(binding->dev) != dev)
-> +		goto out_free;
->  
->  out:
->  	return skb;
-> diff --git a/net/core/devmem.h b/net/core/devmem.h
-> index 4a293a7d1149c..8c74037633ae8 100644
-> --- a/net/core/devmem.h
-> +++ b/net/core/devmem.h
-> @@ -10,6 +10,7 @@
->  #ifndef _NET_DEVMEM_H
->  #define _NET_DEVMEM_H
->  
-> +#include <linux/skbuff.h>
->  #include <net/netmem.h>
->  #include <net/netdev_netlink.h>
->  
-> @@ -118,6 +119,22 @@ net_devmem_iov_binding(const struct net_iov *niov)
->  	return net_devmem_iov_to_chunk_owner(niov)->binding;
->  }
->  
-> +static inline struct net_devmem_dmabuf_binding *
-> +net_devmem_skb_binding(const struct sk_buff *skb)
-> +{
-> +	const struct skb_shared_info *shinfo = skb_shinfo(skb);
-> +	const struct net_iov *niov;
+> +	ndev->netdev_ops = &hip04_netdev_ops;
 > +
-> +	if (skb_frags_readable(skb) || !shinfo->nr_frags)
-> +		return NULL;
-> +
-> +	niov = skb_frag_net_iov(&shinfo->frags[0]);
-> +	if (!niov || !net_is_devmem_iov(niov))
-> +		return NULL;
-> +
-> +	return net_devmem_iov_binding(niov);
-> +}
-> +
->  static inline u32 net_devmem_iov_binding_id(const struct net_iov *niov)
->  {
->  	return net_devmem_iov_binding(niov)->id;
-> @@ -243,6 +260,12 @@ net_devmem_iov_binding(const struct net_iov *niov)
->  {
->  	return NULL;
->  }
-> +
-> +static inline struct net_devmem_dmabuf_binding *
-> +net_devmem_skb_binding(const struct sk_buff *skb)
-> +{
-> +	return NULL;
-> +}
->  #endif
+>  	priv->phy_node = of_parse_phandle(node, "phy-handle", 0);
+>  	if (priv->phy_node) {
+>  		priv->phy = of_phy_connect(ndev, priv->phy_node,
+> @@ -989,7 +991,6 @@ static int hip04_mac_probe(struct platform_device *pdev)
 >  
->  #endif /* _NET_DEVMEM_H */
-> 
-> base-commit: 6d25ffca055a77787c21a36b66c253f76239411b
-> -- 
-> 2.56.0.385.gd3acb90ef8-goog
-> 
+>  	INIT_WORK(&priv->tx_timeout_task, hip04_tx_timeout_task);
+>  
+> -	ndev->netdev_ops = &hip04_netdev_ops;
+>  	ndev->ethtool_ops = &hip04_ethtool_ops;
+>  	ndev->watchdog_timeo = TX_TIMEOUT;
+>  	ndev->priv_flags |= IFF_UNICAST_FLT;
 
-Makes sense to me. Thanks.
-
-Reviewed-by: Bobby Eshleman <bobbyeshleman@meta.com>
