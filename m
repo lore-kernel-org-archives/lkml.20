@@ -1,97 +1,87 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E48EB3A453A
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 17:44:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED8A042050;
+	Thu,  8 Oct 2026 17:49:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791481458; cv=none; b=d/soHwMkBv/h+NqF86GIO1CWkiPGHkgcf5/BXLihRCNg0PR+M5Rn2NIkgHONhYZ75IY0XId990iLKeS1R/BvnmoFnOwzTsCcxkD2+uxDaxHpHaBC7u90Gr5iNmXsGiWHVA0FMd9jqs4GqXIDmPA3iOL6DmnkfKzhTca7qH1v7+s=
+	t=1791481749; cv=none; b=UQU04DMZh6r3N6bJzCz9j+xtpePnGWN8wke2qGb0+Drkf6W09n8wfQe+nsrblWjJAZJ/CvJ+krJQMHgzs3P/OuEmxRt2Vb0t2HlE1SfWSnYWk5BYLTAVd0Q0DjohPU4Zk2RJkIkDGY5ULTS+5goXxrVc5G58+D6Q72+2y7De3YU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791481458; c=relaxed/simple;
-	bh=sm8V1RsF/IdceN9JxRVyTs9Qz6io+efsEXNp0Guu/Hk=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=XmJ0SNrz1wS1cerZck6MN/EkyIlN+ZPH98TdsJEr+90+gT6XtyK361UAqBhkaIefGz0tKdf3Q9/r5G3u9vyXo2mKuCWBhyFYgka7IaG/BXi4hTDa5x9OMQz5IO7jLrgDAxaYu+wh2ZqDE5j5Nvl76qkf/whX1e4d3Npd8bCmyJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from fc87d0ffb700.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowADX3Dpp1sdqpZYPCg--.13859S2;
-	Fri, 09 Oct 2026 01:44:10 +0800 (CST)
-From: Haotian Zhang <vulab@iscas.ac.cn>
-To: Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	Marc Zyngier <maz@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org,
+	s=arc-20240116; t=1791481749; c=relaxed/simple;
+	bh=s2GFRtIFktHY+2NKyvPmowbNfGa8MQBleT3TFaaAo1I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XZ1TDD7oKZk1vH4+njxTYeVF/O9h3IuObvL8YhEbwaBobZmZGSckyEqto2xkrQSPw4qWe8zJdIQ0+vnUBN8oe8wJ0KH/o+T5ErDJoij+pbVRbqAYVFObOIhahlK4f+bebfCtMvcBwAwWPBrAAOQa5CNAW2hvQANuCpFzHDbObk8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ioikkTCO; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ioikkTCO"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 0C44F1F000FF;
+	Thu,  8 Oct 2026 17:49:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791481748;
+	bh=pISTZqbDUUvYoQiyRN6CYHeE1YtsI6/nydkRNvBlFO8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ioikkTCOTq4eb9VW7iP55yExN0xukKsZJ/U9Vzj4+NFYHCb1ZYqlkmUE92JD/jquG
+	 j2rG9JHMO+hLJUIuWiIhw8ZSQ+I12O1GNdfVEb+Gly34v0QyUfZ7O4BAGm5Bb2Wky/
+	 j7FKQqDEc07Yu837VwHfR6CXge7y0s+/p5oM6OCefvCU7LZ2YxR0g9yWjA6g6r1kB7
+	 YPReVXMIqr8G9PsNtnqJtMXGN+lBehx1TjMh5daLIlckXEzTKUii9bgIK/UQNRqJMK
+	 vpDyODE0wTFqzmi2he6OU0ePTXjGE3fgEDQSHjT4OlLfX3ZRAofkygS6hNoR5Rf1Y9
+	 hJXyLk7C7/Kxg==
+Date: Thu, 8 Oct 2026 20:49:05 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Pei Xiao <xiaopei01@kylinos.cn>
+Cc: peterhuewe@gmx.de, linux-integrity@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] irqchip/mchp-eic: fix clk reference leak on probe error paths
-Date: Fri,  9 Oct 2026 01:44:12 +0800
-Message-Id: <20261008174412.2740045-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.25.1
+Subject: Re: [PATCH v2 1/4] tpm: tpm_ppi: fix zero-extension of negative
+ error codes
+Message-ID: <asfXkXCEYewJVyYb@kernel.org>
+References: <cover.1791421672.git.xiaopei01@kylinos.cn>
+ <654d1a02c0720a37ae38382a71f0b8c0f5f9b6a0.1791421672.git.xiaopei01@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowADX3Dpp1sdqpZYPCg--.13859S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7AFykCw1ktryrXr4fKrWUXFb_yoW8Wr1xpF
-	W7Ja9avFZ7GFWF9r4DJw4kZry5Kw4ayFWxG3yfC3ZFqwnxJryjyFWFya4DZr45AFWxG3WU
-	Gws0qFykAFyDZFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkvb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I
-	8E87Iv6xkF7I0E14v26r4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xv
-	F2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r4j6F
-	4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUAVWU
-	twCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r
-	1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij
-	64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr
-	0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF
-	0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jrManUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAAOA2rHpfVxuQAAs0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <654d1a02c0720a37ae38382a71f0b8c0f5f9b6a0.1791421672.git.xiaopei01@kylinos.cn>
 
-mchp_eic_probe() acquires the peripheral clock with
-of_clk_get_by_name(), which takes a reference on the underlying struct
-clk, but the error paths only call clk_disable_unprepare() and never
-clk_put(). When clk_prepare_enable() fails, or when of_irq_parse_one(),
-the IRQ argument validation or irq_domain_create_hierarchy() fails, the
-probe function jumps to the cleanup labels, frees the private data and
-returns with the clock reference still held.
+On Thu, Oct 08, 2026 at 09:16:20AM +0800, Pei Xiao wrote:
+> tpm_show_ppi_response() keeps its return value in an acpi_status,
+> a typedef of u32.  The two's complement of the error code is stored
+> correctly there, but on return the value is converted to ssize_t and
+> zero-extended, so the sign is lost: user space receives 0xFFFFFFEA
+> (4294967274) instead of -EINVAL, which breaks the usual "ret < 0" error
+> check.
+> Declare the variable as ssize_t so that negative values survive the
+> conversion.
+> 
+> Fixes: 84b1667dea23 ("ACPI / TPM: replace open-coded _DSM code with helper functions")
+> Assisted-by: GLM-5.3
+> Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
+> ---
+>  drivers/char/tpm/tpm_ppi.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/char/tpm/tpm_ppi.c b/drivers/char/tpm/tpm_ppi.c
+> index c9793a3d986d..949fb7055bea 100644
+> --- a/drivers/char/tpm/tpm_ppi.c
+> +++ b/drivers/char/tpm/tpm_ppi.c
+> @@ -234,7 +234,7 @@ static ssize_t tpm_show_ppi_response(struct device *dev,
+>  				     struct device_attribute *attr,
+>  				     char *buf)
+>  {
+> -	acpi_status status = -EINVAL;
+> +	ssize_t status = -EINVAL;
+>  	union acpi_object *obj, *ret_obj;
+>  	u64 req, res;
+>  	struct tpm_chip *chip = to_tpm_chip(dev);
+> -- 
+> 2.25.1
+> 
 
-Release the clock reference with clk_put() on all error paths that occur
-after the clock has been successfully looked up.
+OK, cool we went through this so
 
-Fixes: 00fa3461c86d ("irqchip/mchp-eic: Add support for the Microchip EIC")
-Assisted-by: DeepSeek-V4.1-Flash
-Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
----
- drivers/irqchip/irq-mchp-eic.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
 
-diff --git a/drivers/irqchip/irq-mchp-eic.c b/drivers/irqchip/irq-mchp-eic.c
-index be007d325e67..5250e6baff63 100644
---- a/drivers/irqchip/irq-mchp-eic.c
-+++ b/drivers/irqchip/irq-mchp-eic.c
-@@ -233,7 +233,7 @@ static int mchp_eic_probe(struct platform_device *pdev, struct device_node *pare
- 
- 	ret = clk_prepare_enable(eic->clk);
- 	if (ret)
--		goto unmap;
-+		goto clk_put;
- 
- 	for (i = 0; i < MCHP_EIC_NIRQ; i++) {
- 		struct of_phandle_args irq;
-@@ -270,6 +270,8 @@ static int mchp_eic_probe(struct platform_device *pdev, struct device_node *pare
- 
- clk_unprepare:
- 	clk_disable_unprepare(eic->clk);
-+clk_put:
-+	clk_put(eic->clk);
- unmap:
- 	iounmap(eic->base);
- free:
--- 
-2.25.1
-
+Br, Jarkko
