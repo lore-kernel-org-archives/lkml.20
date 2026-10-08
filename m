@@ -1,135 +1,241 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7403643D515;
-	Thu,  8 Oct 2026 11:42:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C9F43E5EE7
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 11:42:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791459773; cv=none; b=XPg3L4u12zmNsjT4dfVp128q2WTZ9wfZQxQFDBIgBjm9+0H/WQiYGcKQHy7UyBdQ0NKdwcMk47QCi04nbFh9cVqHYW0R8NcwFgBP8vI71sS1adBtXszpG9OI4KLj8cq8ZHFP3TIWoHsuygkSDNPc2ljdp+vyumUlHnOJDuF9rKs=
+	t=1791459774; cv=none; b=rr8lbwH9+c9aP3IIkOcu2nP4JJDg7UB5cxVQ5AjAcpoZ8grnZryONmmZCFHIGa0el4qbzQvrBxIIP2Jo0ckQajeirrsH18dE51SGw2mfbloQRNgCPQcyTZEFqYRd0+cre42oR3JtGrf0OIva6TAo+xJGwJeIFfp66Cr4IrpbbBI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791459773; c=relaxed/simple;
-	bh=3r/0Tsoa/eArH3KAveHgL61sNbj+NCEWCLZ1vCW0CKA=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=KxrgKozgks7BvVsJi4N9B6WA5kFB7g0614uYyXio0DeMIH20Bpax4OlESatY1+0v53g92wvXVWdrFPUyp1LPP11s8udQDJSPEX9Jjn99XIeCE8ONbOGaaXVaggWM3T5Lt60cyTQSuF+3UWziF783+4Fv4znXx4gyfVssIue8t7E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YiFIMNPQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791459774; c=relaxed/simple;
+	bh=VTIEEDm8x+KKy+VmwZWQoxl64FVHkw1TFIhAMFeKchE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AddObh+WjhakRLfn7t86a8UhhpdTiqBQt/BAV3rBBYbeQo5rehwoUGeSbyUtD2q1ecTzOiMgNA9QkyT33lizeIr1hQhrSpFc+/dlOLfwfnqzNnQZV/4btc1FbNgG/hoFwDlPQL7Ovikm+yI4p4tu25sbIadaShrPT2laK9eYZFQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=At1Jql3E; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=d3lR5W3+; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YiFIMNPQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 866B91F000FF;
-	Thu,  8 Oct 2026 11:42:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791459772;
-	bh=4xI6sjx5O7jgHs+vd9dc55iUHxFgkYDVUp/hXBLdiUU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=YiFIMNPQLdCE2zbWLTULNFqt7kb5t3ajFyu/BuSQuH9LkL3xA+iVywarHowzdzA+7
-	 1sou/7jke+Vj+nbmlqBC7VTbQKzq6IDlT13spt+uePeZIZSDvImU4X8lzs7M9MWkgQ
-	 ufVjTQQcUB+9Uhuptv8x1rTJ2ng7aURxLQAwDcN+KUP9pnq+WBBmHpWri6CQgA1FJo
-	 gjdV83W7dro0R18RTq0UUSD0nA6cozVVgRHk/IvB8xAFneymfmMfAbHLzncbeqt7T5
-	 QuvxlpKgQFLXt52Ywqwn3oQGPELoMic1DSF4KHV61Y6N7B50K7oD5nmWN42IdAkaMz
-	 Pd2ocvIJj9mQw==
-X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
-From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-To: Marek Szyprowski <m.szyprowski@samsung.com>,
-	Will Deacon <will@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>
-Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
-	Robin Murphy <robin.murphy@arm.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Marc Zyngier <maz@kernel.org>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Mostafa Saleh <smostafa@google.com>,
-	Petr Tesarik <ptesarik@suse.com>,
-	Alexey Kardashevskiy <aik@amd.com>,
-	Dan Williams <dan.j.williams@intel.com>,
-	Xu Yilun <yilun.xu@linux.intel.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
-	linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
-	x86@kernel.org
-Subject: Re: [PATCH v6 6/8] dma: swiotlb: Centralize memory-encryption pool
- sizing
-In-Reply-To: <bc0fdf46-eaf6-49b9-a015-1742c66829a6@samsung.com>
-References: <20260924060756.1325156-1-aneesh.kumar@kernel.org>
- <20260924060756.1325156-7-aneesh.kumar@kernel.org>
- <asVs3doaJ4WrT3M2@willie-the-truck> <asYZFXGyafRjjBS0@arm.com>
- <CGME20261007104325eucas1p2277d74db794e285f33038204d52dc843@eucas1p2.samsung.com>
- <asYiOgskwi8JYLe_@willie-the-truck>
- <bc0fdf46-eaf6-49b9-a015-1742c66829a6@samsung.com>
-Date: Thu, 08 Oct 2026 17:12:28 +0530
-Message-ID: <yq5ase2g8lln.fsf@kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="At1Jql3E";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="d3lR5W3+"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 698BJxw92728417
+	for <linux-kernel@vger.kernel.org>; Thu, 8 Oct 2026 11:42:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	CjZbxDwM0WjPpEr48TjC2geEGFyibd9+X1oZ7NXBEZI=; b=At1Jql3EGdrWhOW7
+	NuPq60MwP0gjrEGtwxAWWf68t5bnUtuFk2x2aOL7N/Gozfo0KvRnY3mCe5R2TsAw
+	WorVmwJB5Cr0QabS6TT9dYKt0HasWXHER8ADk8h+iK+H6tZxYWNL1nlsW8ASvOSs
+	rX2wc/ucoDS+JCKMgFpELxZNiU16nwCvoyIw9kHyDNWSPlIyf9yv5EjneiAMUxCR
+	heUoR5yq81U8DPBeAeJue0D+vTu2ViXz2DuRxbVpBESHBarWMtiNXkpTzsO9xp0y
+	7zeU9NtBCio2DkqClLdhf5toYm7cAjqeYBOezG8V7Xn0UIEXuwf6OibKw6+jC4mh
+	1lDFtg==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe3anwc-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 11:42:52 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cd0b795aa8cso418986a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 04:42:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791459772; x=1792064572; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CjZbxDwM0WjPpEr48TjC2geEGFyibd9+X1oZ7NXBEZI=;
+        b=d3lR5W3+YTYAUXBNW7HmRSkjtqEWYsoS6Ou0wuVuS2BMaoqGuUCSrvjmElZt78+B8A
+         rWmvD1zeGLrzPS0IXBp4Mi8Lf5Gou1P7/NV1M6LMFjI2BKerQCu0bXui9m5x4RNlwCQm
+         ac2m3c1JkTc/FFFrbhbFH0VJJ47I/P72QTPoTXrUqTm69LLZJ7eYBqDO7x1Tx1hRDqvF
+         1tywp3RkKJprOAwyWTOpAWzZ/2naRaMA+BnfkFCQN4GuxhwiyyyIVE6hcJ0SL4aa+Ho4
+         t/Tr9IM2xWgu4+lY6T7+/F7un3iG44qeJKYnCBzKpQWvR6hMyv4BrygHFdTPo/BwsWoH
+         9+yg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791459772; x=1792064572;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CjZbxDwM0WjPpEr48TjC2geEGFyibd9+X1oZ7NXBEZI=;
+        b=JRGO+5Xwu+yRhV3T5xv/XBQSJAAC9vRqfa4OfQohLY9S8Y3epDG+HiZr6CgNYTCn68
+         Znq2YxX9JUBxs0aPm8xQ9VIZnbK3xKd1EymUujGQfR7lt2M3kEm218o8PJ64Addm3wgG
+         om0TCVyV5fIfaNPkOpTIR8JumwNaNLmw1DBLhaDANSRWGrURzIXLUBoEhcfLz5N8BPKA
+         DTlkyfOU83/2e26dtHM2e1BWnvKwr5BeoAi/DS42QV89VTkJ0wnCWqbww1H2AxxpW15V
+         SFD+zIv0ReR0rGeqISLeZLLFq7ag38tWaaplqgg3V0gMML1wf5Ipqa9xE6vxILfSbswx
+         CiTA==
+X-Forwarded-Encrypted: i=1; AKwUvBw6Lgdj6w1Gsbf86EieEWMXsvdgH3bA7UilOvehYKLvYktKIT8cEP5vtnqlKMQeoIdRiBYY7K8khp+jB6U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIKQWG2sQNqzdPn0w8/BbqSINElZOSXaGEZrTNe1BI+bp5TaatB
+	7ajsksRAFjoV7dprcl+bRALZC332eGjnnGZsCy7PkiUHAq45KXwThA7vPRidymy8pJFQxQpqbls
+	SkMSqWXnChtB1gpNiKidxVjDGO1Pq9nwbyBCLS7wb1fpO3pv2sKyq6TZP1F2+Jbc+dIQ=
+X-Gm-Gg: AYBFou135+qN72YYiehSXvMdCbHKNCfRiYdIWy529EsASw4aSf5QjfoUndypYc33UVo
+	+V/kl2rY9poS0y8YwI8q24DXq08lCzX4NOVbX3rFGizfGlZjPVcIkyZH2KUaV3ov2xqsTO/1k/h
+	fBZWpjehfnyCMS6qX1K+mfVR0dw/YokU/brOomkKov8l8+aaWxhzd1BAfTSM3iZwzOoaKzeIZAA
+	kpoRE4MFDJu3uKBG+apyqfLZk/ykjiwut6G3Fu2njLyqz8AoWeq/7KhCT1xfkkAcfQ8wUifI5o7
+	Sp718L9/oQeRb3tU032JpxIxzZEts+4ODVlEYjOwk4nRuc51tOM3o5mnAA4FQb6Vb2kfH0lS43j
+	Slt0WZuiX2Q9KYZT+eusWPP/Zm1E=
+X-Received: by 2002:a17:90b:5490:b0:3a6:d2ac:74ce with SMTP id 98e67ed59e1d1-3aaec84421fmr1220447a91.19.1791459771627;
+        Thu, 08 Oct 2026 04:42:51 -0700 (PDT)
+X-Received: by 2002:a17:90b:5490:b0:3a6:d2ac:74ce with SMTP id 98e67ed59e1d1-3aaec84421fmr1220424a91.19.1791459771026;
+        Thu, 08 Oct 2026 04:42:51 -0700 (PDT)
+Received: from [10.218.18.193] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3aa0cc1fbb2sm3776475a91.17.2026.10.08.04.42.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 08 Oct 2026 04:42:50 -0700 (PDT)
+Message-ID: <018b4233-8a2c-48b4-bbd6-4c471dd14568@oss.qualcomm.com>
+Date: Thu, 8 Oct 2026 17:12:43 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 05/14] ASoC: mediatek: mt8195: Fix paired memif clock
+ error handling
+To: phucduc.bui@gmail.com, Mark Brown <broonie@kernel.org>,
+        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+        Trevor Wu <trevor.wu@mediatek.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+        Matthias Brugger <matthias.bgg@gmail.com>,
+        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+        Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+        cassiogabrielcontato@gmail.com,
+        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+        Liviu Dudau <liviu.dudau@arm.com>, Haotian Zhang <vulab@iscas.ac.cn>,
+        HariKrishna Sagala <hariconscious@gmail.com>,
+        linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
+        ajay.nandam@oss.qualcomm.com
+References: <20261005110257.50145-1-phucduc.bui@gmail.com>
+ <20261005110257.50145-6-phucduc.bui@gmail.com>
+Content-Language: en-US
+From: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+In-Reply-To: <20261005110257.50145-6-phucduc.bui@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=J4s/fwnS c=1 sm=1 tr=0 ts=6ac781bc cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=pGLkceISAAAA:8 a=JvgeKo86Odfbx7RWJVYA:9 a=QEXdDO2ut3YA:10
+ a=x9snwWr2DeNwDh03kgHS:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDA0NiBTYWx0ZWRfXwkPYGTL/FeH+
+ dALTxveNuUx+Bw6G3jE4ne9XLOvCAUjNIgJzHNJ0HGIuPT5CPOK2zh5TPkfJWRZ0a893GQK7Y9S
+ boML0nvOAzjowKVozAgPCOGTWEk4Bbg=
+X-Proofpoint-GUID: 6rsPfcD8gFrqsNeJVnDy1LKbuebSFP62
+X-Proofpoint-ORIG-GUID: 6rsPfcD8gFrqsNeJVnDy1LKbuebSFP62
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDA0NiBTYWx0ZWRfX6BQGbiU8mynB
+ hHCe7R30tCm0XfklvqHgKAtdCdaghOmQ+bvR2Sh/jipEU8szcEenVyv2vaj8mt+mwDr5S0di7ty
+ ejGBTDhQ2qF2dQ+FneiLjZXMso3/Boai0jE1s5YvBRVCGIOruFpHlS3jBqhqOSBXB4skHMw1BGP
+ ulR4fv/JClRdzc//ZADEPgAsK5QGSN1NJ3TzqZvBHHVHJs6WUfpKt47WwtE0llK57TyVpUdbrBV
+ K3szWKPOv/R3sezfUGzfSf6QbyD2nUZw3npkPkEMnkn6KDn0chluepV7btyFCSHcYzColnAbu80
+ 4mTKk/HIHR6y8J0Nedvzbz3IHiS0WrxgSqwbm9iLIyqbyLD4g3z+SU69OnRixJsx9OI1L/fa3mK
+ lcMLE1zbcXcs1RG4lwKegXSZw5/+AzmMMN3PyvKct94MIef0nDD12WWTXB/DFqttA3bAD6xrOEx
+ uwFiL1Ysp188T1xh6uQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-08_04,2026-10-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 phishscore=0 clxscore=1015 lowpriorityscore=0
+ adultscore=0 priorityscore=1501 suspectscore=0 bulkscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080046
 
-Marek Szyprowski <m.szyprowski@samsung.com> writes:
 
-> On 07.10.2026 12:43, Will Deacon wrote:
->> On Wed, Oct 07, 2026 at 11:04:05AM +0100, Catalin Marinas wrote:
->>> On Tue, Oct 06, 2026 at 10:49:17PM +0100, Will Deacon wrote:
->>>> On Thu, Sep 24, 2026 at 11:37:54AM +0530, Aneesh Kumar K.V (Arm) wrote:
->>>>> @@ -496,7 +516,8 @@ swiotlb_select_pool_policy(unsigned int flags)
->>>>>  	if (swiotlb_force_disable)
->>>>>  		return SWIOTLB_POOL_NONE;
->>>>>  
->>>>> -	if (cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT))
->>>>> +	if (cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT) &&
->>>>> +	    !restricted_dma_pool_present)
->>>>>  		return SWIOTLB_POOL_CC_GUEST;
->>>> I think this check on the restricted DMA pool is too general -- the pool
->>>> could be tied to a specific DMA-capable peripheral and so treating its
->>>> presence as a global property isn't right.
->>> I agree it's a hack but that was the simplest way to avoid the pVMs
->>> getting a bounce buffer after this patch. More than happy to leave it
->>> out and reduce the buffer on cmdline or we come up with some better
->>> heuristics.
->> Hrm, that does mean that reverting just this part will regress pVMs
->> because they'll suddenly be allocating a tonne more memory for an
->> entirely unused swiotlb buffer. So I think I'd prefer to drop the entire
->> series until this has been worked out properly.
-> I've dropped the entire series from dma-mapping-for-next. Aneesh, please respin
-> it again and move the pKVM/restricted_dma_pool related code into the separate
-> patch.
->
 
-Once we agree on the correct way to detect the pKVM use case, I will
-resend the series.
+On 10/5/2026 4:32 PM, phucduc.bui@gmail.com wrote:
+> From: bui duc phuc <phucduc.bui@gmail.com>
+> 
+> Check and propagate errors when preparing and enabling the paired
+> DL8/DL10 memif clocks.
+> 
+> If enabling the second clock fails, undo the clock that was already
+> prepared or enabled to keep the clock state balanced.
+> 
+> Fixes: 6746cc858259 ("ASoC: mediatek: mt8195: add platform driver")
+> Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+> ---
+>   sound/soc/mediatek/mt8195/mt8195-afe-pcm.c | 24 ++++++++++++++++++----
+>   1 file changed, 20 insertions(+), 4 deletions(-)
+> 
+> diff --git a/sound/soc/mediatek/mt8195/mt8195-afe-pcm.c b/sound/soc/mediatek/mt8195/mt8195-afe-pcm.c
+> index 52c3381e6766..1d3e01e2c3e7 100644
+> --- a/sound/soc/mediatek/mt8195/mt8195-afe-pcm.c
+> +++ b/sound/soc/mediatek/mt8195/mt8195-afe-pcm.c
+> @@ -286,15 +286,23 @@ mt8195_afe_paired_memif_clk_prepare(struct snd_pcm_substream *substream,
+>   	struct mt8195_afe_private *afe_priv = afe->platform_priv;
+>   	int id = snd_soc_rtd_to_cpu(rtd, 0)->id;
+>   	int clk_id;
+> +	int ret;
+>   
+>   	if (id != MT8195_AFE_MEMIF_DL8 && id != MT8195_AFE_MEMIF_DL10)
+>   		return 0;
+>   
+>   	if (enable) {
+>   		clk_id = MT8195_CLK_AUD_MEMIF_DL10;
+> -		mt8195_afe_prepare_clk(afe, afe_priv->clk[clk_id]);
+> +		ret = mt8195_afe_prepare_clk(afe, afe_priv->clk[clk_id]);
+> +		if (ret)
+> +			return ret;
+>   		clk_id = MT8195_CLK_AUD_MEMIF_DL8;
+> -		mt8195_afe_prepare_clk(afe, afe_priv->clk[clk_id]);
+> +		ret = mt8195_afe_prepare_clk(afe, afe_priv->clk[clk_id]);
+> +		if (ret) {
+> +			clk_id = MT8195_CLK_AUD_MEMIF_DL10;
+> +			mt8195_afe_unprepare_clk(afe, afe_priv->clk[clk_id]);
+> +			return ret;
+> +		}
+>   	} else {
+>   		clk_id = MT8195_CLK_AUD_MEMIF_DL8;
+>   		mt8195_afe_unprepare_clk(afe, afe_priv->clk[clk_id]);
+> @@ -315,6 +323,7 @@ mt8195_afe_paired_memif_clk_enable(struct snd_pcm_substream *substream,
+>   	struct mt8195_afe_private *afe_priv = afe->platform_priv;
+>   	int id = snd_soc_rtd_to_cpu(rtd, 0)->id;
+>   	int clk_id;
+> +	int ret;
+>   
+>   	if (id != MT8195_AFE_MEMIF_DL8 && id != MT8195_AFE_MEMIF_DL10)
+>   		return 0;
+> @@ -322,11 +331,18 @@ mt8195_afe_paired_memif_clk_enable(struct snd_pcm_substream *substream,
+>   	if (enable) {
+>   		/* DL8_DL10_MEM */
+>   		clk_id = MT8195_CLK_AUD_MEMIF_DL10;
+> -		mt8195_afe_enable_clk_atomic(afe, afe_priv->clk[clk_id]);
+> +		ret = mt8195_afe_enable_clk_atomic(afe, afe_priv->clk[clk_id]);
+> +		if (ret)
+> +			return ret;
+>   		udelay(1);
+>   		/* DL8_DL10_AGENT */
+>   		clk_id = MT8195_CLK_AUD_MEMIF_DL8;
+> -		mt8195_afe_enable_clk_atomic(afe, afe_priv->clk[clk_id]);
+> +		ret = mt8195_afe_enable_clk_atomic(afe, afe_priv->clk[clk_id]);
+> +		if (ret) {
+> +			clk_id = MT8195_CLK_AUD_MEMIF_DL10;
+> +			mt8195_afe_disable_clk_atomic(afe, afe_priv->clk[clk_id]);
+> +			return ret;
+> +		}
 
--aneesh
+This makes mt8195_afe_paired_memif_clk_enable() return failures from the
+paired DL8/DL10 clock enables, but the return value still appears to be
+dropped by the trigger path.
+
+After applying the full series, mt8195_afe_fe_trigger() still calls the
+enable helper like this on START/RESUME:
+
+    mt8195_afe_paired_memif_clk_enable(substream, dai, 1);
+
+so a failure from clk_enable() would not be propagated back through the 
+DAI .trigger callback. Patch 6 handles the prepare-side helper in 
+startup(), but I do not see the enable-side helper being handled by any 
+later patch.
+
+Should the START/RESUME path check this return value and unwind the 
+trigger state if enabling the paired MEMIF clock fails?
+
+Thanks
+Ajay Kumar Nandam
+
+
+>   	} else {
+>   		/* DL8_DL10_AGENT */
+>   		clk_id = MT8195_CLK_AUD_MEMIF_DL8;
+
