@@ -1,150 +1,143 @@
-Received: from mail.hallyn.com (mail.hallyn.com [178.63.66.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 876D44DDB37;
-	Thu,  8 Oct 2026 15:26:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.63.66.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38AA24E1C9F
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 15:26:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791473173; cv=none; b=dN+viY+2OXDvhIG6+gHBi/xZ9jZjAUU7+ulrzA1jcGTGCIYwYn1dMIXaJSCuYctIaEi1A5h49pkkgdj7rMaxM5dCpu6PPoRiSIDICgiXn/a6FUPuZ/z3rSd9yBWLOss1kFShpupQkf8ALf5jet/vYp9652G+SJbcnLAa+ZhvxaU=
+	t=1791473176; cv=none; b=hnqtAKRrMpzcGEkNs5hFS+v17hMUVIiw/CKmzzz9rBXbE8dbpaaMDLzAB/UHcNi6Rau2NnxTjAYSLs+vTBtBpYcwiuZJG0t7lYeSuT22XuTJ9geW9wmVZo7/o/xvzm2xFvz7g0E6Al88lnu1BXRz0Z/TXgqEnnXWOBwD4X2PT4U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791473173; c=relaxed/simple;
-	bh=cDyuwEKK8sXGpAj3kWtZyNN+HaU08rNG0W1xctdiPug=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=InwyyYOQ8ZytumyQi30SqnNodGgs3ngItd3S3JtJdeitllY0AoqxoiaOWvoAjKytqap9VbW3CxpiSRXDMkh1gx9CEGgM3Ln1Om0gbTGq9srwmOkZ8tt57uRqbFwGFBEIBQgaHEhOdiB/Dm03fIGYQPMgBGBwH6P5L36rS1wkoPA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hallyn.com; spf=pass smtp.mailfrom=hallyn.com; dkim=pass (2048-bit key) header.d=hallyn.com header.i=@hallyn.com header.b=f9INlEzW; arc=none smtp.client-ip=178.63.66.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hallyn.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hallyn.com
+	s=arc-20240116; t=1791473176; c=relaxed/simple;
+	bh=BnX+tW917e2ep0AD06iDELoUpJb1f9PtjJfaF1/h/ME=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=MzbTq+QUKJvAhw86K6N+afp9Jqggbl3bsi9aXWf0cTNpVMuNz1mZsK0o8yAZHtB3A7SFPmsTnEbojbPwiCa3UnKJ/FH7jpdYVMEy2SYCKvkQiTB5hJ1ZnUfXe1Y5/y1Ra2fK04zEkp9IwnQgpx7uJqYtyTda3XRwhDWwwpmlrrc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WqmY2+br; arc=none smtp.client-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hallyn.com header.i=@hallyn.com header.b="f9INlEzW"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=hallyn.com; s=mail;
-	t=1791473148; bh=cDyuwEKK8sXGpAj3kWtZyNN+HaU08rNG0W1xctdiPug=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=f9INlEzWvRKdr/Fb3T5Ad0Gww3mff6qF274Hh6qjZDcgZoItXuJ/GPwrJbw9NrxCu
-	 47STDsY6pWekjbCUBwrDFdx59pH6kr/RDs/RRMBMtHMZ+LoiWP16LYuBMFomx+Zmuw
-	 QP7MhJyvW8BAm7eOcPYT2aZUbTGTbgtdzi86Kcm7lAljvdfM+SQWkdu7Cffkp6nlma
-	 uhxKRDvTp1+6vN7KW2xZgC6y/Fk+nciX9qD3LMfa5sUL5ETmVj8kTCeatcIF1eBKFF
-	 F5goSCrada9f7KvJar7ESKWMlbK3JPZwgXg/u1GAr41q2gPb3Kp0hmxegSZ5yAEqDx
-	 A2JaIXt7uutfw==
-Received: by mail.hallyn.com (Postfix, from userid 1001)
-	id A5939196B; Thu,  8 Oct 2026 10:25:48 -0500 (CDT)
-Date: Thu, 8 Oct 2026 10:25:48 -0500
-From: "Serge E. Hallyn" <serge@hallyn.com>
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
-	Jann Horn <jannh@google.com>, linux-kernel@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>
-Subject: Re: [RFC PATCH 0/2] keys: Address lookup_user_key() mutability
-Message-ID: <ase1/CnbnqL24SOQ@hallyn.com>
-References: <20260924055521.1981957-1-jarkko@kernel.org>
- <asKSvjz2YLZhFI4t@kernel.org>
- <asOhhCION3dwTAo+@hallyn.com>
- <asPwkdi7ZdO4YoRu@kernel.org>
- <asVDbPtyCNy210-R@shallyn-amd>
- <aseoJvcBh0RZ31Uo@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WqmY2+br"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3a81e149649so173902a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 08:26:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791473165; x=1792077965; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=W6dQo+XOFZwjP4FilzjIvU+VBwZHW7Mw0WgQYDNHew8=;
+        b=WqmY2+brN1lef9DS/JSSUOt6jXjx8RW5+1hr/1QZODlEKHcPVCPyzsuKivEI+o9e/u
+         RHIBdDX96YSEhs0g6hrGaFAML8D5GJL2pCTWSjRngd0Qyps8PzF8LJmwEuen8TVVSAi8
+         xT1ER/BgN2Iy8iYiq0DvqckXMNzQBKySaSDnjsVNVQ8wVEPycUwrazZyCl6/XhEDWzMJ
+         uJboSsEpY6AoKlb1sZ4Y0RjwioOzv3FDy96KMj4dPjQiJTw+OKYN9CErcKuzKsJfVMaS
+         xY7YNgaZBI/jwHZfNBn+kI4BXWmCVW41RjcQoEZ8V8lqPJPdR4AHBBtiHKnm5Er8+n7F
+         X+vg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791473165; x=1792077965;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=W6dQo+XOFZwjP4FilzjIvU+VBwZHW7Mw0WgQYDNHew8=;
+        b=WiHoMIJV8KeJbT/PG8glKOowk01U1vcczCrbgcCHTvgC0godvW8Jc1qJ/ps1YIIDSX
+         qT1Ubb0UY7ZkF03VMl9BbXdYCI+2AQOlkAWJxMrXS6eyacY4FssVJkLGwqIi5CzO94tg
+         uK16+J+r1JcUuhnzTJw/nhOjAVn2VgeRxrQOBi9BthsakZtf5gcGI2Kj+a3rMBE5vs1M
+         6bGN1/Bb8oBXX2C/Tffbzsf2+qQqsjBjV3Oe7wWkNxTcFRdQ5clUchd0KuKhfUUWPZ+2
+         cNJOptJG5810JHPVoyg7osRGAnyPxL+eRNC84dzMhrtvR3KlzalfUA6aGAFrgoYeFfBv
+         TVbA==
+X-Forwarded-Encrypted: i=1; AKwUvBx7HxWa4npK506bcDGdU9BEFicuG5MxLcf2ObKOqEn+E/+in1fA/LoPPVCtYYcdZx6Lpp1+EMmtzZTRpnI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK0ANwXR0YiM9MtobbLPC9vfI1vT1XWhXoEqiJMxy8x6FMWWC/0
+	eACksvUM1OlZvCxDIRvST7ZEX7KZ2yLKENtAE1sxX3GXiOP0Wjs9cIRA
+X-Gm-Gg: AYBFou1P1A2BkaHA+8loit6xulVIQ4LIZgJgGKDDqO1GO9eV+S/CqGOJcilVNkf3bVd
+	yBaTTrwQ+vElfxOsko0ckaxiyuQHk4Tn8dQPizLmd3yidpvoNBHqARN3LsxpmJZJRDsgyjBz5bD
+	yJfJG8/eVRqHF/S2ACiG9mOnjIDyoMpgru2eHdWxBR4g0PmSud0ecINVbJYGBFmeziRHrn+lkNK
+	C4QxgKwhXNgzt7GXoiNVMaJNecf36JEk0pGQVM9bV1NHsG7oTiC1UvzMY+lgxWnhTphPmv0/lOL
+	1v6jxbRDpB94xnzVlY9GKIvswp55W6h1hxKw9yJJxT6VdUtirU7GrJCicyGrtDejA4ifz1fHWQU
+	UDTuT1IevR6FRk/SU/NjE4qy7Cr9hz7Jckhtw2zlela7GA5cvEc8C/Rf4KGoeLhef0jwI+9XWrI
+	Yg6SIkL9HMfAYRR3UPXDhK80+Q5udcLuZ7aFQgBvruItvHmKCQExQsSS2pkEUsujU=
+X-Received: by 2002:a17:90b:1809:b0:3a0:bcc8:1549 with SMTP id 98e67ed59e1d1-3aa9a437f1emr4109382a91.6.1791473165176;
+        Thu, 08 Oct 2026 08:26:05 -0700 (PDT)
+Received: from ser8.. ([221.156.231.192])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9f1c17b63sm5554792a91.12.2026.10.08.08.26.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 08:26:04 -0700 (PDT)
+From: DaeMyung Kang <charsyam@gmail.com>
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Tom Talpey <tom@talpey.com>,
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	DaeMyung Kang <charsyam@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 3/3] ksmbd: preserve unreadable named streams on open
+Date: Fri,  9 Oct 2026 00:25:37 +0900
+Message-ID: <20261008152537.4147299-4-charsyam@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261008152537.4147299-1-charsyam@gmail.com>
+References: <20261008152537.4147299-1-charsyam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aseoJvcBh0RZ31Uo@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 08, 2026 at 05:26:46PM +0300, Jarkko Sakkinen wrote:
-> On Tue, Oct 06, 2026 at 01:52:28PM -0500, Serge Hallyn (AMD) wrote:
-> > On Mon, Oct 05, 2026 at 09:46:41PM +0300, Jarkko Sakkinen wrote:
-> > > On Mon, Oct 05, 2026 at 08:09:24AM -0500, Serge E. Hallyn wrote:
-> > > > On Sun, Oct 04, 2026 at 08:54:06PM +0300, Jarkko Sakkinen wrote:
-> > > > > On Thu, Sep 24, 2026 at 08:55:16AM +0300, Jarkko Sakkinen wrote:
-> > > > > > The main objective in these patches is to remove to unneeded mutability
-> > > > > > from key look ups. It does harm and brings no value so it is pretty obvious
-> > > > > > to me that addressing this harmful behaviour is what we should do.
-> > > > > > 
-> > > > > > I based the first patch on what Jann suggested in [1]. Nothing too clever here
-> > > > > > and I'm ofc open for further suggestions.
-> > > > > > 
-> > > > > > [1] https://lore.kernel.org/keyrings/CAG48ez0XjVSR=M--UBauTm8sJuc+ZbhKzaPa3a6wrSVHyoKevw@mail.gmail.com/
-> > > > > > 
-> > > > > > Jarkko Sakkinen (2):
-> > > > > >   keys: Return user session keyring on lookup
-> > > > > >   keys: Reject keyring creation with overridden credentials
-> > > > > > 
-> > > > > >  Documentation/security/keys/core.rst |  7 ++-
-> > > > > >  security/keys/process_keys.c         | 65 +++++++++++++++-------------
-> > > > > >  2 files changed, 40 insertions(+), 32 deletions(-)
-> > > > > > 
-> > > > > > --
-> > > > > > 2.47.3
-> > > > > > 
-> > > > > 
-> > > > > So.. should I move forward to with non-RFC v2?
-> > > > 
-> > > > Patch 2 absolutely makes sense, "doc, it hurts when I do this", "don't do
-> > > > that then."
-> > > > 
-> > > > Regarding patch 1, that seems like quite a change in behavior, right?  I
-> > > > don't see any docs or comments that promise the current behavior, but
-> > > > has any userspace or subsystem come to depend on it?  I guess that, if so,
-> > > > then it just has to create a link to the user session keyring like pam
-> > > > (according to what I've read) does?
-> > > 
-> > > Thanks a lot of responding.
-> > > 
-> > > I fully agree with you but I'd need help for evaluating things further.
-> > > 
-> > > 1/2 based on Jann's email about the topic and my interpretation of the
-> > > suggestion. I neither used brains nor AI for this and consider the patch
-> > > merely as a conversation starter (and what a great success it was on doing
-> > > that) :-)
-> > 
-> >  :)
-> > 
-> > > All feedback is good feedback at this point. I need supporting code to
-> > > remember/recall later on so at least this serves that purpose.
-> > > 
-> > > Br, Jarkko
-> > 
-> > I've been staring at the before and after code for a bit now.
-> > It does even more than I was thinking :)  But I was trying to
-> > detail the changed behavior (from userspace's pov), and after
-> > several attempts, it seems maybe there actually isn't any.
-> > 
-> > Q: is there any path whereby the 
-> > 
-> > ```
-> >         else if (test_bit(KEY_FLAG_UID_KEYRING,
-> >                                     &ctx.cred->session_keyring->flags) &&
-> >                            lflags & KEY_LOOKUP_CREATE) {
-> > ```
-> > 
-> > case can still happen?  Or was this the only place where we installed
-> > the user_session keyring as session keyring, so that we can drop this
-> > branch?
-> 
-> Right, so *I think* that it is not useful and e.g., PAM uses NULL.
-> 
-> At the same time it is harmless. We could remove it but it would be
-> also uapi change (for granted, useless branch).
+A write-only client can open an existing named stream with FILE_OPEN_IF
+without permission to read the underlying file. The case-insensitive
+lookup finds the xattr name, but querying its value length then fails
+with -EACCES. smb2_set_stream_name_xattr() treats every negative result
+as a missing stream and replaces the existing xattr with an empty value.
 
-There's
+A failed xattr list is not proof that the stream is absent either:
+for example, -ENOMEM can lead to the same empty replacement. Preserve
+listing errors and create a stream only for -ENOENT or -ENODATA. The
+latter can occur if the xattr is removed between listing its name and
+querying its value. Return other lookup errors without changing the
+stream.
 
-https://sources.debian.org/src/e2fsprogs/1.47.4-1/misc/e4crypt.c?hl=568#L568
+A write-only FILE_OPEN now reports access denied instead of name not
+found. FILE_OVERWRITE_IF and FILE_SUPERSEDE on an unreadable stream
+also fail instead of appearing to replace it. Stream writes and EOF
+changes already need to read the old value, so such handles cannot
+update the stream after opening either.
 
-which bemoans that:
-	 * The fact that the keyctl system call and the add_key system
-	 * call treats KEY_SPEC_SESSION_KEYRING differently when a
-	 * session keyring does not exist is very unfortunate and
-	 * confusing, but so it goes...
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Cc: stable@vger.kernel.org
+Signed-off-by: DaeMyung Kang <charsyam@gmail.com>
+---
+ fs/smb/server/smb2pdu.c | 2 ++
+ fs/smb/server/vfs.c     | 6 +++++-
+ 2 files changed, 7 insertions(+), 1 deletion(-)
 
-Near as I can tell, add_key just always uses KEY_LOOKUP_CREATE?
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index 4d43de74f..52a19871d 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -3420,6 +3420,8 @@ static noinline int smb2_set_stream_name_xattr(const struct path *path,
+ 				     xattr_stream_size, xattr_stream_name);
+ 	if (rc >= 0)
+ 		return 0;
++	if (rc != -ENOENT && rc != -ENODATA)
++		return rc;
+ 
+ 	if (fp->cdoption == FILE_OPEN_LE) {
+ 		if (!strcmp(stream_name, "AFP_AfpInfo") &&
+diff --git a/fs/smb/server/vfs.c b/fs/smb/server/vfs.c
+index 7020b7de3..3fa0e26e5 100644
+--- a/fs/smb/server/vfs.c
++++ b/fs/smb/server/vfs.c
+@@ -1952,7 +1952,11 @@ ssize_t ksmbd_vfs_casexattr_len(struct mnt_idmap *idmap,
+ 	ssize_t value_len = -ENOENT, xattr_list_len;
+ 
+ 	xattr_list_len = ksmbd_vfs_listxattr(dentry, &xattr_list);
+-	if (xattr_list_len <= 0)
++	if (xattr_list_len < 0) {
++		value_len = xattr_list_len;
++		goto out;
++	}
++	if (!xattr_list_len)
+ 		goto out;
+ 
+ 	for (name = xattr_list; name - xattr_list < xattr_list_len;
+-- 
+2.43.0
 
-And https://sources.debian.org/src/krb5/1.22.1-3/src/lib/krb5/ccache/cc_keyring.c?hl=307#L307
-
-I'm not sure whether previous kernels did that, or whether the authors
-mixed up testing with and without KEY_LOOKUP_CREATE.
-
-> I could do it but not without any feedback from David.
-> 
-> Br, Jarkko
