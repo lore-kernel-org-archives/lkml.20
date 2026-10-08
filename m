@@ -1,77 +1,81 @@
-Received: from mail-pj2-f8.google.com (mail-pj2-f8.google.com [74.125.227.136])
+Received: from mail-pj2-f5.google.com (mail-pj2-f5.google.com [74.125.227.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 181B4446857
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 22:13:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B59F3CB8FF
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 22:13:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791497615; cv=none; b=B49C0aWd8zCkgUO0PSM7RCbRefqWKIRM7hHCvEqr1uK97dOUHsyNkpixTuwUD6L3F6IQoqOzqqs7KT6+wR3Cb/XTrTp1xVCyKgb9fM/Ju3uEsdg3Ys4T0azrydhaYeCTVxnotNyxPOqKLzHn8Fqhz3EyY5h429cZQqdQEphAXqI=
+	t=1791497615; cv=none; b=s34DsnjCy70eZ+Te/cpZUA1+YouET1we4QcMJybsYndnAnxUQGUD6hv9l5MhTLMIWObeQwU5K7spJXsWaiYXRlVqNO17Ulf6AWb2e0OknHgSRPlYoyKygVO1e2vYuKMs7NwbyWZSSsSG1NZR4HuR2vgZNOsgprnjLvFZaEj3YTQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791497615; c=relaxed/simple;
-	bh=QWeHh347xkXbhhaGjgFJKSrFsAHNyLUdHqxJH+OUYiw=;
+	bh=XhbvqjOdjhVKjaUTw6zflrPNgueBqC/aiLfFiC3naJY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oe1pvctPabBXON/EyrNS/wODdCb2dF3aLpM+Lg5G1tz/j1yi4RGFCUcd6z+mvLoFtFlSxuwpIb+BjF9nyb4ywFqdipmsRmdH4DqGChBFjUjilGx2xmghsc7xNSqEXpkORrst2VrsRheL3bquKya+AbbOMqoDd2zpfffZ1EVydR8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c1lqMC27; arc=none smtp.client-ip=74.125.227.136
+	 Content-Type:Content-Disposition:In-Reply-To; b=iy1oewJPDhctSu/cxhS1cWerDlZjSz9I0z7F/jm9ppn/oy+VJ1ScZivvCL5napO7SogXpwDlyfcb2FI/hU/vcp9KKKfDgpSVD367tpL+21ODxN19lLMVwME80aj1ZXuG96jFuXJSuW2NsDaZ7b4PYn403kWrF9J95oqBPqC7gzk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q8qgeY0z; arc=none smtp.client-ip=74.125.227.133
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c1lqMC27"
-Received: by mail-pj2-f8.google.com with SMTP id 98e67ed59e1d1-398b9f722abso2530065a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 15:13:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q8qgeY0z"
+Received: by mail-pj2-f5.google.com with SMTP id d9443c01a7336-2e7c8213b09so6039615ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 15:13:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791497613; x=1792102413; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XXsm0FjjkjKEAQ24SJqzlYE7Kl2Ig/4x9h23uVVh4Gw=;
-        b=c1lqMC27hj+26ND/rq5Uhpl7kO2idAvZ7ZR9eJxoPZct2E+YLh+5DoQ3U4EqGEMlwG
-         Uu5/IXGj6bSwpmqZaqd/jzN0ytN7jUA5x3MqFEIQjvNXDJXhEiTV18/34/l4UnK8KYo7
-         9k+TFmTZcwhpiHmss7XsKU5ijTQi9zwGF3fXih9b1FT4pTE0CSJZpszf5P0wXOj+Y26I
-         rB6LjBRsGoUY0a9+RMSvVjSRGgQOdurL0FUaieJ/mRqEkBNxfDt4RGEAnweCT8FAl/XF
-         jXpulXPu0nSXwq86drdS3wfmDTSaUsplOo40OxCH9W1Kf/R1m2gQJP5vnbNbIZ8s7qQ3
-         EeKg==
+        d=gmail.com; s=20251104; t=1791497612; x=1792102412; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wR6B1DFYSH6KdPY/ts+nWKN+fn4/J9gqpkYviWx1rk0=;
+        b=Q8qgeY0zhMbaeiJHpdP5JltSzND6Rijq+U/cRwVd5f9NqZPLpS6Da5DZsCZUKf7rfO
+         uPM1mXY1iGXmryRnT8FnJaLFqcA0kjShFr7+wx2QKss+5l8XaxNIWuGeH+GNI0HWaws5
+         j9t63WxZc38wX30FUAR5cABtBNCruLJI5pmc4sFqtL2co133g18UZmezAq78L15Iq+8R
+         JuW7sySL3Efws4SchAvE0Il45p9PFTLCABdeC0WDKDdsJWaaygtJ5uGU2Ju1ArJ6NRV4
+         5eFnoEI7N3IrMo2KNoIKeLoswMMgXkG+7yQKYMs9QXVPGCPuKBjgnTZ82NtbzhG3ekQP
+         SbHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791497613; x=1792102413;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XXsm0FjjkjKEAQ24SJqzlYE7Kl2Ig/4x9h23uVVh4Gw=;
-        b=XCmOr0ncOnBrvSx8t8TyqR3JmtNiXEg6fmOS7TaLVdhYDVtgR48CRzlc9UDtZ47uZC
-         8sWRVqlHehZ/Xewk7X9H8JOFGu3alXphvGoC6+efr6Xl+exT0MjWoFQmvCRoHu7kfvcU
-         LcC85FJw4AaMkGVGpBr/CmcnzkAzHr0luT+F41Dj93CLMrGNko9rQibTy2N+Kw50t3VJ
-         dmcjfzcGtmh6ET5hmPejl2HE9F96e7OFB4jq5PX4FtUMFJQARG0hqI7Eji/RbAMuutRq
-         kEjBJjDXRKMZHDYHFYXZofTuDwK0uzyEXsOWcaTclB7ih8HQVx3iz3MgkISz5lUCp1p4
-         D/Nw==
-X-Forwarded-Encrypted: i=1; AKwUvBzj+SI80I4JypMNMFxb6ddH/mWQNxpK6NoQaICvyay6Q3O5WzfN6pwjEwOyZ5KL5+pLsTiUgZqIQK8Y4ic=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ+VRLdETU1pOFCWiU5PPATS5PG4m7YtF7vk1XaiI14TGYKpLf6
-	8tu/y10fhlQ1V7kK+QkJXyHeqH+9bzQ/gu1lNLX9AaydXjJKwhyEXC76
-X-Gm-Gg: AYBFou3Dv2olFnqblXHwdKunqGdzPE7Hu29PPkcncECNqSqt6kpriOVs+rK02GpyDAY
-	UIn/kwIagjnxdMitE0TNp6hrM05Wz72aAZRdnJs+XvQEwAKygvuCMg9P+D4cch1cI5pRiIuQs0d
-	op5fya7chxyMhqwDnpxv2Jv88qTqp43sHp71qA8ASzdVd0lvTtpQBySKCL98PFyeVvWTaDPaURA
-	RIV0d7bqnO4NGJgXfMTmxTb1z+PtNwiY9zNQHIKCRfbt+dpTN805JdDTaKaUONCYONYg3W7Ix+L
-	EmY8y0Sz+Kkocsena2QsUx6d8mTk4pcpYc1DWGeC0x8X1K+C2cUQfHjueAgjovQMJ4U4NAhwkRs
-	tdSuC2SYKYOi4ULfmVZNF2w7RHcgH+AKkczowLTT0VMexD/CJsh07yL2yVtqG+7khGAw90kEAVe
-	8U9iG5oy+n454HeeibyMlavDbl0u2Mt6/RD5fDejau4lIauRhUYR0Ezq2oSHP4n6cA
-X-Received: by 2002:a17:90b:1a8f:b0:3a7:a6bc:9d4b with SMTP id 98e67ed59e1d1-3ab3afe44edmr129584a91.59.1791497613440;
-        Thu, 08 Oct 2026 15:13:33 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:54::])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab3371f748sm476825a91.1.2026.10.08.15.13.33
+        d=1e100.net; s=20260707; t=1791497612; x=1792102412;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=wR6B1DFYSH6KdPY/ts+nWKN+fn4/J9gqpkYviWx1rk0=;
+        b=2vZWK3grPLAtT9qJ+5G6h+0qrS3xtAqjtXC5MP3KAkABlvMrVxiy1ozfX8/Y9+DFCz
+         2o/29Ti0pyyXksSp9Ppm0m5wBvL4c2zmMYOy8VHqGXgvBgXHsYBvYbhxEyksvVBUowES
+         1dXNA+M8Rv+1eJymXGCANqo+XEwqeemSLHlquwNPB92Td1/yMFdESjFoOaQCiLq1IWUr
+         wmgz5n14RfalwgGXOnCG9JeoBISkk1iVhu23r74LIyhZCUrQmm4tSjKEUf3U36RTGN8C
+         x/luuXs55gOAx95aLKKJVzp7sZNVEUgxjY5ArYeyc4ip5Lb+IY8L0yDAey0KuMM1AGYc
+         QPyA==
+X-Forwarded-Encrypted: i=1; AKwUvBydBzz/Yshg3B1cJiLEvOVxlyGYiqwNCT0ZmFwjkqlibXvbmt0zMidJiRlA9Avk4owCEykVJVdS9Y2FhWs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKGPq6bxQT1QyIMvyVCsHxP2XlhVPLNZQp71yT/pc6dracMPpaK
+	niydk/KsM7Fdf80HMJ/sAIKrz/CemGLtIwmLjdwdS/WJ/0o7fhq22vtD
+X-Gm-Gg: AYBFou1/+Bu1zqP0kinIdrzDpFMbgxqnRKifIC1TUJl56tPqqpCj/u1tpQK7x7M9P5I
+	NGK/79U9dEUcJ8yspC4mGxdMeoKVXtooSPTqtoh6S0vp74yVO3a3/kAeCjZMwgVGwv4LYoAImaq
+	YD47r+ehwjJ/E+41RigYQnXGlu+Mrhj0CyYWmAl7EkSSNbitIy2fii6q1Q3AdKBStDTtcM7s+g/
+	TysQniHXkqGz6GsqfhuzDpYu76e7mALYxDI1od2r5JGgZCPk4RQqS3hU3xQQSPi3dSMvr16Ukdb
+	zq5+BzePqLKM1xCw5rYM487Ip2fKo3SLdUOT5coU6ru4LVGeyXjoUWvXnmutkScc9MzKViN7zcq
+	KWOi3GlJGohPbjLEHXMbPwLjsgmwa0lSziihE/w5V3PY1w+9VKearrE7L+Yd5BJLl52+1/s+EKv
+	sRJFYKae5/naLiSduAX8rNIJmHTNrbv6E6UVUz92RmNs0/0nSr8x6B+hC8HkaR2qNi
+X-Received: by 2002:a17:903:19e7:b0:2e6:1a6c:abcd with SMTP id d9443c01a7336-2e84280a68fmr108075ad.3.1791497612535;
+        Thu, 08 Oct 2026 15:13:32 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:55::])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422b8c57sm337035ad.53.2026.10.08.15.13.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 15:13:33 -0700 (PDT)
-Date: Thu, 8 Oct 2026 15:10:34 -0700
+        Thu, 08 Oct 2026 15:13:31 -0700 (PDT)
+Date: Thu, 8 Oct 2026 15:09:56 -0700
 From: Stanislav Fomichev <sdf.kernel@gmail.com>
 To: Mina Almasry <almasrymina@google.com>
-Cc: Stanislav Fomichev <sdf@fomichev.me>, Paolo Abeni <pabeni@redhat.com>, 
-	Kaiyuan Zhang <kaiyuanz@google.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>, 
-	Bobby Eshleman <bobbyeshleman@meta.com>, Pavel Begunkov <asml.silence@gmail.com>, 
-	Ralf Lici <ralf@mandelbit.com>
-Subject: Re: [PATCH net v1] net: devmem: prevent mixing fragments from
- different bindings
-Message-ID: <asgU1AE75SWgC-wQ@devvm7509.cco0.facebook.com>
-References: <20261008033952.1399670-1-almasrymina@google.com>
+Cc: netdev@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Jesper Dangaard Brouer <hawk@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, John Fastabend <john.fastabend@gmail.com>, 
+	Stanislav Fomichev <sdf@fomichev.me>, Luigi Rizzo <lrizzo@google.com>, 
+	=?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>, Pavel Begunkov <asml.silence@gmail.com>
+Subject: Re: [PATCH net-next v2 0/2] net: netmem: document design principles
+ and intended direction
+Message-ID: <asgUroVsxJq7gut1@devvm7509.cco0.facebook.com>
+References: <20261008023030.1089616-1-almasrymina@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,26 +84,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261008033952.1399670-1-almasrymina@google.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261008023030.1089616-1-almasrymina@google.com>
 
 On 10/08, Mina Almasry wrote:
-> validate_xmit_unreadable_skb() only inspects shinfo->frags[0] and
-> assumes all fragments in an unreadable skb belong to that same devmem
-> binding. However, tcp_sendmsg_locked() only checks that readability
-> matches the presence of a binding (skb_frags_readable(skb) != !binding),
-> allowing consecutive sendmsg() calls with different dmabuf bindings to
-> collapse into the same skb and bypass per-device and unbind checks in
-> validate_xmit_unreadable_skb().
+> Because the networking stack and drivers are only partially converted to
+> netmem_ref and current memory providers only supply unreadable net_iovs,
+> automated code review and analysis tools (such as LLMs) frequently infer
+> the wrong architectural invariants from existing code. Specifically,
+> they often assume that page_pool's struct page APIs are primary rather
+> than legacy wrappers, that memory providers always imply net_iov, that
+> net_iov is inherently unreadable, or that callers should branch on or
+> downcast netmem_ref directly.
 > 
-> Add net_devmem_skb_binding() to query the binding associated with an
-> skb, reuse it in validate_xmit_unreadable_skb(), and check in
-> zerocopy_fill_skb_from_devmem() that existing fragments match the target
-> binding.
+> Document the intended netmem, memory provider, page_pool, and skb
+> fragment design principles concisely in the relevant headers, code
+> comments, and netmem documentation so both developers and automated
+> tools follow the intended abstractions. This series adds comments and
+> documentation rather than performing a large refactor all at once, so
+> that future incremental changes nudge the codebase in the intended
+> direction.
 > 
-> Fixes: bd61848900bff ("net: devmem: Implement TX path")
-> Cc: Pavel Begunkov <asml.silence@gmail.com>
+> This reflects my mental model of the netmem, page_pool, and memory
+> provider architecture; I welcome feedback and disagreements,
+> particularly from major contributors to page_pool and memory providers.
+> 
+> Cc: Luigi Rizzo <lrizzo@google.com>
+> Cc: Björn Töpel <bjorn@kernel.org>
 > Cc: Stanislav Fomichev <sdf@fomichev.me>
-> Cc: Bobby Eshleman <bobbyeshleman@meta.com>
-> Signed-off-by: Mina Almasry <almasrymina@google.com>
+> Cc: Pavel Begunkov <asml.silence@gmail.com>
+> ---
+> v2:
+> - Document both current implementation status (memory providers currently
+>   supply net_iov, and net_iov is currently unreadable) and target design
+>   principles, and clarify that new code should generalize existing
+>   limitations as much as possible (Stanislav Fomichev).
 
 Acked-by: Stanislav Fomichev <sdf@fomichev.me>
