@@ -1,115 +1,64 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E64583939DA;
-	Thu,  8 Oct 2026 15:38:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 218ED4CA772;
+	Thu,  8 Oct 2026 15:40:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791473919; cv=none; b=Gfq82EIXIOnahnnRv3RydRPvScI+SUqf9D+LUuUSxWt8ddvl1e0k8LpIrVmuBhkFAmQPAE1RokZTVGtmsWRGioHYI6xGBlZW3U4AJPyc1yDeGa1oNUPMRY6WzwMkCGkIJts3zZX7HaIigdv0kr0P7Ivj5nV6MUWMoDkV7TbIVd0=
+	t=1791474015; cv=none; b=Duz8ymIA7ea3GnBTPcRrn/Z4+FT1F19tlWxhYkkXp0MnVhvJVWr1pT/Ru3sifLjjG5Bhs7lOFv71LxddzmY7aFADcbwWTLk4vDnxda01km8ikadD4DuBnWIXUkvnzYdDD/vA54vgtbOLLChGCaPdWcphRfY9Ve1Eec2BHqUhGlc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791473919; c=relaxed/simple;
-	bh=IdjkUm2rEYtd4L3rKKMYLJ+OlOFm/l6+RvlNoj3CY/Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Hs8dmDmCAmzvpY6cBAZ3wkl25iHY2MIQLDGqvYTWX55CIfHCHNLqfgg70durghsIEZgnSwjxoS7mBY1Q0u8vQ7gf2WtQhL1ZMpVlp1ZM5KZecX36KjEckrffPE28LQwUQPiCthP0snaL7R95iHLFk51p8e2UqqWmWigdNT2wPzY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IS6es9ML; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791474015; c=relaxed/simple;
+	bh=WVOiUuKP+uBh0z7olFV2mvuGUPdL4r5Shaskc+lK+O4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Ht8t0CvY/avh51hK3xTHjAwkiOEAPQ1Cnv6NB19oagNsLm1E2nJjBEEddvsFMJgv+Fudjbed2Vx8bx71Oza8/3YrhR5v1kffLABNgjjPDwwVvJGYCMN9soVSWNbtYBgOjY0iSSQbMpr9WDVeRZwUf08I6sddPbem+jLZPC5ygQc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CKTrdfXg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IS6es9ML"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57AA51F000FF;
-	Thu,  8 Oct 2026 15:38:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CKTrdfXg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60D461F000FF;
+	Thu,  8 Oct 2026 15:40:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791473918;
-	bh=MXdITqxLgSSUpRhxRccAsJ6d7ByUZdAQeqa9bUFE0gI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IS6es9MLS3+ErVgCpFiORPEMyWhwf7m5tMxXtrnzAdIEuQ0Vo3dzX21yhPYbiVnbM
-	 2exihNTALChxOpPBsu843E+WVXp/AYJqeumreLhTbftgXu+q10pHrXm/Nn70XuoLkZ
-	 5uB64Qtnd6vOVoN7uWZpXTyGueH9CBTl8MNArlefSTkvmItiu15I0SfpjfTUvd3iV5
-	 6M1nKptXLj2VqGXBCrUipbF0YGavCtBxg1SK8mkPcGDhR/C1H8ywvoKwmg73YnV1D+
-	 SQxVzh16pDNunADTgNqjPCNNyVRsemQhv7KgUoTdlaraImWHNjgdX1IGbPugY9YAtN
-	 gSQKZ483I9X4Q==
-Date: Thu, 8 Oct 2026 10:38:37 -0500
-From: Rob Herring <robh@kernel.org>
-To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>
-Cc: David Heidelberg <david@ixit.cz>, Arnd Bergmann <arnd@arndb.de>,
-	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] kbuild: Support directory targets for building
- DTBs
-Message-ID: <20261008153837.GC183998-robh@kernel.org>
-References: <20261007-dtb-dirs-v3-v3-0-b3ab32b64fa6@kernel.org>
- <20261007-dtb-dirs-v3-v3-2-b3ab32b64fa6@kernel.org>
+	s=k20260515; t=1791474013;
+	bh=7yzrfah2OreMndYvs/1xEFVzdCbRCtBFgLKAA03xbU4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=CKTrdfXg3a16el4Lfas/U4dtAVDTlePSL5+dLgC3g3Jp8FgcGkO8FdRX5aDn0z2TH
+	 rCTEuUKhKvJ2DQSrnZVOUhVnlY3gyuGulmUp1MWM4jyRc47z3un7f58mAabj4ZYdTL
+	 trpkoljS8mO3l/1hf+Ugwi0SraO5/ofNR3yTqeIMBVNkpdRVcK77ReY8o1i702iI1/
+	 ToPsUW6dzCyxS0znwNzXnrgqt032tati4SXCkKKvkvxKTcQaoS5iKmcZ8L+cU1ZdDd
+	 3V7x/iXfA+DvultHwpk/j1wIIAA2Uj2fkA6HChhyyx8vuTaZPcUiaAyy9teCztFnc1
+	 q6zXWKCSX5gzA==
+Date: Thu, 8 Oct 2026 08:40:12 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: netdev-bot+sinfo@kernel.org
+Cc: =?UTF-8?B?w5ZtZXI=?= Mete Kaya <omermetekaya0@gmail.com>,
+ netdev@vger.kernel.org, oneukum@suse.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v3] usbnet: fix EVENT_RX_PAUSED race in
+ usbnet_skb_return()
+Message-ID: <20261008084012.53e34d5f@kernel.org>
+In-Reply-To: <179141094859.2527009.4935200551311639225@kernel.org>
+References: <20261007220311.113827-1-omermetekaya0@gmail.com>
+	<179141094859.2527009.4935200551311639225@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261007-dtb-dirs-v3-v3-2-b3ab32b64fa6@kernel.org>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Wed, Oct 07, 2026 at 01:39:41PM -0500, Rob Herring (Arm) wrote:
-> It is useful to be able to build all the DTBs for a vendor. One can list
-> all the .dts files in a directory and convert those to %.dtb targets,
-> but that doesn't work for base+overlay DTB targets.
+On Wed, 07 Oct 2026 22:09:08 +0000 netdev-bot+sinfo@kernel.org wrote:
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
 > 
-> The 'dtbs' and 'dtbs_check' targets can use the directory rule targets
-> as well which avoids different make paths for building DTBs.
+>  - How the issue was discovered, e.g. hit in production, hit during
+>    development, syzbot report, manual code inspection, LLM or static
+>    analysis tool scan.
 > 
-> Assisted-by: LLM
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
-> v3:
->  - Reworked on top of single target rule for %.dtb
->  - Make dtbs target use directory rule.
->  - Move adding boot/dts subdir out of the arch code. Now supported on
->    every arch (not that useful without vendor dirs).
->  - Removed the need to look at MAKECMDGOALS
->  - Fixed unnecessary rebuilding DT base+overlay targets
->  - Link to v2: https://lore.kernel.org/all/20251120204812.1983452-4-robh@kernel.org/
-> 
-> v2:
->  - Convert arm, mips and riscv. The other DT enabled arches don't have
->    vendor directories.
->  - Link to v1: https://lore.kernel.org/all/20251113225952.867138-1-robh@kernel.org/
-> ---
->  Makefile               | 8 ++++----
->  scripts/Makefile.build | 7 +++++++
->  scripts/Makefile.dtbs  | 2 ++
->  3 files changed, 13 insertions(+), 4 deletions(-)
-> 
-> diff --git a/Makefile b/Makefile
-> index c307ee9293bc..75d290c2b7d8 100644
-> --- a/Makefile
-> +++ b/Makefile
-> @@ -1664,8 +1664,8 @@ dtbindingtree := Documentation/devicetree/bindings
->  ifneq ($(dtstree),)
->  
->  PHONY += dtbs dtbs_prepare dtbs_install dtbs_check
-> -dtbs: dtbs_prepare
-> -	$(Q)$(MAKE) $(build)=$(dtstree) need-dtbslist=1
-> +dtbs:
-> +	$(Q)$(MAKE) $(dtstree)/
->  
->  # include/config/kernel.release is actually needed when installing DTBs because
->  # INSTALL_DTBS_PATH contains $(KERNELRELEASE). However, we do not want to make
-> @@ -2216,7 +2216,7 @@ single-goals := $(addprefix $(build-dir)/, $(single-no-ko))
->  
->  # DT-only targets need host tools, but no architecture-specific preparation.
->  ifneq ($(dtstree),)
-> -single-dt-patterns := $(addprefix $(dtstree)/,%.dtb %.dtbo)
-> +single-dt-patterns := $(dtstree)/ $(addprefix $(dtstree)/,%.dtb %.dtbo %/)
->  ifeq ($(filter-out $(single-dt-patterns),$(single-no-ko)),)
->  single-build-prep := dtbs_prepare
->  endif
-> @@ -2234,7 +2234,7 @@ prepare: outputmakefile
->  # Error messages still appears in the original language
->  PHONY += $(build-dir)
->  $(build-dir): $(single-build-prep)
-> -	$(Q)$(MAKE) $(build)=$@ need-builtin=1 need-modorder=1 $(single-goals)
-> +	$(Q)$(MAKE) $(build)=$@ need-builtin=1 need-modorder=1 need-dtbslist=1 $(single-goals)
+>  - Whether the issue was actually triggered, or is only theoretical
+>    (e.g. found by code inspection). If it was triggered please include
+>    the symptoms, like the stack trace or error messages.
 
-sashiko points out that this creates dtblist files in every directory. 
-Will make it conditional on having DTB targets.
-
-Rob
+Hi, please answer these questions, and try to include the answers in
+the commit msg of future submissions.
