@@ -1,88 +1,89 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7897D3C76A6
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 06:24:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 656763C3C0E
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 06:24:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791440662; cv=none; b=Ooj91YC0a/6vjBfEzuHW6IeRcoD1paUy/kN77YMknn2E/zblJ0xemjSfxC5sZw9Ml4ZKmEsFBAQXEufpoQ+bqIxV4FxPtkWxoKbzKXzQa2kuIs4AfXxsN4B/vHGL9oLbCDW8tu17jQiKY+WGN2/BtZTed6yF3dzh6xBLCrL7qWE=
+	t=1791440667; cv=none; b=B65yeXwqCPeDkDPtAnSR0A0CoxCROHEGaMyKxQX9JD/dappWesZoKTDYeihL/MnO1gwbKFf0fVBoc0LJaTl1jCt6Y6pLmVJnajPGlA0IfqUSosv1gYA3t62tc4//qqn5dUIdb376R+vaEFqv/n6X79XzbHB01DDOSe3tKtn+/Cg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791440662; c=relaxed/simple;
-	bh=ZkA86Go2WmwsxeA79B2BPHvYldgOMas+7hnEDf9OKdg=;
+	s=arc-20240116; t=1791440667; c=relaxed/simple;
+	bh=hvHPVQzSaEYdfQv9wA2/hyOr/lTRIlFXYhKaquHVwcs=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=jsAzeXUInNaZidKk/r17ChRa5HJorrG9pGCajm8h4dq+HU7q/e+eRak3Xn6ZceMFBkX/piSbGe5bI1a2/Tys2AcoAwAftMaV9GN/pkHaUHeJvlQjim5UKMj4r5xtt50hl8wxM+/i6x2+4xz4t2uS+gJl8R56zCi3RmV30yKdWqI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TFmNdFpO; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LeNs94ni; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:To:Cc; b=JIRkts3vM+1WrKjwFwCtO3/RL/5UxX0rKU0TwUGTPzmpJmN1z3+PNbtt/jiFeTkb0O9GW41te9v9MX/0QH3bJWSbAjrB2id1pZULH941uvQYw572cOKvyya4+ByScWDF/lZ3DZolGFLxvLfscGI1ojVWsG8MOk9sEz5qr5XPQrw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WW6fNlyL; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=L1A4Yaj0; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TFmNdFpO";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LeNs94ni"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6984BmRJ1433848
-	for <linux-kernel@vger.kernel.org>; Thu, 8 Oct 2026 06:24:19 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WW6fNlyL";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="L1A4Yaj0"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6984Bw5x1158702
+	for <linux-kernel@vger.kernel.org>; Thu, 8 Oct 2026 06:24:24 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	P+Y4gRYTod15OBoxNgHw8ukLV+tqTnNT/YxqpsSxaXE=; b=TFmNdFpOlG6NHlIp
-	ysObBgGGLPPajn+bvzRVehKaxBQR+MqGbnXHIwO80l9sznaCsHTTxnr67Um5cruq
-	6Ak60HUHN2YY8cPW4VydPR5c8Y+elQTNoklcIReDUvjI1YvdvrW3OMvTPtUfRij3
-	0hN9WZrezjRdiGQuqO/Djk37SFsmiiU1oAE28/O5GwmNbUshM92gp1hmYDA9QWXw
-	kxzHyNOX/TnywHGk4RfPjYYkncHlCKOlyvrX+9Rd3LYs3M0d5qc3lUHOS4A60D/c
-	tR4uoBtujR1aRD/3K2X8Q6rY6XKzhh6WeB5b+lSJLyPOYbrAPfr6IbPCpnjMFWAA
-	59VVRA==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe3hhqq-1
+	N6rWjcBcfENr0W1f2AZyIAl2M0OEA57vnBO0ndM8ezo=; b=WW6fNlyLJq3CvGaP
+	75Ksq+SKy155tFZ6HjQyuatdXgRiVzeL0vndRLz1PZmwqntA0OkdT3l2pqERr9hK
+	E8LDkXWdEYxSdxVynTxr89alqbgvSticTOqyLhGJHXHb5FFiPNa1QG6p8uS5Bovd
+	BhKcv/p3bknEZAZwWCQb2iHGjDAFGyHNSwQAqA3iQ2REB1x0TpF6WMDBVdNBnXdW
+	YmE4hC4kl97LE0rya1MG0agNpE9dQ3QvGF3md3nBZfIbn+Jb7DMizz0goHpGsF4d
+	OK4YpmhIeLEGBq10tcmW5UTOUNqr1gJ9b776aa7jGs+RN+uaAw+lirzHZqvXljXV
+	kF6QIg==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe51eu4-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 06:24:19 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3a47617a0b3so4849373a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 23:24:19 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 06:24:24 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3a8ae5154e7so1373677a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 23:24:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791440658; x=1792045458; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1791440664; x=1792045464; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=P+Y4gRYTod15OBoxNgHw8ukLV+tqTnNT/YxqpsSxaXE=;
-        b=LeNs94niub6zqddIfBZ6xBnVOrlC5hJM3obvzVG2rNOTMvqRMjaejf7JK2gnCOzPqt
-         l13oGXB74Bj2C/K/LeDwV9wNz84NEMJbBiwut9D2Aaj8WSFAJ+4/diT6uiU7XpqwMvWw
-         wNqpJ6myF1EJRRirPzALc+6/n9cA3RCcsvr/4gDJdMCegMnaPQM/bTmghiC5tJN1CyI0
-         z4zmPdfjaVLJdxXZwTwl3QuRbN/y8YSkesqDiuP42w1CgzVWnDfOP7DhlLSQqBTP3kqr
-         aWfB30SOSW63DyltUB56CI1pOOEMmhhjmgy0ASyZ8L+3IlvNApO7jOXa3i8tjObYE3kM
-         uulQ==
+        bh=N6rWjcBcfENr0W1f2AZyIAl2M0OEA57vnBO0ndM8ezo=;
+        b=L1A4Yaj0xq3f6EGkkpeCvkjyugYyOJgCJ25YTptOERS7Ck+RG+PcpGiyfmKlD2ZMCM
+         NJwPM+s49Q1f9PPzs9BL5zCiAbKwTwvptw1K7/ZPDyzeZYI/bWC0913Y/+XVbxgz4a6t
+         16guCtVfgoXEnS05GlWyd9S7fBp28lFv+XADFhqw8mTjsDyhWljwKPzGXY0KUi/iBXZ2
+         lMZhUqcaJklIaWPmRWQubvfhYBnsvzx3i0LTuhsN4dHuuJAthCb7cNTNQKXT9I53cvG3
+         uiJ6YL2kFhSoEEkqUCjbqlUyRu8zOcocwmZud5v4Rh5ivBiDD6Ztm6sHz2DzjO6nJiNh
+         4NuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791440658; x=1792045458;
+        d=1e100.net; s=20260707; t=1791440664; x=1792045464;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=P+Y4gRYTod15OBoxNgHw8ukLV+tqTnNT/YxqpsSxaXE=;
-        b=KSBfqbM3zaZG7l6AYE4Zqeb+veYOwuTDQhmKs8/LBF2COklq9eTL57GxvQMS76oesT
-         /ghRdVnAAn2y3pwY+2GloCeXvmLiyLCVWozt1IXXCzGvBhx3jEl19TQ2yUnuG36TQRd3
-         dwqQsQwYOe947D3d2p1Y8PBTH78rjHiki2pUODo/yt+0hz/dGPQDPpcCM9w5zjmoBczS
-         h6Awi34Ez+kK5WseNbxvfbrS+S0Vh2xVUHB8CC2whI9/Ytr5WDvvuBT9omnQy/2ZppjG
-         pmfVa0M42MWcJGpC2orw1rOy4yjBA5bxAhBbBD4+QUtIrsBnB2nw9s0DvmOpW0HtuCwe
-         KMIQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz7gcOSXur7iUJXx5BHBTiCFynx4u+j2kiamiOABWfXxT4oGTaI1584WbK0jm+Mh4FOKdNumfm7kFxZMts=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLoBN+/WlcTukXV1NsOf5MG7jAI0li4Pn+eFdzNUA389raI0I5F
-	U+RX3t0Vf49xetfA1MqoHRRL3Y/wz8nDkWD/RvPCtEPEo7dBuh7dK2mIH6VGCiKXf+BOELNa4AT
-	Ia9pjw8Zebk5zx0L1TlLtsWvKzEcuKkVkPaufbxEK+8MoWMNItEYUeAw0nD+BD6IMvlM=
-X-Gm-Gg: AYBFou0McDkcGmN1YmWMfEooL2SN9QXQcAg6fWxHS70e/b+CCUIxCGdHYep8OaXk6Z3
-	oFVo9ybqCuVbsM3xvJKe4kX4BwgAKI34ok6Ol57znVSIwQtkkS7RkIkznc+XXeAOFo4tE4+4Evi
-	SSWnI43elsFm7F7E+Ak4kzWhDyOE/VcA7yzMyHdLFl0BXjzeOQCVW+QLPmmIefaEeVgJT5rY3ei
-	rBWqR6QiMY1TqddI9toTbITF4rOMD6evtb1VjHTx/nxdqm5jYUr//GDmI7BHlhCOqgLYuzQbV7P
-	bZGQmHGE8u8KFHQnnHor5nBfeRiTbKWvz8sUfZecIjUcv3dY3CAos+0dTl6H7fqIIAxavCgIXH9
-	XEAMoLTqXc8zih+OWilmoVLKvzTgE
-X-Received: by 2002:a17:90b:4ac8:b0:3a6:fc30:ce16 with SMTP id 98e67ed59e1d1-3a8a10789bamr3477742a91.51.1791440658326;
-        Wed, 07 Oct 2026 23:24:18 -0700 (PDT)
-X-Received: by 2002:a17:90b:4ac8:b0:3a6:fc30:ce16 with SMTP id 98e67ed59e1d1-3a8a10789bamr3477720a91.51.1791440657697;
-        Wed, 07 Oct 2026 23:24:17 -0700 (PDT)
+        bh=N6rWjcBcfENr0W1f2AZyIAl2M0OEA57vnBO0ndM8ezo=;
+        b=eNF7wSb78SAiRpYE/dbEh427Dq9slFIzwiIL8C9o0eqMjkC32wt4ixnbSmKi3N4bl1
+         bItmJvyEjpEUIdryIL+aR7C/N2LxcmbwSigwOtHwdPDXCCmrKaVDNj0u5aJdeLOC6kB1
+         PDbNmQTbz8LgbXd/ahLz+2S5Z7amXhOP/+rSaPITqwYBYjiJttRT0UrloHs0iUsaWgF9
+         ZJBapRIQ34ofcGQkKy3YByRMSXZ5H4DpIRjurbtsxutqbtIaPvjybFB8V5aJt/9+rlVj
+         i57JDQDkHX3VNF7L7byhh7wmnfE5XJ7r7t72Uhop/0LV6Hvtnd8DquU9tX4npqf0FmSl
+         KDKQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzXDOC6eu8dzH430IdBHgfRgWFpsxybhrAFkxVSGMQcBR2RW4p5ukaXIQoW9IQgiYLdO128YpW/QdgCQ2Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL4mwpZBSHtW1hl4ff/+GdzzvbuMJ3hxMbcUrXsSfT9WeQ2h5/Q
+	02FXCtHBDg+g1Njb3l5tEcfwYsPxxU714qImSUzoDl9kkkGX1RdtSYd2M20SkumRQl6IDaIw5pb
+	U8wnEU39/JSx59XaUvGfHAr1fBEHXNMvDBNXlCfJgw59NQx8R2l5DPa5du9b193M7FX3R+RttBa
+	Y=
+X-Gm-Gg: AYBFou2r205gIepS3tRMZOz22t3jlvNvj1kb3QUWC00BlTqP/bgNgIYupVVMdXYBAHN
+	XHmRY8OE7l9i+z71xCjfpQV2QQEm9snynst/3xtkR4MunuBRytosllW3xaelXHhFEUcGLOolg7z
+	VgLFy5VyzA9wukFAJbNHbtUx3zjRMPIlNaayuDK4px0s7j8biyiKgTO3yjayhNYbRGdNLZIjghk
+	esY9pzmgt0j5TUtRVqvb7wOzXXykqn8bu9lHzb3KVw0QnMhjB0aG1qHV0nmvSZP9mwxSMGTE7qm
+	md/vTtqdagbdnn8X0y0z8tEbIUGOZaw+oMuKgPbZVhGRlmuCezUURpzfOQ6X5OJYKNJRb/mbwpq
+	d6Q2Ppnt8zmENY64SqvDX29UhSlrp
+X-Received: by 2002:a17:90b:544b:b0:3a8:5d57:a5e7 with SMTP id 98e67ed59e1d1-3a8a0ba18dbmr3194236a91.28.1791440663505;
+        Wed, 07 Oct 2026 23:24:23 -0700 (PDT)
+X-Received: by 2002:a17:90b:544b:b0:3a8:5d57:a5e7 with SMTP id 98e67ed59e1d1-3a8a0ba18dbmr3194198a91.28.1791440661973;
+        Wed, 07 Oct 2026 23:24:21 -0700 (PDT)
 Received: from hu-batta-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9ff7ab034sm2767618a91.4.2026.10.07.23.24.13
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9ff7ab034sm2767618a91.4.2026.10.07.23.24.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 23:24:17 -0700 (PDT)
+        Wed, 07 Oct 2026 23:24:21 -0700 (PDT)
 From: Kishore Batta <kishore.batta@oss.qualcomm.com>
-Date: Thu, 08 Oct 2026 11:53:49 +0530
-Subject: [PATCH v7 5/7] bus: mhi: Load DDR training data using device
- serial number
+Date: Thu, 08 Oct 2026 11:53:50 +0530
+Subject: [PATCH v7 6/7] bus: mhi: Capture DDR training data via command
+ mode
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -91,7 +92,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261008-sahara_protocol_new_v2-v7-5-90d278bd7414@oss.qualcomm.com>
+Message-Id: <20261008-sahara_protocol_new_v2-v7-6-90d278bd7414@oss.qualcomm.com>
 References: <20261008-sahara_protocol_new_v2-v7-0-90d278bd7414@oss.qualcomm.com>
 In-Reply-To: <20261008-sahara_protocol_new_v2-v7-0-90d278bd7414@oss.qualcomm.com>
 To: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
@@ -103,100 +104,496 @@ Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
         linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
         mhi@lists.linux.dev, Kishore Batta <kishore.batta@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791440631; l=2312;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791440631; l=15044;
  i=kishore.batta@oss.qualcomm.com; s=20260206; h=from:subject:message-id;
- bh=ZkA86Go2WmwsxeA79B2BPHvYldgOMas+7hnEDf9OKdg=;
- b=bOPbALLTjtghyIg6XWPv+m4uZabc/9k/qXf2m7FLi9ATry5ElCUPscnHwYbhJuhKdksUdejlf
- zmj75EumEjGBqTI4IiSli48DtA/009ODsG5zbLLblm0hBjfRMLBzdnL
+ bh=hvHPVQzSaEYdfQv9wA2/hyOr/lTRIlFXYhKaquHVwcs=;
+ b=nDUpwWTfMqn3SFiQhbBM2u3O+DMxWVh/UAHHvGka7i7WmVjRRGZ96ZeOpYLVDxoKXFNsU08Xf
+ A+zZ5iPn8IjDd5ctxTmb/e5YmbkppvxrP4vdpL7YozlE3sKmkWv25AW
 X-Developer-Key: i=kishore.batta@oss.qualcomm.com; a=ed25519;
  pk=vJo8RvTf+HZpRLK2oOIljmbn9l3zFkibCGh+blaqZCw=
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDAyNSBTYWx0ZWRfXyUXkRQ0RIOVG
- iAtciRNWdkab07nf3VuBKMYq+5grxolb4LHpTiwSfeO/IG/m+UxgtZzxmC+BA16cQ7S7vxC7J6T
- 5ZSoIeYOUfJeypIclII9sdikLogjAxQ=
-X-Proofpoint-ORIG-GUID: VmQ4ZvLoNUg6PPSkKMkUGRdQdABuMyf0
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDAyNSBTYWx0ZWRfXzNRQ0WahDiRF
- oFsm4M11iRJMw+hWpILY/a0OwZJ0AMhdU+Mst1vxFqEoVopNglLR7r7Crw49YYffBZPg4lcUHDq
- 6idvfTv0eIdirHAw0S7oXM1VWxZFidmZUORLmhtHvPKmDK97aedkkikWTjGYBAQdZf5Jpq3k2Ch
- A92MgRHGsfkztq6mdPT5+ZT9pZrKBJbhbsT7wGf6kPmJoD+l89o9VJRF5JcM+zWOmWzPN6MyZPp
- s75ed3sPTZWUNGzDOJOthnBaNt97MpAnn7Yu5DgmEDrIJq8sk9SbAbmsjDnXWMCb0xhjLT6U9Fj
- uhN6FYGcBws23noFffEkkAK4f9A2RjHkx28nkMeuXNMO7KOz/l32nR+G9abqz71cygm2mwaqBjX
- edRnMBLc3fS2k2ENMNg13c9HVke+SmBfXmkTvJbgPyo/TUrOg7Q2TNjcW0M/MqfOgAlGRooTpDH
- Z7LW1P0G8XCEYxWjrWA==
-X-Authority-Analysis: v=2.4 cv=IIuXmQvG c=1 sm=1 tr=0 ts=6ac73713 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Proofpoint-ORIG-GUID: zBhq-liUdlZANavaa6bIC69MY7A_ZVbz
+X-Authority-Analysis: v=2.4 cv=E4dYNqdl c=1 sm=1 tr=0 ts=6ac73718 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=ICgrKnnyuXbdZ-Zkjz4A:9 a=QEXdDO2ut3YA:10
- a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-GUID: VmQ4ZvLoNUg6PPSkKMkUGRdQdABuMyf0
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=_u4x-iUupSARUiuVX_kA:9 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDAyNSBTYWx0ZWRfX6xGuDW3b6vTw
+ ZjExRnOEfrVJ9mAfsB5Uk/WujowIWd0UdjmClVQ0VQUXuhCMsadTsMYnceswA3Cl0z0Jxo+AwRx
+ /zAXbsmaaVy4xnJIaAgnHq0ZpZJRclA=
+X-Proofpoint-GUID: zBhq-liUdlZANavaa6bIC69MY7A_ZVbz
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDAyNSBTYWx0ZWRfXxYHfM0KI+rsK
+ PNBDPHPkgwC3j5WBhKhAj5SlK3xglDCiIihneTtDz+7vNz21hw6VNX/CUUdKpyiYrl+eUQ39nCP
+ PXZG06dblLchCUedRcAJoTqoIOuaScXyXH6GxNVGuhTcVx8hFWf1rSTTGJbOs1xYuUhzctiSIDI
+ pJpPlEekQULpLkqVxef/19k/NTuyCyB2pjP2QV3g1dr8+zxzt3KQ0A/8sap8jr8piF6l1g0uGqY
+ x2F934prTEprsazztxFiPP2Rsuw0mmpnUJKZNHp2/o2fmG0+REXi/W7tv05y+7biRmtNDqGz5d3
+ ioSew9+wIBJbXF3nB/8dYE+s7iLLiokpdp2HsujvKZl15vgFXBLMfDCKlLlL7j1aWZIFPjlaIFg
+ ZXltAehsT76FEpV+1HweWDl72us0ygITmRDKV8+Jd3ENOQdpSCVQ3S615gCHWzgupkh9DaXhaWc
+ Xszp9nGnSLBJNi2R0Kw==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-08_02,2026-10-06_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0 adultscore=0
- priorityscore=1501 malwarescore=0 suspectscore=0 clxscore=1015 phishscore=0
+ lowpriorityscore=0 adultscore=0 phishscore=0 spamscore=0 impostorscore=0
+ clxscore=1015 priorityscore=1501 bulkscore=0 suspectscore=0 malwarescore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080025
 
-Devices may provide device specific DDR training data that can be reused
-across boot to avoid retraining and reduce boot time. The Sahara driver
-currently always falls back to the default DDR training image, even when
-serial specific training data is available.
+During early boot, devices may perform DDR training and produce training
+data that can be reused on subsequent boots to reduce initialization
+time. The Sahara protocol provides a command mode flow to transfer this
+training data to the host, but the driver currently does not handle
+command mode and drops the training payload.
 
-Extend the firmware loading logic for the DDR training image to first
-attempt loading a per-device image dervied from the device serial number.
-If the serial-specific image is not present, fall back to the existing
-default image, preserving current behavior.
+Add Sahara command mode support to retrieve DDR training data from the
+device. When the device enters command mode and sends CMD_READY, query
+the support command list(ID 8) and request DDR training data(ID 9) using
+EXECUTE and EXECUTE_DATA as defined by protocol. Allocate receive buffers
+based on the reported response size and copy the raw payload directly from
+the MHI DL completion callback.
 
-This allows reuse of previously generated DDR training data when available,
-while keeping the existing training flow unchanged for devices without
-saved data or for all other firmware images.
+Store the captured training data in controller-scoped memory using devres,
+so it remains available after Sahara channel teardown. Also distinguish
+raw payload completion from control packets in the DL callback, avoiding
+misinterpretation of training data as protocol messages, and requeue
+the RX buffer after switching back to IMAGE_TX_PENDING to allow the
+boot flow to continue.
 
 Signed-off-by: Kishore Batta <kishore.batta@oss.qualcomm.com>
 ---
- drivers/bus/mhi/host/clients/sahara/sahara.c | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+ drivers/bus/mhi/host/clients/sahara/sahara.c | 326 ++++++++++++++++++++++++++-
+ 1 file changed, 319 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/bus/mhi/host/clients/sahara/sahara.c b/drivers/bus/mhi/host/clients/sahara/sahara.c
-index 7fe5158c17e9814f50b2065202a629eb10a742a8..460695055572151003110f4aec1d682b92753770 100644
+index 460695055572151003110f4aec1d682b92753770..11f65cbfa66b87cb6f144eb096f96773621978fa 100644
 --- a/drivers/bus/mhi/host/clients/sahara/sahara.c
 +++ b/drivers/bus/mhi/host/clients/sahara/sahara.c
-@@ -59,6 +59,7 @@
+@@ -5,11 +5,14 @@
+  */
+ 
+ #include <linux/devcoredump.h>
++#include <linux/device.h>
++#include <linux/device/devres.h>
+ #include <linux/firmware.h>
+ #include <linux/limits.h>
+ #include <linux/mhi.h>
+ #include <linux/minmax.h>
+ #include <linux/mod_devicetable.h>
++#include <linux/mutex.h>
+ #include <linux/overflow.h>
+ #include <linux/types.h>
+ #include <linux/vmalloc.h>
+@@ -59,7 +62,15 @@
  #define SAHARA_RESET_LENGTH		0x8
  #define SAHARA_MEM_DEBUG64_LENGTH	0x18
  #define SAHARA_MEM_READ64_LENGTH	0x18
-+#define SAHARA_DDR_TRAINING_IMG_ID	34
++#define SAHARA_COMMAND_READY_LENGTH	0x8
++#define SAHARA_COMMAND_EXEC_RESP_LENGTH	0x10
++#define SAHARA_COMMAND_EXECUTE_LENGTH	0xc
++#define SAHARA_COMMAND_EXEC_DATA_LENGTH	0xc
++#define SAHARA_SWITCH_MODE_LENGTH	0xc
++#define SAHARA_EXEC_CMD_GET_COMMAND_ID_LIST	0x8
++#define SAHARA_EXEC_CMD_GET_TRAINING_DATA	0x9
+ #define SAHARA_DDR_TRAINING_IMG_ID	34
++#define SAHARA_NUM_CMD_BUF		SAHARA_NUM_TX_BUF
  
  struct sahara_packet {
  	__le32 cmd;
-@@ -226,6 +227,27 @@ static int sahara_find_image(struct sahara_context *context, u32 image_id)
- 		return 0;
- 	}
+@@ -95,6 +106,19 @@ struct sahara_packet {
+ 			__le64 memory_address;
+ 			__le64 memory_length;
+ 		} memory_read64;
++		struct {
++			__le32 client_command;
++		} command_execute;
++		struct {
++			__le32 client_command;
++			__le32 response_length;
++		} command_execute_resp;
++		struct {
++			__le32 client_command;
++		} command_exec_data;
++		struct {
++			__le32 mode;
++		} mode_switch;
+ 	};
+ };
  
-+	/* DDR training special case: Try per-serial number file first */
-+	if (image_id == SAHARA_DDR_TRAINING_IMG_ID && context->fw_folder) {
-+		u32 serial_num = context->mhi_dev->mhi_cntrl->serial_number;
+@@ -161,6 +185,7 @@ struct sahara_context {
+ 	struct work_struct		fw_work;
+ 	struct work_struct		dump_work;
+ 	struct work_struct		read_data_work;
++	struct work_struct		cmd_work;
+ 	struct mhi_device		*mhi_dev;
+ 	const char * const		*image_table;
+ 	u32				table_size;
+@@ -181,6 +206,24 @@ struct sahara_context {
+ 	bool				is_mem_dump_mode;
+ 	bool				non_streaming;
+ 	const char			*fw_folder;
++	bool				is_cmd_mode;
++	bool				receiving_training_data;
++	size_t				training_size;
++	size_t				training_rcvd;
++	u32				training_nbuf;
++	char				*cmd_buff[SAHARA_NUM_CMD_BUF];
++};
 +
-+		fw_path = kasprintf(GFP_KERNEL,
-+				    "qcom/%s/mdmddr_0x%x.mbn",
-+				    context->fw_folder, serial_num);
-+		if (!fw_path)
-+			return -ENOMEM;
++/*
++ * Controller-scoped training data store (per MHI controller device).
++ * Stored as devres resource on mhi_dev->mhi_cntrl->mhi_dev->dev.
++ */
++struct sahara_cntrl_training_data {
++	struct mutex lock;	/* Protects data, size, copied and receiving */
++	void *data;
++	size_t size;
++	size_t copied;
++	bool receiving;
+ };
+ 
+ static bool is_streaming(struct sahara_context *context)
+@@ -188,6 +231,48 @@ static bool is_streaming(struct sahara_context *context)
+ 	return !context->non_streaming;
+ }
+ 
++static void sahara_cntrl_training_release(struct device *dev, void *res)
++{
++	struct sahara_cntrl_training_data *ct = res;
 +
-+		ret = firmware_request_nowarn(&context->firmware,
-+					      fw_path,
-+					      &context->mhi_dev->dev);
-+		kfree(fw_path);
++	mutex_lock(&ct->lock);
++	kfree(ct->data);
++	ct->data = NULL;
++	ct->size = 0;
++	ct->copied = 0;
++	ct->receiving = false;
++	mutex_unlock(&ct->lock);
++}
 +
-+		if (!ret) {
-+			context->active_image_id = image_id;
-+			return 0;
-+		}
++static int sahara_cntrl_training_match(struct device *dev, void *res, void *match_data)
++{
++	/* Exactly one instance per controller */
++	return 1;
++}
++
++static struct sahara_cntrl_training_data *sahara_cntrl_training_get(struct device *dev)
++{
++	struct sahara_cntrl_training_data *ct;
++
++	ct = devres_find(dev, sahara_cntrl_training_release,
++			 sahara_cntrl_training_match, NULL);
++	if (ct)
++		return ct;
++
++	ct = devres_alloc(sahara_cntrl_training_release, sizeof(*ct), GFP_KERNEL);
++	if (!ct)
++		return NULL;
++
++	mutex_init(&ct->lock);
++	ct->data = NULL;
++	ct->size = 0;
++	ct->copied = 0;
++	ct->receiving = false;
++
++	devres_add(dev, ct);
++	return ct;
++}
++
+ static int sahara_find_image(struct sahara_context *context, u32 image_id)
+ {
+ 	char *fw_path;
+@@ -281,6 +366,11 @@ static void sahara_send_reset(struct sahara_context *context)
+ 	context->is_mem_dump_mode = false;
+ 	context->read_data_offset = 0;
+ 	context->read_data_length = 0;
++	context->is_cmd_mode = false;
++	context->receiving_training_data = false;
++	context->training_size = 0;
++	context->training_rcvd = 0;
++	context->training_nbuf = 0;
+ 
+ 	context->tx[0]->cmd = cpu_to_le32(SAHARA_RESET_CMD);
+ 	context->tx[0]->length = cpu_to_le32(SAHARA_RESET_LENGTH);
+@@ -316,7 +406,8 @@ static void sahara_hello(struct sahara_context *context)
+ 
+ 	if (le32_to_cpu(context->rx->hello.mode) != SAHARA_MODE_IMAGE_TX_PENDING &&
+ 	    le32_to_cpu(context->rx->hello.mode) != SAHARA_MODE_IMAGE_TX_COMPLETE &&
+-	    le32_to_cpu(context->rx->hello.mode) != SAHARA_MODE_MEMORY_DEBUG) {
++	    le32_to_cpu(context->rx->hello.mode) != SAHARA_MODE_MEMORY_DEBUG &&
++	    le32_to_cpu(context->rx->hello.mode) != SAHARA_MODE_COMMAND) {
+ 		dev_err(&context->mhi_dev->dev, "Unsupported hello packet - mode %d\n",
+ 			le32_to_cpu(context->rx->hello.mode));
+ 		return;
+@@ -335,6 +426,153 @@ static void sahara_hello(struct sahara_context *context)
+ 		dev_err(&context->mhi_dev->dev, "Unable to send hello response %d\n", ret);
+ }
+ 
++static void sahara_switch_mode_to_img_tx(struct sahara_context *context)
++{
++	int ret;
++
++	context->tx[0]->cmd = cpu_to_le32(SAHARA_SWITCH_MODE_CMD);
++	context->tx[0]->length = cpu_to_le32(SAHARA_SWITCH_MODE_LENGTH);
++	context->tx[0]->mode_switch.mode = cpu_to_le32(SAHARA_MODE_IMAGE_TX_PENDING);
++
++	ret = mhi_queue_buf(context->mhi_dev, DMA_TO_DEVICE, context->tx[0],
++			    SAHARA_SWITCH_MODE_LENGTH, MHI_EOT);
++
++	if (ret)
++		dev_err(&context->mhi_dev->dev, "Unable to send mode switch %d\n", ret);
++}
++
++static void sahara_command_execute(struct sahara_context *context, u32 client_command)
++{
++	int ret;
++
++	context->tx[0]->cmd = cpu_to_le32(SAHARA_EXECUTE_CMD);
++	context->tx[0]->length = cpu_to_le32(SAHARA_COMMAND_EXECUTE_LENGTH);
++	context->tx[0]->command_execute.client_command = cpu_to_le32(client_command);
++
++	ret = mhi_queue_buf(context->mhi_dev, DMA_TO_DEVICE, context->tx[0],
++			    SAHARA_COMMAND_EXECUTE_LENGTH, MHI_EOT);
++	if (ret)
++		dev_err(&context->mhi_dev->dev, "Unable to send command execute %d\n", ret);
++}
++
++static void sahara_command_execute_data(struct sahara_context *context, u32 client_command)
++{
++	int ret;
++
++	context->tx[0]->cmd = cpu_to_le32(SAHARA_EXECUTE_DATA_CMD);
++	context->tx[0]->length = cpu_to_le32(SAHARA_COMMAND_EXEC_DATA_LENGTH);
++	context->tx[0]->command_exec_data.client_command = cpu_to_le32(client_command);
++
++	ret = mhi_queue_buf(context->mhi_dev, DMA_TO_DEVICE, context->tx[0],
++			    SAHARA_COMMAND_EXEC_DATA_LENGTH, MHI_EOT);
++	if (ret)
++		dev_err(&context->mhi_dev->dev, "Unable to send execute data %d\n", ret);
++}
++
++static void sahara_command_ready(struct sahara_context *context)
++{
++	if (le32_to_cpu(context->rx->length) != SAHARA_COMMAND_READY_LENGTH) {
++		dev_err(&context->mhi_dev->dev,
++			"Malformed command ready packet - length %u\n",
++			le32_to_cpu(context->rx->length));
++		return;
 +	}
 +
- 	/*
- 	 * This image might be optional. The device may continue without it.
- 	 * Only the device knows. Suppress error messages that could suggest an
++	context->is_cmd_mode = true;
++	context->receiving_training_data = false;
++
++	sahara_command_execute(context, SAHARA_EXEC_CMD_GET_COMMAND_ID_LIST);
++}
++
++static void sahara_command_execute_resp(struct sahara_context *context)
++{
++	struct device *dev = &context->mhi_dev->mhi_cntrl->mhi_dev->dev;
++	struct sahara_cntrl_training_data *ct;
++	u32 client_cmd, resp_len;
++	int ret;
++	u64 remaining;
++	u32 i;
++
++	if (le32_to_cpu(context->rx->length) != SAHARA_COMMAND_EXEC_RESP_LENGTH ||
++	    le32_to_cpu(context->rx->command_execute_resp.response_length) < 0) {
++		dev_err(&context->mhi_dev->dev,
++			"Malformed command execute resp packet - length %d\n",
++			le32_to_cpu(context->rx->length));
++		return;
++	}
++
++	client_cmd = le32_to_cpu(context->rx->command_execute_resp.client_command);
++	resp_len = le32_to_cpu(context->rx->command_execute_resp.response_length);
++
++	sahara_command_execute_data(context, client_cmd);
++
++	if (client_cmd == SAHARA_EXEC_CMD_GET_COMMAND_ID_LIST) {
++		sahara_command_execute(context, SAHARA_EXEC_CMD_GET_TRAINING_DATA);
++		return;
++	}
++
++	if (client_cmd != SAHARA_EXEC_CMD_GET_TRAINING_DATA)
++		return;
++
++	ct = sahara_cntrl_training_get(dev);
++	if (!ct) {
++		context->is_cmd_mode = false;
++		sahara_switch_mode_to_img_tx(context);
++		return;
++	}
++
++	mutex_lock(&ct->lock);
++	kfree(ct->data);
++	ct->data = kzalloc(resp_len, GFP_KERNEL);
++	ct->size = resp_len;
++	ct->copied = 0;
++	ct->receiving = true;
++	mutex_unlock(&ct->lock);
++
++	if (!ct->data) {
++		context->is_cmd_mode = false;
++		sahara_switch_mode_to_img_tx(context);
++		return;
++	}
++
++	context->training_size = resp_len;
++	context->training_rcvd = 0;
++	context->receiving_training_data = true;
++
++	remaining = resp_len;
++	for (i = 0; i < SAHARA_NUM_CMD_BUF && remaining; i++) {
++		size_t pkt = min_t(size_t, remaining, SAHARA_PACKET_MAX_SIZE);
++
++		ret = mhi_queue_buf(context->mhi_dev, DMA_FROM_DEVICE,
++				    context->cmd_buff[i], pkt,
++				    (remaining <= pkt) ? MHI_EOT : MHI_CHAIN);
++		if (ret)
++			break;
++
++		remaining -= pkt;
++	}
++
++	context->training_nbuf = i;
++}
++
++static void sahara_command_processing(struct work_struct *work)
++{
++	struct sahara_context *context = container_of(work, struct sahara_context, cmd_work);
++	int ret;
++
++	if (le32_to_cpu(context->rx->cmd) == SAHARA_EXECUTE_RESP_CMD)
++		sahara_command_execute_resp(context);
++
++	if (!context->receiving_training_data) {
++		ret = mhi_queue_buf(context->mhi_dev, DMA_FROM_DEVICE,
++				    context->rx, SAHARA_PACKET_MAX_SIZE, MHI_EOT);
++
++		if (ret)
++			dev_err(&context->mhi_dev->dev,
++				"Unable to requeue rx buf %d\n", ret);
++	}
++}
++
+ static int read_data_helper(struct sahara_context *context, int buf_index)
+ {
+ 	enum mhi_flags mhi_flag;
+@@ -561,6 +799,9 @@ static void sahara_processing(struct work_struct *work)
+ 	case SAHARA_MEM_DEBUG64_CMD:
+ 		sahara_memory_debug64(context);
+ 		break;
++	case SAHARA_CMD_READY_CMD:
++		sahara_command_ready(context);
++		break;
+ 	default:
+ 		dev_err(&context->mhi_dev->dev, "Unknown command %d\n",
+ 			le32_to_cpu(context->rx->cmd));
+@@ -861,6 +1102,20 @@ static int sahara_mhi_probe(struct mhi_device *mhi_dev, const struct mhi_device_
+ 	INIT_WORK(&context->fw_work, sahara_processing);
+ 	INIT_WORK(&context->dump_work, sahara_dump_processing);
+ 	INIT_WORK(&context->read_data_work, sahara_read_data_processing);
++	INIT_WORK(&context->cmd_work, sahara_command_processing);
++
++	for (i = 0; i < SAHARA_NUM_CMD_BUF; i++) {
++		context->cmd_buff[i] = devm_kzalloc(&mhi_dev->dev,
++						    SAHARA_PACKET_MAX_SIZE, GFP_KERNEL);
++		if (!context->cmd_buff[i])
++			return -ENOMEM;
++	}
++
++	context->is_cmd_mode = false;
++	context->receiving_training_data = false;
++	context->training_size = 0;
++	context->training_rcvd = 0;
++	context->training_nbuf = 0;
+ 
+ 	context->active_image_id = SAHARA_IMAGE_ID_NONE;
+ 	dev_set_drvdata(&mhi_dev->dev, context);
+@@ -884,6 +1139,7 @@ static void sahara_mhi_remove(struct mhi_device *mhi_dev)
+ 
+ 	cancel_work_sync(&context->fw_work);
+ 	cancel_work_sync(&context->dump_work);
++	cancel_work_sync(&context->cmd_work);
+ 	vfree(context->mem_dump);
+ 	sahara_release_image(context);
+ 	mhi_unprepare_from_transfer(mhi_dev);
+@@ -900,15 +1156,71 @@ static void sahara_mhi_ul_xfer_cb(struct mhi_device *mhi_dev, struct mhi_result
+ static void sahara_mhi_dl_xfer_cb(struct mhi_device *mhi_dev, struct mhi_result *mhi_result)
+ {
+ 	struct sahara_context *context = dev_get_drvdata(&mhi_dev->dev);
++	struct sahara_cntrl_training_data *ct;
++	struct device *dev;
++	size_t copy;
++	int ret;
++	u32 i;
++
++	if (mhi_result->transaction_status)
++		return;
++
++	/*
++	 * Raw training payload completions arrive for cmd_buff[] buffers.
++	 * Do not schedule cmd_work for those.
++	 */
++	if (context->is_cmd_mode && context->receiving_training_data &&
++	    mhi_result->buf_addr != context->rx) {
++		dev = &context->mhi_dev->mhi_cntrl->mhi_dev->dev;
++		ct = sahara_cntrl_training_get(dev);
++		if (!ct)
++			return;
+ 
+-	if (!mhi_result->transaction_status) {
+-		context->rx_size = mhi_result->bytes_xferd;
+-		if (context->is_mem_dump_mode)
+-			schedule_work(&context->dump_work);
+-		else
+-			schedule_work(&context->fw_work);
++		for (i = 0; i < context->training_nbuf; i++) {
++			if (mhi_result->buf_addr == context->cmd_buff[i]) {
++				mutex_lock(&ct->lock);
++				copy = min_t(size_t, mhi_result->bytes_xferd,
++					     ct->size - ct->copied);
++				memcpy((u8 *)ct->data + ct->copied,
++				       mhi_result->buf_addr, copy);
++				ct->copied += copy;
++				mutex_unlock(&ct->lock);
++
++				context->training_rcvd += copy;
++
++				if (context->training_rcvd >= context->training_size) {
++					mutex_lock(&ct->lock);
++					ct->receiving = false;
++					mutex_unlock(&ct->lock);
++
++					context->receiving_training_data = false;
++					context->is_cmd_mode = false;
++
++					sahara_switch_mode_to_img_tx(context);
++					ret = mhi_queue_buf(context->mhi_dev,
++							    DMA_FROM_DEVICE,
++							    context->rx,
++							    SAHARA_PACKET_MAX_SIZE,
++							    MHI_EOT);
++					if (ret)
++						dev_err(&context->mhi_dev->dev,
++							"Unable to requeue rx buf %d\n", ret);
++				}
++				return;
++			}
++		}
++		return;
+ 	}
+ 
++	/* Normal Rx completion */
++	context->rx_size = mhi_result->bytes_xferd;
++	if (context->is_mem_dump_mode)
++		schedule_work(&context->dump_work);
++	else if (context->is_cmd_mode)
++		schedule_work(&context->cmd_work);
++	else
++		schedule_work(&context->fw_work);
++
+ }
+ 
+ static const struct mhi_device_id sahara_mhi_match_table[] = {
 
 -- 
 2.34.1
