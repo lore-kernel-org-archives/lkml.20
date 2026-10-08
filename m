@@ -1,123 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7947A4BD7B2;
-	Thu,  8 Oct 2026 18:36:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9F064F4031
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 18:37:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791484608; cv=none; b=GWV2ajARC5Lmy/sjOOdT/Wupy7qm31OzpOph89t9w3mL58mHyAEYuWbJ2tPjTNCIBs1XdSAlOKY28ioyumOSirdHHQ700Jrqviq/szXPa18Mkde2vo0SFK2/D8sHXWtedi+aOvvBRr7q/+03R/94bP4+aiTpa8zQGcw2aRpQboQ=
+	t=1791484625; cv=none; b=q7RlzOrIu2aFqWJ8yLu49aISEAwJektNz/bt1RXH/0HiFYNlKGMhdtrw0pplnpXThCbE+M/NOsQIPEEjJSF5YTKiZeY+Qja/lpX1nfQNIH57dUNR6rNNjJqOnPqbP6C5PWkiyDtJXO/th+sOAPZEcb1ZAWhQVxi5PFKjqQyvMn4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791484608; c=relaxed/simple;
-	bh=40LWTlLolUSyJ4TZDApTbTs1TqDcHlH99VDMOLRVNjU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=px8GLXbBrqAgiI+TCtZ2tdKaJJ38BYniYqOjTDWrXXd6ptCoS6jV2Y8IK++LsbAcjdceIQ+EKCr1MRpURt/i6qfsS+BuX5gdskWEemZJabYUYh+02N2Q29rwB8jWqQjw0OGlNlW5Y1aCaa9YJdKZ3Xrj4pocNTlcYiehRCYXUls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IUQwgffK; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791484625; c=relaxed/simple;
+	bh=wWZeumKz9esFSRC87m2K4cbucNFbsWDBj7xuEZ4k6t4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RRWNjH7Dcg1R1c8GYevrk297Al9Hf9KsR1mDgLinfOfrhFdILZK+mndhHtmL4+V4WnfSKYUd/GPPibC+mK9zrWEfQZprx2Mfte3O6kZ11Bf3BK6Xm1aaf6Hv67wrGCAZOzn+7fy8zC6zrEQsRUh0ptt36vX3M9ZMyVMNJJOQ7Y8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lGWxYTTE; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IUQwgffK"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 1790FC2BCFC;
-	Thu,  8 Oct 2026 18:36:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791484608;
-	bh=40LWTlLolUSyJ4TZDApTbTs1TqDcHlH99VDMOLRVNjU=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=IUQwgffKz9oQkPOeAGVDX3otBlMCngnOfHzR60BgBd8+w/lZuf46QusSZDfFkkVXo
-	 fr8nPMTWYXSMEHtEcv9HxXO4s1p7/Kfp4hneb8Eq0pj2jiYcqzLVTkyUVmk7ougRnc
-	 zo+cGDO00Wc5/w/nk+AdillpS2Bm2iT3bzB7VpuoHXvzQeWbujPdSenDY43kIxXiqk
-	 4VziKIRZgDWAq2Y4G4QBahpkiqljlelzomYE+yEJFtzK6fnUquSwaCDfw7iUCNtZs2
-	 lw3H9x8cNkqoF7oKtV0dwk2zmTrYB+AFoBI40c7yGMXK+ibnxmeRjadVzIbNkbWxSP
-	 37akaVmPOrG0w==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E4F7ACA6014;
-	Thu,  8 Oct 2026 18:36:47 +0000 (UTC)
-From: Juerg Haefliger via B4 Relay <devnull+juerg.haefliger.canonical.com@kernel.org>
-Date: Thu, 08 Oct 2026 20:34:46 +0200
-Subject: [PATCH 2/2] arm64: dts: qcom: hp-elitebook-ultra-g1q: Drop
- omnibook-x14.dts include
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lGWxYTTE"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a018792ab3so30747565e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 11:37:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791484619; x=1792089419; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gpJdTFadC59MEdInBU99QKfyaqonluWTURkek0/6Sh8=;
+        b=lGWxYTTElOnicnKGCKTgiJIqfxq21ZjOenVm3ZeoC1q2gMbvYFr12zJ0h2/sevmgV5
+         w4Qin9hOtCfKbR3A1W/SYi+v3VlB9Ws80dI9HK9nHlfFuPvo2OT1DY0VLWp2v8379YWi
+         VwtwX58K+BqgJceZVuzgBGGNPLIOrWw8HuD8ixsBsTtffCtd5hYt0iUPePJdg6+R7Qwr
+         rZa4i7u6rjhKM+CGmPwb2Ale/UwcYSWoAOLp6az3ZOjbjQyfSp/DMCruRAMcsuwnek1r
+         lm3td10pVl4iQM9v+ejncFsqT1p3+w0XFnTDpVPupH1XAPWbOskw32/w63fskWYM3zX4
+         uhYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791484619; x=1792089419;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=gpJdTFadC59MEdInBU99QKfyaqonluWTURkek0/6Sh8=;
+        b=LPdBlHTH8g9KBAuqhMmvtWkkKc78rRCjYQtpp283aNyR8Ap6h38MEgd/vi/H3pFgbb
+         YmhDwJ8E+VAKHg9PXAyBjXr0a/a6c6Z0u4VnmRHi9mxosiWiYBXBUykHZ8GBM0q97ia5
+         PROAhk47+B9IyuP/18lt5utS1CwBD7lQrGKJEHeF1SOuYhIsTYPt9NU8am3OTMZBI0pf
+         RkhwBJiEeCUYHAyYxMWNBMupG5wWdKvcjskkBxIdRsyNViX5gK0bgFdbx3J0IVi9QepB
+         31/zn0u2s1Ae98ufyDpOJqZ71qYXLxwqpw/ja+/eOY1Hkg+M1ToHHmbvhYC66/+PxFzJ
+         fWFQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzDvtbuLwSsq0NwJkoAGceMViWFgpKNOwF/Q6Mc6FpQrONhfqZ14QkkopkoZyELp3dnBApM5F9/My1VIs4=@vger.kernel.org
+X-Gm-Message-State: AFuF++m6LCLVoByflcb0LJKygOyPAqi5ihIUybaAwdb81DE5g7DkdsmO
+	pL3kCVVwB6NrWTZXJImH0+5Ysn6LlVfTnLp8Csey/NtGI5n8OyNzCTGh
+X-Gm-Gg: AYBFou1k6k4yxi04zqrD+Zg2os5LLtPWrchxQvRycFDWETAqze6j0zazb95yjpQz77W
+	jChwE29iElNgULEqaNVKXkaRe6qClmOkOleJrN6TIvZn18qLnzQlG2qR1DcAxxT8sZkso1WPLsk
+	7x2XCG/flNJy+4DCuccllmveqomQzdwZm920cvUsgF3VPB61RIUqsci1L/Q60OC+VHI4NnHWG8P
+	xZ2Qo5a3QZ+Iy3QXgh1zAFo+suO/VCSb4bn6QiLCUmHi/kK0CVuhRJ/k6IwkBObOLov6uwdnt1/
+	5saDNblh+nQ8A0R463kAH/cumXbV0lIFDtxXgjbSpFxVP1GqAcoHGPH50cGHmDThEaOB1ieYxzi
+	a7wZa93II71mdEtDjQC+I7vKJ/Ejsl1tOIfkqzJRevsD0G3evqtxJ6skmAbERGI2eouqlVSicft
+	lhczGNyPLHKZ0uQIKb+N0CcIS2SMxSxbemQFea/jNFcIv2mB7pbm6MwQ9xSyWifeAlCYsy1x87w
+	vLHYrFcO8tI4OTMogcGKHpKCeCRpeA=
+X-Received: by 2002:a05:600c:6989:b0:4a1:6991:36d7 with SMTP id 5b1f17b1804b1-4a1802f622amr128959465e9.10.1791484618686;
+        Thu, 08 Oct 2026 11:36:58 -0700 (PDT)
+Received: from [10.0.10.92] ([81.0.251.149])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bb68abfsm5152555e9.0.2026.10.08.11.36.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 08 Oct 2026 11:36:58 -0700 (PDT)
+Sender: Julian Braha <julian.braha@gmail.com>
+Message-ID: <b43a2c83-2c19-4b08-bc53-47deac0c81c1@gmail.com>
+Date: Thu, 8 Oct 2026 19:36:56 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] kconfig: fix infinite loop in conf_choice() when no
+ choice value is visible
+To: Leizhen Zhang <lzsx618@gmail.com>, nathan@kernel.org, nsc@kernel.org
+Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261008164521.3684735-1-lzsx618@gmail.com>
+Content-Language: en-US
+From: Julian Braha <julianbraha@gmail.com>
+In-Reply-To: <20261008164521.3684735-1-lzsx618@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261008-dts-qcom-hp-omnibook-x14-cleanup-v1-2-9702f7c6f9a0@canonical.com>
-References: <20261008-dts-qcom-hp-omnibook-x14-cleanup-v1-0-9702f7c6f9a0@canonical.com>
-In-Reply-To: <20261008-dts-qcom-hp-omnibook-x14-cleanup-v1-0-9702f7c6f9a0@canonical.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Juerg Haefliger <juerg.haefliger@canonical.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1423;
- i=juerg.haefliger@canonical.com; s=F9F8B48C; h=from:subject:message-id;
- bh=36Xroda5BgwIhkZde/g7EP2PrCQr/TI7HkISUfuROf4=;
- b=owEBbQKS/ZANAwAKAQ/TiwkLpkK3AcsmYgBqx+K+XCdXfVAjulej4V6gmwDfwDUz7sI6Woj0u
- 3iC0/3asQ+JAjMEAAEKAB0WIQSFl9T3oi6mu+It14sP04sJC6ZCtwUCasfivgAKCRAP04sJC6ZC
- t5GWD/9LFkLKo+6BEYan3hqibByPRyQD/xaLIjARQXfDcQGm/Rvj+bOSiO1k8mWJaEo1EahCGDq
- KVhS9q7em4FxXGBUTSQFoVVprEywK5noURAU5hu3zFntZxlsADveQFbJi2c/Uh3+H7WfWHUCUGr
- bp1vubWGpULCeeHjyWUPSL3AItljrZO367le+6+oV6mJrNQXw+cyOYx3qdxkVGsozTVQWgR2a7Y
- hNfOa5C/80pVYvsWrMb1uFHUN0GRQ0PoHDHpPWz9UUIJPhwMCZnUNUlxaa4GaL4wYL36lzbI8/1
- O6dWQYiqf6NKTKmQ72Dfw3JDBnK/LgG3PFWCSsc6MoWVhEb9LGAhgWSLaqcicgNI2+sH5bvswm7
- rWioLzAh1WdbQpTVOm93ce6FaI046TvMAaWs0KvOYcO6mW7QbvtFMxdF0ZHzMDRTurZwMsdV5NZ
- BGqjDGBCEAOekkYUnGCGmg0T2O3Uqrcsh/e0KBt1XI286lZvu6gLW/xAld9ki72SqGlfbde8WOx
- 6PoUwe6V3RK/TRecx+9FkegJXL5kb7IbP/pH3hZ0NwyZAtHBpZFN60+K+mWplIpYQNCDLqquxgo
- GwRLwK53ZRXYdiPkUoVNPj8NW09q8GYG+ZYzsrm8pMDs63pgToT/Yqcohyji4ojODstTSFFwnKo
- d8eTK11o/vj+5pA==
-X-Developer-Key: i=juerg.haefliger@canonical.com; a=openpgp;
- fpr=52B5BDD2A6EDC76A0FE0AB4A754C3A96F9F8B48C
-X-Endpoint-Received: by B4 Relay for juerg.haefliger@canonical.com/F9F8B48C
- with auth_id=1135
-X-Original-From: Juerg Haefliger <juerg.haefliger@canonical.com>
-Reply-To: juerg.haefliger@canonical.com
 
-From: Juerg Haefliger <juerg.haefliger@canonical.com>
+On 10/8/26 17:45, Leizhen Zhang wrote:
+> If a choice is visible but none of its choice values is, conf_choice()
+> counts cnt == 0 visible values and finds no default. When the choice has
+> to be asked, e.g. because a new symbol was added to the same menu
+> (oldconfig, syncconfig) or because stdin is at EOF (oldaskconfig), the
+> loop that maps the answer to a menu entry never finds one and the
+> while (1) loop repeats forever, printing "choice[1-0?]: 0" each time.
+> 
+> This happens in the tree for s390 when the compiler supports none of the
+> -march=z* options (e.g. a non-s390 host compiler), so that all values of
+> the "Processor type" choice are invisible:
+> 
+>   $ make ARCH=s390 defconfig
+>   $ sed -i '/^CONFIG_NR_CPUS=/d' .config
+>   $ make ARCH=s390 oldconfig     # hangs
+> 
+> Before the removal of tristate choice support, conf_choice() returned
+> early in this case. Do the same when there is no visible choice value.
+> 
+> Found by fuzzing Kconfig input with ASan/UBSan.
+> 
+> Fixes: fde192511bdb ("kconfig: remove tristate choice support")
+> Assisted-by: Claude:claude-opus-5-5 libFuzzer
+> Signed-off-by: Leizhen Zhang <lzsx618@gmail.com>
 
-The EliteBook Ultra G1q is a different product from the OmniBook X14 that
-happens to reuse the same mainboard, not a variant of it. As such, it
-should not be a child of x1e80100-hp-omnibook-x14 but rather a sibling.
-Include the shared base platform dtsi to match the other OmniBook X14s.
-
-Signed-off-by: Juerg Haefliger <juerg.haefliger@canonical.com>
----
- arch/arm64/boot/dts/qcom/x1e80100-hp-elitebook-ultra-g1q.dts | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/arch/arm64/boot/dts/qcom/x1e80100-hp-elitebook-ultra-g1q.dts b/arch/arm64/boot/dts/qcom/x1e80100-hp-elitebook-ultra-g1q.dts
-index 0b3b6cb23e1a..9327eaa16b92 100644
---- a/arch/arm64/boot/dts/qcom/x1e80100-hp-elitebook-ultra-g1q.dts
-+++ b/arch/arm64/boot/dts/qcom/x1e80100-hp-elitebook-ultra-g1q.dts
-@@ -2,7 +2,8 @@
- 
- /dts-v1/;
- 
--#include "x1e80100-hp-omnibook-x14.dts"
-+#include "hamoa.dtsi"
-+#include "x1-hp-omnibook-x14.dtsi"
- 
- / {
- 	model = "HP EliteBook Ultra G1q";
-@@ -16,11 +17,15 @@ &gpu_zap_shader {
- &remoteproc_adsp {
- 	firmware-name = "qcom/x1e80100/hp/elitebook-ultra-g1q/qcadsp8380.mbn",
- 			"qcom/x1e80100/hp/elitebook-ultra-g1q/adsp_dtbs.elf";
-+
-+	status = "okay";
- };
- 
- &remoteproc_cdsp {
- 	firmware-name = "qcom/x1e80100/hp/elitebook-ultra-g1q/qccdsp8380.mbn",
- 			"qcom/x1e80100/hp/elitebook-ultra-g1q/cdsp_dtbs.elf";
-+
-+	status = "okay";
- };
- 
- &sound {
-
--- 
-2.53.0
-
-
+Reviewed-by: Julian Braha <julianbraha@gmail.com>
+Tested-by: Julian Braha <julianbraha@gmail.com>
