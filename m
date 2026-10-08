@@ -1,108 +1,89 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B7F6C46C4AA;
-	Thu,  8 Oct 2026 13:21:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 854E0471255
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 13:22:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791465710; cv=none; b=V5VXpfTPaPONREN4nEy5VDT3WswMLDKhk6SGwBf0ZH3+pn3t41JKPUVFd961Wp9gTKdIzR7nU2OXSwi12EtKvHBne/IBIsAun/+07R7kEFX6EfNCnFRcvgZEyyBH0x7oo0yGKfZZP934b/r/7wpduG0e+UTpGJVdD52lD1+R8hQ=
+	t=1791465755; cv=none; b=gbOK8sNbofyuToyzLsOyLbPzVGmTE80wt2t/wrjM4aTRg0q29KNKQQ8XYLRf+4Yy4c2ckW1H7HHq3Njgv1Hi3gwr6TDjINRedKL6gjUIHqwGNnQpEkgSFf6XdKVpW7eNdHfRSNLCGhYynHgmQFhmyU1hP7OPfGtByVPgk7T7NmU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791465710; c=relaxed/simple;
-	bh=L3pt2PT/hPwrXq7LAfWVr+hh3Nacq9R0SABfPWeBcZg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AUQZEoMUUYEo/Vo2g6vyUrJl81wajG76xWLT27LamdZ41zkxgPlEST9WUJq6VtC9DFChI5TlzUq/hVfmE1hPOA2cnRU+TRpyr3dMktXmT4tFbIa18PzEdkSvzlII9OUA659bG8MAVX3QJxh9dmqSuXy7ZzHOjR+ks4cvijjvFTM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Hqci3iIQ; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791465755; c=relaxed/simple;
+	bh=WBXtropSzprUTX2O5FwhoUwgPtwsDDIyB2/KMKt3/lE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=axKvx3DzxMmshe4MWG1lfhm/USkaN1/ylsGMMctJ6++W1KxARqrOPUumYAPLw/44qGtMMbJ/Ch6JSinag0dj0sylu0LCOQtMdvCIOjdtZODGw3iAPe7+c8w8kI5jtWPpF6SvnUFyswWZ0zjsJ7azk8zZUk1wbwmAs6uIS8awUXA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RVrQodrv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Hqci3iIQ"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C42CE1477;
-	Thu,  8 Oct 2026 06:21:44 -0700 (PDT)
-Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 76A0F3F763;
-	Thu,  8 Oct 2026 06:21:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791465708; bh=L3pt2PT/hPwrXq7LAfWVr+hh3Nacq9R0SABfPWeBcZg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Hqci3iIQjlR0pfAzB9UXRgbrh5jmECHpljbCK3qydteadihdACwdJg2UVciO4Y/yy
-	 P8+Nhln78zg8nk3oUdWtTFuNcsOkcZf3rZ0RBrtF0pCnEMPQ2IYqCDAj+7JHDvVnzf
-	 TnzE6K/QUcbkAE+fQrQH8zCkItpqT1QNlpwvX1Pc=
-Message-ID: <7626c1be-305e-478a-a017-548341d25419@arm.com>
-Date: Thu, 8 Oct 2026 14:21:43 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RVrQodrv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40B1C1F0089C
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 13:22:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791465754;
+	bh=WBXtropSzprUTX2O5FwhoUwgPtwsDDIyB2/KMKt3/lE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=RVrQodrvfX8BLyPmA1KAw/5Y8/NZCTIw0S/hv0SelcX3h92+ckfFvi3SAWVX9htgu
+	 7/yfEZ35v95BqA1MUxukZ5fT9oUbyhyh0o4YaElq7FA9/tjWLkxRU4t3zf8Ebdb2GU
+	 3QLPD8+N+jVA156qJUZZaZlrRQ401v5ICeC7wQPC74dRUVukh9SnOQEfFPz/hN1dEw
+	 oqOYyfg+11CnADhC4GoieryKVucWfk6FQZ579l7iwN/Aip/moNIvSySf0M5E8BeNW7
+	 w75KP5Y5VgjEXZZIgBIZSSHkKkGPOkwQ1Rz7ZrUwDE82UpH4cjh8KiBWk8rSKESKqg
+	 0qpIhEv4IsVTA==
+Received: by mail-oa1-f46.google.com with SMTP id 586e51a60fabf-49e53ba03f5so834332fac.3
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 06:22:34 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwndurAo7Stiyac1zsAc/NpMM5bEgI5j/r4yUMka8EL3ZjV4IkZLkj5Wbs4sevrZz3gHZ8GJRYm93aZM6k=@vger.kernel.org
+X-Gm-Message-State: AFuF++lputEiAqnSzzCmjXcR62OFlsmS9VgRxjlQY3ENDr940rM8MVmT
+	/eY7u4q6yTelwuQJ3LgQ/cBPuW6KBcRNEgIjpQejCAH198BYs7/uOsOJ8YeWJ86bu27qqcMrHs4
+	povXa+FFD7nKoNUjh1pHBz5TT92BRR6g=
+X-Received: by 2002:a05:6871:b2c:b0:47d:a12f:3951 with SMTP id
+ 586e51a60fabf-4a259661200mr4847200fac.39.1791465753534; Thu, 08 Oct 2026
+ 06:22:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v5 2/6] iommu/arm-smmu-v3: Allocate streams
- individually
-To: Nicolin Chen <nicolinc@nvidia.com>, "Peng Fan (OSS)"
- <peng.fan@oss.nxp.com>
-Cc: Will Deacon <will@kernel.org>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
- Jean-Philippe Brucker <jpb@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- Thierry Reding <thierry.reding@kernel.org>, Krishna Reddy
- <vdumpa@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>,
- linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org,
- Peng Fan <peng.fan@nxp.com>
-References: <20261006-smmu-shared-sid-v5-0-169a59c671d3@nxp.com>
- <20261006-smmu-shared-sid-v5-2-169a59c671d3@nxp.com>
- <asbTEPMJvm9T00c+@nvidia.com>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <asbTEPMJvm9T00c+@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260929-mali-c55-irq-supend-resume-v1-0-e3af34afff12@kernel.org>
+ <20260929-mali-c55-irq-supend-resume-v1-1-e3af34afff12@kernel.org> <f7987857-7516-4184-9a50-2b42a2d01234@ideasonboard.com>
+In-Reply-To: <f7987857-7516-4184-9a50-2b42a2d01234@ideasonboard.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 8 Oct 2026 15:22:18 +0200
+X-Gmail-Original-Message-ID: <CAD++jLnP1+aV99QkVRUX=7L67z10WuUSfqvxDZ8d44FJcVZ-Qw@mail.gmail.com>
+X-Gm-Features: AclHuK8rWtCgLBExYEFVtV6YJ_L_wVK9_y0rwU4QnsM7FeH0zmh-80QUTN8UTes
+Message-ID: <CAD++jLnP1+aV99QkVRUX=7L67z10WuUSfqvxDZ8d44FJcVZ-Qw@mail.gmail.com>
+Subject: Re: [PATCH 1/3] dt-bindings: media: mali-c55: Allow wakeup source
+To: Dan Scally <dan.scally@ideasonboard.com>
+Cc: Li Youhong <dayou5941@163.com>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, Nayden Kanchev <nayden.kanchev@arm.com>, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 08/10/2026 12:17 am, Nicolin Chen wrote:
-> On Tue, Oct 06, 2026 at 08:19:08PM +0800, Peng Fan (OSS) wrote:
->> From: Peng Fan <peng.fan@nxp.com>
->>
->> Change master->streams from an embedded array of struct arm_smmu_stream
->> to an array of pointers, with each stream individually allocated.
->>
->> Prepare for shared-SID support where multiple masters will point to the
->> same stream object. With embedded structs, sharing requires duplicating
->> stream state and manually keeping fields like ste_installed in sync.
->> With individually allocated streams, a sharing master can simply point to
->> the existing stream.
->>
->> The sort comparator is updated to dereference the pointer indirection.
->>
->> No functional change.
->>
->> Suggested-by: Nicolin Chen <nicolinc@nvidia.com>
->> Link: https://lore.kernel.org/linux-iommu/arG6hmng3NddGEHm@nvidia.com/
->> Assisted-by: LLM
->> Signed-off-by: Peng Fan <peng.fan@nxp.com>
-> 
-> Reviewed-by: Nicolin Chen <nicolinc@nvidia.com>
-> 
->> diff --git a/drivers/iommu/arm/arm-smmu-v3/tegra241-cmdqv.c b/drivers/iommu/arm/arm-smmu-v3/tegra241-cmdqv.c
->> index 6644075c1431e..bc62a3d5a63f9 100644
->> --- a/drivers/iommu/arm/arm-smmu-v3/tegra241-cmdqv.c
->> +++ b/drivers/iommu/arm/arm-smmu-v3/tegra241-cmdqv.c
->> @@ -1257,7 +1257,7 @@ static int tegra241_vintf_init_vsid(struct iommufd_vdevice *vdev)
->>   	struct arm_smmu_master *master = dev_iommu_priv_get(dev);
->>   	struct tegra241_vintf *vintf = viommu_to_vintf(vdev->viommu);
->>   	struct tegra241_vintf_sid *vsid = vdev_to_vsid(vdev);
->> -	struct arm_smmu_stream *stream = &master->streams[0];
->> +	struct arm_smmu_stream *stream = master->streams[0];
-> 
-> Sashiko raised a concern of an out-of-bounds pointer dereference.
-> 
-> Though it's practically not possible, probably it would be safer
-> to move this behind the check:
-> 
-> 	if (master->num_streams != 1)
-> 		return -EOPNOTSUPP;
+On Wed, Oct 7, 2026 at 11:29=E2=80=AFAM Dan Scally <dan.scally@ideasonboard=
+.com> wrote:
 
-The IORT path unconditionally adds 1 ID via acpi_iommu_fwspec_init(), so 
-num_streams==0 could only potentially happen with DT if a fwspec was 
-parsed using #iommu-cells==0, except arm_smmu_device_dt_probe() would 
-refuse to probe the entire SMMU if that was anything other than 1, so 
-no, this definitely cannot ever be out of bounds.
+> On 29/09/2026 13:02, Linus Walleij wrote:
+> > The Mali-C55 interrupt can be wired as a wake source on platforms that
+> > support it. Use the standard wakeup-source property.
+>
+> That's interesting! How's that work, though? In the RZ/V2H particularly t=
+he ISP is in an offline
+> mode, so I'm struggling to see how one could trigger the interrupt whilst=
+ the device is suspended,
+> since you'd need to instruct the IVC to queue a frame.
 
-Thanks,
-Robin.
+The implementation is IP-neutral and doesn't really ask this question.
+
+The typical silicon solution would be if the IP was synthesized into
+and always-on power domain on the chip. This means the CPU
+which runs Linux is powered off, while the ISP is still powered
+on, and could generate a wakeup IRQ. This is how e.g. GPIO
+units that can wake up the system work: they are always
+powered in some sense.
+
+I don't know if that makes any *sense* from a system engineering
+point of view, but it is something that can be done.
+
+Yours,
+Linus Walleij
