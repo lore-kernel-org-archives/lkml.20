@@ -1,123 +1,166 @@
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2C5A4DDB48
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 15:13:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7120D4B829F
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 15:16:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791472394; cv=none; b=Gvw+Ltyn01OTi9gYB5GD1zVpSJeKapDvklr5GJunCFJLx4gtt8MV/RceqfEvYFmaEDDwb/3HVHilC5m2gMEYk1AuRKze6r8eF/AE9jOE6MGZoj8de+R0mOprbknsuPGqmMv3aH5q264M2/YbSoDHysHwMqwm5GdCqj42pBSMLQc=
+	t=1791472613; cv=none; b=tGORGrnhSo085jGZUaYuk8cEvgcWsxjIbCY1Ia3C3/27+8sXsBPMCsMwrqGSAhIqNZDq8+wXvbv+0gCN7yKryUulXFMsANA8IqQuOIfOqQ2PIJ8Ic/STWq3XHupdmSZCpfGmrVdhCxkEsstiwpJGvZ6gPmCxZO1RexNSS7SnW7U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791472394; c=relaxed/simple;
-	bh=XK1oYlYECHEwBL7QCAkCIQPSESe0kV06DpwVskF/JVU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Oi1zHvMltnEhdpV0rS/qpYmVhPf1H9HgzFOrTI4l/RCxG/MkzvTQO0JyYHcl28O/iFZHV53cYbV39IgWej/70a6FRDTSpcv+OhUGnibU3yJopAIL7RxJAEeK+hICugVi8OibL4bLc44hJNQAyAjb6BqUzkuuYficEtdIhmNK7uc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c/2k9wMY; arc=none smtp.client-ip=74.125.82.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791472613; c=relaxed/simple;
+	bh=ZTBqoYhGDm+J/pFaw0Ch+MdV1zAK5Ys8DujDZL9Y4RY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZP0gst2KeSh+Q2TwIsz6OKvHDBRGhmZmd+0xaHW3Y3exmXr24lydggF2VrvAIvP96+PqadLTFoXAymuqkPHlwoLOkeX9+aHtAetwx4yj2SVJ4nK0r4fC+mfPM1Q9zjjlm1C6UWwiY+J5tYJk1pyLjHpD92NE+jNYMvGBA/ckfSE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ipot0wNf; arc=none smtp.client-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c/2k9wMY"
-Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-150b2fbd784so56058c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 08:13:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ipot0wNf"
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c2e36c3478aso793744966b.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 08:16:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791472385; x=1792077185; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gjpjkwPYKzGVosbZ1v1zTZF30K7B38BpoSgAGU1cdHg=;
-        b=c/2k9wMYqXb7ONnuLoUFlI6uujG1MMT4GdhftCLUhSWOUUDlERVzsplpeMgAzS6hac
-         9apiFRrbh04lzcS0XIQiy/2cBshURRTCH48EeK2Vpr/uuKXDeUCgweG7btZ18AEP9j8o
-         HVHiCs2Fp63mOtS+EYUvFKXWULYnRep6FH+8RjpCWT6MBWCp7boNL34EhiHdtcZIi5vE
-         vEELD+QtWJ6tjAwQ1nPYf6HVVfbmi0OWlc6FaIRMl9P8+ro6H7oZn5Jmi+1tNEqwD5Tw
-         OvdWEjGA4q7elKKTiJa+2ja+6C1F10vMuQjt95rfOtoNjv0YBoktWLcHmHJ5vNnaOjzc
-         xIkg==
+        d=linaro.org; s=google; t=1791472607; x=1792077407; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=l6I4Ey1RdgYWJmoD601d9WiKcqtmCdqt9tXemaY6tL0=;
+        b=ipot0wNf3Qv6pjAOTaGMAyNNVONQFoAhpm71v1k/rcIJ0Oqn+6gY0w2plpdjWjBdEW
+         bqe+QNDBPPgKjS2Yid4mdrLpVmx2JufklxPaKisdRl/8BtWxf4VYZP+ojxhlLMLRWkHM
+         CKDlzG0T09TW/tjpPz1gyYcis8Sl1PsH1VuQj5wK7b9Bpp3KI+q+sQsd3vsMVZ/lo2El
+         jRDlTop7xKMXGg+XHpquOYoJjhTRZBImdF5qHeumbAYSP0rIB0QCXOH9Cilh+MHtSrGS
+         bdtOPUUdL8MERSNMoMUcCStrNnAXwGPMj2hc1VTNk1U8nwbG/psoJH0ZVaRdA68duTiD
+         6Kuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791472385; x=1792077185;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gjpjkwPYKzGVosbZ1v1zTZF30K7B38BpoSgAGU1cdHg=;
-        b=tmRq3MBn//jmtVFQpBzdy+Za/ypRL6hITxPkPcDeyr3OyF6Rvd8T8SBkrbw42BGPLE
-         ib+0iVL3Nn+xNi25cg1RENEWp6nUfy6q2tuRgBaSBNpvYazyxNggi8exp/3acP+I3O2c
-         DwI+wVfoJ0Pz7vjxBTTBmuMeVnd2dJGzgDxYwBx5cbUQnMagLLVbWIDnyS9pI1Z9x2y2
-         EhCIZdI3hGPSXxK8J997YBQFwuVxz17jWmXVFCjj5yAZoWbgPzDsIE7Q+EzpvdUwhNUw
-         AGYXEZ6Ot4WQqz05pIG/FKznkYsTfmkrOP32QaE59anRvA12Sjfyq2Sj2p+tLVP7VanH
-         IklQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzHDHhd1O2t3P+f3q697omh46vgqHUQiG+j+omA8tOo0civ3vDs/TOoAGzsjmJA3mrlgzZKeAR4DaYfgXw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYITQCtTjSDB7b0Zdp8F2XjGCjxBLfLQs9FKZFH409Tc3eo3+Gjz
-	P8iN5GWnVeWQBaGrWEHdtlxyTcbDM72FoR7Snd37F+Qi4feIH5wKb5eK
-X-Gm-Gg: AYBFou3XpUeKrmlhLdew+PNQJd3IXU44Aw/eQAqOsrVKXF3oSL63Btx/Z7NqdssVRf8
-	QWLiJKKaqpLtoNdW/QudshoN7CU/Md+7/ixW60ui7ZoLELVf7cnzMn/g/zC1rwj2HguGapW9M9P
-	hqPK1msHcpYQMWGgxtXdpHnCf9cKyZ5cpDIql4zYBl38qg+Q2bGWr10EE1KRGI3ko8YhYl+Qq8d
-	KPTyYWrxbCYW6YlW6PbaGDGgOWyJvPVIwZd5i1Jqjuh0qFrRrShdvxF8zXofcdQHPAn9Ec9aNB0
-	EtW91TeWjL33TJyk2txUvz2HzZLccdRAXiqQX3ESMkAF/BTlmADwn3nFF23s2GYwDOaa2LTT6k8
-	8mDhUJ3NZ5a09khsArJSggxWq/+Jk8z9ni6Y3qPjo+jjbLreq8stfpLm5EZ8Q+e63p4keeEDAfW
-	7AuB87lKLJzghbVaATj4czdIggr7oz1rJxu0JHSTjKbu1PrlW9jwobLNmPHqbmPKTfzTnbpWwF7
-	VBVAEkVmwKmk8KC8K8J8I6Ll8bY87B9zzs6OR3n
-X-Received: by 2002:a05:693c:4199:10b0:34b:47b2:677e with SMTP id 5a478bee46e88-351755e1cd9mr6229724eec.1.1791472384302;
-        Thu, 08 Oct 2026 08:13:04 -0700 (PDT)
-Received: from hitalo (190-33-161-131.in-addr.arpa.host.souuni.com. [131.161.33.190])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3515afd00e0sm18052389eec.23.2026.10.08.08.13.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 08:13:03 -0700 (PDT)
-From: Hitalo Souza <enghitalo@gmail.com>
-To: linux-bluetooth@vger.kernel.org
-Cc: marcel@holtmann.org,
-	luiz.dentz@gmail.com,
-	linux-kernel@vger.kernel.org,
-	Hitalo Souza <enghitalo@gmail.com>
-Subject: [PATCH v2 6/6] Bluetooth: hci_event: Notify the driver only of SCO links that came up
-Date: Thu,  8 Oct 2026 11:12:38 -0400
-Message-ID: <20261008151238.2138665-7-enghitalo@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261008151238.2138665-1-enghitalo@gmail.com>
-References: <20261008151238.2138665-1-enghitalo@gmail.com>
+        d=1e100.net; s=20260707; t=1791472607; x=1792077407;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=l6I4Ey1RdgYWJmoD601d9WiKcqtmCdqt9tXemaY6tL0=;
+        b=XyBWpt8f43Q9nzBaRzqtCp2nblE5juXvd2ihV9nwoS9xNCdS/8sUnrlLegNhVcGrE/
+         QEo9zfKNl5GVSO9qVJwI2bhEfsehPbPLYXdy0nml1EpwL5jwPD/3AOJjbefa8PvE6Uph
+         V5wkJUjL4djjll8IsqpmmzDmNIVLFcbgKC/yEEUBbJcZbVAtN6vVf0GkSk1mQ16u/SvW
+         /hnt96ECDBBTgSGok1xIZnbbOtFrGb7kF04bVt8AW3NDAN4NdRYfSF8ySP/wUfHriNol
+         430f2W2Co2ITkj0+DT5iRIw0U/o72umVqe3YgfA09uxL/WneUGUTJls1GmB0V8+Ni6//
+         rNWA==
+X-Forwarded-Encrypted: i=1; AKwUvBxJitguHNlAaq5i11Ic720mpYhTXLJaRDyjjoECSo1RI6ZC4fMoSLSRRJm/KUIsqrSZsbnX04QRbCDdbZo=@vger.kernel.org
+X-Gm-Message-State: AFuF++lw+fb6RkMXFsXDpH/A7Q7uxnp9cKXPpMREe9xOYWv6nFW4kim1
+	kfAIkx9dIrnmOiFhbkuqo5Y5IBHzwaAm/T97diQpnY67nXF0/CalQP92caRE/q5jPSg=
+X-Gm-Gg: AYBFou0aNaPxbTCIoMMtg32qOYfK3vDQwq7K5+JdcVKA2Hycxk/7RXphySYxAnfcuvK
+	8MnBuuZZB7M7tmjP6Li8rtGm7PQAcmo1jw/JGmTMxykLeU9JHOsjJ8IChDBRsUusPyuQtoKkOmp
+	nS/NgdFP+LAaAIBjEr+q21uKYWQGXUiMhl1p0SzSUlufLyC0GWpFsKloLftwd3nWPgZrVFocB8S
+	NxP7UrTvIr8vunmJ9msdLjPy+skpA2shTDT5zk8GYL/JWn6FHeCmt7UjOj9fPWO2fRWuNpJmEBm
+	xNL2hTsOTg6PFJ+zCrsFEff5pRXxQ/9VxAJ7BqBGLH4pu5P76SCLgCb3sZQLKdr4AI2ljCRomck
+	u/2a8y4W6yW2cHWQ7zhqsPhjlUsJpYd0+wIUDSOjdlag1Uin5MZTNsKfy4TEQ30BzpgR0Gpd7n4
+	tnSObfWk3S3jPecliT8vcvEmZimie5N67icfaPNBMkyoZLXUOHAcjfLGS7J4LAOoi+lxhBGCFCR
+	vfmWUnIZwta
+X-Received: by 2002:a17:907:3ea6:b0:c26:19e3:e982 with SMTP id a640c23a62f3a-c317c0bb076mr560631666b.34.1791472607404;
+        Thu, 08 Oct 2026 08:16:47 -0700 (PDT)
+Received: from [192.168.0.167] ([109.77.203.235])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a1012ab2sm10963766b.85.2026.10.08.08.16.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 08 Oct 2026 08:16:46 -0700 (PDT)
+Message-ID: <a0a9a782-8ab4-4f32-97fd-f030203fbc49@linaro.org>
+Date: Thu, 8 Oct 2026 16:16:45 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 25/74] media: qcom: camss: vfe: Define output based VFE
+ controls
+To: "Gjorgji Rosikopulos (Consultant)"
+ <gjorgji.rosikopulos@oss.qualcomm.com>, Bryan O'Donoghue <bod@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+ Daniel Scally <dan.scally@ideasonboard.com>, Keke Li <keke.li@amlogic.com>,
+ Richard Acayan <mailingradian@gmail.com>, Hans Verkuil
+ <hverkuil@kernel.org>, Gjorgji Rosikopulos <quic_grosikop@quicinc.com>,
+ Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>, Robert Foss
+ <rfoss@kernel.org>, Milen Mitkov <quic_mmitkov@quicinc.com>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
+ <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-25-ed985aefd611@kernel.org>
+ <307f12f9-8805-4b3c-92d7-422d994fdeff@oss.qualcomm.com>
+ <0d1c5d19-68f8-4d44-9efd-f7d1aeaa7b32@linaro.org>
+ <5e19888d-d037-41e8-a3ca-f92d9991f3d5@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <5e19888d-d037-41e8-a3ca-f92d9991f3d5@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-hci_sync_conn_complete_evt() notifies the driver of the air mode of a
-synchronous connection whether or not its link came up, while
-hci_conn_complete_evt() only does it for a link that did. A connection
-whose link failed, or that refused the handle as it is being aborted,
-is deleted right after, which notifies HCI_NOTIFY_DISABLE_SCO. btusb
-picks the alternate setting of its isochronous interface from the latest
-of these notifications whenever the number of SCO connections changes,
-and HCI_NOTIFY_DISABLE_SCO selects no air mode: with another SCO
-connection still up, the interface ends up at alternate setting 0, which
-stops the audio of the connection that is up.
+On 08/10/2026 12:35, Gjorgji Rosikopulos (Consultant) wrote:
+> Hi Bryan,
+> 
+> On 10/8/2026 2:17 PM, Bryan O'Donoghue wrote:
+>> On 08/10/2026 06:55, Gjorgji Rosikopulos (Consultant) wrote:
+>>>> +
+>>>> +	/* Output based API - new and shiny */
+>>>> +	void (*vfe_output_start)(struct vfe_device *vfe, struct vfe_output *output);
+>>>> +	void (*vfe_output_stop)(struct vfe_device *vfe, struct vfe_output *output);
+>>>> +	void (*vfe_output_buf_done)(struct vfe_device *vfe, struct vfe_output *output);
+>>>> +	void (*vfe_output_update)(struct vfe_device *vfe, struct vfe_output *output,
+>>>> +				  struct camss_buffer *buf);
+>>>> +
+>>> This also deserves good commit message, this is exact copy of the other RDI API with other arguments 🙂 Shall we migrate
+>>> all existing drivers to this api in respect to use other deprecated API but having both of them leave in vfe file which
+>>> creates even more confusion and readability of the code?
+>> Ah but that's the point.
+>>
+>> You add in a parallel API which is 1:1 but which can be extended to
+>> describe completion groups not WM indexes.
+>>
+>> WM indexes have always been wrong - limited to RDI and we have all sorts
+>> of spaghetti code to work around that indexing mismatch.
+>>
+>> The fix is to stop doing that so yes, implement output / bus-client /
+>> completion group - with wm and planes described in the output layer and
+>> then move everything to that new interface.
+>>
+>> Including new submissions. The only real barrier is finding old
+>> hardware, making the changes and ensuring nothing breaks.
+>>
+>> Since there's no DT dependency its "just software" - easy.
+> You are maintainer and responsible of the code. But i also want to make the point
+> again (which i think others may share) that having one vfe core code which is trying to support
+> different architectures of the ISP's which are quite different is not correct, it is match easier
+> to have different implementations based on ISP generation (different sub-device) and abstract some
+> handlers which are shared. As of today camss vfe have mixed interfaces try to match multiple
+> generations in one implementation. So that said i will not be convinced that the direction
+> which camss is moving is good. However we need to live with it and add support as you are
+> proposing, so all is good lets wait those changes to be cleanup and we will start re-basing.
 
-Only notify the driver when the link came up.
+Well for me its about sustainability and paying down technical debt.
 
-Fixes: 1f8330ea1692 ("Bluetooth: add support to notify using SCO air mode")
-Assisted-by: LLM
-Signed-off-by: Hitalo Souza <enghitalo@gmail.com>
+RDI as WM indexes is just wrong and I firmly subscribe to Joel Spolsky's 
+edict "fix bugs before writing new code".
+
+https://www.joelonsoftware.com/2000/08/09/the-joel-test-12-steps-to-better-code/
+
+The WM/RDI indexing is absolutely a bug - a design bug - that's just 
+been a 'baked in' thing that's been repeated over and over again it 
+hasn't mattered while we've been RDI only but, that won't do now.
+
+Its also why I've been so dogmatic about insisting on drivers/phy to 
+represent the PHY - its a PHY, so make it a PHY; anything else is a 
+design bug.
+
+So from that principle the logical result is fix the representations - 
+not implement something else in parallel - we should be able to resue 
+existing proven code as much as possible - it also keeps us more honest 
+WRT to maintaining the user-space contract re: interface stability.
+
+€0.02
+
+To your point about different versions of the VFE that may be true but 
+at least for the bit in front of me right now I don't see the need for 
+different version of the VFE core.
+
 ---
- net/bluetooth/hci_event.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
-
-diff --git a/net/bluetooth/hci_event.c b/net/bluetooth/hci_event.c
-index b1c107457..781d7124c 100644
---- a/net/bluetooth/hci_event.c
-+++ b/net/bluetooth/hci_event.c
-@@ -5317,10 +5317,11 @@ static void hci_sync_conn_complete_evt(struct hci_dev *hdev, void *data,
- 	}
- 
- 	bt_dev_dbg(hdev, "SCO connected with air mode: %02x", ev->air_mode);
--	/* Notify only in case of SCO over HCI transport data path which
--	 * is zero and non-zero value shall be non-HCI transport data path
-+	/* Notify only of a link that came up, and only in case of SCO over
-+	 * HCI transport data path which is zero and non-zero value shall be
-+	 * non-HCI transport data path
- 	 */
--	if (conn->codec.data_path == 0 && hdev->notify) {
-+	if (!status && conn->codec.data_path == 0 && hdev->notify) {
- 		switch (ev->air_mode) {
- 		case 0x02:
- 			hdev->notify(hdev, HCI_NOTIFY_ENABLE_SCO_CVSD);
--- 
-2.55.0
-
+bod
