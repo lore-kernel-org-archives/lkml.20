@@ -1,88 +1,89 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5369630F927
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 13:15:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 097C64A689C
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 13:15:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791465313; cv=none; b=VrL4+vHVlcImLDm64Hnq36Ru9NP+WrhhqVlfjKbX/hW1xMF82AD2EoOW8MHZVUcQbNbjyC9hk18A3Ufqvzhm1r8X7NNb0L61hbE1mHe3tAILHCF2Sq77mKYh0zP0N1uEcPY3ofd5ncmWYk9Ye7yDy1GyAuFslwdftVVa8EtO5lU=
+	t=1791465314; cv=none; b=RIl3wia/RNPJCCBZCKUnYJVcD7JM6JMGR/+jYhAv1GytPY5/9I32ZBOAh71iIuLNmz7uzpdkdkUsCuIFDUhyk5I52jnZa0NUiqRZVjJ5cZcoXWYzMO8IGIwXhZhJRxvsqTqj/TAWQZISuhD0YvaMIalpInQC0ZY5dXJ4cCR6Jq8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791465313; c=relaxed/simple;
-	bh=NDuP83zqW5zQSG3EkE86iDSunaWPu3MRqhYZ+iIkb74=;
+	s=arc-20240116; t=1791465314; c=relaxed/simple;
+	bh=0EHBy/jzblv5Vkomml7MHPaurJB1shiJM+DeJwesgcw=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=bVsTjbFPGvlpumkk8FPwczpWFEQ8uRLxwyWKyMujJOJzntlr7gLnTnChjgRPoeTzmq0TRWA5uayhF42/lrJS4ZSca3rPv0ZGcLRcm/LdS67hYQ82f3YRpYkGQZYnli89iMdUtl6X3A57MvZgOu33DOgNNkDKVO3SoU1SB+ZRdVU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VR/3bMV1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dcHRKjH8; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:To:Cc; b=LuwZPMIIVHWe+u1sf8b8z5sqzDzXhA/8SjexbwaCWBAoPhIYDlDi7094mfVNWKz5jIPvrmbw6XKFYI2/F1xkDqOxkNPb0ukB8UtiWnUdXiHV6gGM3d9197Z4QP3SmX9gdWg+XWvS3PXWmoqpSEwHqu6TtlHf+fxCl6qsXUhyEDg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PM+lgsKQ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ge5iBKOF; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VR/3bMV1";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dcHRKjH8"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PM+lgsKQ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ge5iBKOF"
 Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 698BKNAf1708598
-	for <linux-kernel@vger.kernel.org>; Thu, 8 Oct 2026 13:15:02 GMT
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 698BKI0K1708470
+	for <linux-kernel@vger.kernel.org>; Thu, 8 Oct 2026 13:15:11 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	LmFgXz9bCUDEoCCFm4UoAId5Yo4tRXQx+o7RqBDpoyY=; b=VR/3bMV1ZVGwB4XI
-	qnkVWK8/HT35hJVvXHej32VrFYVXtaI9Q79GPRLDJ3X4HQkXlbh2V6nhissOen1k
-	91WCtt7UYLeBPHSQ6iPhxy2qsK8Hbbuxhm47oRSDHpP2+k9h+lA7xDXURbxPoxWX
-	A9vePFBLAfBXzBFSINDvmTMxBFLZc93yEkkN2BO2rkV75fw88xC1ved8GDfZQIQc
-	6O3GUt0OY3p7m7j6+HdEpswlOKViDCa/PIL/X1PSaljnNkdA0qKfaEsV7oZiPJfp
-	5hjufMqDz884H2kut4gUz5NAlCAISoeg7hJSIBBlmS63BK+tj134nXLREypjRyIH
-	gVqPvw==
-Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com [209.85.222.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe3b016-1
+	WI5iTmHpDCVv0wS51qzRWwuSZihIVcAlgqKABFXN+8w=; b=PM+lgsKQw62gmPPm
+	IVbRcdw9JzAp/zuf5kXVW7qzGbXQnV1x3bO4KUvR+scNPwGIyObDL6heCsC9rtpe
+	Ixs0jw7wY8QSY2Ni1IiIovXla9MkXKkQfrjy9TazOUidT32hPP4OnIMessJ8FgvI
+	jTWRD1A3VGbsM5UAxFfu61xupDytkFmTI9enlxJvLJIt6slX5KNUPlZQ1knYB3qA
+	8sCkqtRgjy4iGUfcNk+EpjpwhNlqYvB5/bLubBRFFfscxGjmGLZs49DGXBd0rJ1b
+	PluFFCic9zhyU4X+fnsLjmOCogxKbTotjmt++QsUuV49VjG7iFyF5mWeUyy3xZ9w
+	GvGl5A==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe3b029-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 13:15:02 +0000 (GMT)
-Received: by mail-ua1-f70.google.com with SMTP id a1e0cc1a2514c-98c88cefeb3so480664241.3
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 06:15:02 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 13:15:10 +0000 (GMT)
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-91b4bf686ceso6300936d6.3
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 06:15:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791465301; x=1792070101; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1791465310; x=1792070110; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=LmFgXz9bCUDEoCCFm4UoAId5Yo4tRXQx+o7RqBDpoyY=;
-        b=dcHRKjH8DdWAaFNHTzqTXANycPqsS6fov/OqKOeyZZCZpW2QP+XqpO8WR5S+ePM040
-         BG1Bo/z31X0KP1TLZqsw36Ja6L3TKGYOgK45ICMrV3xaDAtV3dD/3/UpOWoGxc5/zRcM
-         YmvytDnZ00xAQQ5cPsEdNTa3mUiUSr8+SMcCloJHh41OzZvEqpAq8v88iFFFUvmYRbpj
-         0MMbvTfvh9tAcP+JvtjubO7t6cl2RL58W9DOVijY8WCiBRm7clpHEIaAVMiSl+BFaqtM
-         bZevoV6tms4WR4jwvu6SwTahXo3NCHLvIG8ZnXbJ3yTJiLkb2rPVXZjhZ2llm2ra8zUi
-         Fv7Q==
+        bh=WI5iTmHpDCVv0wS51qzRWwuSZihIVcAlgqKABFXN+8w=;
+        b=ge5iBKOFzOI7pxBqqXK33WdPTWnKztJbNCmt1tRdLDfp2f/C14Wgt4rgMopXC9IAt6
+         wgzlb90t8BGsqlaBVtciYfNGYWnSZmXaRjHDVoYRpLB4k5DXvhVnVls6iviNHADGHcw2
+         UPO1eYykYf2BZ1SJikqhHcA5ygxZomRzrtQfHyaIutuoDQnGA+lkn6e0JvgHLl4vuvn2
+         k2UuqpB1nt3f9/aR0OkLo3du6okv1hEZFje4ACNoHFyAVf4RgPxyzp++P55hXsYx+jp/
+         d0TaVLmMLIPGYH8FHjJe125YBhePlvZJ25iuRaMeVU82sLKcz3nHRgaCuSPQEHEJLm35
+         gJww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791465301; x=1792070101;
+        d=1e100.net; s=20260707; t=1791465310; x=1792070110;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=LmFgXz9bCUDEoCCFm4UoAId5Yo4tRXQx+o7RqBDpoyY=;
-        b=uWK1lR2ai80RDDc0TW6Ddd8mQlJC6l6vC8CS7sOP+AvirsY9QbA0gqGsyz37ltqpzy
-         WeP3VMg9XzAgCV5cejhDXxy2h3f5z8G9oQ3GjFjljew2j7AWC6NH1Y5Mndmji3kFEqzV
-         WbWBwjRYIyFVck4aL07NWS9Q4nFjyi/xpinhzWuiZGGi5XJBNjkoAdvTORy337/bwHbv
-         BPFapjnGuJCcWMKdtxLLFwSSqhhUoo/A+VhZjmCJyWtzJf455wtfR8eIOixNBo5r5r+l
-         uh77ylrrg8nqQ4+b/H2je6W2a8LWCwUD/0mZjhbOVh8Z9uX/GDNLRzH5Lz8K905aDTv4
-         BlDQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz35tfnxLX5IXegrp48wlaioEk7YHy/XAkrWl5PJ3o59MfX4bp/tdjXshLGzuAZ9TxkPXq6yTUIkBbvVpk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIuXC6htk5QW5UIKKvkZ/IDRlRukHb5Ka5jdCAP14SzJPCv8R2k
-	hiUYX/WcJZx7SGmKmmiuHHjy0KnFl/NMXaggFPMwSQDxgEd2IYXvOKDe5IPie9tGFN+t4zc8dLQ
-	shMCaEnQLOsmQWw8FNv8OUQikcDhJQAa1Y3nQtyXlPQ0RSjAII2aPDnf5qTp13HrAPvc=
-X-Gm-Gg: AYBFou1OMNNRXN+btT00IIyGkslGMpHftgy9/iujMg4iW6hRYmemOZP/9DX4+em+uTX
-	+X3Knk/nOK7jeuahcBbvnU6Ax2TdnR2HiKTbKg+rD0XLX+NovIn6C/v2wsri2JXeibjbUhT8wHL
-	RqybA+D65CV2jovYPXRUvtJl+K4kbguSy6dIsHfsa8d7iqKJnzln16IGjidZeQF4BNEqPU3XpQf
-	p3KQK2uQpX+j7sYu3/rAlouZcTpTKj/lNzQRk2YM54a4bLMo3TDwDqVrqP3YwIzRhfj53cYd1+r
-	st2jjN71SdBNNeY8HGhmsvVWv6RHqmgTNZehKsGqSa6MM/EswIJOoKsc7iXnzT2OE6zqW4lrsJb
-	IPB2m5KnZ1PDOfY+sqcvRN+gsupMWwZheEpVyhTvWC49Mgk4+wcXSFJxc/qR4wqp0szo+G2/kPn
-	L9ZGtnYb8da71E
-X-Received: by 2002:a05:6102:5114:b0:7c3:b15:a981 with SMTP id ada2fe7eead31-7ca38b56930mr1895328137.15.1791465301416;
-        Thu, 08 Oct 2026 06:15:01 -0700 (PDT)
-X-Received: by 2002:a05:6102:5114:b0:7c3:b15:a981 with SMTP id ada2fe7eead31-7ca38b56930mr1895298137.15.1791465300727;
-        Thu, 08 Oct 2026 06:15:00 -0700 (PDT)
+        bh=WI5iTmHpDCVv0wS51qzRWwuSZihIVcAlgqKABFXN+8w=;
+        b=pOYv4DNLstDR/3rnVFoNV8slAJqXEqju4jxiYNbWLP5tYBDxd5dyhH4G52cLqHOVQb
+         lE8772lFl2B9hGHiW4op5AcM+JP/Fzm3FIEgs9PoxeB4qg32grNhhJNwJOhdjwJt1vzw
+         Rl+m00hqHfa1nyCzrflwDLqVwKrIQpAk3EOZ5yOfbFUO2j+z7Q5H5ZagTL2qWQya510A
+         Prhl19yn4ruj9vX3UZQzlSAA43CBNHnZruxXiDM9ko3b9EHS75saxVFYxm+XccG+ykAh
+         8beETcRHNfCrRY5wkFx3WQGfOJOfUNWrxFAEr+In7YPRbtyaBl/LMEPGo8WjPzgAEPmQ
+         3tVg==
+X-Forwarded-Encrypted: i=1; AKwUvByUdxOS92jVLR1+iXe2RkeOMguicVysCPmo53JR9IL4EnsvX2wkLdb7R93egPlkCbUpwuuQViINAAbxjvc=@vger.kernel.org
+X-Gm-Message-State: AFuF++n2FoyKdicm7iz9lr46Y3F7fOh/KJxQWJLV41uzB/9dzGMlFiPU
+	zigauNaaBUDedznTIN45ArAy/3SEb1psfp6Qi38/SKJ6Xdly0w4NFWxX+OgCfDqWLdz9vEmSQMA
+	7syTzY/FOEk3IrdrzEuCdOdvJc6u4dnK85iVKtdAetEcrz3H/oXbSRL3vZt9zRIH6qNk=
+X-Gm-Gg: AYBFou1tL70e3W35dx1SZTtFdOLNQ38d1+yGc7zQC1ALcB0Qr5Vl0DvL/7vnVF8lNiG
+	vjvXuh641xs/W+i/3gThfv+LTv2Uv7kw4hhJr18DFxBngo7Gs9nfS+H/yITI8pQI8nWDD9tjEdo
+	l5u11RmurdY63o1P2y7Hd+3ZVqEQxPX1N7/3h38hiwiBqbyR8OM5/vufvBnOfQNZEVoV0dYv1+L
+	wsHkYdIfC8oclZpW/bz9+9NaFkcWNS9j4jU0tNnHAz5wmsz4kHH9yO78gkC8CG1LMt4aaJP6f9J
+	7GQRIOk5IGcNex5J5nuvyEvgr+oEd42NGvfMI3AxNlYIO/1eaV6d6pX8e/cXKjylIdPmu1xgkJf
+	j4wJecK9pR4MWYcbZHOphkG4B/8t2JW+3IqKJv2dQmbrkRXgVsLSSgq1cAJsFgbepG4AclG2eF+
+	ytHKqMO8i5szCV
+X-Received: by 2002:a05:6214:29ea:b0:917:863b:8409 with SMTP id 6a1803df08f44-919976fde75mr103850896d6.5.1791465309772;
+        Thu, 08 Oct 2026 06:15:09 -0700 (PDT)
+X-Received: by 2002:a05:6214:29ea:b0:917:863b:8409 with SMTP id 6a1803df08f44-919976fde75mr103849596d6.5.1791465308891;
+        Thu, 08 Oct 2026 06:15:08 -0700 (PDT)
 Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a9ae563df4sm8691441fa.30.2026.10.08.06.14.58
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a9ae563df4sm8691441fa.30.2026.10.08.06.15.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 06:14:58 -0700 (PDT)
+        Thu, 08 Oct 2026 06:15:07 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Thu, 08 Oct 2026 16:14:27 +0300
-Subject: [PATCH RFC 5/9] drm/panel: add atomic_check callback
+Date: Thu, 08 Oct 2026 16:14:31 +0300
+Subject: [PATCH RFC 9/9] drm/panel: novatek-nt35950: use the atomic state
+ to select the mode
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -91,7 +92,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261008-panel-atomic-state-v1-5-b157fddb8de1@oss.qualcomm.com>
+Message-Id: <20261008-panel-atomic-state-v1-9-b157fddb8de1@oss.qualcomm.com>
 References: <20261008-panel-atomic-state-v1-0-b157fddb8de1@oss.qualcomm.com>
 In-Reply-To: <20261008-panel-atomic-state-v1-0-b157fddb8de1@oss.qualcomm.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>,
@@ -113,36 +114,37 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
         linux-doc@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7281;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9580;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=NDuP83zqW5zQSG3EkE86iDSunaWPu3MRqhYZ+iIkb74=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBqx5dGknLGXeDIwrZ4oAApBaKXVGnq71wwJiGAH
- Ln84UGnPSCJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaseXRgAKCRCLPIo+Aiko
- 1QZpCACwimdVnYYcDuqpMTmrHjg/Kzh69uM9YoV5/nrBhvGbqlZ+VBwRtqQwI79Bqx6fkETYqjX
- hgKvH3xEqQn/9RqdUeT6myXnYGKdKDC9f66D5xFwebw5WnSmAXv9eGXVFlXvC1+hC8F2cP0b1pS
- IkWAREbSs93PI+7rHrOrEd0WpuKPBVan6Dxu/onnnmn30EQDwerPNkpM6i/d36DxGoJUQ2Y5zs/
- Dz3bzL85Nf0uXh5wd1HkjCL+L3XxUfXGAIpcAoeRU0r9xLs0iixRYd00JLikXKU5F3vIn7c3eh4
- tKxzZDs0Skeq7pZPawg5A2wW9xcjQpu+BGfkQLl0KY8qk/PI
+ bh=0EHBy/jzblv5Vkomml7MHPaurJB1shiJM+DeJwesgcw=;
+ b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ9bx6e6sS4UtfvDYTrTf8sOq4rO934IQyVbtrww5nAVnR
+ e4+b/zVyWjMwsDIxSArpsjiU9AyNWZTctiHHVPrYQaxMoFMYeDiFICJ6P1i/6dU1OE776LtU1Ur
+ pX7GO0vrdq1zFlRmueH64YijoXP6xRq1ogK+/Q0fv/Hly/5okH4sHz/3rJUae6+eY9ONeZ016w6
+ 6Pv7fl1kZIfxEbf3p5btPvkuISd33+jzzjoMGi0WUwviOvy4+kLL4FnuhkVGA0bSTrG41NsHR58
+ pPvJj8purHzmmvs6o+NB7wufz8t24Ap4uKZCoD36kHW/j4O2Iu719r2Cn5aKVo3WrXWa/Sds0Qd
+ GM15HSYU3wxOYA35fSXv4KLS54wtCV2Mmawxj69HdhXyfHgy+JSlxxpmRNREe7dWvZqjQcbO/Me
+ y2QdErgWmBfKckz5ye+HQUvanu1ytwk78iTUYa6JW1U2AA==
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-GUID: KC64roHOZpxF4_m8LRpNxJHRSRtTjYGc
-X-Authority-Analysis: v=2.4 cv=QOz91QLL c=1 sm=1 tr=0 ts=6ac79756 cx=c_pps
- a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
- a=3mQ-IjTWdeCcQhJgvQ0A:9 a=QEXdDO2ut3YA:10 a=TD8TdBvy0hsOASGTdmB-:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDA1MiBTYWx0ZWRfX82N41chBpC8c
- VDGH1vaS0c3J+FbJ8m4wEbkRpYZwshyAyujWI3rg0pwzv9/SNbE7Nr45YjhnFRK+/i1fyy4qef6
- cB2UfjmJYZoJpPp9fS+iWNef3xPdqvU=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDA1MiBTYWx0ZWRfXxC7AEQzWf1E0
- Tdh3zX3KoXap5NsXvG8/wSGeCfARUkPXgYMiiDygop6OMjl3QGW2oP8kli2f95g3O/hQGGbv9Gl
- 7TfML0UbEiy1JYqk5iaaw+U1fFk4WUScdOGdh13PQuvttky8fV0h983Yw+Afi2De0/CA3FWIquD
- 62C4qnZjAkc2jGOe8rxqptyqLbe8zB9Gk/iCWUL/LtXdKpgQnq6TktLXg2KAhZ4kWBb5xOALkSs
- 2qqsfmNH5ewamN9Sm9Mbl4FnM3pYo081m7HHvEykMHphAh+GnLmTutu7dXFmEBUA//doPniiTWm
- JWBInvo51I8DQt9Qn6HtrZ8vAPTd+OmNMl0bvnI4ibP+1DwTox9Gm6UUDExIrTWftee3nVPwzwM
- mnh2HYKjt10wnPKtfnZRkbuG3Bo5VlRCTe2uyyJZPnbyaUHmZcH5FuxPBaBGDWP5TEmwSJll4jg
- SyDcBhKSDTCkkf4q15A==
-X-Proofpoint-ORIG-GUID: KC64roHOZpxF4_m8LRpNxJHRSRtTjYGc
+X-Proofpoint-GUID: tZhhWghiyJBBTNE7uN9KMaxAaRrv-ixq
+X-Authority-Analysis: v=2.4 cv=QOz91QLL c=1 sm=1 tr=0 ts=6ac7975e cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=VdZGNx2Yb9MlkK5L:21 a=xqWC_Br6kY4A:10
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=mhi-3aykUTELmbTksFoA:9 a=QEXdDO2ut3YA:10
+ a=1HOtulTD9v-eNWfpl4qZ:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDA1MiBTYWx0ZWRfX47YvKPPt2WBW
+ tiePjG6AZk5lqtLfYsxQ4akk5nge5SXPJ4qKCnKxG/Bq40WMyDEks3A4EJCjY6BaMc3e7tdqARl
+ wCZdG00yeJQqXJaFRyVsmdY6a0MK9s0=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDA1MiBTYWx0ZWRfX+u/fiib6VJtL
+ ndz0yOTyQyD3B3pX2M4mDvsiHKPt6cB2AoAgpSZ54Ey1Ua8ftXnwfL+eoeM6FnD+08uZd+b4lAo
+ SWlJBLLjRDF/bz9H6woazi91TqubkY4pE19Az2ZXwjuzT6csW41NQX8ZbFofwTjgWnKtMtZEu64
+ Xq0JWBWhSyoxOfdrAG5USKNqvHm9sRUUodFIPojuIg9t4Bq9nVHLIZDG/GcJDOFP1R3u50xW5M3
+ 83Q81l/TFozkgFPkFYiIi5UXJtZrqVw0DesTSwLauWFbxszfwIW/x3r4T8EkRVAzT+2wYw2WOtJ
+ 1un+aj1A5pjnk77YGQzURGGYsNlO/vpThBBIdPpr/dDIxDCqYmG+vZeCs1AwEOtxm1ACCL8nCys
+ Lp5ZsX7WCYRFDu0juzGHIafD+THxDwXuFcXcnYivkAHBvL3b62w4Wml9MKyjBwOQ1deL27MzQpK
+ w0d6BqE/6FtWDdXpDcg==
+X-Proofpoint-ORIG-GUID: tZhhWghiyJBBTNE7uN9KMaxAaRrv-ixq
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-08_04,2026-10-08_01,2025-10-01_01
@@ -152,199 +154,292 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080052
 
-A panel driver cannot reject a configuration it does not support, nor
-compute its state for the configuration that is being requested: none of
-its callbacks is called in the check phase of an atomic update.
+The compression, scaler and display output settings of the NT35950
+depend on the mode being set. As the panel has no access to the
+configuration being committed, the driver saves the connector pointer in
+get_modes() and then dereferences connector->state->crtc->state from the
+prepare() callback. This is done without holding the modeset locks and
+it reads the current state of the objects rather than the state being
+committed. Moreover, if none of the panel modes match, the driver
+silently programs the panel for the first mode instead of rejecting the
+configuration.
 
-Add an optional atomic_check callback, called from the atomic_check of
-the bridge embedded in the panel. Following the other atomic_check
-callbacks it receives the whole commit rather than individual object
-states.
-
-Add helpers returning the new CRTC and connector states for a panel, so
-that panel drivers don't have to open-code the walk through the encoder.
-
-The callback is only meant for the panels using atomic state, warn about
-the panels implementing it without the state callbacks.
+Subclass the panel state to store the parameters of the selected mode.
+Look the mode up in atomic_check(), failing the commit if the panel
+doesn't support it, and use the stored parameters in atomic_prepare().
+Switch unprepare() to its atomic variant too, so that the driver uses a
+single set of callbacks.
 
 Assisted-by: LLM
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/gpu/drm/drm_panel.c | 84 +++++++++++++++++++++++++++++++++++++++++++++
- include/drm/drm_panel.h     | 30 ++++++++++++++++
- 2 files changed, 114 insertions(+)
+ drivers/gpu/drm/panel/panel-novatek-nt35950.c | 159 +++++++++++++++++++-------
+ 1 file changed, 117 insertions(+), 42 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
-index 481caa294243..3a154be128a0 100644
---- a/drivers/gpu/drm/drm_panel.c
-+++ b/drivers/gpu/drm/drm_panel.c
-@@ -243,6 +243,19 @@ static void panel_bridge_debugfs_init(struct drm_bridge *bridge,
- 		panel->funcs->debugfs_init(panel, root);
+diff --git a/drivers/gpu/drm/panel/panel-novatek-nt35950.c b/drivers/gpu/drm/panel/panel-novatek-nt35950.c
+index 94aa6489d99f..f5161f11b1f5 100644
+--- a/drivers/gpu/drm/panel/panel-novatek-nt35950.c
++++ b/drivers/gpu/drm/panel/panel-novatek-nt35950.c
+@@ -11,12 +11,15 @@
+ #include <linux/of.h>
+ #include <linux/of_graph.h>
+ #include <linux/regulator/consumer.h>
++#include <linux/slab.h>
+ 
++#include <drm/drm_atomic.h>
+ #include <drm/drm_connector.h>
+ #include <drm/drm_crtc.h>
+ #include <drm/drm_mipi_dsi.h>
+ #include <drm/drm_modes.h>
+ #include <drm/drm_panel.h>
++#include <drm/drm_print.h>
+ 
+ #define MCS_CMD_MAUCCTR			0xf0 /* Manufacturer command enable */
+ #define MCS_PARAM_SCALER_FUNCTION	0x58 /* Scale-up function */
+@@ -51,16 +54,19 @@
+ 
+ struct nt35950 {
+ 	struct drm_panel panel;
+-	struct drm_connector *connector;
+ 	struct mipi_dsi_device *dsi[2];
+ 	struct regulator_bulk_data vregs[NT35950_VREG_MAX];
+ 	struct gpio_desc *reset_gpio;
+ 	const struct nt35950_panel_desc *desc;
+ 
+-	int cur_mode;
+ 	u8 last_page;
+ };
+ 
++struct nt35950_state {
++	struct drm_panel_state base;
++	const struct nt35950_panel_mode *mode_data;
++};
++
+ struct nt35950_panel_mode {
+ 	const struct drm_display_mode mode;
+ 
+@@ -88,6 +94,9 @@ static inline struct nt35950 *to_nt35950(struct drm_panel *panel)
+ 	return container_of(panel, struct nt35950, panel);
  }
  
-+static int panel_bridge_atomic_check(struct drm_bridge *bridge,
-+				     struct drm_bridge_state *bridge_state,
-+				     struct drm_crtc_state *crtc_state,
-+				     struct drm_connector_state *conn_state)
-+{
-+	struct drm_panel *panel = drm_bridge_to_panel(bridge);
++#define to_nt35950_state(panel_state) \
++	container_of_const(panel_state, struct nt35950_state, base)
 +
-+	if (!panel->funcs->atomic_check)
-+		return 0;
-+
-+	return panel->funcs->atomic_check(panel, crtc_state->state);
-+}
-+
- static struct drm_bridge_state *
- panel_bridge_atomic_create_state(struct drm_bridge *bridge)
+ static void nt35950_reset(struct nt35950 *nt)
  {
-@@ -297,6 +310,7 @@ static const struct drm_bridge_funcs panel_bridge_bridge_funcs = {
- 	.atomic_disable = panel_bridge_atomic_disable,
- 	.atomic_post_disable = panel_bridge_atomic_post_disable,
- 	.get_modes = panel_bridge_get_modes,
-+	.atomic_check = panel_bridge_atomic_check,
- 	.atomic_create_state = panel_bridge_atomic_create_state,
- 	.atomic_duplicate_state = panel_bridge_atomic_duplicate_state,
- 	.atomic_destroy_state = panel_bridge_atomic_destroy_state,
-@@ -654,6 +668,9 @@ static void drm_panel_init(struct drm_panel *panel, struct device *dev,
- 		      !funcs->atomic_create_state != !funcs->atomic_destroy_state,
- 		      "Panel state callbacks have to be implemented together\n");
+ 	gpiod_set_value_cansleep(nt->reset_gpio, 1);
+@@ -212,61 +221,37 @@ static void nt35950_inject_black_image(struct mipi_dsi_multi_context *dsi_ctx)
  
-+	dev_WARN_ONCE(dev, !funcs->atomic_create_state && funcs->atomic_check,
-+		      "Atomic callbacks require the panel state callbacks\n");
-+
- 	INIT_LIST_HEAD(&panel->list);
- 	INIT_LIST_HEAD(&panel->followers);
- 	mutex_init(&panel->follower_lock);
-@@ -1185,6 +1202,73 @@ struct drm_panel_state *drm_panel_get_current_state(struct drm_panel *panel)
+ /*
+  * nt35950_set_dispout - Set Display Output register parameters
+- * @nt:    Main driver structure
+  * @dsi_ctx: context for mipi_dsi functions
++ * @mode_data: Parameters of the mode being set
+  */
+ static void nt35950_set_dispout(struct mipi_dsi_multi_context *dsi_ctx,
+-				struct nt35950 *nt)
++				const struct nt35950_panel_mode *mode_data)
+ {
+ 	u8 cmd_dispout[] = { MCS_PARAM_DISP_OUTPUT_CTRL, 0x00 };
+-	const struct nt35950_panel_mode *mode_data = nt->desc->mode_data;
+ 
+-	if (mode_data[nt->cur_mode].is_video_mode)
++	if (mode_data->is_video_mode)
+ 		cmd_dispout[1] |= MCS_DISP_OUT_VIDEO_MODE;
+-	if (mode_data[nt->cur_mode].enable_sram)
++	if (mode_data->enable_sram)
+ 		cmd_dispout[1] |= MCS_DISP_OUT_SRAM_EN;
+ 
+ 	mipi_dsi_dcs_write_buffer_multi(dsi_ctx, cmd_dispout,
+ 					ARRAY_SIZE(cmd_dispout));
  }
- EXPORT_SYMBOL(drm_panel_get_current_state);
  
-+/**
-+ * drm_atomic_get_new_crtc_state_for_panel() - get new CRTC state for a panel
-+ * @commit: global atomic state object
-+ * @panel: panel to get the CRTC state for
-+ *
-+ * This function returns the new state of the CRTC that drives @panel as of
-+ * @commit. It is meant to be used from &drm_panel_funcs.atomic_check and the
-+ * enable path. In the disable path the panel might not be driven by any CRTC
-+ * anymore.
-+ *
-+ * Return:
-+ *
-+ * The new CRTC state, or NULL if the panel is not driven by a CRTC that is
-+ * part of the global atomic state.
-+ */
-+struct drm_crtc_state *
-+drm_atomic_get_new_crtc_state_for_panel(struct drm_atomic_commit *commit,
-+					struct drm_panel *panel)
+-static int nt35950_get_current_mode(struct nt35950 *nt)
+-{
+-	struct drm_connector *connector = nt->connector;
+-	struct drm_crtc_state *crtc_state;
+-	int i;
+-
+-	/* Return the default (first) mode if no info available yet */
+-	if (!connector->state || !connector->state->crtc)
+-		return 0;
+-
+-	crtc_state = connector->state->crtc->state;
+-
+-	for (i = 0; i < nt->desc->num_modes; i++) {
+-		if (drm_mode_match(&crtc_state->mode,
+-				   &nt->desc->mode_data[i].mode,
+-				   DRM_MODE_MATCH_TIMINGS | DRM_MODE_MATCH_CLOCK))
+-			return i;
+-	}
+-
+-	return 0;
+-}
+-
+-static int nt35950_on(struct nt35950 *nt)
++static int nt35950_on(struct nt35950 *nt,
++		      const struct nt35950_panel_mode *mode_data)
+ {
+-	const struct nt35950_panel_mode *mode_data = nt->desc->mode_data;
+ 	struct mipi_dsi_device *dsi = nt->dsi[0];
+ 	struct mipi_dsi_multi_context dsi_ctx = { .dsi = dsi };
+ 
+-	nt->cur_mode = nt35950_get_current_mode(nt);
+ 	nt->dsi[0]->mode_flags |= MIPI_DSI_MODE_LPM;
+ 	nt->dsi[1]->mode_flags |= MIPI_DSI_MODE_LPM;
+ 
+ 	nt35950_set_cmd2_page(&dsi_ctx, nt, 0);
+-	nt35950_set_data_compression(&dsi_ctx, nt, mode_data[nt->cur_mode].compression);
+-	nt35950_set_scale_mode(&dsi_ctx, mode_data[nt->cur_mode].scaler_mode);
+-	nt35950_set_scaler(&dsi_ctx, mode_data[nt->cur_mode].scaler_on);
+-	nt35950_set_dispout(&dsi_ctx, nt);
++	nt35950_set_data_compression(&dsi_ctx, nt, mode_data->compression);
++	nt35950_set_scale_mode(&dsi_ctx, mode_data->scaler_mode);
++	nt35950_set_scaler(&dsi_ctx, mode_data->scaler_on);
++	nt35950_set_dispout(&dsi_ctx, mode_data);
+ 
+ 	mipi_dsi_dcs_set_tear_on_multi(&dsi_ctx, MIPI_DSI_DCS_TEAR_MODE_VBLANK);
+ 	mipi_dsi_dcs_set_tear_scanline_multi(&dsi_ctx, 0);
+@@ -354,11 +339,43 @@ static int nt35950_sharp_init_vregs(struct nt35950 *nt, struct device *dev)
+ 	return 0;
+ }
+ 
+-static int nt35950_prepare(struct drm_panel *panel)
++static int nt35950_atomic_check(struct drm_panel *panel,
++				struct drm_atomic_commit *commit)
 +{
-+	struct drm_encoder *encoder = panel->bridge.encoder;
-+	struct drm_crtc *crtc;
++	struct nt35950 *nt = to_nt35950(panel);
++	struct drm_panel_state *panel_state;
++	struct drm_crtc_state *crtc_state;
++	int i;
 +
-+	if (!encoder)
-+		return NULL;
++	panel_state = drm_atomic_get_new_panel_state(commit, panel);
++	crtc_state = drm_atomic_get_new_crtc_state_for_panel(commit, panel);
++	if (!panel_state || !crtc_state)
++		return -EINVAL;
 +
-+	crtc = drm_atomic_get_new_crtc_for_encoder(commit, encoder);
-+	if (!crtc)
-+		return NULL;
++	for (i = 0; i < nt->desc->num_modes; i++) {
++		if (drm_mode_match(&crtc_state->mode,
++				   &nt->desc->mode_data[i].mode,
++				   DRM_MODE_MATCH_TIMINGS | DRM_MODE_MATCH_CLOCK)) {
++			to_nt35950_state(panel_state)->mode_data =
++				&nt->desc->mode_data[i];
++			return 0;
++		}
++	}
 +
-+	return drm_atomic_get_new_crtc_state(commit, crtc);
++	return -EINVAL;
 +}
-+EXPORT_SYMBOL(drm_atomic_get_new_crtc_state_for_panel);
 +
-+/**
-+ * drm_atomic_get_new_connector_state_for_panel() - get new connector state for
-+ *						     a panel
-+ * @commit: global atomic state object
-+ * @panel: panel to get the connector state for
-+ *
-+ * This function returns the new state of the connector that @panel is routed
-+ * to as of @commit. It is meant to be used from &drm_panel_funcs.atomic_check
-+ * and the enable path. In the disable path the panel might not be routed to
-+ * any connector anymore.
-+ *
-+ * Return:
-+ *
-+ * The new connector state, or NULL if the panel is not routed to a connector
-+ * that is part of the global atomic state.
-+ */
-+struct drm_connector_state *
-+drm_atomic_get_new_connector_state_for_panel(const struct drm_atomic_commit *commit,
-+					     struct drm_panel *panel)
++static int nt35950_atomic_prepare(struct drm_panel *panel,
++				  struct drm_atomic_commit *commit)
+ {
+ 	struct nt35950 *nt = to_nt35950(panel);
++	struct drm_panel_state *panel_state;
+ 	int ret;
+ 
++	panel_state = drm_atomic_get_new_panel_state(commit, panel);
++	if (!panel_state || !to_nt35950_state(panel_state)->mode_data)
++		return -EINVAL;
++
+ 	ret = regulator_enable(nt->vregs[0].consumer);
+ 	if (ret)
+ 		return ret;
+@@ -380,7 +397,7 @@ static int nt35950_prepare(struct drm_panel *panel)
+ 
+ 	nt35950_reset(nt);
+ 
+-	ret = nt35950_on(nt);
++	ret = nt35950_on(nt, to_nt35950_state(panel_state)->mode_data);
+ 
+ end:
+ 	if (ret < 0) {
+@@ -391,7 +408,8 @@ static int nt35950_prepare(struct drm_panel *panel)
+ 	return 0;
+ }
+ 
+-static int nt35950_unprepare(struct drm_panel *panel)
++static int nt35950_atomic_unprepare(struct drm_panel *panel,
++				    struct drm_atomic_commit *commit)
+ {
+ 	struct nt35950 *nt = to_nt35950(panel);
+ 
+@@ -429,15 +447,72 @@ static int nt35950_get_modes(struct drm_panel *panel,
+ 	connector->display_info.bpc = 8;
+ 	connector->display_info.height_mm = nt->desc->mode_data[0].mode.height_mm;
+ 	connector->display_info.width_mm = nt->desc->mode_data[0].mode.width_mm;
+-	nt->connector = connector;
+ 
+ 	return nt->desc->num_modes;
+ }
+ 
++static struct drm_panel_state *
++nt35950_atomic_create_state(struct drm_panel *panel)
 +{
-+	struct drm_encoder *encoder = panel->bridge.encoder;
-+	struct drm_connector *connector;
++	struct nt35950_state *state;
 +
-+	if (!encoder)
-+		return NULL;
++	state = kzalloc_obj(*state);
++	if (!state)
++		return ERR_PTR(-ENOMEM);
 +
-+	connector = drm_atomic_get_new_connector_for_encoder(commit, encoder);
-+	if (!connector)
-+		return NULL;
++	__drm_atomic_helper_panel_state_init(&state->base, panel);
 +
-+	return drm_atomic_get_new_connector_state(commit, connector);
++	return &state->base;
 +}
-+EXPORT_SYMBOL(drm_atomic_get_new_connector_state_for_panel);
 +
- /**
-  * drm_panel_get - Acquire a panel reference
-  * @panel: DRM panel
-diff --git a/include/drm/drm_panel.h b/include/drm/drm_panel.h
-index ff63bed934fa..a5879b7b986b 100644
---- a/include/drm/drm_panel.h
-+++ b/include/drm/drm_panel.h
-@@ -38,6 +38,8 @@ struct device_node;
- struct drm_atomic_commit;
- struct drm_bridge;
- struct drm_connector;
-+struct drm_connector_state;
-+struct drm_crtc_state;
- struct drm_device;
- struct drm_panel_follower;
- struct drm_panel;
-@@ -168,6 +170,28 @@ struct drm_panel_funcs {
- 	 */
- 	void (*debugfs_init)(struct drm_panel *panel, struct dentry *root);
- 
-+	/**
-+	 * @atomic_check:
-+	 *
-+	 * Check that the configuration requested in @commit can be handled by
-+	 * the panel and compute the new panel state. The new panel state can
-+	 * be retrieved with drm_atomic_get_new_panel_state(), the CRTC and
-+	 * connector states with drm_atomic_get_new_crtc_state_for_panel() and
-+	 * drm_atomic_get_new_connector_state_for_panel().
-+	 *
-+	 * This function is called in the check phase of an atomic update, it
-+	 * must not touch the hardware or any persistent driver data.
-+	 *
-+	 * This function is optional. It can only be implemented together with
-+	 * @atomic_create_state.
-+	 *
-+	 * Return:
-+	 *
-+	 * Zero if the check passed, a negative error code otherwise.
-+	 */
-+	int (*atomic_check)(struct drm_panel *panel,
-+			    struct drm_atomic_commit *commit);
++static struct drm_panel_state *
++nt35950_atomic_duplicate_state(struct drm_panel *panel)
++{
++	struct drm_panel_state *old_state = drm_panel_get_current_state(panel);
++	struct nt35950_state *state;
 +
- 	/**
- 	 * @atomic_create_state:
- 	 *
-@@ -438,6 +462,12 @@ drm_atomic_get_old_panel_state(const struct drm_atomic_commit *commit,
- struct drm_panel_state *
- drm_atomic_get_new_panel_state(const struct drm_atomic_commit *commit,
- 			       struct drm_panel *panel);
-+struct drm_crtc_state *
-+drm_atomic_get_new_crtc_state_for_panel(struct drm_atomic_commit *commit,
-+					struct drm_panel *panel);
-+struct drm_connector_state *
-+drm_atomic_get_new_connector_state_for_panel(const struct drm_atomic_commit *commit,
-+					     struct drm_panel *panel);
++	if (!old_state)
++		return NULL;
++
++	state = kzalloc_obj(*state);
++	if (!state)
++		return NULL;
++
++	__drm_atomic_helper_panel_duplicate_state(panel, &state->base);
++	state->mode_data = to_nt35950_state(old_state)->mode_data;
++
++	return &state->base;
++}
++
++static void nt35950_atomic_destroy_state(struct drm_panel *panel,
++					 struct drm_panel_state *state)
++{
++	kfree(to_nt35950_state(state));
++}
++
++static void nt35950_atomic_print_state(struct drm_printer *p,
++				       const struct drm_panel_state *state)
++{
++	const struct nt35950_panel_mode *mode_data =
++		to_nt35950_state(state)->mode_data;
++
++	if (!mode_data)
++		return;
++
++	drm_printf_indent(p, 1, "compression: %02x\n", mode_data->compression);
++	drm_printf_indent(p, 1, "scaler: %u, mode %02x\n",
++			  mode_data->scaler_on, mode_data->scaler_mode);
++}
++
+ static const struct drm_panel_funcs nt35950_panel_funcs = {
+-	.prepare = nt35950_prepare,
+-	.unprepare = nt35950_unprepare,
++	.atomic_check = nt35950_atomic_check,
++	.atomic_prepare = nt35950_atomic_prepare,
++	.atomic_unprepare = nt35950_atomic_unprepare,
+ 	.get_modes = nt35950_get_modes,
++	.atomic_create_state = nt35950_atomic_create_state,
++	.atomic_duplicate_state = nt35950_atomic_duplicate_state,
++	.atomic_destroy_state = nt35950_atomic_destroy_state,
++	.atomic_print_state = nt35950_atomic_print_state,
+ };
  
- #if defined(CONFIG_OF) && IS_ENABLED(CONFIG_DRM_PANEL)
- struct drm_panel *of_drm_find_panel(const struct device_node *np);
+ static int nt35950_probe(struct mipi_dsi_device *dsi)
 
 -- 
 2.47.3
