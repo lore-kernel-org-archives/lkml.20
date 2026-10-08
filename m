@@ -1,189 +1,137 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAAA152FE4E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED3F85304AD
 	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:55:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791914117; cv=none; b=ZZnnK8jIUskxHpQdcTAXI+Visg+67i1GLvl4h+vX736iPAqyjBOdwIQEbmbKXb2OHQDH/hGq/56Nv4IAYpIirx+Nt2iyOHT5J79WYkKUL2IQ1UDVz9r4QJFy/AuMtPJt3rOTFkNb7b6LhuEBY9q59KJObBRbrmn+Tv/6zXJTk5M=
+	t=1791914117; cv=none; b=bM/D7tKjeG4xWwsR+RBeDjiBRoXACyj4+7VZO08V3kaYT8Zy0JUPTFq5WSZQLyQeJaLK5dh8QOtXKgtJkK7Ece9xk6opN/zsl9XtvHABB2gRqlnezT7pFPG4qesCWSeQfpjnVb1OMWjUecXghMAKiHEeo/Mx1eEh40vlSEApLck=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791914117; c=relaxed/simple;
-	bh=Z6sQzfOjJE3zZ6rA3iiYJzCKffn9Za8LnqtjvIZELqs=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=blSQDmuuouz3QNbtbDoMr/w4E0LFZdyG6X6V8zDVzMpLSuDoLJ56r9dKJdmnip+QLUlUfuxl7HzZsuvNO60CDAWlSGhJb1XvdyiqvD2IXF7ok2ueDDbYs6MkjeyF1CdRWLpH1frb4eb1dhJd2dQF3ZunUEaaxAkb/1roGPdS27A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=gSs1cM3Q; arc=none smtp.client-ip=185.246.85.4
+	bh=hCygAOcpoOgYSOhn3ir2c13VrfChCeMianiS4x5J6n8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ovTAnb/1Oddm7zWrI+X2MLTH25pfSe9QjGxg2vaujGLojaaGaKndj2dyKqoEknX1s6apyYDGZe8pDDLIwgjD8PNQk9x6RBgDL3irlDwoK5neSNNZ2ramg4dlA0+10U3NiUBPLb56PKSH/XrIHtV6lwumgI21s4UZV5u3gU25Bds=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=B2auG8qs; arc=none smtp.client-ip=185.171.202.116
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="gSs1cM3Q"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="B2auG8qs"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 82DA74E41210
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:55:14 +0000 (UTC)
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 31A69C653F9
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:56:10 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 5087A6075C
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 8F0F160362
 	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:55:14 +0000 (UTC)
 Received: by mail.galae.net (Postcow, from userid 0)
-	id B3F6011D71897; Tue, 13 Oct 2026 19:49:33 +0200 (CEST)
+	id 1E29B11D718AB; Tue, 13 Oct 2026 19:51:10 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
 	t=1791914114; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=eN09B8iBlF64T0aTmOSgm5Y2C78SY2TacmK0ll+reUk=;
-	b=gSs1cM3QCLliVlyZWvLeaiGnK4IyQ+amAzfew5aMnhWAxR4WigkCp1xQ15F6DVsMZJJSsP
-	Jsuf6Ys0i78fOkmc044DThU65EvKW513HoQsL8Y2muCEsOYGon/DR8r7hyR1tv3VP4qPUX
-	sXbr5cO+ilOHMDeQL3B8fQcpEjpOfxDxy63vEvejYGJeuOfFjI3w7gvlaqW8/EPNAz53EV
-	roLVwS1MlWIspFkrTzzTxzIRBT+TXrABG1jfjZzj9b+5Ok6F7WksVlvxTRnls1Y/vSF3WD
-	apRSwhxhjHLeImrx2c50Vmip8nW8Bmux9QUuzzWH1Z2GwBQYioT7AM9/8rov/A==
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=+ZpQqUUT5xDOkosuVKHI5oZ4WAPT6O1QigZ2jMnin5k=;
+	b=B2auG8qsXAgiMXzUAd7lNLlZzED4ZLAXpCAEQA3/W2zAIdWi6gm+c2eTb4piyB4kQzbUQX
+	0suQKjJNAbjXQLTwCUcOYfDpJThV92Nj5wvVAQIh3xzDjjbyvRvtC8XFywOCA28UpCmmeB
+	Zd44ExVJNvi/ezAWwitMKgn5+A2wkeezNwJMKtmyW73BmK1ju6dM801jDd7jA2B5jKmgeT
+	7Kh+3nt2ntrP3y2+bTXjTMBUqpLNXOqOQE/4247xJRtsnaWZ6Pj0kMXhHmF8j/7AX3Eg2X
+	pQjb+/AXVwAAN4gfyyXfKOnTlIBMTZlLTP7Qi5WFO7fo6p1oKke3WagKBpGUeA==
 Authentication-Results: mail.galae.net;
 	none
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Richard Weinberger <richard@nod.at>,  Vignesh Raghavendra
- <vigneshr@ti.com>,  Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski
- <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>,  Chen-Yu Tsai
- <wens@kernel.org>,  Jernej Skrabec <jernej.skrabec@gmail.com>,  Samuel
- Holland <samuel@sholland.org>,  Maxime Ripard <mripard@kernel.org>,
-  Richard Genoud <richard.genoud@bootlin.com>,  Masahiro Yamada
- <yamada.masahiro@socionext.com>,  Boris Brezillon <bbrezillon@kernel.org>,
-  Brian Norris <computersforpeace@gmail.com>,
-  linux-mtd@lists.infradead.org,  devicetree@vger.kernel.org,
-  linux-arm-kernel@lists.infradead.org,  linux-sunxi@lists.linux.dev,
-  linux-kernel@vger.kernel.org,  stable@vger.kernel.org
-Subject: Re: [PATCH v6 01/18] mtd: rawnand: sunxi: drain interrupts before
- reusing the completion
-In-Reply-To: <20260914-submit-sunxi-nand-vendor-oob-layout-v1-v6-1-2fb084fe0751@gmail.com>
-	(James Hilliard's message of "Mon, 14 Sep 2026 15:09:47 -0600")
-References: <20260914-submit-sunxi-nand-vendor-oob-layout-v1-v6-0-2fb084fe0751@gmail.com>
-	<20260914-submit-sunxi-nand-vendor-oob-layout-v1-v6-1-2fb084fe0751@gmail.com>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Mon, 12 Oct 2026 20:01:51 +0200
-Message-ID: <8733ua23xs.fsf@bootlin.com>
+Message-ID: <e0a76d2f-cfe5-497b-b25b-aeae2e174ab5@bootlin.com>
+Date: Thu, 8 Oct 2026 10:29:32 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-TUID: 6eu8W/K5efM3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net 01/10] net: hisilicon: hisi_femac: Move setting of
+ netops to fix crash
+To: David Yang <mmyangfl@gmail.com>, netdev@vger.kernel.org
+Cc: Jian Shen <shenjian15@huawei.com>, Jijie Shao <shaojijie@huawei.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Nicolai Buchwitz <nb@tipi-net.de>, Stanislav Fomichev <sdf@fomichev.me>,
+ linux-kernel@vger.kernel.org
+References: <20261008022656.3592191-1-mmyangfl@gmail.com>
+ <20261008022656.3592191-2-mmyangfl@gmail.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20261008022656.3592191-2-mmyangfl@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Last-TLS-Session-Version: None
-X-Rspamd-Queue-Id: B3F6011D71897
-X-Spamd-Result: default: False [1.40 / 30.00];
+X-Rspamd-Queue-Id: 1E29B11D718AB
+X-Spamd-Result: default: False [2.34 / 30.00];
 	SUSPICIOUS_RECIPS(1.50)[];
+	DATE_IN_PAST(1.00)[129];
 	MIME_GOOD(-0.10)[text/plain];
-	FROM_HAS_DN(0.00)[];
-	TAGGED_RCPT(0.00)[dt];
-	BCC(0.00)[];
+	BAYES_HAM(-0.06)[57.16%];
 	DKIM_SIGNED(0.00)[bootlin.com:s=dkim];
-	ARC_NA(0.00)[];
 	RCVD_COUNT_ZERO(0.00)[0];
+	ARC_NA(0.00)[];
+	TAGGED_RCPT(0.00)[netdev];
+	FREEMAIL_TO(0.00)[gmail.com,vger.kernel.org];
 	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[gmail.com];
+	BCC(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
 	FROM_EQ_ENVFROM(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[20];
-	FREEMAIL_CC(0.00)[nod.at,ti.com,kernel.org,gmail.com,sholland.org,bootlin.com,socionext.com,lists.infradead.org,vger.kernel.org,lists.linux.dev];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
 	MAILCOW_DOMAIN_HEADER_FROM(0.00)[bootlin.com];
-	URIBL_BLOCKED(0.00)[bootlin.com:mid,localhost:rdns,localhost:helo];
+	URIBL_BLOCKED(0.00)[localhost:rdns,localhost:helo,bootlin.com:mid,bootlin.com:email];
 	TO_DN_SOME(0.00)[]
 
-Hi James,
 
-On 14/09/2026 at 15:09:47 -06, James Hilliard <james.hilliard1@gmail.com> w=
-rote:
 
-> A timed-out wait can return while the interrupt handler is still using
-> the previous operation's interrupt status and enable mask. Starting the
-> next wait calls init_completion() on the same object, which can reset its
-> waitqueue lock while the old handler calls complete(). The old handler
-> can also complete the new wait or restore an obsolete interrupt mask.
->
-> Initialize the completion once in probe and use reinit_completion() for
-> each interrupt-driven wait. On timeout, disable and synchronize the IRQ
-> before masking controller interrupts and acknowledging the waited-for
-> events. Draining the handler first also prevents a partial-event handler
-> from rewriting the enable mask after it has been cleared. Flush these
-> register writes before re-enabling the IRQ line, leaving the controller's
-> interrupt sources masked.
->
-> For successful waits, move complete() after the handler's register updates
-> so that the next operation cannot race with those updates. Keep polling
-> unchanged and leave controller and DMA abort handling to the existing
-> callers.
->
-> Fixes: 1fef62c1423b ("mtd: nand: add sunxi NAND flash controller support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
-> ---
+On 10/8/26 04:26, David Yang wrote:
+> hisi_femac_drv_probe() connects the PHY before dev->netdev_ops is
+> assigned. phy_attach_direct() -> phy_link_topo_add_phy() reads
+> dev->netdev_ops through netdev_need_ops_lock() since the commit in
+> question, so probing crashes with a NULL pointer dereference when
+> CONFIG_NET_SHAPER is enabled.
+> 
+>   phy_link_topo_add_phy from phy_attach_direct+0xec/0x37c
+>   of_phy_get_and_connect from hisi_femac_drv_probe+0x1f4/0x558
+>   Kernel panic - not syncing: Attempted to kill init! exitcode=0x0000000b
+> 
+> Assign netdev_ops before the PHY attach, as was done for emac in commit
+> 7c9f391ec89c ("net: emac: move setting of netops to fix crash").
+> 
+> Fixes: ded86da4bbb7 ("net: ethtool: relax ethnl_req_get_phydev() locking assertion")
+> Signed-off-by: David Yang <mmyangfl@gmail.com>
 
-So from the commit log I understand that you are fixing a race. The
-problem seems legitimate.
-
->  drivers/mtd/nand/raw/sunxi_nand.c | 26 ++++++++++++++++++++------
->  1 file changed, 20 insertions(+), 6 deletions(-)
->
-
-...
-
-> @@ -414,12 +416,13 @@ static irqreturn_t sunxi_nfc_interrupt(int irq, voi=
-d *dev_id)
->  	if (!(ien & st))
->  		return IRQ_NONE;
->=20=20
-> -	if ((ien & st) =3D=3D ien)
-> -		complete(&nfc->complete);
-> -
-> +	/* Finish updating the interrupt state before waking the next operation=
-. */
->  	writel(st & NFC_INT_MASK, nfc->regs + NFC_REG_ST);
->  	writel(~st & ien & NFC_INT_MASK, nfc->regs + NFC_REG_INT);
->=20=20
-> +	if ((ien & st) =3D=3D ien)
-> +		complete(&nfc->complete);
-> +
->  	return IRQ_HANDLED;
->  }
->=20=20
-> @@ -435,16 +438,19 @@ static int sunxi_nfc_wait_events(struct sunxi_nfc *=
-nfc, u32 events,
->  		timeout_ms =3D NFC_DEFAULT_TIMEOUT_MS;
->=20=20
->  	if (!use_polling) {
-> -		init_completion(&nfc->complete);
-> +		reinit_completion(&nfc->complete);
-
-The whole change around (re)init_completion looks relevant (here and in the=
- handler).
-
->=20=20
->  		writel(events, nfc->regs + NFC_REG_INT);
->  		ret =3D wait_for_completion_timeout(&nfc->complete,
->  						msecs_to_jiffies(timeout_ms));
-> -		if (!ret)
-> +		if (!ret) {
-> +			/* Drain the handler before it can restore an old IRQ mask. */
-> +			disable_irq(nfc->irq);
-
-disable_irq() for serializing accesses to a single register? It
-certainly works but I don't think it is so common to use it like that,
-for such simple cases. Typically in this case I would have used a
-spinlock maybe? Or even better, why not just avoid the race entirely
-and handle the register in the waiter? You certainly don't need to write
-it in the IRQ handler. You can handle the IRQ configuration at the
-device level, which will also prevent the need for your extra
-readl "barrier" before enabling the IRQ.
-
-Furthermore, now that I have a better understanding, re-reading the
-commit log, I now disagree with the first part of:
-
->The old handler can also complete the new wait or restore an obsolete inte=
-rrupt mask.
-
-"complete the new wait"? I don't see how a stale handler completes the
-next wait given the handler is a hard IRQ and the interrupt enable
-register is cleared on timeout.
+Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
 
 Thanks,
-Miqu=C3=A8l
+
+Maxime
+
+> ---
+>  drivers/net/ethernet/hisilicon/hisi_femac.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/net/ethernet/hisilicon/hisi_femac.c b/drivers/net/ethernet/hisilicon/hisi_femac.c
+> index d244a40df430..016605e86f0b 100644
+> --- a/drivers/net/ethernet/hisilicon/hisi_femac.c
+> +++ b/drivers/net/ethernet/hisilicon/hisi_femac.c
+> @@ -830,6 +830,8 @@ static int hisi_femac_drv_probe(struct platform_device *pdev)
+>  		hisi_femac_phy_reset(priv);
+>  	}
+>  
+> +	ndev->netdev_ops = &hisi_femac_netdev_ops;
+> +
+>  	phy = of_phy_get_and_connect(ndev, node, hisi_femac_adjust_link);
+>  	if (!phy) {
+>  		dev_err(dev, "connect to PHY failed!\n");
+> @@ -850,7 +852,6 @@ static int hisi_femac_drv_probe(struct platform_device *pdev)
+>  
+>  	ndev->watchdog_timeo = 6 * HZ;
+>  	ndev->priv_flags |= IFF_UNICAST_FLT;
+> -	ndev->netdev_ops = &hisi_femac_netdev_ops;
+>  	ndev->ethtool_ops = &hisi_femac_ethtools_ops;
+>  	netif_napi_add_weight(ndev, &priv->napi, hisi_femac_poll,
+>  			      FEMAC_POLL_WEIGHT);
+
