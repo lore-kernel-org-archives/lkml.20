@@ -1,64 +1,64 @@
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 560504F5DE8
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 18:28:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C73EF4F5DF7
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 18:28:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791484128; cv=none; b=ggdGEa0ZQ594erLiBTy+i3UMdwbuVlHos22iSQpjQGltelXt8LOqVY5aKGQATOWjO4z4YS0hIJGd6atnhbDezcOtTXf0cZvTsee/9RAGq8kGkbW7RqrVQp6SArLZ/vVtwxD/A1SDJwkhpubOyGuwusTZQ1jEsCVNce0nTGkxJDc=
+	t=1791484130; cv=none; b=LUIjKbHWQ3a6v60rQmSE1M5YAhAM02q3K6zkzWNyFxUnwV9UDHpqFPvh4GoFPuftd3Ut2a3ULKuYR0xL/UUHqgcfzxszgsSZQTv/w/2ODdmhBwkfibrLVEv98yA5XM2K50zzXFj9T+8TMhdY1vHUQii/OH6RpS25xYGk5MdtMIw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791484128; c=relaxed/simple;
-	bh=JEBAkbGUNY6kIW9W2b3U3EYpJVf2gM14JyWf1+1Hy9Q=;
+	s=arc-20240116; t=1791484130; c=relaxed/simple;
+	bh=su/8F93eR3DCxYd7vbyWgABeycTTutxA2s2wGzAe0DU=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=ZJaOpcw/1wlCKxcUp1BqZFOCv5shW4eTZ/kU30p0QplaYLXCZachOsu59xHYVmoUUauY2DDhvXpbQH7hRi+jObJxWYmjECyKlQVvbCwND9X0oDt5MSCuxNbhDgeEBVKZMQb3f8yArxF7won+hzKsjonSQcJPCMdoLPw8nhVUwQY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YJWUdA6P; arc=none smtp.client-ip=74.125.82.41
+	 MIME-Version; b=SIrVrlibKtmxUtXNM2DBlkDGd9QnQgFJzxyOW9nRZpYesTMxa6A8N+iGCx28lNS97itJ+CL5gAtEOiq6Ah+aPQuY8TJwcUytnoyVVKKPelK9GxsjVmNq1hBMaD8jBOwg3VAo8WDqNViAXXf2370CHCUlsGb3pLk6ds39p4DCTR4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bZYnjuDX; arc=none smtp.client-ip=74.125.82.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YJWUdA6P"
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-15ea896ddc8so4982813c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 11:28:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bZYnjuDX"
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso3041144eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 11:28:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791484115; x=1792088915; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791484113; x=1792088913; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=AxE3sHe6me8Wwsd+c2Znto62yEHlspamg6eVt2Dlhi0=;
-        b=YJWUdA6PyO50u0I3gFadFpccg5yBFxoc7RAvuyvVb9q3VG9GImtyOqiKljAMmK0XDW
-         r1Uxpfo8ToPpb9704C6/bGPdBvZe3ZtBJxELMsBk3rETbTw84EQSN9o3g8OMBWxaCWj7
-         UWBewMds+goq9dSpeiWnKq2PuHMJGW7A+EY68witI17XWQnbVcqx+Q20y4j3Wpgy2whY
-         96T4DbNc/imFAf1D3WiQekgKsBS8UuJx7ZqaOGaqZj48FDGOAqAhwvDEM435+CF2SgJI
-         HNQaeHpynJ8x5jJP3FH2fBPh4j99zhhSU2p/VV8IexNMsUeI5HQZrJyPoGm7z3ZNx2Ob
-         ZboQ==
+        bh=kdzJ7KNgE65fhQiH1f6TncoaY0MtDlTTwzl5EfVwG1k=;
+        b=bZYnjuDXUTQcZiydIfblLC/mwZeOFfCNIPsfVr3EwfTvCUaBfPPRh4qMCfco2D8NpS
+         l+I115v0sZP0idm6V6IFRwnjk6uuYikQedP+KLrGKES5opnoaQ6dVkKf8ebxQZPVCbPJ
+         ZYm5yZHvKjKJ2NqZ86i4o5autIzF2ujZXfIfpY4QoGMvkHyr3P5zrDEf0TLE1MkYJCnT
+         0dq9gwST1D5lXJb2O6Ach9CiWvrIzbZT18YHPU2SC92t4l9LMYEsMYZXHhYG35t/A6S9
+         7pVMP1CBGzYnIyZOUM+1mvK5oV4SYPD0mHUzoM6fVMuc5F83ZTzSNeYMvOaaEG3yk+iw
+         SQDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791484115; x=1792088915;
+        d=1e100.net; s=20260707; t=1791484113; x=1792088913;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AxE3sHe6me8Wwsd+c2Znto62yEHlspamg6eVt2Dlhi0=;
-        b=LmMfNxuUz4lQQSc8FrKa68gredY6IorRiRP/7Gh+wnas8oHUeyJXmUYdOyzLe4XaLY
-         jfhQcgcx7plAgoAGKQbpxPMJMGibrjSNyaWx0bZda/htQwC7+5/uDk9ZjYwKb2orh54U
-         KEtUUgrjrUYq3WJthfwlcfTYGxlViFNom0/2HJDSZmkWlNx309Ww3h58FKCDpd7STMbX
-         D+g1NRymlzgoCAHOMT0LI4mvt3Jacw54DKqgABFy+vg7+9cMZpocjmaOaIf+ibeGXJUf
-         +Q4Q24r4ARdjhAr2DdHTC8GOY4/KQaB11SGAFc3FUTMy+F8WwYR/fPmvUB/5EKicLecb
-         Wh5g==
-X-Forwarded-Encrypted: i=1; AKwUvBxWJSIv0UnjIqTICtY039IY5KlKzBVvbZhN2/e6kGCWz1uGGeVm5nvv8KjJy593f9ok/58SetPq1tCcHOg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kh8z8mWyRXKuLJ7Yd8xbF9qZZGWxVcXeUmNGWw+NiLJIFc9PvX
-	0aimVf4RzyG6U05qbglptwpWu5WlDPQ7USUUBKwZ4sji+HD5WWr0kiHA
-X-Gm-Gg: AYBFou3M2BE6p+emDHyyDl4EoLxkmDIi9jnUkvJ5cT+IPBF8lgKAyKGuDJKW03YPMMG
-	FmH+lOpiH5us2ApLpd9RU7n+JOkmygG7kcYjj/PSp90q7xMT798noNsCY0Nceuh3NXPaFqraLuI
-	SR5ezoGJTDLZSeCua+aKsdhnGZu9oKb3oyRBu9qqEEvxz/rUzkDZNSz3O7sIDf2lQuXEh+8BUiB
-	Uv23Y6c2MffeaZbUjcAESnv64K7utUN76NnfoADU3wkNt64xzvHYRaz6epGPWHinsix3lq4RfI5
-	27P/HRz+1iUCVRvxfqttl4JbWD5tz/BGJiMBiDqH/6ZIDdy2O1SJzJDvEDfKsD57ddZerYRDCFn
-	VdcrrO4EErgE90cLDcmVMAow6kNAY1hyc0xrgwXD70czs10pKKvM1gmEk0vJuBfPma25MxUAWv2
-	KBI0A/eu/QPAji+OltnDksOrvkQxVsuYUJxGW8BGRziG5H0I2Fgkm1HFwBZG1C3d4nnl/+OdLsw
-	ws9nE98aJ4=
-X-Received: by 2002:a05:701b:21ce:b0:151:8280:2c57 with SMTP id a92af1059eb24-1620880900amr6711157c88.38.1791484115200;
-        Thu, 08 Oct 2026 11:28:35 -0700 (PDT)
+        bh=kdzJ7KNgE65fhQiH1f6TncoaY0MtDlTTwzl5EfVwG1k=;
+        b=mVodkq/r/U/Sk2xJ0+fCswrlvSdwIAgN4yftVE7OJ8bAuTgYDlZTFki8dWIGJ/a5zc
+         iviG8hQrBKzPZgScriiz6IZ2Qft1CyhudGLrgJ/eA/FNPRpMJJBl/Mj6mM+j46rIB0mO
+         7OjuPOKa1HoyUpHuhD01rLY8DRsWDWG3CmVmpJ2+4JjtB6FWKjEyiWHUrSrf6KFjehm2
+         rvrlkpbGxTI7Hvtcg4lvj6bvlbp9PolW3sJmSy45/mbXMK4lyKUjzrjX1x4FHIWo0+bx
+         o4Whlrem8da3mHyWPNKsmK0wpVgg3W5WXft2ZCKK5BTVHQFEl2FHSCG3Y/Evz4RoImFu
+         a2OQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwYQiTwfLeYuYXrt8mgqNW2aun0WLLJAXRWOxLeNcPY8pAts0SprVQ/XJjBvrdv4D3nnNXhVDDZqnXSsaw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kQvdbkdrxopCwYB99hmZiARpzkx0uvGA96EdzX9D1tCQmkLswZ
+	DLZvD2x4Wh3x1LBSofktDo8cVylGyjXOdcvSXIQo5ustXW/MriAz6ChL
+X-Gm-Gg: AYBFou0uI8Ze6DdhFUMXxNM0+ult/+jo3cQbjaW5UttFYTQH6KPH0O3ZoO4ZYwbiYkt
+	ysfVC4kDfy3ZuiBkSigWp6TC5XYDDGZJnqeXaG0Cdmj7rT9/Ku6c1HdUFaoiH9ispUkex8f6Tpk
+	ZmGJYxX3OCij2eEdhxSQd21uVbz6WVHtL1KdN9RkpizigEseblL9o23C4j4nJXZjST3roE6wZw3
+	oUdCbjw3P6MU6IsWSCoWUm5VrqHLSL702Mh6XcWX30tEV9nRNlumPUWQaepNYGErn6pWO37BRDy
+	FoPhYupZzNbROAhC3oX/ts0toYqFecsAaNXpEwxrdHlVTUNt0RY6w0m2+xdS5wkYvFiCuuRg+Cq
+	LiT42ddS22oSEVbIfcSzRAlpa8q2E2BIzaJEQPF+kfGHum6xi0D+ynAmMOW16ymZn6ZWTaZMBZ9
+	asVnFFNfUmGI2TFCElDPd+sPE9sV14teALg2ZniVPZKLiPJLGmwcS12rGfNfhtz5JdlH4Mtcbsv
+	24ldokKft0=
+X-Received: by 2002:a05:701a:c90a:b0:15c:20b8:7964 with SMTP id a92af1059eb24-16206c264c8mr6939657c88.27.1791484112799;
+        Thu, 08 Oct 2026 11:28:32 -0700 (PDT)
 Received: from penguin.lxd ([12.187.136.98])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a2d2db98sm57236c88.10.2026.10.08.11.28.34
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a2d2db98sm57236c88.10.2026.10.08.11.28.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 11:28:34 -0700 (PDT)
+        Thu, 08 Oct 2026 11:28:32 -0700 (PDT)
 From: "Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
 To: hannes@cmpxchg.org,
 	yosry@kernel.org,
@@ -74,9 +74,9 @@ To: hannes@cmpxchg.org,
 Cc: rientjes@google.com,
 	willy@infradead.org,
 	senozhatsky@chromium.org
-Subject: [PATCH v1 5/8] mm: zswap: Store the folio's node id in the zswap_entry.
-Date: Thu,  8 Oct 2026 11:28:11 -0700
-Message-Id: <20261008182814.27450-6-kanchanapsridhar2026@gmail.com>
+Subject: [PATCH v1 3/8] crypto: acomp - Add trivial segmentation wrapper.
+Date: Thu,  8 Oct 2026 11:28:09 -0700
+Message-Id: <20261008182814.27450-4-kanchanapsridhar2026@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261008182814.27450-1-kanchanapsridhar2026@gmail.com>
 References: <20261008182814.27450-1-kanchanapsridhar2026@gmail.com>
@@ -88,106 +88,133 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When storing a folio in zswap, save the folio's node id in the zswap
-entry instead of relying on the zswap_entry being allocated on the same
-node. This enables optimizations such as batch allocation of zswap
-entries for large folios using kmem_cache_alloc_bulk() that does not
-support specifying a node id.
+This patch provides a wrapper for existing algorithms so that they can
+accept a single segment while returning the compressed length or error
+through the dst SG list length.
 
-The size of the zswap_entry remains unchanged as 'referenced' is lumped
-in with the 'length' (as it doesn't need a full unsigned int anyway).
+This trivial segmentation wrapper only supports compression with a
+segment count of exactly one.
 
-Suggested-by: Nhat Pham <nphamcs@gmail.com>
-Suggested-by: Yosry Ahmed <yosry.ahmed@linux.dev>
+The reason is that the first user zswap will only allocate the
+extra memory if the underlying algorithm supports segmentation,
+and otherwise only one segment will be given at a time.
+
+Having this wrapper means that the same calling convention can
+be used for all algorithms, regardless of segmentation support.
+
+Co-developed-by: Herbert Xu <herbert@gondor.apana.org.au>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
 Signed-off-by: Kanchana P Sridhar <kanchana.p.sridhar@intel.com>
 Signed-off-by: Kanchana P. Sridhar <kanchanapsridhar2026@gmail.com>
 ---
- mm/zswap.c | 23 +++++++++++------------
- 1 file changed, 11 insertions(+), 12 deletions(-)
+ crypto/acompress.c         | 33 ++++++++++++++++++++++++++-------
+ include/crypto/acompress.h |  1 +
+ 2 files changed, 27 insertions(+), 7 deletions(-)
 
-diff --git a/mm/zswap.c b/mm/zswap.c
-index ca513a9f89e3..c2731d3acb2c 100644
---- a/mm/zswap.c
-+++ b/mm/zswap.c
-@@ -194,6 +194,7 @@ static struct shrinker *zswap_shrinker;
-  *              writeback logic. The entry is only reclaimed by the writeback
-  *              logic if referenced is unset. See comments in the shrinker
-  *              section for context.
-+ * nid - NUMA node id of the page for which this is the zswap entry.
-  * pool_idx - id of the zswap_pool that the entry's data is in.
-  * handle - zsmalloc allocation handle that stores the compressed page data
-  * objcg - the obj_cgroup that the compressed memory is charged to
-@@ -201,8 +202,11 @@ static struct shrinker *zswap_shrinker;
-  */
- struct zswap_entry {
- 	swp_entry_t swpentry;
--	unsigned int length;
--	bool referenced;
-+	struct {
-+		unsigned int length:31;
-+		bool referenced:1;
-+	};
-+	int nid;
- 	u8 pool_idx;
- 	unsigned long handle;
- 	struct obj_cgroup *objcg;
-@@ -672,14 +676,8 @@ static int zswap_enabled_param_set(const char *val,
- * lru functions
- **********************************/
+diff --git a/crypto/acompress.c b/crypto/acompress.c
+index 4de1a2ad577f..8c9a76073159 100644
+--- a/crypto/acompress.c
++++ b/crypto/acompress.c
+@@ -166,14 +166,20 @@ static void acomp_save_req(struct acomp_req *req, crypto_completion_t cplt)
  
--static inline int entry_to_nid(struct zswap_entry *entry)
--{
--	return page_to_nid(virt_to_page(entry));
--}
+ 	state->compl = req->base.complete;
+ 	state->data = req->base.data;
++	state->unit_size = req->unit_size;
++	state->flags = req->base.flags & (CRYPTO_ACOMP_REQ_SRC_VIRT |
++					  CRYPTO_ACOMP_REQ_DST_VIRT);
++
+ 	req->base.complete = cplt;
+ 	req->base.data = req;
++	req->unit_size = 0;
+ }
+ 
+ static void acomp_restore_req(struct acomp_req *req)
+ {
+ 	req->base.complete = req->chain.compl;
+ 	req->base.data = req->chain.data;
++	req->unit_size = req->chain.unit_size;
+ }
+ 
+ static void acomp_reqchain_virt(struct acomp_req *req)
+@@ -192,9 +198,6 @@ static void acomp_virt_to_sg(struct acomp_req *req)
+ {
+ 	struct acomp_req_chain *state = &req->chain;
+ 
+-	state->flags = req->base.flags & (CRYPTO_ACOMP_REQ_SRC_VIRT |
+-					  CRYPTO_ACOMP_REQ_DST_VIRT);
 -
- static void zswap_lru_add(struct zswap_entry *entry)
+ 	if (acomp_request_src_isvirt(req)) {
+ 		unsigned int slen = req->slen;
+ 		const u8 *svirt = req->svirt;
+@@ -242,6 +245,10 @@ static int acomp_reqchain_finish(struct acomp_req *req, int err)
  {
--	int nid = entry_to_nid(entry);
- 	struct mem_cgroup *memcg;
- 
- 	/*
-@@ -696,19 +694,18 @@ static void zswap_lru_add(struct zswap_entry *entry)
- 	rcu_read_lock();
- 	memcg = obj_cgroup_memcg(entry->objcg);
- 	/* will always succeed */
--	list_lru_add(&zswap_list_lru, &entry->lru, nid, memcg);
-+	list_lru_add(&zswap_list_lru, &entry->lru, entry->nid, memcg);
- 	rcu_read_unlock();
+ 	acomp_reqchain_virt(req);
+ 	acomp_restore_req(req);
++
++	if (req->unit_size)
++		req->dst->length = unlikely(err) ? err : req->dlen;
++
+ 	return err;
  }
  
- static void zswap_lru_del(struct zswap_entry *entry)
+@@ -266,10 +273,13 @@ static int acomp_do_req_chain(struct acomp_req *req, bool comp)
  {
--	int nid = entry_to_nid(entry);
- 	struct mem_cgroup *memcg;
+ 	int err;
  
- 	rcu_read_lock();
- 	memcg = obj_cgroup_memcg(entry->objcg);
- 	/* will always succeed */
--	list_lru_del(&zswap_list_lru, &entry->lru, nid, memcg);
-+	list_lru_del(&zswap_list_lru, &entry->lru, entry->nid, memcg);
- 	rcu_read_unlock();
++	if (unlikely(req->unit_size && req->slen > req->unit_size))
++		return -ENOSYS;
++
+ 	acomp_save_req(req, acomp_reqchain_done);
+ 
+ 	err = acomp_do_one_req(req, comp);
+-	if (err == -EBUSY || err == -EINPROGRESS)
++	if (unlikely(err == -EBUSY || err == -EINPROGRESS))
+ 		return err;
+ 
+ 	return acomp_reqchain_finish(req, err);
+@@ -279,10 +289,19 @@ int crypto_acomp_compress(struct acomp_req *req)
+ {
+ 	struct crypto_acomp *tfm = crypto_acomp_reqtfm(req);
+ 
+-	if (acomp_req_on_stack(req) && acomp_is_async(tfm))
++	if (unlikely(acomp_req_on_stack(req) && acomp_is_async(tfm)))
+ 		return -EAGAIN;
++
++	if (likely(req->unit_size && acomp_request_issg(req))) {
++		if (!crypto_acomp_req_seg(tfm))
++			return acomp_do_req_chain(req, true);
++
++		return tfm->compress(req);
++	}
++
+ 	if (crypto_acomp_req_virt(tfm) || acomp_request_issg(req))
+-		return crypto_acomp_reqtfm(req)->compress(req);
++		return tfm->compress(req);
++
+ 	return acomp_do_req_chain(req, true);
  }
+ EXPORT_SYMBOL_GPL(crypto_acomp_compress);
+@@ -294,7 +313,7 @@ int crypto_acomp_decompress(struct acomp_req *req)
+ 	if (acomp_req_on_stack(req) && acomp_is_async(tfm))
+ 		return -EAGAIN;
+ 	if (crypto_acomp_req_virt(tfm) || acomp_request_issg(req))
+-		return crypto_acomp_reqtfm(req)->decompress(req);
++		return tfm->decompress(req);
+ 	return acomp_do_req_chain(req, false);
+ }
+ EXPORT_SYMBOL_GPL(crypto_acomp_decompress);
+diff --git a/include/crypto/acompress.h b/include/crypto/acompress.h
+index 6462fc46f4ec..fc0665b77a8f 100644
+--- a/include/crypto/acompress.h
++++ b/include/crypto/acompress.h
+@@ -67,6 +67,7 @@ struct acomp_req_chain {
+ 		struct folio *dfolio;
+ 	};
+ 	u32 flags;
++	u32 unit_size;
+ };
  
-@@ -1449,9 +1446,10 @@ static bool zswap_store_page(struct folio *folio, long index,
- {
- 	swp_entry_t page_swpentry = folio_swap_entry(folio, index);
- 	struct zswap_entry *entry, *old;
-+	int nid = folio_nid(folio);
- 
- 	/* allocate entry */
--	entry = zswap_entry_cache_alloc(GFP_KERNEL, folio_nid(folio));
-+	entry = zswap_entry_cache_alloc(GFP_KERNEL, nid);
- 	if (!entry) {
- 		zswap_reject_kmemcache_fail++;
- 		return false;
-@@ -1466,6 +1464,7 @@ static bool zswap_store_page(struct folio *folio, long index,
- 	 * to an unrelated live pool.
- 	 */
- 	entry->pool_idx = pool->idx;
-+	entry->nid = nid;
- 
- 	old = xa_store(swap_zswap_tree(page_swpentry),
- 		       swp_offset(page_swpentry),
+ /**
 -- 
 2.39.5
 
