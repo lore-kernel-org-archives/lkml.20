@@ -1,133 +1,99 @@
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00644373C1A
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 05:24:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BC8E3876CD
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 05:24:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.112
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791437061; cv=none; b=W+H5ipZg8u0adOgS7IFE+LjDW++uuX2tWb09WS1CjNuIzJIgJzaXQevMICIYqtFufrjfxVRMpEIfWhmnpYm7O/0biJLxDhr6wAfkcKBWuAmFJ83mfDfXrZtTzgbpA5KTmENbjKeOIr8Wbx0B4bR+CP9MiT5fJNl+7lbaCKzIpOg=
+	t=1791437079; cv=none; b=bpaB5C0G7fExNbcYW+eYlNGA2pXYkzX9oUBDO2EB19gBqEL0SefcrSJMz1Mi99CocQj1mDzJ0ul89nKzQfSWGs2O9I55XmNFywsSKTwvfHR5upuOG1Qw19d24ngV7Stusykg9S0e4UOoK0jk5j/JKph2WyUwbGEtBCdocnoaPMg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791437061; c=relaxed/simple;
-	bh=v0Ax/0GmxO4xVaTCoct4d9rpu8qqhvU/A+t+7Gl3VBQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XO9vWo4oUIs+6ObZs9oYnR17tuDSzLp7pBjR+RO0TLAi9CU6lqMkFN6OABSOmSAlHrvKAPdg0CXu6WaKvex10kdCeX8i2fKfGjyKCLzObP/kamagLp2Y7osYmt1xLYBosKvrpZIgILdiP/eW96VrGMJJ1jl1MZSfKTShWlD4xcU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Cur06KKd; arc=none smtp.client-ip=209.85.216.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791437079; c=relaxed/simple;
+	bh=fskBAk7DodstGk6bvofIn3sTwHBA47U6PTjs/Rg4jto=;
+	h=Content-Type:To:From:Message-Id:Mime-Version:Date:Cc:Subject; b=c1Uk30CM6WGgi8Nu4MQqEPoyC4L5jsqMmaVgH9LzCdAi2bBHblhr2iIBlEn0hIORRDAW3wD4N7z8IJZGFPcurVU1Wqbm2qBrb/XY5sDBTem2Ksui8KiQ6C+yu3FUkpZVD1f3ZvzbFQmhzwWDZsA+2CV5jhYKD14S8/zrQnb+SMg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=afQDiwwL; arc=none smtp.client-ip=209.127.230.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Cur06KKd"
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3a80d1c98f5so2852298a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 22:24:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791437058; x=1792041858; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zfzt/oNw3kBm1sNxgf8XLAw4jjuhyZRC4MKG/SZu2ts=;
-        b=Cur06KKd0ifN+/42Ke0Yn1I8xGooulNIAOqrTP0eiDDG30bDAOoBVRmSXFCPViTtLp
-         Oo7O0cejiVEIvuR8iz41u6rc7IE6dw56fl5HXzbZaAmlrrIPkkJNibV+gFCXHDZZ2Hzi
-         rnhRVzBm5ZfSqj/kBKRnZ+kEGk4iXXqal4TqK92bMGaCkEisTQ+ft79pMKUAz0iQ8Ua9
-         mDHSJemrN+8qg4RrPpfddYgg1OxsZ/a47eUdAJWRfY1WLAKcTtR114UOOMpd3KdJv02v
-         QwR00V/3k97LF2bWP3RHA9hQ8Y01K9VjUrJg91qXvg9h3dh5YRdVB/pfh1G216YwIiyL
-         tznQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791437058; x=1792041858;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zfzt/oNw3kBm1sNxgf8XLAw4jjuhyZRC4MKG/SZu2ts=;
-        b=hFUHMLvRY8mBDVf6EC+YprrBU73MCyT5ej7NvcM1EnBC8GbIgBiVuQYMHjr9RZSnb+
-         k7ac0RNnPcfH1NcJeWjDwlpmA+GpA50UO5N4yZfG+FRX2eT6xT6Em9QEjT/I1HM+enfC
-         NDaXhPMrB741UpvZpiU//IIFH+wtjOFUajfSfjKvZT6ZK0KasOjx8KKF9s2GkHgWJzi5
-         slSCa0r1A0zziB6JmaO2xQaM9YJw2eZ0E6l3gQv6ref384gYX6IjzsC6eAzSBmRKspUU
-         tRWs4W1uCRtL2uIU9/LM4f/Tk/w7N7EPZIjzGavYc0xGnnEXTw9L2+1US3FjgnaO6O/B
-         l4ug==
-X-Forwarded-Encrypted: i=1; AKwUvBxOALBjtNIYiIZETZzwj6Yn1iyYJ8c6V0DpYB04ZOV7eGNrBzuho5jU8rN2XkZpN/KEPTYsI7Buord8IyU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLq416WmLk8qqbBUcAV2OQb8dqtxK+oHAz5qk+095sptADAenMK
-	9nYL+S1+hMFnEIidNZHSr4kSo/Rm51bbKZl+OHtrFwIvRK26fatg9XFG
-X-Gm-Gg: AYBFou3rhVyzQ17P/m1PltMEEIIP92UQ2qnsX3q9gK85CTfe845+I6NmjtXJwCCS4bO
-	OWboh75Tv46faO24UT+6/brrb23kwK0phTz/VWd3Ee+Q1//NS6ao6ah4T0q9VRjbcpEdr0Xz4Ow
-	M7ODAMxZtfq6zRTRTjNdAtfNj626yOaUutLgj67o19Y1C9qYzOz5C7mcnjJeIKbnf6UDNf7wn4Q
-	LkekZ6nNxVFByNmwxurIuXZVdzM/0vgtN5n0kDiqw8U3UnyIsCPSOL919vQX2tOCrOFSS7CwKLr
-	wHqKxRlo1WV0PSMMDdsswk8PYqq0WX8tFkhgQmZ9jM1Onvl2I7/zW7k9dtkkSEWMuknk0AAxoV8
-	Sykq5q8TyggcLJWZlxDMfEXiZrZxt6tlnpPibAGRjyJW0gCHKdF63mRiexCRTLE0EbYwBEkYayS
-	D9SnxdEgk2gegrPWLPBP0dggqEkiFdriOsLD4zjWMcaIV7Usv2SDn61p2jEJoJncihL7Q=
-X-Received: by 2002:a17:90b:28c6:b0:3a7:9e3d:b3 with SMTP id 98e67ed59e1d1-3a8a1ceeb7emr3756258a91.66.1791437058229;
-        Wed, 07 Oct 2026 22:24:18 -0700 (PDT)
-Received: from dungbv.. ([116.98.134.138])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9ff7a7445sm2464870a91.5.2026.10.07.22.24.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 22:24:17 -0700 (PDT)
-From: Bui Viet Dung <dungvn2345@gmail.com>
-To: Johannes Berg <johannes@sipsolutions.net>,
-	Miri Korenblit <miriam.rachel.korenblit@intel.com>
-Cc: Ilan Peer <ilan.peer@intel.com>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bui Viet Dung <dungvn2345@gmail.com>
-Subject: [PATCH] wifi: mac80211: Pin module for hwflags debugfs file operations
-Date: Thu,  8 Oct 2026 12:24:12 +0700
-Message-ID: <20261008052412.541780-1-dungvn2345@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="afQDiwwL"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1791436949; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=OC/8gcm378zdCLGBCsxZGDMgTVsIaJlN9sB1GbVS2X4=;
+ b=afQDiwwLVUn0sX3WReZyjPPyqLDqub819hocoTBz2+LrQwDlWVwxjyvoE+tnm5w5cZi2Nx
+ ZXflCWe7Zl7omd9Fk4VcYM1wehtpVMikbkaPTX88aCRF5XYleNChRkSQCCwTIrtDR0nqtr
+ +d74dQ5RfAAnlwfBtfZGFRyNDrNATaEy4gv3xUtBtdGFyciSLPts5WEMZnqQU26b1vRTMW
+ sq/OBvpfYUNRRE3IBc2+26hiCF9urEH7ktXrzhf0o7Li5HBhPV9lMnWfBz73ZeVlIZTU55
+ VHzCUZobWrd+sy8h+x7qKXgsyNBwQNpLiFqyeVb/fk1ZHnsrKXevJzTJhoQtew==
+Content-Type: text/plain; charset=UTF-8
+To: <peterz@infradead.org>
+From: "Guixiong Wei" <weiguixiong@bytedance.com>
+X-Mailer: git-send-email 2.55.0
+X-Lms-Return-Path: <lba+26ac72893+334426+vger.kernel.org+weiguixiong@bytedance.com>
+Message-Id: <20261008051953.6293-2-weiguixiong@bytedance.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Date: Thu,  8 Oct 2026 13:19:54 +0800
+Content-Transfer-Encoding: 7bit
+X-Original-From: Guixiong Wei <weiguixiong@bytedance.com>
+Cc: "Guixiong Wei" <weiguixiong@bytedance.com>, 
+	"Ingo Molnar" <mingo@redhat.com>, 
+	"Arnaldo Carvalho de Melo" <acme@kernel.org>, 
+	"Namhyung Kim" <namhyung@kernel.org>, 
+	"Mark Rutland" <mark.rutland@arm.com>, 
+	"Alexander Shishkin" <alexander.shishkin@linux.intel.com>, 
+	"Jiri Olsa" <jolsa@kernel.org>, "Ian Rogers" <irogers@google.com>, 
+	"Adrian Hunter" <adrian.hunter@intel.com>, 
+	"James Clark" <james.clark@linaro.org>, 
+	"Thomas Gleixner" <tglx@kernel.org>, "Borislav Petkov" <bp@alien8.de>, 
+	"Dave Hansen" <dave.hansen@linux.intel.com>, <x86@kernel.org>, 
+	"H. Peter Anvin" <hpa@zytor.com>, "Zide Chen" <zide.chen@intel.com>, 
+	<linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH] perf/x86/intel/uncore: Fix DMR CXL CM invert filter
 
-An open debugfs file retains its file_operations pointer in the
-debugfs proxy state. However, hwflags_ops in net/mac80211/debugfs.c
-has no .owner set to THIS_MODULE.
+The DMR CXL CM PMU places its invert filter at config bit 21 and its
+9-bit threshold at bits 23-31. However, dmr_uncore_cxlcm uses
+GENERIC_PMON_RAW_EVENT_MASK, which covers the threshold through the
+generic bit 23 invert field and bits 24-31 threshold field, but does not
+include the relocated invert bit. As a result, uncore_pmu_event_init()
+silently clears bit 21 and inv=1 programs the same configuration as
+inv=0.
 
-As a result, full_proxy_open_regular() calls fops_get() which succeeds
-without taking a reference to the mac80211 module. When CONFIG_MAC80211=m
-and wireless debugfs is enabled, a userspace process can open the
-hwflags debugfs file and keep the file descriptor open while the module
-is unloaded (rmmod mac80211).
+Add bit 21 to a DMR CXL CM-specific event mask so the requested invert
+filter reaches hardware.
 
-When the userspace process subsequently closes the descriptor,
-full_proxy_release() accesses the already unmapped file_operations
-structure, triggering a kernel oops in full_proxy_release():
-
-  BUG: unable to handle page fault for address: fffffbfff8056f03
-  #PF: supervisor read access in kernel mode
-  Oops: 0000 [#1] SMP KASAN NOPTI
-  RIP: 0010:full_proxy_release+0x8e/0x140
-  Call Trace:
-   <TASK>
-   __fput+0x39f/0xa60
-   fput_close_sync+0xff/0x200
-   __x64_sys_close+0x8c/0xf0
-   do_syscall_64+0x115/0x6a0
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-   </TASK>
-
-The issue was discovered via manual code audit of
-net/mac80211/debugfs.c.
-
-Set .owner = THIS_MODULE on hwflags_ops so that debugfs pins the
-module until all open file descriptors have been closed.
-
-Fixes: 3ad4fce66e4f ("wifi: mac80211: add strict mode disabling workarounds")
-Cc: stable@vger.kernel.org
-Signed-off-by: Bui Viet Dung <dungvn2345@gmail.com>
+Fixes: 6daf2c35b835 ("perf/x86/intel/uncore: Add IMH PMON support for Diamond Rapids")
+Signed-off-by: Guixiong Wei <weiguixiong@bytedance.com>
 ---
- net/mac80211/debugfs.c | 1 +
- 1 file changed, 1 insertion(+)
+ arch/x86/events/intel/uncore_snbep.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/net/mac80211/debugfs.c b/net/mac80211/debugfs.c
-index e38631d7cfb4..6a84321cebd6 100644
---- a/net/mac80211/debugfs.c
-+++ b/net/mac80211/debugfs.c
-@@ -529,6 +529,7 @@ static ssize_t hwflags_write(struct file *file, const char __user *user_buf,
- }
+diff --git a/arch/x86/events/intel/uncore_snbep.c b/arch/x86/events/intel/uncore_snbep.c
+index a97cd029db366..1b460cf27a10f 100644
+--- a/arch/x86/events/intel/uncore_snbep.c
++++ b/arch/x86/events/intel/uncore_snbep.c
+@@ -474,6 +474,9 @@
+ /* DMR */
+ #define DMR_IMH1_HIOP_MMIO_BASE			0x1ffff6ae7000
+ #define DMR_HIOP_MMIO_SIZE			0x8000
++#define DMR_CXLCM_PMON_CTL_INVERT		BIT(21)
++#define DMR_CXLCM_PMON_RAW_EVENT_MASK		(GENERIC_PMON_RAW_EVENT_MASK | \
++						 DMR_CXLCM_PMON_CTL_INVERT)
+ #define DMR_CXLCM_EVENT_MASK_EXT		0xf
+ #define DMR_HAMVF_EVENT_MASK_EXT		0xffffffff
+ #define DMR_PCIE4_EVENT_MASK_EXT		0xffffff
+@@ -6696,7 +6699,7 @@ static struct event_constraint dmr_uncore_cxlcm_constraints[] = {
  
- static const struct file_operations hwflags_ops = {
-+	.owner = THIS_MODULE,
- 	.open = simple_open,
- 	.read = hwflags_read,
- 	.write = hwflags_write,
+ static struct intel_uncore_type dmr_uncore_cxlcm = {
+ 	.name			= "cxlcm",
+-	.event_mask		= GENERIC_PMON_RAW_EVENT_MASK,
++	.event_mask		= DMR_CXLCM_PMON_RAW_EVENT_MASK,
+ 	.event_mask_ext		= DMR_CXLCM_EVENT_MASK_EXT,
+ 	.constraints		= dmr_uncore_cxlcm_constraints,
+ 	.format_group		= &dmr_cxlcm_uncore_format_group,
 -- 
-2.43.0
-
+2.50.1 (Apple Git-155)
