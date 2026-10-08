@@ -1,123 +1,219 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FF68472077
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 13:10:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9271B49890E;
+	Thu,  8 Oct 2026 13:10:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791465015; cv=none; b=mdK9YFHPp+vMt+Tm1w6zrWS0PFdYjDZDibKrv6dNUoBB+h4hZaLSJAh3x+/GB3VYpVajylmcxePrb7m4pe3XF3wYB6H20odeZkcx/gunjohwK+A5Om4mmQRCU30aI8NicKfJN4QoTy8dCPE00o1zRM1i/EtypWNCdKBypluXhPs=
+	t=1791465019; cv=none; b=GZxq4OiDLzWcRZ1R/Ih8eX9Yf7Wp4O752SkFPpBOkof6oQd2rrCqARPv6KIxZckP5+0umNAnQUi53/ZbfltjQwypzXJcu2rBhWXbKAXW30X3OMTDXRmN/sudhCOhQBmFLGGo2lUIEpuDI0yWW7lWx6CUnWFM+0NDkzPAw0rfJm8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791465015; c=relaxed/simple;
-	bh=PPO9NfSp85pn54ziFmszdGwes//WPVFfsMsaCovl1ho=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qffJ8wbd0H7JgW3faWWIBRCKOa/ptAe6gQ8QtweF1FnDJcrIcm87LV79Lom6ID+rNPpdvqrS0DiJQQuZHMtC+41MS+XbtcoH1xgWHBi5z65pncqecUB3Vkmt/gvorJpKw6aj4aNUWvsje3AoHqwqPKxpIPkNdgnok3iCI4YN3/U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eUk4MzK7; arc=none smtp.client-ip=209.85.215.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791465019; c=relaxed/simple;
+	bh=/yelBe+Gw3EYSuPvZbBcAnet/gkuHxFavOHOKByvcnA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sNu2uirjdidbi0uO2B6KAKJ1rmMOYGCQ4vuywurPCrmTOFflCXLtOwFLSFPE0akAN5cYFL+aVRjgGDGUJpBTdpYYgNHsu5moDe4PqPO7NyoAigvcnq6/79nWTEo1/rS/Zi3KvUF7OkG/e15G6Y5g+GjeO1jrLoerUSVT7CuB1YE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=QxNspo7i; arc=none smtp.client-ip=220.197.31.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eUk4MzK7"
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc50ad2d650so1840356a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 06:10:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791465011; x=1792069811; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=obZMvcMMDB2/jxIEyX2ryM7+bivQFfQutFGpYAMTjEw=;
-        b=eUk4MzK7aHbKgw4H7FgJAgbxMLxUFx06wf4riCzzGJGJjr8MraQbGGKhGOxk4stkNA
-         Oym7DzDfBcqGLtayjqZpAefkDwIFOaCnzCxJB4uJaZezNGYxdkniuh0TIeFiY56UKny/
-         ehXhB5RuHscooiAk4+ziepXORQyL3Ff2ACZWTVyo3G5utN4CntajECrKsEtXoGTxX9t1
-         6bKcxbEtzc9cLoqBzoslp2OKIG418TxXR5g48CL5pr7TcpBXu0tMLuROvBmEwCcBR/Fm
-         l4Z/FGjPUkhaPCmzeid5X/pUQw8gWo5fuwan7G990RwJSkmcAc1QpfTrl3rTBCmJBMu8
-         rIrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791465011; x=1792069811;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=obZMvcMMDB2/jxIEyX2ryM7+bivQFfQutFGpYAMTjEw=;
-        b=oBldrZPiNenV114fl62DDSbKpH+T2YQzR++T78sPIJ36Ga7cdwKMDCsEsJpgWLLjJu
-         b1mIxvEn9zxzcCcUEBdRrwnmCHclrUiUbF3bBl3yy0rTAd708L6ml6Etark3uYSJ0yXv
-         zgHnDs7appLXAOiBrYDRI6D1ZDwd5WJdnVpuUIJ6BDdd7iYl3lmS2UmzDnIMqTp8J3IC
-         MbXNp5jwd1pn8etR0pL/mVPHiEShEfWBchOvwPwnmi1uZ3150rh8anAyefZsjJuuEA0+
-         MML/27x8UfymRQrAo7tP7sMw/HUoIbzaibclLoOby5KoGI8LNnSQ0BZpaJ+XHNQYL/bZ
-         iesA==
-X-Forwarded-Encrypted: i=1; AKwUvBwDhVkYvfFJI1BSvbehlzrbKXp2uf5AT/cMMAepcUQ4UbQqRgz2l73LBo3JhAAMMzvl/pZGNbW36bS1LqI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kjq+z1QEU4uoZd+R2WoNQDwTDr4Unf+jdeZWPEslDP5Igsn6bK
-	SH0+ofPBZaRgDth7x5A4ZVVli8gmS5Ff38bs+fT4CuCkGBIxiEqugWiC
-X-Gm-Gg: AYBFou1BxbM5Ja7hx7lG58VBz36qyFFPbBXe9pGYbfRuqmKMpsrie3PKEdPkNWbZya0
-	pI7M1hldR+gKwfRdOmPB4hfVgK5WfM4hCYsyvIIK5/wRQfPNZu04IjVX+X3cX/V/YmqaWK5vq6h
-	Gm7TwMHXmK+EjLHumVOvmvk9DgVGR4L+ciRv5stlSB8LlebOfYvIAPGZqo8p4Q5BDEAhucIQI99
-	gQqR3DxVzUeZQ1DmhE9K94lnwfjZaBQJZBp6IjBAQS0vqfh+HYu0NFWzdMcVgjabEp1z1Utocq0
-	lZd4yXMojzjn5ZTXnLQaRwDsidlO34s81g0C2tAFz5OklqjHHxzNg17UmbUGCCJRfSd6ZkrPCiX
-	mboqtVu6alKBxC47nfjtpmz+g6Itc0GXFETLZWMIP1cVDp3gtZgTuqCFdwsG6XpLPjVGtYPt6lq
-	hS6CfKNkQa9jrfbpbtlWnTvOKFf9FLhYJwPZLapJSLyvvKbmT3geCt8sL+bNPqLAhpvLOcTGfy+
-	Zlsvd2LNOUM6CSVBwl+pR6QTBF9ht3c1GaMzCy4j1m+Uc95L+NvVq0eIDiZla9QMJdUlTAPm4Es
-	znvZuLqnng==
-X-Received: by 2002:a05:6a20:d530:b0:3df:62f3:9f4b with SMTP id adf61e73a8af0-3e1340ac6aamr4297840637.31.1791465011309;
-        Thu, 08 Oct 2026 06:10:11 -0700 (PDT)
-Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-893143368a7sm870761b3a.48.2026.10.08.06.10.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 06:10:10 -0700 (PDT)
-From: HyeongJun An <sammiee5311@gmail.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	HyeongJun An <sammiee5311@gmail.com>,
-	David Rhodes <david.rhodes@cirrus.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	patches@opensource.cirrus.com
-Subject: [PATCH 2/6] ASoC: cs42l52: Fix the NG Type Switch bit
-Date: Thu,  8 Oct 2026 22:09:48 +0900
-Message-ID: <20261008130953.2446692-3-sammiee5311@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261008130953.2446692-1-sammiee5311@gmail.com>
-References: <20261008130953.2446692-1-sammiee5311@gmail.com>
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="QxNspo7i"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=siovdpcdC1SrJwsnnM3h6lQURmWeA+zUKOaxw7qqDDs=;
+	b=QxNspo7ii5SwM2c0zCuTbguzqoOZpebpi8IZCFy5gNUOzYoHfg509P5MERdKkC
+	6dHYqd5s6W0dYfqwyGizp+g357Kv9uHyiDJiLKoMQH+C3b3mBTVngRAyA5tSya42
+	15XpPojvDia+Fms2pGqe8VNiILNdJoPi4BkeKeLrk/Csk=
+Message-ID: <b402a837-2223-4d72-978a-b2108df78334@126.com>
+Date: Thu, 8 Oct 2026 21:08:57 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH iwl-net v2 1/2] ice: detach the VF representor when
+ ice_start_vfs() fails
+To: Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ Tony Nguyen <anthony.l.nguyen@intel.com>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, netdev-bot+sinfo@kernel.org, pabeni@redhat.com,
+ intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Linkui Xiao <xiaolinkui@kylinos.cn>,
+ stable@vger.kernel.org
+References: <20260928065306.1514795-1-xiaolinkui@126.com>
+ <179057875290.31693.7249107578001642813@kernel.org>
+ <d3f4ae98-3340-414b-9bd0-9f4588810821@126.com>
+ <547ed917-77fc-4670-974c-4d4fd6fbf3e7@intel.com>
+ <0c464819-16ee-4bae-b15c-3337516ef3c9@intel.com>
+Content-Language: en-US
+From: Linkui Xiao <xiaolinkui@126.com>
+In-Reply-To: <0c464819-16ee-4bae-b15c-3337516ef3c9@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3_6XplcdqT3fmAg--.45387S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3GF1xWF18ZF48KFWDXryfXrb_yoW3ZFyDpa
+	yFq3Z5Kr4DXw1I9w42vw40q3409a1rKF1UWr1UKrWFkwn8Grn5XrWfK3yj9a4UC393Cw1Y
+	vr4qqw1kZFyDAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U4c_fUUUUU=
+X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBlQssA2rHletTMQAA3A
 
-The NG Type Switch enum selects between "Apply Specific" and "Apply
-All", which is the NGALL bit. The datasheet puts NGALL at bit 7 of the
-Noise Gate Control register. The enum uses bit 6, which is NG, the
-noise gate enable owned by the NG Enable Switch. cs42l52.h names it
-CS42L52_NG_ENABLE_SHIFT. cs42l56 has the same Noise Gate register and
-puts its NG All Switch at bit 7.
 
-So changing the noise gate type turns the noise gate on or off, and
-NGALL cannot be set.
 
-Use bit 7.
+On 2026/10/7 19:11, Przemek Kitszel wrote:
+> On 9/29/26 8:11 PM, Tony Nguyen wrote:
+>>
+>>
+>> On 9/28/2026 12:14 AM, Linkui Xiao wrote:
+>>> Hi,
+>>>
+>>> Thanks for the review. Please find the missing information below.
+>>>
+>>> - How the issue was discovered:
+>>>    Found during manual code inspection of the ice VF setup/teardown 
+>>> error paths. It was not reported by syzbot, a static analysis tool, 
+>>> or an LLM scan, and was not hit in production.
+>>>
+>>> - Whether the issue was actually triggered:
+>>>    Not actually triggered. It is a theoretical error-path cleanup 
+>>> issue found by inspection; no stack trace or error message was observed.
+>>>
+>>> - Hardware tested:
+>>>    Not tested on real hardware. The change was only compile-tested; 
+>>> no affected Intel NIC/firmware test was performed.
+>>>
+>>> The same applies to patch 2/2: it was also found by the same manual 
+>>> code inspection, was not triggered at runtime, and was only compile- 
+>>> tested, not tested on real hardware.
+>>>
+>>> If a v3 is needed for other review reasons, I will include this 
+>>> information in the commit messages.
+>>>
+>>> Thanks,
+>>> Linkui Xiao
+>>>
+>>> On 2026/9/28 14:59, netdev-bot+sinfo@kernel.org wrote:
+>>>> Hi!
+>>>>
+>>>> This is an automated message. This series looks like a fix, but its
+>>>> commit messages seem to be missing some information:
+>>>>
+>>>>   - How the issue was discovered, e.g. hit in production, hit during
+>>>>     development, syzbot report, manual code inspection, LLM or static
+>>>>     analysis tool scan.
+>>>>
+>>>>   - Whether the issue was actually triggered, or is only theoretical
+>>>>     (e.g. found by code inspection). If it was triggered please include
+>>>>     the symptoms, like the stack trace or error messages.
+>>>>
+>>>>   - What hardware the change was tested on. For driver fixes please
+>>>>     mention the device (and if relevant firmware version) used for
+>>>>     testing, or say that the change was not tested on real hardware.
+>>>>
+>>>> Please do not repost the series just to address the above. Instead,
+>>>> reply to this email with the missing information, so that reviewers
+>>>> can take it into account. If the series needs another revision for
+>>>> other reasons, please include the information in the commit messages
+>>>> then.
+>>
+>> Hi Jakub,
+>>
+>> For patches that go through iwl-net, how did you want this handled? It 
+>> says to not repost just to address the above, but since this will get 
+>> submitted later, did you want the commit updated to make the latter 
+>> check happy, did you want me to copy/paste the response to the commit, 
+>> or something else?
+> 
+> In general, I would say it's up to you Tony.
+> Perhaps we could decide based on the amount of additional changes.
+> 
+> For this particular patch sashiko already posted complains:
+> https://sashiko.dev/#/patchset/20260928065306.1514795-1-xiaolinkui%40126.com?part=1
+> 
+> I've encountered the same problem (although during my OOT encounters),
+> and the solution is to detach/attach VF representors outside of
+> vf->cfg_lock. More rationale by AI follows:
+> 
+> ice_reset_all_vfs() and ice_free_vfs() call ice_eswitch_detach() and
+> ice_eswitch_attach() with vf->cfg_lock held. Both take the devlink
+> instance lock and then register or unregister the representor netdev,
+> which takes RTNL. ndo_set_vf_mac(), ndo_set_vf_vlan() and the
+> representor's ethtool reset take vf->cfg_lock under RTNL, so the order
+> is inverted. The ice_check_vf_ready_for_cfg() check in those callers
+> runs before vf->cfg_lock is taken, so it doesn't keep them away from a
+> reset that is already in progress.
+> 
+> Detach before taking vf->cfg_lock and attach after releasing it.
+> Representors are added and removed only under pf->vfs.table_lock, and
+> ice_start_vfs() already attaches without vf->cfg_lock. Both functions
+> set ICE_VF_DIS first, so a concurrent ice_reset_vf() bails out before it
+> reaches ice_eswitch_update_repr().
+Thanks.  That is the AB-BA Sashiko flagged, and v3 does exactly that.  The
+series is three patches now, reposted as a new thread whose cover is
 
-Fixes: dfe0f98b8d2e ("ASoC: Add support for CS42L52 Codec")
-Link: https://statics.cirrus.com/pubs/proDatasheet/CS42L52_F2.pdf
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
----
- sound/soc/codecs/cs42l52.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+   [PATCH iwl-net v3 0/3] ice: fix VF representor lock ordering and teardown
+   error paths
 
-diff --git a/sound/soc/codecs/cs42l52.c b/sound/soc/codecs/cs42l52.c
-index 5f033556099a..1d3334886402 100644
---- a/sound/soc/codecs/cs42l52.c
-+++ b/sound/soc/codecs/cs42l52.c
-@@ -290,7 +290,7 @@ static const char * const cs42l52_ng_type_text[] = {
- };
- 
- static SOC_ENUM_SINGLE_DECL(ng_type_enum,
--			    CS42L52_NOISE_GATE_CTL, 6,
-+			    CS42L52_NOISE_GATE_CTL, 7,
- 			    cs42l52_ng_type_text);
- 
- static const char * const left_swap_text[] = {
--- 
-2.43.0
+with the per-patch changes under "Changes in v3:" in each patch:
+
+  1/3 ice: attach and detach VF representors outside of vf->cfg_lock   (new)
+  2/3 ice: detach the VF representor when ice_start_vfs() fails   (was 1/2)
+  3/3 ice: free the VF MSI-X vectors when VF start fails   (was 2/2)
+
+1/3 is new and is the "same problem" you describe.  ice_free_vfs() and
+ice_reset_all_vfs() are where the inversion was introduced: fff292b47ac1
+turned the single ice_eswitch_release() that ice_free_vfs() made before its
+loop into a per-VF detach under cfg_lock, and c9663f79cd82 did the same to
+the ice_eswitch_rebuild() call in ice_reset_all_vfs().  1/3 moves the detach
+ahead of cfg_lock in both loops, and in ice_reset_all_vfs() the attach back
+after the unlock.  It also takes cfg_lock once before the detach, so that a
+reset which is already inside the lock is waited out instead of being left
+with a window: ICE_VF_DIS, raised before both loops, keeps later resets out,
+but not one that got in ahead of it, and that one can reach
+ice_eswitch_update_repr() while ice_repr_destroy() is freeing the
+representor it looks up, which is free_netdev() + kfree() with no RCU grace
+period.  2/3 is the original ice_start_vfs() fix with the same reordering,
+plus the disabled marking described below.  3/3 is the MSI-X leak, the same
+three calls, with its Fixes: tag corrected.  Tony, if you would rather keep
+the -net series at two patches, say so and I will drop 1/3.
+
+The edge that had to go is cfg_lock -> RTNL.  ice_eswitch_detach_vf() takes
+devl_lock() and then RTNL through ice_repr_rem_vf() -> unregister_netdev(),
+while __ice_set_vf_mac(), ice_set_vf_port_vlan() and the representor's
+ethtool reset take cfg_lock with RTNL already held.  The representor itself
+does not need cfg_lock there: it is created and destroyed under
+pf->vfs.table_lock, and ice_free_vfs(), ice_reset_all_vfs() and
+ice_start_vfs() all run with that lock held.
+
+On the ice_start_vfs() path I kept cfg_lock around the rest of the teardown,
+because the ICE_VF_DIS half of the rationale does not hold there.
+ice_free_vfs() and ice_reset_all_vfs() raise ICE_VF_DIS before they 
+touch any
+VF, the SR-IOV enable path never does (the clear_bit() in ice_ena_vfs() has
+no matching set), and the VFs unwound by that loop already reached
+ICE_VF_STATE_INIT, so "ip link set dev <pf> vf N ..." still passes
+ice_check_vf_ready_for_cfg() and can run ice_reset_vf() against the VSI that
+ice_vf_vsi_release() is tearing down.
+
+That is why 2/3 marks the VF disabled under cfg_lock before the detach.  As
+you said, ice_check_vf_ready_for_cfg() runs before the lock is taken, so it
+does not keep a reset that is already in progress away; the check that does
+keep one out is the ice_is_vf_disabled() test ice_reset_vf() makes after
+taking cfg_lock.  Taking cfg_lock once before the detach waits that one out
+while its representor is still attached, and the bit keeps later ones from
+reaching ice_eswitch_update_repr().  Without it a reset already past its own
+check could xa_load() the representor while ice_repr_destroy() frees it, and
+that is free_netdev() + kfree(), with no RCU grace period in between.
+
+v3 also carries the origin and testing information netdev-bot asked for, in
+the commit messages, since the series is being reposted anyway.  2/3 changed
+code, and in 3/3 the call in the teardown loop moved inside cfg_lock, so I
+did not carry over the Reviewed-by tags from Tomasz Lichwala and Aleksandr
+Loktionov.  Tomasz's nit on the eswitch attach failure path is in: the IRQs
+are freed before the VSI is released there, and the teardown loop keeps that
+order too.  The release_vsi label of ice_init_vf_vsi_res() still 
+releases the
+VSI first, because the !vsi path has to skip that call.
+
+The v3 series was posted here:
+https://lore.kernel.org/netdev/20261008125754.3520773-2-xiaolinkui@126.com/
 
