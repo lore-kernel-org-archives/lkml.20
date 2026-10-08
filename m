@@ -1,172 +1,149 @@
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+Received: from sender6-pp-e107.zoho.com (sender6-pp-e107.zoho.com [165.173.180.107])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AF3249365A
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 10:27:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791455265; cv=none; b=dZ5Fc48pSF1FW1U9P/Kv2Gez0WAuh/AsUyFvyngjlDCrXYcc2oxgE7Q6nzWM8z4Q6UvYDRVbMOW8OK/TMzxIKgWO2UX8OGnH8e6FukCTK0wAhCJ+WMsm03+d37kFzZNUBwgWxUv9WHUlhPqPVNX0u75Qhv+TMSwf/D2TgemPOgk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791455265; c=relaxed/simple;
-	bh=o72Dx/lVX6lyOQVKDf9pGztNDLO1CBdrw12EQ9xMD6c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=Mtg26dKrF2waqfaPYp9Eb9A1L5zQ0B0odPDBo0j0XhmIY+v9vksbgZa4MJ5VSWFZrjBBrj4xPbCRxgRj/lFPaW7a7M3/HFmePcAFmv1SJ039gGl/x5lAMO9We86nPIi5x0wICjFFTstINhjRK+9kReo2+RvVo24aQymqWM69WZs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=X9dbs2RP; arc=none smtp.client-ip=210.118.77.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91F95391E7B;
+	Thu,  8 Oct 2026 10:31:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.107
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791455479; cv=pass; b=BCHNgD6tet80iPuNhKE8+eS6axGkMnn2dfzZtBQhrrt4H/5NMJB4yuDW/S7tHUTewGIYWjmlvxraxLcNRIXg21SitQGIQLyp6xbtPAs2Y+2faC+NsYa9B1NvHScErGQC+FGVPVX3Iw7TctqWzEG0+qvdSN65U5P4z0U+/x2ohxs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791455479; c=relaxed/simple;
+	bh=HA8SGj7wkjRDNhhCWgOc+4BuevohIaoxRKoUSNRKTnI=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=meSAPH7eQv5PEhLdLbLEO0XXwwEhWboAQcS5iMCko/JqC6s4sy5hOVxMXFThH6BcOPXyBrMYztGX8JuwHOy423i+3/59Ru3UbuxFa4pyEVdqXHv2oaIBSRvxcLfpKr0TOsxWn9s0BS0I+RRD+zDvLT9VkBCGKFmbJc3wXhx3GUE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me; spf=pass smtp.mailfrom=icenowy.me; dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b=Xa4CCTGd; arc=pass smtp.client-ip=165.173.180.107
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="X9dbs2RP"
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261008102741euoutp025b157406949247f4d813260054874d61~chxGUKQTI1182911829euoutp02e
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 10:27:41 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261008102741euoutp025b157406949247f4d813260054874d61~chxGUKQTI1182911829euoutp02e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1791455261;
-	bh=Yh35YzBJA8/xE+TWFxJbbVf29xtGO1I3EQyG9MJAvrY=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=X9dbs2RPOrgDoZSwiXoauZzw+TN18VTOKWPg9CkCRkry97RqIHEcHgNsQMNd3AKei
-	 XKn+Xkntc/LAO+H6tXwT4UCwHLNxkfGYXqXZAEzalmFZ2YAdAPoKDEc8TEwkTTYcTp
-	 HB6hreg8AiszCtHsgpDm653FW5ZHVzZiVDNtRSMw=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20261008102740eucas1p2b40077fcb69f9a6b8b7bef76854db577~chxFZ4FNl0241002410eucas1p2j;
-	Thu,  8 Oct 2026 10:27:40 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261008102738eusmtip10151624c3fc63f193b8cbfcf6447236e~chxD5esrf0373403734eusmtip1G;
-	Thu,  8 Oct 2026 10:27:38 +0000 (GMT)
-Message-ID: <e9ffaa7d-26be-4d19-95d6-e2f039119978@samsung.com>
-Date: Thu, 8 Oct 2026 12:27:38 +0200
+	dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b="Xa4CCTGd"
+ARC-Seal: i=1; a=rsa-sha256; t=1791455464; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=PXhlqnbIPeeyBMoq4zj6OsSao1PWn2yoke5wffLUsWw9+hZSA3HE8mAowQUYiWMyY0qtCoENa+kjOMJ56T+/8kdKmNUbp4qZMwYm08jJAm55Y7CHf2n1p5S5gfYGlomKC5mwQ0PMkJDbAey8lYRjL+SvKn6xWr3xKYqCcVSmk8E=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1791455464; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=TEVIQ7jUIEPxC+HGK4sUt5stotdCUh3Q7I4XuQyq/vU=; 
+	b=fXr22wZyjecSTBJj/MHndJ36pVf9nqiRyPB7zHwKZzGkKj05HnSbZjcxsKt69n2eJ50BhpTY4d7sbrCwCTNQjovej0+HKmC+B9hEdoTMBamGg7aBh+5P9DarQWekC5wvg7gqsThh8ooSsV7MgTVabyr3tjDvKeksDJzW1jkr6PE=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=icenowy.me;
+	spf=pass  smtp.mailfrom=uwu@icenowy.me;
+	dmarc=pass header.from=<uwu@icenowy.me>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791455464;
+	s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
+	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
+	bh=TEVIQ7jUIEPxC+HGK4sUt5stotdCUh3Q7I4XuQyq/vU=;
+	b=Xa4CCTGdyQqhGs5mz5XWPtLsG3z3tv3u/QC4Tm+jFyOf5gdqI08/GkVxdXDsiihg
+	M/SxIwLKYhKiq/yRo+yK7sYinL9mvGL9AdSK9JCmSDVH+ItV5tYKD8Xi9KjNqprp0uc
+	pvc+sfdr2Hsg58RX6Npl9fb0qsGzLihjTkNyOM1yyN1HCS3S3Y4QDTItjBEVCvxzOhZ
+	a0QBXFNNJi5d/IGDzMBDhs9vOfvIcHPh8M5aPjUrt/zqt75nhNefFXpitQEgPPY1GUD
+	r0hdD9TywyaqYQhr2uwSq/Zrl9O8bMD59JyL0A+3Nd3F3vffidBWaYN8WW/JI+kd7W1
+	XDv+CgxSCA==
+Received: by smtp.zohomail.com with SMTPS id 1791455462271972.5250923053629;
+	Thu, 8 Oct 2026 03:31:02 -0700 (PDT)
+Message-ID: <cbba422d4ba9bd4a036536a50fadc2760efa1ae2.camel@icenowy.me>
+Subject: Re: [PATCH v2 1/2] dt-bindings: power: spacemit: Add power domain
+ controller IDs
+From: Icenowy Zheng <uwu@icenowy.me>
+To: Conor Dooley <conor@kernel.org>, Yixun Lan <dlan@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, Paul
+ Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
+ <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,  Iker Pedrosa
+ <ikerpedrosam@gmail.com>, devicetree@vger.kernel.org,
+ linux-riscv@lists.infradead.org, 	spacemit@lists.linux.dev,
+ linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Thu, 08 Oct 2026 18:30:55 +0800
+In-Reply-To: <20261008-df80c21d73b287d09b6baa78@squawk>
+References: <20261008-04-k3-pm-support-v2-0-6f778a53dd2d@kernel.org>
+	 <20261008-04-k3-pm-support-v2-1-6f778a53dd2d@kernel.org>
+	 <20261008-df80c21d73b287d09b6baa78@squawk>
+Organization: Anthon Open-Source Community
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH v2 RESEND] x86/pci-dma: swiotlb: Fix a regression since
- 5.19.0 about iommu=soft kernel parameter
-To: Julien ROBIN <julien.robin28@free.fr>, linux-kernel@vger.kernel.org
-Cc: x86@kernel.org, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar
-	<mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
-	<dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>, "Aneesh
- Kumar K.V (Arm)" <aneesh.kumar@kernel.org>, Christoph Hellwig <hch@lst.de>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, Boris Ostrovsky
-	<boris.ostrovsky@oracle.com>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar
-	<mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter
- Anvin" <hpa@zytor.com>
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <f921c2ca-e083-41ad-90a9-e54816427a50@free.fr>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20261008102740eucas1p2b40077fcb69f9a6b8b7bef76854db577
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261004101223eucas1p218a04ee0955798705f0e450ec74678a9
-X-EPHeader: CA
-X-CMS-RootMailID: 20261004101223eucas1p218a04ee0955798705f0e450ec74678a9
-References: <CGME20261004101223eucas1p218a04ee0955798705f0e450ec74678a9@eucas1p2.samsung.com>
-	<f921c2ca-e083-41ad-90a9-e54816427a50@free.fr>
+X-ZohoMailClient: External
 
-On 04.10.2026 12:12, Julien ROBIN wrote:
-> The following patch fixes a regression introduced since linux-5.19.0 about
-> kernel parameter "iommu=soft" which, according to kernel-parameters.txt,
-> is expected to enable the use of software bounce buffering (SWIOTLB) and to
-> prevent the usage of an available hardware IOMMU.
->
-> Since linux-5.19.0 however, iommu=soft doesn't prevent anymore the usage of
-> hardware IOMMU implementations, and at least when an AMD GART IOMMU is
-> available, SWIOTLB even gets disabled by "amd_gart_64.c" despite the
-> iommu=soft parameter.
->
-> The issue is fixed by adding an "x86_soft_iommu_only" variable which is set
-> when the iommu=soft parameter is found and processed.
-> If the variable is set, hardware IOMMU detection and allocation is skipped,
-> as these detection and allocation functions could overwrite both
-> x86_init.iommu.iommu_init and x86_platform.iommu_shutdown for later
-> initialization and shutdown of these hardware IOMMU implementations.
->
-> When the iommu=soft parameter isn't provided however, the behavior of the
-> kernel is left untouched by this patch.
->
-> Patch applies from 5.19.0 to 6.19.0, based on mainline as of 2026-02-12.
-> Successfully tested this fix with iommu=soft parameter on linux-6.1.163 and
-> linux-6.19.0 on a Gigabyte 990FXA-UD3 based computer.
->
-> Tested the fix and iommu=soft parameter on linux-6.19 on these 4 machines:
->  - Gigabyte 990FXA-UD3 motherboard based computer (AMD FX9590 CPU)
->  - Asus TUF B550-PLUS motherboard based computer (AMD Ryzen 5 3700X CPU)
->  - HP Victus 16-s1034nf / 8C9C laptop (AMD Ryzen 5 8645HS CPU)
->  - Asus X550JK laptop (Intel Core i5-4200H CPU)
->
-> On the 1st, this successfully disables AMD GART IOMMU and enables SWIOTLB.
-> On the 2nd, this allows disabling AMD-Vi but SWIOTLB was already enabled.
-> Same for the 3rd one.
-> On the 4th, there was no hardware IOMMU enabled, and SWIOTLB was already
-> enabled too: no resulting change for this laptop.
->
-> Signed-off-by: Julien ROBIN <julien.robin28@free.fr>
-I assume that this needs the following tags:
-Fixes: 78013eaadf69 ("x86: remove the IOMMU table infrastructure")
-Cc: stable@vger.kernel.org
+=E5=9C=A8 2026-10-08=E5=9B=9B=E7=9A=84 08:27 +0100=EF=BC=8CConor Dooley=E5=
+=86=99=E9=81=93=EF=BC=9A
+> On Thu, Oct 08, 2026 at 03:44:29AM +0000, Yixun Lan wrote:
+> > Add initial power domain driver support for SpacemiT K1/K3 SoC, The
+> > Power
+> > Domain Controller is SoC internal module which is part of APMU
+> > (Advanced
+> > Power Management Unit), it is responsible for managing power across
+> > multi
+> > power domains, which includes power on/off, isolation, power-on
+> > sequence.
+>=20
+> You should prob mention that this APMU is already documented
+> elsewhere.
 
-It would be great if one of the x86 maintainers or developers involved into that
-commit could comment on this patch. I would also like to know if it is safe to skip
-gart, amd and intel iommu related calls.
+Maybe it's also meaningful to mention that APMU already has #power-
+domain-cells property, because the first reaction of me is to add such
+a property (and then found it already there).
 
-> ---
-> Changes since v1:
->  - Added static keyword to 'x86_soft_iommu_only' (only used locally).
-> ---
->  arch/x86/kernel/pci-dma.c | 17 +++++++++++++----
->  1 file changed, 13 insertions(+), 4 deletions(-)
->
-> diff --git a/arch/x86/kernel/pci-dma.c b/arch/x86/kernel/pci-dma.c
-> index 75cf8f6ae8cd..c3dad499cd27 100644
-> --- a/arch/x86/kernel/pci-dma.c
-> +++ b/arch/x86/kernel/pci-dma.c
-> @@ -34,6 +34,7 @@ int force_iommu __read_mostly = 0;
->  int iommu_merge __read_mostly = 0;
->  
->  int no_iommu __read_mostly;
-> +static int x86_soft_iommu_only __read_mostly;
->  /* Set this to 1 if there is a HW IOMMU in the system */
->  int iommu_detected __read_mostly = 0;
->  
-> @@ -100,9 +101,15 @@ void __init pci_iommu_alloc(void)
->  		return;
->  	}
->  	pci_swiotlb_detect();
-> -	gart_iommu_hole_init();
-> -	amd_iommu_detect();
-> -	detect_intel_iommu();
-> +
-> +	if (x86_soft_iommu_only)
-> +		pr_info("PCI-DMA: skipping hardware IOMMU detection and allocation\n");
-> +	else {
-> +		gart_iommu_hole_init();
-> +		amd_iommu_detect();
-> +		detect_intel_iommu();
-> +	}
-> +
->  	swiotlb_init(x86_swiotlb_enable, x86_swiotlb_flags);
->  }
->  
-> @@ -149,8 +156,10 @@ static __init int iommu_setup(char *p)
->  			return 1;
->  		}
->  #ifdef CONFIG_SWIOTLB
-> -		if (!strncmp(p, "soft", 4))
-> +		if (!strncmp(p, "soft", 4)) {
->  			x86_swiotlb_enable = true;
-> +			x86_soft_iommu_only = 1;
-> +		}
->  #endif
->  		if (!strncmp(p, "pt", 2))
->  			iommu_set_default_passthrough(true);
->
-Best regards
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+Thanks,
+Icenowy
 
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> pw-bot: not-applicable
+>=20
+> Thanks,
+> Conor.
+>=20
+> >=20
+> > Signed-off-by: Yixun Lan <dlan@kernel.org>
+> > ---
+> > =C2=A0include/dt-bindings/power/spacemit,k1-power.h | 14 ++++++++++++++
+> > =C2=A0include/dt-bindings/power/spacemit,k3-power.h | 12 ++++++++++++
+> > =C2=A02 files changed, 26 insertions(+)
+> >=20
+> > diff --git a/include/dt-bindings/power/spacemit,k1-power.h
+> > b/include/dt-bindings/power/spacemit,k1-power.h
+> > new file mode 100644
+> > index 000000000000..41ef540b5c44
+> > --- /dev/null
+> > +++ b/include/dt-bindings/power/spacemit,k1-power.h
+> > @@ -0,0 +1,14 @@
+> > +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
+> > +
+> > +#ifndef _DT_BINDINGS_SPACEMIT_K1_POWER_H_
+> > +#define _DT_BINDINGS_SPACEMIT_K1_POWER_H_
+> > +
+> > +#define K1_PMDOMAIN_VPU		0
+> > +#define K1_PMDOMAIN_GPU		1
+> > +#define K1_PMDOMAIN_LCD		2
+> > +#define K1_PMDOMAIN_ISP		3
+> > +#define K1_PMDOMAIN_AUDIO	4
+> > +#define K1_PMDOMAIN_GNSS	5
+> > +#define K1_PMDOMAIN_HDMI	6
+> > +
+> > +#endif
+> > diff --git a/include/dt-bindings/power/spacemit,k3-power.h
+> > b/include/dt-bindings/power/spacemit,k3-power.h
+> > new file mode 100644
+> > index 000000000000..519fbf946312
+> > --- /dev/null
+> > +++ b/include/dt-bindings/power/spacemit,k3-power.h
+> > @@ -0,0 +1,12 @@
+> > +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
+> > +
+> > +#ifndef _DT_BINDINGS_SPACEMIT_K3_POWER_H_
+> > +#define _DT_BINDINGS_SPACEMIT_K3_POWER_H_
+> > +
+> > +#define K3_PMDOMAIN_VPU		0
+> > +#define K3_PMDOMAIN_GPU		1
+> > +#define K3_PMDOMAIN_AUDIO	2
+> > +#define K3_PMDOMAIN_LCD0	3
+> > +#define K3_PMDOMAIN_LCD1	4
+> > +
+> > +#endif
+> >=20
+> > --=20
+> > 2.56.0
+> >=20
