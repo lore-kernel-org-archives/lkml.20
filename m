@@ -1,78 +1,48 @@
-Received: from mail-oo2-f8.google.com (mail-oo2-f8.google.com [74.125.231.136])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.virtuozzo.com (relay.virtuozzo.com [130.117.225.111])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06F823955CC
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 16:38:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7B8037701A;
+	Thu,  8 Oct 2026 16:38:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.117.225.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791477538; cv=none; b=nrbBXFdC9AcC1f1itMEtHQ0K8I2NwLnX6ELJo2D5nJ7rcDsNDSmkMtYRtg9Y+KrNee7JitG9EigG2NgL3rY50mklunkMstNbWGVPC1ynjTku1iG4w18Xd+IGn0U1qJQwa1hwsQMOdx7yX+W6l4OyPW/y42Ahe5IEERrPWVeimHI=
+	t=1791477539; cv=none; b=IwjNI2miu5hfc2wJ6415DBB5d5BMxxzd0J4FbH9o18AN2mKy4GObYyAsaLUWmBFJormf4y7X5rDWdwapm98D5ORqTXHlINYuIjW3yBOUcdv2icfmw4HYH5HxT2VNrhs0M6yLriy5ga8smwnlS7qREbMdi8PkL0QzMdu195o2B4o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791477538; c=relaxed/simple;
-	bh=B7/RTXGw6xEkN4S3aF0mbacVGPs2NY7fb3eIo7Z50+k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GD8d1CFTlu4vLRRBveas2matYnZ/u5m71M7n7mXnztjTMVO4RjAwFcMBSEY6zrpbq1Thv1wWBTR2deNav6dL9jAkAxxd5cP9pXutcfrKypDxYMT8B+GDRfFqgD84BCTKu9gwKz+ZAJpkr2ZjwPh3yHzvKYUx51plNYLZVrDN9Mw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bd12I3zl; arc=none smtp.client-ip=74.125.231.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791477539; c=relaxed/simple;
+	bh=QT++DOMQGaKvuHc4qGfA36cSa+Jt/is7lWxQax5N2NM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Fs2eWpea0g4czUP6XSlKIok77Gl/Zq9hLgW/320Elc4O6pbhOMU/ExE0tOe413yAZpeEWICflFTgJcXmb3/rM62LugMoE4ZEoJONiosJ47jsY8NeNWdbc70nLMluE0NUqHTCkD059kqnuPqb4EyOj8tYenR1OPDQ0ILxFUaDdNg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com; spf=pass smtp.mailfrom=virtuozzo.com; dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b=nV1fwKlW; arc=none smtp.client-ip=130.117.225.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=virtuozzo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bd12I3zl"
-Received: by mail-oo2-f8.google.com with SMTP id 006d021491bc7-6de822d01f0so2183128eaf.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 09:38:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791477536; x=1792082336; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wcr1e3DelCZYM4o9phxk5vNklRMQLSyAKhNB5dBEr6o=;
-        b=bd12I3zlGqyad1SU1bgON32oKdVg4UULWAImb6h+3sJnng3qlhcbkplvxvAkvuk4wy
-         n7fxfP1/TRsOZqH/+7c4BzFXKjP7Yl7k4wliFAro8W/8j4Ze7RHGVoEkYBB+dVGXF17n
-         BLwdE4Shb1LzlCR1TKekFl1fF25eYKIUcJFPEhPfUDv/lqxm7tqe0kvYFFRxCB3Vdm0l
-         QJtS3AU2q4FwEkuhBWyr8qSG119ifKefVvF7EDPdv+EHNIvbwuPN5hTqBlZdsCX3IlcQ
-         U1+KL5Z7GdhuL5BUi6Xnz65klnYNoncYECenOGTtbQSbSnh62anWF8f9bUzli/prkDxi
-         dWeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791477536; x=1792082336;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wcr1e3DelCZYM4o9phxk5vNklRMQLSyAKhNB5dBEr6o=;
-        b=AzyAz0DKKYZNS4mNgghr/YNCiEwGL1vxNsHtWJWkugkFIpCKyp4qeo5y3LJ25I1Zt7
-         d/nzvqbh6MUbK+vUzVvkFTHSPlbBMvCIIkLHUuBfhFu/7o22kZqhwabqav9J/YWjrFEm
-         +ogPFyT7NMH9OczLQaNHE829kQnbdlJ3Y6Gmhm/o+YLN3TA7mUk2TcA/VIzLngHLAo0l
-         TJXsl/R3l4VV82Squ+7Jen4maECIftCRpoAu6Xq1mhXZzwk/dU/LIlr8tiu6Ws4gsIS2
-         Ug/JaOCPI5CI5naxqFtfoZz5a6SgFzV7u7leEnN7iaDmCsaowg2vIskZ8ZwSW6r0Jskq
-         rAPg==
-X-Forwarded-Encrypted: i=1; AKwUvBw7DvpKw2VMAhEZYZfqJbmgIK3ZAqKEY1u2JlxS6H3ps9TS4IPCeb9yqXAjNHTd9/nBjs9bq9HZrXi0U2o=@vger.kernel.org
-X-Gm-Message-State: AFuF++lxxB/3MDNigyCmNtCbJrL0R/BYfdHZSE7i3iojGmNpJ9AHzjjB
-	jCccGWKskqBYs5w5pp80sawLUXUtpVywe2EBbvalGQX1YWnuuNJfhLNR
-X-Gm-Gg: AYBFou3uk2pPxp2gOY0wtkCOcFqlSKZW91kt/v5lZAOQA2ELvTpA5oxbWoWokyigHhK
-	ZOrmfr2trcdrdBbOdTd79bNuhSGo52IfDZjFm35B7/+8KaVwhDZ7ccrWOOmzCgMUQxAIMtQygQT
-	5Mma69ql4P2hLzvRrW7005hYahuyG64TI7iciqi8gP3Vix2vX7BO/R3A/mHhlQkXS63Ud3ygHA7
-	KRY4BUX4ZSdNCMUAeGzOQnIzHzqe771ckTxWwfXLpV/hn9a5/hkFXsEeR/b8l+Cm2xmSUpvzWLx
-	8bOO2sFwEJdDZEY9M1yTvUaIpc2xcPCARf1cmLy8EA7GRfDqvxM/cynBtGL9QuHXX5E2PTBIh+W
-	wt1rM3+Sx+UAT7hMv4tJ6aCqC5tlqVEvyrC8sTdFrKvB0bdVgHfv2PkyHuDL+fgXbUlhpbn+L9y
-	IuvGx+3g2O6j9lTkkZ+s+FrbGqwQBx9PWKySIty//pTnNgpDAztF82uMc5CujyI3L7RNsNJFuJl
-	GbOG4xanEshmy82VrravV2Mb7oK+VU0FtcD
-X-Received: by 2002:a05:6820:1628:b0:6d7:a13d:fd7d with SMTP id 006d021491bc7-6e7a727cb87mr5941490eaf.53.1791477535895;
-        Thu, 08 Oct 2026 09:38:55 -0700 (PDT)
-Received: from localhost.localdomain ([14.22.11.164])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-82fc7cc8ad4sm64328a34.7.2026.10.08.09.38.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 09:38:55 -0700 (PDT)
-From: Henry Martin <bsdhenrymartin@gmail.com>
-To: Allison Henderson <achender@kernel.org>,
-	"David S . Miller" <davem@davemloft.net>,
+	dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b="nV1fwKlW"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=virtuozzo.com; s=relay; h=MIME-Version:Message-ID:Date:Subject:From:
+	Content-Type; bh=fhNMiM/6MSOAliB7C22sWhh7RwXtAm1LS4XzOpdH5xs=; b=nV1fwKlWkzE0
+	ktOsa/2gjUgC2KkDUFjSP1NgbQWAKZ1fj4pmgVjy5z00UkOqBxZixn0T0B1oR6Af5roll1yxTWhUW
+	bkjJw2xcuRPL7Jsq4f+x1RHk8INUPLrbDO/vwAuDH+rl4cEQ1kzJf0EL5FKqu6kJjS+VttVEGzilT
+	vtA6SvirvhHzgNujcM3Cb2+Q18LU8kmn6tMcJeuG4vw+IfuFkCVSG7cma1BdQxnFUXTWVe3SeC16x
+	IsBl7Td1LbLXTJO8ZwX5xe7LABvXAAYXtIx83HkKKyXaG5iHRt+KzccmgLzKNnYGBDyLajJ+ar6DY
+	wRme/Kf3XFQlSzESEsbTIw==;
+Received: from ch-vpn.virtuozzo.com ([130.117.225.6] helo=LekKit-T14)
+	by relay.virtuozzo.com with esmtp (Exim 4.96)
+	(envelope-from <eva.kurchatova@virtuozzo.com>)
+	id 1xEr5P-000XlW-1O;
+	Thu, 08 Oct 2026 18:38:37 +0200
+From: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
+To: "David S. Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@kernel.org>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Henry Martin <bsdhenrymartin@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] rds: fix out-of-bounds conn_path access via handshake NPATHS
-Date: Fri,  9 Oct 2026 00:38:43 +0800
-Message-ID: <20261008163843.957325-1-bsdhenrymartin@gmail.com>
-X-Mailer: git-send-email 2.43.7
+	Simon Horman <horms@kernel.org>,
+	Willem de Bruijn <willemb@google.com>,
+	Alexander Lobakin <alobakin@pm.me>
+Cc: linux-kernel@vger.kernel.org,
+	Eva Kurchatova <eva.kurchatova@virtuozzo.com>,
+	netdev@vger.kernel.org
+Subject: [PATCH] udp: let rx-udp-gro-forwarding aggregate under encapsulation
+Date: Thu,  8 Oct 2026 19:38:16 +0300
+Message-ID: <20261008163817.2983484-1-eva.kurchatova@virtuozzo.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,40 +51,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Connections on the IB transport (t_mp_capable unset) own exactly one
-rds_conn_path slot, but the peer can still claim eight lanes through
-the NPATHS extension header of a handshake packet, and every
-subsequent fan-out path then treats all eight entries as real: the
-mp-start helper iterates conn->c_path[0..7], dereferencing cp->cp_conn,
-taking cp->cp_lock and queueing delayed work on cp->cp_wq at 504-byte
-strides into whatever comes after the single allocated slot (KASAN:
-"Read of size 8 in rds_conn_path_connect_if_down").
+The rx-udp-gro-forwarding checks of the veth kselftest fail with "got
+10 packets, expected 1" on a host where something uses UDP
+encapsulation, a vxlan say, and pass on a host where nothing does.
 
-The negotiated lane count is now clamped to the same value the
-transport was allocated with (trans->t_mp_capable ?
-RDS_MPATH_WORKERS : 1), so a peer can never ask us to walk lanes that
-do not exist.
+Since commit f2e9de210d50 ("udp: gro behind static key") the receiving
+socket is looked up only once a tunnel socket exists, and commit
+36707061d6ba ("udp: allow forwarding of plain (non-fraglisted) UDP GRO
+packets") takes "no socket found" for "forwarded" and aggregates only
+then. So the device setting works on a host without a tunnel and stops
+working with one.
 
-This vulnerability was discovered by Tencent CodeBuddy Security.
+Aggregate whenever the device asks, socket found or not. That is what
+every host without a tunnel has done all along: a local socket without
+UDP_GRO gets the packets resegmented on delivery, and a tunnel socket
+keeps its own receive path.
 
-Cc: stable@vger.kernel.org
-Fixes: ba3d1f480c7a ("net/rds: size a connection's path set by the transport it ends up with")
-Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+Fixes: 36707061d6ba ("udp: allow forwarding of plain (non-fraglisted) UDP GRO packets")
+Signed-off-by: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
 ---
- net/rds/recv.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ net/ipv4/udp_offload.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---- a/net/rds/recv.c
-+++ b/net/rds/recv.c
-@@ -224,7 +224,8 @@
- 		/* Process extension header here */
- 		switch (type) {
- 		case RDS_EXTHDR_NPATHS:
--			new_npaths = min_t(int, RDS_MPATH_WORKERS,
-+			new_npaths = min_t(int, conn->c_trans->t_mp_capable ?
-+					   RDS_MPATH_WORKERS : 1,
- 					   be16_to_cpu(buffer.rds_npaths));
- 			break;
- 		case RDS_EXTHDR_GEN_NUM:
---
-2.43.7
+diff --git a/net/ipv4/udp_offload.c b/net/ipv4/udp_offload.c
+index cf07c3c6611a..d4e0e6bb9959 100644
+--- a/net/ipv4/udp_offload.c
++++ b/net/ipv4/udp_offload.c
+@@ -804,7 +804,7 @@ struct sk_buff *udp_gro_receive(struct list_head *head, struct sk_buff *skb,
+ 		if (skb->dev->features & NETIF_F_GRO_FRAGLIST)
+ 			NAPI_GRO_CB(skb)->is_flist = sk ? !udp_test_bit(GRO_ENABLED, sk) : 1;
+ 
+-		if ((!sk && (skb->dev->features & NETIF_F_GRO_UDP_FWD)) ||
++		if ((skb->dev->features & NETIF_F_GRO_UDP_FWD) ||
+ 		    (sk && udp_test_bit(GRO_ENABLED, sk)) || NAPI_GRO_CB(skb)->is_flist)
+ 			return call_gro_receive(udp_gro_receive_segment, head, skb);
+ 
+-- 
+2.56.0
+
