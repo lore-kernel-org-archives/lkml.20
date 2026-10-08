@@ -1,68 +1,114 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E82131716D;
-	Thu,  8 Oct 2026 06:36:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C57AA3C3F73;
+	Thu,  8 Oct 2026 06:38:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791441373; cv=none; b=DY+k51JB96TR9dVNSu4syfyEzexDRUCv20WcgBzBnwSOeFLQNd7VFuuq9nMZaZaC5hlKzmhrivhSd4uXvoIn6blUxuXbW4+LifYQIeGs88rR+V/+MND55odvHULQtbxFnlkGnxVblQ3TCMZIuDlxapm8gIyN8DBI/DR6/ONSHTM=
+	t=1791441526; cv=none; b=gjwl6+G8F+BF22FP7mFnxWe1Ucn4n1v6OuJvtCUwPSK6wF8htvwsOz5hyFKYfTCJ4kG6+84lHCCYy5X6EO4BrVZMpAdVw/Lo3T4yUfLHXGdPN7ZfAGcgTZnbuSzZQ8YDzz7gCrP4Lo/xCYh1D2PMDR5ppLNlkT7XXO5bSORiiPs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791441373; c=relaxed/simple;
-	bh=x8GQ9TqAFu5driuvo38kqzYt3n324pebOlaNmEELI+s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=oYpgElAxylG29LGWqwEjr43D0PUZ65RjrGW2QGh3Jm8ZanA4i7URm1s+E0eQ49Nh81PRITk0FTqAvXyfVen6LWajavQkucH0GUym9JKnSR/JG0w/zEgpIsw+75q2veBhXoKDyVi+f/PYlDXE4jRrVllDl6w/Defkyr5tbXYtYO0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eum2dbpZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791441526; c=relaxed/simple;
+	bh=mrUnNoXDONCeClzizhA+PfBKBytz99Ww9uSa0wPOvGo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=M2kDbXkaoXVF+AgKHKVyng0o09fCF7JrE/PopuWRBvNJQ34SYDORJk+3XvdFNmYJqUrrIxJWZxGw4SxvZglCx095zRwctMhcM4p6GizX+u19iRL146Py+H18VNL4FuO+gxRtQZE9wyv9kcqA3VZblVvNdXZLyvEN5/L8xhv09Ck=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j38/YTG9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eum2dbpZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C95A1F000FF;
-	Thu,  8 Oct 2026 06:36:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j38/YTG9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 100691F000FF;
+	Thu,  8 Oct 2026 06:38:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791441371;
-	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eum2dbpZhpcMtwT+YcnmGZreNLg1DS7lS7pL9VO4K0jKmmcQFJWRZ/XluRuaSg1zt
-	 b2nasbB2xz9bj2C8ujTl0eEY8w7xn5cLhNkYU21T3boaOXGU/gDEe07CK/cFheTjs5
-	 pMKhna0ZY4OU56sZveFKb4zXJO8jHLMWSs+8fWUBcsfzWVBuFRt864a/hvUkcKNGBD
-	 HQL3VC9ROYHHZWcfbD6MiuHVs2WCywD964dbEV/moivTdfJTGvbqWetwB8lzNRmOIe
-	 anQVj4N9XeqrpzPshkOhbQ4hLiqpkZeTjn362+QGG4edqSW2yEmQ7VisVwMVWQ2oUU
-	 xUXUuyKhb1CGg==
-From: netdev-bot+sinfo@kernel.org
-To: Cen Zhang <zzzccc427@gmail.com>
-Cc: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, baijiaju1990@gmail.com,
- jjzuming@gmail.com
-Subject: Re: [PATCH] ipv6: Protect the cork MTU read with RCU
-Date: Thu, 08 Oct 2026 06:36:10 +0000
-Message-ID: <179144137085.2527009.14623414863708511631@kernel.org>
-In-Reply-To: 
- <pm-ip-core-objects-candidate-0007-v2-46f5bb8aa2cc9824a047@gmail.com>
-References: 
- <pm-ip-core-objects-candidate-0007-v2-46f5bb8aa2cc9824a047@gmail.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	s=k20260515; t=1791441524;
+	bh=/RsqwdaewrKioDzHveOJKZewBC7grld6bvE/46a8ao4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=j38/YTG9lX9S2OLVXDrkb9B+8qcyyKaQeMspUhzgHXZ8OBa+qZnuSMP76709ZUhs+
+	 a2No4Xym2pRTE25zOa0YSWg1zIR0kv5unhOKYSL/1ewwvfOgo4NJsFKdKsz8awTWX4
+	 /6DtOBH0rcPuvqE9YaHNUMuGvM6gi5M72z4YFQzK+hsEcgkXstEWOdF23UpXTvDC1e
+	 rcXu6NMXbPo8akDEKg13ENAmZ4oJ4LGXJ/exQ0zvvwBHued3rbZO1rBc8wWJ/EeQCD
+	 ahpWpWePxF5W8jZpuc4bs15phLuYmjwyc3dTZ6oM5VUf+2nbrrXsgQSnnY9wHAOIMN
+	 OuVHTEGQbZ1dQ==
+Date: Thu, 8 Oct 2026 08:38:38 +0200
+From: Mike Rapoport <rppt@kernel.org>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Wandun <chenwandun1@gmail.com>, robh@kernel.org, saravanak@kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, akpm@linux-foundation.org
+Subject: Re: [PATCH v3 0/5] of: reserved_mem: several fixes about reserved
+ memory
+Message-ID: <asc6brs_g0ky0wOM@kernel.org>
+References: <20260920092852.614973-1-chenwandun1@gmail.com>
+ <arJA6fOMetzoBhDH@kernel.org>
+ <060fb694-ba1d-40e7-8a18-f32d5a4039ab@gmail.com>
+ <CGME20261003080438eucas1p2bdb68c248ecad088559285a4f736bfe5@eucas1p2.samsung.com>
+ <asC3DBvtlcO5AVsz@kernel.org>
+ <5dccea9b-a9e1-44f5-84d9-bc9efe04edee@samsung.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <5dccea9b-a9e1-44f5-84d9-bc9efe04edee@samsung.com>
 
-Hi!
+On Tue, Oct 06, 2026 at 03:26:21PM +0200, Marek Szyprowski wrote:
+> On 03.10.2026 10:04, Mike Rapoport wrote:
+> > On Tue, Sep 22, 2026 at 05:24:32PM +0800, Wandun wrote:
+> >>>> From: Wandun Chen <chenwandun@lixiang.com>
+> >>>>
+> >>>> This series fixes several error-handling issues in the reserved-memory
+> >>>> initialization paths.
+> >>>>
+> >>>> v2 --> v3:
+> >>>> 1. Rework the mechanism that checks in the late scan whether the early
+> >>>>    reservation succeeded (patches 3-5, suggested by Marek, thanks).
+> >>>>
+> >>>>    Patch 3 adds a new memblock flag MEMBLOCK_RSRV_RMEM, which is set when
+> >>>>    the early reservation of a static region succeeds and checked in the
+> >>>>    late scan.
+> >>> Can we keep this local to of_reserved_mem please?
+> >> Probably not. I do not see a way to keep this entirely local to
+> >> of_reserved_mem while handling the issue robustly.
+> >>
+> >> I previously implemented an approach in of_reserved_mem that records
+> >> static reserved-memory nodes whose early reservation failed in a local
+> >> array [1]. However, the early scan runs before paging_init(), so the array
+> >> cannot be dynamically expanded. If the number of failed nodes exceeds
+> >> the array size, some failures cannot be recorded and the issue remains,
+> >> and that is why Marek said "partial solution", although in practice
+> >> having that many failed nodes is unlikely.
+> > Even before paging_init() there is memblock_alloc().
+> 
+> One can call it, but such memory cannot be dereferenced/accessed for example
+> on ARM64, because it is not yet mapped in the linear map.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Can't we use early_memremap() for it?
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+If there are many regions that need MEMBLOCK_RSRV_RMEM set, memblock will
+need to allocate memory. If that memory is still not mapped we'll end up
+with a crash in memblock.
+ 
+> >> To handle this robustly, the late scan needs a way to determine whether
+> >> the corresponding early reservation actually succeeded. Current approach
+> >> uses memblock to retain that state.
+> > I can't say I like the idea of keeping this state in memblock.
+> > This add flags and code to memblock to deal with corner cases of bad
+> > firmware that reports weird memory layouts, and once there is a flag in
+> > the common infrastructure, people tend to abuse it.
+> 
+> So far I found no better place to store the information about successful
+> region reservation.
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+We can have reserve_failed_nodes larger than MAX_RESERVED_REGIONS, it's
+__initdata and anyway discarded after boot.
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+But even a DT with more than 64 bad regions seems broken enough to WARN()
+and ignore remaining errors.
+
+> Best regards
+> -- 
+> Marek Szyprowski, PhD
+
+-- 
+Sincerely yours,
+Mike.
