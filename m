@@ -1,134 +1,146 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.hallyn.com (mail.hallyn.com [178.63.66.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 350BB495ADB
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 13:56:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46C5F370ADF;
+	Thu,  8 Oct 2026 13:57:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.63.66.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791467796; cv=none; b=LC4i5lQJphLD/6ilOs8NUmxuhIIwFGhwvkzwPKXxmp+29YeJ0FpImOsZwzL+gUBqLHSu5QiOdfKmaaYStID1/cL+OP/FaKP/z7gM6F/yKH+OOEgLWqEm3Aljp2sgf3kREk7eM6cgUIm8cFiCWzHhwbS9loWsmh4MzR/uJ+0EOrU=
+	t=1791467882; cv=none; b=aFiX9QuQ9JuEaS4r7vybTUtySIpLjX+CnuOV7YEcvZLyXxWQlGphREtlUirB8S2ahwsdeHLdKjnry1WIstUO6WvgV35SHE03HodCosx1s3XOBMmGipyFmKN6fLCImDXFjC6L8EXHjHZeYAp3r3o8c4E2yT1g/cL07e/LZQp8UfU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791467796; c=relaxed/simple;
-	bh=LAtogNg3GGTrfds1O+SyiSrcHa26CQG9HkfS/nZnFzE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=U9V9GxFUknXqXR02DSry8Of9gE3yGy8v3u2M82MttivloadV/5h23n1qvbFTUSdgVPuaY1+jpK3zUwf+NLcWeq7+RC89R64bFK74axtihZqLPbeixPXXsoT0G7XKYI+nwPdOcqAopQSsbe5iElpc+o9ASjU/+4xIGfXgCKVCMvw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=huXeIoRb; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791467882; c=relaxed/simple;
+	bh=SHCFdRKZHF7nGgyUHMw8RQ1D9D8yAE8LOO7Mn3Jk8H0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=s4i5HkunZfrN3ALiIEr9ntGnGZAi4UnzlwP+hQlIhC4ROloLWBhlLAkyWyxhSYsvCmbVKHLW2aAiPdD7IHHNZlQlke3F46AR2faJuu8jji/es7flKDCryYr6mpLi9DfIdFCai7AonC+R18bCDTxo4DHW1346k0dnpIUK7Lh/QiQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hallyn.com; spf=pass smtp.mailfrom=hallyn.com; dkim=pass (2048-bit key) header.d=hallyn.com header.i=@hallyn.com header.b=wimmiNCQ; arc=none smtp.client-ip=178.63.66.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hallyn.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hallyn.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="huXeIoRb"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a018dc1f98so26134405e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 06:56:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791467793; x=1792072593; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=M6WX9i8mKVLwKoFhKGD1gOnudX0Yq9IQNCIvcNZ0AP8=;
-        b=huXeIoRb5nKQyHR81HunYdy/poQ5jaXb/GFPDgqG477JsOKDugBWVZLQNcYjZMtlb8
-         QmwQ7HdX/IYpmjta9Mh9sKa9k9h8WvFbjLgTJk6QLdOVty/8dNZ1fkAEReku7jRAXiok
-         zA+YrbMbybD1SZ608C12E9qoykVyezVUROSN9aeV7oExjUrHiD4Ss5TnWkUUG4Mo0UKC
-         QZQ66rB2q1lg2QyJLqPLi8ZZvNP5BJA9pQX3B03SHerDOq01PmPW/j2IVA6hFWtSER9e
-         SIVdH+ZICVgv4jyTcF4w6TFwT0jHbe8/5LMQyINamCUmg9Ir3lhldF2A7AlLyWwJi87R
-         MXnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791467793; x=1792072593;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=M6WX9i8mKVLwKoFhKGD1gOnudX0Yq9IQNCIvcNZ0AP8=;
-        b=DzowukqVED7kdUFfdOeCgTIwz1sjskI8IkTATFjBx1wfSFgZYbCBPU9qRocm8IGqKR
-         IHnz1G4r5N9PixQJx05yiZL9iLLO7QGiT+SGZcOPIj4y+KBEd5QyX6CVU5Mu0GAcJT7j
-         mZGqFUhps3StO4KbQercDEkYSD4oYVxjB1wrZketX1TWqcisQCdK3xijkCTH/DjvotM3
-         pE10AOVevWr+s9zMAA9CrjWZQaJ/cSnKmZZvw+g0ck1DQXEKb2A0GSlfDkEB7XAbixhC
-         cYWZ0OFqIXo/+U16c755uRiNmUyV1aHrwlm5BfwjmOBsAOTgcMY4mlGV1humwNrNb4C0
-         4AQw==
-X-Forwarded-Encrypted: i=1; AKwUvBzpEEyasDb7xqoNdgD/hgG8nH6HsQtsNumoVlp0mSobhNA5n345jR3wxANYh2A1sxCD21Ximb1B6L7hv6Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++ld4BGmLq39cSuMFBX7QkppeqBereiWr1bPAwPKRLmKjrH3TBDU
-	7p4cM9pWzNiToTR/KotScfkbRjXh31Y2vCrQjTFedyMvTQmZ5ZatLE8h
-X-Gm-Gg: AYBFou3S4sPnvP0PgKvDXoDOxB3MNwxDohRqvADaWITA677g6DwRtsGg/h30vSrEhlH
-	c86XOsQ2CWDrOL9QlpKFQRkL4es5fS+SsiNkbLEVCdDetmwk8A5YAKNf94mVrsqboVKQElBMKWW
-	RvCGSIp1a/o7sK71OUO7vWFvr7htklFN/1fV+gxCLpDRbQSm6jnkHIsUtzSkUYZavQfJgjdOt/+
-	UtJRFaAEelRKAkFQxagESPMe6+8BLTxKP2eUZaw9YgSM3HCz9yTz2LeRWbQKS5DuGdURBsV9gjd
-	Ww8+J+Z7HIHJuIBSpYiYErQb/4ZzpIpQKxLqq4B8HnDrtFI28Sv2cHN6lfQKhgwEUX3bpGa9u91
-	aM8HLRcps4Wru7z7Czea6YOhMvrkOlHtRSFZLQgc9cH++4Z7kXSxCOzulyYtfrwBJdx8pv/IUps
-	q77u/VFMAPDxFvunP3I1LTdhS71wpy3U3t+rOON7p+oTBId1ee0KQsgzhWTxBlPdVq+nAIBHZ0b
-	3sRMYmcv1U=
-X-Received: by 2002:a05:600c:3b86:b0:49f:bcce:13f5 with SMTP id 5b1f17b1804b1-4a18043c2a2mr124984465e9.24.1791467793365;
-        Thu, 08 Oct 2026 06:56:33 -0700 (PDT)
-Received: from localhost.localdomain ([2a0a:ef40:1479:f801:b8e7:18fe:7039:e475])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a184260f9asm76512765e9.0.2026.10.08.06.56.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 06:56:33 -0700 (PDT)
-From: Mohamed Jouini <amad3v@gmail.com>
-To: Armin Wolf <W_Armin@gmx.de>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Werner Sembach <wse@tuxedocomputers.com>,
-	Christoffer Sandberg <cs@tuxedo.de>,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Mohamed Jouini <amad3v@gmail.com>
-Subject: [PATCH v3 2/2] platform/x86: uniwill-laptop: Map the screen rotation key
-Date: Thu,  8 Oct 2026 14:56:24 +0100
-Message-ID: <20261008135624.3520849-3-amad3v@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261008135624.3520849-1-amad3v@gmail.com>
-References: <20261008135624.3520849-1-amad3v@gmail.com>
+	dkim=pass (2048-bit key) header.d=hallyn.com header.i=@hallyn.com header.b="wimmiNCQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=hallyn.com; s=mail;
+	t=1791467876; bh=SHCFdRKZHF7nGgyUHMw8RQ1D9D8yAE8LOO7Mn3Jk8H0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=wimmiNCQUKqbK364mt2ag1JjHsGSUSjxxoMzawoqnhCzbIKW5NOl0Vewzngef1WBe
+	 6hJZhIUAgom+vaTDdXla+V7aq9vRwDKCNkD9IiF+jy9HZ3N7xQYf+V/IzOC3g2wzFA
+	 tPjSYVNI+gXZZS1DmzLdR4a2SV/kxP4VM6yFARMDB7zydYpCfKaZdMFf0HBebkq73F
+	 k+b+hc/JQfMvDwrlL+uZdpXoimE+F5bG+vKRwvzdmtC31RgskloBCArSzee3FYFglw
+	 /wId3ElTcksGULRbe3QvC8lHn6JzHf6x4jnJg9ydwzwnnJDqCy43p4SH60hUl8DNa5
+	 HqCgD9KYUTUXw==
+Received: by mail.hallyn.com (Postfix, from userid 1001)
+	id DDD43876; Thu,  8 Oct 2026 08:57:56 -0500 (CDT)
+Date: Thu, 8 Oct 2026 08:57:56 -0500
+From: "Serge E. Hallyn" <serge@hallyn.com>
+To: Josef Bacik <josef@toxicpanda.com>
+Cc: Paul Moore <paul@paul-moore.com>,
+	Christian Brauner <brauner@kernel.org>,
+	James Morris <jmorris@namei.org>,
+	David Howells <dhowells@redhat.com>,
+	Jarkko Sakkinen <jarkko@kernel.org>,
+	"Andrew G. Morgan" <morgan@kernel.org>,
+	Serge Hallyn <sergeh@kernel.org>,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
+	keyrings@vger.kernel.org, linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH 0/5] capabilities: close the ways around the CAP_SETFCAP
+ rule for uid 0
+Message-ID: <asehZEWAwsJcbqvM@hallyn.com>
+References: <20261006-b4-setfcap-userns-v1-0-f47e7ed66072@toxicpanda.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261006-b4-setfcap-userns-v1-0-f47e7ed66072@toxicpanda.com>
 
-The PCSpecialist Recoil 16 AMD / TUXEDO Stellaris 16 Gen7 chassis has an
-"Sc" key next to F12, meant to rotate the lay-flat screen by 180 degrees.
-It reports WMI event 0xD0, which is currently reported as KEY_UNKNOWN.
-Map it to KEY_ROTATE_DISPLAY.
+On Tue, Oct 06, 2026 at 03:44:16PM +0000, Josef Bacik wrote:
+> Hello,
+> 
+> Commit db2e718a4798 ("capabilities: require CAP_SETFCAP to map uid 0")
+> stops a root task that has given up CAP_SETFCAP from creating a user
+> namespace that maps uid 0 and then writing file capabilities in it that
+> the initial namespace honours.  The check only looks at the task that
+> creates the namespace, so if somebody who did have CAP_SETFCAP created
+> one, there are still several ways around it:
+> 
+> - setns() into their namespace and write uid_map from inside (patch 2)
+> - write "0 0 1" through a uid_map fd that they opened (patch 3)
+> - setns() into a namespace of theirs that already maps uid 0 and set
+>   security.capability there, no map write needed (patch 4)
+> - ptrace one of their tasks and have it do any of the above (patch 5)
+> 
+> On an unmodified kernel we took a uid 0 task with CAP_SETFCAP dropped
+> from its permitted, effective and bounding sets and, through each of
+> these, ended up with a file that a uid 1000 user execs with
+> CAP_SYS_ADMIN in its effective set.
+> 
+> Patch 1 adds cred->setfcap_level, which records how far up the
+> namespace tree a task's CAP_SETFCAP reached when it entered its
+> namespace, and patches 2-5 check it.  Patch 4 is the check that closes
+> the class, the map patches make the uid 0 map rule mean what
+> db2e718a4798 meant it to, and patch 5 keeps ptrace from borrowing what
+> the target is entitled to.
+> 
+> This does change behaviour.  Everything new is -EPERM:
+> 
+> - a task that entered a namespace without CAP_SETFCAP outside can't map
+>   uid 0 of the outside or write fscaps for that root user anymore
+> - a uid_map fd opened by a task with CAP_SETFCAP can't be used by a
+>   task without it to map uid 0
+> - if a privileged task maps "0 0 1" from the parent for a namespace
+>   created by a task without CAP_SETFCAP, that namespace can no longer
+>   write fscaps honoured outside
+> - PTRACE_ATTACH and PTRACE_TRACEME fail when the tracer gave up
+>   CAP_SETFCAP and CAP_SYS_PTRACE, the target didn't, and they share a
+>   root user
+> 
+> Rootless containers, privileged runtimes writing the map from the
+> parent, nested unprivileged namespaces and containers that don't map
+> host uid 0 aren't affected.  The ptrace check is one compare for
+> targets in the initial namespace and in namespaces entered without
+> the capability.
+> 
+> Testing: a set of flows run on the base and patched kernels, every
+> bypass route above gets -EPERM with the series and the 16 legitimate
+> flows behave the same.  The capabilities, namespaces, ptrace, pidfd and
+> proc selftests give the same results before and after. Thanks,
+> 
+> Josef
+> 
+> ---
+> Josef Bacik (5):
+>       cred: record how far up CAP_SETFCAP reaches
+>       userns: don't let setns() lend the right to map uid 0
+>       userns: check the writer too before mapping uid 0
+>       capabilities: limit fscaps to where CAP_SETFCAP reaches
+>       capabilities: don't let ptrace borrow CAP_SETFCAP
 
-Signed-off-by: Mohamed Jouini <amad3v@gmail.com>
-Reviewed-by: Armin Wolf <W_Armin@gmx.de>
----
-Changes in v3:
-- None. TUXEDO know of no device using event 0xD0:
-  https://lore.kernel.org/r/66a47248ecfa1704186274f2c245d3f5@tuxedo.de
+Thanks, Josef.
 
-Changes in v2:
-- Added Reviewed-by.
+Would you mind describing what other solutions you considered?  I've been
+looking over this set since Tuesday, and finding it hard to reason about.
+(Part of that is certainly the nature of the problem, and it's possible
+that this is the best/simplest solution.)
 
- drivers/platform/x86/uniwill/uniwill-acpi.c | 3 +++
- drivers/platform/x86/uniwill/uniwill-wmi.h  | 3 +++
- 2 files changed, 6 insertions(+)
+If we replaced the userns->parent_could_setfcap bool with a ref to the
+creator's cred, then at both setns and write we could check the actor's
+credentials, right?  There are probably issues with that specific idea,
+but that's why it would be good to see what else you've considered.
 
-diff --git a/drivers/platform/x86/uniwill/uniwill-acpi.c b/drivers/platform/x86/uniwill/uniwill-acpi.c
-index dc9b73afd..6b0dd0e4f 100644
---- a/drivers/platform/x86/uniwill/uniwill-acpi.c
-+++ b/drivers/platform/x86/uniwill/uniwill-acpi.c
-@@ -506,6 +506,9 @@ static const struct key_entry uniwill_keymap[] = {
- 	/* Reported when the user wants to toggle the webcam */
- 	{ KE_IGNORE,    UNIWILL_OSD_WEBCAM_TOGGLE,              { KEY_UNKNOWN }},
- 
-+	/* Reported when the user wants to rotate the (lay-flat) screen by 180 degrees */
-+	{ KE_KEY,       UNIWILL_OSD_ROTATE_SCREEN,              { KEY_ROTATE_DISPLAY }},
-+
- 	{ KE_END }
- };
- 
-diff --git a/drivers/platform/x86/uniwill/uniwill-wmi.h b/drivers/platform/x86/uniwill/uniwill-wmi.h
-index b25b2f312..1b6f650c4 100644
---- a/drivers/platform/x86/uniwill/uniwill-wmi.h
-+++ b/drivers/platform/x86/uniwill/uniwill-wmi.h
-@@ -117,6 +117,9 @@
- 
- #define UNIWILL_OSD_WEBCAM_TOGGLE		0xCF
- 
-+/* "Sc" key next to F12 on the PCSpecialist Recoil 16 / Stellaris 16 Gen7 */
-+#define UNIWILL_OSD_ROTATE_SCREEN		0xD0
-+
- #define UNIWILL_OSD_KBD_BACKLIGHT_CHANGED	0xF0
- 
- struct device;
--- 
-2.56.0
+Of course UID 0 will always continue to carry privileges even with an
+empty cap_eff.  Here we're stopping it from writing filecaps to uid 0
+owned files, but if it can open a 0 owned file on the host, like
+/bin/sh or a systemd init file, or ptrace a process (in a child ns that
+maps parent uid 0) doing so, it can still cause damage.  My point being,
+we do need to keep in mind the tradeoff of keeping the code simple
+versus the realistic threat of the problem being addressed.
 
+>  include/linux/capability.h   |   4 ++
+>  include/linux/cred.h         |   1 +
+>  kernel/user_namespace.c      |  40 +++++++++++----
+>  security/commoncap.c         | 119 +++++++++++++++++++++++++++++++++++++++++--
+>  security/keys/process_keys.c |   1 +
+>  5 files changed, 150 insertions(+), 15 deletions(-)
+> ---
+> base-commit: 7909a3e30a05e40bbc8bfb7f5629ed642abeaab8
+> change-id: 20261006-b4-setfcap-userns-d63185a31ce3
