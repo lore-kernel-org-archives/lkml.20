@@ -1,178 +1,171 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B56A28F5;
-	Thu,  8 Oct 2026 04:21:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8B3628F5;
+	Thu,  8 Oct 2026 04:26:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791433310; cv=none; b=fZEcuejhC0X/PlX9ZZeYzHNriXN7a7aoxVN+0M9aOMEJrtZPMbEZBcr1+Cd4Gi2RcHL+IpWpIyAOkhJ01qlIMUhvhPQdpSgB2xvL9o6CO3EIsQYjqMbCnqx4w3JjImoy0YbNlxx6c3Z9lBy6y2+CnLVmZ3+qsIxRqkEWl3s0x4Y=
+	t=1791433591; cv=none; b=LrJjMaX6uqqeDlB46/8BnhGlTK63SndwbSNdHlKMMYB6ZMcVhji2pk8WFKxaz/ZcGvIxDQP0Ms5QPJVIYpaeXAhXLFDNKxVQCK9DkXwCer+SM7PS2Ydxb/0Y7Dsq8A9wQF73NqkwMPX8kvdAOMBgZwiL9PhTnjYepOYqLkTSgv8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791433310; c=relaxed/simple;
-	bh=72t8kjnmtlHayJXabWx7qkj7uN9CNyIrQorr5EX/XD4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZpZTLBN8DrEet4gBKvzfwrY+YdF7g291vTS0mY4cfxtvSMxRblkvVLnm5XhKYQhMLc+WoIjUj9cZAK6RQvrLZoQNvUwzzNlvZbJ9nz6tugXo0w9xsx1TayEcgdC8sF/0bNmABcCoDIFPqMuGlYfqVtBBgQo1gse74D/5uujbV4s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bI18DeG9; arc=none smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bI18DeG9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791433308; x=1822969308;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=72t8kjnmtlHayJXabWx7qkj7uN9CNyIrQorr5EX/XD4=;
-  b=bI18DeG935pvf2gmg7b6+7pV+Qz1cO7ks7kQAqieXuM3pZMGYzMth3vl
-   tuQ22CwqDSN3aApUH1BWr9DokCUacUucJBpJvzddH2p8rZKUo4YMA0QSl
-   ju4hWQhkeuw6dK5Gz16nyDjknSJFTzG9ICAZb7sqtdvZlhyZG/CH4BzGx
-   BD5PuijIcOU5M7VyQiF+41ExbfACfeffbPkTj9krd5J2xsPtiLVUuSVMY
-   ojp1mqbsjvd0Ckec+FyxzLfcyF0oNRF73qtVrwYmjmHBOGBrrFYK29szO
-   Xo7VH4ywuSAztx336XVL/2exCLpE+73wy7TMyjRgDe0QUSc5KzEvNRg7Z
-   A==;
-X-CSE-ConnectionGUID: R3Td3kqASf+ko6n+8RFrwg==
-X-CSE-MsgGUID: J8Jwrby8RpWNzo/BTMxiag==
-X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="89787"
-X-IronPort-AV: E=Sophos;i="6.27,145,1787036400"; 
-   d="scan'208";a="89787"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 21:21:48 -0700
-X-CSE-ConnectionGUID: ijIX/gW5Q9+QS8t15kW+Mg==
-X-CSE-MsgGUID: ZMwSeSVDTranw+w5fx6dCw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,145,1787036400"; 
-   d="scan'208";a="4524"
-Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
-  by fmviesa001.fm.intel.com with ESMTP; 07 Oct 2026 21:21:43 -0700
-Date: Thu, 8 Oct 2026 12:18:33 +0800
-From: Xu Yilun <yilun.xu@linux.intel.com>
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-Cc: "linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"x86@kernel.org" <x86@kernel.org>,
-	"kvm@vger.kernel.org" <kvm@vger.kernel.org>,
-	"Li, Xiaoyao" <xiaoyao.li@intel.com>,
-	"Hansen, Dave" <dave.hansen@intel.com>,
-	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
-	"baolu.lu@linux.intel.com" <baolu.lu@linux.intel.com>,
-	"Hunter, Adrian" <adrian.hunter@intel.com>,
-	"tony.lindgren@linux.intel.com" <tony.lindgren@linux.intel.com>,
-	"kas@kernel.org" <kas@kernel.org>, "Xu, Yilun" <yilun.xu@intel.com>,
-	"artem.bityutskiy@linux.intel.com" <artem.bityutskiy@linux.intel.com>,
-	"nik.borisov@suse.com" <nik.borisov@suse.com>,
-	"Mehta, Sohil" <sohil.mehta@intel.com>,
-	"Duan, Zhenzhong" <zhenzhong.duan@intel.com>,
-	"Gao, Chao" <chao.gao@intel.com>,
-	"Fang, Peter" <peter.fang@intel.com>,
-	"Maloor, Kishen" <kishen.maloor@intel.com>
-Subject: Re: [PATCH v3 2/6] x86/virt/tdx: Configure add-on features on TDX
- module init
-Message-ID: <ascZmXRuxiiAAv2+@yilunxu-OptiPlex-7050>
-References: <20261006-tdx-module-ext-v3-0-db52cb05b918@linux.intel.com>
- <20261006-tdx-module-ext-v3-2-db52cb05b918@linux.intel.com>
- <51a0f0e33d523fa652b3c664ea1083a9459bd323.camel@intel.com>
+	s=arc-20240116; t=1791433591; c=relaxed/simple;
+	bh=fKmC7isANeWSQkMFdzhABW3n8nX5aIVpn/6hyVkAaGM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BuX1j70DZfRQiDiEiDCpNUlS+gxDsFpq1cj206jA5dnkxjJR2oRfvjk074Of5fxt9/6p80HPMdaqholhNPG4hka6htV1DRmO9gLou1TnQlNXYM7RAMnrzV2CJ16R97Wt+kN7wbC9j0ZvFBSmY5EGp3y1Ks6NMjC59jwQwegqXjs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.177])
+	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4j0bzW06SyzYQtmV;
+	Thu,  8 Oct 2026 12:07:03 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.112])
+	by mail.maildlp.com (Postfix) with ESMTP id 059EE40597;
+	Thu,  8 Oct 2026 12:07:45 +0800 (CST)
+Received: from [10.67.111.192] (unknown [10.67.111.192])
+	by APP1 (Coremail) with UTF8SMTPA id cCh0CgDHPvkPF8dqUfGADA--.58498S2;
+	Thu, 08 Oct 2026 12:07:44 +0800 (CST)
+Message-ID: <d0a4c5f6-fb17-4f9b-9e5a-b42b0c5450db@huaweicloud.com>
+Date: Thu, 8 Oct 2026 12:07:43 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <51a0f0e33d523fa652b3c664ea1083a9459bd323.camel@intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] bpf, arm64: Fix racy plt target update in
+ bpf_arch_text_poke()
+Content-Language: en-US
+To: Matthew Wood <thepacketgeek@gmail.com>,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
+ Emil Tsalapatis <emil@etsalapatis.com>,
+ Ihor Solodrai <ihor.solodrai@linux.dev>, Puranjay Mohan
+ <puranjay@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>
+Cc: Breno Leitao <leitao@debian.org>, bpf@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261002121233.561368-1-thepacketgeek@gmail.com>
+From: Xu Kuohai <xukuohai@huaweicloud.com>
+In-Reply-To: <20261002121233.561368-1-thepacketgeek@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:cCh0CgDHPvkPF8dqUfGADA--.58498S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxGF4xXryfXrWkurWDWFWrGrg_yoWrAF15pF
+	yjvrnIkr4qgFWDArs7K3WUXF1rZw4kWrsrCr9ak34rCay5XrySvryrKw13Crs8Cr98u3s5
+	ZFWjv3sxZa1DJaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUv0b4IE77IF4wAFF20E14v26ryj6rWUM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
+	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7Cj
+	xVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x
+	0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG
+	6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFV
+	Cjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS
+	14v26r4a6rW5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I
+	8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWr
+	XwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x
+	0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_
+	Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU0
+	s2-5UUUUU==
+X-CM-SenderInfo: 50xn30hkdlqx5xdzvxpfor3voofrz/
 
-On Tue, Oct 06, 2026 at 11:56:23PM +0000, Edgecombe, Rick P wrote:
-> On Tue, 2026-10-06 at 01:41 +0800, Xu Yilun wrote:
-> > The TDX architecture identifies some features that are off by default
-> > but can be enabled by the host during TDX module initialization. They
-> > are classified as add-on features because enabling them affects existing
-> > TDX systems: they may change existing feature behavior, or reserve more
-> > memory.
-> > 
-> > The TDX module extends TDH.SYS.CONFIG with a new register argument to
-> > specify which add-on features to enable. This new argument is a bitmap
-> > that uses the same feature bits as TDX_FEATURES0. Note that Dynamic PAMT
-> > is an exception: although it is an add-on feature, it is controlled via
-> > a legacy, dedicated register argument [1].
-> > 
-> > The kernel needs to enable these add-on features when it supports them.
+On 10/2/2026 8:12 PM, Matthew Wood wrote:
+> When a long-jump trampoline is attached to or detached from a bpf prog,
+> bpf_arch_text_poke() updates the plt target at the end of the prog by
+> temporarily making the page writable:
 > 
-> I made a similar comment on v1:
-> https://lore.kernel.org/lkml/41f5a558ca67e2895fcb114c418f0e453e933974.camel@intel.com/
+> 	set_memory_rw(page);
+> 	WRITE_ONCE(plt->target, plt_target);
+> 	set_memory_ro(page);
 > 
-> It is up to the kernel to decide if it wants to enable these features, when it
-> supports them. The sentence sounds like there is some hard requirement to enable
-> them when possible. I think the reasons to enable them based solely on available
-> support could be:
->  1. They don't take significantly more memory or CPU resources, and limiting
-> possible configs reduces kernel complexity.
->  2. It would be rare that people don't want them on.
+> Since commit 1dad391daef1 ("bpf, arm64: use bpf_prog_pack for memory
+> management"), bpf progs are allocated from the bpf prog pack, so
+> unrelated progs and their plts commonly share a page. The sequence
+> above is not serialized against other pokers, it runs before text_mutex
+> is taken and callers only hold the lock of the trampoline being
+> updated. Two CPUs attaching to or detaching from different target progs
+> in the same page can therefore race:
 > 
-> Maybe we tweak this to be?
+> 	CPU A                           CPU B
+> 	set_memory_rw(page)
+> 	                                set_memory_rw(page)
+> 	                                WRITE_ONCE(plt_B->target, ...)
+> 	                                set_memory_ro(page)
+> 	WRITE_ONCE(plt_A->target, ...)  <- permission fault
 > 
-> Despite that these features can be add-ons due to introducing some overhead to
-> TDX runtime, the impact of the first features will be low enough to pursue a
-> simple approach of just enabling them when supported. If a feature with a very
-> high overhead appears in the future, this can be revisited.
-
-Good to me. I'll include it in v4.
-
-[...]
-
-> > @@ -1056,6 +1066,15 @@ static __init int tdx_sys_config(struct tdmr_info_pa_array *tdmr_pa_array,
-> >  		args.r8 |= TDX_SYS_CONFIG_DYNAMIC_PAMT;
-> >  	}
-> >  
-> > +	/*
-> > +	 * Use SEAMCALL version 1 that supports add-on features if any are
-> > +	 * requested. Otherwise use version 0 for backward compatibility.
-> > +	 */
-> > +	if (addon_features0) {
-> > +		args.r9 = addon_features0;
-> > +		args.version = 1;
+> This was hit on an arm64 server with 64K pages while attaching fentry
+> programs to bpf progs:
 > 
-> This is a slightly silly pattern:
-> args.r9 = 0;
-> if (addon_features0 != 0)
-> 	args.r9 = addon_features0;
+>    Unable to handle kernel write to read-only memory at virtual address ffff80008f46d5f8
+>    ESR = 0x000000009600004f
+>    FSC = 0x0f: level 3 permission fault
+>    pte=00c00200ea5a0783
+>    Internal error: Oops: 000000009600004f [#1]  SMP
+>    pc : bpf_arch_text_poke+0x214/0x238
+>    lr : bpf_arch_text_poke+0x200/0x238
+>    Call trace:
+>     bpf_arch_text_poke+0x214/0x238 (P)
+>     __bpf_trampoline_link_prog+0x1c8/0x470
+>     bpf_trampoline_link_prog+0x64/0x90
+>     bpf_tracing_prog_attach+0x318/0x4a8
+>     bpf_raw_tp_link_attach+0x104/0x258
+>     bpf_raw_tracepoint_open+0x6c/0x90
+>     __sys_bpf+0x134c/0x3e10
 > 
-> ...could just be:
-> args.r9 = addon_features0;
-
-Yes, that's workable.
-
+> Rather than serializing the permission changes, stop changing page
+> permissions altogether and write the plt target with
+> aarch64_insn_write_literal_u64(). It writes through the text patching
+> fixmap under patch_lock, the same way the rest of the prog pack is
+> written, and performs a single-copy atomic 64-bit store. The plt target
+> is naturally aligned (see build_plt()), so CPUs concurrently executing
+> the plt still observe either the old or the new target. This is the
+> same helper ftrace and static calls use to update 64-bit literals that
+> are loaded concurrently.
 > 
-> It could actually set args.version a similar branchless way.
-
-Not sure how?
-
-I don't think just "args.version = 1" can work. It will fail older
-modules which doesn't support add-on features & doesn't recognize
-TDH.SYS.CONFIG v1.
-
-How about:
-
-	struct tdx_module_args args = {
-		.rcx = __pa(tdmr_pa_array),
-		.rdx = nr_tdmr_pa,
-		.r8 = global_keyid,
-		.r9 = addon_features0,
-	};
-
-	...
-
-	if (args.r9)
-		args.version = 1;
-
+> Fixes: 1dad391daef1 ("bpf, arm64: use bpf_prog_pack for memory management")
+> Signed-off-by: Matthew Wood <thepacketgeek@gmail.com>
+> ---
+> Changes in v2:
+> - Replace page permissions change with call to aarch64_insn_write_literal_u64
+> - Link to v1: https://lore.kernel.org/linux-arm-kernel/CADvopvZPO1gDMDhDOPcArjRJ0cPpSUZ5suMg-1kwRi+_-Xeitw@mail.gmail.com/
+> ---
+>   arch/arm64/net/bpf_jit_comp.c | 12 +++++++-----
+>   1 file changed, 7 insertions(+), 5 deletions(-)
 > 
-> But I think the version in this patch is super obvious about what is happening
-> and has a nice place for the comment. And this is extremely far from a
-> performance critical path.
+> diff --git a/arch/arm64/net/bpf_jit_comp.c b/arch/arm64/net/bpf_jit_comp.c
+> index 475e70653454..e353403cc1c3 100644
+> --- a/arch/arm64/net/bpf_jit_comp.c
+> +++ b/arch/arm64/net/bpf_jit_comp.c
+> @@ -3339,13 +3339,15 @@ int bpf_arch_text_poke(void *ip, enum bpf_text_poke_type old_t,
+>   		plt_target = (u64)&dummy_tramp;
 > 
-> 
-> > +	}
-> > +
-> >  	return seamcall_prerr(TDH_SYS_CONFIG, &args);
-> >  }
-> >  
-> > 
-> 
+>   	if (plt_target) {
+> -		/* non-zero plt_target indicates we're patching a bpf prog,
+> -		 * which is read only.
+> +		/*
+> +		 * non-zero plt_target indicates we're patching a bpf prog,
+> +		 * which is read only. The prog shares its page in the bpf
+> +		 * prog pack with other progs, so write the aligned target
+> +		 * through the text patching fixmap without flipping the
+> +		 * page permissions to avoid racing with concurrent pokers.
+>   		 */
+> -		if (set_memory_rw(PAGE_MASK & ((uintptr_t)&plt->target), 1))
+> +		if (aarch64_insn_write_literal_u64(&plt->target, plt_target))
+>   			return -EFAULT;
+> -		WRITE_ONCE(plt->target, plt_target);
+> -		set_memory_ro(PAGE_MASK & ((uintptr_t)&plt->target), 1);
+>   		/* since plt target points to either the new trampoline
+>   		 * or dummy_tramp, even if another CPU reads the old plt
+>   		 * target value before fetching the bl instruction to plt,
+
+
+I think it's better to combine the two nested if statements into one, and merge
+the two comments into a single comment above the new if statement.
+
+Otherwise lgtm.
+
+> --
+> 2.53.0-Meta
+
