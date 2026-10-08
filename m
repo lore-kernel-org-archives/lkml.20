@@ -1,405 +1,405 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE92335966;
-	Thu,  8 Oct 2026 15:19:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791472769; cv=none; b=AVP9EWUkhwloYrlQR/Fg7E4350sAkkRrAmpWlo12khewf/decPT39/4yWElOwZEci7RaMVBEFmIlZMYh3hcKsbSbKHR/ktL1BkOQUjJBekhadRwgwePiCq1c2wwdCk96lMkrXYnXfOUjy5qtiso80QhSY2T+utHf3sN0XMJGSDU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791472769; c=relaxed/simple;
-	bh=iMxqZeByvlR+Z4UsP5hPyWSHTy4S6YPSKRgItqJGzVw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=b++LncZ9vpr1coRfXweLv6F7VHXMA45ZfeJAXdDF9y5U5CUemk+N8aU5qL/nZd29FNEcyPIq3ftvncAkt7hxjxwKX3SiqsQVDa40PzNu2ucqcvUjtnsjSDrCmPgvVBthYEOk+9E890gzrl+2ZHPCqf2SqgJ7H8rGKf6ww6O9rUE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cGDfhn6/; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59616449EB6
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 15:20:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791472805; cv=pass; b=GYdj7mLWC9WDwd+JH32xxv7awoO21ax4OMjpHGgox5W3UXtpk5Fx1aE7Jh99sse1kxBBlW2CZ7tAzL7Agjzq2SSE3yPAFoeDyOxI7VsdP295l6oOH8IcrHxzJdw8OmAc/cvD5xYCjBdTcqL8X3CEdGSihB2y67KYx4s0pzPJ/Nw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791472805; c=relaxed/simple;
+	bh=Mtp5bsaUmX/s+WnZtwrAzzfDrBqtRRb5bfY+/bnQkEU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=m29SnE/w56GxOmEY2oeN36Jb2PnEnEOMF8QVwIyNra4VsgQM3DRE8KVu9eMti9d9EdezrV1asXoZWeGivaHeFXL5+GwuDTnm1K1nyIBYA8iauraVVO6ivH2i4SGxJ3jaMd5OKz6QT4QDnnWDw4Pd7Q4OG7LMqxp/962fw4wTyLg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fs+5CIuL; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JGjK06ob; arc=pass smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cGDfhn6/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791472763; x=1823008763;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=iMxqZeByvlR+Z4UsP5hPyWSHTy4S6YPSKRgItqJGzVw=;
-  b=cGDfhn6/c/nJigGn4FZj5pUCUuZ2+6bTcZjp0flEaYhOmd+hIU/7/ACl
-   X2by6Q3S5xBGI5PtUHfmpuT9NDCl1oyyPNCap+s/Z58dOqdNT/6nTX9It
-   CO6IASQyNt+B5uNjw7ueI5N/AKHWDgZRVuQDbhjcpWJmhycgINr2NycBN
-   6+RJnc0FCwQpSZoa3oxupJ5h+mCMsYX12m+zF4TxkNxvmymaAV0VQg3Om
-   bbhwwejcLgLSLlyy/xXSF2t68t1Qqbq45sQONZQR8BI711zVyF9lf4hJN
-   di5VDXBWXTqtwlFqj9KnrTCVZJwOijpH/u4TcwoX/LocXK4RlmpNcL7W2
-   A==;
-X-CSE-ConnectionGUID: cwuDjbB/T4Gs2oG9M5qISA==
-X-CSE-MsgGUID: PpR9wHwQTb+wUiVEZiVlQw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="257272"
-X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
-   d="scan'208";a="257272"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 08:19:23 -0700
-X-CSE-ConnectionGUID: HapRzfdPT0KH8TOvU9aKzQ==
-X-CSE-MsgGUID: cS8ZRYiYR/+JPlB2W4fOaA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
-   d="scan'208";a="428628"
-Received: from jjgreens-desk24.amr.corp.intel.com (HELO [10.125.109.51]) ([10.125.109.51])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 08:19:20 -0700
-Message-ID: <60653fdc-2b9c-4f9d-841c-6d7d68d51ed3@intel.com>
-Date: Thu, 8 Oct 2026 08:19:19 -0700
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fs+5CIuL";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JGjK06ob"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 698EVu9l3642781
+	for <linux-kernel@vger.kernel.org>; Thu, 8 Oct 2026 15:20:01 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	xO6HRIbaR779RI13y+o0Nr/9NK+qGmYcAQOWWtcfvJ4=; b=fs+5CIuLFcpDjBzR
+	at7VKHOxnae6JNHFqwD5XCNkJK7k72fyz7iYFNVpbSzZnKRkZw1iJMG+Yk/OEsNZ
+	JusLXG/w5fQvrDfmW5xef1Cqf+zQmNAn+nzaH0Ezxj46mWENKiSQvBvg8ieJd+YZ
+	8k+Pj1Quvgp3xTThwa0Mbw5vITg5VdzW1BoS3h1Y3tPsO91AUiKeXV837Q3BOpxI
+	8fVCDHWrrehFgx03nm8/PsFV4lfywEZdNOb3MQCyna/a8meaVF4p0gl5el6DoDgY
+	/N7XhXWpUIaLV+OdwRsirlE54/hzZb98jjVnk8kYQ3aX/+fyQyiBYNF2Edlz/GE4
+	MiAhAg==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe43gkv-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 15:20:00 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-9104eedb5b0so155944246d6.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 08:20:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791472800; cv=none;
+        d=google.com; s=arc-20260327;
+        b=lQuskLBY18zYT6EviW0Hd2VUG79qd4Q7W6QXeNFy3MblcWBXGI7frBwHujiAKEqLOA
+         8hnTMeF4bt1k5GNifW2J0lww4pI2Uvley1b/xC+5JfgTX0F+QPHHO2XSqBJDrgVFyWTk
+         54c69wuMNWyEho5rQY9sRkGJEoJVFcZBmgLva/YZOzylV3Jx+R+y9t1CMGGStjftVmbq
+         fe7+rpVA3HeV3jaoyPxQx+JEhEDapuacQ37R/qbLklRir/o8XXOKoqub9mljcSbQNH+6
+         fhdSvN+5Kr0JF5TlvC+S03qgqTunw1tLYMy/6FwahS4MDWcC21whqXZ2SEruOFZwejUg
+         BXEg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=xO6HRIbaR779RI13y+o0Nr/9NK+qGmYcAQOWWtcfvJ4=;
+        fh=U0Q5+CxHeq1aYOWdI8IwM5hxUcQ+ftvbPCpEpzEDBoM=;
+        b=eJWCDY5d6imPJ8jDmGjqJGkGU/WC+XnL2KleBme1QkHX/MufvsdgMXtBKEyEtazyFJ
+         1EnFZTQTSUoQeeHdlpdmzhuggWCEqmXHqa8YUVLY11ci7+EHmnP66z1C0TnBC29I7dsc
+         Lg7Tv1omp0F0TORNmYAzgQ8O5FUu3xTS1BWLlLn8T4EpfIFmmWiz76TA4H/gbZCsEza8
+         Hs4WsRBzkqf1p1o/L5T11ql1dRCFkLat3UjqvjH8CXbSfcZX9yCM26O5bLYdb+elEYsi
+         Bia+HKXhRoO44ZK7dVsLD/CWlYkHyivNATQMUbGlnj0DvlfH10UuHimgUTtT7jvYY0I8
+         RleQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791472800; x=1792077600; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xO6HRIbaR779RI13y+o0Nr/9NK+qGmYcAQOWWtcfvJ4=;
+        b=JGjK06obGWcsx/dxGV2QE2EhozdlxEohmpjAq4G//d9XpliLh6dSSXoxHuqtv9Xsh/
+         8gkIlCtOTu6zWYKIrW1Wc0GJaREGqudibPIctjLGKIFFGHb6SxamRM0B88EHAArc3uvW
+         LgQwrYeWSe5MiQ4wDVb8oBUbemt0NS1OjVL/Qy87hB8yXXd/OhpdZlJjbJPmY9IpEvIk
+         B9Exp4tW9MMUFCN15wF2or4m2u2qXlZ52EJL46PC+ssx9R/0hZ803V8V3PGVjMyqLOLz
+         qGxuEAJ9s1aLGp+5gouuEsX0noxZQh6j6GyThl8eJtvX3l9xyLGVcsuwMSUYWuLJfdcq
+         q8RQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791472800; x=1792077600;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xO6HRIbaR779RI13y+o0Nr/9NK+qGmYcAQOWWtcfvJ4=;
+        b=iBimFs0ZKzVW3Qyw6BtKz2ttMLrKU0Oc71J9aeZXz9CuLBFasGqNwVcPA4GSRwTWOq
+         QRMW0uxQg4ot8U0ZjO55WRsSk/yavbnl2se04UiI2u3X/OPRv0vt6KadMzVPEgWn5cIX
+         TsewgeWnd0GN/QXsUkiuHsP2Th1WptQlAvq5njYkI6G8Wxa1MwgnNGAOobUiumMSJaY+
+         ScNXg5qW9HNfLH+8XhWx3a1a0ZNSL5FTQIVRRm4BvYgL4YpGqk8lhzlxtbKQkXkEj2/m
+         1p7vt2SndRlI6GrUCJeF2hU99f8Ks/6nN9m/LZebZUh6sCFoLXgkxweWc34f0Rkr5exh
+         ihjw==
+X-Forwarded-Encrypted: i=1; AKwUvBwcVMltsy0VZKmQKlKHN/BIc/aq+3QpLKK7bssFE9kawUDlewhChic6pkpSDTqaDC8LD6vIaSOLuBoLyE8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nB1J0CH2Xa1TVJf0gxApWrNAranovKiakc/9mVzhiYHmVTU9mh
+	29kFPx698hkW2T0H0wziBUlJ+PRbaVu/p2Hvp7xWkNSzLpOWxsiwO1Y1eLzeCNE2YXKlgDFO/KH
+	qF82Vd64L0DLiZVsplpas+jJQJtSxVY3twlK0hIbumeuvqfZJsNgHSk4ztnis/fcfVlLyLCb2/F
+	hepjjPfLbrZUuNBYM3aHwJhm69NzO1S51LnTpIjLZAAQ==
+X-Gm-Gg: AYBFou0BmNOKZF3qWdhtwHE459ckVuwDGHK1d1JgDudw/WU7E4cgW3Mehoc0me/3NR6
+	7Zq0jAVmm27/TmT2tMd2VvlUTjE8Y9qNDuN8QxpEaTFxe6M1THZwXyePntqOHI4UXO51gu8L+mg
+	tALTt6B2VEUiJFiJR8bVmvN3OJ5koiE4gskqUiu/4pyyEbQ6qyDOFPEUch5WgnjFmOaJ2wFX/aB
+	jgrYr+/XZUxLR3bqMzYI76NBQI2TttJ8CeNbO67BMrWFWSGv5wquqyt+cyaToO0V51988QkG10=
+X-Received: by 2002:a05:6214:5d13:b0:912:488d:33ac with SMTP id 6a1803df08f44-919979319efmr107076076d6.17.1791472799508;
+        Thu, 08 Oct 2026 08:19:59 -0700 (PDT)
+X-Received: by 2002:a05:6214:5d13:b0:912:488d:33ac with SMTP id
+ 6a1803df08f44-919979319efmr107075616d6.17.1791472798756; Thu, 08 Oct 2026
+ 08:19:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v14 05/16] cxl: Introduce reusable HDM decoder settings
-To: Li Ming <ming.li@zohomail.com>, Srirangan Madhavan
- <smadhavan@nvidia.com>, Alison Schofield <alison.schofield@intel.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Davidlohr Bueso <dave@stgolabs.net>,
- Ira Weiny <ira.weiny@intel.com>, Jonathan Cameron <jic23@kernel.org>,
- Vishal Verma <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Alex Williamson <alex.williamson@redhat.com>, vsethi@nvidia.com,
- alwilliamson@nvidia.com,
- Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
- Vishal Aslot <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>,
- Jiandi An <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
- linux-tegra@vger.kernel.org
-References: <20261001092227.3004747-1-smadhavan@nvidia.com>
- <20261001092227.3004747-6-smadhavan@nvidia.com>
- <60dbd245-0b16-4c4b-8350-26570916ede0@intel.com>
- <12dff52f-61fb-4796-afa9-0e7a8f74452d@zohomail.com>
- <e8ee0949-90b9-4572-869d-61b4073c568d@intel.com>
- <f3c0fd73-c9e0-4b65-9f83-2b1fd9579dca@zohomail.com>
-From: Dave Jiang <dave.jiang@intel.com>
-Content-Language: en-US
-In-Reply-To: <f3c0fd73-c9e0-4b65-9f83-2b1fd9579dca@zohomail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261007182238.1154851-1-peter.hunt@opengear.com> <20261007182238.1154851-2-peter.hunt@opengear.com>
+In-Reply-To: <20261007182238.1154851-2-peter.hunt@opengear.com>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Thu, 8 Oct 2026 17:19:45 +0200
+X-Gm-Features: AclHuK93Uq-IFjmeH-9lFHtazJbB-UGdgh5WgvVUomru_SE4CNqvEhX_yndO9b8
+Message-ID: <CAFEp6-2QsKyZfEdSotVPhxVNOyRzncUphqLY5cRwHXGJiEbzuA@mail.gmail.com>
+Subject: Re: [PATCH net-next v8 1/2] net: wwan: core: propagate modem control
+ signals to port drivers
+To: Peter Hunt <peter.hunt@opengear.com>
+Cc: ryazanov.s.a@gmail.com, johannes@sipsolutions.net, mani@kernel.org,
+        andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+        kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
+        mhi@lists.linux.dev, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-GUID: UUoq5An_avChKjj1hGFtQpH68oTK5_iR
+X-Authority-Analysis: v=2.4 cv=AbwkjHXG c=1 sm=1 tr=0 ts=6ac7b4a0 cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=3WHJM1ZQz_JShphwDgj5:22 a=t2vznHeBAAAA:8 a=yR1rUuH2P9_sZCukppcA:9
+ a=QEXdDO2ut3YA:10 a=iYH6xdkBrDN1Jqds4HTS:22 a=V_BghkRpYkFyHJIZkSH6:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDA2MSBTYWx0ZWRfX9yv2DnyVNIfF
+ K6Gsw0cjSXpS0C7o46g+W5CNFvdZEEv1J4b2BQplVhwfaanx89tqMdvwh/LDI5lFngg3frEkp2e
+ c3Mu5EfAHY7SwNHe5L/Ci6gTKvM3FPc=
+X-Proofpoint-ORIG-GUID: UUoq5An_avChKjj1hGFtQpH68oTK5_iR
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDA2MSBTYWx0ZWRfX2pRJH5M+q9rh
+ AKrytZTdCQIsI7XlJKiyI99Y3fxdktbvU9I8WuEf9qwEBbWfx83UBV2qcmq4ujn+zDKDrjSLf4f
+ eaJL40k1jw6oraUhY7EHthdHgk8GlOOzkJgdA7ooLLgAIs8miaYSM+teIP6HlIBDTDW+hzEnvC5
+ 89fnGO5VyFFHid+setwZMrdiHot5sdDgwiAtSmETClpAj6Fgejha1f7bk+MFuO99vrscdGJfmtH
+ bWTPbiUe3USLElg5X+mbZHbkIg8vVAQwDVI2QxnTHgn5tK0yBLfiPKWLFSaB4luzdnXev0vNm3d
+ A9HjTX63XU7OaXbgGeYMrXzsOzJP43SjdoqC3TYJ1y3k3DTkMD13/XppJwSYy/XtZfcyIHVOJx6
+ pA8F64kLWeIcEcJnCQuy8VoYFmmi5LNPeB5xCwggzbYERr/m5OhjzzGKSGerDoY07xLAwKGEtu7
+ 6ZlFuivTdKXbi9IMowA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-08_05,2026-10-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
+ clxscore=1015 suspectscore=0 priorityscore=1501 adultscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080061
 
+Hi Peter,
 
+On Wed, Oct 7, 2026 at 8:23=E2=80=AFPM Peter Hunt <peter.hunt@opengear.com>=
+ wrote:
+>
+> The WWAN character device emulates the TTY modem-control ioctls
+> (TIOCMGET/TIOCMSET/TIOCMBIC/TIOCMBIS) for AT and QCDM ports, but the
+> result is only stored in port->at_data.mdmbits and never reaches the port
+> driver. A driver therefore cannot act on the host raising or dropping
+> DTR/RTS, even though some modems depend on it (e.g. they withhold
+> unsolicited AT result codes until the host asserts DTR).
+>
+> Add an optional ->dtr_rts(port, mdmbits) operation to struct wwan_port_op=
+s.
+> Drivers that implement it receive the full TIOCM bitmask so they can asse=
+rt
+> or de-assert DTR and RTS independently. The wwan core tracks the full TIO=
+CM
+> bitmask in port->at_data.mdmbits and calls ->dtr_rts when it changes, gat=
+ed
+> on WWAN_PORT_AT to match the open/close raise/drop behaviour.
+>
+> Also raise DTR/RTS in wwan_port_op_start on first open of an AT port when
+> the driver implements ->dtr_rts, and drop them in wwan_port_op_stop on
+> last close if HUPCL is set in the port's termios. This mirrors TTY
+> semantics and means individual drivers do not need to implement this
+> themselves. As on a TTY, HUPCL defaults to on for AT ports, and userspace
+> can clear it with TCSETS to keep DTR asserted across close, for example s=
+o
+> that closing the port does not end a call on a modem set to AT&D1/AT&D2.
+>
+> at_data.mdmbits is protected by data_lock. In the ioctl path the ->dtr_rt=
+s
+> call is deferred until ops_lock is held, where mdmbits is re-read under
+> data_lock, so the value passed to the driver always reflects the committe=
+d
+> bitmask under ops_lock and is serialised against concurrent ioctls and
+> against port removal (which nulls port->ops under ops_lock).
+>
+> wwan_remove_port() also drops DTR/RTS before ->stop() when a port is
+> removed while still open, regardless of HUPCL since the device is going
+> away. The raise and drop paths go through two small helpers, which do
+> the AT port and ->dtr_rts checks and pass the driver the resulting
+> bitmask.
+>
+> Signed-off-by: Peter Hunt <peter.hunt@opengear.com>
+> ---
+> v8: Add wwan_port_raise_dtr_rts() as the counterpart of
+>     wwan_port_drop_dtr_rts() and move the open-path handling there, move
+>     the AT port and ->dtr_rts checks into both helpers, use
+>     scoped_guard() for data_lock (Loic Poulain)
+> v7: Drop DTR/RTS on last close only if HUPCL is set, and default HUPCL on
+>     for AT ports. Pass the masked mdmbits rather than 0 from
+>     wwan_remove_port(), via a helper shared with the close path. Both
+>     from the Sashiko review of v6
+> v6: Rebase onto net-next. Snapshot mdmbits under data_lock before calling
+>     ->dtr_rts from wwan_port_op_start()/wwan_port_op_stop(), rather than
+>     reading it after data_lock has been released
+> v5: Change ->dtr_rts signature from bool to unsigned int mdmbits so DTR
+>     and RTS can be driven independently; re-read mdmbits inside ops_lock
+>     in the ioctl path to close a concurrent-ioctl ordering race; add
+>     de-assert call to wwan_remove_port() for the hot-unplug case; update
+>     kernel-doc to note the op is AT-only and describe the mdmbits argumen=
+t
+> v4: Protect at_data.mdmbits in wwan_port_op_start/stop under data_lock;
+>     release data_lock and acquire ops_lock with a NULL check before calli=
+ng
+>     ->dtr_rts from the ioctl path; gate ioctl ->dtr_rts on WWAN_PORT_AT t=
+o
+>     match open/close behaviour; reduce boolean to TIOCM_DTR only
+> v3: Replace ->tiocmget/->tiocmset with ->dtr_rts(port, bool on) modelled
+>     on tty_port_operations.dtr_rts; raise/drop DTR/RTS in
+>     wwan_port_op_start/stop rather than in the driver (Loic Poulain)
+> ---
+>  drivers/net/wwan/wwan_core.c | 69 ++++++++++++++++++++++++++++++++++--
+>  include/linux/wwan.h         |  3 ++
+>  2 files changed, 70 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/net/wwan/wwan_core.c b/drivers/net/wwan/wwan_core.c
+> index ffbcf11e4e68..4206649d4b45 100644
+> --- a/drivers/net/wwan/wwan_core.c
+> +++ b/drivers/net/wwan/wwan_core.c
+> @@ -655,6 +655,10 @@ struct wwan_port *wwan_create_port(struct device *pa=
+rent,
+>         init_waitqueue_head(&port->waitqueue);
+>         mutex_init(&port->data_lock);
+>
+> +       /* AT ports hang up on last close by default, as a TTY does */
+> +       if (type =3D=3D WWAN_PORT_AT)
+> +               port->at_data.termios.c_cflag =3D HUPCL;
+> +
+>         port->dev.parent =3D &wwandev->dev;
+>         port->dev.type =3D &wwan_port_dev_type;
+>         dev_set_drvdata(&port->dev, drvdata);
+> @@ -679,12 +683,52 @@ struct wwan_port *wwan_create_port(struct device *p=
+arent,
+>  }
+>  EXPORT_SYMBOL_GPL(wwan_create_port);
+>
+> +/* Raise DTR/RTS on first open of an AT port, as a TTY does. Called with
+> + * ops_lock held.
+> + */
+> +static void wwan_port_raise_dtr_rts(struct wwan_port *port)
+> +{
+> +       unsigned int bits;
+> +
+> +       if (port->type !=3D WWAN_PORT_AT || !port->ops->dtr_rts)
+> +               return;
+> +
+> +       scoped_guard(mutex, &port->data_lock) {
+> +               port->at_data.mdmbits |=3D TIOCM_DTR | TIOCM_RTS;
+> +               bits =3D port->at_data.mdmbits;
+> +       }
+> +
+> +       port->ops->dtr_rts(port, bits);
+> +}
+> +
+> +/* Drop DTR/RTS on an AT port. Called with ops_lock held. On last close
+> + * the lines are only dropped if HUPCL is set, as for a TTY, on port
+> + * removal they are always dropped.
+> + */
+> +static void wwan_port_drop_dtr_rts(struct wwan_port *port, bool hupcl_on=
+ly)
+> +{
+> +       unsigned int bits;
+> +
+> +       if (port->type !=3D WWAN_PORT_AT || !port->ops->dtr_rts)
+> +               return;
+> +
+> +       scoped_guard(mutex, &port->data_lock) {
+> +               if (hupcl_only && !(port->at_data.termios.c_cflag & HUPCL=
+))
+> +                       return;
+> +               port->at_data.mdmbits &=3D ~(TIOCM_DTR | TIOCM_RTS);
+> +               bits =3D port->at_data.mdmbits;
+> +       }
+> +
+> +       port->ops->dtr_rts(port, bits);
+> +}
+> +
+>  void wwan_remove_port(struct wwan_port *port)
+>  {
+>         struct wwan_device *wwandev =3D to_wwan_dev(port->dev.parent);
+>
+>         mutex_lock(&port->ops_lock);
+>         if (port->start_count) {
+> +               wwan_port_drop_dtr_rts(port, false);
+>                 port->ops->stop(port);
+>                 port->start_count =3D 0;
+>         }
+> @@ -759,8 +803,11 @@ static int wwan_port_op_start(struct wwan_port *port=
+)
+>         if (!port->start_count)
+>                 ret =3D port->ops->start(port);
+>
+> -       if (!ret)
+> +       if (!ret) {
+>                 port->start_count++;
+> +               if (port->start_count =3D=3D 1)
 
-On 10/8/26 6:18 AM, Li Ming wrote:
-> 
-> 在 2026/10/8 00:23, Dave Jiang 写道:
->>
->> On 10/7/26 6:12 AM, Li Ming wrote:
->>> 在 2026/10/3 03:59, Dave Jiang 写道:
->>>> On 10/1/26 2:22 AM, Srirangan Madhavan wrote:
->>>>> Represent HDM programming state with struct cxl_decoder_settings and pass
->>>>> it to the commit helpers. Keep endpoint skip and switch targets with their
->>>>> owning types and flatten them only into transient programming settings.
->>>>> Place flags with the programming state and leave runtime region ownership
->>>>> outside the snapshot.
->>>>>
->>>>> Separate commit initiation from completion waiting so reset restoration
->>>>> can reuse register programming without changing normal DPA-lock policy.
->>>>>
->>>>> Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
->>>>> ---
->>>>>    drivers/cxl/core/core.h |  3 ++
->>>>>    drivers/cxl/core/hdm.c  | 82 ++++++++++++++++++++++++++---------------
->>>>>    include/cxl/cxl.h       | 10 +++++
->>>>>    3 files changed, 66 insertions(+), 29 deletions(-)
->>>>>
->>>>> diff --git a/drivers/cxl/core/core.h b/drivers/cxl/core/core.h
->>>>> index 983d7690c3a5..a3fddb2bed63 100644
->>>>> --- a/drivers/cxl/core/core.h
->>>>> +++ b/drivers/cxl/core/core.h
->>>>> @@ -139,6 +139,9 @@ struct cxl_rwsem {
->>>>>      extern struct cxl_rwsem cxl_rwsem;
->>>>>    +void cxl_commit_start(void __iomem *hdm, struct cxl_decoder_settings *settings);
->>>>> +int cxld_await_commit(void __iomem *hdm, int id);
->>>>> +
->>>>>    int cxl_memdev_init(void);
->>>>>    void cxl_memdev_exit(void);
->>>>>    void cxl_mbox_init(void);
->>>>> diff --git a/drivers/cxl/core/hdm.c b/drivers/cxl/core/hdm.c
->>>>> index 9e05032a5426..d3f21dfda146 100644
->>>>> --- a/drivers/cxl/core/hdm.c
->>>>> +++ b/drivers/cxl/core/hdm.c
->>>>> @@ -707,7 +707,7 @@ int cxl_dpa_alloc(struct cxl_endpoint_decoder *cxled, u64 size)
->>>>>        return devm_add_action_or_reset(&port->dev, cxl_dpa_release, cxled);
->>>>>    }
->>>>>    -static void cxld_set_interleave(struct cxl_decoder *cxld, u32 *ctrl)
->>>>> +static void cxld_set_interleave(struct cxl_decoder_config *config, u32 *ctrl)
->>>>>    {
->>>>>        u16 eig;
->>>>>        u8 eiw;
->>>>> @@ -716,12 +716,12 @@ static void cxld_set_interleave(struct cxl_decoder *cxld, u32 *ctrl)
->>>>>         * Input validation ensures these warns never fire, but otherwise
->>>>>         * suppress unititalized variable usage warnings.
->>>>>         */
->>>>> -    if (WARN_ONCE(ways_to_eiw(cxld->config.interleave_ways, &eiw),
->>>>> -              "invalid interleave_ways: %d\n", cxld->config.interleave_ways))
->>>>> +    if (WARN_ONCE(ways_to_eiw(config->interleave_ways, &eiw),
->>>>> +              "invalid interleave_ways: %d\n", config->interleave_ways))
->>>>>            return;
->>>>> -    if (WARN_ONCE(granularity_to_eig(cxld->config.interleave_granularity, &eig),
->>>>> +    if (WARN_ONCE(granularity_to_eig(config->interleave_granularity, &eig),
->>>>>                  "invalid interleave_granularity: %d\n",
->>>>> -              cxld->config.interleave_granularity))
->>>>> +              config->interleave_granularity))
->>>>>            return;
->>>>>          u32p_replace_bits(ctrl, eig, CXL_HDM_DECODER0_CTRL_IG_MASK);
->>>>> @@ -729,10 +729,10 @@ static void cxld_set_interleave(struct cxl_decoder *cxld, u32 *ctrl)
->>>>>        *ctrl |= CXL_HDM_DECODER0_CTRL_COMMIT;
->>>>>    }
->>>>>    -static void cxld_set_type(struct cxl_decoder *cxld, u32 *ctrl)
->>>>> +static void cxld_set_type(struct cxl_decoder_config *config, u32 *ctrl)
->>>>>    {
->>>>>        u32p_replace_bits(ctrl,
->>>>> -              !!(cxld->config.target_type == CXL_DECODER_HOSTONLYMEM),
->>>>> +              !!(config->target_type == CXL_DECODER_HOSTONLYMEM),
->>>>>                  CXL_HDM_DECODER0_CTRL_HOSTONLY);
->>>>>    }
->>>>>    @@ -764,7 +764,7 @@ static void cxlsd_set_targets(struct cxl_switch_decoder *cxlsd, u64 *tgt)
->>>>>     * clock skew and other marginal behavior
->>>>>     */
->>>>>    #define COMMIT_TIMEOUT_MS 20
->>>>> -static int cxld_await_commit(void __iomem *hdm, int id)
->>>>> +int cxld_await_commit(void __iomem *hdm, int id)
->>>>>    {
->>>>>        u32 ctrl;
->>>>>        int i;
->>>>> @@ -784,45 +784,66 @@ static int cxld_await_commit(void __iomem *hdm, int id)
->>>>>        return -ETIMEDOUT;
->>>>>    }
->>>>>    -static void setup_hw_decoder(struct cxl_decoder *cxld, void __iomem *hdm)
->>>>> +static void setup_hw_decoder(void __iomem *hdm,
->>>>> +                 struct cxl_decoder_settings *settings)
->>>> settings is replacing cxld, I would prefer that as the first parameter
->>>>
->>>>>    {
->>>>> -    int id = cxld->config.id;
->>>>> +    struct cxl_decoder_config *config = &settings->config;
->>>>> +    int id = config->id;
->>>>> +    u64 target_or_skip_reg_val;
->>>>>        u64 base, size;
->>>>>        u32 ctrl;
->>>>>    -    /* common decoder settings */
->>>>> -    ctrl = readl(hdm + CXL_HDM_DECODER0_CTRL_OFFSET(cxld->config.id));
->>>>> -    cxld_set_interleave(cxld, &ctrl);
->>>>> -    cxld_set_type(cxld, &ctrl);
->>>>> -    base = cxld->config.hpa_range.start;
->>>>> -    size = range_len(&cxld->config.hpa_range);
->>>>> +    ctrl = readl(hdm + CXL_HDM_DECODER0_CTRL_OFFSET(id));
->>>>> +    cxld_set_interleave(config, &ctrl);
->>>>> +    cxld_set_type(config, &ctrl);
->>>>> +    base = config->hpa_range.start;
->>>>> +    size = range_len(&config->hpa_range);
->>>>> +    target_or_skip_reg_val = settings->target_or_skip_reg_val;
->>>>>          writel(upper_32_bits(base), hdm + CXL_HDM_DECODER0_BASE_HIGH_OFFSET(id));
->>>>>        writel(lower_32_bits(base), hdm + CXL_HDM_DECODER0_BASE_LOW_OFFSET(id));
->>>>>        writel(upper_32_bits(size), hdm + CXL_HDM_DECODER0_SIZE_HIGH_OFFSET(id));
->>>>>        writel(lower_32_bits(size), hdm + CXL_HDM_DECODER0_SIZE_LOW_OFFSET(id));
->>>>> +    /* Target-list and endpoint-skip registers alias the same slot. */
->>>>> +    writel(upper_32_bits(target_or_skip_reg_val), hdm + CXL_HDM_DECODER0_TL_HIGH(id));
->>>>> +    writel(lower_32_bits(target_or_skip_reg_val), hdm + CXL_HDM_DECODER0_TL_LOW(id));
->>>>> +
->>>>> +    writel(ctrl, hdm + CXL_HDM_DECODER0_CTRL_OFFSET(id));
->>>>> +}
->>>>> +
->>>>> +void cxl_commit_start(void __iomem *hdm, struct cxl_decoder_settings *settings)
->>>>> +{
->>>>> +    lockdep_assert_held(&cxl_rwsem.dpa);
->>>>> +    setup_hw_decoder(hdm, settings);
->>>>> +}
->>>>> +
->>>>> +/*
->>>>> + * Endpoint skip and switch targets have different owners. Keep that state with
->>>>> + * its owning type and flatten it only into a transient register-programming
->>>>> + * snapshot.
->>>>> + */
->>>>> +static void cxl_decoder_snapshot(struct cxl_decoder *cxld,
->>>>> +                 struct cxl_decoder_settings *settings)
->>>>> +{
->>>>> +    lockdep_assert_held(&cxl_rwsem.dpa);
->>>>> +
->>>>> +    *settings = (struct cxl_decoder_settings) {
->>>>> +        .config = cxld->config,
->>>>> +    };
->>>>>          if (is_switch_decoder(&cxld->dev)) {
->>>>>            struct cxl_switch_decoder *cxlsd =
->>>>>                to_cxl_switch_decoder(&cxld->dev);
->>>>> -        void __iomem *tl_hi = hdm + CXL_HDM_DECODER0_TL_HIGH(id);
->>>>> -        void __iomem *tl_lo = hdm + CXL_HDM_DECODER0_TL_LOW(id);
->>>>>            u64 targets;
->>>>>              cxlsd_set_targets(cxlsd, &targets);
->>>>> -        writel(upper_32_bits(targets), tl_hi);
->>>>> -        writel(lower_32_bits(targets), tl_lo);
->>>>> +        settings->target_or_skip_reg_val = targets;
->>>>>        } else {
->>>>>            struct cxl_endpoint_decoder *cxled =
->>>>>                to_cxl_endpoint_decoder(&cxld->dev);
->>>>> -        void __iomem *sk_hi = hdm + CXL_HDM_DECODER0_SKIP_HIGH(id);
->>>>> -        void __iomem *sk_lo = hdm + CXL_HDM_DECODER0_SKIP_LOW(id);
->>>>>    -        writel(upper_32_bits(cxled->skip), sk_hi);
->>>>> -        writel(lower_32_bits(cxled->skip), sk_lo);
->>>>> +        settings->target_or_skip_reg_val = cxled->skip;
->>>>>        }
->>>>> -
->>>>> -    writel(ctrl, hdm + CXL_HDM_DECODER0_CTRL_OFFSET(id));
->>>>>    }
->>>>>      static int cxl_decoder_commit(struct cxl_decoder *cxld)
->>>>> @@ -830,6 +851,7 @@ static int cxl_decoder_commit(struct cxl_decoder *cxld)
->>>>>        struct cxl_port *port = to_cxl_port(cxld->dev.parent);
->>>>>        struct cxl_hdm *cxlhdm = dev_get_drvdata(&port->dev);
->>>>>        void __iomem *hdm = cxlhdm->regs.hdm_decoder;
->>>>> +    struct cxl_decoder_settings settings;
->>>>>        int id = cxld->config.id, rc;
->>>>>          if (cxld->config.flags & CXL_DECODER_F_ENABLE)
->>>>> @@ -862,10 +884,12 @@ static int cxl_decoder_commit(struct cxl_decoder *cxld)
->>>>>            }
->>>>>        }
->>>>>    -    scoped_guard(rwsem_read, &cxl_rwsem.dpa)
->>>>> -        setup_hw_decoder(cxld, hdm);
->>>>> +    scoped_guard(rwsem_read, &cxl_rwsem.dpa) {
->>>>> +        cxl_decoder_snapshot(cxld, &settings);
->>>>> +        cxl_commit_start(hdm, &settings);
->>>>> +    }
->>>>>    -    rc = cxld_await_commit(hdm, cxld->config.id);
->>>>> +    rc = cxld_await_commit(hdm, settings.config.id);
->>>>>        if (rc) {
->>>>>            dev_dbg(&port->dev, "%s: error %d committing decoder\n",
->>>>>                dev_name(&cxld->dev), rc);
->>>>> diff --git a/include/cxl/cxl.h b/include/cxl/cxl.h
->>>>> index 237b31d54249..67c81be47fbb 100644
->>>>> --- a/include/cxl/cxl.h
->>>>> +++ b/include/cxl/cxl.h
->>>>> @@ -72,6 +72,16 @@ struct cxl_decoder {
->>>>>        void (*reset)(struct cxl_decoder *cxld);
->>>>>    };
->>>>>    +/**
->>>>> + * struct cxl_decoder_settings - CXL HDM decoder programming snapshot
->>>>> + * @config: common decoder configuration
->>>>> + * @target_or_skip_reg_val: switch target list or endpoint skip register value
->>>>> + */
->>>>> +struct cxl_decoder_settings {
->>>>> +    struct cxl_decoder_config config;
->>>>> +    u64 target_or_skip_reg_val;
->>>> Single variable contains multiple meanings gets confusing and messy when they are different values depending on context.
->>>>
->>>> How about something like:
->>>>
->>>> struct cxl_endpoint_decoder_settings {
->>>>      struct cxl_decoder_config config;
->>>>      u64 skips;
->>>> };
->>>>
->>>> /* resource.c: common to both decoder types */
->>>> static u32 cxl_hdm_write_range(void __iomem *hdm,
->>>>                                const struct cxl_decoder_config *config)
->>>> {
->>>>         int id = config->id;
->>>>         u64 base = config->hpa_range.start;
->>>>         u64 size = range_len(&config->hpa_range);
->>>>         u32 ctrl = readl(hdm + CXL_HDM_DECODER0_CTRL_OFFSET(id));
->>>>
->>>>         cxld_set_interleave(config, &ctrl);
->>>>         cxld_set_type(config, &ctrl);
->>>>         writel(upper_32_bits(base), hdm + CXL_HDM_DECODER0_BASE_HIGH_OFFSET(id))
->>>>         writel(lower_32_bits(base), hdm + CXL_HDM_DECODER0_BASE_LOW_OFFSET(id));
->>>>         writel(upper_32_bits(size), hdm + CXL_HDM_DECODER0_SIZE_HIGH_OFFSET(id))
->>>>         writel(lower_32_bits(size), hdm + CXL_HDM_DECODER0_SIZE_LOW_OFFSET(id));
->>>>         return ctrl;
->>>> }
->>>>
->>>> void cxl_commit_start_endpoint(void __iomem *hdm,
->>>>                                const struct cxl_endpoint_decoder_settings *s)
->>>> {
->>>>         int id = s->config.id;
->>>>         u32 ctrl;
->>>>
->>>>         lockdep_assert_held(&cxl_rwsem.dpa);
->>>>         ctrl = cxl_hdm_write_range(hdm, &s->config);
->>>>         writel(upper_32_bits(s->skip), hdm + CXL_HDM_DECODER0_SKIP_HIGH(id));
->>>>         writel(lower_32_bits(s->skip), hdm + CXL_HDM_DECODER0_SKIP_LOW(id));
->>>>         writel(ctrl, hdm + CXL_HDM_DECODER0_CTRL_OFFSET(id));
->>>> }
->>>>
->>>> void cxl_commit_start_switch(void __iomem *hdm,
->>>>                              const struct cxl_decoder_config *config,
->>>>                              u64 targets)
->>>> {
->>>>         int id = config->id;
->>>>         u32 ctrl;
->>>>
->>>>         lockdep_assert_held(&cxl_rwsem.dpa);
->>>>         ctrl = cxl_hdm_write_range(hdm, config);
->>>>         writel(upper_32_bits(targets), hdm + CXL_HDM_DECODER0_TL_HIGH(id));
->>>>         writel(lower_32_bits(targets), hdm + CXL_HDM_DECODER0_TL_LOW(id));
->>>>         writel(ctrl, hdm + CXL_HDM_DECODER0_CTRL_OFFSET(id));
->>>> }
->>>>
->>>> /* hdm.c: cxl_decoder_commit() */
->>>> scoped_guard(rwsem_read, &cxl_rwsem.dpa) {
->>>>         if (is_switch_decoder(&cxld->dev)) {
->>>>                 struct cxl_switch_decoder *cxlsd =
->>>>                         to_cxl_switch_decoder(&cxld->dev);
->>>>                 u64 targets;
->>>>
->>>>                 cxlsd_set_targets(cxlsd, &targets);
->>>>                 cxl_commit_start_switch(hdm, &cxld->config, targets);
->>>>         } else {
->>>>                 struct cxl_endpoint_decoder *cxled =
->>>>                         to_cxl_endpoint_decoder(&cxld->dev);
->>>>                 struct cxl_endpoint_decoder_settings s = {
->>>>                         .config = cxld->config,
->>>>                         .skip = cxled->skip,
->>>>                 };
->>>>
->>>>                 cxl_commit_start_endpoint(hdm, &s);
->>>>         }
->>>> }
->>> Hi Dave,
->>>
->>>
->>> I think cxl_decoder_snapshot() also needs this struct cxl_decoder_settings to store current value of switch/endpoint decoder registers.
->>>
->>> But your implementation only defines a struct cxl_endpoint_decoder_settings, I suppose that we also need a struct cxl_switch_decoder_settings?
->>>
->>>
->>> How about using a union in struct cxl_decoder_settings, I think it can resolve the "Single variable with multiple meanings" issue you mentioned. like that
->>>
->>> struct cxl_decoder_settings {
->>>
->>>      struct cxl_decoder_config config;
->>>
->>>      union {
->>>
->>>          u64 targets;    // used for switch decoders
->>>
->>>          u64 skips;        // used for endpoint decoders
->>>
->>>      };
->>>
->>> };
->>>
->> That was my first thought, but it does not look like the switch decoders need it at the moment. I had LLM do a refactor and this [1] is what it looks like. See if you agree.
->>
->> [1]: https://git.kernel.org/pub/scm/linux/kernel/git/djiang/linux.git/log/?h=cxl-type2-reset
->>
->> DJ
-> 
-> That looks good to me, I was thinking that the struct cxl_decoder_settings was also needed to cache HDM decoders registers of switch USPs during PCI enumeration, but I realize that this patchset is only for type2 device reset support, not need to consider switch ports reset.
-> 
-> Seems like if a switch USP reset will destroy the HDM routing in type2 device under switch case, if we want to support it, we will need another patchset to cache decoders registers on switch USP?
+You basically have the same check above
+> +                       wwan_port_raise_dtr_rts(port);
+> +       }
+>
+>  out_unlock:
+>         mutex_unlock(&port->ops_lock);
+> @@ -773,8 +820,10 @@ static void wwan_port_op_stop(struct wwan_port *port=
+)
+>         mutex_lock(&port->ops_lock);
+>         port->start_count--;
+>         if (!port->start_count) {
+> -               if (port->ops)
+> +               if (port->ops) {
+> +                       wwan_port_drop_dtr_rts(port, true);
+>                         port->ops->stop(port);
+> +               }
+>                 skb_queue_purge(&port->rxq);
+>                 clear_bit(WWAN_PORT_EXCLUSIVE, &port->flags);
+>         }
+> @@ -980,6 +1029,7 @@ static long wwan_port_fops_at_ioctl(struct wwan_port=
+ *port, unsigned int cmd,
+>                                     unsigned long arg)
+>  {
+>         int ret =3D 0;
+> +       bool call_dtr_rts =3D false;
+>
+>         mutex_lock(&port->data_lock);
+>
+> @@ -1036,6 +1086,8 @@ static long wwan_port_fops_at_ioctl(struct wwan_por=
+t *port, unsigned int cmd,
+>                         port->at_data.mdmbits |=3D mdmbits;
+>                 else
+>                         port->at_data.mdmbits =3D mdmbits;
+> +               if (port->type =3D=3D WWAN_PORT_AT)
+> +                       call_dtr_rts =3D true;
 
-You are correct. I guess we cross that bridge when we get there?
+Any reason not to just call dtr_rts() whenever the callback is implemented?
 
-DJ
+>                 break;
+>         }
+>
+> @@ -1061,6 +1113,19 @@ static long wwan_port_fops_at_ioctl(struct wwan_po=
+rt *port, unsigned int cmd,
+>
+>         mutex_unlock(&port->data_lock);
+>
+> +       if (call_dtr_rts) {
+> +               unsigned int bits;
+> +
+> +               mutex_lock(&port->ops_lock);
 
-> 
-> 
-> Ming
-> 
->>
->>> Ming
->>>
->>>>> +};
->>>>> +
->>>>>    /*
->>>>>     * Using struct_group() allows for per register-block-type helper routines,
->>>>>     * without requiring block-type agnostic code to include the prefix.
+So now we end up with two mutexes essentially protecting the same
+state. Since dtr_rts() is always called under ops_lock, and the ioctl
+path acquires both ops_lock and data_lock, would it make sense to drop
+data_lock altogether and rely solely on ops_lock? That would also
+allow the ioctl handling to be fully covered by guarded ops_lock
+mutex, simplifying the locking scheme.
 
+> +               if (port->ops && port->ops->dtr_rts) {
+> +                       mutex_lock(&port->data_lock);
+> +                       bits =3D port->at_data.mdmbits;
+> +                       mutex_unlock(&port->data_lock);
+> +                       port->ops->dtr_rts(port, bits);
+> +               }
+> +               mutex_unlock(&port->ops_lock);
+> +       }
+> +
+>         return ret;
+>  }
+>
+> diff --git a/include/linux/wwan.h b/include/linux/wwan.h
+> index 1e0e2cb53579..57406139304e 100644
+> --- a/include/linux/wwan.h
+> +++ b/include/linux/wwan.h
+> @@ -57,6 +57,8 @@ struct wwan_port;
+>   * @tx_blocking: Optional blocking routine that sends WWAN port protocol=
+ data
+>   *               to the device.
+>   * @tx_poll: Optional routine that sets additional TX poll flags.
+> + * @dtr_rts: Optional routine that updates the modem control lines to ma=
+tch
+> + *           @mdmbits (a TIOCM_* bitmask). Only called for WWAN_PORT_AT =
+ports.
+>   *
+>   * The wwan_port_ops structure contains a list of low-level operations
+>   * that control a WWAN port device. All functions are mandatory unless s=
+pecified.
+> @@ -70,6 +72,7 @@ struct wwan_port_ops {
+>         int (*tx_blocking)(struct wwan_port *port, struct sk_buff *skb);
+>         __poll_t (*tx_poll)(struct wwan_port *port, struct file *filp,
+>                             poll_table *wait);
+> +       void (*dtr_rts)(struct wwan_port *port, unsigned int mdmbits);
+>  };
+>
+>  /** struct wwan_port_caps - The WWAN port capbilities
+> --
+> 2.43.0
+>
