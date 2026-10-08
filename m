@@ -1,159 +1,412 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CE4A3EC829
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 08:48:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D7FD478865
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 08:48:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791449317; cv=none; b=dLstRnnHUv1OslL0xZkY2Oui/GMr9ogxkPsObrJYAUVpud0qsZznx1M5Jt7DLNcTz97QmQvBIsK4F5GL4D8zkHfv2fvrGeX5ngqc7j5a7KvVzoBRZ32vOA/oYnDm/Q2GQDi5NwOWDtVoLwhr8BkrMVv2rELQrmFC5QmIxcO1mrw=
+	t=1791449323; cv=none; b=feI4oktpIfSjzbF8wKPKWV2Oe25L97sTDDgMNq175En+35us1Qc/hnntl5VJamphLMwdVrNUUJHGnBqcSddAJclYln7LrSTrCqtIVkLuyAgjxGEvMjJMcI+B2SR/cyIgNRK63T2aHieClAR0RwuBy3zVxGTTZmW9TrlUXyVUcjw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791449317; c=relaxed/simple;
-	bh=M38zr4UDDSTutNGbAEBqRcN/i549+qASNFRF6ZXlXao=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=GKlU8lHLNPDSA51n8jHmzwYdfcuT/YtNYx4Wn2o/kkgmJUhgCv7Q1ZZxliOR/AiBvmbz0wDZB7rRIHv88bs+rus2D2bmcKaLMaiwt3vw+v5GY4rYwntE9ZlPVdQZQp88ppFViPeDYvdNrfI/CzpObjvGN+ZYmXdYPK5GMhrPKnc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=alXGJfJJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JHX5kbX6; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791449323; c=relaxed/simple;
+	bh=ClCUdk81cZk4pVxj+ERQ4XC4vdFYrCdEayQPaaNm4mo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YZ3CkknE8mgYnbBuypk0fi+pxuNx7EoDds70IojbFAld4wkpmUWv6zQ3cid0QGOAggGGlBaMUiYCZvQlMQWFvCdyBm1k00H5odlLUkSq8Y0Fz/8vuIw05gPgnWTCXRFVN0ZXk/aW7ED2N5r8jUHwxUY2CwtJd9YbQPTr4dy7EYs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=De08tYHD; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="alXGJfJJ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JHX5kbX6"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6987KREo1846371
-	for <linux-kernel@vger.kernel.org>; Thu, 8 Oct 2026 08:48:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=lTF1ykEwo5DXZWlyE50I/v
-	qpScUvMcBObYB/UQq3D9Y=; b=alXGJfJJsfyOMO/kf6/xMm4Yr5Q4gP5iJIqCgZ
-	6MAmJSknJQdX/ur0aYRLyAVegkWSVranv2SIvv+faX4DPQjsIOrcZtqgTifd5sYv
-	js6o7IKgc+dfDbBc6N7lDLhkXUlZccugLGm3C15pe6bL0SIcGoQXmOJUSLQbWZwA
-	wdpajQJKjUnXMhwYx2czUsaus1e2JVKCRa+0fgJLpxtWCp3FZhbBB9kXyFiVJtTg
-	2KviL7vT+9AfWad3J8nWyqOiIyLN6vwSzRiiu7wEhoVbo90hIetximT9QcPobbdG
-	0M+Ozfh5jnHaQTlQsX3JyM4exrH9N2MqNPk58fiz4bWTjaRA==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe3j3cb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 08:48:34 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-313d1015161so14564659eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 01:48:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791449313; x=1792054113; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=lTF1ykEwo5DXZWlyE50I/vqpScUvMcBObYB/UQq3D9Y=;
-        b=JHX5kbX6FvooFNeR/RLesxcL9IKHkjULuuLuv1ULaO1SN2HweW6c26Q5qEKatoy27p
-         90oSrqx/Iqzn/aHJeMHaY8J2Qfa3qi987rjKaVNeQcObfA2IKD0ZhP913aies7c4dHPh
-         dtn2WXwlOETIwDMkS5cvXO5OV+7UcJriwJb0v1mIK8oxvrq83YRNqtr1zgN/qvj9TofW
-         95aKqBXIFrys3sLUI6oEdJVf3GL5TVr5AnkiqTqmS/YVHhIgc2S+KIvX6xmCZdC2XUlD
-         RCGqK+XZ9ttX03DHCutJnDwFFb+Go3dreEcuIYvCIR1l5v+Y2wuKS2iQx1lh6MOy6eb8
-         adMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791449313; x=1792054113;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=lTF1ykEwo5DXZWlyE50I/vqpScUvMcBObYB/UQq3D9Y=;
-        b=VKnGU7jz4wTs89dNNyciNwkUZxxr8OPQpsm4SZcPc4jzvY3TYIaa+5nYYLsnjRKbB9
-         Ow/vE5ZFTRhk7PUDavoTKFBhzv1ZQm7pYlmzt8sAP3Ma3i0yXz41A7YYEUDVdgwl6DER
-         x+0BWQmvOgMAIUcV2T1e864I4GqCl8/mOh9wH4jvH9TC9Edv9uAm/Ryy8QFq8Dvw+jTL
-         /SuKX+vR80+rz1iNx2YboWHGXncuRdGE3oEJe9tZJiuPj9M9bzBH+ELXs0AGC2ynCWsV
-         ao8DgSi1QA/gHYe0LVWUxuDc2SV7AebRp8P2ay9MrH0GyRuRrP1omy2j4uXUy/puQDxm
-         vCVw==
-X-Forwarded-Encrypted: i=1; AKwUvBxJcDohHheos9XJUYMWlVrhq85SvwRNPDSoFkv/sD6VNWKDlYWrq783UTjwU8bQT0LufpauO3X6MybASH4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJpVOff92ous2stzuElDCVecWnqicw1h7vCQZXQ77Ig776+p2RB
-	C3yJ4d87/dzjTBKZII/I2dsLcZ5SEqmwTFNyDXksgK+sthSYIgg/39VIEDmyYreoJZDJvfByl+3
-	alMJVizITHL+4gJU7Uu+rPSanPoA+JnbK2VzDLh9lKXKibgJQybYyJIE5fkXEN0X4Q00=
-X-Gm-Gg: AYBFou3Xpn+SA16YEslhxWWq8QI1l0Buw+/r6S9e3u2Nwdt6NpV3plo98U9bDYkb9rP
-	YP8MqISsSCdAF4i2vDnojZ1qSmxzlqKZKQhBuqm9pC+bO4V0IzdoQSNtGbE3EzJ2T4sXBE0yBtV
-	2f1YP1rWlazUMy2Wx1MtuF9lMcFQ1sZrDtX9ddDXReMVaIB4eb7AVzHeBjmtPWNvrhoQOUuc/Vx
-	1wPSOd7zckugppuGlfekJCJXfNpiJLrYeA2d/+U3fb6f/1g2dyxXNGF203XHwjD2EbjZZQtCRMG
-	xH6muPqQlaR58i3CaFa9go8vmSZH32t5DJreWSDWoo6vFDw50qWA9IktiTU5FvSIFJtkeQ8snDQ
-	uhsb8MlPMu+rMs5elDokUgMzZnTx4hhYIvl3Xepbd/xCaefAzN5tdAQnj5GgxoRfj51DGftcW4s
-	82TNS49B7OdY6A4nlX9G8o6vAIjjQw1A==
-X-Received: by 2002:a05:7301:670c:b0:351:5b99:5f36 with SMTP id 5a478bee46e88-3515de80f23mr7606188eec.9.1791449313151;
-        Thu, 08 Oct 2026 01:48:33 -0700 (PDT)
-X-Received: by 2002:a05:7301:670c:b0:351:5b99:5f36 with SMTP id 5a478bee46e88-3515de80f23mr7606146eec.9.1791449312571;
-        Thu, 08 Oct 2026 01:48:32 -0700 (PDT)
-Received: from hu-varada-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3515aff5dd6sm15302755eec.26.2026.10.08.01.48.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 01:48:32 -0700 (PDT)
-From: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-Date: Thu, 08 Oct 2026 14:18:24 +0530
-Subject: [PATCH] dt-bindings: crypto: qcom,prng: Document ipq5210
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="De08tYHD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791449320;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dhUChjftbbUORUyJn0QdHcvziOACv2RyPij5apElEWE=;
+	b=De08tYHDR9ueXtcN3hFEs4Rpey9UC/KHky+Xp81rD/htEBkcgZXk/CVmgCaRVyjc3shpUr
+	t9zbvLT/9Ec3zOCcd5+RtlwM3/7pJ6woBB7zcSPW0EphlPh7Itvb5tBO8Uo10bFH8KH35+
+	ahTPhkQ1oFaHinRxFNSZSvD5jvwNeGM=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-471-56UnQx3PMY-7lhUedwrqgg-1; Thu,
+ 08 Oct 2026 04:48:33 -0400
+X-MC-Unique: 56UnQx3PMY-7lhUedwrqgg-1
+X-Mimecast-MFC-AGG-ID: 56UnQx3PMY-7lhUedwrqgg_1791449311
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 489691809CAD;
+	Thu,  8 Oct 2026 08:48:31 +0000 (UTC)
+Received: from warthog.com (unknown [10.44.32.90])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 8983E1956086;
+	Thu,  8 Oct 2026 08:48:26 +0000 (UTC)
+From: David Howells <dhowells@redhat.com>
+To: Christian Brauner <christian@brauner.io>
+Cc: David Howells <dhowells@redhat.com>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	Stefan Metzmacher <metze@samba.org>,
+	Eric Van Hensbergen <ericvh@kernel.org>,
+	Dominique Martinet <asmadeus@codewreck.org>,
+	Ilya Dryomov <idryomov@gmail.com>,
+	netfs@lists.linux.dev,
+	linux-afs@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	ceph-devel@vger.kernel.org,
+	v9fs@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v16 8/8] netfs: Remove netfs_extract_user_iter()
+Date: Thu,  8 Oct 2026 09:47:20 +0100
+Message-ID: <20261008084722.963948-9-dhowells@redhat.com>
+In-Reply-To: <20261008084722.963948-1-dhowells@redhat.com>
+References: <20261008084722.963948-1-dhowells@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261008-rng-v1-1-785580a8b48f@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIANdYx2oC/zXMSwqEMBBF0a2EGndBEvxvpXHgp9QaGLsrUQRx7
- wbF4X08zgGehMlDpQ4Q2tjz4mKYj4JuatxIyH1ssNpmRuscxY1oijJpbZqkmS0gPn9CA++38q2
- fFvqvEQvPCG3jCbtlnjlUytEe8AWhPs8LZjHjD4YAAAA=
-X-Change-ID: 20261007-rng-1894b2545628
-To: Herbert Xu <herbert@gondor.apana.org.au>,
-        "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDAzNCBTYWx0ZWRfX6+0IgYT/xRN+
- M/cT+jfw7M48tjCRfYBVM9UbIpRUeaUjKpnjf4VbM+J4bJ8VwIRpXQIBwIuPqNQWPOd6HJrJGSc
- npAV4/vZVpsh6yCXFjGCG/eCDzWKF58=
-X-Proofpoint-ORIG-GUID: tSyZx7z2c6UTigYO7eLU9gm8nvPnF52C
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDAzNCBTYWx0ZWRfX9mk4UZPJlYwA
- jPrT3PevAwilHULTkky3B8s3aKk4XLfa/+kJ/iMeHMhGomlhjmVgeUZncRxK+3Rvlkoes2ZBJBB
- MgD95mt4CGwpR0+EOvJZEPVWhknZsOhVOe2VfqtWCh8qQJVrDnMoIrlUsrZ/cMTpkgykNn3rqZq
- pr2Tkh72DlWRGpeHu4hcHeJosKfqlV+Qc8z23V/gUH/Ofcsw9urpfhgXDijeCsvOn7ugQ2kklfS
- yX2QIsOJK/dFhyxyygiyBEgmxNU/tzci8eedpTnlZS3CGGgups8wSUd2i9JZwGoGx7XjpXtG0AU
- JbxKjjITqTBeeYoAJWeXgoI6yTXM1iCDcKorIPNEkZtf5Ib0UNn/5TD+YkJdtc6jPt45C01/32z
- l1RfguNmz/tbITMbln1cVSowhtqVnU+IhTLS7WCyKn0MAhugBalteqpm2qmfD7ko4JRRnO8AMVy
- wP9mCTnniyTAPOKrZvg==
-X-Authority-Analysis: v=2.4 cv=IIuXmQvG c=1 sm=1 tr=0 ts=6ac758e2 cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=8y1xNrmuCni0Qpi8TC4A:9 a=QEXdDO2ut3YA:10
- a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-GUID: tSyZx7z2c6UTigYO7eLU9gm8nvPnF52C
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-08_03,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0 adultscore=0
- priorityscore=1501 malwarescore=0 suspectscore=0 clxscore=1015 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080034
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-Document ipq5210 compatible for the True Random Number Generator.
+Remove netfs_extract_user_iter() as it has been replaced with
+netfs_extract_iter().
 
-Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+Signed-off-by: David Howells <dhowells@redhat.com>
+Reviewed-by: Paulo Alcantara <pc@manguebit.org>
+cc: Matthew Wilcox <willy@infradead.org>
+cc: netfs@lists.linux.dev
+cc: linux-fsdevel@vger.kernel.org
 ---
- Documentation/devicetree/bindings/crypto/qcom,prng.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ fs/netfs/iterator.c   | 297 ------------------------------------------
+ include/linux/netfs.h |   5 -
+ 2 files changed, 302 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/crypto/qcom,prng.yaml b/Documentation/devicetree/bindings/crypto/qcom,prng.yaml
-index de323969fe64..2acb629e816c 100644
---- a/Documentation/devicetree/bindings/crypto/qcom,prng.yaml
-+++ b/Documentation/devicetree/bindings/crypto/qcom,prng.yaml
-@@ -19,6 +19,7 @@ properties:
-           - enum:
-               - qcom,glymur-trng
-               - qcom,hawi-trng
-+              - qcom,ipq5210-trng
-               - qcom,ipq5332-trng
-               - qcom,ipq5424-trng
-               - qcom,ipq9574-trng
-
----
-base-commit: cf4a8255a424f691f95dfa378e88336f33aa8ae4
-change-id: 20261007-rng-1894b2545628
-
-Best regards,
--- 
-Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+diff --git a/fs/netfs/iterator.c b/fs/netfs/iterator.c
+index d9ff6646d5d1..5e9de06c1cad 100644
+--- a/fs/netfs/iterator.c
++++ b/fs/netfs/iterator.c
+@@ -155,300 +155,3 @@ ssize_t netfs_extract_iter(struct iov_iter *orig, size_t max_len, size_t max_pag
+ 
+ }
+ EXPORT_SYMBOL_GPL(netfs_extract_iter);
+-
+-#if 0 // TODO: Remove in subsequent patch
+-/**
+- * netfs_extract_user_iter - Extract the pages from a user iterator into a bvec
+- * @orig: The original iterator
+- * @orig_len: The amount of iterator to copy
+- * @new: The iterator to be set up
+- * @extraction_flags: Flags to qualify the request
+- *
+- * Extract the page fragments from the given amount of the source iterator and
+- * build up a second iterator that refers to all of those bits.  This allows
+- * the original iterator to be disposed of.
+- *
+- * @extraction_flags can have ITER_ALLOW_P2PDMA set to request peer-to-peer DMA be
+- * allowed on the pages extracted.
+- *
+- * On success, the number of elements in the bvec is returned, the original
+- * iterator will have been advanced by the amount extracted.
+- *
+- * The iov_iter_extract_mode() function should be used to query how cleanup
+- * should be performed.
+- */
+-ssize_t netfs_extract_user_iter(struct iov_iter *orig, size_t orig_len,
+-				struct iov_iter *new,
+-				iov_iter_extraction_t extraction_flags)
+-{
+-	struct bio_vec *bv = NULL;
+-	struct page **pages;
+-	unsigned int cur_npages;
+-	unsigned int max_pages;
+-	unsigned int npages = 0;
+-	unsigned int i;
+-	ssize_t ret = 0;
+-	size_t count = orig_len, offset, len;
+-	size_t bv_size, pg_size;
+-
+-	if (WARN_ON_ONCE(!iter_is_ubuf(orig) && !iter_is_iovec(orig)))
+-		return -EIO;
+-
+-	max_pages = iov_iter_npages(orig, INT_MAX);
+-	bv_size = array_size(max_pages, sizeof(*bv));
+-	bv = kvmalloc(bv_size, GFP_KERNEL);
+-	if (!bv)
+-		return -ENOMEM;
+-
+-	/* Put the page list at the end of the bvec list storage.  bvec
+-	 * elements are larger than page pointers, so as long as we work
+-	 * 0->last, we should be fine.
+-	 */
+-	pg_size = array_size(max_pages, sizeof(*pages));
+-	pages = (void *)bv + bv_size - pg_size;
+-
+-	while (count && npages < max_pages) {
+-		ret = iov_iter_extract_pages(orig, &pages, count,
+-					     max_pages - npages, extraction_flags,
+-					     &offset);
+-		if (unlikely(ret <= 0)) {
+-			ret = ret ?: -EIO;
+-			break;
+-		}
+-
+-		if (WARN(ret > count,
+-			 "%s: extract_pages overrun %zd > %zu bytes\n",
+-			 __func__, ret, count)) {
+-			ret = -EIO;
+-			break;
+-		}
+-
+-		cur_npages = DIV_ROUND_UP(offset + ret, PAGE_SIZE);
+-		if (WARN(cur_npages > max_pages - npages,
+-			 "%s: extract_pages overrun %u > %u pages\n",
+-			 __func__, npages + cur_npages, max_pages)) {
+-			ret = -EIO;
+-			break;
+-		}
+-
+-		count -= ret;
+-		ret += offset;
+-
+-		for (i = 0; i < cur_npages; i++) {
+-			len = ret > PAGE_SIZE ? PAGE_SIZE : ret;
+-			bvec_set_page(bv + npages + i, *pages++, len - offset, offset);
+-			ret -= len;
+-			offset = 0;
+-		}
+-
+-		npages += cur_npages;
+-	}
+-
+-	/* Note: Don't try to clean up after EIO.  Either we got no pages, so
+-	 * nothing to clean up, or we got a buffer overrun, memory corruption
+-	 * and can't trust the stuff in the buffer (a WARN was emitted).
+-	 */
+-
+-	if (ret < 0 && (ret == -ENOMEM || npages == 0)) {
+-		for (i = 0; i < npages; i++)
+-			unpin_user_page(bv[i].bv_page);
+-		kvfree(bv);
+-		return ret;
+-	}
+-
+-	iov_iter_bvec(new, orig->data_source, bv, npages, orig_len - count);
+-	return npages;
+-}
+-EXPORT_SYMBOL_GPL(netfs_extract_user_iter);
+-
+-/*
+- * Select the span of a bvec iterator we're going to use.  Limit it by both maximum
+- * size and maximum number of segments.  Returns the size of the span in bytes.
+- */
+-static size_t netfs_limit_bvec(const struct iov_iter *iter, size_t start_offset,
+-			       size_t max_size, size_t max_segs)
+-{
+-	const struct bio_vec *bvecs = iter->bvec;
+-	unsigned int nbv = iter->nr_segs, ix = 0, nsegs = 0;
+-	size_t len, span = 0, n = iter->count;
+-	size_t skip = iter->iov_offset + start_offset;
+-
+-	if (WARN_ON(!iov_iter_is_bvec(iter)) ||
+-	    WARN_ON(start_offset > n) ||
+-	    n == 0)
+-		return 0;
+-
+-	while (n && ix < nbv && skip) {
+-		len = bvecs[ix].bv_len;
+-		if (skip < len)
+-			break;
+-		skip -= len;
+-		n -= len;
+-		ix++;
+-	}
+-
+-	while (n && ix < nbv) {
+-		len = min3(n, bvecs[ix].bv_len - skip, max_size);
+-		span += len;
+-		nsegs++;
+-		ix++;
+-		if (span >= max_size || nsegs >= max_segs)
+-			break;
+-		skip = 0;
+-		n -= len;
+-	}
+-
+-	return min(span, max_size);
+-}
+-
+-/*
+- * Select the span of a kvec iterator we're going to use.  Limit it by both
+- * maximum size and maximum number of segments.  Returns the size of the span
+- * in bytes.
+- */
+-static size_t netfs_limit_kvec(const struct iov_iter *iter, size_t start_offset,
+-			       size_t max_size, size_t max_segs)
+-{
+-	const struct kvec *kvecs = iter->kvec;
+-	unsigned int nkv = iter->nr_segs, ix = 0, nsegs = 0;
+-	size_t len, span = 0, n = iter->count;
+-	size_t skip = iter->iov_offset + start_offset;
+-
+-	if (WARN_ON(!iov_iter_is_kvec(iter)) ||
+-	    WARN_ON(start_offset > n) ||
+-	    n == 0)
+-		return 0;
+-
+-	while (n && ix < nkv && skip) {
+-		len = kvecs[ix].iov_len;
+-		if (skip < len)
+-			break;
+-		skip -= len;
+-		n -= len;
+-		ix++;
+-	}
+-
+-	while (n && ix < nkv) {
+-		len = min3(n, kvecs[ix].iov_len - skip, max_size);
+-		span += len;
+-		nsegs++;
+-		ix++;
+-		if (span >= max_size || nsegs >= max_segs)
+-			break;
+-		skip = 0;
+-		n -= len;
+-	}
+-
+-	return min(span, max_size);
+-}
+-
+-/*
+- * Select the span of an xarray iterator we're going to use.  Limit it by both
+- * maximum size and maximum number of segments.  It is assumed that segments
+- * can be larger than a page in size, provided they're physically contiguous.
+- * Returns the size of the span in bytes.
+- */
+-static size_t netfs_limit_xarray(const struct iov_iter *iter, size_t start_offset,
+-				 size_t max_size, size_t max_segs)
+-{
+-	struct folio *folio;
+-	unsigned int nsegs = 0;
+-	uoff_t pos = iter->xarray_start + iter->iov_offset;
+-	pgoff_t index = pos / PAGE_SIZE;
+-	size_t span = 0, n = iter->count;
+-
+-	XA_STATE(xas, iter->xarray, index);
+-
+-	if (WARN_ON(!iov_iter_is_xarray(iter)) ||
+-	    WARN_ON(start_offset > n) ||
+-	    n == 0)
+-		return 0;
+-	max_size = min(max_size, n - start_offset);
+-
+-	rcu_read_lock();
+-	xas_for_each(&xas, folio, ULONG_MAX) {
+-		size_t offset, flen, len;
+-		if (xas_retry(&xas, folio))
+-			continue;
+-		if (WARN_ON(xa_is_value(folio)))
+-			break;
+-		if (WARN_ON(folio_test_hugetlb(folio)))
+-			break;
+-
+-		flen = folio_size(folio);
+-		offset = offset_in_folio(folio, pos);
+-		len = min(max_size, flen - offset);
+-		span += len;
+-		nsegs++;
+-		if (span >= max_size || nsegs >= max_segs)
+-			break;
+-	}
+-
+-	rcu_read_unlock();
+-	return min(span, max_size);
+-}
+-
+-/*
+- * Select the span of a bvecq iterator we're going to use.  Limit it by both
+- * maximum size and maximum number of segments.  Returns the size of the span
+- * in bytes.
+- */
+-static size_t netfs_limit_bvecq(const struct iov_iter *iter, size_t start_offset,
+-				size_t max_size, size_t max_segs)
+-{
+-	const struct bvecq *bq = iter->bvecq;
+-	unsigned int nsegs = 0;
+-	unsigned int slot = iter->bvecq_slot;
+-	size_t span = 0, n = iter->count;
+-
+-	if (WARN_ON(!iov_iter_is_bvecq(iter)) ||
+-	    WARN_ON(start_offset > n) ||
+-	    n == 0)
+-		return 0;
+-	max_size = umin(max_size, n - start_offset);
+-
+-	if (!bvecq_acquire_slot(bq, slot)) {
+-		bq = bvecq_next(bq);
+-		slot = 0;
+-	}
+-
+-	start_offset += iter->iov_offset;
+-	do {
+-		size_t flen;
+-
+-		flen = bq->bv[slot].bv_len;
+-		if (start_offset < flen) {
+-			span += flen - start_offset;
+-			nsegs++;
+-			start_offset = 0;
+-		} else {
+-			start_offset -= flen;
+-		}
+-		if (span >= max_size || nsegs >= max_segs)
+-			break;
+-
+-		slot++;
+-		if (!bvecq_acquire_slot(bq, slot)) {
+-			bq = bvecq_next(bq);
+-			slot = 0;
+-		}
+-	} while (bq);
+-
+-	return umin(span, max_size);
+-}
+-
+-size_t netfs_limit_iter(const struct iov_iter *iter, size_t start_offset,
+-			size_t max_size, size_t max_segs)
+-{
+-	if (iov_iter_is_bvecq(iter))
+-		return netfs_limit_bvecq(iter, start_offset, max_size, max_segs);
+-	if (iov_iter_is_bvec(iter))
+-		return netfs_limit_bvec(iter, start_offset, max_size, max_segs);
+-	if (iov_iter_is_xarray(iter))
+-		return netfs_limit_xarray(iter, start_offset, max_size, max_segs);
+-	if (iov_iter_is_kvec(iter))
+-		return netfs_limit_kvec(iter, start_offset, max_size, max_segs);
+-	BUG();
+-}
+-EXPORT_SYMBOL(netfs_limit_iter);
+-#endif
+diff --git a/include/linux/netfs.h b/include/linux/netfs.h
+index f3249d0573c4..0340c9ee587b 100644
+--- a/include/linux/netfs.h
++++ b/include/linux/netfs.h
+@@ -460,11 +460,6 @@ void netfs_put_subrequest(struct netfs_io_subrequest *subreq,
+ ssize_t netfs_extract_iter(struct iov_iter *orig, size_t max_len, size_t max_pages,
+ 			   struct bvecq **_bvecq_head,
+ 			   iov_iter_extraction_t extraction_flags, gfp_t gfp);
+-ssize_t netfs_extract_user_iter(struct iov_iter *orig, size_t orig_len,
+-				struct iov_iter *new,
+-				iov_iter_extraction_t extraction_flags);
+-size_t netfs_limit_iter(const struct iov_iter *iter, size_t start_offset,
+-			size_t max_size, size_t max_segs);
+ void netfs_prepare_write_failed(struct netfs_io_subrequest *subreq);
+ void netfs_write_subrequest_terminated(void *_op, ssize_t transferred_or_error);
+ 
 
