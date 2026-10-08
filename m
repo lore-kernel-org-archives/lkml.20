@@ -1,153 +1,109 @@
-Received: from mx3.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE62B3C3F4E;
-	Thu,  8 Oct 2026 18:32:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=141.14.17.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C3B236E48C;
+	Thu,  8 Oct 2026 18:34:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791484361; cv=none; b=W8r1uUF7MonA6CiQz4JfVcCXPdS/uUGBoRnZOMOztixCX/bUnsmOUX7klQqv8FHGxP1MD4uYH3VBGDEMjLbCySUMnhcbb58+VS/0X1ryM2xYgUZSav48BAPLbAlj5mkJ/ETINzw7bKgjKsl3+7TafONzDlxwrtpMj+XiQmx7mVY=
+	t=1791484462; cv=none; b=EBCWP2NA3ynzm56/y5jL0Te9NcIKxLHn8Gu25xsWukOr9TcC8kM1IDbIzogy3BM3qCrK9pQObn/qO4eo3MqywxC6c1jAt32zwskIwZzAX4UjyT7dty7HfexpKkmeUrf0Tolnqfr2oOgmRYuRDp2NBsbeBaDn4NqXJCkbjZ7+ggo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791484361; c=relaxed/simple;
-	bh=SRpyipBgTY7eOSwL+Fm3m6DKRCc4kSXZb3lbXGp2m90=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=i8PYck8T9GgPIZA4RL4/6fdRHZC5+4VZolLRgPdrfVrkLcb10olhjiwEGsKTubyMxOOFVO98B3UDy2km4ye5IERN/bd0jDIITwjZgZcQ26wpQ+26aSkTTIlwp9y/1UCGLliRWAGADuA854g+9+3fjjMtIAUdQHsktIN8Sh8VOzA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=molgen.mpg.de; spf=pass smtp.mailfrom=molgen.mpg.de; dkim=pass (2048-bit key) header.d=molgen.mpg.de header.i=@molgen.mpg.de header.b=D08YY8lU; arc=none smtp.client-ip=141.14.17.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=molgen.mpg.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=molgen.mpg.de
+	s=arc-20240116; t=1791484462; c=relaxed/simple;
+	bh=dxKVQUB9bdHDqGSst6T7C+ohmcyWVEOehoYedx/8b9E=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=sm3FQlkmvnwEQpC1apnDwlzKKu8C+aH2P3SuxAgyUDT+twSOY6iEsqaBcLWWQ80T3s8AvQoODzfpNFghMTocvCubbh/3/47breqME5MQMa6kV/+IirbChMgrd3z1952rhTsMnM30ljtpcEYgTnG7m/fzq78dPhc1phZZScNqPEA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VEvTuXRF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=molgen.mpg.de header.i=@molgen.mpg.de header.b="D08YY8lU"
-Received: from [192.168.0.150] (ip-095-090-241-211.vkd79.pools.vodafone-ip.de [95.90.241.211])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: pmenzel)
-	by mx.molgen.mpg.de (Postfix) with ESMTPSA id 04E314C442F941;
-	Thu, 08 Oct 2026 20:31:37 +0200 (CEST)
-Message-ID: <07ee6c66-034d-4cea-bce9-91c63a1aea86@molgen.mpg.de>
-Date: Thu, 8 Oct 2026 20:31:31 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VEvTuXRF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40AB11F000FF;
+	Thu,  8 Oct 2026 18:34:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791484460;
+	bh=MDUs9CCOTYQKi4Eoui479ft8V8PVNTf33myUL0Knxxk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=VEvTuXRFJbKXsdv51vxBwVb0nprNMat/salfxgcr7toLVUb9Od0ASyvpDvL45aHJ+
+	 3rCMbJp6/l57wb6kF8KCrM4KsiIfXxmB+YrlsHcBuEw6aUmLXSQdIe0b4U534tcMSI
+	 xeGv0X2M91DLoia2EbymifHf3zCPrjtDaxu33sQoGL5UsoOEVtdx0TZ8MtqY7yGV0I
+	 dmqi2qqP0r7OUWJZ6ZHUQmHhGgP6yzPu8SdY1sfm9TJiasx/yrnix7zKVh+pDgLedB
+	 K48Y/HawxCwjRkkCxXPF1gl12nPyZjuAxMrGmOwDxGTCMRSZQSL11dSGu4HTMU8OpA
+	 YyoW430POzRnQ==
+Message-ID: <sashiko-outbox-164461@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] mtd: rawnand: tegra: fix OF node leak in
+ tegra_nand_chips_init()
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Thierry Reding" <thierry.reding@kernel.org>, "Vignesh Raghavendra" <vigneshr@ti.com>, "Haotian
+ Zhang" <vulab@iscas.ac.cn>, "Richard Weinberger" <richard@nod.at>, "Stefan
+ Agner" <stefan@agner.ch>, "Miquel Raynal" <miquel.raynal@bootlin.com>, "Lucas
+ Stach" <dev@lynxeye.de>, "Jonathan Hunter" <jonathanh@nvidia.com>, "Dmitry
+ Osipenko" <digetx@gmail.com>, "Boris Brezillon" <bbrezillon@kernel.org>
+Cc: linux-tegra@vger.kernel.org, linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261008182442.2770036-1-vulab@iscas.ac.cn>
+References: <20261008182442.2770036-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 08 Oct 2026 18:34:19 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [iwl-net PATCH] idpf: wait for the reset completed state in
- idpf_check_reset_complete()
-To: Brian Vazquez <brianvv@google.com>,
- Brian Vazquez <brianvv.kernel@gmail.com>
-Cc: Tony Nguyen <anthony.l.nguyen@intel.com>,
- Przemek Kitszel <przemyslaw.kitszel@intel.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org,
- Madhu Chittim <madhu.chittim@intel.com>,
- Pavan Kumar Linga <pavan.kumar.linga@intel.com>,
- Joshua Hay <joshua.a.hay@intel.com>,
- Shailendra Bhatnagar <shailendra.bhatnagar@intel.com>,
- Sridhar Samudrala <sridhar.samudrala@intel.com>,
- linux-kernel@vger.kernel.org, David Decotigny <decot@google.com>,
- Li Li <boolli@google.com>, Emil Tantilov <emil.s.tantilov@intel.com>
-References: <20261008173334.2881475-1-brianvv@google.com>
-Content-Language: en-US
-From: Paul Menzel <pmenzel@molgen.mpg.de>
-In-Reply-To: <20261008173334.2881475-1-brianvv@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=molgen.mpg.de; s=20260906; 
-	t=1791484297; 
-	h=from:from:subject:date:message-id:mime-version:content-type:content-transfer-encoding; 
-	bh=yVP7nsKdhF71GwWHA3GbXkemcPwhdJ4dqV5UW32uEtI=; 
-	b=D08YY8lU1Jh4VjomGE1Py45b4kGOPmalwHrDgeqM0me/JLsVy00EsMZ3eNOpyae2N5HmBetyHo0N
-	WqQESdogj92USlgSlHjmoaFCIVgQ6B8ydEi4WLqStyidIvxqj+Bu0xbN3Z+r+vlX6aOczm8SYrgk0n
-	IKCa5KJ6425UC3ihFkTUAvMC1dChKVO/hhljARB13/c2UOs6CheAK8HoRPO2g/yhoLI/+UgcQVwNxo
-	Oauw+K+4KZWIl2r/OdO+g6GgFzeV6ATHTXw6nggF9F8YIUSWxUavePbEoQtDe1PWY2H1uZJBiLi2pB
-	S8dB6JCKVAkfh9G4kM9Dlm1cM6KiFvKg==
 
-Dear Brian,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] mtd: rawnand: tegra: UAF due to premature of_node_put() before reg=
+istration
+--
 
+commit 1cf3654f6b317262348cbad1bbf461282840058e
+Author: Haotian Zhang <vulab@iscas.ac.cn>
 
-Thank you for your patch.
+mtd: rawnand: tegra: fix OF node leak in tegra_nand_chips_init()
 
-Am 08.10.26 um 19:33 schrieb Brian Vazquez:
-> PFGEN_RSTAT[1:0] / VFGEN_RSTAT[1:0] (PFR_STATE / VFR_STATE) encode the
-> function reset progress as a 2-bit state, not a flag:
-> 
->    00b - reset in progress
->    01b - reset completed, written by the control plane
->    10b - function active, written by the control plane once the function
->          has completed VIRTCHNL2_OP_VERSION
->    11b - reserved
+This commit attempts to fix a device node leak by releasing np_nand right
+after calling nand_set_flash_node().
 
-For me it’d be helpful if you mentioned the datasheet.
+> diff --git a/drivers/mtd/nand/raw/tegra_nand.c b/drivers/mtd/nand/raw/teg=
+ra_nand.c
+> --- a/drivers/mtd/nand/raw/tegra_nand.c
+> +++ b/drivers/mtd/nand/raw/tegra_nand.c
+[ ... ]
+> @@ -1119,6 +1122,7 @@ static int tegra_nand_chips_init(struct device *dev,
+>  	mtd->owner =3D THIS_MODULE;
+> =20
+>  	nand_set_flash_node(chip, np_nand);
+> +	of_node_put(np_nand);
 
-> idpf_check_reset_complete() tests (reg_val & rstat_m) as a boolean, with
-> rstat_m = GENMASK(1, 0), so any non-zero state is taken as "completed",
-> although only 01b carries that meaning.
-> 
-> That only works if hardware moves the field to 00b as soon as the reset
-> is triggered. On the devices tested it does not: PFSWR transitions
-> PFR_STATE to 00b only when the field currently reads 01b. When the
-> function is active (10b) the field keeps its value until the control
-> plane finishes the reset and writes 01b, which takes a few hundred
-> milliseconds.
+[Severity: High]
+Does this introduce a use-after-free risk for the device node?
 
-Please mention the device, so it’s easier to reproduce. Also, the 
-command to trigger the reset.
+The nand_set_flash_node() helper stores the pointer in mtd->dev.of_node
+but does not increment its reference count. By dropping the reference here,
+could the node be freed before subsequent accesses?
 
-> Consequently, on a hard reset of an active function
-> (IDPF_HR_FUNC_RESET) the first poll sees 10b, returns immediately, the
-> driver re-creates the mailbox and sends VIRTCHNL2_OP_VERSION while the
-> reset is still being processed. The control plane tears the mailbox
-> down underneath it, VERSION is never answered, and the driver sits in a
-> 60 second virtchnl timeout (-ETIME) before going through a second hard
-> reset which then succeeds.
-> 
-> Make idpf_check_reset_complete() wait for the state to be exactly 01b.
-> This is the stricter reading of the register definition and it does not
-> depend on how the field got to its current value: functions that are
-> still in progress (00b) or active (10b) keep polling until the control
-> plane reports completion.
-> 
-> Fixes: 8077c727561a ("idpf: add controlq init and reset checks")
-> Signed-off-by: Brian Vazquez <brianvv@google.com>
-> ---
->   drivers/net/ethernet/intel/idpf/idpf.h     | 2 ++
->   drivers/net/ethernet/intel/idpf/idpf_lib.c | 3 ++-
->   2 files changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/net/ethernet/intel/idpf/idpf.h b/drivers/net/ethernet/intel/idpf/idpf.h
-> index 470bc23c844c..ce8a1bd0ec8b 100644
-> --- a/drivers/net/ethernet/intel/idpf/idpf.h
-> +++ b/drivers/net/ethernet/intel/idpf/idpf.h
-> @@ -166,6 +166,8 @@ struct idpf_netdev_priv {
->   	spinlock_t stats_lock;
->   };
->   
-> +#define IDPF_RSTAT_COMPLETE		0x01
-> +
->   /**
->    * struct idpf_reset_reg - Reset register offsets/masks
->    * @rstat: Reset status register
-> diff --git a/drivers/net/ethernet/intel/idpf/idpf_lib.c b/drivers/net/ethernet/intel/idpf/idpf_lib.c
-> index 2c148377540c..a827e0fa67c8 100644
-> --- a/drivers/net/ethernet/intel/idpf/idpf_lib.c
-> +++ b/drivers/net/ethernet/intel/idpf/idpf_lib.c
-> @@ -1870,7 +1870,8 @@ static int idpf_check_reset_complete(struct idpf_adapter *adapter,
->   		 * register for us yet and 0xFFFFFFFF is not a valid value for
->   		 * the register, so treat that as invalid.
->   		 */
-> -		if (reg_val != 0xFFFFFFFF && (reg_val & reset_reg->rstat_m))
-> +		if (reg_val != 0xFFFFFFFF &&
-> +		    (reg_val & reset_reg->rstat_m) == IDPF_RSTAT_COMPLETE)
->   			return 0;
->   
->   		usleep_range(5000, 10000);
+Later in this function, nand_scan() dereferences this flash node to read=20
+properties:
 
-Reviewed-by: Paul Menzel <pmenzel@molgen.mpg.de>
+drivers/mtd/nand/raw/nand_base.c:of_get_nand_bus_width() {
+    struct device_node *dn =3D nand_get_flash_node(chip);
+    ...
+    ret =3D of_property_read_u32(dn, "nand-bus-width", &val);
+    ...
+}
 
+Furthermore, mtd_device_register() will also access the node to increment
+its refcount:
 
-Kind regards,
+drivers/mtd/mtdcore.c:add_mtd_device() {
+    ...
+    mtd_check_of_node(mtd);
+    of_node_get(mtd_get_of_node(mtd));
+    ...
+}
 
-Paul
+If dynamic DT unloading drops the final reference before
+mtd_device_register() completes, it appears these later calls might access
+freed memory.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261008182442.2770=
+036-1-vulab@iscas.ac.cn?part=3D1
