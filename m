@@ -1,65 +1,63 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F189D3ADBAC;
-	Thu,  8 Oct 2026 16:49:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A24C1382F2F;
+	Thu,  8 Oct 2026 16:50:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791478202; cv=none; b=JbxahD0c2Q6k0F2hqi2Oi2vtfktVQFllasgaeD8zFUyBEPOoxP8cgyB7iqJjRRDetdzTWQ0eFd/nj5PH2FgBP6Y3HT2Eo71LpDcz3KXg5e5xOrZmhex1DZBpf2e8GPJnlt0dWoMr6vDQ2piPfUPAa7jMjhfXmwt1fqJhG0UFs4U=
+	t=1791478250; cv=none; b=avIB3ZMTGk0kupzQtMZubdTKVtmqrtI4w8fiwBvWZsHMoG3+M4W3/5Te4FZNC+Sotlm9Jj2TXZLHX2rPykvEllDr2YGnA6MYC8N1dMh0K9YZMG4VklDmQkqaDPMozmsiV2ksmAKEmQRiFsxwbkeMgTpWy4VjU1f6KcuuiCAVk98=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791478202; c=relaxed/simple;
-	bh=wEpyQLioBMW4Ub+2PydT+0oLGLWVpaDngxSSXhXf2Oc=;
+	s=arc-20240116; t=1791478250; c=relaxed/simple;
+	bh=8q9Lx8jEokcE9Tka4Tj1rvBm8FgOjJOE7YVCS3CPYjQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WCxn66B0wgk6nnvZ9cChHuUBKccpb9b4D29Z7o2AZToxMO9WyDAqgzvNRmhN0TKnBKqtH2IVW+ikXW1kKWhu7ZRppYihL5kfeSxqqFEJALXU4QGBQ5weva+fziEZUNaOtD5mtYBz+aMEJH5lXpdfbfICYipLQ87+0wp2mw3MAVc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JROKLuid; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=IS5ibrX82wrv0h7qwuERIcBf15cEqIBhRoRAZsXjM+4O6zmFCwXtfmWuBKvtej6ppO+gOJy5hFzQ9Zf8Yv/vwi5xVnWHt2911atMnR0btWNoiOXl8jEyAOm9rLq9o7OqOMJuaMZ0tXCmWL4T3g2oJNldRznfFc1drpv/gYFscYw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OvozxI7O; arc=none smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JROKLuid"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OvozxI7O"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791478199; x=1823014199;
+  t=1791478247; x=1823014247;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=wEpyQLioBMW4Ub+2PydT+0oLGLWVpaDngxSSXhXf2Oc=;
-  b=JROKLuidzgMny1H58WWMd6WB307kGWVM+my20yXrnKReLgz5athyAp/S
-   dWfhFE6uQPAgbrptVL/1+/QFn0gz4nZyi6SsXtZsONWVPB8dm3fALMEzD
-   Y4uTSJsHNEThySyDmU8TDm3ZlEDR1XqNLtFrkEMwt0xDgFJO0V1UXH0eu
-   b6FvRpk1D7ZCG8pmykGSMH8yG2iazgFmbdTYBZQrDiBNNrObOSgFTN26f
-   5Yv1ACO00hZtqgin7OzWBJRnbXycyAXun6fr3QWPjkZCtnQpj4AwEcLxb
-   +fZqOlFkufKBH9SEvf8oXq7sBb6CUMx5M3ZiJkuES/MZfI92kzh5UJbhe
+  bh=8q9Lx8jEokcE9Tka4Tj1rvBm8FgOjJOE7YVCS3CPYjQ=;
+  b=OvozxI7OGk3+PukxNkPbeUESPmWGpebMZqbylzE9uIiGtnLJnmtUsPOZ
+   I/h4GSCTqIXt6ZffTySt71huwjmqRCfAZVYcxOxbXonXAVXLEOjrT6mSe
+   Rw+VNwS7WAQQ0SXo2eD+gIOWVnNlr9KHILcKn13RBSl1oDjrhcxkSdKze
+   xzPcEHdMUsfqDNuTgMAj16kCUTl10MBTRWX7T8ed4Fvl4LWAArhGWlkND
+   WYk+Zhhkk4PwKhhYzDGlAzc/ctq9SfILaIoeL5GDf3sOMX4cHpxsWaC47
+   JQaTaj6gMsIGt7q2+4yi30aoggVq0cijVIUYIj9akYVdsBm2QLFZRicZm
    Q==;
-X-CSE-ConnectionGUID: 4zunkUHjQUClrVJgvlvTKg==
-X-CSE-MsgGUID: mbYk6qzlROSWadx0qswPsg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="267531"
+X-CSE-ConnectionGUID: 6xTGidZJTPOefyoThTzGdg==
+X-CSE-MsgGUID: lMRQ0TxlQqKRLDSExCTN0A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="270550"
 X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
-   d="scan'208";a="267531"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 09:49:58 -0700
-X-CSE-ConnectionGUID: yh4TIP33S8yrX2oYUrn73w==
-X-CSE-MsgGUID: 3VsiRZ6DRRSEr/VEVIds9g==
+   d="scan'208";a="270550"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 09:50:47 -0700
+X-CSE-ConnectionGUID: tZsq7rC5S2CeemAL/lN9XA==
+X-CSE-MsgGUID: 7sTpA15ETKWdu73E3rQ28Q==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
-   d="scan'208";a="426295"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa006.fm.intel.com with ESMTP; 08 Oct 2026 09:49:55 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xErJX-000000004fS-0kVy;
-	Thu, 08 Oct 2026 16:49:51 +0000
-Date: Fri, 9 Oct 2026 00:49:37 +0800
-From: kernel test robot <lkp@intel.com>
-To: Emerson Busson <emersonbusson@gmail.com>, mhklinux@outlook.com
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev, kys@microsoft.com,
-	haiyangz@microsoft.com, wei.liu@kernel.org, decui@microsoft.com,
-	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, gregkh@linuxfoundation.org,
-	linux-kernel@vger.kernel.org, linux-hyperv@vger.kernel.org,
-	netdev@vger.kernel.org
-Subject: Re: [PATCH v2 10/14] hv: vmbus: pin buffer pages across UIO mmap to
- close the reclaim race
-Message-ID: <202610090058.hvXsWpoT-lkp@intel.com>
-References: <20261007190752.336426-11-emersonbusson@gmail.com>
+   d="scan'208";a="47478"
+Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
+  by orviesa007.jf.intel.com with ESMTP; 08 Oct 2026 09:50:44 -0700
+Date: Fri, 9 Oct 2026 00:47:31 +0800
+From: Xu Yilun <yilun.xu@linux.intel.com>
+To: Chao Gao <chao.gao@intel.com>
+Cc: linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev,
+	kvm@vger.kernel.org, binbin.wu@linux.intel.com,
+	tony.lindgren@linux.intel.com, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>
+Subject: Re: [PATCH v3 02/10] x86/virt/tdx: Convert the version metadata
+ reader
+Message-ID: <asfJI+15tQivvy95@yilunxu-OptiPlex-7050>
+References: <20260930053901.22528-1-chao.gao@intel.com>
+ <20260930053901.22528-3-chao.gao@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -68,73 +66,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261007190752.336426-11-emersonbusson@gmail.com>
+In-Reply-To: <20260930053901.22528-3-chao.gao@intel.com>
 
-Hi Emerson,
+On Tue, Sep 29, 2026 at 10:38:36PM -0700, Chao Gao wrote:
+> With the helper to read a table of metadata fields in place, the
+> existing metadata readers can be standardized on it.
+> 
+> Convert the version metadata reader: add a table that pairs each field ID
+> with the 'struct tdx_sys_info_version' member that holds its value, and
+> read all version fields by walking that table.
+> 
+> Name the field IDs for readability, so the table entries don't carry raw
+> hex literals.
+>
 
-kernel test robot noticed the following build warnings:
+[...]
 
-[auto build test WARNING on char-misc/char-misc-testing]
-[also build test WARNING on char-misc/char-misc-next char-misc/char-misc-linus linus/master v7.3-rc6 next-20261008]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+> +#define TDX_SYSINFO_MAP_VERSION(_field_id, _member) \
+> +	TDX_SYSINFO_MAP(_field_id, struct tdx_sys_info_version, _member)
+> +
+> +static const struct field_mapping version_mappings[] = {
+> +	TDX_SYSINFO_MAP_VERSION(TDX_FIELD_MINOR_VERSION,  minor_version),
+> +	TDX_SYSINFO_MAP_VERSION(TDX_FIELD_MAJOR_VERSION,  major_version),
+> +	TDX_SYSINFO_MAP_VERSION(TDX_FIELD_UPDATE_VERSION, update_version),
+> +};
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Emerson-Busson/hv-vmbus-convert-ring-backing-through-the-chunk-allocator/20261007-160739
-base:   char-misc/char-misc-testing
-patch link:    https://lore.kernel.org/r/20261007190752.336426-11-emersonbusson%40gmail.com
-patch subject: [PATCH v2 10/14] hv: vmbus: pin buffer pages across UIO mmap to close the reclaim race
-config: i386-randconfig-1001-20261008 (https://download.01.org/0day-ci/archive/20261009/202610090058.hvXsWpoT-lkp@intel.com/config)
-compiler: clang version 22.1.3 (https://github.com/llvm/llvm-project e9846648fd6183ee6d8cbdb4502213fcf902a211)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261009/202610090058.hvXsWpoT-lkp@intel.com/reproduce)
+[...]
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610090058.hvXsWpoT-lkp@intel.com/
+I think something like the following is quite clear to me:
 
-All warnings (new ones prefixed by >>):
+  static const struct field_mapping version_mappings[] = {
+	FIELD_MAP(0x0800000100000003ULL, struct tdx_sys_info_version, minor_version),
+	...
+  }
 
-   In file included from drivers/uio/uio_hv_generic.c:428:
->> drivers/uio/uio_hv_generic_mmap_test.c:36:34: warning: implicit conversion from 'u64' (aka 'unsigned long long') to 'unsigned long' changes value from 18446744073709551615 to 4294967295 [-Wconstant-conversion]
-      36 |                            hv_uio_mmap_range_valid(8, U64_MAX, 1));
-         |                            ~~~~~~~~~~~~~~~~~~~~~~~    ^~~~~~~
-   include/linux/limits.h:25:19: note: expanded from macro 'U64_MAX'
-      25 | #define U64_MAX         ((u64)~0ULL)
-         |                          ^~~~~~~~~~
-   include/kunit/test.h:1014:31: note: expanded from macro 'KUNIT_EXPECT_FALSE'
-    1014 |         KUNIT_EXPECT_FALSE_MSG(test, condition, NULL)
-         |                                      ^~~~~~~~~
-   include/kunit/test.h:1019:7: note: expanded from macro 'KUNIT_EXPECT_FALSE_MSG'
-    1019 |                                   condition,                                   \
-         |                                   ^~~~~~~~~
-   include/kunit/test.h:812:10: note: expanded from macro 'KUNIT_FALSE_MSG_ASSERTION'
-     812 |                               condition,                                       \
-         |                               ^~~~~~~~~
-   include/kunit/test.h:788:16: note: expanded from macro 'KUNIT_UNARY_ASSERTION'
-     788 |         if (likely(!!(condition_) == !!expected_true_))                        \
-         |                       ^~~~~~~~~~
-   include/linux/compiler.h:76:40: note: expanded from macro 'likely'
-      76 | # define likely(x)      __builtin_expect(!!(x), 1)
-         |                                             ^
-   1 warning generated.
+  or even:
+
+	FIELD_MAP(0x0800000100000003ULL, version, minor_version),
+
+It clearly tells the mapping for the class, the field, and the field_id.
+
+So I'm not sure what's the downside of a literal hex here. To me, a
+TDX_FIELD_XX MACRO only creates duplicated names in one line and
+unnecessary touch points when we add a new field.
 
 
-vim +36 drivers/uio/uio_hv_generic_mmap_test.c
+> diff --git a/arch/x86/virt/vmx/tdx/tdx.h b/arch/x86/virt/vmx/tdx/tdx.h
+> index db209541d3cd..10cbc2d77a5a 100644
+> --- a/arch/x86/virt/vmx/tdx/tdx.h
+> +++ b/arch/x86/virt/vmx/tdx/tdx.h
+> @@ -52,6 +52,16 @@
+>  #define TDH_PHYMEM_PAMT_REMOVE		59
+>  #define TDH_SYS_DISABLE			69
+>  
+> +/*
+> + * TDX global metadata field IDs.
+> + *
+> + * See "global_metadata.pdf" in Intel TDX Module ABI Definitions.
+> + */
+> +/* Class "TDX Module Version" */
+> +#define TDX_FIELD_MINOR_VERSION			0x0800000100000003ULL
+> +#define TDX_FIELD_MAJOR_VERSION			0x0800000100000004ULL
+> +#define TDX_FIELD_UPDATE_VERSION		0x0800000100000005ULL
 
-    27	
-    28	static void hv_uio_ring_mmap_range_test(struct kunit *test)
-    29	{
-    30		KUNIT_EXPECT_TRUE(test, hv_uio_mmap_range_valid(8, 0, 8));
-    31		KUNIT_EXPECT_TRUE(test, hv_uio_mmap_range_valid(8, 4, 4));
-    32		KUNIT_EXPECT_FALSE(test, hv_uio_mmap_range_valid(8, 8, 1));
-    33		KUNIT_EXPECT_FALSE(test, hv_uio_mmap_range_valid(8, 7, 2));
-    34		KUNIT_EXPECT_FALSE(test, hv_uio_mmap_range_valid(8, 0, 0));
-    35		KUNIT_EXPECT_FALSE(test,
-  > 36				   hv_uio_mmap_range_valid(8, U64_MAX, 1));
-    37	}
-    38	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+I think these are unnecessary touch points, metadata readers never use
+these MACROs.
