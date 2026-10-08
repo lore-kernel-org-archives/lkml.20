@@ -1,70 +1,73 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EEEB04718E5;
-	Thu,  8 Oct 2026 21:31:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from mail-24420.protonmail.ch (mail-24420.protonmail.ch [109.224.244.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 535E3448BB6
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 21:39:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791495098; cv=none; b=NN9X7IH6FXZoiRtPCYZYrc026wd3Qs+uJDkcHU21+htZq9T7VMZqUChNcxu5Cr41XPu/6snIHjCPDHA1Lzf8Q6kbPyC/95gGhmk72T3h+ivaVhubT4sXTOeja+R9YATfQxspcpffvC+IBsKRVnhTgrj9fhpLf8GNdGfCI/azGgQ=
+	t=1791495577; cv=none; b=ftT7sruFVsRrWKoIuam6OAt6F75Sh4mbup8i9l2HUFC9N7nytzUfuO04ltqjrI552kX4v/rNe7uEVTkcTwxGnlPBqkN3FCoh+z1kE7qYkwOJhAdlzymuFW3MXYcZTrSaDBl3/yI0unK6t/osn/UbAmSDAUwgodMzs1QcGkNd+CQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791495098; c=relaxed/simple;
-	bh=TVe28LHzQfjbQVRJhm1xQ9aiwBzofB8V7E080+nv6fk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eCnYHExRkOjpXZlzT/aMimNri6uRN7idseR/NU/E8wKDNBDQ7q1VZZgR1QqSJ5+gIWKD0xnytOsSMEBoooKp4h4fdszdHhIRNtOG60EDkmXqAEIiuy+qP0QrIIf/NJfcnfJ+8CwZVEk85nqtnlKoqGaUYHbLDqqln3CWy52KWLU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=OfW+ck+y; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1791495577; c=relaxed/simple;
+	bh=xSjNxiodg+6yd07ntk91k2iFIK4a2SynGiN3plsLjO0=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=srECvjcHk+e2SG09V6tGpynC08gdIyNjDEvQUi3ojmKBQphrVCpoobhrC3KAjODiYKZAAP5DMrEg2qpsXAMJAkTNN/mjzOpxrptoDrJCdizNzZN/YGcA4bj6n5eh1tkYanJYIVcDCC9+CnhmBCR5HELbDWG8FOT2f/m3wSYx+sw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dawidwrobel.com; spf=pass smtp.mailfrom=dawidwrobel.com; dkim=pass (2048-bit key) header.d=dawidwrobel.com header.i=@dawidwrobel.com header.b=mtS1b8yA; arc=none smtp.client-ip=109.224.244.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dawidwrobel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dawidwrobel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="OfW+ck+y"
-Received: from mac.lan (unknown [4.194.122.144])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 4F3D820B7166;
-	Thu,  8 Oct 2026 14:30:28 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 4F3D820B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1791495039;
-	bh=TVe28LHzQfjbQVRJhm1xQ9aiwBzofB8V7E080+nv6fk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=OfW+ck+yQNya9Wy/bLyTDJiInaDSlBXjrRCUA7CEYdAa+ZHqXdohWh+Ml1rOLYF5Y
-	 gdQlUAzyvo9nJsnwIDcxI79nGOoxB/2Hz+NNwZfNicxL+JgYwmWJZ/VJ0F5ZhsrbJh
-	 2kDqCmVGibM5Nq1uE+m/6ndEcR/i1yEBetRmXw/c=
-From: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>
-To: edumazet@kernel.org
-Cc: AutonomousCodeSecurity@microsoft.com,
-	cenzhang@linux.microsoft.com,
-	davem@davemloft.net,
-	david@readahead.eu,
-	enrico.pozzobon@dissecto.com,
-	horms@kernel.org,
-	i.maximets@ovn.org,
-	jlayton@kernel.org,
-	kees@kernel.org,
-	kexinsun@smail.nju.edu.cn,
-	kuba@kernel.org,
-	leitao@debian.org,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	nicolas.dichtel@6wind.com,
-	pabeni@redhat.com,
-	stable@vger.kernel.org,
-	tgopinath@linux.microsoft.com
-Subject: Re: [PATCH net] netlink: do not copy to user space under netlink_lock_table()
-Date: Thu,  8 Oct 2026 17:31:10 -0400
-Message-ID: <20261008213110.88812-1-cenzhang@linux.microsoft.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <CAL4Wiir+CBGE=hXxHEBkyk0Au9B6G3=AdHFd5botrC-FF5BM5w@mail.gmail.com>
-References: <CAL4Wiir+CBGE=hXxHEBkyk0Au9B6G3=AdHFd5botrC-FF5BM5w@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=dawidwrobel.com header.i=@dawidwrobel.com header.b="mtS1b8yA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dawidwrobel.com;
+	s=protonmail2; t=1791495565; x=1791754765;
+	bh=xSjNxiodg+6yd07ntk91k2iFIK4a2SynGiN3plsLjO0=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=mtS1b8yA53AqbOvYKBx3JH52RLhEuQ9k/qxtNwwYeknk9Q7E0scU1yDn17212pwXK
+	 SkWaJ/tsyNU5Df9pNVy1gzy5fEZDEeoPgHIi4tJBhzmtLilLEPULbIomgLpDcIGyrp
+	 tU8k6TnEFqPFH3xT9zW90mzSl1yHVvHuKBgXoaPOMJcb7d61jzVlHE/bxFRI4Z8hfa
+	 7bpUs06gSedfvkQbVSgOdiA5Dk4I95YLdmoRw0X0woMR2uMhyhk4KcbYvAMoZYlmya
+	 TOfeFA8dZTrT16zecCF5nhfDULi5eIretDZbuWu6l+DAMA7wW7mPsOZVC1I5YUIxP7
+	 e23Wh7IG2TmVQ==
+Date: Thu, 08 Oct 2026 21:39:16 +0000
+To: Jianhua Lu <lujianhua000@gmail.com>, Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>
+From: Dawid Wrobel <me@dawidwrobel.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v3 0/3] arm64: dts: qcom: add the Xiaomi Mi Pad 5 Pro 5G
+Message-ID: <acd0ced0-533b-40e4-9514-1c616da6f9cf@dawidwrobel.com>
+In-Reply-To: <20260908-sm8250-xiaomi-enuma-v3-0-0198c3bf954a@dawidwrobel.com>
+References: <20260908-sm8250-xiaomi-enuma-v3-0-0198c3bf954a@dawidwrobel.com>
+Feedback-ID: 173987960:user:proton
+X-Pm-Message-ID: 71766e61f2fb574fd04937a409dd73e56ca88dc5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Eric,
 
-Thanks for your time and the detailed explanation. I withdraw the patch,
-and will take the points you raised into account when validating future
-findings.
+On 8.09.2026 17:56, Dawid Wr=C3=B3bel via B4 Relay wrote:
+> The Mi Pad 5 Pro 5G (enuma, 2021) is the modem-equipped variant of the
+> Mi Pad 5 Pro (elish). The two boards share a design, so this describes
+> enuma as sm8250-xiaomi-elish-common.dtsi plus the three things that
+> differ: the board ID the bootloader matches on, the panel compatible and
+> the WiFi board data variant.
+>=20
 
-Thanks again, and sorry for the noise.
+Gentle ping.
 
-Cen
+The series has been on the list for a while now. Krzysztof's Acks are
+on both binding patches, which remain unchanged since v1. Konrad's
+Reviewed-by is carried on the DTS patch, with the two nits from his
+review fixed in v3.
+
+Anything left for me to do before this can be picked up, hopefully
+still for 7.4?
+
+--=20
+With Kind Regards,
+Dawid Wrobel
+
+
