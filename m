@@ -1,1106 +1,242 @@
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2113.outbound.protection.partner.outlook.cn [139.219.17.113])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 121BB346769;
-	Thu,  8 Oct 2026 08:53:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.113
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791449602; cv=fail; b=ITEV5xpUBpYQsY+DLYt8jU64qZVVhGiYqgCGeD7RAXDk5kmh+WEQkbqz2KrdhK8CCyGFN3m+fLTBiwHINJAQ0zDCOBkK2r7/xFDiwWXrjMLhHLqUH1qfWjY6v7uQmluUhhJnIHNEKh8nbEk+1niKR7uY4akCJ5yFLUtOTKjHTBs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791449602; c=relaxed/simple;
-	bh=P+dnuaP9tvz3xaTyWvtY7mYo5mP32Lc6FE3hGa9bgP8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=nWJ7e0HtS/uYPQnBiiQ59rhpgViPFnpZNC3oyO7QCdaRjXNbvFZ8JKnypK7g+dqZvDWFosbml70iy+m1CJMS1hkL9fzhlgavdST9gERk4T920Ia4jh4/flJzRaoy+LyS4q61fOQE/vNWgZbp8m+UlcbS0JchxP9/+SuQOdZwqho=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ChN0ocQLdDglEBmkGpbDJSJAJo4u6hdBj5DiFzdssiUdwGhBBQ4BbFsuWVqaMJzpj53PdNclUMMgrM9kP0gsaFcUHZg9Qpb6PSvrllfjIZeRXEXzEGMm0XQTjV3F0mlMWDXo3zXkegfVBZIG5GL2sXbLvSXJD2+aRaKrC1VLgJSvr5ovispfP3sWVHLT58pWnARnvNNYUfEdpF24PJHWvVbWLdcOLPL+AY5MZXyqWckrjE0A+cyKVvtL3CtsmOIzXu+fupGzTXxh6hXM3jlLjenfV/ZCKQ/y11uIdteURaLYnG/ui39SOjnVdSe7jBiyb+or1a9mbDlj0GXefwoNZQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9fIaXN2qPWoTLfxh1BquRu6x6uJ056yJeAIVKakACWk=;
- b=hwjHh4qt5KdfyBCDkA3zq/VF7SahZhvZNl+9CeFlUji6YVwvG/4Ce2JsCqdCY2OqZPOgA8SeV61KxoVTgI4NutrNmnrcv5JGCkhLD+HZJ8HC5l8yuEsh88Gm4ndnfbuSmCw10s/9hZTi1Kbb4dfbWV149/23+EwWMiSBVlfReDFIxzauqQT6Hd0qGrxHDSLN0C5SuU4igPnkcuz7+nD53kZL48GDoNvnG3VuALgwBA4yDGwM80QpQtrxaDDp4DYLYqrpAt3lVeiFioInGzfNW0zCHHeYj6BT8uFwUCzrPIJ6pObTl7A7kB4qXEJIzV4qYFNDqSzJ3tc9fmYDf1aX4w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1220.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:14::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Thu, 8 Oct
- 2026 07:20:12 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
- with mapi id 15.21.0496.015; Thu, 8 Oct 2026 07:20:12 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Guenter Roeck <linux@roeck-us.net>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Changhuang Liang <changhuang.liang@starfivetech.com>
-Subject: [PATCH v6 2/2] hwmon: (starfive-pwm-fan) Add PWM fan driver for StarFive JHB100
-Date: Thu,  8 Oct 2026 00:19:50 -0700
-Message-Id: <20261008071950.4772-3-changhuang.liang@starfivetech.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261008071950.4772-1-changhuang.liang@starfivetech.com>
-References: <20261008071950.4772-1-changhuang.liang@starfivetech.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SH0PR01CA0018.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c311:5::30) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C619746C843
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 08:53:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791449620; cv=none; b=EX/+gi5n1MHyiJfMRZ+2LiOD3TfEyI8CP/YH1I4RP0yMXGu5s4UXgtjOSD12l4TXFjYSj4LmRLtZJ7Lr2f371qT0kQzRd9j6XXHHROlTldCJHJnHyYMxS7U44Zwe6tMBADkxe4EbI9iwQp18YkoSN1NCSyaJsYD91BOqMJe6Vmw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791449620; c=relaxed/simple;
+	bh=8DQSIKC6GxvLYGVLwkJQj+cpOYKLwFGmAsJkxIx9DcI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VFFkh0PVmQJdaCMsdiO/uKUYeaxE1O3VZGM25mGkP4r57dq812uvJsQsIs8LOj8pdt/qQqp7ZnJIrtEKUUKq/Ey+0anHO9atchgOjfw0BK+MOsST8K6yg3ez8an5pqFn0VjzDuX3nd+Qp6IZRIKBcq04pT5nRxmmZfypLcBSE44=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l1B/yr7e; arc=none smtp.client-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l1B/yr7e"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-88cfa501c5cso2043314b3a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 01:53:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791449618; x=1792054418; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WoVuc57y0iB0VQsW+dVH6xl0rblskYdNvDdZ3Vwv6xY=;
+        b=l1B/yr7eTIHEeGQvfc38pny08CQhmOz4qV46QgGae1JZI4tH8xaGeens+vu0o4AZvg
+         mIsDlX4FvDKP+nQNYzJgR7Am0ybQnoV0QErM1nT8oKXFfrf7/yU8lzBUgys5v2Cz3P3c
+         gk7eGdb2fUBKMK/PJzmpYhc86EdcFZN2fnhi4ApDLsHQf0d2yj4RAGamyZRbl2EfWHWp
+         vlbRoxpf0rkTcuka2WoeGYLqZhub68AXg5K2JuCnv+YOeHsfhh1v9T/e9+q/lrz9IV5D
+         C9VNd4E/MGMAtntPD1ju3nvj/NOMayHUefhrDeR4bVNQCGDFmOQfCmJw1Lhov1bm5iXU
+         zMZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791449618; x=1792054418;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WoVuc57y0iB0VQsW+dVH6xl0rblskYdNvDdZ3Vwv6xY=;
+        b=vxXIglnFORk7V/6XK3H3yVvrqUJGqHSVcO6z2MXCU7oMJw39rDXUtYSk7C243njBgA
+         NkOtNraL/ABNYWDk3oqIZDHZG7acaRq9XU2VjJTuCFlIPzs9vB8e9Ci8UYfyNPdp8iMR
+         FUErXQOQ239VY0Vz/4LtrBtwAJXL43sf4Mp2Cz2vKZ9TQMdsuST33q9rHGjagt9jdT9O
+         3L7U6DVyjmTybWZ+sPWMyP+O6xm9tODQZZ4JqCJ3Ih/XchiDx3kYjiGNIZ9sUZwYOgkI
+         4xisCTHA4++5w83byUfkpEiRNRhDJ0z05NPnaVVE3CTzXLMz1YLTV7fXBvJGhceioZH0
+         vf2w==
+X-Forwarded-Encrypted: i=1; AKwUvBzCiwKyVbfx+wP7rBv/dz9vPfsuUleO1Zkwk48vSzfvG8dP3DlyhTra+L32r/SDdOyr1XM+2tU3I42yFlY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kW8WPF7pZdLf0/qjyl7PS+XtLF+4dvZjp91FIWLiIHEYcWYTVq
+	R9AljBvo7xCpCQOqoSTfgfFqOrv36Q2r4EC1a8eo9cgaTKsAihM5JPCB
+X-Gm-Gg: AYBFou2IyRGRCZbigOCXRGxoiNRVHMr3O9qxgmUDZ94QQPAh6M5ZolDMrrQrqiXrd7H
+	YkAei+fbG3ZF02Sh6bUMg7jSqAF2SlkgI18r6nPHcAaCzdUgB6ga10KPtoTThMBUWup6Nl7DM3Q
+	ZK+Co7EitpFuEuk76C4LHNS6ib4ezWgXtG9S797KFFFanaRave5QPVFx4Gop7tq+nK1Rjx8Z/cl
+	nE3cYhMTP081gHE3U03VkECYHNmoppqobNTQMuut+aJN6wrQMjpYO1JFyqGQswTPfFXDnIGcs6B
+	XJ00sFpo39IZ2KGgECinfKzpF+HYBEeIjeDBbdZUwGBONVUJz3LYrNWdzAfdA6fA4EdND8hzLkJ
+	Xuxuai7JF6y34fPSbVFX2pif0bDtM1TpbTYoHo657vEApIBF/XKSnEU0KClNL0ll2lrB2KbZWeF
+	UQbx1TlCkVrMhBiUjhHqqA/tJlgF5JyvDGSLq5CMzi1pg6y9o4AGvxBqbYDUeCWkEFegnDViOuo
+	IO4Qh0sywYmHzBwU2s=
+X-Received: by 2002:a05:6a00:22c4:b0:878:34b8:231f with SMTP id d2e1a72fcca58-891b4700782mr4325448b3a.39.1791449617950;
+        Thu, 08 Oct 2026 01:53:37 -0700 (PDT)
+Received: from [100.125.248.95] ([124.70.231.46])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-892bb59bd30sm1207676b3a.37.2026.10.08.01.53.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 08 Oct 2026 01:53:37 -0700 (PDT)
+Message-ID: <08dfc1dc-adc6-41ed-aaa5-7af7836f71c7@gmail.com>
+Date: Thu, 8 Oct 2026 16:53:24 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1220:EE_
-X-MS-Office365-Filtering-Correlation-Id: 087c189f-2bbe-48d2-f449-08df250c974a
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|52116014|23010399003|38350700014|56012099006|5023799004|10067099003|22082099003|18002099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	fnWMqVPC74pczJQuPPR121wAmpod9zuv3bO0nuTMlf96QVHfj+7CLPtYR5uDWwy/LSnu4rHF5A/R6oFcfw28pFMsnuVuNtSv4OM419ZIu9vWBMEffuu+TdiAb6XfQhrPeY86SM1o4qZ6uY540VxeXXElf0Zy815HTuoyvW4HVA/HLdsXFbopM9JuqvCqmsHlXEa5WnQrrEdMtTlCY//fUZ5SaRcbRTZ2H8tTR+g4xMHQpLhOuvpv1xakiHnNTvNoUhpHKk5pmNb2G+QFyNOuKZ5Qxinl/355i43j+K7TXi762C2K04w5mVnC01D2EkIT/MSHPpaHlU3JaXy5CbiQ8ycEYZ6qweJFmqvoPH2XEWpK3AlE06l42li/q8VVCAALGu0ouWTXEXB9ixERGTpbzqtPRwncLiC0s3NUUBntQubruoh4nMDleQPB0vqFv5gcRtShOXPqb9ryel0ZnzGMfMCLQW83TIrsJIN3RtrDG5ffX8ks0BfojXtmEHIAC/aWn4yXDl8aGHoGsStB/sz8NVWwNLJSDQdaPeMyuEhtIfLrri+ChEvbappVcBe5nKzy
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(52116014)(23010399003)(38350700014)(56012099006)(5023799004)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?cgs/Gu2QA65QauXe5sZZDHF6w0CEwYZvsXkOLl/ilFeYnfwDpiWEJ+djg5Wh?=
- =?us-ascii?Q?ysWIycKORuJlW33INjyKhKBpynEkXdVLmwqQmwlMAuc4A4NwvjFX0fv9OWmh?=
- =?us-ascii?Q?+A+i3CPskrRGE9vBhDr1I6S+mppOf8YMsB3X/MFieMKEpyJtG0Lu8XJCF8od?=
- =?us-ascii?Q?y2PxvpCbGGWLjKcWs3JlKKIn0tNN9Mi6NCOeDgiwhxvL9nd+Rx2QnkRwKtiE?=
- =?us-ascii?Q?4S61r8t8l5M3Kuum3bITowYj19fyBzK05XmgQSTqe2wMa+uQoue/lzKKjRX3?=
- =?us-ascii?Q?YmKDCkOhXhPMwZ1fkErw0qo/r0HECgf8eIxvLNy+njbItJjYFjqoRIK4WrIw?=
- =?us-ascii?Q?N+6eXxctEZ9DjErVwL0h5jWme84Lk29T6AP4MUIBWnSOikK4W4lFvIYOpEcc?=
- =?us-ascii?Q?bpJsdUCyZVnkFDNmkXffsW43Ilx3eKMigLrFEjVwMnIIgeZ4dBqqCaT3mjRy?=
- =?us-ascii?Q?diT02OYatYBdCPbGqTfNiy/JF8SyoqjThbhZxDbiPbuB8uyvmeok4REE7nmi?=
- =?us-ascii?Q?3ebBvd6+wDspJTQz1iueJIpjde6mtgHFG9TlDO/itrNPTOiLMZpvmtx/d+ny?=
- =?us-ascii?Q?5EBWwzjqdm0eLit37LOsLaa2m0MxrRw44l9ZOrj280g2YNTy7bhT98LZqd8t?=
- =?us-ascii?Q?WOASOoUP/sVFNBz/Xx9yViyEm1f0b7jsLwemGNUE2H0vByulJdpWTF2Tt5gG?=
- =?us-ascii?Q?n07ugEllrMAl9QV3TGdUA0kt+e426G2Qe5E5njoDG5VMYCSKWiIFrnHrnHL0?=
- =?us-ascii?Q?7jF+qIhrGaPBV53kF2st1+04l1X5DNLfbQYRzkQ8e4DrNiHd2u660TrwKs3u?=
- =?us-ascii?Q?sWGSJ/0zpTl0M1y5ac0LW5Y258/DQkoaFxyX1162EcbuJAAfrfrwe4KEJXUW?=
- =?us-ascii?Q?F8joXCNooOa6eVqUVP4V4EgkfAPybHr7msPD5RpentD43xyw5IlAsKw76Jjv?=
- =?us-ascii?Q?LUAvfe3UVtkM0IHB/QI8FEJtyPvl2lw+Rbq3U5BNUfM6rBOO23eALR2opCQC?=
- =?us-ascii?Q?yVF4TUDycObFp8NfZu9Tit5WSa0ck3KKoUFm9i+FuHQdzyU/eNBdpYqixmVv?=
- =?us-ascii?Q?u4hk1p8BgMSS7QtotqHw1/UDrgHYhyKgcOTXlvli7BZ1GEYzLBxF1vZoawUs?=
- =?us-ascii?Q?oQJXge+IF8Dl0NFdwLAbsipLTqUmS5Co+6wklhkAuZF+054I+tUqRVJRR2wk?=
- =?us-ascii?Q?MjFwO06Ovv1o3+aNTTyLpX00qwPkgQsfE6m/PkNF6BtKUlrYcUDVUeAW0QiP?=
- =?us-ascii?Q?WDy0aBX08PeWa16ISaL//FBiQhsueAvw4VXUKMOOJOL1A71SK8dYDuU1tpq5?=
- =?us-ascii?Q?bCcaR8+UefPY663GPRRjDeguQbXC05EFI2d2dy93kL65R2hXWokCyVT/7H7d?=
- =?us-ascii?Q?V1rqdhnb/j+myizsA2ecaMiQtVkMT0xlUpZIVscCNIjWC2mJzPX3jkBFpyYy?=
- =?us-ascii?Q?IjGsVbeYILVX7A5vh5c5LbW70AJyi8v0nVy3AbG5U93XAxrwQ1dpJR5DDTFt?=
- =?us-ascii?Q?fR4hnqQSx7j77sfJ+5dEII5SOhYYPaPgMINpjEm3VWHbQbm/M9iTDugiUqsm?=
- =?us-ascii?Q?kI73sVLs317iyE1AuKHGT15aI/nV97lJHQDHXYxGZlKQkf2eu0x3mpUhyP9K?=
- =?us-ascii?Q?Z3LDt0ieo5I2ovUfMtt0R1mf0JQQGgBGYB/CLgGQVWHRPgQ4ZWttojP4Npqr?=
- =?us-ascii?Q?cklJZxDrsBkZOnKRV0EGMMpEU89JJUTIDuDIkn2Ows2wW0802lM9sr7++tZD?=
- =?us-ascii?Q?LzKb0RFi4OVe9KyW3slcKQo+B+6mS2Ul6mocOGQHqFD84tkyoP/v?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 087c189f-2bbe-48d2-f449-08df250c974a
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 07:20:11.9436
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5JNAh42JpzxXeRRElP+42aPEWnvc+sSjTqECxOJDrWKMU7H7GP+vunDmzcDL82o+HbVU8LZoYmytp0pBoZiN/dhPUKT+PsTeAU+x3k6Ku2a0hPXevtbVVcK0mOHIDWuw
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1220
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 22/31] ext4: submit and wait for pending disksize-grow
+ I/O on writeback
+To: Ojaswin Mujoo <ojaswin@linux.ibm.com>, Zhang Yi <yi.zhang@huaweicloud.com>
+Cc: linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, tytso@mit.edu, adilger.kernel@dilger.ca,
+ libaokun@linux.alibaba.com, jack@suse.cz, ritesh.list@gmail.com,
+ djwong@kernel.org, hch@infradead.org, yi.zhang@huawei.com,
+ chengzhihao1@huawei.com, yangerkun@huawei.com, wangkefeng.wang@huawei.com,
+ yukuai@fnnas.com
+References: <20260903123543.2302999-1-yi.zhang@huaweicloud.com>
+ <20260903123543.2302999-23-yi.zhang@huaweicloud.com>
+ <asNnFY8N3NJwucWe@li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com>
+Content-Language: en-US
+From: Zhang Yi <yizhang089@gmail.com>
+In-Reply-To: <asNnFY8N3NJwucWe@li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Add PWM fan controller driver for StarFive JHB100 SoC.
+On 10/5/2026 5:00 PM, Ojaswin Mujoo wrote:
+> On Thu, Sep 03, 2026 at 08:35:34PM +0800, Zhang Yi wrote:
+>> From: Zhang Yi <yi.zhang@huawei.com>
+>>
+>> When the current writeback pass begins beyond the disksize-grow-pending
+>> zeroed EOF block, the ioend worker would otherwise have to wait for the
+>> pending EOF block to complete before it can advance i_disksize.
+>> Otherwise the old EOF block could be exposed as stale data once
+>> i_disksize advances past it.
+>>
+>> Therefore, introduce the ioend mechanism for the pending range, tag
+>> ioends that cover the pending zeroed EOF block which straddles
+>> i_disksize with EXT4_IOMAP_IOEND_DISKSIZE_GROW_IO in
+>> ext4_iomap_writeback_submit(), and clear the bit and wake up all waiters
+>> in ext4_iomap_end_bio() when such an ioend completes.
+>>
+>> Clearing EXT4_IOMAP_IOEND_DISKSIZE_GROW_IO does not depend on whether
+>> the disksize grow I/O succeeds. That is, even if the I/O fails, we still
+>> allow subsequent writes in the range to update i_disksize. This is
+>> consistent with the previous behavior, and we rely on data_err=abort to
+>> prevent metadata updates when data write failures occur.
+>>
+>> In order to avoid the ioend that passes the pending range waiting for a
+>> long time, proactively submit the pending range first in
+>> ext4_iomap_writepages() so it completes in parallel with the rest of the
+>> writeback.
+>>
+>> Note that the handling of discarding the zeroed EOF folio will be
+>> processed later, otherwise the bit will be set forever.
+>> EXT4_STATE_DISKSIZE_GROW_PENDING will be set after everthing is done.
+>>
+>> Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
+>> ---
+>>   fs/ext4/ext4.h    |  6 ++++++
+>>   fs/ext4/inode.c   | 53 ++++++++++++++++++++++++++++++++++++++++++++++-
+>>   fs/ext4/page-io.c | 40 +++++++++++++++++++++++++++++++++++
+>>   3 files changed, 98 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
+>> index 1c3d736fb700..089dbd39c5c2 100644
+>> --- a/fs/ext4/ext4.h
+>> +++ b/fs/ext4/ext4.h
+>> @@ -3986,6 +3986,12 @@ extern int ext4_move_extents(struct file *o_filp, struct file *d_filp,
+>>   			     __u64 len, __u64 *moved_len);
+>>   
+>>   /* page-io.c */
+>> +/*
+>> + * The I/O range covers the zeroed EOF block that straddles i_disksize
+>> + * and will advance it upon completion.
+>> + */
+>> +#define EXT4_IOMAP_IOEND_DISKSIZE_GROW_IO	1UL
+>> +
+>>   extern int __init ext4_init_pageio(void);
+>>   extern void ext4_exit_pageio(void);
+>>   extern ext4_io_end_t *ext4_init_io_end(struct inode *inode, gfp_t flags);
+>> diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+>> index 05dd4ee805fb..4239be5a769f 100644
+>> --- a/fs/ext4/inode.c
+>> +++ b/fs/ext4/inode.c
+>> @@ -4366,7 +4366,10 @@ static int ext4_iomap_writeback_submit(struct iomap_writepage_ctx *wpc,
+>>   				       int error)
+>>   {
+>>   	struct iomap_ioend *ioend = wpc->wb_ctx;
+>> -	struct ext4_inode_info *ei = EXT4_I(ioend->io_inode);
+>> +	struct inode *inode = ioend->io_inode;
+>> +	struct ext4_inode_info *ei = EXT4_I(inode);
+>> +	unsigned int blocksize = i_blocksize(inode);
+>> +	loff_t pstart, plen;
+>>   
+>>   	/*
+>>   	 * After I/O completion, a worker needs to be scheduled when:
+>> @@ -4379,6 +4382,21 @@ static int ext4_iomap_writeback_submit(struct iomap_writepage_ctx *wpc,
+>>   	    test_opt(ioend->io_inode->i_sb, DATA_ERR_ABORT))
+>>   		ioend->io_bio.bi_end_io = ext4_iomap_end_bio;
+>>   
+>> +	/*
+>> +	 * Mark the I/O as DISKSIZE_GROW_IO by setting io_private to
+>> +	 * EXT4_IOMAP_IOEND_DISKSIZE_GROW_IO if it covers the pending range.
+>> +	 * Such I/O will allow or trigger i_disksize advancement in the
+>> +	 * ioend worker.
+>> +	 */
+>> +	plen = ext4_iomap_get_disksize_pending_range(inode, &pstart);
+>> +	if (plen &&
+>> +	    round_down(ioend->io_offset, blocksize) <= pstart &&
+>> +	    round_up(ioend->io_offset + ioend->io_size, blocksize) >=
+>> +			pstart + plen) {
+>> +		ioend->io_bio.bi_end_io = ext4_iomap_end_bio;
+>> +		ioend->io_private = (void *)EXT4_IOMAP_IOEND_DISKSIZE_GROW_IO;
+>> +	}
+>> +
+>>   	/*
+>>   	 * ext4_iomap_end_bio() always defers endio processing, disable
+>>   	 * generic BIO in task to avoid double deferral since we will use
+>> @@ -4398,6 +4416,33 @@ static const struct iomap_writeback_ops ext4_writeback_ops = {
+>>   	.writeback_submit = ext4_iomap_writeback_submit,
+>>   };
+>>   
+>> +/*
+>> + * If the current writeback range begins after the pending zeroed EOF
+>> + * block range which straddles i_disksize, issue a separate writeback to
+>> + * flush it first, so as to avoid prolonged waiting.
+>> + */
+>> +static void ext4_iomap_wb_submit_zeroed_eof(struct inode *inode,
+>> +					    struct writeback_control *wbc)
+>> +{
+>> +	struct address_space *mapping = inode->i_mapping;
+>> +	loff_t pstart, plen, range_start;
+>> +
+>> +	if (wbc->range_cyclic)
+>> +		range_start = (loff_t)mapping->writeback_index << PAGE_SHIFT;
+>> +	else
+>> +		range_start = wbc->range_start;
+>> +
+>> +	plen = ext4_iomap_get_disksize_pending_range(inode, &pstart);
+>> +	if (!plen || range_start < pstart + plen)
+>> +		return;
+> Hi Zhang,
+> 
+> Maybe we can check here if pstart lies withing the same folio as the
+> writeback range, then we don't need an explicit flush as we will anyways
+> flush out the whole folio. We can check against the
+> mapping_min_folio_nrbytes perhaps.
+> 
 
-Fan speed is controlled through up to 8 PWM channels supplied by an
-external PWM controller and exposed as pwm[1-8], and one PWM channel can
-drive up to two fans. The tachometer block supports 16 independent
-inputs and reports fan speed in RPM through the hwmon sysfs interface,
-along with stall and low-speed alarms.
+Hi Ojaswin,
 
-For this controller, the special clock and reset operation sequence is:
-  probe: clk_prepare_enable() then reset_control_deassert()
-  remove: clk_disable_unprepare() then reset_control_assert()
+Thank you for the suggestion. IIUC, do you mean to change it somewhat
+like the following:
 
-Co-developed-by: William Qiu <william.qiu@starfivetech.com>
-Signed-off-by: William Qiu <william.qiu@starfivetech.com>
-Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
----
- Documentation/hwmon/index.rst            |   1 +
- Documentation/hwmon/starfive-pwm-fan.rst |  45 ++
- MAINTAINERS                              |   8 +
- drivers/hwmon/Kconfig                    |  15 +
- drivers/hwmon/Makefile                   |   1 +
- drivers/hwmon/starfive-pwm-fan.c         | 834 +++++++++++++++++++++++
- 6 files changed, 904 insertions(+)
- create mode 100644 Documentation/hwmon/starfive-pwm-fan.rst
- create mode 100644 drivers/hwmon/starfive-pwm-fan.c
+       if (!plen ||
+           round_down(range_start, mapping_min_folio_nrbytes(mapping)) <
+                      pstart + plen)
+               return;
 
-diff --git a/Documentation/hwmon/index.rst b/Documentation/hwmon/index.rst
-index 199ca79621e9..949b46dcc258 100644
---- a/Documentation/hwmon/index.rst
-+++ b/Documentation/hwmon/index.rst
-@@ -263,6 +263,7 @@ Hardware Monitoring Kernel Drivers
-    sparx5-temp
-    spd5118
-    sq24860
-+   starfive-pwm-fan
-    stpddc60
-    surface_fan
-    sy7636a-hwmon
-diff --git a/Documentation/hwmon/starfive-pwm-fan.rst b/Documentation/hwmon/starfive-pwm-fan.rst
-new file mode 100644
-index 000000000000..c61c01088b78
---- /dev/null
-+++ b/Documentation/hwmon/starfive-pwm-fan.rst
-@@ -0,0 +1,45 @@
-+.. SPDX-License-Identifier: GPL-2.0
-+
-+Kernel driver starfive-pwm-fan
-+==============================
-+
-+Supported chips:
-+
-+  * StarFive JHB100
-+
-+    Prefix: 'starfive_pwm_fan'
-+
-+    Addresses scanned: -
-+
-+Authors:
-+      - Changhuang Liang <changhuang.liang@starfivetech.com>
-+
-+Description
-+-----------
-+
-+This driver implements support for the PWM fan controller found on the
-+StarFive JHB100 SoC. Fan speed is controlled through a PWM signal supplied
-+by 8 PWM channels of an external PWM controller, and measured by a hardware
-+tachometer block with 16 independent tachometer inputs. Each tachometer channel
-+measures the number of pulses within a fixed 100 ms window.
-+
-+Each fan-N child node in the devicetree references one PWM channel, which
-+may drive up to two fans, and lists the tachometer inputs wired to them.
-+
-+Sysfs entries
-+-------------
-+
-+===================== =======================================================
-+pwm[1-8]              PWM duty cycle (read/write), 0-255. pwmN corresponds
-+                      to the Nth fan child node.
-+fan[1-16]_input       Fan speed in RPM (read-only), without a fan connected,
-+                      reading this value can be significantly slow.
-+fan[1-16]_min         Lower fan speed limit in RPM (read/write)
-+fan[1-16]_enable      Enable/disable the tachometer channel (read/write)
-+fan[1-16]_fault       Fan stall indication (read-only), with the fan running
-+                      normally, reading this value can be significantly slow.
-+fan[1-16]_min_alarm   Fan speed below fan[1-16]_min (read-only), when
-+                      fan[1-16]_input is greater than or equal to
-+                      fan[1-16]_min, reading this value can be significantly
-+                      slow.
-+===================== =======================================================
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 5c57cbb68060..08cadca4a07a 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -26647,6 +26647,14 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/pinctrl/starfive,jhb1*.yaml
- F:	drivers/pinctrl/starfive/pinctrl-starfive-jhb1*
- 
-+STARFIVE JHB100 PWM FAN DRIVER
-+M:	Changhuang Liang <changhuang.liang@starfivetech.com>
-+L:	linux-hwmon@vger.kernel.org
-+S:	Supported
-+F:	Documentation/devicetree/bindings/hwmon/starfive,jhb100-pwm-fan.yaml
-+F:	Documentation/hwmon/starfive-pwm-fan.rst
-+F:	drivers/hwmon/starfive-pwm-fan.c
-+
- STATIC BRANCH/CALL
- M:	Peter Zijlstra <peterz@infradead.org>
- M:	Josh Poimboeuf <jpoimboe@kernel.org>
-diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
-index 18c682e1a475..f0d85da48956 100644
---- a/drivers/hwmon/Kconfig
-+++ b/drivers/hwmon/Kconfig
-@@ -2467,6 +2467,21 @@ config SENSORS_SPD5118_DETECT
- 
- 	  If unsure, say Y.
- 
-+config SENSORS_STARFIVE_PWM_FAN
-+	tristate "StarFive JHB100 PWM fan controller"
-+	depends on ARCH_STARFIVE || COMPILE_TEST
-+	depends on HAS_IOMEM
-+	depends on PWM
-+	help
-+	  This driver supports the PWM fan controller found on StarFive SoCs
-+	  such as the JHB100. It uses up to 8 PWM outputs supplied by an
-+	  external PWM controller to control fan speed, and a tachometer block
-+	  with 16 inputs to report fan speed in RPM through the hwmon sysfs
-+	  interface, along with stall and low-speed alarms.
-+
-+	  This driver can also be built as a module. If so, the module
-+	  will be called starfive-pwm-fan.
-+
- config SENSORS_TC74
- 	tristate "Microchip TC74"
- 	depends on I2C
-diff --git a/drivers/hwmon/Makefile b/drivers/hwmon/Makefile
-index d4c345ed7261..2b04216bfcf1 100644
---- a/drivers/hwmon/Makefile
-+++ b/drivers/hwmon/Makefile
-@@ -231,6 +231,7 @@ obj-$(CONFIG_SENSORS_SMSC47M192)+= smsc47m192.o
- obj-$(CONFIG_SENSORS_ALTERA_SOCFPGA_HWMON)	+= socfpga-hwmon.o
- obj-$(CONFIG_SENSORS_SPARX5)	+= sparx5-temp.o
- obj-$(CONFIG_SENSORS_SPD5118)	+= spd5118.o
-+obj-$(CONFIG_SENSORS_STARFIVE_PWM_FAN)	+= starfive-pwm-fan.o
- obj-$(CONFIG_SENSORS_STTS751)	+= stts751.o
- obj-$(CONFIG_SENSORS_SURFACE_FAN)+= surface_fan.o
- obj-$(CONFIG_SENSORS_SURFACE_TEMP)+= surface_temp.o
-diff --git a/drivers/hwmon/starfive-pwm-fan.c b/drivers/hwmon/starfive-pwm-fan.c
-new file mode 100644
-index 000000000000..22060c40591b
---- /dev/null
-+++ b/drivers/hwmon/starfive-pwm-fan.c
-@@ -0,0 +1,834 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * PWM fan controller driver for StarFive JHB100
-+ *
-+ * Copyright (C) 2018-2026 StarFive Technology Co., Ltd.
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/bits.h>
-+#include <linux/cleanup.h>
-+#include <linux/clk.h>
-+#include <linux/completion.h>
-+#include <linux/delay.h>
-+#include <linux/errno.h>
-+#include <linux/hwmon.h>
-+#include <linux/interrupt.h>
-+#include <linux/io.h>
-+#include <linux/iopoll.h>
-+#include <linux/jiffies.h>
-+#include <linux/math64.h>
-+#include <linux/minmax.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/pm.h>
-+#include <linux/pwm.h>
-+#include <linux/reset.h>
-+#include <linux/spinlock.h>
-+
-+#define STARFIVE_FAN_TACH_CH			16
-+#define STARFIVE_FAN_MAX			8
-+#define STARFIVE_FAN_TACH_PER_FAN		2
-+#define STARFIVE_FAN_PWM_VAL_MAX		255
-+
-+/* Fan-tach register offset */
-+#define STARFIVE_FAN_TACH_STATUS		0x0c
-+
-+#define STARFIVE_FAN_TACH_SPEED(ch)		(((ch) * 0x04) + 0x10)
-+#define STARFIVE_FAN_TACH_SPEED_VALID		BIT(31)
-+#define STARFIVE_FAN_TACH_VALUE_MASK		GENMASK(30, 0)
-+
-+#define STARFIVE_FAN_TACH_THRESHOLD(ch)		(((ch) * 0x04) + 0x50)
-+
-+#define STARFIVE_FAN_TACH_INT_EN		0x90
-+#define STARFIVE_FAN_TACH_STALL_INT_MASK	GENMASK(15, 0)
-+#define STARFIVE_FAN_TACH_SLOW_INT_MASK		GENMASK(31, 16)
-+#define STARFIVE_FAN_TACH_STALL_INT(ch)		BIT(ch)
-+#define STARFIVE_FAN_TACH_SLOW_INT(ch)		BIT((ch) + 16)
-+
-+#define STARFIVE_FAN_TACH_MEASURE_TIME		0x94
-+
-+#define STARFIVE_FAN_TACH_CH_EN			0x98
-+#define STARFIVE_FAN_TACH_EN(ch)		BIT(ch)
-+
-+#define STARFIVE_FAN_DEFAULT_PULSE_PR		2
-+#define STARFIVE_FAN_DEFAULT_MEASURE_RATIO	10
-+#define STARFIVE_FAN_DEFAULT_RPM_PAUSE_TIME	(60 * STARFIVE_FAN_DEFAULT_MEASURE_RATIO)
-+
-+#define STARFIVE_FAN_TACH_TIMEOUT \
-+	(USEC_PER_SEC / STARFIVE_FAN_DEFAULT_MEASURE_RATIO)
-+
-+#define STARFIVE_FAN_TACH_TIMEOUT_JIFFIES \
-+	(msecs_to_jiffies(1000) / STARFIVE_FAN_DEFAULT_MEASURE_RATIO)
-+
-+#define FAN_ATTRIBUTE_SET \
-+	(HWMON_F_INPUT | HWMON_F_MIN | HWMON_F_ENABLE | \
-+	 HWMON_F_FAULT | HWMON_F_MIN_ALARM)
-+
-+struct starfive_pwm_fan {
-+	struct pwm_device *pwm;
-+	struct pwm_state pwm_state;
-+	unsigned int pwm_value;
-+};
-+
-+struct starfive_fan_tach_ctx {
-+	u32 ch_en;
-+	u32 measure_time;
-+	u32 threshold[STARFIVE_FAN_TACH_CH];
-+};
-+
-+struct starfive_pwm_fan_data {
-+	struct device *dev;
-+	void __iomem *regs;
-+	struct reset_control *rst;
-+	struct clk *clk;
-+	/* Serializes PWM updates with PM operations */
-+	struct mutex pwm_lock;
-+	struct starfive_pwm_fan fans[STARFIVE_FAN_MAX];
-+	bool tach_present[STARFIVE_FAN_TACH_CH];
-+	u8 pulses_per_rev[STARFIVE_FAN_TACH_CH];
-+	struct completion comp_stall[STARFIVE_FAN_TACH_CH];
-+	struct completion comp_slow[STARFIVE_FAN_TACH_CH];
-+	u8 fan_stall[STARFIVE_FAN_TACH_CH];
-+	u8 fan_slow[STARFIVE_FAN_TACH_CH];
-+	u32 armed_stall;
-+	u32 armed_slow;
-+	/* tach registers saved across system sleep */
-+	struct starfive_fan_tach_ctx tach_ctx;
-+	/* protects fan_stall[]/fan_slow[]/armed_* and the STATUS register */
-+	spinlock_t lock;
-+};
-+
-+static void starfive_fan_tach_ch_enable(struct starfive_pwm_fan_data *priv, u8 tach_ch,
-+					bool enable)
-+{
-+	if (enable) {
-+		writel(readl(priv->regs + STARFIVE_FAN_TACH_CH_EN) |
-+		       STARFIVE_FAN_TACH_EN(tach_ch),
-+		       priv->regs + STARFIVE_FAN_TACH_CH_EN);
-+	} else {
-+		writel(readl(priv->regs + STARFIVE_FAN_TACH_CH_EN) &
-+		       ~(STARFIVE_FAN_TACH_EN(tach_ch)),
-+		       priv->regs + STARFIVE_FAN_TACH_CH_EN);
-+	}
-+}
-+
-+static void starfive_fan_tach_ch_stall_unmask(struct starfive_pwm_fan_data *priv, u8 tach_ch,
-+					      bool unmask)
-+{
-+	if (unmask) {
-+		writel(readl(priv->regs + STARFIVE_FAN_TACH_INT_EN) |
-+		       STARFIVE_FAN_TACH_STALL_INT(tach_ch),
-+		       priv->regs + STARFIVE_FAN_TACH_INT_EN);
-+	} else {
-+		writel(readl(priv->regs + STARFIVE_FAN_TACH_INT_EN) &
-+		       ~STARFIVE_FAN_TACH_STALL_INT(tach_ch),
-+		       priv->regs + STARFIVE_FAN_TACH_INT_EN);
-+	}
-+}
-+
-+static void starfive_fan_tach_ch_slow_unmask(struct starfive_pwm_fan_data *priv, u8 tach_ch,
-+					     bool unmask)
-+{
-+	if (unmask) {
-+		writel(readl(priv->regs + STARFIVE_FAN_TACH_INT_EN) |
-+		       STARFIVE_FAN_TACH_SLOW_INT(tach_ch),
-+		       priv->regs + STARFIVE_FAN_TACH_INT_EN);
-+	} else {
-+		writel(readl(priv->regs + STARFIVE_FAN_TACH_INT_EN) &
-+		       ~STARFIVE_FAN_TACH_SLOW_INT(tach_ch),
-+		       priv->regs + STARFIVE_FAN_TACH_INT_EN);
-+	}
-+}
-+
-+static u32 starfive_fan_tach_rpm_to_val(struct starfive_pwm_fan_data *priv, u8 tach_ch, u32 rpm)
-+{
-+	u64 tach_val;
-+	u8 ppr;
-+
-+	ppr = priv->pulses_per_rev[tach_ch];
-+
-+	tach_val = (u64)rpm * ppr;
-+	tach_val = div_u64(tach_val, STARFIVE_FAN_DEFAULT_RPM_PAUSE_TIME);
-+
-+	return min_t(u64, tach_val, STARFIVE_FAN_TACH_VALUE_MASK);
-+}
-+
-+static long starfive_fan_tach_val_to_rpm(struct starfive_pwm_fan_data *priv, u8 tach_ch,
-+					 u32 tach_val)
-+{
-+	u64 rpm;
-+	u8 ppr;
-+
-+	ppr = priv->pulses_per_rev[tach_ch];
-+
-+	rpm = (u64)tach_val * STARFIVE_FAN_DEFAULT_RPM_PAUSE_TIME;
-+
-+	return div_u64(rpm, ppr);
-+}
-+
-+static int starfive_fan_tach_get_rpm(struct starfive_pwm_fan_data *priv,
-+				     u8 tach_ch, long *rpm)
-+{
-+	u32 val;
-+	int ret;
-+
-+	ret = readl_poll_timeout(priv->regs + STARFIVE_FAN_TACH_SPEED(tach_ch),
-+				 val, val & STARFIVE_FAN_TACH_SPEED_VALID,
-+				 100, STARFIVE_FAN_TACH_TIMEOUT);
-+	if (ret)
-+		return -ENODATA;
-+
-+	val = FIELD_GET(STARFIVE_FAN_TACH_VALUE_MASK, val);
-+	if (!val) {
-+		/* Sampling = 0 may mean no valid capture; wait 1.5 more cycles for valid read. */
-+		fsleep(STARFIVE_FAN_TACH_TIMEOUT + STARFIVE_FAN_TACH_TIMEOUT / 2);
-+		ret = readl_poll_timeout(priv->regs + STARFIVE_FAN_TACH_SPEED(tach_ch),
-+					 val, val & STARFIVE_FAN_TACH_SPEED_VALID,
-+					 100, STARFIVE_FAN_TACH_TIMEOUT);
-+		if (ret)
-+			return -ENODATA;
-+
-+		val = FIELD_GET(STARFIVE_FAN_TACH_VALUE_MASK, val);
-+	}
-+
-+	*rpm = starfive_fan_tach_val_to_rpm(priv, tach_ch, val);
-+
-+	return 0;
-+}
-+
-+static long starfive_fan_tach_get_rpm_threshold(struct starfive_pwm_fan_data *priv,
-+						u8 tach_ch)
-+{
-+	u32 val;
-+
-+	val = readl(priv->regs + STARFIVE_FAN_TACH_THRESHOLD(tach_ch));
-+
-+	val = FIELD_GET(STARFIVE_FAN_TACH_VALUE_MASK, val);
-+
-+	return starfive_fan_tach_val_to_rpm(priv, tach_ch, val);
-+}
-+
-+static void starfive_set_tach_rpm_threshold(struct starfive_pwm_fan_data *priv,
-+					    u8 tach_ch, u32 val)
-+{
-+	u32 reg_val;
-+
-+	reg_val = starfive_fan_tach_rpm_to_val(priv, tach_ch, val);
-+	reg_val = clamp_val(reg_val, 1, STARFIVE_FAN_TACH_VALUE_MASK);
-+
-+	writel(reg_val, priv->regs + STARFIVE_FAN_TACH_THRESHOLD(tach_ch));
-+}
-+
-+static bool starfive_fan_tach_get_ch_en(struct starfive_pwm_fan_data *priv,
-+					u8 tach_ch)
-+{
-+	u32 enable;
-+
-+	enable = readl(priv->regs + STARFIVE_FAN_TACH_CH_EN);
-+
-+	return !!(enable & STARFIVE_FAN_TACH_EN(tach_ch));
-+}
-+
-+static int starfive_pwm_fan_set_pwm(struct starfive_pwm_fan_data *priv,
-+				    int channel, unsigned int pwm)
-+{
-+	struct starfive_pwm_fan *fan = &priv->fans[channel];
-+	struct pwm_state state;
-+	int ret;
-+
-+	guard(mutex)(&priv->pwm_lock);
-+
-+	state = fan->pwm_state;
-+	state.duty_cycle = DIV_ROUND_UP_ULL((u64)pwm * state.period,
-+					    STARFIVE_FAN_PWM_VAL_MAX);
-+	/*
-+	 * Keep the PWM enabled even at zero duty cycle so the output stays
-+	 * driven low instead of being left floating by the PWM hardware.
-+	 */
-+	state.enabled = true;
-+
-+	ret = pwm_apply_might_sleep(fan->pwm, &state);
-+	if (ret)
-+		return ret;
-+
-+	fan->pwm_state = state;
-+	fan->pwm_value = pwm;
-+
-+	return 0;
-+}
-+
-+static int starfive_pwm_fan_pwm_read(struct starfive_pwm_fan_data *priv,
-+				     u32 attr, int channel, long *val)
-+{
-+	switch (attr) {
-+	case hwmon_pwm_input:
-+		scoped_guard(mutex, &priv->pwm_lock)
-+			*val = priv->fans[channel].pwm_value;
-+
-+		return 0;
-+	default:
-+		return -EOPNOTSUPP;
-+	}
-+}
-+
-+static int starfive_pwm_fan_fan_read(struct starfive_pwm_fan_data *priv,
-+				     u32 attr, int channel, long *val)
-+{
-+	int ret;
-+
-+	switch (attr) {
-+	case hwmon_fan_fault:
-+		scoped_guard(spinlock_irqsave, &priv->lock) {
-+			writel(STARFIVE_FAN_TACH_STALL_INT(channel),
-+			       priv->regs + STARFIVE_FAN_TACH_STATUS);
-+			/* clear fan_stall first */
-+			priv->fan_stall[channel] = 0;
-+			reinit_completion(&priv->comp_stall[channel]);
-+			priv->armed_stall |= BIT(channel);
-+		}
-+
-+		starfive_fan_tach_ch_stall_unmask(priv, channel, true);
-+
-+		/* Waiting for hardware to measure */
-+		wait_for_completion_timeout(&priv->comp_stall[channel],
-+					    2 * STARFIVE_FAN_TACH_TIMEOUT_JIFFIES);
-+
-+		starfive_fan_tach_ch_stall_unmask(priv, channel, false);
-+
-+		scoped_guard(spinlock_irqsave, &priv->lock) {
-+			priv->armed_stall &= ~BIT(channel);
-+			*val = priv->fan_stall[channel];
-+		}
-+
-+		break;
-+	case hwmon_fan_input:
-+		if (!starfive_fan_tach_get_ch_en(priv, channel))
-+			return -ENODATA;
-+
-+		ret = starfive_fan_tach_get_rpm(priv, channel, val);
-+		if (ret < 0)
-+			return ret;
-+
-+		break;
-+	case hwmon_fan_min:
-+		*val = starfive_fan_tach_get_rpm_threshold(priv, channel);
-+
-+		break;
-+	case hwmon_fan_min_alarm:
-+		scoped_guard(spinlock_irqsave, &priv->lock) {
-+			writel(STARFIVE_FAN_TACH_SLOW_INT(channel),
-+			       priv->regs + STARFIVE_FAN_TACH_STATUS);
-+			/* clear fan_slow first */
-+			priv->fan_slow[channel] = 0;
-+			reinit_completion(&priv->comp_slow[channel]);
-+			priv->armed_slow |= BIT(channel);
-+		}
-+
-+		starfive_fan_tach_ch_slow_unmask(priv, channel, true);
-+
-+		/* Waiting for hardware to measure */
-+		wait_for_completion_timeout(&priv->comp_slow[channel],
-+					    2 * STARFIVE_FAN_TACH_TIMEOUT_JIFFIES);
-+
-+		starfive_fan_tach_ch_slow_unmask(priv, channel, false);
-+
-+		scoped_guard(spinlock_irqsave, &priv->lock) {
-+			priv->armed_slow &= ~BIT(channel);
-+			*val = priv->fan_slow[channel];
-+		}
-+
-+		break;
-+	case hwmon_fan_enable:
-+		*val = starfive_fan_tach_get_ch_en(priv, channel);
-+
-+		break;
-+	default:
-+		return -EOPNOTSUPP;
-+	}
-+
-+	return 0;
-+}
-+
-+static int starfive_pwm_fan_read(struct device *dev,
-+				 enum hwmon_sensor_types type, u32 attr,
-+				 int channel, long *val)
-+{
-+	struct starfive_pwm_fan_data *priv = dev_get_drvdata(dev);
-+
-+	switch (type) {
-+	case hwmon_pwm:
-+		return starfive_pwm_fan_pwm_read(priv, attr, channel, val);
-+	case hwmon_fan:
-+		return starfive_pwm_fan_fan_read(priv, attr, channel, val);
-+	default:
-+		return -EOPNOTSUPP;
-+	}
-+}
-+
-+static int starfive_pwm_fan_write(struct device *dev,
-+				  enum hwmon_sensor_types type, u32 attr,
-+				  int channel, long val)
-+{
-+	struct starfive_pwm_fan_data *priv = dev_get_drvdata(dev);
-+
-+	switch (type) {
-+	case hwmon_pwm:
-+		if (attr != hwmon_pwm_input)
-+			return -EOPNOTSUPP;
-+
-+		if (val < 0 || val > STARFIVE_FAN_PWM_VAL_MAX)
-+			return -EINVAL;
-+
-+		return starfive_pwm_fan_set_pwm(priv, channel, val);
-+	case hwmon_fan:
-+		switch (attr) {
-+		case hwmon_fan_min:
-+			if (val < 0 || val > U32_MAX)
-+				return -EINVAL;
-+
-+			starfive_set_tach_rpm_threshold(priv, channel, val);
-+
-+			return 0;
-+		case hwmon_fan_enable:
-+			if (val != 0 && val != 1)
-+				return -EINVAL;
-+
-+			starfive_fan_tach_ch_enable(priv, channel, val);
-+
-+			return 0;
-+		default:
-+			return -EOPNOTSUPP;
-+		}
-+	default:
-+		return -EOPNOTSUPP;
-+	}
-+}
-+
-+static umode_t starfive_pwm_fan_is_visible(const void *drvdata,
-+					   enum hwmon_sensor_types type,
-+					   u32 attr, int channel)
-+{
-+	const struct starfive_pwm_fan_data *priv = drvdata;
-+
-+	switch (type) {
-+	case hwmon_pwm:
-+		if (!priv->fans[channel].pwm)
-+			return 0;
-+
-+		if (attr == hwmon_pwm_input)
-+			return 0644;
-+
-+		return 0;
-+	case hwmon_fan:
-+		if (!priv->tach_present[channel])
-+			return 0;
-+
-+		switch (attr) {
-+		case hwmon_fan_input:
-+		case hwmon_fan_fault:
-+		case hwmon_fan_min_alarm:
-+			return 0444;
-+		case hwmon_fan_min:
-+		case hwmon_fan_enable:
-+			return 0644;
-+		default:
-+			return 0;
-+		}
-+	default:
-+		return 0;
-+	}
-+}
-+
-+static const struct hwmon_ops starfive_pwm_fan_ops = {
-+	.is_visible = starfive_pwm_fan_is_visible,
-+	.read = starfive_pwm_fan_read,
-+	.write = starfive_pwm_fan_write,
-+};
-+
-+static const struct hwmon_channel_info * const starfive_pwm_fan_info[] = {
-+	HWMON_CHANNEL_INFO(pwm,
-+			   HWMON_PWM_INPUT, HWMON_PWM_INPUT,
-+			   HWMON_PWM_INPUT, HWMON_PWM_INPUT,
-+			   HWMON_PWM_INPUT, HWMON_PWM_INPUT,
-+			   HWMON_PWM_INPUT, HWMON_PWM_INPUT),
-+	HWMON_CHANNEL_INFO(fan,
-+			   FAN_ATTRIBUTE_SET, FAN_ATTRIBUTE_SET,
-+			   FAN_ATTRIBUTE_SET, FAN_ATTRIBUTE_SET,
-+			   FAN_ATTRIBUTE_SET, FAN_ATTRIBUTE_SET,
-+			   FAN_ATTRIBUTE_SET, FAN_ATTRIBUTE_SET,
-+			   FAN_ATTRIBUTE_SET, FAN_ATTRIBUTE_SET,
-+			   FAN_ATTRIBUTE_SET, FAN_ATTRIBUTE_SET,
-+			   FAN_ATTRIBUTE_SET, FAN_ATTRIBUTE_SET,
-+			   FAN_ATTRIBUTE_SET, FAN_ATTRIBUTE_SET),
-+	NULL
-+};
-+
-+static const struct hwmon_chip_info starfive_pwm_fan_chip_info = {
-+	.ops = &starfive_pwm_fan_ops,
-+	.info = starfive_pwm_fan_info,
-+};
-+
-+static int starfive_pwm_fan_create_fan(struct device *dev, struct device_node *child,
-+				       struct starfive_pwm_fan_data *priv,
-+				       unsigned int fan_idx)
-+{
-+	struct starfive_pwm_fan *fan = &priv->fans[fan_idx];
-+	u8 tach_ch[STARFIVE_FAN_TACH_PER_FAN];
-+	struct pwm_device *pwm;
-+	int ret, count;
-+	u32 ppr, index;
-+
-+	count = of_property_count_u8_elems(child, "tach-ch");
-+	if (count < 1 || count > STARFIVE_FAN_TACH_PER_FAN)
-+		return dev_err_probe(dev, -EINVAL, "%pOF: invalid tach-ch\n", child);
-+
-+	ret = of_property_read_u8_array(child, "tach-ch", tach_ch, count);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "%pOF: failed to read tach-ch\n", child);
-+
-+	/* Parse pulses-per-revolution, default to 2 if not specified */
-+	ppr = STARFIVE_FAN_DEFAULT_PULSE_PR;
-+	of_property_read_u32(child, "pulses-per-revolution", &ppr);
-+
-+	if (!ppr || ppr > 4)
-+		return dev_err_probe(dev, -EINVAL,
-+				     "%pOF: invalid pulses-per-revolution %u, must be 1-4\n",
-+				     child, ppr);
-+
-+	pwm = devm_fwnode_pwm_get(dev, of_fwnode_handle(child), NULL);
-+	if (IS_ERR(pwm))
-+		return dev_err_probe(dev, PTR_ERR(pwm), "%pOF: could not get PWM\n", child);
-+
-+	pwm_init_state(pwm, &fan->pwm_state);
-+	if (!fan->pwm_state.period)
-+		return dev_err_probe(dev, -EINVAL, "%pOF: PWM period is zero\n", child);
-+
-+	fan->pwm = pwm;
-+
-+	for (index = 0; index < count; index++) {
-+		u8 ch = tach_ch[index];
-+
-+		if (ch >= STARFIVE_FAN_TACH_CH)
-+			return dev_err_probe(dev, -EINVAL, "%pOF: invalid tach-ch %u\n",
-+					     child, ch);
-+
-+		if (priv->tach_present[ch])
-+			return dev_err_probe(dev, -EINVAL, "%pOF: duplicate tach-ch %u\n",
-+					     child, ch);
-+
-+		priv->pulses_per_rev[ch] = ppr;
-+		priv->tach_present[ch] = true;
-+		starfive_fan_tach_ch_enable(priv, ch, true);
-+	}
-+
-+	return 0;
-+}
-+
-+static irqreturn_t starfive_pwm_fan_irq(int irq, void *dev_id)
-+{
-+	struct starfive_pwm_fan_data *priv = dev_id;
-+	u32 fan_status;
-+	int i;
-+
-+	guard(spinlock)(&priv->lock);
-+
-+	fan_status = readl(priv->regs + STARFIVE_FAN_TACH_STATUS);
-+	if (!fan_status)
-+		return IRQ_NONE;
-+
-+	writel(fan_status, priv->regs + STARFIVE_FAN_TACH_STATUS);
-+
-+	for (i = 0; i < STARFIVE_FAN_TACH_CH; i++) {
-+		if (!priv->tach_present[i])
-+			continue;
-+
-+		if ((fan_status & STARFIVE_FAN_TACH_STALL_INT(i)) &&
-+		    (priv->armed_stall & BIT(i))) {
-+			priv->fan_stall[i] = 1;
-+			complete(&priv->comp_stall[i]);
-+		}
-+
-+		if ((fan_status & STARFIVE_FAN_TACH_SLOW_INT(i)) &&
-+		    (priv->armed_slow & BIT(i))) {
-+			priv->fan_slow[i] = 1;
-+			complete(&priv->comp_slow[i]);
-+		}
-+	}
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static int starfive_pwm_fan_pwm_disable_all(struct starfive_pwm_fan_data *priv)
-+{
-+	struct pwm_state state;
-+	int i, ret, err = 0;
-+
-+	guard(mutex)(&priv->pwm_lock);
-+
-+	for (i = 0; i < STARFIVE_FAN_MAX; i++) {
-+		struct starfive_pwm_fan *fan = &priv->fans[i];
-+
-+		if (!fan->pwm || !fan->pwm_state.enabled)
-+			continue;
-+
-+		state = fan->pwm_state;
-+		state.duty_cycle = 0;
-+		state.enabled = false;
-+
-+		/* Keep going so one broken channel does not leave others running */
-+		ret = pwm_apply_might_sleep(fan->pwm, &state);
-+		if (ret) {
-+			dev_err(priv->dev, "Failed to disable PWM of fan %d: %d\n",
-+				i, ret);
-+			if (!err)
-+				err = ret;
-+		}
-+	}
-+
-+	return err;
-+}
-+
-+static int starfive_pwm_fan_pwm_restore_all(struct starfive_pwm_fan_data *priv)
-+{
-+	int i, ret, err = 0;
-+
-+	guard(mutex)(&priv->pwm_lock);
-+
-+	for (i = 0; i < STARFIVE_FAN_MAX; i++) {
-+		struct starfive_pwm_fan *fan = &priv->fans[i];
-+
-+		if (!fan->pwm)
-+			continue;
-+
-+		ret = pwm_apply_might_sleep(fan->pwm, &fan->pwm_state);
-+		if (ret) {
-+			dev_err(priv->dev, "Failed to restore PWM of fan %d: %d\n",
-+				i, ret);
-+			if (!err)
-+				err = ret;
-+		}
-+	}
-+
-+	return err;
-+}
-+
-+static void starfive_pwm_fan_pwm_disable(void *data)
-+{
-+	struct starfive_pwm_fan_data *priv = data;
-+
-+	starfive_pwm_fan_pwm_disable_all(priv);
-+}
-+
-+static void starfive_fan_tach_save(struct starfive_pwm_fan_data *priv)
-+{
-+	struct starfive_fan_tach_ctx *ctx = &priv->tach_ctx;
-+	int i;
-+
-+	ctx->ch_en = readl(priv->regs + STARFIVE_FAN_TACH_CH_EN);
-+	ctx->measure_time = readl(priv->regs + STARFIVE_FAN_TACH_MEASURE_TIME);
-+
-+	for (i = 0; i < STARFIVE_FAN_TACH_CH; i++) {
-+		if (priv->tach_present[i])
-+			ctx->threshold[i] =
-+				readl(priv->regs + STARFIVE_FAN_TACH_THRESHOLD(i));
-+	}
-+}
-+
-+static void starfive_fan_tach_restore(struct starfive_pwm_fan_data *priv)
-+{
-+	struct starfive_fan_tach_ctx *ctx = &priv->tach_ctx;
-+	int i;
-+
-+	writel(0, priv->regs + STARFIVE_FAN_TACH_INT_EN);
-+	writel(STARFIVE_FAN_TACH_STALL_INT_MASK | STARFIVE_FAN_TACH_SLOW_INT_MASK,
-+	       priv->regs + STARFIVE_FAN_TACH_STATUS);
-+	writel(ctx->measure_time, priv->regs + STARFIVE_FAN_TACH_MEASURE_TIME);
-+
-+	for (i = 0; i < STARFIVE_FAN_TACH_CH; i++) {
-+		if (priv->tach_present[i])
-+			writel(ctx->threshold[i],
-+			       priv->regs + STARFIVE_FAN_TACH_THRESHOLD(i));
-+	}
-+
-+	/* Enable channels last so measurement starts with the restored config */
-+	writel(ctx->ch_en, priv->regs + STARFIVE_FAN_TACH_CH_EN);
-+}
-+
-+static void starfive_fan_tach_disable(void *data)
-+{
-+	struct starfive_pwm_fan_data *priv = data;
-+
-+	clk_disable_unprepare(priv->clk);
-+	reset_control_assert(priv->rst);
-+}
-+
-+static int starfive_pwm_fan_probe(struct platform_device *pdev)
-+{
-+	struct device *hwmon_dev, *dev = &pdev->dev;
-+	struct starfive_pwm_fan_data *priv;
-+	unsigned int fan_idx;
-+	unsigned long clk_rate;
-+	int irq;
-+	int ret;
-+	u32 i;
-+
-+	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+
-+	priv->dev = dev;
-+	spin_lock_init(&priv->lock);
-+
-+	ret = devm_mutex_init(dev, &priv->pwm_lock);
-+	if (ret)
-+		return ret;
-+
-+	for (i = 0; i < STARFIVE_FAN_TACH_CH; i++) {
-+		init_completion(&priv->comp_stall[i]);
-+		init_completion(&priv->comp_slow[i]);
-+	}
-+
-+	platform_set_drvdata(pdev, priv);
-+
-+	priv->regs = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(priv->regs))
-+		return dev_err_probe(dev, PTR_ERR(priv->regs),
-+				     "Unable to map IO resources\n");
-+
-+	priv->clk = devm_clk_get(dev, NULL);
-+	if (IS_ERR(priv->clk))
-+		return dev_err_probe(dev, PTR_ERR(priv->clk),
-+				     "Unable to get fan tach's clock\n");
-+
-+	priv->rst = devm_reset_control_get_exclusive(dev, NULL);
-+	if (IS_ERR(priv->rst))
-+		return dev_err_probe(dev, PTR_ERR(priv->rst),
-+				     "Unable to get fan tach's reset\n");
-+
-+	ret = clk_prepare_enable(priv->clk);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to enable clock\n");
-+
-+	clk_rate = clk_get_rate(priv->clk);
-+	if (!clk_rate || clk_rate > U32_MAX) {
-+		clk_disable_unprepare(priv->clk);
-+		return dev_err_probe(dev, -EINVAL, "Invalid clock rate: %lu\n",
-+				     clk_rate);
-+	}
-+
-+	ret = reset_control_deassert(priv->rst);
-+	if (ret) {
-+		clk_disable_unprepare(priv->clk);
-+		return dev_err_probe(dev, ret, "Failed to deassert reset\n");
-+	}
-+
-+	ret = devm_add_action_or_reset(dev, starfive_fan_tach_disable, priv);
-+	if (ret)
-+		return ret;
-+
-+	/* Mask all sources before touching status / requesting the IRQ. */
-+	writel(0, priv->regs + STARFIVE_FAN_TACH_INT_EN);
-+	writel(STARFIVE_FAN_TACH_STALL_INT_MASK | STARFIVE_FAN_TACH_SLOW_INT_MASK,
-+	       priv->regs + STARFIVE_FAN_TACH_STATUS);
-+	writel(clk_rate / STARFIVE_FAN_DEFAULT_MEASURE_RATIO,
-+	       priv->regs + STARFIVE_FAN_TACH_MEASURE_TIME);
-+
-+	fan_idx = 0;
-+	for_each_available_child_of_node_scoped(dev->of_node, child) {
-+		if (fan_idx >= STARFIVE_FAN_MAX)
-+			return dev_err_probe(dev, -EINVAL,
-+					     "Too many fan nodes, at most %d\n",
-+					     STARFIVE_FAN_MAX);
-+
-+		ret = starfive_pwm_fan_create_fan(dev, child, priv, fan_idx++);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	/* Must be registered after the PWMs are requested */
-+	ret = devm_add_action_or_reset(dev, starfive_pwm_fan_pwm_disable, priv);
-+	if (ret)
-+		return ret;
-+
-+	for (i = 0; i < STARFIVE_FAN_MAX; i++) {
-+		if (!priv->fans[i].pwm)
-+			continue;
-+
-+		ret = starfive_pwm_fan_set_pwm(priv, i, STARFIVE_FAN_PWM_VAL_MAX);
-+		if (ret)
-+			return dev_err_probe(dev, ret,
-+					     "Failed to configure PWM of fan %u\n", i);
-+	}
-+
-+	irq = platform_get_irq(pdev, 0);
-+	if (irq < 0)
-+		return dev_err_probe(dev, irq, "Failed to get IRQ\n");
-+
-+	ret = devm_request_irq(dev, irq, starfive_pwm_fan_irq, 0, dev_name(dev), priv);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to request IRQ\n");
-+
-+	hwmon_dev = devm_hwmon_device_register_with_info(dev, "starfive_pwm_fan",
-+							 priv, &starfive_pwm_fan_chip_info,
-+							 NULL);
-+	if (IS_ERR(hwmon_dev))
-+		return dev_err_probe(dev, PTR_ERR(hwmon_dev),
-+				     "Failed to register hwmon device\n");
-+
-+	return 0;
-+}
-+
-+static int starfive_pwm_fan_suspend(struct device *dev)
-+{
-+	struct starfive_pwm_fan_data *priv = dev_get_drvdata(dev);
-+	int ret;
-+
-+	ret = starfive_pwm_fan_pwm_disable_all(priv);
-+	if (ret) {
-+		/* ->resume() is not called for us on failure, undo here */
-+		starfive_pwm_fan_pwm_restore_all(priv);
-+		return ret;
-+	}
-+
-+	starfive_fan_tach_save(priv);
-+
-+	return 0;
-+}
-+
-+static int starfive_pwm_fan_resume(struct device *dev)
-+{
-+	struct starfive_pwm_fan_data *priv = dev_get_drvdata(dev);
-+
-+	starfive_fan_tach_restore(priv);
-+
-+	return starfive_pwm_fan_pwm_restore_all(priv);
-+}
-+
-+static DEFINE_SIMPLE_DEV_PM_OPS(starfive_pwm_fan_pm,
-+				starfive_pwm_fan_suspend,
-+				starfive_pwm_fan_resume);
-+
-+static const struct of_device_id starfive_pwm_fan_of_match[] = {
-+	{ .compatible = "starfive,jhb100-pwm-fan", },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, starfive_pwm_fan_of_match);
-+
-+static struct platform_driver starfive_pwm_fan_driver = {
-+	.probe = starfive_pwm_fan_probe,
-+	.driver	= {
-+		.name = "starfive-pwm-fan",
-+		.pm = pm_sleep_ptr(&starfive_pwm_fan_pm),
-+		.of_match_table = starfive_pwm_fan_of_match,
-+	},
-+};
-+
-+module_platform_driver(starfive_pwm_fan_driver);
-+
-+MODULE_AUTHOR("William Qiu <william.qiu@starfivetech.com>");
-+MODULE_AUTHOR("Changhuang Liang <changhuang.liang@starfivetech.com>");
-+MODULE_DESCRIPTION("StarFive JHB100 PWM fan controller driver");
-+MODULE_LICENSE("GPL");
--- 
-2.25.1
+The benefit is that it covers the case of blocksize < PAGE_SIZE, where
+the pending range occupies only part of the folio and range_start lands
+in the middle or later part of that same folio. It does not help when
+the pending range happens to be in a large folio, though, because
+mapping_min_folio_nrbytes() is only a lower bound on the folio size.
+That said, the pending range is the old EOF of the file and it is
+unaligned, so that folio can more likely to be a single page than a
+large one.
+
+Or do you want it to be very precise, able to know exactly the size of
+the folio containing the pending range and its positional relationship
+with the writeback range? If the latter, that would require an exact
+folio lookup, which seems a bit expensive and perhaps over-optimization
+to me.
+
+Thanks,
+Yi.
 
