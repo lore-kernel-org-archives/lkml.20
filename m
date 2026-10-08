@@ -1,63 +1,68 @@
-Received: from pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.35.192.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E90E3C0603;
-	Thu,  8 Oct 2026 18:07:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.35.192.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C8DA4D17BF
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 18:07:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791482843; cv=none; b=Qufp89yzDlLaf6LD73kdxLL383zaTYAo+nsJYTrHMWhHp7303o+0ziwvEtkTlqpiSaqPNI+/U3G4Wqbg09sE64ES3R1b5uIsZD1pvFs8jQszr3gVq2oBUYgzvtcIX9BovpQrnTsmcQ2rfNloHG/HcmHEMIC308Fq6S1P0VOkRBo=
+	t=1791482848; cv=none; b=iQ2yJaDw7TSHNWHMWwJphO+gN1DwJQL78WfjqeQeCzCDOiauPYOVYIIVp6ed/PdxdocTxjpcWhNFZF1i66ImHzstWlQyN3XP9XtsHkPvNwZpiOyoi7gJDy30VkGHRjgzxQS8vuaOe2V2H1rQL0cwC4OYSnDIWfhV4WSahPUjgjE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791482843; c=relaxed/simple;
-	bh=tGFhvLTHF8StU5hpI/kKUeUAR2iHNdLWXt2fXvXGvos=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=dnl7lrpW9KK8uy6j5jwLTssIejSqpjomBCPHwvDBxsirvkcsmapAjxF2pwt0LtSrrG01kq5I70buGGpeyWZ0puW0Ze68tZ1bmBgA5DpsZw6qs0qTUTM7eEkJt9hc1oTg4BQRLnmGe18Baqc7IPOPw8NeLWj84TCvD1vKs/YZlKc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=Lj1S1fht; arc=none smtp.client-ip=52.35.192.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	s=arc-20240116; t=1791482848; c=relaxed/simple;
+	bh=VRTrMnRCtIFbD2EyB6N5w6LrzMeEzaYWJ1e5rAtXRnk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=XJwDZ7yklqStawuEysv50s6ru4mKQygg0I1WwlcD7G9U+gkRCx58L29GgYU9lZrQPnyiKCUM8o/ehyvmaBVZQIpLtOqiI6TL3UnOdLyOeVWU5QG+fcgoxjpLGt++tA4ZghyHR/DUCwfCkuY+4dCA2Sx4z3rjabVwe4WaSgQs6s0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PYZzvBf2; arc=none smtp.client-ip=209.85.215.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="Lj1S1fht"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PYZzvBf2"
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc4e9e56e9aso1829726a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 11:07:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1791482840; x=1823018840;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=d3vM0Xutbnj89U/Y6NYS4pDDMfcemqS/3QfABGSx4iE=;
-  b=Lj1S1fht3LuxOzX0Vg5sroGcmSDh1/PQ+SJfBVv9q94mLENkJeDhA/lx
-   n1JKpSsvnB+6KUi7nmevfJCtVGd+ylFCNS2fwTZ6XZP3WO7dJDkWhOf11
-   7FlOCA0peqHCgGz7veULXEY2O7qY+YcaKw9cssMhTisPl2NfPFdhKS+vx
-   Yjrc3zt3afAKMN335n+OIfxvH/L0aiUHFWwEBelP+v6vJi8yBSLcqRb0k
-   VtLSc01FMkinjS0ijws7+5yOVXmyK0Y/IYlLOgHS2qKf3hbrFI1z8AY5K
-   GWhZ3AuH474Tvx9YEUbJev+3mUCvxbR0h3dLuZdcEV7qslmDpPrVIgFT6
-   Q==;
-X-CSE-ConnectionGUID: kBdNeM4aR/2UvNYxMzGQQA==
-X-CSE-MsgGUID: mR1cM7kVRji7cPLKQ5ANXw==
-X-IronPort-AV: E=Sophos;i="6.27,146,1787011200"; 
-   d="scan'208";a="30527618"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 18:07:16 +0000
-Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.48:16984]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.36.228:2525] with esmtp (Farcaster)
- id 632c4f48-db91-4138-83e8-b5b2c818f7ab; Thu, 8 Oct 2026 18:07:15 +0000 (UTC)
-X-Farcaster-Flow-ID: 632c4f48-db91-4138-83e8-b5b2c818f7ab
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Thu, 8 Oct 2026 18:07:15 +0000
-Received: from ub9ea591b72db54.ant.amazon.com (10.106.83.20) by
- EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Thu, 8 Oct 2026 18:07:12 +0000
-From: Roman Kagan <rkagan@amazon.de>
-To: "Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano
-	<daniel.lezcano@kernel.org>, Christian Loehle <christian.loehle@arm.com>,
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>
-CC: Roman Kagan <rkagan@amazon.de>, <linux-pm@vger.kernel.org>,
-	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<nh-open-source@amazon.com>
-Subject: [PATCH] cpuidle: Add the shallow governors
-Date: Thu, 8 Oct 2026 20:06:32 +0200
-Message-ID: <20261008-b4-cpuidle-shallow-v1-1-c19e71127b14@amazon.de>
-X-Mailer: git-send-email 2.55.0
+        d=gmail.com; s=20251104; t=1791482843; x=1792087643; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=vx1hsDBsieq23jav84qc39RHrlNeTK4K/qIOXf26Ahg=;
+        b=PYZzvBf29MHLgDE7VSxoI1H+U/kczGOtiuSEIqBbnTFlUsiakEdJLEpD7lMSk4l7ad
+         X4qwK6mqCGQgcjwFsh40xizPLxk4onropzLURQCsy6iiKwQe7sWLnqPQLqA67dG+F4ij
+         HnpstnhUBZTez6xsaygbyIL2R88eKx5OyN3kZzeaKtQIEUME+sm2TMRj6XU8Fo91yhT4
+         3FRSCdLPpjMxD11PUthED9Fn1blsbDAWHU1bitwx9sJZKvqwhblE1HvI9WjK2Pa1unld
+         wtOUQ4an09pKPXUrreCbmmcO5nwc10NwO72gDLN85lGYLOiAgzPw+zFYyvlHAm9h7m81
+         YgSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791482843; x=1792087643;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=vx1hsDBsieq23jav84qc39RHrlNeTK4K/qIOXf26Ahg=;
+        b=KgcNPyA4JYqfCmwzpI4DH86bAVO1/Fc6X15rwHR5DJWF4Gvfa7lYT8qjX670YuKyED
+         yTSA3xJAgfX9+hY1OI4QgF1HYKLyhLVXyVTN0eONjm6rKEmVUwrTKoNhajtFAo82HFG/
+         ispvuiotvgKpJ0go9qcNjdABccEFVAoOA1dT7M99AIwxDTiB6IR30qmvNvYVKPxWtyhw
+         ExHSqOi68jlRLLOJNZ8wXwQFiWzaiJs+hGiGfPStLQ+WvTIkoivIaydBlIRXBxCtIyWp
+         CxD80bnvC2NNMCqKP9IYOhS8SX5OFd0swSril3MepmkEaeCflOI7wL0xV4hl95tEiAmD
+         qCdQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy7ScrzHrqEdFRBtH2ciDhXlnCzh/Xmf6W6JePdGLD363fWe3+jCxY1ZFaiMFI7hHsxkog21w9YPfeq9iU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK3ETqWT7LOmDC7tTzKdLehbaMQauQbsZlsND06BI3Up9hyXooq
+	qQALEpNuSdhdPJLcnCOpq14ryej/cH0P4VJhlAuAmBxDPhKKr68kgBJ1
+X-Gm-Gg: AYBFou3MZE2p6Mzh8HX26xYXTcIzmg0OGWW0vs7x7mWOFkRwiPKt3oTSMgec3nsx9p4
+	BUokDBdTMZ9ZAQvXPZ1JfHpjaSlbH6GGrEH8CHD7C7lQMwrrY3ZJwm03mDvVDHLplKzbDBepu++
+	cNaDINOsEMnE8scWvrHgkLltxThPhlFrfE5UW79bCtdbr3Vud8URmZOxdM2ltvp3F1tq6oqBvvP
+	yfcrqIpwCHvrVqTfT/hyohzEvtvOpLnLOvaFPDceJ+3pC8gGojE+fek2XHm3lDkSfc/jNyQFQT2
+	VsyMeb6RxTGgfPIsCNGZJ8iddLBUcuRID/iyI30DBTeZau0Q+5SiYdSdWmhBkn3SqBLd/7zWt5O
+	YdT42hXQ3BBTETVrzl01BnCgCvddOwG4C4NJPBdAuxEP37Qews4nugnumT003U+YqtUdEq4e53o
+	/gxF//vQzU+SuWTnwEYcxAFRZy2nJB5ifBxAZy88Ncy2FN2e7/1g12fbZ3zzh7Ay9U37SOz9h6M
+	JsUOSWZH5IPveiO
+X-Received: by 2002:a17:90b:2243:b0:39e:6c69:34da with SMTP id 98e67ed59e1d1-3a8a1cea2c5mr5582516a91.62.1791482842628;
+        Thu, 08 Oct 2026 11:07:22 -0700 (PDT)
+Received: from [192.168.0.160] ([76.135.114.51])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab31fccd1dsm268530a91.2.2026.10.08.11.07.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 11:07:21 -0700 (PDT)
+From: Stanislav Kinsburskii <skinsburskii@gmail.com>
+Subject: [PATCH v2 0/2] fuse: support per-inode open and release
+ suppression
+Date: Thu, 08 Oct 2026 11:06:43 -0700
+Message-Id: <20261008-fuse-per-inode-no-open-v2-0-39c60fe97728@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -65,290 +70,93 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-X-Change-ID: 20261007-b4-cpuidle-shallow-a4d6190bc8b1
-X-Mailer: b4 0.17-dev-3d1b8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: EX19D031UWC004.ant.amazon.com (10.13.139.246) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALPbx2oC/4WNQQ6CMBBFr0Jm7ZjSgIIr7mFYtHQKk0jbtEo0p
+ He3cgGX7yX//R0SRaYEt2qHSBsn9q6APFUwLcrNhGwKgxTyUgtxRftKhIEisvOG0Hn0gRyaRpD
+ UjdK6U1DGIZLl9xG+j4UXTk8fP8fPVv/s3+RWo0BNrZS9pa637TCvih/nya8w5py/lZaIQ7wAA
+ AA=
+To: Miklos Szeredi <miklos@szeredi.hu>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, Shuah Khan <shuah@kernel.org>
+Cc: Robert Byrnes <byrnes@wildpumpkin.net>, fuse-devel@lists.linux.dev, 
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, 
+ Stanislav Kinsburskii <skinsburskii@gmail.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791482840; l=3230;
+ i=skinsburskii@gmail.com; s=20260722; h=from:subject:message-id;
+ bh=VRTrMnRCtIFbD2EyB6N5w6LrzMeEzaYWJ1e5rAtXRnk=;
+ b=4xlDZOqYR1DmUGgZwSQ7y/+HVBLKUTM/oO7OPIm1JRzOuAmiQzYTKCrh2oAARzLuSEoBW4sN4
+ NuVzaOuGKGYBhcyA57F1mp4GqOnJ+RqxRAR03KPNMfZE4W2vhMcuESB
+X-Developer-Key: i=skinsburskii@gmail.com; a=ed25519;
+ pk=bDpriHBYgeTdkIDweZDCemxsU93neJBOCn3YLIuJpnE=
 
-The idle states offered by a platform trade wakeup latency for energy
-savings, and there are situations where the trade is not worth making:
-while a latency-sensitive workload is running, or during a live update
-via kexec, where everything from the outgoing kernel stopping the
-workload to the incoming kernel resuming it is downtime, and deep idle
-states may lengthen it.
+For FUSE filesystems serving immutable data, warm-cache workloads can
+still spend much of their time sending OPEN/OPENDIR and RELEASE/RELEASEDIR
+requests. Data, attributes, lookups and directory entries may already be
+cached, but opening each object still requires a userspace round trip.
 
-The mechanisms currently available for that are all one-way.
-cpuidle.off=1, idle=poll and idle=halt can only be requested in the
-kernel command line and cannot be undone, and the PM QoS interfaces
-(/dev/cpu_dma_latency and the per-CPU pm_qos_resume_latency_us
-attribute) can only be used once user space is up, so they cannot cover
-the boot of the incoming kernel.
+The existing connection-wide no-open support cannot distinguish these
+objects from control files that need the server's open and release
+callbacks.
 
-Add governors that keep the CPUs in the shallowest idle states and leave
-the scheduler tick running.  Being governors, they can be selected both
-at run time, by writing a name to the current_governor attribute in
-sysfs, and in the kernel command line, via cpuidle.governor=.  For a
-live update, that makes it possible to switch the outgoing kernel to one
-of them before the kexec, pass the same governor to the incoming kernel
-so that it is in effect from the very beginning of its boot, and switch
-to an energy-efficient governor once the post-update work is done.
+This series adds negotiated per-inode suppression. A server negotiates
+FUSE_PER_INODE_NO_OPEN during INIT and marks eligible inodes with
+FUSE_ATTR_NO_OPEN in their attribute replies. The kernel then handles
+opens locally for those inodes, using a zero file handle and the existing
+no-open cache defaults. Subsequent requests identify the object by nodeid.
 
-On x86 and on some powerpc platforms, the shallowest idle state is a
-polling loop.  It has the lowest wakeup latency, but also the side
-effects documented for idle=poll: the CPU saves almost no energy,
-competes with its SMT sibling for the core, and on Intel hardware keeps
-the package from using the P-states that require some of its CPUs to be
-idle.  Whether that is acceptable is a policy decision, so there are two
-governors and the user makes it by choosing between them.  The shallow
-governor always selects the shallowest enabled state.  The
-shallow_nopoll one skips polling states, unless the state it would
-select is too slow to leave for the PM QoS latency limit or all of the
-non-polling states are disabled.
+Release suppression follows how each handle was opened, so changing the
+inode's hint does not create an unmatched release or lose the release of
+a server-opened handle. Atomic O_TRUNC still sends OPEN to the server,
+and CREATE retains its existing open and release lifecycle.
 
-A governor named in the kernel command line is not replaced by a
-higher-rated one registering later, so cpuidle.governor= holds for the
-entire boot.  Both governors have rating 1, below all of the other
-governors, so that neither is picked by default.  Where the cpuidle
-driver registers no polling states, such as on arm64, the two select the
-same states, and neither is a substitute for idle=poll.
+The second patch adds a raw /dev/fuse selftest without requiring libfuse
+support for the new protocol flags. It covers capability negotiation,
+files and directories, LOOKUP and READDIRPLUS attributes, hint changes
+through GETATTR, hint preservation across STATX, atomic truncation and
+CREATE. The cases also run with writeback caching enabled.
 
-Assisted-by: LLM
-Signed-off-by: Roman Kagan <rkagan@amazon.de>
+Signed-off-by: Stanislav Kinsburskii <skinsburskii@gmail.com>
 ---
- drivers/cpuidle/governors/Makefile       |   1 +
- drivers/cpuidle/governors/shallow.c      | 104 +++++++++++++++++++++++++++++++
- Documentation/admin-guide/pm/cpuidle.rst |  53 +++++++++++++---
- drivers/cpuidle/Kconfig                  |  20 ++++++
- 4 files changed, 169 insertions(+), 9 deletions(-)
+Changes in v2:
 
-diff --git a/drivers/cpuidle/governors/Makefile b/drivers/cpuidle/governors/Makefile
-index 63abb5393a4d..10e64092c9ec 100644
---- a/drivers/cpuidle/governors/Makefile
-+++ b/drivers/cpuidle/governors/Makefile
-@@ -7,3 +7,4 @@ obj-$(CONFIG_CPU_IDLE_GOV_LADDER) += ladder.o
- obj-$(CONFIG_CPU_IDLE_GOV_MENU) += menu.o
- obj-$(CONFIG_CPU_IDLE_GOV_TEO) += teo.o
- obj-$(CONFIG_CPU_IDLE_GOV_HALTPOLL) += haltpoll.o
-+obj-$(CONFIG_CPU_IDLE_GOV_SHALLOW) += shallow.o
-diff --git a/drivers/cpuidle/governors/shallow.c b/drivers/cpuidle/governors/shallow.c
-new file mode 100644
-index 000000000000..8d4ac46d302a
---- /dev/null
-+++ b/drivers/cpuidle/governors/shallow.c
-@@ -0,0 +1,104 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * shallow.c - the shallow and shallow_nopoll idle governors
-+ *
-+ * Always select the shallowest enabled idle state, trading idle energy
-+ * savings for the lowest wakeup latency the platform can offer.  The
-+ * shallow_nopoll one skips polling states unless PM QoS requires them.
-+ */
-+
-+#include <linux/cpuidle.h>
-+#include <linux/init.h>
-+
-+/**
-+ * shallow_select - select the shallowest enabled idle state
-+ * @drv: cpuidle driver containing state data
-+ * @dev: the CPU
-+ * @stop_tick: indication on whether or not to stop the tick
-+ *
-+ * The state selected here is the least energy-efficient one offered by the
-+ * driver, so there is no point in looking at either the timer events or the
-+ * PM QoS latency limits: no constraint can justify going shallower than that.
-+ * Leave the tick running, as the CPU is not expected to stay idle for long.
-+ *
-+ * Return: the index of the first idle state not disabled for @dev, or 0 if
-+ * all of them are disabled.
-+ */
-+static int shallow_select(struct cpuidle_driver *drv,
-+			  struct cpuidle_device *dev, bool *stop_tick)
-+{
-+	int i;
-+
-+	*stop_tick = false;
-+
-+	/*
-+	 * cpuidle_enter_state() does not check whether the state it is asked
-+	 * to enter has been disabled, so the per-state "disable" attributes
-+	 * need to be honoured here.  If all of the states are disabled, fall
-+	 * back to the first one, like the other governors do.
-+	 */
-+	for (i = 0; i < drv->state_count; i++)
-+		if (!dev->states_usage[i].disable)
-+			return i;
-+
-+	return 0;
-+}
-+
-+/**
-+ * shallow_nopoll_select - select the shallowest enabled non-polling idle state
-+ * @drv: cpuidle driver containing state data
-+ * @dev: the CPU
-+ * @stop_tick: indication on whether or not to stop the tick
-+ *
-+ * Same as shallow_select(), but skip the polling states.  Unlike them, the
-+ * shallowest non-polling state may take longer to leave than the PM QoS
-+ * latency limit allows, so fall back to shallow_select() in that case, as
-+ * well as when all of the non-polling states are disabled.
-+ *
-+ * Return: the index of the first idle state that is neither disabled for @dev
-+ * nor a polling one, or what shallow_select() returns in the cases above.
-+ */
-+static int shallow_nopoll_select(struct cpuidle_driver *drv,
-+				 struct cpuidle_device *dev, bool *stop_tick)
-+{
-+	int i;
-+
-+	for (i = 0; i < drv->state_count; i++) {
-+		if (dev->states_usage[i].disable ||
-+		    (drv->states[i].flags & CPUIDLE_FLAG_POLLING))
-+			continue;
-+
-+		if (drv->states[i].exit_latency_ns >
-+		    cpuidle_governor_latency_req(dev->cpu))
-+			break;
-+
-+		*stop_tick = false;
-+		return i;
-+	}
-+
-+	return shallow_select(drv, dev, stop_tick);
-+}
-+
-+static struct cpuidle_governor shallow_governor = {
-+	.name =		"shallow",
-+	.rating =	1,
-+	.select =	shallow_select,
-+};
-+
-+static struct cpuidle_governor shallow_nopoll_governor = {
-+	.name =		"shallow_nopoll",
-+	.rating =	1,
-+	.select =	shallow_nopoll_select,
-+};
-+
-+static int __init init_shallow(void)
-+{
-+	int ret = cpuidle_register_governor(&shallow_governor);
-+
-+	if (ret)
-+		return ret;
-+
-+	return cpuidle_register_governor(&shallow_nopoll_governor);
-+}
-+
-+postcore_initcall(init_shallow);
-diff --git a/Documentation/admin-guide/pm/cpuidle.rst b/Documentation/admin-guide/pm/cpuidle.rst
-index be4c1120e3f0..8c6a438936d4 100644
---- a/Documentation/admin-guide/pm/cpuidle.rst
-+++ b/Documentation/admin-guide/pm/cpuidle.rst
-@@ -159,15 +159,16 @@ governor uses that information depends on what algorithm is implemented by it
- and that is the primary reason for having more than one governor in the
- ``CPUIdle`` subsystem.
- 
--There are four ``CPUIdle`` governors available, ``menu``, `TEO <teo-gov_>`_,
--``ladder`` and ``haltpoll``.  Which of them is used by default depends on the
--configuration of the kernel and in particular on whether or not the scheduler
--tick can be `stopped by the idle loop <idle-cpus-and-tick_>`_.  Available
--governors can be read from the :file:`available_governors`, and the governor
--can be changed at runtime.  The name of the ``CPUIdle`` governor currently
--used by the kernel can be read from the :file:`current_governor_ro` or
--:file:`current_governor` file under :file:`/sys/devices/system/cpu/cpuidle/`
--in ``sysfs``.
-+There are six ``CPUIdle`` governors available, ``menu``, `TEO <teo-gov_>`_,
-+``ladder``, ``haltpoll``, `shallow <shallow-gov_>`_ and
-+`shallow_nopoll <shallow-gov_>`_.  Which of them is used by default depends on
-+the configuration of the kernel and in particular on whether or not the
-+scheduler tick can be `stopped by the idle loop <idle-cpus-and-tick_>`_.
-+Available governors can be read from the
-+:file:`available_governors`, and the governor can be changed at runtime.  The
-+name of the ``CPUIdle`` governor currently used by the kernel can be read from
-+the :file:`current_governor_ro` or :file:`current_governor` file under
-+:file:`/sys/devices/system/cpu/cpuidle/` in ``sysfs``.
- 
- Which ``CPUIdle`` driver is used, on the other hand, usually depends on the
- platform the kernel is running on, but there are platforms with more than one
-@@ -345,6 +346,40 @@ given conditions.  However, it applies a different approach to that problem.
- .. kernel-doc:: drivers/cpuidle/governors/teo.c
-    :doc: teo-description
- 
-+.. _shallow-gov:
-+
-+The Shallow Governors
-+=====================
-+
-+The ``shallow`` governor always selects the shallowest enabled idle state and
-+leaves the scheduler tick running.  Unlike the governors described above, it
-+makes no attempt to save energy at all; its purpose is to keep the CPU wakeup
-+latency, and in particular the latency of inter-processor interrupts, at the
-+minimum offered by the platform.
-+
-+The ``shallow_nopoll`` governor does the same, except that it skips polling
-+idle states and selects the shallowest enabled idle state that is not a polling
-+one.  That avoids the side effects of idle CPUs spinning, which are described
-+for ``idle=poll`` below, at the cost of a higher wakeup latency.  If the exit
-+latency of that state is above the `PM QoS <cpu-pm-qos_>`_ limit in effect for
-+the CPU, or if all of the non-polling states are disabled, ``shallow_nopoll``
-+selects the state that ``shallow`` would select.
-+
-+Neither of them is used by default, regardless of the configuration of the
-+kernel, and they have to be requested explicitly.  That can be done either by
-+passing ``cpuidle.governor=shallow`` or ``cpuidle.governor=shallow_nopoll`` in
-+the kernel command line, or by writing the governor name to the
-+:file:`current_governor` file described `above <idle-loop_>`_.  A governor
-+requested in the kernel command line is not replaced by a higher-rated one
-+registering later, so it holds for the entire boot and user space can hand the
-+deep idle states back at any later point by switching to a different governor.
-+
-+Note that the shallowest idle state is not necessarily a polling loop.  On the
-+platforms whose ``CPUIdle`` driver does not register the generic polling state,
-+it is the idle instruction of the CPU architecture (for instance, ``WFI`` on
-+arm64), so ``shallow`` is not a substitute for ``idle=poll``.  If the driver
-+registers no polling states at all, the two governors select the same states.
-+
- .. _idle-states-representation:
- 
- Representation of Idle States
-diff --git a/drivers/cpuidle/Kconfig b/drivers/cpuidle/Kconfig
-index 00e2562041fd..c78aa07ca548 100644
---- a/drivers/cpuidle/Kconfig
-+++ b/drivers/cpuidle/Kconfig
-@@ -44,6 +44,26 @@ config CPU_IDLE_GOV_HALTPOLL
- 
- 	  Some virtualized workloads benefit from using it.
- 
-+config CPU_IDLE_GOV_SHALLOW
-+	bool "Shallow governors (for latency-sensitive systems)"
-+	help
-+	  The shallow governor always selects the shallowest enabled idle
-+	  state, which keeps the CPU wakeup latency at the minimum offered by
-+	  the platform at the cost of giving up idle energy savings.  The
-+	  shallow_nopoll governor selects the shallowest enabled idle state
-+	  that is not a polling one instead, unless PM QoS requires a lower
-+	  latency than that state offers.
-+
-+	  They are never used by default and have to be requested explicitly,
-+	  either by passing cpuidle.governor=shallow or
-+	  cpuidle.governor=shallow_nopoll in the kernel command line, or by
-+	  writing the governor name to the current_governor attribute in
-+	  sysfs.  That makes it possible to keep the CPUs out of deep idle
-+	  states while booting or while running a latency-sensitive workload
-+	  and to switch to an energy-efficient governor afterwards.
-+
-+	  If unsure, say N.
-+
- config DT_IDLE_STATES
- 	bool
- 
+- Preserve RELEASE after successful remote flock operations, including when
+  OPEN was suppressed, to retain server-side lock cleanup.
+
+- Document the flock exception and the requirement to accept RELEASE with
+  a zero file handle and no preceding OPEN.
+
+- Synchronize test-server requests before unmount to avoid racing with
+  asynchronous RELEASE replies.
+
+- Extend selftest coverage to 68 tests, including flock cleanup after
+  SIGKILL, duplicated descriptors, hint updates, CREATE reopen, ioctl
+  handles, and connection-wide ENOSYS precedence.
+
+- Link to v1: https://lore.kernel.org/r/20261007-fuse-per-inode-no-open-v1-0-be5229fe89f5@gmail.com
 
 ---
-base-commit: 08df884136f1c1197bab2a27814404fd329d9aac
-change-id: 20261007-b4-cpuidle-shallow-a4d6190bc8b1
+Stanislav Kinsburskii (2):
+      fuse: add negotiated per-inode open and release suppression
+      selftests: fuse: test per-inode open suppression
+
+ Documentation/filesystems/fuse/fuse-no-open.rst    |  49 ++
+ Documentation/filesystems/fuse/index.rst           |   1 +
+ fs/fuse/file.c                                     |  26 +-
+ fs/fuse/fuse_i.h                                   |  17 +-
+ fs/fuse/inode.c                                    |   9 +
+ fs/fuse/ioctl.c                                    |   3 +-
+ include/uapi/linux/fuse.h                          |  13 +-
+ .../testing/selftests/filesystems/fuse/.gitignore  |   1 +
+ tools/testing/selftests/filesystems/fuse/Makefile  |   2 +
+ .../selftests/filesystems/fuse/no_open_test.c      | 859 +++++++++++++++++++++
+ 10 files changed, 972 insertions(+), 8 deletions(-)
+---
+base-commit: b018686719706a781c45a874ed51374a2dc4b767
+change-id: 20261007-fuse-per-inode-no-open-d40e2b4abb8a
 
 Best regards,
---  
-Roman Kagan <rkagan@amazon.de>
+-- 
+Stanislav Kinsburskii <skinsburskii@gmail.com>
 
