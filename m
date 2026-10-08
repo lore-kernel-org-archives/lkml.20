@@ -1,107 +1,106 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D3004477F3;
-	Thu,  8 Oct 2026 13:19:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 453AF4477F3;
+	Thu,  8 Oct 2026 13:19:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791465589; cv=none; b=LBn48yFZYnVTthOsf8AVpc6H3+1sUrekevqFKlPPHZArtc3tRGSklORdVdjnHCA2bT/88dE7tuWV5WJ4RxY+UTWX7CYyC+JFGtQNFqcWCvIiiJNHp3nB6i16xN91M6CruAJqLg1FfxEAoJyHe0Z3sfFKpOuwFThF1GUXg8tZrAA=
+	t=1791465594; cv=none; b=IEwb+QGPTMh4DpPkKZASER9xlERTjlJsiUeo+AtAQV+3N+5AksD8CUpM7IVvFJ5N84PZqmdKSOJ9rjtuxsHzRvfzLa11nEDO+0BJRXp/UVYr1PdHJo4i5NxZYB2E3ll+2XyxBJYApg3fHzA8LI5iXziXznF3GKlb7czE8IfWl+c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791465589; c=relaxed/simple;
-	bh=+Q3Zno1VCYhLi025pNDCmJZ5SJkmktbvvlNyIe3ul58=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=ew50EwqnW5VTzlUqUWOKRKhazXvuff7+NDoWaxOhgI8kKdc/SJGqNNzGt6lM/m9O3kuZHhiVmHe3gAfEe9/ENLJHDeUJOUTsaoq8RzmL6FeRS+eYLBE8PaP0PDWTaLkcB+zn3lOZiytQ7jldAolvgEtBR0G3AnAni0NLNaf5PAE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=rdRT6Npr; arc=none smtp.client-ip=68.232.154.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1791465594; c=relaxed/simple;
+	bh=Y1N0da2kegigQ8XnH+Rgc8b6lSa5p5sPQcdcGu81xmU=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=CMxGTIZRGpeAwBeuX9jWvXFCeZ6NgfNjtqqKODRzEh0CNBpWgkQzdCHy3akfDF2nAPp//VP5x7SH6dR1gHV04t48B2EBFck/FzXxkVjFT9KxSXuXKZuUhSG1CGjPrCozUVxBmaF89Yv571CJTiKOftuV6a0Nbxrw3URhYTUX1jk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VCNagyWk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="rdRT6Npr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1791465588; x=1823001588;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=+Q3Zno1VCYhLi025pNDCmJZ5SJkmktbvvlNyIe3ul58=;
-  b=rdRT6NprgEPwy8jpmV0S1A7FlYVJX6lqSs8TxE7ZQp/GOtgfb+GQPGkh
-   wFZek81jio3iRrfgvY2WxvAzAYfo9YoOgPIlt10wgdm0JXxbC7/wnhbsM
-   dKCorVDJqBRKumcpOsAWfYBDPvFoh5+whKhSAF7oYOmiE90hrajBmO+XX
-   To+RQQXOSucCYQ/rcNLtzQd0kvGqpDVAK1EKU/IReQ9R8MTh4hVTjvt7e
-   q+emauwRk8umNw9hTKKsT/aSJsLfcMWjUeef2MYuUeQbndTtNGcbLxtP1
-   I+OcFIIiW01YtndpRGtSipdJGkLmlMc3hSnzuZW55l5G91PgEwzKvBXQ6
-   w==;
-X-CSE-ConnectionGUID: RiY43zkkRCC0hmDKHauqLg==
-X-CSE-MsgGUID: huQZLqcbR0Wd8tnYoaYSMw==
-X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
-   d="scan'208";a="65038463"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 08 Oct 2026 06:19:47 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
- chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Thu, 8 Oct 2026 06:19:47 -0700
-Received: from ROU-LL-M19942.mpu32.int (10.10.85.11) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Thu, 8 Oct 2026 06:19:43 -0700
-From: Cyrille Pitchen <cyrille.pitchen@microchip.com>
-Date: Thu, 8 Oct 2026 15:19:05 +0200
-Subject: [PATCH v10 5/5] ARM: configs: at91_dt_defconfig: enable GFX2D
- driver
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VCNagyWk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D318D1F00893;
+	Thu,  8 Oct 2026 13:19:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791465592;
+	bh=nRpIXXch9ORQvuMM32Uo3H+Arh+KSndx0M1M1TwYHmY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=VCNagyWkpdc/kZY1NXXy8RKIG2UiqEzSGeTtBxTaWA7fGJJDTRv04PeuwS9qkfGY1
+	 4dt3v0L11ublrsxPjdn4YXd+ZdZe4XVJL1knvLkNegcuTU/hK66V4H5UjDry4PcVHk
+	 g96rBvrPiC1GQl603/yaNg34+GyDnp1PVb0COBrg7tW5PDzcWOpHyu0S58lMFuEcrx
+	 ReKALCyq4nuyOnO2K+u1ZhuIZB14KExlAvUmjprpmm1a8v0rjP9HfV73AOKw2u3Fbk
+	 c59/9lTc06+UwbWfWmg7/9EQXg7p4cOSjeWsMkLo1OevnzSb2vnjZ9nra6tRVdu1CE
+	 7ZMhy4kmw/4zw==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xEo2I-00000000dqq-0E5U;
+	Thu, 08 Oct 2026 13:19:50 +0000
+Date: Thu, 08 Oct 2026 14:19:49 +0100
+Message-ID: <86cxtk2utm.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: michael.reeves077@gmail.com
+Cc: Oliver Upton <oupton@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Myria Sarvay <myrialsarvay@gmail.com>,
+	Yureka Lilian <yureka@cyberchaos.dev>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	Sven Peter <sven@kernel.org>,
+	Janne Grunau <j@jannau.net>,
+	Neal Gompa <neal@gompa.dev>,
+	asahi@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] arm64: Apply existing Apple CPU workarounds to M3 and M4
+In-Reply-To: <20261008-apple-m3-m4-kvm-v1-2-7bb4cbf3d63b@gmail.com>
+References: <20261008-apple-m3-m4-kvm-v1-0-7bb4cbf3d63b@gmail.com>
+	<20261008-apple-m3-m4-kvm-v1-2-7bb4cbf3d63b@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261008-cpitchen-mainline_gfx2d-v10-5-67ca2477b3d5@microchip.com>
-References: <20261008-cpitchen-mainline_gfx2d-v10-0-67ca2477b3d5@microchip.com>
-In-Reply-To: <20261008-cpitchen-mainline_gfx2d-v10-0-67ca2477b3d5@microchip.com>
-To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	"Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
-	<mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Nicolas Ferre <nicolas.ferre@microchip.com>,
-	"Alexandre Belloni" <alexandre.belloni@bootlin.com>, Claudiu Beznea
-	<claudiu.beznea@tuxon.dev>, Russell King <linux@armlinux.org.uk>
-CC: <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	Cyrille Pitchen <cyrille.pitchen@microchip.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=806;
- i=cyrille.pitchen@microchip.com; h=from:subject:message-id;
- bh=+Q3Zno1VCYhLi025pNDCmJZ5SJkmktbvvlNyIe3ul58=;
- b=owGbwMvMwCXmf6yzKqEsVIbxtFoSQ9bxGWFyYXlXzErf5WeGSFm/ufi2PmWXeOKezU8XhL9ZP
- Ecja5lRRykLgxgXg6yYIsuhN1t7M4+/emz3SlQKZg4rE8gQBi5OAZjImU2MDCfMvlybtvwlb9aq
- p0dmN/gdbdSp6jpsNF/S/FJ9QPjFez0M/92XH1Pf7N2WX+KqILqjrThwgqnlxIOPVOX3X70ZcXD
- 3MnYA
-X-Developer-Key: i=cyrille.pitchen@microchip.com; a=openpgp;
- fpr=7A21115D7D6026585D0E183E0EF12AA1BFAC073D
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: michael.reeves077@gmail.com, oupton@kernel.org, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, myrialsarvay@gmail.com, yureka@cyberchaos.dev, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, sven@kernel.org, j@jannau.net, neal@gompa.dev, asahi@lists.linux.dev, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-The GFX2D GPU is embedded in both SAM9X60 and SAM9X75; enable the
-driver to use it.
+Hi Michael,
 
-Acked-by: Nicolas Ferre <nicolas.ferre@microchip.com>
-Reviewed-by: Claudiu Beznea <claudiu.beznea@tuxon.dev>
-Signed-off-by: Cyrille Pitchen <cyrille.pitchen@microchip.com>
----
- arch/arm/configs/at91_dt_defconfig | 1 +
- 1 file changed, 1 insertion(+)
+On Thu, 08 Oct 2026 13:15:41 +0100,
+Michael Reeves via B4 Relay <devnull+michael.reeves077.gmail.com@kernel.org> wrote:
+> 
+> From: Michael Reeves <michael.reeves077@gmail.com>
+> 
+> Add M3, M3 Pro, M3 Max and base M4 to apple_cpus so they receive the
+> existing PMU trap and broken SEIS workarounds needed by KVM.
+>
 
-diff --git a/arch/arm/configs/at91_dt_defconfig b/arch/arm/configs/at91_dt_defconfig
-index 830c6c0dbdaf..2a4a2d4c1865 100644
---- a/arch/arm/configs/at91_dt_defconfig
-+++ b/arch/arm/configs/at91_dt_defconfig
-@@ -142,6 +142,7 @@ CONFIG_VIDEO_OV2640=m
- CONFIG_VIDEO_OV7740=m
- CONFIG_DRM=y
- CONFIG_DRM_ATMEL_HLCDC=y
-+CONFIG_DRM_MICROCHIP_GFX2D=y
- CONFIG_DRM_MICROCHIP_LVDS_SERIALIZER=y
- CONFIG_DRM_PANEL_SIMPLE=y
- CONFIG_DRM_PANEL_EDP=y
+How have you established that these CPUs suffer from the same SEIS
+erratum? I'm all for working around bugs, but I'd like to make sure
+the new fancy stuff is indeed just as broken as the old shit...
+
+For the record, the EDKII build in the QEMU EFI package that was in
+part of Debian Bullseye was able to trigger the bug semi reliably
+(series of writes to ICC_EOIR1_EL1 for interrupts that were never
+active). This happens on handover to the guest kernel.
+
+I can provide the binary (and a few scripts) to test this easily.
+
+Should they have been fixed, we can always create a second
+implementation list to cover the PMU.
+
+Thanks,
+
+	M.
 
 -- 
-2.53.0
-
+Without deviation from the norm, progress is not possible.
