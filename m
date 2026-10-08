@@ -1,281 +1,136 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0667243E4A2;
-	Thu,  8 Oct 2026 11:53:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EE81490C02
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 11:53:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791460398; cv=none; b=o97Kq+bBxfQXGupIKB3+AXOlr6m4enZokWa3cnRuQhHdRG6Ne2St/iVVfj9o9BKH1xfz0tptL0YK9doRyzC6yz75m8sB9J2fISXGoli3s5LK4Udk0E6leVydujiCHlqbbB9A6eAZPxSy45o32JTcMw8qjbh3IxYpFbaHt3f9H6Q=
+	t=1791460400; cv=none; b=gedCMTir7YuIXT8vzEUW+5n9uJtdNvDvhhypxC9xx3oUTJpgd9v/bntCLS2s8BlcJ7RApRP3Nvq1k+ksKxzm+QQ/MQwVAAGYidYSBsAdSmBftJ/iUD4UNDwbCOYttGQeCu6LQH+uO9vqeb78UOHZb0fBDOBw1RUyb+QmxF3shkE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791460398; c=relaxed/simple;
-	bh=ufKP2Nh4Vj+A+BKC42/rn4nT60aljrSSjAAgE174C4g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FQhj1KLkgEfLOXt3UC9slufJlS1nHkFG1rjZuALy9jfAF/0tCaB7W51CRR4En9bPTejYWN4asx+1NxcsL5BerUHFwLqHQdMIlRloHDzidoJ+FL5RUSNihYWJV3M8s8YQ7jmbRgakMdUMEKmHtSC2X4yFMsvetexJcBM2OXNbZ/4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id E5B4B1F443;
-	Thu,  8 Oct 2026 11:53:14 +0000 (UTC)
-Authentication-Results: smtp-out2.suse.de;
-	none
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BAB3213354;
-	Thu,  8 Oct 2026 11:53:14 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id jUPuJCqEx2r9HAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Thu, 08 Oct 2026 11:53:14 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 2E94EA13FC; Thu, 08 Oct 2026 13:53:06 +0200 (CEST)
-Date: Thu, 8 Oct 2026 13:53:06 +0200
-From: Jan Kara <jack@suse.cz>
-To: Amir Goldstein <amir73il@gmail.com>
-Cc: Matthias Goergens <matthias.goergens@gmail.com>, jack@suse.cz, 
-	repnop@google.com, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] fanotify: report names longer than NAME_MAX
-Message-ID: <kdorzbsbijlbh4fe25vdvjdlxvmrcjk3rolnfydvoedxlflgkb@nzfuss6yxcwg>
-References: <20260926020851.2938961-1-matthias.goergens@gmail.com>
- <CAOQ4uxhxDOy1-vTSXGfA2c16e4iop_5M5goOih0pgSCZRvDrfw@mail.gmail.com>
+	s=arc-20240116; t=1791460400; c=relaxed/simple;
+	bh=tQLCkYgOuueSsGInQsIpwaB/A1sqQztPCjF/nclrYQ4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=g+VCh5MjJ5UsFk0mhk0QgVvsHL9U+hOGblAkGoWFaIII5irCjZhqO4hMGN9jkpIVGTj8sOgZs++Q+TNwouKRw0/jlQcwrCPLhktfkjY8WZbVT2xr1rOSmQwn5c8PLxmggLd2k+P6PO4m9DgWYv6hAm3KJmHf44XipJvaPVqHsIw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Dlkujla7; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Dlkujla7"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3ab066bef7dso285663a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 04:53:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791460399; x=1792065199; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=F7V7dLUe1L3c+eHqw7mAqauOhaayuccNQ0JvgXKLVBY=;
+        b=Dlkujla76WargE/NtJmu+O/R4BWp2K8h2+UyzHBC69YnMWTlu7RzJ9ECTyRBqMh113
+         bAxzUj0OPb2VmjTRqOPraaCYBdEYkyskhOBHRUO0YxXaRrdZtox93iKIFV9SpIDvwvYW
+         xqVGCUK6NTMUYWaFH9t1iMZwJkoTRyU8x/hkyY879M/UPT81Yk3eV6ANAPi/InTCKP8V
+         6z5MR1vISpBHgkCB0UAO6PLNCti4Tek2UDVr6+qhlJEn1UCbpTx4d9Y3XfWHHP1FRMO3
+         HXxz4/OkaX2OttLcr1th7Le1+YVeHountmOzmZ8m3NZ79D0uAungm+s2/mHgIFBQZsSw
+         GVng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791460399; x=1792065199;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=F7V7dLUe1L3c+eHqw7mAqauOhaayuccNQ0JvgXKLVBY=;
+        b=X4QEpQkivRI0RkG/EBlTjCtV7IvSmsUThTk60+t2zk3HUqVYA2hpDNBdjPV/fajEYk
+         FPN07ySuO4tRkCFD6qluzJVISeWi74Bx+zFxxBShq7C0SEJiwzVjGNEUsxevMyvT1Ua3
+         0JqQKi0hKyVJumdUsasywZ90+ukcpVqPH6CEuZBt+ZQh1jBm5jJyfub0CwU1bYzJnKH7
+         b/gzPTjYXXJuxq63/g+QOO2Gcv//XX6ETGCnJmSt+FRsFUiDdSn/TCt01HV2ibG7/+MG
+         uOrb/ODJvo9uxlmd/kDUr4nG94E8b4C8mrB7dFvkCkhHgiyQwr1iMoCHRzwexovke3sI
+         msLA==
+X-Forwarded-Encrypted: i=1; AKwUvBxFxxsIMXp2eRxcXL9i6QQo+OV/i/X4PqGQ2GZRhmE8RTFGUUhGWV5zxreXu0KVdsb8wS+eGPm0+dZ3RoM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIVnvwm7Zve74PRQy61cu7cWxETJHgOW92SLlXt9yUBSA2umP7L
+	OXntFXPVLnPKo7rcr4cmyBtl6DTaA314lY2Tnicc/diSvaM+pgOVjmkT
+X-Gm-Gg: AYBFou1gXtOaDexVBoeM6clr3i+44g+GjyKaL4hzxDUdGsKrgT8Oyq8I581RzcVJogx
+	vs9z3LaFt3DKAm5vJ7pomuItzT/h9TNea7Elk2ur8BeiOOitSXq1ZJPqyaS4+7qib4K80F+0X2G
+	nV7lLxoZElucyt1HmKJy8PEd6YXt3Ot06T5wLj+MCpmBphI5mO8a3baV9jCjtDcbUQb+talnrO/
+	y7I9X7Z6IsmeKjFJ5LOppB3OGXI2fDohrrR0meisNxFkMrOc9F5aZEjCBEkJmEseoky1uddTvfu
+	hYjaoTdGGA0oSstvxpZpm3grwuu8QRqV4bY9httvaA6XaDnanyURZkSX5JQmmNfgJSRZrBVJTYM
+	DOU9sBwZ9Vtf9RJySBRsMHJyohORp7relRP76Sa8UqPVRZzVv5E/95jD0oWtrf0L0R0vkpdD1d/
+	nUTmwDZC5YzHyAG6i03Pcw/RxMi7il7d9xJFmb2p6UBG6bi2DA0X6mhoXYhhOb1/dhqF9YI75DC
+	27qayA+bvGNJAEV7HUKNUYGIMvvEnxO/ndKQNipT/ctgp+VmnBb
+X-Received: by 2002:a17:90b:3d81:b0:3ab:c6c:51b8 with SMTP id 98e67ed59e1d1-3ab0c6c63dbmr747232a91.57.1791460398841;
+        Thu, 08 Oct 2026 04:53:18 -0700 (PDT)
+Received: from carrot.taila25129.ts.net (madb688455.ap.nuro.jp. [219.104.132.85])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9f1c17b63sm4760164a91.12.2026.10.08.04.53.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 04:53:18 -0700 (PDT)
+From: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+To: Viacheslav Dubeyko <slava@dubeyko.com>
+Cc: linux-nilfs <linux-nilfs@vger.kernel.org>,
+	LKML <linux-kernel@vger.kernel.org>,
+	Jake Labelle <southampton.jake.labelle@gmail.com>
+Subject: [PATCH 1/2] nilfs2: reject non-regular inodes in dsync recovery
+Date: Thu,  8 Oct 2026 20:52:47 +0900
+Message-ID: <20261008115312.18482-2-konishi.ryusuke@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261008115312.18482-1-konishi.ryusuke@gmail.com>
+References: <20261008115312.18482-1-konishi.ryusuke@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="7ki65oeszutl43qt"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAOQ4uxhxDOy1-vTSXGfA2c16e4iop_5M5goOih0pgSCZRvDrfw@mail.gmail.com>
-X-Rspamd-Pre-Result: action=no action;
-	module=Unknown lua;
-	unknown reason
-X-Spamd-Result: default: False [0.00 / 50.00];
-	TAGGED_RCPT(0.00)[]
-X-Spamd-Bar: /
-X-Rspamd-Queue-Id: E5B4B1F443
-X-Rspamd-Pre-Result: action=no action;
-	module=Unknown lua;
-	unknown reason
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Spam-Score: 0.00
-X-Spam-Flag: NO
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-
-
---7ki65oeszutl43qt
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
 
-On Tue 06-10-26 15:33:20, Amir Goldstein wrote:
-> On Sat, Sep 26, 2026 at 4:08 AM Matthias Goergens
-> <matthias.goergens@gmail.com> wrote:
-> >
-> > fanotify keeps the length of a reported name in a u8, so it drops any
-> > name longer than NAME_MAX and warns:
-> >
-> >   WARNING: fs/notify/fanotify/fanotify.h:217 at fanotify_handle_event+0x2e82/0x39f0
-> >
-> > Such names are legitimate on some filesystems.  vfat mounted with utf8
-> > takes up to 255 UTF-16 characters, which are up to 765 bytes of UTF-8,
-> > and FUSE accepts names up to PATH_MAX - 1.  readdir() and inotify report
-> > them in full.  fanotify sends the event without the name, and for
-> > FAN_RENAME it trips a second warning in copy_fid_info_to_user(), after
-> > which read() fails with EFAULT and the event is lost.
-> >
-> > When syzbot hit this, Jan suggested accommodating names up to PATH_MAX
-> > [1], the limit readdir() already applies to a name
-> > (verify_dirent_name()).  Store the name lengths as u16, which keeps
-> > struct fanotify_info at 8 bytes, and drop without a warning only names
-> > of PATH_MAX bytes or more, which no path can refer to.  An event with
-> > such a name can exceed a page, so allocate name events with kvmalloc(),
-> > as Jan also suggested.  Names up to NAME_MAX are reported exactly as
-> > before, and the record format is unchanged: an event with a long name is
-> > just longer.
-> >
-> > Link: https://lore.kernel.org/all/20241112115059.ecvomkalee5m4i4i@quack3/ [1]
-> > Fixes: 2d9374f09513 ("fanotify: use macros to get the offset to fanotify_info buffer")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
-> > ---
-> >
-> > Tested in a VM with KASAN, lockdep and kmemleak: on vfat (utf8), names
-> > of 258 to 765 bytes now arrive with their name, including FAN_RENAME,
-> > for root and for an unprivileged watcher; FUSE names up to 4095 bytes
-> > likewise, also a FAN_RENAME between two of them.  With kvmalloc()'s
-> > kmalloc() attempt forced to fail, the events arrive intact from vmalloc.
-> > No warnings.  The LTP fanotify and inotify tests give the same results
-> > as before (fanotify20 skipped in both).
-> >
-> > 5.15.y fails the same way (the same warnings and EFAULT on 5.15.221),
-> > and the patch applies there and fixes it.
-> >
-> > Honza, on the msdos report [2] you pointed at the filesystem, and msdos
-> > now rejects such names (9d7ed813ee5f).  vfat cannot do the same without
-> > making files that other systems wrote unreachable, and FUSE allows them
-> > by design.
-> >
-> > [2] https://lore.kernel.org/all/3kzvlb3wpzbg6k6ttzp6rh2cfmz3hmmmlisgxjn5u4xmaaqibm@qkre7flkhejl/
+From: Jake Labelle <southampton.jake.labelle@gmail.com>
 
-...
+During roll-forward recovery, nilfs_recover_dsync_blocks() obtains the
+inode designated by fi_ino of a dsync log without checking its type.
+If a corrupted image designates a special inode (e.g. a device node)
+there, the inode's embedded bmap was never initialized:
+__nilfs_read_inode() calls nilfs_bmap_read() only for regular files,
+directories and symlinks.  The subsequent nilfs_get_block() then
+dereferences the uninitialized bmap->b_ops and jumps through it,
+crashing the kernel or worse.
 
-> The fix for name_len < PATH_MAX looks good, but since you dealt with the
-> the unexpected case of name_len > PATH_MAX more gracefully on event record
-> time (empty name) I would rather that we treat it gracefully only on read() time
-> and just report the event with no name instead of potentially breaking
-> the read()
-> of other events in the queue.
+Regular files, directories, and symlinks are the only inode types
+with data blocks to recover; reject anything else before touching
+its block mapping.
 
-Guys, I wouldn't overengineer this. getname() never lets any path >= PATH_MAX
-into the kernel, let alone individual dentries. So there's no
-way this happens and the less code that pretends this can happen the
-better. I guess I'm OK with checking *and loudly complaining* when
-allocating such event but that's it. So what I plan to merge is the
-attached patch.
+[ryusuke: conformed AI tag to guidelines]
 
-								Honza
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
-
---7ki65oeszutl43qt
-Content-Type: text/x-patch; charset=us-ascii
-Content-Disposition: attachment;
-	filename="0001-fanotify-report-names-longer-than-NAME_MAX.patch"
-
-From ff05910cb1b77c2b229c5e6e260c6173a17b579b Mon Sep 17 00:00:00 2001
-From: Matthias Goergens <matthias.goergens@gmail.com>
-Date: Sat, 26 Sep 2026 10:08:51 +0800
-Subject: [PATCH] fanotify: report names longer than NAME_MAX
-
-fanotify keeps the length of a reported name in a u8, so it drops any
-name longer than NAME_MAX and warns:
-
-  WARNING: fs/notify/fanotify/fanotify.h:217 at fanotify_handle_event+0x2e82/0x39f0
-
-Such names are legitimate on some filesystems.  vfat mounted with utf8
-takes up to 255 UTF-16 characters, which are up to 765 bytes of UTF-8,
-and FUSE accepts names up to PATH_MAX - 1.  readdir() and inotify report
-them in full.  fanotify sends the event without the name, and for
-FAN_RENAME it trips a second warning in copy_fid_info_to_user(), after
-which read() fails with EFAULT and the event is lost.
-
-When syzbot hit this, Jan suggested accommodating names up to PATH_MAX
-[1], the limit readdir() already applies to a name
-(verify_dirent_name()).  Store the name lengths as u16, which keeps
-struct fanotify_info at 8 bytes, and drop without a warning only names
-of PATH_MAX bytes or more, which no path can refer to.  An event with
-such a name can exceed a page, so allocate name events with kvmalloc(),
-as Jan also suggested.  Names up to NAME_MAX are reported exactly as
-before, and the record format is unchanged: an event with a long name is
-just longer.
-
-Link: https://lore.kernel.org/all/20241112115059.ecvomkalee5m4i4i@quack3/ [1]
-Fixes: 2d9374f09513 ("fanotify: use macros to get the offset to fanotify_info buffer")
-Cc: stable@vger.kernel.org
-Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
-Link: https://patch.msgid.link/20260926020851.2938961-1-matthias.goergens@gmail.com
-Signed-off-by: Jan Kara <jack@suse.cz>
+Fixes: 0f3e1c7f23f8 ("nilfs2: recovery functions")
+Assisted-by: Claude:claude-mythos-5
+Signed-off-by: Jake Labelle <southampton.jake.labelle@gmail.com>
+Signed-off-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
 ---
- fs/notify/fanotify/fanotify.c |  7 +++++--
- fs/notify/fanotify/fanotify.h | 21 ++++++++++++---------
- 2 files changed, 17 insertions(+), 11 deletions(-)
+ fs/nilfs2/recovery.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-diff --git a/fs/notify/fanotify/fanotify.c b/fs/notify/fanotify/fanotify.c
-index a208a7ec1692..71b3a2361929 100644
---- a/fs/notify/fanotify/fanotify.c
-+++ b/fs/notify/fanotify/fanotify.c
-@@ -648,6 +648,9 @@ static struct fanotify_event *fanotify_alloc_name_event(struct inode *dir,
- 	unsigned long name2_len = name2 ? name2->len : 0;
- 	unsigned int len, size;
+diff --git a/fs/nilfs2/recovery.c b/fs/nilfs2/recovery.c
+index abe4101f7550..c384325a57d0 100644
+--- a/fs/nilfs2/recovery.c
++++ b/fs/nilfs2/recovery.c
+@@ -545,6 +545,23 @@ static int nilfs_recover_dsync_blocks(struct the_nilfs *nilfs,
+ 			goto failed_inode;
+ 		}
  
-+	if (WARN_ON_ONCE(name_len >= PATH_MAX || name2_len >= PATH_MAX))
-+		return NULL;
++		/*
++		 * Regular files, directories, and symlinks are the only
++		 * inode types with data blocks and an initialized bmap;
++		 * a crafted image can reference some other inode type
++		 * here, whose i_bmap_data was never set up by
++		 * __nilfs_read_inode().
++		 */
++		if (!likely(S_ISREG(inode->i_mode) || S_ISDIR(inode->i_mode) ||
++			    S_ISLNK(inode->i_mode))) {
++			nilfs_warn(sb,
++				   "%s: invalid inode type (ino=%lu, mode=0%o)",
++				   __func__, (unsigned long)rb->ino,
++				   inode->i_mode);
++			err = -EINVAL;
++			goto failed_inode;
++		}
 +
- 	/* Reserve terminating null byte even for empty name */
- 	size = sizeof(*fne) + name_len + name2_len + 2;
- 	if (dir_fh_len)
-@@ -656,7 +659,7 @@ static struct fanotify_event *fanotify_alloc_name_event(struct inode *dir,
- 		size += FANOTIFY_FH_HDR_LEN + dir2_fh_len;
- 	if (child_fh_len)
- 		size += FANOTIFY_FH_HDR_LEN + child_fh_len;
--	fne = kmalloc(size, gfp);
-+	fne = kvmalloc(size, gfp);
- 	if (!fne)
- 		return NULL;
- 
-@@ -1050,7 +1053,7 @@ static void fanotify_free_fid_event(struct fanotify_event *event)
- 
- static void fanotify_free_name_event(struct fanotify_event *event)
- {
--	kfree(FANOTIFY_NE(event));
-+	kvfree(FANOTIFY_NE(event));
- }
- 
- static void fanotify_free_error_event(struct fsnotify_group *group,
-diff --git a/fs/notify/fanotify/fanotify.h b/fs/notify/fanotify/fanotify.h
-index 3710543dbf82..87ba788574bf 100644
---- a/fs/notify/fanotify/fanotify.h
-+++ b/fs/notify/fanotify/fanotify.h
-@@ -43,9 +43,16 @@ struct fanotify_info {
- 	u8 dir_fh_totlen;
- 	u8 dir2_fh_totlen;
- 	u8 file_fh_totlen;
--	u8 name_len;
--	u8 name2_len;
--	u8 pad[3];
-+	u8 pad;
-+	/*
-+	 * Deliberately not limited to NAME_MAX: some filesystems return longer
-+	 * names (vfat up to 255 UTF-16 characters, as Windows allows, which is
-+	 * up to 765 bytes of UTF-8; FUSE up to PATH_MAX - 1), and readdir() and
-+	 * inotify report them in full. Only names of PATH_MAX bytes or more,
-+	 * which no path can refer to, are dropped.
-+	 */
-+	u16 name_len;
-+	u16 name2_len;
- 	unsigned char buf[];
- 	/*
- 	 * (struct fanotify_fh) dir_fh starts at buf[0]
-@@ -168,7 +175,7 @@ static inline char *fanotify_info_name2(struct fanotify_info *info)
- static inline void fanotify_info_init(struct fanotify_info *info)
- {
- 	BUILD_BUG_ON(FANOTIFY_FH_HDR_LEN + MAX_HANDLE_SZ > U8_MAX);
--	BUILD_BUG_ON(NAME_MAX > U8_MAX);
-+	BUILD_BUG_ON(PATH_MAX > U16_MAX);
- 
- 	info->dir_fh_totlen = 0;
- 	info->dir2_fh_totlen = 0;
-@@ -214,8 +221,7 @@ static inline void fanotify_info_set_file_fh(struct fanotify_info *info,
- static inline void fanotify_info_copy_name(struct fanotify_info *info,
- 					   const struct qstr *name)
- {
--	if (WARN_ON_ONCE(name->len > NAME_MAX) ||
--	    WARN_ON_ONCE(info->name2_len > 0))
-+	if (WARN_ON_ONCE(info->name2_len > 0))
- 		return;
- 
- 	info->name_len = name->len;
-@@ -225,9 +231,6 @@ static inline void fanotify_info_copy_name(struct fanotify_info *info,
- static inline void fanotify_info_copy_name2(struct fanotify_info *info,
- 					    const struct qstr *name)
- {
--	if (WARN_ON_ONCE(name->len > NAME_MAX))
--		return;
--
- 	info->name2_len = name->len;
- 	strscpy(fanotify_info_name2(info), name->name, name->len + 1);
- }
+ 		pos = rb->blkoff << inode->i_blkbits;
+ 		err = block_write_begin(inode->i_mapping, pos, blocksize,
+ 					&folio, nilfs_get_block);
 -- 
-2.51.0
+2.53.0
 
-
---7ki65oeszutl43qt--
