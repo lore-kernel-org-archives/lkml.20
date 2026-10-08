@@ -1,76 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D873838D402;
-	Thu,  8 Oct 2026 16:23:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B4EC382385
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 16:24:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791476640; cv=none; b=rnCsy33AdzDEsJ4JwJajn4G2i8+n1gkdZ+jgGN+3LuCirQ72fFB/SnRoU1Mfq3NSGB56NC+xjtKEJISNVzuDW7QPU81KnKVunnKXyC5HeUjFhWJWg1R58GA8b2kt8pgKRGPCHhljxsHNeaEAz0+NrHDsaCBCnqN0n9ZZ2NRjyrU=
+	t=1791476667; cv=none; b=AbtWYTvS05+agsAYAQUz1wxtlBZO80OnVKvzCUDY5RfQcerCca6NzgJkk9nrmEYUgQEk5fFxqhOScJfrkI1wGTSw54+NSThCFNc/PVwZRYGdCb3RU/Ihx+KB4SdrXIsg6hxB5Rj4iiOxPkoOgvGYiMssCyMpJ6dzpnWBKBCfCqc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791476640; c=relaxed/simple;
-	bh=DxOA3K04TdGKgV9RBzwq7NMB042SfZvdvrNpiga7nYU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=IMR9tlJ9feze5vaoU6lE3pUaSr7bb2eZKe5ZhAs1teo1b8Sc0Ic2hDp+rZLhUrHjEEwdIOLyCaFFouMoqv3PK9ovGUcSAGVPJN2RQ51vfU5HN5QJS6qj8HcirEW2FU0QF5dWBFqDvPn//czMKwtUwWPqNMMm09imh+s/dMTWusg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XT/Ya97w; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791476667; c=relaxed/simple;
+	bh=EVGdoFZuGaJnDSkO79RAK/Oo041FqfATSa4KcA87l1o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=W0bhnJ8XT8A2stDcWrbN2RNwvQlw641BN2ANt4+fKDhfuPxh1LtnkJEk+BVESt3vQSf3Y+VyNP7RhlaIkUKSxAZJHFGafQSR5mnGBLj8a17pvWA62EKAyJqkJ5BMTQVX5NNtSaabhcM19hKktm2kCMLVPiovLbrL9WBtjp+3s7U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=kIEh5TwK; arc=none smtp.client-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XT/Ya97w"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDCF01F000FF;
-	Thu,  8 Oct 2026 16:23:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791476639;
-	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XT/Ya97wt/ULznEJCAlPkwAU9bOesozVXQr2zbEMh7I4uyUMwJvvGsWV7XzTFjbAL
-	 atYl9dTTBZJZqX9CVr25PAHDri7vS7VhFLW95VE/9u6VWnddWwnGXG3u1Dx0H1DGHJ
-	 cCtqOW4/XmhyCeHiYKMjxkHxky3GWs8Ta8s9yipIIVSDrsocTweue/jOxrDLh5vybs
-	 Gfthxlcij7Jn+nWDn1Lsf1gHSp0qkGNXvdUVx5rrVOcs4TaTp/0rfBjNGE5WGLNm5R
-	 Jn9L5KEjlxsBBnIuYSe6RJZdRlaR+O25tUAif3yqRaaa63ppNa6kgjcYS7eSFp2nLP
-	 Havn2KKqCRmSg==
-From: netdev-bot+sinfo@kernel.org
-To: Haotian Zhang <vulab@iscas.ac.cn>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- netdev@vger.kernel.org, linux-parisc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: 
- Re: [PATCH] net: winbond-840: release IRQ on alloc_ringdesc() error path
-Date: Thu, 08 Oct 2026 16:23:58 +0000
-Message-ID: <179147663850.2527009.3579752858238787977@kernel.org>
-In-Reply-To: <20261008162109.2678143-1-vulab@iscas.ac.cn>
-References: <20261008162109.2678143-1-vulab@iscas.ac.cn>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="kIEh5TwK"
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4j0wL72g10zKp3n;
+	Thu, 08 Oct 2026 18:24:15 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1791476655;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=5bPypBCTKYm/iwPwiaKupGULbBRaR6fxPaTi88ylUjY=;
+	b=kIEh5TwK6pPwT3BN773nkeSGSir40AOfj1vsSzuZYu7Q4Zw8KiBPvjAW/mDTs7TtZiurNW
+	lczOG0VKMvB3oP7y36vnoW4XFxS2oRMKJbks0TIeTGfRjfWRyFubFn5xAmSw5DcdjmXB1p
+	sBvVVgG99XMOgLgOO7ItpVCp1Bfe8bbcFfvvASJ56xH0tu1Er4mHR7dg2a1/ABLUyWst7e
+	DTpbcyku/IzuyHq2N1zDxw43gP48UkTvckpbEf2mPEg5Pq0dnOhzmwcJiGVXdgFN7/RXmn
+	6Zczo5kc79mrMmcLVNFhdvFrdoiUJD20HwNJkjbUxJxXMo86hrd+UeelIdxzUw==
+From: Manuel Ebner <manuelebnerli@mailbox.org>
+To: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
+	"Adrian Huang (Lenovo)" <adrianhuang0701@gmail.com>,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] mm/damon: fix typo and grammar
+Date: Thu,  8 Oct 2026 18:20:10 +0200
+Message-ID: <20261008162010.4010682-2-manuelebnerli@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 146527ebf00b3996ac3
+X-MBO-RS-META: j3ekztrcsey7e6x4x3jgeyzcex9sg55o
 
-Hi!
+DAMON_RCLAIM -> DAMON_RECLAIM
+set as -> set to
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+CC: Adrian Huang (Lenovo) <adrianhuang0701@gmail.com>
+---
+I hope I got the right git-tree. somehow there's 'damon/next'
+and 'damon/next/damon/next'
+The other patches will take a couple more days.
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+ mm/damon/reclaim.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
+diff --git a/mm/damon/reclaim.c b/mm/damon/reclaim.c
+index 014b0779ea..a84cea070e 100644
+--- a/mm/damon/reclaim.c
++++ b/mm/damon/reclaim.c
+@@ -19,8 +19,8 @@
+ /*
+  * Enable or disable DAMON_RECLAIM.
+  *
+- * You can enable DAMON_RCLAIM by setting the value of this parameter as ``Y``.
+- * Setting it as ``N`` disables DAMON_RECLAIM.  Note that DAMON_RECLAIM could
++ * You can enable DAMON_RECLAIM by setting the value of this parameter to ``Y``.
++ * Setting it to ``N`` disables DAMON_RECLAIM.  Note that DAMON_RECLAIM could
+  * do no real monitoring and reclamation due to the watermarks-based activation
+  * condition.  Refer to below descriptions for the watermarks parameter for
+  * this.
+@@ -31,9 +31,9 @@ static bool enabled __read_mostly;
+  * Make DAMON_RECLAIM reads the input parameters again, except ``enabled``.
+  *
+  * Input parameters that updated while DAMON_RECLAIM is running are not applied
+- * by default.  Once this parameter is set as ``Y``, DAMON_RECLAIM reads values
++ * by default.  Once this parameter is set to ``Y``, DAMON_RECLAIM reads values
+  * of parameters except ``enabled`` again.  Once the re-reading is done, this
+- * parameter is set as ``N``.  If invalid parameters are found while the
++ * parameter is set to ``N``.  If invalid parameters are found while the
+  * re-reading, DAMON_RECLAIM will be disabled.
+  */
+ static bool commit_inputs __read_mostly;
+@@ -92,11 +92,11 @@ module_param(quota_autotune_feedback, ulong, 0600);
+ /*
+  * Auto-tune monitoring intervals.
+  *
+- * If this parameter is set as ``Y``, DAMON_RECLAIM automatically tunes DAMON's
++ * If this parameter is set to ``Y``, DAMON_RECLAIM automatically tunes DAMON's
+  * sampling and aggregation intervals.  The auto-tuning aims to capture
+  * meaningful amount of access events in each DAMON-snapshot, while keeping the
+  * sampling intervals 5 milliseconds in minimum, and 10 seconds in maximum.
+- * Setting this as ``N`` disables the auto-tuning.
++ * Setting this to ``N`` disables the auto-tuning.
+  *
+  * Disabled by default.
+  */
+@@ -151,7 +151,7 @@ static unsigned long addr_unit __read_mostly = 1;
+ /*
+  * Skip anonymous pages reclamation.
+  *
+- * If this parameter is set as ``Y``, DAMON_RECLAIM does not reclaim anonymous
++ * If this parameter is set to ``Y``, DAMON_RECLAIM does not reclaim anonymous
+  * pages.  By default, ``N``.
+  */
+ static bool skip_anon __read_mostly;
+-- 
+2.55.0
 
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
-
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
