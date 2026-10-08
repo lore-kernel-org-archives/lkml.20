@@ -1,139 +1,181 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E37B43E4A2
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 12:51:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 206F449E5DE;
+	Thu,  8 Oct 2026 12:51:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791463898; cv=none; b=ZIUJacxBDxxlHgS6fS+JhpQ6LNHkb+s7/aJjYtUqATJFiig8FY4g7RvoF2HFBrF/xf6lmZSB3nIFItYsDD3rnWHyp7MTO4D0iAkyZQZlxHbT/nujxj3jM4jpy5aKh1Pg7N2VjyCUmUAB28/64lpd4FW5KkNCH4wBZ93sVtZniXQ=
+	t=1791463911; cv=none; b=l1rw3vT9aBKEIiRf1lZMz5msfImZPrkfFf5mZ92gqwfVuMbdpqaK23H3LInmhPzPDHDLYyj33Z3s89OdSmVj6djL1GaKWd344Trn7PTxNULkwIwm0bM/ep1fQo7DavIhkE0fWpK3mu+El9BwWGLKWhIpaaes+1DVRuLYhM7Zxbs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791463898; c=relaxed/simple;
-	bh=3RtU1bqEBo8yscKERbSQ5DwgP6BRhn6hRQmtj2q5A/0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=t5q4j/kV7dYMN24EpNz7yjEjd41ATsI1BnjpftVCsb04l41+Uwj8YdxaWcGJS+If4TsAvPefyaKC6znA6UYyWLT1wheMi1aCZzTXRiSaTgukzlArLu1Isvcyh/X4yyvpRQY66e5P5Kh0dVopTMYivaF6mCjii4PXE8/76+8gk0A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=HatkTD55; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791463911; c=relaxed/simple;
+	bh=yybsjxVTbzd8fZs72yNrXHsa7ZAel783Veu0/ZplOjs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WTrtNbkNd0y/0Hz0z1s91vLENHjfhuBN4BqsEccCqoDq8/e2IuNhFKtvk2FHJJB24eCx2ZZpVavWeRYnJZgH/i2vvkiGstcXFKB0/XGw0XADfzkbUwPjbEEhvHU4t6LJknPXlQQWz1BOkgH+KuKFUZI8oTikFm3um6hs7nAb+DU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=jHcYeO7P; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="HatkTD55"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3ED691F000FF;
-	Thu,  8 Oct 2026 12:51:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791463896;
-	bh=um9rtr/l7vEM8Z+qsUwa1XxX194caaO3sS1Kms+aTfQ=;
-	h=From:Date:Subject:To:Cc;
-	b=HatkTD55Y9KKXit0Dw/5Ap4xVIWqmyxp6Xwz3PQQlRB0sb1aaXN2QebEr82Ccquow
-	 GsrsVIPxI2MA8I1u70rUpp903NnzskXl8WlFh7CIePVWpxo3yUZMaMGS6lygXginLv
-	 S1RKCEWaYDSKq/bQe7KfXo6Iu6CXz2l0IZSMTHSo=
-From: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-Date: Thu, 08 Oct 2026 08:51:19 -0400
-Subject: [PATCH] get_maintainer: only use THE REST as a fallback
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="jHcYeO7P"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EFD321516;
+	Thu,  8 Oct 2026 05:51:43 -0700 (PDT)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 385483F66F;
+	Thu,  8 Oct 2026 05:51:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791463907; bh=yybsjxVTbzd8fZs72yNrXHsa7ZAel783Veu0/ZplOjs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=jHcYeO7PQ4uywop/cdz4Sp+A+aFbl0MgQD1Ls+p5EdipEXi6WD0t37Ph73w/vv0DU
+	 zaE58iHLndSo+/C52KBqYxok8UD7CtjGoRjaBmsWgfa74P8A2xQIUgYTR13WaYMyPN
+	 MJYzbhW+p/gSjdnlF9y+DSqgMqvawjjqEWGiXB4w=
+Date: Thu, 8 Oct 2026 13:51:24 +0100
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
+Cc: Will Deacon <will@kernel.org>, iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org, Robin Murphy <robin.murphy@arm.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Jiri Pirko <jiri@resnulli.us>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Mostafa Saleh <smostafa@google.com>,
+	Petr Tesarik <ptesarik@suse.com>,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Xu Yilun <yilun.xu@linux.intel.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
+	linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+	x86@kernel.org
+Subject: Re: [PATCH v6 6/8] dma: swiotlb: Centralize memory-encryption pool
+ sizing
+Message-ID: <aseRzPshcoys7AJS@arm.com>
+References: <20260924060756.1325156-1-aneesh.kumar@kernel.org>
+ <20260924060756.1325156-7-aneesh.kumar@kernel.org>
+ <asVs3doaJ4WrT3M2@willie-the-truck>
+ <asYZFXGyafRjjBS0@arm.com>
+ <asYiOgskwi8JYLe_@willie-the-truck>
+ <yq5awlrt3dwo.fsf@kernel.org>
+ <yq5av77c92oo.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261008-get-maintainer-the-rest-fallback-v1-1-7d26d0b7aa34@linuxfoundation.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNwQ6CMBCE4Vche3aTQqBpfBXjYSkDrGI1bTUmh
- He34GEO3+WflRKiItG5Winio0mfoaA+VeRnCRNYh2JqTGNrYxxPyPwQDbkMkfMMjkiZR1mWXvy
- dre06OLGtG1oqmVfEqN/j4nL9O737G3zeu7RtPxCewA2EAAAA
-X-Change-ID: 20261008-get-maintainer-the-rest-fallback-6655e8a648d4
-To: Joe Perches <joe@perches.com>
-Cc: linux-kernel@vger.kernel.org, users@kernel.org, 
- Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-X-Mailer: b4 0.17-dev-a72a9
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2901;
- i=konstantin@linuxfoundation.org; h=from:subject:message-id;
- bh=3RtU1bqEBo8yscKERbSQ5DwgP6BRhn6hRQmtj2q5A/0=;
- b=owGbwMvMwCW27YjM47CUmTmMp9WSGLKOT7yS9dYnryPwc8KUuLpI1hovhvlr94j/+VYVGdOcI
- NVlsnByRykLgxgXg6yYIkvZvthNQYUPPeTSe0xh5rAygQxh4OIUgIncvsLwV/pVcWzBVWejxMSv
- WxqlRTbeUpAxU8v/JuYxt9Js3TofQUaG+2e9uCVSa88XHvwv7nrSa7LdhjWcU50KBfNjens5FVx
- ZAA==
-X-Developer-Key: i=konstantin@linuxfoundation.org; a=openpgp;
- fpr=DE0E66E32F1FDD0902666B96E63EDCA9329DD07E
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <yq5av77c92oo.fsf@kernel.org>
 
-THE REST matches every file in the tree via "F: *" and "F: */", so
-get_maintainer.pl currently adds linux-kernel@vger.kernel.org to every
-patch, regardless of whether the touched files already belong to a
-subsystem with its own mailing list.
+On Thu, Oct 08, 2026 at 11:03:27AM +0530, Aneesh Kumar K.V wrote:
+> Aneesh Kumar K.V <aneesh.kumar@kernel.org> writes:
+> > Will Deacon <will@kernel.org> writes:
+> >> On Wed, Oct 07, 2026 at 11:04:05AM +0100, Catalin Marinas wrote:
+> >>> On Tue, Oct 06, 2026 at 10:49:17PM +0100, Will Deacon wrote:
+> >>> > On Thu, Sep 24, 2026 at 11:37:54AM +0530, Aneesh Kumar K.V (Arm) wrote:
+> >>> > > @@ -496,7 +516,8 @@ swiotlb_select_pool_policy(unsigned int flags)
+> >>> > >  	if (swiotlb_force_disable)
+> >>> > >  		return SWIOTLB_POOL_NONE;
+> >>> > >  
+> >>> > > -	if (cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT))
+> >>> > > +	if (cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT) &&
+> >>> > > +	    !restricted_dma_pool_present)
+> >>> > >  		return SWIOTLB_POOL_CC_GUEST;
+> >>> > 
+> >>> > I think this check on the restricted DMA pool is too general -- the pool
+> >>> > could be tied to a specific DMA-capable peripheral and so treating its
+> >>> > presence as a global property isn't right.
+> >>> 
+> >>> I agree it's a hack but that was the simplest way to avoid the pVMs
+> >>> getting a bounce buffer after this patch. More than happy to leave it
+> >>> out and reduce the buffer on cmdline or we come up with some better
+> >>> heuristics.
+> >>
+> >> Hrm, that does mean that reverting just this part will regress pVMs
+> >> because they'll suddenly be allocating a tonne more memory for an
+> >> entirely unused swiotlb buffer. So I think I'd prefer to drop the entire
+> >> series until this has been worked out properly.
+> >>
+> >>> Another option could be the arch code passing another flag that it
+> >>> doesn't want an encrypted pool (e.g. when running in a pKVM guest) but I
+> >>> don't particularly this either. The arch code doesn't know whether
+> >>> there's an alternative pool.
+> >>
+> >> At that point, the default size may as well be driven by the
+> >> drivers/virt/coco driver.
+> >>
+> >>> That said, such heuristics should have been a separate patch to make it
+> >>> easier to review/drop.
+> >>
+> >> I think the only right way to get a semi-accurate heuristic is to take
+> >> into account the set of dma-capable devices that will use the swiotlb
+> >> pool, but that's fiddly and should probably be tackled as a separate
+> >> series. Maybe a simpler hack in that direction would be to take the
+> >> SWIOTLB_POOL_CC_GUEST if _any_ device is going to use swiotlb? You'll
+> >> run into the usual problem of not being able to tell if a device is
+> >> DMA-capable or not, but you could probably look for a global restricted
+> >> DMA pool and, if that doesn't exist, check for per-device restricted pools
+> >> on dma-coherent devices (since restricted DMA isn't supported by ACPI) as
+> >> a reasonable approximation.
+> >
+> > So, something like this?
+> >
+> > 	if (cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT) &&
+> > 	    swiotlb_cc_guest_needs_default_pool())
+> > 		return SWIOTLB_POOL_CC_GUEST;
+> >
+> 
+> Detecting a DMA-capable device is not straightforward, and if we get it
+> wrong, we will enable SWIOTLB_POOL_CC_GUEST unnecessarily. Would the
+> code below be a reasonable approximation of what you suggested?
+> 
+> Another option would be to make swiotlb_cc_guest_needs_default_pool() a
+> weak function that architectures can override. arm64 pKVM could then use
+> a different scheme (for this patch series default to false). Would that
+> be preferable?
 
-Only add THE REST for a file when no other matching section provides a
-mailing list for it. Files that match no section, or only sections
-without an L: entry, still fall back to THE REST, so every patch keeps
-reaching at least one public list.
+Even the rmem check for each device is still a hack that may bite us in
+the future (private devices for example would not need swiotlb). I'm
+thinking more and more of leaving the sizing an arch-specific decision,
+don't bother generalising it at all.
 
-Signed-off-by: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
----
-LKML has become mostly a firehose of patches that are already going to a
-subsystem list. The reason is THE REST: it matches every file in the
-tree, so get_maintainer.pl adds linux-kernel@vger.kernel.org to every
-single patch. During the week of Oct 1-7, 2026:
+On pKVM vs CCA guests, there's really nothing specific here to pKVM
+guests. The only difference is that confidential guests that so far have
+run without a swiotlb buffer will regress if their memory is tight. For
+confidential guests without dedicated rmem (either CCA or pKVM), I think
+our options are either command line swiotlb sizing or dynamic swiotlb.
 
-  - LKML carried 13,641 messages (~1,950/day), 90% of which were also
-    sent to at least one other list;
-  - with ~2,100 subscribers, that is about 29 million deliveries per
-    week for LKML alone.
+Could you respin your series while leaving out the generic sizing? IOW,
+no x86 code generalisation. We can discuss the best strategy on sizing
+later (I haven't checked how much of this series still makes sense
+without the generic sizing).
 
-This issue came up during the 2026 Maintainer Summit and the consensus
-was that "always include linux-kernel for every patch" was never the
-intent.
-
-This patch makes THE REST a fallback as initially intended: it is only
-added for a file when no other matching MAINTAINERS section provides a
-mailing list for it.
----
- scripts/get_maintainer.pl | 25 +++++++++++++++++++++++++
- 1 file changed, 25 insertions(+)
-
-diff --git a/scripts/get_maintainer.pl b/scripts/get_maintainer.pl
-index 16b80a700d4a..966595c3a6de 100755
---- a/scripts/get_maintainer.pl
-+++ b/scripts/get_maintainer.pl
-@@ -959,6 +959,14 @@ sub get_maintainers {
- 	    $tvi = $end + 1;
- 	}
- 
-+	# THE REST matches every file, so only fall back to it when no
-+	# other matching section provides a mailing list for this file.
-+	my ($the_rest) = grep { get_section_name($_) eq "THE REST" } keys %hash;
-+	if (defined($the_rest) &&
-+	    grep { $_ != $the_rest && section_has_list($_) } keys %hash) {
-+	    delete $hash{$the_rest};
-+	}
-+
- 	foreach my $line (sort {$hash{$b} <=> $hash{$a}} keys %hash) {
- 	    add_categories($line, "");
- 	    if ($sections) {
-@@ -1295,6 +1303,23 @@ sub find_ending_index {
-     return $index;
- }
- 
-+sub get_section_name {
-+    my ($index) = @_;
-+
-+    return $typevalue[find_starting_index($index)];
-+}
-+
-+sub section_has_list {
-+    my ($index) = @_;
-+
-+    my $start = find_starting_index($index);
-+    my $end = find_ending_index($index);
-+    for (my $i = $start; $i < $end; $i++) {
-+	return 1 if ($typevalue[$i] =~ m/^L:/);
-+    }
-+    return 0;
-+}
-+
- sub get_subsystem_name {
-     my ($index) = @_;
- 
-
----
-base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
-change-id: 20261008-get-maintainer-the-rest-fallback-6655e8a648d4
-
-Best regards,
---  
-Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-
+-- 
+Catalin
