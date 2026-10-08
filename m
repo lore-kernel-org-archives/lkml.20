@@ -1,105 +1,254 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A293F13FEE;
-	Thu,  8 Oct 2026 04:17:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7D403644CF
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 04:18:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791433044; cv=none; b=VUbTJBWtt/81baA9hKiZueBWnJUooqx+Bajlsi5nqqtngzRBY3gTYVQ9IE5KkNRYrmzTxkASAmatpgsWZLfPpqObHnFK/YxPfagT7DGjO9u1mnR7hI3vPPOjo7T4L58YxxprnsFUTtNDCRnqHjGxKlBqd6mC2cwdX7MhIwWHMN4=
+	t=1791433137; cv=none; b=nCQTIdBwzuQfrMmp+5vP1ZhOr8AQF7B+sjchrAM0nG1u5BEDlgj6FAOtZtavI4fJnLBaAhxdcMdXu49kxD9wH0Yz+PesFFXRKqRAjCMtrjczWWFPtRt0MC/QzjslP7NbLSIFnLt6k7ajXruTFVKhrI45jPL/fh38XOp3X+K8YZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791433044; c=relaxed/simple;
-	bh=ICoeoosIWbTj/bG3WY0JednzspW3OE5fElre7njVj3w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fZsZXXxS4j5EEa620e+AOk3E6ahL0JMTIOnFcQ/XkBtuIkiX2ZnuVcLNsF4ltYT87kZQP9gO528SNPSQLiz2ED19/D+qt2+dotFwJk/X+FJFmg5IyJjW0IeuXoKheWY8QFvv/D2J+T7M2p4jgKt0TS0sSQRLRGP5RJEFCp/jryY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gd3oPJ83; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791433137; c=relaxed/simple;
+	bh=o+nmbUd5Bzhc/u5A/wvjfZeEppq7fvG6jNgNLg/guNs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=LS5Dz9MZzSuDfA4TYBPQ69Mmux2SHLbt65u+A+IQw7CWdkcb4+V7DtTATYROS6pyE9A1H/RQvKsHaPjMaZef19GXBOcjg2tei22yLNgw0EiL+ZfSgIiCXH2uJCDOS1Di3WbiQG4OFWI2kMLN7mjsivgknGN+dNVFxj5xMMo7e9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=liuyPiTB; arc=none smtp.client-ip=209.85.214.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gd3oPJ83"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791433042; x=1822969042;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ICoeoosIWbTj/bG3WY0JednzspW3OE5fElre7njVj3w=;
-  b=gd3oPJ83XGb+YLcb9aWk7ek1lt+DYzyJXAq99wIgeLGYbODgkLV9/A9X
-   GHBol4zPRy4N0yGZNpBOkrVj2gz6Dyvk4R9bOMrg6ax5QGpp1DRXurW8P
-   qYlNWM2dGD1AIEWOCDRRIstqGRbN9/+opKy365LOWaPkKhWYSOjWcuvX/
-   PwHm6Snd29BolIMs1CC+58WsSCBBb2vED0tsEwRZRVrFLN7Zo0/wcCkWd
-   QABzKy84zEdrxWJGL3ypLj+DqNcibH3Ja8XuSAm3CBsbt2GsnXo4sV8C1
-   zjI3VDETj0PC4p+Juo4GvLhpny8h4Zr1AXxRtG7yGk8hfqV1w7QvOv2DU
-   Q==;
-X-CSE-ConnectionGUID: 5jJqOiUuQOKQIqlceT6+Ew==
-X-CSE-MsgGUID: cT5XPE/WQLGr4Blx/60z7g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="93666"
-X-IronPort-AV: E=Sophos;i="6.27,145,1787036400"; 
-   d="scan'208";a="93666"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 21:17:22 -0700
-X-CSE-ConnectionGUID: 1X/HIWkKQfaPub1ZSubZsA==
-X-CSE-MsgGUID: 8OfYMzt+SP+/v2se8fG8kQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,145,1787036400"; 
-   d="scan'208";a="229129"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa008.fm.intel.com with ESMTP; 07 Oct 2026 21:17:17 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xEfZC-000000003yS-1WSy;
-	Thu, 08 Oct 2026 04:17:14 +0000
-Date: Thu, 8 Oct 2026 12:16:16 +0800
-From: kernel test robot <lkp@intel.com>
-To: Karl Mehltretter <kmehltretter@gmail.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	linux-input@vger.kernel.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	Karl Mehltretter <kmehltretter@gmail.com>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Florian Echtler <floe@butterbrot.org>,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-media@vger.kernel.org, linux-usb@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFT PATCH] Input: sur40 - fix DMA handling in video capture
-Message-ID: <202610081252.0UqYKs2X-lkp@intel.com>
-References: <20261007054430.40155-1-kmehltretter@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="liuyPiTB"
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2e812e2b31bso1262935ad.3
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 21:18:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791433135; x=1792037935; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aryqICRrhV8jKihj/6AZNQBgiVHUAIJCava9Sm4QtPQ=;
+        b=liuyPiTBYRG1mWU/JNWFoyLhUDYJUfk6TsJSTi+MzsB85RMlOdyeiy9UKq76M4+s+N
+         O8E7LQ7EV0h+62NcYfa8KH9zmsRhY6+IDy0B5uVmBBMFe11bgPmtYZ57cypJCLqJmOjF
+         q7ceQmnlMtF8DaUqjxGxqtCzzUDgs8LR4gmRyb6hUVNB15wAK4pwjRVXblD5oLj2X4EB
+         1yRpgSKiWYoGdt7YuEtwNsKTfWRlbSqERNS+ayh7YCXeIradqZ54vanrk+3wBjX20IQw
+         Odq+VPyB7pzyP02TDCBlNZpOvTujiAzX7ieO6QPG2lNFTfPpvdEaFVldVMCPSFMMECXk
+         vfeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791433135; x=1792037935;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=aryqICRrhV8jKihj/6AZNQBgiVHUAIJCava9Sm4QtPQ=;
+        b=zvNsgfdXgKElroH1ZcJ8VkJqEyrKYYQ33b4ukWFf2WQx4Bk7VaTdClW/6QrdWS2UAn
+         tRWtptJZCPkShwM27E8M/4dERAeR6yMUopjFSCAMwbELXEMZ3Dv9PlIIA7tVG10wMCOI
+         u7z68mcyrDEIa+Lp4dQrIpkv9LylUbVrBlPD15mdX+CGwZWkfnmqxXjYcUybUyq7uoHD
+         UxF/7ZTWycqHsNLo2KN5amV5GRBKnnPwPqOGj7PC7pQfbr9l1TZJ3MozVYJS90MrbURJ
+         tshSfvxkcpsIfuRVwpjcobTA1+Su1jVUheOvYLPhv9FLnP9MyJu3iHEiAxbTkYPP+1T6
+         ol0Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzz/THS1RCCuDiMC10aI9BrphN9yUO9WE8Nzv3vHOLb61niMlLAF+GJBC4yN45jswxvyyVbQHhJogza+KI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJh1r1umwk2KkWd7lq4fQe0yZDPjdVPRKMbDV+LXjNxUdCOSvtS
+	Qn2embqQmFmmsqU4x6/FqAJXY7byuKC/FFa3AC1fxxf25yZd8ARDCHsX
+X-Gm-Gg: AYBFou0AG8I5mzPCimupfArxvjPgw57LUwEEvtZgCOdcMU1u3hMaikjkoNNSbwJZAH4
+	XPj53gFOxKB+JUVj/9bZBjoYbfFqx8EyFNsrVyfNQL+FRYwWlLJXQE++2tGq6ncCfggpz4MXMYh
+	yEB5JTpxNj00Wr3nLUUc160t1cMXoeCzmYHv2lk1ro4tPZOpDjhCQECmrTjuGEEnV98y/HUICeC
+	SVMrJbSiExuSskknB94GxiyydSq2PVx355ljsJQi2OFgLu+UY5ObNEMAqZC6eO6LB6PgF5wZ0c5
+	uE3IeHM63sXEcs4biD0lSnE8bW49e7DVFBTvQ7la36X6n1W1ScQV4d13cZEH2kCD3laRgJVcuP3
+	hAfev6RPCnyjnGyY0hygR51y9Tfw2ChF/1XUVeWV1yCx4y6JPvqWSrbenqjqwHe5ibgrddK5+Vd
+	ZeKkVGrBTUz1PAli8QGewuMMv1O670/SflK98uAo6h+V0f8jlfRzmYZQZkteEuOMgnI3cpoaZ+2
+	sBe
+X-Received: by 2002:a17:903:32c7:b0:2e5:d2af:8a92 with SMTP id d9443c01a7336-2e600579de3mr38335405ad.61.1791433134798;
+        Wed, 07 Oct 2026 21:18:54 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e6046fe0aesm19087195ad.28.2026.10.07.21.18.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 21:18:54 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: marcel@holtmann.org,
+	luiz.dentz@gmail.com
+Cc: linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com
+Subject: [PATCH] Bluetooth: hci_sync: Protect IRK identity reads with RCU
+Date: Thu,  8 Oct 2026 12:18:50 +0800
+Message-Id: <pm-bluetooth-objects-candidate-0130-v4-50db5732ff5e26d28412@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261007054430.40155-1-kmehltretter@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Karl,
+hci_le_set_privacy_mode_sync() needs the IRK returned by
+hci_find_irk_by_addr() to remain allocated until its identity address
+and type have been copied into the command. The finder drops its RCU
+read lock before returning this borrowed pointer, leaving the later
+field reads unprotected.
 
-kernel test robot noticed the following build warnings:
+When a privacy-capable controller has a pending peer with address
+resolution and device privacy enabled, accept-list programming can
+reach this helper while management reloads the IRKs. The request
+worker holds hdev->req_lock, whereas load_irks() takes hdev->lock,
+allowing the following ordering:
 
-[auto build test WARNING on 2c3418fffa9d037b2038a6db48be63f9e2291806]
+  Request worker                     Management / RCU reclaim
+  hci_le_set_privacy_mode_sync()
+    hci_find_irk_by_addr()
+      rcu_read_lock()
+      find matching IRK
+      rcu_read_unlock()
+      return borrowed IRK
+                                     load_irks()
+                                       hci_dev_lock(hdev)
+                                       hci_smp_irks_clear()
+                                         list_del_rcu()
+                                         kfree_rcu()
+                                       hci_dev_unlock(hdev)
+                                     RCU grace period and IRK free
+    read irk->addr_type
+    copy irk->bdaddr
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Karl-Mehltretter/Input-sur40-fix-DMA-handling-in-video-capture/20261007-074430
-base:   2c3418fffa9d037b2038a6db48be63f9e2291806
-patch link:    https://lore.kernel.org/r/20261007054430.40155-1-kmehltretter%40gmail.com
-patch subject: [RFT PATCH] Input: sur40 - fix DMA handling in video capture
-config: arm64-randconfig-1003-20261007 (https://download.01.org/0day-ci/archive/20261008/202610081252.0UqYKs2X-lkp@intel.com/config)
-compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261008/202610081252.0UqYKs2X-lkp@intel.com/reproduce)
+The request then accesses a freed IRK. KASAN reports a one-byte
+use-after-free read of addr_type on this path.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610081252.0UqYKs2X-lkp@intel.com/
+Keep an outer RCU read-side critical section across the lookup and
+both identity-field copies. The finder's nested unlock then leaves
+the IRK protected until the caller finishes copying it. Release RCU
+on a lookup miss and after copying the fields, before the synchronous
+HCI command can sleep.
 
-All warnings (new ones prefixed by >>, old ones prefixed by <<):
+KASAN report as below:
 
->> WARNING: modpost: drivers/input/touchscreen/sur40.ko: module uses symbol 'dma_buf_begin_cpu_access' from namespace 'DMA_BUF', but does not import it.
->> WARNING: modpost: drivers/input/touchscreen/sur40.ko: module uses symbol 'dma_buf_end_cpu_access' from namespace 'DMA_BUF', but does not import it.
+    ==================================================================
+        BUG: KASAN: slab-use-after-free in
+    hci_le_add_accept_list_sync+0x90f/0x940
+    Read of size 1 at addr ffff88810aa6072c by task kworker/u17:0/493
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+    Workqueue: hci0 hci_cmd_sync_work
+    Call Trace:
+     <TASK>
+     dump_stack_lvl+0x93/0xd0
+     print_report+0xce/0x630
+     ? hci_le_add_accept_list_sync+0x90f/0x940
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __virt_addr_valid+0x20d/0x410
+     ? hci_le_add_accept_list_sync+0x90f/0x940
+     kasan_report+0xe0/0x110
+     ? hci_le_add_accept_list_sync+0x90f/0x940
+     hci_le_add_accept_list_sync+0x90f/0x940
+     ? __pfx_hci_le_add_accept_list_sync+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? conn_params_copy+0x3a0/0x650
+     hci_passive_scan_sync+0x8c9/0x1e80
+     ? __pfx_hci_passive_scan_sync+0x10/0x10
+     ? find_held_lock+0x2b/0x80
+     ? hci_lookup_le_connect+0x181/0x3c0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? find_held_lock+0x2b/0x80
+     ? hci_update_passive_scan_sync+0x437/0x950
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lock_release+0xc8/0x280
+     hci_update_passive_scan_sync+0x461/0x950
+     hci_cmd_sync_work+0x1b3/0x450
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     process_one_work+0x908/0x19c0
+     ? __pfx_process_one_work+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lock_is_held_type+0x8f/0x100
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     worker_thread+0x65c/0xe40
+     ? __pfx_worker_thread+0x10/0x10
+     kthread+0x34f/0x460
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork+0x659/0x940
+     ? __pfx_ret_from_fork+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __switch_to+0x74f/0xf80
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork_asm+0x1a/0x30
+     </TASK>
+
+    Allocated by task 507:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     __kasan_kmalloc+0xaa/0xb0
+     __kmalloc_cache_noprof+0x251/0x610
+     hci_add_irk+0xb6/0x220
+     load_irks+0x5ef/0x7e0
+     hci_sock_sendmsg+0x128b/0x22e0
+     __sys_sendto+0x425/0x470
+     __x64_sys_sendto+0xe5/0x1c0
+     do_syscall_64+0x115/0x6a0
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+    Freed by task 0:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     kasan_save_free_info+0x3b/0x60
+     __kasan_slab_free+0x5f/0x80
+     __rcu_free_sheaf_prepare+0x65/0x2a0
+     rcu_free_sheaf+0x1f/0xe0
+     rcu_core+0x661/0x1d10
+     handle_softirqs+0x201/0x930
+     __irq_exit_rcu+0x110/0x1e0
+     irq_exit_rcu+0xe/0x20
+     sysvec_apic_timer_interrupt+0x6c/0x80
+     asm_sysvec_apic_timer_interrupt+0x1a/0x20
+
+    The buggy address belongs to the object at ffff88810aa60700
+     which belongs to the cache kmalloc-64 of size 64
+    The buggy address is located 44 bytes inside of
+     freed 64-byte region [ffff88810aa60700, ffff88810aa60740)
+
+    The buggy address belongs to the physical page:
+        page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0
+    pfn:0x10aa60
+    flags: 0x200000000000000(node=0|zone=2)
+    page_type: f5(slab)
+        raw: 0200000000000000 ffff8881000428c0 dead000000000100
+    dead000000000122
+        raw: 0000000000000000 0000000000200020 00000000f5000000
+    0000000000000000
+    page dumped because: kasan: bad access detected
+
+    Memory state around the buggy address:
+     ffff88810aa60600: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
+     ffff88810aa60680: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
+    >ffff88810aa60700: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
+                                      ^
+     ffff88810aa60780: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
+     ffff88810aa60800: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
+    ==================================================================
+    Disabling lock debugging due to kernel taint
+
+Fixes: adae20cb2d20 ("Bluetooth: Convert IRK list to RCU")
+Assisted-by: LLM
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+---
+
+diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
+index 1fe11d3ef1aaa8118811fb778b591e0413b4b3f0..14960ad5384df2c41358d838a4ff850744afbad7 100644
+--- a/net/bluetooth/hci_sync.c
++++ b/net/bluetooth/hci_sync.c
+@@ -2554,13 +2554,19 @@ static int hci_le_set_privacy_mode_sync(struct hci_dev *hdev,
+ 	if (!(params->flags & HCI_CONN_FLAG_DEVICE_PRIVACY))
+ 		return 0;
+ 
++	rcu_read_lock();
++
+ 	irk = hci_find_irk_by_addr(hdev, &params->addr, params->addr_type);
+-	if (!irk)
++	if (!irk) {
++		rcu_read_unlock();
+ 		return 0;
++	}
+ 
+ 	memset(&cp, 0, sizeof(cp));
+ 	cp.bdaddr_type = irk->addr_type;
+ 	bacpy(&cp.bdaddr, &irk->bdaddr);
++	rcu_read_unlock();
++
+ 	cp.mode = HCI_DEVICE_PRIVACY;
+ 
+ 	/* Note: params->privacy_mode is not updated since it is a copy */
