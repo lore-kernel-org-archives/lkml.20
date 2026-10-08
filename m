@@ -1,62 +1,87 @@
-Received: from sonic305-21.consmr.mail.ne1.yahoo.com (sonic305-21.consmr.mail.ne1.yahoo.com [66.163.185.147])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4250035C185
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 15:18:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.163.185.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B15494B4864
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 15:18:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791472686; cv=none; b=LFh/uIZBb0YCgJ3Vdl1pe9Uy4JZZ3tXc2DDodL5pWj5mj6EkF1h4ThmGYutSqrWNdMKFOMyj1K/2uHD3kc8LzqmUM97xQ0ZUkMOZqCSWE/dbug1b15jDowy9xRBSWmT87z/5nx9mjhq5IXoxUUs5pBbSwo9pHl/XDa7T/oM0dC0=
+	t=1791472732; cv=none; b=bLVVnL6OTGimgURdIa+mmektdILGkVLmCrZK/iBfKMTFS1MRpDfXsS+c9bTZTafAU8cAMwGlLrwJgPB2/MEPBbzhrDORcVyJ63AAHMDaNbtLQBw/5LlJQuxcfBhf8SvNRzGZbxOeXIrkAZkR2CfS2m95sm/RnHWrRuQsNl4M6/Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791472686; c=relaxed/simple;
-	bh=f/wiRAdiJOaNh64TOWWc4NkVf6u4Pk76gXMZr1RLqs0=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=lyfMHntlJ4tjKcK16CxMEpn4HbCOoYHRlAZfSg3NbL/SLHHgY/9CWRxMp1divpBPcbPU3tWxnZ+pQDK3GLDiwox+L8cfdJhxTpioPCI9D4b2PYvh+m13uIxzpLVreWhAUzXw7tWno9G/JndHEnTyZXEZQE/KawbKOyNnQ3435gU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=qLmdOKwi; arc=none smtp.client-ip=66.163.185.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	s=arc-20240116; t=1791472732; c=relaxed/simple;
+	bh=LHr0gqH7n0yRSAkE/aalDwrj21rLVhWzRJr0Xrj57rU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MRR8Br46GzIMR1gRJgdOBSHTxOzBVB0NM0GHMEUyG5dIxtZkpF/rVd3jZnk0jnoBh3K93oFjNUITWo9uX6TVXKaZLwqSeMS9bGsdMNhARidffwY5kPiCUqKNhE3QkmQiTR6QhcQ+PJUACgWEUpo9BiNuGGOHa7uD3bqhTkdspgY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RryFkP88; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kjpboKhY; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="qLmdOKwi"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791472682; bh=bqZ02vFEPGDtgaJ/nkEruzf5gv5S3ccF0CTYZo/fxJM=; h=Date:Subject:From:To:Cc:References:In-Reply-To:From:Subject:Reply-To; b=qLmdOKwihmMW5FOs3g+50nbwDor93rc0Wp24ZNngEAA2Xvd+zzE2sg9didb8Wc0TYSia0Hhfi6oxnxsLZgOq5SvAdTGZEsaCz8EM9zjv7Xohcw6p76WW1abalUp8npaQPb+ar+PKDYaea/rkcYEeR+b6BGUDLjn7iFCAD/S4qW813RSZaIAyBmBRT+2An6xj5XC49mX+fMgAN6NCUL2VW3HnetrByhLw9hef541P6g1/MkQtb6/C2FrkEEalY7Z0NGoEuClytqExlwxq7tefo2/QZf2eQojTfTzCTt10J004TgOw/CM/WKOwlOBybJFyw7xx5tiTNFMmj+K3QA3+PA==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791472682; bh=ZMeLPHxNiMkkCM3qlqhGJsPHHi9x/5UWDzNBnlGSW9c=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=emknF0/CWUiO8ruKdpH8xVPWFSI1X+LCVlAT2e0598k2xwh7LiJSVbGFDBTAw2BwZ1W+/QWMf9xHkhXMQsV3xcd7l1vvN/4ukvLu0lw9ICSJkCNCtMPCQK8iN6KvYT/yl3RiIxyS1uluDIT1nkWZ2ORV8+e7qV6eOYGaflmpfWQJEZFx5tfYfrXLNHdu01JT8KmHO7//B6WDhTfacw2pNvD2ljG8qasF+9IkK4Atefw51dh4T8++JHKIIuxIOgTDKIwVzg2oiyOAf3TT9nS90BJ/gyKkle+TkAFzCEFGzQFo9As58IgZC1zhxnQgaW72Olc7SCVfBH3F+MFPwyzgTw==
-X-YMail-OSG: pyFDNkYVM1nbBy8cB0UE0Jp.tZbnUBMtz2L_Q9J1n2RzNawXAJalTEW35EDGO7H
- cVvOrJEbey2szNAqdAdF_SZLc6mIVL6jrrwjKRS6q1Wxzd4kyf_tFyO6kecMxmMh0FZUN9TSZ1xq
- mRwT52k0naF0fN8cze7aB_0zCSOqelmyklZwqhEnfoOFHAFwVymmhtg3l5gyGgMyTjtp2RmmuEyZ
- oMqgevpjX57toShAdXv3nXbixdQzjXextO9pC0ARLqdNUpmYqkE6v2JhVxzLaCFc8jfTuhlPnhEr
- mcxjXhOyVEAaFt5InkZ3bj7p7ipxwykbBiMeWamqly2D6OCbXj4M8x5_QOzcmGhlji0DBAM_ucJy
- QwbGo8gkNR6lmd64e2V6QHicR4Bntz_w2uuooIrhai5ls3VVP1typvgxjbJcNRVg_sjdVIF4W6lX
- _o5em9252miyLkVPOocVE.87PcglddRIGWQ8xbkfDLf4lIMcKhPqs_WF5TyVTtJTVvE1ieu4iQ0T
- Q9aY_2d6KKNqlFQ1RoOVtF6l2UnM7OaQwdYEIObxzp_e2W348LWoVDuUFQlsg0YFSXWP6PYS_W3r
- d6rawFR0go_BPQB_dBrQonEmUJszXOD2MTRZ6ERykYfkMGBwErydyDrtmheHppFsT4qcEMA0uPbR
- UOJ0EP5I7YUwkHEbTtxwwIld_hsseG9A2h5g7BDa9YuZjMq1zNbn2UoopPkNEq2fEaqtUg7takt_
- Pr1MjrIDC38qDMPuAG8ilMvQezvo4.OBCsTHD7cbs_jsxGRjbA9qPRqo8gLPM6qf1dQbtbWRx42t
- t9_u_jiDT1PAgbTLGiR2GcmUt7rkyIpT.lGK3vaqiK44HRjWvMQ8SHT4kIljhD.XPTcpZgld5Lld
- 8O7DzerSRGz6LViu40tnVRVUnDnIFEskJI4Fmbju0lKQMmwwCXguKEb8znRQRmU3ozcnpbDLbfFt
- Q2gYme871VkoOVHo7cYEzQhu_TcJvZJaX1HYaC_lv0W.EeMpIZPftvr_qWyTZnUlHDbYlTt8BoQJ
- BPxaFqGM_psfV82QXVyyMWVc4Sl6HfVBcmlKl_gmzQ0y5d_15VcHwSzaFLXiC39HXNguy_YkxQ5e
- 1iAWISFc6WNbsJhMyWF0R..Q7pDb2AOc_hR907fVLXX96cTQqJ.MjDgh6MUDmp1QQNTCViRYk6JA
- 9fcW4Q3uIWwsgyUKiLs9In8E1BniASu92MXvsJ9s5FdUfcJSC4JjgVd7p.gxv7_zUiS_c6PLeD6h
- xr2dmYmSgpjf3Lz0KNGIVCcVb0UGrRvOPOYbqlbZc4A53wnqyM4h.C.Pcr9ZwYkZMuDFxIbQuiV3
- 1_EsXuXZgdPc.VGma0UAB4vakMN1aaPgyYtO8F_L7GTFxV3Dasme3dbvYmJDRLEWi2LyVhuIm5kK
- Z.3W9807Pj6Q8gUp0S38Kqf.ksE3kO6ohlPkb05vjaLlHEZ5L_XUXV.aYKqDgh9.NOyqTi10ZucX
- mL4Nv54my1ZV7Wf3XSna9qExGLHi9s3IQk6TVf2Dv02rUJy2cUzukpeEuViVArwqeu8aOLvPZzcO
- 3loYmWGcU2SIkdyXqoiutiIgvmiTZQ2huBVHoIKGwN21yd..Dxl3IAqYMJO.P8nzbVq_n7NNPRO6
- V.i5qrn0KriQSQh5a2LcYOjPC100YwoFSWG74rwMkfpzsZ_dvBSiIjTrkBj2KTYgsLmgGJ0lgw7w
- HRd7QZsHii3rnw7Ypr6sXaMYJD5pcAxYMvAcKlFOj0auxLWmem28THoa2Nb8F_Rzq_P76JlnIFGL
- ZlMjlPmfBhIrF2QBNK4XU3a9wuajUSpAmv5krXZQhAVMULK6ZD_b9_5Zoj8MZoLafYzc54TRlZoN
- 4U4MEH57Xnlo5NNBR1ZzHedU1lhSuXN2_YtVHNDIiZMKInW.eC.tGQJx6N4a0RzMybGz5wK5DONc
- IN6Eao8o2h.IknNdjJHjQDjFWRoO1gJHM8zPpnqBdyRw_R5xVIVFOwcQmGdvIGQmE_CvNZZUt7kA
- _m8PATA3pYDBiG2WdEPI9NOeA82MxorAnfB2cRKJ3tqKjC_r1U8ZPRi9vYuXei713DqKQ7nZcIX1
- 4huZBSj9FTl5i77ywsFRpMHVZpObkuqXf_kksEGyxVBBjHzPqeeH3B3_ZVNFGTxLygvqI1cZs5wC
- QJ7nKpNBCOfBe5cXJifYBHM.3vBfsPdXJCTO4LZplBUnn3XXb31dssxyUjJsKY9fimMYm3hRIEy1
- tAy381THakKg0otHlKmmeLY4Xikma_burKdeKcIEauADnMpDjYeCSg9V31LMiT2.LQYWVQu2qQGl
- _R6gixpG9jhR6SEwpOT8Ton7pfyGYFerIXvqXfza2qoI-
-X-Sonic-MF: <namiltd@yahoo.com>
-X-Sonic-ID: b12aa3a1-130d-46d2-bc72-b7633dcb8303
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic305.consmr.mail.ne1.yahoo.com with HTTP; Thu, 8 Oct 2026 15:18:02 +0000
-Received: by hermes--production-ir2-5dd9bf4598-c2rmk (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 46a763abb20b372b1e2d53c07276f718;
-          Thu, 08 Oct 2026 15:07:44 +0000 (UTC)
-Message-ID: <058a5e14-76ea-4c88-bc52-f37e3e502a92@yahoo.com>
-Date: Thu, 8 Oct 2026 17:07:41 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RryFkP88";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kjpboKhY"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 698EVFF24148827
+	for <linux-kernel@vger.kernel.org>; Thu, 8 Oct 2026 15:18:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	LOaMsWHOvOprnRa69YNWuqJ2U5SFuaIR1zue+6jvCdI=; b=RryFkP88wN8a/mxl
+	xOr2ZWTyExtE7my0hLk/4UaEP2w3EKwaOUXFyCuAP65hpjmF3zGminfKQ0JHKQFE
+	kYcVzZ10drhhvYsOacr0B+EIy3OLWZHQ01vnY+nBgp7q4+kIZLHhlN3qkT9nHeqc
+	+ze9jj40QjLYR6D4iV0jH/yXULlEUWPd3lpW4YQeXPqv4XDiL8l/CzMlLrBSk2AJ
+	KVZxhsewck0dOIzowKiBHfQXfKFFPXskpRp0Bvc6lAzBD8U+qnggX8/2I8Q034RV
+	Ckuk6tJknarJSp5+/cFl7Kkx8hoVb+pEkGYqIwCGLm+PlcOH1NKWKZpXtHZxVY1W
+	PDxCYw==
+Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe6bh1s-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 15:18:48 +0000 (GMT)
+Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-5ce86cc29c6so1187759e0c.1
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 08:18:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791472728; x=1792077528; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LOaMsWHOvOprnRa69YNWuqJ2U5SFuaIR1zue+6jvCdI=;
+        b=kjpboKhY+L2d+c+jpkrzcmbMFYjhDYq0GDx9Xm0WutHEzYy1nE08GqKE5NNlrI3I0T
+         bZBYnV31c6Zzbr/6pS9Y+2QUfknIiCOKnrTQn6HaWELnQw3DFXCWLPcqn2ixe8yEiyTM
+         P2KO4eIbj5wktaiDCdhM/jaow7xeAp3o8uU9aMqq8eeeDvI2F5EvTWIPwlxnlExis6z/
+         EUsekNI5KTEIULPTMinf0y79gFkxtp+3rIMvjZhjqyAB63C4oBPti+y4QqdOoO7IElcm
+         KtI4CrRUFdF9dip4ZZjm8BaICXEBwclLHaJuknh0roiHzX5lYNBbILU8cFs4bUedHPZ+
+         CfYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791472728; x=1792077528;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LOaMsWHOvOprnRa69YNWuqJ2U5SFuaIR1zue+6jvCdI=;
+        b=Fhh6Z+ICnLAzZC1A3KYpb5aKPiFDJHZfJ1CdUXyXCWo6Y1MN+mnfxYcaFeVWVuHJUL
+         9Sd2xWvGMmZ4zgeiQHBmaqbjbn6SliPpFf3A/KuG1VIdjJ8Ek60FKsRUskA+mt3E8eMK
+         EPOcCGFIghFXP/zVtXtEWx88uHRach6GmZ5S4LWrLQ62qC1yVMPBDs5gERJXuutXN7VK
+         jaz8QERsVtW9LLDnt0gFQiUQ0m5kq5AcRlKhRX1+ddYceUNAXjQbxdG7iIRyixLQrUVe
+         WyCE8IajlnbsEcKeBR0iiqO3t4tKA/aIrXgk5LH8SkSB/a4N5f+yyaRFiHhUtXWrzBQZ
+         FKyw==
+X-Forwarded-Encrypted: i=1; AKwUvBy4G0Qw/Qc4vzmTUd5B0IQpih3Slej6Dwhc1IK7P6U3yBwmOvaPRxASJUEp2sC0ZYqkg3YTKCRFCER/0NM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIxtSAFuR+czhPFw7kqE1PG6GSRTIUIR1mdyBAWp8bXzg2E3Jgj
+	OIFax3P0hyCiOhkeVDXutaK7jits9MH7bMkIbD1Rb9ZClk9uAexCT5Ra/sFhnQVu0BSPho+z+Mr
+	Fn+wsvQj57LkKCumjkDT4BkPfcjwt6Wys53a7+dL4IxVE73STZnxjGRfSGl47rnfQPwc=
+X-Gm-Gg: AYBFou12UBkle5By9nFoGP0uxfyiNiZHWHaCrBqmfDEg4oODHfCbW/7NzOiETGlUVFQ
+	J7NcrkD6TYGys8J26x3DbZPIMxSLlIvjnnImu4TvFQD43Zb10YcdoiuzpnOrKmsPmQBEijzFx5U
+	y5LfEdJC7uPeT4i31s5sIkHzTMKml43dgTo4G1nn6XQxAibYuxE0J8N+wWm50iyfgCjNIwmOgpS
+	PNWi5HLJG/F25MKmkEs6gaehPhok1O3eFL1Smgc5NfvWfxJjjcIpe05vXZeWrOtaUnvvIiyUnpa
+	y59OGjo1hzWOBP9qqQlCuPFDeIEqqKpqX5GCD7zDQO2w3vx7apVpSlEkBJ4HvttKgkZzzB7vHDM
+	rduYJCUTGDMe0OkEyLI/eZdNUmFsTu5sur9TdD5k=
+X-Received: by 2002:a05:6122:1d53:b0:5d6:36d0:d20f with SMTP id 71dfb90a1353d-5e6d360322dmr2727002e0c.23.1791472727462;
+        Thu, 08 Oct 2026 08:18:47 -0700 (PDT)
+X-Received: by 2002:a05:6122:1d53:b0:5d6:36d0:d20f with SMTP id 71dfb90a1353d-5e6d360322dmr2726979e0c.23.1791472726995;
+        Thu, 08 Oct 2026 08:18:46 -0700 (PDT)
+Received: from [192.168.1.31] ([85.196.172.179])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a185d914fdsm119815825e9.7.2026.10.08.08.18.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 08 Oct 2026 08:18:46 -0700 (PDT)
+Message-ID: <337dfe66-eb55-4e96-b5a6-b2b9214d9170@oss.qualcomm.com>
+Date: Thu, 8 Oct 2026 18:18:43 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -64,56 +89,122 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 4/8] net: dsa: realtek: rtl8365mb: set RGMII mode
- for family D
-From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: linusw@kernel.org, alsi@bang-olufsen.dk, olteanv@gmail.com,
- kuba@kernel.org, davem@davemloft.net, edumazet@google.com,
- pabeni@redhat.com, linux@armlinux.org.uk, luizluca@gmail.com,
- maxime.chevallier@bootlin.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <84fc7483-b22d-45ea-a3b8-3285dc357265@yahoo.com>
- <dd78e00b-c161-4915-a917-3b5694139621@yahoo.com>
- <eec36c89-b6fd-405d-a951-aec0677b149d@lunn.ch>
- <fdddb05d-f733-4b28-9442-11adf7223cdf@yahoo.com>
-Content-Language: pl
-In-Reply-To: <fdddb05d-f733-4b28-9442-11adf7223cdf@yahoo.com>
+Subject: Re: [PATCH 58/74] media: uapi: Add CAMSS ISP statistics definition
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, bod@kernel.org,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+        Daniel Scally <dan.scally@ideasonboard.com>,
+        Keke Li <keke.li@amlogic.com>,
+        Richard Acayan <mailingradian@gmail.com>,
+        Hans Verkuil
+ <hverkuil@kernel.org>,
+        Gjorgji Rosikopulos <quic_grosikop@quicinc.com>,
+        Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>,
+        Robert Foss
+ <rfoss@kernel.org>,
+        Milen Mitkov <quic_mmitkov@quicinc.com>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
+ <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-58-ed985aefd611@kernel.org>
+ <7cec7156-e85b-42e0-857a-e590b9e252b2@oss.qualcomm.com>
+ <c0d8ff20-ee5a-48b2-8cb4-3a837077e192@linaro.org>
+Content-Language: en-US
+From: "Gjorgji Rosikopulos (Consultant)"
+ <gjorgji.rosikopulos@oss.qualcomm.com>
+In-Reply-To: <c0d8ff20-ee5a-48b2-8cb4-3a837077e192@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.26668 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+X-Proofpoint-ORIG-GUID: _f2zJCh14kZdazssny0Rxx3-uvozTdNs
+X-Authority-Analysis: v=2.4 cv=HcWB3SE8 c=1 sm=1 tr=0 ts=6ac7b458 cx=c_pps
+ a=+D9SDfe9YZWTjADjLiQY5g==:117 a=Q/e3f29T3Hw2hnAEzBPF7w==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=UWgbE6y0LSW-oyGiUeIA:9 a=QEXdDO2ut3YA:10 a=vmgOmaN-Xu0dpDh8OwbV:22
+X-Proofpoint-GUID: _f2zJCh14kZdazssny0Rxx3-uvozTdNs
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDA2MCBTYWx0ZWRfX/7m/Ic2oWnFZ
+ tL9i29YjkUxfNqNqDDGmC2iektAclqcj7ZfVduL+p4sxlTbtyrk1cDTGasyXSWHGxGVFUBz5j3+
+ liu8xWd+2odfH/MgvubPrTSGEQd3D7vaGBbC/xwGEHTfNxlugZge55NMTkn7BNNpI9CbjaEtw1P
+ Iv3RlzGtbYkZX3wfQgdWqMk5ObvKVlC+P3ENOwtjhs4T6ghGSFA+w0gk83jVDgSuYnfUv8FJFc+
+ vzhaVzHwiaf7vZLoAGiDM/DSSXxlVFqrfp73f1bUWePyEMRnYKLq0YZjl2ekYugWlVn+3mdhBwH
+ vpSw8BJloCWwTh+n4HJzV8GNLWKbUxFehBk9abUohSp97Xr/9GCuYYabLnnJsIYx9EW0sXL5yW0
+ 4Sgs435DjIeNL3l33tNyH/SSQG/9iOztCeNIr+C5yaWnjM8G7ZOP832V87PNDltPwEmOqi4aMC8
+ Ht2Eb7qRJ0jhbG2sFjg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDA2MCBTYWx0ZWRfX2XXbsJCTWvO9
+ 3ybElrdhtkdpGliIVv0lUrGGkLoTzDe+hglq7uQEe83A5zZhGMn5azh5zn1SK4QE7tVbfAms/Y+
+ /X+hWxy2yhlDJQSrwx0FD13eKvOXjwo=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-08_05,2026-10-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 spamscore=0 bulkscore=0 adultscore=0
+ priorityscore=1501 impostorscore=0 suspectscore=0 phishscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610020000
+ definitions=main-2610080060
 
-On 10/8/2026 4:09 PM, Mieczyslaw Nalewaj wrote:
-> On 10/8/2026 3:22 AM, Andrew Lunn wrote:
->>> +#define RTL8365MB_D_REG_EXT_TXC_DLY				0x13f9
->>> +#define   RTL8365MB_D_EXT1_RGMII_TX_DLY_MASK			GENMASK(5, 3)
->>
->> The current code looks at tx-internal-delay-ps and
->> rx-internal-delay-ps and programs some other registers. It is not
->> clear to me that the code you are adding here is correct when combined
->> with the current code. Please could you look at the delay
->> configuration.
->>
->>     Andrew
+Hi Bryan,
+
+On 10/8/2026 4:40 PM, Bryan O'Donoghue wrote:
+> On 08/10/2026 12:23, Gjorgji Rosikopulos (Consultant) wrote:
+>>> +/* Number of bins in a Bayer histogram. */
+>>> +#define CAMSS_STATS_BHIST_BINS	1024
+>>> +
+>>> +/**
+>>> + * struct camss_stats_bhist - Bayer histogram
+>>> + *
+>>> + * Histogram of the luma of each 2x2 Bayer quad inside the histogram's region,
+>>> + * over CAMSS_STATS_BHIST_BINS equal bins spanning its input range. Quads
+>>> + * whose luma falls outside the input range are not counted.
+>>> + *
+>>> + * @header: block header; @header.type = CAMSS_STATS_AEC_BHIST
+>>> + * @bins:   number of quads per bin
+>>> + */
+>>> +struct camss_stats_bhist {
+>>> +	struct v4l2_isp_block_header header;
+>> I think that the whole format is not correct, having header is preventing address alignment
+>> of the buffer for the stats, as i have mentioned in the next patch copying the statistics
+>> on each frame is not correct, just to have generic statistics format in userspace.
 > 
-> 0x13f9 is EXT_TXC_DLY in the vendor code. It holds 3-bit TX delay
-> fields per external interface, separately for RGMII ([2:0] EXT0,
-> [5:3] EXT1, [8:6] EXT2) and for GMII ([11:9] EXT0, [14:12] EXT1).
-> The vendor RGMII setup path for EXT1 clears the RGMII field [5:3], so
-> this is an extra TX clock delay next to the TXDELAY bit in RGMXF, and
-> the GMII fields are not touched. Clearing it makes tx-internal-delay-ps
-> the only source of TX delay instead of whatever the bootloader left
-> behind. I'll say so in the commit message and a comment in v2.
+> Err no I'll disagree with you there.
 > 
-> Regards,
+> Since we are introducing stats on the qcom side we get to be the first - 
+> or close to first - system to implement extensible self-describing stats 
+> which is the mirror to the params.
 > 
-> Mieczyslaw
+> Extensible stats lands in 7.3 so IMO there's no reason not to use it.
+> 
+> Also I think its kind of a crap design to have extensible params but not 
+> extensible stats.
+> 
+> It should be all or nothing. I don't see a gigantic problem in copying 
+> in data and then looking at how to accommodate dma straight into the 
+> stats output with block alignments later.
 
-Hi Andrew,
+Well i dont see reason to accept copying of the data in the first place,
+i have no time to check the exact structure but the statistics are 
+not same as parameters, usually there is structure mirroring exact
+layout of the hw, parameters need to be parsed and written to the memory.
+There should be a way the header to give exact offset of the data in the 
+memory and that will create a hole min with page size maybe bigger.
+There should be some common sense here adding everything in the kernel to have
+generic UAPI should not be at the price of copy overhead.
 
-Correction to my previous mail: the bootloader is not involved. The
-init jam table writes 0x0090 to 0x13f9, leaving the EXT1 RGMII TX delay
-field [5:3] at 2, so without the clear it would stay on top of
-tx-internal-delay-ps. I'll say so in the commit message in v2.
 
-Thanks,
+> 
+> The extensible header facilitates next-hopping anyway so userspace 
+> shouldn't have to change once we DMA to the aligned regions.
+> 
+> Also if that is not supported by extensible stats then it _should_ be 
+> supported by extensible stats - i.e. it should be possible to DMA 
+> directly into the output buffer and pad the blocks as much as you need.
+
+Here i disagree we should have proper implementation in first merged series.
+
+The question is what we will do with the first header which describes first block.
+I need to check exactly the discussion and implementation for this topic.
+
+~Gjorgji
+
