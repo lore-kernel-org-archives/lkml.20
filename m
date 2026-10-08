@@ -1,144 +1,224 @@
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDCF94477FD
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 10:09:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55C6539DBCF
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 10:10:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791454195; cv=none; b=tRsIpPzQ9dqmjQS/fbG+LAhaF2TzKgqIm2OoJFHc90m1MUMsnnPK6v1yVwjtiRC/Qbeu6WeA2J/Fu+yRJPEi+wMRMcJznaE2D+YVAP2QUTs9HPuSleAOe4f0Dr/GBQ2PKvaVJlbqer1vzJLs+SulLRWqGTZaIbAdEOvFanOoQK8=
+	t=1791454240; cv=none; b=cKNyGhxB3WpWJCxIkKJZYNvy3nh9T1SGxMY1CPTrRtfnLCiTJfVxtiYqCs5eTq18kS4KdRuZEAjEM51otEiDyAOAHRlSA5iF9g7Z87N4iCrwoFsNGE6Ss9onYkm1qOTxD8ah3jzpaEtJ6t/2R84w0jU6Fp64KJiTe+hnHnxVuNw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791454195; c=relaxed/simple;
-	bh=UGd+kjwZ7wLqKrdkmrx/xsOpXTlQdSYek/Xxji0Jj+g=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=rYlXOqwrN2fpD4e/MFA2B/wgLRhYuIgcuA8vQAPzZcqqv9PjqKQ7SI31C8UBQ9KNf3YFcJuWjgI2GVkiVyiGMlIomhgHt5Uyadmb6rWBw9IhUAF20HxVrzAv2uX71LL5jfChpcMOeLar4oUaY6VtKJO8b6hSp6DCucemAuWleew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W4wvkifw; arc=none smtp.client-ip=74.125.82.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791454240; c=relaxed/simple;
+	bh=4tbUgFiAvEgxtY8UciHDHSbxyHXMGWw4dIFFQgGN1hI=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Bu+ftn6hqybiJjsRjQU6IR2ICJMHwXAIFDkQZuOGoe6Lp5zMDDhN9sykyEB9hwsVqpUW4pt4r+/UjUNvLkyGVgZAfTy2r8WJ9yzLqHRyvt9JHGzlpCrrKFg3iPZxNVXe93etcFgBpOpZ1VMD4RWayot1v8ahdlxQo/GChipc8/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hwm3R+L5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W4wvkifw"
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-30b6dad2382so6404349eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 03:09:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791454194; x=1792058994; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wXNayWQZtrxImfBFLGBlgxTe4JKCGS+pfnkyA+c+fwU=;
-        b=W4wvkifwHJqFfVu6Nxl7vmafRGI0SCSCFW5wJHHbnQFfaST1z+Bg8DO6gFw3PuFLft
-         oQWZH+nHD6V+VmucYPbDVZ/8HcrBsFhZYJul+VrWRPr7zt7xv6RtbJMOaz0nOArUhnK9
-         nA+rrUufCkgbkt62JsNmSlUdbHdU5/Hu23CqVU3dclG3qpLsOGPhItIJgJsbvS1abDuW
-         lWPbFLzTRnlS6fPbt0qSwagS7WKV4x21uvraDqwZmT2zTPhbDw1vaj+wDJAYwmhQ3QmA
-         Apflxs1q/Wo0VA0RxjXLrfKVhRpsqW0MpDY05lCMqC0VoILmTbjUtWFQSQ5CIfR/rWhk
-         J3Xw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791454194; x=1792058994;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wXNayWQZtrxImfBFLGBlgxTe4JKCGS+pfnkyA+c+fwU=;
-        b=MHRFgc6Ny9ktWFCJCOpFiulaoDfvVQz9tYaqeB2Hmd9KAJavqu4m1vt7/kMDYdx00S
-         arprseaLfEp2CWfxX+FaQ+Ayc+xysA5kcm3uRTrAOWrVlyINBc/Wqxe2RtovSNXMMJa9
-         PpyyulGkwF2GvVULknEOc6/AgZKyUYIwZAGpYd/Ag41ctqe8otISAFSoasiOIoltfV7l
-         zsfBh3NBoQOw3zIYcwxdqZOnlnzfhv7bAp9L8hjpDuKkhInEyyuipa0gSmJbZ/Cl4eML
-         RHorWkLPxJDwkGnOMBpapACfrA+OXBvYPUngAAL9i8++k4mWoxWwIr6C236NssV2Cj/2
-         vOWg==
-X-Forwarded-Encrypted: i=1; AKwUvByt1fjjUflA3ZXAjuTiP6+3XES1HcwGnfrYPTTn8FAw1g48FUHoqDHUeShji+FbI8F96eb0CasS7r42kpc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mnxBQBeEBiA7+2YCkfegzTICdW9Q18LjV+mua7I5hU6qGgsvnc
-	BdxAr0e6BHEOoGVpzpcOGYVFh9cW4D48jLDseyTzzF9GhaLYupFzz7tGJVSDZjRIXvr4gQ==
-X-Gm-Gg: AYBFou2QXWFCLZ/LywG9I8xVGYwSOtIVE6hFNeM7tYphnYGc3h4QZkJ+sfCOzZbAZ7/
-	krjC7QJqbrPQk+y+Zl7CIYCW45LJTMnbdvY2pXe2HpDO2rkLLGCKj6/hyixc3ShaTc/7TwrHvto
-	uxHRGrjPGzZccflys2aeg5S/Y3slrKJOeubaRYFZ6QNkoab1Jml0imTjlQAwUpB6hE9BuJuwDf8
-	B970Ub6KPMEP2Rer8ma7Y28rGyISzz7HDfh8Hm89RuV6cO3tBGmEOaAQcdN443m7L9QsXVj2v/P
-	zu4IIzxy+iL4JPdKMq6onUR3pElrJAGD1h4g2N+QtoLEq79c08GnbIqfqunZ1kVRH8j5qN8xMoH
-	IIaqApL6oMamsmcpWZbD5XBr8Q9jcDSCQlGwT7YZgJdWfQ/EnCN96zgWSCc2+lwKQM16g/xhRDx
-	OkC7Wl6vfhB7YUs/HgvMEd5tT4hqZbNjdVanr+syBxOV//jDbCXEDp5Zg3gKZ64DaE3EAHrAhUw
-	XmxwpgKkvEVOhq8wOo=
-X-Received: by 2002:a05:701b:451a:10b0:158:7ea9:4a5c with SMTP id a92af1059eb24-1620637efafmr5613674c88.27.1791454193686;
-        Thu, 08 Oct 2026 03:09:53 -0700 (PDT)
-Received: from ramesh.. ([124.123.89.203])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3515abb5389sm16487581eec.2.2026.10.08.03.09.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 03:09:52 -0700 (PDT)
-From: T S Rameshkumar <rameshsv06@gmail.com>
-X-Google-Original-From: T S Rameshkumar <rameshkumar.t@phytecembedded.in>
-To: Matthieu Baerts <matttbe@kernel.org>,
-	Mat Martineau <martineau@kernel.org>,
-	Geliang Tang <geliang@kernel.org>
-Cc: netdev@vger.kernel.org,
-	mptcp@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Petar Sakic <petar.sakic@ink.fish>,
-	T S Rameshkumar <rameshkumar.t@phytecembedded.in>
-Subject: [PATCH v2] mptcp: push queued data on passive TFO subflows becoming established
-Date: Thu,  8 Oct 2026 15:39:41 +0530
-Message-Id: <20261008100941.104715-1-rameshkumar.t@phytecembedded.in>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hwm3R+L5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DB801F008A0
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 10:10:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791454238;
+	bh=6Cr87NWtSTumqAI3+lv6BChO3Lye59PnJ7E6aWPgSGU=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=hwm3R+L5zS/h87y3KfkxOmQN1SrcOktm1Ml6oJd1pBluYUvH495HVW8N2lZwCPFXm
+	 EtW+yEiJnhU2eBkltA7Y4jf11zQ2CzOelGOgJTjejVqKcVJVHYXlp6PF1zFCqYam2s
+	 /YexWY1f6TbIA6QocjrcoUni135+VqorizQ+OMBAf1ji+qw/kxLALEarEw3C/8EVHY
+	 Css4DE+F/nGfl9uHzFZk3u9C7qKsiHmrR6XZ8fdZ+1c8rwEvnZlNjxYs4F9SJ5pUJE
+	 oJKzaypmeKAHEPo3Sx7iOzY6C6zWX96jHCAX/hmEkZ8zIdsL1eTx5RXJd2hBhQBOny
+	 hb9wAJHXVcdkw==
+Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-3a980c01033so38162981fa.3
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 03:10:38 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwq/+WWCS6CoxgJEkF+JIawcnuKrVO0B1Wpf9QSyz3emwXTqBZSpxN7FLX3VBFXhoa3W6YJ8tujAeO9qow=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLimlpsJFIjj4d3RNxjzyaRSL9YQynTackXk4uO81h43q1aMc6S
+	8g2PzlZv0caRVUysjJ2454PowGBj/HSAQBFLROMjNLwuW4sxKrpQNWabesd5s1D5SPfmGLiPjD9
+	JdHrCd5nnkVtcDPETMIm6gqZt8kped3+ZiMuJTgcFVw==
+X-Received: by 2002:a2e:b8cd:0:b0:3a9:926c:c276 with SMTP id
+ 38308e7fff4ca-3a9a2cbc6c9mr12456541fa.17.1791454236809; Thu, 08 Oct 2026
+ 03:10:36 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 8 Oct 2026 10:10:34 +0000
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 8 Oct 2026 10:10:34 +0000
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260929122407.219448-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260929122407.219448-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260929122407.219448-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Date: Thu, 8 Oct 2026 10:10:34 +0000
+X-Gmail-Original-Message-ID: <CAMRc=MckUuLsgqjphOs=fiyz3wCaGbGWpt_fPKStZRAroPkE3Q@mail.gmail.com>
+X-Gm-Features: AclHuK8KhVOCPFFk0C6VCi7XjvWfAzQZ9wqI5WRHeA5xhxr3xFISAjG4IBRvay8
+Message-ID: <CAMRc=MckUuLsgqjphOs=fiyz3wCaGbGWpt_fPKStZRAroPkE3Q@mail.gmail.com>
+Subject: Re: [PATCH 4/5] power: sequencing: renesas-pwrrdy: Add RZ/V2H(P) and
+ RZ/V2N A/D converter support
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, 
+	Prabhakar <prabhakar.csengg+renesas@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
+	Magnus Damm <magnus.damm@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 
-With TCP Fast Open on an MPTCP listener, if the server application
-writes data while the passive subflow is still in SYN_RECV (after
-consuming the client's SYN data but before the MP_CAPABLE third ACK
-arrives), __mptcp_subflow_active() refuses transmission and the data
-is queued into the msk write queue.
+On Tue, 29 Sep 2026 14:24:06 +0200, Prabhakar <prabhakar.csengg@gmail.com> said:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>
+> On RZ/V2H(P) and RZ/V2N, the SYS_ADC_CFG.SY_MSTP_ADA bit controls
+> A/D converter power-down. RZ/V2H(P) has a single A/D converter unit,
+> while RZ/V2N has three units sharing the same bit.
+>
+> Add an "adc" power sequencing target for these SoCs and match it to the
+> RZ/V2H(P) ADC compatible, which is also used as the fallback compatible
+> by RZ/V2N.
+>
+> Clear SY_MSTP_ADA when the first A/D converter unit is enabled and set it
+> again when the last unit is disabled. Wait 20 us after clearing the bit
+> before allowing conversion to start, ensuring ADCLK has been running for
+> the required time.
+>
+> Bind the power sequencer to the RZ/V2H(P) and RZ/V2N auxiliary devices
+> created by the SYS driver.
+>
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> ---
+>  .../power/sequencing/pwrseq-renesas-pwrrdy.c  | 84 +++++++++++++++++++
+>  1 file changed, 84 insertions(+)
+>
+> diff --git a/drivers/power/sequencing/pwrseq-renesas-pwrrdy.c b/drivers/power/sequencing/pwrseq-renesas-pwrrdy.c
+> index 0190e53913bf..ab20b7ba9b83 100644
+> --- a/drivers/power/sequencing/pwrseq-renesas-pwrrdy.c
+> +++ b/drivers/power/sequencing/pwrseq-renesas-pwrrdy.c
+> @@ -5,6 +5,7 @@
+>   */
+>
+>  #include <linux/auxiliary_bus.h>
+> +#include <linux/delay.h>
+>  #include <linux/module.h>
+>  #include <linux/of.h>
+>  #include <linux/pwrseq/provider.h>
+> @@ -15,11 +16,68 @@
+>  #define SYS_PWRRDY_N_DSI_MASK	BIT(1)
+>  #define SYS_PWRRDY_N_CSI_MASK	BIT(2)
+>
+> +#define RZV2H_SYS_ADC_CFG		0x1600
+> +#define RZV2H_SYS_ADC_CFG_SY_MSTP_ADA	BIT(0)
+> +/* Minimum time with ADCLK running after leaving power-down mode */
+> +#define RZV2H_ADC_POWER_UP_US		20
+> +
+>  struct pwrseq_rz_info {
+>  	int (*probe)(struct auxiliary_device *adev,
+>  		     const struct auxiliary_device_id *id);
+>  };
+>
+> +static int pwrseq_rzv2h_adc_enable(struct pwrseq_device *pwrseq)
+> +{
+> +	struct regmap *regmap = pwrseq_device_get_drvdata(pwrseq);
+> +	int ret;
+> +
+> +	ret = regmap_clear_bits(regmap, RZV2H_SYS_ADC_CFG,
+> +				RZV2H_SYS_ADC_CFG_SY_MSTP_ADA);
+> +	if (ret)
+> +		return ret;
+> +
+> +	fsleep(RZV2H_ADC_POWER_UP_US);
+> +
+> +	return 0;
+> +}
+> +
+> +static int pwrseq_rzv2h_adc_disable(struct pwrseq_device *pwrseq)
+> +{
+> +	struct regmap *regmap = pwrseq_device_get_drvdata(pwrseq);
+> +
+> +	return regmap_set_bits(regmap, RZV2H_SYS_ADC_CFG,
+> +			       RZV2H_SYS_ADC_CFG_SY_MSTP_ADA);
+> +}
+> +
+> +static const struct pwrseq_unit_data pwrseq_rzv2h_adc_unit = {
+> +	.name = "adc-power-sequence",
+> +	.enable = pwrseq_rzv2h_adc_enable,
+> +	.disable = pwrseq_rzv2h_adc_disable,
+> +};
+> +
+> +static const struct pwrseq_target_data pwrseq_rzv2h_adc_target = {
+> +	.name = "adc-power",
+> +	.unit = &pwrseq_rzv2h_adc_unit,
+> +};
+> +
+> +static const struct pwrseq_target_data *pwrseq_rzv2h_targets[] = {
+> +	&pwrseq_rzv2h_adc_target,
+> +	NULL
+> +};
+> +
+> +static const char * const pwrseq_rzv2h_compats[] = {
+> +	"renesas,r9a09g057-adc",
+> +	NULL
+> +};
+> +
+> +static int pwrseq_rzv2h_match(struct pwrseq_device *pwrseq, struct device *dev)
+> +{
+> +	if (of_device_compatible_match(dev->of_node, pwrseq_rzv2h_compats))
+> +		return PWRSEQ_MATCH_OK;
+> +
+> +	return PWRSEQ_NO_MATCH;
+> +}
+> +
+>  static int pwrseq_rzg3l_set_pwrrdy(struct pwrseq_device *pwrseq, u32 mask,
+>  				   bool val)
+>  {
+> @@ -127,6 +185,20 @@ static int pwrseq_rzg3l_pwrrdy_probe(struct auxiliary_device *adev,
+>  	return PTR_ERR_OR_ZERO(devm_pwrseq_device_register(&adev->dev, &config));
+>  }
+>
+> +static int pwrseq_rzv2h_probe(struct auxiliary_device *adev,
+> +			      const struct auxiliary_device_id *id)
+> +{
+> +	struct pwrseq_config config = {
+> +		.parent = &adev->dev,
+> +		.owner = THIS_MODULE,
+> +		.drvdata = adev->dev.platform_data,
+> +		.match = pwrseq_rzv2h_match,
+> +		.targets = pwrseq_rzv2h_targets,
+> +	};
+> +
+> +	return PTR_ERR_OR_ZERO(devm_pwrseq_device_register(&adev->dev, &config));
+> +}
 
-When the MPC third ACK arrives, the subflow transitions to
-TCP_ESTABLISHED, but because the third ACK carries no DSS data,
-the queued bytes remain stranded until the peer sends more data.
+This probe variant looks almost exactly the same as pwrseq_rzg3l_pwrrdy_probe().
+Can't you not just store the match and targets pointers in OF match
+data and keep
+the same code in top-level probe()?
 
-Fix this in subflow_state_change() by checking if the subflow was doing
-passive TFO (subflow->is_mptfo) and has reached TCP_ESTABLISHED. Acquire
-mptcp_data_lock() and call __mptcp_check_push() to flush queued bytes,
-clearing is_mptfo so subsequent state transitions are ignored.
+Bart
 
-Reported-by: Petar Sakic <petar.sakic@ink.fish>
-Closes: https://lore.kernel.org/netdev/CAFPPu1gU2Y-D+d4i3F0MoNkYK+e1U+=X3qf6QycjfKBw+8snPg@mail.gmail.com/
-Fixes: fb7084501a61 ("mptcp: add support for TCP_FASTOPEN sockopt")
-Signed-off-by: T S Rameshkumar <rameshkumar.t@phytecembedded.in>
----
- net/mptcp/options.c | 7 +++++++
- net/mptcp/subflow.c | 7 +++++++
- 2 files changed, 14 insertions(+)
-
-diff --git a/net/mptcp/options.c b/net/mptcp/options.c
-index ce0de02f5..d5238fa11 100644
---- a/net/mptcp/options.c
-+++ b/net/mptcp/options.c
-@@ -1042,6 +1042,13 @@ static bool check_fully_established(struct mptcp_sock *msk, struct sock *ssk,
- 
- 	mptcp_data_lock((struct sock *)msk);
- 	__mptcp_subflow_fully_established(msk, subflow, mp_opt);
-+	/* Passive TFO: the application may have written data while the
-+	 * subflow was still in SYN_RECV; __mptcp_subflow_active() refused
-+	 * it then and nothing else spools the msk write queue when the
-+	 * MPC third ack (no DSS) arrives. Push it now.
-+	 */
-+	if (subflow->is_mptfo)
-+		__mptcp_check_push((struct sock *)msk, ssk);
- 	mptcp_data_unlock((struct sock *)msk);
- 
- check_notify:
-diff --git a/net/mptcp/subflow.c b/net/mptcp/subflow.c
-index f0a6725d2..c71122842 100644
---- a/net/mptcp/subflow.c
-+++ b/net/mptcp/subflow.c
-@@ -1894,6 +1894,13 @@ static void subflow_state_change(struct sock *sk)
- 	if (subflow->resetting)
- 		return;
- 
-+	if (subflow->is_mptfo && sk->sk_state == TCP_ESTABLISHED) {
-+		subflow->is_mptfo = 0;
-+		mptcp_data_lock(parent);
-+		__mptcp_check_push(parent, sk);
-+		mptcp_data_unlock(parent);
-+	}
-+
- 	/* as recvmsg() does not acquire the subflow socket for ssk selection
- 	 * a fin packet carrying a DSS can be unnoticed if we don't trigger
- 	 * the data available machinery here.
--- 
-2.34.1
-
+> +
+>  static int pwrseq_pwrrdy_probe_common(struct auxiliary_device *adev,
+>  				      const struct auxiliary_device_id *id)
+>  {
+> @@ -140,7 +212,19 @@ static const struct pwrseq_rz_info pwrseq_rzg3l_info = {
+>  	.probe = pwrseq_rzg3l_pwrrdy_probe,
+>  };
+>
+> +static const struct pwrseq_rz_info pwrseq_rzv2h_info = {
+> +	.probe = pwrseq_rzv2h_probe,
+> +};
+> +
+>  static const struct auxiliary_device_id pwrseq_rzg3l_pwrrdy_id_table[] = {
+> +	{
+> +		.name = "rz_sysc.r9a09g056-pwrseq",
+> +		.driver_data = (kernel_ulong_t)&pwrseq_rzv2h_info,
+> +	},
+> +	{
+> +		.name = "rz_sysc.r9a09g057-pwrseq",
+> +		.driver_data = (kernel_ulong_t)&pwrseq_rzv2h_info,
+> +	},
+>  	{
+>  		.name = "rz_sysc.pwrseq-pwrrdy",
+>  		.driver_data = (kernel_ulong_t)&pwrseq_rzg3l_info,
+> --
+> 2.55.0
+>
+>
