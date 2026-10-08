@@ -1,121 +1,121 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out162-62-58-216.mail.qq.com (out162-62-58-216.mail.qq.com [162.62.58.216])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 524734156FB
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9B8C414A08
 	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 07:31:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.58.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791444726; cv=none; b=rmjeGSb7tG0d1EbJrpg4dDBjKOuSG/6LRcBV72DYBs7NDCblxQxYWqv+yMqV1W28wLVj77hnEZlL/ircOUvNbAtF4hRaUCSuMKqzMbG6se6zbLkZZT9apGh+XsnuXG6ssyKmZgmUjB9JEx+I8vJrWNlSijM670UoaA8GP3SE7wI=
+	t=1791444727; cv=none; b=G4YD6Gba4ZFsQcP9C7kywF6x3Na86VSwcWVysFcRrX3+y9qEcCQH63MjSUjFh3q+THIn3RV+EeOtczbKIWVGfZQQpU1aN0fb5I/o13BOyDHCa2r9aNk9gtBq+yVS01igFzOgZQqBjIWK0mj/mFLcFf8YyvtaMHwRSv4axJ3AWas=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791444726; c=relaxed/simple;
-	bh=R1OauTk58FGLCJ/MOr79hoSoxQboPp2ENsJOfzmEyCY=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=RbskrEPYNspGqjGlUubAm4UIvzLdWVxsjEboDy+KP3w1xyOMQkzyEctwAKdgbVeDD7rpi2WSBDO7AHThXaJakCbwSXNf907kHmB0xvcIRinBookH6FCeVox7VJY7AFAViEAfVNmiYN9ULQwZpjbInoN6nE6bWORqHCict8NMrsw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HWSzOQfM; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791444727; c=relaxed/simple;
+	bh=mGI5WFyL23LTgCiaTzUROZCl6WSk8IRbLd4LxbFjD7k=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=WaU+E42CpnkbRUzGtUcRLJ6EBqRmTQTyD/3Vt+fPNiWTA82sJEMJoQneaaW46eFwfWzMKK90sx/2YOCSX5ooX+eEWUVdBKFirzCqws1qGRUbUZSCGUYbner2rWrSTAYRtoXKvLz0y52iusUGGz2un1FprpbLps/BxjdAPf5VcSY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=WZs6YJtT; arc=none smtp.client-ip=162.62.58.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HWSzOQfM"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a16af2a232so22500045e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 00:31:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791444707; x=1792049507; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TBYqwnAjN95MxzXbUBiz1fIAS5G9TFt/mqAU6tkwBvk=;
-        b=HWSzOQfMqXVe/4HDYaEpM+NCxCYL45MrZw9PDtZr85zDEPSsbkPeXb6rPcPfj4v98q
-         oA9J1k+JDPHi5Cp/OWqBkwxaGZUiVActhpBCz+1ywWqm6SykFTzGMJdan58uIWLdMjIk
-         MrN4/Rtg7MwbMvJeGpwFMZDiqE3Sn+UVhPvTyFgeS+9GUwxsBXzuRLHxO83hbQlYP2l1
-         oYbW83KXWUcQ4oFSe1QI12+3HU63lACniHlbYFkO/dR6XCf+f8JEcKq5CZ63zzyi70J5
-         m8eK/0lyYFYSlj+pDwPoN9+NSg7+dpN5UtfS+10kdSoLD1rDO6wm5ouHNTsliYXA0Glw
-         5Xtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791444707; x=1792049507;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TBYqwnAjN95MxzXbUBiz1fIAS5G9TFt/mqAU6tkwBvk=;
-        b=h7oQEwG/7CJl2iXxEqOWtAJeYf5rpq6ZmrSkS10UMqh6znnAnB8xdvsh7DCJ43S5UO
-         xMJLKvu/bduRJKY9E/g/FniLwT7Bodhyh2z64dOXSuwI7swfns9Za6GcB/OyHYJkuPJC
-         RV0vpnzEWkdybhmOLF/fRCrIJnUjWNIgs0m0nQcu1GaRY1JLqpLowrrhll8NIlV6H0BA
-         DGj+9gOvdNVMau23Zlzp11H77n9O/oHGf5M2MEgec8a4q7+iP0FF/jfhX3rcg0q2RS5g
-         FtFQQh6NlNOAcxZJQBg09YItur4P5tiWJWxJu8XGEu7nhH9z76CAWwTskzAucHc5PRsn
-         fucg==
-X-Forwarded-Encrypted: i=1; AKwUvBzvGts/Rzx3byXYIits8lmrX4z6Tpmi9TLy8y/StHYtd+rygUfBMD4ImRy9GfJTgNLJGvM8YN3w1HbbHtQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mJfPW6XWz/JqYqLEV5XzWaU4ChFoA11Aqcu7Zyw98nI6invJO7
-	D/xqNnovxiPxk13TsjG8vyJIsZFJq+mWNoWEIYEFoOWPR4hFJFVkWjqm
-X-Gm-Gg: AYBFou0UpEr9Og/Z/wGLTiLTD1j9EjGTZl5767KIZhX2aKKTF7LbjX4sxyz6A3RGssV
-	v44EMpkWjdgMiORgGobps9ZQA7Qw7I9n/vU05mgRJgvPJZRjtY4OvvHFN4J74H21jtpb/H0K3NT
-	tSfL/9F15QYGUBWtLrDek/d5nahcf3d4nnLCSgiXxXBnFAcQ6Jb09IMNzWnAVKAXoEohua8EXJB
-	LvBHFWScVmK1wm6a/yImplT5gsVwBGEgxqYbBCpdA3uHo1OUgUXe4fsgxITrcuXI8r2uaKzmBQg
-	LpMSqwzly+ykBWBiHjW+NR62zWuDw+Kl+N8BZXhUNilcpWu/lnJzypOXZvbhI2SMRGFj8laBa84
-	JFLn9rSPO9q53pWjgdTw7m5kFiDCevkqK3aUILFlu/iDS11I4e50+/3jgyp7mHf2zOgtm1cqbC+
-	Zo87I+r+dvengkmGjo3VTa7WNk3rX1CR5lbfOdb1D4JEHc+RiFxcMiny3tXN2bEgQk3mlQ/kDze
-	RlpINJQwp6pnz9dIauEC781BiRIucTzEBHlh6EVA2PZE4wgS/gZGDXdTp84ME+U9fSoHKRoiMQj
-	YlFZ9KW9Onry0K0Ig9RxatkPjXQJ2GZvpZIRXmTe/k6Ohb4MT4ysxW5M9C+vkOn5JRXtVkcgekI
-	YUuwX7Oa2nOjRPb2BCKbf5T+VfXoU1D8Ay/XigOGrfBuL/mOuwSXd7mUb+DyqN+B7xz7m7kwykh
-	Kx0W/KYv92po4zGD3i
-X-Received: by 2002:a05:600c:3b9f:b0:4a0:2644:80db with SMTP id 5b1f17b1804b1-4a180664e4fmr81750295e9.35.1791444707089;
-        Thu, 08 Oct 2026 00:31:47 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1842abdb9sm47993535e9.6.2026.10.08.00.31.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 00:31:46 -0700 (PDT)
-Date: Thu, 8 Oct 2026 09:31:16 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Alexis Bouzigues via B4 Relay
- <devnull+BouziguesAlexis.JohnDeere.com@kernel.org>
-Cc: BouziguesAlexis@JohnDeere.com, Jonathan Cameron <jic23@kernel.org>, Nuno
- =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>, Michael Hennerich
- <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Andy
- Shevchenko <andy@kernel.org>, Lothar Rubusch <l.rubusch@gmail.com>,
- linux@analog.com, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH] iio: accel: adxl345: select IIO_BUFFER and
- IIO_KFIFO_BUF
-Message-ID: <20261008093116.000077e1@gmail.com>
-In-Reply-To: <20261007-fix-adxl345-buffer-deps-review-v1-1-0c94c8d0443a@JohnDeere.com>
-References: <20261007-fix-adxl345-buffer-deps-review-v1-1-0c94c8d0443a@JohnDeere.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="WZs6YJtT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1791444705; bh=d0eH5iO0On4vXoUUnrxJ7otqop8z0svHJFJ1BPfCn98=;
+	h=From:To:Cc:Subject:Date;
+	b=WZs6YJtTDT5dJP1e1REyJelKbxgDmRLGlrYMOYy+GEW5JyvoiR8G1+kuyNCtUoW1W
+	 dxbEQZzxUP7KioVraYRKfGkewKbsZEhG34lgfg89+X/JwasjnfCG5OQLxWJFjCA14h
+	 JDgnwniPtIVkh+B/HJ36UbL1EFJDHeem/az3Dgsk=
+Received: from localhost.localdomain ([116.128.244.169])
+	by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
+	id 7EA3786F; Thu, 08 Oct 2026 15:31:42 +0800
+X-QQ-mid: xmsmtpt1791444702t4uny6kii
+Message-ID: <tencent_B4299278015532212E7D2E624FA23C09C90A@qq.com>
+X-QQ-XMAILINFO: OcN56dxiYj5TIpJ32xOmc8ljJioECF8WSFHTXltBzar1DonW34D2y8zRJp89yw
+	 lk75+QW4p5/8GemVW4aFPSAfnR581XMSPYsXGkbUqh4/XH45xQYyHKJRf2Q90GsGXym72w4393PC
+	 74aR5oa4m46zzYd5U6Lov69V+jBgIug9S7eIFATvkdvtxupb8gf8HjZtvZzmyl8L8Y18AgmEnfik
+	 xEKM7nkft3s8MtWPgt8wA8+7trRc8ZGC60xtKvg5VTQZfcsUk8Dsk6W76SgKgq4kmOr7ze+r4HMW
+	 LBvYdaCkhDzHakrd7MWhH8LobYf4T11DP7eUBRuTNHirOpEuzFDggJWCC7rfgToVuEcwbwHCLcAV
+	 +brFvEzJoSegqCToOegws687uHAQ3YKF3hK7Ijm1Etv+l+WDFKrJORbM0F/g4Is9GMIAbXmmpIZd
+	 ZMNG1kOlGwL2R6i/gf2aTh+aiDV/sNjnq9JcqBRlltYlnzeCSilol3oE6gJB+vF5tCyoUMn8sOQs
+	 Xqdj/wvjYcgCmNxqvuAAVOg1FKA3q5NKKWMG/sSGekZa5JofCJZ0N3/seqilL/pPWteM+XT9frX7
+	 O0QyK0MgoM9cYC1B9sgt2JJk7uX59tiKOv9p9042AixbQeGXr6sTyWYUZHotxQpDG1Fki/1GyjX9
+	 ISs8WCaXBGSS1LYmdeogm9J+MQT6KySeVvqfnRB3PR1+peH3MOm0exwcNUXXhDQPNL6+FH4ZmhEv
+	 gjzaI4A1Y8SRHYAG9eatY7t3xAQuqr5+Uot1p91UJEJtSrhg292y1TWqHbVLmtWIHKIGrK8US112
+	 E28idPx6OoVCnh1qkVlEO23rxJlvCLLJgPu8uUuY8j6OMiRaSmkTuipXyTzjkooBTXEKsblqlBES
+	 xevj5IduNnExAITuilUv1NkFasKyQuD/8Ag08JGEeRx69ccJNqtYie9dkls1U+im/m+6BEacD6vd
+	 gUmU31gLzGvtx9g2EIyKfdjxXve0MtPYIEqIwkgAxyZ2WtzKhsFtp7B8AMvopTX2e2oSNEOk2Dlg
+	 gbruP+mVx0TwWx/226
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+From: 2564278112@qq.com
+To: Harry Wentland <harry.wentland@amd.com>,
+	Leo Li <sunpeng.li@amd.com>,
+	Rodrigo Siqueira <siqueira@igalia.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	amd-gfx@lists.freedesktop.org
+Cc: Dmytro Laktyushkin <dmytro.laktyushkin@amd.com>,
+	Roman Li <Roman.Li@amd.com>,
+	Wenjing Liu <wenjing.liu@amd.com>,
+	Tom Chung <chiahsuan.chung@amd.com>,
+	Dillon Varone <dillon.varone@amd.com>,
+	Alex Hung <alex.hung@amd.com>,
+	Lu Yao <yaolu@kylinos.cn>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Wang Jiang <jiangwang@kylinos.cn>
+Subject: [PATCH] drm/amd/display: Increase the HDMI HPD disconnect filter time
+Date: Thu,  8 Oct 2026 15:31:40 +0800
+X-OQ-MSGID: <20261008073140.570133-1-2564278112@qq.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Wed, 07 Oct 2026 09:34:16 -0500
-Alexis Bouzigues via B4 Relay <devnull+BouziguesAlexis.JohnDeere.com@kernel.org> wrote:
+From: Wang Jiang <jiangwang@kylinos.cn>
 
-> From: Alexis Bouzigues <BouziguesAlexis@JohnDeere.com>
-> 
-> Since the addition of FIFO watermark support, adxl345_core.c calls
-> devm_iio_kfifo_buffer_setup() and iio_push_to_buffers(), but the
-> ADXL345 Kconfig entry does not select IIO_BUFFER and IIO_KFIFO_BUF.
-> Building with CONFIG_ADXL345_I2C=y and CONFIG_IIO_BUFFER=n fails to
-> link:
-> 
->   ld: drivers/iio/accel/adxl345_core.o: in function `adxl345_irq_handler':
->   adxl345_core.c:(.text+0x145c): undefined reference to `iio_push_to_buffers'
->   ld: drivers/iio/accel/adxl345_core.o: in function `adxl345_core_probe':
->   adxl345_core.c:(.text+0x1db6): undefined reference to `devm_iio_kfifo_buffer_setup_ext'
-> 
-> Add the missing selects on the hidden ADXL345 core symbol, as done for
-> ADXL367, ADXL372 and ADXL380, so both the I2C and SPI front-ends are
-> covered.
-> 
-> Fixes: cf04212d1fe7 ("iio: accel: adxl345: add FIFO with watermark events")
-> Assisted-by: LLM
-> Signed-off-by: Alexis Bouzigues <BouziguesAlexis@JohnDeere.com>
-> ---
+The HPD filter programmed for the DVI/HDMI link types uses 100ms for a
+disconnect, which is shorter than the HPD low period that some sinks
+generate while they reconfigure, for example when the video mode changes
+or when the audio infoframe is updated. Such a sink is then reported as
+unplugged and plugged back in, so the connector is torn down and
+re-probed for nothing.
 
-Tested-by: Joshua Crofts <joshua.crofts1@gmail.com>
-Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
+Raise the disconnect filter to 800ms for the DVI/HDMI link types,
+including HDMI FRL. The delay is written to DC_HPD_TOGGLE_FILT_CNTL in
+10ms units inside an 8-bit field, so 800ms is encoded as 80, and the
+filter runs in hardware, so there is no CPU cost. The connect filter is
+left at 500ms. A genuine unplug keeps HPD low, so the only cost is that
+the event is reported up to 800ms later.
 
+The DP branch above already tunes its filter values empirically to hide
+a bouncing HPD, and link_factory.c notes that a badly programmed GPIO
+makes HPD not "rise or drain fast enough, leading to bounces".
+
+Signed-off-by: Wang Jiang <jiangwang@kylinos.cn>
+---
+ drivers/gpu/drm/amd/display/dc/link/protocols/link_hpd.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_hpd.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_hpd.c
+index cfb5ef0523a7..2b38ddaaaa4b 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_hpd.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_hpd.c
+@@ -82,8 +82,12 @@ bool program_hpd_filter(const struct dc_link *link)
+ 	case SIGNAL_TYPE_HDMI_TYPE_A:
+ 	case SIGNAL_TYPE_HDMI_FRL:
+ 		/* Program hpd filter */
++		/* Some HDMI/DVI sinks drive HPD low for a few hundred ms while
++		 * they reconfigure; 100ms is not enough to hide that bounce,
++		 * which is then reported as a fake unplug/plug pair.
++		 */
+ 		delay_on_connect_in_ms = 500;
+-		delay_on_disconnect_in_ms = 100;
++		delay_on_disconnect_in_ms = 800;
+ 		break;
+ 	case SIGNAL_TYPE_DISPLAY_PORT:
+ 	case SIGNAL_TYPE_DISPLAY_PORT_MST:
 -- 
-Kind regards,
-Joshua Crofts
+2.25.1
+
