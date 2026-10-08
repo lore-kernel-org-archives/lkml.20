@@ -1,90 +1,97 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CB1138DC7C;
-	Thu,  8 Oct 2026 16:17:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F4063A9D8F;
+	Thu,  8 Oct 2026 16:17:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791476251; cv=none; b=iLpON8jCc57fx9Mn8LCyPmLlvfu2gq4M4LkAEnHIEexlJVRwOXmZ6kUoUe4T1UN5/UG0Hrae8SmMKhfIiB6RAr73FwDVwi5ohT7uTPMaIfzZHES1gCQxT4p9BSnEJGAoD0SuRDrcN+Djd0Jf3ps9EbXGCzObV7ahBv1Suqel1p0=
+	t=1791476254; cv=none; b=E1If6pMPwpedsRykEX//nsAhJdFiALr6Dm5BOXI9yNlgAgbhT6Vj2sLu7nWmi5vuwtsSwZDQdYpf3BZICBtIr0ZRgUhQ3UhbrtNgoYctdYjnTIBQWuNsdZsH3E0DBFBCr8lxta7pKDD9ndDdy/Z/WMYkzXAb2/P9wBMc9CA/baE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791476251; c=relaxed/simple;
-	bh=o1DTwXdejouNxpORyg+7GbxTObHoojCtnzLRyC9LShk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lpdB0kD9jvCDnrPYRq0wJ6kfXTV9n67pCfacQoCPhxCog/8QCK2tiP2YbV4GwOVAGUblb3L70XVvYfNt1MzGGN2NE43yjzkie1aXLRLtfDR+JZ4iBVvpMtXqG16U8tu2MvAK27/9tSSEBXadEYbeuP4SszYsbo+k0bspzRduLyY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n24Ja3Ng; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791476254; c=relaxed/simple;
+	bh=OwDMbg4HS2K3cbm7ThURQ2BsrxBel1QJaN7B1jSC5pw=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=L3UdW2pRvTuYxsVvvFHTlxqUeb8YM4JYPM6XVCv7mNyz4+BObTWIiqoeQSgcZsjL6dBrGSuDnEalTSE2AxfrrCxTDtkKdACIgE6A4PEuaoxgkEi59/bFxJjavcy646RsLdehFHeZKrrsKHsUjLPMcF50ATFsY8S1IJ/oBa3k16A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gNm6UU+H; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n24Ja3Ng"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 355111F000FF;
-	Thu,  8 Oct 2026 16:17:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gNm6UU+H"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7C381F000FF;
+	Thu,  8 Oct 2026 16:17:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791476250;
-	bh=8mITTiI6BwQHLThdEabGz6B78/4agyYQ53mUoBTGAVY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=n24Ja3NgT9xdrfO62aZVVXWW29ykG0P7HwhsSgfLSp+tlw/SzHf/4K/ZdV0k4t/q1
-	 7aIUPvjUukKJl7z3qlRYkE0ho8lYlWVAy6sNE49BypY8t43kFwN8Gx2gRO99py4qK3
-	 bJywUp91paCWjsl5omEcE/1nNKaSqux10qgJK6mCDTlvhaakcdGNh57JTEzLyXlWTE
-	 +ZXzh4kEFiUhGllaIBh7370/e4KZ1DDlll0dOMdCDxz501z+S1netVtT/+tzUIqXnb
-	 ye3k+QMDD0YoUEHvEkw3+bMzGMMbdmBR5WThGcui3HR7lTUVoFFg//EAmckR0RfHGr
-	 NcAuLBxGpIOLg==
-Date: Thu, 8 Oct 2026 18:17:24 +0200
-From: Nathan Chancellor <nathan@kernel.org>
-To: Ard Biesheuvel <ardb@kernel.org>
-Cc: Bill Wendling <morbo@google.com>, Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Mark Brown <broonie@kernel.org>, Marco Elver <elver@google.com>,
-	alan.maguire@oracle.com, namjain@linux.microsoft.com,
-	Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org, llvm@lists.linux.dev
-Subject: Re: [PATCH v4] compiler_types: Allow opting out of __counted_by and
- __counted_by_ptr
-Message-ID: <20261008161724.GA459@ax162>
-References: <20261005102518.2400984-1-morbo@google.com>
- <20261006094358.2948476-1-morbo@google.com>
- <202610060642.7C4125F@keescook>
- <20261007090915.GA1504630@ax162>
- <CAGG=3QXPAa-i4r3Vv6-q25A6EvsxGb5RDLn02z1=a5zo7W-7Vw@mail.gmail.com>
- <20261007093641.GA1527653@ax162>
- <bc2e2ae7-02e7-4148-8ad2-ab3c1af3dd7a@app.fastmail.com>
+	s=k20260515; t=1791476253;
+	bh=exmGulorvnjMrpq9YAnuYsgaGXLHC/0fKR2L0PblnAs=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=gNm6UU+H0kfPKSnelpVGRph/XNud64HiX5Qi91CZjhhZoo8NEyz5SwKJFTf0pHUmJ
+	 RnzektZbAvCPd9ujPEe8Judz+1RGRyfiFdHNSX+/jbusHelmhkXLfe34YREUyi1aQr
+	 jlLBVitS7ZAHMepPBee8o/uCuLec/zz72tfDxAMIrJBFbsn4TqPZJq2JSTwgi/WTlg
+	 j9p2AeA+fr37a2wPLIk/RsMfCbKYehqn18ByB5iOGU+aBQDsB6MX1rJvZy8/g8swyp
+	 xfFXYqep5t3x//zBryt22oTu006Koc6rqiAps5HcQpGlzx7WCUee5DJIs/D6a1T0S8
+	 +Fr7szRiRsO9g==
+Date: Thu, 8 Oct 2026 09:17:32 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Krystian Kaniewski <krystianmkaniewski@gmail.com>
+Cc: Vinicius Costa Gomes <vinicius.gomes@intel.com>, Jamal Hadi Salim
+ <jhs@mojatatu.com>, Jiri Pirko <jiri@resnulli.us>, "David S . Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Vladimir Oltean
+ <vladimir.oltean@nxp.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net 0/2] net/sched: taprio: fix RCU stall from replayed
+ schedule entries
+Message-ID: <20261008091732.7794253a@kernel.org>
+In-Reply-To: <20261006113335.241564-1-krystianmkaniewski@gmail.com>
+References: <20261006113335.241564-1-krystianmkaniewski@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <bc2e2ae7-02e7-4148-8ad2-ab3c1af3dd7a@app.fastmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 08, 2026 at 04:50:44PM +0200, Ard Biesheuvel wrote:
-> On Wed, 7 Oct 2026, at 11:36, Nathan Chancellor wrote:
-> > On Wed, Oct 07, 2026 at 02:32:45AM -0700, Bill Wendling wrote:
-> >> Ard,
-> >> 
-> >> What's the reason why x86 doesn't need the KBUILD_CFLAGS flags? Is
-> >> there something that breaks things?
-> >
-> > I think it is mostly historical. See Kees's series to address it:
-> >
-> >   https://lore.kernel.org/20261006204210.i.137-kees@kernel.org/
-> >
+On Tue,  6 Oct 2026 13:33:33 +0200 Krystian Kaniewski wrote:
+> syzbot reported an RCU stall with a software taprio schedule made of a
+> single 127 ns entry. When advance_sched() falls behind, it replays every
+> missed entry inside the timer interrupt and the backlog only grows.
+> Patch 2 makes it continue from the entry in progress instead.
 > 
-> I've queued that up now in the EFI tree.
-> 
-> Do we still need this patch then?
+> Patch 2 then checks for an admin schedule handover once after catching
+> up. That requires the cycle_time_extension comparison to be monotonic,
+> so the sum now saturates instead of wrapping. As a result a large
+> extension can hand over to an admin schedule whose start time leaves no
+> room for the timestamps derived from it. Initializing such a schedule
+> already overflows today, and a carefully chosen extension can already
+> reach it. Patch 1 rejects these schedules at configuration time and
+> comes first, so the series never hands over to one.
 
-I don't think so, since the efistub should now get
-'-fexperimental-late-parse-attributes' from the main KBUILD_CFLAGS,
-which is what prompted this patch in the first place:
+The coccicheck CI job flags a new warning introduced by this patch:
 
-  https://lore.kernel.org/CAGG=3QWCmQ+LVvn2dtjEauj5WFwvx=pvg4Q6man_A2imdjRe7A@mail.gmail.com/
+  net/sched/sch_taprio.c:972:8-13: ERROR: invalid reference to the index
+  variable of the iterator on line 959
 
-As I mentioned up thread and to Kees in person, we should still consider
-adding '-fexperimental-late-parse-attributes' into CC_FLAGS_DIALECT to
-cover other areas that may see __counted_by_ptr use but it is probably
-not as high priority.
+This points at the new taprio_entry_at() helper:
 
--- 
-Cheers,
-Nathan
+    list_for_each_entry(entry, &sched->entries, list) {
+            entry_end = min_t(s64, elapsed + entry->interval,
+                               sched->cycle_time);
+            if (offset < entry_end ||
+                list_is_last(&entry->list, &sched->entries))
+                    break;
+            elapsed = entry_end;
+    }
+    ...
+    return entry;
+
+`entry` is read/returned after the loop. Even though every code path here
+actually breaks out of the loop on a real list element (the
+list_is_last() check guarantees this), Coccinelle's generic
+use-after-iterator check cannot verify that and treats any post-loop use
+of the loop variable as a potential bug, since on a normal (non-break)
+loop exit `entry` would point at the list head sentinel rather than a
+valid `struct sched_entry`.
+
+Could you restructure the helper to avoid reading `entry` after the loop,
+e.g. by tracking the last matched entry in a separate local variable set
+inside the loop body before the break, or by adding an explicit
+"not found" fallback assignment after the loop? That should keep the
+logic identical while satisfying the checker.
