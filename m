@@ -1,114 +1,107 @@
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BB2545041A;
-	Thu,  8 Oct 2026 12:14:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FE6B3DD50B;
+	Thu,  8 Oct 2026 12:15:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791461694; cv=none; b=FD07NpWMkWmBeRIYbuJRAE4p6uEvtGRcCZ0OTCSP8aWbSstox2omRK3y4rx4WRBkYuzd+w3RHVvccp4UggFGdHQkNWF954DMdY0Fmxp/Tl8794B/q3ENfXRCp0PWAjQKAkUexOZAZ5ZnnYOklBkVmvuMvCphjKxYyLmu7YG1mLM=
+	t=1791461741; cv=none; b=nYmlVNEfClFeGWOOqvmT0xxVhuXU2kWRx73E31UqOAky7hpZLKE3Zu6HCiu51FCtx+JTZpKC+SiohPjYLVvdjOMQKg7EV2Xpmcr+8kCYmiBtlNl2Lb9M7wtnS7NshWYtG/NB7TBOIegq8bbiSqiNLUzLNiVkxoxQcnQz0Vd1/20=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791461694; c=relaxed/simple;
-	bh=0J7kj8ZCzMw5Of+yHkAfng/RvMnu7WG468MR8rGe3f8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=QPff0XxeXDu6wk+z+glT6dZWhSc64MLP4KUVjlUOVadBGND2Q2uxDevpfAoUQpucw2yor76RgC0uUkZOiHLQ2t9lHHPIyO0nhrBHbzPbsiWYM8ywz+Ezet7cDxSenBUQgMUPHqfFGye3vvfVrqXT2WuK84FeQUkhZNDxCIzAcKc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=mpuap6vT; arc=none smtp.client-ip=45.254.49.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1791461741; c=relaxed/simple;
+	bh=4ODUPMV03VdBemqJmmhvAVMXz/2NymhIvG+Z8fEazdk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=mCCbGTc4aHRu5R6F60ReuxsmOFHmPAi8fT/IdRct+vaXdj0xJVIvufshY/3SBMR3cv8nE+ppxssUHnHuzcwEHhKyppldKWG2EPBBzztEyAKoZ5j2LmYrPGUf6/d6KO3NVRqMZjMf0CQbvuq2gb5/4oydruWV8PqcPoTUjnS+TLw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WnIfY0MP; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="mpuap6vT"
-Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 504fceb6b;
-	Thu, 8 Oct 2026 20:14:40 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Tiffany Lin <tiffany.lin@mediatek.com>
-Cc: Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
-	Yunfei Dong <yunfei.dong@mediatek.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Nicolas Dufresne <nicolas@ndufresne.ca>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	stable@vger.kernel.org,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>
-Subject: [PATCH v2] media: mediatek: vcodec: Initialize context lock before firmware setup
-Date: Thu,  8 Oct 2026 20:14:34 +0800
-Message-Id: <20261008121434.946927-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260830144827.2701887-1-runyu.xiao@seu.edu.cn>
-References: <20260830144827.2701887-1-runyu.xiao@seu.edu.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WnIfY0MP"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 35D71C2BCC7;
+	Thu,  8 Oct 2026 12:15:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791461741;
+	bh=4ODUPMV03VdBemqJmmhvAVMXz/2NymhIvG+Z8fEazdk=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=WnIfY0MP30ldQmC7BEHmqnRO89oB7ldDTfgZZYxclJdeXEJtQHWpCEKPvNgT12cVQ
+	 Cge24dhxgyo+EN2y1WJrzASc5+p0SzcoiMr36C6tp5MixvaybkKe09F8F00ZNxoIRE
+	 GYb6fH+t2DG5tVoNhzWeu6KAnvTmkzsR4OLN0gbJXt3C1KSe5slhlYjR0qLPKaGNyi
+	 b7MFrfef1aNOib7GtEVepNX241/YsJ4s/QIUV7AeMxfQH6c/7d0T9X8QUYF4+sSmtD
+	 fLXJJQg12lHS36F1ZJGdZCeDqV9qSUpQvi4xdbtN4SKYBe1Pi13gYEf11YpCGeFs7x
+	 6M+CfUR6biLOA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1F432CA600C;
+	Thu,  8 Oct 2026 12:15:41 +0000 (UTC)
+From: Michael Reeves via B4 Relay <devnull+michael.reeves077.gmail.com@kernel.org>
+Subject: [PATCH 0/2] arm64: Add support for Apple M3 and M4 CPUs in KVM
+Date: Thu, 08 Oct 2026 23:15:39 +1100
+Message-Id: <20261008-apple-m3-m4-kvm-v1-0-7bb4cbf3d63b@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa11b6fe35d03a1kunmde41a01640d4ff
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDQ09NVh0eT0NMHRpLHx8ZTFYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=mpuap6vTn5/8zckoWW8m1AHNs9/lrcC5dOJcyxI7o3wqlyxDpZbUynix5R3jV5E4QP1TlxqiCAxXdXkKBLNY9VZXCngNlD9zOFScb1XilepNqRMu5m94NNs+MR9yEckFVuS8w+HDfSmfLLLg6nrgKxqKO7TSfvVKra+weDvEtzU=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=bZAo94LpO2B0yElRNSLGBz0NRZ8kLHR1Iz17jxI1zUg=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGuJx2oC/yWMyw6DIBBFf8XMupMiGvv4laYLBsZKW5CANU2M/
+ y7o8tzHWSBxtJzgXi0QebbJjj5DfapAD8q/GK3JDFLIrhbiiiqEL6Nr0LX4mR3ShW4kuWlJG8i
+ vELm3/934eB6cfvRmPRVNWZBKjBSV10OJTFT9dD60uzDXsK4bk1jkupoAAAA=
+X-Change-ID: 20261008-apple-m3-m4-kvm-b7b9b2e34bcd
+To: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+ Mark Rutland <mark.rutland@arm.com>
+Cc: Myria Sarvay <myrialsarvay@gmail.com>, 
+ Yureka Lilian <yureka@cyberchaos.dev>, Fuad Tabba <fuad.tabba@linux.dev>, 
+ Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
+ Suzuki K Poulose <suzuki.poulose@arm.com>, 
+ Zenghui Yu <yuzenghui@huawei.com>, linux-arm-kernel@lists.infradead.org, 
+ kvmarm@lists.linux.dev, Sven Peter <sven@kernel.org>, 
+ Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>, 
+ asahi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Michael Reeves <michael.reeves077@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791461739; l=982;
+ i=michael.reeves077@gmail.com; s=20261008-m3-m4-kvm;
+ h=from:subject:message-id;
+ bh=4ODUPMV03VdBemqJmmhvAVMXz/2NymhIvG+Z8fEazdk=;
+ b=k9godCQ6k6IjLO6XtMj7BaWGkvsuz4j44cDDnNlgk3dwYIILYaqrFQ97KPhtRllK9LFE+rJd8
+ 0aEIs/00G9xCt0t6+sdBFeJJ0xjg+9U/gDMEq966ZXDfR7WTihdCdDr
+X-Developer-Key: i=michael.reeves077@gmail.com; a=ed25519;
+ pk=oi7WuppQ1A+qFZp9DdfIwDnpC3WZ+XY6fJK1upV/CSY=
+X-Endpoint-Received: by B4 Relay for
+ michael.reeves077@gmail.com/20261008-m3-m4-kvm with auth_id=1131
+X-Original-From: Michael Reeves <michael.reeves077@gmail.com>
+Reply-To: michael.reeves077@gmail.com
 
-The normal encoder open path cannot take dev_ctx_lock before
-video_register_device(), but there is another path during probe.
+Hi,
 
-On VPU-backed devices, mtk_vcodec_probe() selects firmware before it
-initializes dev_ctx_lock. VPU firmware setup registers the encoder watchdog
-callback during this selection. A watchdog timeout on the shared VPU
-queues reset work, which invokes the registered callbacks. If it runs
-before spin_lock_init(), the encoder callback takes the uninitialized lock.
+This series enables KVM support on Apple Silicon M3 series and base M4
+CPUs.
 
-With CONFIG_DEBUG_SPINLOCK=y, an x86_64 QEMU test used a zeroed lock,
-initialized an empty context list, and invoked a callback with matching
-lock and list operations. It reported:
+The first patch adds the part numbers and MIDR definitions for M3
+(base, Pro and Max) and base M4 CPU cores.
 
-    [    1.761312] BUG: spinlock bad magic on CPU#0, busybox/58
+The second patch adds these CPUs to the existing Apple CPU workarounds
+list, which is required for KVM to function correctly.
 
-The lock dump showed .magic: 00000000.
+This series was developed from testing on:
+- Apple M3 and M3 Pro by Michael Reeves
+- Apple M3 Max by Myria Sarvay and Yureka Lilian
+- Apple M4 by Yureka Lilian
 
-The test reproduces the debug lock diagnostic, not a real VPU watchdog
-timeout or its timing during probe. The context list is initialized but
-remains empty until video registration, so this shows invalid lock use, not
-list corruption or a user-visible failure.
-
-Initialize dev_ctx_lock before firmware setup registers the callback.
-
-Fixes: afaaf3a0f647 ("media: mediatek: vcodec: adding lock to protect encoder context list")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 ---
- .../media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Michael Reeves (1):
+      arm64: Apply existing Apple CPU workarounds to M3 and M4
 
-diff --git a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
-index 4e4541b2f..e6cd3817a 100644
---- a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
-+++ b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
-@@ -255,6 +255,7 @@ static int mtk_vcodec_probe(struct platform_device *pdev)
- 
- 	INIT_LIST_HEAD(&dev->ctx_list);
- 	dev->plat_dev = pdev;
-+	spin_lock_init(&dev->dev_ctx_lock);
- 
- 	if (!of_property_read_u32(pdev->dev.of_node, "mediatek,vpu",
- 				  &rproc_phandle)) {
-@@ -308,7 +309,6 @@ static int mtk_vcodec_probe(struct platform_device *pdev)
- 
- 	mutex_init(&dev->enc_mutex);
- 	mutex_init(&dev->dev_mutex);
--	spin_lock_init(&dev->dev_ctx_lock);
- 	spin_lock_init(&dev->irqlock);
- 
- 	snprintf(dev->v4l2_dev.name, sizeof(dev->v4l2_dev.name), "%s",
--- 
-2.34.1
+Myria Sarvay (1):
+      arm64: Add Apple M3 and M4 CPU part numbers
+
+ arch/arm64/include/asm/cputype.h | 16 ++++++++++++++++
+ arch/arm64/kernel/cpu_errata.c   |  8 ++++++++
+ 2 files changed, 24 insertions(+)
+---
+base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
+change-id: 20261008-apple-m3-m4-kvm-b7b9b2e34bcd
+
+Best regards,
+--  
+Michael Reeves <michael.reeves077@gmail.com>
+
+
