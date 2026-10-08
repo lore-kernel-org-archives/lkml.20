@@ -1,85 +1,85 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B82A5439328
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 22:19:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 720C7336881
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 22:19:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791497957; cv=none; b=qGv0SMJgqNTvqWVPoftp7VfSe0/2+LwEk2AfpSTlhrpP/yFH6Vr0sNJAJi9f8b/E1gwxwgS0Bo/ql1NLmKfXr3DYRZVDXVdWwAIEoNT0hraNPsINXXUVz0txGuAuenP234EUn4rSFFmq87IPxTstiJfG6bXvkRDLZkgGyJdbsqo=
+	t=1791497998; cv=none; b=sTWsqm0LvDgixR6AOkzc/NScwtr2qJaVLbLiltwO8bTJEkHL8uqQrqyTTHF1rHpPsIe29eghdKYQT8B6SACQkFEHv3u/PjJSiHXXNXjCDE2QwZSk05oYCeE84YDiAucbt1vaTpAavFiSOvmra1CwBXztccpBkdlcpY55pP2MEPM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791497957; c=relaxed/simple;
-	bh=gl94CremZtURkglreAs24h0qp1P5+2SkLV1oiWpVi+s=;
+	s=arc-20240116; t=1791497998; c=relaxed/simple;
+	bh=NXdviQU9bDQUlNkqFqOKstTlEZ3SWnuswP/ZLKFlr7E=;
 	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=s3KszobEJxwrDN4+I84g6RPMqYkeQLSIAWw0lC7bUoDzB5qFF1yJIXcRyQ6vcdAM+Xe25aKqOsdxgfXxlW+mwt/eK1K1Ge0DXfykc0B9aIqrvqMTa/pN3JUhAhklbKlan6L98WF0SLobSh/m/VNAppWbLFq2q8+ktl1YoZThsws=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=GRx3Cr/O; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=rdljQXVi; arc=none smtp.client-ip=170.10.133.124
+	 Content-Type:MIME-Version; b=XI6oZJI6e9XVQU4cNTYmqHfL+O0mv5yOPHEE6zi/YeLjHuJ8eqpzGwF7wfLjXdfFqAxqWbXtlHeswZ4aT95Qquxk/quQq8tYqa7cjTFQr7EJzbfOivUsqTX8Fnjmo3vdYWBzZY3KTGSl0XEtGxJXOaDx9jZ88RCrYDIFb1lTkTM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bH8g4lmv; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=rn5jqual; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="GRx3Cr/O";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="rdljQXVi"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bH8g4lmv";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="rn5jqual"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791497954;
+	s=mimecast20190719; t=1791497996;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=xivNdc/2GIXbbGG/+ABdmEro/TPM8rs2SiF4VzboSZQ=;
-	b=GRx3Cr/OKkb162SDTG3c1TP03gNllv2FnsVonWFphct4BbU2fwHa2fU7oTRF++Un/7ehOl
-	NoZGaP9aS+t71Vkk+qYYKLOBbMZ32PyiDEjO/2msyHfoLS+VpKpIbL7AzBR2dCnT1X7loX
-	t+zpLVM6/7vtNPXlaTSM54NfnpLLkxE=
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
- [209.85.219.69]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=GjfKe0UMSMorT3desuNDK/FRCwDViDwkhbHy5Q186yc=;
+	b=bH8g4lmvAydTtg8KGFQHE4Nd8mRZtl4AENtVSlwIIko2SAmquJ8KRkbfyA9HkPuOkzkJe2
+	5MUnZJvmCSBg02kKqjnY3iZbwA13XyjP+5LH5KdZx6iY6S30Alb0FNqKuS8YI7ddaKC9+C
+	m8KXNzx2Z6GRQ3N1zyhSCEH5lLuKg84=
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-138-8dyyQzctMFmYc-_Gge7ouA-1; Thu, 8 Oct 2026 22:19:13 +0000
-X-MC-Unique: 8dyyQzctMFmYc-_Gge7ouA-1
-X-Mimecast-MFC-AGG-ID: 8dyyQzctMFmYc-_Gge7ouA_1791497953
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-917870a9be3so27547896d6.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 15:19:13 -0700 (PDT)
+ us-mta-43-fgvQb4tyNAWEonvHLpy-iA-1; Thu, 8 Oct 2026 22:19:53 +0000
+X-MC-Unique: fgvQb4tyNAWEonvHLpy-iA-1
+X-Mimecast-MFC-AGG-ID: fgvQb4tyNAWEonvHLpy-iA_1791497992
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93cc359d9easo973672385a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 15:19:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1791497953; x=1792102753; darn=vger.kernel.org;
+        d=redhat.com; s=google; t=1791497992; x=1792102792; darn=vger.kernel.org;
         h=mime-version:user-agent:content-transfer-encoding:content-type
          :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=xivNdc/2GIXbbGG/+ABdmEro/TPM8rs2SiF4VzboSZQ=;
-        b=rdljQXVi6EQY0jA5z0rybmjU09KPkzP66N2Pgz+2ijRLj0XlU9zT9jIegfDYcwPulb
-         OnpyVP2rKwnqxXsjGYX3oWAD7E0K+QQorGyx0npKTUS8vfMimCJA2dqjSG9xiE01U43u
-         q8tRQnJY+r+tMPFrlqTTV0G4c2l0Vepz4Nq+2zkG6FMt/Aa2pvp+WjwxOZLAsHigpFvc
-         Zf7NwqQlOibz4hgId4G04NEh2vnG3rXLZCKpWSK40a0GR1RapfimuKq4xMLtqj2f6u8g
-         YU0yntpggsYcN2cqw+CnFJpASHOmWx/V+F6iqhv0nZAYJFkNPPDZaCBUdFWk/jQ0qiXf
-         Ffxw==
+        bh=GjfKe0UMSMorT3desuNDK/FRCwDViDwkhbHy5Q186yc=;
+        b=rn5jqualZhcaScDBB4a8RUvLJTCIz5f89ID17Rk9fpUTGDVvWxGjECGeTzIqFJ59Od
+         AhjhUKpTsmb7Hpd/tcrTqjXtLuRKby1a1Y7lcH0JyfIe/S5+iwAtBhwjKY00JDyV/CxV
+         8wQZ1SSBx8Cr5p2bbdq+Yai5Go1TnA0q/t/7mZdLxsOFwIB9Hxbs+0eD9/r4rMI5HVmr
+         hS5pc/++oj8BEbLVJcKOWeNF28MXYE5egQM5qIeMO4Hv7osiZrbYYgSGaTco6z7JsHjX
+         hhQNQh/zyrzgCA7oWMv+hoppEmAVOFpCeeEOJ6vvDJdSDs4huWU9Ag85QPZome2WdjJ7
+         CJRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791497953; x=1792102753;
+        d=1e100.net; s=20260707; t=1791497992; x=1792102792;
         h=mime-version:user-agent:content-transfer-encoding:content-type
          :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=xivNdc/2GIXbbGG/+ABdmEro/TPM8rs2SiF4VzboSZQ=;
-        b=pox6AJcb+RqDegpEi+xvoOdoTGJaKt5s8GXgcP+/opAIqbl378wfSOCPXnyQTyjxft
-         5T1hEny51d7DB6OKJP6ai4Jw0eQpf7797tXZOGjr1bkS9bFobxSPuCgjZyMuO0Ayr8T3
-         gWMWggsItPHfbcbf2mNvwBfbvux6vsFc9OYbNYkpoWl/sc/3/gMmyshPnKrJhiRamSsv
-         PibAYVKRGaKdXIBCUVc9smPimNLJ80pfurfqw76ncdeNqm/nANZOVOz6s/1Hq6XO3dLd
-         URJGGem1BM8axSHBxmsIU2YA7V33e1n/UGH8zNw8IR9Mxq+ItF0UmcKEwS08hMdb4urO
-         RimA==
-X-Forwarded-Encrypted: i=1; AKwUvBxIRLIZSYfKZg/MRIQlDIa7vKK9OtHQMhy+UDiyIxn/3NPqPC+vfzOBJowEjoCLnJazlv3K/51wQ3z1lDo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nE/8bloPZa1+rejltRG+wK3DMU65pv86TKqeWhwHIPK5NOvdDL
-	qy4fs0gfyxUxLTtsbfYXVRJn7WuioDVFEWtVRjd1lCVdkj41fiet0SPSVFgU1mkrFwHZxfMoNiA
-	s7cWsnF429tjgPAYk5w4RJZjrWygia4Jf5ARj15lQIWC8vO9LPNh5PysDcENAhFKxMg==
-X-Gm-Gg: AYBFou2eL3vBI2IjhFlX+JAnuFaEnMIdussE8Fw9v/VSMncyKvS/56cJttQY2/TlylI
-	Oo8XnoljiWmcHeLFa6aYib5qiPSG6dsj6mtIThyH5BH7bvstmHIwQ6pawLiELRcfnDA5xuAkpqE
-	/aMgcNoqi1xI2liuJgCeb0MXsSg84IFAaf3SZoTLeAVMryUPGyGXOpQhbtP0WXxEZYS6Ol/tql2
-	nbBcsLq6VQUjgrGR/5Dob4LxwpXJCVHkEitBThNIqbEtVRj7Ne0/k4vf0W3yI5FB1Ykv4Uv0p/T
-	u24VjO0uoACFlga6OfzKtynlUic89HHwg8r0lvomphuWN5We/QSAjBeFVtL3FLRknjkxTFc=
-X-Received: by 2002:a05:620a:8389:b0:93e:9808:2e1f with SMTP id af79cd13be357-93eb96ef267mr79424385a.44.1791497952756;
-        Thu, 08 Oct 2026 15:19:12 -0700 (PDT)
-X-Received: by 2002:a05:620a:8389:b0:93e:9808:2e1f with SMTP id af79cd13be357-93eb96ef267mr79420785a.44.1791497952277;
-        Thu, 08 Oct 2026 15:19:12 -0700 (PDT)
+        bh=GjfKe0UMSMorT3desuNDK/FRCwDViDwkhbHy5Q186yc=;
+        b=MXD1kUYyGEYHqe9U9PLU9dx0YDdlT2x2MwVZfhqFRU/FmDK3e+hVX19TmMSIFklqks
+         4bjqeq+xeKBFKyggoSw1GslPkWC5UoOKWDj8nGvdPvevBCKmq763ouWn15k+V0fEIvir
+         Qrz32CCdSn2w9ngQkkyzPylvLObBVEzjJzssds9M4ed/uaFt6fzUbKpQTgNfu+IuOrbZ
+         xIhgVkkcsJ538sUo961u43bzKh2ncsuafOYnkFYmJa0kARlsnxoraYC2hYbiLTF5X9eK
+         GAwQQVmdmFWFqOo+W85cHw13nTSJk16iNeKFGyI4hr6x6+VIW7cdYQsBMYn83J6Bgydr
+         7s+w==
+X-Forwarded-Encrypted: i=1; AKwUvBz5Zb61q0+vweur8oLW2zmGDjB42ExeGs04gMJn1TPslbO0ixAKNXrFvgVGGKE6ujxipLkmXu9okaQzvgg=@vger.kernel.org
+X-Gm-Message-State: AFuF++nuo1IsQQU676cmEM9JEUlCwY3OiU4fP50gMCaFJJtcf4P3JWPO
+	If2tRILJ/IGQLDyFZ985bHMnx7tyi20YmksvaqHQwg+M89YIkMgu7AZKhuS3P8u4BUlJFaIq47u
+	o3DoBq5TZ0+1fqRLztizQiFkXNBvG+VzSkJfbrBn24T4PDGPHX+xsTiZ5ayAASNVr4w==
+X-Gm-Gg: AYBFou0T6q44iG5ygsHbZOwqxAOfudaT2g34hLj7ffj6QzGPczQgDGpTjgkfua8JaEC
+	RwqN3MKKMINrvib1MBnY5ACArMVicoIfwybbFjlJk83fQhDFMgb9ZKb/OiznaYoF1T21Z9690Qq
+	c/7kDU7rlgECqQlVMJcqS+eD6eMzKLa9I+X+VUDg5ne21CTdIMr/lVT2n00rmgSaTHcNinFLSrA
+	5B2u7eTAVZTb5uOMymP1SBWHB1sSr+nSjrtdElDRobbDhy/WQzgAJEhhJObVpHeZLPhCH88PAjm
+	IjPoWcH0N4GHekZpLnUiEZupqIYrD3p8YwvgHvgS7jnm8wx25gqu6mrd/GrEGvWW+WNdGaA=
+X-Received: by 2002:a05:620a:198d:b0:93e:942f:b8ae with SMTP id af79cd13be357-93ebd1dfff5mr2778785a.26.1791497992335;
+        Thu, 08 Oct 2026 15:19:52 -0700 (PDT)
+X-Received: by 2002:a05:620a:198d:b0:93e:942f:b8ae with SMTP id af79cd13be357-93ebd1dfff5mr2774485a.26.1791497991653;
+        Thu, 08 Oct 2026 15:19:51 -0700 (PDT)
 Received: from [192.168.8.4] ([100.0.180.93])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb9847f9dsm38714285a.8.2026.10.08.15.19.10
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb986c350sm38274685a.22.2026.10.08.15.19.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 15:19:11 -0700 (PDT)
-Message-ID: <4e16aa7b2a6bba489326428a4fc7650ae8adcfcb.camel@redhat.com>
-Subject: Re: [PATCH 2/3] drm/nouveau: Fix NULL pointer dereference in
- GET_ZCULL_INFO ioctl
+        Thu, 08 Oct 2026 15:19:51 -0700 (PDT)
+Message-ID: <778d3018e596c0be1db309b5e36aa361db89c9bb.camel@redhat.com>
+Subject: Re: [PATCH 3/3] drm/nouveau/gsp: Fix NULL dereference in
+ nvkm_gsp_gcx_ready()
 From: lyude@redhat.com
 To: jim.cromie@gmail.com, Danilo Krummrich <dakr@kernel.org>, Maarten
  Lankhorst	 <maarten.lankhorst@linux.intel.com>, Maxime Ripard
@@ -88,10 +88,10 @@ To: jim.cromie@gmail.com, Danilo Krummrich <dakr@kernel.org>, Maarten
  <airlied@redhat.com>
 Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
 	linux-kernel@vger.kernel.org
-Date: Thu, 08 Oct 2026 18:19:10 -0400
-In-Reply-To: <20261002-my-fixups-v1-2-a83d20f9d3fe@gmail.com>
+Date: Thu, 08 Oct 2026 18:19:50 -0400
+In-Reply-To: <20261002-my-fixups-v1-3-a83d20f9d3fe@gmail.com>
 References: <20261002-my-fixups-v1-0-a83d20f9d3fe@gmail.com>
-	 <20261002-my-fixups-v1-2-a83d20f9d3fe@gmail.com>
+	 <20261002-my-fixups-v1-3-a83d20f9d3fe@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
@@ -104,63 +104,82 @@ MIME-Version: 1.0
 
 Reviewed-by: Lyude Paul <lyude@redhat.com>
 
-Will push to drm-misc-fixes in just a moment
+Will push to drm-misc-fixes in a moment, thanks!
 
 On Fri, 2026-10-02 at 12:09 -0600, Jim Cromie via B4 Relay wrote:
 > From: Jim Cromie <jim.cromie@gmail.com>
 >=20
-> When graphics engine firmware fails to load or initialization aborts
-> early, nvxx_gr(drm) returns NULL. Calling
-> DRM_IOCTL_NOUVEAU_GET_ZCULL_INFO
-> causes nouveau_abi16_ioctl_get_zcull_info() to dereference gr at
-> offset
-> 0xf0 without checking for NULL, triggering a kernel page fault.
+> Commit cb4c7603678c ("drm/nouveau/gsp/r570: Add support for
+> INTERNAL_GCX_ENTRY_PREREQUISITE") hooked nvif_device_gcx_ready() into
+> nouveau_pmops_runtime_suspend() to consult GSP before runtime
+> suspend.
 >=20
-> Validate that gr is non-NULL before inspecting gr->has_zcull_info.
+> On GPUs running without GSP-RM (e.g. Volta GV100, NvGspRm=3D0, or
+> missing
+> GSP firmware blobs), device->gsp is instantiated but gsp->rm remains
+> NULL. nvkm_udevice_gcx_ready() checked "!gsp" instead of verifying
+> nvkm_gsp_rm(gsp), allowing non-RM instances to invoke
+> nvkm_gsp_gcx_ready(). nvkm_gsp_gcx_ready() then unconditionally
+> dereferenced gsp->rm->api, causing a kernel oops:
 >=20
+> =C2=A0 RIP: 0010:nvkm_gsp_gcx_ready+0x10/0x30 [nouveau]
+> =C2=A0 Code: ... 48 8b 87 70 0e 00 00 <48> 8b 40 18 ...
+> =C2=A0 RAX: 0000000000000000 RDI: ffff8c9555fca000
+> =C2=A0 Call Trace:
+> =C2=A0=C2=A0 nvkm_udevice_mthd+0xa5/0x150 [nouveau]
+> =C2=A0=C2=A0 nvkm_ioctl+0xcc/0x1d0 [nouveau]
+> =C2=A0=C2=A0 nvif_object_mthd+0x110/0x1e0 [nouveau]
+> =C2=A0=C2=A0 nvif_device_gcx_ready+0x36/0x60 [nouveau]
+> =C2=A0=C2=A0 nouveau_pmops_runtime_suspend+0x39/0x140 [nouveau]
+>=20
+> Instruction decode shows `mov rax, [rdi+0xe70]` loads gsp->rm (0x0),
+> and `<48> 8b 40 18` (`mov rax, [rax+0x18]`) faults accessing rm->api.
+>=20
+> Fix by:
+> 0. Checking !nvkm_gsp_rm(gsp) in nvkm_udevice_gcx_ready() so non-RM
+> =C2=A0=C2=A0 devices report GC6/GcOff ready and bypass the GSP call entir=
+ely.
+> 1. Guarding gsp and gsp->rm in nvkm_gsp_gcx_ready() before inspecting
+> =C2=A0=C2=A0 gsp->rm->api->gsp->gcx_ready.
+>=20
+> Fixes: cb4c7603678c ("drm/nouveau/gsp/r570: Add support for
+> INTERNAL_GCX_ENTRY_PREREQUISITE")
 > Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 > ---
-> Aug 14 09:21:52 frodo kernel: BUG: kernel NULL pointer dereference,
-> address: 00000000000000f0
-> Aug 14 09:21:52 frodo kernel: #PF: error_code(0x0000) - not-present
-> page
-> Aug 14 09:21:52 frodo kernel: Oops: Oops: 0000 [#1] SMP NOPTI
-> Aug 14 09:21:52 frodo kernel: RIP:
-> 0010:nouveau_abi16_ioctl_get_zcull_info+0x17/0xa0 [nouveau]
-> Aug 14 09:21:52 frodo kernel: Code: 00 00 00 90 90 90 90 90 90 90 90
-> 90 90 90 90 90 90 90 90 f3 0f 1e fa 0f 1f 44 00 00 48 8b 47 40 48 8b
-> 00 48 8b 80 70 02 00 00 <80> b8 f0 00 00 00 00 74 72 8b 90 c0 00 00
-> 00 89 16 8b 90 c4 00 00
-> Aug 14 09:21:52 frodo kernel: Call Trace:
-> Aug 14 09:21:52 frodo kernel:=C2=A0 <TASK>
-> Aug 14 09:21:52 frodo kernel:=C2=A0 drm_ioctl_kernel+0xae/0x100
-> Aug 14 09:21:52 frodo kernel:=C2=A0 drm_ioctl+0x2e0/0x560
-> Aug 14 09:21:52 frodo kernel:=C2=A0 ?
-> __pfx_nouveau_abi16_ioctl_get_zcull_info+0x10/0x10 [nouveau]
-> Aug 14 09:21:52 frodo kernel:=C2=A0 nouveau_drm_ioctl+0x58/0xc0 [nouveau]
-> Aug 14 09:21:52 frodo kernel:=C2=A0 __x64_sys_ioctl+0xb9/0x100
-> Aug 14 09:21:52 frodo kernel:=C2=A0 do_syscall_64+0xe2/0x560
-> Aug 14 09:21:52 frodo kernel:=C2=A0
-> entry_SYSCALL_64_after_hwframe+0x76/0x7e
-> Aug 14 09:21:52 frodo kernel:=C2=A0 </TASK>
-> ---
-> =C2=A0drivers/gpu/drm/nouveau/nouveau_abi16.c | 2 +-
-> =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
+> =C2=A0drivers/gpu/drm/nouveau/nvkm/engine/device/user.c | 2 +-
+> =C2=A0drivers/gpu/drm/nouveau/nvkm/subdev/gsp/base.c=C2=A0=C2=A0=C2=A0 | =
+2 +-
+> =C2=A02 files changed, 2 insertions(+), 2 deletions(-)
 >=20
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_abi16.c
-> b/drivers/gpu/drm/nouveau/nouveau_abi16.c
-> index cb1810dee8e5..0871ac025ace 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_abi16.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_abi16.c
-> @@ -357,7 +357,7 @@
-> nouveau_abi16_ioctl_get_zcull_info(ABI16_IOCTL_ARGS)
-> =C2=A0	struct nvkm_gr *gr =3D nvxx_gr(drm);
-> =C2=A0	struct drm_nouveau_get_zcull_info *out =3D data;
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/device/user.c
+> b/drivers/gpu/drm/nouveau/nvkm/engine/device/user.c
+> index f78e6b9b4292..d469437eb991 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/engine/device/user.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/device/user.c
+> @@ -201,7 +201,7 @@ nvkm_udevice_gcx_ready(struct nvkm_udevice *udev,
+> void *data, u32 size)
+> =C2=A0	} *args =3D data;
+> =C2=A0	int ret =3D -ENOSYS;
 > =C2=A0
-> -	if (gr->has_zcull_info) {
-> +	if (gr && gr->has_zcull_info) {
-> =C2=A0		const struct nvkm_gr_zcull_info *i =3D &gr-
-> >zcull_info;
+> -	if (!gsp) {
+> +	if (!nvkm_gsp_rm(gsp)) {
+> =C2=A0		args->v0.ready =3D NV_DEVICE_GC6_READY |
+> NV_DEVICE_GCOFF_READY;
+> =C2=A0		return 0;
+> =C2=A0	}
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/base.c
+> b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/base.c
+> index e475d0e8fa7b..9e07d67dcb0f 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/base.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/base.c
+> @@ -51,7 +51,7 @@ nvkm_gsp_intr_stall(struct nvkm_gsp *gsp, enum
+> nvkm_subdev_type type, int inst)
+> =C2=A0int
+> =C2=A0nvkm_gsp_gcx_ready(struct nvkm_gsp *gsp)
+> =C2=A0{
+> -	if (!gsp->rm->api->gsp->gcx_ready)
+> +	if (!gsp || !gsp->rm || !gsp->rm->api->gsp->gcx_ready)
+> =C2=A0		return NV_DEVICE_GC6_READY | NV_DEVICE_GCOFF_READY;
 > =C2=A0
-> =C2=A0		out->width_align_pixels =3D i->width_align_pixels;
+> =C2=A0	return gsp->rm->api->gsp->gcx_ready(gsp);
 
