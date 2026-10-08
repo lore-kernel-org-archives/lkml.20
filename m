@@ -1,116 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 348EC47F3A0;
-	Thu,  8 Oct 2026 22:41:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 308343B0AE4;
+	Thu,  8 Oct 2026 22:42:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791499290; cv=none; b=AOAJbD6m4zzQJOInWGRFZzynCkU2mcEvXV73d/21oewRq/oogIl+0xAD0wB3Fw6AillTaBMH7Gu1Z4kkSGiFCPKbgrBMGkuW3CUkbaMhkAb4mt86J76CL+Wo7cVy2DonPqpdMSjqCPko+ovEYSdfGSGmDxewTyFYlPJAFEJfU3s=
+	t=1791499378; cv=none; b=X+0zDe7Dgn4ltbny6GSGxD3ndzQRl1RREfhOOOCh7JHr+wXU5BV8T6Um7G8S8X6O0w3sOZMCYH0M0JeLu3DpkkWTbXUe5mTDlwoXAAakml43biMvhgLZBEGOLYEpgQHCPiDX5mFo3+oB62fRivR7il3pfKIFPD5o+l5txjssKcw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791499290; c=relaxed/simple;
-	bh=kY8lun+I6df2z89WNcQ2hOi7c1wes9jNAnRP0SsGzgk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=hTQaRj7ZbcKtu6FUjnFiyot7f0/se6fDIWYZbJdXJ6DKLrkdW/hIpVnfofYT8qS7a9viSMUfxMnTEekqF2eIHaI6ftB77IDwPQ9g+ahTmefmAjJV4bKlJgDHKSOi9YtUA8sMrBeitlZZApjdXoQy9pDVo4A+ehi8HvoaUpwE8sc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oqfZbaxC; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791499378; c=relaxed/simple;
+	bh=+goYj/o+YwHUjbxMWjYtF5BIR5nU+fqhQjD3RDm4t/c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GM/zg9Z2H519EYo9ODxr4XNrimrhd+9iiW7O20+6AX8vg33fR99pSaykQCGGo3f9cnZd7IJAjZ77+GQUrAdUZNBk4bV45igoCabvF0BRDz35+xO6OmTGPWldcLeDBKuvYDXeEAx0L203fHhjGz9K8iTJ4gXSUp2FVLyBK1ziWaw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=gZo/HnFl; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oqfZbaxC"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 92679C2BCF5;
-	Thu,  8 Oct 2026 22:41:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791499289;
-	bh=kY8lun+I6df2z89WNcQ2hOi7c1wes9jNAnRP0SsGzgk=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=oqfZbaxC78eLwSv2dhK1+41mEYge2R88Ykp7Qa4+hE9nKaso/BT9C5dALg5xPGc91
-	 Gem7sl5nUul9TsIDS5zZhPgutn2zV45CuK16QlAypTa0+hfwTNUBhXL8iHrChVgDq0
-	 anfsH+CGLKn9fCgJlqtDpIp8N6ctU/FJaTYIgk3G/lhKgA+D043mdt8pYjDDet8sQc
-	 bgiswKduUwftgxh76WOtBuHvVxoTtcFHDDHngcKY9yRdL3HzSQxQnDi3LCXeISlX+K
-	 L/+yoY5CZTt0dkNDGhWqmZLWnP3eahS16gOxx0pRGE/m+cq6ymsqkSnYI2GLfwVHFk
-	 3IOxGT81JJGpg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7CA2FCA6015;
-	Thu,  8 Oct 2026 22:41:29 +0000 (UTC)
-From: Aleksei Berezin via B4 Relay <devnull+8967858b87.gmail.com@kernel.org>
-Date: Fri, 09 Oct 2026 02:41:19 +0400
-Subject: [PATCH] usb: typec: ucsi: acpi: Add quirk for ASUS ROG Zephyrus
- Duo 16 GX650PI
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="gZo/HnFl"
+Received: from mac.lan (unknown [52.172.102.222])
+	by linux.microsoft.com (Postfix) with ESMTPSA id AC43020B7166;
+	Thu,  8 Oct 2026 15:41:53 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com AC43020B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1791499319;
+	bh=OP5F7DlztNufb0JidK9WhyBFcBtyfMxwleYWMwnNSFs=;
+	h=From:To:Cc:Subject:Date:From;
+	b=gZo/HnFlMOWyYrAzIdQxtcKR3swk5/tAoxih5V4Bx0E7wL9S5k2xm4NrZe7F+mR7w
+	 zTvRj7pV/1XKhs6GvG7U8IBGz5f+PNo9Kc5/I4eVVI1jIoaY93cdLl3H5xT7WcsoiP
+	 RzGyVfDK5V1eCGvjqBbG/ByB0dgWWwmt167pW78k=
+From: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>
+To: David Howells <dhowells@redhat.com>
+Cc: Christian Brauner <brauner@kernel.org>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Kees Cook <kees@kernel.org>,
+	"Dae R . Jeong" <threeearcat@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	AutonomousCodeSecurity@microsoft.com,
+	tgopinath@linux.microsoft.com,
+	Cen Zhang <cenzhang@linux.microsoft.com>
+Subject: [PATCH] watch_queue: Fix missing locking in watch_queue_set_size()
+Date: Thu,  8 Oct 2026 18:42:33 -0400
+Message-ID: <20261008224233.9675-1-cenzhang@linux.microsoft.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-usb-next-v1-1-95a2288ad9b2@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ5AMBCF4avIrDVpuyh1FbHQdjAWJR1EIu6uW
- H7J/94FjImQoSkuSHgQ0xIzVFmAn/o4oqCQDVpqo6S0YmcnIp6bsHWllPMmmFpDzteEA53fVdv
- 95t3N6Ld3D/f9AGN/umRsAAAA
-X-Change-ID: 20261009-usb-next-98711bc6d682
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Aleksei Berezin <8967858b87@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791499288; l=1846;
- i=8967858b87@gmail.com; s=20261008; h=from:subject:message-id;
- bh=ZUe/15qN0Mxppoewg6G+nswhtqP0+uFLTWd6xRy/srQ=;
- b=aFGDFPYr/q9xe/9xPwSfFaRdQg99nHoip7c4m6WlX0hbAwKQubuYB6n+t/UGnYeLj6fARomJb
- oE9OETqmDJZDEArjhlb/kBmG49xbG0nPBWUoXYm+DL6Kjzgf5GKM8z7
-X-Developer-Key: i=8967858b87@gmail.com; a=ed25519;
- pk=njtzBWPS2xf9KvwkMcmThxWGBoNdXiBOrAswIsycbXg=
-X-Endpoint-Received: by B4 Relay for 8967858b87@gmail.com/20261008 with
- auth_id=1137
-X-Original-From: Aleksei Berezin <8967858b87@gmail.com>
-Reply-To: 8967858b87@gmail.com
+Content-Transfer-Encoding: 8bit
 
-From: Aleksei Berezin <8967858b87@gmail.com>
+There is a race between watch_queue_set_size() and post_one_notification().
+watch_queue_set_size() publishes wqueue->notes, notes_bitmap, nr_pages and
+nr_notes with plain stores and does not take wqueue->lock, so the four
+stores are not atomic as a group and, depending on the build, notes can be
+stored last (gcc 14 on x86-64 does this).  Since keyctl_watch_key() lets a
+watch attach to a queue before it is sized, post_one_notification() can
+already be running on another CPU at that moment: it reads nr_notes > 0,
+passes its bounds check, and then reads notes while it is still NULL,
+dereferencing notes[0].
 
-On the ASUS ROG Zephyrus Duo 16 (GX650PI, BIOS GX650PI.314) the firmware
-loads the EC-based variant of the AMD CPM UCSI SSDT ("CPMUCSI"). Its _DSM
-read function only copies MESSAGE_IN and CCI from the EC into the shared
-mailbox and never fills in the VERSION field. The only code that sets the
-version (M31F) lives in the "UCSIPLT" SSDT of the I2C-based variant, which
-is present in the firmware image but not loaded on this machine.
+An unprivileged user triggers this reliably by watching one of its own
+keys through a notification pipe and racing ioctl(IOC_WATCH_QUEUE_SET_SIZE)
+on that pipe against keyctl(KEYCTL_SETPERM) on the key from another CPU,
+triggering:
 
-As a result ucsi_register() reads a zero version and the probe fails
-silently with -ENODEV, so neither Type-C port is registered and no
-typec, usb_power_delivery or ucsi-source-psy devices are created.
+  BUG: kernel NULL pointer dereference, address: 0000000000000000
+  RIP: 0010:post_one_notification.isra.0+0xa2/0x1e0
+  Call Trace:
+   __post_watch_notification+0x148/0x180
+   keyctl_setperm_key+0x119/0x130
+   do_syscall_64+0x108/0x4c0
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+  Kernel panic - not syncing: Fatal exception in interrupt
 
-Reuse the existing zero-version workaround from the Acer Nitro ANV15-41
-quirk and assume UCSI 1.2 on this machine. With this change both ports,
-the PD partner and the UCSI power supplies are registered and report the
-connected USB PD charger correctly.
+Fix this by putting the four publication stores under wqueue->lock.
+post_one_notification() already runs with that lock held, so a poster now
+sees either the whole pool or none of it.
 
-Assisted-by: Claude Opus 5.5 iasl
-Signed-off-by: Aleksei Berezin <8967858b87@gmail.com>
+Fixes: c73be61cede5 ("pipe: Add general notification queue support")
+Reported-by: Dae R. Jeong <threeearcat@gmail.com>
+Closes: https://lore.kernel.org/all/ZT-S8Q7tyutcvu_q@dragonet/
+Reported-by: AutonomousCodeSecurity@microsoft.com
+Assisted-by: LLM
+Signed-off-by: Cen Zhang (Microsoft) <cenzhang@linux.microsoft.com>
 ---
- drivers/usb/typec/ucsi/ucsi_acpi.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ kernel/watch_queue.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/usb/typec/ucsi/ucsi_acpi.c b/drivers/usb/typec/ucsi/ucsi_acpi.c
-index 5697ccc24..c8e6efdba 100644
---- a/drivers/usb/typec/ucsi/ucsi_acpi.c
-+++ b/drivers/usb/typec/ucsi/ucsi_acpi.c
-@@ -196,6 +196,13 @@ static const struct dmi_system_id ucsi_acpi_quirks[] = {
- 		},
- 		.driver_data = (void *)&ucsi_acer_ops,
- 	},
-+	{
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
-+			DMI_MATCH(DMI_BOARD_NAME, "GX650PI"),
-+		},
-+		.driver_data = (void *)&ucsi_acer_ops,
-+	},
- 	{
- 		.matches = {
- 			DMI_MATCH(DMI_SYS_VENDOR, "LG Electronics"),
-
----
-base-commit: 42bcac323cc3b16566fed8c5b250318ad02a0de0
-change-id: 20261009-usb-next-98711bc6d682
-
-Best regards,
---  
-Aleksei Berezin <8967858b87@gmail.com>
-
+diff --git a/kernel/watch_queue.c b/kernel/watch_queue.c
+index 538520861e8b..9fb3035b3ebd 100644
+--- a/kernel/watch_queue.c
++++ b/kernel/watch_queue.c
+@@ -294,10 +294,13 @@ long watch_queue_set_size(struct pipe_inode_info *pipe, unsigned int nr_notes)
+ 		goto error_p;
+ 
+ 	bitmap_fill(bitmap, nr_notes);
++	/* Use lock since watches may already be attached. */
++	spin_lock_bh(&wqueue->lock);
+ 	wqueue->notes = pages;
+ 	wqueue->notes_bitmap = bitmap;
+ 	wqueue->nr_pages = nr_pages;
+ 	wqueue->nr_notes = nr_notes;
++	spin_unlock_bh(&wqueue->lock);
+ 	return 0;
+ 
+ error_p:
+-- 
+2.55.0
 
