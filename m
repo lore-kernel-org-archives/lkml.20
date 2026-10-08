@@ -1,175 +1,184 @@
-Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2100.outbound.protection.partner.outlook.cn [139.219.146.100])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0062736B93B;
-	Thu,  8 Oct 2026 03:30:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.100
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791430259; cv=fail; b=jWOPXDqtiCDJLNqFnPrnQyqEteVLgtoqbkHuTOxO0Ct+RjR7ci+cWWLHLDxr6iA4J7ffvoL7LkpB3Q3tK4fHDzKhZWWg5uET7/cpLyKc1LeR4a3aUKqw36fIJ4E4K77IMCUpPEVL+b0jEoXYieIbFtxNWDQkpdNVcacDETyxmao=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791430259; c=relaxed/simple;
-	bh=bAL33paeM4Z/ZRx9aV/td1HAHXRuMBIHSj1MulnrnkE=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=RQ8jAO+uLI5jGtnp8UMtpgMh1VZdqsEiM2TV27FiC13Fy9gtciTsBkxDXycX5kEYR4M25nYqHUjys+1EFHnPiav81+oDAB5nv7DGt+9Lei0+I61QWmLgUAckngSa9h0hvBNwV3jtxPH2v6EeGbAqZeVAOdwYMy4SLrKw5r5JPXs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VdcH/9RO/vSp4qMZxTCuNTm7lf4HGd7EzcYMbJSuFFFL43g0LkVmyQFUtd2QrpB6lqkRGXHtjGNg5un5KCtn0TbB9WyULiJzBT608Jyh/TRifzdfQbLQ9ol+WDUb3ZGSvAdzRYQe4s4GnhTmkzARh2SC+ecigJUwibvMf6U/wPrIv345rLZ3HyxG7/4Rr6HHPtBb/lLjq9oGEoPQGGr+NcAeCBmIpQt0Te4PBXxnYKzC7iLBbjE8TmeGcyYD2Ykh5M6SBwbEx7KObSGJ+0bv+CZTZkCguFCdSwEuHksJjpL3itPei8kOY3o0WZNm1F/9IOfpKMLWbfvcbG5e/hNNBg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=A2Y/Em41Atgv8hyRlVMFMU6Az/HfQv0Eftxoqga4lNk=;
- b=JnSwBV2xSMMwk2+BSHzQDPUEso5TUI6cmmCNsXvoNpyd+xzyEfZSjXCJPxmhYrP6kl0VIJGokagVRSxMgyo7tmKcpj8VhQ8d+Y8UMjKzeCXU26Izn48Wu4YGuD1qOIhZ5XSDFD0qp7EzXIpcBiIOLNUR6V2ZuUzwuiOk2QUFM5bD3lOIO6vJQL77FzzQlsCO+VOBNI1Z8jU70F7FXeM58zN6UU8U5xTDYIgba4ZGSsefmXvjwq28OoKfw2BFaWwAm0auKHntHam4lBylyBibkLFylUCtlno77pSiP1xuh6l0Dd0xQKPjy5kns0E08kFeIMoJ9bXDMePI47LoUUbFsQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1313.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:13::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Thu, 8 Oct
- 2026 02:57:01 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
- with mapi id 15.21.0496.015; Thu, 8 Oct 2026 02:57:00 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Jerome Brunet <jbrunet@baylibre.com>
-CC: Michael Turquette <mturquette@baylibre.com>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>, Brian Masney
-	<bmasney@redhat.com>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt
-	<palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti
-	<alex@ghiti.fr>, Philipp Zabel <p.zabel@pengutronix.de>, Emil Renner Berthing
-	<kernel@esmil.dk>, Chen Wang <unicorn_wang@outlook.com>, Inochi Amaoto
-	<inochiama@gmail.com>, Alexey Charkov <alchark@gmail.com>, Thomas
- Bogendoerfer <tsbogend@alpha.franken.de>, Keguang Zhang
-	<keguang.zhang@gmail.com>, "linux-clk@vger.kernel.org"
-	<linux-clk@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-riscv@lists.infradead.org"
-	<linux-riscv@lists.infradead.org>, Hal Feng <hal.feng@starfivetech.com>
-Subject: Re: [PATCH v5 2/8] clk: starfive: Add system-0 domain PLL clock
- driver
-Thread-Topic: [PATCH v5 2/8] clk: starfive: Add system-0 domain PLL clock
- driver
-Thread-Index: AQHdNtN7NA8V7U+etEm3PQ/xHlQDfLbnBYkAgATaQaCAAwgzAIAES7tg
-Date: Thu, 8 Oct 2026 02:57:00 +0000
-Message-ID:
- <ZQ4PR01MB1202E24B7DC2817AF0C691F3F2932@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
-References: <20260828095608.19955-1-changhuang.liang@starfivetech.com>
- <20260828095608.19955-3-changhuang.liang@starfivetech.com>
- <179075859479.1471718.5492634704694937513.b4-reply@b4>
- <ZQ4PR01MB120246C3208C10BDEFD32BCFF2882@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
- <1jh5j07bbd.fsf@starbuckisacylon.baylibre.com>
-In-Reply-To: <1jh5j07bbd.fsf@starbuckisacylon.baylibre.com>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1313:EE_
-x-ms-office365-filtering-correlation-id: fe9205a4-635c-4966-4c0b-08df24e7d324
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam:
- BCL:0;ARA:13230040|7416014|366016|1800799024|23010399003|376014|38070700021|56012099006|4143699003|10067099003|18002099003|22082099003;
-x-microsoft-antispam-message-info:
- t5tC0esNDD5euEu8oVx3jzOsQ+eZcpAfu4t5cXmECc1zO3Qf0Y1V4Ydjb9niWCyx8V0eu1QCxXBNG/qT7HXFG4+xxav26PEXm88ynH4MosSEqawZlIQTiuB+TmDB4bS+F8zKLdhqn/I6L49S87hYwVxl1OI8U1R/HtmC+DfpV+oLXw+/iVTv8ETZ5ZLkJ99NpjmiJy7mwDh3btvCyLced78YZXRkq5m90C25AQMOWP3wlGWzIhX3ZRKFNCypV4tJlZNz/rEe2meELhlprQ12bLk/5Lq/Ik+Ky1P13HRMsJ+/6DQnude0C914G05zshqYBgubydTw6+UDV/DBwPpx701y06eFNn76dtwJHIqq9GHh2E+8FTsI27Rheld8zZuvwiE0ARbl2DcMswb/zpID0/ta4u6F8XaEC13T+Oc16TZvF8jPDqOerkStOWEpSBBa65KJz1MEUaPqhtRb8nWyTX/GKDeHCZj8nHfDX7oXvWTqQ9Yj6jF58RPet0e9M65uKZ7JKrxiQ+AUYbKiomvvy20PyyV+PobyBabzCd1V+dUKIf6pcUqJCaT4fS2rCYZh
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(1800799024)(23010399003)(376014)(38070700021)(56012099006)(4143699003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?cuMRrnJpb2NlCF84FDKGqIj1Uao82DJ6b1HfOsgonznzwxQ0I9hwk9BKWArl?=
- =?us-ascii?Q?zJBvrbrTqsBi1/EWtO7zygZoob38rzkQAGLhVsdYaBk5hTHsxJZaCE4PH6ty?=
- =?us-ascii?Q?SgzwY2eJfYJHtICNb6dQf8PIOvUfeqjEHNLk323P6wggxdmUjWqrc+PRzhM3?=
- =?us-ascii?Q?F0Xd/2bPisdpQJgbqsqnwNBifABz37WmxOscyvOARf2sNJtTWfmiGTA3VAqO?=
- =?us-ascii?Q?rDTFM2AdN+UBeG/yXNuzFGEI6Ue/DbrfD5Mt/fTi6hS0U3ehNX2pzsZPyD1X?=
- =?us-ascii?Q?ANRvfk2ThMm5k+yrxnadUpZvYDuAxIO2fyQ+jzNPzwas7UEzwkCxgbwuBgWf?=
- =?us-ascii?Q?5LYjM8dBXVmMQ35Eut9lyc8MyelDYO5/jWyE6RzjGw/IPSK5971vDXbLOL5K?=
- =?us-ascii?Q?B/Mh01fywPa/ps8R+qbprYrtR51qERhR67ElsGf7+AMc7Y4KevlCqnAzzG3P?=
- =?us-ascii?Q?QEGrofly6S8CyiIpSPzSwNru6VSQWJltzReByO97Jio02qL/qYDfNL/QYy7d?=
- =?us-ascii?Q?uAuAzczO1oX6kNAXBJgoZkga9eGTJTicTa+yl+cPwtsbVxz6ItvtRwQMKbB3?=
- =?us-ascii?Q?YGYzxWP6EJQISxqJTbiquRJRYcjxNZ5Uhy20PVEH90nG8JHchsvrF2+RW8Sy?=
- =?us-ascii?Q?1FVNIrvo1rcdmjUEJIST0+hQRiB2SAyi3tKwT0wcEo1bomtwBUYMxWJgXyRy?=
- =?us-ascii?Q?qZWtrY8v2PiX1IT0TKyOGMXaSw7i3E8IbcJQ+h1aSCrWVkkA7tOEAA8tE+Ud?=
- =?us-ascii?Q?fhjHauUcXefEkfK4wvt4+d+qaoUFIU/aJ6DGFbFQvT0DYriwsYy8yoY+hHgt?=
- =?us-ascii?Q?P4DrODLeS+Xg4ZZWi6xfqDOUQg5caNEBwts0vM/jicPWZrUka585Jzc4lYwQ?=
- =?us-ascii?Q?NT4f0GWFA7kioYaGggrQT5pidhsctlmIOb4X+BlsM3vG/lG02IP5DTlZ/2jy?=
- =?us-ascii?Q?4esFM0C2mGcOpgHknASPqIUkGxSMKiRzMf+sHprxmQOojg+4Pbx9wslse1Mk?=
- =?us-ascii?Q?18G2harmB0VRlw6S2mdCukZkGTb8ZtYVn8GYbbzph7SbvYbmsdgRoof9GHJi?=
- =?us-ascii?Q?Hf5JIwJZ9k6EtACGU2XX76BQpl9bau+pnMw9lHLCC0EnoeZiN8w7POI5kRJr?=
- =?us-ascii?Q?Br+XJupNR/zuBt6jhq0yNK/BFYnzl5ZDd5JHEfic0NNCNefRqsENVMW8i5pQ?=
- =?us-ascii?Q?c9XjI8I30wj2alBrOFafI4e//3JwvaEs+5bUm4u29hSuZI8bslTuPyWikmoz?=
- =?us-ascii?Q?cHaVKh+t8rfUTRYToiFwacywIkg3lhaZVWHOJ764yd/lxRetAW4OjDJEPNO9?=
- =?us-ascii?Q?uLzBXCTWFZlKwj7rNIIG2FWPmFSjmm9Fv6HWVfjgDtuv3ZaoS2dfSCi79FAz?=
- =?us-ascii?Q?gzHMNg7MN0RJ/+cWgKIuCJbVfrvpiCAfmWVIOs/leW+2yq/6EFnn1Zm8VCaT?=
- =?us-ascii?Q?X7PkGSaLX+PBFSCR4/33bXhYuxegetbn8dcemsc/a7tXObAqZIdAcmxVP5W8?=
- =?us-ascii?Q?Iy+B7RfODFveglprou0G2/QJ9gs3HmEVHk3AU1O7RUEoXTuQRTxdcRm3yvTd?=
- =?us-ascii?Q?+//z4Mq0rXvRxV6TiajHrzhgvrgQUiN8pIt06I9ioU65kRNZ9pMlALgryWXG?=
- =?us-ascii?Q?2l4UN9EYl/JS+YHIMCKEv0uiKJR+2nMODvHcOjtH2ooB6aoVU3+oi0C6PtZ3?=
- =?us-ascii?Q?jELU6whogxMiAUhW2xHStuANZDK/vDxyYLt4iyp+yLBeowlNSvQnRVg0W8AF?=
- =?us-ascii?Q?XoBLB/xuk/Kl7LuL8HQzGns5zKAxWBE=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45F2626158B;
+	Thu,  8 Oct 2026 03:31:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791430278; cv=none; b=Dpr70VY+wVBHc+Ar4Z0ztBmsP8K2+/keDzXWrh79Mk0f6Q2xYiD9SKYvBcFPruQ/kqaAyhtX5zeFEjeXQi2nGrbHIs1b7F5DZslkSklSyCyvUIZrhDPQvnMF37ZsstbsqfmKhtXFMfxOuBzTFw9gjpZjlqOr1nTa+qjMzm1L1GA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791430278; c=relaxed/simple;
+	bh=aTBV22tb5rCe4fmyv+Cz8akZ7WXnE+6J/Dlj0OCzqFY=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=MuxR5a5+eRi7b6uTisU2w9FaSNCnYLHH/1RCNS675ALU6zbpPpVf8SwJ8H2F6x84lZXYuEQ2eF/mSKJ6VsUdLXSqHyy+eRCNmvGRoHITbP+3KuCIZ87CPjcIPkWZ+GUa+6eozLLuFddtSFySZbB0wBmifcGlMe6eo3n8BkiP07M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jgJueFK9; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jgJueFK9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B9EC1F000FF;
+	Thu,  8 Oct 2026 03:31:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791430276;
+	bh=MAdIzT5K3jeSj8cPsQf4M6G1Hao344SAaHz8q1wewsU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=jgJueFK9r4q/rS0YTMEyGxKdNMDB2fRnYkWd7rcKxdarcJuzXxzam2mDMVb3LK4jh
+	 Dkw+rTlbvjW2aVvhbQ7Hw7fZ02Eoyu3T3gL331rF9Wel+/eBpX0YeibKIo+pTJMhMY
+	 /2V+/AcoIzevPV396ECQT+7zH2i0d051IwjAW5bI+WP1C1ZjAH0h2kP8lR1XATc+ky
+	 LUT6i0D5qMJlNWAI3lfoOc+Fr/wYtiQlONHOfdaCdtGLXYBt9AYf7kanocJYuuR4VW
+	 hxKu5LAgZquv9x4qHxe0ykGDZRExYW644mUMbsDLCbvrQClLaZbuZi1a5GqtQlpi07
+	 eSwiyv/ScZxCQ==
+Subject: Re: [PATCH net-next 2/4] dt-bindings: net: qcom,ipq9574-ppe: Tighten
+ ethernet port node constraints
+From: netdev-bot+sashiko@kernel.org
+To: mail@tk154.de
+Cc: netdev@vger.kernel.org, jie.luo@oss.qualcomm.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, horms@kernel.org,
+ corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
+ quic_leiwei@quicinc.com, quic_suruchia@quicinc.com, quic_pavir@quicinc.com,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
+Date: Thu, 08 Oct 2026 03:31:15 +0000
+Message-ID: <179143027505.434549.14985682962873043848@kernel.org>
+In-Reply-To: <20261005152915.101780-3-mail@tk154.de>
+References: <20261005152915.101780-3-mail@tk154.de>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-Network-Message-Id: fe9205a4-635c-4966-4c0b-08df24e7d324
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Oct 2026 02:57:00.8017
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: R7wiSPDWBF3WPcRNIQkVMAESPtENKPHRscAzib+J4WBHT0PQ357gy2jjz7WjyYJAecdzcpYxl2apAgoJBPEy4lqQF/SD3tkcZbMx5gw3A3sUsEtmTs+cC3PVaWzL1k1p
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1313
 
-Hi, Jerome
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-> On Sat 03 Oct 2026 at 11:02, Changhuang Liang
-> <changhuang.liang@starfivetech.com> wrote:
->=20
-> >> > +static const struct jhb100_pll_info jhb100_sys0_pll_info[] =3D {
-> >> > +	JHB100_PLL(JHB100_SYS0PLL_PLL2_OUT, "pll2_out",
-> >> jhb100_pll2_presets,
-> >> > +		   ARRAY_SIZE(jhb100_pll2_presets), JHB100_PLL2_OFFSET,
-> false),
-> >> > +	_JHB100_PLL(JHB100_SYS0PLL_PLL3_OUT, "pll3_out",
-> >> jhb100_pll3_presets,
-> >> > +		    ARRAY_SIZE(jhb100_pll3_presets), JHB100_PLL3_OFFSET,
-> >> > +		    CLK_IS_CRITICAL, false),
-> >> > +	_JHB100_PLL(JHB100_SYS0PLL_PLL4_OUT, "pll4_out", NULL, 0,
-> >> > +		    JHB100_PLL4_OFFSET, CLK_IGNORE_UNUSED, true),
-> >>
-> >> Please comment when adding CLK_IGNORE_UNUSED so people have an
-> idea
-> >> why it is needed and how it can be removed
-> >
-> > OK, I understand that there is an intention to remove this flag. On
-> > our SoC, some clocks are typically not referenced by any driver, but
-> > we don't want them to be turned off. We currently use
-> > CLK_IGNORE_UNUSED to preserve their hardware-default enabled state.
-> Perhaps in the next version we will replace it with CLK_IS_CRITICAL.
->=20
-> CLK_IGNORE_UNUSED and CLK_IS_CRITICAL do not express the same thing
-> both equally need to be commented so a few years from now, we are not lef=
-t
-> wondering why this was added.
->=20
-> You do not have a driver for this clock today. The fact you still *need* =
-that
-> clock show maybe you should have one and maybe someone, someday, will fix
-> this.
->=20
+Critical: 0 · High: 1 · Medium: 0 · Low: 1
 
-OK, I will add comments according to the current flag.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Best Regards,
-Changhuang
+- [High] This patch only closes off the `ethernet-ports` spelling of the
+  port container.
+- [Low] The commit fixes schema-validation defects already present in the
+  binding, but it has no `Fixes:` tag.
+
+--
+
+dt-bindings: net: qcom,ipq9574-ppe: Tighten ethernet port node constraints
+
+This patch drops the stray '+' from the ethernet-port node pattern in the
+qcom,ipq9574-ppe binding, so only single-digit unit addresses match. It
+also gives the ethernet-ports container type: object and
+additionalProperties: false, plus explicit #address-cells and #size-cells
+constraints.
+
+> Also restrict the ethernet-ports object to its declared properties.
+> Without this, nodes outside the port pattern are accepted through the
+> generic ethernet-switch schema.
+>
+> Signed-off-by: Til Kaiser <mail@tk154.de>
+
+[Severity: Low]
+This fixes validation problems that have been in the binding since it was
+added. Should it carry a Fixes: tag?
+
+Both the unclosed ethernet-ports block and the "^ethernet-port@[1-6]+$"
+pattern come from this commit:
+
+Fixes: 1898fc572118 ("dt-bindings: net: Add PPE for Qualcomm IPQ9574 SoC")
+
+> diff --git a/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml b/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml
+> index 6d0b21a10732a..1a78e2c82b90c 100644
+> --- a/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml
+> +++ b/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml
+> @@ -174,8 +174,17 @@ properties:
+>        - interrupt-names
+>  
+>    ethernet-ports:
+> +    type: object
+> +    additionalProperties: false
+> +
+> +    properties:
+> +      '#address-cells':
+> +        const: 1
+> +      '#size-cells':
+> +        const: 0
+> +
+>      patternProperties:
+> -      "^ethernet-port@[1-6]+$":
+> +      "^ethernet-port@[1-6]$":
+
+[Severity: High]
+This closes off the ethernet-ports container. Can the same nodes still get
+through if the container is named ports instead?
+
+The binding pulls in the generic schema:
+
+    allOf:
+      - $ref: ethernet-switch.yaml
+
+ethernet-switch.yaml accepts either container name, and accepts any
+port@ or ethernet-port@ child with a hex unit address:
+
+    '^(ethernet-)?ports$':
+      type: object
+      unevaluatedProperties: false
+      ...
+      patternProperties:
+        '^(ethernet-)?port@[0-9a-f]+$':
+          type: object
+          description: Ethernet switch ports
+    ...
+    oneOf:
+      - required:
+          - ports
+      - required:
+          - ethernet-ports
+
+qcom,ipq9574-ppe.yaml has no ports entry, and it does not list
+ethernet-ports under its top-level required: list. Because ports is
+evaluated through the allOf $ref, the top-level unevaluatedProperties:
+false does not reject it either.
+
+So it looks like a PPE node like this would still validate:
+
+    ports {
+        #address-cells = <1>;
+        #size-cells = <0>;
+        port@7 { };
+        ethernet-port@11 { };
+    };
+
+None of the PPE per-port constraints apply to that node. That covers the
+reg 1..6 range, the required clocks/clock-names/resets/reset-names, the
+unevaluatedProperties: false on the port node, and the new single-digit
+pattern.
+
+That means the case described in the commit message, "nodes outside the
+port pattern are accepted through the generic ethernet-switch schema", can
+still happen.
+
+The later patch in this series, "dt-bindings: net: qcom,ipq9574-ppe: Add
+IPQ5332 support", also constrains only ethernet-ports in its IPQ5332
+if/then block. That includes the "^ethernet-port@[3-6]$": false rule, so
+ports { port@3 { }; } would also get past the IPQ5332 port-count limit.
+
+Other bindings with per-port constraints match '^(ethernet-)?ports$', so
+both spellings are covered. Examples are dsa/qca8k.yaml,
+dsa/mediatek,mt7530.yaml, dsa/microchip,ksz.yaml and dsa/nxp,sja1105.yaml.
+
+Could this binding do the same? Another option would be to forbid the
+other spelling with ports: false, and add ethernet-ports to the top-level
+required: list.
+
+>          type: object
+>          unevaluatedProperties: false
+>          $ref: ethernet-switch-port.yaml#
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261005152915.101780-1-mail%40tk154.de
