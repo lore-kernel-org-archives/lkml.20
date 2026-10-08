@@ -1,237 +1,120 @@
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56E233CB2D2
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 19:08:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A00A53BBA01
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 19:11:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791486521; cv=none; b=EjgpxS/onMQoC3XplkKggpniGQ949Q04WN3Am5/v3vP2wQ5vGtfiq3i6JwlplCVZvmH7JnEa1GDthktTjnqQDfEDhqh7HwQ1tWVSYaSWNGJ34NRqp87ATReWdEGeE0/SJdegP+T/WkAUW5yC741Uyb4d69nF6KtS8tdCC0PnBVo=
+	t=1791486677; cv=none; b=tjKVpxKJ/eCsHwNDDJd9VzPkwzMA/Mc11CsPICghbD12jcsexIzfmVbke7AehjyvyxGf7Hm3NLD35hDsN6Aug9eArW2mH/+yfQUhbfehcyJIFgik3mAtjYIxapmOd3IEI8nzxUTTvfpjXxs9qRPstYKb5kSy0+527jsUiGDQdmM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791486521; c=relaxed/simple;
-	bh=5M6ONwAYQGGzjhALLBWWeXFdEJuST9MXsZw5Ht6qjWM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iZFH0nEAIfEKa/JeVF9r0XrP5gl/ypk1IG7pKtSiY+qhd2uCuUdMOgb/wzbD4xL9fShEY9Q5lFvhazpnC99JU805C2iukMuugnrigkbctWIg7RosCPrweammZqMiaEGkX3e5jaN0x+LKcltoLZANQ4o2ukN/jD6J8keK4pa0PFI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=hLKDlfTT; arc=none smtp.client-ip=74.125.82.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	s=arc-20240116; t=1791486677; c=relaxed/simple;
+	bh=MFI73bLJzYuC3bslZx/bwltYUGd/9Km+EomyS/QsF6I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=P4tykjkAzhC2yOytA0Q4B0+PBCI6Di+m0WoorZA0xHGbid4yaljcOok+MFtR7fX0z86Y/c9snbrb8IYpAtKqFpjlqrnvLy9UDSC/CwYTLFl5rC+loFPUPZC7ZFjc+z7TFBR6YcerotBz7IuXBhz/JYAy9gWT9mY9DBJ4I1tB+O0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=sYnEyek+; arc=none smtp.client-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="hLKDlfTT"
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso3130610eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 12:08:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="sYnEyek+"
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-35115b52125so4476888eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 12:11:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1791486517; x=1792091317; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=89nlx+M34LzIrZosb2dO9gI0RPZyt6hlktU5w00KTX8=;
-        b=hLKDlfTTi8wSyzkszQkhy2B98cejuxB/NAGIeUBAThAT3UEZVroGVC1lMXlwlMBuyN
-         +K20O9JUrNlHbXdCEQrTRp2NBej7iTL/AduRzVGmCtH/YYjL7MAhxTDLRArgWV7+IS5R
-         S+GpC3qlRVURDR5EMZj6xF18VnIiXGjalS/nepMXgpK4oJaURRxtjmT8Wb3vVmuf4Snv
-         nVgrg0wZ9ihY1xT870eGQvJcxMhSo8EyCnNWkT/C8aoLxbFZMWXaIVKEeyZGYOjgi6ow
-         ziEGGS9zBO65BUU9eQhfcQxVZf31ST0bfcpADR0ljcOlwkhoYu/9Km+RxRJdsCAm5LFx
-         AfCA==
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1791486674; x=1792091474; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nShr7nk4H6rZOzPK1tKDbu27hRY+4XFOH8yhDaWQWyM=;
+        b=sYnEyek+TRmHxzqqEBt20pXRpW6MO3qFYPBvZLUI+uXtzegKNqFWihSrQj2pq4x9aU
+         eMqB3m3qubnJ2nY5dQwDpzjXxJEM6Nv9W6HwdW6ijEXQk/+xkhe20KFmryzPMOT7u8TA
+         rlvOmIPm07YU/2qJtDPHp+InLtUGuWypYsXn7vIKBHnEPnrCMpq6KPG7W2Tk56/aKvJp
+         OHSb1ovmY6rTMFfDWLbo7JGCDimlKhJd/Zh0DPq2rcTT/qAuLzzWHzbjk1KZnimQ374A
+         5A+ji3/KCYJqqstR4lcHw8mXNW4eTQs5LlblTCY7SAyHlpkkJupR/D1piSuzFAywpnwO
+         2Low==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791486517; x=1792091317;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=89nlx+M34LzIrZosb2dO9gI0RPZyt6hlktU5w00KTX8=;
-        b=tvBO1OeOXgv02NheiDkiELQY4yzHOch4VUk9yIFPIMvV5ywR3GKnaK33oQCmnQ3XkP
-         tbPRrE3kx09mm0R7Mmkp3olnTWd/v2T/DfYZ3s3fw+HIFPhmUORfgZs+eiaVuYha/73M
-         6ZGRCZfl4FaJJ/f0sRNXY6KvseyKf4LQqIEob49Rspwg/zX8kEcpy1QuHyrcoNM5m01u
-         983UTYp6+YgGAr8M4Ri9kE8wDqgLlZUPM4y9+KRKwKXLw2CgJbt6rt4zcCgYU97is1Bb
-         3wuxHrEo8KKhRgQ374MsBPKaPQy7UFbxJazJbmZ0hryYUttX8aK296BJ20QrF9Tj9P4C
-         PDjA==
-X-Forwarded-Encrypted: i=1; AKwUvBwNHahq/2pcW2xh+97vaOypf0KlubE19rRVQqpvcpxVlZqfFqhoW+z+K2ZQPSi9KA97nF9y+oZjJUUl+J0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKejo9edJ7O4P0g0c1TFOHhQ+l2KGZfLB8p1jt4a3YZF6cHNEFS
-	wyjU7xsqU2Jw08CX7v76gugocEV8S8xebeYXnzCUIUS7IGbemb8O27Uh6jmtRt4qPGZs4KtCRDb
-	pp1akoetdSw==
-X-Gm-Gg: AYBFou2LTvyIFSRig0V5eik/Dk/kQ1kmdi0hmCDeJPit0TLGuFGEcWCOVuMjuXVzvLH
-	By9fAJ449Veck6+reh0FmuuPlHV66DsN1uHhjAFQ7KinMXLSGIwqgd0XtC8APCp5Bvir5+pRRc1
-	WWPIMZkqKe2IJI5BxinpkNN5ic5iu12udufSeVJoJ5p26oXQLJLUgi9HbApnEEPZNY8TtQRtkoa
-	MpwIStrxgxCflh8mJyg4XR04szPV0tMlGWTLecQwjDNHiOB+vy95eOsfbxT7dFVfKXZsfifvsNK
-	fuWvqgmWmY0Y+viZWCvXg5r9QtqBRDU5zbeMtSlK90ys7Z4NXKD7l1Hqv7r3rJHYw1xNSSxYeK4
-	0g6OuhAD8E8tU5q5sFuEDcVO2zPCZDIkqznr4wiKbEfbUb3fQetrjhS55wM15jHDwoCdpJczfWU
-	rQZFLJoN7tHAshVYK3V1OXpgD59mD3+/Znx/mNTUGCRU7MJF2AtBz94mYMEaNkYDGZQrXmO4Owj
-	Aa23A7HThsCJWGKYr66d/FQTyaM0rGAZmk6HILDG5Y84VQo2E53yMqBqh/SdGJju0TBjJs=
-X-Received: by 2002:a05:693c:88d1:10b0:351:f762:a10c with SMTP id 5a478bee46e88-351f762a25bmr2478155eec.0.1791486516485;
-        Thu, 08 Oct 2026 12:08:36 -0700 (PDT)
-Received: from localhost.localdomain ([2603:8001:5f01:8bab:bc88:5ec1:4f8a:5b23])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537c841648sm80561eec.3.2026.10.08.12.08.35
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 08 Oct 2026 12:08:36 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: Artem Dinaburg <artem@trailofbits.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Gao Xiang <hsiangkao@linux.alibaba.com>,
-	Gao Xiang <xiang@kernel.org>,
-	Chao Yu <chao@kernel.org>,
-	Yue Hu <huyue2@coolpad.com>,
-	Jeffle Xu <jefflexu@linux.alibaba.com>,
-	linux-erofs@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	Yue Hu <zbestahu@gmail.com>,
-	Sandeep Dhavale <dhavale@google.com>,
-	Hongbo Li <hongbohbli@tencent.com>,
-	Chunhai Guo <guochunhai@vivo.com>
-Subject: [PATCH 6.6.y 2/2] erofs: unify lcn as u64 for 32-bit platforms
-Date: Thu,  8 Oct 2026 15:08:28 -0400
-Message-ID: <20261008190830.97970-3-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261008190830.97970-1-artem@trailofbits.com>
-References: <20261008190830.97970-1-artem@trailofbits.com>
+        d=1e100.net; s=20260707; t=1791486674; x=1792091474;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nShr7nk4H6rZOzPK1tKDbu27hRY+4XFOH8yhDaWQWyM=;
+        b=hqYA1bpUvi27Oy8HJHJnl4B9xKRXnLOzQpBkp8CLbmU8R98Rf/W5m7HponNV9s/YmA
+         opfmMirOgemkfB20A6W+/eA1HWuGSng4xIdgsk5s+xNaN9dKx+m9RYoAtvGuZ+uEOWHi
+         JE1Ylvr5yYyheZPjtDfwQyBwVYp8YlaJ/yY43SU03FhnR9alRyf7UIfFw0N+LpCq2Fsm
+         uW+zWsYOw2rxUYFLugYyzmJtW0sNOP1rK7nyzCa0R2aZrnL+brMx0GkPU3T+fiJ8BOGB
+         XQkuEqrgL0DyuTudRKemlb+PPwPGBUAX+90MI4KQBVPWAdS9QZPea3YJ5QRswAINZGBa
+         nB7w==
+X-Forwarded-Encrypted: i=1; AKwUvBy01uTleJ6awKeZlCo0BWofXoSsoYZpN/n709ifMMauni8VSyLkKFQjZPdjBmbdfYFluVtsqP5FyOw5Xps=@vger.kernel.org
+X-Gm-Message-State: AFuF++kGlca1xI9WOO8pnpdSOU9ACbRXDOaPfrip1oNzMvTz7ZmyxSyU
+	vctdTq1QzZoEo4KkUHFmjJ2gtFJFObxr5M3skCoc6lVuqTz5SOOZfYIsgE90OxpEtkY=
+X-Gm-Gg: AYBFou1zgAtGM2lzhoIJQWvZTTQaGq77Taa/IjIoUx2eJWtHnYx5NruAn+iRhKcK+r/
+	oj7YMRPeL2L3rcTy60SFpAxjdAG/cyneufln+Q8V2HIQuic1B4Kl2Xh3BrlDX3f8v5D+meRFswp
+	IDxHRXOseMJLXbE7Zfc2KiA3/uQITNi/O6lO0jA7o60NCoKv3UDZJcbywuVZiem8SABDfTi4zcI
+	hXqhIIpl58RORmZo9VoCHiJ3XBkp+fhNkAXCi2bpbhW0uolIf+bJ6jKG/xJJj8pMOElfnCsGsB4
+	uwh8i/NTd4g7qkubRSv9PldIIGS4vQGidrPAHzxZzzjUf+tlzwFQ+pNgnpirytRny4G1RMktU3d
+	UTWkoBlXCxwhk7XGfpXt6eBPlpEBoWruVJLv6SvVn2C8bJ31WS5OZcu9WuyP4GplEE6IwUCTFyD
+	oJHluqZ1biTh1joXh6xmPdlkhrMZSvAsavFAgMYHoNqH19KV8dK/VST/Ws9sWS1sfxt+C342Kmb
+	iNxw0AojG8CQ3UhHrE1+jg5yOsBJE1jZhzg1M+CIjgszl/kdAB59jaMNg==
+X-Received: by 2002:a05:7301:9c87:b0:353:5d25:1de7 with SMTP id 5a478bee46e88-3535d252333mr1169990eec.33.1791486673390;
+        Thu, 08 Oct 2026 12:11:13 -0700 (PDT)
+Received: from [192.168.1.106] ([198.8.77.135])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cad9e53sm21393eec.22.2026.10.08.12.11.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 08 Oct 2026 12:11:12 -0700 (PDT)
+Message-ID: <3b9d9c06-c6e8-4166-87d9-c7c220ad0b58@kernel.dk>
+Date: Thu, 8 Oct 2026 13:11:11 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] io_uring: do not charge user provided SQ/CQ rings to
+ RLIMIT_MEMLOCK
+To: Hengyu Liang <hengyul@cs.unc.edu>
+Cc: Pavel Begunkov <asml.silence@gmail.com>, David Wei <dw@davidwei.uk>,
+ io-uring@vger.kernel.org, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org
+References: <b5a33433-b0b9-4231-9998-23e2a2202091@kernel.dk>
+ <20261008170611.1285778-1-hengyul@cs.unc.edu>
+Content-Language: en-US
+From: Jens Axboe <axboe@kernel.dk>
+In-Reply-To: <20261008170611.1285778-1-hengyul@cs.unc.edu>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Gao Xiang <hsiangkao@linux.alibaba.com>
+On 10/8/26 11:06 AM, Hengyu Liang wrote:
+> This goes on top of io_uring-7.3 (c746673517c6), as discussed in [2].
+> 
+> Tested on that branch as a user without CAP_IPC_LOCK and the default
+> 8 MiB limit:
+> 
+>                                                   before  after
+>   program above                                       21     64
+>   the same with io_uring_queue_init()                 64     64
+>   30 processes x 142 NO_MMAP rings of 64 entries       7     30
+> 
+> The last row is what 30 PostgreSQL 18 clusters with default settings
+> create. The number is how many of them got all their rings.
+> 
+> The per-user locked_vm count stays balanced over ring create, close and
+> resize. Provided buffer rings and IORING_REGISTER_MEM_REGION regions on
+> user memory are charged as before. Every liburing test gives the same
+> result with and without the patch.
+> 
+> Not changed here: provided buffer rings on user memory, which is what
+> io_uring_setup_buf_ring() registers, were not charged in v6.13 either
+> (64 of 64 rings of 32768 entries then, 16 now). I can send a patch for
+> those as well if you want them handled the same way.
 
-[ Upstream commit 2d8c7edcb661812249469f4a5b62e9339118846f ]
+Honestly, after taking a closer look at this, I think we're better off
+with your original patch and one on top for pbuf rings. Please check:
 
-As sashiko reported [1], `lcn` was typed as `unsigned long` (or
-`unsigned int` sometimes), which is only 32 bits wide on 32-bit
-platforms, which causes `(lcn << lclusterbits)` to be truncated
-at 4 GiB.
+https://git.kernel.org/pub/scm/linux/kernel/git/axboe/linux.git/log/?h=io_uring-7.3
 
-In order to consolidate the logic, just use `u64` consistently
-around the codebase.
+for the top 2 commits. If you can re-test one more time, that'd be
+great...
 
-[1] https://sashiko.dev/r/20260420034612.1899973-1-hsiangkao%40linux.alibaba.com
-
-[ Backport to 6.6.y: rebase after the CVE-2025-68251 compact-index
-  validation change. Widen its new lcn diagnostic along with the
-  recorder, full and compact loader data flow, lookback and compressed-
-  length locals to u64. ]
-
-Fixes: 152a333a5895 ("staging: erofs: add compacted compression indexes support")
-Signed-off-by: Gao Xiang <hsiangkao@linux.alibaba.com>
-Assisted-by: LLM
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
----
-This is patch 2 of 2 in the ordered 6.6.y backport series.
-This change addresses CVE-2026-53015. The EROFS zmap implementation and the
-preceding compact-index validation fix otherwise retain 32-bit lcn values
-in shifts on 32-bit systems; widening the complete data flow and the
-validation diagnostic to u64 prevents 4-GiB truncation without weakening
-the new loop check.
-This needed a target-specific adjustment; I called it out in the bracketed
-backport note above.
-
-The fix is absent from the pinned 6.6.y branch and queue and must follow
-CVE-2025-68251 in this series.
-
- fs/erofs/zmap.c | 23 +++++++++++------------
- 1 file changed, 11 insertions(+), 12 deletions(-)
-
-diff --git a/fs/erofs/zmap.c b/fs/erofs/zmap.c
-index e53d5239f04d..990322b228cb 100644
---- a/fs/erofs/zmap.c
-+++ b/fs/erofs/zmap.c
-@@ -12,7 +12,7 @@ struct z_erofs_maprecorder {
- 	struct erofs_map_blocks *map;
- 	void *kaddr;
- 
--	unsigned long lcn;
-+	u64 lcn;
- 	/* compression extent information gathered */
- 	u8  type, headtype;
- 	u16 clusterofs;
-@@ -22,8 +22,7 @@ struct z_erofs_maprecorder {
- 	bool partialref;
- };
- 
--static int z_erofs_load_full_lcluster(struct z_erofs_maprecorder *m,
--				      unsigned long lcn)
-+static int z_erofs_load_full_lcluster(struct z_erofs_maprecorder *m, u64 lcn)
- {
- 	struct inode *const inode = m->inode;
- 	struct erofs_inode *const vi = EROFS_I(inode);
-@@ -219,7 +218,7 @@ static int unpack_compacted_index(struct z_erofs_maprecorder *m,
- }
- 
- static int z_erofs_load_compact_lcluster(struct z_erofs_maprecorder *m,
--					 unsigned long lcn, bool lookahead)
-+					 u64 lcn, bool lookahead)
- {
- 	struct inode *const inode = m->inode;
- 	struct erofs_inode *const vi = EROFS_I(inode);
-@@ -270,7 +269,7 @@ static int z_erofs_load_compact_lcluster(struct z_erofs_maprecorder *m,
- }
- 
- static int z_erofs_load_lcluster_from_disk(struct z_erofs_maprecorder *m,
--					   unsigned int lcn, bool lookahead)
-+					   u64 lcn, bool lookahead)
- {
- 	struct erofs_inode *vi = EROFS_I(m->inode);
- 	int err;
-@@ -289,7 +288,7 @@ static int z_erofs_load_lcluster_from_disk(struct z_erofs_maprecorder *m,
- 		return err;
- 
- 	if (m->type >= Z_EROFS_LCLUSTER_TYPE_MAX) {
--		erofs_err(m->inode->i_sb, "unknown type %u @ lcn %u of nid %llu",
-+		erofs_err(m->inode->i_sb, "unknown type %u @ lcn %llu of nid %llu",
- 			  m->type, lcn, vi->nid);
- 		DBG_BUGON(1);
- 		return -EOPNOTSUPP;
-@@ -310,7 +309,7 @@ static int z_erofs_extent_lookback(struct z_erofs_maprecorder *m,
- 	const unsigned int lclusterbits = vi->z_logical_clusterbits;
- 
- 	while (m->lcn >= lookback_distance) {
--		unsigned long lcn = m->lcn - lookback_distance;
-+		u64 lcn = m->lcn - lookback_distance;
- 		int err;
- 
- 		err = z_erofs_load_lcluster_from_disk(m, lcn, false);
-@@ -330,14 +329,14 @@ static int z_erofs_extent_lookback(struct z_erofs_maprecorder *m,
- 			m->map->m_la = (lcn << lclusterbits) | m->clusterofs;
- 			return 0;
- 		default:
--			erofs_err(sb, "unknown type %u @ lcn %lu of nid %llu",
-+			erofs_err(sb, "unknown type %u @ lcn %llu of nid %llu",
- 				  m->type, lcn, vi->nid);
- 			DBG_BUGON(1);
- 			return -EOPNOTSUPP;
- 		}
- 	}
- err_bogus:
--	erofs_err(sb, "bogus lookback distance %u @ lcn %lu of nid %llu",
-+	erofs_err(sb, "bogus lookback distance %u @ lcn %llu of nid %llu",
- 		  lookback_distance, m->lcn, vi->nid);
- 	DBG_BUGON(1);
- 	return -EFSCORRUPTED;
-@@ -350,7 +349,7 @@ static int z_erofs_get_extent_compressedlen(struct z_erofs_maprecorder *m,
- 	struct erofs_inode *const vi = EROFS_I(m->inode);
- 	struct erofs_map_blocks *const map = m->map;
- 	const unsigned int lclusterbits = vi->z_logical_clusterbits;
--	unsigned long lcn;
-+	u64 lcn;
- 	int err;
- 
- 	DBG_BUGON(m->type != Z_EROFS_LCLUSTER_TYPE_PLAIN &&
-@@ -402,7 +401,7 @@ static int z_erofs_get_extent_compressedlen(struct z_erofs_maprecorder *m,
- 			break;
- 		fallthrough;
- 	default:
--		erofs_err(sb, "cannot found CBLKCNT @ lcn %lu of nid %llu", lcn,
-+		erofs_err(sb, "cannot found CBLKCNT @ lcn %llu of nid %llu", lcn,
- 			  vi->nid);
- 		DBG_BUGON(1);
- 		return -EFSCORRUPTED;
-@@ -411,7 +410,7 @@ static int z_erofs_get_extent_compressedlen(struct z_erofs_maprecorder *m,
- 	map->m_plen = erofs_pos(sb, m->compressedblks);
- 	return 0;
- err_bonus_cblkcnt:
--	erofs_err(sb, "bogus CBLKCNT @ lcn %lu of nid %llu", lcn, vi->nid);
-+	erofs_err(sb, "bogus CBLKCNT @ lcn %llu of nid %llu", lcn, vi->nid);
- 	DBG_BUGON(1);
- 	return -EFSCORRUPTED;
- }
 -- 
-2.39.5
-
+Jens Axboe
