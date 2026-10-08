@@ -1,216 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA4614E430F;
-	Thu,  8 Oct 2026 15:57:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01C634EDCD5
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 15:57:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791475047; cv=none; b=DtIA53p2bltGpyGh6noerGJKSMg2sQMM4qvgP/Qh7Mx83k9CKTPlMLslJOi+zVGJXAYnBILHzEKl4haSJP2OstWSe4a8IZappiIvCDDxXySHue5/HHtu+oq6dCWCsVdTO/7j3BKgNCRvyww3AdqOo3362AuU3Yb66T2rG2SgXok=
+	t=1791475059; cv=none; b=XTzKk8YUZY8CfnKs0dcVud7we4getXQtmicskAhwxupH8L+f/QWvlzQ+pFvxxvhymTy4izZ3TKRexsgQ4J8VsDjhevKlHk30gwE5xpUwQI7FjqCsujGLs6zfAKhVt9jvXsLy4x3H7aw22gm/0RGihKYYK4lCdGztBnDm62MRsK8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791475047; c=relaxed/simple;
-	bh=9QpGYylqVU+dkG/hPow3ZQCYbNMa2H+zS0gjOW8ma6Q=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=SwSMyPsuDdOCL9B3J8jqtCKT5sd/4ZagrXyUri3N/6pNIdFHu4BcweMJDD8TIdN7uGZXljVmwOVm1VM05i0Efr90ETuC/8f+cM01GrXvoZJnjUR4yZpV+GIVuLS2Dqau1l4fpTmOncbXKePDdbuXK5K+PN0TDAvRK9slJocyeIQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I/tLX98W; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791475059; c=relaxed/simple;
+	bh=g87w9t8vnCLzrZ5kYjjQ10CHlRMA3AZMTXdHP6HQ6dA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Q51ggWwoXjDktFUxP62wRUUpuImxERWZWcMhgFP1POs1reL+P7QL34+WX78yGj30ieXGQwCZC6dNIycJbVJ7nIrt1j2OzlA3OANBbSXtru/Seumm5cD3xZ6/InXdVxg/Wgz0uxU9EG8A+yekKFSEPCDbg4rx/+rB93KZ1MPxfZg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xnq/CdA4; arc=none smtp.client-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I/tLX98W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A76AA1F000FF;
-	Thu,  8 Oct 2026 15:57:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791475043;
-	bh=oW4vd/fkJGW56OrO8Qa4BwDCUVbvSoixy58F/rnwivw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=I/tLX98WUWBFM/GWMZUBRtD63lFi/eWNv784tsfa3wqkWjSIibv4JwzaaoMuF99O2
-	 w/8Z9HRLf5o7IbCnRHaPdUO1jcQHFqgsw/PisVIxl0AikeFt7yK7yPFAfl9kgDqydL
-	 A9b6I6dn7l7U4yqqOj/yyloijjetwHJcdQEQcD+N5S/uKSWhXuYG6KDv7k21nKzvoG
-	 zOwzc0VqW/7am3dzK3E6KZ1U7Nym67p9u+VNVBWH98dZ1qFzlto/Xe6JASkNZoWJ0h
-	 LhH9Ueao60vaUh+F4WvkYnyM9hhgQus09E5F3q4W9tYMimTjAgsONsttY/CKheFQWA
-	 pFnORDZWECA9w==
-Subject: Re: [PATCH net v2] sctp: revalidate output stream after association
- connect wait
-From: netdev-bot+sashiko@kernel.org
-To: 4ncienth@gmail.com
-Cc: marcelo.leitner@gmail.com, lucien.xin@gmail.com, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- linux-sctp@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Thu, 08 Oct 2026 15:57:22 +0000
-Message-ID: <179147504220.434549.18146896790420057417@kernel.org>
-In-Reply-To: <20261007035739.3472432-1-4ncienth@gmail.com>
-References: <20261007035739.3472432-1-4ncienth@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xnq/CdA4"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2df982e04c1so20496555ad.2
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 08:57:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791475056; x=1792079856; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Pvd67Pj74nWibOAWBO1VBH/KQr45t03+WGbHxBJCBV4=;
+        b=Xnq/CdA4rwWXL59MOKFfbFlktylPJWrMeUjMIoyMZrSEuRpTHvNu9Y/ONPTIi/en4r
+         rZRAH5nBz+BD3MSlG+VKRpQ466MlcGMEJknPkz5UmRHrrvry/dipyXUOsyNsv3GCtE47
+         R+VcUoanA2jdgelgwxQiD5tuhabQTkmQnGw36jmceCc6uIjCNWFZFQtEg0xtLPpKXWfo
+         PL2mxqPtyrX+2uW813EaQfs99SN9vPvlh8lnsLgIVSoS/C5FS4nkt2PzYJFhsamU3SQ8
+         H/0/aE/HleJnmxeKPDgbnfrNwS6eIk41n5WgaSBCFnNdyu4d2Qr+LKtEbkwHjYlUwtA0
+         yRww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791475056; x=1792079856;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Pvd67Pj74nWibOAWBO1VBH/KQr45t03+WGbHxBJCBV4=;
+        b=MFCEqmJjMewjgUgo4c0ig6lR3qMLSd/f4F75IddO3DjZnRnqnf5FQCk2sECQ/yLROq
+         6uIgq3YY5qj95z5EcO9/Z0s/RperwXg1ZcMSSamTaOhjmpKfT3AvZGaCiO8DczAKY2a1
+         6NJ2F2100rBIRYaEEEnMlfJDbgOnu0TlNmAMoGJwhWMriVju+nj8NrgS3iSr5CJdd6tn
+         CFfZWtmAZO9RAHF2TmJldP5xa0pPcZeSdskdTLDW7hwVu1HOSJbCPll4mTonl+o4bIbv
+         ZbLJMN4K4CBOLkn6xpIQta9uMEjbIZUnRo/6lQhLi5y91ZoXIk9xjXh6gh0nAk9QWaSS
+         CFtQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxFhhBw+XBkohAT69dkFcxNC3tJnBlAeg+4WymbLSoahvloP30hQ+SYOkCBlqzVc4aGGP9tGo6gpRJQTDo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ4cec/OMrx0njYO7GeDFsk2gElIvTHXUPDC92oDtSbd13u7dgm
+	eqc1JyURndFBI/QVAojhFRjYxxSBerWdbjhijHe+R/WGTuysy4qoxAxJ
+X-Gm-Gg: AYBFou21DEl83hstHD2w2azDyuwXUvvh6mSZhjibQ+4U5pXw1pz6lJ+QbPBlgD55+zc
+	yqATUklk0yo7ewwGo8RY7nUf2TFCEuIRgThuHKnERxjF4lyp3BATm8TP1ZA20/lJbRiSZ9T+O9S
+	GuNmhWOdxBQItGnCT3N4DOUISQJT4oPmQFkVVK7QrJi9hqSlfgFg0LvDF9kEeJMWwiRfLYJXtFW
+	IpI3bNTD9zeMOFlnIkfWCIohvUn9WnyJf8wea4ZwdslkVxv45r8Sn/1tNagkXPP0IPJ0M6EUOCn
+	s6qOpAQIjXFgJOX/gTQ2jhqFdVCeQM3XyhTDUpywyTqJLkn2GOcdz17CsQMJwfIKaSzEIbGdMVH
+	ZzxSFI4isHbr6gdrvaZcEiBGoR3DbPfovqrGb/l11w8JJC/1VSEXk52KUBlqqgBjkvY7YLAYSH8
+	JGHs23qx8k9+f0RHuxyFrLvEyjzP+tCdEATItWi34RWXkthda2uQAZoXZFLO0KX40suCo7KORnc
+	HWlQnK7C5VTHfps8IaJWU4mrg==
+X-Received: by 2002:a17:903:2a84:b0:2e1:2ed2:7cee with SMTP id d9443c01a7336-2e600540d3bmr43995655ad.52.1791475055891;
+        Thu, 08 Oct 2026 08:57:35 -0700 (PDT)
+Received: from d.home.yangfl.dn42 ([2a09:bac5:661c:1246::1d2:d1])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e6046fe0aesm27694045ad.28.2026.10.08.08.57.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 08:57:35 -0700 (PDT)
+From: David Yang <mmyangfl@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>
+Cc: David Yang <mmyangfl@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: [PATCH 0/2] regulator: support the HiSilicon STB PMOC voltage rails
+Date: Thu,  8 Oct 2026 23:57:23 +0800
+Message-ID: <20261008155727.3801095-1-mmyangfl@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+HiSilicon STB SoCs regulate their CPU and core supplies with PWM outputs of
+the PMOC block feeding an external converter on the board. This adds the
+binding for those registers and a driver for them.
 
-Critical: 0 · High: 0 · Medium: 1 (1) · Low: 0
+David Yang (2):
+  dt-bindings: regulator: add HiSilicon STB voltage regulator
+  regulator: histb: add voltage regulator driver
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] sctp: UAPI breakage leaking -ESRCH to userspace on stream
-  validation failure
-
-Pre-existing issues:
-- [Medium] Pre-existing ownership problem on the sndbuf-wait error path
-  in net/sctp/socket.c, not introduced by this patch.
-
---
-
-sctp: revalidate output stream after association connect wait
-
-This commit moves the output stream range check and the extension check
-into a new helper, sctp_sendmsg_check_stream(). It runs that helper again
-after both the sndbuf wait and the connect wait in sctp_sendmsg_to_asoc().
-If the check fails after the connect wait, the error becomes -ESRCH, so the
-caller does not free the auto-created, already established association.
-
-> diff --git a/net/sctp/socket.c b/net/sctp/socket.c
-> index e35692dd8d303..321898f22d80d 100644
-> --- a/net/sctp/socket.c
-> +++ b/net/sctp/socket.c
-> @@ -1786,6 +1786,18 @@ static int sctp_sendmsg_check_sflags(struct sctp_association *asoc,
->  	return 1;
->  }
->  
-> +static int sctp_sendmsg_check_stream(struct sctp_association *asoc,
-> +				     struct sctp_sndrcvinfo *sinfo)
-> +{
-> +	if (unlikely(sinfo->sinfo_stream >= asoc->stream.outcnt))
-> +		return -EINVAL;
-> +
-> +	if (unlikely(!SCTP_SO(&asoc->stream, sinfo->sinfo_stream)->ext))
-> +		return sctp_stream_init_ext(&asoc->stream, sinfo->sinfo_stream);
-> +
-> +	return 0;
-> +}
-> +
-
-[ ... ]
-
-> @@ -1830,10 +1835,9 @@ static int sctp_sendmsg_to_asoc(struct sctp_association *asoc,
->  		err = sctp_wait_for_sndbuf(asoc, transport, &timeo, msg_len);
->  		if (err)
->  			goto err;
-> -		if (unlikely(sinfo->sinfo_stream >= asoc->stream.outcnt)) {
-> -			err = -EINVAL;
-> +		err = sctp_sendmsg_check_stream(asoc, sinfo);
-> +		if (err)
->  			goto err;
-> -		}
->  	}
-
-[Severity: Medium]
-This is a pre-existing issue, not one introduced by this patch. Does the
-ownership reasoning from the connect wait also apply to this re-check after
-the sndbuf wait?
-
-The caller, sctp_sendmsg(), frees a new association on any error except
--ESRCH. It does not check whether the association is still CLOSED:
-
-	err = sctp_sendmsg_to_asoc(asoc, msg, msg_len, transport, sinfo);
-	if (err < 0 && err != -ESRCH && new)
-		sctp_association_free(asoc);
-
-sctp_assoc_add_peer() has already hashed the new association's transport at
-this point. On a UDP-style socket, another sender can find the association
-through sctp_endpoint_lookup_assoc() while this thread sleeps in
-sctp_wait_for_sndbuf() with the socket lock dropped.
-
-A possible sequence:
-
-thread A (creates the asoc, new == true)
-sctp_sendmsg_to_asoc()
-  sctp_wait_for_sndbuf()
-    release_sock()
-
-thread B (sends to the same peer)
-sctp_sendmsg()
-  sctp_endpoint_lookup_assoc()   <- finds the CLOSED asoc
-  sctp_sendmsg_to_asoc()
-    sctp_primitive_ASSOCIATE()
-
-the peer's INIT-ACK shrinks asoc->stream.outcnt below A's sinfo_stream
-
-thread A
-    lock_sock()
-  sctp_sendmsg_check_stream()    <- returns -EINVAL
-sctp_sendmsg()
-  sctp_association_free()
-
-Would this tear down an association that the state machine now owns
-(COOKIE_ECHOED or ESTABLISHED)? No ABORT would be sent to the peer, and the
-counter and socket state would be left inconsistent. The commit message says
-it avoids this outcome for the connect wait by returning -ESRCH.
-
-The baseline already had the -EINVAL re-check here. The other
-sctp_wait_for_sndbuf() errors (-EAGAIN, -EPIPE, -ERESTARTSYS) also reach
-the same free. With this patch, sctp_stream_init_ext() failures (-ENOMEM or
-a scheduler init_sid error) reach it as well.
-
-Should sctp_sendmsg() check whether the association is still CLOSED before
-freeing it? Or should this path remap the error the same way the connect
-wait path does? Earlier commits c863850ce22e1b and 4f1da630d13de0 used a
-similar -ESRCH remapping.
-
-[ ... ]
-
-> @@ -1848,6 +1852,11 @@ static int sctp_sendmsg_to_asoc(struct sctp_association *asoc,
->  				err = -ESRCH;
->  				goto err;
->  			}
-> +			err = sctp_sendmsg_check_stream(asoc, sinfo);
-> +			if (err) {
-> +				err = -ESRCH;
-> +				goto err;
-> +			}
->  		} else {
->  			wait_connect = true;
->  		}
-
-[Severity: Medium]
-Does this leak the internal -ESRCH sentinel to userspace?
-
-sctp_sendmsg() returns its result through sctp_error(), and
-sctp_error() only special-cases -EPIPE. Whatever
-sctp_sendmsg_to_asoc() returns here therefore reaches the sendmsg()
-caller unchanged.
-
-With this hunk, sending on an sinfo_stream that the peer did not grant
-can return ESRCH. That happens only on the first send of an implicitly
-created association with intl_enable set. The same request on an
-existing association, or after the sndbuf wait, returns EINVAL. An
--ENOMEM from sctp_stream_init_ext(), or an error from the scheduler's
-init_sid hook, is also reported as ESRCH.
-
-ESRCH ("No such process") hides the real cause from the application.
-It also misleads, because the association is alive and ESTABLISHED at
-this point, and a later send on a valid stream would succeed. Since
-this is Cc stable, the errno change would also appear in stable
-kernels.
-
-The connect wait failure path just above already returns -ESRCH to
-userspace, but that case is pre-existing. This patch extends the
-behavior to an argument validation failure.
-
-The remapping only exists to keep sctp_sendmsg() from calling
-sctp_association_free(). Could the ownership decision be made
-separately from the errno? For example, sctp_sendmsg() could free the
-new association only while it is still CLOSED. Alternatively,
-sctp_sendmsg_to_asoc() could report ownership through a separate
-out-parameter. Either way the original -EINVAL or -ENOMEM would reach
-userspace. Or is there a reason the errno has to carry this?
+ .../regulator/hisilicon,histb-volt.yaml       |  58 +++++++
+ MAINTAINERS                                   |   7 +
+ drivers/regulator/Kconfig                     |   7 +
+ drivers/regulator/Makefile                    |   1 +
+ drivers/regulator/histb-regulator.c           | 163 ++++++++++++++++++
+ 5 files changed, 236 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/regulator/hisilicon,histb-volt.yaml
+ create mode 100644 drivers/regulator/histb-regulator.c
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261007035739.3472432-1-4ncienth%40gmail.com
+2.53.0
+
