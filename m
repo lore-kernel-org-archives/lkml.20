@@ -1,138 +1,127 @@
-Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com [209.85.208.175])
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF5344BD7B2
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 19:29:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.175
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791487784; cv=pass; b=p8De4NwiGHtHCzNzeDlvtWospb+umA04VWWzxBAsk++7TB8YO2+GvhWCL72MCF76CnA2UW+e+sPo685NzZY2xC6HCnjExwNewR1RF4OJ2lCevIdCe0C62Y2LCHtexiLnPMiZVdx/eJNfQ5OnKzeAKtR8F/y7s4EAskuh14RZxmU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791487784; c=relaxed/simple;
-	bh=bH3Ys777xJyJceuaHq+fKZvqaHs2+JI/CEfT6ut+TY0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=e4Gd7jR6lJDo0OZjdMX6BVjq5ehMZ9cx3IQcgCvL26xT/YdsOJojumS2CcERX/APLzYiulnKpdr2VxSYiX2rYb81GT6RSb0oS6qmbyqP/y+AFb4fJJmR0T9zsHLn7OI696AogIBfVuCvFIfj2z8aoT86+7vCqlMdx7C8MWgRpyc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Wn6s8tb1; arc=pass smtp.client-ip=209.85.208.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABBF13A5431
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 19:35:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791488117; cv=none; b=dHtXtGEYGIrnPwrUuQYVR1e5PjWbQBE+4/ZjO5j6dcmE7acBJ7MKEPq8iKdHTS789MMYJHoqxV3MYmI9XWd/8cLokPiv+7lMNgpZRg308ahPP5XEFHV3nEsSduLNJDKdqJwoS0XNrb757ndPxxmf9WYoS2NUI4wDHeTKi1c4Njs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791488117; c=relaxed/simple;
+	bh=fpC1Eme3VEz18Iit7OxfXGD+XO5w8Dx1LlQClNa1prs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=QekG9+z3cSLcbrRzcnMZP64Ph2vCOnNdxdv2y9HhwddDytBt5pXEYhIQtdV054e39hYyZ86PQY+uXeu3XRkOU/vhttvcbAzP/SuxiWuxLnKuGwCI4Kx0RWyzIed0hJeyPLE5Us5x7pKbUlD1xq/3HxXnlXcB5qoOIvOPipoLf0k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hh6mZ6Ye; arc=none smtp.client-ip=209.85.218.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Wn6s8tb1"
-Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-3a1f628b1d1so27503161fa.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 12:29:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791487781; cv=none;
-        d=google.com; s=arc-20260327;
-        b=PQd3qeX3XBZv5f1v2yR8RX4CVUpuyUk57rA9JjWIHPcUa8c5+VdkLXGW3JVI1u1h3h
-         Nuj/QeFVzH4U9kYuyLzyu/zhMH5XQIjXJppmnlHte8r3jvScWMBvPQi3qwScqg8YT42Z
-         KmwJEVjNmzPX3qaWFIWe6zh1zyTZXfZuGn6iBOcw2F2IsJ+KDWbOb4yU4X7BmbzJPPsn
-         /O3UNnfOJUDE4XwWMQ2/pgfdYda+9EbJMC5fQe5ojRQMEeNFDDx5Qk3fxPSkgNZTI/RB
-         L1oIErv5OX3FlaNp71dFQ87kcOwMbBfZZwHvNW0BwiTT4Lm4pz1FgLwgKqXHGrVUa1xA
-         95OQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=bH3Ys777xJyJceuaHq+fKZvqaHs2+JI/CEfT6ut+TY0=;
-        fh=Rem8BY9CU0M82wvyW1bGA05XobXOkM/IqADBhyy6POE=;
-        b=lm8X5px6uko3l8UhI539VN5I5tPJ30/3+l7tqW01OtCTm5nasH8UPzlh6WWZiKNGVn
-         QfjlJkfjXGyw6IYMo13w0rvVRRYytzk2DutnJdBWqhGW19GgdIPJNoCmC7hD+LN43Q9r
-         AUZpjeM7x0VRrHvrz3u6QIbOWruSbBWPqhHnpCG+0XwMJBom9KqAR4uPHhBtPLGtpiAt
-         GY6I3L6l2cyrq3gBFxy3ftG9pc7u09Jdtnd13JHbolWedIbm2JZQYCS2tDQ/CKen9Hz8
-         aSgfZKCy8t0Whhsu5e9i+hSvdBNnKdElX+IH6vEfo85LS3CJlqULa7T+i4qy5TwTGCeZ
-         z30w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hh6mZ6Ye"
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c2e62319cfaso585052066b.2
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 12:35:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791487781; x=1792092581; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bH3Ys777xJyJceuaHq+fKZvqaHs2+JI/CEfT6ut+TY0=;
-        b=Wn6s8tb1eiVxlv5gZBq8iT3KJpGjQLvnTO/AHZIgEXjIZG+Lhz3cBxz9g6pMTSivp0
-         wtTeLJOmaAiPJSlSQOd9Ej4zOx0wKZ4ym1gMaPC+5iNC/XwmE9do2x1yWrR0ZsT3WHTh
-         w+VsM0qSr/2GWJx1SzOM6Eby6osj7AxkURxNuREKFU3Ova6vf++oZ9+etNFhyam1NALj
-         Od2bQ1cx/eFsFP3UDnGod8REDTBpuxc5k3J6frNul3JoTNVqwgWMjVadxVY7lHJthEaH
-         ilc/QMDjwZp2s7n7giziRaMUj+76BvUF4Ofor4aLNHTC8T1qC9C6ChFjGbX5KO1AgKQ0
-         k8YA==
+        d=gmail.com; s=20251104; t=1791488114; x=1792092914; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fpC1Eme3VEz18Iit7OxfXGD+XO5w8Dx1LlQClNa1prs=;
+        b=Hh6mZ6YeeckXZTR898XQjBmLEGbeXw18sCPz7rrAH0DuUv+vdP8pbPif/pDiYRKL7R
+         nUPe5AtsHFadO2iY1o8pqu5SCzUVNgD4X+et6qr7dTpucw+MSJrrVQ4L50I5CWwtLInN
+         hS/6ObJCLQaAXVo2sMtLURdBW6mjJ3cENnPLWDoB7niy7pUeyTxHM/BWFQu3vgpEtbR5
+         sczdqKEJliAQWLjKI3px7mufo3ABznZ6gcRmvhOW7Eqz5aKQ5slIv5w0vOSc6XReXirn
+         9GhND3HcpCqYNB68PMFrc5oG9/9dswu/4byiZtoVS/oXVtGtIk+5V3t08abYwQP1n5TV
+         k1ZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791487781; x=1792092581;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bH3Ys777xJyJceuaHq+fKZvqaHs2+JI/CEfT6ut+TY0=;
-        b=w908bkjo2U9efOEDDmpgCE8JgkBS1kiM/2A4DTkJRy+F92CUVKid0zqsM2/gjm05ZV
-         hKCdhZbZ2xxpe36Yj5Jq1ZlYLcCu4Fl0a6Jd58ELgZTytu6bdMPf5VSqogBHaVGfLEVP
-         rPinrsHuinWk7IOctcqp5YB/4E2/WFL6Nibma8oPD1eSGqNymdafNJoQcoh/67q71lSo
-         ZT1DUVKpdb7YCPQRqMWhpy7WKIDDs4GZOt6EzYifItobyWfOdXHfE3jDHWiwpSmhZJY2
-         y9uNOO978VpKbSmEr+KOQg88fUrYjeT2VRICz8ooMsX1zKsNAu6N9fhEq15cWknpmbVZ
-         JLhQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxAcf0l0yNT3BCkEgJoHI7uKzFR/pzhniecUZY7x+zttIT5vEYFwxo6HfLIj+PSFxQH5A+o/WAY3CMco5I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL3EiMqAVREfR7an9qBLAbYkD1gh/DTbnnYM+2BNO06b8GtVTsQ
-	WtMovYKAeLguW26yuyYwD9ooFrC0u4/2o6jxH+dbYG7tbMSsw5T+RONx4mBio+mGPbUhK8fguSf
-	wbaBbvCrJafPYzdc3RnZSULqkwgo8c0u9cQ==
-X-Gm-Gg: AYBFou0gM0kXiW1XxreZm4I6sFtqK8RaS4jQoP75cn9FslXiQdc1zm1l6RhyGSNg4mu
-	8ykqKp5YqO6PWVOoN+/Sf5xhjv/bE29gSgjJB8ECtUNhvquE7Kd6dQ+g9yqSFp9mmXUPR4Cr7d4
-	Y5Hs8FgaIpL/SNFkyYvQTVttdb53psC4k5YOE7l5PReo2vD6avMjd96ktz57UPbsgko+70NXE4I
-	iy8wnUD+hn3i33yEo3akK1QDR8sXGuKhdpYN1ASOgIGXvnGXJziIH7cPa6dGQe1pUAOSEvulqMB
-	hiYewFUnFwzZdbimxOh5+jxXCjntXOOvo0tuMesA67KhTgx48FW/Bu8zyKN8y/EFRVpqOCd1HNl
-	S9NrkDDva1bUlLg==
-X-Received: by 2002:a05:651c:15c4:20b0:3a6:58fb:8540 with SMTP id
- 38308e7fff4ca-3a9c2a6f0d9mr491601fa.19.1791487780457; Thu, 08 Oct 2026
- 12:29:40 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791488114; x=1792092914;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fpC1Eme3VEz18Iit7OxfXGD+XO5w8Dx1LlQClNa1prs=;
+        b=S7gZWREfsE8olzsTPL1ZzO8zGvmrw73DkY6nxM/wJjtxUPL+5DBowMtnGkcHIWFSAY
+         I8yFrq4uniIDIF7lxm3i5nGKhon8Rx+gPnCzYQfHgV1zvuNYxKzxOpwvRE0UUaFn9ARZ
+         BGxNU7B8iVhdMQ0tOkCmo/eQvV9PVAOkpQ7JTHzdBQ9cigPvuXOlFS4Nz1fhJCGUiBad
+         2ue/y+R/yJwBs9ZFm6FlD1xuu/7cEeL6A/X3ES+aFzUEtw29N9mRRkXvFEROZUMJ4eKG
+         mqH6UxH3ayrR8O7r+oHBV00siuVoTpC8DFWx5Pt19GdOhxPILHAViF5WDEBWujUiRD+G
+         4GNA==
+X-Forwarded-Encrypted: i=1; AKwUvBx54gwBf4RwCYVI5951WBvLfZ9Wmw7JlVX4jMMdQhVqZlpz3oKZT6GZAjxMTnUuhs6V1vHEshRUIsnTGus=@vger.kernel.org
+X-Gm-Message-State: AFuF++nJc21r72GqMRiyMp26+gSGxQuaRvexA+y4dKVvZkJks2eJloNv
+	N9WJ4ey6GJZGcvzDWav5mQbhFbvp+TPig0x4j4XHzrr+BrRZXMZXwvP+
+X-Gm-Gg: AYBFou3DT5DbzDY4HXh6gXM23o2CL1wprmrgJV7buDHv2D7sw5H9aEH8Fl/qO1UiDoC
+	DRc/rdCtUevldjLsj2gc0+1JVmd6NmpVravikgTWwO65v1hH0jHGTL5QGgKF6CPr0CQN7p1IXty
+	//80yM+oCYG4+0ScETRIfh/cjAW0pfQGsjhgnH6WCyWOduU9ByEdEvqpUDYwuQxE5tsKacErfI1
+	bRro2yguJvyOSdwXdvH/3o1nEfmXLs1KehDW9oLx/xjBNATJCfJVo6HMPwkUqF6kvz0J/TBVOug
+	tolhKbuZdd8NP3qnEKia25+u3Oa3/jc+61JLQx2rmbW0f5tK8hcr9X58zv1S03dCsWhLbDKU6gi
+	jNxdzxeC1RyWZM3iSoPCrE16O5bLeIZQjvhmCXA4iWm11DXsNSfNDtjAiyODMDgrnFwfS6y42F7
+	qlSSZe4BlL5rcgc3jbiMEENOFJeSfbV2NwxLDlEgZu3PaFMMj3XiddvpQO9Deyre5MqSDs6UVDI
+	gvu/BD97Qjbtt9czzXXAtNUz1fbUGS/ZCrpVsEA3TpOcse9X34b8oqwVr9GgIGmHlqV739EBlnQ
+	xb8FO0AVrX/FW7fFjnxyU7E=
+X-Received: by 2002:a17:906:7316:b0:c2a:fd39:f231 with SMTP id a640c23a62f3a-c317c094878mr682956966b.26.1791488113806;
+        Thu, 08 Oct 2026 12:35:13 -0700 (PDT)
+Received: from localhost.localdomain (94-255-221-162.cust.bredband2.com. [94.255.221.162])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a4758795sm10017366b.5.2026.10.08.12.35.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 12:35:13 -0700 (PDT)
+From: Yongzhao Chen <yongzhao.derek@gmail.com>
+To: netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org,
+	Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v3] net: phy: qca83xx: read resolved QCA8337 link status
+Date: Thu,  8 Oct 2026 21:35:00 +0200
+Message-ID: <20261008193501.14850-1-yongzhao.derek@gmail.com>
+X-Mailer: git-send-email 2.45.2.windows.1
+In-Reply-To: <179147542415.434549.1369676326541511457@kernel.org>
+References: <20261006160316.1356-1-yongzhao.derek@gmail.com> <179147542415.434549.1369676326541511457@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260803-alpha-fp-exceptions-v1-0-c99d75608e60@gmail.com>
- <20260803-alpha-fp-exceptions-v1-3-c99d75608e60@gmail.com>
- <CA+=Fv5QUxT-T0XgXccAF=1_6Dz=nCpY=NQu=ruOrYjbB+q7YCA@mail.gmail.com> <CA+=Fv5S_ZrHedEVPR9Oet2Egg2hwy33pEqEXaQa0zGdQdNjWRg@mail.gmail.com>
-In-Reply-To: <CA+=Fv5S_ZrHedEVPR9Oet2Egg2hwy33pEqEXaQa0zGdQdNjWRg@mail.gmail.com>
-From: Matt Turner <mattst88@gmail.com>
-Date: Thu, 8 Oct 2026 15:29:27 -0400
-X-Gm-Features: AclHuK-YAox1Xf7NjC5L8Z-SfaibsiX2e4acSu8a9kwaQSKw1rOePouwIqBhWL0
-Message-ID: <CAEdQ38EM0FyqYZH6b30oxScZ481dGqnsqu23iePLdx2gCpqzxA@mail.gmail.com>
-Subject: Re: [PATCH 3/3] alpha: determine tininess after rounding in the FP emulation
-To: Magnus Lindholm <linmag7@gmail.com>
-Cc: Richard Henderson <richard.henderson@linaro.org>, linux-alpha@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, sparclinux@vger.kernel.org, 
-	linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org, 
-	"David S. Miller" <davem@davemloft.net>, Andreas Larsson <andreas@gaisler.com>, stable@vger.kernel.org, 
-	Michael Ellerman <mpe@ellerman.id.au>, Yoshinori Sato <ysato@users.sourceforge.jp>, dalias@libc.org, 
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 4, 2026 at 2:13=E2=80=AFAM Magnus Lindholm <linmag7@gmail.com> =
-wrote:
->
-> Hi everyone,
->
-> Adding Michael, Yoshinori, Rich and Adrian directly, although this
-> is an alpha series, patch 3/3 also touches the shared soft-fp code in
-> include/math-emu/ (op-common.h, soft-fp.h), which your architectures
-> build against too (confirmed by grepping arch/{powerpc,sh,sparc} for
-> includes of those headers; parisc/m68k/mips/x86 have their own
-> separate math-emu and aren't touched).
-> The new _FP_TININESS_AFTER_ROUNDING macro defaults to 0, so the
-> intent is no behavioural change on your side. The new guard it adds
-> in op-common.h is a regular runtime `if` rather than `#if` though, so
-> it still gets compiled against your macro instantiations even if it
-> should dead-code-eliminate at -O.
-> No action needed if it builds fine for you, just flagging since it's
-> tagged for stable. Let us know if it causes any problems, or feel
-> free to ack if you're happy with it.
-> I've reviewed and tested patch 3/3 on alpha already (Reviewed-by/
-> Tested-by posted).
->
-> Thanks,
-> Magnus
+On Thu, 08 Oct 2026 16:03:44 +0000 netdev-bot+sashiko@kernel.org wrote:
+> Suppose BMSR shows link up and autoneg complete before
+> AT803X_SS_SPEED_DUPLEX_RESOLVED is set in AT803X_SPECIFIC_STATUS. What ends
+> up in phydev->speed and phydev->duplex in that case?
 
-Hello all,
+Both points are valid. Thanks.
 
-Could a maintainer of this code find time to have a look?
+In that case v3 reports the link up with SPEED_UNKNOWN, and the early
+return in genphy_read_status() keeps it that way until the link
+drops. The reserved speed value ends up the same way. I don't know
+whether QCA8337 can report link up before the resolved bit is set,
+but the driver should not depend on that.
 
-We can take it through the alpha tree, but we'd certainly prefer some
-review first.
+v4 follows marvell_read_status_page_an(): if speed or duplex is still
+unknown after at803x_read_specific_status(), it reports the link as
+down. This driver has no interrupt support, so phylib polls the PHY
+and reads the status again on the next poll. The qca808x approach does
+not fit here. The value it falls back to is the advertisement-derived
+speed this patch replaces, so after a downshift it would keep
+1000 Mbit/s.
+
+> Should mdix also be reset to ETH_TP_MDI_INVALID when the resolved status is
+> not read?
+
+Yes. v4 sets mdix to ETH_TP_MDI_INVALID on every poll except during
+a steady autonegotiated link and reads it again only at link-up. That
+covers both a link drop and autonegotiation being disabled.
+
+at803x_read_status(), used by the other AT803x PHYs, clears speed and
+duplex the same way before it calls the helper. I have not changed it
+in this patch.
+
+The model test now covers both cases, and v3 fails them. v4 has not
+been tested on hardware. I will send it separately.
 
 Thanks,
-Matt
+Yongzhao Chen
+
+pw-bot: cr
