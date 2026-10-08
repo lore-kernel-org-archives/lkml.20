@@ -1,122 +1,82 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-25.mta0.migadu.com [91.218.175.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D7AB3BB12B
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 11:19:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 984D83BFAF7
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 11:19:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791458353; cv=none; b=rUI5sjmao1+T5bdIoKEnlLTc++IDdrwji35pY9kUEGi+++nAvTsAlHOmdEidIMsXcSeevZ0grpnvsvM/F24HAriEQVm4jFOOOKe+Lk26YWS6lomQDk3ahvYPVvZNFJhJy7WHHsG7ZMa761F6PljeXRpzKZ3ZPlHdncNeXtHFiDk=
+	t=1791458374; cv=none; b=eL6hOpoei4CEqktKhQdhasZISfll5YwNwoLR0lDUBjvthxawXb5vmCKUgPg9OmnDiyxw73ySm9s6bDJVA4OpEOMGKmEGJwssjeJ81+812vQqolt/FA9TTvwZ6PKOC+IUMKcUNcBr2+yaK/3/wfl+flEyE9fyqv+/0tg/Q84aBVw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791458353; c=relaxed/simple;
-	bh=2iWKgdjnY/WKT1NRrSPFsVEZgqb3q8rtw1j3YXKRPfs=;
+	s=arc-20240116; t=1791458374; c=relaxed/simple;
+	bh=Vy4gkqe2RT9fQ7P2smtTj/nepgugYBkQhIdkpt1dzQQ=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=AIgRef65KObjPvarfAny+fOW02A1HZZ1RUaaKVwgO0Uo9E0o1TijnTN/VfjyflWM2fYGgXwF0QTagKDFDSwAhNEOJLD2QVggfViTHHKf0sK/UGrOIr0N6fPCSihx3BVo/yh9XeDRsRtF1E8eJkVwMunOS2DMZt9DY0EaKoqDEAI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eBMzf+6E; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=XBFwY7+E9qaGUMsGCNYJ8ZG53dld+/YYK6S2JrOnBahAFtqQu7yH7hTBX68z926wiHj1v03hBpNxgFP1r9dqXa95vUY6k5yREdtH7K8yl9NXCaWw+efpHJcsc5N6NUGzUsjfX6eyTLKw0Q82u2acdDg63Mwfl86y1VKvfWJzVLw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=BtiYGz4t; arc=none smtp.client-ip=91.218.175.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eBMzf+6E"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB6BA1F000FF
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 11:19:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791458351;
-	bh=NZcC7/xg5SS/eaNUvNNF7JTQ0EBiXnoG/PlgqRlweyg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=eBMzf+6EF3yoxA2GSItVqlvzFmLvbXr3/eiYJXN/LcbGanoG1kPTf4VZbze+iqZw3
-	 bS+qdBnanUi2wF7hhQXyt8PjSa+cN5/ObykHyfNAgIXXifECFrrjYEHn13BHtOFZPm
-	 GoLhtoSlZ8SZ0tbaFS+JWeKh3nQy/42TEmbdVo+zeJO6LlBed7dSlzxUXjUPnrHI8P
-	 aO+SnsutNruivNAGpLBajaNXrAVLCk1bXb/hElYHPIEg/hdgOBhSjNoU5qZUNjW3SN
-	 g3M1qkoZlVQtE4SVKGLMMf9YAIZFyXX77bcFzUuniM8C4ZtXasdL5n2p80I94F5A/O
-	 vaeZYuq/KjKwA==
-Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-93e441e14a1so400834885a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 04:19:11 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzvRSDSV9lY7xPSnrmewQVtTUkD/CESfm2rSanhULfaQHqCb4uOhGSpgnX8sbcgw4SwLIRz7CFwHcpIb1c=@vger.kernel.org
-X-Gm-Message-State: AFuF++mKg5c0lJJdQvAr3rokMpbIFG60sDB8346H6oxCEQxNYLuykJrk
-	SDjlLMMibpSSMi8tHIUCWrc/2dN6BniZ9h8w3ZLNnePM29xXUeXk/8gphqDsEDyqePR0+XTgtA8
-	vid2V+VxoIWGIDRIVaSgpXs6d2Q4PogM=
-X-Received: by 2002:a05:620a:4709:b0:939:761c:4f59 with SMTP id
- af79cd13be357-93e9b76c78amr924707585a.16.1791458351308; Thu, 08 Oct 2026
- 04:19:11 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="BtiYGz4t"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Vy4gkqe2RT9fQ7P2smtTj/nepgugYBkQhIdkpt1dzQQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791458369; v=1; x=1792063169;
+ b=BtiYGz4tJMkfwUwWgbOC353UyhehRLFmj0cpaLl9C1Jz816hGOQhdWgnyL5W6c4mboVOBftL
+ zQ0MBnxLMd1jvTr2drBGT/+TXXMnyXhXPrIa4cxW/n4jXpSHdF/Zpvd91qQbbqDO7yJqhMqk3tF
+ uBw/r085iAstgP3ENNtekssU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ad095c6b3d68dd02;
+	Thu, 08 Oct 2026 11:19:29 +0000
+X-Mizu-Trace-ID: ad095c6b3d68dd02
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5ba429b64c5so5947e87.1
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 04:19:28 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwZyYFd4JrGLDraN+kD49izq34uEuj0VL8KHthzmwuZdMmUzY14ProbhAfFJjwWsoc7LXu/8oh3HqHmtrY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKuv97fBZ16wr7wMAnvtXQZsAqUyY/n7MsTd180aezoP4y3QiBg
+	kLZpZUUVU5BLlVp+HL+FpTEzaJiZEpQJuGD41W++mbcYX84GZdpS9xTxQumctwRyfgvfbQbmUrR
+	2OFivLeSZwQZeooThjfKBZwo/jrqfyjCilePqwB+W
+X-Received: by 2002:a05:6512:3504:b0:5bc:b531:51ea with SMTP id
+ 2adb3069b0e04-5bcd5895443mr96775e87.13.1791458368094; Thu, 08 Oct 2026
+ 04:19:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261008070928.113530-1-hui.zhu@linux.dev>
-In-Reply-To: <20261008070928.113530-1-hui.zhu@linux.dev>
-From: Barry Song <baohua@kernel.org>
-Date: Thu, 8 Oct 2026 19:19:00 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4wW=XXe6=1GucvA1pUSkhLCosJh+bc0-97cYGGWW=MtPw@mail.gmail.com>
-X-Gm-Features: AclHuK9Y4gxfKhBzGtl0K9V-EYLUU5MKewRW9HUXdq9571fi07WGLf_34qgAkY8
-Message-ID: <CAGsJ_4wW=XXe6=1GucvA1pUSkhLCosJh+bc0-97cYGGWW=MtPw@mail.gmail.com>
-Subject: Re: [PATCH bpf-next v3] selftests/bpf: Add bpf_proactive_reclaim test
-To: Hui Zhu <hui.zhu@linux.dev>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>, JP Kobryn <inwardvessel@gmail.com>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
-	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Ihor Solodrai <ihor.solodrai@linux.dev>, Alexei Starovoitov <ast@kernel.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
-	Emil Tsalapatis <emil@etsalapatis.com>, Shuah Khan <shuah@kernel.org>, 
-	David Hildenbrand <david@kernel.org>, Geliang Tang <geliang@kernel.org>, 
-	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
-	Jesper Dangaard Brouer <hawk@kernel.org>, John Fastabend <john.fastabend@gmail.com>, 
-	Stanislav Fomichev <sdf@fomichev.me>, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
-	linux-mm@kvack.org, linux-kselftest@vger.kernel.org, netdev@vger.kernel.org, 
-	Hui Zhu <zhuhui@kylinos.cn>
+References: <20261007150255.1648849-1-vdonnefort@google.com> <20261007150255.1648849-2-vdonnefort@google.com>
+In-Reply-To: <20261007150255.1648849-2-vdonnefort@google.com>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Thu, 8 Oct 2026 13:18:51 +0200
+X-Gmail-Original-Message-ID: <CA+EHjTyXg3ULW0XYkeA9P=zdXXMN7oszPiFHTYLPQ=GG3M_pig@mail.gmail.com>
+X-Gm-Features: AclHuK9-1zLMDgd3KEIfnpqD4KGBnBg3Da2FUX2mIU2fGj8x9pVLP1_bf0_EVHw
+Message-ID: <CA+EHjTyXg3ULW0XYkeA9P=zdXXMN7oszPiFHTYLPQ=GG3M_pig@mail.gmail.com>
+Subject: Re: [PATCH 1/5] drivers/virt: pkvm: Make pkvm_init_hyp_services() __init
+To: Vincent Donnefort <vdonnefort@google.com>
+Cc: catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	kernel-team@android.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 8, 2026 at 3:10=E2=80=AFPM Hui Zhu <hui.zhu@linux.dev> wrote:
->
-> From: Hui Zhu <zhuhui@kylinos.cn>
->
-> bpf_proactive_reclaim() performs one bounded reclaim pass per call and,
-> unlike a write to memory.reclaim, does not retry until the goal is
-> reached.
->
-> Charge 32 MiB of page cache to a cgroup, ask for all of it in one call,
-> and check that the result is positive but well below the request: one
-> pass is capped at MEMCG_CHARGE_BATCH pages, far short of 32 MiB on both
-> 4K and 64K page kernels.
->
-> The test deliberately covers only the kfunc itself. A full example of
-> the intended asynchronous use, where a BPF program watches one cgroup's
-> workingset refaults and reclaims another one from bpf_wq callbacks, is
-> maintained out of tree at [1], released under GPLv2.
->
-> Add CONFIG_MEMCG to the config fragment, without which mm/bpf_memcontrol.=
-c
-> is not built at all.
->
-> [1] https://github.com/teawater/memcg-async-reclaim
->
-> Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
-[...]
+Hi Vincent,
 
-> +
-> +       /*
-> +        * Both candidate directories can be tmpfs (initramfs-based CI, f=
-or
-> +        * instance). That is an environment limitation, not a test failu=
-re.
-> +        */
-> +       dir =3D workload_dir();
-> +       if (!dir) {
-> +               test__skip();
-> +               return;
-> +       }
-> +
-> +       snprintf(data_file, sizeof(data_file),
-> +                "%s/memcg_proactive_reclaim_XXXXXX", dir);
-> +       data_fd =3D mkstemp(data_file);
+On Wed, 07 Oct 2026 16:02:51 +0100, Vincent Donnefort
+<vdonnefort@google.com> wrote:
+> pkvm_init_hyp_services() is only called from kvm_init_hyp_services(),
+> which is already marked __init. Mark pkvm_init_hyp_services() as __init
+> too.
+>
+> Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
 
-If we can't write to the directory, will `mkstemp()` fail?
-Should we check `access(dir, W_OK)` first?
+I tested the series with a 4K protected guest under kvmtool in QEMU,
+on a 4K host and on a 16K host. The 16K host also requires your "KVM:
+arm64: Fix protected VM fault on system with pages larger than 4K"
+[1]. That testing is same as patches 2 and 5 as well.
 
-> +       if (!ASSERT_GE(data_fd, 0, "mkstemp"))
-> +               return;
-> +
+Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
+Tested-by: Fuad Tabba <fuad.tabba@linux.dev>
 
-Best Regards
-Barry
+Cheers,
+/fuad
+
+[1] https://lore.kernel.org/all/20260915091606.2111217-1-vdonnefort@google.com/
