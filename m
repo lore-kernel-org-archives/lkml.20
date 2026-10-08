@@ -1,167 +1,122 @@
-Received: from mout.web.de (mout.web.de [212.227.17.11])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A13AF28E0F
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 00:55:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3E97175A9C;
+	Thu,  8 Oct 2026 00:57:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791420934; cv=none; b=V/JZfNxigi3OFi+9cegxBz2Ipl51bdTFvHs0oBjubQdsxGiUK0nNLAJqqT5kYEeaa2lddDuOQgXeHdy9yPI8dWU9cpS95W8sFr5e4+i4hHupPN03iPuzDvsMsKHm24HkvtUvl5o3yiznIAPLhL7zs6QZ7Gq/+y0KU0rXNezWVtE=
+	t=1791421044; cv=none; b=LjqyM59PuNH5OJs4yGBywk1w2Jiu1f0nuOxHoSpRxru0bMnb6LdGVpGI20n3RD3vhO8ykII3JGjqm3531bR9Z91IHUUlRN0EiAzxl0+XGaYqRjfJnFhL6Z+RHrAQTNjB1sFUJo1EiY8MUPbRl5T5alobNFPCQt2KAahPlkid0RE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791420934; c=relaxed/simple;
-	bh=EvCAiSSTpKlZimBpDbmA3GKEIfLHd5qfj/sRye3B7Q8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YRE8EEMJ8GtZ33moHL0XTo+MxMERBHW4XYCcQZmI/c3JuOIN27w01McyaOHbrbdN0STcVzk6dGxTisJO62ECq2wAHX4LgO9SKGaJO86yUwNufRo+TiYW+/5dxoroh8OMVRPHULUbExoTmuudAI02M4gL/MdZzLj/oHcEaCGb+i8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=spasswolf@web.de header.b=Mjhn7lmV; arc=none smtp.client-ip=212.227.17.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
+	s=arc-20240116; t=1791421044; c=relaxed/simple;
+	bh=hiy+r2H68pmhnZTQQp3bi+zd3lV66rF3SckSpdIHOQU=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=qd4OrvZAZWUY30JIpfQ7340AwsckoYrD+uM263XZ42mNjUbv/IApoS05xejvm7DTah1nLS5yI/Y0ragyPsxXM7kTKs5Dr+kEmz1N7R78ikO6niEWqdmRDm/YXV3x5WHeXclLoDAeHnAjnBUzcIlfau4TPoujSimh8PDpv3umR+0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SzLSQh4r; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=web.de header.i=spasswolf@web.de header.b="Mjhn7lmV"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
-	s=s29768273; t=1791420930; x=1792025730; i=spasswolf@web.de;
-	bh=SDXWSDVs/cv4S3vPDg3z0lB70O6UqXQmhZsGeabZsw4=;
-	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:cc:
-	 content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=Mjhn7lmVD+yZGfZyZIhIC3HkWvt6KYxjOVvNkfXT34oXRKPKqX4uRfMBZRsk7JZV
-	 eyst6fB7mcQdXfdLaYIEU6WG0pNnxhi61ExhDScQwM1s7eNnG5ZUZUM7bnLnCU+LC
-	 Lx9H4x3Nf/oTg/BoDbRKkwEdkz8mosPZ+w+wy54BczenfDwjcBQ3eXXAasB/2UOEb
-	 vre6RC/kVMmK/k5Wpe7iaD6RjJZC1yPkO+64hiZU6kBcfHnZ5gzxOMh+eEMpalWlM
-	 k60OBbk3tvR4AARxtNX0kKZM6B4BrhHZL9sqnH8NYTC+bU3BZWeNfjsz18So7wYJb
-	 Rn/sg3BAnbOpDwAtXw==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb105
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1Mhnw2-1wjhWE1Kka-00eC6N; Thu, 08
- Oct 2026 02:55:30 +0200
-From: Bert Karwatzki <spasswolf@web.de>
-To: akpm@linux-foundation.org
-Cc: Bert Karwatzki <spasswolf@web.de>,
-	jannh@google.com,
-	liam@infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	ljs@kernel.org,
-	okerixx@gmail.com,
-	pfalcato@suse.de,
-	vbabka@kernel.org
-Subject: Re: [PATCH v2] mm/vma: keep the unlinked VMA off the file across unmap on mmap hook failure
-Date: Thu,  8 Oct 2026 02:55:23 +0200
-Message-ID: <20261008005526.6927-1-spasswolf@web.de>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261007145329.dd944233d7986bc0f5b2d63c@linux-foundation.org>
-References: 
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SzLSQh4r"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 697LtrdZ1467413;
+	Thu, 8 Oct 2026 00:56:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=lRb81c2RyWc
+	lOo1KRcheNSvud804gn5HNxe9AsZEAg4=; b=SzLSQh4reiC9cRt79eMIEMywU8i
+	yW9cHJm/0/pBGXW7khTlCExcyJA7TXtkQAA7/9sNijmsGfFI26GDQW6O+vNss1LG
+	KAFiJyDPlnmgDmwd/Fcy5ygEQJ3Q8/dXw/yZ73iGYaj/p0JuJLipV4PrT2zRsTS+
+	fGEUtiMY7xlOTpccby37mZ6UPsdjO4V7d9UXNHS6taONQkemSh8P0JwkqEEo54bi
+	Wstu46o84Qh60Xc5EVeVomx+oXTOhBGW1cOCQP5shCjx5+Wffgpn+aelC77HYA8n
+	dhWpGhGvNfz9A/OMZ5YVGnwgiafJwT6e94HPFg4xHIVKDz/IUyaK/OvjqGw==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com [129.46.96.20])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe40h5t-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 08 Oct 2026 00:56:58 +0000 (GMT)
+Received: from pps.filterd (nalasppmta02.qualcomm.com [127.0.0.1])
+	by NALASPPMTA02.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 6980uvfn1600941;
+	Thu, 8 Oct 2026 00:56:57 GMT
+Received: from hu-devc-lv-u22-c.qualcomm.com (hu-subashab-lv.qualcomm.com [10.81.24.15])
+	by NALASPPMTA02.qualcomm.com (PPS) with ESMTPS id 6980uuZQ1600934
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 08 Oct 2026 00:56:57 +0000 (GMT)
+Received: by hu-devc-lv-u22-c.qualcomm.com (Postfix, from userid 212624)
+	id A22F0AD5; Wed,  7 Oct 2026 17:56:56 -0700 (PDT)
+From: Subash Abhinov Kasiviswanathan <subash.a.kasiviswanathan@oss.qualcomm.com>
+To: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+        pabeni@redhat.com, andrew+netdev@lunn.ch, corbet@lwn.net
+Cc: horms@kernel.org, skhan@linuxfoundation.org, rdunlap@infradead.org,
+        netdev@vger.kernel.org, linux-doc@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Subash Abhinov Kasiviswanathan <subash.a.kasiviswanathan@oss.qualcomm.com>,
+        Sean Tranchetti <sean.tranchetti@oss.qualcomm.com>
+Subject: [PATCH net-next v2 2/8] uapi: if_link: Add RMNET_FLAGS_INGRESS_COALESCE
+Date: Wed,  7 Oct 2026 17:55:39 -0700
+Message-Id: <20261008005543.2630828-3-subash.a.kasiviswanathan@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261008005543.2630828-1-subash.a.kasiviswanathan@oss.qualcomm.com>
+References: <20261008005543.2630828-1-subash.a.kasiviswanathan@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:/rBa9frzNAE2fAdo3AEhTRGa+im7/Sc210Q/AGjm6e2OnxrOFqU
- jOCu7tLt7S16rhkaV2tcIHEEgmsmJiuD4vnPVfcIvaYSfw1Fc7tvFahSXtcMbjouBw5vDAk
- fWShtcBl2PpcFXe9IJ5SOAzqATJnjTCjUBFjAO9hEK4PoEEeu+7ehnKLUGfN0+lANfb1BvW
- H+YA3ebbgfYy9bMQOm2Mg==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:N7ipb4OLF5M=;01l4Et6qbLA++qgz41usQM7iIfV
- 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
- bxzyIu7O0Jz6+C0ormOCUvnhTj/EW0N7Cetypg=
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-GUID: -fjFEZRkGnNHV5PJhphqAhF6KJ3Ovl5L
+X-Authority-Analysis: v=2.4 cv=AbwkjHXG c=1 sm=1 tr=0 ts=6ac6ea5a cx=c_pps
+ a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
+ a=Hq0_xJipLjZV5mAGnJ8A:9
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDAwMyBTYWx0ZWRfX9yyfAtGYvQAW
+ 9RtnjroRxDBnT7Ax13WMHYyiQ7C/aA4+ZV7khW/aIYW9BeQN8GipY033kAKkY0/hE1rbJeqe/zi
+ 3QoqR4ivLrmvRcN2sb4/vG67V50Xbio=
+X-Proofpoint-ORIG-GUID: -fjFEZRkGnNHV5PJhphqAhF6KJ3Ovl5L
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDAwMyBTYWx0ZWRfX7iQ1auc5tpXx
+ Ha2SMZ/rh9HyJue3UodWA/xQzR6Os7mLowkoDtEo9FLzGBVXVMMWdjKU1h6/L5NN/9UbpzAJQOR
+ oQS9Zl9MbgkTCLggVjjnI56VA1OKuc2PVDzcJ6tUzijg/ryQHkj7XjznG8Gnlq7XSjI9XHApKc9
+ Mir/EV/PnBgzZ5eUTeACfJm1FQu8R6BVTT0BMvHxVOgo0jyC7B082Ghl2Z5eZCXPyD0WKgml/si
+ vA7ymhwap1ZhRGUntn+/kOrVXMfd1Epe4/4Ir74yNx42JJrUK64ILS4EQH3IQRqVPQ+fC0bwP0X
+ 9x2ye0ZGzHsqgqfN7XnEUlabtd6l9QqAU2581W66JLuPMnhMYEMF/lubUzZbo1qxC0gneGUjEch
+ 76pHE6ISv11gaa5E/4/dkoAXGfS5TJT+tkKv3Pmvi0olAd2NXdKwMPjAwb3xvkLrKjjIargsG8L
+ VSMxfpxna7KxPgOiwZw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-07_07,2026-10-06_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
+ clxscore=1015 suspectscore=0 priorityscore=1501 adultscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080003
 
-I can confirm that this patch fixes the sound problems I had
-in next-2026100{6,7} which bisected to commit
+Add bit 6 of the rmnet ingress flags to allow rmnet to process incoming
+packets in the MAPv5 coalescing header format.
 
-40deada069fb ("mm: consistently validate VMA state after mmap[_prepare] ho=
-oks")
+Co-developed-by: Sean Tranchetti <sean.tranchetti@oss.qualcomm.com>
+Signed-off-by: Sean Tranchetti <sean.tranchetti@oss.qualcomm.com>
+Signed-off-by: Subash Abhinov Kasiviswanathan <subash.a.kasiviswanathan@oss.qualcomm.com>
+---
+v2: no change
+v1: https://lore.kernel.org/all/20260930051345.857443-2-subash.a.kasiviswanathan@oss.qualcomm.com/
 
-Tested-By: Bert Karwatzki <spasswolf@web.de>
+ include/uapi/linux/if_link.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-Bert Karwatzki
-   =20
+diff --git a/include/uapi/linux/if_link.h b/include/uapi/linux/if_link.h
+index 245b36204525..349fcddc6622 100644
+--- a/include/uapi/linux/if_link.h
++++ b/include/uapi/linux/if_link.h
+@@ -2022,6 +2022,7 @@ enum {
+ #define RMNET_FLAGS_EGRESS_MAP_CKSUMV4            (1U << 3)
+ #define RMNET_FLAGS_INGRESS_MAP_CKSUMV5           (1U << 4)
+ #define RMNET_FLAGS_EGRESS_MAP_CKSUMV5            (1U << 5)
++#define RMNET_FLAGS_INGRESS_COALESCE              (1U << 6)
+ 
+ enum {
+ 	IFLA_RMNET_UNSPEC,
+-- 
+2.34.1
+
