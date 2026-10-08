@@ -1,137 +1,230 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F6D93A16BC;
-	Thu,  8 Oct 2026 16:13:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB4DE3AE1BC
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 16:13:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791476018; cv=none; b=Ngex0Uk4uoc0DEKFnA4s4N4D9BnOMRWGZhm1WiA0bpXaH6ybcQCk+LUHT43usS+YsnsDzSP56ZXaDAgz3avxyVThL+nxTXjOP6gAXl+jUqwoRRQnCzhxrGX0j0COrEneXql0/j0zOyY0fE8r0FeKwiqWhr4j0iS5rKskG1YFoSY=
+	t=1791476018; cv=none; b=JCWDP4+DtBuVlOtmYAwVqQUhwyO/DNNY1jUJETYmjwnFF4cP7Bg61y7mSJMKvUjF1JwXGBZ/A7tgITi6olMWr0vRSrWZfvUNc08z2tRDrnc5O8ymMsScHYnRtQ9vqcTdq4CusGO50jXLE4USTnwj/Rt+8DhOX0SVZXTwawhwkaA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791476018; c=relaxed/simple;
-	bh=kvNXIo4SaRlxomA7jdOnL/2uMN6SwvsWPMll1Wb0KKY=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=crhsgNYRaa4Eqk0YXU0wnVECQKKBak/jnYv+8iB6MaOCJVUg4Oif30kRWg96HO4c2rpMkE+seWq6PV7xEZMTVN6A7BDIZl3JeZwzHlUmPpcyndHzHETU/Ih21eocWbVWfhiQZqpebvT/8cldXRMa3snQHGaJbZW5Uf+MAAfpVsk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bcob3tth; arc=none smtp.client-ip=100.103.45.18
+	bh=ctjqrT0ClDhJ4kwgUJDSm0RQ29Lw8YZNFjREtaOVINs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dPLSHmuL2Wi0mVnCfjdPRhFNUi34HBRo4KGr8b6oU9/YswmVUM4HVZmTWofLkEvFJC2wLwXH1mBYX63wujW+7BssyAMdN3Ykb9Q2q7lr+0gg75Ke6t0y3bm6UxpRtjknL3r/2JXTgpfO160QTaEUEVeEXICLmojMWdyMXx6T/7k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bkXuoTl4; arc=none smtp.client-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bcob3tth"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DBFE1F0089B;
-	Thu,  8 Oct 2026 16:13:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791476013;
-	bh=1qz2zs17muwa4xmBznSqvYurFQSuqOe1Jw2rB762q0c=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=bcob3tthhVWUWTwyTPHVtz89KadvCQD3vwvxL1YsEOpmDNDOzG8QaoW+JNgT59kjY
-	 Cz1ycVhgf7N2HwNx+r6YT8e3SenySxPsr8P/uCrOQ6up9J3gVdWmZySYEgcsxY8nNX
-	 qWa3NNcqPfuAu3bcoVKpXJdlpvg30dPDRiJSGEevGNgs7jqxvo+uMvmY8saCwVIxb4
-	 MeF0HfbP+qytN7fMp3uN90n78Y0vOkP07L4FcTuaZiOWjfXo9s6ahpH6ThnbWCemhv
-	 1UNobuJa7d/LANTlwBEpemsW0r02FbG/hcfAnvdxRNtBdX8VNMLIk8rUzPX4DAmLN1
-	 GO3ghtrNg9oHg==
-Subject:
- Re: [PATCH net v12 15/15] rxrpc: fix use-after-free in rxrpc_poke_conn()
-From: netdev-bot+sashiko@kernel.org
-To: dhowells@redhat.com
-Cc: netdev@vger.kernel.org, marc.dionne@auristor.com, kuba@kernel.org,
- davem@davemloft.net, edumazet@google.com, pabeni@redhat.com, horms@kernel.org,
- linux-afs@lists.infradead.org, linux-kernel@vger.kernel.org,
- stable@kernel.org
-Date: Thu, 08 Oct 2026 16:13:32 +0000
-Message-ID: <179147601260.434549.9609551545594958700@kernel.org>
-In-Reply-To: <20261006133011.531806-16-dhowells@redhat.com>
-References: <20261006133011.531806-16-dhowells@redhat.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bkXuoTl4"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48c4649b3aaso2180129f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 09:13:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791476011; x=1792080811; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KnRbsO40pgOKFThX66ioZGni0tsr5d/QoIBkjkvb+Kg=;
+        b=bkXuoTl4eWiSXjN2RrMA6Ib+g470o74VfdAjkePD6r5kBQO7kLhHy3biGpxsZ+X7JT
+         8SuKLeUF/IIaS31Em75cRDNMQ7CrYEuFp3/sbMZYjuDiC/kkvoD7iPZZMRInqlUDB7/2
+         Ow0wN+2qj63VMY+88d6jFl078TDdA/Svc2CWs0xRNczLwhiszHOxcnKb/lNvlG2dCiHL
+         VrzVnQoROGvGabw1QgbROCdob5Qu8Kqa7oN69Wm3KSleTtH/07AuBWXr8NTBKMSXfjXT
+         dIdwJq6mGY3Ypj9hAVan+9ydVZiiLeVq4N1Lep/lXd9Ujsc9Ydr6B4TJNpY3M8GsGovx
+         m9Bw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791476011; x=1792080811;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KnRbsO40pgOKFThX66ioZGni0tsr5d/QoIBkjkvb+Kg=;
+        b=FQI9IvFWL3NGT5epWX4BiFU+uajsFxx2h97/WWrIIVOIvE5KjZ7muyQhEMTE85XPNO
+         yPVhLxaz3GvfiOZTOWIkOKfhCJg3Y/EgeLiRDpLK8CfmG9xz0ssSOBEsFbxGpgrVLvVO
+         BINgjW7T6HSAyZYvU1HUBxMosxB3OkdTRwBMXQ1ypGcVln2YRxmw6XMrFVGPXRhQtgH+
+         0GikNnGj4O3QjqphQylKb4cijRHdrkuV0Pw0cNevopS2+YmfIK/wPdS9N5NNXMAKonkr
+         U962lrp6Ed+cdJ4iNYMgFdn+B5RoLVrH/O84j4A/UM+XbZZ/XB+KXZAVNIoUAlfaNY+x
+         64DQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzNMlmmgYy47Pb1rVIH7cCEwkjFRhGdVuD+x0QgR+T6IL/0woSMLIo0H9YVWRFamQQmlnNCkguJHNIazLs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ0Qe6qPpv5bzlGuXuMlRjAM3dCjH+7gif1nqrGBcMHOJXFzx2m
+	uuscEB3zXRMIfDZm6xPlpbBwbi0mMOp6gH1k5QeWxzKHyqZff9awYig+
+X-Gm-Gg: AYBFou0IFU5sv5NIZ6MBBo9Z/R5IALCi0QCYVO32bAUO2OgYO/2ma4eRmGMhP6Zkee1
+	oFxddf80Cl/LGeCCKM1pa3hwpXkiYRfP7u68yHd+wpJfKD7OPH1Syts4cRkaxaDXOSqFd3i/f4k
+	S+N3lapDZBRqoDT4BfD5LI8vJdkdhDlzHdCjiJc2QGaHzUs88QCBzarpBLcXrRSbqCXwa9gl/aj
+	nwAmeUXIeF4ICEjel2kp//JKHdSHQS6imObEunUF7oYnZ/2eiHZQVj48ThqZUnLiE4pDOK9mP/+
+	poEfis/wyQEupmJTJk4jpuf3pgD+LguiIYvo6f8r/mxD4bvWuh1s0D0lmsOuXArAYZ5iOyq2seC
+	qoY3vQOwLx8ILVWpreI8l6DyW6lymLslbqHrp2bZedk8FIM2603Euhn1ZIBw7tbpekvyWUj0e/d
+	NbE5Ge3Kf5YFze6YKpC1fTB9J6rTR2IymAcZmix3WrxNLHw9ijdKqfFwLOy8P4tmOlaySgFlWUV
+	VMiJod50UtYND61fYRPQX9Yyr+ZAnVgxH/11w==
+X-Received: by 2002:a5d:64c8:0:b0:48a:f52d:ca47 with SMTP id ffacd0b85a97d-48c72785207mr12533471f8f.22.1791476011230;
+        Thu, 08 Oct 2026 09:13:31 -0700 (PDT)
+Received: from MacBookAir.home.tenber.ge ([2a00:6020:a725:dc00:95bf:d5d1:d7d8:747f])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db63401desm448005f8f.0.2026.10.08.09.13.28
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 08 Oct 2026 09:13:29 -0700 (PDT)
+From: Jan-Gerd Tenberge <janten@gmail.com>
+To: bpf@vger.kernel.org
+Cc: ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com,
+	martin.lau@linux.dev,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	jolsa@kernel.org,
+	emil@etsalapatis.com,
+	ihor.solodrai@linux.dev,
+	john.fastabend@gmail.com,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	jakub@cloudflare.com,
+	jiayuan.chen@linux.dev,
+	kuniyu@google.com,
+	willemb@google.com,
+	shuah@kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH bpf 2/2] selftests/bpf: Test iterator link target validation
+Date: Thu,  8 Oct 2026 18:13:09 +0200
+Message-ID: <20261008161309.8179-3-janten@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261008161309.8179-1-janten@gmail.com>
+References: <20261008161309.8179-1-janten@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Exercise target-dependent iterator checks during BPF_LINK_UPDATE.
+Verify that updates to a program with an oversized array or socket-storage
+value access are rejected, as is an update to a sleepable program on a
+non-reschedulable hash iterator.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+Run each original program after the rejected update to ensure that it
+remains attached. Also verify that a compatible array iterator update
+succeeds.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Assisted-by: LLM
+Signed-off-by: Jan-Gerd Tenberge <janten@gmail.com>
+---
+ .../selftests/bpf/prog_tests/bpf_iter.c       | 34 +++++++++++++++++--
+ .../bpf/progs/bpf_iter_bpf_array_map.c        | 17 ++++++++++
+ 2 files changed, 49 insertions(+), 2 deletions(-)
 
-- [Medium] The commit message describes the new guard wrongly.
-
---
-
-rxrpc: fix use-after-free in rxrpc_poke_conn()
-
-Before this patch, rxrpc_poke_conn() took a reference on the connection
-without checking whether the refcount had already reached zero. That
-could saturate the refcount and leave a freed connection linked on
-local->conn_attend_q. The patch replaces rxrpc_get_connection() with
-rxrpc_get_connection_maybe(), so the poke is dropped if no reference
-can be taken.
-
-> Guard rxrpc_poke_conn() with the same liveness/refcount check the sibling
-> rxrpc_queue_conn() uses before taking the poke reference, so a connection
-> past its last-active point is not poked/requeued after teardown began.
-
-[Severity: Medium]
-Is this description accurate? The patch and rxrpc_queue_conn() seem to
-check different things.
-
-rxrpc_queue_conn() in net/rxrpc/conn_object.c gates only on the active
-count and takes no reference:
-
-    if (atomic_read(&conn->active) >= 0 &&
-        rxrpc_queue_work(&conn->processor))
-            rxrpc_see_connection(conn, why);
-
-The patched rxrpc_poke_conn() calls rxrpc_get_connection_maybe(). That
-function only does an increment-if-nonzero on the refcount and never reads
-conn->active:
-
-    if (__refcount_inc_not_zero(&conn->ref, &r))
-
-The two predicates are not equivalent. rxrpc_service_connection_reaper()
-moves active from 0 to -1 on its own, before it drops its reference:
-
-    active = 0;
-    if (!atomic_try_cmpxchg(&conn->active, &active, -1))
-            continue;
-
-So a connection with active == -1 and ref > 0 can still be poked after this
-patch. Also, a client connection can reach ref == 0 without active ever
-being set to -1.
-
-The refcount check looks like the right fix for the use-after-free. Only
-the wording seems off.
-
-Could the commit message say instead that the poke reference is now taken
-with refcount_inc_not_zero(), and that the poke is dropped once the
-refcount has reached zero?
-
-As written, "the same liveness/refcount check the sibling
-rxrpc_queue_conn() uses" and "past its last-active point" suggest that an
-active-count gate was added. An active-count check alone would not close
-this use-after-free, and a stable backporter might copy that check instead.
-
-> diff --git a/net/rxrpc/conn_object.c b/net/rxrpc/conn_object.c
-> index 0ece717db0f85..1be50e0c9cee5 100644
-> --- a/net/rxrpc/conn_object.c
-> +++ b/net/rxrpc/conn_object.c
-> @@ -34,7 +34,10 @@ void rxrpc_poke_conn(struct rxrpc_connection *conn, enum rxrpc_conn_trace why)
->  	spin_lock_irq(&local->lock);
->  	busy = !list_empty(&conn->attend_link);
->  	if (!busy) {
-> -		rxrpc_get_connection(conn, why);
-> +		if (!rxrpc_get_connection_maybe(conn, why)) {
-> +			spin_unlock_irq(&local->lock);
-> +			return;
-> +		}
->  		list_add_tail(&conn->attend_link, &local->conn_attend_q);
->  	}
->  	spin_unlock_irq(&local->lock);
-
+diff --git a/tools/testing/selftests/bpf/prog_tests/bpf_iter.c b/tools/testing/selftests/bpf/prog_tests/bpf_iter.c
+index c69080ca14f5..3ae5203d3fac 100644
+--- a/tools/testing/selftests/bpf/prog_tests/bpf_iter.c
++++ b/tools/testing/selftests/bpf/prog_tests/bpf_iter.c
+@@ -897,14 +897,22 @@ static void test_bpf_hash_map(void)
+ 	/* Sleepable program is prohibited for hash map iterator */
+ 	linfo.map.map_fd = map_fd;
+ 	link = bpf_program__attach_iter(skel->progs.sleepable_dummy_dump, &opts);
+-	if (!ASSERT_ERR_PTR(link, "attach_sleepable_prog_to_iter"))
++	err = libbpf_get_error(link);
++	if (!ASSERT_EQ(err, -EINVAL, "attach_sleepable_prog_to_iter")) {
++		if (!err)
++			bpf_link__destroy(link);
+ 		goto out;
++	}
+ 
+ 	linfo.map.map_fd = map_fd;
+ 	link = bpf_program__attach_iter(skel->progs.dump_bpf_hash_map, &opts);
+ 	if (!ASSERT_OK_PTR(link, "attach_iter"))
+ 		goto out;
+ 
++	err = bpf_link__update_program(link, skel->progs.sleepable_dummy_dump);
++	if (!ASSERT_EQ(err, -EINVAL, "update_sleepable_prog"))
++		goto free_link;
++
+ 	iter_fd = bpf_iter_create(bpf_link__fd(link));
+ 	if (!ASSERT_GE(iter_fd, 0, "create_iter"))
+ 		goto free_link;
+@@ -1023,7 +1031,7 @@ static void test_bpf_array_map(void)
+ 	int err, i, map_fd, hash_fd, iter_fd;
+ 	struct bpf_iter_bpf_array_map *skel;
+ 	union bpf_iter_link_info linfo;
+-	struct bpf_link *link;
++	struct bpf_link *link, *bad_link;
+ 	char buf[64] = {};
+ 	int len, start;
+ 
+@@ -1049,10 +1057,24 @@ static void test_bpf_array_map(void)
+ 	linfo.map.map_fd = map_fd;
+ 	opts.link_info = &linfo;
+ 	opts.link_info_len = sizeof(linfo);
++	bad_link = bpf_program__attach_iter(skel->progs.oob_write_bpf_array_map,
++					    &opts);
++	err = libbpf_get_error(bad_link);
++	if (!ASSERT_EQ(err, -EACCES, "attach_oob_write_iter")) {
++		if (!err)
++			bpf_link__destroy(bad_link);
++		goto out;
++	}
++
+ 	link = bpf_program__attach_iter(skel->progs.dump_bpf_array_map, &opts);
+ 	if (!ASSERT_OK_PTR(link, "attach_iter"))
+ 		goto out;
+ 
++	err = bpf_link__update_program(link, skel->progs.oob_write_bpf_array_map);
++	if (!ASSERT_EQ(err, -EACCES, "update_oob_write_iter"))
++		goto free_link;
++
++	/* The rejected update must leave dump_bpf_array_map attached. */
+ 	iter_fd = bpf_iter_create(bpf_link__fd(link));
+ 	if (!ASSERT_GE(iter_fd, 0, "create_iter"))
+ 		goto free_link;
+@@ -1092,6 +1114,9 @@ static void test_bpf_array_map(void)
+ 			goto close_iter;
+ 	}
+ 
++	err = bpf_link__update_program(link, skel->progs.noop_bpf_array_map);
++	ASSERT_OK(err, "update_valid_iter");
++
+ close_iter:
+ 	close(iter_fd);
+ free_link:
+@@ -1363,6 +1388,11 @@ static void test_bpf_sk_storage_map(void)
+ 	if (!ASSERT_OK_PTR(link, "attach_iter"))
+ 		goto out;
+ 
++	err = bpf_link__update_program(link,
++				       skel->progs.oob_write_bpf_sk_storage_map);
++	if (!ASSERT_EQ(err, -EACCES, "update_oob_write_iter"))
++		goto free_link;
++
+ 	iter_fd = bpf_iter_create(bpf_link__fd(link));
+ 	if (!ASSERT_GE(iter_fd, 0, "create_iter"))
+ 		goto free_link;
+diff --git a/tools/testing/selftests/bpf/progs/bpf_iter_bpf_array_map.c b/tools/testing/selftests/bpf/progs/bpf_iter_bpf_array_map.c
+index 19710cc0f250..beb1b714f120 100644
+--- a/tools/testing/selftests/bpf/progs/bpf_iter_bpf_array_map.c
++++ b/tools/testing/selftests/bpf/progs/bpf_iter_bpf_array_map.c
+@@ -51,3 +51,20 @@ int dump_bpf_array_map(struct bpf_iter__bpf_map_elem *ctx)
+ 	*val = *key;
+ 	return 0;
+ }
++
++SEC("iter/bpf_map_elem")
++int noop_bpf_array_map(struct bpf_iter__bpf_map_elem *ctx)
++{
++	return 0;
++}
++
++SEC("iter/bpf_map_elem")
++int oob_write_bpf_array_map(struct bpf_iter__bpf_map_elem *ctx)
++{
++	__u64 *val = ctx->value;
++
++	if (val)
++		val[1] = 0;
++
++	return 0;
++}
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261006133011.531806-1-dhowells%40redhat.com
+2.54.0 (Apple Git-157)
+
