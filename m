@@ -1,63 +1,68 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A03C74DA535;
-	Thu,  8 Oct 2026 15:42:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C88144D597A;
+	Thu,  8 Oct 2026 15:42:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791474149; cv=none; b=a645HEV5DAkXLE/40aaXhyllFDWTNttlrKk3vMecZoyEzG4KicU0cUoXV+TLe5Jcq//MStudDca+hb8MJB3N0KomHe8aVF4uPUkp0TnxUTZLuw5Rm5QvLYBt4FCkYlOXan0ARSvEGS8duzm1zJsqbDCYUb4Jw78HMJ1r6n5EQmI=
+	t=1791474168; cv=none; b=sKLyLq2nLAQGely4E63iPbGwdM4bVrtk1uadqVuoX71kBi+rs2lH5QpgCaArYkZ+/nY3430gLM/9KPAbPyBFUN/1Ip4oqC3oQn7gobJEZ1htgsMwa62EcHDOXAparaTbwuXboubTmcEYc7DdY1PxllDdBbT4r4ViUTGgYnVMmzM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791474149; c=relaxed/simple;
-	bh=1qywYLD+zj+XOZIAMkXckzV3F6fdGbjzclFZ9/jP8pY=;
-	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=WbgrR8MqsjtbrnhVhZ6sY3JAIeClYKgy9YtRFkrf2ItCCwpI9lITUwK0Cw4gCW3embMuywYkyXC8DwpPAICix7A4FWjtqSdFxeLCVMbe1iWSiCL1GvZaVIMTuhudZRh8tov3+vS8MUC8BZopb4xI9SUjsP6bUMcBquXQHnLy29E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CIYLMY1U; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791474168; c=relaxed/simple;
+	bh=dnbnqbKAA/HXWfb3uJEeW3Gw6pGdhzRZhD6v1pWCTns=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=GAK6M0dEVw4NyeopCmBKoBAacVm8uo8KUkbiIRIoDmeHRTF4522v55vpvdzEwughVHjNH4ac0twd6qigOH00cucYwk5N5wdGLBduvIxeACWRMtizf+jvmvbXe1bftm4+1A4Fc3SEmPpvKa/Juwa4Z8FtaIC/TIuJoL8oxrsUDp8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LxHUW660; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CIYLMY1U"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43C5E1F000FF;
-	Thu,  8 Oct 2026 15:42:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LxHUW660"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 332C71F000FF;
+	Thu,  8 Oct 2026 15:42:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791474148;
-	bh=M6EIpLAb2INYVFVewMzk+WzvdZ/Dly8RmM6QLOyGjF0=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=CIYLMY1U+0Cul02NvZtEiiOQtrNBGdaAx2atMJgk2ZOR8J5f2DfVC31B/kof7+4lK
-	 IFQEWVi831m1UQa30G5DjtIcLHy2tu2JhDjPLzdTlUTmZ64fCxBcc9pgte6P0J6TLS
-	 8/RhzhLJQ5cvArx+8On8bMEd1zID91utsHVMYyHrFjCbLwpEzmH+erdOEKbBMsyC+9
-	 0v41NIoks3JYbNFZpz3uzhjwX0HAYDhTfSbgxVj1Yi+g+8skNHjKb8hKAqhGrjro31
-	 6MHhV4E+jdg0E31QSZ6lv22DsdVR+/pR/TNNibdleAYs2rG52M/DdKFQ/rYUVob8MH
-	 nzDR0OJY8HVSw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A784380AA76;
-	Thu,  8 Oct 2026 15:42:28 +0000 (UTC)
-Subject: Re: [GIT PULL] last minute changes for ext4
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <ase1cbY1IuELJ7jQ@mit.edu>
-References: <ase1cbY1IuELJ7jQ@mit.edu>
-X-PR-Tracked-List-Id: <linux-ext4.vger.kernel.org>
-X-PR-Tracked-Message-Id: <ase1cbY1IuELJ7jQ@mit.edu>
-X-PR-Tracked-Remote: https://git.kernel.org/pub/scm/linux/kernel/git/tytso/ext4.git tags/ext4_for_linus-7.3-rc7
-X-PR-Tracked-Commit-Id: 3e78d7b063230d39ffc42e80ee665b6c32a6adeb
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 6c377d19d4a5116d9bec5203aa3c6c11523e7898
-Message-Id: <179147414682.324841.6555717347979947475.pr-tracker-bot@kernel.org>
-Date: Thu, 08 Oct 2026 15:42:26 +0000
-To: Theodore Ts'o <tytso@mit.edu>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, Linux Kernel Developers List <linux-kernel@vger.kernel.org>, Ext4 Developers List <linux-ext4@vger.kernel.org>
+	s=k20260515; t=1791474167;
+	bh=6rvQiUyBmDedQne1YRWyYGQ1d3Qyysw2fJh4rBZ2Rwc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=LxHUW6606+pyIjVDsHbA7DnzOW8I0Xp1L2uEtan4hVoCuhgYv6TrVV2hFXb5f1FHm
+	 OIjMaK+3kREEoafJ7zz2BjSNCH6bBS7iYzr5b8Jp4NWy/jZFx4wfnzkjn0ONX7ZWAK
+	 FzQFfoElyJDTPm0SrMcMSOqFQE/9D1kKITDQHzG+gXymYcv8o0fhSTvAchCJgKRb/d
+	 r2RSd2UfUuJRgKIE2yoUpsKAG1e3GkDX8Wm4aCLE4GIBwQDBv9k2UIZlSY+XEkTSwk
+	 WvRoMBEjK453U6z2cGrzu5H4vEoATILla5ZsruwbkFRMG5dMX92+yE61U6/7xPGTHx
+	 +fp+jOYedtUwg==
+Date: Thu, 8 Oct 2026 08:42:46 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: netdev-bot+sinfo@kernel.org, netdev@vger.kernel.org, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v3] net: emac: mal: replace devm_request_irq with
+ request_irq to fix probe error race
+Message-ID: <20261008084246.03aedeb9@kernel.org>
+In-Reply-To: <CAKxU2N8QddjJfx377npH94+Uaw4kG4GkAFh-6wofN9iXO-sNZg@mail.gmail.com>
+References: <20261007183821.928263-1-rosenp@gmail.com>
+	<179139868898.2527009.7529803204490860855@kernel.org>
+	<CAKxU2N8QddjJfx377npH94+Uaw4kG4GkAFh-6wofN9iXO-sNZg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-The pull request you sent on Thu, 8 Oct 2026 11:31:14 -0400:
+On Wed, 7 Oct 2026 12:20:08 -0700 Rosen Penev wrote:
+> >  - How the issue was discovered, e.g. hit in production, hit during
+> >    development, syzbot report, manual code inspection, LLM or static
+> >    analysis tool scan.  
+> LLM tool scan probably.
 
-> https://git.kernel.org/pub/scm/linux/kernel/git/tytso/ext4.git tags/ext4_for_linus-7.3-rc7
+probably? Are you being sarcastic or you don't know?
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/6c377d19d4a5116d9bec5203aa3c6c11523e7898
+> >  - Whether the issue was actually triggered, or is only theoretical
+> >    (e.g. found by code inspection). If it was triggered please include
+> >    the symptoms, like the stack trace or error messages.
+> >
+> >  - What hardware the change was tested on. For driver fixes please
+> >    mention the device (and if relevant firmware version) used for
+> >    testing, or say that the change was not tested on real hardware.
 
-Thank you!
-
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+Please answer all 3 questions.
