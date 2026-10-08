@@ -1,76 +1,126 @@
-Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77356255F52;
-	Thu,  8 Oct 2026 12:01:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.218
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CC06491589;
+	Thu,  8 Oct 2026 12:01:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791460893; cv=none; b=BfW4i1pE8WNNkDdgm4iuj2Tlg5u9sp3Ta3cRd2JBprlrE/dARXsdR43ARgWzwxUgtwQwqzKUyQ81lwgmftxvypvDsZNLFADRtqtYeYdnC1kxRAwOCj4Qker+7sm6YHQTsxXP8gqZMGRo0L9hqkoROFyvulh4x40PZPn+KlcGZwU=
+	t=1791460904; cv=none; b=V/zsbMF5oS+YcyOKT3JZA9BwpOZUFmW9pgi9HCeD+aFKSxIAgw23Pm0r9/maw/Zn7kOpwjvqd0ULlEW5fpIUpe/ZwzH0eMVZqLYxfzZBfsOvoEPM6xEyQCAgWRfWuTfUMB20F8S6ifQlfOA9/B0Ase6PNZo5wEij9LVcn2WQYnA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791460893; c=relaxed/simple;
-	bh=qMRVziGPzCtMwld1lzf37fz5iHB3YpLxvLKL6rBz5gI=;
-	h=Message-ID:Date:From:MIME-Version:To:CC:Subject:References:
-	 In-Reply-To:Content-Type; b=QcOOzAuxs0AzRKi1ZfgtbNbAKO+6P1UdwGv6YQGfgt7WUqnRk6APEwjMNIpSXRJ3AfvlOShGjFuKncTk2KgEmOHOR8MgskbkjS/WlMeP/DEOevJWDzyDcZFuO0gYrLVzEEoQpJYw5s7UMmMKJNkFPLc4jpVKNRKJp5nf6XSYGig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=hisilicon.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=VaLxK1ub; arc=none smtp.client-ip=113.46.200.218
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=hisilicon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="VaLxK1ub"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=zP/NKYu4DfkhxHxe1NYNyBovs0qsaVZeGfyDxa6IlmA=;
-	b=VaLxK1ubNTyR20h/UUPt5skCxaIe/Z+TcIYb1uo9vO+a4cTxfxxitZD1I7eb+VzwpMqadInVf
-	5r12Z4epsvqo+IRSmE5hFtTJW/KT9XwCmXPUY/q7CztfOQdqRorshPqp7Fl3TrE/sWpjMQjxwCI
-	gEI3yImnpIqoeVuS/xV877M=
-Received: from mail.maildlp.com (unknown [172.19.162.223])
-	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4j0pDT1vyVzpSyV;
-	Thu,  8 Oct 2026 19:48:57 +0800 (CST)
-Received: from kwepemk200006.china.huawei.com (unknown [7.202.194.72])
-	by mail.maildlp.com (Postfix) with ESMTPS id 0BFA140575;
-	Thu,  8 Oct 2026 20:01:22 +0800 (CST)
-Received: from [10.67.112.178] (10.67.112.178) by
- kwepemk200006.china.huawei.com (7.202.194.72) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Thu, 8 Oct 2026 20:01:21 +0800
-Message-ID: <6AC78611.5090404@hisilicon.com>
-Date: Thu, 8 Oct 2026 20:01:21 +0800
-From: Wei Xu <xuwei5@hisilicon.com>
-User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64; rv:24.0) Gecko/20100101 Thunderbird/24.2.0
+	s=arc-20240116; t=1791460904; c=relaxed/simple;
+	bh=VegC7KyFGbg5QCR6m6Dl9UA9t2tYsqjdYaMaH5Thv7Y=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=e3qCmienOzGPZgXGcwhSJ3JiNIsLe5HP8hF7gHtg4sPdPpXrk588QV+BzhTo/CHRXZRavtgtWiKZIWhi8RJJNohSrvmAY4gcfHg9Vew3ecCbbweOP8WiQe+ZnX3HXZdvbvWFT/bwIP/H0iTgOmJypYHTUDkFV1HrpKHhS7qEdRc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 641951F441;
+	Thu,  8 Oct 2026 12:01:41 +0000 (UTC)
+Authentication-Results: smtp-out2.suse.de;
+	none
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 35D4A1339F;
+	Thu,  8 Oct 2026 12:01:41 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id WtkRBCWGx2oyJgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Thu, 08 Oct 2026 12:01:41 +0000
+Date: Thu, 08 Oct 2026 14:01:36 +0200
+Message-ID: <87bj945rkv.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+Cc: Takashi Iwai <tiwai@suse.de>,
+	<linux-kernel@vger.kernel.org>,
+	<linux-sound@vger.kernel.org>
+Subject: Re: [PATCH 1/3] ALSA: hda: Stop unsol events and jack polling before codec unbind
+In-Reply-To: <8a57e670-2b8f-480f-b313-850561bc9090@intel.com>
+References: <20261007215650.159871-1-tiwai@suse.de>
+	<20261007215650.159871-2-tiwai@suse.de>
+	<7efc9ca8-b470-410c-b717-3c548bd196f1@intel.com>
+	<87ik3c5wfq.wl-tiwai@suse.de>
+	<8a57e670-2b8f-480f-b313-850561bc9090@intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-To: "Rob Herring (Arm)" <robh@kernel.org>, Mauro Carvalho Chehab
-	<mchehab@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>
-CC: <linux-media@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] dt-bindings: media: Convert hisilicon,hix5hd2-ir to DT
- schema
-References: <20261002193158.3263741-1-robh@kernel.org>
-In-Reply-To: <20261002193158.3263741-1-robh@kernel.org>
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- kwepemk200006.china.huawei.com (7.202.194.72)
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Pre-Result: action=no action;
+	module=Unknown lua;
+	unknown reason
+X-Spam-Flag: NO
+X-Rspamd-Pre-Result: action=no action;
+	module=Unknown lua;
+	unknown reason
+X-Spam-Level: 
+X-Spamd-Result: default: False [0.00 / 50.00]
+X-Spam-Score: 0.00
 
-Hi Rob,
-
-On 2026/10/3 3:31, Rob Herring (Arm) wrote:
-> Convert the hisilicon,hix5hd2-ir binding to DT schema format. It's a
-> straight forward conversion.
+On Thu, 08 Oct 2026 13:52:42 +0200,
+Cezary Rojewski wrote:
 > 
-> As this was the last reference to rc.txt, it can be removed.
+> On 10/8/2026 12:16 PM, Takashi Iwai wrote:
+> > On Thu, 08 Oct 2026 11:08:13 +0200,
+> > Cezary Rojewski wrote:
+> >>
+> >> On 10/7/2026 11:56 PM, Takashi Iwai wrote:
 > 
-> Assisted-by: LLM
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+> >>> +++ b/sound/hda/common/bind.c
+> >>> @@ -100,6 +100,9 @@ static int hda_codec_driver_probe(struct device *dev)
+> >>>  	if (WARN_ON(!codec->preset))
+> >>>  		return -EINVAL;
+> >>>  
+> >>> +	/* unsol events are still blocked until registered */
+> >>> +	codec->core.unsol_disabled = false;
+> >>> +
+> >>>  	err = snd_hda_codec_set_name(codec, codec->preset->name);
+> >>>  	if (err < 0)
+> >>>  		goto error;
+> >>> @@ -160,6 +163,10 @@ static int hda_codec_driver_remove(struct device *dev)
+> >>>  		return codec->bus->core.ext_ops->hdev_detach(&codec->core);
+> >>>  	}
+> >>>  
+> >>> +	/* stop asynchronous jack handling before freeing driver resources */
+> >>> +	snd_hdac_device_disable_unsol(&codec->core);
+> >>> +	cancel_delayed_work_sync(&codec->jackpoll_work);
+> >>
+> >>
+> >> IMHO this is a proof that ->registered flag doesn't do its job.
+> >> snd_hda_codec_cleanup_for_unbind() is called right after and it does
+> >> contain cancel_delayed_work_sync(&codec->jackpoll_work).  It does
+> >> contain snd_hda_codec_disconnect_pcms() and
+> >> snd_hda_jack_tbl_disconnect() operations too.
+> > 
+> > It's about the pending works, and the flag doesn't help there alone
+> > unless they are synchronized; at the time point you flip the flag, the
+> > work might be already in-flight, so the flag switch may miss the
+> > chances.
+> 
+> I agree, my suggestion was to make ->registered the sole owner of the
+> subject, including the synchronization. At the same time, fixing the
+> problem first and expanding the work later is also a valid approach.
+> 
+> Do you have a method for reproducing the problem easily?
 
-Acked-by: Wei Xu <xuwei5@hisilicon.com>
+No, it's currently only hypothetical.
+I guess it can be done with userfaltd, though.  Maybe AI can help for
+creating a reproducer.
 
-Thanks!
+> >> I'd say it is snd_hda_codec_cleanup_for_unbind() that needs an update
+> >> and perhaps be responsible for calling driver->remove() too.
+> > 
+> > Yeah, some code reorganization would be good.
 
-Best Regards,
-Wei
+Looking forward to seeing patches! ;)
+
+
+Takashi
