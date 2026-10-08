@@ -1,119 +1,127 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26FB73CEBA9;
-	Thu,  8 Oct 2026 08:04:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14E4C40F750;
+	Thu,  8 Oct 2026 08:04:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791446649; cv=none; b=LuplKvT3iRvltjXyUS5rOsTH2KOADqPaMYJt5ZL1Ccwua/WCa28pjcv13KWI2pRpWl78oMlhRqOug5OS/COY4w+pmFp7B91OfGaUQe6TVXhCHeiNsHJJpM2YVL0QcOTY9uqBAdbB+X1m+jgmVsXn4oZxId1un0zUjCBhS+rhyWE=
+	t=1791446653; cv=none; b=SkN8V6Jql19R+oQWYWonIuijKoQyNxMO2QaDpCO96nm8wyGJM3WLDBmAGidWfi0xKxtSOGTaptEbF7tWD/YylfF0G3pglAcNV7Xzj/rPRLpphkClJBwCLZrg3XMq02USRCJqNU5p+7F+VlE9DDOnXUuvbeilwAGkbkrBid7NPRU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791446649; c=relaxed/simple;
-	bh=oytHofmUsmOmYjWHOOvTsgnG1UiObfAk8X2HNycb7pY=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dAVMGOHSkJcAzmvcKanxLyoxV1MHOk3sr2BMYBbONgKbuif/BPqnuN4ugSCn/9Pqu+x6BB+twHz14bu0lFddwt2u54BeRmxQZQJnCa+DWCnb94e//6xKwxmlgpfKhkY0eE6rYsAwjHcd2KSbh5mCzn+vlttiwHDPFSmwKtUKOxs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=fMr/M945; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1791446653; c=relaxed/simple;
+	bh=iPRuigRTgI7UNa3JZXmJoZRbz2L9mD3CYobEwbxw4JA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jWNyzcfX5GCDqGek62v4SMo+GOnLq5ZWQLFeinAaXK1rHBvrvQhJb1YXAGKviCg9hZJfhIX5ohD315akjUxg2jZBgP7f5A9NPFPlh8fWzU/h44cFGRvVfPzqxl87fYOw0V/aDxcbMiG1J+tJUywZibWhfM9ib2q4u8IIeO6Qz6E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TboxvBHr; arc=none smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="fMr/M945"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1791446158;
-	bh=oytHofmUsmOmYjWHOOvTsgnG1UiObfAk8X2HNycb7pY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=fMr/M945EQAvKNpaZfjiq3lkEcl9RypSRzLM+p+FZvRUD22i3eZ02dTGoZVszwQob
-	 n/mjGJ58RK0DddanS5RKROKbgHRExS4FQ6ULlVLJhst5kyQ+a5rwmRrKuiuHBBHsAO
-	 ZB7RYcg8i/CqgeRrDNkV3VbCpxoFOWubk6Jwrl3tcWX2Nu5fS3Tyo3zSdJUpxTyoxB
-	 FJqvhR27juW7ceJywgAi9/qpmLjIdj/w1lLldz9Rg1Z3IENQZG/nTVqUf65gNoIMUU
-	 dAT/ol25HXGhsqdQcGLvWEbdrWNfAFWkOJ/KxHK/ZVJNhEkGSQMJW1BmLWpJ7rQEX+
-	 /tfu0qwwrxkqQ==
-Received: from fedora-61.home (unknown [100.64.0.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bbrezillon)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 7C0ED17E0371;
-	Thu, 08 Oct 2026 09:55:57 +0200 (CEST)
-Date: Thu, 8 Oct 2026 09:55:11 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Osama Abdelkader <osama.abdelkader@gmail.com>
-Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Akash Goel
- <akash.goel@arm.com>, Chia-I Wu <olvaffe@gmail.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH] drm/panthor: Fix TOCTOU race between GROUP_REGISTERED
- check and erase
-Message-ID: <20261008095511.70710ea2@fedora-61.home>
-In-Reply-To: <20261007181220.2418060-1-osama.abdelkader@gmail.com>
-References: <20261007181220.2418060-1-osama.abdelkader@gmail.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TboxvBHr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791446652; x=1822982652;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=iPRuigRTgI7UNa3JZXmJoZRbz2L9mD3CYobEwbxw4JA=;
+  b=TboxvBHrmnfXx4RRWMf4RkiGJloUxWwMrq8H26GN0rYK0Tu/YZvPHfb9
+   5JGzmpIWAAgEdr4Tjbz3HjR0K4v6HvvcTV0sKvQtb5euiipJBJSLwQKyL
+   9S/6eq3/8+LZlmqE3PXTJ4dm4BRrPgZBryv6XjwPmFveyFZ8WRtSWbZui
+   8d4AaRa+OHgF/Url0vFdL/6uE8BAa8uemdYSOmKY29A3JTKoAeILeJPzW
+   acY+17F4s0Qg5JsjJ+MB72OIm6b0xr0Kl8rz4lUtJt2RbBSoTvLs6GB6n
+   l1A60WG7ZMWxLcw9VFMP6anHdW41BcZJ31RBaOFiYp2ieOr4t+Zlvinbi
+   w==;
+X-CSE-ConnectionGUID: JMgb1kt+SbePiCpGDOjVTQ==
+X-CSE-MsgGUID: yWC+gteQQa28VPz5mNJjCQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="110473"
+X-IronPort-AV: E=Sophos;i="6.27,145,1787036400"; 
+   d="scan'208";a="110473"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 01:04:12 -0700
+X-CSE-ConnectionGUID: s14q95EyThmD4zFM9Pa1wQ==
+X-CSE-MsgGUID: QJhsjLNATxi+jXB4XZGVKQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,145,1787036400"; 
+   d="scan'208";a="323577"
+Received: from unknown (HELO [10.238.2.98]) ([10.238.2.98])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 01:04:08 -0700
+Message-ID: <2036b58e-d2cb-4992-97d4-cb136bb0a387@linux.intel.com>
+Date: Thu, 8 Oct 2026 16:04:06 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/3] KVM: TDX: Ratelimit the "EPT Violation on pending
+ acceptance page" warning
+To: Yan Zhao <yan.y.zhao@intel.com>, Sean Christopherson <seanjc@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, Kiryl Shutsemau <kas@kernel.org>,
+ Rick Edgecombe <rick.p.edgecombe@intel.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>, kvm@vger.kernel.org,
+ x86@kernel.org, linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
+ James Houghton <jthoughton@google.com>, Xiaoyao Li <xiaoyao.li@intel.com>,
+ Ackerley Tng <ackerleytng@google.com>,
+ Vishal Annapurve <vannapurve@google.com>,
+ Sashiko Bot <sashiko-bot@kernel.org>
+References: <20260930001127.3170009-1-seanjc@google.com>
+ <20260930001127.3170009-4-seanjc@google.com>
+ <ascJReVNL2N4lJau@yzhao56-desk.sh.intel.com>
+Content-Language: en-US
+From: Binbin Wu <binbin.wu@linux.intel.com>
+In-Reply-To: <ascJReVNL2N4lJau@yzhao56-desk.sh.intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Wed,  7 Oct 2026 20:12:19 +0200
-Osama Abdelkader <osama.abdelkader@gmail.com> wrote:
+On 10/8/2026 11:08 AM, Yan Zhao wrote:
+> On Tue, Sep 29, 2026 at 05:11:27PM -0700, Sean Christopherson wrote:
+>> Ratelimit TDX's kernel logging when a guest accesses an unaccepted page and
+>> has opted to disable EPT Violation #VEs for unaccepted accesses, as the
+>> pr_warn() is trivial for a misbehaving userspace to trigger.
+> Since the pr_warn() is previously accompanied by a kvm_vm_dead(), which kicks
+> off all vCPUs and disallows re-entry, a misbehaving guest should not be able to
+> trigger pr_warn() more than once.
+> Or are you concerned about the pr_warn() being triggered by multiple misbehaving
+> guests? But would it be better to print for each guest?
 
-> panthor_group_destroy() checks the GROUP_REGISTERED mark and then calls
-> xa_erase() without holding the xarray lock across both. If the handle is
-> destroyed by another thread in between, and a concurrent GROUP_CREATE
-> reuses the freed ID, the first destroy erases and releases the new,
-> still-initializing group, leading to a use-after-free in
-> panthor_group_create().
+Sashiko reported the issue due to the change introduced in the patch 2.
+
+  Will this change allow a malicious or buggy userspace VMM to flood the host
+  kernel log?
+
+  By replacing kvm_vm_dead() with KVM_REQ_TRIPLE_FAULT and returning 1, KVM
+  will clear the request during vcpu_enter_guest() and exit to userspace with
+  KVM_EXIT_SHUTDOWN. If the VMM ignores this exit and repeatedly calls KVM_RUN
+  without resetting the vCPU, KVM will immediately re-enter the guest.
+
+In this case, is the Fixes tag pointing to e6a85781f783 needed?
+
 > 
-> Do the mark check and erase atomically under xa_lock().
+>> Fixes: e6a85781f783 ("KVM: TDX: Detect unexpected SEPT violations due to pending SPTEs")
+>> Cc: stable@vger.kernel.org
+>> Reported-by: Sashiko Bot <sashiko-bot@kernel.org>
+>> Closes: https://lore.kernel.org/all/20260923164348.2DB2D1F000FF@smtp.kernel.org
+>> Signed-off-by: Sean Christopherson <seanjc@google.com>
+>> ---
+>>  arch/x86/kvm/vmx/tdx.c | 4 ++--
+>>  1 file changed, 2 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
+>> index e3723f1222fc..4cac43299851 100644
+>> --- a/arch/x86/kvm/vmx/tdx.c
+>> +++ b/arch/x86/kvm/vmx/tdx.c
+>> @@ -1937,8 +1937,8 @@ static int tdx_handle_ept_violation(struct kvm_vcpu *vcpu)
+>>  
+>>  	if (vt_is_tdx_private_gpa(vcpu->kvm, gpa)) {
+>>  		if (tdx_is_sept_violation_unexpected_pending(vcpu)) {
+>> -			pr_warn("Guest access before accepting 0x%llx on vCPU %d\n",
+>> -				gpa, vcpu->vcpu_id);
+>> +			pr_warn_ratelimited("Guest access before accepting 0x%llx on vCPU %d\n",
+>> +					    gpa, vcpu->vcpu_id);
+>>  			kvm_prepare_shutdown_exit(vcpu);
+>>  			return 0;
+>>  		}
+>> -- 
+>> 2.56.0.rc1.315.gc6ed9934b7-goog
+>>
 > 
-> Fixes: eec7e23d848d ("drm/panthor: Prevent potential UAF in group creation")
-
-The fix looks legit, but I wonder how the bug was found. If this was
-found with the help of a tool (AI or static code analyzer), this should
-be reflected with an `Assisted-by` tag (see [1]).
-
-With the relevant Assisted-by tag, this is
-
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-
-[1]https://docs.kernel.org/process/coding-assistants.html
-
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
-> ---
->  drivers/gpu/drm/panthor/panthor_sched.c | 14 ++++++++++----
->  1 file changed, 10 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-> index 0493858e55d7..a343c5180e01 100644
-> --- a/drivers/gpu/drm/panthor/panthor_sched.c
-> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
-> @@ -3770,12 +3770,18 @@ int panthor_group_destroy(struct panthor_file *pfile, u32 group_handle)
->  	struct panthor_group_pool *gpool = pfile->groups;
->  	struct panthor_device *ptdev = pfile->ptdev;
->  	struct panthor_scheduler *sched = ptdev->scheduler;
-> -	struct panthor_group *group;
-> +	struct panthor_group *group = NULL;
->  
-> -	if (!xa_get_mark(&gpool->xa, group_handle, GROUP_REGISTERED))
-> -		return -EINVAL;
-> +	/*
-> +	 * Check the mark and erase the entry atomically, so a concurrent
-> +	 * destroy + create can't make us erase a group that's still being
-> +	 * initialized and happens to reuse the same handle.
-> +	 */
-> +	xa_lock(&gpool->xa);
-> +	if (xa_get_mark(&gpool->xa, group_handle, GROUP_REGISTERED))
-> +		group = __xa_erase(&gpool->xa, group_handle);
-> +	xa_unlock(&gpool->xa);
->  
-> -	group = xa_erase(&gpool->xa, group_handle);
->  	if (!group)
->  		return -EINVAL;
->  
 
