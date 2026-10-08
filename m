@@ -1,141 +1,111 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9616446C83F
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 13:03:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791464590; cv=pass; b=Aw40DZLgjW19IaQ4qDzOhp7qG0eU7emBhanzjC6vsaTe0JcmAXAud9LS4/XQkHU8ICNa/1GIdgHXSvj6WUHhbJE2/aJfbneKHCMS+AFktDr2jCXxQ3XLlYbo3b52akpKQx9ofSdSp/9K1xXasjWBdNFlRZ8b7JOdGwD3Digcy7U=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791464590; c=relaxed/simple;
-	bh=zbj+RaISY9qEBJ+o2V/HJBoiBS/Q0644xws79i/6cIE=;
-	h=MIME-Version:In-Reply-To:References:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=COwgrD1Rl1nsddjhrX1kZClPEG9evJrv8MSKNe6bmdCPmbqkJc6o65j5CywIbIZXwznNVEm8U3d+nSp3gto6vy5eHCDjxcdL/voDJtD3z7seZ3AA5hP8iuvLRN2L6ZBghxinOBo7WkR0RM25Q4kNN2KO3kNWiGzfFbLlZrKcEXs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RjCMyWvz; arc=pass smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7360446C83F
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 13:03:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.50
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791464610; cv=none; b=n2oW/dipjEhjRa2AiXeOZFfrZu/ekJuQPA+94yIGTaGJgyot4xwUvajeadZ5KZTyaX7BWgseQOPi/kH9+oGJcvCffpGJziMBngBbObbw6wza2Uf11i3CGsujGApOoB3WTKhvHXMg+X0oq9W9UzNhqqBYsXdw2kWQx1p5D+wLLU4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791464610; c=relaxed/simple;
+	bh=VpV0KaD44FbDOc/jXrwmrc0sWLFS4pT8PRkJ2EdDDpA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VQreyBCCS5m78kTNMndoqGbCdPyeQ4Re/Ieg4Ar7zl4+xAxFUn+2tgRZHpkabXQdGFevVcrayjfheSbgqPamzfiypweziiNB65ju/+VzeBxknLOWmqCvaH70WqYA61Kg7ntNG09JI4HMokcdwKOXKlaqyzMdsnr5kqCtIS11H5w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p0HfSe4b; arc=none smtp.client-ip=209.85.208.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RjCMyWvz"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3856d6fbcb3so2788937a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 06:03:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791464589; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ZUT0tbJf8PEHr+ih29ANa3hluQJ8px3x8OCh1SVPQ1gMb1OFpub9dPYano7XGbd866
-         NG9ukmKg6xH5NwF/qHAlwo8yYme/65efwT15atJ0fKWxirPk6Py+abZvkKb6xOxqSfoV
-         5T4yLOkZAb5hCj5SBtDMwTzVTsS2FT0cTJVU4pDb4YTz79uszq2u3EgHvVNYrqUHxFk0
-         YNj9WVGumK8Lyr/ZC9QAGSfzgASMb4mbSlx4NL5Kkmvh0wb5gt8umML2Eunf4hNLkG0X
-         OP8GKdOw8zAKGIe2uFv79BMxW2caV4r6svNuw3KoQBTHrH2B5uzAx5xAz6W/dWfyOehF
-         iYtg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:references:in-reply-to
-         :mime-version:dkim-signature;
-        bh=wbMv8ogoXgQX443s40s5hnK9BktjeqTsYVUhK1IFyzQ=;
-        fh=yr73PMFmE5xr5arWpavwHAPnhKsZQo6a9nSmsAZ0XkM=;
-        b=LNl5lJEPFfwNcFRUWpguYkdPfM+hLDyp4rJUyVsp/RLSTWYDhml5AM5Ebgwa10aoxy
-         vy4pIiA3q6gP5/qBkoFNrq41e7a4QQbktv4aeiWLmJe7AygaourKN+2uo6RZ+byOrvCR
-         ZErEouoMP9yTGb7Fyn4PMMgGNPLTRaab9L8NgpQUfjxj8qXph+XxU+6D53WL8Gp6rQOZ
-         CaeGp7h7fFT1dzZdtPMat7qGe+bgQzfWtRRHPsaIXyNvwYO4awC1wODYwj0TXw8bY5it
-         s3idDczr/1d1+HDo09u2Oq6i8XQBc/umfIp2oQXfPVLhulDX51rVtY8MybPutQ4ruN/D
-         IvXw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p0HfSe4b"
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b13fb95060so861387a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 06:03:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791464589; x=1792069389; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:references
-         :in-reply-to:mime-version:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=wbMv8ogoXgQX443s40s5hnK9BktjeqTsYVUhK1IFyzQ=;
-        b=RjCMyWvza4XPw3qj5JYeGGdkQEu1yZu93F/Pk2c7G/w29DUHIYmdNplV4Ilm+LFbsW
-         JluWoEQD0fJECaGtsXe0ijwk6oCjaAeczNFOycUPKl6+g/Pc0cEsRG3InkxnN79SzcS8
-         rmmH4PT4Qcay3M8OHq9/TqJOuE/mNmV1CHtbGhoTU+NNB3X67IslJZxQHguS3pf687k+
-         cBmrLX/0Ch9C1pnvGo+I9YIBTCpRA9LswqR8amNGT3ZVAuM6y/9lyo2x/RaOG2XixR+1
-         c/uhRfY2MDmNKWBfRYNzfTpPk4mB2j1gFLNhC4n6+l1xWagp+5QPMZKfMtTvOUtrHruG
-         TDbg==
+        d=gmail.com; s=20251104; t=1791464608; x=1792069408; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+kGI3k/44UlMEz8kQ2oCVgsiUMpT90qi7dL2PUgRNcs=;
+        b=p0HfSe4bmTWV0pcHjzxWrpNbk1Nwcmc9quyoV+qtgcv/R2DoN+8LY5QN3h0CkzMlgY
+         Qze+cK5h6nuI2jo9Lcm48MalOBAupjLg8IxcM/F+l6yxsYBsKmAaI8KXOvse4gUNF3PA
+         NAj7FMX8DRO/Y1xVzhWtIZup3K0XVMyUog/ed+3VC6RO8BaDrJjY3aioYmOEZ7Yx8RYL
+         pzC1N1ogqdB4m6Gd9h7TOC+RpN8uJXS5P7E1Kbw/7pBY+UPIwxeP/yTvyuIcocQ59v7j
+         NsguLluwOg2zy5BiWq+briuHW2zMP2c3JXM0/VD7VRQeprmmnW5eJbNhd4HpMvJt3Ees
+         Iy3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791464589; x=1792069389;
-        h=content-type:cc:to:subject:message-id:date:from:references
-         :in-reply-to:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=wbMv8ogoXgQX443s40s5hnK9BktjeqTsYVUhK1IFyzQ=;
-        b=wm0IkeV6BBLxLsQUjAplWuhRJAbV5ek4O9FWV04tQCVODg23wli+CMILhZOJ6wh7vB
-         kyaoshOqwMHf7WchnHbZxSfHa9Zbwr/0TFBk7gDXhwmFyFaawoemU/IteoTgAEARk8TT
-         HOoKyoNqLkEVtLIylCOgyAgLri1XOkHkL15ffZ4IwtpZUy1S9y7+ncHjn7zi/GylREzM
-         PaZKKUpyBtLhCf+R3bQ6zjidpWx2TIFynVcF7vEVpw+t1jqcsEp/zcvXlWZYFnGUbdlq
-         sIpG7CU2J77yBjpDe6V7JYNCL2hvcZpPJs1n/u/Dmu+j8/Ks/7eoiybnVmfjoU9A59MC
-         sPew==
-X-Forwarded-Encrypted: i=1; AKwUvBxVcZvg5ntAnyfNC9BgPS0lOHxlyWGRsrpeC5gi/5MUWFtWqGE8nw5fsZ0f5OEKrPGzu/aKOQva1oLqgLQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJUAFoiYbB553fApSEUZZFl9DORt89B8/H2ZTJh376xn+pxumpB
-	Xid7Jcs/fuEDm/gL/xdxDMB2LpZ8zm3pSaLOc9ZP2ZXNsvwI8ueWS+XZjJx8tTg5yVj/PT9hIhZ
-	FM8zApEocOV/CZGcIf/8vK7RIPllVqXs=
-X-Gm-Gg: AYBFou07068p/rVzebdGznuoP4fszcyPbhW6JCN6IcFzuYFi0/fxRnCdOwkx0JLpNsC
-	rH7nZFU1rsdCIkS/qdKtwcC0RuApXmHvPy6OFiHWogCG/IAsrrEUFYndeFIynC+xYTHeATs20Y3
-	icvS+9fE2W8znvatGl16YWwtaoi6FBTEpCb86m9n25Fkm0QRUCBt6QvilJzvXS8vbfP3f2w+zcw
-	EefBkQpKsfBUAK2vgiTf7oDKK6CSD/2JGNk2XJ9JmrvmvCUKibbWloACKbLe1nf3aGdOiKQ+yHo
-	4w5T8C+aE+9sTS2qg6mtjh5C66WI+YsKelTKNnZc3SYaoQcUG5gloaUM2TXftDLt
-X-Received: by 2002:a17:90a:da87:b0:3a8:80f4:98a7 with SMTP id
- 98e67ed59e1d1-3a8a1bd661fmr4380072a91.24.1791464587670; Thu, 08 Oct 2026
- 06:03:07 -0700 (PDT)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Thu, 8 Oct 2026 08:03:06 -0500
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Thu, 8 Oct 2026 08:03:06 -0500
+        d=1e100.net; s=20260707; t=1791464608; x=1792069408;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+kGI3k/44UlMEz8kQ2oCVgsiUMpT90qi7dL2PUgRNcs=;
+        b=V20pohJWtpgFknwRTL1g2MF2WN7CIRurMaz8JhyS3Odiyl7nH+UIOS4VW5Ivn2ia1T
+         eN4dXAaKl/d4hjoaErfpre0kPBzrzauDopUr/R6p9wvNw6t4jSCw8PQ5DMd61XocYcwU
+         3CwJRUckSx0eqGsDL1Juzy5GjfVUSrkDtlAqEhpFfNvycZD1WcR2892ItgOw9DPe+Mqi
+         JNkEv46etFsK8lt99+2/+KWR8PtoojvC9vgLEnHtk6DeUwC6PPkGEhYWMnCBujbfHoLr
+         qR2moEwHZCYCVHV2GeBkMWKPVIH1S0XDJr/7RlkmLSLk5L1GbdcYHni7tCvYsn3xMtVW
+         azcQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwuixaoZbfiEirBf07LX0z4vILjT4iM1XeEqlP68/NCMfFZHVuCmIluMu65i7R0OjVwhD7baGGkQpeWYy8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLrp2ajo6hB90tDQC3hcAkSUI2nGXc0OYXsaZVhmJSEJftry57C
+	kqtysH/DHS6S9ykUW3pDeN6Fn0YllqdMIn6bo+YwJ1H9NKpyKWFx7gm5
+X-Gm-Gg: AYBFou3ekvBeSrttI/Yh9dFI7TF/ob7YzK8Y0ZDQoku2LLXnPcreqCPVGUntEcgAnYY
+	M1Rp3Vt9cXbcKm/AxWJUxkB7ozuOsImdYS7qlGJF/stLX/llEyQ35iWGBIy4iytTH+PFVpARns8
+	VH+lhpvzF27Iyw3Zvu2I0LgeyI+lWQyn/iogmB7Az1Lia7uKKHiFC/BhWj8kcsBV6AS0MQHGnsX
+	mWSPoAh1LmImzx6Jw45toeABKGJcFnpDNTxWEt1aah931KFIXvoY5b3WeQ2e7bUlmXDAw/Z4+PB
+	D6XKQNY10nDqRsw5H8eGxIaUMFdmfVH3kiT6HljpfgjyPzZUnwdpzIFdOYJzjsCSWujInLhZo6b
+	I5nUcTwZ+leSX0DIl44YabkxHMaAAriGRd6lhxv2YTY+LlD7wk2uTd/tA+YR0DJKwz6aSPjbEf+
+	g8KKPRHwq6l+/nwK03tIAyW7WOk4HKfyBeRjtL4ahObzDa9ibDTz4EQJEH77kYJVEONwX8Dkuf3
+	wr2g4xV9II3+nO9+nbIdmMOyUo6g1WcZTRTIgw9AjKytuXCn0LBydqx9/9nhh9ChANe4j6rx9AP
+	R6tdOkSmtWmoVhKM3pQy2VkSZoQ6AuIdy892jmxTMm6o2gDOmNvALBPyZwo=
+X-Received: by 2002:a05:6402:278d:b0:6af:5b14:78e7 with SMTP id 4fb4d7f45d1cf-6aff454b592mr5115802a12.34.1791464607322;
+        Thu, 08 Oct 2026 06:03:27 -0700 (PDT)
+Received: from ?IPV6:2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c? ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b00aa4c9b8sm1413473a12.37.2026.10.08.06.03.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 08 Oct 2026 06:03:26 -0700 (PDT)
+Message-ID: <36d9e570-15d8-4a2d-aafb-3ee6e5681205@gmail.com>
+Date: Thu, 8 Oct 2026 14:03:17 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20261007224115.755ce40d.michal.pecio@gmail.com>
-References: <afcecb34-0024-460f-bc21-a7f2b1754d23@rowland.harvard.edu>
- <20261007191130.8652-1-ooonea@gmail.com> <20261007224115.755ce40d.michal.pecio@gmail.com>
-From: Giuseppe Piscitelli <ooonea@gmail.com>
-Date: Thu, 8 Oct 2026 08:03:06 -0500
-X-Gm-Features: AclHuK8d94ZlAMXeaDvgj2EgcSP4fxLFqo6_9tmG2H2aomtW-IKcOXCsjiFQUrU
-Message-ID: <CACmoRBboPM3jNnfnOv5FXAJt1avBGwH2W47Pcq7RaVL+oBFt4A@mail.gmail.com>
-Subject: Re: [RFC PATCH v2] USB: core: emit a device-level modalias
-To: Michal Pecio <michal.pecio@gmail.com>
-Cc: linux-usb@vger.kernel.org, stern@rowland.harvard.edu, 
-	gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org, 
-	linux-api@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v1] net: devmem: prevent mixing fragments from
+ different bindings
+To: Mina Almasry <almasrymina@google.com>,
+ Stanislav Fomichev <sdf@fomichev.me>, Paolo Abeni <pabeni@redhat.com>,
+ Kaiyuan Zhang <kaiyuanz@google.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Simon Horman <horms@kernel.org>, Bobby Eshleman <bobbyeshleman@meta.com>,
+ Ralf Lici <ralf@mandelbit.com>
+References: <20261008033952.1399670-1-almasrymina@google.com>
+Content-Language: en-US
+From: Pavel Begunkov <asml.silence@gmail.com>
+In-Reply-To: <20261008033952.1399670-1-almasrymina@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thanks, I switched to that approach: blacklisted the charging driver,
-dropped the device-modalias backport, and booted the stock nixpkgs kernel.
+On 10/8/26 04:39, Mina Almasry wrote:
+> validate_xmit_unreadable_skb() only inspects shinfo->frags[0] and
+> assumes all fragments in an unreadable skb belong to that same devmem
+> binding. However, tcp_sendmsg_locked() only checks that readability
+> matches the presence of a binding (skb_frags_readable(skb) != !binding),
+> allowing consecutive sendmsg() calls with different dmabuf bindings to
+> collapse into the same skb and bypass per-device and unbind checks in
+> validate_xmit_unreadable_skb().
+> 
+> Add net_devmem_skb_binding() to query the binding associated with an
+> skb, reuse it in validate_xmit_unreadable_skb(), and check in
+> zerocopy_fill_skb_from_devmem() that existing fragments match the target
+> binding.
 
-I tested an existing libusb utility that does not claim interfaces [1].
-Its optional charging request succeeded, and iLoader continued working.
-I have not measured the actual charging current. The command remains
-manual, rather than running on device arrival.
+Looks good
 
-[1] https://github.com/FD-/usb_charge/blob/e957bcfc47262f8a47d652d7d417723578560b23/usb_charge.c#L42
+Pavel Begunkov <asml.silence@gmail.com>
 
-Assisted-by: OpenAI Codex
+-- 
+Pavel Begunkov
 
-
-On Wed, 07 Oct 2026 22:41:15 +0200, Michal Pecio <michal.pecio@gmail.com> wrote:
-> On Wed,  7 Oct 2026 21:11:30 +0200, Giuseppe Piscitelli wrote:
-> > On the first insertion of an iPhone (05ac:12a8) after boot, an already
-> > running usbmuxd can select USB configuration 4 before the charging driver
-> > apple-mfi-fastcharge loads. usbmuxd is a userspace daemon that uses libusb
-> > to communicate with Apple devices; apple-mfi-fastcharge is a USB device
-> > driver that enables their higher charging current.
-> >
-> > USB device uevents have no MODALIAS. The charging module instead loads
-> > from an interface uevent. Its registration reprobes the device, unbinds
-> > the generic driver and calls usb_set_configuration(udev, -1), tearing down
-> > the interfaces and interrupting usbmuxd's transfers.
->
-> What is actually the appeal of apple-mfi-fastcharge?
->
-> It seems to just issues some control requests to the device when
-> commanded by userspace. Userspace could do the same with libusb,
-> apparently without unbinding drivers, changing configurations or
-> even claiming USB interfaces. I just tried a simple program that
-> queries GET_CONFIGURATION, with no disruption to kernel drivers
-> or other libusb applications using the same device concurrently.
->
-> Then simply blacklist the kernel module and all its problems are
-> gone forever without one line of kernel code?
->
-> Regards,
-> Michal
