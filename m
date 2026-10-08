@@ -1,96 +1,78 @@
-Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-206.mta0.migadu.com [91.218.175.206])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5FF53E765A
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 10:26:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.24
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D42E83E765A
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 10:26:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791455180; cv=none; b=uCszu3PV3HknSKo6OE9gtWV7KEUzIDvf6+ILQfzfTsSV/ZSqafC1l85tvnwmpI8Gk95goWPO8dffnrg/U0N/OyetEBQ7YwZCyuZF74xx/p631ZV9TAEw/ERSs4ZOeb28eyJ9SwWRj3ujRI/uL3xwKVgQu6e6fTZbJBxeWiyZtK4=
+	t=1791455190; cv=none; b=ljfWVYw2q6nS6j1HwagiejYEw6X0yyVfZpfJfWpvpiuXYHxGjothGMZJP4oUOP0cYpGpP2a7ZKrmU0iuh17K3QUfN1nQ79Ut1niyC86rSay1zEtu2ecGedSk9vqEP/67faY/QBFwipux/8pmKT9COOn/llftJNO2OZy/5tZ1zqY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791455180; c=relaxed/simple;
-	bh=HzR9WNnD+ifJl3sRZqNLJRURJgYZXfwYK1/idMmy6xE=;
-	h=Mime-Version:Subject:From:To:CC:In-Reply-To:Message-ID:Date:
-	 Content-Type:References; b=NPijZ8jeU2DSobJ2lm1UegmaTosK2gXBQemwKtGCOqRfHyqHsSwd7GFX4AiACPPoPhM7XW3wW9f0zfJC7dwbEU4OTimVS4eoGgFboOYgTMIxYxcLjl5pq/2Yvrm7LmaWzn3nZLIZVigWtL9Jh2uE0/cA/c+NQq8hjr03gK6Dx+4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=jQoNIQBZ; arc=none smtp.client-ip=203.254.224.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1791455190; c=relaxed/simple;
+	bh=i+F/YS0Tvvz3wSTNke6zXmK24kXIkaoLB4AiCmseFSE=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:
+	 In-Reply-To:References; b=oq1dG5SqtX+nl8ISYz4VEkTRVDo0UOCpgFOSNXCyZJD3yp5qPJ0EVzvikX3FymU3Dar9+6u51/sSuzeUrqTw10yZiQG49GlH/pJKAZXKCF8ZSlnxNqHKhLyYJmsdoMchJsLb6KwQvtjOYzS1YF95UuyedhpXd2ZzP/BtXHKAKc4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=rrgiX09q; arc=none smtp.client-ip=91.218.175.206
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="jQoNIQBZ"
-Received: from epcas2p4.samsung.com (unknown [182.195.41.56])
-	by mailout1.samsung.com (KnoxPortal) with ESMTP id 20261008102616epoutp015c7501e14ba5a3a301a52a0cb814152d~chv3IqSYc0073800738epoutp01h
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 10:26:16 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com 20261008102616epoutp015c7501e14ba5a3a301a52a0cb814152d~chv3IqSYc0073800738epoutp01h
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1791455176;
-	bh=HzR9WNnD+ifJl3sRZqNLJRURJgYZXfwYK1/idMmy6xE=;
-	h=Subject:Reply-To:From:To:CC:In-Reply-To:Date:References:From;
-	b=jQoNIQBZG1PoMNBYOrZK4iaS8DB0jBSPUEpw0AeNZrr4YEDFTs2pU1sRlOOz57hT3
-	 pMmxnz+hiDTyykXcnZoyghomJzWY9DMVZ9H4o7cYfBRhRggnlsKk0fGo2+TWMT+goM
-	 /fvZe6FZrK/unjW6BvVbbs8IwIPsMn5qn3OqlzMc=
-Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
-	epcas2p2.samsung.com (KnoxPortal) with ESMTPS id
-	20261008102615epcas2p275f7269caa86134c5081a53ee069e69a~chv2t-f9J0793507935epcas2p2h;
-	Thu,  8 Oct 2026 10:26:15 +0000 (GMT)
-Received: from epcas2p4.samsung.com (unknown [182.195.38.205]) by
-	epsnrtp03.localdomain (Postfix) with ESMTP id 4j0mP33rdYz3hhT9; Thu,  8 Oct
-	2026 10:26:15 +0000 (GMT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="rrgiX09q"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=i+F/YS0Tvvz3wSTNke6zXmK24kXIkaoLB4AiCmseFSE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791455186; v=1; x=1792059986;
+ b=rrgiX09qQHdhE4n1XVD9oAOnWZfnIuH/WkW8fiX3rUICOYYe4VpEI1TsBpFYphit5r9paN+U
+ 3/Mem8Y6glApuJiDLaN0WF6gvSRDXwf1LB/aZAbwQe9HjytMgyRLeSlnOEEu1u+uD7O2n0hYvHA
+ 16HvmF0Q6JM6SjATKJcwulPg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b4bfddaf66fa9f35;
+	Thu, 08 Oct 2026 10:26:26 +0000
+X-Mizu-Trace-ID: b4bfddaf66fa9f35
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Subject: RE:(2) [PATCH v2 2/2] ext4: track zeroed out blocks of unwritten
- extents for fast commit
-Reply-To: daejun7.park@samsung.com
-Sender: Daejun Park <daejun7.park@samsung.com>
-From: Daejun Park <daejun7.park@samsung.com>
-To: Jan Kara <jack@suse.cz>
-CC: Theodore Ts'o <tytso@mit.edu>, "linux-ext4@vger.kernel.org"
-	<linux-ext4@vger.kernel.org>, Andreas Dilger <adilger.kernel@dilger.ca>,
-	Baokun Li <libaokun@linux.alibaba.com>, Ojaswin Mujoo
-	<ojaswin@linux.ibm.com>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Zhang Yi <yi.zhang@huawei.com>, Zhang Yi <yi.zhang@huaweicloud.com>, Harshad
-	Shirwadkar <harshadshirwadkar@gmail.com>, Li Chen <me@linux.beauty>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>, Daejun Park
-	<daejun7.park@samsung.com>
-X-Priority: 3
-X-Content-Kind-Code: NORMAL
-In-Reply-To: <2lgtlg7ydx4qeau2nvv5wkcuc2jkvwdcrav7gbxmxdieptkwl4@emgyfuxuskiu>
-X-CPGS-Detection: blocking_info_exchange
-X-Drm-Type: N,general
-X-Msg-Generator: Mail
-X-Msg-Type: PERSONAL
-X-Reply-Demand: N
-Message-ID: <20261008102615epcms2p2858ca95d96bd2b090f2e406aa1bad63c@epcms2p2>
-Date: Thu, 08 Oct 2026 19:26:15 +0900
-X-CMS-MailID: 20261008102615epcms2p2858ca95d96bd2b090f2e406aa1bad63c
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Date: Thu, 08 Oct 2026 10:26:26 +0000
 Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-X-CPGSPASS: Y
-X-CPGSPASS: Y
-cpgsPolicy: CPGSC10-223,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261008095512epcas2p243a0deff110c0cc75da1ae049b4bbb8b
-References: <2lgtlg7ydx4qeau2nvv5wkcuc2jkvwdcrav7gbxmxdieptkwl4@emgyfuxuskiu>
-	<20261008-ext4-fc-zeroout-v2-0-55cab1e24fa3@samsung.com>
-	<20261008-ext4-fc-zeroout-v2-2-55cab1e24fa3@samsung.com>
-	<CGME20261008095512epcas2p243a0deff110c0cc75da1ae049b4bbb8b@epcms2p2>
+Content-Transfer-Encoding: quoted-printable
+From: "Luka Gejak" <luka.gejak@linux.dev>
+Message-ID: <5a62749f42ea136f701eb99655ed6218a11920cc@linux.dev>
+TLS-Required: No
+Subject: Re: 2MB patch keeps resending
+To: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-wireless@vger.kernel.org
+In-Reply-To: <a7ed4fb9e80efbb7f7bfe005a48569f75a3ac0c5@linux.dev>
+References: <a7ed4fb9e80efbb7f7bfe005a48569f75a3ac0c5@linux.dev>
 
-On Thu, Oct 08, 2026 at 11:55:02 +0200, Jan Kara wrote:
-> Just one note: I agree with you ext4_alloc_file_blocks() is actually handled
-> correctly. But OTOH tracking a range twice isn't really an issue (only tiny
-> performance overhead compared to the extent tree operations and zeroing
-> itself). So I just wouldn't special-case ext4_alloc_file_blocks() and
-> always pass a proper handle to ext4_issue_zeroout(). That keeps the logic
-> slightly simpler: kernel zeroes out blocks => kernel tracks the range. But
-> I don't really insist, it's just a suggestion.
+October 7, 2026 at 18:51, "Luka Gejak" <luka.gejak@linux.dev mailto:luka.=
+gejak@linux.dev?to=3D%22Luka%20Gejak%22%20%3Cluka.gejak%40linux.dev%3E > =
+wrote:
 
-Thanks for the review. I wasn't sure I should do that in
-ext4_alloc_file_blocks(): f4265b8d32c4 ("ext4: add
-FALLOC_FL_WRITE_ZEROES support") issues the zeroout outside of the
-running transaction on purpose, and passing a handle there would put it
-under the conversion handle, so I left it as it is.
+
+>=20
+>=20Hi everyone,
+>=20
+>=20As many of you, who are subscribed to certain mailing lists, have
+> seen, you keep receiving same 2MB patch over and over again.
+>=20
+>=20This is a server side issue not influenced by me and has been
+> elevated to helpdesk and migadu support.
+>=20
+>=20Sorry for the inconvenience and hopefully it will be resolved in the
+> nearest future.
+>=20
+>=20Best regards,
+> Luka Gejak
+>
+
+The issue has been resolved by migadu support, and they claim it
+shouldn't happen again.
+
+Feel free to delete excessive emails and again, sorry for the
+inconvenience.
+
+Best regards,
+Luka Gejak
