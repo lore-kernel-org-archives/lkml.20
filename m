@@ -1,206 +1,342 @@
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013050.outbound.protection.outlook.com [52.101.72.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8627343499E;
-	Thu,  8 Oct 2026 13:42:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791466935; cv=none; b=dmYG8jpkjSbddUdP47ISoHB3eXaPmpbFSHBD0CtVg9inK2rW2q7wssWYYbZ5KtYznuyGZ+bAcl+BBKfbUVw/dQXZPGUgEAZWmS0f0ruKDG0CSkyK+cL6SmhAQjAm5rBDp9FkF+0VhUIceJLbT/zw0IT4RgWeUQj1RiBT8BGScuw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791466935; c=relaxed/simple;
-	bh=b4raPBvFiOernLmFHz0kpiSHNPjK2TqQvNwcE3LZwwY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rlEiQf88h593JvzsParuuYKJOq1Vk+qDXU1b3ECh08jYp9pVbAMCQfWbKCC6QIlrlQT1SJ5c1j7RIXTavvWu2+63+Z8eeMOwvbMOoK8FkffJ8hMUFKvvhuxV7ukvvwIB6lg/bqLyqtP5M2Zxjebk/H5RTi9bXbDvtoZci9IK2R4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org; spf=pass smtp.mailfrom=ozlabs.org; dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b=bNSrtf5c; arc=none smtp.client-ip=150.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ozlabs.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECAA8302163;
+	Thu,  8 Oct 2026 13:45:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791467113; cv=fail; b=LE0IVpMUsggyYZgRgvs6kHBaB8tGpLMbhERGEHr18630Yqwy9NmfVX45c0uVwzusHXCh8PjtcrQfNmlg4sfQb2BDkehyQI3g0/EnCPwmq6yVH1vo1/ZiF7By2JUCPRmL72Q86utWM8maiz9pjldhk0a10bgfZJBOYxQ/ACttgz4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791467113; c=relaxed/simple;
+	bh=2PGQPhLq5muBnpp4KH3RSbOrOmbVCaXr6ZOxvv/eLmk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=aQl35s19nQAUfIQpDMxuj1T/MCtbhqb7Jita2ZK7M/SP1E4CfUBMD1BgU+8JfpL3pt1OgsZ3wQxKnqi1tS3C0DTOnJL6VXqv58+qDmBMFQRNtKG6WTVN4DuON6vzNzmmaAEsShcDf6ydH8OFNVDvnIab9IWqxvEGhEdUhUMcp4E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=IxfVNekH; arc=fail smtp.client-ip=52.101.72.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b="bNSrtf5c"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
-	s=201707; t=1791466924;
-	bh=MYjZ7fp9qC750QafrEzdxD6FPEirvt+MJkPTCn0I5jo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=bNSrtf5cf0zp1cfzaskvJ1pvIbK/GvuuTA+G7Vmds3LYWtVh/Yv/TVXgodFIqZw07
-	 4k/rUeGE1Lzx9JkLLb9cGhxKdy+vRYTA2DLvbLpypK+CAapq9c3a1Nfoj2C323JUW5
-	 e48PSf+cda7tAAWSSRnupoEB/b8DafRig9xcNQdjUFokCOLNydFSVmr6XLjuGBmwbO
-	 gVUdbBWHzW0bvceFhBbRRost/xfBN4GJeWSjDUK+d9X2/CieUqjvFm8uHJ3gfN0zU9
-	 leUVl90EsVz8gm8CW4zkqNy2HP17J1WfhzguOAJZT6EL4R4KhlgmOMXuqNP5imjdjz
-	 QQPo1FfxUexIQ==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	by mail.ozlabs.org (Postfix) with ESMTPSA id 4j0rks3w4Yz4w0p;
-	Fri, 09 Oct 2026 00:41:57 +1100 (AEDT)
-Message-ID: <fd564691-ca79-4fcb-80a7-8328c71ab322@ozlabs.org>
-Date: Thu, 8 Oct 2026 14:41:53 +0100
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="IxfVNekH"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=K1bM54R5RRCQmJVbqrwtJXBf3nDBkvWqCkA9AzBx63I5p7qpVhb31uNwCz+ctu7zJZVP1LPNdJaXYhXZ3TCPPMVT2R7dJIfE4e4b4/hKt9q3q6ww/RxLz+PrUG2xuK1c0O7qDySwDkYCO0HG7bbuRYIXTCifa1tVPNX7m1/q612oDDE54hoJWCaFupUtR3IdfDvQDO477hmuexPYOeXY6HdpZwpg0yfiOzwKWAD4Sl7/V7WUsTAFivker9CfOKMDheS2abE+Lc18VPS44hcvSrmZwQ3kKDw+bGbLMVExu3rHQQ+1BrL6ulyyfx23WJeCqXcjcILHUCSvTJXzxcLU1g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=38dQtDKrsCUzk4mZVkf2drMOrhwH/LU2xnSYRAGDjss=;
+ b=hNIgF2LhqBAcNZ8gakyK+W/1ikDqcffNjw+jbN6vU4dHhyc1duv+pmpGaBXpjWNHQEIKScCfYWqixktP9pDETJ3niGmrQLgp0JKRjDxknIMztyi7uXwPPYrd7gq8q8lsp7dEPbvnRh/957KH/PdUdHD90W+SdMyAmTLom+6kfCuwIvAbgFSdTPsTFyf2A7IVKaaCknOSH21zADnt9oc6FxYbDUsJUlSF00PLNUk3K5af422zyCDCw18GctKMxM9gAUQYDUjdTrapqIfrbgi9x10SVoMjvyoNOxl6DlEJx9wdJmleJVatIN1q1iwipKZfJh23L6DKgF7WARnUw0TuZQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=38dQtDKrsCUzk4mZVkf2drMOrhwH/LU2xnSYRAGDjss=;
+ b=IxfVNekHjrwvg7+ZgufrSnvvLdwAJ7nABGFk3QlI5qrKjqUiMAch5kOUWLQKVPX0RV15CbxmYuQosYVIUEMZvdQYUzdInKoVUSB/MbJbHI1SPCJGI7Pv82ICa2lP30ADxqGfeQzKCgDKAHHfK5gG5AyooGRsTBIwTvhH194GJpF2f7fkgKuqi7DtItvb/5XB2wQ+5aysvdq6k09JHsJXBn58WRfKfbOWQK2i3d8KVfVF6hJBA+UvPHmpXLuLloHBO0nO62EeH7qM1ZHjUY1/FCRFQEXdMxpw6VCHwzFnVBVpK/pbspGu5GyjRj1FX//jPhiqYmEjNedmJVxmDnoX/w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
+ by PAXPR04MB8974.eurprd04.prod.outlook.com (2603:10a6:102:20d::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.23; Thu, 8 Oct
+ 2026 13:45:03 +0000
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0496.010; Thu, 8 Oct 2026
+ 13:45:03 +0000
+Date: Thu, 8 Oct 2026 21:49:35 +0800
+From: Peng Fan <peng.fan@oss.nxp.com>
+To: Robin Murphy <robin.murphy@arm.com>
+Cc: Will Deacon <will@kernel.org>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Jean-Philippe Brucker <jpb@kernel.org>,
+	Nicolin Chen <nicolinc@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Krishna Reddy <vdumpa@nvidia.com>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org,
+	Peng Fan <peng.fan@nxp.com>
+Subject: Re: [PATCH RFC v5 3/6] iommu/arm-smmu-v3: Delay stream allocation to
+ inside the mutex
+Message-ID: <asefb6KCCYCpShTX@shlinux89>
+References: <20261006-smmu-shared-sid-v5-0-169a59c671d3@nxp.com>
+ <20261006-smmu-shared-sid-v5-3-169a59c671d3@nxp.com>
+ <d0e80505-b36f-40a9-a45f-957fff428c2a@arm.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d0e80505-b36f-40a9-a45f-957fff428c2a@arm.com>
+X-ClientProxiedBy: SI2PR01CA0046.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:193::18) To AM8PR04MB7874.eurprd04.prod.outlook.com
+ (2603:10a6:20b:24d::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-buf: Annul dmabuf->file on file release
-Content-Language: en-GB
-To: Zack Rusin <zack.rusin@broadcom.com>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Thomas Hellstrom <thellstrom@vmware.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org, Alex Mastro <amastro@fb.com>,
- Alex Williamson <alex@shazbot.org>
-References: <f8efaabd-c06e-4f04-8cfa-489c148e37ba@ozlabs.org>
- <CABQX2QOOaxkxzREaDHY3iXHs0106u+F9JvQSTXCnA7AEjPPxuQ@mail.gmail.com>
-From: Matt Evans <matt@ozlabs.org>
-In-Reply-To: <CABQX2QOOaxkxzREaDHY3iXHs0106u+F9JvQSTXCnA7AEjPPxuQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|PAXPR04MB8974:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4e4ac801-337f-417a-60fb-08df25425af0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|19092799006|1800799024|23010399003|366016|22082099003|10067099003|18002099003|11063799006|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	3ICSTBbRDmxi8jgmte6h32zO9C3IFCIZFKb6VwsdYTsYD5DPP/1giwlH82yriyD1TLp+l9p+MCvag1I0vx1j1osoO+oQ+JMxW8PvQ/Bjbfx10DYzu4gskaJE3jNlSTSBN6xQfWHjYz8F3a8SZeIqILDLUXLCesF/IhMIXLCp/Q8QHfnS1tzZyResuGdwP4nd8TlRH9hCff7EM1mwbpeOgPMAFrMZo9HWOpSmRAgC11FtKyUucvTB5AiZkfY7YfjJa2AHrhm7P6vFOIm1zZ9KV5EkPzBojXFWwo/2WHkq/XhY9eqUTBXndb7o9OCTEfzl+kAJe2bTHl8CNyQeMNqhc7m0fGmykIEiN0cp9RIqCgBR9w+onVERht1ePFbHQ8wBM1XkBNa/MchkFM9eca8NhNKb1KoVxOjMwIEgONe5X8kjtz12o33LJh3TXoQDP29TSCfhbFSUk+Sgw9G38S1npUF9l/hYzZ+ct0xzJ/O86ovkOD7W7P0ENXrMgw7y8htZCta2yvCiVzo6QRXSzZKYF7uyccDotN5Qv+KonhLfySVEWeQ8hyHFYHhGD8XwTjEv4omuHVSVQZyVNJEF1R6d3oWXP/HIZdwY0soDXdNqL2GaAH4ATVoaFMJa+nzZPsHElcZnGSSMW9mn7bJaQpvPrNkAsbgHKU552Qgb/NL9+9Y=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(19092799006)(1800799024)(23010399003)(366016)(22082099003)(10067099003)(18002099003)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?QcVGf4U4jFYbM4Mrv0yvjlE9EYms0OnBGpakFbWoakUB5BfOH3gsvxKp3t7o?=
+ =?us-ascii?Q?r4cbuLPQ2o8PBmNx+Pr9xZS6ET0ViSOLZVFO71rYZSTc5XdVwAt5x94R0X2u?=
+ =?us-ascii?Q?NUgvL7gM16o/Un9o4Jlvm+avjR4NLLH1ymcPij/JL4vx6ksTBCIzTgJ3xa+M?=
+ =?us-ascii?Q?HCWoOHTMQcgPiTtm4Ly8Aj97rSbD+42/73s+Me3522gCWxvMap5s7BMnt7yR?=
+ =?us-ascii?Q?0W2jKFo23kb59pzbMI7nDjpb5OOtAdKW6KftPl1fWLrFKVQoA7AA2kXriRaF?=
+ =?us-ascii?Q?GJr3OrvwS5+JHN9SSHs0dPWEIBetTnSl/i4HLqgs3bTD72jXroW4WjwvNqc3?=
+ =?us-ascii?Q?tGH9rruPFoKXXVXxAFlSjk+uXrTJXycf4mkrPxnGmdSzqnWbYMmeYdMdWMUA?=
+ =?us-ascii?Q?hyMw+zzv7lOvTwAfAg2GjSzqDgS6UFCNF2Znu37lfSpAZpk+pj4C9Vxvuf8v?=
+ =?us-ascii?Q?zWsKaySAwY63aRGUgO8i0UWwt6n4D7jupbeVk44byVKBb5giKyRnMm/1vCWO?=
+ =?us-ascii?Q?sg8tqUrgta7qUR5AA4aiUR1PRYsewSEJhx/NZBx7qW5FnE5o2ca11yuoZefI?=
+ =?us-ascii?Q?hTjnsat2yYbCqgHNHdBNw20sSC7LIZHNbvwJQFy0Ext4YJduvVY93kdHVfkk?=
+ =?us-ascii?Q?vIxu3smgRbGsNOi6Kc1eAVskUDmA2pbnfV1/zxEwGdik9YliF8a54EWwHkfM?=
+ =?us-ascii?Q?OnF+m7bu6KkU1eMA3jLgLZhz96ODR3M7yQNEQu9qMz+syUCq3jlTWcmPSavS?=
+ =?us-ascii?Q?sQ8mY+zoer37zdRVSK7qZclo6c4q7Nr8PeOjROMPLcX3Sy4QuMaqniBOmJeJ?=
+ =?us-ascii?Q?22K84wmRgIL382mFBIJVNXmYKFtxf/NcSAV8hr47owqJL02GRW3Gj4sdc42B?=
+ =?us-ascii?Q?s+S14Ig2NPOESTUYE+R+4BRoKqMWvml4MF8aydoEzuswKRynjag6u6sbBFBL?=
+ =?us-ascii?Q?7cgAoxzXo6/H6o5N+DGdOXsmCCbcE4Sd8kMAjg3xo7DPsc0fhGoftSV1XjgP?=
+ =?us-ascii?Q?4flHhAb7CAZQ+ZrOYuI2p4QlUw4oAwapkvGVqu3ZbcbKUbEOD77WaD/4+riJ?=
+ =?us-ascii?Q?3HYCrGKZsofgUASe5X7Eji7y1lT+3Lizk0H6mGCFuTnUMjPTA295WnzkNDVn?=
+ =?us-ascii?Q?TC5UFN44tEwWyRUMSMFp3jC9xyewnZRZanc+Wd5xZEmEgHWA0ZEi+ewaUMF+?=
+ =?us-ascii?Q?W/V14RScHZXaB8soFuv9Kt1E0a4BA0UTQ9YsvRB17Etk8uxNKrrkXJCNQRlL?=
+ =?us-ascii?Q?3uiNUUQlA8ETGwtKmE3MykaKUVPZeEsczZaGBMjfBiGbF8hxDz11s98YLfJn?=
+ =?us-ascii?Q?pbmqYTlFD+KR/RkJT+ps/+S3/a1RQEfpU8bZuXynDSz+29cabY+voliH7jAB?=
+ =?us-ascii?Q?cJXtRltpdqIZHqgtu53X0ayBO8ae+E4CwQtRLrlefaq8IcvydJw2TjMhAWvf?=
+ =?us-ascii?Q?Y8H+YnBTuge9X0YZLiurMdaWr4t+LjbF2HNcSQabhfoVN19KxZJ5LGb7J4E8?=
+ =?us-ascii?Q?JAPvNb0ihv7NJCDx2zuJoUo/jnQDHH67O5IInqZo31ErKYKcDLerSp7DQ+Ip?=
+ =?us-ascii?Q?Vi1legehNTEDZ1A+zQHVYWsPRv6XeiCUPF/2wcDsxKNzJIhY0UEAjJKOxbqA?=
+ =?us-ascii?Q?KS8mwxqsg2y8cJldGoyq8cETAFHA8n6fjJLZhaM/o9B/KVmVchAoAZOErbAL?=
+ =?us-ascii?Q?3tsMaSmDnopAgtUYKwjuLuwwlNEY9/+D708UlP5zObR4JwRXgTPmuv/2toMo?=
+ =?us-ascii?Q?eVEvmpmyrzgqyIZQP84zODE25RfTkGVLOxb7ND5IWXSGvqIxGcOv?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4e4ac801-337f-417a-60fb-08df25425af0
+X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 13:45:03.5109
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7Q9YcVZPzcW8/tE/wERr3PCkUjI2aDL0+gD0ibWezs4gbffU22pALXdM1OPvcG1C3UxWt+zBTXpih6RFV5WoJh0K/QasvvQTPVUiDZfEO8ozAerosm6HzdZU9xouoqjw
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8974
 
-Hi Zack,
-
-On 07/10/2026 16:24, Zack Rusin wrote:
-> On Tue, Oct 6, 2026 at 3:15 PM Matt Evans <matt@ozlabs.org> wrote:
->>
->> The dmabuf release path is split between file and dentry release:
->> dma_buf_file_release() is called shortly before the file is freed, and
->> dma_buf_release() calls an exporter's dmabuf->ops->release when the
->> dentry is freed.  However, the dentry can outlive the file (for
->> example, if opened with O_PATH), meaning .release might be called some
->> time after the file is freed.
->>
->> This presents a window, when closing a DMABUF file, in which
->> dmabuf->file points to freed memory yet .release op has not yet been
->> called.
->>
->> For VFIO, if a buffer's .release has not been called it's considered
->> still active and subject to move/cleanup.  If so, it attempts to
->> get_file_active() on dmabuf->file: a file close with dentry held open
->> will call this function with a stale pointer, a UAF.
->>
->> To make this pattern safe, set dmabuf->file to NULL in
->> dma_buf_file_release() to reflect that the associated file is now dead
->> even if the DMABUF is not yet gone.  A get_file_active() ... fput()
->> sequence concurrent with a file close will only execute as one of:
->>
->>    - Gets the file before file_ref_put() (dmabuf->file valid)
->>    - Observes dmabuf->file pointing to a file, but it's DEAD (no file)
->>    - Observes dmabuf->file = NULL (no file)
->>
->> Originally, drivers could assume dmabuf->file was valid until .release
->> was called from fops->release.  This assumption was no longer valid
->> after 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to
->> dentry_ops"), which moved the callback to the dentry release (by which
->> point the file might have been freed).  With this commit, drivers must
->> still consider that dmabuf->file could be NULL before .release.
->>
->> Fixes: 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to dentry_ops")
->> Signed-off-by: Matt Evans <matt@ozlabs.org>
+On Thu, Oct 08, 2026 at 01:55:36PM +0100, Robin Murphy wrote:
+>On 06/10/2026 1:19 pm, Peng Fan (OSS) wrote:
+>> From: Peng Fan <peng.fan@nxp.com>
+>> 
+>> Move arm_smmu_stream allocation from upfront (before the mutex) into
+>> the mutex-protected loop in arm_smmu_insert_master(). Instead of
+>> pre-allocating all stream objects and then inserting them into the RB
+>> tree, first look up whether the SID already exists in the tree. Only
+>> allocate and insert a new stream when no existing entry is found, then
+>> avoid unnecessary allocations when bridged PCI devices produce duplicated
+>> IDs. Prepare the code for a subsequent patch that will reuse existing
+>> streams when stream IDs are shared across masters.
+>> 
+>> The sort is also moved after the mutex section, since streams are now
+>> populated inside the loop rather than beforehand.
+>> 
+>> Assisted-by: LLM
+>> Signed-off-by: Peng Fan <peng.fan@nxp.com>
 >> ---
->>
->> Hi,
->>
->> This issue was found (by Claude Opus 5.5) in the context of VFIO's
->> DMABUF export path.  VFIO iterates live DMABUFs with a
->> get_file_active()/fput() block, which now becomes safe if the file is
->> closed (and memory freed!) yet DMABUF .release hasn't yet occurred.
->>
->> However, there are a couple of other places that directly use
->> dmabuf->file and seem able to race a closing file (i.e. without holding
->> the file reference)?  If this is so, they'd be a UAF today; with this
->> patch that goes away, but instead of a stale pointer dmabuf->file could
->> be NULL:
->>
->> 1. drivers/gpu/drm/vmwgfx/ttm_object.c:get_dma_buf_unless_doomed()
->>
->>    file_ref_get(&dmabuf->file->f_ref); on a non-refcounted DMABUF
-> 
-> Yes, that's a real UAF today. vmwgfx relied on the exporter's
-> dma_buf_ops.release running inside __fput() before file_free(), which
-> stopped being true with 4ab59c3c638c and we missed it.
-> 
-> But this patch on its own makes vmwgfx worse. In the ordinary case,
-> where closing the file drops the last dentry reference, a close racing
-> PRIME_HANDLE_TO_FD is safe today: ttm_prime_dmabuf_release() runs from
-> the same __fput() and blocks on prime->mutex, keeping the file
-> allocated, so file_ref_get() just fails on the dead refcount. With
-> this patch dmabuf->file is NULL in that window and we oops. So this
-> shouldn't go to stable without a vmwgfx fix.
-> 
-> For vmwgfx we'd probably need this one line change in
-> drivers/gpu/drm/vmwgfx/ttm_object.c to accompany this patch:
-> @@ -471,7 +475,7 @@ void ttm_object_device_release(struct
-> ttm_object_device **p_tdev)
->    */
->   static bool __must_check get_dma_buf_unless_doomed(struct dma_buf *dmabuf)
->   {
-> -     return file_ref_get(&dmabuf->file->f_ref);
-> +     return get_file_active(&dmabuf->file) != NULL;
->   }
-> 
-> under prime->mutex, which keeps the struct dma_buf alive. It needs the
-> NULL store from this patch to fix the existing UAF, since otherwise
-> the recheck can accept a recycled file through the unchanged stale
-> pointer.
+>>   drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 102 +++++++++++++++-------------
+>>   1 file changed, 53 insertions(+), 49 deletions(-)
+>> 
+>> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+>> index 9d34eac196a65..69c2c3596b06a 100644
+>> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+>> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+>> @@ -4110,52 +4110,29 @@ static int arm_smmu_insert_master(struct arm_smmu_device *smmu,
+>>   		return -ENOMEM;
+>>   	}
+>> -	for (i = 0; i < fwspec->num_ids; i++) {
+>> -		struct arm_smmu_stream *new_stream;
+>> -
+>> -		new_stream = kzalloc_obj(*new_stream, GFP_KERNEL);
+>> -		if (!new_stream) {
+>> -			ret = -ENOMEM;
+>> -			goto out_free_streams;
+>> -		}
+>> -		new_stream->id = fwspec->ids[i];
+>> -		new_stream->master = master;
+>> -		master->streams[i] = new_stream;
+>> -	}
+>> -
+>> -	/* Put the ids into order for sorted to_merge/to_unref arrays */
+>> -	sort(master->streams, master->num_streams,
+>> -	     sizeof(master->streams[0]), arm_smmu_stream_id_cmp,
+>> -	     NULL);
+>> -
+>> -	/*
+>> -	 * Clear after sorting: RB_CLEAR_NODE() records the node's own address,
+>> -	 * which sort_nonatomic() invalidates by relocating the entries.
+>> -	 */
+>> -	for (i = 0; i < fwspec->num_ids; i++)
+>> -		RB_CLEAR_NODE(&master->streams[i]->node);
+>> -
+>>   	mutex_lock(&smmu->streams_mutex);
+>>   	for (i = 0; i < fwspec->num_ids; i++) {
+>> -		struct arm_smmu_stream *new_stream = master->streams[i];
+>> +		struct arm_smmu_stream *stream;
+>>   		struct rb_node *existing;
+>> -		u32 sid = new_stream->id;
+>> +		u32 sid = fwspec->ids[i];
+>>   		ret = arm_smmu_init_sid_strtab(smmu, sid);
+>>   		if (ret)
+>>   			break;
+>> -		/* Insert into SID tree */
+>> -		existing = rb_find_add(&new_stream->node, &smmu->streams,
+>> -				       arm_smmu_streams_cmp_node);
+>> +		existing = rb_find(&sid, &smmu->streams,
+>> +				   arm_smmu_streams_cmp_key);
+>>   		if (existing) {
+>>   			struct arm_smmu_master *existing_master =
+>>   				rb_entry(existing, struct arm_smmu_stream, node)
+>>   					->master;
+>>   			/* Bridged PCI devices may end up with duplicated IDs */
+>> -			if (existing_master == master)
+>> +			if (existing_master == master) {
+>> +				master->streams[i] = rb_entry(existing,
+>> +					struct arm_smmu_stream, node);
+>
+>If we're now making the whole stream allocation and tracking business more
+>dynamic anyway, could we not just skip inserting duplicate entries entirely,
+>and save all the hassle elsewhere?
 
-Thanks for confirming!  Ah, so get_file_active() is good here, cheers. 
-I'll repost as a 2-part series to first include this in vmwgfx and 
-second add the anNULL.
+With duplication, the streams may looks as below:
+streams[0] = ptr_to_stream(sid=0x10)
+streams[1] = ptr_to_stream(sid=0x10)
+streams[2] = ptr_to_stream(sid=0x20)
+num_streams = 3
 
->> The commit message of 90ee6ed776c0 ("fs: port files to file_ref") hints
->> this might be more subtle than replacing it with a get_file() variant
->> (so as to accept a NULL file *).
->>
->> 2. drivers/gpu/drm/i915/gvt/dmabuf.c:intel_vgpu_get_dmabuf()
->>
->>    gvt_dbg_dpy(... file_count(dmabuf->file) ...);
+Withou duplicaition:
+streams[0] = ptr_to_stream(sid=0x10)
+streams[1] = ptr_to_stream(sid=0x20)
+num_streams = 2
 
-FWIW aside, I re-read this, and there does appear to be a ref held 
-(dma_buf_export() has just happened, and dma_buf_fd() generated) so 
-dmabuf->file is stable at that point.
+In next version:
+I'll skip duplicate SIDs during insertion and track only unique
+entries in master->streams[], with num_streams reflecting the
+deduplicated count.
 
->> Respective vmwgfx & i915 maintainers, what is your view?
->> Or, indeed, if anyone sees any other questionable uses of dmabuf->file.
->>
->> Thanks,
->>
->>
->> Matt
->>
->>
->>    drivers/dma-buf/dma-buf.c | 6 +++++-
->>    1 file changed, 5 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
->> index 4c9add51f9ef..726639130477 100644
->> --- a/drivers/dma-buf/dma-buf.c
->> +++ b/drivers/dma-buf/dma-buf.c
->> @@ -193,11 +193,15 @@ static void dma_buf_release(struct dentry *dentry)
->>
->>    static int dma_buf_file_release(struct inode *inode, struct file *file)
->>    {
->> +       struct dma_buf *dmabuf = file->private_data;
+>
+>IIRC, the only real reason for not actively deduplicating originally in
+>563b5cbe334e ("iommu/arm-smmu-v3: Cope with duplicated Stream IDs") was to
+>keep it to the simplest fix that was easier to backport, and at the time it
+>was easy to get away with since it only mattered at that one particular
+>point. If we have to start copying the double-loop bodge around to multiple
+>places, it rather stops looking like the neatest option...
+
+Right, with the old embedded array the duplicate entries were
+essentially free (just unused slots with the same SID), so the
+"skip and continue" bodge was a reasonable minimal fix. But now
+that we individually allocate streams and store shared pointers,
+keeping duplicates means dedup logic in every cleanup path.
+Agreed it's better to just not insert them in the first place.
+
+As above, I will not keep duplicated SIDs in V6.
+
+Thanks
+Peng
+
+>
+>Thanks,
+>Robin.
+>
+>>   				continue;
+>> +			}
+>>   			dev_warn(master->dev,
+>>   				 "Aliasing StreamID 0x%x (from %s) unsupported, expect DMA to be broken\n",
+>> @@ -4163,45 +4140,72 @@ static int arm_smmu_insert_master(struct arm_smmu_device *smmu,
+>>   			ret = -ENODEV;
+>>   			break;
+>>   		}
 >> +
->>          if (!is_dma_buf_file(file))
->>                  return -EINVAL;
->>
->> -       __dma_buf_list_del(file->private_data);
->> +       __dma_buf_list_del(dmabuf);
->>
->> +       /* Must be observed by __get_file_rcu() before file_free() */
->> +       smp_store_mb(dmabuf->file, NULL);
-> 
-> I think Alex is right and dmabuf can be NULL here. An early if
-> (!dmabuf) return 0" will fix that.
-
-Yep, on it.
-
-Many thanks,
-
-
-Matt
-
+>> +		stream = kzalloc_obj(*stream, GFP_KERNEL);
+>> +		if (!stream) {
+>> +			ret = -ENOMEM;
+>> +			break;
+>> +		}
+>> +		stream->id = sid;
+>> +		stream->master = master;
+>> +
+>> +		rb_find_add(&stream->node, &smmu->streams,
+>> +			    arm_smmu_streams_cmp_node);
+>> +		master->streams[i] = stream;
+>>   	}
+>>   	if (ret) {
+>> -		for (i--; i >= 0; i--)
+>> -			if (!RB_EMPTY_NODE(&master->streams[i]->node))
+>> -				rb_erase(&master->streams[i]->node,
+>> -					 &smmu->streams);
+>> +		for (i--; i >= 0; i--) {
+>> +			int j;
+>> +
+>> +			if (!master->streams[i])
+>> +				continue;
+>> +			/* Skip duplicated SID pointers already freed */
+>> +			for (j = 0; j < i; j++)
+>> +				if (master->streams[j] == master->streams[i])
+>> +					break;
+>> +			if (j < i)
+>> +				continue;
+>> +			rb_erase(&master->streams[i]->node, &smmu->streams);
+>> +			kfree(master->streams[i]);
+>> +		}
+>>   		mutex_unlock(&smmu->streams_mutex);
+>> -		goto out_free_streams;
+>> +		kfree(master->streams);
+>> +		kfree(master->build_invs);
+>> +		return ret;
+>>   	}
+>>   	mutex_unlock(&smmu->streams_mutex);
+>> -	return 0;
+>> +	/* Put the ids into order for sorted to_merge/to_unref arrays */
+>> +	sort(master->streams, master->num_streams,
+>> +	     sizeof(master->streams[0]), arm_smmu_stream_id_cmp,
+>> +	     NULL);
+>> -out_free_streams:
+>> -	for (i = 0; i < master->num_streams; i++)
+>> -		kfree(master->streams[i]);
+>> -	kfree(master->streams);
+>> -	kfree(master->build_invs);
+>> -	return ret;
+>> +	return 0;
+>>   }
+>>   static void arm_smmu_remove_master(struct arm_smmu_master *master)
+>>   {
+>>   	int i;
+>>   	struct arm_smmu_device *smmu = master->smmu;
+>> -	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(master->dev);
+>>   	if (!smmu || !master->streams)
+>>   		return;
+>>   	mutex_lock(&smmu->streams_mutex);
+>> -	for (i = 0; i < fwspec->num_ids; i++)
+>> -		if (!RB_EMPTY_NODE(&master->streams[i]->node))
+>> -			rb_erase(&master->streams[i]->node, &smmu->streams);
+>> -	mutex_unlock(&smmu->streams_mutex);
+>> +	for (i = 0; i < master->num_streams; i++) {
+>> +		int j;
+>> -	for (i = 0; i < master->num_streams; i++)
+>> +		/* Skip duplicated SID pointers already freed */
+>> +		for (j = 0; j < i; j++)
+>> +			if (master->streams[j] == master->streams[i])
+>> +				break;
+>> +		if (j < i)
+>> +			continue;
+>> +		rb_erase(&master->streams[i]->node, &smmu->streams);
+>>   		kfree(master->streams[i]);
+>> +	}
+>> +	mutex_unlock(&smmu->streams_mutex);
+>>   	kfree(master->streams);
+>>   	kfree(master->build_invs);
+>> 
+>
+>
