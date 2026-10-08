@@ -1,136 +1,207 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B8B231ED7C
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 16:02:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CC471F8723;
+	Thu,  8 Oct 2026 16:03:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791475373; cv=none; b=e1JVJ7KoqdH5r4e8k1CL7XbZAclU3rFYRiItWHzw14/gdMUKsGV0LunH+sQ5R2AnsjFF8vFGQvPD+UNKuD/MyR+Ccn+zzlXGQ/xsbLemqQIsZ08SOn8YkP987UMTAQhrlb60Nlg5vOt2tloOI95c1nU2mL7L6pz03gD8lAKn748=
+	t=1791475426; cv=none; b=ckA+tW1JKmpRRp8KvOYkW4hg+pSFhlNRxF20lMtVOABjc5774NvmmTxLqR1GhqUr9IXwxr4zx2kDeXDcxciuuBKoQEtzoon6YKZQ41o8sEUUjZya3aFThFxyK4XrAfyjzKjEBOrHZ/xaKVxTJBUT7cV5OPk8W//suUapVj77Vr4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791475373; c=relaxed/simple;
-	bh=k8kcPjLrvT/Z5owlfsYABtXFh/r1Q4aZ/KajH1z80Po=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=InucikDIjpE4iO4OvBOMRu92UgYuSDiMY4ZE1cq6AEp30B3P44aG+oLmfZ1lagVHR5lVx4XmgsC7z/Ms63rbbHnmbuBhvwJM3DcfIF41QjoNI+A+ASQEoVtwiaa9WGWiPLfqKRyurmk9EkUasbuHfJV0rsSb5BlxBbpso0mPH9I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from fc87d0ffb700.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAAHET+gvsdqK6INCg--.11345S2;
-	Fri, 09 Oct 2026 00:02:40 +0800 (CST)
-From: Haotian Zhang <vulab@iscas.ac.cn>
-To: Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ezequiel Garcia <ezequiel.garcia@imgtec.com>,
-	Govindraj Raja <govindraj.raja@imgtec.com>
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH] clocksource/drivers/pistachio: fix leaked iomap on error paths
-Date: Fri,  9 Oct 2026 00:02:43 +0800
-Message-Id: <20261008160243.2664167-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1791475426; c=relaxed/simple;
+	bh=Wn1I9GjMhy6f4AOy5Ym6fpQcvkdRxlVgcQD5pcJIVeQ=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=VV5DPbVg1SzW2hWP9176LTBLbaEMYrVz8bupubQDXhDyp8VlzGSDzZfBGgs/3beNMBFr/jh80zszu0KVgOAvYHE0UcEnaUidZyM7xo3tmr9QgRyqgcB29vQOrIHnoX5K7rOdz56uPvOlmN5cfTr7faly2UHssUsZc4nZYoT2sCc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UWAlnDEw; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UWAlnDEw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96AD61F000FF;
+	Thu,  8 Oct 2026 16:03:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791475425;
+	bh=k6VKnsrbhuQ4A5I85kBbrCWv3GqPm0h6E8L5dYc3vEE=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=UWAlnDEwGlTNgqCRi5fNwRxXqRjhK9X+WuFm5+30a+f0/geQCJBzfO09WNxfMZNtj
+	 3QjFCvEyoz6BfMB2ui7KfRwdzKg/Cu5FY37Lx2d/5ZaUZSzFzu3uEYT64gjKEwopMT
+	 gNk3/15sl8t7Tfx9IcbI8lyj2ER+CfrJ7kB+ysg2/pAgq2SZ3tIl/VnukTogq5sr6X
+	 Y/0wre20pYYsl6ua+0+Q5rOAtk+GxFvyFxoCyRogqjGc/fNyv/Dt9ezQtQ5G1zuuj+
+	 0GhiTvmMUIZUpGrnr85VZ58WCLZxHlmhiq+76wh2NLvfzXODmQcOC9XQY6sG/yI1hc
+	 samtRJg0edx5A==
+Subject:
+ Re: [PATCH net v3] net: phy: qca83xx: read resolved QCA8337 link status
+From: netdev-bot+sashiko@kernel.org
+To: yongzhao.derek@gmail.com
+Cc: netdev@vger.kernel.org, andrew@lunn.ch, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Thu, 08 Oct 2026 16:03:44 +0000
+Message-ID: <179147542415.434549.1369676326541511457@kernel.org>
+In-Reply-To: <20261006160316.1356-1-yongzhao.derek@gmail.com>
+References: <20261006160316.1356-1-yongzhao.derek@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAAHET+gvsdqK6INCg--.11345S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxWry8WF1fWF1UCr1xtrWDJwb_yoW5Xr1kp3
-	WSywsYvwsFqr4SgFZ3tw1kJF9akws7KFy7u3yxG3Z3ArnIyrW8Zr4IyFyUZFsxKr4fCwsF
-	yr48GFWUCF45ZFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkIb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_Jr0_Gr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
-	w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
-	vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUAVWUtwCF
-	04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r
-	18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vI
-	r41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr
-	1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvE
-	x4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU5L18JUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBggOA2rHgnhjmQABsv
 
-pistachio_clksrc_of_init() maps the timer registers with of_iomap() and
-stores the result in the static global pcs_gpt.base, but every error path
-after the mapping (syscon lookup, regmap_update_bits, the two
-of_clk_get_by_name() calls and both clk_prepare_enable() calls) returns
-without calling iounmap(), leaking the mapping.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Route all these error paths through a common err_unmap label that calls
-iounmap() and clears pcs_gpt.base.
+Critical: 0 · High: 0 · Medium: 2 · Low: 0
 
-Fixes: 84583983c319 ("CLOCKSOURCE: Add Pistachio clocksource-only driver")
-Assisted-by: DeepSeek-V4.1-Flash
-Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
----
- drivers/clocksource/timer-pistachio.c | 20 ++++++++++++++------
- 1 file changed, 14 insertions(+), 6 deletions(-)
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-diff --git a/drivers/clocksource/timer-pistachio.c b/drivers/clocksource/timer-pistachio.c
-index 57b2197a0b67..e94faed5009f 100644
---- a/drivers/clocksource/timer-pistachio.c
-+++ b/drivers/clocksource/timer-pistachio.c
-@@ -163,38 +163,41 @@ static int __init pistachio_clksrc_of_init(struct device_node *node)
- 	if (IS_ERR(periph_regs)) {
- 		pr_err("cannot get peripheral regmap (%ld)\n",
- 		       PTR_ERR(periph_regs));
--		return PTR_ERR(periph_regs);
-+		ret = PTR_ERR(periph_regs);
-+		goto err_unmap;
- 	}
- 
- 	/* Switch to using the fast counter clock */
- 	ret = regmap_update_bits(periph_regs, PERIP_TIMER_CONTROL,
- 				 0xf, 0x0);
- 	if (ret)
--		return ret;
-+		goto err_unmap;
- 
- 	sys_clk = of_clk_get_by_name(node, "sys");
- 	if (IS_ERR(sys_clk)) {
- 		pr_err("clock get failed (%ld)\n", PTR_ERR(sys_clk));
--		return PTR_ERR(sys_clk);
-+		ret = PTR_ERR(sys_clk);
-+		goto err_unmap;
- 	}
- 
- 	fast_clk = of_clk_get_by_name(node, "fast");
- 	if (IS_ERR(fast_clk)) {
- 		pr_err("clock get failed (%lu)\n", PTR_ERR(fast_clk));
--		return PTR_ERR(fast_clk);
-+		ret = PTR_ERR(fast_clk);
-+		goto err_unmap;
- 	}
- 
- 	ret = clk_prepare_enable(sys_clk);
- 	if (ret < 0) {
- 		pr_err("failed to enable clock (%d)\n", ret);
--		return ret;
-+		goto err_unmap;
- 	}
- 
- 	ret = clk_prepare_enable(fast_clk);
- 	if (ret < 0) {
- 		pr_err("failed to enable clock (%d)\n", ret);
- 		clk_disable_unprepare(sys_clk);
--		return ret;
-+		goto err_unmap;
- 	}
- 
- 	rate = clk_get_rate(fast_clk);
-@@ -211,6 +214,11 @@ static int __init pistachio_clksrc_of_init(struct device_node *node)
- 	raw_spin_lock_init(&pcs_gpt.lock);
- 	sched_clock_register(pistachio_read_sched_clock, 32, rate);
- 	return clocksource_register_hz(&pcs_gpt.cs, rate);
-+
-+err_unmap:
-+	iounmap(pcs_gpt.base);
-+	pcs_gpt.base = NULL;
-+	return ret;
- }
- TIMER_OF_DECLARE(pistachio_gptimer, "img,pistachio-gptimer",
- 		       pistachio_clksrc_of_init);
+- [Medium] In qca8337_read_status()
+  (drivers/net/phy/qcom/qca83xx.c:111-123), the link-up poll throws away…
+- [Medium] qca8337_read_status() now fills phydev->mdix through
+  at803x_read_specific_status(), but only in the autoneg-complete, link-…
+
+--
+
+net: phy: qca83xx: read resolved QCA8337 link status
+
+This adds a read_status callback for the QCA8337 internal PHY. The callback
+wraps genphy_read_status() and, on an autoneg link transition, replaces
+speed and duplex with the values from the PHY-specific status register via
+at803x_read_specific_status(). It also resolves pause for the resulting
+duplex and reports mdix_ctrl as ETH_TP_MDI_INVALID.
+
+> diff --git a/drivers/net/phy/qcom/qca83xx.c b/drivers/net/phy/qcom/qca83xx.c
+> index bc70ed8efd86a..e70da092f424f 100644
+> --- a/drivers/net/phy/qcom/qca83xx.c
+> +++ b/drivers/net/phy/qcom/qca83xx.c
+> @@ -92,6 +92,42 @@ static int qca83xx_probe(struct phy_device *phydev)
+>  	return 0;
+>  }
+>  
+> +static int qca8337_read_status(struct phy_device *phydev)
+> +{
+
+[ ... ]
+
+> +	ret = genphy_read_status(phydev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* genphy_read_status() derives speed and duplex from the
+> +	 * advertisements, which is wrong after a SmartSpeed downshift.
+> +	 * Whenever it has just done so, use what the PHY resolved instead.
+> +	 */
+> +	if (phydev->autoneg == AUTONEG_ENABLE && phydev->autoneg_complete &&
+> +	    !(old_link && phydev->link)) {
+> +		phydev->speed = SPEED_UNKNOWN;
+> +		phydev->duplex = DUPLEX_UNKNOWN;
+> +		phydev->pause = false;
+> +		phydev->asym_pause = false;
+> +
+> +		ret = at803x_read_specific_status(phydev, ss_mask);
+> +		if (ret)
+> +			return ret;
+
+[Severity: Medium]
+Suppose BMSR shows link up and autoneg complete before
+AT803X_SS_SPEED_DUPLEX_RESOLVED is set in AT803X_SPECIFIC_STATUS. What ends
+up in phydev->speed and phydev->duplex in that case?
+
+at803x_read_specific_status() only writes speed and duplex inside this
+block, and otherwise returns 0:
+
+drivers/net/phy/qcom/qcom-phy-lib.c:at803x_read_specific_status() {
+    ...
+	if (ss & AT803X_SS_SPEED_DUPLEX_RESOLVED) {
+		...
+	}
+
+	return 0;
+}
+
+The speed switch also has no case for the reserved field value 3.
+QCA808X_SS_SPEED_2500 is 4, and a 2-bit field can never hold 4.
+
+In both cases the genphy result has already been replaced with
+SPEED_UNKNOWN (and DUPLEX_UNKNOWN if the resolved bit is clear). The wrapper
+then returns 0 with link set, and phy_check_link_status() calls
+phy_link_up() without checking speed or duplex.
+
+On the next poll old_link && phydev->link is true, so genphy_read_status()
+returns early:
+
+	if (phydev->autoneg == AUTONEG_ENABLE && old_link && phydev->link)
+		return 0;
+
+The !(old_link && phydev->link) check here also skips the override. Would
+the unknown speed and duplex then stay until the link drops?
+
+With phylink, qca8k_phylink_mac_link_up() would get SPEED_UNKNOWN and fall
+into its default case (QCA8K_PORT_STATUS_LINK_AUTO). The duplex bit would
+not be set and flow control would stay off.
+
+I couldn't confirm that QCA8337 can actually show link up before the
+resolved bit is set, and the changelog says v3 has not been tested on
+hardware. However, marvell_read_status_page_an() handles the same register
+layout by forcing link down while the resolved bit is clear:
+
+	if (!(status & MII_M1011_PHY_STATUS_RESOLVED)) {
+		phydev->link = 0;
+		return 0;
+	}
+
+Commit 3b72f84f8fb6 added that check because the datasheet does not specify
+the timing between link status and the "Speed and Duplex Resolved" bit.
+
+qca808x_read_status() takes a different approach. It does not clear the
+genphy result before calling at803x_read_specific_status(), so an
+unresolved read keeps a valid fallback.
+
+Would either approach fit here?
+
+> +
+> +		phy_resolve_aneg_pause(phydev);
+> +	}
+> +
+> +	/* MDI-X configuration is not implemented */
+> +	phydev->mdix_ctrl = ETH_TP_MDI_INVALID;
+
+[Severity: Medium]
+at803x_read_specific_status() now fills in phydev->mdix as well. Can that
+value go stale?
+
+It is only refreshed inside the autoneg link-transition block above.
+genphy_read_status_fixed() never touches mdix. In phylib, mdix is only reset
+to ETH_TP_MDI_INVALID in the PHY_HALTED state.
+
+So once an autoneg link has reported MDI or MDI-X, the old value would stay
+in two cases:
+
+  - The link drops. autoneg_complete or the resolved bit is then clear, so
+    the helper leaves mdix alone.
+
+  - Autoneg is turned off with ethtool. The override block is then skipped
+    on every poll.
+
+phy_ethtool_ksettings_get() copies phydev->mdix straight into eth_tp_mdix.
+The ethtool uAPI says that field should be ETH_TP_MDI_INVALID when the
+status is unknown or not applicable.
+
+Before this patch, the driver never set mdix, so it stayed
+ETH_TP_MDI_INVALID.
+
+Should mdix also be reset to ETH_TP_MDI_INVALID when the resolved status is
+not read?
+
+> +
+> +	return 0;
+> +}
+
+[ ... ]
+
 -- 
-2.25.1
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261006160316.1356-1-yongzhao.derek%40gmail.com
