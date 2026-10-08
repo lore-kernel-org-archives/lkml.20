@@ -1,34 +1,34 @@
-Received: from SY2PR01CU004.outbound.protection.outlook.com (mail-australiaeastazolkn19011057.outbound.protection.outlook.com [52.103.72.57])
+Received: from SY2PR01CU004.outbound.protection.outlook.com (mail-australiaeastazolkn19011062.outbound.protection.outlook.com [52.103.72.62])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC7884432F5;
-	Thu,  8 Oct 2026 22:35:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.72.57
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6722C48C40B;
+	Thu,  8 Oct 2026 22:35:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.72.62
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791498904; cv=fail; b=pv4eTFElKr8bWmgpvpk6+YcCYeonCxiRW5EaHxH9JjHPxYerZnlinluSbBe4VMEBREGojas9qN1BqyXNmidud4un1liSt3F62rxOJSWPME20eDfXj2f24zAVhu4v5z6o3G2JGooqlCcVYbmy1tgcyHl3bUb0mdrBLcmghFfXjDk=
+	t=1791498905; cv=fail; b=QcnhBN8f2B0hHLtKYGarQetD1+TrvBNm5VtNfWsvAMOPBnOXAdot9F7hlQmSTYiYcEGilWd4XZOfx97SsIx+P4lXrZlIBqQTd3QaLCx5zLqNb6N21ogUToE7DgxS30VKFWgK6fbhrQSHxHj8qNnkQGbFcGN6I5dezilWRaziXxk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791498904; c=relaxed/simple;
-	bh=u4ASOp8kYM66rLA5NyYvQySSSEwGd0yMd+7fjB+VynQ=;
-	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version; b=HP72+m639koSMKArcN0C4Mup2oPXXtzHVJpBc7abWENL23Z1liWpk140annop1rG70+kcTFdE2urrqRox9VrIaO5GlpJ2Qmqg3pGtxSoI6pjKE/fbkkxllQ4bdGdwpknkvKX4cfasVgObwyQAz3VDZBKBjjke58QC/HPbhocFdk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=C0hVOASt; arc=fail smtp.client-ip=52.103.72.57
+	s=arc-20240116; t=1791498905; c=relaxed/simple;
+	bh=WYLdSoTMwHYC/0h+S2orpe1Sn8V+0wjkBcKR6A20Mpk=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version; b=GKodclOl4qMV5DC9tsmeiZbQchTLz05xsykyt6Vxucb2pLC7GxFIPjfvthgddvr4V4Ge3NMVCSjIkXngoFIifbOXl7wkBsNFURXHhU2oPiTYXjpWi4cArGt+Vgmj/CGue5x76N2KqQxK4mNIJFc2uNbAr+FLa659MUPtR1T5/hg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=DOYCo2Ve; arc=fail smtp.client-ip=52.103.72.62
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="C0hVOASt"
+	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="DOYCo2Ve"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dMburVVsMucrI0DocAQPm5sUc7utCX4nED8dRFRWfYf9vQNS9PdZIYHgCXG9Isl/ux4xwXoTSKN5RUcZTr44DYZs5ERRmkIcbS7FtOhkt0FZcDbKk7tDQLbaipZCCpCBQ1GWj9QPN5i6w3nSmko3zF3R2hesRx87DfCt20xHmC8f5n6onBIL/Uvh+1bHJkd1KNuSddr/A1t96LXyPqEmWpy1pWBqiY3+7wbbj3TBl3oO/VM7l7fW7cZCN5/ESlADUw9IOT/xzcDJ6gvubFftUDvGYf3pGZRmE07rR+AOWg6VLNrm0wyOErNI3kIRkipG38sJuJY2YFIamAZSZZHqLw==
+ b=EJCYEp1DF8pmAYOQ4DXuPLrGKksWSPs67Sfe3iryWTvuPCGfIdluJOv3ohvjYdJ+cVzpoLe0s3N0kndVa5pfwbonCgn9JuwMDPjVUi0ah1iEOR/EKsNj4+ZCQ0zeQYdM0qETX6GitIPb7fi5HZVd6EPU/mLSk1Fsj0tEegtoDXcE4VQCRRNR4hiou4m/SNQ8Ljfoc0IcJrxJUbrUscM2Hjv8cGNeEDA2e7/sw3/X58Wv8tO4lH2U1cOVCBFaSp0EAIVNqDqHmV94yvJRJ/9OiiCIVlR4yNe2GkA3FEI80z6rQNRSsWw91tpovS+NeJX9j0fkJzRnlrBHL1kJjDwSeg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VSPa7iWTh14TTvHRBd5tphGlfdAGtZIPw0a/YY8Y8Eg=;
- b=FaSqVvepRKb5bT2hln8VBX4SeL8LxRu64kXAwbftyj597uP0HGKY1kVGHyTwZbEldMKQp1xH1z05I9bg0oy9eQbrsMkzHrgRKwBXjtWW0OsWLiK2BY/ekAqy+HD5j0dq4my8JIcfTx086KDIa9QxUv9SvzDf+Uwq0xn+j22c7p8Q5I8r1Nuqqx/doX2FaregC/Rw2BGFkLYatiC2ksj+22WHWw2kbt64V/gGeEi1Xx/42LP8+Acxkbxh27xoLn0Z8WZBI5mo1V92wA1pDDrj8Pj4l84aesfCsgjtVGjc2o+9Gxaoh/U8oRxr+MypGngGKdnwVzLIOTN5unKS4TSxWQ==
+ bh=tYtyvgkerawploX0uNmfaFwZM8g4J6DQg+uSdDE9Qig=;
+ b=MjS7qBAHd2/cuVJnBDFcb5bPmYbZ4Dt/j4qmdq932rXPlhqBjBOjflzmluDCWgR2ltUB1Fygf8Kuru3QxQ/3Lg5WHNUEhkIlhlqIBaQjTbRWFzKndOvh+6MZkSgfVSvPPEawr3IvcKXFsm/ZdKsz7Av4Ch2x+ayGdyvfz6L9CQ3gNYops55GNy0kcAlwPoNgQsY2QcqTbFJ83MBKNz6O3L5eawvk9L84k4QVLwfycsUj8d9h99HaycoMQfb+eJ2YzLUYuZrXZDwzZ9MraeIM9vHd9QpIoanFsMSEEJGwq4l/UofwBauWEZ2jWawCKdZL2JH4/2u8jiHgmgbLivP0uA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VSPa7iWTh14TTvHRBd5tphGlfdAGtZIPw0a/YY8Y8Eg=;
- b=C0hVOAStbruTMSc47GKmO+3e/RvSuANmKWbgdIf8SJEM73Pv6Tj1fc4kBGjuCNojZgTpqfdmLfTqS8xc4nsOvKc1LQ936CxDtui49d8PMHJmttjeTMD+IfHw+iKdmLuoGboBAA765BB8E/r6KdmyWYs/NJaqHJwYVpLUHbZpFD6wLMavvwk4nGcc2T+J52+5nI9iY/sKCamyg1SSDBAbIM9RIw8Wn2NNTmafm52DeHzbvTAl8sLUNCfpg3LDBcaZcvF9QadrtTBZITa1ADFn79CfLPLNtuBcpdjOvy6/nlqYduTcn1J3sYqwtFrye33qkHNDsu33xBMu/m2nOOeA/g==
+ bh=tYtyvgkerawploX0uNmfaFwZM8g4J6DQg+uSdDE9Qig=;
+ b=DOYCo2VetV4fBFKbckwsd6pLihbR+0xl785eLvvLOyPDmIFeCEUnNuxgUqpBox4hrqs8FiTWif+8tn1ndTH3gABYfe1OEr1n9tYPtTCUTzTvwAaILF3OsL4aO2A7QjV6ukYyDxQzaq2CAzTxO30of5JWfjt3IFKUoGHSYCLVexUPU9Cabrl+QaLn+2nMi0n55kEuOoR/irUbEIZ/BWiKEnwnpKc/h7dWKK84jKc2WWwzjgQTDsOfNV015EJXh3NSnUaZ22/jxr/5DqaQJ4ckZFpWQ8jepn1juz7T248bQCjqgrhT5iR/SuWpvEQ0aggxHwsUr2vAp8zWk8sD8nztJw==
 Received: from SY5PR01MB10600.ausprd01.prod.outlook.com (2603:10c6:10:32c::14)
  by SY3PPF346C5784E.ausprd01.prod.outlook.com (2603:10c6:18::40d) with
  Microsoft SMTP Server (version=TLS1_2,
@@ -49,69 +49,69 @@ CC: Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang
 	<dri-devel@lists.freedesktop.org>, "freedreno@lists.freedesktop.org"
 	<freedreno@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
 	<linux-kernel@vger.kernel.org>
-Subject: [RFC PATCH 0/3] drm/msm: correct DSC RGB and command-mode vblank
- handling
-Thread-Topic: [RFC PATCH 0/3] drm/msm: correct DSC RGB and command-mode vblank
- handling
-Thread-Index: AQHdV3U6XlRrfQVtoE2pt31EYdhCww==
-Date: Thu, 8 Oct 2026 22:34:49 +0000
+Subject: [RFC PATCH 1/3] drm/msm/dsi: select RGB DSC 1.2 rate-control
+ parameters
+Thread-Topic: [RFC PATCH 1/3] drm/msm/dsi: select RGB DSC 1.2 rate-control
+ parameters
+Thread-Index: AQHdV3U77he/AKtsl0SVhoYpaPc2lA==
+Date: Thu, 8 Oct 2026 22:34:50 +0000
 Message-ID:
- <SY5PR01MB1060041363FC41A7F40DF59DBA1932@SY5PR01MB10600.ausprd01.prod.outlook.com>
+ <SY5PR01MB10600EB45BFC28E0F932593E7A1932@SY5PR01MB10600.ausprd01.prod.outlook.com>
 Accept-Language: zh-CN, en-US
 Content-Language: en-US
 X-MS-Has-Attach:
 X-MS-TNEF-Correlator:
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: SY5PR01MB10600:EE_|SY3PPF346C5784E:EE_
-x-ms-office365-filtering-correlation-id: 6e5200ad-54c3-4332-d126-08df258c5d5e
+x-ms-office365-filtering-correlation-id: 735cd52d-602d-47c1-bc24-08df258c5dc1
 x-microsoft-antispam:
- BCL:0;ARA:14566002|39105399006|8062599012|19110799012|4140399003|31061999003|8060799015|25010399006|22141099003|25031999004|12121999013|15080799012|38102599003|24021099003|16051099003|102099032|2607281247196008|440099028|26104999009|3412199025|40105399003;
+ BCL:0;ARA:14566002|39105399006|8062599012|19110799012|4140399003|31061999003|8060799015|25010399006|22141099003|25031999004|15080799012|41001999006|38102599003|24021099003|16051099003|102099032|2607281247196008|440099028|26104999009|3412199025|40105399003;
 x-microsoft-antispam-message-info:
- =?us-ascii?Q?SXFcgE/WVrIOFyEfKQh2eDh0SBu5/fxxPW8xHgzbL6ww8SOGMDFGaYaUMWFb?=
- =?us-ascii?Q?TjpLsXEjBvCcyrXkIHbLmuwR+CEwoKdFZkQhxEPhCtTB3/OiJe3IGQpGuI4T?=
- =?us-ascii?Q?n7d511Hoh0c1EBOK2qavWzY5kVhtFeWFU4nEQ/jrcVzTQL3hHNj2N4ha64FJ?=
- =?us-ascii?Q?J6oqL0O7dZ86WNSsA8LGwjHoksM9q/WaFr9vO+FqrsuNre6BlGmQW/O7IXLe?=
- =?us-ascii?Q?rCWwVWxRQ2PJtFOg/ryGma8io0vWse5LAz0wJbKyznPuePk+2uC2W31FR0xg?=
- =?us-ascii?Q?i839A4fu8tdXLQRH4ef0MxoxenwbN1ASlkcWAoZ9vIo/Movh+XHXhAFGZW0x?=
- =?us-ascii?Q?AuB+DNn7jo+RLBBC/jj+oH3fcFwA3xyx9tqrWLxmWfiUJAM+7p6Me2MP/DFi?=
- =?us-ascii?Q?9okD1z/SlzUJ2pcc3V3eb5CvyRvl1AdWsGFIVRG63MDzQh1c9vgcabTjr0Rd?=
- =?us-ascii?Q?paeIVVZd4ARUerblJJfWC6RHnOuetBTtAy0bYk0JC8W5vfLiGziQSWiQWXkV?=
- =?us-ascii?Q?yLeshUYl3QDbyYsOgrpFSWOLTnmW1j1HuuikD7QZfxtGTWqBHkilo6nltEBx?=
- =?us-ascii?Q?AGIQ79jxCEv9QQN9HCvwk2SJ0aPZS1r+1g3G430tsaTWkcyK1x7UdzdvwhzJ?=
- =?us-ascii?Q?B+HHjjCG38P0hYJDUFCKhPMjAXldyJt8lGRz9Ek6m05lOL8lVp4GWblVicXK?=
- =?us-ascii?Q?moXe9ISUIH9tqt7U131yZqh6X3GHomhoVH2zy3lWsfIlyLdMV8l6VaumLelu?=
- =?us-ascii?Q?0XUmbF9WR+mghepsqddxAVleZOpQkmeh0QDwV2QzklPCgyR+7RSyzXFgBVz0?=
- =?us-ascii?Q?Mb84xdZWDkzdyjADadUk68sd1uwgDyl8UNlGgv7sXI5eQEgAsyTeMATdNTtd?=
- =?us-ascii?Q?ryIHo+Q3kNCEx5YxmHa/WHnIGqANXoPNc8vIOV5XTzi0YAQ74YysTNpgB9Ih?=
- =?us-ascii?Q?r+EQSIjgO8GESbyMAVrTKNF/fEeVZLcF6Ev+RZhQspMtAPTOFXmg3jHG8s8v?=
- =?us-ascii?Q?U87KrTiySu3WMi//YMM2r8ElNnU/nTmUsOgpwaKmqRD8nd8du2/fCwwU8BV6?=
- =?us-ascii?Q?hEJp7oz2QZBEzGWoWVAf0mAnadRqKpvNw4sb69kVklrDjW2h1Ro=3D?=
+ =?us-ascii?Q?dBw2JYOKCkg4Rtmn5+CIBjVL2BviXudnklLrrgoc54rX0LChD1Guejct9d1o?=
+ =?us-ascii?Q?2baDJmnnjJPExbT//UaRqsq8+j5s0ipTkV70cpTLmzeAmC9YK1ss7tPE0CcG?=
+ =?us-ascii?Q?KxEfhWuLdF4CnGR3LQHea4SrADtryCOMDDlWS/U4hMortLFiiL+XUzj3RdwF?=
+ =?us-ascii?Q?Kvyidx/evJjJ4xOkumqaCmIT9XkCIObCnUzn/Rc3ddtpTMT81BpDsW6CoMGz?=
+ =?us-ascii?Q?ROuZpC3OMhbJcRRmFk9lFVCcRiU11omtw2ii0vz7OWZyhR6a4CK30NmA39Nh?=
+ =?us-ascii?Q?IkGffzJIgE3TR73R7JF/wxDAh+u9RocyqQ4JPrHX3IAfTrFDPeMslUBQJu6z?=
+ =?us-ascii?Q?pNSMn6mO8LXr9v0weaSr6Xrn9KXRgll7M0DOWQs8nGB7glntJRYWOUuv9dCo?=
+ =?us-ascii?Q?sDwG+HF5hK6qDtffJwAK0Pf/q5ZLqnFPmz0rqYqJKc6pW+bGztYbiGQyLoKT?=
+ =?us-ascii?Q?/HOHEPJnCy7/uZ0EbzSyb3nq0MhdCvHAwHMPQAvspCUIMS/08dwKdrS/odXJ?=
+ =?us-ascii?Q?RVUlv4Z8EQ8EiwWWnMaGtZZnFFkA4hwJRbQUMd5B2nXUVd30Xz4B+r3GB76r?=
+ =?us-ascii?Q?tBkboOxZXx3MzTuZ0Z0m2stdNZRAX86ZAqi1M7AZ4JPRCulUp1c+bZTEDZCj?=
+ =?us-ascii?Q?9HfkbI5+eui5RIzPjMpi0KFkOGusmS/sYUlb26p89uKBKJAIUU4WJ9yFxpDU?=
+ =?us-ascii?Q?B98gciJszdP+JuKOoWut8O+RKjozBMhnfk/vYd4Ou7WtYo0+NbjPcZrSoIAt?=
+ =?us-ascii?Q?lXQQrR7+o9zQIWBzp2/gYaeFkho27HKVKgiCs2yEpTZALStNGtp4xx8c9Iis?=
+ =?us-ascii?Q?usa9RUH2dBW8IMHhKNEwGozB/H+maHqZbnKlOwjAxRu/BcvEBlLWW/OD1Jnb?=
+ =?us-ascii?Q?wAk2OWeSPnJQTXYBL24K8wL9twk3T1ZRg3vu0GAbJiShTVqG5oEInEKt28ta?=
+ =?us-ascii?Q?AQT4Bp6/e9M67UwYQJ06bXn7Ozo/sVUCOEu5My7hfpEXQffMUE1px0ZbC91p?=
+ =?us-ascii?Q?FoZxhmoq6sLpMs+7TW4xH4a/3Sslo8eMbGr2IkZQ4Lo5AgDygsc3Tk2JrGDK?=
+ =?us-ascii?Q?+oy/IxXumq0dn6kdzPxRXn/f5HGxOw=3D=3D?=
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?SF1ZjNRYM8Jt+BC4CznY8PnkPYNDXoLiZkXZtT1GBZDhgg0+tHMF/TIovGfq?=
- =?us-ascii?Q?+PZfvWGTR5+qzzEdaUdghmUzG5FJMaKP4MGVYgvpZhxmOHlEAXj/Y0khcuwU?=
- =?us-ascii?Q?6T+bi1u9xgb8ibZ3IEHclsw6z4qxTB6b0rKRFuvpK7TgySr7BbIkP+cKX1mT?=
- =?us-ascii?Q?IepkUxusF82+gl8vllAplP/mmLbibmGSTLJEyBniI3Y6GB7N9o6krtHl24+S?=
- =?us-ascii?Q?npl3LvCgiceoRKucyIiB30x+yjMZlKToPtcKR3TmyqtobENMK/ZFVtSw7hwc?=
- =?us-ascii?Q?BtgZ+qpq2Lt58GU0C02Acxl3n7JpYPOF9UBmwen7Sz8Fh7vQ2RRrsoBVVl+J?=
- =?us-ascii?Q?3d+2AykYcByMsc3fIjk7sPqOVxAIUsFn8L8zzCvJf9xg1SOieprZXm80u40U?=
- =?us-ascii?Q?2nLTb9xcA27fvLfogjswfwWbvP0bjMgS5Jn8Yk8/0XXwc7mr3tgV+Yx7Ebnr?=
- =?us-ascii?Q?Rniz0qoAarXBP/VmDsjxCSur4x/2a1avIemo736xddukcp8IuUTnrY70eE80?=
- =?us-ascii?Q?bJaPpgvfAtXo1+jQ8rEM61CeEXBiGpqvyyoAdgG6xqDutYBlk83dib6KMX+o?=
- =?us-ascii?Q?k07DdHaaOh0qZne4N6scg+wgrFdS9LNS1jmR7Ha3cyKWOcVSHUV9rUwgJPC5?=
- =?us-ascii?Q?dSBeJ3RydOybgxa3fmUgaWEUqS7PGs0R6Mc7J3AYEJdBt/TOio26dFDs9PZ8?=
- =?us-ascii?Q?BLvJYZ2mipAg/CxSmGZ+hzVZ2Tthx7Kpw1coW6X7IxLJjYhdz3sbti7rTLHs?=
- =?us-ascii?Q?tGAOq4t8rAsxAclQgEgonLq65AcK3IcRClW819s5Hb/+jVMgf/mytTuWAqnr?=
- =?us-ascii?Q?wojrKvx4CwCPyE1h4W+Gm/3YWwkQ+i32YTlkqAAqLcVB9AJ7Kr56bFuiDepm?=
- =?us-ascii?Q?aDxFO1EY2endRtJ8Zkm7wpBNrdI4LaA84Mh4YufQm+C9frm+exCuxoPA17DH?=
- =?us-ascii?Q?f0Kuh1jOD4R6WMOiuLNY90cyTG9n9onpyR7XdKuXBY1mPJ5Qp15WHWxD9Oi+?=
- =?us-ascii?Q?NBcW1xxiKuUknm2LXvwibio08Ixjwp86N8oHI18v+IuKyLF2K6s4pwkkdEXp?=
- =?us-ascii?Q?0wPztI5DXBr071uTU8oK7MBiRkSwVwvqe4nkyKQpzwt1x4XQ1kp9+Yqh6LKn?=
- =?us-ascii?Q?whvAQKHKC8IYlaTQ90acEEICocZgj6vSSxxdmzDTv5lm3a0FKwkU/tZ5KFt+?=
- =?us-ascii?Q?lZPvVy5CUhvzOu7/DqK7Eq3yvPNqrBOZgzlROQxUrqw6M4fo1zh2Vo/0vpO3?=
- =?us-ascii?Q?rGBVS60s0KEetYhzTJxwGPZ0BecN5c5j6rA5WcBe22adWi82PHI+VEfeRILa?=
- =?us-ascii?Q?GMZug6bbTh8lQl4NYsjw+kI7KGLhzzrY+uRh40hD6B+WP91m1W1f8Y3+BUxo?=
- =?us-ascii?Q?OQwZUjxJdV5e5nUQPYi+35qLS2Qj?=
+ =?us-ascii?Q?PBCOQ1cxASq2TuYjrV+dSNjj/92dWdqLf+3QRVZh3nuHe5ZTeKuaiCt415TC?=
+ =?us-ascii?Q?k45TTtMjfZCAdjG09zvMVi6rRDyHR0cgHTwyKFGso46ym1We3a0s0gSG+tbd?=
+ =?us-ascii?Q?GdJmD7/epSgpmz2JZbtMfz6oZq2L76Jy0Ln56PzkltUnnpPB5IQhscpM3StP?=
+ =?us-ascii?Q?lsyVo5Uwt5UojhnkPuy2qZA+HWv0aRmSroneliRk0VhdQLFYRJkHXov4OMLz?=
+ =?us-ascii?Q?zwGPlqEKK+LDg+noBw0rD2R7PlG7b8Xk8joyNG+Nk/MOGiOk1zqCG2VYb4ak?=
+ =?us-ascii?Q?y0UZ8tZsqtJeYpv9f06h2z1CBagtCxhs4Da4JMD+0VWT1oNnWxtCaFRXlsaM?=
+ =?us-ascii?Q?jjf3QzZCG/XcLJNtPpamcpVmK62rPk/985+gNKTGLGY+uCdIw5+bp+jEp0D1?=
+ =?us-ascii?Q?PIJNnwbP6L2+WaotFJ26Tmdv//7V2lJsncPYwk+y29nqmNWSKxeUfsic5x6g?=
+ =?us-ascii?Q?HYFtMFS0Eojj5UP7SuUIM7a1JlKl6+eL0CTJlkraJsh2vVFv5dM3DI3cVBZV?=
+ =?us-ascii?Q?EK37jfuvoEerElZJzJO+1Edla2nPkpaMEqU4AQTPi+84U0K/ZAxJV7HO89pv?=
+ =?us-ascii?Q?2L/g3aqZlaRcxqT7JFgaLNvr8zI7vK2g2NX16jfZPwpF9CmXSuBjZuPUNZAx?=
+ =?us-ascii?Q?1fh0BWkBU7UAfZWuQbdBg7V3oWgXF9Zv9+KzwIy/T0Lf94SVeWxKGH6vk/Bd?=
+ =?us-ascii?Q?0LS527eoPmBW+l6GDjimo7WdtVWbROqnY/riw5o8tyfhXfvvk8YMmiQijDvg?=
+ =?us-ascii?Q?uoBYXyf2QlLqmUC+PLrFLf19HUPT72PXBxoJJl+3LtoVwDvZJyC3MKl/nIWG?=
+ =?us-ascii?Q?bo7NXQeuVu1W4QJznR4IOv05k0RzS5tDjrSACsxJZ/760Ge7/54Z2VCoWUki?=
+ =?us-ascii?Q?FkZRHqZkBtjD+5VMDzx0AMNrDHCwJMinYaBzVKHtsscJPc3E7TnuixvIQywI?=
+ =?us-ascii?Q?86VB5a1M88RpRq56+QTAg8NlB74a+zVVhKWBKWfQ5qKWsxOTC2l46tXYCStp?=
+ =?us-ascii?Q?SgN1tPQp7FgkMqVDuo9UtGZZiWPraPbQTBqHo5RdPCw3iPGM9R8G3J9p1kCA?=
+ =?us-ascii?Q?xWaiH1fnra/d5mghp11INTIr1Ltms28Hw10335x8eWnjSv0Sc/9SyFidvi9L?=
+ =?us-ascii?Q?XCt8gjeGBpKyNteoeC+QMCUyhRFw8Igewy0h8GQKZoPnJ2+BX87dYSHlpUwG?=
+ =?us-ascii?Q?gNbpcE4NlJD06xIDCgUTxWjEcsx4hKdOQoFicjp2zYvZsl+bUcOX0e15uBTK?=
+ =?us-ascii?Q?VCVnDlw6/mWsryPl7MyGK4BpYhOZcOIi+VP+Q0hl9Jq8wuu4e7gx8n76WMad?=
+ =?us-ascii?Q?Lvy6vdl+8eQFs6elUUbyeuvHLWsCnBX1tcAoyLwZFJ9/FBpdsM5lBk+0TZc0?=
+ =?us-ascii?Q?d/h+B8J+binumi+SGAeJc6785eD5?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
@@ -124,47 +124,72 @@ X-OriginatorOrg: outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: SY5PR01MB10600.ausprd01.prod.outlook.com
 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6e5200ad-54c3-4332-d126-08df258c5d5e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Oct 2026 22:34:49.6630
+X-MS-Exchange-CrossTenant-Network-Message-Id: 735cd52d-602d-47c1-bc24-08df258c5dc1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Oct 2026 22:34:50.4115
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
 X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SY3PPF346C5784E
 
-These three independent corrections preserve current target APIs:=0A=
-select the existing RGB DSC 1.2 RC table only for version 1.2 and reject=0A=
-native subsampling in a forced-RGB path; retain the commit's vblank referen=
-ce=0A=
-until completion delivers its page-flip event; and reject video-porch=0A=
-scanout-position conversion for a command-mode tear-check counter.=0A=
+From: Jiaxi Zhang <z1529105815@outlook.com>=0A=
 =0A=
-Command mode initializes that counter at vdisplay, puts RD_PTR at=0A=
-vdisplay+1 and can wrap at twice vtotal. This is not the video raster used=
+The DSI host forces RGB conversion but always selects the DSC 1.1 pre-SCR=
 =0A=
-by the shared timestamp conversion. Returning false only marks that=0A=
-accurate scanout-derived timestamp unavailable; TE IRQ/counting and the=0A=
-current off-delay policy remain in place. No always-on IRQ policy is added.=
+rate-control defaults. For a DSC 1.2 RGB configuration, select the existing=
 =0A=
-The completion callback consumes the current count/time and does not wait=
+DRM_DSC_1_2_444 table instead. Its recommended parameters differ from the=
 =0A=
-for another TE interrupt.=0A=
+pre-SCR table even for the same bpp/bpc. This changes encoder/PPS RC=0A=
+values, not just the advertised version.=0A=
 =0A=
-The baseline is torvalds/linux=0A=
-6c377d19d4a5116d9bec5203aa3c6c11523e7898. Normal arm64 Kbuild compiled=0A=
-DSI/DPU after these revisions without diagnostics; the unchanged atomic=0A=
-payload reuses its earlier object result. Actual DSI-populate/DPU-scanout=
+Limit the new selection to version 1.2. Keep the existing defaults for=0A=
+other versions and retain byte-clock rounding, slice handling, supported=0A=
+component depths and fractional-bpp rejection. Reject native 4:2:0/4:2:2=0A=
+rather than combine their flags with this path's forced RGB conversion.=0A=
+This does not add native YCbCr or future DSC-version support.=0A=
 =0A=
-function tests with modeled helper I/O cover table selection, rejected=0A=
-native formats, the command guard and unchanged video boundaries under=0A=
-ASan/UBSan, including old-code counterexamples.=0A=
+The table definitions and mode-specific helper are public Linux DRM code:=
 =0A=
-No new device timing, idle-power, DSC-math or panel cold-init result is=0A=
-claimed. Original A830/SM8750 dependencies remain with their public authors=
+drivers/gpu/drm/display/drm_dsc_helper.c. The earlier Warsaw display recove=
+ry=0A=
+is supporting development evidence, not a new hardware test of this target.=
 =0A=
-and are not part of this series.=0A=
 =0A=
-Jiaxi Zhang (3):=0A=
-  drm/msm/dsi: select RGB DSC 1.2 rate-control parameters=0A=
-  drm/msm: keep the commit vblank reference through completion=0A=
-  drm/msm/dpu: reject video scanout timestamps in command mode=0A=
+Signed-off-by: Jiaxi Zhang <z1529105815@outlook.com>=0A=
+=0A=
+---=0A=
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/d=
+si_host.c=0A=
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c=0A=
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c=0A=
+@@ -1877,7 +1877,12 @@=0A=
+ =0A=
+ static int dsi_populate_dsc_params(struct msm_dsi_host *msm_host, struct d=
+rm_dsc_config *dsc)=0A=
+ {=0A=
++	enum drm_dsc_params_type rc_params_type =3D DRM_DSC_1_1_PRE_SCR;=0A=
+ 	int ret;=0A=
++=0A=
++	/* This DSI path configures RGB, not native subsampled YCbCr. */=0A=
++	if (dsc->native_420 || dsc->native_422)=0A=
++		return -EOPNOTSUPP;=0A=
+ =0A=
+ 	if (dsc->bits_per_pixel & 0xf) {=0A=
+ 		DRM_DEV_ERROR(&msm_host->pdev->dev, "DSI does not support fractional bit=
+s_per_pixel\n");=0A=
+@@ -1908,8 +1913,10 @@=0A=
+ 	drm_dsc_set_const_params(dsc);=0A=
+ 	drm_dsc_set_rc_buf_thresh(dsc);=0A=
+ =0A=
+-	/* DPU supports only pre-SCR panels */=0A=
+-	ret =3D drm_dsc_setup_rc_params(dsc, DRM_DSC_1_1_PRE_SCR);=0A=
++	if (dsc->dsc_version_major =3D=3D 1 && dsc->dsc_version_minor =3D=3D 2)=
+=0A=
++		rc_params_type =3D DRM_DSC_1_2_444;=0A=
++=0A=
++	ret =3D drm_dsc_setup_rc_params(dsc, rc_params_type);=0A=
+ 	if (ret) {=0A=
+ 		DRM_DEV_ERROR(&msm_host->pdev->dev, "could not find DSC RC parameters\n"=
+);=0A=
+ 		return ret;=0A=
