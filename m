@@ -1,47 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EBE53CF1E5;
-	Thu,  8 Oct 2026 07:59:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BFBC3F3297;
+	Thu,  8 Oct 2026 07:59:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791446392; cv=none; b=hIje315ib/sQYsAyek9CzXE9Sr1/MBAk0t7gXMqXqcI+PCiyfK2O/FVfuTED6teRDkNtOn8IKBj1fwCfe9Tdlbr2WZETp2TOybMqzKpkiG5EDmop90W/UJh6n5XX2CPy05SBMXa4FW8nb01noDe5SNxh2IHPu5BUp274FQZGp+w=
+	t=1791446397; cv=none; b=J2HlXCZF8MebDblmElp8Dwd18GyJU6djb3v9r/JiVOu0DNSsSJmlYjcN4ZXgvodRLFsgbX4zTdOsxY8Xsn93A1IwEg9fWaFa/RXof9/doOihiAYAD4nISyvTzLQUgSA9Bgt9cDJmrTuZy5LZiC2DE5HuN2ro0wdG3PUKRHuM6BU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791446392; c=relaxed/simple;
-	bh=2l3uFcJt44+84JdOxp6MpWqhin4ZKYPSTbLRJYYn9iU=;
+	s=arc-20240116; t=1791446397; c=relaxed/simple;
+	bh=5qiymqTm55xdehbhkUlU70UtU4+ZUyVHrcwFM54inqY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Nb3BqiMs796OTqtVoEk3uJKW6MckPShRPtmzumwT8Nh8C3OpzfhMY4LNWKZ++aP0q1TGlBfEO0Fe0a+GDEEsmwU3FpQr+wF4A6jM/MVtmJtbOR9QqlFN14Yzuum0JwodjDdl2r9Cp51uSsZSQfxmLghnejAgZveunNDgoxsz+dw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g1ieSFMz; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=ohgWIwOgUYu6INuKWc0YimaLFVNoI1jvqAIsP7RhrHmDYDyG8Bfy0hudDGS8NssCuDmbYMuXa1ASnoSw9cxIYLaw7mzFXmS6SwLeNzKa6NXfD4HX/Jh1mm5/dHxJPbYczeRNDCqxG7JDlVVyB3ZhHQtNWHj+XHKtVO/tr5/V6No=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BpTF3f+f; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g1ieSFMz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49A531F000FF;
-	Thu,  8 Oct 2026 07:59:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BpTF3f+f"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0ABA1F000FF;
+	Thu,  8 Oct 2026 07:59:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791446390;
-	bh=J1TofRB7x1qaNWTsiyxmXKQQRnhq0vGxdzx2nkOgB4Q=;
+	s=k20260515; t=1791446395;
+	bh=XXdb1PMRkACtrUnm1F2Z/BVVymwhhAVPvnA5Qr8Nq0A=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=g1ieSFMzBrY7PWf0HK4HAy2hAAPiuXAUq9CvkQravrF6SlpsKYNTIkZFK4NZaz/Tk
-	 WaBvmR7/w0o1SppUOokiSfdlhBbFXSMWDl8PtHknAP/BqpheMsPDzLWa5db1BmtYaB
-	 nLmQopIl7oRWNsON8OZcFNB+j458oozkuCIlwk1zZBPjo5ikUpxcN0T8J4L0S9E5yZ
-	 drv54UJOsqbacEKzaKLfUm418M4hkIfM2HdeEyP/G0kAaZ4QNj+lG8KWIg9DoHyBob
-	 RMDlAKhURKuy+6vJhbpE1ZNShwV6KoH78DwrO5EhQOcS4X7k4tQyNOp6V3R55Q08m3
-	 npxuh54+Dyf0g==
-Date: Thu, 8 Oct 2026 09:59:40 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: Ankit Soni <Ankit.Soni@amd.com>
-Cc: iommu@lists.linux.dev, joro@8bytes.org, will@kernel.org, jgg@nvidia.com,
-	suravee.suthikulpanit@amd.com, vasant.hegde@amd.com,
-	robin.murphy@arm.com, joao.m.martins@oracle.com,
-	alejandro.j.jimenez@oracle.com, pasha.tatashin@soleen.com,
-	pratyush@kernel.org, skhawaja@google.com, praan@google.com,
-	baolu.lu@linux.intel.com, dwmw2@infradead.org, kevin.tian@intel.com,
-	dmatlack@google.com, vipinsh@google.com, kexec@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 2/7] liveupdate: parse the incoming handover tree
- before late_time_init()
-Message-ID: <asdNbLNz7zPaQYXX@kernel.org>
-References: <20261005064018.1558-1-Ankit.Soni@amd.com>
- <20261005064018.1558-3-Ankit.Soni@amd.com>
+	b=BpTF3f+fdM/3KXjLcRi+nnsw+sUn76B9xwO+EoJ3uXc4G9wBLNXzvBdt08K8eBLTM
+	 9UkKObKs95HWSY/mHhT7FpCck5vCNVJ8m6H88VTidxx1QS7Bq7Og7qGNm63XR8CJCu
+	 JjaP6p39aFRfVOvB01ShvNJOpAB+muiHjuL1MClZYVjer0Vny9+bpjGBlMVoXShOW5
+	 z5jhuQc4za0yAuWMHhvVdFjlS9qcVbwJG5ly8mBFbgpefu4qz3A54GnfubYGZsg7XU
+	 tgBEv/ceq7jr40uVzCCa1AdZgrRvHR5xu4OCC1wrkeOWxRo8Hkr9iy8vPQ6uORliAp
+	 1uaEGAIUYOaLA==
+Date: Thu, 8 Oct 2026 13:27:58 +0530
+From: Naveen N Rao <naveen@kernel.org>
+To: Borislav Petkov <bp@alien8.de>
+Cc: Sean Christopherson <seanjc@google.com>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>, 
+	Nikunj A Dadhania <nikunj@amd.com>, Tom Lendacky <thomas.lendacky@amd.com>, 
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, Tianyu Lan <tiala@microsoft.com>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, Thomas Gleixner <tglx@kernel.org>
+Subject: Re: [RFC PATCH v3 02/27] x86/apic: Drop savic_eoi() in favor of
+ native_apic_msr_eoi() for Secure AVIC
+Message-ID: <asdKMoiYva-lbs6f@blrnaveerao1>
+References: <cover.1783490022.git.naveen@kernel.org>
+ <36c039713c4b03c87b636635cb4c1f8b98c15eff.1783490022.git.naveen@kernel.org>
+ <20261006032024.GEasRo-APHHt24pP4g@fat_crate.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,43 +48,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261005064018.1558-3-Ankit.Soni@amd.com>
+In-Reply-To: <20261006032024.GEasRo-APHHt24pP4g@fat_crate.local>
 
-Hi,
-
-On Mon, Oct 05, 2026 at 06:40:12AM +0000, Ankit Soni wrote:
-> LUO parses the handover tree from an early_initcall, which runs inside
-> rest_init() -- the last statement of start_kernel(). Anything earlier in
-> start_kernel() cannot see the incoming state, and cannot tell that it
-> cannot see it: luo_flb_retrieve_one() returns -ENODATA both before the
-> parse and when the previous kernel handed nothing over.
+On Mon, Oct 05, 2026 at 08:20:24PM -0700, Borislav Petkov wrote:
+> On Wed, Jul 08, 2026 at 12:02:00PM +0530, Naveen N Rao (AMD) wrote:
+> > Drop savic_eoi() in favor of using the native helper that writes to the
+> > APIC_EOI MSR. savic_eoi() was added mainly to be able to handle
+> > level-triggered interrupts. However, it relies on APIC_TMR indicating a
+> > vector to be level-triggered, but APIC_TMR can never have a bit set
+> > since it is only updated when the LAPIC accepts a level-triggered
+> > interrupt. In the case of a Secure AVIC SEV-SNP guest, all
+> > level-triggered interrupt sources are in the VMM (emulated IOAPIC
+> > primarily) and KVM accepts them on behalf of the guest resulting in the
+> > APIC_TMR in KVM APIC backing page having a bit set. This is never seen
+> > by the guest, which has its own private APIC backing page. As such, the
+> > savic_eoi() handler is dead code. Remove it.
 > 
-> On x86 the IOMMU is such a consumer, because it is also the interrupt
-> remapping provider. amd_iommu_prepare() runs from late_time_init() via
-> enable_IR_x2apic() -> irq_remapping_prepare(), and reaches
-> init_iommu_one_late() long before any initcall.
+> So this sounds to me like we forgot some detail while spec-cing SAVIC. Or
+> maybe for SAVIC, KVM should not accept them on behalf of the guest anymore.
+> But what do I know...
+
+There were some changes proposed for KVM previously around this:
+https://lore.kernel.org/kvm/20250923050317.205482-14-Neeraj.Upadhyay@amd.com/
+
+The idea was to have KVM track the injected level-triggered interrupt in 
+its copy of APIC_ISR so that it can issue EOI to the I/O APIC properly.
+
+However, this would require some guest changes at least. Either:
+- issuing a VMGEXIT on each EOI (regardless of APIC_TMR in the guest 
+  backing page), or
+- tracking level-triggered vectors in the guest and issuing a VMGEXIT on 
+  EOI only for those.
+
+The former is problematic since guests can queue IPIs themselves, so it 
+isn't always possible to ensure EOI exits correspond to a previously 
+injected I/O APIC interrupt. For the latter, guest will need to do more 
+work to track and issue EOI accurately. Doable, I think, but it isn't 
+clear to me that this is worthwhile, especially for modern SEV-SNP 
+guests with Secure AVIC support.
+
 > 
-> Fix the ordering rather than teaching each consumer to cope. Call the
-> parse directly from start_kernel(), immediately before late_time_init().
+> Btw, In the future, pls split such conglomerate commit messages into paragraphs for
+> better/easier readability.
 
-Why do you suggest to call it exactly here?
-Order of the calls in start_kernel() is quite sensitive and placing a call
-in a certain place needs more elaborate explanation.
+Sure.
 
-> Rename it to liveupdate_init_early() at the same time, since
-> liveupdate_early_init() was named after the early_initcall that no longer
-> exists.
 
-No strong feeling about this, but we do have other _early_init() functions
-unrelated to initcalls.
- 
-> Signed-off-by: Ankit Soni <Ankit.Soni@amd.com>
-> ---
->  include/linux/liveupdate.h   | 4 ++++
->  init/main.c                  | 2 ++
->  kernel/liveupdate/luo_core.c | 5 +----
->  3 files changed, 7 insertions(+), 4 deletions(-)
+Thanks,
+Naveen
 
--- 
-Sincerely yours,
-Mike.
