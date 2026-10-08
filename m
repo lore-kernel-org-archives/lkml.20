@@ -1,74 +1,72 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FDF747B43A
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 11:40:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8858C46C4BD
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 11:40:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791459616; cv=none; b=UAzhHBkWkdCtBagDMPZBuTzr99BRYb+hog7VjMdY3ov0iMm63EcSXGkUI4EZkWoyQeqkiTuVbM9Hd4WNPo6W1nPj3YYpmWsGUJ3mPLAM2G7ShviGLKJi4zS5eruzdnFPPR3dEYPad19u8erQIBd+tIJJy2W4JlzRrZU/NMGq+e4=
+	t=1791459658; cv=none; b=D73KuRPL49CtFM/KZrz/j8vcXWhpmZuCRdgAt9zwGbbodTAbL9yWfujGGfHYpNNF8tSyASeo4MedBSG+TOu3G6DR7jwJMo41Thl7ihT+xPHEI+atFjPmKeeuPe0c3kK8WlG5rEU/cZLXYEZymgp4cEtOcF8P5ZAQp0LAP9EZhtM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791459616; c=relaxed/simple;
-	bh=H3DnaHXGNmAGJmYNsMEkIBkDjfdKJ8UyJfKJHvjXPyU=;
+	s=arc-20240116; t=1791459658; c=relaxed/simple;
+	bh=1TQ86GqGHr02WiXrkqs6/ykSaMo1V6zc22AmnXa6ivA=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LALmLWx1BCRgwaJbG3M+ZMNs8B2hBo2kW6v+r+CrFvaC140XpaYEK0VA86c7pUNePQe0EhO3aHhXA8iLcxQ1mLo/gsgBZNIWCreiOKkf3y2x3sP26T4JAUkH48wzAZYn/2VT1w8X+KoUdWgnwBQVhkVqUeZ2MmJEguCLqKFY4bw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WkMaZXW+; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=Wf4wYa8By0knJ+ewEnLiDfxaw9ZbbMhQ30FpgR9XHY2SR6cux8TJzzJIx8dTzqx182dbxmQfOYs4bchoZfgLXK4sDkKsrF/v3YYto4rH5gMqVJKUqPrs22KB5vqnrsnGfQy8k4+qmQlAlhZxQZL3/Yl/5LFJIWW+iKCbIx1LbaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=feIwh41G; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WkMaZXW+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AA401F00898
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 11:40:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="feIwh41G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 702791F00893
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 11:40:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791459615;
-	bh=H3DnaHXGNmAGJmYNsMEkIBkDjfdKJ8UyJfKJHvjXPyU=;
+	s=k20260515; t=1791459657;
+	bh=1TQ86GqGHr02WiXrkqs6/ykSaMo1V6zc22AmnXa6ivA=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=WkMaZXW+o+0fcNybKzCPoR+ac08ucNfgJssGaQAf1GijaEIvfZ/C5BcRi8rl8oRp7
-	 aDBrdGcuXLufu3Mz3JLD6kyQO3nH9jCj2YTlB4WckyR9ZvACs+WE1af9duxoDHtKNM
-	 1gNAp3mmnzmMijrSui6a5My2+Oo2wNIC5w/5v+KxGP89z2MPIA6oiFLY8sHJiJqstJ
-	 o67uwnF0r5pJGGb1wCvztqMMncDK6z0pGuoHCSOvh81oS8nFtciEo6i6yWgYjt6Bp2
-	 pNGLKjg+gRkCRNvTYo0QW5oiBjjC610+meoyTn32sVx+e/Vt/Sfeff3u3tUlmQ1MC8
-	 kLrEHDFOwt8bA==
-Received: by mail-oa1-f46.google.com with SMTP id 586e51a60fabf-48e94879f02so1100909fac.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 04:40:14 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw5/Bc9npTWmDGqB7DF3zDOxAtTLJI80LgUltjfva99yFZwppMVNoPcnc8dUmdMN3L0rm1JRWok9X9Mlb4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kNEf7rcHQNDf6MvaMzs55RDm4o+gpI6MHO7cTGSi3PkTfO0YSR
-	61hsWfRcPTp1UPSSZO5P2lPeZjCE7ZvfsnOJIYR227zRWCkHxyUBpr/gwdSjTAcHwLCbBGzldb4
-	IKOi6C4KP+RxXbzZEF+xQ29XOAb80j9Y=
-X-Received: by 2002:a05:6870:c18e:b0:48f:e0f6:c465 with SMTP id
- 586e51a60fabf-4a25971ffbemr4196386fac.51.1791459614377; Thu, 08 Oct 2026
- 04:40:14 -0700 (PDT)
+	b=feIwh41GJn8YCn/4KSN9lWeso2qN8JuJwr5VHifaaygMMC4rQTwB+YUz4R4OO0qKp
+	 j/OmG/ue0pRW1Z7sfDeTCfkJFqHh68urBdn/NPPAQqrW1X5RRPoPe9vgQIF+6P5vxI
+	 nufI8dztGJXCvmkYn0AkwN3Xz60mfQjuyCoRgs7koNM7eO0MIs9cJNOzaXPAFDnNEJ
+	 Coipwg57e3CkPijspaPka5fc8+IT4NnaQT/bt83i6JBgoKACBLyXkT5wP88Hp1EyzK
+	 8rV5U0v6IL0CNwNhp5spsS/YHuwpZ+J6ZsY6FZOmxEr1jw2h+s+uzImo1KHCLa2sgC
+	 lqpZv5xvATS3A==
+Received: by mail-oa1-f53.google.com with SMTP id 586e51a60fabf-49e20441e45so410024fac.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 04:40:57 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz0KFjpK8IBaOyZGxCAHqvak+SbzNMV+b4yqt3wA5sijsmQ3kRE/QUYdbn8T4NR0R6uLEqA2QdmIQ5N4Cg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKJJ034SZnVKTpEsRjVGkUkir4pJ18W0vDmU55uprDZ1XoDtBF5
+	zI7/yurB29epSWpBJcedXX5PEKhcIQT4t6FoqXpW5xSmZPd9gGZk2M/j191JNaZUbA8TpNNqTQ/
+	pPFLlWhSuj6jWJk6JK8HNUZAPrMo2M6I=
+X-Received: by 2002:a05:6871:73a4:b0:4a2:499c:f662 with SMTP id
+ 586e51a60fabf-4a280481d9emr1217695fac.3.1791459656834; Thu, 08 Oct 2026
+ 04:40:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261008090724.5423-1-bartosz.golaszewski@oss.qualcomm.com>
-In-Reply-To: <20261008090724.5423-1-bartosz.golaszewski@oss.qualcomm.com>
+References: <20261008091857.5751-1-bartosz.golaszewski@oss.qualcomm.com>
+In-Reply-To: <20261008091857.5751-1-bartosz.golaszewski@oss.qualcomm.com>
 From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 8 Oct 2026 13:39:59 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=fkJNgCHb7M4mm5nc0nwb1GZmozngCEv-A5VCBULXD3A@mail.gmail.com>
-X-Gm-Features: AclHuK_piBTKCFHJaGOfljb9LjvN1CVYkRHEFzb7T87rvgEtJIpojnUXlIJ3r2Y
-Message-ID: <CAD++jL=fkJNgCHb7M4mm5nc0nwb1GZmozngCEv-A5VCBULXD3A@mail.gmail.com>
-Subject: Re: [GIT PULL] Qualcomm pin control fixes for v7.3-rc7
+Date: Thu, 8 Oct 2026 13:40:41 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=_Eb+yFHmxio41Hqa2yATEbbwdmtGu+ysc-42-F7p57g@mail.gmail.com>
+X-Gm-Features: AclHuK_clrAsn59lX3Owff1s6P71PFw6AVvM-TzDPaNDrchQmq_Juj31qoAH70g
+Message-ID: <CAD++jL=_Eb+yFHmxio41Hqa2yATEbbwdmtGu+ysc-42-F7p57g@mail.gmail.com>
+Subject: Re: [GIT PULL] Qualcomm pin control updates for v7.4-rc1
 To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
 	linux-kernel@vger.kernel.org, brgl@kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 8, 2026 at 11:07=E2=80=AFAM Bartosz Golaszewski
+On Thu, Oct 8, 2026 at 11:19=E2=80=AFAM Bartosz Golaszewski
 <bartosz.golaszewski@oss.qualcomm.com> wrote:
 
-> Please pull the following set of Qualcomm pin control driver fixes for th=
-e
-> next RC. This is based on v7.3-rc5 where the previous set of pinctrl fixe=
-s
-> landed.
+> Please pull the following set of updates to Qualcomm pin control drivers =
+for
+> the upcoming v7.4 merge window. There are three new drivers, support for =
+a new
+> SPMI PMIC and some minor driver improvements along with necessary DT bind=
+ings
+> changes. Details are in the signed tag.
 
-OK pulled in!
-
-It's a bit weird to me that you merge in -rc5 instead of just rebasing on
--rc5 but I guess it makes sense if the fixes were queued before -rc5
-was out and it checks out, so whatevs.
+Pulled in, thanks!
 
 Yours,
 Linus Walleij
