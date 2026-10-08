@@ -1,149 +1,193 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4349E3A6B65;
-	Thu,  8 Oct 2026 07:43:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB78637DAA9
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 07:44:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791445425; cv=none; b=D7PrnvwfnBG+WLnjHqtc+xqfpNRi2YTcisVEKnFTZEGCHuDV94L3PuCZYS1S3W6lfMZk2ffOO/ZTktdGNFxW8otR09m7ssQF6T7Lr7VEX7KcCsgzAJy/5TUvKOmdb2xOoXL1EV+cvRRe0E+Sp2jo5dHCwWidF255QY3+yGxTCfY=
+	t=1791445446; cv=none; b=AbFbRMDcbeweM0fGBvsv8qHs6hrEPIgXp6ALxATPJMotcIYSHSHP6vWHurM462SyOo5RzmGq3sVAr/ouDH2aFhXN8gQNugn08ZbLSOjHvDWv+t20B/RDCBtvZu7GRjKNYcLjh7F2Odd7iZ2eyzVfxiCV6shOzxV5KUJYBVLfloE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791445425; c=relaxed/simple;
-	bh=kTogJE52QvAqmCcudpxHEeCAAeOKLvX3BKyjDBAe4YE=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=mgM5EwTsQ2ofDyi/gbM38Y3h1BY9Fw6gsK2RIEd8z9FQm6cEsuZO6AEo+5y239gMluNY7WWQpG5+eka3fvjLAf2aTPqpea92vEduYPch++69OulN0EDyE+wTd6OHpapX/wqc3TvHw/Cfzhs/f14rQqu9fROG3SZGHXlSWzOE1fM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B5ZLBBBs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791445446; c=relaxed/simple;
+	bh=MOyrkKu/Obwobegg9HsqVsEDQwbw8Pzz8rTRIjAqFj4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=F8FPm4Z43n+X58N3OuhCKnbnyeOXr7LWVWoqgN/8kWvEnzCDNnwkZr1qW1b4l+eIqJOjSXQ6VmCgUwX1u0Ni5le2vAkqPRRqjhoBdgoSkZmT9y9PQu9zB6Di3Czzr00JJSmppFQqHjk65AF6Qpn406zlpvDBafAxJ5oUFlblSaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=QmJGYiHI; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B5ZLBBBs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92B411F000FF;
-	Thu,  8 Oct 2026 07:43:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791445423;
-	bh=24T8qnBeKX+F31qNeUlmM5p6mrpN8b4CzO0ZL7ssTw0=;
-	h=Date:From:To:Cc:Subject;
-	b=B5ZLBBBsx4IkCv5ujUrgZKCkAUIAzOWLVehybM8YAXi4W5CU1k2q5yMhjMDI71JyL
-	 2XFS0L42UAmV/tmncojXqpKDUqb/vOlKn3TelY4WEP7iWDjVGkWMHYnvfDyHy+4Zsc
-	 LFj8BcRGmRbCMqNGrijG6JSfCKqQqS14wMEfW2t8rpT+lQjmZvvyqDfMEEUMmS8TQ7
-	 xrYIT0IYLPz8QQkcEs/7JGj5Xop3izQijjc+s+RLxvF5NfbEgYg0yNAn7DtWVUvB2H
-	 pjB9BMxLjp/bDAIJ3WI+bUJDcRfla20pN4i1Dpi68bBClXpyd4QANz+cCm+h11ylwM
-	 S07HoHXOMXcIQ==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 52D241AC57CE; Thu, 08 Oct 2026 08:43:40 +0100 (BST)
-Date: Thu, 8 Oct 2026 09:43:40 +0200
-From: Mark Brown <broonie@kernel.org>
-To: Christian Brauner <brauner@kernel.org>
-Cc: DaeMyung Kang <charsyam@gmail.com>, Gael Blivet <gael.blivet@gmail.com>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	Namjae Jeon <linkinjeon@kernel.org>
-Subject: linux-next: manual merge of the vfs-brauner tree with the ksmbd tree
-Message-ID: <asdJrFvtgWPTS4zI@sirena.co.uk>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="QmJGYiHI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791445443;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=tKpk0FswZIpSpMgoXKEPBZ20GyyjP1Zbx70jc89ehr4=;
+	b=QmJGYiHINOzL5K7jKQVJbZEnCFjBB9atQtyZ2yoDPOP4AszTW2Haz3jT36ffg5faNH/TJN
+	ViZN85SjunmPcs0gFS27TRtXwlJlqQMcmZOdoCCXkuXNBPi+0IWN9+QKeft5cZ+2IyK4r7
+	aVcUy3+iNimp9n4b9gjRLYuoziXtOLo=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-64-ioJiaHgXPOC2jxdNrGzlIg-1; Thu,
+ 8 Oct 2026 07:44:01 +0000
+X-MC-Unique: ioJiaHgXPOC2jxdNrGzlIg-1
+X-Mimecast-MFC-AGG-ID: ioJiaHgXPOC2jxdNrGzlIg_1791445438
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 414FA1955F37;
+	Thu,  8 Oct 2026 07:43:57 +0000 (UTC)
+Received: from warthog.com (unknown [10.44.32.90])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 541961956040;
+	Thu,  8 Oct 2026 07:43:49 +0000 (UTC)
+From: David Howells <dhowells@redhat.com>
+To: Christian Brauner <christian@brauner.io>
+Cc: David Howells <dhowells@redhat.com>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	Stefan Metzmacher <metze@samba.org>,
+	Eric Van Hensbergen <ericvh@kernel.org>,
+	Dominique Martinet <asmadeus@codewreck.org>,
+	Ilya Dryomov <idryomov@gmail.com>,
+	netfs@lists.linux.dev,
+	linux-afs@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	ceph-devel@vger.kernel.org,
+	v9fs@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v15 0/8] netfs: Use a bvecq chain position abstraction
+Date: Thu,  8 Oct 2026 08:43:36 +0100
+Message-ID: <20261008074346.936909-1-dhowells@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="l0EIQACIx0KCbLb8"
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
+Hi Christian,
 
---l0EIQACIx0KCbLb8
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Could you pull these patches please into your vfs-7.4.netfs branch?  This
+is the fourth of five batches.  The primary purpose of this batch is to add
+an abstraction for a position in a bvecq chain and make use of it.
 
-Hi all,
+With that in mind, this patchset does the following:
 
-Today's linux-next merge of the vfs-brauner tree got a conflict in:
+ (1) Add a struct, bvecq_pos, to refer to a position in a bvecq chain.
+     This is a tuple of ( bvecq pointer, slot and offset } and the position
+     struct holds (for now) a ref on the bvecq pointed to.
 
-  fs/smb/server/vfs.c
+ (2) Change unbuffered/DIO to extract the supplied user buffers into a
+     bvecq chain rather than a bio_vec[] up front.  This means that
+     netfslib then uses bvecq chains for everything.
 
-between commits:
+ (3) Add a folio count to the readahead_control struct and then makes
+     readahead pre-create its buffer using that count to determine how many
+     slots are required.
 
-  9a4c5d1700381 ("ksmbd: look up stream size by exact xattr name")
-  26a14db500b82 ("ksmbd: copy stream content when renaming to a new stream =
-name")
-  5d2b1ab54e9a8 ("ksmbd: fix named stream write and EOF handling")
+ (4) Change netfslib to use the bvecq_pos struct to keep track of the whole
+     request buffer and various points in it where loading, dispatch and
+     collection are taking place and to also keep track of the slice given
+     to each subrequest.
 
-=66rom the ksmbd tree and commits:
+This was split from v11 of a larger netfslib series[1].
 
-  16d90b57d8439 ("fs: port xattr to const mnt_idmap")
-  025756ee7b476 ("fs: port mnt_idmap() and file_mnt_idmap() to const mnt_id=
-map")
+The patches can also be found here:
 
-=66rom the vfs-brauner tree.
+	https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git/log/?h=netfs-next-4
 
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
+Thanks,
+David
 
-diff --cc fs/smb/server/vfs.c
-index 3e06095463793,5cb161994e702..0000000000000
---- a/fs/smb/server/vfs.c
-+++ b/fs/smb/server/vfs.c
-@@@ -217,9 -216,9 +217,9 @@@ int ksmbd_vfs_mkdir(struct ksmbd_work *
-  	return err;
-  }
- =20
-- ssize_t ksmbd_vfs_getcasexattr(struct mnt_idmap *idmap,
- -static ssize_t ksmbd_vfs_getcasexattr(const struct mnt_idmap *idmap,
- -				      struct dentry *dentry, char *attr_name,
- -				      int attr_name_len, char **attr_value)
-++ssize_t ksmbd_vfs_getcasexattr(const struct mnt_idmap *idmap,
- +			       struct dentry *dentry, char *attr_name,
- +			       int attr_name_len, char **attr_value)
-  {
-  	char *name, *xattr_list =3D NULL;
-  	ssize_t value_len =3D -ENOENT, xattr_list_len;
-@@@ -387,8 -386,8 +387,8 @@@ static int ksmbd_vfs_stream_write(struc
-  {
-  	const struct cred *saved_cred;
-  	char *stream_buf =3D NULL, *wbuf;
-- 	struct mnt_idmap *idmap =3D file_mnt_idmap(fp->filp);
-+ 	const struct mnt_idmap *idmap =3D file_mnt_idmap(fp->filp);
- -	size_t size;
- +	size_t size, write_end;
-  	ssize_t v_len;
-  	int err =3D 0;
- =20
-@@@ -898,8 -841,8 +898,8 @@@ ssize_t ksmbd_vfs_listxattr(struct dent
-  	return size;
-  }
- =20
-- ssize_t ksmbd_vfs_xattr_len(struct mnt_idmap *idmap,
- -static ssize_t ksmbd_vfs_xattr_len(const struct mnt_idmap *idmap,
- -				   struct dentry *dentry, char *xattr_name)
-++ssize_t ksmbd_vfs_xattr_len(const struct mnt_idmap *idmap,
- +			    struct dentry *dentry, char *xattr_name)
-  {
-  	return vfs_getxattr(idmap, dentry, xattr_name, NULL, 0);
-  }
-@@@ -1728,10 -1671,9 +1728,10 @@@ out
-  	kfree(def_smb_acl);
-  	return rc;
-  }
- +EXPORT_SYMBOL_IF_KUNIT(ksmbd_vfs_set_sd_xattr);
- =20
-  int ksmbd_vfs_get_sd_xattr(struct ksmbd_conn *conn,
-- 			   struct mnt_idmap *idmap,
-+ 			   const struct mnt_idmap *idmap,
-  			   struct dentry *dentry,
-  			   struct smb_ntsd **pntsd)
-  {
+Changes
+=======
+ver #15)
+- In netfs_extract_iter(), set BVECQ_MEM_EXTERNAL rather than
+  BVECQ_MEM_PAGECACHE for unpinned memory.
+- In netfs_clear_unread_dio(), don't need to update subreq->transferred
+  as the caller overwrites it after.
+- Fixed issues brought up by sashiko[3]:
+  - In netfs_extract_iter(), remove redundant max_len check.
+  - In bvecq_pos_nudge() make sure the recheck is checking the old bvecq,
+    not the new.
+  - In netfs_unlock_abandoned_read_pages(), start from collect_cursor.slot,
+    not from slot zero.
+  - In netfs_pgpriv2_copy_to_cache(), cancel the caching also if we fail to
+    allocate a bvecq.
+  - In netfs_retry_write_stream(), use the same superfluity detection as
+    the read side.
+  - In netfs_write_subrequest_terminated(), only set the RETRY flag on
+    short uploads, not short cache writes.
 
---l0EIQACIx0KCbLb8
-Content-Type: application/pgp-signature; name="signature.asc"
+ver #14)
+- Fixed issues brought up by sashiko[2]:
+  - In netfs_extract_iter(), limit the number of slots per bvecq to what
+    will fit inside a 4KiB allocation.
+  - In netfs_rreq_assess_dio(), only set the page dirty if it's from GUP or
+    it's from the pagecache.
+  - In bvecq_zero(), skip the call to bvec_zero() if part == 0.
+  - In bvecq_delete_spent(), prefer returning true because more slots got
+    added to returning false because we hit the chain end.
+  - In netfs_read_gaps(), fix a leak of already allocated sink folios if we
+    get OOM when allocating a sink folios.
+  - In netfs_clear_unread_dio(), fix double call to iov_iter_zero().
 
------BEGIN PGP SIGNATURE-----
+ver #13)
+- Rebased on -rc6 to account for some conflicting fixes.
+- Fixed a bug in netfs_prepare_read_iterator() where comparison was being
+  made against the wrong thing when limiting a subreq's size.
 
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCasdJkgAKCRAv73Ows9A4
-icpgAQDZrbxCZJbINeRBElbWjiq9QZ5rpj4ZaX210VkkxYkWngD/SCewtXRwLi+m
-zdDqVTXCBIN2QnnTMk65e3nhYZYNMww=
-=SEVK
------END PGP SIGNATURE-----
+ver #12)
+- Split from v11 of "netfs: Keep track of folios in a segmented bio_vec[]
+  chain"[1]
 
---l0EIQACIx0KCbLb8--
+[1] https://lore.kernel.org/r/20260902173350.3468672-1-dhowells@redhat.com/
+[2] https://sashiko.dev/#/patchset/20261006205947.608356-1-dhowells%40redhat.com
+[3] https://sashiko.dev/#/patchset/20261007142001.851620-1-dhowells%40redhat.com
+
+David Howells (8):
+  mm: Make readahead store folio count in readahead_control
+  netfs: Add a function to extract from an iter into a bvecq
+  netfs: Make unbuffered/DIO read and write use bvecq
+  netfs: Add some tools for managing a position in a bvecq chain
+  netfs: Provide a func to load the readahead buffers into a bvecq chain
+  netfs: Use bvecq_pos to hold the buffer positions
+  netfs: Remove the rolling_buffer implementation
+  netfs: Remove netfs_extract_user_iter()
+
+ fs/afs/dir.c                   |   5 +-
+ fs/afs/symlink.c               |   6 +-
+ fs/cachefiles/io.c             |  12 -
+ fs/netfs/Makefile              |   1 -
+ fs/netfs/buffered_read.c       | 182 ++++++++-------
+ fs/netfs/bvecq.c               | 321 ++++++++++++++++++++++++++
+ fs/netfs/direct_read.c         |  77 +++----
+ fs/netfs/direct_write.c        |  67 +++---
+ fs/netfs/internal.h            |   4 +-
+ fs/netfs/iterator.c            | 398 ++++++++++-----------------------
+ fs/netfs/misc.c                |  18 --
+ fs/netfs/objects.c             |  16 +-
+ fs/netfs/read_collect.c        | 106 +++++----
+ fs/netfs/read_pgpriv2.c        |  88 +++++---
+ fs/netfs/read_retry.c          |  87 ++++---
+ fs/netfs/read_single.c         |  16 +-
+ fs/netfs/rolling_buffer.c      | 182 ---------------
+ fs/netfs/write_collect.c       |  73 +++---
+ fs/netfs/write_issue.c         | 166 +++++++++-----
+ fs/netfs/write_retry.c         |  73 +++---
+ include/linux/bvecq.h          | 185 +++++++++++++++
+ include/linux/netfs.h          |  25 ++-
+ include/linux/pagemap.h        |  10 +
+ include/linux/rolling_buffer.h |  47 ----
+ include/trace/events/netfs.h   |  32 ++-
+ mm/readahead.c                 |   5 +
+ 26 files changed, 1252 insertions(+), 950 deletions(-)
+ delete mode 100644 fs/netfs/rolling_buffer.c
+ delete mode 100644 include/linux/rolling_buffer.h
+
