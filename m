@@ -1,102 +1,115 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com [209.85.210.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 870EB3BFE4C;
-	Thu,  8 Oct 2026 08:40:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D0843D3D10
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 08:44:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791448833; cv=none; b=J2SLsG8v553J2iZ/8Q0pg4sF/OMUwjSs6Ru3ihCH/oMw82vpvhWMR4qxkTG/1IILoqMk3AgL2RxAaPnpkp2hUPyewJrQqELbbsOgqJCaKE+/J4oB3O4/0U1rrzFn69Ym+CLk58+5UqWNyA3lLEWe18DdJ2ssn/MFYcUgYZdwsSo=
+	t=1791449048; cv=none; b=P5bnMBQOkSWcwPIiGOlV6Mxc3S+lYjLVwHh6fprdSK4P2i/+9fR87tPfeMORXrvV4GCK/2Eg4AWGJePzS3/VN8SRMY4qjDEvHa3w4lb0a75W2Qc/rd3avT347ZyX7AB3YaiYNMpd9buIjGPos0c6D/NHbIV+3aHwkkPasN2hOG8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791448833; c=relaxed/simple;
-	bh=cyhLKmoFQnNcEba8TMrb9ar6DwIiwUmEwtd9zdMt+7c=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=EQruy8y2o4jBbB3Fk5MqwOye2jdY315bRwrTBqZf4ZcaP4pu/hblr/U4RY9BllGOLGOPw0CJJJScQSQq0elSM9555rBVV4o0eiwLXPTidA9g/CWXfJZNykrM/+xBtG97zgzCn5ARc/rZFFO+hD/gpgzV8+q/7crHjMIvsXQBKzM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=AjB9skkX; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791449048; c=relaxed/simple;
+	bh=2KIhFcZHqJ9+pe8RaJcUtCeBjZwM7wSmim2j/mLmpTc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=rO/SH96hJTkvhsh6VHk0F3CUvwI78dVlETN5kfnPOgrt6gR/1Mz65kvuf9DzcPDhC/WBBbpOTPr3LEMPmTRWXXeiI8aCC0MCx4vATeT8+uMWX80NNHICDCG2jAoYyxny+G5F/NKF1IZB/NkFZ89Lgih4l7E5+ULBacMmAfVXwIU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DbTxtD+T; arc=none smtp.client-ip=209.85.210.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="AjB9skkX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=cyhLKmoFQnNcEba8TMrb9ar6DwIiwUmEwtd9zdMt+7c=; b=A
-	jB9skkXfGqnNQxju0UenIGtnm2JboNEqZBQbx7t8i/LlD/DBDeVaEp9bqMNyLoQf
-	h8HLl/yzjO6O79l3hGmq6dT3gXNfxhpNcQNC8J4o+6z8b0cdpxIFns5kDXS/BE9o
-	UOvJ+hkpRm1bkPTA0Jb0RHLZhP6a4P/OiJX8irNo2g=
-Received: from slark_xiao$163.com ( [2409:895b:3802:ef4d:5c90:718e:af0:b2d0]
- ) by ajax-webmail-wmsvr-40-102 (Coremail) ; Thu, 8 Oct 2026 16:40:09 +0800
- (CST)
-Date: Thu, 8 Oct 2026 16:40:09 +0800 (CST)
-From: "Slark Xiao" <slark_xiao@163.com>
-To: "Manivannan Sadhasivam" <mani@kernel.org>
-Cc: "Krishna Chaitanya Chundru" <krishna.chundru@oss.qualcomm.com>,
-	jeff.hugo@oss.qualcomm.com, mhi@lists.linux.dev,
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re:Re: [PATCH] bus: mhi: host: pci_generic: Add autosuspend_delay
- customized support
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <nsaa4cchprkgqka7uc4ccr5wq7v6uhue5dpsvquwxyk4ndr57t@i56bkvwpclpo>
-References: <20260919095506.9570-1-slark_xiao@163.com>
- <bf94f351-777d-4dc0-98a2-7af77f832f2b@oss.qualcomm.com>
- <1bec2fd7.99f3.1a0c8ea4db6.Coremail.slark_xiao@163.com>
- <2b0d3e13-96fa-437a-9de9-4a61911fe232@oss.qualcomm.com>
- <nsaa4cchprkgqka7uc4ccr5wq7v6uhue5dpsvquwxyk4ndr57t@i56bkvwpclpo>
-X-NTES-SC: AL_Qu2SA/ift0Ar7yCQZ+kfmk8Sg+84W8K3v/0v1YVQOpF8jCzp/hotVmRkOXTG9OWtLh+WvjeKWxF17vpGdIJbeYwJAaYyRbH69B8rJEexO2df+A==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DbTxtD+T"
+Received: by mail-ot1-f42.google.com with SMTP id 46e09a7af769-8241a56cd70so2392939a34.3
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 01:44:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791449046; x=1792053846; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=X9QWLs+iWZ+eZ7ZEkdtW4NIWcT6hdsnE5DwV3JPb2uE=;
+        b=DbTxtD+TmQid9ghTuxQWGDDNvbT0wWEm33RelILuV1n4mS3VlyqerXksgGODbAM8j0
+         +kUckM1ag5B5RguB2fBLzoCwCEiJOyrjAta9nqu161ItG6V8ZGKrweN0JzHmsldQBWaK
+         j7+JNX4pKl/w7TakZeR6qi86QRGJIj1IMK4dnFsj3NfRVW0YN6CzewHm+U5jl1HOUk7Z
+         D+dzEHkVAgfRtgo7u5CWhUZn35ABhRWkG746zEP7fdPklw4x2q17tAIHzbzHyqbiINqU
+         D+SuLRqOv4icInaTDKpeHwDPrMNZpdGeuE+HGTiOWtW66bxiCKn5PIXbJmrWF8WU/bzM
+         HW5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791449046; x=1792053846;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=X9QWLs+iWZ+eZ7ZEkdtW4NIWcT6hdsnE5DwV3JPb2uE=;
+        b=F2mozdENkqg1bJdzLjBxvaHVURSFdKw65F+Rj5R3d0FcrvBJRxJo6tLRa/sfCRsPc2
+         WbM5J3fGk6XMop9gqaP8XvAOw6rtTckhvYuxRxvqNwGc8WFTY/zKPwjvoZlE52We9gXt
+         SQ9k4GOwLNUChG6ZV3GmEwaDUFfHdCMI//AvOMA6LF/xik7yk9Ywk71P8UXc6OtKEuWD
+         wdrhKAEtsr5tc5DYz5/R97R/5nuv5ebTYs1orbRph/psMYsKv53Dg6rolx3GLRQE1CNc
+         AUIjD04+JKW2Ly2QXF/QNNdGDUoQLev0xtxn9tVXMscyVZV1OE5HMOdpRVufKxl3fl4m
+         cYQg==
+X-Forwarded-Encrypted: i=1; AKwUvBx9b8mIObJd7SP84JAM8uDgN0kDifxYbXnc2Xysmppc+Z5++bmsjwRRunhQa5WpURQPUs0symDorg6WWdw=@vger.kernel.org
+X-Gm-Message-State: AFuF++nXUZI+0/Qs20ym8sjmwfRvrCwQ7Udc0nSdScPhU2XV3o7dBmWr
+	jEB01DpdlARF1IZ7Sym3LxqpQiirNIsFTtjTfTSnGyLbBH0BXtiu1thp//Ckmg==
+X-Gm-Gg: AYBFou2BK36VuSCIKxxeSCd4WD8C2Erzn5o/amb2WJn8HY8S27NN0t5qvd5S4yzb1Fo
+	oZWuW0A08ZOE0+iroBbFgBBLswxuXiYu9pLls3quMhJH66hXeUAfMyFfZ/CwBfuH+Lw5TayCvQV
+	VU7veml3+WjimK9HeqAkyCqvst7ngyi1stGr/WdOoYTjah/UrwkRPAf4A5JkcZwPpxCiw/U/vAa
+	Z8/+jbjzZ9rpdWJP4IVs+cCOD4RHAELL6lFy4g45YH781L8X68OuhB09qzKHNb2ZT92kgnCpjWr
+	zRV+mxGtkwxjJa2OFBJeXVvkbuAIirIHvOn6r6Yh38r8B6lgAuab1Ey2mxGHu6fD/zFefqY0xj6
+	mTbl56fpbgynCHMwJw7gTuIrS1r7kiD/j9DNJs63evrq8fePEQYSZI99vjXet+hD1paX0dFs5U3
+	WGP07OaTkg7MYCpGYVSYb1Y/k4lNykHUtNFIL0EMntAImTbQKpPQKCmkQc1bBqm8ngo+sIjv31P
+	5TXvzw1GPjfXgJPa/I=
+X-Received: by 2002:a05:6808:2e43:b0:4f3:890b:5fec with SMTP id 5614622812f47-4fc464799d4mr4704509b6e.25.1791449045853;
+        Thu, 08 Oct 2026 01:44:05 -0700 (PDT)
+Received: from omarchy.home.arpa ([66.69.194.205])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4fc49032c44sm5375407b6e.10.2026.10.08.01.44.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 01:44:04 -0700 (PDT)
+From: wendler.david@gmail.com
+To: james.a.fairweather@gmail.com
+Cc: chrome-platform@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] platform/chrome: cros_usbpd_notify: Only use parent drvdata when parent is GOOG0004
+Date: Thu,  8 Oct 2026 03:43:51 -0500
+Message-ID: <20261008084351.7680-1-wendler.david@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261003222855.23707-1-james.a.fairweather@gmail.com>
+References: <20261003222855.23707-1-james.a.fairweather@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <5506abc6.8919.1a11aab7e81.Coremail.slark_xiao@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:ZigvCgD3uzHpVsdq2x9UAA--.5142W
-X-CM-SenderInfo: xvod2y5b0lt0i6rwjhhfrp/xtbC5wlcwGrHVunTFQAA3m
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Transfer-Encoding: 8bit
 
-CgpBdCAyMDI2LTA5LTI2IDE5OjI2OjE1LCAiTWFuaXZhbm5hbiBTYWRoYXNpdmFtIiA8bWFuaUBr
-ZXJuZWwub3JnPiB3cm90ZToKPk9uIFdlZCwgU2VwIDIzLCAyMDI2IGF0IDA5OjI0OjU1QU0gKzA1
-MzAsIEtyaXNobmEgQ2hhaXRhbnlhIENodW5kcnUgd3JvdGU6Cj4+IAo+PiAKPj4gT24gOS8yMi8y
-MDI2IDU6MDkgUE0sIFNsYXJrIFhpYW8gd3JvdGU6Cj4+ID4gQXQgMjAyNi0wOS0yMiAxMjoxMjoz
-NSwgIktyaXNobmEgQ2hhaXRhbnlhIENodW5kcnUiIDxrcmlzaG5hLmNodW5kcnVAb3NzLnF1YWxj
-b21tLmNvbT4gd3JvdGU6Cj4+ID4+Cj4+ID4+IE9uIDkvMTkvMjAyNiAzOjI1IFBNLCBTbGFyayBY
-aWFvIHdyb3RlOgo+PiA+Pj4gRm9yIHNvbWUgV1dBTiBkZXZpY2UsIGl0IG1heSBnZXQgYSBTWVMg
-RVJST1IgaXNzdWUgd2hlbiByZXN1bWluZwo+PiA+Pj4gZnJvbSBzdXNwZW5kIHN0YXRlIGZyZXF1
-ZW50bHkuIFJlZmVyIHRvIHRoZSBRdWFsY29tbSBXaW5kb3dzCj4+ID4+PiBkcml2ZXIsIHRoZSBk
-ZWZhdWx0IHZhbHVlIG9mIGF1dG9zdXNwZW5kX2RlbGF5X21zIGlzIHNldCBhcyA1MDAwCj4+ID4+
-PiBtcy4gQnV0IGluIExpbnV4IHNpZGUsIGFsbCBXV0FOIGRldmljZSB3ZXJlIHNldCBhcyAyMDAw
-bXMuIFdlCj4+ID4+PiB0cmllZCB0byBzZXQgdGhpcyB2YWx1ZSB0byA1MDAwbXMgYW5kIHdlIGNh
-biBnZXQgYSBwb3NpdGl2ZSB0ZXN0Cj4+ID4+PiByZXN1bHQuCj4+ID4+Pgo+PiA+Pj4gU28gd2Ug
-YWRkIGEgc3VwcG9ydCB0byBhbGxvdyB2ZW5kb3IgdG8gc2V0IGEgZGlmZmVyZW5jZSB2YWx1ZSBm
-b3IKPj4gPj4+IHNwZWNpZmljIFdXQU4gZGV2aWNlLgo+PiA+PiB5b3UgY2FuIGNoYW5nZSBhdXRv
-IHN1c3BlbmQgZGVsYXkgZnJvbSBzeXNmcywgcGxlYXNlIHVzZSB0aGF0IHdheSBpbnN0ZWFkIG9m
-Cj4+ID4+IGRvaW5nIGluIHRoZSBkcml2ZXIuCj4+ID4+Cj4+ID4+IC0gS3Jpc2huYSBDaGFpdGFu
-eWEuCj4+ID4gWWVzLCB3ZSBjYW4gZG8gdGhpcyBieSBzZXR0aW5nIHRoZSBzeXNmcyBBUEkgLiBI
-b3dldmVyLCBub3QgYWxsIHVzZXJzIAo+PiA+IGFyZSBhd2FyZSBvZiB0aGlzIG1ldGhvZC4gQWRk
-aXRpb25hbGx5LCB0aGlzIGFwcHJvYWNoIGlzIG9ubHkKPj4gPiBlZmZlY3RpdmUgZm9yIGEgc2lu
-Z2xlIGluc3RhbmNlOyBpdCByZXF1aXJlcyByZWNvbmZpZ3VyYXRpb24gYWZ0ZXIgZWFjaAo+PiA+
-IHJlc3RhcnQsIHdoaWNoIGlzIHF1aXRlIGluY29udmVuaWVudC4KPj4geW91IGNhbiBoYXZlIHVk
-ZXYgcnVsZSB0byBzZXQgdGhpcyB3aXRob3V0IGFueSB1c2VyIGludGVydmVudGlvbi4KPgo+V2Ug
-c2hvdWxkIG5vdCByZWx5IG9uIHVzZXJzcGFjZSB0byBmaXggdGhlIFNZU19FUlJPUi4gVXNlcnNw
-YWNlIGtub2Igc2hvdWxkIG9ubHkKPmJlIGV4ZXJjaXNlZCB0byBjdXN0b21pemUgdGhlIGRlbGF5
-IGZvciBwb3dlciBtYW5hZ2VtZW50IHB1cnBvc2VzLCBub3QgdG8gZml4Cj5maXJtd2FyZSBjcmFz
-aC4KCj4KQWdyZWUuIFdlIGFyZSBzdGlsbCB3b3JraW5nIG9uIHRoZSBpc3N1ZSBkZWJ1ZyBvbiB0
-aGUgbW9kZW0gc2lkZS4gCgo+Rmlyc3Qgd2Ugc2hvdWxkIGtub3cgd2hldGhlciB0aGUgZGVmYXVs
-dCBkZWxheSBjYW4gYmUgaW5jcmVhc2VkIHRvIDUwMDBtcyBmb3IKPmFsbCBkZXZpY2VzIG9yIG5v
-dC4gSWYgdGhhdCBpcyBub3QgZGVzaXJlZCwgdGhlbiB3ZSBjYW4gZ28gZm9yIEVuZHBvaW50IHNw
-ZWNpZmljCj5kZWxheS4KPgo+LSBNYW5pCj4KRm9yIHJlZmVyZW5jZSwgTVRLIDVHIG1vZGVtIFQ3
-MDAgaXMgdXNpbmcgNTAwMG1zIGFzIGRlZmF1bHQgdmFsdWUuIEFuZCBRdWFsY29tbQpXaW5kb3dz
-IGRyaXZlcnMgc2lkZSwgdGhlIGRlZmF1bHQgdmFsdWUgaXMgNTAwMG1zIGFzIHdlbGwuCkhvd2V2
-ZXIsIEkgY2Fubm90IGd1YXJhbnRlZSB0aGF0IGlmIGFsbCBNSEkgZGV2aWNlcyBhcmUgYWRqdXN0
-ZWQgdG8gNTAwMG1zLCBzb21lCnBvd2VyLXNlbnNpdGl2ZSBkZXZpY2VzIHdpbGwgbm90IG9wcG9z
-ZSB0aGlzIGNoYW5nZS4gQWRkaXRpb25hbCwgREVMTCBob3BlcyB0aGF0CndlIG9ubHkgbW9kaWZ5
-IHRoZSBTRFg3MiBkZXZpY2Ugd2hpbGUga2VlcGluZyB0aGUgMjAwMG1zIHNldHRpbmcgZm9yIHRo
-ZSBTRFg2MgpkZXZpY2VzLCBhcyB0aGVyZSBhcmUgY3VycmVudGx5IG5vIHNpbWlsYXIgaXNzdWVz
-IHdpdGggdGhlIFNEWDYyIHBsYXRmb3JtLgoKSWYgZW5kcG9pbnQgc3BlY2lmaWMgZGVsYXkgc2V0
-dGluZyBpcyBhY2NlcHRhYmxlLCBJIHdpbGwgY29tbWl0IGEgVjIgd2hpY2ggaW5jbHVkZXMKc29t
-ZSBzcGVjaWZpYyBjaGFuZ2VzIGZvciBEVzU5MzRlIGRldmljZXMgb25seS4KClRoYW5rcwo+LS0g
-Cj7grq7grqPgrr/grrXgrqPgr43grqPgrqngr40g4K6a4K6k4K6+4K6a4K6/4K614K6u4K+NCg==
+Hi James,
 
+I wanted to report successful testing of this fix on another affected
+Chromebook.
+
+Hardware:
+- ASUS Chromebook C223NA (BABYMEGA, CORAL)
+- Intel Apollo Lake
+- Omarchy / Arch Linux, kernel 7.2.5-3-omarchy
+
+Before the fix, disconnecting and reconnecting the USB-C charger could
+cause a kernel oops and leave the system unresponsive. On this machine,
+GOOG0003:00 has PNP0C09:00 as its parent rather than GOOG0004.
+
+I built and loaded a locally adapted version of cros_usbpd_notify
+incorporating the parent-device validation and NULL fallback described
+in your patch.
+
+After applying the fix:
+- Six consecutive USB-C charger disconnect/reconnect cycles succeeded.
+- No kernel oops or system hangs were observed.
+- SSH remained responsive throughout testing.
+- USB-PD negotiation reached 15V/3A (45W).
+- The battery correctly reported Charging after reconnection.
+
+The driver also produced the expected diagnostic message:
+
+  Couldn't get Chrome EC device pointer.
+
+This was a locally adapted implementation rather than a byte-for-byte
+build of the submitted patch, but the results support the fix on the
+BABYMEGA platform as well.
+
+Thanks for tracking this down!
+
+David
