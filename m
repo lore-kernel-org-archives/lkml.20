@@ -1,154 +1,189 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010037.outbound.protection.outlook.com [52.101.46.37])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 331A33624B3;
-	Thu,  8 Oct 2026 17:33:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.37
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791480784; cv=fail; b=jQTbFn5C/68x3TlYrfDF3BgdNWk8/RpIpQeesmByhGar5eXjvA6epTHSTFiQgwT9LRr9yP2arabsQKu36VhCZtqUXWHh0fulQtfek1+EMFnTEpK4JKm7m/CdjYMki87EzaKAc235fJ0U1JbDadnh5BGi/XOPz0XnYl1Enh9H08w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791480784; c=relaxed/simple;
-	bh=N9tqa45kPhC8CIsbchtmed7rw5pXfY7Mny380qGFk1E=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tjdhWuuuNvGKD0srwvYMFM1Fz/NcML8TSSE4IefkapvtXuOQLlLCyfXllRk/xtM2prl+LkV6XfJeUFhCzZE+vEElDilY0kqD3B0reg9DAnCMG7597Ciee9vsPp4X8Y1QcizH0TpGrsEAH0UW6j/M8qkcceQbw46hL1ZDlKP42Hg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Xj7vw/WM; arc=fail smtp.client-ip=52.101.46.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0295F3624B3;
+	Thu,  8 Oct 2026 17:33:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791480830; cv=none; b=cWUY77rdyLd+h8uUP4rw65/MII9GE2zm+dFV51ngOfCV4o3YYgSYQ+wzGIZfvOK6UDgUCqfy9qvLYxW8wzvQYjvJG9+6XzBfVKPYZh/xQ38J7U/D6n8G6zPvKlzoEPhwybTZaZUn8XHl41Lq+zSHeIpFF+cpt5gAklckQpfKZqM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791480830; c=relaxed/simple;
+	bh=qjUkLXreYg8MXdiceVPsiNnpljXYWMTyIQ0/Bl5CPWY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VxwIyO/w5ZEleo4k9PWNQPogf9PoNm1WxEqpwS5bW7nQZtWUaZoiInTsvRCDxNt4Jmdf7d7ypA0KQKxJnWJ7kbbd3V1gvoCWnzdJW+Ho6AoC6HiXGsVGWMsDpbz5S/J11AmdEZ7x2mNSKGt9QLuAVpz+QrVuruqxPt/9b8gFLmM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hL8aekWD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Xj7vw/WM"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kdtdBvuyGBkekygsoWH+GXCkfKa/rq8YEQAuOzjXySEBxpvsbae7mvo4q4H8ARqY6GRYmoh2uKMzqZSMb86iA0XYf3xEJcCSzUmcm0Toqu4myuOTgCwZHOlb4UcA57yRbkeMn1duOkgFPXewTgZAh5aeaAx2Mxpy9xay9pyooc5uwAIURp3cdOVodf01HMfcrKVBod7nrV4iHDpXOPgaHEi0fsBGUtV/KkCuRIppE1uYz4VYFayc+po7MHkZroZ7RknsWK4FKwmC354soZFzUMk9Gib5ir90JQjoBICn5vVNfZUmxJMsrJ3RrrqEeunr8ZdxNDxtJ4b1ZFVALd3Hug==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=d8u8H4QYJiarOEqRZ8ZbXOONzxSr4hNvAmbzJoELjm0=;
- b=nP7QZ9IyP2nXQB4Njdls2XvwH/HTfwySHDqen6TL8375KHrnRAhmlNdM6KDWLcDktd0AeBh+xQ9A4mxieMOccaQu2qV0bQmdMX8I0CjGUGgJQhQ958y2Zk9kCI28iX0wTA8pIvnJEWTL2iVRSN9IlKRcif15b6MufBk8Mksz6ODMtCo+3zrDEdcphfyPZ7pkKQ5Fwp2891NGYB0RcIL0efTHg6HEX/tEzX2qDMcu18sLOHsueN62pSNM24vJkMet2nfBuHDzHa978AlvOa9elvLFNLGLoZIA7mET5shhsa2dnct41SGMzeSio7ukRzgNt63RB22UE6NKfGkPMFioYQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=arm.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=d8u8H4QYJiarOEqRZ8ZbXOONzxSr4hNvAmbzJoELjm0=;
- b=Xj7vw/WM+BmjotnO6HFyxzHGCxuul5S2WTImFKNX4l9EHwCwpsOxM0glaH5o2fIva/ceMk3sfVLj/vJH5Y7oMc0H5+wSzZlTbWcK9CPUIO2xyfbPo9WZuQUS9N20AaYVyySLHt7ahx2B/WQxcoJqQWMYu828FPTkFxCP21Afc4OIXPQI+jUeoXA9JGwcupocC26jMhdxSywWeBm8oagLvxFqa5znaljX+GrkjlYXMx4AtYHf21aqSMrRsm9ekiKavIocaxxPmrY0j7WriyGTwMydY+YZvyV+zWieeLpcsuq9mghEFzri5JjM6bq5oZ5AJVzSokpp60S6Hbg+UUw+AQ==
-Received: from MN2PR06CA0007.namprd06.prod.outlook.com (2603:10b6:208:23d::12)
- by DM4PR12MB6206.namprd12.prod.outlook.com (2603:10b6:8:a7::6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.20; Thu, 8 Oct 2026 17:32:55 +0000
-Received: from BN2PEPF0000A991.namprd04.prod.outlook.com
- (2603:10b6:208:23d:cafe::18) by MN2PR06CA0007.outlook.office365.com
- (2603:10b6:208:23d::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Thu, 8
- Oct 2026 17:32:55 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- BN2PEPF0000A991.mail.protection.outlook.com (10.167.248.138) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Thu, 8 Oct 2026 17:32:55 +0000
-Received: from rnnvmail203.nvidia.com (10.129.68.9) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 8 Oct
- 2026 10:32:28 -0700
-Received: from rnnvmail204.nvidia.com (10.129.68.6) by rnnvmail203.nvidia.com
- (10.129.68.9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 8 Oct
- 2026 10:32:27 -0700
-Received: from nvidia.com (10.127.8.9) by mail.nvidia.com (10.129.68.6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
- Transport; Thu, 8 Oct 2026 10:32:25 -0700
-Date: Thu, 8 Oct 2026 10:32:23 -0700
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: Robin Murphy <robin.murphy@arm.com>
-CC: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>, Will Deacon <will@kernel.org>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>, Jean-Philippe Brucker
-	<jpb@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, Thierry Reding
-	<thierry.reding@kernel.org>, Krishna Reddy <vdumpa@nvidia.com>, "Jonathan
- Hunter" <jonathanh@nvidia.com>, <linux-arm-kernel@lists.infradead.org>,
-	<iommu@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
-	<linux-tegra@vger.kernel.org>, Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH RFC v5 2/6] iommu/arm-smmu-v3: Allocate streams
- individually
-Message-ID: <asfTp0KxWIyxmcnz@nvidia.com>
-References: <20261006-smmu-shared-sid-v5-0-169a59c671d3@nxp.com>
- <20261006-smmu-shared-sid-v5-2-169a59c671d3@nxp.com>
- <asbTEPMJvm9T00c+@nvidia.com>
- <7626c1be-305e-478a-a017-548341d25419@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hL8aekWD"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 3E0771F000FF;
+	Thu,  8 Oct 2026 17:33:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791480828;
+	bh=G4v32k8/a/EW1WFqBk/X57CZyQESBg0MOmvtF2yjKvU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hL8aekWDig0eQ/IB3W4TdhsV9BzgYHbYp6k6GUoeKwLB0Sw94BQw6k5bNTEfG6we+
+	 CmS19CDTrA+i3vY3gxsUou4g5KeSTL6RktPkWzFyFnIACLQ9/1iJJAWRJ1SKctNQPR
+	 h5zQPYUUhBouwf/IV/JMUXzktSx3NhyHLzdEns+nlYQuUA2jrIjlD+8+orpETlNI07
+	 EUw+hF6ngIpgDdXYrw7pHI4CJBQCMnKtmD/hvFwzXYtJCtdCa2xdJ4ASq9w8KT0Y1c
+	 fvBg49iGVWPDPPI3vPl0qanx5AYZhTIYwPbz3FcES98yY3s52n6tuJdMCh5IjHo08p
+	 Q9K74wOx4Ycbg==
+Date: Thu, 8 Oct 2026 20:33:45 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Andrew Halaney <andrew@amutable.com>
+Cc: David Howells <dhowells@redhat.com>, Alasdair Kergon <agk@redhat.com>,
+	Mike Snitzer <snitzer@kernel.org>,
+	Mikulas Patocka <mpatocka@redhat.com>,
+	Benjamin Marzinski <bmarzins@redhat.com>,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Eric Biggers <ebiggers@kernel.org>,
+	"Theodore Y. Ts'o" <tytso@mit.edu>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, dm-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org, keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org, bpf@vger.kernel.org,
+	fsverity@lists.linux.dev, linux-doc@vger.kernel.org,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>
+Subject: Re: [PATCH 1/3] keys: add KEY_SPEC_DM_VERITY_KEYRING
+Message-ID: <asfT-SLkty5DC_Rx@kernel.org>
+References: <aqyiCavj3xeNqyAo@kernel.org>
+ <20260914-ajhalaney-dmverity-key-identifier-v1-0-01922dc1366a@amutable.com>
+ <20260914-ajhalaney-dmverity-key-identifier-v1-1-01922dc1366a@amutable.com>
+ <715249.1789718726@warthog.procyon.org.uk>
+ <aq2VxlttdlTNlHo6@toolbx>
+ <arYzQN1ViuiCBemo@kernel.org>
+ <asZlNEFdvidvMdJ5@toolbx>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <7626c1be-305e-478a-a017-548341d25419@arm.com>
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000A991:EE_|DM4PR12MB6206:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1a4f6afc-e8a3-4ba0-bab4-08df2562302c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|7416014|376014|23010399003|82310400026|1800799024|4143699003|11063799006|10067099003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	p+jLB/3ZkFpni6t04v3S4LLHD9AxzXZcKBy72q+dnoN1tw2MNUkopiSE1xIH2rowXsIfxZ+GCZApPFVazZgMXWkRlc5oV7Sdol+Ezwx2iUVxRiPQKW2Qnzt35nL7I1Pdf7VFo4tjicE2qcQ9RSFnzwR0/u5/+Qi+TIwxVEZnJLgZK7eOiRlzl76HGeW631f2xxHjKCJSUdkFAYIjjq/f7dG5eplKgDLE+u+Ukc8/ZCNwMTiCC6u/usn02xatRRO5Z1eRapB+dDw0KCNeH/jaS3kCWAJNCUNos4HXa10mv4synkBQ7uF6d8eZ+jKhhcGbknGPgCW9V+YBZv4cjseuPKzVnxZ+necBz+LSO6NEdKRlcf+6JPdzPW7vO8I3mTAZEakXqcAwkO/agMIPvUZehi4kQA7SfGKRu4sjUs7C72K4XQdAvWOu2PzUFGxfmujcdBTiGwAoSQPgM3rpwDjAP4AwyOv1b4hYhkomukFzdOIEFSVxzXBBwHQmRIufGuyZioDKRq84jfNjwrmZ/21t0rqGF7NkliK5PPaRMYJw7GZyjIWSbk0SlMhIrkRiwLWErIUhbEE4fBnEY0N0UOxlfgG3UhnQbgnAQyt3xjiSEnlWhitTCNCKDsaqJCeMdFiPaLTcj67WRyJOsNRNWTe5bCsU/TWXB3wm5Niz/O3hAvHSasB/rnZzQBapsb+8jWiDlRoXN9Roh6XM5Oe9RR4Npg==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(7416014)(376014)(23010399003)(82310400026)(1800799024)(4143699003)(11063799006)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	T9Ua8oRnqjyMJR0UEoEIZmwLc27Z4hkekcuqtEVR1ApwyxOkcfav2weeIbioXt8hqqeoodNk0reUJOH/E+Ces7P5Kfgrah8itsISuuKxoakt2Iw1nV1aPJDoqf0R89DSNF2y7iTOBm7xvYQKxFUVfGvm2zhJonIz65z/43I0qxtGtFk+LGiqJwf6pr0Kho9mBpZ6IQqL5mtpnZWnC43FuJLi/8gY4vdN5MjsOdws7gpYgUPjfpD5OmU3Xwt8ydDXV0kSi3uVSTpRhS9UznigHcXvh+QBfG1qE4Iu1POZMC2I/odls082ptziL+M8QhoTl1GcrkHA6IyZ+kGo3UqYZc2N68CIl8zsGcKM6tD6PJrVU3G45YaFMykxwaVzFmURDgzRCbNUHL5++w5ifI/Lca95wOlPWVbutsLLwaDe3qUm0kwq0ZAXp5znY+j+QpV5
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 17:32:55.3171
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1a4f6afc-e8a3-4ba0-bab4-08df2562302c
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF0000A991.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6206
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <asZlNEFdvidvMdJ5@toolbx>
 
-On Thu, Oct 08, 2026 at 02:21:43PM +0100, Robin Murphy wrote:
-> On 08/10/2026 12:17 am, Nicolin Chen wrote:
-> > On Tue, Oct 06, 2026 at 08:19:08PM +0800, Peng Fan (OSS) wrote:
-> > > diff --git a/drivers/iommu/arm/arm-smmu-v3/tegra241-cmdqv.c b/drivers/iommu/arm/arm-smmu-v3/tegra241-cmdqv.c
-> > > index 6644075c1431e..bc62a3d5a63f9 100644
-> > > --- a/drivers/iommu/arm/arm-smmu-v3/tegra241-cmdqv.c
-> > > +++ b/drivers/iommu/arm/arm-smmu-v3/tegra241-cmdqv.c
-> > > @@ -1257,7 +1257,7 @@ static int tegra241_vintf_init_vsid(struct iommufd_vdevice *vdev)
-> > >   	struct arm_smmu_master *master = dev_iommu_priv_get(dev);
-> > >   	struct tegra241_vintf *vintf = viommu_to_vintf(vdev->viommu);
-> > >   	struct tegra241_vintf_sid *vsid = vdev_to_vsid(vdev);
-> > > -	struct arm_smmu_stream *stream = &master->streams[0];
-> > > +	struct arm_smmu_stream *stream = master->streams[0];
+On Wed, Oct 07, 2026 at 10:30:14AM -0500, Andrew Halaney wrote:
+> On Fri, Sep 25, 2026 at 11:39:28AM +0300, Jarkko Sakkinen wrote:
+> > On Fri, Sep 18, 2026 at 02:59:49PM -0500, Andrew Halaney wrote:
+> > > On Fri, Sep 18, 2026 at 09:05:26AM +0100, David Howells wrote:
+> > > > Jarkko Sakkinen <jarkko@kernel.org> wrote:
+> > > > 
+> > > > > This is great for discussion but what we want for the commit message
+> > > > > is just motivation and resolution.
+> > > > 
+> > > > Actually, I think it's useful that Andrew wrote up the issues in the commit
+> > > > message - and I think it shows part of the motivation.  The 'writing a fake
+> > > > /proc/keys line in the description' is something I hadn't considered.
+> > > 
+> > > I'll defer to what you all want in the message here, I found it valuable
+> > > but I trend on the side of overly verbose admittedly!
+> > > 
+> > > > 
+> > > > > I don't think we need all this just to say that /proc/keys in a racy
+> > > > > query mechanism for production, which is an issue for dm-verity, given
+> > > > > that nothing else is available.
+> > > > 
+> > > > I think at some point, we will need a system call to search all for all
+> > > > accessible keys matching certain criteria by actually walking the key
+> > > > database.  The problem there is that there may be multiple hits, so we may
+> > > > need something like:
+> > > > 
+> > > > 	int count = find_key(key_serial_t start_id,
+> > > > 			     const char *type, const char *desc_prefix,
+> > > > 			     key_serial_t *results, size_t results_size,
+> > > > 			     unsigned int flags);
+> > > > 
+> > > > Allowing you to do:
+> > > > 
+> > > > 	key_serial_t dm_key;
+> > > > 	int n = find_key(0, "keyring", ".dm_verity", &dm_key, 1,
+> > > > 			 FIND_KEY_EXACT_DESC);
+> > > > 
+> > > > This wouldn't be as fast as a direct lookup since it would have to walk the
+> > > > key tree, doing name comparisons and perm checks on each key of the type.
+> > > > 
+> > > > > And secondly special keys are meant for implicit keyrings so isn't
+> > > > > that all there's to it?
+> > > > 
+> > > > I have no particular objection to setting aside a block of negative key IDs
+> > > > for special keyrings that need to be accessed a lot - though I would make
+> > > > common reg/unreg functions that take the ID to be registered and, say, set the
+> > > > block at -257..-512.  Moving the BFP keyring to -257 and DM to -258.
+> > > 
+> > > To be clear are you suggesting I do that for v2 here? Happy to make the
+> > > change and add some reuse to the registration functions, etc. I'm
+> > > guessing its fine to change the bpf id since its still only in -next?
+> > > 
+> > > The only awkward bit with making that more generic is that dm-verity
+> > > isn't __ro_after_init since its coming from a module possibly, and
+> > > because of the module usage I also protected it with a spinlock in case
+> > > someone's accessing it while you unload the module. Could just use one
+> > > spinlock for the whole generic array, and drop the __ro_after_init I
+> > > suppose.
+> > > 
+> > > Let me know if I'm not following properly!
 > > 
-> > Sashiko raised a concern of an out-of-bounds pointer dereference.
+> > I just read David's response and I think he made fair arguments,
+> > and patches look fine to me.
 > > 
-> > Though it's practically not possible, probably it would be safer
-> > to move this behind the check:
+> > David, did you have anything? I could pick these.
 > > 
-> > 	if (master->num_streams != 1)
-> > 		return -EOPNOTSUPP;
+> > Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+> > 
 > 
-> The IORT path unconditionally adds 1 ID via acpi_iommu_fwspec_init(), so
-> num_streams==0 could only potentially happen with DT if a fwspec was parsed
-> using #iommu-cells==0, except arm_smmu_device_dt_probe() would refuse to
-> probe the entire SMMU if that was anything other than 1, so no, this
-> definitely cannot ever be out of bounds.
+> Gentle ping :)
 
-Yea, it's unreachable. So, either way is fine.
+Understandable :-)
 
-The num_streams guard is already there: doing a dereference after
-the guard is a common practice anyway. And that drops the Sashiko
-false positive.
+> 
+> Are we happy with these to get picked up?
 
-Nicolin
+Can you just do a resend that applies on top of latest mainline
+or my tree? I.e. b4 shazam was not happy about this.
+
+Full log:
+
+$ b4 shazam https://lore.kernel.org/keyrings/20260914-ajhalaney-dmverity-key-identifier-v1-2-01922dc1366a@amutable.com/
+Grabbing thread from lore.kernel.org/all/20260914-ajhalaney-dmverity-key-identifier-v1-2-01922dc1366a@amutable.com/t.mbox.gz
+
+Breaking thread to remove parents of 20260914-ajhalaney-dmverity-key-identifier-v1-0-01922dc1366a@amutable.com
+Checking for newer revisions
+Grabbing search results from lore.kernel.org
+Analyzing 10 messages in the thread
+Analyzing 0 code-review messages
+Checking attestation on all messages, may take a moment...
+---
+  ✗ [PATCH 1/3] keys: add KEY_SPEC_DM_VERITY_KEYRING
+    + Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org> (✓ DKIM/kernel.org)
+    + Reviewed-by: Christian Brauner (Amutable) <brauner@kernel.org> (✓ DKIM/kernel.org)
+  ✗ [PATCH 2/3] keys: add KEY_SPEC_FS_VERITY_KEYRING
+    + Reviewed-by: Christian Brauner (Amutable) <brauner@kernel.org> (✓ DKIM/kernel.org)
+  ✗ [PATCH 3/3] Documentation: keys: document IDs added since KEY_SPEC_REQKEY_AUTH_KEY
+    + Reviewed-by: Christian Brauner (Amutable) <brauner@kernel.org> (✓ DKIM/kernel.org)
+  ---
+  ✗ BADSIG: DKIM/amutable-com.20251104.gappssmtp.com
+---
+Total patches: 3
+---
+ Base: base-commit 1a1de54f7369cd2b5bac0f265910e60ad3a6b4c3 not known, ignoring
+Applying: keys: add KEY_SPEC_DM_VERITY_KEYRING
+Patch failed at 0001 keys: add KEY_SPEC_DM_VERITY_KEYRING
+error: patch failed: include/linux/key.h:441
+error: include/linux/key.h: patch does not apply
+error: patch failed: include/uapi/linux/keyctl.h:25
+error: include/uapi/linux/keyctl.h: patch does not apply
+error: patch failed: security/keys/process_keys.c:25
+error: security/keys/process_keys.c: patch does not apply
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+hint: When you have resolved this problem, run "git am --continue".
+hint: If you prefer to skip this patch, run "git am --skip" instead.
+hint: To restore the original branch and stop patching, run "git am --abort".
+hint: Disable this message with "git config advice.mergeConflict false"
+
+> 
+> Thanks,
+> Andrew
+
+Br, Jarkko
