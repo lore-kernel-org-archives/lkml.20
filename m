@@ -1,32 +1,40 @@
-Received: from out30-100.freemail.mail.aliyun.com (out30-100.freemail.mail.aliyun.com [115.124.30.100])
+Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27216443C34;
-	Thu,  8 Oct 2026 11:47:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DBC836B043
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 11:47:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.217
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791460071; cv=none; b=k8Pv6uw8ifoqIIEJOzIoYgmmo5AopaSZYlzJSP2DAeO3Y+1XTmRfwplCc/Vn62+vuNRpvsDy7IqOLput02xyvIdEa/5SixvVPXmzbp/82zx2ebMgztGqOd9iAbyawjgE2LotRQ8lf2FpS84LQeNbAqEGC7BdjCTt9eSqyXGy1fk=
+	t=1791460082; cv=none; b=d6n/llzmB45QcptmTCyFXYmpeqA/Nn0/Ac54whdO4PCd5Y/+0WLD+xSsqFc9+UDWId7gd4+FidQuQEhKYIOd76fHjKX7QPVLXmaU1ky3UuvLcRDJrSTdpWFEnjDtYDtGQJCg3uGIj+QWwF+S9KzTNs+EY7TXsxrb8Vku/mYwSS8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791460071; c=relaxed/simple;
-	bh=OUNZ/VZ8OrrRrCTA8+5HB6ElWjtVTJ5aPjr31lVAvcA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=u7BN8Ue3ZXfPAHP4kAHtQcl4N/6zfCbhw4zCycXWzPHWApjOG+sEJhKCJ5LvuXIJBDTuzHuUaciMi8jDubHuanlxDZEJvBcArVt/UUTigE6Mldg1LQJYlMQ5NKKoTrQBS+8ucrYm1J1g7kZL/k3F1mU/4WNfpI/N1wAUFm/GwT0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=d9SfD7/i; arc=none smtp.client-ip=115.124.30.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1791460082; c=relaxed/simple;
+	bh=693n42q7gv16cgET7qpJBLB01poavgmfi3HejuBROcQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=n8+ICQxVGSz4CP6M/CoYO+WSsDrr3qWQtqix8t2zuGXdZ0ShsEKtLfRAnINaPSZwKE4gYqjxITX37hd6q47Ly05ZcaQUQgANIipSxG1p5wrK1eecJfV14634IYtWkrmqqWQZM+JFVgZMLCO3NAMF/e1fLMwWbzkp3y8eg4lVJAM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=epsrYwIq; arc=none smtp.client-ip=113.46.200.217
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="d9SfD7/i"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1791460059; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=2uRUiMGM/3kM5oFgvWkstit41ISjJ8dKFkmnjBOgzTY=;
-	b=d9SfD7/i3F8/7mhWPtNs4PbENsPzHePZ1tusqOfNzF5OEb5MFFoyDHTotZ1yhdHWLAPcOqQcJ7vrppp+F7wUyLx6J0Kmq+NKypSW6hYOV3xee4wMei9wClqocofEV3QaqZCjRJjxL3enc1nYpJX9r9cQ+T9pDtH57kKkJMPiO58=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R191e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=xueshuai@linux.alibaba.com;NM=1;PH=DS;RN=34;SR=0;TI=SMTPD_---0XCP.Q2W_1791459729;
-Received: from 30.246.161.100(mailfrom:xueshuai@linux.alibaba.com fp:SMTPD_---0XCP.Q2W_1791459729 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 08 Oct 2026 19:42:10 +0800
-Message-ID: <fbdb7b4c-0f80-41b0-b6d8-a4501ff3e820@linux.alibaba.com>
-Date: Thu, 8 Oct 2026 19:42:08 +0800
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="epsrYwIq"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=0QYn9TXvnmJ4ZihqcEGo9v58p4Zetixq26bjUvNxJos=;
+	b=epsrYwIqbsZtAf2q67DL1OD8YbBNT0T4RjAKv2Adjwz6rLW7tIc6PXsn99Q9IaW/8iu+v4U6D
+	Ie69N6BsAU6M+/UJn/b6BPeDu5ErqLWKQgP39ZKB10lluoi0C4B5znT6oeNDDxvoyDcWVDniiYK
+	ciSKLlVuTOR8n0x4EG5ILck=
+Received: from mail.maildlp.com (unknown [172.19.163.104])
+	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4j0nxZ074qzcb3w;
+	Thu,  8 Oct 2026 19:36:02 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id D0B0C4058C;
+	Thu,  8 Oct 2026 19:47:53 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 8 Oct
+ 2026 19:47:52 +0800
+Message-ID: <e0c85b38-7d5c-48e6-a7d2-9843ef08f53d@huawei.com>
+Date: Thu, 8 Oct 2026 19:47:51 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -34,122 +42,98 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 0/7] riscv: Add reliable stack unwinding for livepatch
-To: Martin Kaiser <martin@kaiser.cx>, Palmer Dabbelt <palmer@dabbelt.com>,
- Paul Walmsley <pjw@kernel.org>
-Cc: pjw@kernel.org, aou@eecs.berkeley.edu, alex@ghiti.fr,
- linux-riscv@lists.infradead.org, oleg@redhat.com, rostedt@goodmis.org,
- mhiramat@kernel.org, mark.rutland@arm.com, peterz@infradead.org,
- mingo@redhat.com, acme@kernel.org, namhyung@kernel.org,
- alexander.shishkin@linux.intel.com, jolsa@kernel.org, irogers@google.com,
- adrian.hunter@intel.com, james.clark@linaro.org, jpoimboe@kernel.org,
- jikos@kernel.org, mbenes@suse.cz, pmladek@suse.com, joe.lawrence@redhat.com,
- shuah@kernel.org, mpdesouza@suse.com, oliver.yang@linux.alibaba.com,
- zhuo.song@linux.alibaba.com, jkchen@linux.alibaba.com,
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- linux-perf-users@vger.kernel.org, live-patching@vger.kernel.org,
- linux-kselftest@vger.kernel.org
-References: <20260914092648.51254-1-xueshuai@linux.alibaba.com>
- <artojcJftbMIgPrj@akranes.kaiser.cx>
-From: Shuai Xue <xueshuai@linux.alibaba.com>
-In-Reply-To: <artojcJftbMIgPrj@akranes.kaiser.cx>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2 16/21] arm64: entry: Implement EL1t exception handlers
+ for overflow stack
+To: Will Deacon <will@kernel.org>, <linux-arm-kernel@lists.infradead.org>
+CC: <linux-kernel@vger.kernel.org>, Arnd Bergmann <arnd@arndb.de>, Ard
+ Biesheuvel <ardb@kernel.org>, Ada Couprie Diaz <ada.coupriediaz@arm.com>,
+	David Hildenbrand <david@kernel.org>, Catalin Marinas
+	<catalin.marinas@arm.com>, Vladimir Murzin <vladimir.murzin@arm.com>, Mark
+ Rutland <mark.rutland@arm.com>, Mostafa Saleh <smostafa@google.com>, Lorenzo
+ Stoakes <ljs@kernel.org>, Oliver Upton <oupton@kernel.org>, Linus Walleij
+	<linusw@kernel.org>, Marc Zyngier <maz@kernel.org>
+References: <20260918161407.2300-1-will@kernel.org>
+ <20260918161407.2300-17-will@kernel.org>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <20260918161407.2300-17-will@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
 
 
-On 9/29/26 3:28 PM, Martin Kaiser wrote:
-> Thus wrote Shuai Xue (xueshuai@linux.alibaba.com):
+在 2026/9/19 0:14, Will Deacon 写道:
+> In preparation for using EL1t to handle exceptions taken whilst running
+> on the overflow stack, implement some simple wrappers around the EL1h
+> handlers which perform a best-effort stack overflow check before
+> proceeding.
 > 
->> Hi,
+> Cc: Mark Rutland <mark.rutland@arm.com>
+> Signed-off-by: Will Deacon <will@kernel.org>
+> ---
+>  arch/arm64/kernel/entry-common.c | 43 +++++++++++++++++++++++++++++---
+>  1 file changed, 39 insertions(+), 4 deletions(-)
 > 
->> This is v6 of the RISC-V reliable stack unwinding series for livepatch.
->> Wang Han has left our team, so I am taking over this series from now on.
-> 
->> The series adds explicit frame-record metadata, preserves the frame
->> pointer through dynamic ftrace, and replaces the open-coded stack walker
->> with a conservative frame-pointer based unwinder. It then enables the
->> RISC-V livepatch capability and adds the syscall-wrapper selftest prefix.
-> 
->> Changes since v5:
->> * Rebase onto the current riscv/for-next; no functional changes.
->> * Fold in the tags collected from the v5 thread:
->>    - Reviewed-by: Shuai Xue on 2/7, 3/7, 4/7 and 6/7
->>    - Acked-by: Miroslav Benes on 7/7
->> * Add my sign-off as the new sender.
-> 
->> Since the patches are otherwise identical to v5, the v5 validation
->> results still apply. For reference, from the v5 cover letter:
->> * Built Linux 7.2.0-rc6 with riscv64-unknown-linux-gnu-gcc 15.2.0
->>    and binutils 2.46.
->> * Standard livepatch configuration built successfully, including
->>    Image, vmlinux, modules, compile_commands.json and GDB scripts.
->> * CONFIG_IRQ_STACKS=n variant linked successfully with GCC.
->> * QEMU 8.2.2, 1 CPU: livepatch selftests PASS: 7, SKIP: 1,
->>    FAIL: 0; ftrace function graph 3 passed, 0 failed, 3 unsupported.
->> * QEMU 8.2.2, 4 CPUs: livepatch selftests PASS: 7, SKIP: 1,
->>    FAIL: 0; ftrace function graph 3 passed, 0 failed, 3 unsupported.
->> * No BUG, WARNING, Oops, panic, unreliable stack or Call Trace found
->>    by the validation log scans. Expected negative livepatch errors are
->>    part of the selftests.
-> 
->> v5 was posted in early August and has been quiet since then. I would
->> appreciate it if the series could be considered for the upcoming merge
->> window. Happy to address any remaining feedback.
-> 
->> Base:
->> riscv/for-next 77ae27fd98f3 ("Merge tag 'printk-for-7.3' of git://git.kernel.org/pub/scm/linux/kernel/git/printk/linux")
-> 
->> Previous versions:
->> v5: https://lore.kernel.org/r/20260804103626.2803112-1-wanghan@linux.alibaba.com
->> v4 RESEND: https://lore.kernel.org/r/20260629072713.3273743-1-wanghan@linux.alibaba.com
->> v3: https://lore.kernel.org/r/cover.194d76e3a15b.v3.riscv-livepatch.wanghan@linux.alibaba.com
->> v2: https://lore.kernel.org/r/20260528082310.1994388-1-wanghan@linux.alibaba.com
->> v1: https://lore.kernel.org/r/20260527123530.2593918-1-wanghan@linux.alibaba.com
-> 
->> Assisted-by: Qoder:Qwen-3.8-MAX-Preview
-> 
-> Thanks for these patches.
-> 
-> I tried them on a standard rv64 qemu and on a rv64 cheri system
-> (cheri-linux.org). The latter needed some minor tweaks, but in
-> both cases, I could get livepatch to work.
-> 
-> Reviewed-by: Martin Kaiser <martin@kaiser.cx>
-> Tested-by: Martin Kaiser <martin@kaiser.cx>
+> diff --git a/arch/arm64/kernel/entry-common.c b/arch/arm64/kernel/entry-common.c
+> index 72c03ccea59f..9738142780df 100644
+> --- a/arch/arm64/kernel/entry-common.c
+> +++ b/arch/arm64/kernel/entry-common.c
+> @@ -327,10 +327,45 @@ static void debug_exception_exit(struct pt_regs *regs)
+>  }
+>  NOKPROBE_SYMBOL(debug_exception_exit);
+>  
+> -UNHANDLED(el1t, 64, sync)
+> -UNHANDLED(el1t, 64, irq)
+> -UNHANDLED(el1t, 64, fiq)
+> -UNHANDLED(el1t, 64, error)
+> +static void noinstr el1t_64_check_overflow_stack(struct pt_regs *regs)
+> +{
+> +	unsigned long sp = kernel_stack_pointer(regs) - sizeof(*regs);
+> +	unsigned long ovf_stack = (unsigned long)this_cpu_ptr(overflow_stack);
+> +
+> +	/*
+> +	 * We're in big trouble if we've overflowed the overflow stack
+> +	 * so perform a best-effort check before we proceed. If our SP
+> +	 * is outside of the overflow stack for this CPU then presumably
+> +	 * we're already corrupting memory, so park ourselves here in an
+> +	 * attempt to contain the damage.
+> +	 */
+> +	if (sp < ovf_stack || sp > ovf_stack + OVERFLOW_STACK_SIZE)
+> +		cpu_park_loop();
 
+Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
 
-Hi Martin,
+> +}
+> +
+> +asmlinkage void noinstr el1t_64_sync_handler(struct pt_regs *regs)
+> +{
+> +	el1t_64_check_overflow_stack(regs);
+> +	el1h_64_sync_handler(regs);
+> +}
+> +
+> +asmlinkage void noinstr el1t_64_irq_handler(struct pt_regs *regs)
+> +{
+> +	el1t_64_check_overflow_stack(regs);
+> +	el1h_64_irq_handler(regs);
+> +}
+> +
+> +asmlinkage void noinstr el1t_64_fiq_handler(struct pt_regs *regs)
+> +{
+> +	el1t_64_check_overflow_stack(regs);
+> +	el1h_64_fiq_handler(regs);
+> +}
+> +
+> +asmlinkage void noinstr el1t_64_error_handler(struct pt_regs *regs)
+> +{
+> +	el1t_64_check_overflow_stack(regs);
+> +	el1h_64_error_handler(regs);
+> +}
+>  
+>  static void noinstr el1_abort(struct pt_regs *regs, unsigned long esr)
+>  {
 
-Thank you very much for testing the series and for the tags!
-
-It is great to hear that livepatch works both on a standard rv64 QEMU
-and on the rv64 CHERI system. Could you share what the minor tweaks
-for CHERI were? If any of them are generic -- for example frame-record
-size/alignment or pointer-width assumptions in the unwinder -- it may
-be worth folding them into this series, so the cheri-linux tree has
-less to carry downstream. If they are purely CHERI-specific, a pointer
-to your tree would still be a useful reference.
-
-+Palmer, Paul, gentle ping on this series.
-
-It has been under review since late May (v1 on May 27, now in its sixth
-revision) and the tags collected so far are:
-
-   * Acked-by: Miroslav Benes <mbenes@suse.cz>             (7/7, livepatch)
-   * Reviewed-by: Marcos Paulo de Souza <mpdesouza@suse.com> (7/7)
-   * Reviewed-by: Martin Kaiser <martin@kaiser.cx>         (whole series)
-   * Tested-by: Martin Kaiser <martin@kaiser.cx>           (whole series,
-     rv64 QEMU and rv64 CHERI, livepatch working on both)
-   * Reviewed-by: Shuai Xue <xueshuai@linux.alibaba.com>   (2/7, 3/7, 4/7, 6/7)
-
-v6 still applies cleanly onto the current riscv/for-next
-(52318cf0fa6e). If it helps, I can send a v7 that folds in Martin's
-Reviewed-by/Tested-by tags.
-
-Could the series be considered for the upcoming 7.4 merge window?
-
-Thanks,
-Shuai Xue
-
+-- 
+Best regards,
+Jinjie
 
