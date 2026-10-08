@@ -1,105 +1,76 @@
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A550246788
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 05:46:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1086299929
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 05:46:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791438374; cv=none; b=PCG3AmcA+q+vOQgyH5G+wCRQmf/TlstYX0AU65I1IWIY9i24u8Ik6V5amh63oJSLD+S3qqGLZHWs/Tsx3jyoVhYNcNsWOpujy1JVnnKq7x7nwP7ln/0yzx0tm1A7i20Taib6hec4u1yilBLjZoVlVot7mI1pinHaTKwE3oiOTGs=
+	t=1791438407; cv=none; b=hAM+jk9ygN52sjQmslIkmXsfGaLOEuWmOndoxxglON2GpooC2QnlVk4RIyM7Jcxstdi29tkDC6m1Q3L3bIokwg9gv8URxLOcH+viQJV3QUUWyiT/cR3p794v3UCVnJ2kefnCC0bnk8gsj3/qaGbF++Z1TAJBNE5gLBrYb0y6nh4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791438374; c=relaxed/simple;
-	bh=FGrRbKRt0eoQO99iU3Dc5Z5iqzdFbEcsKVVA8IuQ5+A=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=SmNrrjdPTtlY9BXhkVGoHNBK+9TNCv5ZyoNN3lJUm6Q7uUTSDOEFdlYHoUCVghi4Ed+Lx9xluyB8vEPZmIHOQrc0NuwPvo5w+7YXL7jE2gq6BZyjDPXt1ctHSP9fxKS3MkLI6I7I8p8by8ogAf+XKBEZlPd0eDsen2GZsrCenGw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CqyGuhiS; arc=none smtp.client-ip=74.125.82.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791438407; c=relaxed/simple;
+	bh=Y2qAsGLpYTjiJnvNAXmsNNCQ9/gXHBk9YyAa8JpoLSo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Kab5Ftv2Lc5aQx0CVquAUrISselQh1RtQ1gJgYfdJK6yI4PV5Fw8RlP/BtEuK1UAoJ80bFClB703BCGCkg6TlouANzhcREb4X6ycwZBnq7zSfo0ZkJygKd7F5Ws6oZ78sPI9bnavOcOZ0zyI18OhWtI+qEnJB2m4HbycCMjorB4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=xiaomi.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=Jf3EmRSf; arc=none smtp.client-ip=220.197.31.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=xiaomi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CqyGuhiS"
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-3282db206d3so326348eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 22:46:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791438372; x=1792043172; darn=vger.kernel.org;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EMfPzgt3xAK5X+A2OuqXJNVUyenGzQ87xP08w+wp1aE=;
-        b=CqyGuhiS+WZyaXufWnG6UIjgiKavyepD3X8RdrQjyTwfdlpnjij8bouJv6QDpKBw+b
-         EvqECGk6KwTgZXbcin/3zptvEYZS0uoHpXa1kE0sDhoQytivie+zpKgz9c/g6BDsfrA4
-         CnfmSH9afECWz0LEDO+9nqf5EZ9qkpzR/72l/l0ikzgJIemnWr0l7LRV6+h+Cbuf9kJw
-         RT5m/jhK9KW3f8ZrQrgEMfB/m8PbjEaFPH0/6poFEPjUsYH0hJfDaT70x9PvJA/LGJl0
-         fJgyYgeuVvuDWvKdRMSyuv8tzW969hAv2tYIBbmzIe4AdJ6d+GaxFHNipF4Gdat8pJM9
-         6g4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791438372; x=1792043172;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EMfPzgt3xAK5X+A2OuqXJNVUyenGzQ87xP08w+wp1aE=;
-        b=p5tis4juiOm0sZY+AmhYmm1bV/FsJY0fUNozba3p2oCtJqI2palECaYIdHELd7SjDI
-         /jAya5px/YpH14hgMcMLHBgMTnItyPgbrX9W5pH8Ma2ZM7RGMiWJ8ywf8XqqwZm3xjoc
-         XCSGSmwGD5afC6KdPfe/W80Hal++hoJSBv5szCUB+INwXJ0AYC2LqhetL7E6Q05ptsVN
-         LodkeFnOfbl06X6IV4ddni07JKFZm0gGvZ6fLDY8peVppmfH3U5QgU/WZ8H91NtZmMek
-         hVRwFCLkT6Bun5LCaMniROG06FHY5rZm53NTgHbnoIZJjmYKACtD3Vp8GuVkUvtKi67g
-         JTFA==
-X-Gm-Message-State: AFuF++mA2uBbUqds04O8QqyZBlFWrRN5tmbJxTdqoCI1GpFxx25PiGpC
-	GW9/cfYXxXA9o81xWIuB7JWmS63b7kKjaKK6JxT1Cz5yebgnqaajV9qk
-X-Gm-Gg: AYBFou20gXxP6fT9M2Vxc5jox8P7AiF4SQ/laEF9OZZfRyUqo94t+acBugKtZsxzqs1
-	YulEKe1ArTlQbLJSZPyoftz0f7Zgd2ycCXGvsGF7/pRkRb0YksYbhmVr23t6yW4bFQI5EX3qOLM
-	xh+DL0j9aJiI3/Dk3ZGy6gQMg84TMgoFsazxZpdTNRs8olFNC4eVCL1hVPhFf1YIFRQ/5RKTYsv
-	0hT6zW1jTaHUI97N0ARqS1gfP7tz4bUASqba/DuReiZlNQ38lPGfpldf0IF1G1nUg9D926yT4m7
-	UCpAEaEuyKcFaIct9o2DAcj9ckkEu1YEqaSMgLqz8BnJmazBJ1O4UBjQ8AWWr7arUPEeeVp/2qR
-	qMbSR5mDkt3uw1LJC+a4NksS9cUNJgcm/m5VJF55VxLJjVuigz9cVoujCh6uJUeMXg0k2UqShHu
-	L7jkiw2eGtRGp5QcvZ+VNe/2tRI0HoVfqjRyJcZdxz4wWc7NQd2c0oze1fPgQHR9jVIG3CYxRfy
-	9ua5gg0AOgKW4N8FQFq86fALrgNZuR2uyt+oo5mI5Mnu0kXGPw=
-X-Received: by 2002:a05:7300:d185:b0:351:4bff:6d6b with SMTP id 5a478bee46e88-3515dde3a20mr5014522eec.16.1791438372329;
-        Wed, 07 Oct 2026 22:46:12 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:3002:e11e:c053:ebcb])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3515aeb5c2esm12095989eec.10.2026.10.07.22.46.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 22:46:11 -0700 (PDT)
-Date: Wed, 7 Oct 2026 22:46:09 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: linux-input@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH] Input: gpio_keys - drop redundant input->dev.parent
- assignment
-Message-ID: <ascuEtUKzVdo68uO@google.com>
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="Jf3EmRSf"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=CA
+	RflcBGpvRN9r7V0tWqypeX79CxYIU+874ZDeCSN/0=; b=Jf3EmRSfIltCfdFpQL
+	j1M/RuLOlIuVPmipLei5NpwfAqq2v9yscMNET26fb0pn6SHTybIvEcx1X0TF57VJ
+	A/63GUquJXR7eJjBnhzckLCTS6GJfK3+ldCCMTZnQrthPlpThQEx7pYV8XTwjC4o
+	kSiGWz5x50uQ5JSsz3PTaqIuc=
+Received: from nzzhao-ThinkCentre-M760t.mioffice.cn (unknown [])
+	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD336sXK8dqurzWAg--.64007S2;
+	Thu, 08 Oct 2026 13:33:12 +0800 (CST)
+From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+To: Daeho Jeong <daeho43@gmail.com>
+Cc: Chao Yu <chao@kernel.org>,
+	Barry Song <baohua@kernel.org>,
+	Nanzhe Zhao <nzzhao@126.com>,
+	Juan Yescas <jyescas@google.com>,
+	Dev Jain <Dev.Jain@arm.com>,
+	linux-kernel@vger.kernel.org,
+	David Hildenbrand <David.Hildenbrand@arm.com>,
+	linux-f2fs-devel@lists.sourceforge.net,
+	Bo Zhang <zhangbo56@xiaomi.com>,
+	Kalesh Singh <kaleshsingh@google.com>,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
+	Pengfei Li <lipengfei28@xiaomi.com>,
+	Ryan Roberts <Ryan.Roberts@arm.com>
+Subject: Re: [PATCH v2 03/14] f2fs: support regular file buffered writes on large folios
+Date: Thu,  8 Oct 2026 13:33:11 +0800
+Message-ID: <20261008053311.712223-1-zhaonanzhe@xiaomi.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <CACOAw_zwgUPLkU5BJGE3p2fXecEncPYwRAq0hOB71oks0JUpPQ@mail.gmail.com>
+References: <20260915041909.2903887-1-zhaonanzhe@xiaomi.com> <20260915041909.2903887-4-zhaonanzhe@xiaomi.com> <CACOAw_zwgUPLkU5BJGE3p2fXecEncPYwRAq0hOB71oks0JUpPQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD336sXK8dqurzWAg--.64007S2
+X-Coremail-Antispam: 1Uf129KBjDUn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73
+	VFW2AGmfu7bjvjm3AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvj4REWlvDUUUU
+Sender: nzzhao@126.com
+X-CM-SenderInfo: xq22xtbr6rjloofrz/xtbBsRldLWrHKxm8tAAA3P
 
-devm_input_allocate_device() already initializes input->dev.parent to
-the supplied parent device, so the explicit assignment in
-gpio_keys_probe() is redundant. Remove it.
+Hi Daeho,
 
-Reported-by: sashiko-bot@kernel.org
-Assisted-by: LLM
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
----
- drivers/input/keyboard/gpio_keys.c | 1 -
- 1 file changed, 1 deletion(-)
+Thanks for the change.  I would like to integrate it into v3, folding it
+into the "f2fs: support regular file buffered writes on large folios"
+commit.
 
-diff --git a/drivers/input/keyboard/gpio_keys.c b/drivers/input/keyboard/gpio_keys.c
-index e19617485679..defe4074a60e 100644
---- a/drivers/input/keyboard/gpio_keys.c
-+++ b/drivers/input/keyboard/gpio_keys.c
-@@ -885,7 +885,6 @@ static int gpio_keys_probe(struct platform_device *pdev)
- 
- 	input->name = pdata->name ? : pdev->name;
- 	input->phys = "gpio-keys/input0";
--	input->dev.parent = dev;
- 	input->open = gpio_keys_open;
- 	input->close = gpio_keys_close;
- 
--- 
-2.56.0.385.gd3acb90ef8-goog
+My patch adjusts the signature of 'prepare_atomic_write_begin()': for large
+folio compatibility, the 'unsigned int len' parameter is replaced by 'pgoff_t index',
+so that the helper can be called in a loop from 'prepare_large_folio_atomic_write_begin()'. 
+I found that len was a dead parameter in the original 'prepare_atomic_write_begin()', 
+so in v3 I will not pass blen to 'prepare_atomic_write_begin()'.
 
+Thanks,
+Nanzhe
 
--- 
-Dmitry
