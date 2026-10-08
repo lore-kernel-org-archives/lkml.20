@@ -1,69 +1,69 @@
-Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
+Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C625C43F0BB
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 21:03:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2DD144063B
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 21:03:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791493416; cv=none; b=amQoPEBFh3Vv2eb5wg4IAx6YzOWVdIrub0ejZyczoGHmNpY+i9DyYMQ7z9Ikgtf3HZZdf3CxP/ZpKgsHDrjhEDMz6mxzgj9uGzS82G4ROBaGQc5iR0tF+fYXxbssisccpRNh3EC8EWnQl5a6RE21pkNErEAQWtyw1DzZsHDwO6M=
+	t=1791493417; cv=none; b=Cp/gl/bTYl8B1NmKVPxb7NmMG9I8DuaqPDB7nIlKN9/GHm2kk0+7A82omul9+bDSE70Pi9u/O3LO3idnsj7RILu4kbgWCnu/diG/34+5zI+Q0Hnb/8dEyfGspWZoY3F14GejccJRm76qs5nmaM3/BZZal/747kqJUhq6kxdCDoI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791493416; c=relaxed/simple;
-	bh=3f5WzTjnDsDOAnT0hR8gZXIWFT9KoT8c/AVMjDx6NOM=;
+	s=arc-20240116; t=1791493417; c=relaxed/simple;
+	bh=zznhnNGgkEt9ZSSy2T9PlgogR6INn8I/GpUQzjq8ahE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Ikfd3CM6716DBUzDDlUhegJ5kr0zfnhd8HE4sfGsVevT4EpxTikY4pxreT/h/Wb5eCmgPmkhfI9+E2f9tihY9OZi064QGxqrI+VNMz98UOjHlecdQZHpY1iBC0vvZ8gkCWdTrm09BYAYCsCoklTIvFsmoY/izAADuSeEc9YJRww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=q7pzm3nr; arc=none smtp.client-ip=209.85.160.175
+	 In-Reply-To:To:Cc; b=F0v1SeZUKMuk3TJqfkKn0GzCJP6qPyDoVcX6LOLd8rlXlSmaT/FFRuEGZScgMxWDD/BX4i6DGDKngfc0P9dKkDfgia1PjnfBY7+f8YPabHRn0OWkAcsS3gw03TwHEKG2mZh3WSKfbzdm7wDEWz8YUNAM5YdljTDJ224rRXggB/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=bDiXTmrm; arc=none smtp.client-ip=209.85.222.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="q7pzm3nr"
-Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-53381e53b80so38886541cf.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 14:03:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="bDiXTmrm"
+Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-93e762768f3so345180585a.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 14:03:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1791493410; x=1792098210; darn=vger.kernel.org;
+        d=toxicpanda.com; s=google; t=1791493409; x=1792098209; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=blrnvRK83a0BrC00ZsKjSLnGbEsSK17m6K1yrBXm/SE=;
-        b=q7pzm3nrFDtplCyFUQ2gMv1Uz59Vk3Up1x+wsTJP5aAGDqd4kqjwAGU2qebIPCtwEN
-         PBRgOvLMPWJFn4NOV4DMZU3RWVV5R2hK/JKmk4ym6BrIZzZwpysiExnW3DiPDpnbzLzh
-         7soCgzjgGz2WRekTxJNydvIyyes3/wBZID4pF0MZEMVVFJfX2ELHel8PVUUYDUCrfDOj
-         jAWOabz9qAx/QGzQ1yXwMSI/GzjlFAtyDihsj/Yd21lkB688nZqzCe9Fp1PC+kxLHch2
-         nif2IB7em0In6/IjmmOwd5Y7lMK5ZDUCW3oLVViyqKtW3AqsB3YhgZhotV0Y46e8SUhn
-         8vLA==
+        bh=J9GuqCKMi/hN2ncI5Ot6sRINUqKwZdItx3f86TmeMcg=;
+        b=bDiXTmrmwBfykzMR22ynZChL38KvPNioLsJn/yciYP2StI3Rb10Fa1AETdsyF79vdT
+         kJpTH7nkZ7zeCczCoIvZSQVKXznUi/yqDlR1Qgi9TQhv2d2yKPh9kjRDG7ZnJpxnFlI4
+         4xQpoRUMzuqkqwRTZcZ+e9KwfsdMkrZp6tooL+4rD0K8S9+96fweDZLEf/vlWgsTPrC7
+         /ZRTJrEVzPlKdS3MHytKydjt6DIizv9IeKXUhKdlDt0yshQ+Gf9eFv9M2bmyZYMcsnVl
+         DJYBPLVf4YDLtwQ6jWuMec+JpQAqhpRpAmNrGcqYw5BmBJxJ7lu45upg34gMJHUMl9gQ
+         aYew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791493410; x=1792098210;
+        d=1e100.net; s=20260707; t=1791493409; x=1792098209;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=blrnvRK83a0BrC00ZsKjSLnGbEsSK17m6K1yrBXm/SE=;
-        b=UCOLATiPiCzCanCIV7TNykgYX8XcSxGE4ENF1lESf9XdAidPbVwYOSVlb0dNUEM/vL
-         B+MSK2pg6tLzre+J+pMaLchv34fTLT5JwOF9BJ9MlmFzAKkOujdM8+xFiH7cYHkspkPw
-         kNjr3l+JeUoQd35jBLUdbW49Ws1edRIFz9cHXSK5l8tRe+RTfSiBGAZSlPULZwXaLJQY
-         6FXD4TwKlOlrB1AJg0b5ml+/H49O4aFGCyhIPJaRznRu6VwLdefihJQyvE1+s7tqIUV9
-         XeC7GURm6mnzqLbSreYXLMDuKeblzSyJq9+AJd2/cob3hpC9wGN2E1wa8Ho7uolQVohq
-         Ji5g==
-X-Forwarded-Encrypted: i=1; AKwUvBzRLHWdXUYZ9G/hfAtSRH3n5r/S5o2NXc2318fFrfK06jk0/Y/VY1e9KlubU+syEyUMWSsJjgvh6qz4gQM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nusiZxTpZYGcb5n2sqd8tymsL7QjHnwHBmtezpX00Oa6O+7Qq5
-	sjb5+kzsfB5WT9nibQsLRheZ3X91EFraTHYhoNap/HCHA65qxeC0SybLAZTZQ6hRD+o=
-X-Gm-Gg: AYBFou0izvpPpnzdJX+1B26ZHZEDwEmHV8Yde9IxTlFfz4+WX0OG5FoEWZhtTg9fPFv
-	EnhgrrFR0231Xf9FJTqAXkQFQaY8FUCfQ1L+UmnZh5feN+U69wik/bXvSfGFwq0mfCGX7423hBk
-	owdmDVDPUDfMSEdPYrZPZX3dPLIOKKOuVys0Aex+yCLpPb7vzibfdBh1q+nsgWJ7gdO8oJCH7Ti
-	YeCc6Na3lcWvt7OYwTt9rqjHOCn0MjHmOeRapEiVyt1R4UQUGEykvaSSro3THKdRib3PF2jIPpv
-	9NFG064kQI7G/kg4ctAAc8/avrsJqvJPytXJruG5kJVSaQvQvvKBBmYRmVMza28dgA+oXVl6q4/
-	JgUKhleEdvGt23wweECCv5pAt3pSwN4mBsIiLQaP5n3WMncwFA8ePTRjeAqFgZGpc1E4Y/kq1HG
-	U2z9IoaGEoQkVDkxXuUo9CDdo34x58tnTvPR5sCY1tPncVMnqFxH8vggm5ZPz32OkiPF8oDxWxG
-	FJ74NVGFcatKZE=
-X-Received: by 2002:a05:620a:1d03:b0:93e:9809:dbff with SMTP id af79cd13be357-93e9b8ecbf4mr1178890585a.82.1791493410404;
-        Thu, 08 Oct 2026 14:03:30 -0700 (PDT)
-Received: from toxicpanda.com ([153.61.196.247])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb99074f7sm22172785a.46.2026.10.08.14.03.29
+        bh=J9GuqCKMi/hN2ncI5Ot6sRINUqKwZdItx3f86TmeMcg=;
+        b=xwjC/0EP7vZowN9+IOi4hmwR8OWvhYG0mL3miiCwTNJk7oRzkrSUSbznCI4LRPK/3+
+         veNNXmqY1gkIhDL3R9jqB8MvGRfHtcJBnPzkNUJDNWgjiMxfIa/rfIB4/HjaCiCkRdvb
+         bNFVf7DS7goHL+rVei9iS9UKF1A8/NEhoCVP94NMTuoWZh4rgUUEQYDJuYnMOolDMlMj
+         4a6HxXwoEBpQFjjorc/S7pzcwT9cr8SHVXs7svyI+TMVoU0p1LZkUGSBhLhDX0tIkdYM
+         FtI20GNJ3OILoKpSww67db1iCif8eUUQfN/EYNvwsI8GiMwdphfh0rSm8zup/Q1gpLuH
+         GF0w==
+X-Forwarded-Encrypted: i=1; AKwUvBwLjEgbdGOzqMB1pCSL57ZDQFOSFq6A8uMxmmvl6LKPx7Dk7bZOkjmXSs4/L2yA/kATfxWqWOuV26yvF2I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKdM4xGQtj7yBHnFCthOedDVJBqP0DyuprRSKBCPVt+OX+UdGni
+	yrzE0fzH3CosyfKE8aOTSqnIHjnygrRkgYzdWMJ69NrHkT6YAxHpFY4oiyooRiyhhBg=
+X-Gm-Gg: AYBFou3WTnrRzXVEYqrnWdu9Xqu1c9uC2GF1afGoLn3p+iIkDJ0mUvvV20h3kEMikSf
+	07sl3E9t0VskwNFeNR9F5SD7lrqcE8X9ESZTtPgWdDfnSpwtlzr35c7AuyOhUSyFoe450AOMCUV
+	dPkQhsea2XzU1UH28HHdnjsJaJOa+topTkktRZFpHInawakfUZvZA1C45J/xrdgWGUByR/IJ/QP
+	yTHuqF/D+KgKQlY7xSV3hByMY+mXL+ZOix07FfOsRze35cpz5iAQNMW1qi6RCh8imPPPvIwvswT
+	8R6ilRlDybXdt5JGrvZx9ilf5VLMhCaNmswiIkqksMBJyrV37vPqdX+QVRD4FXoAm2PFxD5gpwb
+	U2weRaZa6HB23LnIf5alBcRB1idCJW+W/djFhEm9i7EVWVdLFhsng+KeoTRAWtUedaSoZZ3DrYG
+	9nP7XkmpjkaJ1cFo/EFEvWzTsqn+FNwHKL62oIo47w+9FQdHkjqbc1WLC5Ikv7WSVkZm6fR1waD
+	4I3SwFNkHb6PPw=
+X-Received: by 2002:a05:620a:29c7:b0:93a:2a59:3377 with SMTP id af79cd13be357-93e9b799671mr1358007485a.41.1791493405607;
+        Thu, 08 Oct 2026 14:03:25 -0700 (PDT)
+Received: from toxicpanda.com ([153.61.196.246])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb98c818esm23024485a.36.2026.10.08.14.03.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 14:03:29 -0700 (PDT)
+        Thu, 08 Oct 2026 14:03:25 -0700 (PDT)
 From: Josef Bacik <josef@toxicpanda.com>
-Date: Thu, 08 Oct 2026 21:02:51 +0000
-Subject: [PATCH net-next v2 04/10] net: niu: check for failure when pulling
- in the RX header
+Date: Thu, 08 Oct 2026 21:02:50 +0000
+Subject: [PATCH net-next v2 03/10] net/mlx5e: check for failure when
+ pulling the Ethernet header after XDP
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,7 +72,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261008-b4-pskb-pull-tail-drivers-v2-4-8f2bd9bee138@toxicpanda.com>
+Message-Id: <20261008-b4-pskb-pull-tail-drivers-v2-3-8f2bd9bee138@toxicpanda.com>
 References: <20261008-b4-pskb-pull-tail-drivers-v2-0-8f2bd9bee138@toxicpanda.com>
 In-Reply-To: <20261008-b4-pskb-pull-tail-drivers-v2-0-8f2bd9bee138@toxicpanda.com>
 To: Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
@@ -92,48 +92,52 @@ Cc: Saeed Mahameed <saeedm@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>,
  xen-devel@lists.xenproject.org, intel-wired-lan@lists.osuosl.org, 
  Josef Bacik <josef@toxicpanda.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1791493385; l=1236;
+X-Developer-Signature: v=1; a=openssh-sha256; t=1791493384; l=1491;
  i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=3f5WzTjnDsDOAnT0hR8gZXIWFT9KoT8c/AVMjDx6NOM=;
+ bh=zznhnNGgkEt9ZSSy2T9PlgogR6INn8I/GpUQzjq8ahE=;
  b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
  JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QHTAZLO2IxS2OmXjiwrMC0xtj/kaDkW3OSxxKLc7dWB8wtA0dY5E/Ye18IDZRljWIONenVbHWP+
- B0r4Rpj6pmA0=
+ QFaj9m1MCb6yydGhkDduTFS5Q4Ekj/GXk/66W/KuEGtH8miGll+pKUls7h6lvdP0A6+k8X0JuWF
+ J9s3G82EktQ0=
 X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
  fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-niu_process_rx_pkt() uses __pskb_pull_tail() to pull the hardware RX
-header and the Ethernet header into the skb head, and ignores the
-return value.  If that pull failed, the skb_pull() of the RX header
-right after it would BUG() in __skb_pull().
+When an XDP program leaves less than ETH_HLEN in the linear part of a
+multi-buffer packet, mlx5e_skb_from_cqe_mpwrq_nonlinear() pulls the rest
+of the Ethernet header in from the frags with __pskb_pull_tail() and
+ignores the return value.  If that pull fails, eth_type_trans() later
+finds less than ETH_HLEN in the head and BUG()s in __skb_pull().
 
-It doesn't fail today because the skb is freshly allocated, isn't
-shared and has room in the head.  Use pskb_may_pull() anyway and drop
-the packet if it fails, rather than depending on that.
+Use pskb_may_pull() instead and drop the packet if it fails.  Pulling
+min(ETH_HLEN, skb->len) keeps today's behaviour for a frame shorter
+than an Ethernet header.
 
 Assisted-by: LLM
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 ---
- drivers/net/ethernet/sun/niu.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/net/ethernet/mellanox/mlx5/core/en_rx.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/net/ethernet/sun/niu.c b/drivers/net/ethernet/sun/niu.c
-index c74a97fe5464..d1c0e868004d 100644
---- a/drivers/net/ethernet/sun/niu.c
-+++ b/drivers/net/ethernet/sun/niu.c
-@@ -3488,7 +3488,11 @@ static int niu_process_rx_pkt(struct napi_struct *napi, struct niu *np,
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c b/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c
+index e3f915beebe1..b1e1e30a77e2 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c
+@@ -2060,9 +2060,12 @@ mlx5e_skb_from_cqe_mpwrq_nonlinear(struct mlx5e_rq *rq, struct mlx5e_mpw_info *w
+ 				pagep->frags++;
+ 			while (++pagep < frag_page);
  
- 	len += sizeof(*rh);
- 	len = min_t(int, len, sizeof(*rh) + VLAN_ETH_HLEN);
--	__pskb_pull_tail(skb, len);
-+	if (unlikely(!pskb_may_pull(skb, len))) {
-+		rp->rx_dropped++;
-+		kfree_skb(skb);
-+		return num_rcr;
-+	}
- 
- 	rh = (struct rx_pkt_hdr1 *) skb->data;
- 	if (np->dev->features & NETIF_F_RXHASH)
+-			if (len < ETH_HLEN)
+-				__pskb_pull_tail(skb, min(ETH_HLEN - len,
+-							  skb->data_len));
++			if (len < ETH_HLEN &&
++			    !pskb_may_pull(skb, min(ETH_HLEN, skb->len))) {
++				rq->stats->buff_alloc_err++;
++				dev_kfree_skb_any(skb);
++				return NULL;
++			}
+ 		}
+ 	} else {
+ 		if (xdp_buff_has_frags(&mxbuf->xdp)) {
 
 -- 
 2.55.0
