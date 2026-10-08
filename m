@@ -1,154 +1,81 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A8AF1A76BB;
-	Thu,  8 Oct 2026 01:20:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D61AF267B89;
+	Thu,  8 Oct 2026 01:20:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791422449; cv=none; b=ZHsWppnvVXKs3OA4C6rjAi3cl8jz1ukbRh8Yx5TAljt21O1OBUmrw8NZ+WP/uCKY/g8nZRZceMmfY+FqCTgZS//kNANGd2Ee7WItvul3YTBcwDuQgtuoYSgf9UoU4oTyJovgORp0gnrtwCfBacvbpBzFbvo3hpyRCbxxAbqzjgs=
+	t=1791422458; cv=none; b=MT0Sb493UpvPZFmjbO4Kh9hir5w/pYWmW0/mEbdu0npyGrS7dQE23FJw35U8GuWF9sP8SlxwrHC+Xb2smNjXyT2LSLnI1+IZNe6MuJYMWvnr8mXGXxlT1k9f49tYS6M05ujKllUrRgy70xmr84Rh8huJ9Rtf85pgES9He9pjyxQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791422449; c=relaxed/simple;
-	bh=CLPOfl3bbRiD5l6fcc46ga7VhcI0uwZ5ljr5joJHmSQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=AQvO5soTY/s44Jw4KF0EU9hhonjKErnSjDuZu4XndurgvlSBVl6peG7GNgvPcLMcvmUcsC33zbPq2VEdQ8sOFdNgXLWd75qKTCeqfrq675VnWTUKV4xDIeG0j/I3t1xQ4PdxY1xGSaUett3WUtRW3knHJvrbH96ELl1q0DefNHw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m0doytP4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791422458; c=relaxed/simple;
+	bh=wNhtmn5EHeXHlObtiKn/AYvinr1jhCsyDirYtKxwomw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nRdmAH1alojzxXaGR9gCVG1rUlb+zbc4lnBvk5/2HqoxiZuWdXhfYEXnXh9mNQwsBJapgqdZNIAYHiUmZxRJxAhPGbVCZI1J1P6Lzql2mYhyluuAxV3GDxGcWbZSmlnaSRp2cwsF95Ih4BunmQ039/EZgbfYEn+c+fWi+J3hD9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QhrgqbF3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m0doytP4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A6961F000FF;
-	Thu,  8 Oct 2026 01:20:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QhrgqbF3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51AB11F000FF;
+	Thu,  8 Oct 2026 01:20:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791422446;
-	bh=SRa88cNDS8cS4jU92wvDH+YDXSST8V7u1mZXBFhdDVk=;
+	s=k20260515; t=1791422457;
+	bh=tjPXzymjP5J3iqnt/GHyQd3zZwGn5PrlI4qHS7CAReU=;
 	h=From:To:Cc:Subject:Date;
-	b=m0doytP40LLZ4FriMFqm1HtdO0LZMo+7+bougZMLabiZyfioaLVMGzcDBgKp/wsHi
-	 nJya4to7vF6IUI+ZEuKyDK2VUfdp7oGG1e81PtCEoFNATLGdhtHzrYiGuVSH9dfndy
-	 Ptf0S1OtFQr5zrgVjf0rECIFzLXHoqXE/As4gJXXnKe8ZQUE26rQWivNNjEJoFgx+g
-	 Hjf1JCC0dP9m+3SMvCm2XUoqmjY/dzT9q9ySWxyR2xCu1VvOUVi6+/K8y6OgVoRLpN
-	 sRmONQUjn7Q8ex+38j7fb4RyKW3FJrmwgGwCbDTZYYNaDmzsPVET4Z9WXitb0zgaXh
-	 X+8NUW8ExfY2g==
-From: Yixun Lan <dlan@kernel.org>
-To: soc@kernel.org
-Cc: Yixun Lan <dlan@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	spacemit@lists.linux.dev,
-	linux-riscv@lists.infradead.org,
+	b=QhrgqbF3HXmfF+KjT/8v4Q3LiYBAV2MYDJpRZAR4a4gdiTYqbhKZiuwC2URrlrYge
+	 XB3psfwNcqzIsw4iR5i6QCTvgOAmgsqNCuGncW4CVHzcw7RHWThIJqxVUAVpxGu+5l
+	 qvgyF17ZkLLbriDEu3gfxK+E7fDodgOfNiSFrW4+0pbnGlg762cGB1IpRapTBba6v5
+	 +8q3+bedJ29/YhNjDkNSdu32hBGwTLPLL5Fnr4H6hSWkKneB/bSoPty6/szH+uNTHq
+	 qi+w15zNWixKjQ+XrjrlIuY4BRJDZMX05ZY9HnKAKBw/KI1+KpH25F5pzsf+3+Jwhz
+	 VzZxGiYGnkKAg==
+From: Jisheng Zhang <jszhang@kernel.org>
+To: Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-spi@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [GIT PULL] RISC-V SpacemiT Devicetrees for v7.4
-Date: Thu,  8 Oct 2026 01:20:40 +0000
-Message-ID: <20261008011902-KYC9093695@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	linux-kernel@vger.kernel.org,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v3] spi: dt-bindings: snps,dw-apb-ssi: Add Synaptics sl2610 spi
+Date: Thu,  8 Oct 2026 09:00:58 +0800
+Message-ID: <20261008010058.28382-1-jszhang@kernel.org>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-Hi SoC Maintainers,
+Add the compatible for the Synaptics SL2610 SoC SPI controllers, which
+are compatible with the Synopsys DesignWare APB SSI.
 
-   Please pull SpacemiT's DeviceTree changes for v7.4
+Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+---
 
-Yixun Lan
+since v2:
+ - rebase on the latest spi for-next
+ - collect Acked-by tag
 
-The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+since v1:
+ - use sl2610 instead of sl261x
+ - send as a separate patch
 
-  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+ Documentation/devicetree/bindings/spi/snps,dw-apb-ssi.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-are available in the Git repository at:
+diff --git a/Documentation/devicetree/bindings/spi/snps,dw-apb-ssi.yaml b/Documentation/devicetree/bindings/spi/snps,dw-apb-ssi.yaml
+index e8d6d5d858b6..41ec69f5dceb 100644
+--- a/Documentation/devicetree/bindings/spi/snps,dw-apb-ssi.yaml
++++ b/Documentation/devicetree/bindings/spi/snps,dw-apb-ssi.yaml
+@@ -77,6 +77,7 @@ properties:
+               - mscc,ocelot-spi
+               - mscc,jaguar2-spi
+               - sophgo,sg2042-spi
++              - syna,sl2610-spi
+               - thead,th1520-spi
+               - ultrarisc,dp1000-spi
+           - const: snps,dw-apb-ssi
+-- 
+2.53.0
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/spacemit/linux.git/ tags/spacemit-dt-for-7.4-1
-
-for you to fetch changes up to d5eefaf546eb83f98206137a5784b6b8510e4fe5:
-
-  Merge branch 'spacemit-misc-for-next' into spacemit-for-next (2026-10-06 11:51:34 +0000)
-
-----------------------------------------------------------------
-RISC-V SpacemiT DT changes for 7.4
-
-For K3 SoC
-- Correct CLINT and ACLINT
-- Add USB nodes info
-- Add cpu scaling
-- Add rfkill node
-- Add i2s info
-- Fix IMSIC
-- Enable thermal and fan control (CTF230)
-
-For K1 SoC
-- Set mac address from eeprom
-- Enable onboard eeprom
-
-MISC Changes:
-- MAINTAINERS updates
-
-----------------------------------------------------------------
-Andre Heider (1):
-      riscv: dts: spacemit: k1-musepi-pro: add cpu scaling
-
-Aurelien Jarno (4):
-      riscv: dts: spacemit: k3: move USB3 phy to board level
-      riscv: dts: spacemit: k3: add USB3 B and C controllers for Pico-ITX board
-      riscv: dts: spacemit: k3: add rfkill node for Bluetooth on Pico-ITX board
-      riscv: dts: spacemit: k3: add rfkill node for WLAN on the K3 Pico-ITX board
-
-Chukun Pan (3):
-      riscv: dts: spacemit: sort nodes on OrangePi RV2
-      riscv: dts: spacemit: enable onboard eeprom for OrangePi
-      riscv: dts: spacemit: set ETH MAC from eeprom for OrangePi
-
-GUO Ren (XuanTie) (1):
-      riscv: dts: spacemit: k3: fix IMSIC num-guest-ids
-
-Guodong Xu (1):
-      MAINTAINERS: add entry for SpacemiT reset controller driver
-
-James Morris (1):
-      riscv: dts: spacemit: k3-com260: keep dldo4 enabled
-
-Jennifer Berringer (3):
-      riscv: dts: spacemit: set console baud rate on OrangePi RV2
-      riscv: dts: spacemit: k3-com260-ifx: Add USB nodes
-      riscv: dts: spacemit: k3-com260-ifx: Add rfkill nodes
-
-Jonatan Hazell (1):
-      riscv: dts: spacemit: orangepi-r2s: Add cpu scaling for K1 SoC
-
-Junhui Liu (7):
-      riscv: dts: spacemit: k3: Drop guest properties from M-level IMSIC
-      dt-bindings: timer: thead,c900-aclint-mtimer: Add SpacemiT K3
-      dt-bindings: interrupt-controller: thead,c900-aclint-mswi: Add SpacemiT K3
-      dt-bindings: interrupt-controller: thead,c900-aclint-sswi: Add SpacemiT K3
-      dt-bindings: timer: sifive,clint: Remove spacemit,k3-clint
-      irqchip/aclint-sswi: Add support for SpacemiT K3
-      riscv: dts: spacemit: k3: Replace incorrect CLINT node with ACLINT nodes
-
-Troy Mitchell (4):
-      MAINTAINERS: Add Troy Mitchell as a SpacemiT SoC reviewer
-      riscv: dts: spacemit: Add K3 I2C6 pinctrl state
-      riscv: dts: spacemit: Add CTF2301 on K3 CoM260
-      riscv: dts: spacemit: k3: add i2s0-i2s5 nodes
-
-Vincent Legoll (1):
-      riscv: dts: spacemit: orangepi-rv2: Add cpu scaling for K1 SoC
-
-Yixun Lan (1):
-      Merge branch 'spacemit-misc-for-next' into spacemit-for-next
-
- .../thead,c900-aclint-mswi.yaml                    |   1 +
- .../thead,c900-aclint-sswi.yaml                    |   5 +-
- .../devicetree/bindings/timer/sifive,clint.yaml    |   1 -
- .../bindings/timer/thead,c900-aclint-mtimer.yaml   |   1 +
- MAINTAINERS                                        |   9 +
- arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts     |  35 +++-
- arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts   |  69 ++++++-
- arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts   | 132 +++++++++---
- arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts     |  77 +++++++
- arch/riscv/boot/dts/spacemit/k3-com260.dtsi        |  18 ++
- arch/riscv/boot/dts/spacemit/k3-pico-itx.dts       |  38 ++++
- arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi       |  11 +
- arch/riscv/boot/dts/spacemit/k3.dtsi               | 229 +++++++++++++++++++--
- drivers/irqchip/irq-aclint-sswi.c                  |   1 +
- 14 files changed, 571 insertions(+), 56 deletions(-)
