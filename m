@@ -1,159 +1,149 @@
-Received: from mail-pj2-f2.google.com (mail-pj2-f2.google.com [74.125.227.130])
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABCBC187346
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 05:17:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.130
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791436642; cv=pass; b=X+VSecaHUCO8YRxQNcr2mcZ6s3uRhGJ3BcROGfAIXvziJPulGrRiJebohBXqgcfRl/jcOlPIMoZat7ZilCkQ6hz6eJr4mnr6bSJpYgEKVzoymU38Hd7kK2wjD3/Kj/BQUNJ9GwB5SLafiH7ExKtAIpO7E4yauiatUM5dUetQ63w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791436642; c=relaxed/simple;
-	bh=zdCGsDGcxUU273IBciKovFJSUzj1TaY1zOt7n0r/0Jo=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=RPMhwaqwgm20mqam3FU+WDFgeQwYdCzMg7qg7WNggqQCWvTqxVBFQCZkmTE+In7hsNwTWsnhTdPKGdxln2V2aA2MpIvQr8ROTW3j6OoKruJDNWez0ltQCrZKIXehIK3XQvRgRZOUHDK1/mLGdmDfC4WauiO0nnkcmII4VPrlFAY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UNKL1j1A; arc=pass smtp.client-ip=74.125.227.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA53D265621
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 05:18:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791436691; cv=none; b=Zp0zZxijQPwb5RmsGG2ltDwvymqpEO11/l2DqoqrrN2Y8Ed8BnmwKLhpgHBliEQSH3ZtmgxO9EzjmqW7rSKYxDNK2jHBnLkALxKTKYfML6Fm+UKfwhabB2MLRrH8cQMfiqZM4sI7+CyQP6F5T0ChbUvZqt1XqPd8+1u8QDkJ7VM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791436691; c=relaxed/simple;
+	bh=K25jnv2p4L1k4pPo64hCRP+kpLFkxyB8fVdBs7e2h8M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=D4jA3D+AUIMM0ZsrLqtu7+gaPxOmijXkr+0DKNHDjzUpHutbUyLtDjmClIDHm9PfK+N2kTk0eTIXgV3gbM6lK1LNaBBHkdEtuXMkN+57h5FqP5c+hkHnsVQZarYhv6NHYsRtKs2JmR/BiCxoK1Jp4QCS5vcE2FVvvylbpn+vZ0E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LCtPmrYC; arc=none smtp.client-ip=209.85.215.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UNKL1j1A"
-Received: by mail-pj2-f2.google.com with SMTP id d9443c01a7336-2e61817b178so3378375ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 22:17:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791436641; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ixqCjEZ+zGm7UFHafEIqjLSJru2FIWvp8JeRLmVFSbfwsBvUX0lrXIkr0y6f8kQwHD
-         RM6F+6b0OT1zBCAD9HpieRoz6rrP2aixUSY7HRzsq25+mmPsaZJHPuHwkHLd8tlfPO3O
-         CO3ZvqDa3EIDBkDUQ86QJ2Oykq6I3KOZOfmeqreIGh3oP1NNnDBH0wSPXx1SfGpmFhNP
-         1gcNHT1Sh0dR/a6oepxqukZEoQo9jviqZZrgGSAVYwttfsTheWy9J+Cobg9aIjr6G0vc
-         PME/+B2pfr2ncr54CV5CfMdCUoJ0sAHnCwscOIwlLbad1ut3W5hQW+XK72rmicY44iR6
-         NO8w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=nZxCaIo9txwzpM9hHuP2f8v3rOWm8pOzF15AOYuWLXs=;
-        fh=LZ4gDYhpA3FpFZnt565kXAaNd5qNUIb4FI2yniyjjlM=;
-        b=ZIy/RYeBL61zlmbnNOnyRJYHsA9n7vCzskRrkMVSArZ4g9c6Ily6H6nYuLVIL5W/B8
-         RQxBV0k63BgEMc1mBE04LqZOiaJvosLG27dWd0V7y9iz+kwRCsybX/Jg7D8OxtPTtQhZ
-         YtvxmQKHMOcrrf/heSGdI9jl/0rp3GSmyRkEoUaFv9QbPuyFjiNNEY7KOWeMJV8mhLdP
-         yMMNIgJ52vF4Xw8QdhPh7FTcIlR5KTHRMfXwqzBFcX/tqUvu4+gQzSCm+7aDgjjb5EnR
-         1owzYbRKV0VIfw1CLHP/JA73OJ2ZQi5Y52vYqEzGqXw5PbDk68nLvEsGEE2bzI4yoZtm
-         f0YA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LCtPmrYC"
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cc4e9e56e9aso1315386a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 22:18:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791436641; x=1792041441; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nZxCaIo9txwzpM9hHuP2f8v3rOWm8pOzF15AOYuWLXs=;
-        b=UNKL1j1AQFlEGoE4ns7NeArd3WAbmsnG9fRdtwtE4L6w2Bur6z/anBTqwM17+cl+4M
-         TK7pvadOo2SsOP9XYrmRdDbtFZuidad+fA78tqqHgc69HFshS4vjJodHyiAB+yy73i4b
-         +0Huc3LYOVGRlywdz+MfhaQ2nsmEgEAtFrsxi0WN4arGrFaZzmZw1/n25/gw61+LBnd/
-         1ZUHh6V20qGTWb5JgJsCs6kVGgVD/ew/nswG2ArQZZwOJlKubcI3fvYbZbRwUlv/xPdL
-         paX58RG4AbnpD3awIVe2cQW3ldpm1mJdj2ds0xbdm0RiTz4lrU3c7A7wVhv4IrHife2f
-         xtLQ==
+        d=gmail.com; s=20251104; t=1791436689; x=1792041489; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DpTgnww+452bruhm0n4E4Dy06w8HMJjZi8g9dGEf8PM=;
+        b=LCtPmrYCTZlh9YURxerZZV8fLpdYqv14BdBefV8iyP5XH2sRjImFEFWZthVyTy7D2i
+         J3B+ene6l9qlwP0V5cpeS5DD6dMjfZRPtQuXOXcCt7RuTvIPBI+6FiLfpDUlduYTB2Bk
+         KB9j3KHUed2zlaGLIOYMoRADkqOsz3LvBoBob1w5vWA8Z6nyOnECOi+4JPNlsGuqxuCm
+         08BRrmMyRqATeFd2yXj+GaoN3oKyrNcouOdSUaYBbu50iEwcr+NUCTvlPx8wkVKgla6a
+         td8G5b1O7tYKVHh+OGz6Xn6mwMxaQkCp/AXWfrtQzcWjP9wAcS+kx+8GQNt31HTc0n7t
+         fclA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791436641; x=1792041441;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=nZxCaIo9txwzpM9hHuP2f8v3rOWm8pOzF15AOYuWLXs=;
-        b=xnZi5WCN1iqefZjpUzpQKBs9hge/I1R8jElEtpG2IhR/1V7XEP2w+YvYZMRn6wtcvR
-         oOqG3D5gZRcU26QWaB4pLAkmtmc5zGF3/+q53MCsZhstlyH0O4p1NoVMl3CvYxnatcMI
-         zSV0GaynebdxpZRIs1U8ihEgvPd0KUYJmqFLA4G0qJ3W4VAiiQ8cVRbF9l2VBK98x8xB
-         g1kRFH/LQjFJVY82ah4/lUMj4kvvNITsPCK/Chns9AfbrN0odZiCydPolrHNpEtPhZEy
-         MPgUsofgArECwcjKL7uWu+LzADtoh3wqvE4yiGP4M1q55ntzPoz1adlsfHiGBq40Gz6o
-         hgHQ==
-X-Forwarded-Encrypted: i=1; AKwUvByACRYpWkj2yEWyGRzXglffJNsSeeemT8GFmCc407pGbsF0xndtVD7dVAgZCwX+17KE+C/V/wsKfUs8teQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++n4DsrOg75pBThsGZHaR2DVRbEkzflfgrlpNWJ+p+aER1tEzICK
-	NrdphkEc/fIe4vO+TYS0E0/9ap1h/4OjgyPZhoYiyEiPr4Gzhogy6fpftG2fCfzqd0mRmRzIkGl
-	2xdfynpk/BuP6w67fSREDzvRo4K9Q7eprYbz6N/HHC5Qr6Rg=
-X-Gm-Gg: AYBFou2UtyZAUt28Ei1e5z+4wcUY6M6/l1bIE5C+KQo1zELqIJxLINtlsvmvSvde7yx
-	6rXjBzjaE6QparJ1QiEoEcFszIJOtsmQpRqCus05lF6+GzFhgx7roSQhDnovmJrswsDyKi5wNHS
-	voqCDH1mP9iCJCXn7+rV96y+IiKUwKIquiKLg14yZ6eYjxeJLnkYpY/bDi6aV2U3VkFPnLhiQWN
-	XLOZFRSh9lnTare7E6i1sxdgqtaHGJsX8EY5SPSo4+++GeYUEOrFCg2b1/H9sgf8rmBMrwA27o4
-	5B3fI9L+fvzm7q66L9FDh09BY5AFLNKV6u7ZoepJw2SFwcnrwTSZOw==
-X-Received: by 2002:a05:6a20:ecc7:20b0:3e1:4541:899b with SMTP id
- adf61e73a8af0-3e145418a8fmr1385001637.41.1791436641046; Wed, 07 Oct 2026
- 22:17:21 -0700 (PDT)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Wed, 7 Oct 2026 22:17:20 -0700
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Wed, 7 Oct 2026 22:17:20 -0700
+        d=1e100.net; s=20260707; t=1791436689; x=1792041489;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DpTgnww+452bruhm0n4E4Dy06w8HMJjZi8g9dGEf8PM=;
+        b=LcXf3qDxUuh6SDSd6/FIkdP0CHcqs9GXK2l2itRExg0/6PrutBstwhzzrMM+9XyvpG
+         W5ftiXhftilk6Y84rOVPf/XLiKIvZz/pU0YYA1SovEABUUCCz6ZPBRMn2mjrUo+6ePLS
+         KG98mrSvoCqeuhNH3D03BV/GyORtLlU1GyioHdZ+Oq0yjy2GDOpbjCNEpF2PMcooqu/J
+         tDWQuzMjtLgdqcAqHMgk8GIgxmLpw9BVhb6/RL4jNK5y6pll6skXj6lRXUNHkAmEUX1X
+         UnK3sq0OQUmnJScJS7Ny9H33b/8CD+9R/xnsDRJ8E1FWxb36IVh/ctbZtW/goTDKeNwO
+         quXA==
+X-Forwarded-Encrypted: i=1; AKwUvBxs4g1VZo8CKbyQzh35n6aSj+oivuiZtSDyITraowODG5HJiNDe1WBSiT6COfipMyi7fdeQCjjjJjJetJk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIqy87jWJoyHZWzYQqjgNnaM6+x8Naxcuw9bX8hDykTEqABj23l
+	pQ4tc6NifChMmHTCg8rQz0uRfVHZ807J7tJYof54pouHi67CCzk8BH42
+X-Gm-Gg: AYBFou27iE6xWqX82NYlY6wyjUZfA5d1IZYSf/T8dpt00/IJIje5thim359EuweRVLW
+	SHuPdcrVVIS/81cdbVWWeIBES4BvnMue+ZZcFdnxmXs5oSFA6LozWvetAQGSAR0zMVlKfaNG6nK
+	EdZlZfrgpdDnw5aAy5Rp8o4cKqhNZSOpTnRDBJ7eyOz8iw7v5yyXShF3R99v131QWT4l/aLgmn6
+	UYPlDKirvsgeGS7PvTAUQSEIjcpfel14crWCTlZe/FzNWZO9Cb9/epfpXSOZ23gti7Xc4KyzXrJ
+	satTD9w/9GcZBjDO8d4nwJ+sgxl5QRFcDjuPomoUup8ixXBJVP7Fq+BCherL1l0vIq59ZFwyTMY
+	zH0hdJ8Y0hcXPiyRx+eKJ0Bhx6jZi/7+Yylq7JFZVG/KgYqkwPkzIFKMYZ8pYlQ0Szyn8xwiPWV
+	YWC80aPG5csCrS88vaogNLC/9PUMM2ehTY2fYXBmrZsql7qnFfdPzxhaYbBZ7UcsFR6aMbEp6Se
+	De+2Q==
+X-Received: by 2002:a17:90b:164d:b0:3ab:413:49b6 with SMTP id 98e67ed59e1d1-3ab04135113mr533585a91.41.1791436689169;
+        Wed, 07 Oct 2026 22:18:09 -0700 (PDT)
+Received: from dungbv.. ([116.98.134.138])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd0a92d6161sm2349155a12.16.2026.10.07.22.18.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 22:18:08 -0700 (PDT)
+From: Bui Viet Dung <dungvn2345@gmail.com>
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Bui Viet Dung <dungvn2345@gmail.com>
+Subject: [PATCH] Bluetooth: selftest: Pin module for selftest debugfs file operations
+Date: Thu,  8 Oct 2026 12:18:03 +0700
+Message-ID: <20261008051803.526248-1-dungvn2345@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Yibiao Li <biaobiao2233@gmail.com>
-Date: Wed, 7 Oct 2026 22:17:20 -0700
-X-Gm-Features: AclHuK9UcY5R91xpt04gOFDaB136BcNqqe9341-E5szYJoMqgQSodHyBmZUxnAI
-Message-ID: <CAG1agfwtnjmb8RVLmZvY9W-zrR1onhK6urJA3Lqai82tAXn2Cg@mail.gmail.com>
-Subject: [PATCH] drm/amd/display: Use separate iterator for preferred mode lookup
-To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>, 
-	Leo Li <sunpeng.li@amd.com>
-Cc: Rodrigo Siqueira <siqueira@igalia.com>, Alex Deucher <alexander.deucher@amd.com>, 
-	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	kernel test robot <lkp@intel.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-From: Yibiao Li <biaobiao2233@gmail.com>
+An open debugfs file retains its file_operations pointer in the
+debugfs proxy state. However, test_smp_fops in net/bluetooth/smp.c and
+test_ecdh_fops in net/bluetooth/selftest.c have no .owner set to
+THIS_MODULE.
 
-create_stream_for_sink() uses preferred_mode both as the list iterator
-and as the selected mode. This triggers a false positive from
-scripts/coccinelle/iterators/use_after_iter.cocci: native_mode_found
-already ensures that an exhausted iterator is replaced before use.
+As a result, full_proxy_open_regular() calls fops_get() which succeeds
+without taking a reference to the bluetooth module. When CONFIG_BT=m
+and selftests are enabled, a userspace process can open either
+/sys/kernel/debug/bluetooth/selftest_smp or
+/sys/kernel/debug/bluetooth/selftest_ecdh and keep the file descriptor
+open while the module is unloaded (rmmod bluetooth).
 
-Use a separate iterator and assign preferred_mode only when a preferred
-entry is found. This keeps the selected mode separate from the iterator
-state and makes native_mode_found unnecessary. Preserve the fallback to
-the first entry, or NULL when the list is empty.
+When the userspace process subsequently closes the descriptor,
+full_proxy_release() accesses the already unmapped file_operations
+structure, triggering a kernel oops in full_proxy_release():
 
-No functional change intended.
+  BUG: unable to handle page fault for address: fffffbfff8056f03
+  #PF: supervisor read access in kernel mode
+  Oops: 0000 [#1] SMP KASAN NOPTI
+  RIP: 0010:full_proxy_release+0x8e/0x140
+  Call Trace:
+   <TASK>
+   __fput+0x39f/0xa60
+   fput_close_sync+0xff/0x200
+   __x64_sys_close+0x8c/0xf0
+   do_syscall_64+0x115/0x6a0
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+   </TASK>
 
-Reported-by: kernel test robot <lkp@intel.com>
-Link: https://lore.kernel.org/oe-kbuild-all/202609190901.yKTzhsGz-lkp@intel.com/
-Assisted-by: LLM coccinelle
-Signed-off-by: Yibiao Li <biaobiao2233@gmail.com>
+The issue was discovered via manual code audit of net/bluetooth/smp.c
+and net/bluetooth/selftest.c.
+
+Set .owner = THIS_MODULE on test_smp_fops and test_ecdh_fops so that
+debugfs keeps the module pinned until the file descriptors are closed.
+
+Fixes: 64dd374eac15 ("Bluetooth: Export SMP selftest result in debugfs")
+Fixes: 6de50f9fdb60 ("Bluetooth: Export ECDH selftest result in debugfs")
+Cc: stable@vger.kernel.org
+Signed-off-by: Bui Viet Dung <dungvn2345@gmail.com>
 ---
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c    | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ net/bluetooth/selftest.c | 1 +
+ net/bluetooth/smp.c      | 1 +
+ 2 files changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-index d386bb1475..ceea8fe481 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-@@ -1453,12 +1453,12 @@ create_stream_for_sink(struct drm_connector *connector,
- 	struct drm_device *dev = connector->dev;
- 	struct amdgpu_dm_connector *aconnector = NULL;
- 	struct drm_display_mode *preferred_mode = NULL;
-+	struct drm_display_mode *connector_mode;
- 	const struct drm_connector_state *con_state = &dm_state->base;
- 	struct dc_stream_state *stream = NULL;
- 	struct drm_display_mode mode;
- 	struct drm_display_mode saved_mode;
- 	struct drm_display_mode *freesync_mode = NULL;
--	bool native_mode_found = false;
- 	bool recalculate_timing = false;
- 	bool scale = dm_state->scaling != RMX_OFF;
- 	int mode_refresh;
-@@ -1509,14 +1509,14 @@ create_stream_for_sink(struct drm_connector *connector,
- 	stream->timing.flags.LTE_340MCSC_SCRAMBLE =
- 		connector->display_info.hdmi.scdc.scrambling.low_rates;
-
--	list_for_each_entry(preferred_mode, &connector->modes, head) {
-+	list_for_each_entry(connector_mode, &connector->modes, head) {
- 		/* Search for preferred mode */
--		if (preferred_mode->type & DRM_MODE_TYPE_PREFERRED) {
--			native_mode_found = true;
-+		if (connector_mode->type & DRM_MODE_TYPE_PREFERRED) {
-+			preferred_mode = connector_mode;
- 			break;
- 		}
- 	}
--	if (!native_mode_found)
-+	if (!preferred_mode)
- 		preferred_mode = list_first_entry_or_null(
- 				&connector->modes,
- 				struct drm_display_mode,
+diff --git a/net/bluetooth/selftest.c b/net/bluetooth/selftest.c
+index ae5b44bb9d3d..cdfc40e0016b 100644
+--- a/net/bluetooth/selftest.c
++++ b/net/bluetooth/selftest.c
+@@ -188,6 +188,7 @@ static ssize_t test_ecdh_read(struct file *file, char __user *user_buf,
+ }
+ 
+ static const struct file_operations test_ecdh_fops = {
++	.owner		= THIS_MODULE,
+ 	.open		= simple_open,
+ 	.read		= test_ecdh_read,
+ 	.llseek		= default_llseek,
+diff --git a/net/bluetooth/smp.c b/net/bluetooth/smp.c
+index 2df303f6a38f..81d255525fe0 100644
+--- a/net/bluetooth/smp.c
++++ b/net/bluetooth/smp.c
+@@ -3696,6 +3696,7 @@ static ssize_t test_smp_read(struct file *file, char __user *user_buf,
+ }
+ 
+ static const struct file_operations test_smp_fops = {
++	.owner		= THIS_MODULE,
+ 	.open		= simple_open,
+ 	.read		= test_smp_read,
+ 	.llseek		= default_llseek,
 -- 
 2.43.0
+
