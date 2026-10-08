@@ -1,148 +1,115 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8ACD484883;
-	Thu,  8 Oct 2026 09:50:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EA42489877
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 09:50:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791453015; cv=none; b=dGT3gWrVWLjAeUT39VxNj8T5oL9WkzbYxLHxQcxNylj+eAKJg2PTVmCAKiAq0l6kmIZFUK4qg7hT56JszghOZGjnKYPQ2mzLtgl9BtI96qugosjBf8wrbwA8RGpgm5N7RFxferztZr337KjDPVGqIYjrvcnKHBe7xd9sUf24XEA=
+	t=1791453052; cv=none; b=Mg5WsQo/ypioVOiaKo1gKgo/wo7ALOuoF9brSkSufBW+HfEJs0PCgBJG/EAvUK0AsdVs9XKlMrgGyzGYzmSMSeSzv1zuNlY5z6TyueYaBqGLdgmh3KR9kmDfI+Jz3FcIFYB1vaKUE8XbEwq6+2ph63HcZsq+8XrTX29MZKjsaQI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791453015; c=relaxed/simple;
-	bh=weeyI+U/YPol1iP2qAwQITPUDIdQbfMYarxc3t+6YMA=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=kgH0R+SCy1J/CtDBAI+F7WhBwedmFfSyHcFmfPTCiqOCgxNgYYPHrRn3sA9alQ9x5w0WHBfKNmgWlOSn3MHy1TYGRpQzzrBa57jN3T0f3SyKsjTXWUMc5OMRz0v7CHtqc/M6Rg+3VLwh3k4BPQQQ5CfbuYv5oBrLosS4T42W7BE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=pt7fEFK5; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=LN3VNVJj; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1791453052; c=relaxed/simple;
+	bh=dph8nydlcGrIQKoDia1sOqYgMx4hrQl+mUMU4Id2UAo=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=c43AAj0FtSq3j/x9Z7xXPlID7sWDDOU57ai15FR0jA9UTm4IpVesZRDVHLvukO5xeI4eAOoZFE1vXKvrnMMS0jDOHyEyK0drFfOFblXscdWIyZfGH/RzLNNN3D8TW+axYOc3yCuljWEx55KCThLh9D5hqEtP6+PmeXxabDguqlE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=grbWV59s; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="pt7fEFK5";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="LN3VNVJj"
-Message-ID: <35b4bc5dcd6a6340e98361570d304fedb099ae86.camel@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1791453011;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ko2mDoLtJha0Y2zjgpnISDGHYPySL+44YDXgqu0NN/g=;
-	b=pt7fEFK5gShPCrHARjhafhmT8R22KQNOg5RxhHv3cMFFmUlZOOaQqsFGRtaMmAL76ALr4a
-	kIvN+VlOq+etg9mLP4lQYs66NL9mNRJadWYn+R5W8T/045i7iw43BVAFJ///Y6k/sKNT/U
-	vHgUK2ULFYaNPHSj189G0VZ09Ug/TuDIMGjbHe9TjA7iLr71MjGtJu9SWSFcrIL27XWpVF
-	yol4ZiXSW1wloeAAbsLHOoMeHLjPueFtuDPdJzTdQ1E4HHcx9yj1FZ1xOS0tCE0KOXt+5u
-	69S4wII0a1+NeKlHCht8W9ZOTdjFs4cya29hB7ruJALhQmKEleUezsGrrAGE7w==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1791453011;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ko2mDoLtJha0Y2zjgpnISDGHYPySL+44YDXgqu0NN/g=;
-	b=LN3VNVJjLsScd/fVUptjuUhNOkM4O3nEr2LGUIRoc5cy7g5E4IsCpthRXbWcFuSlXLqWlG
-	tUiOARBFnYyuZpAg==
-Subject: Re: [PATCH net-next v3 3/8] dt-bindings: net: dsa: Add SoC-e SWIP
- switch
-From: Vasilij Strassheim <v.strassheim@linutronix.de>
-To: Rob Herring <robh@kernel.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>,  Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean
- <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>,  Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>,  Simon Horman <horms@kernel.org>, Russell King
- <linux@armlinux.org.uk>, Andrew Lunn <andrew+netdev@lunn.ch>,  Heiner
- Kallweit <hkallweit1@gmail.com>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,  netdev@vger.kernel.org, Martin Kaistra
- <martin.kaistra@linutronix.de>,  Benedikt Spranger
- <b.spranger@linutronix.de>
-Date: Thu, 08 Oct 2026 11:50:10 +0200
-In-Reply-To: <20261007205457.GA244932-robh@kernel.org>
-References: 
-	<20260923-devel-vstrassheim-soce-dsa-ml-v3-0-ddebafcb9ba7@linutronix.de>
-	 <20260923-devel-vstrassheim-soce-dsa-ml-v3-3-ddebafcb9ba7@linutronix.de>
-	 <20261007205457.GA244932-robh@kernel.org>
-Organization: Linutronix GmbH
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="grbWV59s"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C2DD1F00898
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 09:50:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791453051;
+	bh=zzjDvXnnH2r3MYJsw1QiaFGNtlAkTXt/3p2V95i9its=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=grbWV59sTws6M6kDa7QNwVfFBDGgS/1LdOIkSkMGzWz83L1NyY7hdUiA5pfIUmIUd
+	 frYXdxbhamyvIjQ53RN0Pr2iMOGsWmHwSjqcXcGRjZTfGqzmS0muLK7I4V6zZ1YMlV
+	 sK9BrpqU02Re7e59gLLWjf5Jwfzvvp+8daSOaVSQQ1rIsuxqclcetE7Y0ABkNhRh0F
+	 pMTdcesHctKG5ogVnyWgQXGVzgbxse3CRUAEciNEfuuWmUSTL1I9j4kC2/Cx6yt6bi
+	 9uJHaAVOUl4YkvTIlm7eRb3xOgN+p8IL4HXRThtJTch73fqPhDXpWuKhxbjIdfvEkO
+	 pNVwBFjtX1TPQ==
+Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3a1eb6fa0f4so29148061fa.2
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 02:50:51 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByCrxVQ+kTHh6CFYp5AqNvMp5cmpCwyPB4HXx6gysy5cdfwdSO4a806BNqUDhuAKQqFQulHYtFgTa+rlb0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLMbhQRBjYnls3MUdlIviM6LtU7ADTkYcjXRFrRCjxMnhYNZOIo
+	iKapDOg7R7KmwgVny3K7KfW1MWEyMC8RLBUNC1X91dqGcSrSGmrTMS9Q2NcjluEeF4ksz942qRs
+	lDt/t/DT3jKOGe7c6RUo1exVMb0QPOURsa1zhK5tH5g==
+X-Received: by 2002:a05:651c:2110:b0:3a9:8167:62a with SMTP id
+ 38308e7fff4ca-3a9a2d5ef3fmr11294911fa.28.1791453049795; Thu, 08 Oct 2026
+ 02:50:49 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 8 Oct 2026 09:50:48 +0000
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 8 Oct 2026 09:50:48 +0000
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20261008-bam-dma-free-irq-v27-1-660e70223e3c@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20261008-bam-dma-free-irq-v27-1-660e70223e3c@oss.qualcomm.com>
+Date: Thu, 8 Oct 2026 09:50:48 +0000
+X-Gmail-Original-Message-ID: <CAMRc=MdOLnUgY7CHD1mdB7x=S-LBuHBHvsx8V95DiVjR=zCePA@mail.gmail.com>
+X-Gm-Features: AclHuK8gCrOH-8lbrvxPcOsgTJbpgR03xMfb8jAIWyOn4Lr2qiQuvScWu5tAuqE
+Message-ID: <CAMRc=MdOLnUgY7CHD1mdB7x=S-LBuHBHvsx8V95DiVjR=zCePA@mail.gmail.com>
+Subject: Re: [PATCH v27] dmaengine: qcom: bam_dma: free interrupt before the
+ clock in error path
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, brgl@kernel.org, stable@vger.kernel.org, 
+	Sashiko <sashiko-bot@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
+	Frank Li <Frank.Li@kernel.org>, Andy Gross <agross@codeaurora.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 2026-10-07 at 15:54 -0500, Rob Herring wrote:
-> On Wed, Sep 23, 2026 at 12:39:30PM +0200, Vasilij Strassheim wrote:
-> > Add a binding for SoC-e FPGA-based Ethernet switch IP cores.
-> >=20
-> > The compatible identifies a register layout characterized by the core
-> > and feature identification registers at the encoded offsets. The
-> > concrete synthesis-time configuration is then autodetected from these
-> > registers.
-> >=20
-> > Describe the Ethernet ports and the optional integrated MDIO controller
-> > with its generic MMIO mux and child buses.
-> >=20
-> > Signed-off-by: Vasilij Strassheim <v.strassheim@linutronix.de>
-> > ---
-> >  .../devicetree/bindings/net/dsa/soce,swip.yaml     | 162 +++++++++++++=
-++++++++
-> >  1 file changed, 162 insertions(+)
-> >=20
-> > diff --git a/Documentation/devicetree/bindings/net/dsa/soce,swip.yaml b=
-/Documentation/devicetree/bindings/net/dsa/soce,swip.yaml
-> > new file mode 100644
-> > index 000000000000..d614fb2a29d3
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/net/dsa/soce,swip.yaml
-> > @@ -0,0 +1,162 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/net/dsa/soce,swip.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: SoC-e ethernet switch IP core for FPGAs
-> > +
-> > +maintainers:
-> > +  - Vasilij Strassheim <v.strassheim@linutronix.de>
-> > +
-> > +description:
-> > +  SoC-e Ethernet switch IP cores are FPGA-based switches whose feature=
-s
-> > +  and number of ports are selected at synthesis time. Ports can connec=
-t
-> > +  to CPUs, external PHYs, FPGA logic, or other switch cores. An integr=
-ated
-> > +  MDIO controller accesses the per-port external buses through a mux.
-> > +
-> > +$ref: dsa.yaml#
->=20
-> Doesn't look like you use any DSA properties. Can you use=20
-> ethernet-switch.yaml instead. Also, if you don't have any custom=20
-> properties, you need to ref "dsa.yaml#/$defs/ethernet-ports" instead.
+On Thu, 8 Oct 2026 11:30:56 +0200, Bartosz Golaszewski
+<bartosz.golaszewski@oss.qualcomm.com> said:
+> The BAM interrupt is requested with a devres helper and so on error it's
+> freed after probe() returns. We disable the clock before freeing or
+> masking it so it may still fire and we may end up reading BAM registers
+> with clock disabled.
+>
+> Stop using devres for interrupts as we free it in remove() manually
+> anyway. Add an appropriate label and free the interrupt before disabling
+> the clock in error path and in remove().
+>
+> Cc: stable@vger.kernel.org
+> Fixes: e7c0fe2a5c84 ("dmaengine: add Qualcomm BAM dma driver")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/patchset/20260427-qcom-qce-cmd-descr-v16-0-945fd1cafbbc%40oss.qualcomm.com?part=2
+> Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> ---
+> This used to be part of the larger BAM DMA pipe locking series and never
+> got picked up despite months on the list. I'm resending it separately.
+> ---
+> Changes in v27:
+> - Rabase on top of current dma/next
+> - Link to v26: https://patch.msgid.link/20261006-bam-dma-free-irq-v26-1-eef5c713d831@oss.qualcomm.com
+>
+> Changes in v26:
+> - Rebased on top of current linux-next to address conflicts
+> - Link to v25: https://patch.msgid.link/20261002-bam-dma-free-irq-v25-1-f39e01d19910@oss.qualcomm.com
+>
+> Changes in v25:
+> - Don't touch remove(), it's not wrong in its current version
+> - Link to v24: https://patch.msgid.link/20260723-qcom-qce-cmd-descr-v24-0-4f87bb4d9938@oss.qualcomm.com
+> ---
+>  drivers/dma/qcom/bam_dma.c | 10 ++++++----
+>  1 file changed, 6 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/dma/qcom/bam_dma.c b/drivers/dma/qcom/bam_dma.c
+> index 94cb957d4b187704e207361d629fde00e3e090bf..a626746b5c93496e5c5e885b35a856d38c284448 100644
+> --- a/drivers/dma/qcom/bam_dma.c
+> +++ b/drivers/dma/qcom/bam_dma.c
+> @@ -1332,8 +1332,8 @@ static int bam_dma_probe(struct platform_device *pdev)
+>  	for (i = 0; i < bdev->num_channels; i++)
+>  		bam_channel_init(bdev, &bdev->channels[i], i);
+>
+> -	ret = devm_request_irq(bdev->dev, bdev->irq, bam_dma_irq,
+> -			IRQF_TRIGGER_NONE, "bam_dma", bdev);
+> +	ret = request_irq(bdev->irq, bam_dma_irq, IRQF_TRIGGER_HIGH,
+> +			  "bam_dma", bdev);
 
-Yes, I will use dsa.yaml#/$defs/ethernet-ports.
-This will also make the local dsa-port.yaml reference and
-unevaluatedProperties: false redundant, so I will fix this as well.
+Please disregard it version, this should have remained IRQF_TRIGGER_NONE.
 
->=20
-> > +
-> > +properties:
-> > +  compatible:
-> > +    const: soce,swip-00-04-0c-10
-> > +    description:
-> > +      Register layout with the core version register at offset 0x00 an=
-d
-> > +      feature identification registers at offsets 0x04, 0x0c, and 0x10=
-.
->=20
-> Do you expect these to change? Kind of an odd compatible, but okay...
-
-No, I don't expect them to change. But since this is FPGA IP which is
-easy to be changed, I would not rely on them either.
-Anyway, I haven't found a better solution yet. MV88E6xxx has a similar
-approach. More generic compatible is not a viable option.
-
-
-Thanks,
-Vasilij
-
+Bart
