@@ -1,221 +1,145 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50C2B392C46
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 11:23:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 991353793DC
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 11:23:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791458589; cv=none; b=qB3SojeSurvueyhljDtgYu9pheckkDuOJ375VRjR1Hjbr8HvfAhnyQTgvE/QTIdk3o2HYlMEzZiwb9SW58rYV+UkqxizswAPRXFumr4fKklluds68FbINyPvSohWXmPJDQKhlFlWWUA3dVJ2W8c1Zis8RyuATL4+I/wdrsBTlGQ=
+	t=1791458604; cv=none; b=iDdFHBuOV3oroPym+ScJSqE2AcdtfTKnt6u28hQ3hACy/LSHnOjKRK3bSu7MBbIxJC2c+mCaUn+0d7Vi6ifxwqikvgXEatoZVc9d7fLgiS6PIO5tGuXVgv+GG+kLC+uCsEzk0BJ1WLb2+p+9Y6Lzgn1oEbApYf/fmK106Lnj11g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791458589; c=relaxed/simple;
-	bh=abiO/LiL2o7ZQnpcmnb/LlUFm3gPKmid+91QJ59tZPQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OIph4EYompbB8EyALKMRZiyuWROMXct/2evoACV+iQw9B3khD0K74fKNBrLAIRlKzNw+23cY0xLAGcjJJHNse3qhcAsZ9T+HhhhKoIfx+FusOVUPc6fw83Kszt2Ak0O38r+v2kA3/6t02MlEZ1S1FOyRyiuYwTKG/jJF2rjQOMA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=T1ZF0qq4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=c7R33rrd; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791458604; c=relaxed/simple;
+	bh=F0oOjT3HrxqylxCawx0wdKuMFBs3XCL4/G/XIcES1Rs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Zurtu2VV0V5MI9Z35UbiSBt8nUR0BGoYRgqWp5vwfCXW/qwdjYBnVsEYGNJJ4omhB7Ny3v5aeErX4GpzgXCtfA8NL6zONWkTTUNrE/0BbDQTBG9KVU4iTTRfwidIux8M4YEhG+AaSTfE2JuMZqGvY7HlC9K9uYBEuOBdh878GIA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SBYw0z0U; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="T1ZF0qq4";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="c7R33rrd"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 698BKA8G2705123
-	for <linux-kernel@vger.kernel.org>; Thu, 8 Oct 2026 11:23:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	agZ8NifRLOozJsK1Q2H4ch9Owtp/lTg/2FCgMokd4JY=; b=T1ZF0qq45yzmdWLu
-	WoS2o77dtaeuWTvudJUWSOkiG805HRPziF8FgR+Qp8r9lK0pOvmuII6BiMT2XvvR
-	b9ze5Tuk2va5MOygIOmQvuILVnKa1GHUUhCHpO3Ry75QFHyJJQoP7U784A7exRg5
-	t+QySPac9iLLUFql28aFFtjjT7P694mncUaIEo0lqzqFZdVBcxYnCd4KOzO6ViO7
-	4rYlW4tgpovDlWPPhpm+v9kr8ZlcqP/Bt1+L8gXryO37oFDLGf2t62ulfItyBrKj
-	y9RhzCYzmmBnQX2umQehBUnJa/xS+O1jZRoPQ+WDkpst+JaRNX58JH7ne0FxvAdN
-	kpBmgA==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe2trr8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 11:23:07 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93cb6391e89so1004631085a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 04:23:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791458586; x=1792063386; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=agZ8NifRLOozJsK1Q2H4ch9Owtp/lTg/2FCgMokd4JY=;
-        b=c7R33rrdSteLUlxIoIFMGU6aLCV3hXQliVPKdrXRvXw2pqdbsrO/4W2sg+411QuH/1
-         ee5cOj3x/sW+j0nJ2BBZnVxj5c+eaRKdVyAsf8AbXBcFiU7/i7cXn31V2YWezfrnoftX
-         oJXYw463pQ5WNsdybDiM4AHj+AssWXY/Gp/UK9IQ8tR7CXDFqsFTWETtrdLEJbQFgaUW
-         UtxvQsTpCBvpEniVAQxlT/1k3NMlepSu3cUnfeYAF1Bp2Rq2ZO1deRdwOS3Vn2aJaFC6
-         2Ioz6TEO3IBcxcyGnf13tpwZCfF30SZvyBTrV4RAd0661SlLipww6dwcHh68wdTy3UBS
-         6ddw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791458586; x=1792063386;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=agZ8NifRLOozJsK1Q2H4ch9Owtp/lTg/2FCgMokd4JY=;
-        b=OiRzKicVJMVD5EHCG2Fe9WXy66Ytc8OC/P1LZKL1yhmq7AhBpuYOKNpOl1WoM7kXS5
-         c25de/rxKq2zf3wXEqZ5mXxBVfv5LOecddTajra+NI50k29OZFR3HMDu2r5VRIzhT9WU
-         uAFa5b1fjbFRdvFgGyPZfEtQ9A/5zVnZQnGsvEFaYqc2SeKfIBuths85nOv/noFEgk2h
-         BujvLzwRe2rZjfdeXcHuOQlXzU5jJ2KCJhJb0Q9S94Lbc/7vEK9DKiixO0VP7xPFD1NZ
-         cIQelGDSrR47gVX/YCE1gbdT4fwWLV23uDAePMrj3Mvw75SeZ+njEJKVMAGz6f5LcLBp
-         hqDQ==
-X-Forwarded-Encrypted: i=1; AKwUvByTMwj7Aute2qq+Wsa9o4hsWaK5pFisvn7SWu1E8+xjdJO33nq+ZrrKMZ6g6y1NBxJ+gF9IW9odDPtH4XU=@vger.kernel.org
-X-Gm-Message-State: AFuF++n0xQT2eYGx5xpA18ZwXyOZmpGEUZiFnyhGG4ykFeJJ1SJddG7Z
-	cMGXNvKb8dOjBdupWcE+m8I2A4wrYvnaE5W6dficZ9KHM8F68eymJGo8svO1rFmyTXTjw9y3DUr
-	u0qTwZhE7YrSsIkMgCWkOo6sv11ywyI0EyoEmILRbwDk24HZW5HV8PuVkfl/W0oPQHgw=
-X-Gm-Gg: AYBFou3DwBQSSZLdjqP3CPKYPTUTz6jD7Q6GDzPebq9NQJ/15cYNzDvhmQqomT+P9u0
-	hWt+7zqqIMy0DY/tMLNuTtHvg3o84kxCqlRwaVhDfpp0iKzDmB6mi0f5RdoNx+ZGtIbCtd0ujUC
-	kYTwacGPEi0t2FrnCKcRT5dXNISVDKFbi6JiHiy+BomYHe/ZQA496g1YjcBAFx/2cdY9ojZ2zNL
-	6StX+075ebncz1atm1zv0XYOR3a/j44Zib0H0Pv7FkXHz/Iul5I8EBls9CtvFNrpFHOBYMr/es1
-	KNhVSYU2l77XPNkiP7Y0dfF7qfF7wYgDQzO1Jt3GesrAz9SxaPFGIujv2//cmVphSMHTjOOAF12
-	jihnZE9Q+t7BtnHcuAfadrB8HPs/PwpNQJa60aBs5
-X-Received: by 2002:a05:620a:1792:b0:93e:9809:3365 with SMTP id af79cd13be357-93e9b82b487mr1008022085a.70.1791458586221;
-        Thu, 08 Oct 2026 04:23:06 -0700 (PDT)
-X-Received: by 2002:a05:620a:1792:b0:93e:9809:3365 with SMTP id af79cd13be357-93e9b82b487mr1008014885a.70.1791458585538;
-        Thu, 08 Oct 2026 04:23:05 -0700 (PDT)
-Received: from [192.168.25.64] ([94.155.124.210])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71b786d8sm10831159f8f.0.2026.10.08.04.23.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 08 Oct 2026 04:23:03 -0700 (PDT)
-Message-ID: <7cec7156-e85b-42e0-857a-e590b9e252b2@oss.qualcomm.com>
-Date: Thu, 8 Oct 2026 14:23:01 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SBYw0z0U"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 737B11F0089D
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 11:23:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791458603;
+	bh=OCn78hP9ueLLGhxW6pW6RbrRspOn6L8aUvAyzG5R1q8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=SBYw0z0Up8qwR7mXJrBupwsvyFMM4+TUdsnDihUT+Lr0FrO7SGm6w+4Qa//QWrpBm
+	 rYLRSEObw4rb8EKCR4zfcSJEe8W4a7Oo/l5Jb8Aekbxzc2Bd+dEXKgQ3snoo24m6W/
+	 tQA4JXM0lFlTUDUVBhTy4M5pWGZ0GcNTaYjAZBbrGZ9pB58bueQgin9Rw8evVMSsTZ
+	 RAZyodv3/O0kHgxDGAyluqCGG0AwdALFQcEmx6GcFLhhlq+A7EQSf8OofrqXGPGgUm
+	 vt+m+z05MVP0mk8cmdfzCV6QwXufhtOPZcP2hHTiu2qGlMt3SZSRI3KZimQknC/9pi
+	 /NYcUHo1Lww9A==
+Received: by mail-oa1-f49.google.com with SMTP id 586e51a60fabf-48ed188ee81so2747570fac.1
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 04:23:23 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw2o9l4R2E4TXYyiFb1PtdFLu88uqNYfIFL1ZmUDtFDImwENirKjIu6J77mgl56h2SwdhIkBBj3F8FrcFM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKOmBC2/Vr3J1czda9we88xFdWuOs84bB0JG9oIEARkkaSIqN3k
+	TUqkBQ5a47VXxUCeTcAitTQ1jDkNTI65spo4cW3Tasvv7y4UVA+y/omNu5gD5bKyrB5FwVncf9/
+	epn8Ge3A44KiQYJgJ2jaHAR0J2MQ4e8I=
+X-Received: by 2002:a05:6870:a0a5:b0:475:e2e9:4f54 with SMTP id
+ 586e51a60fabf-4a25961fcfdmr4553863fac.34.1791458602726; Thu, 08 Oct 2026
+ 04:23:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 58/74] media: uapi: Add CAMSS ISP statistics definition
-To: bod@kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-        Daniel Scally <dan.scally@ideasonboard.com>,
-        Keke Li <keke.li@amlogic.com>,
-        Richard Acayan <mailingradian@gmail.com>,
-        Hans Verkuil
- <hverkuil@kernel.org>,
-        Gjorgji Rosikopulos <quic_grosikop@quicinc.com>,
-        Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>,
-        Robert Foss
- <rfoss@kernel.org>,
-        Milen Mitkov <quic_mmitkov@quicinc.com>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
- <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-58-ed985aefd611@kernel.org>
-Content-Language: en-US
-From: "Gjorgji Rosikopulos (Consultant)"
- <gjorgji.rosikopulos@oss.qualcomm.com>
-In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-58-ed985aefd611@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=AbMkjHXG c=1 sm=1 tr=0 ts=6ac77d1b cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=eGCDHFSXubCXFTSSGhjuOA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8 a=1YEbtdj09zidbz6vPioA:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-GUID: UJkGAMEw6lXpBkEXRpD3tc6JtmYnYMYz
-X-Proofpoint-ORIG-GUID: UJkGAMEw6lXpBkEXRpD3tc6JtmYnYMYz
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDA0NSBTYWx0ZWRfX9EEK26aMdDhy
- k/1qj7b7jD0OrFqR0va0nEIRLbjmaxetRTFvx99aFKedHwcHJygnMm17lO9B6gQaN4zcTJ8UgKe
- +X0iIrCrey7J1YuBqd1V4ypGX6KkKKI=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDA0NSBTYWx0ZWRfX8o9aLb8SRPgb
- tXbBYOeWKSsziaMDe2jiO4kDCS2XygYY+y/yXfe7bYVq9wNMfnpe44FWWEBABmFOnmION+nk8vj
- BELUFrW+MugJpDBbpCpCUaRIZA6N5suk0urCUxQwzhqAhMIn9cV7y1uOy1vD7gJ38GLxgPRSpzU
- bFzVHYCP6qBmtAV9aktdExn9n+koMiw+h0d0zznrToWACc7racT1oIec6OGo/kldS1HE/tx5ewn
- WLPYNF/iImvFPkR+W1AiewDm95D48MJVThc5VaEe1dBFFPqOLPq02h/oF1Q3MlJ9s1RNwTVBhYH
- AniSf4Sv8m0WMZrZ8H5SUmrekwvSjnAOI+RsiiZi154bXc4P4pmL+1vPiteEAvI1MsuDmh5nlzt
- YHZCCA0RVNcMU/6sJaVU01MtNYcJ6yaxWs1QaQWzkCiZqCGWyFqDpEVZHIMIOehjqn7deTLRCLh
- t7rzuke/uJQw4ROZhbg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-08_04,2026-10-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015 suspectscore=0 lowpriorityscore=0 spamscore=0
- impostorscore=0 malwarescore=0 adultscore=0 phishscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080045
+References: <20261008100423.1256884-1-theodorlarionov@gmail.com>
+In-Reply-To: <20261008100423.1256884-1-theodorlarionov@gmail.com>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Thu, 8 Oct 2026 13:23:11 +0200
+X-Gmail-Original-Message-ID: <CAL4WiiqDffWyo7+gbffB2PYuKAbjboK7D=JJD+z=5J5MX=9Y3Q@mail.gmail.com>
+X-Gm-Features: AclHuK_YZkLCz2adbKpdT7afflmfkP7cSHP82EUw7c7epSmBMrFz5ew4Q5U9llE
+Message-ID: <CAL4WiiqDffWyo7+gbffB2PYuKAbjboK7D=JJD+z=5J5MX=9Y3Q@mail.gmail.com>
+Subject: Re: [PATCH net] net: use the full socket in sk_mc_loop()
+To: Theodor Arsenij Larionov Trichkine <theodorlarionov@gmail.com>, Ido Schimmel <idosch@nvidia.com>
+Cc: kuniyu@google.com, pabeni@redhat.com, willemb@google.com, 
+	davem@davemloft.net, kuba@kernel.org, horms@kernel.org, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Bryan,
+Le jeu. 8 oct. 2026 =C3=A0 12:04, Theodor Arsenij Larionov Trichkine
+<theodorlarionov@gmail.com> a =C3=A9crit :
+>
+> tcp_make_synack() sets skb->sk of a SYN-ACK to the request socket.
+> If the SYN-ACK destination is multicast, ip_mc_output() calls
+> sk_mc_loop() on it, and inet_test_bit(MC_LOOP, sk) reads inet_flags,
+> which is past the end of the smaller request_sock object.
+>
+> KASAN reports a slab-out-of-bounds (or slab-use-after-free) read in
+> sk_mc_loop() from tcp_v4_send_synack() when a SYN with a multicast
+> source address reaches a listener.
+>
 
-On 10/5/2026 8:14 PM, bod@kernel.org wrote:
-> From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> 
-> Add V4L2_META_FMT_QCOM_ISP_STATS, the statistics counterpart of the CAMSS
-> ISP parameters. Statistics use the v4l2-isp extensible format: the driver
-> serialises one block per statistics engine into a struct v4l2_isp_buffer,
-> each block embedding a struct v4l2_isp_block_header with a type from
-> enum camss_stats_block_type.
-> 
-> The first block is the AEC Bayer histogram, CAMSS_STATS_AEC_BHIST:
-> 1024 bins counting the luma of each 2x2 Bayer quad in the histogram's
-> region.
-> 
-> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+How does such a SYN reach a listener ?
+
+ip_route_input_slow() rejects a multicast saddr as a martian source,
+so this can not come from the wire.
+
+I guess this needs a local sender : raw socket with IP_HDRINCL, and
+the packet going through loopback, where the dst is kept
+(skb_dst_force() in loopback_xmit()), so that ip_rcv_finish_core()
+skips ip_route_input_noref().
+
+Also the SYNACK route only uses ip_mc_output() if RTCF_LOCAL is set
+and the output device is not loopback, so the SYN must target an
+address of a non loopback device, and the source must be a group
+joined on this device.
+
+Please describe this in the changelog, and include the (trimmed)
+KASAN splat, and a repro if you have one.
+
+(Was it a public syzbot report ?)
+
+> Map the socket to the full socket before reading its flags.
+>
+> Fixes: ca6fb0651883 ("tcp: attach SYNACK messages to request sockets inst=
+ead of listener")
+> Signed-off-by: Theodor Arsenij Larionov Trichkine <theodorlarionov@gmail.=
+com>
 > ---
->  drivers/media/v4l2-core/v4l2-ioctl.c   |  1 +
->  include/uapi/linux/qcom-camss-config.h | 33 +++++++++++++++++++++++++++++++++
->  include/uapi/linux/videodev2.h         |  3 +++
->  3 files changed, 37 insertions(+)
-> 
-> diff --git a/drivers/media/v4l2-core/v4l2-ioctl.c b/drivers/media/v4l2-core/v4l2-ioctl.c
-> index a2b650f4ec3c3..e5eccb62e76b2 100644
-> --- a/drivers/media/v4l2-core/v4l2-ioctl.c
-> +++ b/drivers/media/v4l2-core/v4l2-ioctl.c
-> @@ -1471,6 +1471,7 @@ static void v4l_fill_fmtdesc(struct v4l2_fmtdesc *fmt)
->  	case V4L2_META_FMT_C3ISP_STATS:		descr = "Amlogic C3 ISP Statistics"; break;
->  	case V4L2_META_FMT_MALI_C55_PARAMS:	descr = "ARM Mali-C55 ISP Parameters"; break;
->  	case V4L2_META_FMT_MALI_C55_STATS:	descr = "ARM Mali-C55 ISP 3A Statistics"; break;
-> +	case V4L2_META_FMT_QCOM_ISP_STATS:	descr = "Qualcomm CAMSS ISP Statistics"; break;
->  	case V4L2_PIX_FMT_NV12_8L128:	descr = "NV12 (8x128 Linear)"; break;
->  	case V4L2_PIX_FMT_NV12M_8L128:	descr = "NV12M (8x128 Linear)"; break;
->  	case V4L2_PIX_FMT_NV12_10BE_8L128:	descr = "10-bit NV12 (8x128 Linear, BE)"; break;
-> diff --git a/include/uapi/linux/qcom-camss-config.h b/include/uapi/linux/qcom-camss-config.h
-> index aa3d97cfcc78e..23c12b8955ef6 100644
-> --- a/include/uapi/linux/qcom-camss-config.h
-> +++ b/include/uapi/linux/qcom-camss-config.h
-> @@ -209,4 +209,37 @@ struct camss_params_gamma {
->  	 sizeof(struct camss_params_color_correct)	+\
->  	 sizeof(struct camss_params_gamma))
->  
-> +/**
-> + * enum camss_stats_block_type - CAMSS ISP statistics block identifiers
-> + *
-> + * Each value identifies one statistics block in a
-> + * V4L2_META_FMT_QCOM_ISP_STATS buffer. The value is placed in the @type field
-> + * of &struct v4l2_isp_block_header.
-> + *
-> + * @CAMSS_STATS_AEC_BHIST: AEC Bayer histogram, &struct camss_stats_bhist
-> + */
-> +enum camss_stats_block_type {
-> +	CAMSS_STATS_AEC_BHIST = 1,
-> +};
-> +
-> +/* Number of bins in a Bayer histogram. */
-> +#define CAMSS_STATS_BHIST_BINS	1024
-> +
-> +/**
-> + * struct camss_stats_bhist - Bayer histogram
-> + *
-> + * Histogram of the luma of each 2x2 Bayer quad inside the histogram's region,
-> + * over CAMSS_STATS_BHIST_BINS equal bins spanning its input range. Quads
-> + * whose luma falls outside the input range are not counted.
-> + *
-> + * @header: block header; @header.type = CAMSS_STATS_AEC_BHIST
-> + * @bins:   number of quads per bin
-> + */
-> +struct camss_stats_bhist {
-> +	struct v4l2_isp_block_header header;
+>  net/core/sock.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/net/core/sock.c b/net/core/sock.c
+> index e8551df8330f..1302c1e848b2 100644
+> --- a/net/core/sock.c
+> +++ b/net/core/sock.c
+> @@ -769,6 +769,7 @@ bool sk_mc_loop(const struct sock *sk)
+>  {
+>         if (dev_recursion_level())
+>                 return false;
+> +       sk =3D sk_const_to_full_sk(sk);
+>         if (!sk)
+>                 return true;
+>         /* IPV6_ADDRFORM can change sk->sk_family under us. */
+>
 
-I think that the whole format is not correct, having header is preventing address alignment 
-of the buffer for the stats, as i have mentioned in the next patch copying the statistics
-on each frame is not correct, just to have generic statistics format in userspace.
+This only addresses the out-of-bounds read, masking the root cause.
 
-~Gjorgji
+We still answer a SYN with a multicast source. With this patch the
+SYNACK is looped back depending on the listener MC_LOOP setting,
+and syncookie SYNACK (skb->sk =3D=3D NULL) were already sent.
+
+tcp_v4_conn_request() only looks at the input route flags, ie the
+destination of the SYN. tcp_v4_connect() refuses RTCF_MULTICAST and
+RTCF_BROADCAST routes, I think we want the same check on the route
+used for the SYNACK.
+
+diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_soc=
+k.c
+index 6a30f11384547e6adaeff13a005c7ce1d316a602..aa928015cd143234d3d0c72e2b6=
+07d8347f73269
+100644
+--- a/net/ipv4/inet_connection_sock.c
++++ b/net/ipv4/inet_connection_sock.c
+@@ -779,6 +779,9 @@ struct dst_entry *inet_csk_route_req(const struct sock =
+*sk,
+                goto no_route;
+        if (opt && opt->opt.is_strictroute && rt->rt_uses_gateway)
+                goto route_err;
++       /* Never send a SYNACK to a broadcast or multicast destination. */
++       if (rt->rt_flags & (RTCF_BROADCAST | RTCF_MULTICAST))
++               goto route_err;
+        rcu_read_unlock();
+        return &rt->dst;
+
+pw-bot: cr
