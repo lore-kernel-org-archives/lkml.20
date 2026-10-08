@@ -1,103 +1,146 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 304183C7E1D;
-	Thu,  8 Oct 2026 12:09:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA1AB490BF4;
+	Thu,  8 Oct 2026 12:10:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791461356; cv=none; b=eMrC05Bia0/uUUc6W/EMTvASyQplQuHMskpc3O5M0oOvk0geRXdYwq45b5j9qMpenccq1/dlQ4AekOcfugOglOJLdvaFxe5iIpCdC5P4g5L7Px3CFk1fxUTiRpoOaw1Ix1ymGipF2VJttpe3uEhdV/uqeeopU+oGnzanpprAW50=
+	t=1791461405; cv=none; b=UnOJQX8pR6QYiwTKNBSCsmrTE9isg1R2G/uG/h8QjGnlvZTSJu1nUbDF4Af93SlJUxRi26qPfM5bPSN1WVtDBNtW/yJurKQkwsaomdfMgw3ISEySXVWsdGlBzY0wRVznxTnR9YgB/+LuPkaeOkXEqYq1l69tlIwPtEfbHB2djuI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791461356; c=relaxed/simple;
-	bh=/YSFPQk3S4NCWQ/IrETBNizbXIwPnIgqk+FGbKeVNSU=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=rqqr0qxVqMC4v38i4mF1B/4ifpFuIyK+J6uNfXiVEFdOdP9/f2u9USco4yX/Unm9HbuWlAT2/CJWppVsjbFIwbnq0sEYSzEXUhgsBY5GVBybiddLbRvfi/IED/w1x8sX/DWYIEe7Pytb45EIZ+RMskGKgcV9bJ/BZOBuG24WBM4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ir1hHhmc; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791461405; c=relaxed/simple;
+	bh=fm8hnLQ87j/HniBBSzjsIxMOM+8ZC5AwUf9bCYp/fx0=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=UQu+Jhu9rrmBWDl0V27e+sz6qS+siRtBQNx+zaCgK3MdSSKiJuYQvFR2qaqFvTx7Y1Z/WLcTcH9w+UNbJRCPY2UNB0nkMG/QQtk3X+YP7fIzkoLFxMpaqnnxHhoqKekAT+iQXorS0/4aFj/Az+bTT+L2RxFUvm/HY7x+04W0NYo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ywa+2Zv4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ir1hHhmc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791461355; x=1822997355;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=/YSFPQk3S4NCWQ/IrETBNizbXIwPnIgqk+FGbKeVNSU=;
-  b=ir1hHhmc3tRNmH3u9skJGbI06oypXpYnNGLg6A9T2RnVGRPmQASVoCTG
-   VQfSw4p8DQlan62QafnSZTG5xQ1D4sIDmL+I1Mq82+YqptIDGMB6dejQy
-   cjP+yVuyG9BMEyiDvygLbWmQP4iwAaCnRnaTabYCh1TNVT2Vk/EXQiRSw
-   ImCRkyTrJs1fRCzKmat/DRwvVAhxcNnrhhXQYmxfIb/pxJQBXYNKWzLWd
-   4h6NK3LVpohuRSd/C6/aFEmpLu3kEJsPNkMmDq7afcmRiAcD6s9jQOBpR
-   VZqkmy89N2P6dlFnM32HJbzgAdcZA5Uc/oN3uE8gM6TUg2VLUQDnGIISE
-   g==;
-X-CSE-ConnectionGUID: 0D5SzRwSRIO2tXZDy7WboA==
-X-CSE-MsgGUID: n7f8QxMKRqqM/gkerkGJpA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="135556"
-X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
-   d="scan'208";a="135556"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 05:09:14 -0700
-X-CSE-ConnectionGUID: gjaqQomhRty2G193C+jYuQ==
-X-CSE-MsgGUID: oYpqePm7Rle6fEkcpvLt2w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
-   d="scan'208";a="137895"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.140])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 05:09:12 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Thu, 8 Oct 2026 15:09:09 +0300 (EEST)
-To: Mohamed Jouini <amad3v@gmail.com>
-cc: Armin Wolf <W_Armin@gmx.de>, Hans de Goede <hansg@kernel.org>, 
-    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 1/2] platform/x86: uniwill-laptop: Add PCSpecialist
- Recoil 16 AMD
-In-Reply-To: <20260927014031.3465252-2-amad3v@gmail.com>
-Message-ID: <fb9cd6ad-53e5-3c1c-e14a-ba251e485e37@linux.intel.com>
-References: <20260927014031.3465252-1-amad3v@gmail.com> <20260927014031.3465252-2-amad3v@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ywa+2Zv4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6B971F000FF;
+	Thu,  8 Oct 2026 12:10:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791461404;
+	bh=hHfA58dTjNt9k2vhbq/4fIySxGEknhamS/nxV/UVryA=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Ywa+2Zv47v4FFXNSq7h4iRZADiC9Rl8CpqshiS871g7OPaPNIRt1C/EMMszZBtAOa
+	 cLypixVxo83zvRt2G7bbq2gLh6LYvbhVIVMkAQ57ok2p4RXpLmWI2n8GTFcLp1fPZT
+	 i6ej8coSHksSen6e3gvCnh5GxWBLrtJBAHHbtfHi0Dh/EvASo/+ACF7CPw6FV68Oi7
+	 onLPR3oTDxKzF9G53gIjLW38FyVAVugMBQ5JjpTiCR6w0LpmYsV7Lq33k15p2QGPAM
+	 QuPbKA0/H41Ykb8uAHACcEf6FJj99qMM1A3o7g8rKFWl9VdPPJKOdhTpk6WOlMoIQg
+	 nBCUrKnzYVIvg==
+Subject:
+ Re: [PATCH net v2] usbnet: fix EVENT_RX_PAUSED race in usbnet_skb_return()
+From: netdev-bot+sashiko@kernel.org
+To: omermetekaya0@gmail.com
+Cc: netdev@vger.kernel.org, oneukum@suse.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Thu, 08 Oct 2026 12:10:03 +0000
+Message-ID: <179146140323.434549.4025996988733762970@kernel.org>
+In-Reply-To: <20261006120825.342164-1-omermetekaya0@gmail.com>
+References: <20261006120825.342164-1-omermetekaya0@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
 
-On Sun, 27 Sep 2026, Mohamed Jouini wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-> The PCSpecialist Recoil 16 AMD is a rebadged TUXEDO Stellaris 16 Gen7 AMD
-> but reports sys_vendor "PCSpecialist" and board name "X6FR57TY", so the
-> existing entry does not match it. Use the Stellaris 16 Gen7 AMD feature
-> set.
-> 
-> Signed-off-by: Mohamed Jouini <amad3v@gmail.com>
-> ---
-> Changes in v2:
-> - Use the existing Stellaris 16 Gen7 AMD feature set (charging profiles)
->   instead of a separate descriptor with the percentage charge limit.
-> 
->  drivers/platform/x86/uniwill/uniwill-acpi.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
-> 
-> diff --git a/drivers/platform/x86/uniwill/uniwill-acpi.c b/drivers/platform/x86/uniwill/uniwill-acpi.c
-> index eeead0159..7d39e97fa 100644
-> --- a/drivers/platform/x86/uniwill/uniwill-acpi.c
-> +++ b/drivers/platform/x86/uniwill/uniwill-acpi.c
-> @@ -3268,6 +3268,14 @@ static const struct dmi_system_id uniwill_dmi_table[] __initconst = {
->  		},
->  		.driver_data = &tux_featureset_4_nvidia_descriptor,
->  	},
-> +	{
-> +		.ident = "PCSpecialist Recoil 16 AMD",
-> +		.matches = {
-> +			DMI_MATCH(DMI_SYS_VENDOR, "PCSpecialist"),
-> +			DMI_EXACT_MATCH(DMI_BOARD_NAME, "X6FR57TY"),
-> +		},
-> +		.driver_data = &tux_featureset_4_nvidia_descriptor,
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
-Hi,
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-The descriptors were renamed by recent work so could you please rebase 
-this on top of the for-next branch and send v3.
+- [High] This patch brings back the syzbot 'BUG: using smp_processor_id()
+  in preemptible code' bug that commit 327cd4b68b43 ('usbnet: Fix using…
+
+--
+
+usbnet: fix EVENT_RX_PAUSED race in usbnet_skb_return()
+
+This patch targets a race between usbnet_skb_return() and
+usbnet_resume_rx(). It moves clear_bit() in usbnet_resume_rx() under
+rxq_pause.lock, and usbnet_skb_return() now takes that lock to recheck
+EVENT_RX_PAUSED on the slow path. As part of this, the
+local_bh_disable()/local_bh_enable() pair in usbnet_resume_rx() is
+replaced by a spin_lock_bh() section that covers only clear_bit().
+
+> diff --git a/drivers/net/usb/usbnet.c b/drivers/net/usb/usbnet.c
+> index a19ecf718f36a..dc340ea248c6b 100644
+> --- a/drivers/net/usb/usbnet.c
+> +++ b/drivers/net/usb/usbnet.c
+
+[ ... ]
+
+> @@ -699,8 +704,9 @@ void usbnet_resume_rx(struct usbnet *dev)
+>  	struct sk_buff *skb;
+>  	int num = 0;
+>  
+> -	local_bh_disable();
+> +	spin_lock_bh(&dev->rxq_pause.lock);
+>  	clear_bit(EVENT_RX_PAUSED, &dev->flags);
+> +	spin_unlock_bh(&dev->rxq_pause.lock);
+>  
+>  	while ((skb = skb_dequeue(&dev->rxq_pause)) != NULL) {
+>  		usbnet_skb_return(dev, skb);
+> @@ -708,7 +714,6 @@ void usbnet_resume_rx(struct usbnet *dev)
+>  	}
+>  
+>  	queue_work(system_bh_wq, &dev->bh_work);
+> -	local_bh_enable();
+
+[Severity: High]
+Does this bring back the syzbot warning that was fixed by commit
+327cd4b68b43 ("usbnet: Fix using smp_processor_id() in preemptible code
+warnings")?
+
+That commit added the local_bh_disable()/local_bh_enable() pair around
+the drain loop and queue_work(). With this patch, BHs come back on right
+after clear_bit(). The drain loop then runs in preemptible process
+context when it is reached from the MTU change path:
+
+dev_ioctl()
+  dev_set_mtu()
+    usbnet_change_mtu()
+      usbnet_resume_rx()
+        usbnet_skb_return()
+
+usbnet_skb_return() starts with:
+
+	struct pcpu_sw_netstats *stats64 = this_cpu_ptr(dev->net->tstats);
+
+With CONFIG_DEBUG_PREEMPT, this should produce the same "BUG: using
+smp_processor_id() in preemptible" splat that 327cd4b68b43 quotes.
+
+Without debug options, the task could migrate after this_cpu_ptr(). It
+would then update another CPU's pcpu_sw_netstats while that CPU's own BH
+RX path (usbnet_bh()->rx_process()->usbnet_skb_return()) writes the same
+counters. Can RX stats updates be lost this way?
+
+On 64-bit, u64_stats_inc() and u64_stats_add() are local64 operations
+and are not safe across CPUs. On 32-bit, two writers on one syncp could
+corrupt the seqcount. Readers in dev_fetch_sw_netstats() could then keep
+retrying.
+
+The commit message doesn't mention that the BH protection around the
+drain loop is removed. The patch also carries Fixes: 43daa96b166c, so it
+could bring this back into stable trees that already have 327cd4b68b43.
+
+Could the local_bh_disable()/local_bh_enable() pair stay around the
+whole drain loop and queue_work()? Inside that region, rxq_pause.lock
+could then be taken with spin_lock()/spin_unlock() just around
+clear_bit().
+
+>  
+>  	netif_dbg(dev, rx_status, dev->net,
+>  		  "paused rx queue disabled, %d skbs requeued\n", num);
 
 -- 
- i.
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261006120825.342164-1-omermetekaya0%40gmail.com
