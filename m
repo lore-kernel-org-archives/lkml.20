@@ -1,150 +1,157 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mta0.migadu.com (out-146.mta0.migadu.com [91.218.175.146])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1396A448B8E
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 08:24:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C293545FFD8
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 08:24:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791447853; cv=none; b=Fdk7EFRKpw4YIsQqcvviXCZeT2FCbBkqxP+z/0dJ03lZHjW/bb+X95/Vn+RHlgi6yXdkMFgAEwchkP8tvFeCE1kNrOuHWl6RPnghFsZuXFOtVF/KhRHaNFP11mk6+OO8Odf9ZDPqKyGE9iEVOJa/WZ30Wcnl3faO4tNXeYzjZmE=
+	t=1791447856; cv=none; b=DVMIIEa3B+GzKpCY0rdthaoZbLBAp/RfyZd3W1E8MMrhmH/4Dp6nWjgSYa0OXYPxkLQ3aMYamOIQ4X0toryeZ5IIoJhl2/VMLJ+yp/sIiSzb9zjctuxAJesEBCsXh3NCJmi0vA5SAtlqbQOtMxYPH1DploHuRRQrceTeA2Shj2U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791447853; c=relaxed/simple;
-	bh=lcJ2Jx4jRzbxqtaMyX7nQoruuHUG1mlcWlaJ6b9elOg=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=bwkgcbzD3b6Kc/PfloI1Ihr/fM9P0iep1Wh202agR5ThE57NO9NsolGo9DE13kf8N0UjBW8zIEnULep/AW/TFA/PYjqXzQT8XKUzSQkz/IVuum3cfsRrJCA5SHqbOCrU6z62Rf3vjwv91/1+uo2gzL2iCBOtosBnm19Z73KBbKk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=KMbOlnlM; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1791447856; c=relaxed/simple;
+	bh=RMx7jFiL65ZDGqd0DZ1v3Z2cM1AED/E0YCu2i1HQI2g=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=YYVkaaYWauDFr/ThQ92P58pdSZ1agVz8TTJ3bK5r49wgDyBLoMyYa7naHkD2AjFd5RO9LKN6jnTSJiYOg1DN9iwj1+r6KoNsd9DF1ZAQ4K4+60fPm39SL6E6YH0AOR3ujAsHxkVkTso2htH1xtg+rytK6DmZFvr+2LxroTHxEEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Z5PWxaKo; arc=none smtp.client-ip=91.218.175.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="KMbOlnlM"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a02753c04fso15121495e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 01:24:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791447850; x=1792052650; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mBycP8p7SGKiJlPKrsQosdM3WVmZLo/n5T15mL/kfEI=;
-        b=KMbOlnlMz3uZqltzx8s9CQzyZOi1O+BNCclB+BGKxG+TeMQXhWIUPPGlpaCsBqLCL5
-         X+VrtHIcboHSguXCZsV+RouMBDY83CgIhrUDHP5iVRHpPnC7Lpu03G/IDB+5lzRCHhII
-         TowT+vd2083gH2CqqlbVZEPCJFpJlNex5FeFkWP4AHf/YF3z4ZGdzrj2V26UFSI5lCqj
-         iuEcNm7GVPvrNsgUsEUYtQbZf1AlsRxlo4MS7+fhHw/3xtFwgYirAMlx+2vuMMXSxezl
-         OrHk2aoHySn8nh92vFmA2Zc0q8JnaPSpoPYLcB7RZUVdmrG0NsTp23fHEujGGd3nSgBH
-         taeg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791447850; x=1792052650;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mBycP8p7SGKiJlPKrsQosdM3WVmZLo/n5T15mL/kfEI=;
-        b=dhgNQ5tgcBqnbAgh8BPkoWTVTrD4RiZucYBPqzyhhCWnWPqqkb+GW3XY8OzYN6iFqt
-         PzCV2FnnT2Bh/Dip9Fk17aSggulErU67oUNyku6vK9OSbLQKtHJDrSuHOO9qSRLgejYA
-         K/Oi5FbFhxFZIepgXlGRsQsVCgbgIEVLhXVBscWcnfw48t/XsVaSN/HW3YpX/+kzoDXI
-         kEqk90qad0uxfNxCWo3+wcF+F5xQ3w7oD8Snxn48HKy5Hwwevtgpl1ovqCp8Y6iaVZ2A
-         IPsbM7zK6qXgz6GNxrKIHAo5G+S0oNOvzIUJD04MyGPq7mFqOC6+3OfUWltd0Horeo2r
-         soig==
-X-Forwarded-Encrypted: i=1; AKwUvBw6el4jnrXJD8W71XzoftvWfTIwmVtZGgwNl65QO1xvB+Sva1Z+o0kDc//leRCZzMKAqlImjU7pogaDRfA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nx/82Brt0EtnZ95NCkUXmxfO8vn9AmnvkAbMWLX5BPpuF2cgF4
-	8irfz3UlWujnd8s6m819Wdl7LdG7EDpPueyFJrUPv9vPMhTSPo5obFjZB1KZA39pW5Feaoe+KqT
-	mU0zHHKU6+Q==
-X-Gm-Gg: AYBFou1etKSPXHGOFK/7OIePRiFS4pBQllMg8O/3n8ejONfGYka9Ey7+85X2vgYE/fV
-	xKDmEwmWXhlOoqKVH7N8bghEGR27BclegPMI52HmzsZXu9C16Wu9+cki+o7ePMGtGeFP5GDG2wT
-	PfuKGoGxs9epGnJjBemQ8lk74WaB8OaSr89bB1+x5DBY2AsUfhUcBOoTQZHLTpJOgbY5VUGSS5I
-	OJxn7BcbNa+FY7FSu+OZHbb/1QkRjHj1RXpr1uQ5YFRr7EMJnEhl/yFVPOOPzqY5DyQ+liFFx2b
-	v1+AGfVS+g0fifnNVXPnpcG6MvhM/eM9bT7bT1o6XBs82zv4e1QNXds3xyW3PLmrfJcfzc6gDPM
-	64NJjvvEa+RScqRAqp++DAPL3nvaCOIsKljuFqvLtrJkEyLrlGRsBv0FUy3B9qOEuE5lkL/Z4R2
-	V3HmqXPAfqc3+SCM1/NGqIi06eyjltUnDcJBl1lMgSD793/UrR3714MhxMWznbXIVkP6mD2nr3H
-	QKrcAlZkJU/VWkalsJz74yv/vsCZHI=
-X-Received: by 2002:a05:600c:8b18:b0:49c:fa21:e749 with SMTP id 5b1f17b1804b1-4a180455775mr77142395e9.31.1791447850014;
-        Thu, 08 Oct 2026 01:24:10 -0700 (PDT)
-Received: from [192.168.151.76] (90-182-211-1.rcp.o2.cz. [90.182.211.1])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71b786d8sm9975943f8f.0.2026.10.08.01.24.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 08 Oct 2026 01:24:09 -0700 (PDT)
-Message-ID: <51fec579-a74a-4bfd-8b5d-2e7308405211@linaro.org>
-Date: Thu, 8 Oct 2026 10:24:08 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Z5PWxaKo"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=RMx7jFiL65ZDGqd0DZ1v3Z2cM1AED/E0YCu2i1HQI2g=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791447851; v=1; x=1792052651;
+ b=Z5PWxaKoUGC06vBDipjkB1hzJU599uR5aNvbDcZNRB8flcIZVd0xVGne2xYUkhmfnsZRNI9+
+ wWJLjhYJ7M4FK0rDRhun9W4mrBaOuHfKo0e4MlMvLDZBEZ1VQfPf7YPx6qRDF4LB04RLUu1TPHu
+ VslM51st0uHq/Ov3EtUqsmFw=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id e009485256980d37;
+	Thu, 08 Oct 2026 08:24:11 +0000
+X-Mizu-Trace-ID: e009485256980d37
+X-Migadu-Flow: FLOW_OUT
+From: Hangbin Liu <hangbin.liu@linux.dev>
+Subject: [PATCH net-next v4 0/6] netlink: add lwtunnel encap sub-message
+ support to rt-route
+Date: Thu, 08 Oct 2026 16:24:00 +0800
+Message-Id: <20261008-ynl_rt_encap-v4-0-4ed2ccf7f949@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 1/4] drm/panel: st7703: set prepare_prev_first
-To: Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>,
- Jessica Zhang <jesszhan0024@gmail.com>, =?UTF-8?Q?Guido_G=C3=BCnther?=
- <agx@sigxcpu.org>
-Cc: Ondrej Jirman <megi@xff.cz>, Purism Kernel Team <kernel@puri.sm>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Hugo Villeneuve <hvilleneuve@dimonoff.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Jerome Oufella <jerome.oufella@savoirfairelinux.com>,
- Felix Boucher <felix.boucher@savoirfairelinux.com>,
- Quentin Lehoux <quentin.lehoux@savoirfairelinux.com>
-References: <20261007201859.3709656-1-marc-olivier.champagne@savoirfairelinux.com>
- <20261007201859.3709656-2-marc-olivier.champagne@savoirfairelinux.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20261007201859.3709656-2-marc-olivier.champagne@savoirfairelinux.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2XNQQqDMBCF4auUrJsySeyoXfUepYimYw2VKEkQR
+ bx7g92oXT6G75+ZeXKGPLudZuZoMN50No7kfGK6Ke2buHnFzSRIhBwyPtm2cKEgq8ueK5GAAFU
+ pzEoWSe+oNuOaezBLgVsaA3vGS2N86Ny0/hnEev8lRbpPDoIDr6uKkDCDayrun6k1tvMXbdfSI
+ DdawkHLqDViUipKJdb4p9VGq6NWUScCUEtR5UTpTi/L8gWfnqhaLwEAAA==
+X-Change-ID: 20260908-ynl_rt_encap-3140103b368a
+To: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+ Donald Hunter <donald.hunter@gmail.com>, Eric Dumazet <edumazet@kernel.org>, 
+ Eric Dumazet <edumazet@kernel.org>
+Cc: Hangbin Liu <hangbin.liu@linux.dev>, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+ Hangbin Liu <liuhangbin@kylinos.cn>
+X-Mailer: b4 0.14.3
 
-On 10/7/26 22:18, Marc-Olivier Champagne wrote:
-> The DSI host must be enabled for the panel to be initialized in
-> prepare(). Set the prepare_prev_first flag to guarantee this.
-> 
-> Suggested-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
-> Signed-off-by: Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>
-> ---
->   drivers/gpu/drm/panel/panel-sitronix-st7703.c | 2 ++
->   1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/panel/panel-sitronix-st7703.c b/drivers/gpu/drm/panel/panel-sitronix-st7703.c
-> index 70f7282471e6..368c57591817 100644
-> --- a/drivers/gpu/drm/panel/panel-sitronix-st7703.c
-> +++ b/drivers/gpu/drm/panel/panel-sitronix-st7703.c
-> @@ -973,6 +973,8 @@ static int st7703_probe(struct mipi_dsi_device *dsi)
->   	if (ret < 0)
->   		return dev_err_probe(&dsi->dev, ret, "Failed to get orientation\n");
->   
-> +	ctx->panel.prepare_prev_first = true;
-> +
->   	ret = drm_panel_of_backlight(&ctx->panel);
->   	if (ret)
->   		return ret;
+This series adds YNL sub-message support for lwtunnel encap data in
+the rt-route netlink family, and describes the tunnel-specific
+attribute sets that were previously opaque binary blobs.
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+The kernel currently emits encap_type after the encap payload nest,
+but YNL sub-message parsing needs the selector (encap_type) first to
+dispatch on the correct attribute set. Patch 1 reorders the kernel
+output, and patch 2 teaches the YNL C code generator to convert enum
+selectors to their string form for sub-message dispatch.
 
-Thanks,
-Neil
+Patches 3-6 extend the rt-route YAML spec.
+
+Tested with ynl selftest and checked with following cmds
+
+ # modprobe ila
+ # modprobe xfrm_interface
+ # ip addr add 10.1.0.1/24 dev lo
+ # ip link add geneve1 type geneve id 1 remote 10.1.0.2 ttl 64
+ # ip link set geneve1 up
+ # ip route add 10.1.0.0/24 dev lo encap mpls 100 via 10.1.0.254
+ # ip route add 1.1.1.0/24 encap ip id 1 geneve_opts 1:1:1212121234567891,2:2:1212121234567892,3:3:1212121234567893 dst 10.1.0.2 dev geneve1
+ # ip route add 2001:db8:3::/64 dev lo encap ila 1:2:3:4 csum-mode no-action ident-type luid hook-type output
+ # ip route add 2001:db8:4::/64 dev lo encap ip6 id 1 dst 2001:db8::5 src 2001:db8::1 hoplimit 64
+ # ip route add 2001:db8:5::/64 dev lo encap seg6 mode inline segs 2001:db8::1
+ # ip route add 2001:db8:6::/65 dev lo encap seg6local action End flavors psp,next-csid lblen 32 nflen 16
+ # ip route add 2001:db8:7::/65 dev lo encap bpf in ob /tmp/kself/net/lib/xdp_dummy.bpf.o sec xdp
+ # ip route add 2001:db8:8::/64 dev lo encap rpl segs 2001:db8::1
+ # ip route add 2001:db8:9::/64 encap ioam6 trace prealloc type 0x800000 ns 0 size 4 dev lo
+ # ip route add 2001:db8:10::/64 dev lo encap xfrm if_id 100
+ # ip route show
+ 1.1.1.0/24  encap ip id 1 src 0.0.0.0 dst 10.1.0.2 ttl 0 tos 0
+        geneve_opts 1:1:1212121234567891,2:2:1212121234567892,3:3:1212121234567893 dev geneve1 scope link
+ 10.1.0.0/24  encap mpls  100 via 10.1.0.254 dev lo
+ # ip -6 route show
+ 2001:db8:3::/64  encap ila  1:2:3:4  csum-mode no-action  ident-type luid  hook-type output dev lo metric 1024 pref medium
+ 2001:db8:4::/64  encap ip6 id 1 src 2001:db8::1 dst 2001:db8::5 hoplimit 64 tc 0 dev lo metric 1024 pref medium
+ 2001:db8:5::/64  encap seg6 mode inline segs 2 [ 2001:db8::1 :: ] dev lo metric 1024 pref medium
+ 2001:db8:6::/65  encap seg6local action End flavors psp,next-csid lblen 32 nflen 16 dev lo metric 1024 pref medium
+ 2001:db8:7::/65  encap bpf in xdp_dummy.bpf.o:[xdp] dev lo metric 1024 pref medium
+ 2001:db8:8::/64  encap rpl segs 1 [ 2001:db8::1 ] dev lo metric 1024 pref medium
+ 2001:db8:9::/64  encap ioam6 freq 1/1 mode inline trace prealloc type 0x800000 ns 0 size 4 dev lo metric 1024 pref medium
+ 2001:db8:10::/64  encap xfrm if_id 100 dev lo metric 1024 pref medium
+ # ./tools/net/ynl/pyynl/cli.py --family rt-route --dump getroute > /tmp/route_dump.json
+
+All the result looks good.
+
+Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
+---
+Changes in v4:
+- patch 02: include check `not self.selector.is_external()` for enum selectors,
+            return error when enum lookup failed. (sashiko, Jakub)
+- patch 04: set geneve options to binary due to the different format between
+            request and dump (sashiko)
+- patch 05: set max-len for lwt-bpf-prog-name (sashiko)
+- patch 06: fix seg6-local-flv-ops type and name prefix (sashiko)
+- Link to v3: https://lore.kernel.org/r/20260930-ynl_rt_encap-v3-0-4106c21b9ee7@kylinos.cn
+
+Changes in v3:
+- patch 02: return local_vars and define new helpers is_enum_val and
+  get_enum_name (Jakub Kicinski)
+- patch 03: alphabet order for header files in Makefile (Jakub Kicinski)
+  set byte-order for ila-attrs. ILA_ATTR_IDENTIFIER is not used, so no
+  need to set byte-order. (sashiko)
+- patch 04: add multi-attr: true for geneve opts (sashiko)
+- patch 05: remove lwt-bpf-prog from seg6 local, add a seg6 specific one
+  in patch 06 (sashiko)
+- patch 06: add seg6-local-bpf and seg6-local-flv-ops. Set enum-as-flags
+  for seg6-local-flv-ops, set max-len for seg6-local-bpf-prog-name (sashiko)
+- Link to v2: https://lore.kernel.org/r/20260920-ynl_rt_encap-v2-0-c664a3e726f6@kylinos.cn
+
+Changes in v2:
+- Patch 1: Check ops->fill_encap before setting encap_type_attr
+- Patch 2: Get string in generated sub-message parser and check it before reference
+- Patch 3-4: set byte-orders and max-len
+- Patch 5: include lwtunnel.h
+- Link to v1: https://lore.kernel.org/r/20260917-ynl_rt_encap-v1-0-fbbe6e680571@kylinos.cn
+
+---
+Hangbin Liu (6):
+      net: lwtunnel: change encap fill order
+      tools: ynl: convert enum selector to string for sub-message parsing
+      netlink: specs: rt-route: add lwtunnel encap sub-message support
+      netlink: specs: rt-route: describe lwtunnel IP options
+      netlink: specs: rt-route: describe lwt BPF program options
+      netlink: specs: rt-route: describe seg6-local attrs
+
+ Documentation/netlink/specs/rt-route.yaml | 430 +++++++++++++++++++++++++++++-
+ net/core/lwtunnel.c                       |  35 +--
+ tools/net/ynl/Makefile.deps               |   9 +-
+ tools/net/ynl/pyynl/ynl_gen_c.py          |  34 ++-
+ 4 files changed, 484 insertions(+), 24 deletions(-)
+---
+base-commit: 8df0638138d3e0344fd1fb36cf2d1ca1cf5028f0
+change-id: 20260908-ynl_rt_encap-3140103b368a
+
+Best regards,
+-- 
+Hangbin Liu <liuhangbin@kylinos.cn>
+
