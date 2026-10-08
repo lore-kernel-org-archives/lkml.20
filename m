@@ -1,229 +1,129 @@
-Received: from out30-99.freemail.mail.aliyun.com (out30-99.freemail.mail.aliyun.com [115.124.30.99])
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56017440638
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 12:27:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E8934968E0
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 12:27:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791462475; cv=none; b=BQWIiC6wFiFSWJIib4KFsXlVkF9hG0bUXyR09r2CW8bUEMw8Q0IE+/Zfvncg8AAyJLbYtiHUibCPx5BGR0EE7+uGsorwNj625XgMJ3XAIi72IB3D7a6BZ7LPZLh1LXmp+btWQh9Ho/a7H8iGuIULy1I9mOsXBar1o3FNLL0LId4=
+	t=1791462478; cv=none; b=fjBZgY7GzhabMbrmfsPFssHGzXGYU4HXTsVqNdhIHCX4Ji2IOxEvdJmVV6r2c6tbL/SUc2iSqQZyMdlblyEVUj0brkUwQ7xhH010fjOHJ4t0RW/6STlnHdZpb2olNWrMU7NUwgjqX2bkatavNMQYfSssCqdyl4xfCeECppddp9Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791462475; c=relaxed/simple;
-	bh=hl6Oz0OPExJY7v6RiVjb/UGALP9VJu24XtopAxVgGS0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=JTyzweWdPaj3bu0f/wkLuaKPvI2Oj0NPhPWqYB8hJ+Un0wiY2kJsyVAigRj4FOTdSn7pGsQCEieSdv/LAsJiL7wrNKGEljHWWtFydB36HF/bfuQxO7tbkDib01L/60lRQ1ENdQbycy8PnPmTzEzxIgc7FzCGN33HHQmuMz6aXYE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=XLfQqMSl; arc=none smtp.client-ip=115.124.30.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1791462478; c=relaxed/simple;
+	bh=M/of0yKyhsge6MIBInUspqDhJmPuNOVFyiktJawrHXk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=J/5FCwPKYA5LlBOCFDTNHKNZ2qWiBSqCWCSk52FCgb9Jx0X/TFSYe3KvBPxDIaK1ZquqCQa2hyr9g5/T58lOlJ5nBEkQTOPWI0Jb3Rt8y19HMDn/7XRrYPJBqQx4czngMfidqjnHZTxPaD1eDaXE684pi0wD5385yA0VoRxNIe0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=tdC5+MT+; arc=none smtp.client-ip=203.254.224.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="XLfQqMSl"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1791462464; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=ir15CzgagcD8T0rKPn8O8BlrWJdqKbpVGZzHEH1ezfE=;
-	b=XLfQqMSl1Qydvv0rE6Pnn9BwqRK60KZhm2Jnznz3REm5eM5fR18gNILD0a7EYzH22RZGVvoEqRlEiVpzTKHMuIvDWPPX/JIjkcuJ6RHc1xdmFV+X7Eaj9FtzE6Tu68pMBKoQDpluhFPMy6Q0qSXUq8M6XPQuJb9tmDduVYgnqEU=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R141e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0XCPtjHK_1791462463;
-Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XCPtjHK_1791462463 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 08 Oct 2026 20:27:43 +0800
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Heming Zhao <heming.zhao@suse.com>,
-	Anderson Ferneda <anderson.ferneda@braza.com.br>
-Cc: Mark Fasheh <mark@fasheh.com>,
-	Joel Becker <jlbec@evilplan.org>,
-	ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] ocfs2: deal with legacy signed dir index name hash values
-Date: Thu,  8 Oct 2026 20:27:42 +0800
-Message-Id: <20261008122743.616779-1-joseph.qi@linux.alibaba.com>
-X-Mailer: git-send-email 2.39.3
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="tdC5+MT+"
+Received: from epcas5p1.samsung.com (unknown [182.195.41.39])
+	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261008122753epoutp02f94aaf1df2fcc88415bd92981643fa48~cjaDGrQ9_0535405354epoutp02A
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 12:27:53 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261008122753epoutp02f94aaf1df2fcc88415bd92981643fa48~cjaDGrQ9_0535405354epoutp02A
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1791462473;
+	bh=y3JROMvSkErlghFufMEpz2e3fgBQWeAkOo4JhswqA7k=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=tdC5+MT+GmAi5muBRq1BT1yN1ZKyFBL9HVTHiJoMUk9qir3KHpRlhz35ERD8YB6Bl
+	 i1eJ514gd7g1gNeb0KlrladiC9kKg0NHCB+yBiTYgiBHVNFGcUFtxIU50PqOf5+JRY
+	 f9jIGFX133rc42c6pXTmJz1rl62OYAb4OJmJKBEI=
+Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
+	epcas5p3.samsung.com (KnoxPortal) with ESMTPS id
+	20261008122752epcas5p3d0e2b9158c0268ad04675e87ce26f1a2~cjaCjkMAU1506315063epcas5p3z;
+	Thu,  8 Oct 2026 12:27:52 +0000 (GMT)
+Received: from epcas5p1.samsung.com (unknown [182.195.38.93]) by
+	epsnrtp03.localdomain (Postfix) with ESMTP id 4j0q5M5zGqz3hhT3; Thu,  8 Oct
+	2026 12:27:51 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas5p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261008122751epcas5p1c1717e88968c87ac8cd3f6f7cd53fd94~cjaBJv_6d1842018420epcas5p1H;
+	Thu,  8 Oct 2026 12:27:51 +0000 (GMT)
+Received: from [107.122.10.194] (unknown [107.122.10.194]) by
+	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261008122747epsmtip1643989c6f636e89fda3b56fc37de2645~cjZ9_NBhB1436814368epsmtip1X;
+	Thu,  8 Oct 2026 12:27:47 +0000 (GMT)
+Message-ID: <bbb87d6b-b7a3-487a-8be4-27f3f9ce4a1b@samsung.com>
+Date: Thu, 8 Oct 2026 17:57:47 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 05/13] block: add dma-buf support for raw bdev
+To: Pavel Begunkov <asml.silence@gmail.com>, linux-block@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	linux-nvme@lists.infradead.org, linux-fsdevel@vger.kernel.org,
+	io-uring@vger.kernel.org, Christoph Hellwig <hch@lst.de>, Sumit Semwal
+	<sumit.semwal@linaro.org>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+	<christian.koenig@amd.com>, Keith Busch <kbusch@kernel.org>, Sagi Grimberg
+	<sagi@grimberg.me>, Alexander Viro <viro@zeniv.linux.org.uk>, Christian
+	Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Andrew Morton
+	<akpm@linux-foundation.org>, Jens Axboe <axboe@kernel.dk>, Nitesh Shetty
+	<nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>, Mike Snitzer
+	<snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>, Benjamin
+	Marzinski <bmarzins@redhat.com>, dm-devel@lists.linux.dev
+Content-Language: en-US
+From: Anuj Gupta/Anuj Gupta <anuj20.g@samsung.com>
+In-Reply-To: <af2b48a490186edf38f1d4a5dfd9513574f7a350.1791336930.git.asml.silence@gmail.com>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20261008122751epcas5p1c1717e88968c87ac8cd3f6f7cd53fd94
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-542,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261007014324epcas5p2a7f3b03f118c9a1d1c633fe839ed1e46
+References: <cover.1791336930.git.asml.silence@gmail.com>
+	<CGME20261007014324epcas5p2a7f3b03f118c9a1d1c633fe839ed1e46@epcas5p2.samsung.com>
+	<af2b48a490186edf38f1d4a5dfd9513574f7a350.1791336930.git.asml.silence@gmail.com>
 
-Commit 3bc753c06dd0 ("kbuild: treat char as always unsigned") set
--funsigned-char globally, which changed the result of the naked 'char'
-load in str2hashbuf():
+On 10/7/2026 7:12 AM, Pavel Begunkov wrote:
+> +static int blkdev_init_dma_buf_io_ctx(struct file *file,
+> +				      struct dma_buf_io_ctx *ctx)
+> +{
+> +	struct block_device *bdev = file_bdev(file);
+> +	struct gendisk *disk = bdev->bd_disk;
+> +
+> +	if (!(file->f_flags & O_DIRECT))
+> +		return -EINVAL;
+> +	if (!disk->fops->init_dma_buf_io_ctx)
+> +		return -EOPNOTSUPP;
 
-	val = msg[i] + (val << 8);
+dma-buf doesn't work with PI: bi_dmabuf_map aliases bi_io_vec, and 
+blk_integrity_iterate() walks it as bvecs to generate/verify the 
+checksum. rw-dmabuf liburing test hangs on a PI enabled NVMe. Something 
+like below is needed:
 
-A name byte >= 0x80 used to sign-extend and now zero-extends, so
-ocfs2_dx_dir_name_hash() computes a different hash pair for every name
-containing one.  The pair is written into the dx leaf when the entry is
-created, so an index built by an older kernel no longer matches and
-ocfs2_dx_dir_search() returns -ENOENT for a name that readdir still
-lists.
+diff --git a/block/blk-mq.c b/block/blk-mq.c
+index e929f94b25c7..1b7f8cbbda8b 100644
+--- a/block/blk-mq.c
++++ b/block/blk-mq.c
+@@ -3150,6 +3150,12 @@ void blk_mq_submit_bio(struct bio *bio)
+                 goto queue_exit;
+         }
 
-Search with the current unsigned hash and, on a miss, retry with the
-legacy signed one, as ext4 does in commit f3bbac32475b2 ("ext4: deal
-with legacy signed xattr name hash values").  New entries are always
-indexed under the unsigned hash.  Skip the retry when the two hashes
-are equal, so that a miss on an ASCII name does not walk the index
-twice.
-
-The retry costs a second walk of the dx tree, so a negative lookup of a
-name containing a byte >= 0x80 does twice the work.  That is bounded and
-worth it, and directories whose dx root is still inline pay nothing
-extra, since there the retry only rescans the root block that is already
-loaded.  Nothing retires it at runtime: a legacy entry keeps its legacy
-hash, because neither deleting nor updating an entry rewrites the dx
-hash, and the only code that rehashes existing dirents is
-ocfs2_expand_inline_dir() on the inline to extent conversion.
-Rebuilding the index offline is what removes the cost for good.
-
-Also spell out the signedness in str2hashbuf() instead of leaving the
-current hash to -funsigned-char, as commit 854f0912f813 ("ext4: make
-xattr char unsignedness in hash explicit") did, so that both variants
-stay correct if this is backported to a kernel without the flag.
-
-Reported-by: Anderson Ferneda <anderson.ferneda@braza.com.br>
-Link: https://lore.kernel.org/ocfs2-devel/CP5P284MB2780AC2C3C2AB2CF2B6CB7AFBE942@CP5P284MB2780.BRAP284.PROD.OUTLOOK.COM/
-Exposed-by: 3bc753c06dd0 ("kbuild: treat char as always unsigned")
-Cc: stable@vger.kernel.org # 6.2+
-Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
----
- fs/ocfs2/dir.c | 76 ++++++++++++++++++++++++++++++++++++++++++--------
- 1 file changed, 65 insertions(+), 11 deletions(-)
-
-diff --git a/fs/ocfs2/dir.c b/fs/ocfs2/dir.c
-index 55c4a305a282..3f159a20a248 100644
---- a/fs/ocfs2/dir.c
-+++ b/fs/ocfs2/dir.c
-@@ -221,7 +221,8 @@ static void TEA_transform(__u32 buf[4], __u32 const in[])
- 	buf[1] += b1;
- }
- 
--static void str2hashbuf(const char *msg, int len, __u32 *buf, int num)
-+static void str2hashbuf(const char *msg, int len, __u32 *buf, int num,
-+			bool legacy_signed)
- {
- 	__u32	pad, val;
- 	int	i;
-@@ -235,7 +236,10 @@ static void str2hashbuf(const char *msg, int len, __u32 *buf, int num)
- 	for (i = 0; i < len; i++) {
- 		if ((i % 4) == 0)
- 			val = pad;
--		val = msg[i] + (val << 8);
-+		if (legacy_signed)
-+			val = (signed char)msg[i] + (val << 8);
-+		else
-+			val = (unsigned char)msg[i] + (val << 8);
- 		if ((i % 4) == 3) {
- 			*buf++ = val;
- 			val = pad;
-@@ -248,8 +252,9 @@ static void str2hashbuf(const char *msg, int len, __u32 *buf, int num)
- 		*buf++ = pad;
- }
- 
--static void ocfs2_dx_dir_name_hash(struct inode *dir, const char *name, int len,
--				   struct ocfs2_dx_hinfo *hinfo)
-+static void __ocfs2_dx_dir_name_hash(struct inode *dir, const char *name,
-+				     int len, struct ocfs2_dx_hinfo *hinfo,
-+				     bool legacy_signed)
- {
- 	struct ocfs2_super *osb = OCFS2_SB(dir->i_sb);
- 	const char	*p;
-@@ -279,7 +284,7 @@ static void ocfs2_dx_dir_name_hash(struct inode *dir, const char *name, int len,
- 
- 	p = name;
- 	while (len > 0) {
--		str2hashbuf(p, len, in, 4);
-+		str2hashbuf(p, len, in, 4, legacy_signed);
- 		TEA_transform(buf, in);
- 		len -= 16;
- 		p += 16;
-@@ -290,6 +295,19 @@ static void ocfs2_dx_dir_name_hash(struct inode *dir, const char *name, int len,
- 	hinfo->minor_hash = buf[1];
- }
- 
-+static void ocfs2_dx_dir_name_hash(struct inode *dir, const char *name, int len,
-+				   struct ocfs2_dx_hinfo *hinfo)
-+{
-+	__ocfs2_dx_dir_name_hash(dir, name, len, hinfo, false);
-+}
++       if (unlikely(op_is_dmabuf(bio->bi_opf) &&
++               bdev_has_integrity_csum(bio->bi_bdev))) {
++               bio_endio_status(bio, BLK_STS_NOTSUPP);
++               goto queue_exit;
++       }
 +
-+static void ocfs2_dx_dir_name_hash_signed(struct inode *dir, const char *name,
-+					  int len,
-+					  struct ocfs2_dx_hinfo *hinfo)
-+{
-+	__ocfs2_dx_dir_name_hash(dir, name, len, hinfo, true);
-+}
-+
- /*
-  * bh passed here can be an inode block or a dir data block, depending
-  * on the inode inline data flag.
-@@ -1021,10 +1039,10 @@ static int ocfs2_dx_dir_lookup(struct inode *inode,
- 	return ret;
- }
- 
--static int ocfs2_dx_dir_search(const char *name, int namelen,
--			       struct inode *dir,
--			       struct ocfs2_dx_root_block *dx_root,
--			       struct ocfs2_dir_lookup_result *res)
-+static int __ocfs2_dx_dir_search(const char *name, int namelen,
-+				 struct inode *dir,
-+				 struct ocfs2_dx_root_block *dx_root,
-+				 struct ocfs2_dir_lookup_result *res)
- {
- 	int ret, i, found;
- 	u64 phys;
-@@ -1037,8 +1055,6 @@ static int ocfs2_dx_dir_search(const char *name, int namelen,
- 	struct ocfs2_extent_list *dr_el;
- 	struct ocfs2_dx_entry_list *entry_list;
- 
--	ocfs2_dx_dir_name_hash(dir, name, namelen, &res->dl_hinfo);
--
- 	if (ocfs2_dx_root_inline(dx_root)) {
- 		entry_list = &dx_root->dr_entries;
- 		goto search;
-@@ -1135,6 +1151,44 @@ static int ocfs2_dx_dir_search(const char *name, int namelen,
- 	return ret;
- }
- 
-+static int ocfs2_dx_dir_search(const char *name, int namelen,
-+			       struct inode *dir,
-+			       struct ocfs2_dx_root_block *dx_root,
-+			       struct ocfs2_dir_lookup_result *res)
-+{
-+	struct ocfs2_dx_hinfo legacy;
-+	int ret;
-+
-+	ocfs2_dx_dir_name_hash(dir, name, namelen, &res->dl_hinfo);
-+
-+	ret = __ocfs2_dx_dir_search(name, namelen, dir, dx_root, res);
-+	if (ret != -ENOENT)
-+		return ret;
-+
-+	/*
-+	 * Nothing under the current hash.  The entry may have been indexed by
-+	 * an older kernel, which sign-extended the name bytes when hashing.
-+	 * New entries are always indexed under the unsigned hash, so only fall
-+	 * back to the legacy signed one when it can actually differ: an ASCII
-+	 * name hashes the same either way, and a genuine miss on one should
-+	 * not have to walk the index twice.
-+	 */
-+	ocfs2_dx_dir_name_hash_signed(dir, name, namelen, &legacy);
-+	if (legacy.major_hash == res->dl_hinfo.major_hash &&
-+	    legacy.minor_hash == res->dl_hinfo.minor_hash)
-+		return ret;
-+
-+	res->dl_hinfo = legacy;
-+
-+	ret = __ocfs2_dx_dir_search(name, namelen, dir, dx_root, res);
-+	if (ret)
-+		return ret;
-+
-+	pr_warn_once("ocfs2: directory index with signed name hash\n");
-+
-+	return 0;
-+}
-+
- static int ocfs2_find_entry_dx(const char *name, int namelen,
- 			       struct inode *dir,
- 			       struct ocfs2_dir_lookup_result *lookup)
--- 
-2.39.3
+         if ((bio->bi_opf & REQ_POLLED) && !blk_mq_can_poll(q)) {
+                 bio_endio_status(bio, BLK_STS_NOTSUPP);
+                 goto queue_exit;
+diff --git a/block/fops.c b/block/fops.c
+index e9da48ab73be..6c6700df943c 100644
+--- a/block/fops.c
++++ b/block/fops.c
+@@ -976,6 +976,8 @@ static int blkdev_init_dma_buf_io_ctx(struct file *file,
+                 return -EINVAL;
+         if (!disk->fops->init_dma_buf_io_ctx)
+                 return -EOPNOTSUPP;
++       if (bdev_has_integrity_csum(bdev))
++               return -EOPNOTSUPP;
+         return disk->fops->init_dma_buf_io_ctx(bdev, ctx);
+  }
 
