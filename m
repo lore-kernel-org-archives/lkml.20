@@ -1,185 +1,132 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F60547DFB9
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 09:07:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C3DD484234;
+	Thu,  8 Oct 2026 09:07:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791450457; cv=none; b=da2622JsUOF6bYH1r+4kOg3LoCarbeo3DqaeN6QEgvXfhzRQka386SOHsynA/+CBu43HCzecqCk/uZYCgKokrgRR/J4tpN0LD9e76vwfzK81EiQ3sD09jsqBJS4zsMIltiGApYWrW6JB4O9tvRJ6BzWKPukCNdYst7fEbF8CyVk=
+	t=1791450478; cv=none; b=ZU2fzyL2vSksQRx5y+9nehf7kOGbuNbLeZRghcXU7PTzG5JbKdGJ61ulD5KXZ+bCXtuH6lgqeaAtryqQ0mF+GYAsW9tIUoaDxZdaWx60E22Ha/58cakK+2w/Wr76Ofe/E660wxef2SlHEXOHHHniTc/S6ZJuD8jfDyA+22j9x8w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791450457; c=relaxed/simple;
-	bh=eS9tx7B9389Jw+H7bYOrrb2gd0fjio6YDJLF25PI7/o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RQjDJv9FHsvfGoY9w3V6Orkv5U6M0hSTYQ/d4/2d5Maggq1XT2Gp1lOdIrzgrGGj7hoIpQ3Zy4EYDWHGeosBwpSawV+FC0AmhLzR7dq0I3wrFKxsFFSKW5U+4f6PA/src3fvntZUilgWxdBM/opFuCg+ROrtoDfpHFDTmSoSFUo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=EOHhD6xg; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NTrOz9zV; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791450478; c=relaxed/simple;
+	bh=1qpII5YyVDzNLmcVmoolkkDQyT3PZfvGpwTA+YNjk5w=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dekV/QrPKi7fE3AHeu8AOd9uaKQ9/GzdDo1G2tP5BFoHRGciKJs+6OAxHMQxmIDPvpS4GxmkiVy+CAVK25vqhdDait4HmZNR5o5ECOyXC8N0AoJU3ziBGLUKHXysM7i4rUa8XAp48Z2ik5DuRhcqw1MuNsvlAtCiC82q1kB1fyE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=IpbGAQrO; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=6mYyCF9A; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="EOHhD6xg";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NTrOz9zV"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6987Kcgd730884
-	for <linux-kernel@vger.kernel.org>; Thu, 8 Oct 2026 09:07:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=CQKMGCTIIP0SOPrNW0TH65lQQERMYReGQFd
-	R0qVI0AM=; b=EOHhD6xgtI3XaJoG0DUI8FsBJBqSh7oU44LhvvVLSu1ZjxZ47ye
-	HjPpYLUo7i4dGpmHL7lcZElqYjOrSN9Z1g/LHhYP647Tpzu1qusAw1aiJLIIMp76
-	6D0zeRkmCzUMvtxeGmW/85y4te9hVz/V8J4B9UqyPPgs8zecclv12+ncYFXRH/yJ
-	TjROnbytYFYaqVy+aEcgDbleUkwS7ux3viyG6F440SX/m/71r98s6jzvGb63/8RC
-	cwtnW7bapIF1SFD87Pv0sKh5j6csjFnd0ryqEmqBKB9E2cVtyDbzSV9z4Y20Btro
-	1rOmUlld62K9UpvgBO09jlWUhu9DNPm1HIQ==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe321ka-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 09:07:33 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93909014c85so880850085a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 02:07:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791450453; x=1792055253; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CQKMGCTIIP0SOPrNW0TH65lQQERMYReGQFdR0qVI0AM=;
-        b=NTrOz9zVOkftaE+fpGMha8ZZ6GpkoPXFYL50N2v4Vz7mKXlAVUSjIHh9b4Q3dK5KBF
-         PYZf2Gtgu4Rd6GWXvvDbJ6zByTdYMfFmK5e1FamQKFuzl/URdyu0f90pEdI1Bb4h+pAN
-         CvFwa9LUsWUVPBzYZLQD0q2ZYe60eFgR7TMTbgSbxF9+GHkykvMQ0FkeR65Q/N/n4q95
-         wcdC06uMoXGJ45nuYggUPsi00M5QcsBu1du55RmFYM+PK5Wevo2qTtvLRavcpEpQjfF1
-         QDfZVDJwv3bYbLf8rVk640XcEW+NW2gosqh1tnpIhZInoLi37GIWzXtKGYeaHKmaIp78
-         DURg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791450453; x=1792055253;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CQKMGCTIIP0SOPrNW0TH65lQQERMYReGQFdR0qVI0AM=;
-        b=rUJLbrvIMPFM2R+LcAKMx5yUHttXrf3ZF67WBBjKwxglN/CIFyPAgzWZaMWJI1w22M
-         C8GWIVyKwtA6NcvtO76ZWiF0d3vUGdWweHpReox8kamFPkqv4L64whWt1K8WJeXz4WdB
-         4PKTVQTSKSO3un/LGmxpZhhKHKsA77/UZuXhsGckGKeNaaK6cdcZfQA472aTJCs2rqN9
-         v8e3RkLmtIoJN1WlEWd1FGSHHdg4pp2H7GPoTRBsqCTX9wMDpT+NyifmKNXnU60/Ga/0
-         Rcpft0zjd5PVcTclh/Rh5jGDMQhtTs727Zaph1lZAXKq18gJp8cyECekGu/celIx42Zt
-         Deyg==
-X-Forwarded-Encrypted: i=1; AKwUvBwf6zT61+1mb+lS7jIjQk3ynzh3LYlvgqV5+aijtFEPy+w/5++ULoxyp2nOct9v4jbF7Ex0eqOiYKSTiuk=@vger.kernel.org
-X-Gm-Message-State: AFuF++mS253sfhlsYsispvlMqPUVzYy2Xqg8Kqc5bJ1G1T39xF6wI9ww
-	5Y2dwGgzBrF0z8clPJ2fqjZ5Fiorjno1WHTLX2+uH96ponAOexKfRzmxDFAk068Xcf4ECYeeOpf
-	xNjwMP+JKkjYSbjMPVJw3KjWOSkDLzkAIfPFvAsxJVjp7n54LlaVNWNS9MqYRwiDEdqc=
-X-Gm-Gg: AYBFou2PVBeUq47UL4SkdY20YBFzfANkb9fBdIUKkU6KkucgkoXg+PmMsWDjf/gqIOM
-	W56K6CuNdYxZhOZCKHboWMoc7OxdhUPSYnq5ph7Voq+sedjWfUUe8eqPq7i5uKf1rKkxakzJ06E
-	I5HeJXXuJFIOBYmF7s/Q+d4l8ErXULVGS8eXGVJmo+cS02ivb1qw/Z7hmsmdXs+SFhg0Kv6TlOe
-	fsD5+HcdDNBsGM1XjTna9IowKo3IIzx0Xw2pCfD0OrT0Cxa8oS7lTcUHjC7G/35zSrgDCJ6XqTX
-	mnsikey7OkZBt1F/Q/zK1tp1+C2mDXtYxX3QLqQhsuBxmCr7zcZrQsgEywjFclCl2pBDNQV1gST
-	gGT7Lw/fJg0g14XFE1KD7GYdmwmewlZXGsL13CqTtFeputw==
-X-Received: by 2002:a05:620a:4048:b0:93b:d8bc:a864 with SMTP id af79cd13be357-93e9b8910dbmr958713285a.65.1791450452658;
-        Thu, 08 Oct 2026 02:07:32 -0700 (PDT)
-X-Received: by 2002:a05:620a:4048:b0:93b:d8bc:a864 with SMTP id af79cd13be357-93e9b8910dbmr958707685a.65.1791450452125;
-        Thu, 08 Oct 2026 02:07:32 -0700 (PDT)
-Received: from brgl-qcom.local (90-182-211-1.rcp.o2.cz. [90.182.211.1])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71d1ffbcsm9669440f8f.36.2026.10.08.02.07.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 02:07:31 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-To: Linus Walleij <linusw@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
-        linux-kernel@vger.kernel.org, brgl@kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: [GIT PULL] Qualcomm pin control fixes for v7.3-rc7
-Date: Thu,  8 Oct 2026 11:07:24 +0200
-Message-ID: <20261008090724.5423-1-bartosz.golaszewski@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="IpbGAQrO";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="6mYyCF9A"
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1791450466;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=bHBTUr7p04AlVKtPozF+TH9Wpz/mghN4voU0hKvtxsU=;
+	b=IpbGAQrOrRyqq8Sbvm/2WqjL3A4/s66Se+gIY5fvs79qLZawVVD0QlazWOTdOk/1MHeg40
+	x4B+wVq3tX6ONZfmuRIWsElM6at1lOLyhnXvEdtvJq8zG3wv9qcH3qKS2ug2CNsGPqvk4N
+	rGL6KLIkW7CYGvcxviy0T++H0LFdyZliWURZAyqHbDEEmS6fW2OC3/VwwFA2JFm/WRAPW7
+	LK9lDQfEvkPvaOu86to3IGvIp8VqS2gOLh1ot07x/HrScolmABj+w6Qk7S3SDFSJ9j+trR
+	5HIykUr8n4jdsJbrGJ8wJgcRhvge+TovljmzszVgMSHYFQI/Ouc+lLNlMoUxYA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1791450466;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=bHBTUr7p04AlVKtPozF+TH9Wpz/mghN4voU0hKvtxsU=;
+	b=6mYyCF9A0oknzRvqbFbx1hcZUZNZkjgJ0fWOqB21jMQ9bwADjdd84ZIhaOUG3B015qjXBQ
+	zVTXqv75hZqfrgDw==
+To: linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Cc: Sebastian Andrzej Siewior <sebastian@breakpoint.cc>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	"Maciej W. Rozycki" <macro@orcam.me.uk>,
+	Bill Wendling <morbo@google.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Justin Stitt <justinstitt@google.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Neal Gompa <neal@gompa.dev>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Richard Purdie <richard.purdie@linuxfoundation.org>,
+	Sam James <sam@gentoo.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	=?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>,
+	Tomas Glozar <tglozar@kernel.org>,
+	Willy Tarreau <w@1wt.eu>,
+	x86@kernel.org,
+	Arnd Bergmann <arnd@arndb.de>
+Subject: [PATCH v4 2/2] x86: Start removing X86_X32_ABI
+Date: Thu,  8 Oct 2026 11:07:43 +0200
+Message-ID: <20261008-x32_removal-v4-2-d389a193c506@breakpoint.cc>
+In-Reply-To: <20261008-x32_removal-v4-0-d389a193c506@breakpoint.cc>
+References: <20261008-x32_removal-v4-0-d389a193c506@breakpoint.cc>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDAzNiBTYWx0ZWRfX2YyUjTJi/6zU
- fByKnMPnczCZdbopjtVMogempHG+uG/e1W1vla/lBgMVFyHRD6KNyglgHxgF2sLeJ6u0YpRpZrc
- qtVBKcODEibyLlMWADdyhqkUuCo86EgpWVc49f2UkvhPND3BJQvKuhnGJsN/yKTtMCo34p4qxVt
- 4QXuhNTX4zLiIyKrbX62oJNNZFwGSh9xqyRuysTzQYNnjqs1TJOS2vdoKs5flpS8cpPxudQ+KMd
- P/MCpZMkqOIroskSsmxK+j5X46DY7mzyqdsb2Cr5dnVVqsxEjdkXJ9/+/I9ZH1veiVe/n5+aXaG
- wxXIgJM3LMjwViqpXpYCjb0x0amk0+fG59D290QB1L+u0Jvd6PUaIDwI/MAq8sKCZ2KsvfSzo/w
- g6BerGyUlHOQQrhywMJU6YEhLNN9A591a7RxACUbCMHJNHVrNJ3alhtvYdHM+2yJCoAbHpYAEDk
- y2Jdi0p1/d1HeQ98UWw==
-X-Proofpoint-ORIG-GUID: hL2LDVcJdtCj7DV1z0EKnb3vpvIuEMEw
-X-Proofpoint-GUID: hL2LDVcJdtCj7DV1z0EKnb3vpvIuEMEw
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDAzNiBTYWx0ZWRfX/4OGrdfXynom
- IHQVaa0babErzqpS5yOpwW6zqbMptnG/Q9iYzVrkDNzQamRMIOzlEOFgNJCPonijPlJKmPfbLoi
- UcADAgpY3WV3VYoXKWkp2tyxU9kT8D0=
-X-Authority-Analysis: v=2.4 cv=KcdHIgYD c=1 sm=1 tr=0 ts=6ac75d55 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=zRh97aRZNhiOMYVz81Er1w==:17
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=VwQbUJbxAAAA:8
- a=__NLv3j47UhbTv1Fh3MA:9 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-08_03,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0 spamscore=0 lowpriorityscore=0 malwarescore=0
- phishscore=0 priorityscore=1501 clxscore=1015 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080036
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-Linus,
+From: Sebastian Andrzej Siewior <sebastian@breakpoint.cc>
 
-Please pull the following set of Qualcomm pin control driver fixes for the
-next RC. This is based on v7.3-rc5 where the previous set of pinctrl fixes
-landed.
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
-Thanks,
-Bartosz
+The x32 ABI was introduced in v3.4 to leverage the additional registers
+which were available on x86_64 but not on i386 while keeping the smaller
+32bit pointers.
 
-The following changes since commit 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e:
+This did not take off. The memory usage usually knows no limit and the
+better performance did not reach a point where certain workloads widely
+move to x32 and use it exclusively. In the meantime Debian introduced a
+patch to disable x32 by default (so it has to be enabled at boot time on
+the command line) because they are afraid of the increased attack
+surface. Fedora as far as I tell has X32 disabled (looking at 7.0-rc5
+rpm in rawhide).
 
-  Linux 7.3-rc5 (2026-09-27 13:55:01 -0700)
+The syscall range >512 used by x32 can not be reused because on earlier
+kernels (before v5.4 with x32 enabled, see commit 6365b842aae4
+("x86/syscalls: Split the x32 syscalls into their own table") it is not
+obvious if the syscall is for x86-64 and not implemented or meant for
+x32.
+What can be removed are the special compat cases due to different
+alignment.
 
-are available in the Git repository at:
+Since there is practically no real use for x32, start removing it by
+marking the symbol as BROKEN so it is not possible to enable by default.
+It will remain around in the last LTS kernel of this year and then it
+will be removed.
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/brgl/linux.git tags/pinctrl-qcom-fixes-for-v7.3-rc7
+Acked-by: Arnd Bergmann <arnd@arndb.de>
+Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+---
+ arch/x86/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-for you to fetch changes up to 709ba1c547eaf37da36ded2ecf3ea4e304cdfa9a:
+diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
+index 15fd9ec5ecacb..21a6863e14e7a 100644
+--- a/arch/x86/Kconfig
++++ b/arch/x86/Kconfig
+@@ -3104,7 +3104,7 @@ config IA32_EMULATION_DEFAULT_DISABLED
+=20
+ config X86_X32_ABI
+ 	bool "x32 ABI for 64-bit mode"
+-	depends on X86_64
++	depends on X86_64 && BROKEN
+ 	# llvm-objcopy does not convert x86_64 .note.gnu.property or
+ 	# compressed debug sections to x86_x32 properly:
+ 	# https://github.com/ClangBuiltLinux/linux/issues/514
 
-  pinctrl: qcom: ipq5018: replace gcc_plltest with pwm2 on gpio12 (2026-10-06 10:05:09 +0200)
+--=20
+2.55.0
 
-----------------------------------------------------------------
-Qualcomm pin control fixes for v7.3-rc7
-
-- fix intr_target_width in several qualcomm pinctrl drivers
-- make direction changes exclusive in pinctrl-spmi-gpio
-- fix function issues in pinctrl-ipq5018
-- add missing OF module alias to pinctrl-ipq5210
-- split QUP1 SE2/SE3 into lane-pair functions
-
-----------------------------------------------------------------
-Adriel Santos (1):
-      pinctrl: qcom: ipq5018: replace gcc_plltest with pwm2 on gpio12
-
-Bartosz Golaszewski (1):
-      Merge tag 'v7.3-rc5' of git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux into pinctrl-qcom/for-current
-
-George Moussalem (1):
-      pinctrl: qcom: ipq5018: update PWM groups and corresponding pin functions
-
-Gilberto Conde (1):
-      pinctrl: qcom: ipq5018: add missing pwm3 function on gpio13
-
-Konrad Dybcio (3):
-      pinctrl: qcom: hawi: Fix intr_target_width
-      pinctrl: qcom: maili: Fix intr_target_width
-      pinctrl: qcom: qcs8300: Fix intr_target_width
-
-Shawn Guo (2):
-      pinctrl: qcom: nord: Split QUP1 SE2/SE3 into lane-pair functions
-      pinctrl: qcom: spmi-gpio: make direction changes exclusive
-
-Zhangfei Gao (1):
-      pinctrl: qcom: nord: fix GPIO interrupt target width
-
-hpp.iscas (1):
-      pinctrl: qcom: ipq5210: Publish the OF module alias
-
- drivers/pinctrl/qcom/pinctrl-hawi.c      |  1 +
- drivers/pinctrl/qcom/pinctrl-ipq5018.c   | 20 ++++++++---------
- drivers/pinctrl/qcom/pinctrl-maili.c     |  1 +
- drivers/pinctrl/qcom/pinctrl-nord.c      |  1 +
- drivers/pinctrl/qcom/pinctrl-qcs8300.c   |  1 +
- drivers/pinctrl/qcom/pinctrl-spmi-gpio.c | 37 +++++++++++++++++++++++++-------
- 6 files changed, 43 insertions(+), 18 deletions(-)
