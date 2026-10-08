@@ -1,33 +1,37 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AA16D4EFFB2;
-	Thu,  8 Oct 2026 18:17:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B491A38836C;
+	Thu,  8 Oct 2026 18:17:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791483454; cv=none; b=spKi9sSNXve2VMTHflYgPrYPLOrIW17nRDOofLh4WsIgf56yMPY/Ug0EnOPAyoCUkaTBoOPtwUybaFCYwKEwyv8JDNDNl+Ke0oQBPFUf268AgkUKGgtrNxu66a/vcC9CViYtGV2G2qfvLOjfJHsMAYcmcJ8C92BPWMEUrJnLFKM=
+	t=1791483474; cv=none; b=orJlHW+bsk16CTmmoEQvhvGqyYoKtwucXoVbkufDG3L5s9iqL2t7k5jfBmPMUZLKbDnvQkkXGW+EdhNVREuWCjMHD69qNUdsCJ3GIu+iYbSK5rb4hwvAvUwiL8/MSbC12SBetAnxNeOW3lRV7L3/QS4V6Y4tkm3t2Ch9T29tfgY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791483454; c=relaxed/simple;
-	bh=6zs+OKqrv7uadt1H4w3dz/EQ5ag/BH++/P0GK2ILnsg=;
+	s=arc-20240116; t=1791483474; c=relaxed/simple;
+	bh=Gx4ilfMhQUF7cyVqxlycVnXjjdeLDQtz1EYjm8vSauU=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rgPhXFaiDtZCRhHTDGqpjgUsgYZ899Jccoh8GeiPkC0CZ1x/Glf0yh54pRqxxei73LQ1LRkf81I71V4j62hT2sSHVdWH6CS3Vlj1rJJtUT8++kOrlvX+SnWcTAKFxS1gyxABBN4z1gzcXRaypXLxPbYQKew+UQ+0YCGphieDBKw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=mEfeFjh9; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 In-Reply-To:Content-Type; b=erhq/dyzUgE7/y0AKiMsNv4LrA4Sz8Ox0vhsRaRft7k6g1Ihir0oibp8+vAfv16fbpEyvCQ2w96SgmMT2O7rZ4k7cb2DGG1DM4FLvcQ99yQFn99gqFhlpG9yI89bOvYEK32wPduD6wBUKq++SzaGAuE35isBkyYYzbQIpksCmxA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=MCFOyzn0; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="mEfeFjh9"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 680F11477;
-	Thu,  8 Oct 2026 11:17:25 -0700 (PDT)
-Received: from [10.57.87.21] (unknown [10.57.87.21])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D95EF3F66F;
-	Thu,  8 Oct 2026 11:17:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791483448; bh=6zs+OKqrv7uadt1H4w3dz/EQ5ag/BH++/P0GK2ILnsg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=mEfeFjh9eTZisgbCLMXsSQCoGmj0IseZLbAcIGoM8E5FiFuR6yhgmVjmadtSCk/xu
-	 iWBVO8i6XcX+Uc3PJQAq5LCwlKDOIwYQvbqRxjA/fpl8ifdeYKTFQZqG/GIwOY3y9k
-	 jeRJZaasGpskuGpLY2YXxWpE7+OTPmXadaYZARBE=
-Message-ID: <e18bd763-0d6d-4bfd-b59e-78f952c94aa2@arm.com>
-Date: Thu, 8 Oct 2026 19:17:25 +0100
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="MCFOyzn0"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=NIFjAQDly0W7GvmafYnFnRQ5IyNA9GxyxzUzs3G7GY0=; b=MCFOyzn0Y7uJkjI3WYMmHmj3iA
+	QyQkD+3RKsrzlJPuXv3fV66hYqWXZVwhMAnYfmOZ5IPj8XMaIB2DjEjK4cW1pF/BcvkZtVlEwlCCR
+	bKeDTMP++Kc1pj43qMcrp9MWYvvV7bHJCj8iCXrBMBbaT4xw0KfsLmEv+3NUHBpQ4DyCOhbx0Gkxf
+	8YCTdgOge8Oz35JbnD4W9nXQasRe5oZpFn+5t8qc0aJq0PrY4WjKAqlPIZBc25lw+rDPoXceU13Hm
+	GKiU25vM9Uu0va02GLeH5xsAuqfwshw4Fy0Fo3CAKthAZXLhayBOXOTthIglspmagy/mCF7fgMr8p
+	9McMzPMQ==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xEsgd-00000004r2R-2GzP;
+	Thu, 08 Oct 2026 18:17:47 +0000
+Message-ID: <2621089d-f087-4b0d-89bf-3cd1218b5f66@infradead.org>
+Date: Thu, 8 Oct 2026 11:17:46 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,305 +39,132 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] cpuidle: Add the shallow governors
-To: Roman Kagan <rkagan@amazon.de>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Jonathan Corbet
- <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-pm@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, nh-open-source@amazon.com
-References: <20261008-b4-cpuidle-shallow-v1-1-c19e71127b14@amazon.de>
+Subject: Re: [PATCH v2 1/2] fuse: add negotiated per-inode open and release
+ suppression
+To: Stanislav Kinsburskii <skinsburskii@gmail.com>,
+ Miklos Szeredi <miklos@szeredi.hu>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Shuah Khan <shuah@kernel.org>
+Cc: Robert Byrnes <byrnes@wildpumpkin.net>, fuse-devel@lists.linux.dev,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org
+References: <20261008-fuse-per-inode-no-open-v2-0-39c60fe97728@gmail.com>
+ <20261008-fuse-per-inode-no-open-v2-1-39c60fe97728@gmail.com>
 Content-Language: en-US
-From: Christian Loehle <christian.loehle@arm.com>
-In-Reply-To: <20261008-b4-cpuidle-shallow-v1-1-c19e71127b14@amazon.de>
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20261008-fuse-per-inode-no-open-v2-1-39c60fe97728@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/8/26 19:06, Roman Kagan wrote:
-> The idle states offered by a platform trade wakeup latency for energy
-> savings, and there are situations where the trade is not worth making:
-> while a latency-sensitive workload is running, or during a live update
-> via kexec, where everything from the outgoing kernel stopping the
-> workload to the incoming kernel resuming it is downtime, and deep idle
-> states may lengthen it.
-> 
-> The mechanisms currently available for that are all one-way.
-> cpuidle.off=1, idle=poll and idle=halt can only be requested in the
-> kernel command line and cannot be undone, and the PM QoS interfaces
-> (/dev/cpu_dma_latency and the per-CPU pm_qos_resume_latency_us
-> attribute) can only be used once user space is up, so they cannot cover
-> the boot of the incoming kernel.
+Hi,
 
-You can also disable all but the shallowest idle state in sysfs:
-echo 1 > /sys/devices/system/cpu/cpuX/cpuidle/stateX/disable
-
+On 10/8/26 11:06 AM, Stanislav Kinsburskii wrote:
+> Filesystems serving cached content may not need per-open state for most
+> inodes, while still relying on OPEN for control files. The connection-wide
+> no-open behavior selected by ENOSYS cannot express this distinction.
 > 
-> Add governors that keep the CPUs in the shallowest idle states and leave
-> the scheduler tick running.  Being governors, they can be selected both
-> at run time, by writing a name to the current_governor attribute in
-> sysfs, and in the kernel command line, via cpuidle.governor=.  For a
-> live update, that makes it possible to switch the outgoing kernel to one
-> of them before the kexec, pass the same governor to the incoming kernel
-> so that it is in effect from the very beginning of its boot, and switch
-> to an energy-efficient governor once the post-update work is done.
+> Add FUSE_PER_INODE_NO_OPEN to INIT negotiation and FUSE_ATTR_NO_OPEN to
+> inode attributes. For marked inodes, use the existing zero-handle defaults
+> and normally omit OPEN/OPENDIR and the corresponding RELEASE/RELEASEDIR.
+> Remember whether each handle was opened locally, so later attribute updates
+> do not determine the release behavior of existing handles.
 > 
-> On x86 and on some powerpc platforms, the shallowest idle state is a
-> polling loop.  It has the lowest wakeup latency, but also the side
-> effects documented for idle=poll: the CPU saves almost no energy,
-> competes with its SMT sibling for the core, and on Intel hardware keeps
-> the package from using the P-states that require some of its CPUs to be
-> idle.  Whether that is acceptable is a policy decision, so there are two
-> governors and the user makes it by choosing between them.  The shallow
-> governor always selects the shallowest enabled state.  The
-> shallow_nopoll one skips polling states, unless the state it would
-> select is too slow to leave for the PM QoS latency limit or all of the
-> non-polling states are disabled.
+> Retain RELEASE after a successful remote flock operation, even when OPEN
+> was skipped, so FUSE_RELEASE_FLOCK_UNLOCK can clean up server-side locks.
+> Servers negotiating remote flock must accept this RELEASE with a zero file
+> handle and no preceding OPEN, including after an explicit unlock.
 > 
-> A governor named in the kernel command line is not replaced by a
-> higher-rated one registering later, so cpuidle.governor= holds for the
-> entire boot.  Both governors have rating 1, below all of the other
-> governors, so that neither is picked by default.  Where the cpuidle
-> driver registers no polling states, such as on arm64, the two select the
-> same states, and neither is a substitute for idle=poll.
+> Keep the release argument allocation for regular files, which pins the
+> inode while asynchronous I/O completes. Honor the hint for internal opens
+> used by file-attribute ioctls as well. The capability check excludes CUSE
+> before accessing its non-FUSE inode as a fuse_inode.
 > 
-> Assisted-by: LLM
-> Signed-off-by: Roman Kagan <rkagan@amazon.de>
+> The per-inode hint does not suppress OPEN for atomic O_TRUNC, since the
+> server must perform the truncation. CREATE retains its existing handle
+> lifecycle. Connection-wide no-open/no-opendir behavior selected by ENOSYS
+> continues to take precedence.
+> 
+> Update the cached hint from LOOKUP, GETATTR, SETATTR and READDIRPLUS
+> attributes. Preserve it across STATX replies, which do not carry
+> fuse_attr.flags.
+> 
+> Document negotiation, cache and handle semantics, and the server's
+> responsibilities. No additional access-time or open-reference accounting
+> is introduced.
+> 
+> Signed-off-by: Stanislav Kinsburskii <skinsburskii@gmail.com>
 > ---
->  drivers/cpuidle/governors/Makefile       |   1 +
->  drivers/cpuidle/governors/shallow.c      | 104 +++++++++++++++++++++++++++++++
->  Documentation/admin-guide/pm/cpuidle.rst |  53 +++++++++++++---
->  drivers/cpuidle/Kconfig                  |  20 ++++++
->  4 files changed, 169 insertions(+), 9 deletions(-)
+>  Documentation/filesystems/fuse/fuse-no-open.rst | 49 +++++++++++++++++++++++++
+>  Documentation/filesystems/fuse/index.rst        |  1 +
+>  fs/fuse/file.c                                  | 26 ++++++++++---
+>  fs/fuse/fuse_i.h                                | 17 ++++++++-
+>  fs/fuse/inode.c                                 |  9 +++++
+>  fs/fuse/ioctl.c                                 |  3 +-
+>  include/uapi/linux/fuse.h                       | 13 ++++++-
+>  7 files changed, 110 insertions(+), 8 deletions(-)
 > 
-> diff --git a/drivers/cpuidle/governors/Makefile b/drivers/cpuidle/governors/Makefile
-> index 63abb5393a4d..10e64092c9ec 100644
-> --- a/drivers/cpuidle/governors/Makefile
-> +++ b/drivers/cpuidle/governors/Makefile
-> @@ -7,3 +7,4 @@ obj-$(CONFIG_CPU_IDLE_GOV_LADDER) += ladder.o
->  obj-$(CONFIG_CPU_IDLE_GOV_MENU) += menu.o
->  obj-$(CONFIG_CPU_IDLE_GOV_TEO) += teo.o
->  obj-$(CONFIG_CPU_IDLE_GOV_HALTPOLL) += haltpoll.o
-> +obj-$(CONFIG_CPU_IDLE_GOV_SHALLOW) += shallow.o
-> diff --git a/drivers/cpuidle/governors/shallow.c b/drivers/cpuidle/governors/shallow.c
+> diff --git a/Documentation/filesystems/fuse/fuse-no-open.rst b/Documentation/filesystems/fuse/fuse-no-open.rst
 > new file mode 100644
-> index 000000000000..8d4ac46d302a
+> index 000000000000..4526512d358c
 > --- /dev/null
-> +++ b/drivers/cpuidle/governors/shallow.c
-> @@ -0,0 +1,104 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * shallow.c - the shallow and shallow_nopoll idle governors
-> + *
-> + * Always select the shallowest enabled idle state, trading idle energy
-> + * savings for the lowest wakeup latency the platform can offer.  The
-> + * shallow_nopoll one skips polling states unless PM QoS requires them.
-> + */
+> +++ b/Documentation/filesystems/fuse/fuse-no-open.rst
+> @@ -0,0 +1,49 @@
+> +.. SPDX-License-Identifier: GPL-2.0
 > +
-> +#include <linux/cpuidle.h>
-> +#include <linux/init.h>
+> +Per-inode open suppression
+> +=========================
+
+Documentation/filesystems/fuse/fuse-no-open.rst:4: WARNING: Title underline too short.
+
+Per-inode open suppression
+========================= [docutils]
+
 > +
-> +/**
-> + * shallow_select - select the shallowest enabled idle state
-> + * @drv: cpuidle driver containing state data
-> + * @dev: the CPU
-> + * @stop_tick: indication on whether or not to stop the tick
-> + *
-> + * The state selected here is the least energy-efficient one offered by the
-> + * driver, so there is no point in looking at either the timer events or the
-> + * PM QoS latency limits: no constraint can justify going shallower than that.
-> + * Leave the tick running, as the CPU is not expected to stay idle for long.
-> + *
-> + * Return: the index of the first idle state not disabled for @dev, or 0 if
-> + * all of them are disabled.
-> + */
-> +static int shallow_select(struct cpuidle_driver *drv,
-> +			  struct cpuidle_device *dev, bool *stop_tick)
-> +{
-> +	int i;
+> +A filesystem can avoid OPEN and RELEASE requests for individual inodes by
+> +negotiating FUSE_PER_INODE_NO_OPEN in INIT and setting FUSE_ATTR_NO_OPEN in
+> +``fuse_attr.flags``.  For directories, the flag suppresses OPENDIR and
+> +RELEASEDIR instead.  This allows, for example, cached content files to avoid
+> +open round trips while control files on the same connection retain their
+> +open handlers.  Without the negotiated capability the attribute is ignored.
 > +
-> +	*stop_tick = false;
+> +The kernel updates the hint when it accepts attributes in replies such as
+> +LOOKUP, GETATTR, SETATTR and READDIRPLUS.  STATX replies do not carry
+> +``fuse_attr.flags`` and leave the hint unchanged.  The hint is cached inode
+> +state; it is not independently revalidated on every open.  A server changing
+> +the hint must arrange for fresh attributes to reach the kernel and tolerate
+> +concurrent opens using the previous value.
 > +
-> +	/*
-> +	 * cpuidle_enter_state() does not check whether the state it is asked
-> +	 * to enter has been disabled, so the per-state "disable" attributes
-> +	 * need to be honoured here.  If all of the states are disabled, fall
-> +	 * back to the first one, like the other governors do.
-> +	 */
-> +	for (i = 0; i < drv->state_count; i++)
-> +		if (!dev->states_usage[i].disable)
-> +			return i;
+> +For an open served locally, the file handle is zero, FOPEN_KEEP_CACHE is
+> +set, and directories also have FOPEN_CACHE_DIR set.  Subsequent requests
+> +identify the object by the node ID and may carry a zero file handle.  The
+> +server must support these requests without per-open state.  Whether OPEN was
+> +sent is recorded for each handle and is not changed by later attribute
+> +updates.  An existing server-opened handle still receives its matching
+> +RELEASE if the inode hint subsequently becomes set.
 > +
-> +	return 0;
-> +}
+> +Remote flock locking is an exception to RELEASE suppression.  When
+> +FUSE_FLOCK_LOCKS is negotiated and a handle has successfully performed a
+> +server-side flock operation, its final close sends RELEASE with
+> +FUSE_RELEASE_FLOCK_UNLOCK and the lock owner, even if OPEN was suppressed.
+> +The server must accept this RELEASE with a zero file handle and no preceding
+> +OPEN, and use the node ID and lock owner to remove any remaining flock locks.
+> +This also applies after an explicit unlock, since the kernel records whether
+> +a flock operation succeeded rather than tracking the server's current locks.
 > +
-> +/**
-> + * shallow_nopoll_select - select the shallowest enabled non-polling idle state
-> + * @drv: cpuidle driver containing state data
-> + * @dev: the CPU
-> + * @stop_tick: indication on whether or not to stop the tick
-> + *
-> + * Same as shallow_select(), but skip the polling states.  Unlike them, the
-> + * shallowest non-polling state may take longer to leave than the PM QoS
-> + * latency limit allows, so fall back to shallow_select() in that case, as
-> + * well as when all of the non-polling states are disabled.
-> + *
-> + * Return: the index of the first idle state that is neither disabled for @dev
-> + * nor a polling one, or what shallow_select() returns in the cases above.
-> + */
-> +static int shallow_nopoll_select(struct cpuidle_driver *drv,
-> +				 struct cpuidle_device *dev, bool *stop_tick)
-> +{
-> +	int i;
+> +When FUSE_ATOMIC_O_TRUNC is negotiated, an open with O_TRUNC still sends
+> +OPEN and receives a matching RELEASE, so the server can perform truncation.
+> +CREATE also retains its usual open and release semantics.  Connection-wide
+> +no-open behavior selected by an ENOSYS response continues to take precedence.
 > +
-> +	for (i = 0; i < drv->state_count; i++) {
-> +		if (dev->states_usage[i].disable ||
-> +		    (drv->states[i].flags & CPUIDLE_FLAG_POLLING))
-> +			continue;
-> +
-> +		if (drv->states[i].exit_latency_ns >
-> +		    cpuidle_governor_latency_req(dev->cpu))
-> +			break;
-> +
-> +		*stop_tick = false;
-> +		return i;
-> +	}
-> +
-> +	return shallow_select(drv, dev, stop_tick);
-> +}
-> +
-> +static struct cpuidle_governor shallow_governor = {
-> +	.name =		"shallow",
-> +	.rating =	1,
-> +	.select =	shallow_select,
-> +};
-> +
-> +static struct cpuidle_governor shallow_nopoll_governor = {
-> +	.name =		"shallow_nopoll",
-> +	.rating =	1,
-> +	.select =	shallow_nopoll_select,
-> +};
-> +
-> +static int __init init_shallow(void)
-> +{
-> +	int ret = cpuidle_register_governor(&shallow_governor);
-> +
-> +	if (ret)
-> +		return ret;
-> +
-> +	return cpuidle_register_governor(&shallow_nopoll_governor);
-> +}
-> +
-> +postcore_initcall(init_shallow);
-> diff --git a/Documentation/admin-guide/pm/cpuidle.rst b/Documentation/admin-guide/pm/cpuidle.rst
-> index be4c1120e3f0..8c6a438936d4 100644
-> --- a/Documentation/admin-guide/pm/cpuidle.rst
-> +++ b/Documentation/admin-guide/pm/cpuidle.rst
-> @@ -159,15 +159,16 @@ governor uses that information depends on what algorithm is implemented by it
->  and that is the primary reason for having more than one governor in the
->  ``CPUIdle`` subsystem.
->  
-> -There are four ``CPUIdle`` governors available, ``menu``, `TEO <teo-gov_>`_,
-> -``ladder`` and ``haltpoll``.  Which of them is used by default depends on the
-> -configuration of the kernel and in particular on whether or not the scheduler
-> -tick can be `stopped by the idle loop <idle-cpus-and-tick_>`_.  Available
-> -governors can be read from the :file:`available_governors`, and the governor
-> -can be changed at runtime.  The name of the ``CPUIdle`` governor currently
-> -used by the kernel can be read from the :file:`current_governor_ro` or
-> -:file:`current_governor` file under :file:`/sys/devices/system/cpu/cpuidle/`
-> -in ``sysfs``.
-> +There are six ``CPUIdle`` governors available, ``menu``, `TEO <teo-gov_>`_,
-> +``ladder``, ``haltpoll``, `shallow <shallow-gov_>`_ and
-> +`shallow_nopoll <shallow-gov_>`_.  Which of them is used by default depends on
-> +the configuration of the kernel and in particular on whether or not the
-> +scheduler tick can be `stopped by the idle loop <idle-cpus-and-tick_>`_.
-> +Available governors can be read from the
-> +:file:`available_governors`, and the governor can be changed at runtime.  The
-> +name of the ``CPUIdle`` governor currently used by the kernel can be read from
-> +the :file:`current_governor_ro` or :file:`current_governor` file under
-> +:file:`/sys/devices/system/cpu/cpuidle/` in ``sysfs``.
->  
->  Which ``CPUIdle`` driver is used, on the other hand, usually depends on the
->  platform the kernel is running on, but there are platforms with more than one
-> @@ -345,6 +346,40 @@ given conditions.  However, it applies a different approach to that problem.
->  .. kernel-doc:: drivers/cpuidle/governors/teo.c
->     :doc: teo-description
->  
-> +.. _shallow-gov:
-> +
-> +The Shallow Governors
-> +=====================
-> +
-> +The ``shallow`` governor always selects the shallowest enabled idle state and
-> +leaves the scheduler tick running.  Unlike the governors described above, it
-> +makes no attempt to save energy at all; its purpose is to keep the CPU wakeup
-> +latency, and in particular the latency of inter-processor interrupts, at the
-> +minimum offered by the platform.
-> +
-> +The ``shallow_nopoll`` governor does the same, except that it skips polling
-> +idle states and selects the shallowest enabled idle state that is not a polling
-> +one.  That avoids the side effects of idle CPUs spinning, which are described
-> +for ``idle=poll`` below, at the cost of a higher wakeup latency.  If the exit
-> +latency of that state is above the `PM QoS <cpu-pm-qos_>`_ limit in effect for
-> +the CPU, or if all of the non-polling states are disabled, ``shallow_nopoll``
-> +selects the state that ``shallow`` would select.
-> +
-> +Neither of them is used by default, regardless of the configuration of the
-> +kernel, and they have to be requested explicitly.  That can be done either by
-> +passing ``cpuidle.governor=shallow`` or ``cpuidle.governor=shallow_nopoll`` in
-> +the kernel command line, or by writing the governor name to the
-> +:file:`current_governor` file described `above <idle-loop_>`_.  A governor
-> +requested in the kernel command line is not replaced by a higher-rated one
-> +registering later, so it holds for the entire boot and user space can hand the
-> +deep idle states back at any later point by switching to a different governor.
-> +
-> +Note that the shallowest idle state is not necessarily a polling loop.  On the
-> +platforms whose ``CPUIdle`` driver does not register the generic polling state,
-> +it is the idle instruction of the CPU architecture (for instance, ``WFI`` on
-> +arm64), so ``shallow`` is not a substitute for ``idle=poll``.  If the driver
-> +registers no polling states at all, the two governors select the same states.
-> +
->  .. _idle-states-representation:
->  
->  Representation of Idle States
-> diff --git a/drivers/cpuidle/Kconfig b/drivers/cpuidle/Kconfig
-> index 00e2562041fd..c78aa07ca548 100644
-> --- a/drivers/cpuidle/Kconfig
-> +++ b/drivers/cpuidle/Kconfig
-> @@ -44,6 +44,26 @@ config CPU_IDLE_GOV_HALTPOLL
->  
->  	  Some virtualized workloads benefit from using it.
->  
-> +config CPU_IDLE_GOV_SHALLOW
-> +	bool "Shallow governors (for latency-sensitive systems)"
-> +	help
-> +	  The shallow governor always selects the shallowest enabled idle
-> +	  state, which keeps the CPU wakeup latency at the minimum offered by
-> +	  the platform at the cost of giving up idle energy savings.  The
-> +	  shallow_nopoll governor selects the shallowest enabled idle state
-> +	  that is not a polling one instead, unless PM QoS requires a lower
-> +	  latency than that state offers.
-> +
-> +	  They are never used by default and have to be requested explicitly,
-> +	  either by passing cpuidle.governor=shallow or
-> +	  cpuidle.governor=shallow_nopoll in the kernel command line, or by
-> +	  writing the governor name to the current_governor attribute in
-> +	  sysfs.  That makes it possible to keep the CPUs out of deep idle
-> +	  states while booting or while running a latency-sensitive workload
-> +	  and to switch to an energy-efficient governor afterwards.
-> +
-> +	  If unsure, say N.
-> +
->  config DT_IDLE_STATES
->  	bool
->  
-> 
-> ---
-> base-commit: 08df884136f1c1197bab2a27814404fd329d9aac
-> change-id: 20261007-b4-cpuidle-shallow-a4d6190bc8b1
-> 
-> Best regards,
-> --  
-> Roman Kagan <rkagan@amazon.de>
-> 
-> 
+> +The hint does not make an inode immutable, grant permissions, or suppress
+> +other operations such as FLUSH, FSYNC, locking or data I/O.  Servers supporting
+> +remote flock must implement the RELEASE cleanup described above.  A server must
+> +only set it when its access policy and file semantics permit the default
+> +open behavior described above.  Servers needing per-open authorization,
+> +nonzero handles, direct I/O, passthrough or other OPEN reply flags must keep
+> +handling OPEN for those inodes.  No additional access-time or open-reference
+> +accounting is performed by this feature.
+
+
+-- 
+~Randy
 
