@@ -1,138 +1,110 @@
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A0B14A4EE2
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 13:40:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5A044A4984
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 13:41:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791466824; cv=none; b=RsuXh8mwtNch9mdRAqKCafgldpdjmIFmO5DvpXrUj5q92jOvqpOCm72N32BZKVtcWJSLuvJKcJXCVJksYePcgubBaa0TFUcUkxBENwQuEI9+hjqevb7vmwUwzeazk6vs/VhjQJynFcw85p28M23OFmR3Iu0Giu5txTnb7Ta3FlI=
+	t=1791466864; cv=none; b=kws8vF1MU2KkEyDSWPjaoqoL2O40p+sZ0k2XUGPXfN/E6PBzoloh+uLT6mHBf3wWyHKLR0nIG8SjGNMlRJe03y9MhirRxDOAxrQup+41/Nkhb9IW1OL5QBRLV6/SL2u20WVSB9Z7x7n8rZOATfMxtkvefSpW4NFMFrKatkTT2M4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791466824; c=relaxed/simple;
-	bh=f2BMn5ioidRbzaI9E7/OdDgcAuxIkLaGENNPV91/nzA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ujtTUqlA+PBftG/Gq7XQdEpeWs9Iz0Odrr5pqpLqyQ4VP9at7SWYtOT5f6v0HjIcvPfpyjuazPiDSoY/uc0XGpEgbcs8LzTkXAmJFs5nIDeY7Ta3rxwmAFaBWSO5fkwdXpVB3TKsvV7VuO1LLQ0brdo0+7TP/Zh4zbJIOBARe8o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=SWO5fmKC; arc=none smtp.client-ip=209.85.218.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1791466864; c=relaxed/simple;
+	bh=tGHlnuHJTeWYIp3qu8tuwMZO4/6oaJM9tZydKrag+ls=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NzIN+Hb5w5/84fV6ZLPFMQbO03bSUd7SWAtmnuL/S9n9ICtsgTRQ1B4ZZVUagmG/WzAeqOzOFJs1Ui+FjytvLbnfzpT8+zep/w9ZQ0heEXbbkk8l0E2tfWVS8CtMRKQu1KnVWR+4RM8g/0Z3U2F/i30YdrrnLPyI1O/tOjocJos=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=UOHop8Og; arc=none smtp.client-ip=209.85.218.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="SWO5fmKC"
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c2e36c3478aso776607766b.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 06:40:22 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="UOHop8Og"
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c2e5d08214dso752979266b.1
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 06:41:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791466821; x=1792071621; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=H80w9zSBz9R1ag4qx1WlJa+f5FQwYUpOAtTkVEPPBz8=;
-        b=SWO5fmKCmSLDhFQF3sd/3422TlorOnWb9ykBI+z9dv2ig1oPq3sTWowNKRGppqTmNs
-         O/7og0AlHUMbFZhZPqSbBfgj0z8dlfxFBYPftcND2SoD8ZAWGRtL3FUNZ0Fmme+xQO0Z
-         gUDZ02501Z2I86NvjGzw2E8OTZLHAIb6aVTHMTCKeh1GQdYii6mHzbm1mCa/b/WyPBHh
-         71EqwQgoXlw0ul2vzs19JWU176kCLTCfA6u98tVUYHsPNiznhyO8brB5gM8kNYurfGqE
-         xi7oguad1hs8Bs/pGWG9uWq46kidx0DT7Fh2YuM+Gdy+3jduRqLv/iqcdpTOu1ZrZ8jR
-         MXJw==
+        d=chromium.org; s=google; t=1791466860; x=1792071660; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sO6hhrGRCVa8MIRnUWaS8QVh61+fWOXs6meIqTfPD3c=;
+        b=UOHop8Og9IO/cfTdq7iITP6GisAk/jSd70X+wPXDTvQ+JT/G6hv3hcFGF3JqQ0foRj
+         6SuOPVIkGhjl9jvAPS6YW76rzPGyXVM3GITVGr1AHPmWpGgEB59Xhv3tp730Ex4j78Mu
+         qOroxwqHzs7O287XUrb8H0IyOaMrFQH/2E/RM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791466821; x=1792071621;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1791466860; x=1792071660;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=H80w9zSBz9R1ag4qx1WlJa+f5FQwYUpOAtTkVEPPBz8=;
-        b=nbX2tjEwOTfiDQBFL0gc3Gl745nsR6+Ns5ligTzj6ogyJ6Vd/QfKqlE52DRiul8wiw
-         PrtMT91I05PwrShgRbCV/voSoYTfBH1C1eMOffY3WbbQ4TjsjPtMbQEXKZRsmiSztM+C
-         NPAZiGS41biwHn6rTxYRlR21ovUzw1fhJqT261K6pTEHH7BCM6ZzYUYkag0ZvqGLLknh
-         epSWnQd79rRdXORcTTul/uBidbHA4dE8rtMltRTY6MWmBqSWg1fUvJkzOnmtPVcmrsde
-         jVmH8ZGNbA1eeRkE5yu9vAAZFrwm3foHE93U//gUY3W27EeFvTVOl984kjRXX9Puhxel
-         s3KA==
-X-Forwarded-Encrypted: i=1; AKwUvBzQfg0SW9wKttt1/JcQFGwvnidzplx1CxySfhZeDqi0KIJ6eVbOusptx5jdHKHwgbwEWQf0tDtbUpCh1VA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mOAya9gNvkfJLHhpWuj8gZydh0r8e7cwr+We/Js5see1y0lOrU
-	fT46GAzJp9TdaVQhKwsjgSwEkl2m9zawq0P1u92xKp8uBMVGnR6gXgrQliEmd9hBvf4=
-X-Gm-Gg: AYBFou0TP0Ub1Md8xvNjt4WbbKHHOVRkYBM8/9w9D9A7IIp1GiYWmr+cF6k8Wyy8sv+
-	R57odMlG4g9R2CZs5p0LwIuz+hIu6DQymGGmQEVZsAb/+l4j4w4rDznMc/dbyU/p3U2lxMsjCDY
-	0a28AbYqZ76XIOqsR23kfWcXfAfmBVTqmp6Kt+hbH70etM9MI/Lq0daFjSibWIRYUaKcys+1cpd
-	Sz/63D3l5Pk9SlDFJC9so8k2FrZJSZsKN9J/PBI0aSmfYz7n373JLDw2lALSdn4zTEzsFQbEEGh
-	ChrOW3pLnVEyAQl/4Uibo0Hu9thz3wnl1YQ+tT3U2sPKLvLWr9OFR4s6fOXW5dWhEeM4SKadu13
-	gbrtEKkVWS27OeCJ90A/ct6O7BF2wZuy6ftuijrPjuJjKh0CAC4O/Ri8t0e30wSBp8IRZtRa6uI
-	0yyaUm+8Z9gnowkF3Enu+1lCn7MgqRI7kEGB5USxrB2jbko6nvIDV8kTAIwrcSWmIXfhBxBzwtF
-	xlT/I513e9pbdGzOfm5NRo=
-X-Received: by 2002:a17:907:9810:b0:c29:4513:f6fd with SMTP id a640c23a62f3a-c317c0bbdebmr565259066b.35.1791466821244;
-        Thu, 08 Oct 2026 06:40:21 -0700 (PDT)
-Received: from [192.168.0.167] ([109.77.203.235])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b00aa482e9sm1524264a12.31.2026.10.08.06.40.20
+        bh=sO6hhrGRCVa8MIRnUWaS8QVh61+fWOXs6meIqTfPD3c=;
+        b=Fxp1k/aK1zHzXyZXkU5vUDzBlylFQkqj6Dx7H7e8RuGO/FBS5ZSIz+unvjWWNN9W9q
+         Ah1+WbBao69o7Lq8/Tu0XyaT+/+W9RODgcM6p96McketdAQo2HuWmrewtHiscWYwGVPp
+         G4SNqK9T/0HCHXJpnbDIKlhx/4CT8YN07FsbsR/H/jBCR1hN3w50eo23pVOpvE4tMkoX
+         5+543MLC5sj7O8dKFOvaTcPY7JyjpdI8qaF5KwJXw1vJYAdW2oHiDfxcnJOxKeUBrNRm
+         amv3KCK0cfvl1ZPU6mT0Ax7NXXL0R5FOZIXayXLm9fTNzWB/kJD8mVT52XxstpkL1Z5j
+         zQGA==
+X-Forwarded-Encrypted: i=1; AKwUvBw0LdyY9Xp6Nggq7R+fGuPpMiUuToeXnQfTQHc81F6fJFLXswGIkJVCSCXEVq5u3x4Haj716fwxsxQO/LY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nZWRUDyAMr1MMpKpIVVp+aMxsDO2Z0k6c+TmRWVECIyg9nqFxF
+	2WhwlUYvD2WODYgtc/Cq2vfR4ygS5eIqop0HscwYMGgg9a1HtM6RWd6RDxgtFySfZA==
+X-Gm-Gg: AYBFou2hQJfBGC6dipwbkrbmU9JqDec785nTN4qdM7JvGwEijkEH6DWQYI1mRXSfDB7
+	JRAYyJIWTCmJQnClZGLPhfEy2F+oa9qe+jBGilwRvBRZUcgABkkz7b2Y9r30h946N3ff1AzWEu4
+	Np//6CZTmktk6F163Lmwy11RVeBLsVj/T/3JHy6wUT/cX7Nts+HsiIj2c/Y9yPy5yBOSicGrJLd
+	QtgZpuFYE1CXlKX1xxPOdZRFR/vVawqKWqLAyI/ple+wCq0387AOBCXD5/zVszN25dhUG9BRss+
+	DtoAv/Kb9lzP5a5rb3i7xPgSGdeDhSyDA9752jZjpsxTwvQIFri1RKzMltMnBIASrdJvx20OTTG
+	C1WBnnVQ62DFDqzWbE0gSNlnBrk58j/R14qEJ+1WQcnUUpaVeSurPp6fMpk5m8l4eZ2gRghZn9+
+	5ly253xE5Eac9XtUli87OuLJXKsnTK8uZQheUNhch/Zr7cvANfTDsakDkJmveBrXbg2kikE4rye
+	nNSDfhX993idWXpf9vzAUHgmQA8IHLgnV5dIMbeIA==
+X-Received: by 2002:a17:907:3cc9:b0:c2e:7da9:6e6 with SMTP id a640c23a62f3a-c317bda03f5mr518485166b.11.1791466859972;
+        Thu, 08 Oct 2026 06:40:59 -0700 (PDT)
+Received: from localhost (103.45.147.34.bc.googleusercontent.com. [34.147.45.103])
+        by smtp.gmail.com with UTF8SMTPSA id a640c23a62f3a-c31a0f4a144sm1035166b.35.2026.10.08.06.40.58
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 08 Oct 2026 06:40:20 -0700 (PDT)
-Message-ID: <c0d8ff20-ee5a-48b2-8cb4-3a837077e192@linaro.org>
-Date: Thu, 8 Oct 2026 14:40:19 +0100
+        Thu, 08 Oct 2026 06:40:59 -0700 (PDT)
+From: Andrei Kuchynski <akuchynski@chromium.org>
+To: Jameson Thies <jthies@google.com>,
+	Benson Leung <bleung@chromium.org>,
+	Abhishek Pandit-Subedi <abhishekpandit@chromium.org>,
+	Tzung-Bi Shih <tzungbi@kernel.org>,
+	Guenter Roeck <groeck@chromium.org>
+Cc: chrome-platform@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Andrei Kuchynski <akuchynski@chromium.org>
+Subject: [PATCH v2 0/2] USB Type-C mode selection
+Date: Thu,  8 Oct 2026 13:40:54 +0000
+Message-ID: <20261008134056.3816556-1-akuchynski@chromium.org>
+X-Mailer: git-send-email 2.56.0.360.g66cac248cb-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 58/74] media: uapi: Add CAMSS ISP statistics definition
-To: "Gjorgji Rosikopulos (Consultant)"
- <gjorgji.rosikopulos@oss.qualcomm.com>, bod@kernel.org,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
- Daniel Scally <dan.scally@ideasonboard.com>, Keke Li <keke.li@amlogic.com>,
- Richard Acayan <mailingradian@gmail.com>, Hans Verkuil
- <hverkuil@kernel.org>, Gjorgji Rosikopulos <quic_grosikop@quicinc.com>,
- Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>, Robert Foss
- <rfoss@kernel.org>, Milen Mitkov <quic_mmitkov@quicinc.com>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
- <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-58-ed985aefd611@kernel.org>
- <7cec7156-e85b-42e0-857a-e590b9e252b2@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <7cec7156-e85b-42e0-857a-e590b9e252b2@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 08/10/2026 12:23, Gjorgji Rosikopulos (Consultant) wrote:
->> +/* Number of bins in a Bayer histogram. */
->> +#define CAMSS_STATS_BHIST_BINS	1024
->> +
->> +/**
->> + * struct camss_stats_bhist - Bayer histogram
->> + *
->> + * Histogram of the luma of each 2x2 Bayer quad inside the histogram's region,
->> + * over CAMSS_STATS_BHIST_BINS equal bins spanning its input range. Quads
->> + * whose luma falls outside the input range are not counted.
->> + *
->> + * @header: block header; @header.type = CAMSS_STATS_AEC_BHIST
->> + * @bins:   number of quads per bin
->> + */
->> +struct camss_stats_bhist {
->> +	struct v4l2_isp_block_header header;
-> I think that the whole format is not correct, having header is preventing address alignment
-> of the buffer for the stats, as i have mentioned in the next patch copying the statistics
-> on each frame is not correct, just to have generic statistics format in userspace.
+This patch series introduces priority-based alternate mode selection
+support for cros_ec_typec. 
+The base patch series and UCSI support was submitted here:
+https://lore.kernel.org/all/20260119131824.2529334-1-akuchynski@chromium.org/
 
-Err no I'll disagree with you there.
+When AP-driven alternate mode selection is active, the driver enforces the
+mode_selection bit for each registered Alternate Mode. This blocks
+individual altmode drivers from self-activating. Once registration
+completes, the driver evaluates USB4 capability. If USB4 is unsupported,
+it falls back to priority-based negotiation via typec_mode_selection_start.
 
-Since we are introducing stats on the qcom side we get to be the first - 
-or close to first - system to implement extensible self-describing stats 
-which is the mirror to the params.
+Additionally, we swap the registration sequence of the port's alternate
+modes. Registering DisplayPort after Thunderbolt correctly ensures DP is
+prioritized.
 
-Extensible stats lands in 7.3 so IMO there's no reason not to use it.
+Changes in v2:
+- Added this cover letter.
+- Rebased on top of the latest platform-chrome tree.
+- Tested on Redrix with Linux Fedora 7.3.0-rc5+.
+v1 Link:
+https://lore.kernel.org/all/20260129131928.794768-1-akuchynski@chromium.org/
 
-Also I think its kind of a crap design to have extensible params but not 
-extensible stats.
+Andrei Kuchynski (2):
+  platform/chrome: cros_ec_typec: Enforce priority-based mode selection
+  platform/chrome: cros_ec_typec: Reorder altmode registration
 
-It should be all or nothing. I don't see a gigantic problem in copying 
-in data and then looking at how to accommodate dma straight into the 
-stats output with block alignments later.
+ drivers/platform/chrome/cros_ec_typec.c      | 61 ++++++++++++++++----
+ drivers/platform/chrome/cros_typec_altmode.c |  8 ++-
+ 2 files changed, 55 insertions(+), 14 deletions(-)
 
-The extensible header facilitates next-hopping anyway so userspace 
-shouldn't have to change once we DMA to the aligned regions.
+-- 
+2.56.0.360.g66cac248cb-goog
 
-Also if that is not supported by extensible stats then it _should_ be 
-supported by extensible stats - i.e. it should be possible to DMA 
-directly into the output buffer and pad the blocks as much as you need.
-
----
-bod
