@@ -1,135 +1,242 @@
-Received: from mta1.migadu.com (out-190.mta1.migadu.com [95.215.58.190])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C880C47045C
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 08:33:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.190
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 273DB3E4117;
+	Thu,  8 Oct 2026 08:33:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791448397; cv=none; b=PAiEpbWSGeNplWk+gYpZLxvdhKleRnaUg1BNWuTXQJpw+bZ/7OmKJaXUs1y6/jVzQ3Qz3+VUn7sZpQk9Ux4uaW5W9XGGnWP/Pxzww1GMHJFSJqPHYslHmjrdV1BX4UO1U3f8+nTs1s0+K8rcW1LWxDBHJ/81q8d5/bDKL9K/S4Y=
+	t=1791448409; cv=none; b=KDO05QuhWrhagPEEYKjdTQhB1d8sM0adQMNwo3CiIof6QpY4tGiBnnhRPiBHXlxkp+NZDjAHbajqCyiM5SclOXnav1sW5IyfbPJPKMUV/dtC/BQEqM4b4sB2VoMhX/7gVKMZ2NR7zm1Xnczfn8hiGorHSJtvTW5Um61m3ZU/Aus=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791448397; c=relaxed/simple;
-	bh=HyGwwSVmXvhmOZPb5rYhVyPJ+UvfVubhGgu9kDF0uic=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=qrFc+KFHrcbFqdLfakiZWlo1r0rt4+CInaJQUmLSr+7FE0eRGj2MMaAJhgdwLU0OSsvsaCR+unlDR71BhuIGxeyDfHDqCKmv3t1QFeODRMJ2QUgBOeklUlv7n7M+qjVwSmqoJMI0IEJiF6aR6xK3LJ6dBQTELvddZKUgtIsrfkc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=BJaTmY9Q; arc=none smtp.client-ip=95.215.58.190
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791448409; c=relaxed/simple;
+	bh=K+8ZbQLfCg0PV60dBTg4VgqRWIwicKQQgKOKwxC36pw=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=gcCjaV/fIv0+Ipn0iMVtf1SskG3FQNxVE9EY6hBgyjvHDYbsL5SZRoKtyJYxwe/yN+na+pD/xsyz4VtBYMfZy9Efzg3V3oRAVLnKAu/8t7X0ooFKM0aef8IbGtXtKfUeLqJcOfZTaG7NZ5lVw66m6T+KbE484PvSIJnobYgqH20=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=mPgLOUlY; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="BJaTmY9Q"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=HyGwwSVmXvhmOZPb5rYhVyPJ+UvfVubhGgu9kDF0uic=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791448393; v=1; x=1792053193;
- b=BJaTmY9Q2AcNcg0Ibm4M/yFMd0jOkbvaF9GOOHOQC2F0NG/5vtTQRpNkUTdl7umzZkowp+Zg
- saCqstM8QnCXhqR6BV3oExuPa4vjItORXe5J2PfzMk0ZL5l8xXlY7kZNQe2GdUuhgcJlYN7Wbb3
- gFKgnhcpnbQTV25OLuzBl/PM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f276eb58ea604195;
-	Thu, 08 Oct 2026 08:33:13 +0000
-X-Mizu-Trace-ID: f276eb58ea604195
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="mPgLOUlY"
+Received: from kali.mshome.net (unknown [4.213.232.17])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 3FBB820B7167;
+	Thu,  8 Oct 2026 01:32:26 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 3FBB820B7167
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1791448350;
+	bh=Pn9xSQav7Mt56V0G61/8zYZp9JX8VoM9Cp2v/Ee6wtE=;
+	h=From:To:Subject:Date:From;
+	b=mPgLOUlYD6U3WQheqPW6sGS2jag1ERBDY/iQRUUUUZ88obHOtmn2VlsUJK/+ngx/1
+	 muAtb6Fm+fqRZhZrN30KAs/dUXrM5MCuSB4ne7IRTZTCpdmCNotm9avHcCQiq/fZVd
+	 O9AVf3WRwDEz8W/hOfgm6VtX7xcP/pFaZTYHZWkc=
+From: Sahil Chandna <sahilchandna@linux.microsoft.com>
+To: haiyangz@microsoft.com,
+	wei.liu@kernel.org,
+	decui@microsoft.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	kotaranov@microsoft.com,
+	horms@kernel.org,
+	ernis@linux.microsoft.com,
+	gargaditya@linux.microsoft.com,
+	mawasthi@linux.microsoft.com,
+	leitao@debian.org,
+	linux-hyperv@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-rdma@vger.kernel.org
+Subject: [PATCH net-next] net: mana: Add support to process throttled EQEs
+Date: Thu,  8 Oct 2026 03:33:05 -0500
+Message-ID: <20261008083315.306076-1-sahilchandna@linux.microsoft.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH 1/4] x86/mm: fix missing pgtable destructor for vmemmap
- tables
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20261008073021.2512665-2-songmuchun@bytedance.com>
-Date: Thu, 8 Oct 2026 10:32:58 +0200
-Cc: akpm@linux-foundation.org,
- linux-mm@kvack.org,
- stable@vger.kernel.org,
- david@kernel.org,
- osalvador@suse.de,
- dave.hansen@linux.intel.com,
- luto@kernel.org,
- peterz@infradead.org,
- tglx@kernel.org,
- mingo@redhat.com,
- bp@alien8.de,
- x86@kernel.org,
- hpa@zytor.com,
- catalin.marinas@arm.com,
- will@kernel.org,
- mark.rutland@arm.com,
- linux-arm-kernel@lists.infradead.org,
- pjw@kernel.org,
- palmer@dabbelt.com,
- aou@eecs.berkeley.edu,
- alex@ghiti.fr,
- linux-riscv@lists.infradead.org,
- agordeev@linux.ibm.com,
- kevin.brodsky@arm.com,
- bjorn@rivosinc.com,
- apopple@nvidia.com,
- linux-kernel@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <ECC604FF-E74D-43B1-9105-A6683EEDE558@linux.dev>
-References: <20261008073021.2512665-1-songmuchun@bytedance.com>
- <20261008073021.2512665-2-songmuchun@bytedance.com>
-To: Muchun Song <songmuchun@bytedance.com>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+When an event queue nears full, the hardware coalesces the per-CQ
+GDMA_EQE_COMPLETION notifications into a single throttle EQE of type 4
+that carries no cq_id. The driver does not handle this event type, so
+it falls through to the default case and is dropped. Any CQ whose
+completion notification was replaced by the throttle EQE is then never
+scheduled again and its queue stalls.
+Add support to process the CQs which belong to a throttled EQE of type 4.
 
+Signed-off-by: Sahil Chandna <sahilchandna@linux.microsoft.com>
+---
+ .../net/ethernet/microsoft/mana/gdma_main.c   | 43 ++++++++++++++++++-
+ .../ethernet/microsoft/mana/mana_ethtool.c    |  7 +++
+ include/net/mana/gdma.h                       | 12 +++++-
+ include/net/mana/mana.h                       |  1 +
+ 4 files changed, 61 insertions(+), 2 deletions(-)
 
-> On Oct 8, 2026, at 09:30, Muchun Song <songmuchun@bytedance.com> =
-wrote:
->=20
-> Since commit 49f599666420 ("mm: call ctor/dtor for kernel PTEs"),
-> pte_alloc_one_kernel() runs the page-table constructor for kernel PTE
-> tables.
->=20
-> HugeTLB vmemmap optimization uses pte_alloc_one_kernel() when =
-splitting
-> a PMD. Restoring the vmemmap backing pages does not collapse the PTE
-> table, so a later memory hot-remove eventually frees that table =
-through
-> free_pagetable(). That path currently calls pagetable_free() directly
-> without decrementing NR_PAGETABLE.
->=20
-> Use PageTable() to identify constructor-backed tables and run the
-> matching destructor before freeing them. Keep reserved and
-> constructor-free tables on their existing paths. This also prepares
-> vmemmap teardown for generic runtime allocations through the normal
-> pgalloc helpers.
->=20
-> Fixes: 49f599666420 ("mm: call ctor/dtor for kernel PTEs")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-> ---
-> arch/x86/mm/init_64.c | 2 ++
-> 1 file changed, 2 insertions(+)
->=20
-> diff --git a/arch/x86/mm/init_64.c b/arch/x86/mm/init_64.c
-> index 70e682180291..a3ea627157ab 100644
-> --- a/arch/x86/mm/init_64.c
-> +++ b/arch/x86/mm/init_64.c
-> @@ -1003,6 +1003,8 @@ static void __meminit free_pagetable(struct page =
-*page)
-> {
-> 	if (PageReserved(page))
-> 		free_reserved_page(page);
-> + 	else if (PageTable(page))
-> + 		pagetable_dtor_free(page_ptdesc(page));
+diff --git a/drivers/net/ethernet/microsoft/mana/gdma_main.c b/drivers/net/ethernet/microsoft/mana/gdma_main.c
+index ae0ed700b3b9..b8e5ad2c6d31 100644
+--- a/drivers/net/ethernet/microsoft/mana/gdma_main.c
++++ b/drivers/net/ethernet/microsoft/mana/gdma_main.c
+@@ -747,6 +747,18 @@ void mana_gd_free_service_wq(struct gdma_context *gc)
+ 	gc->service_wq = NULL;
+ }
 
-Sashiko mentioned that kernel page table pages and vmemmap pages are
-freed to the buddy allocator before their parent entries are cleared
-and before the TLB is flushed, creating a dangling pointer window.
++static void mana_gd_schedule_eq_cqs(struct gdma_queue *eq)
++{
++	struct gdma_queue *cq;
++	u8 i;
++
++	for (i = 0; i < GDMA_EQ_MAX_CHILD_CQ; i++) {
++		cq = rcu_dereference(eq->eq.child_cq[i]);
++		if (cq && cq->cq.callback)
++			cq->cq.callback(cq->cq.context, cq);
++	}
++}
++
+ static void mana_gd_process_eqe(struct gdma_queue *eq)
+ {
+ 	u32 head = eq->head % (eq->queue_size / GDMA_EQE_SIZE);
+@@ -777,6 +789,11 @@ static void mana_gd_process_eqe(struct gdma_queue *eq)
 
-That's a a real but pre-existing issue, I will not fix that in this
-series.
+ 		break;
 
-> 	else
-> 		pagetable_free(page_ptdesc(page));
-> }
-> --=20
-> 2.54.0
->=20
++	case GDMA_EQE_THROTTLE:
++		eq->eq.throttle_count++;
++		mana_gd_schedule_eq_cqs(eq);
++		break;
++
+ 	case GDMA_EQE_TEST_EVENT:
+ 		gc->test_event_eq_id = eq->id;
+ 		complete(&gc->eq_test_event);
+@@ -1063,17 +1080,41 @@ static void mana_gd_create_cq(const struct gdma_queue_spec *spec,
+ 			      struct gdma_queue *queue)
+ {
+ 	u32 log2_num_entries = ilog2(spec->queue_size / GDMA_CQE_SIZE);
++	struct gdma_queue *parent;
++	u8 i;
+
+ 	queue->head |= INITIALIZED_OWNER_BIT(log2_num_entries);
+-	queue->cq.parent = spec->cq.parent_eq;
++	parent = spec->cq.parent_eq;
++	queue->cq.parent = parent;
+ 	queue->cq.context = spec->cq.context;
+ 	queue->cq.callback = spec->cq.callback;
++
++	if (!parent)
++		return;
++
++	/* For throttled EQE store the child CQ */
++	for (i = 0; i < GDMA_EQ_MAX_CHILD_CQ; i++)
++		if (!rcu_access_pointer(parent->eq.child_cq[i])) {
++			rcu_assign_pointer(parent->eq.child_cq[i], queue);
++			return;
++		}
+ }
+
+ static void mana_gd_destroy_cq(struct gdma_context *gc,
+ 			       struct gdma_queue *queue)
+ {
++	struct gdma_queue *parent = queue->cq.parent;
+ 	u32 id = queue->id;
++	u8 i;
++
++	if (parent) {
++		for (i = 0; i < GDMA_EQ_MAX_CHILD_CQ; i++) {
++			if (rcu_access_pointer(parent->eq.child_cq[i]) == queue)
++				RCU_INIT_POINTER(parent->eq.child_cq[i], NULL);
++		}
++
++		synchronize_rcu();
++	}
+
+ 	if (id >= gc->max_num_cqs)
+ 		return;
+diff --git a/drivers/net/ethernet/microsoft/mana/mana_ethtool.c b/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
+index ece7ff9cc409..1004c3334532 100644
+--- a/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
++++ b/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
+@@ -22,6 +22,8 @@ static const struct mana_stats_desc mana_eth_stats[] = {
+ 				       tx_linear_pkt_cnt)},
+ 	{"rx_cqe_unknown_type", offsetof(struct mana_ethtool_stats,
+ 					rx_cqe_unknown_type)},
++	{"eq_throttle_events", offsetof(struct mana_ethtool_stats,
++					eq_throttle_events)},
+ };
+
+ static const struct mana_stats_desc mana_hc_stats[] = {
+@@ -261,6 +263,11 @@ static void mana_get_ethtool_stats(struct net_device *ndev,
+ 	 */
+ 	mana_query_phy_stats(apc);
+
++	apc->eth_stats.eq_throttle_events = 0;
++	for (q = 0; q < num_queues; q++)
++		apc->eth_stats.eq_throttle_events +=
++			apc->eqs[q].eq->eq.throttle_count;
++
+ 	for (q = 0; q < ARRAY_SIZE(mana_eth_stats); q++)
+ 		data[i++] = *(u64 *)(eth_stats + mana_eth_stats[q].offset);
+
+diff --git a/include/net/mana/gdma.h b/include/net/mana/gdma.h
+index c610fc1067e0..03fe9395604d 100644
+--- a/include/net/mana/gdma.h
++++ b/include/net/mana/gdma.h
+@@ -58,6 +58,7 @@ enum gdma_work_request_flags {
+
+ enum gdma_eqe_type {
+ 	GDMA_EQE_COMPLETION		= 3,
++	GDMA_EQE_THROTTLE		= 4,
+ 	GDMA_EQE_TEST_EVENT		= 64,
+ 	GDMA_EQE_HWC_INIT_EQ_ID_DB	= 129,
+ 	GDMA_EQE_HWC_INIT_DATA		= 130,
+@@ -286,6 +287,7 @@ struct gdma_dev {
+ #define GDMA_EQE_SIZE 16
+ #define GDMA_MAX_SQE_SIZE 512
+ #define GDMA_MAX_RQE_SIZE 256
++#define GDMA_EQ_MAX_CHILD_CQ  2
+
+ #define GDMA_COMP_DATA_SIZE 0x3C
+
+@@ -366,6 +368,10 @@ struct gdma_queue {
+ 			unsigned int irq;
+
+ 			u32 log2_throttle_limit;
++
++			u64 throttle_count;
++
++			struct gdma_queue __rcu *child_cq[GDMA_EQ_MAX_CHILD_CQ];
+ 		} eq;
+
+ 		struct {
+@@ -752,6 +758,9 @@ enum {
+ /* Driver supports non-contiguous queue buffers */
+ #define GDMA_DRV_CAP_FLAG_1_NON_CONTIGUOUS_BUFFERS BIT(30)
+
++/* Driver supports handling throttled EQEs */
++#define GDMA_DRV_CAP_FLAG_1_THROTTLED_EVENT_QUEUE BIT_ULL(32)
++
+ /* Capabilities in the PCI-only group below rely on dynamic MSI-X allocation
+  * and on the servicing and reset paths reached through
+  * mana_schedule_serv_work(). Transports that provide neither leave
+@@ -776,7 +785,8 @@ enum {
+ 	 GDMA_DRV_CAP_FLAG_1_HANDLE_STALL_SQ_RECOVERY | \
+ 	 GDMA_DRV_CAP_FLAG_1_EQ_MSI_UNSHARE_MULTI_VPORT | \
+ 	 GDMA_DRV_CAP_FLAG_1_DYN_INTERRUPT_MODERATION | \
+-	 GDMA_DRV_CAP_FLAG_1_NON_CONTIGUOUS_BUFFERS)
++	 GDMA_DRV_CAP_FLAG_1_NON_CONTIGUOUS_BUFFERS | \
++	 GDMA_DRV_CAP_FLAG_1_THROTTLED_EVENT_QUEUE)
+
+ #define GDMA_DRV_CAP_FLAGS2 0
+
+diff --git a/include/net/mana/mana.h b/include/net/mana/mana.h
+index 83b7eff4646e..46aa843737b8 100644
+--- a/include/net/mana/mana.h
++++ b/include/net/mana/mana.h
+@@ -439,6 +439,7 @@ struct mana_ethtool_stats {
+ 	u64 tx_cqe_unknown_type;
+ 	u64 tx_linear_pkt_cnt;
+ 	u64 rx_cqe_unknown_type;
++	u64 eq_throttle_events;
+ };
+
+ struct mana_ethtool_hc_stats {
+--
+2.53.0
 
