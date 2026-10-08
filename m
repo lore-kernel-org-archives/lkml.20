@@ -1,151 +1,135 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 073E23B05A7;
-	Thu,  8 Oct 2026 07:01:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791442890; cv=none; b=hz3yXKNF20l0TrV57F4O05QX05phErcZL6IbK6sbCKGROoG3nhxuOaNsMfD9tVQ7HY1q6/RA69090fdCTqCDejTuZcsITmI9e3n8BxBrgW74Ud234m6wcZy5bDP1erXCgYrKl83KuhkZubhYUBmw7jwGAsuinHMPZOWHrYI1inY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791442890; c=relaxed/simple;
-	bh=z5WC5Oh8VXR9CcMI4p5XcyJpZLp7SF8z1n4K/iuDZkA=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=N6hyssu6hhBtCvTIB5FwTu6PMb1Rwl29u4PlDyLXm9C2XHFvp6MV9oBronSCjRSBWpCa82gIKQUse+T6+aHzJL9wQtFDSo5JIeh71KpyW7FBqlpOZdFeSuSz8TTUiT4B6oMun6Ir9suWOhFxbjwCqrYg/6aT7fU9biSXpU3o2ew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=KtHzrvNL; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=la++t47T; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=u6wYS2ur; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=FuQs3qHB; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AF973C3C09
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 07:01:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791442915; cv=pass; b=CjFoq6EgtxgU59kqxAW6o1u+3BowiI8y7MgLKKsb+lnqp81zL0Zp/F22hGIcpb4pGaB+GykAMfL44VWdYftED98fZcOpe1J0C7Ocn2XQgIvZZ1lJKkiuYaOVLSdxz40ZV2E4DOx6X3jnCgMcrA+WLu1NQ7gjDUnAdhbNcKX/eC0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791442915; c=relaxed/simple;
+	bh=1uzp3Fb+0d6QPyR+GAl8dfrDjhT+5ThKcgNipEuOz+A=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=T4sIvb++d86kTiteYczIqKTZsmpvVFJnMydKQWSlcSWMP/FXr/33GM5sfIlhDdk+fp2WISKSRAH2NImTTk8LK5ucwnqo/8J5gKCNi2VJhIoJFoYefTixizQ3gjbuvQgRgVFCMCDbWUTf3SeV+YetIr9PFnWnUUm8H1+krJWqX/c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DMAM1dV/; arc=pass smtp.client-ip=209.85.210.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="KtHzrvNL";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="la++t47T";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="u6wYS2ur";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="FuQs3qHB"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 338DD1F799;
-	Thu,  8 Oct 2026 07:01:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791442886; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UdUhKWglyOJlEjxltVwov626EhVkyCueNw5irqO7AGY=;
-	b=KtHzrvNLkHow6HafrhK+IzN6TS9PNRGF3ZiIKp+SfnWScat8tlOrc6RtdjcFHCqrO//q2P
-	DBHG6JBit3hUJ9MYMPrprBgrnpFimF7Wtj4djOKDkLDE+a14mtF8hSJJddpu4uFbyNOmzi
-	rBA5Ogp73RgI5j/zUUiJsv6t1iPOhFo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791442886;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UdUhKWglyOJlEjxltVwov626EhVkyCueNw5irqO7AGY=;
-	b=la++t47TG8FMUGChhk3gSVEK+hC13pjqjrQXlTMP91JPqX45RzZabikQW9qEr961tOw4Ku
-	MdbX+2cp9oSxBvAQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791442885; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UdUhKWglyOJlEjxltVwov626EhVkyCueNw5irqO7AGY=;
-	b=u6wYS2urMzX14qurIKP4K4muwPqsusP0y/vNDe3IATsurTKGqBzq9ziNyEdm8UatO17y64
-	ZGwco6TfTUb9fAa3HuW6lVleOiF/3HeJtFFwhZkX4TwQU+z2ZJlZ18LmEn3tuCDStcPuwE
-	HSfX0Y4Pg1JhfWnhgysnLPyEzuUEX/w=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791442885;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UdUhKWglyOJlEjxltVwov626EhVkyCueNw5irqO7AGY=;
-	b=FuQs3qHBNkIvL5B7spPvZd8PzA1j01JOonyq7dqA5H9tUWGFsaGy9BGjZY2nuu5/PnOCRf
-	j80OKhXOlxSS/0Dg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EB65F13354;
-	Thu,  8 Oct 2026 07:01:24 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id lB90MMQ/x2ozXgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Thu, 08 Oct 2026 07:01:24 +0000
-Date: Thu, 08 Oct 2026 09:01:24 +0200
-Message-ID: <87v77c65h7.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Matej Sochan <matej.sochan@gmail.com>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Eric Naim <dnaim@cachyos.org>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] ALSA: hda/realtek: Fix silent speakers on Lenovo Legion S7 15IMH05
-In-Reply-To: <20261007-legion-s7-v1-1-8ea7fb7ee766@gmail.com>
-References: <20261007-legion-s7-v1-1-8ea7fb7ee766@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DMAM1dV/"
+Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-7f432ac553fso3671297a34.3
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 00:01:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791442913; cv=none;
+        d=google.com; s=arc-20260327;
+        b=etJF1WM+onvzkjGINatCB1KpXSwBaIfILePG7/tyenRvyzTCcYx8jrGR5RWxljmSfI
+         1IuYNwQMSWfo3Xu68wvg/RFscxzdJjYF1e7zYuJUfiDCiIk7BdvaO4UreoJMPpLhzT9f
+         gbE0GwQQmYSCMuLXqrHc1ShGrgMHYN8ZLG5+ohKvQPQyl31BBp4yCjTOPQmXdnmBqNji
+         gKbA2JzpBUjXXICq2RQLEuV7fAVGqZAT52mXW4I5ebU9Senxf4n9Pzh/7L0ilTmrRCIs
+         1g2JSVlAtLJdhh52kQb6FL0MxPydEq1VckoO3YnndkXTaKoiUvtl4+e0WSffzwdaRd5X
+         3zGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=VnjgZpiqCBnWQmDzV7ayfji4vld+Ysm4KsVus+ufOj4=;
+        fh=9/8co57xZYr++zBQlEjN5LHzImCTSyh/Onk7MOXCB3c=;
+        b=huAIt4mf6ZybE8tZte1banpu07r4cAX05gntcqPRGLAZAFcu/pAswpITnvbtErhWEU
+         U1bWJ/arasoNPODgA++Ve8KNxD62MaYeWSKg5+D+Xq0kgSGIuwZGMwcgov5dZtavH59A
+         5uUGz0HxL8BT4NBTYw2jERGcJID3L4QNZact0nvxNGJzWcvyogeC2JhIN+dZ9JF7u4xX
+         TItQ2I+kR2ZpjtecWM1WOsITJ6Rft1rN2fxNRTHFwrCzogrb1LOh2ZWHl1+OuOzx59Ry
+         k1qcCYhn3QcfRuMQM9TomXP9puVxUwMKZ7Cv5qdfF4DapWSxvmNYooonXsKppS32jRyn
+         F06w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791442913; x=1792047713; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=VnjgZpiqCBnWQmDzV7ayfji4vld+Ysm4KsVus+ufOj4=;
+        b=DMAM1dV/wGVjuIkn8Eejlqmx4tF2azNL1YyPWV2EXXhRxoeg8rde5zZMlHsnex+SNs
+         0k4INUZu/rP8ZZNOT5Q45pQ5AfA7jVvSiJOcGeAu+ZEDnw7T/pwPMWHAcIYH++GUuJ6F
+         IFjcDHlPMqwXi/z78eNcURsiD2lnkNuWX6RxqN6CcdV5zwQWVEyc4r27tG9vVsGn7qow
+         E5atIbfTVIWGtmpt/f1x/QdPX7HdTw7j9ZlYLJva7lEe+r5jgQUCvPAvjdoM9M1TTKxb
+         Nc5gqAAYIJIhFiPrQP8ecApgAbJVMZbzmWlZFHOU7UdOw1Rlw47eDa3/KU1Z/fB5yfCN
+         /ozw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791442913; x=1792047713;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VnjgZpiqCBnWQmDzV7ayfji4vld+Ysm4KsVus+ufOj4=;
+        b=xd5V8Cqzhm2NQ/PgX2SzpJKbyw//wkjf9Wj7QiOOX6sznucnNB6TksXjMcwnUpjNoi
+         FLyWSmOhaQ81wyiKiv4tE8Q9G1dBumM5HA9LlZQ3ArpETr5H6qgIo40t7z+w0a1z/X5d
+         yT7F8C48QwaT2OvGGmcNBPT0zR2gy9ipGmAuqxE6VVf2h2WZn/PQw5Gzu4Eps615T261
+         VknL6PYb2q/u6J8xQCFvbtvIduxrHAE0s7Pq4Y4Dpbql0NQyjoO19iDwm1J1bwa+0ZSN
+         YZGJ0ZpL2fQdx/J/dx+oLQzDvhGT2qvsKhheFV7RI0N0zcdtDtbjjsuyOnTyWFGYdJBg
+         o0pg==
+X-Forwarded-Encrypted: i=1; AKwUvBwREYm/n71nr4D9uLakJ2r6+u0DEfvem4SfRBx3Keyapjy2oOaMiUgOpkYBAsna9sxhdrkpooD5bgwm1/U=@vger.kernel.org
+X-Gm-Message-State: AFuF++mNllA6eu+B9Y9vzvQcI9tKV5Cfq3dDsO4oSBXXYI6O8PjaZblY
+	LvAsYIK/AEI57S41Oag/jMdrzTEoUVWsCbGcCvv7frPsj2J7joHpBZArYmZu3khCdKypz6cTozB
+	SRniwGkZR0ZPLFd7j7PotsBlufyAb0mc=
+X-Gm-Gg: AYBFou0vAQX68OXFBvJWa5vAhLh3s2LmflwqTTd1M3D/7m4+T4+HON0Ia6+xGWbLgXB
+	0ApXZgQGg04BJlbtfQOZlOCTxAqpJaiWAudJsox9cO2yg6YDt7+fbyMTisUjzpLa6X4fjUzavxK
+	QDzt3Smue40ok3WiY2FEMfQXGsQJT5RhAABYHfDjcXtdOjQQ2xfGlYprcX0xKY1HeBSls6rfGhb
+	YIuIyY23oOEyDfMvSPOw53gfDe9sOctl91Iu/uMaWrE8WQn6MkZGxhFIilvn66R7Q08CRsevEJt
+	KouF097GDuPcfC8bjA3Bel59QHS10Z/elGMQ4oXjYeMAQ0XqFGELLwgk+hr7vQn15czxTg4oNDU
+	2q5BmbWfJBFJgveIo7BdfyuQhrYlKeE2rRLAlDvQeNp2aYeKlsvXY
+X-Received: by 2002:a05:6830:25d3:b0:80c:d30f:97d with SMTP id
+ 46e09a7af769-82ad16d6194mr5557685a34.30.1791442913372; Thu, 08 Oct 2026
+ 00:01:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Flag: NO
-X-Spam-Score: -1.80
-X-Spam-Level: 
-X-Spamd-Result: default: False [-1.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+MIME-Version: 1.0
+References: <20260829004608.25252-1-mikhail.v.gavrilov@gmail.com>
+ <20260829085941.106318-1-mikhail.v.gavrilov@gmail.com> <CABXGCsNQZY+g5AB17yiZP4aD3eKBpNWWNqcOL3_eh5JLxp=H3A@mail.gmail.com>
+ <IA0PPFD4454CAA918D3DA3D71405C9C7FD6FC932@IA0PPFD4454CAA9.namprd12.prod.outlook.com>
+In-Reply-To: <IA0PPFD4454CAA918D3DA3D71405C9C7FD6FC932@IA0PPFD4454CAA9.namprd12.prod.outlook.com>
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Date: Thu, 8 Oct 2026 12:01:40 +0500
+X-Gm-Features: AclHuK9yC09SUFDh4Mtny64tXmLQQDmS3U1PZKcvsixYfz550FQvCb7EW7S4RLM
+Message-ID: <CABXGCsNGmbFYB2FtAi6Hzn-jPTy6YG7P_Y82Qe4hi42svcq4xA@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amd/display: add missing CRC engine 1 registers
+ and masks for DCN3.2
+To: "Lin, Wayne" <Wayne.Lin@amd.com>
+Cc: "Wentland, Harry" <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>, 
+	"Deucher, Alexander" <Alexander.Deucher@amd.com>, 
+	"Chung, ChiaHsuan (Tom)" <ChiaHsuan.Chung@amd.com>, "Li, Roman" <Roman.Li@amd.com>, 
+	Rodrigo Siqueira <siqueira@igalia.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, 
+	"amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
+	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	"sashiko-bot@kernel.org" <sashiko-bot@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 07 Oct 2026 22:37:46 +0200,
-Matej Sochan wrote:
-> 
-> The speakers on the Legion S7 15IMH05 (PCI SSID 17aa:3811, ALC287) stay
-> silent after a cold boot with the current quirk, which applies
-> ALC287_FIXUP_LEGION_15IMHG05_SPEAKERS. They only start working after a
-> suspend/resume cycle.
-> 
-> The amplifier setup is sent through COEF 0x24/0x26 on NID 0x20. On this
-> machine the first pass of that sequence appears to only wake the
-> amplifiers. Sending the identical sequence a second time makes both
-> speakers work, provided the second write comes a few milliseconds after
-> the first: back-to-back writes leave the speakers silent, a 7 ms gap
-> makes only the right speaker work, and 8 ms or more is reliable. A dump
-> of all COEF registers of NID 0x20 taken before and after the second
-> write shows no difference.
-> 
-> Add a dedicated fixup that writes the sequence, waits 20 ms to keep a
-> margin over the measured minimum, and writes it again on every codec
-> init. It chains to the same AUTOMUTE fixup as before. To share the
-> sequence, move the verbs of ALC287_FIXUP_LEGION_15IMHG05_SPEAKERS into a
-> named array; this has no functional change for the other users of that
-> fixup.
-> 
-> Fixes: 67f4c61a73e9 ("ALSA: hda/realtek: Add quirk for Legion S7 15IMH")
-> Cc: stable@vger.kernel.org
-> Link: https://github.com/CachyOS/linux-cachyos/issues/792
-> Signed-off-by: Matej Sochan <matej.sochan@gmail.com>
+On Thu, Oct 8, 2026 at 7:25=E2=80=AFAM Lin, Wayne <Wayne.Lin@amd.com> wrote=
+:
+>
+> Public
+>
+> Hi Mikhail,
+>
+> Thanks for catching this!
+> Could I give another patch that will include this fix along with a few ot=
+her DCN fixes, please?
+> I'll make sure to CC you when I send it out later.
+>
 
-Applied to for-next branch now.  Thanks.
+Sure, go ahead.
 
+Please keep "Fixes: ef45aaf73717" on it, so that the fix also reaches
+7.3 stable, where the WARN is new.  A Reported-by would be appreciated.
 
-Takashi
+If the other fixes cover DCN2.0, 3.0 and 3.1, which the Sashiko review
+of v2 pointed at: their offset headers define all twelve CRC1 window and
+data registers, so it looks like the same addition there.
+
+When it is out, I will test it on Navi 31 (DCN3.2) the same way as v2
+and reply with a Tested-by.
+
+--=20
+Thanks,
+Mikhail.
