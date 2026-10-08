@@ -1,192 +1,499 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013039.outbound.protection.outlook.com [40.107.162.39])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C056443498D;
-	Thu,  8 Oct 2026 08:09:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.39
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791446967; cv=fail; b=b2I50s/Vr7/EtcWYIlNPP//h9R4TTd99kyjPiXpfExC0/m3fHeAB3CGSk552ib8DvdJRAtGcf8ORb5mJV0JNTxzFgZWYRn0qxC01SKgotweUXfy6CftgzHX0cMqp9y79CgwdJhrZKznahTG/KKUc6u/LeQG1eG2DZ2cLz0+MUuI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791446967; c=relaxed/simple;
-	bh=OCI6Esl7NgZNk6qJB3kqDmiSGzy7StiVRcD9PoR9nC0=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=MzgodhE2Phj/cXBJP741h3//j05dj69sT0fQ99besdYdZETQAR0oeaR2KXd63+ADLuifRDzBkHVRYTOHy6WHgy3khSkgFQUKkP+GkXQxEnTNZ7ScsiymYElmW4d0S0wCrPVwH9OlZXZyPAZ6Q4xVDpPYSvdc+LFm3sVAqlv4VVA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=PVEztD2B; arc=fail smtp.client-ip=40.107.162.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A14FD438014
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 08:09:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791446992; cv=none; b=TIXck0/bM6csrBabTXT+BGl1msFVS7HjxXpsv5X20ShWxVMc/sin72q/pKWB3yAI+K6YfEnL1pGxmCS04RgnHbKhpA5VGHNvehK/VQF82JVj15+o2Yu4hVFEy9C1CANgOPhmzCdstQAo0X+GwxZYSV/zdMsvSl6M18pL/lgG/IM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791446992; c=relaxed/simple;
+	bh=21aJ63VUo4assiJ4EhA3h3Gkv7SbokahbICkYTJ84m8=;
+	h=From:To:cc:Subject:MIME-Version:Content-Type:Date:Message-ID; b=jGVUnr/U3oqHPOSjtc/ghWSKq8KkXkZiiVmRZKvAut+K4QLnwLIjnE6/pj9XorWHngSgV+/5LCvYT3zv4Qs2Pd+4XwskEvmjc1L9G3eJjlzDWyJUaX3zsos5Hz1Q1B/nPh7lOWMBzIvQZb7Zan3E3lURG81rVH0BKoY+TlS7kvk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=dsdMRj+Q; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="PVEztD2B"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=i2PN4OPw0WjVRad607cOcLcBfe9rEeZtR4nggzM9Df0BO5P+pC/7eTQfkFksZNhWaoCAPStVspCExapAwKg5gUIQyu89dNhdOJOxjhUch6Qwz8+1mKAPU4FtfWoaEp1qBMy+nxDhetCGnKqjOrdnEujRDIZNcqjS6ODyvVGKMQFKbPRssYbcg5VHKEcxl+twBh9kSdi5XctnPKs3reqcgTtn2tVP4aDDJoipjSntBoeO13xVkA0cxn7Sw8vVoAN68BHzUp7GhWwQZK0hBO39mLP/JfupC6q/6njI24JShMNzrWji4fzYXiRo+vEWF7pRUa4S9WUlY8nJ+87cDhwXuA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1fM/NbUuCcz+NgvMURmV1EbbFKSjz9HBGBfgCogf+hI=;
- b=WCmuInje1gKzwQpELLAHffmR3qGf6D8Y8DC/cGyNnGKb1HHLA1v+bFIK0bzXSm2+Z0Cw1ZH0676Y+jfCsJ5cPxnd3yfmCseld+xGWqp0dG9cxFx5PYKuLMGq/SGzTs7FZvo/V1TR1ZuJnEC649WPi8ZXd9CLhbc0YlShyTQyKiNZfY8FDPlFO5RqJ/QTd2Moot+iGc2ZCsFHcz8l+xBk14XEmxTZQjieQ8htXCEatTFs7XZJ3lRw3UvLePmZbHblAynGVbHyAmmSHvWhkuseKSL388TWTYSXlbj8o6vCKxdyWfgh2SkS3Whwe3y6d4odsZLJwI1xsFJCHmgfHNSsKg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1fM/NbUuCcz+NgvMURmV1EbbFKSjz9HBGBfgCogf+hI=;
- b=PVEztD2BmPzvL3FVsQiaJF5WRUaXEHDAvjAYvF06G3DCo4qhFC2yTDi4B4pUd0rupRnwKYuSlm/lPPvjcmmd03kwkGhaFTzAbaDHB+Nr0ru3vvTJ0UsBY+s9NKaiuWoB3bJtNs1WNOA+eiCTBahC+lKaxKPdaw74ViBrA4RIDhv23FEl1gbYCpvcbZUARizrLhBongnxv3ProDml+VZ1USTdUahgVxwHrBSqDgdrT+5gDaysIyew1tFgnXPMRicoajb+8e+EJTUMYtYI8JvoCn3yH6KhO3p6ViY1jZpjY9Q9FF2lANlV6Sa5dc6VQK5nhL7czbE9oOJLKvJfhYiXvA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM0PR04MB6802.eurprd04.prod.outlook.com (2603:10a6:208:184::17)
- by MI9PR04MB210814.eurprd04.prod.outlook.com (2603:10a6:290:c0::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Thu, 8 Oct
- 2026 08:09:22 +0000
-Received: from AM0PR04MB6802.eurprd04.prod.outlook.com
- ([fe80::dc36:17b6:e5b1:fa51]) by AM0PR04MB6802.eurprd04.prod.outlook.com
- ([fe80::dc36:17b6:e5b1:fa51%6]) with mapi id 15.21.0496.015; Thu, 8 Oct 2026
- 08:09:22 +0000
-Message-ID: <ccde4ec9-ec40-4715-93a0-3801c57809ee@oss.nxp.com>
-Date: Thu, 8 Oct 2026 16:09:12 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] i2c: imx-lpi2c: remove dmaengine_desc_free()
-To: Frank.Li@oss.nxp.com, Dong Aisheng <aisheng.dong@nxp.com>,
- Andi Shyti <andi.shyti@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
- "open list:FREESCALE IMX LPI2C DRIVER" <linux-i2c@vger.kernel.org>,
- "open list:FREESCALE IMX LPI2C DRIVER" <imx@lists.linux.dev>,
- "moderated list:ARM/FREESCALE IMX / MXC / LAYERSCAPE ARM ARCHIT..."
- <linux-arm-kernel@lists.infradead.org>,
- open list <linux-kernel@vger.kernel.org>
-Cc: vkoul@kernel.org
-References: <20260929190605.3516147-1-Frank.Li@oss.nxp.com>
-From: Carlos Song <carlos.song@oss.nxp.com>
-In-Reply-To: <20260929190605.3516147-1-Frank.Li@oss.nxp.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5P287CA0262.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1f1::16) To AM0PR04MB6802.eurprd04.prod.outlook.com
- (2603:10a6:208:184::17)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dsdMRj+Q"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791446987;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=54+mKQeJFrXIb4ohYXgmPSTrEPH3oJGTGlC9cG/RNlk=;
+	b=dsdMRj+QB9PVdc+UCTHTsfBXSEZ6W3MK1VdAVN0skEmcuEBSO6jkTlu6auxEpQs+fM43VR
+	vognqUbBQ5uM4Ljo1sV1xIi0ZRelVWbiFUiv12ijhAS1W8ICLCsXForrbyqWl5W1026CLZ
+	qNC2mkYtdXToBLXyVxLp62W4GMDczZU=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-151-YWhcksGfPFW6uvpRqzv4Zg-1; Thu,
+ 8 Oct 2026 08:09:41 +0000
+X-MC-Unique: YWhcksGfPFW6uvpRqzv4Zg-1
+X-Mimecast-MFC-AGG-ID: YWhcksGfPFW6uvpRqzv4Zg_1791446979
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 833F21955F12;
+	Thu,  8 Oct 2026 08:09:39 +0000 (UTC)
+Received: from warthog.procyon.org.uk (unknown [10.44.32.90])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 0B7371956086;
+	Thu,  8 Oct 2026 08:09:35 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+	Kingdom.
+	Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
+To: Christian Brauner <brauner@kernel.org>
+cc: dhowells@redhat.com, Marc Dionne <marc.dionne@auristor.com>,
+    Paulo Alcantara <pc@manguebit.org>,
+    Matthew Wilcox <willy@infradead.org>, v9fs@lists.linux.dev,
+    linux-afs@lists.infradead.org, ceph-devel@vger.kernel.org,
+    linux-cifs@vger.kernel.org, netfs@lists.linux.dev,
+    linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] fscache, cachefiles: Fix resize handling
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM0PR04MB6802:EE_|MI9PR04MB210814:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5ba52355-3038-4ff2-8fdc-08df25137574
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|19092799006|1800799024|23010399003|366016|22082099003|18002099003|10067099003|921020|11063799006|5023799004|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	ncR3v0maBl0WZ/nvCPEGx2wWcCAN/vVTguemJo9fQNyY8fPYh5e/FqgrojFSkmtSN7G7LbSHuOqROVC0ADZVP2IFEThaTJeeugPSK5JnKhOXRa0uepwC3yQhVcKaFOXH87oRq+n+wu88A9Y3z4+vY+HSeic8enCowJ7XrVEmbWp0j/ZTU070K1n5Ccx7lqCNaAKHpyV0jQDRfpSadzG2kXT2aGmTseFeTntKWtujWXADt4K3w/px67Emiho6kmMCPcBfdM+BrzSwIoP0XIvxr6g8Y/X5GqxaRo6WzybkUdfKPm3dRYGdqvJdkNEA8TtOu1VkEy/t/tFf8DsTh8eGUTzJvM295SngpH+BqlgRYnBFMgHRzv7MRhfFwgmQAQWLPlCb4yiawlmug32cZE0R05FaJ8ySwo16YV5p40afgPN9whiwGFgiAFykusThNop18emsnWPqvPdSba5HK7oRTGYW/Mo7Don/7408cQg3NoISTTRc5R2sXnEgNfsRvzNpbSN2Rqk+xuIrDeDmeoMcTtYPT+xyxcXFVOa4NYWdBTCDwVqKbxVkBLY7jEXFzjjERxUBBppeNosqcGogF8yeCcQRyxnRwvVettdqM/cCPghWR06f2bn8gwk/OUSG+awLPmQxhOwO6O1nGJXN10MGglJ+HJpf7sWrkkmVXjGmtkhT/WRDvboLimYpQuxEAJkuy/ZnFahWSDY/l15/0c/XaA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB6802.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(19092799006)(1800799024)(23010399003)(366016)(22082099003)(18002099003)(10067099003)(921020)(11063799006)(5023799004)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OVB0RDduV1Bpeit5WTgwQytjaU05MlFxN0w3VThnRGN3U0JCcnJKZzVHNUI2?=
- =?utf-8?B?OURIVUVtdnluajBlL1RldTZaT3NiSjVEZ3E3bldJWDNwRXYvbHQrL3l4R3Ft?=
- =?utf-8?B?ZmJaa0ppVHZncStiek42ZGw2dzlXY0FUL3R0KzBhWFdxY3NTb1RMbzdWVW5R?=
- =?utf-8?B?NkpML2tZZlFEY0cxYVkzVUxEYXJ0cW1CUEJzMUNzaVFtUkxqdE5CSFNSUVdq?=
- =?utf-8?B?MmgrTGJ2d05HSDVKcWF3NDgzTEtCOGJ0SzBUc0sxQ0dBbkMxQ0U0dXJwU2Ex?=
- =?utf-8?B?d3E1dVY5eUFpWStNemlnek9BVzNXRENtZS90RDY3Z05KVVVKSERVUVg5N3R4?=
- =?utf-8?B?eC80SkdvYncwVkZEcFVZdHgxbE4yckJYV1JiRGY2bElxV0FtaGM0Zk5iSGRK?=
- =?utf-8?B?UXFsbnRhdXJzczJFTlptVXAraWsrVU9iWUxjNWRqT3EyRkVwV2JqTDJYR0c0?=
- =?utf-8?B?NHk2YTQ3OVVlNS9IM3BDc1BKUERGdnM5S2VycnBoU0lWek9zaG9vVlNpU0RF?=
- =?utf-8?B?aC84OGhlbExzY0RoYkNnbHpNTTV2am54aFdIaDBCVXc0T0ZqdUp6ODJKbnk4?=
- =?utf-8?B?dXJlTXlIREFaS1dockM0YzlvSnkwVm9DSmRiZG8xb1NIV2ZxVHZ3eFNDL0Uw?=
- =?utf-8?B?Q1AvSmJnUUVVU3B0cDRqdzdiUFJFdW5Ma0FuNXFteDkraTgrcU5PWk9iVWRJ?=
- =?utf-8?B?OHRMYnlvdlYvZTRlOEt2K2NHSHpRbS9uUjlwK0xVUUZ3MlEvekNsenowYlhY?=
- =?utf-8?B?SEtBa1YyYVRQdE1HZXFTWHE1bnZCVnpXRU16OGcrQjJJTE1PelJLWHlmbEVX?=
- =?utf-8?B?Tk5lVGFXTWFlUFBtb0hWU1lPRDh1TlFCMEVVZkJxeS91em5jRGhaM3JyUDc1?=
- =?utf-8?B?eXMyS2djZ0RlSDA4MmUyM0hhUUVtbmVJL2FhS2w2bUhlQ1Z3RUgrcDlxcyt1?=
- =?utf-8?B?MUdtN3dNRURuUjl1d0Y3S3g0MnI4TW96WFFCS1FsUllJY29FVGhHQjg0TDY4?=
- =?utf-8?B?d291Z0xXRDBQTklXTDlidmgvSEEzeS9KYUJRQTVlTlpsYXJSelJWc0FuajdQ?=
- =?utf-8?B?VkhlU1hTRGNvNWpEcUdlek1SaHBGMmtJKzNYMVlubDU5Q1dzYXNPdUlJb01p?=
- =?utf-8?B?L3dWV2F2L3JVR25ldUFFSFZPUzJEdmtnVEpXdFJlQkdIUWI2bHE4di9JYnBp?=
- =?utf-8?B?K01USkpqUnV1eFVWK0xacy9wRUNxY01nR2hCa0FGajJUUEZ6YjJoeUNFY2JD?=
- =?utf-8?B?ZEY5dm5CeVhCcUVBQ1FPM2crYzFlM2ZaUmJzTTJ4WFJiakkrQzBPK0NyTElU?=
- =?utf-8?B?blgrNzB0VGl0V2JpQ244S1MzWUcyWENZdldYV1ZGSWNCbmRvN2lQdk1vK1ll?=
- =?utf-8?B?Tmd6VEFwVk1NeDlHSmhkNndpelp1N0UyRU1oN2JYNGZZc1NzYUpQWVU2bUY0?=
- =?utf-8?B?dzZxeStRaktITnczY1h1emhxTDlvSlZLZ0R6RnZrOFVaanhvS2YybDFnTlZC?=
- =?utf-8?B?NHhiaHFFRUwvYWdnejNFRmRjZXF3VzlNNEx6ZVQza2tmWFZSZk5jTklDVzJQ?=
- =?utf-8?B?RmFZa0xhMndEU1hzcWRvMVpJb3JDUWx0dWlLTDRGL0UxdDlsdnNFZEdTci9s?=
- =?utf-8?B?eEtqKzR4NGMzYVBvVFY3M0xrZGJDcFZMeXZURWVaTG1WdzdTYlVxVC9YV0VE?=
- =?utf-8?B?VXJUaGNqRVdJUCswcFE1UlJIQVg0WTVyTURSc2Fhd1NuVmRNa0tiSVhSMDBx?=
- =?utf-8?B?OTBBeDY0dmU2cGFvczNuUFZiZUNuZ0gxODZEMlpLVlllWmNURHV5dk9aOEJB?=
- =?utf-8?B?NWlGeTdNbXo4Rm9pcnI5RjZ6YjJnSU9jaUpVK0x3ZHIvQ2xMOGx5anVuaFRF?=
- =?utf-8?B?RVJqNmtVcStuYkpzYlFPbFpmVkYxN2wzK01aa2dKOUpJWjJtN3h3TWpDS3o1?=
- =?utf-8?B?elJjQ1N1eUVYRnBtK3ozQm1BMmtnckFQTis0c3VWZ2hLVGgyWlpRUlExWnda?=
- =?utf-8?B?VmNLUFAzOW1zR1NLM1VaamlmclFwZUxNVk9hU2xOZW1IcHVsbnUxb2VQakhB?=
- =?utf-8?B?ODdHY0NwTjJFN0hvbWxNTG9MczRBaUUzY1p2SW80dDRLRWk5T3hyQ0RPbVh1?=
- =?utf-8?B?U0xkekFWN0luaEZXK3kwd3pvZWRMSzlTYUhLQWR6ODdvSDJyS2R6TktrQVVV?=
- =?utf-8?B?YTBlSjhGQ29jZ2dZeGNURHE2VG1XU1RReWNwdHYyQWg3Q1hoM0txWHlmeXZi?=
- =?utf-8?B?U1FXb3duN1ZUL0o0cC9TY0c1c3pma2V1SFM0S0xNUTY5clRPNUhnaUlkVVFz?=
- =?utf-8?B?YnRsY1hkakMwdkR2T0tqdWFvQjRyV0FyamNnQjd4OTdIeTZQVVVQQT09?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5ba52355-3038-4ff2-8fdc-08df25137574
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB6802.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 08:09:22.0384
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dSijm5TXbcHP8V8uAKucvlZVYI5yEET8oRbVsw/07rmenXmE4NCOmVaOe8vBYwiWtY1k1+hhR29lAreUDjUZkA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI9PR04MB210814
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <938340.1791446974.1@warthog.procyon.org.uk>
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 08 Oct 2026 09:09:34 +0100
+Message-ID: <938341.1791446974@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
+Fix the resize handling in fscache and cachefiles by passing down the old
+size as well as the new size so that the cache can work out whether the
+file is being shrunk or expanded as the cache's idea of how big the file
+should be may be stale.
 
+The issue is that netfs_perform_write() updates the network filesystem's
+file's i_size as it adds data to the pagecache, but the cache isn't update=
+d
+until writeback flushes that data.  A truncation may then scrap that data
+and so the cache never sees it and doesn't update before it is told to
+resize.  In the resize, cachefiles was comparing the new size against the
+current cache size and then thinking the file was being expanded.
 
+Reported-by: Marc Dionne <marc.dionne@auristor.com>
+Fixes: 1a9fe4b6e787 ("cachefiles: Don't rely on backing fs storage map for=
+ most use cases")
+Signed-off-by: David Howells <dhowells@redhat.com>
+Tested-by: Marc Dionne <marc.dionne@auristor.com>
+cc: Paulo Alcantara <pc@manguebit.org>
+cc: Matthew Wilcox <willy@infradead.org>
+cc: v9fs@lists.linux.dev
+cc: linux-afs@lists.infradead.org
+cc: ceph-devel@vger.kernel.org
+cc: linux-cifs@vger.kernel.org
+cc: netfs@lists.linux.dev
+cc: linux-fsdevel@vger.kernel.org
+---
+ fs/9p/vfs_inode.c             |    4 +++-
+ fs/9p/vfs_inode_dotl.c        |    3 ++-
+ fs/afs/inode.c                |    4 ++--
+ fs/cachefiles/interface.c     |    4 ++--
+ fs/ceph/cache.h               |    6 +++---
+ fs/ceph/inode.c               |    5 +++--
+ fs/netfs/fscache_io.c         |    4 ++--
+ fs/smb/client/cifsfs.c        |    9 ++++++---
+ fs/smb/client/inode.c         |    2 +-
+ fs/smb/client/smb2ops.c       |   11 ++++++-----
+ include/linux/fscache-cache.h |    2 +-
+ include/linux/fscache.h       |   11 ++++++-----
+ 12 files changed, 37 insertions(+), 28 deletions(-)
 
+diff --git a/fs/9p/vfs_inode.c b/fs/9p/vfs_inode.c
+index 3829554ca369..32f47c8ca45d 100644
+--- a/fs/9p/vfs_inode.c
++++ b/fs/9p/vfs_inode.c
+@@ -1022,6 +1022,7 @@ static int v9fs_vfs_setattr(struct mnt_idmap *idmap,
+ 	struct v9fs_session_info *v9ses;
+ 	struct p9_fid *fid =3D NULL;
+ 	struct p9_wstat wstat;
++	uoff_t old_size =3D i_size_read(inode);
+ =
 
+ 	p9_debug(P9_DEBUG_VFS, "\n");
+ 	retval =3D setattr_prepare(&nop_mnt_idmap, dentry, iattr);
+@@ -1086,7 +1087,8 @@ static int v9fs_vfs_setattr(struct mnt_idmap *idmap,
+ 		if (v9ses->cache & CACHE_FSCACHE) {
+ 			struct v9fs_inode *v9inode =3D V9FS_I(inode);
+ =
 
+-			fscache_resize_cookie(v9fs_inode_cookie(v9inode), iattr->ia_size);
++			fscache_resize_cookie(v9fs_inode_cookie(v9inode),
++					      old_size, iattr->ia_size);
+ 		}
+ #endif
+ 	}
+diff --git a/fs/9p/vfs_inode_dotl.c b/fs/9p/vfs_inode_dotl.c
+index 116b29e95f21..1a6a338eab08 100644
+--- a/fs/9p/vfs_inode_dotl.c
++++ b/fs/9p/vfs_inode_dotl.c
+@@ -519,6 +519,7 @@ int v9fs_vfs_setattr_dotl(struct mnt_idmap *idmap,
+ 		.uid =3D INVALID_UID,
+ 		.gid =3D INVALID_GID,
+ 	};
++	uoff_t old_size =3D i_size_read(inode);
+ =
 
-> From: Frank Li <Frank.Li@nxp.com>
-> 
-> dmaengine_desc_free() is designed for DMA_CTRL_REUSE. If DMA_CTRL_REUSE
-> is not set, dmaengine_desc_free() will return -EPERM.
-> 
-> 	if (!dmaengine_desc_test_reuse(desc))
-> 		return -EPERM;
-> 
-> So calling dmaengine_desc_free() does nothing. dmaengine_terminate_(a)sync()
-> will free all already allocated descriptors.
-> 
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> ---
->  drivers/i2c/busses/i2c-imx-lpi2c.c | 2 --
->  1 file changed, 2 deletions(-)
-> 
-> diff --git a/drivers/i2c/busses/i2c-imx-lpi2c.c b/drivers/i2c/busses/i2c-imx-lpi2c.c
-> index 49aabef7f115c..d6f266e2d6bea 100644
-> --- a/drivers/i2c/busses/i2c-imx-lpi2c.c
-> +++ b/drivers/i2c/busses/i2c-imx-lpi2c.c
-> @@ -851,7 +851,6 @@ static int lpi2c_dma_rx_cmd_submit(struct lpi2c_imx_struct *lpi2c_imx)
->  submit_err_exit:
->  	dma_unmap_single(txchan->device->dev, dma->dma_tx_addr,
->  			 dma->rx_cmd_buf_len, DMA_TO_DEVICE);
-> -	dmaengine_desc_free(rx_cmd_desc);
->  	return -EINVAL;
->  }
->  
-> @@ -910,7 +909,6 @@ static int lpi2c_dma_submit(struct lpi2c_imx_struct *lpi2c_imx)
->  
->  submit_err_exit:
->  	lpi2c_dma_unmap(dma);
-> -	dmaengine_desc_free(desc);
->  	return -EINVAL;
->  }
->  
+ 	p9_debug(P9_DEBUG_VFS, "\n");
+ =
 
-Hi, Frank
+@@ -580,7 +581,7 @@ int v9fs_vfs_setattr_dotl(struct mnt_idmap *idmap,
+ #ifdef CONFIG_9P_FSCACHE
+ 		if (v9ses->cache & CACHE_FSCACHE)
+ 			fscache_resize_cookie(v9fs_inode_cookie(V9FS_I(inode)),
+-				iattr->ia_size);
++					      old_size, iattr->ia_size);
+ #endif
+ 	}
+ =
 
-LGTM.
+diff --git a/fs/afs/inode.c b/fs/afs/inode.c
+index 634fbf8eb212..8fbca46a5755 100644
+--- a/fs/afs/inode.c
++++ b/fs/afs/inode.c
+@@ -744,7 +744,7 @@ static void afs_setattr_edit_file(struct afs_operation=
+ *op)
+ 		if (size !=3D old) {
+ 			truncate_pagecache(inode, size);
+ 			netfs_resize_file(&vnode->netfs, size, true);
+-			fscache_resize_cookie(afs_vnode_cache(vnode), size);
++			fscache_resize_cookie(afs_vnode_cache(vnode), old, size);
+ 		}
+ 	}
+ }
+@@ -817,7 +817,7 @@ int afs_setattr(struct mnt_idmap *idmap, struct dentry=
+ *dentry,
+ 			truncate_setsize(inode, attr->ia_size);
+ 			netfs_resize_file(&vnode->netfs, size, false);
+ 			fscache_resize_cookie(afs_vnode_cache(vnode),
+-					      attr->ia_size);
++					      i_size, attr->ia_size);
+ 			ret =3D 0;
+ 			goto out_unlock;
+ 		}
+diff --git a/fs/cachefiles/interface.c b/fs/cachefiles/interface.c
+index 789ff6abe926..3857c64275fe 100644
+--- a/fs/cachefiles/interface.c
++++ b/fs/cachefiles/interface.c
+@@ -204,7 +204,7 @@ static bool cachefiles_shorten_object(struct cachefile=
+s_object *object,
+  * Resize the backing object.
+  */
+ static void cachefiles_resize_cookie(struct netfs_cache_resources *cres,
+-				     uoff_t new_size)
++				     uoff_t old_size, uoff_t new_size)
+ {
+ 	struct cachefiles_object *object =3D cachefiles_cres_object(cres);
+ 	struct cachefiles_cache *cache =3D object->volume->cache;
+@@ -218,7 +218,7 @@ static void cachefiles_resize_cookie(struct netfs_cach=
+e_resources *cres,
+ 	/* If the file is being shrunk, we need to downsize the backing file
+ 	 * and clear the end of the final block.
+ 	 */
+-	if (new_size < object->object_size) {
++	if (new_size < old_size) {
+ 		if (new_size >=3D i_size)
+ 			goto out;
+ 		cachefiles_begin_secure(cache, &saved_cred);
+diff --git a/fs/ceph/cache.h b/fs/ceph/cache.h
+index 20efac020394..705ecd4df75e 100644
+--- a/fs/ceph/cache.h
++++ b/fs/ceph/cache.h
+@@ -31,14 +31,14 @@ static inline struct fscache_cookie *ceph_fscache_cook=
+ie(struct ceph_inode_info
+ 	return netfs_i_cookie(&ci->netfs);
+ }
+ =
 
-Reviewed-by: Carlos Song <carlos.song@nxp.com>
+-static inline void ceph_fscache_resize(struct inode *inode, loff_t to)
++static inline void ceph_fscache_resize(struct inode *inode, uoff_t old_si=
+ze, loff_t to)
+ {
+ 	struct ceph_inode_info *ci =3D ceph_inode(inode);
+ 	struct fscache_cookie *cookie =3D ceph_fscache_cookie(ci);
+ =
 
--- 
-Best Regards,
-Carlos
+ 	if (cookie) {
+ 		ceph_fscache_use_cookie(inode, true);
+-		fscache_resize_cookie(cookie, to);
++		fscache_resize_cookie(cookie, old_size, to);
+ 		ceph_fscache_unuse_cookie(inode, true);
+ 	}
+ }
+@@ -96,7 +96,7 @@ static inline struct fscache_cookie *ceph_fscache_cookie=
+(struct ceph_inode_info
+ 	return NULL;
+ }
+ =
+
+-static inline void ceph_fscache_resize(struct inode *inode, loff_t to)
++static inline void ceph_fscache_resize(struct inode *inode, uoff_t old_si=
+ze, loff_t to)
+ {
+ }
+ =
+
+diff --git a/fs/ceph/inode.c b/fs/ceph/inode.c
+index d52e2b389e0b..b23e117380db 100644
+--- a/fs/ceph/inode.c
++++ b/fs/ceph/inode.c
+@@ -2303,10 +2303,11 @@ void __ceph_do_pending_vmtruncate(struct inode *in=
+ode)
+ {
+ 	struct ceph_client *cl =3D ceph_inode_to_client(inode);
+ 	struct ceph_inode_info *ci =3D ceph_inode(inode);
+-	u64 to;
++	uoff_t old_size, to;
+ 	int wrbuffer_refs, finish =3D 0;
+ =
+
+ 	mutex_lock(&ci->i_truncate_mutex);
++	old_size =3D i_size_read(inode);
+ retry:
+ 	spin_lock(&ci->i_ceph_lock);
+ 	if (ci->i_truncate_pending =3D=3D 0) {
+@@ -2339,7 +2340,7 @@ void __ceph_do_pending_vmtruncate(struct inode *inod=
+e)
+ 	      ci->i_truncate_pending, to);
+ 	spin_unlock(&ci->i_ceph_lock);
+ =
+
+-	ceph_fscache_resize(inode, to);
++	ceph_fscache_resize(inode, old_size, to);
+ 	truncate_pagecache(inode, to);
+ =
+
+ 	spin_lock(&ci->i_ceph_lock);
+diff --git a/fs/netfs/fscache_io.c b/fs/netfs/fscache_io.c
+index 056a2bae5d99..bce0fa1f6e24 100644
+--- a/fs/netfs/fscache_io.c
++++ b/fs/netfs/fscache_io.c
+@@ -267,7 +267,7 @@ EXPORT_SYMBOL(__fscache_write_to_cache);
+ /*
+  * Change the size of a backing object.
+  */
+-void __fscache_resize_cookie(struct fscache_cookie *cookie, uoff_t new_si=
+ze)
++void __fscache_resize_cookie(struct fscache_cookie *cookie, uoff_t old_si=
+ze, uoff_t new_size)
+ {
+ 	struct netfs_cache_resources cres;
+ =
+
+@@ -281,7 +281,7 @@ void __fscache_resize_cookie(struct fscache_cookie *co=
+okie, uoff_t new_size)
+ 		 * netfs's inode lock so that we're serialised with respect to
+ 		 * writes.
+ 		 */
+-		cookie->volume->cache->ops->resize_cookie(&cres, new_size);
++		cookie->volume->cache->ops->resize_cookie(&cres, old_size, new_size);
+ 		fscache_end_operation(&cres);
+ 	} else {
+ 		fscache_stat(&fscache_n_resizes_null);
+diff --git a/fs/smb/client/cifsfs.c b/fs/smb/client/cifsfs.c
+index 98b610b2a114..ccc2cae2d06f 100644
+--- a/fs/smb/client/cifsfs.c
++++ b/fs/smb/client/cifsfs.c
+@@ -1314,6 +1314,7 @@ static int cifs_precopy_set_eof(struct inode *src_in=
+ode, struct cifsInodeInfo *s
+ 				unsigned int xid, loff_t src_end)
+ {
+ 	struct cifsFileInfo *writeable_srcfile;
++	uoff_t old_size =3D i_size_read(src_inode);
+ 	int rc =3D -EINVAL;
+ =
+
+ 	writeable_srcfile =3D find_writable_file(src_cifsi, FIND_FSUID_ONLY);
+@@ -1332,7 +1333,7 @@ static int cifs_precopy_set_eof(struct inode *src_in=
+ode, struct cifsInodeInfo *s
+ 		goto set_failed;
+ =
+
+ 	netfs_resize_file(&src_cifsi->netfs, src_end, true);
+-	fscache_resize_cookie(cifs_inode_cookie(src_inode), src_end);
++	fscache_resize_cookie(cifs_inode_cookie(src_inode), old_size, src_end);
+ 	return 0;
+ =
+
+ set_failed:
+@@ -1538,6 +1539,7 @@ ssize_t cifs_file_copychunk_range(unsigned int xid,
+ 	struct cifs_tcon *src_tcon;
+ 	struct cifs_tcon *target_tcon;
+ 	ssize_t rc;
++	uoff_t old_size;
+ =
+
+ 	if (len =3D=3D 0)
+ 		return 0;
+@@ -1584,7 +1586,8 @@ ssize_t cifs_file_copychunk_range(unsigned int xid,
+ 	 * Advance the EOF marker after the flush above to the end of the range
+ 	 * if it's short of that.
+ 	 */
+-	if (netfs_read_remote_i_size(src_inode) < off + len) {
++	old_size =3D netfs_read_remote_i_size(src_inode);
++	if (old_size < off + len) {
+ 		rc =3D cifs_precopy_set_eof(src_inode, src_cifsi, src_tcon, xid, off + =
+len);
+ 		if (rc < 0)
+ 			goto unlock;
+@@ -1628,7 +1631,7 @@ ssize_t cifs_file_copychunk_range(unsigned int xid,
+ 			netfs_resize_file(&target_cifsi->netfs,
+ 					  i_size_read(target_inode), true);
+ 			fscache_resize_cookie(cifs_inode_cookie(target_inode),
+-					      i_size_read(target_inode));
++					      old_size, i_size_read(target_inode));
+ 		}
+ 		if (rc > 0) {
+ 			spin_lock(&target_inode->i_lock);
+diff --git a/fs/smb/client/inode.c b/fs/smb/client/inode.c
+index f29555f3c7d0..a398b2c10aaf 100644
+--- a/fs/smb/client/inode.c
++++ b/fs/smb/client/inode.c
+@@ -3097,7 +3097,7 @@ void cifs_resize_file_locked(struct inode *inode, lo=
+ff_t old_size,
+ 		return;
+ =
+
+ 	fscache_use_cookie(cookie, true);
+-	fscache_resize_cookie(cookie, offset);
++	fscache_resize_cookie(cookie, old_size, offset);
+ 	cifs_fscache_unuse_inode_cookie(inode, true);
+ }
+ =
+
+diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
+index 1e9018880639..fa019c67f9e5 100644
+--- a/fs/smb/client/smb2ops.c
++++ b/fs/smb/client/smb2ops.c
+@@ -3545,7 +3545,7 @@ static long smb3_zero_range(struct file *file, struc=
+t cifs_tcon *tcon,
+ 	struct inode *inode =3D file_inode(file);
+ 	struct cifsInodeInfo *cifsi =3D CIFS_I(inode);
+ 	struct cifsFileInfo *cfile =3D file->private_data;
+-	unsigned long long i_size, new_size, remote_i_size, zero_point;
++	unsigned long long i_size, old_size, new_size, remote_i_size, zero_point=
+;
+ 	long rc;
+ 	unsigned int xid;
+ =
+
+@@ -3554,8 +3554,9 @@ static long smb3_zero_range(struct file *file, struc=
+t cifs_tcon *tcon,
+ 	trace_smb3_zero_enter(xid, cfile->fid.persistent_fid, tcon->tid,
+ 			      ses->Suid, offset, len);
+ =
+
++	old_size =3D i_size_read(inode);
+ 	new_size =3D offset + len;
+-	if (!keep_size && i_size_read(inode) < new_size) {
++	if (!keep_size && old_size < new_size) {
+ 		rc =3D inode_newsize_ok(inode, new_size);
+ 		if (rc)
+ 			goto out;
+@@ -3611,7 +3612,7 @@ static long smb3_zero_range(struct file *file, struc=
+t cifs_tcon *tcon,
+ 			if (offset < cifsi->netfs._zero_point)
+ 				netfs_write_zero_point(inode, offset);
+ 			spin_unlock(&inode->i_lock);
+-			fscache_resize_cookie(cifs_inode_cookie(inode), new_size);
++			fscache_resize_cookie(cifs_inode_cookie(inode), old_size, new_size);
+ 		}
+ 	}
+ =
+
+@@ -4146,7 +4147,7 @@ static long smb3_collapse_range(struct file *file, s=
+truct cifs_tcon *tcon,
+ 	netfs_resize_file(&cifsi->netfs, new_eof, true);
+ 	netfs_write_zero_point(inode, new_eof);
+ 	spin_unlock(&inode->i_lock);
+-	fscache_resize_cookie(cifs_inode_cookie(inode), new_eof);
++	fscache_resize_cookie(cifs_inode_cookie(inode), old_eof, new_eof);
+ out_2:
+ 	filemap_invalidate_unlock(inode->i_mapping);
+ out:
+@@ -4208,7 +4209,7 @@ static long smb3_insert_range(struct file *file, str=
+uct cifs_tcon *tcon,
+ 	spin_lock(&inode->i_lock);
+ 	netfs_resize_file(&cifsi->netfs, i_size_read(inode), true);
+ 	spin_unlock(&inode->i_lock);
+-	fscache_resize_cookie(cifs_inode_cookie(inode), i_size_read(inode));
++	fscache_resize_cookie(cifs_inode_cookie(inode), old_eof, i_size_read(ino=
+de));
+ =
+
+ 	/*
+ 	 * Move [off, old_eof) right by len. The helper copies backwards if the
+diff --git a/include/linux/fscache-cache.h b/include/linux/fscache-cache.h
+index ee524c863fa9..351a52186bf3 100644
+--- a/include/linux/fscache-cache.h
++++ b/include/linux/fscache-cache.h
+@@ -67,7 +67,7 @@ struct fscache_cache_ops {
+ =
+
+ 	/* Change the size of a data object */
+ 	void (*resize_cookie)(struct netfs_cache_resources *cres,
+-			      uoff_t new_size);
++			      uoff_t old_size, uoff_t new_size);
+ =
+
+ 	/* Invalidate an object */
+ 	bool (*invalidate_cookie)(struct fscache_cookie *cookie);
+diff --git a/include/linux/fscache.h b/include/linux/fscache.h
+index f2d958bd1f48..05a562f7f0c1 100644
+--- a/include/linux/fscache.h
++++ b/include/linux/fscache.h
+@@ -184,7 +184,7 @@ extern struct fscache_cookie *__fscache_acquire_cookie=
+(
+ extern void __fscache_use_cookie(struct fscache_cookie *, bool);
+ extern void __fscache_unuse_cookie(struct fscache_cookie *, const void *,=
+ const uoff_t *);
+ extern void __fscache_relinquish_cookie(struct fscache_cookie *, bool);
+-extern void __fscache_resize_cookie(struct fscache_cookie *, uoff_t);
++void __fscache_resize_cookie(struct fscache_cookie *cookie, uoff_t old_si=
+ze, uoff_t new_size);
+ extern void __fscache_invalidate(struct fscache_cookie *, const void *, u=
+off_t, unsigned int);
+ extern int __fscache_begin_read_operation(struct netfs_cache_resources *,=
+ struct fscache_cookie *);
+ extern int __fscache_begin_write_operation(struct netfs_cache_resources *=
+, struct fscache_cookie *);
+@@ -394,8 +394,9 @@ void fscache_update_cookie(struct fscache_cookie *cook=
+ie, const void *aux_data,
+ =
+
+ /**
+  * fscache_resize_cookie - Request that a cache object be resized
+- * @cookie: The cookie representing the cache object
+- * @new_size: The new size of the object (may be NULL)
++ * @cookie: The cookie representing the cache object (may be NULL)
++ * @old_size: The old size of the object
++ * @new_size: The new size of the object
+  *
+  * Request that the size of an object be changed.
+  *
+@@ -403,10 +404,10 @@ void fscache_update_cookie(struct fscache_cookie *co=
+okie, const void *aux_data,
+  * description.
+  */
+ static inline
+-void fscache_resize_cookie(struct fscache_cookie *cookie, uoff_t new_size=
+)
++void fscache_resize_cookie(struct fscache_cookie *cookie, uoff_t old_size=
+, uoff_t new_size)
+ {
+ 	if (fscache_cookie_enabled(cookie))
+-		__fscache_resize_cookie(cookie, new_size);
++		__fscache_resize_cookie(cookie, old_size, new_size);
+ }
+ =
+
+ /**
 
