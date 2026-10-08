@@ -1,89 +1,90 @@
-Received: from mta1.migadu.com (out-249.mta1.migadu.com [95.215.58.249])
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99D523EE1F8
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 11:18:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.249
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 655C73C10AB
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 11:18:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791458301; cv=none; b=bX16zdAxNikbw4n6vOuRn4B6lXTUtqMYkKh+A7djsceN/FIDjpaB2crdP3fUgR/TFz7+rnAJZQgdLao4+t5FbYkrVbmgzMqrVfqnl9YFb6ow3KFQYhYBge8B4U4w/CAiIXoqUG8IIHY8Z+89Kh34Hirm489EEUWK5mgMYpoJpd0=
+	t=1791458338; cv=none; b=Wwzgb8pnBBCUp26dKAemKI+CRrt/L1Ujh7m2AoIykmN17lxPPkv16QUmlbql/3bJLlXEixZ+apQrtZPAoQOoMsXCfM9sNZMV7CgKi1nQ93Ri7ma5bJSfkG3K5IV3eEN9M1HsaMJZqxRr9GX/min1zElmACpqtzqSPiWv/tg8L4k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791458301; c=relaxed/simple;
-	bh=RZDQiChJc4BLUjPTC5GATFlDtxZirW0FNEhzwWirWTc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OZlECO6G2IAjavuDiKmqZdmb+05X7HW2B+tT9uZDNy/WRVZgp2dD82mkGz4YgtTtuoFKokkV5TmyYepG0aYywfqvi4n19Pb1SOrzR2C8s3Zu90MrWfjySS0V+Vhiimk9QsHvE5MR65/cOw5xDUbCMcyjgcyHWrKZ7XGefoOZYDk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=tGCheB6b; arc=none smtp.client-ip=95.215.58.249
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791458338; c=relaxed/simple;
+	bh=EExW1k94qxqJzDLBNcXAe1CRJKzbkc8M/lq4PoGuabA=;
+	h=Content-Type:MIME-Version:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References; b=CI64FPDVWVeKhn80C12vFiaPj5v5fUm6eHlA+Q052RnyjSahv3/KBj0+3ERgHdH2tr0HxS4Z2ChpnvW25xaWWqwEM4AgNqpPNPRueEeDXhax71IRNEMVUZJuUf4tE5GgZOZyE6BEa5sjLCUGY9GnyHGO20mImy95vCuEJEGcZdM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GH1GPtz6; arc=none smtp.client-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="tGCheB6b"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=RZDQiChJc4BLUjPTC5GATFlDtxZirW0FNEhzwWirWTc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791458297; v=1; x=1792063097;
- b=tGCheB6b2q+bqnTXgB0hNjGHJ7aozqvhXyOUAONn7zFMXS3e3ZvTqN/sjLoBTMC2HhlCwdtQ
- N5L51nS75o28vmYT9vsoVJ0lXQ1Gy5rrmz10Gga0FO9h9OxTqq+4qF0dXfKhiuJjUwmZ7RsNngf
- bvbjreSJGsA8Co2qfdEWHqvg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 5b2f9a9f57170a7b;
-	Thu, 08 Oct 2026 11:18:17 +0000
-X-Mizu-Trace-ID: 5b2f9a9f57170a7b
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5bcbb378fc9so7264e87.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 04:18:12 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwaCKOOa8CUq9pGyUJaufe+PVELvNKoec1odEGX0JYhmxUtsinsmhiWIMO02J2bA1lWuJB7z45XkW6ixv0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKYynEBZ3wjt2l2rQladTD6FPvXTFHumjx5/I9DXGVtxbJVeWte
-	9qcD5RRyGQjljMr8zah4A4s2NHEclFkrBPeFqM4odvOFxkJjvs2Hm2YqxgfFZLZQKl59sMW9CCN
-	UzgeyKRNFtxNYq/hQPAS+tuAcRZfs8ulff5O6lwg1
-X-Received: by 2002:a05:6512:2315:b0:5b8:cc2e:2fe6 with SMTP id
- 2adb3069b0e04-5bcd41a3c42mr122649e87.5.1791458291477; Thu, 08 Oct 2026
- 04:18:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GH1GPtz6"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2db18e5cb56so24309085ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 04:18:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791458337; x=1792063137; darn=vger.kernel.org;
+        h=references:in-reply-to:message-id:date:subject:cc:to:from
+         :content-transfer-encoding:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=EExW1k94qxqJzDLBNcXAe1CRJKzbkc8M/lq4PoGuabA=;
+        b=GH1GPtz6Cy3YRBbU/PvREeBQXKlOijchz1AA7q4CIFlO0ShwXCYcX8NKTT0Y6DWeo8
+         nDW5OXSxEeOS1QvHD8PtBdYcv1Qo/Zgy/ZZSVnuItRxFKjbOvpBpqd1XQoTeerSglRZV
+         swaa+2DDJhNq1d49Kx6uDWiw9Xmtm60aBayPIKLmzLIv0fEBtBOl6MPdAlbVR06iSvl4
+         4zr+UsueseiJ3u4eQU+JQf5XHRsLJPNH4hs1/hp3bs4QHtGffRXpC9mRgCTf/HQLUGDQ
+         mbFEv0lgsWTyllcUhP+MLmY/Q4xn2O6WXmWVbZvbi9p7MWmxmbmXKJcRHAI5T8xaE/tC
+         XdQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791458337; x=1792063137;
+        h=references:in-reply-to:message-id:date:subject:cc:to:from
+         :content-transfer-encoding:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EExW1k94qxqJzDLBNcXAe1CRJKzbkc8M/lq4PoGuabA=;
+        b=AKs9X2iZJxN//X9Kod7wkQMsnf99MkR+jS+pAYAha5jQv9LKaJkifCwh8jy98Fyihg
+         TwNMfEhhxTYzx0tLcEL/vjw2EouJx+9Kjq6V+kvnKF8/bhe8CB7CpXW7cVQWk5SQJ5/H
+         4dkDNZDg3AbP2/8ehjOqMMqfRvI/QJXxbePKOPpMeuJipwieOxzGkU12WFWeXsHPuRJE
+         /9VkKq0Dr5lbD9uLcC2X21H5u7RuQ6Vl4IiOfmyIBNJ4jLKFYj4HiG9i0IpE3ue2Unwb
+         KKF7RKf8rUQimd0ZxIwyA1q9toS3B5plTDDjVhMkiYPLh8Vv1GbJix4fHd6xqEbZv+X6
+         DHhg==
+X-Forwarded-Encrypted: i=1; AKwUvBzEcmrphRo1lryRyrJ5s/Qbcpu09CgVWveLzirtdkjm7/Yb7ikItTZ/SLJ+S1LuEMkblxk7Q6tjz//dYYc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKiAY5MS3dFJ+kl9XBXAOqQDvd0ogZQ34RIOQOi8u0iJHeNpExj
+	sZLkSeKkE+6hadrvJHSswBF27hT8PeKQjJCT3E3T8QiJL1BIOmwtu+qz
+X-Gm-Gg: AYBFou2Bxk1BGiful6vRlfWO/NNf7+AMASq+qaliLfRXm0AB0EI3/kkcy9UqWGtzkQy
+	aUOvpwfCoGku3WXQz2777p/RzWywtS1zxgl6fbPOr9HlvY5j8VHQDRwsoWo6GQBHGBssE0fXB9o
+	XJ4/twhk+lvmpqnp240G35CSajeOogh01+rQ4VGzaxjfDXRIFjc2ibmHZ4Men7Nwkve0SyFHSU4
+	UglZXeZqN7FWXmM4ck/9vLDV6lN77vKQMUcM3uBNo1o237dqshZFA8cmtqNf0K1GN3XZK9cjUUT
+	OqKuDvnfcQWjQU418QvDjVqlK3CjuQgF8KAzuzi2xTTD3F7VZ1b3AFTT9xaF8FHp5MTzZoRX9cs
+	xFhiTEY8dvmPQE+R2gjHCVjTFK12/TJvnpLk2frlbVWrWEkbhoIkBhsD+zaBnZ8FcBo+MRHkFm6
+	N7vEzP8/u0A3kdAmgfBTXrHi1HoJRjnXss1JCuSZPfYAku9Rxj+t8y10rhLYiCYBUMIyI2qw==
+X-Received: by 2002:a17:903:2cd:b0:2e5:cf8c:633d with SMTP id d9443c01a7336-2e6004e72dfmr41869325ad.34.1791458336730;
+        Thu, 08 Oct 2026 04:18:56 -0700 (PDT)
+Received: from [127.0.0.1] ([58.186.69.27])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e60482d316sm22914955ad.49.2026.10.08.04.18.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 04:18:55 -0700 (PDT)
+Content-Type: text/plain; charset="us-ascii"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261007073537.2454351-1-suzuki.poulose@arm.com>
- <20261007073537.2454351-14-suzuki.poulose@arm.com> <CA+EHjTy_1EekD472UH=CDSpC7oksdy3eS8AP0rPxKkhQ_PyXdg@mail.gmail.com>
- <4cdd882b-832f-4968-9838-dcc29a899121@arm.com>
-In-Reply-To: <4cdd882b-832f-4968-9838-dcc29a899121@arm.com>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Thu, 8 Oct 2026 13:17:34 +0200
-X-Gmail-Original-Message-ID: <CA+EHjTyg7QM9+XtbQfAf77zpyNGh0rvEjMBm=mD0694Dtk=rGA@mail.gmail.com>
-X-Gm-Features: AclHuK8P2lsNGbFWtbI77W6PCd57-smcbil7-006btPRzP0RGDfW9UFPgF16p5I
-Message-ID: <CA+EHjTyg7QM9+XtbQfAf77zpyNGh0rvEjMBm=mD0694Dtk=rGA@mail.gmail.com>
-Subject: Re: [PATCH v23 13/14] KVM: arm64: Mandate VGIC v3 for pKVM VMs and Realms
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org, 
-	will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, steven.price@arm.com, 
-	aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com, 
-	joey.gouly@arm.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev, 
-	gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com, 
-	alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com, 
-	lpieralisi@kernel.org, enju.kohei@fujitsu.com, sudeep.holla@arm.com, 
-	jonathan.cameron@oss.qualcomm.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+From: Bui Viet Dung <dungvn2345@gmail.com>
+To: Florian Westphal <fw@strlen.de>
+Cc: Pablo Neira Ayuso <pablo@netfilter.org>, Phil Sutter <phil@nwl.cc>, netfilter-devel@vger.kernel.org, coreteam@netfilter.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] netfilter: nft_set_pipapo: skip transaction elements during GC
+Date: Thu, 08 Oct 2026 18:18:51 +0700
+Message-ID: <179145833177.61895.7787702708373982202@gmail.com>
+In-Reply-To: <20261007182057.332512-1-dungvn2345@gmail.com>
+References: <20261007182057.332512-1-dungvn2345@gmail.com>
 
-Hi Suzuki,
+Hi Pablo, Florian,
 
-On Thu, 08 Oct 2026 09:51:56 +0100, Suzuki K Poulose
-<suzuki.poulose@arm.com> wrote:
-[...]
-> But the second part of the changes are required for pKVM today, right ?
-> and you requested that here. The check as such is useful, except that
-> it is using kvm_vm_hyp_is_distrusting() rather than
-> is_protected_kvm_enabled(). I don't see this as a problem as this is
-> not a hotpath anyway.
+Thanks for the clarification and review.
 
-pKVM already gets the -ENODEV at KVM_CREATE_DEVICE: protected mode
-never sets can_emulate_gicv2, so the check just above yours in
-kvm_vgic_create() rejects a GICv2. The new check only changes
-behaviour once a Realm can set the flavor, which is why I think it
-belongs in the Realm series.
+Indeed, unlike nft_set_rbtree where interval end elements do not have a timeout
+extension, pipapo elements track their own timeouts individually. A newly inserted
+element cannot be expired during the commit window under valid timeouts.
 
-That said, my tag stands, and I don't have a strong preference.
+Please disregard this patch. Apologies for the noise.
 
-Cheers,
-/fuad
+Thanks,
+Bui Viet Dung
