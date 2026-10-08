@@ -1,241 +1,186 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C66E8473C8D
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 09:54:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE1F246AA9A
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 09:55:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791453292; cv=none; b=lDJSzpbuIkx5x9Ynz1TrM/1ouDeIj6dZ+rt+10s8t38kAt6Nm4d5dNJ5qNV6w9u6VYPF4j+H22KWm4Lf1X1RxNTCLx/CRLEdjDMdQX7cfAgQvB9oLa0wXZW+Bugqytor3Cr94FMj7WSowDIRhPNR48cp8pEL1yrryJ/nyxr+8DQ=
+	t=1791453307; cv=none; b=eC3WUCqVIwwV4m0lEHiQMLReNWTr90w9DhiI143jHbY2NKa/GRgbQnVsD1z2qe1A3f1mOCq36KYUq/+2mBrgKz//TJrYDc9qFoOKZGh/zqkL3SVRsp9G6CCAHQ6PstiO++2C7BQli+hbEY2wk6hfMvNPx/R+POVXj2Pp07NhZ2E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791453292; c=relaxed/simple;
-	bh=WoIxhrr7f+wE733J5ZFZBWruoVf6T2QOwnYkQwuusp4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=eEA6sqWrQf8xXec0ELNLsDF6RKzA6ZCdyx0qw9nyhaR+MxRo81nVf2hv00BdKC02+byiMODCO6+bGIHAcayW0dO0hS9sH0Irm6edydsJMZaPlbJpR6qh2UTxJdL54tshcLsVkwZFbELBXheZkYettGonunDHv8ekPK90uZWHI90=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cc7y8OT3; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fKzfExx3; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791453307; c=relaxed/simple;
+	bh=6mKzhGDxxBQhe1L1c9AjcjAufrdgnU2foAeWHDXdGPo=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=cSqSBBS9/a4sM+7JL2krs5PHuO9JQ+6BR5iUQXGc1NhSRHtJ7bKCbSk5qxU5JVYXqjtsnPXswwFIdIQWcX/rCgdC9Xcp7uri5znKAnCS/IXmBKI9/guw8QeYoTLTMHxJqN1wx+YGRqZFdpb48faCVAk/yW8SkMdSOLYnXOKIw3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=SFrbjmrG; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=NxroKc7h; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cc7y8OT3";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fKzfExx3"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6987KMwf3307810
-	for <linux-kernel@vger.kernel.org>; Thu, 8 Oct 2026 09:54:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=ZrNv06wEwcn2dtBbCxQceU
-	LrdDbvkly4cVLcPiK/6zs=; b=cc7y8OT37JOB+vFUanfUzuS6nhIk/b0RwDsw4c
-	GytvRXYFAHA0QR3NiNFBrXyPggCMBNjZORcdnaF6xMBjAI0fFdTFpsFttRIylOgq
-	kKKvZ2+RnbiCeLiHcidSlnINuSeHLK5CXe4TmOyD686Rd2bn4r2wQRwFPh0xUpxU
-	n/Kn7pcE7/fu1VMWSZ3IdCH7z+AO9+rPkq0rEG2R7xO+uH23Cz8zrGh3DMODNPmG
-	gPO8TFOW7W/5v5amDpJjWTVsWUC3p53/qAtD+DA3Ea2KvmN9V4QqTa5QRhMGhzG/
-	HHGTTxDI86gw/7XFT6CDijIdzlAYoxdvB95g3Q1lyL3tFugA==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h60sg9vqp-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 09:54:49 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93caf7856ffso926464185a.3
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 02:54:49 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="SFrbjmrG";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="NxroKc7h"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791453304;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=2rwd4c1hFdRk+8gic1oWg1e821LH97Si/hZy7R8ff64=;
+	b=SFrbjmrGbOfxNABEf6Uk5vyt3c9AYHTLhzFeJY3s9/c8lyvssZG8EmgVSuvT0TkcF784CN
+	iXGjjr+b8rdzXH368sZPF3DOFXDKWD8zIhqip7NBR+PQJb0E28jOgfK8Xupfid+2EoMftZ
+	9Nisqi/KPt9Ke7gLzMMjOLVG//UMy7Q=
+Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com
+ [209.85.208.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-67-ckQ1DwW8PemJOx_Eqmlc-w-1; Thu, 8 Oct 2026 09:55:03 +0000
+X-MC-Unique: ckQ1DwW8PemJOx_Eqmlc-w-1
+X-Mimecast-MFC-AGG-ID: ckQ1DwW8PemJOx_Eqmlc-w_1791453302
+Received: by mail-ed1-f72.google.com with SMTP id 4fb4d7f45d1cf-6a125f5b317so6827145a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 02:55:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791453289; x=1792058089; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ZrNv06wEwcn2dtBbCxQceULrdDbvkly4cVLcPiK/6zs=;
-        b=fKzfExx3vavuYnsP7W5WS+aIHNS5si5ydjnA+1LUEnR3Rah0h+vJI0fGm+o3bQ8vcb
-         fqG1sqGegDbzNcunOiHpVgkwfaRHF/zovsvm7qCnjG3FDbQcHrpyX8/Sz+T2FeE9dDbN
-         wHNlbpaTgCtuopRX3qaZyBzTZiH6C0N1cR4HNEqFV190szUEHSdIGBC7KblsimSI2p6F
-         kyoX/y58646r1R4L7iTMjTV/FJ6OGGVqeWzjYtWKDeG4OdEM56bQVvgMoJ1oYC4O0Gpm
-         7pHEsqJlWiTo0LGBHCOlsIbKXHiEJ1j80OaP2xN6EYTOzWhrvjSplALoYYOGfUa1AO+Q
-         J+Lw==
+        d=redhat.com; s=google; t=1791453302; x=1792058102; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2rwd4c1hFdRk+8gic1oWg1e821LH97Si/hZy7R8ff64=;
+        b=NxroKc7hvVzpBGkQmQFsufie5p5QKFsZI4tUtA8K7KdpsJkfXLnlh2FLfzqiIZA6J1
+         +m0m+gwlK2ltmbNjw8emjWxtxJiJ9+622Qjoz8FcArXcB6iR+OG3Ipe6qi9Fj0IeAhlM
+         j4psg8q0iwB/x2k2S/2dEiG8A7WU6JwQZpt0zDiBnMyhxEI5yMxSOw4XpquUSkpA3ZwZ
+         bC+kWh826PNo1tHos5xw3akK4D3E8WAdPPz8yThnvYElB6ej54aSHQAhVDdxTkCXvONk
+         yq8eKHEDhHlUsesuc3lHMeJECn0cFqCFSaXU/qjLSlkhN1siPkbU3/kjOpqvfeXsd/My
+         Sm3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791453289; x=1792058089;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=ZrNv06wEwcn2dtBbCxQceULrdDbvkly4cVLcPiK/6zs=;
-        b=Cnh4+yfYxjqM6sevccCnfesjE7BY+cNMyANTEjhXZLimiLbhVHN9HIM3MFJMW3WdI4
-         AQrjCrtRiN/8mXRfLROTJubCitsq6W+ywArDOdbXFrCkPCmuDCq4j06hc8hFJKdnL2FQ
-         gLc1SPxtV3WZyCDTbKhACd499Qsqu4599n0trjT4Sc92A6twb77kvt7Gy8Db1StbWQZr
-         sRM4QOrur7oHibvpPufkryLuyz/XvwEnS0YwvDaWJaN+P0A4HHeEhS4vXn5liWveXnVU
-         9sy8LPaKDyhjZC3UfbLT7XWdwRhgfiupKIdo3DNafFa4KuiK9/E/KaIiNFDeUx57tD5o
-         UTLg==
-X-Forwarded-Encrypted: i=1; AKwUvBz/FYN+aZx+a53weAUA8so7fsskOX/zhj0otsmM4rvSTneBnAfHTy3Re6r/5oJv+OuwA2eCRMgKxaQrhtM=@vger.kernel.org
-X-Gm-Message-State: AFuF++llPODaoLfHoz6SN5ZqGORnO48Ceb3bauR4mNuouoGVXGOnDfb9
-	w0BuPEG9mroA//cTL/PS/Ohf8VUujaWdi4702k/8oKQwU4JRNtiYWUI1aEUH4jHnUz/r6QtqrtX
-	4JCMHRHrJNbpT6obSt258uSyqzBHSP9fNG0uYzdoAZGSYngM/L9tZLZEFDOp0fnY2wKo=
-X-Gm-Gg: AYBFou3IXzbJFR+55FzgpgXmjmIXma/cITOZQMYQbgU0vczHOZr1rZgq7MQ1LOUSVYa
-	6AGpwh+20qGDQeXsL4pke1Diz9LYeB9dWkMevqe5Y0HN54zHAxRHMzSA7XJg/uoUzjx9OSUx9xw
-	s1EvGHUU7WvQUQtHU7HYnEUE5+37OoofyriGDxJoaLa7gI8lJe+ZlcCq4nyxGol83d4z23bWZQE
-	MvhmH+VodK4DyNIIlzIHoKSAigbTEqULXQ37/oVH2oyguOFeeLy9j3igpEZIiDrH/B2wLP3LaRv
-	zxmkvCKbQNhTwzJo6ScdFcU6IOlOQxTjONN9TiYLCLOSQUp/WUDZ1A6xh3bJtcvBhWgaetUvLIE
-	l0wdKIH85Am3doZg7N60QLfd9Fu+F155k03U4mFFlOnbxMA==
-X-Received: by 2002:a05:620a:4614:b0:93d:92a9:1a5e with SMTP id af79cd13be357-93e9b7e1609mr922151685a.37.1791453288764;
-        Thu, 08 Oct 2026 02:54:48 -0700 (PDT)
-X-Received: by 2002:a05:620a:4614:b0:93d:92a9:1a5e with SMTP id af79cd13be357-93e9b7e1609mr922148685a.37.1791453288270;
-        Thu, 08 Oct 2026 02:54:48 -0700 (PDT)
-Received: from brgl-qcom.local (90-182-211-1.rcp.o2.cz. [90.182.211.1])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a185d914fdsm83974655e9.7.2026.10.08.02.54.46
+        d=1e100.net; s=20260707; t=1791453302; x=1792058102;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=2rwd4c1hFdRk+8gic1oWg1e821LH97Si/hZy7R8ff64=;
+        b=AO9bBTNjkbYA8+1HQLKK5xTERcxTWk/aQ7T2Q3hLrNtyOpBew65tDP5IlB9zemJtcT
+         PmBypoHkAdWzTLfLIRMsYz3yaL02PBXovZqbx1w1xyGCbBHc8E+wimL+6iYeVEYGQknz
+         LFMVvrGjBEvxDpfi7sYiJrtzf1Kbc+RYuhRBfzzGofhEHp2deLqbLVSYgUS8ghoJiHHI
+         gP1eq+fBcztcQfEEz3+X5Cq99nZHDAK795EAxe/pw0pne3jIq1jlrChp32OOegzsDkJP
+         UD+x23yCEXjsW3Txuqe7Cy2TaVidskX6/lmrHzGx2uqu1f76QpwCHGJMtTuXxnwAxIrM
+         AH7Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxzJgpM/F29lv2j8dKUGCwQ8xYrGzhCMCvIKQNENfCTKrYIRwX+BWTf8zYVeyYwD+QildugCWBsa3Sjx3Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++lv47LCCABwTfqetiQbNtc/tXXS+nRMQDkDL7LWZxRpqOKnZ05O
+	nZ4IJW+/A2pQOHH30EOeCL6ZP5cv/WXpBJTH+3qbF+b3bQPpMHOBmxGOvLpeAj7E133vhEbWsyH
+	PwObk5KFxdpiI10eT+84LvhEgosvMXP8I417GWnf2VYbl8CKgUW1G8U0ecE4nzKW7/w==
+X-Gm-Gg: AYBFou0giRSXzl4mNOVNXLcWbNUpc0kIXubzVNkctWlKmuKVups+GaCGDgsYwV5uiL4
+	XygkrwHyTxiTuYavl8HFnUWjqVSC5kw6Q7uK0pw/SRMWCEOW9ZiliGs2KJbQVEyki8YwFys7HZ1
+	0NwtmQbXnO07yxb+jeVgDrVB5xnwT2Y8nCFjSuh8fNwwWMzWSibsue/WPGdS7KskcBZd5ZJpOL+
+	IQNp/06XpRCjz2z+w6HlT39OZRO2oc1wscbGUW0zyLS83muB3ZmKRNKCRpNmKucmguNOgU09F5X
+	7BRgHxo9bL/1W7JHYrrzS6lfPKZfpnHBabEG/YE0x2iUbFm3PEPHBoQiX8dELkjcfMTFRlqSQUx
+	YT1qLsT4IF3Ikn+153TkBkMVsUROXY862j60mC1HrtKZAAmOPy/CYa5vkOKBrtSxbdotBNA==
+X-Received: by 2002:a17:907:8688:b0:c2e:3f49:df04 with SMTP id a640c23a62f3a-c317bbdc08fmr523188466b.1.1791453302313;
+        Thu, 08 Oct 2026 02:55:02 -0700 (PDT)
+X-Received: by 2002:a17:907:8688:b0:c2e:3f49:df04 with SMTP id a640c23a62f3a-c317bbdc08fmr523186766b.1.1791453301931;
+        Thu, 08 Oct 2026 02:55:01 -0700 (PDT)
+Received: from gmonaco-thinkpadt14gen3.rmtit.csb (212-8-243-115.hosted-by-worldstream.net. [212.8.243.115])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b00aa2b8aasm1188417a12.22.2026.10.08.02.55.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 02:54:47 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Date: Thu, 08 Oct 2026 11:54:35 +0200
-Subject: [PATCH v28] dmaengine: qcom: bam_dma: free interrupt before the
- clock in error path
+        Thu, 08 Oct 2026 02:55:01 -0700 (PDT)
+Message-ID: <b1fb01e1c58893795dd4be346f233d39fe653aaa.camel@redhat.com>
+Subject: Re: [PATCH v2 10/15] tools/rv: Add BPF monitors
+From: Gabriele Monaco <gmonaco@redhat.com>
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>, 
+	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	bpf@vger.kernel.org, Steven Rostedt <rostedt@goodmis.org>
+Cc: Nam Cao <namcao@linutronix.de>, Wen Yang <wen.yang@linux.dev>, Tobias
+ Schaffner <tobias.schaffner@siemens.com>, Viktor Malik <vmalik@redhat.com>,
+ John Ogness	 <john.ogness@linutronix.de>
+Date: Thu, 08 Oct 2026 11:54:59 +0200
+In-Reply-To: <DLXSI4BSRE5F.1TLKCBUAGNDFQ@gmail.com>
+References: <20261001152042.124445-1-gmonaco@redhat.com>
+	 <20261001152042.124445-11-gmonaco@redhat.com>
+	 <DLXSI4BSRE5F.1TLKCBUAGNDFQ@gmail.com>
+Autocrypt: addr=gmonaco@redhat.com; prefer-encrypt=mutual;
+ keydata=mDMEZuK5YxYJKwYBBAHaRw8BAQdAmJ3dM9Sz6/Hodu33Qrf8QH2bNeNbOikqYtxWFLVm0
+ 1a0JEdhYnJpZWxlIE1vbmFjbyA8Z21vbmFjb0BrZXJuZWwub3JnPoiZBBMWCgBBFiEEysoR+AuB3R
+ Zwp6j270psSVh4TfIFAmjKX2MCGwMFCQWjmoAFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgk
+ Q70psSVh4TfIQuAD+JulczTN6l7oJjyroySU55Fbjdvo52xiYYlMjPG7dCTsBAMFI7dSL5zg98I+8
+ cXY1J7kyNsY6/dcipqBM4RMaxXsOtCRHYWJyaWVsZSBNb25hY28gPGdtb25hY29AcmVkaGF0LmNvb
+ T6InAQTFgoARAIbAwUJBaOagAULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgBYhBMrKEfgLgd0WcK
+ eo9u9KbElYeE3yBQJoymCyAhkBAAoJEO9KbElYeE3yjX4BAJ/ETNnlHn8OjZPT77xGmal9kbT1bC1
+ 7DfrYVISWV2Y1AP9HdAMhWNAvtCtN2S1beYjNybuK6IzWYcFfeOV+OBWRDQ==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261008-bam-dma-free-irq-v28-1-5e5b10de441e@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAFpox2oC/33NSw6CMBAG4KuYri1pp1DAlfcwLkoZpIlQaZVoC
- Hd3YMUC3Uzyz+ObiUUMDiM7HSYWcHTR+Z4CFMcDs63pb8hdTQ0GArQUAnhlOl53hjcBaRYGbo1
- NK9CFTXXG6OwRsHHv1bxcKbcuPn34rC9GyJb2H402uOSNKlHIWpalFGcfYzK8zN36rkuosEUdQ
- W8lvSdpkhCbzOZS1YWSv6R8KxV7Uk6S1gJzAaBQ2R1pnucvkXhwmE4BAAA=
-X-Change-ID: 20261002-bam-dma-free-irq-cac4b268c465
-To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-        Andy Gross <agross@codeaurora.org>
-Cc: linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org,
-        linux-kernel@vger.kernel.org, brgl@kernel.org, stable@vger.kernel.org,
-        Sashiko <sashiko-bot@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3729;
- i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
- bh=WoIxhrr7f+wE733J5ZFZBWruoVf6T2QOwnYkQwuusp4=;
- b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqx2hiO6lLY1E5ZIVelcc9HO02n3tNeJF4vUbMf
- o8L3eZcBMqJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCasdoYgAKCRAFnS7L/zaE
- w1wYEACYD+TkQLeTpk583qpouhOP+tlVmU6vSqFbqLp/gpiVmwbKqwJMnOTtYJJYpfPh4Bb21fm
- UIKI9veN3yUyVp380JvWrGv4zJqYFwG8tvrpxweVbY8Dll8jpTL0ZyIG/NGVMFUggnQbzpndauF
- /TqCuLfPIrO3dwKWXgYtBGf6sZazpERwucq/xbG06nGlIBJBx5zoEwEF01BjPAfEzn9P/oYVVt/
- Xvi0MWiR6gpeSW8JpDj/HhLzGLvTBdQLTE6k/J6mKW0eg+SXo98s1Pc5V5p9abajlMKnAqKusc9
- gRDt5YoA7dt5KXxlH3M/BK64H08wj3LVJqjjYpj9FxuLI+jtiqToJF4Ms5z3bE/4seQPMdk31Pv
- pchP2I0Tt94tn0kj/K29ToJlyFAkCfsgDI3I+UohXBwar+SrQMHsbrhaZMwQtfT/CB9DvZRbMHF
- Q7MBuwNCy60DRReFG0A1lw/oSOAYtY5K/H/ymdwheIKlruOb7zivd24v7ecoySxGg40CjITq32p
- 6DmHB1LGy250kWLYRlC0UvaG1NxaJbc2MpaxyUVf01IVCg0Nqdd4mVVa6unrINR+nlZOwG8No5j
- D0JKmXzPcCAMxaGi8RdP8r2cPVf787sxRtABBvn3+U+BS7hXJPbgzmDK74cgD7ZE18PAr9Uz7PF
- OcK9wQhdOdTCAsQ==
-X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
- fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
-X-Proofpoint-GUID: OhA7DFZDjFSDHgLBkZbLnBBWbYyx5C3H
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDAzOSBTYWx0ZWRfX7xcCyRVt6+im
- 9R9EA1UZi76VuEju4g2tdo121usz7Zvq2lnVkQ9mywKsOT0hxxPCFeggQrfilD8HuEsitVs665t
- +7YCgwvyu9TQe0NwuCin2xv/SPV4Lk4=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDAzOSBTYWx0ZWRfXx0H1L+g0LLer
- P6ed0umdrvhrhMCGRpLOGJFcEjdmnso9+d49pcFoSzyDqX6bL/n7a0oCGOBDB5kaPGtZDt/Ksvw
- Mu/GAOyXpVVXeOHcr9ecNSLZYEy2e+OqUQndEGecGgj7Gwf6R/wIMnc7g+cVZr2HcoTumkOCzb/
- ZOEJNxH+7XZ7aJPng9QaJhk6lc6/tUJa1qAV55if6wEeKMwOSd4oyU5FL6sjmBa5m+k1bG5FwH6
- QTNwEpaUXuqUuqgStJcZ8fv3ZaieXCC77zToTD+mRvqPIIeSiMWJ7wC9Asp9wADkX0Dk0yhgkmx
- tv93jm64eLHkZDi9fMeLOo+Z6lyahz3n9DlMjStfDotAMG2tOOhT8fc+jkRS3mNiY7Z/EP+xoWj
- VWIbEF/taKfxRcjacrAj3AbuZl/tFWY4HJvIyTm6Ds0agShTiFzqGy/ePiilFKQaNfXaeupMrXD
- jfdB3tBaq7U1PhNsvcA==
-X-Authority-Analysis: v=2.4 cv=DfWCOftW c=1 sm=1 tr=0 ts=6ac76869 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=zRh97aRZNhiOMYVz81Er1w==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=c92rfblmAAAA:8 a=EUspDBNiAAAA:8 a=bC-a23v3AAAA:8 a=VwQbUJbxAAAA:8
- a=sdHaY_b6le-me-Zt7agA:9 a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
- a=GvGzcOZaWPEFPQC_NcjD:22 a=FO4_E8m0qiDe52t0p3_H:22
-X-Proofpoint-ORIG-GUID: OhA7DFZDjFSDHgLBkZbLnBBWbYyx5C3H
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-08_03,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 malwarescore=0 bulkscore=0 phishscore=0 clxscore=1015
- priorityscore=1501 suspectscore=0 spamscore=0 impostorscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080039
 
-The BAM interrupt is requested with a devres helper and so on error it's
-freed after probe() returns. We disable the clock before freeing or
-masking it so it may still fire and we may end up reading BAM registers
-with clock disabled.
+On Tue, 2026-10-06 at 13:29 +0000, Alexei Starovoitov wrote:
+> On Thu, Oct 01, 2026 at 05:20 PM Gabriele Monaco <gmonaco@redhat.com> wro=
+te:
+>=20
+> Overall looks much better.
+> Some of the code reimplements bpftool, but it's user space.
+> It can be cleaned up later.
 
-Stop using devres for interrupts as we free it in remove() manually
-anyway. Add an appropriate label and free the interrupt before disabling
-the clock in error path and in remove().
+Thanks for going through these.
+Indeed I tried to reduce the code reimplementing these things but probably =
+I can
+do better.
 
-Cc: stable@vger.kernel.org
-Fixes: e7c0fe2a5c84 ("dmaengine: add Qualcomm BAM dma driver")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260427-qcom-qce-cmd-descr-v16-0-945fd1cafbbc%40oss.qualcomm.com?part=2
-Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
----
-Sorry for the noise with v27, I didn't notice the change in dma/next.
+> > +$(BPF_DIR)/%.o: $(BPF_DIR)/%.c $(VMLINUX_H)
+> > +	$(QUIET_CLANG)$(CLANG) $(BPF_CFLAGS) -c $< -o $@
+> > +	$(Q)$(LLVM_STRIP) -g $@
+> > +	$(Q)$(LLVM_OBJCOPY) --remove-section=3D.rel.rodata $@
+>=20
+> What is this for?
+> Released libbpf ignores it with "skipping relo section" message.
+> Removing the section only hides that some pointer in .rodata is left
+> without relocation. What is it? libbpf in bpf-next needs .rel.rodata to
+> resolve pointers to functions. See commit b223044a68d5 ("libbpf: Resolve
+> pointers to functions in read-only data").
 
-This used to be part of the larger BAM DMA pipe locking series and never
-got picked up despite months on the list. I'm resending it separately.
----
-Changes in v28:
-- Revert to using IRQF_TRIGGER_NONE when requesting the irq
-- Link to v27: https://patch.msgid.link/20261008-bam-dma-free-irq-v27-1-660e70223e3c@oss.qualcomm.com
+Yeah indeed I used this to silence the warning. Apparently right now the wa=
+rning
+is gone (no relocation section even if I don't trim it), but I went back to=
+ the
+initial version and it was about a bunch of .rodata.str1.1
 
-Changes in v27:
-- Rabase on top of current dma/next
-- Link to v26: https://patch.msgid.link/20261006-bam-dma-free-irq-v26-1-eef5c713d831@oss.qualcomm.com
+I'm going to test a bit more but I can probably remove this.
 
-Changes in v26:
-- Rebased on top of current linux-next to address conflicts
-- Link to v25: https://patch.msgid.link/20261002-bam-dma-free-irq-v25-1-f39e01d19910@oss.qualcomm.com
+> > +struct {
+> > +	__uint(type, BPF_MAP_TYPE_HASH);
+> > +	__uint(max_entries, 10240);
+> > +	__type(key, da_id_type);
+> > +	__type(value, struct da_monitor_storage_bpf);
+> > +} rv_mon_map SEC(".maps");
+>=20
+> Why hash by pid?
+> Use BPF_MAP_TYPE_TASK_STORAGE for per-task monitors.
+> Once there are 10240 tasks bpf_map_update_elem() in da_create_storage()
+> fails, the error is ignored, and the rest of the tasks are silently
+> not monitored.
+> Task storage is freed with the task. No need for handle_obj_cleanup,
+> id, target and PF_EXITING.
 
-Changes in v25:
-- Don't touch remove(), it's not wrong in its current version
-- Link to v24: https://patch.msgid.link/20260723-qcom-qce-cmd-descr-v24-0-4f87bb4d9938@oss.qualcomm.com
----
- drivers/dma/qcom/bam_dma.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+Great, I wasn't aware of it and looks much neater. Will use that.
 
-diff --git a/drivers/dma/qcom/bam_dma.c b/drivers/dma/qcom/bam_dma.c
-index 94cb957d4b187704e207361d629fde00e3e090bf..f67a93a37d48cc23dcef04fb434d2613a1f22a77 100644
---- a/drivers/dma/qcom/bam_dma.c
-+++ b/drivers/dma/qcom/bam_dma.c
-@@ -1332,8 +1332,8 @@ static int bam_dma_probe(struct platform_device *pdev)
- 	for (i = 0; i < bdev->num_channels; i++)
- 		bam_channel_init(bdev, &bdev->channels[i], i);
- 
--	ret = devm_request_irq(bdev->dev, bdev->irq, bam_dma_irq,
--			IRQF_TRIGGER_NONE, "bam_dma", bdev);
-+	ret = request_irq(bdev->irq, bam_dma_irq, IRQF_TRIGGER_NONE,
-+			  "bam_dma", bdev);
- 	if (ret)
- 		goto err_bam_channel_exit;
- 
-@@ -1366,7 +1366,7 @@ static int bam_dma_probe(struct platform_device *pdev)
- 	ret = dma_async_device_register(&bdev->common);
- 	if (ret) {
- 		dev_err(bdev->dev, "failed to register dma async device\n");
--		goto err_bam_channel_exit;
-+		goto err_free_irq;
- 	}
- 
- 	ret = of_dma_controller_register(pdev->dev.of_node, bam_dma_xlate,
-@@ -1385,6 +1385,8 @@ static int bam_dma_probe(struct platform_device *pdev)
- 
- err_unregister_dma:
- 	dma_async_device_unregister(&bdev->common);
-+err_free_irq:
-+	free_irq(bdev->irq, bdev);
- err_bam_channel_exit:
- 	for (i = 0; i < bdev->num_channels; i++)
- 		tasklet_kill(&bdev->channels[i].vc.task);
-@@ -1410,7 +1412,7 @@ static void bam_dma_remove(struct platform_device *pdev)
- 	/* mask all interrupts for this execution environment */
- 	writel_relaxed(0, bam_addr(bdev, 0,  BAM_IRQ_SRCS_MSK_EE));
- 
--	devm_free_irq(bdev->dev, bdev->irq, bdev);
-+	free_irq(bdev->irq, bdev);
- 
- 	for (i = 0; i < bdev->num_channels; i++) {
- 		bam_dma_terminate_all(&bdev->channels[i].vc.chan);
+I couldn't catch you yesterday at the conference, but I can summarise here =
+what
+I really wanted to ask you:
 
----
-base-commit: 53b32375c9caf793ff392f762236c90f2a062ae5
-change-id: 20261002-bam-dma-free-irq-cac4b268c465
+Reactors in this patch use bpf_printk(), which is in fact a trace_printk()
+instead of a real printk, is there a technical limitation forbidding us to
+create a kfunc using some flavour of printk_deferred()? Or am I missing an
+existing one? (this need was brought up by John, Cc'd here)
 
-Best regards,
--- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Not needed in this patch but potentially required for more complex monitors=
+. In
+kernel, when timers are required, we allow monitors to use hrtimers (precis=
+e but
+heavy), or the timer_wheel (lightweight but less precise).
+I'm not aware of any wrapper of the wheel in BPF, but I think a few kfuncs =
+for
+these could be useful, in general, also for other programs needing a lot of
+timer instances or simply light timeouts.
+What do you think?
+
+Thanks,
+Gabriele
 
