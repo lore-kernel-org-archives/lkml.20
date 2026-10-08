@@ -1,908 +1,548 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013051.outbound.protection.outlook.com [40.93.196.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C1D73AFCE3
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 03:24:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791429863; cv=fail; b=LWQyzevP1ax6nblqlMS+cAxnnzlu0UKxxnB/JPdiOUpY97f4F78P9F0glH+IFEVtvIxMwphZiwj8PsBWIO82H6u1i7vJhIx/sEymqCkip8KUoJOyh0zOwZCGwnZHRmTt86amVPUj1in3jdCc2/PAXftZyAZ3ZcDVudHGohjXhVE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791429863; c=relaxed/simple;
-	bh=VSPN+j6Fds+4SaPtTF6h/Xx5GIopmJR+/leHu4cup+s=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=nssOJ2ne5vXiNhddRMS1xuMEepYf607uSh0C233QKUEmcRihbh7+7zarmlJFgZ5G0yk0c89Bk1znL+1wSivNMOQInyKR8WLuGTvLPPsHJWomsNjnB2Pf08j8TKspzC68e3b/i8iprDXN/FkXhwAFjfr22UumM2yBMPYsPkcb7+w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=i5YTwiwC; arc=fail smtp.client-ip=40.93.196.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B6EE3B6379
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 03:24:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.178
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791429868; cv=none; b=m4dJC/mPG6KUpfO+TcbvtSp94o4Lcv1RmHvEf4IXiEz8aMd+lZqveuWP6roHaUqwp5LcrODGvlS/GENwQEvNjh3jwMejB6eHtjeajxk7NtS3VVcnZTfzlj4VEWW2nWVTgWQiZSx06kSaOjSE6fsWE07ugXi6VscwOt+dE6O93cc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791429868; c=relaxed/simple;
+	bh=2Hy865asx9beZFJbj94kOJRO4va5CyxOEtlp2kyHVXU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=be2OTIwkZxoNzD6JrPRQsAAOEZIhwiwb04uNKW+GtQaupJipvCR3pK47rtrYU7SVnwTPOp0v7OMVK8CuBdLml5Ehisq9csLTKgDf0AMCuu5j8OrrikrSeIX1eJahdc5fIPVi1LdEq/ls4hgvRxxUIrXIK6U5rERyFyg6wXC+3eg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CPmFsok7; arc=none smtp.client-ip=209.85.128.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="i5YTwiwC"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=t3VAeMSkq5YThkjMO4Dn0wjd2ZpgTN4Awdokamo+oiLVqxT+GpiaDRVjR2kZJ0SCQWrZKLttGjDlnproFIEPKiSPecZUszC98HpelWKlE0OFrgaiI/xuHrUiM7JXvLsJqcPcqSEq8qa+buG9T6eoxMQApHrux9uLK/u0k2MNlnRP7urp2x1Xf6vvdMZ12DU+upRHruTRjyBcvT1WWi8F/jR+cfMZivqTRpilP9lPQcbP6peyOQ/DAB9KnPfYlXfe6q1cu3u9oOCWjP3SYDeLVIY7YlD12/uxSz+EHDjO1xNIwz7D1kakexAfeFkRA9aeOo53EJ8Bc8QIbePC0d6GAw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EgOg+X+q7010BojynJMOpsm+xzYaSg4p2gqNaLdfv5g=;
- b=lW4h9pKmTg2xypGCjFidQi9n7wqRWShzxN39O+9idOyE7Eoj2tEHpdLFVuR2fVpepAmoPzj14+4IKdo9P7uGg14ledrwSynWRv0eWKh/+osZi9negQQsoEX5dolah2YQPJLj9wRlqiwnApI56huAgDJyiacvDyUA7F+wpqOYLFD4zhS9H65SQFg1GqaKfMeQ8sJ+VBFCS2ykBRf69v+dVoceM997TJAEvWKX1Cxz964pm6Ho1sWYXjT7HiwoPPpzDLlhoEZb4IkFg5S81w9DCsQ8Hqi919aFLo3K3L+3PEb3gYHDa+ZM4SdCZkXR/LfXKZRD9Dj4/YHtWKMot9I0zg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EgOg+X+q7010BojynJMOpsm+xzYaSg4p2gqNaLdfv5g=;
- b=i5YTwiwCps1Z3XyuOmcaLvGDAT1upFYxRECaY1xu3ufLidxy69uTsUpXBFneDLlHHHm06CnObqHwpZHs4HKmxv44UCEXYT7vFpg4zgNU/xImAb7wiPjCTZ+WO3ZWqpbnBIb8VIPuaiU5ZQPxYXlGsSaF2qTjhwVZ7F1sDmgDjgo=
-Received: from SJ0PR05CA0025.namprd05.prod.outlook.com (2603:10b6:a03:33b::30)
- by BY5PR12MB4178.namprd12.prod.outlook.com (2603:10b6:a03:20e::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Thu, 8 Oct
- 2026 03:24:12 +0000
-Received: from SJ1PEPF000037AC.namprd03.prod.outlook.com
- (2603:10b6:a03:33b:cafe::32) by SJ0PR05CA0025.outlook.office365.com
- (2603:10b6:a03:33b::30) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Thu, 8
- Oct 2026 03:24:12 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF000037AC.mail.protection.outlook.com (10.167.244.186) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.14 via Frontend Transport; Thu, 8 Oct 2026 03:24:11 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 7 Oct
- 2026 22:24:02 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 7 Oct
- 2026 22:24:02 -0500
-Received: from xsjdavidzha51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Wed, 7 Oct 2026 22:24:01 -0500
-From: David Zhang <yidong.zhang@amd.com>
-To: <quic_jhugo@quicinc.com>, <karol.wachowski@linux.intel.com>,
-	<max.zhen@amd.com>, <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
-	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-CC: David Zhang <yidong.zhang@amd.com>, <sonal.santan@amd.com>,
-	<mario.limonciello@amd.com>, Soham Donwalkar <soham.donwalkar@amd.com>
-Subject: [PATCH V3 08/19] accel/amdxdna: Add clock, DPM frequency, and resource info queries for AIE4
-Date: Wed, 7 Oct 2026 20:23:37 -0700
-Message-ID: <20261008032348.2044667-9-yidong.zhang@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261008032348.2044667-1-yidong.zhang@amd.com>
-References: <yidong.zhang@amd.com>
- <20261008032348.2044667-1-yidong.zhang@amd.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CPmFsok7"
+Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-8b056d58f2aso20830067b3.2
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 20:24:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791429864; x=1792034664; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DSL2iHt2cmCojVXgq7a4a43FI/CSOoA0l8uAKgOuZck=;
+        b=CPmFsok7QwWGZoyQXHYHQguAlWwzVXxHuOPkxuiBJ7Y+D3ahE/UKrMQxRoMiRbGtyH
+         aZaRy81o7xq/bTxRCNuCro8CsmgzEpd8kVj3hg/goB22V6ET7KSaJrfPgHouJIHYmRoy
+         1Vq8cq+WJqMMFtwnumqHmZ7w40dHqk/0MZpfzORXW6r+e8pIJOooEQM/+fWlxsD8AgCH
+         j+aqMV9P0bcAbBSPrkaTDi8T+3fprjPyZbj1RGXRCAhr9QqgqZBr2hNwV9CsEqWhK/TP
+         dl+dGIX4r0htpzQdCL9+pfJ6MaOA7rglT1XRKmII+VhS/skRGS7kPRfC41QVYWJlh3ub
+         z3Sw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791429864; x=1792034664;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DSL2iHt2cmCojVXgq7a4a43FI/CSOoA0l8uAKgOuZck=;
+        b=sdxQnwDcZidgao4XvbX78tL1h7KqCMRs5SyM4HhkD08W5vQGbmMC/NldvQfWS2igaC
+         cKhtdra/n5Tv+xYO+1H3o1//dflFYfdppuu2p0ufS7RbOCYDYJKGdit6Ngop9slF1N4M
+         T5YRwiC8eZSNlwGKhzH4MJdg1/yuqRX/JGseCMc+MOLq17zyyS8nOaAYb+VuEbNkzziu
+         otu+F0kKmqP6Hn75PLXCsIEXEF65Q6vs5VdJnp6LGJnk8ch9+otQGQvlXpzUiuZyIbOR
+         ZXJj4WQpnlx86t46E7GRIsYe17qJL/4jHbGfoxmmD4EVDz879rh/qIZyWWuBg82hNuVA
+         RbIA==
+X-Forwarded-Encrypted: i=1; AKwUvBzQbk6DtFVm4HlZKhKu12HF3vAbPCaQKpG1W9HR3Sia1ZwAsf78pO8IyVKeSVPDW/23MtidsyA9uj785ow=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJlOt89ajzuc4q3ioAK0chRev+3H1XKvv06NkfirTr6jo3Tk8UL
+	0tuQ/PCFrNdsDBxVNDC1zttC08Z1wjVV6nTico+rH3lAi7A+17sbFSV6aCW8EQ==
+X-Gm-Gg: AYBFou2aWcFm/lwNJPJDqFpWDj+PiMQchzay7SJuQaELUxruukZ2wAfbdxJ1MD6UTVU
+	JhQeWxHHr27hHre6m1CJbaaDcvmg8ueCEMToNaRgP2rKxGDrVj6qStNRgih6CRwgfEXM3NizHBt
+	5jtDXXgkX8WALN53YJZYFVhVrv5oBnv1zr7S5dO7Nttuq1KpqWOM0h9ksENmtHmIFlfIvOWhEzt
+	YAmpBcXCSiGQKWy+E3KKdKd4b4n6ulI+KzhH68HeoSiugBIUNIIunfaHkvV3qrtEsMVZQhj2Ux1
+	ElU9s1WBBHNOtHB+dS0bz78rzOTaGtRYTWzzS2kSNBA6uzC5r5kg8Ejt49QMKSaHAH6A4QEn08d
+	/eKwr8Obx1Y2JFpb5pCtCoZV7voo6ciEJvfpe81y9saqCVLpL3izvl5+evEm/gvkmv8QFPmz/P5
+	TI7ZSFWj8t3GnDooNVkSIG2fzyaNPFgpMw1EySSreGGTMhw7ap0NFFLWY2m/y8TuDIjUVnjAVCc
+	C/UxLp6Gj0=
+X-Received: by 2002:a05:690c:6e87:b0:8a8:6fac:217d with SMTP id 00721157ae682-8b05b1abde8mr27866607b3.95.1791429864404;
+        Wed, 07 Oct 2026 20:24:24 -0700 (PDT)
+Received: from localhost ([2600:1702:7a90:6f9f:8bc4:8aec:108d:7a04])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b05abb19a9sm15417767b3.29.2026.10.07.20.24.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 20:24:23 -0700 (PDT)
+From: Matt Turner <mattst88@gmail.com>
+Date: Wed, 07 Oct 2026 23:24:09 -0400
+Subject: [PATCH v2 6/6] alpha: implement hugetlb support
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000037AC:EE_|BY5PR12MB4178:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3ccdd5ad-ccb1-4692-097d-08df24eb9f66
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|82310400026|36860700016|1800799024|10067099003|56012099006|11063799006|3023799007|6133799003|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	ME9EvruSERF1PfkO9GA6A4sBP7AF+8u7YeCMvquNwAFkre2Lp07cM2QBpQnH9vyk07+NJC7XrUvGGEtFi6Lv17HXC8xQKyLHvN9kitIOyL4aC61E8VMItAWLTHQgCWw1KoMjuE/RzYmrRijgd2OR5D0p+CGGatnW0WaceuZKGb766VVY34Mpt7TOQ5Sg53L0LtZD2yvNYTtUZtEFUfJ66+BH3ao+WV9gpt/pZ2gimHhhRkeQE1pb9a6U8y+iX2wbzaY9A77IhuB9Y2CqQlEFp1nhllX+ZoVvXRZYRgphniFmknXorD9/SgNJZEWc3SPYfcCnnXIEhojeBuZF3l6hBr088fXaJbda+Tb8TlgYc2dlHb77j7Nviir7AKBzXcXhmTal/FReTZMm1f4GPPm7UI3SCHVOR68hULade94bPAkAqRLuYkg/t2cSuEJAaJrnoeLY8XhGjb5xjvnZ3NcGal9m/JOy+iTMg1DC3tieQxlkBujbUzy3GUFIodKFD04EqnhkonQJYGxrXLAIy1PYqeYrU4bEa2iztoVYCWGCUdhokle7NTNFNuksYGvtCtUFaUYoBs0vK6DRBeEWnt8c8CDZjPDww0MHbCaA1oMK1CBJawBGptng9w0wRKVNRP5Jt5Llbs1WujLbq/3flGr4Sjhdc6N1Z7JJ0kDWRmDUcpwABzb3Ow5uQVuyBnpIxOIGFUMDgMLFfvjrGhC4tqT3eg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(82310400026)(36860700016)(1800799024)(10067099003)(56012099006)(11063799006)(3023799007)(6133799003)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	vZPaSSvvm7NGYg85rHZbjumzOJOSOaFSgM8pTotigTXLlQGgRL/Muj/EhToRo7W+cQWy0yC2D6Pgh5wWuWN2f4jry06EXwdWtbJwfVNAwObdtdT9x5ID1EaZw0UVo/aloae0rkyPK89tTdYf9J5D4VDtol7Q2Icx/Vn8MHttSCQczzatxcxqY4nGgGACUTdXbPWsuM2TwrSgCkJpOC0OuCJizGHztR5ACc6afEiSCN8aPPQtPO8cNPAYq1FK3rE9w4/j6/YdpwBZRncNQMWCqjysROyC7CuTWKaip5CKiLyNAuy6stWTM45Md2E585SkHrIkq/jpcXSXENBq2nH+DIoBMJzXpQWQXt/JNu1rfiDY6LGdBy27yD3hjB6EFnMr3owApb80ZhP6BTetkwTlTPiytNhlM89NryqGlBvBd8cBn9CHvQnip8xG5SluIhNq
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 03:24:11.9389
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3ccdd5ad-ccb1-4692-097d-08df24eb9f66
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000037AC.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4178
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261007-alpha-hugepages-v2-6-8e108af2d961@gmail.com>
+References: <20261007-alpha-hugepages-v2-0-8e108af2d961@gmail.com>
+In-Reply-To: <20261007-alpha-hugepages-v2-0-8e108af2d961@gmail.com>
+To: Richard Henderson <richard.henderson@linaro.org>, 
+ Magnus Lindholm <linmag7@gmail.com>, 
+ Axel Rasmussen <axelrasmussen@google.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, Peter Xu <peterx@redhat.com>
+Cc: linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Matt Turner <mattst88@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=14027; i=mattst88@gmail.com;
+ h=from:subject:message-id; bh=2Hy865asx9beZFJbj94kOJRO4va5CyxOEtlp2kyHVXU=;
+ b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLKO81xRZv/9+cj0uycvT35Y9XndsqPPlH4IKSteOreis
+ vGacFvTzY6PLAxiXAwzxRRZ4tYrssxq27HU57T0L5g5rEwgQ6RFGhiAgIWBLzcxr9RIx0jPVNtQ
+ zxDI0DGKh8jpMWhkFheXphbpphUUOeTllySWZObnFevlF6TmFaQX6KVlppVkZOQXFacCjdDLSy0
+ xdXV0MzI0MLF0tDBzsnA0NXF2djJ0cnN0dHZ1MrI0NzFwtnQ0cbU0Z+DiFIC55p0sw3+nLAaFC0
+ G5nhIyMnflA0KNr8gq/P9e++qqxcRqNTPjTSmMDM/kb/1zPCCcE81/XT1ndSKf2dHdS549P8b3a
+ RnnKt1ZgpwA
+X-Developer-Key: i=mattst88@gmail.com; a=openpgp;
+ fpr=3BB639E56F861FA2E86505690FDD682D974CA72A
 
-Add support for querying clock metadata, DPM frequency table, and
-hardware resource information for AIE4/NPU3 devices:
-- Move struct dpm_clk_freq and common clock/TOPS counters into struct
-  aie_device.
-- Add NPU3 DPM clock table, DPM control, and counter updates by querying
-  active DPM levels via AIE4_MSG_OP_GET_CURRENT_DPM_LEVEL.
-- Query AIE4 DPM frequency table from firmware via
-  AIE4_MSG_OP_GET_DPM_FREQ_TABLE.
+Alpha has no leaf entry above the last page table level, so the only
+huge pages it can offer are granularity hint blocks: 64KB, 512KB and 4MB
+with 8KB pages. Register all three as hstates, with 4MB as the default.
+There is no PMD sized huge page, hence no transparent huge pages, no PMD
+page table sharing and no gigantic pages.
 
-Co-developed-by: Soham Donwalkar <soham.donwalkar@amd.com>
-Signed-off-by: Soham Donwalkar <soham.donwalkar@amd.com>
-Signed-off-by: David Zhang <yidong.zhang@amd.com>
+As with arm64's contiguous PTEs, each PTE of a block keeps the frame
+number of its own page, so a block is written with set_ptes(). Each
+hstate's buddy order is its hint order, so a hugetlb folio is always
+naturally aligned physically, as the hint requires, including after a
+demote.
+
+All PTEs of a block must agree in bits <15:0> (note 2 of Table 22-3 of
+the Alpha Architecture Reference Manual), and both __ACCESS_BITS and
+__DIRTY_BITS reach into that range, so every update rewrites the whole
+block and huge_ptep_get() merges the young and dirty state back
+together. Rewriting a valid block in place would leave its PTEs
+disagreeing part way through, so changes to a valid block go through
+break before make, following the procedure in section 11.6.1.
+
+The hint is advisory, so this is safe on implementations that ignore it,
+and gup_fast needs no changes since it walks the individual PTEs.
+
+Enabling CONFIG_HUGETLB_PAGE derives pageblock_order from
+HUGETLB_PAGE_ORDER, which lowers it from 10 to 9 and so halves the
+anti-fragmentation and compaction granularity from 8MB to 4MB.
+
+Hugepage migration is left disabled, since it has not been tested.
+
+Co-developed-by: Magnus Lindholm <linmag7@gmail.com>
+Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
+Tested-by: Magnus Lindholm <linmag7@gmail.com>
+Signed-off-by: Matt Turner <mattst88@gmail.com>
 ---
- drivers/accel/amdxdna/aie.h           | 36 +++++++++++
- drivers/accel/amdxdna/aie2_pci.c      | 14 ++---
- drivers/accel/amdxdna/aie2_pci.h      | 35 +----------
- drivers/accel/amdxdna/aie2_pm.c       | 10 +--
- drivers/accel/amdxdna/aie4_message.c  | 88 +++++++++++++++++++++++++++
- drivers/accel/amdxdna/aie4_msg_priv.h | 31 ++++++++++
- drivers/accel/amdxdna/aie4_pci.c      | 82 ++++++++++++++++++++++++-
- drivers/accel/amdxdna/aie4_pci.h      | 12 ++++
- drivers/accel/amdxdna/npu1_regs.c     | 19 +++---
- drivers/accel/amdxdna/npu3_regs.c     | 78 ++++++++++++++++++++++++
- drivers/accel/amdxdna/npu4_regs.c     | 30 ++++-----
- 11 files changed, 367 insertions(+), 68 deletions(-)
+ arch/alpha/Kconfig               |   1 +
+ arch/alpha/include/asm/hugetlb.h |  43 ++++++
+ arch/alpha/include/asm/page.h    |  13 ++
+ arch/alpha/mm/Makefile           |   2 +
+ arch/alpha/mm/hugetlbpage.c      | 308 +++++++++++++++++++++++++++++++++++++++
+ 5 files changed, 367 insertions(+)
 
-diff --git a/drivers/accel/amdxdna/aie.h b/drivers/accel/amdxdna/aie.h
-index 899399756661..6268b708d17b 100644
---- a/drivers/accel/amdxdna/aie.h
-+++ b/drivers/accel/amdxdna/aie.h
-@@ -30,8 +30,44 @@ struct aie_device {
+diff --git a/arch/alpha/Kconfig b/arch/alpha/Kconfig
+index b5b02bb42aca..b2c359b947f6 100644
+--- a/arch/alpha/Kconfig
++++ b/arch/alpha/Kconfig
+@@ -19,6 +19,7 @@ config ALPHA
+ 	select ARCH_NO_PREEMPT
+ 	select ARCH_NO_SG_CHAIN
+ 	select ARCH_SUPPORTS_ATOMIC_RMW
++	select ARCH_SUPPORTS_HUGETLBFS
+ 	select ARCH_SUPPORTS_INT128 if CC_HAS_INT128
+ 	select ARCH_SUPPORTS_PAGE_TABLE_CHECK
+ 	select ARCH_USE_CMPXCHG_LOCKREF
+diff --git a/arch/alpha/include/asm/hugetlb.h b/arch/alpha/include/asm/hugetlb.h
+new file mode 100644
+index 000000000000..ff69e24c775d
+--- /dev/null
++++ b/arch/alpha/include/asm/hugetlb.h
+@@ -0,0 +1,43 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef _ALPHA_HUGETLB_H
++#define _ALPHA_HUGETLB_H
++
++#include <asm/page.h>
++
++pte_t arch_make_huge_pte(pte_t entry, unsigned int shift, vm_flags_t flags);
++#define arch_make_huge_pte arch_make_huge_pte
++
++#define __HAVE_ARCH_HUGE_PTEP_GET
++extern pte_t huge_ptep_get(struct mm_struct *mm, unsigned long addr,
++			   pte_t *ptep);
++#define __HAVE_ARCH_HUGE_SET_HUGE_PTE_AT
++extern void set_huge_pte_at(struct mm_struct *mm, unsigned long addr,
++			    pte_t *ptep, pte_t pte, unsigned long sz);
++#define __HAVE_ARCH_HUGE_PTEP_GET_AND_CLEAR
++extern pte_t huge_ptep_get_and_clear(struct mm_struct *mm, unsigned long addr,
++				     pte_t *ptep, unsigned long sz);
++#define __HAVE_ARCH_HUGE_PTEP_CLEAR_FLUSH
++extern pte_t huge_ptep_clear_flush(struct vm_area_struct *vma,
++				   unsigned long addr, pte_t *ptep);
++#define __HAVE_ARCH_HUGE_PTEP_SET_WRPROTECT
++extern void huge_ptep_set_wrprotect(struct mm_struct *mm, unsigned long addr,
++				    pte_t *ptep);
++#define __HAVE_ARCH_HUGE_PTEP_SET_ACCESS_FLAGS
++extern int huge_ptep_set_access_flags(struct vm_area_struct *vma,
++				      unsigned long addr, pte_t *ptep,
++				      pte_t pte, int dirty);
++#define __HAVE_ARCH_HUGE_PTE_CLEAR
++extern void huge_pte_clear(struct mm_struct *mm, unsigned long addr,
++			   pte_t *ptep, unsigned long sz);
++
++/*
++ * The generic version does not flush, which would leave the old translation
++ * live across a restrictive change to PTE bits <15:0>.
++ */
++#define huge_ptep_modify_prot_start huge_ptep_modify_prot_start
++extern pte_t huge_ptep_modify_prot_start(struct vm_area_struct *vma,
++					 unsigned long addr, pte_t *ptep);
++
++#include <asm-generic/hugetlb.h>
++
++#endif /* _ALPHA_HUGETLB_H */
+diff --git a/arch/alpha/include/asm/page.h b/arch/alpha/include/asm/page.h
+index 59d01f9b77f6..67053c52953f 100644
+--- a/arch/alpha/include/asm/page.h
++++ b/arch/alpha/include/asm/page.h
+@@ -6,6 +6,19 @@
+ #include <asm/pal.h>
+ #include <vdso/page.h>
  
- 	struct amdxdna_drm_query_aie_version version;
- 	struct amdxdna_drm_query_aie_metadata metadata;
-+
-+	u32 clk_gating;
-+	u32 npuclk_freq;
-+	u32 hclk_freq;
-+	u32 max_tops;
-+	u32 curr_tops;
-+};
-+
-+struct aie_hw_ops {
-+	int (*set_dpm)(struct aie_device *aie, u32 dpm_level);
-+	int (*update_counters)(struct aie_device *aie);
- };
- 
-+#define aie_update_counters(ndev)					\
-+({									\
-+	typeof(ndev) _ndev = ndev;					\
-+	if ((_ndev)->priv->hw_ops && (_ndev)->priv->hw_ops->update_counters) \
-+		(_ndev)->priv->hw_ops->update_counters(&(_ndev)->aie);	\
-+})
-+
-+struct dpm_clk_freq {
-+	u32	npuclk;
-+	u32	hclk;
-+};
-+
-+#include <linux/amd-pmf-io.h>
-+
-+#if IS_ENABLED(CONFIG_AMD_PMF)
-+#define AIE_GET_PMF_NPU_METRICS(metrics) amd_pmf_get_npu_data(metrics)
-+#else
-+#define AIE_GET_PMF_NPU_METRICS(metrics)				\
-+({									\
-+	typeof(metrics) _m = metrics;					\
-+	memset(_m, 0xff, sizeof(*_m));					\
-+	(-EOPNOTSUPP);							\
-+})
++#ifdef CONFIG_HUGETLB_PAGE
++/*
++ * The default huge page is the largest granularity hint block, 4MB. All
++ * three hint sizes are registered as hstates, hence HUGE_MAX_HSTATE, which
++ * linux/hugetlb.h needs before it includes asm/hugetlb.h.
++ */
++#define HPAGE_SHIFT		22
++#define HPAGE_SIZE		(_AC(1, UL) << HPAGE_SHIFT)
++#define HPAGE_MASK		(~(HPAGE_SIZE - 1))
++#define HUGETLB_PAGE_ORDER	(HPAGE_SHIFT - PAGE_SHIFT)
++#define HUGE_MAX_HSTATE		3
 +#endif
 +
- #define DECLARE_AIE_MSG(name, op) \
- 	DECLARE_XDNA_MSG_COMMON(name, op, -1)
- #define AIE_FEATURE_ON(aie, feature) test_bit(feature, &(aie)->feature_mask)
-diff --git a/drivers/accel/amdxdna/aie2_pci.c b/drivers/accel/amdxdna/aie2_pci.c
-index 62ee7deb6f92..29b6d6a3e0bd 100644
---- a/drivers/accel/amdxdna/aie2_pci.c
-+++ b/drivers/accel/amdxdna/aie2_pci.c
-@@ -295,7 +295,7 @@ static struct xrs_action_ops aie2_xrs_actions = {
+ #ifndef __ASSEMBLER__
  
- static void aie2_smu_fini(struct amdxdna_dev_hdl *ndev)
- {
--	ndev->priv->hw_ops->set_dpm(ndev, 0);
-+	ndev->priv->hw_ops->set_dpm(&ndev->aie, 0);
- 	aie_smu_fini(ndev->aie.smu_hdl);
- }
+ #define STRICT_MM_TYPECHECKS
+diff --git a/arch/alpha/mm/Makefile b/arch/alpha/mm/Makefile
+index 2d05664058f6..c022e55f231a 100644
+--- a/arch/alpha/mm/Makefile
++++ b/arch/alpha/mm/Makefile
+@@ -4,3 +4,5 @@
+ #
  
-@@ -717,12 +717,12 @@ static int aie2_get_clock_metadata(struct amdxdna_client *client,
- 	if (!clock)
- 		return -ENOMEM;
- 
--	aie2_update_counters(ndev);
-+	aie_update_counters(ndev);
- 	snprintf(clock->mp_npu_clock.name, sizeof(clock->mp_npu_clock.name),
- 		 "MP-NPU Clock");
--	clock->mp_npu_clock.freq_mhz = ndev->npuclk_freq;
-+	clock->mp_npu_clock.freq_mhz = ndev->aie.npuclk_freq;
- 	snprintf(clock->h_clock.name, sizeof(clock->h_clock.name), "H Clock");
--	clock->h_clock.freq_mhz = ndev->hclk_freq;
-+	clock->h_clock.freq_mhz = ndev->aie.hclk_freq;
- 
- 	buf_sz = min(args->buffer_size, sizeof(*clock));
- 	if (copy_to_user(u64_to_user_ptr(args->buffer), clock, buf_sz))
-@@ -878,11 +878,11 @@ static int aie2_query_resource_info(struct amdxdna_client *client,
- 	ndev = xdna->dev_handle;
- 	priv = ndev->priv;
- 
--	aie2_update_counters(ndev);
-+	aie_update_counters(ndev);
- 	res_info.npu_clk_max = priv->dpm_clk_tbl[ndev->max_dpm_level].hclk;
--	res_info.npu_tops_max = ndev->max_tops;
-+	res_info.npu_tops_max = ndev->aie.max_tops;
- 	res_info.npu_task_max = priv->hwctx_limit;
--	res_info.npu_tops_curr = ndev->curr_tops;
-+	res_info.npu_tops_curr = ndev->aie.curr_tops;
- 	res_info.npu_task_curr = ndev->hwctx_num;
- 
- 	buf_sz = min(args->buffer_size, sizeof(res_info));
-diff --git a/drivers/accel/amdxdna/aie2_pci.h b/drivers/accel/amdxdna/aie2_pci.h
-index b31f73082c17..709e7545c65f 100644
---- a/drivers/accel/amdxdna/aie2_pci.h
-+++ b/drivers/accel/amdxdna/aie2_pci.h
-@@ -40,8 +40,8 @@
- 	pci_resource_len(NDEV2PDEV(_ndev), (_ndev)->aie.xdna->dev_info->mbox_bar); \
- })
- 
-+#define AIE2_GET_PMF_NPU_METRICS(metrics) AIE_GET_PMF_NPU_METRICS(metrics)
- #if IS_ENABLED(CONFIG_AMD_PMF)
--#define AIE2_GET_PMF_NPU_METRICS(metrics) amd_pmf_get_npu_data(metrics)
- #define AIE2_GET_PMF_NPU_DATA(field, val)				\
- ({									\
- 	struct amd_pmf_npu_metrics _npu_metrics;			\
-@@ -52,13 +52,6 @@
- 	(_ret);								\
- })
- #else
--#define AIE2_GET_PMF_NPU_METRICS(metrics)				\
--({									\
--	typeof(metrics) _m = metrics;					\
--	memset(_m, 0xff, sizeof(*_m));					\
--	(-EOPNOTSUPP);							\
--})
--
- #define SENSOR_DEFAULT_npu_power	U32_MAX
- #define AIE2_GET_PMF_NPU_DATA(field, val)				\
- ({									\
-@@ -91,11 +84,6 @@ struct rt_config {
- 	unsigned long feature_mask;
- };
- 
--struct dpm_clk_freq {
--	u32	npuclk;
--	u32	hclk;
--};
--
- /*
-  * Define the maximum number of pending commands in a hardware context.
-  * Must be power of 2!
-@@ -158,11 +146,6 @@ struct amdxdna_dev_hdl {
- 	u32				dpm_level;
- 	u32				dft_dpm_level;
- 	u32				max_dpm_level;
--	u32				clk_gating;
--	u32				npuclk_freq;
--	u32				hclk_freq;
--	u32				max_tops;
--	u32				curr_tops;
- 	u32				force_preempt_enabled;
- 	u32				frame_boundary_preempt;
- 
-@@ -177,18 +160,6 @@ struct amdxdna_dev_hdl {
- 	unsigned long			last_signal_ts;
- };
- 
--struct aie2_hw_ops {
--	int (*set_dpm)(struct amdxdna_dev_hdl *ndev, u32 dpm_level);
--	int (*update_counters)(struct amdxdna_dev_hdl *ndev);
--};
--
--#define aie2_update_counters(ndev)				\
--({								\
--	typeof(ndev) _ndev = ndev;				\
--	if (_ndev->priv->hw_ops->update_counters)		\
--		_ndev->priv->hw_ops->update_counters(_ndev);	\
--})
--
- enum aie2_fw_feature {
- 	AIE2_NPU_COMMAND,
- 	AIE2_PREEMPT,
-@@ -219,7 +190,7 @@ struct amdxdna_dev_priv {
- 	struct aie_bar_off_pair		sram_offs[SRAM_MAX_INDEX];
- 	struct aie_bar_off_pair		psp_regs_off[PSP_MAX_REGS];
- 	struct aie_bar_off_pair		smu_regs_off[SMU_MAX_REGS];
--	const struct aie2_hw_ops	*hw_ops;
-+	const struct aie_hw_ops		*hw_ops;
- };
- 
- extern const struct amdxdna_dev_ops aie2_ops;
-@@ -234,7 +205,7 @@ extern const struct rt_config npu1_default_rt_cfg[];
- extern const struct rt_config npu4_default_rt_cfg[];
- extern const struct amdxdna_fw_feature_tbl npu4_fw_feature_table[];
- extern const struct amdxdna_rev_vbnv npu4_rev_vbnv_tbl[];
--extern const struct aie2_hw_ops npu4_hw_ops;
-+extern const struct aie_hw_ops npu4_hw_ops;
- 
- /* aie2_pm.c */
- int aie2_pm_init(struct amdxdna_dev_hdl *ndev);
-diff --git a/drivers/accel/amdxdna/aie2_pm.c b/drivers/accel/amdxdna/aie2_pm.c
-index 4fe6030d2c41..f4ced7b67c25 100644
---- a/drivers/accel/amdxdna/aie2_pm.c
-+++ b/drivers/accel/amdxdna/aie2_pm.c
-@@ -23,7 +23,7 @@ static int aie2_pm_set_clk_gating(struct amdxdna_dev_hdl *ndev, u32 val)
- 	if (ret)
- 		return ret;
- 
--	ndev->clk_gating = val;
-+	ndev->aie.clk_gating = val;
- 	return 0;
- }
- 
-@@ -35,7 +35,7 @@ int aie2_pm_set_dpm(struct amdxdna_dev_hdl *ndev, u32 dpm_level)
- 	if (ret)
- 		return ret;
- 
--	ret = ndev->priv->hw_ops->set_dpm(ndev, dpm_level);
-+	ret = ndev->priv->hw_ops->set_dpm(&ndev->aie, dpm_level);
- 	if (!ret)
- 		ndev->dpm_level = dpm_level;
- 	amdxdna_pm_suspend_put(ndev->aie.xdna);
-@@ -49,11 +49,11 @@ int aie2_pm_init(struct amdxdna_dev_hdl *ndev)
- 
- 	if (ndev->dev_status != AIE2_DEV_UNINIT) {
- 		/* Resume device */
--		ret = ndev->priv->hw_ops->set_dpm(ndev, ndev->dpm_level);
-+		ret = ndev->priv->hw_ops->set_dpm(&ndev->aie, ndev->dpm_level);
- 		if (ret)
- 			return ret;
- 
--		ret = aie2_pm_set_clk_gating(ndev, ndev->clk_gating);
-+		ret = aie2_pm_set_clk_gating(ndev, ndev->aie.clk_gating);
- 		if (ret)
- 			return ret;
- 
-@@ -64,7 +64,7 @@ int aie2_pm_init(struct amdxdna_dev_hdl *ndev)
- 		ndev->max_dpm_level++;
- 	ndev->max_dpm_level--;
- 
--	ret = ndev->priv->hw_ops->set_dpm(ndev, ndev->max_dpm_level);
-+	ret = ndev->priv->hw_ops->set_dpm(&ndev->aie, ndev->max_dpm_level);
- 	if (ret)
- 		return ret;
- 	ndev->dpm_level = ndev->max_dpm_level;
-diff --git a/drivers/accel/amdxdna/aie4_message.c b/drivers/accel/amdxdna/aie4_message.c
-index 25a510bd7419..7112b0bc3725 100644
---- a/drivers/accel/amdxdna/aie4_message.c
-+++ b/drivers/accel/amdxdna/aie4_message.c
-@@ -140,6 +140,94 @@ int aie4_query_cert_firmware_version(struct amdxdna_dev_hdl *ndev,
- 	return 0;
- }
- 
-+int aie4_init_dpm_freq_table(struct amdxdna_dev_hdl *ndev)
+ obj-y	:= init.o fault.o tlbflush.o
++
++obj-$(CONFIG_HUGETLB_PAGE) += hugetlbpage.o
+diff --git a/arch/alpha/mm/hugetlbpage.c b/arch/alpha/mm/hugetlbpage.c
+new file mode 100644
+index 000000000000..ca36af4667dc
+--- /dev/null
++++ b/arch/alpha/mm/hugetlbpage.c
+@@ -0,0 +1,308 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Alpha huge page support, built on the page table entry granularity hint
++ * described in asm/pgtable.h. All PTEs of a block have to agree in bits
++ * <15:0>, so every update below rewrites the whole block.
++ */
++
++#include <linux/hugetlb.h>
++#include <linux/mm.h>
++#include <linux/pgtable.h>
++
++#include <asm/tlbflush.h>
++
++/*
++ * Every hint size is smaller than PMD_SIZE, so a block always fits inside a
++ * single last level page table and its entry count is just its page count.
++ */
++static inline unsigned long num_contig_ptes(unsigned long sz)
 +{
-+	DECLARE_AIE_MSG(aie4_msg_get_dpm_freq_table, AIE4_MSG_OP_GET_DPM_FREQ_TABLE);
-+	struct amdxdna_dev *xdna = ndev->aie.xdna;
-+	u32 aie_levels, npu_levels, i;
-+	int ret;
++	return sz >> PAGE_SHIFT;
++}
 +
-+	for (i = 0; i < AIE4_MAX_DPM_LEVEL_COUNT && ndev->priv->dpm_clk_tbl &&
-+	     ndev->priv->dpm_clk_tbl[i].hclk; i++)
-+		ndev->dpm_clk_tbl[i] = ndev->priv->dpm_clk_tbl[i];
-+	ndev->max_aieclk_level = i ? i - 1 : 0;
-+	ndev->max_npuhclk_level = i ? i - 1 : 0;
++/* Hint order that maps @sz, or 0 if @sz is not a hint size. */
++static unsigned int gh_order_from_size(unsigned long sz)
++{
++	unsigned int order;
 +
-+	ret = aie_send_mgmt_msg_wait(&ndev->aie, &msg);
-+	if (ret) {
-+		XDNA_WARN(xdna, "Get DPM freq table failed, ret %d status 0x%x",
-+			  ret, resp.status);
-+		return ret;
-+	}
-+
-+	aie_levels = resp.aieclk_table.num_levels;
-+	npu_levels = resp.npuhclk_table.num_levels;
-+
-+	if (!aie_levels || !npu_levels ||
-+	    aie_levels > AIE4_MAX_DPM_LEVEL_COUNT ||
-+	    npu_levels > AIE4_MAX_DPM_LEVEL_COUNT) {
-+		XDNA_ERR(xdna, "invalid dpm levels, aieclk: %u, npuhclk: %u",
-+			 aie_levels, npu_levels);
-+		return -EINVAL;
-+	}
-+
-+	for (i = 0; i < aie_levels; i++) {
-+		if (!resp.aieclk_table.values[i]) {
-+			XDNA_ERR(xdna, "invalid dpm aieclk frequency 0 at level %u", i);
-+			return -EINVAL;
-+		}
-+	}
-+
-+	for (i = 0; i < npu_levels; i++) {
-+		if (!resp.npuhclk_table.values[i]) {
-+			XDNA_ERR(xdna, "invalid dpm npuhclk frequency 0 at level %u", i);
-+			return -EINVAL;
-+		}
-+	}
-+
-+	memset(ndev->dpm_clk_tbl, 0, sizeof(ndev->dpm_clk_tbl));
-+	for (i = 0; i < aie_levels; i++)
-+		ndev->dpm_clk_tbl[i].npuclk = resp.aieclk_table.values[i];
-+
-+	for (i = 0; i < npu_levels; i++)
-+		ndev->dpm_clk_tbl[i].hclk = resp.npuhclk_table.values[i];
-+
-+	ndev->max_aieclk_level = aie_levels - 1;
-+	ndev->max_npuhclk_level = npu_levels - 1;
++	for_each_gh_order(order)
++		if (gh_cont_size(order) == sz)
++			return order;
 +
 +	return 0;
 +}
 +
-+int aie4_query_dpm_level(struct amdxdna_dev_hdl *ndev,
-+			 u32 *aieclk_dpm_level, u32 *npuhclk_dpm_level)
++pte_t *huge_pte_alloc(struct mm_struct *mm, struct vm_area_struct *vma,
++		      unsigned long addr, unsigned long sz)
 +{
-+	DECLARE_AIE_MSG(aie4_msg_get_dpm_level, AIE4_MSG_OP_GET_CURRENT_DPM_LEVEL);
-+	struct amdxdna_dev *xdna = ndev->aie.xdna;
-+	int ret;
++	unsigned int order = gh_order_from_size(sz);
++	pgd_t *pgd;
++	p4d_t *p4d;
++	pud_t *pud;
++	pmd_t *pmd;
 +
-+	ret = aie_send_mgmt_msg_wait(&ndev->aie, &msg);
-+	if (ret)
-+		return ret;
++	if (!order)
++		return NULL;
++
++	pgd = pgd_offset(mm, addr);
++	p4d = p4d_alloc(mm, pgd, addr);
++	if (!p4d)
++		return NULL;
++
++	pud = pud_alloc(mm, p4d, addr);
++	if (!pud)
++		return NULL;
++
++	pmd = pmd_alloc(mm, pud, addr);
++	if (!pmd)
++		return NULL;
++
++	return pte_alloc_huge(mm, pmd, addr & gh_cont_mask(order));
++}
++
++pte_t *huge_pte_offset(struct mm_struct *mm, unsigned long addr,
++		       unsigned long sz)
++{
++	unsigned int order = gh_order_from_size(sz);
++	pgd_t *pgd;
++	p4d_t *p4d;
++	pud_t *pud;
++	pmd_t *pmd;
++
++	if (!order)
++		return NULL;
++
++	pgd = pgd_offset(mm, addr);
++	if (!pgd_present(pgdp_get(pgd)))
++		return NULL;
++
++	p4d = p4d_offset(pgd, addr);
++	if (!p4d_present(p4dp_get(p4d)))
++		return NULL;
++
++	pud = pud_offset(p4d, addr);
++	if (!pud_present(pudp_get(pud)))
++		return NULL;
++
++	pmd = pmd_offset(pud, addr);
++	if (!pmd_present(pmdp_get(pmd)))
++		return NULL;
++
++	return pte_offset_huge(pmd, addr & gh_cont_mask(order));
++}
++
++/*
++ * A block is only as large as its own hint, so the walk can skip to the end of
++ * the containing last level page table but no further.
++ */
++unsigned long hugetlb_mask_last_page(struct hstate *h)
++{
++	return PMD_SIZE - huge_page_size(h);
++}
++
++pte_t huge_ptep_get(struct mm_struct *mm, unsigned long addr, pte_t *ptep)
++{
++	pte_t orig_pte = ptep_get(ptep);
++	unsigned long i, ncontig;
++
++	/* Swap, migration and marker entries carry no hint. */
++	if (!pte_huge(orig_pte))
++		return orig_pte;
++
++	ncontig = gh_pte_num(pte_gh_order(orig_pte));
++
++	for (i = 0; i < ncontig; i++, ptep++) {
++		pte_t pte = ptep_get(ptep);
++
++		if (pte_dirty(pte))
++			orig_pte = pte_mkdirty(orig_pte);
++		if (pte_young(pte))
++			orig_pte = pte_mkyoung(orig_pte);
++	}
++
++	return orig_pte;
++}
++
++static pte_t get_clear_contig(struct mm_struct *mm, unsigned long addr,
++			      pte_t *ptep, unsigned long ncontig)
++{
++	pte_t pte = ptep_get_and_clear(mm, addr, ptep);
++	bool present = pte_present(pte);
++
++	while (--ncontig) {
++		pte_t tmp_pte;
++
++		ptep++;
++		addr += PAGE_SIZE;
++		tmp_pte = ptep_get_and_clear(mm, addr, ptep);
++		if (present) {
++			if (pte_dirty(tmp_pte))
++				pte = pte_mkdirty(pte);
++			if (pte_young(tmp_pte))
++				pte = pte_mkyoung(pte);
++		}
++	}
++
++	return pte;
++}
++
++static pte_t get_clear_contig_flush(struct mm_struct *mm, unsigned long addr,
++				    pte_t *ptep, unsigned long ncontig)
++{
++	pte_t orig_pte = get_clear_contig(mm, addr, ptep, ncontig);
++	struct vm_area_struct vma = TLB_FLUSH_VMA(mm, 0);
++
++	if (!pte_none(orig_pte))
++		flush_tlb_range(&vma, addr, addr + ncontig * PAGE_SIZE);
++
++	return orig_pte;
++}
++
++pte_t arch_make_huge_pte(pte_t entry, unsigned int shift, vm_flags_t flags)
++{
++	unsigned int order = gh_order_from_size(1UL << shift);
 +
 +	/*
-+	 * Validate against ndev->max_aieclk_level and ndev->max_npuhclk_level
-+	 * to ensure reported levels index into populated entries in dpm_clk_tbl.
++	 * Not every caller asks for a size Alpha can hint; mm/debug_vm_pgtable.c
++	 * probes with PMD_SHIFT. Leave the entry alone rather than complaining.
 +	 */
-+	if (resp.aieclk_dpm_level > ndev->max_aieclk_level ||
-+	    resp.npuhclk_dpm_level > ndev->max_npuhclk_level) {
-+		XDNA_ERR(xdna,
-+			 "invalid dpm level, aie: %u/%u, npu: %u/%u",
-+			 resp.aieclk_dpm_level, ndev->max_aieclk_level,
-+			 resp.npuhclk_dpm_level, ndev->max_npuhclk_level);
-+		return -EINVAL;
++	if (order)
++		entry = pte_mkgh(entry, order);
++
++	return entry;
++}
++
++void set_huge_pte_at(struct mm_struct *mm, unsigned long addr, pte_t *ptep,
++		     pte_t pte, unsigned long sz)
++{
++	unsigned long i, ncontig = num_contig_ptes(sz);
++
++	/* The hint requires the block to be naturally aligned in the VA too. */
++	VM_WARN_ON_ONCE(addr & (sz - 1));
++
++	if (!pte_present(pte)) {
++		/*
++		 * Swap, migration and marker entries hold no frame number, so
++		 * every slot gets the same value.
++		 */
++		for (i = 0; i < ncontig; i++, ptep++, addr += PAGE_SIZE)
++			set_ptes(mm, addr, ptep, pte, 1);
++		return;
 +	}
 +
-+	*aieclk_dpm_level = resp.aieclk_dpm_level;
-+	*npuhclk_dpm_level = resp.npuhclk_dpm_level;
++	/*
++	 * All PTEs of a block must agree in bits <15:0> (ARM Table 22-3, note
++	 * 2), which rewriting a valid block in place would violate part way
++	 * through. Invalidate it everywhere first, following ARM 11.6.1: the
++	 * invalidate has to assume the hint is zero, so it must cover every
++	 * page of the block.
++	 */
++	if (pte_present(ptep_get(ptep)))
++		get_clear_contig_flush(mm, addr, ptep, ncontig);
++
++	/* set_ptes() advances the frame number for each entry. */
++	set_ptes(mm, addr, ptep, pte, ncontig);
++}
++
++pte_t huge_ptep_get_and_clear(struct mm_struct *mm, unsigned long addr,
++			      pte_t *ptep, unsigned long sz)
++{
++	return get_clear_contig(mm, addr, ptep, num_contig_ptes(sz));
++}
++
++/*
++ * The block size comes from the hstate rather than from the entry, because
++ * this is also reached for non-present entries, which carry no hint.
++ */
++pte_t huge_ptep_clear_flush(struct vm_area_struct *vma, unsigned long addr,
++			    pte_t *ptep)
++{
++	unsigned long sz = huge_page_size(hstate_vma(vma));
++
++	return get_clear_contig_flush(vma->vm_mm, addr, ptep,
++				      num_contig_ptes(sz));
++}
++
++pte_t huge_ptep_modify_prot_start(struct vm_area_struct *vma, unsigned long addr,
++				  pte_t *ptep)
++{
++	return huge_ptep_clear_flush(vma, addr, ptep);
++}
++
++/* True if any entry of the block differs from @pte outside the frame number. */
++static bool gh_access_flags_changed(pte_t *ptep, pte_t pte,
++				    unsigned long ncontig)
++{
++	unsigned long i;
++
++	for (i = 0; i < ncontig; i++)
++		if ((pte_val(ptep_get(ptep + i)) ^ pte_val(pte)) & ~_PFN_MASK)
++			return true;
++
++	return false;
++}
++
++int huge_ptep_set_access_flags(struct vm_area_struct *vma, unsigned long addr,
++			       pte_t *ptep, pte_t pte, int dirty)
++{
++	struct mm_struct *mm = vma->vm_mm;
++	unsigned long sz = huge_page_size(hstate_vma(vma));
++	unsigned long ncontig = num_contig_ptes(sz);
++	pte_t orig_pte = huge_ptep_get(mm, addr, ptep);
++
++	/* Keep the young and dirty state the block already has. */
++	if (pte_dirty(orig_pte))
++		pte = pte_mkdirty(pte);
++	if (pte_young(orig_pte))
++		pte = pte_mkyoung(pte);
++
++	/* Breaking an unchanged block only makes concurrent touchers refault. */
++	if (!gh_access_flags_changed(ptep, pte, ncontig))
++		return 0;
++
++	get_clear_contig_flush(mm, addr, ptep, ncontig);
++	set_ptes(mm, addr, ptep, pte, ncontig);
++
++	return 1;
++}
++
++void huge_ptep_set_wrprotect(struct mm_struct *mm, unsigned long addr,
++			     pte_t *ptep)
++{
++	pte_t pte = ptep_get(ptep);
++	unsigned long ncontig = gh_pte_num(pte_gh_order(pte));
++
++	VM_WARN_ON_ONCE(!pte_huge(pte));
++
++	/*
++	 * pte_wrprotect() sets _PAGE_FOW, which lives in the bits the whole
++	 * block must agree on, so this takes the break before make path.
++	 */
++	pte = pte_wrprotect(get_clear_contig_flush(mm, addr, ptep, ncontig));
++	set_ptes(mm, addr, ptep, pte, ncontig);
++}
++
++void huge_pte_clear(struct mm_struct *mm, unsigned long addr, pte_t *ptep,
++		    unsigned long sz)
++{
++	unsigned long i, ncontig = num_contig_ptes(sz);
++
++	for (i = 0; i < ncontig; i++, addr += PAGE_SIZE, ptep++)
++		pte_clear(mm, addr, ptep);
++}
++
++bool __init arch_hugetlb_valid_size(unsigned long size)
++{
++	return gh_order_from_size(size) != 0;
++}
++
++static __init int alpha_hugetlbpage_init(void)
++{
++	unsigned int order;
++
++	for_each_gh_order(order)
++		hugetlb_add_hstate(gh_cont_shift(order) - PAGE_SHIFT);
 +
 +	return 0;
 +}
-+
- int aie4_attach_work_buffer(struct amdxdna_dev_hdl *ndev)
- {
- 	DECLARE_AIE_MSG(aie4_msg_attach_work_buffer, AIE4_MSG_OP_ATTACH_WORK_BUFFER);
-diff --git a/drivers/accel/amdxdna/aie4_msg_priv.h b/drivers/accel/amdxdna/aie4_msg_priv.h
-index 4c06792df1bd..fe78df9e23c8 100644
---- a/drivers/accel/amdxdna/aie4_msg_priv.h
-+++ b/drivers/accel/amdxdna/aie4_msg_priv.h
-@@ -24,6 +24,8 @@ enum aie4_msg_opcode {
- 	AIE4_MSG_OP_AIE_TILE_INFO                    = 0x30006,
- 	AIE4_MSG_OP_AIE_VERSION_INFO                 = 0x30007,
- 	AIE4_MSG_OP_POWER_OVERRIDE                   = 0x3000B,
-+	AIE4_MSG_OP_GET_DPM_FREQ_TABLE               = 0x30012,
-+	AIE4_MSG_OP_GET_CURRENT_DPM_LEVEL            = 0x30013,
- 
- 	AIE4_MSG_OP_ATTACH_WORK_BUFFER               = 0x40001,
- };
-@@ -196,6 +198,35 @@ struct aie4_msg_power_override_resp {
- 	enum aie4_msg_status status;
- } __packed;
- 
-+#define AIE4_MAX_DPM_LEVEL_COUNT	10
-+
-+struct aie4_dpm_table {
-+	__u32 num_levels;
-+	__u32 values[AIE4_MAX_DPM_LEVEL_COUNT];
-+} __packed;
-+
-+/* AIE4_MSG_OP_GET_DPM_FREQ_TABLE */
-+struct aie4_msg_get_dpm_freq_table_req {
-+	__u32 rsvd;
-+} __packed;
-+
-+struct aie4_msg_get_dpm_freq_table_resp {
-+	enum aie4_msg_status status;
-+	struct aie4_dpm_table aieclk_table;
-+	struct aie4_dpm_table npuhclk_table;
-+} __packed;
-+
-+/* AIE4_MSG_OP_GET_CURRENT_DPM_LEVEL */
-+struct aie4_msg_get_dpm_level_req {
-+	__u32 rsvd;
-+} __packed;
-+
-+struct aie4_msg_get_dpm_level_resp {
-+	enum aie4_msg_status status;
-+	__u32 aieclk_dpm_level;
-+	__u32 npuhclk_dpm_level;
-+} __packed;
-+
- #define AIE4_WORK_BUFFER_MIN_SIZE      SZ_4M
- 
- struct aie4_msg_attach_work_buffer_req {
-diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie4_pci.c
-index c905dc75c076..fdcf6b8602e9 100644
---- a/drivers/accel/amdxdna/aie4_pci.c
-+++ b/drivers/accel/amdxdna/aie4_pci.c
-@@ -298,6 +298,17 @@ static int aie4_query(struct amdxdna_dev_hdl *ndev)
- 	if (ret)
- 		return ret;
- 
-+	ndev->total_col = min_t(u32, AIE4_TOTAL_COLUMN, ndev->aie.metadata.cols);
-+
-+	ret = aie4_init_dpm_freq_table(ndev);
-+	if (ret) {
-+		if (ret == -ETIME)
-+			return ret;
-+		/* if query dpm from fw failed, using default value */
-+		if (ndev->priv->hw_ops && ndev->priv->hw_ops->set_dpm)
-+			(void)ndev->priv->hw_ops->set_dpm(&ndev->aie, 0);
-+	}
-+
- 	return 0;
- }
- 
-@@ -634,11 +645,71 @@ static int aie4_get_power_mode(struct amdxdna_client *client,
- 	return 0;
- }
- 
-+static int aie4_query_clock_metadata(struct amdxdna_client *client,
-+				     struct amdxdna_drm_get_info *args)
-+{
-+	struct amdxdna_drm_query_clock_metadata *clock;
-+	struct amdxdna_dev *xdna = client->xdna;
-+	struct amdxdna_dev_hdl *ndev;
-+	int ret = 0;
-+	u32 buf_sz;
-+
-+	ndev = xdna->dev_handle;
-+	clock = kzalloc_obj(*clock);
-+	if (!clock)
-+		return -ENOMEM;
-+
-+	aie_update_counters(ndev);
-+	snprintf(clock->mp_npu_clock.name, sizeof(clock->mp_npu_clock.name),
-+		 "MP-NPU Clock");
-+	clock->mp_npu_clock.freq_mhz = ndev->aie.npuclk_freq;
-+	snprintf(clock->h_clock.name, sizeof(clock->h_clock.name), "H Clock");
-+	clock->h_clock.freq_mhz = ndev->aie.hclk_freq;
-+
-+	buf_sz = min_t(u32, args->buffer_size, sizeof(*clock));
-+	if (copy_to_user(u64_to_user_ptr(args->buffer), clock, buf_sz))
-+		ret = -EFAULT;
-+
-+	kfree(clock);
-+	return ret;
-+}
-+
-+static int aie4_query_resource_info(struct amdxdna_client *client,
-+				    struct amdxdna_drm_get_info *args)
-+{
-+	struct amdxdna_drm_get_resource_info res_info = {};
-+	struct amdxdna_dev_hdl *ndev;
-+	struct amdxdna_dev *xdna;
-+	u32 buf_sz;
-+
-+	xdna = client->xdna;
-+	ndev = xdna->dev_handle;
-+
-+	aie_update_counters(ndev);
-+	res_info.npu_clk_max = ndev->dpm_clk_tbl[ndev->max_npuhclk_level].hclk;
-+	res_info.npu_tops_max = ndev->aie.max_tops;
-+	res_info.npu_tops_curr = ndev->aie.curr_tops;
-+	/* Context accounting is populated in later patches in the series. */
-+
-+	buf_sz = min_t(u32, args->buffer_size, sizeof(res_info));
-+	if (copy_to_user(u64_to_user_ptr(args->buffer), &res_info, buf_sz))
-+		return -EFAULT;
-+
-+	return 0;
-+}
-+
- static int aie4_get_info(struct amdxdna_client *client, struct amdxdna_drm_get_info *args)
- {
- 	struct amdxdna_dev *xdna = client->xdna;
- 	struct amdxdna_dev_hdl *ndev = xdna->dev_handle;
--	int ret;
-+	int ret, idx;
-+
-+	if (!drm_dev_enter(&xdna->ddev, &idx))
-+		return -ENODEV;
-+
-+	ret = amdxdna_pm_resume_get_locked(xdna);
-+	if (ret)
-+		goto dev_exit;
- 
- 	switch (args->param) {
- 	case DRM_AMDXDNA_QUERY_AIE_METADATA:
-@@ -647,19 +718,28 @@ static int aie4_get_info(struct amdxdna_client *client, struct amdxdna_drm_get_i
- 	case DRM_AMDXDNA_QUERY_AIE_VERSION:
- 		ret = amdxdna_get_aie_version(client, args, &ndev->aie.version);
- 		break;
-+	case DRM_AMDXDNA_QUERY_CLOCK_METADATA:
-+		ret = aie4_query_clock_metadata(client, args);
-+		break;
- 	case DRM_AMDXDNA_QUERY_FIRMWARE_VERSION:
- 		ret = amdxdna_get_firmware_version(client, args, &xdna->fw_ver);
- 		break;
- 	case DRM_AMDXDNA_GET_POWER_MODE:
- 		ret = aie4_get_power_mode(client, args);
- 		break;
-+	case DRM_AMDXDNA_QUERY_RESOURCE_INFO:
-+		ret = aie4_query_resource_info(client, args);
-+		break;
- 	default:
- 		XDNA_ERR(xdna, "Not supported request parameter %u", args->param);
- 		ret = -EOPNOTSUPP;
- 	}
- 
-+	amdxdna_pm_suspend_put(xdna);
- 	XDNA_DBG(xdna, "Got param %d", args->param);
- 
-+dev_exit:
-+	drm_dev_exit(idx);
- 	return ret;
- }
- 
-diff --git a/drivers/accel/amdxdna/aie4_pci.h b/drivers/accel/amdxdna/aie4_pci.h
-index fd2c50dc8080..6e9e7f874a44 100644
---- a/drivers/accel/amdxdna/aie4_pci.h
-+++ b/drivers/accel/amdxdna/aie4_pci.h
-@@ -11,6 +11,7 @@
- #include <linux/pci.h>
- 
- #include "aie.h"
-+#include "aie4_msg_priv.h"
- #include "amdxdna_mailbox.h"
- 
- struct cert_comp {
-@@ -40,6 +41,9 @@ struct amdxdna_dev_priv {
- 
- 	struct aie_bar_off_pair	psp_regs_off[PSP_MAX_REGS];
- 	struct aie_bar_off_pair	smu_regs_off[SMU_MAX_REGS];
-+
-+	const struct dpm_clk_freq	*dpm_clk_tbl;
-+	const struct aie_hw_ops		*hw_ops;
- };
- 
- struct amdxdna_dev_hdl {
-@@ -50,6 +54,11 @@ struct amdxdna_dev_hdl {
- 
- 	struct mailbox			*mbox;
- 	u32				partition_id;
-+	u32				total_col;
-+	u32				max_aieclk_level;
-+	u32				max_npuhclk_level;
-+
-+	struct dpm_clk_freq		dpm_clk_tbl[AIE4_MAX_DPM_LEVEL_COUNT];
- 
- 	struct xarray                   cert_comp_xa; /* device level indexed by msix id */
- 	struct mutex                    cert_comp_lock; /* protects cert_comp operations*/
-@@ -79,6 +88,9 @@ int aie4_query_npu_firmware_version(struct amdxdna_dev_hdl *ndev,
- 				    struct amdxdna_drm_query_firmware_version *fw_version);
- int aie4_query_cert_firmware_version(struct amdxdna_dev_hdl *ndev,
- 				     struct amdxdna_drm_query_firmware_version *cert_version);
-+int aie4_init_dpm_freq_table(struct amdxdna_dev_hdl *ndev);
-+int aie4_query_dpm_level(struct amdxdna_dev_hdl *ndev,
-+			 u32 *aieclk_dpm_level, u32 *npuhclk_dpm_level);
- int aie4_msg_set_power_mode(struct amdxdna_dev_hdl *ndev, u8 power_mode);
- u32 aie4_msg_pasid(struct amdxdna_client *client);
- 
-diff --git a/drivers/accel/amdxdna/npu1_regs.c b/drivers/accel/amdxdna/npu1_regs.c
-index ca779674017a..b4a0ede636f0 100644
---- a/drivers/accel/amdxdna/npu1_regs.c
-+++ b/drivers/accel/amdxdna/npu1_regs.c
-@@ -71,24 +71,25 @@ static const struct amdxdna_fw_feature_tbl npu1_fw_feature_table[] = {
- 	{ 0 }
- };
- 
--static int npu1_set_dpm(struct amdxdna_dev_hdl *ndev, u32 dpm_level)
-+static int npu1_set_dpm(struct aie_device *aie, u32 dpm_level)
- {
-+	struct amdxdna_dev_hdl *ndev = aie->xdna->dev_handle;
- 	u32 npuclk, hclk;
- 	int ret;
- 
- 	npuclk = ndev->priv->dpm_clk_tbl[dpm_level].npuclk;
- 	hclk = ndev->priv->dpm_clk_tbl[dpm_level].hclk;
--	ret = aie_smu_set_clocks(ndev->aie.smu_hdl, &npuclk, &hclk);
-+	ret = aie_smu_set_clocks(aie->smu_hdl, &npuclk, &hclk);
- 	if (ret)
- 		return ret;
- 
--	ndev->npuclk_freq = npuclk;
--	ndev->hclk_freq = hclk;
--	ndev->max_tops = 2 * ndev->total_col;
--	ndev->curr_tops = ndev->max_tops * hclk / 1028;
-+	aie->npuclk_freq = npuclk;
-+	aie->hclk_freq = hclk;
-+	aie->max_tops = 2 * ndev->total_col;
-+	aie->curr_tops = aie->max_tops * hclk / 1028;
- 
--	XDNA_DBG(ndev->aie.xdna, "MP-NPU clock %d, H clock %d\n",
--		 ndev->npuclk_freq, ndev->hclk_freq);
-+	XDNA_DBG(aie->xdna, "MP-NPU clock %d, H clock %d\n",
-+		 aie->npuclk_freq, aie->hclk_freq);
- 	return 0;
- }
- 
-@@ -123,7 +124,7 @@ static const struct amdxdna_dev_priv npu1_dev_priv = {
- 		DEFINE_BAR_OFFSET(SMU_RESP_REG, NPU1_SMU, MPNPU_PUB_SCRATCH6),
- 		DEFINE_BAR_OFFSET(SMU_OUT_REG,  NPU1_SMU, MPNPU_PUB_SCRATCH7),
- 	},
--	.hw_ops		= &(const struct aie2_hw_ops) {
-+	.hw_ops		= &(const struct aie_hw_ops) {
- 		.set_dpm = npu1_set_dpm,
- 	},
- };
-diff --git a/drivers/accel/amdxdna/npu3_regs.c b/drivers/accel/amdxdna/npu3_regs.c
-index c82433d62901..cff99ddd3a55 100644
---- a/drivers/accel/amdxdna/npu3_regs.c
-+++ b/drivers/accel/amdxdna/npu3_regs.c
-@@ -37,6 +37,8 @@
- #define MP1_C2PMSG_61_ALT_1     0x3B109F4
- #define MP1_C2PMSG_60_ALT_1     0x3B109F0
- 
-+#define NPU3_DPM_TOPS(ndev, hclk) (4096 * (ndev)->total_col * (hclk) / 1000000)
-+
- static const struct amdxdna_fw_feature_tbl npu3_fw_feature_table[] = {
- 	{ .major = 6, .min_minor = 0 },
- 	{ 0 }
-@@ -47,9 +49,82 @@ static const struct amdxdna_fw_feature_tbl npu3_cert_feature_table[] = {
- 	{ 0 }
- };
- 
-+static const struct dpm_clk_freq npu3_dpm_clk_table[] = {
-+	{  400,  400 },
-+	{  960,  576 },
-+	{ 1108,  576 },
-+	{ 1200,  847 },
-+	{ 1200, 1200 },
-+	{ 1200, 1200 },
-+	{ 1200, 1200 },
-+	{ 1200, 1200 },
-+	{ 0 }
-+};
-+
-+static int npu3_set_dpm(struct aie_device *aie, u32 dpm_level)
-+{
-+	struct amdxdna_dev_hdl *ndev = aie->xdna->dev_handle;
-+	u32 aie_lvl, npu_lvl;
-+
-+	if (dpm_level > max(ndev->max_aieclk_level, ndev->max_npuhclk_level)) {
-+		XDNA_ERR(aie->xdna, "Invalid dpm level %u (max aie %u, npu %u)",
-+			 dpm_level, ndev->max_aieclk_level, ndev->max_npuhclk_level);
-+		return -EINVAL;
-+	}
-+
-+	aie_lvl = min(dpm_level, ndev->max_aieclk_level);
-+	npu_lvl = min(dpm_level, ndev->max_npuhclk_level);
-+
-+	aie->npuclk_freq = ndev->dpm_clk_tbl[aie_lvl].npuclk;
-+	aie->hclk_freq = ndev->dpm_clk_tbl[npu_lvl].hclk;
-+	aie->max_tops = NPU3_DPM_TOPS(ndev, ndev->dpm_clk_tbl[ndev->max_npuhclk_level].hclk);
-+	aie->curr_tops = NPU3_DPM_TOPS(ndev, aie->hclk_freq);
-+
-+	XDNA_DBG(aie->xdna, "MP-NPU clock %d, H clock %d\n",
-+		 aie->npuclk_freq, aie->hclk_freq);
-+
-+	return 0;
-+}
-+
-+static int npu3_update_counters(struct aie_device *aie)
-+{
-+	struct amdxdna_dev_hdl *ndev = aie->xdna->dev_handle;
-+	u32 aieclk_level, npuhclk_level;
-+	int ret;
-+
-+	/* Use firmware DPM table or pre-defined table, never mixed. */
-+	ret = aie4_query_dpm_level(ndev, &aieclk_level, &npuhclk_level);
-+	if (ret) {
-+		XDNA_WARN(aie->xdna, "Failed to get DPM level from fw: %d", ret);
-+		return ret;
-+	}
-+
-+	if (aieclk_level > ndev->max_aieclk_level ||
-+	    npuhclk_level > ndev->max_npuhclk_level) {
-+		XDNA_ERR(aie->xdna, "DPM level exceeds max: aie %u/%u, npu %u/%u",
-+			 aieclk_level, ndev->max_aieclk_level,
-+			 npuhclk_level, ndev->max_npuhclk_level);
-+		return -EINVAL;
-+	}
-+
-+	aie->npuclk_freq = ndev->dpm_clk_tbl[aieclk_level].npuclk;
-+	aie->hclk_freq = ndev->dpm_clk_tbl[npuhclk_level].hclk;
-+	aie->max_tops = NPU3_DPM_TOPS(ndev,
-+				      ndev->dpm_clk_tbl[ndev->max_npuhclk_level].hclk);
-+	aie->curr_tops = NPU3_DPM_TOPS(ndev, aie->hclk_freq);
-+
-+	return 0;
-+}
-+
-+static const struct aie_hw_ops npu3_hw_ops = {
-+	.set_dpm = npu3_set_dpm,
-+	.update_counters = npu3_update_counters,
-+};
-+
- static const struct amdxdna_dev_priv npu3_dev_priv = {
- 	.npufw_path             = "npu.sbin",
- 	.certfw_path            = "cert.sbin",
-+	.dpm_clk_tbl		= npu3_dpm_clk_table,
- 	.mbox_bar		= NPU3_MBOX_BAR,
- 	.mbox_rbuf_bar		= NPU3_MBOX_BUFFER_BAR,
- 	.mbox_info_off		= NPU3_MBOX_INFO_OFF,
-@@ -71,14 +146,17 @@ static const struct amdxdna_dev_priv npu3_dev_priv = {
- 		DEFINE_BAR_OFFSET(SMU_RESP_REG, NPU3_SMU, MP1_C2PMSG_60_ALT_1),
- 		DEFINE_BAR_OFFSET(SMU_OUT_REG,  NPU3_SMU, MP1_C2PMSG_61_ALT_1),
- 	},
-+	.hw_ops			= &npu3_hw_ops,
- };
- 
- static const struct amdxdna_dev_priv npu3_dev_vf_priv = {
- 	/* vf device does not load firmware */
-+	.dpm_clk_tbl		= npu3_dpm_clk_table,
- 	.mbox_bar		= NPU3_MBOX_BAR,
- 	.mbox_rbuf_bar		= NPU3_MBOX_BUFFER_BAR,
- 	.mbox_info_off		= NPU3_MBOX_INFO_OFF,
- 	/* vf device does not have smu and psp */
-+	.hw_ops			= &npu3_hw_ops,
- };
- 
- const struct amdxdna_dev_info dev_npu3_pf_info = {
-diff --git a/drivers/accel/amdxdna/npu4_regs.c b/drivers/accel/amdxdna/npu4_regs.c
-index c9648c8032ec..624c1babdff8 100644
---- a/drivers/accel/amdxdna/npu4_regs.c
-+++ b/drivers/accel/amdxdna/npu4_regs.c
-@@ -104,42 +104,44 @@ const struct amdxdna_fw_feature_tbl npu4_fw_feature_table[] = {
- 	{ 0 }
- };
- 
--static int npu4_set_dpm(struct amdxdna_dev_hdl *ndev, u32 dpm_level)
-+static int npu4_set_dpm(struct aie_device *aie, u32 dpm_level)
- {
-+	struct amdxdna_dev_hdl *ndev = aie->xdna->dev_handle;
- 	int ret;
- 
--	ret = aie_smu_set_dpm(ndev->aie.smu_hdl, dpm_level);
-+	ret = aie_smu_set_dpm(aie->smu_hdl, dpm_level);
- 	if (ret)
- 		return ret;
- 
--	ndev->npuclk_freq = ndev->priv->dpm_clk_tbl[dpm_level].npuclk;
--	ndev->hclk_freq = ndev->priv->dpm_clk_tbl[dpm_level].hclk;
--	ndev->max_tops = NPU4_DPM_TOPS(ndev, ndev->priv->dpm_clk_tbl[ndev->max_dpm_level].hclk);
--	ndev->curr_tops = NPU4_DPM_TOPS(ndev, ndev->hclk_freq);
-+	aie->npuclk_freq = ndev->priv->dpm_clk_tbl[dpm_level].npuclk;
-+	aie->hclk_freq = ndev->priv->dpm_clk_tbl[dpm_level].hclk;
-+	aie->max_tops = NPU4_DPM_TOPS(ndev, ndev->priv->dpm_clk_tbl[ndev->max_dpm_level].hclk);
-+	aie->curr_tops = NPU4_DPM_TOPS(ndev, aie->hclk_freq);
- 
--	XDNA_DBG(ndev->aie.xdna, "MP-NPU clock %d, H clock %d\n",
--		 ndev->npuclk_freq, ndev->hclk_freq);
-+	XDNA_DBG(aie->xdna, "MP-NPU clock %d, H clock %d\n",
-+		 aie->npuclk_freq, aie->hclk_freq);
- 
- 	return 0;
- }
- 
--static int npu4_update_counters(struct amdxdna_dev_hdl *ndev)
-+static int npu4_update_counters(struct aie_device *aie)
- {
-+	struct amdxdna_dev_hdl *ndev = aie->xdna->dev_handle;
- 	struct amd_pmf_npu_metrics npu_metrics;
- 	int ret;
- 
--	ret = AIE2_GET_PMF_NPU_METRICS(&npu_metrics);
-+	ret = AIE_GET_PMF_NPU_METRICS(&npu_metrics);
- 	if (ret)
- 		return ret;
- 
--	ndev->npuclk_freq = npu_metrics.mpnpuclk_freq;
--	ndev->hclk_freq = npu_metrics.npuclk_freq;
--	ndev->curr_tops = NPU4_DPM_TOPS(ndev, ndev->hclk_freq);
-+	aie->npuclk_freq = npu_metrics.mpnpuclk_freq;
-+	aie->hclk_freq = npu_metrics.npuclk_freq;
-+	aie->curr_tops = NPU4_DPM_TOPS(ndev, aie->hclk_freq);
- 
- 	return 0;
- }
- 
--const struct aie2_hw_ops npu4_hw_ops = {
-+const struct aie_hw_ops npu4_hw_ops = {
- 	.set_dpm = npu4_set_dpm,
- 	.update_counters = npu4_update_counters,
- };
++arch_initcall(alpha_hugetlbpage_init);
+
 -- 
-2.34.1
+2.55.0
 
