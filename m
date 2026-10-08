@@ -1,156 +1,239 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010052.outbound.protection.outlook.com [52.101.85.52])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99ADE38D402
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 16:23:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791476602; cv=fail; b=ub0lDiGUW++r4WUuBtLD9KYF/HNO+Zu8PyvGi+8ermhQLi1yORm+ANRQdqvqZIs2h/KzbmkSXJAjmjGsdU1rz1cD2UcqVelRuwcRJrLRg/JqNWQzwGPqmrQL/If9UIC18o+iNexLiuDlfuQ+3PPDnz1UNgT25lZXIMhSP15LBOQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791476602; c=relaxed/simple;
-	bh=Eli59aGIR1Eis9GHrKYExW7bGhlxScUncEZvD6RwfJE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=sqswGGfW3fB/01gCcSscR/ACRkRDV3xt0vqIWyXo2CosZgydAp8pKvsAkoIgtCvTp2sdEvYUmS326+2o05OF4p01pi7xZNYD5eevV1xNHnIHuefHE4m9/qsMEyHwNZ2/epwsPs6+PFa/GaCJPJs4QtEUECFtST03t9212RBfMzU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=uuB3GeMG; arc=fail smtp.client-ip=52.101.85.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 868A538D402
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 16:23:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791476632; cv=none; b=EdIDYHxxv+Lglo93UO5OGMTtiKWZtYK7Cvye5YOdbxr+Oftoc81c0t+QTNOQjI6o//+O7tlZcoVopHWEIHyRztPc2yJRuIu4BE91zMSvjzxguV6fGGMnNrfUpPjaIkFl+hW1Bx2uL8+N8mLV3K3fVneBs27hXoBZSAtZ0ESVqKE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791476632; c=relaxed/simple;
+	bh=q/slvV18pWvYnxQ3ggCZNxeVmOtkuXwVwf21DctUYk0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=iXCd4HRZFxIHtiaqQu6lP7I6yRcL7ikKlLGo3H+FEcXbHlgp3CmzwyaIHDa765G2oXkoYVJx8oN6ectr0AFX9soLYRPIqZgXurGNi98YYXTocyLUIsFH2Fk1d+0iR5uRTFwxrpOrC9nsjZeyNUlfnkGYLsTMw/l3CC1EPw1bVZ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=S3ktvv0k; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gvBnmzU4; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="uuB3GeMG"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FM+ftG5cj0NbRFv2YODLQoWIK69w7nPUH9Svn6O4e8GXLqKOMPIRMDGhxdx/5/2PXgBQe3LoQTc7m53He0rT96CW0f8UTUol/rQUb3eloYdvi9exQTGquZfV4fHveXPSc/EyAJrXoIIDUDmN/s1VVVUTmDCF9LPRUVfgOqLca7HB65iVsTZtJuUeQ2M+ytaL8wYELghb3rNOJp3aVZdh2lIiAQ0jLuHhuG1LtkQkeCoVMXAYsLzdOTxmQpmW1u8131yKJFDQ5f3J13qvRw7GmZmrkIwWnk5hwgJHePKI+mtGl455mbcvGq8zvk1NL+zqZImqNsW0zODvjPL0sRW0bw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EP9DGHRJr5DNgI/LD50lufqcCHdAChY7WUOip4F5GWQ=;
- b=dkpBm/HWJdgBvd3zFOFpbAxTE/M5nMCbl1UPI4G+91xyS0ogcxfGI9c7Zxb6t5dCCeljGQhBNqEg9lf2sLdYIYMLpp1cVgxBNXUmIJZzUeN177vIb/OBDO4hfoYzQ+5/zCPC3RQCZGZQNq28ARBArqr8wCxop0C/Ee1ETGOo3KrAjM5DzS5e9zGJ03JWo9eI5/eZqjuyQbv1+/hpxEhqcrjFKC181BEJMrjBy//65/hoqy6+4fsl4S4momx+nOiqKwISkuAeiQoDhdlHXxkQDaB7n6WZsxzmqvMH43nSkAHSWSHntDm4qg251kg8hNWXoRmxAWvR9xoKI27Ut9F2wA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EP9DGHRJr5DNgI/LD50lufqcCHdAChY7WUOip4F5GWQ=;
- b=uuB3GeMGK35TSp+eMB2hduxZSWDWit2BQGY27plkdj72eqVDJThfX2iM3BsA//kL0qBBkvHWjGw3OcECc4O/LyLuZ9444Yuax0wTlTA+NmL0isP5aEOOiqO7t52U4t68//9Ll0RAVQMyewx8RCKCQ4UdqIlNE/tY7bGZ50RMA2s=
-Received: from DS7PR03CA0251.namprd03.prod.outlook.com (2603:10b6:5:3b3::16)
- by SJ5PPF3487F9737.namprd12.prod.outlook.com (2603:10b6:a0f:fc02::990) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Thu, 8 Oct
- 2026 16:23:06 +0000
-Received: from DM3PEPF000265BE.namprd04.prod.outlook.com
- (2603:10b6:5:3b3:cafe::56) by DS7PR03CA0251.outlook.office365.com
- (2603:10b6:5:3b3::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Thu, 8
- Oct 2026 16:23:05 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- DM3PEPF000265BE.mail.protection.outlook.com (10.167.23.251) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Thu, 8 Oct 2026 16:23:05 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 8 Oct
- 2026 11:23:00 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 8 Oct
- 2026 11:23:00 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Thu, 8 Oct 2026 11:22:59 -0500
-Message-ID: <74b4f7ac-ea02-ecd8-f943-1c5abb5a030f@amd.com>
-Date: Thu, 8 Oct 2026 09:23:03 -0700
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="S3ktvv0k";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gvBnmzU4"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 698EVDqH3145539
+	for <linux-kernel@vger.kernel.org>; Thu, 8 Oct 2026 16:23:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	MKNDWG+xPvadUx2M61Ah5llef0LaBAxJ2rlM1bN6Bmo=; b=S3ktvv0kLw4DCV+Y
+	fE8ir90dF6sLDVUqey00+QeZ27bSZmH6dDPLQNULii2EuLg2dYEKMlA7Yan3Ecl4
+	eQ1Hxus/SLRvcDKexq0vHAYQO4P4Ga4baTm9rByoBXlGk/EfWGbw+ldxIplvonWj
+	u8RWb3bXS/e8+XxL/eh4fRuSpkajFX3az1U+/68K0etObFvFrpd26SShI4M1E55t
+	xqJkdX7leTooKSO1PNvJLvDIS3qtXW9s1XdjWCGTjH5p6V7BEzatTTwCKKk53Cil
+	WVMKYRWOIEDfqF2xn88gATMTBh9caHyWbRPyHnmBfi8GnzF27owKzv4+Q/sAgSHS
+	rZTLEw==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h6baj0uku-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 16:23:50 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-30bcb065bfdso10445100eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 09:23:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791476630; x=1792081430; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MKNDWG+xPvadUx2M61Ah5llef0LaBAxJ2rlM1bN6Bmo=;
+        b=gvBnmzU4xW/mH6waXHEReDOK310lbIwGc0R6OhTjeGd4MHD/8XNDA54Xe2dxGDstew
+         W7epyI+d6YEjdcRqa/mjstmXOIkKhOjL+V0hfm9u4CdwmGx8+cJ983LIgVqnH9uPSDFR
+         Lf6kuZEOD05bMuIMdNcgw2HDEJuJXkwjn1UdiMM2OoV4LXssf8s4+h6MrJxS0sorRw+d
+         OaCqRk70E4xKJoJrsOiD1ILfESH4be6m5M9jxGMW7J92t468HEjbMkkA70i0VGCB/K9v
+         ODejtY2mQc7n95/dkFeVlSmWq9zXIUBN57ETaJHskdZeZGLBdxbUjg/gHXOei3zIJHrm
+         Z0jg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791476630; x=1792081430;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MKNDWG+xPvadUx2M61Ah5llef0LaBAxJ2rlM1bN6Bmo=;
+        b=KoMLCSV6hJBS1TNI1kpLqpioEb8hE8qZ4Wft6Dn5S7h0+6RWW7BUqVuo9eYGdFewDB
+         5DIlCdO9R5fIOOtttkAWJMXSwCZGTCbvfZhab4qZ1ww1Jgi5FY9QGVpuw1b9acE+FDYS
+         3fG60mS9exFAR6ZnHoXHxj7e98vjvh5ZChmNBiCY03IHj2P2y5yHRg4zW0YQbfcIAoSs
+         n4Vy+j28eeWZi1CdvQl6QDgZ1ojes/m3QCg6K37vhClVyiVQaQjjaKFK0Ek582xrEDP0
+         qTNFV+3ncRbpk5T0SC9NSq6N0F90TZAn404ohmG31hf7r5ZWIFFsQdg1Ejk5BWJgZBD0
+         qMFw==
+X-Forwarded-Encrypted: i=1; AKwUvBxzEpPFSMe8CINDrEKzwDjLV39cY/dxyP5ZePuRYK0kj0c39dLlYT8S9Z6O4GvXvMI3hi5T5XLOaEmXLK0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kgLjWlKmrffag0uP9AvGMj+BnYuoGcICCzztLBCsztGTYqYQE+
+	qFh8WCMO1TCpH5Kp1e6QozT39h78RkeIMootKvdsd16s5VpG0EVYjWVBEhsR8lo0hZnLYdYP132
+	68YzTsWvZ+4OUH8TGOCAHh4Iy+zmJRxniwrGrmi0sMGvqvydcauk+otmChjVCj7rw0ZQ=
+X-Gm-Gg: AYBFou37hf1pRCVtDqj361/09CDM/lS+gVsBwQnnhy6xXSYWFxljIu7viMghDvN7Mfq
+	ZTgAKljKT6TbafCvHtdSq7nF7LtbJ0XUW3kP6RM2zZeAHtSnCIcJcSbyOQJe2R3So4iOPMPHjNg
+	8kDfJ+s7iL3Z0l5H2RPnlrTqzQmpHszhjxEINXm2gNN65djSb29jAaPKpElCjPS4A77YlbJ+j+n
+	8jgkBs5i5WdFgesRU6IuWNJXDwj2Sn+LMSR6NJD+uWhPSdhbnAaDIB8m5jIbb1wfAQCojEmdQFO
+	t/UBuKBDv7iosWcZgz9opGXM7eZwDCSEM1ne5jUph8yBn4ZT8Q291/wb2eZxn97/wWdSHzWgKo2
+	it8D9W4xCG6TlIjxLV8WtILDOWu7WuYTv8OOil6qfpwA=
+X-Received: by 2002:a05:7300:c00d:10b0:341:c6ca:1df3 with SMTP id 5a478bee46e88-3515dd78d9fmr7858247eec.14.1791476619625;
+        Thu, 08 Oct 2026 09:23:39 -0700 (PDT)
+X-Received: by 2002:a05:7300:c00d:10b0:341:c6ca:1df3 with SMTP id 5a478bee46e88-3515dd78d9fmr7856538eec.14.1791476593913;
+        Thu, 08 Oct 2026 09:23:13 -0700 (PDT)
+Received: from [192.168.11.104] ([124.123.80.135])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3515abb7117sm18325678eec.3.2026.10.08.09.23.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 08 Oct 2026 09:23:13 -0700 (PDT)
+Message-ID: <cf9dbfc5-5787-4a69-ad04-153afdec1cb4@oss.qualcomm.com>
+Date: Thu, 8 Oct 2026 21:53:09 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH V3 01/19] accel/amdxdna: Rename NPU3 firmware files
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH ath-next 1/2] wifi: ath12k: Make RXDMA buffer ring size
+ configurable per memory profile
+To: Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>,
+        Jeff Johnson <jjohnson@kernel.org>
+Cc: linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+        linux-kernel@vger.kernel.org
+References: <20261007-mpp_ws-v1-0-739b1fb87d24@oss.qualcomm.com>
+ <20261007-mpp_ws-v1-1-739b1fb87d24@oss.qualcomm.com>
+From: Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>
 Content-Language: en-US
-To: David Zhang <yidong.zhang@amd.com>, <quic_jhugo@quicinc.com>,
-	<karol.wachowski@linux.intel.com>, <max.zhen@amd.com>, <ogabbay@kernel.org>,
-	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-CC: <sonal.santan@amd.com>, <mario.limonciello@amd.com>
-References: <yidong.zhang@amd.com>
- <20261008032348.2044667-1-yidong.zhang@amd.com>
- <20261008032348.2044667-2-yidong.zhang@amd.com>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <20261008032348.2044667-2-yidong.zhang@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+In-Reply-To: <20261007-mpp_ws-v1-1-739b1fb87d24@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PEPF000265BE:EE_|SJ5PPF3487F9737:EE_
-X-MS-Office365-Filtering-Correlation-Id: 82a638a2-549d-4f0c-e9fd-08df25586ec8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|36860700016|1800799024|82310400026|376014|18002099003|22082099003|10067099003|11063799006|56012099006|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	/TDhB3IDfj6pA4vYMMQ7Qqc3n/0xUI3KPOa/Y1K6uTJJn5OGg5kd6kP9f6+1Q8CoCKRiEOOOyhIgxMHVgZsnpHrzQYnKZqu1KSpAA1TVFypx/d8L9xczY3Hx1lPpyfXiXU0Hs4GGyy36JcrLt/BDvOxmzVQoh7u2GGT5anvRaFbiCW9hgwn1fU8wYyrXK+B/CROdTMXsWhcYrIDSJAA7S07wU9Ya0xa/4Dn5KWddwsXhrOsdvwsaGdIiK9IB+/qxoktd0EcBmwpGoqBwUvhemazrzbziiApw5oKSlS1KGqarT3/VNqofa2zm4Iyd5rQE7r5jEG4CzmXWBn7n5fZdJqHac0vO1cAYUW40d0Gh1siEAs4tMgwYg/ot2DU+f1j0hnPSMJh/tTQU5GhmKeYUYFazNtuCBxIv6KKan22umK8z48Sgdb32q/JUmPGh7vswjl3ELlfS/P+rQp1fFns7xxVHmad0tH+p4WdxSPVja1z1FoNFkXjbCpLgjUHUcuU+4J+QBCvgPNO9fOhs3eYuIvUhPqB8CQjgAAOl3KEDTGDxBkgVpD0XIcO9bCD/I/MJe8zqET5A+n3qiCm6Z9Oy2HuM1HFlJnadxYZyi6lIjgPv/iAA5gupt2VbK3d8xRf9udA72iDk7pmOLRZEs23VVyaD28PnC0k+p2QpQHW5f2+XUcltHMaBFpTon7wumgGDp5yLp63U25GQtM1b4wluzg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(1800799024)(82310400026)(376014)(18002099003)(22082099003)(10067099003)(11063799006)(56012099006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	kFCnFdy/Bmj3ZqVq2MDzvwv9MNA2RFDZgBSKJRJvpjBnFyP2zchRBnX32fcgXPyUFL1lwx5PbbBwhuItrqrHTkRuKqUHDgnyk4XML2C3QnxlbPzVEIv3qt/Au96/6XonhLVd3PM5mhYePLI/1wjbLVWSv/CC+MTe8GkTQAUCpn6S43FO+aVsE6o8U9A3Dd/oKeriTIOCYebBiekSuZqwaqzlFkGH6oQ5HP6y9w1zea7KQ0DJc92KU1pLYzDLp853xBE2/o6IuFrAxPIMCvWnJB3uK9VyqI6fwaTRy9zkhpkrSg4cHtngDrzPOObYzL91Gz0fActknH7j6SSgEPXumGTzCy74BjzjrfefcVb6VovSA4VtRfJS+ZjNFS4AR4Ds/ggx0hjR4Iii0U6MXVfjsOpsXGzi9hY8+50BsmfsI6WS9Q9uK/JDOcJnC8mNHS0P
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 16:23:05.5505
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 82a638a2-549d-4f0c-e9fd-08df25586ec8
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DM3PEPF000265BE.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF3487F9737
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDA2NSBTYWx0ZWRfXyaQZwWir08zc
+ tlIVCWAmfXRS3JwDtAkoQ3P5iTjgN4Wn6SD9tswL0NI4r5Shs0LV8Ruzp0esUGxRPIOV6RWU3PW
+ BEDOl3jMy25haTDKyTnnTbncXcmBrkh6LtqnS0Wy5cStyYtwzO/MqmgIJF0b1wZxioajllGNscs
+ 4vW2mYcwyFqoISCr4X4S51nXltvyVMYTCWCcyrWqOe763NpnVMupUI0Vk7mHxSVXuWgfkm1ty7M
+ H9AzF6pUTssH80CY2BCIu3r3EagPA/6w34ODZhQAR/w6qeRTB24P+HO/NAqOzC82Nn3ZPrpoPNC
+ TZ+nSBBF6aCZGMkpeVc8J+ya++4NmPw5a7E0S+pWcZ7mFfMoNhST14xTxZh0JHc7SpcV6RNF166
+ +VaGAf+FjNiItr8HKjRGmkHgH6P2sYpBP6fMOTKVatleialI8uulggsa03B5aJfa2zgdSwQv92J
+ J9B6Mp9IQRcxT46uqvA==
+X-Proofpoint-GUID: -5hOjdw1Neu-A0cgWeX162EZUBbKQYCR
+X-Authority-Analysis: v=2.4 cv=H/dOUOYi c=1 sm=1 tr=0 ts=6ac7c396 cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=kllYWVK2JqQtNyhMtAlpJw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=tr3Ra7ay5OclNWw_GIwA:9 a=QEXdDO2ut3YA:10
+ a=PxkB5W3o20Ba91AHUih5:22
+X-Proofpoint-ORIG-GUID: -5hOjdw1Neu-A0cgWeX162EZUBbKQYCR
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDA2NSBTYWx0ZWRfX41bTE6CgGnbP
+ Sh6YKWzIw5/3arQv8T7hJg0QVrV28GEyDpsoqHVkYo+MN/OrLPTjSylNXAO1sWoexnmyEbJeGbv
+ O5J9c6Wzsdrf6mXCoQFqYh5gnE/2MLM=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-08_05,2026-10-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 phishscore=0 bulkscore=0 suspectscore=0
+ lowpriorityscore=0 priorityscore=1501 malwarescore=0 clxscore=1015
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610020000
+ definitions=main-2610080065
+
+On 10/7/2026 2:53 PM, Aaradhana Sahu wrote:
+> Currently, the RXDMA buffer ring size is hardcoded to 4096 and shared
+> across all memory profiles. This prevents individual profiles from tuning
+> the ring size based on their memory and performance requirements.
+> 
+> Add the RXDMA buffer ring size to the memory profile configuration and
+> implement ath12k_dp_rxdma_buf_ring_size() static inline function to
+> access the configured value. This allows different memory profiles to
+> select an appropriate ring size based on available system resources.
+> 
+> The function follows the pattern established in the previous patch for
+
+Previous patch? Did you forget to add a reference?
+
+Or maybe we can just say:
+"The function follows the existing pattern of DP ring size helpers, 
+taking struct ..."
+
+TBH, I'd prefer to drop this paragraph entirely since it's already 
+apparent from the code.
 
 
-On 10/7/26 20:23, David Zhang wrote:
-> The NPU3 firmware files will be released as npu.sbin and cert.sbin.
-> Rename the current firmware names to match the firmware release names,
-> and add MODULE_FIRMWARE() declarations for the new 17f2_10 npu.sbin and
-> cert.sbin names.
->
-> Signed-off-by: David Zhang <yidong.zhang@amd.com>
+> other DP profile parameters, taking struct ath12k_dp_profile_params
+> pointer as argument.
+> 
+> Tested-on: QCN9274 hw2.0 PCI WLAN.WBE.1.6-01243-QCAHKSWPL_SILICONZ-1
+> Tested-on: WCN7850 hw2.0 PCI WLAN.HMT.1.1.c7-00108-QCAHMTSWPL_V1.0_V2.0_SILICONZ_UPSTREAM-3
+> Tested-on: QCC2072 hw1.0 PCI WLAN.COL.1.0.c2-00074-QCACOLSWPL_V1_TO_SILICONZ-1
+> 
+> Signed-off-by: Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
 > ---
->   drivers/accel/amdxdna/amdxdna_pci_drv.c | 2 ++
->   drivers/accel/amdxdna/npu3_regs.c       | 4 ++--
->   2 files changed, 4 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/amdxdna/amdxdna_pci_drv.c
-> index bb339e641416..d9e2e71d3e05 100644
-> --- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
-> +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
-> @@ -28,6 +28,8 @@ MODULE_FIRMWARE("amdnpu/17f0_20/npu.sbin");
->   MODULE_FIRMWARE("amdnpu/1502_00/npu_7.sbin");
->   MODULE_FIRMWARE("amdnpu/17f0_10/npu_7.sbin");
->   MODULE_FIRMWARE("amdnpu/17f0_11/npu_7.sbin");
-> +MODULE_FIRMWARE("amdnpu/17f2_10/npu.sbin");
-> +MODULE_FIRMWARE("amdnpu/17f2_10/cert.sbin");
->   
->   /*
->    * 0.0: Initial version
-> diff --git a/drivers/accel/amdxdna/npu3_regs.c b/drivers/accel/amdxdna/npu3_regs.c
-> index d76b2e99c308..8d287ef32fff 100644
-> --- a/drivers/accel/amdxdna/npu3_regs.c
-> +++ b/drivers/accel/amdxdna/npu3_regs.c
-> @@ -43,8 +43,8 @@ static const struct amdxdna_fw_feature_tbl npu3_fw_feature_table[] = {
+>   drivers/net/wireless/ath/ath12k/core.c  | 2 ++
+>   drivers/net/wireless/ath/ath12k/dp.h    | 8 +++++++-
+>   drivers/net/wireless/ath/ath12k/dp_rx.c | 2 +-
+>   3 files changed, 10 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/net/wireless/ath/ath12k/core.c b/drivers/net/wireless/ath/ath12k/core.c
+> index e527b59ecba5..764e646d0090 100644
+> --- a/drivers/net/wireless/ath/ath12k/core.c
+> +++ b/drivers/net/wireless/ath/ath12k/core.c
+> @@ -54,6 +54,7 @@ ath12k_mem_profile_based_param ath12k_mem_profile_based_param[] = {
+>   			.num_pool_tx_desc = 32768,
+>   			.rx_desc_count = 12288,
+>   			.rx_release_ring_size = 16384,
+> +			.rxdma_buf_ring_size = 4096,
+>   		},
+>   	},
+>   [ATH12K_QMI_MEMORY_MODE_LOW_512_M] = {
+> @@ -68,6 +69,7 @@ ath12k_mem_profile_based_param ath12k_mem_profile_based_param[] = {
+>   			.num_pool_tx_desc = 16384,
+>   			.rx_desc_count = 6144,
+>   			.rx_release_ring_size = 8192,
+> +			.rxdma_buf_ring_size = 4096,
+>   		},
+>   	},
+>   };
+> diff --git a/drivers/net/wireless/ath/ath12k/dp.h b/drivers/net/wireless/ath/ath12k/dp.h
+> index c53eac20b989..108e27dd5797 100644
+> --- a/drivers/net/wireless/ath/ath12k/dp.h
+> +++ b/drivers/net/wireless/ath/ath12k/dp.h
+> @@ -31,6 +31,7 @@ struct ath12k_dp_profile_params {
+>   	u32 num_pool_tx_desc;
+>   	u32 rx_desc_count;
+>   	u32 rx_release_ring_size;
+> +	u32 rxdma_buf_ring_size;
 >   };
 >   
->   static const struct amdxdna_dev_priv npu3_dev_priv = {
-> -	.npufw_path             = "npu.dev.sbin",
-> -	.certfw_path            = "cert.dev.sbin",
-> +	.npufw_path             = "npu.sbin",
-> +	.certfw_path            = "cert.sbin",
-Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
->   	.mbox_bar		= NPU3_MBOX_BAR,
->   	.mbox_rbuf_bar		= NPU3_MBOX_BUFFER_BAR,
->   	.mbox_info_off		= NPU3_MBOX_INFO_OFF,
+>   #define DP_MON_PURGE_TIMEOUT_MS     100
+> @@ -210,7 +211,6 @@ struct ath12k_pdev_dp {
+>   #define DP_REO_EXCEPTION_RING_SIZE	128
+>   #define DP_REO_CMD_RING_SIZE		256
+>   #define DP_REO_STATUS_RING_SIZE		2048
+> -#define DP_RXDMA_BUF_RING_SIZE		4096
+>   #define DP_RX_MAC_BUF_RING_SIZE		4096
+>   #define DP_RXDMA_REFILL_RING_SIZE	2048
+>   #define DP_RXDMA_ERR_DST_RING_SIZE	1024
+> @@ -730,6 +730,12 @@ ath12k_dp_rx_release_ring_size(const struct ath12k_dp_profile_params *p)
+>   	return p->rx_release_ring_size;
+>   }
+>   
+> +static inline u32
+> +ath12k_dp_rxdma_buf_ring_size(const struct ath12k_dp_profile_params *p)
+> +{
+> +	return p->rxdma_buf_ring_size;
+> +}
+> +
+>   void ath12k_dp_vdev_tx_attach(struct ath12k *ar, struct ath12k_link_vif *arvif);
+>   void ath12k_dp_partner_cc_init(struct ath12k_base *ab);
+>   int ath12k_dp_pdev_alloc(struct ath12k_base *ab);
+> diff --git a/drivers/net/wireless/ath/ath12k/dp_rx.c b/drivers/net/wireless/ath/ath12k/dp_rx.c
+> index cfaf26ae2720..36be543b7c50 100644
+> --- a/drivers/net/wireless/ath/ath12k/dp_rx.c
+> +++ b/drivers/net/wireless/ath/ath12k/dp_rx.c
+> @@ -1699,7 +1699,7 @@ int ath12k_dp_rx_alloc(struct ath12k_base *ab)
+>   	ret = ath12k_dp_srng_setup(ab,
+>   				   &dp->rx_refill_buf_ring.refill_buf_ring,
+>   				   HAL_RXDMA_BUF, 0, 0,
+> -				   DP_RXDMA_BUF_RING_SIZE);
+> +				   ath12k_dp_rxdma_buf_ring_size(dp_params));
+>   	if (ret) {
+>   		ath12k_warn(ab, "failed to setup rx_refill_buf_ring\n");
+>   		return ret;
+> 
+
+
+-- 
+Ramesh
