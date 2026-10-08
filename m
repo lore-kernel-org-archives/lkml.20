@@ -1,65 +1,65 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9033D449B3E
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 14:27:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 889E2445AF2
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 14:27:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791469667; cv=none; b=adJKZDL8zKQFTijzlV/VqkToSwi889xkTa6/1yJAlJ6DfxEdDkS32LN9YbS+1ix/KaGYYOUJIE7J0EUKme65O59mKS5dOhztAW/CDJYs/TY427L9krWnqshjXjbZcmKRDbGfnZ0Nacp4czoJFTTz8F79SBdiUIZlbL5+f9RA4eI=
+	t=1791469673; cv=none; b=C9mvy8q+YFssCQTFb7PG8uI95ap6jjvzyQqmm3WEjBz7oR66/w0HGVrgg+OGL+xdOirSKKlmFbq1hVHfbsRCny+bklhSmnL7qbmUhIuSik+mas2cLTSsvIiAUyTIjjWQh0GY28nWnbLbKW6l9HazVGaylVf7tEsLIB/1YPHvD1Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791469667; c=relaxed/simple;
-	bh=m5ow1J9jdoEMi1CXJk8/S4UkgRL/ss96Vuk19sTxtY8=;
+	s=arc-20240116; t=1791469673; c=relaxed/simple;
+	bh=EtjG65TeW8iJffKBLb26OGQJLVjvIjuuHm1ET/mvnLQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Uj66rukUv1n0L/AktvjWAWTTTjL/KPbhvV/SSdFJN2lD+mK1UcpoU28L6vOXU0G5w0Agtus08xGTwyaKCLoev5DT9zuy24QuCPUNX3CPkLGNHSgHaU+kNpnkPdQZ/SeTDQaG1bxw2I8xpvMGRM8xQdtids/zTtwz4qeaoDtpUqE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ei+sdUeB; arc=none smtp.client-ip=209.85.128.53
+	 MIME-Version:Content-Type; b=Y/PpyGXdK4tV7B9gJYP/AxC4KHSMq5t+nI6daFgOy0rflJMTBGWVtxoASu6gRyvDIUmWpZYQWh9E3RSlKwbz6qTHtUuHL7RSCfJVfWGUD8tzBM5N1NLG8FqhJ94tqtq21b4CKJIyvzLVBmjFS9vSjUbZLpNiQAH+fTtCIy0OO9U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DX/hzmQU; arc=none smtp.client-ip=209.85.221.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ei+sdUeB"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49e73611928so5903145e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 07:27:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DX/hzmQU"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48b0946c2c2so2225991f8f.3
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 07:27:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791469664; x=1792074464; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791469670; x=1792074470; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=YZISr/L9O4I7MRbnn9NJb2XEWKkc1K5iiNHqgDIFDWo=;
-        b=Ei+sdUeBu1qLgwTVVj2LrRNhBdlQStMypGTqf3C7xtNblB1TVX/dUJMVb0St3F7P+g
-         acC3ay1aoyeiQQEmk2K0MTBsfRAsMcs6lKClV6zga+9EzvVL5puFUCzx5MauWIsIbG/c
-         iv+AgUdHds1ws3BQ3Re6DvazqpQ7q7G0JHY5uY+H9cUkw9ay1fGbUyDGksr5HseZAjkO
-         1PhZ8BMN1xPPdIhN1A6AcikOL/ETtIFFpFN2pmGyju0czYEmuTrmE/lFvDEzu0JaIxKA
-         ygzvNXDbt7be/Wzk85AkaysVvTSHJDgri2cPs30Bcr3OSCLJbR6WMvVuuslCXTRGvZjq
-         epXA==
+        bh=J8tCdvf31u7mf9wAPxH4T+LS5l/fNI4rs8nM7sIQNyw=;
+        b=DX/hzmQUQpWoZkxoKNStxFwRvehqjdLrg4xIXndGPcvS57zvMZx+N8a7fls6KvW6N8
+         nh37eoOhL/zkCgIwAf07b/YBapMUge1u43ZgeI6ZbE/SawsQm6HVbg34dC4jVMspokdX
+         j6MY41j5vWgGVhhnJmsIop+K41g0fKxu1QCOinr6HRqbhGeZ5P8gTl9puuT6nib5eZVM
+         cEDUXmGkpgbd1T/PJCIGxOqHWqNlwZLoylOVESLvm/AzGIu6jdwHuNvvp0vmyWaFdC53
+         9VpO+cEe+9i8upOweWfQLFSuUGnwyxPXFB4tT9PC01IRrNbEs4BvgurHuBvlnebSnWPZ
+         RcnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791469664; x=1792074464;
+        d=1e100.net; s=20260707; t=1791469670; x=1792074470;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=YZISr/L9O4I7MRbnn9NJb2XEWKkc1K5iiNHqgDIFDWo=;
-        b=XYtULtbYi9I07a3rJhYvYPWV2o3w9gdmdB7nAj226uc8uZm/fA6dQ6IeLTxYQVkMF5
-         UGSANqDANH8ATNlxvoPI/XBMmpR9K0JRmRZZKyAl/urw3m9KtkCHYrBmYsgCf+eX9rPg
-         Iwh2Z4xQncKn9iXvqB+ttKQof8n0FwTdN2t1kI8XT4kPXmJNtBxFNir7gLV0UGu6eb/a
-         WqpGl5855LeHGLCYGLOqDKNhhASfJz9d7VZ1aWBCP6K5uVNwoeq/q4eGrHW16AaiGrhh
-         ZwbqpvCEQG1lMQ8Vrfp7aCqdJzLdOFNt8PsDFqKtJH8ylUHjA9jOPsRt9ukAbIo10lzM
-         ApNA==
-X-Forwarded-Encrypted: i=1; AKwUvBxfmh829LsbcAfT/eSl43fBJh0o/tFp37IPAeYZFekpFs/Cu7U8if64c8KT4e2Orlo3saoel3fQ7cW2l5o=@vger.kernel.org
-X-Gm-Message-State: AFuF++kiHfZWg1NXYQnDBE+WMNBksBLLGg4tCnlFtpB5GGNF/XLgzv0m
-	6w32k7floNUqLjvN2Hnygm/BKXMSiEB6hQvoECAJGg+Ys7rBRIpafT0k
-X-Gm-Gg: AYBFou11djMGLdYEyVnGxxb5VZ5TvK3v1B3wUTIyva/JUA7sNeDu8T0hLbP5cYr13b+
-	5Wxk7Kf6h3EoTk56lVQJRdUbo/S0rDqRdrm+T1OHRRQ2W0Zg/t5g2KhcM28ZNFGueNxzKjwSPYx
-	TAatOkTTsSZgBXp80T6bpnaqqHaRjIkjDHzR3p2l/7L5yIicqG60GtEP9rmFcIjz9dORrIyfTge
-	G6CBOFRKtD4d4HCiMfXhKfRlJyC/7Gb5I+bky0AtZi3iam3rmU+aMQvv96fkcbCWlqt3vyV3fE8
-	EPgYhgLFCGtppMQVp62cafJG+6MHhthAxQCxRQSkKwE1bXsORtp3u91Cc0Me3lfGAwNa68bp6U4
-	jCfS4tyuMJHQzVM6TmEGPP5+4TA4Vp/dYzPnw6ZI5/uzLydO3UYoTJBLejiroh4iuxVs0q850x+
-	P9jfgEzg7OOMxnxlhkUVtKqFaeWKYXAlQlnG2xWE2gQjJSWk2mH+RUbVKWm8A2fqqppvPNUeyFY
-	ERnyFJRTMXfdhbwp7jfdBQ=
-X-Received: by 2002:a05:600c:3e0b:b0:49f:fbad:29ae with SMTP id 5b1f17b1804b1-4a1851c7355mr52692635e9.17.1791469663731;
-        Thu, 08 Oct 2026 07:27:43 -0700 (PDT)
+        bh=J8tCdvf31u7mf9wAPxH4T+LS5l/fNI4rs8nM7sIQNyw=;
+        b=omMx7bg52r0UN17s3fMiO6cVdjhGbk7efwPBugH6GLYZeHwiIDej5TSRSwOO4oHXCN
+         exW5lIXL922rsP1brf571OdY83UZLAGQhICbKmOXdEhHyTkIyQvcHNPFKKyXK4UxJxcA
+         9OPION8CgidSmAsmQt7iLpmj0fe6D96buka5qrehEOLYi+/gSzhe+dhut1+Ywq6TeLWh
+         nC+t5Cw96Rtj/7TUIQ0gE2gLELDhUY3jKQDttykqdDFN2ouRkZwwAVvqBlaDP99suTr4
+         Ff45jFxBBNeRcMzBy1QaUWc64kK72dHFknuwtUhAnTnFtiYUIif43YyTvdn/IlA2cvLJ
+         SRsw==
+X-Forwarded-Encrypted: i=1; AKwUvBx3wlgR3J/Rl4WJQmSE3ooEeWR5mgU6jKPqML1MmHC6yOKIk+ydH3h2AowWxO1fP3osUl4RolAdwdzhbfE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLOgoeAAkb1u5v464bgRwoI0dCAigwaxGtCTF85rRC65oNVIgAD
+	yQZp9JdXeRz5d2SsDydoZfjJs65gE9U9MnAV3Dv7QT8ozFTrVzHpIL+bXEo6UEfv
+X-Gm-Gg: AYBFou0emyY9HatZAYrl1RcqMZZkQXSIW+KLSrpSzh5T9w42zqgcJr1r0C299WZo51u
+	TU0vU5KiPdLl82pj5lOp5LKFzfaIakJEqKSauVEAPyMxwvPgKWgnTXLTBYOOQC4eIVRzvXGCVVR
+	ZWy/Qpgk1mteoyA2bq5KU8IAJZ7IWaJPOycowCeidStswsyEJ0VLG24pUBBR6qNHHb74XHyASw3
+	4Hjp9eSxavlqPb2k2fpAXREkmYKnULTFK3dqBXLjXDBTwZljLfORRHY/aGW2rcw9x5GrxUMq9Q8
+	yrI3YfpKZkxkb68Z1RPIjHBojsrzzZNU/1zdgp4YiGwKqC/cLNsHwPeFGDLCzMI8ji04id8Q3UU
+	02CQTqx6/6cZSxq7oq7ZFHz322GKNMEhIZ6RXy7R++Eoa1WantRGoLSkH2X4jdFoX3kN9pD2Mb1
+	lndzVOn4GgVY3+qUsGxKzeyky2wItYOOdJKhOCNSPlIEgw8NbKA/BAKQpRA1OwWKxC2aUs2kuBq
+	BUITev6uD2OMeSeHukCedc=
+X-Received: by 2002:a5d:52c9:0:b0:48c:6616:8f32 with SMTP id ffacd0b85a97d-48c728892f0mr8069996f8f.53.1791469669352;
+        Thu, 08 Oct 2026 07:27:49 -0700 (PDT)
 Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a17f4480a4sm112187905e9.0.2026.10.08.07.27.43
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48d5a548b99sm1639881f8f.47.2026.10.08.07.27.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 07:27:43 -0700 (PDT)
+        Thu, 08 Oct 2026 07:27:48 -0700 (PDT)
 From: =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
 To: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
 Cc: Wang Yan <wangyan01@kylinos.cn>,
@@ -69,9 +69,9 @@ Cc: Wang Yan <wangyan01@kylinos.cn>,
 	Shuah Khan <shuah@kernel.org>,
 	linux-security-module@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 23/27] selftests/landlock: Fix stale comments in common.h and audit.h
-Date: Thu,  8 Oct 2026 16:25:52 +0200
-Message-ID: <20261008142604.39107-25-gnoack3000@gmail.com>
+Subject: [PATCH 25/27] selftests/landlock: Assert WIFEXITED() before checking the exit status
+Date: Thu,  8 Oct 2026 16:25:54 +0200
+Message-ID: <20261008142604.39107-27-gnoack3000@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261008142604.39107-2-gnoack3000@gmail.com>
 References: <20261008142604.39107-2-gnoack3000@gmail.com>
@@ -84,54 +84,148 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-* _init_caps() lists more than three capabilities.
-* A 64-bit hexadecimal domain ID has at most 16 digits, not 17.  Size
-  the buffer accordingly and drop a redundant domain_id check in
-  audit_match_record().
+WEXITSTATUS() is only meaningful if WIFEXITED() was true (see
+wait(2)).  Check WIFEXITED() with ASSERT, as most tests already do, so
+that a signaled child does not also produce a misleading exit status
+failure.
 
 Assisted-by: LLM
 Signed-off-by: Günther Noack <gnoack3000@gmail.com>
 ---
- tools/testing/selftests/landlock/audit.h  | 7 +++----
- tools/testing/selftests/landlock/common.h | 2 +-
- 2 files changed, 4 insertions(+), 5 deletions(-)
+ tools/testing/selftests/landlock/base_test.c |  2 +-
+ tools/testing/selftests/landlock/fs_test.c   | 10 +++++-----
+ tools/testing/selftests/landlock/net_test.c  | 14 +++++++-------
+ 3 files changed, 13 insertions(+), 13 deletions(-)
 
-diff --git a/tools/testing/selftests/landlock/audit.h b/tools/testing/selftests/landlock/audit.h
-index 173dcd1088db..d23bb2ad3a30 100644
---- a/tools/testing/selftests/landlock/audit.h
-+++ b/tools/testing/selftests/landlock/audit.h
-@@ -274,15 +274,14 @@ static int audit_match_record(int audit_fd, const __u16 type,
- 		*domain_id = 0;
- 		if (matches[1].rm_so != -1) {
- 			int match_len = matches[1].rm_eo - matches[1].rm_so;
--			/* The maximal characters of a 2^64 hexadecimal number is 17. */
--			char dom_id[18];
-+			/* A 64-bit hexadecimal number has at most 16 digits. */
-+			char dom_id[17];
- 
- 			if (match_len > 0 && match_len < sizeof(dom_id)) {
- 				memcpy(dom_id, msg.data + matches[1].rm_so,
- 				       match_len);
- 				dom_id[match_len] = '\0';
--				if (domain_id)
--					*domain_id = strtoull(dom_id, NULL, 16);
-+				*domain_id = strtoull(dom_id, NULL, 16);
- 			}
- 		}
+diff --git a/tools/testing/selftests/landlock/base_test.c b/tools/testing/selftests/landlock/base_test.c
+index c19aa20609d6..f7c063fdc397 100644
+--- a/tools/testing/selftests/landlock/base_test.c
++++ b/tools/testing/selftests/landlock/base_test.c
+@@ -618,7 +618,7 @@ TEST(cred_transfer)
  	}
-diff --git a/tools/testing/selftests/landlock/common.h b/tools/testing/selftests/landlock/common.h
-index ae6a0eb8e343..f0e8d3a498b3 100644
---- a/tools/testing/selftests/landlock/common.h
-+++ b/tools/testing/selftests/landlock/common.h
-@@ -34,7 +34,7 @@ static const char bin_wait_pipe_sandbox[] = "./wait-pipe-sandbox";
- static void _init_caps(struct __test_metadata *const _metadata, bool drop_all)
- {
- 	cap_t cap_p;
--	/* Only these three capabilities are useful for the tests. */
-+	/* Only these capabilities are useful for the tests. */
- 	const cap_value_t caps[] = {
- 		/* clang-format off */
- 		CAP_AUDIT_CONTROL,
+ 
+ 	EXPECT_EQ(child, waitpid(child, &status, 0));
+-	EXPECT_EQ(1, WIFEXITED(status));
++	ASSERT_EQ(1, WIFEXITED(status));
+ 	EXPECT_EQ(EXIT_SUCCESS, WEXITSTATUS(status));
+ 
+ 	/* Re-checks ruleset enforcement. */
+diff --git a/tools/testing/selftests/landlock/fs_test.c b/tools/testing/selftests/landlock/fs_test.c
+index c73a438e088f..7e36baffdf36 100644
+--- a/tools/testing/selftests/landlock/fs_test.c
++++ b/tools/testing/selftests/landlock/fs_test.c
+@@ -4644,7 +4644,7 @@ static void test_connect_to_parent(struct __test_metadata *const _metadata,
+ 
+ 	/* Wait for child. */
+ 	ASSERT_EQ(child_pid, waitpid(child_pid, &status, 0));
+-	EXPECT_EQ(1, WIFEXITED(status));
++	ASSERT_EQ(1, WIFEXITED(status));
+ 	EXPECT_EQ(EXIT_SUCCESS, WEXITSTATUS(status));
+ 
+ 	/* Clean up. */
+@@ -4743,7 +4743,7 @@ static void test_connect_to_child(struct __test_metadata *const _metadata,
+ 
+ 	/* Wait for child. */
+ 	ASSERT_EQ(child_pid, waitpid(child_pid, &status, 0));
+-	EXPECT_EQ(1, WIFEXITED(status));
++	ASSERT_EQ(1, WIFEXITED(status));
+ 	EXPECT_EQ(EXIT_SUCCESS, WEXITSTATUS(status));
+ }
+ 
+@@ -5413,7 +5413,7 @@ TEST_F_FORK(layout1_bind, path_disconnected_rename)
+ 	}
+ 
+ 	EXPECT_EQ(child_pid, waitpid(child_pid, &status, 0));
+-	EXPECT_EQ(1, WIFEXITED(status));
++	ASSERT_EQ(1, WIFEXITED(status));
+ 	EXPECT_EQ(EXIT_SUCCESS, WEXITSTATUS(status));
+ 
+ 	ASSERT_EQ(0, rename(dir_s4d2, dir_s1d3))
+@@ -5435,7 +5435,7 @@ TEST_F_FORK(layout1_bind, path_disconnected_rename)
+ 	}
+ 
+ 	EXPECT_EQ(child_pid, waitpid(child_pid, &status, 0));
+-	EXPECT_EQ(1, WIFEXITED(status));
++	ASSERT_EQ(1, WIFEXITED(status));
+ 	EXPECT_EQ(EXIT_SUCCESS, WEXITSTATUS(status));
+ 
+ 	/*
+@@ -7988,7 +7988,7 @@ TEST_F(audit_layout1, resolve_unix)
+ 	}
+ 
+ 	ASSERT_EQ(child_pid, waitpid(child_pid, &status, 0));
+-	EXPECT_EQ(1, WIFEXITED(status));
++	ASSERT_EQ(1, WIFEXITED(status));
+ 	EXPECT_EQ(EXIT_SUCCESS, WEXITSTATUS(status));
+ 
+ 	EXPECT_EQ(0, matches_log_fs_extra(_metadata, self->audit_fd,
+diff --git a/tools/testing/selftests/landlock/net_test.c b/tools/testing/selftests/landlock/net_test.c
+index 51bcb4740dde..e194fd78d8a1 100644
+--- a/tools/testing/selftests/landlock/net_test.c
++++ b/tools/testing/selftests/landlock/net_test.c
+@@ -903,7 +903,7 @@ static void test_bind_and_connect(struct __test_metadata *const _metadata,
+ 	}
+ 
+ 	EXPECT_EQ(child, waitpid(child, &status, 0));
+-	EXPECT_EQ(1, WIFEXITED(status));
++	ASSERT_EQ(1, WIFEXITED(status));
+ 	EXPECT_EQ(EXIT_SUCCESS, WEXITSTATUS(status));
+ 
+ 	/* Closes connection, if any. */
+@@ -1274,7 +1274,7 @@ TEST_F(protocol, connect_unspec)
+ 	}
+ 
+ 	EXPECT_EQ(child, waitpid(child, &status, 0));
+-	EXPECT_EQ(1, WIFEXITED(status));
++	ASSERT_EQ(1, WIFEXITED(status));
+ 	EXPECT_EQ(EXIT_SUCCESS, WEXITSTATUS(status));
+ 
+ 	/* Closes connection, if any. */
+@@ -1373,7 +1373,7 @@ TEST_F(protocol, tcp_fastopen)
+ 	}
+ 
+ 	EXPECT_EQ(child, waitpid(child, &status, 0));
+-	EXPECT_EQ(1, WIFEXITED(status));
++	ASSERT_EQ(1, WIFEXITED(status));
+ 	EXPECT_EQ(EXIT_SUCCESS, WEXITSTATUS(status));
+ 
+ 	if (client_fd != bind_fd)
+@@ -1528,7 +1528,7 @@ TEST_F(protocol, sendmsg_dgram)
+ 		_exit(_metadata->exit_code);
+ 	}
+ 	EXPECT_EQ(child, waitpid(child, &status, 0));
+-	EXPECT_EQ(1, WIFEXITED(status));
++	ASSERT_EQ(1, WIFEXITED(status));
+ 	EXPECT_EQ(EXIT_SUCCESS, WEXITSTATUS(status));
+ 
+ 	/*
+@@ -1571,7 +1571,7 @@ TEST_F(protocol, sendmsg_dgram)
+ 		return;
+ 	}
+ 	EXPECT_EQ(child, waitpid(child, &status, 0));
+-	EXPECT_EQ(1, WIFEXITED(status));
++	ASSERT_EQ(1, WIFEXITED(status));
+ 	EXPECT_EQ(EXIT_SUCCESS, WEXITSTATUS(status));
+ 
+ 	/*
+@@ -1642,7 +1642,7 @@ TEST_F(protocol, sendmsg_dgram)
+ 		return;
+ 	}
+ 	EXPECT_EQ(child, waitpid(child, &status, 0));
+-	EXPECT_EQ(1, WIFEXITED(status));
++	ASSERT_EQ(1, WIFEXITED(status));
+ 	EXPECT_EQ(EXIT_SUCCESS, WEXITSTATUS(status));
+ 
+ 	/*
+@@ -1677,7 +1677,7 @@ TEST_F(protocol, sendmsg_dgram)
+ 		_exit(_metadata->exit_code);
+ 	}
+ 	EXPECT_EQ(child, waitpid(child, &status, 0));
+-	EXPECT_EQ(1, WIFEXITED(status));
++	ASSERT_EQ(1, WIFEXITED(status));
+ 	EXPECT_EQ(EXIT_SUCCESS, WEXITSTATUS(status));
+ }
+ 
 -- 
 2.56.0
 
