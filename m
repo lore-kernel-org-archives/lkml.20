@@ -1,79 +1,81 @@
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 698B54F3EA0
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 18:25:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AE294F55A8
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 18:28:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791483932; cv=none; b=LtWdpFHlsqp3HG2UEl+cFLajxRpa+KlsI41oYhY1j9ixGM8j7hFfqNq+O9gMp1ncaGaaLqbOTr1HHjYvls3SoLXKTXGmRqS1+ocli5GtAAzb/EfZTDzmwN3hqJCJTMWiTPIZp8fvlevkHmq/Hmevszl7KUJbw7MQvoNWNmtC/Aw=
+	t=1791484124; cv=none; b=Dd+zyVKEHIUz0/iMT/m7Q7BG724BhYRxmyEWsoM7lryOnJZ3JZJvvHxXM8XIm/eiLexJN8YXVNTSmB+AOJiuh+iPAXsg931v3BsMQnoILuhpDEqJeyQArMjDuwpVRctiWlaXpSTtvz6L7C3dQUzxjG1EfmdAo0vYFDLIvB/VK5U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791483932; c=relaxed/simple;
-	bh=BXX5ubjTHMytEivt4ViaV8C4Y/FO+mnfi2JE0gh8jNc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TIiQOE4Df5DIHCDPIwbpKPpJLFIQ5dsl0p+aH2pXujxRNT237Zxfd6NiLJaiR9Toa4QPEPd84c2vV+eSSIG346V2g389kk3QpOTtCMCr2T3xDayTa/+cCDr7TwiGUv0UI0kc5y/SfjnYTiGG2OOQCpgkSFTPgomlW9VXccMiCcY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=PmgJZ/PF; arc=none smtp.client-ip=74.125.82.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1791484124; c=relaxed/simple;
+	bh=axTEGPkJt6GBU0xuEPSXBP/7YGmL9myBsEY9c5Au5wk=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ZWwg+hPiFJAueNaHk4Qr36VoJOSHGGkGpUInlt4gRQJ6+2A5vZkmrlAnNVYWDqFN1eSnv9saBAckJp6mAGYIWI8LqzKgwJlaugZGfrbh+HRnsr+kEGkMnf8ULWgFhE5s6NcTKgzC91iWF82X2B9KmK+O1GCBVAZYqpsLsESJ9Rs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XQcR7gB6; arc=none smtp.client-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="PmgJZ/PF"
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-3535a54bed9so664239eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 11:25:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XQcR7gB6"
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-351767ef18cso1186618eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 11:28:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791483918; x=1792088718; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791484109; x=1792088909; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uS+z6/GeScTTMwJ5Y/yWHE9FFDbTsCi+ZCiX5IUD5AY=;
-        b=PmgJZ/PFWVN+CIEZ245+fLd+cAF29aLOEH/oJnqe8Kowtg4a95XNPNvZAVNbTSDfYs
-         gnrDtAmoI2+0V8SWmKpabTNqeSlZnJh9E2JWwQmFHhIZMX5mJKEck2/ewc16m2jX7Ioh
-         h60xHnzNuD43HUXdMaNdS7mVP+9zOE7vcJ0OIZKLhFwOFzYydsR34GY8vhfK+ocfNsl4
-         Cnl25KTmx0j2ONtu2HbxkhjCsUWEnCv/Ccfrdnim2+74shGMHiuW2p96myMDPoqR9e3Z
-         V+xeQOIKNpbUshVyDaERA3XaSKLsyRlkXIhrm3VtiCtT2/jNnHGxpTQwsoflMM4jcpp/
-         Iilg==
+        bh=xZEd1koy5JUNRs9RrhkiE6ort9fMSMjj77pbdlRj/T0=;
+        b=XQcR7gB6Zex1mz2GoAkC6C4G/rEnXm+LDbuHI8rd+U6Pkv3n/K/SOTSaNINk8ikHAx
+         LC6p6WzIMsEQtGCIUNghzyW0q7XTTy0s05/RSbYYfUjVIWCP3iCmuLCLyrWd+pii75jX
+         +he+B8RDYRYXb24LguRe7rlsT5N2elN/qIrLb3BdF0mXY7vxCnidQIIAbOg3/ltKRwwm
+         1NFUtVpnffnbS0Fu0n/SdzFES/aUsIoZAVH4bdIY+sUKUtQalj8sw6r5XOpK5edSaaPe
+         DPJv088NlmO1Wd1VAyDPWbssYDEzWs55+lhf9RMuV0jHq1NymdVzMxwS5OXbRlOV6CXh
+         zKiQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791483918; x=1792088718;
+        d=1e100.net; s=20260707; t=1791484109; x=1792088909;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=uS+z6/GeScTTMwJ5Y/yWHE9FFDbTsCi+ZCiX5IUD5AY=;
-        b=SwJp6lBUpops7uU8tz/oskuxT4k35Nv0zDWRQHGPEEGk7uqQiKtsGkbP0lvvjZhPDr
-         g1QCEF6d2AA3rtlbxVlAQgB0HkQ1s63j0WDCHL/NL4MEraThNOT6RrUxg0RBCG++Q53K
-         N8lX4EDWnsdG4KnDiCk7USLFl57SsKqCNsMdYmXoYxeSFNEEmHsU3DwQNpwTBSVooFN/
-         iAs+k3Kus9DDi+6WeliYyF0pziqpbdEPy9EcTR/nt+U7zBOyqWy9ULEIAzC2MzemwTsN
-         uDGvX+akcx8A4yY7OxmVTEHVqVF1YDgBZ+axBtNiU1cObKard9rjvfXRikKgD5TMNLrs
-         LjeQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzoT62xia8kTHfIkAGBh4UsgFsEWhZOnZ2hDWkTFMK8R7SYQqot28VlXnYku7ygo4A6zMwn6cgzvlkhxLY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kXJcqcBch0IAqBQQ4iICd8ugeZivQv1UwUw4vFAKL8lAZ0htCZ
-	f6TXMXcfG2AfZR6p+LioYj/FHvNIT3RdkU79wn0omB1uDVCcWwAc5EgUFGFuoTan1nw=
-X-Gm-Gg: AYBFou3hA80oDEffJrGpgrsRKHgHiEL0CYBqTCIKcbFq03WMGR6pvsrNVXPpYQ58kB6
-	75biM+54sNjngXampcBMGpj9x75m4+8Fbae/0tq1f7Q4Q+rB6EoFRK/DT/VQIOXJk4BYP/olJ/v
-	xDIHIqcuygdAQlooTAsbSHg10pK+gccAqtnFeFLM70qg+YzXNoZPuF9ByEaQbl9SjsfvqMiLlNg
-	XSdc0wTfbQ9bAYvv8HLsfeBUJCGDyX2TNkxml6qgld4dM08kVz4F5AFRQ5YdHCjRh1Y5bEoar+0
-	Tm9CmNsZUWChV5F2LQCtJTwZjGkk5rW8o6LjvJpQb+jR+GxK7PcgPjTOThX/D9G2OJfy8vf4nes
-	+mDr6O6N0rZagKhquuOtLMX6H5UlNLV7mqs4FYsuRPzIQZCNC3hEkzbw+B8v8r3QXmD3qRI9bi8
-	zI2lbhCjMuWlTCS49UGQbhYhkd+zugMtq+8sFwOjQTIP7SAqNIbgXvaAvY29ZncW2166+Tj9HYX
-	+Yc/U+hz22OoA36tQr7
-X-Received: by 2002:a05:7300:b088:b0:34c:b75a:ac1e with SMTP id 5a478bee46e88-3515df70a46mr7832220eec.33.1791483917873;
-        Thu, 08 Oct 2026 11:25:17 -0700 (PDT)
-Received: from localhost.localdomain ([2406:5900:1044:110c:af47:f737:9040:a59])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537b3b2c09sm305743eec.6.2026.10.08.11.25.14
+        bh=xZEd1koy5JUNRs9RrhkiE6ort9fMSMjj77pbdlRj/T0=;
+        b=JpA8qru15AafOxasze18SwP9ZWZR09pn0Wq9vOmpQyPLyNCkQt2k5HZJC9LdugoaIv
+         H1V4B9P0pHIi8HxgwvMGuRlXu2NrYEn0V1kqy8XXycSWMOVqZ2wPUbJ4+cnC6JGm2mY/
+         /XlsMDpslDKsh1CsRQCmIXUIWd8UQFPj4oPACMvOVqGM7xEoCpzpwmqCDWfrqxb6x5iP
+         Bglen5XC4PP04EoFUNr98P0rBLoO7n7gdF0CoGxrGdO1yGwtKUSTzCHvgtsyrhERJSVW
+         42ZLDp4ysXYroKPBMocahe5hiAv7mR/cutSiUkde8ufuaLg2UQrvx2MY2URGnYC7PvYH
+         t8Eg==
+X-Forwarded-Encrypted: i=1; AKwUvBwbJ/bQlOYZe5i1U1UeHLrv8kXOt0+XJqPnfzL6veOLW/QV2Q56Y92Ud6dl4JCTACW7q2kDC2e0VsTrp6Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++n0YH4B1TomhAy6xOTRAFOivd189Wh3y9M8sM6BcX8AuATBbaAx
+	QEBAC46mfyKuco2eFnP9jmOjYUeERXRwRCooGzfczpo7YvaGLMfCbzCE
+X-Gm-Gg: AYBFou1ZanMqEoO7lfkGCWdbqZBATf3YWSSviqs3KeVpsGNhw/Zr1DlJ0Z+Lh/vwbx2
+	UfZx1mOLlsAGHwKwFf61wu+ZssE7KfYPFXqRPAkX0njs2cPlKEgMFCmMn+VlWFf6pR5G3NEl9qB
+	HKcwj4JFYGgmiLHomi1YLUB4r/AnKGoTthg1iYy+z1Q1mbUFLUlYHPgAd9ddYKGUovELYCo2gcq
+	SoqpNNklEgrrLQxcPDdpLlAg/tRwrOVujuGYLCHBDRqBM+Jc2QMYdVjghIlDQCkaRgTYLXLQ+Qw
+	aL+YIt4dUV39E+uaYamEXRx6kH2PWiTKr66VZ9VxAG5GEAGETz9+P/BM+zPD13gIk4vwh4sJ8Jm
+	5KY806Ije1g0hPdxu+fVzM0Pasf9R8bFpiEhG+332DWsLgA/Ed+pJJIBymgE5fRBRINHslifgD0
+	1WZrx3N3Sqwrl/okxeRjbxfu3VV1pOLtjTmCeOCTkQ+WMn420oZT/p8e+beyxNOzjfWfMrxUWwJ
+	Y+GlUOsqG4=
+X-Received: by 2002:a05:701b:4519:20b0:151:2068:e81f with SMTP id a92af1059eb24-162076c832amr7195694c88.27.1791484109046;
+        Thu, 08 Oct 2026 11:28:29 -0700 (PDT)
+Received: from penguin.lxd ([12.187.136.98])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a2d2db98sm57236c88.10.2026.10.08.11.28.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 11:25:17 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: Keith Busch <kbusch@kernel.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>
-Cc: Nitesh Shetty <nj.shetty@samsung.com>,
-	Hannes Reinecke <hare@suse.de>,
-	Kanchan Joshi <joshi.k@samsung.com>,
-	gliuxen@gmail.com,
-	linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
-	stable@vger.kernel.org
-Subject: [PATCH v3] nvme: bound FDP config log reads to the received buffer
-Date: Fri,  9 Oct 2026 03:24:53 +0900
-Message-ID: <20261008182453.1262733-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
+        Thu, 08 Oct 2026 11:28:28 -0700 (PDT)
+From: "Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
+To: hannes@cmpxchg.org,
+	yosry@kernel.org,
+	nphamcs@gmail.com,
+	chengming.zhou@linux.dev,
+	akpm@linux-foundation.org,
+	linux-mm@kvack.org,
+	herbert@gondor.apana.org.au,
+	davem@davemloft.net,
+	linux-crypto@vger.kernel.org,
+	kanchanapsridhar2026@gmail.com,
+	linux-kernel@vger.kernel.org
+Cc: rientjes@google.com,
+	willy@infradead.org,
+	senozhatsky@chromium.org
+Subject: [PATCH v1 0/8] Batched zswap_store() with compression batching
+Date: Thu,  8 Oct 2026 11:28:06 -0700
+Message-Id: <20261008182814.27450-1-kanchanapsridhar2026@gmail.com>
+X-Mailer: git-send-email 2.39.5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,198 +84,242 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-nvme_query_fdp_granularity() parses the FDP Configurations log using
-sizes the controller returns, without checking that they fit the buffer
-it was given.  The log size is only bounded from above before
-kvmalloc(), so a size below the log header makes
-le16_to_cpu(h->numfdpc) read past the allocation, and a size of zero
-yields ZERO_SIZE_PTR and faults.  Each configuration descriptor is then
-dereferenced (dsze while walking, and nrg and runs on the selected one)
-without checking that the whole descriptor lies within the buffer, so a
-descriptor at or past the end is read out of bounds.  The out-of-bounds
-runs value is then exposed to userspace through
-/sys/block/nvmeXnY/queue/write_stream_granularity.
+v1: Batched zswap_store() with compression batching
+===================================================
 
-A device-supplied dsze that is not a multiple of eight also leaves the
-following descriptors unaligned, and the structure is not packed, so
-reading nrg and runs from one can fault on architectures without
-efficient unaligned access.
+This series is a spin-off of "v14: zswap compression batching with optimized
+iaa_crypto driver" [1], and focuses on the generic crypto_acomp and zswap
+compression batching enablers. Resuming work on this series following a gap
+since v14 (January 2026). Please note that my email address and affiliation have
+changed from kanchana.p.sridhar@intel.com to kanchanapsridhar2026@gmail.com. I
+have retained the original Intel sign-offs on prior patches for historical
+attribution while signing off v1 of this series with my current address.
 
-A malicious or buggy controller triggers this during namespace scan with a
-short FDP Configurations log:
+To summarize the main contribution of this patch series: Batching is introduced
+in zswap_store() of large folios: we carve out a large folio into batches of
+ZSWAP_MAX_BATCH_SIZE (8 pages) for software compressors, and store each
+batch. Moving the fundamental operations that need to be happen to store a page
+to now work at the granularity of a batch offers opportunities to optimize them
+from these perspectives:
 
-[    1.104828] BUG: KASAN: slab-out-of-bounds in nvme_alloc_ns+0x39a6/0x4480
-[    1.104848] Read of size 8 at addr ffff888009fd8fe0 by task kworker/u8:3/52
-[    1.104852]
-[    1.104857] CPU: 1 UID: 0 PID: 52 Comm: kworker/u8:3 Not tainted 7.3.0-rc6-00063-g0c2669a9f4a1 #1 PREEMPT(lazy)
-[    1.104862] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
-[    1.104866] Workqueue: async async_run_entry_fn
-[    1.104873] Call Trace:
-[    1.104876]  <TASK>
-[    1.104878]  dump_stack_lvl+0x66/0xa0
-[    1.104886]  print_report+0xd0/0x630
-[    1.104893]  ? nvme_alloc_ns+0x39a6/0x4480
-[    1.104897]  ? __virt_addr_valid+0x209/0x3f0
-[    1.104903]  ? nvme_alloc_ns+0x39a6/0x4480
-[    1.104907]  kasan_report+0xe4/0x120
-[    1.104913]  ? nvme_alloc_ns+0x39a6/0x4480
-[    1.104919]  nvme_alloc_ns+0x39a6/0x4480
-[    1.104926]  ? __pfx_nvme_alloc_ns+0x10/0x10
-[    1.104931]  ? check_prev_add+0xfd/0xe80
-[    1.104942]  ? lock_acquire+0x18d/0x300
-[    1.104948]  ? nvme_find_get_ns+0xbb/0x2e0
-[    1.104952]  ? find_held_lock+0x2b/0x80
-[    1.104956]  ? nvme_find_get_ns+0x221/0x2e0
-[    1.104962]  ? nvme_find_get_ns+0x231/0x2e0
-[    1.104967]  ? nvme_scan_ns+0x2e1/0x8d0
-[    1.104971]  ? kfree+0x2e5/0x510
-[    1.104976]  ? __lock_acquire+0x570/0x1b00
-[    1.104982]  nvme_scan_ns+0x56a/0x8d0
-[    1.104987]  ? __pfx_nvme_scan_ns+0x10/0x10
-[    1.104994]  ? lockdep_hardirqs_on_prepare+0xdc/0x190
-[    1.104999]  ? trace_hardirqs_on+0x18/0x160
-[    1.105005]  ? kvm_clock_get_cycles+0x19/0x40
-[    1.105011]  ? __pfx_nvme_scan_ns_async+0x10/0x10
-[    1.105015]  async_run_entry_fn+0x8d/0x290
-[    1.105020]  process_one_work+0x8ac/0x1b00
-[    1.105029]  ? __pfx_process_one_work+0x10/0x10
-[    1.105034]  ? lock_acquire+0x18d/0x300
-[    1.105040]  ? lock_is_held_type+0x8f/0x100
-[    1.105046]  ? __pfx_async_run_entry_fn+0x10/0x10
-[    1.105050]  worker_thread+0x4ee/0xe70
-[    1.105056]  ? lockdep_hardirqs_on_prepare+0xdc/0x190
-[    1.105061]  ? trace_hardirqs_on+0x18/0x160
-[    1.105066]  ? __pfx_worker_thread+0x10/0x10
-[    1.105071]  ? __pfx_worker_thread+0x10/0x10
-[    1.105076]  kthread+0x2ce/0x3b0
-[    1.105080]  ? __pfx_kthread+0x10/0x10
-[    1.105085]  ret_from_fork+0x52e/0x780
-[    1.105090]  ? __pfx_ret_from_fork+0x10/0x10
-[    1.105094]  ? __switch_to+0x572/0xde0
-[    1.105101]  ? __pfx_kthread+0x10/0x10
-[    1.105105]  ret_from_fork_asm+0x1a/0x30
-[    1.105114]  </TASK>
-[    1.105116]
-[    1.105117] Allocated by task 52:
-[    1.105119]  kasan_save_stack+0x33/0x60
-[    1.105123]  kasan_save_track+0x14/0x30
-[    1.105126]  __kasan_kmalloc+0x8f/0xa0
-[    1.105129]  __kvmalloc_node_noprof+0x2e1/0x820
-[    1.105134]  nvme_alloc_ns+0x1097/0x4480
-[    1.105138]  nvme_scan_ns+0x56a/0x8d0
-[    1.105142]  async_run_entry_fn+0x8d/0x290
-[    1.105145]  process_one_work+0x8ac/0x1b00
-[    1.105148]  worker_thread+0x4ee/0xe70
-[    1.105152]  kthread+0x2ce/0x3b0
-[    1.105155]  ret_from_fork+0x52e/0x780
-[    1.105159]  ret_from_fork_asm+0x1a/0x30
-[    1.105163]
-[    1.105164] The buggy address belongs to the object at ffff888009fd8fc0
-[    1.105164]  which belongs to the cache kmalloc-32 of size 32
-[    1.105167] The buggy address is located 8 bytes to the right of
-[    1.105167]  allocated 24-byte region [ffff888009fd8fc0, ffff888009fd8fd8)
-[    1.105171]
-[    1.105172] The buggy address belongs to the physical page:
-[    1.105175] page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x9fd8
-[    1.105179] flags: 0x100000000000000(node=0|zone=1)
-[    1.105183] page_type: f5(slab)
-[    1.105188] raw: 0100000000000000 ffff888008c41780 dead000000000100 dead000000000122
-[    1.105192] raw: 0000000000000000 0000000000400040 00000000f5000000 0000000000000000
-[    1.105194] page dumped because: kasan: bad access detected
-[    1.105195]
-[    1.105196] Memory state around the buggy address:
-[    1.105198]  ffff888009fd8e80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-[    1.105201]  ffff888009fd8f00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-[    1.105203] >ffff888009fd8f80: fc fc fc fc fc fc fc fc 00 00 00 fc fc fc fc fc
-[    1.105205]                                                        ^
-[    1.105207]  ffff888009fd9000: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 fc
-[    1.105210]  ffff888009fd9080: fc fc fc fc fc fc fc fc 00 00 00 00 00 00 00 00
-[    1.105212] ==================================================================
+1) Utilize existing kernel API that minimize obtaining locks for bulk
+   operations, e.g. kmem_cache_alloc_bulk()/kmem_cache_free_bulk().
 
-Reject a log smaller than its header, zero the buffer so a short transfer
-leaves no uninitialized tail to parse, check that a descriptor fits the
-buffer before each access, and read the descriptor fields with the
-unaligned accessors.
+2) We keep the working set for each of the core store functionalities (alloc
+   entries, compress pages, store pages in zsmalloc) to be focused on a
+   batch, thereby minimizing cache evictions and benefiting from cache
+   locality.
 
-Fixes: 30b5f20bb2dda ("nvme: register fdp parameters with the block layer")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
----
-v3: read the descriptor fields with get_unaligned_le*() since a device-supplied
-dsze can leave subsequent descriptors unaligned, which could fault on
-architectures without efficient unaligned access.
-v2: allocate the log buffer with kvzalloc() so that if the controller completes
-the Get Log Page with a short transfer, the uninitialized tail reads as zero
-and is rejected by the existing dsze check instead of being parsed (hardening).
-v1: https://lore.kernel.org/linux-nvme/20261008132604.1168105-1-yhlee@isslab.korea.ac.kr/
+3) Along the lines of (1), the main zswap_compress() batching routine obtains
+   the acomp_ctx mutex lock once per batch, and releases it after it has
+   processed all pages in that batch.
 
- drivers/nvme/host/core.c | 24 ++++++++++++++++++++----
- 1 file changed, 20 insertions(+), 4 deletions(-)
+4) Any zswap store functionality that works on a batch can potentially be
+   parallelized as a next step, to further improve performance.
 
-diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
-index 9bcab3dc4c118..094df0e6ed326 100644
---- a/drivers/nvme/host/core.c
-+++ b/drivers/nvme/host/core.c
-@@ -2272,13 +2272,17 @@ static int nvme_query_fdp_granularity(struct nvme_ctrl *ctrl,
- 	}
+Performance data: usemem with 60% over-commit:
+==============================================
+Validation was done with mm-unstable as of 10-3-2026 (Baseline) and with this
+patch series.
+
+Testing was done on a Chromebook with a QEMU "vng" VM running in Crostini.
+    
+Chromebook Diagnostics reports:
+  Intel(R) Core(TM) Ultra 5 115U (10 CPUs, 4.200GHz)
+  RAM: 16GB
+
+vng setup:
+         Memory: 7G
+           Swap: 3G
+    Pinned CPUs: 4 (E-Cores: 4,5,6,7)
+
+zswap compressor:
+  ZSTD
+
+mTHP enabled:
+  64kB
+
+vm-scalability/usemem setup:
+
+  cgroup memory.high: 3G
+  4 usemem processes, each allocates 1200M anonymous memory, reads the
+  Silesia dataset [2] from a pre-fork-allocated buffer into the 1200M,
+  writes to each unsigned long in the 1200M, sleeps for 10 sec, then
+  frees the memory and exits.
+
+    usemem --read-silesia -w -O -b 1 -s 10 -n 4 1200M
+
+ usemem metrics averaged across 10 iterations*:
+ ================================================
  
- 	size = le32_to_cpu(hdr.sze);
-+	if (size < sizeof(*h)) {
-+		dev_warn(ctrl->device, "FDP config log too small\n");
-+		return 0;
-+	}
- 	if (size > PAGE_SIZE * MAX_ORDER_NR_PAGES) {
- 		dev_warn(ctrl->device, "FDP config size too large:%zu\n",
- 			 size);
- 		return 0;
- 	}
- 
--	h = kvmalloc(size, GFP_KERNEL);
-+	h = kvzalloc(size, GFP_KERNEL);
- 	if (!h)
- 		return -ENOMEM;
- 
-@@ -2304,8 +2308,12 @@ static int nvme_query_fdp_granularity(struct nvme_ctrl *ctrl,
- 	desc = log;
- 	end = log + size - sizeof(*h);
- 	for (i = 0; i < fdp_idx; i++) {
--		u16 dsze = le16_to_cpu(desc->dsze);
-+		u16 dsze;
- 
-+		if ((u8 *)desc + sizeof(*desc) > (u8 *)h + size)
-+			goto short_desc;
-+
-+		dsze = get_unaligned_le16(&desc->dsze);
- 		if (!dsze || log + dsze > end) {
- 			dev_warn(ctrl->device,
- 				 "FDP invalid config descriptor at index %d\n", i);
-@@ -2316,16 +2324,24 @@ static int nvme_query_fdp_granularity(struct nvme_ctrl *ctrl,
- 		desc = log;
- 	}
- 
--	if (le32_to_cpu(desc->nrg) > 1) {
-+	if ((u8 *)desc + sizeof(*desc) > (u8 *)h + size)
-+		goto short_desc;
-+
-+	if (get_unaligned_le32(&desc->nrg) > 1) {
- 		dev_warn(ctrl->device, "FDP NRG > 1 not supported\n");
- 		ret = 0;
- 		goto out;
- 	}
- 
--	info->runs = le64_to_cpu(desc->runs);
-+	info->runs = get_unaligned_le64(&desc->runs);
- out:
- 	kvfree(h);
- 	return ret;
-+
-+short_desc:
-+	dev_warn(ctrl->device, "FDP config descriptor runs past the log\n");
-+	kvfree(h);
-+	return 0;
- }
- 
- static int nvme_query_fdp_info(struct nvme_ns *ns, struct nvme_ns_info *info)
+ --------------------------------------------------------------------------
+                                          Baseline       Patch     Change
+                                       mm-unstable      series       with
+                                         10-3-2026          v1         v1  
+ --------------------------------------------------------------------------
+ Average Throughput (KB/s)                  11,794      17,810    +51.00%
+ Total Throughput (KB/s)                    47,179      71,242    +51.00%
+ Average Time to Free Memory (usecs)       490,973     294,920    -39.93%
+ Total Time to Free Memory (usecs)       1,963,892   1,179,682    -39.93%
+ --------------------------------------------------------------------------
+ * vmstats are as reported at the end of the 10th iteration:
+
+ 64kB-alloc                                834,567     828,199     -0.76%
+ 64kB-zswpout                              700,138     743,697      6.22%
+ 64kB-swpout-fallback                       35,342      17,978    -49.13%
+ 64kB-swpout                                     0           0           
+ --------------------------------------------------------------------------
+
+ The speedup with zswap store batching of large folios has a propelling effect
+ on other parts of mm, especially, by enabling large folios to be swapped out
+ without splitting, as the data shows. This enables other mm components that are
+ optimized for large folios, such as munmap(), folio refcounts/mapcounts
+ updates, PTE invalidation upon freeing memory, zswap_invalidate(); which
+ benefit from xarray offsets/range continuity. As a result, subsequent large
+ folio swapouts are more likely to find contiguous swap slots, there are fewer
+ large folio splits during reclaim, more mTHP zswpouts and the cycle
+ continues. As the data demonstrates, this directly contributes to more memory
+ over-commit opportunity.
+
+Detailed usemem metrics/cgroup memory utilization/vmstats:
+==========================================================
+
+ A) MAX zswap pool_total_size vmstats:
+ =====================================
+ This is a snapshot at the 10th iteration's peak zswap pool usage:
+
+ --------------------------------------------------------------------------
+                                    Baseline             Patch     Change
+                                 mm-unstable            series       with
+                                   10-3-2026                v1         v1  
+ --------------------------------------------------------------------------
+ pswpin                                    0                 0
+ pswpout                                   0                 0
+ thp_swpout                                0                 0
+ thp_swpout_fallback                       0                 0
+ swpin_zero                              594               548
+ swpout_zero                           1,062               864
+ zswpin                           10,603,882        11,070,673
+ zswpout                          16,594,356        16,509,201     -0.51%
+ zswpwb                                    0                 0           
+ nrswpin                                   0                 0           
+ nrswpout                                  0                 0           
+ pgmajfault                        1,460,360         1,470,092      0.67%
+ nr_free_pages                       897,249           908,935      1.30%
+ nr_free_pages_blocks                892,928           903,680      1.20%
+ 64kB-alloc                          831,788           825,556     -0.75%
+ 64kB-zswpout                        690,961           735,863      6.50%
+ 64kB-swpout                               0                 0           
+ 64kB-swpout-fallback                 32,982            16,545    -49.84%
+ 64kB-swpin                                0                 0           
+ zswap_pool_total_size         1,420,120,064     1,377,210,368     -3.02%
+ memory.current                3,390,189,568     3,299,569,664     -2.67%
+ memory.swap.current           3,221,221,376     3,221,221,376
+ --------------------------------------------------------------------------
+
+  B) STEADY STATE vmstats after usemem finishes:
+  ==============================================
+  This is a snapshot after the 10th iteration finishes:
+
+ --------------------------------------------------------------------------
+                                    Baseline             Patch     Change
+                                 mm-unstable            series       with
+                                   10-3-2026                v1         v1  
+ --------------------------------------------------------------------------
+ pswpin                                    0                 0 
+ pswpout                                   0                 0
+ thp_swpout                                0                 0
+ thp_swpout_fallback                       0                 0
+ swpin_zero                              594               548
+ swpout_zero                           1,062               949
+ zswpin                           11,526,695        11,963,729
+ zswpout                          17,293,120        17,219,911     -0.42%
+ zswpwb                                    0                 0           
+ nrswpin                                   0                 0           
+ nrswpout                                  0                 0           
+ pgmajfault                        1,591,298         1,596,095      0.30%
+ nr_free_pages                     1,752,789         1,753,264      0.03%
+ nr_free_pages_blocks              1,258,496         1,240,064     -1.46%
+ 64kB-alloc                          834,567           828,199     -0.76%
+ 64kB-zswpout                        700,138           743,697      6.22%
+ 64kB-swpout                               0                 0           
+ 64kB-swpout-fallback                 35,342            17,978    -49.13%
+ 64kB-swpin                                0                 0           
+ zswap_pool_total_size                     0                 0           
+ memory.current                      757,760           802,816      5.95%
+ memory.swap.current                       0                 0
+ --------------------------------------------------------------------------
+ zswap debugfs counters:                                      
+                                                              
+  pool_limit_hit                           0                 0
+  written_back_pages                       0                 0
+  reject_alloc_fail                        0                 0
+  reject_kmemcache_fail                    0                 0
+  reject_reclaim_fail                      0                 0
+  reject_compress_fail                     0                 0
+  reject_compress_poor                     0                 0
+  decompress_fail                          0                 0
+  stored_incompressible_pages              0                 0
+  stored_pages                             0                 0
+ --------------------------------------------------------------------------
+
+
+[1]: https://patchwork.kernel.org/project/linux-mm/cover/20260125033537.334628-1-kanchana.p.sridhar@intel.com/
+[2]: https://wanos.co/assets/silesia.tar
+
+
+Changes since [1]:
+==================
+1) Better cacheline placement of struct zswap_pool and struct zswap_entry
+   members for temporal memory access efficiency in zswap store/load hot paths,
+   while minimizing holes.
+
+2) Refactored the core compression batching functionality to a separate
+   __zswap_compress() function, which is called by zswap_compress(), as per
+   Nhat's and Yosry's comments. Hopefully this helps explain the outer "store
+   batching" zswap_compress() vis-a-vis the inner "compress batching"
+   __zswap_compress() distinction.
+
+3) The acomp_ctx is locked once and is passed to the routine that compresses a
+   batch, per the algorithm's batch-size. Similarly, the folio's node id and
+   writeback_enabled status are computed once and passed to the routines that
+   implement the different store functionalities, to save latency by avoid
+   localized recomputes of information that doesn't change.
+
+4) Moved the folio node id being stored in zswap_entry to a separate patch, per
+   Yosry's comment.
+
+5) Addressed the kunmap_local() issue flagged by Jixin He in the
+   IS_ERR_VALUE(handle) error path
+   (https://patchwork.kernel.org/comment/27095925) - thanks!
+
+6) Moved comments inline, per Yosry's suggestions.
+
+Thanks,
+Kanchana
+
+
+Kanchana P. Sridhar (8):
+  crypto: acomp - Define a unit_size in struct acomp_req to enable
+    batching. mm: zswap: Set the unit size for zswap to PAGE_SIZE.
+  crypto: acomp - Add bit to indicate segmentation support.
+  crypto: acomp - Add trivial segmentation wrapper.
+  crypto: acomp - Add API to get a compression algorithm's batch-size.
+  mm: zswap: Store the folio's node id in the zswap_entry.
+  mm: zswap: Store large folios in batches.
+  mm: zswap: Optimally place members of struct zswap_pool, struct
+    zswap_entry.
+  mm: zswap: Batched zswap_compress() for storing large folios in
+    batches.
+
+ crypto/acompress.c                  |  47 ++-
+ include/crypto/acompress.h          |  62 +++
+ include/crypto/algapi.h             |   5 +
+ include/crypto/internal/acompress.h |   8 +
+ include/linux/crypto.h              |   3 +
+ mm/zswap.c                          | 571 ++++++++++++++++++++--------
+ 6 files changed, 528 insertions(+), 168 deletions(-)
+
 -- 
-2.43.0
+2.39.5
 
