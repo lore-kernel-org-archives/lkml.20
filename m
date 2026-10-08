@@ -1,85 +1,142 @@
-Received: from mta1.migadu.com (out-58.mta1.migadu.com [95.215.58.58])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1823430CCA
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 11:21:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.58
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5C85392C46
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 11:22:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791458499; cv=none; b=PrmDA6kyc/5B2LVD+bqZiexmI64MoX5LwajCKehjm1sAE3O9G9RKSfcBd+k+JFxkOUAWVaPm9kbIZ2lXifvZVfAG3UYBOrLfg8S/XG6VeSlSfyNqzsWWtGJ7kTYV+/yaAy7JxB0R+iEbyOlASysKyakmGuDTV9rWl9wN9duVf68=
+	t=1791458540; cv=none; b=crUlbXVpkiplZdLNCniqSL7DFuEOgYLva9sd5pXQynIwKo8nCFe4HGfHix1NqLyrD5C3JvAu0uJKl+h7/8cS1cqjEPb03jDTPOZttVTtzOAAuGzN+xQr5MmNhoY/sTpi/vi5vjIBE4R5agm0m1kW9q8Ldtm8rPM7ROU2YuwQzpM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791458499; c=relaxed/simple;
-	bh=hN44cRPPJNs08AgZF8viTPk0lBwtAQRH0vIjNbzefVw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tTn0qwaEgMXKgxX7Vf3lVUU1qA96qjcFlEdrgyb/MAZXGkkpn8p+HHmO4oWjgQoSjPv6Vi76ep6eA+nUCuuRaToDkHG8QGAa4jotynq18dL79xsAAjsehVwJOF+EUjgpiWMDYk4ebYU6G9mUVw5GfST/AR4WxYv3MMGPtT8fKBk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=uyUJnMx0; arc=none smtp.client-ip=95.215.58.58
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791458540; c=relaxed/simple;
+	bh=WifiYhHcJ6wvgv8665hCmdjmnp9JcYua8eZj2Dhj6a0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=TNorWlC198JQ8ZUC8cW+Aquaq2hsWGTK28PKpvR3EpRkzDUvXisAoOr3iSeUB3xpBydWQ124OkOV97KmrM6ZhfXO5QsJIT0xil31YaQQrtQ8O9wC6qbRoPajziO2SyyKqAmrnFrgLJRXV642FEz5eTIYJxvGfzzC+IDKzPI1fZE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=1guiT3+s; arc=none smtp.client-ip=113.46.200.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="uyUJnMx0"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=hN44cRPPJNs08AgZF8viTPk0lBwtAQRH0vIjNbzefVw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791458495; v=1; x=1792063295;
- b=uyUJnMx0aK2axifmrh+RBKmKj6SYrrWM+69EA7kPNS0xG9PKgyI/9+0xzaqjzVzE0JReeaIE
- y0hOF2h/Sv3xtcwBZKm/rxg9DiaBZmwELUKieRzg7iC2kRqGW2b/wYT6r/MrH+7m6gyWtErJ1hI
- QSjciFBDbPXUXfycdQGph5BU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id cea9a33647c304d7;
-	Thu, 08 Oct 2026 11:21:35 +0000
-X-Mizu-Trace-ID: cea9a33647c304d7
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5ba429b64c5so5957e87.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 04:21:33 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz4k44SCNh4UqRdUkxuT1JI4HDui2f4Dc/va2mxN6y66WvHV8rCpuxnsg1e6P8Q535kLHzAlOaiaSdLlGU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLvTZgGoIQa94n8ACbw3IQ19XP7Vpdft06pa5JYu3GByFwtiqsN
-	Qtyl9wp5K0+C8Xreghi2n49mZRDDKUeCQXcvNPaSF7TEuFjinol4eFTkIOy/mkDyI4PJrOzIZKA
-	Ae9t1a/94Jj1Vn0y5o3NxoTwhyzQEAmQg35aFEhIa
-X-Received: by 2002:a05:6512:1089:b0:5bb:7b34:8e00 with SMTP id
- 2adb3069b0e04-5bcd41aa2fbmr117834e87.6.1791458492776; Thu, 08 Oct 2026
- 04:21:32 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="1guiT3+s"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=JWzImz3cqI9tgDnTW/KJeshwK980DTvrUuQf1fLz0B8=;
+	b=1guiT3+soDEy4fmsY9M99q//qZRaIRuHJyzq5fEef8Qj3/w3AObA6dzEdSHb1IH0K3gEyW1ki
+	7b/18QDVL2913rqtbHY4tnf+G7FmqnLzt7s+l+k+TFkEb8TkP51OSDKncSIwZJlIVdomWQbEy95
+	k3S0KHgMiyPny9mFdpg/qmo=
+Received: from mail.maildlp.com (unknown [172.19.163.0])
+	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4j0nMq2f15z12LHj;
+	Thu,  8 Oct 2026 19:10:15 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id CA15340561;
+	Thu,  8 Oct 2026 19:22:12 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 8 Oct
+ 2026 19:22:11 +0800
+Message-ID: <169e4e90-2802-4034-a45a-dc7fcc6cdea7@huawei.com>
+Date: Thu, 8 Oct 2026 19:22:10 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261007150255.1648849-1-vdonnefort@google.com> <20261007150255.1648849-5-vdonnefort@google.com>
-In-Reply-To: <20261007150255.1648849-5-vdonnefort@google.com>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Thu, 8 Oct 2026 13:20:56 +0200
-X-Gmail-Original-Message-ID: <CA+EHjTxtnzcahWPtgvEdTyXV62EuYnMNFzgCbt9sBUe4Max1TQ@mail.gmail.com>
-X-Gm-Features: AclHuK9PPIyWi-AF-JOxAvOaLC_7_TBjRNbevEdaA41uckDc-fo7UGZq6QbNwUw
-Message-ID: <CA+EHjTxtnzcahWPtgvEdTyXV62EuYnMNFzgCbt9sBUe4Max1TQ@mail.gmail.com>
-Subject: Re: [PATCH 4/5] drivers/virt: pkvm: Handle a granule larger than
- PAGE_SIZE for MMIO_GUARD
-To: Vincent Donnefort <vdonnefort@google.com>
-Cc: catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	kernel-team@android.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 15/21] arm64: entry: Point SP_EL0 at the overflow stack
+To: Will Deacon <will@kernel.org>, <linux-arm-kernel@lists.infradead.org>
+CC: <linux-kernel@vger.kernel.org>, Arnd Bergmann <arnd@arndb.de>, Ard
+ Biesheuvel <ardb@kernel.org>, Ada Couprie Diaz <ada.coupriediaz@arm.com>,
+	David Hildenbrand <david@kernel.org>, Catalin Marinas
+	<catalin.marinas@arm.com>, Vladimir Murzin <vladimir.murzin@arm.com>, Mark
+ Rutland <mark.rutland@arm.com>, Mostafa Saleh <smostafa@google.com>, Lorenzo
+ Stoakes <ljs@kernel.org>, Oliver Upton <oupton@kernel.org>, Linus Walleij
+	<linusw@kernel.org>, Marc Zyngier <maz@kernel.org>
+References: <20260918161407.2300-1-will@kernel.org>
+ <20260918161407.2300-16-will@kernel.org>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <20260918161407.2300-16-will@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-Hi Vincent,
 
-On Wed, 07 Oct 2026 16:02:54 +0100, Vincent Donnefort
-<vdonnefort@google.com> wrote:
-[...]
-> Validate the memory regions are aligned with the hypervisor granule
-> before enabling the MMIO_GUARD support. If aligned, then the MMIO
-> regions are and overshooting is safe as MMIO_GUARD is solely here to
-> indicate to the hypervisor where the MMIO regions are.
 
-nit: "the MMIO regions are and overshooting" is missing a word, "aligned"?
+在 2026/9/19 0:13, Will Deacon 写道:
+> With SP_EL0 now available for use in the kernel, point it at the
+> overflow stack so that exception entry from EL1h will later be able to
+> switch to the overflow stack by writing to SPSel.
+> 
+> Cc: Mark Rutland <mark.rutland@arm.com>
+> Signed-off-by: Will Deacon <will@kernel.org>
+> ---
+>  arch/arm64/kernel/entry.S |  2 ++
+>  arch/arm64/kernel/head.S  |  3 +++
+>  arch/arm64/kernel/smp.c   | 12 ++++++++++--
+>  3 files changed, 15 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/arm64/kernel/entry.S b/arch/arm64/kernel/entry.S
+> index a45be0a837c8..6958ee238649 100644
+> --- a/arch/arm64/kernel/entry.S
+> +++ b/arch/arm64/kernel/entry.S
+> @@ -227,6 +227,8 @@ alternative_cb_end
+>  	mrs	x21, sp_el0
+>  	ldr_this_cpu	tsk, __entry_task, x20
+>  	msr	tpidrro_el0, tsk
+> +	adr_this_cpu	x19, overflow_stack + OVERFLOW_STACK_SIZE, x20
+> +	msr	sp_el0, x19
+>  
+>  	/*
+>  	 * Ensure MDSCR_EL1.SS is clear, since we can unmask debug exceptions
+> diff --git a/arch/arm64/kernel/head.S b/arch/arm64/kernel/head.S
+> index c33551ee6572..27a19e1a0ee6 100644
+> --- a/arch/arm64/kernel/head.S
+> +++ b/arch/arm64/kernel/head.S
+> @@ -210,6 +210,9 @@ SYM_CODE_END(preserve_boot_args)
+>  	ldr	w\tmp2, [\tsk, #TSK_TI_CPU]
+>  	ldr	\tmp1, [\tmp1, \tmp2, lsl #3]
+>  	set_this_cpu_offset \tmp1
+> +
+> +	adr_this_cpu	\tmp1, overflow_stack + OVERFLOW_STACK_SIZE, \tmp2
+> +	msr	sp_el0, \tmp1
+>  	.endm
+>  
+>  /*
+> diff --git a/arch/arm64/kernel/smp.c b/arch/arm64/kernel/smp.c
+> index 702dee8d0db5..4c122d6598de 100644
+> --- a/arch/arm64/kernel/smp.c
+> +++ b/arch/arm64/kernel/smp.c
+> @@ -51,6 +51,7 @@
+>  #include <asm/processor.h>
+>  #include <asm/smp_plat.h>
+>  #include <asm/sections.h>
+> +#include <asm/stacktrace.h>
+>  #include <asm/tlbflush.h>
+>  #include <asm/ptrace.h>
+>  #include <asm/virt.h>
+> @@ -448,8 +449,15 @@ void __init smp_cpus_done(unsigned int max_cpus)
+>  
+>  static void __init set_boot_cpu_offset(void)
+>  {
+> -	asm volatile("msr tpidr_el1, %0"
+> -			:: "r" (per_cpu_offset(0)) : "memory");
+> +	u64 ovf_sp = (u64)raw_cpu_ptr(overflow_stack) + OVERFLOW_STACK_SIZE;
+> +
+> +	asm volatile(
+> +	"	msr	tpidr_el1, %1\n"
+> +	"	add	%0, %0, %1\n"
+> +	"	msr	sp_el0, %0" /* Update the overflow stack pointer */
+> +	: "+r" (ovf_sp)
+> +	: "r" (per_cpu_offset(0))
+> +	: "memory");
 
-> It is possible to add new memory regions with memory hotplug later.
-> However the alignment requirement is way more conservative than the
-> maximum granule size of 64K. Nonetheless, add a test to document the
-> limitation.
+Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
 
-nit: this is a runtime check that disables MMIO_GUARD, so "add a
-check" rather than "add a test"?
+>  }
+>  
+>  void __init smp_prepare_boot_cpu(void)
 
-Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
+-- 
+Best regards,
+Jinjie
 
-Cheers,
-/fuad
