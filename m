@@ -1,128 +1,89 @@
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+Received: from mta1.migadu.com (out-249.mta1.migadu.com [95.215.58.249])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB17C27E1DC
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 11:17:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99D523EE1F8
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 11:18:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.249
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791458280; cv=none; b=RrJJCCTP5wfUxukFqckVufQLzAAqe6pe09vMFBAwSn2OFnKgtuLGoflpI8brHyhtpBUGKndgod1NqQRJMOl5Xbt+QjoFVwaARUAFrd8aVsGFwomA7+lFX/287NvUtU6K0sfg7SUHuXxQW720twUSyAOU9Uut4XED3XD7l5niyz8=
+	t=1791458301; cv=none; b=bX16zdAxNikbw4n6vOuRn4B6lXTUtqMYkKh+A7djsceN/FIDjpaB2crdP3fUgR/TFz7+rnAJZQgdLao4+t5FbYkrVbmgzMqrVfqnl9YFb6ow3KFQYhYBge8B4U4w/CAiIXoqUG8IIHY8Z+89Kh34Hirm489EEUWK5mgMYpoJpd0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791458280; c=relaxed/simple;
-	bh=LyMzg7YKQMASVJG4mwz+gptKLgC1GDcEvOr8VsXAlMQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iwCUEUUEl7k99bdRpWhRHqRA1P4a5a66n+oO7T8I+8K1oUaFlqpTiHTq28KuvFEeI4JcILWU07fxvXGIOwCQ3qLaEQMjU/FRy0u26Xt0uuunoXkAz6Nm0GYL0ydWo96AHkKOx3JyKBBVn5OhR6E1vJAMxWe8Z8vkrcKRn0OfV7g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=rCKgXlJ/; arc=none smtp.client-ip=209.85.218.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1791458301; c=relaxed/simple;
+	bh=RZDQiChJc4BLUjPTC5GATFlDtxZirW0FNEhzwWirWTc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=OZlECO6G2IAjavuDiKmqZdmb+05X7HW2B+tT9uZDNy/WRVZgp2dD82mkGz4YgtTtuoFKokkV5TmyYepG0aYywfqvi4n19Pb1SOrzR2C8s3Zu90MrWfjySS0V+Vhiimk9QsHvE5MR65/cOw5xDUbCMcyjgcyHWrKZ7XGefoOZYDk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=tGCheB6b; arc=none smtp.client-ip=95.215.58.249
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="rCKgXlJ/"
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c2e2db5e8e4so848599666b.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 04:17:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791458277; x=1792063077; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=S1iIMM2/9oEWCDjb7vfvvfhGUocGkO9gnJc0I/wSGwI=;
-        b=rCKgXlJ/4s3YM+4dh41VHIpn4tDK2Nz+zJCpgLf8hfnvIa3kl3JA51EV9MS1rEAISV
-         6/7SkhYZTOwXpGDQeKYLPKb0sslyDDyB/ldJMuEES4u3sy6Y4jdBWysi8WSxn86Nwa5Z
-         wd32hOYw+8/ykbW3drOg8fyghxwQQ/cprs5hASu4jOTAl1txaVzWijvKKliJGb4dqAAH
-         VE6nBEZ5uOrK5fvTdkqfK5ZRUwrsFigQ77/k8upYi+qrv4jt9IPYN/HO8J6/ymIbCyat
-         VsTklbo3nIaruwPAL/XQLLQ5c0iO/u3JV4zEI/Z0lS5JrbR4oQBQnKVAH5ZVOX6/Y56a
-         TphA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791458277; x=1792063077;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=S1iIMM2/9oEWCDjb7vfvvfhGUocGkO9gnJc0I/wSGwI=;
-        b=iA8Gs51a4W9ltdtdv39FWS4E6ncPc5FouDScmPy+irnegTM+/3ROonM6k8wWUSstpl
-         5bJqQXpgrSSlWPVq0asembHIdyH+mVm8PFD7bIjbK6i15jRXBkCHp7Mavgf24L2t7mIU
-         y2zuSsO00GGmdQLsRr3bpHzjaCaxaPn+/iaBN6EjfjB09c24TNBBFjl72MtRroasLjao
-         /JkaNfvDml/OhIcVeFxnFectIJBkqxkZYW2TnJrnwC3pOsfuY66de4MahmSzjHT7jHjx
-         qw+CsiNzAFjU3bY8f9Yw0Hhs6YrSv9liVAAlHBbJewVm2dfr+a8/NcueFd0gmJXIaR85
-         wRfg==
-X-Forwarded-Encrypted: i=1; AKwUvBzSvzLoMt1QSfSpBsJ+DU+irT2zpAneTGxPnKS/2oaVeMNyXY7aDSuyPlSKotWIwfsPy6DdCEjdCX942CQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lrbgJZbxo0730IOdJ8g+eE5IuZYMmPE3d1bF1m18QbgMMgpge4
-	T47PT2mXSSQjM9hLHbxuCp/YRqsY5lKmUeUYpLL9DRvjO5KYkFZAxw5NDWZ8ppxRwdOO4KAkmPO
-	Ue+uw
-X-Gm-Gg: AYBFou11gU55qy/0iXcjsgCpjeYHtJMj3pXr+2M3wk+F3d+GtV//ZTjviD89U84L2c9
-	q3p5xzFBxmZ7DS/yBu0tcKA5PmUiHpM70kPMGrlKc+B1Bt7132rTpX8oqp3ED4X5W0wvLCD13aw
-	ILzZBb4JqFxDjXIEyl9qMOI+/y4sRQjRSUt8voAN8UiMG1s7rK9p7Z0EkPRSg+bIe0wEKSgA2R8
-	k9/EvEYRjRYzATzXhmYr/1unT+Y21NnjTdKnVlLE0HweplxBxPsiSgudPmKLrK6JgMLPKO4z/jT
-	tB/5neyv8AXeQ8puXHiqvMYHaX6Ao9qgPlkBjXrD4tYxxX9/zSVUp/7cmJ6LzjY//iBHt0k/TXM
-	wyT0LDKULRXWLEfymjdGJ05/YF7lROCDAy+O5vPmDNYWILJSyTkfZlSze+hwCHMzWBbCzpI5BDU
-	J+bgz5Cx6ByFFiNmFAGeakXPFHt8RbE9mVGifIQ9g79zsG1ZynJ4neAD2awM4fyn2TPCNNHlDzy
-	UajSbZRdyWTun/xRkoKvsQ=
-X-Received: by 2002:a17:907:a713:b0:c2e:2b49:e596 with SMTP id a640c23a62f3a-c317bb6f8e9mr504049366b.1.1791458276716;
-        Thu, 08 Oct 2026 04:17:56 -0700 (PDT)
-Received: from [192.168.0.167] ([109.77.203.235])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c317bdb2a24sm205664666b.2.2026.10.08.04.17.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 08 Oct 2026 04:17:56 -0700 (PDT)
-Message-ID: <0d1c5d19-68f8-4d44-9efd-f7d1aeaa7b32@linaro.org>
-Date: Thu, 8 Oct 2026 12:17:55 +0100
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="tGCheB6b"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=RZDQiChJc4BLUjPTC5GATFlDtxZirW0FNEhzwWirWTc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791458297; v=1; x=1792063097;
+ b=tGCheB6b2q+bqnTXgB0hNjGHJ7aozqvhXyOUAONn7zFMXS3e3ZvTqN/sjLoBTMC2HhlCwdtQ
+ N5L51nS75o28vmYT9vsoVJ0lXQ1Gy5rrmz10Gga0FO9h9OxTqq+4qF0dXfKhiuJjUwmZ7RsNngf
+ bvbjreSJGsA8Co2qfdEWHqvg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 5b2f9a9f57170a7b;
+	Thu, 08 Oct 2026 11:18:17 +0000
+X-Mizu-Trace-ID: 5b2f9a9f57170a7b
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5bcbb378fc9so7264e87.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 04:18:12 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwaCKOOa8CUq9pGyUJaufe+PVELvNKoec1odEGX0JYhmxUtsinsmhiWIMO02J2bA1lWuJB7z45XkW6ixv0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKYynEBZ3wjt2l2rQladTD6FPvXTFHumjx5/I9DXGVtxbJVeWte
+	9qcD5RRyGQjljMr8zah4A4s2NHEclFkrBPeFqM4odvOFxkJjvs2Hm2YqxgfFZLZQKl59sMW9CCN
+	UzgeyKRNFtxNYq/hQPAS+tuAcRZfs8ulff5O6lwg1
+X-Received: by 2002:a05:6512:2315:b0:5b8:cc2e:2fe6 with SMTP id
+ 2adb3069b0e04-5bcd41a3c42mr122649e87.5.1791458291477; Thu, 08 Oct 2026
+ 04:18:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 25/74] media: qcom: camss: vfe: Define output based VFE
- controls
-To: "Gjorgji Rosikopulos (Consultant)"
- <gjorgji.rosikopulos@oss.qualcomm.com>, Bryan O'Donoghue <bod@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
- Daniel Scally <dan.scally@ideasonboard.com>, Keke Li <keke.li@amlogic.com>,
- Richard Acayan <mailingradian@gmail.com>, Hans Verkuil
- <hverkuil@kernel.org>, Gjorgji Rosikopulos <quic_grosikop@quicinc.com>,
- Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>, Robert Foss
- <rfoss@kernel.org>, Milen Mitkov <quic_mmitkov@quicinc.com>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
- <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-25-ed985aefd611@kernel.org>
- <307f12f9-8805-4b3c-92d7-422d994fdeff@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <307f12f9-8805-4b3c-92d7-422d994fdeff@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20261007073537.2454351-1-suzuki.poulose@arm.com>
+ <20261007073537.2454351-14-suzuki.poulose@arm.com> <CA+EHjTy_1EekD472UH=CDSpC7oksdy3eS8AP0rPxKkhQ_PyXdg@mail.gmail.com>
+ <4cdd882b-832f-4968-9838-dcc29a899121@arm.com>
+In-Reply-To: <4cdd882b-832f-4968-9838-dcc29a899121@arm.com>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Thu, 8 Oct 2026 13:17:34 +0200
+X-Gmail-Original-Message-ID: <CA+EHjTyg7QM9+XtbQfAf77zpyNGh0rvEjMBm=mD0694Dtk=rGA@mail.gmail.com>
+X-Gm-Features: AclHuK8P2lsNGbFWtbI77W6PCd57-smcbil7-006btPRzP0RGDfW9UFPgF16p5I
+Message-ID: <CA+EHjTyg7QM9+XtbQfAf77zpyNGh0rvEjMBm=mD0694Dtk=rGA@mail.gmail.com>
+Subject: Re: [PATCH v23 13/14] KVM: arm64: Mandate VGIC v3 for pKVM VMs and Realms
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org, 
+	will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, steven.price@arm.com, 
+	aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com, 
+	joey.gouly@arm.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev, 
+	gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com, 
+	alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com, 
+	lpieralisi@kernel.org, enju.kohei@fujitsu.com, sudeep.holla@arm.com, 
+	jonathan.cameron@oss.qualcomm.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 08/10/2026 06:55, Gjorgji Rosikopulos (Consultant) wrote:
->> +
->> +	/* Output based API - new and shiny */
->> +	void (*vfe_output_start)(struct vfe_device *vfe, struct vfe_output *output);
->> +	void (*vfe_output_stop)(struct vfe_device *vfe, struct vfe_output *output);
->> +	void (*vfe_output_buf_done)(struct vfe_device *vfe, struct vfe_output *output);
->> +	void (*vfe_output_update)(struct vfe_device *vfe, struct vfe_output *output,
->> +				  struct camss_buffer *buf);
->> +
-> This also deserves good commit message, this is exact copy of the other RDI API with other arguments 🙂 Shall we migrate
-> all existing drivers to this api in respect to use other deprecated API but having both of them leave in vfe file which
-> creates even more confusion and readability of the code?
+Hi Suzuki,
 
-Ah but that's the point.
+On Thu, 08 Oct 2026 09:51:56 +0100, Suzuki K Poulose
+<suzuki.poulose@arm.com> wrote:
+[...]
+> But the second part of the changes are required for pKVM today, right ?
+> and you requested that here. The check as such is useful, except that
+> it is using kvm_vm_hyp_is_distrusting() rather than
+> is_protected_kvm_enabled(). I don't see this as a problem as this is
+> not a hotpath anyway.
 
-You add in a parallel API which is 1:1 but which can be extended to 
-describe completion groups not WM indexes.
+pKVM already gets the -ENODEV at KVM_CREATE_DEVICE: protected mode
+never sets can_emulate_gicv2, so the check just above yours in
+kvm_vgic_create() rejects a GICv2. The new check only changes
+behaviour once a Realm can set the flavor, which is why I think it
+belongs in the Realm series.
 
-WM indexes have always been wrong - limited to RDI and we have all sorts 
-of spaghetti code to work around that indexing mismatch.
+That said, my tag stands, and I don't have a strong preference.
 
-The fix is to stop doing that so yes, implement output / bus-client / 
-completion group - with wm and planes described in the output layer and 
-then move everything to that new interface.
-
-Including new submissions. The only real barrier is finding old 
-hardware, making the changes and ensuring nothing breaks.
-
-Since there's no DT dependency its "just software" - easy.
-
----
-bod
+Cheers,
+/fuad
