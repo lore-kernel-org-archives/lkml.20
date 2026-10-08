@@ -1,79 +1,93 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCC7E38B124
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 16:13:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C51F836E48C
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 16:13:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791475985; cv=none; b=M5jmZxrSEpVLO3DhxJuoORndZbjDtBjhJffScIEZIUT8rdjk5Qs8GRN8gDWcZJEyBRDYmEJqYYKV9oNgi6QMVrcbGG7UA5Do5eJnDjmTC/sSyayuGYenxQMu4FblJxXvAM3OgLi/OW868lC1aH4fDJfa2WewBVubMLKzqkHjudc=
+	t=1791476000; cv=none; b=UuiO5ItDnN5undxEkBHvYL6/FzfdlrNxpHimPnK+9Z2sSuSkQqENPb7oYaK5Ulfwdfx6G1wyHH/e+YJTUr4moOsAqcLQ7IpUPsRU1Fu5nobVWmIN+sRVv0CTJ9OF4lWomxn1C1Lzt46hHvuqFROXc5PiAKndns67zoMHTse8haM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791475985; c=relaxed/simple;
-	bh=BmN0rljmONbdz/PXm/OprH8FzTn9S1DwuWMcx7k7+c4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cNwLesxroelYraKOPQV/eUvwzzOGZjQa6vp3GERgTRHVO9Gp//rNCql5jitNpuFHu+albaNJxu6NV1yv9y0Y5UuOdqhNGwawUFZN6UelueH+gZmsMkwPsRffRp8h37q2J3nRdcqd10pR9ft/7YZ4Xfr2/f8ZvrGOp6k8T25U/uA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jQSHo7+q; arc=none smtp.client-ip=209.85.216.42
+	s=arc-20240116; t=1791476000; c=relaxed/simple;
+	bh=IhNLbauZGI/2fBL2LuFC8mj6FtPAx5+odJC5SAlbv3g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OIIgWtXZFAtO7HqVBBI63H3kpMCD2n7IfbGht8cT7Z9PeDBwE2C4qS/uhStz7DzodJbESZsUnSt/Np8eD270hFYT7oCOQd2D00J1oQB8dyn6+Ap5GvKgGbjjCdKtQ40XIZhamQrdpKXonFDOy/lERUPa8965+lKCrTm3UykjREY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h80aqEyc; arc=none smtp.client-ip=209.85.128.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jQSHo7+q"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-398a4dcf289so2335343a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 09:13:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h80aqEyc"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a171b677d2so23363915e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 09:13:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791475983; x=1792080783; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hDdHvibVLCCzB2QsTRiQrrzTd39n/2ojg5xJ6kjQ3YM=;
-        b=jQSHo7+q6BRzVltQoErJ5TjOkU5QHN5cjeoNu7MaKoqUV3TuEz5EgnzM1zKDd+NiYR
-         xYAQU+k/R2ARxUz0cg9Bq3AS8U10R1q2WqKtmFqY/XJCCNj67qrk5HEvJ+qyOWp6xZrn
-         mAODEAfDPZStJIWX0LkDgwjXZs11g+w3DY+Wll/SLlfziWd3yo8xn/UJB2EWbAm2d+So
-         d7h8AKdOwbRIeJmv/6D0cKV3xca6uFb4HYBG9cnD4hTrPwRigkHRIOX590CMq+uwiqJ+
-         eTe5q+j4sq5Hr7Doxcg9B6zzJoD4q+zVpuT4G4T1hVxUV7lNeKlx1UDoA9h5GW6Iihwr
-         1p9Q==
+        d=gmail.com; s=20251104; t=1791475997; x=1792080797; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=t2FZLNMG+7qodCzojxRqRtcJYLMEEmZppl93FJZkKgg=;
+        b=h80aqEycU+BdOhwGBLoUuDnlF1KbMry6ESQLDKmVaEJd7lAI2pMz7eIW2Ui1ibshhU
+         sCC+WBsZ46PZ3uE/NxaQswmHQfKS1bKCs9K4Q9QA9QY+WbDfUQhFh6nF+XmnQrldt44s
+         UEg7GjhbzNTSPI22xR79PpCgzp+w9OSwX1Fho7/XwpRWec2Mzf/8S4gJcM0ZetIFtdQM
+         0qZXc5E2GEd/k1MfTblb5n4PPZvJ3vPxaD6RdZCvfF2ZmRJH+nUMhUgQkC+hCCeMh8eG
+         CoWu1oxAEA+h1M9B3iSrKtAOUBOjN0yo2HoCDdnFDqvyh01ly/oydjKEChgGBVCa+myb
+         DoTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791475983; x=1792080783;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hDdHvibVLCCzB2QsTRiQrrzTd39n/2ojg5xJ6kjQ3YM=;
-        b=2DgI5hy5c7xNtAVjU6e4bDi751QSnCfzqOenV7bXJUMbgYzidQD1tmuvKSLPNjsZYV
-         vhcZGGanttjKjhSTWZU1Qg8s/6os9oQ+HwJNWnnTCNNaIjbo582TSIghv7vElszkO/4B
-         qUhgWnaa/9PZmeNyifYj3DbfJkcoZi15oViGaT4zu9uVBMCYhEhSYU6tlPN8i59h1C+v
-         AcADeBIHDC6Kh/KXXHK/Ok1mL/4XjrTbVoaa5cDVrsbnK/vtZVtswjwYSgZLthc0Nv7a
-         CQ0Gi5HnxIH1/dZeo3qqYSwE9AQO5HRWnTMDsKRQTU0A/GktYf4vzg6PtguT4w5nSJ3N
-         JF2A==
-X-Forwarded-Encrypted: i=1; AKwUvBxw6RkTwrmQ0LuHZJJAr5FwVlEHMKXv3hhr6qQyi4N/DDT4O2U+RtgyOJpY/vMo1GgAjW3JPFvjMsPVaMg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIPlp2duzM/z7fF9E6FLZIcZ4Z187AKdv1am6fFDRWdAATMXR3y
-	6JKCUGNpOTZScvb7kb8BcAWbF/h6yxS9rdStXteuB55MjNnbuO/u/exW
-X-Gm-Gg: AYBFou3K3hV2iPX3xw/O4cXInfQ4xrIsp39U/+PW7isK2qrbJHKqo5yuYcgiLZyhkBg
-	2x0nKRKlQUCi1nwE0j7BDV9tJYdscd7g5xZy3kSG4qAwyo7IzQ37+2Zz4Ukgwds5GYZXAihA8Od
-	cKS/wevs2Mq5ICleqL6D/nDffz8rTvgNGvB+OT3nClJLexGupidlqDSgS3BakBUax9BaxwwG5si
-	yz7zcHBGHQ3sTHsAeHYM7CR2NA/JtP4sSt7jQdNOPXE+JnZOSo3Bh4qNf4GlWusW1DJb1dbPD8m
-	r2lSarnEr7wrvNi0XRYhhl/Dl4SOy5sVICZdcJOsetcABru43vU2Xxyx0JYAuVta5Cybd8WHXKi
-	eSKAj6FlPei/w6+ZgKwsQ7fzINX7GjOKIykMx1NgZNRnG7GQz+zcbY/OPG8J4WVPh8TQmgJBywT
-	uX6D00SBn5gPAbmpDKrLos7B3qqQgPHnrWvG88j0sA2J9qU938OY2safPMpNLZaJegvkRT7Qsk
-X-Received: by 2002:a17:90b:5848:b0:39d:e54c:8658 with SMTP id 98e67ed59e1d1-3a89f687798mr4750893a91.5.1791475978758;
-        Thu, 08 Oct 2026 09:12:58 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2a09:bac5:d45b:16d2::246:b6])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9f1a7e9e4sm4834011a91.7.2026.10.08.09.12.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 09:12:58 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: gregkh@linuxfoundation.org,
-	rafael@kernel.org,
-	dakr@kernel.org
-Cc: driver-core@lists.linux.dev,
-	linux-usb@vger.kernel.org,
+        d=1e100.net; s=20260707; t=1791475997; x=1792080797;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=t2FZLNMG+7qodCzojxRqRtcJYLMEEmZppl93FJZkKgg=;
+        b=f7xwyDHoMhDDB4R61jIFDXEcQvNMpOfIXszkCISmxS07lnDkM1FvVxgYGOvIzRNoaZ
+         er0JQdCx/RwyllPI9BXoAEK6Rk5ID1Sgs2Qu9EaNc1TJQNJ1nc1/kbPckl6RWe6QhqQJ
+         DWmb81PAfhNo52lX41ImD4JHZ1DrOqGPzO7KR3z5/jwKBuWMtTzxT8cdFeEXMw6QLDKw
+         8WesCf5iwcO5AXM+XOJ8N6+/I1u2AB6sheGuqMS9MUALhfRPe5e8iZHdripBZEf7SLR0
+         fYFC15IM2codOAWNa4xq3Q3OPpVZJ/4HhVDvQ5EkGmGedcBro40vGxJO8aM9DNcCYhMR
+         864w==
+X-Forwarded-Encrypted: i=1; AKwUvBw8Pmr22Xu6b2xuyGTfBU8Ixx+wwTI5gTCaZ6F4HMpbbFg0VvAC17iTXiiBcW4zVuYy7/WGqgdhbCLMcx8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nFr3QyHPnLWvfYmn5Uzyco4FrlLSD7eaBLwoPnKqu58MAS3JM5
+	O41SXUoQyBtlMJGgOXf6Uezi3h6ZVp/udl78fVjOz6KNhUzN6eQN7NsU
+X-Gm-Gg: AYBFou3ECSszzlhHrKxeJlwXiS56YyzSgvFmpU25nS04/RuZWOe8lJd+tjx1P1v3+Xz
+	1XtMYXfM4mE2q1FHk751E8Mh49J0Qnf1fFH5Im2X0q1gGHWl0BCfSCZhYFlQr/e5oBaA0mxZUIy
+	VliN3aPKTMYMLaERgAKsW1ar6X3UPShBHiMM8Mloz/hZq/m3SZ/m4cYAdPDcFdcV2imN16KUFX1
+	1aiWiFFAESUe7DK1AsvcmYSeKKPsjlJDmes8hRBpFmDnfZwMUNu1qoj5T21ruflpuKJEnEUnQlb
+	Ye6ZNAYW8MNqiXf8iEDmJfxozfCl5K+Xc1/DoH2yjbncTmBd8mX4YWv3XXbCTh5pFfYXSTyzwkF
+	H1AI+TqoN1gCyKxky/JeM9tvmKvI+uLfshRJ3PISnRcdeER3k/SCWYC3ZRbEw47ON0HLSapFjSd
+	Q5Lrk7OpP/7EJka9aWDkiAh3EVldFUl4VoMgyyULJVhzEBZFOpynQBmM19gR7ky+UgyFfL9y0nq
+	71pfEZQSYWz0RFcNgua5KNbmVnPgSKWiXFkDA==
+X-Received: by 2002:a05:600c:4688:b0:4a0:8b1:f5c with SMTP id 5b1f17b1804b1-4a18042a422mr109945825e9.22.1791475996918;
+        Thu, 08 Oct 2026 09:13:16 -0700 (PDT)
+Received: from MacBookAir.home.tenber.ge ([2a00:6020:a725:dc00:95bf:d5d1:d7d8:747f])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db63401desm448005f8f.0.2026.10.08.09.13.14
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 08 Oct 2026 09:13:15 -0700 (PDT)
+From: Jan-Gerd Tenberge <janten@gmail.com>
+To: bpf@vger.kernel.org
+Cc: ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com,
+	martin.lau@linux.dev,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	jolsa@kernel.org,
+	emil@etsalapatis.com,
+	ihor.solodrai@linux.dev,
+	john.fastabend@gmail.com,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	jakub@cloudflare.com,
+	jiayuan.chen@linux.dev,
+	kuniyu@google.com,
+	willemb@google.com,
+	shuah@kernel.org,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	syzbot+863936f50214e843ae0c@syzkaller.appspotmail.com,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Subject: [PATCH v3] driver core: bind a device with a preset driver even without autoprobe
-Date: Thu,  8 Oct 2026 23:12:53 +0700
-Message-ID: <20261008161253.138698-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261008144859.25548-1-ngocthang2710.1999@gmail.com>
-References: <20261008144859.25548-1-ngocthang2710.1999@gmail.com>
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH bpf 0/2] bpf: Fix iterator link update target validation
+Date: Thu,  8 Oct 2026 18:13:07 +0200
+Message-ID: <20261008161309.8179-1-janten@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,89 +96,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-usb_driver_claim_interface() may claim an interface that is not yet
-registered, in which case it only sets dev->driver and relies on the
-later device_add() to bind it via __device_attach().  With the bus
-drivers_autoprobe disabled, device_initial_probe() skips the attach, so
-the device is registered with dev->driver set but never added to the
-driver's klist.
+BPF iterator link creation validates constraints that depend on both the
+program and the selected target. BPF_LINK_UPDATE only compares program
+type, expected attach type, and attach BTF ID, allowing those checks to be
+bypassed by attaching a compatible program first and replacing it later.
 
-Releasing such a device (from usb_driver_release_interface() or from
-sysfs unbind) makes __device_release_driver() call klist_remove() on an
-unattached node and dereference a NULL klist:
+Runtime testing in disposable QEMU guests confirmed that the resulting
+out-of-bounds access can reach kernel-owned metadata of a separately
+allocated live map and cause a deterministic kernel panic. Corrupting a
+victim map's refcount caused it to be freed while a verified BPF program
+retained a reference. A same-size replacement reused the slab slot, and
+the live program read the replacement's marker through its stale map
+pointer. A separate test obtained a selected-address eight-byte kernel
+read by changing the victim to another valid in-kernel operations table.
+These tests did not demonstrate code execution or privilege escalation.
+The UAF/read tests and the identity-boundary tests were separate; no single
+combined exploit was demonstrated.
 
-  KASAN: null-ptr-deref in range [0x58-0x5f]
-  RIP: klist_put+0x4d/0x1d0
-   klist_remove+0x14c/0x2e0
-   device_release_driver_internal+0x4fb/0x620
-   usb_driver_release_interface+0x10e/0x190
-   cdc_ncm_unbind+0x2ac/0x350
-   usbnet_disconnect+0x1e2/0x300
-   usb_unbind_interface+0x1dd/0x9e0
+In a split-UID test, a UID-1001 process with CAP_BPF and CAP_PERFMON, but
+neither CAP_SYS_ADMIN nor CAP_SYS_PTRACE, corrupted a UID-1000-owned map
+without possessing its FD. BPF_MAP_GET_FD_BY_ID and pidfd_getfd both
+returned EPERM. In another test, a child user namespace mapped to host UID
+1000 and given an administrator-delegated BPF token triggered a host kernel
+panic; tokenless tracing-program load returned EPERM. There is no
+demonstrated default-unprivileged trigger.
 
-Autoprobe only governs matching drivers to devices; a device that
-already has a driver needs no matching, just the bind that was promised
-at claim time.  Do that bind under the device lock when autoprobe is
-off, so that a concurrently cleared dev->driver cannot fall through to
-probing every driver on the bus.
+Patch 1 reruns both target-specific validation and the iterator
+sleepability check before replacing the link's program. Patch 2 covers
+rejected array and socket-storage value accesses, a rejected sleepable
+hash program, preservation of the old program after a failed update, and
+a valid update.
 
-Reported-by: syzbot+863936f50214e843ae0c@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=863936f50214e843ae0c
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
----
-v3: Sashiko noted that the lockless dev->driver check in v2 could race
-with dev->driver being cleared, letting __device_attach() probe every
-driver despite autoprobe being off.  Do the preset bind in a helper that
-checks dev->driver under the device lock.
-v2: fix the unbound state itself rather than usb_driver_release_interface()
-(a sysfs unbind would still hit it).
+The flaw was introduced by commit d6c4503cc296 ("bpf: Implement bpf
+iterator for hash maps") and remains present in bpf.git at ff47652a4b66
+and bpf-next at e1d84a37cba9. A patched ff47652a4b66-based kernel rejected
+the invalid updates with -EACCES before the programs could execute.
 
-Tested with the syzbot C reproducer in QEMU (KASAN, dummy_hcd).  The
-race that leaves the interface unbound is rare, so to make it
-deterministic I temporarily made device_initial_probe() behave as if
-autoprobe were off whenever dev->driver is set: the unpatched logic
-oopses 3/3, with this patch 0/4 (64 USB connects each).  The plain
-patched kernel shows no oops either.
+Source reproducers, build-specific layout details, and exploitability logs
+are available privately to maintainers on request. They are intentionally
+not included in this public posting under the kernel's guidance for bugs
+found with AI assistance. The public regression tests do not execute an
+out-of-bounds access.
 
- drivers/base/dd.c | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
+Testing performed:
 
-diff --git a/drivers/base/dd.c b/drivers/base/dd.c
-index 137bf1dea333..bb1e76bf6122 100644
---- a/drivers/base/dd.c
-+++ b/drivers/base/dd.c
-@@ -1142,6 +1142,16 @@ int device_attach(struct device *dev)
- }
- EXPORT_SYMBOL_GPL(device_attach);
- 
-+/* Bind a device whose driver was set before device_add(), no matching. */
-+static void device_bind_preset(struct device *dev)
-+{
-+	device_lock(dev);
-+	if (!dev->p->dead && dev->driver && !device_is_bound(dev) &&
-+	    device_bind_driver(dev))
-+		device_set_driver(dev, NULL);
-+	device_unlock(dev);
-+}
-+
- void device_initial_probe(struct device *dev)
- {
- 	struct subsys_private *sp = bus_to_subsys(dev->bus);
-@@ -1149,9 +1159,10 @@ void device_initial_probe(struct device *dev)
- 	if (!sp)
- 		return;
- 
--	/* a device with a preset driver must still be bound */
--	if (sp->drivers_autoprobe || dev->driver)
-+	if (sp->drivers_autoprobe)
- 		__device_attach(dev, true);
-+	else
-+		device_bind_preset(dev);
- 
- 	subsys_put(sp);
- }
+  - Reproduced the bypass, cross-object metadata corruption, kernel panic,
+    stale-reference reuse, and selected-address read on Debian Linux
+    7.2.9+deb14-amd64 under isolated QEMU.
+  - Built bpf_iter.o, map_iter.o, bpf_sk_storage.o, and sock_map.o with
+    W=1.
+  - Built the affected BPF selftest objects and skeletons with clang 19.
+  - Compiled the bpf_iter host selftest with -Wall -Werror.
+  - Passed git diff --check and checkpatch.pl --strict --no-signoff.
+  - Verified that the series applies to bpf-next e1d84a37cba9.
+  - Booted the patched ff47652a4b66-based kernel with vmlinux BTF under
+    QEMU and confirmed that invalid updates return -EACCES.
+
+An LLM assisted with discovery, analysis, fix implementation, test
+development, and review.
+
+Given the memory-safety impact and the Fixes tag, please consider patch 1
+for applicable stable trees.
+
+Jan-Gerd Tenberge (2):
+  bpf: Revalidate iterator programs on link update
+  selftests/bpf: Test iterator link target validation
+
+ include/linux/bpf.h                           |  3 +
+ kernel/bpf/bpf_iter.c                         | 15 +++++
+ kernel/bpf/map_iter.c                         | 58 +++++++++++--------
+ net/core/bpf_sk_storage.c                     | 24 +++++---
+ net/core/sock_map.c                           | 26 ++++++---
+ .../selftests/bpf/prog_tests/bpf_iter.c       | 34 ++++++++++-
+ .../bpf/progs/bpf_iter_bpf_array_map.c        | 17 ++++++
+ 7 files changed, 136 insertions(+), 41 deletions(-)
+
+
+base-commit: ff47652a4b66c067c765a7ad464d930b5a9367cc
 -- 
-2.43.0
+2.54.0 (Apple Git-157)
 
