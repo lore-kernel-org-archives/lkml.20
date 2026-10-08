@@ -1,112 +1,192 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CBA52DCC13
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 03:39:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E93C1DA57
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 03:39:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791430785; cv=none; b=YXK4rsSWchOYNDKyERGWynj0Cqyyn+2hZ+cT6eknoCXbyAWwVpnYa52q0uVwC7TEWJzs2DlqT8uxEfb3cnYjwao74KhtrYRrGau+GwdzNxHXx1bAlt8xO5vruTmFazDe4R1/cqy83i9+t1X2+Zl85wS3KFNgsT12+FYXOlWP8AI=
+	t=1791430795; cv=none; b=DcGT9WcWjPq4cpDF63M/6U9gWNl1xi8LB0PijNv3Ph+9E+5w3b3E4wjEyajkH4HxMRFVI8bZWXPT/Hm3YuFV4K3ehU9g7FXfTGrYUAlLAKvZMV08FaeQM2xdHtoaRVev5BoSqXa6SeUsawgej4hKJO9YESsGdil6cSXAP17WBxE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791430785; c=relaxed/simple;
-	bh=RnissqypflDLpWNzFUeU1J0WwCQz4gc83nJVAkHfYf0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gb72hsJFsUL963bsGwElKccVqSWHRRRD5In4IodqEDb1g7tbz7mPkp3DSKQZw8jMrovKjkvmF1vqoJL/Ap8fzSD2p8wePFVUlNW8PhaRI75vTwivehFV8ECLMO4cFwGAuUEww0jq+O/uwZg+leHuBlbzKPmE+6YQ7SbyIo/6GDA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=ELR5W+2+; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1791430795; c=relaxed/simple;
+	bh=hrTmsIBbiGmKQOjn02ezrfotZmF8vX/5RB2XjzX5QhA=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=UlIJIobDn0jDzFHCRk8QHAaOfuRHzetsmS6YAmZbJicBO0rypSQymSZ6CRqkWCzXb62XcMIWliBuCsMXE3fSvHELHPXOIvrDEl51zyi/14/7cZeQA5nAN7NYP/yamd7sBpDSXlNFhTUggS5o/7ettX6fe9JDkJ2/BhEZLo8klqs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=dKC5um8E; arc=none smtp.client-ip=74.125.82.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="ELR5W+2+"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id E573D40E021A;
-	Thu,  8 Oct 2026 03:39:40 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id vqgpF6VRqRlc; Thu,  8 Oct 2026 03:39:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1791430771; bh=B5T8lD2eJ9YQFf9c+UYCFQvOFl6CQJzpDY/qp3B3cDQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ELR5W+2+BQqT0pOR2OejOkf0YKEvu1TSoomDG3HiqliFsLSdZS3UmOy40kgEWj9uJ
-	 Vvset1Ra8ALMpQgsp4bfqI84NEVUcjwMLBTQNO1P4y4DXTdt88XJE5BWTUlYKxdZFd
-	 0SwjS12snzvHw6BLNHjuxPG8Bi2TZiiTEfy2LCCZlLUlaShamv5t0NsQ9VoK9/Tzoh
-	 cpKnMw29TpBPOlnvfwoPgmNqZs9Gx2wO5g3NrdQhwNr28tFq0vvCQoCPGjQWo2U5/K
-	 YM9MWqmm+27LMizyXSeu1qf+gc/m/u4cvlLOy1P63yYZoobJPK+0QU+bAi243gSYsx
-	 rql+xXp3gN8tLno5JLIbDAN0/9Uyiq3n3Y2P3xiLnc2djRzSYfrNrctwNRTJq+OW74
-	 KVVUJpD7QNrZSN/mnkDXB8+kiqu5pWhDmXplL0sLNq82wx3CkAtkTdXVFKRGIArqdB
-	 SuI0Fl7oSsOe4g/AG39jtS+5Yir3NkCJQuYnPVrVneCRWzen7Wf86Ea5R6CT1XIRoE
-	 jeFPtb18rhNMX93HrLS9MCtP6BTrN8kbKoVrlNcRr9kQsg7rrFUWI9GffZUzweVKGz
-	 xwNicS/FUcs9X1QnfVZnVz/rni+ek3/rOhlxh1/waevg/NHWv1rXBsFKpSGVnwbJOW
-	 UsQyU8uAA2LBDRzi/Ym2ID4w=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 6C12D40E00E5;
-	Thu,  8 Oct 2026 03:39:22 +0000 (UTC)
-Date: Wed, 7 Oct 2026 20:39:19 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: "Chang S. Bae" <chang.seok.bae@intel.com>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org, tglx@kernel.org,
-	mingo@redhat.com, dave.hansen@linux.intel.com, peterz@infradead.org,
-	david.kaplan@amd.com
-Subject: Re: [RFC][PATCH v2 02/11] stop_machine: Accumulate error code rather
- than overwrite
-Message-ID: <20261008033919.GBascQZ9ueHINwNghd@fat_crate.local>
-References: <20260331014251.86353-1-chang.seok.bae@intel.com>
- <20260331014251.86353-3-chang.seok.bae@intel.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="dKC5um8E"
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3510d0baf63so9800796eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 20:39:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791430793; x=1792035593; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4HwPYJFKEdiyX4935OotxW9r3+hcqkRnlBB6xoiIvRU=;
+        b=dKC5um8Ew0EXtAKrVMiXwo4lW77Hz2kS+RTvXq2Btwh4ln2TT8Lejy+sr/grZvUDOK
+         vDdMNzJOZeAkHkVjEaiClyEIdUpv4bVwah55/4L3hwBWIqqTPcVBWO+rNcpDtaezG2fa
+         IXI8+7SeKx838OC0pv6TNHIdq/SU/YmFlFXhK5L6ohHYGPxGSVpd5TQWH+gNrpx+Dn/V
+         dCben5B3osaDM0cyQsxIgqIZZ5CorKNcxCgNn59e0UrKVpcMBSLw+C4A940viSDSV6x2
+         ljp47MXnt6evOYgsxQloCnvUlMBQ6a+1f3Vm8RK95BAPrfvGdCKlFvqiOIi83zUiCLMM
+         SyMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791430793; x=1792035593;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4HwPYJFKEdiyX4935OotxW9r3+hcqkRnlBB6xoiIvRU=;
+        b=c34gEvzF5yxEXYhNmxGDUsREekwQzB6Bz/DoS6pWUkWI1LXj02ToOE8uwjvZNmjIXt
+         15Afggz50oOoZnoMNdpgJ+aNpW+eSixguIZR8yJizqKXe0UQhW5XAy9IyD8OZEITWDS/
+         V3RNBP6jo3rWQ2QE4QJNftsfToHmiqAWbsRWjiz/i3v9PYF4Z8rXQb5pGSaFF3c26CWZ
+         3RmFYoE9SLTpJLTOJSMaj7/LRobAsLc1z1Lxm+JL5r847Xl+qCa6qg3n8xF9IiAUn5c0
+         5V83erjpmkHC9fEt/95NQ0TXjYmlDebMJAJ1KhB/KNeJ1rx11J2/A//8SRe5JI+tbfXK
+         u8bQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxtoPIXp1k3vHasMDWnOGLTqxgmylNNI8KrfHrTQqcaZycT3G8sFNgspl8Or1yHKrL7s2vmygMqypzfKAM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJkzYQioJ3KQUSNnjjypUL/xXck9cx+v5yKMFdK0i5qk8fi7CiY
+	27BKorcB+taH48oli6sY4Vq0ybk8vzwKirocWfCQxhJNUFeH7BicydYXEXxUm2gxoOe7Vp/vZsH
+	SnckbbEJDcLeVLMpvyths/+YFtA==
+X-Received: from dyblz13.prod.google.com ([2002:a05:7301:160d:b0:34b:8a3f:5aaf])
+ (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:693c:8809:20b0:351:68ca:62ac with SMTP id 5a478bee46e88-35168ca688cmr3181178eec.37.1791430792793;
+ Wed, 07 Oct 2026 20:39:52 -0700 (PDT)
+Date: Thu,  8 Oct 2026 03:39:26 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260331014251.86353-3-chang.seok.bae@intel.com>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+Message-ID: <20261008033952.1399670-1-almasrymina@google.com>
+Subject: [PATCH net v1] net: devmem: prevent mixing fragments from different bindings
+From: Mina Almasry <almasrymina@google.com>
+To: Stanislav Fomichev <sdf@fomichev.me>, Paolo Abeni <pabeni@redhat.com>, 
+	Kaiyuan Zhang <kaiyuanz@google.com>, Mina Almasry <almasrymina@google.com>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>, 
+	Bobby Eshleman <bobbyeshleman@meta.com>, Pavel Begunkov <asml.silence@gmail.com>, 
+	Ralf Lici <ralf@mandelbit.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Mar 31, 2026 at 01:42:40AM +0000, Chang S. Bae wrote:
->  static int stop_cpus(const struct cpumask *cpumask, cpu_stop_fn_t fn, void *arg)
->  {
-> @@ -512,7 +512,7 @@ static void cpu_stopper_thread(unsigned int cpu)
->  		ret = fn(arg);
->  		if (done) {
->  			if (ret)
-> -				done->ret = ret;
-> +				done->ret |= ret;
+validate_xmit_unreadable_skb() only inspects shinfo->frags[0] and
+assumes all fragments in an unreadable skb belong to that same devmem
+binding. However, tcp_sendmsg_locked() only checks that readability
+matches the presence of a binding (skb_frags_readable(skb) != !binding),
+allowing consecutive sendmsg() calls with different dmabuf bindings to
+collapse into the same skb and bypass per-device and unbind checks in
+validate_xmit_unreadable_skb().
 
-Yeah, can't really do that. Sashiko says:
+Add net_devmem_skb_binding() to query the binding associated with an
+skb, reuse it in validate_xmit_unreadable_skb(), and check in
+zerocopy_fill_skb_from_devmem() that existing fragments match the target
+binding.
 
-| Looking at this update to done->ret, is it possible for multiple CPUs to
-| write to this shared variable concurrently during a multi-CPU stop operation?
-| 
-| Since done->ret |= ret is a non-atomic read-modify-write operation, could
-| concurrent updates from different cpu_stopper_thread() instances race and
-| clobber each other, resulting in lost error bits?
-| 
-| Additionally, the stop_machine API is a generic mechanism where callbacks
-| often return standard negative POSIX error codes.
-| 
-| If two different CPUs return different negative error codes, for example
-| -ENOMEM (-12) and -EIO (-5), won't the bitwise OR result in -EPERM (-1)?
-| Does this regression corrupt the final return value for generic callers
-| that rely on standard negative error codes?
+Fixes: bd61848900bff ("net: devmem: Implement TX path")
+Cc: Pavel Begunkov <asml.silence@gmail.com>
+Cc: Stanislav Fomichev <sdf@fomichev.me>
+Cc: Bobby Eshleman <bobbyeshleman@meta.com>
+Signed-off-by: Mina Almasry <almasrymina@google.com>
+---
+ net/core/datagram.c |  2 +-
+ net/core/dev.c      | 14 ++++----------
+ net/core/devmem.h   | 23 +++++++++++++++++++++++
+ 3 files changed, 28 insertions(+), 11 deletions(-)
 
-and I can certainly see it:
+diff --git a/net/core/datagram.c b/net/core/datagram.c
+index 173b5d97bd409..ed8f1045f3cca 100644
+--- a/net/core/datagram.c
++++ b/net/core/datagram.c
+@@ -712,7 +712,7 @@ zerocopy_fill_skb_from_devmem(struct sk_buff *skb, struct iov_iter *from,
+ 	size_t virt_addr, size, off;
+ 	struct net_iov *niov;
+ 
+-	if (i && skb_frags_readable(skb))
++	if (i && net_devmem_skb_binding(skb) != binding)
+ 		return -EFAULT;
+ 
+ 	/* Devmem filling works by taking an IOVEC from the user where the
+diff --git a/net/core/dev.c b/net/core/dev.c
+index e76762e29360e..ad2b587dfee27 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -4054,8 +4054,7 @@ static struct sk_buff *sk_validate_xmit_skb(struct sk_buff *skb,
+ static struct sk_buff *validate_xmit_unreadable_skb(struct sk_buff *skb,
+ 						    struct net_device *dev)
+ {
+-	struct skb_shared_info *shinfo;
+-	struct net_iov *niov;
++	struct net_devmem_dmabuf_binding *binding;
+ 
+ 	if (likely(skb_frags_readable(skb) ||
+ 		   dev->netmem_tx == NETMEM_TX_NO_DMA))
+@@ -4064,14 +4063,9 @@ static struct sk_buff *validate_xmit_unreadable_skb(struct sk_buff *skb,
+ 	if (dev->netmem_tx == NETMEM_TX_NONE)
+ 		goto out_free;
+ 
+-	shinfo = skb_shinfo(skb);
+-
+-	if (shinfo->nr_frags > 0) {
+-		niov = netmem_to_net_iov(skb_frag_netmem(&shinfo->frags[0]));
+-		if (net_is_devmem_iov(niov) &&
+-		    READ_ONCE(net_devmem_iov_binding(niov)->dev) != dev)
+-			goto out_free;
+-	}
++	binding = net_devmem_skb_binding(skb);
++	if (binding && READ_ONCE(binding->dev) != dev)
++		goto out_free;
+ 
+ out:
+ 	return skb;
+diff --git a/net/core/devmem.h b/net/core/devmem.h
+index 4a293a7d1149c..8c74037633ae8 100644
+--- a/net/core/devmem.h
++++ b/net/core/devmem.h
+@@ -10,6 +10,7 @@
+ #ifndef _NET_DEVMEM_H
+ #define _NET_DEVMEM_H
+ 
++#include <linux/skbuff.h>
+ #include <net/netmem.h>
+ #include <net/netdev_netlink.h>
+ 
+@@ -118,6 +119,22 @@ net_devmem_iov_binding(const struct net_iov *niov)
+ 	return net_devmem_iov_to_chunk_owner(niov)->binding;
+ }
+ 
++static inline struct net_devmem_dmabuf_binding *
++net_devmem_skb_binding(const struct sk_buff *skb)
++{
++	const struct skb_shared_info *shinfo = skb_shinfo(skb);
++	const struct net_iov *niov;
++
++	if (skb_frags_readable(skb) || !shinfo->nr_frags)
++		return NULL;
++
++	niov = skb_frag_net_iov(&shinfo->frags[0]);
++	if (!niov || !net_is_devmem_iov(niov))
++		return NULL;
++
++	return net_devmem_iov_binding(niov);
++}
++
+ static inline u32 net_devmem_iov_binding_id(const struct net_iov *niov)
+ {
+ 	return net_devmem_iov_binding(niov)->id;
+@@ -243,6 +260,12 @@ net_devmem_iov_binding(const struct net_iov *niov)
+ {
+ 	return NULL;
+ }
++
++static inline struct net_devmem_dmabuf_binding *
++net_devmem_skb_binding(const struct sk_buff *skb)
++{
++	return NULL;
++}
+ #endif
+ 
+ #endif /* _NET_DEVMEM_H */
 
-__stop_cpus() declares done on its stack and passes it to
-queue_stop_cpus_work() which copies the pointer into the cpu_stop_work struct
-of every CPU and by the time we end up in the stopper thread, it has been
-woken up and we don't take any locks when we run ->fn - we're just
-preemption-disabled... So, IINM, we should drop this patch.
-
-Making this work is perhaps too much of an effort with diminishing returns...
-
-Thx.
-
+base-commit: 6d25ffca055a77787c21a36b66c253f76239411b
 -- 
-Regards/Gruss,
-    Boris.
+2.56.0.385.gd3acb90ef8-goog
 
-https://people.kernel.org/tglx/notes-about-netiquette
