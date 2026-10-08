@@ -1,143 +1,219 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10CD33D16FC;
-	Thu,  8 Oct 2026 09:18:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA0DF4848A6
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 09:19:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791451144; cv=none; b=hS5t57C1+J54PXftwTXMBFDFhG0mQHYhhbJwJ7aGKeXwYY37kh2EkTTSKKWwye42TWZTATkl9uQqz32YFIs+RBRr8/fL0DcTBhsGdZ5BKmiWLnepBXOmbsaKueUvw5Ts8q92mNzBwyHCcYvxKzhW25I1i9477dQ+4naz7Hj2DmU=
+	t=1791451155; cv=none; b=NP6PYnXdIwtJq9JFwG8TKwBhf485rG3GOMcwRyJGIs6z2joiwuOv11GcH7EMwDosCyt6fMpSdfEYni1F7esROLPOrCCX/ZNk/CgUBG/ttYN6TfAyZhReBMu1QauiiZ8cgJDqF+F006h/RBDscc/YlWrBFh7PqDXCQhRh5xGWUy0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791451144; c=relaxed/simple;
-	bh=g4SdGRS4oa4gLIHv7BskeiFEZvqgS8DVGutFRmPrCD4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Bx4hijrrw1IuG1VXCqvpwmLD0iugYHlj7L0CxfljmoQ2rdEwZORPRWkp177wKDOKNhEMMFEN3mrAq6kikLd+G7G2lqLXi7nyGkirv6N3z65xBT9qx7vmWRmi59nEtP4UCDUqaibZyws1nSrWpcXk8tn1JmBhyxcckaPzqiS+qk4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=TpYJ4A0C; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	s=arc-20240116; t=1791451155; c=relaxed/simple;
+	bh=tWZRu+UI2ZPuSpNn7BQgJfq8N/cVLqgDMRLvdJQv9Q8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fW+a0IOP0yL2tRV9DIlXNegszPlXnW6jpbtQQjd4cRhwAgE89ncNnBSa0gWkBSnSng3QeJSy+RRM8bWsw+afrp+AOl4mpbzKZPI9CtpI3WMTwRGkpaRgqCBRryPFCq8NiqgtG6gRMp7lQJcAqTgZm2ntGvfjuZThdafJmBNwwTY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gi52uEHF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eQ8Aw5QG; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="TpYJ4A0C"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=LlTbJYxhoFVYu+0y/mW72tx6Dx36C0bLKSlVa0TrKGc=; b=TpYJ4A0CJ48zzojJwmlKxdxoOp
-	uQLFYZ+ghUEndbK4cPr46ox7HvJeSkKzsbai+xVlRmrZwLdIbkTtb9a7Y5ZKWyXke0PEc/DVXgElk
-	Of2jJ0WVVtWSVIEtOuJdsu0f3WryHTIdX0sLXUCPqp4Jxb6WQ7yuElpGpJSFNEs7ae6wycBw/avhP
-	lpglmhBH47mdx9ThKxogxk8Mg7V3vOxJraqQQkWNfsKn1mntZTUPFH+jtkpuAxNJpbvPk2X+Rgg/i
-	3fWlcvUrjxgffFGYJ+1GWGskgBdCUJ5k1vvLLXQOjbnna/pU+R3S0vY30R27Oc6HMeJgvtkCBfT/r
-	zD5dYzLA==;
-Received: from sslproxy03.your-server.de ([88.198.220.132])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xEkGz-000FJH-0d;
-	Thu, 08 Oct 2026 11:18:45 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy03.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xEkGz-000AOW-0I;
-	Thu, 08 Oct 2026 11:18:44 +0200
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: Bough Chen <haibo.chen@oss.nxp.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
- Markus Niebel <Markus.Niebel@ew.tq-group.com>, linux@ew.tq-group.com,
- devicetree@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject:
- Re: [PATCH v2 1/3] arm64: dts: imx8mm-tqma8mqml: restrict clock for SPI-NOR
- flash
-Date: Thu, 08 Oct 2026 11:18:43 +0200
-Message-ID: <6322266.lOV4Wx5bFT@steina-w>
-Organization: TQ-Systems GmbH
-In-Reply-To: <20261008083427.33iide6apbktyv6p@shlinux89>
-References:
- <20261007072017.2311818-1-alexander.stein@ew.tq-group.com>
- <20261008083427.33iide6apbktyv6p@shlinux89>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gi52uEHF";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eQ8Aw5QG"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6987KNE82167091
+	for <linux-kernel@vger.kernel.org>; Thu, 8 Oct 2026 09:19:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=k9oP5vnc7jHHYq8BmRPTcIkCBqaniiol+R2
+	Q22c9X1o=; b=gi52uEHFBzWt79i2PfVboxj9Fz67CLvxfPGwLT1oIrWe47Da0AM
+	zJoI9KtwFY6lyTpy5Q92HAKXLYWcnj7hWhuDMHPkNAH8VsPHfT19oQDPZv7sq4Yd
+	FiUJoPuc6digpZgWJwNfX+Afmp+xB5UOMroYqQhQrzCKEpmApOvmEmmCQJYEeOYb
+	yPcUO/AduRHF+DPKBoHe9uK9Rr/BLcje1ogUbr3Lc2XhlVdR+g39M0x0IEuXDRcn
+	g1k+v32ZGYisJH9hjn7tCbrDFPnSKLpOMhvfSQsXsmS475PDg++1icpjuHlZ3W1I
+	clPtZtiMt4SmuJMXvtBnQenF1eCWWknKOlQ==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe2t8tu-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 09:19:04 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-91789a9107fso117396106d6.1
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 02:19:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791451144; x=1792055944; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=k9oP5vnc7jHHYq8BmRPTcIkCBqaniiol+R2Q22c9X1o=;
+        b=eQ8Aw5QGcfGnByQvLzG8DxrOC7ocvHfYjCqPEoklO+o2fmtPkJQg/VYI89UNB2C2W0
+         MEtHpBQdLmwcUUb6A1h3oNrojS1AGm8BM0dlyJ7o5LGFCqtPnirycJrwHVd+60IzdaPh
+         uYzb2zqwO1eqLnqrJxvtu309GL4GMaK69YDHh48Lk4rXuriB8kHnB0Gur/WbAPIFUYEB
+         zXqRq2ZvkB66X6NTtnLMf4ubX5kv3x7QB6U6bemMvTKUG4zVYanyftvz5lJtQ3sLFBF5
+         2Bhy3SdL+F2lS1yX4q6RfGt7ZHXtZp47Alh62dGv54hXAdIgUyg14N//im4x8cDgb4Dk
+         rjzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791451144; x=1792055944;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=k9oP5vnc7jHHYq8BmRPTcIkCBqaniiol+R2Q22c9X1o=;
+        b=DdPZHCtEOJ5fHZ+BV5i+33LTUVdRQJzZNNQJBlApztdLa5TcEeDclmXtkvDlt3+Uo8
+         jkP5AoxVdCLDyCuPOMSP/Y2G5/OF51rOdhzhdJQ11B8knwZPIadr5wT/pd5z3xfSLnHK
+         URY/vPzSx5i3KcxtPiMIFXwg3RQnfvqNHfNJ4gPxh/Gx39c+nnT7W2ukgMOWZyXfuHH6
+         cMHW8ROs+xWwsr/64xpy4rkarkmOU/4OjWBVAIMTbI6brfSgmT90zQ1AXMWzkEVvWejP
+         Yp2VDBKIndTsHO0TSVH9JL/59mXCq6UV/EthX5iRd4OYWSWmKHZkbeojKnvZJ3iZVQsK
+         fpxA==
+X-Forwarded-Encrypted: i=1; AKwUvBwTM6K3WaUKjBy5p2zLYDWG6is/ePqqjRoU24d73rOS0vH/g/U+ro+M35bnyFEc8r/aAj/AKrVHKbgDzNY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kKIwSKMtYi9CMU4R8FOkKGzuHQ0yac327RFLABL9CtsoAJXS5r
+	v0tbVE6pGERhYz4msQLxSvlK3Xug5ieHkj2gH3Nxo28lDeUj1yM9vshwWXGqC2Apx2R44oc7dFC
+	TMYoroBDKscXOmVOCae1n9IfSlUFXYKIsng98ldibhmyPygA2GTSh//HKGmJh0rghI2c=
+X-Gm-Gg: AYBFou1HMNC3EcFsXoLmYaAeh25yGr6s3ZmbPzsHPXsNp4ipfQqInNQpAIQR0uRpVuX
+	bXnw+igxMt3l4/JNqUPg+l1DYPDIS3kv4GMHVUgjm+5kQrHywL6p3xxeQBVsVUD0Pam3oKhPYR2
+	SVE/Q5XvzegFPoJ/nrrTYRXba0O9i7tvdhQvf10StG9/VQUh2T/GE1aqDTs5RErKxbQYNega/km
+	GYzDT3hoBYVC3MoU/5OYoWoH2ARSC2egLCOumCaO/E847XXHov3IkRj/sRJbTQFS6AWBJw1in4a
+	SPUA78vJHhd2ouyWW4f/n1XR52nCCTFOyhyOlep/d+kCDlzlOrn3AGC7KxWBKDjtE4KHA3Jd9pD
+	rKInnT9yZQHz/xfAdROVP36v3JrNZBydXYva6Ti61WrUOkQ==
+X-Received: by 2002:a05:620a:2604:b0:93e:9898:c102 with SMTP id af79cd13be357-93e9b76ca27mr944191285a.20.1791451143538;
+        Thu, 08 Oct 2026 02:19:03 -0700 (PDT)
+X-Received: by 2002:a05:620a:2604:b0:93e:9898:c102 with SMTP id af79cd13be357-93e9b76ca27mr944188085a.20.1791451143010;
+        Thu, 08 Oct 2026 02:19:03 -0700 (PDT)
+Received: from brgl-qcom.local (90-182-211-1.rcp.o2.cz. [90.182.211.1])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1843b2eadsm59975825e9.10.2026.10.08.02.19.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 02:19:01 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+To: Linus Walleij <linusw@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
+        linux-kernel@vger.kernel.org, brgl@kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: [GIT PULL] Qualcomm pin control updates for v7.4-rc1
+Date: Thu,  8 Oct 2026 11:18:57 +0200
+Message-ID: <20261008091857.5751-1-bartosz.golaszewski@oss.qualcomm.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28147/Thu Oct  8 08:24:12 2026)
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=AbMkjHXG c=1 sm=1 tr=0 ts=6ac76008 cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=zRh97aRZNhiOMYVz81Er1w==:17
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=VwQbUJbxAAAA:8
+ a=s8qG-SC38XHMLUlfDbAA:9 a=iYH6xdkBrDN1Jqds4HTS:22
+X-Proofpoint-GUID: 0sWSlddSOP7O3QL7Cr9XdzsnLNyeViur
+X-Proofpoint-ORIG-GUID: 0sWSlddSOP7O3QL7Cr9XdzsnLNyeViur
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDAzNiBTYWx0ZWRfXw8EHN4Tw+Pgl
+ 0Mj7untOM7t2ApLBVu3jYRKT3XySId9cUZMnZSl4hajGRlvh3l8j5o9g1/VJXoz0mbqsBzRtZHu
+ RiNEFZ5LYKh0xIbhhWlp86PrWpZxISg=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDAzNiBTYWx0ZWRfX/1PM8Kr/yP32
+ OV7Q7aivnmQIjVucgOx2AIyTVHyhtp26uQL9zaDf2Gmb+eNGDPQWHmJD4SPrAG2O+Ej+xS7vPsv
+ a3VTpiy7qmUOWUz9prMkL9SXpMka/vDmteOd7J1UFSdA7QI+Ng5rvml+MRZkSR+P13eVcR+Suq6
+ GORClW8/HDP8XECs/gm6bjIh4GD/z/dpx+wegiKQRUnbP0k0b/OHYfE58jKoe4BOEMSjfqCGfYt
+ X3fBWhk5s7dA2Oxy2x3stHanRa0Hfc3QNtUEkc2BQtyVfcFfKfSfIb3X48a+WxtVZ+pVdBgmJjx
+ R3TXHaBfcExMzp0LlnezaNPO1UXFovcTQa4qarXcx5CP2cE+2KffthMQRb5sNIKiVoibvavAfxQ
+ bYXjDwGiBwahm1YwQNwbFlFGetE+OsWE3EOjgdRs7LOgcE181M0HpKFo3sHwdOMbmY5Sf5jvBPZ
+ Swd6juZlP+AukF7mxcA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-08_03,2026-10-06_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 clxscore=1015 suspectscore=0 lowpriorityscore=0 spamscore=0
+ impostorscore=0 malwarescore=0 adultscore=0 phishscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080036
 
-Hi,
+Linus,
 
-Am Donnerstag, 8. Oktober 2026, 10:34:27 Mitteleurop=C3=A4ische Sommerzeit =
-schrieb Bough Chen:
-> On Wed, Oct 07, 2026 at 09:20:13AM +0200, Alexander Stein wrote:
-> > From: Markus Niebel <Markus.Niebel@ew.tq-group.com>
-> >=20
-> > The FlexSPI controller uses quad SPI with internal clock recovery.
-> > The i.MX 8M Mini Applications Processor Datasheet for Industrial Produc=
-ts,
-> > Rev. 2, 11/2022 lists a maximum FlexSPI frequency of 66.666666 MHz for
-> > that mode.
-> >=20
-> > Fixes: dfcd1b6f7620 ("arm64: dts: freescale: add initial device tree fo=
-r TQMa8MQML with i.MX8MM")
->=20
-> There is already one patch to limit the clock rate based on SoCs, refer t=
-o:
-> https://patch.msgid.link/20260728-fspi-clock-v2-1-dbe786a4a6eb@nxp.com
+Please pull the following set of updates to Qualcomm pin control drivers for
+the upcoming v7.4 merge window. There are three new drivers, support for a new
+SPMI PMIC and some minor driver improvements along with necessary DT bindings
+changes. Details are in the signed tag.
 
-Ah, thanks. I wasn't aware of that. Despite that I don't like this just
-supports RXCLKSRC 0 and 3 (SDR/DTR), this in deed limits the frequency
-already.
+Thanks,
+Bartosz
 
-> I think the max frequency in the DTS flash node should describe only the
-> SPI NOR device limitation, not the host limitation.
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
 
-True, before there was no limitation like that. But starting with commit
-f43579ef35005 ("spi: spi-nxp-fspi: limit the clock rate for different
-sample clock source selection") this series is no longer necessary.
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
 
-Thanks and best regards
-Alexander
+are available in the Git repository at:
 
-> Regards
-> Haibo Chen
-> > Signed-off-by: Markus Niebel <Markus.Niebel@ew.tq-group.com>
-> > Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
-> > ---
-> > Changes in v2:
-> > * Clarify which datasheet is referred to
-> > * Add Fixes tag
-> >=20
-> >  arch/arm64/boot/dts/freescale/imx8mm-tqma8mqml.dtsi | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >=20
-> > diff --git a/arch/arm64/boot/dts/freescale/imx8mm-tqma8mqml.dtsi b/arch=
-/arm64/boot/dts/freescale/imx8mm-tqma8mqml.dtsi
-> > index 1b5ba3c47164f..48285bcbe9bbb 100644
-> > --- a/arch/arm64/boot/dts/freescale/imx8mm-tqma8mqml.dtsi
-> > +++ b/arch/arm64/boot/dts/freescale/imx8mm-tqma8mqml.dtsi
-> > @@ -60,7 +60,7 @@ &flexspi {
-> >  	flash0: flash@0 {
-> >  		compatible =3D "jedec,spi-nor";
-> >  		reg =3D <0>;
-> > -		spi-max-frequency =3D <84000000>;
-> > +		spi-max-frequency =3D <66666666>;
-> >  		spi-tx-bus-width =3D <1>;
-> >  		spi-rx-bus-width =3D <4>;
-> >  		vcc-supply =3D <&buck5_reg>;
->=20
+  git://git.kernel.org/pub/scm/linux/kernel/git/brgl/linux.git tags/pinctrl-qcom-updates-for-v7.4-rc1
 
+for you to fetch changes up to 4d7c9430a26aea6a69521af3aa2d78dd5bc8d3ed:
 
-=2D-=20
-TQ-Systems GmbH | M=C3=BChlstra=C3=9Fe 2, Gut Delling | 82229 Seefeld, Germ=
-any
-Amtsgericht M=C3=BCnchen, HRB 105018
-Gesch=C3=A4ftsf=C3=BChrer: Detlef Schneider, R=C3=BCdiger Stahl, Stefan Sch=
-neider
-http://www.tq-group.com/
+  pinctrl: qcom: tlmm-test: Add const to reg_names allocation type (2026-09-21 11:38:58 +0200)
 
+----------------------------------------------------------------
+Qualcomm pin control updates for v7.4-rc1
 
+New drivers:
+- add the TLMM drivers for Kuno and MSM8952
+- add the LPASS LPI driver for Hawi
+
+New model support:
+- support PMAU0102 GPIO in pinctrl-spmi-gpio
+
+Driver improvements:
+- fix/unify naming convention in defines specific to Qualcomm pinctrl
+  drivers
+- extend debugfs verbosity for pinctrl-lpass-lpi
+- make the return type from kcalloc() const in tlmm-test
+
+Devicetree bindings:
+- add binding documents for new drivers
+- document compatibles for new models
+- document the gpio-line-names property for qcom,sc8280xp-tlmm
+
+----------------------------------------------------------------
+Bjorn Andersson (1):
+      pinctrl: qcom: lpass-lpi: Include value in debugfs output
+
+Dhruvin Rajpura (2):
+      dt-bindings: pinctrl: qcom,pmic-gpio: Document PMAU0102 GPIO support
+      pinctrl: qcom: spmi-gpio: Add PMAU0102 GPIO support
+
+Hardeep Sharma (2):
+      dt-bindings: pinctrl: qcom: Add Kuno TLMM
+      pinctrl: qcom: Add Kuno pinctrl driver
+
+Kees Cook (1):
+      pinctrl: qcom: tlmm-test: Add const to reg_names allocation type
+
+Konrad Dybcio (1):
+      pinctrl: qcom: Drop marketing name-prefixed duplicate defines
+
+Muzaffer Kadir (2):
+      dt-bindings: pinctrl: qcom: Add MSM8952 pinctrl
+      pinctrl: qcom: Add MSM8952 tlmm pinctrl driver
+
+Prasad Kumpatla (2):
+      dt-bindings: pinctrl: qcom,hawi-lpass-lpi-pinctrl: Add Hawi LPI pinctrl
+      pinctrl: qcom: hawi-lpass-lpi: add Hawi LPASS LPI TLMM
+
+Xilin Wu (1):
+      dt-bindings: pinctrl: qcom,sc8280xp-tlmm: allow gpio-line-names
+
+ .../pinctrl/qcom,hawi-lpass-lpi-pinctrl.yaml       |  109 ++
+ .../bindings/pinctrl/qcom,kuno-tlmm.yaml           |  110 ++
+ .../bindings/pinctrl/qcom,msm8952-pinctrl.yaml     |  146 +++
+ .../bindings/pinctrl/qcom,pmic-gpio.yaml           |    3 +
+ .../bindings/pinctrl/qcom,sc8280xp-tlmm.yaml       |    3 +
+ drivers/pinctrl/qcom/Kconfig                       |   10 +
+ drivers/pinctrl/qcom/Kconfig.msm                   |   19 +
+ drivers/pinctrl/qcom/Makefile                      |    3 +
+ drivers/pinctrl/qcom/pinctrl-apq8064.c             |  188 +--
+ drivers/pinctrl/qcom/pinctrl-apq8084.c             |  502 ++++----
+ drivers/pinctrl/qcom/pinctrl-hawi-lpass-lpi.c      |  244 ++++
+ drivers/pinctrl/qcom/pinctrl-ipq4019.c             |  208 ++--
+ drivers/pinctrl/qcom/pinctrl-ipq8064.c             |  208 ++--
+ drivers/pinctrl/qcom/pinctrl-kuno.c                |  801 +++++++++++++
+ drivers/pinctrl/qcom/pinctrl-lpass-lpi.c           |    6 +-
+ drivers/pinctrl/qcom/pinctrl-lpass-lpi.h           |   17 +
+ drivers/pinctrl/qcom/pinctrl-msm.h                 |   25 -
+ drivers/pinctrl/qcom/pinctrl-msm8952.c             | 1257 ++++++++++++++++++++
+ drivers/pinctrl/qcom/pinctrl-spmi-gpio.c           |    1 +
+ drivers/pinctrl/qcom/tlmm-test.c                   |    2 +-
+ 20 files changed, 3282 insertions(+), 580 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/pinctrl/qcom,hawi-lpass-lpi-pinctrl.yaml
+ create mode 100644 Documentation/devicetree/bindings/pinctrl/qcom,kuno-tlmm.yaml
+ create mode 100644 Documentation/devicetree/bindings/pinctrl/qcom,msm8952-pinctrl.yaml
+ create mode 100644 drivers/pinctrl/qcom/pinctrl-hawi-lpass-lpi.c
+ create mode 100644 drivers/pinctrl/qcom/pinctrl-kuno.c
+ create mode 100644 drivers/pinctrl/qcom/pinctrl-msm8952.c
