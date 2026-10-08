@@ -1,95 +1,241 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31B333D9DD4;
-	Thu,  8 Oct 2026 07:19:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97B173D411D;
+	Thu,  8 Oct 2026 07:19:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791443960; cv=none; b=uwIo6F9tjFWVeOwFhYUDKJaanT+2fa7gj9TepX012A5eBx/hHDXgB4gTX2mBX61kMguRzf9OC1rve18uG9R3gRcKlzwgEfTDr2lwObmsLkVRdJb6Rr45PPzAVc6UmtAM50UuvkUY6zdoYaXhGsjP/BQzsiw25riB9vFN5QCbZ/I=
+	t=1791443964; cv=none; b=bJSqGfWgVGH3BeMOgcrx2vCyVilSVuB6Gq5ZFzr2kb7nkm8MyREsQLBmPYm2F9ZBDJzwrFLfqJEJYHwtHMRMOTWWV+MB3vVxFDl0qyCxks4VJoI7ouLm0zlj2MLMXgGK+o0ib/Qpk5rIhDRhwtn8UPK7tWGxB2ydyyak3Arsa6A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791443960; c=relaxed/simple;
-	bh=8RaKJJa88G/U43Om9GWKyuM7R61X/xlktmHdGJHrtew=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=Q3OcAoCrSLsW/sFogqn1ZfMn+25LvgtvNZ1PsUoPQE4AH9xyXx5KpzEI7zFQ4xZ037KGDoDlXeC7pzAci2B0gOe7TLsxBeb6MlIowZTS4Pn2bdhsbSE0z8VsoFXj2mPcC2hX1V42WHv9dtJMy1O2sKJTbwah29NkT3zkKBuWC0o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LQsfXGtd; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LQsfXGtd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1F241F00893;
-	Thu,  8 Oct 2026 07:19:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791443952;
-	bh=LSxPZEPR5SziIXhK2HrZDL72qyLOyeEGstZGusBKpNM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=LQsfXGtdDAq5hxoRYFNW5Bc7NQI+wkUEG7tOAvMv450ED0QbJr+NjFOIOEW0tqXCg
-	 0JFra5nKNM5H+TIHlvq0la45Xz/b8+3jCWG6mvZZp9QcYX/zCYhD20jHfcC36J/4KH
-	 Rvn1vvl3UwijR664CP0qb0Z/wlAdkgd6lrDEP2wi3wNubzBNZzfYb/mwRYgk7XVT1c
-	 x+9/O6+fzwKtxkw7NMV49CBCUS+YGoGmnl39/KsFBRyO/9Xpp4GGUGJOqJdnZtHwy8
-	 SlCE3MO+FMBUjLy5X6Bnzhc9MU3biOun1q7E4QKy7JEz/5OSKvJjTsFs2AqcUfNV1v
-	 YBk27Mf8I7bRA==
-From: Mark Brown <broonie@kernel.org>
-To: Alain Volmat <alain.volmat@foss.st.com>, 
- Pin-Hao Chen <billy920225@gmail.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- =?utf-8?q?Cl=C3=A9ment_Le_Goffic?= <clement.legoffic@foss.st.com>, 
- linux-spi@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-In-Reply-To: <20261005220528.7199-1-billy920225@gmail.com>
-References: <20261005220528.7199-1-billy920225@gmail.com>
-Subject: Re: [PATCH] spi: stm32: fix double free of SRAM buffer on MDMA
- fallback
-Message-Id: <179138619954.2423942.17574965828667602495.b4-ty@b4>
-Date: Wed, 07 Oct 2026 17:16:39 +0200
+	s=arc-20240116; t=1791443964; c=relaxed/simple;
+	bh=yUl5LATUL6S4v43uLQX33BItPBx0y4nhlcp6mXleL1M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=gvsBm/88vgU78DgDtUqMFqUbpXg6JXMKFlol3BVp8/ltAk8nqzzZ9MFo2CzqUg/JN8s6sT1kfeL0gWVFr/Quev/kqkkbyAiaDiHxGVtfz22jZ4/vkjMMUWeHAKFact7Hb2ZlnXQOH9o5XrnBkIHlk9a5s9+kckU4kpC9aWNYv1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 982EB21B72;
+	Thu,  8 Oct 2026 07:19:19 +0000 (UTC)
+Authentication-Results: smtp-out1.suse.de;
+	none
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4034913354;
+	Thu,  8 Oct 2026 07:19:19 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id DBrCBfdDx2p9cQAAD6G6ig
+	(envelope-from <jgross@suse.com>); Thu, 08 Oct 2026 07:19:19 +0000
+From: Juergen Gross <jgross@suse.com>
+To: linux-kernel@vger.kernel.org,
+	linux-fbdev@vger.kernel.org,
+	dri-devel@lists.freedesktop.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Helge Deller <deller@gmx.de>,
+	linux-geode@lists.infradead.org
+Subject: [PATCH v4 06/13] fbdev/geode: Stop using 32-bit MSR interfaces
+Date: Thu,  8 Oct 2026 09:18:32 +0200
+Message-ID: <20261008071839.2247074-7-jgross@suse.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261008071839.2247074-1-jgross@suse.com>
+References: <20261008071839.2247074-1-jgross@suse.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1132; i=broonie@kernel.org;
- h=from:subject:message-id; bh=8RaKJJa88G/U43Om9GWKyuM7R61X/xlktmHdGJHrtew=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqx0PqnniUR/n8Cc0GizO4cmryq7XxHYvsVWhR2
- Isr9QXQfHmJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCasdD6gAKCRAk1otyXVSH
- 0PEMB/9jChwCIe3aM1b6h8T/3EjY6c0rCpzb8LBIjBXSH+I3C5muPF31tDmpJbZlA2rInp3S+54
- rrA2HswRABIZY0iAnIXZVh5efFl219B4cVRO7IuAfbKdl81A/do86DIal7ucBKyojoKV8w9CX77
- F4EvzTeWzGD+N4pqlHYl5lOzdOeSmBuuw4QZAaEV/Y7gXuYKAio9Dd5xS5VHUP1ZrsuF0hQOfHI
- rdyALx0PiErmOjBiUuqIXk9eDY1EvWzkjSExiKNZDlAnYbULFwnb3KYa5UrnSaVtPoIC4tgCyOr
- cdsb7teB6Dzj8b5TqPgDmJ23v8//S2LQLYeHBHxtiyIVuYMK
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Pre-Result: action=no action;
+	module=replies;
+	Message is reply to one we originated
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 982EB21B72
+X-Spam-Level: 
+X-Rspamd-Pre-Result: action=no action;
+	module=replies;
+	Message is reply to one we originated
+X-Rspamd-Action: no action
+X-Spam-Score: -4.00
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[]
 
-On Tue, 06 Oct 2026 06:05:28 +0800, Pin-Hao Chen wrote:
-> spi: stm32: fix double free of SRAM buffer on MDMA fallback
+The 32-bit MSR interfaces rdmsr() and wrmsr() are planned to be
+removed. Use the related 64-bit variants instead.
 
-Applied to
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ drivers/video/fbdev/geode/display_gx.c |  8 +++---
+ drivers/video/fbdev/geode/lxfb_ops.c   | 38 +++++++++++++-------------
+ drivers/video/fbdev/geode/suspend_gx.c | 20 ++++++++------
+ 3 files changed, 34 insertions(+), 32 deletions(-)
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.4
-
-Thanks!
-
-[1/1] spi: stm32: fix double free of SRAM buffer on MDMA fallback
-      https://git.kernel.org/broonie/spi/c/0c5b0c3eb1d6
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+diff --git a/drivers/video/fbdev/geode/display_gx.c b/drivers/video/fbdev/geode/display_gx.c
+index 099322cefce0..b93aa21a1d2b 100644
+--- a/drivers/video/fbdev/geode/display_gx.c
++++ b/drivers/video/fbdev/geode/display_gx.c
+@@ -23,15 +23,15 @@ unsigned int gx_frame_buffer_size(void)
+ 	unsigned int val;
+ 
+ 	if (!cs5535_has_vsa2()) {
+-		uint32_t hi, lo;
++		struct msr msr;
+ 
+ 		/* The number of pages is (PMAX - PMIN)+1 */
+-		rdmsr(MSR_GLIU_P2D_RO0, lo, hi);
++		rdmsrq(MSR_GLIU_P2D_RO0, msr.q);
+ 
+ 		/* PMAX */
+-		val = ((hi & 0xff) << 12) | ((lo & 0xfff00000) >> 20);
++		val = ((msr.h & 0xff) << 12) | ((msr.l & 0xfff00000) >> 20);
+ 		/* PMIN */
+-		val -= (lo & 0x000fffff);
++		val -= (msr.l & 0x000fffff);
+ 		val += 1;
+ 
+ 		/* The page size is 4k */
+diff --git a/drivers/video/fbdev/geode/lxfb_ops.c b/drivers/video/fbdev/geode/lxfb_ops.c
+index 2e33da9849b0..f5f1134cae9a 100644
+--- a/drivers/video/fbdev/geode/lxfb_ops.c
++++ b/drivers/video/fbdev/geode/lxfb_ops.c
+@@ -124,19 +124,19 @@ static const struct {
+ 
+ static void lx_set_dotpll(u32 pllval)
+ {
+-	u32 dotpll_lo, dotpll_hi;
++	struct msr dotpll;
+ 	int i;
+ 
+-	rdmsr(MSR_GLCP_DOTPLL, dotpll_lo, dotpll_hi);
++	rdmsrq(MSR_GLCP_DOTPLL, dotpll.q);
+ 
+-	if ((dotpll_lo & MSR_GLCP_DOTPLL_LOCK) && (dotpll_hi == pllval))
++	if ((dotpll.l & MSR_GLCP_DOTPLL_LOCK) && (dotpll.h == pllval))
+ 		return;
+ 
+-	dotpll_hi = pllval;
+-	dotpll_lo &= ~(MSR_GLCP_DOTPLL_BYPASS | MSR_GLCP_DOTPLL_HALFPIX);
+-	dotpll_lo |= MSR_GLCP_DOTPLL_DOTRESET;
++	dotpll.h = pllval;
++	dotpll.l &= ~(MSR_GLCP_DOTPLL_BYPASS | MSR_GLCP_DOTPLL_HALFPIX);
++	dotpll.l |= MSR_GLCP_DOTPLL_DOTRESET;
+ 
+-	wrmsr(MSR_GLCP_DOTPLL, dotpll_lo, dotpll_hi);
++	wrmsrq(MSR_GLCP_DOTPLL, dotpll.q);
+ 
+ 	/* Wait 100us for the PLL to lock */
+ 
+@@ -145,15 +145,15 @@ static void lx_set_dotpll(u32 pllval)
+ 	/* Now, loop for the lock bit */
+ 
+ 	for (i = 0; i < 1000; i++) {
+-		rdmsr(MSR_GLCP_DOTPLL, dotpll_lo, dotpll_hi);
+-		if (dotpll_lo & MSR_GLCP_DOTPLL_LOCK)
++		rdmsrq(MSR_GLCP_DOTPLL, dotpll.q);
++		if (dotpll.l & MSR_GLCP_DOTPLL_LOCK)
+ 			break;
+ 	}
+ 
+ 	/* Clear the reset bit */
+ 
+-	dotpll_lo &= ~MSR_GLCP_DOTPLL_DOTRESET;
+-	wrmsr(MSR_GLCP_DOTPLL, dotpll_lo, dotpll_hi);
++	dotpll.l &= ~MSR_GLCP_DOTPLL_DOTRESET;
++	wrmsrq(MSR_GLCP_DOTPLL, dotpll.q);
+ }
+ 
+ /* Set the clock based on the frequency specified by the current mode */
+@@ -268,7 +268,7 @@ static void lx_graphics_enable(struct fb_info *info)
+ 		config |= VP_DCFG_CRT_VSYNC_POL;
+ 
+ 	if (par->output & OUTPUT_PANEL) {
+-		u32 msrlo, msrhi;
++		struct msr val;
+ 
+ 		write_fp(par, FP_PT1, 0);
+ 		temp = FP_PT2_SCRC;
+@@ -282,10 +282,10 @@ static void lx_graphics_enable(struct fb_info *info)
+ 		write_fp(par, FP_PT2, temp);
+ 		write_fp(par, FP_DFC, FP_DFC_BC);
+ 
+-		msrlo = MSR_LX_MSR_PADSEL_TFT_SEL_LOW;
+-		msrhi = MSR_LX_MSR_PADSEL_TFT_SEL_HIGH;
++		val.l = MSR_LX_MSR_PADSEL_TFT_SEL_LOW;
++		val.h = MSR_LX_MSR_PADSEL_TFT_SEL_HIGH;
+ 
+-		wrmsr(MSR_LX_MSR_PADSEL, msrlo, msrhi);
++		wrmsrq(MSR_LX_MSR_PADSEL, val.q);
+ 	}
+ 
+ 	if (par->output & OUTPUT_CRT) {
+@@ -313,15 +313,15 @@ unsigned int lx_framebuffer_size(void)
+ 	unsigned int val;
+ 
+ 	if (!cs5535_has_vsa2()) {
+-		uint32_t hi, lo;
++		struct msr msr;
+ 
+ 		/* The number of pages is (PMAX - PMIN)+1 */
+-		rdmsr(MSR_GLIU_P2D_RO0, lo, hi);
++		rdmsrq(MSR_GLIU_P2D_RO0, msr.q);
+ 
+ 		/* PMAX */
+-		val = ((hi & 0xff) << 12) | ((lo & 0xfff00000) >> 20);
++		val = ((msr.h & 0xff) << 12) | ((msr.l & 0xfff00000) >> 20);
+ 		/* PMIN */
+-		val -= (lo & 0x000fffff);
++		val -= (msr.l & 0x000fffff);
+ 		val += 1;
+ 
+ 		/* The page size is 4k */
+diff --git a/drivers/video/fbdev/geode/suspend_gx.c b/drivers/video/fbdev/geode/suspend_gx.c
+index 73307f42e343..6c0a526ee8a2 100644
+--- a/drivers/video/fbdev/geode/suspend_gx.c
++++ b/drivers/video/fbdev/geode/suspend_gx.c
+@@ -40,25 +40,27 @@ static void gx_save_regs(struct gxfb_par *par)
+ 
+ static void gx_set_dotpll(uint32_t dotpll_hi)
+ {
+-	uint32_t dotpll_lo;
++	struct msr dotpll;
+ 	int i;
+ 
+-	rdmsrq(MSR_GLCP_DOTPLL, dotpll_lo);
+-	dotpll_lo |= MSR_GLCP_DOTPLL_DOTRESET;
+-	dotpll_lo &= ~MSR_GLCP_DOTPLL_BYPASS;
+-	wrmsr(MSR_GLCP_DOTPLL, dotpll_lo, dotpll_hi);
++	rdmsrq(MSR_GLCP_DOTPLL, dotpll.q);
++	dotpll.l |= MSR_GLCP_DOTPLL_DOTRESET;
++	dotpll.l &= ~MSR_GLCP_DOTPLL_BYPASS;
++	dotpll.h = dotpll_hi;
++	wrmsrq(MSR_GLCP_DOTPLL, dotpll.q);
+ 
+ 	/* wait for the PLL to lock */
+ 	for (i = 0; i < 200; i++) {
+-		rdmsrq(MSR_GLCP_DOTPLL, dotpll_lo);
+-		if (dotpll_lo & MSR_GLCP_DOTPLL_LOCK)
++		rdmsrq(MSR_GLCP_DOTPLL, dotpll.q);
++		if (dotpll.l & MSR_GLCP_DOTPLL_LOCK)
+ 			break;
+ 		udelay(1);
+ 	}
+ 
+ 	/* PLL set, unlock */
+-	dotpll_lo &= ~MSR_GLCP_DOTPLL_DOTRESET;
+-	wrmsr(MSR_GLCP_DOTPLL, dotpll_lo, dotpll_hi);
++	dotpll.l &= ~MSR_GLCP_DOTPLL_DOTRESET;
++	dotpll.h = dotpll_hi;
++	wrmsrq(MSR_GLCP_DOTPLL, dotpll.q);
+ }
+ 
+ static void gx_restore_gfx_proc(struct gxfb_par *par)
+-- 
+2.55.0
 
