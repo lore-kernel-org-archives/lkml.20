@@ -1,192 +1,96 @@
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-244122.protonmail.ch (mail-244122.protonmail.ch [109.224.244.122])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79E983AA4E1
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 03:40:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F9B13A3E97
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 03:41:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.122
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791430830; cv=none; b=gow7rwq/oTjg6VeHm4PbO0rwZ952hiWoET1ZWl/5h0aVGk18FyB1DS3BWwOE4wqkty9p4bKRHYI5iLUzf4FVC6Dv59W/aEteZtBz1mqJbQ9eLyKyw7yihlAp6/2toAsTR2A7gQ2kfV5JUaL3HEy85Nq6Kc5K23dAk+ybobAqSvA=
+	t=1791430921; cv=none; b=qU6nuXCZw0CP9RYluMGZuAA+sofDwzhOAx/gTze0PDYMXFUjU8PPqmHD0H2ceO29HXRmW1ucPWjScF8hHGY0Z5cxu2YnCx2r6Xabcz/2Nb981ae7B7eJ+E0Br4nEbyv434MLnXgeM21nrdlZ0tdviYO5RsclAIlc/byyHiqGa1k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791430830; c=relaxed/simple;
-	bh=hrTmsIBbiGmKQOjn02ezrfotZmF8vX/5RB2XjzX5QhA=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=oPwDoTvjqWpvv8NMornDB4D0fSwmLnw85Tbg/H055uc/YjtyXa7r+J6/KxJRM9nVPWeQSbOq1IeENQVkZVkDS0df0qegR3DytnSnrR4tkEZsytlhQju1aAK0DtYa/kjCWkLJvnCDEQcW/BuD4B6xOOFRDp6SXeVtm3ZgCiw+Qt8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=LHkkdScq; arc=none smtp.client-ip=74.125.82.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com
+	s=arc-20240116; t=1791430921; c=relaxed/simple;
+	bh=Y9ypoCueT+OgqGp/oXmNO2rGcG9Rjd0SGYEuE5ExVeg=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=gxLeQTQN0rxwlWKwL647C/WOaTgoWA0idX+7knLVPJlP1rpVjVIGiqJp8y3maOpKSeOln7cb0/0ZSgLdgjosJRnbsUF5mR9OkghtiD6YxkCICddS7aE/E7vvyMvB4RdjX51qCoGzXpZTS+kSpdvH1TLtLx6R/6dDw+sbiUaCYOQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=oN9/jfN9; arc=none smtp.client-ip=109.224.244.122
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="LHkkdScq"
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-351788121cfso1477658eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 20:40:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791430829; x=1792035629; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4HwPYJFKEdiyX4935OotxW9r3+hcqkRnlBB6xoiIvRU=;
-        b=LHkkdScq6uzXozHIJBnIIMqQ2J9jfS7swumkyAo5RqEuQVt2AA02IoWv5W0c6gf4ka
-         pSMnD52fZDDt0BGXA5gfIGzdCGFyGxgplzCP90TxkejQqR5FmDp/xLERenEHSy0RGVOr
-         S/0lAcZay5ejr9Aw9DV6VziDGJL2KC3jRNn/0PJzYvvIQgvxgKzQewjjlRvNkVWZAEL3
-         MM/+Or2NfoPP6PKOcSpflvVfP+BPPklocVBbBoV+KFCsb5PNI+qTtgiQBZ7qiMGbhvED
-         +2r45tKK4b704c80tb7dmQX4UrgGYanuZ7tiWd4wM8Bq8W7IRM59fDe/1nmd/4nKlb4H
-         Pl2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791430829; x=1792035629;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4HwPYJFKEdiyX4935OotxW9r3+hcqkRnlBB6xoiIvRU=;
-        b=KeQkaxguf960eACVOc1vimLdZaahLKyVhG2AkLVcSLfgkVLGnOn0sse9OrI3EFAt+W
-         8nX+cCsxyR/IIftNOzVzOikTj9ODW4K1ZxfWfTFgNI2oHx5gzwbCw0Auy40iDnaxyqlb
-         0rBHUO7XCqZozKuzAPbdH1y1F3aTGwX+jO5TX4tQfErg3Gpd89Ch8RTstDQGNIaOBSRp
-         AZ95INP+H+djbwwZbOkRd5xwCThhrF+OcF5IJmjF4dtaH8cAUBqA5yqbVor4YvIEIuR/
-         yjjzMd9zPD4LpYmecxcJ4J2EJ+QT+1QIo5PUfuBkPTQMv6ql/ZCSgh1w3pBrmqw93dT8
-         4XVg==
-X-Forwarded-Encrypted: i=1; AKwUvBxvCpByFFzqNd9wAF+H06/mtA+/6LKO3IWkpHanhjpZ76nfbkzfRl8iS4Q28Y7soyYn/bKvYsLppjuLKv0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLkNAqgusRjM4BqY+1tEuPRBD3hUImiVUgfOpZ2DVlAVj2pmKgL
-	P7NZwaOJuZj5pHHekzkL1jPz51xbX0syJi4lV48gaFfCGOJsiZ2A+iXP09SB5ckycYIHFMmD00t
-	cuJmA3imnNCdSaLj1bijzYlcrOg==
-X-Received: from dybmn3.prod.google.com ([2002:a05:7300:d203:b0:351:79dd:52dd])
- (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7301:8617:b0:351:11aa:5d5b with SMTP id 5a478bee46e88-3515dde8bbbmr4820551eec.19.1791430828091;
- Wed, 07 Oct 2026 20:40:28 -0700 (PDT)
-Date: Thu,  8 Oct 2026 03:40:27 +0000
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="oN9/jfN9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1791430910; x=1791690110;
+	bh=EtzvZnRE+wRYUO6R1ALz2RggC9SretVTgsKeF3ah/kc=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=oN9/jfN9s72LLMKbXgvXXgjL9uiSjJMz0Msv5lqlvZulYHcjKosOJiu1Nnrzfrksk
+	 cSahZehmwH2zZW7mw/AXM8pkWXloVMuCUKNKnW/M1gMEVoRmhHVSuZCwjIT3T2wf7A
+	 i7mM+fBfnHYnxFJyUEuVnyf+bnkE1czpWADaep7q9WdQ0bT7wQjI2ZP0FMwlWDpxDZ
+	 Fi116Ei4+RkZ56ZcGeipy/vJNz+f5sRVoRy+NymjiC996aB1fs+84qHGkkHcZf1JNB
+	 cyP7y7hSQ6sEmEzIb4+h3NsODEkIKp+flL+6SNmgtNhPv7GxbEereoITlQLI48drI4
+	 AdxlC2Jx/AHPA==
+Date: Thu, 08 Oct 2026 03:41:49 +0000
+To: linux-kernel@vger.kernel.org
+From: "Michael C. Pratt" <mcpratt@pm.me>
+Cc: "Michael C. Pratt" <mcpratt@pm.me>, =?utf-8?Q?Rafa=C5=82_Mi=C5=82ecki?= <rafal@milecki.pl>, Christian Marangi <ansuelsmth@gmail.com>, Tomasz Maciej Nowak <tmn505@gmail.com>, Srinivas Kandagatla <srini@kernel.org>
+Subject: [PATCH v2] nvmem: layouts: u-boot-env: handle quotes in MAC post process
+Message-ID: <20261008034108.15143-1-mcpratt@pm.me>
+Feedback-ID: 27397442:user:proton
+X-Pm-Message-ID: 7edd786cc226e9ec5d2f7f0672e615f74a476ecd
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-Message-ID: <20261008034027.1403188-1-almasrymina@google.com>
-Subject: [PATCH net v1] net: devmem: prevent mixing fragments from different bindings
-From: Mina Almasry <almasrymina@google.com>
-To: netdev@vger.kernel.org, Kaiyuan Zhang <kaiyuanz@google.com>, 
-	Stanislav Fomichev <sdf@fomichev.me>, Mina Almasry <almasrymina@google.com>, 
-	Paolo Abeni <pabeni@redhat.com>, linux-kernel@vger.kernel.org
-Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>, 
-	Bobby Eshleman <bobbyeshleman@meta.com>, Antonio Quartulli <antonio@openvpn.net>, 
-	Pavel Begunkov <asml.silence@gmail.com>, Ralf Lici <ralf@mandelbit.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-validate_xmit_unreadable_skb() only inspects shinfo->frags[0] and
-assumes all fragments in an unreadable skb belong to that same devmem
-binding. However, tcp_sendmsg_locked() only checks that readability
-matches the presence of a binding (skb_frags_readable(skb) != !binding),
-allowing consecutive sendmsg() calls with different dmabuf bindings to
-collapse into the same skb and bypass per-device and unbind checks in
-validate_xmit_unreadable_skb().
+Although it is not common, some board models from some vendors have
+a MAC address stored in u-boot environment as a quoted form, e.g.
 
-Add net_devmem_skb_binding() to query the binding associated with an
-skb, reuse it in validate_xmit_unreadable_skb(), and check in
-zerocopy_fill_skb_from_devmem() that existing fragments match the target
-binding.
+    ethaddr=3D"AA:BB:CC:DD:EE:FF"
 
-Fixes: bd61848900bff ("net: devmem: Implement TX path")
-Cc: Pavel Begunkov <asml.silence@gmail.com>
-Cc: Stanislav Fomichev <sdf@fomichev.me>
-Cc: Bobby Eshleman <bobbyeshleman@meta.com>
-Signed-off-by: Mina Almasry <almasrymina@google.com>
+This is acceptable formatting for a u-boot environment variable, however,
+it makes parsing MACs in post processing inconsistent and currently fails.
+
+Add a second condition for processing to match the MAC address with quotes
+by allowing a longer length and setting a shifted offset to compensate.
+
+The mac_pton() function has strict behavior on the length and location
+of delimiters for each octet and that each digit is hexadecimal,
+so attempting different offsets of the same string is not problematic.
+
+Signed-off-by: Michael C. Pratt <mcpratt@pm.me>
 ---
- net/core/datagram.c |  2 +-
- net/core/dev.c      | 14 ++++----------
- net/core/devmem.h   | 23 +++++++++++++++++++++++
- 3 files changed, 28 insertions(+), 11 deletions(-)
+v1: https://lore.kernel.org/all/20260820211654.8794-1-mcpratt@pm.me/
+v2: rebased and relocated changes to match style due to commit
+    45cb0223740b ("nvmem: layouts: u-boot-env: check earlier for ethaddr le=
+ngth")
 
-diff --git a/net/core/datagram.c b/net/core/datagram.c
-index 173b5d97bd409..ed8f1045f3cca 100644
---- a/net/core/datagram.c
-+++ b/net/core/datagram.c
-@@ -712,7 +712,7 @@ zerocopy_fill_skb_from_devmem(struct sk_buff *skb, struct iov_iter *from,
- 	size_t virt_addr, size, off;
- 	struct net_iov *niov;
- 
--	if (i && skb_frags_readable(skb))
-+	if (i && net_devmem_skb_binding(skb) != binding)
- 		return -EFAULT;
- 
- 	/* Devmem filling works by taking an IOVEC from the user where the
-diff --git a/net/core/dev.c b/net/core/dev.c
-index e76762e29360e..ad2b587dfee27 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -4054,8 +4054,7 @@ static struct sk_buff *sk_validate_xmit_skb(struct sk_buff *skb,
- static struct sk_buff *validate_xmit_unreadable_skb(struct sk_buff *skb,
- 						    struct net_device *dev)
- {
--	struct skb_shared_info *shinfo;
--	struct net_iov *niov;
-+	struct net_devmem_dmabuf_binding *binding;
- 
- 	if (likely(skb_frags_readable(skb) ||
- 		   dev->netmem_tx == NETMEM_TX_NO_DMA))
-@@ -4064,14 +4063,9 @@ static struct sk_buff *validate_xmit_unreadable_skb(struct sk_buff *skb,
- 	if (dev->netmem_tx == NETMEM_TX_NONE)
- 		goto out_free;
- 
--	shinfo = skb_shinfo(skb);
--
--	if (shinfo->nr_frags > 0) {
--		niov = netmem_to_net_iov(skb_frag_netmem(&shinfo->frags[0]));
--		if (net_is_devmem_iov(niov) &&
--		    READ_ONCE(net_devmem_iov_binding(niov)->dev) != dev)
--			goto out_free;
--	}
-+	binding = net_devmem_skb_binding(skb);
-+	if (binding && READ_ONCE(binding->dev) != dev)
-+		goto out_free;
- 
- out:
- 	return skb;
-diff --git a/net/core/devmem.h b/net/core/devmem.h
-index 4a293a7d1149c..8c74037633ae8 100644
---- a/net/core/devmem.h
-+++ b/net/core/devmem.h
-@@ -10,6 +10,7 @@
- #ifndef _NET_DEVMEM_H
- #define _NET_DEVMEM_H
- 
-+#include <linux/skbuff.h>
- #include <net/netmem.h>
- #include <net/netdev_netlink.h>
- 
-@@ -118,6 +119,22 @@ net_devmem_iov_binding(const struct net_iov *niov)
- 	return net_devmem_iov_to_chunk_owner(niov)->binding;
- }
- 
-+static inline struct net_devmem_dmabuf_binding *
-+net_devmem_skb_binding(const struct sk_buff *skb)
-+{
-+	const struct skb_shared_info *shinfo = skb_shinfo(skb);
-+	const struct net_iov *niov;
-+
-+	if (skb_frags_readable(skb) || !shinfo->nr_frags)
-+		return NULL;
-+
-+	niov = skb_frag_net_iov(&shinfo->frags[0]);
-+	if (!niov || !net_is_devmem_iov(niov))
-+		return NULL;
-+
-+	return net_devmem_iov_binding(niov);
-+}
-+
- static inline u32 net_devmem_iov_binding_id(const struct net_iov *niov)
- {
- 	return net_devmem_iov_binding(niov)->id;
-@@ -243,6 +260,12 @@ net_devmem_iov_binding(const struct net_iov *niov)
- {
- 	return NULL;
- }
-+
-+static inline struct net_devmem_dmabuf_binding *
-+net_devmem_skb_binding(const struct sk_buff *skb)
-+{
-+	return NULL;
-+}
- #endif
- 
- #endif /* _NET_DEVMEM_H */
+ drivers/nvmem/layouts/u-boot-env.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-base-commit: 6d25ffca055a77787c21a36b66c253f76239411b
--- 
-2.56.0.385.gd3acb90ef8-goog
+diff --git a/drivers/nvmem/layouts/u-boot-env.c b/drivers/nvmem/layouts/u-b=
+oot-env.c
+index 33ec2350386f..588996c1c11b 100644
+--- a/drivers/nvmem/layouts/u-boot-env.c
++++ b/drivers/nvmem/layouts/u-boot-env.c
+@@ -77,6 +77,13 @@ static int u_boot_env_parse_cells(struct device *dev, st=
+ruct nvmem_device *nvmem
+ =09=09=09info.bytes =3D ETH_ALEN;
+ =09=09=09info.read_post_process =3D u_boot_env_read_post_process_ethaddr;
+ =09=09}
++=09=09/* Handle quotation which increases length by 2 and offset by 1 if p=
+resent. */
++=09=09if (!strcmp(var, "ethaddr") && info.bytes =3D=3D MAC_ADDR_STR_LEN + =
+2) {
++=09=09=09info.offset =3D data_offset + value - data + 1;
++=09=09=09info.raw_len =3D strlen(value);
++=09=09=09info.bytes =3D ETH_ALEN;
++=09=09=09info.read_post_process =3D u_boot_env_read_post_process_ethaddr;
++=09=09}
+=20
+ =09=09nvmem_add_one_cell(nvmem, &info);
+ =09}
+--=20
+2.30.2
+
 
