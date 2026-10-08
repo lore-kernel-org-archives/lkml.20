@@ -1,224 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55C6539DBCF
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 10:10:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 328641C3F0C;
+	Thu,  8 Oct 2026 10:11:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791454240; cv=none; b=cKNyGhxB3WpWJCxIkKJZYNvy3nh9T1SGxMY1CPTrRtfnLCiTJfVxtiYqCs5eTq18kS4KdRuZEAjEM51otEiDyAOAHRlSA5iF9g7Z87N4iCrwoFsNGE6Ss9onYkm1qOTxD8ah3jzpaEtJ6t/2R84w0jU6Fp64KJiTe+hnHnxVuNw=
+	t=1791454263; cv=none; b=WkCIIDLs40VrTRDPqtLtaI3dga+WLVJws5WU+bpu/hgIZ5pjTP8MaziX/TgzFTk1siFZGofclGHrUczuNDarXB62V9sqiWKizugRgxD1KNdYS1WjD5jozd7+Q59SbgaWyc2Kol3GTSgMvmRKo77TJw7y8U8rN+NW5NUy8tA+ZAQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791454240; c=relaxed/simple;
-	bh=4tbUgFiAvEgxtY8UciHDHSbxyHXMGWw4dIFFQgGN1hI=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Bu+ftn6hqybiJjsRjQU6IR2ICJMHwXAIFDkQZuOGoe6Lp5zMDDhN9sykyEB9hwsVqpUW4pt4r+/UjUNvLkyGVgZAfTy2r8WJ9yzLqHRyvt9JHGzlpCrrKFg3iPZxNVXe93etcFgBpOpZ1VMD4RWayot1v8ahdlxQo/GChipc8/4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hwm3R+L5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791454263; c=relaxed/simple;
+	bh=Ve29xGws9ObLnNv+1Drlon8wCGymFhsD6OD8owNuXBY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TowePfippYsjrjSHc3QZB2ILO/VgJb5WNAFXFJiFZp3dginWCbiPsVRVBsG9+fKK8oTHNBDwJZUAuzrudUURx3I5yUa2IaAeIPJZL8Tp5bN2YcdtTjpZzsQ/gMb6ye3yly2etAcoN4s1lTQ5lgqUfORB7ZLqNb8Br6Y7t4FYgM4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Jds53j/6; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hwm3R+L5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DB801F008A0
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 10:10:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791454238;
-	bh=6Cr87NWtSTumqAI3+lv6BChO3Lye59PnJ7E6aWPgSGU=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=hwm3R+L5zS/h87y3KfkxOmQN1SrcOktm1Ml6oJd1pBluYUvH495HVW8N2lZwCPFXm
-	 EtW+yEiJnhU2eBkltA7Y4jf11zQ2CzOelGOgJTjejVqKcVJVHYXlp6PF1zFCqYam2s
-	 /YexWY1f6TbIA6QocjrcoUni135+VqorizQ+OMBAf1ji+qw/kxLALEarEw3C/8EVHY
-	 Css4DE+F/nGfl9uHzFZk3u9C7qKsiHmrR6XZ8fdZ+1c8rwEvnZlNjxYs4F9SJ5pUJE
-	 oJKzaypmeKAHEPo3Sx7iOzY6C6zWX96jHCAX/hmEkZ8zIdsL1eTx5RXJd2hBhQBOny
-	 hb9wAJHXVcdkw==
-Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-3a980c01033so38162981fa.3
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 03:10:38 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwq/+WWCS6CoxgJEkF+JIawcnuKrVO0B1Wpf9QSyz3emwXTqBZSpxN7FLX3VBFXhoa3W6YJ8tujAeO9qow=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLimlpsJFIjj4d3RNxjzyaRSL9YQynTackXk4uO81h43q1aMc6S
-	8g2PzlZv0caRVUysjJ2454PowGBj/HSAQBFLROMjNLwuW4sxKrpQNWabesd5s1D5SPfmGLiPjD9
-	JdHrCd5nnkVtcDPETMIm6gqZt8kped3+ZiMuJTgcFVw==
-X-Received: by 2002:a2e:b8cd:0:b0:3a9:926c:c276 with SMTP id
- 38308e7fff4ca-3a9a2cbc6c9mr12456541fa.17.1791454236809; Thu, 08 Oct 2026
- 03:10:36 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 8 Oct 2026 10:10:34 +0000
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 8 Oct 2026 10:10:34 +0000
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260929122407.219448-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Jds53j/6"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791454261; x=1822990261;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Ve29xGws9ObLnNv+1Drlon8wCGymFhsD6OD8owNuXBY=;
+  b=Jds53j/64ZLkeWGMI86KCEEFy1vz2On+IDYUTI1eu++gLHfQBaO2ZDcb
+   ZDgd3IgQs8i46wM0hx881hraMC1sA1MRwDobo0bz4sRyLst1vX3SEg3py
+   VZv74N990ZFVFdC3sYMifKzLO7yX1F1zWRMOal5FaxlxTClx5/xDrKEsV
+   f7iKSBBl+9WtsdKsU3AcbsvBYfvNHT76uDKK9rpPqKwzJthBqCaOhq5zg
+   POykaU0MXWv4HcSA5IohdqppeJ9kdtWO5UHWEBbQakyg/o7YFK9EbYz37
+   0dFB7Pgixsm2vFH7UciCxxLgih1frGdeTQItb2GgnzF41jdSgaOit8BIx
+   w==;
+X-CSE-ConnectionGUID: +4DRSBDiS9qzS+3xAgVhcw==
+X-CSE-MsgGUID: QccwghbYSg+U+G+Q4b/kUQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="239619"
+X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
+   d="scan'208";a="239619"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 03:11:00 -0700
+X-CSE-ConnectionGUID: dZlUOiglTrS40/koRBLTUw==
+X-CSE-MsgGUID: 3Mp+bY1rSfy1uxR/zSkSJg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
+   d="scan'208";a="108420"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa005.fm.intel.com with ESMTP; 08 Oct 2026 03:10:56 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xEl5R-000000004Gu-00T4;
+	Thu, 08 Oct 2026 10:10:53 +0000
+Date: Thu, 8 Oct 2026 18:10:40 +0800
+From: kernel test robot <lkp@intel.com>
+To: Mieczyslaw Nalewaj <namiltd@yahoo.com>, linusw@kernel.org,
+	alsi@bang-olufsen.dk, andrew@lunn.ch, olteanv@gmail.com,
+	kuba@kernel.org, davem@davemloft.net, edumazet@google.com,
+	pabeni@redhat.com, linux@armlinux.org.uk, luizluca@gmail.com,
+	maxime.chevallier@bootlin.com, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev
+Subject: Re: [PATCH net-next 8/8] net: dsa: realtek: rtl8365mb: re-latch the
+ family D SerDes
+Message-ID: <202610081722.Zoeli0ix-lkp@intel.com>
+References: <7e3518aa-4f99-4aae-bd9b-3984bdc4b548@yahoo.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260929122407.219448-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260929122407.219448-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Date: Thu, 8 Oct 2026 10:10:34 +0000
-X-Gmail-Original-Message-ID: <CAMRc=MckUuLsgqjphOs=fiyz3wCaGbGWpt_fPKStZRAroPkE3Q@mail.gmail.com>
-X-Gm-Features: AclHuK8KhVOCPFFk0C6VCi7XjvWfAzQZ9wqI5WRHeA5xhxr3xFISAjG4IBRvay8
-Message-ID: <CAMRc=MckUuLsgqjphOs=fiyz3wCaGbGWpt_fPKStZRAroPkE3Q@mail.gmail.com>
-Subject: Re: [PATCH 4/5] power: sequencing: renesas-pwrrdy: Add RZ/V2H(P) and
- RZ/V2N A/D converter support
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, 
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
-	Magnus Damm <magnus.damm@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <7e3518aa-4f99-4aae-bd9b-3984bdc4b548@yahoo.com>
 
-On Tue, 29 Sep 2026 14:24:06 +0200, Prabhakar <prabhakar.csengg@gmail.com> said:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->
-> On RZ/V2H(P) and RZ/V2N, the SYS_ADC_CFG.SY_MSTP_ADA bit controls
-> A/D converter power-down. RZ/V2H(P) has a single A/D converter unit,
-> while RZ/V2N has three units sharing the same bit.
->
-> Add an "adc" power sequencing target for these SoCs and match it to the
-> RZ/V2H(P) ADC compatible, which is also used as the fallback compatible
-> by RZ/V2N.
->
-> Clear SY_MSTP_ADA when the first A/D converter unit is enabled and set it
-> again when the last unit is disabled. Wait 20 us after clearing the bit
-> before allowing conversion to start, ensuring ADCLK has been running for
-> the required time.
->
-> Bind the power sequencer to the RZ/V2H(P) and RZ/V2N auxiliary devices
-> created by the SYS driver.
->
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> ---
->  .../power/sequencing/pwrseq-renesas-pwrrdy.c  | 84 +++++++++++++++++++
->  1 file changed, 84 insertions(+)
->
-> diff --git a/drivers/power/sequencing/pwrseq-renesas-pwrrdy.c b/drivers/power/sequencing/pwrseq-renesas-pwrrdy.c
-> index 0190e53913bf..ab20b7ba9b83 100644
-> --- a/drivers/power/sequencing/pwrseq-renesas-pwrrdy.c
-> +++ b/drivers/power/sequencing/pwrseq-renesas-pwrrdy.c
-> @@ -5,6 +5,7 @@
->   */
->
->  #include <linux/auxiliary_bus.h>
-> +#include <linux/delay.h>
->  #include <linux/module.h>
->  #include <linux/of.h>
->  #include <linux/pwrseq/provider.h>
-> @@ -15,11 +16,68 @@
->  #define SYS_PWRRDY_N_DSI_MASK	BIT(1)
->  #define SYS_PWRRDY_N_CSI_MASK	BIT(2)
->
-> +#define RZV2H_SYS_ADC_CFG		0x1600
-> +#define RZV2H_SYS_ADC_CFG_SY_MSTP_ADA	BIT(0)
-> +/* Minimum time with ADCLK running after leaving power-down mode */
-> +#define RZV2H_ADC_POWER_UP_US		20
-> +
->  struct pwrseq_rz_info {
->  	int (*probe)(struct auxiliary_device *adev,
->  		     const struct auxiliary_device_id *id);
->  };
->
-> +static int pwrseq_rzv2h_adc_enable(struct pwrseq_device *pwrseq)
-> +{
-> +	struct regmap *regmap = pwrseq_device_get_drvdata(pwrseq);
-> +	int ret;
-> +
-> +	ret = regmap_clear_bits(regmap, RZV2H_SYS_ADC_CFG,
-> +				RZV2H_SYS_ADC_CFG_SY_MSTP_ADA);
-> +	if (ret)
-> +		return ret;
-> +
-> +	fsleep(RZV2H_ADC_POWER_UP_US);
-> +
-> +	return 0;
-> +}
-> +
-> +static int pwrseq_rzv2h_adc_disable(struct pwrseq_device *pwrseq)
-> +{
-> +	struct regmap *regmap = pwrseq_device_get_drvdata(pwrseq);
-> +
-> +	return regmap_set_bits(regmap, RZV2H_SYS_ADC_CFG,
-> +			       RZV2H_SYS_ADC_CFG_SY_MSTP_ADA);
-> +}
-> +
-> +static const struct pwrseq_unit_data pwrseq_rzv2h_adc_unit = {
-> +	.name = "adc-power-sequence",
-> +	.enable = pwrseq_rzv2h_adc_enable,
-> +	.disable = pwrseq_rzv2h_adc_disable,
-> +};
-> +
-> +static const struct pwrseq_target_data pwrseq_rzv2h_adc_target = {
-> +	.name = "adc-power",
-> +	.unit = &pwrseq_rzv2h_adc_unit,
-> +};
-> +
-> +static const struct pwrseq_target_data *pwrseq_rzv2h_targets[] = {
-> +	&pwrseq_rzv2h_adc_target,
-> +	NULL
-> +};
-> +
-> +static const char * const pwrseq_rzv2h_compats[] = {
-> +	"renesas,r9a09g057-adc",
-> +	NULL
-> +};
-> +
-> +static int pwrseq_rzv2h_match(struct pwrseq_device *pwrseq, struct device *dev)
-> +{
-> +	if (of_device_compatible_match(dev->of_node, pwrseq_rzv2h_compats))
-> +		return PWRSEQ_MATCH_OK;
-> +
-> +	return PWRSEQ_NO_MATCH;
-> +}
-> +
->  static int pwrseq_rzg3l_set_pwrrdy(struct pwrseq_device *pwrseq, u32 mask,
->  				   bool val)
->  {
-> @@ -127,6 +185,20 @@ static int pwrseq_rzg3l_pwrrdy_probe(struct auxiliary_device *adev,
->  	return PTR_ERR_OR_ZERO(devm_pwrseq_device_register(&adev->dev, &config));
->  }
->
-> +static int pwrseq_rzv2h_probe(struct auxiliary_device *adev,
-> +			      const struct auxiliary_device_id *id)
-> +{
-> +	struct pwrseq_config config = {
-> +		.parent = &adev->dev,
-> +		.owner = THIS_MODULE,
-> +		.drvdata = adev->dev.platform_data,
-> +		.match = pwrseq_rzv2h_match,
-> +		.targets = pwrseq_rzv2h_targets,
-> +	};
-> +
-> +	return PTR_ERR_OR_ZERO(devm_pwrseq_device_register(&adev->dev, &config));
-> +}
+Hi Mieczyslaw,
 
-This probe variant looks almost exactly the same as pwrseq_rzg3l_pwrrdy_probe().
-Can't you not just store the match and targets pointers in OF match
-data and keep
-the same code in top-level probe()?
+kernel test robot noticed the following build warnings:
 
-Bart
+[auto build test WARNING on net-next/main]
 
-> +
->  static int pwrseq_pwrrdy_probe_common(struct auxiliary_device *adev,
->  				      const struct auxiliary_device_id *id)
->  {
-> @@ -140,7 +212,19 @@ static const struct pwrseq_rz_info pwrseq_rzg3l_info = {
->  	.probe = pwrseq_rzg3l_pwrrdy_probe,
->  };
->
-> +static const struct pwrseq_rz_info pwrseq_rzv2h_info = {
-> +	.probe = pwrseq_rzv2h_probe,
-> +};
-> +
->  static const struct auxiliary_device_id pwrseq_rzg3l_pwrrdy_id_table[] = {
-> +	{
-> +		.name = "rz_sysc.r9a09g056-pwrseq",
-> +		.driver_data = (kernel_ulong_t)&pwrseq_rzv2h_info,
-> +	},
-> +	{
-> +		.name = "rz_sysc.r9a09g057-pwrseq",
-> +		.driver_data = (kernel_ulong_t)&pwrseq_rzv2h_info,
-> +	},
->  	{
->  		.name = "rz_sysc.pwrseq-pwrrdy",
->  		.driver_data = (kernel_ulong_t)&pwrseq_rzg3l_info,
-> --
-> 2.55.0
->
->
+url:    https://github.com/intel-lab-lkp/linux/commits/Mieczyslaw-Nalewaj/net-dsa-realtek-rtl8365mb-detect-RTL8367S-VB/20261007-223615
+base:   net-next/main
+patch link:    https://lore.kernel.org/r/7e3518aa-4f99-4aae-bd9b-3984bdc4b548%40yahoo.com
+patch subject: [PATCH net-next 8/8] net: dsa: realtek: rtl8365mb: re-latch the family D SerDes
+config: i386-randconfig-1000-20261008 (https://download.01.org/0day-ci/archive/20261008/202610081722.Zoeli0ix-lkp@intel.com/config)
+compiler: clang version 22.1.3 (https://github.com/llvm/llvm-project e9846648fd6183ee6d8cbdb4502213fcf902a211)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261008/202610081722.Zoeli0ix-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610081722.Zoeli0ix-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> Warning: drivers/net/dsa/realtek/rtl8365mb_main.c:981 struct member 'sds_lock' not described in 'rtl8365mb'
+>> Warning: drivers/net/dsa/realtek/rtl8365mb_main.c:981 struct member 'sds_relatch' not described in 'rtl8365mb'
+>> Warning: drivers/net/dsa/realtek/rtl8365mb_main.c:981 struct member 'sds_relatch_count' not described in 'rtl8365mb'
+>> Warning: drivers/net/dsa/realtek/rtl8365mb_main.c:981 struct member 'sds_misc_target_val' not described in 'rtl8365mb'
+>> Warning: drivers/net/dsa/realtek/rtl8365mb_main.c:981 struct member 'sds_lock' not described in 'rtl8365mb'
+>> Warning: drivers/net/dsa/realtek/rtl8365mb_main.c:981 struct member 'sds_relatch' not described in 'rtl8365mb'
+>> Warning: drivers/net/dsa/realtek/rtl8365mb_main.c:981 struct member 'sds_relatch_count' not described in 'rtl8365mb'
+>> Warning: drivers/net/dsa/realtek/rtl8365mb_main.c:981 struct member 'sds_misc_target_val' not described in 'rtl8365mb'
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
