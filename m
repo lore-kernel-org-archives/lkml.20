@@ -1,190 +1,284 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 010E837E2E9;
-	Thu,  8 Oct 2026 16:06:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.18
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791475597; cv=fail; b=Wqja+wT15xv+KrGRMGVoKBS4yshAwDxMbrDUahRDB0ZRwv10ZlrpBsL1pLXkrA9UDIb/C+lPJrV9EoCutiHOzBEE3jNUA4HoCWE2N4e2PFLQ6QLB5Ea/vgfCbTK6TyB52c1QT587Q14H8WW6Pi8yiSlLeQzKjXmOyZ5/D9+hFzk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791475597; c=relaxed/simple;
-	bh=Nuk+b3ORLnfTv+x1sPykELMlYz7ZIvA9cHZiLjPhvcI=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=hDbc4swpBll4wbKPYeuUB5z/NHZo3Gg2tLPzeXyJnEEGJ/uIIVPXxqU/Rvn52JiGnOaLbbmLqrnrXQjrCsGFnaT7eMpjp0c+XoXjB0mChw0jqqKQwuZWkvR3MPy0er1Q04SfwYUven2kYLQMOx8b73TqU1mI2NJgv9HNzyvIpS0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VEZ+q77I; arc=fail smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C04C3822B7
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 16:07:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.139
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791475638; cv=none; b=Kjz5qJjD3Sv7ngbVNgeWRfiA/IaV22qq/ovWzpE4JFWEEUtC8OPAGfXUweUCoiy+a9U9CtMf3FtsJSSvQZ0eEofHsXoFp5nzm+ootE9Zb4tFKhdDTkIPx9hQxsTbYDcUhHpU3PIENF7pGXYpNwtUP3LZ5imKfm0gOEgftFeyzFw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791475638; c=relaxed/simple;
+	bh=vOKHNcAPhBIJhsHcwjfO3NU8p1rc/qCMPRMq2Ks+mbQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=DvnggO+KhXxTaFlMB0iR75n7sPaaBWr9Cj9zMBOViFVWV5YRxUHY48nAEeZOhhefECfi3N0QPMMydIPnh153Xg3AUEdvfx6HcIoG1liY5J1yQAZvoPhiFcPUPW18hNqsSOr3YW9uBUOSXPutfUgNJziIgpkrjJrsRY4jBqObaZI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=embeddedlinux.blog; spf=pass smtp.mailfrom=embeddedlinux.blog; dkim=pass (2048-bit key) header.d=embeddedlinux.blog header.i=@embeddedlinux.blog header.b=AOtkFsPT; arc=none smtp.client-ip=74.125.227.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=embeddedlinux.blog
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=embeddedlinux.blog
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VEZ+q77I"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791475597; x=1823011597;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-id:content-transfer-encoding:
-   mime-version;
-  bh=Nuk+b3ORLnfTv+x1sPykELMlYz7ZIvA9cHZiLjPhvcI=;
-  b=VEZ+q77IokFyrUVXTsrrUFqrIf1LLr4fqvUmw7/EEsC1ChNUrmIZ2W3h
-   0/oxFCaQOwKS5Q9kT0wT1decU0ViEDW41S+j+ufn22PR7T2/MBTZTB+iW
-   8wojJSXS6RJDfoByq3YjeDk5bY1bIEgeOQiBVnV/9xc/CEF3fvvqjN+t4
-   f6l8VcMGvTeNz5+n+FNSiRupHLAN0Yv4+Swg0SA5TU5Z4vyBlfvAFaBj9
-   Onwpl5lkkpeE/T6NS5/BLV5j1aqEDu9WzhTLd9SjmwXBWT2UZWKK1W8Ce
-   YOE70IphOHSHp1bW6ed5PCHWVJk+g1q08XFqYbCqeR2QaPABo1ydHGnjy
-   Q==;
-X-CSE-ConnectionGUID: soK9cZTkSp+jYgajtutDWQ==
-X-CSE-MsgGUID: VhX465z4QreAWtH9d2rXig==
-X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="273725"
-X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
-   d="scan'208";a="273725"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 09:06:36 -0700
-X-CSE-ConnectionGUID: tWTel3zHTcCuH2wIeFCs7g==
-X-CSE-MsgGUID: LjXF+KXvQO2HYlcKOYoM7w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
-   d="scan'208";a="89014"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
-  by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 09:06:36 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 8 Oct 2026 09:06:34 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Thu, 8 Oct 2026 09:06:34 -0700
-Received: from BN8PR05CU002.outbound.protection.outlook.com (52.101.57.51) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 8 Oct 2026 09:06:33 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uEOsUeNyvlEM7usGl5zVw7Yf9D9mYNUPFWQhfOQV0fCGn+bJDl8hk+fhoQK3qGQY4ruTHFGc0bcVDau5zsGM3T1WpEfE79NxIznqxCz68l7dYvTWEJL2JXC8I12H7fE3VPANqTzDC9z0mK31Rz9CWAtv/s1OGn2Lyzf/ETXReNohkuvRvVFYRSP9/d2j6iHhmrKFo6zlNEigdGgnvyO0gIpkpY8PkSafYKHfP5Ho2hzMwYm/niK6y37O5cHA8Kfxr2dsdp/XjjAiMOtE2tdL4i31TbKlx/r+QFF3jiQxaHYvMBakGY2/oZvvFfJNW5LFXsUMQBKhRV9nNzHfdnToRw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Nuk+b3ORLnfTv+x1sPykELMlYz7ZIvA9cHZiLjPhvcI=;
- b=pDhLGlZzLPzc52FUFwRBoey2HGmuu8glkltYUCdu+yXe3iJGHk5jstWxvRo+rphb9KQTboktsS2m6kssKvSb32PcwNldNq2jQem5prAEsLaskifWmXokDKiFSCdGPZiynWWlBWIWyrnXPp47DJ4mLseFIzvxcISk3xVz0IyYdQSi4FBXtgPVkxC3WVwcBdYAz8JNYgbYUNcDFeSBZLBK+FU0EdvbfdaTLdaUxc9r5jPdn3Xm3seVl+e8ozOoIObBm/4AXBn0Grgf2+glJ6cu13lt4/DRxE2ujTkBPwRoIyUEoN6tLbbdwyy4EhSLIFN5ytwPeIqwrFwUS5Lya0U6Pg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from PH7PR11MB6771.namprd11.prod.outlook.com (2603:10b6:510:1b5::20)
- by DM3PPF027BB0053.namprd11.prod.outlook.com (2603:10b6:f:fc00::f05) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Thu, 8 Oct
- 2026 16:06:28 +0000
-Received: from PH7PR11MB6771.namprd11.prod.outlook.com
- ([fe80::effa:162e:c9c9:a1b4]) by PH7PR11MB6771.namprd11.prod.outlook.com
- ([fe80::effa:162e:c9c9:a1b4%4]) with mapi id 15.21.0496.015; Thu, 8 Oct 2026
- 16:06:27 +0000
-From: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-To: "yilun.xu@linux.intel.com" <yilun.xu@linux.intel.com>
-CC: "kvm@vger.kernel.org" <kvm@vger.kernel.org>, "linux-coco@lists.linux.dev"
-	<linux-coco@lists.linux.dev>, "Li, Xiaoyao" <xiaoyao.li@intel.com>, "Hansen,
- Dave" <dave.hansen@intel.com>, "dave.hansen@linux.intel.com"
-	<dave.hansen@linux.intel.com>, "baolu.lu@linux.intel.com"
-	<baolu.lu@linux.intel.com>, "Hunter, Adrian" <adrian.hunter@intel.com>,
-	"tony.lindgren@linux.intel.com" <tony.lindgren@linux.intel.com>,
-	"kas@kernel.org" <kas@kernel.org>, "artem.bityutskiy@linux.intel.com"
-	<artem.bityutskiy@linux.intel.com>, "Xu, Yilun" <yilun.xu@intel.com>,
-	"nik.borisov@suse.com" <nik.borisov@suse.com>, "Mehta, Sohil"
-	<sohil.mehta@intel.com>, "Duan, Zhenzhong" <zhenzhong.duan@intel.com>, "Gao,
- Chao" <chao.gao@intel.com>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "Fang, Peter" <peter.fang@intel.com>,
-	"Maloor, Kishen" <kishen.maloor@intel.com>, "x86@kernel.org" <x86@kernel.org>
-Subject: Re: [PATCH v3 2/6] x86/virt/tdx: Configure add-on features on TDX
- module init
-Thread-Topic: [PATCH v3 2/6] x86/virt/tdx: Configure add-on features on TDX
- module init
-Thread-Index: AQHdVPFmExIGsUMl602vvqA16jCvyrbxMrAAgAHbloCAAMXIAA==
-Date: Thu, 8 Oct 2026 16:06:27 +0000
-Message-ID: <de96abb56350a2b91b9f1409a618bc4b90537d09.camel@intel.com>
-References: <20261006-tdx-module-ext-v3-0-db52cb05b918@linux.intel.com>
-	 <20261006-tdx-module-ext-v3-2-db52cb05b918@linux.intel.com>
-	 <51a0f0e33d523fa652b3c664ea1083a9459bd323.camel@intel.com>
-	 <ascZmXRuxiiAAv2+@yilunxu-OptiPlex-7050>
-In-Reply-To: <ascZmXRuxiiAAv2+@yilunxu-OptiPlex-7050>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-user-agent: Evolution 3.44.4-0ubuntu2.1 
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR11MB6771:EE_|DM3PPF027BB0053:EE_
-x-ms-office365-filtering-correlation-id: 52352719-d824-450e-4a9f-08df25561bdb
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|7416014|376014|1800799024|23010399003|366016|22082099003|18002099003|10067099003|11063799006|4143699003|38070700021|56012099006;
-x-microsoft-antispam-message-info: kAo8HRmZmEMm062SXMnNoy5GNpEnQmESrME2I5Ojukf+kaO23pd1hAJIfSijFko0GZZ4LVok6F6g6uk8ChSdqIzLbY/nG7i9pAAFQuMP+R8zFa/KCBenhSSNE1IKLcl88y0o/zYsq2iIKt0Z6oVpD4pZmN0E11yD9dMSkMPVFnUKVxAS+ClikL/FuvO6oBg2/hGxEXSLsWscJlHUAov9WpiTntMz4czBBl23yHWlubrzgfgb+8TK6VFuK0KnNR0U/q4GO7+LpC6BWN45g3T/dd8LcVnF7ER1b5u6IXCoJl5wsrmYCWAtg9rRKbMHMhkhMyKLF8lu6jdiH4B7jg7pCDgpsOtaGVdHc/yi7vBCWerDIwa1auVcyDH72Ywt337gTD1U90evzrC5SnWllKyURzH5hquYX5Ye9+nPnKt+1W56n3gPYPNYiHcYEJV/9y303qIRtbp2YOoP99oRvNdZKBXtuexZ44L6IhPvbiKx8Q2MH3ZkByUHapP1Ce1B5gFx5Ao1Gsu++TrEw4Dt69DTlPvaRMbgUAFbLw4taqOY1QpO1mv7Dd/1mAOgAeTvyWFn+YHs0xc1YvZ1Adj7LsEsF1PBS9SYPSyjM2kkcscWZghNhS+WzVcEveimmTiOxIUfBiY9WC7FDUFb/lo9L7LYO9YWGwPbVkaPpMKTlddRqVAMYeXFMUetOjltXieLqL+ihAIqcQoqM/KD+DTgz8apFEPnnJpv+I3pN/q0/GN63iI=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR11MB6771.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(366016)(22082099003)(18002099003)(10067099003)(11063799006)(4143699003)(38070700021)(56012099006);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?Rzh0NzVrRmVmTC8vd1hvb01aUkhBUkVZYnlEUG50amlSOXlVaWZHbzl1VVAy?=
- =?utf-8?B?OGR2Zm9nMjFZbEsyZmQxcmF1L0JWdUhqZFd4MzJrOEJnYVI3VGRSUDJDYWI2?=
- =?utf-8?B?ZnMrYXJRc3oxdjZVSHpHRjBRQXpPOXVSYlJmaW9DcElBLy9CY0ZxRjl2K2RD?=
- =?utf-8?B?OC8zOTFJWnlOdnZCRGdYRWJKOHJDcXkvNGhjdFF5Wkt4czNId3B5L3pid1hH?=
- =?utf-8?B?UW9LZXhNdFo3LzI4YmNkVG9JdVl4RnpwSDBxSGxMeG9ZRkIrRThYdm9ZbW5W?=
- =?utf-8?B?aTgvK0xLWXJ5ZVk1TGJCc2xLSjdXWEh1dlBnOVJtcXRNbVZSMEczNEhkRWFI?=
- =?utf-8?B?dTBJekVLVno0WVNyTU9BY2EzQnd3ZXJkV1BHaEEwNGRlRHEvL2NZZWhEcm4z?=
- =?utf-8?B?bncrSi8wMUtWN0FZSXEvRDZ2RXpidHo3OE9TOW9ObkNBem1jbjRKUG5xc1oy?=
- =?utf-8?B?d1F6RXpoTVRqaVB6OElHNUZIaDFPc1ZMQmU3NXEzMjN2b0piUUwyTGFJaUI3?=
- =?utf-8?B?RUF3YmtrYXJKUVFsRmVhSlIzWlo2dXF6eDQvK3RIbDdQNm9idXhrSER0UXVp?=
- =?utf-8?B?RHhaV1BJNjNxbTNTWk5jcDAwTnQ1STA4WFk4ZW1vQXZTbnJCSE1Tck1KeVgx?=
- =?utf-8?B?TXFTM25GcG9uRU81b2U5M3piODI4VFUwVzJrOS9SeVlFMzVxMitTWHExSkVN?=
- =?utf-8?B?VVI1dSt1N283RDlDTllBM1NFbWIrSjVTRHc4djh3WjNDZE04S1kzYTFnODgx?=
- =?utf-8?B?MjEvYnlpUDFYKzl3eGRpMVEvWDBrOW1RdEVJem5rRXJYanBtMkQwY2VpNVdx?=
- =?utf-8?B?WlphaUhIbXIwOGE3SFArcW5sMXpRYUhWNFpESFdaajZJZ3BOUFhoUy94Z0xW?=
- =?utf-8?B?RGFmdXAyYXRaSkl0TVlTdVkwT2hpb1U1KzNiMUxjTVJUMGl2ZE1wa21xSEdI?=
- =?utf-8?B?aVU0ZjU2MitXZnRzb2ZHWEdhdzA3N0ZpUm1jT2YxOGRLaFNCeFpBL2FwQnhv?=
- =?utf-8?B?SGVJeVZPRHFsb21Ua2lxOFVqbmVNUHhheG1iVG1jWmViUXQzZDJJYTJpaDd3?=
- =?utf-8?B?NUtpYUJPa245REpyOFFzV1JILzNJYW5hOEtlK1hRV0RubmhLa3ljR1hMMllq?=
- =?utf-8?B?S0x0TThCWjREZjNKeWZCNjFxUXZ5bURGVVFLNDJNSE10ZCtraEgzNllIWU11?=
- =?utf-8?B?cUxXaXlQZUYwYnJIcnJNWUlLVmtROU05SmtUMEF1Y21QR3NMbnlRNUtDdHZn?=
- =?utf-8?B?eGQ3S0U4ak5NYWVaZHlKMGc0Z2Q4SDh1eTA4QWxiV2RUQjZyNDJEWXBWZUIw?=
- =?utf-8?B?MjhmeVgwNzZVSVRHY2xTWTlxVmlRdWRGeE1rb3gzL29LQjJmQXFuVFkzQ083?=
- =?utf-8?B?WElDRjJpTU9UOVpQejRpRFlFd1h0cGFRbjFCV1pTSXRnemY2M0NzODJadjc1?=
- =?utf-8?B?Ry9jdXZLTTZob3VYOHB6T1dybDhtcnVrRkhmeHY4OHUxaDM2Z0k2R1JpZlIw?=
- =?utf-8?B?QUJjUUF4Uk9ES1BEU1FsSDZOZ1ByaFllYmlya0V3cVNQd1RLMmpPbTZLOUdr?=
- =?utf-8?B?Y2hlRnR4K0pCK2tHUlhTemFBVy9oNGJDb2diZFZsSWhSZkRuNzgrWkxwSGJD?=
- =?utf-8?B?a0tVRUpLL2FPOTB2VHBFK2RFL1l2bncwR2tJZ3o1UnYrbllqU2pxbEZzcnlk?=
- =?utf-8?B?QSs2ODVXczdrcWs3Mm5jMlFEMTBENldURnNzQTJBbWMrMmtVM29Ta0M5MC9t?=
- =?utf-8?B?ZzZMUm5iZGxZMGp3UHgvTDA3RVJjUzBNeGhNNFY5cng2NlEzUUxhRlBJbThz?=
- =?utf-8?B?b3JvejV4NlJaR0VkeE1aSXp3eWNKNDY2QXJsQk82SW9iZUkyMWx2N0lPNjh2?=
- =?utf-8?B?eUpRQjZObFcxMmNJdlJMdFZydkhPUUVxRndFY0QwYnB0bHhBTk9LVmVCc1px?=
- =?utf-8?B?c0tpM3g1OE9BdlBBbFpZbTJZUkU4cUh5VFg0K2RYSjJDTStBU3k3Q0o3ZGFu?=
- =?utf-8?B?cVAyeE9qc1U1enY1R3ZXWmZ3TUErWDBpRUR6emRYS3l0aVNZMFUxdSsvM3hs?=
- =?utf-8?B?bzM4bW15NDlJOUNxSmVaVEJ6U1dLYzJFQjlrZkQxV1QvY0JhVnFGd0dpTUVM?=
- =?utf-8?B?R0o0dzZ2NzJRTnNDWHZpQUxEL3kzTGgwT1JJZUo0dlZHSVU2cWtXVEorR25p?=
- =?utf-8?B?TzJvbi9mSFdKNG9OQndRSGdkbitmNkJ6aENYZGR2ODQvSVpVWXo0dzE1c1Iz?=
- =?utf-8?B?bjNFWHpOaDJkRVYyKzl0WGZ2U2k1Q3RsTHZqUXZQTE45UmJkT0w0a2VwekdG?=
- =?utf-8?B?Vy9WeEJvN0pPZG9iWE80eVB2L3hUTzlXZkdnVjlWdStoazZCeTRUSHlmakxK?=
- =?utf-8?Q?JLvPWLhbQn+fWPBc=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <64C755A50C7C874A810EA9DF8D509C17@namprd11.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=embeddedlinux.blog header.i=@embeddedlinux.blog header.b="AOtkFsPT"
+Received: by mail-pj2-f11.google.com with SMTP id 98e67ed59e1d1-3a0aa5e2b20so1375849a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 09:07:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=embeddedlinux.blog; s=google; t=1791475636; x=1792080436; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gXIdHUETdOrFzdkDSgL8Eu3MeGwhdpssz2LX5b544u0=;
+        b=AOtkFsPT4aAM6jS4imt3CEkDyTKhXo2YVzjKk8ErjZPeXtu2BbLAQvvy5ff/kDNiQN
+         CJxLvh32WX2/UddHJydrk/DrOW0V5ns/P0+6VgNp+bS1Gd/iQHF8y/GhsuRDJhl5o7te
+         888JFLMziBCQtdCTC04mrJWfo/ezfw7gdY6bW0SOdgjMPn837M5IYfFzQw74qaehsNQM
+         UvyOjDAdCE91KZ8GIuOJwdz8rqba/MseVeza834hW+mB+qjcQ15ZoiW1hPt/JqJyY0ZW
+         j9bWBZ68y9drDJO3Fv3IS1zlJ7vZToVpF2RxBVetYMk0XyhkPi2QafiAOF7iXd70EYH5
+         DCTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791475636; x=1792080436;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gXIdHUETdOrFzdkDSgL8Eu3MeGwhdpssz2LX5b544u0=;
+        b=CeeNalGWyd43Wq3ybkywPRE9d+AE4xOWvAsn3Fs8dD6hUHp7PX9WD7cROJJEDCSF0v
+         CaiozCt/Ol4YY91cc02k61NPTszBjr9+plaRCuizOEwrhwnNd4g3hD+O+aSZbVhmcxzJ
+         pKbi1eDstKOfBrYXse3ZdW2mHEH5oI7Ku7G+0NN8mIKxFOlBMqkM1bRI3QNqYT6iDsc9
+         7vDGiw6A7HANW8xDhcry7R9fc5TRljfMb76ALfXqydt9akJNkooOdIlmL5QbdwFwrI2+
+         2LepPbjn7yaDcK5WvxFbXCiYzolHaYYrQENGqR5GQWJL2IeLz/0BYwxQNBcFViMvr6uc
+         Pklg==
+X-Forwarded-Encrypted: i=1; AKwUvBzkqLpDqBYCv7NPmnQ/Hi7RC6GgWUd5+9sSAnkFCiU1T/mcWqmohKB0CvYTIcucptdWbTEK+HyNd7KCuzg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIv/jA0if0XNuoZmysACGYofmbFbYLVQmloOhNaRIxkmtjJUMgm
+	qnnAis3YRu9TzoIG2JbYq0RSRV9esT837iOYd/arPjcfpH/4V0aDrVX4XJ6reOpyJt9p
+X-Gm-Gg: AYBFou1F/IozkR1VKHoUVUHUAIg/5VEX3p56o8IMuUMlFPWiKMxkL5MQ/lTY1zfhvYY
+	a6QZwJhS3LfJFyb+NMZX/79PI8nhcnn0LZIJpMP68h9seJrT5DwalQGmA1o5tcOW1vRx/ZKtP4A
+	0ls+klJhpom6D4BQ5D5JEyg+tNycN9v0sS5abWMRjaTiTWDCcnJ6vsd0JRLYFbO8KOvUpynMD8t
+	qnUc83GtWuMvIlt5SRWjLWyLJvrdnb32m3rcE5eKil60eec6jcJdErdHTy6+CwoijQxSgDlSKk4
+	MNJ543/iFX0ITQ4au+M3bNLYiT27B0B5BDVpV3qaQCys9ACsNi2/1BjkZNIQwEq2THhJZGYG8g4
+	ZCcvtICssX8wGKa2DDI/h03F75WYR+kna1AdgujSU97A5wdsFr4thpR7Js7fTS97jSO4v59yAVT
+	FRI1/BJtLnMBwJd77mpnKO5K6cv+xZ4yGqDXkW6Iik7JwrMTYZrLa+FAiP1JtOgAA2+NPkddyht
+	NGGXmNhNvngHcoeNQ==
+X-Received: by 2002:a17:90b:17cb:b0:39e:6a81:5a90 with SMTP id 98e67ed59e1d1-3a8a1b0ecc0mr5282885a91.36.1791475636407;
+        Thu, 08 Oct 2026 09:07:16 -0700 (PDT)
+Received: from ltu.. ([116.101.18.9])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9d94ef876sm4724657a91.0.2026.10.08.09.07.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 09:07:15 -0700 (PDT)
+From: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] media: i2c: Add OmniVision OV3660 image sensor driver
+Date: Thu,  8 Oct 2026 23:06:48 +0700
+Message-Id: <20261008160650.73927-1-tien.nguyenminh@embeddedlinux.blog>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: Kh91Ncaa7DIfJp3Rhz3nE3DFu7Vzqae0fW00fKpTG1IUFnKxP9xedb//ZcW2JYenj8OgLP7c+nj1OSN+birgHD+Nz0Gn/TBuksg8Vzyjk6HSyv75vsZcwV1O3HaNJR5WC4YlpYN8LHx9TtkcQ7EC+VQICxmnBar1i6rXvPRZeqJpSVpH5lQVTjSCCFrybDwSWHJ8JSo9rdeJJowFeCrBFZKYG5Z2TYFGCaXETJLFaPHJ09TrskIqAh7zbIJGQUwJdd2uUo47Kh/cAr7ZXAt9ZyKsRH1GJ4h6ydlQWBQGdUg2tNW+ZxpTkUfVzgFIFbh078+NvmAB/Hi/wJJdXBMphg==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6771.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 52352719-d824-450e-4a9f-08df25561bdb
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Oct 2026 16:06:27.4350
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: yKagrPJk9SeGIDbDceKL8il2NKh+rjmEi1cURoSwbxFktEdqiFGTLGOAPqNHanRT8QFv7qT5r6bh/8SeVgwtrP5sd2oBPcOSANY5Ce90g1o=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PPF027BB0053
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 
-T24gVGh1LCAyMDI2LTEwLTA4IGF0IDEyOjE4ICswODAwLCBYdSBZaWx1biB3cm90ZToNCj4gSG93
-IGFib3V0Og0KPiANCj4gCXN0cnVjdCB0ZHhfbW9kdWxlX2FyZ3MgYXJncyA9IHsNCj4gCQkucmN4
-ID0gX19wYSh0ZG1yX3BhX2FycmF5KSwNCj4gCQkucmR4ID0gbnJfdGRtcl9wYSwNCj4gCQkucjgg
-PSBnbG9iYWxfa2V5aWQsDQo+IAkJLnI5ID0gYWRkb25fZmVhdHVyZXMwLA0KPiAJfTsNCj4gDQo+
-IAkuLi4NCj4gDQo+IAlpZiAoYXJncy5yOSkNCj4gCQlhcmdzLnZlcnNpb24gPSAxOw0KDQpTb3Jy
-eSBpZiBpdCB3YXMgd3JpdHRlbiBpbiBhIGNvbmZ1c2luZyB3YXkuIEkgd2FzIGFjdHVhbGx5IHNh
-eWluZyBJIHRoaW5rIHRoZQ0KZXhpc3RpbmcgY29kZSBpcyBnb29kLiBCdXQgbG9nZ2luZyB0byB0
-aGUgbGlzdCB3aHksIHNpbmNlIEkgdGhpbmsgaXQgd2FzDQpkZWJhdGFibGUuDQo=
+This adds a driver for the OmniVision OV3660, a 3 megapixel sensor with
+an image signal processor and a parallel (DVP) output. Espressif's
+esp32-camera library supports it; Linux has no driver for it yet.
+
+I have an OV3660 module on the 24-pin DVP connector of a MangoPi MQ-Dual
+(Allwinner T113-S3) and tested the driver there, with the D1 CSIC driver
+I posted last week [1] and the changes I have for its v2. This series
+doesn't depend on that one. The values for the registers the datasheet
+calls reserved, and the colour tuning, come from Amlogic's GPL vendor
+kernel driver for this sensor.
+
+The pixel clock is 108 MHz in the full-width modes and 54 MHz in the
+binned ones. The binding asks for the link frequencies the board can
+take, and the driver offers only the modes whose pixel clock is listed.
+PIXEL_RATE is the 54 MHz clock that the sensor's line length counts;
+HBLANK and VBLANK are relative to the output size, so the frame time is
+(width + HBLANK) x (height + VBLANK) / PIXEL_RATE in every mode, the
+binned and scaled ones included.
+
+A few things aren't in the datasheet and were found on the board: the
+system clock divider resets to a value that stops the pixel array after
+the first frame, the parallel port clock in manual mode is SCLK2x
+divided by 0x3824, and the sensor is back side illuminated, so the
+driver sets the mirror bits for an unmirrored image.
+
+XVCLK can be any rate from which the PLL reaches 216 MHz exactly. I gave
+the sensor 8, 12, 24 and 27 MHz: each time the driver chose the expected
+pre-divider and multiplier (read back over I2C), and every mode ran at
+the same frame rate. 20 and 30 MHz are refused at probe.
+
+All six modes run at their expected frame rates on the board without
+errors: 2048x1536 at 15 fps, 1920x1080 and 1280x720 at 18.8 fps, and
+1024x768, 640x480 and 320x240 from the binned array at 30 fps. With
+only 54 MHz in link-frequencies the driver offers the three binned
+modes, with only 108 MHz the three others. The colour bars come out the
+same in all six formats. v4l2-compliance from git passes on media next;
+the two warnings are about crop, which the mode fixes, so there is no
+set_selection. The same tests ran on a kernel with lockdep, KFENCE and
+slub_debug without a report, as did unbinding and binding the sensor
+driver, idle and while streaming (the CSIC v2 stops the stream when the
+sensor goes). Rebinding it in a tight loop while udev opens the new
+nodes runs into the known subdev_open() race in the V4L2 core [2].
+
+One thing I haven't solved: in the three modes that read the full array,
+the image gets a magenta cast that grows with the gain, green with
+vertical flip, and shows most in dark areas; in a dim room, at the AGC's
+15.5x, it is visible over the whole picture. The green and the red/blue
+pixels end up with different black levels there. It comes with the value
+of a reserved register (0x4520) that the full-array readout needs; the
+other values I tried shift or split the lines. The binned modes don't
+have it. Reading the array at half speed (7.5 fps) makes the cast
+smaller, but it doesn't go away, so the driver keeps 15 fps.
+
+The MQ-Dual ties PWDN low and leaves RESETB open, so I checked the
+powerdown and reset GPIO handling on a spare pin: asserted while the
+sensor is off, released while it streams. Not tested: a sensor wired to
+those GPIOs, and other receivers. The binding also describes the
+sensor's 10-bit bus, which the driver doesn't support yet.
+
+The series is based on the media tree's next branch.
+
+[1] https://lore.kernel.org/r/20260930154835.402684-1-tien.nguyenminh@embeddedlinux.blog
+[2] https://syzkaller.appspot.com/bug?extid=74de6401dbdd377b5746
+
+v4l2-compliance from v4l-utils git, on media next, with vivid as the
+DMABUF exporter (v4l2-compliance -m /dev/media1 -s -e /dev/video0). The
+media device and the CSIC's nodes pass too (8/8, 61/61 and 62/62); here
+is the sensor's part:
+
+v4l2-compliance 1.33.0-5506, 32 bits, 32-bit time_t
+v4l2-compliance SHA: 91dda32e4cc9 2026-09-28 07:58:16
+
+Compliance test for sun20i-csi device /dev/v4l-subdev1:
+
+Driver Info:
+	Driver version   : 7.3.0
+	Capabilities     : 0x00000000
+	Client Capabilities: 0x0000000000000002
+interval-uses-which Media Driver Info:
+	Driver name      : sun20i-csi
+	Model            : Allwinner D1 CSIC
+	Serial           : 
+	Bus info         : platform:5800000.csi
+	Media version    : 7.3.0
+	Hardware revision: 0x00000000 (0)
+	Driver version   : 7.3.0
+Interface Info:
+	ID               : 0x03000010
+	Type             : V4L Sub-Device
+Entity Info:
+	ID               : 0x0000000a (10)
+	Name             : ov3660 0-003c
+	Function         : Camera Sensor
+	Pad 0x0100000b   : 0: Source
+	  Link 0x0200000c: to remote pad 0x1000002 of entity 'sun20i-csi-bridge' (Video Interface Bridge): Data, Enabled, Immutable
+
+Required ioctls:
+	test MC information (see 'Media Driver Info' above): OK
+	test VIDIOC_SUDBEV_QUERYCAP: OK
+	test invalid ioctls: OK
+
+Allow for multiple opens:
+	test second /dev/v4l-subdev1 open: OK
+	test VIDIOC_SUBDEV_QUERYCAP: OK
+	test for unlimited opens: OK
+
+Debug ioctls:
+	test VIDIOC_LOG_STATUS: OK (Not Supported)
+
+Input ioctls:
+	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+	test VIDIOC_ENUMAUDIO: OK (Not Supported)
+	test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDIO: OK (Not Supported)
+	Inputs: 0 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+	Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+	test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Sub-Device ioctls (Source Pad 0):
+	Try Stream 0
+	test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+	test Try VIDIOC_SUBDEV_G/S_FMT: OK
+		warn: v4l2-test-subdevs.cpp(566): VIDIOC_SUBDEV_G_SELECTION is supported for target 0 but not VIDIOC_SUBDEV_S_SELECTION
+	test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK
+	Active Stream 0
+	test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+	test Active VIDIOC_SUBDEV_G/S_FMT: OK
+		warn: v4l2-test-subdevs.cpp(566): VIDIOC_SUBDEV_G_SELECTION is supported for target 0 but not VIDIOC_SUBDEV_S_SELECTION
+	test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK
+	test Active VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: OK (Not Supported)
+
+Control ioctls:
+	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+	test VIDIOC_QUERYCTRL: OK
+	test VIDIOC_G/S_CTRL: OK
+	test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+	Standard Controls: 17 Private Controls: 0
+
+Format ioctls:
+	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
+	test VIDIOC_G/S_PARM: OK (Not Supported)
+	test VIDIOC_G_FBUF: OK (Not Supported)
+	test VIDIOC_G_FMT: OK (Not Supported)
+	test VIDIOC_TRY_FMT: OK (Not Supported)
+	test VIDIOC_S_FMT: OK (Not Supported)
+	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+	test Cropping: OK (Not Supported)
+	test Composing: OK (Not Supported)
+	test Scaling: OK (Not Supported)
+
+Codec ioctls:
+	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls:
+	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
+	test CREATE_BUFS maximum buffers: OK
+	test VIDIOC_REMOVE_BUFS: OK
+	test VIDIOC_EXPBUF: OK (Not Supported)
+	test Requests: OK (Not Supported)
+	test TIME32/64: OK
+	test blocking wait: OK (Not Supported)
+
+Total for sun20i-csi device /dev/v4l-subdev1: 55, Succeeded: 55, Failed: 0, Warnings: 2
+
+Grand Total for sun20i-csi device /dev/media1: 186, Succeeded: 186, Failed: 0, Warnings: 2
+
+Nguyen Minh Tien (2):
+  dt-bindings: media: i2c: Add OmniVision OV3660 image sensor
+  media: i2c: Add OmniVision OV3660 image sensor driver
+
+ .../bindings/media/i2c/ovti,ov3660.yaml       |  121 ++
+ MAINTAINERS                                   |    7 +
+ drivers/media/i2c/Kconfig                     |   10 +
+ drivers/media/i2c/Makefile                    |    1 +
+ drivers/media/i2c/ov3660.c                    | 1319 +++++++++++++++++
+ 5 files changed, 1458 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/ovti,ov3660.yaml
+ create mode 100644 drivers/media/i2c/ov3660.c
+
+
+base-commit: 9a4dd8147c7a45e8579e58c101c25604e51117b0
+-- 
+2.34.1
+
