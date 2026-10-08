@@ -1,137 +1,109 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3906C3876A1;
-	Thu,  8 Oct 2026 17:08:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 952AD3A5E84
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 17:08:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791479316; cv=none; b=NQF4WK8Rt1XBaDqCxh177pE6kgrb8ZgVW9rCKV3NnImnqgnVNBdBiPxmOUYuJolDnMCJbg4D1eHbZUs2G/LpIdV0KJBly0JDv8gWDVZFZOvRhrT8b7O9d8WQtU8wpfrD3ly1e52nRzDMkFaOQ8fm+MIegqA4wGUtAkOQ6vdXOv4=
+	t=1791479341; cv=none; b=GjCkfAwNeAk6Mig8j9rLRKcf6iY11G1PpHv66PVQu8tIEaKRRkJDSGYBMvNuXQ+vRVoLr+lJ9bfSWCl199qnGcvHhltfsL39tYLg23H3AKfj4wIbnPTWcqkV2eEwbTZtJ6b8Mu/yw1q/VQHsOeAeECHt31WwtSSshO/YteTge1M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791479316; c=relaxed/simple;
-	bh=uKhtdm15UpEJ6rf1smJSGQ/x5Ve0+w73qQ8J2jUc1/M=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NJ8Kaxs0NfFSVNP9rKp4CTa2Ra9nFUpl2uPU693CfCJfBi+2C8qsKztRBN6M/+oi5JEQCpFJK9lLkitBEYMS3fokDaVGkLAeRnu6G+UE29oDhrajN2DBN77MsmW9Fdlzxh50mLqC8p60pf/CyC7iEF/83hDlQLkuyqzrlwqJIvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=S+toEffk; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1791479341; c=relaxed/simple;
+	bh=uzc5djF85E//odOYdOjPt2GittKhdyE9SqtN99W2ky4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ohhHvUxUk/g2VCb9HuxD8q1YPUkbz82CnH9vhhEz2rFFHpYrj3Wdry9QDcamnK6akwt3Eg70K7KrInjRtudQJyRH7rfiBgRElnHLhl8n7PgOTjTZ1K+bhQ7BdZF11/Gg3Y/kNd0y3ipiVRqgbAk+kbfRRpcAP7TjJL4N1Sh/REY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OqFU6Tj4; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="S+toEffk"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 698EZOma3999550;
-	Thu, 8 Oct 2026 17:08:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=kNCkGa
-	XGMDGePOlXzA3Oop1Xv/eT8titudFVmWUrDq4=; b=S+toEffkKMldoLRVoY8UHg
-	KNt7i463vIzL9jMImhrg2f+lm3QQ4riWSwVkoseTLVydM/iZHZSisTiOg1T4yr5h
-	7csaSV3YvRm2EOx92NNJZN844B9s+VvxHFYajka4+Ifs8Z9/S80tO9+d/9RUldS6
-	38ZHM88ibYGg46/TYLW9vqUDI0yx1/ldn2DIl42idTlkHSvVLW2x08IOj+qUDanq
-	1LcJn8LCLWRzuDkM2nMXMlDrSq+oex+MtreyXWoDzoP9YG7yyFxQHcVfd9AyzA+t
-	XJzFHiZYFxD3u17CcU75guGYOPakATTh6DcoRsNCtcTFJap9uba2JBByik5RhlCA
-	==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h5xjw5bvh-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 08 Oct 2026 17:08:34 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 698EmXJf3594012;
-	Thu, 8 Oct 2026 17:08:33 GMT
-Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h5s34w139-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 08 Oct 2026 17:08:33 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
-	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 698H8TGd46465472
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 8 Oct 2026 17:08:29 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 23E9A2004B;
-	Thu,  8 Oct 2026 17:08:29 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id DA41D20043;
-	Thu,  8 Oct 2026 17:08:28 +0000 (GMT)
-Received: from thinkpad-T15 (unknown [9.224.89.120])
-	by smtpav01.fra02v.mail.ibm.com (Postfix) with SMTP;
-	Thu,  8 Oct 2026 17:08:28 +0000 (GMT)
-Date: Thu, 8 Oct 2026 19:08:27 +0200
-From: Gerald Schaefer <gerald.schaefer@linux.ibm.com>
-To: Heiko Carstens <hca@linux.ibm.com>
-Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
-        Sven Schnelle
- <svens@linux.ibm.com>,
-        Vasily Gorbik <gor@linux.ibm.com>,
-        Christian
- Borntraeger <borntraeger@linux.ibm.com>,
-        linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] s390/appldata: Emulate virtual timer with
- delayed work
-Message-ID: <20261008190827.1b9762c0@thinkpad-T15>
-In-Reply-To: <20261006140113.3128582-2-hca@linux.ibm.com>
-References: <20261006140113.3128582-1-hca@linux.ibm.com>
-	<20261006140113.3128582-2-hca@linux.ibm.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OqFU6Tj4"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a16c1608faso11553055e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 10:08:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791479337; x=1792084137; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:sender:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+ZzFC0Gnqf5rubheTFydiqJ9yK61ie2+Ek+jk+ivkUU=;
+        b=OqFU6Tj4844RAtOXRiQZFhIuhvFiFgK+WcpGkkPJyrbx8Cgw84W0UgzxhguYVnxfIg
+         Y9pAuO3Vbf3B4rdD40W5eXr2Btytke94hePBtgLAOc1pg48/HAnYZljSGaptcQXhz2L+
+         c5k3lWu3e4JSJrlCjmvaEGM6Pdzp5QXOHuXu4JRnfz3c/N2TgFATwup5SZ1xhULaZAmJ
+         3awzf0lH3rjHYYnxShE6NXamrzWb0amqE5zCxhmep1qxRb+mdgILKwH7X9RyaPgjWN94
+         /tPS3VEJQwtKr6NvrSkkmnW8l9DojPDsYoRjbFkVgtGx9uoQCQ/xpepXD/av0IZ4LEq0
+         x5ZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791479337; x=1792084137;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+ZzFC0Gnqf5rubheTFydiqJ9yK61ie2+Ek+jk+ivkUU=;
+        b=SnWihb/RPPtKjLJ809GImPWfFvU0NGkAIdSR7bz88XgSbItbnF3fGWEL18J5jInmZn
+         uW9DKkiHqTuPO9fEFjmXQt6HZaK5d23No3tVO9whtzkqqum6H8Grsh6VPjWvImq6OhST
+         Xze4K6/g6/V8bIYUZ24Wh6AN8hqjobgj1z6U5nuY80GJaPtnlgelELfzNJBryaIfY3eq
+         Sn0S4y0PMEa4ve+WyzkwKRE6N6Ms/2PHmNy4iSeFgvS9wLgUTUAIa4NiEMkaiPWpbEm3
+         YfJZQeCTxeQHMKM7b9FiC2hVwtZGF4OX7c7l0hfU3Eh0fr8KJ5Fcs6hZBvGYW3M/DnDN
+         GvEw==
+X-Forwarded-Encrypted: i=1; AKwUvBxohIeR3vbkafV4G9g/xnOlO30TX4vbWGsSu1w0oT1kbvT76zQSnIV+xJ0eempxqT72fa1iQpqn2dB0BLU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lPqnRtyjJHlCQSgsiUQjAK2hwbAxNvmso/+VF7roT3d7hUgJfQ
+	+yvOiY67PVMmwaNPgRIhTyzp5aphZKFKhtzNpJFLUL8E8p2nS71v9M4W
+X-Gm-Gg: AYBFou1o9CikEc6k4oA7DkZPtUH91M58Bl3uaJZTzF9FcdZhofzB4vnWo+/wRCqUNfp
+	gsjHnf4sTmoBjIM7Ti3XF7JdMOkb43ysgBOpiCQzcMdXcp386c07fEl0e/RwtkViUZgZTgzQTye
+	tNh0HpKPU4QXDfhz7KDSpc27NYEIfC/5hfKT+OD0wNw+P1wwUWR0wPNN2MbRj9ty0+rFdtk4cK7
+	6lzc/0UMNR9xjQKNNH3/zi22XBsHtS0aSfCha962rvCjg5kScEOvDxg2m44h0Rvqr7SP1tDWDCI
+	emKkWcl0mdpG1Be6QljfSP9WuQdKs9m8ONI60NEFumSaB37F/eNkB/ntdQLS7/AG8UqI8d9O4C4
+	Tz48vwM3YRreoBBZhSC2L3dW7x4eSKsZlNSXpBFEMFmHU5r7Oip6gypNqnlzgiuEuN1XdgIVw6K
+	96CSb93uFN7mSuavX5M4QbrUm3UYXyS+t1bKlSpt0zwmqIbmZpuoOA+rujdIGsYgSH3+0WQ45xF
+	bZVzyewMCN0ykuIWH/DKDqTTjqCz1iAqE1ugmVTpO+GZw==
+X-Received: by 2002:a05:600c:4755:b0:4a1:8963:b865 with SMTP id 5b1f17b1804b1-4a18963b9aemr17251305e9.1.1791479336435;
+        Thu, 08 Oct 2026 10:08:56 -0700 (PDT)
+Received: from ubuntu (ip-86-49-251-138.bb.vodafone.cz. [86.49.251.138])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1843cb261sm84563085e9.3.2026.10.08.10.08.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 10:08:53 -0700 (PDT)
+Sender: Alban Crequy <muadda@gmail.com>
+From: Alban Crequy <alban.crequy@gmail.com>
+X-Google-Original-From: Alban Crequy <albancrequy@microsoft.com>
+To: Sasha Levin <sashal@kernel.org>
+Cc: Alban Crequy <albancrequy@microsoft.com>,
+	gregkh@linuxfoundation.org,
+	stable@vger.kernel.org,
+	rostedt@goodmis.org,
+	mhiramat@kernel.org,
+	mathieu.desnoyers@efficios.com,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	Peter Jung <admin@ptr1337.dev>
+Subject: Re: [PATCH 7.1.y] Revert "tracing: perf: Fix stale head for perf syscall tracing"
+Date: Thu,  8 Oct 2026 17:08:31 +0000
+Message-ID: <20261008170831.49376-1-albancrequy@microsoft.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260817150000.2@kernel.org>
+References: <20260816133101.83109-1-admin@ptr1337.dev> <20260817150000.2@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: jmzUe_cXvLQQUTZfRN_oTTR6LKLEYkkf
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDA2OCBTYWx0ZWRfX6DA12v1f3E3m
- xQeLCXfe7pSkC08tko9xOF6pK2fAv5Em9kF7fp0kweaq8rxc0jKYBZIWkIVCORSa6lcaneFe0vJ
- 5suI7/hHG5tE6Rjmlw/vY5RRlWyBLiCfu0aGvsYVjWWTaAPc3jLfGlrtq4TkMaxpzqCRQyKPyTf
- aMAZUuX0I7RoQ927h+bNasYZlyyfB/GQOB7jwjQvSSqmzCoT8Or1rzya3pOFsSLYzgMJBecpEBv
- OHQ9Yd3YR9D+mRk9ydeY6EzAtbkBVj2y1rTYFRtWiidIHcpwUtHx69/qJYi2cGLUOLpN4FypYui
- Xp/JcHPG2emKbdjwV5Lb7RZ42non+RGoeuI5Firu0mIIpRomd9MB6Qxibo3BqKkirprN6A0LrZz
- knyGwyD6Evc6FTu98sH1ToYFZ1jphoHAf5oKb36+VOKn5VeTFsv90lOoJgPVeiox3/P6j9rRHKe
- r/jSIl8/54HDSyDN/gA==
-X-Authority-Analysis: v=2.4 cv=cIt1IVeN c=1 sm=1 tr=0 ts=6ac7ce12 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8
- a=h2POmDZ-lxQGII9KrcoA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDA2OCBTYWx0ZWRfX3XGnZGpAZSRc
- 9lR9b9qR41y9Mrt8lO+Sf1g/cS82/rQ8iYQmnT1ZHIof3pIxLoNrnTKakjMKHYAs8a/3kSHWpWZ
- Xwga/P4IXmIMsZMo8IS0qtgqmJ/cV6c=
-X-Proofpoint-ORIG-GUID: jmzUe_cXvLQQUTZfRN_oTTR6LKLEYkkf
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-08_05,2026-10-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 malwarescore=0 priorityscore=1501 adultscore=0 impostorscore=0
- lowpriorityscore=0 suspectscore=0 spamscore=0 phishscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080068
+Content-Transfer-Encoding: 8bit
 
-On Tue,  6 Oct 2026 16:01:12 +0200
-Heiko Carstens <hca@linux.ibm.com> wrote:
+Hi Sasha, Peter,
 
-> Emulate the virtual timer in appldata using delayed work: the work is
-> scheduled for the minimum possible wall-clock time until the
-> configured CPU-time interval elapses (remaining CPU time / number of
-> online CPUs), with a minimum delay of 100ms. The work then reads
-> per-CPU statistics of all online CPUs to check whether enough CPU time
-> has elapsed, and if so runs the registered callbacks.
-> 
-> This is slightly more expensive, but allows to subsequently remove the
-> entire vtimer infrastructure.
-> 
-> Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
-> ---
->  arch/s390/appldata/appldata_base.c | 171 ++++++++++++++++++-----------
->  1 file changed, 107 insertions(+), 64 deletions(-)
+Another data point: Ubuntu picked up the same backport in its 7.0 kernel (7.0.0-38-generic), and it breaks Inspektor Gadget and bpftrace in the same way. A BPF program on sys_enter_execve or sys_enter_openat only runs on CPU 0; sys_exit_* and sys_enter_close keep working on all CPUs. Reproducer:
 
-Nice improvement, with minimum wall-clock interval 100ms. Specifying a 1ms
-CPU-time interval was possible, but did not make much sense in practice.
-On very idle systems, the resulting wall-clock interval would also have
-been around 100ms, but as soon as they do some work, it would have become
-far too frequent.
+  bpftrace -e 'tracepoint:syscalls:sys_enter_openat /comm == "cat"/ { @[cpu] = count(); }' &
+  for c in $(seq 0 7); do taskset -c $c cat /etc/hostname >/dev/null; done
 
-Also tested it, and on a busy system there is now no noticeable difference
-for interval values 1-100, while idle systems still behave like before.
+Only @[0] shows up.
 
-Reviewed-by: Gerald Schaefer <gerald.schaefer@linux.ibm.com>
-Tested-by: Gerald Schaefer <gerald.schaefer@linux.ibm.com>
+I also tested v7.1.13 under QEMU with 4 CPUs, using a small cilium/ebpf test that counts per-CPU hits of a tracepoint program while running 10 syscalls pinned to each CPU:
+
+  v7.1.13:          sys_enter_openat [10 0 0 0], sys_enter_close [10 10 10 10], sys_exit_openat [10 10 10 10]
+  v7.1.13 + revert: sys_enter_openat [10 10 10 10], sys_enter_close [10 10 10 10], sys_exit_openat [10 10 10 10]
+
+The revert looks right to me for 7.1.y, and for any other stable branch without 57918341dd19.
+
+Tested-by: Alban Crequy <albancrequy@microsoft.com>
+
+Alban
