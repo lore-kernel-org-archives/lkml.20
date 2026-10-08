@@ -1,229 +1,182 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012010.outbound.protection.outlook.com [40.107.209.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ACE635677E
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 03:24:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.10
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791429863; cv=fail; b=BJDXIiE6DVg29bzPTiFpEbV+iP0LhmEr035Um0TstWaYmmxKU49MSrXqwVn0Rw6p8lH0uvumIL0/Jm56gSx4Cf8ETmw/oWKnAuFjoWR/rRSNhLtGWYASTwtfeNgGNJp56hqW9fdX+ZbuTuiJnQZDAbwYl52M1ShlJDRpUtttXxs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791429863; c=relaxed/simple;
-	bh=/MnN5wraEhzMCzSMVPszrvVvKmzklr4Nnc+2S7LjKJw=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=j8cp+93AtnEIAu64TKUUZ8IUcPFQ6naJZ6sQi7XMlvIyCS9ITGFMUWiJ2P4mx7w9khs1W6luDYKJjboPpU6X7Z3QPt5PZEkvmzByvMybDQdVVVqzMGCZMf5LVI8L2/0eCiE6+5uwntp1JrJlNdZHwz/a3eLmnBwBvUJm5TJrtvY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=QFwz8b03; arc=fail smtp.client-ip=40.107.209.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF3433B19B6
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 03:24:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.51
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791429864; cv=none; b=fh2QN483FQaayYt1rUGM79/rvxEk8yBXe4OT2+iEr5DxZ9IUk133yEcYj+0bO6apOcKsKT8jvzYNv5YqapkmA25MYNt9OMtjewB8vP4JfuobbnRl0p+khVymCeXx1pqHf4SE8qHVeWZfpujax/9999G8ip1UGR9EwENzsV6KFQg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791429864; c=relaxed/simple;
+	bh=2kMyDbAGY5vdX4Q8C5boz5BouESaSfNKdivc60A8OSU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=JRRrAj80REmzfuJZZ0YWvMKTD6RdPxIIqxxYwLRak3GIu3fD1Q8uZ5prNdaOjCiIcX9/Jf0Pf90fP73vq/mA+xOHQDWe6MdRQ3mUnPbkYWoapd7H6cMyP4DOi4GjIDaDj96iXEgpGJC+tAKhrdSziqazvD0n9yYSlU6hhA6a3ro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JKLMmjun; arc=none smtp.client-ip=74.125.224.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="QFwz8b03"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nBYBZ6aaf+hq3dkOTIX3DjO3B2EDFywILU2q4k6n0PPvIGB/EqWdCE0YSF3Qg7DAK04Gcl+5TU4hDHEdy1GJlO6dYRkoUak67CMlNlmzfsUHGWfhy23E4MQHM1hs8k1c4zoV1YUJo/vReYXaTix9xZXQ/TCObE9NhsFg3fAlGBuRvt4WAtBvL5qROGgEHWclRwZ5Om3Wt+sIlzfrX8I3JrRfYX90mm3JQIAIrJRRmIBxi+xzQLCL0Nn6Y22Pu459Ymf3W3cryCjNVwze3nMbC5ASa0rowXmEE5buf3R/9+jaPCx7hgFnlxW3dSBRDWkoqfAHf/i8pdfatHf5boNWyw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=L/jO5ewTNFhuciVkKBGCmWAaWY0iiALa/Ptj8lROqkE=;
- b=onxY+eOZzwhxfXCWPBeWltg0Hl+tou9Tyqs6aX6QqL67zwwJ8NuTp7UGPPCbhkFC9IYoiT7/fP2y6qvuhLPIzAogN/PrefNmQUF2SQoLajYZNRBMgSB4u++5jtSbZyTLfQj4cfvGU+27VDY+s4RrpoVXess3X/dOqph/mmIgqo7SUEJb/0xP3lQRu/HFLDpzxr3CVaIcZR+uejh8qU7f7y/B2xNKzw5idWF4iCwd6HoPxCVczk2AMkj+myEpOcUCHP6i0xrqA6obrZTNS5o8/B+hfhM/ORftytCASZSsmDMQqmERTMxkaJiazSlyESoSJtrF0YLeUn9lJgxRlgd9Kw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=L/jO5ewTNFhuciVkKBGCmWAaWY0iiALa/Ptj8lROqkE=;
- b=QFwz8b03NGAvAYIIYzWxnIOH4eS6y2AZlq62RO2IkmDqxMYV5W+Fj11Bf/OrZ855X1HzGBEpeOIbumPAVCbzYzUeZBgKNM828WxK5eMtgo92/xAFEKAwW82d0ayTWQFGUVslOcCdulcfmLIrJiHAG7fbp/tc9RIsDDTLl1ZNP7M=
-Received: from SJ0PR05CA0005.namprd05.prod.outlook.com (2603:10b6:a03:33b::10)
- by IA4PR12MB469045.namprd12.prod.outlook.com (2603:10b6:207:108::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Thu, 8 Oct
- 2026 03:24:16 +0000
-Received: from SJ1PEPF000037AC.namprd03.prod.outlook.com
- (2603:10b6:a03:33b:cafe::58) by SJ0PR05CA0005.outlook.office365.com
- (2603:10b6:a03:33b::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Thu, 8
- Oct 2026 03:24:16 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF000037AC.mail.protection.outlook.com (10.167.244.186) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.14 via Frontend Transport; Thu, 8 Oct 2026 03:24:16 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 7 Oct
- 2026 22:24:07 -0500
-Received: from xsjdavidzha51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Wed, 7 Oct 2026 22:24:07 -0500
-From: David Zhang <yidong.zhang@amd.com>
-To: <quic_jhugo@quicinc.com>, <karol.wachowski@linux.intel.com>,
-	<max.zhen@amd.com>, <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
-	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-CC: David Zhang <yidong.zhang@amd.com>, <sonal.santan@amd.com>,
-	<mario.limonciello@amd.com>, Hayden Laccabue <Hayden.Laccabue@amd.com>
-Subject: [PATCH V3 14/19] accel/amdxdna: Move HMM invalidate wait into common GEM code
-Date: Wed, 7 Oct 2026 20:23:43 -0700
-Message-ID: <20261008032348.2044667-15-yidong.zhang@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261008032348.2044667-1-yidong.zhang@amd.com>
-References: <yidong.zhang@amd.com>
- <20261008032348.2044667-1-yidong.zhang@amd.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JKLMmjun"
+Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-6756a01fa01so2833136d50.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 20:24:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791429862; x=1792034662; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=goo/UYUNzJJGzS1feJQqHd4WDFi+DYK+JC7jIr2lovE=;
+        b=JKLMmjunA2AcOPFNPmg1s2wdgaTi0qUzY33wmfSar6aGzz0vCBSInX0SW5xKeeA6QQ
+         V1KImWOCMnC5V37M3cry8fY9L1BkEP/JYG8R3U5k0gjPrUiZzwVOk3BnFQJwsDP2nExz
+         p6VGO2fhMm5sL7CWyGHZL4ScdcNfJg5qHwZC5kIaDc2tsgNyssj1vJjvIpO2M9HDpmTS
+         FX5wVUvl4mhDAxC6RrKS+v3c0w7DV1sfqFmqzecNyk35qlGYprlFBqZpnE55HS5nkNF1
+         st5pkcOM3tpdF+3wQD169wz556Fshe+uzUArX1xzotC1ndLGHsVtTl6CWTB6+eZ01mVl
+         LHjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791429862; x=1792034662;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=goo/UYUNzJJGzS1feJQqHd4WDFi+DYK+JC7jIr2lovE=;
+        b=L0NMcuK8SHFycRx4jSfjbAHHgVzN56w0Jr57GY0GRrol4GM6dXFyMSOwfdnrj4nrS3
+         mHW1K9sfKydrAeD9hrQwlpYl57RuWgmPsW/Fvsfv/65U+kjB8LIEVEzAjuGf3XMBXrt8
+         /BXEjby0LojOSSq4332DP4Nv6MnVK2KBeEwDGl06jzVdOFPy9W9hTxpooSB19PVUgCGv
+         vaE04tkPPiceIFBldWuTHBHH3akJO9fq6bMdgg/yfTdFAGEx0NOkgkVwUj4BGHaR9iEK
+         k8spbz61kRP9pboXje3yqHm/tDW0qLj7C1rPG7nH8xlj0Q6W19GXnufeYz9+CPd5nedj
+         sXQQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy5KJazjXCiop2s+oye6mVFvpLFA8EN45LTkhZemzeQvpe7xOwqhRoAieJ5oF2oVLsvlhBKZdMz+gkY+RY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLCqNCAX7BvQgtscN8ktgazqa1UqcW5x1JH46H7df+Hr2aEk1J1
+	0gZCJtEFDUUo+Yo/c2noZ40f920TFhvaUHAjTajNz4C7ll58ivfciWxQ
+X-Gm-Gg: AYBFou1wH53Th1ljfjq+14zaxsjm6ObrJa2Mugj+UlK1UzfRIIMCQATF/z9tsEpLhB+
+	AQFJU/WXDrnhf19CX+3gpxDB/tGhBqgl9QWId63tXTPFxfWwZwAFah+RlruRg3N9cmtebB0q7IV
+	niLJA7rCtml/azAQ02K4Mn7bCcsGYOPhhzeOXoLog+Ls6qo9DpJoIe+dqCDQj+3L94X+eAFSXtM
+	XUxBWf0yxJWWw9lsJxokn7voOXokj98Hr5DcZblu/ejUfJ3oPlMOhhkCUyr8lOMtB+6OpHSEKnX
+	N6/AOxKoz+IurmO9p305T2Pszi4vB07A3tOhoVAB0Dx8J1ULBBGzkSr2mGLBkOV4g2u+F1s6dyB
+	+OxpUCsmtx3IgfowIOOn2E3+wqNflnPaNBioT+PtR6yIPjmRA1KFzBiFTtaRVvgsQ6N/qsWCJBx
+	ycXTGpYKFMh2XbYFe78cHq0Kq98LpJ8vzDM6wpP18NVTH4n22+BcV8/rqqXWD0eLQls4Qw4+N80
+	V5BkSJ1HA==
+X-Received: by 2002:a05:690e:d5c:b0:677:bf80:eb55 with SMTP id 956f58d0204a3-6790a412b45mr1876449d50.52.1791429861591;
+        Wed, 07 Oct 2026 20:24:21 -0700 (PDT)
+Received: from localhost ([2600:1702:7a90:6f9f:8bc4:8aec:108d:7a04])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6791b06a7a5sm727770d50.9.2026.10.07.20.24.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 20:24:20 -0700 (PDT)
+From: Matt Turner <mattst88@gmail.com>
+Date: Wed, 07 Oct 2026 23:24:08 -0400
+Subject: [PATCH v2 5/6] alpha: align hugetlb mappings in
+ arch_get_unmapped_area()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000037AC:EE_|IA4PR12MB469045:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0755eb66-93be-44b8-bc29-08df24eba1da
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|36860700016|1800799024|82310400026|18002099003|22082099003|10067099003|4143699003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	HzrGK4xeERr0AOsvyupbw2w2ztY6swpbrdb2XsLxDmjxhMtzynkK6f1YGLJR88KqVakIW8DBOOGz4yp1yB7BjaWw6hHTd2krJUbdOePVe74PjiGXfmP10Yg2lueICX6fnvkv94CCxDGuMQ7MTq5BFWmqduoibr+EvUA0AA58tP42J+rCKt+CxzqW/lz9gn9aEESE9cLOwQ2bfCyRXXlVRd2JWzxcPmVoZ/CZzwVCS+u3FIKYCB2mlE+sNb7xF44BmK0LxQ+unPNKHhU7QFnQjt/RIuvjla3tH6MLppeFdTclQmjUh4SX/qOL7Km503tBJvks6HARwTp37g89XdVAxmZCecnOYaIxfZh00qPQ6zG7qbkHZAeQT0bLrqpiXdI+dv+MKNmdXUeNNQdfVGkpOvflL9nV/TRv3DKDIpSqaryaiiQHqLjtxudWFzPHkencLR3S9HaUOoylwYuDUBFuuxFf8hY4rndBNNAJ0bG7eIc6NZw4Eh2mxMo9DztLSJWoCdie45iuYPeAQ/acWVRFhLBFn9IKobmSbj+v7CD7dXE0qsl7KgZMalftj0i399orecKL6eYdsZfYBK7DzUPAphhz69XSFT81Jztf9xtxKYVQbnk8wtR86r1NTWfXtxS+M4NuFHBmGCTH3sBxwn8cN4qvrOspSOH/kCx/cZ4pjoSjpP/BdhKbgyjWzt89UetrrYy/twUGsVskYIbO8H7+5g==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(36860700016)(1800799024)(82310400026)(18002099003)(22082099003)(10067099003)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	n5hGwd0/9E5mcZO2fv2+vlx5MoW1oP5Mcv54VClvZMtxbOzAOjLCgN/ecegyBr02MGKJ5wz/FGsM8txrJcJDAkRagJiP02vhtXNbViU/Z6OwKlE7+Vj4o8AyTlXmbFkReYcTSWqrNt4tfDGeDRfIHn1EfkSuonEPCJcyHrHhZ2YAp60MIl+QAfkxP8IIbZHNuIpQlQMrryiJ38wQenmWw7GXzmJMHz0SSNRy51TzjHKdVyfg9FgmVuAQleYM4HePVeYlg6JQULV2gGeBBks4tcVnUHnQRGbPmGFmTBxhHpZ/Ax7Xsa9ZEPQu9ay46O4g4OyOIMed6jpI1yg+2MWE2DzaLnN1rcNkBWIJfLiEZu0ZTiooZ7nBEEDlMizL2dLXcPwnMNFJtUWZ2ofrPJIUgvYbOtJj8EuFyzEAvdbCkPVa+rSIEg4u2NnTmHe2bJnx
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 03:24:16.0000
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0755eb66-93be-44b8-bc29-08df24eba1da
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000037AC.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR12MB469045
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261007-alpha-hugepages-v2-5-8e108af2d961@gmail.com>
+References: <20261007-alpha-hugepages-v2-0-8e108af2d961@gmail.com>
+In-Reply-To: <20261007-alpha-hugepages-v2-0-8e108af2d961@gmail.com>
+To: Richard Henderson <richard.henderson@linaro.org>, 
+ Magnus Lindholm <linmag7@gmail.com>, 
+ Axel Rasmussen <axelrasmussen@google.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, Peter Xu <peterx@redhat.com>
+Cc: linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Matt Turner <mattst88@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3242; i=mattst88@gmail.com;
+ h=from:subject:message-id; bh=2kMyDbAGY5vdX4Q8C5boz5BouESaSfNKdivc60A8OSU=;
+ b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLKO81wRnxW2SznMjp/znOve36o89WcSw35cdJ94+b7I/
+ EkLfGsLOj6yMIhxMcwUU2SJW6/IMqttx1Kf09K/YOawMoEMkRZpYAACFga+3MS8UiMdIz1TbUM9
+ QyBDxygeIqfHoJFZXFyaWqSbVlDkkJdfkliSmZ9XrJdfkJpXkF6gl5aZVpKRkV9UnAo0Qi8vtcT
+ U1dHNyNDAxNLRwszJwtHUxNnZydDJzdHR2dXJyNLcxMDZ0tHE1dKcgYtTAOYanfUM/zNnzvd/bb
+ Pb9u/6hvi6x5a7C40OznGJecv2Tvajd938NdsYGR61r/Molbhre1QwwHTrpMDEGQ8qHP6+4+E30
+ NRa2XXhKw8A
+X-Developer-Key: i=mattst88@gmail.com; a=openpgp;
+ fpr=3BB639E56F861FA2E86505690FDD682D974CA72A
 
-When a user mapping of a BO is invalidated, the driver must wait for
-the BO's reservation fences before the pages are released. AIE2 does
-this in aie2_hmm_invalidate() through the .hmm_invalidate callback,
-and AIE4 needs the same wait.
+hugetlb_get_unmapped_area() does not align the address itself; it
+delegates to mm_get_unmapped_area_vmaflags(), and the huge page
+alignment is applied by generic_get_unmapped_area() and
+generic_get_unmapped_area_topdown() via info.align_mask.
 
-Do the wait directly in amdxdna_hmm_invalidate() in amdxdna_gem.c and
-remove the .hmm_invalidate callback and aie2_hmm_invalidate(). Devices
-that do not attach fences to user BOs return from the wait at once.
-No functional change for AIE2.
+Alpha defines HAVE_ARCH_UNMAPPED_AREA and supplies its own
+arch_get_unmapped_area(), which never sets align_mask. An
+mmap(MAP_HUGETLB) with no address hint would therefore return a merely
+page-aligned address.
 
-Co-developed-by: Hayden Laccabue <Hayden.Laccabue@amd.com>
-Signed-off-by: Hayden Laccabue <Hayden.Laccabue@amd.com>
-Signed-off-by: David Zhang <yidong.zhang@amd.com>
+That has been the architecture's job since commit 7bd3f1e1a9ae ("mm:
+make hugetlb mappings go through mm_get_unmapped_area_vmflags"), whose
+series converted the generic code along with x86, s390, sparc and
+powerpc. LoongArch, which also has its own arch_get_unmapped_area(), was
+missed and hit a BUG in LTP's hugefork02 until commit 3109d5ff484b
+("LoongArch: Set hugetlb mmap base address aligned with pmd size").
+
+Pass the file down to arch_get_unmapped_area_1() and set align_mask for
+hugetlbfs mappings, as x86, s390, sparc and loongarch already do. This
+is a no-op until alpha gains hugetlb support.
+
+Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
+Tested-by: Magnus Lindholm <linmag7@gmail.com>
+Signed-off-by: Matt Turner <mattst88@gmail.com>
 ---
- drivers/accel/amdxdna/aie2_ctx.c        | 15 ---------------
- drivers/accel/amdxdna/aie2_pci.c        |  1 -
- drivers/accel/amdxdna/aie2_pci.h        |  1 -
- drivers/accel/amdxdna/amdxdna_gem.c     | 10 ++++++++--
- drivers/accel/amdxdna/amdxdna_pci_drv.h |  1 -
- 5 files changed, 8 insertions(+), 20 deletions(-)
+ arch/alpha/kernel/osf_sys.c | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie2_ctx.c
-index d927c8c9d557..8c1b29964f8f 100644
---- a/drivers/accel/amdxdna/aie2_ctx.c
-+++ b/drivers/accel/amdxdna/aie2_ctx.c
-@@ -1277,21 +1277,6 @@ int aie2_cmd_submit(struct amdxdna_hwctx *hwctx, struct amdxdna_sched_job *job,
- 	return ret;
+diff --git a/arch/alpha/kernel/osf_sys.c b/arch/alpha/kernel/osf_sys.c
+index 7b6543d2cca3..61d806176213 100644
+--- a/arch/alpha/kernel/osf_sys.c
++++ b/arch/alpha/kernel/osf_sys.c
+@@ -38,6 +38,7 @@
+ #include <linux/namei.h>
+ #include <linux/mount.h>
+ #include <linux/uio.h>
++#include <linux/hugetlb.h>
+ #include <linux/vfs.h>
+ #include <linux/rcupdate.h>
+ #include <linux/slab.h>
+@@ -1201,14 +1202,16 @@ SYSCALL_DEFINE1(old_adjtimex, struct timex32 __user *, txc_p)
+ /* Get an address range which is currently unmapped. */
+ 
+ static unsigned long
+-arch_get_unmapped_area_1(unsigned long addr, unsigned long len,
+-		         unsigned long limit)
++arch_get_unmapped_area_1(struct file *filp, unsigned long addr,
++			 unsigned long len, unsigned long limit)
+ {
+ 	struct vm_unmapped_area_info info = {};
+ 
+ 	info.length = len;
+ 	info.low_limit = addr;
+ 	info.high_limit = limit;
++	if (filp && is_file_hugepages(filp))
++		info.align_mask = huge_page_mask_align(filp);
+ 	return vm_unmapped_area(&info);
  }
  
--void aie2_hmm_invalidate(struct amdxdna_gem_obj *abo,
--			 unsigned long cur_seq)
--{
--	struct amdxdna_dev *xdna = to_xdna_dev(to_gobj(abo)->dev);
--	struct drm_gem_object *gobj = to_gobj(abo);
--	long ret;
--
--	ret = dma_resv_wait_timeout(gobj->resv, DMA_RESV_USAGE_BOOKKEEP,
--				    true, MAX_SCHEDULE_TIMEOUT);
--	if (!ret)
--		XDNA_ERR(xdna, "Failed to wait for bo, ret %ld", ret);
--	else if (ret == -ERESTARTSYS)
--		XDNA_DBG(xdna, "Wait for bo interrupted by signal");
--}
--
- int aie2_hwctx_heap_expand(struct amdxdna_hwctx *hwctx,
- 			   struct amdxdna_gem_obj *heap)
- {
-diff --git a/drivers/accel/amdxdna/aie2_pci.c b/drivers/accel/amdxdna/aie2_pci.c
-index 29b6d6a3e0bd..3d9ddd40908d 100644
---- a/drivers/accel/amdxdna/aie2_pci.c
-+++ b/drivers/accel/amdxdna/aie2_pci.c
-@@ -1227,7 +1227,6 @@ const struct amdxdna_dev_ops aie2_ops = {
- 	.hwctx_config = aie2_hwctx_config,
- 	.hwctx_sync_debug_bo = aie2_hwctx_sync_debug_bo,
- 	.cmd_submit = aie2_cmd_submit,
--	.hmm_invalidate = aie2_hmm_invalidate,
- 	.get_array = aie2_get_array,
- 	.get_dev_revision = aie2_get_dev_rev,
- 	.hwctx_heap_expand = aie2_hwctx_heap_expand,
-diff --git a/drivers/accel/amdxdna/aie2_pci.h b/drivers/accel/amdxdna/aie2_pci.h
-index 709e7545c65f..13391275df31 100644
---- a/drivers/accel/amdxdna/aie2_pci.h
-+++ b/drivers/accel/amdxdna/aie2_pci.h
-@@ -272,7 +272,6 @@ int aie2_hwctx_sync_debug_bo(struct amdxdna_hwctx *hwctx, u32 debug_bo_hdl);
- void aie2_hwctx_suspend(struct amdxdna_client *client);
- int aie2_hwctx_resume(struct amdxdna_client *client);
- int aie2_cmd_submit(struct amdxdna_hwctx *hwctx, struct amdxdna_sched_job *job, u64 *seq);
--void aie2_hmm_invalidate(struct amdxdna_gem_obj *abo, unsigned long cur_seq);
- int aie2_hwctx_heap_expand(struct amdxdna_hwctx *hwctx, struct amdxdna_gem_obj *heap);
+@@ -1236,19 +1239,20 @@ arch_get_unmapped_area(struct file *filp, unsigned long addr,
+ 	   this feature should be incorporated into all ports?  */
  
- #endif /* _AIE2_PCI_H_ */
-diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
-index f4832337ec31..eebd93b6f2c3 100644
---- a/drivers/accel/amdxdna/amdxdna_gem.c
-+++ b/drivers/accel/amdxdna/amdxdna_gem.c
-@@ -12,6 +12,7 @@
- #include <drm/gpu_scheduler.h>
- #include <linux/dma-buf.h>
- #include <linux/dma-direct.h>
-+#include <linux/dma-resv.h>
- #include <linux/iosys-map.h>
- #include <linux/pagemap.h>
- #include <linux/swap.h>
-@@ -232,6 +233,7 @@ static bool amdxdna_hmm_invalidate(struct mmu_interval_notifier *mni,
- 	struct amdxdna_umap *mapp = container_of(mni, struct amdxdna_umap, notifier);
- 	struct amdxdna_gem_obj *abo = mapp->abo;
- 	struct amdxdna_dev *xdna;
-+	long ret;
+ 	if (addr) {
+-		addr = arch_get_unmapped_area_1 (PAGE_ALIGN(addr), len, limit);
++		addr = arch_get_unmapped_area_1 (filp, PAGE_ALIGN(addr), len,
++						 limit);
+ 		if (addr != (unsigned long) -ENOMEM)
+ 			return addr;
+ 	}
  
- 	if (!mmu_notifier_range_blockable(range))
- 		return false;
-@@ -249,8 +251,12 @@ static bool amdxdna_hmm_invalidate(struct mmu_interval_notifier *mni,
- 	mmu_interval_set_seq(&mapp->notifier, cur_seq);
- 	up_write(&xdna->notifier_lock);
+ 	/* Next, try allocating at TASK_UNMAPPED_BASE.  */
+-	addr = arch_get_unmapped_area_1 (PAGE_ALIGN(TASK_UNMAPPED_BASE),
++	addr = arch_get_unmapped_area_1 (filp, PAGE_ALIGN(TASK_UNMAPPED_BASE),
+ 					 len, limit);
+ 	if (addr != (unsigned long) -ENOMEM)
+ 		return addr;
  
--	if (xdna->dev_info->ops->hmm_invalidate)
--		xdna->dev_info->ops->hmm_invalidate(abo, cur_seq);
-+	ret = dma_resv_wait_timeout(to_gobj(abo)->resv, DMA_RESV_USAGE_BOOKKEEP,
-+				    true, MAX_SCHEDULE_TIMEOUT);
-+	if (!ret)
-+		XDNA_ERR(xdna, "Failed to wait for bo, ret %ld", ret);
-+	else if (ret == -ERESTARTSYS)
-+		XDNA_DBG(xdna, "Wait for bo interrupted by signal");
+ 	/* Finally, try allocating in low memory.  */
+-	addr = arch_get_unmapped_area_1 (PAGE_SIZE, len, limit);
++	addr = arch_get_unmapped_area_1 (filp, PAGE_SIZE, len, limit);
  
- 	if (range->event == MMU_NOTIFY_UNMAP) {
- 		down_write(&xdna->notifier_lock);
-diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.h b/drivers/accel/amdxdna/amdxdna_pci_drv.h
-index 11f46ec738d7..2a1d6b33363c 100644
---- a/drivers/accel/amdxdna/amdxdna_pci_drv.h
-+++ b/drivers/accel/amdxdna/amdxdna_pci_drv.h
-@@ -63,7 +63,6 @@ struct amdxdna_dev_ops {
- 	int (*hwctx_config)(struct amdxdna_hwctx *hwctx, u32 type, u64 value, void *buf, u32 size);
- 	int (*hwctx_sync_debug_bo)(struct amdxdna_hwctx *hwctx, u32 debug_bo_hdl);
- 	int (*hwctx_heap_expand)(struct amdxdna_hwctx *hwctx, struct amdxdna_gem_obj *heap);
--	void (*hmm_invalidate)(struct amdxdna_gem_obj *abo, unsigned long cur_seq);
- 	int (*cmd_submit)(struct amdxdna_hwctx *hwctx, struct amdxdna_sched_job *job, u64 *seq);
- 	int (*cmd_wait)(struct amdxdna_hwctx *hwctx, u64 seq, u32 timeout);
- 	int (*get_aie_info)(struct amdxdna_client *client, struct amdxdna_drm_get_info *args);
+ 	return addr;
+ }
+
 -- 
-2.34.1
+2.55.0
 
