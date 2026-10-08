@@ -1,142 +1,87 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32903305695
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 22:32:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A551043E06C;
+	Thu,  8 Oct 2026 22:32:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791498757; cv=none; b=mUGtxCpb2ypRO2KUsLyBzbpbyEAdaVYSQ1Ty5WfXHYsTpVP2PhtqkSpgLfy3yrDk56rDJTOkDF0M2s6ztsG3mkmC2VyBTT1sxHk8n4BhC9Dxayy6Zn+LWQU5MHGyib2HmP6y7sgMh8WeeCXXV2HNocfmAXUTwZK9rGTNVBhXqMA=
+	t=1791498758; cv=none; b=JL490Qnp29c7d8Fa+1VVySeTom8JpWTttErU4E53BHr0NKH31YjP8tVw5M6Y9laslkGOmnqB/WN39vFReNy5x7QVgpZxSG2aK06+pSsd5d6fzNmo9N2l4fhmIFaMWjuIko4uHQ7FgxFmYpmnCoH56Ma1TRG+DBKlOqL3dZYP3IQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791498757; c=relaxed/simple;
-	bh=SIc4iwA5XrGPQ2J5CyhQjre/d7+7alnceRYs7l0hTO4=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=IDt324xsHUmVpkQ/ZvSW+XqM1EPi2VcHOLI4H36tUaQ7dEjO/1loaJqUyIy8zSbC1LULuzTGh4V9KAnpFUd/yrTg+E+LPxtbyUQ0yAWZ4M0sN06SovRcBvT0ymMnu5pJ27esdqYpeEab5/B0KL7sqtQW3viK6l+acbhjvZIyr9I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bWyl+jJ2; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=JiGwRsDS; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791498758; c=relaxed/simple;
+	bh=gynBiJ2XpmpWqYIos0a76LAWJcyd5WtUDWCj4iUsRm0=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=CiHJ5Z0bHDUOvHDiC7SGR1zwv/u9hgerx5o/uOw8UHcyzPU8CD9MKlR8Bg/WP5ZsYNjtSkZTwcOjvMveJdgh/87ivfEhOU8t2dnKC73NG+MfY94FlDePCYPdsbIW+EChAjfmKvLAWIgm5Tj4Bt/jUPd8GlHBYV6tLGjkPIRD7O0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E9GPfPM8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bWyl+jJ2";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="JiGwRsDS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791498752;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=SIc4iwA5XrGPQ2J5CyhQjre/d7+7alnceRYs7l0hTO4=;
-	b=bWyl+jJ2pB3KHzW6jXVOADPvy6rN8wKXy0QK9P2jYtnjH/lTFjstiq1ZUT7bR4P9etNUnB
-	tRz645CCuBbJCqthT9cOsS4Po4QBhrB0uo3VW8+n77NKYGeRwsqg59RhXY6yUn7CNRO3Zq
-	2goVOqfJDMLV/Kp5qBWgzL8/nSs2gfU=
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-554-jF4F0dxjMWaz5Wp5AkRPeQ-1; Thu, 08 Oct 2026 18:32:31 -0400
-X-MC-Unique: jF4F0dxjMWaz5Wp5AkRPeQ-1
-X-Mimecast-MFC-AGG-ID: jF4F0dxjMWaz5Wp5AkRPeQ_1791498751
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93caf7856ffso1081420085a.3
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 15:32:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1791498750; x=1792103550; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=SIc4iwA5XrGPQ2J5CyhQjre/d7+7alnceRYs7l0hTO4=;
-        b=JiGwRsDS0N2n1fpHdm7Lkkbjgv6QxCvFvtqm5lkl/vJIIt8z2FhggHONvnmTi3sxDz
-         PPKXSAAI+la1WuzoEtgvbxxgisdCRRTldHCbgafgN/lMyVhstzSM7cAbiEXaDka7pl9r
-         QwKHb80WDfqspfMQMFxNI2xYCVxIoSjPcZRodK49F+4OEtBU+gQuJkUf6JO8BnpBwd7C
-         xmXt9t0lb4+aGKIxcJMTTqmJ5uECqg3Vt7twR5eP774/luX7ALR+h0iRP0XALFqcABVl
-         ZaJxcpMzN1Z6HyU6Bxh8qSBv1LvoUGtIxGEyoDw9xNs+SQhN1r7RWeKLJOB58G5dbypl
-         cwaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791498750; x=1792103550;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SIc4iwA5XrGPQ2J5CyhQjre/d7+7alnceRYs7l0hTO4=;
-        b=gZRXKPljalWIv8WUpIAmrkvRcYB4y/Epf+ZOC9mJhhuiRBbWY/sqYRKuP3fYZ2DQl1
-         DJeNsae1Dg9ou2eXxmaoNr06+FbGOf6P7cYoshXAhia3ILg7Vr4ycWbQ7OIZXCYW+hP9
-         gP5d5IUnMqJiKrVRegAu//c+jRe7eouLURZGPNw9kIKCUofX0RnAr6sDGMN8G7cQYB5E
-         7FcDkb0i5luMy8aGKsVhwXnrVcJoSdFOh7CprYlrSPhR6T/evQvBLJTVVOP/sxCDZM9S
-         Cs7CCkeCQ0eYENxq2CkI6GrxIRBwKWKpQspaD+0Xa94VFoKWwAJyQEpqhDgYWPJ3ceEo
-         NGiw==
-X-Forwarded-Encrypted: i=1; AKwUvBwY5mevFnSQSf1+ZjSXiRXOxMw97YcE8ywAJzKs1EXIFql7+Iv8eTwRwnTCXIbT3MykhDJCI0W5QGzunvQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lDrYMVVuUAjKTWW6VZ55QGbDS1IPcEU5uj1CTLPy8obsCLkjG2
-	GjA9WMekOY/8jb8lQ4NzJnkWcyW+u3LAA9UUZm0R/p1T/Xb/hJGAMYXN2V1Tjp6pnVcUWl4L9Xv
-	hib2QI6kJH36ewpvEXclaxzmJN7WY+RiB3TdCjdytLw9qQOMlkErBH2xGSa4vhbissA==
-X-Gm-Gg: AYBFou1Wc7HVNeFFv9WsnK1fwjk22Yc14nxO3CTaTOkageDnnLGfWFOcXcuTFERyOS1
-	gTLsWOwfMUJ+eMo8QQMkjDAyUf3QG0l/Ft9w1GJ96Az29/C7jvRWxTEOjTAg4a39q/rp0tataRA
-	5pHVqeJiN+dVUm+xdQQw8IubqkCPmJ6TEZflV40e1QWpTC5fli5CIKCog9Jg/+23JMiFV6njmPK
-	EpY/YxvbvAvVRBDG3NOTqYQMKHp4y8cMEFIknZhJV/F/8jD/I/Beo7/9K6kbQkXYCh6AUnmyUoe
-	RxDAXutWKYaa0a2IAd5SLA/ZPWs2GcLKNGjF0mGT3MhoQDHpkdn9WTBoDz1h6noaHZpj8rU=
-X-Received: by 2002:a05:620a:31a7:b0:93e:739a:7ca0 with SMTP id af79cd13be357-93ebd22937cmr7032185a.18.1791498750535;
-        Thu, 08 Oct 2026 15:32:30 -0700 (PDT)
-X-Received: by 2002:a05:620a:31a7:b0:93e:739a:7ca0 with SMTP id af79cd13be357-93ebd22937cmr7027385a.18.1791498750001;
-        Thu, 08 Oct 2026 15:32:30 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b550d394bsm1890416d6.41.2026.10.08.15.32.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 15:32:29 -0700 (PDT)
-Message-ID: <57528a486e149dc398d0ca443b33b16f805ea4e7.camel@redhat.com>
-Subject: Re: [PATCH 0/3] nouveau: fix 3 null-ptr derefs
-From: lyude@redhat.com
-To: jim.cromie@gmail.com, Danilo Krummrich <dakr@kernel.org>, Maarten
- Lankhorst	 <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>,  Thomas Zimmermann <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Dave Airlie	
- <airlied@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org
-Date: Thu, 08 Oct 2026 18:32:28 -0400
-In-Reply-To: <20261002-my-fixups-v1-0-a83d20f9d3fe@gmail.com>
-References: <20261002-my-fixups-v1-0-a83d20f9d3fe@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E9GPfPM8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 404921F000FF;
+	Thu,  8 Oct 2026 22:32:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791498755;
+	bh=fm9WOXdln1JSVmOw4YJV7wQqlGzRZ+cLM0C7l5OeRkI=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=E9GPfPM8CWlfl6VGD6t5IBrURhLx+Wf0Thn45Dj7iMUdiVmoMIH3CPI0YnHiCu+3I
+	 BY1JK2/8+vk+psiycmSSy+YnNia5IqOOqGxQ7flj5F2AJ6cWn9urYZ6wAKVdZlqmR4
+	 GIZd4TYn43cKkEuQeS+YjhJEqT1IffKeuczzPQCr0hwfiiXeSEZoqC/llZcLQgtuSt
+	 fuTzv5i7aYMHvgnZnIc05G7O2kz5bJYQ4LwhubXeM6pZl1wQaEPUNZ9A/tmEGiDFLa
+	 6fARusk/z5toXZW4JbEOpRBsMH4YPRXFBmse9cMAnpt6aXGHToDqVB48vpsMNM5J7N
+	 6OF94w0z+9VYg==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v19 03/12] phy: qcom-mipi-csi2: Add Kaanapali support
+From: bod@kernel.org
+To: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ linux-phy@lists.infradead.org, linux-media@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, jeyaprakash.soundrapandian@oss.qualcomm.com, 
+ Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>
+In-Reply-To: <20261008-kaanapali-camss-v19-3-b2c583ef50e0@oss.qualcomm.com>
+References: <20261008-kaanapali-camss-v19-0-b2c583ef50e0@oss.qualcomm.com>
+ <20261008-kaanapali-camss-v19-3-b2c583ef50e0@oss.qualcomm.com>
+Date: Thu, 08 Oct 2026 23:32:28 +0100
+Message-Id: <179149874864.2596899.12300116428348336432.b4-reply@b4>
+X-Mailer: b4 0.17-dev-e5aa4
+X-Developer-Signature: v=1; a=openpgp-sha256; l=317; i=bod@kernel.org;
+ h=from:subject:message-id; bh=gynBiJ2XpmpWqYIos0a76LAWJcyd5WtUDWCj4iUsRm0=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqyBn8lyHO/rFIh94QUlLiNw7eGFN+kZXZl3rLa
+ xMnbfwU0SWJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasgZ/AAKCRAicTuzoY3I
+ OhrDEACWRhEok42o2PnBb5Rr1aaD1ez+Z1apVrTSKkg7Ucj+oiGsvee9lGeyK4QBX100IMXpvX/
+ SFIze3cPzwYWKJ+p8oAgjTTii6nylGSLixQ+vC6pANB8hyeiVSs0zFkKGFZ8eKEFNi6UPyDvaJ+
+ 1MFnyirRb0D5sWpeOagJODxXbjMJEop2tZumjoKngvZ7t9/DsHPwL+2zkSXDAuTCUZwecTwEfmj
+ 41FGX2MXK6ZnIAnydaasCFsvKSB3U6awedcK9ORki19c3cPAenHnYdHyBUZLww5+L7Iwk7nbb1k
+ qjiXtZP5oqQAVz3AGU8T1785oOmyhcZvWLshEOPC3TqH/hIYEVCV+M/13gNug+5O3NjWtED6CV7
+ ljBu4FJ4rmjqERuDojQJXncm/TJ5np/VsxPuHzqoYC3T2vwCPTgEbNs6gp6EBfUaX0p/GK53cST
+ uWsjS+qUgUPxNAlrsxTlUQUKivk0TPU+kGnubnbltqNHUJ/bGRyHSIFlrWFtrq9kfYI+iw7Ivm4
+ WWdZzT5ydK735FMM8UVK0mzQd7mYFt9vSkQ0UvLyBA/V0F+q3jl6JSzAydXHJg4HccL8G7vXgPA
+ oz7O2FYaIqynDNTJ0qjaQvrooxkVpulSr8WYMnPWEHfrOMtxof+zF/09WHClauoIS0RKn4qLYUL
+ yaePaN4hlEtQpUQ==
+X-Developer-Key: i=bod@kernel.org; a=openpgp;
+ fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-Actually - sorry for going back on a review, but before pushing these I
-realized we might want to do a bit more of a concrete fix than just
-these patches. Why don't we modify nvkm_gsp_rm() so that it also checks
-gsp->rm, and then use coccinelle to convert as many instances of open-
-coded `if (!gsp)` as we can find?
+On 2026-10-08 00:14 -0700, Hangxiang Ma wrote:
+> Add the Kaanapali 3nm configuration for the standalone CSI2 DPHY
+> driver, including the Kaanapali common status offset and power domain.
+> 
+> Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
 
-Would you be up for handling that? If not, I could just modify these
-patches, update nvkm_gsp_rm(), and send out a new series with your
-modified work included.
-
-On Fri, 2026-10-02 at 12:09 -0600, Jim Cromie via B4 Relay wrote:
-> These 3 patches fix NULL ptr derefs I hit while booting kernels with
-> unrelated work (dynamic-debug) on a 2019 amdgpu+noueau laptop.=C2=A0 One
-> of
-> them is possibly hard to reproduce, the others are "dependable".
->=20
-> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-> ---
-> Jim Cromie (3):
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/nouveau: Fix NULL pointer dereferences=
- in GETPARAM ioctl
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/nouveau: Fix NULL pointer dereference =
-in GET_ZCULL_INFO
-> ioctl
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/nouveau/gsp: Fix NULL dereference in n=
-vkm_gsp_gcx_ready()
->=20
-> =C2=A0drivers/gpu/drm/nouveau/nouveau_abi16.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 27
-> ++++++++++++++++++-----
-> =C2=A0drivers/gpu/drm/nouveau/nvkm/engine/device/user.c |=C2=A0 2 +-
-> =C2=A0drivers/gpu/drm/nouveau/nvkm/subdev/gsp/base.c=C2=A0=C2=A0=C2=A0 |=
-=C2=A0 2 +-
-> =C2=A03 files changed, 24 insertions(+), 7 deletions(-)
-> ---
-> base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
-> change-id: 20261002-my-fixups-324d25f3bd05
->=20
-> Best regards,
+Reviewed-by: Bryan O'Donoghue <bod@kernel.org>
+---
+bod
 
