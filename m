@@ -1,116 +1,221 @@
-Received: from smtp6-g21.free.fr (smtp6-g21.free.fr [212.27.42.6])
+Received: from out30-110.freemail.mail.aliyun.com (out30-110.freemail.mail.aliyun.com [115.124.30.110])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FB223E6383;
-	Thu,  8 Oct 2026 09:25:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D049738F636
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 09:26:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.110
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791451516; cv=none; b=L8CTS5crYw8qtZFiad5/ig3b/QYanvJj948CdCU9GeNxQ3HKFPASsdoE6j9Ky7Rb6HuGL2Rm34Se5T3aEsTejv7y28Y9/ro0wgv2Dm57AB78wBBrc4p6Ic4oCLQIACeQ9BxtWIJz5bQmRVnpUed9fQQszEeEdxRGtiwKESUOi9k=
+	t=1791451595; cv=none; b=PQRidrQn7pGeyEKDqV1Mdm7y/TdvWHwfNK9KH8i6yizB63jC/Zx0UxsyiyR2bE/mfyINeWgW9qsNKP2ta95uiQYQYNbA9AiHpActhywA3QaG0FOrQSy8mvZPYEnJSzE5WFOtOYKJla67qlXz06uydkpTFxGwsaDUzM8y3j/GUmQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791451516; c=relaxed/simple;
-	bh=iqEVRbNqXgm8zNUzNvU+XWKuws1AVnSCpm5ngtXncdQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=G7+Mzsk6evujWDWSIpEZ4m9f5SdG5SR9WS+ONNt9q9IExv/XcbFx/UT6/WhyEP0fI/lc+ItbYKauz8BsxrmXI1E32/GFYzo7oxTHfTNak4t5hkw6mi2poiWa5PoSE5Jfyg6YYkZ3YGO7Qf/t8TuGF3At2meiWlWqMq9EVJFmNbY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr; spf=pass smtp.mailfrom=free.fr; dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b=NL/Br7YY; arc=none smtp.client-ip=212.27.42.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
+	s=arc-20240116; t=1791451595; c=relaxed/simple;
+	bh=AEAXAuTCdshlj5vRoyiPc7JMFlLaifZhRawd6zu8CKo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=J2WjhVcMIOeFfFldG3zRJRRIQHrM3W7P1U8oocY81RlSPsccvFRThFGv9zMQeogM5V6LNf6XnWnb9wUG1sAz8V3SXdw2tlcltMk6ZDrF9Z8SSiui7XsJUVhqBe7GbHH7D/JMS/MyrMVHuotbGYhM09Qw4jbMdqUVOFTWFun1oEA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=JQOLT+2t; arc=none smtp.client-ip=115.124.30.110
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b="NL/Br7YY"
-Received: from localhost.localdomain (unknown [82.96.140.143])
-	(Authenticated sender: stephane.grosjean@free.fr)
-	by smtp6-g21.free.fr (Postfix) with ESMTPSA id D1B16780371;
-	Thu,  8 Oct 2026 11:24:59 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
-	s=smtp-20201208; t=1791451507;
-	bh=iqEVRbNqXgm8zNUzNvU+XWKuws1AVnSCpm5ngtXncdQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=NL/Br7YYfUOnRMK0rcZc+4hokggdvsN41T+cqVzMDn6LY+X/PylW1vb5VXFvJZWjP
-	 jmyj51aM9v6G01lYM5RCleCzZdE/SKc6hy4yKX2ZBp1yHnmjdba02xLTS3r9cz0kbv
-	 R1VdV0+tifUqetK26UWaqCNlAyb/76ekusUxO9SRS7P+FeZrQgzI/y+0LKJRPLc9Kk
-	 uJFJU2yyCUcSRlx5JFEUtNsmVk/TPEkESgCYEhsqvsDbO1dKA1r/J8VRUBRGp234SB
-	 2JHVJ9Q9YdE1WpIAfY/ABA6yLs5nmkPL/FpcoiVhWrhs+ozh6tog3onquPmeMcZw5p
-	 tSoHLEzMPCxQg==
-From: =?utf-8?q?St=C3=A9phane_Grosjean?= <stephane.grosjean@free.fr>
-Date: Thu, 08 Oct 2026 11:14:59 +0200
-Subject: [PATCH 5/5] can: peak_usb: harden PCAN-USB message validation
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="JQOLT+2t"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1791451589; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=IvCHuh0QHvSSi6smvSQRsZh/QZENLvAcoAmd6HNiFHo=;
+	b=JQOLT+2tVgaeLbjeDDOgqAi7FLDH8NAOStGHftLngpVPRUI399bhfFK6ReblyQYsKlEMTvmifwODDDJQtUi61P53bAPYK2s5MRoUNGKXQ3EsQFFtgL3winTFMvP1YLeF0UkZzpf4qPbGBii4+0Ys+UWCxvh+MlppvUydGiV8HZI=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0XCNMuXW_1791451587;
+Received: from 30.221.149.122(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XCNMuXW_1791451587 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 08 Oct 2026 17:26:28 +0800
+Message-ID: <ad5a4d68-0667-46b4-ba28-a0ff0be5c1fb@linux.alibaba.com>
+Date: Thu, 8 Oct 2026 17:26:26 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261008-canfd_check_channel_idx-v1-5-0a3bb82f4e09@peak-system.fr>
-References: <20261008-canfd_check_channel_idx-v1-0-0a3bb82f4e09@peak-system.fr>
-In-Reply-To: <20261008-canfd_check_channel_idx-v1-0-0a3bb82f4e09@peak-system.fr>
-To: Marc Kleine-Budde <mkl@pengutronix.de>, 
- Vincent Mailhol <mailhol@kernel.org>, Dan Carpenter <error27@gmail.com>, 
- Wolfgang Grandegger <wg@grandegger.com>
-Cc: linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
- =?utf-8?q?St=C3=A9phane_Grosjean?= <s.grosjean@peak-system.fr>
-X-Mailer: b4 0.16.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] ocfs2: validate la_size before
+ ocfs2_clear_local_alloc()
+To: Dmitry Morgun <d.morgun@ispras.ru>, ocfs2-devel@lists.linux.dev
+Cc: heming.zhao@suse.com, mark@fasheh.com, jlbec@evilplan.org,
+ linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org
+References: <20261006122842.1537-1-d.morgun@ispras.ru>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <20261006122842.1537-1-d.morgun@ispras.ru>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Stéphane Grosjean <s.grosjean@peak-system.fr>
 
-Add boundary checks when parsing PCAN-USB messages and reject
-malformed buffers whose contents would otherwise lead to accesses
-outside the received USB data area.
 
-This prevents potential out-of-bounds memory accesses caused by
-corrupted or malicious device messages.
+On 10/6/26 8:28 PM, Dmitry Morgun wrote:
+> la_size, like the journal dirty flag, is read from disk. If dirty != 0,
+> ocfs2_begin_local_alloc_recovery() is called, which invokes
+> ocfs2_clear_local_alloc(). At this point, ocfs2_clear_local_alloc()
+> uses la_size as the loop bound without validating it first. If
+> la_size is oversized, the loop writes past the end of la_bitmap and
+> may eventually start writing into memory that has already been freed.
+> 
+> BUG: KASAN: use-after-free in ocfs2_clear_local_alloc fs/ocfs2/localalloc.c:919 [inline]
+> BUG: KASAN: use-after-free in ocfs2_begin_local_alloc_recovery+0xb07/0xc00 fs/ocfs2/localalloc.c:515
+> CPU: 1 PID: 2386 Comm: syz.2.190 Not tainted 6.1.174-syzkaller-00520-g10c505401422 #0
+> Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1 04/01/2014
+> Call Trace:
+>  <TASK>
+>  ocfs2_clear_local_alloc fs/ocfs2/localalloc.c:919 [inline]
+>  ocfs2_begin_local_alloc_recovery+0xb07/0xc00 fs/ocfs2/localalloc.c:515
+>  ocfs2_check_volume fs/ocfs2/super.c:2448 [inline]
+>  ocfs2_mount_volume fs/ocfs2/super.c:1819 [inline]
+>  ocfs2_fill_super+0x2033/0x3dc0 fs/ocfs2/super.c:1082
+>  mount_bdev+0x356/0x410 fs/super.c:1443
+>  legacy_get_tree+0x108/0x220 fs/fs_context.c:632
+>  vfs_get_tree+0x8e/0x300 fs/super.c:1573
+>  do_new_mount fs/namespace.c:3078 [inline]
+>  path_mount+0x6af/0x1f70 fs/namespace.c:3408
+>  do_mount fs/namespace.c:3421 [inline]
+>  __do_sys_mount fs/namespace.c:3629 [inline]
+>  __se_sys_mount fs/namespace.c:3606 [inline]
+>  __x64_sys_mount+0x283/0x300 fs/namespace.c:3606
+>  do_syscall_x64 arch/x86/entry/common.c:46 [inline]
+>  do_syscall_64+0x35/0x80 fs/namespace.c:76
+>  entry_SYSCALL_64_after_hwframe+0x6e/0xd8
+> 
+> The existing la_size check in ocfs2_load_local_alloc() runs after
+> ocfs2_clear_local_alloc() on this recovery path. Memory corruption
+> can therefore occur before the invalid size is detected and
+> -EINVAL is returned.
+> 
+> Reject inodes without OCFS2_LOCAL_ALLOC_FL in
+> ocfs2_begin_local_alloc_recovery() before copying or clearing the
+> bitmap, returning -EINVAL. The recovery code interprets id2 as
+> i_lab, so it must not proceed when the local allocation flag is
+> missing.
+> 
+> Add la_size validation to ocfs2_validate_inode_block() for inodes
+> marked with OCFS2_LOCAL_ALLOC_FL. Reject zero or a size exceeding
+> the bitmap capacity through ocfs2_error(), which marks the
+> filesystem read-only and returns -EROFS. The flag check in recovery
 
-Fixes: 46be265d3388 ("can: usb: PEAK-System Technik PCAN-USB specific part")
-Signed-off-by: Stéphane Grosjean <s.grosjean@peak-system.fr>
----
- drivers/net/can/usb/peak_usb/pcan_usb.c | 24 ++++++++++++++++--------
- 1 file changed, 16 insertions(+), 8 deletions(-)
+The behavior depends on errors= settings, so -EROFS is not always true. 
 
-diff --git a/drivers/net/can/usb/peak_usb/pcan_usb.c b/drivers/net/can/usb/peak_usb/pcan_usb.c
-index 169c00d93463..56ddd134bae0 100644
---- a/drivers/net/can/usb/peak_usb/pcan_usb.c
-+++ b/drivers/net/can/usb/peak_usb/pcan_usb.c
-@@ -696,8 +696,11 @@ static int pcan_usb_decode_data(struct pcan_usb_msg_context *mc, u8 status_len)
- 		mc->ptr += rec_len;
- 
- 		/* Ignore next byte (client private id) if SRR bit is set */
--		if (can_id_flags & PCAN_USB_TX_SRR)
-+		if (can_id_flags & PCAN_USB_TX_SRR) {
-+			if ((mc->ptr + 1) > mc->end)
-+				goto decode_failed;
- 			mc->ptr++;
-+		}
- 
- 		/* update statistics */
- 		mc->netdev->stats.rx_bytes += cf->len;
-@@ -733,14 +736,19 @@ static int pcan_usb_decode_msg(struct peak_usb_device *dev, u8 *ibuf, u32 lbuf)
- 	int err;
- 
- 	for (err = 0; mc.rec_idx < mc.rec_cnt && !err; mc.rec_idx++) {
--		u8 sl = *mc.ptr++;
--
--		/* handle status and error frames here */
--		if (sl & PCAN_USB_STATUSLEN_INTERNAL) {
--			err = pcan_usb_decode_status(&mc, sl);
--		/* handle normal can frames here */
-+		/* check if status_len byte can be read next */
-+		if (mc.ptr >= mc.end) {
-+			err = -EINVAL;
- 		} else {
--			err = pcan_usb_decode_data(&mc, sl);
-+			u8 sl = *mc.ptr++;
-+
-+			/* handle status and error frames here */
-+			if (sl & PCAN_USB_STATUSLEN_INTERNAL) {
-+				err = pcan_usb_decode_status(&mc, sl);
-+			/* handle normal can frames here */
-+			} else {
-+				err = pcan_usb_decode_data(&mc, sl);
-+			}
- 		}
- 	}
- 
+> prevents a corrupted inode from bypassing this validation by
+> clearing OCFS2_LOCAL_ALLOC_FL.
+> 
+> Keep the existing size check in ocfs2_load_local_alloc(), whose
+> flag check also accepts OCFS2_BITMAP_FL without OCFS2_LOCAL_ALLOC_FL.
+> 
+> The new checks can also return errors during node recovery. The
+> recovery thread leaves a failed node in the recovery map and
+> immediately retries it, so a persistent error prevents the loop
+> from completing. Release the super lock and exit through the
+> worker error path on failure, preserving the error status and
+> leaving the failed node in the recovery map.
+> 
+> Found by Linux Verification Center (linuxtesting.org) with Syzkaller.
+> 
+> Fixes: ccd979bdbce9 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Dmitry Morgun <d.morgun@ispras.ru>
+> ---
+> v4:
+> - Supersede v3, which was an unintended resend of the v1-based
+>   implementation.
+> - Move la_size validation from
+>   ocfs2_begin_local_alloc_recovery() to
+>   ocfs2_validate_inode_block() (Joseph Qi).
+> - Reject local allocation recovery when OCFS2_LOCAL_ALLOC_FL is
+>   missing, before copying or clearing the bitmap (Heming Zhao).
+> - Keep the existing size check in ocfs2_load_local_alloc().
+> - Release the super lock and exit the recovery thread on error,
+>   preserving the error status and the failed recovery-map entry
+>   instead of immediately retrying the same node.
+> 
+> Link to v3:
+> https://lore.kernel.org/ocfs2-devel/20260831143734.7243-1-d.morgun@ispras.ru/
+> 
+> v3:
+> - Unintended resend of the v1-based implementation.
+> 
+> v2:
+> - Not posted publicly.
+> 
+> Link to v1:
+> https://lore.kernel.org/all/20260810113508.8513-1-d.morgun@ispras.ru/
+> 
+>  fs/ocfs2/inode.c      | 13 +++++++++++++
+>  fs/ocfs2/journal.c    |  2 ++
+>  fs/ocfs2/localalloc.c |  9 ++++++++-
+>  3 files changed, 23 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/ocfs2/inode.c b/fs/ocfs2/inode.c
+> index 9a6b1af4c..cc2233268 100644
+> --- a/fs/ocfs2/inode.c
+> +++ b/fs/ocfs2/inode.c
+> @@ -1477,6 +1477,19 @@ int ocfs2_validate_inode_block(struct super_block *sb,
+>  		}
+>  	}
+>  
+> +	if (le32_to_cpu(di->i_flags) & OCFS2_LOCAL_ALLOC_FL) {
+> +		struct ocfs2_local_alloc *la = &di->id2.i_lab;
+> +
+> +		if (la->la_size == 0 ||
+> +		    le16_to_cpu(la->la_size) > ocfs2_local_alloc_size(sb)) {
+> +			rc = ocfs2_error(sb,
+> +					 "Invalid dinode #%llu: invalid la_size %u\n",
+> +					 (unsigned long long)bh->b_blocknr,
+> +					 le16_to_cpu(la->la_size));
+> +			goto bail;
+> +		}
+> +	}
+> +
+>  	rc = 0;
+>  
+>  bail:
+> diff --git a/fs/ocfs2/journal.c b/fs/ocfs2/journal.c
+> index 7f5fd16d3..46983a061 100644
+> --- a/fs/ocfs2/journal.c
+> +++ b/fs/ocfs2/journal.c
+> @@ -1525,6 +1525,8 @@ static int __ocfs2_recovery_thread(void *arg)
+>  			     status, node_num,
+>  			     MAJOR(osb->sb->s_dev), MINOR(osb->sb->s_dev));
+>  			mlog(ML_ERROR, "Volume requires unmount.\n");
+> +			ocfs2_super_unlock(osb, 1);
+> +			goto bail;
 
--- 
-2.43.0
+This fires on any non-zero status from ocfs2_recover_node(), not only on
+persistent ones, e.g. -ENOMEM returns from
+ocfs2_begin_local_alloc_recovery().
+
+Thanks,
+Joseph
+
+>  		}
+>  
+>  		spin_lock(&osb->osb_lock);
+> diff --git a/fs/ocfs2/localalloc.c b/fs/ocfs2/localalloc.c
+> index c4426d12a..c5c80a17b 100644
+> --- a/fs/ocfs2/localalloc.c
+> +++ b/fs/ocfs2/localalloc.c
+> @@ -504,6 +504,14 @@ int ocfs2_begin_local_alloc_recovery(struct ocfs2_super *osb,
+>  		goto bail;
+>  	}
+>  
+> +	alloc = (struct ocfs2_dinode *)alloc_bh->b_data;
+> +	if (!(le32_to_cpu(alloc->i_flags) & OCFS2_LOCAL_ALLOC_FL)) {
+> +		mlog(ML_ERROR, "Invalid local alloc inode, %llu\n",
+> +		     (unsigned long long)OCFS2_I(inode)->ip_blkno);
+> +		status = -EINVAL;
+> +		goto bail;
+> +	}
+> +
+>  	*alloc_copy = kmalloc(alloc_bh->b_size, GFP_KERNEL);
+>  	if (!(*alloc_copy)) {
+>  		status = -ENOMEM;
+> @@ -511,7 +519,6 @@ int ocfs2_begin_local_alloc_recovery(struct ocfs2_super *osb,
+>  	}
+>  	memcpy((*alloc_copy), alloc_bh->b_data, alloc_bh->b_size);
+>  
+> -	alloc = (struct ocfs2_dinode *) alloc_bh->b_data;
+>  	ocfs2_clear_local_alloc(alloc);
+>  
+>  	ocfs2_compute_meta_ecc(osb->sb, alloc_bh->b_data, &alloc->i_check);
 
