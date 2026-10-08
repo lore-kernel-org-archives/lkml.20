@@ -1,187 +1,145 @@
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com [209.85.210.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ED8442F707
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 08:45:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.173
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791449103; cv=none; b=ul6vpuYdx5pzpu6kKPuFrKoxjTgXiXCVuauZxUJJbp1VSXFVSeIENaMPDdpS4uoslkn8Qi22U9h8gRGh6INa3merWh1Q08a7O4H/o54SRcBz8VbIUMgWL7R5B96vj2yuSrIoTO8ywAayb7hy/KXRQmPEhF51yi/wc+c509zsOII=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791449103; c=relaxed/simple;
-	bh=u3oXVAtMhpkIy8FTkaike0U6LNVunwKRWME9UqOPfNU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DeLFgJwkSKHmlWZRKmeHETNnUF6NgLBQV0Bqrs6L26aW0LeK1MYIcnK4eqd6xQ8GmzewSFCb7/CLpzu35qWuy7vf2LgaaoGJQlDwfgqByUFU8V5VC/yT5atWu+zP58UDARMUQJReFL5wzDnkhONexhao0T/Mbdovi/1Ktmadv0U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LcxbX7V5; arc=none smtp.client-ip=74.125.82.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0E00471279
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 08:46:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791449212; cv=pass; b=cTZy+Oa0c9D24mEH04f+qQ9WOwgtEF9eoc0uVXDxdihyRdMLysWOtSveZVjSDchYChEv2bxnxDf11I6jLYYutUAiRvVakriOsCktdham6pY0XU4CWlrbSWVLyeuca5Dht59Cw9tIMncVpg3R0CvlyTbsc3bP81OdkNfP0roY85I=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791449212; c=relaxed/simple;
+	bh=wnGY+XHH6HDJ4wz0G2ps9VHtwY0746+c1EU1QVcGcMM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qx/GIlydGT0/s2l/Iuq0LV4digk+7HnE8KWsVfF4Au4NjCqHba/4vKEymC4NfeUOOUgQsS7nIl0dHV+Y89xxymnPjQxhhBOqThNEuo0G/eHcAlrniM4PqCAZ8JHhssEZfZGL9EuPVI6OR7CfjyTtb63QVoBH64giYOTdy7f8Wqo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YN5vNcFH; arc=pass smtp.client-ip=209.85.210.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LcxbX7V5"
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-33bb5afa736so83701eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 01:45:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YN5vNcFH"
+Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-81ae6aefdceso4436005a34.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 01:46:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791449209; cv=none;
+        d=google.com; s=arc-20260327;
+        b=BwHFqcoXdhW9cEwcvbGCveQpGHV7p7ATAWbaSc5E7rraF4iJpvAnI7aEUZPYUippb8
+         iVml/05FAgANbTsNXmZLYcOqdsoVjcFkbvL7RqJogIe15OdO6/UmKmP7nFSsxTlgnDMv
+         uNAjjhZtujuzD40/sYLg9aL6hhFaRGQT72IgavjfOC1s3j4q9kTXDlTqIOTBJS6gNjMa
+         dEakip78W1yngH3Ean2O5Dy7p2yOpS50An0xk8jkqfo5pbtyswu/hPf6Jn8FmggdibrT
+         Yj0EBhTJQo2q6BljnlNY8SmMQvZoyUnEz8dHUWmN/vtyPZ7B2uETyFGLgj5blyX/TatR
+         fpcQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=fhGDVCOgQLncQuplToj/mW7JvsPvLFBB1CNf9MUb7AU=;
+        fh=UQ/TNbzHq5EXHvOknthvitQIU4YSjqImk/7kbJpPD+s=;
+        b=dUc6gP/iqkSnTbwUwsfdW21Fd0DR5FqSMB2p3Fd1nb/VQzGmfyZCY6FMHgxKKSEakz
+         FGCvFC1If/Iw0m9ezGHPuGSoB5SkYfyajD1x/zfqgXQSeP7fhfmCy0o1VMty136TzKtu
+         bQG3z0wiLRuo3KoyNUN4eO8wZwofU/6Xnkm4N6bORL6ziuMS6LqWTp8USoGPZmzwFCll
+         OcG5YcTCFF6zZSVTiMMtCM3Oq+j45KkWqQuUAP0SPXeLOGtsgMTjWat/du5O+t9/aheN
+         bLXarcsc52HDAjsWrEbEWzA1HMHM4Aqpu9rf6fm+ClHAW5oFFVmHSp3tWSKjm1pAEExC
+         7F3A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791449102; x=1792053902; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lwWsdIXelLbIWkcXFPRTLY38upfrcbnNJ647ZN9lsPA=;
-        b=LcxbX7V5XWLW9JQ3wdf03a4MZCWibSs4POCDBJSIcQLIYEOi50T2z5kkYwsWapz/xU
-         8NeE0EI6R5yx+WyaRZLhuttH0IOTE6GvjDqfKhqUcOY0LXJlZbLduF/ydIamrPFGbZSw
-         Q2fZCgmdc8UCsuzrNiI7xsYd5I7sOOgNcQ7CT6LoMUxKmLv2OGrGlIl03TdsSvcpgFh1
-         dFlVd/2HGLe8mee0uc0CsIyfWBiu4kbYqMapKdoZIplWMlCexpRjKUPxGVQrc5tH8hAZ
-         58S2HeACtgX3MLq9797wIPmOe8HAll0Wbij7xxzkIbriZBqGXbeFGJzYXORjPW/fWtro
-         EQaQ==
+        d=gmail.com; s=20251104; t=1791449209; x=1792054009; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=fhGDVCOgQLncQuplToj/mW7JvsPvLFBB1CNf9MUb7AU=;
+        b=YN5vNcFHN6IYyr86NzMr24Ebg3iUFLvJ54CzyveA3G5SeVCYuUKGNYTvbV+yQr1d1W
+         oM0NM4r7IrvcwGAj3Mg5udBIgVygQ9g3OmJK7PXtP94IyusoXNVaX86R9xFQQX384iSg
+         rdj7kWkisR8fDl3OVCq1YaQteAhLddcwSJkddwDSv0csvpNN+An7Ln9PrBOO6KRLrkLB
+         YXiGZ6zR1Xqi7ortkzrvOVDogcUf6Uw+2GM/MFr2QnnC7RB16K2kqaTA/91L1VH5aLM0
+         3hA4evbnop4fBkDfzGIRbRVvHl42LXVAb5fyC9AKc+7HfvZ7+S8w/uAxoJC6AOzv9usI
+         /pOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791449102; x=1792053902;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lwWsdIXelLbIWkcXFPRTLY38upfrcbnNJ647ZN9lsPA=;
-        b=G+FGROgZZNGjvjpZQvsh703wUop1x9OMizpHlKRPeV1ql2dCc9qB0uwkYI39ZPNkVL
-         PQPvYts9R2XLe6pPPO44vlfTSmpopodnFO/ZizFcxzkrLjGxB/imDg16tBOJj7OmM0QG
-         EBGHPWEJy9YeND1sPnSKdiFw0pBmXA6yIa2pCOepedBfvAJsWg0hCv+222gA/gdybJma
-         g3vC8yOYqmUkjFSQ58LVF4DbX1INryBLbq9V9wIVBFwj/UOB91eiFTQ9JJAjFdeCxVFN
-         7QkWSBMf11L4CwSTLjExXjXi8s2e3h7rzAVaIxdeyF5bmwuipu1Gdf9KKeiuQp2kam0g
-         UTjA==
-X-Forwarded-Encrypted: i=1; AKwUvBwDsTWGiqp5SSw81mviBX2SuakGa7FAZuaxTTQFxNdWmXC7mIGVNdbGX1NpJmKHnCIGu6nrYUQwbE6lbYI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIECy/1NDsU+vghf/4C69kuACnx2eF6XSddmj5KpeEgiFgI1awm
-	jFHdStEZ8ke5r+vfpezmMngZnOBXAAEcvzINwcRdCRFEiBGAs2Ul3Bg8
-X-Gm-Gg: AYBFou0ntJnyKu4Ww6rp5Z9YngdEv9CghSJrHmvSU8QBJKBnjFQkMVWZKOefn3bAuL4
-	nC2bpqMCUK3vujdf7r9o7JvkiyIEm+XZaXasqVST8SxF/OyAvMD5hf4RROkGMOEuagGwzHadVaG
-	8sZPeN96L1BBE9E/dkwAy9hlGujH2tlgeF2/vTE8U8YGiQ2Dk8HOHpAyzG17gHUXqGiViZQEO4h
-	7IXSHI76w8LKkiAW3pT73xXsH+bnYbDnvNxdaCVku2hAtfBv89KSOgXZj43nG8iufNDzY2FllgH
-	dzyLnpECjChVwff225uDBQaapNdI6BCrRJKzolTeUJn04oV6cltdIQ4IEikUuVFZoBTIpTpzyH/
-	elUnb4e/5Sbw6ikqAqzrrkAhslhmrxPkv3muqg8PrFEykRBxSTudtCG4iiOGMiBn/qeAnQFfvzN
-	AmazAeq4tmnlaKio69yY/UQ2g3vaxDEycpE0dVyL5lKSGLvsMp/DY438ncEaOqyBkRVRt/yH4+q
-	03xLKDzFJLv2nghzP9/KIy7EFB0Oq3nX7m90fLDs/G02cfe5RzYe6d+VCsXGXH6xIR6Tw==
-X-Received: by 2002:a05:7300:80c6:b0:351:8cd9:7a53 with SMTP id 5a478bee46e88-3518cd97b86mr1994736eec.0.1791449101496;
-        Thu, 08 Oct 2026 01:45:01 -0700 (PDT)
-Received: from localhost.localdomain (95.169.12.199.16clouds.com. [95.169.12.199])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-351735e316fsm9920870eec.11.2026.10.08.01.44.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 01:45:01 -0700 (PDT)
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-To: "D . Wythe" <alibuda@linux.alibaba.com>,
-	Dust Li <dust.li@linux.alibaba.com>,
-	Sidraya Jayagond <sidraya@linux.ibm.com>,
-	Mahanta Jambigi <mjambigi@linux.ibm.com>
-Cc: Tony Lu <tonylu@linux.alibaba.com>,
-	Wen Gu <guwen@linux.alibaba.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	linux-rdma@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Chengfeng Ye <nicoyip.dev@gmail.com>
-Subject: [PATCH net v3] net/smc: protect clcsock lifetime in smc_getname
-Date: Thu,  8 Oct 2026 16:44:44 +0800
-Message-ID: <20261008084444.787449-1-nicoyip.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1791449209; x=1792054009;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fhGDVCOgQLncQuplToj/mW7JvsPvLFBB1CNf9MUb7AU=;
+        b=q54aE3uZwz8rMHISDJo4vqRXN/Eu+DBIj4Ob+MwPjuHqTGZbTlQ4CNcCuIIAw+Xs6s
+         HAuOfwIRTAQVe3/XlCYwB+8pRBskOcjbHvtGYFdKHvylw3owzr6Hq+3OJ4CyeOFQlpzK
+         4i8Ke3fRd9WOMTUHr8TL7QYCzVYl+W3PtOEcg8zW0et/Rk3WXwuhzJ7tqK+GJrXhjwUd
+         AwRAIBx2TuSXHq9wQg6xKetKop33Uoyw5tOcqnEOk9ro/ncN+VzpEyBZu3v/8xSLrrKn
+         t9Jan3IdtcRB78rRBvsUJOUR0AZ5Pna7El4Lv7C9ueogWIogWK7xMBdhEHnU9W0DMv/E
+         QFeg==
+X-Forwarded-Encrypted: i=1; AKwUvBwjVzyAmi8atb9eVLRHYCGDH+SUP1WnAgiEkIDzj03scL51IwaSF2QueW0bjFDNgy+r/avhanFKrj7hVy0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mecypqW5QEKZbegcjsLKRGKOqYfw6tP8jDdiwMXKuNw297TYhC
+	OWMsNKgPh37CfHs2EjQMnYegWxsdmCI2ir6LRT7EoapkJ+e3xBfjEtj2meB/2LCG7cItX1dKVDx
+	eYmVYSdEw974Z4rVWAiTs5cwYHbbT9p8=
+X-Gm-Gg: AYBFou3KTrzUkBDsvrLre7TznsgU1y29SL7PJThxDmH8sdmnnL7Ev4kCYgZ0RMssE5U
+	c7dTUqtESTYfkHfI+aAKvO61egqSAhlsN7V6ALs3Yx6KOkub6jaXbv+9nHt3FVuVzt4dOS6eFRH
+	O/c3jghpI7NQWgiW59bf/6YLFOo3caRd71Ngbke+6/BPXNOgd2h7ARUKIplpYiXNZCrcL42W94k
+	XA3u7XlsSdz8ejToRB9WRzXf0Qo+KaXJp5hFeL7yLXeue772bWJocgliHVX3Hx4vSpTJSovXYEt
+	GjfZHlu/AHeuNi4D7NyMk2mC1dQ0IcZ9N6gm68G991lS4PtAF7PEt7R1HTxTJp9Co+bZVj9RVvP
+	PEdIM4+2mMyA6IjGxJkZ7rteJRWULKwIJL55Jg48KvD+w6ch4E7UMR5tcBq2sSTkTNgjo+iegdJ
+	5gzME95j8+lsdWFXWrLw0rWxrEdtVo25vylw0PRbVfeUS3PE7lYOs=
+X-Received: by 2002:a05:6808:2e43:b0:4f3:36ff:e521 with SMTP id
+ 5614622812f47-4fc46c92bc4mr4767586b6e.58.1791449209535; Thu, 08 Oct 2026
+ 01:46:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261004-macaudio-v2-0-7b47ed6335a8@gmail.com>
+ <20261004-macaudio-v2-11-7b47ed6335a8@gmail.com> <31d91f44-3f16-4a4c-916c-f4d8107d371e@oss.qualcomm.com>
+In-Reply-To: <31d91f44-3f16-4a4c-916c-f4d8107d371e@oss.qualcomm.com>
+From: James Calligeros <jcalligeros99@gmail.com>
+Date: Thu, 8 Oct 2026 18:46:37 +1000
+X-Gm-Features: AclHuK9CHquST79ZWASmiEF-eCVAGlz1SqIt2DEtZen9lPzYSl_ASrQBijUe-o4
+Message-ID: <CAHgNfTy-h8m-XBBzW6jSNBz0dVe=vXL6nJ3VOqgMjCbsK_t6gA@mail.gmail.com>
+Subject: Re: [PATCH v2 11/21] arm64: dts: apple: t8103-j313: Add
+ speaker/headset jack nodes
+To: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+Cc: David Rhodes <david.rhodes@cirrus.com>, Richard Fitzgerald <rf@opensource.cirrus.com>, 
+	=?UTF-8?Q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>, Baojun Xu <baojun.xu@ti.com>, 
+	Sen Wang <sen@ti.com>, Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
+	Neal Gompa <neal@gompa.dev>, asahi@lists.linux.dev, linux-sound@vger.kernel.org, 
+	patches@opensource.cirrus.com, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-mediatek@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-smc_getname() dereferences smc->clcsock without holding
-clcsock_release_lock. Link-group termination can release the CLC socket
-through smc_close_active_abort() while the SMC socket is still open,
-for example after shutdown(SHUT_WR).
+On Thu, Oct 8, 2026 at 4:33=E2=80=AFAM Ajay Kumar Nandam
+<ajay.nandam@oss.qualcomm.com> wrote:
+>
+>
+>
+> On 10/4/2026 11:33 AM, James Calligeros wrote:
+> > +&i2c3 {
+> > +     status =3D "okay";
+> > +
+> > +     speaker_right: codec@34 {
+> > +             compatible =3D "ti,tas5770l";
+> > +             reg =3D <0x34>;
+> > +             interrupts-extended =3D <&pinctrl_ap 182 IRQ_TYPE_LEVEL_L=
+OW>;
+> > +             shutdown-gpios =3D <&pinctrl_ap 181 GPIO_ACTIVE_HIGH>;
+> > +             #sound-dai-cells =3D <0>;
+>
+> Both speaker codec nodes reference the same shutdown GPIO. Is that
+> intentional for this board?
+>
+> The TAS2770 driver requests 'shutdown-gpios' per codec instance, and
+> GPIO requests are exclusive by default. So I would expect only one codec
+> instance to own this line, while the other appears to fall back to the
+> register-only path after the GPIO request fails.
+>
+> If GPIO181 is a shared physical shutdown line for both amps, how is the
+> power/reset ordering expected to work across probe, suspend, and resume
+> when only one of the two codec driver instances controls that line?
 
-A getsockname() caller can load smc->clcsock, then the termination worker
-can clear the pointer and call sock_release() before the caller accesses
-clcsock->ops or invokes getname(). This causes a use-after-free; if the
-worker clears the pointer before the load, it causes a NULL dereference.
-The syscall's file reference keeps the SMC socket alive but does not
-prevent asynchronous release of its CLC socket.
+We use the new(ish) shared GPIO proxy stuff[1] and it all Just Works.
 
-KASAN reported the following with test-only timing instrumentation:
-
-  BUG: KASAN: slab-use-after-free in smc_getname+0x19e/0x1b0
-  Read of size 8 at addr ffff888109abb4e0 by task poc/103
-  Call Trace:
-   smc_getname+0x19e/0x1b0
-   do_getsockname+0xe5/0x170
-   __sys_getsockname+0x8c/0x100
-
-  Allocated by task 95:
-   sock_alloc_inode+0x1e/0x280
-   sock_alloc+0x3d/0x240
-   __sock_create+0x7e/0x430
-   smc_create+0x121/0x240
-
-  Freed by task 0:
-   kmem_cache_free+0xcc/0x340
-   rcu_core+0x50a/0x1850
-
-  Last potentially related work creation:
-   evict+0x446/0x6c0
-   smc_clcsock_release+0xa8/0xd0
-   smc_close_active_abort+0x26a/0x3a0
-   __smc_lgr_terminate.part.0+0x137/0x2e0
-
-Hold clcsock_release_lock across the pointer check and the getname()
-callback to serialize with smc_clcsock_release(). Return -EBADF if the
-CLC socket has already been released, preserving the existing peer
-state check and the callback's return value otherwise.
-
-Fixes: b03faa1fafc8 ("net/smc: postpone release of clcsock")
-Cc: stable@vger.kernel.org
-Assisted-by: GPT-6.1-Sol
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
----
-Changes in v3:
-- Limit the fix to smc_getname(), as requested by Mahanta. The code
-  change is identical to v1 and uses the existing release mutex.
-- Drop the new clcsock_lock and the other v2 changes. Mahanta will
-  address the other readers through the broader CLC lifetime changes
-  discussed with Dust Li.
-- Rebase onto current net/main; keep the stable Cc.
-
-Review:
-https://lore.kernel.org/r/4bb7f15e-2cd8-4598-9bab-1ea5f5d2bb59@linux.ibm.com/
-v2:
-https://lore.kernel.org/r/20261003183325.2289707-1-nicoyip.dev@gmail.com/
-v1:
-https://lore.kernel.org/r/20260926180404.2721010-1-nicoyip.dev@gmail.com/
-
-Validation: W=1 builds of net/smc/ passed with IPv6 enabled and disabled.
-The KASAN excerpt is the original report; no runtime test was run for v3.
-
- net/smc/af_smc.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/net/smc/af_smc.c b/net/smc/af_smc.c
-index e9f93b3ab435b..8b3ee70f8433f 100644
---- a/net/smc/af_smc.c
-+++ b/net/smc/af_smc.c
-@@ -2784,6 +2784,7 @@ int smc_getname(struct socket *sock, struct sockaddr *addr,
- 		int peer)
- {
- 	struct smc_sock *smc;
-+	int rc = -EBADF;
- 
- 	if (peer && (sock->sk->sk_state != SMC_ACTIVE) &&
- 	    (sock->sk->sk_state != SMC_APPCLOSEWAIT1))
-@@ -2791,7 +2792,11 @@ int smc_getname(struct socket *sock, struct sockaddr *addr,
- 
- 	smc = smc_sk(sock->sk);
- 
--	return smc->clcsock->ops->getname(smc->clcsock, addr, peer);
-+	mutex_lock(&smc->clcsock_release_lock);
-+	if (smc->clcsock)
-+		rc = smc->clcsock->ops->getname(smc->clcsock, addr, peer);
-+	mutex_unlock(&smc->clcsock_release_lock);
-+	return rc;
- }
- 
- int smc_sendmsg(struct socket *sock, struct msghdr *msg, size_t len)
-
-base-commit: 6d25ffca055a77787c21a36b66c253f76239411b
--- 
-2.43.0
-
+[1] https://lore.kernel.org/asahi/20260831-apple-shared-gpio-v1-0-e855b12e1=
+8ce@gmail.com/
