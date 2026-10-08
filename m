@@ -1,73 +1,73 @@
-Received: from mail-oo1-f43.google.com (mail-oo1-f43.google.com [209.85.161.43])
+Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1B1A39CD0C
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 16:41:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DC141E5B70
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 16:40:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791477663; cv=none; b=ZZJh4eLKqvnUTnFrXNxean8t1YNcKiF6SBi9TILoVGt2/6TJ+E6dAU15g86CXANlIp9/yXxdt13HziJXJi1B77jNcdemhfINvAwqSOoiqlgwtgFJLPIrhDreKHiCtPQ0X9AbgbK5jbeSnSNE9b0Dg6aWX7d1pykteNx7/sFQZkk=
+	t=1791477663; cv=none; b=Dls7zVJ6ljTk37egK/g/CqARFhEQ8/o5kSxiVdloJGYWcnRVnHkOpWL1+kUQ+DhgHPQTH1nLHsbi0RWMFkgvUlUb+IStT127nmeL0MhQ+BtYW7BOhEr9C5EFh5mTwadOy0Y4R2oHtRybiv1wX52WpmMQ55X5gIlsekNOhkLQYCY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791477663; c=relaxed/simple;
-	bh=bcuQ7LMEACKJ3JvNf0UztttIfxoVuo/ehmgNFNCcHrI=;
+	bh=CGkt08J1CJ/VMUDa51WjoDDacvdEDDXnqieV0LWPOc0=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=E4a/EG/msOdfqk+9mxCwHvb/y4KWUNqgUMIB1V9rDSnGVRbKAJmKO/Ceqe4GUircLWC0/0ODhxSxUw4PAgAJbIDipi5hrB+PDmBWY0Nzw/uDNwNFx4+XNifQmqiRXzU7PJUivKrDChFNDSIHxiJ/NPWLzYflmD2APJl6+foxjU0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n2KTJBxj; arc=none smtp.client-ip=209.85.161.43
+	 MIME-Version; b=Dxp628PHGiKksKlvDSwPVbUeBpb0IXfyRymJrb8Ry2aD8xpVw5ga9k2rkklW3ZUHUXXC+VhYr+GOWzbRb+JOkwBCqIKbXIVl2jfiIvmNpBuw6YV6rzRUYG2jioqJ7JyoaPdHyvjW34mWVwv/PelHyvoqjajDNwqek29P4I2sJC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ncg9kAgQ; arc=none smtp.client-ip=209.85.161.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n2KTJBxj"
-Received: by mail-oo1-f43.google.com with SMTP id 006d021491bc7-6dd7070699eso3993921eaf.3
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 09:41:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ncg9kAgQ"
+Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-6e560e00a86so2110167eaf.1
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 09:40:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791477660; x=1792082460; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791477657; x=1792082457; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=T2K9maewCfN3/lZMB0AaOdvJAo1a2gEMhfplZw3EyhQ=;
-        b=n2KTJBxjlbtj7o2poP2vJj2gyC9Fl0sUvvamI38X+09K11IxCua7FpHFwNO2nkPPAP
-         N7fBKLB4miMVSCOXjCMvJyLysyGHyRv0Hzot5FO8Cv7G9EzbsaDy4Nm6Huw8ok12ZqJv
-         i9/D5H+f+vTlnfoPfYp430S+bVqa85du4xuAkdEpOtYuGujl+QCX9gonqZi2ZurxY0Pl
-         yh6wBCPN708FP+gbDaGr4oL9+zWYs15/Wuk5aU775qmlQJdxpuigcxS8hxnjKb8qvCYU
-         dEreLelTKlpPz/gDWgr4M4VoB7Di7n5fiW9ZJjL5/rJFE/AAfjpkLk3Ho2FPo4rfsCJY
-         yF2g==
+        bh=ol9KVV9igaZHeICPjqaqiMrJ1pRvQcCPa+Vpo3abd3M=;
+        b=ncg9kAgQHBns3QWBJ24TAwvTgAGHN46Z9BldkUYoqD42Zo9sK8BakrGsB8eYmRAuHd
+         vfOYGCsNJPGsoIwj9VLK0SMf/LyZBj6HK8V4H0gwJ6SQ1dgVzt/of5/6m6+4AI5OOMNZ
+         w1taSeXTEl48HTYWDHARpgVAUzlCX+/+Cys0gZ3fmOxUqSjyIAmL2q4QP3uXNffoARMe
+         IYOX9fB8FbKs32iRBWbPDF25dhLXBxcnhtonBJdWdezgetIaYQat8vxbCwmrw3mhl0x7
+         /KAPE3HC0XGN/WrbzYOBV7+L7U9uBi/ZjbJOeIyRTUbwTz41Er4qM7smYc+ZTavmfBUP
+         Y7yw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791477660; x=1792082460;
+        d=1e100.net; s=20260707; t=1791477657; x=1792082457;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=T2K9maewCfN3/lZMB0AaOdvJAo1a2gEMhfplZw3EyhQ=;
-        b=ab1RX7+H366CMVUFevjDgK8r4F17YZsl6/DdSBt100dEBvLfTT0ASNIzaL0Qg3j+8/
-         I8HxdcePGiEctmBHk458zBStJZAo8JZHS72kRQYJxFYkQnjn9xXoz27YaJlmpBUhgmh0
-         SK6yDNOIkZJFnGK6VVtxlSje56bv3HJB/34ouOnlvZUgYdGM6IPqMcnAvDgHonZsyl3G
-         /qla+lHM3LN5KGI1x6i2P29jXN8mXNct1uuUU6/G/gZrShGL8OQ3LP+fX3agLfzFEEvx
-         rEgfEJ1IsMM+Yisj5orBPZPZgJAtBZXn3QvD1i901RILUmdZ/MVpAWjDuF3kJ7NzdfBO
-         In8g==
-X-Forwarded-Encrypted: i=1; AKwUvBykwXUUyvxJqo1Dpx74w58q1j03rgISZXoFNGYBlU53jIfd19QTlaDOGeEnVWBAjyMWJCiGSO4XU5MW8Fw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mbaD889kM94IOaC5Xs7sYC5qFjLg1SLaV/WxJOxcZ4sG/KUvTi
-	vTSJbabh4hx8TnRYFNn7fqlHu0NFZndFYbfLcgHdIIRwE4/aGyZodM6c
-X-Gm-Gg: AYBFou2opVHKlqx0KkPwNotSvv4lbKF8RVv8K0V7w7Z3uq3jwbcWcT/lcdEnUnZgILP
-	dS0T0S0MpGe8nGdKG1pewjmM8ObaDinme8wVWoH5/aKHyxaAEttKcIVASD2g2JyJo7nZWE3S+R5
-	SWh207Rpdejq/C75LsGpqqMhZr7OJfbbLkg3YLppmvMLRSgDHfoxEBJJ53SX9T2o7SLZbqJioBr
-	px/6nooe+iOT9UTluR9BmmO8rjvyu8Dxq6IfC9JuOelUQo0NVsi1KqlpxghR4vIa1xwqOCg4Do3
-	MG0DRRpOFOLzvjnjKCFPSdsYcbcED6r9xHzm+M5v+wCelVd02hLHnMmAF9Q4hm3oQn3J4X76Xw7
-	kDjtC4KY8LlUA2XrHFCArLxRMCDV5h4HpSJIRKkPRxn8YXlJlTnnrlGI31D0dteAsV4UEgcczuk
-	zJqaSmNvyaNKiMoVEvOvGqXqLa7vd4retFWbksgrfR1hl+b5dp/KKCmsnNlgNGaQG8OOq1QbJah
-	x1b3BHYbjov
-X-Received: by 2002:a05:6820:7082:10b0:6da:3a3b:526b with SMTP id 006d021491bc7-6e7a7492ef9mr4091077eaf.57.1791477660425;
-        Thu, 08 Oct 2026 09:41:00 -0700 (PDT)
+        bh=ol9KVV9igaZHeICPjqaqiMrJ1pRvQcCPa+Vpo3abd3M=;
+        b=zJsvz0TczAbp1QlqkDVSkbU4yZx1P+VgwFG672r1qoqB3MbkNtqoz0qD5kOtMrf21M
+         kOXZFxOl6+IGzYdWVjz0fzka6IiYTk0mi3ZSKaobSBEDU2hBgk74xy4DCcw+sQWmYi9I
+         nm34v0ScVbhudbgB+N8Rgo75jJA5FuF7A4ncknKSPSeG1WN85tXSRzFjW9ho+fACh0hJ
+         41KyMRo+PVUGvd19840pghznojYf4fjh8FT5t3F+da5BRWlqhhjzIxcal8X6qTYYcYFK
+         7gUI6rBslXUjVvtOZlsQTmMdlHkcg8PqNrop5u36Vfmx9Kji/7OMQi6UhXDm6cTpwd4v
+         dIPA==
+X-Forwarded-Encrypted: i=1; AKwUvBzaUCo9oHZWcruC9DVmtPT7orPOXHbAQR1VGjbAG9ttddCJ8DUt0eLOmW5PVEuTUynCTk3ujAZHpGOziTc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mM10wqHm5fmDTZ9/awp8x7x7Vz5/8PXk81DBBvPr04ri5cWEl3
+	E5AuEoIyBTqs44r0yBxywGVMA8e0FKV4r4mJuwyRE/5jrppFPp3BcCmj
+X-Gm-Gg: AYBFou2BG6YLsphw6ku96vbGJj4KNr2GRqhfWqPSlfzy+0b6OvWRrLI2zSiDp15Ik3E
+	ex0RQoDEA1fTFWxdULjLUnOiis2c6jwpohRbPfxfIACqksbPimgMh6SZzGOayqELL8aVNkiLPz6
+	25OF1Ja6KgP44ODTuZA8/svWaUPzxB1zEqOb7Pe2pIo1ox0pReUo/W1/JKOcJiexfnkyo8n2vHv
+	HvWl/779uqh6FP1Rx/waknn2VZCOSm5UgdPTS5gDrAKPC1Sriu/wTVA0cj9wcERPZH/dtkLb4qE
+	SO+lMG9PYzdkUXx4PJfv83fU78NMFSC5nwgUR0pVneKlVRPl1XuIwK2NNtEmSgNvylUrQxdGJ3C
+	VtBkVofVzM1R/XnPFoILgGwca0VobWp0GrmRabPmLogjz2p/mIvREyglBF+cxe9vfdtInWwSmul
+	AYqjcj/G3sPWAuKLp7rtQdA4tRh3Dv+xOgnEri7hlEb60Rjl2JxxhfhJPHPxkXUS1xIBK4jejzX
+	q7zXtctuAKJ
+X-Received: by 2002:a05:6820:1909:b0:6d7:69c6:5292 with SMTP id 006d021491bc7-6e7a87a417emr4835468eaf.45.1791477657232;
+        Thu, 08 Oct 2026 09:40:57 -0700 (PDT)
 Received: from sheng2080.cmix.louisiana.edu ([130.70.15.5])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6ee7a7d8f63sm45928eaf.9.2026.10.08.09.40.58
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6ee7a7d8f63sm45928eaf.9.2026.10.08.09.40.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 09:40:59 -0700 (PDT)
+        Thu, 08 Oct 2026 09:40:56 -0700 (PDT)
 From: Leizhen Zhang <lzsx618@gmail.com>
 To: nathan@kernel.org,
 	nsc@kernel.org
 Cc: rostedt@goodmis.org,
 	linux-kbuild@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 8/8] tools/include: fix signed shift overflow in 32-bit unaligned accessors
-Date: Thu,  8 Oct 2026 11:40:35 -0500
-Message-Id: <20261008164035.3668885-9-lzsx618@gmail.com>
+Subject: [PATCH v2 6/8] modpost: fix pointer arithmetic on NULL in parse_source_files()
+Date: Thu,  8 Oct 2026 11:40:33 -0500
+Message-Id: <20261008164035.3668885-7-lzsx618@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261008164035.3668885-1-lzsx618@gmail.com>
 References: <20261008164035.3668885-1-lzsx618@gmail.com>
@@ -79,18 +79,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In __get_unaligned_le32() and __get_unaligned_be32() the most significant
-byte is promoted to int before being shifted left by 24. If the byte is
-0x80 or higher, the result does not fit in an int, which is undefined
-behaviour. This happens for every kernel virtual address, e.g. in
-sorttable, and UBSan reports:
+parse_source_files() checks whether a dependency is in the same directory
+as the object file with
 
-  tools/include/tools/le_byteshift.h:14: runtime error: left shift of
-  255 by 24 places cannot be represented in type 'int'
+  (strstr(line, dir) + strlen(dir) - 1) == strrchr(line, '/')
 
-Cast the byte to uint32_t before shifting.
+When the dependency is not below dir, strstr() returns NULL and the
+pointer arithmetic on NULL is undefined behaviour. This happens for
+every module with dependencies outside its own directory, and UBSan
+reports:
 
-Fixes: a07f7672d7cf ("tools/include: Add byteshift headers for endian access")
+  scripts/mod/sumversion.c: runtime error: applying non-zero offset
+  to null pointer
+
+Check the result of strstr() before using it.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Assisted-by: Claude:claude-opus-5-5 UBSan
 Signed-off-by: Leizhen Zhang <lzsx618@gmail.com>
 ---
@@ -98,38 +102,25 @@ v2:
  - Use my real name in the From and Signed-off-by lines. No code
    changes.
 
-v1: https://lore.kernel.org/r/20261005104050.1786222-10-lzsx618@gmail.com
+v1: https://lore.kernel.org/r/20261005104050.1786222-8-lzsx618@gmail.com
 
- tools/include/tools/be_byteshift.h | 2 +-
- tools/include/tools/le_byteshift.h | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ scripts/mod/sumversion.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/tools/include/tools/be_byteshift.h b/tools/include/tools/be_byteshift.h
-index f7d1d16989..2bda8d199c 100644
---- a/tools/include/tools/be_byteshift.h
-+++ b/tools/include/tools/be_byteshift.h
-@@ -11,7 +11,7 @@ static inline uint16_t __get_unaligned_be16(const uint8_t *p)
+diff --git a/scripts/mod/sumversion.c b/scripts/mod/sumversion.c
+index 3dd28b4d00..4c59e7cfbc 100644
+--- a/scripts/mod/sumversion.c
++++ b/scripts/mod/sumversion.c
+@@ -364,7 +364,8 @@ static int parse_source_files(const char *objfile, struct md4_ctx *md)
+ 		}
  
- static inline uint32_t __get_unaligned_be32(const uint8_t *p)
- {
--	return p[0] << 24 | p[1] << 16 | p[2] << 8 | p[3];
-+	return (uint32_t)p[0] << 24 | p[1] << 16 | p[2] << 8 | p[3];
- }
- 
- static inline uint64_t __get_unaligned_be64(const uint8_t *p)
-diff --git a/tools/include/tools/le_byteshift.h b/tools/include/tools/le_byteshift.h
-index dc8565f397..e5c78a48a7 100644
---- a/tools/include/tools/le_byteshift.h
-+++ b/tools/include/tools/le_byteshift.h
-@@ -11,7 +11,7 @@ static inline uint16_t __get_unaligned_le16(const uint8_t *p)
- 
- static inline uint32_t __get_unaligned_le32(const uint8_t *p)
- {
--	return p[0] | p[1] << 8 | p[2] << 16 | p[3] << 24;
-+	return p[0] | p[1] << 8 | p[2] << 16 | (uint32_t)p[3] << 24;
- }
- 
- static inline uint64_t __get_unaligned_le64(const uint8_t *p)
+ 		/* Check if this file is in same dir as objfile */
+-		if ((strstr(line, dir)+strlen(dir)-1) == strrchr(line, '/')) {
++		p = strstr(line, dir);
++		if (p && p + dirlen - 1 == strrchr(line, '/')) {
+ 			if (!parse_file(line, md)) {
+ 				warn("could not open %s: %s\n",
+ 				     line, strerror(errno));
 -- 
 2.34.1
 
