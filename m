@@ -1,125 +1,173 @@
-Received: from mail-108-mta151.mxroute.com (mail-108-mta151.mxroute.com [136.175.108.151])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FF883C5522
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 22:53:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=136.175.108.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8146E3CB8E5;
+	Thu,  8 Oct 2026 22:53:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791499994; cv=none; b=t85r0x2KbGNHtm+KUgSNUTiQ38kRJv5Er6xX0GmPAMKfEG6c5Cai8UvdKMIQZOuxzvhlmbEGM3sEKa3WAQgQ3YbRWUENv9EUEFloqVFIJastTrq2B3rg8GibzJHuAX51yxg2JK+ErsFNiWPAgi5K/PQN3quXFD9XWmP/uFdOTpw=
+	t=1791499995; cv=none; b=iRJC9+mbFIZUIYrT3HiEMriJ7Su/3uBRQOXdKYHrI8ZnGZ9Z03lI9zXWyaWetW3fjeRAoZHWOa+I9iF7E9BVlMAkucLlYdVdTjghvDR6OJcIT8pYKvipsK3C8nC8x7uyvbC7d9S7Z0Ys8RPdfvmgkCShI8Nv7smihieab6QwCyg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791499994; c=relaxed/simple;
-	bh=Tewqs+3mxTOPi5xQ3CRQVUmoa49UdmviF7M5Ytl4S3s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MjqLCguHcW/uLeEJz95K7DvfG4eJXvtVMpHeCjHxXySgQawSujvOpHHSHgULUVC/meaMWM5jxj1GAFtVJsfAIwxh57R2w96ecH6/TDEvq2DR6U/K2O2LfG8L834OQ3D5usPAX4/gvNshuBah47Dwj05KCll0VJfPRe2GPxAFzcc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=wii.dev; spf=pass smtp.mailfrom=wii.dev; dkim=pass (2048-bit key) header.d=wii.dev header.i=@wii.dev header.b=qYGO9A3c; arc=none smtp.client-ip=136.175.108.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=wii.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wii.dev
+	s=arc-20240116; t=1791499995; c=relaxed/simple;
+	bh=w19qijWatAGy00RLU4Fjp6Ck0KIkM5bUBb4GG829UWg=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=rJp5ZTrehLg17Q5p7LHlXZplNhGVc8rju9PTK7CLLJhfV1OL2LmPrRYZbyCQETR3PWExfAYMdSo567z78GGghsQJJ0E/NtqRAeSoBO9NauyR53lxzMxGKNTY2H5oXjnYy+9J7TFL5lhLWARRyO1O7h+G+CqjY8p6dmD/59ebsJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dwsHGOOv; arc=none smtp.client-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wii.dev header.i=@wii.dev header.b="qYGO9A3c"
-Received: from filter006.mxroute.com ([136.175.111.3] filter006.mxroute.com)
- (Authenticated sender: mN4UYu2MZsgR)
- by mail-108-mta151.mxroute.com (ZoneMTA) with ESMTPSA id 1a11db3bab300128b2.009
- for <linux-kernel@vger.kernel.org>
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
- Thu, 08 Oct 2026 22:48:00 +0000
-X-Zone-Loop: ebe44c31bbf464f8a6a3980e07d8019e9f6261370244
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=wii.dev;
-	s=x; h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:Subject:Cc
-	:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=rPlFkPqk5r54yRG9oU9wRGAKBm27HiIlHGZ2VN8Qelk=; b=qYGO9A3c7jMhRNcNL6nCxjWvox
-	alaOYWV7hntjsoYiabEiKgkgWBG1lXhadqAzKeCHKKNfGOMA/FRnR7opv3slkcWuJEl5ssSDY7KaM
-	mOh7vKO0k2TisXw9ix2BGNDSadxTE/3ejxgxIWyfohPvF7KLi7Id3as/wrWiXZU7l66EPKEyiYqhZ
-	vMLesC5OplSgyvwBfi45WUB52FLV79V3qVsUe4+PhDBUx4E3E0MdakPRczCIVy40Cp/HdnE+gfnWk
-	xVTDnr6ddR5QdzktpnlNBIq6/SeDKm9UcX/bHePY29RuL4cR4l4F53DeSafV5Xtnhelg+jvCkDHVb
-	qiIpVKnA==;
-Date: Thu, 8 Oct 2026 22:47:49 +0000
-From: Richard Patel <ripatel@wii.dev>
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-Cc: "kees@kernel.org" <kees@kernel.org>, "x86@kernel.org" <x86@kernel.org>,
-	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
-	"hpa@zytor.com" <hpa@zytor.com>,
-	"shuah@kernel.org" <shuah@kernel.org>,
-	"mingo@redhat.com" <mingo@redhat.com>,
-	"bp@alien8.de" <bp@alien8.de>, "tglx@kernel.org" <tglx@kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>
-Subject: Re: [PATCH 1/3] x86/shstk: ban ia32 sigreturn when shadow stack is
- enabled
-Message-ID: <asgdlclj3MgtGrSp@wii.dev>
-References: <20261008201610.1003569-1-ripatel@wii.dev>
- <20261008201610.1003569-2-ripatel@wii.dev>
- <e1a26ac75c39673d043b2860f848827fecbcb843.camel@intel.com>
- <asgQDlpnDwu04oZc@wii.dev>
- <6deab6fec99c65408a19b9036d67ce7f1fab54b5.camel@intel.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dwsHGOOv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791499994; x=1823035994;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=w19qijWatAGy00RLU4Fjp6Ck0KIkM5bUBb4GG829UWg=;
+  b=dwsHGOOvNiOJRGeATniOsQokB8zF+4ENnfg1YVaiDf+9z8tLtE6atozg
+   oKvtWAFCyOAVHoypQ/nqQF8s4f0HmiFo2EDneMbMNhohS4IYrcQmkbbMk
+   Yazl56bmxe/w+OKKDxAt9lxClH82D3rAfbZqOtGK6wYB6OuJNVkc0R4T4
+   iksZdRz9aSvKaUAb95d/zCs6n4f7DKj3oV/StSqDf6hjnkX7dCo6Z4DhR
+   1MdiDxlSvZ0endQRKqwqZaGMRJqNe3qtpLS96A/EVtRp3JsA9mm3rRDCu
+   OlNh4rpeHZw5uHC/E1eHZCXjZhzvTFm9I46YhHKwSTbBWjI8ufqpdGhGv
+   Q==;
+X-CSE-ConnectionGUID: mWhHu/3OSG2GDf84+1wVzw==
+X-CSE-MsgGUID: BSQyH+m+RMq7WolFxs8v4w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11929"; a="176394"
+X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
+   d="scan'208";a="176394"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 15:53:13 -0700
+X-CSE-ConnectionGUID: uBz25blqSKOwhlgirliRvQ==
+X-CSE-MsgGUID: W+Z+CTP6Q9S5xcV96HjisQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
+   d="scan'208";a="608645"
+Received: from unknown (HELO [10.241.243.185]) ([10.241.243.185])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 15:53:13 -0700
+Message-ID: <179bcb50be21f834423f9b5c068b5fce4cb65871.camel@linux.intel.com>
+Subject: Re: [PATCH 18/18 v2] sched/fair: Take into account slice in EAS
+From: Tim Chen <tim.c.chen@linux.intel.com>
+To: Vincent Guittot <vincent.guittot@linaro.org>, mingo@redhat.com, 
+	peterz@infradead.org, juri.lelli@redhat.com, dietmar.eggemann@arm.com, 
+	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
+ vschneid@redhat.com, 	kprateek.nayak@amd.com, linux-kernel@vger.kernel.org,
+ lukasz.luba@arm.com, 	rafael@kernel.org, linux-pm@vger.kernel.org,
+ tj@kernel.org, void@manifault.com, 	arighi@nvidia.com, changwoo@igalia.com,
+ sched-ext@lists.linux.dev
+Cc: qyousef@layalina.io, christian.loehle@arm.com, pierre.gondois@arm.com, 
+	sshegde@linux.ibm.com
+Date: Thu, 08 Oct 2026 15:53:12 -0700
+In-Reply-To: <20261002154415.2270586-19-vincent.guittot@linaro.org>
+References: <20261002154415.2270586-1-vincent.guittot@linaro.org>
+	 <20261002154415.2270586-19-vincent.guittot@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.1 (3.58.1-1.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6deab6fec99c65408a19b9036d67ce7f1fab54b5.camel@intel.com>
-X-Authenticated-Id: ripatel@wii.dev
 
-On Thu, Oct 08, 2026 at 10:34:02PM +0000, Edgecombe, Rick P wrote:
-> On Thu, 2026-10-08 at 21:50 +0000, Richard Patel wrote:
-> > > How can it defeat protection? If doesn't process the shadow stack sigframe
-> > > at
-> > > all, leaving the SSP where ever it was originally. What am I missing?
-> > 
-> > The selftest demonstrates that 'int $0x80' rt_sigreturn from 64-bit mode
-> > jumps to an arbitrary %eip in the signal frame (zero-extended to %rip), \
-> > whereas the 'syscall' variant raises SIGSEGV if %rip is corrupt.
-> > 
-> 
-> It should just be restoring the SSP from the shadow stack signal frame. Perhaps
-> you saw the syscall variant fail because it was not at the restorer. Since you
-> are manually calling sigreturn instead of returning normally. So then it was was
-> not at the shadow stack signal frame and the shadow stack signal check thought
-> it was a forged SSP. And the 32 bit one succeed because there was nothing
-> checked.
-> 
-> But that doesn't have to do with checking EIP matches where the signal was
-> generated?
+On Fri, 2026-10-02 at 17:44 +0200, Vincent Guittot wrote:
+> When the cost is the same, take into account the slice of a task to try t=
+o
+> select a CPU where is will run first.
+>=20
+> Signed-off-by: Vincent Guittot <vincent.guittot@linaro.org>
+> ---
+>  kernel/sched/fair.c | 13 +++++++++++--
+>  1 file changed, 11 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index 94554f165f42..d60bb6db4ce9 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -9598,8 +9598,17 @@ static int check_cpu_with_task(struct task_struct =
+*p, int cpu)
+>   */
+>  static bool update_best_cpu(struct energy_cpu_stat *target,
+>  			    struct energy_cpu_stat *min,
+> -			    int prev, struct sched_domain *sd)
+> +			    int prev, struct sched_domain *sd,
+> +			    struct task_struct *p)
+>  {
+> +	unsigned long task_slice =3D p->se.slice;
+> +
+> +	/*  Select the one where you can run first */
+> +	if (task_slice < get_rq_min_slice(cpu_rq(target->cpu)) &&
+> +	    task_slice >=3D get_rq_min_slice(cpu_rq(min->cpu)))
+> +		return true;
+> +
+> +	/* Favor previous CPU */
+>  	if (target->cpu =3D=3D prev)
+>  		return true;
 
-I see now, sorry. Yes, I misread the code, and assumed the signal frame
-has a matching shadow stack entry that includes the RIP check.
+Hi Vincent,
 
-> > I don't think it matters that SSP is still at the old place. It would
-> > only break 'ret' after sigreturn, but the problem is that the sigreturn
-> > itself is a wild jump.
-> > 
-> > "defeat protection" was badly worded, I just meant that the 'syscall'
-> > path has protections that the 'int $0x80' path doesn't have, so I
-> > thought it'd be worth fixing.
-> > 
-> > I might be missing something, maybe SHSTK never intended to defend
-> > against a wild sigreturn? Either way, it's not a security thing.
-> 
-> Hmm, I guess its kind of on the line between forward edge and backwards edge. I
-> see your point.
-> 
-> But today setting EIP to an arbitrary point is fairly easy. But even in a future
-> case of IBT enabled, shadow stack would still need enhancements for the normal
-> 64 bit runtime to prevent this. 
+The slice check above comes before "Favor previous CPU", so I read the inte=
+nt
+as: the CPU where the task can run first wins, even
+against prev_cpu. But the slice check can fail for prev CPU
+and we can skip to "Favor previous CPU" and pick prev CPU, even
+though the task can run on min CPU first but not
+necessarily on prev CPU first.
 
-What do you think of creating a shadow stack frame on signal delivery
-and popping that on sigreturn? I suppose that would need siglongjmp
-modifications and probably break CRIU. :(
+Take an idle CPU X and a busy prev_cpu. Any task can
+run first on X, because an empty rq has min_slice =3D=3D ULONG_MAX:
 
-I wonder if there are real apps that abuse sigreturn as a forward edge.
-If so, they should not be advertising their DSO as shstk-compatible.
+- prev_cpu scanned first: when X is the target, the slice check
+  selects X.
+- X scanned first: when prev_cpu is the target, the slice check fails,
+  and "Favor previous CPU" then selects prev_cpu.
 
-> In the past we discussed hashing some amount of the sigframe and putting it on
-> the shadow stack to give some sigframe integrity. But this runs the risk of
-> breaking apps so would need to be an opt-in enhancement.
+In the second case the task is stacked on the busy prev_cpu even though
+it may not run first there.
 
-Yes that seems a bit excessive to me. At least, the 64-bit path protects
-against obviously forged signal frames, so maybe there is still a case
-for the patch?
+Perhaps something like the following is better.
 
--- Richard
+---
+ kernel/sched/fair.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
+
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index a47c6521a411..3fe305d690eb 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -9830,11 +9830,15 @@ static bool update_best_cpu(struct energy_cpu_stat =
+*target,
+                            struct task_struct *p)
+ {
+        unsigned long task_slice =3D p->se.slice;
++       bool target_first =3D task_slice < get_rq_min_slice(cpu_rq(target->=
+cpu));
++       bool min_first =3D task_slice < get_rq_min_slice(cpu_rq(min->cpu));
+
+-       /*  Select the one where you can run first */
+-       if (task_slice < get_rq_min_slice(cpu_rq(target->cpu)) &&
+-           task_slice >=3D get_rq_min_slice(cpu_rq(min->cpu)))
+-               return true;
++       /*
++        * Select the one where you can run first. Check both ways, or the
++        * result depends on the order of the CPUs in the PD.
++        */
++       if (target_first !=3D min_first)
++               return target_first;
+
+        /* Favor previous CPU */
+        if (target->cpu =3D=3D prev)
+
+
+Tim
+
+>  	if (min->cpu =3D=3D prev)
+> @@ -9762,7 +9771,7 @@ static int find_energy_efficient_cpu(struct task_st=
+ruct *p, int prev_cpu)
+>  			 */
+>  			if (target_perf < min_stat.min_perf)
+>  				find_pd_cost(pd->em_pd, target_perf, &target_stat);
+> -			else if (!update_best_cpu(&target_stat, &min_stat, prev_cpu, sd))
+> +			else if (!update_best_cpu(&target_stat, &min_stat, prev_cpu, sd, p))
+>  				continue;
+> =20
+>  			/* Save the new most efficient CPU of the PD */
