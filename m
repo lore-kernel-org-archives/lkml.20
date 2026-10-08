@@ -1,67 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BB42495AD5;
-	Thu,  8 Oct 2026 18:04:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0C8538734A;
+	Thu,  8 Oct 2026 18:06:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791482667; cv=none; b=IBUJvM/0oTYaqV+FeW3l0ybhoQKHL1PcMrUbZAQ8RfbGWWgdgOJZkdo8b1EWdEC8XbIjQZO5xhiwsbADMxig7YBitxVr85uD+Y3/Vc4yYR18IpfJGFZFYxx7dpLY7uspoc6jJGHm3icAOBBix6kq28u4ZZJh9f1GtlmZhF/HOjI=
+	t=1791482818; cv=none; b=dJS/iVWVbxjhpokaXdstk232GCRTBJk9p4JHqCJjuGY3Dw27HAsxPaoMlZMLXLP71GD54tEH4zwDGHXkDyMe00FkCoYWPiee2YFWatB5ybGUqcvri1LL7cmgufx6PBGpljR5ksAXg4Z+K1F2Rf1S0/GUOUjSsEzK6J/GDO9G0bM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791482667; c=relaxed/simple;
-	bh=sXz/WzDcNS541Fd94pgZWuDQ/YWU2XKOceibtP8FCK8=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=V60Tdj7uRGB6NX6qsz+yxNgZ0aaWXy5ZerwCEX4sVf1vCQlLWEsuKGuYLJYKpF99mr/S/2ySy5K++nzBpqV00tphinRmrwFp/qjcGnc+rqAVNcwAd7iNucqiN0koaSUpfrUoiPxGgC8+W3Q1JqiTnp7Mp0wtH+9hWLMeyC+yLG8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P4SovEbz; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P4SovEbz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB2861F000FF;
-	Thu,  8 Oct 2026 18:04:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791482664;
-	bh=sXz/WzDcNS541Fd94pgZWuDQ/YWU2XKOceibtP8FCK8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=P4SovEbzX4DCjFvKz/pp2MZ7x4ihEvE7kGB7GWT8YI2CsATkq84ShGPzVf7d/FtJH
-	 Q4VYhJneOvnLEOxhBGRteHb4ovlwfX5v4mZjBnyja2Iri8ws9ei90SnLKN38i6ILtC
-	 fwxGWtxbS3JHaMViueiiAOSRjb0BIwZ38P1TFYluubes3aFcUnf4fbquWOkFTRmut7
-	 0g9GjhUb26MX+2QDiACZJ+q7Wf+jX8R01IttdXSdte79VgGXc5u8HOXfz98pL9LrtN
-	 7/4rLrtlQaYlC4J9Hvq9liraFE1bqVPRvBUH7RA41UZoN9bA9Pb9I+vLwORtwOlqI5
-	 Zf7ErLZ+47bKw==
-Date: Thu, 08 Oct 2026 08:04:23 -1000
-Message-ID: <b064c79615e33deb06e9483e4ddf23c4@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Andrea Righi <arighi@nvidia.com>
-Cc: David Vernet <void@manifault.com>, Changwoo Min <changwoo@igalia.com>,
-	John Stultz <jstultz@google.com>, sched-ext@lists.linux.dev,
+	s=arc-20240116; t=1791482818; c=relaxed/simple;
+	bh=saGXw7QD0k/G2G4hUUWh++eNezhSC8dz6QsjXbqNOMU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=O0l5BsVZ48ea4iLPBdfCqhfT/ta0aQxBMO0nz/8nvbGca3tbWWcIbvrbbRLBUWqLeIpyTqSMcVoochSqnPcrLOrZKv8/yd3s7OTWRrodmIfCnFIqWDJsjcfXil6hNL6VNWNXiM0yoGNRF2v1LSQq2is8e0rK59wKWP8agdDhBek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from fc87d0ffb700.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowAA3QkC528dqqQsQCg--.12759S2;
+	Fri, 09 Oct 2026 02:06:50 +0800 (CST)
+From: Haotian Zhang <vulab@iscas.ac.cn>
+To: Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>
+Cc: linux-clk@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 sched_ext/for-7.4] sched_ext: Keep proxy donors with
- slice left on the local DSQ
-In-Reply-To: <asXxp0WabkwdB5aw@gpd4>
-References: <20261002221559.3090900-1-arighi@nvidia.com>
- <09a36d7e76652beedcfb891b587a9c82@kernel.org>
- <asXxp0WabkwdB5aw@gpd4>
+Subject: [PATCH] clk: composite: fix NULL dereference when the parent clock is not set
+Date: Fri,  9 Oct 2026 02:06:52 +0800
+Message-Id: <20261008180652.2756849-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowAA3QkC528dqqQsQCg--.12759S2
+X-Coremail-Antispam: 1UD129KBjvJXoWrZryrJr4DJrWDGF4xJr4UCFg_yoW8JrW7pr
+	WxJFWjyrW5Xr12vFnrt3ZrA3WF9F1S9asrWFyvva4rArn8W3WxZ34Fkas8Zr4xurWfKrWa
+	vr4qya18AF1rJF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUklb7Iv0xC_KF4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
+	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVAC
+	Y4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVW8JV
+	WxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_JF0_
+	Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxV
+	WUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI
+	7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r
+	4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI
+	42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7IU8CtC5UUUU
+	U==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwIOA2rHpl173gAAs7
 
-Hello, Andrea.
+clk_composite_determine_rate() reads the parent clock with
+clk_hw_get_parent() and hands it to
+clk_composite_determine_rate_for_parent() without checking it.
+clk_hw_get_parent() returns NULL when the clock has no parent yet, for
+example while the parent is still an orphan, and the helper dereferences
+that NULL pointer in clk_hw_get_rate(), which reads parent_hw->core and
+oopses the kernel.
 
-On Wed, Oct 07, 2026 at 09:15:51AM +0200, Andrea Righi wrote:
-...
-> I think we can do this without modifying sched/core.c, sched_ext can set an
-> SCX_RQ_PROXY_BLOCKING flag around its calls to sched_proxy_block_task(). When
-> proxy_reset_donor() invokes put_prev_task_scx(), that flag tells sched_ext not
-> to reenqueue the donor and block_task() will dequeue it immediately afterward.
-> This should avoid the transient enqueue/dequeue pair and the false ENQ_LAST
-> warning.
-...
-> So we need to add two rq flags in this way, SCX_RQ_PROXY_PICK_PENDING and
-> SCX_RQ_PROXY_BLOCKING, but the whole logic stays in ext.c (with the flags
-> dfinition in sched.h). Does this approach makes sense to you?
+Return -EINVAL when the parent clock is NULL.
 
-Yeah, that sounds good to me.
+Fixes: 2f508a955a67 ("clk: Convert basic types to clk_hw based provider APIs")
+Assisted-by: DeepSeek-V4.1-Flash
+Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
+---
+ drivers/clk/clk-composite.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Thanks.
+diff --git a/drivers/clk/clk-composite.c b/drivers/clk/clk-composite.c
+index 11842bce5918..40d64ef2d325 100644
+--- a/drivers/clk/clk-composite.c
++++ b/drivers/clk/clk-composite.c
+@@ -75,6 +75,8 @@ static int clk_composite_determine_rate(struct clk_hw *hw,
+ 			struct clk_rate_request tmp_req;
+ 
+ 			parent = clk_hw_get_parent(mux_hw);
++			if (!parent)
++				return -EINVAL;
+ 
+ 			clk_hw_forward_rate_request(hw, req, parent, &tmp_req, req->rate);
+ 			ret = clk_composite_determine_rate_for_parent(rate_hw,
+-- 
+2.25.1
 
---
-tejun
