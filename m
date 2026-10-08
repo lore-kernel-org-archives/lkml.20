@@ -1,155 +1,210 @@
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from gwu.lbox.cz (gwu.lbox.cz [62.245.111.132])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B8523D171C
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 20:49:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791492568; cv=pass; b=MrmFeuMqv5tdClG9/ikfdqMZ16UfPMKQ1BFFHiqT3ZLmsDbXg96hwGYeG8WSqGAB/sEHvYtwkPqkD5PTHTM7JCCx/daVZ12dS8AZmc3zHC1kDCt7Z2roM4FXBCkD7NVRRTFZh7h3Xbb6YWtDj9UUUygx2vVZbMgPtM2fJPwhuaU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791492568; c=relaxed/simple;
-	bh=Ga599ZX3Mr76ihAc61srmvnaS4ilVrwnaph9aVtQkFc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IxDEN55S+ayIpnBXVWgBg2Q3nwNK2KNFBhOv/wZRq1ofZRJeDJrRk7NNg9EZB/YFC5+6EjE2noAnnUpPNRAWXw8pJAEqNnNmHCr/2UXje/9zTJqByLcWk2rUFaydpaz5t4b4OThMMD8f3O1osrpEUsMBSzxqVHf4OKlnUb3TuYI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c3QA0cX6; arc=pass smtp.client-ip=209.85.167.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 849E43C5848
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 20:49:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.245.111.132
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791492594; cv=none; b=unIOjOPFanNEv8SLwLXcbbhxvzvIlrvM2GnTMHAEfegOKfc9pCTzOqmLbTuGqvUh8DRB6+eGAXs6eKPy57lmCK2F2zFuHApJ2ZahF4kKSyVLGPRbVQa7HkTP9rzSSssaYA6e2Dh73YVEPIiFFLJ7IGHiyClFR5rzDDkNXm1Zl+s=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791492594; c=relaxed/simple;
+	bh=vnAwbsiy8kdzzgPy8h0sv1zV5FVT9xJQhaSoR3X0k2M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gYWiDKr7W2H1e9nOGofeJQ45QumkHDDbfcPZddpRD+tMi0QHq8cH32cLQ2NAk4KNxVsH5wwYHxYrqHhug+LZ8PAX4WgVUL9aew+bkGQ2GuelSaS7dfFcIU+8tP+Ws/MJ0lxBNL2Zw3qmE09WZoGLmz5Fr/HYo2/XNSkqRq19YLo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxbox.cz; spf=pass smtp.mailfrom=linuxbox.cz; dkim=pass (1024-bit key) header.d=linuxbox.cz header.i=@linuxbox.cz header.b=1Kq06F/s; arc=none smtp.client-ip=62.245.111.132
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxbox.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxbox.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c3QA0cX6"
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5ba3ac592faso1956410e87.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 13:49:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791492565; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jOhFRH7OSIkZjrNLeATY/94BQ0trDYfsRuOU0rAYgtdGfjcPbTSNYh0+NUna17XPKy
-         6G+8LiWcmFOh53djNAO5c9y/VPRWA28BBQEORaWHjF15+uE4JeCa1yYIAsfQ6CxI3mzI
-         idTnZJTju0uMGYJro0KmM2UzovE0nffxk4M2G8Yhz+adkVIWxOJLFIma4869ltZEk0oi
-         ASAhIQ8smDFnTMqKP2gkxg4D3K2vZpgcOtvMp+cnhb1bXAHI5WtFuPc0zojTD6Zt9S8+
-         8J6nMZigpmtPDk2thjoTfjnFP4wGT+FeT7BLIsvEz0RACZ3eJzABB+hnCRi77AWwsrWJ
-         ShVQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=wf9eR6XwQKqDw7hx5JDyY1pAL9RLJYxNR29Noi0v2B8=;
-        fh=WzD5IqM+NigZgj56xCos0pHRH72kKohcFzEKopEmoOM=;
-        b=SVgxU+zNfaPllVdQoIeS7VAEtrhJXjcwHL/fTa1MyT/Xvd7gAcypvoT6XH76Bwuinw
-         +jZSOm0lYY6TVoRD5N3vfg0SFDI6He/894zbRMbUIyDM9qdyCrhcQPptHNyYrbtoERw8
-         c7CdDAm1tqCC41vG7PCoSF+SsgPYdnqXafFThQjIFw7VzmcqRisNa2rd989FQyWqjD6v
-         RbC8BE1uKLN/cxpxvTfDlFwwm9V5RRMZYbKJnjDUkUOYowV2evc/hEJGZUUxMn3I5R+/
-         mAc1l958fQ76SoQktPRCv5FBBkL+KvO4TI2p1tTweUWrs/J1C7g8cfCOFR52rmNv82zp
-         fjtw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791492565; x=1792097365; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wf9eR6XwQKqDw7hx5JDyY1pAL9RLJYxNR29Noi0v2B8=;
-        b=c3QA0cX612HlJvtnCqhM4+5CuqbY8IhawoA+JrZHPhFofIWdZFzL0cJ4Hh6yVdc9dE
-         txXhqBNBBPGjB+aoUZ20DrSfZgVvX4xbhhdnpRPcoQiab8CDrRMdbsMuUHWY5WlQN+8c
-         VS7kAhqM0sUfsZ/q21jdnhLVjEwoyvM6KRsJx/Stv4dNieTAljyL/6H0N00x8GHNJp6n
-         g25KA8Ue357QXI9e6d/w+oOcxEGMQEZIcJKkARD21QxQeSFcF+bM04V3Y/3dkKKluwt/
-         lExA+zpa4Q4hE2mbD9Eh72UzIVenPrmtrbPbuH8j3oqx0aOx+VAv4Y8RVSMWIrnzPKXH
-         b1aA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791492565; x=1792097365;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=wf9eR6XwQKqDw7hx5JDyY1pAL9RLJYxNR29Noi0v2B8=;
-        b=D234X9wfoZx8BuRePKb4HQp1OHY9WO+RKEL3DKL9XZNeI8BRG2Ev8Kc68Eq4mHEuPj
-         Dp/J1x57miIaX17PGEwOW+eUhQRiEo04W5giLS+IZRW2Z0k/to8vmO4zxDxpTKyO/WRj
-         7TrbahP2GYsQWv6QqGG9cYbDNavOiSFn27TOZ2xIQ0QvoifR7w3DVOK9sH9epuoMqvKY
-         BbV5xwF9XPJHr8wbIHZZAPwOmzfoqq9IApsgfhmlFvj741lTXjP9B3vJec06Os1frsco
-         DEyBRwLzby78dM9C9beuo54Wot6wDsYVMgmNWAVHmGyvBphmAHvbGpMsTdEqEzo+o/LV
-         ZjlA==
-X-Forwarded-Encrypted: i=1; AKwUvBw5WXpEXVKglZBeEzQcrIcKFHgd0l3zkjFKB08Z6CsJ7VDXnNienHa2iyFRU0yvjlTMBZQMv/GtoyXYPN8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLe+pI/+O/KJB1skkjnYPuaf2eoAprZCAii6BFYHJAAnw0vY62Q
-	QSLplS0e3VEI43CYWF5lA3mr31ItKf46GQO7291isEFrPag54JxXv+mc9GSHg1YDfcmkFBDyBZE
-	4hWfRXLkzOZHutLDd6v4njh2EHIII/I8=
-X-Gm-Gg: AYBFou133vjENabqk4YTc7L/90C8DVo2njxqwXkkCkbVOv9d7pEI7UnKej8+mqCAUfb
-	okFvwJRKEeubWQoXNAnC5EeI+6Iq35NwWEjelG+Tj0Cy6C3U6PuOQ0gSU+4TICMhHp88jUHhiBE
-	61FmikNgrYI0rzJCr0P4uxkDIDeP4hnYUmxLHsJ+1f47pRO3KLem4Z/aFRXZNkZNZ7JmdzHTUb8
-	8h/hDQZO/3Zg/PrPhr9onmEdvktv164UqafA95uZ8oPjn+riEyteGWI5BixsKXtyHPGqAkWAJJe
-	KsIECH+Mz2Y9UMrogoUCV6DiFktP/ZceFAAHNtGbRhWI/QHc37LnglUvZGCXxqCcziyACSii6er
-	V3YSRy6Oe9zf0xQ==
-X-Received: by 2002:a05:6512:2245:b0:5bb:42a2:31fa with SMTP id
- 2adb3069b0e04-5bcd0743f51mr2355277e87.60.1791492564814; Thu, 08 Oct 2026
- 13:49:24 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linuxbox.cz header.i=@linuxbox.cz header.b="1Kq06F/s"
+Received: from linuxbox.linuxbox.cz (linuxbox.linuxbox.cz [10.76.66.10])
+	by gwu.lbox.cz (Sendmail) with ESMTPS id 698KmrLM388540
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
+	Thu, 8 Oct 2026 22:48:53 +0200
+DKIM-Filter: OpenDKIM Filter v2.11.0 gwu.lbox.cz 698KmrLM388540
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxbox.cz;
+	s=default; t=1791492534;
+	bh=Tgy7JHtkftQQHsCh5M1j6zKdCKO5xE0MW5AcTqqIuws=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=1Kq06F/sYFjFDtOZMno+svrWGCL0fiB10fmGoC6qn+v4OqtweiWK8jSX5B3A1BQ+F
+	 j6E7mLfWVOpCSMXshzm2/JigXZwMgOhJu01Mnr8hamVBjCd8oSp09Eapc0rtZhma+1
+	 1l7BE9P1x27IBAHakZt+SS4Vdq5qTYjuaO567n7o=
+Received: from pcnci.linuxbox.cz (pcnci.linuxbox.cz [10.76.3.14])
+	by linuxbox.linuxbox.cz (Sendmail) with ESMTPS id 698KmqCx013982
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
+	Thu, 8 Oct 2026 22:48:52 +0200
+Received: from pcnci.linuxbox.cz (localhost [127.0.0.1])
+	by pcnci.linuxbox.cz (8.18.1/8.15.2) with ESMTPS id 698Kmfxl2543877
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 8 Oct 2026 22:48:48 +0200
+Date: Thu, 8 Oct 2026 22:48:41 +0200
+From: Nikola Ciprich <nikola.ciprich@linuxbox.cz>
+To: Borislav Petkov <bp@alien8.de>
+Cc: David Laight <david.laight.linux@gmail.com>,
+        Rik van Riel <riel@surriel.com>, ljs@kernel.org, linux-mm@kvack.org,
+        linux-kernel@vger.kernel.org, akpm@linux-foundation.org,
+        david@kernel.org, Mike Rapoport <rppt@kernel.org>,
+        Dave Hansen <dave.hansen@linux.intel.com>,
+        Pedro Falcato <pfalcato@suse.de>, Kiryl Shutsemau <kas@kernel.org>,
+        luizcap@redhat.com, pbonzini@redhat.com,
+        Tal Zussman <tz2294@columbia.edu>,
+        Matt Fleming <matt@readmodwrite.com>,
+        Nikola Ciprich <nikola.ciprich@linuxbox.cz>
+Subject: Re: hunting memory corruption bug in 6.18.x
+Message-ID: <asgBn1VadUOpWFpZ@pcnci.linuxbox.cz>
+References: <ar63St2LBfCdyhwj@pcnci.linuxbox.cz>
+ <ar9yRqq6cBxHDWKA@gremlin>
+ <ar/F6+OUzj8qQ8YC@pcnci.linuxbox.cz>
+ <asAE3kLFDUx5v0Nw@gremlin>
+ <asKdhWiJb3qXeopz@pcnci.linuxbox.cz>
+ <bd8e9b01ad88cafb12da33331f32a1ce315f590b.camel@surriel.com>
+ <20261005132113.43548696@pumpkin>
+ <asP5xK4axiUk7jun@pcnci.linuxbox.cz>
+ <aseMsMGpGPT/G548@pcnci.linuxbox.cz>
+ <20261008182356.GBasffvDuTemTu1VUY@fat_crate.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260225110548.31431-1-linmag7@gmail.com> <20260225110548.31431-2-linmag7@gmail.com>
-In-Reply-To: <20260225110548.31431-2-linmag7@gmail.com>
-From: Matt Turner <mattst88@gmail.com>
-Date: Thu, 8 Oct 2026 16:49:12 -0400
-X-Gm-Features: AclHuK8_vOoVjkuMythyEP1pi3zO_VYWRP3KEuAAd4ZRgtZfVlu8c9OpH9_kgB8
-Message-ID: <CAEdQ38F7RstggOKabd80tr2gofrMMAT0N1agN-RBeybxxJWDVw@mail.gmail.com>
-Subject: Re: [PATCH v2 1/1] alpha: Add support for HAVE_ARCH_JUMP_LABEL
-To: Magnus Lindholm <linmag7@gmail.com>
-Cc: richard.henderson@linaro.org, linux-kernel@vger.kernel.org, 
-	linux-alpha@vger.kernel.org, skhan@linuxfoundation.org, chenmiao.ku@gmail.com, 
-	shorne@gmail.com, corbet@lwn.net, glaubitz@physik.fu-berlin.de, 
-	macro@orcam.me.uk, macro@redhat.com, mcree@orcon.net.nz, ink@unseen.parts
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261008182356.GBasffvDuTemTu1VUY@fat_crate.local>
+X-Scanned-By: MIMEDefang 3.7.1 on 10.76.66.3
+X-Scanned-By: MIMEDefang v3.7.1/SpamAssassin v4.000002 on lbxovapx9 (nik)
+X-Scanned-By: MIMEDefang 2.86 on 10.76.66.10
+X-Antivirus: on lbxovapx9 by Antivirus 
+X-Spam-Score: N/A (trusted relay)
+X-Milter-Copy-Status: O
 
-On Wed, Feb 25, 2026 at 12:02 PM Magnus Lindholm <linmag7@gmail.com> wrote:
-> Implement static key (jump label) support for Alpha.
+> 
+> What is that kernel?
+> 
+> 6.18.55lb9.01
+basically it is vanilla 6.18 + 6.18.55 + few mostly insignificant patches.
+if you're willing to take a look, I tried to upload all important stuff here:
 
-Sorry for the slow review. This looks correct to me. I applied it to
-your for-next (the arch/alpha/Kconfig hunk needs a trivial rebase) and
-it builds cleanly with W=1, CONFIG_JUMP_LABEL=y and
-CONFIG_STATIC_KEYS_SELFTEST=y. I have not booted it. A few comments,
-none of them blocking:
+https://storage.linuxbox.cz/index.php/s/6rcp8oWCGzAqPEY
 
-> +   select HAVE_ARCH_JUMP_LABEL
+sorry for not making this available sooner, it completely slipped my mind
 
-Please keep the select list sorted.
+description of files:
 
-> +static inline void alpha_patch_text(u32 *site, u32 insn)
-> +{
-> +   WRITE_ONCE(*site, insn);
-> +   flush_icache_range((unsigned long)site, (unsigned long)site + sizeof(*site));
+linux-6.18.55-lb9.01.tar.xz - patched sources tarball
+patches.tar.gz - tarball of patches applied to source, including description txt
+ (stable patch-6.18.55 is not included)
+kernel-6.18.55-config - .config for this release
+rpm/... - kernel, kernel-vmlinux etc binaries in RPM format, if this is OK for you
 
-On SMP flush_icache_range() is smp_imb(), so this is one
-on_each_cpu() IPI round per patched site. A key with many sites, or
-a module load, turns into that many broadcasts. That is fine as a
-first version, but it would be worth a follow-up that implements
-arch_jump_label_transform_queue()/_apply() (HAVE_JUMP_LABEL_BATCH)
-so that a key update does a single imb at the end.
+vmcore-dmesg.txt - kdump-dmesg, unfortunately the box got fenced before
+being able to dump vmcore binary, I have to tweak this
 
-> +   if (disp < -(1L << 20) || disp > ((1L << 20) - 1)) {
-> +           WARN_ON_ONCE(1);
-> +           disp = 0;
-> +   }
+lscpu.txt - lscpu output
 
-With disp = 0 we write a branch to the next instruction, so the site
-silently behaves as a NOP. I would rather return without patching (or
-BUG) than install something that looks valid. The comment about what
-other architectures do can go.
+if you prefer src.rpm, please let me know.
 
-> +struct jump_entry {
-> +   jump_label_t code;
-> +   jump_label_t target;
-> +   jump_label_t key;
-> +};
+> 
+> The other machine has a 6.18.20lb9.03-something one.
+> 
+> How can I look at the vmlinux you're running and the sources?
+> 
+> rIP points to:
+> 
+> [11402.958452] Code: 48 8d 04 c2 f6 07 02 0f 85 a0 00 00 00 48 8b 10 48 89 d0 48 83 e0 fe 48 83 fa 01 77 0d e9 80 00 00 00 48 8b 00 48 85 c0 74 78 <44> 8b 58 fc 48 39 78 10 75 ee 48 83 78 08
+> All code
+> ========
+>    0:   48 8d 04 c2             lea    (%rdx,%rax,8),%rax
+>    4:   f6 07 02                testb  $0x2,(%rdi)
+>    7:   0f 85 a0 00 00 00       jne    0xad
+>    d:   48 8b 10                mov    (%rax),%rdx
+>   10:   48 89 d0                mov    %rdx,%rax
+>   13:   48 83 e0 fe             and    $0xfffffffffffffffe,%rax
+>   17:   48 83 fa 01             cmp    $0x1,%rdx
+>   1b:   77 0d                   ja     0x2a
+>   1d:   e9 80 00 00 00          jmp    0xa2
+>   22:   48 8b 00                mov    (%rax),%rax
+>   25:   48 85 c0                test   %rax,%rax
+>   28:   74 78                   je     0xa2
+>   2a:*  44 8b 58 fc             mov    -0x4(%rax),%r11d         <-- trapping instruction
+>   2e:   48 39 78 10             cmp    %rdi,0x10(%rax)
+>   32:   75 ee                   jne    0x22
+>   34:   48                      rex.W
+>   35:   83                      .byte 0x83
+>   36:   78 08                   js     0x40
+> 
+> I need to be able to pinpoint it back to the source.
+> 
+> I asked the last time:
+> 
+> "Just to rule out any other issues which got fixed in the meantime, can you try
+> mainline Linux and see if you can reproduce your observation with it?
+despite every effort, I wasn't able to reproduce this in lab and I couldn't easily
+just upgrade customer production boxes to latest mainline...
 
-Optional: HAVE_ARCH_JUMP_LABEL_RELATIVE would shrink this from 24 to
-16 bytes per entry, and the module loader already handles
-R_ALPHA_SREL32 and R_ALPHA_SREL64. Fine to leave for later.
+however since we got the crash today on our own cluster node, I guess I can upgrade
+at least some nodes of it to 7.2.x (possibly even 7.3-rc6 if necessary). but telling
+whether it is ok after doing that is quite hard - we have tens of boxes running various
+6.18 releases for months without issue. so I'm afraid the only info I'll be able
+to get from this will be the problem is not fixed yet in case I get crash with latest kernel
 
-Small things:
- - <linux/mutex.h> is unused in jump_label.c.
- - JUMP_LABEL_NOP_SIZE is unused.
- - ALPHA_INSN_NOP has two trailing comments.
- - There is a stray double blank line before the include guard.
- - The commit message could note that this relies on kernel and
-   module text being writable (no STRICT_KERNEL_RWX on alpha).
 
-Did you run CONFIG_STATIC_KEYS_SELFTEST, and load and unload a module
-that carries static keys?
+> 
+> If so, you could share your crash core along with debug kernels yadda yadda so
+> that I can poke at it.
+> 
+> And before you do, make sure you have the latest BIOS and microcode installed on
+> that machine.
+OK
 
-Reviewed-by: Matt Turner <mattst88@gmail.com>
+> 
+> Also, where can I find full dmesg and /proc/cpuinfo from those machines which
+> trigger this?"
+I'll collect this from those older crashes as well and upload.
+
+> 
+> But still nothing.
+> 
+> Imagine this issue has been fixed upstream but you don't have the fix in your
+> kernels and we're basically chasing the same thing again...
+I understand. That's why my initial question was whether this may be some known
+problem for which the fixes just didn't get backported to LTS kernels yet.
+
+
+> 
+> Sorry, but I have lost my debugging crystal ball which can help me guess what
+> the machine does. :\
+> 
+> > so we now know this didn't fixed it. however I didn't have tlbi=ipi set, so I'll
+> > now try this.
+> 
+> That won't help either but if you wanna try it.
+> 
+> > any ideas on this new info?
+> 
+> Yes, see above.
+> 
+> Bottomline is: without sufficient debugging data and up-to-date hardware,
+> there's not a lot I can do.
+if the uploaded sources etc are of any help to you, I'll be grateful if you look
+at them as well.. what else comes to my mind, if the full vmcore from one of previous
+crashes including sources, debuginfo etc would be interesting for anyone, I can
+either make it available for download as well (which I'll do anyways), or I can
+prepare debugging VM where it all will be prepared including crash tool / gdb / whatever
+can be of any use and allow access to it (supposing I'll get public part of SSH key),
+just let me know if this makes sense..
+
+thanks
+
+BR
+
+nik
+> 
+> Thx.
+> 
+> -- 
+> Regards/Gruss,
+>     Boris.
+> 
+> https://people.kernel.org/tglx/notes-about-netiquette
+> 
+
