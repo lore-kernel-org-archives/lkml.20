@@ -1,81 +1,62 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D61AF267B89;
-	Thu,  8 Oct 2026 01:20:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCFC91A76BB;
+	Thu,  8 Oct 2026 01:22:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791422458; cv=none; b=MT0Sb493UpvPZFmjbO4Kh9hir5w/pYWmW0/mEbdu0npyGrS7dQE23FJw35U8GuWF9sP8SlxwrHC+Xb2smNjXyT2LSLnI1+IZNe6MuJYMWvnr8mXGXxlT1k9f49tYS6M05ujKllUrRgy70xmr84Rh8huJ9Rtf85pgES9He9pjyxQ=
+	t=1791422552; cv=none; b=YHKXsFcFWPiavSwpzcDbyGi3v77ippAER0VlWbKrD568DyuNH0lNPqrUHheQvzffBIpFzt2DjSWZZPZcnzZ1BqCgWMKZwIergwnN9E0tpbH7iXlc3A0CGQOfnlCI82GvUKN3RLbABeveZTqd6wHDJdyAt6MQn1IzpaMi07yMQ98=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791422458; c=relaxed/simple;
-	bh=wNhtmn5EHeXHlObtiKn/AYvinr1jhCsyDirYtKxwomw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nRdmAH1alojzxXaGR9gCVG1rUlb+zbc4lnBvk5/2HqoxiZuWdXhfYEXnXh9mNQwsBJapgqdZNIAYHiUmZxRJxAhPGbVCZI1J1P6Lzql2mYhyluuAxV3GDxGcWbZSmlnaSRp2cwsF95Ih4BunmQ039/EZgbfYEn+c+fWi+J3hD9Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QhrgqbF3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791422552; c=relaxed/simple;
+	bh=Z4rYWcsgHrby/PHy224w/OfQG861Ta1yeGlMldVGXsQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TF3HdgvGw4MvNEwcY7rye9NFEZRjCVnvb1EjRjCft0tuEs7a03IbwGufsxpz1X/2I+cdMirrL5icEyIx8ArS5b9e11m56RhIdWpTk2S125LqB/Ij0LKp1upvXBAmSK+NZ5DzUhz+8lLQPwhSVZSskxFl56V3XKyHesctZ1XvLJc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=GjEvN/MT; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QhrgqbF3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51AB11F000FF;
-	Thu,  8 Oct 2026 01:20:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791422457;
-	bh=tjPXzymjP5J3iqnt/GHyQd3zZwGn5PrlI4qHS7CAReU=;
-	h=From:To:Cc:Subject:Date;
-	b=QhrgqbF3HXmfF+KjT/8v4Q3LiYBAV2MYDJpRZAR4a4gdiTYqbhKZiuwC2URrlrYge
-	 XB3psfwNcqzIsw4iR5i6QCTvgOAmgsqNCuGncW4CVHzcw7RHWThIJqxVUAVpxGu+5l
-	 qvgyF17ZkLLbriDEu3gfxK+E7fDodgOfNiSFrW4+0pbnGlg762cGB1IpRapTBba6v5
-	 +8q3+bedJ29/YhNjDkNSdu32hBGwTLPLL5Fnr4H6hSWkKneB/bSoPty6/szH+uNTHq
-	 qi+w15zNWixKjQ+XrjrlIuY4BRJDZMX05ZY9HnKAKBw/KI1+KpH25F5pzsf+3+Jwhz
-	 VzZxGiYGnkKAg==
-From: Jisheng Zhang <jszhang@kernel.org>
-To: Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-spi@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: [PATCH v3] spi: dt-bindings: snps,dw-apb-ssi: Add Synaptics sl2610 spi
-Date: Thu,  8 Oct 2026 09:00:58 +0800
-Message-ID: <20261008010058.28382-1-jszhang@kernel.org>
-X-Mailer: git-send-email 2.51.0
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="GjEvN/MT"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=lj9GNbQKxCNlcoY/Wjpq3ci3xOdaubfTFoBdZ3Vpwoo=; b=GjEvN/MT1d9masEoDrFLRE5lRL
+	v3hlQ9Oe3iUF1NzpSchU21P3JKWDZI2udV4082w5RdHrlqcC/hiZKHLgdhXkcWrHH+vuAwXykGGjk
+	XqUOWE5bwG/bxUZl+w7MziHlPJpHSj1ug/7OGLoKTDvO32380uSWc7HBADyjWEEdQGno=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xEcps-009XZf-0n; Thu, 08 Oct 2026 03:22:16 +0200
+Date: Thu, 8 Oct 2026 03:22:16 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+Cc: linusw@kernel.org, alsi@bang-olufsen.dk, olteanv@gmail.com,
+	kuba@kernel.org, davem@davemloft.net, edumazet@google.com,
+	pabeni@redhat.com, linux@armlinux.org.uk, luizluca@gmail.com,
+	maxime.chevallier@bootlin.com, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next 4/8] net: dsa: realtek: rtl8365mb: set RGMII
+ mode for family D
+Message-ID: <eec36c89-b6fd-405d-a951-aec0677b149d@lunn.ch>
+References: <84fc7483-b22d-45ea-a3b8-3285dc357265@yahoo.com>
+ <dd78e00b-c161-4915-a917-3b5694139621@yahoo.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <dd78e00b-c161-4915-a917-3b5694139621@yahoo.com>
 
-Add the compatible for the Synaptics SL2610 SoC SPI controllers, which
-are compatible with the Synopsys DesignWare APB SSI.
+> +#define RTL8365MB_D_REG_EXT_TXC_DLY				0x13f9
+> +#define   RTL8365MB_D_EXT1_RGMII_TX_DLY_MASK			GENMASK(5, 3)
 
-Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
----
+The current code looks at tx-internal-delay-ps and
+rx-internal-delay-ps and programs some other registers. It is not
+clear to me that the code you are adding here is correct when combined
+with the current code. Please could you look at the delay
+configuration.
 
-since v2:
- - rebase on the latest spi for-next
- - collect Acked-by tag
-
-since v1:
- - use sl2610 instead of sl261x
- - send as a separate patch
-
- Documentation/devicetree/bindings/spi/snps,dw-apb-ssi.yaml | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/Documentation/devicetree/bindings/spi/snps,dw-apb-ssi.yaml b/Documentation/devicetree/bindings/spi/snps,dw-apb-ssi.yaml
-index e8d6d5d858b6..41ec69f5dceb 100644
---- a/Documentation/devicetree/bindings/spi/snps,dw-apb-ssi.yaml
-+++ b/Documentation/devicetree/bindings/spi/snps,dw-apb-ssi.yaml
-@@ -77,6 +77,7 @@ properties:
-               - mscc,ocelot-spi
-               - mscc,jaguar2-spi
-               - sophgo,sg2042-spi
-+              - syna,sl2610-spi
-               - thead,th1520-spi
-               - ultrarisc,dp1000-spi
-           - const: snps,dw-apb-ssi
--- 
-2.53.0
-
+    Andrew
