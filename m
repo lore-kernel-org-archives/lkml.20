@@ -1,280 +1,198 @@
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011024.outbound.protection.outlook.com [40.107.74.24])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40CBD2F5495
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 04:28:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791433682; cv=none; b=YdhWGzOgSCzkwKCNEd9UAdXUInIHHJtECAS+ec9mJ3L/XHmf6GlB+Vybm4LKJdsXu42RXzVkGhnrHfBJ+OxIl8yU6R6CRYaslujLP4OVLtnlsSa9vdKv1UKGKi0KPyG6KhP+BzjBmyXubdObIwjgcQqleG2WsWD+YR+YB7WxX/Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791433682; c=relaxed/simple;
-	bh=8yxs7YfzqvRVtKhBlK7Og0qPenjCv6X/6aJgf1antmU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=QYCBO4pUq14dHztUjl/RoLj/cKjWiFZzSQx8oYQCkSZDH9iKMPfehc9FYa9+gBT0kI/lEVWmY3prbzlE2KdXqSrtsb4mqGDXmb6I4NwooqtX4OQN4WQ3DVpnkfbZJRYquEq4abDCBhZYWDU+4fipgyxb6nIvftFBgspvBUk6q9I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o0pPywgs; arc=none smtp.client-ip=209.85.215.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A662547065
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 04:30:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.24
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791433858; cv=fail; b=j19/5e0x4n+BXO/ok7hq95uGLtJfI6HELHslMbvkvENqZEtpPFzjIYejKIblUcB0GX48xqNtkCGoT1GIGuVtiESdjYJEI9up6AiKYaSlAaMEKfc3eS/eoNb/90LoS8O46NrhgUPSkIpw07EYhnrFvwHzrnYPRHzREgMCbVJiqMI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791433858; c=relaxed/simple;
+	bh=J6sUZA0/ItM/mV5yvWrtmFR3eQDuez5CEPHey34GTyk=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=F8LXWYdgoZZjWwr+YRcI5SzjziZVsQtS8uAhrtI9OJDJZlDbKcFxz2tqJR+EYCoi1EA64+GPUkauv8zqtsKV4VDKa0o2zjYeZS3aoe/HPlg1P/U9SCbsmYePw0dDXMbzc6ypwM4Pl1laoMzHSjNa/I1JwpIVRuLjFOtwZjjaDW0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com; spf=pass smtp.mailfrom=fujitsu.com; dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b=PRL+KSAo; arc=fail smtp.client-ip=40.107.74.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o0pPywgs"
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cc50ad2d650so1547657a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 21:28:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791433679; x=1792038479; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AZ778jZsa/l446uvpFqFZ0Ls/7AJyjZNff1uctiZNtk=;
-        b=o0pPywgsOKUmeXzknQXH7kuIJh/IZK5y1/Fxhobje8t2HC0YhxpNfgGTh2aCpVvaEM
-         7mLXrnY4STfMPTsEJn88GzIXsiyTO65NLA0TC3NRzxARTA0ewUuujiYNHVRr+vfATBte
-         6CdOmHgzikifc7IkFY5iBu2wfVDRkodZYj/4GCuJJlwusl8ScliR42B8CizGaNKWIWbq
-         L1K353qqHI5yGBcG/J/HVLHnlPtEpk+Letf9Ks/Fa/a4QmRpzpxjimipmlKUctHVJEds
-         +9giLFYP5LCbhHdRZfEp4a56JJ6eQF49Z38/zB9Mtco8GeBfmrCVUPZM91gU1SMmtzUb
-         0C/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791433680; x=1792038480;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=AZ778jZsa/l446uvpFqFZ0Ls/7AJyjZNff1uctiZNtk=;
-        b=thdyTgAOkxj0l5L2xs102SmfaJEMmSJ0288gBCWXZrjZt6IisaVMj6SJKUEhdqoaLW
-         qIUU4baI/ORWVC8W0trKP9Rk044bZireqPZWbAS8QRCvjxQKmJUpCcxu8BpL2DPglqF4
-         glA4ilqDmwil3fT154FFOmq/vZcaH51ltvyCDQ1T7U0pLVwClw9H65iFzRbA5eQC4ka5
-         00wARI4sMg3Ssic18nhiX8ywDjwQEy7bPjt/bejFgpwPAM2HhEnVqeV78F84ubIjPVbq
-         9dEmcD9yGDKP6+0NFDO3Hp8CjopH/Hw7neAb8HLk+3YyUc7zKb84Ss+7sNHsau09GzKY
-         Wukg==
-X-Forwarded-Encrypted: i=1; AKwUvBzo8xoVAqFSEZjz2zK24IyU09vcItvM+Xoz4930cridpTh8HoCQ4D51jz/ujDNLvE24Zy9m5vaGCf/ZRfc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLWuc5A0s11cH9fxhabEB7PKJ/F7Wf9zrsC9dITwM0o6cKZEK7r
-	sld5Ar1r8HWbFXCsV+e9z/2v9BybTmmzV+VMWLZIsHuKuhLa+/CJCFZF
-X-Gm-Gg: AYBFou1eI0dOb1XJZ4oO5oqsBIbxeYXvPLygwgm/Dk75IMJLNjhmeNgU1sjR1sXSY1S
-	RpxH2I+J0hK/wBg7wKCVYnezVCf2XsWadBTgrI/XjT23StP+f2gD2CzyHYrxI+zQMpBMJKXR8Tk
-	x8TWTSdPh3s85AKDqtkQhsMpNnlHJeJTWn5+2zChRCerRJIF144dAeWjnUJnYV9lrz4PkeJ25e3
-	FVo2E5+En1u4sczhV4NLlMaAZm6Lm0TkeHUvtJ9AV6S37EfSvKOrpJNWC6hj4UXlJo11g+02ugx
-	J9xY3s2mqz646ZzoPOfTCz9MFKFvkKl/g/Tlv7EtWjJjDAzP+LmWrdXrHYFLMD8r2RIt11ijFT2
-	umqRDy4+Z134Up42a+ChZODbm1H1u8SNmDzoZOmZsRrZVp1FlQ6F1hyqd8HFfxfu6ukMmylHc6r
-	LCZgAsf3dDypB0S2UHvClFY9rZXAseqQtaBUTaHjC6tisIqwAkTpAqTwGIycGuGnlneg==
-X-Received: by 2002:a17:90b:1e48:b0:3a2:aec0:6bc2 with SMTP id 98e67ed59e1d1-3a8a11974b2mr4050881a91.53.1791433679554;
-        Wed, 07 Oct 2026 21:27:59 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3aa0cbea8d3sm2319217a91.16.2026.10.07.21.27.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 21:27:59 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: marcel@holtmann.org,
-	luiz.dentz@gmail.com
-Cc: linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH] Bluetooth: 6LoWPAN: Serialize multicast sends with peer removal
-Date: Thu,  8 Oct 2026 12:27:52 +0800
-Message-Id: <pm-bluetooth-objects-candidate-0001-v6-7494fb26092a1231b75b@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b="PRL+KSAo"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vR80hbC4wn37Ddf7HcTidwvzFw2YJ3qdMUBksfyTZhgtRu7oT49OA2tSidsb6d/wa3BSjAJ6QcPlwHMvVGSkGkIlKQs+8e7a+EI4b1T68S6ChNmQV9GFQHYYdpJ6hZpIi3FJrV0Rj2T9Mk7fTb2lIIsGTgD1GNrVz0bjnIiKy6iwsqATZhxyb9u9nvmFXDbgyU+TR0BQ7naOUgxe2Py0LFgNynCzN229Y6K580JvwSBbmb+473QU6FUHM8j2yhSLIGlKdjNApRDndX5lC6BRRu4ePBY48ZP5xs4tvL/ae02q8ABQPktqeUvZNKdPtcxK5IgWcVGDbOY1tDfS9++vWQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=L1x1tT2C7dcnUZxqDXtNetbkh7Q/xV6PiDmYcoW5QKg=;
+ b=v78ALcFoiMXHzodb4rH4aFSDEQVNyHVH5zMEMBl/E0EuaciuLjGCQWaj/V1yXtnQk9JfgeL9/OpYDAR+lCWlJDF3pQ5C5Ak5A2rfakpAnUcggG5IBqEoOR9ApmmEamqcuFV2jJeYt6DZ7q20PsoHCCasHfVyKLxR+C/Ybm26M7JpwU+p0Wv3kMuh7QU8BThQZU9YoAuHa9Nl8Dx3v76XqGnwNzAlVCcSz/bYMI/rr3k5AzQ4/VEI6/yQ2yLMMZ91VhgsC3vT+/o8vF7bMMddSc5hInP0usso14ap1jtLA23BNnm2fXZ4ayPXq8hsKMsYLSYhUYpbWHciwok1OGv2nQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=fujitsu.com; dmarc=pass action=none header.from=fujitsu.com;
+ dkim=pass header.d=fujitsu.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=L1x1tT2C7dcnUZxqDXtNetbkh7Q/xV6PiDmYcoW5QKg=;
+ b=PRL+KSAonOK5a2o6A9arGgUBBko5+mdUQxYsBCurnV62fPsZiGJjPsVBBGUrUAR0idbhoqPgBKgAhkfRyEv5uyyfJkNw3UZNr7b+4d9FiApIUdu4fHM29flJYxKF29S+SyCn206iCE+r1MstHk6CNZQUwpGD8roIwtyTZxKdC9Go6UhSpp76Fx7nn5fhFXeVFUhno9JIErwWTfcDTiYxXOOhT2SWMBTH0TdNEwPhV69pHh386xHxHmqA8orIq2jPk2RjFbVLKKZhvx2IuhzGSB251ynj91d+ABcj2CLn00Hfthj3rItbxeYNFfsMbjA2m8qSoh9HqdbFEcQwVUMWKA==
+Received: from TY4PR01MB16930.jpnprd01.prod.outlook.com
+ (2603:1096:405:338::19) by TYYPR01MB13098.jpnprd01.prod.outlook.com
+ (2603:1096:405:1c3::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Thu, 8 Oct
+ 2026 04:30:54 +0000
+Received: from TY4PR01MB16930.jpnprd01.prod.outlook.com
+ ([fe80::38bc:7870:6f23:a957]) by TY4PR01MB16930.jpnprd01.prod.outlook.com
+ ([fe80::38bc:7870:6f23:a957%4]) with mapi id 15.21.0496.015; Thu, 8 Oct 2026
+ 04:30:54 +0000
+From: "Shaopeng Tan (Fujitsu)" <tan.shaopeng@fujitsu.com>
+To: "James Morse <james.morse@arm.com>" <james.morse@arm.com>, Zeng Heng
+	<zengheng4@huawei.com>, "ben.horgan@arm.com" <ben.horgan@arm.com>,
+	"Dave.Martin@arm.com" <Dave.Martin@arm.com>, "reinette.chatre@intel.com"
+	<reinette.chatre@intel.com>, "fenghuay@nvidia.com" <fenghuay@nvidia.com>,
+	"tglx@kernel.org" <tglx@kernel.org>, "will@kernel.org" <will@kernel.org>,
+	"hpa@zytor.com" <hpa@zytor.com>, "bp@alien8.de" <bp@alien8.de>,
+	"babu.moger@amd.com" <babu.moger@amd.com>, "dave.hansen@linux.intel.com"
+	<dave.hansen@linux.intel.com>, "mingo@redhat.com" <mingo@redhat.com>,
+	"tony.luck@intel.com" <tony.luck@intel.com>, "gshan@redhat.com"
+	<gshan@redhat.com>, "catalin.marinas@arm.com" <catalin.marinas@arm.com>
+CC: "linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "x86@kernel.org" <x86@kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"wangkefeng.wang@huawei.com" <wangkefeng.wang@huawei.com>
+Subject: Re: Re: [PATCH v8 next 04/10] arm_mpam: Refactor rmid to
+ reqPARTID/PMG mapping
+Thread-Topic: Re: [PATCH v8 next 04/10] arm_mpam: Refactor rmid to
+ reqPARTID/PMG mapping
+Thread-Index: AQHc1rtLDSUJd3RIZkOjfouw4AqEwLYN2rSAgObFTnQ=
+Date: Thu, 8 Oct 2026 04:30:54 +0000
+Message-ID:
+ <TY4PR01MB169308CED201FDC318438FAAE8B932@TY4PR01MB16930.jpnprd01.prod.outlook.com>
+References: <2944b506-a462-42f8-95cf-404241fb27f0@arm.com>
+In-Reply-To: <2944b506-a462-42f8-95cf-404241fb27f0@arm.com>
+Accept-Language: ja-JP, en-US
+Content-Language: ja-JP
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+ MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_Enabled=True;MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_SiteId=a19f121d-81e1-4858-a9d8-736e267fd4c7;MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_SetDate=2026-10-08T04:30:52.478Z;MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_Name=FUJITSU-RESTRICTED;MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_ContentBits=1;MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_Method=Standard;
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=fujitsu.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY4PR01MB16930:EE_|TYYPR01MB13098:EE_
+x-ms-office365-filtering-correlation-id: dfd0e023-de01-4176-4dd2-08df24f4f0ef
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|10067099003|56012099006|11063799006|1580799027|22082099003|18002099003|38070700021|921020;
+x-microsoft-antispam-message-info:
+ YoLDFlK/PmXWHrz6npgImF5DiDNYKsZXHPsMRGRPQR4xs8M+eQXIpl8zAnKe70haAxLoR3qF3XVbRmpBNvYkxLmMbSag812yLjNn0D+vuA3dB+0XuD/c12LVfgFLv8HkjqUuU//Kxb0/eTIJKk7lXOtn/TlSSKWbsjd7lkUis5QlvFRwSVVevHHzpz87MwyFjfIkVD04YJJd78hVUe9cYJZ30YK1AXd+7bHoyp6g4fXpPDugx/kVanxnNF9V/K0IMucPuNmL1KI+IMZ1jZxnVIBWvmZ0osoyHmGmolS1t2xtcFfK/le3G7dnLZHggziZgazczzI6mBM0dqWVNkBjA4+ehP1Q/vqXPe7UlMcxYhkPPPZZsYT24QTPLkTVRzGI1FaSp/PtO15/OhaoBM5+2D21JdiAl0l5l+xi9u3hJpk5mQSrN0Gms/z5726nlEYD0zGPrc4TocClaKcfiXEhaeUusYJ0i3+KRZb6fwzhOXGAsx8HubZzPaC0gtEmC9+Um2uncNFurNVfDmDSfCodwj2cC3x+Nd46hGnjrK9mVOwaRU2CUFC0LCLeg1+qY41UisRNEjtqJMqOEVt0sXwzy3J56Xzal7ym6hZeOBz5TkBLKomezYeimYPcoWsZ7nIQsI0PZxMR1k4+h9yTSpuTgC63nJX7aLgfYG6sXT6bKeqsIHHxWRrNXG3cL021aVnSvG54Md5mhPCDgyQwiDY/coAVHQhzknF4sk0V50uGaFBOZosIZSdj14hD+6n8gcnmdRcBYgc+xLzWctIjooq7Zw==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:ja;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY4PR01MB16930.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(10067099003)(56012099006)(11063799006)(1580799027)(22082099003)(18002099003)(38070700021)(921020);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-2022-jp?B?UUdITlU0M211dzdqdXJrR0JpTmdUdTBRcFJUZkx0S211WHVVb0ZyeWpL?=
+ =?iso-2022-jp?B?RHFSN1ZMUlk4MHI5Z1JmaWZNRWJ5akRhZHFlRjdWNTlwL1JzUGlyMFow?=
+ =?iso-2022-jp?B?ejlabWdZMTJNOVdNYmViSHg2VG8xV1lEV1dUK1JPN3hrczh3MHBFWnBZ?=
+ =?iso-2022-jp?B?djN0T3I0NXdNNzNGekptTkhCN3I0NlpSUURkdElTUWg0Wi9BaWhxWFJV?=
+ =?iso-2022-jp?B?bHdyd21OemZveExBcFRiTVIwTlZJL2lqRW1RM05rWExkbSswY3hQMEJB?=
+ =?iso-2022-jp?B?ZWpqazJEZGNmQ2k0T0MyUEpGZDNJcnhnTHM2aVVhNXoyN3BQdTVRdDRF?=
+ =?iso-2022-jp?B?YXRHbVBvekE4OEttWXRXRDNyeXphZVR1bXRlM3EvM0ZKMUc5U05BS0Q4?=
+ =?iso-2022-jp?B?ZGlIUDBSOVlyR1pPQStxT3ZDbXdXcVpnY25mYzl4OU9hV0FuY29ESXZV?=
+ =?iso-2022-jp?B?Tk1sYmpqMVg3NTIyeFZiaFhESUk3K21SMXluTDgvcVhpQzNHUUZnYXhL?=
+ =?iso-2022-jp?B?TG5vcit4YTA4VVV6RWl5M1pqYVJKQTA4SW0zaGVkamNqNlM1ZE9Wem5L?=
+ =?iso-2022-jp?B?Sy83MWorWWRCcHRHZTJ5emlnK0NscnY5RDBLRUUzZ3BuOFh3ckduaHJ3?=
+ =?iso-2022-jp?B?Ryt4U2JYaFFrR3BaZ21sb0d1MytwOURacWJqM0txdXoyWXdoMEhBNE5W?=
+ =?iso-2022-jp?B?Ui9Vb1ljaktibGYrZnRRb0ZLUjdLaHlXSUVLcWNidXFGbW9Qc2VYb0Nl?=
+ =?iso-2022-jp?B?dDFVRjBucjFHRUJZSlFRUnFYMWNyanZ4UXl4WVY3UklqY1g2M1Q5ZHhw?=
+ =?iso-2022-jp?B?WnlLWXR5dDZoMytmQWRxMFNzbmhUUFl1UVJqWmxoZllFdmhjQmNic2FT?=
+ =?iso-2022-jp?B?SE5ZYURVaFZUQmQ3TWtVRGdrMVd2MTl4SXRRem4zNENkRHIrZ2hTaHA0?=
+ =?iso-2022-jp?B?YXdKVndVWFNtRE4zUWJlcnVmOUFzVEs4V1ptZnEzMjE0WDNQMEdhMnZu?=
+ =?iso-2022-jp?B?elRTL2tBb3NYL2NkaDdqSnRrMS9PaVBDOVU3M2VCYlFDRENzZkpXTENr?=
+ =?iso-2022-jp?B?aVlxV0JzNEVUQUp0MDRERnY5QXBGZm9zOFVHWnRXck1QREExUHhiS2Q1?=
+ =?iso-2022-jp?B?Vlh0M2EvWXZJN0R1SnJIdE1OTHdEVzBJaVgwc3Vjenk5OFl0eVphcnlx?=
+ =?iso-2022-jp?B?RGZmazV6VXkwRHFpN25OTFJHNFVxYis1WVBOdDh0M0l0eGVrWVVaTnV6?=
+ =?iso-2022-jp?B?eEJkTGVmK04wdG9MbnhCU2hXOStuUGdQcndHS0lTb2c3SGhEU25kVXNX?=
+ =?iso-2022-jp?B?N0NMcHVKaGo5TXFhelNLUndVeU0yL1gxQlVYOFB5ZnNqSGpISUQvZzBG?=
+ =?iso-2022-jp?B?MTlLT3JjZ3NxKzl6V1hNZlVRSDliTnYzSmdTZ1lST0luU3RoWjBzc2N3?=
+ =?iso-2022-jp?B?K3BSbjRnUVZvcVp6eFZUYkM3bFJmVG1qU1pJdDRHZ1d5OWZmSkVHWkp5?=
+ =?iso-2022-jp?B?cDFPbFo2bG93VE9VUG5YOUJFUEJIUktFQnRSakNEbVRYK1NaTnN5S3Ar?=
+ =?iso-2022-jp?B?ZExpSkRVL0hkTFNnVFB2cCtPcjR5THhhREhpUFVTd01NZUUza25mTDZs?=
+ =?iso-2022-jp?B?dGNLa1VSZUszM0Ewb256RnJqV3QyckVpQkxpSWpONk5Sa2VoK01rak1E?=
+ =?iso-2022-jp?B?Y2ZES250MzBVN0J3SFU2MXY3MFRIVEtka2FsOUhCeCtFRjhQSEFwTVB2?=
+ =?iso-2022-jp?B?cVBaWkhUVkV6cjI3Sm15VDN3UGNrYzA3ZE5qcm5rVStWOTZhMExQeGh3?=
+ =?iso-2022-jp?B?RVUrQVd2Q3VxOFhFK3pxdkNvVWJZaWxWUU8zak9uMGlCVnhXeFdyNHlY?=
+ =?iso-2022-jp?B?d3prSmkvaHhtcEc2bjdBUFk3MWh0bkdHdXhIN0FaTkE5OE5tVUtsZ0Ju?=
+ =?iso-2022-jp?B?eVNwK2YvU1N0RmFhRHN1bGE4RTAxVk5IdlFoWHhDZ09QaFRLMDRhdVJv?=
+ =?iso-2022-jp?B?elcyd29hNzh3S3U2ZkxlVVB5a2lCU0VHL3lKVmhUM0RvVVNkbmhUeVdQ?=
+ =?iso-2022-jp?B?VXFoenN4UXhQWU5hY2R3Vm5DSjE3NXRwbEV3QVZyVnpMWEgzczJNUXBD?=
+ =?iso-2022-jp?B?RHBNczJiRFpuYU14SjN4M09hTlIzVU1NcUlCbFhqL1haM2NLelUvWkRX?=
+ =?iso-2022-jp?B?NmdmTEdFZWZwTHhWQUE2dWZrVDcrb1ZyRGU1NXVtYVl0cmVHNWJNZGFN?=
+ =?iso-2022-jp?B?aVpNOXlOeEFZWFZzZS91a1NVdzY1VDNNaERCSXV3Szl6T2JKa3FMZWdl?=
+ =?iso-2022-jp?B?dEZFTXFoTTZJYXlIZTFFTktoTVdqSGh2U3NHODdoRkZjS1Z6TXM2Y3Qv?=
+ =?iso-2022-jp?B?Z0dyRmpGZVI5Nkk4Q0Y1Ym4yd09ITTVvV1NyQUYxT0duRGx5RSs1QW1X?=
+ =?iso-2022-jp?B?ZTdLSVMyNjdaRUNpSUpWM1lPTzRITXA4MTRKUmRQdEQzbHpVSTg4NEJx?=
+ =?iso-2022-jp?B?QkM5MDZkWVRud0NPQ3RlcTc4amVmOUFLa2JOdz09?=
+Content-Type: text/plain; charset="iso-2022-jp"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-Exchange-RoutingPolicyChecked:
+	wJZkrAZKm2KAe4RjKTUUQrmfCXjZqEi029cGgma+Z0mgXBApXlQIvqUq81/3qZQe1jKNtHtoUf63oOpQTM296GqExZa83qNbmZQhMIuRUNnx0Aw+Gp+jLg/ET3Oeq9uZT6ChPGsxAWeUOwd2LwJuUX8IdhVkvwLugW2NN0df3YDs6nJcCz4xBkufvf2TZO8MuCn23B6R580pQO82xR6uBNvCtJGXxXqZH2M6ZX7T4gAvtAi8BpsBNPAbAJLUUw8ZUi47RQe5LV9jExLxW6R6bzHKZAZxMBrY3/LqZVw5Fol0hyj9zof++aPC1c6aruM65b1WuxKDT0C2YQ/LqJbB7Q==
+X-OriginatorOrg: fujitsu.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY4PR01MB16930.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dfd0e023-de01-4176-4dd2-08df24f4f0ef
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Oct 2026 04:30:54.2693
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: a19f121d-81e1-4858-a9d8-736e267fd4c7
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: WG+fiFrxf31lI3ErcSx0w3jAexd1+pvTIzOcQHbFQRs6LBRT6q7DUaz+dBlTDt/McfVbjqSGS3ITaK3LvUvAadtMrgsjTqdj3e2VGd2uCTU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYPR01MB13098
 
-A peer's channel must remain alive until send_mcast_pkt() finishes using
-it. The multicast walk protects the lowpan_peer with RCU, but peer_del()
-defers only the peer allocation. On disconnect, l2cap_chan_del() drops
-the connection-list reference, chan_close_cb() removes the peer and drops
-the original channel reference, and l2cap_conn_del() drops its temporary
-reference. A ready channel can then be freed while multicast transmit
-still holds the peer, causing send_pkt() to write chan->data after free.
-Another peer can keep the interface up, so the last-peer shutdown does
-not drain this transmission.
-
-Hold devices_lock across the multicast walk and send_pkt() calls so that
-peer removal cannot release the channel reference until the send finishes.
-Use the bottom-half-safe variants for all devices_lock critical sections
-because transmit runs in softirq context. This prevents transmit from
-interrupting a process-context lock holder on the same CPU and deadlocking.
-The LE send path uses atomic allocations and does not acquire the channel
-or connection mutexes, preserving the existing lock order and teardown
-sequence.
-
-The reported access and release path were:
-
-        [Thu Oct  1 11:52:32 2026] BUG: KASAN: slab-use-after-free in
-    send_pkt+0x2c5/0x300
-        [Thu Oct  1 11:52:32 2026] Write of size 8 at addr ffff88810be0f4a0
-     by task python3/535
-    [...]
-    [Thu Oct  1 11:52:32 2026] Freed by task 502:
-    [...]
-    [Thu Oct  1 11:52:32 2026]  l2cap_chan_put+0x273/0x3a0
-    [Thu Oct  1 11:52:32 2026]  l2cap_conn_del+0x36d/0x770
-    [Thu Oct  1 11:52:32 2026]  l2cap_disconn_cfm+0x87/0xd0
-    [Thu Oct  1 11:52:32 2026]  hci_disconn_complete_evt+0x319/0xa30
-    [...]
-
-Fixes: 90305829635d ("Bluetooth: 6lowpan: Converting rwlocks to use RCU")
-Assisted-by: LLM
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
----
-diff --git a/net/bluetooth/6lowpan.c b/net/bluetooth/6lowpan.c
-index 836add41f5..8732132c47 100644
---- a/net/bluetooth/6lowpan.c
-+++ b/net/bluetooth/6lowpan.c
-@@ -471,6 +471,11 @@
- 	struct lowpan_btle_dev *entry;
- 	int err = 0;
- 
-+	/*
-+	 * Peer removal drops the channel reference, so RCU alone is not
-+	 * enough.
-+	 */
-+	spin_lock_bh(&devices_lock);
- 	rcu_read_lock();
- 
- 	list_for_each_entry_rcu(entry, &bt_6lowpan_devices, list) {
-@@ -502,6 +507,7 @@
- 	}
- 
- 	rcu_read_unlock();
-+	spin_unlock_bh(&devices_lock);
- 
- 	return err;
- }
-@@ -657,10 +663,10 @@
- 
- 	lowpan_iphc_uncompress_eui48_lladdr(&peer->peer_addr, peer->lladdr);
- 
--	spin_lock(&devices_lock);
-+	spin_lock_bh(&devices_lock);
- 	INIT_LIST_HEAD(&peer->list);
- 	peer_add(dev, peer);
--	spin_unlock(&devices_lock);
-+	spin_unlock_bh(&devices_lock);
- 
- 	/* Notifying peers about us needs to be done without locks held */
- 	if (new_netdev)
-@@ -695,17 +701,17 @@
- 	(*dev)->hdev = chan->conn->hcon->hdev;
- 	INIT_LIST_HEAD(&(*dev)->peers);
- 
--	spin_lock(&devices_lock);
-+	spin_lock_bh(&devices_lock);
- 	INIT_LIST_HEAD(&(*dev)->list);
- 	list_add_rcu(&(*dev)->list, &bt_6lowpan_devices);
--	spin_unlock(&devices_lock);
-+	spin_unlock_bh(&devices_lock);
- 
- 	err = lowpan_register_netdev(netdev, LOWPAN_LLTYPE_BTLE);
- 	if (err < 0) {
- 		BT_INFO("register_netdev failed %d", err);
--		spin_lock(&devices_lock);
-+		spin_lock_bh(&devices_lock);
- 		list_del_rcu(&(*dev)->list);
--		spin_unlock(&devices_lock);
-+		spin_unlock_bh(&devices_lock);
- 		free_netdev(netdev);
- 		goto out;
- 	}
-@@ -788,7 +794,7 @@
- 
- 	BT_DBG("chan %p conn %p", chan, chan->conn);
- 
--	spin_lock(&devices_lock);
-+	spin_lock_bh(&devices_lock);
- 
- 	list_for_each_entry_rcu(entry, &bt_6lowpan_devices, list) {
- 		dev = lowpan_btle_dev(entry->netdev);
-@@ -808,7 +814,7 @@
- 	}
- 
- 	if (!err && last && dev && !atomic_read(&dev->peer_count)) {
--		spin_unlock(&devices_lock);
-+		spin_unlock_bh(&devices_lock);
- 
- 		cancel_delayed_work_sync(&dev->notify_peers);
- 
-@@ -817,7 +823,7 @@
- 		INIT_WORK(&entry->delete_netdev, delete_netdev);
- 		schedule_work(&entry->delete_netdev);
- 	} else {
--		spin_unlock(&devices_lock);
-+		spin_unlock_bh(&devices_lock);
- 	}
- }
- 
-@@ -918,18 +924,18 @@
- 
- 	BT_DBG("conn %p dst type %u", conn, dst_type);
- 
--	spin_lock(&devices_lock);
-+	spin_lock_bh(&devices_lock);
- 
- 	peer = lookup_peer(conn);
- 	if (!peer) {
--		spin_unlock(&devices_lock);
-+		spin_unlock_bh(&devices_lock);
- 		return -ENOENT;
- 	}
- 
- 	chan = peer->chan;
- 	l2cap_chan_hold(chan);
- 
--	spin_unlock(&devices_lock);
-+	spin_unlock_bh(&devices_lock);
- 
- 	BT_DBG("peer %p chan %p", peer, chan);
- 
-@@ -1053,7 +1059,7 @@
- 
- 		nchans = 0;
- 
--		spin_lock(&devices_lock);
-+		spin_lock_bh(&devices_lock);
- 
- 		list_for_each_entry_rcu(entry, &bt_6lowpan_devices, list) {
- 			list_for_each_entry_rcu(peer, &entry->peers, list) {
-@@ -1070,7 +1076,7 @@
- 		}
- 
- done:
--		spin_unlock(&devices_lock);
-+		spin_unlock_bh(&devices_lock);
- 
- 		for (i = 0; i < nchans; ++i) {
- 			l2cap_chan_close_unlocked(chans[i], ENOENT);
-@@ -1195,7 +1201,7 @@
- 	struct lowpan_btle_dev *entry;
- 	struct lowpan_peer *peer;
- 
--	spin_lock(&devices_lock);
-+	spin_lock_bh(&devices_lock);
- 
- 	list_for_each_entry(entry, &bt_6lowpan_devices, list) {
- 		list_for_each_entry(peer, &entry->peers, list)
-@@ -1203,7 +1209,7 @@
- 				   &peer->chan->dst, peer->chan->dst_type);
- 	}
- 
--	spin_unlock(&devices_lock);
-+	spin_unlock_bh(&devices_lock);
- 
- 	return 0;
- }
-@@ -1269,7 +1275,7 @@
- 
- 	switch (event) {
- 	case NETDEV_UNREGISTER:
--		spin_lock(&devices_lock);
-+		spin_lock_bh(&devices_lock);
- 		list_for_each_entry(entry, &bt_6lowpan_devices, list) {
- 			if (entry->netdev == netdev) {
- 				BT_DBG("Unregistered netdev %s %p",
-@@ -1278,7 +1284,7 @@
- 				break;
- 			}
- 		}
--		spin_unlock(&devices_lock);
-+		spin_unlock_bh(&devices_lock);
- 		break;
- 	}
- 
+Hello Zeng,=0A=
+=0A=
+> The reason of using base_partid as MPARTID_lo is to keep base_partid=0A=
+> contiguous and CLOSIDs are allocated contiguously. This does mean=0A=
+> MPARTIDs under the same CPARTID won't be contiguous, but that's=0A=
+> inherently difficult to guarantee with dynamic allocation anyway.=0A=
+> =0A=
+> =0A=
+> The control path uses CLOSID alone (CPARTID), and the monitor path uses=
+=0A=
+> RMID alone (the (MPARTID, PMG) pair). This definition also aligns=0A=
+> closely with the native resctrl concepts: CLOSID (Class of Service ID,=0A=
+> corresponding to CPARTID) and RMID (Resource Monitor ID, corresponding=0A=
+> to the (MPARTID, PMG) pair).=0A=
+> =0A=
+> =0A=
+> In the end, the number of control groups is determined by the number of=
+=0A=
+> CPARTIDs. Both of these ID translation schemes support multiple control=
+=0A=
+> groups.=0A=
+> =0A=
+> Could you please help outline the pros and cons of each approach?=0A=
+> This will determine which direction I take for subsequent iterations.=0A=
+=0A=
+I think the fundamental difference between these two approaches =0A=
+lies in whether the  allocation is static or dynamic. =0A=
+I proposed a similar idea to James and Dave about two years ago.=0A=
+I agree that your proposal for dynamic allocation is excellent=0A=
+in terms of flexibility and resource utilization.=0A=
+=0A=
+However, dynamically assigning MPARTID_hi and MPARTID_lo upon =0A=
+the creation or deletion of a control/monitoring group would likely =0A=
+require extensive modifications to the resctrl core code.=0A=
+In particular, with the integration of PARTID Narrowing occurring =0A=
+alongside major changes to the resctrl interface, =0A=
+there is a risk that these modifications might interfere with=0A=
+each other and lead to complications.=0A=
+=0A=
+To ensure a smooth and timely merge, would it be better to proceed=0A=
+in stages - first implementing static allocation and then =0A=
+transitioning to dynamic allocation afterward? =0A=
+What do you think?=0A=
+=0A=
+Best regards,=0A=
+Shaopeng TAN =
