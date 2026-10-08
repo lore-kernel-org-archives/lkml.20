@@ -1,73 +1,73 @@
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 932A74DDB2A
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 15:13:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2C5A4DDB48
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 15:13:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791472392; cv=none; b=NTqTeb86rBxEzUDJZXpIiUPthtfRN8qd9gjaLc+1by3mpZXBC7bTFhWRCDSS8Xe60KbUzcNCLwz/c7onP6UeczqcmTwccWBqL/HAYfeFc3erWxqvlH4Vp20Y5eXEpAvejHoRiOmTJV0lvUSz6uUIx0sv+wh/QhP86mAZresRobU=
+	t=1791472394; cv=none; b=Gvw+Ltyn01OTi9gYB5GD1zVpSJeKapDvklr5GJunCFJLx4gtt8MV/RceqfEvYFmaEDDwb/3HVHilC5m2gMEYk1AuRKze6r8eF/AE9jOE6MGZoj8de+R0mOprbknsuPGqmMv3aH5q264M2/YbSoDHysHwMqwm5GdCqj42pBSMLQc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791472392; c=relaxed/simple;
-	bh=9eTqsgxOGqcdU6me9AD6/Cn9lxReRKHCBxZ7dqQbKD8=;
+	s=arc-20240116; t=1791472394; c=relaxed/simple;
+	bh=XK1oYlYECHEwBL7QCAkCIQPSESe0kV06DpwVskF/JVU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mXmTenc9kd0fxHanmkHP5+pY3qcRoIBiILRSvTxWdWSAKpHHhCZHIdh+SFbUDeGBCAHBLHYjt07XSD8nIbOCY0yjlUxhq0CL0OlyhQDWY5HrwAPSIEuG5Z/UJhBqPwK6MNQydLDpTO5Z4t042LIXMI3ECkAnbbG0p4B0D9gF6e8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rTQu/pTO; arc=none smtp.client-ip=74.125.82.169
+	 MIME-Version; b=Oi1zHvMltnEhdpV0rS/qpYmVhPf1H9HgzFOrTI4l/RCxG/MkzvTQO0JyYHcl28O/iFZHV53cYbV39IgWej/70a6FRDTSpcv+OhUGnibU3yJopAIL7RxJAEeK+hICugVi8OibL4bLc44hJNQAyAjb6BqUzkuuYficEtdIhmNK7uc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c/2k9wMY; arc=none smtp.client-ip=74.125.82.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rTQu/pTO"
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-35179d0747fso59028eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 08:13:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c/2k9wMY"
+Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-150b2fbd784so56058c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 08:13:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791472382; x=1792077182; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791472385; x=1792077185; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=rgntWyKZ0htXISM21JY9zVA6whoi61UfYRw0k8Qzz7w=;
-        b=rTQu/pTOuFKah0vcE33b6BKd7nhcGbVCKpI02b4wAzWbhUixG91CvO9S8xTKGl2z96
-         EpfIPOvhFoNHnrM1pphE4HQuNCaLTYY1bCmb9IvpQlvkQAHtptzjENZFTZ6P1RVhmSk7
-         3qlAq/HH80cbiwo2vqs5asv70B1D1GZgtjsiHJZ4trGjb15o5SGAn/3CCGdXJyx6P6rn
-         1D+e9raqimsa4z76Odeut6TSNSbBUfIMdbouQm675V723pMEYDuWi1MqNi23QWPy3iW5
-         iUCfAOu7uaZC85CJIKmw3TJ4tuKeoELWxuX2oPni5M/uFw/4Rvyiy49SUrzPQ73bngqu
-         Opuw==
+        bh=gjpjkwPYKzGVosbZ1v1zTZF30K7B38BpoSgAGU1cdHg=;
+        b=c/2k9wMYqXb7ONnuLoUFlI6uujG1MMT4GdhftCLUhSWOUUDlERVzsplpeMgAzS6hac
+         9apiFRrbh04lzcS0XIQiy/2cBshURRTCH48EeK2Vpr/uuKXDeUCgweG7btZ18AEP9j8o
+         HVHiCs2Fp63mOtS+EYUvFKXWULYnRep6FH+8RjpCWT6MBWCp7boNL34EhiHdtcZIi5vE
+         vEELD+QtWJ6tjAwQ1nPYf6HVVfbmi0OWlc6FaIRMl9P8+ro6H7oZn5Jmi+1tNEqwD5Tw
+         OvdWEjGA4q7elKKTiJa+2ja+6C1F10vMuQjt95rfOtoNjv0YBoktWLcHmHJ5vNnaOjzc
+         xIkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791472382; x=1792077182;
+        d=1e100.net; s=20260707; t=1791472385; x=1792077185;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rgntWyKZ0htXISM21JY9zVA6whoi61UfYRw0k8Qzz7w=;
-        b=zfRWepHLwM5GrrXCFTbuFUWX6gm8JEG4F8xRJjp4EUjmUSrafg6+C90DVrZdhgnHyw
-         qye9SZndS+qtSeSG7gzv1gk99bklHNxaINXXjTh6If9H8eAMCVsuzg18fhTUkxze9WWt
-         Y0qWEvxhSc1fj/62z5iSKte91iV6U/V2RGIeHz3yf4fBOud/M9zaCRtwr+v+GbeoU3+Y
-         an2WZMRrtFy59Uukb2DQOVLlQdBeqohwPMQctB8aOrsYi6Y8K0WdbrLOrt3gUN0swmRA
-         nDosSDYRBXahIwEC7jx6vxExPeI873J0jeBotDiH5zktee5eZx9Y6NiFHOKRAkt015M3
-         GXGA==
-X-Forwarded-Encrypted: i=1; AKwUvBxjAHKkVa54SE7hbgzkz4+iAZp1zd0lLSGsd0J2T7KpZKjuj8Bx9fX90QxxJhdIqU46DqPKtUW4L/lMhQo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLbtNrOz06gj5irOx+1zK+PCvjRMsMSBRgr2Gp8ztZEFZTXkmqn
-	sSLonsqWRCJUkJ6LYFCxpc7lYjAic0BcYsRoPF5qKVhQQH30kUxxvLYhgwD6ORztRSw=
-X-Gm-Gg: AYBFou2GUIMjliinigNIMSz5/pUtZcJgS64hXWwRYQAJyrq0NMA8Z8hS7bmIOrkb6RT
-	tvikhqmuSPB61TQqBICKzs58CNuExMMmQ/a/IfujZ4wo9lCdP0gauQxOT8DnwUG181GcygJqwdT
-	D35wb8y93AxP3rpBPjpu2yuFbecmsZMRVoa/S7y9K5xzRpT/tl//O67GMdWTEeeNX4aHBbXHkc7
-	4wB16gf20YG6ODIGFy6xfAro0ea49ph3TNbJg41t3vI2zqx1+VHlfpS5mOf3K9tfhf0WtsSYHME
-	/rMqkd7jfboj9IsH97VmE3SKVzKz3m3bkMEssjou0G7e7DEZJ3Ph0UPt8987FP0pVjS7hIo5gQ4
-	uNRxwbgzzpOD6IZZGlZ5x3CofhsI+OHDI9Lp573flpbQslhi/Q3ABi2bDmafJDIm2wTVbziUviK
-	rsQHNJn6Japz4jcfr+P2NiFZhJgvuWaaUWLjX2Chlp1mwFw/XKhXIrVWCV4eDptVycdvf5BB+DE
-	Wmu0ZpOboF7LXvwUzqIRY1G0ZUfqZChS8zYE1slPw==
-X-Received: by 2002:a05:693c:630c:b0:351:d38e:6c0a with SMTP id 5a478bee46e88-351d38e6d5cmr3298564eec.0.1791472381895;
-        Thu, 08 Oct 2026 08:13:01 -0700 (PDT)
+        bh=gjpjkwPYKzGVosbZ1v1zTZF30K7B38BpoSgAGU1cdHg=;
+        b=tmRq3MBn//jmtVFQpBzdy+Za/ypRL6hITxPkPcDeyr3OyF6Rvd8T8SBkrbw42BGPLE
+         ib+0iVL3Nn+xNi25cg1RENEWp6nUfy6q2tuRgBaSBNpvYazyxNggi8exp/3acP+I3O2c
+         DwI+wVfoJ0Pz7vjxBTTBmuMeVnd2dJGzgDxYwBx5cbUQnMagLLVbWIDnyS9pI1Z9x2y2
+         EhCIZdI3hGPSXxK8J997YBQFwuVxz17jWmXVFCjj5yAZoWbgPzDsIE7Q+EzpvdUwhNUw
+         AGYXEZ6Ot4WQqz05pIG/FKznkYsTfmkrOP32QaE59anRvA12Sjfyq2Sj2p+tLVP7VanH
+         IklQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzHDHhd1O2t3P+f3q697omh46vgqHUQiG+j+omA8tOo0civ3vDs/TOoAGzsjmJA3mrlgzZKeAR4DaYfgXw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYITQCtTjSDB7b0Zdp8F2XjGCjxBLfLQs9FKZFH409Tc3eo3+Gjz
+	P8iN5GWnVeWQBaGrWEHdtlxyTcbDM72FoR7Snd37F+Qi4feIH5wKb5eK
+X-Gm-Gg: AYBFou3XpUeKrmlhLdew+PNQJd3IXU44Aw/eQAqOsrVKXF3oSL63Btx/Z7NqdssVRf8
+	QWLiJKKaqpLtoNdW/QudshoN7CU/Md+7/ixW60ui7ZoLELVf7cnzMn/g/zC1rwj2HguGapW9M9P
+	hqPK1msHcpYQMWGgxtXdpHnCf9cKyZ5cpDIql4zYBl38qg+Q2bGWr10EE1KRGI3ko8YhYl+Qq8d
+	KPTyYWrxbCYW6YlW6PbaGDGgOWyJvPVIwZd5i1Jqjuh0qFrRrShdvxF8zXofcdQHPAn9Ec9aNB0
+	EtW91TeWjL33TJyk2txUvz2HzZLccdRAXiqQX3ESMkAF/BTlmADwn3nFF23s2GYwDOaa2LTT6k8
+	8mDhUJ3NZ5a09khsArJSggxWq/+Jk8z9ni6Y3qPjo+jjbLreq8stfpLm5EZ8Q+e63p4keeEDAfW
+	7AuB87lKLJzghbVaATj4czdIggr7oz1rJxu0JHSTjKbu1PrlW9jwobLNmPHqbmPKTfzTnbpWwF7
+	VBVAEkVmwKmk8KC8K8J8I6Ll8bY87B9zzs6OR3n
+X-Received: by 2002:a05:693c:4199:10b0:34b:47b2:677e with SMTP id 5a478bee46e88-351755e1cd9mr6229724eec.1.1791472384302;
+        Thu, 08 Oct 2026 08:13:04 -0700 (PDT)
 Received: from hitalo (190-33-161-131.in-addr.arpa.host.souuni.com. [131.161.33.190])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3515afd00e0sm18052389eec.23.2026.10.08.08.12.59
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3515afd00e0sm18052389eec.23.2026.10.08.08.13.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 08:13:01 -0700 (PDT)
+        Thu, 08 Oct 2026 08:13:03 -0700 (PDT)
 From: Hitalo Souza <enghitalo@gmail.com>
 To: linux-bluetooth@vger.kernel.org
 Cc: marcel@holtmann.org,
 	luiz.dentz@gmail.com,
 	linux-kernel@vger.kernel.org,
 	Hitalo Souza <enghitalo@gmail.com>
-Subject: [PATCH v2 5/6] Bluetooth: hci_event: Disconnect an ACL link that completes after its abort
-Date: Thu,  8 Oct 2026 11:12:37 -0400
-Message-ID: <20261008151238.2138665-6-enghitalo@gmail.com>
+Subject: [PATCH v2 6/6] Bluetooth: hci_event: Notify the driver only of SCO links that came up
+Date: Thu,  8 Oct 2026 11:12:38 -0400
+Message-ID: <20261008151238.2138665-7-enghitalo@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261008151238.2138665-1-enghitalo@gmail.com>
 References: <20261008151238.2138665-1-enghitalo@gmail.com>
@@ -79,48 +79,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Since commit a13f316e90fd ("Bluetooth: hci_conn: Consolidate code for
-aborting connections"), aborting an ACL connection in BT_CONNECT sends
-Create Connection Cancel and deletes the connection. For an incoming
-connection that was accepted, e.g. one that MGMT_OP_DISCONNECT aborts
-before it completes, the cancel fails at once as the device was never
-paged, and the Connection Complete that follows finds no connection and
-is ignored. The link then stays up in the controller with nothing to
-disconnect it. The same happens with controllers older than 1.2, where
-no cancel is sent at all.
+hci_sync_conn_complete_evt() notifies the driver of the air mode of a
+synchronous connection whether or not its link came up, while
+hci_conn_complete_evt() only does it for a link that did. A connection
+whose link failed, or that refused the handle as it is being aborted,
+is deleted right after, which notifies HCI_NOTIFY_DISABLE_SCO. btusb
+picks the alternate setting of its isochronous interface from the latest
+of these notifications whenever the number of SCO connections changes,
+and HCI_NOTIFY_DISABLE_SCO selects no air mode: with another SCO
+connection still up, the interface ends up at alternate setting 0, which
+stops the audio of the connection that is up.
 
-Disconnect an ACL link that completes with no connection to take it,
-unless an accept list entry makes it an auto-connection, which is
-handled as before.
+Only notify the driver when the link came up.
 
-Fixes: a13f316e90fd ("Bluetooth: hci_conn: Consolidate code for aborting connections")
+Fixes: 1f8330ea1692 ("Bluetooth: add support to notify using SCO air mode")
 Assisted-by: LLM
 Signed-off-by: Hitalo Souza <enghitalo@gmail.com>
 ---
- net/bluetooth/hci_event.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ net/bluetooth/hci_event.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
 diff --git a/net/bluetooth/hci_event.c b/net/bluetooth/hci_event.c
-index 8f22a4528..b1c107457 100644
+index b1c107457..781d7124c 100644
 --- a/net/bluetooth/hci_event.c
 +++ b/net/bluetooth/hci_event.c
-@@ -3301,8 +3301,15 @@ static void hci_conn_complete_evt(struct hci_dev *hdev, void *data,
- 				goto unlock;
- 			}
- 		} else {
--			if (ev->link_type != SCO_LINK)
-+			if (ev->link_type != SCO_LINK) {
-+				/* No connection takes this link, e.g. an
-+				 * incoming one aborted after it was accepted
-+				 */
-+				hci_disconnect_unused(hdev,
-+						      __le16_to_cpu(ev->handle),
-+						      HCI_ERROR_REMOTE_USER_TERM);
- 				goto unlock;
-+			}
+@@ -5317,10 +5317,11 @@ static void hci_sync_conn_complete_evt(struct hci_dev *hdev, void *data,
+ 	}
  
- 			conn = hci_conn_hash_lookup_ba(hdev, ESCO_LINK,
- 						       &ev->bdaddr);
+ 	bt_dev_dbg(hdev, "SCO connected with air mode: %02x", ev->air_mode);
+-	/* Notify only in case of SCO over HCI transport data path which
+-	 * is zero and non-zero value shall be non-HCI transport data path
++	/* Notify only of a link that came up, and only in case of SCO over
++	 * HCI transport data path which is zero and non-zero value shall be
++	 * non-HCI transport data path
+ 	 */
+-	if (conn->codec.data_path == 0 && hdev->notify) {
++	if (!status && conn->codec.data_path == 0 && hdev->notify) {
+ 		switch (ev->air_mode) {
+ 		case 0x02:
+ 			hdev->notify(hdev, HCI_NOTIFY_ENABLE_SCO_CVSD);
 -- 
 2.55.0
 
