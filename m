@@ -1,112 +1,114 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 381F52ECD3A
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 14:12:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED96149F107;
+	Thu,  8 Oct 2026 14:12:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791468748; cv=none; b=O5y7KyhPgZJ6BumP29Buqq+QXlbubL4z200Lh4VHXfeUDGqAu2M6k6vuVDsL1ZUgtM/uqsbuNPx0QIokNBJt47FcB9T7uV2JLaJVfyrKJki9paiKph9szS4Zjs8MPAIY1lR14oUkzzXSrPxsbePRUjnj43Y/0xtp/uukbCH7Q54=
+	t=1791468771; cv=none; b=O6/ObKRsWMCFvzEukv2DT1tloAHArEj+ysnLARO9bLCbbUqhMxEhvODGnrlXu+oXl5HosA3QtrXR407yYpp79oV3LatCrB1pPzpfPal95kk9UywMRgWhzmK9s1DS+8ITDvsg7NdVsoI+l7HZeH8S9gMEuHm5TPFShZqI1Eb4W/Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791468748; c=relaxed/simple;
-	bh=7wkyy2yD82sNGCCk9GhwGN9YlxLXNUi2Q97VaIvfv0Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iOZRjXKyEjusSd6U61HdWBQl41JrQcKfSfEclfIIHHQ8R0Spy5gfLgxPMaS9jN3LMQCxtzDpmDiP5N8Lf/FtZENc/JIOhn4e4HWyq6YzD5izwZmOMqyiUlzCVheJdokJn197632msvz+KUAliPJKl6oLEeq76UBACyT8EErTje4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k9JrYA/b; arc=none smtp.client-ip=209.85.221.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791468771; c=relaxed/simple;
+	bh=l2+Dw2sl5OPeSblngQFwY5OyEBVB0Z8ra9CpUyTrnOo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=H+clkfXMjBGgmLkEcPdpbKdjkbskup/+rG8q9AWM/V2cOaVh12M5e5kNPuogh3qp61BUNI4uTigYNx/92eIWV8YXwJo/ckx/6WLPvt+07oUhTfC6cDSPYrvxSf2Bjtn4u1t6XGgyJ/FEA7kTNE2DDWML32fsoXGSgrTHzJRTu1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bWoE9FP0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k9JrYA/b"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48870973bddso539449f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 07:12:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791468745; x=1792073545; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pkucfHp2dQjWmjG5BzeIOm/V3naD65FK94W1wx43iBg=;
-        b=k9JrYA/blZOIltF5SAL7ZhHTDsl+C5KHqAA/kOk2SBUcYBhLRp5aIh7Ptp6LbxZ3tc
-         PcHTXNvsnj5nI0vHrHK287YiSeph7BTY0oSH5jWEKpov+Xe5E2126i6G8gvb3Z/PxF3n
-         sM/z74nAtv9jQu237X7TmhkWMVMeTPCg+IkWTUOhbTM9G44v9Yt0snpdQ4yHF8Ok1//7
-         4HPJ/iW5PkuquBdsr4jkMEa3MITPcSIfKMFeRIjnWNHjFhZVW9W1RweowzwL1ltMbw93
-         HMf/zD9jOfkJgVtLjB+/I3lxIP5rRdHY2wIa+45fzwc2HZfbGI7KAy5bfqI6KoOuANw0
-         82AA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791468745; x=1792073545;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pkucfHp2dQjWmjG5BzeIOm/V3naD65FK94W1wx43iBg=;
-        b=zScHDHxmMWdS6YYa+wwfed52MJn0yQsvcJf9hYTXVdxsVmvGuZR0rxwLcdnmFOCgTd
-         YgwWBz8X4DWGQ8lojmVFvRM3JmpxPMOFmWbA7n7bkDGMWsd3vEvuM7Z25SV4q+NITDd5
-         kWIWMt5vxmngtMptMl5C8bqQTrHpME3aOZe+TMlmnTN03A64C+VM6/ViTTEm/0pEEShP
-         lBhTGfYJp+ZK1Q8ZDJKr2oI3hLjL2bEa8KhDJIU/ib2oFmeSJWiZetcFrIxmH3gGPkQx
-         kikmTp7G1V6f5cXCFzV32jrcAIPHWNdiR+LKHKbePdGrgTwW9EeMkFT9xKi9uwqT1+I/
-         eVfw==
-X-Forwarded-Encrypted: i=1; AKwUvBxRCIP32yiffUqfitnZRbfX2rvpSr9uDDaErjhgplY6c1bMu5nEdGyLN3VpDR+jM9YxGPCGZAypSj0XyKM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI9FllhqCAprVMa9Xi8Dsc399wvM1LyJXw6aVPrK3YTvGact7rw
-	Jl7idvVT5TEh0a94Avn1jrdcgSVXHEfBTi6iHV3YKTrMO+2H9CKJMNeZ
-X-Gm-Gg: AYBFou2LuJBCEWJlE3f72YwFFEvO2TiJyOnWDWx85329e/yJT5iigJ8ARtVYotJnPb8
-	Q7PM/iWT1mqFfsEcg0BbdqokuxWNBwQBOrziSi0S84aNWlQeWi8OGVA/7I4iIkjK9hnsausCtpI
-	TEFDXeLqKh9nnuZKx1lY6l9RtkQPzmVp85Peg+yisFhbEV3PcbrsP7TuLTa/GpWBYL0tvA+i5k/
-	01oAcHG5NzMVuqRnD0hhFlCHXPCJGgPEHh2phBZExunrcJ3BUgrWZjYb89FtHJNa25Luy7rCOcu
-	vWMsjSM5QbMn/mmYBAEHx7RYtvMvUQ3EW8KvnvWitYguRUK+6KYR71mf3aB2NDlsnAu4WTqYqNp
-	+8fvM8vsP5+RuT3TG1cK4UIx8Uc5k2xvnMo1wV9ZER/HxZoGmQAOedg1v13gf8bqubF1LAzdGmb
-	VKD/UVBm2rfpcyEaXS0MPjRQ8TV+FWh4uagZhDVBKy6eZpEBwBk+hAn6FB64FukklJ5YFfVvFbV
-	4g7rqIQmAdUldxgFFKZkVDsiscUgnShW8fvRl8c574608bMPtVovK+1SoE9q4LJm+VXYln1IZBD
-	hwuDYk4iZU7ATrg=
-X-Received: by 2002:a5d:64ee:0:b0:48c:47fc:df31 with SMTP id ffacd0b85a97d-48c7f0e9f94mr5528408f8f.7.1791468744882;
-        Thu, 08 Oct 2026 07:12:24 -0700 (PDT)
-Received: from SD.localdomain (heme-13-b2-v4wan-167795-cust403.vm32.cable.virginm.net. [81.108.45.148])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71d04c0fsm11395902f8f.10.2026.10.08.07.12.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 07:12:23 -0700 (PDT)
-From: Prathamesh Deshpande <prathameshdeshpande7@gmail.com>
-To: Leon Romanovsky <leon@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Prathamesh Deshpande <prathameshdeshpande7@gmail.com>,
-	Doug Ledford <dledford@redhat.com>,
-	Haggai Eran <haggaie@mellanox.com>,
-	linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH rdma] RDMA/mlx5: Cancel software CQ notifications before teardown
-Date: Thu,  8 Oct 2026 15:12:02 +0100
-Message-ID: <20261008141209.6923-1-prathameshdeshpande7@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bWoE9FP0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0723B1F00898;
+	Thu,  8 Oct 2026 14:12:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791468769;
+	bh=l2+Dw2sl5OPeSblngQFwY5OyEBVB0Z8ra9CpUyTrnOo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bWoE9FP0wQV5OmBAi0qERMdgFHVZF6+BMd1JtPaH3LfzPH7DHx+jug8rzZMePt6Bo
+	 8oWlSPigSVelqXtNLkl7FQS+Qnnr4U6A5o4mSdEdXrYQKO1RUnTFjlvghrDb+kHEld
+	 EvZFNSkry6zzvz61wZpbqg9gfUvMKMY0SqMRvrjd88vCANKWkmIDquJAS7dqNLTETS
+	 Q59psaqqxlaWzPVLvclAh5/RlI8m7hR6lpKf1TjI4KhqccH4w19Q5CUYNeRqU9NMy0
+	 MSeiyzgbpRuAEkcJYg1W4bnHS8FKV2aaGafaRv/5QuRqzQrScqNwyGBB2zEhbrVAF0
+	 HtYKJZyi0sgRQ==
+Date: Thu, 8 Oct 2026 15:12:43 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Brian Masney <bmasney@redhat.com>
+Cc: Junhui Liu <junhui.liu@pigmoral.tech>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Yixun Lan <dlan@kernel.org>, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org
+Subject: Re: [PATCH v2 2/2] riscv: dts: anlogic: drop unused DR1V90 external
+ clocks
+Message-ID: <20261008-c59c47fb901176a0137497d9@squawk>
+References: <20261003-dr1v90-cru-dt-fix-v2-0-6e7d96612ac0@pigmoral.tech>
+ <20261003-dr1v90-cru-dt-fix-v2-2-6e7d96612ac0@pigmoral.tech>
+ <20261002-crimson-unwrapped-b067e86de38c@spud>
+ <ar_wmUWEXgIzq1XM@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="PORdzqZiVWL//Jy/"
+Content-Disposition: inline
+In-Reply-To: <ar_wmUWEXgIzq1XM@redhat.com>
 
-GSI completions queue notify_work to invoke the CQ completion handler.
-CQ destruction drains hardware events and core polling, but does not
-cancel this software notifier. Queued or running work can therefore
-access a freed CQ, or restart polling after ib_free_cq() has drained it.
+--PORdzqZiVWL//Jy/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Cancel notify_work in the pre-destroy callback, before core polling is
-stopped and CQ memory is released. Skip user CQs, which do not initialize
-this work item.
+On Fri, Oct 02, 2026 at 01:57:45PM -0400, Brian Masney wrote:
+> On Fri, Oct 02, 2026 at 05:33:24PM +0100, Conor Dooley wrote:
+> > On Sat, Oct 03, 2026 at 12:28:40AM +0800, Junhui Liu wrote:
+> > > The external CAN and watchdog clock inputs are not routed on the MLKP=
+AI
+> > > FS01, the only board currently supported. Drop the two fixed-clock
+> > > placeholders from the common dtsi, as fixed clocks require a valid
+> > > clock-frequency property.
+> > >=20
+> > > Both clock muxes select their internal parent clocks after reset, so
+> > > the CRU operates correctly without the external inputs. Keep only the
+> > > required oscillator input to the CRU.
+> > >=20
+> > > A board using these external clocks should define them in its own
+> > > board-level dts and override the clocks and clock-names properties of
+> > > the CRU node.
+> > >=20
+> > > Reported-by: Yixun Lan <dlan@kernel.org>
+> > > Fixes: 7849521aaac2 ("riscv: dts: anlogic: add clocks and CRU for DR1=
+V90")
+> > > Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+> > > Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> > > Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
+> >=20
+> > Per the v1, Brian said he would rebase the clock tree, so I'll just
+> > squash this into the original patch I think.
+>=20
+> It's already rebased, and dropped from the clk-next history.
 
-Fixes: 25361e02c448 ("IB/mlx5: Generate completions in software")
-Signed-off-by: Prathamesh Deshpande <prathameshdeshpande7@gmail.com>
----
- drivers/infiniband/hw/mlx5/cq.c | 3 +++
- 1 file changed, 3 insertions(+)
+ Cool. Note to self: 7,5 material, cos I don't have the headers to do
+ anything with "riscv: dts: anlogic: add clocks and CRU for DR1V90"
 
-diff --git a/drivers/infiniband/hw/mlx5/cq.c b/drivers/infiniband/hw/mlx5/cq.c
-index 49b4bf148a4a..1653b2747f5f 100644
---- a/drivers/infiniband/hw/mlx5/cq.c
-+++ b/drivers/infiniband/hw/mlx5/cq.c
-@@ -1117,6 +1117,9 @@ int mlx5_ib_pre_destroy_cq(struct ib_cq *cq)
- 	struct mlx5_ib_dev *dev = to_mdev(cq->device);
- 	struct mlx5_ib_cq *mcq = to_mcq(cq);
- 
-+	if (!cq->uobject)
-+		cancel_work_sync(&mcq->notify_work);
-+
- 	return mlx5_core_destroy_cq(dev->mdev, &mcq->mcq);
- }
- 
--- 
-2.43.0
+ Cheers,
+ Conor.
 
+
+--PORdzqZiVWL//Jy/
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCasekzAAKCRB4tDGHoIJi
+0jgcAQCV80DNHnZs3oA4mbKQsMOiguSK3pNNz515ouRmtabi8QD9Epi9eNek5bZS
+tPAWl8KmezP6TImZIhyLE2yhXcBEIQM=
+=Bhh6
+-----END PGP SIGNATURE-----
+
+--PORdzqZiVWL//Jy/--
