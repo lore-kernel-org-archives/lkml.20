@@ -1,74 +1,46 @@
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF5EA3D8116
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 07:19:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 729C83D9DA1;
+	Thu,  8 Oct 2026 07:19:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791443949; cv=none; b=Nm2jPZfSr29SkBIjD7giJLGXEDyWIrjwCZyoqNbDGg3aYDpAD+GwOtcXyFnhf8R3UyjpdQhXWgQ1rHPv4irUCzzWQ/zlQwktbDgVxa3ku50kHcZMHPvke2h77mY/Pe1BrQnqIUkZKamlBoU5msPH0v3ETRXPz5SpsoFf3V/XTYM=
+	t=1791443952; cv=none; b=D4qFA+Sdphhpz74MNI/TQJvxYW30+dv+7cQRNFZueoTXmI9IxdPV4ui3rCvLer1Sq5vGi5+UwlmtDHK6JQ9nBYMEu29Zuo2FpW4+cd+Lb/op53bS7ViPu1gV6IeFaC+pUMEQ2TztAmuYzrti1EaGM+WLFtJjVktKNwN0x0sxQ0I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791443949; c=relaxed/simple;
-	bh=OXckmZoORfCfsw1UPiKwxm+X1mTqVlMFf6dIPLsq7Xc=;
+	s=arc-20240116; t=1791443952; c=relaxed/simple;
+	bh=pu/nrqsqtDMgA6JK/zAlz7mCgAyzCUzFFBH8rJHi5lI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Byf6KsYOA6MPHHIWBWiX5V7AZczKWqDKnPbQ+9T4BES2eZXLYXhmmHt833Y7nDPx26bYIK5ui2wmUxT1VRtPtYYGlsXzjsriPDbBNXQqbQgpxI8s8NcPpljAd90/aAaOABRnJse5ednwM9ekDrjgynvJxMwU23rSDjgB95z0Z8M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b=shalKE8x; dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b=shalKE8x; arc=none smtp.client-ip=195.135.223.131
+	 MIME-Version; b=Rr2uprPRT1DUln6w697UBcmDqZxVvCxDXZBhD/JArju9p32HtZ48ND9B8hPxro9CH9k4xY78jX679ToG5wqg9u7Q6RSKlKGj1LBIYzYBZa/VTKiwBRWi7/0DS8QHaWJjufBxqQFMJeGrXDyAoRMeyq/V9Ic7g/s7QB1dQ8yWwvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; arc=none smtp.client-ip=195.135.223.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="shalKE8x";
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="shalKE8x"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id C1F561F798;
-	Thu,  8 Oct 2026 07:19:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1791443942; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KEZF3yzq2dSvKZ0QOIEjn84/joS2N0z8mHCENm5CI9Q=;
-	b=shalKE8xhn8Ji4UUC4lR0nXJOMjl0y+JW+iqOKbErcFJEoT091Uq3MI7QGTRQ1Woa9104k
-	c5nYekkMXoAPk9UgBUlVUSEQwgPIV1HKMeAOO3Su5ZZz0QSlIcy7bVuZeIPenCx9a7Tpmo
-	DFcBkhlKEvrkFRwmlP6y2QP1wLRuVFo=
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 4FF481F786;
+	Thu,  8 Oct 2026 07:19:08 +0000 (UTC)
 Authentication-Results: smtp-out2.suse.de;
 	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1791443942; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KEZF3yzq2dSvKZ0QOIEjn84/joS2N0z8mHCENm5CI9Q=;
-	b=shalKE8xhn8Ji4UUC4lR0nXJOMjl0y+JW+iqOKbErcFJEoT091Uq3MI7QGTRQ1Woa9104k
-	c5nYekkMXoAPk9UgBUlVUSEQwgPIV1HKMeAOO3Su5ZZz0QSlIcy7bVuZeIPenCx9a7Tpmo
-	DFcBkhlKEvrkFRwmlP6y2QP1wLRuVFo=
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2F78913354;
-	Thu,  8 Oct 2026 07:19:02 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 03D5113354;
+	Thu,  8 Oct 2026 07:19:07 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id qb3SMuVDx2pVcQAAD6G6ig
-	(envelope-from <jgross@suse.com>); Thu, 08 Oct 2026 07:19:02 +0000
+	id k583MutDx2pxcQAAD6G6ig
+	(envelope-from <jgross@suse.com>); Thu, 08 Oct 2026 07:19:07 +0000
 From: Juergen Gross <jgross@suse.com>
 To: linux-kernel@vger.kernel.org,
-	x86@kernel.org,
-	virtualization@lists.linux.dev
+	linux-ide@vger.kernel.org
 Cc: Juergen Gross <jgross@suse.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Ajay Kaher <ajay.kaher@broadcom.com>,
-	Alexey Makhalov <alexey.makhalov@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-Subject: [PATCH v4 03/13] x86/msr: Remove rdmsr_safe()
-Date: Thu,  8 Oct 2026 09:18:29 +0200
-Message-ID: <20261008071839.2247074-4-jgross@suse.com>
+	Damien Le Moal <dlemoal@kernel.org>,
+	Niklas Cassel <cassel@kernel.org>
+Subject: [PATCH v4 04/13] drivers/ata: Stop using 32-bit MSR interfaces
+Date: Thu,  8 Oct 2026 09:18:30 +0200
+Message-ID: <20261008071839.2247074-5-jgross@suse.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261008071839.2247074-1-jgross@suse.com>
 References: <20261008071839.2247074-1-jgross@suse.com>
@@ -79,81 +51,151 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Spam-Score: -6.80
+X-Rspamd-Pre-Result: action=no action;
+	module=replies;
+	Message is reply to one we originated
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 4FF481F786
 X-Spam-Level: 
+X-Rspamd-Pre-Result: action=no action;
+	module=replies;
+	Message is reply to one we originated
+X-Rspamd-Action: no action
+X-Spam-Score: -4.00
 X-Spam-Flag: NO
-X-Spamd-Result: default: False [-6.80 / 50.00];
-	REPLY(-4.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_COUNT_TWO(0.00)[2];
-	MIME_TRACE(0.00)[0:+];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	TO_DN_SOME(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	R_RATELIMIT(0.00)[to_ip_from(RLfdszjqhz8kzzb9uwpzdm8png)];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email];
-	RCVD_TLS_ALL(0.00)[]
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[]
 
-rdmsr_safe() has no users left. Delete it.
+The 32-bit MSR interfaces rdmsr() and wrmsr() are planned to be
+removed. Use the related 64-bit variants instead.
+
+In drivers/ata/pata_cs5536.c don't redefine rdmsr() and wrmsr() as
+empty macros for avoiding misuse, but guard the affected code via
+a simple #ifdef.
+
+Switch pio_cmd_timings[] to a u32 type array in order to avoid a cast
+to u32 when constructing final MSR values.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
+Acked-by: Niklas Cassel <cassel@kernel.org>
 ---
- arch/x86/include/asm/msr.h      | 10 ----------
- arch/x86/include/asm/paravirt.h | 10 ----------
- 2 files changed, 20 deletions(-)
+V2:
+- avoid sign extension when using wrmsrq() (Sashiko bot)
+V3:
+- use a u32 array for pio_cmd_timings (David Laight)
+---
+ drivers/ata/pata_cs5535.c | 24 ++++++++++++------------
+ drivers/ata/pata_cs5536.c | 17 ++++++++---------
+ 2 files changed, 20 insertions(+), 21 deletions(-)
 
-diff --git a/arch/x86/include/asm/msr.h b/arch/x86/include/asm/msr.h
-index 6fb7125608c7..776a2daa2ba2 100644
---- a/arch/x86/include/asm/msr.h
-+++ b/arch/x86/include/asm/msr.h
-@@ -205,16 +205,6 @@ static inline int wrmsrq_safe(u32 msr, u64 val)
- 	return native_write_msr_safe(msr, val);
+diff --git a/drivers/ata/pata_cs5535.c b/drivers/ata/pata_cs5535.c
+index d793fc441b46..512f9728224f 100644
+--- a/drivers/ata/pata_cs5535.c
++++ b/drivers/ata/pata_cs5535.c
+@@ -87,10 +87,10 @@ static void cs5535_set_piomode(struct ata_port *ap, struct ata_device *adev)
+ 	static const u16 pio_timings[5] = {
+ 		0xF7F4, 0xF173, 0x8141, 0x5131, 0x1131
+ 	};
+-	static const u16 pio_cmd_timings[5] = {
+-		0xF7F4, 0x53F3, 0x13F1, 0x5131, 0x1131
++	static const u32 pio_cmd_timings[5] = {
++		0xF7F40000, 0x53F30000, 0x13F10000, 0x51310000, 0x11310000
+ 	};
+-	u32 reg, __maybe_unused dummy;
++	u32 reg;
+ 	struct ata_device *pair = ata_dev_pair(adev);
+ 
+ 	int mode = adev->pio_mode - XFER_PIO_0;
+@@ -102,16 +102,16 @@ static void cs5535_set_piomode(struct ata_port *ap, struct ata_device *adev)
+ 		cmdmode = min(mode, pairmode);
+ 		/* Write the other drive timing register if it changed */
+ 		if (cmdmode < pairmode)
+-			wrmsr(ATAC_CH0D0_PIO + 2 * pair->devno,
+-				pio_cmd_timings[cmdmode] << 16 | pio_timings[pairmode], 0);
++			wrmsrq(ATAC_CH0D0_PIO + 2 * pair->devno,
++			       pio_cmd_timings[cmdmode] | pio_timings[pairmode]);
+ 	}
+ 	/* Write the drive timing register */
+-	wrmsr(ATAC_CH0D0_PIO + 2 * adev->devno,
+-		pio_cmd_timings[cmdmode] << 16 | pio_timings[mode], 0);
++	wrmsrq(ATAC_CH0D0_PIO + 2 * adev->devno,
++	       pio_cmd_timings[cmdmode] | pio_timings[mode]);
+ 
+ 	/* Set the PIO "format 1" bit in the DMA timing register */
+-	rdmsr(ATAC_CH0D0_DMA + 2 * adev->devno, reg, dummy);
+-	wrmsr(ATAC_CH0D0_DMA + 2 * adev->devno, reg | 0x80000000UL, 0);
++	rdmsrq(ATAC_CH0D0_DMA + 2 * adev->devno, reg);
++	wrmsrq(ATAC_CH0D0_DMA + 2 * adev->devno, reg | 0x80000000UL);
  }
  
--/* rdmsr with exception handling */
--#define rdmsr_safe(msr, low, high)				\
--({								\
--	u64 __val;						\
--	int __err = native_read_msr_safe((msr), &__val);	\
--	(*low) = (u32)__val;					\
--	(*high) = (u32)(__val >> 32);				\
--	__err;							\
--})
--
- static inline int rdmsrq_safe(u32 msr, u64 *p)
- {
- 	return native_read_msr_safe(msr, p);
-diff --git a/arch/x86/include/asm/paravirt.h b/arch/x86/include/asm/paravirt.h
-index 0591aa38fd85..97b082095572 100644
---- a/arch/x86/include/asm/paravirt.h
-+++ b/arch/x86/include/asm/paravirt.h
-@@ -177,16 +177,6 @@ static inline int wrmsrq_safe(u32 msr, u64 val)
- 	return paravirt_write_msr_safe(msr, val);
+ /**
+@@ -129,16 +129,16 @@ static void cs5535_set_dmamode(struct ata_port *ap, struct ata_device *adev)
+ 	static const u32 mwdma_timings[3] = {
+ 		0x7F0FFFF3, 0x7F035352, 0x7F024241
+ 	};
+-	u32 reg, __maybe_unused dummy;
++	u32 reg;
+ 	int mode = adev->dma_mode;
+ 
+-	rdmsr(ATAC_CH0D0_DMA + 2 * adev->devno, reg, dummy);
++	rdmsrq(ATAC_CH0D0_DMA + 2 * adev->devno, reg);
+ 	reg &= 0x80000000UL;
+ 	if (mode >= XFER_UDMA_0)
+ 		reg |= udma_timings[mode - XFER_UDMA_0];
+ 	else
+ 		reg |= mwdma_timings[mode - XFER_MW_DMA_0];
+-	wrmsr(ATAC_CH0D0_DMA + 2 * adev->devno, reg, 0);
++	wrmsrq(ATAC_CH0D0_DMA + 2 * adev->devno, reg);
  }
  
--/* rdmsr with exception handling */
--#define rdmsr_safe(msr, a, b)				\
--({							\
--	u64 _l;						\
--	int _err = paravirt_read_msr_safe((msr), &_l);	\
--	(*a) = (u32)_l;					\
--	(*b) = (u32)(_l >> 32);				\
--	_err;						\
--})
--
- static __always_inline int rdmsrq_safe(u32 msr, u64 *p)
+ static const struct scsi_host_template cs5535_sht = {
+diff --git a/drivers/ata/pata_cs5536.c b/drivers/ata/pata_cs5536.c
+index 73e81e160c91..61d232a82b5e 100644
+--- a/drivers/ata/pata_cs5536.c
++++ b/drivers/ata/pata_cs5536.c
+@@ -32,11 +32,8 @@
+ static int use_msr;
+ module_param_named(msr, use_msr, int, 0644);
+ MODULE_PARM_DESC(msr, "Force using MSR to configure IDE function (Default: 0)");
++#define MAYBE_USE_MSR
+ #else
+-#undef rdmsr	/* avoid accidental MSR usage on, e.g. x86-64 */
+-#undef wrmsr
+-#define rdmsr(x, y, z) do { } while (0)
+-#define wrmsr(x, y, z) do { } while (0)
+ #define use_msr 0
+ #endif
+ 
+@@ -85,22 +82,24 @@ static const struct dmi_system_id udma_quirk_dmi_table[] = {
+ 
+ static int cs5536_read(struct pci_dev *pdev, int reg, u32 *val)
  {
- 	return paravirt_read_msr_safe(msr, p);
++#ifdef MAYBE_USE_MSR
+ 	if (unlikely(use_msr)) {
+-		u32 dummy __maybe_unused;
+-
+-		rdmsr(MSR_IDE_CFG + reg, *val, dummy);
++		rdmsrq(MSR_IDE_CFG + reg, *val);
+ 		return 0;
+ 	}
++#endif
+ 
+ 	return pci_read_config_dword(pdev, PCI_IDE_CFG + reg * 4, val);
+ }
+ 
+-static int cs5536_write(struct pci_dev *pdev, int reg, int val)
++static int cs5536_write(struct pci_dev *pdev, int reg, u32 val)
+ {
++#ifdef MAYBE_USE_MSR
+ 	if (unlikely(use_msr)) {
+-		wrmsr(MSR_IDE_CFG + reg, val, 0);
++		wrmsrq(MSR_IDE_CFG + reg, val);
+ 		return 0;
+ 	}
++#endif
+ 
+ 	return pci_write_config_dword(pdev, PCI_IDE_CFG + reg * 4, val);
+ }
 -- 
 2.55.0
 
