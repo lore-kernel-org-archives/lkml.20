@@ -1,196 +1,253 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3D7A296BC8;
-	Thu,  8 Oct 2026 23:16:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.20
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791501421; cv=fail; b=MSHcwqpIga2EiXlY3jECKtWpyWAlChRR7KTkMWDdX4pYWaKpANLd4Qn9oCq1e/rbj6VJy7ZLMIsOOSw3mwv1DOx644LfEjqqPsuL907VQdVgaVxDp9qyH4NLRAAykctW6L/p+o1wt6K0uibVjp1Wv3hKU/MqJiFSS099v8Rv0o4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791501421; c=relaxed/simple;
-	bh=KFMAiKpKKnGSUDhT0HDAulA97rwTV9pMWLkLrNLhsA0=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=SUbTWtkQKspavzAxhD0ZpQAfqDPI0zx4OJsVUKzuwVX9WFvzOygkwia4Q1zkmfPoYr6oEAZCFT/36i7VXRgnj3accyU8BkGQweeMcDL99T09pPqzhxzQDXTlR9d7VNwj/sF3QLylYYM8YLc5yOPcTgLjazzNDJEl0DgKxD0jzP4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gSpjTVtr; arc=fail smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 789F135AC00;
+	Thu,  8 Oct 2026 23:17:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791501467; cv=none; b=S3rwVJBu+Q9FnrK1VtLiTBWRFRz6iOr6z0DfR5ocGwDi3gTyhxQVUxltbaZczmSCK3IlHPjiXHOIRdiS8+VSkYuqSjzl0HSCbmsLGU9keja/zWlDrCd1L89kiSOxGXyHFR8uwRidXg7P2Vz4U+JiayHokvxUk1Ut8hFLHAg1Opc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791501467; c=relaxed/simple;
+	bh=UZzmpaebYk3m6FnMDIYJ8kPFleAPjeYkNTgC/dfxOKQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=CPNR9otp/UiTg7pfUej0H6/sf0wIWlICjB8gmGYn480LcZdOqV6QO1uZCvA7enonraWBuEDE709tL7kdbVTS683fGEzSPUqG5nsrhzI0OhzYqH5DZhbHBrLkcPbegKon4w0RI1WaFr6603DNA6FuZkpkrFmDlL9QjEWYg1CllMs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VYg+tCJw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gSpjTVtr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791501419; x=1823037419;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-id:content-transfer-encoding:
-   mime-version;
-  bh=KFMAiKpKKnGSUDhT0HDAulA97rwTV9pMWLkLrNLhsA0=;
-  b=gSpjTVtrwg+C6tazZ6pfzI+wGrwom9bAQL2b+JkwR/VZqcZMeIhTgIX3
-   GhmA9zikOw7NF+WNOc0GbQT9xsae5Sz+1CwL1ys+sK47q2hJ7vzWy5F8K
-   U6TGr0eLBjj95CuAqSm8M1Bp2GhHTmMNCvX/0AebnGk8ODYULRg98gtkE
-   cRcjYe8XaBVUvkE00/bj1jfEBk6H4EF4vQPQPE6Umb8muYVQyCMG8qC6v
-   imGsxgeQzeFHQzV9lNELCcQ0kbDTXtWlkJWWc0ERM0S1onKAcNjbXCrti
-   +rBq41oBmRMgGkrWmiSZXXz+UWTF/d1gDPwf+VEP41h5iZXZx5DHu62nh
-   A==;
-X-CSE-ConnectionGUID: 87ldTdpPSiasmHdv2vU8jA==
-X-CSE-MsgGUID: ilKorMIZQ1GU2zvwFEeATQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11929"; a="302091"
-X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
-   d="scan'208";a="302091"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 16:16:58 -0700
-X-CSE-ConnectionGUID: 63PlPOSDTVSd3zhUIoER+g==
-X-CSE-MsgGUID: qJT+LfIFRa6WzGZa0Ykiag==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
-   d="scan'208";a="619905"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by fmviesa010.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 16:16:58 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 8 Oct 2026 16:16:57 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Thu, 8 Oct 2026 16:16:57 -0700
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (40.93.195.37)
- by edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 8 Oct 2026 16:16:57 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=c1vjE1GU//YOvxw4XE/WI333KglSHLHpPk4h1eOeeb2vyGj0JnSf4oNvviDp3k2wd+w7idILgqBU+rU0Ba/HagzzCYfejv9dGmC03zwCc1TJ+PQCGHOfm3XGTlw9a9Jxh+qbxThHX0Drk9VbiWCbJiHm5AOQtkGhjYI/eTbnAekeb3zHfqHIHdEy8AGDHpQhWulajX1xcVyCR/qM/7/RcmzMroyBSCEsUuaeV6NLROoZUBrE/Q7TBE0++MyWRet+HdpH/LiZBDv819mhlDQPy206MiGWlYFHQ5ybfcshdtHUhRCZpMZfZvQRyY/pBwFETd65z8fjSiDs0wlVCVRDIg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KFMAiKpKKnGSUDhT0HDAulA97rwTV9pMWLkLrNLhsA0=;
- b=vrPwoMOIgW6kgyqBu1M2443SBrJ09Wb9i9dNXVDACUff5U0oFQh0/VMNjgbbLNo1N3q9mjgJwHryqleA6S/5vkxlqLA0cq5Dyr5e9UlVa/EkAO1HBRlqOyxND2Xf5Gaj9OTyQgyrfdMIryihxLhh1Mby51UGFbWcRU5KCIeYLhyJcsZGn9r5u0F5Z+MLD/HX+lZpmRgwDL9PwzikVgQAd3FQWEQK8GCyb52Vq+9ELf51AMf7s0I7GQZQBQKU2Wt2HQmCYDqEa8lYgKnS2qexsv1JiRRytGstt+SI3Sv3eSLlDjB1mzNf6YidmvIAAip4+xpkqqxYWkWgybSlrdl3yg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from PH7PR11MB6771.namprd11.prod.outlook.com (2603:10b6:510:1b5::20)
- by IA4PR11MB9277.namprd11.prod.outlook.com (2603:10b6:208:55d::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Thu, 8 Oct
- 2026 23:16:52 +0000
-Received: from PH7PR11MB6771.namprd11.prod.outlook.com
- ([fe80::effa:162e:c9c9:a1b4]) by PH7PR11MB6771.namprd11.prod.outlook.com
- ([fe80::effa:162e:c9c9:a1b4%4]) with mapi id 15.21.0496.015; Thu, 8 Oct 2026
- 23:16:50 +0000
-From: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-To: "pbonzini@redhat.com" <pbonzini@redhat.com>, "Hansen, Dave"
-	<dave.hansen@intel.com>, "seanjc@google.com" <seanjc@google.com>, "Zhao, Yan
- Y" <yan.y.zhao@intel.com>
-CC: "kvm@vger.kernel.org" <kvm@vger.kernel.org>, "Du, Fan" <fan.du@intel.com>,
-	"Li, Xiaoyao" <xiaoyao.li@intel.com>, "Huang, Kai" <kai.huang@intel.com>,
-	"thomas.lendacky@amd.com" <thomas.lendacky@amd.com>, "tabba@google.com"
-	<tabba@google.com>, "vbabka@suse.cz" <vbabka@suse.cz>, "david@kernel.org"
-	<david@kernel.org>, "kas@kernel.org" <kas@kernel.org>, "michael.roth@amd.com"
-	<michael.roth@amd.com>, "binbin.wu@linux.intel.com"
-	<binbin.wu@linux.intel.com>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "Peng, Chao P" <chao.p.peng@intel.com>,
-	"ackerleytng@google.com" <ackerleytng@google.com>, "nik.borisov@suse.com"
-	<nik.borisov@suse.com>, "francescolavra.fl@gmail.com"
-	<francescolavra.fl@gmail.com>, "sagis@google.com" <sagis@google.com>,
-	"Annapurve, Vishal" <vannapurve@google.com>, "Chen, Farrah"
-	<farrah.chen@intel.com>, "Gao, Chao" <chao.gao@intel.com>, "Miao, Jun"
-	<jun.miao@intel.com>, "jgross@suse.com" <jgross@suse.com>,
-	"pgonda@google.com" <pgonda@google.com>, "x86@kernel.org" <x86@kernel.org>
-Subject: Re: [PATCH v4 13/17] [GMEM-DEPENDENT] KVM: guest_memfd: Add helpers
- to get start/end gfns give gmem+slot+pgoff
-Thread-Topic: [PATCH v4 13/17] [GMEM-DEPENDENT] KVM: guest_memfd: Add helpers
- to get start/end gfns give gmem+slot+pgoff
-Thread-Index: AQHdTyl+xg5dkObMqUKl8ebDXvbQ17b0V94A
-Date: Thu, 8 Oct 2026 23:16:50 +0000
-Message-ID: <b718b69987a2eba353b8b160ca845f6ce7bc7b18.camel@intel.com>
-References: <20260928090729.15468-1-yan.y.zhao@intel.com>
-	 <20260928091144.15679-1-yan.y.zhao@intel.com>
-In-Reply-To: <20260928091144.15679-1-yan.y.zhao@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-user-agent: Evolution 3.44.4-0ubuntu2.1 
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR11MB6771:EE_|IA4PR11MB9277:EE_
-x-ms-office365-filtering-correlation-id: 6f8cdbc3-bcce-4ff3-5a49-08df25923bd3
-x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|7416014|376014|23010399003|366016|1800799024|56012099006|38070700021|4143699003|11063799006|10067099003|18002099003|22082099003;
-x-microsoft-antispam-message-info: EKIqbJNp7GSqOgiDvJ35Js/mR/Ad/SWbaWBUY5o1FfPB680XX5QInd2IVaVgI5Nad6pCE0C2XofehathFkNuHxy1mNv29y+TYCTfhbhlpsrz0Vt11ntD/w+QZOWFJ+ixyZInY0kr5a/45/lQEKmUHmIgEVqpvoSv3GScsQaJopMEM4bUXwj2cBap5rtAnv1Qgw0IJLtrGe1tGu3/LutjjoUeJpxX8haEGKMMmU/BxE64a48QVN03qSDaRdgLyNWMtAF3Hec4T670mgvkhXiHnYq/FQ8/Jcut+f9ck1uKQ0uanEOPkw+gCfZcy0IBnrJYNGB1S9iMWzHdOEYVGbIaeXJKR2LK73Qp60n0MNZeAXnBYkdiAso6XLNFuYSjVv424E8Y7nw+8FriEuBoGOm20Pna4dfjL4e/YjxX9rniJg5cQl8A826fOwT5xIk0Uk+AyFaSsvWB/kKun80gO+dElp0qnupREoJY/Vk8eUwpv/KwulJsvnjZpVb876W04B1suQQiPnrPnW4/u6IanrVAlZ8XtvbrEbqkt/MepuqpOVnIpFjNqbjlUJfy481mzn+bhZtHudLP/yzWftBBvEQcfTNCeFpJwgiokeF1SPQLuGSMnR5ITOB4fEoKXFKtX3xPaaz0q4kugT1S2VRzepxWsX2YeaoxyDarnoBicfTyOlCGBzmEhaDwxDENYMpGzhDNQDWY4Fj/wpircx2sEnNRGjCuqp8VmnIeF2pfFqzCyvc=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR11MB6771.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(366016)(1800799024)(56012099006)(38070700021)(4143699003)(11063799006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?bjNOVllPa3VuVW9KQk1RYjRnZ2l3T0Z2dkZkNWc4Rk1qbXlzcVlDYk01Y1p4?=
- =?utf-8?B?MElNUDBKeFZVWmlDajd4bjRpbEppZFhQRXVGRnlobE5GOGFPK21LZEtxZklt?=
- =?utf-8?B?Uy9jNUxuM3ZLMHhGSTAyVnQyRDRxMjk2WWI4WjM5VlhDeFVkZS96b1RKM1I5?=
- =?utf-8?B?SjVTempCWXFEQVBvN29IemIwTzJLSVFKVFR6c2ZTU0tYWUJMWlJqWERTMVY4?=
- =?utf-8?B?NGM1SXhxRUdTSTRITWdFOEVkR1hLeGNQMkFENkhEY2xSSlQ5QzdwdTRCcm9n?=
- =?utf-8?B?MVRQVEdlOUlON0k4eGtFcEdQR1M1SzZhekJZc1RtYXpoNGdlZ1N6TXF4cFov?=
- =?utf-8?B?NWtoM2ZrbVVYdkQ5cnI0alVRMlo0OWF3VUt3L0dKSysvNlYvNUtRY3JoWWtD?=
- =?utf-8?B?WGdtMDZHbGJ4RGNYMTRldzduVXdmV0lNN2ZxSkoyamwwaHhEekgxRGlObTkv?=
- =?utf-8?B?ayt3SXQ1ZmpvVWMwNiszMjV1c1QvV2lvTDB6dW8wdWs4cmQvY08xcWNoK3Z4?=
- =?utf-8?B?VzU3V1pCSHlYR09SQ2dZTjIyYzB6Y0NzYURKeEpXeHlseDlWb0xOd0JCa0tw?=
- =?utf-8?B?QjdDTFdNYklGOUp6SDByYktTQ0RacFpOa3dyMURmWUpZRk1BMU9DKytZZG5q?=
- =?utf-8?B?anRGUFNQYU1JNytxbmFYUnhrMmdPa1dZRmhRdk5SQU9hamcydHU5cHpEVkJo?=
- =?utf-8?B?Lyt4SXdYcjNTRXpNazIrRUtXckpxa2xLSTRRVzhYR3VjeTNNYTk3WVRXQVJ6?=
- =?utf-8?B?bloybXREL0VOcW55V25SWU90d0RIVlZlRzBrWmhYOGJxWHgvZzFkOTVNcTB4?=
- =?utf-8?B?QUJKOUw2LzErVGFTZWQzRzNLY2xpbi9jNnlvL01tS04wYnovdHpLZU5DeWpC?=
- =?utf-8?B?Nk5QbDhtbjE4QmE4cGdkelYzc01xeXNFQ0E5SDUrdCtBVnkxQWZGSXdOZ2tL?=
- =?utf-8?B?ZGhGYVdJY3FQdGVVTFVPUVF1UnhobW5UNmpkNXdFV0JZYWR0TVBFbHNMbWNi?=
- =?utf-8?B?N3NRUnVRVEtuQ2lmQWFVZFYzUUl4bmxwZWJxcFhIdEgzRTRxRVE1b2lWblo2?=
- =?utf-8?B?SDR5VmlHSGdQbzIwVzZ4cnpFakliS0grWHRocG52YVowUmtNeklOTTBzOWNQ?=
- =?utf-8?B?TmZTVWFnaXUxdExsS0Y2QXJDbFRIaUZwaGtweThvMEdhSjdQd1Vtbk1yWGts?=
- =?utf-8?B?TGtIc0RqNURmRHhvaTVLcE1lT1hYR2pQWXpXaUNabjM1RjdWeGM0MVcwNTcz?=
- =?utf-8?B?clFiTFdlbURPZmk2aTNGTUJ3ZC80ZHZtUVVGQ3poM3BxSWNuNjFOY1dMaXNl?=
- =?utf-8?B?OU1WRGVkRlVRcklUWDI4Z2FmcEhFVUp0dzdBWU8wK3FiSGE4cDhaK2d0Zk55?=
- =?utf-8?B?c1N4ZGxwcGhSVWY5VTRIRFA2T1RFS2dZcDlORFlLY0dIelBzNk1rRzV2Y2Rt?=
- =?utf-8?B?Y0VjNXA3S3o4bDgzcm12SlpYMFp0M0VjeE52TzdGYU1NZkNFUEtsQlNWNElt?=
- =?utf-8?B?aDFjVDNLQnBTQVlDMkFSOVJXZlNMV05RYWNhSFN5eS9rcXdndVNEeENETjlL?=
- =?utf-8?B?VS9lcHFBb0FLRk9wRU5iNzZDbldybnhIRzV4UG5ZNFY4Q1ZQcnRTZzNpQ1RV?=
- =?utf-8?B?Y0JGK1k1WFFxUnNIaGl5RWJUNW1wQjVROWNtWk9JUHpadDdFM1N0NkE0STdN?=
- =?utf-8?B?MVplLzRwSVRSQ2t1TUlCRHRPL1doUGowam9WcU9uc0RQWXBQaGNXRmRNQ2I1?=
- =?utf-8?B?dVJIYldFZWNqVERBeGJOSks5YXMxYXZ0dHc2MXNUaDJOQW4xaE1PZXE3M3k3?=
- =?utf-8?B?bkkvN1FxQXhLUVNiT1RUaVh0Ymw4Snc0Yy9LZDRmN29OaXVvZjl5OHdIUXI5?=
- =?utf-8?B?a1FUaVRIbTBlbnR6NmFnREhDSmszem1FNHFkSzNOZmQxbkZyOGFTTE9SWXV1?=
- =?utf-8?B?Yy91YVROWDhKdUtmUmZQL2l1amVQa0NyNXRnWHMvNmtqZVlETWJ1UHRhVyt6?=
- =?utf-8?B?YXdSQVFjM0lYMmd2N0lKdnNOTlkweG5ZY01ZVnlKeGUyVWFPYXlQeEVvQURI?=
- =?utf-8?B?R2J3bGVWeWN4bWNRMFUxdnAwdThOeWo0dGR5YVh3ZlFMd2lPSVJSOXU4SFQr?=
- =?utf-8?B?V1dsTjZjSzU2ZHVpYnhrcFRCakhkaERnN3hBMHk3bEw4dFg5MEZxVGdlM3RV?=
- =?utf-8?B?MEtsVHVZZUNnZTh3M2QycTZGb3BJN1lBK0xUbG5QeWg5b09GajFHT3NtL1lh?=
- =?utf-8?B?Z290SXpwN01Ea3laOXp0Ni9CeTJraCt0WkF4L2Z3dldhY1prRzNXR0tjQWEr?=
- =?utf-8?B?aFl0ZTNKQTI4dlg4Y2FLd3VzK2NXVHNxQ29YRVlJRjVLdUNPb2tGYmkrcTgy?=
- =?utf-8?Q?JWjBPR6C8kUkSdGc=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <34521CF28E09024A9BC3CCD061A7FFF6@namprd11.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VYg+tCJw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE16F1F000FF;
+	Thu,  8 Oct 2026 23:17:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791501466;
+	bh=0IQmUC4rybmSNfoRGU0HNL2L1MjjPpMUfkXm4Z+aTqk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=VYg+tCJwuM4sSDuiz03IMDTgiRzoInWXwTI1krJMdhjNc3qaMObmESR+LGugqND0+
+	 MhYdOEYXp8PfV+Gx73D2jArXQjJ6I4HGeX5iLl2QUs62shorU8PHnEM7BSAqhZ5ivp
+	 /W5lcROGgz09fMMpEMlQE+ZDnOUPAjR+NuGwe9YHWp917Lr/T0FO9ExagsOp0YpgTT
+	 FaPioV9mv0nbp3aBL6eTVI48Kd4DNgXh7Mco9khUEzcWfPGS55JhOmX86DfzAGaij2
+	 RqlnA+7x0QYHth3VpZctzczPox96QSM9YtyfbmJCor2EPTypHTVH+mISAFAHzu5kUT
+	 9cL4nQCQl+E1g==
+Date: Thu, 8 Oct 2026 18:17:44 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Francisco =?utf-8?B?QmVsdHLDoW4gTWlsbGFsw6lu?= <fbeltranmillalen@gmail.com>
+Cc: bhelgaas@google.com, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Andreas Noever <andreas.noever@gmail.com>,
+	Mika Westerberg <westeri@kernel.org>,
+	Yehezkel Bernat <YehezkelShB@gmail.com>,
+	Lukas Wunner <lukas@wunner.de>, linux-usb@vger.kernel.org
+Subject: Re: [PATCH] PCI: Extend Apple Thunderbolt power quirk to Alpine Ridge
+Message-ID: <20261008231744.GA938694@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: PtVNmgXgCXqGyrFMosyGF25bSo1gxTTgbj6x3Gbys3oPuFZFoSr2fl8gg4ui8G9FNYs5Odzy+ZXid69UmZeqLQMbY4T4KmiscNfR2OoFHo6tWDlUpxeoS+jQe4+XDvNxSVakCLys8TauTnx8Nhtanx+RESqK4+uhASo9zhBqUOZ7j53R/HYS43XoE+H8sEhuU8JkB82avc4ezabJjQpb9hvQ27A2K/7GsM3Ul/2ySduBQC0fUpD9eHxOIcVQBSEjayXnNcSD6+uxZsA2yb/QnmT5g9fmhOJRCd2LCR2Ea7FVvag2KyVk/odWdoWUhEs7JnuIZpik3mEqvq4pbb0smw==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6771.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6f8cdbc3-bcce-4ff3-5a49-08df25923bd3
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Oct 2026 23:16:50.8968
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: gaYyfUL2U5xg/goPDHVOKc9VR+JFV9VoOy0P1BnfbvwqZ0JVw4iydneg/oNNZlGHmX1e7xkQV9ndaBgdG6gSwUAGUqRbytKucp+Lo+VyFMw=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR11MB9277
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260924132815.24430-1-fbeltranmillalen@gmail.com>
 
-T24gTW9uLCAyMDI2LTA5LTI4IGF0IDE3OjExICswODAwLCBZYW4gWmhhbyB3cm90ZToNCj4gRnJv
-bTogU2VhbiBDaHJpc3RvcGhlcnNvbiA8c2VhbmpjQGdvb2dsZS5jb20+DQo+IA0KPiBBZGQgaGVs
-cGVycyBmb3IgZ2V0dGluZyBhIGdmbiBnaXZlbiBhIGdtZW0gc2xvdCtwZ29mZiwgYW5kIGZvciBn
-ZXR0aW5nIGENCj4gZ2ZuIGdpdmVuIGEgc3RhcnRpbmcgb3IgZW5kaW5nIHBnb2ZmLCBpLmUuIGFu
-IG9mZnNldCB0aGF0IG1heSBiZSBiZXlvbmQNCj4gdGhlIHJhbmdlIG9mIHRoZSBtZW1zbG90IGJp
-bmRpbmcuwqAgUHJvdmlkaW5nIGhlbHBlcnMgd2lsbCBhdm9pZCBkdXBsaWNhdGUNCj4gYm9pbGVy
-cGxhdGUgY29kZSAiaWYiIGZ1dHVyZSBjb2RlIGFsc28gbmVlZHMgdG8gaXRlcmF0ZSBvdmVyIGdm
-biByYW5nZXMuDQo+IA0KPiBObyBmdW5jdGlvbmFsIGNoYW5nZSBpbnRlbmRlZC4NCj4gDQo+IFNp
-Z25lZC1vZmYtYnk6IFNlYW4gQ2hyaXN0b3BoZXJzb24gPHNlYW5qY0Bnb29nbGUuY29tPg0KPiBT
-aWduZWQtb2ZmLWJ5OiBZYW4gWmhhbyA8eWFuLnkuemhhb0BpbnRlbC5jb20+DQoNClJldmlld2Vk
-LWJ5OiBSaWNrIEVkZ2Vjb21iZSA8cmljay5wLmVkZ2Vjb21iZUBpbnRlbC5jb20+DQo=
+[+cc Andreas (author of 1df5172c5c25 ("PCI: Suspend/resume quirks for
+Apple thunderbolt"), Mika, Yehezkel, Lukas, linux-usb]
+
+On Thu, Sep 24, 2026 at 10:28:15AM -0300, Francisco Beltrán Millalén wrote:
+> On Macs with an Alpine Ridge Thunderbolt 3 controller, suspending to RAM
+> with anything plugged into a USB-C port leaves the PCIe link between the
+> root port and the controller's upstream bridge permanently untrained on
+> resume.  The link does not merely fall back to a lower speed: it never
+> starts.  On a MacBookPro14,3 the root port reports
+> 
+>   LnkSta:  Speed 2.5GT/s, Width x0
+>   LnkSta2: EqualizationComplete- EqualizationPhase1- Phase2- Phase3-
+> 
+> with no correctable, non-fatal or fatal errors logged, and the link
+> training state machine stuck at its first state.  Both Thunderbolt
+> controllers, both integrated xHCIs and all four USB-C ports are lost
+> until reboot.  Measured 15 failures out of 15 with a device attached,
+> against 5 successes out of 5 with the ports empty; it follows the device,
+> not the port, and affects either controller.
+> 
+> Nothing recovers the link afterwards: neither the firmware's own eleven
+> retrain attempts, nor a secondary bus reset, nor bringing the controller
+> out of L2, nor cutting its power entirely once the link is already down.
+> 
+> macOS does not hit this because it powers the controller down on the way
+> into suspend.  Its AppleThunderboltNHIType3 driver calls SXFP() from
+> lateSleep, and the firmware of the affected machines defines exactly that
+> method: SXIO, SXLV, XRPE and XRIN, used by the drivers for older
+> controllers, are not present at all.
+> 
+> quirk_apple_poweroff_thunderbolt() already does this for Cactus Ridge, so
+> extend it rather than adding a second one.  Alpine Ridge needs only
+> SXFP(0); keying the short sequence off the device ID as well as off the
+> absence of SXIO/SXLV keeps Cactus Ridge behaviour unchanged.
+> 
+> It does need a different hook, though.  Cactus Ridge is handled as late
+> as possible, in the upstream bridge's suspend_noirq.  For Alpine Ridge
+> that does not prevent the failure: by the time the fixup runs there, the
+> bridges of both switches have already become inaccessible --
+> pci_save_state() on them has failed -- and the link still does not come
+> up on resume.  Hooking the
+> fixup one phase earlier, while every device below the switch is still in
+> D0, makes the branch resume intact.  That also matches where macOS does
+> it: SXFP() is called from lateSleep, ahead of the PCI teardown rather
+> than in the middle of it.
+> 
+> The earlier hook needs one extra guard.  pci_fixup_suspend also runs from
+> pci_pm_runtime_suspend(), and pm_suspend_via_firmware() does not
+> distinguish the two cases: PM_SUSPEND_FLAG_FW_SUSPEND is only cleared at
+> the beginning of the next system suspend, so it reads as set while the
+> system is running again.  Without pm_suspend_in_progress() the
+> controller would be powered down under a runtime-suspending bridge.
+> Cactus Ridge is unaffected, as pci_fixup_suspend_late has no runtime
+> counterpart, so the check is confined to the Alpine Ridge branch.
+> 
+> I cannot say with certainty what the platform does in between, only what
+> is observed: suspend_noirq is too late and suspend_late works, on 7 out
+> of 7 cycles.  For what it is worth, the firmware's own power protocol
+> does not appear to be involved: the ACPI methods that drop the rails are
+> all guarded on variables that only RTPC() ever writes, RTPC() is called
+> by macOS and never by Linux, and those variables still read as set after
+> several suspend/resume cycles on Linux.
+> 
+> With this, the branch comes back intact across suspend with a device
+> attached: both upstream bridges enumerate, the link comes up at 8 GT/s
+> x4 with equalisation complete, and USB devices are re-enumerated at
+> SuperSpeed by the integrated xHCI instead of falling back to the 2.0 path
+> wired straight to the PCH.  Twelve suspend/resume cycles in a single boot
+> without a failure -- six of them with a USB 3 SSD attached across the
+> suspend, one with it plugged in while suspended, and including lid-close
+> and idle-triggered suspends -- against fifteen failures out of fifteen
+> without the quirk.
+> 
+> Trade-off worth stating: cutting power to the controller also removes its
+> ability to wake the machine, so plugging something into a USB-C port no
+> longer wakes it from suspend.  Measured: with the machine suspended for
+> 89 seconds, plugging the SSD into a free USB-C port did not wake it, and
+> the device was enumerated 0.3 s after the machine was woken by opening
+> the lid.  Opening the lid, the power button and the
+> internal keyboard (which is not behind these controllers) are unaffected,
+> and hotplug detection while the machine is awake is unaffected as well.
+> Gating the quirk on device_may_wakeup() would disable it outright on the
+> affected machines, so it is not conditional on that.
+> 
+> Cutting power a phase earlier has one visible consequence worth spelling
+> out, since the Cactus Ridge hook does not have it: devices below the
+> switch reach their own suspend_noirq after the controller is already
+> off, so pci_save_state() on them fails.  In practice this is limited to
+> the integrated xHCI of a branch with nothing plugged in: with a device
+> attached on one side only that side stays accessible, and with both sides
+> empty both xHCIs report it -- and xhci-hcd handles it as the
+> ordinary "root hub lost power or was reset" path and reinitialises the
+> controller on resume; the branch comes back complete.  It is also
+> strictly less than what happens without the quirk, where the whole
+> branch, bridges included, goes inaccessible instead of a single
+> endpoint.  It is also cleaner with
+> 
+>   https://lore.kernel.org/linux-pci/20260924124221.12374-1-fbeltranmillalen@gmail.com/
+> 
+> applied, which stops pci_save_state() from storing all-ones and marking
+> the state as saved when the device is already gone.  That series and this
+> quirk were developed together on the same machine: the series keeps the
+> resume from writing garbage back, and this patch keeps the controller
+> from disappearing in the first place.  Neither depends on the other to
+> build or to be correct.
+> 
+> Notes and limitations:
+> 
+>   * Only the 4C bridge (8086:1578) is added.  The 2C variant very likely
+>     needs the same treatment but I have no hardware to test it on, so I
+>     am not declaring it.
+>   * Tested only with USB devices behind the controller's integrated
+>     xHCI, not with a real Thunderbolt device.
+>   * Depends on the platform suspending via firmware (mem_sleep=deep);
+>     pm_suspend_via_firmware() already guards this.
+>   * pm_suspend_in_progress() is false during hibernation, so unlike the
+>     Cactus Ridge path this does not run on hibernate.  I have no way to
+>     test that path on this machine (the hibernate targets are masked),
+>     and leaving it out is the conservative choice.
+> 
+> Tested on 6.18.49 on a MacBookPro14,3.
+
+Thanks for all this detail.  I think it's too much for a commit log,
+but it would be good to have it after the "---" where it's in the
+email but not the git commit.  This is easily accessible via the
+"Link: https://patch.msgid.link/" tag that we add when applying.
+
+> Signed-off-by: Francisco Beltrán Millalén <fbeltranmillalen@gmail.com>
+> ---
+> --- a/drivers/pci/quirks.c
+> +++ b/drivers/pci/quirks.c
+> @@ -3879,7 +3879,7 @@
+>   */
+>  static void quirk_apple_poweroff_thunderbolt(struct pci_dev *dev)
+>  {
+> -	acpi_handle bridge, SXIO, SXFP, SXLV;
+> +	acpi_handle bridge, SXIO = NULL, SXFP = NULL, SXLV = NULL;
+>  
+>  	if (!x86_apple_machine)
+>  		return;
+> @@ -3906,8 +3906,34 @@
+>  	 * associated ACPI methods. This implicitly checks that we are at
+>  	 * the right bridge.
+>  	 */
+> +	if (ACPI_FAILURE(acpi_get_handle(bridge, "DSB0.NHI0.SXFP", &SXFP)))
+> +		return;
+> +
+> +	/*
+> +	 * Alpine Ridge uses a shorter sequence: macOS' AppleThunderboltNHIType3
+> +	 * calls only SXFP() from its lateSleep handler, and the firmware of the
+> +	 * affected machines does not even define SXIO or SXLV.  Keying this off
+> +	 * the device ID as well keeps the longer sequence for Cactus Ridge.
+> +	 */
+> +	if (dev->device == PCI_DEVICE_ID_INTEL_ALPINE_RIDGE_4C_BRIDGE) {
+> +		/*
+> +		 * Unlike the suspend_late fixup used for Cactus Ridge, the
+> +		 * suspend fixup also runs on runtime suspend, and
+> +		 * pm_suspend_via_firmware() is not enough to tell the two
+> +		 * apart: that flag is only cleared at the beginning of the
+> +		 * next system suspend, so it stays set while the system is
+> +		 * running again.  Without this check the controller would be
+> +		 * powered down under a runtime-suspending bridge.
+> +		 */
+> +		if (!pm_suspend_in_progress())
+> +			return;
+> +
+> +		pci_info(dev, "quirk: cutting power to Thunderbolt controller...\n");
+> +		acpi_execute_simple_method(SXFP, NULL, 0);
+> +		return;
+> +	}
+> +
+>  	if (ACPI_FAILURE(acpi_get_handle(bridge, "DSB0.NHI0.SXIO", &SXIO))
+> -	    || ACPI_FAILURE(acpi_get_handle(bridge, "DSB0.NHI0.SXFP", &SXFP))
+>  	    || ACPI_FAILURE(acpi_get_handle(bridge, "DSB0.NHI0.SXLV", &SXLV)))
+>  		return;
+>  	pci_info(dev, "quirk: cutting power to Thunderbolt controller...\n");
+> @@ -3923,6 +3949,22 @@
+>  DECLARE_PCI_FIXUP_SUSPEND_LATE(PCI_VENDOR_ID_INTEL,
+>  			       PCI_DEVICE_ID_INTEL_CACTUS_RIDGE_4C,
+>  			       quirk_apple_poweroff_thunderbolt);
+> +
+> +/*
+> + * Alpine Ridge needs the opposite of the above: SXFP() has to run while the
+> + * switch is still up, not once it is being torn down.
+> + *
+> + * Hooked at suspend_noirq like Cactus Ridge it does not prevent the failure:
+> + * by the time the upstream bridge is reached, the bridges of both switches have
+> + * already become inaccessible -- pci_save_state() on them fails -- and the link
+> + * still does not come up on resume.  Hooked one phase earlier, while every device below the
+> + * switch is still in D0, the branch resumes intact.  That is also where macOS
+> + * does it: AppleThunderboltNHIType3 calls SXFP() from lateSleep, ahead of the
+> + * PCI teardown rather than in the middle of it.
+
+Wrap these to fit in 80 columns like the rest of the file.  Ideally 75
+or so; that allows minor changes and typo fixes without overflowing.
+
+> + */
+> +DECLARE_PCI_FIXUP_SUSPEND(PCI_VENDOR_ID_INTEL,
+> +			  PCI_DEVICE_ID_INTEL_ALPINE_RIDGE_4C_BRIDGE,
+> +			  quirk_apple_poweroff_thunderbolt);
+>  #endif
+>  
+>  /*
