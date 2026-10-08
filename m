@@ -1,99 +1,129 @@
-Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BC8E3876CD
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 05:24:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64A4C373C1A
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 05:27:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791437079; cv=none; b=bpaB5C0G7fExNbcYW+eYlNGA2pXYkzX9oUBDO2EB19gBqEL0SefcrSJMz1Mi99CocQj1mDzJ0ul89nKzQfSWGs2O9I55XmNFywsSKTwvfHR5upuOG1Qw19d24ngV7Stusykg9S0e4UOoK0jk5j/JKph2WyUwbGEtBCdocnoaPMg=
+	t=1791437221; cv=none; b=sipy8zdQFdvp7DlwwYHicNE0/5JA5WrsC//MFEjAv8+GWeZEfk5WiU0tKNrJhY0VgK6mxtr8Bm+FmpwsEybuRUG2vCfIqMDUa4qhS+bWv9aYy9M0W6tdpX5Hi6bOLaPEDKJ2kHi7A9ujDe55wfNfjrzGXn0mThoVOGvyat90YjQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791437079; c=relaxed/simple;
-	bh=fskBAk7DodstGk6bvofIn3sTwHBA47U6PTjs/Rg4jto=;
-	h=Content-Type:To:From:Message-Id:Mime-Version:Date:Cc:Subject; b=c1Uk30CM6WGgi8Nu4MQqEPoyC4L5jsqMmaVgH9LzCdAi2bBHblhr2iIBlEn0hIORRDAW3wD4N7z8IJZGFPcurVU1Wqbm2qBrb/XY5sDBTem2Ksui8KiQ6C+yu3FUkpZVD1f3ZvzbFQmhzwWDZsA+2CV5jhYKD14S8/zrQnb+SMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=afQDiwwL; arc=none smtp.client-ip=209.127.230.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1791437221; c=relaxed/simple;
+	bh=kCpneSjNmiQ+uKN1uru50DEBeDjE1ps61mB5XGB9ArU=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=GDatFWdTocNRCJpNFzqF8U4e7PqL7d4Ouzw/lfEQKXvnkDCcEM5uS5lwz/2VhdEQWt+aDFSVlSaNY6Rzv25ogKUrv1DwsgIn1uG32FVI16GoLbG1nSOr+fJ+nzCdByLCKpiqcOxw67+MvDa/ApSBNycCh14mVcqt5aqkhX+oQw4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Rc6h+5Fl; arc=none smtp.client-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="afQDiwwL"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1791436949; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=OC/8gcm378zdCLGBCsxZGDMgTVsIaJlN9sB1GbVS2X4=;
- b=afQDiwwLVUn0sX3WReZyjPPyqLDqub819hocoTBz2+LrQwDlWVwxjyvoE+tnm5w5cZi2Nx
- ZXflCWe7Zl7omd9Fk4VcYM1wehtpVMikbkaPTX88aCRF5XYleNChRkSQCCwTIrtDR0nqtr
- +d74dQ5RfAAnlwfBtfZGFRyNDrNATaEy4gv3xUtBtdGFyciSLPts5WEMZnqQU26b1vRTMW
- sq/OBvpfYUNRRE3IBc2+26hiCF9urEH7ktXrzhf0o7Li5HBhPV9lMnWfBz73ZeVlIZTU55
- VHzCUZobWrd+sy8h+x7qKXgsyNBwQNpLiFqyeVb/fk1ZHnsrKXevJzTJhoQtew==
-Content-Type: text/plain; charset=UTF-8
-To: <peterz@infradead.org>
-From: "Guixiong Wei" <weiguixiong@bytedance.com>
-X-Mailer: git-send-email 2.55.0
-X-Lms-Return-Path: <lba+26ac72893+334426+vger.kernel.org+weiguixiong@bytedance.com>
-Message-Id: <20261008051953.6293-2-weiguixiong@bytedance.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Rc6h+5Fl"
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3516c82e96cso2077257eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 22:27:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791437219; x=1792042019; darn=vger.kernel.org;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FUiKPJBB/QLn6JR/2soSQPjMVxJQocjLWOUnc2itzYU=;
+        b=Rc6h+5FllXUOPPwLUmpupRf3V3Cap+Z+NlqWYXjtEEsSYvjwLbCJGVe+/gLqQqqfnE
+         mwVpLga+h3phI1vj3AzAW4Te5qXYCbgIWYFcAQ47YliwLrkqfEM4b+OxJnVhyfvx/m45
+         q3T7v7IfML2FNJX+H0ZgViXwdVzx4Cf0WmG8ZYgk0Rhj7b0vk5pG0zPWrMkBcM5mNadL
+         mMv8uGV12NRbwcH4I0o7y0TJWoE83stVMiclEqhYiR/YZ7e6hu2VhwI32KDiMDMTGVhR
+         AF0yFAw7AvK+vLRNIwGYSo+CuGufuT47B0qHuebAJeELGJ2+FR2LNSlvxaY49nOlBi+J
+         hqHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791437219; x=1792042019;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FUiKPJBB/QLn6JR/2soSQPjMVxJQocjLWOUnc2itzYU=;
+        b=k5Fa2DlHE/mieJA8pBQG6UGbvlfu5/neHUS/EgZPqWV4Hngu/3afYldIq2NpVKP2rx
+         CojjtAbck09vV8CAYPGmUFS5Sie6OTyN1ZoZF2/AvMfMNm4tzg1hWQjQV32/PLg8anuo
+         BBDmTzys6mgNJhFDO6rQq7+bIBPKhFCvHmlLO64XaWbDp0cSzvREBQHBp229yKH0TffE
+         gbKFIrzeqO0iPfyPDsB9pKji33sCKh3nUJFUReIwjxgeIFgGFZeKZ9A1p95k7eqUSnMB
+         QA4kS4qlr55LUY3FwML7bwqsPMU6adxUnaZbpbavGSWEgStCnikjSPHUMqyfvKknwHdg
+         SSXQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx8ly07c2AL8sOyCXHIJ/hUQyGtOZaFF+oON39NyGvKKp0AYsfdH5D7OSRAkYFV477Ry8yEOzRChy30R2Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++npFWZ51puu6OHPgsLYLxQPIjinVVWHV6FhZtIp/pfpW6kSnX6u
+	c9V02kyyJoQSih9dw7IM2XNb8dy6YcZT+8xOo4fYmfLzYn/yc4uI6L2k
+X-Gm-Gg: AYBFou3QMUkXXhikoJkxvNaUzDsW4pcSEXXDLIcOe/bdfKXuKoJPEU5lHJ50lyalTE1
+	qCwZeLqD5qp0ZilwVjSICKwnVH9pez+eAHudH3jb9KncgqMMaHImkvf+d+ngkht9g+K8VgLruQg
+	iqQmaWxXqoZiTWMfWIRm7M5snvO7UWDxUnl/MfvAxhrzGQinTAvcu+Sg33Icx22Qa+bhxpRL4mu
+	/H+AEh9aWTGiw1lfWJEAa1dO5hTSGv+VxKuv8MjREn/OBLOIuqbBqfJLKDnGqvOP5CckEcBE6wr
+	pTpxFB2BXqAA5odMzqUST1tWboHQE2kUbz1H7s297u/X/WoyiRIVvKN+vrxpWDD5eT/iEjVgPv7
+	7/KJ1Yv+rduXmf65I0Wj+BEZ5k2B40BR0uaDxAn80ObFZSrB6/8ahc+TgrkyMPQwMCF3Un6GjQc
+	mX3mxtKtbo9msJrQN+pTJ4WY2mg3v55aONcTk4oq5Rn00RbnU5EzZlrbmd+XVfO24E4SeXGm7Pv
+	QJF
+X-Received: by 2002:a05:7022:112:b0:166:780c:60b6 with SMTP id a92af1059eb24-166780c615amr1618720c88.9.1791437219119;
+        Wed, 07 Oct 2026 22:26:59 -0700 (PDT)
+Received: from localhost ([2804:30c:96c:bf00:7844:c38c:894:4054])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-16168f586f8sm13933072c88.13.2026.10.07.22.26.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 22:26:57 -0700 (PDT)
+Date: Thu, 8 Oct 2026 02:27:15 -0300
+From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+To: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: jic23@kernel.org, nuno.sa@analog.com, andy@kernel.org,
+	dlechner@baylibre.com, marcelo.schmitt1@gmail.com
+Subject: [PATCH v1 1/1] iio: Allow device drivers to specify IIO event unit
+ type
+Message-ID: <e359fa003ebc61c8b0e37ba9810a04c70e5a300e.1791437050.git.marcelo.schmitt@analog.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Date: Thu,  8 Oct 2026 13:19:54 +0800
-Content-Transfer-Encoding: 7bit
-X-Original-From: Guixiong Wei <weiguixiong@bytedance.com>
-Cc: "Guixiong Wei" <weiguixiong@bytedance.com>, 
-	"Ingo Molnar" <mingo@redhat.com>, 
-	"Arnaldo Carvalho de Melo" <acme@kernel.org>, 
-	"Namhyung Kim" <namhyung@kernel.org>, 
-	"Mark Rutland" <mark.rutland@arm.com>, 
-	"Alexander Shishkin" <alexander.shishkin@linux.intel.com>, 
-	"Jiri Olsa" <jolsa@kernel.org>, "Ian Rogers" <irogers@google.com>, 
-	"Adrian Hunter" <adrian.hunter@intel.com>, 
-	"James Clark" <james.clark@linaro.org>, 
-	"Thomas Gleixner" <tglx@kernel.org>, "Borislav Petkov" <bp@alien8.de>, 
-	"Dave Hansen" <dave.hansen@linux.intel.com>, <x86@kernel.org>, 
-	"H. Peter Anvin" <hpa@zytor.com>, "Zide Chen" <zide.chen@intel.com>, 
-	<linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH] perf/x86/intel/uncore: Fix DMR CXL CM invert filter
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-The DMR CXL CM PMU places its invert filter at config bit 21 and its
-9-bit threshold at bits 23-31. However, dmr_uncore_cxlcm uses
-GENERIC_PMON_RAW_EVENT_MASK, which covers the threshold through the
-generic bit 23 invert field and bits 24-31 threshold field, but does not
-include the relocated invert bit. As a result, uncore_pmu_event_init()
-silently clears bit 21 and inv=1 programs the same configuration as
-inv=0.
+The IIO event ABI documentation distinguishes between interfaces that
+handle values in device-specific units (_raw) and event interfaces that
+handle values in real-world units (e.g. meters, Joules, lux, etc).
+However, the IIO event code infrastructure had never really implemented the
+bits to distinguish between those two types of interfaces.
 
-Add bit 21 to a DMR CXL CM-specific event mask so the requested invert
-filter reaches hardware.
+Because distinguishing between device (_raw) and real-world (_input) units
+only makes sense for value and hysteresis info, only add complementary enum
+item for those.
 
-Fixes: 6daf2c35b835 ("perf/x86/intel/uncore: Add IMH PMON support for Diamond Rapids")
-Signed-off-by: Guixiong Wei <weiguixiong@bytedance.com>
+Users of the IIO event ABI should, as much as possible, match the event
+unit type with the channel unit type. I.e. device drivers that present
+device-specific raw units for their channels ought to also provide event
+interfaces that handle raw units. Conversely, when IIO channels provide
+processed (_input) data, IIO events will generally be expected to operate
+over real-world units as well.
+
+Complement the IIO event info enum, allowing IIO drivers to specify what
+type of event info is used for their event interfaces.
+
+Signed-off-by: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
 ---
- arch/x86/events/intel/uncore_snbep.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+This was originally a patch series [1], but the suggestions provided back then
+allowed it to be greatly simplified.
 
-diff --git a/arch/x86/events/intel/uncore_snbep.c b/arch/x86/events/intel/uncore_snbep.c
-index a97cd029db366..1b460cf27a10f 100644
---- a/arch/x86/events/intel/uncore_snbep.c
-+++ b/arch/x86/events/intel/uncore_snbep.c
-@@ -474,6 +474,9 @@
- /* DMR */
- #define DMR_IMH1_HIOP_MMIO_BASE			0x1ffff6ae7000
- #define DMR_HIOP_MMIO_SIZE			0x8000
-+#define DMR_CXLCM_PMON_CTL_INVERT		BIT(21)
-+#define DMR_CXLCM_PMON_RAW_EVENT_MASK		(GENERIC_PMON_RAW_EVENT_MASK | \
-+						 DMR_CXLCM_PMON_CTL_INVERT)
- #define DMR_CXLCM_EVENT_MASK_EXT		0xf
- #define DMR_HAMVF_EVENT_MASK_EXT		0xffffffff
- #define DMR_PCIE4_EVENT_MASK_EXT		0xffffff
-@@ -6696,7 +6699,7 @@ static struct event_constraint dmr_uncore_cxlcm_constraints[] = {
- 
- static struct intel_uncore_type dmr_uncore_cxlcm = {
- 	.name			= "cxlcm",
--	.event_mask		= GENERIC_PMON_RAW_EVENT_MASK,
-+	.event_mask		= DMR_CXLCM_PMON_RAW_EVENT_MASK,
- 	.event_mask_ext		= DMR_CXLCM_EVENT_MASK_EXT,
- 	.constraints		= dmr_uncore_cxlcm_constraints,
- 	.format_group		= &dmr_cxlcm_uncore_format_group,
+[1]: https://lore.kernel.org/linux-iio/cover.1768759292.git.marcelo.schmitt1@gmail.com/
+
+ include/linux/iio/types.h | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/include/linux/iio/types.h b/include/linux/iio/types.h
+index d8944c9e5e90..bf03eb498753 100644
+--- a/include/linux/iio/types.h
++++ b/include/linux/iio/types.h
+@@ -15,7 +15,11 @@
+ enum iio_event_info {
+ 	IIO_EV_INFO_ENABLE,
+ 	IIO_EV_INFO_VALUE,
++	IIO_EV_INFO_VALUE_RAW,
++	IIO_EV_INFO_VALUE_INPUT,
+ 	IIO_EV_INFO_HYSTERESIS,
++	IIO_EV_INFO_HYSTERESIS_RAW,
++	IIO_EV_INFO_HYSTERESIS_INPUT,
+ 	IIO_EV_INFO_PERIOD,
+ 	IIO_EV_INFO_HIGH_PASS_FILTER_3DB,
+ 	IIO_EV_INFO_LOW_PASS_FILTER_3DB,
+
+base-commit: 04434a1d0f311d76b1f15fa987918b471a0b8c6a
 -- 
-2.50.1 (Apple Git-155)
+2.53.0
+
