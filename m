@@ -1,139 +1,108 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1606D4B8277
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 14:43:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 567424BAA0E;
+	Thu,  8 Oct 2026 14:43:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791470599; cv=none; b=ngkfNO6waFvTCKHV2NCmk3FRDJGC5zoVmzFmuQIL4Ns0Gn/Hm0YWEkNLei+AXPGHRZsiC+vRztjGo7sz8dPTtkVj/Y6ihWJbAnXrwDJ2gdjRrUQStkSjiHkx6dvHRdISKbak1mpvS+xclnT/9+72fuH8U7wChL8rAkF25m+WoqE=
+	t=1791470619; cv=none; b=kkDsnKbSF+gH9I2ZF7PD89doGYfzHa01aZdLH7bHsFh4nhZ4EmxbcMBLwesZbYRjuF9oUZenzZcCN5F7vIeot7OYQO6jJGH9Lum5hYJwkJ6qzILWFc41TgJEuSgve57lmPXSML4Sgs0N82fGkc+8aIB4RH6s4UFzZgFHRqZbNRs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791470599; c=relaxed/simple;
-	bh=bVSz5b56bkzLjbvZW0ZLHPuGtjffYa78eWvGcdS66xM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=feRUNzrxBd12i5vtnaPCprw/aXx7JyV9esLw0Oemsm9FEtqkRPutbfBB/JXDGPqUjdJBVzG2bHhr8qPCtJ3CVOSTTwAq2loq10Sg0N8VAx/+ILYiqHLKW2QlTg7i63CMf8TdUaUv88lmlbWBmZ8J1/5/p9V6tyicInoL9Qtzzrs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Fj9gfpeB; arc=none smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791470619; c=relaxed/simple;
+	bh=yde/+5LcQoOeRRuVFg6M0zfcbx+JRpuc+eBL1JOnXGg=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=LEyFS4fa5rXOGFdBXG6yU9swFo7fyd7+3/C1P9pl3g4AjHe7k95aUOKN0RGC8CI6i/ZNwPFGfSB0DBGmmaWU07x5gLWD+5WAuLkOCgAbRc0pl3j/1Xz4TMAghlO8RGT9f+JHO840FCAlMB0nT3gQ4MhH+E8iEALwPYQpFhjs3vI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dLsNZwMF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Fj9gfpeB"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48b02a2359aso866125f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 07:43:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791470595; x=1792075395; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=njenST8z+MlCZJXnP+cCIOtU5L3jm/Pu2Fkh+12SdlQ=;
-        b=Fj9gfpeBbMrhhd0fZvS6MBSCZAqK7a3Hg7/wEwYoa/XQr25FSdqUhn5v0t+9DDzSBM
-         gRGX2oqqqW+OTrtzobfz2Y6r/BD5cRsKoXNqzmu8rz+c7sJMZSP8UdRKVFU51rnIcRVF
-         A8zV9e/mOEqhY3t3EgxzQxmTTxQmhVDzavLUrRYHBdeeiouRU5rXLakCrRX0fSCQLyLx
-         a1AuSfLh2GFbUI6X8gQ17JKmbOBI4JZwLJwVCuBaER3Wqsp8nv6Yo8mJVzEENC7NcCa/
-         c/5gtN8y763uHwpGzyRMPt9l7j6joXAmWaVttLhGICK0DsHplSE6XBjLFeYNAsJx554Q
-         8i0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791470595; x=1792075395;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=njenST8z+MlCZJXnP+cCIOtU5L3jm/Pu2Fkh+12SdlQ=;
-        b=vdGhMZQHdnCU5Z/7jG1bpLAqjYB9DbbnLNr/jGydUU7Q1ONbkZ5rUi99viz1E+QD7c
-         QicK3WsX2mm8+qQRUccaHp4k7hp3PWbkVS0y8qhVOIFAmPon0XrPrqJFel9kuN1ECQBA
-         TiaYRrkEzvjjmMXdQE/Z5EqRNZIa63tZnrMGAb8sXyYn/4T4yTZIDg5pTIckYaHkNEEe
-         sB24sW4ErqnqX+8z2FqDPZiuCIWcQjnp4B0DOFEkfQDvxVG5MpMX+163AVAjfzEyMvUN
-         Z2ZjK2gg6skFtw8KZVQOSy1GpimV4x44F2pnFt+i2OHri/f9chQMedHcxyekI4yXdQvb
-         2ybg==
-X-Forwarded-Encrypted: i=1; AKwUvBye/8JkODOlTCtxFQcOOGeJtFfbGbfdLPCb5vTTAPjp0TZOR6Br+zRJBFMl37Qp3ux4tfuc8cuwxh/pIk8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIL2ZzA51qQ25VNk2gLvHjGMxeKjc2czA3gFEAN8r9afD/5TANT
-	B1ilisj6CR6jdBYaLIlWfNydPJCaVBfaI23X+Ee09kVt89+GXdGu+xoT
-X-Gm-Gg: AYBFou2Fe2vEtNU/BW0wnJHbnztSvPqI/VB2ZcZiuvhlNVQfvpxm9AoSqX8IdbV8/UZ
-	p4ay9jKhsMD54a5BK8St8ZK9rgXiVXBOEv8iMz1yJpLCM3qFI5D89b653dnBmJt+mHQSqwtpeuV
-	R8BEGj3prYyiYb2c1EMB15MwniWeJILMYTt3T3ZRy+tg//d+cLn+iPqQkAKSYD4sOKMmoR82XlD
-	IW1wK7lC9AlTQMan2NLz4IBaCp8w1S1NVUYNjXVlNEfdikjCcG2A5p3lmyrktugmsP0asyU8RjE
-	7IL5RUpxK6eqaC+CqTPpixFPKDwIbN7/oUkVlYXtuSUcrNWT39rRRAy25HIVc0yEMWeT1PQjYzd
-	CimemLUeuSlfr7W2Fu6Z3Ys+9Mbjd10OU2KA53V5eOzSRzmSXsjK0GKjFQ6IwE+bO5kzgBYkFGF
-	kIGwercFU+gCXCTvw3BUQyfhm/S/dHv1obzNoYxKGZcIGBkbZbCrIy+MSWokvMp1Q2BubanTjXg
-	7xWBdLxWtUqcNtH96Aeoax3NLmN2CjUb7tjjQG3IEye57du27VfoOPIfRxzDS9eExASLDdO4W7/
-	mSCV1jALCtdKrKR0T24V9etGTuWu
-X-Received: by 2002:a05:6000:46c7:b0:488:8347:a110 with SMTP id ffacd0b85a97d-48c7ee936a3mr3668082f8f.7.1791470595152;
-        Thu, 08 Oct 2026 07:43:15 -0700 (PDT)
-Received: from [10.54.182.141] (82-132-212-209.dab.02.net. [82.132.212.209])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71d1ffd2sm11381000f8f.34.2026.10.08.07.43.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 08 Oct 2026 07:43:14 -0700 (PDT)
-Message-ID: <20b406ac-94ec-4b0f-a307-08082092ae08@gmail.com>
-Date: Thu, 8 Oct 2026 15:43:05 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dLsNZwMF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87D551F000FF;
+	Thu,  8 Oct 2026 14:43:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791470615;
+	bh=7uOTQ1zSN0z7Rn1oQH6H1RzY+ERxySKobdm9Rl2nHfU=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=dLsNZwMFyBCESvGYOGDWC1D0sKe7bhjMtm0c6DdB+oUOqt+ztaLSTtWPvMEyomDvU
+	 cgIDG2YVX/gJTChizcuSpI4PkVmajlwXfIDJN+QXmYD5+us8RCmfVYtKpMuFS1kYNo
+	 R3Z6tkDMxKs2Qp0WLLM9PDWFDJQeyAzUAy615Am0nkkBSzN2bCUBboFqLEMeNZ/nMB
+	 ZLvKSjY3n8jGh3GTQgiq30WJ/y/6KqTgB40YqGJpSTdSjyWlWAmsRjhQjGe+uWoywO
+	 3ccaKfAmC/dg5/Wt0hLillcrmXHs6gdadUffnqS8lbYDkVhyw2pZlTqabKR3XOQz4i
+	 X4XA9mEvUb6qw==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id F00E1198003A;
+	Thu,  8 Oct 2026 10:43:33 -0400 (EDT)
+Received: from ams-imap-11 ([10.64.2.31])
+  by ams-compute-02.internal (MEProxy); Thu, 08 Oct 2026 10:43:33 -0400
+X-ME-Sender: <xms:E6zHarU2u8vRSLjo8VAUSohrBwE9U3EBsC4RdR8buuSDAC8Ueb7alQ>
+    <xme:E6zHaua8RzJIskHqMh0dfNFdIA345_M6dUUjASJO7FJyU739ne97ouM_Rh2u4Qu-x
+    kthebfPSNQMVScOF_gD0p3ClaUiN8EE0mMK3kFALEjCI0bDUsbf7RM>
+X-ME-Proxy-Cause: dmFkZTFLFdKRhLlrwTLld4Wy5+ue4G3ql742LJUzSxdwwyFPrUuXhuYXx1lwJPeWTickYH
+    Tgv/MSlKKx6Td3p8bJv42iB4/T7U3vr3Trz7BwNIgpquWNijRyc23PKDK/qFoYIIj2gHwk
+    t+LQ310KAqqtJTt8v8YqH8FPKmUuavezeULfNoLP7hIFXsiIk08mtpm14CGs23/9P31oxP
+    V6iGIORVZ0TRkkY5nvgOQOvm52JfeAVU/w4szt5HvqUgvfGS6bM9pr7goD5IDia+VLYAmc
+    PoXzIxjCPlIhYoT3y+SOkxZ+lwkTYWFGjDMOI/Wj3qrSOiaWu0E04B98xG+1LpMfCbpVAv
+    wtzCrGkgg1C6vx8b5i95bsAM79pwvgW1RThVmddTf4HMRZuBFtRR2TeDp7lJ1OIK3Fmksm
+    R1gsIXUGpyWQOgXqYsq4QnEJ1hvEmvMZ5KvPykRK6K5QnlWk87U+b+xu3HDpD4KV2+owAi
+    0JgkqV/3kz+nkpOJercxkOAsziGL2cg7F5IRr2ygqMkiTYJW9n5K/wGHH++z796K82K6GF
+    AOvUIUOhaHlOizyZObBe4uyf/3bcPQc8lw1QtV0n7DiiP/xk0qQdLAyrGEXDbtGz6yL9R2
+    J2HijVcfCbKnqWwGCJsqLPMRI1Q+gz0atfEE8U8J/Ez0KhSds0cqn9bc6Duw
+X-ME-Proxy: <xmx:FazHaq4iMK2edHhv9xCbhdzbexPdBVyTRyTKfVmH4gW1iZRhNiWdLg>
+    <xmx:FazHaldVvQtgn-UHB0A9DZbvMxuJOIkaX5g_Rbx-6D1xqe9Q8INM5Q>
+    <xmx:FazHaosWCH-96-sqVyADPPZ5vDl7Q__PpQOR-tbmE4J0WsdSbKXgIg>
+    <xmx:FazHatlM1dcnPHi6PwjSaAX5COxKNGjw3ulIPy7S-Kpklaf1DX8i4g>
+    <xmx:FazHajS8gViJBAb-_b8-7IXtTmBwzzew1Xm3_ccNenXJilkFDF28Dhie>
+Feedback-ID: ice86485a:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id C0189F80096; Thu,  8 Oct 2026 10:43:31 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] io_uring/cmd_net: prevent infinite retry loop on
- unextractable timestamp skb
-To: Bui Viet Dung <dungvn2345@gmail.com>, Jens Axboe <axboe@kernel.dk>
-Cc: Willem de Bruijn <willemb@google.com>, lollipopkit <a@lolli.tech>,
- io-uring@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261008050745.498415-1-dungvn2345@gmail.com>
-Content-Language: en-US
-From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <20261008050745.498415-1-dungvn2345@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Date: Thu, 08 Oct 2026 16:43:11 +0200
+From: "Ard Biesheuvel" <ardb@kernel.org>
+To: "Kees Cook" <kees@kernel.org>
+Cc: "Ilias Apalodimas" <ilias.apalodimas@linaro.org>,
+ "Nathan Chancellor" <nathan@kernel.org>, "Nicolas Schier" <nsc@kernel.org>,
+ "Nick Desaulniers" <ndesaulniers@google.com>,
+ "Bill Wendling" <morbo@google.com>, "Justin Stitt" <justinstitt@google.com>,
+ linux-efi@vger.kernel.org, llvm@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Message-Id: <31318d3b-1738-49d2-8017-d4ebf98aa22f@app.fastmail.com>
+In-Reply-To: <20261006204210.i.137-kees@kernel.org>
+References: <20261006204210.i.137-kees@kernel.org>
+Subject: Re: [PATCH v1 0/3] efi/libstub: Build the x86 stub from KBUILD_CFLAGS
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
 
-On 10/8/26 06:07, Bui Viet Dung wrote:
-> In io_uring_cmd_timestamp(), the skb processing loop terminates whenever
-> io_process_timestamp_skb() returns a non-zero value. If the failure is
-> due to a full CQ ring (-ENOBUFS), the loop stops and returns -ENOBUFS,
-> ending the multishot command so userspace can drain the CQ.
-> 
-> However, if io_process_timestamp_skb() fails because
-> skb_get_tx_timestamp() returns a negative error (such as -ENOENT when a
-> timestamp cannot be extracted due to changed socket options or absent
-> hardware timestamp data), ret is not -ENOBUFS. The unhandled skb is
-> then spliced back onto the head of sk->sk_error_queue and the function
-> returns -EAGAIN.
-> 
-> Because -EAGAIN leaves the multishot apoll armed on EPOLLERR, and the
-> unextractable skb remains in sk_error_queue asserting EPOLLERR,
-> io_uring_cmd_timestamp() is immediately re-invoked on the same skb.
-> This results in an infinite busy-loop consuming 100% CPU and completely
-> blocking progress on any subsequent valid timestamp packets queued behind
-> it.
-> 
-> Only break out of the processing loop when CQ space is exhausted
-> (ret == -ENOBUFS). For skbs where timestamp extraction fails, dequeue and
-> consume the invalid skb matching the behavior of sock_recv_errqueue(),
-> allowing the queue to make forward progress.
-> 
-> The issue was discovered via manual code audit of io_uring/cmd_net.c
-> and review of the error handling paths in TX_TIMESTAMP command.
-> 
-> Fixes: 9e4ed359b8ef ("io_uring/netcmd: add tx timestamping cmd support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Bui Viet Dung <dungvn2345@gmail.com>
-> ---
->   io_uring/cmd_net.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/io_uring/cmd_net.c b/io_uring/cmd_net.c
-> index 90d4ec7cc761..a5a1b8b66b1f 100644
-> --- a/io_uring/cmd_net.c
-> +++ b/io_uring/cmd_net.c
-> @@ -138,7 +138,7 @@ static int io_uring_cmd_timestamp(struct socket *sock,
->   		if (!skb)
->   			break;
->   		ret = io_process_timestamp_skb(cmd, sk, skb, issue_flags);
-> -		if (ret)
-> +		if (ret == -ENOBUFS)
->   			break;
 
-Sounds fine since there are only timestamp skbs in this list, do
-you have a test case?
+On Tue, 6 Oct 2026, at 22:42, Kees Cook wrote:
+> Hi!
+>
+> The x86 EFI stub builds from its own short list of compiler flags instead
+> of KBUILD_CFLAGS, so options added kernel-wide reach it only when someone
+> remembers to add them there too (e.g. for -fms-extensions). Swap it
+> around to remove unwanted options instead, as we do for all the other
+> architectures.
+>
+> This will let Clang's -fexperimental-late-parse-attributes reach the
+> stub build so that __counted_by() will get parsed without error[1].
+>
+> Thanks!
+>
+> -Kees
+>
+> Link: https://lore.kernel.org/all/202610060642.7C4125F@keescook [1]
+>
+> Kees Cook (3):
+>   efi/libstub: Declare the x86 stub's assembly entry points
+>   efi/libstub: Build the x86 stub from KBUILD_CFLAGS
+>   efi/libstub: Disable kernel stack erasing in the common flags
+>
 
--- 
-Pavel Begunkov
+Thanks. I've queued this up but with a tweak applied to patch #1,
+as it broke the GCC i386 build due to the fact that 'asmlinkage'
+evaluates to __attribute__((regparm(0))), and apparently, GCC
+still thinks that differs from a function without the attribute,
+even when it is the default. (Clang built fine)
 
