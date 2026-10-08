@@ -1,253 +1,351 @@
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54E064A43F6
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 13:15:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5369630F927
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 13:15:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791465312; cv=none; b=bfNI3oHRfDWtzYezZF5j7JhTMW4mzvtQ6jaFg1OpNWBXblNQuLPvvwINyrtrUQwGvwbuuJX4vQD4KVFr1c7p0PD6gUt8yJAPFNP3DxjEFMV0RsVtgiONFNUP7xE5s+2iEpOj+4yN47GGhj0PfvX+Cx/gvTgo7pTlJ9Xis/MQKOE=
+	t=1791465313; cv=none; b=VrL4+vHVlcImLDm64Hnq36Ru9NP+WrhhqVlfjKbX/hW1xMF82AD2EoOW8MHZVUcQbNbjyC9hk18A3Ufqvzhm1r8X7NNb0L61hbE1mHe3tAILHCF2Sq77mKYh0zP0N1uEcPY3ofd5ncmWYk9Ye7yDy1GyAuFslwdftVVa8EtO5lU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791465312; c=relaxed/simple;
-	bh=1ezpUQuoEMElOkxfb+MJvLpn/7TWxVa7rXLI3jpeXfo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gZwVJVeu+4AxcQirfafpW6v6+lZ59JxzRvKRY/LkejbWfHUK8qVINLXV+EUyxrjdyL67AsEW187hWJsXhCeie2JGeeifNs0WpWqxGhb5asm5tc+89qZIEAASA9OfeAWH+NfJ3D6CypcwtQPEIhiaCOGjQVtOEFpLsL8nRgLfRXU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=X6xNA2GM; arc=none smtp.client-ip=209.85.218.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1791465313; c=relaxed/simple;
+	bh=NDuP83zqW5zQSG3EkE86iDSunaWPu3MRqhYZ+iIkb74=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=bVsTjbFPGvlpumkk8FPwczpWFEQ8uRLxwyWKyMujJOJzntlr7gLnTnChjgRPoeTzmq0TRWA5uayhF42/lrJS4ZSca3rPv0ZGcLRcm/LdS67hYQ82f3YRpYkGQZYnli89iMdUtl6X3A57MvZgOu33DOgNNkDKVO3SoU1SB+ZRdVU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VR/3bMV1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dcHRKjH8; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="X6xNA2GM"
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c2e36c3478aso772481466b.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 06:15:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VR/3bMV1";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dcHRKjH8"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 698BKNAf1708598
+	for <linux-kernel@vger.kernel.org>; Thu, 8 Oct 2026 13:15:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	LmFgXz9bCUDEoCCFm4UoAId5Yo4tRXQx+o7RqBDpoyY=; b=VR/3bMV1ZVGwB4XI
+	qnkVWK8/HT35hJVvXHej32VrFYVXtaI9Q79GPRLDJ3X4HQkXlbh2V6nhissOen1k
+	91WCtt7UYLeBPHSQ6iPhxy2qsK8Hbbuxhm47oRSDHpP2+k9h+lA7xDXURbxPoxWX
+	A9vePFBLAfBXzBFSINDvmTMxBFLZc93yEkkN2BO2rkV75fw88xC1ved8GDfZQIQc
+	6O3GUt0OY3p7m7j6+HdEpswlOKViDCa/PIL/X1PSaljnNkdA0qKfaEsV7oZiPJfp
+	5hjufMqDz884H2kut4gUz5NAlCAISoeg7hJSIBBlmS63BK+tj134nXLREypjRyIH
+	gVqPvw==
+Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com [209.85.222.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe3b016-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 13:15:02 +0000 (GMT)
+Received: by mail-ua1-f70.google.com with SMTP id a1e0cc1a2514c-98c88cefeb3so480664241.3
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 06:15:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1791465305; x=1792070105; darn=vger.kernel.org;
-        h=content-type:in-reply-to:autocrypt:from:content-language:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=1ezpUQuoEMElOkxfb+MJvLpn/7TWxVa7rXLI3jpeXfo=;
-        b=X6xNA2GMWG8voGhK9fhUc5ZDry+Xn591pd5T/IGF5JG2nLl+JCuxduDjBaYWkGDtTN
-         ZTQvMpjC+KdlxthvyERWAHGzco8f3wNVaZuyjlh8NOgtP485bXkfRdVQK2UCNHdZvtLK
-         9ZJip2BA2vQH/1akxcmz1OmVJ8LuvYpliTla3y9UOU2HmcjXZQlfl/CAwXGBsvAEB0bj
-         t1R0J2WZzpoU4EOdUrqHLV0xllbNm8LwsKYbqff6LFE9M2G5u2xcJNHbFdAVoeaOdm5Q
-         xEZlINvBHy48kzfIs/rVglyz8iWEfuCO3hPqEuDvGaOBAPRMiqV38rdkV+756apXjZo6
-         n62A==
+        d=oss.qualcomm.com; s=google; t=1791465301; x=1792070101; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LmFgXz9bCUDEoCCFm4UoAId5Yo4tRXQx+o7RqBDpoyY=;
+        b=dcHRKjH8DdWAaFNHTzqTXANycPqsS6fov/OqKOeyZZCZpW2QP+XqpO8WR5S+ePM040
+         BG1Bo/z31X0KP1TLZqsw36Ja6L3TKGYOgK45ICMrV3xaDAtV3dD/3/UpOWoGxc5/zRcM
+         YmvytDnZ00xAQQ5cPsEdNTa3mUiUSr8+SMcCloJHh41OzZvEqpAq8v88iFFFUvmYRbpj
+         0MMbvTfvh9tAcP+JvtjubO7t6cl2RL58W9DOVijY8WCiBRm7clpHEIaAVMiSl+BFaqtM
+         bZevoV6tms4WR4jwvu6SwTahXo3NCHLvIG8ZnXbJ3yTJiLkb2rPVXZjhZ2llm2ra8zUi
+         Fv7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791465305; x=1792070105;
-        h=content-type:in-reply-to:autocrypt:from:content-language:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+        d=1e100.net; s=20260707; t=1791465301; x=1792070101;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=1ezpUQuoEMElOkxfb+MJvLpn/7TWxVa7rXLI3jpeXfo=;
-        b=wkrCExvWlxuNmaDFnZn+4zw5ZegAVJngus3af+pFkPKUvH0MH5UiBIoqgdPDgnqSQ/
-         eWnV9Fg19831turUSm8YtpH0qrz8J59awzn9LD50l0wAQrlm8Cl2TwXpX1/BYHVpYQnB
-         tHqH5kuyCEZ+d6MSe/tWG6L6cWEkmzwCiaYkcwBfjByxeNaNWhuKmBjRC3LX36xu1aeQ
-         u1rQ5NI4W9oMH3QCRW8qAhBN9MWHAd/BejMsdfTs3yuDbapLPPd3APuKouqOESx03xMp
-         9NrXw73cipahtVuCKkT1yP/LxFXIbf7U3n3+Rq0l/P1wc5dRN/omE8fqQV4z0OjELVuQ
-         zCrw==
-X-Gm-Message-State: AFuF++nuRLKM7RB88CMWahFvzDeuQrKhB2wgWHLXHYdfPjwjdTBtzdZR
-	IiFLFRPh11G3ZkXwPn//qXvkEV+yqHq7xfl6GooH2JPE8xOl8lXZfwA9J59TsnPPTJtS+Ip9Tet
-	UCjAOC0k=
-X-Gm-Gg: AYBFou3XdWSzqAZpX9cjlirm8kJ+77J0jkiOMcWzc4zeqD3Yf5168W1mwnftLo/lvba
-	JtUTiN8ddAANfkFFv0HjHE8ofLauiG5krcc/CdSHRaAsxl3VZ0owZchO+i0fVM7TdPDrEvrHRm2
-	TQDmF4jqXcZA0t4lN9lytEEfbUPCo04828yo6i7NoD2y4vdR/glNhqQtH3HLK5d3jIfUtR+oK3Q
-	Y1iicfR0PXpray90guvkzI3SuiZEFRncRI7xc6n0fcBjpsmYxQYcCbHWgG5KSoaPriD8vW4Bja7
-	clm9XDBtCEaEuqDP27ry73+Ihgyp+b3vL3zxrx75ClUebZMxT3LWXGmgVOrMg9ujBnMreP07cW6
-	j0gOc1Xaz30cYROYapsmXYv5Ym2hasmZ3w7RvzLdFMLTsECNvSfvyDuzW2DL72Wl4kOuPMdfoVy
-	NMclzREpJQrYYIr4Xa1aMFX+Tby4YuNIfZeu6KVcSRTjcl0p2BiCeUI6Tt5Meu30NWeSmZAFRjg
-	14Dtjs1HYJmcrkfjLicYQkQ68sJO22Kp8+4Y5/aRmwNSqrw59tUmBYr4QClRrqzpIhoRpHp2T9X
-	czzgMShQP2jcTn8Pn5C5tR00
-X-Received: by 2002:a17:907:8992:b0:c29:5021:f6f8 with SMTP id a640c23a62f3a-c317c0bc3a7mr541833766b.36.1791465305252;
-        Thu, 08 Oct 2026 06:15:05 -0700 (PDT)
-Received: from ?IPV6:2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112? (2a00-12d0-af5d-ad01-5d3f-14e6-9bcb-5112.ip.tng.de. [2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c317c32af4fsm218989366b.63.2026.10.08.06.15.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 08 Oct 2026 06:15:03 -0700 (PDT)
-Message-ID: <8e194f64-6add-4fb3-a1bb-9b27719b409e@suse.com>
-Date: Thu, 8 Oct 2026 15:15:03 +0200
+        bh=LmFgXz9bCUDEoCCFm4UoAId5Yo4tRXQx+o7RqBDpoyY=;
+        b=uWK1lR2ai80RDDc0TW6Ddd8mQlJC6l6vC8CS7sOP+AvirsY9QbA0gqGsyz37ltqpzy
+         WeP3VMg9XzAgCV5cejhDXxy2h3f5z8G9oQ3GjFjljew2j7AWC6NH1Y5Mndmji3kFEqzV
+         WbWBwjRYIyFVck4aL07NWS9Q4nFjyi/xpinhzWuiZGGi5XJBNjkoAdvTORy337/bwHbv
+         BPFapjnGuJCcWMKdtxLLFwSSqhhUoo/A+VhZjmCJyWtzJf455wtfR8eIOixNBo5r5r+l
+         uh77ylrrg8nqQ4+b/H2je6W2a8LWCwUD/0mZjhbOVh8Z9uX/GDNLRzH5Lz8K905aDTv4
+         BlDQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz35tfnxLX5IXegrp48wlaioEk7YHy/XAkrWl5PJ3o59MfX4bp/tdjXshLGzuAZ9TxkPXq6yTUIkBbvVpk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIuXC6htk5QW5UIKKvkZ/IDRlRukHb5Ka5jdCAP14SzJPCv8R2k
+	hiUYX/WcJZx7SGmKmmiuHHjy0KnFl/NMXaggFPMwSQDxgEd2IYXvOKDe5IPie9tGFN+t4zc8dLQ
+	shMCaEnQLOsmQWw8FNv8OUQikcDhJQAa1Y3nQtyXlPQ0RSjAII2aPDnf5qTp13HrAPvc=
+X-Gm-Gg: AYBFou1OMNNRXN+btT00IIyGkslGMpHftgy9/iujMg4iW6hRYmemOZP/9DX4+em+uTX
+	+X3Knk/nOK7jeuahcBbvnU6Ax2TdnR2HiKTbKg+rD0XLX+NovIn6C/v2wsri2JXeibjbUhT8wHL
+	RqybA+D65CV2jovYPXRUvtJl+K4kbguSy6dIsHfsa8d7iqKJnzln16IGjidZeQF4BNEqPU3XpQf
+	p3KQK2uQpX+j7sYu3/rAlouZcTpTKj/lNzQRk2YM54a4bLMo3TDwDqVrqP3YwIzRhfj53cYd1+r
+	st2jjN71SdBNNeY8HGhmsvVWv6RHqmgTNZehKsGqSa6MM/EswIJOoKsc7iXnzT2OE6zqW4lrsJb
+	IPB2m5KnZ1PDOfY+sqcvRN+gsupMWwZheEpVyhTvWC49Mgk4+wcXSFJxc/qR4wqp0szo+G2/kPn
+	L9ZGtnYb8da71E
+X-Received: by 2002:a05:6102:5114:b0:7c3:b15:a981 with SMTP id ada2fe7eead31-7ca38b56930mr1895328137.15.1791465301416;
+        Thu, 08 Oct 2026 06:15:01 -0700 (PDT)
+X-Received: by 2002:a05:6102:5114:b0:7c3:b15:a981 with SMTP id ada2fe7eead31-7ca38b56930mr1895298137.15.1791465300727;
+        Thu, 08 Oct 2026 06:15:00 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a9ae563df4sm8691441fa.30.2026.10.08.06.14.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 06:14:58 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Date: Thu, 08 Oct 2026 16:14:27 +0300
+Subject: [PATCH RFC 5/9] drm/panel: add atomic_check callback
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] get_maintainer: only use THE REST as a fallback
-To: Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
- Joe Perches <joe@perches.com>
-Cc: linux-kernel@vger.kernel.org, users@kernel.org
-References: <20261008-get-maintainer-the-rest-fallback-v1-1-7d26d0b7aa34@linuxfoundation.org>
-Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <20261008-get-maintainer-the-rest-fallback-v1-1-7d26d0b7aa34@linuxfoundation.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------vxB2oDNLt7pmMDslmmFRNvPl"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261008-panel-atomic-state-v1-5-b157fddb8de1@oss.qualcomm.com>
+References: <20261008-panel-atomic-state-v1-0-b157fddb8de1@oss.qualcomm.com>
+In-Reply-To: <20261008-panel-atomic-state-v1-0-b157fddb8de1@oss.qualcomm.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Robert Foss <rfoss@kernel.org>,
+        Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+        Jonas Karlman <jonas@kwiboo.se>,
+        Jernej Skrabec <jernej.skrabec@gmail.com>,
+        Luca Ceresoli <luca.ceresoli@bootlin.com>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Randy Dunlap <rdunlap@infradead.org>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Konrad Dybcio <konradybcio@kernel.org>, Val Packett <val@packett.cool>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+        linux-doc@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7281;
+ i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
+ bh=NDuP83zqW5zQSG3EkE86iDSunaWPu3MRqhYZ+iIkb74=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBqx5dGknLGXeDIwrZ4oAApBaKXVGnq71wwJiGAH
+ Ln84UGnPSCJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaseXRgAKCRCLPIo+Aiko
+ 1QZpCACwimdVnYYcDuqpMTmrHjg/Kzh69uM9YoV5/nrBhvGbqlZ+VBwRtqQwI79Bqx6fkETYqjX
+ hgKvH3xEqQn/9RqdUeT6myXnYGKdKDC9f66D5xFwebw5WnSmAXv9eGXVFlXvC1+hC8F2cP0b1pS
+ IkWAREbSs93PI+7rHrOrEd0WpuKPBVan6Dxu/onnnmn30EQDwerPNkpM6i/d36DxGoJUQ2Y5zs/
+ Dz3bzL85Nf0uXh5wd1HkjCL+L3XxUfXGAIpcAoeRU0r9xLs0iixRYd00JLikXKU5F3vIn7c3eh4
+ tKxzZDs0Skeq7pZPawg5A2wW9xcjQpu+BGfkQLl0KY8qk/PI
+X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Proofpoint-GUID: KC64roHOZpxF4_m8LRpNxJHRSRtTjYGc
+X-Authority-Analysis: v=2.4 cv=QOz91QLL c=1 sm=1 tr=0 ts=6ac79756 cx=c_pps
+ a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
+ a=3mQ-IjTWdeCcQhJgvQ0A:9 a=QEXdDO2ut3YA:10 a=TD8TdBvy0hsOASGTdmB-:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDA1MiBTYWx0ZWRfX82N41chBpC8c
+ VDGH1vaS0c3J+FbJ8m4wEbkRpYZwshyAyujWI3rg0pwzv9/SNbE7Nr45YjhnFRK+/i1fyy4qef6
+ cB2UfjmJYZoJpPp9fS+iWNef3xPdqvU=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDA1MiBTYWx0ZWRfXxC7AEQzWf1E0
+ Tdh3zX3KoXap5NsXvG8/wSGeCfARUkPXgYMiiDygop6OMjl3QGW2oP8kli2f95g3O/hQGGbv9Gl
+ 7TfML0UbEiy1JYqk5iaaw+U1fFk4WUScdOGdh13PQuvttky8fV0h983Yw+Afi2De0/CA3FWIquD
+ 62C4qnZjAkc2jGOe8rxqptyqLbe8zB9Gk/iCWUL/LtXdKpgQnq6TktLXg2KAhZ4kWBb5xOALkSs
+ 2qqsfmNH5ewamN9Sm9Mbl4FnM3pYo081m7HHvEykMHphAh+GnLmTutu7dXFmEBUA//doPniiTWm
+ JWBInvo51I8DQt9Qn6HtrZ8vAPTd+OmNMl0bvnI4ibP+1DwTox9Gm6UUDExIrTWftee3nVPwzwM
+ mnh2HYKjt10wnPKtfnZRkbuG3Bo5VlRCTe2uyyJZPnbyaUHmZcH5FuxPBaBGDWP5TEmwSJll4jg
+ SyDcBhKSDTCkkf4q15A==
+X-Proofpoint-ORIG-GUID: KC64roHOZpxF4_m8LRpNxJHRSRtTjYGc
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-08_04,2026-10-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 lowpriorityscore=0 spamscore=0 phishscore=0
+ impostorscore=0 adultscore=0 bulkscore=0 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080052
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------vxB2oDNLt7pmMDslmmFRNvPl
-Content-Type: multipart/mixed; boundary="------------50Lf3zC22aAIf0GRaWqGVI3r";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
- Joe Perches <joe@perches.com>
-Cc: linux-kernel@vger.kernel.org, users@kernel.org
-Message-ID: <8e194f64-6add-4fb3-a1bb-9b27719b409e@suse.com>
-Subject: Re: [PATCH] get_maintainer: only use THE REST as a fallback
-References: <20261008-get-maintainer-the-rest-fallback-v1-1-7d26d0b7aa34@linuxfoundation.org>
-In-Reply-To: <20261008-get-maintainer-the-rest-fallback-v1-1-7d26d0b7aa34@linuxfoundation.org>
+A panel driver cannot reject a configuration it does not support, nor
+compute its state for the configuration that is being requested: none of
+its callbacks is called in the check phase of an atomic update.
 
---------------50Lf3zC22aAIf0GRaWqGVI3r
-Content-Type: multipart/mixed; boundary="------------rCUDJoysabVzy4kgINtUv7hZ"
+Add an optional atomic_check callback, called from the atomic_check of
+the bridge embedded in the panel. Following the other atomic_check
+callbacks it receives the whole commit rather than individual object
+states.
 
---------------rCUDJoysabVzy4kgINtUv7hZ
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Add helpers returning the new CRTC and connector states for a panel, so
+that panel drivers don't have to open-code the walk through the encoder.
 
-T24gMDguMTAuMjYgMTQ6NTEsIEtvbnN0YW50aW4gUnlhYml0c2V2IHdyb3RlOg0KPiBUSEUg
-UkVTVCBtYXRjaGVzIGV2ZXJ5IGZpbGUgaW4gdGhlIHRyZWUgdmlhICJGOiAqIiBhbmQgIkY6
-ICovIiwgc28NCj4gZ2V0X21haW50YWluZXIucGwgY3VycmVudGx5IGFkZHMgbGludXgta2Vy
-bmVsQHZnZXIua2VybmVsLm9yZyB0byBldmVyeQ0KPiBwYXRjaCwgcmVnYXJkbGVzcyBvZiB3
-aGV0aGVyIHRoZSB0b3VjaGVkIGZpbGVzIGFscmVhZHkgYmVsb25nIHRvIGENCj4gc3Vic3lz
-dGVtIHdpdGggaXRzIG93biBtYWlsaW5nIGxpc3QuDQo+IA0KPiBPbmx5IGFkZCBUSEUgUkVT
-VCBmb3IgYSBmaWxlIHdoZW4gbm8gb3RoZXIgbWF0Y2hpbmcgc2VjdGlvbiBwcm92aWRlcyBh
-DQo+IG1haWxpbmcgbGlzdCBmb3IgaXQuIEZpbGVzIHRoYXQgbWF0Y2ggbm8gc2VjdGlvbiwg
-b3Igb25seSBzZWN0aW9ucw0KPiB3aXRob3V0IGFuIEw6IGVudHJ5LCBzdGlsbCBmYWxsIGJh
-Y2sgdG8gVEhFIFJFU1QsIHNvIGV2ZXJ5IHBhdGNoIGtlZXBzDQo+IHJlYWNoaW5nIGF0IGxl
-YXN0IG9uZSBwdWJsaWMgbGlzdC4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IEtvbnN0YW50aW4g
-UnlhYml0c2V2IDxrb25zdGFudGluQGxpbnV4Zm91bmRhdGlvbi5vcmc+DQo+IC0tLQ0KPiBM
-S01MIGhhcyBiZWNvbWUgbW9zdGx5IGEgZmlyZWhvc2Ugb2YgcGF0Y2hlcyB0aGF0IGFyZSBh
-bHJlYWR5IGdvaW5nIHRvIGENCj4gc3Vic3lzdGVtIGxpc3QuIFRoZSByZWFzb24gaXMgVEhF
-IFJFU1Q6IGl0IG1hdGNoZXMgZXZlcnkgZmlsZSBpbiB0aGUNCj4gdHJlZSwgc28gZ2V0X21h
-aW50YWluZXIucGwgYWRkcyBsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnIHRvIGV2ZXJ5
-DQo+IHNpbmdsZSBwYXRjaC4gRHVyaW5nIHRoZSB3ZWVrIG9mIE9jdCAxLTcsIDIwMjY6DQo+
-IA0KPiAgICAtIExLTUwgY2FycmllZCAxMyw2NDEgbWVzc2FnZXMgKH4xLDk1MC9kYXkpLCA5
-MCUgb2Ygd2hpY2ggd2VyZSBhbHNvDQo+ICAgICAgc2VudCB0byBhdCBsZWFzdCBvbmUgb3Ro
-ZXIgbGlzdDsNCj4gICAgLSB3aXRoIH4yLDEwMCBzdWJzY3JpYmVycywgdGhhdCBpcyBhYm91
-dCAyOSBtaWxsaW9uIGRlbGl2ZXJpZXMgcGVyDQo+ICAgICAgd2VlayBmb3IgTEtNTCBhbG9u
-ZS4NCj4gDQo+IFRoaXMgaXNzdWUgY2FtZSB1cCBkdXJpbmcgdGhlIDIwMjYgTWFpbnRhaW5l
-ciBTdW1taXQgYW5kIHRoZSBjb25zZW5zdXMNCj4gd2FzIHRoYXQgImFsd2F5cyBpbmNsdWRl
-IGxpbnV4LWtlcm5lbCBmb3IgZXZlcnkgcGF0Y2giIHdhcyBuZXZlciB0aGUNCj4gaW50ZW50
-Lg0KPiANCj4gVGhpcyBwYXRjaCBtYWtlcyBUSEUgUkVTVCBhIGZhbGxiYWNrIGFzIGluaXRp
-YWxseSBpbnRlbmRlZDogaXQgaXMgb25seQ0KPiBhZGRlZCBmb3IgYSBmaWxlIHdoZW4gbm8g
-b3RoZXIgbWF0Y2hpbmcgTUFJTlRBSU5FUlMgc2VjdGlvbiBwcm92aWRlcyBhDQo+IG1haWxp
-bmcgbGlzdCBmb3IgaXQuDQoNCkhtbSwgZm9yIG1lIHRoaXMgd2lsbCBiZSBhIG1ham9yIHBy
-b2JsZW0uDQoNCkFzIHRoZSBYZW4gY29kZSBtYWludGFpbmVyIEkgaGF2ZSBzdHVtYmxlZCBv
-dmVyIHByb2JsZW1hdGljIHBhdGNoZXMgd2hpY2gNCndlcmUgTk9UIHNlbnQgdG8geDg2IG9y
-IHhlbiBNTCBzZXZlcmFsIHRpbWVzLCB3aGljaCBtYWRlIGl0IHBvc3NpYmxlIHRvIGNhdGNo
-DQpwb3RlbnRpYWwgcmVncmVzc2lvbnMgZWFybHkuDQoNCkhhdmluZyB0byBzdWJzY3JpYmUg
-dG8gZWFjaCBwb3RlbnRpYWxseSBpbnRlcmVzdGluZyBNTCAob3IgdXNpbmcga29yZ2Fsb3Jl
-IG9uDQp0aG9zZSkgd291bGQgbm90IGJlIG15IHByZWZlcnJlZCB3b3JrZmxvdy4NCg0KVGhp
-cyBpc24ndCBhIE5BQ0ssIGJ1dCBtYXliZSB0aGVyZSBhcmUgb3RoZXJzIHdpdGggc2ltaWxh
-ciBpbnRlcmVzdHMvcHJvYmxlbXMuDQoNCk9yIGlzIGtvcmdhbG9yZSBjYXBhYmxlIG9mIHB1
-bGxpbmcgQUxMIGtlcm5lbCByZWxhdGVkIG1haWxzIHdpdGhvdXQgaGF2aW5nIHRvDQpzcGVs
-bCBvdXQgdGhlIE1McyBleHBsaWNpdGx5Pw0KDQoNCkp1ZXJnZW4NCg==
---------------rCUDJoysabVzy4kgINtUv7hZ
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+The callback is only meant for the panels using atomic state, warn about
+the panels implementing it without the state callbacks.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+Assisted-by: LLM
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+---
+ drivers/gpu/drm/drm_panel.c | 84 +++++++++++++++++++++++++++++++++++++++++++++
+ include/drm/drm_panel.h     | 30 ++++++++++++++++
+ 2 files changed, 114 insertions(+)
 
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
+diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
+index 481caa294243..3a154be128a0 100644
+--- a/drivers/gpu/drm/drm_panel.c
++++ b/drivers/gpu/drm/drm_panel.c
+@@ -243,6 +243,19 @@ static void panel_bridge_debugfs_init(struct drm_bridge *bridge,
+ 		panel->funcs->debugfs_init(panel, root);
+ }
+ 
++static int panel_bridge_atomic_check(struct drm_bridge *bridge,
++				     struct drm_bridge_state *bridge_state,
++				     struct drm_crtc_state *crtc_state,
++				     struct drm_connector_state *conn_state)
++{
++	struct drm_panel *panel = drm_bridge_to_panel(bridge);
++
++	if (!panel->funcs->atomic_check)
++		return 0;
++
++	return panel->funcs->atomic_check(panel, crtc_state->state);
++}
++
+ static struct drm_bridge_state *
+ panel_bridge_atomic_create_state(struct drm_bridge *bridge)
+ {
+@@ -297,6 +310,7 @@ static const struct drm_bridge_funcs panel_bridge_bridge_funcs = {
+ 	.atomic_disable = panel_bridge_atomic_disable,
+ 	.atomic_post_disable = panel_bridge_atomic_post_disable,
+ 	.get_modes = panel_bridge_get_modes,
++	.atomic_check = panel_bridge_atomic_check,
+ 	.atomic_create_state = panel_bridge_atomic_create_state,
+ 	.atomic_duplicate_state = panel_bridge_atomic_duplicate_state,
+ 	.atomic_destroy_state = panel_bridge_atomic_destroy_state,
+@@ -654,6 +668,9 @@ static void drm_panel_init(struct drm_panel *panel, struct device *dev,
+ 		      !funcs->atomic_create_state != !funcs->atomic_destroy_state,
+ 		      "Panel state callbacks have to be implemented together\n");
+ 
++	dev_WARN_ONCE(dev, !funcs->atomic_create_state && funcs->atomic_check,
++		      "Atomic callbacks require the panel state callbacks\n");
++
+ 	INIT_LIST_HEAD(&panel->list);
+ 	INIT_LIST_HEAD(&panel->followers);
+ 	mutex_init(&panel->follower_lock);
+@@ -1185,6 +1202,73 @@ struct drm_panel_state *drm_panel_get_current_state(struct drm_panel *panel)
+ }
+ EXPORT_SYMBOL(drm_panel_get_current_state);
+ 
++/**
++ * drm_atomic_get_new_crtc_state_for_panel() - get new CRTC state for a panel
++ * @commit: global atomic state object
++ * @panel: panel to get the CRTC state for
++ *
++ * This function returns the new state of the CRTC that drives @panel as of
++ * @commit. It is meant to be used from &drm_panel_funcs.atomic_check and the
++ * enable path. In the disable path the panel might not be driven by any CRTC
++ * anymore.
++ *
++ * Return:
++ *
++ * The new CRTC state, or NULL if the panel is not driven by a CRTC that is
++ * part of the global atomic state.
++ */
++struct drm_crtc_state *
++drm_atomic_get_new_crtc_state_for_panel(struct drm_atomic_commit *commit,
++					struct drm_panel *panel)
++{
++	struct drm_encoder *encoder = panel->bridge.encoder;
++	struct drm_crtc *crtc;
++
++	if (!encoder)
++		return NULL;
++
++	crtc = drm_atomic_get_new_crtc_for_encoder(commit, encoder);
++	if (!crtc)
++		return NULL;
++
++	return drm_atomic_get_new_crtc_state(commit, crtc);
++}
++EXPORT_SYMBOL(drm_atomic_get_new_crtc_state_for_panel);
++
++/**
++ * drm_atomic_get_new_connector_state_for_panel() - get new connector state for
++ *						     a panel
++ * @commit: global atomic state object
++ * @panel: panel to get the connector state for
++ *
++ * This function returns the new state of the connector that @panel is routed
++ * to as of @commit. It is meant to be used from &drm_panel_funcs.atomic_check
++ * and the enable path. In the disable path the panel might not be routed to
++ * any connector anymore.
++ *
++ * Return:
++ *
++ * The new connector state, or NULL if the panel is not routed to a connector
++ * that is part of the global atomic state.
++ */
++struct drm_connector_state *
++drm_atomic_get_new_connector_state_for_panel(const struct drm_atomic_commit *commit,
++					     struct drm_panel *panel)
++{
++	struct drm_encoder *encoder = panel->bridge.encoder;
++	struct drm_connector *connector;
++
++	if (!encoder)
++		return NULL;
++
++	connector = drm_atomic_get_new_connector_for_encoder(commit, encoder);
++	if (!connector)
++		return NULL;
++
++	return drm_atomic_get_new_connector_state(commit, connector);
++}
++EXPORT_SYMBOL(drm_atomic_get_new_connector_state_for_panel);
++
+ /**
+  * drm_panel_get - Acquire a panel reference
+  * @panel: DRM panel
+diff --git a/include/drm/drm_panel.h b/include/drm/drm_panel.h
+index ff63bed934fa..a5879b7b986b 100644
+--- a/include/drm/drm_panel.h
++++ b/include/drm/drm_panel.h
+@@ -38,6 +38,8 @@ struct device_node;
+ struct drm_atomic_commit;
+ struct drm_bridge;
+ struct drm_connector;
++struct drm_connector_state;
++struct drm_crtc_state;
+ struct drm_device;
+ struct drm_panel_follower;
+ struct drm_panel;
+@@ -168,6 +170,28 @@ struct drm_panel_funcs {
+ 	 */
+ 	void (*debugfs_init)(struct drm_panel *panel, struct dentry *root);
+ 
++	/**
++	 * @atomic_check:
++	 *
++	 * Check that the configuration requested in @commit can be handled by
++	 * the panel and compute the new panel state. The new panel state can
++	 * be retrieved with drm_atomic_get_new_panel_state(), the CRTC and
++	 * connector states with drm_atomic_get_new_crtc_state_for_panel() and
++	 * drm_atomic_get_new_connector_state_for_panel().
++	 *
++	 * This function is called in the check phase of an atomic update, it
++	 * must not touch the hardware or any persistent driver data.
++	 *
++	 * This function is optional. It can only be implemented together with
++	 * @atomic_create_state.
++	 *
++	 * Return:
++	 *
++	 * Zero if the check passed, a negative error code otherwise.
++	 */
++	int (*atomic_check)(struct drm_panel *panel,
++			    struct drm_atomic_commit *commit);
++
+ 	/**
+ 	 * @atomic_create_state:
+ 	 *
+@@ -438,6 +462,12 @@ drm_atomic_get_old_panel_state(const struct drm_atomic_commit *commit,
+ struct drm_panel_state *
+ drm_atomic_get_new_panel_state(const struct drm_atomic_commit *commit,
+ 			       struct drm_panel *panel);
++struct drm_crtc_state *
++drm_atomic_get_new_crtc_state_for_panel(struct drm_atomic_commit *commit,
++					struct drm_panel *panel);
++struct drm_connector_state *
++drm_atomic_get_new_connector_state_for_panel(const struct drm_atomic_commit *commit,
++					     struct drm_panel *panel);
+ 
+ #if defined(CONFIG_OF) && IS_ENABLED(CONFIG_DRM_PANEL)
+ struct drm_panel *of_drm_find_panel(const struct device_node *np);
 
---------------rCUDJoysabVzy4kgINtUv7hZ--
+-- 
+2.47.3
 
---------------50Lf3zC22aAIf0GRaWqGVI3r--
-
---------------vxB2oDNLt7pmMDslmmFRNvPl
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmrHl1cFAwAAAAAACgkQsN6d1ii/Ey/f
-Kwf7BuZmcmo4XVW8XWbWPrji9W4UrfN0pfUImZjHy+QAPdpNCLUmLt+ALtYjArgKCuQYj1kl2d8T
-Ml0O//eM+4K34ZlRyeLQjRpdnBBf5EoLuJQSVC9qrl6YNp8bJcM2CDrYIhPzk5hNXb1FJav2HdhC
-M9Jom7mmmLGLuZCwL2N33C/Vlhsm7n2OjiYYqucNtY2BCv3Mw7PQK4sCp245HRueg+bH/FZyrK2I
-mcrpkrHm7CpJRYgXmC3xXyXKRxP6iWItXYZZa1ZYI4IG/4FMyqfd1Tnxe9z5Yij17i3RlNCur7vU
-wulA2vEzmqVeHA/uVEPQoz1TArFEWK5xyRzos4+TFg==
-=HDMa
------END PGP SIGNATURE-----
-
---------------vxB2oDNLt7pmMDslmmFRNvPl--
