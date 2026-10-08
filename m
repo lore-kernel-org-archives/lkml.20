@@ -1,78 +1,79 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0937B49C4CE
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 13:26:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF9874A8A11
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 13:26:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791465985; cv=none; b=ieVWL83mHzGhZR00oldGJtZznjpyi51l28G5gby6e0hozFwGvpaUXJGJDmpxKPpKaBKT/gZfwI9RZUz005WdoanQRJVLu7O7dAHuU0GZbHDdwpWdItc30uGgPIEG06jQwDC6DdWOwO7QFjPBu67KM63rJWS1ijKfePjavzrCADk=
+	t=1791465989; cv=none; b=P47Kn2GHDjB9rAXwqDwm3nKNee9QP8f1POl+N1N9t5y1Mzuma6OcLCvo1uZqxE6ZbbSd6ygoko7qCodDWdO7TrF5H/+Aa4nDIUdVUj5yUFHzPwzbMVKfls5dhP7Qn4zQzBWxUU4ZFfq3V/s8hmhCT/pEA65QE7K+DkwSUZ39a48=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791465985; c=relaxed/simple;
-	bh=M50aiJk0QfdvMMf8LSSb90HYjrMJ3YfpRD2bD0vCoSg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=epvi7opOq9NgkBummSrawmf3sE8JWCxqGp8IhN0+EvUEQlRbGUv3+ojkyViW0Vs3v/IKI05qM3xda/cOlGvyps8gEp8ocMLGHICS2uqiqZlNo2kAe/WykARzdLNsk5CNWcbCSzW691HDIq/aDOWiTf+sKH4nxTLSqjA2jOsLQvc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OJ3HvUnG; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791465989; c=relaxed/simple;
+	bh=0ySfcafh4tQHepRjbftWqE++83vwv/wBpJ2Q+ZLu/x4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kbDgxjxLydVtwJ+sRLgCgTob1c+bhvvIgVQXv5s2QQqfAGAl5MrfCIKsCiAxPxAms7079UM7zvuACefDgC+3wUuHhocBUrvNUARM9CGUscO3UbAcufhmeksvJRyTrLfg43asVitIeDGYyHmkm/DjXzBe52/Wmx78jPXMxHsuneg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=FznH/WMa; arc=none smtp.client-ip=209.85.210.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OJ3HvUnG"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49e73611928so5360585e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 06:26:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="FznH/WMa"
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8875d220446so1578627b3a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 06:26:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791465978; x=1792070778; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uX2BH9Ac6b/pc7lUEnn9DTAZujzDmdQq+cw8SL6Z+zY=;
-        b=OJ3HvUnGF8exdbXlZxeXF//7p/EHnhUjMfoZQJJ6/19myMDgllj6VCtTzYYjEjYc6l
-         kTYXvUOon0xaGdkWIQkdx7EF3JB3kyJSRc1mzLPsyyLL8nzuAnng6vaUIV20uWj4ey8b
-         JJPlZhqQvDW/33LPg0wry555eNmcqFOuhCVrRhBPYmkVfgPeFDAk0L6jqa4dOfapM2Up
-         Q6MgEHjGPmIHD4aEwCgKy4Cvxb+NaHHg9lvaAZ6i5N/uF1NZgXyRgSd4HfznKJ2WHpkS
-         qAaxfprhcIr3gsrkl50LqFhQBAGnT9UmagW/+UU9bEUSgxWOkAgvdu9Ft0sr3YuOu9cC
-         ZD1g==
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791465984; x=1792070784; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=M1+oFp0gxdXfQLvRPA6qqYXrymxpx83eWWBEaMxgtbM=;
+        b=FznH/WMafMNr4fn87xPBskpfnLPV9evpCzAT/aT+ITaMr57lE6/ImDDcN1ZU6cWYj3
+         4GOwcPz4nqr8GClEDeXpdDfyAX/LDqPw3gWDz6OBERCfIvRUdoRywLZb373pZB1frxAv
+         gLmaC4/POAGzPmzR0jCoeL0TEcVo/ihDi6V+mBwg1kyC51IBLH++h/j9Vwwgr7BzRQQK
+         HssRNhBYolnfGtHsgx7H78h0zhwK67MSoOJrEVwyXqAEsIlby7Ki8moV/pSGpsj+T4iF
+         jbCgnAbCH2aOJS9uUXkCBmZ4QrjZODvFnHiIjTE5/UlYj4048y0KMkdeNu8Mouw4H1QU
+         2BwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791465978; x=1792070778;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uX2BH9Ac6b/pc7lUEnn9DTAZujzDmdQq+cw8SL6Z+zY=;
-        b=VeTx/3M2YNAsQaVZKkvjh8zurvvyvMb29zMckDFxxQZOxf5G84NkULZT/GhZmssrFW
-         l9ZaDDxvbRtxqvyH4Tupo1o1naJC0BXmUoNw4qkZhUVKTaJBqTTFZ8mgDpzYOvBMwWUo
-         OiJknzP9bPm2ugmCWIrE2QUsP+m4cKoQUE9odlqdzOi+82L+F8C0CDcg5hwqYcgq+UzR
-         gYT5NbzDPuxQAISrOnKv00EF5r3faWN5JI7kizLxVu0SI/thqmCmzM0MpQ/9ipnvBOUM
-         PjZBKmWJfaAz6Umd/sbLbKqSsbxKsmi2NHzNUh4yHYEEzEy2zfyIqfuC+n/WqegCR+gx
-         VcKg==
-X-Forwarded-Encrypted: i=1; AKwUvBxPCaMpgzdsheakc4Eo12MmfJh3AxAXJNc/Qzwcu2VcAT++U6wGcXEhTX5mZBx0pxRdHZUbf5mf4n+0/SA=@vger.kernel.org
-X-Gm-Message-State: AFuF++ni0lOcw5Kc7tCo646UjPVPwITfMVFvwsnuKcZfZUlt57ehic5z
-	BTQybNMcg8cV1zEFL6ANqyjdkVpwWiwMqGnnO1p3pqAnBpoKPwvhptk=
-X-Gm-Gg: AYBFou0dDnD66uZFZKPlh1kQRlrMlFIJ7kf99ugsnIko6gWlZnzmstRyGNF7kiyw7t/
-	x0P0hfMjHYCd5wcrlM0LLkmaNbVjVNpwPC/jMozqHnB/hYIsb5RmtTOrzQbd0Aa/0CLpWmX5GgX
-	8R0dBZnXAh3nGdbhfikGoFxq/Eq3KlR54BUquLpV6izoTDGK2uxWhM3kaRURTJrk3Y/Jc3mbVSG
-	OX8lMq1fZa7EwQh2bOBr/DsHKUT7zIUDpbGp6Qu5rFJqkjHVmHq8WU5/wmHMtp/c3S8PA4kwmOG
-	DHSiZU3PyIOwR8NhMqPoPNBWaPoTVY42XsP/Lad/HnN5dPL+g+dVfSCZpi649zR9PsPJZ7R7krL
-	xNw5yKTnYdQoCfppC1VJOw/g8rM/yQ/I5EKjNuOIw2VPPunVkfmqwxA8M8nahVvb/1mbQJh/Tmq
-	/Mh8jP+hq8cooSDgN2ZnzHUYTDnJqE4L1T1m8VI8XhVbtNRzGvZ/xb6zkmtX/6POM2GWxfuVi3Y
-	cs/WdKtdkhGpWVK0obDiZBbpRQF1xODwS+1t6mQ/B/ZM11Rv/jwPNZZ
-X-Received: by 2002:a05:600c:c08a:b0:4a1:7f96:9b42 with SMTP id 5b1f17b1804b1-4a1851c0702mr37752885e9.15.1791465977953;
-        Thu, 08 Oct 2026 06:26:17 -0700 (PDT)
-Received: from surface.. (84.124.213.91.dyn.user.ono.com. [84.124.213.91])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1842a349bsm71479105e9.2.2026.10.08.06.26.17
+        d=1e100.net; s=20260707; t=1791465984; x=1792070784;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=M1+oFp0gxdXfQLvRPA6qqYXrymxpx83eWWBEaMxgtbM=;
+        b=ry+AIRlGAOKIFHimjZIhHWTTT2Ley4O2NXX3q0p91GCdD4atHKsOm03zPivbJbusiv
+         p2P1jU4EQj2bpoPXvzkzdQQy1UP0vzKp2DQWAvDr+Hs7P6V3h8j/VZLelmqxfogvWbxx
+         dtXT9Xmc9FFPHjR4eZxswhdXQBTi6/pOIO4oaSarYlwdt/5zj6us/AwgZrjf2nF3mYer
+         w2e0tVS6Wv8BarUrK9jRs5vBzS1NdlrFhjHEKjB5/QN4bk/hyOd3mqFLWiy9G5XzlyE3
+         kbhT2zI3oRw+Kab/4MF/dE5d4uQ6todOap6mHOyCj9MLbi46hExAmOEHycKMWTxCg9KW
+         ajew==
+X-Forwarded-Encrypted: i=1; AKwUvBwTYTUVYxaDffsJV6zxL7WMxLZQEBVp+c7yaoYYd0pY8W8JW2Hbi42FJ/dCr7gtw4I3TxQufKU7T6s7GzQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lnwhB/lMbj0ey5wO4KNhY7S1yDBSUObmpWanVpzNIrkCWaLIZ8
+	JgBgBXzUbtnyV7DFFD/gPRWEJFVXdEq7Fld13YpuZoDsaDwUzBAHyYQWIiaF+Gm0TfM=
+X-Gm-Gg: AYBFou1M5uuSD1FAuZh4mfhYiNM2bT8rbr/y5gbY9E7HZfbZs82/gDD6sn6hBi7Q1Tj
+	a74CZ0/ISKYrlA75BDC8z+Js0WEupl8S07utbr3LhCHLgXJP1imi71xLWh1TMwIKr+PgEDjUzTD
+	QwZ7lKpaiU7V0SiZLxfvhGgA1Xoa3IfCHI5YjMilZGXnZZU9oU0U3HVd/psvPAk6Hq4Ypt9vwOi
+	kCjKtvTYsf7fsfA7ETPLw3DjafzFTVmSE20p7YG6aMN/4IT3xSIQ2oYKxZpBmykQoCcD5QfXbTt
+	0W0Kpc5BHzYhE/COza/CNfCtLkl5xiSAAnhlpVHjqep9t0mMZjTEun6HB7G4tCpXVCB83Pq/iNS
+	MGNWAdrZznqB/UtCRKx6Y4m3ym7oDatpBQXEaqEvLvfvYk4K3g48jnZeBPMf9fGgTqEEsYkQfS7
+	oD7LZsFnCOivijoYKE9z5mvbO15h/KsLg4ormOszwjOHbGyIV4M5meWt4RBHvzeFI/j0rFJEvLT
+	Q/2vl9qMzJmV+pwPivP
+X-Received: by 2002:a05:6a21:3995:b0:3de:61f3:3403 with SMTP id adf61e73a8af0-3e1340e0c7bmr4281826637.54.1791465983550;
+        Thu, 08 Oct 2026 06:26:23 -0700 (PDT)
+Received: from localhost.localdomain ([2406:5900:1044:110c:af47:f737:9040:a59])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd34f318ce0sm17289a12.4.2026.10.08.06.26.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 06:26:17 -0700 (PDT)
-From: "D. Manresa" <dmanresa@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	Daniel Scally <dan.scally@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Fernando Rimoli <fernandorimoli11@gmail.com>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 1/2] media: ipu-bridge: don't reference the module image from software nodes
-Date: Thu,  8 Oct 2026 15:26:13 +0200
-Message-ID: <20261008132614.2456716-2-dmanresa@gmail.com>
+        Thu, 08 Oct 2026 06:26:23 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: Keith Busch <kbusch@kernel.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>
+Cc: Nitesh Shetty <nj.shetty@samsung.com>,
+	Hannes Reinecke <hare@suse.de>,
+	Kanchan Joshi <joshi.k@samsung.com>,
+	gliuxen@gmail.com,
+	linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
+	stable@vger.kernel.org
+Subject: [PATCH] nvme: bound FDP config log reads to the received buffer
+Date: Thu,  8 Oct 2026 22:26:04 +0900
+Message-ID: <20261008132604.1168105-1-yhlee@isslab.korea.ac.kr>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261008132614.2456716-1-dmanresa@gmail.com>
-References: <20261008132614.2456716-1-dmanresa@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,127 +82,170 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The software nodes registered by ipu_bridge_init() are deliberately
-never unregistered: sensor drivers and the fwnode graph keep references
-to them, so they are left registered when the ipu-bridge module is
-unloaded and a later rebind is intended to reuse the already registered
-nodes.
+nvme_query_fdp_granularity() parses the FDP Configurations log using
+sizes the controller returns, without checking that they fit the buffer
+it was given.  The log size is only bounded from above before
+kvmalloc(), so a size below the log header makes
+le16_to_cpu(h->numfdpc) read past the allocation, and a size of zero
+yields ZERO_SIZE_PTR and faults.  Each configuration descriptor is then
+dereferenced (dsze while walking, and nrg and runs on the selected one)
+without checking that the whole descriptor lies within the buffer, so a
+descriptor at or past the end is read out of bounds.  The out-of-bounds
+runs value is then exposed to userspace through
+/sys/block/nvmeXnY/queue/write_stream_granularity.
 
-For that to work, nothing reachable from the registered nodes may point
-into the ipu-bridge module image. Most of the data already lives in the
-dedicated, never freed, struct ipu_bridge allocation: the property name
-strings in struct ipu_property_names are character arrays copied into
-the per-sensor struct, the node name strings are likewise character
-arrays inside the struct, and the data-lanes array is a struct
-ipu_bridge member precisely so that "it survives if the module is
-unloaded along with the rest of the struct". Commit a20c843c9bc4
-("media: ipu-bridge: Keep the clock-noncontinuous property name out of
-rodata") moved the "clock-noncontinuous" property name there as well.
+A malicious or buggy controller triggers this during namespace scan with a
+short FDP Configurations log:
 
-Two references into the module image remain, though:
+[    1.104828] BUG: KASAN: slab-out-of-bounds in nvme_alloc_ns+0x39a6/0x4480
+[    1.104848] Read of size 8 at addr ffff888009fd8fe0 by task kworker/u8:3/52
+[    1.104852]
+[    1.104857] CPU: 1 UID: 0 PID: 52 Comm: kworker/u8:3 Not tainted 7.3.0-rc6-00063-g0c2669a9f4a1 #1 PREEMPT(lazy)
+[    1.104862] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
+[    1.104866] Workqueue: async async_run_entry_fn
+[    1.104873] Call Trace:
+[    1.104876]  <TASK>
+[    1.104878]  dump_stack_lvl+0x66/0xa0
+[    1.104886]  print_report+0xd0/0x630
+[    1.104893]  ? nvme_alloc_ns+0x39a6/0x4480
+[    1.104897]  ? __virt_addr_valid+0x209/0x3f0
+[    1.104903]  ? nvme_alloc_ns+0x39a6/0x4480
+[    1.104907]  kasan_report+0xe4/0x120
+[    1.104913]  ? nvme_alloc_ns+0x39a6/0x4480
+[    1.104919]  nvme_alloc_ns+0x39a6/0x4480
+[    1.104926]  ? __pfx_nvme_alloc_ns+0x10/0x10
+[    1.104931]  ? check_prev_add+0xfd/0xe80
+[    1.104942]  ? lock_acquire+0x18d/0x300
+[    1.104948]  ? nvme_find_get_ns+0xbb/0x2e0
+[    1.104952]  ? find_held_lock+0x2b/0x80
+[    1.104956]  ? nvme_find_get_ns+0x221/0x2e0
+[    1.104962]  ? nvme_find_get_ns+0x231/0x2e0
+[    1.104967]  ? nvme_scan_ns+0x2e1/0x8d0
+[    1.104971]  ? kfree+0x2e5/0x510
+[    1.104976]  ? __lock_acquire+0x570/0x1b00
+[    1.104982]  nvme_scan_ns+0x56a/0x8d0
+[    1.104987]  ? __pfx_nvme_scan_ns+0x10/0x10
+[    1.104994]  ? lockdep_hardirqs_on_prepare+0xdc/0x190
+[    1.104999]  ? trace_hardirqs_on+0x18/0x160
+[    1.105005]  ? kvm_clock_get_cycles+0x19/0x40
+[    1.105011]  ? __pfx_nvme_scan_ns_async+0x10/0x10
+[    1.105015]  async_run_entry_fn+0x8d/0x290
+[    1.105020]  process_one_work+0x8ac/0x1b00
+[    1.105029]  ? __pfx_process_one_work+0x10/0x10
+[    1.105034]  ? lock_acquire+0x18d/0x300
+[    1.105040]  ? lock_is_held_type+0x8f/0x100
+[    1.105046]  ? __pfx_async_run_entry_fn+0x10/0x10
+[    1.105050]  worker_thread+0x4ee/0xe70
+[    1.105056]  ? lockdep_hardirqs_on_prepare+0xdc/0x190
+[    1.105061]  ? trace_hardirqs_on+0x18/0x160
+[    1.105066]  ? __pfx_worker_thread+0x10/0x10
+[    1.105071]  ? __pfx_worker_thread+0x10/0x10
+[    1.105076]  kthread+0x2ce/0x3b0
+[    1.105080]  ? __pfx_kthread+0x10/0x10
+[    1.105085]  ret_from_fork+0x52e/0x780
+[    1.105090]  ? __pfx_ret_from_fork+0x10/0x10
+[    1.105094]  ? __switch_to+0x572/0xde0
+[    1.105101]  ? __pfx_kthread+0x10/0x10
+[    1.105105]  ret_from_fork_asm+0x1a/0x30
+[    1.105114]  </TASK>
+[    1.105116]
+[    1.105117] Allocated by task 52:
+[    1.105119]  kasan_save_stack+0x33/0x60
+[    1.105123]  kasan_save_track+0x14/0x30
+[    1.105126]  __kasan_kmalloc+0x8f/0xa0
+[    1.105129]  __kvmalloc_node_noprof+0x2e1/0x820
+[    1.105134]  nvme_alloc_ns+0x1097/0x4480
+[    1.105138]  nvme_scan_ns+0x56a/0x8d0
+[    1.105142]  async_run_entry_fn+0x8d/0x290
+[    1.105145]  process_one_work+0x8ac/0x1b00
+[    1.105148]  worker_thread+0x4ee/0xe70
+[    1.105152]  kthread+0x2ce/0x3b0
+[    1.105155]  ret_from_fork+0x52e/0x780
+[    1.105159]  ret_from_fork_asm+0x1a/0x30
+[    1.105163]
+[    1.105164] The buggy address belongs to the object at ffff888009fd8fc0
+[    1.105164]  which belongs to the cache kmalloc-32 of size 32
+[    1.105167] The buggy address is located 8 bytes to the right of
+[    1.105167]  allocated 24-byte region [ffff888009fd8fc0, ffff888009fd8fd8)
+[    1.105171]
+[    1.105172] The buggy address belongs to the physical page:
+[    1.105175] page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x9fd8
+[    1.105179] flags: 0x100000000000000(node=0|zone=1)
+[    1.105183] page_type: f5(slab)
+[    1.105188] raw: 0100000000000000 ffff888008c41780 dead000000000100 dead000000000122
+[    1.105192] raw: 0000000000000000 0000000000400040 00000000f5000000 0000000000000000
+[    1.105194] page dumped because: kasan: bad access detected
+[    1.105195]
+[    1.105196] Memory state around the buggy address:
+[    1.105198]  ffff888009fd8e80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+[    1.105201]  ffff888009fd8f00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+[    1.105203] >ffff888009fd8f80: fc fc fc fc fc fc fc fc 00 00 00 fc fc fc fc fc
+[    1.105205]                                                        ^
+[    1.105207]  ffff888009fd9000: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 fc
+[    1.105210]  ffff888009fd9080: fc fc fc fc fc fc fc fc 00 00 00 00 00 00 00 00
+[    1.105212] ==================================================================
 
-1. The values of the "link-frequencies" endpoint property point at
-   cfg->link_freqs inside the const ipu_supported_sensors[] table in
-   module rodata.
+Reject a log smaller than its header, and check that a descriptor fits the
+buffer before each access.
 
-2. The name of the "lens-focus" device property is a string literal in
-   module rodata.
-
-Both dangle as soon as the module is unloaded, while the properties
-that carry them stay registered and readable. In practice, after
-unloading and reloading the IPU modules on a Surface Pro 7+ (IPU6,
-ov8865 + ov5693 + ov7251), re-probing sensor drivers read poisoned
-link-frequencies from the surviving nodes and fail to probe:
-
-  ov8865: failed to find 360000000 clk rate in endpoint link-frequencies
-  ov5693: supported link freq 419200000 not found
-
-where 419200000/360000000 are exactly the values the bridge had
-originally published for those sensors, i.e. the properties no longer
-return their original contents. Depending on what happens to the freed
-module mapping, reading the properties can also fault. Similarly, a VCM
-lookup through the "lens-focus" reference can no longer match (or
-faults) once the property's name pointer is dangling.
-
-Copy the link frequencies and the "lens-focus" property name into
-struct ipu_bridge, next to the data-lanes array kept there for the same
-reason, and make the registered properties point at those copies, so
-the nodes survive module unload intact. These were the only remaining
-references from the registered nodes into the module image (the
-sensor->vcm_type pointer into ipu_vcm_types[] is only dereferenced
-during ipu_bridge_init() itself and is not reachable from the nodes).
-
-Assisted-by: LLM
-Fixes: 803abec64ef9 ("media: ipu3-cio2: Add cio2-bridge to ipu3-cio2 driver")
-Fixes: 68b9bcc8a534 ("media: ipu3-cio2: Add support for instantiating i2c-clients for VCMs")
-Signed-off-by: D. Manresa <dmanresa@gmail.com>
+Fixes: 30b5f20bb2dda ("nvme: register fdp parameters with the block layer")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 ---
- drivers/media/pci/intel/ipu-bridge.c | 14 +++++++++++---
- include/media/ipu-bridge.h           |  9 +++++++++
- 2 files changed, 20 insertions(+), 3 deletions(-)
+ drivers/nvme/host/core.c | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
-index 3739c4a..b9779c3 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -623,7 +623,8 @@ static void ipu_bridge_create_fwnode_properties(
- 		sensor->vcm_ref[0] =
- 			SOFTWARE_NODE_REFERENCE(&sensor->swnodes[SWNODE_VCM]);
- 		sensor->dev_properties[3] =
--			PROPERTY_ENTRY_REF_ARRAY("lens-focus", sensor->vcm_ref);
-+			PROPERTY_ENTRY_REF_ARRAY(bridge->lens_focus,
-+						 sensor->vcm_ref);
+diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
+index 9bcab3dc4c118..2618b4889f1d4 100644
+--- a/drivers/nvme/host/core.c
++++ b/drivers/nvme/host/core.c
+@@ -2272,6 +2272,10 @@ static int nvme_query_fdp_granularity(struct nvme_ctrl *ctrl,
  	}
  
- 	sensor->ep_properties[IPU_BRIDGE_NEXT_PROPERTY(i, EP_BUS_TYPE)] =
-@@ -636,11 +637,17 @@ static void ipu_bridge_create_fwnode_properties(
- 		PROPERTY_ENTRY_REF_ARRAY(names->remote_endpoint,
- 					 sensor->local_ref);
- 
--	if (cfg->nr_link_freqs > 0)
-+	if (cfg->nr_link_freqs > 0) {
-+		u64 *link_freqs = bridge->link_freqs[sensor - bridge->sensors];
-+
-+		memcpy(link_freqs, cfg->link_freqs,
-+		       cfg->nr_link_freqs * sizeof(*link_freqs));
-+
- 		sensor->ep_properties[IPU_BRIDGE_NEXT_PROPERTY(i, EP_LINK_FREQUENCIES)] =
- 			PROPERTY_ENTRY_U64_ARRAY_LEN(names->link_frequencies,
--						     cfg->link_freqs,
-+						     link_freqs,
- 						     cfg->nr_link_freqs);
+ 	size = le32_to_cpu(hdr.sze);
++	if (size < sizeof(*h)) {
++		dev_warn(ctrl->device, "FDP config log too small\n");
++		return 0;
 +	}
+ 	if (size > PAGE_SIZE * MAX_ORDER_NR_PAGES) {
+ 		dev_warn(ctrl->device, "FDP config size too large:%zu\n",
+ 			 size);
+@@ -2304,8 +2308,12 @@ static int nvme_query_fdp_granularity(struct nvme_ctrl *ctrl,
+ 	desc = log;
+ 	end = log + size - sizeof(*h);
+ 	for (i = 0; i < fdp_idx; i++) {
+-		u16 dsze = le16_to_cpu(desc->dsze);
++		u16 dsze;
  
- 	if (cfg->flags & IPU_BR_FL_CSI2_CLK_NONCONTINUOUS)
- 		sensor->ep_properties[IPU_BRIDGE_NEXT_PROPERTY(i, EP_CLOCK_NONCONTINUOUS)] =
-@@ -1112,6 +1119,7 @@ int ipu_bridge_init(struct device *dev,
++		if ((u8 *)desc + sizeof(*desc) > (u8 *)h + size)
++			goto short_desc;
++
++		dsze = le16_to_cpu(desc->dsze);
+ 		if (!dsze || log + dsze > end) {
+ 			dev_warn(ctrl->device,
+ 				 "FDP invalid config descriptor at index %d\n", i);
+@@ -2316,6 +2324,9 @@ static int nvme_query_fdp_granularity(struct nvme_ctrl *ctrl,
+ 		desc = log;
+ 	}
  
- 	strscpy(bridge->ipu_node_name, IPU_HID,
- 		sizeof(bridge->ipu_node_name));
-+	strscpy(bridge->lens_focus, "lens-focus", sizeof(bridge->lens_focus));
- 	bridge->ipu_hid_node.name = bridge->ipu_node_name;
- 	bridge->dev = dev;
- 	bridge->pci_id = dev_is_pci(dev) ? to_pci_dev(dev)->device : 0;
-diff --git a/include/media/ipu-bridge.h b/include/media/ipu-bridge.h
-index 3ef94c2..a49f37f 100644
---- a/include/media/ipu-bridge.h
-+++ b/include/media/ipu-bridge.h
-@@ -203,6 +203,15 @@ struct ipu_bridge {
- 	char ipu_node_name[ACPI_ID_LEN];
- 	struct software_node ipu_hid_node;
- 	u32 data_lanes[4];
-+	/*
-+	 * The software nodes registered by the bridge are deliberately never
-+	 * unregistered (see ipu_bridge_init()), so every string and array
-+	 * they reference must live in this never freed struct rather than in
-+	 * the module image, so that the nodes stay intact if the module is
-+	 * unloaded.
-+	 */
-+	char lens_focus[sizeof("lens-focus")];
-+	u64 link_freqs[IPU_MAX_PORTS][MAX_NUM_LINK_FREQS];
- 	unsigned int n_sensors;
- 	struct ipu_sensor sensors[IPU_MAX_PORTS];
- };
++	if ((u8 *)desc + sizeof(*desc) > (u8 *)h + size)
++		goto short_desc;
++
+ 	if (le32_to_cpu(desc->nrg) > 1) {
+ 		dev_warn(ctrl->device, "FDP NRG > 1 not supported\n");
+ 		ret = 0;
+@@ -2326,6 +2337,11 @@ static int nvme_query_fdp_granularity(struct nvme_ctrl *ctrl,
+ out:
+ 	kvfree(h);
+ 	return ret;
++
++short_desc:
++	dev_warn(ctrl->device, "FDP config descriptor runs past the log\n");
++	kvfree(h);
++	return 0;
+ }
+ 
+ static int nvme_query_fdp_info(struct nvme_ns *ns, struct nvme_ns_info *info)
 -- 
 2.43.0
 
