@@ -1,84 +1,119 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82C7938886A;
-	Thu,  8 Oct 2026 08:02:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26FB73CEBA9;
+	Thu,  8 Oct 2026 08:04:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791446530; cv=none; b=S4Nporg8+0dKWEuCmU/Bg4LmWfocCiuPe5lEsUtcVHo79WGFPPK9f7pSXAPUHr5TotLN1ReHqS+80yqQFlMQq9HTq96GzuJCOjxK280fH4n+Ps1L4G5oJsD6uV5RnjOOjF20IWtkPkVb8ueNieWjHLHfrT10gg+JNQnUnvz3+bU=
+	t=1791446649; cv=none; b=LuplKvT3iRvltjXyUS5rOsTH2KOADqPaMYJt5ZL1Ccwua/WCa28pjcv13KWI2pRpWl78oMlhRqOug5OS/COY4w+pmFp7B91OfGaUQe6TVXhCHeiNsHJJpM2YVL0QcOTY9uqBAdbB+X1m+jgmVsXn4oZxId1un0zUjCBhS+rhyWE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791446530; c=relaxed/simple;
-	bh=uaMDXbdt23ihBGmhZhBRjzcQK+yRXU2ygdB5cz/uiAQ=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=OZG3rXjaiLLa4KkcfOKmNXXJOFtM+7HrRex6DNAPrySut3qbffRuW1YbNICsGJZCrI5BBPkUuVv6supz2GFB9HTogJaAsEHNylu7h8YRe3/BEa33GitYH6/QgqfvhHSeydGl9/OYqoK3+78UEKOBI4u1SeDeWQPxd022QxsRzWk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=Pl8UCaTT; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1791446649; c=relaxed/simple;
+	bh=oytHofmUsmOmYjWHOOvTsgnG1UiObfAk8X2HNycb7pY=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dAVMGOHSkJcAzmvcKanxLyoxV1MHOk3sr2BMYBbONgKbuif/BPqnuN4ugSCn/9Pqu+x6BB+twHz14bu0lFddwt2u54BeRmxQZQJnCa+DWCnb94e//6xKwxmlgpfKhkY0eE6rYsAwjHcd2KSbh5mCzn+vlttiwHDPFSmwKtUKOxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=fMr/M945; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="Pl8UCaTT"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 93F14A1551;
-	Thu,  8 Oct 2026 10:02:00 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1791446522; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=l4f2RYpZ9JHI9Lr44tu461ZrdYW0nDBrI6l/DQCt3zg=;
-	b=Pl8UCaTTRJ54wdnAycGFkzj0mTInp4Tu9ugo0N01FUkooh4Q8sOneObCFMSIr+NlQ4AbgG
-	k6h6Sn4aHrtKqHhZSzBbmDA3LIp+PP/yzOxFKfiTruDJuNJU8G9LZZe7eYsHtvCPXZPux+
-	KU6zrXsH0hprArSH66p50/Bd66/NhxYFK3stqofVjjuOw2LdzS836A+54HRhGW79a4twHf
-	Ltw/JuqA5/HwLP8whJe/ZAG5WdjgAReIMwZ2fF0y0kLJ0UFI2lMJPh7zioGrr2gd9aMy9i
-	9IzkZ/W2VvzVJncL8MHONoHJ0bFvU2oYfTr7YrZkai80HwRd8tH7wVocvvAKcA==
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="fMr/M945"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1791446158;
+	bh=oytHofmUsmOmYjWHOOvTsgnG1UiObfAk8X2HNycb7pY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=fMr/M945EQAvKNpaZfjiq3lkEcl9RypSRzLM+p+FZvRUD22i3eZ02dTGoZVszwQob
+	 n/mjGJ58RK0DddanS5RKROKbgHRExS4FQ6ULlVLJhst5kyQ+a5rwmRrKuiuHBBHsAO
+	 ZB7RYcg8i/CqgeRrDNkV3VbCpxoFOWubk6Jwrl3tcWX2Nu5fS3Tyo3zSdJUpxTyoxB
+	 FJqvhR27juW7ceJywgAi9/qpmLjIdj/w1lLldz9Rg1Z3IENQZG/nTVqUf65gNoIMUU
+	 dAT/ol25HXGhsqdQcGLvWEbdrWNfAFWkOJ/KxHK/ZVJNhEkGSQMJW1BmLWpJ7rQEX+
+	 /tfu0qwwrxkqQ==
+Received: from fedora-61.home (unknown [100.64.0.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bbrezillon)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 7C0ED17E0371;
+	Thu, 08 Oct 2026 09:55:57 +0200 (CEST)
+Date: Thu, 8 Oct 2026 09:55:11 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Osama Abdelkader <osama.abdelkader@gmail.com>
+Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Akash Goel
+ <akash.goel@arm.com>, Chia-I Wu <olvaffe@gmail.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] drm/panthor: Fix TOCTOU race between GROUP_REGISTERED
+ check and erase
+Message-ID: <20261008095511.70710ea2@fedora-61.home>
+In-Reply-To: <20261007181220.2418060-1-osama.abdelkader@gmail.com>
+References: <20261007181220.2418060-1-osama.abdelkader@gmail.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 08 Oct 2026 10:02:00 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: netdev-bot+sinfo@kernel.org
-Cc: Doug Berger <opendmb@gmail.com>, Florian Fainelli
- <florian.fainelli@broadcom.com>, Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, Justin Chen
- <justin.chen@broadcom.com>, Pierre-Marin Leclercq
- <pierremarinleclercq88@gmail.com>, Florian Fainelli <f.fainelli@gmail.com>
-Subject: Re: [PATCH net-next v3 0/8] net: bcmgenet: support larger MTUs
-In-Reply-To: <179136337262.2527009.9220130121409362777@kernel.org>
-References: <20261007-nb-genet-mtu-nn-v2-v3-0-74a796c019ce@tipi-net.de>
- <179136337262.2527009.9220130121409362777@kernel.org>
-Message-ID: <b669c9650a91eaded8304fb0a0d5057e@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-On 7.10.2026 10:56, netdev-bot+sinfo@kernel.org wrote:
-> Hi!
-> 
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
-> 
->  - Whether the issue was actually triggered, or is only theoretical
->    (e.g. found by code inspection). If it was triggered please include
->    the symptoms, like the stack trace or error messages.
+On Wed,  7 Oct 2026 20:12:19 +0200
+Osama Abdelkader <osama.abdelkader@gmail.com> wrote:
 
-No, it's not. The one commit carrying a fixes tag shouldn't be reachable 
-without the mtu series, but is kinda required for it. I added the tag 
-for the sake of completeness though.
-
+> panthor_group_destroy() checks the GROUP_REGISTERED mark and then calls
+> xa_erase() without holding the xarray lock across both. If the handle is
+> destroyed by another thread in between, and a concurrent GROUP_CREATE
+> reuses the freed ID, the first destroy erases and releases the new,
+> still-initializing group, leading to a use-after-free in
+> panthor_group_create().
 > 
-> Please do not repost the series just to address the above. Instead,
-> reply to this email with the missing information, so that reviewers
-> can take it into account. If the series needs another revision for
-> other reasons, please include the information in the commit messages
-> then.
+> Do the mark check and erase atomically under xa_lock().
 > 
-> The evaluation is done by an LLM so it may be wrong, if you think
-> that is the case please reply and explain.
+> Fixes: eec7e23d848d ("drm/panthor: Prevent potential UAF in group creation")
 
-(response was only sent to the bot but Suie is not happy with that, so I 
-resend it to everyone)
+The fix looks legit, but I wonder how the bug was found. If this was
+found with the help of a tool (AI or static code analyzer), this should
+be reflected with an `Assisted-by` tag (see [1]).
+
+With the relevant Assisted-by tag, this is
+
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+
+[1]https://docs.kernel.org/process/coding-assistants.html
+
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
+> ---
+>  drivers/gpu/drm/panthor/panthor_sched.c | 14 ++++++++++----
+>  1 file changed, 10 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+> index 0493858e55d7..a343c5180e01 100644
+> --- a/drivers/gpu/drm/panthor/panthor_sched.c
+> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
+> @@ -3770,12 +3770,18 @@ int panthor_group_destroy(struct panthor_file *pfile, u32 group_handle)
+>  	struct panthor_group_pool *gpool = pfile->groups;
+>  	struct panthor_device *ptdev = pfile->ptdev;
+>  	struct panthor_scheduler *sched = ptdev->scheduler;
+> -	struct panthor_group *group;
+> +	struct panthor_group *group = NULL;
+>  
+> -	if (!xa_get_mark(&gpool->xa, group_handle, GROUP_REGISTERED))
+> -		return -EINVAL;
+> +	/*
+> +	 * Check the mark and erase the entry atomically, so a concurrent
+> +	 * destroy + create can't make us erase a group that's still being
+> +	 * initialized and happens to reuse the same handle.
+> +	 */
+> +	xa_lock(&gpool->xa);
+> +	if (xa_get_mark(&gpool->xa, group_handle, GROUP_REGISTERED))
+> +		group = __xa_erase(&gpool->xa, group_handle);
+> +	xa_unlock(&gpool->xa);
+>  
+> -	group = xa_erase(&gpool->xa, group_handle);
+>  	if (!group)
+>  		return -EINVAL;
+>  
+
