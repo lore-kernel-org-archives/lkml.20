@@ -1,148 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D7CD45D5E7;
-	Thu,  8 Oct 2026 21:28:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791494882; cv=none; b=HwHTHM58MlPxp7pMGYQ7iA1ohTwDeVtsHcTTnyS6XClUCOsnVwf6uuvnLJbBx3VF0FlJFDcwtpCx6xhi1BwWZR6cF+5N3mh6Ulg4REuysFCiQnpZDGFYd8Snifyv2AM/9jpq3sWToeB0FFZuv1e60np7oGP87VF7+t70ADtfR/8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791494882; c=relaxed/simple;
-	bh=TeR7Q+fqs/UcoTH+pEMoFwsQlixEwVVHjBq8FefJ8i4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=CBMhVf2PAgLuStx5XnrZGinQL5ckROUMeXiNWLnk7/iHrc9P8xZ0H2D2I1R6woO0Jkv9Q2KyD430/N4s6lb76+eK+gOXqR5fM8eusVY4Vs3+suEWBAlOArJNf+mUreNZZ5ah2q7AzK40jgV19aUbek+E6sM9sbhHUmnGPfxV2Ik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sAU1bZMD; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBDB844E643
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 21:28:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791494887; cv=pass; b=aeRelkjPA/tl4w1EpnVpK5582INaVV4QqhKtQFaKuIF8VNOxfHth7/KpwaMBPH+eUMVIwMC9uyIa/7kkfJhaj06/0kph4RG0ZJpYDb+Selfcqr5gr2u6aPtizvVGZGWeOjrudgERz1el667/ayKqDkQNcsJtYYZTQR79l4yjvvY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791494887; c=relaxed/simple;
+	bh=VuYIQRRuB94W7Kox+M3XIrBI3vc27TwoZHp/3bqtfhY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=LzB7kx0CtB6betDHZdHb9sRdYO0ghAMKreCJQsVGUBq5yYSvIJAb8M+tvQBK2FOQO8Sd7it4BlebnYHWHZVyvRYYRyYsVDtu82ib9+6bqR2onht0anWO9k1X12xmdmO4N405PNddWtdjMet9l8+QiXaxtTenOW7bP5qCitGF4PA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S1FQBep5; arc=pass smtp.client-ip=209.85.219.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sAU1bZMD"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id AD327C2BCC7;
-	Thu,  8 Oct 2026 21:28:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791494881;
-	bh=TeR7Q+fqs/UcoTH+pEMoFwsQlixEwVVHjBq8FefJ8i4=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=sAU1bZMDSb/MNRI+JwkoIjBscFAoLgRInepZf5t8PUStnOV4o6DLEzfq26tJPga0K
-	 0fKoqXQne8TZjd9bc2JLwLTvVpO1SZfqqTTrYxljtqR/+LNteer0rruejNSkmHqMpy
-	 Pt4rk+uYZbDJvD2kzjGD1a09dVHA8pH7sKoIeFjhRX5Z+spB/mkVpeDI04Ud5FknAN
-	 E9hddErQ/2Q7xvSmbj+pgwk5uQ7143oKWKXZ78wH7fugk4u8f4Ta/k6SEn0lBZbBh9
-	 ASWmJUGJsgDaIrzGyFJjSY3frcF85knUHQwi7QJUOr0yKoPvFOqWPd4q8o3aiGSBin
-	 P+JwxCqaSzTdw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 85919CA6015;
-	Thu,  8 Oct 2026 21:28:01 +0000 (UTC)
-From: Fabio Forni via B4 Relay <devnull+development.redaril.me@kernel.org>
-Date: Thu, 08 Oct 2026 23:27:59 +0200
-Subject: [PATCH] iio: afe: iio-rescale: Add platform IDs
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S1FQBep5"
+Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-917c04630c2so36915576d6.3
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 14:28:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791494884; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OBl1wRBRZEgkXIeJi/UqUk5lITG+vjPOW7YjOV7lSlnNq/baY6AezJOZnncx/U/O/0
+         trh3cP4v9RAcmjtoDLPiKFRAXU2wz284lJjnH8Eh3l2E9oJDMI0wGd+zbNEPPVvXBQg9
+         WwPhKO7q2qAtKgjSA7EAnBZ8j2JiQDn1+srTjkSKOOGeavuhK7FRxshPeTNPTZbteJe/
+         rQTgLuprx+3jPYp4v8dCj+lkzZFBUdq+g6kQ/KYx7VhKSpJbt6E8htdesQZ9pDMmVWYN
+         58p+R0xKAbBmFK5fnlEchlhRhQsVgdGNNXBNDG+ujTCUYZX48Iw12w1ltkvZIdgOSuFY
+         Bjog==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=VuYIQRRuB94W7Kox+M3XIrBI3vc27TwoZHp/3bqtfhY=;
+        fh=NbWTKcJUIczeOsbPnts6io6X5MocjQk5dlL6XSmETus=;
+        b=qBgr4eBum2xLOUhULDz0XJ1lRC6PgVG2ZgnYDM2g5nVu6cC0Q5RXYcdNULKHqGWHS8
+         LPGrMvfuTlWWI4dUzO2hjIjlyMyBca4O77unx81BGwFnKwd67Y5QncQJwOHRvtbmuECG
+         BDFd7UvFaVKtcMc1wZpmLDlsmhCgxCoXwGQ6ivwzVwXP643kqw73wxofgbTyHpUumAgb
+         3APVTSaDgwS5Ij1iMpX8QDdkiJs2ElAzBroYNRumrhvPYaNQmmyuhm9Q0ZD5mDxwW3Jc
+         GHsmGWScx8K/GIV1rkD16UxmKfuAmhX4z9VBINui9OolNl7lv+RY5k1Ou6k/s8J0UzP5
+         TNyQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791494884; x=1792099684; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VuYIQRRuB94W7Kox+M3XIrBI3vc27TwoZHp/3bqtfhY=;
+        b=S1FQBep5rIbS2NRVh2ZkoFax+01UnH4BJIAUdJmdGIbuzORGGgeykIUXKd5p8S7RFW
+         JA3x4H9ENgldTPyXa2IHWIiMMj8HdVV+7Ykxt73jdQTB0ATTdzNmnqJ9sEUVqAAzt5ZT
+         GUEN48xs5ueGurG2aH2+4fd3kuWMA0tH5EJI0Uw4D++AJgl6fZR7vqwIQ5FwOCPuBSLS
+         5oFH9GsHDa3sVxx+c0G64HQ0qGZfnqZ3N9BBOHz5UObudBauhfw7VQpdh04H1nF9t0fe
+         H7phWVWs5W/OEo3p7229+ec/95ITwExDtxli6Va/SSrIXFlWVkPpw33iyVoIPirL4ue1
+         WC5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791494884; x=1792099684;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=VuYIQRRuB94W7Kox+M3XIrBI3vc27TwoZHp/3bqtfhY=;
+        b=oTduYGklJXttaFoQ7UvNZVPELwME3VWwl5TUIDint0V87u9u3PLthPQb4GTbUwjZHV
+         qRM9/51Pu20k4MbYzV9PAnNoT6N/IJ3DDdr1FsjM6H6Oa68Y+mo2Tashq+09607Js8iU
+         fkg5vV65YMqBTbMcc5iMC2FT+a5AxMBRosNiAvmnR2/44eA1Pi+hsp6FOzsk9v6ITz/L
+         p7IX9LRk6LkSiE+7KY+U6+H4lDSsE7uThaHD/emD74CkTZYhMrHkrf2uKdM5tiudEVZW
+         U/Q8/VxQTWKU64a1foIN1aa7nuPeNAqRkIucjHBgdLMcazDbsK7+lG7TJuv+A2aEZ6Ek
+         N8WQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz2LbvzUocFcflBSfot7HSzCJMC+b2/qXAr+67KW8bADDUAAWtQGyVP+c6pPoYSX7qqWbJ+zwh8XtR1Sjw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIfOMgxBcc0gzM8V2y5NVShYH6U41KLfMfGTJ+p7fO/dv6B1ZVh
+	YJivTXFDnIa/VYKyFS4pGbQfYEZ4Ix3F9AyPZ9DZR4OmZE1IePU53siHSnVhqcAV/AD3z0j/HoF
+	tC3MHLWvUbTIDLwGSEIxl+KXU7hbzMJo=
+X-Gm-Gg: AYBFou0hwWb2czz2DOMHGAf7Yx5td3p03qLsE/raEczwHL64jkc2+udse4Vzdf9lfle
+	WJaNvuYY78t7fBIPs8+5rCI7vvMBnJtQxtQzIiu5fDIPkSlTlDiitTwDPYDHf3tfs94C5E0Jq9Q
+	qxS+xkUc91wKI+M+NczgmzPZ1p3EFrcnU29rDftfGlE+gVjkDRJXkXBl+sxJ/Pyk6L1OUK7y81G
+	XvHI/rgYdoVBnkaIw3jShdBSGRthhdtee/Qszz25VWYMwKx60T1jR782bJlEAy3p1O7IPY7lZbw
+	L0+pO/RsXBvi1+/WhjVb1y5+inkCtF4dsnkdlAqsWGtQ43vnwrKd6SiaZP8PDUEJzq5L0Smthii
+	2ZSNah4W5nsqkaA==
+X-Received: by 2002:ad4:5c6f:0:b0:914:501c:6d08 with SMTP id
+ 6a1803df08f44-91b554f0389mr257436d6.14.1791494884320; Thu, 08 Oct 2026
+ 14:28:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261008-iio_rescale_platform_ids-v1-1-019f1c144022@redaril.me>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqDMBBA0avIrBuIoRjbq5QShmSiA9bIjEghe
- HeDy7f4v4KSMCm8uwpCByuXtaF/dBBnXCcynJrBWTf01o6GuQQhjbhQ2Bbcc5Ff4KTGJoc+YXz
- 5J0LLN6HM/3v9+Z7nBX4+cQZqAAAA
-X-Change-ID: 20261008-iio_rescale_platform_ids-0d2a7dac974a
-To: Peter Rosin <peda@lysator.liu.se>, Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Fabio Forni <development@redaril.me>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2514;
- i=development@redaril.me; h=from:subject:message-id;
- bh=lvuR+QebAMjMI31UmklRwBBfWEf2jwig4BQ8unLKdow=;
- b=kA0DAAoWgcJymq2hamcByyZiAGrICuChWTkRFreAg1lxyLYmsekEsNX+aIaBAxwp0zBFHYtBd
- 4h1BAAWCgAdFiEE/0Iysos2NDLajxh9gcJymq2hamcFAmrICuAACgkQgcJymq2hamfjFQEAirpA
- ncsel/jCwPi3z1NCt4yT74lqYoQmcO1Z6l3mv9oBALiHrP0yg++SvBU4Rkdfvavd34K0penzEYU
- FhkxjwlAO
-X-Developer-Key: i=development@redaril.me; a=openpgp;
- fpr=FF4232B28B363432DA8F187D81C2729AADA16A67
-X-Endpoint-Received: by B4 Relay for development@redaril.me/default with
- auth_id=1033
-X-Original-From: Fabio Forni <development@redaril.me>
-Reply-To: development@redaril.me
+References: <20260923074903.862898-1-linmag7@gmail.com> <20260923074903.862898-2-linmag7@gmail.com>
+In-Reply-To: <20260923074903.862898-2-linmag7@gmail.com>
+From: Matt Turner <mattst88@gmail.com>
+Date: Thu, 8 Oct 2026 17:27:48 -0400
+X-Gm-Features: AclHuK92Eilo9AIrsmVEgSCURzevr5CYUX7NRSheSjbh494ve_VZ5MYQZo-3BMI
+Message-ID: <CAEdQ38E6pTdnfzU4tTvoJOFVGv6jSQ2HrhLTFet+2qMiYU4kZw@mail.gmail.com>
+Subject: Re: [PATCH v3 1/7] alpha: run check_mmu_context() from finish_arch_post_lock_switch()
+To: Magnus Lindholm <linmag7@gmail.com>
+Cc: richard.henderson@linaro.org, linux-kernel@vger.kernel.org, 
+	linux-alpha@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Fabio Forni <development@redaril.me>
+On Wed, Sep 23, 2026 at 09:47:44AM +0200, Magnus Lindholm wrote:
+> so testing preemptible() expresses the required condition directly
+> rather than naming particular callers. alpha selects ARCH_NO_PREEMPT,
+> so unless something else turns on PREEMPT_COUNT the test is a
+> compile-time 0 and the hook runs everywhere, including at the end of
+> kthread_use_mm(); it only takes effect in PREEMPT_COUNT builds.
 
-When a rescaler is probed starting from a `struct swnode`,
-device_get_match_data() will always set rescale->cfg to NULL,
-because device_get_match_data() is unimplemented for software nodes.
+The only way I can find to get PREEMPT_COUNT on alpha is
+RCU_STRICT_GRACE_PERIOD. DEBUG_ATOMIC_SLEEP depends on !ARCH_NO_PREEMPT
+and PROVE_LOCKING only selects it if !ARCH_NO_PREEMPT.
 
-This commit makes the probe function fall back to platform IDs when
-it couldn't fetch the rescaler configuration from the match table.
+In that config preemptible() is true at the end of kthread_use_mm(), but
+the task still cannot migrate there: there is no kernel preemption and
+nothing sleeps between switch_mm_irqs_off() and the hook. So the test
+never prevents anything, and its only effect is that one debug config
+leaves asn_lock set where every other config clears it. I would drop it.
 
-Signed-off-by: Fabio Forni <development@redaril.me>
----
- drivers/iio/afe/iio-rescale.c | 26 ++++++++++++++++++++++++++
- 1 file changed, 26 insertions(+)
+> A shootdown IPI taken in
+> that window either finds asn_lock still set and defers, or finds it
+> already cleared and flushes directly and by then PAL_swpctx has
+> installed the incoming context, so the direct flush acts on the right
+> one. need_new_asn is only ever set while asn_lock is 1.
 
-diff --git a/drivers/iio/afe/iio-rescale.c b/drivers/iio/afe/iio-rescale.c
-index 3a6a09ffa526..fcdeeacedbe8 100644
---- a/drivers/iio/afe/iio-rescale.c
-+++ b/drivers/iio/afe/iio-rescale.c
-@@ -517,12 +517,28 @@ static const struct of_device_id rescale_match[] = {
- };
- MODULE_DEVICE_TABLE(of, rescale_match);
- 
-+static const struct platform_device_id rescale_platform_ids[] = {
-+	{ .name = "current-sense-amplifier",
-+	  .driver_data = CURRENT_SENSE_AMPLIFIER, },
-+	{ .name = "current-sense-shunt",
-+	  .driver_data = CURRENT_SENSE_SHUNT, },
-+	{ .name = "voltage-divider",
-+	  .driver_data = VOLTAGE_DIVIDER, },
-+	{ .name = "temperature-sense-rtd",
-+	  .driver_data = TEMP_SENSE_RTD, },
-+	{ .name = "temperature-transducer",
-+	  .driver_data = TEMP_TRANSDUCER, },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(platform, rescale_platform_ids);
-+
- static int rescale_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
- 	struct iio_dev *indio_dev;
- 	struct iio_channel *source;
- 	struct rescale *rescale;
-+	const struct platform_device_id *id;
- 	int sizeof_ext_info;
- 	int sizeof_priv;
- 	int i;
-@@ -548,6 +564,15 @@ static int rescale_probe(struct platform_device *pdev)
- 	rescale = iio_priv(indio_dev);
- 
- 	rescale->cfg = device_get_match_data(dev);
-+	if (!rescale->cfg) {
-+		id = platform_get_device_id(pdev);
-+		if (!id)
-+			return dev_err_probe(dev,
-+					     -EINVAL,
-+					     "missing or invalid device configuration");
-+
-+		rescale->cfg = &rescale_cfg[id->driver_data];
-+	}
- 	rescale->numerator = 1;
- 	rescale->denominator = 1;
- 	rescale->offset = 0;
-@@ -602,6 +627,7 @@ static struct platform_driver rescale_driver = {
- 		.name = "iio-rescale",
- 		.of_match_table = rescale_match,
- 	},
-+	.id_table = rescale_platform_ids,
- };
- module_platform_driver(rescale_driver);
- 
-
----
-base-commit: 6c377d19d4a5116d9bec5203aa3c6c11523e7898
-change-id: 20261008-iio_rescale_platform_ids-0d2a7dac974a
-
-Best regards,
--- 
-Fabio Forni <development@redaril.me>
-
-
+The deferred case has two halves. If ev5_switch_mm() reused the ASN,
+need_new_asn is set and check_mmu_context() reloads. If it allocated a
+new one, need_new_asn is 0, the IPI zeroes mm->context[cpu], and the
+task runs on with a zero slot. Nothing is stale at that point, but the
+follow-up series reads a zero slot as "not running here". More in my
+reply to v2 3/3 there.
