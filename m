@@ -1,33 +1,33 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E8598435515;
-	Thu,  8 Oct 2026 12:55:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 352AB4963B6;
+	Thu,  8 Oct 2026 12:55:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791464142; cv=none; b=hafoMUTTDcCeb7CDk6NP9D0ljMMl4BVokaW8tBTU7NW5bFNoLxleObTOyykyUBBwGPWWxWmO5/jDGIGqsjzUieNJxuhMT8vDqf4Do3I/vRnkyIP4nbWm5/o/EEB6pxSHR7ZhOs56aaijPi/MuDyhBAhdondTYVyLabS1HL5u55c=
+	t=1791464161; cv=none; b=k2Viw8NcmNsUlvZKTn+ab4pZ7rIIgn+Z2nf8ZkOzCz8h7sTBW3zTm0bmBM/N3a0bdnwMcNmTF6AdjyK1/fJU/URa+tRXUUfkaXUqxK3h4y3cgEOdifhAlCgD9M+LNpGuXsIsK8slpcF/x+YpbUOTfbE1yrPiLixjXBSalTiPM1k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791464142; c=relaxed/simple;
-	bh=3QdpwgfvX6sQmV3QX7F2pJoLE3Y/GJ9239PkdjVkR/k=;
+	s=arc-20240116; t=1791464161; c=relaxed/simple;
+	bh=48va3AxlapOSVD/eQTsLmD4W6Vl42eZUNrqCeNyskJA=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=b8iEn+AaoH0c5WmHd22peryCz9yIjYS/2NUYmQDgDRmvXnjQ/YJmFcZzp0u/a9ESZa732Nrc5y2Vp3mxdBtpTS0exusCJ0wggT3LQV6ioZb/VsRaUo6c9l40hh1VRlgVxZiiI24RcLHyaRNJIZbS67g9+7yc7rkRPuxOfrs2p5I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=DkXEzDU3; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 In-Reply-To:Content-Type; b=VWwli82Upk9xlyMtDeZGjgd1QGGUxrazSNf1bnBEwq1qoazFBEAvKaHm0MdRxVz+OewBI8oyMZeIp3JcwNGfiXdvIOhyVAIlmFfuxhklMCitMXNQB8K7kLyXrkzGdDM+S/Z28bjYmPW0LLgfHVWypFR6ZbvXLMbEVel4Gkwymdc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bhmLCGbp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="DkXEzDU3"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F3DB71477;
-	Thu,  8 Oct 2026 05:55:36 -0700 (PDT)
-Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A5E043F66F;
-	Thu,  8 Oct 2026 05:55:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791464140; bh=3QdpwgfvX6sQmV3QX7F2pJoLE3Y/GJ9239PkdjVkR/k=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=DkXEzDU31uC0dYxOkRVh+wR9Y2Jsc46vC/kxrGo9RjXZjwEVDiYzU1xr8xcMcb7HV
-	 FcvEyng6+7pjkY1QBhYL6ix+o9Tmk0LkIzWjtkZbQ3xjf1pFB4LwNx3dzurE928/VL
-	 mGwWqUTkZOKmjHIvDoQ6Z0W/PCTOx1yxeyykH3DE=
-Message-ID: <d0e80505-b36f-40a9-a45f-957fff428c2a@arm.com>
-Date: Thu, 8 Oct 2026 13:55:36 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bhmLCGbp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1367A1F000FF;
+	Thu,  8 Oct 2026 12:55:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791464159;
+	bh=YCVpdCyEFTDkP6dCBo/QsDSh8W09hcMyco8GwpHFCkY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=bhmLCGbp2BgiEMgGlOj3uH5BrlGhiSmut/gERZxNNlMNYwkOuT+IJeDeK9n62Cy/w
+	 pP63NUDFySKYfK3hxY5OG+XSd+W42907JY54uf2GLozRgmE3s854rrp06YIt6IvM+J
+	 onSPZlkGp097EmCiqmD4QIqQ5sWDMy1xVitTfFUEfTQW8NL5EdRPvH+36LlgWMjPj/
+	 oPYCFHtU/BCRMI506RAPZnsu8OK2E7mIZ22Q9eLExZBNjq7iNRp07HYOCpHlb24hZX
+	 0uFnDtCqLawLH4dCiaMjgTRXptxC7MZ+esERtVfDeN8GxRy3OV9/6ho4cjIGL0bBX0
+	 BDWyRdWITuDCw==
+Message-ID: <da108ee4-e330-4656-af21-286ad3eaf53b@kernel.org>
+Date: Thu, 8 Oct 2026 13:55:53 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,216 +35,122 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v5 3/6] iommu/arm-smmu-v3: Delay stream allocation to
- inside the mutex
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>, Will Deacon <will@kernel.org>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>,
- Jean-Philippe Brucker <jpb@kernel.org>, Nicolin Chen <nicolinc@nvidia.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Thierry Reding <thierry.reding@kernel.org>,
- Krishna Reddy <vdumpa@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>
-Cc: linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org,
- Peng Fan <peng.fan@nxp.com>
-References: <20261006-smmu-shared-sid-v5-0-169a59c671d3@nxp.com>
- <20261006-smmu-shared-sid-v5-3-169a59c671d3@nxp.com>
-From: Robin Murphy <robin.murphy@arm.com>
+Subject: Re: [PATCH 00/74] RFC: Switch on IFE YUV, Stats and Params support
+ for sm8650
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+ Daniel Scally <dan.scally@ideasonboard.com>, Keke Li <keke.li@amlogic.com>,
+ Richard Acayan <mailingradian@gmail.com>, Hans Verkuil
+ <hverkuil@kernel.org>, Gjorgji Rosikopulos <quic_grosikop@quicinc.com>,
+ Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>, Robert Foss
+ <rfoss@kernel.org>, Milen Mitkov <quic_mmitkov@quicinc.com>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Antoine Bouyer <antoine.bouyer@nxp.com>,
+ =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>, stable@vger.kernel.org
+References: <2bmnjEGElR9T_ArfViwpYiEKTtnqkmH2Ly0MiZJCxhhVR_O0dZOW-Cl983_7fLBFoxMc_PBuNK6FsBbK1JLXQA==@protonmail.internalid>
+ <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
+From: Bryan O'Donoghue <bod@kernel.org>
 Content-Language: en-GB
-In-Reply-To: <20261006-smmu-shared-sid-v5-3-169a59c671d3@nxp.com>
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 06/10/2026 1:19 pm, Peng Fan (OSS) wrote:
-> From: Peng Fan <peng.fan@nxp.com>
+On 05/10/2026 18:13, Bryan O'Donoghue wrote:
+> This extensive series restructures CAMSS around the idea of lines and
+> outputs more closely matching the concepts in the camera hardware.
 > 
-> Move arm_smmu_stream allocation from upfront (before the mutex) into
-> the mutex-protected loop in arm_smmu_insert_master(). Instead of
-> pre-allocating all stream objects and then inserting them into the RB
-> tree, first look up whether the SID already exists in the tree. Only
-> allocate and insert a new stream when no existing entry is found, then
-> avoid unnecessary allocations when bridged PCI devices produce duplicated
-> IDs. Prepare the code for a subsequent patch that will reuse existing
-> streams when stream IDs are shared across masters.
+> To begin with some bug fixing and some dependencies on the OPE series are
+> pulled in.
 > 
-> The sort is also moved after the mutex section, since streams are now
-> populated inside the loop rather than beforehand.
+> Following that a series of changes to enable the IFE hardware is introduced
+> for VFE780.
 > 
-> Assisted-by: LLM
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
-> ---
->   drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 102 +++++++++++++++-------------
->   1 file changed, 53 insertions(+), 49 deletions(-)
+> Supported in this drop:
 > 
-> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> index 9d34eac196a65..69c2c3596b06a 100644
-> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> @@ -4110,52 +4110,29 @@ static int arm_smmu_insert_master(struct arm_smmu_device *smmu,
->   		return -ENOMEM;
->   	}
->   
-> -	for (i = 0; i < fwspec->num_ids; i++) {
-> -		struct arm_smmu_stream *new_stream;
-> -
-> -		new_stream = kzalloc_obj(*new_stream, GFP_KERNEL);
-> -		if (!new_stream) {
-> -			ret = -ENOMEM;
-> -			goto out_free_streams;
-> -		}
-> -		new_stream->id = fwspec->ids[i];
-> -		new_stream->master = master;
-> -		master->streams[i] = new_stream;
-> -	}
-> -
-> -	/* Put the ids into order for sorted to_merge/to_unref arrays */
-> -	sort(master->streams, master->num_streams,
-> -	     sizeof(master->streams[0]), arm_smmu_stream_id_cmp,
-> -	     NULL);
-> -
-> -	/*
-> -	 * Clear after sorting: RB_CLEAR_NODE() records the node's own address,
-> -	 * which sort_nonatomic() invalidates by relocating the entries.
-> -	 */
-> -	for (i = 0; i < fwspec->num_ids; i++)
-> -		RB_CLEAR_NODE(&master->streams[i]->node);
-> -
->   	mutex_lock(&smmu->streams_mutex);
->   	for (i = 0; i < fwspec->num_ids; i++) {
-> -		struct arm_smmu_stream *new_stream = master->streams[i];
-> +		struct arm_smmu_stream *stream;
->   		struct rb_node *existing;
-> -		u32 sid = new_stream->id;
-> +		u32 sid = fwspec->ids[i];
->   
->   		ret = arm_smmu_init_sid_strtab(smmu, sid);
->   		if (ret)
->   			break;
->   
-> -		/* Insert into SID tree */
-> -		existing = rb_find_add(&new_stream->node, &smmu->streams,
-> -				       arm_smmu_streams_cmp_node);
-> +		existing = rb_find(&sid, &smmu->streams,
-> +				   arm_smmu_streams_cmp_key);
->   		if (existing) {
->   			struct arm_smmu_master *existing_master =
->   				rb_entry(existing, struct arm_smmu_stream, node)
->   					->master;
->   
->   			/* Bridged PCI devices may end up with duplicated IDs */
-> -			if (existing_master == master)
-> +			if (existing_master == master) {
-> +				master->streams[i] = rb_entry(existing,
-> +					struct arm_smmu_stream, node);
-
-If we're now making the whole stream allocation and tracking business 
-more dynamic anyway, could we not just skip inserting duplicate entries 
-entirely, and save all the hassle elsewhere?
-
-IIRC, the only real reason for not actively deduplicating originally in
-563b5cbe334e ("iommu/arm-smmu-v3: Cope with duplicated Stream IDs") was 
-to keep it to the simplest fix that was easier to backport, and at the 
-time it was easy to get away with since it only mattered at that one 
-particular point. If we have to start copying the double-loop bodge 
-around to multiple places, it rather stops looking like the neatest 
-option...
-
-Thanks,
-Robin.
-
->   				continue;
-> +			}
->   
->   			dev_warn(master->dev,
->   				 "Aliasing StreamID 0x%x (from %s) unsupported, expect DMA to be broken\n",
-> @@ -4163,45 +4140,72 @@ static int arm_smmu_insert_master(struct arm_smmu_device *smmu,
->   			ret = -ENODEV;
->   			break;
->   		}
-> +
-> +		stream = kzalloc_obj(*stream, GFP_KERNEL);
-> +		if (!stream) {
-> +			ret = -ENOMEM;
-> +			break;
-> +		}
-> +		stream->id = sid;
-> +		stream->master = master;
-> +
-> +		rb_find_add(&stream->node, &smmu->streams,
-> +			    arm_smmu_streams_cmp_node);
-> +		master->streams[i] = stream;
->   	}
->   
->   	if (ret) {
-> -		for (i--; i >= 0; i--)
-> -			if (!RB_EMPTY_NODE(&master->streams[i]->node))
-> -				rb_erase(&master->streams[i]->node,
-> -					 &smmu->streams);
-> +		for (i--; i >= 0; i--) {
-> +			int j;
-> +
-> +			if (!master->streams[i])
-> +				continue;
-> +			/* Skip duplicated SID pointers already freed */
-> +			for (j = 0; j < i; j++)
-> +				if (master->streams[j] == master->streams[i])
-> +					break;
-> +			if (j < i)
-> +				continue;
-> +			rb_erase(&master->streams[i]->node, &smmu->streams);
-> +			kfree(master->streams[i]);
-> +		}
->   		mutex_unlock(&smmu->streams_mutex);
-> -		goto out_free_streams;
-> +		kfree(master->streams);
-> +		kfree(master->build_invs);
-> +		return ret;
->   	}
->   	mutex_unlock(&smmu->streams_mutex);
->   
-> -	return 0;
-> +	/* Put the ids into order for sorted to_merge/to_unref arrays */
-> +	sort(master->streams, master->num_streams,
-> +	     sizeof(master->streams[0]), arm_smmu_stream_id_cmp,
-> +	     NULL);
->   
-> -out_free_streams:
-> -	for (i = 0; i < master->num_streams; i++)
-> -		kfree(master->streams[i]);
-> -	kfree(master->streams);
-> -	kfree(master->build_invs);
-> -	return ret;
-> +	return 0;
->   }
->   
->   static void arm_smmu_remove_master(struct arm_smmu_master *master)
->   {
->   	int i;
->   	struct arm_smmu_device *smmu = master->smmu;
-> -	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(master->dev);
->   
->   	if (!smmu || !master->streams)
->   		return;
->   
->   	mutex_lock(&smmu->streams_mutex);
-> -	for (i = 0; i < fwspec->num_ids; i++)
-> -		if (!RB_EMPTY_NODE(&master->streams[i]->node))
-> -			rb_erase(&master->streams[i]->node, &smmu->streams);
-> -	mutex_unlock(&smmu->streams_mutex);
-> +	for (i = 0; i < master->num_streams; i++) {
-> +		int j;
->   
-> -	for (i = 0; i < master->num_streams; i++)
-> +		/* Skip duplicated SID pointers already freed */
-> +		for (j = 0; j < i; j++)
-> +			if (master->streams[j] == master->streams[i])
-> +				break;
-> +		if (j < i)
-> +			continue;
-> +		rb_erase(&master->streams[i]->node, &smmu->streams);
->   		kfree(master->streams[i]);
-> +	}
-> +	mutex_unlock(&smmu->streams_mutex);
->   
->   	kfree(master->streams);
->   	kfree(master->build_invs);
+> - YUV output on the pix path
+>    YUV downscale 16 and downscale 4 work on a staging branch
+>    but with this series at 60 patches I've not included that.
 > 
+> - Stats output
+>    Bayer histogram only
+> 
+>    How many stats are intended to be brought out this way ?
+>    Consider that scene in The Terminator when the guy in the gun
+>    store.
+> 
+>    Gun store owner: "So which will it be"
+>    The Terminator: "All"
+> 
+>    More seriously once this series lands then it will be possible to bring
+>    out stats for Agatti mitigating the need for calculating stats in
+>    software.
+> 
+> - Params application
+>    AEC Bayer hist params
+> 
+>    Again there are no limits envisaged on which params are to be enabled.
+> 
+>    "All"
+> 
+> - Testing on HDK sm8650
+> 
+>    There is a repo to test this stuff out:
+> 
+>    https://github.com/0xB0D/ife-tests
+> 
+> Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
+For the record sending 74 patches to the mailing list is anti-social.
 
+Next time why not try for the hat-trick and make it 300 ?
+
+Feedback to self is break this up and squash this down NAK.
+
+---
+bod
