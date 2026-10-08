@@ -1,98 +1,134 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CFED37B007;
-	Thu,  8 Oct 2026 18:34:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5935036E48C
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 18:35:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791484489; cv=none; b=q6qeEBrR4iQpyhrmf/R15FDOdOjR4AwFLs2yDbl/TdcVGGRWXLlvz3J7zAA73CUotrQFPjVNC4swNgQCtjmckxY4d6+U9oVqrUwbM0umtFBuogZpfzKixgnF0n6MJQcM/IggiZdPnIF4bbHmQtCjpxHOA7uFgIoYC42yhVpoT/o=
+	t=1791484536; cv=none; b=iigVGrTd6TRp5omTlij/RVpItMP1yFe2ayaHCJqEcRsVlj6qulQqCV+TfHnNWF4wGGmWHIdROZlzJGR1AvI5bfVLvq/phYhEL6y/jpam81VBXFg3e9U1pZPr4N0EGxyL2i1JMvokpGQlAjcRJ4MH/vKxVfXk4rnyozMH4NMt/pk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791484489; c=relaxed/simple;
-	bh=w331LYYohqHoSENv8sGiApnC1kUXtK5b8F68wPpy0mM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=mpGID4u+FxvcUakQbNcwSCBGO6HP6aC1dll3TB3wYM6owDiBLWXJ6OaS6jK+7IYZgJW5aHxgDBtan/jnMSDyCFy4bj8m5iNbR/VAR/Qjn5UR9lvYGnPBZQCkLYl0k9lpf5V3iVPdyS6mSTw9EH2rHo766PAImWIkAzkoFjHKBQ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from fc87d0ffb700.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAC3vjxD4sdqrI4QCg--.14675S2;
-	Fri, 09 Oct 2026 02:34:44 +0800 (CST)
-From: Haotian Zhang <vulab@iscas.ac.cn>
-To: =?UTF-8?q?Rafa=C3=85=C2=82=20Mi=C3=85=C2=82ecki?= <zajec5@gmail.com>,
-	"John W. Linville" <linville@tuxdriver.com>,
-	Hauke Mehrtens <hauke@hauke-m.de>
-Cc: linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] bcma: fix device node refcount leak in bcma_of_get_irq()
-Date: Fri,  9 Oct 2026 02:34:46 +0800
-Message-Id: <20261008183446.2777503-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1791484536; c=relaxed/simple;
+	bh=LeoEc8cQOT4OjFAy291yKLk8XTBON/pEKdo3QZDiZLQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ayRBoVzDrQsFNjx6wVhSjWZSQtmhuOsXJNZjEeAdVglsCFvr21mgctjdgpmiiYZZ6lx4njPpQtWrK/vTY1ZZoBads4B1ats0KYcMDKp7bzW3ZXpi9e+D0evrDgYYtTQfh1MNJcdCXbWEAb4q5hZhLW6aaGyghTELvzW1Yh9D948=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.tenstorrent.com; spf=pass smtp.mailfrom=tenstorrent.com; dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.b=AZiudAtv; arc=none smtp.client-ip=209.85.128.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.tenstorrent.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tenstorrent.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.b="AZiudAtv"
+Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-8ab3aaf416dso34080387b3.2
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 11:35:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=tenstorrent.com; s=google; t=1791484533; x=1792089333; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=b0T97z3jJR8wExZaSoTXfgxsp5uU387qTrmZ967ydos=;
+        b=AZiudAtvhA56byDkpD0Zg64xxaAcJW5diIcNM1G4Tlx0YDwjbYiWkAcPqcfjEadlOS
+         Gqx2Q6qXsh2jdP5LHwNOc6ueJUXQU0BNKJThx2Iyi5ktf366oVvPnBtkMYTgejlZjjju
+         0YLh7QndgEOytoC948nmTqW724hPUNS5Bix/jtaFoeRG+c5Uvc5PESjhmL07rJJUqVrA
+         lkr2FRFFWhr+cFxTx8G6k2hY+rMfq0N5g+PFlmNtenw+HcE11YHC3Ud8ryTdmMolo/uK
+         pTiCIFux1JmcSWcYtM5t7NMcO1xBQN8duprVHTg6X3cgP0CpVLwicfjpowan5K8oYu5B
+         Wqhw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791484533; x=1792089333;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=b0T97z3jJR8wExZaSoTXfgxsp5uU387qTrmZ967ydos=;
+        b=h54HFiPvcdrzvjbvDUkP+v8uRqfBTz3qpNR1vwXhAkDMzlSlOu3gnIo6FGwNIC6UaF
+         sQvz7J8CmhCh54sFfXd0wOUVdNBrRBUGQO+fAbtzRH7getnFewae1YhLX1QDxPPbteeF
+         njYjATbVnXhL406P9186EPkWr1x1mIgWsHecUIYr2f4Xi9ck4DZsrrnytvjn4On7ogk6
+         UvyvtApas0zX/JrZK6ZExFNReNblcP2bykT6HivzcdlzZYBw7pQmv2c1KVQ7MJ98MD7y
+         NbmvtNggsCul2btKjVMom7wlbR87ikLo6+T5mc1FScWIwO/Atw+ygNAUza/5LzkZy0Xl
+         a6OA==
+X-Forwarded-Encrypted: i=1; AKwUvBzQQivo5p+tdw1BbJwrVExAKT5QC9UeN3ndp98ThuQioUCg4DojfBdnI7LGuhAv/OubA4S8xuTyeS1yHdg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKhpXbiOEK9o27oy+1QFqD68pu/fiQYtjcUmbBbYRtAQsBnxD3s
+	pQPdk3oSNjDcPb48pbT3xDExnJ4jBiWwSMB/SR+DWeSNUKxqLVEoOyQyUnrUhI0tHl4=
+X-Gm-Gg: AYBFou3KjoLwIgRjd6oOv6d6q8cTr8kApmwN3NwR2MU6kd+I2KydV+Swt7yXWHdayhj
+	tDjFjN50oPxG1UMBBVKaHPPI1DdTRle5jZ+eOUQYtp8Jan5NixDF3OabFVEAru/AWUWxZKKJz9f
+	fyZcrnItnp7jWYmSjN5nUVGCKYpZ5aVd5d9MfzgbFbA83+ikyDNAJdoCuRTAL8smPBZ95Tt42VD
+	UEr3rGedEKgxZ6G7SMBwbtmy99l3Re+PN1Bm9ae/98jdmfTmetILfkJhANFbjG5ORciyPiNMY9P
+	R9C+ta5JznskUMl9flZ8Ux+MK3wAVpkgtjoowQUsnAGcP92dYSYmnt4bdyhWuU5K+IXLs0Lv6Dg
+	efUUCFdq32J5MspNk3h/K2RKOP5Hux8kZEGiY9dWuoI+fjjENycBPODimXcmlbVwdzKmF1lOwzl
+	22Pvr6Q72zH3sWRHkFv+BvvwCAFa9YGeSi5zCTGesphfvTqPYIkPZHnexx1stA2hcwdSm36NfTu
+	WpzO2MTbFcVMqJRJq0S1a0YtDRa5jKDBuB2iw==
+X-Received: by 2002:a05:690c:f14:b0:8a4:aeb2:acfa with SMTP id 00721157ae682-8b05afc3ad7mr41482347b3.54.1791484533157;
+        Thu, 08 Oct 2026 11:35:33 -0700 (PDT)
+Received: from toolbox ([12.55.13.134])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b07d1af1b1sm261407b3.0.2026.10.08.11.35.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 11:35:32 -0700 (PDT)
+Date: Thu, 8 Oct 2026 13:35:07 -0500
+From: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
+To: Paul Walmsley <pjw@kernel.org>
+Cc: Radim Krcmar <rkrcmar@qti.qualcomm.com>, 
+	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	Paul Walmsley <paul.walmsley@sifive.com>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+	Atish Patra <atishp@rivosinc.com>, "ajones@ventanamicro.com" <ajones@ventanamicro.com>, 
+	=?utf-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <cleger@rivosinc.com>, "apatel@ventanamicro.com" <apatel@ventanamicro.com>, 
+	Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, David Laight <david.laight.linux@gmail.com>, 
+	linux-riscv <linux-riscv-bounces@lists.infradead.org>
+Subject: Re: [PATCH v2 2/2] RISC-V: make use of variadic sbi_ecall
+Message-ID: <cqdum6vuev3c3vrhsa4uaxfbjy3jutdbdhz4g3tl7pgjalttkt@xax6i7oaaimw>
+References: <20250619190315.2603194-1-rkrcmar@ventanamicro.com>
+ <20250619190315.2603194-3-rkrcmar@ventanamicro.com>
+ <650d23e8-b51b-85da-f9f3-52a06fed81e5@kernel.org>
+ <DLYI0I8PT4LZ.ZSXV160QVO0H@qti.qualcomm.com>
+ <d94ecb9c-def7-a9cb-456b-60b18489d0f3@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAC3vjxD4sdqrI4QCg--.14675S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7CrWxCr4xAF1UGr4DGF43trb_yoW8Xr4Up3
-	yjgFy5A3ykGF4Uua48C3Wvva4Yk3Z3t395CFWIkasa9rZxJFy7CFy5GFyaqr4DZryrZa1j
-	qr4aqa18WF1qkFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUklb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
-	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVAC
-	Y4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVW8JV
-	WxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_JF0_
-	Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxV
-	WUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI
-	7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r
-	4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI
-	42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7IU5pBT7UUUU
-	U==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgEOA2rHo1OWWwABsb
+In-Reply-To: <d94ecb9c-def7-a9cb-456b-60b18489d0f3@kernel.org>
 
-bcma_of_get_irq() parses the interrupt specifier with
-bcma_of_irq_parse(), which on success returns with the refcount of
-out_irq.np increased by one, owned by the caller. The function then
-passes out_irq to irq_create_of_mapping(), which does not consume that
-reference, and returns without ever calling of_node_put(), leaking one
-reference to the interrupt parent node on every successful call.
+On Wed, Oct 07, 2026 at 08:46:57PM -0600, Paul Walmsley wrote:
+> On Wed, 7 Oct 2026, Radim Krcmar wrote:
+> 
+> > 2026-10-06T03:55:12-06:00, Paul Walmsley <pjw@kernel.org>:
+> > > On Thu, 19 Jun 2025, Radim Krčmář wrote:
+> > >
+> > >> The new sbi_ecall doesn't have to list all 8 arguments anymore, so only
+> > >> pass the actual numbers of arguments for each SBI function.
+> > >> 
+> > >> The remaining trailing 0 are intentional as they represent an argument.
+> > >> 
+> > >> SBI 0.1 shouldn't be using the sbi_ecall, because it's only for 0.2+,
+> > >> but allow it by passing 0 is the reserved register.
+> > >> 
+> > >> Signed-off-by: Radim Krčmář <rkrcmar@ventanamicro.com>
+> > >
+> > > Thanks, queued for v7.4.  
+> > >
+> > > For everyone, not just Radim - probably it's worth looking through the 
+> > > codebase to convert any SBI ecalls that were added over the past year that 
+> > > weren't covered by this patch (e.g., the MPXY drivers) and to doublecheck 
+> > > the overall argument counts.
+> > 
+> > I started working on a followup and noticed a bug.
+> > 
+> > Please squash the following change or just drop the second patch, since
+> > we may be touching the same lines again soon, sorry about that.
+> 
+> Thanks, squashed in.
 
-Release the out_irq.np reference after irq_create_of_mapping(), matching
-irq_of_parse_and_map().
+Thanks Paul. FYI this bug is causing earlycon console output to break
+on blackhole because it uses the SBI HVC console for output. Radim's fix
+should hopefully solve this.
 
-Fixes: 71783576b534 ("bcma: get IRQ numbers from dt")
-Assisted-by: DeepSeek-V4.1-Flash
-Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
----
- drivers/bcma/main.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> 
+> - Paul
 
-diff --git a/drivers/bcma/main.c b/drivers/bcma/main.c
-index 72f045e6ed51..0a7f6ef6434b 100644
---- a/drivers/bcma/main.c
-+++ b/drivers/bcma/main.c
-@@ -182,6 +182,7 @@ static unsigned int bcma_of_get_irq(struct device *parent,
- 				    struct bcma_device *core, int num)
- {
- 	struct of_phandle_args out_irq;
-+	unsigned int irq;
- 	int ret;
- 
- 	if (!IS_ENABLED(CONFIG_OF_IRQ) || !parent->of_node)
-@@ -194,7 +195,10 @@ static unsigned int bcma_of_get_irq(struct device *parent,
- 		return 0;
- 	}
- 
--	return irq_create_of_mapping(&out_irq);
-+	irq = irq_create_of_mapping(&out_irq);
-+	of_node_put(out_irq.np);
-+
-+	return irq;
- }
- 
- static void bcma_of_fill_device(struct device *parent,
--- 
-2.25.1
+> _______________________________________________
+> linux-riscv mailing list
+> linux-riscv@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-riscv
 
