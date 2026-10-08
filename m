@@ -1,65 +1,65 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29D653932F9
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 14:27:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A787538B133
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 14:27:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791469662; cv=none; b=YBX+mtpfZ50FRW+9/ABZ3dgx3o1ptWNW8YWCbf7mCEAmAhYO7W2wBIhc/aLELCXbUtbSBjvUwjQaVCqexM1Jz0+YUyv3QzaLrD3tna8NzTHRbweEi/KsSshua55W/pPCBUUGs4mSQLunJwJuTFPQFKJ0vxTDlKc2IC61z7ZIKvk=
+	t=1791469664; cv=none; b=NYI6x2KYAkqVUq1giX+zN3398K6Ao+BgSEHrePCNU5AViNaMVCJCdd9YeaZOWDtnO9CkVZG4IYWzzj/rNZruAJprsgjG9huuYcImYN55buUYNBPxeHtK/Bs3fkjpLhthgtQgqordDxGlNnh1Fb++FbU0UCtkcZIl5t/VJaMyOZo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791469662; c=relaxed/simple;
-	bh=iKkQeQlMycpf9iMeYIDxTMFKhkm0k4gvvGsiA/LaVio=;
+	s=arc-20240116; t=1791469664; c=relaxed/simple;
+	bh=WaB0/OBi7Xz0AZ1aEUaODytn+pEkREAfIuXYAwlsKy0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=AWxx/sAjaK//NQmCO1rLRgCXv+EtKnTZsNtTXn/1c2qBaz92nc1NpKpZd2tQ0QxxvzKnevI1kmUdD+3SB//ZLn3wzc0+oUlWX+CIzAsgwxN+JFMzyC47u0aY6JVQWRBZGTbhki9ShPw0qdM8hSY9UoI2LOTitKfGq7vntsbduf4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VolJrv2D; arc=none smtp.client-ip=209.85.128.42
+	 MIME-Version:Content-Type; b=j+0f2EI1HMBEbw3reGPUNNOFD5tzC/BeAeLiTlE5wQKa7WHc9jA81u0IYZqTNBp3f7s1XycS3c2n45276hkHH5VQsVq2imiHSnwB2LQrNF+VDyERXEoYjXvESPi9Nm0H6RnBWro4qBXF/L65LUWdfo0FbNjYBfPX/d5G9pQygYA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XCsHPTL+; arc=none smtp.client-ip=209.85.221.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VolJrv2D"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a168355946so28384815e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 07:27:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XCsHPTL+"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48c4d99c32bso2576213f8f.1
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 07:27:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791469658; x=1792074458; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791469661; x=1792074461; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=sSg7ATSQQubxmgcmTMIuOrcHjExSpPhZ5BBe8FJg+Ps=;
-        b=VolJrv2DAUnM+SUpkvGiXCm/BMhF763UnKJA15ea+gcsO+VaMoIBMiwdbx5qPRwLBb
-         BVQUYzDe/vb0kHQrKTUr3tJ0X1kaFML7vYvJRZz+lS9L5qr6q3w6USFcIQh7jWgex3NY
-         Bj6rj2mjvqlVXCYKCbVVhwvDZ+Os4fyFVgjrtU/sARLSfKD4go8tCY7iPpPsoOIrLxFy
-         xOzbpyQ9bDvnJrPXLiZYHleu0ARlms1KWtufeh5/YIF6pPN7fV8UnWTAonDjz4a5rotj
-         qNnANs0PGcL2k91xlTmMKjKGlzbyxuyp1NRblyoJEH4BN3xCyqoumuEMiIKZXH7Do4o7
-         VykQ==
+        bh=Ny/9gEnpxHKxqOxqx4ATI59L/h/kxApeZ/xGlP7B7Q4=;
+        b=XCsHPTL++YTqy3qn7s7xabwe7/EIKkajN4MyzCc33FRltDSuYv/SURwL/s7gAJxSHA
+         SuC17+fpEN/Zr7SO0N62A54mM9gHjYP9lyPFSGXE5gqiLC2FqsFXooJdqZ48+YAZcaTB
+         TcfofNTiQFcIZ+DzbmGndHnEq6BC1Eexv0Frv8u2vrhnzekr/c3th1u5yciRXIpZqTzs
+         /o9R0tRsko4otOFgmKvriOj7/witSZLjYESyNmZc/7wM/dVcgRPyD+gxpT5GPPP82YRE
+         wBge/SdYMtB7Z+04i0DY4Fw5RgnusNLdzE5mMM9sbmFjbkPDPqTq2C+qyTel67TOisDK
+         lsPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791469658; x=1792074458;
+        d=1e100.net; s=20260707; t=1791469661; x=1792074461;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=sSg7ATSQQubxmgcmTMIuOrcHjExSpPhZ5BBe8FJg+Ps=;
-        b=ySoOH2Nr2LoXwYUVpAADLxTCGyE8rUOebWLpVNEjGxAuMx//QSz+wCZGrMz6v57DSO
-         QbSBSmV/+7lXh50hrAKU14PTm1va0qdvQ8Z2djt/N3+mvoEorrsfqsDK50eqvSnc3310
-         k+CfmVlPYfeQj5FIwL4/gCt2E+zkadCdjDR3TLxKWkKOp5Sv/vEQs3wd923DqclIOvoB
-         eTb82YfnYWjxJkw/AiLR9YPmCReU9YpybnnWnX1twbKBVGcR5pNZFjKgN1CUF4X5FwAH
-         FlwC6x7gh7k7T8Y3XfKyM2OSJomRV7I8hX4VmcMU5VV7XNigVuQuwBIYlm3gZugPbHXG
-         uljw==
-X-Forwarded-Encrypted: i=1; AKwUvBy2kYoV/fulQInuzEbrQesOS8NVlOcXZOpn66DeEx+NnK0x0H4dWwf3a7xmJ+ZaUuqc6GKiYpL60SKe7kU=@vger.kernel.org
-X-Gm-Message-State: AFuF++n5LxHHYpxG0GKHNWRstEAUpaD0XKsBSigNZgde61HOLIk3kbPz
-	F8OVKaLMUKqbmXOxMML7qzqrN3Nc7gMEm/gWQsAcSh2bfhWrl/sWHIhqTvg9cQMW
-X-Gm-Gg: AYBFou1vLhB19Pov5yy5dFizVQpQIFUvHb103F+LuWws4N7IbXgl5qYEGbCaJWI52I+
-	O5z3yvEug9ArXZLL1ljEueDZJTdSbq6lLZxu2kgoBKIOO0pgoZE1aO7VV10dXFTuaINhmq48Or2
-	31WKXCYvyO7GB580LqyEo+UkVsQN8tWcDlVIz9pB3W4/Fl6ymWLc7HLN/6KL5VnL7TSHklrC3dk
-	gx/Ko2qa6ZPdaUZC5Ncyl//SUOzPeGl6wJSNONLxZXAg4P/RsE+N5477poA2xZHS1BEIZwIshB1
-	1oja0aHptt4TaHcSTHqWiz70/2FR08IXLjbcxzH7frzOVfbQbbdmUi+fJYLk0glaMCMjqBDpocA
-	0MPbPWPyJfbCXTYHP6dtKK84fGf664Ip3Fg3bNlKlKLZuX09z+fJzyLRcheroC3jzCITwt1wnj0
-	suh5RQ1HmoXfJUYGpqRJrUZtQFn/HGbz85wzD3809pNT4eF9KZIpeX+ABg5zGIazTiGSGnksAYR
-	VUStO6f953JLJ6ibrWxlIU=
-X-Received: by 2002:a05:600c:8b6e:b0:4a1:78da:d271 with SMTP id 5b1f17b1804b1-4a18064be59mr102776565e9.30.1791469658475;
-        Thu, 08 Oct 2026 07:27:38 -0700 (PDT)
+        bh=Ny/9gEnpxHKxqOxqx4ATI59L/h/kxApeZ/xGlP7B7Q4=;
+        b=YJBaiob7ZfFepj4/MfdArs3Y4KEGrFgFheBPAuoXOHJRRmg5hwuJNX8B+wBg02NBpM
+         02UCYkzO4M9/81otZyg6zVGJprNWZPRyDTxwXqMmE7Nu0xgpzZjl5uahluM3asP6XzBh
+         SpYZLrFV2MeKKhtB+uKoaK9e2JXm409OmJuLbxCfXdcVCd5J87IIzk9w4xXqDfkT+NYA
+         IocKj+Fg8IVEuSKOiunZOXlms9bfTRYqfKDioUQNcFBzaSfUXfaCZytpsToIeFyO7qAc
+         dFMxEw5ktoF08ojkzqjIRLTRTQrgB2Fr3HLYirzmwBWwfJ6Ayn10kG4LpoYqbJ/59I5p
+         Ikpg==
+X-Forwarded-Encrypted: i=1; AKwUvBxkkG9rGeqaCq9kxX9ebx4NBMpVLqQtYeo2gP00tZ2hHJeXGyYpFTeull1OkUCfBWmjD2sBGDTZ+u7TvPY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLIu+5gO3C4P7/IWEk30G6eKkysqAHKddnb14rGkEC6DlInKsRr
+	iffLxjBWtV2pklGMp5W1mAnC8tzyQx9yWOGiTpvou49KcOpihp53TAp/
+X-Gm-Gg: AYBFou1UwK7xs44x3FZ2iElKUk+C7DiypJV+G5QHAesGWeMubwGSF3/5VakgW0Ttowy
+	04PPjLWOgVxYAXjpa8ODiP9lgGjvC4HN9W/AKYI/J3K1UPu7pqh7NsR+CZOkXwYSb1W5JCupOvf
+	UQrUWP8EvPCBl1LYPK3rNPf5ECe1LnnwuYioOScnh8MAkNDQ5+OG5wL+Ih0dZK5WfuE0guS4OIW
+	AUscylB1g2GieCXZpo+oQw7nxb8kjooUkhaAxfz1AlfQt8T5M0s1UIDF63bVPkF4NMBzXggJi1x
+	ID02E9gQDyE8dIn51TYmeduzU3ktaBeGhgtZO1/p9hvoX9EwjArYKfh+UyRaBHMQK0Hex7Fha7l
+	+lAEkcMdF6jrz9II0gJstnIAacbVHuhGRA1d58xhRHQEtwpDkK4LQd0Zj/cdgaGspKzJvSzGs2H
+	zTqH6eIZtynmpgwWmR2ArrpvV5doPhV+h8k3u3TYJkeeiBpvFEv3Pu7AHTTwkpPXbddDZjW/ZEH
+	6HoidLx1otTxU5NrsmQttQ=
+X-Received: by 2002:adf:e19d:0:b0:488:79a2:3232 with SMTP id ffacd0b85a97d-48c7278c0e3mr12010002f8f.31.1791469660708;
+        Thu, 08 Oct 2026 07:27:40 -0700 (PDT)
 Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1843bd060sm92856175e9.14.2026.10.08.07.27.38
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71d1e9c2sm10964964f8f.30.2026.10.08.07.27.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 07:27:38 -0700 (PDT)
+        Thu, 08 Oct 2026 07:27:40 -0700 (PDT)
 From: =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
 To: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
 Cc: Wang Yan <wangyan01@kylinos.cn>,
@@ -69,9 +69,9 @@ Cc: Wang Yan <wangyan01@kylinos.cn>,
 	Shuah Khan <shuah@kernel.org>,
 	linux-security-module@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 21/27] selftests/landlock: Use _exit() in the named_pipe_ioctl child
-Date: Thu,  8 Oct 2026 16:25:50 +0200
-Message-ID: <20261008142604.39107-23-gnoack3000@gmail.com>
+Subject: [PATCH 22/27] selftests/landlock: Fix messages and comments in helper programs
+Date: Thu,  8 Oct 2026 16:25:51 +0200
+Message-ID: <20261008142604.39107-24-gnoack3000@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261008142604.39107-2-gnoack3000@gmail.com>
 References: <20261008142604.39107-2-gnoack3000@gmail.com>
@@ -84,27 +84,115 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-In the named_pipe_ioctl test, use _exit(2) like in other places.
+* sandbox-and-launch: Describe the actual argument order.
+* sandbox-and-launch, wait-pipe, wait-pipe-sandbox: Report failed
+  read(2) calls as read failures, not write failures.
+* wait-pipe-sandbox: Terminate error messages with a newline, and fix
+  comments naming "." instead of the opened "/".
 
 Assisted-by: LLM
 Signed-off-by: Günther Noack <gnoack3000@gmail.com>
 ---
- tools/testing/selftests/landlock/fs_test.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../selftests/landlock/sandbox-and-launch.c      |  6 +++---
+ .../selftests/landlock/wait-pipe-sandbox.c       | 16 ++++++++--------
+ tools/testing/selftests/landlock/wait-pipe.c     |  2 +-
+ 3 files changed, 12 insertions(+), 12 deletions(-)
 
-diff --git a/tools/testing/selftests/landlock/fs_test.c b/tools/testing/selftests/landlock/fs_test.c
-index 90f63af1d64d..ba3b39ad5882 100644
---- a/tools/testing/selftests/landlock/fs_test.c
-+++ b/tools/testing/selftests/landlock/fs_test.c
-@@ -4276,7 +4276,7 @@ TEST_F_FORK(layout1, named_pipe_ioctl)
- 	if (child_pid == 0) {
- 		fd = open(path, O_WRONLY);
- 		close(fd);
--		exit(0);
-+		_exit(0);
+diff --git a/tools/testing/selftests/landlock/sandbox-and-launch.c b/tools/testing/selftests/landlock/sandbox-and-launch.c
+index 3e32e1a51ac5..8b33ddadc63e 100644
+--- a/tools/testing/selftests/landlock/sandbox-and-launch.c
++++ b/tools/testing/selftests/landlock/sandbox-and-launch.c
+@@ -25,8 +25,8 @@ int main(int argc, char *argv[])
+ 	char buf;
+ 
+ 	/*
+-	 * The first argument must be the file descriptor number of a pipe.
+-	 * The second argument must be the program to execute.
++	 * The first argument must be the program to execute.  The second and
++	 * third arguments must be the file descriptor numbers of two pipes.
+ 	 */
+ 	if (argc != 4) {
+ 		fprintf(stderr, "Wrong number of arguments (not three)\n");
+@@ -67,7 +67,7 @@ int main(int argc, char *argv[])
+ 
+ 	/* Waits for the parent to try to umount. */
+ 	if (read(pipe_parent, &buf, 1) != 1) {
+-		perror("Failed to write to the third argument");
++		perror("Failed to read from the third argument");
+ 		return 1;
  	}
  
- 	fd = open(path, O_RDONLY);
+diff --git a/tools/testing/selftests/landlock/wait-pipe-sandbox.c b/tools/testing/selftests/landlock/wait-pipe-sandbox.c
+index 87dbc9164430..dbc0c2747e9f 100644
+--- a/tools/testing/selftests/landlock/wait-pipe-sandbox.c
++++ b/tools/testing/selftests/landlock/wait-pipe-sandbox.c
+@@ -31,7 +31,7 @@ static int sync_with(int pipe_child, int pipe_parent)
+ 
+ 	/* Waits for the parent do its test. */
+ 	if (read(pipe_parent, &buf, 1) != 1) {
+-		perror("Failed to write to the second argument");
++		perror("Failed to read from the second argument");
+ 		return 1;
+ 	}
+ 
+@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
+ 
+ 	/* Tries to send a signal, denied by layer1. */
+ 	if (!kill(getppid(), 0)) {
+-		fprintf(stderr, "Successfully sent a signal to the parent");
++		fprintf(stderr, "Successfully sent a signal to the parent\n");
+ 		return 1;
+ 	}
+ 
+@@ -88,13 +88,13 @@ int main(int argc, char *argv[])
+ 
+ 	/* Tries to send a signal, denied by layer1. */
+ 	if (!kill(getppid(), 0)) {
+-		fprintf(stderr, "Successfully sent a signal to the parent");
++		fprintf(stderr, "Successfully sent a signal to the parent\n");
+ 		return 1;
+ 	}
+ 
+-	/* Tries to open ., denied by layer2. */
++	/* Tries to open /, denied by layer2. */
+ 	if (open("/", O_RDONLY | O_DIRECTORY | O_CLOEXEC) >= 0) {
+-		fprintf(stderr, "Successfully opened /");
++		fprintf(stderr, "Successfully opened /\n");
+ 		return 1;
+ 	}
+ 
+@@ -115,15 +115,15 @@ int main(int argc, char *argv[])
+ 	}
+ 	close(ruleset_fd);
+ 
+-	/* Tries to open ., denied by layer2. */
++	/* Tries to open /, denied by layer2. */
+ 	if (open("/", O_RDONLY | O_DIRECTORY | O_CLOEXEC) >= 0) {
+-		fprintf(stderr, "Successfully opened /");
++		fprintf(stderr, "Successfully opened /\n");
+ 		return 1;
+ 	}
+ 
+ 	/* Tries to send a signal, denied by layer3. */
+ 	if (!kill(getppid(), 0)) {
+-		fprintf(stderr, "Successfully sent a signal to the parent");
++		fprintf(stderr, "Successfully sent a signal to the parent\n");
+ 		return 1;
+ 	}
+ 
+diff --git a/tools/testing/selftests/landlock/wait-pipe.c b/tools/testing/selftests/landlock/wait-pipe.c
+index 0dbcd260a0fa..3cfa4dce5f35 100644
+--- a/tools/testing/selftests/landlock/wait-pipe.c
++++ b/tools/testing/selftests/landlock/wait-pipe.c
+@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
+ 
+ 	/* Waits for the parent do its test. */
+ 	if (read(pipe_parent, &buf, 1) != 1) {
+-		perror("Failed to write to the second argument");
++		perror("Failed to read from the second argument");
+ 		return 1;
+ 	}
+ 
 -- 
 2.56.0
 
