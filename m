@@ -1,316 +1,212 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48A7F3BB133;
-	Thu,  8 Oct 2026 11:02:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AD803C1D64
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 11:02:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791457359; cv=none; b=qyQCb6+ngui4tYGzHuX8+4/KP5VZHT++vj8euuv7f0xouhu0dlv0poq5bmXb7RHE+9I7TPqwF8O2EODGnYr1Anl0QYQOLOcU9couW2c7FOy0q3RibQlW5KLJIgsq1eFZWYIM2TbfXM63f0X6mg0LujzGL2T9uUE8LwEmMinOAf8=
+	t=1791457369; cv=none; b=t/IQRz6pNrAXAu3UXiRoRqdWn5nAMqMONufEg2OOgbvaaCLY5WWHuA8rDKKR25p7/+CqNuYULRjZjjU91lnbgyzb1zh+owYQG7/7SCIepzrYVy77KHKLib4lOk6tjnSB0TY5qjuc+zRe8RUYHbaPGYXw7fCzdVZqoTFAV/uJuNk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791457359; c=relaxed/simple;
-	bh=cA1/qTyrizotSdyjYFq5EvDJy8AvLphPYCzZtYLUz/0=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=KwMODNFsvuLyxzHyUhK9237N0ZUDiUudDYyXZi5NbwNLG0OD+NQzd9Q+OYFMdHGnSrAZ5ROjY30F1S1ryPzckKUIogRo7FBKvUjOm0NntlVUqxYJ3iM9oK3lLd+WoVDcBsP0LHhnJ/Wk/oAnj8Jm6iINW3vPjk+AP8ZGOnhKl6A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DD0mAYGC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791457369; c=relaxed/simple;
+	bh=dO/pgusH/Z26UWYNXK0zqHa1I5a6vsumMkoLMtV6gZk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dnWIaAVbgyheydgvOhl2ustJwuTDJb24C68QVeWv28e2H409+vaUaSGXxSlNnwG/HTAY5+wAK2DB6NK1vwL73ZxVH6voRBLdGUwloVeVX7VUQ9kPO4sfw6ii18IO32CUllyXb+B7puu/y8XFJ4o+2ol2LeGG1FVU0lRBN0aX0sQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GJd8CGRM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Z+6yOpG/; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DD0mAYGC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C27F1F000FF;
-	Thu,  8 Oct 2026 11:02:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791457358;
-	bh=hSn9I5hyWGPWbXQTaJKZRICemtTPKOmDhjSWyzwmKLU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=DD0mAYGC1sPDSraT/bkKPGKi+Ynlwx+NDiIAreGvMO8OZJQ4dDFK6uxcz1keiu1x2
-	 CzrYQTnA+GMHKcFqQzTSgG+86gqJuuYj6nhJj5IqAS3L95yeExI3+2UZBdDLqwxmGA
-	 R71dY3O6hN8cFTgAW68ymHFGIsVOLQ0dpCG/jWAItadVB3174ZX2rwXfX3FWU//HQs
-	 kJPQ6/s3MKTdWEeuMMfegY3NXg+KsO0UYAXSLOkSJGm9DjWWC+fO/W0m5LtLNc2SM6
-	 oT8ZTjh/kFdTmm3d50PK8D4rj4XuEmvSJfH0CDLCyvkLLJTlBjRCb+HdFq5nCCQVGB
-	 7uKCMc01QMURQ==
-Subject:
- Re: [PATCH net] net/mlx5: Attach late uplink netdev to loaded representors
-From: netdev-bot+sashiko@kernel.org
-To: tariqt@nvidia.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, netdev@vger.kernel.org, pabeni@redhat.com, cratiu@nvidia.com,
- dtatulea@nvidia.com, gal@nvidia.com, jgg@ziepe.ca, jianbol@nvidia.com,
- jiri@resnulli.us, leon@kernel.org, linux-kernel@vger.kernel.org,
- linux-rdma@vger.kernel.org, mbloch@nvidia.com, saeedm@nvidia.com,
- shayd@nvidia.com
-Date: Thu, 08 Oct 2026 11:02:36 +0000
-Message-ID: <179145735679.434549.4674299238253522487@kernel.org>
-In-Reply-To: <20261006110219.257714-1-tariqt@nvidia.com>
-References: <20261006110219.257714-1-tariqt@nvidia.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GJd8CGRM";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Z+6yOpG/"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 698AbQlB2289877
+	for <linux-kernel@vger.kernel.org>; Thu, 8 Oct 2026 11:02:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	6YHQnEULCZieeaLxdgJmpoPCPlP2is0QYfWrbkAwUvY=; b=GJd8CGRMdgEPoDTA
+	LcP5RdfpB7vD55+ZKGi7XWh7XfLoB1+NYKrSHuCRAyjhSULl4WUcjkK17UlXFf2B
+	gibqAYi+wkhvphiQKCRIxPkHSZLveoO24La6gemjemAL6mOIghc90zS/VG7hZ92X
+	Ru0ER0/CjkXNl7x5t7ZG9JIIPX/n2JVu8lalUAvNZqnnGoltR8M7cOrgqaQSnP4Z
+	Gyz1yTNQTKOtz8ubKUsIRv1NEZgCj0rvs9fp5JVbsx8H8mvyibaENEveJo2k7yee
+	xvxmYhG4eybbG6E9IGhEYOv/m9r9k+1xKqdN4CUjulNVkakb9cdLOvTCVtff8Pf+
+	ilZrUw==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe3jp2q-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 11:02:44 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2e80ef3e0a3so7759155ad.3
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 04:02:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791457363; x=1792062163; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6YHQnEULCZieeaLxdgJmpoPCPlP2is0QYfWrbkAwUvY=;
+        b=Z+6yOpG/VHDLwy6yc4HHvPrYYEBscgc2+vxSa9EnYSzQfWgQr1Ay4cr5B0B1QlBhy6
+         suiqVuFuJl7BVOBPbe+PgbyX60Jwh0YyyTVEvWJju2nIvhKULHtHST+iSkifNmr6bdZI
+         cVKuZ174nUmhegjdAYUCpJIM5IqX8XrFn3TnyYYoKD7AMkodRxydTZFR/T0cFatTKX2F
+         njwZonTxr8k0SEj2dlkPIkaeB3IwaGPckPBVmc6GE8hXKy5NuEJ3Kas0TgR9bc4bubsc
+         Q1xVp5GeuvKwe8fLf0Au+HbJoZeqNaDXTTZrqz38V5L9EoOsFQjG/G81FC3WxIV3Iblj
+         MkWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791457363; x=1792062163;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6YHQnEULCZieeaLxdgJmpoPCPlP2is0QYfWrbkAwUvY=;
+        b=wmrPA8oqYPPej+95/FlKRD6spPCsOwU26InaBuKesCEEDWho/am5fgbNDibjPxbUTW
+         JjzQRIUEq1cIYSvxKMeb2awkhganu6F5DfYAN24p4qhfLbI22JaSiprGHryQnCbWwEJD
+         qJVvdkMNgq7pIskflV5Gf64RYfAqeGOptnZ/s5TywGtVdZBASq1v5rea+7a8HVapyxB5
+         Cy5sx3X41AIeUR65MIyBoeZw5Ah37h04WLY/z/iwtlcye3TnBzjoElIr4MUK0q5gRH3W
+         wbEDUmYiVM2EecjHiGpquxZWCiAVTq3xy4kKXxXZLFK/si1lO2GcT3c6hYRT0sK/yJAN
+         +xOQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwjoagGCBwtipLrY1D0xjzOkPP6//cl6qi2gf6txvJOoMCYF1Ll1HE/ggLxbasmbIqdXo5Q7BQA2YoQVpE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJLaISgc9dhYbFt9hHZVtaUxxVKiJTbtlTDe1OXv4q9dZ7nc2hp
+	10swzhRV3LXC08HmYcoCsJUrvNqLQBe1MZaxb+ScQnl+SZgc2hAht9FeoR0R4OHFHm3a13SiM7q
+	4cdCPEr3THvKFqlTpo6o7EC/wKUeSymMLJd7IbV99c0b69YNYHxDfOTjVZokCIGSPtPk=
+X-Gm-Gg: AYBFou2KBPntGukIfMpya9nofMRdBruF17nC4ZXMRd4Bt9lYL2af0JOMxwYobSormy9
+	da/mswuDq+SuPhLcpu/3gK0PVwjzWrba+VsBf3OlydEX8O0qCQpji5JOAoGiAKF8g90KWIv6VnL
+	FnSXN9IUkCXgynlBDdTymDZXrixaUcjNTZLvYAGxF27/NKNeu7KPafTOGXIZzq8LYE2G5H0Q7vu
+	r8de6ISXDxF+nlMj0cENROFB75J44hiWskfZvC0IGx2z5PFBEfIznNmZmKn91dMBbMmhxT7W7lV
+	MnnCJf4MpEiUhI9ZR+xdA+Sv23gTXiG2NW3lfZWpbdLk5MhwNRFIespfo4EnAd31tuWxmaQKcS5
+	X6kYxJFZiD/xh6HFhFjoQ9gLqzTiHXV6PglkeJS5I5KiZbnG/IY/sjQY0CZwQg/4i2bLRHoo=
+X-Received: by 2002:a17:903:2c8:b0:2dd:c053:9c70 with SMTP id d9443c01a7336-2e6004f2a86mr45269295ad.38.1791457363095;
+        Thu, 08 Oct 2026 04:02:43 -0700 (PDT)
+X-Received: by 2002:a17:903:2c8:b0:2dd:c053:9c70 with SMTP id d9443c01a7336-2e6004f2a86mr45269055ad.38.1791457362639;
+        Thu, 08 Oct 2026 04:02:42 -0700 (PDT)
+Received: from [10.133.33.26] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e604437bb7sm22753685ad.1.2026.10.08.04.02.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 08 Oct 2026 04:02:42 -0700 (PDT)
+Message-ID: <c3564de9-c228-429e-8e04-3ff65619d1fc@oss.qualcomm.com>
+Date: Thu, 8 Oct 2026 19:02:38 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] wifi: ath11k: release peer accounting on peer delete
+ timeout
+To: Michael Pfeifroth <micpf@westermo.com>, Jeff Johnson <jjohnson@kernel.org>
+Cc: Kalle Valo <kvalo@kernel.org>, ath11k@lists.infradead.org,
+        linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <arJzxQcf4intXBqS@mpf-ESPRIMO-P9012>
+ <9d8307ee-e9bd-4538-92f8-b33410caecae@oss.qualcomm.com>
+ <arTp/9A0iMNpIhl2@mpf-ESPRIMO-P9012>
+ <8bc3eaa1-7233-48db-a41b-ce3f08fbdd15@oss.qualcomm.com>
+ <ar0LVqHZF8UlRB0o@mpf-ESPRIMO-P9012>
+From: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <ar0LVqHZF8UlRB0o@mpf-ESPRIMO-P9012>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDA0MyBTYWx0ZWRfX06io935qfZGM
+ KFKpFiAuPO87av1HCUnK5Ijxt8N6uVDdQFW4731tQ/lJSXf2EXNlXvtTrUTaQ+s5wMp8CSTrLvj
+ IkbDIZefA5Q8jxXX+fJM70Q/vJLUOjY=
+X-Proofpoint-ORIG-GUID: lk9HbuQ450zGoPg6Xv7C2ZoDdn17s87d
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDA0MyBTYWx0ZWRfXwXODk3e8ZYNs
+ rv5MakdaEwf8SHz1Vd2sR2PuscNJPyCeXW3zg8y1S5/Krm28LYGL+LiJ0K2ctUMVr0qkOeBW7zh
+ 3aYyj7Ti6OTQoZiFm6haB/dDf9A/eSB6pAsh8hHdfVcA1NhtjCvwZnNxc2uJ3XxZ7hRzFbIwB7X
+ ns0hVi1a/8NAC/pppzDCdPzmo1FcWw2BGLqj6XXAEBvTc4PiWy8GU/d33w8v4/XXI7Nwy9iiuym
+ zEC4/9klFCQ8yOs4Zk6QMH982XXYNqgX0GJvzbp3aaytIhXhtNaWPwLsts9QaFiAKS7I2Tp1xeD
+ rhqMuJwK1+TbVur4933Q87vIv919cXX15KEBcUBprEpQqmbjjeTkC2YmeVRQYAW3Ft+dgUVvIMY
+ VqZHm7XfkhZxzQF+HnNFzD6mf275ekQlo3TtNOlOHZQjz/iZBuMfj7QsJgH4w7Gzh2VCc3ck++m
+ 6KE62ByqWbVdpwKWZOQ==
+X-Authority-Analysis: v=2.4 cv=IIuXmQvG c=1 sm=1 tr=0 ts=6ac77854 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=VwQbUJbxAAAA:8 a=N9GNhs4bAAAA:8 a=URxyR80WDTEKk2XSxLwA:9 a=QEXdDO2ut3YA:10
+ a=1OuFwYUASf3TG4hYMiVC:22 a=PZhj9NlD-CKO8hVp7yCs:22
+X-Proofpoint-GUID: lk9HbuQ450zGoPg6Xv7C2ZoDdn17s87d
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-08_04,2026-10-06_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0 adultscore=0
+ priorityscore=1501 malwarescore=0 suspectscore=0 clxscore=1015 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080043
 
-Thank you for your contribution! Sashiko AI review found 5 potential
-issue(s) to consider.
 
-Critical: 0 · High: 1 · Medium: 2 · Low: 2
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] New error-path use-after-free in the attach path.
-- [Medium] mlx5_ib_vport_uplink_rep_attach_netdev() always sets the
-  uplink IB port's netdev to the rep's own ETH netdev, via…
-- [Medium] The attach path now writes the uplink ETH rep's rpriv->netdev
-  while the rep is already REP_LOADED and VF reps may be live.
-- [Low] mlx5_eswitch_attach_uplink_netdev() runs on every pass of
-  mlx5_eswitch_reload_reps_blocked(), not only after…
-- [Low] _mlx5e_probe() calls mlx5_core_uplink_netdev_set(mdev, netdev),
-  which now queues the reload-reps work.
-
---
-
-net/mlx5: Attach late uplink netdev to loaded representors
-
-This commit adds an attach_uplink_netdev rep op that runs from the
-reload-reps work. It covers the case where the uplink netdev appears only
-after the uplink representor was loaded. ETH re-runs the uplink load to
-switch profile and set rpriv->netdev, and IB redoes ib_device_set_netdev().
-
-> diff --git a/drivers/infiniband/hw/mlx5/ib_rep.c b/drivers/infiniband/hw/mlx5/ib_rep.c
-> index 65d8767d1830c..f9931a94157aa 100644
-> --- a/drivers/infiniband/hw/mlx5/ib_rep.c
-> +++ b/drivers/infiniband/hw/mlx5/ib_rep.c
-> @@ -273,10 +273,34 @@ mlx5_ib_vport_rep_unload(struct mlx5_eswitch_rep *rep)
+On 9/30/2026 9:15 PM, Michael Pfeifroth wrote:
+> ath11k_peer_delete() only decrements ar->num_peers when
+> __ath11k_peer_delete() returns 0. On a peer-delete-confirmation timeout
+> __ath11k_peer_delete() returns -ETIMEDOUT, so the decrement is skipped
+> and one ar->num_peers slot is leaked. Once enough slots have leaked the
+> ar->num_peers > (ar->max_num_peers - 1) gate in ath11k_peer_create()
+> rejects every new station with "insufficient peer entry resource in
+> firmware", and the AP stops accepting associations until the radio is
+> restarted with a wifi down/up.
+> 
+> This was observed in the field on an AP after hours of uptime with
+> frequent roaming and reconnects: clients could no longer associate even
+> though the firmware peer table was not actually exhausted, only the
+> host-side ar->num_peers accounting had leaked.
+> 
+> The delete-confirmation timeout itself is otherwise harmless. The host
+> first waits for the peer unmap event in ath11k_wait_for_peer_deleted(),
+> so by the time the delete-response completion times out the peer has
+> already been removed from ab->peers and freed by
+> ath11k_peer_unmap_event(). Only the ar->num_peers counter is left
+> inconsistent.
+> 
+> The timeout is reached when the peer unmap event arrives but the peer
+> delete response is missed, e.g. because the response event is dropped in
+> ath11k_peer_delete_resp_event() on an unresolved vdev id (logged as
+> "invalid vdev id in peer delete resp ev"). Do not treat the delete
+> confirmation timeout as fatal so that ath11k_peer_delete() releases the
+> ar->num_peers slot instead of leaking it.
+> 
+> Fixes: 690ace20ff79 ("ath11k: peer delete synchronization with firmware")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Michael Pfeifroth <micpf@westermo.com>
+> ---
+> v3:
+>  - Drop the defensive peer list_del()/kfree() branch; it is dead code
+>    since the peer is already freed via the unmap event or on recovery
+>    (Baochen Qiang), leaving a minimal fix that just ignores the delete
+>    timeout.
+>  - Reframe the commit message around the field-observed num_peers leak
+>    and the resulting station association failures.
+> v2:
+>  - Correct the root-cause description and switch to netdev comment style.
+>  drivers/net/wireless/ath/ath11k/peer.c | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/net/wireless/ath/ath11k/peer.c b/drivers/net/wireless/ath/ath11k/peer.c
+> index b30a906..f573a2c 100644
+> --- a/drivers/net/wireless/ath/ath11k/peer.c
+> +++ b/drivers/net/wireless/ath/ath11k/peer.c
+> @@ -340,9 +340,10 @@ static int __ath11k_peer_delete(struct ath11k *ar, u32 vdev_id, const u8 *addr)
+>  		return ret;
 >  	}
->  }
 >  
-> +static int
-> +mlx5_ib_vport_uplink_rep_attach_netdev(struct mlx5_core_dev *mdev,
-> +				       struct mlx5_eswitch_rep *rep)
-> +{
-> +	struct mlx5_ib_dev *dev = mlx5_ib_rep_to_dev(rep);
-> +	struct net_device *ndev;
-> +	int i;
-> +
-> +	/* Shared FDB slave uplinks share the master's IB device. */
-> +	if (!dev)
-> +		return 0;
-> +
-> +	ndev = mlx5_ib_get_rep_netdev(rep->esw, rep->vport);
-> +	if (!ndev)
-> +		return -ENODEV;
+> -	ret = ath11k_wait_for_peer_delete_done(ar, vdev_id, addr);
+> -	if (ret)
+> -		return ret;
+> +	/* Ignore the return value: the peer is already freed, only its
+> +	 * ar->num_peers slot would otherwise leak on a delete timeout.
+> +	 */
+> +	ath11k_wait_for_peer_delete_done(ar, vdev_id, addr);
 
-[Severity: Low]
-Should this return -ENODEV in the scenario the patch targets?
+as stated in the commit message, the purpose is to ease the case where firmware peer table
+is not exhausted but host's table is, however the change here is to ignore the return
+value by default, regardless of whether firmware peer table has free slots. So what about
+ath11k_wait_for_peer_delete_done() timeouts due to firmware peer table exhaustion in fact?
 
-mlx5_eswitch_attach_uplink_netdev() runs on every pass of
-mlx5_eswitch_reload_reps_blocked(). That work is also queued by
-mlx5_eswitch_register_vport_reps_locked() whenever ETH or IB rep ops
-register, not only after mlx5_core_uplink_netdev_set() reports a netdev.
+More importantly, host rejects new peer association only after the
 
-Suppose eth is unbound in legacy mode and switchdev is then entered. The
-ETH uplink rep is REP_LOADED with rpriv->netdev == NULL. When the IB rep
-registers, the reload work loads the IB uplink rep and calls this op.
-mlx5_ib_get_rep_netdev()->mlx5_eswitch_get_proto_dev()->
-mlx5e_vport_rep_get_proto_dev() returns NULL, and the core logs:
+ar->num_peers > (ar->max_num_peers - 1)
 
-    E-Switch: Failed to attach uplink netdev to rep type 1, err(-19)
+But if we really hit it, I would suspect something wrong with firmware. So even if we give
+it one more chance I don't think we can survive in the end.
 
-This repeats on each reload-reps pass until eth is bound again. Would
-returning 0 for a missing netdev be more appropriate here?
-
-The commit message says the op is "run from the existing reload-reps work
-once mlx5_core_uplink_netdev_set() reports a netdev". The comment in
-struct mlx5_eswitch_rep_ops says something similar. The call in
-mlx5_eswitch_reload_reps_blocked() does not depend on that condition,
-though.
-
-> +
-> +	for (i = 0; i < dev->num_ports; i++)
-> +		if (dev->port[i].rep == rep)
-> +			return ib_device_set_netdev(&dev->ib_dev, ndev, i + 1);
-
-[Severity: Medium]
-Can this overwrite a netdev that LAG picked for this port?
-
-This always sets the uplink IB port to the rep's own ETH netdev and does
-not check for an existing association. For SR-IOV active-backup LAG,
-lag_event() in drivers/infiniband/hw/mlx5/main.c points the uplink port
-at the netdev carried by MLX5_DRIVER_EVENT_ACTIVE_BACKUP_LAG_CHANGE_LOWERSTATE.
-That can be the peer's lower netdev:
-
-    old_ndev = ib_device_get_netdev(ibdev, portnum + 1);
-    ret = ib_device_set_netdev(ibdev, ndev, portnum + 1);
-
-mlx5_eswitch_attach_uplink_netdev() calls this op for any REP_LOADED
-uplink on every reload-reps pass. Those passes are queued at eth probe
-and at rep ops registration, and the devl_trylock() retry in
-esw_wq_handler() can delay them.
-
-Suppose a pass runs after LAG has picked a different lower netdev. Would
-it replace that choice, so RDMA reports the wrong netdev until the next
-lower-state event?
-
-> +
-> +	return 0;
-> +}
-> +
-
-[ ... ]
-
-> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_rep.c b/drivers/net/ethernet/mellanox/mlx5/core/en_rep.c
-> index 88a170e40bd93..19812bf6a8306 100644
-> --- a/drivers/net/ethernet/mellanox/mlx5/core/en_rep.c
-> +++ b/drivers/net/ethernet/mellanox/mlx5/core/en_rep.c
-> @@ -1490,10 +1490,24 @@ mlx5e_vport_uplink_rep_load(struct mlx5_core_dev *dev, struct mlx5_eswitch_rep *
->  	rpriv->netdev = netdev;
->  	err = mlx5e_netdev_change_profile(netdev, dev,
->  					  &mlx5e_uplink_rep_profile, rpriv);
-> +	if (err)
-> +		rpriv->netdev = NULL;
-
-[Severity: High]
-Can this leave the netdev pointing at a freed rpriv?
-
-An error from mlx5e_netdev_change_profile() does not always mean the
-profile change was rolled back. When mdev->state is
-MLX5_DEVICE_STATE_INTERNAL_ERROR:
-
-    if (mdev->state == MLX5_DEVICE_STATE_INTERNAL_ERROR) {
-        mlx5e_netdev_init_profile(netdev, mdev, new_profile, new_ppriv);
-        set_bit(MLX5E_STATE_DESTROYING, &priv->state);
-        return -EIO;
-    }
-
-The netdev is left with priv->profile = &mlx5e_uplink_rep_profile and
-priv->ppriv = rpriv, while rpriv->netdev is now cleared.
-
-On the path through mlx5e_vport_uplink_rep_attach_netdev(),
-mlx5_eswitch_attach_uplink_netdev() only logs the failure. The ETH rep
-stays REP_LOADED. On the next unload, such as health recovery removing
-the eth-rep aux device, mlx5e_vport_rep_unload() takes this branch:
-
-    if (!netdev) {
-        ppriv = rpriv;
-        goto free_ppriv;
-    }
-    ...
-free_ppriv:
-    kvfree(ppriv); /* mlx5e_rep_priv */
-
-That frees rpriv without calling mlx5e_vport_uplink_rep_unload(), so
-mlx5e_netdev_attach_nic_profile() never runs.
-
-On recovery, mlx5e_resume()->_mlx5e_resume()->mlx5e_attach_netdev()
-calls profile->init_tx, which is mlx5e_init_rep_tx():
-
-    struct mlx5e_rep_priv *rpriv = priv->ppriv;
-    ...
-    err = mlx5e_rep_neigh_init(rpriv);
-    ...
-    if (rpriv->rep->vport == MLX5_VPORT_UPLINK) {
-
-Would this read and write the freed mlx5e_rep_priv? If rpriv->netdev had
-stayed set, the unload path would have restored the NIC profile instead.
-
-mlx5_enter_error_state() can set INTERNAL_ERROR asynchronously while the
-attach work runs. The load path already had a similar kvfree-after-EIO
-pattern, but the new attach caller and the new NULL assignment add
-another way to reach it.
-
->  	mlx5_uplink_netdev_put(dev, netdev);
->  	return err;
->  }
 >  
-> +static int
-> +mlx5e_vport_uplink_rep_attach_netdev(struct mlx5_core_dev *dev,
-> +				     struct mlx5_eswitch_rep *rep)
-> +{
-> +	struct mlx5e_rep_priv *rpriv = mlx5e_rep_to_rep_priv(rep);
-> +
-> +	if (rpriv->netdev)
-> +		return 0;
-> +
-> +	return mlx5e_vport_uplink_rep_load(dev, rep);
-
-[Severity: Medium]
-Is it safe to rewrite rpriv->netdev here while the uplink rep is already
-REP_LOADED and VF reps may be live?
-
-Before this patch, rpriv->netdev was only set inside ops->load. That
-happened before the REP_LOADED transition that
-mlx5_eswitch_get_proto_dev() checks.
-
-On this path, mlx5e_vport_uplink_rep_load() publishes rpriv->netdev
-first. mlx5e_netdev_change_profile() then detaches, cleans up and memsets
-netdev_priv() before re-initializing it. On error the pointer goes back
-to NULL.
-
-The writer holds devlink and reps_lock. TC offload on VF reps holds
-neither when it reads the uplink proto dev, and it dereferences the
-result without a NULL check. For example, in get_route_and_out_devs():
-
-    uplink_dev = mlx5_eswitch_uplink_get_proto_dev(esw, REP_ETH);
-
-    rcu_read_lock();
-    uplink_upper = netdev_master_upper_dev_get_rcu(uplink_dev);
-
-and in mlx5e_route_lookup_ipv4_get():
-
-    attr->fl.fl4.flowi4_oif = uplink_dev->ifindex;
-
-parse_mirred() in en/tc/act/mirred.c does the same.
-
-Could a flower rule added on a VF rep while the attach work runs see a
-netdev whose priv is zeroed mid-change (priv->mdev == NULL in
-mlx5e_is_uplink_rep())? Could it see the NULL written after a failed
-change? Nothing such as READ_ONCE() or WRITE_ONCE() orders this pointer.
-
-The NULL dereference in the window before eth is rebound comes from
-6b4be64fd9fe and is pre-existing. What this patch adds is the uplink
-profile changing while VF reps are loaded and handling TC.
-
-> +}
-> +
-
-[ ... ]
-
-> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/main.c b/drivers/net/ethernet/mellanox/mlx5/core/main.c
-> index 5f28d906c35b6..ab93c807b58ce 100644
-> --- a/drivers/net/ethernet/mellanox/mlx5/core/main.c
-> +++ b/drivers/net/ethernet/mellanox/mlx5/core/main.c
-> @@ -278,6 +278,9 @@ void mlx5_core_uplink_netdev_set(struct mlx5_core_dev *dev, struct net_device *n
->  	mlx5_blocking_notifier_call_chain(dev, MLX5_DRIVER_EVENT_UPLINK_NETDEV,
->  					  netdev);
->  	mutex_unlock(&dev->mlx5e_res.uplink_netdev_lock);
-> +
-> +	if (netdev)
-> +		mlx5_esw_offloads_uplink_netdev_attach(dev);
-
-[Severity: Low]
-This queues the reload-reps work from inside _mlx5e_probe(), and probe
-keeps using priv afterwards:
-
-    mlx5_core_uplink_netdev_set(mdev, netdev);
-    mlx5e_params_print_info(mdev, &priv->channels.params);
-
-When probe comes from a sysfs bind, the core devlink lock is not held.
-esw_wq_handler() can then devl_trylock() and run
-mlx5e_netdev_change_profile() on another CPU. That runs
-mlx5e_detach_netdev(), profile->cleanup() and mlx5e_priv_cleanup() before
-re-initializing priv.
-
-Does the read of priv->channels.params race with that teardown? The
-visible effect seems limited to wrong values in the informational log
-line, but it is still a data race on priv.
-
+>  	return 0;
 >  }
->  
->  void mlx5_core_uplink_netdev_event_replay(struct mlx5_core_dev *dev)
 
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261006110219.257714-1-tariqt%40nvidia.com
