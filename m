@@ -1,155 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m155110.qiye.163.com (mail-m155110.qiye.163.com [101.71.155.110])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F25322F767;
-	Thu,  8 Oct 2026 13:13:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE51322F767
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 13:13:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.110
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791465209; cv=none; b=M40jGoCR+id1niTKF8SvY0k64u3++xEV+wZyvg8T+YIFA84uGz0uXg9VxbunBzBP83nR7TMBXBiMN59VxVieDUQVbwlAxDzXcvRtkrcJ7GGU1WPiyDBEhQxWzjsCoyAHJNDPukTP1JXdRWlacfGP2TwnKgdS6F3oRs3hRj0Omgk=
+	t=1791465225; cv=none; b=m4mGbwR2oNwK7I2vwW3e6jW9MxkTV4ctsXNIEJvAe7TNAdTXnSHs5LvwFTOdiB5kXAZrs5zHq9CILmFpcfzrr1pjT5bTi2/nnwgwtBXZJm2Sa2aUx2gazCVdRNLNLYD0OSNMqxly3sZXHDLyWxtLT5NDPgRTAGb+uNZVWLrSxdo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791465209; c=relaxed/simple;
-	bh=k1TJBFkSAk3KtFliSXk0zhsSmUITNqHtxPWRH4+FByc=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=qRCHanlbA9zIoAIDIAfegczCSCSj82HnCFxr+oaGd6x1+clX+W6Ch8VLTK1IGHb+rIYVRsgHIBgJsjnDo4tQLTA57PRd3Vx2qn3J1AA6OXUvWGjtjF1aon3LPYpm7IH28ipcW1If1bINr/RgaUjoS8W9Ui1PL7eVtmxdv5Sttko=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BkWI8EJs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791465225; c=relaxed/simple;
+	bh=zcmeyeoAgahuAuR66zc2xt5AmrVJdQNQi7uOVwSBU4I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NBt//GSntG/gy68gLuE0lEW1z/8+WtNuIvzMcsKraRM7L4pxHbIRksUQQ63mpH3jDM6kEe0EGwMfrjdcev9deoRFpCy1NEuMvMfo2ztpDsIBIuUBcuIzxZ7vDsWlXLXtICpdvZlbMyC/n99tEAx2mtserE7StwjmmkFo6hQBto4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=XM6+Zbnk; arc=none smtp.client-ip=101.71.155.110
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BkWI8EJs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B790F1F000FF;
-	Thu,  8 Oct 2026 13:13:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791465208;
-	bh=f5PLISdsbHKFluYJ5yvZ5YvG5VrlUsaLajuhgKm/fUw=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=BkWI8EJsBXHH0wrpbxOqswQs8kxgxYXVUniGBKWDEdcDw7XxDYbWym2WUHNNR0fBa
-	 fDFrOd83swNWnluQ/buMEf50XvzoHCiwdzJbAIQimdk2cMIT+Udzs3ULu4wm0HyIxR
-	 Pr1VAxeakLwNVW4MdicIz/0ZIfym5gRIU+QCjfxOj3nL2xQ/AQJZA2wGScrtzWgXEn
-	 JZDKGeaDTLeiWLTs9mSgRByKY7FP6v6yuX0ye6UkVdPljkgVIkQA5gtfioJoFBweow
-	 zvO9TUXpo8sthTAnzoH2T7GTIsYIZRF7MbLwTM6/xT/VemRN1mOLW8tyJr+Cmc1oVC
-	 HbTbi9Kdsynnw==
-From: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
-To: Stanislav Fomichev <sdf.kernel@gmail.com>, James Hilliard
- <james.hilliard1@gmail.com>
-Cc: netdev@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>, Jakub Kicinski
- <kuba@kernel.org>, Magnus Karlsson <magnus.karlsson@intel.com>, Maciej
- Fijalkowski <maciej.fijalkowski@intel.com>, Stanislav Fomichev
- <sdf@fomichev.me>, Simon Horman <horms@kernel.org>, Alexei Starovoitov
- <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, Jesper Dangaard
- Brouer <hawk@kernel.org>, John Fastabend <john.fastabend@gmail.com>, Eric
- Dumazet <edumazet@kernel.org>, "David S. Miller" <davem@davemloft.net>,
- bpf@vger.kernel.org, linux-kernel@vger.kernel.org, Andrew Lunn
- <andrew+netdev@lunn.ch>
-Subject: Re: [PATCH net v2] xsk: freeze deferred pool teardown without
- blocking unregister
-In-Reply-To: <asaTvPO05EpmUEgN@devvm7509.cco0.facebook.com>
-References: <20261005-xsk-suspend-teardown-v2-1-2d87228f4329@gmail.com>
- <asaTvPO05EpmUEgN@devvm7509.cco0.facebook.com>
-Date: Thu, 08 Oct 2026 15:13:24 +0200
-Message-ID: <8733ug2v4b.fsf@all.your.base.are.belong.to.us>
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="XM6+Zbnk"
+Received: from xf.. (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 503d04501;
+	Thu, 8 Oct 2026 11:03:23 +0800 (GMT+08:00)
+From: Finley Xiao <finley.xiao@rock-chips.com>
+To: finley.xiao@rock-chips.com,
+	heiko@sntech.de,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Cristian Marussi <cristian.marussi@arm.com>
+Cc: Jassi Brar <jassisinghbrar@gmail.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	tony.xie@rock-chips.com,
+	huangtao@rock-chips.com,
+	frank.wang@rock-chips.com
+Subject: [PATCH v2] mailbox: arm_mhuv3: Keep the combined IRQ enabled during system suspend
+Date: Thu,  8 Oct 2026 11:02:14 +0800
+Message-ID: <20261008030214.368347-1-finley.xiao@rock-chips.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa119772d6303a8kunm2f35a96c7c2dd0
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZH08YVk9PSUlKGB8aTE1NGVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=XM6+ZbnkmQNlAhn5qn2uDiSftM3yGfhBT2v45Nv+KYw2bZSQ+UQ2jQ3uV/fZH/5RD1pnEPlWylQsk6yWl/oG4z4CE20ipqczYhXBNtV35Ev8cajAV53RsoRfQ82AznQ3yuX3Uot3s01byq/lTdCDzJwYeQeyzNe1w43vIHdgDLs=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=Dgleh18hZRn+DpCzOwpEkJP+/6haGcTG+Q6HFfBYP18=;
+	h=date:mime-version:subject:message-id:from;
 
-Stanislav Fomichev <sdf.kernel@gmail.com> writes:
+When MHUv3 is used as the SCMI mailbox transport (arm,scmi-mailbox),
+SCMI clock and power-domain operations still need to work in the noirq
+phase of system suspend: genpd may power off a device's parent domain
+from genpd_suspend_noirq(), which issues scmi_clock_config_set() /
+scmi_power_state_set() and waits for the firmware reply via the mailbox
+RX IRQ.
 
-> On 10/05, James Hilliard wrote:
->> Deferred pool destruction calls ndo_bpf() under RTNL. system_wq is
->> not frozen during system sleep, so that callback can run after a
->> device has suspended and gated its clocks. Use system_freezable_wq
->> so running destruction finishes before device suspend and new work
->> waits until process thaw.
+However, dpm_suspend_noirq() calls suspend_device_irqs() before running
+the suspend_noirq callbacks, so the combined interrupts are already
+masked at that point and the SCMI transfer times out while waiting for
+the reply.
 
-...more PM suspend/resume issues...
+Both the PBX and MBX combined interrupts are requested as threaded
+IRQs with only IRQF_ONESHOT. The MBX combined IRQ must stay enabled so
+that firmware replies are delivered, and the PBX combined IRQ, used
+for txdone by IRQ when not in polling mode, needs the same treatment.
 
-I'd say this a bad smell/poor XSK contract that we need to use wq
-freezable here. XSK capable drivers (and the core) should tolerate
-calling the pool-removal path on suspended hardware and failed
-resume/unregister.
+IRQ threads are not frozen during system suspend, so with
+IRQF_NO_SUSPEND the threaded combined-IRQ handlers still run in the
+noirq phase.
 
-Now that poor design leaks into net_device. :/
+Add IRQF_NO_SUSPEND to the MHUv3 combined IRQ registrations so that
+SCMI remains functional throughout the suspend/resume cycle. Note that
+this only keeps the IRQs functional during the suspend/resume cycle and
+does not make the mailbox a wakeup source.
 
->> Keep assigned pools visible to NETDEV_UNREGISTER independently of
->> the socket list. A released socket has already left that list, but
->> its final pool put can queue destruction after workqueues freeze.
->> A resume-time unregister would then wait for a device reference
->> whose release cannot run until the resume completes.
->>=20
->> Track assigned pools per netdev under RTNL and detach remaining pools
->> after the notifier socket walk, including copy-mode pools. This also
->> covers leased queues without scanning pools from unrelated devices or
->> network namespaces. Remove the entry on assignment failure and normal
->> teardown. The deferred worker still owns the pool and later observes
->> the cleared device pointer, avoiding a second driver detach or put.
->>=20
->> The lifetime problem was identified by code inspection of the deferred
->> release and system-sleep paths.
->>=20
->> Fixes: 1c1efc2af158 ("xsk: Create and free buffer pool independently fro=
-m umem")
->> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
->> ---
->> Changes in v2:
->> - Track assigned pools per netdev instead of scanning a global pool list.
->> - Keep deferred releases visible across queue changes and queue leases.
->> - Rebase onto current net.
->> - Link to v1: https://patch.msgid.link/20260930-xsk-suspend-teardown-v1-=
-1-a6cac8c030be@gmail.com
->>=20
->> To: "David S. Miller" <davem@davemloft.net>
->> To: Eric Dumazet <edumazet@kernel.org>
->> To: Jakub Kicinski <kuba@kernel.org>
->> To: Paolo Abeni <pabeni@redhat.com>
->> To: Simon Horman <horms@kernel.org>
->> To: Andrew Lunn <andrew+netdev@lunn.ch>
->> To: Magnus Karlsson <magnus.karlsson@intel.com>
->> To: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
->> To: Stanislav Fomichev <sdf@fomichev.me>
->> To: Alexei Starovoitov <ast@kernel.org>
->> To: Daniel Borkmann <daniel@iogearbox.net>
->> To: Jesper Dangaard Brouer <hawk@kernel.org>
->> To: John Fastabend <john.fastabend@gmail.com>
->> To: Bj=C3=B6rn T=C3=B6pel <bjorn@kernel.org>
->> Cc: netdev@vger.kernel.org
->> Cc: linux-kernel@vger.kernel.org
->> Cc: bpf@vger.kernel.org
->> ---
->>  include/linux/netdevice.h   |  5 +++++
->>  include/net/xsk_buff_pool.h |  3 +++
->>  net/xdp/xsk.c               |  5 +++++
->>  net/xdp/xsk_buff_pool.c     | 25 ++++++++++++++++++++++++-
->>  4 files changed, 37 insertions(+), 1 deletion(-)
->>=20
->> diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
->> index 3cff2174dc03..72091938f6e6 100644
->> --- a/include/linux/netdevice.h
->> +++ b/include/linux/netdevice.h
->> @@ -2545,6 +2545,11 @@ struct net_device {
->>  	/* protected by rtnl_lock */
->>  	struct bpf_xdp_entity	xdp_state[__MAX_XDP_MODE];
->>=20=20
->> +#ifdef CONFIG_XDP_SOCKETS
->> +	/** @xsk_pools: assigned AF_XDP pools, protected by rtnl_lock */
->
->
-> Can we mark this as being ops protected (net_device::lock) ?
+Signed-off-by: Finley Xiao <finley.xiao@rock-chips.com>
+Reviewed-by: Sudeep Holla <sudeep.holla@kernel.org>
+---
 
-+1
+Changes in v2:
+- Add Sudeep's Reviewed-by tag
+- Clarify that this does not make the mailbox a wakeup source
 
-> xp_clear_dev calls netdev_lock_ops, but xp_assign_dev
-> has netdev_assert_locked_ops_compat, so maybe there needs to be a bit more
-> care. We don't want to add new ASSERT_RTNL if possible (and extend new
-> netdev lock semantics).
->
-> The rest looks good.
+ drivers/mailbox/arm_mhuv3.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-+1
+diff --git a/drivers/mailbox/arm_mhuv3.c b/drivers/mailbox/arm_mhuv3.c
+index a1c528be47f3..04998e1346c5 100644
+--- a/drivers/mailbox/arm_mhuv3.c
++++ b/drivers/mailbox/arm_mhuv3.c
+@@ -980,7 +980,8 @@ static int mhuv3_setup_pbx(struct mhuv3 *mhu)
+ 
+ 		ret = devm_request_threaded_irq(dev, mhu->cmb_irq, NULL,
+ 						mhuv3_pbx_comb_interrupt,
+-						IRQF_ONESHOT, "mhuv3-pbx", mhu);
++						IRQF_ONESHOT | IRQF_NO_SUSPEND,
++						"mhuv3-pbx", mhu);
+ 		if (ret)
+ 			return dev_err_probe(dev, ret,
+ 					     "Failed to request PBX IRQ\n");
+@@ -1017,7 +1018,8 @@ static int mhuv3_setup_mbx(struct mhuv3 *mhu)
+ 				     "MBX combined IRQ is missing !\n");
+ 
+ 	ret = devm_request_threaded_irq(dev, mhu->cmb_irq, NULL,
+-					mhuv3_mbx_comb_interrupt, IRQF_ONESHOT,
++					mhuv3_mbx_comb_interrupt,
++					IRQF_ONESHOT | IRQF_NO_SUSPEND,
+ 					"mhuv3-mbx", mhu);
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "Failed to request MBX IRQ\n");
+-- 
+2.43.0
 
-I've made a mental note to try to improve this, and hopefully the we can
-get rid of this in the future.
-
-
-Bj=C3=B6rn
