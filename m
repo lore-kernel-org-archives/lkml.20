@@ -1,148 +1,212 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66A02486437;
-	Thu,  8 Oct 2026 10:22:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20D61493631
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 10:23:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791454930; cv=none; b=d1BTSgmpS5ILUjziowRzgb6BXeOrSWyODbyndtD+FRshomUFIArNzQTQJxhYGths9qoqMBtsXev72mo8q3DDciAHvDefgszL3KaP/nssP0QOQli2Hy+WQewKBui1nkbxufDEnm8Hw0BULSkHYHpX5Cdt9MWSAJzmaKWwkGqLy9A=
+	t=1791454995; cv=none; b=gqYfYPIo9niQlQkJhv/pe9Wc5tpDVObl5b3OAGupfa9YGWkLL20+1OeG+V3DcWXICQug3W0ug2rOpJtXKBNkhN0t3XCkP61QHv3EOGwt4RCx0Sg+R+IBwxjqz3xikRfByiiQG3PxJ1qpjg6wsWTxYB3Ybn9aq609zsx5rP1PwNs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791454930; c=relaxed/simple;
-	bh=kunwMoJrkDQIylN4N3BxROSvdJwQfDGtlV9KrGwsQXc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=K4fXSd5N0yq3s7PCeqsLrJ/gDR8nQUemqH5Je9mKlmwq8L34fNqZN9cZ2X4Bd6y4yqYD5x/IhpP3wttyGNGxoksWxYN1rK40De4F8AGCKM/GET4Q5WUcwYmnaZ9YLgT4tjg+hszh2PFOxqlvqi9fNTwCNvEdN16ctx7VRJezKuw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HwmmiUTe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791454995; c=relaxed/simple;
+	bh=1fWYKc6uzLH2whfDkm7TWoiFw1Rm0HcoWhLnt9kusfE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gcV+wDoNzOsKQ9v6bv6Zg2ambfhgUDn489EEztaw39AgDEsqXCEwG7kyDWxARUHABjj+Lls1ouWLS+mWZ8nbSCijdk2vrzE1RcLzJjZHRYjKXQ3Wk2i8ECu6f+S/qMWgh11LfnbTGPEuyvIMKmWUG0WFEbrXi0SMLE0kChuaV9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=KFW28EZg; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HwmmiUTe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81F011F000FF;
-	Thu,  8 Oct 2026 10:22:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791454928;
-	bh=zcBgO7M7iFusjizHcLgntvUHRDYyFs7rgcLKJri+rIg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HwmmiUTeqkyPniyQMst6veFAYjUsBDORMT+O2yz+vcrMdFulGoby6M+Jn853WThCl
-	 +loLatS+xwCLFuwLUmUEme9EKIfZxK1sFAwU6kI3WZse92LrNb1+S95BAiB3JL3445
-	 4wSdTLH3451TNlj8n/CkktM8KKzV+Rk08oxYBKszB7l2W8V7AbiB4zeu2GdnCcjY4t
-	 boWeL+/r+Ac5lxoMOQ6ftDzb2uw+o29a80n2hSm9abUAHJrlZLmzWxFeE/JMoanv77
-	 Zr9hcbEWp6zThLmrOGHQTFdzl7cNmRFjnrVeI5OsQJbUngGoFbQbAhvdTm4ByyCmPP
-	 PEgOisFZ2PPqQ==
-Date: Thu, 8 Oct 2026 11:22:02 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Eric Lin <eric.lin@sifive.com>
-Cc: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Atish Patra <atishp@rivosinc.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-perf-users@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Nick Hu <nick.hu@sifive.com>
-Subject: Re: [PATCH RFC] dt-bindings: perf: riscv,pmu: Add
- interrupts-extended property
-Message-ID: <20261008-e035806a0c080bb90eafb6a7@squawk>
-References: <20260702-pmu-dt-property-v1-1-a7a7737afb72@sifive.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="KFW28EZg"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791454993;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=F6Ri3pHIl20gecDqbC09Y5YclV6WJYtvm9nxg+QZeGM=;
+	b=KFW28EZgXBPZZt286RPLsHHGfea8xn7Z+m8meDCw0QHq506JOy3KJL1J+ytpj58U9sedYw
+	SVHOTrKRFfOizPUDLrpj9qJMq4n8Y+TO0lcVMImZZAa/dDjc4sYJm72tgcxtNL628RNV4X
+	oaVMYbq3vT69bT1oAI4PBieYy75yv9M=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-609-S9gJu8cNMoy0HNO_Y9nC1A-1; Thu,
+ 08 Oct 2026 06:23:07 -0400
+X-MC-Unique: S9gJu8cNMoy0HNO_Y9nC1A-1
+X-Mimecast-MFC-AGG-ID: S9gJu8cNMoy0HNO_Y9nC1A_1791454985
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 96D72195D00A;
+	Thu,  8 Oct 2026 10:23:04 +0000 (UTC)
+Received: from warthog.com (unknown [10.44.32.90])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 4A7F118002B6;
+	Thu,  8 Oct 2026 10:22:57 +0000 (UTC)
+From: David Howells <dhowells@redhat.com>
+To: Christian Brauner <christian@brauner.io>
+Cc: David Howells <dhowells@redhat.com>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	Stefan Metzmacher <metze@samba.org>,
+	Eric Van Hensbergen <ericvh@kernel.org>,
+	Dominique Martinet <asmadeus@codewreck.org>,
+	Ilya Dryomov <idryomov@gmail.com>,
+	netfs@lists.linux.dev,
+	linux-afs@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	ceph-devel@vger.kernel.org,
+	v9fs@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v17 0/8] netfs: Use a bvecq chain position abstraction
+Date: Thu,  8 Oct 2026 11:22:44 +0100
+Message-ID: <20261008102253.1003776-1-dhowells@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="/raQ3rw6hrl6QXeP"
-Content-Disposition: inline
-In-Reply-To: <20260702-pmu-dt-property-v1-1-a7a7737afb72@sifive.com>
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
---/raQ3rw6hrl6QXeP
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi Christian,
 
-On Thu, Jul 02, 2026 at 05:04:31PM +0800, Eric Lin wrote:
-> The interrupts-extended property is used to specify the connection
-> between the PMU counter overflow interrupt and the corresponding CPU
-> local interrupt controller (riscv,cpu-intc).
->=20
-> This property also allows the software to associate a PMU node with a
-> specific CPU. To support future heterogeneous systems, where different
-> CPUs may support different PMU events, this property allows the driver
-> to identify the correct PMU capabilities for each hart.
->=20
-> Reviewed-by: Nick Hu <nick.hu@sifive.com>
-> Signed-off-by: Eric Lin <eric.lin@sifive.com>
+Could you pull these patches please into your vfs-7.4.netfs branch?  This
+is the fourth of five batches.  The primary purpose of this batch is to add
+an abstraction for a position in a bvecq chain and make use of it.
 
-This has been sitting for ages, I was kinda waiting to see if there'd be
-some feedback from the relevant maintainers (riscv pmu). Was there a
-series sent to opensbi or elsewhere to implement support for these
-devices?
+With that in mind, this patchset does the following:
+
+ (1) Add a struct, bvecq_pos, to refer to a position in a bvecq chain.
+     This is a tuple of ( bvecq pointer, slot and offset } and the position
+     struct holds (for now) a ref on the bvecq pointed to.
+
+ (2) Change unbuffered/DIO to extract the supplied user buffers into a
+     bvecq chain rather than a bio_vec[] up front.  This means that
+     netfslib then uses bvecq chains for everything.
+
+ (3) Add a folio count to the readahead_control struct and then makes
+     readahead pre-create its buffer using that count to determine how many
+     slots are required.
+
+ (4) Change netfslib to use the bvecq_pos struct to keep track of the whole
+     request buffer and various points in it where loading, dispatch and
+     collection are taking place and to also keep track of the slice given
+     to each subrequest.
+
+This was split from v11 of a larger netfslib series[1].
+
+The patches can also be found here:
+
+	https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git/log/?h=netfs-next-4
 
 Thanks,
-Conor.
+David
 
-> ---
->  Documentation/devicetree/bindings/perf/riscv,pmu.yaml | 11 +++++++++++
->  1 file changed, 11 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/perf/riscv,pmu.yaml b/Docu=
-mentation/devicetree/bindings/perf/riscv,pmu.yaml
-> index d01c677ad3c7..13aceb3d42b9 100644
-> --- a/Documentation/devicetree/bindings/perf/riscv,pmu.yaml
-> +++ b/Documentation/devicetree/bindings/perf/riscv,pmu.yaml
-> @@ -34,6 +34,13 @@ properties:
->    compatible:
->      const: riscv,pmu
-> =20
-> +  interrupts-extended:
-> +    minItems: 1
-> +    maxItems: 4095
-> +    description:
-> +      Specifies the interrupt-parent and local interrupt index for each =
-CPU's
-> +      PMU counter overflow. Each item points to a riscv,cpu-intc node.
-> +
->    riscv,event-to-mhpmevent:
->      $ref: /schemas/types.yaml#/definitions/uint32-matrix
->      description:
-> @@ -101,6 +108,7 @@ examples:
->    - |
->      pmu {
->          compatible =3D "riscv,pmu";
-> +        interrupts-extended =3D <&cpu0_intc 13>;
->          riscv,event-to-mhpmevent =3D <0x0000B 0x0000 0x0001>;
->          riscv,event-to-mhpmcounters =3D <0x00001 0x00001 0x00000001>,
->                                        <0x00002 0x00002 0x00000004>,
-> @@ -127,6 +135,9 @@ examples:
->       */
->      pmu {
->            compatible =3D "riscv,pmu";
-> +          interrupts-extended =3D <&cpu0_intc 13>,
-> +                                <&cpu1_intc 13>,<&cpu2_intc 13>,
-> +                                <&cpu3_intc 13>,<&cpu4_intc 13>;
->            riscv,event-to-mhpmevent =3D
->                /* SBI_PMU_HW_CACHE_REFERENCES -> Instruction or Data cach=
-e/ITIM busy */
->                <0x00003 0x00000000 0x1801>,
->=20
-> ---
-> base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
-> change-id: 20260701-pmu-dt-property-ff12b35fe0fc
->=20
-> Best regards,
-> -- =20
-> Eric Lin <eric.lin@sifive.com>
->=20
+Changes
+=======
+ver #17)
+- Fixed issues brought up by sashiko[5]:
+  - In bvecq_slice(), return 0 immediately if max_size or max_slots are 0.
+  - Make sure that sreq_max_{len,segs} are initialised before calling
+    prepare_read.
+- Fixed an issue brought up by the kernel test robot[6]:
+  - In netfs_read_gaps(), use umax() rather than max() when comparing a
+    signed and an unsigned int.
 
---/raQ3rw6hrl6QXeP
-Content-Type: application/pgp-signature; name=signature.asc
+ver #16)
+- Fixed issues brought up by sashiko[4]:
+  - In bvecq_pos_nudge(), recheck the old bvecq, not the new one.
+  - In bvecq_slice(), recheck the old bvecq.
+  - In bvecq_pos_step(), don't assume the new bvecq has slots, but rather
+    check it.
 
------BEGIN PGP SIGNATURE-----
+ver #15)
+- In netfs_extract_iter(), set BVECQ_MEM_EXTERNAL rather than
+  BVECQ_MEM_PAGECACHE for unpinned memory.
+- In netfs_clear_unread_dio(), don't need to update subreq->transferred
+  as the caller overwrites it after.
+- Fixed issues brought up by sashiko[3]:
+  - In netfs_extract_iter(), remove redundant max_len check.
+  - In bvecq_pos_nudge(), make sure the recheck is checking the old bvecq,
+    not the new.
+  - In netfs_unlock_abandoned_read_pages(), start from collect_cursor.slot,
+    not from slot zero.
+  - In netfs_pgpriv2_copy_to_cache(), cancel the caching also if we fail to
+    allocate a bvecq.
+  - In netfs_retry_write_stream(), use the same superfluity detection as
+    the read side.
+  - In netfs_write_subrequest_terminated(), only set the RETRY flag on
+    short uploads, not short cache writes.
 
-iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCasduygAKCRB4tDGHoIJi
-0rTpAQCQBgIIAbycQG39wCoLhMgLP+QD29TJPYRX1zlb8UX3VAEAq/PUFA8BUofL
-VOpanF6KbviEiyHpZWrSYJGm0egv2QU=
-=QRvW
------END PGP SIGNATURE-----
+ver #14)
+- Fixed issues brought up by sashiko[2]:
+  - In netfs_extract_iter(), limit the number of slots per bvecq to what
+    will fit inside a 4KiB allocation.
+  - In netfs_rreq_assess_dio(), only set the page dirty if it's from GUP or
+    it's from the pagecache.
+  - In bvecq_zero(), skip the call to bvec_zero() if part == 0.
+  - In bvecq_delete_spent(), prefer returning true because more slots got
+    added to returning false because we hit the chain end.
+  - In netfs_read_gaps(), fix a leak of already allocated sink folios if we
+    get OOM when allocating a sink folios.
+  - In netfs_clear_unread_dio(), fix double call to iov_iter_zero().
 
---/raQ3rw6hrl6QXeP--
+ver #13)
+- Rebased on -rc6 to account for some conflicting fixes.
+- Fixed a bug in netfs_prepare_read_iterator() where comparison was being
+  made against the wrong thing when limiting a subreq's size.
+
+ver #12)
+- Split from v11 of "netfs: Keep track of folios in a segmented bio_vec[]
+  chain"[1]
+
+[1] https://lore.kernel.org/r/20260902173350.3468672-1-dhowells@redhat.com/
+[2] https://sashiko.dev/#/patchset/20261006205947.608356-1-dhowells%40redhat.com
+[3] https://sashiko.dev/#/patchset/20261007142001.851620-1-dhowells%40redhat.com
+[4] https://sashiko.dev/#/patchset/20261008074346.936909-1-dhowells%40redhat.com
+[5] https://sashiko.dev/#/patchset/20261008084722.963948-1-dhowells%40redhat.com
+[6] https://lore.kernel.org/oe-kbuild-all/202610080217.U3kveBFn-lkp@intel.com/
+
+David Howells (8):
+  mm: Make readahead store folio count in readahead_control
+  netfs: Add a function to extract from an iter into a bvecq
+  netfs: Make unbuffered/DIO read and write use bvecq
+  netfs: Add some tools for managing a position in a bvecq chain
+  netfs: Provide a func to load the readahead buffers into a bvecq chain
+  netfs: Use bvecq_pos to hold the buffer positions
+  netfs: Remove the rolling_buffer implementation
+  netfs: Remove netfs_extract_user_iter()
+
+ fs/afs/dir.c                   |   5 +-
+ fs/afs/symlink.c               |   6 +-
+ fs/cachefiles/io.c             |  12 -
+ fs/netfs/Makefile              |   1 -
+ fs/netfs/buffered_read.c       | 182 ++++++++-------
+ fs/netfs/bvecq.c               | 327 +++++++++++++++++++++++++++
+ fs/netfs/direct_read.c         |  81 +++----
+ fs/netfs/direct_write.c        |  67 +++---
+ fs/netfs/internal.h            |   4 +-
+ fs/netfs/iterator.c            | 398 ++++++++++-----------------------
+ fs/netfs/misc.c                |  18 --
+ fs/netfs/objects.c             |  16 +-
+ fs/netfs/read_collect.c        | 106 +++++----
+ fs/netfs/read_pgpriv2.c        |  88 +++++---
+ fs/netfs/read_retry.c          |  87 ++++---
+ fs/netfs/read_single.c         |  19 +-
+ fs/netfs/rolling_buffer.c      | 182 ---------------
+ fs/netfs/write_collect.c       |  73 +++---
+ fs/netfs/write_issue.c         | 166 +++++++++-----
+ fs/netfs/write_retry.c         |  73 +++---
+ include/linux/bvecq.h          | 185 +++++++++++++++
+ include/linux/netfs.h          |  25 ++-
+ include/linux/pagemap.h        |  10 +
+ include/linux/rolling_buffer.h |  47 ----
+ include/trace/events/netfs.h   |  32 ++-
+ mm/readahead.c                 |   5 +
+ 26 files changed, 1264 insertions(+), 951 deletions(-)
+ delete mode 100644 fs/netfs/rolling_buffer.c
+ delete mode 100644 include/linux/rolling_buffer.h
+
