@@ -1,50 +1,33 @@
-Received: from bkemail.birger-koblitz.de (bkemail.birger-koblitz.de [23.88.97.239])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9265A29B766;
-	Thu,  8 Oct 2026 12:17:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.88.97.239
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3024D4915BF;
+	Thu,  8 Oct 2026 12:18:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791461867; cv=none; b=HZ/WUhYol0SXMHN+Q0hrykteYZqmvrxBn8ptwZwub2IkzqJ8DjnKcKpXX93x9j5gOshp/qcXGu/Wx44S7mL0V1+/9t2HYnbFjq6cG4DhK5YLOGzwOuK7HDLZmS4swZcUZaxbtJDtp0i+jMrkDMhYW3UWThgvEIwXduCKtnfpaYo=
+	t=1791461890; cv=none; b=E6TSrzJTBnKvmFSAVeicx8PMCKgEiRjqcl+iLljvLW9LzSzO2SCsR/yReR2TxXdv9LL4pCjPnv2ltTiXKkjfAZBqtpxefvfCuU9jz4MbfmCqsmrFw3YBFv5qtYYrQHPAuQiqME1aODmuYGz2uRGcimGkf/hCdvMVh6VuzNCVNgk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791461867; c=relaxed/simple;
-	bh=79n3TeG5j1UaX+/AdwzOmfmxhX0AYmK8L5GixoO3mkk=;
+	s=arc-20240116; t=1791461890; c=relaxed/simple;
+	bh=UHktiDAmOzY9tM7r+T0EiJeBS5SaWf6HfELHYKKyE3E=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GQ32NvBrPHfmMPCvcyel+akCX1W/5Tf3K2/w2PfSJ/Dk7T2FPPWd9PwtkBEQiJwcYpue+X+5XiTO9ZTgjZOKhlNhBF1V/EHs1gDO4R1lwrWgQaG4pHQQTsDyfiVQiaFflmGeP0zuaDpYuFlQPViheOIvTHFqzHZx1aOFXQP2iGk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de; spf=pass smtp.mailfrom=birger-koblitz.de; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=w22IQ2ls; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=Dypgcyqi; arc=none smtp.client-ip=23.88.97.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=birger-koblitz.de
+	 In-Reply-To:Content-Type; b=u6X3m6IZuRy4K6jg/a+uZShRDD1p0Aj5oBxtjHqxAlkqVLxedTeixApbw0B8ZtfUg476v55+5FnB7yBMQpZlwrP3RcU39rWdNQp6YC9EMqXTZx0+VW7tE89me+kBItRbh72wYYD3QA9YAIyi0EDRBUry2DsIfvVBMFWYJ2PsCr8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GhEG8Rf7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="w22IQ2ls";
-	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="Dypgcyqi"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
-	s=default; t=1791461857;
-	bh=79n3TeG5j1UaX+/AdwzOmfmxhX0AYmK8L5GixoO3mkk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=w22IQ2lsmqV/biPF4yc+R7xauEioyxmGtjNVsrepEhDwX0zTjq5hNUefPlJBf49cw
-	 SrCFs9wsfRpsZ6naQbkSJwMleJjIcKoP9plQ+9S+lz8Hz0ktqIfrQA2P4v3At8t+Xk
-	 XoVeUw0TEpk/RIA/3776ov7rQBVbVpmI/VWqTt9ZmFAT/7xIoeYZgi5MSlYekGcuTR
-	 dWilCaM9fC0djqApSWuM7SoauR5Nzpzzt+tJ2k1lZdmsedz2dggrpHl1Vx/I213SOd
-	 +TXFjkGWlF4GUrIJiReYUzYtjCTkxs/o1iPLgHXDf9aVgA/9ZbjypLyEcmt0NSD1S6
-	 vxxmxBU62DnDg==
-Received: by bkemail.birger-koblitz.de (Postfix, from userid 109)
-	id C83374728A; Thu,  8 Oct 2026 12:17:37 +0000 (UTC)
-X-Spam-Level: 
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
-	s=default; t=1791461856;
-	bh=79n3TeG5j1UaX+/AdwzOmfmxhX0AYmK8L5GixoO3mkk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Dypgcyqi6UHesM2Of79Iw7jHOhsEwqO+kqOapKJd0X5PI99KUlF5bsmUX1Gu3QRJs
-	 pfId/gnLu8eoPwHwgr7wAk2oXCmN49qFrghEpsPTECpeqMHgvAF/3FELfzw76vL0qE
-	 Jakn+3aPQlxnXLeUd/n0yCpmcZcKl3jxoq3ti395nNCHPsNG5Bo19VcbrkYNBlXCOY
-	 wmUhoLVs2bDK969WGd4RIVj6QGMqYnHyAc+dDsQ0efWD/ksIP9l9YQBY2XsMUDXxMl
-	 ClwicoSb1xrkv/SOehlkKrRXzkjHoO174/3IAuSrTtMrbEen2X76O+fwJvJoFSG7C+
-	 OdDfT3JNHmD9Q==
-Received: from [IPV6:2a00:6020:47a3:e800:271c:c6c5:9fde:77cb] (unknown [IPv6:2a00:6020:47a3:e800:271c:c6c5:9fde:77cb])
-	by bkemail.birger-koblitz.de (Postfix) with ESMTPSA id 87E1E47182;
-	Thu,  8 Oct 2026 12:17:36 +0000 (UTC)
-Message-ID: <633a0f2b-67b3-4896-8464-6a4d0c05498f@birger-koblitz.de>
-Date: Thu, 8 Oct 2026 14:17:35 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GhEG8Rf7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0877B1F000FF;
+	Thu,  8 Oct 2026 12:18:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791461887;
+	bh=mWYDGCkliQZ+PdJvEtbDJwsOKJu+jdZ5vA+076xEorA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=GhEG8Rf7tsfP8wSTbPxmc3rSPJobjTftCBxspYkKu60HfOijFU/pAf6gf/C/xD1+5
+	 W867JOdl8deRI5HGlzrRz7xvjAKcp+59PKnmGCniUo0uMoo3bwfZtaaHf9Ht7QFmor
+	 glkKxZXVKLw6fWISIyfYmU63g9dziyqLNLcF/9SgcJDgctxQVHEm8dUS/Jj7zasuvh
+	 yePRQtJI8rna5iiwOejC3g/FQHbcL4prr12TfxWmaogm0h53p0+BeIeBTmQKoiKt7X
+	 Iv7UiPLB50WWgkVIkPhghpui5hCPSaCn70Qu1SPOSBZeO8zYKDAcQKS6MzvgPBOBe5
+	 brcr/qtZL8SZA==
+Message-ID: <b036d03f-7f40-4734-946e-19e054eaf6cb@kernel.org>
+Date: Thu, 8 Oct 2026 07:18:05 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,60 +35,41 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v6 01/10] r8152: split r8156_init per chip and
- factor out wait_autoload_done
-To: Chih Kai Hsu <hsu.chih.kai@realtek.com>, davem@davemloft.net,
- kuba@kernel.org
-Cc: netdev@vger.kernel.org, nic_swsd@realtek.com,
- linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
- edumazet@google.com, bjorn@mork.no, pabeni@redhat.com, andrew+netdev@lunn.ch
-References: <20261008081556.47901-1-nic_swsd@realtek.com>
- <20261008081556.47901-2-nic_swsd@realtek.com>
-From: Birger Koblitz <mail@birger-koblitz.de>
+Subject: Re: [PATCH v3 2/2] arm64: dts: socfpga: agilex: add SoCDK multi-QSPI
+ board
 Content-Language: en-US
-In-Reply-To: <20261008081556.47901-2-nic_swsd@realtek.com>
+To: genevieve.chan@altera.com, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261008081014.35006-1-genevieve.chan@altera.com>
+ <20261008081014.35006-3-genevieve.chan@altera.com>
+From: Dinh Nguyen <dinguyen@kernel.org>
+In-Reply-To: <20261008081014.35006-3-genevieve.chan@altera.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Chih Kai,
 
-On 08/10/2026 10:15 am, Chih Kai Hsu wrote:
-> RTL8156, RTL8156B, RTL8157 and RTL8159 shared a single r8156_init(),
-> gated by a dense set of tp->version range checks. That made the init
-> sequence hard to follow.
-> 
-> Split r8156_init() into one function per chip family:
-> - r8156_init  (VER_10/11)
-> - r8156b_init (VER_12/13/15)
-> - r8157_init  (VER_16)
-> - r8159_init  (VER_17)
-I have a hard time to understand why you want to separate out one init 
-function into 4 different ones, for each chip one. Especially, if, as 
-you say no functional changes are intended, which might justify the 
-re-factoring in this manner. By multiplying the functions, it will 
-become more difficult to maintain the code: if an issue is found in the 
-init-sequence, it may now be necessary to fix it 4-times and future 
-developments touching the init-sequence will also need to be replicated 
-multiple times. In total, there would afterwards be 8(!) different init
-sequences including the other ones for the RTL8152 and different 
-versions of the RTL8153. The same pattern repeats with _up(), _down() 
-and other configuration functions.
 
-Would it not make more sense to try to further combine the init 
-sequences or try to disentangle the code by establishing common library 
-routines put into a _lib.c file and possibly different .c files for the 
-different generations of the chips? For example, it appears that the 
-rtl8157/9 belong to one generation of chips, based on the rtl8156 
-design. On the other hand, rtl8152/3 appear to be a different generation 
-with various family members. That would allow to build a basis for 
-future development like to rely on using phylink to handle the PHYs 
-integrated in the chips, which all appear to be already supported by the 
-Realtek-PHY driver.
+On 10/8/26 03:10, genevieve.chan@altera.com wrote:
+> From: Genevieve Chan <genevieve.chan@altera.com>
+> 
+> Add a device tree for the Agilex SoCDK fitted with the multi-QSPI
+> daughter board. The daughter board replaces the single QSPI flash of
+> the default SoCDK with four Micron MT25QU02G flashes on chip selects
+> 0-3, which allows the system to use up to 1 GiB of QSPI storage.
+> 
+> The board is otherwise identical to the SoCDK and builds on
+> socfpga_agilex.dtsi.
+> 
+> Signed-off-by: Genevieve Chan <genevieve.chan@altera.com>
+> ---
+> Changes in v3:
+> - Reword subject to avoid repeating "Agilex".
+> - Move the DTS to arch/arm64/boot/dts/altera/, following the move of
+>    the SoCFPGA device trees in for-next.
+Please go back and review my comments on v2[1].
 
-[...]
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Chih Kai Hsu <hsu.chih.kai@realtek.com>
-Best,
-   Birger
+Dinh
+
+[1] 
+https://lore.kernel.org/all/8cd59aae-4f68-4cf8-a12c-5c63b11d29c0@kernel.org/
