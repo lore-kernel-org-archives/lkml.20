@@ -1,68 +1,67 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CC204A3F1B
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 13:39:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A0B14A4EE2
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 13:40:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791466799; cv=none; b=uNkvSgFKtqHyCmRxi0FctL6n4X8TT7VmNnLTtbLjDZAK0rJoJdSFAeHWhJwFTClOS5XLmURoWguOPeCFFylPoRy5b4NNm0/oyCQYvFchmKChidH1NqEtLY11CLzixo8A5nb42X2xSTCYI0ZpzCgmSC/fD8IfWXignyvBz/ONAnc=
+	t=1791466824; cv=none; b=RsuXh8mwtNch9mdRAqKCafgldpdjmIFmO5DvpXrUj5q92jOvqpOCm72N32BZKVtcWJSLuvJKcJXCVJksYePcgubBaa0TFUcUkxBENwQuEI9+hjqevb7vmwUwzeazk6vs/VhjQJynFcw85p28M23OFmR3Iu0Giu5txTnb7Ta3FlI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791466799; c=relaxed/simple;
-	bh=/edKydgE0ASRsmNUE7Awh0WwhPJYFGzeFnAV4oiXyMA=;
+	s=arc-20240116; t=1791466824; c=relaxed/simple;
+	bh=f2BMn5ioidRbzaI9E7/OdDgcAuxIkLaGENNPV91/nzA=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TyDKUSenT0NCvumvwM6nlJVHn8+Ua0fArosEkFvkkFsvLyZZAVoI9/DnLB+SEmRYaaiZ01/qJTVrR9UyxrOYOATHJjl8Dhx2lUJ6fvvG2v4V8y9PKLxMBmLxSg7C2LaIr7mNTRjoIVeT+zQrKK0nSfedoT+h7MSVwTuSrfyz5G4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=CETfW18i; arc=none smtp.client-ip=209.85.221.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	 In-Reply-To:Content-Type; b=ujtTUqlA+PBftG/Gq7XQdEpeWs9Iz0Odrr5pqpLqyQ4VP9at7SWYtOT5f6v0HjIcvPfpyjuazPiDSoY/uc0XGpEgbcs8LzTkXAmJFs5nIDeY7Ta3rxwmAFaBWSO5fkwdXpVB3TKsvV7VuO1LLQ0brdo0+7TP/Zh4zbJIOBARe8o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=SWO5fmKC; arc=none smtp.client-ip=209.85.218.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="CETfW18i"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48b042c0759so2486166f8f.2
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 06:39:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="SWO5fmKC"
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c2e36c3478aso776607766b.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 06:40:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1791466795; x=1792071595; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1XAQp5sjUTnBYVb7nczR4LRPTFMERYXhCXB9dzgexKM=;
-        b=CETfW18iIM/rdQ55AQXD7YxxOlTpKI5IyF5Vw1EfWzkhl8B7rHp6MzpqLOgvbuav/1
-         KlJ8icgw6NQpcWvSxab6apSH8z0+vNIWTWv/ZZrv++CIWxJTr9KX3uhokNXTrvDtVW3X
-         U/nckUZU8Jij4jjXmTFJGz+rtOqlCAHxLGBZHU6C9/Dxg0dltCQ88TfBHmLS0b2yHviB
-         7k14+ltDCWpWmVOh/b76ehVDgt5PJqf4PxJaU3I8tEWJpIqaxWOUbCSybDNwiWiquC+g
-         1GLdlIgJQw08+4gFLYVpPc9CBl0Q3M2f5EZXFGcyDm6690fRXFG6eLnJ35rWd4I7nwGj
-         cmzg==
+        d=linaro.org; s=google; t=1791466821; x=1792071621; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=H80w9zSBz9R1ag4qx1WlJa+f5FQwYUpOAtTkVEPPBz8=;
+        b=SWO5fmKCmSLDhFQF3sd/3422TlorOnWb9ykBI+z9dv2ig1oPq3sTWowNKRGppqTmNs
+         O/7og0AlHUMbFZhZPqSbBfgj0z8dlfxFBYPftcND2SoD8ZAWGRtL3FUNZ0Fmme+xQO0Z
+         gUDZ02501Z2I86NvjGzw2E8OTZLHAIb6aVTHMTCKeh1GQdYii6mHzbm1mCa/b/WyPBHh
+         71EqwQgoXlw0ul2vzs19JWU176kCLTCfA6u98tVUYHsPNiznhyO8brB5gM8kNYurfGqE
+         xi7oguad1hs8Bs/pGWG9uWq46kidx0DT7Fh2YuM+Gdy+3jduRqLv/iqcdpTOu1ZrZ8jR
+         MXJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791466795; x=1792071595;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1791466821; x=1792071621;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1XAQp5sjUTnBYVb7nczR4LRPTFMERYXhCXB9dzgexKM=;
-        b=RxwmSXYlJasKbb9tnQ3w5srxrMNRl9NujYwmgI+HFuXpCLp6xsau+XosvQU29/gpND
-         9KwQQeuAQkV4kqR6FP7Mk78Jt1z/18jR/cIlVo1PcCgPe4emzTQKxPVegLrrUM1ZPgyb
-         x0w4kCuhYBmYx3e/skNmWbYaonrzD/fhoDavFfbfT69Z+N/oFKI1Q7/WPmcrr4DnzCAF
-         HO8F4wBSp12KgPfh+pFBYu2pnK4k463z1S86H+0vV/PInm965rwOubNy2Iu1SwXejmWQ
-         H1s2ZqT9e6kPIgrP0wEthvlFsvHajau5ez9Nv/QBa6KpLgWjWilp5q8GUwhJOQZquOpq
-         wPUQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzw4kIaXOlvZI2Mk7bJR/Yz/Gwy8RVwEbFdv52y+MBMrq613ZW6SsYKcHVDxEC6Mdsp3C3Ox2eH5cE2bmo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJJr6zeZGYJEUT7UyIvAQtWA/4xJ1EaZ+iXjimtsNppt9anfOEa
-	5vakCEfjAfXqPGgmZUquouFUjBxC2VVejQxjn2JYasGTx4A/z0uX0RibdU4wCFkAw+I=
-X-Gm-Gg: AYBFou04aL+omS3+Xy4BSNJlfYv+fkMPHxTRquvSmo8O/xPX0eu9wdGOH0PkxXqAafd
-	KuvmDPBTLRnTYq46Je8bH9+InP10XMgmxDfIKNS/9svXgIS4Xw6RRzwEjn8QPHjj4h3QnSz7JWY
-	pF39pjmGcWbR5VmTK2hOeP2F5f2sf8JtG060NREpQ4q2TgM5gecmoVXNCSpd/zM+EEmY+8akpno
-	aWOwzNfHQTBRwMgrLwTVRUy+00o6Xu6vlgyFmmefiKE/zCOq1TrnZvn1xX8NVgglcn1bvBeQUaL
-	C0cuID9S8m/59Ycmj59srBwLPYUUuA3U8BZjnfO/RMyw8wpDv+Q+IAqrNsAlWnmeASObhLTInX5
-	8yUOowFrWmBEtUyCOmQEL7vlSEufD9FQBrESz2naCrA2y0sluOSIjSX5wkmoZvYjWFsllP/X/oh
-	1plPdvpOHOUDk+sXE4RTaosH+A3MTZZ3YSDDIfN8tLYDoVuR1f9QwoAujO1cy4t1BceLsQZ6/Wi
-	nyban4RFvTzWxOwkcN/4/mfPC9EcIMqWwQxK6Tf8GvwLw==
-X-Received: by 2002:a05:6000:613:b0:487:981:4df5 with SMTP id ffacd0b85a97d-48c7275b5a3mr9367282f8f.14.1791466794666;
-        Thu, 08 Oct 2026 06:39:54 -0700 (PDT)
-Received: from ?IPV6:2a07:de40:8100:0:89a9:fd0e:583d:4a53? ([2001:af0:8000:1409:193:86:92:181])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71d2014asm11292042f8f.38.2026.10.08.06.39.53
+        bh=H80w9zSBz9R1ag4qx1WlJa+f5FQwYUpOAtTkVEPPBz8=;
+        b=nbX2tjEwOTfiDQBFL0gc3Gl745nsR6+Ns5ligTzj6ogyJ6Vd/QfKqlE52DRiul8wiw
+         PrtMT91I05PwrShgRbCV/voSoYTfBH1C1eMOffY3WbbQ4TjsjPtMbQEXKZRsmiSztM+C
+         NPAZiGS41biwHn6rTxYRlR21ovUzw1fhJqT261K6pTEHH7BCM6ZzYUYkag0ZvqGLLknh
+         epSWnQd79rRdXORcTTul/uBidbHA4dE8rtMltRTY6MWmBqSWg1fUvJkzOnmtPVcmrsde
+         jVmH8ZGNbA1eeRkE5yu9vAAZFrwm3foHE93U//gUY3W27EeFvTVOl984kjRXX9Puhxel
+         s3KA==
+X-Forwarded-Encrypted: i=1; AKwUvBzQfg0SW9wKttt1/JcQFGwvnidzplx1CxySfhZeDqi0KIJ6eVbOusptx5jdHKHwgbwEWQf0tDtbUpCh1VA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mOAya9gNvkfJLHhpWuj8gZydh0r8e7cwr+We/Js5see1y0lOrU
+	fT46GAzJp9TdaVQhKwsjgSwEkl2m9zawq0P1u92xKp8uBMVGnR6gXgrQliEmd9hBvf4=
+X-Gm-Gg: AYBFou0TP0Ub1Md8xvNjt4WbbKHHOVRkYBM8/9w9D9A7IIp1GiYWmr+cF6k8Wyy8sv+
+	R57odMlG4g9R2CZs5p0LwIuz+hIu6DQymGGmQEVZsAb/+l4j4w4rDznMc/dbyU/p3U2lxMsjCDY
+	0a28AbYqZ76XIOqsR23kfWcXfAfmBVTqmp6Kt+hbH70etM9MI/Lq0daFjSibWIRYUaKcys+1cpd
+	Sz/63D3l5Pk9SlDFJC9so8k2FrZJSZsKN9J/PBI0aSmfYz7n373JLDw2lALSdn4zTEzsFQbEEGh
+	ChrOW3pLnVEyAQl/4Uibo0Hu9thz3wnl1YQ+tT3U2sPKLvLWr9OFR4s6fOXW5dWhEeM4SKadu13
+	gbrtEKkVWS27OeCJ90A/ct6O7BF2wZuy6ftuijrPjuJjKh0CAC4O/Ri8t0e30wSBp8IRZtRa6uI
+	0yyaUm+8Z9gnowkF3Enu+1lCn7MgqRI7kEGB5USxrB2jbko6nvIDV8kTAIwrcSWmIXfhBxBzwtF
+	xlT/I513e9pbdGzOfm5NRo=
+X-Received: by 2002:a17:907:9810:b0:c29:4513:f6fd with SMTP id a640c23a62f3a-c317c0bbdebmr565259066b.35.1791466821244;
+        Thu, 08 Oct 2026 06:40:21 -0700 (PDT)
+Received: from [192.168.0.167] ([109.77.203.235])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b00aa482e9sm1524264a12.31.2026.10.08.06.40.20
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 08 Oct 2026 06:39:54 -0700 (PDT)
-Message-ID: <92d5ec39-6a0e-437e-a03d-b1d2c0ec24cb@suse.com>
-Date: Thu, 8 Oct 2026 15:39:53 +0200
+        Thu, 08 Oct 2026 06:40:20 -0700 (PDT)
+Message-ID: <c0d8ff20-ee5a-48b2-8cb4-3a837077e192@linaro.org>
+Date: Thu, 8 Oct 2026 14:40:19 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,59 +69,70 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] get_maintainer: only use THE REST as a fallback
-To: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-Cc: Joe Perches <joe@perches.com>, linux-kernel@vger.kernel.org,
- users@kernel.org
-References: <20261008-get-maintainer-the-rest-fallback-v1-1-7d26d0b7aa34@linuxfoundation.org>
-Content-Language: en-US
-From: Petr Pavlu <petr.pavlu@suse.com>
-In-Reply-To: <20261008-get-maintainer-the-rest-fallback-v1-1-7d26d0b7aa34@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH 58/74] media: uapi: Add CAMSS ISP statistics definition
+To: "Gjorgji Rosikopulos (Consultant)"
+ <gjorgji.rosikopulos@oss.qualcomm.com>, bod@kernel.org,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+ Daniel Scally <dan.scally@ideasonboard.com>, Keke Li <keke.li@amlogic.com>,
+ Richard Acayan <mailingradian@gmail.com>, Hans Verkuil
+ <hverkuil@kernel.org>, Gjorgji Rosikopulos <quic_grosikop@quicinc.com>,
+ Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>, Robert Foss
+ <rfoss@kernel.org>, Milen Mitkov <quic_mmitkov@quicinc.com>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
+ <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-58-ed985aefd611@kernel.org>
+ <7cec7156-e85b-42e0-857a-e590b9e252b2@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <7cec7156-e85b-42e0-857a-e590b9e252b2@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 10/8/26 2:51 PM, Konstantin Ryabitsev wrote:
-> THE REST matches every file in the tree via "F: *" and "F: */", so
-> get_maintainer.pl currently adds linux-kernel@vger.kernel.org to every
-> patch, regardless of whether the touched files already belong to a
-> subsystem with its own mailing list.
-> 
-> Only add THE REST for a file when no other matching section provides a
-> mailing list for it. Files that match no section, or only sections
-> without an L: entry, still fall back to THE REST, so every patch keeps
-> reaching at least one public list.
-> 
-> Signed-off-by: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-> ---
-> LKML has become mostly a firehose of patches that are already going to a
-> subsystem list. The reason is THE REST: it matches every file in the
-> tree, so get_maintainer.pl adds linux-kernel@vger.kernel.org to every
-> single patch. During the week of Oct 1-7, 2026:
-> 
->   - LKML carried 13,641 messages (~1,950/day), 90% of which were also
->     sent to at least one other list;
->   - with ~2,100 subscribers, that is about 29 million deliveries per
->     week for LKML alone.
-> 
-> This issue came up during the 2026 Maintainer Summit and the consensus
-> was that "always include linux-kernel for every patch" was never the
-> intent.
-> 
-> This patch makes THE REST a fallback as initially intended: it is only
-> added for a file when no other matching MAINTAINERS section provides a
-> mailing list for it.
+On 08/10/2026 12:23, Gjorgji Rosikopulos (Consultant) wrote:
+>> +/* Number of bins in a Bayer histogram. */
+>> +#define CAMSS_STATS_BHIST_BINS	1024
+>> +
+>> +/**
+>> + * struct camss_stats_bhist - Bayer histogram
+>> + *
+>> + * Histogram of the luma of each 2x2 Bayer quad inside the histogram's region,
+>> + * over CAMSS_STATS_BHIST_BINS equal bins spanning its input range. Quads
+>> + * whose luma falls outside the input range are not counted.
+>> + *
+>> + * @header: block header; @header.type = CAMSS_STATS_AEC_BHIST
+>> + * @bins:   number of quads per bin
+>> + */
+>> +struct camss_stats_bhist {
+>> +	struct v4l2_isp_block_header header;
+> I think that the whole format is not correct, having header is preventing address alignment
+> of the buffer for the stats, as i have mentioned in the next patch copying the statistics
+> on each frame is not correct, just to have generic statistics format in userspace.
 
-Documentation/process/submitting-patches.rst currently says:
+Err no I'll disagree with you there.
 
-| linux-kernel@vger.kernel.org should be used by default for all patches, but the
-| volume on that list has caused a number of developers to tune it out.  Please
-| do not spam unrelated lists and unrelated people, though.
+Since we are introducing stats on the qcom side we get to be the first - 
+or close to first - system to implement extensible self-describing stats 
+which is the mirror to the params.
 
-If the behavior of scripts/get_maintainer.pl is changed, it would be
-good to update this documentation accordingly, possibly by simply
-reverting commit 77167b966b7e ("docs: submitting-patches: clarify the
-role of LKML").
+Extensible stats lands in 7.3 so IMO there's no reason not to use it.
 
--- 
-Thanks,
-Petr
+Also I think its kind of a crap design to have extensible params but not 
+extensible stats.
+
+It should be all or nothing. I don't see a gigantic problem in copying 
+in data and then looking at how to accommodate dma straight into the 
+stats output with block alignments later.
+
+The extensible header facilitates next-hopping anyway so userspace 
+shouldn't have to change once we DMA to the aligned regions.
+
+Also if that is not supported by extensible stats then it _should_ be 
+supported by extensible stats - i.e. it should be possible to DMA 
+directly into the output buffer and pad the blocks as much as you need.
+
+---
+bod
