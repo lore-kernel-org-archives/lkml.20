@@ -1,141 +1,112 @@
-Received: from out03.mta.xmission.com (out03.mta.xmission.com [166.70.13.233])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D44CF2931FF;
-	Thu,  8 Oct 2026 03:36:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=166.70.13.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CBA52DCC13
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 03:39:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791430596; cv=none; b=UZPoNJSTe7QY6g9HyGwSwRHm8kRDDdMLhwxHueLhwfi//LbpixFroLnFrhhWcK+TTVNP7UlikfPhZU+nPC8M8rFA8CQmePtT43Ju/OMJOl2yaJnFng2OxxEZWiiU1yvQrJJy82dhGPlVKf09AzUVkLFD1Hbr3lvdh72ORzoUUfE=
+	t=1791430785; cv=none; b=YXK4rsSWchOYNDKyERGWynj0Cqyyn+2hZ+cT6eknoCXbyAWwVpnYa52q0uVwC7TEWJzs2DlqT8uxEfb3cnYjwao74KhtrYRrGau+GwdzNxHXx1bAlt8xO5vruTmFazDe4R1/cqy83i9+t1X2+Zl85wS3KFNgsT12+FYXOlWP8AI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791430596; c=relaxed/simple;
-	bh=NJI2DarabQhw4oFDCTnqXiYzHACu0I15hA60oDcCsv8=;
-	h=From:To:Cc:In-Reply-To:References:Date:Message-ID:MIME-Version:
-	 Content-Type:Subject; b=HD7eRc3IovP2fGmF8rFEpyR3Xh8msnnFbu9QSztoZnypjytgDkEXAAbOWrX5iJOTrw+cncs9tm+5AKN7kGK7LuueFOxtDC1De1L5pbhz9Nrf57aZWs5gdFTqzxw8MEpdPCkZnUKnWBIv5NGbd1nTvHvBqQU4su87MhljJabwp/E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xmission.com; spf=pass smtp.mailfrom=xmission.com; dkim=pass (1024-bit key) header.d=xmission.com header.i=@xmission.com header.b=qnpInk3E; arc=none smtp.client-ip=166.70.13.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xmission.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xmission.com
+	s=arc-20240116; t=1791430785; c=relaxed/simple;
+	bh=RnissqypflDLpWNzFUeU1J0WwCQz4gc83nJVAkHfYf0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gb72hsJFsUL963bsGwElKccVqSWHRRRD5In4IodqEDb1g7tbz7mPkp3DSKQZw8jMrovKjkvmF1vqoJL/Ap8fzSD2p8wePFVUlNW8PhaRI75vTwivehFV8ECLMO4cFwGAuUEww0jq+O/uwZg+leHuBlbzKPmE+6YQ7SbyIo/6GDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=ELR5W+2+; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xmission.com header.i=@xmission.com header.b="qnpInk3E"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=simple/simple; d=xmission.com;
-	 s=xmission; h=Subject:Content-Type:MIME-Version:Message-ID:Date:References:
-	In-Reply-To:Cc:To:From:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=NJI2DarabQhw4oFDCTnqXiYzHACu0I15hA60oDcCsv8=; b=qnpInk3ELoCpBfqBY8SgNRUj71
-	4XMk2ZWRs/TWoM2Kd2PI9sa60TfCjM/T4iY2WEYrMc14wo7qXFaLwSEOF0rr4XVe5WE/GG7gVmcqg
-	3aAqdqfWMY0kCvowjS7tAxMhMhM1ENzxKTlaYRHtqzQxxYdxEfqysQ05hk2+HXMNL550=;
-Received: from in02.mta.xmission.com ([166.70.13.52]:33546)
-	by out03.mta.xmission.com with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.93)
-	(envelope-from <ebiederm@xmission.com>)
-	id 1xEdrZ-009cRS-8e; Wed, 07 Oct 2026 20:28:05 -0600
-Received: from ip72-198-196-98.om.om.cox.net ([72.198.196.98]:54856 helo=email.froward.int.ebiederm.org.xmission.com)
-	by in02.mta.xmission.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.93)
-	(envelope-from <ebiederm@xmission.com>)
-	id 1xEdrW-002F3x-Fi; Wed, 07 Oct 2026 20:28:04 -0600
-From: "Eric W. Biederman" <ebiederm@xmission.com>
-To: Natasha Klaus <natalie.klaus@runtimeverification.com>
-Cc: Christian Brauner <brauner@kernel.org>,  Kees Cook <kees@kernel.org>,
-  Shuah Khan <shuah@kernel.org>,  Jeff Layton <jlayton@kernel.org>,
-  linux-kselftest@vger.kernel.org,  linux-kernel@vger.kernel.org
-In-Reply-To: <20260930112854.373184-1-natalie.klaus@runtimeverification.com>
-	(Natasha Klaus's message of "Wed, 30 Sep 2026 14:28:52 +0300")
-References: <20260930112854.373184-1-natalie.klaus@runtimeverification.com>
-Date: Wed, 07 Oct 2026 21:27:55 -0500
-Message-ID: <87se2h0vv8.fsf@email.froward.int.ebiederm.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="ELR5W+2+"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id E573D40E021A;
+	Thu,  8 Oct 2026 03:39:40 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id vqgpF6VRqRlc; Thu,  8 Oct 2026 03:39:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1791430771; bh=B5T8lD2eJ9YQFf9c+UYCFQvOFl6CQJzpDY/qp3B3cDQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ELR5W+2+BQqT0pOR2OejOkf0YKEvu1TSoomDG3HiqliFsLSdZS3UmOy40kgEWj9uJ
+	 Vvset1Ra8ALMpQgsp4bfqI84NEVUcjwMLBTQNO1P4y4DXTdt88XJE5BWTUlYKxdZFd
+	 0SwjS12snzvHw6BLNHjuxPG8Bi2TZiiTEfy2LCCZlLUlaShamv5t0NsQ9VoK9/Tzoh
+	 cpKnMw29TpBPOlnvfwoPgmNqZs9Gx2wO5g3NrdQhwNr28tFq0vvCQoCPGjQWo2U5/K
+	 YM9MWqmm+27LMizyXSeu1qf+gc/m/u4cvlLOy1P63yYZoobJPK+0QU+bAi243gSYsx
+	 rql+xXp3gN8tLno5JLIbDAN0/9Uyiq3n3Y2P3xiLnc2djRzSYfrNrctwNRTJq+OW74
+	 KVVUJpD7QNrZSN/mnkDXB8+kiqu5pWhDmXplL0sLNq82wx3CkAtkTdXVFKRGIArqdB
+	 SuI0Fl7oSsOe4g/AG39jtS+5Yir3NkCJQuYnPVrVneCRWzen7Wf86Ea5R6CT1XIRoE
+	 jeFPtb18rhNMX93HrLS9MCtP6BTrN8kbKoVrlNcRr9kQsg7rrFUWI9GffZUzweVKGz
+	 xwNicS/FUcs9X1QnfVZnVz/rni+ek3/rOhlxh1/waevg/NHWv1rXBsFKpSGVnwbJOW
+	 UsQyU8uAA2LBDRzi/Ym2ID4w=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 6C12D40E00E5;
+	Thu,  8 Oct 2026 03:39:22 +0000 (UTC)
+Date: Wed, 7 Oct 2026 20:39:19 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: "Chang S. Bae" <chang.seok.bae@intel.com>
+Cc: linux-kernel@vger.kernel.org, x86@kernel.org, tglx@kernel.org,
+	mingo@redhat.com, dave.hansen@linux.intel.com, peterz@infradead.org,
+	david.kaplan@amd.com
+Subject: Re: [RFC][PATCH v2 02/11] stop_machine: Accumulate error code rather
+ than overwrite
+Message-ID: <20261008033919.GBascQZ9ueHINwNghd@fat_crate.local>
+References: <20260331014251.86353-1-chang.seok.bae@intel.com>
+ <20260331014251.86353-3-chang.seok.bae@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-XM-SPF: eid=1xEdrW-002F3x-Fi;;;mid=<87se2h0vv8.fsf@email.froward.int.ebiederm.org>;;;hst=in02.mta.xmission.com;;;ip=72.198.196.98;;;frm=ebiederm@xmission.com;;;sPfnum=0;;;sPf=pass
-X-XM-AID: U2FsdGVkX19VFKwA3NX3XuLVxwVPhh5HhCK4fEnKK6o=
-X-Spam-Level: *
-X-Spam-Report: 
-	* -1.0 ALL_TRUSTED Passed through trusted hosts only via SMTP
-	* -0.5 BAYES_40 BODY: Bayes spam probability is 20 to 40%
-	*      [score: 0.2387]
-	*  0.7 XMSubLong Long Subject
-	*  0.0 T_TM2_M_HEADER_IN_MSG BODY: No description available.
-	*  1.2 XM_Multi_Part_URI URI: Long-Multi-Part URIs
-	* -0.0 DCC_CHECK_NEGATIVE Not listed in DCC
-	*      [sa07 1397; Body=1 Fuz1=1 Fuz2=1]
-	*  0.0 T_TooManySym_01 4+ unique symbols in subject
-	*  1.0 XM_B_Phish_Phrases Commonly used Phishing Phrases
-	*  0.0 T_TooManySym_02 5+ unique symbols in subject
-	*  0.0 TR_XM_PhishingBody Phishing flag in body of message
-X-Spam-DCC: XMission; sa07 1397; Body=1 Fuz1=1 Fuz2=1 
-X-Spam-Combo: *;Natasha Klaus <natalie.klaus@runtimeverification.com>
-X-Spam-Relay-Country: 
-X-Spam-Timing: total 2307 ms - load_scoreonly_sql: 0.05 (0.0%),
-	signal_user_changed: 11 (0.5%), b_tie_ro: 10 (0.4%), parse: 0.84
-	(0.0%), extract_message_metadata: 13 (0.6%), get_uri_detail_list: 1.71
-	(0.1%), tests_pri_-2000: 13 (0.6%), tests_pri_-1000: 2.2 (0.1%),
-	tests_pri_-950: 1.09 (0.0%), tests_pri_-900: 0.78 (0.0%),
-	tests_pri_-90: 81 (3.5%), check_bayes: 79 (3.4%), b_tokenize: 6 (0.3%),
-	 b_tok_get_all: 8 (0.4%), b_comp_prob: 2.9 (0.1%), b_tok_touch_all: 57
-	(2.5%), b_finish: 1.11 (0.0%), tests_pri_0: 270 (11.7%),
-	check_dkim_signature: 0.88 (0.0%), check_dkim_adsp: 7 (0.3%),
-	poll_dns_idle: 1889 (81.9%), tests_pri_10: 1.92 (0.1%), tests_pri_500:
-	1909 (82.7%), rewrite_mail: 0.00 (0.0%)
-Subject: Re: [PATCH v2 0/2] userns: reject out-of-range uid_map/gid_map values
-X-SA-Exim-Connect-IP: 166.70.13.52
-X-SA-Exim-Rcpt-To: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, jlayton@kernel.org, shuah@kernel.org, kees@kernel.org, brauner@kernel.org, natalie.klaus@runtimeverification.com
-X-SA-Exim-Mail-From: ebiederm@xmission.com
-X-SA-Exim-Scanned: No (on out03.mta.xmission.com); SAEximRunCond expanded to false
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260331014251.86353-3-chang.seok.bae@intel.com>
 
-Natasha Klaus <natalie.klaus@runtimeverification.com> writes:
+On Tue, Mar 31, 2026 at 01:42:40AM +0000, Chang S. Bae wrote:
+>  static int stop_cpus(const struct cpumask *cpumask, cpu_stop_fn_t fn, void *arg)
+>  {
+> @@ -512,7 +512,7 @@ static void cpu_stopper_thread(unsigned int cpu)
+>  		ret = fn(arg);
+>  		if (done) {
+>  			if (ret)
+> -				done->ret = ret;
+> +				done->ret |= ret;
 
-> map_write() silently truncates uid_map/gid_map/projid_map values above
-> U32_MAX modulo 2^32 on 64-bit kernels, so e.g. "4294967301 1000 1" is
-> installed as "5 1000 1" without an error. Patch 1 parses each field
-> with kstrtou32() so such values fail with -EINVAL. Patch 2 adds
-> selftests for out-of-range and negative values in each field and for
-> the unchanged in-range path.
->
-> This makes the parser more correct; it is not a security fix.
->
-> The patch and the selftest were drafted by Claude Code (Claude Opus 5.5)
-> in an interactive session; I reviewed, built and tested them. The
-> assistant flagged the truncation while reading map_write(), and I
-> confirmed it by writing to uid_map on a running kernel.
->
-> Tested on v7.3-rc5-37-g551c722f4080 under virtme-ng, x86_64 defconfig
-> with CONFIG_USER_NS: all 12 selftest cases pass on the patched kernel.
-> On an unpatched 6.8 host the four above-u32 cases fail as expected,
-> seven pass and the root-only case is skipped.
+Yeah, can't really do that. Sashiko says:
 
-I don't see anything to object to in this one.
+| Looking at this update to done->ret, is it possible for multiple CPUs to
+| write to this shared variable concurrently during a multi-CPU stop operation?
+| 
+| Since done->ret |= ret is a non-atomic read-modify-write operation, could
+| concurrent updates from different cpu_stopper_thread() instances race and
+| clobber each other, resulting in lost error bits?
+| 
+| Additionally, the stop_machine API is a generic mechanism where callbacks
+| often return standard negative POSIX error codes.
+| 
+| If two different CPUs return different negative error codes, for example
+| -ENOMEM (-12) and -EIO (-5), won't the bitwise OR result in -EPERM (-1)?
+| Does this regression corrupt the final return value for generic callers
+| that rely on standard negative error codes?
 
-Acked-by: "Eric W. Biederman" <ebiederm@xmission.com>
+and I can certainly see it:
 
->
-> Changes in v2:
-> - Parse each field with kstrtou32() instead of simple_strtoull() plus a
->   separate U32_MAX check (Eric W. Biederman).
-> - Selftest: add negative values in each field, "0 <uid> 1", the
->   largest valid first id, a line with extra spaces between fields, and
->   the largest count written by a privileged parent (Eric W. Biederman).
-> - Describe patch 1 as making the parser more correct, not as hardening.
-> - Rebased onto v7.3-rc5-37-g551c722f4080.
->
-> Link: https://lore.kernel.org/all/20260928072537.115668-1-natalie.klaus@runtimeverification.com/
->
-> Natasha Klaus (2):
->   userns: reject uid_map/gid_map values that do not fit in u32
->   selftests/namespaces: add uid_map/gid_map range tests
->
->  kernel/user_namespace.c                       |  29 +-
->  tools/testing/selftests/namespaces/.gitignore |   1 +
->  tools/testing/selftests/namespaces/Makefile   |   3 +-
->  .../selftests/namespaces/uid_map_range_test.c | 299 ++++++++++++++++++
->  4 files changed, 328 insertions(+), 4 deletions(-)
->  create mode 100644 tools/testing/selftests/namespaces/uid_map_range_test.c
->
->
-> base-commit: 551c722f40809618230001baccf219193e22fc5a
+__stop_cpus() declares done on its stack and passes it to
+queue_stop_cpus_work() which copies the pointer into the cpu_stop_work struct
+of every CPU and by the time we end up in the stopper thread, it has been
+woken up and we don't take any locks when we run ->fn - we're just
+preemption-disabled... So, IINM, we should drop this patch.
+
+Making this work is perhaps too much of an effort with diminishing returns...
+
+Thx.
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
