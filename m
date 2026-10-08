@@ -1,66 +1,84 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 609E22253B0;
-	Thu,  8 Oct 2026 00:00:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3453547049;
+	Thu,  8 Oct 2026 00:03:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791417631; cv=none; b=dR8lxlH9fSivz/tvFisGY6KvPe1j0jMN3RpvylGLFnRo9+hAvbQHnFhXC3n/hmzcUTlmJc1W6XKHOgVmryRoN2L+paLj8cxD/h+lQ+Bg5ZfHgX7eS7hbsR6USRv8OWC7znPmlXE8w7peRW5V/7APIQHHbxTgNbg2FzbGYbXopU4=
+	t=1791417834; cv=none; b=cO9333Stb6ATc3iCIV5Hgy4yrCLWF3fsDxxCR2sfq0PSjIo0vdXbNFBlFM/4+XFuS1S5xt16YrSMHkZ5T3rG16oIOPIA2t0WuxHisL/kn3qTzd1LxtcJx4JYJ171oVIfZEYdM6LRSGlmY0d6ujb4i39yZw6gYVwt88JVwtI0qYw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791417631; c=relaxed/simple;
-	bh=YRwerDxd3kQSJgTe5HjOwiGE5oyvlx6BcwgSNjGbF3c=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=foCWLKJfT5OSWYA1OSNyl6X8njyCj15R0ahjxdF6Ng58ySxkMGBmZ1kyofy7hXGUhOOGnVNrUNKnC7H0VPrsLD+krncT7UVkDk/onrDT5PIz5E5nC6KKTtAsSGuLd9/cDnTmL5xZi0n2kNdImbr3Dyf4yvSwcGk5EZSxCsfISZY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B58zzxLw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791417834; c=relaxed/simple;
+	bh=hFGRL1S5MLJxN6d/v5RnTnPlxFPdB1thahXsYheNDBQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WKZh2YtCyAJVbB05TQoeIhiAxzYgJDSo4CZF+E0PF7fFqL98b4iA6PN/6J9oxSiIcsmzmhCcMUzsfwvdiJQoxCWhb2zQxd5xnP4wHg5MrUD5Nubb6k2+iiF/gm71Q0Gt43gmCU1nHCusYXg1oe005ZfkgRXoAQD4iHSDhBeOrPk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F+A1FjNK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B58zzxLw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E5F51F000FF;
-	Thu,  8 Oct 2026 00:00:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F+A1FjNK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5577B1F000FF;
+	Thu,  8 Oct 2026 00:03:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791417630;
-	bh=XcuH3LG1dKuUFLwzOh6jw6CMGpNhpT6Di+aA26s77nc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=B58zzxLwrcvpS26HRCUNgu2N09L7f/YnuSSCQ0QXkAtNBS+K9V6lrjj5lvGQIAicA
-	 LRAP7+0x5EYs+DcbtTO8HQRx1tGhpE/nbnBT4K4UPGqaA1u+UCDzQJCa+FB8UWYKaC
-	 uF+tJIqLLaYEe3ELk4mUK3uhvDt5cdRFuXXF8cmE+hbbGOyvcnrp3mnaKji/9qQliM
-	 X+o6HZ6UfSz9fZQWDl/il1utihaqACh/rInvRtqOW9NS9kQ8pcKBQWdasjjK51VI90
-	 xiMMATml5GZCAjkVxEuaNAMuFsxDXda80J5+vQ+ybwjhVnoRLH4+u1IObgJ9OA9YUQ
-	 ZXJ7bLVrMg97w==
-Date: Wed, 7 Oct 2026 17:00:28 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Irlanki Sandeep <irlanki.s@samsung.com>
-Cc: netdev@vger.kernel.org, bpf@vger.kernel.org, edumazet@google.com,
- davem@davemloft.net, pabeni@redhat.com, ncardwell@google.com,
- ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, corbet@lwn.net,
- linux-kernel@vger.kernel.org, lorenzo@google.com, maze@google.com,
- sporeba@google.com, motomuman@google.com, madhan.raj@samsung.com,
- srihari.k@samsung.com, g.pokhra@samsung.com, r.kumawat@samsung.com,
- raj.kumars@samsung.com, ts413.lee@samsung.com, ramyashree.s@samsung.com,
- daeil2.hwang@samsung.com
-Subject: Re: [PATCH net-next v6] tcp: add BPF kfuncs to set per-socket ECN
- mode and AccECN option
-Message-ID: <20261007170028.318acb6b@kernel.org>
-In-Reply-To: <20261001132759.1076145-1-irlanki.s@samsung.com>
-References: <CGME20261001132701epcas5p2da9b0fa7ca3bcef1ff84a62f255bc573@epcas5p2.samsung.com>
-	<20261001132759.1076145-1-irlanki.s@samsung.com>
+	s=k20260515; t=1791417833;
+	bh=WXXBeOOAQXZZIgr+b2JT/zWDhKlIvQQpgNaMw4aqEyA=;
+	h=From:To:Cc:Subject:Date;
+	b=F+A1FjNKGADtImed8iEJKgiQB8SNBfRCkfECulT2AxJ1+doQe0cDrajIZmaPpigi8
+	 BStlIqZU0/sswNcNRcDcAiBgq7z14lHrIISmsTo6vtzOi5b42tywHeFzCKwz71yO9l
+	 gZ932HIRM3iKm78wmFvGlpXArGxrmUCeNc+kqqLGWJgsKNwFHt7ZeBDRR/5XlHx0pt
+	 pkZPlxR0/Gsqp5L0XgEb1qbKRRCvrj+LZAjBQbq1wAW1Z97haaJkRmBuxa1MSwcWmK
+	 Dz0r5nhgO3ljgNFJ5Cf0X4HLohgh6gagqlGGN5E9X6udwDj03sWDQQEaYQFf25Vm9y
+	 W0Yqu4YVDVwyg==
+From: Tejun Heo <tj@kernel.org>
+To: sched-ext@lists.linux.dev
+Cc: David Vernet <void@manifault.com>,
+	Andrea Righi <arighi@nvidia.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	David Dai <david.dai@linux.dev>,
+	linux-kernel@vger.kernel.org,
+	Tejun Heo <tj@kernel.org>
+Subject: [PATCHSET sched_ext/for-7.4] sched_ext: Add ops.sub_child_ecaps_updated()
+Date: Wed,  7 Oct 2026 14:03:50 -1000
+Message-ID: <20261008000352.1689057-1-tj@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Thu,  1 Oct 2026 18:57:59 +0530 Irlanki Sandeep wrote:
-> Suggested-by: Jakub Kicinski <kuba@kernel.org>
+Hello,
 
-This needs an ACK from TCP maintainers. If you respin please make sure
-to drop this tag, this tag is for cases where someone suggested sending
-the patch as a whole. Not for changes requested during normal course of
-review.
+A grant or revoke only records the target caps. They take effect on a cid at
+its next dispatch, and nothing tells the parent when. Until then the parent
+cannot act on a revoke, such as resetting the cpuperf target a child left on
+the cid.
 
-There was a false positive from sparse regarding the use of kfunc,
-I kicked off the AI review manually, please check the results here
-in an hour or so:
-https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261001132759.1076145-1-irlanki.s@samsung.com
+Patch 1 adds ops.sub_child_ecaps_updated(), delivered to the direct parent
+right after the child's own ops.sub_ecaps_updated(), with the child's cgroup
+id and the same before and after caps. A sub's disable reports the caps it
+still held as revoked before the parent's ops.sub_detach(). Patch 2 makes
+scx_qmap reset a child's cpuperf target once its PERF revoke takes effect.
+
+Based on sched_ext/for-7.4 (3d7c2f550eef).
+
+This patchset contains the following 2 patches.
+
+ 0001 sched_ext: Add ops.sub_child_ecaps_updated() to report a child's effective cap changes
+ 0002 sched_ext: scx_qmap: Reset a child's cpuperf targets once its PERF revoke takes effect
+
+The patchset is also available in the following git branch:
+
+ git://git.kernel.org/pub/scm/linux/kernel/git/tj/sched_ext.git sub-child-ecaps
+
+diffstat follows. Thanks.
+
+ kernel/sched/ext/ext.c         |   4 ++
+ kernel/sched/ext/internal.h    |  29 ++++++++-
+ kernel/sched/ext/sub.c         | 130 ++++++++++++++++++++++++++++++++++-------
+ tools/sched_ext/scx_qmap.bpf.c |  15 +++++
+ tools/sched_ext/scx_qmap.c     |   7 ++-
+ tools/sched_ext/scx_qmap.h     |   1 +
+ 6 files changed, 161 insertions(+), 25 deletions(-)
+
+--
+tejun
