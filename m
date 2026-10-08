@@ -1,253 +1,152 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 789F135AC00;
-	Thu,  8 Oct 2026 23:17:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEE703CF1FD;
+	Thu,  8 Oct 2026 23:19:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791501467; cv=none; b=S3rwVJBu+Q9FnrK1VtLiTBWRFRz6iOr6z0DfR5ocGwDi3gTyhxQVUxltbaZczmSCK3IlHPjiXHOIRdiS8+VSkYuqSjzl0HSCbmsLGU9keja/zWlDrCd1L89kiSOxGXyHFR8uwRidXg7P2Vz4U+JiayHokvxUk1Ut8hFLHAg1Opc=
+	t=1791501554; cv=none; b=u5ZdOo/Wlr7Wuf9m7xp0H26XPeMPglBKk88rUkSxc6NCu3fuvivX9mxvKq1K2zi43/heSgodzEScvMflnZYJIpeQT465Bu8txSXEdJ/Jrk9B1Ea4MPnN5R5zF1sen1t+4KNW2O4O/cH+5IUasmBi1Dz+NwlOCKMEMa+v8ZQjesg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791501467; c=relaxed/simple;
-	bh=UZzmpaebYk3m6FnMDIYJ8kPFleAPjeYkNTgC/dfxOKQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=CPNR9otp/UiTg7pfUej0H6/sf0wIWlICjB8gmGYn480LcZdOqV6QO1uZCvA7enonraWBuEDE709tL7kdbVTS683fGEzSPUqG5nsrhzI0OhzYqH5DZhbHBrLkcPbegKon4w0RI1WaFr6603DNA6FuZkpkrFmDlL9QjEWYg1CllMs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VYg+tCJw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791501554; c=relaxed/simple;
+	bh=sJZ9iI2OBVMZQ6uas4qKKHLaJ2Mw87YO8PArfwZrhho=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=A7PnO/iz/L3bei7NUwlwKZjWjscldALyT/jg5/vlrZRyKM4nIX24OR+c0/Wa+54CgDJforxo8aO+QFE7pRFU3P57T2e/17ha8BiAt+GEmlvVqasE242l6TPbeVf5YIyLrdA/2VyQ7k6nIjxTQrEepknzdttT2XyFAuHFUQ6tZqI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bYuibeKK; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VYg+tCJw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE16F1F000FF;
-	Thu,  8 Oct 2026 23:17:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791501466;
-	bh=0IQmUC4rybmSNfoRGU0HNL2L1MjjPpMUfkXm4Z+aTqk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=VYg+tCJwuM4sSDuiz03IMDTgiRzoInWXwTI1krJMdhjNc3qaMObmESR+LGugqND0+
-	 MhYdOEYXp8PfV+Gx73D2jArXQjJ6I4HGeX5iLl2QUs62shorU8PHnEM7BSAqhZ5ivp
-	 /W5lcROGgz09fMMpEMlQE+ZDnOUPAjR+NuGwe9YHWp917Lr/T0FO9ExagsOp0YpgTT
-	 FaPioV9mv0nbp3aBL6eTVI48Kd4DNgXh7Mco9khUEzcWfPGS55JhOmX86DfzAGaij2
-	 RqlnA+7x0QYHth3VpZctzczPox96QSM9YtyfbmJCor2EPTypHTVH+mISAFAHzu5kUT
-	 9cL4nQCQl+E1g==
-Date: Thu, 8 Oct 2026 18:17:44 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Francisco =?utf-8?B?QmVsdHLDoW4gTWlsbGFsw6lu?= <fbeltranmillalen@gmail.com>
-Cc: bhelgaas@google.com, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Andreas Noever <andreas.noever@gmail.com>,
-	Mika Westerberg <westeri@kernel.org>,
-	Yehezkel Bernat <YehezkelShB@gmail.com>,
-	Lukas Wunner <lukas@wunner.de>, linux-usb@vger.kernel.org
-Subject: Re: [PATCH] PCI: Extend Apple Thunderbolt power quirk to Alpine Ridge
-Message-ID: <20261008231744.GA938694@bhelgaas>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bYuibeKK"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 3B234C2BCC7;
+	Thu,  8 Oct 2026 23:19:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791501554;
+	bh=sJZ9iI2OBVMZQ6uas4qKKHLaJ2Mw87YO8PArfwZrhho=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=bYuibeKKrN61mIhefVBiQiBh6p4LeQqFGoeLCWQROc41szOx/vFw5RDNPvh0NoV9K
+	 pBDCZ/8Kx4k9JuEhR/7q2xU/MP52wjdHY0TFDP4bIOkOZIy8jWjDoZvGiXE6X0SzAM
+	 TQt00TkK5xOaFRfJ27FIrT5/5fhhltJ1neeJuNhQp2Jl7pNId5y5cdkJhDZQKkcsal
+	 bL1THCDQGEhbwhaw3DJb2Er1bUvYt3tmP1DObOJjFgsWABayfejxkK+wAmDU/Y7TPM
+	 szRvLXroO3Cmzg8CSfbfgk5fE/qLAa3TAVXmVkrHjfekdIxk707NB+K5/NIpafQJ4S
+	 vMr6FKoK2yhIA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 146EBCA6015;
+	Thu,  8 Oct 2026 23:19:14 +0000 (UTC)
+From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
+Date: Thu, 08 Oct 2026 17:19:12 -0600
+Subject: [PATCH] kallsyms: copy constants from __KERNEL__ to user, drop the
+ inclusion
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260924132815.24430-1-fbeltranmillalen@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261008-fix-kallsyms-v1-1-3339fdac2ab3@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDAwML3bTMCt3sxJyc4srcYl1Di1TTRPO0FINUQ0sloJaColSgPNi46Nj
+ aWgDLftQFXgAAAA==
+X-Change-ID: 20261008-fix-kallsyms-18e5a7fd0e19
+To: Nathan Chancellor <nathan@kernel.org>, 
+ Denis Benato <denis.benato@linux.dev>, 
+ Andrew Morton <akpm@linux-foundation.org>, linux-kbuild@vger.kernel.org, 
+ nsc@kernel.org, thomas.weissschuh@linutronix.de, chewi@gentoo.org, 
+ abelvesa@kernel.org, linux-kernel@vger.kernel.org, 
+ Kees Cook <kees@kernel.org>
+Cc: Jim Cromie <jim.cromie@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791501553; l=2787;
+ i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
+ bh=z/zMb6gglj4i+RtKQgtFQzYsPU9iLgw6hWdsZL1e5CU=;
+ b=3rQyAReRHr4iktxRBcBRvu5BizvjCeAWGLqZJ9wA4TRcvlI0ImgnY2xQtump+TtLidfYDSkVr
+ 665vA50YLZoBKntKjdPfhSgDoj7T2PRAGX3QjmaVbT/T9a4iVjfWoJU
+X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
+ pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
+X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
+ auth_id=958
+X-Original-From: Jim Cromie <jim.cromie@gmail.com>
+Reply-To: jim.cromie@gmail.com
 
-[+cc Andreas (author of 1df5172c5c25 ("PCI: Suspend/resume quirks for
-Apple thunderbolt"), Mika, Yehezkel, Lukas, linux-usb]
+From: Jim Cromie <jim.cromie@gmail.com>
 
-On Thu, Sep 24, 2026 at 10:28:15AM -0300, Francisco Beltrán Millalén wrote:
-> On Macs with an Alpine Ridge Thunderbolt 3 controller, suspending to RAM
-> with anything plugged into a USB-C port leaves the PCIe link between the
-> root port and the controller's upstream bridge permanently untrained on
-> resume.  The link does not merely fall back to a lower speed: it never
-> starts.  On a MacBookPro14,3 the root port reports
-> 
->   LnkSta:  Speed 2.5GT/s, Width x0
->   LnkSta2: EqualizationComplete- EqualizationPhase1- Phase2- Phase3-
-> 
-> with no correctable, non-fatal or fatal errors logged, and the link
-> training state machine stuck at its first state.  Both Thunderbolt
-> controllers, both integrated xHCIs and all four USB-C ports are lost
-> until reboot.  Measured 15 failures out of 15 with a device attached,
-> against 5 successes out of 5 with the ports empty; it follows the device,
-> not the port, and affects either controller.
-> 
-> Nothing recovers the link afterwards: neither the firmware's own eleven
-> retrain attempts, nor a secondary bus reset, nor bringing the controller
-> out of L2, nor cutting its power entirely once the link is already down.
-> 
-> macOS does not hit this because it powers the controller down on the way
-> into suspend.  Its AppleThunderboltNHIType3 driver calls SXFP() from
-> lateSleep, and the firmware of the affected machines defines exactly that
-> method: SXIO, SXLV, XRPE and XRIN, used by the drivers for older
-> controllers, are not present at all.
-> 
-> quirk_apple_poweroff_thunderbolt() already does this for Cactus Ridge, so
-> extend it rather than adding a second one.  Alpine Ridge needs only
-> SXFP(0); keying the short sequence off the device ID as well as off the
-> absence of SXIO/SXLV keeps Cactus Ridge behaviour unchanged.
-> 
-> It does need a different hook, though.  Cactus Ridge is handled as late
-> as possible, in the upstream bridge's suspend_noirq.  For Alpine Ridge
-> that does not prevent the failure: by the time the fixup runs there, the
-> bridges of both switches have already become inaccessible --
-> pci_save_state() on them has failed -- and the link still does not come
-> up on resume.  Hooking the
-> fixup one phase earlier, while every device below the switch is still in
-> D0, makes the branch resume intact.  That also matches where macOS does
-> it: SXFP() is called from lateSleep, ahead of the PCI teardown rather
-> than in the middle of it.
-> 
-> The earlier hook needs one extra guard.  pci_fixup_suspend also runs from
-> pci_pm_runtime_suspend(), and pm_suspend_via_firmware() does not
-> distinguish the two cases: PM_SUSPEND_FLAG_FW_SUSPEND is only cleared at
-> the beginning of the next system suspend, so it reads as set while the
-> system is running again.  Without pm_suspend_in_progress() the
-> controller would be powered down under a runtime-suspending bridge.
-> Cactus Ridge is unaffected, as pci_fixup_suspend_late has no runtime
-> counterpart, so the check is confined to the Alpine Ridge branch.
-> 
-> I cannot say with certainty what the platform does in between, only what
-> is observed: suspend_noirq is too late and suspend_late works, on 7 out
-> of 7 cycles.  For what it is worth, the firmware's own power protocol
-> does not appear to be involved: the ACPI methods that drop the rails are
-> all guarded on variables that only RTPC() ever writes, RTPC() is called
-> by macOS and never by Linux, and those variables still read as set after
-> several suspend/resume cycles on Linux.
-> 
-> With this, the branch comes back intact across suspend with a device
-> attached: both upstream bridges enumerate, the link comes up at 8 GT/s
-> x4 with equalisation complete, and USB devices are re-enumerated at
-> SuperSpeed by the integrated xHCI instead of falling back to the 2.0 path
-> wired straight to the PCH.  Twelve suspend/resume cycles in a single boot
-> without a failure -- six of them with a USB 3 SSD attached across the
-> suspend, one with it plugged in while suspended, and including lid-close
-> and idle-triggered suspends -- against fifteen failures out of fifteen
-> without the quirk.
-> 
-> Trade-off worth stating: cutting power to the controller also removes its
-> ability to wake the machine, so plugging something into a USB-C port no
-> longer wakes it from suspend.  Measured: with the machine suspended for
-> 89 seconds, plugging the SSD into a free USB-C port did not wake it, and
-> the device was enumerated 0.3 s after the machine was woken by opening
-> the lid.  Opening the lid, the power button and the
-> internal keyboard (which is not behind these controllers) are unaffected,
-> and hotplug detection while the machine is awake is unaffected as well.
-> Gating the quirk on device_may_wakeup() would disable it outright on the
-> affected machines, so it is not conditional on that.
-> 
-> Cutting power a phase earlier has one visible consequence worth spelling
-> out, since the Cactus Ridge hook does not have it: devices below the
-> switch reach their own suspend_noirq after the controller is already
-> off, so pci_save_state() on them fails.  In practice this is limited to
-> the integrated xHCI of a branch with nothing plugged in: with a device
-> attached on one side only that side stays accessible, and with both sides
-> empty both xHCIs report it -- and xhci-hcd handles it as the
-> ordinary "root hub lost power or was reset" path and reinitialises the
-> controller on resume; the branch comes back complete.  It is also
-> strictly less than what happens without the quirk, where the whole
-> branch, bridges included, goes inaccessible instead of a single
-> endpoint.  It is also cleaner with
-> 
->   https://lore.kernel.org/linux-pci/20260924124221.12374-1-fbeltranmillalen@gmail.com/
-> 
-> applied, which stops pci_save_state() from storing all-ones and marking
-> the state as saved when the device is already gone.  That series and this
-> quirk were developed together on the same machine: the series keeps the
-> resume from writing garbage back, and this patch keeps the controller
-> from disappearing in the first place.  Neither depends on the other to
-> build or to be correct.
-> 
-> Notes and limitations:
-> 
->   * Only the 4C bridge (8086:1578) is added.  The 2C variant very likely
->     needs the same treatment but I have no hardware to test it on, so I
->     am not declaring it.
->   * Tested only with USB devices behind the controller's integrated
->     xHCI, not with a real Thunderbolt device.
->   * Depends on the platform suspending via firmware (mem_sleep=deep);
->     pm_suspend_via_firmware() already guards this.
->   * pm_suspend_in_progress() is false during hibernation, so unlike the
->     Cactus Ridge path this does not run on hibernate.  I have no way to
->     test that path on this machine (the hibernate targets are masked),
->     and leaving it out is the conservative choice.
-> 
-> Tested on 6.18.49 on a MacBookPro14,3.
+commit 4fafd1165b33 replaced hardcoded values which determine marker
+array size, with new values that accelerate symbol-name lookups.
+These symbols are needed in user-space to generate the lookup tables,
+and in kernel to read the generated table.
 
-Thanks for all this detail.  I think it's too much for a commit log,
-but it would be good to have it after the "---" where it's in the
-email but not the git commit.  This is easily accessible via the
-"Link: https://patch.msgid.link/" tag that we add when applying.
+To avoid 2-defns problem, they were added to a kernel header (with
+ifdef guards) and included by scripts/kallsyms.c.  But that creates
+packaging problems elsewhere, so just add the 2nd defns, with an
+explicit comment about the user-kernel coupling.
 
-> Signed-off-by: Francisco Beltrán Millalén <fbeltranmillalen@gmail.com>
-> ---
-> --- a/drivers/pci/quirks.c
-> +++ b/drivers/pci/quirks.c
-> @@ -3879,7 +3879,7 @@
->   */
->  static void quirk_apple_poweroff_thunderbolt(struct pci_dev *dev)
->  {
-> -	acpi_handle bridge, SXIO, SXFP, SXLV;
-> +	acpi_handle bridge, SXIO = NULL, SXFP = NULL, SXLV = NULL;
->  
->  	if (!x86_apple_machine)
->  		return;
-> @@ -3906,8 +3906,34 @@
->  	 * associated ACPI methods. This implicitly checks that we are at
->  	 * the right bridge.
->  	 */
-> +	if (ACPI_FAILURE(acpi_get_handle(bridge, "DSB0.NHI0.SXFP", &SXFP)))
-> +		return;
-> +
-> +	/*
-> +	 * Alpine Ridge uses a shorter sequence: macOS' AppleThunderboltNHIType3
-> +	 * calls only SXFP() from its lateSleep handler, and the firmware of the
-> +	 * affected machines does not even define SXIO or SXLV.  Keying this off
-> +	 * the device ID as well keeps the longer sequence for Cactus Ridge.
-> +	 */
-> +	if (dev->device == PCI_DEVICE_ID_INTEL_ALPINE_RIDGE_4C_BRIDGE) {
-> +		/*
-> +		 * Unlike the suspend_late fixup used for Cactus Ridge, the
-> +		 * suspend fixup also runs on runtime suspend, and
-> +		 * pm_suspend_via_firmware() is not enough to tell the two
-> +		 * apart: that flag is only cleared at the beginning of the
-> +		 * next system suspend, so it stays set while the system is
-> +		 * running again.  Without this check the controller would be
-> +		 * powered down under a runtime-suspending bridge.
-> +		 */
-> +		if (!pm_suspend_in_progress())
-> +			return;
-> +
-> +		pci_info(dev, "quirk: cutting power to Thunderbolt controller...\n");
-> +		acpi_execute_simple_method(SXFP, NULL, 0);
-> +		return;
-> +	}
-> +
->  	if (ACPI_FAILURE(acpi_get_handle(bridge, "DSB0.NHI0.SXIO", &SXIO))
-> -	    || ACPI_FAILURE(acpi_get_handle(bridge, "DSB0.NHI0.SXFP", &SXFP))
->  	    || ACPI_FAILURE(acpi_get_handle(bridge, "DSB0.NHI0.SXLV", &SXLV)))
->  		return;
->  	pci_info(dev, "quirk: cutting power to Thunderbolt controller...\n");
-> @@ -3923,6 +3949,22 @@
->  DECLARE_PCI_FIXUP_SUSPEND_LATE(PCI_VENDOR_ID_INTEL,
->  			       PCI_DEVICE_ID_INTEL_CACTUS_RIDGE_4C,
->  			       quirk_apple_poweroff_thunderbolt);
-> +
-> +/*
-> + * Alpine Ridge needs the opposite of the above: SXFP() has to run while the
-> + * switch is still up, not once it is being torn down.
-> + *
-> + * Hooked at suspend_noirq like Cactus Ridge it does not prevent the failure:
-> + * by the time the upstream bridge is reached, the bridges of both switches have
-> + * already become inaccessible -- pci_save_state() on them fails -- and the link
-> + * still does not come up on resume.  Hooked one phase earlier, while every device below the
-> + * switch is still in D0, the branch resumes intact.  That is also where macOS
-> + * does it: AppleThunderboltNHIType3 calls SXFP() from lateSleep, ahead of the
-> + * PCI teardown rather than in the middle of it.
+Fixes: 4fafd1165b33 ("kallsyms: increase marker density to 16:1 to accelerate lookups")
 
-Wrap these to fit in 80 columns like the rest of the file.  Ideally 75
-or so; that allows minor changes and typo fixes without overflowing.
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+---
+ kernel/kallsyms_internal.h | 12 +++++-------
+ scripts/kallsyms.c         |  9 ++++++++-
+ 2 files changed, 13 insertions(+), 8 deletions(-)
 
-> + */
-> +DECLARE_PCI_FIXUP_SUSPEND(PCI_VENDOR_ID_INTEL,
-> +			  PCI_DEVICE_ID_INTEL_ALPINE_RIDGE_4C_BRIDGE,
-> +			  quirk_apple_poweroff_thunderbolt);
->  #endif
->  
->  /*
+diff --git a/kernel/kallsyms_internal.h b/kernel/kallsyms_internal.h
+index 6a781e4cc77f..8311cce21128 100644
+--- a/kernel/kallsyms_internal.h
++++ b/kernel/kallsyms_internal.h
+@@ -2,18 +2,17 @@
+ #ifndef LINUX_KALLSYMS_INTERNAL_H_
+ #define LINUX_KALLSYMS_INTERNAL_H_
+ 
++#include <linux/types.h>
++
+ /*
+- * Provide compile-constants for scripts/kallsyms.c
+- * so it can build the corresponding kallsyms_marker[] table.
+- * and wrap the rest in __KERNEL__
++ * These constants determine the size of the kallsyms_markers array
++ * written by scripts/kallsyms.c during the build.  The symbol values
++ * must be kept in sync.
+  */
+ #define KALLSYMS_MARKER_SHIFT 4
+ #define KALLSYMS_MARKER_SIZE  (1U << KALLSYMS_MARKER_SHIFT)
+ #define KALLSYMS_MARKER_MASK  (KALLSYMS_MARKER_SIZE - 1U)
+ 
+-#ifdef __KERNEL__
+-#include <linux/types.h>
+-
+ extern const int kallsyms_offsets[];
+ extern const u8 kallsyms_names[];
+ 
+@@ -24,6 +23,5 @@ extern const u16 kallsyms_token_index[];
+ 
+ extern const unsigned int kallsyms_markers[];
+ extern const u8 kallsyms_seqs_of_names[];
+-#endif /* __KERNEL__ */
+ 
+ #endif // LINUX_KALLSYMS_INTERNAL_H_
+diff --git a/scripts/kallsyms.c b/scripts/kallsyms.c
+index be42a9111350..d142f040ad92 100644
+--- a/scripts/kallsyms.c
++++ b/scripts/kallsyms.c
+@@ -29,7 +29,14 @@
+ 
+ #include <xalloc.h>
+ 
+-#include "../kernel/kallsyms_internal.h"
++/*
++ * These constants determine the size of the marker array filled here,
++ * and they're duplicated in kernel/kallsyms.c, where they're used in
++ * get_symbol_offset().  They must be kept in agreement.
++ */
++#define KALLSYMS_MARKER_SHIFT 4
++#define KALLSYMS_MARKER_SIZE  (1U << KALLSYMS_MARKER_SHIFT)
++#define KALLSYMS_MARKER_MASK  (KALLSYMS_MARKER_SIZE - 1U)
+ 
+ #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof(arr[0]))
+ 
+
+---
+base-commit: b9c9b9eb732aefcd02bbc211b2570a2315a889da
+change-id: 20261008-fix-kallsyms-18e5a7fd0e19
+
+Best regards,
+-- 
+Jim Cromie <jim.cromie@gmail.com>
+
+
