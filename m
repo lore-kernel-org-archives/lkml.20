@@ -1,90 +1,122 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 655C73C10AB
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 11:18:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D7AB3BB12B
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 11:19:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791458338; cv=none; b=Wwzgb8pnBBCUp26dKAemKI+CRrt/L1Ujh7m2AoIykmN17lxPPkv16QUmlbql/3bJLlXEixZ+apQrtZPAoQOoMsXCfM9sNZMV7CgKi1nQ93Ri7ma5bJSfkG3K5IV3eEN9M1HsaMJZqxRr9GX/min1zElmACpqtzqSPiWv/tg8L4k=
+	t=1791458353; cv=none; b=rUI5sjmao1+T5bdIoKEnlLTc++IDdrwji35pY9kUEGi+++nAvTsAlHOmdEidIMsXcSeevZ0grpnvsvM/F24HAriEQVm4jFOOOKe+Lk26YWS6lomQDk3ahvYPVvZNFJhJy7WHHsG7ZMa761F6PljeXRpzKZ3ZPlHdncNeXtHFiDk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791458338; c=relaxed/simple;
-	bh=EExW1k94qxqJzDLBNcXAe1CRJKzbkc8M/lq4PoGuabA=;
-	h=Content-Type:MIME-Version:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References; b=CI64FPDVWVeKhn80C12vFiaPj5v5fUm6eHlA+Q052RnyjSahv3/KBj0+3ERgHdH2tr0HxS4Z2ChpnvW25xaWWqwEM4AgNqpPNPRueEeDXhax71IRNEMVUZJuUf4tE5GgZOZyE6BEa5sjLCUGY9GnyHGO20mImy95vCuEJEGcZdM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GH1GPtz6; arc=none smtp.client-ip=209.85.214.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791458353; c=relaxed/simple;
+	bh=2iWKgdjnY/WKT1NRrSPFsVEZgqb3q8rtw1j3YXKRPfs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=AIgRef65KObjPvarfAny+fOW02A1HZZ1RUaaKVwgO0Uo9E0o1TijnTN/VfjyflWM2fYGgXwF0QTagKDFDSwAhNEOJLD2QVggfViTHHKf0sK/UGrOIr0N6fPCSihx3BVo/yh9XeDRsRtF1E8eJkVwMunOS2DMZt9DY0EaKoqDEAI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eBMzf+6E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GH1GPtz6"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2db18e5cb56so24309085ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 04:18:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791458337; x=1792063137; darn=vger.kernel.org;
-        h=references:in-reply-to:message-id:date:subject:cc:to:from
-         :content-transfer-encoding:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=EExW1k94qxqJzDLBNcXAe1CRJKzbkc8M/lq4PoGuabA=;
-        b=GH1GPtz6Cy3YRBbU/PvREeBQXKlOijchz1AA7q4CIFlO0ShwXCYcX8NKTT0Y6DWeo8
-         nDW5OXSxEeOS1QvHD8PtBdYcv1Qo/Zgy/ZZSVnuItRxFKjbOvpBpqd1XQoTeerSglRZV
-         swaa+2DDJhNq1d49Kx6uDWiw9Xmtm60aBayPIKLmzLIv0fEBtBOl6MPdAlbVR06iSvl4
-         4zr+UsueseiJ3u4eQU+JQf5XHRsLJPNH4hs1/hp3bs4QHtGffRXpC9mRgCTf/HQLUGDQ
-         mbFEv0lgsWTyllcUhP+MLmY/Q4xn2O6WXmWVbZvbi9p7MWmxmbmXKJcRHAI5T8xaE/tC
-         XdQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791458337; x=1792063137;
-        h=references:in-reply-to:message-id:date:subject:cc:to:from
-         :content-transfer-encoding:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EExW1k94qxqJzDLBNcXAe1CRJKzbkc8M/lq4PoGuabA=;
-        b=AKs9X2iZJxN//X9Kod7wkQMsnf99MkR+jS+pAYAha5jQv9LKaJkifCwh8jy98Fyihg
-         TwNMfEhhxTYzx0tLcEL/vjw2EouJx+9Kjq6V+kvnKF8/bhe8CB7CpXW7cVQWk5SQJ5/H
-         4dkDNZDg3AbP2/8ehjOqMMqfRvI/QJXxbePKOPpMeuJipwieOxzGkU12WFWeXsHPuRJE
-         /9VkKq0Dr5lbD9uLcC2X21H5u7RuQ6Vl4IiOfmyIBNJ4jLKFYj4HiG9i0IpE3ue2Unwb
-         KKF7RKf8rUQimd0ZxIwyA1q9toS3B5plTDDjVhMkiYPLh8Vv1GbJix4fHd6xqEbZv+X6
-         DHhg==
-X-Forwarded-Encrypted: i=1; AKwUvBzEcmrphRo1lryRyrJ5s/Qbcpu09CgVWveLzirtdkjm7/Yb7ikItTZ/SLJ+S1LuEMkblxk7Q6tjz//dYYc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKiAY5MS3dFJ+kl9XBXAOqQDvd0ogZQ34RIOQOi8u0iJHeNpExj
-	sZLkSeKkE+6hadrvJHSswBF27hT8PeKQjJCT3E3T8QiJL1BIOmwtu+qz
-X-Gm-Gg: AYBFou2Bxk1BGiful6vRlfWO/NNf7+AMASq+qaliLfRXm0AB0EI3/kkcy9UqWGtzkQy
-	aUOvpwfCoGku3WXQz2777p/RzWywtS1zxgl6fbPOr9HlvY5j8VHQDRwsoWo6GQBHGBssE0fXB9o
-	XJ4/twhk+lvmpqnp240G35CSajeOogh01+rQ4VGzaxjfDXRIFjc2ibmHZ4Men7Nwkve0SyFHSU4
-	UglZXeZqN7FWXmM4ck/9vLDV6lN77vKQMUcM3uBNo1o237dqshZFA8cmtqNf0K1GN3XZK9cjUUT
-	OqKuDvnfcQWjQU418QvDjVqlK3CjuQgF8KAzuzi2xTTD3F7VZ1b3AFTT9xaF8FHp5MTzZoRX9cs
-	xFhiTEY8dvmPQE+R2gjHCVjTFK12/TJvnpLk2frlbVWrWEkbhoIkBhsD+zaBnZ8FcBo+MRHkFm6
-	N7vEzP8/u0A3kdAmgfBTXrHi1HoJRjnXss1JCuSZPfYAku9Rxj+t8y10rhLYiCYBUMIyI2qw==
-X-Received: by 2002:a17:903:2cd:b0:2e5:cf8c:633d with SMTP id d9443c01a7336-2e6004e72dfmr41869325ad.34.1791458336730;
-        Thu, 08 Oct 2026 04:18:56 -0700 (PDT)
-Received: from [127.0.0.1] ([58.186.69.27])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e60482d316sm22914955ad.49.2026.10.08.04.18.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 04:18:55 -0700 (PDT)
-Content-Type: text/plain; charset="us-ascii"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eBMzf+6E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB6BA1F000FF
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 11:19:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791458351;
+	bh=NZcC7/xg5SS/eaNUvNNF7JTQ0EBiXnoG/PlgqRlweyg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=eBMzf+6EF3yoxA2GSItVqlvzFmLvbXr3/eiYJXN/LcbGanoG1kPTf4VZbze+iqZw3
+	 bS+qdBnanUi2wF7hhQXyt8PjSa+cN5/ObykHyfNAgIXXifECFrrjYEHn13BHtOFZPm
+	 GoLhtoSlZ8SZ0tbaFS+JWeKh3nQy/42TEmbdVo+zeJO6LlBed7dSlzxUXjUPnrHI8P
+	 aO+SnsutNruivNAGpLBajaNXrAVLCk1bXb/hElYHPIEg/hdgOBhSjNoU5qZUNjW3SN
+	 g3M1qkoZlVQtE4SVKGLMMf9YAIZFyXX77bcFzUuniM8C4ZtXasdL5n2p80I94F5A/O
+	 vaeZYuq/KjKwA==
+Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-93e441e14a1so400834885a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 04:19:11 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzvRSDSV9lY7xPSnrmewQVtTUkD/CESfm2rSanhULfaQHqCb4uOhGSpgnX8sbcgw4SwLIRz7CFwHcpIb1c=@vger.kernel.org
+X-Gm-Message-State: AFuF++mKg5c0lJJdQvAr3rokMpbIFG60sDB8346H6oxCEQxNYLuykJrk
+	SDjlLMMibpSSMi8tHIUCWrc/2dN6BniZ9h8w3ZLNnePM29xXUeXk/8gphqDsEDyqePR0+XTgtA8
+	vid2V+VxoIWGIDRIVaSgpXs6d2Q4PogM=
+X-Received: by 2002:a05:620a:4709:b0:939:761c:4f59 with SMTP id
+ af79cd13be357-93e9b76c78amr924707585a.16.1791458351308; Thu, 08 Oct 2026
+ 04:19:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-From: Bui Viet Dung <dungvn2345@gmail.com>
-To: Florian Westphal <fw@strlen.de>
-Cc: Pablo Neira Ayuso <pablo@netfilter.org>, Phil Sutter <phil@nwl.cc>, netfilter-devel@vger.kernel.org, coreteam@netfilter.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] netfilter: nft_set_pipapo: skip transaction elements during GC
-Date: Thu, 08 Oct 2026 18:18:51 +0700
-Message-ID: <179145833177.61895.7787702708373982202@gmail.com>
-In-Reply-To: <20261007182057.332512-1-dungvn2345@gmail.com>
-References: <20261007182057.332512-1-dungvn2345@gmail.com>
+References: <20261008070928.113530-1-hui.zhu@linux.dev>
+In-Reply-To: <20261008070928.113530-1-hui.zhu@linux.dev>
+From: Barry Song <baohua@kernel.org>
+Date: Thu, 8 Oct 2026 19:19:00 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4wW=XXe6=1GucvA1pUSkhLCosJh+bc0-97cYGGWW=MtPw@mail.gmail.com>
+X-Gm-Features: AclHuK9Y4gxfKhBzGtl0K9V-EYLUU5MKewRW9HUXdq9571fi07WGLf_34qgAkY8
+Message-ID: <CAGsJ_4wW=XXe6=1GucvA1pUSkhLCosJh+bc0-97cYGGWW=MtPw@mail.gmail.com>
+Subject: Re: [PATCH bpf-next v3] selftests/bpf: Add bpf_proactive_reclaim test
+To: Hui Zhu <hui.zhu@linux.dev>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>, JP Kobryn <inwardvessel@gmail.com>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Ihor Solodrai <ihor.solodrai@linux.dev>, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Shuah Khan <shuah@kernel.org>, 
+	David Hildenbrand <david@kernel.org>, Geliang Tang <geliang@kernel.org>, 
+	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+	Jesper Dangaard Brouer <hawk@kernel.org>, John Fastabend <john.fastabend@gmail.com>, 
+	Stanislav Fomichev <sdf@fomichev.me>, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+	linux-mm@kvack.org, linux-kselftest@vger.kernel.org, netdev@vger.kernel.org, 
+	Hui Zhu <zhuhui@kylinos.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Pablo, Florian,
+On Thu, Oct 8, 2026 at 3:10=E2=80=AFPM Hui Zhu <hui.zhu@linux.dev> wrote:
+>
+> From: Hui Zhu <zhuhui@kylinos.cn>
+>
+> bpf_proactive_reclaim() performs one bounded reclaim pass per call and,
+> unlike a write to memory.reclaim, does not retry until the goal is
+> reached.
+>
+> Charge 32 MiB of page cache to a cgroup, ask for all of it in one call,
+> and check that the result is positive but well below the request: one
+> pass is capped at MEMCG_CHARGE_BATCH pages, far short of 32 MiB on both
+> 4K and 64K page kernels.
+>
+> The test deliberately covers only the kfunc itself. A full example of
+> the intended asynchronous use, where a BPF program watches one cgroup's
+> workingset refaults and reclaims another one from bpf_wq callbacks, is
+> maintained out of tree at [1], released under GPLv2.
+>
+> Add CONFIG_MEMCG to the config fragment, without which mm/bpf_memcontrol.=
+c
+> is not built at all.
+>
+> [1] https://github.com/teawater/memcg-async-reclaim
+>
+> Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
+[...]
 
-Thanks for the clarification and review.
+> +
+> +       /*
+> +        * Both candidate directories can be tmpfs (initramfs-based CI, f=
+or
+> +        * instance). That is an environment limitation, not a test failu=
+re.
+> +        */
+> +       dir =3D workload_dir();
+> +       if (!dir) {
+> +               test__skip();
+> +               return;
+> +       }
+> +
+> +       snprintf(data_file, sizeof(data_file),
+> +                "%s/memcg_proactive_reclaim_XXXXXX", dir);
+> +       data_fd =3D mkstemp(data_file);
 
-Indeed, unlike nft_set_rbtree where interval end elements do not have a timeout
-extension, pipapo elements track their own timeouts individually. A newly inserted
-element cannot be expired during the commit window under valid timeouts.
+If we can't write to the directory, will `mkstemp()` fail?
+Should we check `access(dir, W_OK)` first?
 
-Please disregard this patch. Apologies for the noise.
+> +       if (!ASSERT_GE(data_fd, 0, "mkstemp"))
+> +               return;
+> +
 
-Thanks,
-Bui Viet Dung
+Best Regards
+Barry
