@@ -1,219 +1,147 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B2AC233134
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 01:12:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62E4826ED4F;
+	Thu,  8 Oct 2026 01:12:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791421926; cv=none; b=tIs/UjBrqwKR9M/IYDbyOx6H2qArRzOncU7NS/ripTR2PrAN5O7OWDzFEd6grcG31tRdS8aTk8k/ewY1z7x/WDDJ9e32BZvNcoQKMmGqWnv8ROKhNnkXHgmJG8B/3n+ijwuCIbod9rqWNeXNln4bplFbVroxUbb6P3VEUZiOk0k=
+	t=1791421943; cv=none; b=R/QS0+FL99xw8OB0bLHBfCCCrOQBPs+rKFGRsiDGZotJj+JZYVHCFD78/YIjRnRu14HMhzOMtXU1bk2jpacxF+0+WxwjexwFabNGbz4O205ZuHfhXaGgb3pTVHbASgI+flS/zmIMQz3lEW95OVAa84BxJW1r51RzkHm33FAEwy8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791421926; c=relaxed/simple;
-	bh=F7gh/jnJzeSdNEZTsXu+VKDB5whuZGw6HM9CeVO3EzM=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=bKkh7ZLp+fZgzF3ZoY+ioHzjvycgFnV965itYu5pHpLeANtv4OGtkF17mSD97wCwJ4rKaUUljb7XDcSlxwWT4HWbSVkFNszqRYFXWoKr7t2LCEvgu2dP+AccChNCN5sefjw9TDdx29R4uEpWZ95punMwORY3r9BCbXGc4RBObHE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4fb73e868aaso3470135b6e.0
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 18:12:04 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791421924; x=1792026724;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ttmnAuOv5c4ZLqNvAx4z95Cb6z0wwMRnU4CEdaqUjK8=;
-        b=FoiesDoHyzHvpQT67r1FuP/tSzybMYiK4VJ3l0rLILYLIWRi+qclQwYzCGxjtHX0t5
-         9b2jhf/zCFPmFNEM1Bf7E5KwkRwcXNjZR2UvJeFH/6YwADXy1zdfkgYK54hb5GXZZJ91
-         l72uXkyWfp9Te1/abJ1Tn1lNUx/dtRfUn/MdMClKB51iHx7t42gt9TPlblt3a1ppduHz
-         ZAM5XNMjCwQ1Rv9jNW5gSsUONWPnnnRQZ5hjSDE9op/c9pGc2CSjgVf1qYh70hquChvX
-         PSl90lpC0rzH6H5mgwOU9xp8P9ynSjGjvay61MOt39vF8z8lyM9F+PjUbd9KQokE5UIO
-         P5Dw==
-X-Gm-Message-State: AFuF++nOoixTs1KqEfhleHBDRevZ8AFHddvTzFb93Xei2WedPpJ9mp8W
-	BGDnRHmEsZisphhU4xqmIiK8qkbhn5MThTdcfRTI47xjJUONtJwQq58PMcEinsM3hGhPcW8EKzZ
-	z4O27vLXAy8xUhbLoFVh6R5T4UXkNbGDnQguro7oL0n63FE5qyG808srq5L0=
+	s=arc-20240116; t=1791421943; c=relaxed/simple;
+	bh=Z5ybaKWBPOL6QX0nuxqg9f/Zcrh90lwNVkVMjmF3vBo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IZbVCMMvNxuiWzGEA8YQCOSkktbvqekvTvkaAJOr4kEpTnJkhqctUYrdGbBkCqe5RSa6vC5ZKpeVPZQGVfvXgPqEJRe1Bs4ous2/fFReu9Z/wQtQ/2Ae0kXfGYdb0IMhyoQfwAQRYS7ijI49iVkJK6RuFZmLgG2N1glc2ba0LHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=m6CJgjHm; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="m6CJgjHm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791421943; x=1822957943;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Z5ybaKWBPOL6QX0nuxqg9f/Zcrh90lwNVkVMjmF3vBo=;
+  b=m6CJgjHmQSvI4440r4BmKqarYma1GWQdLPnYTWrCQTNJdl3mz0qKDXEj
+   HXNBrBJu6rNWS9PVQATwr7168MzsP3X5e8gz0JdKIpt6P54my5ghLm69P
+   8hHvJ6vWteLVFhtWOk/QwB4mCYGfoZXVgPDc9iPbeF8chidxFmsK49uiM
+   fsvO+IccufskqdWpNeWd5d/dDBkP2SaEsY8Nh6ZcnCMWEjA7S4HkeVjjg
+   LWu6QX8fMh6C87IX6NgTfPIQghtfk0QLl1M+WFaY7+yLwK9hJK/FF0Q55
+   fWcQhkPa9t1Sb5tzABKTk0HvEnxvA6ohOrM4epMj50urZiX2xifzYQNkl
+   A==;
+X-CSE-ConnectionGUID: b/w2Q7xvThekawBSLIV+XQ==
+X-CSE-MsgGUID: ugJ4uB+CSHq1kb7wPkALtA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="83121"
+X-IronPort-AV: E=Sophos;i="6.27,145,1787036400"; 
+   d="scan'208";a="83121"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 18:12:22 -0700
+X-CSE-ConnectionGUID: ZGn9PKkVQWa98h1ZNrPAwg==
+X-CSE-MsgGUID: cqNaiWUXTz6lTxb/IDpp+A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,145,1787036400"; 
+   d="scan'208";a="285685618"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa005.fm.intel.com with ESMTP; 07 Oct 2026 18:12:18 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xEcg9-000000003oW-3MzK;
+	Thu, 08 Oct 2026 01:12:13 +0000
+Date: Thu, 8 Oct 2026 09:11:19 +0800
+From: kernel test robot <lkp@intel.com>
+To: Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Claudio Imbrenda <imbrenda@linux.ibm.com>,
+	Andrey Ryabinin <ryabinin.a.a@gmail.com>
+Cc: oe-kbuild-all@lists.linux.dev,
+	Muhammad Usama Anjum <usama.anjum@arm.com>,
+	linux-s390@vger.kernel.org, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com
+Subject: Re: [PATCH v8 14/15] mm/kasan: Introduce helpers for lazy MMU mode
+ sanitizer
+Message-ID: <202610080827.zfszZlVj-lkp@intel.com>
+References: <e42d9f02ec1f8478a50fce424b95d0e7ff6a359f.1791365932.git.agordeev@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:6611:b0:4fa:95f4:3334 with SMTP id
- 5614622812f47-4fc46c9f436mr3548461b6e.42.1791421923870; Wed, 07 Oct 2026
- 18:12:03 -0700 (PDT)
-Date: Wed, 07 Oct 2026 18:12:03 -0700
-In-Reply-To: <6a88eb8b.ae6ddae5.3da009.0049.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ac6ede3.a36481ec.1ba24c.0003.GAE@google.com>
-Subject: Forwarded: [PATCH] wifi: cfg80211: defer self-managed regulatory
- processing to per-wiphy work
-From: syzbot <syzbot+2ad5f42cd6ca88f0107c@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e42d9f02ec1f8478a50fce424b95d0e7ff6a359f.1791365932.git.agordeev@linux.ibm.com>
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org.
+Hi Alexander,
 
-***
+kernel test robot noticed the following build warnings:
 
-Subject: [PATCH] wifi: cfg80211: defer self-managed regulatory processing to per-wiphy work
-Author: emmaonana18@gmail.com
+[auto build test WARNING on linus/master]
+[also build test WARNING on v7.3-rc6]
+[cannot apply to akpm-mm/mm-everything s390/features kvms390/next next-20261006]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+url:    https://github.com/intel-lab-lkp/linux/commits/Alexander-Gordeev/mm-introduce-hw_pte_t-for-PTE-table-storage/20261007-134144
+base:   linus/master
+patch link:    https://lore.kernel.org/r/e42d9f02ec1f8478a50fce424b95d0e7ff6a359f.1791365932.git.agordeev%40linux.ibm.com
+patch subject: [PATCH v8 14/15] mm/kasan: Introduce helpers for lazy MMU mode sanitizer
+config: mips-maltaup_xpa_defconfig (https://download.01.org/0day-ci/archive/20261008/202610080827.zfszZlVj-lkp@intel.com/config)
+compiler: mips-linux-gcc (GCC) 16.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261008/202610080827.zfszZlVj-lkp@intel.com/reproduce)
 
-reg_process_self_managed_hints() currently acquires each registered
-wiphy's mutex while called with RTNL held. This can deadlock with a
-concurrent path that holds a wiphy mutex and waits for RTNL.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610080827.zfszZlVj-lkp@intel.com/
 
-Defer processing of individual self-managed regulatory hints to the
-per-wiphy wiphy_work instead. The dispatcher, which runs with RTNL held,
-only checks whether a regulatory hint is pending and queues the
-corresponding work item.
+All warnings (new ones prefixed by >>):
 
-The regulatory update is then processed with the wiphy mutex held and
-without RTNL. This removes the RTNL -> wiphy mutex acquisition from the
-synchronous regulatory-processing path.
+   In file included from include/asm-generic/hardirq.h:17,
+                    from arch/mips/include/asm/hardirq.h:16,
+                    from include/linux/hardirq.h:11,
+                    from include/linux/interrupt.h:11,
+                    from arch/mips/include/asm/highmem.h:24,
+                    from arch/mips/include/asm/pgtable-32.h:22,
+                    from arch/mips/include/asm/pgtable.h:14,
+                    from include/linux/pgtable.h:6,
+                    from include/linux/kasan.h:9,
+                    from include/linux/slab.h:276,
+                    from include/linux/fs.h:45,
+                    from include/linux/compat.h:17,
+                    from arch/mips/kernel/asm-offsets.c:14:
+   include/linux/irq.h: In function 'irq_free_generic_chip':
+   include/linux/irq.h:1211:9: error: implicit declaration of function 'kfree' [-Wimplicit-function-declaration]
+    1211 |         kfree(gc);
+         |         ^~~~~
+   include/linux/slab.h: At top level:
+>> include/linux/slab.h:595:6: warning: conflicting types for 'kfree'; have 'void(const void *)'
+     595 | void kfree(const void *objp);
+         |      ^~~~~
+   include/linux/irq.h:1211:9: note: previous implicit declaration of 'kfree' with type 'void(const void *)'
+    1211 |         kfree(gc);
+         |         ^~~~~
+   make[3]: *** [scripts/Makefile.build:185: arch/mips/kernel/asm-offsets.s] Error 1
+   make[3]: Target 'prepare' not remade because of errors.
+   make[2]: *** [Makefile:1425: prepare0] Error 2
+   make[2]: Target 'prepare' not remade because of errors.
+   make[1]: *** [Makefile:248: __sub-make] Error 2
+   make[1]: Target 'prepare' not remade because of errors.
+   make: *** [Makefile:248: __sub-make] Error 2
+   make: Target 'prepare' not remade because of errors.
 
-Also start the regulatory channel-enforcement grace timer after the
-self-managed regulatory update has been processed, preserving the
-existing ordering between regulatory updates and channel enforcement.
 
-Fixes: f4e72e375807 ("wifi: cfg80211: check channel list asynchronously")
-Reported-by: syzbot+2ad5f42cd6ca88f0107c@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=2ad5f42cd6ca88f0107c
-Signed-off-by: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
----
- net/wireless/core.c |  1 +
- net/wireless/core.h |  1 +
- net/wireless/reg.c  | 37 +++++++++++++++++++++++++------------
- net/wireless/reg.h  |  7 +++++++
- 4 files changed, 34 insertions(+), 12 deletions(-)
+vim +595 include/linux/slab.h
 
-diff --git a/net/wireless/core.c b/net/wireless/core.c
-index cde3ca85494d..3dfbfb0c10f3 100644
---- a/net/wireless/core.c
-+++ b/net/wireless/core.c
-@@ -671,6 +671,7 @@ struct wiphy *wiphy_new_nm(const struct cfg80211_ops *ops, int sizeof_priv,
- 	INIT_WORK(&rdev->sched_scan_res_wk, cfg80211_sched_scan_results_wk);
- 	wiphy_work_init(&rdev->reg_check_chans_wk, reg_leave_invalid_chans_wk);
- 	INIT_WORK(&rdev->reg_leave_nan_wk, reg_leave_invalid_nan_wk);
-+	wiphy_work_init(&rdev->reg_self_managed_wk, reg_process_self_managed_hint_wk);
- 	INIT_WORK(&rdev->propagate_radar_detect_wk,
- 		  cfg80211_propagate_radar_detect_wk);
- 	INIT_WORK(&rdev->propagate_cac_done_wk, cfg80211_propagate_cac_done_wk);
-diff --git a/net/wireless/core.h b/net/wireless/core.h
-index 6138d207caf4..2b3239d0cf1f 100644
---- a/net/wireless/core.h
-+++ b/net/wireless/core.h
-@@ -116,6 +116,7 @@ struct cfg80211_registered_device {
- 	struct work_struct sched_scan_res_wk;
- 	struct wiphy_work reg_check_chans_wk;
- 	struct work_struct reg_leave_nan_wk;
-+	struct wiphy_work reg_self_managed_wk;
- 
- 	struct cfg80211_chan_def radar_chandef;
- 	struct work_struct propagate_radar_detect_wk;
-diff --git a/net/wireless/reg.c b/net/wireless/reg.c
-index 11665e0a7efc..00244341fde1 100644
---- a/net/wireless/reg.c
-+++ b/net/wireless/reg.c
-@@ -3188,7 +3188,6 @@ static void reg_process_self_managed_hint(struct wiphy *wiphy)
- 	enum nl80211_band band;
- 	struct regulatory_request request = {};
- 
--	ASSERT_RTNL();
- 	lockdep_assert_wiphy(wiphy);
- 
- 	spin_lock(&reg_requests_lock);
-@@ -3219,6 +3218,14 @@ static void reg_process_self_managed_hint(struct wiphy *wiphy)
- 	nl80211_send_wiphy_reg_change_event(&request);
- }
- 
-+void reg_process_self_managed_hint_wk(struct wiphy *wiphy, struct wiphy_work *work)
-+{
-+	lockdep_assert_held(&wiphy->mtx);
-+
-+	reg_process_self_managed_hint(wiphy);
-+	reg_check_channels();
-+}
-+
- static void reg_process_self_managed_hints(void)
- {
- 	struct cfg80211_registered_device *rdev;
-@@ -3226,12 +3233,17 @@ static void reg_process_self_managed_hints(void)
- 	ASSERT_RTNL();
- 
- 	for_each_rdev(rdev) {
--		guard(wiphy)(&rdev->wiphy);
-+		bool has_hint;
- 
--		reg_process_self_managed_hint(&rdev->wiphy);
--	}
-+		spin_lock(&reg_requests_lock);
-+		has_hint = !!rdev->requested_regd;
-+		spin_unlock(&reg_requests_lock);
- 
--	reg_check_channels();
-+		if (!has_hint)
-+			continue;
-+
-+		wiphy_work_queue(&rdev->wiphy, &rdev->reg_self_managed_wk);
-+	}
- }
- 
- static void reg_todo(struct work_struct *work)
-@@ -3618,15 +3630,10 @@ static void restore_regulatory_settings(bool reset_user, bool cached)
- static bool is_wiphy_all_set_reg_flag(enum ieee80211_regulatory_flags flag)
- {
- 	struct cfg80211_registered_device *rdev;
--	struct wireless_dev *wdev;
- 
- 	for_each_rdev(rdev) {
--		guard(wiphy)(&rdev->wiphy);
--
--		list_for_each_entry(wdev, &rdev->wiphy.wdev_list, list) {
--			if (!(wdev->wiphy->regulatory_flags & flag))
--				return false;
--		}
-+		if (!(rdev->wiphy.regulatory_flags & flag))
-+			return false;
- 	}
- 
- 	return true;
-@@ -4144,9 +4151,15 @@ void wiphy_regulatory_register(struct wiphy *wiphy)
- 
- void wiphy_regulatory_deregister(struct wiphy *wiphy)
- {
-+	struct cfg80211_registered_device *rdev = wiphy_to_rdev(wiphy);
- 	struct wiphy *request_wiphy = NULL;
- 	struct regulatory_request *lr;
- 
-+	spin_lock(&reg_requests_lock);
-+	kfree(rdev->requested_regd);
-+	rdev->requested_regd = NULL;
-+	spin_unlock(&reg_requests_lock);
-+
- 	lr = get_last_request();
- 
- 	if (!reg_dev_ignore_cell_hint(wiphy))
-diff --git a/net/wireless/reg.h b/net/wireless/reg.h
-index c587079ead8f..4cfac05c6178 100644
---- a/net/wireless/reg.h
-+++ b/net/wireless/reg.h
-@@ -194,6 +194,13 @@ void reg_leave_invalid_chans_wk(struct wiphy *wiphy, struct wiphy_work *work);
-  */
- void reg_leave_invalid_nan_wk(struct work_struct *work);
- 
-+/**
-+ * reg_process_self_managed_hint_wk - process self-managed hint for a wiphy
-+ * @wiphy: the wiphy to process
-+ * @work: the work struct
-+ */
-+void reg_process_self_managed_hint_wk(struct wiphy *wiphy, struct wiphy_work *work);
-+
- extern const u8 shipped_regdb_certs[];
- extern unsigned int shipped_regdb_certs_len;
- extern const u8 extra_regdb_certs[];
--- 
-2.43.0
+7bd230a26648ac Suren Baghdasaryan 2024-03-21  594  
+72d67229f522e3 Kees Cook          2021-11-05 @595  void kfree(const void *objp);
+af92793e52c3a9 Alexei Starovoitov 2025-09-08  596  void kfree_nolock(const void *objp);
+72d67229f522e3 Kees Cook          2021-11-05  597  void kfree_sensitive(const void *objp);
+05a940656e1eb2 Kees Cook          2022-09-23  598  
 
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
