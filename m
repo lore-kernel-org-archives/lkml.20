@@ -1,220 +1,161 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6A883BAD80
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 06:32:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE1AB31716D;
+	Thu,  8 Oct 2026 06:35:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791441179; cv=none; b=bsGuCWnPYi5nNj6/9rLzFhhSQ1ppMic62pAZzQdC1UL3AKzCpHMs/FcBrQwTJdTj2ORqQnhWMkT+UKmUxOLS2P6jywRkquZIISHUsb9asldO3YglMsK2Rkcqj7GJWZGQ958Q/cPUpe5BAMM+rc0QqUzGI7PrRD9hBZD4+Tt5tCM=
+	t=1791441322; cv=none; b=dm2AnOcvPcnnRe0p8SE5D4zjRpQAEmQgkVXp2JfD75AiC+A03w43XXZuFmEMakhrnGX/ly0MrRzureS6EP003h8VjaMRDLJDzC/T/9HUXcfD8QVQ3K9yum3Cjvtd84XMXcjEQ77HjPZVr7fiTPVPl/QP6pxwGUr62dr0rYSinbo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791441179; c=relaxed/simple;
-	bh=aIwAUAWsiODGxZ224eOITcUPvbEFhGe0KOPRy13kkHo=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=Tm6U/SiVmk1XL94381Y0YqPa3EaNc60P3gCAdkX27V3Tsb8p799HbfKXsBbirlcjImM0KpsVesqRLZiILCAajiDlMu8OyjBYrSN9Y5NvVscEUG53GRDFJAXe70uDPJ3aJZjwiHEif3rrlAinnc1FJIGOwzWpjT/hHTS4jawA7O4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i8T+Zh/y; arc=none smtp.client-ip=209.85.216.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i8T+Zh/y"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3a813079a55so209325a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 23:32:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791441177; x=1792045977; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dmdCkCPZNwQQ7ZHzl51SdYDb62VPGEqmXUOyx3/kjWI=;
-        b=i8T+Zh/yhOm7bCVzGL/fz1BzcOK9N7Ck6tLrtOVF/wFulJHFmbTdBPwgmBxmzeEkBQ
-         PlPb83QRaLasW1F3OzKEYVMIxgZh4Bt1hgZhBsYO88zs4Q0ceUkumt0i3Dih9RNc3GEE
-         kbGvtMsrek/YhfKQjBT7drfAA5YU9kVy+MxobXC0ATG5JyfhK47NbY76SpYuFSseNpiH
-         2q2o14iHINNENUxZT/2Kpx/bly2y8M7nmJAd3piESLRpu4Fsbl+oD9gkO/BRAMk4uSgJ
-         mLjFjXzbYWJHs8Jvhos8hxdGnnsiZUdjjtnVTnhHQBnXWGdnODDBLKePsLie2kObYwx4
-         HJ+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791441177; x=1792045977;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dmdCkCPZNwQQ7ZHzl51SdYDb62VPGEqmXUOyx3/kjWI=;
-        b=xGMVSQse2MsIzIgrSBWUk6FPp/8xzgPIdRaB002ctLOCo8/E+ZhYFWzECqAzGcW+aT
-         MW3bJf8t/hkHv8V1Eeb4XUHI3/bwu2daBddHY481H7PrY15l5Ms6g5l7bX91yPkTRdWV
-         ZHAuyKOxcbqF0qkh5Xw/DMTx+yylDgOOJ605450xe9Ppz3os933Xq9N8e7Rj5LbBMcxz
-         QKWzGjDtHGQtBKhOwW10X25iwKR314jD0dr2rJJQlLhGpRzv4PbHBZcx6T9bIQkJ1+8e
-         ix/gZ/UVAwBAwnI/8OnEFmMus6n885KgKV27bpSQCsYJ7j3f2NvFwBaQAH7+SSD63w1Z
-         3n8A==
-X-Forwarded-Encrypted: i=1; AKwUvBy+NHVRIHyS9p5uYK5y30AguYbz98bJ6Q9QC5e5vEhOqosGjoFQowBYQTScXluX1LUPEsRrQnqHcUEwplg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLo+W74YCXlqAQaiF/ajnlC8Nog5bVs+UkFxqWRU1ifHCHeJTUb
-	zixSyYCgWQYBEMW6q1l/vHMAiPFMjF+X9LSwM5LumTnE/ufXoghDKiX5
-X-Gm-Gg: AYBFou18ov0WSGEHBODNmGjqV7g78lwnxnpdn8MOkdFIote3OdtNExC6Rni3R/VNPXL
-	pcOX4SgUWvxsAw2enH/9YJJVdopGhtAOG6O/q5n9543NMr8Uiy28vCEWryUAdzo/CDcilyPiV65
-	3tqMK5i2eil6I4R1jx2OPNQhwtR2XUOCRom7QPHLMqhQZy6hGYviMJ3KyCIJ91CnjgZbShbFq9K
-	8s0xqvd/LRZROynEhCkpaOzHYO2Y2nyT63XPAhUgrn3ibDqpKMxyttlf6Qwd25u3Fo6JZ+6D7Yp
-	8Owepk8OAmVsjSUThPRYkJrvZqqzdBc9k8HjuMh0DrIcUnaKecqwIDYJGrcEtcFn16mF9SoaN3c
-	S/xA2nYUYr/m4Bdyf5PHrtdQnLJL3ab4X8F+C+taJjPZKumbGLhyaaFctLUIuLQjoGfy57eC84W
-	rVbLVMrMPIyYip9ScrDTP1vz0m6xn6p3F565y4kb3dQz7RLAnb5jSiFhAHcF0N8VCNTK2DBWXGl
-	ddzcA==
-X-Received: by 2002:a17:90b:4f90:b0:3a6:f1d2:57e7 with SMTP id 98e67ed59e1d1-3aadffb032cmr865522a91.11.1791441177046;
-        Wed, 07 Oct 2026 23:32:57 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9f1a7e9e4sm2882285a91.7.2026.10.07.23.32.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 23:32:56 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: miklos@szeredi.hu,
-	bo.liu@linux.alibaba.com,
-	vgoyal@redhat.com
-Cc: fuse-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH] fuse: dax: Clear stale mapping when inline reclaim lookup misses
-Date: Thu,  8 Oct 2026 14:32:51 +0800
-Message-Id: <pm-fuse-full-objects-candidate-0016-v2-f3854498f12705839ecb@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1791441322; c=relaxed/simple;
+	bh=I+rBECfhMRi7b4iq6NMmlFbEfsUx63FrXLW970ILfJ4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MYUiL/HajJvOAWIw0Njr40ZX5BhbwPfR4M3uePuB2HmIKVlNgzj4vaC0N7RlMoj1NGmMAPRgUe8UCoElqR/vUlzV0U3H9pEOgYpLuplUTB+Y7J6amkEjTNa2m0kXqT0ku8GVbNG00yiZBtBLaWl+L00yD6goqwFFVb85we6esiw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.170])
+	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4j0gFZ4cjDzKHMp6;
+	Thu,  8 Oct 2026 14:34:26 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.128])
+	by mail.maildlp.com (Postfix) with ESMTP id A81894056F;
+	Thu,  8 Oct 2026 14:35:16 +0800 (CST)
+Received: from [10.174.179.19] (unknown [10.174.179.19])
+	by APP4 (Coremail) with UTF8SMTPSA id gCh0CgD3ximiOcdqZjfLDA--.22468S3;
+	Thu, 08 Oct 2026 14:35:16 +0800 (CST)
+Message-ID: <06d4da83-2655-495f-b317-6a2985989fdd@huaweicloud.com>
+Date: Thu, 8 Oct 2026 14:35:14 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] jbd2: don't start a fast commit while the journal is
+ marked empty
+To: daejun7.park@samsung.com
+Cc: linux-ext4@vger.kernel.org, Theodore Ts'o <tytso@mit.edu>,
+ Jan Kara <jack@suse.com>, Jan Kara <jack@suse.cz>,
+ Andreas Dilger <adilger.kernel@dilger.ca>,
+ Baokun Li <libaokun@linux.alibaba.com>, Ojaswin Mujoo
+ <ojaswin@linux.ibm.com>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ Zhang Yi <yi.zhang@huaweicloud.com>,
+ Harshad Shirwadkar <harshadshirwadkar@gmail.com>, Li Chen <me@linux.beauty>,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261007-jbd2-fc-after-flush-v1-1-548bd91cd959@samsung.com>
+Content-Language: en-US
+From: Zhang Yi <yi.zhang@huaweicloud.com>
+In-Reply-To: <20261007-jbd2-fc-after-flush-v1-1-548bd91cd959@samsung.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:gCh0CgD3ximiOcdqZjfLDA--.22468S3
+X-Coremail-Antispam: 1UD129KBjvJXoWxurWxCF4UAw15WFyrWFyrtFb_yoWrGr45pF
+	WrJFy8trWvvr1Utrs5Wr18XFWFq3yvyFWUWr1ku3Wqqa15Jrn7Kw42qrnxJF1UJFsY9w4Y
+	gF4jk3s8K34Yka7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvE14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvEwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka
+	0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7
+	v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF
+	1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIx
+	AIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI
+	42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWI
+	evJa73UjIFyTuYvjfUonmRUUUUU
+X-CM-SenderInfo: d1lo6xhdqjqx5xdzvxpfor3voofrz/
 
-A mapping returned by inline reclaim must be detached from its inode
-and the connection's busy list before it can be reused. However,
-inode_inline_reclaim_one_dmap() leaves dmap unchanged when its second
-tree lookup misses. It sets retry but returns the old pointer, and
-alloc_dax_mapping_reclaim() accepts a non-NULL result before checking
-retry.
+On 10/7/2026 8:41 AM, Daejun Park via B4 Relay wrote:
+> From: Daejun Park <daejun7.park@samsung.com>
+> 
+> jbd2_journal_flush() checkpoints everything, and
+> jbd2_mark_journal_empty() then writes the journal superblock with
+> s_start == 0 and the fast commit feature cleared. It sets JBD2_FLUSHED
+> so that the next commit writes the log tail and the feature back, but
+> only jbd2_journal_commit_transaction() looks at that flag. A fast commit
+> started before the next full commit writes its blocks while the
+> superblock on disk still says the log is empty: jbd2_journal_recover()
+> returns at once and the fast commit is never replayed.
+> 
+> On ext4 with -O fast_commit this happens after ext4_freeze(), and after
+> a remount to read-only, which flushes the journal in
+> ext4_mark_recovery_complete(), once the file system is read-write again.
+> EXT4_IOC_CHECKPOINT and online resize flush it as well. An fsync that a
+> fast commit handles after one of them is lost if the system crashes
+> before the next full commit, which can be up to the commit interval
+> later:
+> 
+>   mount -o commit=60 (-O fast_commit file system)
+>   echo first > a; sync
+>   fsfreeze -f; fsfreeze -u      # or: remount ro, then rw
+>   write b; fsync b              # one fast commit, s_start still 0
+>   crash (kill the VM), mount
+>   b is missing
+> 
+> Refuse to start a fast commit while JBD2_FLUSHED is set, as is already
+> done before the first full commit. ext4 then falls back to a full
+> commit, which writes the log tail, and the fast commits after it are
+> recovered again. fc_info counts the refused fast commit as ineligible,
+> as it does for the existing check.
+> 
+> Fixes: ff780b91efe9 ("jbd2: add fast commit machinery")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Daejun Park <daejun7.park@samsung.com>
 
-With DAX enabled, an exhausted free pool sends a file read or a
-non-extending write into inline reclaim. A pinned DAX page can make
-fuse_dax_break_layouts() wait. The inode tree semaphore is already
-released, and fuse_wait_dax_page() drops the inode's invalidate_lock
-while scheduling. This permits the following ordering:
+This makes sense to me!
 
-  1. Inline reclaim on inode I selects mapping D and copies its index
-     under fi->dax->sem, then releases the semaphore and waits with
-     invalidate_lock dropped.
-  2. After the page is unpinned, the reclaim worker acquires I's
-     invalidate_lock before the inline caller resumes. It relooks up
-     the index under fi->dax->sem, removes D and returns it to the free
-     pool under fcd->lock.
-  3. Mapping setup on inode J takes D from the free pool and publishes
-     it in J's tree and the busy list. J has separate inode locks.
-  4. Inline reclaim reacquires I's invalidate_lock and fi->dax->sem.
-     Its lookup misses, but it returns D. Setup on I then reuses D
-     while J still owns it.
+Reviewed-by: Zhang Yi <yi.zhang@huawei.com>
 
-Successful stale setup remaps the same DAX window and reinserts the
-embedded tree and list nodes, allowing accesses to reach another
-file's data and corrupting the mapping structures. A setup error or
-an existing mapping on I instead puts the active slot on the free
-list. Later reclaim can encounter a cleared inode pointer in the
-corrupted busy list.
+> ---
+> Tested in QEMU on ext4 dev 9091c97be340, crashing by killing QEMU: the
+> sequence above loses b without this change and keeps it with it, both
+> after fsfreeze and after a remount ro then rw. A second fsync after the
+> fallback is a fast commit again and is recovered. xfstests ext4/044
+> ext4/045 generic/455 generic/456 generic/482 with -O fast_commit, and
+> generic/068 generic/085 generic/390, give the same results as without
+> the change (generic/455 fails on both).
+> ---
+>  fs/jbd2/journal.c | 13 ++++++++++++-
+>  1 file changed, 12 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/jbd2/journal.c b/fs/jbd2/journal.c
+> index 00f5a98f3d..22576af8c8 100644
+> --- a/fs/jbd2/journal.c
+> +++ b/fs/jbd2/journal.c
+> @@ -695,7 +695,8 @@ int jbd2_log_wait_commit(journal_t *journal, tid_t tid)
+>   * it to complete. Returns 0 if a new fast commit was started. Returns -EALREADY
+>   * if a fast commit is not needed, either because there's an already a commit
+>   * going on or this tid has already been committed. Returns -EINVAL if no jbd2
+> - * commit has yet been performed.
+> + * commit has yet been performed, or none since the journal was last marked
+> + * empty.
+>   */
+>  int jbd2_fc_begin_commit(journal_t *journal, tid_t tid)
+>  {
+> @@ -714,6 +715,16 @@ int jbd2_fc_begin_commit(journal_t *journal, tid_t tid)
+>  		return -EALREADY;
+>  	}
+>  
+> +	/*
+> +	 * The log was emptied and the superblock on disk says so, which makes
+> +	 * recovery skip the fast commit area as well. Only a full commit
+> +	 * records the log tail again.
+> +	 */
+> +	if (journal->j_flags & JBD2_FLUSHED) {
+> +		write_unlock(&journal->j_state_lock);
+> +		return -EINVAL;
+> +	}
+> +
+>  	if (journal->j_flags & JBD2_FULL_COMMIT_ONGOING ||
+>  	    (journal->j_flags & JBD2_FAST_COMMIT_ONGOING)) {
+>  		DEFINE_WAIT(wait);
+> 
+> ---
+> base-commit: 9091c97be34083587a75db174aab51551d8e8543
+> change-id: 20261006-jbd2-fc-after-flush-2ef9bbc32cea
+> 
+> Best regards,
 
-Clear dmap on the missing-node branch, as in the adjacent branch for
-a mapping still in use. Returning NULL with retry set makes the
-allocator retry through the existing pool and tree lookups after
-releasing both inode locks, rather than reuse an unreserved slot.
-
-KASAN report as below:
-
-    BUG: KASAN: null-ptr-deref in igrab+0x2d/0x260
-    Write of size 4 at addr 00000000000001e8 by task kworker/u16:0/12
-
-    CPU: 0 UID: 0 PID: 12 Comm: kworker/u16:0 Tainted: G        W           7.2.0-rc5-pmb-fuse-functional-v2+ #1 PREEMPT(lazy)
-    Tainted: [W]=WARN
-    Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.16.0-0-gd239552ce722-prebuilt.qemu.org 04/01/2014
-    Workqueue: events_dfl_long fuse_dax_free_mem_worker
-    Call Trace:
-     <TASK>
-     dump_stack_lvl+0x93/0xd0
-     kasan_report+0xe0/0x110
-     ? igrab+0x2d/0x260
-     kasan_check_range+0x105/0x1b0
-     igrab+0x2d/0x260
-     fuse_dax_free_mem_worker+0x172/0x9e0
-     process_one_work+0x908/0x19c0
-     ? __pfx_process_one_work+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_is_held_type+0x8f/0x100
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     worker_thread+0x65c/0xe40
-     ? __pfx_worker_thread+0x10/0x10
-     kthread+0x34f/0x460
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork+0x659/0x940
-     ? __pfx_ret_from_fork+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __switch_to+0x74f/0xf80
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork_asm+0x1a/0x30
-     </TASK>
-    ==================================================================
-
-Oops report as below:
-
-    Oops: general protection fault, probably for non-canonical address 0xdffffc000000003d: 0000 [#1] SMP KASAN NOPTI
-    KASAN: null-ptr-deref in range [0x00000000000001e8-0x00000000000001ef]
-    CPU: 0 UID: 0 PID: 12 Comm: kworker/u16:0 Tainted: G    B   W           7.2.0-rc5-pmb-fuse-functional-v2+ #1 PREEMPT(lazy)
-    Tainted: [B]=BAD_PAGE, [W]=WARN
-    Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.16.0-0-gd239552ce722-prebuilt.qemu.org 04/01/2014
-    Workqueue: events_dfl_long fuse_dax_free_mem_worker
-    RIP: 0010:igrab+0x3e/0x260
-    Code: 4c 8d a5 e8 01 00 00 e8 d0 82 92 ff be 04 00 00 00 4c 89 e7 e8 63 91 f3 ff 4c 89 e2 48 b8 00 00 00 00 00 fc ff df 48 c1 ea 03 <0f> b6 14 02 4c 89 e0 83 e0 07 83 c0 03 38 d0 7c 08 84 d2 0f 85 c5
-    RSP: 0018:ffff8881009dfbb0 EFLAGS: 00010212
-    RAX: dffffc0000000000 RBX: dffffc0000000000 RCX: ffffffff81e63d2b
-    RDX: 000000000000003d RSI: 0000000000000008 RDI: ffffffff8af59680
-    RBP: 0000000000000000 R08: 0000000000000001 R09: fffffbfff15eb2d0
-    R10: ffffffff8af59687 R11: 6e696c6261736944 R12: 00000000000001e8
-    R13: ffff888113c90100 R14: ffff888113c90148 R15: ffff888113c90100
-    FS:  0000000000000000(0000) GS:ffff8881fd71a000(0000) knlGS:0000000000000000
-    CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-    CR2: 00007f2c45b15000 CR3: 00000001129f3002 CR4: 0000000000770ef0
-    PKRU: 55555554
-    Call Trace:
-     <TASK>
-     fuse_dax_free_mem_worker+0x172/0x9e0
-     process_one_work+0x908/0x19c0
-     ? __pfx_process_one_work+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_is_held_type+0x8f/0x100
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     worker_thread+0x65c/0xe40
-     ? __pfx_worker_thread+0x10/0x10
-     kthread+0x34f/0x460
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork+0x659/0x940
-     ? __pfx_ret_from_fork+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __switch_to+0x74f/0xf80
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork_asm+0x1a/0x30
-     </TASK>
-    Modules linked in:
-    clocksource: Marking clocksource tsc unstable due to frequency skew
-    clocksource: Watchdog               kvm-clock interval:            22712ns
-    clocksource: Clocksource                  tsc interval:            22542ns
-    tsc: Marking TSC unstable due to clocksource watchdog
-    ---[ end trace 0000000000000000 ]---
-
-Fixes: 9a752d18c85ae ("virtiofs: add logic to free up a memory range")
-Assisted-by: LLM
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
----
-
-diff --git a/fs/fuse/dax.c b/fs/fuse/dax.c
-index 85cdf0199bc0b8fb121324ffaf8046a054cbfadf..361538bc41e5a44d01da11b76070f8af0e783b2b 100644
---- a/fs/fuse/dax.c
-+++ b/fs/fuse/dax.c
-@@ -951,6 +951,7 @@ inode_inline_reclaim_one_dmap(struct fuse_conn_dax *fcd, struct inode *inode,
- 	node = interval_tree_iter_first(&fi->dax->tree, start_idx, start_idx);
- 	/* Range already got reclaimed by somebody else */
- 	if (!node) {
-+		dmap = NULL;
- 		if (retry)
- 			*retry = true;
- 		goto out_write_dmap_sem;
