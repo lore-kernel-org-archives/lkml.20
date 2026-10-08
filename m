@@ -1,65 +1,65 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED9C4390C81
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 14:27:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DFEA395AD2
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 14:27:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791469626; cv=none; b=Le1PFghIOMreSgLUIr38YnL8k7xBjrEszWDih+S4/9BLxL+vCCCIYHp56Z9E+UR1pM1kCOFgSGmJ2Kup5sFieT92wtshBR/wDGPY/dmUJ7P5ZFP7ItYqz9TCE+0MfHaka7wyB9a2nq/uPZT/1UzYFoqoLY+Vl+T88rhGGThNcnk=
+	t=1791469629; cv=none; b=Ggy4i/NXTZaFE6swu5tE5cfIkStl+8GGUAzBdKM4IgtXZJhV5PFLdCRrzfOdi9ZNNBpLQb9WKr5/LU+jEU1AW7eYpBZTEWcc3xfgVXWry74bVGg/5D80w7Diz/jswlwdaXB6PIa6rT+QSzyfWu0aCe13Sdy2NDIWkIxqVwybpb8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791469626; c=relaxed/simple;
-	bh=KsMUuPLgwYCOV9UxYIW28j71QtlkZ2rhkGNJMAEP42s=;
+	s=arc-20240116; t=1791469629; c=relaxed/simple;
+	bh=XeLGjfK+21U6lHWRK6NjJAkvdj0dja8T2p6k2BrqbxM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=uZvqSHp74XqHc/hw8Nk15nUtif4ywJPwd/odwGPc4CJeb8LNBDL/w1JVncaT2VaB4apOILDfDYNaE98VMKu9UTSrBkbHcllU7NhpP1SKna0/te2TuKZrzzIt1mDnM+iGTqX3OxO93hn856sUERJ7u/P43j3I/TWWJd2+IHbjUjg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jrf42L33; arc=none smtp.client-ip=209.85.128.53
+	 MIME-Version:Content-Type; b=UNAIZOFsC5eYbKeuOWi92rneypINcw/021+HaSC3q8M9mOKuZJ7uhFnJ8vl8FrZy1V54lQol25bwWb+AEtyOteNahQ74HSzQ6aB3SE4NGQHhEySz1pdCzZ7DZOLRX9SvJhgcLZbD129CKM0umAwF2qEg6DpK6D4v8AS3dKUy3Nw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XhXhZsdI; arc=none smtp.client-ip=209.85.221.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jrf42L33"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a022fee0caso30279585e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 07:27:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XhXhZsdI"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48c4be28b82so2782648f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 07:27:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791469623; x=1792074423; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791469627; x=1792074427; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=7LUqBhSOfJVHWYAUJBV+3KDwxwiS0DArsjvYAlNe814=;
-        b=jrf42L33W6TSc+3pBsiR1KgnLdn1Q0Ty+QvUZjRcHLU7mvr/M8E8B1ZVt5/psUzFi8
-         vGB4eGAhbsBAx4gI2ldDJi7DEFiDUQAo2vfBSTXJX8myvXbjPJe084onLzKR3Qkth/sx
-         tcfpREawMEtyh/DsGFMP+mWvvyDzZ+JFHIKMtxLIJknztqAwUCPvF87LiZMwWjjebHbp
-         iCDnGs7Xs0726C+zGHmT7oHPypA2sSykomX6XQMj+kzy/z2aT7qrV2C4ASxD9h2TuzEQ
-         fukR4fc5fcZiYvygy/3wYI++zH+HcsFbJEgAH5MiJN4examLzssD90m5DlUcPSc4zekj
-         6BGg==
+        bh=fpxqDP5CsmzUMOKjttGXHMSiBcLd+CV1qvWa4yOxMC0=;
+        b=XhXhZsdIDTcQXESmeb68lL868Hlbzmn5TePG6i2+qw0RDjBVf/8UXho7Wky3mTkTV4
+         NxY/OdUVlyzx++KomWEiG6GKpuDTmLlEzomom0sHCTvxFaHqjtcbpaRtpWcIzmW5WEUi
+         P+wc2iSGaZIowkfLEcuUzKrfySOv4Q0cG6MCNq+MlMZe1A3tRprl7inKp7OYb6aaCVvH
+         8cW1Q8mHuPH2KTDGJxrxmb4XUCAMYGPbWlvnJbHxpvvxEE2o3KqX8eVVWYcPi+ES54FM
+         wrdwH0QRGcLJV81i1DVw6oTs+N9qx8mcto880/5iyVmKP4WUPC7I88nrHyhjy3+yA+eo
+         gTdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791469623; x=1792074423;
+        d=1e100.net; s=20260707; t=1791469627; x=1792074427;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=7LUqBhSOfJVHWYAUJBV+3KDwxwiS0DArsjvYAlNe814=;
-        b=kqZHFMim5TM64o7FOLNTUWduZ/gJNFLNVifY+CsDoMvFstt198YX4q4a+uOzc1E8Td
-         PiRVuQ/9bC/kSi1INDOnK9GijxZBDnxHWZ0v07sk2KLq5iCFDWr3nFNK7PO8WxfmcYcM
-         i96L01I/01HMupJkwzWj8b70WYvzlb650cxoBQ7KEjUOe0G2QxI6I40yB3WwDmrIqqql
-         kMLuRYd5seLdfF0fLaFnKkjkWbx5LG3Wx1FaW9a3x1+lX+YWd2ZAYtbedrt/kFtE5pdm
-         btZZcqAZM0VPnv/DEStKE/ETaSe7aWnTo13vIb09VbkVqXIa8vYcOsotmLbDMu8tS1LU
-         Z0gQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzIhKYHNIus1GTQO+04qfzZcQv7DC0XMeHs7AWMtwfkOxeWi8X+NoPuRoheB3SmuEzM8vWyOcGKHndLQec=@vger.kernel.org
-X-Gm-Message-State: AFuF++laMKQwn5MWcUjoEnNb6OEQAdhgFzFkTgPCMhAmwGZoXQqr5fZr
-	V84H3QZ7Zpg2PNnR3QLTZkUBh8hPdZYY6F2aVXYxLStWkka4v4FXeBevWrdDxk9T
-X-Gm-Gg: AYBFou3RHTJtbFwXGGjNvl4vhTmXlO588g851/44NDHrNqKxYNdtbKm3VAF3flqd+TA
-	UNuFDqRgOAFg/oAovk6ojnojQ/2psUoz2rTX9Pd1lYr9LcFmsxIhTgNT/Nt1xL1lG6i+whKxSKm
-	J63zkNlPeomYYvhJgkhlLRFPwO0LbCiqbByz+oG1d5PeLRnjMHZH+NwffwautCACIZ6YTN5tuuz
-	j1Cgk0p46ury2YTIusEyqw7K8a6zWSeidbR3Zhh6WmJXVKXHdOH/fYq4CCjhwvG31eoqBqRtiLd
-	CvqgA+vcdFvg/GxHyJNdx6s2m629eKGPjdif25vnIA3lOmGc5KbI5qft0dMe2WumV+jfFMMmL4H
-	p1MC/Duowg8+CfI8wEzegpRxlctlUY2vC6JM4scyu+f9y/AmtllaTQMqwdXInkspWmbap4g1kwL
-	KSDzEXf0F7xYAHNFLi9LcH78h/htmmg5y3NAAEp+BvxgjVdS+JkwiIV25Bu1m/1QJLT9z3T424k
-	HpNR5ZNL+mO9WqAxvY5tXLRvz01AcMrig==
-X-Received: by 2002:a05:600c:548b:b0:4a1:71ab:63ba with SMTP id 5b1f17b1804b1-4a18045f729mr104513565e9.29.1791469623095;
-        Thu, 08 Oct 2026 07:27:03 -0700 (PDT)
+        bh=fpxqDP5CsmzUMOKjttGXHMSiBcLd+CV1qvWa4yOxMC0=;
+        b=KGhWVeHJQFtHWpx3bsg1dTWO5nRYFaYMChuC4h0PHphg4mHvNoG+YGc2kQXZNRa+a+
+         nK6+MsDJmy7TveCoHzm5fsR941wUVDlOiDrkbeccXx9s1WeY1DWwxrO/VsAYGTJBsxpp
+         aiyHwLzIhX76+pv+nNAYafpO2KMMcflrEWsv9PwuQ8ATQqCcnlsqAGcZyxqNGhkWEzq+
+         djF34MB5o0cLcsJenf3IqtaAyDS38ocTGLuyV3xoqMbBDCSoOoBdrbM4I4pZ87IQlaPv
+         C9pnOlyNOL7xoxIazIu9Ir8Os551GG92pt49knXj1N4TDipAvR+7rMzQo2QllDFphJOh
+         Frwg==
+X-Forwarded-Encrypted: i=1; AKwUvBwUg/WgV3euIaGF85W1K2JhQIk9ZhbkqOdenZcrpUulbGBge0FJmPE05RSDKrHZs+HfWNQWfwILdYaFhfU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJZnoTuhqecNJGBTC+CQErj5EZP8hv/5wcYyA8uNHNoeOxrccsU
+	Djn1EWf1tcDgoA0wA3QQINzjmhbvFelgkOpXK1slHtuyFaUWfBBlO2mQEqXaCblu
+X-Gm-Gg: AYBFou1cotK9/jGDmBJ+XBh1Ly2/kdGNOOTuiwfpoyvVi/CQ2DwyK6dgruHpgrC6LkW
+	yVnVDXSvRBQuhT2D9YgPVZRcyYxvCsSFwyn1XlHg/A0+t/EfPWRMyROrstSzJAaTRzxH+ySo6XV
+	7s4lzogmb+vcm6djByIvTZyI28OctZkiJGQIxXH8eMFWnwrtQXUaFII300QRnn6eCkLqNNScFNb
+	Cr8MLryCWT1Yt+lnv77DgN/RB/Ji4sNMMYSusChcX7LEgYQY+egc2UxpKjYrU3Tk13ms8Qmg5mD
+	fuMR5Tj1u368yUEqpTo8usiRxKHwO196iajN/v0ziO2HOcI4gnqkPeIlVnZwa2qzAF9Lj3gh9kQ
+	wHVdMN7SswzRzF/CVFRYdWFxB/73tTtha+n71bGA5vUGxQLP5fmzetWiSD7lX6xi2jP/WkkFKf8
+	nQnG6cKmU6aTw8xf6ZAyIuRq4gFee/IIBUTNK7vN3JbCY8exeax/GT9APt3clCkZOhFD1KV6+m7
+	y3rl2+THYy64ciYsKP9Ew1a
+X-Received: by 2002:adf:ff8b:0:b0:48a:fd58:a7df with SMTP id ffacd0b85a97d-48c72896f38mr7829329f8f.47.1791469625397;
+        Thu, 08 Oct 2026 07:27:05 -0700 (PDT)
 Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18360c5ebsm57526765e9.3.2026.10.08.07.27.02
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48ca8e2e627sm3241531f8f.20.2026.10.08.07.27.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 07:27:02 -0700 (PDT)
+        Thu, 08 Oct 2026 07:27:05 -0700 (PDT)
 From: =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
 To: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
 Cc: Wang Yan <wangyan01@kylinos.cn>,
@@ -69,9 +69,9 @@ Cc: Wang Yan <wangyan01@kylinos.cn>,
 	Shuah Khan <shuah@kernel.org>,
 	linux-security-module@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 08/27] selftests/landlock: Handle a missing control message in recv_fd()
-Date: Thu,  8 Oct 2026 16:25:37 +0200
-Message-ID: <20261008142604.39107-10-gnoack3000@gmail.com>
+Subject: [PATCH 09/27] selftests/landlock: Assert tracefs_extract_field() results that are used
+Date: Thu,  8 Oct 2026 16:25:38 +0200
+Message-ID: <20261008142604.39107-11-gnoack3000@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261008142604.39107-2-gnoack3000@gmail.com>
 References: <20261008142604.39107-2-gnoack3000@gmail.com>
@@ -84,32 +84,108 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-CMSG_FIRSTHDR() returns NULL when recvmsg(2) did not receive any
-ancillary data, e.g. when the peer closed the socket without sending an
-FD.  recv_fd() dereferences the result unconditionally and crashes
-instead of returning an error.
+Several trace tests check tracefs_extract_field() with EXPECT_EQ() and
+then compare the extracted field.  If the extraction fails, the field
+buffer is left uninitialized and the following comparison reads it.
 
-Return -EIO in that case.
+Use ASSERT_EQ() for these calls, as the other trace tests already do.
 
 Assisted-by: LLM
 Signed-off-by: Günther Noack <gnoack3000@gmail.com>
 ---
- tools/testing/selftests/landlock/common.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ tools/testing/selftests/landlock/trace_test.c | 20 +++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/tools/testing/selftests/landlock/common.h b/tools/testing/selftests/landlock/common.h
-index c5124de68a51..e195c0f48eb3 100644
---- a/tools/testing/selftests/landlock/common.h
-+++ b/tools/testing/selftests/landlock/common.h
-@@ -158,7 +158,7 @@ static int __maybe_unused recv_fd(int usock)
- 		return -errno;
+diff --git a/tools/testing/selftests/landlock/trace_test.c b/tools/testing/selftests/landlock/trace_test.c
+index f9b293a9dd56..a331df746dbc 100644
+--- a/tools/testing/selftests/landlock/trace_test.c
++++ b/tools/testing/selftests/landlock/trace_test.c
+@@ -175,19 +175,19 @@ TEST_F(trace, create_ruleset)
+ 	}
  
- 	cmsg = CMSG_FIRSTHDR(&msg);
--	if (cmsg->cmsg_len != CMSG_LEN(sizeof(fd_rx)))
-+	if (!cmsg || cmsg->cmsg_len != CMSG_LEN(sizeof(fd_rx)))
- 		return -EIO;
+ 	/* Verify handled_fs matches what we requested. */
+-	EXPECT_EQ(0,
++	ASSERT_EQ(0,
+ 		  tracefs_extract_field(buf, REGEX_CREATE_RULESET(TRACE_TASK),
+ 					"handled_fs", field, sizeof(field)));
+ 	EXPECT_STREQ("read_file", field);
  
- 	memcpy(&fd_rx, CMSG_DATA(cmsg), sizeof(fd_rx));
+ 	/* Verify handled_net matches. */
+-	EXPECT_EQ(0,
++	ASSERT_EQ(0,
+ 		  tracefs_extract_field(buf, REGEX_CREATE_RULESET(TRACE_TASK),
+ 					"handled_net", field, sizeof(field)));
+ 	EXPECT_STREQ("bind_tcp", field);
+ 
+ 	/* Verify version is 0 at creation (no rules added yet). */
+-	EXPECT_EQ(0,
++	ASSERT_EQ(0,
+ 		  tracefs_extract_field(buf, REGEX_CREATE_RULESET(TRACE_TASK),
+ 					"ruleset", field, sizeof(field)));
+ 	/* Format is <hex>.<dec>; version is after the dot. */
+@@ -357,7 +357,7 @@ TEST_F(trace, create_domain)
+ 	}
+ 
+ 	/* Extract the domain ID from create_domain. */
+-	EXPECT_EQ(0, tracefs_extract_field(buf, REGEX_CREATE_DOMAIN(TRACE_TASK),
++	ASSERT_EQ(0, tracefs_extract_field(buf, REGEX_CREATE_DOMAIN(TRACE_TASK),
+ 					   "domain", domain_id,
+ 					   sizeof(domain_id)));
+ 
+@@ -365,7 +365,7 @@ TEST_F(trace, create_domain)
+ 	EXPECT_NE(0, strcmp(domain_id, "0"));
+ 
+ 	/* Verify parent=0 (first restriction, no prior domain). */
+-	EXPECT_EQ(0, tracefs_extract_field(buf, REGEX_CREATE_DOMAIN(TRACE_TASK),
++	ASSERT_EQ(0, tracefs_extract_field(buf, REGEX_CREATE_DOMAIN(TRACE_TASK),
+ 					   "parent", parent_id,
+ 					   sizeof(parent_id)));
+ 	EXPECT_STREQ("0", parent_id);
+@@ -381,7 +381,7 @@ TEST_F(trace, create_domain)
+ 		TH_LOG("Expected check_rule_inode events\n%s", buf);
+ 	}
+ 
+-	EXPECT_EQ(0, tracefs_extract_field(buf, REGEX_CHECK_RULE_FS(TRACE_TASK),
++	ASSERT_EQ(0, tracefs_extract_field(buf, REGEX_CHECK_RULE_FS(TRACE_TASK),
+ 					   "domain", check_domain,
+ 					   sizeof(check_domain)));
+ 	EXPECT_STREQ(domain_id, check_domain);
+@@ -615,7 +615,7 @@ TEST_F(trace, free_domain)
+ 	}
+ 
+ 	/* Verify denials count matches the single denial we triggered. */
+-	EXPECT_EQ(0, tracefs_extract_field(buf, REGEX_FREE_DOMAIN(KWORKER_TASK),
++	ASSERT_EQ(0, tracefs_extract_field(buf, REGEX_FREE_DOMAIN(KWORKER_TASK),
+ 					   "denials", denials_field,
+ 					   sizeof(denials_field)));
+ 	EXPECT_STREQ("1", denials_field);
+@@ -900,7 +900,7 @@ TEST_F(trace, non_audit_visible_denial_counting)
+ 	{
+ 		TH_LOG("free_domain event not found after 10 retries");
+ 	}
+-	EXPECT_EQ(0, tracefs_extract_field(buf, REGEX_FREE_DOMAIN(KWORKER_TASK),
++	ASSERT_EQ(0, tracefs_extract_field(buf, REGEX_FREE_DOMAIN(KWORKER_TASK),
+ 					   "denials", denials_field,
+ 					   sizeof(denials_field)));
+ 	EXPECT_STREQ("1", denials_field);
+@@ -949,7 +949,7 @@ TEST_F(trace, add_rule_net_port_fields)
+ 	 * (landlock_net_port_attr.port).  On little-endian, htons(8080) is
+ 	 * 36895, so this comparison catches byte-order bugs.
+ 	 */
+-	EXPECT_EQ(0, tracefs_extract_field(buf,
++	ASSERT_EQ(0, tracefs_extract_field(buf,
+ 					   REGEX_ADD_RULE_NET_PORT(TRACE_TASK),
+ 					   "port", field, sizeof(field)));
+ 	EXPECT_STREQ("8080", field);
+@@ -959,7 +959,7 @@ TEST_F(trace, add_rule_net_port_fields)
+ 	 * net access bits are unhandled because the ruleset only handles
+ 	 * BIND_TCP).
+ 	 */
+-	EXPECT_EQ(0, tracefs_extract_field(
++	ASSERT_EQ(0, tracefs_extract_field(
+ 			     buf, REGEX_ADD_RULE_NET_PORT(TRACE_TASK),
+ 			     "access_rights", field, sizeof(field)));
+ 	EXPECT_STREQ("bind_tcp|connect_tcp|bind_udp|connect_send_udp", field);
 -- 
 2.56.0
 
