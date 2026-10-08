@@ -1,78 +1,79 @@
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31BE93C3F73
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 06:30:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63F6A31716D
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 06:32:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791441056; cv=none; b=M/tyqY5VNB1Xs8MHBrd+3AJKusr8fBgyrBpkgs98rbMGTSEexH0BdapzM/tajAdjVu7Y4nUb+iyDUfpRgqkSgWiDBiF6GxSffX6La8q+NwrnsxQPGKSEXAZsLzs8GLmXO4wpV9vLOUI1eqqUqjzgCB1GE7TDz0hD1SrrjKNAoys=
+	t=1791441148; cv=none; b=c+VkRW3GDe83TNxJLnt5IV8TTN1H/9eb4u2gOdKCLr8ykv9qjf9XqJsZ4i97MTTDDK4VMVRoQnYwi54EwHS1mH9BTis2eEc9lEJdULWgeyWoMjc4r3i2c5cGwJR/3pnrfDtJ/S1IUByBtIP+Acti8UBnrUQI+KbCMux76vvZaTk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791441056; c=relaxed/simple;
-	bh=/lhqncHa54mif93hQURpmlAp2nbu9JhU3pGgljQ+4FI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=dzsfXaFWALOnf+XvAm7wJra/hWJ/fcH0xTJEJ8LNf/hPAeG6ZKF+9zS+sS/7ctb20TG9CPidWWXGUibnFsFTNmJW7yNAVkZf8m9Vcc5vXRoODE9Df055EQ6PfL2BXZYzbNcxZ9vRI6SHB+A6/1h5qefBbQv8iY+FbQ3yYCoPC1E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sJplgH0z; arc=none smtp.client-ip=209.85.215.182
+	s=arc-20240116; t=1791441148; c=relaxed/simple;
+	bh=fXmx+nGIvpnbd8pe1FIdZyIWo74jnyWSmg4x2wEcVuk=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=EIdEkgBSFfAIX5Qew/CBCz8MuKr6dlrrVJ2CMBJR0rpI9Bf36UK9RbEpnex/MOECnWKcSzCYkIOHOcDy7/yfPbtvDMFCXmXH0C+LSPz+e2bgtPTpwy/kUHFTnOmyWOGdBgxSdw41kWgvf94s2X3e3UmmGBEobwKzx1H8UgiQbsQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SYUq83FT; arc=none smtp.client-ip=209.85.216.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sJplgH0z"
-Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cc4b62d118aso1600411a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 23:30:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SYUq83FT"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3a80d1c98f5so2889388a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 23:32:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791441054; x=1792045854; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791441147; x=1792045947; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=TJmOQZlXuvALdzdT+nGvrQ32LbAVa2wVNh2I99r+TqQ=;
-        b=sJplgH0zFuHAQy2IEi32bDDCFtSkXf/bhOybrREfXPdRpzaae6z5/x1pkeRbFsPFPN
-         oyR3o4GXa3OPYkXNUjcqr5yt1EP2G8WmyklFHVMPvg9Q2PGtyGeCb8cM6dbgNDBBnTbg
-         SsI7OIS3Ydvfs4dZznlcT2ivwH3NwpTyobSP7MTgxUeAje6/BEkpP+eGEePY/jVp+xRt
-         EZxghDsm1BMhWNS3E6hUXfwxxrt573II6yhh0XA2u2vJ66yAYYmsBedvT7hTKqec2438
-         BlfjnEED8hgGVGO9kmtregd+TmAfanfFDe17JZhQGGi4mbBnXVCAnETO4trD9O+DBch8
-         O6Kg==
+        bh=Gm+ycg3N8xZsnvvFcj4//dpA7uaGdP+7wCmofLbeyyQ=;
+        b=SYUq83FTW6jbz/hJ9sGNmBZWy6TrLZ7xhIRiOsYXvCPCENo/yoEzHzuHY83bkx26mq
+         cU1P37rQmm0jVRR0hSTqXaWucQRH/+g1IlpPE0uYyB69PdHQjruC6na3LTkKlWSUPt8B
+         EYXdRW3fwPZiM+xQxOigdfTVL2atXMRTLSE9pAxCBGtQUu+BjRXjwK1RZrOuOy2VaIoS
+         iqRlFUX7xsWITt9ySnLLEb0jtklO2mak8UDT2zmhxmoS7+FLFgaXw8eY1eMwbc14GqwM
+         PFOput95x6YVXhQ7B9t0INPUObmaPDA/E7lFUow6QiH2niVZYmvZT/sD+eBnZ/RtSRCQ
+         wwxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791441054; x=1792045854;
+        d=1e100.net; s=20260707; t=1791441147; x=1792045947;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=TJmOQZlXuvALdzdT+nGvrQ32LbAVa2wVNh2I99r+TqQ=;
-        b=MBoKVsFS28agVGfdurino8HZX5W/H/wTQbJ5rwHdc9xObIHao0bwV3453lagSU/Bpa
-         grPGVWGGDomP8VFCk09xwvtRVbK8cey8vkqbwY/5J5+xuHvVP4pwqzbsou8TAyP/GodN
-         qxOo0TubIj0X0vQWZmFfqtorggTnUtjRIjVmfAyVR4QU+KeKowjkndBPcuRWT17CL3IS
-         pmpysDKGosk0UIGqjZO93ZAFTqestRz9Zsh3fbuDg6aIYnjdcEdnsgIn/qYsK6jHlhZf
-         UGZVSY6+zAJ1oeqjSgqApa2NMA17YgTi8CqNy6cfQPht58dY6h+rKfn+VMjzt3ACHf0B
-         4WEA==
-X-Forwarded-Encrypted: i=1; AKwUvBx7qwpv/h6HH0npAJZw3Pu94Hlq32zRBzG7oek8LgrZKSHpoHHeWJdyUkJp9z8V1HHU+6veYXGu7kWM0OM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI81tDbk4XJ/UFOLJT2en8V6JA1Dct5nKgg2hdE0o5CNhaC2r1I
-	VGNqm0iXWuKIuAR9n53BxcinXBdWdOZuvDtKd6JyX6QV7g+SjJMJTsxV
-X-Gm-Gg: AYBFou18CnfcTpCYUcpUghNUd4N2PfRG2EG1QGtA/zMLGSpvgbxxEqswxp7vHs1wAcy
-	4eIl1QHe5cvZ+tKa24dbyK0PQYVma3bkyyTeSqsmKW3aV4sgJystzv59cbrJVPpvomJdFIVEnJB
-	ZgUmz8zeLfsZQdzPQ6OdWbgTW1/YFoAbAI9kkPT9FvQsVfGHDyIGGPQ2Kc/lRy/YbKcssiq6SZY
-	wMr3C0oVNMDanFNyAIaCRqmIxe2j21hafqobVRxWr2z+jYPAZBzhX53TfFkbvmUo4nyhMiXgCsx
-	u6suD4ZvL6RZmOR4GfXTxb94PTVx2ozInwGSeenSPv82kjHdVi1nSfNfbuwjOsm+p7iTUaNNFVX
-	jzrO3JERsD57LBPKSGkrlhCgAXC7MMZz/rZTiNM6JcEmftKClFi5eF2rwwSCAJlJHFtZ51MKsv/
-	DuuVhZEwQ0F4isdbv5TEPPEgwpjiNtp7oHNnyTmXLCvC2YBEZs+BQeSgz3PNDof9ZbZg==
-X-Received: by 2002:a17:90b:544f:b0:3a8:9b79:e6ea with SMTP id 98e67ed59e1d1-3a8a13cfeabmr4187896a91.59.1791441054491;
-        Wed, 07 Oct 2026 23:30:54 -0700 (PDT)
+        bh=Gm+ycg3N8xZsnvvFcj4//dpA7uaGdP+7wCmofLbeyyQ=;
+        b=2ykTp4rbsryadAIvDVYmwgFbpoOKtVBQEw6xPaUyk3tWFLP9C2/Rr3MC9DiWSmX22Q
+         Q7yQYGbuYbBq4ip7i4Sme/dGwMwqWrAFOWocH0aB15xQddxVsRyj8TFN2YNuXtjPeDZ0
+         JldDm67USmPZ6gZ8kY27XyU+HXAtqv20g1V/wqrrjjjiRKwbGLXppUVAUoS1/yNH6++j
+         ssaqyocrjnvBPXXcyCVfm3HfHg76UlTxtcwsJT6EZ/1joP2JFDRcH1/ht01tF3elxQlo
+         K1jbNkDy5GgfAopxe3bwlcFTYJzEJUfUdMuhQLmSpOnxWtSvtq4HeH3ZzWCAhCpP88qX
+         LTZg==
+X-Forwarded-Encrypted: i=1; AKwUvBzwvigbKcn4mzwGetgrWSe5NDOw7eufAXPNBMlXuojHstoROvT6EwBXsru/XRr1lTHZJX7qVeL697S1ClY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIbGZDZrHr6Y+72/jEqPcFCZeAUZanV87c2zFQu0aK3V8vPyOBO
+	iOs9X6XCGIlFYYUTyeFsKBGFVT0yeBh0/XhIBSHpNAMFOpMi+rrLhjRw
+X-Gm-Gg: AYBFou2aF+C43gxuL/v4kKgZNeYMdyJXW6rRUXmAVeg4zagfVpDPmiWaHgQtfmgvzJC
+	aF/Fbr+R+2rrf2rV4pV0E4tbi/i7eTf5RCJCNAiQNXmnetMMzstLqS3qMQdrhJscUR+7qrd3o8G
+	i3A1JwoBV2uH5UlJUGzfbcFqG137WWKns55I+muERWxEnrpzMQb1LUzQuNQztwahIOhLPAJ0gip
+	J/MoM6tBWl/20LKG6ZhoPPF2BSVxaEcS4qV4XmVR5UI3klsP77Ew0XsF3xDIHBYl04FyokZw30R
+	m0VZBkfdbFBWgYcVr9aJyT2LENR1QZ30GnB6i9HujnCeDWkmoWIPwysJWeO3WAxFrtEIHP+A7Kf
+	UvI/ixb7/Ap7NmR/2h9u0uUu+dHrzKoRYtZPRqNRtYfXUVVmPpItK4yGODjB3GkFA+9FHD44K43
+	ezH076Cm5hWD+aYx6v/UwESS8cYXo1wwC7RaL6NU4tzRszHGr/VvJjJj0EeQDb28Osag==
+X-Received: by 2002:a17:90b:4ccc:b0:3a8:6a2f:3ee3 with SMTP id 98e67ed59e1d1-3a8a1be4d13mr4369691a91.49.1791441146478;
+        Wed, 07 Oct 2026 23:32:26 -0700 (PDT)
 Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3aa0cbea8d3sm2783531a91.16.2026.10.07.23.30.50
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9ff8669eesm2717780a91.10.2026.10.07.23.32.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 23:30:54 -0700 (PDT)
+        Wed, 07 Oct 2026 23:32:26 -0700 (PDT)
 From: Cen Zhang <zzzccc427@gmail.com>
-To: dhowells@redhat.com,
-	jarkko@kernel.org,
-	paul@paul-moore.com,
-	jmorris@namei.org,
-	serge@hallyn.com,
-	sergeh@kernel.org
-Cc: keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
+To: dsahern@kernel.org,
+	idosch@nvidia.com,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	jiri@resnulli.us
+Cc: netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	baijiaju1990@gmail.com,
 	jjzuming@gmail.com,
 	zzzccc427@gmail.com
-Subject: [PATCH] keys: Avoid the owner account dereference in named keyring lookup
-Date: Thu,  8 Oct 2026 14:30:46 +0800
-Message-Id: <pm-key-management-objects-candidate-0002-v2-dd6c20a1d92928b33ab7@gmail.com>
+Subject: [PATCH] ipv4: Serialize netconf GET requests with RTNL
+Date: Thu,  8 Oct 2026 14:32:18 +0800
+Message-Id: <pm-ip-core-objects-candidate-0002-v3-4af089192b0b62b40b9c@gmail.com>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -83,142 +84,206 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Named keyring lookup must keep the storage containing the owner UID
-alive through the namespace mapping check.  find_keyring_by_name()
-reads keyring->user->uid under keyring_name_lock, but that lock protects
-the keyring's name entry and allocation, not its separate key_user.
+An in_device returned by in_dev_get() must stay alive until
+inet_netconf_get_devconf() finishes reading its cnf. However, the helper
+samples dev->ip_ptr under RCU and unconditionally increments refcnt,
+then returns the pointer outside RCU without checking whether the count
+was already zero. The net_device reference held by the request does not
+retain the separately allocated in_device.
 
-A named session-keyring join can overlap a privileged KEYCTL_CHOWN on
-another CPU.  If the keyring holds the last reference to its old dynamic
-key_user and the ownership transfer succeeds, the following ordering is
-possible:
+A down interface without IPv4 addresses or multicast owners can have
+only the ip_ptr publication reference. Lowering its MTU below
+IPV4_MIN_MTU invokes inetdev_destroy() through the RTNL-held
+NETDEV_CHANGEMTU notifier. RTM_GETNETCONF runs without RTNL, allowing
+the final put to follow its pointer sample but precede its increment:
 
-    Named join                         Chown
-    find_keyring_by_name()              keyctl_chown_key()
-      read_lock(keyring_name_lock)       down_write(key->sem)
-      load old keyring->user
-                                         replace key->user and key->uid
-                                         up_write(key->sem)
-                                         key_put(key)
-                                         key_user_put(old user): free
-      read old user->uid
-      read_unlock(keyring_name_lock)
+  RTM_GETNETCONF                   MTU change (RTNL held)
+  in_dev_get():
+    rcu_read_lock()
+    sample dev->ip_ptr
+                                  inetdev_destroy():
+                                    clear dev->ip_ptr
+                                    in_dev_put(): refcnt -> 0
+                                    call_rcu(in_dev_free_rcu)
+    refcount_inc() from zero
+    rcu_read_unlock()
+                                  in_dev_free_rcu(): kfree()
+  inet_netconf_fill_devconf():
+    read in_dev->cnf
 
-Chown neither takes keyring_name_lock nor key_session_mutex, so it can
-free the old account between the pointer load and the UID read.  The
-lookup then reads freed memory even though the keyring itself is alive.
+The zero-count increment warns and saturates the refcount, but cannot
+cancel the queued free. Once the request leaves RCU, the callback can
+free the attachment before the configuration read, causing a
+use-after-free. Restoring a valid MTU can publish a new attachment on
+the same device while the request still holds the old pointer.
 
-Use keyring->uid for the mapping check.  key_alloc() initializes this
-inline owner UID and keyctl_chown_key() updates it on chown.
-The existing name lock keeps its containing keyring allocated throughout
-the check, so lookup no longer depends on the account's lifetime.  This
-also matches the owner UID used by the permission check.
+Drop RTNL_FLAG_DOIT_UNLOCKED so rtnetlink holds RTNL from lookup through
+reply construction and reference release. This serializes the request
+with inetdev_destroy(), preventing the publication reference from being
+dropped during acquisition or use. The dump handler already holds RCU
+through its configuration reads and keeps RTNL_FLAG_DUMP_UNLOCKED.
 
 KASAN report as below:
 
-    BUG: KASAN: slab-use-after-free in find_keyring_by_name+0x577/0x5d0
-    Read of size 4 at addr ffff8881128ae2ec by task keycase/500
+    BUG: KASAN: slab-use-after-free in inet_netconf_fill_devconf+0x748/0x790
+    Read of size 4 at addr ffff88811d70b958 by task ip_core_fixture/498
 
-    CPU: 2 UID: 0 PID: 500 Comm: keycase Not tainted 7.2.0-rc5-pmb-bt-functional-v1+ #1 PREEMPT(lazy)
-    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+    CPU: 1 UID: 0 PID: 498 Comm: ip_core_fixture Tainted: G        W           7.2.0-rc5-pmb-bt-functional-v1+ #1 PREEMPT(lazy)
+    Tainted: [W]=WARN
+    Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
     Call Trace:
      <TASK>
      dump_stack_lvl+0x93/0xd0
      print_report+0xce/0x630
-     ? find_keyring_by_name+0x577/0x5d0
+     ? inet_netconf_fill_devconf+0x748/0x790
      ? srso_alias_return_thunk+0x5/0xfbef5
      ? __virt_addr_valid+0x20d/0x410
-     ? find_keyring_by_name+0x577/0x5d0
+     ? inet_netconf_fill_devconf+0x748/0x790
      kasan_report+0xe0/0x110
-     ? find_keyring_by_name+0x577/0x5d0
-     find_keyring_by_name+0x577/0x5d0
-     ? __pfx_find_keyring_by_name+0x10/0x10
+     ? inet_netconf_fill_devconf+0x748/0x790
+     inet_netconf_fill_devconf+0x748/0x790
+     ? __pfx_inet_netconf_fill_devconf+0x10/0x10
+     ? inet_netconf_get_devconf+0xaef/0xe40
+     inet_netconf_get_devconf+0x41c/0xe40
+     ? __pfx_inet_netconf_get_devconf+0x10/0x10
+     ? __pfx_inet_netconf_get_devconf+0x10/0x10
+     ? rtnetlink_rcv_msg+0x795/0xce0
      ? srso_alias_return_thunk+0x5/0xfbef5
-     ? security_prepare_creds+0x4f/0xb0
+     ? lock_release+0xc8/0x280
+     ? __pfx_inet_netconf_get_devconf+0x10/0x10
+     rtnetlink_rcv_msg+0x7b9/0xce0
+     ? __pfx_rtnetlink_rcv_msg+0x10/0x10
      ? srso_alias_return_thunk+0x5/0xfbef5
-     join_session_keyring+0x89/0x310
-     keyctl_join_session_keyring+0x81/0xe0
-     __do_sys_keyctl+0x3c6/0x460
+     ? __lock_acquire+0x466/0x2260
+     ? lock_acquire+0x17b/0x2f0
+     netlink_rcv_skb+0x133/0x390
+     ? __pfx_rtnetlink_rcv_msg+0x10/0x10
+     ? __pfx_netlink_rcv_skb+0x10/0x10
+     ? netlink_deliver_tap+0xdf/0xbd0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? netlink_deliver_tap+0x173/0xbd0
+     netlink_unicast+0x504/0x840
+     ? __pfx_netlink_unicast+0x10/0x10
+     netlink_sendmsg+0x7f7/0xcf0
+     ? __pfx_netlink_sendmsg+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? selinux_socket_sendmsg+0x160/0x280
+     ? __pfx_netlink_sendmsg+0x10/0x10
+     ____sys_sendmsg+0x88b/0x9d0
+     ? __pfx_____sys_sendmsg+0x10/0x10
+     ___sys_sendmsg+0x125/0x1d0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx____sys_sendmsg+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lock_release+0xc8/0x280
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? netlink_bind+0x518/0x900
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     __sys_sendmsg+0x13e/0x1e0
+     ? __pfx___sys_sendmsg+0x10/0x10
      do_syscall_64+0x115/0x6a0
      entry_SYSCALL_64_after_hwframe+0x77/0x7f
-    RIP: 0033:0x7f562a4817b9
-    Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 27 66 0d 00 f7 d8 64 89 01 48
-    RSP: 002b:00007ffcb80b34a8 EFLAGS: 00000246 ORIG_RAX: 00000000000000fa
-    RAX: ffffffffffffffda RBX: 00007ffcb80b3638 RCX: 00007f562a4817b9
-    RDX: 0000000000000000 RSI: 0000563212976004 RDI: 0000000000000001
-    RBP: 00000000000001f5 R08: 0000000000000000 R09: 5200000000000000
-    R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000001
-    R13: 00007ffcb80b3658 R14: 00007f562a5ae000 R15: 0000563212977cf0
+    RIP: 0033:0x7f8ea8b31687
+    Code: 48 89 fa 4c 89 df e8 58 b3 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
+    RSP: 002b:00007fff83200d90 EFLAGS: 00000202 ORIG_RAX: 000000000000002e
+    RAX: ffffffffffffffda RBX: 00007f8ea8a9f780 RCX: 00007f8ea8b31687
+    RDX: 0000000000000000 RSI: 00007fff83200e50 RDI: 0000000000000003
+    RBP: 00007fff83202ed0 R08: 0000000000000000 R09: 0000000000000000
+    R10: 0000000000000000 R11: 0000000000000202 R12: 0000000000000000
+    R13: 00007fff83203070 R14: 00007f8ea8cdd000 R15: 0000559d62722c80
      </TASK>
 
-    Allocated by task 501:
+    Allocated by task 496:
      kasan_save_stack+0x33/0x60
      kasan_save_track+0x14/0x30
      __kasan_kmalloc+0xaa/0xb0
      __kmalloc_cache_noprof+0x251/0x630
-     key_user_lookup+0x181/0x530
-     key_alloc+0x164/0x11e0
-     keyring_alloc+0x49/0xa0
-     join_session_keyring+0x296/0x310
-     keyctl_join_session_keyring+0x81/0xe0
-     __do_sys_keyctl+0x3c6/0x460
+     inetdev_init+0x60/0x550
+     inetdev_event+0x71e/0x1780
+     notifier_call_chain+0xbb/0x330
+     call_netdevice_notifiers_info+0xa2/0xf0
+     register_netdevice+0x17b0/0x2090
+     rtnl_newlink+0x1a30/0x1f40
+     rtnetlink_rcv_msg+0x7b9/0xce0
+     netlink_rcv_skb+0x133/0x390
+     netlink_unicast+0x504/0x840
+     netlink_sendmsg+0x7f7/0xcf0
+     ____sys_sendmsg+0x88b/0x9d0
+     ___sys_sendmsg+0x125/0x1d0
+     __sys_sendmsg+0x13e/0x1e0
      do_syscall_64+0x115/0x6a0
      entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-    Freed by task 502:
+    Freed by task 0:
      kasan_save_stack+0x33/0x60
      kasan_save_track+0x14/0x30
      kasan_save_free_info+0x3b/0x60
      __kasan_slab_free+0x5f/0x80
-     kfree+0x236/0x5a0
-     key_user_put+0x57/0x60
-     keyctl_chown_key+0x5a7/0xda0
-     __do_sys_keyctl+0x1ba/0x460
+     kfree+0x12b/0x530
+     in_dev_free_rcu+0x51/0x90
+     rcu_core+0x661/0x1d10
+     handle_softirqs+0x201/0x930
+     __irq_exit_rcu+0x110/0x1e0
+     irq_exit_rcu+0xe/0x20
+     sysvec_apic_timer_interrupt+0x6c/0x80
+     asm_sysvec_apic_timer_interrupt+0x1a/0x20
+
+    Last potentially related work creation:
+     kasan_save_stack+0x33/0x60
+     kasan_record_aux_stack+0xa7/0xc0
+     __call_rcu_common.constprop.0+0x76/0xbd0
+     in_dev_finish_destroy+0x12e/0x190
+     inetdev_event+0xa37/0x1780
+     notifier_call_chain+0xbb/0x330
+     call_netdevice_notifiers_info+0xa2/0xf0
+     netif_set_mtu_ext+0x47d/0x6a0
+     netif_set_mtu+0x8b/0x120
+     dev_set_mtu+0xb9/0x180
+     dev_ifsioc+0x3b8/0x1820
+     dev_ioctl+0x301/0xf80
+     sock_do_ioctl+0x1dc/0x2b0
+     sock_ioctl+0x41b/0x670
+     __x64_sys_ioctl+0x163/0x1d0
      do_syscall_64+0x115/0x6a0
      entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-    The buggy address belongs to the object at ffff8881128ae200
-     which belongs to the cache kmalloc-256 of size 256
-    The buggy address is located 236 bytes inside of
-     freed 256-byte region [ffff8881128ae200, ffff8881128ae300)
+    The buggy address belongs to the object at ffff88811d70b800
+     which belongs to the cache kmalloc-512 of size 512
+    The buggy address is located 344 bytes inside of
+     freed 512-byte region [ffff88811d70b800, ffff88811d70ba00)
 
     The buggy address belongs to the physical page:
-    page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x1128ae
-    head: order:1 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-    flags: 0x200000000000040(head|node=0|zone=2)
+    page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x11d70b
+    flags: 0x200000000000000(node=0|zone=2)
     page_type: f5(slab)
-    raw: 0200000000000040 ffff888100043400 dead000000000100 dead000000000122
-    raw: 0000000000000000 0000000000100010 00000000f5000000 0000000000000000
-    head: 0200000000000040 ffff888100043400 dead000000000100 dead000000000122
-    head: 0000000000000000 0000000000100010 00000000f5000000 0000000000000000
-    head: 0200000000000001 ffffffffffffff81 00000000ffffffff 00000000ffffffff
-    head: 0000000000000000 0000000000000000 00000000ffffffff 0000000000000000
+    raw: 0200000000000000 ffff888100042780 dead000000000122 0000000000000000
+    raw: 0000000000000000 0000000000040004 00000000f5000000 0000000000000000
     page dumped because: kasan: bad access detected
 
     Memory state around the buggy address:
-     ffff8881128ae180: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-     ffff8881128ae200: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-    >ffff8881128ae280: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                                                              ^
-     ffff8881128ae300: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-     ffff8881128ae380: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+     ffff88811d70b800: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+     ffff88811d70b880: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+    >ffff88811d70b900: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+                                                        ^
+     ffff88811d70b980: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+     ffff88811d70ba00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
     ==================================================================
 
-Fixes: 2ea190d0a006 ("keys: skip keys from another user namespace")
+Fixes: bbcf91053bb6 ("inet: do not use RTNL in inet_netconf_get_devconf()")
 Assisted-by: LLM
 Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 ---
 
-diff --git a/security/keys/keyring.c b/security/keys/keyring.c
-index 15bf4af8f28218ec3f12c97630d1c76939af7eca..46f774be72967a9bd16b0ddfdf323eda36edeff4 100644
---- a/security/keys/keyring.c
-+++ b/security/keys/keyring.c
-@@ -1158,7 +1158,7 @@ struct key *find_keyring_by_name(const char *name, bool uid_keyring)
- 	 * grants Search permission and that hasn't been revoked
- 	 */
- 	list_for_each_entry(keyring, &ns->keyring_name_list, name_link) {
--		if (!kuid_has_mapping(ns, keyring->user->uid))
-+		if (!kuid_has_mapping(ns, keyring->uid))
- 			continue;
- 
- 		if (test_bit(KEY_FLAG_REVOKED, &keyring->flags))
+diff --git a/net/ipv4/devinet.c b/net/ipv4/devinet.c
+index 5b6b11c943e453742b4893f1c9bd9e70d3d37a6f..4e9de0c6b2c1426c4b4c8638a0a6da4be9c2034d 100644
+--- a/net/ipv4/devinet.c
++++ b/net/ipv4/devinet.c
+@@ -2958,7 +2958,7 @@ static const struct rtnl_msg_handler devinet_rtnl_msg_handlers[] __initconst = {
+ 	 .flags = RTNL_FLAG_DUMP_UNLOCKED | RTNL_FLAG_DUMP_SPLIT_NLM_DONE},
+ 	{.protocol = PF_INET, .msgtype = RTM_GETNETCONF,
+ 	 .doit = inet_netconf_get_devconf, .dumpit = inet_netconf_dump_devconf,
+-	 .flags = RTNL_FLAG_DOIT_UNLOCKED | RTNL_FLAG_DUMP_UNLOCKED},
++	 .flags = RTNL_FLAG_DUMP_UNLOCKED},
+ 	{.owner = THIS_MODULE, .protocol = PF_INET, .msgtype = RTM_GETMULTICAST,
+ 	 .dumpit = inet_dump_ifmcaddr, .flags = RTNL_FLAG_DUMP_UNLOCKED},
+ };
