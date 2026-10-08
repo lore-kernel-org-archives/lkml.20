@@ -1,34 +1,71 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0737B34389F;
-	Thu,  8 Oct 2026 18:54:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60FCC4F4D0C
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 18:54:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791485651; cv=none; b=JpU77VE3Jrf4tbnjtCBU2vtO6WKsrnT6ZbZGwuHDd7RLa0MN/SChE/n/eIPmhWqQnX4NY9CQkSvDIcl3LSvgzuxW0xuDcWRtOuKO63teuJuEwO2eojO5aKtztQx9g64jfki9D7oW46eTgRnO1s/q+QV2Xa44oUixLerefmzUzRo=
+	t=1791485667; cv=none; b=ZobRwK20FSyRh9WCkdNq/H3YHfvuh93xPUQGMO7qExrCOdXO8YK7CT6BPsX/YkKiy/swYNmpBscxQTuD8hDAyNmmYbC4s2tjZGgcGJ4Z2fAwzBUSmhIAXgGCfp3vexmOOQ8rhiNB8IffAeVJUvp8JRLudNUCcGCAE4+5RULMsaQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791485651; c=relaxed/simple;
-	bh=Ar/J7vNAb+UtY2A05UoDgSqofu20LVDqtjDLyzqD0DA=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ALjr7DNukehDkjFD7gh2dxlnEQSyGFo2HbHo9jjFmfD85r0nqhxD8szKEJ1Hdw7eFJ7hfGgWDbJRLof/1D7m6XQNOd/5r2KWM8igVzK88g0dALgJYgBgJVp8FODF9xgnsUCppMYHethxYtJppHM34r854+kAOOtZXryaTfPjGNA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from fc87d0ffb700.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAC3uznI5sdqEusQCg--.13998S2;
-	Fri, 09 Oct 2026 02:54:01 +0800 (CST)
-From: Haotian Zhang <vulab@iscas.ac.cn>
-To: Ram Vegesna <ram.vegesna@broadcom.com>,
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K. Petersen" <mkp@kernel.org>,
-	James Smart <jsmart2021@gmail.com>,
-	Daniel Wagner <dwagner@suse.de>
-Cc: linux-scsi@vger.kernel.org,
-	target-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] scsi: elx: libefc: fix resources leak in efcport_init() error path
-Date: Fri,  9 Oct 2026 02:54:03 +0800
-Message-Id: <20261008185403.2791781-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1791485667; c=relaxed/simple;
+	bh=dScB5kQlzL/CW/ZTxaxFKpVoMU2t0vgIhtiYhu3M5+4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sbGg08MhObvc6skIsO5L3ErwVmdrfdhUxq7/yxFgf/USTZOvSpn4tl+8qR7zXBkAYoaZUG4RdBHRvpymbnc/Rdob+iU+2AVVTUVOwpKxs6t53lPqSNdsSYCkZYNVtZ/zv694ZJDdH1Z5q1ior/hhdmhd5g/VET8VGUXZRdsADvk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FYticvoK; arc=none smtp.client-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FYticvoK"
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso3099375eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 11:54:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791485662; x=1792090462; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=R3zjl68lSt8FVrEOS06TJ0yAg1TocKM0nu0BnQmOWjM=;
+        b=FYticvoKz5L39BWCnO67h6UAhL8md2bRk9QdI0/+Jl9RfjDRfhXAIqpixSKuJq+0U+
+         4lEZ+u12R/Ob1+SerJEwsh6nv2cfDPdfDE626VkL2/mGEAb5DD3JZj5Br6my/CnyEPGb
+         WNfBOu6yFTLk4uet+3iYZDYb4Y+ZsmHIpXix461JgtnVj8CT0mCqh+OgBUBtubExyJ3a
+         zGOM5XMqDdH5ua47sqHVuFNMzA66JUsKyja5zsb+bUUxAOKGHz85i6u8fB+lUr7K0JQ1
+         m8YZy2czlrNT2yQDmcOvCP3VAqKaJFJuXRPxoAx//ewFs014QCwbuG6DvZgXI58gPaA0
+         hHWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791485662; x=1792090462;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=R3zjl68lSt8FVrEOS06TJ0yAg1TocKM0nu0BnQmOWjM=;
+        b=0yn264VDCPNHfUtNdKudJAl+VrzQCHrvbF+oHrIlo+wzjBuktvKjYNDLK+I/KpQ7u1
+         41rB5RQa+ziH4eDsu1vqv5IaBbNtBylpMuuh780ApsODDET4dw2EAMHZ0GmANEumoDoP
+         x3hOg4hmud0kh0zgRRRno2V9KhBi68Fgzq8d/eDh248WNVAnOdX2N+dmw+KXOZWWAUwW
+         OYLYX2VfHZwfYbzgLcO2y/keKTD8c7yPwf7oLrDHhTU8bC7Nku+MAMBjuVKq+kmseYo7
+         upky7oAnN7B6Il1NM7IdZSNH788zBAJqvH6gZk6sDyvg8+fLYQ2CpJFBxbu/o3b9TRnD
+         RCZQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwWpDMgNKmFmWx+ep7sWc8bKrujAzA2EZhJuBxo71wRfabzlBNbA3KVkWcfWoGe5p4hrcVIOVb+hu1U0tA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lOkyfv1XSBWApqzyzWfP8q5rl2zd6VlQ/IM1m9iyZvjZtwvVFI
+	gCwaA5oxgajlntONfh9KvBxPCn7jvZ5u4apZka019eBx9jgXs2n3qDMT
+X-Gm-Gg: AYBFou3VkYi9iwy+QDKzcsGEuy7PN9TXFHYguD/mskuLxOBXhOsTe8aJ1ThC5EU5zGU
+	y62v1XcABjJDidlp7RN9TQ5ODDuPozAoxY9CZhkQqsw5Qcyqys+8dJRlEmYOR4koQ8Ub+1gOAwb
+	ZPVGSGHKnguwNRGMrQ9TCBvfJ34M6uqlsK6CFUvbn6qwr/5VS9lpsoilGw8H+AemCl+DTepldpF
+	4hpbe2Pnw1L+0kE1ibGr87gLwlc5XoTmpW1/55B52zZ7LwX/qyCWUxhtx94CsmfDps74vvZ9OEJ
+	fxl10WeYcsfglrgIMBPcedxWoAPjIR9OvG6BFqbkttbcF/oAXubI4XRcbImdAw9CIIgpDo0A8TN
+	7pXaOOg4Sm5Bws5pA9zzrG/E0YBrOdgyHY48GO5RHGuMblBo0H0Z/kaa3Oytd2SEY/lWoOfpR8K
+	YkAarp83KaK14Vmh9v5QrBRYEMD2JijYBevSo5qo1BK+Yx9ixTjHVzbRmRKS/R1MWkiJC6aW77D
+	nKBd1Qh2i1td6Lp6r37HoDj1uKtoNj05XZKozGX2UB2dGeZU0esD1gL4ZTcsjOODqE=
+X-Received: by 2002:a05:693c:2418:b0:353:5d25:1de2 with SMTP id 5a478bee46e88-3535d252434mr829490eec.18.1791485661829;
+        Thu, 08 Oct 2026 11:54:21 -0700 (PDT)
+Received: from sohail.tailed9083.ts.net ([2401:4900:88f5:9a17:907:5511:a10:cf56])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537b3f9588sm332288eec.14.2026.10.08.11.54.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 11:54:21 -0700 (PDT)
+From: Mohammed Sohail <mohd.sohail.biz@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Mohammed Sohail <mohd.sohail.biz@gmail.com>
+Subject: [PATCH] staging: rtl8723bs: remove extern from recv and sta_info prototypes
+Date: Fri,  9 Oct 2026 00:24:14 +0530
+Message-ID: <20261008185414.160922-1-mohd.sohail.biz@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -36,55 +73,88 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAC3uznI5sdqEusQCg--.13998S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7uFyxAry8Ww43tFWrJr1rCrg_yoW8JF4xpF
-	48Kw1jkrW3Xw4SkF4kt3Z0ka1FqayftrW5tF4293y3uF95C34SgF15try3CFWrAFWkG3Zr
-	tF4DtFyDZFs8ZaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUklb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
-	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVAC
-	Y4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVW8JV
-	WxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_JF0_
-	Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxV
-	WUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI
-	7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r
-	4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI
-	42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7IU59o2UUUUU
-	U==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAQOA2rHpfWQvwAAsX
 
-efcport_init() creates efc->node_pool and efc->node_dma_pool before
-allocating efc->els_io_pool. When the latter allocation fails it returns
--ENOMEM without releasing the node dma pool or the node pool, leaking
-both. The caller efct_efclib_config() only logs the error and
-efct_device_attach() failure path never calls efcport_destroy(), so the
-resources are never freed.
+Function declarations in header files are implicitly extern, so the
+keyword is redundant. Remove it from the prototypes in rtw_recv.h and
+sta_info.h to follow the kernel coding style.
 
-Destroy node_dma_pool and node_pool before returning from the
-els_io_pool allocation failure path.
+There is no functional change.
 
-Fixes: d7b71fd2195e ("scsi: elx: libefc: Emulex FC discovery library APIs and definitions")
-Assisted-by: DeepSeek-V4.1-Flash
-Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
+Signed-off-by: Mohammed Sohail <mohd.sohail.biz@gmail.com>
 ---
- drivers/scsi/elx/libefc/efclib.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/staging/rtl8723bs/include/rtw_recv.h | 16 ++++++++--------
+ drivers/staging/rtl8723bs/include/sta_info.h | 18 +++++++++---------
+ 2 files changed, 17 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/scsi/elx/libefc/efclib.c b/drivers/scsi/elx/libefc/efclib.c
-index dd3e3d0a4761..ceec0e2a0266 100644
---- a/drivers/scsi/elx/libefc/efclib.c
-+++ b/drivers/scsi/elx/libefc/efclib.c
-@@ -50,6 +50,8 @@ int efcport_init(struct efc *efc)
- 						sizeof(struct efc_els_io_req));
- 	if (!efc->els_io_pool) {
- 		efc_log_err(efc, "Can't allocate els io pool\n");
-+		dma_pool_destroy(efc->node_dma_pool);
-+		mempool_destroy(efc->node_pool);
- 		return -ENOMEM;
- 	}
+diff --git a/drivers/staging/rtl8723bs/include/rtw_recv.h b/drivers/staging/rtl8723bs/include/rtw_recv.h
+index b2a863e4d6ce..27d480f58516 100644
+--- a/drivers/staging/rtl8723bs/include/rtw_recv.h
++++ b/drivers/staging/rtl8723bs/include/rtw_recv.h
+@@ -307,14 +307,14 @@ enum {
+ 	C2H_PACKET
+ };
  
+-extern union recv_frame *_rtw_alloc_recvframe(struct __queue *pfree_recv_queue);  /* get a free recv_frame from pfree_recv_queue */
+-extern union recv_frame *rtw_alloc_recvframe(struct __queue *pfree_recv_queue);  /* get a free recv_frame from pfree_recv_queue */
+-extern int rtw_free_recvframe(union recv_frame *precvframe, struct __queue *pfree_recv_queue);
++union recv_frame *_rtw_alloc_recvframe(struct __queue *pfree_recv_queue);  /* get a free recv_frame from pfree_recv_queue */
++union recv_frame *rtw_alloc_recvframe(struct __queue *pfree_recv_queue);  /* get a free recv_frame from pfree_recv_queue */
++int rtw_free_recvframe(union recv_frame *precvframe, struct __queue *pfree_recv_queue);
+ 
+-extern int _rtw_enqueue_recvframe(union recv_frame *precvframe, struct __queue *queue);
+-extern int rtw_enqueue_recvframe(union recv_frame *precvframe, struct __queue *queue);
++int _rtw_enqueue_recvframe(union recv_frame *precvframe, struct __queue *queue);
++int rtw_enqueue_recvframe(union recv_frame *precvframe, struct __queue *queue);
+ 
+-extern void rtw_free_recvframe_queue(struct __queue *pframequeue,  struct __queue *pfree_recv_queue);
++void rtw_free_recvframe_queue(struct __queue *pframequeue,  struct __queue *pfree_recv_queue);
+ u32 rtw_free_uc_swdec_pending_queue(struct adapter *adapter);
+ 
+ signed int rtw_enqueue_recvbuf_to_head(struct recv_buf *precvbuf, struct __queue *queue);
+@@ -431,8 +431,8 @@ static inline s32 translate_percentage_to_dbm(u32 SignalStrengthIndex)
+ 
+ struct sta_info;
+ 
+-extern void _rtw_init_sta_recv_priv(struct sta_recv_priv *psta_recvpriv);
++void _rtw_init_sta_recv_priv(struct sta_recv_priv *psta_recvpriv);
+ 
+-extern void mgt_dispatcher(struct adapter *padapter, union recv_frame *precv_frame);
++void mgt_dispatcher(struct adapter *padapter, union recv_frame *precv_frame);
+ 
+ #endif
+diff --git a/drivers/staging/rtl8723bs/include/sta_info.h b/drivers/staging/rtl8723bs/include/sta_info.h
+index 21a4ca841e6e..8a873e7d799c 100644
+--- a/drivers/staging/rtl8723bs/include/sta_info.h
++++ b/drivers/staging/rtl8723bs/include/sta_info.h
+@@ -304,19 +304,19 @@ static inline u32 wifi_mac_hash(u8 *mac)
+ }
+ 
+ 
+-extern u32 _rtw_init_sta_priv(struct sta_priv *pstapriv);
+-extern u32 _rtw_free_sta_priv(struct sta_priv *pstapriv);
++u32 _rtw_init_sta_priv(struct sta_priv *pstapriv);
++u32 _rtw_free_sta_priv(struct sta_priv *pstapriv);
+ 
+ #define stainfo_offset_valid(offset) (offset < NUM_STA && offset >= 0)
+ int rtw_stainfo_offset(struct sta_priv *stapriv, struct sta_info *sta);
+ struct sta_info *rtw_get_stainfo_by_offset(struct sta_priv *stapriv, int offset);
+ 
+-extern struct sta_info *rtw_alloc_stainfo(struct sta_priv *pstapriv, u8 *hwaddr);
+-extern u32 rtw_free_stainfo(struct adapter *padapter, struct sta_info *psta);
+-extern void rtw_free_all_stainfo(struct adapter *padapter);
+-extern struct sta_info *rtw_get_stainfo(struct sta_priv *pstapriv, u8 *hwaddr);
+-extern u32 rtw_init_bcmc_stainfo(struct adapter *padapter);
+-extern struct sta_info *rtw_get_bcmc_stainfo(struct adapter *padapter);
+-extern u8 rtw_access_ctrl(struct adapter *padapter, u8 *mac_addr);
++struct sta_info *rtw_alloc_stainfo(struct sta_priv *pstapriv, u8 *hwaddr);
++u32 rtw_free_stainfo(struct adapter *padapter, struct sta_info *psta);
++void rtw_free_all_stainfo(struct adapter *padapter);
++struct sta_info *rtw_get_stainfo(struct sta_priv *pstapriv, u8 *hwaddr);
++u32 rtw_init_bcmc_stainfo(struct adapter *padapter);
++struct sta_info *rtw_get_bcmc_stainfo(struct adapter *padapter);
++u8 rtw_access_ctrl(struct adapter *padapter, u8 *mac_addr);
+ 
+ #endif /* _STA_INFO_H_ */
 -- 
-2.25.1
+2.55.0
 
