@@ -1,243 +1,231 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010005.outbound.protection.outlook.com [40.93.198.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05BB13B19B6
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 17:20:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A4DB3B1EC0;
+	Thu,  8 Oct 2026 17:21:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.5
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791480020; cv=fail; b=MLibalBXg7NQxHdLZAR5ZaPEuXowlM/eP6Rp6gyeFRNDnIGVWJGKxkkcrp0qWUUrskE1EuBpBswUwgyZWKK8L2R6I/Pglb07HPqchXTQ2850WAO2xvmAQ//6K5nbaTQDSqG3h9HiyKH7lGJeKky4I6uWX29J7Hs+iIApBbBBmSc=
+	t=1791480089; cv=fail; b=aE+P9s6bsVaD+2HmoZ6Kt4MHCDpd1rCUffNStCbKGFNcW8Lvx7MdcjhRNm8zpYNivqHWbwloFUiTc7bbrzQN0ys9+ho/9vVUPyKmb5PxI2m0HrqKqEqY4cmeqWBafCm6q7Txxnfy1j/JmOY+BlR1sZ8tEK2qlbM5yNYWYB85Zxw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791480020; c=relaxed/simple;
-	bh=3K766AA+ZcZO4lsj5hrJ9ertveLBmZp7KB/qw5pA8IU=;
-	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=gw6dJbrJDHU4Xwa7Xp2IMPD8s8qJgFcETHFnFBXhpUck1npVHXQSNoV1FwA3/7EJicPy5Tfxwtr+u6NnRY6/2FUsXvNuHv3FT4kmCc9YHUgnZ4bX3KB+yno6ufwBTx1vFPjXb66YUjs+s5XdgoOjo6+/ZR3P282ZjqjWe98fK0g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BDdNbTDj; arc=fail smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791480089; c=relaxed/simple;
+	bh=mKBpiUlzu+06xui2M7M5TFj3CxmEUJGqecWqzojbQ3Y=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=hWO7tfVEmaPO8jpLp0CKpDFxmbJAGCT03JkMBYFcXfYRdP8QacBnGk8BroXIuY7+OO2t6Ma//sFBJ2+g8cjYjueYNDj+tdBH0Wc6oH9pJlYuv6JmnzTN/WVsJBlQ6mOrX/Aml2W4zDZ909idXbqWaf4DVAPGNxahdM3iXT+I96I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=FB5zj6R/; arc=fail smtp.client-ip=40.93.198.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BDdNbTDj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791480019; x=1823016019;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=3K766AA+ZcZO4lsj5hrJ9ertveLBmZp7KB/qw5pA8IU=;
-  b=BDdNbTDjn961kWXu80YKBGQKfgyMUgdvL4qun5UJDIWA1E0za7XelRNJ
-   pnB7E23koVG50uqAob4LalWK4vkAFgHtAbaz/tMXCQTQ8neMzFrRuqp7R
-   i7p+X9EHHMHYHhAoirQj8ArLCbL8oOumfkaPn+4KAg/ycYrD8xSyA303a
-   7IvetP/dbbmX/YwjRizHtBHNIX+sm0lWbIKShGlnHi8VB6rSKhXQxvBCM
-   DunbEtdtbjjc00ae5HmRlhWY6uUhLEBtrB/ldPdRrNO6uui70TyjAD4C2
-   RjLKlXgiq292CiTX0yx3ptl6v0oOn4a4UESq2+F+3iKILoKN8X7d2+jB8
-   A==;
-X-CSE-ConnectionGUID: c3soqH/YQDG/qVXcYmCwZw==
-X-CSE-MsgGUID: LDr+RrgxSUWqEgRMc6Xguw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="151486"
-X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
-   d="scan'208";a="151486"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 10:20:17 -0700
-X-CSE-ConnectionGUID: jOWCvXU0TP+evzrsHT7DdQ==
-X-CSE-MsgGUID: xXju/Ns5Qje17srnPScEFw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
-   d="scan'208";a="191663"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 10:20:16 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 8 Oct 2026 10:20:16 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Thu, 8 Oct 2026 10:20:16 -0700
-Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.69) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 8 Oct 2026 10:20:15 -0700
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="FB5zj6R/"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=G5TXZihnVhXaokfZ3U0LN1LrZgPdmrcGb+BBtuFZelpOV27ZKbdxLOS2a0uItkbD0CBKmyQmsavYqJ3taXd14/QdNRNMPp7M2JQpXI5yBPma+zrlWIo0j2DNGagl5Ck/tEUnR3IrneQhPzzJ40bpevMI4kmeWhWG9qT51cd70mfnTk10P6iK7j4g8d4ayT47D50JYxA7524i5Qj8zz2I4t8yRost1/5hMUeryMTuEhxn3J2ji7NVAep5qXfIR0P2n7XlgyTrKnXoZLea3+f0RP7yxClpKGBpxrVcwBWWfTmMyzGSBO5GwZTrUPvhj7UYqP6XJ1o7HOfan5pA3ma7Dw==
+ b=xVuIsW1rmN9y+BHlMs8Fcb3lSiD86lpDInCdLRCz+S5S5WuyzHETIevWM7vA/nTFNvLYWhzESq/st/z7d/s99MWDZq+T3+YxRuwzAaJfWBlRoAn6q0dBbA1/6nPzosB6u7BHhPs3mCtyAv/0gJJoB7WAD2196jaPUu9gVa122cD/9bDnlaBjEptvSIcYHTJ+G5wQ2fxyQXHmzR7ZHKf1Sdp4ZjcUWl2/CvGKvo4TxaVGhxrXx18MruKyrKhHfz+GoOjpiGO9PlOsl0w0OcjPR0I6gzNj4nzz7D9BBjsMBPXrsOIoZMIyXCxtax3ou8Oeq+0N2AcSWROwdCsJxFWn5A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cF7d0SfSFlJ3dA281XGo6Jf8gBjeh0xWKhgDotme2WI=;
- b=muoanNqQekDTiBW+JD17Cf49fwMAXV+QeYuhfEkaQ8k1lK8zTOmco6uW6quB+aO2pZosaLu212+IZpKjKhorNoA4qt6mq+Pf9w3GzezLqd3kb/z/JCHW3ryGqq9foS72PaWowt78DMPpS8BFaYHf9mZn8Xfh8qQq+7CKfEFcyD3ulIMh5NKrWraHcGW7x+UBs2GRTdPG4LBI7iXOl9XdefQPuydK11WWsmuL8j5vDAd0nyTxJ3jDnIMB737JIhohhGfXVtCQJMU14RUyOgXXTFqH/FfyrZpPReTbigfY59/2ih+u7jVhUhOIq1V3fxhfEcXTapLUyg2H9S7sx5OASg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS0PR11MB8230.namprd11.prod.outlook.com (2603:10b6:8:158::21)
- by PH3PPFF8C186950.namprd11.prod.outlook.com (2603:10b6:518:1::d62) with
+ bh=movjVmX+BLgqTq/bKnU88oxquynLkbd7ALz9g7ntxyQ=;
+ b=BHdHS4vBQczhQnxUvesBE3QP9w2WB8dD8xMfMs0VA1uHgK0GAd3EjvqRHL5Xa1qKyBIiiviU8+n1TiG14e6mJE3vmOsOiIGhgIFpXcB7o/g2JTBs9VorhXIJYoA8l4oEsepHqa+z5DVNTHd17tNXUjLXJYPlvj2YaWhkuWt4K9xmpG3q6PksvzDql5JpaRkg2BqrJe6TfEAmp2Js4sjU6rFlubP8DlEddj2g5Z5QaydC8lmvpVkgfkB6m24EvWFTL6P932L/GhIgfwNTLb6R7DnLR5e5DQlWqlFuLCVVmsTFly7PNs0epZxn3PqQu26wJxIPKUSb9/+LM1x0utKH7g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.118.233) smtp.rcpttodomain=lunn.ch smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=movjVmX+BLgqTq/bKnU88oxquynLkbd7ALz9g7ntxyQ=;
+ b=FB5zj6R/RB85MmYzUbxdF8zriEY/JdcMiomRuPKL+PF75W+uycQ/3yUo+7emt2jHgghtYm5Efs0bOTeNUl/NMfkxbpfNIKv3o2GurUa8/3o7528rgudSduLgWpXJRwv4pZL7QZSHZTLX/bnJjYM/cvyo3/QqwU2waVLtkQHYp63cXkRbABkw95ZhevHj7XenN0C2eiCO3BP5JWSEd3F1RWrFzGrP+CZej0qArDleSovsIiDI2eoGpYHx3GIC7GJBXU1J+CpzmK14PNBDmDhqjBNVdZCdLQwlt7G4H4u6AqO5r1Wn2eEy9yvbcs2sXhcThiv8bzkTVTHAlF6zsQGZDA==
+Received: from CY5PR17CA0027.namprd17.prod.outlook.com (2603:10b6:930:17::26)
+ by CY5PR12MB6371.namprd12.prod.outlook.com (2603:10b6:930:f::14) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Thu, 8 Oct
- 2026 17:20:08 +0000
-Received: from DS0PR11MB8230.namprd11.prod.outlook.com
- ([fe80::2592:f5a9:a751:be40]) by DS0PR11MB8230.namprd11.prod.outlook.com
- ([fe80::2592:f5a9:a751:be40%6]) with mapi id 15.21.0496.010; Thu, 8 Oct 2026
- 17:20:08 +0000
-Message-ID: <b49ed175-5777-4578-9ee4-5d820450e133@intel.com>
-Date: Thu, 8 Oct 2026 10:20:06 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] i40e: fix integer overflow in i40e_dbg_command_write()
-To: rivaldihormat-debug <rivaldihormat@gmail.com>,
-	<intel-wired-lan@lists.osuosl.org>
-CC: <linux-kernel@vger.kernel.org>, Aleksandr Loktionov
-	<aleksandr.loktionov@intel.com>
-References: <20260908153933.2417-1-rivaldihormat@gmail.com>
-Content-Language: en-US
-From: Tony Nguyen <anthony.l.nguyen@intel.com>
-In-Reply-To: <20260908153933.2417-1-rivaldihormat@gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4PR03CA0233.namprd03.prod.outlook.com
- (2603:10b6:303:b9::28) To DS0PR11MB8230.namprd11.prod.outlook.com
- (2603:10b6:8:158::21)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Thu, 8 Oct
+ 2026 17:21:18 +0000
+Received: from CY5PEPF00000E7B.namprd02.prod.outlook.com
+ (2603:10b6:930:17:cafe::96) by CY5PR17CA0027.outlook.office365.com
+ (2603:10b6:930:17::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Thu, 8
+ Oct 2026 17:21:16 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.118.233) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.118.233 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.118.233; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.118.233) by
+ CY5PEPF00000E7B.mail.protection.outlook.com (10.167.247.43) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Thu, 8 Oct 2026 17:21:15 +0000
+Received: from drhqmail201.nvidia.com (10.126.190.180) by mail.nvidia.com
+ (10.127.129.6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 8 Oct
+ 2026 10:20:53 -0700
+Received: from drhqmail202.nvidia.com (10.126.190.181) by
+ drhqmail201.nvidia.com (10.126.190.180) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 8 Oct 2026 10:20:52 -0700
+Received: from vdi.nvidia.com (10.127.8.10) by mail.nvidia.com
+ (10.126.190.181) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Thu, 8 Oct 2026 10:20:49 -0700
+From: Tariq Toukan <tariqt@nvidia.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+	<kuba@kernel.org>, <netdev@vger.kernel.org>, Paolo Abeni <pabeni@redhat.com>
+CC: Carolina Jubran <cjubran@nvidia.com>, Gal Pressman <gal@nvidia.com>, "open
+ list" <linux-kernel@vger.kernel.org>, Shahar Shitrit <shshitrit@nvidia.com>,
+	Tariq Toukan <tariqt@nvidia.com>, Leon Romanovsky <leon@kernel.org>, "Mark
+ Bloch" <mbloch@nvidia.com>, Saeed Mahameed <saeedm@nvidia.com>, Dragos
+ Tatulea <dtatulea@nvidia.com>, Simon Horman <horms@kernel.org>
+Subject: [PATCH net-next V2 0/5] net/mlx5: Introduce mlx5_nodnic, a driver for DRAM-less NVIDIA Mellanox NIC functions
+Date: Thu, 8 Oct 2026 20:18:15 +0300
+Message-ID: <20261008171821.660739-1-tariqt@nvidia.com>
+X-Mailer: git-send-email 2.44.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR11MB8230:EE_|PH3PPFF8C186950:EE_
-X-MS-Office365-Filtering-Correlation-Id: efec1c81-124d-4a93-2f9a-08df256066cb
+X-MS-TrafficTypeDiagnostic: CY5PEPF00000E7B:EE_|CY5PR12MB6371:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4e91dcbe-68c7-4105-3290-08df25608f35
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|56012099006|10067099003|11063799006|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info: ZxdOLvk9buXyoxkH+SS+dOVmnYBYrGPgUoCoUd767pnob3XcVJNB6N6S2XkUbVOcu9HtMSqjNxKTL42hIaHaXhGQb9Pni2ViO/fAMK1/FHgrXNNqHekaW2UeNbbSfrve/2Q1mTXkvypm6CQ3alhl02fFIxpAJhqvdPcOScc6qh0KQiTMUkVl7IsHA2dQbJXxDb0fNTQ5iScLZc/8XBsDsKNexy3ybQIk7m3vOA7aSGrOSngLKkx0SOD5dlVRXmoY0Q+a68/X5y9OdY9FRZa6OytGHBig41XIo6Z3i9rVHcLnw80MqZVu3BU+AqxJ47fXOekrfhpZkAD0rX0RIkCNgQByrQGu92Wi3tTJ0Z098MRn+QFhhJGztofmVDPVpTE/scdZVqPCzxqaZVVpe/ru0wyvT03s10q7HgE4ZAKKuOk3lJRv6TM8/toJoeInRXuNFBWTNkPkPsFKWLAz1EDcSueNTWtuzTCow08j2vXb+trU7Hi3Ty46yV5338qhTNycW9ekWEylMRop9gNjsFyM/QqzCFa8BcpL4MYT7aJkclDEa/DSgEnxYijewzTKAEOG+VVgzzRsrTaC0fEcCW4Pqiel71bTjBGKlNVi+GIsrgM+oPIMC0YqK9Sdlh6sRtZshafBhiT4eoCewJiUr39uubVyepi6zlnW6eDujL7eN3Q=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB8230.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(56012099006)(10067099003)(11063799006)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|36860700016|30052699003|376014|23010399003|82310400026|56012099006|5023799004|11063799006|10067099003|18002099003|6133799003|13003099007|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	fma45CkaDVTfUd3wLjkvE/Vm2kAwbztj8Nm68F/HaktDhRZBNK+XBY6VrepHPAoyMgkKiG7WHh3IBzuwhyikWj7Sa/sDxe0zUSgozayv2jLZLMRXKTJLa/Iomu6Diqv31CuZye+WBvv8P4xch4/OHFF8EZhw/YMaVvEfPmz160IoUhIxxiMh1N0k4VvqU2xmLUPCBOGZT89HHEvBOHhR287Moo7mqoa+yXgOjMG9oWbScoiPh3Ur/b/s2tjxb+b0wo+Glk2jFCucDP3/Qs76OW4ZTSOniYwqZTBaqRgewYJJ8cGUcr6FLcSynbUBhpGvPlgmR9/YJiS7uRk1t1ubrFvSjLJ1QvanB34XDhXCZHL2X6rs+YJWPrVuQhPimnYwyy8xRvp/kl0LBdnzbwoSXfWyItF2wj9lakhKZCWAMUDwHXiMxEkrJpsPbzDWcmP62wWwEcA7k32Gu/xMAbVtwhxj0H+3ur5rZrzYotAEr0gObmrDcKpw3TAfYxJg6U84j/kXJJcif2xhnaCUtkb3mKnsps9EgaUKn2T5j6mNAhMUEZBkH979nrsPUxfeWPjUq/O4714AasfGlxMvUM5T/tIzGcvNr+YiOQ7QBEVE4eirEPjTOw21fQ6QyfC/uh8mIMr6SLb3I9zTUHqvx+1ZmjVfNrflqkJzUwHnT6WG7uUrg1SvJZKVX4v2TkZ2Jschr4PVwhHZ0ZDXHKM0gDH2hg==
+X-Forefront-Antispam-Report:
+	CIP:216.228.118.233;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge2.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(30052699003)(376014)(23010399003)(82310400026)(56012099006)(5023799004)(11063799006)(10067099003)(18002099003)(6133799003)(13003099007)(3023799007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YzN4YVVRYW5oclZMZUdySXVGVWVTVUxaU1RqaXVpNHFRNERjRFM5d0JHV20v?=
- =?utf-8?B?UVRQYUlZNkRmbXBxblJJaW1zL3dQUkJES3VGQjNlN3VwNnd4bjBFMGlNM3dS?=
- =?utf-8?B?dWhZWXJyZitFK2tMcjBMVFpaN09LQUNwdjNRSmRKZXhYNjRPdURMMzlXUkRC?=
- =?utf-8?B?djJjM3YrOTBJQW1uYTZHWVNndDRrbktUZHp6dXdzclQ3em5CYS9OaTFFT1JL?=
- =?utf-8?B?M29zc2NKVkFhSUFxbnpva2M3TjhjUlhnUnRuSHNPYkxCWno4c0x0djRJblN5?=
- =?utf-8?B?NldpRnc0OW00SzBLQ2RCaFU5OWdLdVRQSFgwaDVMOTNiZVZud005OVEvTVdB?=
- =?utf-8?B?N3gwak8yVXRkWGlaWjM2TExFeXF1azV3UlRkUmRjVDhNcTRnYUwzSGcybEFV?=
- =?utf-8?B?WlZHM0I1TFk1ZlAxUWNzOWVVNk1FbjJ2ZC9hYU5GTUxQeFpZQjBsQlZjeEcx?=
- =?utf-8?B?cU1SRTRtS1phMVRVN01xWDZkQ214ZDVLbjFRQzhkSEdrNVNnaDJ6eWxleFBw?=
- =?utf-8?B?SXZaUG9RbTdvWXNaQVIxdWpuSnEzclp1WnN4Yy9Nb2E4aDBnMWVlQWF1Uy9t?=
- =?utf-8?B?bytjOC8xWXVZRzdEL3VOWk1oSEtSV0hHQU9wR04zazhPb1puUElIQTc4bG5F?=
- =?utf-8?B?czF3Y0RQejNsTVFQb1FMdzdBOFFEbVErRkFKYkNKRisvd0grc2VtM0Vpb0Fz?=
- =?utf-8?B?UzZiRG94Wnl4SEMyREkvVURaU3F0VGxyZ2pBQ3h1YWNLeHhyaU0ybkNVSkpP?=
- =?utf-8?B?QXRKb2QrUGhHYkZyY2Q2UlRlQVFyVkVob0d3cjBDWWNlLyt0WXp5T21BcUc2?=
- =?utf-8?B?aHFOcXVuSjI5YTJBVjFERUxwVDdXS2t1K2JsT1l1SzR2Y3h6L0NGS2pnN2Ry?=
- =?utf-8?B?cm02aUJNeVViVmlqcHJYUzVpcExUUG1sbEFzK1p4a294dkR5UlZNM3MvZ3hm?=
- =?utf-8?B?dkw4dEtVNHRIZTRmSWtXWFBJQ3ZDL2x0RVptQytoYnBiSUxiNHhkalB2T0kx?=
- =?utf-8?B?OUw3ZkJVUTI0VFdObUJWVzIzYmYwZ25aenNoaHBhUmZ2eHg4Yi96Y0lXSlRl?=
- =?utf-8?B?UGVRYWpkMEk4MWZqc2REM3lWTTIyaFlPa2wzM0ZMVm4zYmJWbDlEbzlnR2x4?=
- =?utf-8?B?RkRjK2NWK1lCSXZMQVV1OUhyUDlVakZZUGdTNnBkTkRHSURKU0tiUU4veVpV?=
- =?utf-8?B?U3ZtK3JheHVBOVdnekFDZU9PWVY1R3pINkIwek9leW54cWdodmVSRlM5bnJL?=
- =?utf-8?B?dUNpUzRJNmJLRFVkcHdIUXJzTGVaZWVZUGZLOXdBUTdiZCttVjRPVWNidm1S?=
- =?utf-8?B?aUw3dDM1eCtId0UvK1pwT2Z3R1BGUEZhWUdXOVpBSWFQOHBZMEd2ZVZWZSs5?=
- =?utf-8?B?ZlR5SkpxcUZFTEVsVkE0N3RwYmY1T0lPLzczL1g0bTQzckozRG5CdGxvaEd5?=
- =?utf-8?B?U3FrOW12N2FNZGVsK3FzWUNnY2NUU1VOWHhMM2pYcjhnMmtqMVNnN0h6eGg3?=
- =?utf-8?B?MnRiNzAvRDhrbU81SG9VVG5MNWdvVHoyT1N0c2JTa0ZwMG9tQjl2S01mY1oz?=
- =?utf-8?B?cWhiY292eUppVHgrZ0dKYjZBWkMxQjhYeTdOVjlacUlUMFUxL2ZSd3FGd05o?=
- =?utf-8?B?MUsyeSt0alVXUHp2K2tGUlp5TnFmMkVYbkNOOThJZGkyeElzV3F2U0hraWZv?=
- =?utf-8?B?Wk1Sbkd1emlKL0UvU2JnZ2lyZkRBTmJCei9xUlhEMUhRVU1tZ0VoV280Z2NU?=
- =?utf-8?B?TExQVGN5dHQwN2pic0JDYWcrK1lvSVBsK0NOTjA2S2dxWnVLVDhwaGErWXM4?=
- =?utf-8?B?Umdac3V2MFJJNytVblVnanZJNnQ2dkF3SWNOTmJVNXFiajFqaFIybmxZdjdS?=
- =?utf-8?B?dkZSUGtQL0hnbWFRN0t6S0FoZHB0UWdObkFYSE16U1lzU1dOL29vQ2N4Uksr?=
- =?utf-8?B?S0ZIOVlpZzFFWERMM0UvUmpER1RyTmhSeU5WYWVVZXltcWkyL2RoN3BHL0hH?=
- =?utf-8?B?T1k4UU9LNVFLQ0c3Yk0rRTNDci9xSlVLWkF3a2xJMGZWays3NFdmWkJWWkk0?=
- =?utf-8?B?NHNjQ094MEpRSUp6bTFtWGc0cys1NW45VXU3NkV0SzIrU0Vhd3hzeXFocEZu?=
- =?utf-8?B?RVFBdUpENVE1ZzY5Q3JXSXlLMmtDTWl4ZnJGcnpQVHorWnEreS9NbTZBeFJW?=
- =?utf-8?B?SnArc3RYb0QvQ0ZIdjZBRUxHY2llTGVXdWI2ekpPTUVFTWp1RWplanBOZnYz?=
- =?utf-8?B?MmxsNWI3c1JwaU1pK3B0R3QwODZqaEVWYWxFWW91ampPeGNaL1FjaUwyVGlH?=
- =?utf-8?B?L0tFQnVLQU1TRWpLYWprSXNEYjhlMzF0YVIrZ3pMZElhWXlYaWlPS0IvSFoz?=
- =?utf-8?Q?zA1OdulSFadz5qLY=3D?=
-X-Exchange-RoutingPolicyChecked: OvDlMJUkppMT+d9FT93Qx1jdArrNW1514zlFWyuKLVGxTQHnrrDJgLI/pnhpyR/L2BAVlISPEskEVLgIk0MJ8pJVhmIxa/NCTaKqVYc/58+CsBGE4hpI0fajDOBBFmk19ytCIc3vVfXzua0lNUJD8KBpLCuvoYf+JbD6T5rTh4B2CFfQZhT0WDIcwJarJsszb+XEUzP0GMaj3oAht2TbH62nLqXszA+T/T5E1IIr84iIWIb9H7ofqvSR/6njRcMgPlH8u0zAXUjO2f2frXdV6hckpAtNemm+95MQ4CImut+DIbKQvLHjc0IXIv7JHr8OEO8j/blXZ/abSKpfj0hqrQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: efec1c81-124d-4a93-2f9a-08df256066cb
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB8230.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 17:20:08.3860
+X-MS-Exchange-AntiSpam-MessageData-0:
+	9n1ISevlNXvHE1G45NLzTWUFJeU8yUmpOfdOR+p4ZxBnXMqf5LhRS1CuH0obgwxHcZnblBrl3fFdNd2/vQpCghINFDwB04IxcSIoabHnNhnH9P8uiNGpOUSk0h/7n+it5T36OesfnFTUUAHEv7+qZ4Q8xKOB7/UN+DR9dV044GMKnM4atu7H+KryAZzIZaRFMmzVTBwbP/vEWks0yFea/yKT0FyIFPapHyfOnFgfvK17D42mTehPvo4Q6hRtY/xSkJJgrrCJ+Wq+mwWn9VxdwOfDIRs4dSFV84XVpZgVZjwaoIJskf1BW7J88/6Y1Eb/shTd6hdnSqha4zZ/I4OHjEbp8XxTAKo1MBEhh2iEcqeaaE2vPDfdIrpI0yPNg1s4io/LuZ5lq4UB/oPtyZE/E3vSnxVhg4/k6ufC7PrdB38jN30Mx1sNaNeGXzmnHQv2
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 17:21:15.8389
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EK5FWTUjfiBdqOkXMMOdRd7wJ1UMwxPM3ETVAV4FGCLwnR0cykhWhsMHzkU9lxCwspgm4Bo9wsYJ6g67/D5QhEWuZzDC3B4Hu7KD0sTXXeY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH3PPFF8C186950
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4e91dcbe-68c7-4105-3290-08df25608f35
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.233];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY5PEPF00000E7B.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6371
+
+Hi,
+
+This series by Shahar introduces mlx5_nodnic, a Linux driver for the
+NODNIC (No-DRAM NIC) hardware interface present in Mellanox/NVIDIA
+ConnectX-family ASICs since 2015.
+
+NODNIC is a first-class hardware capability.
+It defines a lightweight NIC function intended for contexts where local
+DRAM is unavailable or too costly: embedded controllers, management
+planes, pre-boot environments, or any resource-constrained instantiation
+of a ConnectX NIC. The hardware sends and receives ordinary Ethernet
+frames via SQs, RQs and CQs. There is no encapsulation, no private
+protocol, and no FW interposition: packets are forwarded as standard
+Ethernet between whatever peers are connected to the function. The
+interface is documented in the HW spec and has been in production in
+non-Linux OS drivers for over a decade.
+
+Where it is used today:
+- Embedded management controllers on ConnectX-class ASICs that need a
+  network path to the host without consuming a data-path PF.
+- Resource-constrained SoC integrations (no local DRAM) where a
+  minimal-footprint driver is required.
+- Pre-boot / early-OS environments (PXE, iSCSI boot) that need a NIC
+  without a full mlx5e stack.
+- BF4 management PFs (one concrete deployment): on BlueField-4 the
+  firmware exposes a NODNIC PF on the host side and a peer PF on the ARM
+  side, using standard vport forwarding to connect them. This provides
+  in-band Ethernet connectivity between the host and the DPU OS - SSH,
+  PXE, and any standard networking application work over it without any
+  special handling.
+
+Design notes:
+- The driver is separate from mlx5e rather than a mode within it.
+  NODNIC uses PCI Vendor Specific Capability (VSC) for command
+  operations - reads and writes over PCI config space - instead of the
+  DMA-based command interface used by mlx5_core. This is what makes
+  NODNIC usable in environments without reliable DMA access, and it
+  makes the two command paths fundamentally incompatible. Folding this
+  into mlx5e would mean carrying a second command transport and a second
+  resource model through code that is already dense.
+- A single SQ, RQ and shared CQ are exposed per function, with two MSI-X
+  vectors: the data vector fires on CQEs and drives both TX and RX
+  completions, and the event vector notifies on port state changes.
+  This is the hardware's model, not a driver simplification.
+- The driver exposes a plain netdev with no private uAPI, no ioctls and
+  no vendor-specific configuration surface. Everything is driven through
+  standard netdev and ethtool interfaces.
+- The code lives under drivers/net/ethernet/mellanox/mlx5/nodnic/ and
+  shares no paths with mlx5e, keeping the footprint small and the blast
+  radius of changes contained.
+
+Regards,
+Tariq
+
+V2:
+- Fix sparse warnings in the VSC accessors: use __be32 for the
+  big-endian accessors and drop the redundant le32 conversions, which
+  were also wrong on big-endian hosts (Simon Horman).
+- Cover letter: drop the devlink mention (Simon Horman).
+- Replace the open-coded bitfield macros in the VSC code with
+  GENMASK/BIT and FIELD_GET/u32_replace_bits, and turn the config space
+  accessor macros into functions.
+- Fix line wrapping reported by checkpatch --strict.
+- Add a MAINTAINERS entry for the driver.
+- Kconfig: select PAGE_POOL, fixing the build when it is not otherwise
+  enabled.
+- Drop inline from a function in a .c file.
+
+V1:
+https://lore.kernel.org/all/20260930125708.144767-1-tariqt@nvidia.com/
+
+Shahar Shitrit (5):
+  net/mlx5: nodnic: Introduce the mlx5_nodnic driver
+  net/mlx5: nodnic: Implement data path
+  net/mlx5: nodnic: Add TX/RX statistics
+  net/mlx5: nodnic: Add ethtool driver info
+  net/mlx5: nodnic: Add health monitoring
+
+ MAINTAINERS                                   |    9 +
+ drivers/net/ethernet/mellanox/Kconfig         |    1 +
+ drivers/net/ethernet/mellanox/Makefile        |    1 +
+ .../net/ethernet/mellanox/mlx5/nodnic/Kconfig |   19 +
+ .../ethernet/mellanox/mlx5/nodnic/Makefile    |    8 +
+ .../net/ethernet/mellanox/mlx5/nodnic/en.c    |  263 ++++
+ .../net/ethernet/mellanox/mlx5/nodnic/en.h    |  158 +++
+ .../ethernet/mellanox/mlx5/nodnic/en_cfg.c    | 1107 +++++++++++++++++
+ .../ethernet/mellanox/mlx5/nodnic/health.c    |  315 +++++
+ .../net/ethernet/mellanox/mlx5/nodnic/main.c  |  866 +++++++++++++
+ .../ethernet/mellanox/mlx5/nodnic/nodnic.h    |  105 ++
+ .../mellanox/mlx5/nodnic/nodnic_ifc.h         |  318 +++++
+ .../mellanox/mlx5/nodnic/nodnic_pci_vsc.c     |  343 +++++
+ .../mellanox/mlx5/nodnic/nodnic_pci_vsc.h     |   45 +
+ .../net/ethernet/mellanox/mlx5/nodnic/rx.c    |  172 +++
+ .../net/ethernet/mellanox/mlx5/nodnic/rx.h    |   25 +
+ .../net/ethernet/mellanox/mlx5/nodnic/tx.c    |  230 ++++
+ .../net/ethernet/mellanox/mlx5/nodnic/tx.h    |   61 +
+ 18 files changed, 4046 insertions(+)
+ create mode 100644 drivers/net/ethernet/mellanox/mlx5/nodnic/Kconfig
+ create mode 100644 drivers/net/ethernet/mellanox/mlx5/nodnic/Makefile
+ create mode 100644 drivers/net/ethernet/mellanox/mlx5/nodnic/en.c
+ create mode 100644 drivers/net/ethernet/mellanox/mlx5/nodnic/en.h
+ create mode 100644 drivers/net/ethernet/mellanox/mlx5/nodnic/en_cfg.c
+ create mode 100644 drivers/net/ethernet/mellanox/mlx5/nodnic/health.c
+ create mode 100644 drivers/net/ethernet/mellanox/mlx5/nodnic/main.c
+ create mode 100644 drivers/net/ethernet/mellanox/mlx5/nodnic/nodnic.h
+ create mode 100644 drivers/net/ethernet/mellanox/mlx5/nodnic/nodnic_ifc.h
+ create mode 100644 drivers/net/ethernet/mellanox/mlx5/nodnic/nodnic_pci_vsc.c
+ create mode 100644 drivers/net/ethernet/mellanox/mlx5/nodnic/nodnic_pci_vsc.h
+ create mode 100644 drivers/net/ethernet/mellanox/mlx5/nodnic/rx.c
+ create mode 100644 drivers/net/ethernet/mellanox/mlx5/nodnic/rx.h
+ create mode 100644 drivers/net/ethernet/mellanox/mlx5/nodnic/tx.c
+ create mode 100644 drivers/net/ethernet/mellanox/mlx5/nodnic/tx.h
 
 
-
-On 9/8/2026 8:39 AM, rivaldihormat-debug wrote:
-> The i40e_dbg_command_write() function uses 'count' from user space
-> in kzalloc(count + 1) without validation. If count = 0xFFFFFFFF,
-> integer overflow occurs.
-> 
-> An attacker or local user could trigger a buffer overflow or integer
-> overflow by writing large amounts of data to the debugfs file.
-
-I re-ran this through Sashiko and it reported a few things:
-
-Sashiko:
-Is this description accurate? count is a size_t. Before the debugfs 
-handler runs, vfs_write()->rw_verify_area() clamps it to MAX_RW_COUNT
-(INT_MAX & PAGE_MASK), so count + 1 cannot wrap on 32-bit or 64-bit.
-
-The allocation size (count + 1), the copy_from_user() length (count) and 
-the cmd_buf[count] = '\0' terminator already match. A very large count 
-only makes kzalloc() fail.
-
-This looks like hardening that caps the allocation size, not a fix for a
-vulnerability. Could the commit message say that?
-
-> Fix by adding validation:
-> if (count == 0 || count > PAGE_SIZE) return -EINVAL.
-> 
-> PAGE_SIZE is chosen as a common limit for debugfs writes to prevent
-> excessive stack/heap allocation.
-> 
-> Signed-off-by: Rifaldi Hormat <rivaldihormat@gmail.com>
-> ---
->   drivers/net/ethernet/intel/i40e/i40e_debugfs.c | 4 ++++
->   1 file changed, 4 insertions(+)
-> 
-> diff --git a/drivers/net/ethernet/intel/i40e/i40e_debugfs.c b/drivers/net/ethernet/intel/i40e/i40e_debugfs.c
-> index 0b52509cb14c..74e75504fdda 100644
-> --- a/drivers/net/ethernet/intel/i40e/i40e_debugfs.c
-> +++ b/drivers/net/ethernet/intel/i40e/i40e_debugfs.c
-> @@ -722,6 +722,8 @@ static ssize_t i40e_dbg_command_write(struct file *filp,
->   	int cnt;
->   
->   	/* don't allow partial writes */
-> +	if (count == 0 || count > PAGE_SIZE)
-> +		return -EINVAL;
-
-Sashiko:
-This changes what userspace sees. A zero-length write used to return 0 
-and now returns -EINVAL.
-
-The check also runs before the *ppos != 0 test. A write at a nonzero 
-offset that is empty or larger than PAGE_SIZE now gets -EINVAL instead of 0.
-
-Was this intended? If so, should the commit message mention it? 
-Returning 0 for count == 0 would match normal write semantics.
-
->   	if (*ppos != 0)
->   		return 0;
->   
-> @@ -1605,6 +1607,8 @@ static ssize_t i40e_dbg_netdev_ops_write(struct file *filp,
->   	int i, cnt;
->   
->   	/* don't allow partial writes */
-> +	if (count == 0 || count > PAGE_SIZE)
-> +		return -EINVAL;
->   	if (*ppos != 0)
->   		return 0;
-
-Sashiko:
-i40e_dbg_netdev_ops_write() has the same change: empty writes and writes 
-at a nonzero offset now return -EINVAL instead of 0.
-
-Tony:
-For these last two, we should try to maintain existing behavior when 
-possible and it seems to align with general expectations.
-
-Thanks,
-Tony
-
+base-commit: 8df0638138d3e0344fd1fb36cf2d1ca1cf5028f0
+-- 
+2.44.0
 
