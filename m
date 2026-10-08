@@ -1,301 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011030.outbound.protection.outlook.com [52.101.62.30])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E30BC2D97A6;
-	Thu,  8 Oct 2026 01:29:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791422963; cv=none; b=PzKeey1jZl7aiAnWmwYnQatiJOqxl9vkpb2O3IL+rMkE/6aaIc0OKxHtONUdm8Ttx+qQMJ6/WkabT0+dya1YnZe4jvm6rwYxp3UevWYSCy8onaRkFVJ6882SRyDhaGDjCSolZphUt5lM6R1ABUyUx+bKTCq5mF4zawd32uQ/qrY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791422963; c=relaxed/simple;
-	bh=yfDXx3ze8+BfqTcPwgZuz2Fb4cji2pJootKVZA4Ps0A=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=nndohW2Yl+ziOYnEpufEq4eZJ93VOfoIxYemSTfgEdYNkdoE79zkklCkxiRzdjMswtnelIb8Tfel18DMmT2O/iabg2vazHHOgDkg5YzGi1DkQlCI70V47ucLXRxMM4/4vFq0HPLLrz+bi2l7KYe7X4pQo9lL5Ubp8DIYKRiAoRY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YlHhpvVX; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A02D31E831;
+	Thu,  8 Oct 2026 01:30:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.30
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791423016; cv=fail; b=kEzSSFV82XOxa3N8LAc4HZEntriZDcWGjOxpxIQRxJRJqwJlbyDjFOYSQjCDt9lCCgNE0kJTFMHEAdiwLLCg4Rnqze9YcLQl7Sd5fW1yheVJECtzW/Oh88xqRZ4PYu4xyROW27DeOScXERhe/6UikDRfzIHqAbjx6poo3dUBB78=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791423016; c=relaxed/simple;
+	bh=zZkg7dwJr5D+cAqCF/OtDHKnfUVCaahTRIivKD6uXdM=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Wj0b6xTVM2DlsX8hfdQrJBX8Bnf+gIkwjR562Bv1OUj5SGu5YhnsrkRjjmluE7kZl9ZZbZZ+8Iiw2Udyopz3vjVTO7W1pATHxWGNbywumOi56kuAuhc3YG2sbMvFXTw4zgUfoaNTwqoPKVSjB0hj5JhVEijkTO9cNrLyAqUgFak=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=P9zZ7qXv; arc=fail smtp.client-ip=52.101.62.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YlHhpvVX"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 6BB70C2BCB9;
-	Thu,  8 Oct 2026 01:29:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791422962;
-	bh=yfDXx3ze8+BfqTcPwgZuz2Fb4cji2pJootKVZA4Ps0A=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=YlHhpvVXj7Gb1JdCYHRTqr+yRyHiimr4zvSfSKkrT5YEcD9xbUkPgYHpKHtmIlN8v
-	 Vz4JYl/NY4TC9c3ArrE20bXdjo/iqfrQQrPSK/UJhLRYXyMiCcVut5p4jPp7oNwkyw
-	 fvyKNjEPltPoOkxpTuOeP38V8ajVwZnuHIx9+NP6Jq0a9facvgvCAWYm6swdqeAMbu
-	 5TebaQhwSoJ1/4VpPEolj2QyFFBnCdc9mK6HxYGHSfC5RHKD3c6tUHfNq8/oh9jcxF
-	 OTTDdeNPW22XBvA3GlVLDuB/v1dVl+pfMzaLryZM0s9K2x343R+Yq/VF2JLIirTsU+
-	 LSmkfg0FOL9pg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 46730CA6004;
-	Thu,  8 Oct 2026 01:29:22 +0000 (UTC)
-From: Xiubo Li via B4 Relay <devnull+xiubo.li.clyso.com@kernel.org>
-Date: Thu, 08 Oct 2026 03:28:02 +0200
-Subject: [PATCH] ceph: check the caps of a closed file after
- caps_wanted_delay_min
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="P9zZ7qXv"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=D2DHWzd9WCIgASBvEqbC4Y6+cUkj0OPYBNy/zOwXVWxXbIausxfU0R/JmrBxsczboq53kOQmi3990GKW35lwVhNYW43fZndj3FNmgwtujdQoIMz4F12QwySK5nN1xGMkS7It2fgjssRJqjUr4r7zY/zwm7zlpfkcAbs0dGtgvTw2CI/yTory1/Q3DW6C+IgP2luFc0gu/jfbpyzAwfMILceh+X3Exb3KDGGIRdkAj6aFP5+IpD35LUf4ZYKgQ98sNTwrzAywu9eZAVXq1Aq32k7ymw32gPPTArBfo8KWaUFP2KsIX/Lotr1XLC3UP/odT8P+ehjcgghZtcrMZ6nWsg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=joVq/SLGYIR7p+H9WE/4a22MFuUDNP6W4nL5Y06B5A8=;
+ b=AJHTf2MWsjbttFMK5yT8NCZIj+Bi25Bkg+Wb1evAg95y6kS8C+uy8QCWJtnczwb6oj8BqP0Zfzi2pHIIMg057XrE7P5YDl4g8/KMqJv0BpdbpGkkbiFsoaAM68Ph8lrjMk+ORaY+FXqO7B0njU3cV0NvgZoLF0DM1g4hQGyHojex4jPla1glHn5rXWCIDnB56axKpGqFtj7SC8cgqngFTAUDPuCAtwocG3/0OhfEIKCTRIip9iu4YHlyBzdkC+YyaNQsi8ATzg4WjobaJRbIQgEiqz/holWWRCpE2qJ3+MnGDfhCwq+Vy1V3WFqAVTccOegyYAuoy0RDQ8qDU9MGbQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=oss.nxp.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=joVq/SLGYIR7p+H9WE/4a22MFuUDNP6W4nL5Y06B5A8=;
+ b=P9zZ7qXvOVOm59NAOOXYlIrT3kfPZQ8gFyviY9guztf+FkWz9NALX/TksCTVFeiRRRNTsrEcd9+svR90GnPTfWwS8zd2nzqd9uXzc+PqvxLes4O8t0X59s8VT0vr1bOxgOGyHfGPC7EpW5FUrBk6tl7DHKq8iaW1C06FENf7d2KoUUpKGsAh1N2CwItK1h8cSu5t8abGWoPTdzwzUpIOcPJ1OMKJGw2C9fdyKEkWEw9T78BKS6s58Q1IoQ3dH80LNEGjN+2SJTLmi5RdoWCKKdBX4Ic55STguOGx9ZRPZfAVtJTOdYhn1a5Pr+feND9zWbxgui5myGDU5xB7InJAyQ==
+Received: from SJ0PR13CA0005.namprd13.prod.outlook.com (2603:10b6:a03:2c0::10)
+ by DS0PR12MB7777.namprd12.prod.outlook.com (2603:10b6:8:153::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Thu, 8 Oct
+ 2026 01:30:08 +0000
+Received: from MWH0EPF000C618B.namprd02.prod.outlook.com
+ (2603:10b6:a03:2c0:cafe::14) by SJ0PR13CA0005.outlook.office365.com
+ (2603:10b6:a03:2c0::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Thu, 8
+ Oct 2026 01:30:07 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ MWH0EPF000C618B.mail.protection.outlook.com (10.167.249.123) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.496.14 via Frontend Transport; Thu, 8 Oct 2026 01:30:07 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 7 Oct
+ 2026 18:29:53 -0700
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail201.nvidia.com
+ (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 7 Oct
+ 2026 18:29:53 -0700
+Received: from nvidia.com (10.127.8.9) by mail.nvidia.com (10.129.68.7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
+ Transport; Wed, 7 Oct 2026 18:29:51 -0700
+Date: Wed, 7 Oct 2026 18:29:49 -0700
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+CC: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, "Joerg
+ Roedel (AMD)" <joro@8bytes.org>, Jean-Philippe Brucker <jpb@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>, Thierry Reding <thierry.reding@kernel.org>,
+	Krishna Reddy <vdumpa@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>,
+	<linux-arm-kernel@lists.infradead.org>, <iommu@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>, <linux-tegra@vger.kernel.org>, Peng Fan
+	<peng.fan@nxp.com>
+Subject: Re: [PATCH RFC v5 6/6] iommu/arm-smmu-v3: Wire up shared-SID STE
+ ordering and feature gating
+Message-ID: <asbyDdO5dInAkm63@nvidia.com>
+References: <20261006-smmu-shared-sid-v5-0-169a59c671d3@nxp.com>
+ <20261006-smmu-shared-sid-v5-6-169a59c671d3@nxp.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261008-ceph-cap-idle-release-v1-1-86e7a8bf36d0@clyso.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM0QqCQBCF4VeRuW5glcjoVcSLcTybE2LLTkogv
- ntbXX4Hzr+TIxucbtVOGZu5PZeC+lSRTrLcwTYWUxOaSx3ClRVpYpVU9hmcMUMcLGOM57aNqgI
- q35QR7f3rdv3fvg4P6Osbo+P4ACg/dn95AAAA
-X-Change-ID: 20261008-ceph-cap-idle-release-adff477fccae
-To: Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
- Viacheslav Dubeyko <slava@dubeyko.com>
-Cc: ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Xiubo Li <xiubo.li@clyso.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791422960; l=9360;
- i=xiubo.li@clyso.com; s=20260625; h=from:subject:message-id;
- bh=OclocnO6rE4KxWh+A36R6LcdaImZDTRAwTsJ6wxrIfc=;
- b=nEN2CbtzibM0U71oKuytrfYFNCuRvwdWj1ZxLT6YnFFctRMuyjLSzO/OM/XtrgNdB0DkdUz9e
- SLxXlgiwPLLBSNwbB05rSb9EftWKIgyiCSnLDpFSVlztDVb4e0393ZW
-X-Developer-Key: i=xiubo.li@clyso.com; a=ed25519;
- pk=V3NGr0AgAopiUhaLY51ipBkLN5LlcLhjOEfLEq1RoZ8=
-X-Endpoint-Received: by B4 Relay for xiubo.li@clyso.com/20260625 with
- auth_id=840
-X-Original-From: Xiubo Li <xiubo.li@clyso.com>
-Reply-To: xiubo.li@clyso.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20261006-smmu-shared-sid-v5-6-169a59c671d3@nxp.com>
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000C618B:EE_|DS0PR12MB7777:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5142d6f0-5127-4eb8-1149-08df24dbafe5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|23010399003|7416014|376014|1800799024|10067099003|56012099006|11063799006|4143699003|18002099003|22082099003|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	DpX4cpkh6zL8N4Blnb80iU2Oe8tCBzdCdUhnl7JdP7L+RI6aVLeaF0rZs0NAyUmLvZtP7RCjt0QTWo4FgIXmebfTEHKIAvonmHj9mz45gAUf2C2kqt5pFG/mAVS8/ICHxWLX6PlFwXqnlUYK0HIrcO2BUMiw/koV/XSFLjBH7mOojWabs99tdzZ29rYaXriklY1+zjt8ii1gINhMFjyi9OyKoDdGu7M6S9puTQLvRvP5IZFnC16+0TY0mSkrRtb2IQrv4YfwAM6pzO7TsBwJGgtkFFXvr7dxk88s+LRodsDj64hZZqKXKt1+5oDp6YiD0P1B0c/qxhPvI49tZMKwis7CQM29vr2774BnEHO2hxRE49CDfYBidGPZ0tt8izQTE473kY5BYugkltNErYWRidYjO+2BbMweor6lawO17frmK+TEnOY5pAOo1j5bvRdwNlwMJGf1eFJXvr7XbnTvb0gaY8bswK6zncJ+rV3as4/SqcUi5GicPsddUHLRc+DhhgyENvNLtWoc8rEFHgAgBAfmzSVH3rPUBXelhQSkG/tmNyhl7YMQfjB5LHAvKKUs/MZ7wnJMKJkJKVOQuI+j/roFn8wu24muuwH5FLUHXtdGNvWazFHbxzEn6gL0Pz5BW1ryTAWGOsvDIdC3FYHtxo6lZlZzlE6/QCXoiD+/vSIDItPb8RalFLZXFmvb1T3SIUvWURjHZidbGNO7jdMtdA==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(23010399003)(7416014)(376014)(1800799024)(10067099003)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003)(13003099007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	38BZNsELOLzUKEImALIA4TEkKVzmJxSucTzixo67kihIDmRdhBX+MRhR6MUaOehT3zuTSbETP4q4qRelHrC36Fo8Qu3VcFl3d/ooczovrpdQDd4ClZMFr8TVYECKBQ5vYHdImQALP32G8CrxDUltr0YOlfn0EbpDhOTTFeJlA9uwCYIe6spT5BUfU2vrz/ITov3IokHRDOhrEUvh+7sanw+ObXiwybnvWgcAq/zPLHE29yCZhUc3L5LVyjNOZfA+7U8fDL0D2WRyyMVDTgA+u846Yqhv8UR89I90EbXxxyOKoAKVuHb3V74DdrtSNstt+PjOeoF23pVgwgeQlgquZpRDB9N8nuoFTRhIw5HQ1Pvg0KvFBJMl9b4APwc8shn5vQNuipCInEmvnVNSAc364Wbf/vzUJz/SWOenmwZmPytOit7RxcRKyBgpwxAjWSxF
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 01:30:07.6360
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5142d6f0-5127-4eb8-1149-08df24dbafe5
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MWH0EPF000C618B.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7777
 
-From: Xiubo Li <xiubo.li@clyso.com>
+On Tue, Oct 06, 2026 at 08:19:12PM +0800, Peng Fan (OSS) wrote:
+> +static bool arm_smmu_is_shared_sid(struct arm_smmu_master *master)
+> +{
+> +	return !list_empty(&master->shared_masters_elm);
+> +}
+> +
+> +static bool arm_smmu_skip_shared_ste(struct arm_smmu_device *smmu,
+> +				     u32 sid, bool is_abort)
+> +{
+> +	struct arm_smmu_stream *stream;
+> +
+> +	lockdep_assert_held(&smmu->streams_mutex);
+> +
+> +	stream = arm_smmu_find_stream(smmu, sid);
+> +	if (!stream || list_empty(&stream->shared_masters))
+> +		return false;
+> +
+> +	if (is_abort)
+> +		return true;
+> +	if (stream->ste_installed)
+> +		return true;
+> +	stream->ste_installed = true;
+> +	return false;
 
-__ceph_caps_file_wanted() stops wanting the caps of a closed file once
-its last read or write is caps_wanted_delay_min (5s) old, but nothing
-checks its caps again before caps_wanted_delay_max (60s): closing does
-not call ceph_check_caps(), and the inode waits on cap_delay_list,
-whose check has always come at caps_wanted_delay_max.
+There is some issue here; check sashiko report:
+https://sashiko.dev/#/patchset/20261006-smmu-shared-sid-v5-0-169a59c671d3%40nxp.com
 
-Meanwhile the MDS keeps us the loner, so each stat from another client
-of a file we created first waits for the MDS to revoke our exclusive
-caps.  This is what makes mdtest-easy-stat in IO500 on kernel clients
-swing between 3.6k and 100k stats/s from run to run.
-
-Queue a regular file that still holds exclusive or write caps for a cap
-check caps_wanted_delay_min after its last close, on a list of its own,
-as cap_delay_list is in caps_wanted_delay_max order.  The check gives
-back what it already gives back at caps_wanted_delay_max (shared caps
-and the page cache caps stay), only earlier.  Directories and open
-files are not affected.
-
-Two noshare kernel mounts on one VM, 1 MDS: 20000 empty files created
-on A, statted by path on B after a wait.  Caps messages are the ones A
-sends, revokes are the ones the MDS sends A:
-
-  +--------+------+---------------+---------------+---------------+
-  |        |      | in the wait   | in the stat                   |
-  | kernel | wait | caps msgs     | stats/s       | revokes       |
-  +--------+------+---------------+---------------+---------------+
-  | before |  15s |             0 |     374 - 435 | 11164 - 11730 |
-  | after  |  15s |         20000 | 18680 - 24027 |             0 |
-  | before |   3s |             0 |     328 - 342 | 13727 - 14538 |
-  | after  |   3s |      0 - 3010 |   2238 - 3216 |     963 - 996 |
-  +--------+------+---------------+---------------+---------------+
-
-The caps go back in the background before the stat instead of one
-revoke per file during it; with a 3s wait most of them still go back
-while the stat runs.
-
-Signed-off-by: Xiubo Li <xiubo.li@clyso.com>
----
-Tested on 7.2 against a vstart cluster with two noshare kernel mounts,
-see the numbers in the commit message.  The same stall shows up in the
-IO500 mdtest-easy-stat phase on kernel clients.
----
- fs/ceph/caps.c       | 95 ++++++++++++++++++++++++++++++++++++++++++++++------
- fs/ceph/mds_client.c |  2 ++
- fs/ceph/mds_client.h |  3 +-
- 3 files changed, 88 insertions(+), 12 deletions(-)
-
-diff --git a/fs/ceph/caps.c b/fs/ceph/caps.c
-index 8e582cbcfc6b..b1e29e92920f 100644
---- a/fs/ceph/caps.c
-+++ b/fs/ceph/caps.c
-@@ -537,6 +537,42 @@ static void __cap_delay_requeue(struct ceph_mds_client *mdsc,
- 	}
- }
- 
-+/*
-+ * Queue the inode of a file that was just closed for a cap check
-+ * caps_wanted_delay_min seconds from now, when __ceph_caps_file_wanted()
-+ * stops wanting the caps it was opened for.  These inodes go on a list of
-+ * their own, as cap_delay_list is in caps_wanted_delay_max order.
-+ *
-+ * Caller holds i_ceph_lock
-+ *    -> we take mdsc->cap_delay_lock
-+ */
-+static void __cap_delay_requeue_idle(struct ceph_mds_client *mdsc,
-+				     struct ceph_inode_info *ci)
-+{
-+	struct inode *inode = &ci->netfs.inode;
-+	struct ceph_mount_options *opt = mdsc->fsc->mount_options;
-+
-+	if (mdsc->stopping)
-+		return;
-+	spin_lock(&mdsc->cap_delay_lock);
-+	if (!list_empty(&ci->i_cap_delay_list)) {
-+		if (ci->i_ceph_flags & CEPH_I_FLUSH)
-+			goto no_change;
-+		list_del_init(&ci->i_cap_delay_list);
-+	}
-+	/*
-+	 * Round up, so that the check does not come before the last
-+	 * read or write is caps_wanted_delay_min seconds old.
-+	 */
-+	ci->i_hold_caps_max = round_jiffies_up(jiffies +
-+					       opt->caps_wanted_delay_min * HZ);
-+	doutc(mdsc->fsc->client, "%p %llx.%llx at %lu\n", inode,
-+	      ceph_vinop(inode), ci->i_hold_caps_max);
-+	list_add_tail(&ci->i_cap_delay_list, &mdsc->cap_idle_delay_list);
-+no_change:
-+	spin_unlock(&mdsc->cap_delay_lock);
-+}
-+
- /*
-  * Queue an inode for immediate writeback.  Mark inode with I_FLUSH,
-  * indicating we should send a cap message to flush dirty metadata
-@@ -4720,29 +4756,28 @@ void ceph_handle_caps(struct ceph_mds_session *session,
- }
- 
- /*
-- * Delayed work handler to process end of delayed cap release LRU list.
-+ * Process the expired end of one delayed cap list, whose entries were
-+ * queued @hold jiffies before they expire.
-  *
-  * If new caps are added to the list while processing it, these won't get
-  * processed in this run.  In this case, the ci->i_hold_caps_max will be
-  * returned so that the work can be scheduled accordingly.
-  */
--unsigned long ceph_check_delayed_caps(struct ceph_mds_client *mdsc)
-+static unsigned long check_delayed_caps_list(struct ceph_mds_client *mdsc,
-+					     struct list_head *list,
-+					     unsigned long hold,
-+					     unsigned long loop_start)
- {
- 	struct ceph_client *cl = mdsc->fsc->client;
- 	struct inode *inode;
- 	struct ceph_inode_info *ci;
--	struct ceph_mount_options *opt = mdsc->fsc->mount_options;
--	unsigned long delay_max = opt->caps_wanted_delay_max * HZ;
--	unsigned long loop_start = jiffies;
- 	unsigned long delay = 0;
- 
--	doutc(cl, "begin\n");
- 	spin_lock(&mdsc->cap_delay_lock);
--	while (!list_empty(&mdsc->cap_delay_list)) {
--		ci = list_first_entry(&mdsc->cap_delay_list,
--				      struct ceph_inode_info,
-+	while (!list_empty(list)) {
-+		ci = list_first_entry(list, struct ceph_inode_info,
- 				      i_cap_delay_list);
--		if (time_before(loop_start, ci->i_hold_caps_max - delay_max)) {
-+		if (time_before(loop_start, ci->i_hold_caps_max - hold)) {
- 			doutc(cl, "caps added recently.  Exiting loop");
- 			delay = ci->i_hold_caps_max;
- 			break;
-@@ -4771,8 +4806,33 @@ unsigned long ceph_check_delayed_caps(struct ceph_mds_client *mdsc)
- 			break;
- 	}
- 	spin_unlock(&mdsc->cap_delay_lock);
-+
-+	return delay;
-+}
-+
-+/*
-+ * Delayed work handler to process end of delayed cap release LRU lists:
-+ * the closed files waiting for caps_wanted_delay_min, then the inodes
-+ * waiting for caps_wanted_delay_max.
-+ */
-+unsigned long ceph_check_delayed_caps(struct ceph_mds_client *mdsc)
-+{
-+	struct ceph_client *cl = mdsc->fsc->client;
-+	struct ceph_mount_options *opt = mdsc->fsc->mount_options;
-+	unsigned long loop_start = jiffies;
-+	unsigned long delay, idle_delay;
-+
-+	doutc(cl, "begin\n");
-+	idle_delay = check_delayed_caps_list(mdsc, &mdsc->cap_idle_delay_list,
-+					     opt->caps_wanted_delay_min * HZ,
-+					     loop_start);
-+	delay = check_delayed_caps_list(mdsc, &mdsc->cap_delay_list,
-+					opt->caps_wanted_delay_max * HZ,
-+					loop_start);
- 	doutc(cl, "done\n");
- 
-+	if (idle_delay && (!delay || time_before(idle_delay, delay)))
-+		delay = idle_delay;
- 	return delay;
- }
- 
-@@ -4906,8 +4966,21 @@ void ceph_put_fmode(struct ceph_inode_info *ci, int fmode, int count)
- 			is_closed = false;
- 	}
- 
--	if (is_closed)
-+	if (is_closed) {
- 		percpu_counter_dec(&mdsc->metric.opened_inodes);
-+		/*
-+		 * A closed file stops wanting its caps once its last read
-+		 * or write is caps_wanted_delay_min old, but nothing checks
-+		 * its caps again before caps_wanted_delay_max runs out.
-+		 * Until then the MDS keeps it the loner and has to revoke
-+		 * the exclusive caps from us first when another client
-+		 * looks at the file, e.g. stats a file we just created.
-+		 * Check again after caps_wanted_delay_min instead.
-+		 */
-+		if (S_ISREG(ci->netfs.inode.i_mode) &&
-+		    (__ceph_caps_issued(ci, NULL) & CEPH_CAP_ANY_WR))
-+			__cap_delay_requeue_idle(mdsc, ci);
-+	}
- 	spin_unlock(&ci->i_ceph_lock);
- }
- 
-diff --git a/fs/ceph/mds_client.c b/fs/ceph/mds_client.c
-index baa9e4ad38c5..a1feae6bd9b6 100644
---- a/fs/ceph/mds_client.c
-+++ b/fs/ceph/mds_client.c
-@@ -6406,6 +6406,7 @@ int ceph_mdsc_init(struct ceph_fs_client *fsc)
- 	INIT_DELAYED_WORK(&mdsc->delayed_work, delayed_work);
- 	mdsc->last_renew_caps = jiffies;
- 	INIT_LIST_HEAD(&mdsc->cap_delay_list);
-+	INIT_LIST_HEAD(&mdsc->cap_idle_delay_list);
- #ifdef CONFIG_DEBUG_FS
- 	INIT_LIST_HEAD(&mdsc->cap_wait_list);
- #endif
-@@ -6879,6 +6880,7 @@ void ceph_mdsc_close_sessions(struct ceph_mds_client *mdsc)
- 		}
- 	}
- 	WARN_ON(!list_empty(&mdsc->cap_delay_list));
-+	WARN_ON(!list_empty(&mdsc->cap_idle_delay_list));
- 	mutex_unlock(&mdsc->mutex);
- 
- 	ceph_cleanup_snapid_map(mdsc);
-diff --git a/fs/ceph/mds_client.h b/fs/ceph/mds_client.h
-index d4d620fb8417..863cdb8d588a 100644
---- a/fs/ceph/mds_client.h
-+++ b/fs/ceph/mds_client.h
-@@ -540,8 +540,9 @@ struct ceph_mds_client {
- 	struct delayed_work    delayed_work;  /* delayed work */
- 	unsigned long    last_renew_caps;  /* last time we renewed our caps */
- 	struct list_head cap_delay_list;   /* caps with delayed release */
-+	struct list_head cap_idle_delay_list;  /* caps of closed files */
- 	struct list_head cap_unlink_delay_list;  /* caps with delayed release for unlink */
--	spinlock_t       cap_delay_lock;   /* protects cap_delay_list and cap_unlink_delay_list */
-+	spinlock_t       cap_delay_lock;   /* protects the three lists above */
- 	struct list_head snap_flush_list;  /* cap_snaps ready to flush */
- 	spinlock_t       snap_flush_lock;
- 
-
----
-base-commit: c3112e7db4e561edeba02de2dca0ca620e44e84b
-change-id: 20261008-ceph-cap-idle-release-adff477fccae
-
-Best regards,
---  
-Xiubo Li <xiubo.li@clyso.com>
-
-
+Nicolin
