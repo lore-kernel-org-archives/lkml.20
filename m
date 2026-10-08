@@ -1,39 +1,34 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 72893392C2E
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 17:13:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 649F53A901D
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 17:14:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791479634; cv=none; b=utklv0TcRoPQ2Q0Zq6u9d3j5/dFKKuFQSvRf7lFc82p1IjPewkJD4+8g2mMqH0maZE3MlfeRgxuO9wt2wvP1pKjdTnMhP+0HofZOS4CwR9lJeOS0ZEatctOzvRhZs14PzpWUDErhfBgzoyqWopQci/xdSfjf8zVT4p3JsSLCt78=
+	t=1791479661; cv=none; b=Gx9FqrZhQErNZHPhi9Jss0FQWsZWLO7pxNfYBtWZHxzom9MC/wTeqzE3s81I9VgMnGn5pB6Y/UhquksZkwCa/IgoZTsmu4KzUUket8St6adycRvPt1CSRXCSryw/1JJxPn9Ly6urQ1lG8O15j4324dZeochZzCUJooojpHcoanI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791479634; c=relaxed/simple;
-	bh=zyl3rjwI/SVIkAcHQJnHlvBX2sQuJv91dL4UcqEKTX4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iitmFxOI+2fn2DiEkcjm+u1UWiDeUX8Tz1LyILxG4C6BEdamvvYkfnLmUGPT3GL+lQH/aQHHHM1e0P26j9x7rkl61MvpsOHQSmUh+rWpZIoIH9HGJ2xo7edufJ/Zv1g7jia/CbtynL3PzximIBG/nzCV02+GtWWx8i+iNJZPY3k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=SoxsXxvJ; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="SoxsXxvJ"
-Received: from eahariha-devbox.5bhznamrcrmeznzvghz2s0u2eh.xx.internal.cloudapp.net (unknown [20.114.54.184])
-	by linux.microsoft.com (Postfix) with ESMTPSA id DFC8820B7166;
-	Thu,  8 Oct 2026 10:12:55 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com DFC8820B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1791479575;
-	bh=5W2n9DShcQIUpKORkk5Vb4Cs1tY++EjPE7xgk+b2WuY=;
-	h=From:To:Cc:Subject:Date:From;
-	b=SoxsXxvJi6bZIi4ELJfl40kctUu3ORsPhL8jggtA6moj/ZzdUs846o3YDME687+xz
-	 rJnfmz6PGoG5GMD5zdH3R3Qs5IfwOBwHQiRo5yRGO1qJ1OhxMg/fOrLtEz+MSmPW+X
-	 mPJZue3ak/6Y/CAJbnI4IUymUaTZRfAkXY/EVTd0=
-From: Easwar Hariharan <easwar.hariharan@linux.microsoft.com>
-To: haiyangz@microsoft.com,
-	wei.liu@kernel.org,
-	decui@microsoft.com,
-	linux-kernel@vger.kernel.org (open list)
-Cc: Easwar Hariharan <easwar.hariharan@linux.microsoft.com>
-Subject: [PATCH] MAINTAINERS: Remove KY from the maintainers list
-Date: Thu,  8 Oct 2026 17:13:47 +0000
-Message-ID: <20261008171348.91738-1-easwar.hariharan@linux.microsoft.com>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1791479661; c=relaxed/simple;
+	bh=yeVOfm7KBijFYCFwgrOsh4BwTiakVRjx63wA1xd3aT0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=eYgpv8/+IPhvk27Gq7/e46hy+gWrIBs6+POmkUmYepmmioMWrbzx7Ws4nSCnwX2nVGswcpLNhD+wlbkEKz+onwbYT8/dB/GY0PSBFe+CgHyi2BoQq5SKg2VygOivNEjSHX0y/Wgu/NdHALxkXP7JFDV6CxwrLkuRAZvaqVySxNA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from fc87d0ffb700.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowABnbjxfz8dqR+cOCg--.12118S2;
+	Fri, 09 Oct 2026 01:14:08 +0800 (CST)
+From: Haotian Zhang <vulab@iscas.ac.cn>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Gregory Clement <gregory.clement@bootlin.com>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Jason Cooper <jason@lakedaemon.net>
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ARM: mvebu: mvebu-soc-id: fix missing clk_put() on error path
+Date: Fri,  9 Oct 2026 01:14:10 +0800
+Message-Id: <20261008171410.2717704-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,27 +36,51 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowABnbjxfz8dqR+cOCg--.12118S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7Jw4rurWUWF4UtrWUGr4xtFb_yoWDZwbEkF
+	1Sg3sFyryfWFs5u347W3W3uanIkr1xZrWUZFyxAr4FkFW5Xr47urW8tw15Kr1aqrsrKry3
+	Gry8Ca15Ww13JjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbcxYjsxI4VWkKwAYFVCjjxCrM7AC8VAFwI0_Gr0_Xr1l1xkIjI8I
+	6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
+	8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0
+	cI8IcVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26F4j6r4UJwA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_Gr1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr
+	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxkF7I0En4kS14v26r126r1D
+	MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
+	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0E
+	wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JV
+	WxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAI
+	cVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU5-txPUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAMOA2rHpfVfIgABsD
 
-KY has retired from Microsoft and his email is now bouncing. Remove the
-entry from Maintainers.
+get_soc_id_by_pci() takes a reference on the PCIe clock with
+of_clk_get_by_name(), but when clk_prepare_enable() fails it jumps to
+the clk_err label, which only drops the device node references and never
+calls clk_put(). The struct clk and the clock core reference it holds
+are leaked on that error path.
 
-Signed-off-by: Easwar Hariharan <easwar.hariharan@linux.microsoft.com>
+Release the clock reference before jumping to clk_err.
+
+Fixes: af8d1c63afcb ("ARM: mvebu: Add support to get the ID and the revision of a SoC")
+Assisted-by: DeepSeek-V4.1-Flash
+Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
 ---
- MAINTAINERS | 1 -
- 1 file changed, 1 deletion(-)
+ arch/arm/mach-mvebu/mvebu-soc-id.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index f53047aa8d3c1..f263ac010209e 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -12161,7 +12161,6 @@ S:	Maintained
- F:	drivers/media/i2c/hi847.c
+diff --git a/arch/arm/mach-mvebu/mvebu-soc-id.c b/arch/arm/mach-mvebu/mvebu-soc-id.c
+index 850ed3ea3cc4..84831798357e 100644
+--- a/arch/arm/mach-mvebu/mvebu-soc-id.c
++++ b/arch/arm/mach-mvebu/mvebu-soc-id.c
+@@ -85,6 +85,7 @@ static int __init get_soc_id_by_pci(void)
+ 	ret = clk_prepare_enable(clk);
+ 	if (ret) {
+ 		pr_err("cannot enable clock\n");
++		clk_put(clk);
+ 		goto clk_err;
+ 	}
  
- Hyper-V/Azure CORE AND DRIVERS
--M:	"K. Y. Srinivasan" <kys@microsoft.com>
- M:	Haiyang Zhang <haiyangz@microsoft.com>
- M:	Wei Liu <wei.liu@kernel.org>
- M:	Dexuan Cui <decui@microsoft.com>
 -- 
-2.43.0
+2.25.1
 
