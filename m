@@ -1,346 +1,324 @@
-Received: from gwu.lbox.cz (gwu.lbox.cz [62.245.111.132])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77E07497B88
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 12:30:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.245.111.132
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D14F449B1EF
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 12:34:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791462659; cv=none; b=N78nk6fb3NXT5u6QB06gGHNvAvRHZgpaKa/U5Gz+Fxb83uskZcuOWJpKdq4TF+1mlozja0RXDm2puLlxgrYtLcssEESa2LXEsKQ3SNwufAkoee+O3B8ML4ieqp0qH9ziJ2QcPnq/mwAt+Mr2pSit2c3D5oVIMNwNMIiGdOlXGZQ=
+	t=1791462849; cv=none; b=qpkN+xgtnj+TEgVs6UMhFDq6WYa3uNxzeEmVeyjHGrVAxjZwNmRkG5zRh4hS24vuhPgbbUnpg0hSSvnU3LKkJMRKTR4+R3vNA3lB/zm46aFnYwi0PdK2YoE4lv69Wl8BfHuRSlktAyXylm9kEqEAej4jabizg95jWfXcT2q2xcY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791462659; c=relaxed/simple;
-	bh=tznDLjwf7DJOwTVLMS7Z6kWmTxki88sDUNR2iCI5gyU=;
+	s=arc-20240116; t=1791462849; c=relaxed/simple;
+	bh=AGszSjoCjaIDSHO0H56sQ2h/hYs0oq7dn3O2LJuCupU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IPaeOrnVgvokZIWyBOxHipm1yETW1pPQvlxR4vObaJoVxNF2Qz9ayrs7YH9YaNC9rhxWf+EX2LqFn9XFe9PEBVW8HktwASbrYUR2y4DcRzDRlc1hOceeDd/vUD4KoXY7vqsrQ/ZTZlZReMg8G03s6yF4PCUA3EjN2lQv+m4GaZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxbox.cz; spf=pass smtp.mailfrom=linuxbox.cz; dkim=pass (1024-bit key) header.d=linuxbox.cz header.i=@linuxbox.cz header.b=FC15QhiT; arc=none smtp.client-ip=62.245.111.132
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxbox.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxbox.cz
+	 Content-Type:Content-Disposition:In-Reply-To; b=q+43gJ9XrD1z8cEwDSp0kmvt4GJK5jvskz8cfcAZpPBWsIKP4HduSmB+iDAaxdwt8T+5KbvgHgx7NS2wGSLPTUoQC1dR69/FUtefFFabHufXrT0tXClRDJM4sYDtqKxyPITwV627BTuax79t0E3gwiiBk66mFogi4cvK4gbhBIU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=KjGuwRmd; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxbox.cz header.i=@linuxbox.cz header.b="FC15QhiT"
-Received: from linuxbox.linuxbox.cz (linuxbox.linuxbox.cz [10.76.66.10])
-	by gwu.lbox.cz (Sendmail) with ESMTPS id 698CTfHD350746
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
-	Thu, 8 Oct 2026 14:29:42 +0200
-DKIM-Filter: OpenDKIM Filter v2.11.0 gwu.lbox.cz 698CTfHD350746
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxbox.cz;
-	s=default; t=1791462583;
-	bh=HdbWfEGYkd7dRs/V/AoDBqeID1vWCkDNRjwVWb9XZtg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=FC15QhiT31lJ/LFYpaI8sS/THMIoEEK5R3RSoYr1p4wuBS0lfTGHJnrwryzVB/lmz
-	 +I/wEhZO0ELNSOgOyedfm+abhzMKXtOSv74/WML9KoNMrZX7anu+ZxYt+m/jbuDJGT
-	 ztprifx/9Buaj8AhK/3Cui7prVWofns0PJa3AqWw=
-Received: from pcnci.linuxbox.cz (pcnci.linuxbox.cz [10.76.3.14])
-	by linuxbox.linuxbox.cz (Sendmail) with ESMTPS id 698CTfr3034615
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
-	Thu, 8 Oct 2026 14:29:41 +0200
-Received: from pcnci.linuxbox.cz (localhost [127.0.0.1])
-	by pcnci.linuxbox.cz (8.18.1/8.15.2) with ESMTPS id 698CTa6U2521035
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 8 Oct 2026 14:29:38 +0200
-Date: Thu, 8 Oct 2026 14:29:36 +0200
-From: Nikola Ciprich <nikola.ciprich@linuxbox.cz>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Rik van Riel <riel@surriel.com>, ljs@kernel.org, linux-mm@kvack.org,
-        linux-kernel@vger.kernel.org, akpm@linux-foundation.org,
-        david@kernel.org, Mike Rapoport <rppt@kernel.org>,
-        Dave Hansen <dave.hansen@linux.intel.com>,
-        Pedro Falcato <pfalcato@suse.de>, Kiryl Shutsemau <kas@kernel.org>,
-        luizcap@redhat.com, pbonzini@redhat.com,
-        Borislav Petkov <bp@alien8.de>, Tal Zussman <tz2294@columbia.edu>,
-        Matt Fleming <matt@readmodwrite.com>,
-        Nikola Ciprich <nikola.ciprich@linuxbox.cz>
-Subject: Re: hunting memory corruption bug in 6.18.x
-Message-ID: <aseMsMGpGPT/G548@pcnci.linuxbox.cz>
-References: <arzRBv9ceJsxJppI@gremlin>
- <ar1Xl7PE2rcoT9h3@pcnci.linuxbox.cz>
- <ar63St2LBfCdyhwj@pcnci.linuxbox.cz>
- <ar9yRqq6cBxHDWKA@gremlin>
- <ar/F6+OUzj8qQ8YC@pcnci.linuxbox.cz>
- <asAE3kLFDUx5v0Nw@gremlin>
- <asKdhWiJb3qXeopz@pcnci.linuxbox.cz>
- <bd8e9b01ad88cafb12da33331f32a1ce315f590b.camel@surriel.com>
- <20261005132113.43548696@pumpkin>
- <asP5xK4axiUk7jun@pcnci.linuxbox.cz>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="KjGuwRmd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791462847;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=sl228m5pfmzrEf0xxmHM+2u5vzx7rVcCe/qp2YvfpqY=;
+	b=KjGuwRmdL6cKXwS2z4IOlVRtoXbgy1F4NwS2plK1L5N6/nTgC/U5mwDjVjH4heAM8JgKbs
+	darEX0Q/DuT3kZj2VrzFjJAgfufZEsfxYg4iAYJobM9X4j/88WqyFx1WbKG+25uwl6i+rZ
+	VqT8fZAxw1Z5KRlg7puFDGUy+Y5jOIs=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-311-o3xzxnnBPeWG7ZXrb76iTQ-1; Thu,
+ 08 Oct 2026 08:34:03 -0400
+X-MC-Unique: o3xzxnnBPeWG7ZXrb76iTQ-1
+X-Mimecast-MFC-AGG-ID: o3xzxnnBPeWG7ZXrb76iTQ_1791462842
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id F37CA180ABEF;
+	Thu,  8 Oct 2026 12:34:01 +0000 (UTC)
+Received: from bfoster (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 59BB219560AB;
+	Thu,  8 Oct 2026 12:34:00 +0000 (UTC)
+Date: Thu, 8 Oct 2026 08:33:58 -0400
+From: Brian Foster <bfoster@redhat.com>
+To: Dave Chinner <dgc@kernel.org>
+Cc: MingTao Huang <1037827920@qq.com>, Carlos Maiolino <cem@kernel.org>,
+	Dave Chinner <dchinner@redhat.com>,
+	"Darrick J . Wong" <djwong@kernel.org>,
+	Chandan Babu R <chandanbabu@kernel.org>, linux-xfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	MingTao Huang <mintaohuang@tencent.com>
+Subject: Re: [PATCH] xfs: fix skipped flushing items not counted in
+ xfsaild_push()
+Message-ID: <aseNtqNcruhTeOEd@bfoster>
+References: <tencent_F801A9436DFB447AAFEC63D3E615B8052405@qq.com>
+ <arL9Xrmf5Q7wd3T4@dread>
+ <arPXwKnDMVMj-oMK@bfoster>
+ <arRv-SRK0nHHGBxM@dread>
+ <arq3MsiNwf1R1QCL@bfoster>
+ <arse0L6mA00ybLvf@dread>
+ <ar0VBbwULCzAQW2u@bfoster>
+ <asR23Qk3uXtTSTKr@dread>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <asP5xK4axiUk7jun@pcnci.linuxbox.cz>
-X-Scanned-By: MIMEDefang 3.7.1 on 10.76.66.3
-X-Scanned-By: MIMEDefang v3.7.1/SpamAssassin v4.000002 on lbxovapx9 (nik)
-X-Scanned-By: MIMEDefang 2.86 on 10.76.66.10
-X-Antivirus: on lbxovapx9 by Antivirus 
-X-Spam-Score: N/A (trusted relay)
-X-Milter-Copy-Status: O
+In-Reply-To: <asR23Qk3uXtTSTKr@dread>
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-Hi,
-
-we've just had two more crashes. I think second one is very important.
-
-first:
-
-Oct  6 21:24:25 10.4.0.10 [ 3526.201578] Oops: general protection fault, probably for non-canonical address 0xfffffff0c930038: 0000 [#1] SMP NOPTI
-Oct  6 21:24:25 10.4.0.10 [ 3526.217983] CPU: 22 UID: 0 PID: 79544 Comm: servercare-moni Kdump: loaded Tainted: G        W   E       6.18.20lb9.03 #1 PREEMPT(voluntary)
-Oct  6 21:24:25 10.4.0.10 [ 3526.217988] Tainted: [W]=WARN, [E]=UNSIGNED_MODULE
-Oct  6 21:24:25 10.4.0.10 [ 3526.245603] Hardware name: ASUSTeK COMPUTER INC. RS720A-E11-RS12 VR22020733/KMPP-D32 Series, BIOS 2101 04/15/2025
-Oct  6 21:24:25 10.4.0.10 [ 3526.263617] RIP: 0010:__d_lookup+0x43/0xb0
-Oct  6 21:24:25 10.4.0.10 [ 3526.271794] Code: 00 00 a0 00 00 c9 ff ff 48 89 c5 c1 e8 07 48 8d 1c c2 e8 10 1f d2 ff 48 8b 1b 48 83 e3 fe 75 0a eb 2f 48 8b 1b 48 85 db 74 27 <39> 6b 18 75 f3
-Oct  6 21:24:25 10.4.0.10 [ 3526.303509] RSP: 0018:ffffc90068637d70 EFLAGS: 00010202
-Oct  6 21:24:25 10.4.0.10 [ 3526.303512] RAX: 0000000000000001 RBX: 0fffffff0c930020 RCX: ffffc90068637e4e
-Oct  6 21:24:25 10.4.0.10 [ 3526.303513] RDX: ffff89b5971ad780 RSI: ffffc90068637dd0 RDI: ffff89e80921b800
-Oct  6 21:24:25 10.4.0.10 [ 3526.303515] RBP: 0000000015804546 R08: b5971ad780ff0032 R09: ffff89b5971ad780
-Oct  6 21:24:25 10.4.0.10 [ 3526.303516] R10: 0000000000000000 R11: 0000000000000004 R12: 000000000001019e
-Oct  6 21:24:25 10.4.0.10 [ 3526.303517] R13: ffff89e80921b800 R14: ffffc90068637dd0 R15: ffffc90068637ec0
-Oct  6 21:24:25 10.4.0.10 [ 3526.303518] FS:  00007f5ee43b4640(0000) GS:ffff89fe7c807000(0000) knlGS:0000000000000000
-Oct  6 21:24:25 10.4.0.10 [ 3526.303520] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-Oct  6 21:24:25 10.4.0.10 [ 3526.303521] CR2: 00007f5ee46540e2 CR3: 00000179787e0002 CR4: 0000000000770ef0
-Oct  6 21:24:25 10.4.0.10 [ 3526.303522] PKRU: 55555554
-Oct  6 21:24:25 10.4.0.10 [ 3526.303523] Call Trace:
-Oct  6 21:24:25 10.4.0.10 [ 3526.303526]  <TASK>
-Oct  6 21:24:25 10.4.0.10 [ 3526.428693]  d_lookup+0x27/0x50
-Oct  6 21:24:25 10.4.0.10 [ 3526.428696]  ? __pfx_proc_fd_instantiate+0x10/0x10
-Oct  6 21:24:25 10.4.0.10 [ 3526.428703]  proc_fill_cache+0x59/0x160
-Oct  6 21:24:26 10.4.0.10 [ 3526.455645]  ? __pfx_proc_fd_instantiate+0x10/0x10
-Oct  6 21:24:26 10.4.0.10 [ 3526.455647]  ? __pfx_filldir64+0x10/0x10
-Oct  6 21:24:26 10.4.0.10 [ 3526.455651]  proc_readfd_common+0xa5/0x1e0
-Oct  6 21:24:26 10.4.0.10 [ 3526.484385]  iterate_dir+0xa2/0x240
-Oct  6 21:24:26 10.4.0.10 [ 3526.484391]  __x64_sys_getdents64+0x78/0x110
-Oct  6 21:24:26 10.4.0.10 [ 3526.502867]  ? __pfx_filldir64+0x10/0x10
-Oct  6 21:24:26 10.4.0.10 [ 3526.502871]  do_syscall_64+0x61/0x980
-Oct  6 21:24:26 10.4.0.10 [ 3526.521428]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
-Oct  6 21:24:26 10.4.0.10 [ 3526.521433] RIP: 0033:0x7f5ee6f08b8d
-Oct  6 21:24:26 10.4.0.10 [ 3526.541410] Code: 5b 41 5c c3 66 0f 1f 84 00 00 00 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff
-Oct  6 21:24:26 10.4.0.10 [ 3526.578054] RSP: 002b:00007f5ee43b28f8 EFLAGS: 00000246 ORIG_RAX: 00000000000000d9
-Oct  6 21:24:26 10.4.0.10 [ 3526.578057] RAX: ffffffffffffffda RBX: 00007f5ee43b45e0 RCX: 00007f5ee6f08b8d
-Oct  6 21:24:26 10.4.0.10 [ 3526.578058] RDX: 0000000000000118 RSI: 00007f5ee43b2930 RDI: 000000000000000d
-Oct  6 21:24:26 10.4.0.10 [ 3526.578059] RBP: 0000000000000010 R08: 0000000000000000 R09: 0000000000000002
-Oct  6 21:24:26 10.4.0.10 [ 3526.578061] R10: 0000000000000000 R11: 0000000000000246 R12: 00007f5ee4402280
-Oct  6 21:24:26 10.4.0.10 [ 3526.578062] R13: 00007f5ee43b2930 R14: 000000000000000d R15: 0000000000000001
-Oct  6 21:24:26 10.4.0.10 [ 3526.578068]  </TASK>
-
-different release, different hardware. same address. I don't have kdump unfortunately, only this netconsole
-log.
-
-second is more important:
-
-[11402.940943] BUG: unable to handle page fault for address: ffffffff0c93001c
-[11402.942273] #PF: supervisor read access in kernel mode
-[11402.943629] #PF: error_code(0x0000) - not-present page
-[11402.945025] PGD 6d6f83a067 P4D 6d6f83b067 PUD 0
-[11402.946469] Oops: Oops: 0000 [#1] SMP NOPTI
-[11402.947950] CPU: 23 UID: 0 PID: 704950 Comm: servercare-moni Kdump: loaded Tainted: G            E       6.18.55lb9.01 #1 PREEMPT(voluntary)
-[11402.951254] Tainted: [E]=UNSIGNED_MODULE
-[11402.952913] Hardware name: ASUSTeK COMPUTER INC. RS720A-E12-RS12/K14PP-D24 Series, BIOS 1201 08/25/2023
-[11402.956569] RIP: 0010:__d_lookup_rcu+0x4d/0xe0
-[11402.958452] Code: 48 8d 04 c2 f6 07 02 0f 85 a0 00 00 00 48 8b 10 48 89 d0 48 83 e0 fe 48 83 fa 01 77 0d e9 80 00 00 00 48 8b 00 48 85 c0 74 78 <44> 8b 58 fc 48 39 78 10 75 ee 48 83 78 08
-[11402.964498] RSP: 0018:ff3eefdafcacfc40 EFLAGS: 00010292
-[11402.966642] RAX: ffffffff0c930020 RBX: 000000061356452c RCX: 0000000000000006
-[11402.968884] RDX: ffffffff0c930020 RSI: ff3eefdafcacfd70 RDI: ff2d1acd00409140
-[11402.971167] RBP: ff3eefdafcacfda4 R08: 8080808080808080 R09: fefefefefefefeff
-[11402.973512] R10: 0000303539343037 R11: 0000000000000004 R12: ff2d1acd8cb0b7e0
-[11402.975915] R13: ff3eefdafcacfd70 R14: 0000000000000000 R15: 0000000000000000
-[11402.978356] FS:  00007f757eaed640(0000) GS:ff2d1b89b5a42000(0000) knlGS:0000000000000000
-[11402.980842] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[11402.983374] CR2: ffffffff0c93001c CR3: 00000004ba18e002 CR4: 0000000000771ef0
-[11402.986004] PKRU: 55555554
-[11402.988640] Call Trace:
-[11402.991231]  <TASK>
-[11402.993831]  lookup_fast+0x2b/0x100
-[11402.996468]  walk_component+0x1f/0x150
-[11402.999080]  link_path_walk+0x105/0x2a0
-[11403.001714]  path_openat+0x99/0x2b0
-[11403.004319]  ? srso_alias_return_thunk+0x5/0xfbef5
-[11403.006983]  ? up_read+0x5a/0x90
-[11403.009610]  ? srso_alias_return_thunk+0x5/0xfbef5
-[11403.012250]  ? do_user_addr_fault+0x190/0x6a0
-[11403.014927]  do_filp_open+0xd3/0x180
-[11403.017635]  ? __pfx_kfree_link+0x10/0x10
-[11403.020383]  ? srso_alias_return_thunk+0x5/0xfbef5
-[11403.023097]  do_sys_openat2+0x8a/0xe0
-[11403.025765]  __x64_sys_openat+0x69/0xa0
-[11403.028424]  do_syscall_64+0x64/0xba0
-[11403.031066]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
-[11403.033733] RIP: 0033:0x7f75816ff1e4
-[11403.036336] Code: 24 20 eb 8f 66 90 44 89 54 24 0c e8 26 8c f8 ff 44 8b 54 24 0c 44 89 e2 48 89 ee 41 89 c0 bf 9c ff ff ff b8 01 01 00 00 0f 05 <48> 3d 00 f0 ff ff 77 34 44 89 c7 89 44 24
-[11403.044367] RSP: 002b:00007f757eaeb870 EFLAGS: 00000293 ORIG_RAX: 0000000000000101
-[11403.047072] RAX: ffffffffffffffda RBX: 00007f757eaed5e0 RCX: 00007f75816ff1e4
-[11403.049795] RDX: 0000000000080000 RSI: 00007f757edd90e2 RDI: 00000000ffffff9c
-[11403.052470] RBP: 00007f757edd90e2 R08: 0000000000000000 R09: 0000000000000000
-[11403.055070] R10: 0000000000000000 R11: 0000000000000293 R12: 0000000000080000
-[11403.057594] R13: 00007f758187fe50 R14: 00007f75818e5040 R15: 0000000000000001
-[11403.060096]  </TASK>
-[11403.062521] Modules linked in: vhost_net(E) vhost(E) vhost_iotlb(E) tap(E) tun(E) ceph(E) libceph(E) cts(E) krb5enc(E) authenc(E) camellia_aesni_avx2(E) camellia_aesni_avx_x86_64(E) camel
-[11403.062611]  scsi_transport_sas(E) i40e(E) nvme_keyring(E) libie(E) nvme_auth(E) xhci_hcd(E) sp5100_tco(E) libie_adminq(E) hkdf(E) dm_mod(E) dax(E) aesni_intel(E)
-[11403.100478] CR2: ffffffff0c93001c
-
-6.18.55 with Lorenzo's 0001-KVM-SVM-flush_tlb_gva-full-asid-flush-6.18.y.patch
-applied.
-
-so we now know this didn't fixed it. however I didn't have tlbi=ipi set, so I'll
-now try this.
-
-of course since the backtrace is a bit different (but quite close?), I'm not 100%
-sure this is the same problem, hopefully it is..
-
-unfortunately, for some reason I yet have to investigate, kdump produced only
-vmcore-dmesg.txt, no vmcore..
-
-any ideas on this new info?
-
-BR
-
-nik
-
-
-
-
-
-
-On Mon, Oct 05, 2026 at 09:25:56PM +0200, Nikola Ciprich wrote:
-> 
-> 
-> > > > 10371fa400: fffffff0c930020
-> > > > 10371fa420: fffffff0c930020
-> > > > 10371fa430: fffffff0c930020
-> > > > 10371fa450: fffffff0c930020  
+On Tue, Oct 06, 2026 at 03:19:41PM +1100, Dave Chinner wrote:
+> On Wed, Sep 30, 2026 at 09:56:21AM -0400, Brian Foster wrote:
+> > On Tue, Sep 29, 2026 at 12:13:36PM +1000, Dave Chinner wrote:
+> > > > > Hence, from the POV of the AIL control loop, this latter
+> > > > > ITEM_FLUSHING metric is pure noise. We did not queue new IO, we did
+> > > > > not update a buffer already queued for IO, and we do not know if the
+> > > > > item has been recently modified, yet we still accounted it as
+> > > > > "flushing".
+> > > > 
+> > > > This all makes sense, but I wonder if it would be simpler to just let
+> > > > the case of "new inode flushed to pre-queued cluster buffer" return
+> > > > ITEM_SUCCESS instead of ITEM_FLUSHING.
 > > > 
-> > > These are not random offsets in the page, either.
-> > > 
-> > > These all seem to be at offsets 0, 0x20, 0x30, 0x40, or 0x50 into the page.
-> > > 
-> > > If you look at the other addresses, are there any that are not at one of these
-> > > offsets?
+> > > That means we lose the 'this inode cluster is being actively
+> > > modified' signal from the feedback loop. That makes it behave
+> > > differently to buffer items, and so now we have confused and
+> > > unbalanced signals being fed to the backoff control decision again.
 > > 
-> > If you hexdump the start of each page do they look 'similar' and are there
-> > any valid addresses that might point to other data and could help identify
-> > the what the memory was used for.
+> > What do we do (or not do) with this signal?
 > 
-> (again, I used AI to answer that, hopefully it does make sense...)
+> That triggers a larger backoff - the "flushing" part of the
+> "if (stuck + flushing > count * 0.9)" of the check. If we get lots
+> of newly dirtied inodes pushed to already queued inode buffers,
+> then we backoff for 20ms because it implies we are reaching the
+> active head of the AIL where journal commits are inserting newly
+> committed dirty items.
 > 
-> Yes to both. Results below.
+> This is very similar to when LOCKED starts to show up - the only
+> difference between FLUSHING and LOCKED in this situation is that
+> FLUSHING means the inode buffer is still queued for IO, whilst
+> LOCKED means one of two things:
 > 
-> Valid pointers in the crash frame (0x103360000):
-> Only two of the non-zero words in that page are valid kernel pointers; the
-> rest (e.g. 0xfffff86eb0c30000) are not in the direct-map or vmemmap ranges
-> (page_offset_base=0xffff985a80000000, vmemmap_base=0xfffff27140000000), so
-> they're data, not pointers. The two valid ones both resolve to the dentry
-> slab cache:
+> 1. It is being actively accessed and maybe modified (i.e. locked in
+> a transaction), and so it is about to be relogged and pinned, in
+> which case we can't flush it. It is likely "stuck" until some time
+> passes.
 > 
-> 0xffff985caf209d48 -> dentry cache, object [ffff985caf209d40]
-> 0xffff998c79483448 -> dentry cache, object [ffff998c79483440]
+> 2. it is locked and under writeback IO. In this case, it was likely
+> pushed on the previous AIL push iteration. i.e. we are iterating
+> recently pushed items that are still under IO. If we get lots of
+> locked items, then we are likely 'stuck' needing them to complete IO
+> for progress to be made. Hence we need to back off.
 > 
-> (Both slab pages show flags ...01 "locked".) So the dcache is in the blast
-> radius, same cache as the crashing __d_lookup.
+> PINNED is very similar LOCKED case 1, only it has been relogged and
+> is dirty in the CIL.
 > 
-> The other value-bearing frames are NOT junk — they're a repeated structure:
-> Dumping the start of three of the frames the bad value appears in
-> (0x1ae234000, 0x24f0e2000, 0x342c40000), they are near-identical, a
-> fixed-format record. Field-by-field for the first 0x80 bytes:
+> Hence there is a simlar relationship between pinned, locked and
+> flushing - the only difference between them is where in the
+> 'recently modified and/or submitted for IO' cycle the objects are
+> in.
 > 
-> off 1ae234000 24f0e2000 342c40000
-> +0x00 00ff00ff00100010 (same) (same) const
-> +0x08 bdcc802700060042 (same) (same) const
-> +0x10 0000000000006e43 (same) (same) const
-> +0x38 0bb8008000000000 (same) (same) const
-> +0x40 0000000117bc0000 (same) (same) const
-> +0x48 00000026813e0000 0000000fbb9be000 0000001b56718000 varies
-> +0x50 fffffc0ea76249a0 fffffc0ea76258c0 0007bb3a5e4ed461 varies
-> +0x58 0000000000001070 0000000000000906 0000000000000903 varies
-> +0x60 0000000003000200 (same) (same) const
-> +0x70 0000000000000078 (same) (same) const
-> +0xd0 ccccc30014894100 / 48cccccccccccccc (0xcc padding) const-ish
+> These all indicate we have push vs access/modification contention on
+> the log items, and we give the active modifications processing
+> preference by backing off. i.e. we prioritise relogging over
+> pushing because it avoids unnecessary writeback IO, and to do that
+> we need pushing to back off when contention signals are detected.
 > 
-> So: a constant header, a few varying fields at +0x48/+0x50/+0x58 (look like
-> a length/cookie/handle), and 0xcc padding. The same template appears in
-> physically-unrelated frames.
+
+Ok. I get this in principle. Does this reflect a realistic workload for
+inodes?
+
+According to the current code, flushing inodes are those that have
+landed in the AIL since or were otherwise not flushed (i.e. pinned,
+locked) during a previous cluster flush, where the cluster was delwri
+queued but has not yet submitted.
+
+The only use of this value is as input to the 90% stuck heuristic. For
+inodes, this strikes me as rare enough to wonder why we track this at
+all..?
+
+> > ITEM_* implies state of the log item, so I don't see that as
+> > inconsistent. They behave differently because they are different items.
+> > What's the expectation for the push interface? If we flush an ili/dquot
+> > and the buffer is already queued, did we push the item "successfully" or
+> > was the item "flushing?"
 > 
-> The corrupt value 0x0fffffff0c930020 appears deeper in this same structure
-> (page offsets 0x400/0x420/0x430/0x440/0x450), i.e. it is being written into
-> specific slots within this record format, not scattered randomly. That lines
-> up with the "written into one of ~6 slots" pattern: relative to a 0x400
-> base, occurrences are at +0x00 (x9), +0x20 (x9), +0x30 (x9), +0x40 (x2),
-> +0x50 (x11); none at +0x10.
+> It's an indication that there is active modification occurring on
+> the inodes/dquots on the cluster buffer, and so we have to make a
+> decision to push immediately or back off to allow further
+> aggregation.
 > 
-> Question: does anyone recognise this structure from its header? The constant
-> signature is:
+> push immediately (i.e ignore flushing signal) means the inode
+> cluster gets submitted for IO, and the next inode we modify on that
+> cluster blocks waiting for cluster IO to finish. If we get the
+> timing wrong, we end up doing lots of individual inode pushes and
+> repeated cluster buffer IO, instead of aggregating them all into a
+> single IO. the "flushing" signal is a sign of the push algorithm to
+> back off to allow  modification to continue unhindered and hance
+> allow the next push of a item on that cluster buffer to sweep all
+> the modifications in one go.
 > 
-> +0x00: 0x00ff00ff00100010
-> +0x08: 0xbdcc802700060042
-> +0x10: 0x0000000000006e43
-> +0x38: 0x0bb8008000000000
-> +0x60: 0x0000000003000200
-> +0x70: 0x0000000000000078
+> i.e. the decision is "push immediately and repeatedly" or "backoff
+> on modification contention and push once". Doing it once is more CPU
+> and IO efficient, push immediately causes modification latency
+> issues in xfs_inode_item_precommit() locking the cluster
+> buffer...
 > 
-> I haven't positively identified the owning subsystem. Given the earlier
-> observation that these frames carry stale page_pool metadata in their struct
-> page (pp_magic set, pp_ref_count=0), a network/driver descriptor or buffer
-> origin is my guess, but that's only a guess — the header bytes should be
-> recognisable to someone who knows the relevant format.
-> 
-> Happy to dump more of any of these frames, or struct page for them, if
-> useful.
-> 
-> 
-> Field decode of the constant header (little-endian sub-fields), in case the
-> layout helps identify it:
-> 
-> +0x00 u16: 0x0010, 0x0010, 0x00ff, 0x00ff (counts/markers?)
-> +0x08 u16: 0x0042, 0x0006, 0x8027, 0xbdcc
-> +0x10 0x6e43 (bytes 'C','n') (signature?)
-> +0x38 0x0080=128, 0x0bb8=3000 (size/timeout?)
-> +0x58 small, varies: 0x1070 / 0x906 / 0x903 (length/seq?)
-> +0x60 0x0200=512, 0x0300=768
-> +0x70 0x78=120 (sub-struct size?)
-> +0x48 varies: looks like a 64-bit addr/DMA handle
-> +0x50 varies: 0xfffffc0e........ (two frames) (per-cpu/fixmap/IOVA-shaped,
-> not a direct-map/vmemmap ptr)
-> +0xd0 0xcc padding (record built in 0xcc-poisoned buffer)
-> 
-> I can't identify the owning struct from this. If anyone wants to grep: the
-> first two u64s (0x00ff00ff00100010, 0xbdcc802700060042) are a distinctive
-> constant signature across all affected frames.
-> 
-> BR
-> 
-> nik
-> 
-> 
-> 
-> > 
-> > David
-> >  
+> > > That is, we can have tens of thousands of inodes on the same LSN in
+> > > the AIL. A CIL checkpoint on a large log is closed off at ~32MB in
+> > > size, and an inode core takes up about 300 bytes in the journal. If
+> > > we are logging nothing but inode cores (e.g. 'chown -R <somedir>'
+> > > over millions of files) then a single checkpoint can contain up to
+> > > ~100,000 inode log items. These are all inserted into the AIL at the
+> > > same LSN.  Hence it is very common for there to be tens of thousands
+> > > of inode in the FLUSHING state on the same LSN in the AIL.
 > > > 
-> > > If this is a case of "system writes fffffff0c930020 into one of 6 slots",
-> > > there could be some at offset 0x10 too.
-> > > 
-> > > I'm having AI comb the kernel now for places where we could conceivably
-> > > construct this value, and write it into one out of 6 slots.
-> > > 
-> > > >   
 > > 
-> > 
+> > So in the current code what prevents from adding that many cluster
+> > buffers to the delwri queue? The current count > 1000 logic only breaks
+> > across an LSN change, so ISTM queue length is subject to the level of
+> > cluster overlap in the dataset.
 > 
+> <looks closer>
+> 
+> Ok, that's probably a real bug. I think it should be an || not an
+> &&. i.e. I'd intended it to submit the buffer list when we completed
+> flushing a checkpoint (i.e. the LSN changes) or if we'd gathered
+> enough items on the buffer list for submission (count > 1000).
+> 
+
+Wouldn't that mean we'd only process 1k items per pass, rather than
+creating a delwri queue limit? It also seems to me this could lead to
+situations we've already discussed like spinning around on the same
+subset of items if they happen to land in the same LSN (unless we do the
+cursor thing).
+
+> This points out the difference between "knowing the intent" and
+> "reading the code". One cannot tell the difference between bug and
+> intended behaviour from reading the code....
+> 
+
+I'd have expected intent to be documented in the commit log.
+
+> As it is, this could result in longer buffer submission lists, but
+> that makes it even less likely to trigger a hangcheck timer. i.e.
+> submission to the request queue is typically faster than hardware IO
+> completion, hence the more we have to submit, the more likely we are
+> to block on a full request queue.
+> 
+
+Hm.. not sure about that. I played around with this a bit last week. I
+couldn't exactly reproduce what is reported here, but if I run this sort
+of workload on a slightly older kernel with preempt=none, I could
+definitely reproduce observable multi-second (~3-5s) stalls where the
+target system would appear locked up completely. Tracing shows that the
+delwri queue can easily grow to ~250k+ buffers and the xfsaild task can
+spin in short intervals.
+
+I could corroborate this by reducing the watchdog threshold to a few
+seconds and trigger softlockup warnings/stack traces that way, but
+obviously this is a little different from a 20+ second lockup using
+system defaults.
+
+IIRC this behavior went away with the lazy preempt mode, so perhaps that
+is a mitigating factor here. It would be good to know whether these
+settings are relevant to the original reproducer or not.
+
+> > > inodes doesn't actually move the LSN for the next loop forwards.
+> > > We start the next loop at the same LSN in this case, and the only
+> > > reason we didn't tend to process the same flushing items a second
+> > > time is the backoff allows IO completion to remove the items from
+> > > the AIL.
+> > > 
+> > 
+> > I get that the LSN bookmark is not granular, but the old algorithm only
+> > broke the loop if we were stuck or hit the target. It resets the
+> > bookmark if the 90% stuck+flushing threshold is met or we hit the
+> > target. So the example described above sounds like one where we'd reset
+> > the LSN pushed bookmark anyways, or otherwise we are stuck and intend to
+> > repush locked/pinned items.
+> > 
+> > That said, I can see how accounting the flushing state for cluster
+> > flushed inodes in the same push cycle inflates this metric into backing
+> > off/restarting, which seems like a flaw/inefficiency in the old code.
+> 
+> It's not just the backoff, it's all the extra code that has to be
+> executed to get to the point of realising the inode has already been
+> flushed to the cluster buffer. THis change made it a single bit
+> check in the outer loop, vs going into ->iop_push and taking a cache
+> miss to pull the buffer from the ILI, then another to pull the inode
+> and i_flags from the ILI, then another to pull the pincount from the
+> inode, then another to pull the pin count from the buffer,
+> 
+
+I get that, but we can easily separate iop_push() overhead from the
+question of flushing inode accounting.
+
+> IOWs, the LI_FLUSHING check runs hot in cache, whilst iop_push()
+> takes multiple dependent cacheline misses for every inode it checks
+> for STALE/pinned/flushing....
+> 
+> <snip>
+> 
+> > > Besides, if the problem really is "we are walking too many
+> > > LI_FLUSHING items repeatedly because the LSN is not changing", then
+> > > I'm pretty sure there's a relatively straight forward fix for that.
+> > > i.e. we need fine grained tracking of the item we are up to across
+> > > loop iterations where the AIL lock is not held and the AIL can
+> > > change. We already do this within the processing loop itself...
+> > 
+> > I'm curious what you're referring to here, if not the last lsn thing..
+> > a cursor enhancement perhaps?
+> 
+> Yeah, get rid of last_pushed_lsn, and keep the cursor active across
+> push iterations. The only reason for last_pushed_lsn existing is to
+> re-seed the cursor on the next iteration. It's a bit of a wart, and
+> it's quite inefficient because we have to walk the entire list from
+> the head or tail to find the LSN we need to start at.
+> 
+> To replace last_push_lsn, we can store a lsn in the cursor on item
+> deletion to act as a reseed value for the next iteration instead of
+> starting from the [still valid] item in the cursor...
+> 
+
+That sounds reasonable, but perhaps non-trivial due to locking.
+
+So all in all we have a situation where there's an unknown soft lockup
+issue, a potential bug in iteration logic, an unclear requirement for
+more complicated cursor management, and from my perspective a lack of
+documentation on design intent (so we're reverse engineering it
+piecemeal).
+
+I still think the right approach here may be to rework the original
+optimization in a way that retains prior iteration behavior, and then
+revisit whatever algorithmic changes that were intended here in followon
+patches with more clear documentation. I don't need to know what the
+precise issue being reported here is to reason that there's probably
+more complexity to this change than originally anticipated. All this is
+saying is that it can't hurt to take a more careful approach. 
+
+I also think this makes life easier for stable kernels where it might
+take longer for more conservative users to run into the sort of problems
+reported here (particularly with older preemption behavior).
+
+This is just my .02. I cooked up a patch for reference:
+
+https://lore.kernel.org/linux-xfs/20261008123141.358649-1-bfoster@redhat.com/
+
+I forgot to label it RFC, but this is mainly for posterity. I'm
+operating under the assumption this is NAK'd, so it is untested unless
+there's indication we want to do something with it.
+
+Brian
+
+> -Dave.
 > -- 
-> Ing. Nikola CIPRICH
-> technický ředitel
-> 
-> +420 591 166 214
-> +420 777 093 799
-> nikola.ciprich@linuxbox.cz
-> 
-> www.linuxbox.cz
+> Dave Chinner
+> dgc@kernel.org
 > 
 
--- 
-Ing. Nikola CIPRICH
-technický ředitel
-
-+420 591 166 214
-+420 777 093 799
-nikola.ciprich@linuxbox.cz
-
-www.linuxbox.cz
