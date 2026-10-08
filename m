@@ -1,83 +1,114 @@
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0F1049364A
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 10:08:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74291484237;
+	Thu,  8 Oct 2026 10:08:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791454094; cv=none; b=fdswM/F1iR3iHZ1tsCS1nztaEo8Llb/EJEB+doCQ6c+99NKqAMunV57gyN2vqsQWossh0TN0593YrXvI5SWCXUASCDgWzsks6RQTaSoyroU17FrXQX+Vim6QOeiWWquYXXYePBxnJN21cA2bvJlAzouvNK7uCAeEO4DU4Mshmeo=
+	t=1791454099; cv=none; b=JQf9Zs3Hh0u9X4vtYGftEFmGl+/po5xruTwrQy+LIKO9bDPbKEpfFTWAjAkxLkYJY1iyzRRYUKc8uzkloSKZ0m/L71PexR5eo5+8wTcpdhAiV+dKqSshZKMibQ/ly2c9LlhaGJ0yIqm783Rwb95VXX2TzOkSkUsmFHsaU0TG0jQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791454094; c=relaxed/simple;
-	bh=zQgFjchZZC7S3VyqKk+8K37VIQAceuw7hsVTiaB97K0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=rR4ih5HhUVgwc0qj2hytzcdPuyoGEa49ZJOts+5AYUmrsIyJLeX8IzdggvawEiLo+yEUN7xVGUKqvX6MmBomJ83J/FqiUFdAW68rcdlYntL5phYOwSerJOKfSQsZn5zGPR0iosLe7KPuboawnQbbk64sIVE3JFCcOkMO0akzWZ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=bLcNtjau; arc=none smtp.client-ip=210.118.77.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1791454099; c=relaxed/simple;
+	bh=eZUGXwsI3NzWhnlMgjYNBD5eqnT1TVLMkQpJnpiKROQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eceYe2e/BukpHb8gU0qAiERbC5cktsjBi/AvnzetjxzcvLmV99YPRRDDLsBTz7eU6JgoKh1PgdpzXIadfocnYUwfMAGdsjwU+q5oCpOeaD4XfrSsV8nPVi9ylZToJ+ugWnvBLclswAqkSv9YcG+7EnQUIrKvLHkQhKBSXmQExIQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=ryRT5VaO; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=ORWGV06X; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="bLcNtjau"
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261008100810euoutp027727eaaecccff23e8bf79d39662149a0~chgDckort2340523405euoutp02g
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 10:08:10 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261008100810euoutp027727eaaecccff23e8bf79d39662149a0~chgDckort2340523405euoutp02g
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1791454090;
-	bh=qPIIfNHfK+h832BLKqeX1sylPKmD+Ti0Dfta4FiZqP4=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=bLcNtjaux4RXD1Zv9OViOFRKXdAlVTHlEcRBEg+lvwTvd/1kv5HfviXHeCafy/089
-	 8HNz4Zeexx6iCJPzb9X8BbByKvnenXuDB4yHMbqYIzX4pbTWHQ/YoiQuyQb4AsfEHI
-	 h332YKwT7wosHEHSRKflY6qIKWxmehbMgfr4un3U=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261008100809eucas1p178afec767296085a137e7ae9493011d4~chgDP0jCF3207032070eucas1p1Z;
-	Thu,  8 Oct 2026 10:08:09 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261008100809eusmtip2ffe3f4e519b7b5d1f8f7f822ebdfc383~chgC7yDxz2266322663eusmtip23;
-	Thu,  8 Oct 2026 10:08:09 +0000 (GMT)
-Message-ID: <8a43211a-4f13-4e5a-a549-289a633762f5@samsung.com>
-Date: Thu, 8 Oct 2026 12:08:08 +0200
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="ryRT5VaO";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="ORWGV06X"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 2F55E1F79D;
+	Thu,  8 Oct 2026 10:08:16 +0000 (UTC)
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1791454096; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HrWvcaddFOnuytcC3zGMkWmIvXz+drcjFZscktNZXf0=;
+	b=ryRT5VaOQEAPQ53QKSRQkkJbv/JNdjltnCh8Yp28kF38cDs1nizGUJlgDXplIlXt+2XmG4
+	3avuDOe/RIerJZYfV8fhb4HCLe71DmdjSliQXstx97X3RUTJgav9jI6eFV0hk6M4MLxlKF
+	rP8tIiNNCCga8wEBIxLHP2rwzacTxgI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1791454096;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HrWvcaddFOnuytcC3zGMkWmIvXz+drcjFZscktNZXf0=;
+	b=ORWGV06XNyJzjvQOCopeaY3mdHmZ6Y0JNLNVdvnM8+U9CMGx7sYJ3AuT8pR4/80qH+mvul
+	ZMjcgEPxOJ1/9BCw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D74541339F;
+	Thu,  8 Oct 2026 10:08:15 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id j4bjK49rx2oWKwAAD6G6ig
+	(envelope-from <jack@suse.cz>); Thu, 08 Oct 2026 10:08:15 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 64122A13FC; Thu, 08 Oct 2026 12:08:00 +0200 (CEST)
+Date: Thu, 8 Oct 2026 12:08:00 +0200
+From: Jan Kara <jack@suse.cz>
+To: Markus Elfring <Markus.Elfring@web.de>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>, linux-ext4@vger.kernel.org, 
+	Theodore Ts'o <tytso@mit.edu>, LKML <linux-kernel@vger.kernel.org>, 
+	Andreas Dilger <adilger.kernel@dilger.ca>, Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>, 
+	Ojaswin Mujoo <ojaswin@linux.ibm.com>, Ritesh Harjani <ritesh.list@gmail.com>, 
+	Zhang Yi <yi.zhang@huawei.com>
+Subject: Re: [PATCH] ext4: return an error when a journal block is not mapped
+Message-ID: <xmgbasz4ie6aiuz37ubci7qwp55j4zefghhrv5yfzx3cnzsyie@f4tqtbyovfae>
+References: <20261004180629.27213-1-kmehltretter@gmail.com>
+ <23514bc7-e2b1-4796-a107-a5674dede5b0@web.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH] dma: swiotlb: use KiB in restricted pool allocation log
-To: Francesco Valla <francesco@valla.it>, Robin Murphy
-	<robin.murphy@arm.com>
-Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <20261008-swiotlb-size-print-v1-1-374493b5c5a6@valla.it>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20261008100809eucas1p178afec767296085a137e7ae9493011d4
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261007220543eucas1p19170ec07885046129718b630c71ab9cb
-X-EPHeader: CA
-X-CMS-RootMailID: 20261007220543eucas1p19170ec07885046129718b630c71ab9cb
-References: <CGME20261007220543eucas1p19170ec07885046129718b630c71ab9cb@eucas1p1.samsung.com>
-	<20261008-swiotlb-size-print-v1-1-374493b5c5a6@valla.it>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <23514bc7-e2b1-4796-a107-a5674dede5b0@web.de>
+X-Spamd-Result: default: False [0.00 / 50.00];
+	TAGGED_RCPT(0.00)[]
+X-Spam-Score: 0.00
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Rspamd-Pre-Result: action=no action;
+	module=Unknown lua;
+	unknown reason
 
-On 08.10.2026 00:05, Francesco Valla wrote:
-> Update the allocation logs for restricted memory pools to use KiBs
-> instead of MiBs, to avoid truncation when the size of the memory area is
-> not a multiple of a MiB.
->
-> Without this modification, pools smaller than 1MiB are logged as 0MiB.
->
-> The same modification has already been performed for coherent memory
-> pools [1].
->
-> Link: https://lore.kernel.org/all/20260629223759.2637162-1-sharaienko@google.com/ [1]
-> Signed-off-by: Francesco Valla <francesco@valla.it>
+On Thu 08-10-26 10:32:06, Markus Elfring wrote:
+> …
+> > +++ b/fs/ext4/super.c
+> > @@ -5967,7 +5967,7 @@ static int ext4_journal_bmap(journal_t *journal, sector_t *block)
+> >  			 "journal bmap failed: block %llu ret %d\n",
+> >  			 *block, ret);
+> >  		jbd2_journal_abort(journal, ret ? ret : -EFSCORRUPTED);
+> > -		return ret;
+> > +		return ret ? ret : -EFSCORRUPTED;
+> >  	}
+> >  	*block = map.m_pblk;
+> >  	return 0;
+> 
+> Would you expect that an optimiser will avoid a duplicate expression here?
+> How do you think about to adjust this implementation detail another bit?
 
-Applied to dma-mapping-for-next. Thanks!
+I don't think we care about a duplicate expression in this path but yes,
+perhaps doing:
+	if (!ret)
+		ret = -EFSCORRUPTED;
+before calling jbd2_journal_abort() would be a tad bit cleaner.
 
-Best regards
+								Honza
 -- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
