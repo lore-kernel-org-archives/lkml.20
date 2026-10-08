@@ -1,81 +1,91 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E43A820010A;
-	Thu,  8 Oct 2026 02:52:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BFC71A682A;
+	Thu,  8 Oct 2026 02:52:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791427925; cv=none; b=EIWcnpblBNRBqe0ysw7kHwrHZYvyLzc+WejIgXROYRTmI79Zj2KnGoNum0OHHyoHgk3zRRxDvWxI4ffYUtEdQLjPGCx9mRfAocQn5Msv8mu2f4wYzCoATXN2E06Bac1WWyw/bDNY4QWA4pHpkRfTMcoZK0D7lxbJ8JYMHBiAklg=
+	t=1791427959; cv=none; b=Y5ahD99QmL+SmMElbhK3cAVPUBNcU5ovHXe6CmU3xWXtjKXG1xUT5MiDn/Vpbk16NI4cAB+hNN5h1H2qSLSAm1S45AiLeMrf0H9T0UjqgnvwQM0gX+0MsB7QyoQpt4UAL7jRJ+VHxfNiz/Cwn75SH3TDq5oC5IbrEdQp0gtpZbs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791427925; c=relaxed/simple;
-	bh=+xbwlBBvR9CRiHYs+WTpCuPJVQXQl/8Ej0dbvlQqk9I=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=SHmqK1tEL2nTy+G4qyvcPDS0scxWDeE+rpw15G5JaR4i9R3t8Aqd2ApKhtzJGpDGQwWGC3i+QnSTdnnyw/X+CqJjwsY7e7tn0ibP4iRmc85z6GoiaQ3wXsdL+if/Z755mreBrA6Us5Z91WujzccqTllyXwOvSH5BvJ9F2787UTA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 386840b4c2c311f19a56ed5b684f684d-20261008
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:e253ccb0-8e6f-48d8-82de-b7ddf1079c75,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:20
-X-CID-META: VersionHash:7db8b62,CLOUDID:3019ea6ce21a8533f5a7e2926d08123e,BulkI
-	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99,EDM:5,IP
-	:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,
-	LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 386840b4c2c311f19a56ed5b684f684d-20261008
-X-User: luriwen@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <luriwen@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 718248067; Thu, 08 Oct 2026 10:51:54 +0800
-From: Riwen Lu <luriwen@kylinos.cn>
-To: rafael@kernel.org
-Cc: luriwen@kylinos.cn,
-	lenb@kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ACPI: PM: sleep: Drop unused sleep_no_lps0 define
-Date: Thu,  8 Oct 2026 10:51:52 +0800
-Message-Id: <20261008025152.153073-1-luriwen@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1791427959; c=relaxed/simple;
+	bh=8bLtCuWTZTaHbajx38f4l4KtlmbROjlS7K64/gWcLXA=;
+	h=From:To:CC:Subject:In-Reply-To:References:Message-ID:Date:
+	 MIME-Version:Content-Type; b=bRWPBxK8WfoydpKsFE2xuS0f3PtZuqPK1OmINsybNc4MrV2MPytB0zxsfbxc+KB+iRkO25uf2D0Kqa++79Rxr6T4VQDdbrLoECZlFqM7zf9lWvPwyItnFq6OTQS2sCwhhOuMbBFvO5KNXKXZRYJI3POxM73VJ5ZAUkLlDBhKxtA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=q1wwg/Ow; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="q1wwg/Ow"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6982qPeX5141467, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1791427946; bh=+J/IwGD9e/L7CExHzmjxaYVD/7hdHFA/h5727T/ss+4=;
+	h=From:To:CC:Subject:In-Reply-To:References:Message-ID:Date:
+	 MIME-Version:Content-Type;
+	b=q1wwg/OwTnV85/67R+ZpkKmff7RQVMMPpYEWX2c40gnRcR4AAnkOGv4hMQRAgG4VA
+	 QCb4N/0grYCEtnpoyR6Ilx39MQGpn8su5loD3fbrYTE0HmLjICLZo18UFF9ZXMCg5n
+	 GsMYgIyQqQfPR4LhZJ8S3jCmYMzg4h80SGmjFyHFlzBePkGOdsRbJ+GqS7ZTtY23OE
+	 xOycItS5zBY+q5kMYufiQDaJBO5nfs0JsZa5HGWdd70wFjKpNA/bljFUxus62B6Dgr
+	 8xIHZiTUVWbq5vaYXJXRLI91kCwfiVp0E51mSeBHpRFkCAbsJN9ozYiUAQpt7OoxGm
+	 vS+7nfuXEncwg==
+Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6982qPeX5141467
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Thu, 8 Oct 2026 10:52:25 +0800
+Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
+ RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 8 Oct 2026 10:52:23 +0800
+Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
+ RTKEXHMBS05.realtek.com.tw (10.21.1.55) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 8 Oct 2026 10:52:19 +0800
+Received: from [127.0.1.1] (172.21.40.75) by RTKEXHMBS05.realtek.com.tw
+ (10.21.1.55) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
+ Transport; Thu, 8 Oct 2026 10:52:14 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Luka Gejak <luka.gejak@linux.dev>, Ping-Ke Shih <pkshih@realtek.com>
+CC: <linux-wireless@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Michael
+ Straube" <straube.linux@gmail.com>, Peter Robinson <pbrobinson@gmail.com>,
+	Bitterblue Smith <rtl8821cerfe2@gmail.com>, Luka Gejak <luka.gejak@linux.dev>
+Subject: Re: [PATCH rtw-next v8 1/7] wifi: rtw88: move the 88xxa CCK power detect setter to phy.c
+In-Reply-To: <20261006130701.120460-2-luka.gejak@linux.dev>
+References: <20261006130701.120460-1-luka.gejak@linux.dev> <20261006130701.120460-2-luka.gejak@linux.dev>
+Message-ID: <8131d809-157d-4a42-9b30-da6c90752cf8@RTKEXHMBS05.realtek.com.tw>
+Date: Thu, 8 Oct 2026 10:52:14 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-The sleep_no_lps0 stub define in the !CONFIG_ACPI_SLEEP branch of
-sleep.c has no users left in that file: the LPS0 code consuming it
-was moved to drivers/acpi/x86/s2idle.c by commit fef98671194b ("ACPI:
-PM: s2idle: Move x86-specific code to the x86 directory"), which has
-its own static module parameter of the same name, so the define is
-no longer used.
+Luka Gejak <luka.gejak@linux.dev> wrote:
 
-Drop it.
+> The CCK power detect setter in rtw88xxa.c programs values that are not
+> specific to that chip family. The RTL8723B wants the same setter, but
+> pulling in the whole rtw88_88xxa module for one helper is not worth it.
+> 
+> Move it to phy.c as rtw_phy_cck_pd_set(), where the rest of the CCK power
+> detect code and the level enum already live. rtw8812a and rtw8821a call
+> the core version, so rtw88xxa.c no longer provides it. No logical
+> changes have been made at all.
+> 
+> Signed-off-by: Luka Gejak <luka.gejak@linux.dev>
+> Reviewed-by: Bitterblue Smith <rtl8821cerfe2@gmail.com>
+> Acked-by: Ping-Ke Shih <pkshih@realtek.com>
 
-Signed-off-by: Riwen Lu <luriwen@kylinos.cn>
+7 patch(es) applied to rtw-next branch of rtw.git, thanks.
+
+9f596b63010b wifi: rtw88: move the 88xxa CCK power detect setter to phy.c
+6501c79b341d wifi: rtw88: 8723b: add the RTL8723B register definitions
+a9283c7371a3 wifi: rtw88: 8723b: add the RTL8723B BB, RF and AGC tables
+6879a85cf4b2 wifi: rtw88: move the shared 8723x definitions to rtw8723x.h
+d726c70ce082 wifi: rtw88: 8723b: add the RTL8723B chip driver
+269946cba92e wifi: rtw88: 8723bs: add the RTL8723BS SDIO bind
+b2d251aa7f16 wifi: rtw88: 8723bs: enable building the RTL8723BS driver
+
 ---
- drivers/acpi/sleep.c | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/drivers/acpi/sleep.c b/drivers/acpi/sleep.c
-index 132a9df98471..a94bac4422d4 100644
---- a/drivers/acpi/sleep.c
-+++ b/drivers/acpi/sleep.c
-@@ -548,7 +548,6 @@ static void acpi_pm_end(void)
- 	acpi_sleep_tts_switch(acpi_target_sleep_state);
- }
- #else /* !CONFIG_ACPI_SLEEP */
--#define sleep_no_lps0	(1)
- #define acpi_target_sleep_state	ACPI_STATE_S0
- #define acpi_sleep_default_s3	(1)
- static inline void acpi_sleep_dmi_check(void) {}
--- 
-2.25.1
+https://github.com/pkshih/rtw.git
 
