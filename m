@@ -1,228 +1,284 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81F014963CF
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 10:37:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 496033EE1F8
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 10:38:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791455829; cv=none; b=AV4WCbN46pWQP8dHbXC92MA3oPlC4QgqM8VMS2NWdttMB8jQv49domyM92eWSJ/U8gdbd5nu4CUDpoBqBGtmygF3QQV8ELbHLM40Bbuxrj+89+keOL6p0XBwVaGIgaCKIhg3q+48mYdvxo8flJmrBVKCfvYce5iUkspsMV09/vY=
+	t=1791455901; cv=none; b=pq3CEQnLwE1R9uuL1NkO/ZS8/DoEudS7wmtxtVjjWCixWG605jPWVjOd+alD5Y0znFMfl2TeGMrX/u8QqMyxxOtMdmqphXmsCZeS4c2tw47rRXr0TdhNt7nrndWAfcfJO/omD/0Add2jwHOmS0VrM5dpk8li1SM3zaMdk3hnDlk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791455829; c=relaxed/simple;
-	bh=6LF2uQsgvY/fzl3eAWc6/iZ2APHLSLZu8+2XZlkFoAA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HEvmY7M3syGgWpBVCS5pdw6qH+wPHQze+hyssCfqzqnqADw+FHTCvnSaM8ZtDyFtlKmsnMc+3ZFIBVLxB0D+CBgPQDElbX/TWnadhAmqyJTNbKjERUhIiYL0u2IANLMSqbCYkuZXzTG+vU6ArKK7SC4BWCExqmWeXB5DHdbL6oE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b=W/K+h4iG; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1791455901; c=relaxed/simple;
+	bh=OhUwK9CKnQrFTTtUTqYePtOiFHISBigp4v656dVbCFA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tDuMAYZ6852DWW3IaTncJLfqK7t4h2gztgk/q0wLMlyadk+NFESMymg04SKj4G4ChoUJUdL4tHjoINzmPHDV+qrW0yB2hYXTPvdkICehkeNkxYVG7X8B/1l/u0y1Zf6T4JJXqD2vl0b9yMg1CE5TXgMMPzrs9rocKQ15lEA28iw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com; spf=pass smtp.mailfrom=jclark.com; dkim=pass (2048-bit key) header.d=jclark-com.20251104.gappssmtp.com header.i=@jclark-com.20251104.gappssmtp.com header.b=WGqCOIW0; arc=none smtp.client-ip=74.125.227.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jclark.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="W/K+h4iG"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 53D0F1F441;
-	Thu,  8 Oct 2026 10:37:03 +0000 (UTC)
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1791455823; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=6LF2uQsgvY/fzl3eAWc6/iZ2APHLSLZu8+2XZlkFoAA=;
-	b=W/K+h4iGfHSf/2qELGHqBCVMLWXJnK3sAaCy/ftEIDaV2G/vcVv2Rz3gXiEjKOk9SGIOdY
-	cHqYCCTZappnG5jl3CjLOhb4PcbRY9s8L63/Uk7vOD383MwTf2oG9b4BlYgbPv87c1IIpU
-	RkPCczZkXgUuf9RUDYevhhu0ALeXy+w=
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 03FC51339F;
-	Thu,  8 Oct 2026 10:37:02 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id oh2aMk5yx2rwSQAAD6G6ig
-	(envelope-from <jgross@suse.com>); Thu, 08 Oct 2026 10:37:02 +0000
-Message-ID: <576bbb3d-48a3-436c-b626-b0f2dd493a9e@suse.com>
-Date: Thu, 8 Oct 2026 12:37:02 +0200
+	dkim=pass (2048-bit key) header.d=jclark-com.20251104.gappssmtp.com header.i=@jclark-com.20251104.gappssmtp.com header.b="WGqCOIW0"
+Received: by mail-pj2-f11.google.com with SMTP id 98e67ed59e1d1-398a0a87595so3177775a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 03:38:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=jclark-com.20251104.gappssmtp.com; s=20251104; t=1791455897; x=1792060697; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aLfGTPUcUWb9l5deLpoGs8ct/J5SWokbi6MEeKK6Nzo=;
+        b=WGqCOIW0m2pOy6+0C0aUtvFRy3+Xm9Fnr1ynoZllKUNKjR3XvG0oe6BwA+UBj7FUWb
+         GiRyZmGWAmOcE3BF0PnUyAIha08i+t+1R8/q7Nm4UwAsA6654bzusg+KSyDLdqW/SRgr
+         Wi/WKsSTN+9SL2THu43kncfHkiOZL/Ku/47OKPjPnkOckmY2u43gMkZN52hoAhJ1FJnN
+         O4mRnY2H8IV3XiIqlk8haFig7dY3WL9nk+QTA/aQtJjdotbo4zvLgCcn9v0M4gbAswdq
+         UlRyqKo34ezWrzJk0TjsERkwQna/tqSTzM9yGfpPZ+Uspg737tX2+06FZLIAD3avDgKD
+         Sd2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791455897; x=1792060697;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aLfGTPUcUWb9l5deLpoGs8ct/J5SWokbi6MEeKK6Nzo=;
+        b=oJ9DUG9/JddCF/IPGIzEBORA1SVzcGPt3+ep0XkrWaxty62Y2ndEBAutDk4M2M8iia
+         vq2u7D5cqbEoO0huq/rgMKcsKGMyuyapFHpO/S+bJfuuja8f3qZDZJXrkE9DI0L9MBx1
+         HrzAkE7swhsT9qcQr0vezdMOsngD6/b+C4m0CP3bE7s/EThZALqfO4VxdHrJVqP7IxR9
+         ZzHPfoerxBbJNmlrLK2Xj9ZqNSnfP59eB8ZVUF6pIIw15hiwlDS5l39O3JYt7Tm82uPy
+         nBbaGJxqg7SMUOIQVyYudAQpRnVqsCq+8/4W8J2GUAjeJaxRMU/eOW9+S4+VCc3z4fEo
+         XSjw==
+X-Forwarded-Encrypted: i=1; AKwUvByv/I3o3wgQTED5aY1jOhIfRiwvlGeP9H38t5uXSzPspPu+++YMxHRhWWsZKGQcG49yIib46qwPAH1afbA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKt+Ugv0N8x2uRU6zwwuD+WlBhGFSveNIeMq+3YPouQUOPwyB8N
+	IUwIwi5ENyU5lEdrvkHyGgpglS29l8D9ViovAjrkGoDoZ58qZoQvuS+jTjQDMVJEP/nsKop5zLp
+	d3H6Np9O8lGtO1g==
+X-Gm-Gg: AYBFou1pN//9b/wojoG+dGKGe5b6I+wkPDGVGBTpHa/Yeg3FtispCbl7eq1xUR5mHj+
+	+d0y1STrDHucgjDu9teJlGaSjzsiWoXJfSWP2dba+fUw5ZzaulB2EoX14nt6rvenJPD52TxQR61
+	E35cdpQszTMxHYbS4Yg0l8u1pqdWBTj6OSSxzbhAqezQoJeYXyWRxPMCuh7YolTNzXTLUQ2rWJC
+	smlqXOSMouFXf+Zl/VWNAraSQ4yNdE3udToyEmvrNskmz5R76UvydM+Mc7+GLsiB6XYDFsvpdb/
+	j24dCJc6+aNyTZFPGg26azJ0C5gg/73gbOIqG1S6DozA2VaaAIX/nlzuV75jYLDoLFtxrPF1FAk
+	Z8K5gIs/dcm27ubwM53f82FF2jMaBoRrsBIwmM4eF8O3Z84CKdNU/ysBtW976suj174Un9AYnlI
+	QBXIGuZUw5ru+rGSYJlFImyjPy3/uQEJhNJl1ide++WIRqmkr/NGxl6IyjCQjRRw==
+X-Received: by 2002:a17:90b:4a8f:b0:39e:6a82:afda with SMTP id 98e67ed59e1d1-3a8a1b3206emr4398317a91.44.1791455897384;
+        Thu, 08 Oct 2026 03:38:17 -0700 (PDT)
+Received: from cantal.lan ([58.136.72.162])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab0458bce8sm1008070a91.3.2026.10.08.03.38.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 03:38:16 -0700 (PDT)
+From: James Clark <jjc@jclark.com>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	netdev@vger.kernel.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Miroslav Lichvar <mlichvar@redhat.com>,
+	Nicolai Buchwitz <nb@tipi-net.de>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v2] net: stmmac: ptp: switch to gettimex64() interface
+Date: Thu,  8 Oct 2026 17:38:09 +0700
+Message-ID: <20261008103809.1848255-1-jjc@jclark.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/privcmd: Only claim ioreqs matching an ioeventfd
-To: Koichiro Den <den@valinux.co.jp>, Viresh Kumar <viresh.kumar@linaro.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-References: <20260821084112.2374949-1-den@valinux.co.jp>
-Content-Language: en-US
-From: Juergen Gross <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <20260821084112.2374949-1-den@valinux.co.jp>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------e46aryaWW0KyeUhbWDPpmWNY"
-X-Spamd-Result: default: False [0.00 / 50.00]
-X-Spamd-Bar: /
-X-Rspamd-Queue-Id: 53D0F1F441
-X-Rspamd-Pre-Result: action=no action;
-	module=Unknown lua;
-	unknown reason
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Spam-Score: 0.00
-X-Spam-Flag: NO
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+Content-Transfer-Encoding: 8bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------e46aryaWW0KyeUhbWDPpmWNY
-Content-Type: multipart/mixed; boundary="------------qu7IWwy8QFAhpVzf0SBiucwQ";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Koichiro Den <den@valinux.co.jp>, Viresh Kumar <viresh.kumar@linaro.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-Message-ID: <576bbb3d-48a3-436c-b626-b0f2dd493a9e@suse.com>
-Subject: Re: [PATCH] xen/privcmd: Only claim ioreqs matching an ioeventfd
-References: <20260821084112.2374949-1-den@valinux.co.jp>
-In-Reply-To: <20260821084112.2374949-1-den@valinux.co.jp>
+The stmmac PTP support currently implements the gettime64 callback to
+retrieve the hardware clock time. Update the implementation to provide
+the gettimex64 callback instead, adding support for the
+PTP_SYS_OFFSET_EXTENDED ioctl.
 
---------------qu7IWwy8QFAhpVzf0SBiucwQ
-Content-Type: multipart/mixed; boundary="------------LGUGRzYu6Aev1yfiF9nnrIok"
+The system clock readings are taken around the read of the nanoseconds
+register in get_systime(), so get_systime() gains a ptp_system_timestamp
+argument.
 
---------------LGUGRzYu6Aev1yfiF9nnrIok
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
+Assisted-by: LLM
+Signed-off-by: James Clark <jjc@jclark.com>
+---
+Changes in v2:
+- Read PTP_STNSR with readl() and drop the two rmb() calls
+  (Nicolai Buchwitz, Maxime Chevallier)
+- Fix the kernel-doc of stmmac_get_timex() and an over-long line
+  in stmmac_adjust_time() (netdev CI)
+- Link to v1: https://lore.kernel.org/netdev/20261006103610.98277-1-jjc@jclark.com/
 
-T24gMjEuMDguMjYgMTA6NDEsIEtvaWNoaXJvIERlbiB3cm90ZToNCj4gVGhlIGlvZXZlbnRm
-ZCBoYW5kbGVyIHNoYXJlcyBpdHMgZXZlbnQgY2hhbm5lbCB3aXRoIHRoZSB1c2Vyc3BhY2Ug
-ZGV2aWNlDQo+IG1vZGVsLiBJdCBtdXN0IG9ubHkgY2xhaW0gcmVxdWVzdHMgdGhhdCBtYXRj
-aCBhIHJlZ2lzdGVyZWQgaW9ldmVudGZkLg0KPiBPdGhlciByZXF1ZXN0cyBhcmUgbGVmdCBm
-b3IgdXNlcnNwYWNlLg0KPiANCj4gaW9ldmVudGZkX2ludGVycnVwdCgpIGN1cnJlbnRseSBt
-YXJrcyBldmVyeSBNTUlPIHdyaXRlIElOUFJPQ0VTUyBiZWZvcmUNCj4gbG9va2luZyBmb3Ig
-YSBtYXRjaC4gRm9yIGFuIHVubWF0Y2hlZCByZXF1ZXN0IGl0IGRyb3BzIHRoZSBsb2NrIGFu
-ZA0KPiByZXN0b3JlcyBSRUFEWS4gVXNlcnNwYWNlIG1heSBzZWUgSU5QUk9DRVNTIGFuZCBz
-a2lwIGl0LiBSZXN0b3JpbmcgUkVBRFkNCj4gZG9lcyBub3Qgc2VuZCBhbm90aGVyIG5vdGlm
-aWNhdGlvbi4gSWYgdXNlcnNwYWNlIGhhbmRsZXMgdGhlIHJlcXVlc3QgYXQNCj4gdGhlIHNh
-bWUgdGltZSwgdGhlIFJFQURZIHN0b3JlIG1heSBvdmVyd3JpdGUgaXRzIHN0YXRlLg0KPiAN
-Cj4gRmluZCBhIG1hdGNoaW5nIGlvZXZlbnRmZCBiZWZvcmUgY2hhbmdpbmcgdGhlIHJlcXVl
-c3Qgc3RhdGUuDQo+IA0KPiBUaGUgbG9jayBub3cgcHJvdGVjdHMgb25seSB0aGUgaW9ldmVu
-dGZkIGxpc3QuIFVzZSBleHBsaWNpdCB2aXJ0XyptYigpDQo+IGJhcnJpZXJzIGZvciB0aGUg
-aW9yZXEgc2hhcmVkIHdpdGggWGVuLg0KPiANCj4gRml4ZXM6IGYwZDdkYjdiMzMyNCAoInhl
-bjogcHJpdmNtZDogQWRkIHN1cHBvcnQgZm9yIGlvZXZlbnRmZCIpDQo+IENjOiBzdGFibGVA
-dmdlci5rZXJuZWwub3JnDQo+IFNpZ25lZC1vZmYtYnk6IEtvaWNoaXJvIERlbiA8ZGVuQHZh
-bGludXguY28uanA+DQoNClJldmlld2VkLWJ5OiBKdWVyZ2VuIEdyb3NzIDxqZ3Jvc3NAc3Vz
-ZS5jb20+DQoNCg0KSnVlcmdlbg0K
---------------LGUGRzYu6Aev1yfiF9nnrIok
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Tested on a Radxa ZERO 3E (RK3566, DWMAC 4/5) running net-next.
+Width of the interval between the two system clock readings
+bracketing each PHC read (2000 calls of 25 samples each):
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+                                         min      median
+Before patch (PTP_SYS_OFFSET):           875 ns   1167 ns
+After patch (PTP_SYS_OFFSET_EXTENDED):   291 ns    583 ns
 
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
+On this board the 24 MHz arch timer counter advances in steps of 7
+(~292 ns), so all intervals are multiples of that.
 
---------------LGUGRzYu6Aev1yfiF9nnrIok--
+ drivers/net/ethernet/stmicro/stmmac/hwif.h    |  5 ++++-
+ .../ethernet/stmicro/stmmac/stmmac_hwtstamp.c |  7 +++++--
+ .../net/ethernet/stmicro/stmmac/stmmac_ptp.c  | 21 ++++++++++---------
+ .../stmicro/stmmac/stmmac_selftests.c         |  4 ++--
+ .../net/ethernet/stmicro/stmmac/stmmac_tc.c   |  3 ++-
+ 5 files changed, 24 insertions(+), 16 deletions(-)
 
---------------qu7IWwy8QFAhpVzf0SBiucwQ--
+diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+index a8a5c8fdd5e..6efbfe50102 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
++++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+@@ -493,6 +493,8 @@ struct stmmac_ops {
+ #define stmmac_fpe_map_preemption_class(__priv, __args...) \
+ 	stmmac_do_callback(__priv, mac, fpe_map_preemption_class, __args)
+ 
++struct ptp_system_timestamp;
++
+ /* PTP and HW Timer helpers */
+ struct stmmac_hwtimestamp {
+ 	void (*config_hw_tstamping) (void __iomem *ioaddr, u32 data);
+@@ -502,7 +504,8 @@ struct stmmac_hwtimestamp {
+ 	int (*config_addend) (void __iomem *ioaddr, u32 addend);
+ 	int (*adjust_systime) (void __iomem *ioaddr, u32 sec, u32 nsec,
+ 			       int add_sub, int gmac4);
+-	void (*get_systime) (void __iomem *ioaddr, u64 *systime);
++	void (*get_systime)(void __iomem *ioaddr, u64 *systime,
++			    struct ptp_system_timestamp *sts);
+ 	void (*get_ptptime)(void __iomem *ioaddr, u64 *ptp_time);
+ 	void (*timestamp_interrupt)(struct stmmac_priv *priv);
+ 	void (*hwtstamp_correct_latency)(struct stmmac_priv *priv);
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c
+index b9a985fa772..870c740b4a5 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c
+@@ -183,7 +183,8 @@ static int adjust_systime(void __iomem *ioaddr, u32 sec, u32 nsec,
+ 					 10, 100000);
+ }
+ 
+-static void get_systime(void __iomem *ioaddr, u64 *systime)
++static void get_systime(void __iomem *ioaddr, u64 *systime,
++			struct ptp_system_timestamp *sts)
+ {
+ 	u64 ns, sec0, sec1;
+ 
+@@ -191,8 +192,10 @@ static void get_systime(void __iomem *ioaddr, u64 *systime)
+ 	sec1 = readl_relaxed(ioaddr + PTP_STSR);
+ 	do {
+ 		sec0 = sec1;
++		ptp_read_system_prets(sts);
+ 		/* Get the TSSS value */
+-		ns = readl_relaxed(ioaddr + PTP_STNSR);
++		ns = readl(ioaddr + PTP_STNSR);
++		ptp_read_system_postts(sts);
+ 		/* Get the TSS value */
+ 		sec1 = readl_relaxed(ioaddr + PTP_STSR);
+ 	} while (sec0 != sec1);
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
+index 3bfcc9760dc..e54a3c88782 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
+@@ -89,7 +89,8 @@ static int stmmac_adjust_time(struct ptp_clock_info *ptp, s64 delta)
+ 		u64 cycle_time;
+ 
+ 		mutex_lock(&priv->est_lock);
+-		priv->ptp_clock_ops.gettime64(&priv->ptp_clock_ops, &current_time);
++		priv->ptp_clock_ops.gettimex64(&priv->ptp_clock_ops,
++					       &current_time, NULL);
+ 		current_time_ns = timespec64_to_ktime(current_time);
+ 		time.tv_nsec = priv->est->btr_reserve[0];
+ 		time.tv_sec = priv->est->btr_reserve[1];
+@@ -114,15 +115,15 @@ static int stmmac_adjust_time(struct ptp_clock_info *ptp, s64 delta)
+ }
+ 
+ /**
+- * stmmac_get_time
+- *
++ * stmmac_get_timex - read the PTP clock, with system timestamps if requested
+  * @ptp: pointer to ptp_clock_info structure
+  * @ts: pointer to hold time/result
++ * @sts: pointer to hold system timestamps around the read, or NULL
+  *
+- * Description: this function will read the current time from the
+- * hardware clock and store it in @ts.
++ * Return: 0
+  */
+-static int stmmac_get_time(struct ptp_clock_info *ptp, struct timespec64 *ts)
++static int stmmac_get_timex(struct ptp_clock_info *ptp, struct timespec64 *ts,
++			    struct ptp_system_timestamp *sts)
+ {
+ 	struct stmmac_priv *priv =
+ 	    container_of(ptp, struct stmmac_priv, ptp_clock_ops);
+@@ -130,7 +131,7 @@ static int stmmac_get_time(struct ptp_clock_info *ptp, struct timespec64 *ts)
+ 	u64 ns = 0;
+ 
+ 	read_lock_irqsave(&priv->ptp_lock, flags);
+-	stmmac_get_systime(priv, priv->ptpaddr, &ns);
++	stmmac_get_systime(priv, priv->ptpaddr, &ns, sts);
+ 	read_unlock_irqrestore(&priv->ptp_lock, flags);
+ 
+ 	*ts = ns_to_timespec64(ns);
+@@ -200,7 +201,7 @@ static int stmmac_enable(struct ptp_clock_info *ptp,
+ 
+ 		target_ns = cfg->start.tv_nsec + ((u64)cfg->start.tv_sec * NSEC_PER_SEC);
+ 
+-		stmmac_get_systime(priv, priv->ptpaddr, &ns);
++		stmmac_get_systime(priv, priv->ptpaddr, &ns, NULL);
+ 		if (ns > TIME64_MAX - PTP_SAFE_TIME_OFFSET_NS)
+ 			return -EINVAL;
+ 
+@@ -304,7 +305,7 @@ const struct ptp_clock_info stmmac_ptp_clock_ops = {
+ 	.pps = 0,
+ 	.adjfine = stmmac_adjust_freq,
+ 	.adjtime = stmmac_adjust_time,
+-	.gettime64 = stmmac_get_time,
++	.gettimex64 = stmmac_get_timex,
+ 	.settime64 = stmmac_set_time,
+ 	.enable = stmmac_enable,
+ };
+@@ -321,7 +322,7 @@ const struct ptp_clock_info dwmac1000_ptp_clock_ops = {
+ 	.pps = 0,
+ 	.adjfine = stmmac_adjust_freq,
+ 	.adjtime = stmmac_adjust_time,
+-	.gettime64 = stmmac_get_time,
++	.gettimex64 = stmmac_get_timex,
+ 	.settime64 = stmmac_set_time,
+ 	.enable = dwmac1000_ptp_enable,
+ };
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
+index 6097f312fce..2ae4f0e760c 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
+@@ -1778,7 +1778,7 @@ static int stmmac_test_tbs(struct stmmac_priv *priv)
+ 		return ret;
+ 
+ 	read_lock_irqsave(&priv->ptp_lock, flags);
+-	stmmac_get_systime(priv, priv->ptpaddr, &curr_time);
++	stmmac_get_systime(priv, priv->ptpaddr, &curr_time, NULL);
+ 	read_unlock_irqrestore(&priv->ptp_lock, flags);
+ 
+ 	if (!curr_time) {
+@@ -1800,7 +1800,7 @@ static int stmmac_test_tbs(struct stmmac_priv *priv)
+ 
+ 	/* Check if expected time has elapsed */
+ 	read_lock_irqsave(&priv->ptp_lock, flags);
+-	stmmac_get_systime(priv, priv->ptpaddr, &curr_time);
++	stmmac_get_systime(priv, priv->ptpaddr, &curr_time, NULL);
+ 	read_unlock_irqrestore(&priv->ptp_lock, flags);
+ 
+ 	if ((curr_time - start_time) < STMMAC_TBS_LT_OFFSET)
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
+index 42a00446e9b..57ebeb2c19c 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
+@@ -1070,7 +1070,8 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
+ 
+ 	mutex_lock(&priv->est_lock);
+ 	/* Adjust for real system time */
+-	priv->ptp_clock_ops.gettime64(&priv->ptp_clock_ops, &current_time);
++	priv->ptp_clock_ops.gettimex64(&priv->ptp_clock_ops, &current_time,
++				       NULL);
+ 	current_time_ns = timespec64_to_ktime(current_time);
+ 	time = stmmac_calc_tas_basetime(qopt->base_time, current_time_ns,
+ 					qopt->cycle_time);
+-- 
+2.56.0
 
---------------e46aryaWW0KyeUhbWDPpmWNY
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmrHck4FAwAAAAAACgkQsN6d1ii/Ey/M
-ZQgAhkQLIt4TjQvAFXWfjlDCaBYqZUEB7jUItizu1VaYHKsmDNqz8Ys+xTvKCDBBnvlTLaXe3rbx
-AZyukz0JlgiE2cw+zeMnPe4GXt/xHCI3qXjyPz/p76bHSCNriViLWbyzrLGU5waW45m3HyE5zYZS
-diCx8hRHLqrexRaghbzoq3GiLib60CrvtT/PrXxdPKtsKlh5g8My5A1QlEMZ+me4L72G5FFPz0fL
-greynD0JpO6oLNVU45MedP1A3x10a3piEo92BTwre6Ez9Vb2efTbLoQ29qtOPOdeL8xHxBiQ41SH
-wjpAIGdbDFDrIbcOR2PjThuCpQoFrFoMsnvulZitKQ==
-=OQxM
------END PGP SIGNATURE-----
-
---------------e46aryaWW0KyeUhbWDPpmWNY--
