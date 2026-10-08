@@ -1,79 +1,78 @@
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF9874A8A11
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 13:26:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 249E04A49BC
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 13:26:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791465989; cv=none; b=P47Kn2GHDjB9rAXwqDwm3nKNee9QP8f1POl+N1N9t5y1Mzuma6OcLCvo1uZqxE6ZbbSd6ygoko7qCodDWdO7TrF5H/+Aa4nDIUdVUj5yUFHzPwzbMVKfls5dhP7Qn4zQzBWxUU4ZFfq3V/s8hmhCT/pEA65QE7K+DkwSUZ39a48=
+	t=1791465992; cv=none; b=u4ggDd8cnzB/uWvHGFUW9vr673b4Mn4ODOYM3r6JSj4F9vcfjj2qo9Vg0fRYy4DaZGVjq8tUv3UgcWZlXSVVt55kS06CSLz5R/inQAv+FzIgcZoLlLG53eDYKeliwJI0qVBLd/F2t9lVF8OEhx/CeCGWLjCKvei4N+uJnslMpYI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791465989; c=relaxed/simple;
-	bh=0ySfcafh4tQHepRjbftWqE++83vwv/wBpJ2Q+ZLu/x4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kbDgxjxLydVtwJ+sRLgCgTob1c+bhvvIgVQXv5s2QQqfAGAl5MrfCIKsCiAxPxAms7079UM7zvuACefDgC+3wUuHhocBUrvNUARM9CGUscO3UbAcufhmeksvJRyTrLfg43asVitIeDGYyHmkm/DjXzBe52/Wmx78jPXMxHsuneg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=FznH/WMa; arc=none smtp.client-ip=209.85.210.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1791465992; c=relaxed/simple;
+	bh=8ZTTcvJ6pMLKzEcbB5RE4trvo0lhMVk+f9x9P8nhzcc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=etB0JL8EqiCqzQ0Rw95eAOZV2KjC/JC/06ttJEhnNy/+fFyO+PbhwkVoccVDswElZ6f4KrKkS9Q/98UEHnFs40ez5AlCGNBYU48wq2cTwKNFgqYWBu+aWLaVc341eY8Y784Zjv1Tmu0qYD09TOeLYog9YscspsFk/S/04xWWXVI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iiL4VIJ9; arc=none smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="FznH/WMa"
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8875d220446so1578627b3a.3
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 06:26:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iiL4VIJ9"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-487048857f6so2629535f8f.3
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 06:26:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791465984; x=1792070784; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=M1+oFp0gxdXfQLvRPA6qqYXrymxpx83eWWBEaMxgtbM=;
-        b=FznH/WMafMNr4fn87xPBskpfnLPV9evpCzAT/aT+ITaMr57lE6/ImDDcN1ZU6cWYj3
-         4GOwcPz4nqr8GClEDeXpdDfyAX/LDqPw3gWDz6OBERCfIvRUdoRywLZb373pZB1frxAv
-         gLmaC4/POAGzPmzR0jCoeL0TEcVo/ihDi6V+mBwg1kyC51IBLH++h/j9Vwwgr7BzRQQK
-         HssRNhBYolnfGtHsgx7H78h0zhwK67MSoOJrEVwyXqAEsIlby7Ki8moV/pSGpsj+T4iF
-         jbCgnAbCH2aOJS9uUXkCBmZ4QrjZODvFnHiIjTE5/UlYj4048y0KMkdeNu8Mouw4H1QU
-         2BwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791465984; x=1792070784;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791465981; x=1792070781; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=M1+oFp0gxdXfQLvRPA6qqYXrymxpx83eWWBEaMxgtbM=;
-        b=ry+AIRlGAOKIFHimjZIhHWTTT2Ley4O2NXX3q0p91GCdD4atHKsOm03zPivbJbusiv
-         p2P1jU4EQj2bpoPXvzkzdQQy1UP0vzKp2DQWAvDr+Hs7P6V3h8j/VZLelmqxfogvWbxx
-         dtXT9Xmc9FFPHjR4eZxswhdXQBTi6/pOIO4oaSarYlwdt/5zj6us/AwgZrjf2nF3mYer
-         w2e0tVS6Wv8BarUrK9jRs5vBzS1NdlrFhjHEKjB5/QN4bk/hyOd3mqFLWiy9G5XzlyE3
-         kbhT2zI3oRw+Kab/4MF/dE5d4uQ6todOap6mHOyCj9MLbi46hExAmOEHycKMWTxCg9KW
-         ajew==
-X-Forwarded-Encrypted: i=1; AKwUvBwTYTUVYxaDffsJV6zxL7WMxLZQEBVp+c7yaoYYd0pY8W8JW2Hbi42FJ/dCr7gtw4I3TxQufKU7T6s7GzQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lnwhB/lMbj0ey5wO4KNhY7S1yDBSUObmpWanVpzNIrkCWaLIZ8
-	JgBgBXzUbtnyV7DFFD/gPRWEJFVXdEq7Fld13YpuZoDsaDwUzBAHyYQWIiaF+Gm0TfM=
-X-Gm-Gg: AYBFou1M5uuSD1FAuZh4mfhYiNM2bT8rbr/y5gbY9E7HZfbZs82/gDD6sn6hBi7Q1Tj
-	a74CZ0/ISKYrlA75BDC8z+Js0WEupl8S07utbr3LhCHLgXJP1imi71xLWh1TMwIKr+PgEDjUzTD
-	QwZ7lKpaiU7V0SiZLxfvhGgA1Xoa3IfCHI5YjMilZGXnZZU9oU0U3HVd/psvPAk6Hq4Ypt9vwOi
-	kCjKtvTYsf7fsfA7ETPLw3DjafzFTVmSE20p7YG6aMN/4IT3xSIQ2oYKxZpBmykQoCcD5QfXbTt
-	0W0Kpc5BHzYhE/COza/CNfCtLkl5xiSAAnhlpVHjqep9t0mMZjTEun6HB7G4tCpXVCB83Pq/iNS
-	MGNWAdrZznqB/UtCRKx6Y4m3ym7oDatpBQXEaqEvLvfvYk4K3g48jnZeBPMf9fGgTqEEsYkQfS7
-	oD7LZsFnCOivijoYKE9z5mvbO15h/KsLg4ormOszwjOHbGyIV4M5meWt4RBHvzeFI/j0rFJEvLT
-	Q/2vl9qMzJmV+pwPivP
-X-Received: by 2002:a05:6a21:3995:b0:3de:61f3:3403 with SMTP id adf61e73a8af0-3e1340e0c7bmr4281826637.54.1791465983550;
-        Thu, 08 Oct 2026 06:26:23 -0700 (PDT)
-Received: from localhost.localdomain ([2406:5900:1044:110c:af47:f737:9040:a59])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd34f318ce0sm17289a12.4.2026.10.08.06.26.19
+        bh=SrpJoFjsD8GO+k4lY1Fdpbp0OUi5skMrml0Ia9JAUZI=;
+        b=iiL4VIJ994jRrTAiZGGgHpZJspiZw152bX5+z/8ax35ZudBs3/6mHU2MhiCZqj8IXn
+         jtIc52a5B77xTJSjnO+gUHWn+gVexdngXH+27pJmibyBbM60ovxr/sGjSKqTYLWSBw/9
+         qARvKe8y4ITQ+qJ8rEqevXkVXGDN0AZsdcSSQWxPN0/TPBEWQz//a1vR4o5Zl/3rmhdm
+         ldOvEvEa/XT+vmhKP7RqWCAvVE30Yo4wL07lkdz/Gh/Z9tMPoIzsovkoyQ3jKIBTTE7H
+         tfaZYpa7AQmvzOZLFDPnoZY+ocMuhVuKNYmd8L77vZS0pGtZHXqNza5Y4EeNULDWYG8z
+         sXIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791465981; x=1792070781;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SrpJoFjsD8GO+k4lY1Fdpbp0OUi5skMrml0Ia9JAUZI=;
+        b=KD2lXK4yE9pTVAL3zeCD+CL1HhlroFvDnU1/l/o8IyFNMQseKAFPjXP6jzQj8Jko2e
+         uEdxgMgWNpjkcGJdptKXqJuWWVJw+hzRn/xeelEJ8sQ5frPjDdd9ptd63rYAe/ixpR4R
+         tmdTqK8NHK74cOWsHQFSp9QjDqc0/Z8++zErOoA81B9Qul4lzfzIH+RSNZEB4Wxn6Bjr
+         RH+R6YZHEOwkWp/IDoC4LMEQMwQvelMr2EtGERGIoR9q6oK4JADPCC9DL68RXlwi3TjK
+         /v+4g/EW16cr5B1ogQzDWl2Um1tJ7zTBPkNLIMCQFjZbtMs20TjAWkqJlH/I16zxa+bK
+         OOlw==
+X-Forwarded-Encrypted: i=1; AKwUvByP8wwKiwvkanIvE6BEVZHLvF0MZOuH5n7nJowt0MUvaVdzP40oQAvsE0fj/CoUbQ0w/j+xAe/26Ghm9S8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kfaooG0A+KjwH8fqx6DgIssNqU8YgQwL0VEtXWNJnCkqjChVp+
+	sRxUW+UYPAEpHz5zTlgHwrsLtqlu1TXyntP8HM9B2SGBjy9GzZ9Wfa8=
+X-Gm-Gg: AYBFou3EmzJVxW/jYT0GSqA4ZlxPUtNQQg2M6BYQkIqPfOXZyhNX5kGZfeQk4r5oVxN
+	Cl8ZEo19RHmmsEd/TT+RzIe37l+49aiVxJ1vCROgt4rFfOsNbzTmzTsUZC4CWWTRm9N4Zogvbcy
+	KPfICObturx2tiBZE6s2sZuvi+roeBxOO6KH9V+nnghfO0T7R63h1cjI4t4T3/9qxBrViwflahn
+	89u1Ix4mwwaPVhn+lKqYO+1aQMEfc+7z97BKS8iQoK6hUaYUT4ZwOlzafvKvwiFb7fuJnjlUZnQ
+	7HYrTZh/TWLfVEZf43/yXG+pbxOFTtQpM73NcFg+uySh6lEvfhfhcUiyIzBsDzOI1iV1IiX8atG
+	MQKcsiVr6+mNjUiibUKTUBBHtkJPw2g47Crb66X4Prg3b7hU8g27yeX5OODIHt5O44gnQUFUiyA
+	CstLF5Ef2DyfPo2eF9tBr/nFU1PhrXARnwnCQ8GI+pe5OtDYp3n1qfHN4GlvJ/stwFCYpvwRTGr
+	um0U2BRKRKutv8vQQoK9XK25eAFUhLcJ5DW5kFAeNPtLE5/uCP4sI4=
+X-Received: by 2002:a05:600c:154a:b0:49c:cee0:e7c1 with SMTP id 5b1f17b1804b1-4a18043b5fcmr98401565e9.16.1791465981008;
+        Thu, 08 Oct 2026 06:26:21 -0700 (PDT)
+Received: from surface.. (84.124.213.91.dyn.user.ono.com. [84.124.213.91])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1842a349bsm71479105e9.2.2026.10.08.06.26.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 06:26:23 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: Keith Busch <kbusch@kernel.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>
-Cc: Nitesh Shetty <nj.shetty@samsung.com>,
-	Hannes Reinecke <hare@suse.de>,
-	Kanchan Joshi <joshi.k@samsung.com>,
-	gliuxen@gmail.com,
-	linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
-	stable@vger.kernel.org
-Subject: [PATCH] nvme: bound FDP config log reads to the received buffer
-Date: Thu,  8 Oct 2026 22:26:04 +0900
-Message-ID: <20261008132604.1168105-1-yhlee@isslab.korea.ac.kr>
+        Thu, 08 Oct 2026 06:26:19 -0700 (PDT)
+From: "D. Manresa" <dmanresa@gmail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Daniel Scally <dan.scally@ideasonboard.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Fernando Rimoli <fernandorimoli11@gmail.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 2/2] media: ipu-bridge: reuse the software nodes on rebind
+Date: Thu,  8 Oct 2026 15:26:14 +0200
+Message-ID: <20261008132614.2456716-3-dmanresa@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261008132614.2456716-1-dmanresa@gmail.com>
+References: <20261008132614.2456716-1-dmanresa@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,170 +81,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-nvme_query_fdp_granularity() parses the FDP Configurations log using
-sizes the controller returns, without checking that they fit the buffer
-it was given.  The log size is only bounded from above before
-kvmalloc(), so a size below the log header makes
-le16_to_cpu(h->numfdpc) read past the allocation, and a size of zero
-yields ZERO_SIZE_PTR and faults.  Each configuration descriptor is then
-dereferenced (dsze while walking, and nrg and runs on the selected one)
-without checking that the whole descriptor lies within the buffer, so a
-descriptor at or past the end is read out of bounds.  The out-of-bounds
-runs value is then exposed to userspace through
-/sys/block/nvmeXnY/queue/write_stream_granularity.
+The software nodes registered by ipu_bridge_init() are deliberately
+never unregistered, and the intended design is for a rebind to reuse
+the already registered nodes. That reuse path however only exists for
+the case where the IPU device kept its secondary fwnode link, which the
+fwnode graph check at the top of ipu_bridge_init() detects: then the
+function returns early. When the link is gone, ipu_bridge_init()
+unconditionally registers the IPU HID software node again, which fails
+with -EEXIST on the sysfs name (the node from the previous bind is
+still registered) and the IPU driver fails to probe.
 
-A malicious or buggy controller triggers this during namespace scan with a
-short FDP Configurations log:
+That is exactly what happens when the IPU PCI device is removed and
+re-scanned: device_del() unsets the ACPI companion, and
+set_primary_fwnode(dev, NULL) then clears the ACPI fwnode's ->secondary
+pointer, so the fwnode graph check on the next probe finds no endpoints
+and falls through to registration. Observed on a Surface Pro 7+ (IPU6):
 
-[    1.104828] BUG: KASAN: slab-out-of-bounds in nvme_alloc_ns+0x39a6/0x4480
-[    1.104848] Read of size 8 at addr ffff888009fd8fe0 by task kworker/u8:3/52
-[    1.104852]
-[    1.104857] CPU: 1 UID: 0 PID: 52 Comm: kworker/u8:3 Not tainted 7.3.0-rc6-00063-g0c2669a9f4a1 #1 PREEMPT(lazy)
-[    1.104862] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
-[    1.104866] Workqueue: async async_run_entry_fn
-[    1.104873] Call Trace:
-[    1.104876]  <TASK>
-[    1.104878]  dump_stack_lvl+0x66/0xa0
-[    1.104886]  print_report+0xd0/0x630
-[    1.104893]  ? nvme_alloc_ns+0x39a6/0x4480
-[    1.104897]  ? __virt_addr_valid+0x209/0x3f0
-[    1.104903]  ? nvme_alloc_ns+0x39a6/0x4480
-[    1.104907]  kasan_report+0xe4/0x120
-[    1.104913]  ? nvme_alloc_ns+0x39a6/0x4480
-[    1.104919]  nvme_alloc_ns+0x39a6/0x4480
-[    1.104926]  ? __pfx_nvme_alloc_ns+0x10/0x10
-[    1.104931]  ? check_prev_add+0xfd/0xe80
-[    1.104942]  ? lock_acquire+0x18d/0x300
-[    1.104948]  ? nvme_find_get_ns+0xbb/0x2e0
-[    1.104952]  ? find_held_lock+0x2b/0x80
-[    1.104956]  ? nvme_find_get_ns+0x221/0x2e0
-[    1.104962]  ? nvme_find_get_ns+0x231/0x2e0
-[    1.104967]  ? nvme_scan_ns+0x2e1/0x8d0
-[    1.104971]  ? kfree+0x2e5/0x510
-[    1.104976]  ? __lock_acquire+0x570/0x1b00
-[    1.104982]  nvme_scan_ns+0x56a/0x8d0
-[    1.104987]  ? __pfx_nvme_scan_ns+0x10/0x10
-[    1.104994]  ? lockdep_hardirqs_on_prepare+0xdc/0x190
-[    1.104999]  ? trace_hardirqs_on+0x18/0x160
-[    1.105005]  ? kvm_clock_get_cycles+0x19/0x40
-[    1.105011]  ? __pfx_nvme_scan_ns_async+0x10/0x10
-[    1.105015]  async_run_entry_fn+0x8d/0x290
-[    1.105020]  process_one_work+0x8ac/0x1b00
-[    1.105029]  ? __pfx_process_one_work+0x10/0x10
-[    1.105034]  ? lock_acquire+0x18d/0x300
-[    1.105040]  ? lock_is_held_type+0x8f/0x100
-[    1.105046]  ? __pfx_async_run_entry_fn+0x10/0x10
-[    1.105050]  worker_thread+0x4ee/0xe70
-[    1.105056]  ? lockdep_hardirqs_on_prepare+0xdc/0x190
-[    1.105061]  ? trace_hardirqs_on+0x18/0x160
-[    1.105066]  ? __pfx_worker_thread+0x10/0x10
-[    1.105071]  ? __pfx_worker_thread+0x10/0x10
-[    1.105076]  kthread+0x2ce/0x3b0
-[    1.105080]  ? __pfx_kthread+0x10/0x10
-[    1.105085]  ret_from_fork+0x52e/0x780
-[    1.105090]  ? __pfx_ret_from_fork+0x10/0x10
-[    1.105094]  ? __switch_to+0x572/0xde0
-[    1.105101]  ? __pfx_kthread+0x10/0x10
-[    1.105105]  ret_from_fork_asm+0x1a/0x30
-[    1.105114]  </TASK>
-[    1.105116]
-[    1.105117] Allocated by task 52:
-[    1.105119]  kasan_save_stack+0x33/0x60
-[    1.105123]  kasan_save_track+0x14/0x30
-[    1.105126]  __kasan_kmalloc+0x8f/0xa0
-[    1.105129]  __kvmalloc_node_noprof+0x2e1/0x820
-[    1.105134]  nvme_alloc_ns+0x1097/0x4480
-[    1.105138]  nvme_scan_ns+0x56a/0x8d0
-[    1.105142]  async_run_entry_fn+0x8d/0x290
-[    1.105145]  process_one_work+0x8ac/0x1b00
-[    1.105148]  worker_thread+0x4ee/0xe70
-[    1.105152]  kthread+0x2ce/0x3b0
-[    1.105155]  ret_from_fork+0x52e/0x780
-[    1.105159]  ret_from_fork_asm+0x1a/0x30
-[    1.105163]
-[    1.105164] The buggy address belongs to the object at ffff888009fd8fc0
-[    1.105164]  which belongs to the cache kmalloc-32 of size 32
-[    1.105167] The buggy address is located 8 bytes to the right of
-[    1.105167]  allocated 24-byte region [ffff888009fd8fc0, ffff888009fd8fd8)
-[    1.105171]
-[    1.105172] The buggy address belongs to the physical page:
-[    1.105175] page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x9fd8
-[    1.105179] flags: 0x100000000000000(node=0|zone=1)
-[    1.105183] page_type: f5(slab)
-[    1.105188] raw: 0100000000000000 ffff888008c41780 dead000000000100 dead000000000122
-[    1.105192] raw: 0000000000000000 0000000000400040 00000000f5000000 0000000000000000
-[    1.105194] page dumped because: kasan: bad access detected
-[    1.105195]
-[    1.105196] Memory state around the buggy address:
-[    1.105198]  ffff888009fd8e80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-[    1.105201]  ffff888009fd8f00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-[    1.105203] >ffff888009fd8f80: fc fc fc fc fc fc fc fc 00 00 00 fc fc fc fc fc
-[    1.105205]                                                        ^
-[    1.105207]  ffff888009fd9000: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 fc
-[    1.105210]  ffff888009fd9080: fc fc fc fc fc fc fc fc 00 00 00 00 00 00 00 00
-[    1.105212] ==================================================================
+  echo 1 > /sys/bus/pci/devices/0000:00:05.0/remove
+  modprobe -r intel_ipu6_isys intel_ipu6   # ipu-bridge unloads too
+  echo 1 > /sys/bus/pci/rescan
+  modprobe intel_ipu6
 
-Reject a log smaller than its header, and check that a descriptor fits the
-buffer before each access.
+  sysfs: cannot create duplicate filename '/kernel/software_nodes/INT343E'
+  intel-ipu6 0000:00:05.0: Failed to register the IPU HID node
+  intel-ipu6: probe of 0000:00:05.0 failed with error -17
 
-Fixes: 30b5f20bb2dda ("nvme: register fdp parameters with the block layer")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+after which the cameras are unusable until reboot.
+
+Add the missing reuse path: if the IPU software node is already
+registered, look it up with software_node_find_by_name(), point the
+device's secondary fwnode at it and return success. That is all a
+rebind needs: the sensor, IVSC and VCM links live on devices that
+survive an IPU unbind, so nothing has cleared those.
+
+software_node_find_by_name() takes a reference on the node it returns;
+drop it right away since the node is kept alive by its never dropped
+registration.
+
+Assisted-by: LLM
+Fixes: 803abec64ef9 ("media: ipu3-cio2: Add cio2-bridge to ipu3-cio2 driver")
+Signed-off-by: D. Manresa <dmanresa@gmail.com>
 ---
- drivers/nvme/host/core.c | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
+ drivers/media/pci/intel/ipu-bridge.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
-index 9bcab3dc4c118..2618b4889f1d4 100644
---- a/drivers/nvme/host/core.c
-+++ b/drivers/nvme/host/core.c
-@@ -2272,6 +2272,10 @@ static int nvme_query_fdp_granularity(struct nvme_ctrl *ctrl,
- 	}
+diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
+index b9779c3..f0fadc0 100644
+--- a/drivers/media/pci/intel/ipu-bridge.c
++++ b/drivers/media/pci/intel/ipu-bridge.c
+@@ -1099,6 +1099,7 @@ static DEFINE_MUTEX(ipu_bridge_mutex);
+ int ipu_bridge_init(struct device *dev,
+ 		    ipu_parse_sensor_fwnode_t parse_sensor_fwnode)
+ {
++	const struct software_node *ipu_node;
+ 	struct fwnode_handle *fwnode;
+ 	struct ipu_bridge *bridge;
+ 	unsigned int i;
+@@ -1109,6 +1110,29 @@ int ipu_bridge_init(struct device *dev,
+ 	if (!ipu_bridge_check_fwnode_graph(dev_fwnode(dev)))
+ 		return 0;
  
- 	size = le32_to_cpu(hdr.sze);
-+	if (size < sizeof(*h)) {
-+		dev_warn(ctrl->device, "FDP config log too small\n");
++	/*
++	 * The software nodes registered by a previous ipu_bridge_init() call
++	 * are deliberately kept registered when the module is unloaded, and
++	 * the sensors' ACPI fwnodes still have them as their secondary
++	 * fwnodes. If the IPU software node is already registered this is a
++	 * rebind, e.g. after the PCI device was removed and re-scanned,
++	 * which drops the IPU's secondary fwnode link. Registering the nodes
++	 * again would fail with -EEXIST, so instead reuse them and just
++	 * restore the IPU's secondary fwnode link.
++	 */
++	ipu_node = software_node_find_by_name(NULL, IPU_HID);
++	if (ipu_node) {
++		fwnode = software_node_fwnode(ipu_node);
++		set_secondary_fwnode(dev, fwnode);
++		/*
++		 * The node stays registered, it does not need the reference
++		 * software_node_find_by_name() took to stay alive.
++		 */
++		fwnode_handle_put(fwnode);
++		dev_dbg(dev, "Reusing the previously registered software nodes\n");
 +		return 0;
 +	}
- 	if (size > PAGE_SIZE * MAX_ORDER_NR_PAGES) {
- 		dev_warn(ctrl->device, "FDP config size too large:%zu\n",
- 			 size);
-@@ -2304,8 +2308,12 @@ static int nvme_query_fdp_granularity(struct nvme_ctrl *ctrl,
- 	desc = log;
- 	end = log + size - sizeof(*h);
- 	for (i = 0; i < fdp_idx; i++) {
--		u16 dsze = le16_to_cpu(desc->dsze);
-+		u16 dsze;
- 
-+		if ((u8 *)desc + sizeof(*desc) > (u8 *)h + size)
-+			goto short_desc;
 +
-+		dsze = le16_to_cpu(desc->dsze);
- 		if (!dsze || log + dsze > end) {
- 			dev_warn(ctrl->device,
- 				 "FDP invalid config descriptor at index %d\n", i);
-@@ -2316,6 +2324,9 @@ static int nvme_query_fdp_granularity(struct nvme_ctrl *ctrl,
- 		desc = log;
- 	}
- 
-+	if ((u8 *)desc + sizeof(*desc) > (u8 *)h + size)
-+		goto short_desc;
-+
- 	if (le32_to_cpu(desc->nrg) > 1) {
- 		dev_warn(ctrl->device, "FDP NRG > 1 not supported\n");
- 		ret = 0;
-@@ -2326,6 +2337,11 @@ static int nvme_query_fdp_granularity(struct nvme_ctrl *ctrl,
- out:
- 	kvfree(h);
- 	return ret;
-+
-+short_desc:
-+	dev_warn(ctrl->device, "FDP config descriptor runs past the log\n");
-+	kvfree(h);
-+	return 0;
- }
- 
- static int nvme_query_fdp_info(struct nvme_ns *ns, struct nvme_ns_info *info)
+ 	if (!ipu_bridge_ivsc_is_ready())
+ 		return dev_err_probe(dev, -EPROBE_DEFER,
+ 				     "waiting for IVSC to become ready\n");
 -- 
 2.43.0
 
