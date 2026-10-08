@@ -1,124 +1,165 @@
-Received: from mail-oo1-f42.google.com (mail-oo1-f42.google.com [209.85.161.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FD473D47A9
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 20:20:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791490807; cv=pass; b=URKyRo6+UMZcc9jV7MV2fihy0QUxqiqdC4lenXotNHm0+lKiM6EXISN6jETP/M+/4FApROx5CuvYBnhzwX9WDBtcOPxZebRnUR6OwpWiAfQyt3kANp1xvlsCr+DuMasaRlSXGbBGnpI4awW0kUXBEVPwVqpLKMEcuJCbwNLosw4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791490807; c=relaxed/simple;
-	bh=VghxcoteE53TAkYJL2GvHlV4/5cIhPzquFqmQp1GVTI=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=n+aQWrq3aZGO6vfxIPgw+yxsEbGsY+pTMgXdSk5Yof5wW17killFoawoYVFi/p8pX49abnDwCMHzg/Yew8bYz2lP1Zp+ygDeozPhZFs/mAE0ioJ/40yTH80gVGXeNZ42w99tXKR7Zlj3baaLn9VJNkd8HuN59wA+lOIU7418dj8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wholesomebuddy.com; spf=pass smtp.mailfrom=wholesomebuddy.com; dkim=pass (2048-bit key) header.d=wholesomebuddy.com header.i=@wholesomebuddy.com header.b=knc+IITo; arc=pass smtp.client-ip=209.85.161.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wholesomebuddy.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wholesomebuddy.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 100113DDB0D;
+	Thu,  8 Oct 2026 20:20:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791490811; cv=none; b=mn8pi78tq1w8H/UX1Ocw74pI3lb35y/xqp5vkWpTM5xQoxt0dqC2TZ6wF8ARkhfufVSdEBi8b/wT8od3/P65JVLrieUIE62kpFGBwhmPPM337l516H22tLEoVf/7LZYxmHU84rta9YF33IdOOvVbgoVsdysicbKhy4Guz5FC/ks=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791490811; c=relaxed/simple;
+	bh=T96s/fnsrHONgXeIXpGKt3YQJDuWHY9BMRyIWUEgkFI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=q2HQPyjeQsn0DUTGt15UvTWFzqmHqy9FQZkTSdyMz4Ia7hzax3F0zX0l1MtWGlyrpoevHZahOnoJx0h7xevOg1vU3bmHWi45jYrKKr2mLvRhUZJ6hNd/8t1Jn9A8rtVAhFH1SaTSWAbq8r/so5GyjEJfk/tWvDStTY2bXsnHP5g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=PL1MCQ6d; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wholesomebuddy.com header.i=@wholesomebuddy.com header.b="knc+IITo"
-Received: by mail-oo1-f42.google.com with SMTP id 006d021491bc7-6dd4f3f696aso1772811eaf.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 13:20:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791490805; cv=none;
-        d=google.com; s=arc-20260327;
-        b=g+2U3x8Ca+HR7y0ti/gRKqiO4sLb5rMCBRCOpNYjSVwol/JLCTVBVXDzazatS8Ey3x
-         jRRZ8eFTGGffkHhWegGr9qoRwBg1Gcn/f/FQLC61N0y/CrBheiGy6kcKYoZVwz1MhQ6z
-         2UScDMWkUhJtPDjXdU3dseZ24UDCBgnCy/SRO1GlpLLNs97ty2krkNxFcXoXL5PSPMI4
-         6OSQvwApw02xniuUH5SMiwVHu5p0Jye4/5Y5RhQmcnKEBSs3CkWDv0oF26ii7U+MeYKc
-         4tPbCqe/x2vBxaVCKnsCVWtB9Yf7Yn8AEPL2XgXdYyH+skPPFWH9IKTCgvTq6+tML7ai
-         pLyQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:to:subject:message-id:date:from
-         :mime-version:dkim-signature;
-        bh=VghxcoteE53TAkYJL2GvHlV4/5cIhPzquFqmQp1GVTI=;
-        fh=V9AeBafJgTW96HdC48wsxGAfd7Fe9P2uAL8tLCjpUN4=;
-        b=dsZzT/mMUbPOTbVtthOqLAwCeHIFCY3rE8k7DZWr6mIJhOmwpWyPhJiMm8BM2eyIFQ
-         ZKqIoxmjVr5iYKTos3pDU3kl/52huHDj04BN1zPa9KZZTF0+9ZMLuzu2CIu2/ahq+QeU
-         dSFj0PZuse8NifZMSVjIb4rY5fbmoAwnbAtgKpnMoSU5L8OMPKG472ySgy6Dyke/R+9U
-         9LQR93A+mfrW+k30gAz2cQUAl9ky2ueTuC14SkR3FRSE7UH2ny8qf5ZmcIjwetMAR2vD
-         z9JYQjBS2xiwxD9LTtcfdPkOqaCHQl/rZYHbWXRl4eFUUo2H7vmU76Q7YwPaWl/dnmHO
-         94Vg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=wholesomebuddy.com; s=google; t=1791490805; x=1792095605; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:to:subject:message-id:date
-         :from:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VghxcoteE53TAkYJL2GvHlV4/5cIhPzquFqmQp1GVTI=;
-        b=knc+IIToiT9fNXkebMcbje6kyl3AnZA7jhwYE1CiVelS9O1RgtTnzF8860PgMOMJEu
-         fN0EO2oGR7D8Zy5PSX1EF/uOYNsoFGy7uSAh1eLkEN2R++OBA11Ed58JrPi5kJDQWhaT
-         YxJcsh9PsqcbGQ7MawpRPxwkrEJmuwiNA26Dq7TWy+/iGYHCi+6jvKej/t7gprlHJZM+
-         bXhV6O93vZIg4jS59YC8p4FlF81Acc/my3m/1+aV12zgdZre8Uca0XA3NzGvRfR/YJdZ
-         JwrwPqQSelMS0FkEsSBwQEiF2B6fRrFA3T0rjvy0ZuGlZM3CjFrHkTc3jyXoL9iU2d5Z
-         XfoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791490805; x=1792095605;
-        h=content-transfer-encoding:content-type:to:subject:message-id:date
-         :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VghxcoteE53TAkYJL2GvHlV4/5cIhPzquFqmQp1GVTI=;
-        b=O0tq7LHDWnYlleJE7lasmiWUKMpUVdAZ0/PECnsWqqZ+2YiAaGvRKHH6kY4lQ7uWXl
-         rdwq5Mzu4Y7NpaaTRwdhJSKevqPvy4RvuxxcO2zOhei6J0elzgdM5Y3WDKV9u7wwxYml
-         mvGAaOPf2JGvOE7Y4TPciMbxwwcwYruje7wPc9Gm2NmGDZJBkzaXyKeaxD77u4Fx3+8d
-         sSnuALuNGijEXkwGp2A8HtydldB8HFfJ1X+o3OsNet/tgyctxBbOLXLbuRE7e2kXzGJV
-         5Tk4HNl5jhU1zvpw8/9xudj+oVOGUMQsMaq7dFh2OB7nTCjR4LaELXzV0yg+k1dqc9VK
-         E8eA==
-X-Gm-Message-State: AFuF++kYFzuZIyOOVJTYRvAj0fQvRR4pirdwbguixr8Wxx95tttk/u5q
-	vDo0yAsalLOuXWE7y5dG1yv0nn13ihH/S4ZaWkv9Q59m2D950bKdA8U97Pos/ZUI8y6N1uHh89m
-	vmFux1wgjC+Y7hmR1Gh7qUP4A1MyTX3uBM4RwxvIRW+XfnztmDqJn
-X-Gm-Gg: AYBFou3BxIynYmGegAaW/QVUyamWv+VSwv/3rerlYu7FOCIPr6lnZTtwx7lf6s253re
-	o54pHg4cVCjdYUQEN+fZBGxCjSzZzYIuONdSK1N5yBKqT3lJBgzhl1cgQoFTFBjtmhkfrHe+FrD
-	65zvVk/W3VD+bdfL4a2W0AA3wE0cDnldVPTxUwd9GOHo4qqtfzZt3DDtpqs0hd+88BydTbg60pc
-	MDfgfop6NypCq0tunC0H8cwfmOgmd8X64lm9mJs4b2YxGQE6NXqjqsobr310NMx6npM4zluZvrb
-	sTBHx81spNL9B/xlzC+KsZ4CKqE/sWOSSnO4kxEKCKmB7DKl9BGBIP3/1S8Mdc9ExyAaKC1wwaj
-	zCQVsLuHo2Awn6B4pCqP1
-X-Received: by 2002:a05:6820:3103:b0:6dd:b530:2c61 with SMTP id
- 006d021491bc7-6e7aa6887afmr5307661eaf.89.1791490804995; Thu, 08 Oct 2026
- 13:20:04 -0700 (PDT)
-Received: from 43060718015 named unknown by gmailapi.google.com with HTTPREST;
- Thu, 8 Oct 2026 13:20:04 -0700
-Received: from 43060718015 named unknown by gmailapi.google.com with HTTPREST;
- Thu, 8 Oct 2026 13:20:04 -0700
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="PL1MCQ6d"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
+	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=btQhSQmBe7ws4MECTxH8P0ozyn0FAhTOQxzSzXwLJdk=; b=PL1MCQ6doOKYlzalYCR4eDHw/f
+	karfXpp4uonEqvOYPFUF/lYsTunsJwwADcAsrfPMr+XIZbSUVvbtMHq/HgR0gIPXOA9V8z6QZoLWw
+	opLn1TbXU9GjzPIHbTp/xUgnw0WxF1hw0fXOERIdDEbbc4NCCV4b4O0rVmLzIWSNs/IO3n+vohwV8
+	z1dDyNYBGElvpT0x3bMgoefrfdKHmVjgWn4X8wjBrtCMIx5/TsIU0rfpi3FSyB02XW+KuQLSZm7LT
+	xVL06dEsuY+XK+YRxvwxZatM0MujdE/98/FK2JwGRuTZpzt9cwXGARfPRgDjPA+QchhJTSXfT2o3m
+	I4TUQf1g==;
+Received: from [151.115.150.205] (port=38102 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1xEub1-00000002wY0-1516;
+	Thu, 08 Oct 2026 22:20:07 +0200
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: Eric Biggers <ebiggers@kernel.org>,
+	"Jason A. Donenfeld" <Jason@zx2c4.com>,
+	Ard Biesheuvel <ardb@kernel.org>
+Cc: linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/2] lib/crypto: arm64: Fix lost Poly1305 carry when resuming NEON state
+Date: Thu,  8 Oct 2026 20:19:50 +0000
+Message-ID: <20261008201949.561207-4-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261008201949.561207-2-Jeremy.Jean@oss.cyber.gouv.fr>
+References: <20261008201949.561207-2-Jeremy.Jean@oss.cyber.gouv.fr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Xolly Reaids <xolly.reaids@wholesomebuddy.com>
-Date: Thu, 8 Oct 2026 13:20:04 -0700
-X-Gm-Features: AclHuK_rBcvBVDr-cSwIhhL2omBZ3xzNn9yOmqzU3v_YsPXLQAT52psXFRD1xSw
-Message-ID: <CANU1+_JCoe1gHUKXKFxn3y2ZSyjjc6BRKE7c5WkisX0fw9O4GQ@mail.gmail.com>
-Subject: Can I get your thoughts on this?
-To: linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-Hi,
+When poly1305_blocks_neon() resumes from a lazily reduced NEON
+accumulator and the next update contains an odd number of full
+16-byte blocks, it processes one leading block through
+poly1305_mult() so that the remaining NEON work has an even block
+count. That requires converting the accumulator into the base 2^64
+form used by poly1305_mult(). The final ADC stores the carry into d2,
+but the following accumulation and poly1305_mult() use h2. If the
+conversion overflows across bit 128, the carry is dropped and the
+emitted tag is wrong.
 
-In a world that often celebrates the loud and the busy, introverts
-recharge in the quiet moments. But with life=E2=80=99s endless demands,
-finding that time can be a challenge.
+This was introduced by Cryptogams 03dc4adf91c8
+("arm/poly1305-armv*.pl: optimize branches."), which removed the
+reduction that consumed d2 shortly before Linux imported the code.
+OpenSSL's copy did not take that change.
 
-I realized this firsthand when I spent an entire weekend alone with a
-good book, a cozy blanket, and zero obligations. It was the reset I
-didn=E2=80=99t know I needed! That experience reminded me how important it =
-is
-for introverts to prioritize self-care in a way that truly nourishes
-both the body and mind.
+That carry is possible because the NEON loop stores a lazily reduced,
+redundant base 2^26 representation. Consider the reachable state
+  [4,   2^26,   2^26 - 1,   2^26 - 1,   2^24 - 1].
+These limbs in base 2^26 represent the value
+      4 
+    + (2^26    ) * 2^26
+    + (2^26 - 1) * 2^52
+    + (2^26 - 1) * 2^78
+    + (2^24 - 1) * 2^104
+  = 2^128 + 4,
+so converting back to base 2^64 must produce
+  h0 = 4, h1 = 0, h2 = 1,
+so that h0 + h1 * 2^64 + h2 * 2^128 = 2^128 + 4.
 
-I=E2=80=99d love to share an article exploring self-care strategies tailore=
-d
-for introverts=E2=80=94helping them embrace solitude, set boundaries, and
-maintain well-being. Would you be open to publishing it on your
-website?
+The third limb starts at bit 52, so its low 12 bits belong in h0 and
+its upper 14 bits belong in h1. The low-word ADDS starts from
+  4 + 2^26 * 2^26 = 2^52 + 4
+and adds the low 64 bits of
+  (2^26 - 1) << 52 = 2^78 - 2^52,
+namely 2^64 - 2^52. The sum is 2^64 + 4, so it leaves h0 = 4 and
+carry = 1.
 
-Thanks so much,
-Xolly Reaids
-Wholesomebuddy.com
+The middle word contains the upper 14 bits of the third limb, all of
+the fourth limb, and the low 24 bits of the fifth limb. The next ADC
+adds the carry from h0 to
+  ((2^26 - 1) >> 12) + ((2^26 - 1) << 14),
+giving
+  (2^14 - 1) + (2^40 - 2^14) + 1 = 2^40.
+The following ADDS adds the low 64 bits of
+  (2^24 - 1) << 40 = 2^64 - 2^40,
+so the sum is 2^64, h1 wraps to 0, and carry = 1.
 
+The top word starts from the remaining bits of the fifth limb,
+  (2^24 - 1) >> 24 = 0.
+The final ADC must add the carry from h1 and set h2 = 1. Writing the
+carry into d2 instead leaves h2 = 0, so the reconstructed value is 4
+instead of 2^128 + 4.
 
-P.S. I enjoy putting together pieces that click with readers and catch
-the eye of smart tools, too. If this idea doesn=E2=80=99t feel quite right,
-I=E2=80=99d be more than happy to dream up another one that=E2=80=99s a bet=
-ter fit.
-And if you=E2=80=99d rather not hear from me anymore, a quick note will do.
+More generally, for [a0, a1, a2, a3, a4], this carry exists only when 
+  a1 >= 2^26,
+  a2 = a3 = 2^26 - 1,
+  a4 mod 2^24 = 2^24 - 1.
+This is about 2^36 tuples out of about 2^130, or about one in 2^94 for
+uniformly random tuples.
+
+Store the carry back into h2. This matches the other conversion paths
+and preserves the represented accumulator. Under regular use,
+triggering this bug by chance is highly improbable; this fix addresses
+arithmetic correctness only.
+
+Fixes: f569ca164751 ("crypto: arm64/poly1305 - incorporate OpenSSL/CRYPTOGAMS NEON implementation")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+---
+
+Changes in v2:
+ - Add an example of computations demonstrating the error.
+ - Provide an estimate of the low probability it gets triggered.
+ - Add a paragraph mentionning the introducing commit in Cryptogams
+   repo, and non-impact on OpenSSL.
+
+v1: https://lore.kernel.org/all/20261007220235.200818-2-Jeremy.Jean@oss.cyber.gouv.fr/
+
+ lib/crypto/arm64/poly1305-armv8.pl | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lib/crypto/arm64/poly1305-armv8.pl b/lib/crypto/arm64/poly1305-armv8.pl
+index f1930c6b55ce..234398ff6b60 100644
+--- a/lib/crypto/arm64/poly1305-armv8.pl
++++ b/lib/crypto/arm64/poly1305-armv8.pl
+@@ -375,7 +375,7 @@ poly1305_blocks_neon:
+ 	adc	$h1,$h1,xzr
+ 	lsr	$h2,x14,#24
+ 	adds	$h1,$h1,x14,lsl#40
+-	adc	$d2,$h2,xzr		// can be partially reduced...
++	adc	$h2,$h2,xzr		// preserve carry into top limb
+ 
+ 	ldp	$d0,$d1,[$inp],#16	// load input
+ 	sub	$len,$len,#16
+-- 
+2.47.3
