@@ -1,56 +1,74 @@
-Received: from mx0b-0064b401.pphosted.com (mx0b-0064b401.pphosted.com [205.220.178.238])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B1EB41D20E;
-	Thu,  8 Oct 2026 09:38:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.178.238
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 457833905E4
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 09:39:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791452348; cv=none; b=VtATAp2Hkmh1GGN1v40/PpEWKqjowulPfyNnCb9xaT9xmPgZcLkvZ+EaERstyd40CwkVpADLc9WDrdvTlGKsJMGBPeu58LjrD5/ftMcKK+RuUipLrGUjQldyT2dOW3i6BfoxKsUkfZVgRP5MmOWrpbnqlYO/Mg00q1+GB3z9PKE=
+	t=1791452376; cv=none; b=JH7/VdXlBJTq+25Sl8wLeQSpJ7FApmgtmeZq3oMccHa4dbzvGhODuBypTucbsg2FLmNf+TQGDsdIZAqvWMnWZ89OZH9fpjagM3dwa+g3zHzCwty/82yRkTo0KyZIudbIs/moC7NQLA7hrl+9OnZR12FUQ13Ac+gt+m+sraX8zyU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791452348; c=relaxed/simple;
-	bh=JWFUKYrLgQ6dq9l/y0c7tgWopS/+KUXEmCswNnlI3cY=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=s2toQY6Iup01+/7XMTQW2jy9ZhDzRSij1rNLQuZLXVBnVlxW60s+6WJz9PtSK1KkNWqD2cNdCtLDlocCT6isjpi9l9He/eQ/QFWuIdAI8tfv8NJW7HeEFiONjiWkOB1c+Wf9M5QEQ09uA2DdAjyXsuYWUjd1dXRx4w2pY92CfbE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=windriver.com; spf=pass smtp.mailfrom=windriver.com; dkim=pass (2048-bit key) header.d=windriver.com header.i=@windriver.com header.b=Fjeey1JA; arc=none smtp.client-ip=205.220.178.238
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=windriver.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=windriver.com
+	s=arc-20240116; t=1791452376; c=relaxed/simple;
+	bh=RpBjgiffJgjT8J793CRvE5FL33Vuz5Sd/avIdqGZclY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VtRjka8V/DZ7pF7itefTXgU/fj9WMosWeIDS/v8R44P2+QJnL5uyoFvirJ/UeQ4T2l0cHoSG+s1WZuD7/+fpK2zbRqmC37dbzLWl7OEtohuVQQ/3EkATN/wkPK51T7nn4+PcDd6u2z2P2byFO5hqT1WQMnQxpa25wVlVtob87eo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hCyk4vH3; arc=none smtp.client-ip=209.85.215.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=windriver.com header.i=@windriver.com header.b="Fjeey1JA"
-Received: from pps.filterd (m0250812.ppops.net [127.0.0.1])
-	by mx0a-0064b401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6987LUd62735077;
-	Thu, 8 Oct 2026 09:38:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=windriver.com;
-	 h=cc:content-transfer-encoding:content-type:date:from
-	:message-id:mime-version:subject:to; s=PPS06212021; bh=csVWkH2lG
-	rKcfNkbNQtuol3DZFG+gs5X8j6BXyrn5No=; b=Fjeey1JAJN6+M9h7yrk5U9UeA
-	h9LDGipWVKti0Ox07D23Ok+3v/Ytqa2wdk2oGvmD7k8skPgzPFody53UnUXwIIAa
-	rqUj5u9TCIAcIC/VOydrqGqYIw2iahoKi3kKL5pWTdGDmDckWogYSb2vcm0c54MV
-	SUQBTjZL4repL2Bs1QjU/oZ8Km0Z8PRP15sV4cbFn0FIOWnq70gnhYpDsxDsfNJu
-	XGFiBOGO+pC2H63gS4o27G4q/zeZ/ant0Cs4bSJkrD8ANmcW7FNWCS/EkDSbXlfG
-	hzxx/QjiWLklFubSRziuVq9ZEn0xW4Z6+dz/s9NLnO6pLcEt+SI+5J9srHmDw==
-Received: from ala-exchng01.corp.ad.wrs.com (ala-exchng01.wrs.com [128.224.246.36])
-	by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 4h5xemgm43-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
-	Thu, 08 Oct 2026 09:38:29 +0000 (GMT)
-Received: from ala-p2exch02.corp.ad.wrs.com (10.11.226.102) by
- ala-exchng01.corp.ad.wrs.com (10.11.224.121) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.61; Thu, 8 Oct 2026 02:38:27 -0700
-Received: from ALA-EXCHNG02.corp.ad.wrs.com (10.11.224.122) by
- ala-p2exch02.corp.ad.wrs.com (10.11.226.102) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.46; Thu, 8 Oct 2026 02:38:26 -0700
-Received: from pek-yzhou-d3.wrs.com (10.11.232.110) by
- ALA-EXCHNG02.corp.ad.wrs.com (10.11.224.122) with Microsoft SMTP Server id
- 15.1.2507.61 via Frontend Transport; Thu, 8 Oct 2026 02:38:24 -0700
-From: Yun Zhou <yun.zhou@windriver.com>
-To: <dsahern@kernel.org>, <idosch@nvidia.com>, <davem@davemloft.net>,
-        <edumazet@google.com>, <kuba@kernel.org>, <pabeni@redhat.com>,
-        <horms@kernel.org>
-CC: <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <yun.zhou@windriver.com>
-Subject: [PATCH net v5] net: erspan: set lltx to avoid sch_direct_xmit deadlock
-Date: Thu, 8 Oct 2026 17:38:24 +0800
-Message-ID: <20261008093824.119453-1-yun.zhou@windriver.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hCyk4vH3"
+Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cc4aa0246b7so1467286a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 02:39:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791452375; x=1792057175; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=r9Vukk6N1YBRmizRaHPB1EZVWo8i9kMuh2xPWHg64/0=;
+        b=hCyk4vH30FvijmTqjWrQJUSYqEihFoF2poqnwxWylexdXR5L7UENl65e0fceGKkXfI
+         U5Frj7zNrttAynd2wjOIyTxCCi8SwKMYoviJ/GAy68GquoUoENLMInu/EKBz/OS5JGL5
+         mTYiB6Bj3AHbZbCqmgjXHZEx0YHNIyYYVh5zKe6UYKui97Ux9oNd+ZAaIqYB5M+g+Czg
+         mLloh2iWAXMbeNQDOP8zR9vGOYyR4YXe0c3XgsHpEdRfwzMeDHisQrFDnb6IpZgLT7uh
+         0x6mU8Ev9DP07khiXMfJMxyoR27hwX5f89J4H2cYge5+ixDCLSSAGq8Fpq6vCiy0o1Vn
+         zXWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791452375; x=1792057175;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=r9Vukk6N1YBRmizRaHPB1EZVWo8i9kMuh2xPWHg64/0=;
+        b=W6ZdoCKIwgPv+5kYkuvTI7+5QKj/1Mi4LQase/llThKDf/eac6kj8Im7ksWxsuJ2XF
+         QFs8WnJeICO1nxmJJXkOadeBZtK8TbH17zE4RWBwjlZf8ZgYuWqYE5gUqId0OyQLxHvi
+         F8BNlLMzf213c9su0XHRsRlYqSNkc3ujm9YVZaf0KytZXQXatjLp004jgzaRATJO/uiE
+         RTZT/4DG9dNUtvEGg7xLN82FpRTi32PcwzBZUQHu01SEjc8MttgrA6hzMuwfTQW7Ns7V
+         thCzJlGSHlnR4SrD/guigbEFhlhc5VIn1OM+YsQ8dVNzkC7b0nxU3LcpWn7J/fIg/R1j
+         sDIw==
+X-Forwarded-Encrypted: i=1; AKwUvBxMWqFWzXbeRqr/FH5KVJjHVWlDn85cT6sCxh0Kbnsbm/ZrV47FwNtJs47dugZSmNu6K77Dax1urrKTGUQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLUv2RAL2/4E3eH54cYpq+1k3pK0CyY/tj+I95/BsdlbexPxuQF
+	WRAsHWH/xpSnKRZK+oLAIDX13Qi/lBqkbyZl+NugQwco08NRxpaL6Xx8
+X-Gm-Gg: AYBFou2FxUZMUn984XgzRCNTaTE2XoJflPNIPfDyRrr+NxAAg1KEI50dSvmSldQZsdM
+	sVbHaat3hMISGayIatmwWRQ86DjbialQcNHWtcBXVF/lTaRNdN+THc6JC6NFds6d36SeSZTytQT
+	L1QzYltDaV2V89er2y63TuoSAqH6mlFS1eGEPqEkowA3qy0bbazmsF12NbBZVzHjCoQnGZvREHw
+	QEfp598svWaOUsAxXLXi+yQW/WKw35eIetoTJJlOK6p2vJlh8sMDmq+uGQOktUGKubbSMplPNcg
+	QmoFVriW9t8Lqamm5w9WH5atpYlBP0hfmclcRrnEXo523u2NCja/g8OZNlm95ugu93DH0Ntj2ow
+	CSRiuUvVGV6oRzbOjZuZhf3b6OBYBEJriXvUvxUa93purFNQYG4vTJaWvxmMZlxg2owijT0ZJpj
+	bS6BW3d0Zi/n95syNG7B7fUnS0tp19CJ3S/fu/UDPlDmxTZOEfukkVVdkqjcJnr1Fw7qjxYWHjw
+	9eV0rOmLrH4PW5ElCVynjgyzOF3OqBsGJY=
+X-Received: by 2002:a17:90b:4d88:b0:3a4:6ff5:778 with SMTP id 98e67ed59e1d1-3a8a117520cmr3439584a91.44.1791452374691;
+        Thu, 08 Oct 2026 02:39:34 -0700 (PDT)
+Received: from qiwenjie-ThinkCentre-M760t.mioffice.cn ([43.224.245.241])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9f1a7e9e4sm3564410a91.7.2026.10.08.02.39.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 02:39:33 -0700 (PDT)
+From: Wenjie Qi <qwjhust@gmail.com>
+X-Google-Original-From: Wenjie Qi <qiwenjie@xiaomi.com>
+To: jaegeuk@kernel.org,
+	chao@kernel.org
+Cc: bvanassche@acm.org,
+	linux-f2fs-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	qiwenjie@xiaomi.com,
+	qwjhust@gmail.com
+Subject: [PATCH] f2fs: use submitted bio size for completion offload
+Date: Thu,  8 Oct 2026 17:39:21 +0800
+Message-ID: <20261008093921.2748828-1-qiwenjie@xiaomi.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -59,110 +77,59 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: 5KPNk-jzKRVwiGJe_SXcmyvFvlYXgGDp
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDAzOCBTYWx0ZWRfX8sjXPfx9KwfJ
- Gw9RO421usUxU31IHQAwbnJ/O8JhgKDPIXAkqD6B3mlFHNBjFwvwlofLtrsDtP039lBB7uMaZZU
- ogB4UyE7+ijpeZUgeNXFnxot8O2pIuDuacaQdEcOx4xy3ZeLg6ts22pbxtC8NZetWqeA3VqGSks
- aZUE7rjErdcrcySeGYcymvsSfsuJCjexGV2RKStXTrEknjlEcQq/dbyA0o+PYbG75cJtG6lbbjB
- q49s273wYiF/PIarGXXCcrku8wQ/LiAl+w0k50FVQn8L03ju65VnBUL6vr/8he6m0zt/OtNYWW3
- P2+hBuJIdujHHqVLcdsSDm0IScD+1GH3gNGFP72kcWR+z44sFWwJZKocFLTlpkxZsJaVyCdsvfK
- Bndv1jMXZKu7qSijBjRQmMe1WXAVtrsND8SyMg4iB2UmF+oBb0O//Lln21tFU+LMJTMSOUaHe+v
- VQ+tNGyLjkBRl+qaKwA==
-X-Authority-Analysis: v=2.4 cv=I6vw19gg c=1 sm=1 tr=0 ts=6ac76495 cx=c_pps
- a=AbJuCvi4Y3V6hpbCNWx0WA==:117 a=AbJuCvi4Y3V6hpbCNWx0WA==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=bi6dqmuHe4P4UrxVR6um:22
- a=fTW__CHxibyLmBMfj2wP:22 a=edf1wS77AAAA:8 a=hSkVLCK3AAAA:8 a=VwQbUJbxAAAA:8
- a=t7CeM3EgAAAA:8 a=zwNXk_Rqs_FK0udf33wA:9 a=DcSpbTIhAlouE1Uv7lRv:22
- a=cQPPKAXgyycSBL8etih5:22 a=FdTzh2GWekK77mhwV6Dw:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDAzOCBTYWx0ZWRfX/rHyUm1M3TMW
- tpw39XXlakYtLvIxjN6Q5eUm7hoHHR05W6QoPRGUgGQnJpwVasMtWgwfEsTlKmIeD/jQAqmOxFW
- wo3rb4T3P7Zmb31P97kWI+tkintKqWPzhNFvdAO95e1ix3ZByK1S
-X-Proofpoint-ORIG-GUID: 5KPNk-jzKRVwiGJe_SXcmyvFvlYXgGDp
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-08_03,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 clxscore=1015 phishscore=0 bulkscore=0 adultscore=0
- suspectscore=0 lowpriorityscore=0 impostorscore=0 priorityscore=1501
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610020000
- definitions=main-2610080038
 
-The ERSPAN xmit path re-enters the network stack, causing nested
-acquisition of _xmit_lock on the underlay device while already holding
-the ERSPAN device's _xmit_lock, creating an ABBA deadlock. This happens
-for both IPv4 ERSPAN (erspan_xmit() -> ip_tunnel_xmit()) and IPv6 ERSPAN
-(ip6erspan_tunnel_xmit() -> ip6_tnl_xmit()):
+blk_update_request() advances bio->bi_iter before completing a bio.
+As a result, f2fs_write_end_io() may see bi_size == 0 and fail to
+offload large write bios according to max_atc_write_bio_size.
 
-  sch_direct_xmit [lock erspan] -> erspan_xmit -> ip_tunnel_xmit ->
-  ip_output -> __dev_queue_xmit -> sch_direct_xmit [lock underlay]
+Save the submitted bio size and use it for the completion offload check.
 
-  sch_direct_xmit [lock erspan] -> ip6erspan_tunnel_xmit -> ip6_tnl_xmit ->
-  ip6_output -> __dev_queue_xmit -> sch_direct_xmit [lock underlay]
-
-Set dev->lltx = true so HARD_TX_LOCK() skips the spinlock for ERSPAN.
-This is safe as the ERSPAN xmit path has no shared mutable state: o_seqno
-is atomic, TX stats are per-CPU u64_stats, dst_cache is per-CPU, and
-o_flags is no longer modified in the xmit path since commit 9958e69b9893
-("gre: fix ERSPAN o_flags race/corruption in xmit and fill_info").
-GRETAP, the sibling device with identical xmit structure, already sets
-lltx.
-
-Reported-by: syzbot+9bda1b9fbb7fbdf9b62b@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=9bda1b9fbb7fbdf9b62b
-Fixes: 84e54fe0a5ea ("gre: introduce native tunnel support for ERSPAN")
-Fixes: 5a963eb61b7c ("ip6_gre: Add ERSPAN native tunnel support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yun Zhou <yun.zhou@windriver.com>
+Fixes: 3de6b8094115 ("f2fs: Run f2fs_write_end_io() asynchronously")
+Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
 ---
-Note for stable maintainers:
-This patch depends on commit 9958e69b9893 ("gre: fix ERSPAN o_flags
-race/corruption in xmit and fill_info"), which moves the o_flags
-read-modify-write in erspan_xmit() / ip6erspan_tunnel_xmit() onto a
-local copy.
+Based on f2fs/dev-test at ce439a2b0690. This includes the entry-count
+threshold change; its condition is preserved by this patch.
 
-v5:
-  - describe both the IPv4 and IPv6 ERSPAN xmit paths in the commit message
-  - drop the inline comments, keep only dev->lltx = true
+ fs/f2fs/data.c | 7 +++++--
+ fs/f2fs/f2fs.h | 1 +
+ 2 files changed, 6 insertions(+), 2 deletions(-)
 
-v4:
-  - refine commit message
-
-v3:
-  - add fix for IPv6
-
-v2:
-  - change subject prefix to [PATCH net]
-
- net/ipv4/ip_gre.c  | 2 ++
- net/ipv6/ip6_gre.c | 2 ++
- 2 files changed, 4 insertions(+)
-
-diff --git a/net/ipv4/ip_gre.c b/net/ipv4/ip_gre.c
-index 82309efd417e..38a24a659fcc 100644
---- a/net/ipv4/ip_gre.c
-+++ b/net/ipv4/ip_gre.c
-@@ -1367,6 +1367,7 @@ static int erspan_tunnel_init(struct net_device *dev)
- 	dev->features		|= GRE_FEATURES;
- 	dev->hw_features	|= GRE_FEATURES;
- 	dev->priv_flags		|= IFF_LIVE_ADDR_CHANGE;
-+	dev->lltx = true;
- 	netif_keep_dst(dev);
+diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+index 2613e8821af6d..a5c11cbfda813 100644
+--- a/fs/f2fs/data.c
++++ b/fs/f2fs/data.c
+@@ -398,8 +398,9 @@ static void f2fs_write_end_io(struct bio *bio)
  
- 	return ip_tunnel_init(dev);
-diff --git a/net/ipv6/ip6_gre.c b/net/ipv6/ip6_gre.c
-index 8ebda0b6a78b..82957e4fedd2 100644
---- a/net/ipv6/ip6_gre.c
-+++ b/net/ipv6/ip6_gre.c
-@@ -1871,6 +1871,7 @@ static int ip6erspan_tap_init(struct net_device *dev)
- 		dev->mtu -= 8;
+ 	sbi = bio->bi_private;
  
- 	dev->priv_flags |= IFF_LIVE_ADDR_CHANGE;
-+	dev->lltx = true;
- 	ip6erspan_tnl_link_config(tunnel, 1);
+-	if (in_atomic() && (bio->bi_iter.bi_size > sbi->max_atc_write_bio_size ||
+-			F2FS_BIO(bio)->entry_cnt > sbi->max_atc_write_bio_entry_cnt)) {
++	if (in_atomic() &&
++	    (F2FS_BIO(bio)->submitted_size > sbi->max_atc_write_bio_size ||
++	     F2FS_BIO(bio)->entry_cnt > sbi->max_atc_write_bio_entry_cnt)) {
+ 		struct work_struct *w;
  
- 	netdev_hold(dev, &tunnel->dev_tracker, GFP_KERNEL);
+ 		w = &container_of(bio, struct f2fs_bio, bio)->work;
+@@ -614,6 +615,8 @@ static void f2fs_submit_write_bio(struct f2fs_sb_info *sbi, struct bio *bio,
+ {
+ 	WARN_ON_ONCE(is_read_io(bio_op(bio)));
+ 	trace_f2fs_submit_write_bio(sbi->sb, type, bio);
++	/* bi_iter may be advanced by the block layer before end_io. */
++	F2FS_BIO(bio)->submitted_size = bio->bi_iter.bi_size;
+ 	iostat_update_submit_ctx(bio, type);
+ 	blk_crypto_submit_bio(bio);
+ }
+diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+index 0acbc4d299af1..1b2390f39a68e 100644
+--- a/fs/f2fs/f2fs.h
++++ b/fs/f2fs/f2fs.h
+@@ -1779,6 +1779,7 @@ struct f2fs_bio {
+ 	struct work_struct work;
+ 	struct f2fs_cached_block *entry;
+ 	unsigned int entry_cnt;
++	unsigned int submitted_size;
+ 	struct bio bio;
+ };
+ 
 -- 
 2.43.0
-
