@@ -1,166 +1,162 @@
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC77848CD41
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 11:57:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791460636; cv=pass; b=FYTCc/zMYFrvaA8drtVzIKiB43y7pTQD1cNmNDw0D2Yh4vgGZ+u646snjG+25hnKAyirVWJczSIFTh71iQRKFGjlz1IvjUnFtTNspsLXoCzKBnogDJz0LIUkPI1tMUw2RZVvb45qBt49GE452Nl4u/NJjhx2te3JvvVJlylhThc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791460636; c=relaxed/simple;
-	bh=DSNHKdAFSEgJ38k0txXrjiOfuOX+zqL8641WnyY8DNk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hNqu6K20Clud2LZ9Zh2wCJnYkDP3QkTZ3R7EnIY6kiEILmyT9vmFsUJ9CJBBqD+9yIuaCU6ColdK1VjBc8aF70z+CuVfyR0lJ3Ik+FI59O42WrtLhLAYXKllJac2oo2MM9riRCEB88eOgFtD/KJOvN/ygcXi3f4Bhh+V0SSIaUU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Dj1QElGR; arc=pass smtp.client-ip=209.85.218.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 106EE46DFF6;
+	Thu,  8 Oct 2026 11:58:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791460698; cv=none; b=lD+qv+S1t1evkxt1XvVTe8PFSEiZTF3CDsSa9QzNF6pZKZt0MXl6BtYJQ7K69i3Dxb4F/HiCIryKn4kVXLjXw6N2iBTtOm1EEgF2ij9rRXBhCVtIyOgptd5ozBbgWklqR0lCIqEXBbt2ClElZVgbpM+ISec7eeD/8jIW25LXa14=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791460698; c=relaxed/simple;
+	bh=QW656aZrKePz96ky3msNoBPX0EXK7DxqAh+Po0M75KY=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=lhfPRULOtEWPUbcwpwiLbMRa3BslYh3DTZxgbk4qSMGkl0zayrfqI6Nn8glnoYh2VV0mtynHZFimaRkA22TeMeEkxXkNYB0ogupMYAC602bXDnXAZsAjcb27ePM8V5+YWjD00apbtxZsEbpn8RahRGIEdVCxEfbmI6vRCQ5TYVA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=X6AzId9o; arc=none smtp.client-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Dj1QElGR"
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c2e43f3d1fdso700961766b.3
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 04:57:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791460633; cv=none;
-        d=google.com; s=arc-20260327;
-        b=PsR8rdq4aRI9UBGrZopiUQLaccudiGm87DQl/G0Q666IuOqfsdYLHqh/bHiousEze0
-         AFUOCW/s+FxlXZR96TV45T/1J/HPY2EP4xZAs5LLgmnqGao8UFgtwXuHDTNxuJOY8Psc
-         avX8FXz4f96KlKYIPqftAjZNwCku1wUdlFUyNrQM89lIUb8sxUkNeejCIwLA3z8fAaQW
-         HDUvuT+h5EQ8Z0jLVn2oc1/kDQ4SwMLUMd8UZZX1qUd9yCeyGYc+Zw7NhpHoZBmDnIy3
-         p7G2eH0FgCNE9qHOrbEbBcRXdb1oIlC6K5p2YSwEqF9f/SHtMOHD4sDiCJzYOtKosxg9
-         jciw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=+0i0Jq921Jsm4vHHGLuxvRSz4j2TVU7+5Bry6BxrlzE=;
-        fh=kuBOQRuKIbX5FLw0r3EAvK+1MvQAnhfkccLDBXCoygs=;
-        b=gVMQsiGKAqcqGV77t868y0jKhOMvhFrWRt2dJCNALUThBMZV61wr0vKGQBRU3vR6Jq
-         VR2zDqle4v/lccW8kNcVL7Q6aXZYQTSKLPx/yW7l9nrsL4AlgP0RylOguhsPvb78Hi5Z
-         xLX87w/EL53xKDsq/66tVxbOtLfPDxYi1QQ/j3eN/43LVzWNLT89CLj6WLKr7wAHSdqF
-         bpNvA2wdB5Msx+GCW7STDbZ0MS6IWu1FO6cboGeOp5GOkj8d06LkIS6Z8HXn8MjAMyoe
-         nmCrp8GClDnpcwgZRG1v8hwQN7oytgxpOPoScbkg9HwwW5mPY7/jhW/IrHGtku3TZdPf
-         Mnfg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791460633; x=1792065433; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+0i0Jq921Jsm4vHHGLuxvRSz4j2TVU7+5Bry6BxrlzE=;
-        b=Dj1QElGRU5CBgAzm1lSWG2C0Yv4w42vzPTWmXAcrvhB8hD0aII1fwnDGu+av71d4M2
-         a1P0aaP8YN86qwlIvps32ox6egtbnBvnCQoHAFtKQnFr7fE3JKSxAGsieaYihU4OsAdV
-         TUA0ypuHK83rNUR5TluxBF8jSQg1GiXiprPQkcVTjDnBZYkygC02159BXl9V8ns8ul2e
-         aQulQ3YFYTwKpr8p25DerAAo2yrscW23+VfNyRY6e7OqQHYSLY+qdUy/QnyaJ1GBI29c
-         nfTBj2iZT2Cu/YrYr+pTz1heeMgnFwo5JPDCOIS9KYSM7NUXnH5lfryCITC6UguSbJfM
-         3wqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791460633; x=1792065433;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+0i0Jq921Jsm4vHHGLuxvRSz4j2TVU7+5Bry6BxrlzE=;
-        b=DAPy+FJVikubAr2ZRUQ10BvNtnKi3hYWgNiQcNj7rAzMAgsee9hMnVhWawk/i7l/6Z
-         WBuZy4TH6w/crVVsw1Suqaai0iUz4Qw5I9VI5lv2i0pkg+6cs6daQTmhnQNNLNXz9FAx
-         U6Dv7EVUwWIw0mU8aCz/iqrKoiFnJhM4hOzjWEnfQPb5mUYz2IdhZMlgsvbXbI0DnIks
-         aJh+3MRP3tcag9B1Bl15IbfxDjGAWKO6eATIArkQZ0CNr8ctl3x9zWl+LRseo6lrsGJ6
-         aHFXEJcGeQmmoLZkJOrNn6fboXWsmuoz9LZxWNOK07DBpA/AVUaxwlNH849WINsXV+DS
-         UTXw==
-X-Forwarded-Encrypted: i=1; AKwUvBxU1ooZ6OzqToxHqpABnX5tX58J08dvrcAuKw91rv9LL6v1Y1bPiVzhDhISvWkG96yR176rBWieHpszOus=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK0xwD7xOv5xvrnSEqSRYHRgQTh14RGEuYlNCYhvhg5OvH8afs0
-	UeLsP8jYCdpK7RM5EEkoO7KSLqk3XK+Cf8jUnvjo2YMfHMFStNZgswf9+qWLkcwokQAuRGIFY4S
-	TehMgcwXIOUaIYN7hAJ+lh+83P4fr5d4=
-X-Gm-Gg: AYBFou13UX1JYUE6U3TwLopjQmh1AEIF2jZVcZRagWfwLJFdgSx9aX1BPScnyXQjj8/
-	jl/Ax77XyV+SJUxtmmsW5w9lRbUG14OpcRPX0m53mgjVjCAWexk83hrE1PnzeWLIEETc69WfSTX
-	YnaWycTRhvYUZcZt5RkeU5WSQqMdi9itXGDnISDeSZ2oy1uyBNRRDtgb9q4f2I57VmhNv662Vtz
-	O0f7wEKCoJc2D3CSn4CQ5fRt1dNmsWPxFzJ4s1jkB0hqikUQniEJ66ZXmXdEAM/DIImbGfvlIJ1
-	nWiU8WyoefMfUWOYQ/wH4Zz0vakUHNqlHWAa/iH70Al5jEmAfqPNIugYERMno54fdXLxF6FGnmC
-	7OSo7Dt+qUL0=
-X-Received: by 2002:a17:906:dc8d:b0:c2e:317e:d711 with SMTP id
- a640c23a62f3a-c317bf5998emr545727966b.27.1791460632767; Thu, 08 Oct 2026
- 04:57:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="X6AzId9o"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791460697; x=1822996697;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=QW656aZrKePz96ky3msNoBPX0EXK7DxqAh+Po0M75KY=;
+  b=X6AzId9oMW1HcZU+KLwj0VOQmsmVy6Ou1rNWdjNeYU1QWRub2DmY1sT0
+   0rGbaIGYHmQGwsJ2Mj+nsqPyvQyTZAol+x+AiuIH2UKTsUpABJlZXdAQv
+   Tt0aKFRgk6soOy60tiuIXOGz5UsCX6MN5pLYbyeY6A2Dum9cfkZgcidNA
+   yCa5ibF1FMIqRrVr5rscAXP1adVlvfcrIjxq0EBZCHyQ55BO4/C4aULhh
+   EqZZMlqnE9l0biZMViZFoEKGAxqD6k3n56Sf3OSEq9x/Rn8LlIBrrTwhV
+   4+PqhT4Ba3ZUwEGTIPbZ9QlBPaVHtomnCQCJ2MxSf+lMHDdRbjX8kx8fv
+   A==;
+X-CSE-ConnectionGUID: jjEBL96kSQSXNCrRNPjlqQ==
+X-CSE-MsgGUID: mh9EwEItRbSMGu/Z3LQaXQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="125716"
+X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
+   d="scan'208";a="125716"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 04:58:17 -0700
+X-CSE-ConnectionGUID: 0d0aHGBwQw2zv4lNz8LzjA==
+X-CSE-MsgGUID: 2NaIShYTRIKFklUbohexTQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
+   d="scan'208";a="378815"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.140])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 04:58:14 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Thu, 8 Oct 2026 14:58:11 +0300 (EEST)
+To: Muralidhara M K <muralidhara.mk@amd.com>
+cc: platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v7 3/4] platform/x86/amd/hsmp: Hide server-only attributes
+ on client platforms
+In-Reply-To: <20260924154947.1706669-4-muralidhara.mk@amd.com>
+Message-ID: <370cbc28-0628-fef7-cc35-b1b70f8fc9fc@linux.intel.com>
+References: <20260924154947.1706669-1-muralidhara.mk@amd.com> <20260924154947.1706669-4-muralidhara.mk@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1789096175.git.zhuhui@kylinos.cn> <2ed42f96aca124856ea30f774afb55cbe6d8ba58.1789096175.git.zhuhui@kylinos.cn>
-In-Reply-To: <2ed42f96aca124856ea30f774afb55cbe6d8ba58.1789096175.git.zhuhui@kylinos.cn>
-From: Kairui Song <ryncsn@gmail.com>
-Date: Thu, 8 Oct 2026 13:56:35 +0200
-X-Gm-Features: AclHuK-BxqNrNonn8CRYTTdm5cPRpBrRGaffHfg8y4IMBYCVm_4XzkFHjExbKwY
-Message-ID: <CAMgjq7A0FKTJuEKSmTvJGHMOiMz_uAwE=TD89JVvLPysinUVaA@mail.gmail.com>
-Subject: Re: [PATCH v5 2/4] mm: workingset: use lruvec_page_state_local() to
- count lru pages
-To: Hui Zhu <hui.zhu@linux.dev>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Muchun Song <muchun.song@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, cgroups@vger.kernel.org, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, Hui Zhu <zhuhui@kylinos.cn>, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
 
-On Fri, Sep 11, 2026 at 10:26=E2=80=AFAM Hui Zhu <hui.zhu@linux.dev> wrote:
->
-> From: Hui Zhu <zhuhui@kylinos.cn>
->
-> Commit 7404bd37cfbe ("mm: workingset: use lruvec_lru_size() to get the
-> number of lru pages") switched count_shadow_nodes() to lruvec_lru_size().
-> With CONFIG_MEMCG enabled, lruvec_lru_size() reads mz->lru_zone_size,
-> which only the classic LRU paths maintain.  MGLRU accounts its pages
-> through __update_lru_size(), which skips that array, so with MGLRU on the
-> four evictable LRU lists are always seen as empty.  The shadow node budge=
-t
-> (pages >> 3) then collapses to slab plus unevictable pages, and the
-> workingset shadow shrinker reclaims eviction tokens almost as fast as the=
-y
-> are created, losing thrashing protection.
->
-> lruvec_page_state_local() reads lruvec_stats->state_local instead, which
-> both classic LRU and MGLRU maintain.  Switch back to it.  The reparenting
-> race this re-exposes on cgroup v2 is closed by the preceding patch that
-> redirects dying-memcg stat updates for all hierarchies.
+On Thu, 24 Sep 2026, Muralidhara M K wrote:
 
-Looks nice! thanks.
->
-> Fixes: 7404bd37cfbe ("mm: workingset: use lruvec_lru_size() to get the nu=
-mber of lru pages")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
-> Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
+> Most ACPI sysfs device attributes are wired to hardcoded server
+> message IDs (HSMP_GET_SOCKET_POWER and friends); hwmon power
+> attributes registered from init_acpi() have the same problem. On a
+> Family 1Ah client platform these numeric IDs resolve against enum
+> hsmp_client_message_ids instead, and mostly collide with unrelated
+> client commands, e.g. HSMP_GET_SOCKET_POWER (4) is
+> HSMP_CLIENT_GET_METRICS_TABLE_VER on the client side.
+> 
+> Hide the affected ACPI sysfs attributes on client platforms except
+> smu_fw_version and protocol_version, which report the same data in
+> both tables. Forward-declare hattr_smu_fw_version and
+> hattr_protocol_version ahead of their HSMP_DEV_ATTR() definitions.
+> Skip hsmp_create_sensor() in init_acpi() on client platforms for the
+> same reason.
+> 
+> The metrics_bin sysfs binary attribute has the same visibility problem:
+> hsmp_is_sock_attr_visible() gates it on hsmp_pdev->proto_ver against
+> HSMP_PROTO_VER6 with no is_client_platform() check. Exclude client
+> platforms outright there too, matching the ACPI sysfs attributes
+> above: the client set has its own telemetry table, read only through
+> HSMP_IOCTL_GET_TELEMETRY_DATA.
+> 
+> Signed-off-by: Muralidhara M K <muralidhara.mk@amd.com>
 > ---
->  mm/workingset.c | 5 ++---
->  1 file changed, 2 insertions(+), 3 deletions(-)
->
-> diff --git a/mm/workingset.c b/mm/workingset.c
-> index 7ac2b88c80ae5..8412f4840ae35 100644
-> --- a/mm/workingset.c
-> +++ b/mm/workingset.c
-> @@ -688,10 +688,9 @@ static unsigned long count_shadow_nodes(struct shrin=
-ker *shrinker,
->
->                 mem_cgroup_flush_stats_ratelimited(sc->memcg);
->                 lruvec =3D mem_cgroup_lruvec(sc->memcg, NODE_DATA(sc->nid=
-));
-> -
+>  drivers/platform/x86/amd/hsmp/acpi.c | 29 ++++++++++++++++++++++++----
+>  1 file changed, 25 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/platform/x86/amd/hsmp/acpi.c b/drivers/platform/x86/amd/hsmp/acpi.c
+> index 8b4bf57c3485..d775ea8ba603 100644
+> --- a/drivers/platform/x86/amd/hsmp/acpi.c
+> +++ b/drivers/platform/x86/amd/hsmp/acpi.c
+> @@ -300,16 +300,31 @@ static umode_t hsmp_is_sock_attr_visible(struct kobject *kobj,
+>  	 * so that userspace which expects the file to exist gets a clear
+>  	 * -EOPNOTSUPP from the read handler instead of -ENOENT, and is
+>  	 * pointed at HSMP_IOCTL_GET_TELEMETRY_DATA as the supported path.
+> +	 * The client set has its own telemetry table, read only through
+> +	 * HSMP_IOCTL_GET_TELEMETRY_DATA; never show this file there.
+>  	 */
+> -	if (hsmp_pdev->proto_ver >= HSMP_PROTO_VER6)
+> +	if (!is_client_platform() && hsmp_pdev->proto_ver >= HSMP_PROTO_VER6)
+>  		return battr->attr.mode;
+>  
+>  	return 0;
+>  }
+>  
+> +/* Defined below by HSMP_DEV_ATTR(); same message ID in both message tables */
+> +static struct hsmp_sys_attr hattr_smu_fw_version;
+> +static struct hsmp_sys_attr hattr_protocol_version;
+> +
+>  static umode_t hsmp_is_sock_dev_attr_visible(struct kobject *kobj,
+>  					     struct attribute *attr, int id)
+>  {
+> +	/*
+> +	 * smu_fw_version and protocol_version map to the same data in both
+> +	 * message tables. Every other attribute here uses server-only
+> +	 * message IDs that resolve to unrelated client commands.
+> +	 */
+> +	if (is_client_platform() && attr != &hattr_smu_fw_version.dattr.attr &&
+> +	    attr != &hattr_protocol_version.dattr.attr)
+> +		return 0;
+> +
+>  	return attr->mode;
+>  }
+>  
+> @@ -564,9 +579,15 @@ static int init_acpi(struct device *dev)
+>  			dev_info(dev, "Failed to init metric table\n");
+>  	}
+>  
+> -	ret = hsmp_create_sensor(dev, sock_ind);
+> -	if (ret)
+> -		dev_info(dev, "Failed to register HSMP sensors with hwmon\n");
+> +	/*
+> +	 * hwmon attributes use server-only message IDs, which resolve to
+> +	 * unrelated client commands on client platforms.
+> +	 */
+> +	if (!is_client_platform()) {
+> +		ret = hsmp_create_sensor(dev, sock_ind);
+> +		if (ret)
+> +			dev_info(dev, "Failed to register HSMP sensors with hwmon\n");
+> +	}
+>  
+>  	dev_set_drvdata(dev, &hsmp_pdev->sock[sock_ind]);
 
-Blank line change is not necessary and I think it make the code a bit
-more ugly...
+This series still feels misordered.
 
->                 for (pages =3D 0, i =3D 0; i < NR_LRU_LISTS; i++)
-> -                       pages +=3D lruvec_lru_size(lruvec, i, MAX_NR_ZONE=
-S - 1);
-> -
-> +                       pages +=3D lruvec_page_state_local(lruvec,
-> +                                                        NR_LRU_BASE + i)=
-;
->                 pages +=3D lruvec_page_state_local(
->                         lruvec, NR_SLAB_RECLAIMABLE_B) >> PAGE_SHIFT;
->                 pages +=3D lruvec_page_state_local(
+Can we like introduce is_client_platform() first, then add all these 
+checks before adding the client support in the first place? This 
+same ordering problem applies to the client/server check in patch 2 as 
+well.
 
-Just a nit pick.
+And would structs in patch 4 also needed earlier? This is not as bad 
+problem as the above ordering one but I'd tend to think we'd want to 
+introduce the struct before HSMP_CLIENT_GET_METRICS_TABLE actually works 
+which is after patch 1, right?
 
-Reviewed-by: Kairui Song <kasong@tencent.com>
+-- 
+ i.
+
