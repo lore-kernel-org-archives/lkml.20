@@ -1,205 +1,200 @@
-Received: from mta1.migadu.com (out-100.mta1.migadu.com [95.215.58.100])
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44879468C26
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 08:16:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B5D43EC802;
+	Thu,  8 Oct 2026 08:17:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791447425; cv=none; b=UGy5sr1UeOX5Bq9OIxkrH3a0NGIMwH6Oe6E2MGG9zCAJXniNm7qZ0MHpNSe53xD6TlBl3orwK0bNm4S3qRFeJMGu8T2WSMf6X+mRqfjAgU6kMCxs09Ulp/bj3TaGPBoSt3gpO1fJ1P0rFjW7TjUFpx+fGZ7YSKxpguv8UWOK8sM=
+	t=1791447431; cv=none; b=gayi54dWdM1blKQSn5mHd+50d4DZMrTi18qJa06Tq+AKXo7m2Q6bLj5XQAZ5DwzOwj/80Cpu5Bqf76fSq2BLjgw1yPEgo3zpKqSTzgYoqJQZpzoyjv+Du/dnz5NRcueoh9sGrRuPIh7zEDI8z9ekMSePuv2ny3xWxedznsrFM8c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791447425; c=relaxed/simple;
-	bh=MHAPwba2bGTS8af5kSWYut1fycRyI5aoznVbcbDNoEY=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=fN/tz6HEIb3bFeFJSWWz2gsrdlJDjKnEEWs1M9fBgh7eyuBFeaoSYaQ1q1O1f+SKJYbJ9dVpr1aYaG4nuPFAAJC9Evw52hFr5kvz9xYb/FdavbkI9dg9w3VEXy/PIKUjeaduQum2ZYYF+HTNUjl+dNY/X52te6sQYH90KiTUCmc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=BkJY+0QS; arc=none smtp.client-ip=95.215.58.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791447431; c=relaxed/simple;
+	bh=/G0tnC5fjlk26WNqeoNyyjSCdnTzTKQ7TwQ6Irzhgmk=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=NOsdtyOZWJfTz4h39u9Vf5aNLnNh9xWajZVTD04Bwwcx6E7kpYkb9WdpWiwvwtKyCoVATuY5b/LIRbh+Hl/ckEP5e3Ft8k6nHfaOJN4FLBtWy7Zxnkqc0UEXF/bO7j5dGatkrdPD/pyMz9CR9ARkfVt/8IUxgdVyDr1xqZk3MAw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=GcORA5RB; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="BkJY+0QS"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=MHAPwba2bGTS8af5kSWYut1fycRyI5aoznVbcbDNoEY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791447411; v=1; x=1792052211;
- b=BkJY+0QSb2PH8p++GP4mjbq/HTFXm3+f5i36xosvBRk3rKj/t6A+Zf9vTPO0ab3uN82FxXOs
- 4FLjSIpaL/NTT7gDSHZCCHiXwebn3WT+VNicvpy/TSH/XW+Ggg3P7v01nSZjBj+rcvWnub7bOId
- bpVdqVmv+ZmiprT5PjTWaEaQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 5d61374c685aff04;
-	Thu, 08 Oct 2026 08:16:50 +0000
-X-Mizu-Trace-ID: 5d61374c685aff04
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=utf-8
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="GcORA5RB"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6988Gi5hA315416, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1791447404; bh=8/wVo5nahnOZP/bZeQp6CPas8w3I0yB6r0jCaQIDUrw=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type;
+	b=GcORA5RBYHClf7VZrvOQWmrggKRnhagAYOSdOEsoURUsGH3oCHSBAKfgFzW1FiPcV
+	 MBcyuG7qFnoY4yjI8U3ZkbmW668whR/i2BLni8j8tObDzSTHtH2PFCW8bFPM8sl4lm
+	 kwyAeN8U7LJc+HP32dzM/mpajeFLJYcGlhCXieSUe4PnTr/u1YNp8LfF2N9xF7QXHq
+	 nXcfTsbB/lBxmN4zTAn+aFgMWKXK0u8dGXwLqEl4qaI0fhiNfAC7wvn8xQ8HQtZwNU
+	 IpzCndONYhvzVaqz4FnNc64WgKE8+d8D4LZUJV81iP1H/duyQg52hOCNqklz4F0jMZ
+	 uQ3Ceaptj6Fgg==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6988Gi5hA315416
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Thu, 8 Oct 2026 16:16:44 +0800
+Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 8 Oct 2026 16:16:00 +0800
+Received: from fc44.realtek.com.tw (172.22.241.7) by
+ RTKEXHMBS05.realtek.com.tw (10.21.1.55) with Microsoft SMTP Server id
+ 15.2.2562.49 via Frontend Transport; Thu, 8 Oct 2026 16:15:59 +0800
+From: Chih Kai Hsu <hsu.chih.kai@realtek.com>
+To: <davem@davemloft.net>, <kuba@kernel.org>
+CC: <netdev@vger.kernel.org>, <nic_swsd@realtek.com>,
+	<linux-kernel@vger.kernel.org>, <linux-usb@vger.kernel.org>,
+	<edumazet@google.com>, <bjorn@mork.no>, <pabeni@redhat.com>,
+	<hsu.chih.kai@realtek.com>, <andrew+netdev@lunn.ch>, <mail@birger-koblitz.de>
+Subject: [PATCH net-next v6 05/10] r8152: fix up and down register settings for RTL8156/8156B/8157/8159
+Date: Thu, 8 Oct 2026 16:15:51 +0800
+Message-ID: <20261008081556.47901-6-nic_swsd@realtek.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261008081556.47901-1-nic_swsd@realtek.com>
+References: <20261008081556.47901-1-nic_swsd@realtek.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH v3 6/6] mm/mm_init: add zone mismatch warning during page
- init
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <asdKHy_xHHa0wJ65@kernel.org>
-Date: Thu, 8 Oct 2026 10:16:36 +0200
-Cc: Muchun Song <songmuchun@bytedance.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>,
- Michael Ellerman <mpe@ellerman.id.au>,
- Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <chleroy@kernel.org>,
- Ritesh Harjani <ritesh.list@gmail.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>,
- Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R . Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>,
- Qi Zheng <qi.zheng@linux.dev>,
- linuxppc-dev@lists.ozlabs.org,
- linux-kernel@vger.kernel.org,
- linux-mm@kvack.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <3466BD00-1B0E-4F15-B104-88A22807ECD2@linux.dev>
-References: <20260929053231.66085-1-songmuchun@bytedance.com>
- <20260929053231.66085-7-songmuchun@bytedance.com>
- <ar5xbQsUpSQZg0wO@kernel.org>
- <78D5D6AA-BE36-432C-B0F7-453F93DF18C0@linux.dev>
- <ar9p39Y9SmlxvbA_@kernel.org>
- <85941AA4-7E50-4AAE-BC05-0F443B21BE8B@linux.dev>
- <ar_0GLYM6KsIH6tQ@kernel.org>
- <D91CEA1E-6B79-434D-AF49-16C62C0FD095@linux.dev>
- <asTS6OtxPMVshuIO@kernel.org>
- <CF8ED1DC-9745-42D3-92F0-424A02385EC1@linux.dev>
- <asdKHy_xHHa0wJ65@kernel.org>
-To: Mike Rapoport <rppt@kernel.org>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
+The per-chip-family split was kept behaviour-neutral, so the new
+callbacks still carry the settings that the shared functions applied
+under tp->version range checks. Several of those were wrong or
+missing for the chips that now have functions of their own, and were
+invisible as long as one function served four chip families.
 
+Per the datasheet:
 
-> On Oct 8, 2026, at 09:45, Mike Rapoport <rppt@kernel.org> wrote:
->=20
-> On Tue, Oct 06, 2026 at 03:32:43PM +0200, Muchun Song wrote:
->>> On Oct 6, 2026, at 12:52, Mike Rapoport <rppt@kernel.org> wrote:
->>>=20
->>> On Mon, Oct 05, 2026 at 06:27:52PM +0200, Muchun Song wrote:
->>>>> On Oct 2, 2026, at 20:12, Mike Rapoport <rppt@kernel.org> wrote:
->>>>>=20
->>>>> On Fri, Oct 02, 2026 at 05:56:40PM +0800, Muchun Song wrote:
->>>>>>> On Oct 2, 2026, at 16:22, Mike Rapoport <rppt@kernel.org> wrote:
->>>>>>=20
->>>>>>>>>> diff --git a/mm/mm_init.c b/mm/mm_init.c
->>>>>>>>>> index 1650d6bc1211..bd02e8d06965 100644
->>>>>>>>>> --- a/mm/mm_init.c
->>>>>>>>>> +++ b/mm/mm_init.c
->>>>>>>>>> @@ -609,6 +609,9 @@ void __meminit __init_single_page(struct =
-page *page, unsigned long pfn,
->>>>>>>>>> if (!is_highmem_idx(zone))
->>>>>>>>>> set_page_address(page, __va(pfn << PAGE_SHIFT));
->>>>>>>>>> #endif
->>>>>>>>>> + =
-VM_WARN_ON_ONCE(vmemmap_optimizable_order(pfn_to_section_compound_order(pf=
-n)) &&
->>>>>>>>>> + page_zone_id(page + VMEMMAP_OPTIMIZATION_NR_STRUCT_PAGES) =
-!=3D
->>>>>>>>>> + page_zone_id(page));
->>>>>>>>>=20
->>>>>>>>> Hmm, page + VMEMMAP_OPTIMIZATION_NR_STRUCT_PAGES is =
-initialized a tad later
->>>>>>>>> than page so it'll have stale data in the page->flags, won't =
-it?
->>>>>>>>=20
->>>>>>>> Lance is right. The shared tail struct pages are already =
-initialized by
->>>>>>>> vmemmap_shared_tail_page() during vmemmap population, so =
-they're not stale.
->>>>>>>> The head 64 struct pages are initialized later =E2=80=94 right =
-here, after vmemmap
->>>>>>>> population.
->>>>>>>=20
->>>>>>> Still it looks out of place here, can this check be done in =
-sparse-vmemmap
->>>>>>> somehow?
->>>>>>=20
->>>>>> The struct page entries of a vmemmap-optimizable compound page
->>>>>> are currently initialized in two stages. During vmemmap
->>>>>> population, the shared tail entries are initialized first. The
->>>>>> retained head area=E2=80=94normally 64=E2=80=94is initialized =
-later through
->>>>>> __init_single_page().
->>>>>>=20
->>>>>> This warning connects the two stages: while initializing the
->>>>>> retained entries in the second stage, it verifies that their zone
->>>>>> information is consistent with the shared entries initialized in
->>>>>> the first stage. Therefore, the same check cannot be performed
->>>>>> during vmemmap population.
->>>>>>=20
->>>>>> I am planning to first unify the HugeTLB and Device DAX
->>>>>> compound-page initialization through a common helper [1]. Once =
-that
->>>>>> work is complete, maybe it will be easy to move the =
-initialization
->>>>>> of the retained head area into vmemmap population. With both the
->>>>>> retained and shared entries initialized in the same stage, there
->>>>>> will be no cross-stage inconsistency to check, and this warning
->>>>>> can be removed.
->>>>>>=20
->>>>>> Would keeping the check here for now and removing it as part of
->>>>>> that follow-up sound reasonable to you?
->>>>>=20
->>>>> While it feels really out of place in __init_single_page(), but =
-having it
->>>>> memmap_init_range() close to the if that skips shared tail pages =
-makes
->>>>> sense.
->>>>>=20
->>>>> What do you say?
->>>>=20
->>>> Sorry for the late reply because of traveling to LPC.
->>>>=20
->>>> Putting the check in memmap_init_range() would validate the
->>>> invariant for the shared-tail range skipped there. It would
->>>> not, however, cover all vmemmap-optimized initialization
->>>> paths: optimized Device DAX bypasses memmap_init_range()
->>>> when there is no altmap, and deferred boot-time HugeTLB
->>>> initialization may also initialize retained entries
->>>> elsewhere.
->>>>=20
->>>> If the intention is to validate only the skip in
->>>> memmap_init_range(), moving it there makes sense. If we want
->>>> the warning to cover both HugeTLB and Device DAX generally,
->>>> it still needs to remain in __init_single_page() or be
->>>> called from the individual initialization paths.
->>>=20
->>> Yeah, putting this into all the callers sucks too :(
->>>=20
->>> With all the callers,__init_single_page() is the right place for =
-this
->>> check, but I think we can add a static inline in sparse.h, like e.g.
->>>=20
->>> vmemmap_optimization_verify_zone(page, pfn)
->>>=20
->>> to make it a bit nicer.
->>=20
->> Yeah, factoring this into a helper makes sense.
->>=20
->> Since it currently has only one caller, how about keeping it as a =
-local
->> static inline in mm_init.c instead of putting it in sparse.h?
->=20
-> Presuming we don't expect new callers any time soon let's put it just =
-above
-> __init_single_page().
+- RTL8156/8156B need PLA_RCR1 BIT(3) cleared on up. The shared
+  function had this clear under "version >= RTL_VER_16", so the
+  RTL8156/8156B path never reached it.
+- RTL8156B (VER_13/15) need Clear_SDR enabled on up, which nothing
+  ever did for them.
+- RTL8157/8159 need USB_SPEED_OPTION's RG_PWRDN_EN and ALL_SPEED_OFF
+  cleared on up. The shared function had this under
+  "version < RTL_VER_16", which excluded precisely the chips that
+  need it.
+- RTL8157/8159 need their own Clear_SDR enables on up: USB 0xd378
+  BIT(7) set and USB 0xcd06 BIT(15) cleared.
+- Entering OOB on RTL8156/8156B/8157/8159 also needs PLA_BDC_CR's
+  ALDPS_PROXY_MODE and PLA_OOB_CTRL's DIS_MCU_CLROOB. Only
+  r8152b_enter_oob() and r8153_enter_oob() set these today; the
+  RTL8156 family down paths set NOW_IS_OOB alone.
+- RTL8157/8159 OOB RX settings are PLA_RMS 1526 and PLA_MTPS 10K,
+  not the 1522 and 6K they inherited from the shared function.
 
-Make sense.
+PLA_MCU_SPDWN_EN is not used by RTL8157/8159, so drop the up/down
+management of it that rtl8157_up()/rtl8157_down() carried over;
+keeping it would suggest the bit is meaningful on these chips.
 
-Thanks,
-Muchun
+Fixes: 195aae321c82 ("r8152: support new chips")
+Fixes: fd3c7d080df5 ("r8152: Add support for the RTL8157 hardware")
+Fixes: ad2a55b63b41 ("r8152: Add support for the RTL8159 chip")
+Signed-off-by: Chih Kai Hsu <hsu.chih.kai@realtek.com>
+---
+ drivers/net/usb/r8152.c | 38 +++++++++++++++++++++++++++++---------
+ 1 file changed, 29 insertions(+), 9 deletions(-)
 
->=20
-> --=20
-> Sincerely yours,
-> Mike.
-
+diff --git a/drivers/net/usb/r8152.c b/drivers/net/usb/r8152.c
+index 5c26267ff0cdd..17162df4826a4 100644
+--- a/drivers/net/usb/r8152.c
++++ b/drivers/net/usb/r8152.c
+@@ -6892,6 +6892,8 @@ static void rtl8156_up(struct r8152 *tp)
+ 
+ 	ocp_byte_clr_bits(tp, MCU_TYPE_PLA, PLA_OOB_CTRL, NOW_IS_OOB);
+ 
++	ocp_word_clr_bits(tp, MCU_TYPE_PLA, PLA_RCR1, BIT(3));
++
+ 	ocp_word_clr_bits(tp, MCU_TYPE_PLA, PLA_SFF_STS_7, MCU_BORW_EN);
+ 
+ 	rtl_rx_vlan_en(tp, tp->netdev->features & NETIF_F_HW_VLAN_CTAG_RX);
+@@ -6927,6 +6929,16 @@ static void rtl8156_up(struct r8152 *tp)
+ 	r8153_aldps_en(tp, true);
+ 	r8153_u2p3en(tp, true);
+ 
++	switch (tp->version) {
++	case RTL_VER_13:
++	case RTL_VER_15:
++		/* Enable Clear_SDR */
++		ocp_word_set_bits(tp, MCU_TYPE_USB, 0xd3ca, BIT(15));
++		break;
++	default:
++		break;
++	}
++
+ 	if (tp->udev->speed >= USB_SPEED_SUPER)
+ 		r8153b_u1u2en(tp, true);
+ }
+@@ -6964,7 +6976,10 @@ static void rtl8156_down(struct r8152 *tp)
+ 	 */
+ 	ocp_write_word(tp, MCU_TYPE_PLA, PLA_TEREDO_WAKE_BASE, 0x00ff);
+ 
+-	ocp_byte_set_bits(tp, MCU_TYPE_PLA, PLA_OOB_CTRL, NOW_IS_OOB);
++	ocp_word_set_bits(tp, MCU_TYPE_PLA, PLA_BDC_CR, ALDPS_PROXY_MODE);
++
++	ocp_byte_set_bits(tp, MCU_TYPE_PLA, PLA_OOB_CTRL,
++			  NOW_IS_OOB | DIS_MCU_CLROOB);
+ 
+ 	ocp_word_set_bits(tp, MCU_TYPE_PLA, PLA_SFF_STS_7, MCU_BORW_EN);
+ 
+@@ -7007,8 +7022,8 @@ static void rtl8157_up(struct r8152 *tp)
+ 	ocp_word_w0w1(tp, MCU_TYPE_PLA, PLA_RXFIFO_FULL, RXFIFO_FULL_MASK,
+ 		      0x08);
+ 
+-	ocp_word_clr_bits(tp, MCU_TYPE_PLA, PLA_MAC_PWR_CTRL3,
+-			  PLA_MCU_SPDWN_EN);
++	ocp_word_clr_bits(tp, MCU_TYPE_USB, USB_SPEED_OPTION,
++			  RG_PWRDN_EN | ALL_SPEED_OFF);
+ 
+ 	ocp_write_dword(tp, MCU_TYPE_USB, USB_RX_BUF_TH, 0x00600400);
+ 
+@@ -7018,6 +7033,11 @@ static void rtl8157_up(struct r8152 *tp)
+ 	}
+ 
+ 	r8153_aldps_en(tp, true);
++
++	/* Enable Clear_SDR */
++	ocp_byte_set_bits(tp, MCU_TYPE_USB, 0xd378, BIT(7));
++	/* Clear SDR bit */
++	ocp_word_clr_bits(tp, MCU_TYPE_USB, 0xcd06, BIT(15));
+ }
+ 
+ static void rtl8157_down(struct r8152 *tp)
+@@ -7027,9 +7047,6 @@ static void rtl8157_down(struct r8152 *tp)
+ 		return;
+ 	}
+ 
+-	ocp_word_set_bits(tp, MCU_TYPE_PLA, PLA_MAC_PWR_CTRL3,
+-			  PLA_MCU_SPDWN_EN);
+-
+ 	r8153b_u1u2en(tp, false);
+ 	r8153_aldps_en(tp, false);
+ 
+@@ -7043,8 +7060,8 @@ static void rtl8157_down(struct r8152 *tp)
+ 	rtl_disable(tp);
+ 	rtl_reset_bmu(tp);
+ 
+-	ocp_write_word(tp, MCU_TYPE_PLA, PLA_RMS, 1522);
+-	ocp_write_byte(tp, MCU_TYPE_PLA, PLA_MTPS, MTPS_DEFAULT);
++	ocp_write_word(tp, MCU_TYPE_PLA, PLA_RMS, 1526);
++	ocp_write_byte(tp, MCU_TYPE_PLA, PLA_MTPS, 10 * 1024 / 64);
+ 
+ 	/* Clear teredo wake event. bit[15:8] is the teredo wakeup
+ 	 * type. Set it to zero. bits[7:0] are the W1C bits about
+@@ -7052,7 +7069,10 @@ static void rtl8157_down(struct r8152 *tp)
+ 	 */
+ 	ocp_write_word(tp, MCU_TYPE_PLA, PLA_TEREDO_WAKE_BASE, 0x00ff);
+ 
+-	ocp_byte_set_bits(tp, MCU_TYPE_PLA, PLA_OOB_CTRL, NOW_IS_OOB);
++	ocp_word_set_bits(tp, MCU_TYPE_PLA, PLA_BDC_CR, ALDPS_PROXY_MODE);
++
++	ocp_byte_set_bits(tp, MCU_TYPE_PLA, PLA_OOB_CTRL,
++			  NOW_IS_OOB | DIS_MCU_CLROOB);
+ 
+ 	ocp_word_set_bits(tp, MCU_TYPE_PLA, PLA_SFF_STS_7, MCU_BORW_EN);
+ 
+-- 
+2.34.1
 
