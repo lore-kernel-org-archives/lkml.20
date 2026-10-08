@@ -1,130 +1,171 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89C5F282F0C;
-	Thu,  8 Oct 2026 10:07:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95A3C493D34;
+	Thu,  8 Oct 2026 10:07:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791454049; cv=none; b=KzCfqST/5rqWEgqUeG2b26IjkCiTSU2wE8ZrlsuHKHWCiu8SgRGEd8e1MvhD541+nVoe5BxWBQbAzLc6oBEkv/x+d8sGi9KG0B4EH7Wl6AI2W+JjqEPHrbe9vCOjZQGNLCDLZRlF81ndHys6jAaVgQfzK6M9rMaW3izKBaa3kic=
+	t=1791454065; cv=none; b=Sob7FrDD1FqdYKUwHO7QBUENZNuQyEyRj/aIS3AY01EfLLvUu35kniQ0+yuvjvEipPUju/s5cBhSU/OGxycmZfbMeRAV65xjfSJ+yaoZWUdeCHEravLZ0NsNlTIb5vvqRj75E21PJHMO6RP8Bptjt3wby6vQEnzxYntiXRwM8Jk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791454049; c=relaxed/simple;
-	bh=j9DZwpoeE6Q7CEkV99qdmSHsIDqYSxLCJsihTLjuDII=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
-	 In-Reply-To:Content-Type; b=EVDmr4j31WPl1N9EnK92D4mFMrLCOsLr1O2FN8yF17GQcXemVTrQEgsD1XKBl7T63n+D2+r5HuRn+PAL5ihLSQz1cnAi3hwurKkqImwFLFHFBvcRhzDIVHvuL4yCMIUkV/l7aTot88bpq5epVEJJ+g3mi2ZH0B42/j+GzXLkxI4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lgh0IbeS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791454065; c=relaxed/simple;
+	bh=lVb0xFpEK5cwo9x36G6hNGkZihB9xVejXEIxp97SWWk=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=E2A78BWoBryFQsmO/0+vLR7V53n+DweUSjcGp/06ZXxLsHERkWesY/B08G2WQlo0ZcYSJSP5w5kjMjlLOEs52+Nqxyndmp5tUD2hn6cO65K5bYntNSG8S0ndQxMTmXC6n/0kxdNfdLSwPMtzIF99VcuEjwJwiW/SJTAFwSDePjY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=gsaZmgoB; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lgh0IbeS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0587F1F000FF;
-	Thu,  8 Oct 2026 10:07:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791454048;
-	bh=de22r/zg30G1J1pa2Wgrn5ld+1U+iNX3sLV2xGrzMWs=;
-	h=Date:Subject:From:To:References:In-Reply-To;
-	b=lgh0IbeSeQ4eR7kd4RAEx3yKsWo24dn4zuf0W/C+5DTcI3WF49g5w0S1npjCry0/f
-	 Dkjx9f6ekhABbdF1rRZMg7kDFx9RovKp6/034G7DbxodPk4DmddLKznW3qOwSTjCw9
-	 RXuxYtDEPtiWsrAIlbCujq8gxEWWdg2e5EERcfgA4pfp8xgpStqVaZWP7QD5MC8JkL
-	 zQUCToeRHSwGBdA2zw+dwvpQfgm/U8z0//RdQI2Cs18Z6NKgZitzryXaMG3EPbMWNf
-	 S034rgTvCvhGAuuC32UlPl8sLIc3jKXcRWcB4uwzceFHKEPQ0OWeNmckk+Atcuts44
-	 sppZAWQFhG2bA==
-Message-ID: <75387e88-a2f9-4a33-97dc-45774bd23a01@kernel.org>
-Date: Thu, 8 Oct 2026 12:07:23 +0200
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="gsaZmgoB"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B17F3A0E2B;
+	Thu,  8 Oct 2026 12:07:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1791454057; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=rYSUkZYYwWzW10vZqDKGMwsY7bAPWob7o3MElX2TeDk=;
+	b=gsaZmgoBZlTiGWUa1s0EfwbHkmMfQDMASiEd2aIjyNKx2qhedbdrSlKEv5MS/IczQqw7JG
+	MShLun0zh9Yoa2Vsop2h9OGVU8YE9mbv3U9TVbJPGOCAJNrYGEFRn480JnFinZw4NKoxWG
+	/Vq/7mi48AilZ0p8JwpUdDJroPuMkNOxuz20HcX59UBskhymworp9VE1TstYabcPgumaB9
+	0TjUZlPS4krmOrUoI1Xl91H4fsmCmJieM7F0CgX/M4qxI+fMBeYApis0Utwelinescn+kB
+	TIlDSbjX0bjc0CSbJ0RYGPCmEJS6TBMfN1bFtWjnkmy+h1+2yt76ithXJzZHSw==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: 2026 LF Technical Advisory Board election - voting started
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-To: tab-elections@lists.linux.dev, tech-board-discuss@lists.linux.dev,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- ksummit@lists.linux.dev
-References: <a7f69e8d-1140-44b5-baf8-bacb8c30c01a@kernel.org>
- <f6c986a1-b3b4-4b0a-bf12-d98357fbc4e5@kernel.org>
- <51d0a329-e53c-48ea-876e-98208575b770@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <51d0a329-e53c-48ea-876e-98208575b770@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Date: Thu, 08 Oct 2026 12:07:36 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: netdev-bot+sashiko@kernel.org
+Cc: opendmb@gmail.com, florian.fainelli@broadcom.com,
+ bcm-kernel-feedback-list@broadcom.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dave.stevenson@raspberrypi.com, justin.chen@broadcom.com,
+ pierremarinleclercq88@gmail.com, f.fainelli@gmail.com
+Subject: Re: [PATCH net-next v3 5/8] net: bcmgenet: derive the receive buffer
+ length from the MTU
+In-Reply-To: <179145241305.434549.6513642342117691943@kernel.org>
+References: <20261007-nb-genet-mtu-nn-v2-v3-5-74a796c019ce@tipi-net.de>
+ <179145241305.434549.6513642342117691943@kernel.org>
+Message-ID: <adbf20dcce3c19e4731a0ad0bace8fd1@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi,
+On 8.10.2026 11:40, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
+> 
+> Critical: 0 · High: 0 · Medium: 1 · Low: 0
+> 
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let 
+> patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your 
+> reply
+> (one such reply per series is enough).
+> 
+> - [Medium] In bcmgenet_set_mtu_regs()
+>   (drivers/net/ethernet/broadcom/genet/bcmgenet.c), UMAC_MAX_FRAME_LEN…
+> 
+> --
+> 
+> net: bcmgenet: derive the receive buffer length from the MTU
+> 
+> This commit computes the RBUF packet ready threshold from the MTU and
+> derives the receive buffer length from it, replacing the fixed 2048 
+> byte
+> RX_BUF_LENGTH. UMAC_MAX_FRAME_LEN and the TDMA flow period are now also
+> derived from the MTU, and the TBUF threshold is programmed at its 
+> maximum.
+> 
+>> diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c 
+>> b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+>> index 83ffc4a2a2a72..4a4b0c46f8986 100644
+>> --- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+>> +++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+> 
+> [ ... ]
+> 
+>> @@ -2630,6 +2648,44 @@ static void bcmgenet_link_intr_enable(struct 
+>> bcmgenet_priv *priv)
+> 
+> [ ... ]
+> 
+>> +/* Program the MTU dependent registers. Call with the MAC disabled. 
+>> */
+>> +static void bcmgenet_set_mtu_regs(struct bcmgenet_priv *priv, 
+>> unsigned int mtu)
+>> +{
+>> +	u32 thld = bcmgenet_pkt_rdy_thld(mtu);
+>> +
+>> +	bcmgenet_umac_writel(priv, ENET_MAX_FRAME_LEN(mtu), 
+>> UMAC_MAX_FRAME_LEN);
+> 
+> [Severity: Medium]
+> 
+> Will this drop standard size frames once the MTU is lowered?
+> 
+> Before this patch, UMAC_MAX_FRAME_LEN was always 1536. Now it is
+> ENET_MAX_FRAME_LEN(mtu), which is mtu + 36, and nothing keeps it from
+> going lower.
+> 
+> The commit message says:
+> 
+>   The MTU is still fixed at ETH_DATA_LEN
+> 
+> Only the upper bound is fixed, though. bcmgenet does not override
+> min_mtu, so ether_setup() still allows any MTU from 68 up to 1500:
+> 
+> net/ethernet/eth.c:ether_setup() {
+>     ...
+> 	dev->min_mtu		= ETH_MIN_MTU;
+> 	dev->max_mtu		= ETH_DATA_LEN;
+>     ...
+> }
+> 
+> This commit has no ndo_change_mtu, so __netif_set_mtu() only updates
+> dev->mtu. The next open or full resume then writes the smaller value:
+> 
+> init_umac()
+>   bcmgenet_set_mtu_regs(priv, priv->dev->mtu)
+>     bcmgenet_umac_writel(priv, ENET_MAX_FRAME_LEN(mtu), 
+> UMAC_MAX_FRAME_LEN)
+> 
+> Take an MTU below about 1482, for example 1400 for a tunnel overlay, or
+> 1280. Full size 1514/1518 byte frames from LAN peers would then be over
+> the MAC limit. They would get DMA_RX_LG and be dropped in
+> bcmgenet_desc_rx():
+> 
+> 	if (dma_flag & DMA_RX_LG)
+> 		u64_stats_inc(&stats->length_errors);
+> 	...
+> 	page_pool_put_full_page(ring->page_pool, rx_page,
+> 				true);
+> 
+> Before this patch, the MAC accepted these frames whatever the MTU was.
+> Full size UDP, broadcast, multicast or forwarded traffic that used to 
+> be
+> received would now be lost.
+> 
+> This still happens at the end of the series. The later commit "net:
+> bcmgenet: allow the MTU to be changed" adds bcmgenet_change_mtu(), 
+> which
+> applies the smaller limit straight away on a running interface.
+> 
+> That later commit does fix two related cases here. One is the stale,
+> too-small limit left after raising the MTU on a running interface. The
+> other is the WoL fast resume mismatch between TDMA_FLOW_PERIOD and
+> UMAC_MAX_FRAME_LEN.
+> 
+> Would it work to program max(mtu, ETH_DATA_LEN) into 
+> UMAC_MAX_FRAME_LEN,
+> and to update the commit message to match?
 
-In the end, we had ten nominations for this year's TAB election:
+Sure. Will do in v4
 
-  - Alexandre Belloni
-  - Nathan Chancellor
-  - Kees Cook
-  - Dave Hansen
-  - Shuah Khan
-  - Jiri Kosina
-  - Miguel Ojeda
-  - Laurent Pinchart
-  - Mike Rapoport
-  - Cong Wang
-
-Voting has begun, and everyone eligible for an automatic ballot,
-or who has requested a ballot, should have received voting instructions
-from the CIVS system.  If you were expecting a ballot and did not get
-it, then:
-
-  - Please check your spam folder.
-
-  - Have you enabled your email address in the CIVS system?  It will not
-    send you anything until you have done that.  The place to enable an
-    address is https://civs1.civs.us/cgi-bin/opt_in.pl
-
-Please contact us at tab-elections@lists.linux.dev if you have
-difficulties or questions.
-
-Voting will remain open through October 15, AoE.
-
-Thanks!
-
---
-Cheers,
-The LF TAB elections team
+---
+pw-bot: cr
