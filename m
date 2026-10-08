@@ -1,67 +1,67 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EE3044781C;
-	Thu,  8 Oct 2026 11:29:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1241D44A403;
+	Thu,  8 Oct 2026 11:30:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791458956; cv=none; b=O5puCGcgMpiI+v2oPl/GO4BdslNx6T3FX04O4dlEmVpeYsyom0qnMWM8nfzsOOc9R/pJ2VPFI2Z2mRXmWbW8zSAJXpFMcBpz7cGRm5BT0ePNEbV9J3NsG0W/t3/gqPcjbbU+zQ9j46xp0gSzOSBBKSW+bn1/XhHq6Frfu0wfr8o=
+	t=1791459026; cv=none; b=u4ZiTdIVEWWONTiujccrLdaf0Z5lgWCDr2GINgtDE5C+QLLz5QGxPByy1oeZ1ey18YHpQ420Xsn9Ur3DtxG2lxnaxpQMnBHMZ50f8UP2SLLJBoWJqx979lzODZosiaqh/GCAD0d2XBB4DN0ToJKBbKWlXbZACo2PzdVjgNo4IMs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791458956; c=relaxed/simple;
-	bh=CF4pxX9x1pl5xQ5PgbAjxKy8EZmkJx8mEemm3tSXWxA=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=fvJgCjb9h7pduxSf0PoWJJ8mISHsORhwpbL0omvlWLMUlqJ8NTTff0wWXY+PyUc3+B2gWZJVSgIbaP3ny2w5HUybdwhnn/ZfMIB9LcYOOyTt6zpbPn0AiPbvu2QewCMheEc8bFGVwDx3QZXOqtPpL7V8oXU0a8R7pma/hqEzBx0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RpnJ3PLC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791459026; c=relaxed/simple;
+	bh=GoMKzIiD1for1rm2csxnHhJnVJYVVf4hcCx/xHmlVh4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=abHGEuxeIf0UrgN1ZIigFGpQpBriZNfwPkSTs9do2mQDiGxCLugVL4H+KyesKlCn0R8h11Ru9hIROAHVJgDYVVnFOAWFcZeI/ps4BfPf9VsvE/xQnBw1DP7H8pjVx7/lQ1Q0cW3Sg/TmWHuBgFcyYrlP7Z6e+/L2zMHF7G3q3Nc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F8Hz1Y/S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RpnJ3PLC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB1301F000FF;
-	Thu,  8 Oct 2026 11:29:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F8Hz1Y/S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEFAD1F000FF;
+	Thu,  8 Oct 2026 11:30:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791458955;
-	bh=CF4pxX9x1pl5xQ5PgbAjxKy8EZmkJx8mEemm3tSXWxA=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=RpnJ3PLC82D53WwAyunL7eXzJfn3cUNAluOpF2p6KaAxFnyTKMmCz8sfyfXLWQb+f
-	 JCeNAUBIIDjAgZD2c53p7RNBAR9eE4zcQtXQqZkWZ/3S1WNBfu18pDir/Qa0i0mivQ
-	 9vL2A3AA9mpBWHJZPktzUmsbHPSLhvAg+uuJ75hx2fTnB4tUcYBje7nxa+C8afgVly
-	 nBsqoixiGGmAvxmNpfT4eDRgGIj39YikhEzeddS7WDzZiGz7Au0k24pH6l2pgtaMvK
-	 CuqyAyaKm6roCOFJI06qHcxEqMAWpRdoHSjmESJf87ro9A+nCwBKuLspKNxDzLeTIv
-	 30an0ExLpfrQQ==
-From: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
-To: Mina Almasry <almasrymina@google.com>, netdev@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- bpf@vger.kernel.org
-Cc: Mina Almasry <almasrymina@google.com>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
- <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
- <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, Jesper
- Dangaard Brouer <hawk@kernel.org>, Ilias Apalodimas
- <ilias.apalodimas@linaro.org>, Alexei Starovoitov <ast@kernel.org>, Daniel
- Borkmann <daniel@iogearbox.net>, John Fastabend
- <john.fastabend@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>, Luigi
- Rizzo <lrizzo@google.com>, Pavel Begunkov <asml.silence@gmail.com>
-Subject: Re: [PATCH net-next v2 1/2] net: netmem: document netmem and memory
- provider design in comments
-In-Reply-To: <20261008023030.1089616-2-almasrymina@google.com>
-References: <20261008023030.1089616-1-almasrymina@google.com>
- <20261008023030.1089616-2-almasrymina@google.com>
-Date: Thu, 08 Oct 2026 13:29:11 +0200
-Message-ID: <87ece02zy0.fsf@all.your.base.are.belong.to.us>
+	s=k20260515; t=1791459025;
+	bh=JyZEXCsrjIRssFr/XscNfX4V4CetnsdggN0Nwhan5is=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=F8Hz1Y/SBwi1BdY46Ig3T8lYjqv1KCqjC+yNvHC4mkiyTe0couKTWG8QhjbId/Tk9
+	 4yHtOuzVeAeJvZ/TwL9NCXxEIWaRpZvfVAcZRF/ROXeDbV3enliR1RFa58tAjt3Sbz
+	 9vQWB/zFLBYwOnBE9/UbOSDRSdqeiTiFIhJfcI9OQwiXqawVQJ4zxuzjKXvUrLkFob
+	 yDnbvkuO3YM5XOezquzGDbIQF+RmvEn5wGMP7/71m/fsnQVwJQfqSqnp3wl52R+G4G
+	 3MfVPEWQqHUkERgYl2d0qXWM9COxJNDCrd2sG8e0og68G/84fu0zsbJ/o6sOnPCh7W
+	 rtiAO/oC0T5Ng==
+From: SJ Park <sj@kernel.org>
+To: Randy Dunlap <rdunlap@infradead.org>
+Cc: SJ Park <sj@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	linux-doc@vger.kernel.org,
+	Mike Rapoport <rppt@kernel.org>,
+	linux-mm@kvack.org
+Subject: Re: [PATCH] docs: kernel-parameters: adjust reserve_mem build option
+Date: Thu,  8 Oct 2026 04:30:20 -0700
+Message-ID: <20261008113021.44149-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261003213457.96408-1-rdunlap@infradead.org>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Mina Almasry <almasrymina@google.com> writes:
+On Sat,  3 Oct 2026 14:34:57 -0700 Randy Dunlap <rdunlap@infradead.org> wrote:
 
-> Clarify the netmem, memory provider, page_pool, and skb fragment design
-> principles in header and code comments:
+> "[RAM]" means that the command line option is applicable when
+> "RAM disk support is enabled." However, the reserve_mem command line
+> option is not related to RAM disk support, so modify its build option
+> relevance to "[MM]" instead.
+> 
+> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
 
-Thanks, Mina. This is helpful!
+Acked-by: SJ Park <sj@kernel.org>
 
-Reviewed-by: Bj=C3=B6rn T=C3=B6pel <bjorn@kernel.org>
 
+Thanks,
+SJ
+
+[...]
