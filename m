@@ -1,108 +1,104 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68D9C490C0B;
-	Thu,  8 Oct 2026 12:00:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B1EC40F721;
+	Thu,  8 Oct 2026 12:00:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791460802; cv=none; b=EzcI5eYnKvyfI1w48SZrIO/V2LMcRtrCAf9WVbGsNNn7+6CkvkDz2KkTO4E9+hQkz3NAAvMCThTeTVd8/yHeRVyM+tOuR1xstXg9/Z/Aczx2RVxun+77GGKIq6V8VVQ9AQl8LpwsLJQ3815iFH2Zj67KAuTo3G8YEZkS8jKm7OI=
+	t=1791460861; cv=none; b=JVp0LM6KA89a5iSN+9y8r++oiYUp3tkM0v/iblUH9gOW8RLQ5nUebG69QgjjNoi5lEnnyL5ig1LjI9r2h/DOq5z9l1TcqQkcLl6+muuVEWn564F2SyH0fSy02aYY5KzP/u61pusODU0ClQzS6N5t1eTQDFLBABtbmtKjnK9+YaE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791460802; c=relaxed/simple;
-	bh=k7jNw8v3RsS5ksPNASdWudNKgG6JpCqHRMkFjsSLdHE=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hyQQEQYFGy9nRObrzLp1zBSvlzxQolTuT/UMJCDJieSE2eGeCROWfc9sMC5h3xR98R5pD70jVXN2Z/Db/Puw8VXmCIs+R2Cn1jIqbQxZgbKRdvUCshscE7hYq+0ZqyBHP+rDSyhwX5/6Ct8fo4EAi94eeCGvumIxUzvPTyJbTEM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id A8BDB21B07;
-	Thu,  8 Oct 2026 11:59:58 +0000 (UTC)
-Authentication-Results: smtp-out1.suse.de;
-	none
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7DCCD13354;
-	Thu,  8 Oct 2026 11:59:58 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 67SaC76Fx2pWJAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Thu, 08 Oct 2026 11:59:58 +0000
-Date: Thu, 08 Oct 2026 13:59:53 +0200
-Message-ID: <87cxtk5rnq.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Cc: Takashi Iwai <tiwai@suse.de>,
-	<linux-kernel@vger.kernel.org>,
-	<linux-sound@vger.kernel.org>
-Subject: Re: [PATCH v3 7/7] ALSA: seq: Don't lose partial read failure
-In-Reply-To: <d17960fd-154a-4975-aba5-e67c8bc53854@intel.com>
-References: <20261007172533.14667-1-tiwai@suse.de>
-	<20261007172533.14667-8-tiwai@suse.de>
-	<aa22e14b-fa6d-4164-b8fa-6a77eb2a2d39@intel.com>
-	<87o6d4609l.wl-tiwai@suse.de>
-	<d17960fd-154a-4975-aba5-e67c8bc53854@intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	s=arc-20240116; t=1791460861; c=relaxed/simple;
+	bh=Hb36kFskHaahcRk8dek5fMrGjCsoNlLRLItDtpm6Gcs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PRWulxks33PpeN4Em7QP1j3FdwiqiSUt454gkNM0HpKJ0DKduEOUIGghNLCidyRnmRKEmnY4NB//Ee+/fWt+w0uFkuljBiO9+LLcAPsV79g3+sKipPMgsUgU/z8N5qgcUmYZTmR2f5Y3MQheQiG/KjT2cxOszVqm8/VEmRMoxj8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=VdjRRaQ5; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="VdjRRaQ5"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=oShXdMoEXBcIjF76ZeZ7Tr5vt14coB3TSGREebLKc08=; b=VdjRRaQ5tZWcg3nN2EDWsu/mht
+	IBAfs/Xj0fw+ojMXtiG1W/bP9eEpNUsrEmS6bsuJcLicn3CnFGoWNg6fYLVkaBr8wgmp2Ly5CNPHQ
+	CeoQV5ylVLGjPjOLDNDpBBBl+qvxc9vQDLQg34hS2ApMjhUXVWJmJnN6RbhMBVDkG1oQ=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xEmni-009cUo-7M; Thu, 08 Oct 2026 14:00:42 +0200
+Date: Thu, 8 Oct 2026 14:00:42 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Jacky Chou <jacky_chou@aspeedtech.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Po-Yu Chuang <ratbert@faraday-tech.com>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: =?utf-8?B?5Zue6KaGOiBbUEFUQw==?= =?utf-8?Q?H?= net-next v2 3/6]
+ net: ftgmac100: Enable AST2700 RMII support
+Message-ID: <3eff4d4c-7376-4fc1-983e-396ccda08ef8@lunn.ch>
+References: <20261006-support_ast2700-v2-0-36de51fb8066@aspeedtech.com>
+ <20261006-support_ast2700-v2-3-36de51fb8066@aspeedtech.com>
+ <268b6bc5-40a5-47b4-99a2-68d9f56b359a@lunn.ch>
+ <SEYPR06MB513454E3CF42CCB62402E7F59D932@SEYPR06MB5134.apcprd06.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Pre-Result: action=no action;
-	module=Unknown lua;
-	unknown reason
-X-Spam-Flag: NO
-X-Rspamd-Pre-Result: action=no action;
-	module=Unknown lua;
-	unknown reason
-X-Spam-Level: 
-X-Spamd-Result: default: False [0.00 / 50.00]
-X-Spam-Score: 0.00
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <SEYPR06MB513454E3CF42CCB62402E7F59D932@SEYPR06MB5134.apcprd06.prod.outlook.com>
 
-On Thu, 08 Oct 2026 13:43:47 +0200,
-Cezary Rojewski wrote:
+> The applications of device tree in ftgmac100 have 'use-ncsi', 'fixed-link'/'phy-handle'
+> and legacy mdio probing for AST2400/2500.
 > 
-> On 10/8/2026 10:53 AM, Takashi Iwai wrote:
-> > On Thu, 08 Oct 2026 10:32:29 +0200,
-> > Cezary Rojewski wrote:
+> The 'use-ncsi' will bind a fixed-link phy device on speed 100 and RMII, so it will include
+> phydev for netdev.
+> The 'fixed-link' also bind a fixed-link phy device for phydev in netdev.
+> The 'phy-handle' will return the actual phy device instance for phydev.
+> The legacy mdio method also returns phydev if the MAC node includes mdio in dts
+> and find the phy device by mdc/mdio.
 > 
-> >>> --- a/sound/core/seq/seq_clientmgr.c
-> >>> +++ b/sound/core/seq/seq_clientmgr.c
-> >>> @@ -480,11 +480,11 @@ static ssize_t snd_seq_read(struct file *file, char __user *buf, size_t count,
-> >>>  	if (err < 0) {
-> >>>  		if (cell)
-> >>>  			snd_seq_fifo_cell_putback(fifo, cell);
-> >>> -		if (err == -EAGAIN && result > 0)
-> >>> -			err = 0;
-> >>>  	}
-> >>>  
-> >>> -	return (err < 0) ? err : result;
-> >>> +	if (result > 0)
-> >>> +		return result;
-> >>> +	return err < 0 ? err : 0;
-> >>
-> >> Can 'err' even be positive? Looks to me as if 'result' holds the bytes
-> >> and flat 'return err' suffices.
-> > 
-> > Yes, it's just to make sure.
-> It's not a blocker obviously, I'm just in favor of avoiding
-> double-protection. I'd rather fix the problem that causes 'err' to be
-> positive if somehow things turn that way.
+> Therefore, in the current code, the devices tree does not include 'phy-handle', 'use-ncsi', 
+> 'fixed-link and 'mdio' properties, the ftgmac100_probe_dt() still returns 0 as success at the 
+> end, and the phydev in netdev will be NULL.
+> 
+> All applications in ftgmac100 must get the phy device handle, regardless of the actual
+> phy device or the virtual fixed-link phy device.
+> 
+> I would like to add a patch to adjust the ftgmac100_probe_dt(), once the
+> device tree lacks one of them will return the corresponding error or no device error to 
+> make probing failed.
 
-Well, at this place, I'd rather to be sure than sorry.
-It's the end return point to user-space, hence we need to have a
-stricter check.
+You cannot cause regressions with existing device, e.g.
 
-Of course, if it were involving too heavy performance, I'd agree for
-optimization, but it's not that case :)
+aspeed-ast2500-evb.dts
 
+&mac0 {
+        status = "okay";
 
-thanks,
+        pinctrl-names = "default";
+        pinctrl-0 = <&pinctrl_rgmii1_default &pinctrl_mdio1_default>;
+};
 
-Takashi
+No phy-handle, no use-ncsi.
+
+So enforcing these must be limited to 2700.
+
+It looks like you can test that some sort of PHY has been found. But
+then please remove all tests which check that phydev is not NULL. And
+include a good commit message why this is safe and will not cause
+regressions.
+
+	Andrew
