@@ -1,109 +1,84 @@
-Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com [209.85.219.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B1043CC9EA
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 21:28:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791494928; cv=pass; b=dlwGISjmrBRbyX+LAcX5hzRTdmHLtPdqrtR3+R63b05nnUsMtduZJmXFd9lVHkLD5c4VRpdIWPRXJtc4arsVKhOPA3lnSoXmN0HKpMloY5C8TXMYfy1yZoO9VZ0FVK48HbMlQSmgxlVT3/IyIueCwm+bzznnFWzIE8WoBXQK4V8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791494928; c=relaxed/simple;
-	bh=fUZzaM1SKbqdW3JJHyHXI4KVGCOzVMsele/HgdjkKFk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=h9eLRDzaYggcEDkqpwOm6oc42YOlNgHiml8epRPc5/k2SmHnQWAMxOS8TDxbrefat/O2+AcdaEYONyOXjs+0LJs68ElkMgt+KgkfQueEX9Ew9bQx/aoX4ZD2irSdTvUQUfEWKne5L2yke017NV0YHWRt3gG797Xo0Uun2ZNnHOs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=boMZ8f53; arc=pass smtp.client-ip=209.85.219.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B08613B14BE;
+	Thu,  8 Oct 2026 21:28:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791494937; cv=none; b=fk7Jd+ccLnQhjnktDdLRPngt3QDWp62kNqkCAGGTEZZ06F739J25GoNN7yLj6DEdmPnDTjTjsd1weis3Z9I/qu8tuLn8sdsD2u4OLVILB9WSKh0xZut16PBMlJrAxkbS3+fFMmgusoH8k5JITGjrvF+g1OR1NTjb5EpjluPJtwI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791494937; c=relaxed/simple;
+	bh=DRL3fpOafRSkxxllvLGIoUiKklaEafR6458OmgjKk88=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=hQ8TUr5WYDi+9+4hCmxPDFm4SP+HTvqSzFzCz70OoOJSe1BBK7jp57yIvot+sZQNsdqHS+3ud1tnxMlwBqO8OkkVY5DbZCkCxfR6RhD19friqM9CnV6WWbM441P+fwkLbyiXw1TAu2PNtFgoMHkPqdrBLUrHwylAbcPNYNHzoqc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=T+vRViT8; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="boMZ8f53"
-Received: by mail-qv1-f50.google.com with SMTP id 6a1803df08f44-91b52ba422cso2352786d6.2
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 14:28:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791494926; cv=none;
-        d=google.com; s=arc-20260327;
-        b=CBtLhGUOi6IFVQNSO4ocw8AB44JMQe27o+CQYZhUuknMK1/qck7Qu+mqBVLqRFimOC
-         DmqmfKTK36jc0lGKZ4t+8QiL3UpXIfFMw5ZUoCjJt4b9SowQWJyuALDAUbzdrK75E7/T
-         XGI/Ij4GduMgHD1/cIOJVfhxq7dWN1PBuf9P053qKTHzbgRLOkZIVhSz0/PqWNqj3JHJ
-         xnWOzTfDGa+gV4gBSmvfZf3HDr5tMYMOAis7Uhow+jP4nYnH1GpB3Pd8rl3z/JKodXOy
-         P+Z1kjRnhY+6VIznhNyQAmb3HWIUA+gP3HXyPWjjMTt4Qulj1qBqYnC+GFKVkSnF/xCq
-         4JVw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=fUZzaM1SKbqdW3JJHyHXI4KVGCOzVMsele/HgdjkKFk=;
-        fh=xPommP+LDsGmQjqklslcwtEmNEMZVz3MPRjrHXSM6kc=;
-        b=RArtxBGqx8wfmXFqPN9BwiUGn0yuvHcjRW3UmruVRbzSxChMjDzbEW/RZ6ni6uDI58
-         kguBg0kRsUHzdTmYCKgepFP2RNgJ8psM4+7NsviSrrN+azFxgjkeFN7HBn6sBLM0ExOU
-         PVlz0E5lHHC0AXyMCkFWM8KA0bbGQwXL7InbBjvyMaxrDy4oYUPsSBFCpetR4k+EFtYf
-         9w5pM0hflU38MnxsnZafqjFfGDBJHPJOCA92OgpMXzwOFRc4fF002et2qMt4kW6NAmaX
-         /G4uFKeQbUhggCDq+E+PMjSqigdB02+JXPYmTzUDkYyhKPKjRQ4+P/cpUIcwxX0QQ4VO
-         b4NA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791494926; x=1792099726; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fUZzaM1SKbqdW3JJHyHXI4KVGCOzVMsele/HgdjkKFk=;
-        b=boMZ8f53+xBhpSoVelH00iqF8x10h4+meXcCUWzBHey8LjNmIfIVbqZmmEexbcTvFG
-         he446YJcgGPHFugkGuT+roTmak2ktCciJDrvpot1x4uFeglIt5J51H2kVJr6dNjYh8i5
-         waL2C81DMo+uWA4Y9xJ8oB6HoZDVO/v9z7g6gEgQ34I1GhC3xgITDexMZcsg6JpfDvms
-         oW9iR0m4gngNXJdKONDh86YLKQiehEjEwd4FR2hevPc1K4zNDMShkzfzitIOyzUS36SJ
-         7pXGO79LLqfEyk8KtRfUicykue68ch1AanFvcdGVPhJYB7o++Mqq1aLlj5LjIFgB1mqI
-         k3Vg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791494926; x=1792099726;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=fUZzaM1SKbqdW3JJHyHXI4KVGCOzVMsele/HgdjkKFk=;
-        b=YaQT/YwBQfBY30je6LqgwRAqOOK7+3ETg7Tb00LSOl8T/f5XQ5IAj6ju1eTCXwhw5I
-         T4LLfVGW+98HzS3jN6NG44XcWYFqR9Cw5PUO/WuGudCuoQqAu59yh4F4xiitr2kw4r2p
-         B3li9IG8b0f5PVQFBm3N1n/ifrV8dhW6mJcdFE6qJ+u7ytWKNs8uEjg1S2DZZ/aeGB58
-         v3uZuyRAzhCv8jEj1D+paqpfZWx8oSf/AvJ477bO3lNF+up5ww8fu8IbaFAEqW8c8pSv
-         I9IBbsJvd9V5XUIXNS7FM+gMN892Be8H6PKTSbSJbhcd1WUnT9Zm8oSv3QyOqYRXmU4z
-         H3tg==
-X-Forwarded-Encrypted: i=1; AKwUvBwvLPLPhQC5bxhzWH8kaqEHGQzIrPqtDUmCcDBz3Xwi+SL9ubytJuJwGqyR6VBkSUGPhdEeZD0woLJwbYA=@vger.kernel.org
-X-Gm-Message-State: AFuF++n+zfKndporYMDn3yhHj5PqOovt43uc1gHFX4UOd5x5lgTjJY4h
-	8LZrft3iIokb/5MVtoYHTfRLooItP6b6zfEQ1XC9hiaFkeTxil7+hhCKd5OfS43RmEFGUg/D7HN
-	S1jco/agA2/iLuwIUDpmobDaKmxVW/40=
-X-Gm-Gg: AYBFou0ZunyGI8Ozb31plrY6PdvNvm9EVnkfXlTn33s5Rj+8uQiEcMoMOjOfIrGTDJS
-	lCxJNmLf4DfCLSAwtuCQfoo/aGqOQA8aRTE+9ccGCcE7Mn/SuMKC74yH8OS40mZcfn+1kW1WPyP
-	4Q5dicKLqJmn80AzCL1fkzjQae/pNGAs+qdd1mkWsQgGIAbMK4H7Q5eaFYjEkNF/naAjbav6tWp
-	pCQI7awvi5ju1NG3DHfana9H2ULYkZi0Wk2uKOwRp5mHB0t2WgxPQuR6KTFbk65wq+f/1zHA6YT
-	ui0XepI1g0AXI+MCQCKsPEDRyIHOkuF4cQI6D17Mvd5VvBcxvva3oBqvXKpcky2dOa+e/gm55u+
-	Dt/TMi5KlsEdj/g==
-X-Received: by 2002:a05:620a:1b82:b0:93c:88ab:3482 with SMTP id
- af79cd13be357-93e9b733306mr1312623185a.29.1791494926142; Thu, 08 Oct 2026
- 14:28:46 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="T+vRViT8"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7D57B1477;
+	Thu,  8 Oct 2026 14:28:50 -0700 (PDT)
+Received: from e127648.arm.com (unknown [10.57.87.21])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 973403F763;
+	Thu,  8 Oct 2026 14:28:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791494933; bh=DRL3fpOafRSkxxllvLGIoUiKklaEafR6458OmgjKk88=;
+	h=From:To:Cc:Subject:Date:From;
+	b=T+vRViT8zVrpxXP2flAbT8UDGmMuWjnRQLBXijj9tJbOMaRa5Ulwwur/YZq3K8xc5
+	 GDaMD7s5/+5WQIm0rVctB2i5V3Emx4ndYxAvnJ25du6RPvkQEJ+Cr8MFaDv5sAoMim
+	 5SqERzB9S5T23key9FycNsTwNH/QJ52hTYkNjkFU=
+From: Christian Loehle <christian.loehle@arm.com>
+To: rafael@kernel.org
+Cc: zhenglifeng1@huawei.com,
+	zhongqiu.han@oss.qualcomm.com,
+	viresh.kumar@linaro.org,
+	linux-kernel@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Huang Rui <ray.huang@amd.com>,
+	Perry Yuan <perry.yuan@amd.com>,
+	Vanshidhar Konda <vanshikonda@os.amperecomputing.com>,
+	Shubhang Kaushik <sh@gentwo.org>,
+	Pierre Gondois <pierre.gondois@arm.com>,
+	Beata Michalska <beata.michalska@arm.com>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Ionela Voinescu <ionela.voinescu@arm.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Lukasz Luba <lukasz.luba@arm.com>,
+	Jeremy Linton <jeremy.linton@arm.com>,
+	jonathanh@nvidia.com,
+	zhanjie9@hisilicon.com,
+	Christian Loehle <christian.loehle@arm.com>
+Subject: [PATCH 0/2] MAINTAINERS: Update CPPC responsibilities
+Date: Thu,  8 Oct 2026 22:28:30 +0100
+Message-Id: <20261008212832.354382-1-christian.loehle@arm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260923074903.862898-1-linmag7@gmail.com> <20260923074903.862898-7-linmag7@gmail.com>
-In-Reply-To: <20260923074903.862898-7-linmag7@gmail.com>
-From: Matt Turner <mattst88@gmail.com>
-Date: Thu, 8 Oct 2026 17:28:07 -0400
-X-Gm-Features: AclHuK92lc0jnVJwnxxG37gDnBiAxy_73BctfMhsZYZmEx4Gt4Oo78g8F0khWvc
-Message-ID: <CAEdQ38EVzFdn49rBj9Et6JFGiE0amUFbxunqzP1qf4FGZLS=VQ@mail.gmail.com>
-Subject: Re: [PATCH v3 6/7] alpha: invalidate the local context in flush_tlb_mm()
-To: Magnus Lindholm <linmag7@gmail.com>
-Cc: richard.henderson@linaro.org, linux-kernel@vger.kernel.org, 
-	linux-alpha@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 23, 2026 at 09:47:49AM +0200, Magnus Lindholm wrote:
-> The uniprocessor implementation in asm/tlbflush.h already has the missing
-> branch. Counted over a fork-heavy run, flush_tlb_mm() was entered with the
-> mm not this CPU's active_mm 2934 times, and 632 times while otherwise idle.
+Hi Rafael,
 
-With the hugetlb series applied this path gets busier: every hugetlb
-flush there goes through flush_tlb_range(), so unmapping or migrating a
-hugetlb folio from another context ends up here with a foreign mm.
-That might also give you the reproducer this patch lacks: move_pages()
-on another process's hugetlb mapping, with the caller pinned to the
-CPU the target last ran on.
+This series replaces Pierre with me as a reviewer for cppc_cpufreq and
+adds a dedicated ACPI CPPC entry with you and me as maintainers.
 
-Reviewed-by: Matt Turner <mattst88@gmail.com>
+The separate entry should help direct CPPC changes to people familiar
+with its performance control semantics, register access mechanisms and
+the platforms implementing it.
+
+Thanks to Pierre for his work on CPPC.
+
+Thanks,
+Christian
+
+Christian Loehle (2):
+  MAINTAINERS: cpufreq: Replace CPPC reviewer
+  MAINTAINERS: ACPI: Add a separate CPPC entry
+
+ MAINTAINERS | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
+
