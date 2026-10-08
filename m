@@ -1,276 +1,200 @@
-Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012015.outbound.protection.outlook.com [52.101.43.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DDF43E4111
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 07:29:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.220
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791444593; cv=none; b=IzFDSod6VkLrX0N+rXlNtKvrBr7qOkKXPiPV9qVoL9xVbmZtViBZsk8hOyy5dEk5rZmz65HPi2LAt1W9n8xhCb8N5XF34vdFUQ4tbO64CiPtIbkYdqqo/981QrwfeLc6Xn6CeMaiEq/7IPVQsKnXf480p5bQug355e2cPoIC43U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791444593; c=relaxed/simple;
-	bh=ovM0o5ZgCJzR+aix2/0EhxC6bMkng7yjJofXLt1aGF0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=QpRIi8Vv2DkbEmWVUw32Wm28h3rNnaKo3E4vpNamVRjUST8FMqbGTPFHI7api4KA2FQXXtPOhJ56feSgofdwCNZ0eNOq0Vh3nuTUE5xeo9bj/hVNRNLraeb5xM/T9Zp6aQTLs5vvVJOjVSg36lIaIDfb+/NsAynaI3iEzUvn9ts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=5AJw1kpa; arc=none smtp.client-ip=113.46.200.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86FFD3E5EC4;
+	Thu,  8 Oct 2026 07:30:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791444626; cv=fail; b=uOU+SX71zMUb2r+tOMVIP7u0v2PI6f44oOXT0kcNmd1d3LOe8Dfn1HBRMNbkutytie2hLVvWblHdb8ZEkfsdflMmtpdxT3am2kxWUtKSJBE1eHTbVDWaC+w/YE+6t8oqiYe0ChIae5QjQKMMW3sIrdcAd1zoRKUuNM1IOwTeDvU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791444626; c=relaxed/simple;
+	bh=XXry5lHsm+CXSNMVFN70Mwj+KaF9Zjl+5nWg2t8P9cU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=lKWSsQzyEik4+J1hiDBvZqKomPY87aA6SaZlJCNfBrsrBu21pSHyhMsTIhBQa5vjUWQfIsa2uXSQartx1vYOPl7nSg7jC8QhuQs2wqsLlPuyvPvEU6p2JoM3CQlsFUntuDtpZHeXGGkALj3AdoT9x7ttzYv+bat6SXquVwjlyTk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=VS8RRbYZ; arc=fail smtp.client-ip=52.101.43.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="5AJw1kpa"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=5h4RUDwLl6q6NNkyyXSv+HLvqprnezmOD4oTYZHfjVs=;
-	b=5AJw1kpaY19uBNgU1HPv2tYu+t0ne/hllqei+jqs0d+IN/XkgZ6fVg1HF+3dffPywB61qacDM
-	HNlsE6amyfLO1+CQWp7+sz4OYb3/wJvqXhHLeqsx2uXeCtamXXYUibYg43k96Hpw1yex/ohIf2n
-	MaP9lBvw6ANs85/Ruk9h4gM=
-Received: from mail.maildlp.com (unknown [172.19.162.223])
-	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4j0hCZ1mzXz12LHh;
-	Thu,  8 Oct 2026 15:17:46 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id C37B040575;
-	Thu,  8 Oct 2026 15:29:43 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 8 Oct
- 2026 15:29:42 +0800
-Message-ID: <479c4658-3c29-4a65-8c5b-36aad0bbb568@huawei.com>
-Date: Thu, 8 Oct 2026 15:29:41 +0800
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="VS8RRbYZ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qqPLSvuh63OgF/SyCAoTRYOzZLyNQB0SxS96LmzRHzNrYR5jjYZFrWHUNWli8o7XdJYTbNkn1BDJJTUi2hneVL3O7I0gHhCFklkWdHp1rKl2paOfpoI7xcgWoGY2Wj84kaV3zH3o6wPcRjR4wEkYqDZy2dbSQ0puD3zXLGi5Yzybem70TFmUFzQ4lt5aGv4z9qbV0NModtBFnSx7AAL3+UbZXkUgfTKAnGW5U9mqBhWbdaLd/b9Ls8mxQth1sArUGhzJDDR5cvt/ycgovYHz6LmW6VvGcML1O6lMjkveNJIXDFTfve18eW+f39n9eV93c3XtSkTYbRjHRdWiy/woeg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lDOX603uh41Qv0PSBJK2T+fggprebYy4CpsqqWXBE8E=;
+ b=mUQ+gXRVI6ELOj1MxXr3agz5Rv0779DbE5JOdJcW3W1Jbh9iTEQbgF75kmHKU+kkgar9CCBv264uYyTKVZDuFSDCLyDfx2CSMxmG4s9jbQqUfTinhEyA8chUu+EhJogab4Ruqc3iO/fpj4TDwXjhzKbYevRDpCapv5/pQym0Gx5Jv1siV3Ifb4vg5EfSzzEkYlAQZ9BSUIIEG7puVhdboQbtCysiavbdBnUIOWTL3DuGzWDya9dgwkMPoyaZKa3fCkTKwwin3EM1gaFWoOSYI6WaEegNgKMEIUANrwsM9I5Lb/fEmK3hqFLFyB1nYo+Q8MrYPWTYfUst2SvHJZB7hw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lDOX603uh41Qv0PSBJK2T+fggprebYy4CpsqqWXBE8E=;
+ b=VS8RRbYZ7PQgOO2tFuE9kdiM7bFjtPzpqxXWGRP9b6A5nAVAzea2R5mL8DLpVPWA/eLYCAUAiFDTwQddDwJCx/0/ZEjdJtgxWhrnmbcEg1XMv/0c5fmwHsVPPgczyzHRAWHlsejPaVD65d4lVtoApnq7eWa+gXeo9t6oDByd4RHi3XwUpqptN9cZi5AOSY+0luBLJVej4K0JbLiPaM0hKBvoPGVfv0DS5GIm6mUUHWybKgWLz9hwduKOzYGD31XPwr+PUEllC/Lxzry/Li9lef0Wj5RPBir1GiX8JJsGpo6xDqa4l/Zmnk8wEHrQ4Dcef2WzYQ/NIuFZ/ffU5Lqzww==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
+ by MW4PR12MB6876.namprd12.prod.outlook.com (2603:10b6:303:208::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Thu, 8 Oct
+ 2026 07:30:11 +0000
+Received: from PH0PR12MB7957.namprd12.prod.outlook.com
+ ([fe80::9251:acc2:cc63:3499]) by PH0PR12MB7957.namprd12.prod.outlook.com
+ ([fe80::9251:acc2:cc63:3499%3]) with mapi id 15.21.0496.015; Thu, 8 Oct 2026
+ 07:30:11 +0000
+Date: Thu, 8 Oct 2026 10:30:01 +0300
+From: Ido Schimmel <idosch@nvidia.com>
+To: Cen Zhang <zzzccc427@gmail.com>
+Cc: dsahern@kernel.org, davem@davemloft.net, edumazet@kernel.org,
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+	jiri@resnulli.us, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, baijiaju1990@gmail.com,
+	jjzuming@gmail.com
+Subject: Re: [PATCH] ipv4: Serialize netconf GET requests with RTNL
+Message-ID: <20261008073001.GA1257678@shredder>
+References: <pm-ip-core-objects-candidate-0002-v3-4af089192b0b62b40b9c@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <pm-ip-core-objects-candidate-0002-v3-4af089192b0b62b40b9c@gmail.com>
+X-ClientProxiedBy: FR2P281CA0100.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9c::14) To PH0PR12MB7957.namprd12.prod.outlook.com
+ (2603:10b6:510:281::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 06/21] arm64: Store 'current' in TPIDRRO_EL0 instead of
- SP_EL0
-To: Will Deacon <will@kernel.org>, <linux-arm-kernel@lists.infradead.org>
-CC: <linux-kernel@vger.kernel.org>, Arnd Bergmann <arnd@arndb.de>, Ard
- Biesheuvel <ardb@kernel.org>, Ada Couprie Diaz <ada.coupriediaz@arm.com>,
-	David Hildenbrand <david@kernel.org>, Catalin Marinas
-	<catalin.marinas@arm.com>, Vladimir Murzin <vladimir.murzin@arm.com>, Mark
- Rutland <mark.rutland@arm.com>, Mostafa Saleh <smostafa@google.com>, Lorenzo
- Stoakes <ljs@kernel.org>, Oliver Upton <oupton@kernel.org>, Linus Walleij
-	<linusw@kernel.org>, Marc Zyngier <maz@kernel.org>
-References: <20260918161407.2300-1-will@kernel.org>
- <20260918161407.2300-7-will@kernel.org>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <20260918161407.2300-7-will@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR12MB7957:EE_|MW4PR12MB6876:EE_
+X-MS-Office365-Filtering-Correlation-Id: ebc6f535-5611-4037-e960-08df250dfc95
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|366016|6133799003|22082099003|18002099003|5023799004|10067099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	Q69sT5FykGQn1b9syO85RtjwBjcfaIkgTTiq/zZDzZPsTDdrLOBZqIFkxAJL+SRAD40uwWU9am3eQE3GoIdABxoKRtG/K/MPmjm0MTkXVh5j5N/hsGXCK6vETKpM0NxaKFG60aNQmGGkL4iPeO8lHIl3eWsDj0pb0ElqmPK9GT387/eCG9un2l8xbT6YIL7bK3kzQqzijSfP1dAo/NKUcboaWw3Bq5jlfqjoiUgwoqEwCTT4jNnqPCyaYil3oOZNt3ZTUy7uMxmN3898mf1NFQij/qWSvByi9AqRA8n/7qQ46WImhL2HtGvlt2btproUGhwjVyXbkPkRSfgMksJ8qP3VXi6ooiZ0FScjIN9F3FJ/gm0pz6g29MlEgYGFPCUWdHZPei+Li7+PFEsoOJHO0L6S2vVTQB4o58h24W/mSzCvscn0OD8otdHOdScH5wRN1lDL2Lj15KY7/7Dzvwo5NiBQbUYoOjtptm8YjDc8n/1DbGZK/txZOFgHEUspO55NTPinRMIu2Z+dXX74MGFILyGvGitBuF55xGm+XTDfzuRYlaRhxWjKucBCKBqj+7Ik2J2z3+iMJNieW/r1qleoiEV9oKUMJlWk4KUq18n5LvKokjcISpnkzmJUtlESsfBwuB+JzlT0lsYMAQ1C/OJJwTZJ36OmhFEjtNdL8lx5IjQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7957.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(6133799003)(22082099003)(18002099003)(5023799004)(10067099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dlZkVTI1enZySTV6UGJhYmc5YkpWbEdUUUxsT0hnVVVINEJtMXdFMzZ5SnVJ?=
+ =?utf-8?B?aDZreEpFdDZ1bGkweEtqZjNGdGp3NGVRaFl0N255NFo2RFEwNnc3dXM4M0U0?=
+ =?utf-8?B?YWpnTGxSeFlkNmdrYjV0azBLUklhS0c5VXNxRE11UmFIdGwyWTBGb2Y1aUNx?=
+ =?utf-8?B?d3pPeXV6MTQzYm9kb2p0VnNlakg3Vk1HaS9hWjhPbzZpZDhFZnhGMFVRSWFQ?=
+ =?utf-8?B?ZXZxZVVoL1JSMUZqT2ZjOU5mTEVDYzFPZ1Z0NFhSOXFpQm1HbmUzaVRDbEFM?=
+ =?utf-8?B?WDhpNCtiSDlZbzBTWE41QXYrQVJxbUNlNUdweUlVNkZTZVp3aGk2ZTdMc2dv?=
+ =?utf-8?B?aGhHaUhsZzdBRklKZ01FYlRNQUJJbDhKZWl0YVAwaWhhNFBiOGhQR0hXQjdO?=
+ =?utf-8?B?dElQMlJQZUxCRWJ6d25MdDQrbWJhRDV0a2xCK2YxTDRJVmJMcmpBTUpWaUJx?=
+ =?utf-8?B?eTJKVHprb05nL0ZmZk1QRlNZRVViOUE3aTFKdVlHRVNpa21oVDJFQXJaWk03?=
+ =?utf-8?B?SWhzQjYvR1RYWElNV0JHaHpBZWd5d1kycGc4VWFtLzdyYy9VQ29qcGdmNFlm?=
+ =?utf-8?B?YSthdUxhWTBlY2t5Y1FDdC9KVEFUNzR1ZkVic2FBaDVvSEZqZ2xVL2dSOGJG?=
+ =?utf-8?B?QzN0T2orVDZhdUJSb1llb2ZYbmEzQ1dzQVZFeW5wcTlabm1jR3NaN0o4bGZW?=
+ =?utf-8?B?RngxQk9aQlk1V2ViOFJoV3VFYkVTemthbVdURGpqK0IwTCthTXlTUEFNQloy?=
+ =?utf-8?B?SW13RGNKK29IR01qbHg4eUdlOVQ3SnNLYzJlcWJTazFRMktod0xKdzF5dEti?=
+ =?utf-8?B?T3VwZis4aWtzeHVsSGhjbXVnV05sbnpVa3B2TXM3dEpvM2tBMldzS0dZTzlK?=
+ =?utf-8?B?Skw1V25nY1BLQzRHNVFMRXdhMTFwcmNHNjkxYnYraUthSEpCTVZxZ1RicUFI?=
+ =?utf-8?B?RjJMUWw1WXZrdzh6c3dNbGJ2V3dCdkcyUTErWkZHeUxQUkRaUkR5RE1ld0Fu?=
+ =?utf-8?B?OTRhVkRJSTVpSk9QQnVYTkVlTm0reTltdHZxbDFTWUR2cXRBNlNxaGZFVm0y?=
+ =?utf-8?B?VTBkeVB0Yi9ORlU1SjJTb1BoRUR5d2dtT0lxWGlia3ZHL1YrUi9LL2hiNmZQ?=
+ =?utf-8?B?YnpiaVZBQUtReWJNSzlFWmhrVTR1ZGVwS0psMUJnNE5NMmgyRkhJaHl3bjZP?=
+ =?utf-8?B?WW90UWswd2JxOVFHN1VSMEtobWlSQlVJQ3ppVFNUMVpOVnY2bmdxRWdtU3B5?=
+ =?utf-8?B?Tll6dVVoaUhZR1Y0SUR0emljOGNUNDEvRXU3a0Z2eklVeUhMK0RTTEZOWlNY?=
+ =?utf-8?B?WVZYcWVaZm4zZVRoZzIyT0ZRS0JmSVZyV01MNmxFMkkwa3phYnRGMUJwcjlv?=
+ =?utf-8?B?ckExOEVnQ3M0d0tMNGFTSkIwZHZ6cWttZEVyQzZWYzhqNXBnVkErQThSaWk2?=
+ =?utf-8?B?TWs3bHdqVFhoME9FckVJbVB6SExJZ3lSc0JTVXhqQTFkeFltSnhsWXdWRmVB?=
+ =?utf-8?B?b2xsUkdNZkN3NlgvUVVOeFJxV3FuMTJCZ1pOTUZ2M01iQVFsQ2h4TEJ2TWR6?=
+ =?utf-8?B?VVVaMXNUNkxZYVBwRkNUblN0MHlZTUFWN2tBWmlnYW1BRWpPVnRiUDBYVDdm?=
+ =?utf-8?B?MFl2dmlmME10OXpUTFRaZTlEaDUwZGZxL2dVajVIazlSa0pQTkF0ZEkzd3po?=
+ =?utf-8?B?VmpmQlM2SElYQXN5VkJoYTRMVFNzRWlmWXRBdE44OU1kMEpmVmNPbk1uNTJn?=
+ =?utf-8?B?Z0F4Mm9OTVZZOCsvdnVRVmVHL0tnUElGYUhxeFh0SEI0bGlUR2I0bERaa0ZN?=
+ =?utf-8?B?NzhsSFo4WjhIelArYWdKZzg1NGlYOVN0T1ZyVTFBakZoL1ZNZlpLY2VpMVhU?=
+ =?utf-8?B?czJUSWJIcmw4bWlwbndqeEpKOXZGTEVkRlRjdE5PZE93Z29abjdJQjBHRFRu?=
+ =?utf-8?B?U1RFSHFVREpmVy9RZjFGaWJiM0Q2N21vYXdKMHErMldXaEwyQW51Smx0TDBu?=
+ =?utf-8?B?N3ZCeWRSWWhFRFJ1R01RYVJ2bkJCTkdKUHVRSXZWbnJLSmw0RFZGTDg2ZnMw?=
+ =?utf-8?B?WlhEM0xxWnJTMHI5Wll4VUtIVEdyVkdGVU1xUFlpKzM5aDZyTUhGSkE0d0R1?=
+ =?utf-8?B?bjEwV3Eyd1FtSXZhZkppSjJtMElJK0lTRmtlMlFSRXBTSkdIQndjM0c2bHBC?=
+ =?utf-8?B?Q3pxbFlhMXRGZmpXNUt1WEtQMVI2ZUNLbFd3NHpZMWdYS1oza0srUnhCRmVR?=
+ =?utf-8?B?SGpMOTNIOTV2My9adGZPL2VmNDBrSHNLNXRYMUxPS216dVA0RTFBcXFOYi9j?=
+ =?utf-8?B?R1FybXZDeC9wMklvU3VyeUJwelVVbXQ1NWw4Q01peXpSbnA3VlNyZz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ebc6f535-5611-4037-e960-08df250dfc95
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7957.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 07:30:11.3912
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: t6ZF5anK/33wcflRsnYsiQH8VZZ4nXTdkvvkQSMKmXCzeLOqpC9w4eoWpw9MnFlwhZnEvlrjrefaDZZGWxErWw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6876
 
-
-
-在 2026/9/19 0:13, Will Deacon 写道:
-> To make SP_EL0 available to point at the per-cpu kernel overflow stack,
-> we must relocate 'current' elsewhere. With TPIDRRO_EL0 now restored late
-> in the return-to-user path, we can otherwise use it to hold 'current'
-> and update the various accessors accordingly.
+On Thu, Oct 08, 2026 at 02:32:18PM +0800, Cen Zhang wrote:
+> An in_device returned by in_dev_get() must stay alive until
+> inet_netconf_get_devconf() finishes reading its cnf. However, the helper
+> samples dev->ip_ptr under RCU and unconditionally increments refcnt,
+> then returns the pointer outside RCU without checking whether the count
+> was already zero. The net_device reference held by the request does not
+> retain the separately allocated in_device.
 > 
-> Move 'current' from SP_EL0 to TPIDRRO_EL0.
+> A down interface without IPv4 addresses or multicast owners can have
+> only the ip_ptr publication reference. Lowering its MTU below
+> IPV4_MIN_MTU invokes inetdev_destroy() through the RTNL-held
+> NETDEV_CHANGEMTU notifier. RTM_GETNETCONF runs without RTNL, allowing
+> the final put to follow its pointer sample but precede its increment:
 > 
-> Cc: Mark Rutland <mark.rutland@arm.com>
-> Signed-off-by: Will Deacon <will@kernel.org>
-> ---
->  arch/arm64/include/asm/assembler.h |  2 +-
->  arch/arm64/include/asm/current.h   |  6 +++---
->  arch/arm64/kernel/entry.S          | 20 ++++++++++----------
->  arch/arm64/kernel/head.S           |  2 +-
->  arch/arm64/kernel/process.c        |  5 +++--
->  arch/arm64/mm/proc.S               |  6 +++++-
->  arch/arm64/net/bpf_jit_comp.c      |  4 ++--
->  7 files changed, 25 insertions(+), 20 deletions(-)
+>   RTM_GETNETCONF                   MTU change (RTNL held)
+>   in_dev_get():
+>     rcu_read_lock()
+>     sample dev->ip_ptr
+>                                   inetdev_destroy():
+>                                     clear dev->ip_ptr
+>                                     in_dev_put(): refcnt -> 0
+>                                     call_rcu(in_dev_free_rcu)
+>     refcount_inc() from zero
+>     rcu_read_unlock()
+>                                   in_dev_free_rcu(): kfree()
+>   inet_netconf_fill_devconf():
+>     read in_dev->cnf
 > 
-> diff --git a/arch/arm64/include/asm/assembler.h b/arch/arm64/include/asm/assembler.h
-> index 0b58b550e8dc..fd1ae5337935 100644
-> --- a/arch/arm64/include/asm/assembler.h
-> +++ b/arch/arm64/include/asm/assembler.h
-> @@ -587,7 +587,7 @@ alternative_else_nop_endif
->   * Return the current task_struct.
->   */
->  	.macro	get_current_task, rd
-> -	mrs	\rd, sp_el0
-> +	mrs	\rd, tpidrro_el0
->  	.endm
->  
->  /*
-> diff --git a/arch/arm64/include/asm/current.h b/arch/arm64/include/asm/current.h
-> index c92912eaf186..8c7efac05394 100644
-> --- a/arch/arm64/include/asm/current.h
-> +++ b/arch/arm64/include/asm/current.h
-> @@ -14,11 +14,11 @@ struct task_struct;
->   */
->  static __always_inline struct task_struct *get_current(void)
->  {
-> -	unsigned long sp_el0;
-> +	unsigned long tpidrro_el0;
->  
-> -	asm ("mrs %0, sp_el0" : "=r" (sp_el0));
-> +	asm ("mrs %0, tpidrro_el0" : "=r" (tpidrro_el0));
->  
-> -	return (struct task_struct *)sp_el0;
-> +	return (struct task_struct *)tpidrro_el0;
->  }
->  
->  #define current get_current()
-> diff --git a/arch/arm64/kernel/entry.S b/arch/arm64/kernel/entry.S
-> index b5d8277f608a..a45be0a837c8 100644
-> --- a/arch/arm64/kernel/entry.S
-> +++ b/arch/arm64/kernel/entry.S
-> @@ -81,9 +81,9 @@
->  	/* Stash the original SP (minus PT_REGS_SIZE) in tpidr_el0. */
->  	msr	tpidr_el0, x0
->  
-> -	/* Recover the original x0 value and stash it in tpidrro_el0 */
-> +	/* Recover the original x0 value and stash it in sp_el0 */
->  	sub	x0, sp, x0
-> -	msr	tpidrro_el0, x0
-> +	msr	sp_el0, x0
->  
->  	/* Switch to the overflow stack */
->  	adr_this_cpu sp, overflow_stack + OVERFLOW_STACK_SIZE, x0
-> @@ -99,7 +99,7 @@
->  
->  	/* We were already on the overflow stack. Restore sp/x0 and carry on. */
->  	sub	sp, sp, x0
-> -	mrs	x0, tpidrro_el0
-> +	mrs	x0, sp_el0
->  	b	el\el\ht\()_\regsize\()_\label
->  	.endif
->  .org .Lventry_start\@ + 128	// Did we overflow the ventry slot?
-> @@ -226,7 +226,7 @@ alternative_cb_end
->  	clear_gp_regs
->  	mrs	x21, sp_el0
->  	ldr_this_cpu	tsk, __entry_task, x20
-> -	msr	sp_el0, tsk
-> +	msr	tpidrro_el0, tsk
->  
->  	/*
->  	 * Ensure MDSCR_EL1.SS is clear, since we can unmask debug exceptions
-> @@ -548,7 +548,7 @@ SYM_CODE_START_LOCAL(__bad_stack)
->  	 */
->  
->  	/* Restore the original x0 value */
-> -	mrs	x0, tpidrro_el0
-> +	mrs	x0, sp_el0
->  
->  	/*
->  	 * Store the original GPRs to the new stack. The orginal SP (minus
-> @@ -843,7 +843,7 @@ SYM_FUNC_START(cpu_switch_to)
->  	ldp	x29, x9, [x8], #16
->  	ldr	lr, [x8]
->  	mov	sp, x9
-> -	msr	sp_el0, x1
-> +	msr	tpidrro_el0, x1
->  	ptrauth_keys_install_kernel x1, x8, x9, x10
->  	scs_save x0
->  	scs_load_current
-> @@ -1031,11 +1031,11 @@ SYM_CODE_START(__sdei_asm_handler)
->  
->  	/*
->  	 * We may have interrupted userspace, or a guest, or exit-from or
-> -	 * return-to either of these. We can't trust sp_el0, restore it.
-> +	 * return-to either of these. We can't trust tpidrro_el0, restore it.
->  	 */
-> -	mrs	x28, sp_el0
-> +	mrs	x28, tpidrro_el0
->  	ldr_this_cpu	dst=x0, sym=__entry_task, tmp=x1
-> -	msr	sp_el0, x0
-> +	msr	tpidrro_el0, x0
->  
->  	/* If we interrupted the kernel point to the previous stack/frame. */
->  	and     x0, x3, #0xc
-> @@ -1051,7 +1051,7 @@ SYM_CODE_START(__sdei_asm_handler)
->  	mov	x1, x19
->  	bl	__sdei_handler
->  
-> -	msr	sp_el0, x28
-> +	msr	tpidrro_el0, x28
->  	/* restore regs >x17 that we clobbered */
->  	mov	x4, x19         // keep x4 for __sdei_asm_exit_trampoline
->  	ldp	x28, x29, [x4, #SDEI_EVENT_INTREGS + 16 * 14]
-> diff --git a/arch/arm64/kernel/head.S b/arch/arm64/kernel/head.S
-> index 87a822e5c4ca..c33551ee6572 100644
-> --- a/arch/arm64/kernel/head.S
-> +++ b/arch/arm64/kernel/head.S
-> @@ -193,7 +193,7 @@ SYM_CODE_END(preserve_boot_args)
->  	 * for consistency with user tasks and kthreads.
->  	 */
->  	.macro	init_cpu_task tsk, tmp1, tmp2
-> -	msr	sp_el0, \tsk
-> +	msr	tpidrro_el0, \tsk
->  
->  	ldr	\tmp1, [\tsk, #TSK_STACK]
->  	add	sp, \tmp1, #THREAD_SIZE
-> diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
-> index bfdc12166895..79a19be88ced 100644
-> --- a/arch/arm64/kernel/process.c
-> +++ b/arch/arm64/kernel/process.c
-> @@ -551,8 +551,9 @@ static void ssbs_thread_switch(struct task_struct *next)
->  }
->  
->  /*
-> - * We store our current task in sp_el0, which is clobbered by userspace. Keep a
-> - * shadow copy so that we can restore this upon entry from userspace.
-> + * We store our current task in tpidrro_el0, which is clobbered when returning
-> + * to userspace. Keep a shadow copy so that we can restore this upon entry from
-> + * userspace.
->   *
->   * This is *only* for exception entry from EL0, and is not valid until we
->   * __switch_to() a user task.
-> diff --git a/arch/arm64/mm/proc.S b/arch/arm64/mm/proc.S
-> index 12aacc74f764..ad4965d34978 100644
-> --- a/arch/arm64/mm/proc.S
-> +++ b/arch/arm64/mm/proc.S
-> @@ -129,6 +129,10 @@ SYM_FUNC_START(cpu_do_resume)
->  	ldp	x9, x10, [x0, #48]
->  	ldp	x11, x12, [x0, #64]
->  	ldp	x13, x14, [x0, #80]
-> +
-> +	/* Move 'current' somewhere safe */
-> +	mov	x15, x3
-> +
->  	/*
->  	 * Restore x18, as it may be used as a platform register, and clear
->  	 * the buffer to minimize the risk of exposure when used for shadow
-> @@ -176,7 +180,7 @@ alternative_if ARM64_HAS_GIC_PRIO_MASKING
->  alternative_else_nop_endif
->  #endif
->  
-> -	ptrauth_keys_install_kernel_nosync x14, x1, x2, x3
-> +	ptrauth_keys_install_kernel_nosync x15, x1, x2, x3
->  	isb
->  	ret
->  SYM_FUNC_END(cpu_do_resume)
-> diff --git a/arch/arm64/net/bpf_jit_comp.c b/arch/arm64/net/bpf_jit_comp.c
-> index c18e005a41db..51d853b92443 100644
-> --- a/arch/arm64/net/bpf_jit_comp.c
-> +++ b/arch/arm64/net/bpf_jit_comp.c
-> @@ -1694,7 +1694,7 @@ static int build_insn(const struct bpf_verifier_env *env, const struct bpf_insn
->  		if (insn->src_reg == 0 && insn->imm == BPF_FUNC_get_smp_processor_id) {
->  			cpu_offset = offsetof(struct thread_info, cpu);
->  
-> -			emit(A64_MRS_SP_EL0(tmp), ctx);
-> +			emit(A64_MRS_TPIDRRO_EL0(tmp), ctx);
->  			if (is_lsi_offset(cpu_offset, 2)) {
->  				emit(A64_LDR32I(r0, tmp, cpu_offset), ctx);
->  			} else {
-> @@ -1707,7 +1707,7 @@ static int build_insn(const struct bpf_verifier_env *env, const struct bpf_insn
->  		/* Implement helper call to bpf_get_current_task/_btf() inline */
->  		if (insn->src_reg == 0 && (insn->imm == BPF_FUNC_get_current_task ||
->  					   insn->imm == BPF_FUNC_get_current_task_btf)) {
-> -			emit(A64_MRS_SP_EL0(r0), ctx);
-> +			emit(A64_MRS_TPIDRRO_EL0(r0), ctx);
+> The zero-count increment warns and saturates the refcount, but cannot
+> cancel the queued free. Once the request leaves RCU, the callback can
+> free the attachment before the configuration read, causing a
+> use-after-free. Restoring a valid MTU can publish a new attachment on
+> the same device while the request still holds the old pointer.
+> 
+> Drop RTNL_FLAG_DOIT_UNLOCKED so rtnetlink holds RTNL from lookup through
+> reply construction and reference release. This serializes the request
+> with inetdev_destroy(), preventing the publication reference from being
+> dropped during acquisition or use. The dump handler already holds RCU
+> through its configuration reads and keeps RTNL_FLAG_DUMP_UNLOCKED.
+> 
+> KASAN report as below:
 
-Since A64_MRS_SP_EL0 is no longer used after this, can it be removed?
+[...]
 
->  			break;
->  		}
->  
+> 
+> Fixes: bbcf91053bb6 ("inet: do not use RTNL in inet_netconf_get_devconf()")
+> Assisted-by: LLM
+> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 
--- 
-Best regards,
-Jinjie
+The correct fix is to use refcount_inc_not_zero() in in_dev_get(), in a
+similar fashion to commit 0e243671bc7b ("ipv6: prevent in6_dev_get()
+from resurrecting inet6_dev"). Please base your v2 on the following
+submission and the feedback I provided:
 
+https://lore.kernel.org/netdev/20260815172032.79740-1-baul.lee@xbow.com/
+
+And please read:
+
+https://docs.kernel.org/next/process/maintainer-netdev.html
+
+Notably:
+
+1. "designate your patch to a tree - [PATCH net] or [PATCH net-next]"
+2. "don’t repost your patches within one 24h period"
+
+Also, trim the traces (preferably decoded) to what is actually useful:
+
+https://docs.kernel.org/next/process/submitting-patches.html#backtraces-in-commit-messages
