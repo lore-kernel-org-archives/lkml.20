@@ -1,223 +1,254 @@
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+Received: from flow-a5-smtp.messagingengine.com (flow-a5-smtp.messagingengine.com [103.168.172.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 873524E7803;
-	Thu,  8 Oct 2026 15:32:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 931294E8E13
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 15:33:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791473577; cv=none; b=b3MabThLDjwsC6R0J3fHucZS8OQ0b2OvAUqRbeoc1QJas3cDGOIkyrdiU6RapqMORA41iL2f21BT8RMPMReLQrZx+4YsVmZpBUxFKZarcox+MndIN72L1+hjRf/v4ULG1uioL1BMrUFZD1i2qOjU4ECaPqZwai+i+S6J3lt3BSw=
+	t=1791473606; cv=none; b=FaTj3jazwVMJ1RmSg1UQqZuGJnP7PfpCBxAiP8va02dTECAwfYwjR6sAQrJnKcVvTyph7Ny4rd5wYoyHWqMCOtnmh6oDNAn9hIqjuqy4K+hLKrhSHSfIHKY3nCO7f1JHhCiE6cKTJ4JQvUFFucB2WVPeL926OLyXkzakHkUAsSk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791473577; c=relaxed/simple;
-	bh=rNLc3mR5PhKHCQokZKj3WvXLO7UNHI4mPzIFOD1RWxU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=abGEkxmMIbSqx9OS9J4Az4p+K1yp4PX9Xv5HfEWYI55EzC1mClAgIntkDDSiCyftnhQDzB/T0Fd6UYtaKoq9toRyKv6IkOpJkOy32Kdt9FgvLKeZWwnl4+KeV3Z2ndWApR+UQWIog6PaHOF01Y8gleOMWQx7B+uKKcC+clt9TSk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=Z5UeDLE+; arc=none smtp.client-ip=210.118.77.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1791473606; c=relaxed/simple;
+	bh=UjPgRL3Fd2Socfm3L5xxbwUMFjJgS8BJIj3Jl05RJLw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Gvfq7utKQNs6F91kAND3n+iykpEIrvRYFwkgtlU/JRgQC73Cz+UsDmyIHAPyxrqqY0y6RhcUtVN4+Fa7XzT4zS6BfaxFi8aXBxJtUrJLt/y9/Tdv3YoHPxTB57TAIUwNh8uMEd4oGi77csMhRR+aPbwHKhw8qRSxtx4ZrC0eU/A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=s-joshi.in; spf=pass smtp.mailfrom=s-joshi.in; dkim=pass (2048-bit key) header.d=s-joshi.in header.i=@s-joshi.in header.b=qB8DAcRj; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=aEAqGyJC; arc=none smtp.client-ip=103.168.172.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=s-joshi.in
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=s-joshi.in
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="Z5UeDLE+"
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261008153249euoutp02b4a87ccc77d200f3890d561df189c3bd~cl7g7aAvm2788727887euoutp02g;
-	Thu,  8 Oct 2026 15:32:49 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261008153249euoutp02b4a87ccc77d200f3890d561df189c3bd~cl7g7aAvm2788727887euoutp02g
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1791473569;
-	bh=YmUv+dVinO4DGyPfi86Rp05KJ0iKog7r1zuWIsZpoNM=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=Z5UeDLE+dZcsY3l6oA16V8qttCBxPFEJpUpwd2p2jJDN2RWsNpoMi9Gug31sE6gmX
-	 xEpsLkgCQwKTVH4iIL1j1xtexJJNNydzs2KShaf9Uvr/sXk+MAVI8vVIQ+YZBs4a/f
-	 zFRkjDjJ/PUKBoz2RBPEiGBJ0pC1W9GZs22YyXtc=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261008153248eucas1p144bd3391fe1a79a1d6dfcd386c4a7e94~cl7fxbUbR2862828628eucas1p1P;
-	Thu,  8 Oct 2026 15:32:48 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261008153245eusmtip112c16c496ac689d363e975f151c082fb~cl7dN0sE_2339023390eusmtip1f;
-	Thu,  8 Oct 2026 15:32:45 +0000 (GMT)
-Message-ID: <c2e38455-cb31-4854-ab84-4a370fabc1f9@samsung.com>
-Date: Thu, 8 Oct 2026 17:32:44 +0200
+	dkim=pass (2048-bit key) header.d=s-joshi.in header.i=@s-joshi.in header.b="qB8DAcRj";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="aEAqGyJC"
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailflow.phl.internal (Postfix) with ESMTP id B5E4B13804C4
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 11:33:21 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Thu, 08 Oct 2026 11:33:21 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=s-joshi.in; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm1; t=1791473601; x=1791477201; bh=1ohOW3dUtW
+	KA0V20F1FOvupEiT2pfjdjzin2U2mXqdI=; b=qB8DAcRj++uCxWnV1o2Rst0iXw
+	3mgG4IAbl2NE/sYdvTHp/JjhkV8tCmn8F62Q7Zc2XsHkfx8YTsOeZfly6r70Fs6r
+	SStZVjfFN1XW/C3j6qnE54ErA1QpFaO2xO0Jm/EQeuS5FNGZvjwwqek8ZH5V9f7U
+	Aly572f7Qh4OnR6dM0QQrqVu1dYl1iXBYulgiZqzFB0+eQ6faXSPbNwMTd1ghNk9
+	FZDzcOp/eGVcMhOOqHKnsoAdUVDNy5nrxD1BzBGicT/BbeGA2eF0g8dQ/UUYz059
+	bX6uZDorzpzgUE0iyyC7PgEENau77OGbHlwNZI9b1M5llT1Gt6VXDOYBst1A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1791473601; x=1791477201; bh=1ohOW3dUtWKA0V20F1FOvupEiT2pfjdjzin
+	2U2mXqdI=; b=aEAqGyJCJ6mZt8z3uy1mmaJS5ee/5OSVhpllZoqhsOasC/ujRGi
+	Fnm7hfgSRoVv7ddCqzWPSTE3XgSgRped6e+36SjnKviyI4XpplSsWbSfgs6+N4pT
+	KEuYZLb0mrOiFBLNiwAVF/0CbZc4VM6LDdGn95EWhJ2k0NtNdl5XdHkTQUyfh+Tu
+	cUo5f34uPmYnh4RwsqMSyCpNcapgms8w+TqBp6MbM5oHZNV08jZhWMWuvuUH1nsw
+	aG5xQjqqXPDia3E0GLtf5b6ZUpAvPNsMWt2U6QSiptWHMtxOnyHoNN+H1EpOdoWC
+	5vgNnDuFROymGWla0sRNFByjSZtgQm+pxiQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=s-joshi.in a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791473601; d=s-joshi.in;
+	mf=PHN1aGFhc0BzLWpvc2hpLmluPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:REEy3O2YxVoGCqaLY8SZxNLWMFmkeUaM/HenoB6TG1WbK38
+	dm7w0C/pzmPa9tgRS/BlcjpgGIBrCh/PYFfzJK+eEPLGPGj9QXJqIh/3/8B+At5E
+	M01niW3cLxe+QmaNqZcJDGlY0J4C4a5Yn3O/TnWZu8s1jbtRZHxDeJx1RjhFcpT5
+	G4+YP/B/oJyBjqJDgXfMglzdGLtI3HHFGTbe54wyr63MS9NXE7baTbhfR0az33zk
+	LTU7DTfCQo16ZuNPBNnSJPxSnQhGj61w+CH0F47T/hgqnbVlezyjT20K8g+Nru47
+	p7WGkS3a3SlOCHQD1lQXbsMQjWe3p01hEjU/WnQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:cgYM+3LSnLJPIZaVue4P327QhJxDaWe60CpL8Bi30ac=:UjPgRL3Fd2Socfm3L5xxbwUMFjJgS8BJIj3Jl05RJLw=;
+X-ME-Sender: <xms:wbfHahT5Jb8-IEtYk9tibIYNChDP1P_n6lP7Nd49UEuZwOz7B7zXMA>
+    <xme:wbfHakF1UFs7btro_IBNQOWmxJDXGuJf0mHeQLcQhpcYSBQIG6yw-bvqde2t91cRL
+    kJ2LV3cd99L1kT2lUo0VRtadwReolgqiZ1_aYshRnOoI_t6HZaKYmF0>
+X-ME-Received: <xmr:wbfHauEh_AZcEpzCqeCEqvNiZD8EuVsK8LKJ2SyIkZ0rjxGUqV_ex6AUpw>
+X-ME-Proxy-Cause: dmFkZTEgCOCP5+1yTBY1l1+wTffbkdPBs6DGGTByjN7Z9bSLHTe0KIhzDBvnYnqWoiABJD
+    Ql7IwVYOuJseuEhxLBjoCPtCHVi9JyGOC7UWVrKMg95d7mHnqc/J2FBVwUOZ4yuTAovKlG
+    Mdm+qp9WSubKDcJmKN1KMstqKMUMfO1yhczYvc5bnZCviSeiZQWoI/X8LaGwZt2svBr8dN
+    f61H4HTv73Xn7NyO1kR2Iq2OaVP5ROW5VEXrlYmIv6dARoGmg30C42EFonW0levRx+83/J
+    ytxinHZTOgi7KEAFxbu2sbtBrjJRxAW6GZWz3KdIlpUmpW1SNRqt5lJLSDNXzywmG5uJRU
+    kBYBbDhPjrhoJGGTNzJEQZuD5UAM/7jhoeivPRb+MNFFbw1t8lUwAIZvsi5bP/arJCwiMh
+    NrDQiq/wpk3EyOww4PHYe72lJ652NfEDARq1NUNxIl1w1rYBYH5A1WUFu3JcNljyB9Cu3K
+    ocD9XEQy6FLyrQKiHkRhiw7z+C81/7Fo5W5MdnT4M2kM7mZ6/JVUf7N/re7GiIWsZ3+3LQ
+    wQBze0CxfOkoCZm9lUVkKIMTmFzE4d9I3AYTp8iIw29HGFkeg2zFReq75vCcB6iNVfEcXm
+    YpDYs21A99UP0JXTWpvzdpBxONDTPyI2V4r6xphsDxMB70K/CUc2MRngEnxg
+X-ME-Proxy: <xmx:wbfHaqSxZmh4iT2Gl9nN6gI7MyJmxu4TmpqbJQDNFHGvjw6RpH8wiQ>
+    <xmx:wbfHanJxi8DBNP-u8591huoXIo_FvOCtlD5nQqSBT6jrrcPMbZL1TA>
+    <xmx:wbfHata9MbMh9rIuljvwl93yiqKSjeQOZKcIKCt3hv8-4rF3Oqj3yQ>
+    <xmx:wbfHah_0R33pa9xOVHVXGuluZteJX3PFqO_Du7aq0hyt9zNPB4wUXQ>
+    <xmx:wbfHakbUv6a3aTmW3by3DT1c84pulLOBrFtwFUmFEyut6gWMHpmVtcNb>
+Feedback-ID: ia9504abf:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 8 Oct 2026 11:33:20 -0400 (EDT)
+Date: Thu, 8 Oct 2026 21:03:15 +0530
+From: Suhaas Joshi <suhaas@s-joshi.in>
+To: sj@kernel.org, akpm@linux-foundation.org, aethernet65535@gmail.com
+Cc: damon@lists.linux.dev, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] mm/damon/core: Use only installed probe in
+ damon_merge_two_regions()
+Message-ID: <ase2u791QTcV1LZt@fedora>
+References: <20261008151944.113714-1-suhaas@s-joshi.in>
+ <20261008151944.113714-2-suhaas@s-joshi.in>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH v6 6/8] dma: swiotlb: Centralize memory-encryption pool
- sizing
-To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Catalin Marinas
-	<catalin.marinas@arm.com>
-Cc: Will Deacon <will@kernel.org>, iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Robin Murphy <robin.murphy@arm.com>, Jonathan
-	Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy
-	Dunlap <rdunlap@infradead.org>, Mark Rutland <mark.rutland@arm.com>, Marc
-	Zyngier <maz@kernel.org>, Steven Price <steven.price@arm.com>, Suzuki K
-	Poulose <Suzuki.Poulose@arm.com>, Jiri Pirko <jiri@resnulli.us>, Jason
-	Gunthorpe <jgg@ziepe.ca>, Mostafa Saleh <smostafa@google.com>, Petr Tesarik
-	<ptesarik@suse.com>, Alexey Kardashevskiy <aik@amd.com>, Dan Williams
-	<dan.j.williams@intel.com>, Xu Yilun <yilun.xu@linux.intel.com>, Madhavan
-	Srinivasan <maddy@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>, "Christophe Leroy (CS GROUP)"
-	<chleroy@kernel.org>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>, Alexander Gordeev
-	<agordeev@linux.ibm.com>, Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>, Sven Schnelle
-	<svens@linux.ibm.com>, Stefano Stabellini <sstabellini@kernel.org>, Russell
-	King <linux@armlinux.org.uk>, Huacai Chen <chenhuacai@kernel.org>, WANG
-	Xuerui <kernel@xen0n.name>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>, Andy Lutomirski <luto@kernel.org>, Peter
-	Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, Ingo
-	Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
-	<dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
-	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
-	linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org, x86@kernel.org
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <yq5ao6d48dqr.fsf@kernel.org>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20261008153248eucas1p144bd3391fe1a79a1d6dfcd386c4a7e94
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261008143238eucas1p1ee087352709f2a82d2aec95540ae2031
-X-EPHeader: CA
-X-CMS-RootMailID: 20261008143238eucas1p1ee087352709f2a82d2aec95540ae2031
-References: <20260924060756.1325156-1-aneesh.kumar@kernel.org>
-	<20260924060756.1325156-7-aneesh.kumar@kernel.org>
-	<asVs3doaJ4WrT3M2@willie-the-truck> <asYZFXGyafRjjBS0@arm.com>
-	<asYiOgskwi8JYLe_@willie-the-truck> <yq5awlrt3dwo.fsf@kernel.org>
-	<yq5av77c92oo.fsf@kernel.org> <aseRzPshcoys7AJS@arm.com>
-	<CGME20261008143238eucas1p1ee087352709f2a82d2aec95540ae2031@eucas1p1.samsung.com>
-	<yq5ao6d48dqr.fsf@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261008151944.113714-2-suhaas@s-joshi.in>
 
-On 08.10.2026 16:32, Aneesh Kumar K.V wrote:
-> Catalin Marinas <catalin.marinas@arm.com> writes:
->> On Thu, Oct 08, 2026 at 11:03:27AM +0530, Aneesh Kumar K.V wrote:
->>> Aneesh Kumar K.V <aneesh.kumar@kernel.org> writes:
->>>> Will Deacon <will@kernel.org> writes:
->>>>> On Wed, Oct 07, 2026 at 11:04:05AM +0100, Catalin Marinas wrote:
->>>>>> On Tue, Oct 06, 2026 at 10:49:17PM +0100, Will Deacon wrote:
->>>>>>> On Thu, Sep 24, 2026 at 11:37:54AM +0530, Aneesh Kumar K.V (Arm) wrote:
->>>>>>>> @@ -496,7 +516,8 @@ swiotlb_select_pool_policy(unsigned int flags)
->>>>>>>>  	if (swiotlb_force_disable)
->>>>>>>>  		return SWIOTLB_POOL_NONE;
->>>>>>>>  
->>>>>>>> -	if (cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT))
->>>>>>>> +	if (cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT) &&
->>>>>>>> +	    !restricted_dma_pool_present)
->>>>>>>>  		return SWIOTLB_POOL_CC_GUEST;
->>>>>>> I think this check on the restricted DMA pool is too general -- the pool
->>>>>>> could be tied to a specific DMA-capable peripheral and so treating its
->>>>>>> presence as a global property isn't right.
->>>>>> I agree it's a hack but that was the simplest way to avoid the pVMs
->>>>>> getting a bounce buffer after this patch. More than happy to leave it
->>>>>> out and reduce the buffer on cmdline or we come up with some better
->>>>>> heuristics.
->>>>> Hrm, that does mean that reverting just this part will regress pVMs
->>>>> because they'll suddenly be allocating a tonne more memory for an
->>>>> entirely unused swiotlb buffer. So I think I'd prefer to drop the entire
->>>>> series until this has been worked out properly.
->>>>>
->>>>>> Another option could be the arch code passing another flag that it
->>>>>> doesn't want an encrypted pool (e.g. when running in a pKVM guest) but I
->>>>>> don't particularly this either. The arch code doesn't know whether
->>>>>> there's an alternative pool.
->>>>> At that point, the default size may as well be driven by the
->>>>> drivers/virt/coco driver.
->>>>>
->>>>>> That said, such heuristics should have been a separate patch to make it
->>>>>> easier to review/drop.
->>>>> I think the only right way to get a semi-accurate heuristic is to take
->>>>> into account the set of dma-capable devices that will use the swiotlb
->>>>> pool, but that's fiddly and should probably be tackled as a separate
->>>>> series. Maybe a simpler hack in that direction would be to take the
->>>>> SWIOTLB_POOL_CC_GUEST if _any_ device is going to use swiotlb? You'll
->>>>> run into the usual problem of not being able to tell if a device is
->>>>> DMA-capable or not, but you could probably look for a global restricted
->>>>> DMA pool and, if that doesn't exist, check for per-device restricted pools
->>>>> on dma-coherent devices (since restricted DMA isn't supported by ACPI) as
->>>>> a reasonable approximation.
->>>> So, something like this?
->>>>
->>>> 	if (cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT) &&
->>>> 	    swiotlb_cc_guest_needs_default_pool())
->>>> 		return SWIOTLB_POOL_CC_GUEST;
->>>>
->>> Detecting a DMA-capable device is not straightforward, and if we get it
->>> wrong, we will enable SWIOTLB_POOL_CC_GUEST unnecessarily. Would the
->>> code below be a reasonable approximation of what you suggested?
->>>
->>> Another option would be to make swiotlb_cc_guest_needs_default_pool() a
->>> weak function that architectures can override. arm64 pKVM could then use
->>> a different scheme (for this patch series default to false). Would that
->>> be preferable?
->> Even the rmem check for each device is still a hack that may bite us in
->> the future (private devices for example would not need swiotlb). I'm
->> thinking more and more of leaving the sizing an arch-specific decision,
->> don't bother generalising it at all.
->>
->> On pKVM vs CCA guests, there's really nothing specific here to pKVM
->> guests. The only difference is that confidential guests that so far have
->> run without a swiotlb buffer will regress if their memory is tight. For
->> confidential guests without dedicated rmem (either CCA or pKVM), I think
->> our options are either command line swiotlb sizing or dynamic swiotlb.
->>
->> Could you respin your series while leaving out the generic sizing? IOW,
->> no x86 code generalisation. We can discuss the best strategy on sizing
->> later (I haven't checked how much of this series still makes sense
->> without the generic sizing).
->>
-> It would mostly consist of the first three cleanup patches, followed by
-> three patches that replace the addressing_limit argument with flags.
->
-> #define SWIOTLB_VERBOSE	(1 << 0) /* verbose initialization */
-> /* Initialize a pool for devices with limited DMA addressing. */
-> #define SWIOTLB_INIT_ADDRESSING_LIMIT	(1 << 1)
-> /* Initialize a pool that requires architecture remapping. */
-> #define SWIOTLB_INIT_REMAP		(1 << 2)
-> /* Initialize a pool for DMA to memory-encrypted host or guest memory. */
-> #define SWIOTLB_INIT_MEM_ENCRYPT		(1 << 3)
-> /* Initialize a pool for unaligned kmalloc bouncing. */
-> #define SWIOTLB_INIT_KMALLOC		(1 << 4)
-> /* Do not initialize a pool unless SWIOTLB is explicitly required. */
-> #define SWIOTLB_INIT_DEFAULT_OFF		(1 << 5)
->
-> This results in the large change below. I'm not sure we want to do this
-> for no real benefit other than making swiotlb_should_init() slightly
-> easier to follow.
->
-> static bool __init swiotlb_should_init(unsigned int flags)
-> {
-> 	if (swiotlb_force_disable)
-> 		return false;
->
-> 	if (swiotlb_force_bounce)
-> 		return true;
->
-> 	if (flags & (SWIOTLB_INIT_REMAP | SWIOTLB_INIT_MEM_ENCRYPT)))
-> 		return true;
->
-> 	/* Explicit requirements override an architecture's default opt-out. */
-> 	if (flags & SWIOTLB_INIT_DEFAULT_OFF)
-> 		return false;
->
-> 	return flags & (SWIOTLB_INIT_ADDRESSING_LIMIT | SWIOTLB_INIT_KMALLOC);
-> }
->
-> Marek,
->
-> Patch 3 is a fix, so you may want to take it even if we drop the rest of
-> the series. Perhaps the first three patches could be taken together?
+For some inexplicable reason, the cover-letter hasn't been sent again.
 
-Okay, I will take only the first 3 patches to dma-mapping-for-next branch now
-and wait for the remaining patches until they gets sorted out.
+I am just adding the changelog here, in case the cover letter never arrives.
 
-Best regards
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+Changelog v1->v2:
 
+1. Simplified patch 1's commit message to make it clearer 
+   (Liew's suggestion)
+2. Added comment docs for extra arguments I am adding to functions
+   (SJ's suggestion)
+3. Destroyed the context in case r2 allocation fails in damon_test_merge_two()
+   (Sashiko/Liew/SJ suggestion)
+4. Wrapped lines at 80 characters 
+   (SJ's suggestion)
+
+As for why the cover-letter isn't being sent, I have no idea. Everything seems
+fine during `git send-email --dry-run`. Also seemed fine when I sent the series
+to myself as a test.
+Apologies for the inconvenience. I will make sure I fix this issue before sending
+v3 or any more series in the future.
+
+Thanks
+Suhaas
+
+On Thu, Oct 08, 2026 at 08:49:25PM +0530, Suhaas Joshi wrote:
+> While merging 2 regions, we iterate over the entire probe_hits[] array,
+> whose size is determined by the DAMON_MAX_PROBES macro. However, it is
+> possible that we have fewer probes installed than DAMON_MAX_PROBES. In such
+> cases, we end up making redundant iterations. Therefore, to remedy this,
+> iterate over the list of installed probes instead of iterating over the
+> entire array. For doing this, start accepting a struct damon_ctx in
+> damon_merge_two_regions(), and update calling functions to pass this
+> argument.
+> 
+> Update the damon_test_merge_two() test to use this new signature for
+> damon_merge_two_regions() as well.
+> 
+> Signed-off-by: Suhaas Joshi <suhaas@s-joshi.in>
+> ---
+>  mm/damon/core.c             | 16 +++++++++++-----
+>  mm/damon/tests/core-kunit.h | 20 ++++++++++++++++++--
+>  2 files changed, 29 insertions(+), 7 deletions(-)
+> 
+> diff --git a/mm/damon/core.c b/mm/damon/core.c
+> index b63e60ef8990..fc202f90991b 100644
+> --- a/mm/damon/core.c
+> +++ b/mm/damon/core.c
+> @@ -3524,20 +3524,26 @@ static void damon_verify_merge_two_regions(
+>  /*
+>   * Merge two adjacent regions into one region
+>   */
+> -static void damon_merge_two_regions(struct damon_target *t,
+> -		struct damon_region *l, struct damon_region *r)
+> +static void damon_merge_two_regions(struct damon_ctx *ctx,
+> +				    struct damon_target *t,
+> +				    struct damon_region *l,
+> +				    struct damon_region *r)
+>  {
+>  	unsigned long sz_l = damon_sz_region(l), sz_r = damon_sz_region(r);
+>  	int i;
+> +	struct damon_probe *p;
+>  
+>  	l->nr_accesses = (l->nr_accesses * sz_l + r->nr_accesses * sz_r) /
+>  			(sz_l + sz_r);
+>  	l->age = (l->age * sz_l + r->age * sz_r) / (sz_l + sz_r);
+>  	l->ar.end = r->ar.end;
+> -	/* todo: do this for only installed probes */
+> -	for (i = 0; i < DAMON_MAX_PROBES; i++)
+> +
+> +	i = 0;
+> +	damon_for_each_probe(p, ctx) {
+>  		l->probe_hits[i] = (l->probe_hits[i] * sz_l + r->probe_hits[i]
+>  				* sz_r) / (sz_l + sz_r);
+> +		++i;
+> +	}
+>  	damon_verify_merge_two_regions(l, r);
+>  	damon_destroy_region(r, t);
+>  }
+> @@ -3590,7 +3596,7 @@ static void damon_merge_regions_of(struct damon_target *t, unsigned int thres,
+>  			goto set_prev_continue;
+>  		if (damon_sz_region(prev) + damon_sz_region(r) > sz_limit)
+>  			goto set_prev_continue;
+> -		damon_merge_two_regions(t, prev, r);
+> +		damon_merge_two_regions(ctx, t, prev, r);
+>  		continue;
+>  set_prev_continue:
+>  		prev = r;
+> diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
+> index ef146ca2ae8a..4e380c6c5eb2 100644
+> --- a/mm/damon/tests/core-kunit.h
+> +++ b/mm/damon/tests/core-kunit.h
+> @@ -182,13 +182,27 @@ static void damon_test_merge_two(struct kunit *test)
+>  {
+>  	struct damon_target *t;
+>  	struct damon_region *r, *r2, *r3;
+> +	struct damon_probe *p;
+> +	struct damon_ctx *ctx;
+>  	int i;
+>  
+> +	p = damon_new_probe();
+> +	if (!p)
+> +		kunit_skip(test, "probe alloc fail");
+> +	ctx = damon_new_ctx();
+> +	if (!ctx) {
+> +		damon_destroy_probe(p);
+> +		kunit_skip(test, "context alloc fail");
+> +	}
+> +	damon_add_probe(ctx, p);
+>  	t = damon_new_target();
+> -	if (!t)
+> +	if (!t) {
+> +		damon_destroy_ctx(ctx);
+>  		kunit_skip(test, "target alloc fail");
+> +	}
+>  	r = damon_new_region(0, 100);
+>  	if (!r) {
+> +		damon_destroy_ctx(ctx);
+>  		damon_free_target(t);
+>  		kunit_skip(test, "region alloc fail");
+>  	}
+> @@ -198,6 +212,7 @@ static void damon_test_merge_two(struct kunit *test)
+>  	damon_add_region(r, t);
+>  	r2 = damon_new_region(100, 300);
+>  	if (!r2) {
+> +		damon_destroy_ctx(ctx);
+>  		damon_free_target(t);
+>  		kunit_skip(test, "second region alloc fail");
+>  	}
+> @@ -206,7 +221,7 @@ static void damon_test_merge_two(struct kunit *test)
+>  	r2->age = 21;
+>  	damon_add_region(r2, t);
+>  
+> -	damon_merge_two_regions(t, r, r2);
+> +	damon_merge_two_regions(ctx, t, r, r2);
+>  	KUNIT_EXPECT_EQ(test, r->ar.start, 0ul);
+>  	KUNIT_EXPECT_EQ(test, r->ar.end, 300ul);
+>  	KUNIT_EXPECT_EQ(test, r->nr_accesses, 16u);
+> @@ -220,6 +235,7 @@ static void damon_test_merge_two(struct kunit *test)
+>  	}
+>  	KUNIT_EXPECT_EQ(test, i, 1);
+>  
+> +	damon_destroy_ctx(ctx);
+>  	damon_free_target(t);
+>  }
+>  
+> -- 
+> 2.55.0
+> 
