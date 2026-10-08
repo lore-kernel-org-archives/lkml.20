@@ -1,120 +1,123 @@
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A00A53BBA01
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 19:11:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 700E33CFF56
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 19:11:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791486677; cv=none; b=tjKVpxKJ/eCsHwNDDJd9VzPkwzMA/Mc11CsPICghbD12jcsexIzfmVbke7AehjyvyxGf7Hm3NLD35hDsN6Aug9eArW2mH/+yfQUhbfehcyJIFgik3mAtjYIxapmOd3IEI8nzxUTTvfpjXxs9qRPstYKb5kSy0+527jsUiGDQdmM=
+	t=1791486689; cv=none; b=UQ62qcQFreviy2erSt40iyiTipN5WyW4XUYuIn67bmjYV7TAWYfPHi0mVu0yRYP4XJXWSjNuK6eM41Fe2zAlz06w6fOaPymd5GcoroseuuGbNichFZrQJsp6nTLB2mCFF2d56X7Vkl6QEpJs8yBiOHevzIEX0Gf2uvNVnrhHIn4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791486677; c=relaxed/simple;
-	bh=MFI73bLJzYuC3bslZx/bwltYUGd/9Km+EomyS/QsF6I=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=P4tykjkAzhC2yOytA0Q4B0+PBCI6Di+m0WoorZA0xHGbid4yaljcOok+MFtR7fX0z86Y/c9snbrb8IYpAtKqFpjlqrnvLy9UDSC/CwYTLFl5rC+loFPUPZC7ZFjc+z7TFBR6YcerotBz7IuXBhz/JYAy9gWT9mY9DBJ4I1tB+O0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=sYnEyek+; arc=none smtp.client-ip=74.125.82.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	s=arc-20240116; t=1791486689; c=relaxed/simple;
+	bh=NykIrWd2AdW8Yh66jl/kLhWwWN/LxKTYIMH1WlGPx5k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=G7C+dNrWexhbV5JgUx6kenKqZ6ea2jwchqMJexZu1YtMdWKyQZhl37QeRGXzsixX7J3PN6d3T9oDEBIemDzq8ZHiXxknbjlZ8AJRt410huSrjolgUwzieTO/AD2Umf6byGwzB1tR/PbKqsQ0e38EFtjfYPxs9LJx4NI2/MiEQic=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=aJEQBS/z; arc=none smtp.client-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="sYnEyek+"
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-35115b52125so4476888eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 12:11:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="aJEQBS/z"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3a4c47bb6e3so1838410a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 12:11:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1791486674; x=1792091474; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nShr7nk4H6rZOzPK1tKDbu27hRY+4XFOH8yhDaWQWyM=;
-        b=sYnEyek+TRmHxzqqEBt20pXRpW6MO3qFYPBvZLUI+uXtzegKNqFWihSrQj2pq4x9aU
-         eMqB3m3qubnJ2nY5dQwDpzjXxJEM6Nv9W6HwdW6ijEXQk/+xkhe20KFmryzPMOT7u8TA
-         rlvOmIPm07YU/2qJtDPHp+InLtUGuWypYsXn7vIKBHnEPnrCMpq6KPG7W2Tk56/aKvJp
-         OHSb1ovmY6rTMFfDWLbo7JGCDimlKhJd/Zh0DPq2rcTT/qAuLzzWHzbjk1KZnimQ374A
-         5A+ji3/KCYJqqstR4lcHw8mXNW4eTQs5LlblTCY7SAyHlpkkJupR/D1piSuzFAywpnwO
-         2Low==
+        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1791486684; x=1792091484; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SRsY0YEhwi4khCIfQ4VbXvpst8B4Uox65hBINmu+18I=;
+        b=aJEQBS/zJqZuvSqE2jLVQ/FgsTKj8mgElBY4hk7vQrdCyY390UDUMLyOviwgVTWqu/
+         ddDWb2yl2D9SQ3JFVCMva+OLvFJ5Q5WhPxLyoMFHxLMAAReCB3RFUHv/t/nPoE7zSY0Q
+         01R2bODUzkS52fBscTFmLhlIWNbd6Hr0cDoZ51GDfeBLxeUkBP0I/Fz41ghKzhU/T3VD
+         pQCM8364GZ1rZa9mMyLNMyd6K/+QKNYXJhkml+yeSQA5zSRlOxrsR/EhZatPMWIjADN+
+         yxS7Vf/CEib/tRdNfzHdwURpWlRHiLSKBKWrNqgx4aEYIMMqD+yecofd/Kw39yi9PHZ7
+         h41A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791486674; x=1792091474;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1791486684; x=1792091484;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=nShr7nk4H6rZOzPK1tKDbu27hRY+4XFOH8yhDaWQWyM=;
-        b=hqYA1bpUvi27Oy8HJHJnl4B9xKRXnLOzQpBkp8CLbmU8R98Rf/W5m7HponNV9s/YmA
-         opfmMirOgemkfB20A6W+/eA1HWuGSng4xIdgsk5s+xNaN9dKx+m9RYoAtvGuZ+uEOWHi
-         JE1Ylvr5yYyheZPjtDfwQyBwVYp8YlaJ/yY43SU03FhnR9alRyf7UIfFw0N+LpCq2Fsm
-         uW+zWsYOw2rxUYFLugYyzmJtW0sNOP1rK7nyzCa0R2aZrnL+brMx0GkPU3T+fiJ8BOGB
-         XQkuEqrgL0DyuTudRKemlb+PPwPGBUAX+90MI4KQBVPWAdS9QZPea3YJ5QRswAINZGBa
-         nB7w==
-X-Forwarded-Encrypted: i=1; AKwUvBy01uTleJ6awKeZlCo0BWofXoSsoYZpN/n709ifMMauni8VSyLkKFQjZPdjBmbdfYFluVtsqP5FyOw5Xps=@vger.kernel.org
-X-Gm-Message-State: AFuF++kGlca1xI9WOO8pnpdSOU9ACbRXDOaPfrip1oNzMvTz7ZmyxSyU
-	vctdTq1QzZoEo4KkUHFmjJ2gtFJFObxr5M3skCoc6lVuqTz5SOOZfYIsgE90OxpEtkY=
-X-Gm-Gg: AYBFou1zgAtGM2lzhoIJQWvZTTQaGq77Taa/IjIoUx2eJWtHnYx5NruAn+iRhKcK+r/
-	oj7YMRPeL2L3rcTy60SFpAxjdAG/cyneufln+Q8V2HIQuic1B4Kl2Xh3BrlDX3f8v5D+meRFswp
-	IDxHRXOseMJLXbE7Zfc2KiA3/uQITNi/O6lO0jA7o60NCoKv3UDZJcbywuVZiem8SABDfTi4zcI
-	hXqhIIpl58RORmZo9VoCHiJ3XBkp+fhNkAXCi2bpbhW0uolIf+bJ6jKG/xJJj8pMOElfnCsGsB4
-	uwh8i/NTd4g7qkubRSv9PldIIGS4vQGidrPAHzxZzzjUf+tlzwFQ+pNgnpirytRny4G1RMktU3d
-	UTWkoBlXCxwhk7XGfpXt6eBPlpEBoWruVJLv6SvVn2C8bJ31WS5OZcu9WuyP4GplEE6IwUCTFyD
-	oJHluqZ1biTh1joXh6xmPdlkhrMZSvAsavFAgMYHoNqH19KV8dK/VST/Ws9sWS1sfxt+C342Kmb
-	iNxw0AojG8CQ3UhHrE1+jg5yOsBJE1jZhzg1M+CIjgszl/kdAB59jaMNg==
-X-Received: by 2002:a05:7301:9c87:b0:353:5d25:1de7 with SMTP id 5a478bee46e88-3535d252333mr1169990eec.33.1791486673390;
-        Thu, 08 Oct 2026 12:11:13 -0700 (PDT)
-Received: from [192.168.1.106] ([198.8.77.135])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cad9e53sm21393eec.22.2026.10.08.12.11.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 08 Oct 2026 12:11:12 -0700 (PDT)
-Message-ID: <3b9d9c06-c6e8-4166-87d9-c7c220ad0b58@kernel.dk>
-Date: Thu, 8 Oct 2026 13:11:11 -0600
+        bh=SRsY0YEhwi4khCIfQ4VbXvpst8B4Uox65hBINmu+18I=;
+        b=qjnyttD+/sorwtXozj5lr2yzxFf3xbNJyaklYPh6R/WNbUVdeeJO7PYOhj2pXdhTrV
+         iODFKENrSughCTjvUfyaOkXYTmgRHusVG4yTQ3rTwa9uCW8GXRxEbbqxTFR04Dn5827k
+         vylvRRN+OnTjZpHB6TrzZVaPvft6zSsZS68UXTOsidXcLtjA0UFjbMCswCarh792ZjUs
+         oZadXBUYn1820ip7qGyKWpXHxl74gOXicHASdEwVdygIYwbHCN2PE1fnVGHsRiTx/Whv
+         XGst8KST5WGzLHyaeD/05h6D/ROyoNO5wR+VRk+7hw9Lb7ThVo6gG6+b4g8DTzwSa5wS
+         vRvw==
+X-Forwarded-Encrypted: i=1; AKwUvBw4cbGgFeRRbQaeB9w6tO7i8rOYh13IxH+UHdTXgzvApgm1Wq76B2fLjz7+PUsDrntI9VXdafRN7q82JYg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLFLmqIr1TNt4x/HdJv069MG5mVQZFbBrL4T5GsltQKgHxM3wNT
+	e7YRLEi+nx1NHs/pzlhOMALi0O4TlvtLsKMhcxQIsspFwojfC6phETK4397vRpdKqwM=
+X-Gm-Gg: AYBFou2nX0+Snn6Xr+ZfGQ0v4g549AGGr/wxmvul2O3qc17t892b+WqDL4yOtxExXLq
+	3kt9AkwNc7cw4fLyfVJtK/gSTSOqoVOr/1r6dozeMAdI46lF6MfnG7+rwPYoc7/iEGwhH0PRfCq
+	VoXVVUiPJIDDOIq9Co0zJ0UY3l5jG6yNUIgtLMWrL/5YJe3p0YQyljRcOTWm0KJeKZl5PEnTLOo
+	+2ywUWP/06GonKrXzGtU3mSw7F4+h9rmn6Txn/HGTApxEF0YW1xciQy+JQ6FOf07RnnD8C7QFem
+	LlSHxE8b0aWl/1TePfMYehUd+tFmW/5STk27mCkzUUzm5BLtHvfV5/ovatHzULBF0vsf3+1OwSw
+	Fb0+GCfY343nuBDhk7R719tWdWDFqTG35s2rPFvKsegJOXG2DE5MzsSG5Dp85vDU+vEB5CTSpY8
+	afvt/9X2/0GfQYMqLrCKzRABu0QoY4Wv8aCmCfc6gJ8qgns8ytD+AgB1hMdMWnviBg5yHUd+lu4
+	sCK8Id7+fcDTesSgOypxAs=
+X-Received: by 2002:a17:90b:164d:b0:3ab:413:49b6 with SMTP id 98e67ed59e1d1-3ab04135113mr2199094a91.41.1791486684425;
+        Thu, 08 Oct 2026 12:11:24 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:58::])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab36de3678sm36899a91.17.2026.10.08.12.11.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 12:11:23 -0700 (PDT)
+From: Joe Damato <joe@dama.to>
+To: netdev@vger.kernel.org
+Cc: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	michael.chan@broadcom.com,
+	pavan.chebbi@broadcom.com,
+	linux-kernel@vger.kernel.org,
+	Joe Damato <joe@dama.to>,
+	Eric Dumazet <edumazet@kernel.org>
+Subject: [PATCH net 0/2] bnxt_en: Fix SW USO padding
+Date: Thu,  8 Oct 2026 12:11:10 -0700
+Message-ID: <20261008191114.3736826-1-joe@dama.to>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] io_uring: do not charge user provided SQ/CQ rings to
- RLIMIT_MEMLOCK
-To: Hengyu Liang <hengyul@cs.unc.edu>
-Cc: Pavel Begunkov <asml.silence@gmail.com>, David Wei <dw@davidwei.uk>,
- io-uring@vger.kernel.org, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org
-References: <b5a33433-b0b9-4231-9998-23e2a2202091@kernel.dk>
- <20261008170611.1285778-1-hengyul@cs.unc.edu>
-Content-Language: en-US
-From: Jens Axboe <axboe@kernel.dk>
-In-Reply-To: <20261008170611.1285778-1-hengyul@cs.unc.edu>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/8/26 11:06 AM, Hengyu Liang wrote:
-> This goes on top of io_uring-7.3 (c746673517c6), as discussed in [2].
-> 
-> Tested on that branch as a user without CAP_IPC_LOCK and the default
-> 8 MiB limit:
-> 
->                                                   before  after
->   program above                                       21     64
->   the same with io_uring_queue_init()                 64     64
->   30 processes x 142 NO_MMAP rings of 64 entries       7     30
-> 
-> The last row is what 30 PostgreSQL 18 clusters with default settings
-> create. The number is how many of them got all their rings.
-> 
-> The per-user locked_vm count stays balanced over ring create, close and
-> resize. Provided buffer rings and IORING_REGISTER_MEM_REGION regions on
-> user memory are charged as before. Every liburing test gives the same
-> result with and without the patch.
-> 
-> Not changed here: provided buffer rings on user memory, which is what
-> io_uring_setup_buf_ring() registers, were not charged in v6.13 either
-> (64 of 64 rings of 32768 entries then, 16 now). I can send a patch for
-> those as well if you want them handled the same way.
+Greetings:
 
-Honestly, after taking a closer look at this, I think we're better off
-with your original patch and one on top for pbuf rings. Please check:
+As a followup to Eric's fix a51d233ccd48 ("bnxt_en: fix DMA mapping length
+for padded small packets") which fixes padding for normal TX, this series
+fixes padding for SW USO.
 
-https://git.kernel.org/pub/scm/linux/kernel/git/axboe/linux.git/log/?h=io_uring-7.3
+There are two cases I try to address:
 
-for the top 2 commits. If you can re-test one more time, that'd be
-great...
+  1. The last segment could be shorter than BNXT_MIN_PKT_SIZE. So, add an
+     extra BD if needed to pad to that minimum.
+  2. The gso_size is so small that every segment would be shorter than
+     BNXT_MIN_PKT_SIZE (under 10 bytes with IPv4). This seems exceedingly
+     unlikely, but just in case, it is handled by clearing the GSO features
+     for these skbs so the stack segments them.
 
+Patch 1 is a small refactor to move code into a helper that patch 2 uses to
+avoid duplicating code.
+
+I ran this on a bnxt machine and re-ran the uso.py test and it passed, but
+the existing uso.py test doesn't test this specific case, so running the
+test was more of a regression test.
+
+Thanks,
+Joe
+
+Joe Damato (2):
+  bnxt_en: Add helper to fill SW USO payload BDs
+  bnxt_en: Pad short SW USO segments to BNXT_MIN_PKT_SIZE
+
+ drivers/net/ethernet/broadcom/bnxt/bnxt.c     | 12 ++++
+ drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c | 56 ++++++++++++++-----
+ drivers/net/ethernet/broadcom/bnxt/bnxt_gso.h | 15 +++++
+ 3 files changed, 70 insertions(+), 13 deletions(-)
+
+
+base-commit: 6d25ffca055a77787c21a36b66c253f76239411b
 -- 
-Jens Axboe
+2.53.0-Meta
+
