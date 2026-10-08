@@ -1,61 +1,50 @@
-Received: from mail-108-mta225.mxroute.com (mail-108-mta225.mxroute.com [136.175.108.225])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 896EF39D6FF
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 23:34:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=136.175.108.225
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4842E4973B0;
+	Thu,  8 Oct 2026 23:35:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791502482; cv=none; b=O9YKjAxS5u2nsE9a4iwWs84jxBuHGclD2bcrg7khsc1Y7jsD4mKkJ5NUP42+K/vRxxubWu4uYtZOY1F+nJcqID6Hzru+7mGp2OW2gjb28l8N52nYQcASH/raF1yAPHWEl+tO9ak35/C29Mj61XDRDgzLdldgIe/wMXy2wqFAw2w=
+	t=1791502516; cv=none; b=ThEhBMLC5qhYCIfqBLKqyhYaqxqK3zxriJRoSma8ShRGIJeVNss4gLDy/4Sf+37S3xqaBMPGtWN6JpZx7KP0n7cS5seo1+1xJvxwrzfO/Pm/d7RoF7evfIdcoOrreHuKtXsoFCeQT8HgOGg0aOkfrkvx9WUiP+I5tmbHr+03QaA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791502482; c=relaxed/simple;
-	bh=Jml+hzCinC+mK0nigKPvQH66XyJt2EgUCilcNIGlf4g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=opr007mo9YvDn1H7LilQJ1oR7E8XMz6Hk/InrhikF3XS1N/Mkpzgui7rdRKBs80FjCo7Bex8/W2NJF3jT8AjlH5sNBpSopZS+F4RkyBpVhDJtJEejeOv7u9NMALuOhv/00/ZXjoYVvXQtA1xIkfTA4d49wpvCqA+MZ1XHxJlTNc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=wii.dev; spf=pass smtp.mailfrom=wii.dev; dkim=pass (2048-bit key) header.d=wii.dev header.i=@wii.dev header.b=tuAOQ0OF; arc=none smtp.client-ip=136.175.108.225
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=wii.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wii.dev
+	s=arc-20240116; t=1791502516; c=relaxed/simple;
+	bh=lEg+PjTwhD5xviCVG9A8w1iubKfJuo8XFRoNJVu8flw=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=PpcfNBzGzfjU8urdR9WJcnUAWhFI6q6LkQsCPklBSMc1YpAQgiQVAxbZRuxSTXTGnLZ6Mc1w62rY3JqUg6a2thj3E8GSdf6BXGLM3zjw0GRFFNIu0DLyAHpV05e39C4L9U40FTxL1sz07JdExdlpSbX1e/FWcnx2vSnWJRMPpJE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fs9UW5Fd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wii.dev header.i=@wii.dev header.b="tuAOQ0OF"
-Received: from filter006.mxroute.com ([136.175.111.3] filter006.mxroute.com)
- (Authenticated sender: mN4UYu2MZsgR)
- by mail-108-mta225.mxroute.com (ZoneMTA) with ESMTPSA id 1a11dd9ad3b00028b2.009
- for <linux-kernel@vger.kernel.org>
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
- Thu, 08 Oct 2026 23:29:27 +0000
-X-Zone-Loop: 7c533667c92b58b37761248d8ac5686f5b1dcebc1b9f
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=wii.dev;
-	s=x; h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:Subject:Cc
-	:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=23+ZhvGSrfv+9UjXuR54FKKvpMz+PAsmhJMU+SA7Fx0=; b=tuAOQ0OFa5rSxbnawpvQgsDlxi
-	SRJnRQaa71rC8Du8yBOrxMXTyCNQNIgDHZWIydlKikbPeMeNPJq22+3yXKiDeCHx5PzWlppIFHo6A
-	uBWA/HLFsR0GzEy1SQRmA/mmZtr3J0r+YYQT0qdT6bZlm+qSrdgf4j44FRRa3E6FKlJUh7pCFOWrL
-	4qEdcm0NcahsQgan+nq2XWK9FP0le0CPFtV5Q68r97z65+D/9hIC42uLdiqfPU6dn7YRBb8Z2GX4L
-	PzEH8aQJ1qElw77xGjOnOxim3xgqiN16ZVf7Ug2CmGFu1xFgilAJpzXl+Xg32C1esM3eIqFo+3FqN
-	7Q6VY3fQ==;
-Date: Thu, 8 Oct 2026 23:29:19 +0000
-From: Richard Patel <ripatel@wii.dev>
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-Cc: "kees@kernel.org" <kees@kernel.org>, "x86@kernel.org" <x86@kernel.org>,
-	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
-	"hpa@zytor.com" <hpa@zytor.com>,
-	"shuah@kernel.org" <shuah@kernel.org>,
-	"mingo@redhat.com" <mingo@redhat.com>,
-	"bp@alien8.de" <bp@alien8.de>, "tglx@kernel.org" <tglx@kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>
-Subject: Re: [PATCH 1/3] x86/shstk: ban ia32 sigreturn when shadow stack is
- enabled
-Message-ID: <asgnT3mSOGZ4HIlX@wii.dev>
-References: <20261008201610.1003569-1-ripatel@wii.dev>
- <20261008201610.1003569-2-ripatel@wii.dev>
- <e1a26ac75c39673d043b2860f848827fecbcb843.camel@intel.com>
- <asgQDlpnDwu04oZc@wii.dev>
- <6deab6fec99c65408a19b9036d67ce7f1fab54b5.camel@intel.com>
- <asgdlclj3MgtGrSp@wii.dev>
- <f78ade122593ecdd686ec1b29340b0124b925c48.camel@intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fs9UW5Fd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C9A31F000FF;
+	Thu,  8 Oct 2026 23:35:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791502510;
+	bh=RL3M40x5ThXQEXCT5Pub5cNnAN5UlXgdqAFx+FOjV3E=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=Fs9UW5FdlQ6qXZ8VLd43QpyyOBDclhOVFcuM3PE9V6uCAv9dENV4R6fYhSn0zaASZ
+	 sr7uQDN6vbJqhG4fwCXlEWIP/ZXWUAgnvl4hkyqPS0AU5RbCVGA2fyKeqeosWtoLuS
+	 APUCZq8zDMWIOtmxp3GsJ8K4r8tnBctW8bpWCvbJyv2mNTgmjH76K8xoaC8/Rr99cc
+	 gf5r8fxfaxnX0KXESCOYz/ixp3SQwTEuvBxx/3HyweOzqk/4pVzvPZOLuybDll1Qbv
+	 zOL62CeIplF1JrpCUvDK+VRRVpYhoNluOFUuU2UbiLV1IADhogPPaImPZhd3jEcYl2
+	 jSwp1Cn8FGPzA==
+Date: Thu, 8 Oct 2026 18:35:08 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Srirangan Madhavan <smadhavan@nvidia.com>
+Cc: Alison Schofield <alison.schofield@intel.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Ira Weiny <ira.weiny@intel.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Vishal Verma <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Alex Williamson <alex.williamson@redhat.com>, vsethi@nvidia.com,
+	alwilliamson@nvidia.com,
+	Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
+	Vishal Aslot <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>,
+	Jiandi An <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
+	linux-tegra@vger.kernel.org
+Subject: Re: [PATCH v14 16/16] PCI/CXL: Restore CXL state after CXL bus reset
+Message-ID: <20261008233508.GA941626@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -64,68 +53,140 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <f78ade122593ecdd686ec1b29340b0124b925c48.camel@intel.com>
-X-Authenticated-Id: ripatel@wii.dev
+In-Reply-To: <20261001092227.3004747-17-smadhavan@nvidia.com>
 
-On Thu, Oct 08, 2026 at 11:11:41PM +0000, Edgecombe, Rick P wrote:
-> On Thu, 2026-10-08 at 22:47 +0000, Richard Patel wrote:
-> > On Thu, Oct 08, 2026 at 10:34:02PM +0000, Edgecombe, Rick P wrote: 
-> > > But today setting EIP to an arbitrary point is fairly easy. But even in a
-> > > future
-> > > case of IBT enabled, shadow stack would still need enhancements for the
-> > > normal
-> > > 64 bit runtime to prevent this. 
-> > 
-> > What do you think of creating a shadow stack frame on signal delivery
-> > and popping that on sigreturn? I suppose that would need siglongjmp
-> > modifications and probably break CRIU. :(
+On Thu, Oct 01, 2026 at 09:22:27AM +0000, Srirangan Madhavan wrote:
+> CXL bus reset can clear HDM decoder programming and CXL Device DVSEC
+> control state. Restore the cached state after a successful cxl_bus reset
+> while IOMMU exclusion remains active.
 > 
-> Yes I didn't know they did not parse the shadow stack signal frame
-> appropriately. That is unfortunate. But we can still evolve the shadow stack ABI
-> by adding new modes to the enable prctl if we want.
-
-Will send libgcc and CRIU patches for this.
-
-> > I wonder if there are real apps that abuse sigreturn as a forward edge.
-> > If so, they should not be advertising their DSO as shstk-compatible.
+> Restore PCI configuration first so HDM MMIO is accessible, and preserve a
+> disabled state if restoration fails.
 > 
-> The wishes from the glibc/distro side were to support as many apps as possible.
-> The other way would be to create a more locked down mode where developers need
-> to carefully verify their apps.
+> Tested-by: Richard Cheng <icheng@nvidia.com>
+> Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
 
-I'll have an AI scan through all Debian repo sources to see if anyone
-is doing naughty sigreturns. Even if so, if we evolve the user shstk
-ABI, it might be worth breaking that (via opt-in arch_prctl), if it
-helps with security.
+Acked-by: Bjorn Helgaas <bhelgaas@google.com>	# pci/pci.c
 
-> > > In the past we discussed hashing some amount of the sigframe and putting it
-> > > on
-> > > the shadow stack to give some sigframe integrity. But this runs the risk of
-> > > breaking apps so would need to be an opt-in enhancement.
-> > 
-> > Yes that seems a bit excessive to me. At least, the 64-bit path protects
-> > against obviously forged signal frames, so maybe there is still a case
-> > for the patch?
+> ---
+>  drivers/cxl/core/resource.c | 23 +++++++++++++++++++++--
+>  drivers/pci/pci.c           |  8 ++++++++
+>  include/cxl/cxl.h           | 17 +++++++++++++++++
+>  3 files changed, 46 insertions(+), 2 deletions(-)
 > 
-> For the 32 bit signal blocking patch? I'm not sure why on the security grounds.
-> I think it depends on how much we want to deflect ia32 mischief vs just ignore
-> it.
+> diff --git a/drivers/cxl/core/resource.c b/drivers/cxl/core/resource.c
+> index efbab341b30f..3422139ae3ab 100644
+> --- a/drivers/cxl/core/resource.c
+> +++ b/drivers/cxl/core/resource.c
+> @@ -625,12 +625,12 @@ static int cxl_restore_hdm_decoder(struct pci_dev *pdev, void __iomem *hdm,
+>  	return 0;
+>  }
+>  
+> -static int cxl_snapshot_hdm(struct pci_dev *pdev,
+> -			    struct cxl_hdm_info **snapshot)
+> +int cxl_snapshot_hdm(struct pci_dev *pdev, struct cxl_hdm_info **snapshot)
+>  {
+>  	struct cxl_hdm_info *info;
+>  	size_t size;
+>  
+> +	device_lock_assert(&pdev->dev);
+>  	guard(rwsem_read)(&cxl_rwsem.dpa);
+>  	info = pdev->hdm;
+>  	if (!info)
+> @@ -798,6 +798,25 @@ static int cxl_reset_save_restored_state(struct pci_dev *pdev, u16 command)
+>  	return rc;
+>  }
+>  
+> +int cxl_restore_state_after_pci_reset(struct pci_dev *pdev,
+> +				      struct cxl_hdm_info *snapshot)
+> +{
+> +	u16 command;
+> +	int rc;
+> +
+> +	device_lock_assert(&pdev->dev);
+> +	guard(rwsem_write)(&cxl_rwsem.region);
+> +
+> +	cxl_restore_pci_state_for_hdm_restore(pdev, &command);
+> +	rc = cxl_restore_state(pdev, snapshot);
+> +	if (rc) {
+> +		cxl_reset_save_disabled_state(pdev);
+> +		return rc;
+> +	}
+> +
+> +	return cxl_reset_save_restored_state(pdev, command);
+> +}
+> +
+>  /*
+>   * CXL r4.0 sec 9.7.2 defines the reset completion timeout encodings.
+>   * Sec 9.7.3 leaves config-space access behavior undefined for 100 ms after
+> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+> index dc57a202c91f..6928c99aa785 100644
+> --- a/drivers/pci/pci.c
+> +++ b/drivers/pci/pci.c
+> @@ -5015,6 +5015,7 @@ static int pci_reset_bus_function(struct pci_dev *dev, bool probe)
+>  
+>  static int cxl_reset_bus_function(struct pci_dev *dev, bool probe)
+>  {
+> +	struct cxl_hdm_info *snapshot __free(kfree) = NULL;
+>  	struct pci_dev *bridge;
+>  	u16 dvsec, reg, val;
+>  	int rc;
+> @@ -5037,6 +5038,10 @@ static int cxl_reset_bus_function(struct pci_dev *dev, bool probe)
+>  	if (rc)
+>  		return -ENOTTY;
+>  
+> +	rc = cxl_snapshot_hdm(dev, &snapshot);
+> +	if (rc && rc != -ENXIO)
+> +		return rc;
+> +
+>  	rc = pci_dev_reset_iommu_prepare(dev);
+>  	if (rc) {
+>  		pci_err(dev, "failed to stop IOMMU for a PCI reset: %d\n", rc);
+> @@ -5057,6 +5062,9 @@ static int cxl_reset_bus_function(struct pci_dev *dev, bool probe)
+>  		pci_write_config_word(bridge, dvsec + PCI_DVSEC_CXL_PORT_CTL,
+>  				      reg);
+>  
+> +	if (!rc && snapshot)
+> +		rc = cxl_restore_state_after_pci_reset(dev, snapshot);
+> +
+>  	pci_dev_reset_iommu_done(dev);
+>  	return rc;
+>  }
+> diff --git a/include/cxl/cxl.h b/include/cxl/cxl.h
+> index 9904eaed5af1..b83cfaed618f 100644
+> --- a/include/cxl/cxl.h
+> +++ b/include/cxl/cxl.h
+> @@ -207,6 +207,9 @@ struct cxl_register_map {
+>  #ifdef CONFIG_CXL_RESET
+>  void pci_cxl_hdm_cache_init(struct pci_dev *pdev);
+>  void pci_cxl_hdm_cache_release(struct pci_dev *pdev);
+> +int cxl_snapshot_hdm(struct pci_dev *pdev, struct cxl_hdm_info **snapshot);
+> +int cxl_restore_state_after_pci_reset(struct pci_dev *pdev,
+> +				      struct cxl_hdm_info *snapshot);
+>  int cxl_reset_function(struct pci_dev *pdev, bool probe);
+>  #else
+>  static inline void pci_cxl_hdm_cache_init(struct pci_dev *pdev)
+> @@ -217,6 +220,20 @@ static inline void pci_cxl_hdm_cache_release(struct pci_dev *pdev)
+>  {
+>  }
+>  
+> +static inline int cxl_snapshot_hdm(struct pci_dev *pdev,
+> +				   struct cxl_hdm_info **snapshot)
+> +{
+> +	*snapshot = NULL;
+> +	return -ENXIO;
+> +}
+> +
+> +static inline int
+> +cxl_restore_state_after_pci_reset(struct pci_dev *pdev,
+> +				  struct cxl_hdm_info *snapshot)
+> +{
+> +	return 0;
+> +}
+> +
+>  static inline int cxl_reset_function(struct pci_dev *pdev, bool probe)
+>  {
+>  	return -ENOTTY;
+> -- 
+> 2.43.0
 > 
-> To me it is a cost/benefit thing. Having to think through which syscalls matter
-> was the point of blocking 32 bit runtime in the first place, so this evaluation
-> seems too high on the cost. If we do anything more, it should be another small
-> and complete thing. Like blocking all 32 bit syscalls.
-
-Conceptually, I think shadow stack should authenticate all return
-addresses placed on the stack. %rip in the signal frame is a return
-address for any non-crazy use, but it's not authenticated. And IMHO that
-should be fixed.
-
-Unfortunately my patches fall short of plugging that gap, so I agree
-they don't have a security benefit.
-
-I'm eager to fix it and authenticate sigreturn rip, provided you think
-it's worth doing.
-
-Cheers,
--- Richard
