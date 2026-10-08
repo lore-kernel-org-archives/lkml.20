@@ -1,71 +1,53 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4861D439328;
-	Thu,  8 Oct 2026 21:29:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1FFA35C692;
+	Thu,  8 Oct 2026 21:31:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791494974; cv=none; b=RYaDKclDxPnLe/bduu+/j0LnFuDIYT/KXzdmNybkwwFJBodtqYt1WccbcSnL0WrIYeCIYaI+2mpl/q+EiADax+PI4DsUfVfaJxbnAuGjfMPI79czEQNErcGNqDMh1RmF1PasT5p4VOWZIYpO8Ypo3xj9t8+kzRqrcMTAXGkboNg=
+	t=1791495094; cv=none; b=RQ2+d8HZInj256RBTQ5FdwhFj0Uo9AtXZhevaCombwbGfWs94is1WId28U9cIZjrcC0jo7iigV3JRxaW45gFnc4L3swGKHXerVawGgsAHHDNDCRSmxCy3WtfO3CyoX+Y/WNENg8vKlwVnyAPRx9a15IDv2YrzvDi2IIXEJxz83M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791494974; c=relaxed/simple;
-	bh=EiGZwByYUKxJnWm9QQlA+0mpal9A7lNZUKiPeMtBHgg=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=BUh+9ZbeYDm9V0/Cj4EJAxToTlUiIGculWxvieJNaQVqFhM/ANXfPvUdevu0/W3o4D8lN5qp6qlr+/94okvND6LNEZG7w0xXMhPa/VaMEpZ1V/byXjSdv1dgH///kcnA8apculJhVLjhN83HO2gv/lgZRWXsnYxYnaMmHFYJ/9A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=k/gCUme1; arc=none smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791495094; c=relaxed/simple;
+	bh=QW3Fxw9Ri3EirGkkoFgQyV2IxlNY4MFImPRWlsQplsI=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=X2j5iDvMvgqPZRe8+vomv8+vYu+ZyWkhSfeVeML71W40TTKDeIG7FPGTpGvamR6w/xXuGoptD3a4bS0zmRSRPQhsutmhShmIjrBgcBM0hjqi7nwLibYX5lETTILBjFmjk8peiIw7xNBQfyBpUy6QkH/P2GF3KzB/0ZLT0h8I8Wg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BCp/0fQO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="k/gCUme1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791494973; x=1823030973;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=EiGZwByYUKxJnWm9QQlA+0mpal9A7lNZUKiPeMtBHgg=;
-  b=k/gCUme1nxQglP204HDauCRd6BpMe6TDERr2UzSrmKWih5JMxtm54C/Q
-   Q0z7IDeRsDWKbhiT3+dlTxsB4VCZqu6Q5EuDJN2OQ9ds+irbVoKH4iGWi
-   DCe4r9HCTIeLfzPIRSPsXKVaZnYFVwrbdOd6pl9472PmBD77DaQ+rylKs
-   YmX6FyJLBpncBZSEAM7RtUKd2tNjSGCCUPC2V65fKk9hAMBwZAl+es5RD
-   RJ++OifhspAaGbAvizJQCmIT4ToIK87lyVlxXE5YZZIpb4dmWvfz0HLI2
-   GPT2QDoC+dB1vaDq9A4geqbL+X2v+35FUlGgSGyVGVh86YVBiFf7MIFOr
-   g==;
-X-CSE-ConnectionGUID: KIDjdo2dQziYBI5ZctjORA==
-X-CSE-MsgGUID: 7U2uoqM9Tmqnf8esd3m6eQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11929"; a="170968"
-X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
-   d="scan'208";a="170968"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 14:29:32 -0700
-X-CSE-ConnectionGUID: 1qBymP2QR7qa4dwwhkJfvg==
-X-CSE-MsgGUID: Adj6RNJPQXu56ZfsJkGOwg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
-   d="scan'208";a="476419"
-Received: from unknown (HELO [10.241.243.185]) ([10.241.243.185])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 14:29:31 -0700
-Message-ID: <76e09124223f7adb7f486fd861ead3bdbf595016.camel@linux.intel.com>
-Subject: Re: [PATCH RFC 0/2] sched: Introduce idle SMT priority for
- asymmetric capacity systems
-From: Tim Chen <tim.c.chen@linux.intel.com>
-To: Mete Durlu <meted@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>, Peter
- Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot	 <vincent.guittot@linaro.org>, Dietmar Eggemann
- <dietmar.eggemann@arm.com>,  Steven Rostedt <rostedt@goodmis.org>, Ben
- Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, Valentin
- Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>,
- Shrikanth Hegde	 <sshegde@linux.ibm.com>, Heiko Carstens
- <hca@linux.ibm.com>, Vasily Gorbik	 <gor@linux.ibm.com>, Alexander Gordeev
- <agordeev@linux.ibm.com>, Christian Borntraeger
- <borntraeger@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>
-Cc: Chen Yu <yu.c.chen@intel.com>, Ilya Leoshkevich <iii@linux.ibm.com>, 
- Andrea Righi <arighi@nvidia.com>, linux-kernel@vger.kernel.org,
- linux-s390@vger.kernel.org
-Date: Thu, 08 Oct 2026 14:29:30 -0700
-In-Reply-To: <20261008-hiperdispatchfix-v1-0-73fe41081070@linux.ibm.com>
-References: <20261008-hiperdispatchfix-v1-0-73fe41081070@linux.ibm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.1 (3.58.1-1.fc43) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BCp/0fQO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56FA01F000FF;
+	Thu,  8 Oct 2026 21:31:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791495092;
+	bh=elwTlGsGIEAUxLqe0dTIpTBpzp3+HyabLtiZ0xgNSAg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=BCp/0fQOtFuIOcrAJXCoouPA6rc3xayTuyzfq1YBFqHD317EGLlW/ARoHuzMcs42n
+	 EQY3WQ0u4xWZ3C6UD5aqFkCJ0HaGwV44/C/oklkOtDNcjU9yh4/BTDJBM9BEaCvZeg
+	 ngJsqFljQleUPOJy0FMftIZ+3SIh9OknPIQ/gaLWLzvlS2JCTV4tNcCAR8Q752Afk7
+	 J2SNCXnPKVG/8FdEoFG1dOX/v0j1v4aixws9hhrIWpX/GHI751744jsCm/TR/X2P0p
+	 MLI3TVnuBTpHvqG6xBja+B+fbd0PaTYZ0zfQZeaIYTfY3vWc4LZ4KIvP7rmW8KW/iV
+	 BpGuFx8MlU1iQ==
+Subject: Re: [PATCH net-next 1/3] net: selftests: use skb_share_check() in the
+ loopback receive hook
+From: netdev-bot+sashiko@kernel.org
+To: nb@tipi-net.de
+Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, o.rempel@pengutronix.de,
+ maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ Jose.Abreu@synopsys.com, saeedm@nvidia.com, tariqt@nvidia.com,
+ mbloch@nvidia.com, leon@kernel.org, dtatulea@nvidia.com, alazar@nvidia.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-rdma@vger.kernel.org
+Date: Thu, 08 Oct 2026 21:31:30 +0000
+Message-ID: <179149509090.434549.9918598206439291164@kernel.org>
+In-Reply-To:
+ <20261007-nb-net-selftest-shared-net-v1-1-458369bfa1ba@tipi-net.de>
+References:
+ <20261007-nb-net-selftest-shared-net-v1-1-458369bfa1ba@tipi-net.de>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -73,179 +55,125 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-On Thu, 2026-10-08 at 10:30 +0200, Mete Durlu wrote:
-> Summary
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D
-> On systems with asymmetric CPU capacities, the scheduler prefers fully id=
-le
-> cores over idle SMT siblings of busy cores. This works generally well but
-> virtualized platforms where low capacity cores should be avoided are not
-> considered. Introduce a new config option and arch hook to prioritize
-> SMT utilization.
->=20
-> Background
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D
-> The scheduler has been moving toward better utilization of fully idle cor=
-es
-> and avoiding SMT penalties. This trend (notably after commit 25a32e400a14
-> ("sched/fair: Prefer fully-idle SMT cores in asym-capacity idle selection=
-")
-> broke the behavior s390 is relying on to concentrate workloads on its
-> high-capacity cores. On s390 CPU capacities represent the CPUs runtime
-> entitlement assigned by the hypervisor. The idle SMT siblings of busy
-> high-capacity cores start to perform better than fully idle low-capacity
-> cores as the whole machine(containing the logical partitions) starts
-> approaching to a {fully,over}loaded state. Grouping load on high-capacity
-> cores keeps shared low-capacity cores(which are shared more aggressively)
-> idle longer, reducing noise to neighboring partitions and improving
-> overall performance.
->=20
-> Approach
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D
-> This series introduces SCHED_IDLE_SMT_PRIO config option and the
-> sched_idle_smt_prio static branch, allowing architectures to treat idle
-> SMT siblings of busy cores as equal candidates during asymmetric capacity
-> load balancing.
-> Static branch checks are placed at paths considering fully idle cores
-> over idle SMT threads in presence of asymmetric CPU capacities within
-> scheduling groups. Inserted checks mostly override hints for idle core
-> selection or cause early exits favoring idle SMT siblings.
-> One more static branch check is added to new task path in order to favor
-> high capacity SMT siblings during initial task placement, therefore the
-> tasks are immediately placed in high capacity SMT siblings instead of
-> considering most idle but low capacity cores.
->=20
-> Architectures opt in by selecting ARCH_SUPPORTS_SCHED_IDLE_SMT_PRIO and
-> implementing arch_needs_idle_smt_prio(), which is evaluated during each
-> asym_cpu_capacity_scan() to track the state as runtime topology changes.
->=20
-> The second patch enables the feature for s390 when running on
-> hardware-backed topology in an LPAR with vertical polarization active
-> and system is approaching to a target state.
-> Otherwise the branch stays disabled and the scheduler falls back to the
-> standard idle-core preference.
->=20
-> No functional change on architectures that do not select
-> ARCH_SUPPORTS_SCHED_IDLE_SMT_PRIO.
->=20
-> Performance Results
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D
-> Since this change effects the {fully,over}loaded state it is difficult
-> to test at the moment. Therefore there are no concrete numbers or
-> metrics for now for s390.
-> For architectures which do not opt in to this feature, no performance
-> change is expected.
->=20
-> Considerations and Open Questions
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D
-> The main goal for this series is adding a simple mechanism for
-> architectures to switch between idle core and idle SMT priority while
-> keeping the introduced footprint as small as possible. But there are
-> some ideas and questions to consider;
->=20
-> 1. Should arch_needs_idle_smt_prio() hook be removed?
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Hi Mete,=20
+Critical: 0 · High: 1 · Medium: 0 · Low: 0 (1)
 
-One assumption in the series should be made explicit, and I think
-it answers your question 1.=20
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-The idea only works if two CPUs that the guest sees as SMT siblings
-really run on the same physical core. "An idle sibling of a busy
-high-capacity core" is cheaper than a fully idle low-capacity core
-only because it uses a physical core the partition already has. That
-holds on an LPAR, where hypervisor dispatches whole cores. It does not
-hold in general for a guest whose hypervisor schedules vCPUs one at a
-time, such as a typical KVM guest with "threads=3D2". There the guest's
-sibling masks are just a description, and packing onto "siblings"
-gives no benefit.
+- [High] The series fixes only part of this bug class.
 
-Nothing in the series checks this, and it is not documented:
+Pre-existing issues:
+- [Low] Pre-existing weak length validation in
+  net_test_loopback_validate() (net/core/selftests.c).
 
-- In patch 1, the default arch_needs_idle_smt_prio() returns true,
-  and the Kconfig help does not mention that siblings must share a
-  physical core. Any arch that selects
-  ARCH_SUPPORTS_SCHED_IDLE_SMT_PRIO takes this on without being told.
+--
 
-- In patch 2, the hook checks only the topology mode:
+net: selftests: use skb_share_check() in the loopback receive hook
 
-> +bool arch_needs_idle_smt_prio(void)
-> +{
-> +     if (topology_mode !=3D TOPOLOGY_MODE_HW)
-> +             return false;
-> +     return true;
-> +}
+This patch replaces skb_unshare() with skb_share_check() in
+net_test_loopback_validate(). With the change, a shared but non-cloned skb
+is cloned before skb_linearize() runs. Without it, a non-linear frame that
+reaches the hook while another ETH_P_IP handler is bound to the device can
+hit BUG_ON(skb_shared()).
 
-Today s390 seems to be safe because sibling masks are
-only built in HW mode.  It is the only place where this
-precondition can be enforced.
+> diff --git a/net/core/selftests.c b/net/core/selftests.c
+> index 36b949ae520b3..80029a67b2d2b 100644
+> --- a/net/core/selftests.c
+> +++ b/net/core/selftests.c
+> @@ -170,7 +170,7 @@ static int net_test_loopback_validate(struct sk_buff *skb,
+>  	struct tcphdr *thdr;
+>  	struct iphdr *ihdr;
+>  
+> -	skb = skb_unshare(skb, GFP_ATOMIC);
+> +	skb = skb_share_check(skb, GFP_ATOMIC);
+>  	if (!skb)
+>  		goto out;
+>  
 
-So I would keep the hook. It is the only place where this
-precondition can be enforced. Removing it and tying the feature to
-"Kconfig + asymmetric capacities" would drop the check entirely.
-Concretely:
+[Severity: High]
+This change looks correct for net_test_loopback_validate(). The same
+pattern still seems to be present in stmmac_test_vlan_validate() in
+drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c, though.
 
-1) Document the contract in the Kconfig help and above the hook,
-   for example: "Only select this if CPUs reported as SMT siblings
-   are always dispatched on the same physical core."
+A later commit in this series, "net: stmmac: selftests: use
+skb_share_check() in the loopback receive hook", converts
+stmmac_test_loopback_validate(). The second copy of this handler in the
+same file is left as:
 
-2) Make the s390 hook test the conditions from the cover letter,
-   something like:
+stmmac_test_vlan_validate() {
+    ...
+	skb = skb_unshare(skb, GFP_ATOMIC);
+	if (!skb)
+		goto out;
 
-        return machine_is_lpar() &&
-               topology_mode =3D=3D TOPOLOGY_MODE_HW &&
-               smp_cpu_mtid;
+	if (skb_linearize(skb))
+		goto out;
+    ...
+}
 
-Tim
+__stmmac_test_vlanfilt() and the other VLAN tests register this handler as
+a device-bound packet_type. The type is ETH_P_IP, ETH_P_8021Q, or either
+one depending on svlan:
 
->    The architecture hook is there to allow for any sort of logic to
->    dynamically decide when to flip the mechanism, but it can also be
->    removed if everyone agrees that this behaviour is not something that
->    should be dynamically flipped. It can be simply tied to detection of
->    asymmetric capacities and selection of Kconfig option.
->=20
-> 2. Is there a simpler way to implement this mechanism?
->    The proposed approach is chosen as the other features effecting the
->    scheduler's behavior, use the same method. If there is a more
->    efficient way to implement the same mechanism I'd be glad to use
->    that instead.
->=20
-> 3. There are no performance measurements *yet*.
->    On s390 the ideal conditions for this mechanism to be beneficial
->    usually surface when the whole system is fully loaded and resource
->    sharing between the logical partitions starts to get expensive.
->    Creating such an environment requires time, therefore no benchmark
->    results are available yet.
->=20
-> ---
-> base-commit: 587858367581b9c55c3690f4e63382ad622719d4
->=20
-> Mete Durlu (2):
->       kernel/sched: Introduce idle SMT priority
->       s390/topology: Enable SCHED_IDLE_SMT_PRIO
->=20
->  arch/Kconfig                     | 14 +++++++++
->  arch/s390/Kconfig                |  1 +
->  arch/s390/include/asm/topology.h |  5 +++
->  arch/s390/kernel/topology.c      |  9 ++++++
->  include/linux/sched/topology.h   |  9 ++++++
->  kernel/sched/fair.c              | 67 +++++++++++++++++++++++++++++-----=
-------
->  kernel/sched/sched.h             | 10 ++++++
->  kernel/sched/topology.c          | 17 ++++++++++
->  8 files changed, 114 insertions(+), 18 deletions(-)
+	tpriv->pt.type = htons(ETH_P_IP);
+	tpriv->pt.func = stmmac_test_vlan_validate;
+	tpriv->pt.dev = priv->dev;
+
+Suppose another handler for the same type sits later in the device's
+ptype list, for example an AF_PACKET socket bound to ETH_P_IP on that
+interface. deliver_skb() then increments skb->users, so the hook gets an
+skb that is shared but not cloned. skb_unshare() only checks
+skb_cloned(), so it returns that skb unchanged.
+
+For a non-linear frame with less tailroom than data_len, this path
+follows:
+
+skb_linearize()
+  __pskb_pull_tail()
+    pskb_expand_head()
+      BUG_ON(skb_shared(skb));
+
+Should stmmac_test_vlan_validate() get the same skb_share_check()
+conversion, so the series covers every copy of this hook?
+
+The xgbe sibling, xgbe_test_loopback_validate(), does not seem to be
+affected. It already calls skb_share_check() before it expands a shared
+skb.
+
+[Severity: Low]
+This is a pre-existing issue that this patch did not introduce. The
+length check further down in net_test_loopback_validate() looks too
+short for what the function parses afterwards:
+
+	if (skb_headlen(skb) < (NET_TEST_PKT_SIZE - ETH_HLEN))
+		goto out;
+
+NET_TEST_PKT_SIZE in include/net/selftests.h covers only ethhdr, iphdr
+and netsfhdr. That guarantees 33 bytes past the network header and does
+not include the TCP/UDP header.
+
+The function then reads:
+
+	thdr = (struct tcphdr *)((u8 *)ihdr + 4 * ihdr->ihl);
+	...
+	if (shdr->magic != cpu_to_be64(NET_TEST_PKT_MAGIC))
+
+It never checks ihl >= 5, the IP version, tot_len or the L4 header
+length, and double_vlan adds another 4 bytes.
+
+Could an IPv4 frame that arrives during ethtool -t make the hook read up
+to about 64 bytes past skb->tail? Examples would be a minimum-size TCP
+segment or a frame with ihl=15.
+
+The over-read seems to stay inside the skb head allocation, because
+skb_shared_info follows skb->end. If so, the only effect is a possibly
+wrong selftest result.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261007-nb-net-selftest-shared-net-v1-0-458369bfa1ba%40tipi-net.de
