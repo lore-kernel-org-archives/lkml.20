@@ -1,64 +1,65 @@
 Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com [209.85.208.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 892C04E1C90
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 15:26:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA15B4E0B6C
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 15:26:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791473221; cv=none; b=XPRqzZtEIc5hVo1wwfH4npLMU2J56TKJ4z7gcM+YlTUQFFdraXHKjgABq2MJst2hI9QT8D4qO6RyQAAnVV4MtebPHfpDvS3pIESgikn7YmImmXhSfUI2gOCA1GBCJOZU9sHLJQskz1o8eVRD5ZxDNiH1YIDkYYGvD9MYMomb+fU=
+	t=1791473223; cv=none; b=t3wAQz2bHTaut/tI+b40Nk++eH+ofJPe5VTINDYFQwKejJMlxRgrNez6hOPXG5xvQ3QwDXyJGuFpKasjhtK2DO1dRYnCPRZg+hK9zR2JB+YDHwT9BopPT0cvBEUGbBB2WZAA0Lp+XL61vrIV8HiY3heyb1LOH1F78kksI42tYQw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791473221; c=relaxed/simple;
-	bh=4cGeG5gcafSfHV7dB+/PC8OwEGpDp+k/cnr9Dm71f1I=;
+	s=arc-20240116; t=1791473223; c=relaxed/simple;
+	bh=kX25jehi4FuSWJ71vfOzc8Jgj9wsXbwIcLBv8fbMu2A=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hfcC53qqX0uM9VBq/wjaLUE2v7LFhNY95UJb9QO84vneQUH0kx/KYRytxky509BAhpgJL9V9G9HcF9ShoF9cQNr6m0uAwvzvt6Y/oaT9RcRPV+lwoDprpUhBdJNje8iZZ6e0hps63dBjg9jfbJDM8Xyg74ROHuCbb4PRyYdQsVQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q0PCqnOL; arc=none smtp.client-ip=209.85.208.180
+	 MIME-Version; b=oLb4s67+lHOT9KZgu7Xtw68ta59LhOhlrFjc4ylxJqVHfl9/IeBNBrqxEbLg1vgfAjNzeRRKnq7FLwg64I1+IS2d03QZFYNz54aqL7NW3kcTidw7C390sq1tj67P/tKREHfk3qz4ccqPQWO5PKTomrBzm8mwYjTK/9fcVj20/2k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NjCTSO0H; arc=none smtp.client-ip=209.85.208.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q0PCqnOL"
-Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-3a49a022221so23628621fa.3
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 08:26:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NjCTSO0H"
+Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-3a49a022221so23628951fa.3
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 08:26:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791473212; x=1792078012; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791473214; x=1792078014; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Jqbkrmyrln9WXMY3pJOA8S50l904yx48reaKZeA7j78=;
-        b=q0PCqnOLtpq0VQuCaMCpi+97K+OBh4+q/7XdfMWQvfMfEuH5KPM9RqlohwutStG+g0
-         s4gVwzaXxNCgxV6M48XN++2YTvp7MidWDenlp/dyT9GdI++/SXVhQfl+1VV/Y3ZRWXUd
-         lVyvaIB7mgemBfbgbTsoiwPMqBJOQQDjXN+wJPs5Z+zQJsEkTpce+qT437CXSYz5DWla
-         9xtcbBFbzKpFe7AUaTcrHgjBMjx3LH3Q9CZbTgQf+3NBmegUMqXOEuao/L23WdtG5ACx
-         Qyb093ZIXucs9f7MburzAshs65bJTjA74oX7aN9YZLgir9v0XaHouhRIdg9PZbJ4CQxD
-         KYWQ==
+        bh=EuN2FUV+hXuI8JXFao7iDoOeEPUnSJxDqogYBlALZhU=;
+        b=NjCTSO0HOOA6Gd5dqDjGBptCSY5qXkRhktZoINlmzpm+nevggQ1tfaXiRF3pi/kXJS
+         mVF37Ds+plNxTcgVD2KH2hSGkFjVRaAAcVzJLKZzbI+34Q0EwSYy44kO0bjW0thgwOrD
+         40sW5COIM3wMiASyDRcT4hlfmIQ6N+wWc18MGiABMkg/+lFrul77K90wW8piiSj0YJ5o
+         rwlQfFqZIWBX7RMYLNtZ9cnZcd076tz4EL8xvhEpH3BNbPwOEgzaj7E2dxNJNiIVw4Ww
+         Dxb08PYmOKanuAEEohhpaVQjK4FMT34jgPBYyfRb07gVPZh4+vzX3UvW4ZDcuJX35uoL
+         e4jg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791473212; x=1792078012;
+        d=1e100.net; s=20260707; t=1791473214; x=1792078014;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Jqbkrmyrln9WXMY3pJOA8S50l904yx48reaKZeA7j78=;
-        b=Do+SERE7PjfOCNbyQa6NUIhlmcWy4loQtKTM13bwlRW/7GduCeEtOnVFc8YmaYukcs
-         zXu3BZEIjGtWd9A5giXZWd6qwSpWJDeezqa//jOyk0WanHKXCOjqMUxegWByeKYo07pZ
-         d/2Du5T/3rpEQdLdIkLW1PZswgzUnbmUbzP5To/nxF6yqP+h6RsTuur0myAICogIUpsJ
-         LWEKFOUD9d545bxGmbbrZYjvxYAE7mOcWrJtkbONrFzvx71kv45/DZm1QvQURPwTluyq
-         GWhfWHiEC6Tj+MzyjnXlfw1+aGMu3G7pwXA7JZbMMsVwD890la+TaFCzK4O55XCGX3Q6
-         dQXg==
-X-Forwarded-Encrypted: i=1; AKwUvBw2TOdSGEEU8XKXX17b3ogNEj+uZs93BS3AMxMpzmxv3LhseD9fEDQQ2J0kbNjpbLCdUxpsYflB7j6FKik=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIbXC9MlwAel6aEOxrU41SHwHgqk4z2THwYr4SMpA6F0VAUpPNv
-	PRSdW5HzSQjJ6UuxoY7alJ5WmHPnLZ+PHWSmSgzNRxhmF2FglD6GX+Tr
-X-Gm-Gg: AYBFou3SJesmzFgZ5JuIufYBHr8nf37wzamCeIUTLeNM/Yhwc5B1xYNgeiIw82liKAV
-	TLZEPrB41WKs7iO8mP9Iv9z246JLWSjPRYxZ+DuWxTf/ZiYg7WfGq2D0ANrMQ5xTCwsFjtyAOxB
-	KmmLr0CtbFnFKLhT12j5jVCEVqLOVgPAhXoXtDSp8flz0plEkHTMhJVfzaEAv0i151ySw8Lvffk
-	/3DX6aZQEKOQXfq9F6iYdr3hCQwiB7LWLJqVYS5MD0YFOGfu6PyqlQofJ15nAC43Mgwcyox82pw
-	yvUS5x6WzmT4QOiJtEr4/t76IZv2Zodzu52hGr+R36pquY/Rc6dA6IEhB2Vcu9u/VM03vUUy4AD
-	8s8BB2qq1Gy32zmEGpJvh8rSkMdqUIzjfu/n5cT9GRdzKz5oKO5ullAv4p2fTjZr76x62+KJ7Vc
-	ETBdECJhvOSh7q4stfVj7u0Z17OWvIAwu5N/Ks1HBBrjfim9i50lljZGsdIsgSc4AfAJM2XNxvX
-	fcw09ml+52jmvOKL/HjXGC7dpeVr0eh0HZEPY2I8aOb7aZq8U9fYLhVBDnE/AXzF/36
-X-Received: by 2002:a2e:bc14:0:b0:3a9:707e:ad9c with SMTP id 38308e7fff4ca-3a9a2cb4ea1mr13229661fa.4.1791473211741;
-        Thu, 08 Oct 2026 08:26:51 -0700 (PDT)
+        bh=EuN2FUV+hXuI8JXFao7iDoOeEPUnSJxDqogYBlALZhU=;
+        b=RyIAuJ2ruH18MttSeDQVttJS4PyhAxdzQ6eDcCNagY3Wev9qEF3srQFUATEelqoDK8
+         BLPOzfcKWj3M1FO40uyTmJyMQeFpsT2XZ+8QCGW45SgC0kRQI2KEca11iiqJS+HaAQDt
+         oUDJTWoT92K/Mdj52WnQpD19YOvPhtgQv71T9VttPJID3tYOlnJoGHtaqK4X0vuFDt9X
+         ll7bW2mndK5ObBSOXU3k5DxIeEjsemTAPGSIF0Ppc6W4PkrD3AELVCDHA1G6e2ORqxMt
+         xGUsHSlVDidmtYIChgHtSiMpBfvydxElfy4jqDBdqOPI6H+yucw5BFuGTDaWfaZKfyQP
+         xTVw==
+X-Forwarded-Encrypted: i=1; AKwUvBybEZ9lKs+QulIUNVvXf59nJEe+DnS0K+ZChJY3Ahyw6FRtnK1txbIfXpeBjOOnFixoj9RLst0ucyng2FY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKdY74NKUHoSBJqsqBbuwvku0U59UX2TAkf3kuA4HIghICoJ7Zd
+	RcL+il1RBE91NSJzMwR48rWEtH7MxT7HB+oItebS/ovX1TqmNORQxSuu
+X-Gm-Gg: AYBFou2Zsf4YHGf2bEaDHRVd4Y5KdTaZw87qGYxnWFBWXxbncCCHdNoa9l4W2JLYhr7
+	KT7viCyq0N4f5VYzoiWaUMppG4zRhGJBtyYy+yxteRL10Le05ReD0GPXAdD5dHMhzG5Po2iKyHP
+	PqzrCIztm1+7PeSIUBOanuyBZLHZro8Xv5yeaGS1Vk2H4eQW2BE4J4UPHjFgpKUgnchuWPs2cFc
+	DKmcfSOb1/intn4eMhQiYEuTCuqxeClH54NZz3RXs8m6LcxMJSFKWoWXnQ5cCCGvqLR9NaTqYOu
+	tm3Eu7ojsvzj7K05wSoZ2ccS/6eQXR1D0MCH7tJCalan9frVDBEvZgH7NQkaOq2tD/3vtnUyzGn
+	nnlTC2JDux8udHK+ZhAL49LeG9LexZPQJ9NCO4eYEJuSCsk0fCYkGxQzEi4vQDwgSXkUjBIUmVs
+	QLqJgrmydyvcvuU4ph0hsTHZXzYhFRBNLXMqeKBsn9y+rKTdu3k5ur/krpAglvjg62IikPrxb92
+	W3a8kBvAjX8jaJPWhensVtxATn99KW1+fhnNcCfKvq3Ha5HNV52SX3PM6xMYbSFRtr1RDsx/Dwf
+	mL4=
+X-Received: by 2002:a2e:a594:0:b0:3a9:9a60:2c47 with SMTP id 38308e7fff4ca-3a9a2d60187mr12725961fa.29.1791473214215;
+        Thu, 08 Oct 2026 08:26:54 -0700 (PDT)
 Received: from wildarch.lan ([109.72.228.33])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a9c143cec5sm161201fa.39.2026.10.08.08.26.49
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a9c141fe4esm159991fa.26.2026.10.08.08.26.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 08:26:50 -0700 (PDT)
+        Thu, 08 Oct 2026 08:26:53 -0700 (PDT)
 From: Anton Karasev <uselessfire@gmail.com>
 To: Mingyou Chen <qby140326@gmail.com>
 Cc: ilpo.jarvinen@linux.intel.com,
@@ -77,14 +78,13 @@ Cc: ilpo.jarvinen@linux.intel.com,
 	vlku.milos.fun@gmail.com,
 	i@rsplwe.com,
 	bozhenpeng93@gmail.com,
-	nika@nikableh.moe,
-	atomicus.xyz@gmail.com
-Subject: Re: [PATCH v9 2/5] platform/x86: bitland-mifs-wmi: Merge the function of redmi-wmi into the bitland driver
-Date: Thu,  8 Oct 2026 18:26:47 +0300
-Message-ID: <20261008152647.1510152-1-uselessfire@gmail.com>
+	nika@nikableh.moe
+Subject: Re: [PATCH v9 3/5] platform/x86: bitland-mifs-wmi: Add Redmi mic-mute key entries
+Date: Thu,  8 Oct 2026 18:26:51 +0300
+Message-ID: <20261008152651.1510220-1-uselessfire@gmail.com>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261001133705.69244-3-qby140326@gmail.com>
-References: <20261001133705.69244-1-qby140326@gmail.com> <20261001133705.69244-3-qby140326@gmail.com>
+In-Reply-To: <20261001133705.69244-4-qby140326@gmail.com>
+References: <20261001133705.69244-1-qby140326@gmail.com> <20261001133705.69244-4-qby140326@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -95,119 +95,25 @@ Content-Transfer-Encoding: 8bit
 
 Hi Mingyou,
 
-To Ilpo's question on v7 about e0d6312578e1 ("platform/x86: redmi-wmi:
-report EC state change events"): v9 restores its keymap entries, but of
-the three kinds of events that commit reports (keyboard backlight,
-performance mode and Fn Lock), only the performance mode one still
-reaches userspace as a key. I tested v9 on a Redmi Book Pro 16 2024
-(TM2309, BIOS RMAMT6B0P0B0B), built as a module for 7.2.8 with
-redmi-wmi unloaded, with dyndbg on and the input device recorded; the
-payloads below match what EV20 in its SSDT (OEM Table ID XMCC1806) puts
-into the event buffer. Adding Ibragim Musaev, the author of
-e0d6312578e1, to Cc, as Ilya did on v6.
+> - 0x00002101 (Fn-lock disabled state)
+> - 0x00012101 (Fn-lock enabled state)
 
-> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_SWITCHVIDEOMODE, 1, 0), { KEY_SWITCHVIDEOMODE } },
+These are mic mute states, not Fn Lock ones. On the Redmi Book Pro 16
+2024 (TM2309), EV20 puts the new mic state from the EC field MIUT into
+the third byte, 0 for muted and 1 for unmuted, and Nika's report [1]
+has 0x00002101 as muted and 0x00012101 as unmuted. In a test of v9 on
+this machine, F4 gave KEY_MICMUTE with exactly these two payloads, so
+the entries are right for these Xiaomi machines; only the commit
+message needs the change.
 
-The short form of the display-switch key, 0x00000101, is still
-missing; on this machine the key only produces the debug message
-"Unknown WMI hotkey with payload 0x00000101". Since 4/5 drops
-redmi-wmi, Ilya's fix for it [1] would have to move here; he offered to
-rebase it onto this driver if this series lands first [2].
+> +	{ KE_KEY,    BI_HOTKEY_CODE(0x21, 0, 0), { KEY_MICMUTE } },
+> +	{ KE_KEY,    BI_HOTKEY_CODE(0x21, 1, 0), { KEY_MICMUTE } },
 
-> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_KBD_BRIGHTNESS, 0, 0), {KEY_KBDILLUMTOGGLE} },
-> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_KBD_BRIGHTNESS, 0x80, 0), {KEY_KBDILLUMTOGGLE} },
-> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_KBD_BRIGHTNESS, 5, 0), {KEY_KBDILLUMTOGGLE} },
-> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_KBD_BRIGHTNESS, 0x0a, 0), {KEY_KBDILLUMTOGGLE} },
+Note that 0x21 is WMI_EVENT_WIN_KEY_LOCK in this driver's own enum.
+Does your machine send 0x00002101 / 0x00012101 for the Win key lock? If
+so, it would now report KEY_MICMUTE there.
 
-These four entries are never reached, because of this hunk in
-bitland_mifs_wmi_notify():
-
->  		blocking_notifier_call_chain(&bitland_notifier_list,
->  					     BITLAND_NOTIFY_KBD_BRIGHTNESS,
->  					     &brightness);
-> -		break;
-> +		return;
-
-The backlight event returns before the keymap lookup at the end of the
-function, so the input device advertises KEY_KBDILLUMTOGGLE but never
-sends it: cycling F10 here gave 0x00800501, 0x00000501, 0x00050501 and
-0x000a0501, and nothing reached the input device. If the key is meant
-to be reported, as redmi-wmi does today, this has to stay a break;
-otherwise the entries can go. Either way, the LED is still handed
-0/5/10/128 for max_brightness 3, as noted in my v6 reply.
-
-> +	/* OEM preset power mode */
-> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_KEY_PERFORMANCE, 1, 0), { KEY_PERFORMANCE } },
-
-On this firmware, event 0x16 is raised not only by Fn+K but by every
-SET of WMI_FN_SYSTEM_PER_MODE other than 5 and 7, which WMAA writes to
-SMMD instead: WMAA writes QFAN and calls QV20(1, 0x16), and EV20 then
-reports the new mode. In a trace on 7.2 the echo arrives within a few
-milliseconds of the write. So with v9 every profile write that reaches
-the firmware also produces KEY_PERFORMANCE, whether it comes from
-power-profiles-daemon, a direct write to platform_profile, or
-bitland_mifs_wmi_resume() restoring the saved profile. With v9 here,
-low-power, balanced-performance and performance each gave
-KEY_PERFORMANCE; balanced (0) comes back as 0x00001601 and hits the
-KE_IGNORE entry. (The writes return -ENOMSG without Chris's GET-only
-patch, but the firmware applies them.) The same is true of redmi-wmi in
-7.3-rc since e0d6312578e1, so this is not new in v9.
-
-KEY_PERFORMANCE was added for a key that asks for a mode change
-(89c521463929, "Input: add keycode for performance mode key": "so
-userspace can act upon it"). If userspace handles it by toggling
-performance or by stepping to the next profile, then with a map that
-never writes 0, as proposed for the TM2307/TM2309, a single Fn+K press
-on AC starts a loop that never stops: the EC changes mode,
-KEY_PERFORMANCE, userspace writes a profile, the write raises 0x16,
-KEY_PERFORMANCE again, and so on. With the default map of v9 the loop
-ends when it writes balanced.
-
-This is not just theoretical. On 7.2, with redmi-wmi owning the event
-GUID and a local build of this driver owning the method GUID, a small
-helper of mine that read 0x16 through a kprobe and set the
-power-profiles-daemon profile from it started switching between
-balanced and performance about three times a second after a resume,
-because every write came back as an event and two opposite events were
-queued. It went on for about 46 minutes, over 8000 switches, until it
-died out by itself.
-
-Since the event reports a change that has already happened,
-platform_profile_notify() is the natural way to pass it on, as
-suggested in my v6 reply: power-profiles-daemon then re-reads the
-profile, which is harmless after the driver's own writes too. If
-KEY_PERFORMANCE should stay for on-screen displays (Ibragim asked to
-keep these events observable), it may be worth not reporting it for the
-event that echoes the driver's own write, or at least saying in a
-comment that it reports a mode change that already happened. On
-Ibragim's TM2209 the profile SET is reported not to work [3], so there
-0x16 can only come from Fn+K and the echo does not exist; Ibragim, can
-you confirm?
-
-> +	/* Fn Lock state */
-> +	{ KEY_FN_ESC, BI_HOTKEY_CODE(WMI_EVENT_FNLOCK_STATE, 0, 0), {} },
-> +	{ KEY_FN_ESC, BI_HOTKEY_CODE(WMI_EVENT_FNLOCK_STATE, 1, 0), {} },
-
-KEY_FN_ESC ended up in the type field, and the keycode is 0.
-sparse_keymap_entry_from_scancode() still finds these entries for
-0x00000701 and 0x00010701, but sparse_keymap_report_entry() knows only
-KE_KEY, KE_SW and KE_VSW, so it reports nothing, and
-sparse_keymap_setup() does not advertise the key either. Here Fn+Esc
-gives 0x00010701 and 0x00000701, and nothing reaches the input device,
-without even the "Unknown WMI hotkey" message. redmi-wmi has
-{KE_KEY, 0x00000701, {KEY_FN_ESC}}, so these should be
-
-	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_FNLOCK_STATE, 0, 0), { KEY_FN_ESC } },
-	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_FNLOCK_STATE, 1, 0), { KEY_FN_ESC } },
-
-Unrelated to this series but for the same machines: I have sent a patch
-that hides kb_mode where the firmware does not answer its GET [4]; v9
-2/5 still applies on top of it with "git am -3".
-
-[1] https://lore.kernel.org/all/20260928221417.37875-1-ilya.gladyshev@linux.dev/
-[2] https://lore.kernel.org/all/759c1ed3a7733afdc3056de952edc4e776dc8b15@linux.dev/
-[3] https://lore.kernel.org/all/178444076601.4076.16818759313258005640@gmail.com/
-[4] https://lore.kernel.org/all/20261008-bitland-kb-mode-v1-uselessfire@gmail.com/
+[1] https://lore.kernel.org/all/20260531123345.237521-1-nika@nikableh.moe/
 
 Thanks,
 Anton Karasev
