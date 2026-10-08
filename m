@@ -1,203 +1,88 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FD0541C6A
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 02:35:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2A173A1E96
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 02:35:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791426943; cv=none; b=FZwkYCU6Y7gexGmcy6xGN3eJXOKh41hCYS8q5BboKChuQ4z6HKyThu9P8YJhiTKXATCD1ojmVcxKJ0n93CrNsalEdFwzICqK4yrIa7gBalOXGNm4VATs7U494mILJUTtVgH0WcUPlfKXaAEd02I7upRd+GGWcPF3PDmFGo7KyF8=
+	t=1791426955; cv=none; b=tIRNBgkbUsfk1E1HrAG1II3q0JPelq1xPqGohxdBUVNv7kLea1JnJDHfzMs80n9h1dgfpNVipguPOCZcPiYivGn+m3Q1FDrxd9BkbDclhvSyJrZNjMM0rqxidZStrw4Ovksgg8cC4Q7P9zE3X3oLFT3m4UAser3HXNtGrPn4EGE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791426943; c=relaxed/simple;
-	bh=e3dHg0LeFci93+H9BFfoSqJRPkHoGY+KKwQsTYWJP6Q=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=bz8a+CR7Q4WZGdo8MiR8rsk3x6x2PhNFuQG6Jg1T1tkUrMxrhFT1Pa3e4SeD9NeETIbkGuvHOMuqVyGzwNJT8vlXUOA3bJogjFqIPllsSFpsKHuXKIw6ErJlZos4D2N9L3dfgTQVZ4+4LYg4dF+C7gFktkZ9Ast2whdhXLPZ0ps=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: ee459a10c2c011f19a56ed5b684f684d-20261008
-X-CTIC-Tags:
-	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
-	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
-	HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
-	HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
-	HR_TO_NAME, IP_TRUSTED, SRC_TRUSTED, SA_EXISTED, SN_EXISTED
-	SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS, CIE_BAD, CIE_GOOD_SPF
-	GTI_FG_BS, GTI_RG_INFO, GTI_C_BU, AMN_GOOD, ABX_MISS_RDNS
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:043ab7c5-33e0-466a-94bd-72c1afd6518b,IP:10,
-	URL:0,TC:0,Content:0,EDM:-20,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
-	ON:release,TS:-10
-X-CID-INFO: VERSION:1.3.19,REQID:043ab7c5-33e0-466a-94bd-72c1afd6518b,IP:10,UR
-	L:0,TC:0,Content:0,EDM:-20,RT:0,SF:0,FILE:0,BULK:0,RULE:NOTI_GNA5D1EA,ACTI
-	ON:release,TS:-10
-X-CID-META: VersionHash:7db8b62,CLOUDID:f6fc088eedafb6138651ddfddfcb4f23,BulkI
-	D:261008103534QVX47VGW,BulkQuantity:0,SF:19|38|66|72|78|81|82|102|127|136|
-	850|865|898,TC:nil,Content:0|15|50|99,EDM:-19|2|-100,IP:-2,URL:0,File:nil,
-	RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,D
-	KP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FSD
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: ee459a10c2c011f19a56ed5b684f684d-20261008
-X-User: lianyangyang@kylinos.cn
-Received: from localhost.localdomain [(39.156.73.11)] by mailgw.kylinos.cn
-	(envelope-from <lianyangyang@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 50174354; Thu, 08 Oct 2026 10:35:31 +0800
-From: Yangyang Lian <lianyangyang@kylinos.cn>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Mike Rapoport <rppt@kernel.org>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Huacai Chen <chenhuacai@kernel.org>
-Cc: Dave Young <ruirui.yang@linux.dev>,
-	WANG Xuerui <kernel@xen0n.name>,
-	kexec@lists.infradead.org,
-	loongarch@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Yangyang Lian <lianyangyang@kylinos.cn>,
-	Haoran Jiang <jianghaoran@kylinos.cn>,
-	Tao Cui <cuitao@kylinos.cn>,
-	George Guo <guodongtai@kylinos.cn>
-Subject: [PATCH v3] LoongArch: kdump: add arch_crash_save_vmcoreinfo() support
-Date: Thu,  8 Oct 2026 10:34:19 +0800
-Message-Id: <20261008023419.118623-1-lianyangyang@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260924075655.375632-1-lianyangyang@kylinos.cn>
-References: <20260924075655.375632-1-lianyangyang@kylinos.cn>
+	s=arc-20240116; t=1791426955; c=relaxed/simple;
+	bh=tU+WoUv6CJSiEvFfrRrt02Fnj2xitmCJGZrULm8HrDk=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=qpXdD3ruKWYmlw5rJjjAUmQfZUpgKWz/WhgvrEiYncNq3yaC5NfemqKxImGNDvzY+gO5cbR3rgwmc/tVlpgyinxWDKTVUpSdg0rlDDfQaP1pI26MEXmhrk6kB9zeKOx659WbF9B+J/Na9zDzGVqcleJwLbtYwXBP+i3JCebOHSc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LZDm1etR; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LZDm1etR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791426953; x=1822962953;
+  h=date:from:to:cc:subject:message-id;
+  bh=tU+WoUv6CJSiEvFfrRrt02Fnj2xitmCJGZrULm8HrDk=;
+  b=LZDm1etR5piLZiRG334pploOZ9TECqYNFtT9ECji2LhZMNd1XLaLx1X9
+   GqWy0JvrUhLQeWrygrRyDUg6dIwqjC718djQWgGgIffHfkkSMTwYbeUHz
+   XudeYOJx0j7dBy6P9UFdOvm97cK7Idus6hOS0OYrZ9ve+Gw42Bn8EfV+A
+   atwi0igF7pGKcMcSgOTV3OtL+gPh31df0TVI8FL6go0HZ1E+6Eo5dr5DQ
+   Cp2wPGRWJaY0MyZKP1Mlqi4SUPd0JgtfQ9ajssS0EYsxPvoCoNpQA6jGJ
+   KNj287DIErhzo8nTWr3bL3fZ5+dttUvc1s0cTcbZh9ogChrfAuBTpGX6J
+   Q==;
+X-CSE-ConnectionGUID: BaGKLFUJSzmUluU+1O0aLg==
+X-CSE-MsgGUID: Yd/T+57YRn2d1RtzMZJO3g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="197053"
+X-IronPort-AV: E=Sophos;i="6.27,145,1787036400"; 
+   d="scan'208";a="197053"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 19:35:52 -0700
+X-CSE-ConnectionGUID: GtNRYXNvT/i83BunA/wyww==
+X-CSE-MsgGUID: rqpYH6/dRLWeR3j797w4AQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,145,1787036400"; 
+   d="scan'208";a="338515"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa010.fm.intel.com with ESMTP; 07 Oct 2026 19:35:50 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xEdz1-000000003rs-3qpj;
+	Thu, 08 Oct 2026 02:35:47 +0000
+Date: Thu, 08 Oct 2026 10:35:38 +0800
+From: kernel test robot <lkp@intel.com>
+To: Maulik Shah <maulik.shah@oss.qualcomm.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Thomas Gleixner <tglx@kernel.org>,
+ Sneh Mankad <sneh.mankad@oss.qualcomm.com>
+Subject: qcom-pdc.c:undefined reference to `qcom_scm_is_available'
+Message-ID: <202610081014.uMTiuuH5-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Since commit 23c85094fe18 ("proc/kcore: add vmcoreinfo note to
-/proc/kcore") the kernel has exported the vmcoreinfo PT_NOTE on
-/proc/kcore as wellas /proc/vmcore.
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   69f80fef3153299d9c72c53d1d71eef6354b6926
+commit: ad01c2b2f29163ca0bbe1fd4f9343fbc5119c239 irqchip/qcom-pdc: Configure PDC to pass through mode
+date:   3 months ago
+config: arm64-randconfig-1000-20261008 (https://download.01.org/0day-ci/archive/20261008/202610081014.uMTiuuH5-lkp@intel.com/config)
+compiler: aarch64-linux-gcc (GCC) 8.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261008/202610081014.uMTiuuH5-lkp@intel.com/reproduce)
 
-LoongArch does not provide arch_crash_save_vmcoreinfo(), so the
-arch-specific values are missing from the vmcoreinfo PT_NOTE. The
-generic exporter in kernel/vmcore_info.c already provides
-NUMBER(VMALLOC_START), but tools like crash cannot derive the module
-and vmemmap ranges, VA_BITS, or the KASLR offset of a LoongArch dump.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: ad01c2b2f291 ("irqchip/qcom-pdc: Configure PDC to pass through mode")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610081014.uMTiuuH5-lkp@intel.com/
 
-Since commit 18210a104bb9 ("LoongArch: Expand module virtual address
-space to 2GB") the vmalloc and module boundaries are no longer stable
-across kernel versions either, so vmcoreinfo is the only reliable
-source for them.
+All errors (new ones prefixed by >>):
 
-Provide this function in a separate file that is built at the same time
-as its caller in kernel/vmcore_info.c, and add a LOONGARCH64 section to
-Documentation/admin-guide/kdump/vmcoreinfo.rst.
+   aarch64-linux-ld: aarch64-linux-ld: DWARF error: could not find abbrev number 1939
+   drivers/irqchip/qcom-pdc.o: in function `qcom_pdc_probe':
+>> qcom-pdc.c:(.text+0xba0): undefined reference to `qcom_scm_is_available'
+>> qcom-pdc.c:(.text+0xba0): relocation truncated to fit: R_AARCH64_CALL26 against undefined symbol `qcom_scm_is_available'
+>> aarch64-linux-ld: qcom-pdc.c:(.text+0xbb8): undefined reference to `qcom_scm_io_writel'
+>> qcom-pdc.c:(.text+0xbb8): relocation truncated to fit: R_AARCH64_CALL26 against undefined symbol `qcom_scm_io_writel'
 
-Reported-by: Haoran Jiang <jianghaoran@kylinos.cn>
-Suggested-by: Haoran Jiang <jianghaoran@kylinos.cn>
-Tested-by: Tao Cui <cuitao@kylinos.cn>
-Co-developed-by: George Guo <guodongtai@kylinos.cn>
-Signed-off-by: George Guo <guodongtai@kylinos.cn>
-Signed-off-by: Yangyang Lian <lianyangyang@kylinos.cn>
----
-V3 -> V2: Export PAGE_OFFSET, as suggested by Huacai Chen. It is not a
-          fixed value on LoongArch (PAGE_OFFSET = CACHE_BASE + PHYS_OFFSET)
-          and RISC-V already exports it.
-V2 -> V1: Export VMEMMAP_END + 1 to make it an exclusive bound, matching
-          what tools like makedumpfile expect.
-          Add Tested-by tag from Tao Cui.
-
- .../admin-guide/kdump/vmcoreinfo.rst          | 36 +++++++++++++++++++
- arch/loongarch/kernel/Makefile                |  1 +
- arch/loongarch/kernel/vmcore_info.c           | 22 ++++++++++++
- 3 files changed, 59 insertions(+)
- create mode 100644 arch/loongarch/kernel/vmcore_info.c
-
-diff --git a/Documentation/admin-guide/kdump/vmcoreinfo.rst b/Documentation/admin-guide/kdump/vmcoreinfo.rst
-index 7663c610fe90..dd1f1d6225b6 100644
---- a/Documentation/admin-guide/kdump/vmcoreinfo.rst
-+++ b/Documentation/admin-guide/kdump/vmcoreinfo.rst
-@@ -594,3 +594,39 @@ va_kernel_pa_offset
- 
- Indicates the offset between the kernel virtual and physical mappings.
- Used to translate virtual to physical addresses.
-+
-+LOONGARCH64
-+===========
-+
-+VA_BITS
-+-------
-+
-+The maximum number of bits for virtual addresses. Used to compute the
-+virtual memory ranges.
-+
-+PHYS_OFFSET
-+-----------
-+
-+Indicates the physical address of the start of memory. Used to translate
-+virtual to physical addresses.
-+
-+PAGE_OFFSET
-+-----------
-+
-+Indicates the virtual kernel start address of the direct-mapped RAM region.
-+Used together with PHYS_OFFSET to translate between virtual and physical
-+addresses.
-+
-+KERNELOFFSET
-+------------
-+
-+The kernel randomization offset. Used to locate the kernel text in
-+virtual memory. If KASLR is disabled, this value is zero.
-+
-+MODULES_VADDR|MODULES_END|VMALLOC_START|VMALLOC_END|VMEMMAP_START|VMEMMAP_END
-+-----------------------------------------------------------------------------
-+
-+Used to get the correct ranges:
-+	MODULES_VADDR ~ MODULES_END-1 : Kernel module space.
-+	VMALLOC_START ~ VMALLOC_END-1 : vmalloc() / ioremap() space.
-+	VMEMMAP_START ~ VMEMMAP_END-1 : vmemmap region, used for struct page array.
-diff --git a/arch/loongarch/kernel/Makefile b/arch/loongarch/kernel/Makefile
-index 001924877772..6260c15adaba 100644
---- a/arch/loongarch/kernel/Makefile
-+++ b/arch/loongarch/kernel/Makefile
-@@ -64,6 +64,7 @@ obj-$(CONFIG_RELOCATABLE)	+= relocate.o
- obj-$(CONFIG_KEXEC_CORE)	+= machine_kexec.o relocate_kernel.o
- obj-$(CONFIG_KEXEC_FILE)	+= machine_kexec_file.o kexec_efi.o kexec_elf.o
- obj-$(CONFIG_CRASH_DUMP)	+= crash_dump.o
-+obj-$(CONFIG_VMCORE_INFO)	+= vmcore_info.o
- 
- obj-$(CONFIG_UNWINDER_GUESS)	+= unwind_guess.o
- obj-$(CONFIG_UNWINDER_PROLOGUE) += unwind_prologue.o
-diff --git a/arch/loongarch/kernel/vmcore_info.c b/arch/loongarch/kernel/vmcore_info.c
-new file mode 100644
-index 000000000000..e4efc35165b1
---- /dev/null
-+++ b/arch/loongarch/kernel/vmcore_info.c
-@@ -0,0 +1,22 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include <linux/vmcore_info.h>
-+#include <asm/addrspace.h>
-+#include <asm/pgtable.h>
-+#include <asm/setup.h>
-+
-+void arch_crash_save_vmcoreinfo(void)
-+{
-+	VMCOREINFO_NUMBER(VA_BITS);
-+	/* NUMBER(VMALLOC_START) is exported by the generic code */
-+	vmcoreinfo_append_str("NUMBER(VMALLOC_END)=0x%lx\n", VMALLOC_END);
-+#ifdef CONFIG_64BIT
-+	vmcoreinfo_append_str("NUMBER(MODULES_VADDR)=0x%lx\n", MODULES_VADDR);
-+	vmcoreinfo_append_str("NUMBER(MODULES_END)=0x%lx\n", MODULES_END);
-+	vmcoreinfo_append_str("NUMBER(VMEMMAP_START)=0x%lx\n", (unsigned long)vmemmap);
-+	vmcoreinfo_append_str("NUMBER(VMEMMAP_END)=0x%lx\n", VMEMMAP_END + 1);
-+#endif
-+	vmcoreinfo_append_str("NUMBER(PHYS_OFFSET)=0x%lx\n", PHYS_OFFSET);
-+	vmcoreinfo_append_str("NUMBER(PAGE_OFFSET)=0x%lx\n", PAGE_OFFSET);
-+	vmcoreinfo_append_str("KERNELOFFSET=%lx\n", kaslr_offset());
-+}
--- 
-2.25.1
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
