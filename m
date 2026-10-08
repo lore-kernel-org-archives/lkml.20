@@ -1,89 +1,88 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 990F04A498A
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 13:15:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F56B4A64EE
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 13:15:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791465310; cv=none; b=aXL+jYGKZU9yDmXU0EwHg/juAfTvBXCp8GokbKWUCmcjcFI3TsssQhdwPU//NBotbo9ba1ifdx5aLkQ5GF14kwM2qpqbGmdwnXe0oJhLckMY0avMIGTMqDsRT8uCdv/pe5MUQOOmpe6pUviPNOX8HV4wn5x0rtbHu/anfKHbnMA=
+	t=1791465307; cv=none; b=Lc2k5vUL4juN0jhJsV1TM1xjJrrypH/719IV/olgb7MWvyyvWNfYBYi72T2d/D6Ziw9AiJxKcXiCaqEAPBktyv1mOLDCjPgnLr3JBgMhiAM82mC1DVKyQwBa6Zr+kc7wwFeshMLZweGJ77/U6MeWWGA2GQNqwq3yUXrN91eBcG4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791465310; c=relaxed/simple;
-	bh=WxoSDtesfPtJ1QyZHA2W6JfIGP8oLsOW8aCQdlTEVVM=;
+	s=arc-20240116; t=1791465307; c=relaxed/simple;
+	bh=ryNN3DmrHi8XXS0qn5CJ7WTWFsktpdUnGV4Ax3o5lVI=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=WKed5wD4XPz7rQUbRNtEC8KtSd3T6a2XQ4zQvqTg4WlHyr+GyCKWc/ckrIuvZ4mdZwQwfu0y4NUvhsNFHHKSHyg7TbUEs2CFzDUUMIWemY1b0DZHFR8pTS/p3fQU/SFUCRerSiVUG4MV5T/mDgDE4OjzLK5i1riuQ6liJagEoGA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=F5jFROzt; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hS6nCczb; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=ZWwy5i8O+ELLN1R8k+XwOo+DDXVdQ9BrVeqFkd1BBJNWts+YvA4Yn6+GHxVdNFU6C6K75uFbSnK687f0MbkMxOm9+bE66ODP2sLjNaJ+DKQWi++mIOX1hpWyccc2fYSYmR6Mf2d9Ssh+HNyjIpwRMYo+LtcXeC8SPJftxAXSbSs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FSdatKod; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XKkb1S+J; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="F5jFROzt";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hS6nCczb"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 698BJxPx3732632
-	for <linux-kernel@vger.kernel.org>; Thu, 8 Oct 2026 13:15:04 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FSdatKod";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XKkb1S+J"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 698BKFih3224969
+	for <linux-kernel@vger.kernel.org>; Thu, 8 Oct 2026 13:15:00 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	sL0PcIsuT2lGq78xVWRMAbUxXJs+OS2DfhPwb0cXcfU=; b=F5jFROztkE8lXSuV
-	2tKioY6sv3yWPr4xawjqi5G8tkn/BcaZnunodzBMtvXo0//4RptuVj7KdJvboRkB
-	oroqZLl7Jzz6QpdPD4ccJ6l+8/G16/y6LpScULhQyCJq2GA3x/L78eo4OA/ktDI0
-	2tbuDdIi2UmpaB9vau9hu+jX0vFWvZDczXSxkFFiWJIiOgZ4j/kFphf88kDwLPe5
-	rq2IIoer70ueNRYS8rvxC+E/gdbSWxm9PQZ7RXW9GW4EuwwG88BYfy4ui5upm/SI
-	7uaQue3Mn0f+tqtAiWQP/Lbr3abF5ReKMumhLiV2bTrPnVBVzxeBdrIcNs7dHA+I
-	XICRWA==
-Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe6b1qf-1
+	GMVLjHiN77JDF3XhX8hA0in6DLXXVD21cTvzqwETSIU=; b=FSdatKodN0qDDlH8
+	i1DtYnp1VxH8IM3zqM7rlwXYGh1DRiNtWp9MNzkqc41V+QyNgOQGR/Odr/jrhnCV
+	Hva+QXfAmw9WVS37+iIraeTbOAkbEe0iQreEA3A0XLCX5VMHWeLlTGzCQ3dGMIrB
+	eMml7vntOJ4HGSN5q+8ONB5Gd+4HA0F4EQPWeBh56QX75lVX5scyBDbhKdlJmk15
+	DU+3w4NTRqHwslcjfbdxKxFPszC9q0kIi8S3YeyQdLaGsHhQ0a9lJeRb94/6qWPK
+	5gbTjOKH2GsS1Nlip4b2kjcLuqc9t8W8vLrKKzBp6CJ/IGdTJtthcYodNsCc37jU
+	o0rEuA==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe431q3-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 13:15:04 +0000 (GMT)
-Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-7b2f700b30bso954156137.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 06:15:04 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 13:15:00 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-7c29a61f144so949150137.2
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 06:14:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791465303; x=1792070103; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1791465299; x=1792070099; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=sL0PcIsuT2lGq78xVWRMAbUxXJs+OS2DfhPwb0cXcfU=;
-        b=hS6nCczb6UOiSqo2h6cz/MaTMLv/V6mpBY8/lJwvSx/1exVvh+OwCbwUaT8mFNx4vm
-         o5Bmmck4JJjQG/cWwD7IKydBMIjo/TJsd5uVwRMiliru+eyoX7aUwkgFzUdeQ4fOpiRK
-         9Keb7w6UqBj8c7A1h81I6MSrO6XOG+mcpQRpKkDAOLBfDR+Pff5K6+SZWmWkpPHsJHFW
-         HTqVTercYOkqs7HkVtGrvx41XQHLLCIAGPswodJ3swjduepYqhAiauC7NCHz2/y2FtJh
-         a5IGBD6kIaxccKDigf5WNA8+K7NRHAOw3hz0VB9dYSQiavw//39WOqjGAq31svneK/u5
-         ONjA==
+        bh=GMVLjHiN77JDF3XhX8hA0in6DLXXVD21cTvzqwETSIU=;
+        b=XKkb1S+JWbGCeqlJqi4Mz9C5zJS/yWXXpZYuEQmbr9pt0icv2EEkOpt5TZrP1P2YnH
+         Is0urO1Funbd/exOZnxUtC/pp3WkLju9XQhe6DhiKo8nWGT6iS1kc1b/gP5Zrm5vsYOi
+         Ul6dTtwIwoDPDGOf9JtAlUvBVozZIymFw7EDRUXXuylwcmtZVCPFqzqvj/3t+sd+8vqm
+         RQq7xjOew/tdlNnsyIoEF+5H2OhQwx8cNO7124GezPeSsQiL9H75Iw0s+UaQC1x0CaeO
+         JL25e3w7Xyl0e8l88SMzeOYX3D4iF2vvQGWYam0aLUZDVKjPpfMQQiwieTVr/b1OpgDZ
+         BU/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791465303; x=1792070103;
+        d=1e100.net; s=20260707; t=1791465299; x=1792070099;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=sL0PcIsuT2lGq78xVWRMAbUxXJs+OS2DfhPwb0cXcfU=;
-        b=DtoUdyz/A0xYSd0Io8A5gyvo4SOq6PxZqTWnM+6cU6gnZi0pHnaEYnWTnRFxsWfRYX
-         ZDHqz/z8Jhi1fQ7rk/L6GyWbjqw7G+XaNJ96n5eD3UgBJmGdl4hz/T6ZM+J4mDNE+hX5
-         jEXT6Ed0SOHAuF/C+wRFaDgAmHeeQIgf86PbZTH4Zy/b2+rFlgaQRbrxym661OxQT7f0
-         vQyvumZFtg2FyjEy5PnjAd8Kup2Ymg/CjrV8H32iI8TCb590a3e8BYnSXiZoHkw7cyma
-         v8UI+oF76X42yoK08ozdWYTdtVuebodFYIlVLyTx6L9gcU7z/+Du5uSdC1sLfUT7ZrJ5
-         AWcA==
-X-Forwarded-Encrypted: i=1; AKwUvBxqCpFY+n5XixR5iSdXokq5R7yuASWHOWzSbwu801zXO63nAjPO/Txy58I57jEgdivU4wni1ztH1A4cwS0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKczDB+tKFr9CwoShKrdMzn5k9j1xKgExif4qv04HQwVW2Orr/B
-	T8ha8Mq9jhJlHxtdRUrTwCSrmaWe1YpRT0iL3FlsIbf0+/1t2TMjvQbGI3+pQCWWxp60W5ITkfR
-	28XKe+GAA4IkTD+Ci46XwzX0vKzveZ8Qf9FMlSiB5p3b81nPho0qvktsiMDiQtdI7ayE=
-X-Gm-Gg: AYBFou3weiYTz/jafgsntWmo3EsArr5C4O4izKRr37H9CtwNsC0g5m8Z6TI2/IwJrUk
-	zdaHVTvwn0vlk36jYGt5jcmJcepOpZ/jtzv2xQ2bafaveGFdLvYMFH9U8WAs4FXSmGzH7/6ZySG
-	6AYl4q7cqpHGNmzxdX4GrZSnTIr3+N2uRyOhzAoIDeTJQ07yD2TYJw/6IGVk0Xmwmezy7+dyMtQ
-	Qwus4/RoWXFxrJwgXnDWZdgjqj5tbvUma/x8cBdF6ndCvddxVz5okjHLwDP5V1iJYGoU+1CsMCi
-	/HR3NKk43jOZji/BlV95k4CzWLSUr6g4U6WMCBSkxKgGcG1NUpeqMEvJxIofNSbqWNj5YFNMoxd
-	QY88GIMU6OLR0Q8l79S0KVb/rAhianTlzwHs+6j8VNF+4V47zV1hXrz6nroA4CkrFdj0vSxP1WL
-	G0MHFT7j8c3IW4
-X-Received: by 2002:a05:6102:dd1:b0:7c3:a6f0:99cb with SMTP id ada2fe7eead31-7ca38e1cb0bmr1393314137.33.1791465303312;
-        Thu, 08 Oct 2026 06:15:03 -0700 (PDT)
-X-Received: by 2002:a05:6102:dd1:b0:7c3:a6f0:99cb with SMTP id ada2fe7eead31-7ca38e1cb0bmr1393305137.33.1791465302799;
-        Thu, 08 Oct 2026 06:15:02 -0700 (PDT)
+        bh=GMVLjHiN77JDF3XhX8hA0in6DLXXVD21cTvzqwETSIU=;
+        b=LhZfoBQEAEjOX9p6tTEXHdqzhgErgG+k9ajAtIaGwSbemTvXqTBDlyRN+k9TReg6Tl
+         5oNulIuSlB7hSY/Hei5O8ylLwZlhw4D2i1qOK8+sRZ9vTt24w/uLtvey2zQ8Z8UTK4B7
+         W1hZiSCFuWe7+mPqVLEhjsrk4mOEi7rWt//7P/haK6SrLcIFumk5V2enjmKOJIt79xLo
+         VAeODMYyotccgtgBd4+1SqPGxvzP/dj21sT8GRVtyEfzh0SklatyWnh2oA60H9/bdVNa
+         mJJMytnHAvMpF89AbANrD938sptoX9UmIgtqmZ9MN4Q7PdQFYcgxlRTbfhE1xUXMign2
+         GZTA==
+X-Forwarded-Encrypted: i=1; AKwUvBwE5IwF/9lj0LEpih5fPEYdDZScmVGskN1qgVm0h5+2bAvUtBTs57tqnn54AGKzBLncYtesIuolKuEcQ8o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIG6CnVGPhuNxcl1DJSALOdBwrLUsfe2yBDa0nMo5ERRox6xmYl
+	wcpHgTc4UYGMml4E0ANq+9RYCvDqUKZcn/6xw8aHXNvxdvxCL1XME8rRcuKKLA03YX02pmjYMQ+
+	UleB51hj5cNoJpJE6wFyO9MfTxPhdElm2lAaSEwVJwoqsnWByTlK43OLrUTQ4nXAzM0E=
+X-Gm-Gg: AYBFou26M62ScFc40Plp8gipxW5i9HO9VTnkXuGkw2e+QK9E++9Fk5EQMEAqCYTTeYy
+	mH4v/lqIdAoKbHfUhvPKd+d5DAUVHz4bqdcPu8LUzUYpEqh0ZPVSSERsBrnRW7CUy1d7X59LozT
+	oY2XYAohTR566AS91Wmy0PSqp5nR8jxx605mg6LZuptp2rSKg/ZyfDZ4vP9h7GFXmVfP+hukR85
+	Y5Snb5KeMY9FQjHeqNdEJHtWuHbd3f975v3psEPZmwhn3Vy44qnzLuy+/f5keRS6yHploS3BLP3
+	gDv05bbsH7toooqAhQdEG6PB5V3TIt9jvUVEriSlH6hkxary3PF63zgCv8obp6jXv2kVimVbBWF
+	9p9ApQobeJvkHeYssrq6UQZoA8dcH1nRMtUSgDNQLLy+Fjv0ohmonhu5MyPuxODidy3igvPDpow
+	N175nhY+YOpD5P
+X-Received: by 2002:a05:6102:2c0d:b0:7a1:fa0f:1106 with SMTP id ada2fe7eead31-7ca393604bamr1267170137.36.1791465299023;
+        Thu, 08 Oct 2026 06:14:59 -0700 (PDT)
+X-Received: by 2002:a05:6102:2c0d:b0:7a1:fa0f:1106 with SMTP id ada2fe7eead31-7ca393604bamr1267154137.36.1791465298371;
+        Thu, 08 Oct 2026 06:14:58 -0700 (PDT)
 Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a9ae563df4sm8691441fa.30.2026.10.08.06.15.00
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a9ae563df4sm8691441fa.30.2026.10.08.06.14.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 06:15:01 -0700 (PDT)
+        Thu, 08 Oct 2026 06:14:56 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Thu, 08 Oct 2026 16:14:28 +0300
-Subject: [PATCH RFC 6/9] drm/panel: factor out the panel follower
- notifications
+Date: Thu, 08 Oct 2026 16:14:26 +0300
+Subject: [PATCH RFC 4/9] drm/panel: add atomic state
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -92,7 +91,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261008-panel-atomic-state-v1-6-b157fddb8de1@oss.qualcomm.com>
+Message-Id: <20261008-panel-atomic-state-v1-4-b157fddb8de1@oss.qualcomm.com>
 References: <20261008-panel-atomic-state-v1-0-b157fddb8de1@oss.qualcomm.com>
 In-Reply-To: <20261008-panel-atomic-state-v1-0-b157fddb8de1@oss.qualcomm.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>,
@@ -114,242 +113,622 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
         linux-doc@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5677;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=20845;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=WxoSDtesfPtJ1QyZHA2W6JfIGP8oLsOW8aCQdlTEVVM=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBqx5dGHeavSd/b4PpeyyXfUxEH1TIPxnfEh8B3G
- VlH8VwWUlqJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaseXRgAKCRCLPIo+Aiko
- 1WQ/B/0XM7HDpkJyCpbbBkf0e+jtRpKLvvFTv2bgnNgaj+DL5d/xqkhHfRb03L1mnZa22eK2LHb
- zpSXB8z6AAB/fPeolS2dv4ODFVAZBkaNRUalcHaVeyhDaqGuclgsMMLr8+PdRSL8w584jMdiiuO
- NzG/AJ6J07spCeaxZRXjlmtq8VaO/msGBK847NySXBrzOZVD7asb4OSV8hGf5YIOFImMpnUss3Z
- FPuYpd31xz/p3qcQjTdOLuW1PX79ySHamQ5Ro+f12Ctgj2WB0VSzo3gxPAuiUFg5yfaobmVDeQu
- J+TkjdEFVjMqzrLw5Ccha29LTTjMlN8EdMn+S1VcA2GoHWvV
+ bh=ryNN3DmrHi8XXS0qn5CJ7WTWFsktpdUnGV4Ax3o5lVI=;
+ b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ9bx6W7ipcq9vl/T72R/eb9OdjNzmsPbnFuRifzpLU3up
+ xm35Ut1MhqzMDByMciKKbL4FLRMjdmUHPZhx9R6mEGsTCBTGLg4BWAin15xMMx0D/S0qzmioMvZ
+ t/Z557Y838t/7+uHC6QJrApSXBohVsvfcPzB/8du58W8VqvZrOMKzOLRXqi4JDTYWMOe80hugoP
+ 7m+seMcYzrS7laWapr5m8+udZc15P/wXrFJ9lhkYlGd/Yuc/J6sGzW9cz9rgtc/i3cnb2S6Wyoo
+ aQ+Zc3X4uslN7JmCCk3udpkr39nMvUjn83y5MP3//Ex97LI2XyOO1Q2zemmr2CNqXmzGouUn06D
+ 4Knfp3olDLt72SeCum54hf0uJa1LO0OqsjdvevyD6FtJw8kHTQq6vDevnVXp/67dXGHM00Dbx3w
+ MO12+DjLa0a5V1minj4L99I1gqKlzxf+TrKdJfBor+BnAA==
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-ORIG-GUID: ZA_UYqQu77YS2bUj-b7ikellZouDojiA
-X-Authority-Analysis: v=2.4 cv=HcWB3SE8 c=1 sm=1 tr=0 ts=6ac79758 cx=c_pps
- a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Proofpoint-GUID: UnGbDFGBSqsOC3YPd-rZ5_13ZYwBdYv0
+X-Authority-Analysis: v=2.4 cv=AbwkjHXG c=1 sm=1 tr=0 ts=6ac79754 cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
- a=Ehp3mkkGfunlVMu3AX4A:9 a=QEXdDO2ut3YA:10 a=crWF4MFLhNY0qMRaF8an:22
-X-Proofpoint-GUID: ZA_UYqQu77YS2bUj-b7ikellZouDojiA
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDA1MiBTYWx0ZWRfX3i4OaWGoiuez
- iPNRHW1ZLoprCV/7ZqpVbNMGh84kqEpiE/MP2dxsoS0Cic6hZWg1SF/+dfPcxPReQgO44NKOq6C
- 7L0z74DhgJ4sAktJvtkPXvq4qXlUM+iWy7LSR1M6p4bZCEAXA6M4zJcv4skYF6pM3lulPADubjd
- fTAttQOa6aV30vocy6Gl0J3JhOB2zcjqtc8MvP6MVatL5GyUV3k/CoSR6U4rxCZVFrhdwua/tjF
- 66voc6IanF9FonfeM4PukwkeVj2RM8Cm55JlmHfKtkXtlA/Dt6v+S0FUz+Tdd5cEPOtzPSIgENZ
- IOV40oeD9QnPmTNFSKOv29IrYUu/B7g2+TpmGdfvs4GKFHewOdRw4qK1uN2uZAe863DQ63dr/PW
- QEWOn4GvUMhn0BECEggwoQiwi1lPnwDOPDdY35ONJ6GvhS7Vjc9PxmryoKKFnU6ydttWdaMYnO/
- HopDM4YfWhR2c1v20wg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDA1MiBTYWx0ZWRfX9lQxMhilBwKf
- 7Z5QhdIzEEFlD5/64DTgMutHCzDtflyFpDKxgtRfIEVHUDUHxa2xaACiEiEqLwSLHf7AXzKnLtG
- ArWzC0UbltNHYl76FprJBTJm6AJvADA=
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
+ a=ms1Gz_XUBqPSZgH_T3AA:9 a=QEXdDO2ut3YA:10 a=gYDTvv6II1OnSo0itH1n:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDA1MiBTYWx0ZWRfX3W77uFOKxW2Q
+ 1M6cEqSttp8fy7ArmubGb8sFXGPn+q/zyt3aqOXk4l/yqmlbmRlrCmtrN38jiQGpYzKIHy4utxf
+ l2N+cvua95kZzkGALEPuSXzeIsugyTg=
+X-Proofpoint-ORIG-GUID: UnGbDFGBSqsOC3YPd-rZ5_13ZYwBdYv0
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDA1MiBTYWx0ZWRfX9mCJ9N0ci4WD
+ FM2MjC80F//2V5g5K0WBFUlVSZs/wL7ebsbIN2o9hSBXwPglOiiNbEg2qXnJx4HiWylA7o60J1u
+ K263lnFZUC7X5svqNCTNgkjR8E8C2Ksi85Je6UZ3i5zQ6DN2ZaZik7axLT9s+7qiuJuqULRtfYu
+ Ifp2RNqzY6HbeUCB0CnLRkpZGX3wKjj0JcFbolOXx5ndxVR/W3oHIyPGNpOXJ4P9wshbp2Y8nT9
+ kFypAeVRwZXM8Ho+xmTBZ8Mq/hH4qe3ttq0P9t2Kf+Q/XX64gUl/mktj8Ybt1/lOZRt7AdHZ3xm
+ vccSZnnmYL4FEx1wEx7ea0Vv+TwTs7FESJqOzhHrdmT2JLd73ZEpKIR2BpMSVe3D57aXUmsK0Lc
+ s9lV0LnbnjyqSdEHE+FivGXeTDFXdPU2i+ZgeOdBF2mN2dnbqRe/6D2cpRoXrFsYlON9iWdUBFV
+ v94M8bH+8oig8498hog==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-08_04,2026-10-08_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 spamscore=0 bulkscore=0 adultscore=0
- priorityscore=1501 impostorscore=0 suspectscore=0 phishscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610020000
- definitions=main-2610080052
+ impostorscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
+ clxscore=1015 suspectscore=0 priorityscore=1501 adultscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080052
 
-drm_panel_prepare(), drm_panel_unprepare(), drm_panel_enable() and
-drm_panel_disable() each open-code the loop notifying the panel
-followers. The atomic variants of these functions are going to need the
-same notifications, which would duplicate each of the loops.
+Panel drivers have no way to track per-commit configuration. A panel
+that supports several modes, or that needs different programming
+depending on the selected configuration, has to keep that information in
+its driver data, where it is neither checked at atomic_check time nor
+tied to the commit that is being applied.
 
-Move the loops to helpers. No functional change.
+Every drm_panel embeds a drm_bridge, and that bridge already carries an
+atomic state, but it is the plain drm_bridge_state and the panel driver
+never sees it.
+
+Introduce struct drm_panel_state, wrapping drm_bridge_state. As for the
+other atomic objects, a panel gets it by implementing the
+atomic_create_state, atomic_duplicate_state and atomic_destroy_state
+callbacks, either with the default helpers or with its own functions if
+it subclasses the state. Add accessors to get the old, new and current
+panel state.
+
+Panels not implementing these callbacks keep using the plain bridge
+state, nothing changes for them.
+
+The panel state only exists once the embedded bridge has been attached
+to an encoder, which is not the case for the display drivers calling
+drm_panel_prepare() and its counterparts directly. Make these functions
+refuse to handle the panels using atomic state.
 
 Assisted-by: LLM
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/gpu/drm/drm_panel.c | 116 +++++++++++++++++++++++++++++---------------
- 1 file changed, 76 insertions(+), 40 deletions(-)
+ Documentation/gpu/drm-kms-helpers.rst |   3 +
+ drivers/gpu/drm/drm_panel.c           | 301 +++++++++++++++++++++++++++++++++-
+ include/drm/drm_panel.h               |  95 +++++++++++
+ 3 files changed, 396 insertions(+), 3 deletions(-)
 
+diff --git a/Documentation/gpu/drm-kms-helpers.rst b/Documentation/gpu/drm-kms-helpers.rst
+index d64f941d34f5..305c24be7f4b 100644
+--- a/Documentation/gpu/drm-kms-helpers.rst
++++ b/Documentation/gpu/drm-kms-helpers.rst
+@@ -229,6 +229,9 @@ Panel Helper Reference
+ .. kernel-doc:: drivers/gpu/drm/drm_panel.c
+    :doc: drm panel
+ 
++.. kernel-doc:: drivers/gpu/drm/drm_panel.c
++   :doc: drm panel atomic state
++
+ .. kernel-doc:: include/drm/drm_panel.h
+    :internal:
+ 
 diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
-index 3a154be128a0..ed0d16e04eae 100644
+index c00529bfb706..481caa294243 100644
 --- a/drivers/gpu/drm/drm_panel.c
 +++ b/drivers/gpu/drm/drm_panel.c
-@@ -84,6 +84,78 @@ struct panel_bridge {
- 	u32 connector_type;
- };
+@@ -11,6 +11,7 @@
+ #include <linux/export.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
++#include <linux/slab.h>
  
-+static void drm_panel_followers_prepared(struct drm_panel *panel)
-+{
-+	struct drm_panel_follower *follower;
-+	int ret;
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_bridge.h>
+@@ -38,6 +39,32 @@ static LIST_HEAD(panel_list);
+  * take look at drm_panel_bridge_add() and devm_drm_panel_bridge_add().
+  */
+ 
++/**
++ * DOC: drm panel atomic state
++ *
++ * Panels that only support a single configuration can be fully described by
++ * the &drm_panel_funcs.prepare, &drm_panel_funcs.enable,
++ * &drm_panel_funcs.disable and &drm_panel_funcs.unprepare callbacks.
++ *
++ * Panels whose programming depends on the configuration being applied, for
++ * example panels supporting several modes, should track that configuration in
++ * the atomic state instead of the driver data. Such panels get a
++ * &struct drm_panel_state by implementing
++ * &drm_panel_funcs.atomic_create_state,
++ * &drm_panel_funcs.atomic_duplicate_state and
++ * &drm_panel_funcs.atomic_destroy_state, either with the
++ * drm_atomic_helper_panel_create_state(),
++ * drm_atomic_helper_panel_duplicate_state() and
++ * drm_atomic_helper_panel_destroy_state() helpers or with their own functions
++ * if they subclass the state.
++ *
++ * The panel state is the state of the &drm_bridge embedded in the panel. It
++ * only exists once that bridge has been attached to an encoder, so the panels
++ * using atomic state can only be used by display drivers going through the
++ * bridge. Such panel drivers must not call drm_panel_disable() or
++ * drm_panel_unprepare() from their remove or shutdown callbacks either.
++ */
 +
-+	lockdep_assert_held(&panel->follower_lock);
-+
-+	list_for_each_entry(follower, &panel->followers, list) {
-+		if (!follower->funcs->panel_prepared)
-+			continue;
-+
-+		ret = follower->funcs->panel_prepared(follower);
-+		if (ret < 0)
-+			dev_info(panel->dev, "%ps failed: %d\n",
-+				 follower->funcs->panel_prepared, ret);
-+	}
-+}
-+
-+static void drm_panel_followers_unpreparing(struct drm_panel *panel)
-+{
-+	struct drm_panel_follower *follower;
-+	int ret;
-+
-+	lockdep_assert_held(&panel->follower_lock);
-+
-+	list_for_each_entry(follower, &panel->followers, list) {
-+		if (!follower->funcs->panel_unpreparing)
-+			continue;
-+
-+		ret = follower->funcs->panel_unpreparing(follower);
-+		if (ret < 0)
-+			dev_info(panel->dev, "%ps failed: %d\n",
-+				 follower->funcs->panel_unpreparing, ret);
-+	}
-+}
-+
-+static void drm_panel_followers_enabled(struct drm_panel *panel)
-+{
-+	struct drm_panel_follower *follower;
-+	int ret;
-+
-+	lockdep_assert_held(&panel->follower_lock);
-+
-+	list_for_each_entry(follower, &panel->followers, list) {
-+		if (!follower->funcs->panel_enabled)
-+			continue;
-+
-+		ret = follower->funcs->panel_enabled(follower);
-+		if (ret < 0)
-+			dev_info(panel->dev, "%ps failed: %d\n",
-+				 follower->funcs->panel_enabled, ret);
-+	}
-+}
-+
-+static void drm_panel_followers_disabling(struct drm_panel *panel)
-+{
-+	struct drm_panel_follower *follower;
-+	int ret;
-+
-+	lockdep_assert_held(&panel->follower_lock);
-+
-+	list_for_each_entry(follower, &panel->followers, list) {
-+		if (!follower->funcs->panel_disabling)
-+			continue;
-+
-+		ret = follower->funcs->panel_disabling(follower);
-+		if (ret < 0)
-+			dev_info(panel->dev, "%ps failed: %d\n",
-+				 follower->funcs->panel_disabling, ret);
-+	}
-+}
-+
- static int panel_bridge_connector_get_modes(struct drm_connector *connector)
+ static inline struct drm_panel *
+ drm_bridge_to_panel(const struct drm_bridge *bridge)
  {
- 	struct drm_panel *panel = drm_connector_to_panel(connector);
-@@ -758,7 +830,6 @@ EXPORT_SYMBOL(devm_drm_panel_add);
+@@ -216,6 +243,52 @@ static void panel_bridge_debugfs_init(struct drm_bridge *bridge,
+ 		panel->funcs->debugfs_init(panel, root);
+ }
+ 
++static struct drm_bridge_state *
++panel_bridge_atomic_create_state(struct drm_bridge *bridge)
++{
++	struct drm_panel *panel = drm_bridge_to_panel(bridge);
++	struct drm_panel_state *panel_state;
++
++	if (!panel->funcs->atomic_create_state)
++		return drm_atomic_helper_bridge_create_state(bridge);
++
++	panel_state = panel->funcs->atomic_create_state(panel);
++	if (IS_ERR(panel_state))
++		return ERR_CAST(panel_state);
++
++	return &panel_state->base;
++}
++
++static struct drm_bridge_state *
++panel_bridge_atomic_duplicate_state(struct drm_bridge *bridge)
++{
++	struct drm_panel *panel = drm_bridge_to_panel(bridge);
++	struct drm_panel_state *panel_state;
++
++	if (!panel->funcs->atomic_duplicate_state)
++		return drm_atomic_helper_bridge_duplicate_state(bridge);
++
++	panel_state = panel->funcs->atomic_duplicate_state(panel);
++	if (!panel_state)
++		return NULL;
++
++	return &panel_state->base;
++}
++
++static void panel_bridge_atomic_destroy_state(struct drm_bridge *bridge,
++					      struct drm_bridge_state *bridge_state)
++{
++	struct drm_panel *panel = drm_bridge_to_panel(bridge);
++
++	if (!panel->funcs->atomic_destroy_state) {
++		drm_atomic_helper_bridge_destroy_state(bridge, bridge_state);
++		return;
++	}
++
++	panel->funcs->atomic_destroy_state(panel,
++					   drm_bridge_state_to_panel_state(bridge_state));
++}
++
+ static const struct drm_bridge_funcs panel_bridge_bridge_funcs = {
+ 	.attach = panel_bridge_attach,
+ 	.detach = panel_bridge_detach,
+@@ -224,9 +297,9 @@ static const struct drm_bridge_funcs panel_bridge_bridge_funcs = {
+ 	.atomic_disable = panel_bridge_atomic_disable,
+ 	.atomic_post_disable = panel_bridge_atomic_post_disable,
+ 	.get_modes = panel_bridge_get_modes,
+-	.atomic_create_state = drm_atomic_helper_bridge_create_state,
+-	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
+-	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
++	.atomic_create_state = panel_bridge_atomic_create_state,
++	.atomic_duplicate_state = panel_bridge_atomic_duplicate_state,
++	.atomic_destroy_state = panel_bridge_atomic_destroy_state,
+ 	.atomic_get_input_bus_fmts = drm_atomic_helper_bridge_propagate_bus_fmt,
+ 	.debugfs_init = panel_bridge_debugfs_init,
+ };
+@@ -576,6 +649,11 @@ static void drm_panel_init(struct drm_panel *panel, struct device *dev,
+ 	if (connector_type == DRM_MODE_CONNECTOR_Unknown)
+ 		DRM_WARN("%s: %s: a valid connector type is required!\n", __func__, dev_name(dev));
+ 
++	dev_WARN_ONCE(dev,
++		      !funcs->atomic_create_state != !funcs->atomic_duplicate_state ||
++		      !funcs->atomic_create_state != !funcs->atomic_destroy_state,
++		      "Panel state callbacks have to be implemented together\n");
++
+ 	INIT_LIST_HEAD(&panel->list);
+ 	INIT_LIST_HEAD(&panel->followers);
+ 	mutex_init(&panel->follower_lock);
+@@ -657,6 +735,9 @@ EXPORT_SYMBOL(devm_drm_panel_add);
+  * integrated circuitry via a command bus. This function cannot fail (as it is
+  * called from the pre_enable call chain). There will always be a call to
+  * drm_panel_disable() afterwards.
++ *
++ * This function can not be used with the panels using atomic state, those are
++ * only supported through the bridge embedded in the panel.
   */
  void drm_panel_prepare(struct drm_panel *panel)
  {
--	struct drm_panel_follower *follower;
- 	int ret;
- 
+@@ -666,6 +747,10 @@ void drm_panel_prepare(struct drm_panel *panel)
  	if (!panel)
-@@ -782,15 +853,7 @@ void drm_panel_prepare(struct drm_panel *panel)
- 	}
- 	panel->prepared = true;
+ 		return;
  
--	list_for_each_entry(follower, &panel->followers, list) {
--		if (!follower->funcs->panel_prepared)
--			continue;
--
--		ret = follower->funcs->panel_prepared(follower);
--		if (ret < 0)
--			dev_info(panel->dev, "%ps failed: %d\n",
--				 follower->funcs->panel_prepared, ret);
--	}
-+	drm_panel_followers_prepared(panel);
- 
- exit:
- 	mutex_unlock(&panel->follower_lock);
-@@ -811,7 +874,6 @@ EXPORT_SYMBOL(drm_panel_prepare);
++	if (dev_WARN_ONCE(panel->dev, panel->funcs->atomic_create_state,
++			  "Atomic panels have to be driven through the bridge\n"))
++		return;
++
+ 	if (panel->prepared) {
+ 		dev_warn(panel->dev, "Skipping prepare of already prepared panel\n");
+ 		return;
+@@ -703,6 +788,9 @@ EXPORT_SYMBOL(drm_panel_prepare);
+  * reset, turn off power supplies, ...). After this function has completed, it
+  * is usually no longer possible to communicate with the panel until another
+  * call to drm_panel_prepare().
++ *
++ * This function can not be used with the panels using atomic state, those are
++ * only supported through the bridge embedded in the panel.
   */
  void drm_panel_unprepare(struct drm_panel *panel)
  {
--	struct drm_panel_follower *follower;
- 	int ret;
- 
+@@ -712,6 +800,10 @@ void drm_panel_unprepare(struct drm_panel *panel)
  	if (!panel)
-@@ -837,15 +899,7 @@ void drm_panel_unprepare(struct drm_panel *panel)
+ 		return;
  
- 	mutex_lock(&panel->follower_lock);
- 
--	list_for_each_entry(follower, &panel->followers, list) {
--		if (!follower->funcs->panel_unpreparing)
--			continue;
--
--		ret = follower->funcs->panel_unpreparing(follower);
--		if (ret < 0)
--			dev_info(panel->dev, "%ps failed: %d\n",
--				 follower->funcs->panel_unpreparing, ret);
--	}
-+	drm_panel_followers_unpreparing(panel);
- 
- 	if (panel->funcs && panel->funcs->unprepare) {
- 		ret = panel->funcs->unprepare(panel);
-@@ -874,7 +928,6 @@ EXPORT_SYMBOL(drm_panel_unprepare);
++	if (dev_WARN_ONCE(panel->dev, panel->funcs->atomic_create_state,
++			  "Atomic panels have to be driven through the bridge\n"))
++		return;
++
+ 	/*
+ 	 * If you are seeing the warning below it likely means one of two things:
+ 	 * - Your panel driver incorrectly calls drm_panel_unprepare() in its
+@@ -759,6 +851,9 @@ EXPORT_SYMBOL(drm_panel_unprepare);
+  * this call completes. This function cannot fail (as it is called from the
+  * enable call chain). There will always be a call to drm_panel_disable()
+  * afterwards.
++ *
++ * This function can not be used with the panels using atomic state, those are
++ * only supported through the bridge embedded in the panel.
   */
  void drm_panel_enable(struct drm_panel *panel)
  {
--	struct drm_panel_follower *follower;
- 	int ret;
- 
+@@ -768,6 +863,10 @@ void drm_panel_enable(struct drm_panel *panel)
  	if (!panel)
-@@ -903,15 +956,7 @@ void drm_panel_enable(struct drm_panel *panel)
- 		DRM_DEV_INFO(panel->dev, "failed to enable backlight: %d\n",
- 			     ret);
+ 		return;
  
--	list_for_each_entry(follower, &panel->followers, list) {
--		if (!follower->funcs->panel_enabled)
--			continue;
--
--		ret = follower->funcs->panel_enabled(follower);
--		if (ret < 0)
--			dev_info(panel->dev, "%ps failed: %d\n",
--				 follower->funcs->panel_enabled, ret);
--	}
-+	drm_panel_followers_enabled(panel);
- 
- exit:
- 	mutex_unlock(&panel->follower_lock);
-@@ -931,7 +976,6 @@ EXPORT_SYMBOL(drm_panel_enable);
++	if (dev_WARN_ONCE(panel->dev, panel->funcs->atomic_create_state,
++			  "Atomic panels have to be driven through the bridge\n"))
++		return;
++
+ 	if (panel->enabled) {
+ 		dev_warn(panel->dev, "Skipping enable of already enabled panel\n");
+ 		return;
+@@ -809,6 +908,9 @@ EXPORT_SYMBOL(drm_panel_enable);
+  * This will typically turn off the panel's backlight or disable the display
+  * drivers. For smart panels it should still be possible to communicate with
+  * the integrated circuitry via any command bus after this call.
++ *
++ * This function can not be used with the panels using atomic state, those are
++ * only supported through the bridge embedded in the panel.
   */
  void drm_panel_disable(struct drm_panel *panel)
  {
--	struct drm_panel_follower *follower;
- 	int ret;
- 
+@@ -818,6 +920,10 @@ void drm_panel_disable(struct drm_panel *panel)
  	if (!panel)
-@@ -957,15 +1001,7 @@ void drm_panel_disable(struct drm_panel *panel)
+ 		return;
  
- 	mutex_lock(&panel->follower_lock);
++	if (dev_WARN_ONCE(panel->dev, panel->funcs->atomic_create_state,
++			  "Atomic panels have to be driven through the bridge\n"))
++		return;
++
+ 	/*
+ 	 * If you are seeing the warning below it likely means one of two things:
+ 	 * - Your panel driver incorrectly calls drm_panel_disable() in its
+@@ -890,6 +996,195 @@ int drm_panel_get_modes(struct drm_panel *panel,
+ }
+ EXPORT_SYMBOL(drm_panel_get_modes);
  
--	list_for_each_entry(follower, &panel->followers, list) {
--		if (!follower->funcs->panel_disabling)
--			continue;
--
--		ret = follower->funcs->panel_disabling(follower);
--		if (ret < 0)
--			dev_info(panel->dev, "%ps failed: %d\n",
--				 follower->funcs->panel_disabling, ret);
--	}
-+	drm_panel_followers_disabling(panel);
++/**
++ * __drm_atomic_helper_panel_state_init() - Initialize a panel state to its
++ *					     default
++ * @state: panel state to initialize
++ * @panel: the panel this state refers to
++ *
++ * @state is assumed to be zeroed.
++ *
++ * Initializes the panel state to default values. This is meant to be called
++ * by the panel &drm_panel_funcs.atomic_create_state hook for panels that
++ * subclass the panel state.
++ */
++void __drm_atomic_helper_panel_state_init(struct drm_panel_state *state,
++					  struct drm_panel *panel)
++{
++	__drm_atomic_helper_bridge_state_init(&state->base, &panel->bridge);
++}
++EXPORT_SYMBOL(__drm_atomic_helper_panel_state_init);
++
++/**
++ * __drm_atomic_helper_panel_duplicate_state() - Copy atomic panel state
++ * @panel: panel object
++ * @state: atomic panel state
++ *
++ * Copies atomic state from a panel's current state. This is meant to be
++ * called by the panel &drm_panel_funcs.atomic_duplicate_state hook for panels
++ * that subclass the panel state.
++ */
++void __drm_atomic_helper_panel_duplicate_state(struct drm_panel *panel,
++					       struct drm_panel_state *state)
++{
++	__drm_atomic_helper_bridge_duplicate_state(&panel->bridge, &state->base);
++}
++EXPORT_SYMBOL(__drm_atomic_helper_panel_duplicate_state);
++
++/**
++ * drm_atomic_helper_panel_create_state() - default
++ *		&drm_panel_funcs.atomic_create_state hook for panels
++ * @panel: panel object
++ *
++ * Allocates and initializes a pristine &drm_panel_state. This is meant to be
++ * used by panels that don't subclass the panel state.
++ *
++ * Return:
++ *
++ * Pointer to the new panel state, or an error pointer on failure.
++ */
++struct drm_panel_state *
++drm_atomic_helper_panel_create_state(struct drm_panel *panel)
++{
++	struct drm_panel_state *state;
++
++	state = kzalloc_obj(*state);
++	if (!state)
++		return ERR_PTR(-ENOMEM);
++
++	__drm_atomic_helper_panel_state_init(state, panel);
++
++	return state;
++}
++EXPORT_SYMBOL(drm_atomic_helper_panel_create_state);
++
++/**
++ * drm_atomic_helper_panel_duplicate_state() - default
++ *		&drm_panel_funcs.atomic_duplicate_state hook for panels
++ * @panel: panel object
++ *
++ * Allocates a new panel state and initializes it with the current panel state
++ * values. This is meant to be used by panels that don't subclass the panel
++ * state.
++ *
++ * Return:
++ *
++ * Pointer to the new panel state, or NULL on failure.
++ */
++struct drm_panel_state *
++drm_atomic_helper_panel_duplicate_state(struct drm_panel *panel)
++{
++	struct drm_panel_state *state;
++
++	if (drm_WARN_ON(panel->bridge.dev, !panel->bridge.base.state))
++		return NULL;
++
++	state = kzalloc_obj(*state);
++	if (state)
++		__drm_atomic_helper_panel_duplicate_state(panel, state);
++
++	return state;
++}
++EXPORT_SYMBOL(drm_atomic_helper_panel_duplicate_state);
++
++/**
++ * drm_atomic_helper_panel_destroy_state() - default
++ *		&drm_panel_funcs.atomic_destroy_state hook for panels
++ * @panel: panel object
++ * @state: panel state to destroy
++ *
++ * Destroys a panel state previously created by
++ * drm_atomic_helper_panel_create_state() or
++ * drm_atomic_helper_panel_duplicate_state(). This is meant to be used by panels
++ * that don't subclass the panel state.
++ */
++void drm_atomic_helper_panel_destroy_state(struct drm_panel *panel,
++					   struct drm_panel_state *state)
++{
++	kfree(state);
++}
++EXPORT_SYMBOL(drm_atomic_helper_panel_destroy_state);
++
++/**
++ * drm_atomic_get_old_panel_state() - get old panel state, if it exists
++ * @commit: global atomic state object
++ * @panel: panel to grab
++ *
++ * Return:
++ *
++ * The old panel state for the given panel, or NULL if the panel is not part of
++ * the global atomic state or does not implement the panel state callbacks.
++ */
++struct drm_panel_state *
++drm_atomic_get_old_panel_state(const struct drm_atomic_commit *commit,
++			       struct drm_panel *panel)
++{
++	struct drm_bridge_state *bridge_state;
++
++	if (!panel->funcs->atomic_create_state)
++		return NULL;
++
++	bridge_state = drm_atomic_get_old_bridge_state(commit, &panel->bridge);
++	if (!bridge_state)
++		return NULL;
++
++	return drm_bridge_state_to_panel_state(bridge_state);
++}
++EXPORT_SYMBOL(drm_atomic_get_old_panel_state);
++
++/**
++ * drm_atomic_get_new_panel_state() - get new panel state, if it exists
++ * @commit: global atomic state object
++ * @panel: panel to grab
++ *
++ * Return:
++ *
++ * The new panel state for the given panel, or NULL if the panel is not part of
++ * the global atomic state or does not implement the panel state callbacks.
++ */
++struct drm_panel_state *
++drm_atomic_get_new_panel_state(const struct drm_atomic_commit *commit,
++			       struct drm_panel *panel)
++{
++	struct drm_bridge_state *bridge_state;
++
++	if (!panel->funcs->atomic_create_state)
++		return NULL;
++
++	bridge_state = drm_atomic_get_new_bridge_state(commit, &panel->bridge);
++	if (!bridge_state)
++		return NULL;
++
++	return drm_bridge_state_to_panel_state(bridge_state);
++}
++EXPORT_SYMBOL(drm_atomic_get_new_panel_state);
++
++/**
++ * drm_panel_get_current_state() - get the current panel state
++ * @panel: panel object
++ *
++ * This function must be called with the modeset lock held.
++ *
++ * Return:
++ *
++ * The current panel state, or NULL if there is none or if the panel does not
++ * implement the panel state callbacks.
++ */
++struct drm_panel_state *drm_panel_get_current_state(struct drm_panel *panel)
++{
++	struct drm_bridge_state *bridge_state;
++
++	if (!panel || !panel->funcs->atomic_create_state)
++		return NULL;
++
++	bridge_state = drm_bridge_get_current_state(&panel->bridge);
++	if (!bridge_state)
++		return NULL;
++
++	return drm_bridge_state_to_panel_state(bridge_state);
++}
++EXPORT_SYMBOL(drm_panel_get_current_state);
++
+ /**
+  * drm_panel_get - Acquire a panel reference
+  * @panel: DRM panel
+diff --git a/include/drm/drm_panel.h b/include/drm/drm_panel.h
+index 58113ea7d63a..ff63bed934fa 100644
+--- a/include/drm/drm_panel.h
++++ b/include/drm/drm_panel.h
+@@ -35,6 +35,7 @@
+ struct backlight_device;
+ struct dentry;
+ struct device_node;
++struct drm_atomic_commit;
+ struct drm_bridge;
+ struct drm_connector;
+ struct drm_device;
+@@ -44,6 +45,24 @@ struct display_timing;
  
- 	ret = backlight_disable(panel->backlight);
- 	if (ret < 0)
+ enum drm_panel_orientation;
+ 
++/**
++ * struct drm_panel_state - Atomic panel state object
++ *
++ * Only panels implementing &drm_panel_funcs.atomic_create_state,
++ * &drm_panel_funcs.atomic_duplicate_state and
++ * &drm_panel_funcs.atomic_destroy_state have a panel state. Panel drivers
++ * that need to track additional state can subclass this structure.
++ */
++struct drm_panel_state {
++	/**
++	 * @base: inherit from &drm_bridge_state
++	 */
++	struct drm_bridge_state base;
++};
++
++#define drm_bridge_state_to_panel_state(bridge_state) \
++	container_of_const(bridge_state, struct drm_panel_state, base)
++
+ /**
+  * struct drm_panel_funcs - perform operations on a given panel
+  *
+@@ -148,6 +167,62 @@ struct drm_panel_funcs {
+ 	 * Allows panels to create panels-specific debugfs files.
+ 	 */
+ 	void (*debugfs_init)(struct drm_panel *panel, struct dentry *root);
++
++	/**
++	 * @atomic_create_state:
++	 *
++	 * Allocate a pristine, initialized, state for the panel and return
++	 * it. This callback must have no side effects: in particular, it must
++	 * not affect the hardware state.
++	 *
++	 * Drivers that subclass &drm_panel_state should use
++	 * __drm_atomic_helper_panel_state_init() to initialize the base
++	 * structure, the other drivers should use
++	 * drm_atomic_helper_panel_create_state().
++	 *
++	 * This function is optional, panels not implementing it don't have a
++	 * panel state. It must be implemented together with
++	 * @atomic_duplicate_state and @atomic_destroy_state.
++	 *
++	 * Return:
++	 *
++	 * A new, pristine, panel state instance or an error pointer on
++	 * failure.
++	 */
++	struct drm_panel_state *(*atomic_create_state)(struct drm_panel *panel);
++
++	/**
++	 * @atomic_duplicate_state:
++	 *
++	 * Duplicate the current panel state and return it.
++	 *
++	 * Drivers that subclass &drm_panel_state should use
++	 * __drm_atomic_helper_panel_duplicate_state() to duplicate the base
++	 * structure, the other drivers should use
++	 * drm_atomic_helper_panel_duplicate_state().
++	 *
++	 * This function is optional. It must be implemented together with
++	 * @atomic_create_state and @atomic_destroy_state.
++	 *
++	 * Return:
++	 *
++	 * A valid &drm_panel_state object or NULL if the allocation fails.
++	 */
++	struct drm_panel_state *(*atomic_duplicate_state)(struct drm_panel *panel);
++
++	/**
++	 * @atomic_destroy_state:
++	 *
++	 * Destroy a panel state object previously allocated by
++	 * @atomic_create_state or @atomic_duplicate_state. Drivers that don't
++	 * subclass &drm_panel_state should use
++	 * drm_atomic_helper_panel_destroy_state().
++	 *
++	 * This function is optional. It must be implemented together with
++	 * @atomic_create_state and @atomic_duplicate_state.
++	 */
++	void (*atomic_destroy_state)(struct drm_panel *panel,
++				     struct drm_panel_state *state);
+ };
+ 
+ struct drm_panel_follower_funcs {
+@@ -344,6 +419,26 @@ void drm_panel_disable(struct drm_panel *panel);
+ 
+ int drm_panel_get_modes(struct drm_panel *panel, struct drm_connector *connector);
+ 
++void __drm_atomic_helper_panel_state_init(struct drm_panel_state *state,
++					  struct drm_panel *panel);
++void __drm_atomic_helper_panel_duplicate_state(struct drm_panel *panel,
++					       struct drm_panel_state *state);
++struct drm_panel_state *
++drm_atomic_helper_panel_create_state(struct drm_panel *panel);
++struct drm_panel_state *
++drm_atomic_helper_panel_duplicate_state(struct drm_panel *panel);
++void drm_atomic_helper_panel_destroy_state(struct drm_panel *panel,
++					   struct drm_panel_state *state);
++
++struct drm_panel_state *drm_panel_get_current_state(struct drm_panel *panel);
++
++struct drm_panel_state *
++drm_atomic_get_old_panel_state(const struct drm_atomic_commit *commit,
++			       struct drm_panel *panel);
++struct drm_panel_state *
++drm_atomic_get_new_panel_state(const struct drm_atomic_commit *commit,
++			       struct drm_panel *panel);
++
+ #if defined(CONFIG_OF) && IS_ENABLED(CONFIG_DRM_PANEL)
+ struct drm_panel *of_drm_find_panel(const struct device_node *np);
+ int drm_of_find_panel_or_bridge(const struct device_node *np,
 
 -- 
 2.47.3
