@@ -1,192 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4842E4973B0;
-	Thu,  8 Oct 2026 23:35:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99B7038F938
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 23:36:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791502516; cv=none; b=ThEhBMLC5qhYCIfqBLKqyhYaqxqK3zxriJRoSma8ShRGIJeVNss4gLDy/4Sf+37S3xqaBMPGtWN6JpZx7KP0n7cS5seo1+1xJvxwrzfO/Pm/d7RoF7evfIdcoOrreHuKtXsoFCeQT8HgOGg0aOkfrkvx9WUiP+I5tmbHr+03QaA=
+	t=1791502587; cv=none; b=UZ5xx6Dw0hlOgDwOSxA1B9j45daxp/7aS2A4OfJW41y35okESAFqxAQq+CugR1+riKFacZpFOczRJETLYalthJrK+4xNfj60obkxD0qfX247sx0ri07gpzi1770Yf6n4jG8pK2wKlsxw0UL+zJONMNUkNX4rPcqkO8Mq3V8kG6Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791502516; c=relaxed/simple;
-	bh=lEg+PjTwhD5xviCVG9A8w1iubKfJuo8XFRoNJVu8flw=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=PpcfNBzGzfjU8urdR9WJcnUAWhFI6q6LkQsCPklBSMc1YpAQgiQVAxbZRuxSTXTGnLZ6Mc1w62rY3JqUg6a2thj3E8GSdf6BXGLM3zjw0GRFFNIu0DLyAHpV05e39C4L9U40FTxL1sz07JdExdlpSbX1e/FWcnx2vSnWJRMPpJE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fs9UW5Fd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791502587; c=relaxed/simple;
+	bh=z9XdaDwozt4DVNCBsjCCo4rkJo41je1Q1+kLf3Q23Nk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Vfda/Ar7Z0RZn4fTZ0m+WOdhNlQ7IWBsJ+4zdjNPHLuINn+Ju9cxjxZSzVdLT7BhdDeznBRq+EJ9o/BSwVGXn5Xvuu6IhQM1+InpdKkK7UhpbCliCqJlhg0W3idMqWkg1bNS0rX17wu89S5/HSxcHcR2T/fVrecxKR3vhZX53j0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kKwK7lCv; arc=none smtp.client-ip=209.85.219.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fs9UW5Fd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C9A31F000FF;
-	Thu,  8 Oct 2026 23:35:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791502510;
-	bh=RL3M40x5ThXQEXCT5Pub5cNnAN5UlXgdqAFx+FOjV3E=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=Fs9UW5FdlQ6qXZ8VLd43QpyyOBDclhOVFcuM3PE9V6uCAv9dENV4R6fYhSn0zaASZ
-	 sr7uQDN6vbJqhG4fwCXlEWIP/ZXWUAgnvl4hkyqPS0AU5RbCVGA2fyKeqeosWtoLuS
-	 APUCZq8zDMWIOtmxp3GsJ8K4r8tnBctW8bpWCvbJyv2mNTgmjH76K8xoaC8/Rr99cc
-	 gf5r8fxfaxnX0KXESCOYz/ixp3SQwTEuvBxx/3HyweOzqk/4pVzvPZOLuybDll1Qbv
-	 zOL62CeIplF1JrpCUvDK+VRRVpYhoNluOFUuU2UbiLV1IADhogPPaImPZhd3jEcYl2
-	 jSwp1Cn8FGPzA==
-Date: Thu, 8 Oct 2026 18:35:08 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Srirangan Madhavan <smadhavan@nvidia.com>
-Cc: Alison Schofield <alison.schofield@intel.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	Ira Weiny <ira.weiny@intel.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Vishal Verma <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Alex Williamson <alex.williamson@redhat.com>, vsethi@nvidia.com,
-	alwilliamson@nvidia.com,
-	Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
-	Vishal Aslot <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>,
-	Jiandi An <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
-	linux-tegra@vger.kernel.org
-Subject: Re: [PATCH v14 16/16] PCI/CXL: Restore CXL state after CXL bus reset
-Message-ID: <20261008233508.GA941626@bhelgaas>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kKwK7lCv"
+Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-917a20e9efeso41954536d6.2
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 16:36:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791502585; x=1792107385; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=H0aMo8yA757AIchUgl2zcuEjDzZI6HgSNUOupZw3Xrg=;
+        b=kKwK7lCvJz1wVTkLfGaKVKfr70dIJRtyWct7BtoHRxe3CXDSUhd4E2lyJhjnrN4m99
+         sORMFy7GVSAyMIOUouqjD03TbB0RbQBeyi4xo0ZHaeZ89XjWXO0pqcjBdWXsyiY/L3Ul
+         16zGbHDwkQYLkTKD1wiKQ0aMzufklwBVhfOWabGS6h6AcwxBU1AHPI5NTcSmhVTPYZgW
+         LD9j6b5Kwu3XZY7Caigs/5NY4keHAcTyihauPisaT+d2XHnoRGeoTqqgTXHxizQVvt9f
+         i38990xka5QM+qq/4qk2Cxabe2eQzcMXqIRb1HsWtXHeiXC7UK4W1PAoZosgMiStREX6
+         3+Ug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791502585; x=1792107385;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=H0aMo8yA757AIchUgl2zcuEjDzZI6HgSNUOupZw3Xrg=;
+        b=110okydBh/NBtvcEi+KZ34+k1r8iY9mu9j46BL+BM+if4cPg35Wp6C/7wL2Pif5IAV
+         vB9+4X5iRfZtQfV+tkwNDbCi/wxgq/+799c0Rz7uqF8oJOCA3jvnAYyR3IbhVfopCV22
+         P4K8ieGrRDIbUY3Stz7ZK6up3+AZp0FXnrhRIQNHhVAapI3BUDf7g+wPQpz1MVjl9QBY
+         gSkKVORKKy+XCgSCXqLf9dB/dPhgp/jBUwOXj/yv+g/zYugnA7mr3+VqtytDAVQpfEVV
+         qrdVuHrD6ajw8Is0vVvjgjEM2CJG2WeqWwCnx2mph4frxJRIBZGSkN2QU0JZ0J9lGghg
+         PzTg==
+X-Forwarded-Encrypted: i=1; AKwUvBz2pvimEgoXUMXbWIjGRTvCYKBvDrYubtjxSvyaozSKHxgxbgH5hs8lhbR/b/2y3lRwr4ab6rXtNv6DRo4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lZrViA2rLc+qVdCVvUfMTtGAg+hAhvuoOfGWHX+EcaUz4FgVUB
+	Hw05Ue+G44WbfJtczDOym0xag1jy0keYGrNwngU3sXLCe/mEOB1t4v2B
+X-Gm-Gg: AYBFou1dRAxCu1CVq3hl51gdtZ03jUxDW9hBV8fln7p61ocgSkHb+Yqi30ESHrv5XVd
+	hnIW/SkrbZqdDk+F1Gedt+2mBd2MGb+teibJX6W85fTmvv6e77p8QfkgvN4QlX4V1GDvHguaanc
+	t572eYqy8D/gjQX3ai2PZkR6+Si+dJCdxCHkMK8YK9aTbD+iGouZfK/MR+tCMyA4ALtSEf3LeNH
+	6OvDJODN9mzTwjQ+SSchLDi5WU+gxcflrcfEIdmAmgmqIBfbjEPt2OII9qZfyr81at7/jOngkmU
+	J47O4b5/Ks347wvpbQChEnp44V3HM5JnFpgud93Q6c99B/h4espEhooGw7DQGDbisxv3sSuCrCD
+	Dg955XA/bmtRXL/frSPBeUxMgyk6XvTR05Zkxb8pdZAocWotE18wzUXRyd85FXWQeLKGh9woz6k
+	mu5Sefb7Vq9PaOGJSr8uwRLH4Nm4dV6OvNQz8mMcixJxkWkZo12r+r1ZgyyaCaCflsps5rTpKO/
+	65OiwB9QJLmqffa7NoBkoWEFo48LSql4k+7EJiJC3V6efmTx+/hvIVmvtwReOr17ObswfJa6V2G
+	QwIfpe4r
+X-Received: by 2002:a05:620a:890c:b0:93b:d7a0:d9e6 with SMTP id af79cd13be357-93ebd2675e2mr26192385a.64.1791502585481;
+        Thu, 08 Oct 2026 16:36:25 -0700 (PDT)
+Received: from battery.lan (pool-138-88-31-60.washdc.fios.verizon.net. [138.88.31.60])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb9848702sm51693885a.12.2026.10.08.16.36.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 16:36:24 -0700 (PDT)
+From: David Windsor <dwindsor@gmail.com>
+To: bpf@vger.kernel.org
+Cc: ast@kernel.org,
+	daniel@iogearbox.net,
+	john.fastabend@gmail.com,
+	andrii@kernel.org,
+	martin.lau@linux.dev,
+	eddyz87@gmail.com,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	kpsingh@kernel.org,
+	sdf@fomichev.me,
+	haoluo@google.com,
+	jolsa@kernel.org,
+	shuah@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	yunwei356@gmail.com,
+	David Windsor <dwindsor@gmail.com>
+Subject: [PATCH bpf 1/2] bpf: Fix state pruning regression in bpf_loop() callbacks
+Date: Thu,  8 Oct 2026 19:36:22 -0400
+Message-ID: <20261008233623.4011127-1-dwindsor@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001092227.3004747-17-smadhavan@nvidia.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 01, 2026 at 09:22:27AM +0000, Srirangan Madhavan wrote:
-> CXL bus reset can clear HDM decoder programming and CXL Device DVSEC
-> control state. Restore the cached state after a successful cxl_bus reset
-> while IOMMU exclusion remains active.
-> 
-> Restore PCI configuration first so HDM MMIO is accessible, and preserve a
-> disabled state if restoration fails.
-> 
-> Tested-by: Richard Cheng <icheng@nvidia.com>
-> Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
+Commit f597664454bd ("bpf: bpf_scc_visit instance and backedges
+accumulation for bpf_loop()") left dead stack slots in cached callback
+states while SCC backedges were pending, defeating state pruning and
+causing previously valid programs to hit the verifier instruction limit. On
+affected kernels, ActPlane fails to load with -E2BIG.
 
-Acked-by: Bjorn Helgaas <bhelgaas@google.com>	# pci/pci.c
+Removing the incomplete_read_marks() check from clean_live_states() is
+safe because zero-branch states have already had their stack read/write
+effects propagated into the liveness masks consumed by
+clean_verifier_state(). Pending SCC backedges only defer verifier-state
+precision propagation and cannot add stack-liveness requirements after
+cleanup.
 
-> ---
->  drivers/cxl/core/resource.c | 23 +++++++++++++++++++++--
->  drivers/pci/pci.c           |  8 ++++++++
->  include/cxl/cxl.h           | 17 +++++++++++++++++
->  3 files changed, 46 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/cxl/core/resource.c b/drivers/cxl/core/resource.c
-> index efbab341b30f..3422139ae3ab 100644
-> --- a/drivers/cxl/core/resource.c
-> +++ b/drivers/cxl/core/resource.c
-> @@ -625,12 +625,12 @@ static int cxl_restore_hdm_decoder(struct pci_dev *pdev, void __iomem *hdm,
->  	return 0;
->  }
->  
-> -static int cxl_snapshot_hdm(struct pci_dev *pdev,
-> -			    struct cxl_hdm_info **snapshot)
-> +int cxl_snapshot_hdm(struct pci_dev *pdev, struct cxl_hdm_info **snapshot)
->  {
->  	struct cxl_hdm_info *info;
->  	size_t size;
->  
-> +	device_lock_assert(&pdev->dev);
->  	guard(rwsem_read)(&cxl_rwsem.dpa);
->  	info = pdev->hdm;
->  	if (!info)
-> @@ -798,6 +798,25 @@ static int cxl_reset_save_restored_state(struct pci_dev *pdev, u16 command)
->  	return rc;
->  }
->  
-> +int cxl_restore_state_after_pci_reset(struct pci_dev *pdev,
-> +				      struct cxl_hdm_info *snapshot)
-> +{
-> +	u16 command;
-> +	int rc;
-> +
-> +	device_lock_assert(&pdev->dev);
-> +	guard(rwsem_write)(&cxl_rwsem.region);
-> +
-> +	cxl_restore_pci_state_for_hdm_restore(pdev, &command);
-> +	rc = cxl_restore_state(pdev, snapshot);
-> +	if (rc) {
-> +		cxl_reset_save_disabled_state(pdev);
-> +		return rc;
-> +	}
-> +
-> +	return cxl_reset_save_restored_state(pdev, command);
-> +}
-> +
->  /*
->   * CXL r4.0 sec 9.7.2 defines the reset completion timeout encodings.
->   * Sec 9.7.3 leaves config-space access behavior undefined for 100 ms after
-> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-> index dc57a202c91f..6928c99aa785 100644
-> --- a/drivers/pci/pci.c
-> +++ b/drivers/pci/pci.c
-> @@ -5015,6 +5015,7 @@ static int pci_reset_bus_function(struct pci_dev *dev, bool probe)
->  
->  static int cxl_reset_bus_function(struct pci_dev *dev, bool probe)
->  {
-> +	struct cxl_hdm_info *snapshot __free(kfree) = NULL;
->  	struct pci_dev *bridge;
->  	u16 dvsec, reg, val;
->  	int rc;
-> @@ -5037,6 +5038,10 @@ static int cxl_reset_bus_function(struct pci_dev *dev, bool probe)
->  	if (rc)
->  		return -ENOTTY;
->  
-> +	rc = cxl_snapshot_hdm(dev, &snapshot);
-> +	if (rc && rc != -ENXIO)
-> +		return rc;
-> +
->  	rc = pci_dev_reset_iommu_prepare(dev);
->  	if (rc) {
->  		pci_err(dev, "failed to stop IOMMU for a PCI reset: %d\n", rc);
-> @@ -5057,6 +5062,9 @@ static int cxl_reset_bus_function(struct pci_dev *dev, bool probe)
->  		pci_write_config_word(bridge, dvsec + PCI_DVSEC_CXL_PORT_CTL,
->  				      reg);
->  
-> +	if (!rc && snapshot)
-> +		rc = cxl_restore_state_after_pci_reset(dev, snapshot);
-> +
->  	pci_dev_reset_iommu_done(dev);
->  	return rc;
->  }
-> diff --git a/include/cxl/cxl.h b/include/cxl/cxl.h
-> index 9904eaed5af1..b83cfaed618f 100644
-> --- a/include/cxl/cxl.h
-> +++ b/include/cxl/cxl.h
-> @@ -207,6 +207,9 @@ struct cxl_register_map {
->  #ifdef CONFIG_CXL_RESET
->  void pci_cxl_hdm_cache_init(struct pci_dev *pdev);
->  void pci_cxl_hdm_cache_release(struct pci_dev *pdev);
-> +int cxl_snapshot_hdm(struct pci_dev *pdev, struct cxl_hdm_info **snapshot);
-> +int cxl_restore_state_after_pci_reset(struct pci_dev *pdev,
-> +				      struct cxl_hdm_info *snapshot);
->  int cxl_reset_function(struct pci_dev *pdev, bool probe);
->  #else
->  static inline void pci_cxl_hdm_cache_init(struct pci_dev *pdev)
-> @@ -217,6 +220,20 @@ static inline void pci_cxl_hdm_cache_release(struct pci_dev *pdev)
->  {
->  }
->  
-> +static inline int cxl_snapshot_hdm(struct pci_dev *pdev,
-> +				   struct cxl_hdm_info **snapshot)
-> +{
-> +	*snapshot = NULL;
-> +	return -ENXIO;
-> +}
-> +
-> +static inline int
-> +cxl_restore_state_after_pci_reset(struct pci_dev *pdev,
-> +				  struct cxl_hdm_info *snapshot)
-> +{
-> +	return 0;
-> +}
-> +
->  static inline int cxl_reset_function(struct pci_dev *pdev, bool probe)
->  {
->  	return -ENOTTY;
-> -- 
-> 2.43.0
-> 
+Fixes: f597664454bd ("bpf: bpf_scc_visit instance and backedges accumulation for bpf_loop()")
+
+Signed-off-by: David Windsor <dwindsor@gmail.com>
+
+diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+index e3814152b52f8139a5565b2e4ac1b80d82d1ea65..1e300ca71a8a833eb4c2a340b4f94342f54af5f2 100644
+--- a/kernel/bpf/verifier.c
++++ b/kernel/bpf/verifier.c
+@@ -19791,8 +19791,6 @@ static void clean_live_states(struct bpf_verifier_env *env, int insn,
+ 		if (sl->state.cleaned)
+ 			/* all regs in this state in all frames were already marked */
+ 			continue;
+-		if (incomplete_read_marks(env, &sl->state))
+-			continue;
+ 		clean_verifier_state(env, &sl->state);
+ 	}
+ }
+-- 
+2.53.0
+
