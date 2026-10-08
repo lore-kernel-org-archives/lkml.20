@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9E2B21FF23;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB93A311597;
 	Thu,  8 Oct 2026 01:39:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791423571; cv=none; b=PRY1Fz9bUN+Ru6tVseFzdjk7E1ngA2nyl7LkK6I+nU8P9Ntu58TBHFxiKo1TcyNOIY34CaRKYganrnDvf0ENSOsbholVSIRAa5dbS1gMlDuZD1AvixjxXCLtYMXqYWt6e6yAWBRPhneigWKotOrOcha+MOsn+bNrnPp6JoMv64g=
+	t=1791423571; cv=none; b=frSrW0/qTfuojYuh3Wv8FNm2S85VjtjNm3Yt7jZaAkAKWRAFCVBhi8dDyLEU3ExUT4Id/W0RIU7bO/AKBZTsIJY7XEhxTs/C0rfJkPTzvzi4lKCpJm/+xgIJFWuI/uvE28CZTHu7CmiFU4iOFdnWa+SsYyHBJblI7cqr4LMJKxo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791423571; c=relaxed/simple;
-	bh=Y4rNP88vR1cVzXZli/iFhNccbSVNzc9X5qTVH2ipj6o=;
+	bh=IWvscPqZD+2FUUBIFhh4IW8VGsM/ztweP+mTXjTQtTk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=jfgGOuQruO/xAnSriGKrE04r6q0QbjF+3tsxWkQDp56aM+cqomakE5j6/mh84cXmc3S9aSvHbOZaM4kEGYzIx6v7eISzTjSVFrtZlnEkWW/ga70vW0abmSks9y0ceGQqQh7BDoeqh5rz7XN6DsvoIuagtP6EX/vXaOydBKHQ3Ew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hF4pJODO; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=JvWUyiq5E3yeF3/nBbLlU4qiMlUTTqUd5CZ5vhb7t8lwXxLIbT360pGlXwVa0SCGWp+fiTe1zxuc5bcikpEwzwuk7YxqswWVxJSc2awUU4fsjWDcztKqBoobA/e7IvHtWlP3C+c1tu0rvYDp03lPQORutml2gG96WUKvtkaBPJg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FCXDIZH6; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hF4pJODO"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 2A9B6C2BCF5;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FCXDIZH6"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7BEB5C4AF68;
 	Thu,  8 Oct 2026 01:39:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1791423571;
-	bh=Y4rNP88vR1cVzXZli/iFhNccbSVNzc9X5qTVH2ipj6o=;
+	bh=IWvscPqZD+2FUUBIFhh4IW8VGsM/ztweP+mTXjTQtTk=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=hF4pJODOQ1oihNRiV81G751hvZ/8iJxVRUSKnJ4PrbfPnXWgKapNhX01cEWHLE1QC
-	 xFNP+wA/2NIG2S7gzaWU7DYnr5+OcaCr1r0GljXOpK1Q1NyoOI2myNSlP5KZ4SabpD
-	 7BY18uhAqkgczp1RJySMM86UgRDNE6bbCqvHTrN64v5HD/HTTwknRFjHslVRYnbBAX
-	 k2xfDA+GfcgWENaVb4yBwKic7hjvsnV3mTPwZTnl2dr/zM8KX7pYuncJVYRSiL7VI3
-	 LdYg89CRyaVpsQZ9CH7ee7Q3VE0S4Sz4OrDJGSveHatd2pG0+x3Wbs0EEVjkayh7m5
-	 RRvKnQPWSkEkQ==
+	b=FCXDIZH6GGWnrecCvZEL+uH1UHNwBnWn+o1D911y9uTLkUwqij1jf8Hg7Xv94Nk9T
+	 J2l2j4bSZ2EQX27br+k4Z6OP3daeT3yKgwtixl8LrzJtTDk0HrCndAzNXzl3QsB1Sb
+	 0nqwh9qTxqHJqbyQ8uj45vjuZYpZareh9wNPxt+6lRW6DMvgpKCXRrrmPfsIUfJPoE
+	 nwPUpcKWb1Q4bt/759PkYarlkvqlafggavfpPtU4Iy0SxHBQd1BeAgIGxAFAUDqOUY
+	 xgAhURfRYScccRLaiAt4/psXu35STvTVqS46ZiDhhALf0+AKDSixyFrLnF/5zIaCH9
+	 7IbDsMml95dtg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0868ECA6007;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5E082CA600E;
 	Thu,  8 Oct 2026 01:39:31 +0000 (UTC)
 From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
-Date: Thu, 08 Oct 2026 10:39:30 +0900
-Subject: [PATCH 1/8] xfs: map pNFS layouts to the end of the extent again
+Date: Thu, 08 Oct 2026 10:39:35 +0900
+Subject: [PATCH 6/8] xfs: take the invalidate lock while mapping a pNFS
+ layout
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261008-xfs-nfsd-map-blocks-v1-1-560026cdccb6@samsung.com>
+Message-Id: <20261008-xfs-nfsd-map-blocks-v1-6-560026cdccb6@samsung.com>
 References: <20261008-xfs-nfsd-map-blocks-v1-0-560026cdccb6@samsung.com>
 In-Reply-To: <20261008-xfs-nfsd-map-blocks-v1-0-560026cdccb6@samsung.com>
 To: Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
@@ -52,14 +53,13 @@ Cc: "Darrick J. Wong" <djwong@kernel.org>, Dave Chinner <dgc@kernel.org>,
  Sergey Bashirov <sergeybashirov@gmail.com>, 
  Christian Brauner <brauner@kernel.org>, linux-nfs@vger.kernel.org, 
  linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Daejun Park <daejun7.park@samsung.com>
+ linux-kernel@vger.kernel.org, Daejun Park <daejun7.park@samsung.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791423569; l=6749;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791423569; l=2829;
  i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
- bh=uUVU3OagGNpVkxB3OmnbW7XyIg5ihxC0ww0qmRNjGXs=;
- b=veqsO+GEbj/g7/AgPw6NkKyksMmdje9G91AIT/EGrT+Ak+I1lCpHcmzRsCmw92Xv7I+16Hwpk
- 8FpxhjKOpPMB3roM2Ku9m6///kBNQWbeS20XIZOJ8Vb4ug2Y1RzKb9n
+ bh=SoGkSsdBo1AOVeWmqni0fhA8dhue93sMO/J/2znJBnc=;
+ b=FF7P8INtI1xHVpfqff95P6sYa6WY/b3VoJAQq6gbQdMlJ3Z2jYKWaMmFb06HNUlUSFAcRws6s
+ woAXXV3vue+DmmN3dNntZuC4Rfd+fknOuWKe8fbPPOmJO9kRWGttHn+
 X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
  pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
 X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
@@ -69,132 +69,76 @@ Reply-To: daejun7.park@samsung.com
 
 From: Daejun Park <daejun7.park@samsung.com>
 
-Since commit 36ca6f11424a ("xfs: fix overlapping extents returned for
-pNFS LAYOUTGET"), xfs_fs_map_blocks() maps only the range that nfsd asks
-for.  For O_DIRECT, the Linux block layout client asks for the range of
-the I/O at hand, so it now needs a LAYOUTGET for every O_DIRECT read or
-write to a part of a file it has no layout for yet, where the first
-LAYOUTGET used to return the whole extent.  Each LAYOUTGET is a round
-trip, and xfs_fs_map_blocks() takes the iolock exclusively and writes
-back and invalidates the page cache of the file for it.
+xfs_fs_map_blocks() flushes and invalidates the page cache of the file
+under the iolock and then maps the range, but a write fault takes only
+the invalidate lock (XFS_MMAPLOCK_SHARED in __xfs_write_fault()), not
+the iolock. A fault on a shared mapping of the file can therefore add a
+delalloc extent to the range between the flush and the mapping, which
+trips the ASSERT on DELAYSTARTBLOCK, or is handed to nfsd, which warns
+about a filesystem that returned a delalloc extent and refuses the
+layout.
 
-On three QEMU VMs (an NVMe/TCP target, the server with nfsd and XFS, and
-a client) running the same kernel without KASAN or lock debugging, a
-client doing O_DIRECT I/O over the block layout of NFSv4.2 for 30
-seconds to a 1 GiB file of one written extent, in order unless noted and
-with an fsync every 16 MiB written, gets this many I/Os done (and
-LAYOUTGETs counted at the server), one run each:
+Take the invalidate lock in exclusive mode together with the iolock, as
+__xfs_file_fallocate() does, so that page faults wait until the layout
+has been mapped. The next patch maps all extents of a layout under these
+locks, which makes the window between the flush and the last mapping
+wider.
 
-                       unpatched   ENTIRE, no trim      this patch
-  4 KiB reads      41207 (41207)        334931 (1)      343749 (1)
-  4 KiB random     36670 (34148)        259527 (1)     263829 (15)
-  4 KiB overwrite  38556 (38556)        325533 (1)      307105 (1)
-  64 KiB reads     70241 (16384)         80829 (1)       91196 (1)
-  1 MiB reads       6857 (1024)           6759 (1)        6706 (1)
+Not marked for stable: the race needs a process on the server that
+writes to a shared mapping of the file while a client gets a layout for
+the same range, and the comment above xfs_break_leased_layouts() already
+leaves such writers unsynchronized with pNFS clients.
 
-"ENTIRE, no trim" is a test kernel that maps with XFS_BMAPI_ENTIRE and
-does not trim.  The random reads need a LAYOUTGET each time they go
-before the lowest offset read so far, as the part of the extent before
-the offset asked for is not mapped.  1 MiB overwrites and writes to an
-unwritten extent also go from 1024 LAYOUTGETs to 1, with no clear change
-in I/Os done.  Appending to a new file needs a LAYOUTGET per 1 MiB
-appended either way, as XFS allocates only the range asked for on a
-filesystem without a stripe unit or an extent size hint.
-
-The overlap fixed by that commit comes from XFS_BMAPI_ENTIRE reaching
-back.  nfsd4_block_proc_layoutget() calls ->map_blocks once per extent
-of a LAYOUTGET, each time for the range left after the previous extent.
-An allocation in one call can merge the extent that the next call starts
-in with the extents before it, and the whole extent then starts before
-the offset of that call and overlaps extents already in the layout.  The
-Linux client rejects such a layout (verify_extent() returns -EIO), and
-the I/O that needed it fails.
-
-In the thread of that commit, Christoph Hellwig asked for
-XFS_BMAPI_ENTIRE to be dropped to stop the overlap, Darrick J. Wong
-agreed, and it was said that the flag makes no difference on the first
-call, which is for the whole range the client asked for.  The difference
-is past that range: the Linux client asks for the range of each O_DIRECT
-I/O and uses the rest of a longer layout for the I/Os that follow, which
-RFC 8881 allows (Table 22 sets only a minimum length).  A client could
-ask for more for a read layout, but for a write layout
-xfs_fs_map_blocks() allocates any hole in the range asked for.
-
-Dave Chinner suggested keeping the flag for the first call and trimming
-the mappings of the calls that follow.  ->map_blocks cannot tell the
-first call from the others, and Christoph preferred to keep such a
-choice out of that interface, so trim every mapping to start at the
-offset asked for instead.  No mapping can then overlap the one before
-it, since each call starts where the previous extent ended.  Unlike
-Dave's suggestion, the first mapping loses the part of the extent before
-the offset, and the last mapping keeps the part past the end of the
-range, which the loop in nfsd4_block_proc_layoutget() already handles.
-Trimming in that loop instead would keep his suggestion exactly, but
-would change nfsd as well, while trimming in XFS keeps every mapping it
-returns free of overlap whatever the caller does.
-
-Unlike before that commit, don't let the mapping reach past EOF beyond
-the range asked for.  On an inode without XFS_DIFLAG_PREALLOC or
-XFS_DIFLAG_APPEND, xfs_free_eofblocks() can free blocks past EOF, such
-as speculative preallocation, without breaking the layout, so a client
-that did not ask for them should not get them.  What a client gets for a
-range past EOF that it asks for does not change.
-
-The aio group, the fsx tests and generic/013 (fsstress) of fstests over
-the block layout, and the fsx tests and generic/013 over the SCSI
-layout, give the same results with and without this patch.  generic/091
-and 263 fail with the ENTIRE, no trim kernel and pass with this patch,
-and so does the pynfs test BLOCK5, which checks a write layout over a
-hole between two allocated blocks against three rules of RFC 5663
-section 2.3.1.
-
-Fixes: 36ca6f11424a ("xfs: fix overlapping extents returned for pNFS LAYOUTGET")
-Cc: stable@vger.kernel.org
-Suggested-by: Dave Chinner <dgc@kernel.org>
-Link: https://lore.kernel.org/r/ageSguSyf2kBY33a@dread
-Link: https://lore.kernel.org/r/agwDhixPAAA0-cTa@infradead.org
-Link: https://lore.kernel.org/r/agqfBPRWXQDR2ImG@infradead.org
-Reviewed-by: Darrick J. Wong <djwong@kernel.org>
+Suggested-by: Darrick J. Wong <djwong@kernel.org>
+Link: https://lore.kernel.org/r/20260519145949.GH9555@frogsfrogsfrogs
 Signed-off-by: Daejun Park <daejun7.park@samsung.com>
 ---
- fs/xfs/xfs_pnfs.c | 19 +++++++++++++++++--
- 1 file changed, 17 insertions(+), 2 deletions(-)
+ fs/xfs/xfs_pnfs.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
 diff --git a/fs/xfs/xfs_pnfs.c b/fs/xfs/xfs_pnfs.c
-index f8535ecde2..ab38561700 100644
+index 81e1ae0351..bd6f7d5093 100644
 --- a/fs/xfs/xfs_pnfs.c
 +++ b/fs/xfs/xfs_pnfs.c
-@@ -183,13 +183,28 @@ xfs_fs_map_blocks(
- 	offset_fsb = XFS_B_TO_FSBT(mp, offset);
+@@ -116,7 +116,7 @@ xfs_fs_map_update_inode(
+ /*
+  * Map the extent of a pNFS layout that starts at @offset_fsb, allocating it
+  * first if it is a hole in a write layout. The mapping may end before or
+- * after @end. Called with the iolock held.
++ * after @end. Called with the iolock and the invalidate lock held.
+  */
+ static int
+ xfs_fs_map_extent(
+@@ -225,8 +225,11 @@ xfs_fs_map_blocks(
+ 	 * similar to direct I/O, except that the synchronization is much more
+ 	 * complicated.  See the comment near xfs_break_leased_layouts
+ 	 * for a detailed explanation.
++	 *
++	 * Take the invalidate lock as well, so that page faults cannot add
++	 * delalloc extents to the range while it is being mapped.
+ 	 */
+-	xfs_ilock(ip, XFS_IOLOCK_EXCL);
++	xfs_ilock(ip, XFS_IOLOCK_EXCL | XFS_MMAPLOCK_EXCL);
  
- 	lock_flags = xfs_ilock_data_map_shared(ip);
--	/* request mappings for the specified range only */
-+	/*
-+	 * Map to the end of the extent that covers the start of the range,
-+	 * so that a client doing I/O in pieces gets a layout it can use for
-+	 * the pieces that follow.  Never map anything before the start of
-+	 * the range: nfsd calls in here once per extent of a LAYOUTGET, for
-+	 * the range that is left after the previous extent, and the mapping
-+	 * can change in between, so a mapping that reaches back can overlap
-+	 * one already in the layout.  Don't extend the mapping past EOF
-+	 * beyond the range either: xfs_free_eofblocks() can free blocks past
-+	 * EOF without breaking the layout.
-+	 */
- 	error = xfs_bmapi_read(ip, offset_fsb, end_fsb - offset_fsb,
--				&imap, &nimaps, 0);
-+				&imap, &nimaps, XFS_BMAPI_ENTIRE);
- 	if (error) {
- 		xfs_iunlock(ip, lock_flags);
- 		goto out_unlock;
+ 	error = -EINVAL;
+ 	limit = mp->m_super->s_maxbytes;
+@@ -262,14 +265,14 @@ xfs_fs_map_blocks(
+ 		if (error)
+ 			goto out_unlock;
  	}
-+	if (nimaps)
-+		xfs_trim_extent(&imap, offset_fsb,
-+				max_t(xfs_fileoff_t, end_fsb,
-+				      XFS_B_TO_FSB(mp, XFS_ISIZE(ip))) -
-+				offset_fsb);
- 	seq = xfs_iomap_inode_sequence(ip, 0);
+-	xfs_iunlock(ip, XFS_IOLOCK_EXCL);
++	xfs_iunlock(ip, XFS_IOLOCK_EXCL | XFS_MMAPLOCK_EXCL);
  
- 	ASSERT(!nimaps || imap.br_startblock != DELAYSTARTBLOCK);
+ 	error = xfs_bmbt_to_iomap(ip, iomaps, &imap, 0, 0, seq);
+ 	*nr_iomaps = 1;
+ 	*device_generation = mp->m_generation;
+ 	return error;
+ out_unlock:
+-	xfs_iunlock(ip, XFS_IOLOCK_EXCL);
++	xfs_iunlock(ip, XFS_IOLOCK_EXCL | XFS_MMAPLOCK_EXCL);
+ 	return error;
+ }
+ 
 
 -- 
 2.43.0
