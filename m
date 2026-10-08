@@ -1,212 +1,412 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 665584968FA
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 10:24:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDFBE497B87
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 10:24:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791455049; cv=none; b=ilUk4TrNZJrBOSyfA/ylv7ouTd5jEHB6Cu/Mjp6nZBzeGb4B8uIqz2S4tmXf54qDmAkEiNHHExQUuOdwuo4jldXeC3L7oSqTcuTIWTMUdkccz8eJFGcrDQJHXs7et4xmy4yiCDtuEuiFPCeLf4yJLC2emqmrTrrVOIPU1TAGr24=
+	t=1791455052; cv=none; b=NYS4oD+nwQ0rzAnht8VYpMiUMLv16FFunskPlenTTxWNkIM6g0qp8lS7quvNrdozk25iKjO5jGxR3kmX3r+LuqAfue4lI8/PrN/X9xY9KSJARxn+B07/QgNlueVZJtVhYQ1EVErTbct8SwyzfBBgjLMhnCrDm/wE7l73SSttDew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791455049; c=relaxed/simple;
-	bh=IaFv5AMFE24zsG/chUB5/9DKQ/soeSuovpeIDY9lPp0=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=E1gx7NCWRNZvvswQB3WD1SVQA8qrrkURPb7LzAZxGYNKGMQMZfp2vvRi/4jt5qxPcS42w2zW0ggz3b+u88/nBR0PIkshhZZ9Fj+2M6XioQ+viYcp8DFaR7nMCmQst6cIPDw6cwVT2lRsltn4FDFJ8NllVZ9u3IDUZbqks1SVX0E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lDT5mI2f; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jUF0oLjW; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791455052; c=relaxed/simple;
+	bh=ClCUdk81cZk4pVxj+ERQ4XC4vdFYrCdEayQPaaNm4mo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=oAEYo7eMpGF99CiJ0IfBtefstNvGWhBfj6hqeuwPXTtKXjfUQkE1zsdUI9dipR505YW+jAdEoBHPyfcmZnCLv/5Ig2YKM6x/x1+kHiCOoj3v52CcQtyJ3JFHV4D48Und6CVg4XgmlRmucwJrm86LzURjTssEJBmnEeLqkmoV650=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=CmIr+Yo1; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lDT5mI2f";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jUF0oLjW"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6987KN4v1845890
-	for <linux-kernel@vger.kernel.org>; Thu, 8 Oct 2026 10:24:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=AxR0pOAsOnpdhKn+bF/B85
-	mpSQ3JMl+/gElRNNM7YSI=; b=lDT5mI2fFVQYm9SYj0ZlX9BFHL37Lply3mxRzl
-	jhNOx5G6UAQaBYAHYxtzoGx/hYz1caaczkZDOVp+EMDUMgm9POqCdzKFudhJPke/
-	EVZA8h2X/u8ov+3B1AZon6zshJa6ov68H7Khx/URx5Lq/phRjzEeIi0jJH8iqDjB
-	dyakN8Pj9ErbLgJGbV0lD3531YXczfih1dev97x2L3nJU7BA/Y9O8FuQFyv0cmNE
-	/GW8IALJSkYeboWgPrJo6hwrfImqY7Yh8dCnZoZ3bDvX9kLWM8U6FADrAW/zeJZz
-	Km5zVRaYtcrgeupj2QVAGR1ctAMZxuZRTLmFRkROcxoVNgGA==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe3jhe8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 10:24:06 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2e605efae40so22141035ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 03:24:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791455045; x=1792059845; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=AxR0pOAsOnpdhKn+bF/B85mpSQ3JMl+/gElRNNM7YSI=;
-        b=jUF0oLjWIY4XDpZxPYRcIH4YyNtwkFTPshJr0wJcmeQZFnGmJpoU1QCqFk5Wc/JPGY
-         APzsdw9AfstyKhIxtAWcGlyyPy6qDA6JZW2XYJF8KSm+p6zgeCqgFAi4k/sBNh++hOCX
-         zQGZIpDluDOLURB/ILZsb3i+bFJIqMZvQAnWA8pPZlqbTKG+aZTsS49CW1fL88UP0vhB
-         LE1O3HJb8rEUSRj3kdu4H6Vz3OLPAFxJZHAejtQpcdQf3vg04opebFiF6M3BRLqifNH+
-         jjIBkjoy0NJtt85H9X7/3H6nF+n9dE2N9/d/xhtp3zME+gkq3LfR5MsLBsFQtFzdyAdB
-         zRKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791455045; x=1792059845;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=AxR0pOAsOnpdhKn+bF/B85mpSQ3JMl+/gElRNNM7YSI=;
-        b=GHSO7SxeFubjf09+bVB22/7ZTp5d0qdGCZ76KXClBPCiwHuNui9CXB1+SisRlmQIYg
-         s5OnMt+ZYiXLKW3D9PApNM8vowpJPk5WWyoJzj70l1jUUEtH+5dQ5YunBP+BVWiAIdsp
-         NdRMU78sX5KtbkPafPoVilhivX98fkcAeLcdP2Srh7MnPyOjEvHhX3xNu5bclB7Czbi4
-         tKZZ1dfmwA0mN5hgEbKikJV0VbVBgyOspIyosRcv/J36OmsDBqIA4/uT7Rvh3pKycKaI
-         hruzuEvSbUxw1Wieg+5O/bqGfT2Un807QExvs5dABVIlZgOnHzcGGJRJI5+vcYeTL9YK
-         9rTw==
-X-Forwarded-Encrypted: i=1; AKwUvBx2xkvgX8HKHqtAmR+SuxNhnZ7cKCx6zB5der3eHC3OvJXx25j0zs4jWYBZsf6Zqf2waq6y5Wl0fgcOpds=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLvntu5EGkCgKkzXltSc6Wz+gNqXXXuShbtwiYLtI0O/1jZM10/
-	g9AkL8Qf0gZV82YAkKGq5yBSz02Rl0ARKlKIjaLT2mAvyFa9VhCNsJiUNyge88lXww06IWNQIpE
-	6mjVI9DdK9Lsc88GW06pnwQMtVin2W61vXsMQ/dJgq6vaiTNJUvR4MNRlVJyi6RUulDU=
-X-Gm-Gg: AYBFou2GalhdcoTdOQXygUyTkS7Z+MjVH01gOJ5HDxJL2mwgoeqH/uqyjQAGMMxdaL5
-	FOWs2iSLJtKxlL6HvBUpLRh3qgfq1rTXzdTUXr3p8PB7DYDvj17sm0T6U9cwdFM20gIf8AJyqpZ
-	Ts1RXdZOrhfO1U7Bw1iUktSdjjZp3pHbhQRu5Gc0jcr6xEfG/HJw9W763JWm9GUp8bk17utoDNr
-	W48JRO82/fthtSObRolFOjP5gKE8N41fl3r7EFFb3GaZVg5GMH73Aa0WWqAHURHE+7+hb82aiqI
-	7B6Hj6ir6WCo5cn/UuD1KL5Xn3HoCmANhLKFLqEEKs2zxV4FtqFx0okY7eIDiCsF6zq7giYXg4x
-	qw2F9H+WFuDRKuaRdq0PkG+20h3i06d28G9qfYn6fQ5S7TsSYFB5GmQOln+D9G8ZR+NM6dimu5D
-	Ak3ZSiTCY7q36NdMcjamWTIA==
-X-Received: by 2002:a17:903:320a:b0:2df:9bc4:e6fd with SMTP id d9443c01a7336-2e6003b697bmr43567885ad.19.1791455045102;
-        Thu, 08 Oct 2026 03:24:05 -0700 (PDT)
-X-Received: by 2002:a17:903:320a:b0:2df:9bc4:e6fd with SMTP id d9443c01a7336-2e6003b697bmr43567655ad.19.1791455044626;
-        Thu, 08 Oct 2026 03:24:04 -0700 (PDT)
-Received: from hu-aarasahu-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e6046fe39csm22081655ad.16.2026.10.08.03.23.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 03:24:03 -0700 (PDT)
-From: Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
-Subject: [PATCH ath-next 00/17] wifi: ath12k: Add support for QCN6432
-Date: Thu, 08 Oct 2026 15:53:56 +0530
-Message-Id: <20261008-mpp_bringup-v1-0-2c5797b5e4ac@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="CmIr+Yo1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791455048;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dhUChjftbbUORUyJn0QdHcvziOACv2RyPij5apElEWE=;
+	b=CmIr+Yo1HR8w4fYCS5lH8SqWrwPynmo+xrfUs7mcZ8kFowxJOdrkI0KXm3UEHjV+XoiCEn
+	6zVUnjs+ELq4iGK6q+gd2OcaHzqfqJ51WSnhGYW0AkgWoxs5JgNEI7wLYTIFRPyEJzcvHW
+	I1RDaeTCe16NkVD/nLWXYS6VvbR0jJI=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-644-OwttBHizPGO77X53R2akkQ-1; Thu,
+ 08 Oct 2026 06:24:03 -0400
+X-MC-Unique: OwttBHizPGO77X53R2akkQ-1
+X-Mimecast-MFC-AGG-ID: OwttBHizPGO77X53R2akkQ_1791455041
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 2B8DB1800620;
+	Thu,  8 Oct 2026 10:24:01 +0000 (UTC)
+Received: from warthog.com (unknown [10.44.32.90])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 685461956086;
+	Thu,  8 Oct 2026 10:23:56 +0000 (UTC)
+From: David Howells <dhowells@redhat.com>
+To: Christian Brauner <christian@brauner.io>
+Cc: David Howells <dhowells@redhat.com>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	Stefan Metzmacher <metze@samba.org>,
+	Eric Van Hensbergen <ericvh@kernel.org>,
+	Dominique Martinet <asmadeus@codewreck.org>,
+	Ilya Dryomov <idryomov@gmail.com>,
+	netfs@lists.linux.dev,
+	linux-afs@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	ceph-devel@vger.kernel.org,
+	v9fs@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v17 8/8] netfs: Remove netfs_extract_user_iter()
+Date: Thu,  8 Oct 2026 11:22:52 +0100
+Message-ID: <20261008102253.1003776-9-dhowells@redhat.com>
+In-Reply-To: <20261008102253.1003776-1-dhowells@redhat.com>
+References: <20261008102253.1003776-1-dhowells@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIADxvx2oC/yWM0QqEIBQFfyXO8wrqQ0m/Estidasb5IpaBNG/Z
- /U4DDMHIgWmiLo4EGjjyH+XQX0KdJN1IwnuM0NLXSopjVi8/7WB3bh6QVYrU/VKWm2QCx9o4P2
- 5NbBpEo72hO9r4trO1KV7hvO8AKO5Y1t5AAAA
-X-Change-ID: 20261008-mpp_bringup-ea2187d10a28
-To: Johannes Berg <johannes@sipsolutions.net>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>
-Cc: linux-wireless@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, ath12k@lists.infradead.org,
-        Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>,
-        Sowmiya Sree Elavalagan <quic_ssreeela@quicinc.com>
-X-Mailer: b4 0.15.2
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDA0MSBTYWx0ZWRfX77Nx6qLhIL/B
- Mo/XFwKqtTVG1/ybi6TxE2W34TBFQM/mjTVluK/O2BKHnqWe+F7Y7ndVrv4enQA+8Pers9Sjq4P
- 3Y43EG/dLoYbuQbEg2RTecipDza6IE0=
-X-Proofpoint-ORIG-GUID: xY5W3LRyyzc8y_WbXGoOwKv7ATBq4iIW
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDA0MSBTYWx0ZWRfX1e+h5hFMiMtS
- CSe8fSCk9P9rm48KeKbdL4anuCNRbXTKIAq+gFN7zqQ2xjbFy6BvZT3Psf9yh9dxr9ShAY/r4iL
- tdwNkQNSAUb6C5UlsE82ZvaLs0kZDDYsk3wUgxkdgS8oBworsqYRcl2guCafy7eP2dKOjgZbSgw
- U3P4E+72RMAIWtAdb3gM83H8dIUoLavPDIMsJWYvBqNtXruDj4pxLaGcO8769Tv6vGqfgjmRA+5
- 3mgmYFGDErYHXqRK9VRsuJAUsENedxbG3SL+jMhrrRSdro4/3x+MRvK+uFq/mC5trdj2beKtHyw
- Kcq1essrNWM8GSfARviHkHjq6ZuNZn5flIn992HrCsxeGFoRy5a1GTWqTclA9/9Zbk3aKf/vJJT
- GJwfTmNSzO1SlBRq1kpaD9ihsp0izT1SafBzzyVvInGlLxieaVnImwcWcxZAzbVVkty5JvOh9rx
- 3F93cl84HpJn0h02pQg==
-X-Authority-Analysis: v=2.4 cv=IIuXmQvG c=1 sm=1 tr=0 ts=6ac76f46 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=j9mdO8TpxRXb4I9anNkA:9 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-GUID: xY5W3LRyyzc8y_WbXGoOwKv7ATBq4iIW
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-08_03,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0 adultscore=0
- priorityscore=1501 malwarescore=0 suspectscore=0 clxscore=1015 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080041
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-QCN6432 is a PCIe-based device attached to the WCSS Q6 processor. It is
-registered as a platform device (AHB), and remoteproc APIs are used to
-boot and shut down the device, similar to other AHB-based devices such
-as IPQ5332.
+Remove netfs_extract_user_iter() as it has been replaced with
+netfs_extract_iter().
 
-However, PCI APIs are used for device setup and register access. Since
-QCN6432 requires both AHB and PCI APIs for its operation, a hybrid
-AHB/PCI approach is implemented.
-
-Overview:
-  - Patch [1/17] adds DT binding documentation for QCN6432.
-  - Patch [2/17] refactors PCI operations and MSI config structure to
-    support different MSI configurations.
-  - Patches [3,4,5/17] add hardware parameters, ring mask, and registers
-    for QCN6432.
-  - Patch [6/17] moves multi MSI vector flag to ath12k_dev_flags.
-  - Patches [7,8/17] add hybrid_bus_type and HIF operations support for
-    QCN6432.
-  - Patch [9/17] adds support for unified data-region memory allocation.
-  - Patch [10/17] moves MSI config to pcic for better abstraction.
-  - Patches [11,12/17] enable MSI interrupt support for CE and DP rings
-    specific to QCN6432.
-  - Patch [13/17] uses CMEM write for PPT on hybrid bus devices.
-  - Patch [14/17] stores and uses per CE DP MSI data for QCN6432.
-  - Patch [15/17] derives QMI service instance ID per protection domain.
-  - Patch [16/17] add userpd ID mapping per device.
-  - Patch [17/17] adds support for QCN6432 in the driver.
-
-Signed-off-by: Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
+Signed-off-by: David Howells <dhowells@redhat.com>
+Reviewed-by: Paulo Alcantara <pc@manguebit.org>
+cc: Matthew Wilcox <willy@infradead.org>
+cc: netfs@lists.linux.dev
+cc: linux-fsdevel@vger.kernel.org
 ---
-Aaradhana Sahu (10):
-      dt-bindings: net: wireless: Add QCN6432 device tree binding documentation
-      wifi: ath12k: Refactor PCI operations and MSI config structure
-      wifi: ath12k: move multi MSI vector flag to ath12k_dev_flags
-      wifi: ath12k: Add hybrid_bus_type in ath12k_hw_params
-      wifi: ath12k: add support for unified data-region memory allocation
-      wifi: ath12k: move MSI config to pci.c
-      wifi: ath12k: Add platform MSI support for CE
-      wifi: ath12k: use CMEM write for PPT on hybrid bus devices
-      wifi: ath12k: Resolve userPD ID per device
-      wifi: ath12k: Add QCN6432 AHB support
+ fs/netfs/iterator.c   | 297 ------------------------------------------
+ include/linux/netfs.h |   5 -
+ 2 files changed, 302 deletions(-)
 
-Sowmiya Sree Elavalagan (7):
-      wifi: ath12k: Add hardware parameter for QCN6432
-      wifi: ath12k: Add hardware ring mask for QCN6432
-      wifi: ath12k: add hardware registers for QCN6432
-      wifi: ath12k: Add hif operation support for QCN6432
-      wifi: ath12k: Enable MSI interrupt support for DP interrupt
-      wifi: ath12k: store and use MSI data per CE and DP interrupt group for QCN6432
-      wifi: ath12k: Derive QMI service instance ID per protection domain
+diff --git a/fs/netfs/iterator.c b/fs/netfs/iterator.c
+index d9ff6646d5d1..5e9de06c1cad 100644
+--- a/fs/netfs/iterator.c
++++ b/fs/netfs/iterator.c
+@@ -155,300 +155,3 @@ ssize_t netfs_extract_iter(struct iov_iter *orig, size_t max_len, size_t max_pag
  
- .../bindings/net/wireless/qcom,qcn6432-wifi.yaml   | 149 +++++++
- drivers/net/wireless/ath/ath12k/Makefile           |   2 +-
- drivers/net/wireless/ath/ath12k/ahb.c              |  51 ++-
- drivers/net/wireless/ath/ath12k/ahb.h              |  10 +-
- drivers/net/wireless/ath/ath12k/ce.c               |   7 +-
- drivers/net/wireless/ath/ath12k/ce.h               |   6 +
- drivers/net/wireless/ath/ath12k/core.c             |  10 +-
- drivers/net/wireless/ath/ath12k/core.h             |  24 ++
- drivers/net/wireless/ath/ath12k/dp.c               |  39 +-
- drivers/net/wireless/ath/ath12k/dp.h               |   2 +-
- drivers/net/wireless/ath/ath12k/hif.h              |  30 ++
- drivers/net/wireless/ath/ath12k/hw.h               |   8 +-
- drivers/net/wireless/ath/ath12k/mhi.c              |   4 +-
- drivers/net/wireless/ath/ath12k/pci.c              | 111 +++---
- drivers/net/wireless/ath/ath12k/pci.h              |  21 +-
- drivers/net/wireless/ath/ath12k/pcic.c             | 434 +++++++++++++++++++++
- drivers/net/wireless/ath/ath12k/pcic.h             |  24 ++
- drivers/net/wireless/ath/ath12k/qmi.c              |  83 +++-
- drivers/net/wireless/ath/ath12k/qmi.h              |   1 +
- drivers/net/wireless/ath/ath12k/wifi7/ahb.c        |  45 ++-
- drivers/net/wireless/ath/ath12k/wifi7/hal.c        |   7 +
- .../net/wireless/ath/ath12k/wifi7/hal_qcn9274.c    |  85 ++++
- .../net/wireless/ath/ath12k/wifi7/hal_qcn9274.h    |   1 +
- drivers/net/wireless/ath/ath12k/wifi7/hw.c         | 141 +++++++
- drivers/net/wireless/ath/ath12k/wifi7/pci.c        |  22 +-
- 25 files changed, 1213 insertions(+), 104 deletions(-)
----
-base-commit: 17e4b9ea527b6c9491bed60f646bb2eff7d8db7b
-change-id: 20261008-mpp_bringup-ea2187d10a28
+ }
+ EXPORT_SYMBOL_GPL(netfs_extract_iter);
+-
+-#if 0 // TODO: Remove in subsequent patch
+-/**
+- * netfs_extract_user_iter - Extract the pages from a user iterator into a bvec
+- * @orig: The original iterator
+- * @orig_len: The amount of iterator to copy
+- * @new: The iterator to be set up
+- * @extraction_flags: Flags to qualify the request
+- *
+- * Extract the page fragments from the given amount of the source iterator and
+- * build up a second iterator that refers to all of those bits.  This allows
+- * the original iterator to be disposed of.
+- *
+- * @extraction_flags can have ITER_ALLOW_P2PDMA set to request peer-to-peer DMA be
+- * allowed on the pages extracted.
+- *
+- * On success, the number of elements in the bvec is returned, the original
+- * iterator will have been advanced by the amount extracted.
+- *
+- * The iov_iter_extract_mode() function should be used to query how cleanup
+- * should be performed.
+- */
+-ssize_t netfs_extract_user_iter(struct iov_iter *orig, size_t orig_len,
+-				struct iov_iter *new,
+-				iov_iter_extraction_t extraction_flags)
+-{
+-	struct bio_vec *bv = NULL;
+-	struct page **pages;
+-	unsigned int cur_npages;
+-	unsigned int max_pages;
+-	unsigned int npages = 0;
+-	unsigned int i;
+-	ssize_t ret = 0;
+-	size_t count = orig_len, offset, len;
+-	size_t bv_size, pg_size;
+-
+-	if (WARN_ON_ONCE(!iter_is_ubuf(orig) && !iter_is_iovec(orig)))
+-		return -EIO;
+-
+-	max_pages = iov_iter_npages(orig, INT_MAX);
+-	bv_size = array_size(max_pages, sizeof(*bv));
+-	bv = kvmalloc(bv_size, GFP_KERNEL);
+-	if (!bv)
+-		return -ENOMEM;
+-
+-	/* Put the page list at the end of the bvec list storage.  bvec
+-	 * elements are larger than page pointers, so as long as we work
+-	 * 0->last, we should be fine.
+-	 */
+-	pg_size = array_size(max_pages, sizeof(*pages));
+-	pages = (void *)bv + bv_size - pg_size;
+-
+-	while (count && npages < max_pages) {
+-		ret = iov_iter_extract_pages(orig, &pages, count,
+-					     max_pages - npages, extraction_flags,
+-					     &offset);
+-		if (unlikely(ret <= 0)) {
+-			ret = ret ?: -EIO;
+-			break;
+-		}
+-
+-		if (WARN(ret > count,
+-			 "%s: extract_pages overrun %zd > %zu bytes\n",
+-			 __func__, ret, count)) {
+-			ret = -EIO;
+-			break;
+-		}
+-
+-		cur_npages = DIV_ROUND_UP(offset + ret, PAGE_SIZE);
+-		if (WARN(cur_npages > max_pages - npages,
+-			 "%s: extract_pages overrun %u > %u pages\n",
+-			 __func__, npages + cur_npages, max_pages)) {
+-			ret = -EIO;
+-			break;
+-		}
+-
+-		count -= ret;
+-		ret += offset;
+-
+-		for (i = 0; i < cur_npages; i++) {
+-			len = ret > PAGE_SIZE ? PAGE_SIZE : ret;
+-			bvec_set_page(bv + npages + i, *pages++, len - offset, offset);
+-			ret -= len;
+-			offset = 0;
+-		}
+-
+-		npages += cur_npages;
+-	}
+-
+-	/* Note: Don't try to clean up after EIO.  Either we got no pages, so
+-	 * nothing to clean up, or we got a buffer overrun, memory corruption
+-	 * and can't trust the stuff in the buffer (a WARN was emitted).
+-	 */
+-
+-	if (ret < 0 && (ret == -ENOMEM || npages == 0)) {
+-		for (i = 0; i < npages; i++)
+-			unpin_user_page(bv[i].bv_page);
+-		kvfree(bv);
+-		return ret;
+-	}
+-
+-	iov_iter_bvec(new, orig->data_source, bv, npages, orig_len - count);
+-	return npages;
+-}
+-EXPORT_SYMBOL_GPL(netfs_extract_user_iter);
+-
+-/*
+- * Select the span of a bvec iterator we're going to use.  Limit it by both maximum
+- * size and maximum number of segments.  Returns the size of the span in bytes.
+- */
+-static size_t netfs_limit_bvec(const struct iov_iter *iter, size_t start_offset,
+-			       size_t max_size, size_t max_segs)
+-{
+-	const struct bio_vec *bvecs = iter->bvec;
+-	unsigned int nbv = iter->nr_segs, ix = 0, nsegs = 0;
+-	size_t len, span = 0, n = iter->count;
+-	size_t skip = iter->iov_offset + start_offset;
+-
+-	if (WARN_ON(!iov_iter_is_bvec(iter)) ||
+-	    WARN_ON(start_offset > n) ||
+-	    n == 0)
+-		return 0;
+-
+-	while (n && ix < nbv && skip) {
+-		len = bvecs[ix].bv_len;
+-		if (skip < len)
+-			break;
+-		skip -= len;
+-		n -= len;
+-		ix++;
+-	}
+-
+-	while (n && ix < nbv) {
+-		len = min3(n, bvecs[ix].bv_len - skip, max_size);
+-		span += len;
+-		nsegs++;
+-		ix++;
+-		if (span >= max_size || nsegs >= max_segs)
+-			break;
+-		skip = 0;
+-		n -= len;
+-	}
+-
+-	return min(span, max_size);
+-}
+-
+-/*
+- * Select the span of a kvec iterator we're going to use.  Limit it by both
+- * maximum size and maximum number of segments.  Returns the size of the span
+- * in bytes.
+- */
+-static size_t netfs_limit_kvec(const struct iov_iter *iter, size_t start_offset,
+-			       size_t max_size, size_t max_segs)
+-{
+-	const struct kvec *kvecs = iter->kvec;
+-	unsigned int nkv = iter->nr_segs, ix = 0, nsegs = 0;
+-	size_t len, span = 0, n = iter->count;
+-	size_t skip = iter->iov_offset + start_offset;
+-
+-	if (WARN_ON(!iov_iter_is_kvec(iter)) ||
+-	    WARN_ON(start_offset > n) ||
+-	    n == 0)
+-		return 0;
+-
+-	while (n && ix < nkv && skip) {
+-		len = kvecs[ix].iov_len;
+-		if (skip < len)
+-			break;
+-		skip -= len;
+-		n -= len;
+-		ix++;
+-	}
+-
+-	while (n && ix < nkv) {
+-		len = min3(n, kvecs[ix].iov_len - skip, max_size);
+-		span += len;
+-		nsegs++;
+-		ix++;
+-		if (span >= max_size || nsegs >= max_segs)
+-			break;
+-		skip = 0;
+-		n -= len;
+-	}
+-
+-	return min(span, max_size);
+-}
+-
+-/*
+- * Select the span of an xarray iterator we're going to use.  Limit it by both
+- * maximum size and maximum number of segments.  It is assumed that segments
+- * can be larger than a page in size, provided they're physically contiguous.
+- * Returns the size of the span in bytes.
+- */
+-static size_t netfs_limit_xarray(const struct iov_iter *iter, size_t start_offset,
+-				 size_t max_size, size_t max_segs)
+-{
+-	struct folio *folio;
+-	unsigned int nsegs = 0;
+-	uoff_t pos = iter->xarray_start + iter->iov_offset;
+-	pgoff_t index = pos / PAGE_SIZE;
+-	size_t span = 0, n = iter->count;
+-
+-	XA_STATE(xas, iter->xarray, index);
+-
+-	if (WARN_ON(!iov_iter_is_xarray(iter)) ||
+-	    WARN_ON(start_offset > n) ||
+-	    n == 0)
+-		return 0;
+-	max_size = min(max_size, n - start_offset);
+-
+-	rcu_read_lock();
+-	xas_for_each(&xas, folio, ULONG_MAX) {
+-		size_t offset, flen, len;
+-		if (xas_retry(&xas, folio))
+-			continue;
+-		if (WARN_ON(xa_is_value(folio)))
+-			break;
+-		if (WARN_ON(folio_test_hugetlb(folio)))
+-			break;
+-
+-		flen = folio_size(folio);
+-		offset = offset_in_folio(folio, pos);
+-		len = min(max_size, flen - offset);
+-		span += len;
+-		nsegs++;
+-		if (span >= max_size || nsegs >= max_segs)
+-			break;
+-	}
+-
+-	rcu_read_unlock();
+-	return min(span, max_size);
+-}
+-
+-/*
+- * Select the span of a bvecq iterator we're going to use.  Limit it by both
+- * maximum size and maximum number of segments.  Returns the size of the span
+- * in bytes.
+- */
+-static size_t netfs_limit_bvecq(const struct iov_iter *iter, size_t start_offset,
+-				size_t max_size, size_t max_segs)
+-{
+-	const struct bvecq *bq = iter->bvecq;
+-	unsigned int nsegs = 0;
+-	unsigned int slot = iter->bvecq_slot;
+-	size_t span = 0, n = iter->count;
+-
+-	if (WARN_ON(!iov_iter_is_bvecq(iter)) ||
+-	    WARN_ON(start_offset > n) ||
+-	    n == 0)
+-		return 0;
+-	max_size = umin(max_size, n - start_offset);
+-
+-	if (!bvecq_acquire_slot(bq, slot)) {
+-		bq = bvecq_next(bq);
+-		slot = 0;
+-	}
+-
+-	start_offset += iter->iov_offset;
+-	do {
+-		size_t flen;
+-
+-		flen = bq->bv[slot].bv_len;
+-		if (start_offset < flen) {
+-			span += flen - start_offset;
+-			nsegs++;
+-			start_offset = 0;
+-		} else {
+-			start_offset -= flen;
+-		}
+-		if (span >= max_size || nsegs >= max_segs)
+-			break;
+-
+-		slot++;
+-		if (!bvecq_acquire_slot(bq, slot)) {
+-			bq = bvecq_next(bq);
+-			slot = 0;
+-		}
+-	} while (bq);
+-
+-	return umin(span, max_size);
+-}
+-
+-size_t netfs_limit_iter(const struct iov_iter *iter, size_t start_offset,
+-			size_t max_size, size_t max_segs)
+-{
+-	if (iov_iter_is_bvecq(iter))
+-		return netfs_limit_bvecq(iter, start_offset, max_size, max_segs);
+-	if (iov_iter_is_bvec(iter))
+-		return netfs_limit_bvec(iter, start_offset, max_size, max_segs);
+-	if (iov_iter_is_xarray(iter))
+-		return netfs_limit_xarray(iter, start_offset, max_size, max_segs);
+-	if (iov_iter_is_kvec(iter))
+-		return netfs_limit_kvec(iter, start_offset, max_size, max_segs);
+-	BUG();
+-}
+-EXPORT_SYMBOL(netfs_limit_iter);
+-#endif
+diff --git a/include/linux/netfs.h b/include/linux/netfs.h
+index f3249d0573c4..0340c9ee587b 100644
+--- a/include/linux/netfs.h
++++ b/include/linux/netfs.h
+@@ -460,11 +460,6 @@ void netfs_put_subrequest(struct netfs_io_subrequest *subreq,
+ ssize_t netfs_extract_iter(struct iov_iter *orig, size_t max_len, size_t max_pages,
+ 			   struct bvecq **_bvecq_head,
+ 			   iov_iter_extraction_t extraction_flags, gfp_t gfp);
+-ssize_t netfs_extract_user_iter(struct iov_iter *orig, size_t orig_len,
+-				struct iov_iter *new,
+-				iov_iter_extraction_t extraction_flags);
+-size_t netfs_limit_iter(const struct iov_iter *iter, size_t start_offset,
+-			size_t max_size, size_t max_segs);
+ void netfs_prepare_write_failed(struct netfs_io_subrequest *subreq);
+ void netfs_write_subrequest_terminated(void *_op, ssize_t transferred_or_error);
+ 
 
