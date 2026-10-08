@@ -1,280 +1,232 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com [209.85.210.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E02523D954D;
-	Thu,  8 Oct 2026 21:40:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791495637; cv=none; b=NnLi4fF/VLHQAQEOf+vPxue/gQXDafW66vn7L/2hynIlW3lGlQG9mct5jb9wURlhjdiGeU8S4iDOYUyO6ZiE37hd/Hs/dl+JrolhEpZ4yho5hJ/JtU6FavFItGnPRRWrj2mI+iRkEC8TPbsfGstxnhcoZ26pV6WuXSd/McjgjRs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791495637; c=relaxed/simple;
-	bh=FonD0lPwatSwc9CLF+o0pnMjNadWk+XyTpxVZVqKIGE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bfkdeB/W8L86rpsYm5divnfHIpRyEjPVOJBDR4L3d//4sHWDvJtrHo32lS2GPOX6uQLjqvmM7P6g121v7pUbYq+D0bTrgcwtiXSmjSn71jojLj2EDhQHOr7b1SSEQbRBKxuMQPr+slZzvceUOqaupkciUguSQ992paRmp4ILRj0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=B/p3N2du; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B2F0445AFB
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 21:41:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791495663; cv=pass; b=ZiHtoBfVp+AxUebJLHQW6cSEgpj02VPaKhKhQVl/FuKl5wphZncWnxeHj0qKoCfTlRlExOc8uhRxlrC06yvcKMTYDdQM7I4xEnB38705/lbmch5SW7ly3QVSLDefPMO6wgLZ3g2whJ91qBh3kEc9FakKgnU1Zr+qSWhWSq8Y4jo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791495663; c=relaxed/simple;
+	bh=X79HiiRrOSQEwG0wkO/yWS47cMb3pYSvxPyGF5qUYzA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ijPFi0GJIABa57jUsQhstg+Hy78uoGsaeaRcFIJ3vFkkv+GcV2pqS9+9XWT+rD+LvhkqpTAMHTrowwp0iEyEgOyZPuAxohhdYE6Rgi9cfht08OkJzHPJOOvsrTqzsnRGnBdPv1hU8T1jl30+6Gf4Ulp8pxXAO6yfFKZB67arBIE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=n8/F/OdW; arc=pass smtp.client-ip=209.85.210.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="B/p3N2du"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791495636; x=1823031636;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=FonD0lPwatSwc9CLF+o0pnMjNadWk+XyTpxVZVqKIGE=;
-  b=B/p3N2du9hzavLqnNBs86hSjov44lv1xc/pOGIog8OEdDJuPCrdH9a5S
-   O25Rnnsvt1KPaosD19l5IgyiAr2oFsdO3TkYJAjmNjtuBKKEUIYExsQk0
-   mFnQuk7rKcLAqGMxMNpyFTvrBlvm/oQtoaB/I11B128Q6T6BM4nIc1v/i
-   tnMgdU1lm/JFBXPxMubTATMLAUZXyENnFG5yl8+pflUIymyAakwZwwgaG
-   QtS9L26xjhpQ6rQiT5JnXMR6k4noEPPFnhkgeWzA8MduAAbtklxNaFCse
-   igoMd6h/P6tPF0QHYX0F3vcjwJPhGMbHLNTnR22Rz6QTMHHTCBpVMhl4Y
-   A==;
-X-CSE-ConnectionGUID: DX3Evm9eTkK9Vny2qsiS5g==
-X-CSE-MsgGUID: 1u2puN0VQHq/pFz+MH0sbA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11929"; a="194293"
-X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
-   d="scan'208";a="194293"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 14:40:35 -0700
-X-CSE-ConnectionGUID: xGEQVSFmQsOKbtW/QJ+sDQ==
-X-CSE-MsgGUID: ozfbqNP5R/C4UprFnJ9UQA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
-   d="scan'208";a="1959551"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa012.fm.intel.com with ESMTP; 08 Oct 2026 14:40:32 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xEvqm-000000004vU-2wDG;
-	Thu, 08 Oct 2026 21:40:28 +0000
-Date: Fri, 9 Oct 2026 05:40:18 +0800
-From: kernel test robot <lkp@intel.com>
-To: Jacky Chou <jacky_chou@aspeedtech.com>, Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Ryan Chen <ryan_chen@aspeedtech.com>,
-	Billy Tsai <billy_tsai@aspeedtech.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-aspeed@lists.ozlabs.org,
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Jacky Chou <jacky_chou@aspeedtech.com>
-Subject: Re: [PATCH 2/3] phy: aspeed: Add ASPEED PCIe PHY driver
-Message-ID: <202610090555.gWYlVYEL-lkp@intel.com>
-References: <20261008-aspeed_pcie_phy-v1-2-96764937aef0@aspeedtech.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="n8/F/OdW"
+Received: by mail-ot1-f42.google.com with SMTP id 46e09a7af769-825b40f8a26so1714506a34.1
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 14:41:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791495660; cv=none;
+        d=google.com; s=arc-20260327;
+        b=X4UG+JUrjG0o1RyBsqVptWoiKIw5xeRL1Q7OgP9EPDOZ0J0Qxu0grWW+fwOtdyhUDm
+         8kPWNsphCoA/vs5gnvP3NcVXVO0kDeu1onyK5i3lafGjUz+uVJP0WQpPFgQmByewS1HL
+         SHAwVXxJJpbco3aqkshK4En1NwNAhoR+FwFRZFayB60f4N89Q2xRnHDzwFL4UQ5o7qa5
+         Zn32XQWrjKXyAwnccJjDcfH64+z+uimAQIokuV9DmTsHoSFX/f1qMz9ORRprEhRpor70
+         egFQxcfjpeS29/QnHCxC7AI2UukLy/TGKrnqSM4u+/82sGlMR4e40NpifjIuoIRb5jhv
+         V38g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=gyBM3co0jtFEmVtQRTuXUNMSlVWNRsqFWBZpqheFeJQ=;
+        fh=DMnIrsPGCUerLkJSIYFLJJAkE2Oxbu4LEeYgASKTVFk=;
+        b=MAOPQX94eDaahuOxPU1bvigutt0jrWGSZBcbxwh2WCbu+xRFBrHr8GLd8e0ziBspBC
+         reDoffckQTP6VTUePe42+qdIN0X/R90a9w/MohGx4nSH+OSBsxj1ina9J3Hk9V2Fkedv
+         +O9wo7Myz86UgjTCzcnijDLEsfJczscwTrDLawIEWn2V4H+o7l07oxi9SoNJktbiEZSG
+         T7piF0B5uo1xk0h52BAfg2F+exF3YsCOWIzyfOPAsJ8j1+iH5VaO4VRKdgNuCXQfFTkU
+         +LSflZ5XoQw1rDWTBowpOtU4yDNdDSInt+jYlpgfE0ZvWSDPRVxjHEFfuUsFyD3pro4n
+         h9gQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791495660; x=1792100460; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gyBM3co0jtFEmVtQRTuXUNMSlVWNRsqFWBZpqheFeJQ=;
+        b=n8/F/OdWO8oAvL71RNtl6lbYZdbxp9JJ3mCCKNu4X8FWOz55LGRUjvMf5Zhh9R9c2M
+         VCmMbDMLRgyjDX2He9lDRRyvFzY92351yz21Ql9Cm7k4ATGW7U4xC5pejP6zWGek73nz
+         vNYkHavnVdmWaWtupPhWl8YC/ZRFl5zo/B7CM7ou/ZNnG0JhjWgpMvUwplFAGZnH/y9h
+         uSF+3Snq6RYGr99QMyjc/UBfSv6wdkkBqUd52BzVSCYjjJ0FcEmfQRRq4/uAQdS4mk41
+         DHym/kFjxmRGlUD9KtpOiXsuT1LcObDov3FhHjv15GYN2kMYTRcKRQtxbnGQpNse194I
+         g7kA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791495660; x=1792100460;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gyBM3co0jtFEmVtQRTuXUNMSlVWNRsqFWBZpqheFeJQ=;
+        b=dYrZQisjgJxxGE3Ud52LPXvH71MmVJuvga5VBLcjBh0MFOxLihfN1n3ArGM5SLIw9o
+         JCVN8wiIgl29qi45uHhWL4pV/Gfi+fUS3KL03+QDOVX4/PFjNBvFMAeoUlcSDO9fm2Or
+         CoOdVVYJIYwKOo+iFGaNmOgqLL9124Mh8Jt0E27GC18lFrknY5vspRZ8L4qW3QUzC0XM
+         nWnpOiOxZM042jzMztRHRzcIYaNg/uuaXV3xUuDjeoX7PJW0T/+TbmoH0ftG6/+Zsg+6
+         5GZqF6ZcU/LPs+Cn/95Iy3gFWqQRtEuoZTUkECuYz7uNlojOmwuUwcDdipVfvOx8NgYk
+         vfGA==
+X-Forwarded-Encrypted: i=1; AKwUvByN5RFxJs7oHOwrLcqKSlAfmoDlY3vO6kLIfPZ/JBjd6shtjuGDHdLfTW3l0E3oPf1ZeMh+w+YMZf57iNw=@vger.kernel.org
+X-Gm-Message-State: AFuF++m7fw1M8jm2xo1W4czKTCDXDs1uOsbkd4wdcgoUoRUipky2RrHY
+	+Yk5phzU58S+G56esJSLBoXIsJ6DteD9jfX/P7Eg+dODc+uHQOqPdu7tgOOYGkkqKMdCxAfAURg
+	8H0/ymz6bFxUsTfUe9kueb7KL/RdKBfydGpqrLl/6
+X-Gm-Gg: AYBFou1MwKMIU77XwE74Oe8T8nW7q8Lcd4MDZyFMXxi9ZBU8CCUAbAlhJfkr25caCHz
+	r5fuFv4LhhJZLnyccW844eY84WJbYxgx8O5ugzYYZZMGu1YOhQGxwD3d6WsWh47mbJ+gNVJdNZZ
+	hcDj/tAQ2ek/H58ShwewL86BIZmxE7mQ1c8LX9WDm99pPqC8I1svOGuLeMucC0RU1xRs8xSdGqC
+	JQMCOiVmWZnhbXGp864Zgksmg8cPgjtg2+mXK24uMYiOAtaEoK2Uv4uyA0EREILbJ93pBE0/ATh
+	1pCa1dx6JHJqNK1LHqFrBtsIYcW5NI+shX4MhnCjjqwFyq1QKxmKOLWbMwrAYzuThdGsvVFuLfX
+	C1AuOHuArfLwOZw==
+X-Received: by 2002:a05:6808:199c:b0:4d6:9273:251d with SMTP id
+ 5614622812f47-4fc46c91169mr7379369b6e.57.1791495659715; Thu, 08 Oct 2026
+ 14:40:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261008-aspeed_pcie_phy-v1-2-96764937aef0@aspeedtech.com>
+References: <20261005210403.3206872-1-kaifengw@google.com> <179141784973.434549.3492874220530662715@kernel.org>
+In-Reply-To: <179141784973.434549.3492874220530662715@kernel.org>
+From: Kaifeng Wang <kaifengw@google.com>
+Date: Thu, 8 Oct 2026 14:40:47 -0700
+X-Gm-Features: AclHuK8cv6b3xgUvgnZyHMF_wQUTwWKnGRkc9RdLBmCevhccE2Jkqa50GwksMzw
+Message-ID: <CAKkY-qOKHkuPfMk+1vhQjRymPKcG5P69CWFLYv46Xp6BiTXO5g@mail.gmail.com>
+Subject: Re: [PATCH net] net: devmem: check uid and netns in net_devmem_get_binding()
+To: netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org, almasrymina@google.com, edumazet@google.com, 
+	pabeni@redhat.com, willemb@google.com, davem@davemloft.net, kuba@kernel.org, 
+	horms@kernel.org, sdf@fomichev.me, bobbyeshleman@meta.com, 
+	kaiyuanz@google.com, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Jacky,
+> Could this break existing devmem TX users whose TCP socket and netlink
+> socket have different owners?
 
-kernel test robot noticed the following build errors:
+This restriction is intentional. NETDEV_CMD_BIND_TX was made
+unprivileged specifically so that an application can bind its own
+dmabuf directly and transmit on its own sockets without needing a
+separate privileged helper process. As noted in the comment above
+netdev_nl_bind_tx_doit(), bind-tx is meant for the caller to transmit
+"on their own sockets". We are not aware of any userspace workloads
+that split bind-tx and TCP socket creation across different UIDs or
+network namespaces.
 
-[auto build test ERROR on ea01f446f0682a5e7bd7a275889a890b7e0c6e02]
+> The mismatch returns the same -EINVAL as a stale ID. How would userspace
+> tell these cases apart?
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Jacky-Chou/dt-bindings-phy-aspeed-Add-ASPEED-PCIe-PHY/20261008-192819
-base:   ea01f446f0682a5e7bd7a275889a890b7e0c6e02
-patch link:    https://lore.kernel.org/r/20261008-aspeed_pcie_phy-v1-2-96764937aef0%40aspeedtech.com
-patch subject: [PATCH 2/3] phy: aspeed: Add ASPEED PCIe PHY driver
-config: csky-randconfig-1000-20261009 (https://download.01.org/0day-ci/archive/20261009/202610090555.gWYlVYEL-lkp@intel.com/config)
-compiler: csky-linux-gcc (GCC) 15.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261009/202610090555.gWYlVYEL-lkp@intel.com/reproduce)
+Returning -EINVAL on mismatch is deliberate: since dmabuf_id values
+are allocated sequentially from a global xarray, returning a distinct
+error code (for example -EPERM) would allow unprivileged users
+to probe and enumerate active binding IDs belonging to other users.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610090555.gWYlVYEL-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   In file included from include/linux/io.h:12,
-                    from include/linux/irq.h:20,
-                    from include/asm-generic/hardirq.h:17,
-                    from ./arch/csky/include/generated/asm/hardirq.h:1,
-                    from include/linux/hardirq.h:11,
-                    from include/linux/interrupt.h:11,
-                    from include/linux/kernel_stat.h:8,
-                    from include/linux/cgroup.h:27,
-                    from include/linux/memcontrol.h:13,
-                    from include/linux/swap.h:9,
-                    from include/linux/suspend.h:5,
-                    from include/linux/regulator/consumer.h:35,
-                    from include/linux/phy/phy.h:17,
-                    from drivers/phy/aspeed/phy-aspeed-pcie.c:11:
-   drivers/phy/aspeed/phy-aspeed-pcie.c: In function 'ast2600_phy_set_mode':
->> drivers/phy/aspeed/phy-aspeed-pcie.c:16:41: error: implicit declaration of function 'FIELD_PREP' [-Wimplicit-function-declaration]
-      16 | #define  AST2600_PORT_TYPE(x)           FIELD_PREP(AST2600_PORT_TYPE_MASK, x)
-         |                                         ^~~~~~~~~~
-   arch/csky/include/asm/io.h:31:59: note: in definition of macro 'writel'
-      31 | #define writel(v,c)             ({ wmb(); writel_relaxed((v),(c)); mb(); })
-         |                                                           ^
-   drivers/phy/aspeed/phy-aspeed-pcie.c:94:24: note: in expansion of macro 'AST2600_PORT_TYPE'
-      94 |                 writel(AST2600_PORT_TYPE(0x3), pcie_phy->reg + PEHR_GLOBAL);
-         |                        ^~~~~~~~~~~~~~~~~
-   drivers/phy/aspeed/phy-aspeed-pcie.c: In function 'ast2700_phy_set_mode':
->> drivers/phy/aspeed/phy-aspeed-pcie.c:144:17: error: implicit declaration of function 'FIELD_MODIFY' [-Wimplicit-function-declaration]
-     144 |                 FIELD_MODIFY(AST2700_PORT_TYPE_MASK, &cfg_val,
-         |                 ^~~~~~~~~~~~
-
-
-vim +/FIELD_PREP +16 drivers/phy/aspeed/phy-aspeed-pcie.c
-
-    12	
-    13	/* AST2600 PCIe Host Controller Registers */
-    14	#define PEHR_GLOBAL		0x30
-    15	#define  AST2600_PORT_TYPE_MASK		GENMASK(5, 4)
-  > 16	#define  AST2600_PORT_TYPE(x)		FIELD_PREP(AST2600_PORT_TYPE_MASK, x)
-    17	#define PEHR_LOCK		0x7c
-    18	#define  PCIE_UNLOCK			0xa8
-    19	
-    20	/* AST2700 PEHR */
-    21	#define PEHR_MISC_58		0x58
-    22	#define  LOCAL_SCALE_SUP		BIT(0)
-    23	#define PEHR_MISC_5C		0x5c
-    24	#define  CONFIG_RC_DEVICE		BIT(30)
-    25	#define PEHR_MISC_60		0x60
-    26	#define  AST2700_PORT_TYPE_MASK		GENMASK(7, 4)
-    27	#define  PORT_TYPE_ROOT			0x4
-    28	#define PEHR_MISC_70		0x70
-    29	#define  POSTED_DATA_CREDITS(x)		FIELD_PREP(GENMASK(15, 0), x)
-    30	#define  POSTED_HEADER_CREDITS(x)	FIELD_PREP(GENMASK(27, 16), x)
-    31	#define PEHR_MISC_78		0x78
-    32	#define  COMPLETION_DATA_CREDITS(x)	FIELD_PREP(GENMASK(15, 0), x)
-    33	#define  COMPLETION_HEADER_CREDITS(x)	FIELD_PREP(GENMASK(27, 16), x)
-    34	#define PEHR_MISC_278		0x278
-    35	#define  SET_TO_DOWNSTREAM		BIT(22)
-    36	#define  ASSERT_INTERNAL_RESET		BIT(31)
-    37	#define PEHR_MISC_280		0x280
-    38	#define  SEL_INTERNAL_RESET		BIT(0)
-    39	
-    40	/**
-    41	 * struct aspeed_pcie_phy - PCIe PHY information
-    42	 * @dev: pointer to device structure
-    43	 * @reg: PCIe host register base address
-    44	 * @clk: PCIe reference clock
-    45	 * @phy: pointer to PHY structure
-    46	 * @platform: platform specific information
-    47	 */
-    48	struct aspeed_pcie_phy {
-    49		struct device *dev;
-    50		void __iomem *reg;
-    51		struct clk *clk;
-    52		struct phy *phy;
-    53		const struct aspeed_pcie_phy_platform *platform;
-    54	};
-    55	
-    56	/**
-    57	 * struct aspeed_pcie_phy_platform - Platform information
-    58	 * @phy_ops: phy operations
-    59	 */
-    60	struct aspeed_pcie_phy_platform {
-    61		const struct phy_ops *phy_ops;
-    62	};
-    63	
-    64	static int ast2600_phy_init(struct phy *phy)
-    65	{
-    66		struct aspeed_pcie_phy *pcie_phy = phy_get_drvdata(phy);
-    67		int ret;
-    68	
-    69		ret = clk_prepare_enable(pcie_phy->clk);
-    70		if (ret)
-    71			return ret;
-    72	
-    73		writel(PCIE_UNLOCK, pcie_phy->reg + PEHR_LOCK);
-    74	
-    75		return 0;
-    76	}
-    77	
-    78	static int ast2600_phy_exit(struct phy *phy)
-    79	{
-    80		struct aspeed_pcie_phy *pcie_phy = phy_get_drvdata(phy);
-    81	
-    82		clk_disable_unprepare(pcie_phy->clk);
-    83	
-    84		return 0;
-    85	}
-    86	
-    87	static int ast2600_phy_set_mode(struct phy *phy, enum phy_mode mode,
-    88					int submode)
-    89	{
-    90		struct aspeed_pcie_phy *pcie_phy = phy_get_drvdata(phy);
-    91	
-    92		switch (submode) {
-    93		case PHY_MODE_PCIE_RC:
-    94			writel(AST2600_PORT_TYPE(0x3), pcie_phy->reg + PEHR_GLOBAL);
-    95			break;
-    96		default:
-    97			dev_err(&phy->dev, "Unsupported submode %d\n", submode);
-    98			return -EINVAL;
-    99		}
-   100	
-   101		return 0;
-   102	}
-   103	
-   104	static const struct phy_ops ast2600_phy_ops = {
-   105		.init		= ast2600_phy_init,
-   106		.exit		= ast2600_phy_exit,
-   107		.set_mode	= ast2600_phy_set_mode,
-   108		.owner		= THIS_MODULE,
-   109	};
-   110	
-   111	static int ast2700_phy_init(struct phy *phy)
-   112	{
-   113		struct aspeed_pcie_phy *pcie_phy = phy_get_drvdata(phy);
-   114	
-   115		return clk_prepare_enable(pcie_phy->clk);
-   116	}
-   117	
-   118	static int ast2700_phy_exit(struct phy *phy)
-   119	{
-   120		struct aspeed_pcie_phy *pcie_phy = phy_get_drvdata(phy);
-   121	
-   122		clk_disable_unprepare(pcie_phy->clk);
-   123	
-   124		return 0;
-   125	}
-   126	
-   127	static int ast2700_phy_set_mode(struct phy *phy, enum phy_mode mode,
-   128					int submode)
-   129	{
-   130		struct aspeed_pcie_phy *pcie_phy = phy_get_drvdata(phy);
-   131		u32 cfg_val;
-   132	
-   133		switch (submode) {
-   134		case PHY_MODE_PCIE_RC:
-   135			writel(0, pcie_phy->reg + PEHR_MISC_278);
-   136			writel(SEL_INTERNAL_RESET, pcie_phy->reg + PEHR_MISC_280);
-   137			writel(POSTED_DATA_CREDITS(0xc0) | POSTED_HEADER_CREDITS(0xa),
-   138			       pcie_phy->reg + PEHR_MISC_70);
-   139			writel(COMPLETION_DATA_CREDITS(0x30) | COMPLETION_HEADER_CREDITS(0x8),
-   140			       pcie_phy->reg + PEHR_MISC_78);
-   141			writel(LOCAL_SCALE_SUP, pcie_phy->reg + PEHR_MISC_58);
-   142			writel(CONFIG_RC_DEVICE, pcie_phy->reg + PEHR_MISC_5C);
-   143			cfg_val = readl(pcie_phy->reg + PEHR_MISC_60);
- > 144			FIELD_MODIFY(AST2700_PORT_TYPE_MASK, &cfg_val,
-   145				     PORT_TYPE_ROOT);
-   146			writel(cfg_val, pcie_phy->reg + PEHR_MISC_60);
-   147			writel(ASSERT_INTERNAL_RESET | SET_TO_DOWNSTREAM,
-   148			       pcie_phy->reg + PEHR_MISC_278);
-   149			break;
-   150		default:
-   151			dev_err(&phy->dev, "Unsupported submode %d\n", submode);
-   152			return -EINVAL;
-   153		}
-   154	
-   155		return 0;
-   156	}
-   157	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+On Wed, Oct 7, 2026 at 5:04=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wrot=
+e:
+>
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
+>
+> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 0
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>
+> - [Medium] The patch narrows who may transmit from a TX dmabuf binding.
+>
+> --
+>
+> net: devmem: check uid and netns in net_devmem_get_binding()
+>
+> This commit stores the network namespace and sk_uid of the netlink socket
+> that created a dmabuf binding. net_devmem_get_binding() now rejects TX
+> sockets whose netns or sk_uid does not match. On a mismatch it returns
+> -EINVAL, the same error as a non-existent binding ID.
+>
+> > diff --git a/net/core/devmem.c b/net/core/devmem.c
+> > index f4d60654ce7fd..9a773b1ce92de 100644
+> > --- a/net/core/devmem.c
+> > +++ b/net/core/devmem.c
+>
+> [ ... ]
+>
+> > @@ -220,6 +221,8 @@ net_devmem_bind_dmabuf(struct net_device *dev, void=
+ *vdev,
+> >
+> >       binding->dev =3D dev;
+> >       binding->vdev =3D vdev;
+> > +     write_pnet(&binding->net, sock_net(nl_sk));
+> > +     binding->uid =3D sk_uid(nl_sk);
+> >       binding->niov_shift =3D niov_shift;
+> >       xa_init_flags(&binding->bound_rxqs, XA_FLAGS_ALLOC);
+> >
+> > @@ -390,7 +393,9 @@ struct net_devmem_dmabuf_binding *net_devmem_get_bi=
+nding(struct sock *sk,
+> >       int err =3D 0;
+> >
+> >       binding =3D net_devmem_lookup_dmabuf(dmabuf_id);
+> > -     if (!binding || !binding->tx_vec) {
+> > +     if (!binding || !binding->tx_vec ||
+> > +         !net_eq(sock_net(sk), read_pnet(&binding->net)) ||
+> > +         !uid_eq(sk_uid(sk), binding->uid)) {
+> >               err =3D -EINVAL;
+> >               goto out_err;
+> >       }
+>
+> [Severity: Medium]
+> Could this break existing devmem TX users whose TCP socket and netlink
+> socket have different owners?
+>
+> binding->uid comes from sk_uid(nl_sk), and the new check compares it with
+> sk_uid(sk) of the sending socket. sk_uid is the socket's owner. It is set
+> when the socket is created, in sock_init_data_uid(), or changed later by
+> sockfs_setattr(). It is not the caller's current credentials.
+>
+> sock_graft() does not update sk_uid. An accepted TCP socket therefore kee=
+ps
+> the listener's sk_uid through sk_clone.
+>
+> In these setups, every devmem sendmsg through
+> tcp_sendmsg_locked()->net_devmem_get_binding() would now fail with -EINVA=
+L:
+>
+>   - A listener created by root, or through systemd socket activation, whe=
+re
+>     the service opens the netdev netlink socket after dropping privileges=
+.
+>     binding->uid is then the service uid, while the accepted socket's
+>     sk_uid is 0.
+>   - A privileged helper that runs bind-tx and hands the binding IDs to
+>     workers running as other uids.
+>   - Sockets passed between uids with SCM_RIGHTS.
+>
+> The mismatch returns the same -EINVAL as a stale ID. How would userspace
+> tell these cases apart?
+>
+> Should Documentation/networking/devmem.rst be updated for the new
+> requirement? It still describes the ID as:
+>
+>     The netlink API returns a dmabuf_id: a unique ID that refers to this
+>     dmabuf that has been bound.
+>
+> It also lists only SO_ZEROCOPY / MSG_ZEROCOPY, plus an optional
+> SO_BINDTODEVICE, as TX socket requirements.
+>
+> The comment above netdev_nl_bind_tx_doit() says:
+>
+> net/core/netdev-genl.c:
+>  * shared NIC RX queues, bind-tx only DMA-maps the caller's dmabuf so the=
+y can
+>  * transmit from it on their own sockets without affecting other traffic =
+or
+>
+> That is not quite the same rule as "same sk_uid and same netns".
+>
+> Because of the Fixes: tag, this restriction would also be backported to
+> stable. Should the commit message describe the compatibility impact?
+>
+> --
+> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
+set/20261005210403.3206872-1-kaifengw%40google.com
