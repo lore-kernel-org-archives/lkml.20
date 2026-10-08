@@ -1,120 +1,141 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from out03.mta.xmission.com (out03.mta.xmission.com [166.70.13.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 647F036F8EE;
-	Thu,  8 Oct 2026 03:31:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D44CF2931FF;
+	Thu,  8 Oct 2026 03:36:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=166.70.13.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791430312; cv=none; b=CoBiw5EfQFF4Br7XhXgXQPJawGsDycBqt96PpRS5rOi5ZRP3XB+JuiPw8MmKsjJDK/AEFxomNzsrYDr4c/wF9mZtDOn/zx+ZZ7hZVj2TLPlrXBh7s2G2857S6XyAS3QnRGCRH7UGQClYgVKYraZegbcWwGafXFIEfUiNCOmGS68=
+	t=1791430596; cv=none; b=UZPoNJSTe7QY6g9HyGwSwRHm8kRDDdMLhwxHueLhwfi//LbpixFroLnFrhhWcK+TTVNP7UlikfPhZU+nPC8M8rFA8CQmePtT43Ju/OMJOl2yaJnFng2OxxEZWiiU1yvQrJJy82dhGPlVKf09AzUVkLFD1Hbr3lvdh72ORzoUUfE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791430312; c=relaxed/simple;
-	bh=rRI2gizuOkmzDt3UCHT/ENcaMAQoOw3qqbRu6ckEfz8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=bbJaBpn6eaYIu5vl//QYq3i96h0aiIcqS1mrDATVPGuroDBmcer+JR7rCD1qPy8KLxMe5VjU1sYXzS9rLzgMB5/elr/wtGYz93QvfzfCZo/QgI5nAemuEmKimepFocaqCZhEmgVJNZFIOZikuHpCmUGwvEA/nuVGZOU+7O1r1jI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=V7gFcyOY; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791430596; c=relaxed/simple;
+	bh=NJI2DarabQhw4oFDCTnqXiYzHACu0I15hA60oDcCsv8=;
+	h=From:To:Cc:In-Reply-To:References:Date:Message-ID:MIME-Version:
+	 Content-Type:Subject; b=HD7eRc3IovP2fGmF8rFEpyR3Xh8msnnFbu9QSztoZnypjytgDkEXAAbOWrX5iJOTrw+cncs9tm+5AKN7kGK7LuueFOxtDC1De1L5pbhz9Nrf57aZWs5gdFTqzxw8MEpdPCkZnUKnWBIv5NGbd1nTvHvBqQU4su87MhljJabwp/E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xmission.com; spf=pass smtp.mailfrom=xmission.com; dkim=pass (1024-bit key) header.d=xmission.com header.i=@xmission.com header.b=qnpInk3E; arc=none smtp.client-ip=166.70.13.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xmission.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xmission.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="V7gFcyOY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=rRI2gizuOkmzDt3UCHT/ENcaMAQoOw3qqbRu6ckEfz8=; b=V
-	7gFcyOY6EVQ2wgR5l+PqYHAG+j77FsRXhEvhlbhksRWHsDLjl/LfXAAT90SqS68F
-	LLPky08R+i3u9mK6M4N7DNwtQDyzpSvFqVbDOdLGi8u6D1q91MpNhOmG1cbVgtS0
-	M5J9Kdu60hSzZppemIuqt2e0mDkFLBu7U84jlR20mI=
-Received: from taozj888$163.com ( [2409:8a20:22c3:d7b0:cce8:b35f:dfc7:fd77]
- ) by ajax-webmail-wmsvr-40-118 (Coremail) ; Thu, 8 Oct 2026 11:30:24 +0800
- (CST)
-Date: Thu, 8 Oct 2026 11:30:24 +0800 (CST)
-From: taozj888  <taozj888@163.com>
-To: =?GBK?Q?Th=A8=A6o_Lebrun?= <theo.lebrun@bootlin.com>
-Cc: stable@vger.kernel.org, "Conor Dooley" <conor.dooley@microchip.com>,
-	"Andrew Lunn" <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	"Eric Dumazet" <edumazet@google.com>,
-	"Jakub Kicinski" <kuba@kernel.org>,
-	"Paolo Abeni" <pabeni@redhat.com>, "Jeff Garzik" <jeff@garzik.org>,
-	"Haavard Skinnemoen" <hskinnemoen@atmel.com>,
-	"open list:NETWORKING DRIVERS" <netdev@vger.kernel.org>,
-	"open list" <linux-kernel@vger.kernel.org>
-Subject: Re:Re: [PATCH net v4] net: macb: rate limit netdev error info print
- in the data path
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <DLYI3O7PFN94.V7VH3HSLKEMD@bootlin.com>
-References: <20261007053211.572073-1-taozj888@163.com>
- <DLYI3O7PFN94.V7VH3HSLKEMD@bootlin.com>
-X-NTES-SC: AL_Qu2SA/iYv0op4iKeY+kfm04bju07UMu2v/4l2Y9SOp9wjDDp5gA9U11FN3vbyviEOzq8qyWnYgl32+5QQatlb5MJzNhTQU+YBErd1idYAWYRfA==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	dkim=pass (1024-bit key) header.d=xmission.com header.i=@xmission.com header.b="qnpInk3E"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=simple/simple; d=xmission.com;
+	 s=xmission; h=Subject:Content-Type:MIME-Version:Message-ID:Date:References:
+	In-Reply-To:Cc:To:From:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=NJI2DarabQhw4oFDCTnqXiYzHACu0I15hA60oDcCsv8=; b=qnpInk3ELoCpBfqBY8SgNRUj71
+	4XMk2ZWRs/TWoM2Kd2PI9sa60TfCjM/T4iY2WEYrMc14wo7qXFaLwSEOF0rr4XVe5WE/GG7gVmcqg
+	3aAqdqfWMY0kCvowjS7tAxMhMhM1ENzxKTlaYRHtqzQxxYdxEfqysQ05hk2+HXMNL550=;
+Received: from in02.mta.xmission.com ([166.70.13.52]:33546)
+	by out03.mta.xmission.com with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.93)
+	(envelope-from <ebiederm@xmission.com>)
+	id 1xEdrZ-009cRS-8e; Wed, 07 Oct 2026 20:28:05 -0600
+Received: from ip72-198-196-98.om.om.cox.net ([72.198.196.98]:54856 helo=email.froward.int.ebiederm.org.xmission.com)
+	by in02.mta.xmission.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.93)
+	(envelope-from <ebiederm@xmission.com>)
+	id 1xEdrW-002F3x-Fi; Wed, 07 Oct 2026 20:28:04 -0600
+From: "Eric W. Biederman" <ebiederm@xmission.com>
+To: Natasha Klaus <natalie.klaus@runtimeverification.com>
+Cc: Christian Brauner <brauner@kernel.org>,  Kees Cook <kees@kernel.org>,
+  Shuah Khan <shuah@kernel.org>,  Jeff Layton <jlayton@kernel.org>,
+  linux-kselftest@vger.kernel.org,  linux-kernel@vger.kernel.org
+In-Reply-To: <20260930112854.373184-1-natalie.klaus@runtimeverification.com>
+	(Natasha Klaus's message of "Wed, 30 Sep 2026 14:28:52 +0300")
+References: <20260930112854.373184-1-natalie.klaus@runtimeverification.com>
+Date: Wed, 07 Oct 2026 21:27:55 -0500
+Message-ID: <87se2h0vv8.fsf@email.froward.int.ebiederm.org>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <63731290.3f0c.1a1198fe993.Coremail.taozj888@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:digvCgD3_y5QDsdq_blTAA--.1610W
-X-CM-SenderInfo: hwdr6yqyyyqiywtou0bp/xtbC3hAk62rHDlAehwAA3r
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Type: text/plain
+X-XM-SPF: eid=1xEdrW-002F3x-Fi;;;mid=<87se2h0vv8.fsf@email.froward.int.ebiederm.org>;;;hst=in02.mta.xmission.com;;;ip=72.198.196.98;;;frm=ebiederm@xmission.com;;;sPfnum=0;;;sPf=pass
+X-XM-AID: U2FsdGVkX19VFKwA3NX3XuLVxwVPhh5HhCK4fEnKK6o=
+X-Spam-Level: *
+X-Spam-Report: 
+	* -1.0 ALL_TRUSTED Passed through trusted hosts only via SMTP
+	* -0.5 BAYES_40 BODY: Bayes spam probability is 20 to 40%
+	*      [score: 0.2387]
+	*  0.7 XMSubLong Long Subject
+	*  0.0 T_TM2_M_HEADER_IN_MSG BODY: No description available.
+	*  1.2 XM_Multi_Part_URI URI: Long-Multi-Part URIs
+	* -0.0 DCC_CHECK_NEGATIVE Not listed in DCC
+	*      [sa07 1397; Body=1 Fuz1=1 Fuz2=1]
+	*  0.0 T_TooManySym_01 4+ unique symbols in subject
+	*  1.0 XM_B_Phish_Phrases Commonly used Phishing Phrases
+	*  0.0 T_TooManySym_02 5+ unique symbols in subject
+	*  0.0 TR_XM_PhishingBody Phishing flag in body of message
+X-Spam-DCC: XMission; sa07 1397; Body=1 Fuz1=1 Fuz2=1 
+X-Spam-Combo: *;Natasha Klaus <natalie.klaus@runtimeverification.com>
+X-Spam-Relay-Country: 
+X-Spam-Timing: total 2307 ms - load_scoreonly_sql: 0.05 (0.0%),
+	signal_user_changed: 11 (0.5%), b_tie_ro: 10 (0.4%), parse: 0.84
+	(0.0%), extract_message_metadata: 13 (0.6%), get_uri_detail_list: 1.71
+	(0.1%), tests_pri_-2000: 13 (0.6%), tests_pri_-1000: 2.2 (0.1%),
+	tests_pri_-950: 1.09 (0.0%), tests_pri_-900: 0.78 (0.0%),
+	tests_pri_-90: 81 (3.5%), check_bayes: 79 (3.4%), b_tokenize: 6 (0.3%),
+	 b_tok_get_all: 8 (0.4%), b_comp_prob: 2.9 (0.1%), b_tok_touch_all: 57
+	(2.5%), b_finish: 1.11 (0.0%), tests_pri_0: 270 (11.7%),
+	check_dkim_signature: 0.88 (0.0%), check_dkim_adsp: 7 (0.3%),
+	poll_dns_idle: 1889 (81.9%), tests_pri_10: 1.92 (0.1%), tests_pri_500:
+	1909 (82.7%), rewrite_mail: 0.00 (0.0%)
+Subject: Re: [PATCH v2 0/2] userns: reject out-of-range uid_map/gid_map values
+X-SA-Exim-Connect-IP: 166.70.13.52
+X-SA-Exim-Rcpt-To: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, jlayton@kernel.org, shuah@kernel.org, kees@kernel.org, brauner@kernel.org, natalie.klaus@runtimeverification.com
+X-SA-Exim-Mail-From: ebiederm@xmission.com
+X-SA-Exim-Scanned: No (on out03.mta.xmission.com); SAEximRunCond expanded to false
 
-CgoKCgoKSGkgVGhlbzoKCgpQbGVhc2Ugc2VlIG15IGNvbW1lbnRzIGlubGluZS4KCgpUaGFua3Ms
-CgoKWmlqaW4gVGFvCgoKCgoKQXQgMjAyNi0xMC0wNyAxNzozMzowMywgIlRoqKZvIExlYnJ1biIg
-PHRoZW8ubGVicnVuQGJvb3RsaW4uY29tPiB3cm90ZToKPkhlbGxvIHRhb3pqODg4LAo+Cj5JIHdh
-cyByZXZpZXdpbmcgeW91ciBwYXRjaCBidXQgeW91IHNlbnQgVjQgYXQgdGhlIHNhbWUgdGltZSEK
-Pgo+T24gV2VkIE9jdCA3LCAyMDI2IGF0IDc6MzIgQU0gQ0VTVCwgIHdyb3RlOgo+PiBGcm9tOiB0
-YW96aWppbiA8dGFvemo4ODhAMTYzLmNvbT4KPgo+V2UgbmVlZCBmdWxsIG5hbWVzIGluIGtlcm5l
-bCBwYXRjaGVzLCB5b3UgaGF2ZSB0aGF0IGluIHlvdXIKPlNpZ25lZC1vZmYtYnkuCj4KPj4gTm93
-IHRoZSBNQUNCIGV0aGVybmV0IGRyaXZlciBwcmludCB0aGUgbmV0ZGV2IGVycm9yIGluZm9ybWF0
-aW9uCj4+IGRpcmVjdGx5IGJ5IG5ldGRldl9lcnIoKSwgd2hpY2ggd291bGQgbGVhZCB0byBhIGxh
-cmdlIG51bWJlciBvZgo+PiBlcnJvciBpbmZvcm1hdGlvbiBwcmludCBpZiB0aGVyZSB3YXMgYSBz
-aWduaWZpY2FudCBudW1iZXIgb2YKPj4gZXJyb3Igb3IganVzdCBqdW1ibyBwYWNrZXRzIGV4Y2Vl
-ZGluZyB0aGUgTVRVIHJlY2VpdmVkIHdoZW4gYm9vdGluZy4KPj4gRm9yIGV4YW1wbGUsIGl0IHdv
-dWxkIHByaW50IGEgbGFyZ2UgbnVtYmVyIG9mOgo+Pgo+PiBtYWNiIFBIWVQwMDM2OjAwIGV0aDA6
-IG5vdCB3aG9sZSBmcmFtZSBwb2ludGVkIGJ5IGRlc2NyaXB0b3IKPj4gbWFjYiBQSFlUMDAzNjow
-MCBldGgwOiBub3Qgd2hvbGUgZnJhbWUgcG9pbnRlZCBieSBkZXNjcmlwdG9yCj4+IC4uLgo+Pgo+
-PiBpbiBnZW1fcngoKSBieSByZWNlaXZlZCBhIGxhcmdlIG51bWJlciBvZiBwYWNrZXRzIHdpdGhv
-dXQKPj4gUlhfRU9GIGZsYWcgc2V0LCBlc3BlY2lhbGx5IHdpdGggdW5rbm93biBwYWNrZXQKPj4g
-dHlwZSB0aGF0IHdvdWxkIHBlbmV0cmF0ZSB0aGUgaGFyZHdhcmUgb2ZmbG9hZCBmb3IgdGhlIElQ
-IHBhY2tldHMuCj4+Cj4+IFRoZSB1bmxpbWl0ZWQgcHJpbnRzIGhlcmUgd291bGQgZ3JlYXRseSBi
-b3RoZXIgYW5kIGRlbGF5Cj4+IHRoZSBzeXN0ZW0gYm9vdGluZyBwcm9jZXNzIHVubGVzcyB0aGUg
-c291cmNlIHN0b3Agc2VuZGluZwo+PiBwYWNrZXRzIHNpbmNlIHRoZXkgb2NjdXB5IHRoZSBjb25z
-b2xlIG91dHB1dCBiYW5kd2lkdGggYW5kCj4+IG90aGVyIHByb2Nlc3NlcyBoYXZlIHRvIHdhaXQg
-Zm9yIHRoZSBjb21wbGV0aW9uIG9mIHByaW50aW5nIHRob3NlCj4+IG1lc3NhZ2VzLgo+Pgo+PiBT
-byByYXRlIGxpbWl0IHRoZSBuZXRkZXYgZXJyb3IgaW5mb3JtYXRpb24gcHJpbnQgaW4gdGhlIHJl
-Y2VpdmUKPj4gYW5kIHRyYW5zbWl0IGRhdGEgcGF0aC4KPj4KPj4gRml4ZXM6IDg5ZTU3ODVmYzhh
-NiAoIltQQVRDSF0gQXRtZWwgTUFDQiBldGhlcm5ldCBkcml2ZXIiKQo+PiBDYzogc3RhYmxlQHZn
-ZXIua2VybmVsLm9yZwo+Cj5XaGF0IGhhcHBlbmVkPyBUaGlzIGRvZXNuJ3QgbWF0Y2ggeW91ciBk
-aXNjdXNzaW9uIHdpdGggTmljb2xhaS4KCj5odHRwczovL2xvcmUua2VybmVsLm9yZy9uZXRkZXYv
-M2UxNTE1ZTE2MmQwODRlMjIwMGVlYWE2MDc0YmZiYWZAdGlwaS1uZXQuZGUvCgoKQFRoZW8sIGlu
-IHRoZSBsaW5rIHRoYXQgeW91IHByb3ZpZGVkLCBOaWNvbGFpIHN1Z2dlc3RlZCB0byB1c2UgdGhl
-IGNvbW1pdCBpZCAKIjRkZjk1MTMxZWE4MCIsIGFuZCB0aGUgb3JpZ2luYWwgdGV4dCBpcyBxdW90
-ZWQgYmVsb3c6CiIKCj4+Pj4gRml4ZXM6IDg5ZTU3ODVmYzhhNiAoIltQQVRDSF0gQXRtZWwgTUFD
-QiBldGhlcm5ldCBkcml2ZXIiKQo+Pj4gCj4+PiBJTUhPIHRoZSBjb3JyZWN0IHRhZyBpcyA0ZGY5
-NTEzMWVhODAgKCJuZXQvbWFjYjogY2hhbmdlIFJYIHBhdGggZm9yCj4+PiBHRU0iKT8KPj4+IEF0
-IGxlYXN0IHRoZSBnZW1fcngoKSBtZXNzYWdlcyB3ZXJlIGludHJvZHVjZWQgaGVyZS4KPj4gCj4+
-IFRoZSBwYXRjaCB1c2VkIHRvIHRvdWNoIG1hY2Jfc3RhcnRfeG1pdCgpLCB3aGljaCBleHBsYWlu
-cyB3aHkgSSB0b2xkCj4+IFppamluIHRvIHRhcmdldCB0aGUgaW5pdGlhbCBjb21taXQgb24gcHJl
-dmlvdXMgcmV2aXNpb24uCj4+IAo+IE9LLCBJIHdpbGwgc3RpbGwgdXNlIHRoZSBpbml0aWFsIGNv
-bW1pdCBpbmRpY2F0ZWQgYnkgVGhlby4KClBsZWFzZSByZS1yZWFkIFRoqKZvJ3MgcmVwbHk6IGhl
-IG9ubHkgc3VnZ2VzdGVkIHRoZSBpbml0aWFsCmJlY2F1c2UgdjEgYWxzbyB0b3VjaGVkIG1hY2Jf
-c3RhcnRfeG1pdCgpLiB2MiBkb2Vzbid0IGFueW1vcmUsCjg5ZTU3ODVmYzhhNiBpcyBubyBsb25n
-ZXIgdGhlIHJpZ2h0IHRhcmdldC4gUGxlYXNlIHVzZToKCkZpeGVzOiA0ZGY5NTEzMWVhODAgKCJu
-ZXQvbWFjYjogY2hhbmdlIFJYIHBhdGggZm9yIEdFTSIpCiIKU28gSSBjaGFuZ2VkIHRoZSBjb21t
-aXQgaWQgZnJvbSAiODllNTc4NWZjOGE2IiB0byAiNGRmOTUxMzFlYTgwIgppbiB0aGUgdjQgcGF0
-Y2gsIGFuZCBzb21lYm9keSBzdWdnZXN0ZWQgdG8gc2V0IHRoZSBjaGFuZ2Vsb2cganVzdAppbiB0
-aGUgcGF0Y2ggYmVsb3cgaXRzICItLS0iIHBhcnQgaWYgdGhlcmUgaXMgb25seSBqdXN0IDEgcGF0
-Y2gsIGJ1dApub3QgaW4gdGhlIGNvdmVyLWxldHRlciwgc28gSSBhZGRlZCB0aGUgY2hhbmdsb2cg
-aW4gdGhlIHY0IHBhdGNoLgoKCklmIHlvdSBkaWRuJ3QgYWdyZWUgdGhlIGNoYW5nZXMgaW4gdGhl
-IHY0IHBhdGNoIEkgd291bGQgbGlrZSB0byBqdXN0IGFiYW5kb24KaXQsIG9yIEkgd2lsbCBzZW5k
-IGEgdjUgcGF0Y2ggdG8gcmVzdG9yZSB0byB0aGUgY29udGVudHMgb2YgdGhlIHYzIHBhdGNoIHdp
-dGgKdGhlIGNoYW5nZWxvZyBhZGRlZCBpbiB0aGUgcGF0Y2ggaXRzZWxmLgoKCkZvciB0aGUgYXV0
-b3JzaGlwLCBJIHdvdWxkIGxpa2UgdG8gdXNlIHRoZSAiWmlqaW4gVGFvIDx0YW96ajg4OEAxNjMu
-Y29tPiIgZm9yIGFsbApwYXJ0cyBpbiB0aGUgcGF0Y2ggKGZvciB0aGUgc2lnbmVkLW9mZi1ieSBh
-bmQgRnJvbSkuCgo+Cj5UTERSLCBiZWNhdXNlIHRob3NlIHRocmVhZHMgYXJlIGEgbWVzczoKPiAt
-IHdoeSBkcm9wIHN0YXJ0X3htaXQgZGlmZj8KPiAtIGZpeCB5b3VyIHBhdGNoIGF1dG9yc2hpcAo+
-IC0gY2hlY2sgeW91ciBjaGFuZ2Vsb2chCj4gLSBjaGVjayB5b3VyIGZpeGVzIQo+Cj5UaGFua3Ms
-Cj4KPi0tCj5UaKimbyBMZWJydW4sIEJvb3RsaW4KPkVtYmVkZGVkIExpbnV4IGFuZCBLZXJuZWwg
-ZW5naW5lZXJpbmcKPmh0dHBzOi8vYm9vdGxpbi5jb20K
+Natasha Klaus <natalie.klaus@runtimeverification.com> writes:
+
+> map_write() silently truncates uid_map/gid_map/projid_map values above
+> U32_MAX modulo 2^32 on 64-bit kernels, so e.g. "4294967301 1000 1" is
+> installed as "5 1000 1" without an error. Patch 1 parses each field
+> with kstrtou32() so such values fail with -EINVAL. Patch 2 adds
+> selftests for out-of-range and negative values in each field and for
+> the unchanged in-range path.
+>
+> This makes the parser more correct; it is not a security fix.
+>
+> The patch and the selftest were drafted by Claude Code (Claude Opus 5.5)
+> in an interactive session; I reviewed, built and tested them. The
+> assistant flagged the truncation while reading map_write(), and I
+> confirmed it by writing to uid_map on a running kernel.
+>
+> Tested on v7.3-rc5-37-g551c722f4080 under virtme-ng, x86_64 defconfig
+> with CONFIG_USER_NS: all 12 selftest cases pass on the patched kernel.
+> On an unpatched 6.8 host the four above-u32 cases fail as expected,
+> seven pass and the root-only case is skipped.
+
+I don't see anything to object to in this one.
+
+Acked-by: "Eric W. Biederman" <ebiederm@xmission.com>
+
+>
+> Changes in v2:
+> - Parse each field with kstrtou32() instead of simple_strtoull() plus a
+>   separate U32_MAX check (Eric W. Biederman).
+> - Selftest: add negative values in each field, "0 <uid> 1", the
+>   largest valid first id, a line with extra spaces between fields, and
+>   the largest count written by a privileged parent (Eric W. Biederman).
+> - Describe patch 1 as making the parser more correct, not as hardening.
+> - Rebased onto v7.3-rc5-37-g551c722f4080.
+>
+> Link: https://lore.kernel.org/all/20260928072537.115668-1-natalie.klaus@runtimeverification.com/
+>
+> Natasha Klaus (2):
+>   userns: reject uid_map/gid_map values that do not fit in u32
+>   selftests/namespaces: add uid_map/gid_map range tests
+>
+>  kernel/user_namespace.c                       |  29 +-
+>  tools/testing/selftests/namespaces/.gitignore |   1 +
+>  tools/testing/selftests/namespaces/Makefile   |   3 +-
+>  .../selftests/namespaces/uid_map_range_test.c | 299 ++++++++++++++++++
+>  4 files changed, 328 insertions(+), 4 deletions(-)
+>  create mode 100644 tools/testing/selftests/namespaces/uid_map_range_test.c
+>
+>
+> base-commit: 551c722f40809618230001baccf219193e22fc5a
