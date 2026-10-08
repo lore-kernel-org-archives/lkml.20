@@ -1,263 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B30A3BE646;
-	Thu,  8 Oct 2026 06:02:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 117D339A7EF
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 06:03:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791439361; cv=none; b=YAXxD3aBeUhyBE3TDxuJXggrMjpp0nlTVgyaQlnHbiSF5q0pb3VxVXoUZh9rG3BTmxzGuK4Wt6AfX5N67RLE+RTXlR9B4GQEMsFdcmS+NHWm6WZRLIa5X5LRwHzs/AmLxxZZRcuZKA5oChP9fXcgFwj+8taCwQJZHawbmB//ZAE=
+	t=1791439386; cv=none; b=Ga2JuLQsHSRl4aF2HIyqeB3LTyP3hnRWMdCtZ/AHCyG5KIEAN8uQgLoAJNFJnm54b+4VfNABkl6Fz2RJ5qoIzsLKrVWq1XLhPg6wJfj2C5N2NtshIeVIw+CptiWXNnwzBDnaprpWE/8nt90SvKkjHZvp3LIiOR4/MNPsJtaE8FI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791439361; c=relaxed/simple;
-	bh=ySD69JaYnYXUWe8qqHxCFspzzyiheAdkp9kpF9AQoDA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Wcyzz3n66hSc4rHXbRtiyv3XpBbx6PiG9IUM38JuABd+GdGjZOYtWqECI9YwFx4W49SJbAExGyRHu01msSIJtB/02nzN2JBm23dRrP/Zap4M9szatWE0KhOjQxUYGB8On3EPSwIV5qrw7leOmMjerB3zcjoA5GwFXS5y4CQo1fE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HHiD2C3O; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791439386; c=relaxed/simple;
+	bh=fIRMhCIOyrVw9rK5CsCSRNLHttPMgUeKuQmICivAfvc=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=N9qomlXzkh1y9XoZYL8i8A5FOC5HWXk6B1XRNDOVJrKI9eiotNNy0sLQQmrJ1GP+WNucrcMbDfLKmBfJFFvvVyIr7wo3hgFgBWUMs4t5iYcXuCj+3D+SshBl/SDNuJ+Tw7Qiy0WhkC3eygycU3JsXznHUeS8q/fTZfMuJz89MtA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PjCYWNN0; arc=none smtp.client-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HHiD2C3O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 594AF1F00893;
-	Thu,  8 Oct 2026 06:02:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791439359;
-	bh=PH2hucRXCaT23rZGCU5tNpw03+Q8jQ2iFx4qgOvu23A=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HHiD2C3OAvKRh3kfhypdVp/Hmpje5WwTlaZeXzO2kFz7AheFFLwnxh+P797KsiWXD
-	 DJ12mWjsi3lVNLhe6HuwWbZUsS2Na/ICC6xurIhSKwbt2qZSnWBqdl6stAnHURLfjI
-	 7LrY4rBOlh4Uyyw2CVrX6NJNV5HAW6nBgEd4PAtzRIFMED7W3X8t1+vT3u/KR/5xs2
-	 Av41Y60Nc4qH1C2ecuSeXcx8Heu71xCPXradqxfhBZYvFH6hCHz4EC3Fp95glufOj0
-	 +N79s+fvnMcbbhyKUvnSOkwCjR4xpcqOLeVfNUGEq1DB4f/M3BRcFHU0a5tF6SDNQY
-	 c+qRuIFuR8mng==
-From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
-To: iommu@lists.linux.dev
-Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
-	Alex Williamson <alex@shazbot.org>,
-	Alexey Kardashevskiy <aik@amd.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Jacob Pan <jacob.pan@linux.microsoft.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Joerg Roedel <joro@8bytes.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Krishna Reddy <vdumpa@nvidia.com>,
-	Lukas Wunner <lukas@wunner.de>,
-	Nicolin Chen <nicolinc@nvidia.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Samuel Ortiz <sameo@rivosinc.com>,
-	Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
-	Steven Price <steven.price@arm.com>,
-	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Vasant Hegde <vasant.hegde@amd.com>,
-	Will Deacon <will@kernel.org>,
-	Xu Yilun <yilun.xu@linux.intel.com>,
-	kvm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-coco@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-tegra@vger.kernel.org,
-	Jonathan Cameron <jonathan.cameron@huawei.com>
-Subject: [PATCH v7 16/16] PCI/TSM: wait for vdevice contexts before removing a DSM
-Date: Thu,  8 Oct 2026 11:29:55 +0530
-Message-ID: <20261008055955.4014342-17-aneesh.kumar@kernel.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261008055955.4014342-1-aneesh.kumar@kernel.org>
-References: <20261008055955.4014342-1-aneesh.kumar@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PjCYWNN0"
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-30b6dad2382so5954875eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 23:03:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791439384; x=1792044184; darn=vger.kernel.org;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hVxtblLyGNciWT4y5SJ0lTWFuCiEjX394rt+jaGOGh0=;
+        b=PjCYWNN0irK30+YBKuZunkP2rBGIrY3MhHwpLTcT4ZzbnEe1EfQAXSncsq438/3s2O
+         Kn/G53VYSG/gOAOygQ/2MJDCsnlDdauPUQOSuBrcB8KUWaN6ihIcAWei8ZoPLO5541TU
+         5zEdK4WMi6ecJJIjZraBYcnQO1KNZE6E+Qg8Q38Imhv46ISXNuRnaTgZsL3uqAEvYqIH
+         VKzDNXljXlFtpP+bNolJ4XZNyDD8TFcelnMBaBXwoaQRl89cPteXkoymb632tF73DptB
+         Zlp2zkAyDZUUi8DazBwJa38DzHerUP3bHJkzonFq/8Ib/rcWJ7ulDJv/dhu9JeKu4Lri
+         Upjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791439384; x=1792044184;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hVxtblLyGNciWT4y5SJ0lTWFuCiEjX394rt+jaGOGh0=;
+        b=KiAYawrnZHDAzowFoBA1Z/JzFr/4xhexenNHmsGep4qCAkkBf2PdMbRaraxuAgkTa8
+         Og5E4Dd3L8aSg3rJBvDFz5SfHIsKseepEtVfFQHx78catcf4jGSXCCeAYGWta0mXOiAo
+         72Jcy2NstgsSMGRfWvEBIyjHbqqeo7PruyMpF/ho44n6yiNGN/ZQpFuuOT9uo4ndN30h
+         3c6z7fuNfLEC7gjQs2gQew2iyiujXQf54qgZMAMvMRJXtuBegisyAWBDUiSoelJCCk2C
+         DGTyxJgX9nnAx8FPgS9ewTSrkqW/mJaBdbR3y8xoL+v4fZn+CtWsBYf1Im8/EQvk85O7
+         54vA==
+X-Gm-Message-State: AFuF++mEKR/zeBYIrxWC0EAiBQuFPmo7GZ1zVA5wNOxdZE0/2gOGs6/u
+	xrGbn0bSWJjjezps+Vn5pE5dLJCdfzsS15U3YQRY1xKMeLMkkb1K3nCM
+X-Gm-Gg: AYBFou3iyBHyDbpjXOGvc/odyO9x4iyEIU+9I2vh64zaL7JjKDQvjCpNIPpqtnuK6aU
+	P/0HtwOjM+v4VtuLwxisNWFW0sBoq8Y7+T8qN//9P4hrvntdV1PYv1O29w7GXrVq/6OcxHNq+4O
+	fdfNT8kQzdLXX66li5b9Nb7n+te1uf8XJLwoet7XAao/MXZor6/q0zkQGJ2l6CFTqaPei/2eb0C
+	VWttEiChzOU4TdV0iqMrqW7rL0hrnWrDGaY4B7Um3fNvWwphHpJlaBCQDVAX75WD8nh7/fx6ewD
+	yIQWCE7ii3Gf57UrLAMjPtQiDcUxHJ2fh5BXhDb4OlPZxB1b6s9J6ZFwjr4TGTWsfeKBJErCmoF
+	/T14K8KWPisxPhm58JY31pdWD37S/+NLOwRieqzMWSzPRnyPUBwSY+tE55oAqytXCIX0fQ8qtLX
+	IVBhWjVnJSaNcpP7iEBBFVMM1+O7WKf4HnqTBQZv6BqP0kKfVNzfUm/opqbX8bvIQnVuXA8FSey
+	mnnZl0t651c3o89HedGta/ozYQWvt1l8q7c2glUSw==
+X-Received: by 2002:a05:7300:ac94:b0:343:4a95:f120 with SMTP id 5a478bee46e88-3515dddaea8mr6197394eec.25.1791439383599;
+        Wed, 07 Oct 2026 23:03:03 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:3002:e11e:c053:ebcb])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3515abb67e5sm12906403eec.4.2026.10.07.23.03.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 23:03:03 -0700 (PDT)
+Date: Wed, 7 Oct 2026 23:03:00 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: linux-input@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH] Input: cyapa - drop redundant input->dev.parent assignment
+Message-ID: <ascx_F_LzRalepyi@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-A PF0 DSM can be removed while a sibling function still has a vdevice.
-The context pins both the pci dev, but those references do not keep the
-PF0 DOE mailbox alive. Ignoring -EBUSY from link disconnect lets PCI
-continue to pci_doe_destroy(), leaving the vdevice with a stale mailbox
-pointer.
+devm_input_allocate_device() already initializes input->dev.parent to
+the supplied parent device, so the explicit assignment in
+cyapa_create_input_dev() is redundant. Remove it.
 
-This follows the VFIO PCI removal model: vfio_unregister_group_dev()
-prevents new userspace opens and waits for existing users to release the
-device before teardown proceeds. Likewise, DSM removal rejects new
-contexts and waits for existing vdevice contexts to drain before
-destroying the DOE mailbox.
-
-Mark the DSM as removing so no new contexts or subfunctions can attach.
-Wait for the last context to be released before disconnecting the link,
-
-VFIO PCI also uses an eventfd to notify userspace that the device should
-be released. This patch does not add an equivalent notification for
-vdevice contexts; DSM removal waits for userspace to release them. Such
-a notification can be added later if required.
-
-Cc: Bjorn Helgaas <bhelgaas@google.com>
-Cc: Jonathan Cameron <jonathan.cameron@huawei.com>
-Cc: Alexey Kardashevskiy <aik@amd.com>
-Cc: Xu Yilun <yilun.xu@linux.intel.com>
-Cc: Lukas Wunner <lukas@wunner.de>
-Cc: Samuel Ortiz <sameo@rivosinc.com>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Kevin Tian <kevin.tian@intel.com>
-Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
+Reported-by: sashiko-bot@kernel.org
+Assisted-by: LLM
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 ---
- drivers/pci/tsm.c       | 63 +++++++++++++++++++++++++++++++++++++++--
- include/linux/pci-tsm.h |  5 ++++
- 2 files changed, 65 insertions(+), 3 deletions(-)
+ drivers/input/mouse/cyapa.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/pci/tsm.c b/drivers/pci/tsm.c
-index c8603867e09d..8aa74ba31932 100644
---- a/drivers/pci/tsm.c
-+++ b/drivers/pci/tsm.c
-@@ -10,10 +10,13 @@
+diff --git a/drivers/input/mouse/cyapa.c b/drivers/input/mouse/cyapa.c
+index 159cae446824..936ca4b08550 100644
+--- a/drivers/input/mouse/cyapa.c
++++ b/drivers/input/mouse/cyapa.c
+@@ -453,7 +453,6 @@ static int cyapa_create_input_dev(struct cyapa *cyapa)
+ 	input->id.bustype = BUS_I2C;
+ 	input->id.version = 1;
+ 	input->id.product = 0;  /* Means any product in eventcomm. */
+-	input->dev.parent = &cyapa->client->dev;
  
- #include <linux/bitfield.h>
- #include <linux/iommufd.h>
-+#include <linux/jiffies.h>
- #include <linux/module.h>
- #include <linux/pci.h>
- #include <linux/pci-doe.h>
- #include <linux/pci-tsm.h>
-+#include <linux/pid.h>
-+#include <linux/sched.h>
- #include <linux/slab.h>
- #include <linux/sysfs.h>
- #include <linux/tsm.h>
-@@ -354,6 +357,12 @@ struct pci_tsm_context *pci_tsm_context_get(struct pci_dev *pdev,
- 		return ERR_PTR(-ENOMEM);
- 
- 	guard(mutex)(&pf0->lock);
-+	if (pf0->removing) {
-+		kfree(context);
-+		return ERR_PTR(-ENODEV);
-+	}
-+	if (!pf0->context_users)
-+		reinit_completion(&pf0->contexts_drained);
- 	pf0->context_users++;
- 	context->pf0 = pf0;
- 	context->pdev = pci_dev_get(pdev);
-@@ -368,8 +377,11 @@ void pci_tsm_context_put(struct pci_tsm_context *context)
- 
- 	down_read(&pci_tsm_rwsem);
- 	mutex_lock(&pf0->lock);
--	if (!WARN_ON(!pf0->context_users))
--		pf0->context_users--;
-+	if (WARN_ON(!pf0->context_users))
-+		goto out_unlock;
-+	if (!--pf0->context_users)
-+		complete_all(&pf0->contexts_drained);
-+out_unlock:
- 	mutex_unlock(&pf0->lock);
- 	up_read(&pci_tsm_rwsem);
- 
-@@ -452,6 +464,9 @@ static ssize_t disconnect_store(struct device *dev,
- 	tsm_dev = pdev->tsm->tsm_dev;
- 	if (!sysfs_streq(buf, dev_name(&tsm_dev->dev)))
- 		return -EINVAL;
-+	if (is_link_tsm(tsm_dev) && is_pci_tsm_pf0(pdev) &&
-+	    to_pci_tsm_pf0(pdev->tsm)->removing)
-+		return -ENODEV;
- 
- 	rc = pci_tsm_disconnect(pdev);
- 	if (rc)
-@@ -663,6 +678,9 @@ int pci_tsm_pf0_constructor(struct pci_dev *pdev, struct pci_tsm_pf0 *tsm,
- 			    struct tsm_dev *tsm_dev)
- {
- 	mutex_init(&tsm->lock);
-+	init_completion(&tsm->contexts_drained);
-+	tsm->context_users = 0;
-+	tsm->removing = false;
- 	tsm->doe_mb = pci_find_doe_mailbox(pdev, PCI_VENDOR_ID_PCI_SIG,
- 					   PCI_DOE_FEATURE_CMA);
- 	if (!tsm->doe_mb) {
-@@ -751,8 +769,44 @@ static void __pci_tsm_destroy(struct pci_dev *pdev, struct tsm_dev *tsm_dev)
- 
- void pci_tsm_destroy(struct pci_dev *pdev)
- {
--	guard(rwsem_write)(&pci_tsm_rwsem);
-+	struct pci_tsm_pf0 *pf0 = NULL;
-+	struct completion *drained;
-+	bool interrupted = false;
-+	long rc;
-+
-+	down_write(&pci_tsm_rwsem);
-+	if (pdev->tsm && is_link_tsm(pdev->tsm->tsm_dev) &&
-+	    is_pci_tsm_pf0(pdev)) {
-+		pf0 = to_pci_tsm_pf0(pdev->tsm);
-+		drained = &pf0->contexts_drained;
-+		mutex_lock(&pf0->lock);
-+		pf0->removing = true;
-+		mutex_unlock(&pf0->lock);
-+
-+		/* An unused DSM may never have completed contexts_drained. */
-+		rc = pf0->context_users ?
-+			try_wait_for_completion(drained) : 1;
-+		/* Context release needs the read side of pci_tsm_rwsem. */
-+		up_write(&pci_tsm_rwsem);
-+		while (rc <= 0) {
-+			if (interrupted) {
-+				rc = wait_for_completion_timeout(drained, HZ * 10);
-+			} else {
-+				rc = wait_for_completion_interruptible_timeout(drained,
-+									       HZ * 10);
-+				if (rc < 0) {
-+					interrupted = true;
-+					pci_warn(pdev, "Task \"%s\" (%d) blocked until vdevices are released\n",
-+						 current->comm, task_pid_nr(current));
-+				}
-+			}
-+			if (!rc)
-+				pci_warn(pdev, "TSM connection is in use, waiting for vdevices\n");
-+		}
-+		down_write(&pci_tsm_rwsem);
-+	}
- 	__pci_tsm_destroy(pdev, NULL);
-+	up_write(&pci_tsm_rwsem);
- }
- 
- void pci_tsm_init(struct pci_dev *pdev)
-@@ -779,6 +833,9 @@ void pci_tsm_init(struct pci_dev *pdev)
- 		 */
- 		if (!dsm->tsm)
- 			return;
-+		if (is_link_tsm(dsm->tsm->tsm_dev) &&
-+		    to_pci_tsm_pf0(dsm->tsm)->removing)
-+			return;
- 
- 		probe_fn(pdev, dsm);
- 	}
-diff --git a/include/linux/pci-tsm.h b/include/linux/pci-tsm.h
-index b27f7cf99f22..3adc317d0f9b 100644
---- a/include/linux/pci-tsm.h
-+++ b/include/linux/pci-tsm.h
-@@ -1,6 +1,7 @@
- /* SPDX-License-Identifier: GPL-2.0 */
- #ifndef __PCI_TSM_H
- #define __PCI_TSM_H
-+#include <linux/completion.h>
- #include <linux/mutex.h>
- #include <linux/pci.h>
- 
-@@ -107,12 +108,16 @@ struct pci_tsm {
-  * @lock: mutual exclustion for pci_tsm_ops invocation
-  * @context_users: live per-function contexts on this PF0; a nonzero count
-  *	blocks link disconnect
-+ * @contexts_drained: completed when the last context is released
-+ * @removing: reject new contexts while the DSM is being removed
-  * @doe_mb: PCIe Data Object Exchange mailbox
-  */
- struct pci_tsm_pf0 {
- 	struct pci_tsm base_tsm;
- 	struct mutex lock;
- 	unsigned int context_users;
-+	struct completion contexts_drained;
-+	bool removing;
- 	struct pci_doe_mb *doe_mb;
- };
- 
+ 	input->open = cyapa_open;
+ 	input->close = cyapa_close;
 -- 
-2.43.0
+2.56.0.385.gd3acb90ef8-goog
 
+
+-- 
+Dmitry
