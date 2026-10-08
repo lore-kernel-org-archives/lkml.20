@@ -1,126 +1,86 @@
-Received: from mta0.migadu.com (out-237.mta0.migadu.com [91.218.175.237])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 932A0449B11
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 08:37:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.237
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D48C449B11;
+	Thu,  8 Oct 2026 08:37:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791448632; cv=none; b=qtqYAmowW2gZofaYxOkaN56/Krj0qJOvc+6TVTfxmMnV3Px5cw01pDvxM2/g531UKhZhIKB//dCd143Av45FZD1SFGoyWuOWWUs5fORBPz7vfFz8uGROsa2WcmwfceXDHIjagVzlQ1S78D8zk2vucqs+XjWWLlq38DsX+0ODZ3A=
+	t=1791448650; cv=none; b=tMlUbd7+KCwdHqQoOsO7l3CUiGYXnVgz+l4knS/djo0skBdKxCQRG+6yU7r/oT2buYmiK14s3Ej0VcIvnFJGhemoGNNlFF8x09TUCWFTEFMnaE5DsQglWRhvgadQHtmXinLl5I8lxXr0LkRbZ1WjKoG9gfL4fk9gLRg2Y2KdTNY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791448632; c=relaxed/simple;
-	bh=DHTTVgODp6yUSc1x8tQK6NVV9QMxY64le1uUbe0521I=;
-	h=Message-ID:Date:MIME-Version:Cc:To:From:Subject:Content-Type; b=Zstr97KUANeX7tmSX+uwLgRP6Krj6pxvA/wo55ObxSybLfnysvv3erhY/de5n2Kudij7Bv6MyZYdrU/lwWDwhcLyGAvVVTe860Wrg2VgAN0q7BZ6aotUGrSFONFwdkEgp5oaVtGTtJVDmVNZiEBGwOt1GDrdhJV4uqyYaYYyVeA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=OX/vYd5h; arc=none smtp.client-ip=91.218.175.237
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791448650; c=relaxed/simple;
+	bh=I5zpVEXZpQKVXkdlUVmsf+FUfYzS+iueSknawtKzoP4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=saIzmjvJSivWg90D6mfySbWEBPXiX+KyxQVEtY1yb8ESomCy++QZQ4YJotTdr42p9Kgu/9xWPWRXOgpClde/vMBNasaVrbMiQ+9KOtgPVCXlAKNm/NxFb/DsK2957GLiUvw26jzciwa8WsT05NFOq21lB3O8ofWUkgrX+RGrsg4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=NJFMsQ83; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="OX/vYd5h"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=DHTTVgODp6yUSc1x8tQK6NVV9QMxY64le1uUbe0521I=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791448628; v=1; x=1792053428;
- b=OX/vYd5h0ooBZZOaiUp+VToYIl/E4129Vncp8pOgJe7oAEl93J8kHLkdQK+zrmdELhHYRLl3
- V3H8v4BZxV3INFC8ofw6/4fV1VenUpeX4gCi4NCWcT1d7OWzLnyLR/7MMn88HyB/2RjY5VDCAgy
- 1Ii1po/OWY+jdBFNy01OmgIE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 96be384c8d6a9df7;
-	Thu, 08 Oct 2026 08:36:58 +0000
-X-Mizu-Trace-ID: 96be384c8d6a9df7
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <163e2397-0e3e-4cc0-842b-0d36598d13d7@linux.dev>
-Date: Thu, 8 Oct 2026 16:36:49 +0800
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="NJFMsQ83"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=2ZxIvsNO5f5PUT0bP/KTPDZ1byTpKd3FQBMRNeE2iiA=; 
+	b=NJFMsQ83iKCe1uxEeMCnja128jqGK7n3w3ZLmf11H8KDa4Sdn7dWRvdAGuJscZv6X2crXBUE77p
+	4ue1BBe2HZGrdBzdKST+8Kh6o6Xl6GQpve3HmHUD3/6GE4t7ZjSQ0VOeE8n4tvPgJvH3vxOKhRHFv
+	4XazY3vMq7Uz4Hz77QnHGhJmcziMQLfQ6Ag0Itd1ak+Mur8ppaDrdjk9FWklLUGpMdP46sLfpyuTe
+	DAuHpljqzBRKBl+g/vipdFqVvJ1Zn7uNzzzl4nEIc5o0JEt3qPGuobHxnlnf6QvJFaz9C+AV7lKzj
+	qsk7FAMtKiZRIZL2OD6cJgPW/0NZI03DPA8Q==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xEjcx-00000001oAp-2B9O;
+	Thu, 08 Oct 2026 16:37:24 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Thu, 08 Oct 2026 19:37:23 +1100
+Date: Thu, 8 Oct 2026 19:37:23 +1100
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: linux-crypto@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
+	Kim Phillips <kim.phillips@freescale.com>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v4] crypto: talitos: init tasklets before requesting IRQs
+Message-ID: <asdWQ-GqFnF-QSwK@gondor.apana.org.au>
+References: <20261004215042.383358-1-rosenp@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: cui.tao@linux.dev, David Vernet <void@manifault.com>,
- sched-ext@lists.linux.dev, Andrea Righi <arighi@nvidia.com>,
- linux-kernel@vger.kernel.org, Changwoo Min <changwoo@igalia.com>
-To: Tejun Heo <tj@kernel.org>
-From: Tao Cui <cui.tao@linux.dev>
-Subject: [REPORT] sched_ext: sub-scheduler tasks are severely under-scheduled
- vs root-owned tasks
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261004215042.383358-1-rosenp@gmail.com>
 
-Hello Tejun,
+On Sun, Oct 04, 2026 at 02:50:42PM -0700, Rosen Penev wrote:
+> The talitos interrupt handlers schedule priv->done_task[] via
+> tasklet_schedule(). Since the second IRQ support, probe has requested
+> the IRQs before calling tasklet_init(), so an interrupt already pending
+> when a line is requested, e.g. engine state left by the bootloader or
+> a kexec'd kernel, would schedule a tasklet with a NULL callback.
+> 
+> Look up the IRQ numbers and map the registers up front, so that
+> -EPROBE_DEFER returns before anything is allocated and the done_task[]
+> selection and reset_device() can see the secondary IRQ. Only request
+> the IRQs once the channel fifos are allocated and init_device() has
+> reset the engine. This matches remove(), which frees the IRQs before
+> killing the tasklets.
+> 
+> remove() frees every IRQ number that is > 0, so make sure that only
+> requested lines are set when it runs from the probe error path: clear
+> both numbers when probe fails before the request, and clear any line
+> talitos_probe_irq() did not request. Previously a failed primary
+> request in the two-IRQ case freed the never-requested secondary line.
+> 
+> Fixes: c3e337f88a5b ("crypto: talitos - support for channel remap and 2nd IRQ")
+> Assisted-by: LLM
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> ---
+>  v4: actually fix IRQs this time. Add a Fixes: tag.
+>  v3: reshuffle again to fix IRQs.
+>  v2: reshuffle code to avoid NULL derefs
+>  drivers/crypto/talitos.c | 54 ++++++++++++++++++++++++----------------
+>  1 file changed, 33 insertions(+), 21 deletions(-)
 
-During recent testing of the sub-scheduler attach flow, I hit what
-looks like a dispatch starvation for claimed tasks and want to check
-whether it's a known limitation of the sub-sched dispatch model before
-digging further.
-
-Setup:
-
-A kvm guest (4 vCPUs, HZ=1000) running a sched_ext/for-7.4 based tree
-with the caps-clear patch applied. A pair of minimal cid-form test
-schedulers: a parent that grants SCX_CAP_PERF | SCX_CAP_ENQ_IMMED over
-a cgroup to a child, and the child writing cpuperf target 1 from
-ops.tick(). A busy-loop task (`taskset 1 sh -c 'while :; do :; done'`)
-is placed in the child's cgroup (pinned to cpu0), and
-rq->scx.cpuperf_target plus per-task CPU time are sampled every second.
-
-Two attach orders are tested:
-(a) the busy-loop task is moved into the cgroup before the child
-    attaches;
-(b) the task is moved in after the child attaches.
-
-Observation:
-
-Order (a), 8 rounds: the child claims the task in every round
-(verified: the enable walk's handover fires, p->scx.sched == child),
-but the task then runs at ~0.3% duty cycle - it accumulates 0 or
-~20-27 ticks per 10s window (one SCX_SLICE_DFL slice) while an
-identical task owned by the parent runs at ~100% (1000 ticks/s).
-
-Order (b), 8 rounds: the child claims the task via the migration path
-and the task runs normally (no starvation observed in 16 rounds across
-two parent-load conditions).
-
-Based on the current test data, the disparity is ~300x: root-owned
-tasks run at full duty while child-owned tasks get one slice and then
-starve. The starvation is silent: attach succeeds, the grant succeeds,
-the task's cgroup membership is correct - there is no error, warning,
-or counter that indicates anything is wrong.
-
-Probes and exclusions:
-
-- ops.dispatch() for the child's cid is never invoked: a counter
-  bumped in ops.dispatch() when cid == 0 stays 0 across entire runs,
-  including rounds where the task is starved.
-- ops.tick() for the child fires only when the task actually runs
-  (the tick count matches the starved duty cycle).
-- The parent's ops.dispatch() delegation via
-  scx_bpf_sub_dispatch(cgroup_id) does not change the behavior.
-- An explicit scx_bpf_kick_cid() on the task's cid in ops.enqueue()
-  does not change the behavior.
-- The enable walk's claim is verified: pass 1 (init) and pass 2
-  (handover) both process the task, and a post-handover ownership
-  check (scx_task_on_sched()) passes.
-- Adding a root-owned busy task on another CPU raises the failure rate
-  from ~25% to ~100%, which suggests the claimed task only gets to run
-  when some unrelated event runs balance on its CPU.
-
-This is independent of the caps-clear patch (it reproduces with and
-without it). The root cause is likely in the sub-sched attach->dispatch
-path itself, so any sub-scheduler deployment would be affected.
-
-Questions:
-
-1. Is this a known gap in the sub-sched dispatch model - claimed tasks
-   on idle CPUs waiting for a delegation that only happens when the
-   parent's dispatch runs for that CPU?
-2. Is the intended pattern for parents to kick CPUs on the child's
-   behalf (scx_bpf_kick_cid() after grant/claim), or should the core
-   route the balance to the child?
-
-The repro is deterministic (8/8 rounds with the starvation in order
-(a) under root-side load).
-
-Thanks.
---
-Tao
+Patch applied.  Thanks.
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
