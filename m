@@ -1,428 +1,195 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013024.outbound.protection.outlook.com [40.107.201.24])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B65E371046
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 03:24:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.24
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791429855; cv=fail; b=rzKgjb3nYzHEFScdnswjI54RN/xjqxb4vJNiKPyLWJ1syjhO2NSueU6E/OW7IO7ML4zo9v7lJ+OxkjDLgpYwVJWYDrUv+aGQS5LBBKKrdjQjdLXvrgKbOs5SxEN934yg9Z4Ez1xIUEDhImUV6y4xR2G6H0xoMd1fSpKDd7XmQYI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791429855; c=relaxed/simple;
-	bh=uS50OuGVqnVfp0YMN2xAZ+VLbLKk74MkXOFfucbmhJ4=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=sqP1fJ4Bi1QNKOj8TkKvyEbdxLggmXud0jHWpTbcoOzWJFiBpJah0NqE0Aq3l04y+aZ8Px8Ie+gbb3yFi4wdEa0J4+otWVGjz2VcwSuApHm3DAd8Cw3fGmsd4zoKCQwwTSAtzMGe/XhuhL2ZNtL98j5j9OFxv4Dqoj3w9XHOV2s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=fCJmfR+m; arc=fail smtp.client-ip=40.107.201.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DCEF382F2F
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 03:24:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.44
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791429857; cv=none; b=lGPDkF9CVUePitZJivFFX8h+1VSCTSLcsl78GVrxh10UJbyplbULpeQ2T6nsltDtQHnpygKJuhAlB4MqEWu8/c7I2QvuS2Wzwpy39rGwCan4kbVW7HP+Tl24NVTEBbkhTavlNRDKCE6BY+PG7lsmbfTDEzSN3l1Gb1O4O9fQydQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791429857; c=relaxed/simple;
+	bh=Vwd3NDOYwIA5ZKS8UloQMBBYOUW6GUnZ5tUj1OSdmgk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=HSG/LBqvhcvMzdaYKJYG/5Xwgc1UpzLGV4bmTEva3Dxi8FZGeB0M44DrDZCR4FWQqBKiC2a22il5YwQmKffYH82mQ7PPFlbcRCbgTuAbVKYQfY/DXafho5AphTAg/qj6+KcZ4p+hifblzozU/8iGDXdmI3EDxK9rP0vxaDEyHKE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HFez1ho1; arc=none smtp.client-ip=74.125.224.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="fCJmfR+m"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FV4l0h20N/3WPzSo1LQ+2tMs/pCudQSxlMJAzRWndXbuiEbWkdy/0LyNeM8+NKSC/7z3hltsmfPi8DQh+GSZwjBluuBKlLuqvtgub/d7UA4PS2XxxJBNNzMmIhZAH2PBsjGNTnRBxyfblNA1x49V0yxUP/lw1PeqFbqZKgwQOlGe3KbRKBekZ/nZQbqC6MUE8HI3WqwjOSv+Fckqx1Mpkd/Zt9mkJzx81a6xGPWnKOeEgqBz7wuY3hUU4QlR/1Ro+gJUKxbyr1GOmRkN2LAQVF6OqijichCvb9ei2PiyikhSVgXH0ho7yG9jr2LuCXgLfElhwmWP9sNF6/Wz8jQQ+Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WzbJL5f2sEjEpSNed2wwXCoVi12Dp3AijFFA2pCwRtY=;
- b=uzcT0E+moHU4SMER7Rw5EiKfAuIMfzFIf9+CD8zQJXi73hWNzQpgm/zJ6Hlj3TmukA0GkckyNVquCkyh86emHdoIE+bYlvSdnXzcvZ/eUDSdlc4hwGngdXFqn7HGWSF36m6tENILW0wT0u5xXb3qWW5KkfQg/K1wy3+/y2DwttaJcWb45B6e55xuBwsufiEIVzOZQYM4drtgwmeuGBYTZX0QUR9f9Z3jMn37nBDSp5MAJ3XtQkrADxkZF5eEo9DmtEkLaVbsLD/YzHtY/2BvHLSULlS0q5P13FM5yyowW8KrztWHE9I6zS5OwxS5241VB3ugTgobQhQF3U4uORgARw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WzbJL5f2sEjEpSNed2wwXCoVi12Dp3AijFFA2pCwRtY=;
- b=fCJmfR+mrWFEN/rthtzoLrQyh+E+byto/XFQDRnpNrXXt3G8NW9B4nb089fo7Aq79a/WvJjvYQ6nuWCkIPOHUeZgBMKISo4Q+taLEn7CutiWMSE5wcq9G514EQNrBs3+g0Bxd3/sGlzIL1vLT+x5Zq8vxFGbk/StBJG1+LsRU6M=
-Received: from SJ0PR05CA0198.namprd05.prod.outlook.com (2603:10b6:a03:330::23)
- by IA0PR12MB8225.namprd12.prod.outlook.com (2603:10b6:208:408::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Thu, 8 Oct
- 2026 03:24:06 +0000
-Received: from SJ1PEPF000037AE.namprd03.prod.outlook.com
- (2603:10b6:a03:330:cafe::2f) by SJ0PR05CA0198.outlook.office365.com
- (2603:10b6:a03:330::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Thu, 8
- Oct 2026 03:24:05 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF000037AE.mail.protection.outlook.com (10.167.244.183) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.14 via Frontend Transport; Thu, 8 Oct 2026 03:24:04 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 7 Oct
- 2026 22:24:01 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 7 Oct
- 2026 22:24:01 -0500
-Received: from xsjdavidzha51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Wed, 7 Oct 2026 22:24:00 -0500
-From: David Zhang <yidong.zhang@amd.com>
-To: <quic_jhugo@quicinc.com>, <karol.wachowski@linux.intel.com>,
-	<max.zhen@amd.com>, <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
-	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-CC: David Zhang <yidong.zhang@amd.com>, <sonal.santan@amd.com>,
-	<mario.limonciello@amd.com>, Soham Donwalkar <soham.donwalkar@amd.com>,
-	Nishad Saraf <nishad.saraf@amd.com>
-Subject: [PATCH V3 07/19] accel/amdxdna: Add get and set power_mode for AIE4
-Date: Wed, 7 Oct 2026 20:23:36 -0700
-Message-ID: <20261008032348.2044667-8-yidong.zhang@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261008032348.2044667-1-yidong.zhang@amd.com>
-References: <yidong.zhang@amd.com>
- <20261008032348.2044667-1-yidong.zhang@amd.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HFez1ho1"
+Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-677af43eed4so2599996d50.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 20:24:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791429854; x=1792034654; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1KnRD+HklADwPSgL/qWcGHWiK0RgAbbE22jyJCxAFIs=;
+        b=HFez1ho11ECjpaK/iIT/dtHGe9wBvKUJ372klAem7VCQKq6tfJgE5QyJSDwE+21kQk
+         RUrxl7aztFx52xrKXqsR0aSe4szr0JTjt4GS415xJJOFIHOQYolSCgQgte3gQE9nzXXL
+         JGmzfbRItNv+7Zq4d/Mt3d0S+X9XfUa1ERgXfU08fKXmx4Pax0EMsXp3IlCamMjO0xe8
+         2FvHv6faTWdyJDhS3Q5J7YG1Yz4Q4YPO0gzm0OrnzO771O2Ke3BXiUJvcQDuGlnKxvqm
+         gBvS5dq9By1zLAj1nFow0uQHY78LgFKCY/UET0ZUhJAPSZwzv1pT4UGDTOjXUGffRn66
+         eiRw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791429854; x=1792034654;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1KnRD+HklADwPSgL/qWcGHWiK0RgAbbE22jyJCxAFIs=;
+        b=1TDqxIrSg9iLwM9vd6Ghs/wBHkM6uM8FTKStGxx8sR7KFIyHN3fNU0Xx5ys/y2w1PP
+         NExvlvtf61xpHs/t5mDvPZF6tS0E0zyTgZIHVOuL1fmPPqjHqoM2inT/55ZjqgbblghX
+         N3OvW71ZejGnLOVdtyLkGHTfpTORBKjdZunBRa5KtW3VC4fA4NkFyKWD+G3WBrkOH2LR
+         3Ds+EeRkgqZ7TobTgM47ltyDK9dnzOQ2kook9TKulRuDQtWxLXfiQ6i4WxZ08TIT8PjX
+         v2f5jn4xWnDDx6Prr1KOGEHFs4NOOrUXxyg+yGEdcOAAAdaLXHLQWO9v2zYC6ziNaAQB
+         87Jw==
+X-Forwarded-Encrypted: i=1; AKwUvBxeIEiPO+gwAN7F1vI9sYlmd0s/CxlLIuCb4+rIuw5xU2N112BYKJoElPR8LoEvM2g1xc4PUCjDqvHCSwM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLbx5yY0K3ZnWei8KP2RcrMoO75QYvqC1/KwbYQNN5QaDfqp9VT
+	/lx2c6G+nWiVZO56IP36N5lw4tPsIjKZ2DPxmtoyLgQFKgOnVbLNTZry
+X-Gm-Gg: AYBFou1jxFxKv+kP0pwchiNHH7BoYW/1bZFRt2X4+aFFwQzlXdt2c7TmQER2hJ3WuR+
+	+QVmI0rB120e6HY7+kUdZaTJIR3UNI+UYZ4/EsqNYSbm2xnUlIoe6v5/VDqu23hHglKYVY8RCiH
+	KxJ4D0VNElhcKmb3WyJI/60SXCs36jH5s0b8TdvCm7WSqhtZDBpcUNW62Z9uLvqdpfES8KHYhSl
+	hA9XhCyPGDnR3oYSQn25JAEvrNMIfcOSjy7elELtF/PEN6y7ZIsOjH3O6r+LLE5GwrcNOmT+go9
+	Mg9PHtw6IFBty/+Dr0DzFGiSe5QOmRhMHNANcSXWy8tMd9pekq1ajy9WEhDSGfc0H5gHCOfi51u
+	EHPrIuewIcrbQsy1+D0/KBtYc9HBVjdQ6Oh6hTgCVcQvIJNMad1u+ibvlMCIHPxJhmOdicWLmtn
+	+YSE7gpedW42UTz10SL2RFUrUYcFyuG8Lz6DaOEE+VDtpu1w3O3T14amFYoK1Q85GT1Z+9vSk=
+X-Received: by 2002:a05:690e:150d:b0:677:c303:464a with SMTP id 956f58d0204a3-6790a288da1mr2647635d50.91.1791429854418;
+        Wed, 07 Oct 2026 20:24:14 -0700 (PDT)
+Received: from localhost ([2600:1702:7a90:6f9f:8bc4:8aec:108d:7a04])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6791b22d0dbsm719263d50.21.2026.10.07.20.24.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 20:24:13 -0700 (PDT)
+From: Matt Turner <mattst88@gmail.com>
+Date: Wed, 07 Oct 2026 23:24:05 -0400
+Subject: [PATCH v2 2/6] alpha: handle VM_FAULT_HWPOISON in do_page_fault()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000037AE:EE_|IA0PR12MB8225:EE_
-X-MS-Office365-Filtering-Correlation-Id: 68d555f3-f298-44b9-6771-08df24eb9b41
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|23010399003|1800799024|36860700016|18092099006|10067099003|18002099003|11063799006|3023799007|4143699003|56012099006|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	312rrA96tha48UZsGK00HXiubIn+FIf09gA/Bt6MSAzIOFDJAjziUbTsXDCl6B+Wd8JbyEijIibZp1NP1mu65ezLNaPPu/SkEB09zRLSv9QFapwewyDPtRHz/VBMTjBu9CSNOn57lFu7vCG/byinFwmd8kvHF0qb1w5evvNZ0ks3s98E8tlCKuaerr5iYPI0nAd48+af0lgwP4X8eJ9rqswOp8bpXl8dFiUCoNvw+poSWW7IA00pSo8Buog0Va5oKJ1+kY1P3yPWlfk0VhekieMD90TdNbYIOqhTLGd0//lmz9BkvfYrBytRBrtw3xCOQ/HY8WN46qkdymiLOYm1fkmVwcLUKPzmzkgPNV2rHrAdRIXHqoDluR5yoSmD8DK23tGSSjiFp04n+0XyOhT3/puJHmjMZKNdaIoRTLKsRgxVSYimpNC/hJ6H6a1FkcgybYJ125FjntGDGThBj8dXb/T1tGcRIBLHt62ufzEGoW5ZJQkGOQ5RHn0gN1Le2uh0d1rACWHYmMxk3r5lt55Vp2OkK0gnpOtXqtw0fAEvCUCN7IJFCQZnXexsEj+aHjQCgiFBy2vaIbm4KY8NPG9pkGwvJR0CcXJPMMDNHL3hdVApmZDDzIurZ/OLIxSY+cHlPys3xn4Zs+ywaT9EW3mP9d6S6QK+KTGoSBDoX9TWdO0bElPCJgxiI/8EKLAItIHkeOn5n+kvEV3OFdDaCZSoxQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(23010399003)(1800799024)(36860700016)(18092099006)(10067099003)(18002099003)(11063799006)(3023799007)(4143699003)(56012099006)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	1/CNBkws2DvVSZbJ22JdHymDQl8dhzp7O+h1PcGkYIX9K1QRO39dS0D/hHUHcEihxlJ2ZGg9oW1W8cWgcZ9L7ErnDGhATpFsWjvsZhSHEddo5tOasLwIpRNymZ/2Fa+5YQYNrJ6tltEZeHLdvGQW1JyjxtNxKJ0pUfl4rJdEDUgK99oOYzHWFPWty8Duvdy4S7LCgZAQPfTLjLPbth+oUirfR/Dvwzkse/5e87j2PLjvIFjCVZFlNtuLNaxNIDYObHRayUzgb1Bpfig1wBii66V6ykMGArityRefO3AjUhELHEF+A2RE9pN1bkqn2MEBcojuPQNmxtbXBVibo8eQhlA2Cud443psvMTC8fFkZLc3SEme4O+8SshTA6U6cM+0Vfs+e+9cCWzA55+42FUkrXSnUD+wWENOodUcGEsbyhlxEJyw23yNVcFKDcNiLTaA
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 03:24:04.9889
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 68d555f3-f298-44b9-6771-08df24eb9b41
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000037AE.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8225
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261007-alpha-hugepages-v2-2-8e108af2d961@gmail.com>
+References: <20261007-alpha-hugepages-v2-0-8e108af2d961@gmail.com>
+In-Reply-To: <20261007-alpha-hugepages-v2-0-8e108af2d961@gmail.com>
+To: Richard Henderson <richard.henderson@linaro.org>, 
+ Magnus Lindholm <linmag7@gmail.com>, 
+ Axel Rasmussen <axelrasmussen@google.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, Peter Xu <peterx@redhat.com>
+Cc: linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Matt Turner <mattst88@gmail.com>, stable@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3631; i=mattst88@gmail.com;
+ h=from:subject:message-id; bh=Vwd3NDOYwIA5ZKS8UloQMBBYOUW6GUnZ5tUj1OSdmgk=;
+ b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLKO81zpf/Mr+U3/vi8Gcz78vZGmJOQ0h/di2+Q43Y/Bu
+ f0Mfpk8HR9ZGMS4GGaKKbLErVdkmdW2Y6nPaelfMHNYmUCGSIs0MAABCwNfbmJeqZGOkZ6ptqGe
+ IZChYxQPkdNj0MgsLi5NLdJNKyhyyMsvSSzJzM8r1ssvSM0rSC/QS8tMK8nIyC8qTgUaoZeXWmL
+ q6uhmZGhgYuloYeZk4Whq4uzsZOjk5ujo7OpkZGluYuBs6WjiamnOwMUpAHPNRmOGf2ZPbAy//Z
+ 7usStMMvh8zbL9oq1yzr1ivJ3v3NNWZH4/XcTwT2mvlPRzU+MN3Wd6M1bMs/Z5yVLf0vFoqdg2Y
+ Zn4OUck+AA=
+X-Developer-Key: i=mattst88@gmail.com; a=openpgp;
+ fpr=3BB639E56F861FA2E86505690FDD682D974CA72A
 
-Add power mode support for AIE4 devices via DRM_AMDXDNA_GET_INFO and
-DRM_AMDXDNA_SET_STATE:
-- Add AIE4_MSG_OP_POWER_OVERRIDE mailbox support
-- Add DRM_AMDXDNA_GET_POWER_MODE support
-- Implement aie4_set_power_mode() and wire .set_aie_state
+do_page_fault() handles VM_FAULT_OOM, VM_FAULT_SIGSEGV and
+VM_FAULT_SIGBUS and then falls into BUG() for anything else in
+VM_FAULT_ERROR. VM_FAULT_HWPOISON and VM_FAULT_HWPOISON_LARGE are in
+that set, so a fault on a poisoned page takes down the kernel instead of
+delivering a signal.
 
-Firmware boots in POWER_MODE_DEFAULT after a reload, so re-send the
-cached user power mode override whenever the hardware starts via
-aie4_restore_power_mode(). On a fresh probe, pw_mode is
-POWER_MODE_DEFAULT.
+Alpha does not select ARCH_SUPPORTS_MEMORY_FAILURE, so the machine check
+paths cannot produce these. UFFDIO_POISON can: it installs a poison PTE
+marker without any memory failure support, and a subsequent access
+returns VM_FAULT_HWPOISON. Registering an anonymous range with
+userfaultfd, poisoning it and reading it back reliably hits the BUG():
 
-Co-developed-by: Soham Donwalkar <soham.donwalkar@amd.com>
-Signed-off-by: Soham Donwalkar <soham.donwalkar@amd.com>
-Co-developed-by: Nishad Saraf <nishad.saraf@amd.com>
-Signed-off-by: Nishad Saraf <nishad.saraf@amd.com>
-Signed-off-by: David Zhang <yidong.zhang@amd.com>
+  Kernel bug at arch/alpha/mm/fault.c:188
+  poison(50809): Kernel Bug 1
+  pc is at do_page_fault+0x4e8/0x550
+  ra is at do_page_fault+0xfc/0x550
+
+The BUG() fires with mmap_read_lock() still held, so the faulting task
+is left unkillable in D state holding the lock, and shutdown stalls
+behind it. A UFFD_USER_MODE_ONLY userfaultfd is always allowed, so any
+local user can do this.
+
+Deliver SIGBUS with BUS_MCEERR_AR instead, reporting the size of the
+poisoned area, as the other architectures do. That is the huge page size
+for VM_FAULT_HWPOISON_LARGE, which becomes reachable once alpha
+implements huge pages.
+
+Tested on an UP1500 (EV68AL): the reproducer above now takes a SIGBUS
+and the kernel logs
+
+  poison[373]: hardware memory error at 0000020000030000 pc 00000200010007ec
+
+with no oops, no wedged task and no taint.
+
+A backport needs the show_signal_msg() call dropped, since alpha only
+has it since commit 9ca6af1aac40 ("alpha: select
+SYSCTL_EXCEPTION_TRACE").
+
+Fixes: fc71884a5f59 ("mm: userfaultfd: add new UFFDIO_POISON ioctl")
+Cc: stable@vger.kernel.org # 6.6+
+Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
+Tested-by: Magnus Lindholm <linmag7@gmail.com>
+Signed-off-by: Matt Turner <mattst88@gmail.com>
 ---
- drivers/accel/amdxdna/aie4_message.c  |  17 ++++
- drivers/accel/amdxdna/aie4_msg_priv.h |   9 ++
- drivers/accel/amdxdna/aie4_pci.c      | 116 ++++++++++++++++++++++++++
- drivers/accel/amdxdna/aie4_pci.h      |   6 ++
- 4 files changed, 148 insertions(+)
+ arch/alpha/mm/fault.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
-diff --git a/drivers/accel/amdxdna/aie4_message.c b/drivers/accel/amdxdna/aie4_message.c
-index 4814cbb1f2c5..25a510bd7419 100644
---- a/drivers/accel/amdxdna/aie4_message.c
-+++ b/drivers/accel/amdxdna/aie4_message.c
-@@ -157,3 +157,20 @@ int aie4_attach_work_buffer(struct amdxdna_dev_hdl *ndev)
+diff --git a/arch/alpha/mm/fault.c b/arch/alpha/mm/fault.c
+index dfe427d93072..24408b53197c 100644
+--- a/arch/alpha/mm/fault.c
++++ b/arch/alpha/mm/fault.c
+@@ -8,6 +8,7 @@
+ #include <linux/sched/signal.h>
+ #include <linux/kernel.h>
+ #include <linux/mm.h>
++#include <linux/hugetlb.h>
+ #include <asm/io.h>
  
- 	return ret;
- }
-+
-+int aie4_msg_set_power_mode(struct amdxdna_dev_hdl *ndev, u8 power_mode)
-+{
-+	DECLARE_AIE_MSG(aie4_msg_power_override, AIE4_MSG_OP_POWER_OVERRIDE);
-+	int ret;
-+
-+	req.power_mode = power_mode;
-+
-+	ret = aie_send_mgmt_msg_wait(&ndev->aie, &msg);
-+	if (ret)
-+		XDNA_WARN(ndev->aie.xdna,
-+			  "Failed to set power mode %u, ret %d", (u32)power_mode, ret);
-+	else
-+		XDNA_DBG(ndev->aie.xdna, "Power mode set to %u", (u32)power_mode);
-+
-+	return ret;
-+}
-diff --git a/drivers/accel/amdxdna/aie4_msg_priv.h b/drivers/accel/amdxdna/aie4_msg_priv.h
-index 81842fa1d6ce..4c06792df1bd 100644
---- a/drivers/accel/amdxdna/aie4_msg_priv.h
-+++ b/drivers/accel/amdxdna/aie4_msg_priv.h
-@@ -23,6 +23,7 @@ enum aie4_msg_opcode {
- 	AIE4_MSG_OP_DESTROY_HW_CONTEXT               = 0x30004,
- 	AIE4_MSG_OP_AIE_TILE_INFO                    = 0x30006,
- 	AIE4_MSG_OP_AIE_VERSION_INFO                 = 0x30007,
-+	AIE4_MSG_OP_POWER_OVERRIDE                   = 0x3000B,
+ #define __EXTERN_INLINE inline
+@@ -113,6 +114,7 @@ do_page_fault(unsigned long address, unsigned long mmcsr,
+ 	struct mm_struct *mm = current->mm;
+ 	const struct exception_table_entry *fixup;
+ 	int si_code = SEGV_MAPERR;
++	unsigned int lsb;
+ 	vm_fault_t fault;
+ 	unsigned int flags = FAULT_FLAG_DEFAULT;
  
- 	AIE4_MSG_OP_ATTACH_WORK_BUFFER               = 0x40001,
- };
-@@ -187,6 +188,14 @@ struct aie4_msg_query_cert_firmware_version_resp {
- 	__u16 host_queue_minor;
- } __packed;
+@@ -185,6 +187,8 @@ do_page_fault(unsigned long address, unsigned long mmcsr,
+ 			goto bad_area;
+ 		else if (fault & VM_FAULT_SIGBUS)
+ 			goto do_sigbus;
++		else if (fault & (VM_FAULT_HWPOISON | VM_FAULT_HWPOISON_LARGE))
++			goto do_sigbus_mceerr;
+ 		BUG();
+ 	}
  
-+struct aie4_msg_power_override_req {
-+	__u32 power_mode;
-+} __packed;
-+
-+struct aie4_msg_power_override_resp {
-+	enum aie4_msg_status status;
-+} __packed;
-+
- #define AIE4_WORK_BUFFER_MIN_SIZE      SZ_4M
+@@ -248,6 +252,21 @@ do_page_fault(unsigned long address, unsigned long mmcsr,
+ 		goto no_context;
+ 	return;
  
- struct aie4_msg_attach_work_buffer_req {
-diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie4_pci.c
-index d6faafb70315..c905dc75c076 100644
---- a/drivers/accel/amdxdna/aie4_pci.c
-+++ b/drivers/accel/amdxdna/aie4_pci.c
-@@ -4,6 +4,7 @@
-  */
- 
- #include <drm/amdxdna_accel.h>
-+#include <drm/drm_drv.h>
- #include <drm/drm_managed.h>
- #include <drm/drm_print.h>
- #include <linux/firmware.h>
-@@ -16,6 +17,7 @@
- #include "amdxdna_mailbox.h"
- #include "amdxdna_mailbox_helper.h"
- #include "amdxdna_pci_drv.h"
-+#include "amdxdna_pm.h"
- 
- #define NO_IOHUB		0
- #define PSP_NOTIFY_INTR		0xD007BE11
-@@ -299,6 +301,15 @@ static int aie4_query(struct amdxdna_dev_hdl *ndev)
- 	return 0;
- }
- 
-+/* Restore cached power mode override across hardware start. */
-+int aie4_restore_power_mode(struct amdxdna_dev_hdl *ndev)
-+{
-+	if (ndev->pw_mode == POWER_MODE_DEFAULT)
-+		return 0;
++ do_sigbus_mceerr:
++	mmap_read_unlock(mm);
++	if (!user_mode(regs))
++		goto no_context;
++	/*
++	 * Report the size of the poisoned area, which for a hugetlb fault
++	 * is the size of the huge page that could not be mapped.
++	 */
++	lsb = PAGE_SHIFT;
++	if (fault & VM_FAULT_HWPOISON_LARGE)
++		lsb = hstate_index_to_shift(VM_FAULT_GET_HINDEX(fault));
++	show_signal_msg(regs, address, SIGBUS, "hardware memory error");
++	force_sig_mceerr(BUS_MCEERR_AR, (void __user *) address, lsb);
++	return;
 +
-+	return aie4_msg_set_power_mode(ndev, ndev->pw_mode);
-+}
-+
- static int aie4_pf_hw_start(struct amdxdna_dev_hdl *ndev)
- {
- 	int ret;
-@@ -315,6 +326,10 @@ static int aie4_pf_hw_start(struct amdxdna_dev_hdl *ndev)
- 	if (ret)
- 		goto mbox_fini;
- 
-+	ret = aie4_restore_power_mode(ndev);
-+	if (ret)
-+		goto mbox_fini;
-+
- 	return 0;
- 
- mbox_fini:
-@@ -352,8 +367,14 @@ static int aie4_vf_hw_start(struct amdxdna_dev_hdl *ndev)
- 	if (ret)
- 		goto mailbox_fini;
- 
-+	ret = aie4_restore_power_mode(ndev);
-+	if (ret)
-+		goto partition_fini;
-+
- 	return 0;
- 
-+partition_fini:
-+	aie4_partition_fini(ndev);
- mailbox_fini:
- 	aie4_mailbox_fini(ndev);
- 	return ret;
-@@ -393,8 +414,14 @@ static int aie4_classic_hw_start(struct amdxdna_dev_hdl *ndev)
- 	if (ret)
- 		goto mailbox_fini;
- 
-+	ret = aie4_restore_power_mode(ndev);
-+	if (ret)
-+		goto partition_fini;
-+
- 	return 0;
- 
-+partition_fini:
-+	aie4_partition_fini(ndev);
- mailbox_fini:
- 	aie4_mailbox_fini(ndev);
- stop_fw:
-@@ -534,6 +561,7 @@ static int aie4m_pcidev_init(struct amdxdna_dev *xdna)
- 
- 	ndev->priv = xdna->dev_info->dev_priv;
- 	ndev->aie.xdna = xdna;
-+	ndev->pw_mode = POWER_MODE_DEFAULT;
- 	xdna->dev_handle = ndev;
- 
- 	xa_init_flags(&ndev->cert_comp_xa, XA_FLAGS_ALLOC);
-@@ -588,6 +616,24 @@ static int aie4m_pcidev_init(struct amdxdna_dev *xdna)
- 	return 0;
- }
- 
-+static int aie4_get_power_mode(struct amdxdna_client *client,
-+			       struct amdxdna_drm_get_info *args)
-+{
-+	struct amdxdna_drm_get_power_mode mode = {};
-+	struct amdxdna_dev *xdna = client->xdna;
-+	struct amdxdna_dev_hdl *ndev;
-+	u32 buf_sz;
-+
-+	ndev = xdna->dev_handle;
-+	mode.power_mode = ndev->pw_mode;
-+
-+	buf_sz = min_t(u32, args->buffer_size, sizeof(mode));
-+	if (copy_to_user(u64_to_user_ptr(args->buffer), &mode, buf_sz))
-+		return -EFAULT;
-+
-+	return 0;
-+}
-+
- static int aie4_get_info(struct amdxdna_client *client, struct amdxdna_drm_get_info *args)
- {
- 	struct amdxdna_dev *xdna = client->xdna;
-@@ -604,6 +650,9 @@ static int aie4_get_info(struct amdxdna_client *client, struct amdxdna_drm_get_i
- 	case DRM_AMDXDNA_QUERY_FIRMWARE_VERSION:
- 		ret = amdxdna_get_firmware_version(client, args, &xdna->fw_ver);
- 		break;
-+	case DRM_AMDXDNA_GET_POWER_MODE:
-+		ret = aie4_get_power_mode(client, args);
-+		break;
- 	default:
- 		XDNA_ERR(xdna, "Not supported request parameter %u", args->param);
- 		ret = -EOPNOTSUPP;
-@@ -614,6 +663,71 @@ static int aie4_get_info(struct amdxdna_client *client, struct amdxdna_drm_get_i
- 	return ret;
- }
- 
-+static int aie4_set_power_mode(struct amdxdna_client *client,
-+			       struct amdxdna_drm_set_state *args)
-+{
-+	struct amdxdna_drm_set_power_mode power_state = { 0 };
-+	struct amdxdna_dev *xdna = client->xdna;
-+	struct amdxdna_dev_hdl *ndev = xdna->dev_handle;
-+	u8 power_mode;
-+	int ret;
-+
-+	if (args->buffer_size < sizeof(power_state))
-+		return -EINVAL;
-+
-+	if (copy_from_user(&power_state, u64_to_user_ptr(args->buffer),
-+			   sizeof(power_state))) {
-+		XDNA_ERR(xdna, "Failed to copy power mode request into kernel");
-+		return -EFAULT;
-+	}
-+
-+	if (XDNA_MBZ_DBG(xdna, power_state.pad, sizeof(power_state.pad)))
-+		return -EINVAL;
-+
-+	power_mode = power_state.power_mode;
-+	if (power_mode > POWER_MODE_TURBO) {
-+		XDNA_ERR(xdna, "Invalid power mode %d", power_mode);
-+		return -EINVAL;
-+	}
-+
-+	ret = aie4_msg_set_power_mode(xdna->dev_handle, power_mode);
-+	if (ret)
-+		return ret;
-+
-+	ndev->pw_mode = power_mode;
-+	return 0;
-+}
-+
-+static int aie4_set_state(struct amdxdna_client *client,
-+			  struct amdxdna_drm_set_state *args)
-+{
-+	struct amdxdna_dev *xdna = client->xdna;
-+	int ret, idx;
-+
-+	if (!drm_dev_enter(&xdna->ddev, &idx))
-+		return -ENODEV;
-+
-+	ret = amdxdna_pm_resume_get_locked(xdna);
-+	if (ret)
-+		goto dev_exit;
-+
-+	switch (args->param) {
-+	case DRM_AMDXDNA_SET_POWER_MODE:
-+		ret = aie4_set_power_mode(client, args);
-+		break;
-+	default:
-+		XDNA_ERR(xdna, "Not supported request parameter %u", args->param);
-+		ret = -EOPNOTSUPP;
-+		break;
-+	}
-+
-+	amdxdna_pm_suspend_put(xdna);
-+
-+dev_exit:
-+	drm_dev_exit(idx);
-+	return ret;
-+}
-+
- static int aie4_alloc_work_buffer(struct amdxdna_dev_hdl *ndev)
- {
- 	struct amdxdna_dev *xdna = ndev->aie.xdna;
-@@ -736,6 +850,7 @@ const struct amdxdna_dev_ops aie4_vf_ops = {
- 	.hwctx_fini		= aie4_hwctx_fini,
- 	.cmd_wait		= aie4_cmd_wait,
- 	.get_aie_info		= aie4_get_info,
-+	.set_aie_state		= aie4_set_state,
- };
- 
- const struct amdxdna_dev_ops aie4_classic_ops = {
-@@ -745,4 +860,5 @@ const struct amdxdna_dev_ops aie4_classic_ops = {
- 	.hwctx_fini		= aie4_hwctx_fini,
- 	.cmd_wait		= aie4_cmd_wait,
- 	.get_aie_info		= aie4_get_info,
-+	.set_aie_state		= aie4_set_state,
- };
-diff --git a/drivers/accel/amdxdna/aie4_pci.h b/drivers/accel/amdxdna/aie4_pci.h
-index 5ae5e8427a3b..fd2c50dc8080 100644
---- a/drivers/accel/amdxdna/aie4_pci.h
-+++ b/drivers/accel/amdxdna/aie4_pci.h
-@@ -58,6 +58,8 @@ struct amdxdna_dev_hdl {
- 	dma_addr_t			work_buf_addr;
- 	u32				work_buf_size;
- 
-+	u8				pw_mode;
-+
- 	struct amdxdna_drm_query_firmware_version cert_version;
- };
- 
-@@ -77,6 +79,7 @@ int aie4_query_npu_firmware_version(struct amdxdna_dev_hdl *ndev,
- 				    struct amdxdna_drm_query_firmware_version *fw_version);
- int aie4_query_cert_firmware_version(struct amdxdna_dev_hdl *ndev,
- 				     struct amdxdna_drm_query_firmware_version *cert_version);
-+int aie4_msg_set_power_mode(struct amdxdna_dev_hdl *ndev, u8 power_mode);
- u32 aie4_msg_pasid(struct amdxdna_client *client);
- 
- /* aie4_ctx.c */
-@@ -84,6 +87,9 @@ int aie4_hwctx_init(struct amdxdna_hwctx *hwctx);
- void aie4_hwctx_fini(struct amdxdna_hwctx *hwctx);
- int aie4_cmd_wait(struct amdxdna_hwctx *hwctx, u64 seq, u32 timeout);
- 
-+/* aie4_pci.c */
-+int aie4_restore_power_mode(struct amdxdna_dev_hdl *ndev);
-+
- /* aie4_sriov.c */
- #if IS_ENABLED(CONFIG_PCI_IOV)
- int aie4_sriov_configure(struct amdxdna_dev *xdna, int num_vfs);
+  do_sigsegv:
+ 	show_signal_msg(regs, address, SIGSEGV,
+ 			si_code == SEGV_MAPERR ? "unmapped access"
+
 -- 
-2.34.1
+2.55.0
 
