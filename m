@@ -1,317 +1,231 @@
-Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com [209.85.219.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B2803AAF5E
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 17:07:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 416DF38F65C;
+	Thu,  8 Oct 2026 17:08:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791479256; cv=none; b=kDChxmzlxa1KmqCG7ANpXLD5lYE6HhkOEGfe1P1XNKXu0yhM0Fi/6rquYb+HC+7ilVsuWBbm0yeswRczqZ88/bX4PdW8pEMArJ4I9w0/jIqtDuTh4mc2iXlqKpGgOrjGNYdzPsxVDwmFCw0+9gIr/X+ul6U08gGsLO5pkDy3kQ0=
+	t=1791479295; cv=none; b=mxvv8DFLFPgTS9Paom/fMZmWgRX55Eo12TZ/arOx3l1ICAzdcR6Bx1qIPXwz9/Dcslx0cBY4Slgo+Fm5Vit7lUORQQDZSb5lemems9SWnZT3umZ+u44K8Yey8j5RHxKQXDlgNSZpb+t+UPDGt7vDvnbPwqw1pmiFgUz+fV8bCps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791479256; c=relaxed/simple;
-	bh=33Dvrf0ZV/aeuPuGesAW054aTSxFK3HRoP4sd6PhIN4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WH1pTUO9uiAgV9bazRXCMhqZy+SGmjs7+ch8eiMzqEIQVZuP5B1GmdK0s7Bk5+2HfgHiH2B48g2K5eChiLRg0YNeHMeM0yIE1Twj3Ykaj1zcnNPkAHud8npOdtPyXsqyTvejMQ/qMVHbo9cx9IsRoFr0a9bW8el3eT5HNz+ZbBw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu; spf=pass smtp.mailfrom=cs.unc.edu; dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b=cEJKLbhP; arc=none smtp.client-ip=209.85.219.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
+	s=arc-20240116; t=1791479295; c=relaxed/simple;
+	bh=0eBtMTu0/gfhzOhtCIIjYp5dd3J2nx+mqrVP8/rXKb4=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=dmfGvSX2JhHgujMuEkYAU2zJpKM7y3Fpek9DYt2q8Y/9iwafV2sVi5bSTf63kYVrkPOEQ+zvDGmzhMiEwH8hfpUccHVcRsxP2Tz71IwhEKGMWzLhqDtx1DDgus1w9EO+yGzbF277gRcjB7oS4DQf3UizoX3ne191fYP3SqlzkNs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=csdqprA4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b="cEJKLbhP"
-Received: by mail-qv1-f46.google.com with SMTP id 6a1803df08f44-917a7c03eb8so53714946d6.3
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 10:07:34 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="csdqprA4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C96D1F000FF;
+	Thu,  8 Oct 2026 17:08:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cs.unc.edu; s=google; t=1791479253; x=1792084053; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=f5WQDUZlUdSGdBUBDUPyXWWv5kxzk6a1Q3FrCFwJ0JQ=;
-        b=cEJKLbhPGMEc7J44uDLc0uqN8gtz+OafpVIyEfDM+sn8cAjFBhLiPHe7SPpXz6VFB3
-         N4Z6x89hYi1zoH+bb2okzDjXYB5Asv2qvo6AMySAAzGzBmt18KpdZCOBpq3F1BKBsSVL
-         PmFCddyIO1r9g9wgOYlKa5Lg5GSAJO7daxSnKYJ6rvvD+3twZPlRPyoLhdQZltSpAgH2
-         oKlYvZAT52HHEuM9Z9EOg3rsVBjOOq704sEPtDwoGJ2PblCPTLyjP2c5+lgoZyS1Bgay
-         IhkvNTCXf2ltUD5vo226fvbvB1lSq/l7w7Tlbf5OyhU+jXaPm7ROPv2OkHkzrlR7V9+q
-         6pag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791479253; x=1792084053;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=f5WQDUZlUdSGdBUBDUPyXWWv5kxzk6a1Q3FrCFwJ0JQ=;
-        b=HIT7I5pALP98BN+kFQBwYA9E/e3gebcnih9PujtO4m1QDgsqlG40pfgS4IGYqEknIr
-         MEEayUftntLk5JOVM7TNlUq757MwolwkOftWYkwlyVMSgtEWif69+Ht/4dy5QkehzqTg
-         GX1VBrv0i8dkwXU1qaac1YECQJPbfQqd3/diiEHziGNawOJsPwHRWv+qDdk/JotqBx1Q
-         Lp1hIBHJH4jxOJ7BRWikszCcEhAbkjgGkED7I9g1Bv4MJ4e2s3PlYzuhRaVTjHdqqu+M
-         xiekUCw/mQNIe7+XvG2U1MeApjiatD6A/wRO+9Qrg3XIzzfW/W120aCyakdyX59lHOVK
-         vFEQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz/38dBOxVoNdyv+Uet0rfhXkeCZspwShrD9stIBDOx3wRTcdNqN35u/RPGI/SvM5cMaK7VCAbhDUuZ3Tk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lqMQqVx8OU707NMlMuBSPC2iOwMmuj9yVCsDss4Giq8BLpgFGC
-	erUAN8D4EiODGE/lbAanRHNpbe/ayG6v2imcMLKd5Ri516v/1J/w+Ai/DugvzOme1g==
-X-Gm-Gg: AYBFou3NH9DA/+UvupS8KLn0NCEadw6CeFJmBQMSTQMwJDY0rTBtN8q0jHymZzrlULc
-	iQznzxGV+hy7T6OjGNodyDmJn/RXp6Yj6ws+NqIAFFs1/+WnUlN5LGBxoyZmMm3XYdUOwa8ajnO
-	ZyQkqr7RTnwEWt3nuKm7Sf/Mbo3FCXEa5soEEnZVnuo8IYg4YOXCTr41veLL1G0eAAhvY3APm1u
-	ykuLpibutYJoYtLzjicawHXa3nZD7yiJpgi7nMrx73mlItqX7SMrsuu1PfrZobj/fzc4YD2Ni2H
-	p50c1oMHnLYI7hPMgafxqGv1UuX2ssjBRpwDifNeTRck0yeiedmHxb0wxuX7EL0noVf5gGNucJ1
-	8YG/6fvGLhJ96x/riAhkCoY7dTdhAtJyqWeiXoFVIPi44Yx7r9LUpCoQ8r/ngxiM6J+kMOZ8cm5
-	B5BqRIvJQU5B6vP0YgYrzW+FlJuow/csnAfyL4SUsF5fqhITb2k6LnrISLdHFEYybRV/ELjlz+g
-	lI+Vm8/Gt2vz3kK/XqOftZFC3xCJjFm
-X-Received: by 2002:a05:6214:20ea:b0:912:517b:40f4 with SMTP id 6a1803df08f44-91997853ae4mr117201566d6.38.1791479253136;
-        Thu, 08 Oct 2026 10:07:33 -0700 (PDT)
-Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b51b54ddesm1067326d6.9.2026.10.08.10.07.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 10:07:32 -0700 (PDT)
-From: Hengyu Liang <hengyul@cs.unc.edu>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: Pavel Begunkov <asml.silence@gmail.com>,
-	David Wei <dw@davidwei.uk>,
-	io-uring@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org
-Subject: [PATCH] io_uring: do not charge user provided SQ/CQ rings to RLIMIT_MEMLOCK
-Date: Thu,  8 Oct 2026 13:06:11 -0400
-Message-ID: <20261008170611.1285778-1-hengyul@cs.unc.edu>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <b5a33433-b0b9-4231-9998-23e2a2202091@kernel.dk>
-References: <b5a33433-b0b9-4231-9998-23e2a2202091@kernel.dk>
+	d=linux-foundation.org; s=korg; t=1791479293;
+	bh=40UmGtsWvKZUKUpHoZBUqaWRitaTWsYb5pdsjbLrFbc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=csdqprA4ZZqt4Jvt9d+z8dNJvB443wlcluTVQvjFtrKp8TUZICyWcXqBapadTNldC
+	 QdYL+b8STFSRrWvvQ00GgMU8AixHHUkCp4+nWQmHNPkadSFl++BN356EwDBUdtaOTT
+	 HrH6+T3//qPRmIo+OQJijugBSP4K/KPyye8l/1aY=
+Date: Thu, 8 Oct 2026 10:08:12 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: Heming Zhao <heming.zhao@suse.com>, Anderson Ferneda
+ <anderson.ferneda@braza.com.br>, Mark Fasheh <mark@fasheh.com>, Joel Becker
+ <jlbec@evilplan.org>, ocfs2-devel@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] ocfs2: deal with legacy signed dir index name hash
+ values
+Message-Id: <20261008100812.0969af222022821d4ed72fad@linux-foundation.org>
+In-Reply-To: <20261008122743.616779-1-joseph.qi@linux.alibaba.com>
+References: <20261008122743.616779-1-joseph.qi@linux.alibaba.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Commit 8078486e1d53 ("io_uring: use region api for SQ") and commit
-81a4058e0cd0 ("io_uring: use region api for CQ") made io_uring_setup()
-create the rings with io_create_region().
+On Thu,  8 Oct 2026 20:27:42 +0800 Joseph Qi <joseph.qi@linux.alibaba.com> wrote:
 
-However, io_create_region() charges user provided memory to
-RLIMIT_MEMLOCK, and the rings of an IORING_SETUP_NO_MMAP ring were not
-charged before those commits. As of now, a user without CAP_IPC_LOCK
-gets ENOMEM from io_uring_queue_init_mem() when their rings exceed the
-limit, which is 8 MiB by default. PostgreSQL 18 creates its rings with
-this function [1].
-
-The issue can be reproduced with a simple liburing program, run as an
-unprivileged user:
-
-    #include <liburing.h>
-    #include <stdio.h>
-    #include <sys/mman.h>
-
-    int main(void)
-    {
-            static struct io_uring ring[64];
-            char *mem = mmap(NULL, 64 << 20, PROT_READ | PROT_WRITE,
-                             MAP_SHARED | MAP_ANONYMOUS, -1, 0);
-            int i;
-
-            for (i = 0; i < 64; i++) {
-                    struct io_uring_params p = { };
-
-                    if (io_uring_queue_init_mem(4096, &ring[i], &p,
-                                                mem + (i << 20),
-                                                1 << 20) < 0)
-                            break;
-            }
-            printf("%d rings\n", i);
-            return 0;
-    }
-
-Before those commits (v6.13), it prints "64 rings". After those commits
-(v6.14), it prints "21 rings".
-
-This patch makes io_create_region() take the user to charge, like
-io_free_region() does, and passes no user for the SQ/CQ rings.
-
-Link: https://github.com/postgres/postgres/blob/REL_18_STABLE/src/backend/storage/aio/method_io_uring.c [1]
-Fixes: 8078486e1d53 ("io_uring: use region api for SQ")
-Fixes: 81a4058e0cd0 ("io_uring: use region api for CQ")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
----
-This goes on top of io_uring-7.3 (c746673517c6), as discussed in [2].
-
-Tested on that branch as a user without CAP_IPC_LOCK and the default
-8 MiB limit:
-
-                                                  before  after
-  program above                                       21     64
-  the same with io_uring_queue_init()                 64     64
-  30 processes x 142 NO_MMAP rings of 64 entries       7     30
-
-The last row is what 30 PostgreSQL 18 clusters with default settings
-create. The number is how many of them got all their rings.
-
-The per-user locked_vm count stays balanced over ring create, close and
-resize. Provided buffer rings and IORING_REGISTER_MEM_REGION regions on
-user memory are charged as before. Every liburing test gives the same
-result with and without the patch.
-
-Not changed here: provided buffer rings on user memory, which is what
-io_uring_setup_buf_ring() registers, were not charged in v6.13 either
-(64 of 64 rings of 32768 entries then, 16 now). I can send a patch for
-those as well if you want them handled the same way.
-
-[2] https://lore.kernel.org/io-uring/b5a33433-b0b9-4231-9998-23e2a2202091@kernel.dk/
-
- io_uring/io_uring.c |  8 ++++----
- io_uring/kbuf.c     |  2 +-
- io_uring/memmap.c   |  7 ++++---
- io_uring/memmap.h   |  2 +-
- io_uring/register.c | 10 +++++-----
- io_uring/zcrx.c     |  2 +-
- 6 files changed, 16 insertions(+), 15 deletions(-)
-
-diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
-index c2ce83c7c1f1..2a16369894d4 100644
---- a/io_uring/io_uring.c
-+++ b/io_uring/io_uring.c
-@@ -2070,8 +2070,8 @@ int io_submit_sqes(struct io_ring_ctx *ctx, unsigned int nr)
- 
- static void io_rings_free(struct io_ring_ctx *ctx)
- {
--	io_free_region(ctx->user, &ctx->sq_region);
--	io_free_region(ctx->user, &ctx->ring_region);
-+	io_free_region(NULL, &ctx->sq_region);
-+	io_free_region(NULL, &ctx->ring_region);
- 	ctx->rings = NULL;
- 	RCU_INIT_POINTER(ctx->rings_rcu, NULL);
- 	ctx->sq_sqes = NULL;
-@@ -2735,7 +2735,7 @@ static __cold int io_allocate_scq_urings(struct io_ring_ctx *ctx,
- 		rd.user_addr = p->cq_off.user_addr;
- 		rd.flags |= IORING_MEM_REGION_TYPE_USER;
- 	}
--	ret = io_create_region(ctx, &ctx->ring_region, &rd, IORING_OFF_CQ_RING);
-+	ret = io_create_region(NULL, &ctx->ring_region, &rd, IORING_OFF_CQ_RING);
- 	if (ret)
- 		return ret;
- 	ctx->rings = rings = io_region_get_ptr(&ctx->ring_region);
-@@ -2749,7 +2749,7 @@ static __cold int io_allocate_scq_urings(struct io_ring_ctx *ctx,
- 		rd.user_addr = p->sq_off.user_addr;
- 		rd.flags |= IORING_MEM_REGION_TYPE_USER;
- 	}
--	ret = io_create_region(ctx, &ctx->sq_region, &rd, IORING_OFF_SQES);
-+	ret = io_create_region(NULL, &ctx->sq_region, &rd, IORING_OFF_SQES);
- 	if (ret) {
- 		io_rings_free(ctx);
- 		return ret;
-diff --git a/io_uring/kbuf.c b/io_uring/kbuf.c
-index 7c309173dd19..7c59ab9cfc8b 100644
---- a/io_uring/kbuf.c
-+++ b/io_uring/kbuf.c
-@@ -676,7 +676,7 @@ int io_register_pbuf_ring(struct io_ring_ctx *ctx, void __user *arg)
- 		rd.user_addr = reg.ring_addr;
- 		rd.flags |= IORING_MEM_REGION_TYPE_USER;
- 	}
--	ret = io_create_region(ctx, &bl->region, &rd, mmap_offset);
-+	ret = io_create_region(ctx->user, &bl->region, &rd, mmap_offset);
- 	if (ret)
- 		goto fail;
- 	br = io_region_get_ptr(&bl->region);
-diff --git a/io_uring/memmap.c b/io_uring/memmap.c
-index da2328b52b38..51afe5d40b1d 100644
---- a/io_uring/memmap.c
-+++ b/io_uring/memmap.c
-@@ -192,7 +192,7 @@ static int io_region_allocate_pages(struct io_mapped_region *mr,
- 	return 0;
- }
- 
--int io_create_region(struct io_ring_ctx *ctx, struct io_mapped_region *mr,
-+int io_create_region(struct user_struct *user, struct io_mapped_region *mr,
- 		     struct io_uring_region_desc *reg,
- 		     unsigned long mmap_offset)
- {
-@@ -223,9 +223,10 @@ int io_create_region(struct io_ring_ctx *ctx, struct io_mapped_region *mr,
- 	/*
- 	 * Only pinned user memory counts against RLIMIT_MEMLOCK, kernel
- 	 * allocated regions are memcg accounted through GFP_KERNEL_ACCOUNT.
-+	 * The SQ/CQ rings are never charged, their callers pass a NULL user.
- 	 */
- 	if (reg->flags & IORING_MEM_REGION_TYPE_USER)
--		ret = io_region_pin_pages(mr, reg, ctx->user);
-+		ret = io_region_pin_pages(mr, reg, user);
- 	else
- 		ret = io_region_allocate_pages(mr, reg, mmap_offset);
- 	if (ret)
-@@ -236,7 +237,7 @@ int io_create_region(struct io_ring_ctx *ctx, struct io_mapped_region *mr,
- 		goto out_free;
- 	return 0;
- out_free:
--	io_free_region(ctx->user, mr);
-+	io_free_region(user, mr);
- 	return ret;
- }
- 
-diff --git a/io_uring/memmap.h b/io_uring/memmap.h
-index f4cfbb6b9a1f..0714bb5a9616 100644
---- a/io_uring/memmap.h
-+++ b/io_uring/memmap.h
-@@ -18,7 +18,7 @@ unsigned long io_uring_get_unmapped_area(struct file *file, unsigned long addr,
- int io_uring_mmap(struct file *file, struct vm_area_struct *vma);
- 
- void io_free_region(struct user_struct *user, struct io_mapped_region *mr);
--int io_create_region(struct io_ring_ctx *ctx, struct io_mapped_region *mr,
-+int io_create_region(struct user_struct *user, struct io_mapped_region *mr,
- 		     struct io_uring_region_desc *reg,
- 		     unsigned long mmap_offset);
- 
-diff --git a/io_uring/register.c b/io_uring/register.c
-index 02bc103bcc9d..d79971c57ace 100644
---- a/io_uring/register.c
-+++ b/io_uring/register.c
-@@ -480,8 +480,8 @@ struct io_ring_ctx_rings {
- static void io_register_free_rings(struct io_ring_ctx *ctx,
- 				   struct io_ring_ctx_rings *r)
- {
--	io_free_region(ctx->user, &r->sq_region);
--	io_free_region(ctx->user, &r->ring_region);
-+	io_free_region(NULL, &r->sq_region);
-+	io_free_region(NULL, &r->ring_region);
- }
- 
- #define swap_old(ctx, o, n, field)		\
-@@ -529,7 +529,7 @@ static int io_register_resize_rings(struct io_ring_ctx *ctx, void __user *arg)
- 		rd.user_addr = p->cq_off.user_addr;
- 		rd.flags |= IORING_MEM_REGION_TYPE_USER;
- 	}
--	ret = io_create_region(ctx, &n.ring_region, &rd, IORING_OFF_CQ_RING);
-+	ret = io_create_region(NULL, &n.ring_region, &rd, IORING_OFF_CQ_RING);
- 	if (ret)
- 		return ret;
- 
-@@ -559,7 +559,7 @@ static int io_register_resize_rings(struct io_ring_ctx *ctx, void __user *arg)
- 		rd.user_addr = p->sq_off.user_addr;
- 		rd.flags |= IORING_MEM_REGION_TYPE_USER;
- 	}
--	ret = io_create_region(ctx, &n.sq_region, &rd, IORING_OFF_SQES);
-+	ret = io_create_region(NULL, &n.sq_region, &rd, IORING_OFF_SQES);
- 	if (ret) {
- 		io_register_free_rings(ctx, &n);
- 		return ret;
-@@ -730,7 +730,7 @@ static int io_register_mem_region(struct io_ring_ctx *ctx, void __user *uarg)
- 	    !(ctx->flags & IORING_SETUP_R_DISABLED))
- 		return -EINVAL;
- 
--	ret = io_create_region(ctx, &region, &rd, IORING_MAP_OFF_PARAM_REGION);
-+	ret = io_create_region(ctx->user, &region, &rd, IORING_MAP_OFF_PARAM_REGION);
- 	if (ret)
- 		return ret;
- 	if (copy_to_user(rd_uptr, &rd, sizeof(rd))) {
-diff --git a/io_uring/zcrx.c b/io_uring/zcrx.c
-index beb35077f3ce..939885985333 100644
---- a/io_uring/zcrx.c
-+++ b/io_uring/zcrx.c
-@@ -432,7 +432,7 @@ static int io_allocate_rbuf_ring(struct io_ring_ctx *ctx,
- 	mmap_offset = IORING_MAP_OFF_ZCRX_REGION;
- 	mmap_offset += (u64)id << IORING_OFF_ZCRX_SHIFT;
- 
--	ret = io_create_region(ctx, &ifq->rq_region, rd, mmap_offset);
-+	ret = io_create_region(ctx->user, &ifq->rq_region, rd, mmap_offset);
- 	if (ret < 0)
- 		return ret;
- 
-
-base-commit: c746673517c6ce9f5400cc0ea23e10ef5382eddb
--- 
-2.53.0
-
+> Commit 3bc753c06dd0 ("kbuild: treat char as always unsigned") set
+> -funsigned-char globally, which changed the result of the naked 'char'
+> load in str2hashbuf():
+> 
+> 	val = msg[i] + (val << 8);
+> 
+> A name byte >= 0x80 used to sign-extend and now zero-extends, so
+> ocfs2_dx_dir_name_hash() computes a different hash pair for every name
+> containing one.  The pair is written into the dx leaf when the entry is
+> created, so an index built by an older kernel no longer matches and
+> ocfs2_dx_dir_search() returns -ENOENT for a name that readdir still
+> lists.
+> 
+> Search with the current unsigned hash and, on a miss, retry with the
+> legacy signed one, as ext4 does in commit f3bbac32475b2 ("ext4: deal
+> with legacy signed xattr name hash values").  New entries are always
+> indexed under the unsigned hash.  Skip the retry when the two hashes
+> are equal, so that a miss on an ASCII name does not walk the index
+> twice.
+> 
+> The retry costs a second walk of the dx tree, so a negative lookup of a
+> name containing a byte >= 0x80 does twice the work.  That is bounded and
+> worth it, and directories whose dx root is still inline pay nothing
+> extra, since there the retry only rescans the root block that is already
+> loaded.  Nothing retires it at runtime: a legacy entry keeps its legacy
+> hash, because neither deleting nor updating an entry rewrites the dx
+> hash, and the only code that rehashes existing dirents is
+> ocfs2_expand_inline_dir() on the inline to extent conversion.
+> Rebuilding the index offline is what removes the cost for good.
+> 
+> Also spell out the signedness in str2hashbuf() instead of leaving the
+> current hash to -funsigned-char, as commit 854f0912f813 ("ext4: make
+> xattr char unsignedness in hash explicit") did, so that both variants
+> stay correct if this is backported to a kernel without the flag.
+> 
+> Reported-by: Anderson Ferneda <anderson.ferneda@braza.com.br>
+> Link: https://lore.kernel.org/ocfs2-devel/CP5P284MB2780AC2C3C2AB2CF2B6CB7AFBE942@CP5P284MB2780.BRAP284.PROD.OUTLOOK.COM/
+> Exposed-by: 3bc753c06dd0 ("kbuild: treat char as always unsigned")
+> Cc: stable@vger.kernel.org # 6.2+
+> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+> ---
+>  fs/ocfs2/dir.c | 76 ++++++++++++++++++++++++++++++++++++++++++--------
+>  1 file changed, 65 insertions(+), 11 deletions(-)
+> 
+> diff --git a/fs/ocfs2/dir.c b/fs/ocfs2/dir.c
+> index 55c4a305a282..3f159a20a248 100644
+> --- a/fs/ocfs2/dir.c
+> +++ b/fs/ocfs2/dir.c
+> @@ -221,7 +221,8 @@ static void TEA_transform(__u32 buf[4], __u32 const in[])
+>  	buf[1] += b1;
+>  }
+>  
+> -static void str2hashbuf(const char *msg, int len, __u32 *buf, int num)
+> +static void str2hashbuf(const char *msg, int len, __u32 *buf, int num,
+> +			bool legacy_signed)
+>  {
+>  	__u32	pad, val;
+>  	int	i;
+> @@ -235,7 +236,10 @@ static void str2hashbuf(const char *msg, int len, __u32 *buf, int num)
+>  	for (i = 0; i < len; i++) {
+>  		if ((i % 4) == 0)
+>  			val = pad;
+> -		val = msg[i] + (val << 8);
+> +		if (legacy_signed)
+> +			val = (signed char)msg[i] + (val << 8);
+> +		else
+> +			val = (unsigned char)msg[i] + (val << 8);
+>  		if ((i % 4) == 3) {
+>  			*buf++ = val;
+>  			val = pad;
+> @@ -248,8 +252,9 @@ static void str2hashbuf(const char *msg, int len, __u32 *buf, int num)
+>  		*buf++ = pad;
+>  }
+>  
+> -static void ocfs2_dx_dir_name_hash(struct inode *dir, const char *name, int len,
+> -				   struct ocfs2_dx_hinfo *hinfo)
+> +static void __ocfs2_dx_dir_name_hash(struct inode *dir, const char *name,
+> +				     int len, struct ocfs2_dx_hinfo *hinfo,
+> +				     bool legacy_signed)
+>  {
+>  	struct ocfs2_super *osb = OCFS2_SB(dir->i_sb);
+>  	const char	*p;
+> @@ -279,7 +284,7 @@ static void ocfs2_dx_dir_name_hash(struct inode *dir, const char *name, int len,
+>  
+>  	p = name;
+>  	while (len > 0) {
+> -		str2hashbuf(p, len, in, 4);
+> +		str2hashbuf(p, len, in, 4, legacy_signed);
+>  		TEA_transform(buf, in);
+>  		len -= 16;
+>  		p += 16;
+> @@ -290,6 +295,19 @@ static void ocfs2_dx_dir_name_hash(struct inode *dir, const char *name, int len,
+>  	hinfo->minor_hash = buf[1];
+>  }
+>  
+> +static void ocfs2_dx_dir_name_hash(struct inode *dir, const char *name, int len,
+> +				   struct ocfs2_dx_hinfo *hinfo)
+> +{
+> +	__ocfs2_dx_dir_name_hash(dir, name, len, hinfo, false);
+> +}
+> +
+> +static void ocfs2_dx_dir_name_hash_signed(struct inode *dir, const char *name,
+> +					  int len,
+> +					  struct ocfs2_dx_hinfo *hinfo)
+> +{
+> +	__ocfs2_dx_dir_name_hash(dir, name, len, hinfo, true);
+> +}
+> +
+>  /*
+>   * bh passed here can be an inode block or a dir data block, depending
+>   * on the inode inline data flag.
+> @@ -1021,10 +1039,10 @@ static int ocfs2_dx_dir_lookup(struct inode *inode,
+>  	return ret;
+>  }
+>  
+> -static int ocfs2_dx_dir_search(const char *name, int namelen,
+> -			       struct inode *dir,
+> -			       struct ocfs2_dx_root_block *dx_root,
+> -			       struct ocfs2_dir_lookup_result *res)
+> +static int __ocfs2_dx_dir_search(const char *name, int namelen,
+> +				 struct inode *dir,
+> +				 struct ocfs2_dx_root_block *dx_root,
+> +				 struct ocfs2_dir_lookup_result *res)
+>  {
+>  	int ret, i, found;
+>  	u64 phys;
+> @@ -1037,8 +1055,6 @@ static int ocfs2_dx_dir_search(const char *name, int namelen,
+>  	struct ocfs2_extent_list *dr_el;
+>  	struct ocfs2_dx_entry_list *entry_list;
+>  
+> -	ocfs2_dx_dir_name_hash(dir, name, namelen, &res->dl_hinfo);
+> -
+>  	if (ocfs2_dx_root_inline(dx_root)) {
+>  		entry_list = &dx_root->dr_entries;
+>  		goto search;
+> @@ -1135,6 +1151,44 @@ static int ocfs2_dx_dir_search(const char *name, int namelen,
+>  	return ret;
+>  }
+>  
+> +static int ocfs2_dx_dir_search(const char *name, int namelen,
+> +			       struct inode *dir,
+> +			       struct ocfs2_dx_root_block *dx_root,
+> +			       struct ocfs2_dir_lookup_result *res)
+> +{
+> +	struct ocfs2_dx_hinfo legacy;
+> +	int ret;
+> +
+> +	ocfs2_dx_dir_name_hash(dir, name, namelen, &res->dl_hinfo);
+> +
+> +	ret = __ocfs2_dx_dir_search(name, namelen, dir, dx_root, res);
+> +	if (ret != -ENOENT)
+> +		return ret;
+> +
+> +	/*
+> +	 * Nothing under the current hash.  The entry may have been indexed by
+> +	 * an older kernel, which sign-extended the name bytes when hashing.
+> +	 * New entries are always indexed under the unsigned hash, so only fall
+> +	 * back to the legacy signed one when it can actually differ: an ASCII
+> +	 * name hashes the same either way, and a genuine miss on one should
+> +	 * not have to walk the index twice.
+> +	 */
+> +	ocfs2_dx_dir_name_hash_signed(dir, name, namelen, &legacy);
+> +	if (legacy.major_hash == res->dl_hinfo.major_hash &&
+> +	    legacy.minor_hash == res->dl_hinfo.minor_hash)
+> +		return ret;
+> +
+> +	res->dl_hinfo = legacy;
+> +
+> +	ret = __ocfs2_dx_dir_search(name, namelen, dir, dx_root, res);
+> +	if (ret)
+> +		return ret;
+> +
+> +	pr_warn_once("ocfs2: directory index with signed name hash\n");
+> +
+> +	return 0;
+> +}
+> +
+>  static int ocfs2_find_entry_dx(const char *name, int namelen,
+>  			       struct inode *dir,
+>  			       struct ocfs2_dir_lookup_result *lookup)
+> -- 
+> 2.39.3
