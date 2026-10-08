@@ -1,499 +1,165 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010004.outbound.protection.outlook.com [52.101.201.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A14FD438014
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 08:09:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791446992; cv=none; b=TIXck0/bM6csrBabTXT+BGl1msFVS7HjxXpsv5X20ShWxVMc/sin72q/pKWB3yAI+K6YfEnL1pGxmCS04RgnHbKhpA5VGHNvehK/VQF82JVj15+o2Yu4hVFEy9C1CANgOPhmzCdstQAo0X+GwxZYSV/zdMsvSl6M18pL/lgG/IM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791446992; c=relaxed/simple;
-	bh=21aJ63VUo4assiJ4EhA3h3Gkv7SbokahbICkYTJ84m8=;
-	h=From:To:cc:Subject:MIME-Version:Content-Type:Date:Message-ID; b=jGVUnr/U3oqHPOSjtc/ghWSKq8KkXkZiiVmRZKvAut+K4QLnwLIjnE6/pj9XorWHngSgV+/5LCvYT3zv4Qs2Pd+4XwskEvmjc1L9G3eJjlzDWyJUaX3zsos5Hz1Q1B/nPh7lOWMBzIvQZb7Zan3E3lURG81rVH0BKoY+TlS7kvk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=dsdMRj+Q; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C48D42E8F0;
+	Thu,  8 Oct 2026 08:10:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.4
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791447032; cv=fail; b=Up9l3cPS3pzILLQPjgMdeRuj5u0xxmCObU5wg8f4eFmgXixrUOH0jG9BRt61vbgPAWb6Ya8mcfderR4wAr5O5oOQgFvq5it+AYjXozY8AAfJaZhn07AvqnvuWvwzEy5Fo+KlecTfvfBt7kejTWI0IZnsIUUnsh4pUhSM0xktpIA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791447032; c=relaxed/simple;
+	bh=WE3J4pQDgjwWbJ2kq28aDyT/xWSy5U0kP7VpY9pM6Ww=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=FXgaNUiRif1u01nyOrIKA+FvSD60JQVgGpjXXq0hj7jwEZQPyA8INOMN5jpYmEKho29WRJiZVCDLTwGrHOSywjqxCnr5dI/3JAK/zR7aswCx+5zpz4CeFojqiVYMICfPpR1zUn2T3h5Z9XgaUjlCXEtNe6Rwmq/CFVlvxqkrV1w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=se9bWhwd; arc=fail smtp.client-ip=52.101.201.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dsdMRj+Q"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791446987;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=54+mKQeJFrXIb4ohYXgmPSTrEPH3oJGTGlC9cG/RNlk=;
-	b=dsdMRj+QB9PVdc+UCTHTsfBXSEZ6W3MK1VdAVN0skEmcuEBSO6jkTlu6auxEpQs+fM43VR
-	vognqUbBQ5uM4Ljo1sV1xIi0ZRelVWbiFUiv12ijhAS1W8ICLCsXForrbyqWl5W1026CLZ
-	qNC2mkYtdXToBLXyVxLp62W4GMDczZU=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-151-YWhcksGfPFW6uvpRqzv4Zg-1; Thu,
- 8 Oct 2026 08:09:41 +0000
-X-MC-Unique: YWhcksGfPFW6uvpRqzv4Zg-1
-X-Mimecast-MFC-AGG-ID: YWhcksGfPFW6uvpRqzv4Zg_1791446979
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 833F21955F12;
-	Thu,  8 Oct 2026 08:09:39 +0000 (UTC)
-Received: from warthog.procyon.org.uk (unknown [10.44.32.90])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 0B7371956086;
-	Thu,  8 Oct 2026 08:09:35 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
-	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
-	Kingdom.
-	Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-To: Christian Brauner <brauner@kernel.org>
-cc: dhowells@redhat.com, Marc Dionne <marc.dionne@auristor.com>,
-    Paulo Alcantara <pc@manguebit.org>,
-    Matthew Wilcox <willy@infradead.org>, v9fs@lists.linux.dev,
-    linux-afs@lists.infradead.org, ceph-devel@vger.kernel.org,
-    linux-cifs@vger.kernel.org, netfs@lists.linux.dev,
-    linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] fscache, cachefiles: Fix resize handling
+	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="se9bWhwd"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iR/dzx8CP03dWZCI1sBKNEO091KxS1V33eQPy6KrvCOlYdisk3EpRcyZ/gcunurWdu0gwDxd8jmqYTo3aijTAARo1J8Jo/wayFXPG6lrZIoHJYZ3L8hnRsM3HS/nhQsrmAxUBd6uq6uO8tHrcMHlhJkoZ/6LWdYVfyFfdJFotVk95AiDjNoYiCXdmSobZxENVtW1eJSmv1LOlNCH2CRT11EX1JXJqm3oilQenuSuIa2U2r6gDffg7FsEbCwXijAo7kaotS175weQ8FC4xG2Z57aXwtoxl64hi5xC+AXMcXgdhQLUMLrVH2dIGtOZSOFAnPwQqT5bLwjSdFaSyo9ukg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3jTrhAWnMNCQFyyVxpcdIMg7a4uoMCl6uHtk8YJB4rQ=;
+ b=ao8ZtK6/lNK1CkdigvwrwA8grhw4rQ7xeoGkKrYz5nMlcFg4kGUUXHAwsXy8agx78F1xlMqCX6Zau2dUgseNZQrifyVi8oM5bRaLp4khAz+rFf4Ti7yD+YVxg2rDmcQ4JrRs5KfvD0F5qEY91YNiCD1jdb6KXowoawf0bxxIdufoyCHqGIxVPDsvo8h/cJpq6y/gr0ehecFis3VoV6f0eM/E2Bv7b4VSyhdKE8M9tF1neiQyV4mLbOd7k/merHQeqhcA/UkZlYXn4E7Ur5B3QIiuf0BX6MWr43rTs8ySu3bV1fwIZjtvpAanZn/6LL9hikU3CT6oAZZF4VcDFIDMyA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
+ dkim=pass header.d=altera.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3jTrhAWnMNCQFyyVxpcdIMg7a4uoMCl6uHtk8YJB4rQ=;
+ b=se9bWhwdXF+df9XwnRpKicI/KpXw95IRrn2sxScUBErrN4N/iIGgSExz2Ij7KqPvBaKau5Hmbj3ALBXIaGKngf/dF3zGSyqqxhQ6S3vLyO1BXPdERQQMSdxUQGMWyUFgMlWcWo2E/itZ8TKRtemDpCRLgolUIKpvDgadEcp6ixu4+NbxIXwYW0ghTbo3LnsG2rTmqbKwNl/QIgkChlMqi/l9My0YkiJ68vfiaq4A4npWDemeB+fbYKpa4Od2BvIN0zAdyO251NiDwC1BD22JVM7eNMIEMdivoR+EicUMMm8v9mE4hbLptOyGp57f/t0GV2K3hWdsG4ON19aUUIZrkQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=altera.com;
+Received: from LV8PR03MB7398.namprd03.prod.outlook.com (2603:10b6:408:18f::13)
+ by CH4PR03MB7745.namprd03.prod.outlook.com (2603:10b6:610:243::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Thu, 8 Oct
+ 2026 08:10:24 +0000
+Received: from LV8PR03MB7398.namprd03.prod.outlook.com
+ ([fe80::9d6:b5c1:7f72:e982]) by LV8PR03MB7398.namprd03.prod.outlook.com
+ ([fe80::9d6:b5c1:7f72:e982%4]) with mapi id 15.21.0496.015; Thu, 8 Oct 2026
+ 08:10:24 +0000
+From: genevieve.chan@altera.com
+To: Dinh Nguyen <dinguyen@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 1/2] dt-bindings: arm: altera: add Agilex SoCDK multi-QSPI board
+Date: Thu,  8 Oct 2026 16:10:13 +0800
+Message-Id: <20261008081014.35006-2-genevieve.chan@altera.com>
+X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20261008081014.35006-1-genevieve.chan@altera.com>
+References: <20261008081014.35006-1-genevieve.chan@altera.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SI3PR01CA0008.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:296::7) To LV8PR03MB7398.namprd03.prod.outlook.com
+ (2603:10b6:408:18f::13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <938340.1791446974.1@warthog.procyon.org.uk>
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 08 Oct 2026 09:09:34 +0100
-Message-ID: <938341.1791446974@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PR03MB7398:EE_|CH4PR03MB7745:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4ad50194-88ee-402c-887e-08df25139b19
+X-MS-Exchange-AtpMessageProperties: SA
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|56012099006|11063799006|10067099003|18002099003|55112099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	uIOUgNCF2aDWnOISga/wGNibMYCg5spRCUFqWEJQ+vZmNVWmt3WqbBtPujFdEF+8cPM9N2n4Wm7AtBTsXIWktneiFu+A0MKLEPPp6qbmjkg88BLT9UvDpalz8/OTLzAZw8nFlIS78ckdNadI1m29jSYGtpgg9qZuINvygU5sLqnB/c3j618tRoaObJMnZzcev8BvUPZHXLTX0R2L2Alz6KgHl9hxNySv/E2OaVlvxP2dVORvjD30/FAy93CsHthuqW1V4FkzpYsk/4oCmA98yG3NY1w88saEgNUM1hdyy0TuuE9nayGZxH2U210N0AsJslsvCI0j+zkKpGAIbnv35K8fJ0KtMji99V2+oruHOEFCqcVIDE4mPUZRe9RT9xpQMjOEZmNdm1IfqHmBH/lXyY+9HND8FdFvD6DE9obZnYNaUnq9MwtWMuXjGzKsz56KMfupUa53a1lgKOb6qbQfF/LQUQx7Asxsd/z1eke7mqnemAU9NSY/y4B852Ut+CsfVgu6MOrG9HD/xCCe6AJNHfXvrcbiqeHbNy6TLc09v4Ap4/zDZQdIAMAecpZmTXFqk8qlXkrMVu6hkOgYt41w3TJCG/WsX0/y8mwzmDQoiSMfU62Y5wjzP3tjQWNqROK5QCK4sHmaKSkO2B0nxvoCcntYO5wm+wjv63NWVf0IfCU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR03MB7398.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(56012099006)(11063799006)(10067099003)(18002099003)(55112099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?SFygU7vzxBMTvjEwaF1T49WvEhlClelMjax0obRXXFQi0EM0iRGoLZbF8aoM?=
+ =?us-ascii?Q?J2PRQCu2LNHtxcZI1twtqiiOumobztO8SJaDw5ekSSQu/TV21Zf+ZdrFgKqo?=
+ =?us-ascii?Q?vDzQWBRvapyV09I+Qrq9oh0kIqXIb6Ducc57QbDG/sOtSUq93wCR5yfPN2X0?=
+ =?us-ascii?Q?kCy5ou1shV1pR9QScFFPAEdbxosmmUDDLhETjtB9fkBXA1GBMSLIGfuSaypk?=
+ =?us-ascii?Q?BRNQ6NU68HmtamDWt7o7AamQ9Aa7sMOtJRa6SseH/6DjVwtqiPZlxwZBfhvM?=
+ =?us-ascii?Q?Co4I5zHWbAi3zNN5BG9gev24DKQb24hqqi0kj54mwtOUHquf/Bx+f4t1DSAo?=
+ =?us-ascii?Q?+0/SF0l0vb+l7mWA0QxwKs0+MqNX+WF4TFjjzj6dACdbmWOsfY5hOnvc++/d?=
+ =?us-ascii?Q?cVjSu9Or5SXgvyZ8RxmH67HkJP4S2/CHd0v6PFUu78MgoAPFyTqAdJGmDeqZ?=
+ =?us-ascii?Q?XAXYDWxFu/AaMYggp0OoP5N5hEFHnzxwwZ/a3fyDgYDsgF2wJSQlKjlaOqcj?=
+ =?us-ascii?Q?07oSQDW5/p2PR2p6ItWjvFW8KnRM+MNL3fjRimglFMKzD0KZdHkziPpjeg0C?=
+ =?us-ascii?Q?l5LxmE8hGkLM1Ke1KIVAtWs8LDCD8zi42hPBZzl4NEqEYxyeX3MN1n6qzaiq?=
+ =?us-ascii?Q?SJusMFTql13IB+P2bjiEttjtrjbiBsP5nj5BRaq9/V5zjhdLy/e36mhKglIX?=
+ =?us-ascii?Q?ZqfOtDWtFw8BICCEPbJdraHXlh0S0Rl5CsMVxK7rQACZH39iP2SNi8GV1Jir?=
+ =?us-ascii?Q?T9CanNQtfBYhEfx7RMXmoWuJW6HIiLYCSOA6iXjRZFgJGyO/c0yG8exaTJNv?=
+ =?us-ascii?Q?Y/cT7zXlQKIqxyyGjDOxO/hpiNZSQM1x6O/fJZQopDVdMb6cpYJgK1xqknv/?=
+ =?us-ascii?Q?C2z1YHRmuc+Q7b/IWL/G0xFZmMSKsx8ZfvCuNgtlM8SWCiZnOen8iXtxAdy6?=
+ =?us-ascii?Q?ivwRrO5TW7Gq1P9qSc3EuTo0BF+Ne10lEuP4xp/XLFl1jg/spN4hQa84CaE4?=
+ =?us-ascii?Q?AAQbBWkzVtJtd1HjV6CSSsBWWsmsz4TLSn1po0pfCjqIzOb38r47vz/4xwP8?=
+ =?us-ascii?Q?pd+olhK7if1ejvJuPjJ3TSDQY20sDh2sfhVj5Hj3E6aqo9JC9xHGxDXvGyAr?=
+ =?us-ascii?Q?EDihsYeyZj9VBTsi4hDKgXRrnJrxW1wCtjbDe1/LcA0gWBhupXD/sq0NXOsY?=
+ =?us-ascii?Q?pgB8p0Egp55jTXpwiWzw4fe+boe69ubPvZD+jKGFUxKuNh/fVEG0+8xBj20M?=
+ =?us-ascii?Q?qDnMjqqSB9DK90rGROCF+LeinRhH4IDfq4OqIXo2d6/vLKX5a/4hrgCF7+/c?=
+ =?us-ascii?Q?RhSTPoUeEyC3xKxN2vS8hdI0X2lgWR9t1chmHBPWupZEpnc6y01PlvbxvyEB?=
+ =?us-ascii?Q?W3cfy165DQt6PFBmnA+lC2JGsn4fNa9y6QeNPNE8pFZo1fGEKTqTSU7BnBjG?=
+ =?us-ascii?Q?ujUxpZajThzVDoNMDGSqwxrc90+uU7fEHhdOgW+ScWrinPF61dcAnBUXP9DH?=
+ =?us-ascii?Q?1C6UIEBbupWEkfMR62akn0fIOGYhFOK1BRxAn0ogjBKI07cpwbpBMMrn58q/?=
+ =?us-ascii?Q?UOrDnAdLsYF1uwicn3yVGE6B/0ZPjR7UxShrHh7O4+50nkxoCEAcLTHm8wh6?=
+ =?us-ascii?Q?O47iW1+3NEoAraekcyxVzsvQNeuwF9DSTzauVYrfzgUcn+OtFwqH692hvs5S?=
+ =?us-ascii?Q?7Y92JSg/Dk8vElqrLeZxfqbxZb22oumdP4MWUOdeHI4/U3X2T8fqJ/U9XF8E?=
+ =?us-ascii?Q?+EySBih62L2c0ZwY4uMt0k8P4juQNPQ=3D?=
+X-OriginatorOrg: altera.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4ad50194-88ee-402c-887e-08df25139b19
+X-MS-Exchange-CrossTenant-AuthSource: LV8PR03MB7398.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 08:10:24.7511
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0Jicbk1GZCUX6+BWuTsCRvNXzWPvQBm+FaobBWAYv0lnFaELUtdaxdaqvkdnrsGh3QeA2XGTq5reUdmySYZJ5T66lkspoeVgBogwexZ/dPs=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH4PR03MB7745
 
-Fix the resize handling in fscache and cachefiles by passing down the old
-size as well as the new size so that the cache can work out whether the
-file is being shrunk or expanded as the cache's idea of how big the file
-should be may be stale.
+From: Genevieve Chan <genevieve.chan@altera.com>
 
-The issue is that netfs_perform_write() updates the network filesystem's
-file's i_size as it adds data to the pagecache, but the cache isn't update=
-d
-until writeback flushes that data.  A truncation may then scrap that data
-and so the cache never sees it and doesn't update before it is told to
-resize.  In the resize, cachefiles was comparing the new size against the
-current cache size and then thinking the file was being expanded.
+The Agilex SoCDK can be fitted with a multi-QSPI daughter card in
+place of the default single-flash QSPI card. The multi-QSPI card
+carries four Micron MT25QU02G flashes connected to the HPS QSPI
+controller on chip selects 0-3.
 
-Reported-by: Marc Dionne <marc.dionne@auristor.com>
-Fixes: 1a9fe4b6e787 ("cachefiles: Don't rely on backing fs storage map for=
- most use cases")
-Signed-off-by: David Howells <dhowells@redhat.com>
-Tested-by: Marc Dionne <marc.dionne@auristor.com>
-cc: Paulo Alcantara <pc@manguebit.org>
-cc: Matthew Wilcox <willy@infradead.org>
-cc: v9fs@lists.linux.dev
-cc: linux-afs@lists.infradead.org
-cc: ceph-devel@vger.kernel.org
-cc: linux-cifs@vger.kernel.org
-cc: netfs@lists.linux.dev
-cc: linux-fsdevel@vger.kernel.org
+The different flash population requires a separate board DTS, hence, add
+a board compatible for it, following the existing SoCDK variants.
+The board uses the Agilex SoC (marketed as Agilex 7 F-Series), so it
+falls back to "intel,socfpga-agilex".
+
+Signed-off-by: Genevieve Chan <genevieve.chan@altera.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 ---
- fs/9p/vfs_inode.c             |    4 +++-
- fs/9p/vfs_inode_dotl.c        |    3 ++-
- fs/afs/inode.c                |    4 ++--
- fs/cachefiles/interface.c     |    4 ++--
- fs/ceph/cache.h               |    6 +++---
- fs/ceph/inode.c               |    5 +++--
- fs/netfs/fscache_io.c         |    4 ++--
- fs/smb/client/cifsfs.c        |    9 ++++++---
- fs/smb/client/inode.c         |    2 +-
- fs/smb/client/smb2ops.c       |   11 ++++++-----
- include/linux/fscache-cache.h |    2 +-
- include/linux/fscache.h       |   11 ++++++-----
- 12 files changed, 37 insertions(+), 28 deletions(-)
+Changes in v3:
+- Add Conor's Acked-by.
 
-diff --git a/fs/9p/vfs_inode.c b/fs/9p/vfs_inode.c
-index 3829554ca369..32f47c8ca45d 100644
---- a/fs/9p/vfs_inode.c
-+++ b/fs/9p/vfs_inode.c
-@@ -1022,6 +1022,7 @@ static int v9fs_vfs_setattr(struct mnt_idmap *idmap,
- 	struct v9fs_session_info *v9ses;
- 	struct p9_fid *fid =3D NULL;
- 	struct p9_wstat wstat;
-+	uoff_t old_size =3D i_size_read(inode);
- =
+Changes in v2:
+- Rename compatible from intel,socfpga-agilex7f-socdk-multiqspi to
+  intel,socfpga-agilex-socdk-multiqspi.
+- Describe the hardware difference in the commit message.
 
- 	p9_debug(P9_DEBUG_VFS, "\n");
- 	retval =3D setattr_prepare(&nop_mnt_idmap, dentry, iattr);
-@@ -1086,7 +1087,8 @@ static int v9fs_vfs_setattr(struct mnt_idmap *idmap,
- 		if (v9ses->cache & CACHE_FSCACHE) {
- 			struct v9fs_inode *v9inode =3D V9FS_I(inode);
- =
+ Documentation/devicetree/bindings/arm/altera.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
--			fscache_resize_cookie(v9fs_inode_cookie(v9inode), iattr->ia_size);
-+			fscache_resize_cookie(v9fs_inode_cookie(v9inode),
-+					      old_size, iattr->ia_size);
- 		}
- #endif
- 	}
-diff --git a/fs/9p/vfs_inode_dotl.c b/fs/9p/vfs_inode_dotl.c
-index 116b29e95f21..1a6a338eab08 100644
---- a/fs/9p/vfs_inode_dotl.c
-+++ b/fs/9p/vfs_inode_dotl.c
-@@ -519,6 +519,7 @@ int v9fs_vfs_setattr_dotl(struct mnt_idmap *idmap,
- 		.uid =3D INVALID_UID,
- 		.gid =3D INVALID_GID,
- 	};
-+	uoff_t old_size =3D i_size_read(inode);
- =
-
- 	p9_debug(P9_DEBUG_VFS, "\n");
- =
-
-@@ -580,7 +581,7 @@ int v9fs_vfs_setattr_dotl(struct mnt_idmap *idmap,
- #ifdef CONFIG_9P_FSCACHE
- 		if (v9ses->cache & CACHE_FSCACHE)
- 			fscache_resize_cookie(v9fs_inode_cookie(V9FS_I(inode)),
--				iattr->ia_size);
-+					      old_size, iattr->ia_size);
- #endif
- 	}
- =
-
-diff --git a/fs/afs/inode.c b/fs/afs/inode.c
-index 634fbf8eb212..8fbca46a5755 100644
---- a/fs/afs/inode.c
-+++ b/fs/afs/inode.c
-@@ -744,7 +744,7 @@ static void afs_setattr_edit_file(struct afs_operation=
- *op)
- 		if (size !=3D old) {
- 			truncate_pagecache(inode, size);
- 			netfs_resize_file(&vnode->netfs, size, true);
--			fscache_resize_cookie(afs_vnode_cache(vnode), size);
-+			fscache_resize_cookie(afs_vnode_cache(vnode), old, size);
- 		}
- 	}
- }
-@@ -817,7 +817,7 @@ int afs_setattr(struct mnt_idmap *idmap, struct dentry=
- *dentry,
- 			truncate_setsize(inode, attr->ia_size);
- 			netfs_resize_file(&vnode->netfs, size, false);
- 			fscache_resize_cookie(afs_vnode_cache(vnode),
--					      attr->ia_size);
-+					      i_size, attr->ia_size);
- 			ret =3D 0;
- 			goto out_unlock;
- 		}
-diff --git a/fs/cachefiles/interface.c b/fs/cachefiles/interface.c
-index 789ff6abe926..3857c64275fe 100644
---- a/fs/cachefiles/interface.c
-+++ b/fs/cachefiles/interface.c
-@@ -204,7 +204,7 @@ static bool cachefiles_shorten_object(struct cachefile=
-s_object *object,
-  * Resize the backing object.
-  */
- static void cachefiles_resize_cookie(struct netfs_cache_resources *cres,
--				     uoff_t new_size)
-+				     uoff_t old_size, uoff_t new_size)
- {
- 	struct cachefiles_object *object =3D cachefiles_cres_object(cres);
- 	struct cachefiles_cache *cache =3D object->volume->cache;
-@@ -218,7 +218,7 @@ static void cachefiles_resize_cookie(struct netfs_cach=
-e_resources *cres,
- 	/* If the file is being shrunk, we need to downsize the backing file
- 	 * and clear the end of the final block.
- 	 */
--	if (new_size < object->object_size) {
-+	if (new_size < old_size) {
- 		if (new_size >=3D i_size)
- 			goto out;
- 		cachefiles_begin_secure(cache, &saved_cred);
-diff --git a/fs/ceph/cache.h b/fs/ceph/cache.h
-index 20efac020394..705ecd4df75e 100644
---- a/fs/ceph/cache.h
-+++ b/fs/ceph/cache.h
-@@ -31,14 +31,14 @@ static inline struct fscache_cookie *ceph_fscache_cook=
-ie(struct ceph_inode_info
- 	return netfs_i_cookie(&ci->netfs);
- }
- =
-
--static inline void ceph_fscache_resize(struct inode *inode, loff_t to)
-+static inline void ceph_fscache_resize(struct inode *inode, uoff_t old_si=
-ze, loff_t to)
- {
- 	struct ceph_inode_info *ci =3D ceph_inode(inode);
- 	struct fscache_cookie *cookie =3D ceph_fscache_cookie(ci);
- =
-
- 	if (cookie) {
- 		ceph_fscache_use_cookie(inode, true);
--		fscache_resize_cookie(cookie, to);
-+		fscache_resize_cookie(cookie, old_size, to);
- 		ceph_fscache_unuse_cookie(inode, true);
- 	}
- }
-@@ -96,7 +96,7 @@ static inline struct fscache_cookie *ceph_fscache_cookie=
-(struct ceph_inode_info
- 	return NULL;
- }
- =
-
--static inline void ceph_fscache_resize(struct inode *inode, loff_t to)
-+static inline void ceph_fscache_resize(struct inode *inode, uoff_t old_si=
-ze, loff_t to)
- {
- }
- =
-
-diff --git a/fs/ceph/inode.c b/fs/ceph/inode.c
-index d52e2b389e0b..b23e117380db 100644
---- a/fs/ceph/inode.c
-+++ b/fs/ceph/inode.c
-@@ -2303,10 +2303,11 @@ void __ceph_do_pending_vmtruncate(struct inode *in=
-ode)
- {
- 	struct ceph_client *cl =3D ceph_inode_to_client(inode);
- 	struct ceph_inode_info *ci =3D ceph_inode(inode);
--	u64 to;
-+	uoff_t old_size, to;
- 	int wrbuffer_refs, finish =3D 0;
- =
-
- 	mutex_lock(&ci->i_truncate_mutex);
-+	old_size =3D i_size_read(inode);
- retry:
- 	spin_lock(&ci->i_ceph_lock);
- 	if (ci->i_truncate_pending =3D=3D 0) {
-@@ -2339,7 +2340,7 @@ void __ceph_do_pending_vmtruncate(struct inode *inod=
-e)
- 	      ci->i_truncate_pending, to);
- 	spin_unlock(&ci->i_ceph_lock);
- =
-
--	ceph_fscache_resize(inode, to);
-+	ceph_fscache_resize(inode, old_size, to);
- 	truncate_pagecache(inode, to);
- =
-
- 	spin_lock(&ci->i_ceph_lock);
-diff --git a/fs/netfs/fscache_io.c b/fs/netfs/fscache_io.c
-index 056a2bae5d99..bce0fa1f6e24 100644
---- a/fs/netfs/fscache_io.c
-+++ b/fs/netfs/fscache_io.c
-@@ -267,7 +267,7 @@ EXPORT_SYMBOL(__fscache_write_to_cache);
- /*
-  * Change the size of a backing object.
-  */
--void __fscache_resize_cookie(struct fscache_cookie *cookie, uoff_t new_si=
-ze)
-+void __fscache_resize_cookie(struct fscache_cookie *cookie, uoff_t old_si=
-ze, uoff_t new_size)
- {
- 	struct netfs_cache_resources cres;
- =
-
-@@ -281,7 +281,7 @@ void __fscache_resize_cookie(struct fscache_cookie *co=
-okie, uoff_t new_size)
- 		 * netfs's inode lock so that we're serialised with respect to
- 		 * writes.
- 		 */
--		cookie->volume->cache->ops->resize_cookie(&cres, new_size);
-+		cookie->volume->cache->ops->resize_cookie(&cres, old_size, new_size);
- 		fscache_end_operation(&cres);
- 	} else {
- 		fscache_stat(&fscache_n_resizes_null);
-diff --git a/fs/smb/client/cifsfs.c b/fs/smb/client/cifsfs.c
-index 98b610b2a114..ccc2cae2d06f 100644
---- a/fs/smb/client/cifsfs.c
-+++ b/fs/smb/client/cifsfs.c
-@@ -1314,6 +1314,7 @@ static int cifs_precopy_set_eof(struct inode *src_in=
-ode, struct cifsInodeInfo *s
- 				unsigned int xid, loff_t src_end)
- {
- 	struct cifsFileInfo *writeable_srcfile;
-+	uoff_t old_size =3D i_size_read(src_inode);
- 	int rc =3D -EINVAL;
- =
-
- 	writeable_srcfile =3D find_writable_file(src_cifsi, FIND_FSUID_ONLY);
-@@ -1332,7 +1333,7 @@ static int cifs_precopy_set_eof(struct inode *src_in=
-ode, struct cifsInodeInfo *s
- 		goto set_failed;
- =
-
- 	netfs_resize_file(&src_cifsi->netfs, src_end, true);
--	fscache_resize_cookie(cifs_inode_cookie(src_inode), src_end);
-+	fscache_resize_cookie(cifs_inode_cookie(src_inode), old_size, src_end);
- 	return 0;
- =
-
- set_failed:
-@@ -1538,6 +1539,7 @@ ssize_t cifs_file_copychunk_range(unsigned int xid,
- 	struct cifs_tcon *src_tcon;
- 	struct cifs_tcon *target_tcon;
- 	ssize_t rc;
-+	uoff_t old_size;
- =
-
- 	if (len =3D=3D 0)
- 		return 0;
-@@ -1584,7 +1586,8 @@ ssize_t cifs_file_copychunk_range(unsigned int xid,
- 	 * Advance the EOF marker after the flush above to the end of the range
- 	 * if it's short of that.
- 	 */
--	if (netfs_read_remote_i_size(src_inode) < off + len) {
-+	old_size =3D netfs_read_remote_i_size(src_inode);
-+	if (old_size < off + len) {
- 		rc =3D cifs_precopy_set_eof(src_inode, src_cifsi, src_tcon, xid, off + =
-len);
- 		if (rc < 0)
- 			goto unlock;
-@@ -1628,7 +1631,7 @@ ssize_t cifs_file_copychunk_range(unsigned int xid,
- 			netfs_resize_file(&target_cifsi->netfs,
- 					  i_size_read(target_inode), true);
- 			fscache_resize_cookie(cifs_inode_cookie(target_inode),
--					      i_size_read(target_inode));
-+					      old_size, i_size_read(target_inode));
- 		}
- 		if (rc > 0) {
- 			spin_lock(&target_inode->i_lock);
-diff --git a/fs/smb/client/inode.c b/fs/smb/client/inode.c
-index f29555f3c7d0..a398b2c10aaf 100644
---- a/fs/smb/client/inode.c
-+++ b/fs/smb/client/inode.c
-@@ -3097,7 +3097,7 @@ void cifs_resize_file_locked(struct inode *inode, lo=
-ff_t old_size,
- 		return;
- =
-
- 	fscache_use_cookie(cookie, true);
--	fscache_resize_cookie(cookie, offset);
-+	fscache_resize_cookie(cookie, old_size, offset);
- 	cifs_fscache_unuse_inode_cookie(inode, true);
- }
- =
-
-diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
-index 1e9018880639..fa019c67f9e5 100644
---- a/fs/smb/client/smb2ops.c
-+++ b/fs/smb/client/smb2ops.c
-@@ -3545,7 +3545,7 @@ static long smb3_zero_range(struct file *file, struc=
-t cifs_tcon *tcon,
- 	struct inode *inode =3D file_inode(file);
- 	struct cifsInodeInfo *cifsi =3D CIFS_I(inode);
- 	struct cifsFileInfo *cfile =3D file->private_data;
--	unsigned long long i_size, new_size, remote_i_size, zero_point;
-+	unsigned long long i_size, old_size, new_size, remote_i_size, zero_point=
-;
- 	long rc;
- 	unsigned int xid;
- =
-
-@@ -3554,8 +3554,9 @@ static long smb3_zero_range(struct file *file, struc=
-t cifs_tcon *tcon,
- 	trace_smb3_zero_enter(xid, cfile->fid.persistent_fid, tcon->tid,
- 			      ses->Suid, offset, len);
- =
-
-+	old_size =3D i_size_read(inode);
- 	new_size =3D offset + len;
--	if (!keep_size && i_size_read(inode) < new_size) {
-+	if (!keep_size && old_size < new_size) {
- 		rc =3D inode_newsize_ok(inode, new_size);
- 		if (rc)
- 			goto out;
-@@ -3611,7 +3612,7 @@ static long smb3_zero_range(struct file *file, struc=
-t cifs_tcon *tcon,
- 			if (offset < cifsi->netfs._zero_point)
- 				netfs_write_zero_point(inode, offset);
- 			spin_unlock(&inode->i_lock);
--			fscache_resize_cookie(cifs_inode_cookie(inode), new_size);
-+			fscache_resize_cookie(cifs_inode_cookie(inode), old_size, new_size);
- 		}
- 	}
- =
-
-@@ -4146,7 +4147,7 @@ static long smb3_collapse_range(struct file *file, s=
-truct cifs_tcon *tcon,
- 	netfs_resize_file(&cifsi->netfs, new_eof, true);
- 	netfs_write_zero_point(inode, new_eof);
- 	spin_unlock(&inode->i_lock);
--	fscache_resize_cookie(cifs_inode_cookie(inode), new_eof);
-+	fscache_resize_cookie(cifs_inode_cookie(inode), old_eof, new_eof);
- out_2:
- 	filemap_invalidate_unlock(inode->i_mapping);
- out:
-@@ -4208,7 +4209,7 @@ static long smb3_insert_range(struct file *file, str=
-uct cifs_tcon *tcon,
- 	spin_lock(&inode->i_lock);
- 	netfs_resize_file(&cifsi->netfs, i_size_read(inode), true);
- 	spin_unlock(&inode->i_lock);
--	fscache_resize_cookie(cifs_inode_cookie(inode), i_size_read(inode));
-+	fscache_resize_cookie(cifs_inode_cookie(inode), old_eof, i_size_read(ino=
-de));
- =
-
- 	/*
- 	 * Move [off, old_eof) right by len. The helper copies backwards if the
-diff --git a/include/linux/fscache-cache.h b/include/linux/fscache-cache.h
-index ee524c863fa9..351a52186bf3 100644
---- a/include/linux/fscache-cache.h
-+++ b/include/linux/fscache-cache.h
-@@ -67,7 +67,7 @@ struct fscache_cache_ops {
- =
-
- 	/* Change the size of a data object */
- 	void (*resize_cookie)(struct netfs_cache_resources *cres,
--			      uoff_t new_size);
-+			      uoff_t old_size, uoff_t new_size);
- =
-
- 	/* Invalidate an object */
- 	bool (*invalidate_cookie)(struct fscache_cookie *cookie);
-diff --git a/include/linux/fscache.h b/include/linux/fscache.h
-index f2d958bd1f48..05a562f7f0c1 100644
---- a/include/linux/fscache.h
-+++ b/include/linux/fscache.h
-@@ -184,7 +184,7 @@ extern struct fscache_cookie *__fscache_acquire_cookie=
-(
- extern void __fscache_use_cookie(struct fscache_cookie *, bool);
- extern void __fscache_unuse_cookie(struct fscache_cookie *, const void *,=
- const uoff_t *);
- extern void __fscache_relinquish_cookie(struct fscache_cookie *, bool);
--extern void __fscache_resize_cookie(struct fscache_cookie *, uoff_t);
-+void __fscache_resize_cookie(struct fscache_cookie *cookie, uoff_t old_si=
-ze, uoff_t new_size);
- extern void __fscache_invalidate(struct fscache_cookie *, const void *, u=
-off_t, unsigned int);
- extern int __fscache_begin_read_operation(struct netfs_cache_resources *,=
- struct fscache_cookie *);
- extern int __fscache_begin_write_operation(struct netfs_cache_resources *=
-, struct fscache_cookie *);
-@@ -394,8 +394,9 @@ void fscache_update_cookie(struct fscache_cookie *cook=
-ie, const void *aux_data,
- =
-
- /**
-  * fscache_resize_cookie - Request that a cache object be resized
-- * @cookie: The cookie representing the cache object
-- * @new_size: The new size of the object (may be NULL)
-+ * @cookie: The cookie representing the cache object (may be NULL)
-+ * @old_size: The old size of the object
-+ * @new_size: The new size of the object
-  *
-  * Request that the size of an object be changed.
-  *
-@@ -403,10 +404,10 @@ void fscache_update_cookie(struct fscache_cookie *co=
-okie, const void *aux_data,
-  * description.
-  */
- static inline
--void fscache_resize_cookie(struct fscache_cookie *cookie, uoff_t new_size=
-)
-+void fscache_resize_cookie(struct fscache_cookie *cookie, uoff_t old_size=
-, uoff_t new_size)
- {
- 	if (fscache_cookie_enabled(cookie))
--		__fscache_resize_cookie(cookie, new_size);
-+		__fscache_resize_cookie(cookie, old_size, new_size);
- }
- =
-
- /**
+diff --git a/Documentation/devicetree/bindings/arm/altera.yaml b/Documentation/devicetree/bindings/arm/altera.yaml
+index 5fce1161210e..01f6323b9a6b 100644
+--- a/Documentation/devicetree/bindings/arm/altera.yaml
++++ b/Documentation/devicetree/bindings/arm/altera.yaml
+@@ -97,6 +97,7 @@ properties:
+               - intel,socfpga-agilex-n6000
+               - intel,socfpga-agilex-socdk
+               - intel,socfpga-agilex-socdk-emmc
++              - intel,socfpga-agilex-socdk-multiqspi
+           - const: intel,socfpga-agilex
+ 
+       - description: Agilex3 boards
+-- 
+2.43.7
 
