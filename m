@@ -1,396 +1,285 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20CAC3C0607
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 06:21:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC71D387566
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 06:23:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791440508; cv=none; b=Q98xpywOsENKJtyrN03TvDFqm0piHnsNBjGXe0092vbyC6aevWnsXcCk2veo1gFqFH/uIQDRZA8cTSWkA2Y0hANa6GUP4FAgtq1HItxu+gVhWOuY8bkIGPjEEya8PXFqDpist9fZNYOsotgyIQ1k1SaGfDDUnGFdiSm0qGEk4iw=
+	t=1791440640; cv=none; b=Z8vpnJoGDB516jkscpZ7xk2BZFo/VZrpSan74OXSJG3fv515w/WKnB/tAt+jFw4jR1l6sTJgQiwzLbjxUtVYChgDdrUJavm/0c4Z6ZnVL8D56ZjXGcE/Qg4HzuN7WrkAeEBRZ3iTg3qzNE4YsJ8y9H9Cs5+9QJbF/XoAKGfabso=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791440508; c=relaxed/simple;
-	bh=0YXuiS2uWAfEgDMmwsrway/CMkiXSViY/zsJHrIizE4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cKu8YXQRQvqpWEaI02lee173QKarSDqh4ZXRXzbx14faCm23f8kAhIMtaLW3b7ErAzJVCj2yiKpewxrfseiiWT3Z1VjDFEo+491LMcBR9xeLox/K86YAwLOF1oD3vONICZIwEyE9zVs2N4hHYazqMNMrSnTMe2aC14TCNLsHWOY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=popYrbX5; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791440640; c=relaxed/simple;
+	bh=jd9PcWpk1n8AimGZ1zhzk4oE5h4on7nfC13PGzWnQ1U=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=XdEgWrNpP3Y1scuN2CM4OV4fRiA5s98rqtx0nCL3zFo4O78dKSP/6z9Su81+6qZ0r8jU+mRoyr+WVb5NoCEsicTFMUTbAHTdv3sD+pF317EWSdnHkqP93sq5eP4+YjuDbxk4vK4St7TE1q1jNGXBG1gM8s6CYm+L8gHeBtxfAwc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BZ+AobiK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=H8NgpSZz; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="popYrbX5"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a020e65269so19800535e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 23:21:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BZ+AobiK";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="H8NgpSZz"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6984BYOD753898
+	for <linux-kernel@vger.kernel.org>; Thu, 8 Oct 2026 06:23:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=y4CWLeMlcNA3kcl98GrNo7
+	h04JCowte9f/wMLBQFExE=; b=BZ+AobiKdWMrMA4qugJC3F5+M+m73Nwkf3Vu0+
+	j8Xl7hHal4U2a5ND0lOq2sBc/dKLkZT/BQ1VJJc+pqeo3kfiwsLIf0Hda76HEYYO
+	W32angPKpJX4MRl7nT21OPnJp1+Ga8nF0K+6NNRZ1F2VJhaq/ws6ew9vUHpkO3x4
+	bt9OdmCLluaWLap3/Q4sQFxgNPkX0PvZJ/qRSVl8BzMyumse/dhtmndJd8PC7zha
+	o+jYDQiOdMi6a6gh/qg+15Lo1l0rf6cKMhFOUc5u0iPwS/vebcJ4ITGLbcxHDw00
+	A1XeQEujHaGuD6w7C7DxDb8k+COODSc8lh4tbLd6Oe8Sp4pw==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe39cx7-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 06:23:57 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3a82c7e8fcfso3587023a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 23:23:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791440494; x=1792045294; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JdLkzItkJAxQXZF+sDNei3qCrjcY9XFOPY/2G4NxGWU=;
-        b=popYrbX5jZClTgh5R77pADuKSmU9oFtc/J6Ng0MKrXLRJLPiKQkfiTnRs2vu+MQwGN
-         YB6jKy5hT8C1GM1TJtQui9VYNR1quhQTlZXekYU288hRAqcAJZk5QT8vH0bH+UFneyVC
-         t/fRTNq5v1h4AG2eImjFKJT45tYWZbPVAFKCuag9gIVb8E0BKJOSFpbWuhtuJqdqs1t2
-         IbQzme6EsnO2lAKnFHAWw3flGW0Asa17fKDIK+0VLfOgQ6yfcSZuiQ7iPBlit77krJmP
-         p4ubEtcVsRLrCKtGVtuCjS2bska6pUgQfe7/p7Xoa0px9NZM0rSEfq8dwsVaCPd2oGNe
-         /Q0g==
+        d=oss.qualcomm.com; s=google; t=1791440636; x=1792045436; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=y4CWLeMlcNA3kcl98GrNo7h04JCowte9f/wMLBQFExE=;
+        b=H8NgpSZzF4DdUNowYxR6Ou5XzngeXzXlqs8zn7EEKEvFn0A19C03CVUPWqtNExKvRY
+         A+ai/iNkxuOPmnF21PTaWuM3/tmyzeNPUxIqyc6SGq3R7QnoMYZwNGCQA32KZ+VRXY3f
+         ycNSFbcrJu0YZdLPWLGaheJnhP4bHxEFNlW7BnWIVj/SzrBgftCQUQW0SNIsUM9v9nxf
+         lReHtx6jWqMCchZVInwx285kQuoROimyVBpY0XlUV+wca2DVkEEPO6kRZhC2ugze/Jht
+         XjuuNm9JbKSvDgIeZmLUpmw2aWXSDu2ZkECaGMPw+AzYXJ6CWnvYCtdU5a9LhRhu51++
+         25aw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791440494; x=1792045294;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JdLkzItkJAxQXZF+sDNei3qCrjcY9XFOPY/2G4NxGWU=;
-        b=FyX1pnwtLmqq+JJsznJTcRhvSwlSAb5llG1ajQaRpyuhwH2Qsvp/fBJpAdEeQFVlPh
-         PBXMJWPGvdmr3n375EKvyeFkxic053G4ys8J1G0PnpyLTXjsKxwL6Dn6Gg/TermHc1ny
-         nNDVd8aeGv5S67VFpfAQ5vwRjKk2R3nXQQAgietwhuWvfaKKJ85xqly1gXkoIIbpO3P7
-         u96GaS9s7VzAenW8c+HEmP95YFnuei9SJ2OqnMNd+wCBM1Jo1RW19wgJBjo+KrAO5+wa
-         2X76J6FLq8b/5XXJ3sr2LWvwNgj3fTUTKlkeJY2wVlj2plBLc/FJD9BnicsFLLk/V5De
-         Gwqw==
-X-Forwarded-Encrypted: i=1; AKwUvByjvfI0EzfAYTTCaJ49x4D8fM0RaYSE1n0jR++UbAQkgBu8BcHElL8sQghLFYIVDy3iwoBcrctqBzv6PRo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kopEm6+s6r0M/z3/4tDvmmUi0eKbfyRpjb82jWnxWrwgpq9tGX
-	asJnVkdU3bMMO8xi9LcqnWp5E9ADar/vv+r2/kzil1kXX0WtlhBDYNWP
-X-Gm-Gg: AYBFou3DGX9I+NdAWXv1XD9IllJJkZLMerDrBgaHy4yvTZtvtHUpBYgs4HFsyVRUREw
-	URLzn7DNDN9Y1A6NddQMZY5cj1whm2AAeyLa/LlocBIQ+Q5bfF3HEJF5JQuxGTFtexqsxOEEp/h
-	eyNiegqygdKaDW7mw885WKf7QQsPPVPEXB2IVZzaO7FFxsy4HtniUtKMjyqU4gXvCSOyNZF0dGh
-	nAGgvOf1D8l+katHCW95/mbmbJJdN+O8IZZKW7ehVGG0ZOT/rvJjhPLpkBRM0KxGGyQ9fUwtusb
-	S1AHIzE+92TRBPJCfPOiE6a5f5fGm2xCe8SqA428b7Zio6h1JK/9Zsq7l1AsnZ+Jy8kl9+eqb4g
-	rkDHerpod42Eq0lYLVgNP59DAOdTs7OxBiJZaK59/g2hO3//MwpomgDrjwBKozpq1F7U+DICOJe
-	/Irl5khCQ5xjhErrNEgVU2ZYvNHSBLX3tCYJUPNmcvYokh3qHk7FIqPHJXXs8/svjzPf5bjDJHM
-	iNNN//ePmpcB9Q=
-X-Received: by 2002:a05:600c:a00e:b0:4a0:1a18:b742 with SMTP id 5b1f17b1804b1-4a1800d3de4mr82390155e9.2.1791440493932;
-        Wed, 07 Oct 2026 23:21:33 -0700 (PDT)
-Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1843e3356sm40309455e9.14.2026.10.07.23.21.33
+        d=1e100.net; s=20260707; t=1791440636; x=1792045436;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=y4CWLeMlcNA3kcl98GrNo7h04JCowte9f/wMLBQFExE=;
+        b=o585pIvu5K7nqB3axH9OWfp4Su7YklCQkxWQo3PlCRU0EZMXuVoPvEYhfTgq43hFwI
+         hINw8fHbT1I8NqGQnK+DqkmSOsd6ER66cdgBRPcUOZlFUiRBaUzKtxOM4JVw7hPowr4b
+         y/tLEC+F43mcqYUVsABDnoSg7QFcRVMqg/yD2IsabfpRZCmbGoMIbFe2m2vX0wKs/u5H
+         IYnk1PWeZRfMeLLnLCK42rzJZnJ9kL5tdHqBO2+oElw9SNfGHYSIf22Cm4u3P+R1iqbq
+         LecK1VNJgDVLsXR1Leg6z37MVd38ehLkFvt9QN+7+PHT+bvVpdY4amw5pc/5BQG0ZiND
+         +x0Q==
+X-Forwarded-Encrypted: i=1; AKwUvBw9rCTSVxFtROYl0KGu6WZewk42xmqzdBQGE1N09tPgvCTyrdH4fl2e1xJGIzUpU3rmHMtqed8tw4N7x8g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJicax5+FfDyFkXb6g4P1GLjujMsP3XhqFph0M07IqYmu5N8e7z
+	HaEU31ujWaw2vwVXueJEhmANUad2woA2agwI4sYMW2iBsAj7MBtqDTjshTGDaMQTXBFFC1Uv0BR
+	5Dmggb0YG5ArvqeYB7IJkYt30CE38h22ACGCvtE5cpW0BLubAtBPCjrCD3mSgQLFdBtE=
+X-Gm-Gg: AYBFou1pf9A2Es+FB3bODpyMs49+IsmGkOxtGsEX74+/DlcqcKcwhOv30flto5Fdj4Y
+	ZazlLyiYHv7vAjKcsSBEF1gcYZQS32/7utmjKVu5tCav6uxMPX9+eb+/pLwsGlqYFiWEzGSWWaF
+	gElkGpJiiohkaRYZ+3w5PxiGnKy+LTj3/9jklQftyXUhU3Vtssi4IBbJfswP74xhL6S9TDtJmSt
+	uEdoE23NydS2PWfM+PEopc6tCvCgcrSWjwTh3OlMBVUCg835qwYPK9kKPsgNwib3fsebJ2UGtoi
+	pPk8dNvzcw5MBp8xQtA+i+1pm49t3eWd0ybW2RqavClVunRUWOmOVIor08wLjat57/EyP1dotNW
+	cFrc+am9BLbuKTguSfVBfeQAO29nz
+X-Received: by 2002:a17:90b:3ec9:b0:3a7:82ef:bcdd with SMTP id 98e67ed59e1d1-3a8a1b941e5mr3942986a91.41.1791440636377;
+        Wed, 07 Oct 2026 23:23:56 -0700 (PDT)
+X-Received: by 2002:a17:90b:3ec9:b0:3a7:82ef:bcdd with SMTP id 98e67ed59e1d1-3a8a1b941e5mr3942968a91.41.1791440635818;
+        Wed, 07 Oct 2026 23:23:55 -0700 (PDT)
+Received: from hu-batta-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9ff7ab034sm2767618a91.4.2026.10.07.23.23.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 23:21:33 -0700 (PDT)
-From: Mehmet Fide <mehmet.fide@gmail.com>
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: Luka Gejak <luka.gejak@linux.dev>,
-	Bitterblue Smith <rtl8821cerfe2@gmail.com>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	mehmet.fide@screeningeagle.com
-Subject: [PATCH rtw-next v5 3/3] wifi: rtw88: support channel switch in AP mode
-Date: Thu,  8 Oct 2026 08:21:29 +0200
-Message-ID: <ab6a510713267fee446e511c87d5b162827353fb.1791362281.git.mehmet.fide@screeningeagle.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1791362281.git.mehmet.fide@screeningeagle.com>
-References: <cover.1791362281.git.mehmet.fide@screeningeagle.com>
+        Wed, 07 Oct 2026 23:23:55 -0700 (PDT)
+From: Kishore Batta <kishore.batta@oss.qualcomm.com>
+Subject: [PATCH v7 0/7] Qualcomm Sahara protocol enhancements
+Date: Thu, 08 Oct 2026 11:53:44 +0530
+Message-Id: <20261008-sahara_protocol_new_v2-v7-0-90d278bd7414@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAPA2x2oC/33QwWrEIBAG4FdZPNcw6qixp75HKcEY00h341bTt
+ GXJu9cslN1DLcjAPzDfDF5I9in4TB4PF5L8GnKIcwn64UDcZOdXT8NQMuHAFQjQNNvJJtudU1y
+ ii8du9p/dyqlSvJWotXCjJmX4nPwYvq7w80vJU8hLTN/XPSvbuzspoeWSATNcNZwpkBIpo28hT
+ zH5prfLYp9izs37hz26eDo1pZCdW/kv8e9V5QHlZnAa21564yqauNMYVDVRNGPQW+xhkHaoaHi
+ vmaqGRUNtB20EtFrxiiZvGjJV1WTRlPX9CCA99rV/UzdNA6tqqmjC6lYo7lAj+0Pbtu0HOstLM
+ j4CAAA=
+X-Change-ID: 20260307-sahara_protocol_new_v2-662854773cf7
+To: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+        Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+        Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>,
+        Oded Gabbay <ogabbay@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        mhi@lists.linux.dev, Kishore Batta <kishore.batta@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791440631; l=7357;
+ i=kishore.batta@oss.qualcomm.com; s=20260206; h=from:subject:message-id;
+ bh=jd9PcWpk1n8AimGZ1zhzk4oE5h4on7nfC13PGzWnQ1U=;
+ b=m2McEMgDVVDvpL5ULKigxlctq5baEg4zKzJmwQ37k14b60fQvG1FIXoE81I4mmUeVyXOWwc1f
+ fpO5TLNAF9HAS+UFOwq3rw+EOTXd9FN+DHNWGJGF6qaq1RspLSvo3F5
+X-Developer-Key: i=kishore.batta@oss.qualcomm.com; a=ed25519;
+ pk=vJo8RvTf+HZpRLK2oOIljmbn9l3zFkibCGh+blaqZCw=
+X-Proofpoint-GUID: b9keW3Bvl6zy9ieyAfijwa-mWB3zTI3H
+X-Authority-Analysis: v=2.4 cv=QOz91QLL c=1 sm=1 tr=0 ts=6ac736fd cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=TZsl4NGrXgOhBUOoEegA:9 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDAyNSBTYWx0ZWRfX8FvQ0PgdnS0Q
+ W4/LKm9but3YlB+aKVjiDwnfvBcx+UPHmnf2t2vIjjHX38UlaFwNQHt7o+HggvHwwDjgjn4elNW
+ hkxmOa0ktZfWzBCpt8q4Cpnm+06h5qM=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDAyNSBTYWx0ZWRfX0TUAwfsOQBpb
+ j6Mb/4qRG6JF8HuAM1KV9KE9v7OiJuE9CLYRphUk4JFWZ/X2wRJvMF4/vYRtGBzPN+mf6tWJzC4
+ Brxy/g0ijrfUcR2kZhkfBPzdR6BwE3j1iQEThLUOiM4gbdN2KHWngJqme5SHnBxVb0ToFcJu2zq
+ i1jirC5K11F3JPj3zGPd7xA4RJLZXBUZbA5VeGHBr96gWZRCbjrgJll4dCFPHuEE3LqS6SpK+fo
+ GYfCgW9QpIsyRtu+Qsq5ZInFou5MFAee9dpOlNJw5ItPQZNUyuUjOihO8+hcZPZ6YCNMkav9c57
+ kNjtzFSIDqpy53nFMylG56I7Bi5LUs2qrjnaBtk7QKvOp7T035+NLT38LVCJZkaGgiJrNHAZWR4
+ r27q5touX/KEoaKpmopoYStNQ9AMveQLqT9E1e/iHdxuPKPWdlRlYTpTbGZ0MmQUsupsj91/uk1
+ Aof6+C2tqs6MCOJLs1w==
+X-Proofpoint-ORIG-GUID: b9keW3Bvl6zy9ieyAfijwa-mWB3zTI3H
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-08_02,2026-10-06_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 lowpriorityscore=0 spamscore=0 phishscore=0
+ impostorscore=0 adultscore=0 bulkscore=0 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080025
 
-From: Mehmet Fide <mehmet.fide@screeningeagle.com>
+Hi All,
 
-hostapd's CHAN_SWITCH is refused because the driver does not announce
-channel switch support, so an AP on rtw88 can only change its channel
-by being torn down and started again.
+This series reworks the Sahara protocol driver to make it reusable for
+multiple MHI based devices and adds support for capturing, restoring and
+exposing DDR training data using the Sahara command mode.
 
-Declare WIPHY_FLAG_HAS_CHANNEL_SWITCH and implement
-ieee80211_ops::channel_switch_beacon: the firmware repeats the beacon
-held in the first reserved page, so while a switch is announced the
-page is downloaded again every beacon interval to renew the countdown,
-and ieee80211_csa_finish() is called once it completes. IBSS, which
-the flag enables too, shares the page and the work.
+The Sahara protocol is transported over the MHI bus and is used by multiple
+flashless devices to transfer firmware images, retrieve memory dumps and
+exchange command mode data during early boot. However, the current
+implementation lives under the QAIC accelerator driver and contains
+device-specific assumptions that limit reuse.
 
-The work is a wiphy delayed work of the device and csa_vif names the
-interface it counts down for; the wiphy lock serializes the work with
-the mac80211 state it reads and the driver mutex with the page build.
-The countdown is cancelled when the AP stops, when the interface goes
-away, on WoWLAN suspend and before a firmware recovery restarts the
-hardware. The other page downloads that can run
-during a countdown, the TIM update, the PG backup on set_key and the
-one on association, are skipped then, since every beacon fetch
-advances the countdown; the next countdown download, at most one
-beacon interval later, carries their changes. A scan is refused while
-a switch is announced, before the fallback to a software scan: it
-would take the AP off the channel its stations count down to.
+Some MHI devices (for example, QDU100) expose the sahara protocol directly
+on a "SAHARA" MHI channel and rely on command mode to exchange DDR training
+data with the host. The existing driver does not bind to such devices and
+ignores Sahara command mode packets, causing training data to be dropped.
 
-Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
+This series addresses these issues by relocating the Sahara driver to the
+MHI subsystem, centralizing device specific configuration and adding command
+mode handling for DDR training data.
+
+Overview of the changes in this series -
+1. Move Sahara under the MHI subsystem:
+   a. Relocate the sahara protocol driver from QAIC accelerator tree to
+      drivers/bus/mhi/host/clients directory.
+   b. Register Sahara as an independent MHI protocol driver.
+
+2. Generalize device matching and configuration
+   a. Allow the driver to bind to devices exposing the protocol on a
+      SAHARA MHI channel.
+   b. Centralize firmware image table selection at probe time using a variant
+      table, instead of scattered conditionals.
+   c. Preserve existing behavior on AIC devices.
+
+3. Add QDU100 firmware image table support
+   a. Add a QDU100 image table and select it based on the matched MHI channel.
+   b. No separate client driver or registration mechanism is required.
+
+4. Add Sahara command mode support for DDR training.
+   a. Handle command mode packets(CMD_READY, EXECUTE, EXECUTE_DATA).
+   b. Query supported commands and retrieve DDR training data from the device.
+   c. Allocate receive buffers based on the reported payload size and copy
+      raw data from the MHI DL.
+   d. Store training data in controller-scoped memory using devres so it
+      survives sahara channel teardown.
+
+5. Expose DDR training data to userspace
+   a. Add a read-only binary sysfs attribute under the MHI controller device.
+   b. The attribute reads directly from controller-scoped storage and remains
+      available after the Sahara channel device is removed.
+   c. Cleanup is handled automatically via device-managed resources.
+
+6. Document the sysfs ABI
+   a. Add ABI documentation describing the DDR training data sysfs node.
+
+Signed-off-by: Kishore Batta <kishore.batta@oss.qualcomm.com>
 ---
+Changes in v7:
+- Addressed review feedback by correcting documentation punctuation and
+  removing an unrelated formatting-only change.
+- Passed the QDU100 Sahara firmware mapping through struct mhi_pci_dev_info
+  instead of selecting it with a device-specific conditional in PCI probe.
+- Clarified the userspace persistence filename for captured DDR training data:
+  qcom/<fw_folder>/mdmddr_0x<serial_no>.mbn.
+- Link to v6: https://lore.kernel.org/r/20260701-sahara_protocol_new_v2-v6-0-3a78362c4741@oss.qualcomm.com
+
+Changes in v6:
+- Used BIN_ATTR_RO() instead of struct bin_attribute.
+- Link to v5: https://lore.kernel.org/r/20260416-sahara_protocol_new_v2-v5-0-6aebf005e4ba@oss.qualcomm.com
+
 Changes in v5:
-- rtw_fw_csa_active/start/stop() assert the wiphy lock
-- hw_scan() takes the mutex with guard()
-- the ASSOC path says why it skips the download: the STA+AP combination
+- Sahara protocol documentation is moved to Documentation/mhi/ directory.
+- Sahara driver is now moved to drivers/bus/mhi/host/clients/ directory.
+- Squashed v4 patch 3 with v4 patch 5.
+- Squashed v4 patch 9 with v4 patch 8.
+- Firmware image tables are now moved to respective MHI controller files.
+- Removed redundant if-else conditions when loading DDR training data image.
+- Corrected commit subjects and messages.
+- Removed Sahara variant structure and introduced mhi_sahara_fw_table structure.
+- Link to v4: https://lore.kernel.org/r/20260319-sahara_protocol_new_v2-v4-0-47ad79308762@oss.qualcomm.com
+
 Changes in v4:
-- the work and csa_vif live in rtw_dev; no lookup through the reserved page
-- the countdown is stopped before a firmware recovery restarts the hardware
-- a scan is refused while a switch is announced
-- one beacon fetch per interval during the countdown
+- EDITME: describe what is new in this series revision.
+- EDITME: use bulletpoints and terse descriptions.
+- Link to v3: https://lore.kernel.org/r/20260310-sahara_protocol_new_v2-v3-0-994ea4b0d5ad@oss.qualcomm.com
 
- drivers/net/wireless/realtek/rtw88/fw.c       | 65 ++++++++++++++++++-
- drivers/net/wireless/realtek/rtw88/fw.h       |  4 ++
- drivers/net/wireless/realtek/rtw88/mac80211.c | 34 ++++++++--
- drivers/net/wireless/realtek/rtw88/main.c     |  9 ++-
- drivers/net/wireless/realtek/rtw88/main.h     |  2 +
- 5 files changed, 107 insertions(+), 7 deletions(-)
+Changes in v3:
+- Dropped the explicit image table entry for the boot critical image ID and
+  added a generic image ID based firmware lookup fallback.
+- Link to v2: https://lore.kernel.org/r/20260307-sahara_protocol_new_v2-v2-0-29dc748b5e9c@oss.qualcomm.com
 
-diff --git a/drivers/net/wireless/realtek/rtw88/fw.c b/drivers/net/wireless/realtek/rtw88/fw.c
-index e01d79a70e37..16319233c9cc 100644
---- a/drivers/net/wireless/realtek/rtw88/fw.c
-+++ b/drivers/net/wireless/realtek/rtw88/fw.c
-@@ -1802,6 +1802,35 @@ int rtw_fw_download_rsvd_page(struct rtw_dev *rtwdev)
- 	return ret;
- }
- 
-+bool rtw_fw_csa_active(struct rtw_dev *rtwdev)
-+{
-+	lockdep_assert_wiphy(rtwdev->hw->wiphy);
-+
-+	return rtwdev->csa_vif && rtwdev->csa_vif->bss_conf.csa_active;
-+}
-+
-+void rtw_fw_csa_start(struct rtw_dev *rtwdev, struct ieee80211_vif *vif)
-+{
-+	u32 interval = ieee80211_tu_to_usec(vif->bss_conf.beacon_int);
-+
-+	lockdep_assert_wiphy(rtwdev->hw->wiphy);
-+
-+	rtwdev->csa_vif = vif;
-+	wiphy_delayed_work_queue(rtwdev->hw->wiphy, &rtwdev->csa_beacon_work,
-+				 usecs_to_jiffies(interval));
-+}
-+
-+void rtw_fw_csa_stop(struct rtw_dev *rtwdev, struct ieee80211_vif *vif)
-+{
-+	lockdep_assert_wiphy(rtwdev->hw->wiphy);
-+
-+	if (!vif || rtwdev->csa_vif != vif)
-+		return;
-+
-+	wiphy_delayed_work_cancel(rtwdev->hw->wiphy, &rtwdev->csa_beacon_work);
-+	rtwdev->csa_vif = NULL;
-+}
-+
- void rtw_fw_update_beacon_work(struct wiphy *wiphy, struct wiphy_work *work)
- {
- 	struct rtw_dev *rtwdev = container_of(work, struct rtw_dev,
-@@ -1811,7 +1840,8 @@ void rtw_fw_update_beacon_work(struct wiphy *wiphy, struct wiphy_work *work)
- 
- 	mutex_lock(&rtwdev->mutex);
- 
--	if (!test_bit(RTW_FLAG_RUNNING, rtwdev->flags))
-+	if (!test_bit(RTW_FLAG_RUNNING, rtwdev->flags) ||
-+	    rtw_fw_csa_active(rtwdev))
- 		goto out;
- 
- 	rtw_fw_download_rsvd_page(rtwdev);
-@@ -1821,6 +1851,39 @@ void rtw_fw_update_beacon_work(struct wiphy *wiphy, struct wiphy_work *work)
- 	mutex_unlock(&rtwdev->mutex);
- }
- 
-+void rtw_fw_csa_beacon_work(struct wiphy *wiphy, struct wiphy_work *work)
-+{
-+	struct rtw_dev *rtwdev = container_of(work, struct rtw_dev,
-+					      csa_beacon_work.work);
-+	struct ieee80211_vif *vif = rtwdev->csa_vif;
-+	unsigned int delay;
-+
-+	lockdep_assert_wiphy(wiphy);
-+
-+	mutex_lock(&rtwdev->mutex);
-+
-+	if (!vif->bss_conf.csa_active) {
-+		rtwdev->csa_vif = NULL;
-+		goto out;
-+	}
-+
-+	delay = ieee80211_tu_to_usec(vif->bss_conf.beacon_int);
-+
-+	if (!ieee80211_beacon_cntdwn_is_complete(vif, 0)) {
-+		rtw_fw_download_rsvd_page(rtwdev);
-+		rtw_send_rsvd_page_h2c(rtwdev);
-+
-+		wiphy_delayed_work_queue(wiphy, &rtwdev->csa_beacon_work,
-+					 usecs_to_jiffies(delay));
-+	} else {
-+		rtwdev->csa_vif = NULL;
-+		ieee80211_csa_finish(vif, 0);
-+	}
-+
-+out:
-+	mutex_unlock(&rtwdev->mutex);
-+}
-+
- static void rtw_fw_read_fifo_page(struct rtw_dev *rtwdev, u32 offset, u32 size,
- 				  u32 *buf, u32 residue, u16 start_pg)
- {
-diff --git a/drivers/net/wireless/realtek/rtw88/fw.h b/drivers/net/wireless/realtek/rtw88/fw.h
-index d433f454094d..7277af739d9e 100644
---- a/drivers/net/wireless/realtek/rtw88/fw.h
-+++ b/drivers/net/wireless/realtek/rtw88/fw.h
-@@ -863,7 +863,11 @@ void rtw_add_rsvd_page_pno(struct rtw_dev *rtwdev,
- void rtw_add_rsvd_page_sta(struct rtw_dev *rtwdev,
- 			   struct rtw_vif *rtwvif);
- int rtw_fw_download_rsvd_page(struct rtw_dev *rtwdev);
-+bool rtw_fw_csa_active(struct rtw_dev *rtwdev);
-+void rtw_fw_csa_start(struct rtw_dev *rtwdev, struct ieee80211_vif *vif);
-+void rtw_fw_csa_stop(struct rtw_dev *rtwdev, struct ieee80211_vif *vif);
- void rtw_fw_update_beacon_work(struct wiphy *wiphy, struct wiphy_work *work);
-+void rtw_fw_csa_beacon_work(struct wiphy *wiphy, struct wiphy_work *work);
- void rtw_send_rsvd_page_h2c(struct rtw_dev *rtwdev);
- int rtw_dump_drv_rsvd_page(struct rtw_dev *rtwdev,
- 			   u32 offset, u32 size, u32 *buf);
-diff --git a/drivers/net/wireless/realtek/rtw88/mac80211.c b/drivers/net/wireless/realtek/rtw88/mac80211.c
-index 7fcf91bfe761..d99564353a0b 100644
---- a/drivers/net/wireless/realtek/rtw88/mac80211.c
-+++ b/drivers/net/wireless/realtek/rtw88/mac80211.c
-@@ -235,6 +235,8 @@ static void rtw_ops_remove_interface(struct ieee80211_hw *hw,
- 	rtw_dbg(rtwdev, RTW_DBG_STATE, "stop vif %pM mac_id %d on port %d\n",
- 		vif->addr, rtwvif->mac_id, rtwvif->port);
- 
-+	rtw_fw_csa_stop(rtwdev, vif);
-+
- 	mutex_lock(&rtwdev->mutex);
- 
- 	rtw_leave_lps_deep(rtwdev);
-@@ -395,8 +397,11 @@ static void rtw_ops_bss_info_changed(struct ieee80211_hw *hw,
- 		if (vif->cfg.assoc) {
- 			rtw_coex_connect_notify(rtwdev, COEX_ASSOCIATE_FINISH);
- 
--			rtw_fw_download_rsvd_page(rtwdev);
--			rtw_send_rsvd_page_h2c(rtwdev);
-+			/* a station of the STA+AP combination: keep the AP's countdown */
-+			if (!rtw_fw_csa_active(rtwdev)) {
-+				rtw_fw_download_rsvd_page(rtwdev);
-+				rtw_send_rsvd_page_h2c(rtwdev);
-+			}
- 			rtw_fw_default_port(rtwdev, rtwvif);
- 			rtw_coex_media_status_notify(rtwdev, vif->cfg.assoc);
- 			if (rtw_bf_support)
-@@ -438,6 +443,8 @@ static void rtw_ops_bss_info_changed(struct ieee80211_hw *hw,
- 		rtw_set_dtim_period(rtwdev, conf->dtim_period);
- 		rtw_fw_download_rsvd_page(rtwdev);
- 		rtw_send_rsvd_page_h2c(rtwdev);
-+		if (conf->csa_active)
-+			rtw_fw_csa_start(rtwdev, vif);
- 	}
- 
- 	if (changed & BSS_CHANGED_BEACON_ENABLED) {
-@@ -489,6 +496,8 @@ static void rtw_ops_stop_ap(struct ieee80211_hw *hw,
- {
- 	struct rtw_dev *rtwdev = hw->priv;
- 
-+	rtw_fw_csa_stop(rtwdev, vif);
-+
- 	mutex_lock(&rtwdev->mutex);
- 	rtw_write32_clr(rtwdev, REG_TCR, BIT_TCR_UPDATE_HGQMD);
- 	rtw_write16(rtwdev, REG_ATIMWND, ATIMWND_DEFAULT);
-@@ -556,6 +565,15 @@ static int rtw_ops_set_tim(struct ieee80211_hw *hw, struct ieee80211_sta *sta,
- 	return 0;
- }
- 
-+static void rtw_ops_channel_switch_beacon(struct ieee80211_hw *hw,
-+					  struct ieee80211_vif *vif,
-+					  struct cfg80211_chan_def *chandef)
-+{
-+	struct rtw_dev *rtwdev = hw->priv;
-+
-+	rtw_fw_csa_start(rtwdev, vif);
-+}
-+
- static int rtw_ops_set_key(struct ieee80211_hw *hw, enum set_key_cmd cmd,
- 			   struct ieee80211_vif *vif, struct ieee80211_sta *sta,
- 			   struct ieee80211_key_conf *key)
-@@ -626,7 +644,8 @@ static int rtw_ops_set_key(struct ieee80211_hw *hw, enum set_key_cmd cmd,
- 	}
- 
- 	/* download new cam settings for PG to backup */
--	if (rtw_get_lps_deep_mode(rtwdev) == LPS_DEEP_MODE_PG)
-+	if (rtw_get_lps_deep_mode(rtwdev) == LPS_DEEP_MODE_PG &&
-+	    !rtw_fw_csa_active(rtwdev))
- 		rtw_fw_download_rsvd_page(rtwdev);
- 
- out:
-@@ -846,6 +865,7 @@ static int rtw_ops_suspend(struct ieee80211_hw *hw,
- 	int ret;
- 
- 	mutex_lock(&rtwdev->mutex);
-+	rtw_fw_csa_stop(rtwdev, rtwdev->csa_vif);
- 	ret = rtw_wow_suspend(rtwdev, wowlan);
- 	if (ret)
- 		rtw_err(rtwdev, "failed to suspend for wow %d\n", ret);
-@@ -893,20 +913,23 @@ static int rtw_ops_hw_scan(struct ieee80211_hw *hw, struct ieee80211_vif *vif,
- 	struct rtw_dev *rtwdev = hw->priv;
- 	int ret;
- 
-+	guard(mutex)(&rtwdev->mutex);
-+
-+	if (rtw_fw_csa_active(rtwdev))
-+		return -EBUSY;
-+
- 	if (!rtw_fw_feature_check(&rtwdev->fw, FW_FEATURE_SCAN_OFFLOAD))
- 		return 1;
- 
- 	if (test_bit(RTW_FLAG_SCANNING, rtwdev->flags))
- 		return -EBUSY;
- 
--	mutex_lock(&rtwdev->mutex);
- 	rtw_hw_scan_start(rtwdev, vif, req);
- 	ret = rtw_hw_scan_offload(rtwdev, vif, true);
- 	if (ret) {
- 		rtw_hw_scan_abort(rtwdev);
- 		rtw_err(rtwdev, "HW scan failed with status: %d\n", ret);
- 	}
--	mutex_unlock(&rtwdev->mutex);
- 
- 	return ret;
- }
-@@ -973,6 +996,7 @@ const struct ieee80211_ops rtw_ops = {
- 	.sta_add		= rtw_ops_sta_add,
- 	.sta_remove		= rtw_ops_sta_remove,
- 	.set_tim		= rtw_ops_set_tim,
-+	.channel_switch_beacon	= rtw_ops_channel_switch_beacon,
- 	.set_key		= rtw_ops_set_key,
- 	.ampdu_action		= rtw_ops_ampdu_action,
- 	.can_aggregate_in_amsdu	= rtw_ops_can_aggregate_in_amsdu,
-diff --git a/drivers/net/wireless/realtek/rtw88/main.c b/drivers/net/wireless/realtek/rtw88/main.c
-index 647393af9fd9..e3bbfbc9d976 100644
---- a/drivers/net/wireless/realtek/rtw88/main.c
-+++ b/drivers/net/wireless/realtek/rtw88/main.c
-@@ -676,6 +676,10 @@ static void rtw_fw_recovery_work(struct work_struct *work)
- 	struct rtw_dev *rtwdev = container_of(work, struct rtw_dev,
- 					      fw_recovery_work);
- 
-+	wiphy_lock(rtwdev->hw->wiphy);
-+	rtw_fw_csa_stop(rtwdev, rtwdev->csa_vif);
-+	wiphy_unlock(rtwdev->hw->wiphy);
-+
- 	mutex_lock(&rtwdev->mutex);
- 	__fw_recovery_work(rtwdev);
- 	mutex_unlock(&rtwdev->mutex);
-@@ -2170,6 +2174,8 @@ int rtw_core_init(struct rtw_dev *rtwdev)
- 	INIT_WORK(&rtwdev->fw_recovery_work, rtw_fw_recovery_work);
- 	wiphy_work_init(&rtwdev->update_beacon_work,
- 			rtw_fw_update_beacon_work);
-+	wiphy_delayed_work_init(&rtwdev->csa_beacon_work,
-+				rtw_fw_csa_beacon_work);
- 	INIT_WORK(&rtwdev->ba_work, rtw_txq_ba_work);
- 	skb_queue_head_init(&rtwdev->c2h_queue);
- 	skb_queue_head_init(&rtwdev->coex.queue);
-@@ -2293,7 +2299,8 @@ int rtw_register_hw(struct rtw_dev *rtwdev, struct ieee80211_hw *hw)
- 	hw->wiphy->available_antennas_rx = hal->antenna_rx;
- 
- 	hw->wiphy->flags |= WIPHY_FLAG_SUPPORTS_TDLS |
--			    WIPHY_FLAG_TDLS_EXTERNAL_SETUP;
-+			    WIPHY_FLAG_TDLS_EXTERNAL_SETUP |
-+			    WIPHY_FLAG_HAS_CHANNEL_SWITCH;
- 
- 	hw->wiphy->features |= NL80211_FEATURE_SCAN_RANDOM_MAC_ADDR;
- 	hw->wiphy->max_scan_ssids = RTW_SCAN_MAX_SSIDS;
-diff --git a/drivers/net/wireless/realtek/rtw88/main.h b/drivers/net/wireless/realtek/rtw88/main.h
-index bb48529759c3..a39416272cff 100644
---- a/drivers/net/wireless/realtek/rtw88/main.h
-+++ b/drivers/net/wireless/realtek/rtw88/main.h
-@@ -2094,6 +2094,8 @@ struct rtw_dev {
- 	struct work_struct ips_work;
- 	struct work_struct fw_recovery_work;
- 	struct wiphy_work update_beacon_work;
-+	struct wiphy_delayed_work csa_beacon_work;
-+	struct ieee80211_vif *csa_vif;
- 
- 	/* used to protect txqs list */
- 	spinlock_t txq_lock;
+Changes in v2:
+- Rebased onto latest linux-next tip.
+- Reworked commit messages to clearly start with the problem being solved and
+  end with a technical description of the change.
+- Moved the Sahara driver to drivers/bus/mhi instead of drivers/soc/qcom,
+  reflecting that its an MHI protocol driver rather than a SoC specific driver.
+- Removed client side image table registration and consolidated firmware
+  selection directly in the sahara driver using a probe-time variant
+  mechanism.
+- Ensured each patch is self-contained and does not break the build or runtime
+  behavior at any intermediate point.
+- Simplified state handling and lifetime management to avoid duplicated state
+  tracking and ad-hoc cleanup.
+- Updated sysfs handling to use controller-scoped devres and avoid one-shot
+  reads or manual teardown.
+- Link to v1: https://lore.kernel.org/r/20250825101926.2160554-1-kishore.batta@oss.qualcomm.com
+
+---
+Kishore Batta (7):
+      Add documentation for Sahara protocol
+      bus: mhi: Move Sahara protocol driver under MHI host client drivers
+      bus: mhi: Centralize Sahara firmware image table selection at probe time
+      bus: mhi: Add QDU100 Sahara variant and firmware fallback
+      bus: mhi: Load DDR training data using device serial number
+      bus: mhi: Capture DDR training data via command mode
+      bus: mhi: Expose DDR training data via controller sysfs
+
+ .../ABI/testing/sysfs-bus-mhi-ddr_training_data    |   19 +
+ Documentation/mhi/index.rst                        |    1 +
+ Documentation/mhi/sahara_protocol.rst              | 1241 ++++++++++++++++++++
+ drivers/accel/qaic/Kconfig                         |    1 +
+ drivers/accel/qaic/Makefile                        |    3 +-
+ drivers/accel/qaic/mhi_controller.c                |   61 +
+ drivers/accel/qaic/qaic_drv.c                      |    9 -
+ drivers/accel/qaic/sahara.h                        |   10 -
+ drivers/bus/mhi/Kconfig                            |    1 +
+ drivers/bus/mhi/host/Makefile                      |    1 +
+ drivers/bus/mhi/host/clients/Kconfig               |    5 +
+ drivers/bus/mhi/host/clients/Makefile              |    1 +
+ drivers/bus/mhi/host/clients/sahara/Kconfig        |   15 +
+ drivers/bus/mhi/host/clients/sahara/Makefile       |    2 +
+ .../qaic => bus/mhi/host/clients/sahara}/sahara.c  |  513 ++++++--
+ drivers/bus/mhi/host/pci_generic.c                 |   41 +
+ include/linux/mhi.h                                |   17 +
+ 17 files changed, 1850 insertions(+), 91 deletions(-)
+---
+base-commit: a0ae2a256046c0c5d3778d1a194ff2e171f16e5f
+change-id: 20260307-sahara_protocol_new_v2-662854773cf7
+
+Best regards,
 -- 
-2.55.0
+Kishore Batta <kishore.batta@oss.qualcomm.com>
 
