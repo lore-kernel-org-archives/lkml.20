@@ -1,147 +1,75 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from out30-118.freemail.mail.aliyun.com (out30-118.freemail.mail.aliyun.com [115.124.30.118])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71CA63BED56
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 06:19:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7063374A18;
+	Thu,  8 Oct 2026 06:20:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791440399; cv=none; b=YwJsdfQ8aeHeC+HD4kGB4tBvMbyjuvvlzpCjWBM4jKyj0+aB8DCoXbOHQ2ruMde+lTPyfwvGqdGUsqWUkl+c5wc2h/O48lIwoBv2JEWAwGFFKmKGGQ3W3SXltIZgpzToIsmgcZLKg09/YJigrFCQSfPFVLZD2/MiheDeqzmmMNQ=
+	t=1791440420; cv=none; b=ZQVe+NhWbyGulDwCirT+qUCj7od4tyXD6CkpFvght+KZbbGUZDKFLcD4tIbewXhOuHBEapjYbcS1Y47ESgW1XsPPbiyPFFtnUR/GZyY4N7q6yVPrDdlogNdVLoD9XZc6/5YM4ChJTHqDwsiBKObs5+vD6C3W8PcmKsGyC0+32LI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791440399; c=relaxed/simple;
-	bh=qKch0A7LR2mW5ZDryjBYCTZAVH9u7xn3vXfwOUlcVCg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mYakEurSp/QZb8HHK/dVXl+XWhJgD5Vrt0qekPSnLkaeI4gFXiUnKFelUYF8nbeFivP1mXgPH7QcEsPKBG2ijfJu/kfTF5kt7ZPe8YSTKNHSGrx77MLO96s8Ni3ARWGrIZg+XptHivCCPw8VbBqjowDRkKEMiUECEP403DCP69E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=F+iLEAEl; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=s2BKS2ct; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791440420; c=relaxed/simple;
+	bh=vwzTWUbUQKatK9wUdKc+TRyb/9Y7s5K2CTPcXxELCMk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CvaiVW3d3HdOhR/JxrXTslniyL3tExHB2bT+PiXg/Hz13bDBhC2g8r23BBdXzSa7hwq6vWy27lj3Qxn6E5xPY0XmNGuKWDm/IzZ7RhzAOIpEBYTluac14BLAeVlBhv3/VsWjNOuo6suqkk5W5U5Ir6WEqKVvSxhY2nmrKpI20UY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=Tuu0Hd8I; arc=none smtp.client-ip=115.124.30.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="F+iLEAEl";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="s2BKS2ct"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791440396;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lBkvNqNk+kq9xlFcI/2YnHiKYK3/wLihDPOcRkcC1+Q=;
-	b=F+iLEAElTWsYYbY+MGRcwi/Zdm88EH6xoOsetBDdP9UTNmCXLWLOJA4s9F6/B+Cacteajl
-	K4q3wqtCnqCqReF4YioxIlWUzFm9nypNuxBLjHVHuglHyly25+VCALjHsnAlmMiPGtmKkM
-	4ZSDk0wyEBUM24F7zawHbfshF7pCawg=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-418-xgSohcqfMsCW2Xn8SPqIng-1; Thu, 08 Oct 2026 02:19:54 -0400
-X-MC-Unique: xgSohcqfMsCW2Xn8SPqIng-1
-X-Mimecast-MFC-AGG-ID: xgSohcqfMsCW2Xn8SPqIng_1791440393
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-49cdc4080ddso2222735e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 23:19:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1791440393; x=1792045193; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lBkvNqNk+kq9xlFcI/2YnHiKYK3/wLihDPOcRkcC1+Q=;
-        b=s2BKS2ctU0b3qjcnTzgwyJBnpjz4VNtMdAz44wgPUacWN0j3j4OUR7R1j4JIc06UH+
-         ONwjpwtqYkwsP+mfmJWXDVc/534vIoHRzLPZbRPpMMM4HjHVJtzn5oaYCHRgS18WlKnU
-         bo2Kb2vIw0FUUnVuPu12N9j2AxNKYuBZt4jIaeArPer5JA4GAU03YLTyz/fOP452BM0D
-         1PXWDl4ImQyZ5cS5mgs4quPjBFBcLQaWPgitUNZZeP4T2aqCncH9vT7MTazKzElZvs/k
-         vjkoMtJf19F8Asc4qzeXmWA4Xes/1Xx+f7omH/7XoRKqGv402+bBttW2oVFUG8kwX0la
-         1WTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791440393; x=1792045193;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lBkvNqNk+kq9xlFcI/2YnHiKYK3/wLihDPOcRkcC1+Q=;
-        b=2gG4/F7F5HRJQaFs0I8DpkgV6rGQq5TKWIay5euZX76j7eGCLYb80WNaAAV/hi4wEf
-         9Kktvlxzj92Prs1uJ29AMRy99S8RqMU5xPxmRljuX2224AO+4nD3qEYsAqjM4OzlmbBr
-         CJAd5s+WCGlEDV6l/S7GsHOSQFUOJ5PM/hSJh2xGg3PNwYjppQ46ZXxdHfFXzkE7Q8CZ
-         X7EmL4g3sqZhHXVy86/CNYnSNRnG5eaFzGL/WOSRsAeBQjSX1tk/EZDa1R/t6GJ7zVkB
-         KVoVg1XfzQJ5Jb1i51mUtuOIVwytMS5WimHAnBp6VbA9igBgYeGopvwdMTtFScTafXs1
-         VMDQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzMGomgUNSXyU8Ulb71pRxLYmSQ9Tx1Sxuea+j2PxPpTHGeP+xbRYfDNhlY2ja824nWKLdz/bdAdKiWe8Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++lgQXs1n1GyZA7BM3Ovnk/NOTbICDXAw7K8ZmS/sZxJjCg7jzFV
-	lnxUhjo3WeVtiLc3FQNZCO/RjRAnKkCr4X2S5NEkKL24DTNdx+VVG9jJVxiRpR31TiEqXVQiq3x
-	glq+t9aTVFjycFsr/ORXkupIO9Aj62/Yd5vjLPr+PpkRRq6mruI3IrBUdOAnv+cnQdw==
-X-Gm-Gg: AYBFou0s/vkSuUyPYlbsq7j1ZAcX60yw3LgG0G1fut6tSZxELc5rzRKGVGeld/cX357
-	EhDTexbaw/gC91uIgUcjDq/8D94H/C8uKKF1BdZVnP02eeviyqKZYb30+TKanxvUddjKkagsDZ1
-	rD1vZWgX3IY8fHX0KqFdizp7CbSlBfmCv91rd6uj7zaxJy64kQL0aYnAv9fjRAEB19naX+QJMM4
-	KATMcz9a1wUXO32RIaCIA1TJgg6GY6MRm7Q5Ed4LrvyD02BXdg8cOJbKiQ+nVwukqyz7W6+6gHB
-	egqcee2xt2E/ae9TRbDj2Fywrkm9YmDhhFU+0KBa+Je0mQqQ5LjeLK9saqqoZ75PG68lt10=
-X-Received: by 2002:a05:600c:1553:b0:4a0:34a:588c with SMTP id 5b1f17b1804b1-4a1851c05admr26726455e9.14.1791440393033;
-        Wed, 07 Oct 2026 23:19:53 -0700 (PDT)
-X-Received: by 2002:a05:600c:1553:b0:4a0:34a:588c with SMTP id 5b1f17b1804b1-4a1851c05admr26725845e9.14.1791440392494;
-        Wed, 07 Oct 2026 23:19:52 -0700 (PDT)
-Received: from redhat.com ([2a0d:6fc0:3fd7:5300:3d6b:52a4:a23f:9d0b])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71b786d8sm9384557f8f.0.2026.10.07.23.19.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 23:19:50 -0700 (PDT)
-Date: Thu, 8 Oct 2026 02:19:48 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-Cc: sungbyeongchan <tjdqudcks0424@naver.com>,
-	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
-	Jason Wang <jasowangio@gmail.com>,
-	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>
-Subject: Re: [PATCH v2] virtio_ring: use shadow flags when detaching split
- descriptors
-Message-ID: <20261008021938-mutt-send-email-mst@kernel.org>
-References: <20261006102112.847280-1-tjdqudcks0424@naver.com>
- <1791422498.2257345-1-xuanzhuo@linux.alibaba.com>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="Tuu0Hd8I"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1791440412; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=WBjIFJjH1YSESX6XKsyH3s55ktCin3Q3Ic6wYond1xU=;
+	b=Tuu0Hd8IiYOe3SLKD9YPP1Z34nLpz0jLg6AAJEwVPuKyJ/sFp9LBzzyAwr4Wa35pUt2h8j70YmDwf49+7DceoJC0Gs/Knvrrx3S25K+H5EtolY1M4bjwe25lXHnDSTqKVujeYnnqxljWQYETjJtr+cSGuibvVKoVdXY79z+JX8s=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=8;SR=0;TI=SMTPD_---0XCKvm76_1791440411;
+Received: from 30.74.144.149(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XCKvm76_1791440411 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 08 Oct 2026 14:20:11 +0800
+Message-ID: <fb549f87-c6ca-43e2-be19-ef0bfbc5e085@linux.alibaba.com>
+Date: Thu, 8 Oct 2026 14:20:10 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1791422498.2257345-1-xuanzhuo@linux.alibaba.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] mm/khugepaged: flush deferred unmaps before dropping a
+ failed folio
+To: Kyle Zeng <kylebot@openai.com>, linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ outbounddisclosures@openai.com, stable@vger.kernel.org
+References: <20261007041001.43181-1-kylebot@openai.com>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <20261007041001.43181-1-kylebot@openai.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 08, 2026 at 09:21:38AM +0800, Xuan Zhuo wrote:
-> On Tue,  6 Oct 2026 19:21:12 +0900, sungbyeongchan <tjdqudcks0424@naver.com> wrote:
-> > Fixes: 72b5e8958738 ("virtio-ring: store DMA metadata in desc_extra for split virtqueue")
-> > Acked-by: Michael S. Tsirkin <mst@redhat.com>
-> > Assisted-by: LLM
-> > Signed-off-by: sungbyeongchan <tjdqudcks0424@naver.com>
-> > ---
-> > Changes in v2:
-> > - Drop the commit message paragraphs as requested by Michael S. Tsirkin.
+
+
+On 10/7/26 12:10 PM, Kyle Zeng wrote:
+> collapse_file() can fail its reference-count or dirty-folio check after
+> unmapping with TTU_BATCH_FLUSH.  Both paths put back the isolated folio,
+> then unlock it and drop the lookup reference before reaching the common
+> try_to_unmap_flush().
 > 
-> You misunderstood him.
+> The page-cache reference does not keep the folio stable once the lock is
+> released.  Another collapse can replace and free it.  With its PTEs
+> already gone, that collapse cannot flush the first task's per-task TLB
+> batch, and retract_page_tables() skips short or unaligned VMAs.  A CPU
+> can therefore retain a user translation to the freed folio.  This has
+> been reproduced with unprivileged MADV_COLLAPSE on a memfd.
 > 
-> We can not accept a commit without commit message.
-
-
-Indeed.
+> Flush at out_unlock while the lookup reference and folio lock are still
+> held.  The common flush continues to cover the accumulated pagelist on
+> both success and rollback, preserving batching on successful collapses.
 > 
-> > - Add Michael's Acked-by.
-> >
-> >  drivers/virtio/virtio_ring.c | 3 +--
-> >  1 file changed, 1 insertion(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/virtio/virtio_ring.c b/drivers/virtio/virtio_ring.c
-> > index db678f5a80e03..b4cb433df1dec 100644
-> > --- a/drivers/virtio/virtio_ring.c
-> > +++ b/drivers/virtio/virtio_ring.c
-> > @@ -905,7 +905,6 @@ static unsigned detach_buf_split_in_order(struct vring_virtqueue *vq,
-> >  {
-> >  	struct vring_desc_extra *extra;
-> >  	unsigned int i;
-> > -	__virtio16 nextflag = cpu_to_virtio16(vq->vq.vdev, VRING_DESC_F_NEXT);
-> >
-> >  	/* Clear data ptr. */
-> >  	vq->split.desc_state[head].data = NULL;
-> > @@ -915,7 +914,7 @@ static unsigned detach_buf_split_in_order(struct vring_virtqueue *vq,
-> >  	/* Put back on free list: unmap first-level descriptors and find end */
-> >  	i = head;
-> >
-> > -	while (vq->split.vring.desc[i].flags & nextflag) {
-> > +	while (extra[i].flags & VRING_DESC_F_NEXT) {
-> >  		i = vring_unmap_one_split(vq, &extra[i]);
-> >  		vq->vq.num_free++;
-> >  	}
-> > --
-> > 2.43.0
-> >
+> Fixes: 6d9df8a5889c ("mm/thp: collapse_file() do try_to_unmap(TTU_BATCH_FLUSH)")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Kyle Zeng <kylebot@openai.com>
+> ---
 
+Good catch. LGTM.
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
