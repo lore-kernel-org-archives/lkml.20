@@ -1,16 +1,16 @@
 Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE815456E11;
-	Thu,  8 Oct 2026 11:28:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AD3B46EF65;
+	Thu,  8 Oct 2026 11:28:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791458920; cv=none; b=ib00LWhj/jvNwzVDSxE80uX44u3oNudwLzwtPZmOuaqfZnaTJSU670zJ19lYIZdD8TPICCJL59R9MuMqg2XYOAGq53ttBUQaJvAsprltWyH1SsTuypBa2qYvAKgxFIOeSVIcSRej6e/5XAtCYdna4HyPfS9AkVqVp4HoCaU9ISA=
+	t=1791458923; cv=none; b=jGGnJRVoGfTaFDIvtXj4RHO1K+FeEcKxfrrlLYhLRSQsMcmQX9Je4A2boZEaltmcNCec7DlAt+HYJS/qxU9q3VLYLfGNFkgao7LsmxfyCPWGXgpVskzj5g4sLvfBJ0IhymIlVWIj9JpgFozkz+uOhXvDbNZRNkJlUH+Uv9Txd8o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791458920; c=relaxed/simple;
-	bh=R1Rp45+kmKh9eM16JpYNajIX3lEUCLAV021oQUooi3w=;
+	s=arc-20240116; t=1791458923; c=relaxed/simple;
+	bh=mhFQe+urfvTMpCsHXY56WUs7EhinIWh+6qdBUiyvhLs=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=qvMMsfnCbY8NrSDSJ/T8AU+wxUMnY+hv6U9lvUMLH6jxBKM8ypc5Tw06BpD+jZUm+mBJhbhyt5wB1RRBWg/EiGAHAd5WYNGAy+byWhsbG1SUhp50YPOD0cZ1u5kqd5AlOj95Uysenipr4YISb0QXDnn8AvQpCV5x2I5FqYSgVtU=
+	 In-Reply-To:To:CC; b=oa7jpXuNsKT8mh359EJPHdMUiMjOqVDWinp0oxSqJYMyEfUv2bkpKtyMkMre4NRV+2OHl845AgimBT8urOlavKHrR8R4iyy0xydIw7NE1zz0FPrPTSAYeCuwJNWZX+Y3pwhMq6zNVRanMiE79na+zukPNHQczltR3vTeuyRS0D4=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
@@ -22,8 +22,8 @@ Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
  (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
  Transport; Thu, 8 Oct 2026 19:28:28 +0800
 From: Jacky Chou <jacky_chou@aspeedtech.com>
-Date: Thu, 8 Oct 2026 19:28:19 +0800
-Subject: [PATCH 1/3] dt-bindings: phy: aspeed: Add ASPEED PCIe PHY
+Date: Thu, 8 Oct 2026 19:28:20 +0800
+Subject: [PATCH 2/3] phy: aspeed: Add ASPEED PCIe PHY driver
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -32,7 +32,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261008-aspeed_pcie_phy-v1-1-96764937aef0@aspeedtech.com>
+Message-ID: <20261008-aspeed_pcie_phy-v1-2-96764937aef0@aspeedtech.com>
 References: <20261008-aspeed_pcie_phy-v1-0-96764937aef0@aspeedtech.com>
 In-Reply-To: <20261008-aspeed_pcie_phy-v1-0-96764937aef0@aspeedtech.com>
 To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
@@ -45,81 +45,300 @@ CC: <linux-aspeed@lists.ozlabs.org>, <linux-phy@lists.infradead.org>,
 	<devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
 	<linux-kernel@vger.kernel.org>, Jacky Chou <jacky_chou@aspeedtech.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791458908; l=1816;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791458908; l=8358;
  i=jacky_chou@aspeedtech.com; s=20251031; h=from:subject:message-id;
- bh=R1Rp45+kmKh9eM16JpYNajIX3lEUCLAV021oQUooi3w=;
- b=QtvZBxEegbrYy4Tja19fXhxOY7/V57v5Nz2LD/pFCWnOWiUGwKQFAr0KYu1YOiqpnntDbDZJ3
- Ma+fzCLojZEA0HqMt0u3AENCL8onaoZIpNyQfxhwXgOE4EnZ8YTEny3
+ bh=mhFQe+urfvTMpCsHXY56WUs7EhinIWh+6qdBUiyvhLs=;
+ b=aqU+fcQiZwTIf3FvE3XkMyboTWeRSEqOMpHISMdSSbj6vBGmwZjMhOzaIW5eUVjFW4m2K0z1N
+ QTjEhy+ub4rAjYCprtqflNnTle0HWxJbZNWdZ00vjRbDsPgctYkV2Hs
 X-Developer-Key: i=jacky_chou@aspeedtech.com; a=ed25519;
  pk=8XBx7KFM1drEsfCXTH9QC2lbMlGU4XwJTA6Jt9Mabdo=
 
-Introduce device-binding for ASPEED AST2600/2700 PCIe PHY.
-The PHY provides the physical layer used by the PCIe
-controller when operating in root complex mode.
-
-Describe the compatible strings, register range, clocks and
-phy-cells value required by the PHY provider.
+Introduce support for Aspeed PCIe PHY controller available in
+AST2600/2700.
 
 Signed-off-by: Jacky Chou <jacky_chou@aspeedtech.com>
 ---
- .../bindings/phy/aspeed,ast2600-pcie-phy.yaml      | 49 ++++++++++++++++++++++
- 1 file changed, 49 insertions(+)
+ drivers/phy/aspeed/Kconfig           |  12 +-
+ drivers/phy/aspeed/Makefile          |   1 +
+ drivers/phy/aspeed/phy-aspeed-pcie.c | 237 +++++++++++++++++++++++++++++++++++
+ 3 files changed, 249 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/phy/aspeed,ast2600-pcie-phy.yaml b/Documentation/devicetree/bindings/phy/aspeed,ast2600-pcie-phy.yaml
+diff --git a/drivers/phy/aspeed/Kconfig b/drivers/phy/aspeed/Kconfig
+index 7b5f48db2be8..b5903cf06268 100644
+--- a/drivers/phy/aspeed/Kconfig
++++ b/drivers/phy/aspeed/Kconfig
+@@ -1,9 +1,19 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+-
+ #
+ # PHY drivers for ASPEED
+ #
+ 
++config PHY_ASPEED_PCIE
++	tristate "ASPEED PCIe PHY driver"
++	select GENERIC_PHY
++	depends on (ARCH_ASPEED || COMPILE_TEST)
++	help
++	  This option enables support for the ASPEED PCIe PHY driver.
++	  The driver provides the necessary interface to control and
++	  configure the PCIe PHY hardware found on ASPEED SoCs.
++	  It is required for proper operation of PCIe devices on
++	  platforms using ASPEED chips.
++
+ config PHY_ASPEED_USB3
+ 	tristate "ASPEED USB3 PHY driver"
+ 	select GENERIC_PHY
+diff --git a/drivers/phy/aspeed/Makefile b/drivers/phy/aspeed/Makefile
+index d96d9d73a009..9d43790fdda8 100644
+--- a/drivers/phy/aspeed/Makefile
++++ b/drivers/phy/aspeed/Makefile
+@@ -1,2 +1,3 @@
+ # SPDX-License-Identifier: GPL-2.0
++obj-$(CONFIG_PHY_ASPEED_PCIE)		+= phy-aspeed-pcie.o
+ obj-$(CONFIG_PHY_ASPEED_USB3)		+= phy-aspeed-usb3.o
+diff --git a/drivers/phy/aspeed/phy-aspeed-pcie.c b/drivers/phy/aspeed/phy-aspeed-pcie.c
 new file mode 100644
-index 000000000000..686b2e3d9457
+index 000000000000..eb300887b644
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/phy/aspeed,ast2600-pcie-phy.yaml
-@@ -0,0 +1,49 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/phy/aspeed,ast2600-pcie-phy.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/drivers/phy/aspeed/phy-aspeed-pcie.c
+@@ -0,0 +1,237 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++ * Copyright 2025 Aspeed Technology Inc.
++ */
 +
-+title: ASPEED PCIe PHY
++#include <linux/clk.h>
++#include <linux/err.h>
++#include <linux/module.h>
++#include <linux/platform_device.h>
++#include <linux/phy/pcie.h>
++#include <linux/phy/phy.h>
 +
-+maintainers:
-+  - Jacky Chou <jacky_chou@aspeedtech.com>
++/* AST2600 PCIe Host Controller Registers */
++#define PEHR_GLOBAL		0x30
++#define  AST2600_PORT_TYPE_MASK		GENMASK(5, 4)
++#define  AST2600_PORT_TYPE(x)		FIELD_PREP(AST2600_PORT_TYPE_MASK, x)
++#define PEHR_LOCK		0x7c
++#define  PCIE_UNLOCK			0xa8
 +
-+description:
-+  The ASPEED PCIe PHY provides the physical layer functionality for PCIe
-+  controllers in the SoC.
++/* AST2700 PEHR */
++#define PEHR_MISC_58		0x58
++#define  LOCAL_SCALE_SUP		BIT(0)
++#define PEHR_MISC_5C		0x5c
++#define  CONFIG_RC_DEVICE		BIT(30)
++#define PEHR_MISC_60		0x60
++#define  AST2700_PORT_TYPE_MASK		GENMASK(7, 4)
++#define  PORT_TYPE_ROOT			0x4
++#define PEHR_MISC_70		0x70
++#define  POSTED_DATA_CREDITS(x)		FIELD_PREP(GENMASK(15, 0), x)
++#define  POSTED_HEADER_CREDITS(x)	FIELD_PREP(GENMASK(27, 16), x)
++#define PEHR_MISC_78		0x78
++#define  COMPLETION_DATA_CREDITS(x)	FIELD_PREP(GENMASK(15, 0), x)
++#define  COMPLETION_HEADER_CREDITS(x)	FIELD_PREP(GENMASK(27, 16), x)
++#define PEHR_MISC_278		0x278
++#define  SET_TO_DOWNSTREAM		BIT(22)
++#define  ASSERT_INTERNAL_RESET		BIT(31)
++#define PEHR_MISC_280		0x280
++#define  SEL_INTERNAL_RESET		BIT(0)
 +
-+properties:
-+  compatible:
-+    items:
-+      - enum:
-+          - aspeed,ast2600-pcie-phy
-+          - aspeed,ast2700-pcie-phy
++/**
++ * struct aspeed_pcie_phy - PCIe PHY information
++ * @dev: pointer to device structure
++ * @reg: PCIe host register base address
++ * @clk: PCIe reference clock
++ * @phy: pointer to PHY structure
++ * @platform: platform specific information
++ */
++struct aspeed_pcie_phy {
++	struct device *dev;
++	void __iomem *reg;
++	struct clk *clk;
++	struct phy *phy;
++	const struct aspeed_pcie_phy_platform *platform;
++};
 +
-+  reg:
-+    maxItems: 1
++/**
++ * struct aspeed_pcie_phy_platform - Platform information
++ * @phy_ops: phy operations
++ */
++struct aspeed_pcie_phy_platform {
++	const struct phy_ops *phy_ops;
++};
 +
-+  clocks:
-+    maxItems: 1
-+    description:
-+      Fixed 100MHz reference clock provided on the board.
++static int ast2600_phy_init(struct phy *phy)
++{
++	struct aspeed_pcie_phy *pcie_phy = phy_get_drvdata(phy);
++	int ret;
 +
-+  "#phy-cells":
-+    const: 0
++	ret = clk_prepare_enable(pcie_phy->clk);
++	if (ret)
++		return ret;
 +
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - "#phy-cells"
++	writel(PCIE_UNLOCK, pcie_phy->reg + PEHR_LOCK);
 +
-+additionalProperties: false
++	return 0;
++}
 +
-+examples:
-+  - |
-+    phy@1e6ed200 {
-+      compatible = "aspeed,ast2600-pcie-phy";
-+      reg = <0x1e6ed200 0x100>;
-+      clocks = <&pcie_refclk>;
-+      #phy-cells = <0>;
-+    };
++static int ast2600_phy_exit(struct phy *phy)
++{
++	struct aspeed_pcie_phy *pcie_phy = phy_get_drvdata(phy);
++
++	clk_disable_unprepare(pcie_phy->clk);
++
++	return 0;
++}
++
++static int ast2600_phy_set_mode(struct phy *phy, enum phy_mode mode,
++				int submode)
++{
++	struct aspeed_pcie_phy *pcie_phy = phy_get_drvdata(phy);
++
++	switch (submode) {
++	case PHY_MODE_PCIE_RC:
++		writel(AST2600_PORT_TYPE(0x3), pcie_phy->reg + PEHR_GLOBAL);
++		break;
++	default:
++		dev_err(&phy->dev, "Unsupported submode %d\n", submode);
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++static const struct phy_ops ast2600_phy_ops = {
++	.init		= ast2600_phy_init,
++	.exit		= ast2600_phy_exit,
++	.set_mode	= ast2600_phy_set_mode,
++	.owner		= THIS_MODULE,
++};
++
++static int ast2700_phy_init(struct phy *phy)
++{
++	struct aspeed_pcie_phy *pcie_phy = phy_get_drvdata(phy);
++
++	return clk_prepare_enable(pcie_phy->clk);
++}
++
++static int ast2700_phy_exit(struct phy *phy)
++{
++	struct aspeed_pcie_phy *pcie_phy = phy_get_drvdata(phy);
++
++	clk_disable_unprepare(pcie_phy->clk);
++
++	return 0;
++}
++
++static int ast2700_phy_set_mode(struct phy *phy, enum phy_mode mode,
++				int submode)
++{
++	struct aspeed_pcie_phy *pcie_phy = phy_get_drvdata(phy);
++	u32 cfg_val;
++
++	switch (submode) {
++	case PHY_MODE_PCIE_RC:
++		writel(0, pcie_phy->reg + PEHR_MISC_278);
++		writel(SEL_INTERNAL_RESET, pcie_phy->reg + PEHR_MISC_280);
++		writel(POSTED_DATA_CREDITS(0xc0) | POSTED_HEADER_CREDITS(0xa),
++		       pcie_phy->reg + PEHR_MISC_70);
++		writel(COMPLETION_DATA_CREDITS(0x30) | COMPLETION_HEADER_CREDITS(0x8),
++		       pcie_phy->reg + PEHR_MISC_78);
++		writel(LOCAL_SCALE_SUP, pcie_phy->reg + PEHR_MISC_58);
++		writel(CONFIG_RC_DEVICE, pcie_phy->reg + PEHR_MISC_5C);
++		cfg_val = readl(pcie_phy->reg + PEHR_MISC_60);
++		FIELD_MODIFY(AST2700_PORT_TYPE_MASK, &cfg_val,
++			     PORT_TYPE_ROOT);
++		writel(cfg_val, pcie_phy->reg + PEHR_MISC_60);
++		writel(ASSERT_INTERNAL_RESET | SET_TO_DOWNSTREAM,
++		       pcie_phy->reg + PEHR_MISC_278);
++		break;
++	default:
++		dev_err(&phy->dev, "Unsupported submode %d\n", submode);
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++static const struct phy_ops ast2700_phy_ops = {
++	.init		= ast2700_phy_init,
++	.exit		= ast2700_phy_exit,
++	.set_mode	= ast2700_phy_set_mode,
++	.owner		= THIS_MODULE,
++};
++
++static const struct aspeed_pcie_phy_platform pcie_phy_ast2600 = {
++	.phy_ops = &ast2600_phy_ops,
++};
++
++static const struct aspeed_pcie_phy_platform pcie_phy_ast2700 = {
++	.phy_ops = &ast2700_phy_ops,
++};
++
++static int aspeed_pcie_phy_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct phy_provider *phy_provider;
++	struct aspeed_pcie_phy *pcie_phy;
++	const struct aspeed_pcie_phy_platform *md;
++
++	md = of_device_get_match_data(dev);
++	if (!md)
++		return -ENODEV;
++
++	pcie_phy = devm_kzalloc(dev, sizeof(*pcie_phy), GFP_KERNEL);
++	if (!pcie_phy)
++		return -ENOMEM;
++
++	pcie_phy->reg = devm_platform_ioremap_resource(pdev, 0);
++	if (IS_ERR(pcie_phy->reg))
++		return PTR_ERR(pcie_phy->reg);
++
++	pcie_phy->clk = devm_clk_get(dev, NULL);
++	if (IS_ERR(pcie_phy->clk))
++		return dev_err_probe(dev, PTR_ERR(pcie_phy->clk),
++				     "failed to get clock\n");
++
++	pcie_phy->dev = dev;
++	pcie_phy->platform = md;
++
++	pcie_phy->phy = devm_phy_create(dev, dev->of_node,
++					pcie_phy->platform->phy_ops);
++	if (IS_ERR(pcie_phy->phy))
++		return dev_err_probe(dev, PTR_ERR(pcie_phy->phy),
++				     "failed to create PHY\n");
++
++	phy_set_drvdata(pcie_phy->phy, pcie_phy);
++	phy_provider = devm_of_phy_provider_register(dev, of_phy_simple_xlate);
++
++	return PTR_ERR_OR_ZERO(phy_provider);
++}
++
++static const struct of_device_id aspeed_pcie_phy_of_match_table[] = {
++	{
++		.compatible = "aspeed,ast2600-pcie-phy",
++		.data = &pcie_phy_ast2600,
++	},
++	{
++		.compatible = "aspeed,ast2700-pcie-phy",
++		.data = &pcie_phy_ast2700,
++	},
++	{ },
++};
++MODULE_DEVICE_TABLE(of, aspeed_pcie_phy_of_match_table);
++
++static struct platform_driver aspeed_pcie_driver = {
++	.probe		= aspeed_pcie_phy_probe,
++	.driver = {
++		.name	= "aspeed-pcie-phy",
++		.of_match_table = aspeed_pcie_phy_of_match_table,
++	},
++};
++
++module_platform_driver(aspeed_pcie_driver);
++
++MODULE_AUTHOR("Jacky Chou <jacky_chou@aspeedtech.com>");
++MODULE_DESCRIPTION("ASPEED PCIe PHY");
++MODULE_LICENSE("GPL");
 
 -- 
 2.34.1
