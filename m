@@ -1,87 +1,133 @@
-Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.7])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E80936F916
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 05:53:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3E9638C2D0
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 05:55:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791438822; cv=none; b=T/b0xQfaVgCrXCDWq/haXvgI6iacoPMcI6GERAsSSPUrYMA8RThZoJPx/UFt0iphidvvng197aGpHOQF40HwMx/E8UIH5m8i5oHjAc7YA6fElpPPcZQu/NSYWmfMTz3ywsa+KkkUs3h/cbnvBmLE8vlJzbNqF5RZAkY9mMFCs3M=
+	t=1791438912; cv=none; b=V13OMKfi1ADMK5Wk80aRP8mgIVd4rVngg22q1mw4nROqCwVsZSrMgFRTriOq+g1FR7pwxRcd/0+YlxFZaj0NDr+vmXJ8R9njeWeV0cmsI48xM4Qi/VYWVY+2/vpoJ+Ztw8AbiSKymZOqmHr5V8Nr9iS3AsQwHNapWeXK9IJ9iLg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791438822; c=relaxed/simple;
-	bh=V3WIcEQRTUkplz72Y5jFWoKAoh88vrBG/QJC0D71vfg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kXGk2zeDzeARjLq5kFx8ROK+sl7P29/zbHsurJjrKRl11dzXVucm4eUXyhWMKKnvy9yj5lKCdXuYwxbT2BUgpcZFP6yt/rcfS1nWZGB4pBuIadx/jbfEBLUq1lyNO39O/vT/y6fRj6YB93tiEZyZy579MiMDekQXlwl68sKZj9M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=xiaomi.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=Qh0JGSOd; arc=none smtp.client-ip=117.135.210.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=xiaomi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	s=arc-20240116; t=1791438912; c=relaxed/simple;
+	bh=lYl7dYMrHOnk56pwG8UsYxEaGVd4Hqw4FGFqFupd3ew=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BgbWG1Dlwufoq17kIqlyy4lpQUX849ErTd9XnnpTo7PJhL14/PJksthuCaGBKY3lm1daS6OxtJlRNQw5lZsEkdOEsQfzdYVLJq4d1ttsO3iKKfrI3rzHh5ygg9/kcwmkWgXP2ciMLC5/wxVwUkBncFSIn9KfKCPO0dXEKQVjKB8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J6l6T/G5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="Qh0JGSOd"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=KC
-	wk0i7RJofeqxwqGOpS1AKnufaHtLGBH9GfdeVSM1Y=; b=Qh0JGSOd58yOfVCSxM
-	MpPzgAQO3coGLf7ChSn3dKqu8Fdgy4WrlnhjzpT3etZC8hgOQi45eLKlN0s4O7rc
-	k7cITe6V8rws8FWyA1wvZfRfJ8y0i/Yjd/uAlhIrdusOUo8LvCyg3S1zzIh56izP
-	OJfrtLGw8e9lMt87Lbi8Nu9wE=
-Received: from nzzhao-ThinkCentre-M760t.mioffice.cn (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PykvCgDnD8UvLsdq0VaXBA--.54425S2;
-	Thu, 08 Oct 2026 13:46:24 +0800 (CST)
-From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
-To: Daeho Jeong <daeho43@gmail.com>
-Cc: Chao Yu <chao@kernel.org>,
-	Barry Song <baohua@kernel.org>,
-	Nanzhe Zhao <nzzhao@126.com>,
-	Juan Yescas <jyescas@google.com>,
-	Dev Jain <Dev.Jain@arm.com>,
-	linux-kernel@vger.kernel.org,
-	David Hildenbrand <David.Hildenbrand@arm.com>,
-	linux-f2fs-devel@lists.sourceforge.net,
-	Bo Zhang <zhangbo56@xiaomi.com>,
-	Kalesh Singh <kaleshsingh@google.com>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	Pengfei Li <lipengfei28@xiaomi.com>,
-	Ryan Roberts <Ryan.Roberts@arm.com>
-Subject: Re: [PATCH v2 03/14] f2fs: support regular file buffered writes on large folios
-Date: Thu,  8 Oct 2026 13:46:23 +0800
-Message-ID: <20261008054623.732668-1-zhaonanzhe@xiaomi.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <CACOAw_xYg6tDsYARD_7vvBpsQWHG0EtXNG1nHnufPUz0tyZakg@mail.gmail.com>
-References: <20260915041909.2903887-1-zhaonanzhe@xiaomi.com> <20260915041909.2903887-4-zhaonanzhe@xiaomi.com> <CACOAw_xYg6tDsYARD_7vvBpsQWHG0EtXNG1nHnufPUz0tyZakg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J6l6T/G5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2C241F000FF
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 05:55:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791438910;
+	bh=d+dRBYUod/fcxf5Iqkdq4xO/QoiSyB4U5wDhK8pZlUw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=J6l6T/G5e+D6fTKENQSW1IbzzSblV3BheIph5N9an6pxKneuaxd0nnOGDBNY4Ljgy
+	 qSMJ6NPF8itY9e/UHVOQFiC5npIvIxt8XZKwDbqMpJsB3nNjKO/VIahmLvhIF2gYFY
+	 I9VXHpRlQm++++JR5vtRksGeLO2XsL4UakgiNUczs8zu68OXXTUXd0m9o0A17RdAmM
+	 uoN1UUIFjwqgwAQczOJpETM7S06ugufdKjBAe445dHJZ9RWCxYdhnLS2QivL9YVxnW
+	 zuMmkkzviLTIu3tIZrS7afxPqN3GvdPkisXlGjgyX1M7LXC3Ny32oAaVNfkxjRNQe+
+	 jv/VqC2gACvpw==
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-486e70f2457so2142126f8f.2
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 22:55:10 -0700 (PDT)
+X-Gm-Message-State: AFq9FYLyE7/PIZbsnkos1w/Ty34cazvGmyCUO6NUI+kXKy6L6KSQrBAA
+	5rQe/MUB0Dcp7mUiiXgijaWf57DfJ7o8XWpmA7P29ygwK4gJGGvgxib+tcv7xByQX57m80qCfXY
+	8kfRScqk3RLSr+bHitekGK3U+SmKDegY=
+X-Received: by 2002:a05:6000:2886:b0:48b:fdd:fbe4 with SMTP id
+ ffacd0b85a97d-48c72889c8fmr7729946f8f.21.1791438909215; Wed, 07 Oct 2026
+ 22:55:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PykvCgDnD8UvLsdq0VaXBA--.54425S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWruw17WryruF43XrykWFyUZFb_yoWxKrbEvr
-	1kGa4DCa4UtF9ay3WxCF4UKFZ3Gw12q3W5uay8Zr43ArykAFnY9Fs5Xas3AFySqFW3Gryj
-	kFnxXrW0kry7ZjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xRR4lkPUUUUU==
-Sender: nzzhao@126.com
-X-CM-SenderInfo: xq22xtbr6rjloofrz/xtbBsRAk82rHLjDcIgAA37
+References: <7f398d4a-7fae-4382-9cc4-8627e8aa912b@paulmck-laptop> <20261007203636.1982188-4-paulmck@kernel.org>
+In-Reply-To: <20261007203636.1982188-4-paulmck@kernel.org>
+From: Guo Ren <guoren@kernel.org>
+Date: Thu, 8 Oct 2026 13:54:57 +0800
+X-Gmail-Original-Message-ID: <CAJF2gTQbbPAdjS3p3oMoCGdkBWFM3Hx5+JnCu=9hdXuPQaM5Zg@mail.gmail.com>
+X-Gm-Features: AclHuK_i3yfeFM1Mqj1_rFbFa07SZwIrjJoViyoWe8JhZO_JNtdsTVGKx8Q49n0
+Message-ID: <CAJF2gTQbbPAdjS3p3oMoCGdkBWFM3Hx5+JnCu=9hdXuPQaM5Zg@mail.gmail.com>
+Subject: Re: [PATCH 4/5] csky: Emulate two-byte cmpxchg
+To: "Paul E. McKenney" <paulmck@kernel.org>
+Cc: linux-kernel@vger.kernel.org, Bradley Morgan <brads@mainlining.org>, 
+	Vineet Gupta <vgupta@kernel.org>, Yoshinori Sato <ysato@users.sourceforge.jp>, 
+	Rich Felker <dalias@libc.org>, John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, 
+	Chris Zankel <chris@zankel.net>, Max Filippov <jcmvbkbc@gmail.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Arnd Bergmann <arnd@kernel.org>, 
+	David Laight <david.laight.linux@gmail.com>, linux-snps-arc@lists.infradead.org, 
+	linux-csky@vger.kernel.org, linux-sh@vger.kernel.org, kernel-team@meta.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Daeho,
-
-This reply should have been posted here.
-
-> Hi Daeho,
+On Thu, Oct 8, 2026 at 4:36=E2=80=AFAM Paul E. McKenney <paulmck@kernel.org=
+> wrote:
 >
-> Thanks for the change.  I would like to integrate it into v3, folding it
-> into the "f2fs: support regular file buffered writes on large folios"
-> commit.
+> From: Bradley Morgan <brads@mainlining.org>
 >
-> My patch adjusts the signature of 'prepare_atomic_write_begin()': for large
-> folio compatibility, the 'unsigned int len' parameter is replaced by 'pgoff_t index',
-> so that the helper can be called in a loop from 'prepare_large_folio_atomic_write_begin()'. 
-> I found that len was a dead parameter in the original 'prepare_atomic_write_begin()', 
-> so in v3 I will not pass blen to 'prepare_atomic_write_begin()'.
+> C-SKY has no two-byte atomic compare and swap, so the __cmpxchg()
+> macros let case 2 fall through to BUILD_BUG() via default, and a
+> two-byte cmpxchg() fails the build.
 >
-> Thanks,
-> Nanzhe
+> Route case 2 through the new cmpxchg_emu_u16(), which narrows the
+> old and new values itself, so all three orderings, relaxed, acquire
+> and full, keep the (uintptr_t) casts the case 1 path already uses.
+>
+> Signed-off-by: Bradley Morgan <brads@mainlining.org>
+> Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
+> ---
+>  arch/csky/include/asm/cmpxchg.h | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+>
+> diff --git a/arch/csky/include/asm/cmpxchg.h b/arch/csky/include/asm/cmpx=
+chg.h
+> index db6dda47184e4..6f3ca79e54acf 100644
+> --- a/arch/csky/include/asm/cmpxchg.h
+> +++ b/arch/csky/include/asm/cmpxchg.h
+> @@ -64,6 +64,9 @@
+>         switch (size) {                                         \
+>         case 1:                                                 \
+>                 __ret =3D (__typeof__(*(ptr)))cmpxchg_emu_u8((volatile u8=
+ *)__ptr, (uintptr_t)__old, (uintptr_t)__new); \
+> +               break;                                                  \
+> +       case 2:                                                 \
+> +               __ret =3D (__typeof__(*(ptr)))cmpxchg_emu_u16((volatile u=
+16 *)__ptr, (unsigned long)__old, (unsigned long)__new); \
+>                 break;                                          \
+>         case 4:                                                 \
+>                 asm volatile (                                  \
+> @@ -97,6 +100,9 @@
+>         switch (size) {                                         \
+>         case 1:                                                 \
+>                 __ret =3D (__typeof__(*(ptr)))cmpxchg_emu_u8((volatile u8=
+ *)__ptr, (uintptr_t)__old, (uintptr_t)__new); \
+> +               break;                                                  \
+> +       case 2:                                                 \
+> +               __ret =3D (__typeof__(*(ptr)))cmpxchg_emu_u16((volatile u=
+16 *)__ptr, (unsigned long)__old, (unsigned long)__new); \
+>                 break;                                          \
+>         case 4:                                                 \
+>                 asm volatile (                                  \
+> @@ -131,6 +137,9 @@
+>         switch (size) {                                         \
+>         case 1:                                                 \
+>                 __ret =3D (__typeof__(*(ptr)))cmpxchg_emu_u8((volatile u8=
+ *)__ptr, (uintptr_t)__old, (uintptr_t)__new); \
+> +               break;                                                  \
+> +       case 2:                                                 \
+> +               __ret =3D (__typeof__(*(ptr)))cmpxchg_emu_u16((volatile u=
+16 *)__ptr, (unsigned long)__old, (unsigned long)__new); \
+LGTM!
 
-Sorry for the wrong threading.
+Acked-by: GUO Ren <guoren@kernel.org>
 
-Thanks,
-Nanzhe
+>                 break;                                          \
+>         case 4:                                                 \
+>                 asm volatile (                                  \
+> --
+> 2.40.1
+>
 
+
+--=20
+Best Regards
+ Guo Ren
