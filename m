@@ -1,133 +1,82 @@
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-108-mta149.mxroute.com (mail-108-mta149.mxroute.com [136.175.108.149])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F1AB430CD5;
-	Thu,  8 Oct 2026 20:20:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B70745FFB8
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 20:22:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=136.175.108.149
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791490814; cv=none; b=MjtJfDLmGSsNehJ7MMz6t73u4YjRUPmqddMfDM1l6VnJJkVUHuvLByQzFZcCnuh6/sdwmVpyWRIPnpFFd+SEgEBDrqbvAYvy/wfQUvBrz4815BS9GhO7Itt5/JVpx7f084gSrRjbRj4tdtXuoYj9Kyh3sW8tCXlLaWpp/iZPIZs=
+	t=1791490927; cv=none; b=m4ijqyFbSA6tkKpbi26m2upM7S80PosdoCewYT3cfGvhxa54UrlbpVwOK3QySSpZ1YnYe05NYCZi+nW8ctYzvFOFT3du9O2e1qjzJ2Gxuc8fNmqWEwOms4bwqlpia7haDITLe2swqaBg/6P8/qcabKU0Yq99eURv7qLYMQv0YwA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791490814; c=relaxed/simple;
-	bh=6gWNJeAYMN5jTK6l/Hc9el4e0HiEQAPczX5hsvFhppU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Q6YcRlb55PcmhQg6tdCg+B0RnmAioleZd6SueEXyV9YF67u389DW6bj8ngk010joezBbXqIkjmaiP1LPcKE/soRgp1cs5wRzubM6sxNYQmb+LAs3kynBM3XnkkPZ/wUCYdmH1QqUV6JdEOJTfvq83lfRamE8xL13UxxbDwEKojo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=FnetZb3y; arc=none smtp.client-ip=51.159.188.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	s=arc-20240116; t=1791490927; c=relaxed/simple;
+	bh=1eghTlfDKC16Bb1T42wJ77PJTwDbvYWMjw94O1uYU84=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ki9SlN307fo/IaOf/iVMLEPj/8vCwhSCGauIFF1mEkvQwyiZN95HH5mUOP8I2PE0fqHozhO42XivkpXGhGUbn5pPIeXcSTPz/CqmEonu9IhUJhyfYAJX5CxAUv1CbAjwRc0BmdmMqGRFsSGl9YeAyofq2TdEaxhgditW8iUU/HQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=wii.dev; spf=pass smtp.mailfrom=wii.dev; dkim=pass (2048-bit key) header.d=wii.dev header.i=@wii.dev header.b=bd9+ow95; arc=none smtp.client-ip=136.175.108.149
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=wii.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wii.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="FnetZb3y"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
-	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=VvHQUySArlyUy6XdBt7Tqo9y7tzCIS89p90zj8O806E=; b=FnetZb3ypu6U7vvyic15fZr3MT
-	vAoQ80XtcfL2+3N8rl4uiJImvKVz/V3nEBjTB304qnA+3zKYYKJiZJTtHp6BFrVQxou2jNfApwuLF
-	1a4eeZTouEWFjFdgWj8nehW7GakEoBCgLUiKVV34WpLIy57ejLaFAMEWIMIyxoZdnE7FH3arLFue+
-	c5uL3D1Cwf8XOZE4xAnzaNJGrwGse3m4pLIqhwq2MyspAtCFTzGDH/mvu/luSZlzg+WrVVQqZziRV
-	ErvTHW5lNKSuykAzVPd+mrd7efmpevxi67ak/suu1FjGal2XsWNX5icgBWSi5ui2LXTLC70D5nfgw
-	jccLduwA==;
-Received: from [151.115.150.205] (port=38102 helo=gepetto..)
-	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1xEub2-00000002wY0-3HsA;
-	Thu, 08 Oct 2026 22:20:08 +0200
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-To: Eric Biggers <ebiggers@kernel.org>,
-	"Jason A. Donenfeld" <Jason@zx2c4.com>,
-	Ard Biesheuvel <ardb@kernel.org>
-Cc: linux-crypto@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=wii.dev header.i=@wii.dev header.b="bd9+ow95"
+Received: from filter006.mxroute.com ([136.175.111.3] filter006.mxroute.com)
+ (Authenticated sender: mN4UYu2MZsgR)
+ by mail-108-mta149.mxroute.com (ZoneMTA) with ESMTPSA id 1a11d29545d00028b2.009
+ for <linux-kernel@vger.kernel.org>
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+ Thu, 08 Oct 2026 20:16:50 +0000
+X-Zone-Loop: ac62e73f3a172fc1165229be381681c4ddbdd121a003
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=wii.dev;
+	s=x; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:Cc:To:
+	From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:Resent-Date:
+	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:
+	References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:
+	List-Owner:List-Archive; bh=cKkOV3NctPJKvnb56+QurQBgeJeGLOz2lBSE0kPT9N0=; b=b
+	d9+ow95KIrukW9M1aCi850ChKTZRamIQUeVn/nyBDWrKAxlA2USZARRBBFoNzL6xZkpDZ42/mDbX/
+	/nWvNQMwEHxJOxLt/NWFboTX52iegqNTFqJ1ti2GcahVUWu/Ix5Nu1by3WkjcmAG/0OfI0dN6UvmV
+	TMYtONLc7R/g5j09T+T6ahAt/t8ayOZ8REPr/fgB/zBchTFWC96HWjzON4HXl6uSKKwbsRIscoMFO
+	B5FRXIBZ/NCjifQJ8wuvo8Rt/vyRifeAAZPtzj9UpvEwNExPiZHpZjDDzBJjiRmgSs04QhwzD/0cn
+	uKGdL3/ssIPdzlokCOJfJHd7FjPiYQbDg==;
+From: Richard Patel <ripatel@wii.dev>
+To: Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org
+Cc: "H . Peter Anvin" <hpa@zytor.com>,
+	Kees Cook <kees@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
 	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-Subject: [PATCH v2 2/2] lib/crypto: tests: Add Poly1305 split-update carry regression test
-Date: Thu,  8 Oct 2026 20:19:51 +0000
-Message-ID: <20261008201949.561207-5-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261008201949.561207-2-Jeremy.Jean@oss.cyber.gouv.fr>
-References: <20261008201949.561207-2-Jeremy.Jean@oss.cyber.gouv.fr>
+	linux-kselftest@vger.kernel.org,
+	Richard Patel <ripatel@wii.dev>
+Subject: [PATCH 0/3] x86/shstk: ban ia32 sigreturn
+Date: Thu,  8 Oct 2026 20:16:07 +0000
+Message-ID: <20261008201610.1003569-1-ripatel@wii.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+X-Authenticated-Id: ripatel@wii.dev
 
-Add a Poly1305 KUnit test for a split-update sequence that forces an
-implementation to resume from an intermediate accumulator state and still
-produce the same final tag.
+User shadow stacks protect only the x64 and x32 rt_sigreturn syscalls.
+Calling ia32 rt_sigreturn, which lacks return address validation, is
+still possible via `int $0x80`. The bypass also requires the executable
+is mapped into low 32-bit address space. (This scenario is basically
+impossible to occur in the wild, but it's probably worth fixing
+nonetheless.)
 
-The witness uses r=1, s=0, a 304-byte message with block 5 equal to
-2^128 - 6, and update lengths 128, 144, and 32.  On arm64 before the
-preceding fix, the NEON backend emits 0e000000000000000000000000000000
-instead of 13000000000000000000000000000000 because the odd-block resume
-path drops a carry while converting a base 2^26 accumulator back to
-base 2^64.
+Since user shadow stacks explicitly only support 64-bit mode, the
+simplest fix is to fault attempts to do 32-bit rt_sigreturn.
 
-Assisted-by: LLM
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
----
- lib/crypto/tests/poly1305_kunit.c | 31 +++++++++++++++++++++++++++++++
- 1 file changed, 31 insertions(+)
+Richard Patel (3):
+  x86/shstk: ban ia32 sigreturn when shadow stack is enabled
+  selftests/x86: test shadow stack sigreturn protection
+  selftests/x86: skip shstk tests where perf_event_open() fails
 
-diff --git a/lib/crypto/tests/poly1305_kunit.c b/lib/crypto/tests/poly1305_kunit.c
-index f3cb6245bc29..752b503d7a7b 100644
---- a/lib/crypto/tests/poly1305_kunit.c
-+++ b/lib/crypto/tests/poly1305_kunit.c
-@@ -141,10 +141,41 @@ static void test_poly1305_reduction_edge_cases(struct kunit *test)
- 	}
- }
- 
-+/*
-+ * Poly1305 test case which uses r_key=1, s_key=0 and a split update sequence
-+ * that exercises a carry while resuming from a base 2^26 accumulator.
-+ *
-+ * The first update leaves the arm64 NEON implementation in base 2^26. The
-+ * second update contains an odd number of blocks, so it converts that
-+ * accumulator back to base 2^64 before processing the first block.
-+ */
-+static void test_poly1305_split_update_carry(struct kunit *test)
-+{
-+	static const u8 key[POLY1305_KEY_SIZE] = { 1 }; /* r_key=1, s_key=0 */
-+	static const u8 expected_mac[POLY1305_DIGEST_SIZE] = { 0x13 };
-+	u8 data[304] = {};
-+	struct poly1305_desc_ctx ctx;
-+	u8 actual_mac[POLY1305_DIGEST_SIZE];
-+
-+	/* Set the fifth data block to 2**128 - 6. */
-+	data[64] = 0xfa;
-+	memset(&data[65], 0xff, POLY1305_BLOCK_SIZE - 1);
-+
-+	poly1305_init(&ctx, key);
-+	poly1305_update(&ctx, data, 128);
-+	poly1305_update(&ctx, data + 128, 144);
-+	poly1305_update(&ctx, data + 272, 32);
-+	poly1305_final(&ctx, actual_mac);
-+
-+	KUNIT_ASSERT_MEMEQ(test, actual_mac, expected_mac,
-+			   POLY1305_DIGEST_SIZE);
-+}
-+
- static struct kunit_case poly1305_test_cases[] = {
- 	HASH_KUNIT_CASES,
- 	KUNIT_CASE(test_poly1305_allones_keys_and_message),
- 	KUNIT_CASE(test_poly1305_reduction_edge_cases),
-+	KUNIT_CASE(test_poly1305_split_update_carry),
- 	KUNIT_CASE(benchmark_hash),
- 	{},
- };
--- 
-2.47.3
+ arch/x86/kernel/signal_32.c                   |   4 +
+ .../testing/selftests/x86/test_shadow_stack.c | 120 +++++++++++++++++-
+ 2 files changed, 122 insertions(+), 2 deletions(-)
+
+--
+2.52.0
 
