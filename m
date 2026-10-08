@@ -1,16 +1,16 @@
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA0473C3F64;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65D9D3CB54F;
 	Thu,  8 Oct 2026 19:26:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791487573; cv=none; b=BD/qVyG3xr1GAJpk9xn+AJwfnIjJj7E0YVUNYRiXvaAY9i3WUr0C+1VT2uf0TA6zJPRigK+XVYjyph/Q7ZYqbCHtaOJbF/+CTawQ8e9Kt3sQci9VJKyZr8OdAgYltLU+zZ7wxa25Mq2XPMXc2MAbDis5VT8PZCB8P1p2cHDbijM=
+	t=1791487573; cv=none; b=gRb7ij4dNwtDgEcfDkuwJBaiGIcoN7Wkr7EPBq0MCGrJEQh44QmpVXAP4+VdDeWbAwssfIY6YQ3CCeofAjTQtlqcbv6rWeYCGnkHrQfLagxBu6YAlOq3WXjwoGonGknWfBcK4w0VF9KV4P+0nUQEYI9XyVU4c45O/ka+9bVgWVs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791487573; c=relaxed/simple;
-	bh=n1VRPojjYa+IerOPuzJUT8AcPzAb08OTCWiobsxx9Qk=;
+	bh=d0NyJXqUgL2D15CEPxdJvSFPK+FO//px4G4sjqWSL58=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ff8zYlDq3BZuGjvwI0dHPe3/4e5dsAymmMB9Z2gjfa4kEH8aiHuRC4tTHm/Cci/OGXLorVpk9O8j+USciL+SLcn6fOo4D0GibKOZ3eAS/4gfXE1vRBluJtPCuOyrOUbr4iPEv4Li6aZp3dwOScZSONXOECG/4nHWSRrmlZjXwA0=
+	 MIME-Version; b=LO0eyMnjUFWctRhS8SoqJixnjXYjhapTVD7dPjx/PT6F6AbqIQ2ewdWBAk/+p91UQiqyDS4X/wAuy1HETX03Su1E5LkEHfjTM4Gakg6jCPsN4UnbGGKGw/WHiGYyXPov+lfL2iTLSxlFMcVYcm9ZKCZrQAIpHfNetc+B7bxAB7M=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; arc=none smtp.client-ip=195.135.223.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
@@ -18,7 +18,7 @@ Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id BF6B61F7B3;
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 4F7651F749;
 	Thu,  8 Oct 2026 19:26:03 +0000 (UTC)
 Authentication-Results: smtp-out2.suse.de;
 	none
@@ -26,18 +26,18 @@ Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 89BFF1339F;
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1A3B91395B;
 	Thu,  8 Oct 2026 19:26:03 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id dQZEOknux2ozCAAAD6G6ig:T10
+	id dQZEOknux2ozCAAAD6G6ig:T7
 	(envelope-from <tiwai@suse.de>); Thu, 08 Oct 2026 19:26:03 +0000
 From: Takashi Iwai <tiwai@suse.de>
 To: linux-sound@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH 09/11] ALSA: line6: Reject too small max packet sizes
-Date: Thu,  8 Oct 2026 21:25:49 +0200
-Message-ID: <20261008192553.300025-10-tiwai@suse.de>
+Subject: [PATCH 06/11] ALSA: caiaq: Fix races at MIDI URB and trigger accesses
+Date: Thu,  8 Oct 2026 21:25:46 +0200
+Message-ID: <20261008192553.300025-7-tiwai@suse.de>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261008192553.300025-1-tiwai@suse.de>
 References: <20261008192553.300025-1-tiwai@suse.de>
@@ -59,39 +59,66 @@ X-Rspamd-Pre-Result: action=no action;
 	unknown reason
 X-Spamd-Result: default: False [0.00 / 50.00]
 
-Although the LINE6 driver has a sanity check for the given max packet
-sizes, it still has an implicit requirement of the minimal size being
-bytes-per-frame; e.g. the impulse test signal assuming the fixed size,
-and when a too small size is specified by a malformed USB descriptor,
-this may lead to an OOB access.
+URB completion and rawmidi trigger callbacks can race with each other,
+which may put the state inconsistent, causing double submissions, etc.
 
-Change the sanity check conditions to reject too small max packet
-sizes for avoiding the scenario above.
+Guard both with a new spinlock for avoiding the races.
 
-Fixes: 3450121997ce ("ALSA: line6: Fix write on zero-sized buffer")
+Fixes: f3f80a9205da ("ALSA: caiaq - Fix Oops with MIDI")
 Reported-by: Sashiko <sashiko-bot@kernel.org>
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/usb/line6/pcm.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ sound/usb/caiaq/device.c | 1 +
+ sound/usb/caiaq/device.h | 3 ++-
+ sound/usb/caiaq/midi.c   | 2 ++
+ 3 files changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/sound/usb/line6/pcm.c b/sound/usb/line6/pcm.c
-index 2932eaf157f4..998869dc4613 100644
---- a/sound/usb/line6/pcm.c
-+++ b/sound/usb/line6/pcm.c
-@@ -554,7 +554,11 @@ int line6_init_pcm(struct usb_line6 *line6,
- 	line6pcm->max_packet_size_out =
- 		usb_maxpacket(line6->usbdev,
- 			usb_sndisocpipe(line6->usbdev, ep_write));
--	if (!line6pcm->max_packet_size_in || !line6pcm->max_packet_size_out) {
-+	/* reject max packet sizes smaller than bytes-per-frame;
-+	 * (the magic number 6 is taken from the playback case)
-+	 */
-+	if (line6pcm->max_packet_size_in < 6 ||
-+	    line6pcm->max_packet_size_out < 6) {
- 		dev_err(line6pcm->line6->ifcdev,
- 			"cannot get proper max packet size\n");
- 		return -EINVAL;
+diff --git a/sound/usb/caiaq/device.c b/sound/usb/caiaq/device.c
+index c68ed16d7ac4..634dc36f2ead 100644
+--- a/sound/usb/caiaq/device.c
++++ b/sound/usb/caiaq/device.c
+@@ -455,6 +455,7 @@ static int create_card(struct usb_device *usb_dev,
+ 	cdev->chip.usb_id = USB_ID(le16_to_cpu(usb_dev->descriptor.idVendor),
+ 				  le16_to_cpu(usb_dev->descriptor.idProduct));
+ 	spin_lock_init(&cdev->spinlock);
++	spin_lock_init(&cdev->midi_lock);
+ 	mutex_init(&cdev->ep1_out_mutex);
+ 
+ 	*cardp = card;
+diff --git a/sound/usb/caiaq/device.h b/sound/usb/caiaq/device.h
+index dd726ca68e80..16f65e7867d1 100644
+--- a/sound/usb/caiaq/device.h
++++ b/sound/usb/caiaq/device.h
+@@ -77,7 +77,8 @@ struct snd_usb_caiaqdev {
+ 	unsigned char midi_out_buf[EP1_BUFSIZE];
+ 
+ 	struct caiaq_device_spec spec;
+-	spinlock_t spinlock;
++	spinlock_t spinlock;	/* for PCM audio */
++	spinlock_t midi_lock;	/* midi_x_stream, midi_out_active */
+ 	wait_queue_head_t ep1_wait_queue;
+ 	wait_queue_head_t prepare_wait_queue;
+ 	int spec_received, audio_parm_answer;
+diff --git a/sound/usb/caiaq/midi.c b/sound/usb/caiaq/midi.c
+index 18529484c8dc..b7d7d24937a7 100644
+--- a/sound/usb/caiaq/midi.c
++++ b/sound/usb/caiaq/midi.c
+@@ -79,6 +79,7 @@ static void snd_usb_caiaq_midi_output_trigger(struct snd_rawmidi_substream *subs
+ {
+ 	struct snd_usb_caiaqdev *cdev = substream->rmidi->private_data;
+ 
++	guard(spinlock_irqsave)(&cdev->midi_lock);
+ 	if (up) {
+ 		cdev->midi_out_substream = substream;
+ 		if (!cdev->midi_out_active)
+@@ -151,6 +152,7 @@ void snd_usb_caiaq_midi_output_done(struct urb* urb)
+ {
+ 	struct snd_usb_caiaqdev *cdev = urb->context;
+ 
++	guard(spinlock_irqsave)(&cdev->midi_lock);
+ 	cdev->midi_out_active = 0;
+ 	if (urb->status != 0)
+ 		return;
 -- 
 2.55.0
 
