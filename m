@@ -1,86 +1,98 @@
-Received: from mta1.migadu.com (out-25.mta1.migadu.com [95.215.58.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 968B83F6C3B
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 07:31:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B917E3F105F
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 07:31:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791444678; cv=none; b=us3pmaDbtqHI6GDsEt9ZPgxtG9OVaOngrBNRV49VytGr5i81MqXzsZjhTkd5YkpqDM24jGwMBD26dw7x9kMEo66IDRjXvfi06/tXqWxy0KpGwNBHrKbKcgDxsBS6EAh6ZQbZERTY4QUdWlgOHcuTCv7dYGaVEw1//0a17vWvOEQ=
+	t=1791444696; cv=none; b=b7VmvorFArzD3LMa7A83XZQbnRtKqrVMIbxLz1cGWUVL3iZw5phCUba/58QO6vkBwuGIL+YVQHXsFFwM0okY5vLgi8IAv5lWgZKQLLmwfZt3ZrpORNk+tU9n4JijdyZsNH1at4wNzge5bXhL6QFJXAfe4DXvNbElhd/OO0YxPis=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791444678; c=relaxed/simple;
-	bh=JEx2OLckwemutil/MN151E8aEqCJockn3ZT2A2YL1GI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=J9NAV+EGZ7H5ieEIL1d+dXEyrhbpRuDL303u7kXDsgDsB80gUpbfO6wYYKKdJMG67FqHGbLFRTk724R265sAjPA8OZr8MncOVuLqo8DtPbijpFBm9cUt+/TYogyOcCSji+a4OkDz7ozDkIGURRKBJguCLmEjQ3n89Bcn01hPTFo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=SvdQLdlm; arc=none smtp.client-ip=95.215.58.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791444696; c=relaxed/simple;
+	bh=wYOvGDLmTKvyznEI2YdSg6ayYejwZ+BvUUs6NbLPNrc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=A4KTvFjPw+PZSxhnxfdJDYwDDjKl0rx++fxO8y1ZkG7mvO3jF0L1nd8sIEtx+8pgzG1fDd6MGZhsIpP4QBDrhfUgesBf6X2IeDmSyxREi8d79dcTv1Mcd3R8CGzbEPwmeIh7g+Y/Gk3Ka/CDYM2bhDzIvAR3QttyZce1P6kXEdA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jO4vGZtE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="SvdQLdlm"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=JEx2OLckwemutil/MN151E8aEqCJockn3ZT2A2YL1GI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791444668; v=1; x=1792049468;
- b=SvdQLdlmjfOSkkKc+vEMfA3TnDMTTpuRBGosa9xoewYqU7OPlc+R54cHuhuLwSweZUcjdJHZ
- kmiYb0Kq36M+If4bAB9Pl78K12cQTH8z6zPiqc09Wnlh4swJvLmOU/qGQPp1uaYuW9CxRtSPrlu
- jfYkGRZb4MUNI6xm/kCX4kvE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0f9abccb4081472f;
-	Thu, 08 Oct 2026 07:31:07 +0000
-X-Mizu-Trace-ID: 0f9abccb4081472f
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <85b3725a-6dde-4a57-b303-4ae2b53b60a5@linux.dev>
-Date: Thu, 8 Oct 2026 15:30:49 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jO4vGZtE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EEA81F0089A
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 07:31:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791444685;
+	bh=hgXM43tHGPmwH3n7UjXTQnwb08aCbZO7DGfxBqk6R9k=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=jO4vGZtE6LmIMsuh5rHP00aBNWAr7BDT+Nto/XNr6/eUzRVr5H04RJFb2qmWiVg8C
+	 alIn8GLCP0Y9O2gjrI9JS5d/k3DDiYMPqK84R4GGSUFwabjYzYAicaKoAvQ6Yv98b6
+	 JCvJ1TZovMe5DX0012A7qt7+4RCE8qw+G1vS+FBFB29cJfEtV3AZlZgT18aXORNdLU
+	 oQsgqimlFD6VW0YcLX1I8YHU9N0eRsWB8mwnuxyuAK1h8LKuY9ePLKuMx8mgWYabXL
+	 synVk4HJsszrN7bpZ3qN9ltqAsxUR+Ouym8S6aSaELHu5TCJuvZ7h/m0PchetHGZWD
+	 n/BBRVMwOoEQw==
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48b0946c2c2so1875438f8f.3
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 00:31:25 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxZMyqUjllqezUbH1b9ZdcnA2OymvhFkHWvSlyOI0iGYDjevc7qR52bzXpX8ZopIye/ueazBzqEOkcXPI4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJxmblLAhMBvVcHTrcxaXPeltye98Bl2X2tbMfeD5/fCQ0crzP6
+	f8THXa3v7p+JPUcqYszYICikSkJ1zf9Ow6wfjczcfK42TcUpHgW1yeRO6jWi/PljxuelOLod0DP
+	lx5gqe6h0ZD5z5OJjBg0eHnvA5izxIS4=
+X-Received: by 2002:a05:6000:2304:b0:48c:7ab9:99cc with SMTP id
+ ffacd0b85a97d-48c7ab99b74mr4162377f8f.52.1791444680209; Thu, 08 Oct 2026
+ 00:31:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 16/19] selftests/mm: add khugepaged race harness
-To: Kiryl Shutsemau <kirill@shutemov.name>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- "David Hildenbrand (Arm)" <david@kernel.org>,
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Kiryl Shutsemau (Meta)" <kas@kernel.org>, linux-mm@kvack.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
- Muhammad Usama Anjum <usama.anjum@arm.com>, Usama Arif
- <usama.arif@linux.dev>, "Nico Pache (Red Hat)" <nico.pache@linux.dev>,
- Zi Yan <ziy@nvidia.com>, Barry Song <baohua@kernel.org>,
- Dev Jain <dev.jain@arm.com>, Hugh Dickins <hughd@google.com>,
- Lance Yang <lance.yang@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
- Michal Hocko <mhocko@suse.com>, Ryan Roberts <ryan.roberts@arm.com>,
- Shuah Khan <shuah@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- "Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
- Alexander Gordeev <agordeev@linux.ibm.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Leon Romanovsky <leon@kernel.org>, kernel-team@meta.com
-References: <20260919002451.496763-1-kirill@shutemov.name>
- <20260919002451.496763-17-kirill@shutemov.name>
-Content-Language: en-US
-From: Zenghui Yu <zenghui.yu@linux.dev>
-In-Reply-To: <20260919002451.496763-17-kirill@shutemov.name>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260930-b4-thead-maintainers-tree-v1-1-12d077a36f4b@kernel.org>
+In-Reply-To: <20260930-b4-thead-maintainers-tree-v1-1-12d077a36f4b@kernel.org>
+From: Guo Ren <guoren@kernel.org>
+Date: Thu, 8 Oct 2026 15:31:04 +0800
+X-Gmail-Original-Message-ID: <CAJF2gTS7+GSsVBonCq90_uUnMXN2Cd-JuABzWRrTcOakX66kOA@mail.gmail.com>
+X-Gm-Features: AclHuK8dDt6mXE6lOlv9oIXUWPqegYUdStdtkMcJ90S7CqFS2v3WIY1wq048jL8
+Message-ID: <CAJF2gTS7+GSsVBonCq90_uUnMXN2Cd-JuABzWRrTcOakX66kOA@mail.gmail.com>
+Subject: Re: [PATCH] MAINTAINERS: Move RISC-V T-Head SoC tree to kernel.org
+To: Drew Fustini <fustini@kernel.org>
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Fu Wei <wefu@redhat.com>, linux-riscv@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9/19/26 8:24 AM, Kiryl Shutsemau wrote:
+On Thu, Oct 1, 2026 at 1:10=E2=80=AFAM Drew Fustini <fustini@kernel.org> wr=
+ote:
+>
+> Update the T-Head SoC entry to reflect that the branches are hosted on
+> kernel.org.
+>
+> Signed-off-by: Drew Fustini <fustini@kernel.org>
+> ---
+>  MAINTAINERS | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 3a19da74d00c..7e8b59e1fc18 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -23619,7 +23619,7 @@ M:      Fu Wei <wefu@redhat.com>
+>  L:     linux-riscv@lists.infradead.org
+>  S:     Maintained
+>  Q:     https://patchwork.kernel.org/project/riscv-thead/list/
+> -T:     git https://github.com/pdp7/linux.git
+> +T:     git https://git.kernel.org/pub/scm/linux/kernel/git/fustini/linux=
+.git
+>  F:     Documentation/devicetree/bindings/clock/thead,th1520-clk-ap.yaml
+>  F:     Documentation/devicetree/bindings/firmware/thead,th1520-aon.yaml
+>  F:     Documentation/devicetree/bindings/mailbox/thead,th1520-mbox.yaml
+>
+> ---
+> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+> change-id: 20260929-b4-thead-maintainers-tree-46f2e6590dd8
+>
+> Best regards,
+> --
+> Drew Fustini (Tenstorrent) <fustini@kernel.org>
+>
 
-> +		} else {	/* madvise */
-> +			while (now_ms() < end_ms && !corrupted) {
-> +				for (i = 0; i < nr_shared_areas; i++) {
-> +					madvise(region + i * hpage_pmd_size,
-> +						hpage_pmd_size, MADV_COLLAPSE);
+Acked-by: GUO Ren (XuanTie) <guoren@kernel.org>
 
-I got the following error when compiling it:
-
-khugepaged_race.c: In function ‘main’:
-khugepaged_race.c:506:23: error: ‘MADV_COLLAPSE’ undeclared (first use in this function); did you mean ‘MADV_COLD’?
-  506 |       hpage_pmd_size, MADV_COLLAPSE);
-      |                       ^~~~~~~~~~~~~
-      |                       MADV_COLD
-khugepaged_race.c:506:23: note: each undeclared identifier is reported only once for each function it appears in
-make: *** [../lib.mk:225: /data/code/mm/tools/testing/selftests/mm/khugepaged_race] Error 1
-
-Thanks,
-Zenghui
+--=20
+Best Regards
+ Guo Ren
