@@ -1,171 +1,152 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFB193BB131
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 05:57:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791439021; cv=none; b=WPy7ti+sG2o4V03djPdrT/z1fSDwbUr50ZIgEDl+GkLz25rP9oyf9BafRetdXGQ930RuT2vuTi8UPy4uovMIyccwFriJs7EkBKolBlkHH/N35IapOY0c7+U3cdXaxkru+24aI1vs2R9XnKbEAGq8TgZQBCMGZIzCIIjbHiWFC3s=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791439021; c=relaxed/simple;
-	bh=ceY6AYpjHs1ElPPIAmrcrxWtf7KZKURR1QziCbelGPk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EPoPv24BA7DehzwhqKAHf0zt1dLB3srJUgc2mf1s3FCvpHmqcFO4WO44k209JYoFDwBfP3Zg1DIRIPle/NaqhICO/ns5ya/m3quGwXd6qa2+vXPNmvD5pZypqe7jk6gmoQQizsTEsSj1uPbFihrpyZrsF/E3SamIHTWXa5j+Dhk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NOlsk5b+; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XDO7n1GM; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E73638F932
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 05:57:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791439028; cv=pass; b=W2iuCNKeRYcVmqEkljhtGO6nQcHs7R9lklf09k1RxLwFzs9hGLnEOt9we0+a+ms6xXfo5jiwr4ZdON96DT3NMt+WkxAvb9MpUKIzHyOXBoQ00fEhiw+kz2O+nelPyxBnt0h0bS8uerCrLPU7uwTTqoYNFjS6uFYMD5+EwvCHD5s=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791439028; c=relaxed/simple;
+	bh=ERFfEbPmweH1yhwx1o9jFMHg4vWGfaK55qTf8oHXD5c=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jXiJsZZe9rw2FxNKKQ79BV/ihNeAkSabmaMWreOS+rS+GNQu8ydhGuFahGi0TzOonPvEE8lb2vjAmSCbtd8K36jGsFalB5EDnX4COHAfegQAGTTNapqiEgSMubY4kxZEAHwGhHpqaj79k0RzWTaBFkeBNVC9oCcdM7+NrekDNik=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O7jWfO2w; arc=pass smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NOlsk5b+";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XDO7n1GM"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6984BqB2928943
-	for <linux-kernel@vger.kernel.org>; Thu, 8 Oct 2026 05:57:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	b/Zgs0WMSKVyRyw7zUHqtPNt5IdRRFTMiQLOMjFu9cU=; b=NOlsk5b+qYWY9dte
-	P5ZSXTdbOe975t+hPrnB4MthxaYR/6bW68yRNJLo0rfF9P5h0lqR512AigeOwJI/
-	xOY5klJRK+CSyNB6s5sloWEXuYxCUQeuSZrDF756xdobjZrqDkCwe3WbL/YXmHBZ
-	z+9/H2en8LP3Vs3iBP0nQ4bpqz57ttCLOanXMvobtCHvg9TTpN3aboaD6xy58d4p
-	HY+D5NNibiHkZ9mLgoQRq25xirfrngjo90l8zox+AVx8nCXYPt3nS1N3kEWAO/4t
-	Nf1/Trv9wt9ZdlkiRI/fVzDe/dudiNfPozCuMsOey7zw/AQKYeQlcKF89CkAGkWE
-	4t+eGw==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe2sbnq-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 05:57:00 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93e46b4b700so829034685a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 22:57:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O7jWfO2w"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a1635f7c89so48653885e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 22:57:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791439025; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OF3jgoaMd9HtzUonKYc4U/i8n+8fI1wVKqKz2BCPqaL3FAOoK4tj2LIuESm38CuZDr
+         PaPlkG1znT8YrAJSKxkqovnUaHrHfoUwluL2lc8evJjsJ2sTpTec2wcZ5mYtIrLgQSS2
+         WEmCQbcEvIrDSNjqwzNhcCpYFaBDMcHdolBbUZiQHY3pcCdyXr/0Gnr/Q0HWWYoVJWOw
+         mW/iXX7iYac1QB+gdzqMVYaa7Y/ykUY07zQH4PmpF94NpATxL7UNCoY1j6RHyioPmuy3
+         yDROE0mHaDOIjC4AW0v43YmhFqr4qFbKhXKhZQupUw9xGEJE5hzMP92s0cQgdR9CrDwn
+         DT/Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ERFfEbPmweH1yhwx1o9jFMHg4vWGfaK55qTf8oHXD5c=;
+        fh=aiyakZJr5mwI6mtsJSTXvCOvFHeTr64wbzPa+hwCiL4=;
+        b=dTbvqCyp97Zea78qmPibTHuA5vchXwH0KDcVENPDa4lWmVzfzRRsx5a+KepH95cRDk
+         Fb+BEokMbFbJOEasGNe0p86XX1tEyZkKZzyJFHE1TjNzBVvrXXR+Q7JKhtExsPWSQF9G
+         ztqzMGf5DPL5VQfoCMoSpv4bH14nDbsw12V32tFwXrocvKqW7tryGRM/Waw2+0NryKqb
+         1nIdrAm5DvAFjTinJKb9pgU+cufTuJF7H913KYZ7+QMPv1v9iSmSReDp7BFt3uNZLKor
+         EwInqJtQGo64zJBxS7iVoFQvca5Ae0L+ezrePw4Y/waxdihNrUQW+r6tNwOwa4kwVk/p
+         H8yg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791439019; x=1792043819; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=b/Zgs0WMSKVyRyw7zUHqtPNt5IdRRFTMiQLOMjFu9cU=;
-        b=XDO7n1GMISgsVB7rAEPRJoCAJWzFobaBEqtN75mb2MUVB38CUmrfRuQRcmL0HfvDMH
-         kizjWRtfpPIQ2mziUdq3/Cevuf/UOLDUF1iYMjnlBrGVE+n+NbJZYJ4wYVfhHjK/XGzu
-         t+wVWrVjcu5xbyGIMI+hCH8pxsx9e3FiyrAwjjy4q9k7jnH8MELXjPI6uvDLUPa+LVWu
-         jISfKeS5C3VX6V88DN56d/BkIn1ybgJeSdCs8msUUaS0CPoAbuM9SUI8xNd+wGLV/usa
-         A+odPfGKccxqXSrW0eBUrhOGdim9qXsTSV22I6lJmAxdKNyp2b2JYRur9kXTVjPW7Syv
-         n8og==
+        d=gmail.com; s=20251104; t=1791439025; x=1792043825; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ERFfEbPmweH1yhwx1o9jFMHg4vWGfaK55qTf8oHXD5c=;
+        b=O7jWfO2wQ2Z7PQKVTg99P/xL2e3XNZui+kUjW9f+5XC5YmjWcE+Tywkr9Wof9pyOie
+         iFQYJiHtCq9ZtU1LEq9Rid/9CIbeLK+B5gMxy3tSeWH4x1JX02jsTl8Mukj/KLgNGI9K
+         V5reynBN4+InU23lD6VbcY109EWQmZtGfsgrgsLUPjtbsLlL0RdYg+gIRbAHaanTPXoK
+         CSCBtrVobLe5ykdM2vv40IRNamVADdMOG6oB/De6+QUy5mSysQklLV2WhG/mUh51eOeA
+         lNVS2yeC1etk9cG0SgnMFzdtRlWepmKuG/HMtKt/c3+j+9E1R9iu77N5IMHkQ8wAc0k/
+         gOUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791439019; x=1792043819;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=b/Zgs0WMSKVyRyw7zUHqtPNt5IdRRFTMiQLOMjFu9cU=;
-        b=O7F1nEWt0Fyrx5wZWR3j0TVNEkz9rm2c7Ra5Ok32ihY+KVT8gwkpgh8H3TsSkMZm4P
-         lo1BdPPCZ41gHRWOWS7JafrW+MZ5kZbbq2IyOuAnVl+sDHdBUcHpkoSikH0PH8BXsQfS
-         /lbEVuoSL3z/YVzAlNspKR5Y/bGY1MUy/sAh/RFCaP7c9jE5fuhXo1DTUrjry6ZqFPvc
-         uCDTbYKGpWTiGoqgf1YkpB0HTI1Za4zFmDWC3YfNVJd7wsf+IFMGPcM+eXbHSX9q3ft6
-         UzIO6SxF8tLzyV+qnxoEW55SgMMEtX3vDjGbRqgIhb8jdhq+f1LeLfWDhJVAilTxlZyQ
-         LlBw==
-X-Forwarded-Encrypted: i=1; AKwUvBwiR9mkGTLxfIy2LbJzOiSXuGJPUoX7Xp+BG/eudVJqPh4cnOBVp1WDzFO9vVKzJVslC5qt9KSJWZXB6XU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kuEos4jERQMZ+MaAjO8rLrMK76gA3LKzAq2QEmaOyFu3T6El0z
-	ZeuoY7/Gyk5l6DeUp3aDKLjLH6rEGtUs9fKR54//20G9tpZMpRRWAK1xQ6mSZghC6EqPLIVZbgQ
-	6+CH3RanuGxsoCdw+GhPG5rjIVOTP+Llsga7bYR5EBXOW7EY6mNDhuxUJvBjXtpCu5sI=
-X-Gm-Gg: AYBFou3wDMUPuVdaUzF5rRN0jeLR2mnPBua2wQTMruppbE0xh1X8Tj3+S5OZVsDxJ3o
-	sc6Z2US+xul8Pq89Zcn5y2CYz5o8gGD5GSSe7NBXm6WLqw8GHzwNoq6Kig8cy7yNos0sAoSXVbm
-	5IRd/NeILW+UyORh3zBW3WVvRZKAgi+NgKt6O3OttQqK31m1BrfC+z/Mt3Pxm4XejHwRVe+OvRZ
-	U8h0tJunN+NV0AXyGkvZO1PuFkN3m9cY8I7zSqY2PoFqxjpNGr7ZlIr8G7kGjJtYz4VttpivZUK
-	KnhRakk7ZrJgWipYWt+S/j39XB8aw9yYri30jtNk6PukuWKRzvqdBQDkdqD0G3SayyTcQGS4gLs
-	8qkotHd43y0l8AMFKVfedqElyPIFUkNaLWlxHR2w=
-X-Received: by 2002:a05:620a:4411:b0:93e:9809:8383 with SMTP id af79cd13be357-93e9b8781eamr916572285a.67.1791439019190;
-        Wed, 07 Oct 2026 22:56:59 -0700 (PDT)
-X-Received: by 2002:a05:620a:4411:b0:93e:9809:8383 with SMTP id af79cd13be357-93e9b8781eamr916569985a.67.1791439018764;
-        Wed, 07 Oct 2026 22:56:58 -0700 (PDT)
-Received: from [192.168.1.31] ([85.196.172.179])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71bd7983sm9461851f8f.6.2026.10.07.22.56.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 07 Oct 2026 22:56:58 -0700 (PDT)
-Message-ID: <6a2df7c7-274f-4620-8a56-31551536c49a@oss.qualcomm.com>
-Date: Thu, 8 Oct 2026 08:56:55 +0300
+        d=1e100.net; s=20260707; t=1791439025; x=1792043825;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ERFfEbPmweH1yhwx1o9jFMHg4vWGfaK55qTf8oHXD5c=;
+        b=omY0BosPkCrGqMbOwnCasndH91+t+CPbkLBYxER38o7e53UgeIF6vl0Kx+GtnrFg1t
+         wNChbIHI3SVLPmN/WTpkerTaqhT/Xb+PH0SKwrhAIWrcpRLvsmaCqTtg/5tvsHPvR2p/
+         1w+68WwjtNxiePGX6gDVPDSRs3eYEgyOvPS0trYCtnXxPM7OVYOEKzSfb/pkAPI3kIIS
+         BMAtJoygxHJgaAkJv7mg+cAKDISN+JrmVoPv9+SxP63+VEWrxNP2ayDZYq+nkZ1O54Sf
+         FUWM7a9M57MCjqtkxH87Rj7Hd2plVSFYQCxYmxVrvhGCPBoby97vN/VixbP3085rT6xD
+         Axbg==
+X-Forwarded-Encrypted: i=1; AKwUvBxE8Sm7wP5byZqrOCe//YRvvrPDNvxaQc7qswE5LjNADIINwjUTmLznPqlhvKlASYqEO7TlqOq1ynfCMto=@vger.kernel.org
+X-Gm-Message-State: AFuF++mfRsiSSPPE2w2kSILS2rq0HTfoS2xgPLNrW5eHl5GpOlILGVLT
+	ibeCyHwyJ+IAfCFzdwZOv7mfRByIULr8iGylqVo/X6c+3sp0QQ17Zr9dn+AVLmCtH9GAWdyy/IX
+	KOr4yT6Ugjes6XYS5QoUr7lDsYN6j2Q4=
+X-Gm-Gg: AYBFou1T02wjiNvIYTsFa5KCHxWtzxJRB348M/8Q+PnS7fVe8qEDbpzlwlciaeBckgk
+	DDS+kkjdBrZdgF1h/jhKQjspyw2/y/aYgsO/wY6M4TuR3ZropF5dCzHDYcA5WxedEzxJPHkHj2V
+	+YNn/bwgdNhVvNGNwRICWjJgmFRhgsAeQxZ0COXAKlr+MLzFKA4QT81c15+m6mV2MlGZDbFlgjs
+	K/xwXcg4JqBo7Q8x+8hdQADZdJ/Yw/lzWCEfpG+ueh+JzjQlw5NnHAEKoCL5BJtdNF9Sw81aPGt
+	neahbLHtmTKs6AsUaMNVFZNDDeoRgSb4Zb9iWkCnhJ02mELEmNQL/aV8
+X-Received: by 2002:a05:600c:4fcb:b0:4a1:7b53:c8c4 with SMTP id
+ 5b1f17b1804b1-4a180455cb9mr75121655e9.27.1791439024920; Wed, 07 Oct 2026
+ 22:57:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 28/74] media: qcom: camss: vfe: Add planes identifier to
- struct wm
-To: Bryan O'Donoghue <bod@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-        Daniel Scally <dan.scally@ideasonboard.com>,
-        Keke Li <keke.li@amlogic.com>,
-        Richard Acayan <mailingradian@gmail.com>,
-        Hans Verkuil
- <hverkuil@kernel.org>,
-        Gjorgji Rosikopulos <quic_grosikop@quicinc.com>,
-        Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>,
-        Robert Foss
- <rfoss@kernel.org>,
-        Milen Mitkov <quic_mmitkov@quicinc.com>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
- <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-28-ed985aefd611@kernel.org>
-Content-Language: en-US
-From: "Gjorgji Rosikopulos (Consultant)"
- <gjorgji.rosikopulos@oss.qualcomm.com>
-In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-28-ed985aefd611@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDAyMyBTYWx0ZWRfX2KiXXV1JdmH3
- ia0PKaACPhpV+nUBzukgEfOc3h2nKxNm7T74/fwZAlO+esG89SmbezFx1LjEsBk57yTW6m3+T1I
- 4LTxXd/g4Gsdp8QxttQn66i/o2Pfhx4=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDAyMyBTYWx0ZWRfXy7hAyE5g8JXf
- iYn5SMgtYc0a3VhA7q4Q2M4uO2kVtTS6AikKBbrqqp0ZT3dtvwmImiRwmOHsO1Tn8qkAxhz6uc+
- t6RL7yMu7Q+ruywgCz7UJq+xLzQ6/492NXQWv8JB86ik266QaWG4UDQGuhg1NeBxslKXntzkWFQ
- 6tsFKW23U+XCrRXN4Akx/tEbn23XHaCD4hAHhr7ubZKo3PZFaWeuEh0g9GY4985ruQl5A9clWRp
- 0cZCSsNH7e4OgRLuNGtmcLMs2iwWkY/MZ2OPrmIhsowLF8varn2WRi68fZutneQBOl+B9dDnF2R
- Fcr3PlY85zqWPB2gbmpSAzki+7D/OGnFrxtTcpZ+YBKjpvoDgxjwAAR2f9pFAJRvSxLYZ1ff5E5
- G7tx7QQrfGGC0aatQov/7LmM4udrRNxH33WkjpNfSLGAfOCBFSskemoCT6NeBCM+sRgSMMMYkea
- M08mmpuGHsANIiBwvWQ==
-X-Proofpoint-ORIG-GUID: L_KgHOMGQrrJnIcUy8ckhqMjAIs1MxPr
-X-Proofpoint-GUID: L_KgHOMGQrrJnIcUy8ckhqMjAIs1MxPr
-X-Authority-Analysis: v=2.4 cv=CIm/zhrD c=1 sm=1 tr=0 ts=6ac730ac cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=Q/e3f29T3Hw2hnAEzBPF7w==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=VwQbUJbxAAAA:8 a=X4GJfOngNdAlU1NO0XIA:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-08_02,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0 adultscore=0
- spamscore=0 priorityscore=1501 suspectscore=0 clxscore=1015 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080023
+References: <20261007022859.60101-1-kunwu.chan@gmail.com> <20261007022859.60101-2-kunwu.chan@gmail.com>
+ <66d8d340-ff50-4fcb-bf19-05fa68c27238@app.fastmail.com>
+In-Reply-To: <66d8d340-ff50-4fcb-bf19-05fa68c27238@app.fastmail.com>
+From: KunWu Chan <kunwu.chan@gmail.com>
+Date: Thu, 8 Oct 2026 13:56:53 +0800
+X-Gm-Features: AclHuK_vneNVObOeVywJe48WggHU4Sw7QcVGazKvBlLRarryICjDBJz7-XGqNn0
+Message-ID: <CAN_Opa_7iaGj0_=POskHU_KXqfDUbJiar0sPj8dhKLf9Cv2riA@mail.gmail.com>
+Subject: Re: [PATCH v3 1/2] rwonce: Add READ_ONCE_THIS_CPU() and WRITE_ONCE_THIS_CPU()
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: Anna-Maria Gleixner <anna-maria@linutronix.de>, Frederic Weisbecker <frederic@kernel.org>, 
+	Ingo Molnar <mingo@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Linux-Arch <linux-arch@vger.kernel.org>, linux-kernel@vger.kernel.org, 
+	"Paul E. McKenney" <paulmck@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Bryan,
+On Wed, Oct 7, 2026 at 6:50=E2=80=AFPM Arnd Bergmann <arnd@arndb.de> wrote:
+>
+> On Wed, Oct 7, 2026, at 04:28, Kunwu Chan wrote:
+> > Per-CPU variables are sometimes accessed from different execution
+> > contexts on the same CPU, typically task context and an interrupt or
+> > NMI handler.
+> >
+> > A plain READ_ONCE() or WRITE_ONCE() marks such an access as an
+> > intentional race but does not express where the racing accesses are
+> > expected to come from. This distinction allows concurrency tools such
+> > as KCSAN to tell an intentional same-CPU context race apart from an
+> > access that may race across CPUs.
+> >
+> > Add READ_ONCE_THIS_CPU() and WRITE_ONCE_THIS_CPU() to identify accesses
+> > to a per-CPU variable which are intended to race only with accesses
+> > from other execution contexts on the same CPU. For now, they are
+> > simple wrappers around READ_ONCE() and WRITE_ONCE(), so generated code
+> > and tool behaviour are unchanged.
+> >
+> > Suggested-by: Thomas Gleixner <tglx@kernel.org>
+> > Suggested-by: Paul E. McKenney <paulmck@kernel.org>
+> > Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
+> > Acked-by: Frederic Weisbecker <frederic@kernel.org>
+> > Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+>
+> No objections here, but since I missed the background, I don't
+> see what a future implementation of the new macros might do
+> that is different from the existing macros, maybe you can still
+> clarify that.
+>
+Hi Arnd,
 
-On 10/5/2026 8:13 PM, Bryan O'Donoghue wrote:
-> Define the number of planes a given IFE write master will write as a
-> data-field in the WM structure.
-> 
-> Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
-> ---
->  drivers/media/platform/qcom/camss/camss-vfe.h | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/media/platform/qcom/camss/camss-vfe.h b/drivers/media/platform/qcom/camss/camss-vfe.h
-> index bf8dccf4c901e..8bc07fe7798e1 100644
-> --- a/drivers/media/platform/qcom/camss/camss-vfe.h
-> +++ b/drivers/media/platform/qcom/camss/camss-vfe.h
-> @@ -101,6 +101,7 @@ enum vfe_v3_comp_group {
->  
->  struct vfe_wm {
->  	u8 bus_client;
-> +	u8 plane;
+Thanks for the Ack!
 
-Can we change this to num_planes, plane is somehow not well descriptive for number of planes.
+The background was discussed in the v1 thread:
+https://lore.kernel.org/all/87qzici6yb.ffs@fw13/
 
-~Gjorgji
+The idea is that the *_THIS_CPU() variants make the intended
+access scope explicit: a race between different execution contexts
+on the same CPU, rather than a race that may occur across CPUs.
+
+For now, they are just wrappers around READ_ONCE() and
+WRITE_ONCE(), as Thomas suggested. A future KCSAN implementation
+could use the annotation to distinguish these same-CPU races from
+cross-CPU races.
+
+Thanks,
+Kunwu
+
+> For taking this through something other than my asm-generic tree:
+>
+> Acked-by: Arnd Bergmann <arnd@arndb.de>
