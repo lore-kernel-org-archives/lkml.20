@@ -1,254 +1,178 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7D403644CF
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 04:18:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B56A28F5;
+	Thu,  8 Oct 2026 04:21:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791433137; cv=none; b=nCQTIdBwzuQfrMmp+5vP1ZhOr8AQF7B+sjchrAM0nG1u5BEDlgj6FAOtZtavI4fJnLBaAhxdcMdXu49kxD9wH0Yz+PesFFXRKqRAjCMtrjczWWFPtRt0MC/QzjslP7NbLSIFnLt6k7ajXruTFVKhrI45jPL/fh38XOp3X+K8YZE=
+	t=1791433310; cv=none; b=fZEcuejhC0X/PlX9ZZeYzHNriXN7a7aoxVN+0M9aOMEJrtZPMbEZBcr1+Cd4Gi2RcHL+IpWpIyAOkhJ01qlIMUhvhPQdpSgB2xvL9o6CO3EIsQYjqMbCnqx4w3JjImoy0YbNlxx6c3Z9lBy6y2+CnLVmZ3+qsIxRqkEWl3s0x4Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791433137; c=relaxed/simple;
-	bh=o+nmbUd5Bzhc/u5A/wvjfZeEppq7fvG6jNgNLg/guNs=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=LS5Dz9MZzSuDfA4TYBPQ69Mmux2SHLbt65u+A+IQw7CWdkcb4+V7DtTATYROS6pyE9A1H/RQvKsHaPjMaZef19GXBOcjg2tei22yLNgw0EiL+ZfSgIiCXH2uJCDOS1Di3WbiQG4OFWI2kMLN7mjsivgknGN+dNVFxj5xMMo7e9I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=liuyPiTB; arc=none smtp.client-ip=209.85.214.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791433310; c=relaxed/simple;
+	bh=72t8kjnmtlHayJXabWx7qkj7uN9CNyIrQorr5EX/XD4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZpZTLBN8DrEet4gBKvzfwrY+YdF7g291vTS0mY4cfxtvSMxRblkvVLnm5XhKYQhMLc+WoIjUj9cZAK6RQvrLZoQNvUwzzNlvZbJ9nz6tugXo0w9xsx1TayEcgdC8sF/0bNmABcCoDIFPqMuGlYfqVtBBgQo1gse74D/5uujbV4s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bI18DeG9; arc=none smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="liuyPiTB"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2e812e2b31bso1262935ad.3
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 21:18:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791433135; x=1792037935; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aryqICRrhV8jKihj/6AZNQBgiVHUAIJCava9Sm4QtPQ=;
-        b=liuyPiTBYRG1mWU/JNWFoyLhUDYJUfk6TsJSTi+MzsB85RMlOdyeiy9UKq76M4+s+N
-         O8E7LQ7EV0h+62NcYfa8KH9zmsRhY6+IDy0B5uVmBBMFe11bgPmtYZ57cypJCLqJmOjF
-         q7ceQmnlMtF8DaUqjxGxqtCzzUDgs8LR4gmRyb6hUVNB15wAK4pwjRVXblD5oLj2X4EB
-         1yRpgSKiWYoGdt7YuEtwNsKTfWRlbSqERNS+ayh7YCXeIradqZ54vanrk+3wBjX20IQw
-         Odq+VPyB7pzyP02TDCBlNZpOvTujiAzX7ieO6QPG2lNFTfPpvdEaFVldVMCPSFMMECXk
-         vfeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791433135; x=1792037935;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=aryqICRrhV8jKihj/6AZNQBgiVHUAIJCava9Sm4QtPQ=;
-        b=zvNsgfdXgKElroH1ZcJ8VkJqEyrKYYQ33b4ukWFf2WQx4Bk7VaTdClW/6QrdWS2UAn
-         tRWtptJZCPkShwM27E8M/4dERAeR6yMUopjFSCAMwbELXEMZ3Dv9PlIIA7tVG10wMCOI
-         u7z68mcyrDEIa+Lp4dQrIpkv9LylUbVrBlPD15mdX+CGwZWkfnmqxXjYcUybUyq7uoHD
-         UxF/7ZTWycqHsNLo2KN5amV5GRBKnnPwPqOGj7PC7pQfbr9l1TZJ3MozVYJS90MrbURJ
-         tshSfvxkcpsIfuRVwpjcobTA1+Su1jVUheOvYLPhv9FLnP9MyJu3iHEiAxbTkYPP+1T6
-         ol0Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzz/THS1RCCuDiMC10aI9BrphN9yUO9WE8Nzv3vHOLb61niMlLAF+GJBC4yN45jswxvyyVbQHhJogza+KI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJh1r1umwk2KkWd7lq4fQe0yZDPjdVPRKMbDV+LXjNxUdCOSvtS
-	Qn2embqQmFmmsqU4x6/FqAJXY7byuKC/FFa3AC1fxxf25yZd8ARDCHsX
-X-Gm-Gg: AYBFou0AG8I5mzPCimupfArxvjPgw57LUwEEvtZgCOdcMU1u3hMaikjkoNNSbwJZAH4
-	XPj53gFOxKB+JUVj/9bZBjoYbfFqx8EyFNsrVyfNQL+FRYwWlLJXQE++2tGq6ncCfggpz4MXMYh
-	yEB5JTpxNj00Wr3nLUUc160t1cMXoeCzmYHv2lk1ro4tPZOpDjhCQECmrTjuGEEnV98y/HUICeC
-	SVMrJbSiExuSskknB94GxiyydSq2PVx355ljsJQi2OFgLu+UY5ObNEMAqZC6eO6LB6PgF5wZ0c5
-	uE3IeHM63sXEcs4biD0lSnE8bW49e7DVFBTvQ7la36X6n1W1ScQV4d13cZEH2kCD3laRgJVcuP3
-	hAfev6RPCnyjnGyY0hygR51y9Tfw2ChF/1XUVeWV1yCx4y6JPvqWSrbenqjqwHe5ibgrddK5+Vd
-	ZeKkVGrBTUz1PAli8QGewuMMv1O670/SflK98uAo6h+V0f8jlfRzmYZQZkteEuOMgnI3cpoaZ+2
-	sBe
-X-Received: by 2002:a17:903:32c7:b0:2e5:d2af:8a92 with SMTP id d9443c01a7336-2e600579de3mr38335405ad.61.1791433134798;
-        Wed, 07 Oct 2026 21:18:54 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e6046fe0aesm19087195ad.28.2026.10.07.21.18.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 21:18:54 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: marcel@holtmann.org,
-	luiz.dentz@gmail.com
-Cc: linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH] Bluetooth: hci_sync: Protect IRK identity reads with RCU
-Date: Thu,  8 Oct 2026 12:18:50 +0800
-Message-Id: <pm-bluetooth-objects-candidate-0130-v4-50db5732ff5e26d28412@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bI18DeG9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791433308; x=1822969308;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=72t8kjnmtlHayJXabWx7qkj7uN9CNyIrQorr5EX/XD4=;
+  b=bI18DeG935pvf2gmg7b6+7pV+Qz1cO7ks7kQAqieXuM3pZMGYzMth3vl
+   tuQ22CwqDSN3aApUH1BWr9DokCUacUucJBpJvzddH2p8rZKUo4YMA0QSl
+   ju4hWQhkeuw6dK5Gz16nyDjknSJFTzG9ICAZb7sqtdvZlhyZG/CH4BzGx
+   BD5PuijIcOU5M7VyQiF+41ExbfACfeffbPkTj9krd5J2xsPtiLVUuSVMY
+   ojp1mqbsjvd0Ckec+FyxzLfcyF0oNRF73qtVrwYmjmHBOGBrrFYK29szO
+   Xo7VH4ywuSAztx336XVL/2exCLpE+73wy7TMyjRgDe0QUSc5KzEvNRg7Z
+   A==;
+X-CSE-ConnectionGUID: R3Td3kqASf+ko6n+8RFrwg==
+X-CSE-MsgGUID: J8Jwrby8RpWNzo/BTMxiag==
+X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="89787"
+X-IronPort-AV: E=Sophos;i="6.27,145,1787036400"; 
+   d="scan'208";a="89787"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 21:21:48 -0700
+X-CSE-ConnectionGUID: ijIX/gW5Q9+QS8t15kW+Mg==
+X-CSE-MsgGUID: ZMwSeSVDTranw+w5fx6dCw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,145,1787036400"; 
+   d="scan'208";a="4524"
+Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
+  by fmviesa001.fm.intel.com with ESMTP; 07 Oct 2026 21:21:43 -0700
+Date: Thu, 8 Oct 2026 12:18:33 +0800
+From: Xu Yilun <yilun.xu@linux.intel.com>
+To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
+Cc: "linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"x86@kernel.org" <x86@kernel.org>,
+	"kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+	"Li, Xiaoyao" <xiaoyao.li@intel.com>,
+	"Hansen, Dave" <dave.hansen@intel.com>,
+	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+	"baolu.lu@linux.intel.com" <baolu.lu@linux.intel.com>,
+	"Hunter, Adrian" <adrian.hunter@intel.com>,
+	"tony.lindgren@linux.intel.com" <tony.lindgren@linux.intel.com>,
+	"kas@kernel.org" <kas@kernel.org>, "Xu, Yilun" <yilun.xu@intel.com>,
+	"artem.bityutskiy@linux.intel.com" <artem.bityutskiy@linux.intel.com>,
+	"nik.borisov@suse.com" <nik.borisov@suse.com>,
+	"Mehta, Sohil" <sohil.mehta@intel.com>,
+	"Duan, Zhenzhong" <zhenzhong.duan@intel.com>,
+	"Gao, Chao" <chao.gao@intel.com>,
+	"Fang, Peter" <peter.fang@intel.com>,
+	"Maloor, Kishen" <kishen.maloor@intel.com>
+Subject: Re: [PATCH v3 2/6] x86/virt/tdx: Configure add-on features on TDX
+ module init
+Message-ID: <ascZmXRuxiiAAv2+@yilunxu-OptiPlex-7050>
+References: <20261006-tdx-module-ext-v3-0-db52cb05b918@linux.intel.com>
+ <20261006-tdx-module-ext-v3-2-db52cb05b918@linux.intel.com>
+ <51a0f0e33d523fa652b3c664ea1083a9459bd323.camel@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <51a0f0e33d523fa652b3c664ea1083a9459bd323.camel@intel.com>
 
-hci_le_set_privacy_mode_sync() needs the IRK returned by
-hci_find_irk_by_addr() to remain allocated until its identity address
-and type have been copied into the command. The finder drops its RCU
-read lock before returning this borrowed pointer, leaving the later
-field reads unprotected.
+On Tue, Oct 06, 2026 at 11:56:23PM +0000, Edgecombe, Rick P wrote:
+> On Tue, 2026-10-06 at 01:41 +0800, Xu Yilun wrote:
+> > The TDX architecture identifies some features that are off by default
+> > but can be enabled by the host during TDX module initialization. They
+> > are classified as add-on features because enabling them affects existing
+> > TDX systems: they may change existing feature behavior, or reserve more
+> > memory.
+> > 
+> > The TDX module extends TDH.SYS.CONFIG with a new register argument to
+> > specify which add-on features to enable. This new argument is a bitmap
+> > that uses the same feature bits as TDX_FEATURES0. Note that Dynamic PAMT
+> > is an exception: although it is an add-on feature, it is controlled via
+> > a legacy, dedicated register argument [1].
+> > 
+> > The kernel needs to enable these add-on features when it supports them.
+> 
+> I made a similar comment on v1:
+> https://lore.kernel.org/lkml/41f5a558ca67e2895fcb114c418f0e453e933974.camel@intel.com/
+> 
+> It is up to the kernel to decide if it wants to enable these features, when it
+> supports them. The sentence sounds like there is some hard requirement to enable
+> them when possible. I think the reasons to enable them based solely on available
+> support could be:
+>  1. They don't take significantly more memory or CPU resources, and limiting
+> possible configs reduces kernel complexity.
+>  2. It would be rare that people don't want them on.
+> 
+> Maybe we tweak this to be?
+> 
+> Despite that these features can be add-ons due to introducing some overhead to
+> TDX runtime, the impact of the first features will be low enough to pursue a
+> simple approach of just enabling them when supported. If a feature with a very
+> high overhead appears in the future, this can be revisited.
 
-When a privacy-capable controller has a pending peer with address
-resolution and device privacy enabled, accept-list programming can
-reach this helper while management reloads the IRKs. The request
-worker holds hdev->req_lock, whereas load_irks() takes hdev->lock,
-allowing the following ordering:
+Good to me. I'll include it in v4.
 
-  Request worker                     Management / RCU reclaim
-  hci_le_set_privacy_mode_sync()
-    hci_find_irk_by_addr()
-      rcu_read_lock()
-      find matching IRK
-      rcu_read_unlock()
-      return borrowed IRK
-                                     load_irks()
-                                       hci_dev_lock(hdev)
-                                       hci_smp_irks_clear()
-                                         list_del_rcu()
-                                         kfree_rcu()
-                                       hci_dev_unlock(hdev)
-                                     RCU grace period and IRK free
-    read irk->addr_type
-    copy irk->bdaddr
+[...]
 
-The request then accesses a freed IRK. KASAN reports a one-byte
-use-after-free read of addr_type on this path.
+> > @@ -1056,6 +1066,15 @@ static __init int tdx_sys_config(struct tdmr_info_pa_array *tdmr_pa_array,
+> >  		args.r8 |= TDX_SYS_CONFIG_DYNAMIC_PAMT;
+> >  	}
+> >  
+> > +	/*
+> > +	 * Use SEAMCALL version 1 that supports add-on features if any are
+> > +	 * requested. Otherwise use version 0 for backward compatibility.
+> > +	 */
+> > +	if (addon_features0) {
+> > +		args.r9 = addon_features0;
+> > +		args.version = 1;
+> 
+> This is a slightly silly pattern:
+> args.r9 = 0;
+> if (addon_features0 != 0)
+> 	args.r9 = addon_features0;
+> 
+> ...could just be:
+> args.r9 = addon_features0;
 
-Keep an outer RCU read-side critical section across the lookup and
-both identity-field copies. The finder's nested unlock then leaves
-the IRK protected until the caller finishes copying it. Release RCU
-on a lookup miss and after copying the fields, before the synchronous
-HCI command can sleep.
+Yes, that's workable.
 
-KASAN report as below:
+> 
+> It could actually set args.version a similar branchless way.
 
-    ==================================================================
-        BUG: KASAN: slab-use-after-free in
-    hci_le_add_accept_list_sync+0x90f/0x940
-    Read of size 1 at addr ffff88810aa6072c by task kworker/u17:0/493
+Not sure how?
 
-    Workqueue: hci0 hci_cmd_sync_work
-    Call Trace:
-     <TASK>
-     dump_stack_lvl+0x93/0xd0
-     print_report+0xce/0x630
-     ? hci_le_add_accept_list_sync+0x90f/0x940
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __virt_addr_valid+0x20d/0x410
-     ? hci_le_add_accept_list_sync+0x90f/0x940
-     kasan_report+0xe0/0x110
-     ? hci_le_add_accept_list_sync+0x90f/0x940
-     hci_le_add_accept_list_sync+0x90f/0x940
-     ? __pfx_hci_le_add_accept_list_sync+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? conn_params_copy+0x3a0/0x650
-     hci_passive_scan_sync+0x8c9/0x1e80
-     ? __pfx_hci_passive_scan_sync+0x10/0x10
-     ? find_held_lock+0x2b/0x80
-     ? hci_lookup_le_connect+0x181/0x3c0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? find_held_lock+0x2b/0x80
-     ? hci_update_passive_scan_sync+0x437/0x950
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_release+0xc8/0x280
-     hci_update_passive_scan_sync+0x461/0x950
-     hci_cmd_sync_work+0x1b3/0x450
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     process_one_work+0x908/0x19c0
-     ? __pfx_process_one_work+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_is_held_type+0x8f/0x100
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     worker_thread+0x65c/0xe40
-     ? __pfx_worker_thread+0x10/0x10
-     kthread+0x34f/0x460
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork+0x659/0x940
-     ? __pfx_ret_from_fork+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __switch_to+0x74f/0xf80
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork_asm+0x1a/0x30
-     </TASK>
+I don't think just "args.version = 1" can work. It will fail older
+modules which doesn't support add-on features & doesn't recognize
+TDH.SYS.CONFIG v1.
 
-    Allocated by task 507:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     __kasan_kmalloc+0xaa/0xb0
-     __kmalloc_cache_noprof+0x251/0x610
-     hci_add_irk+0xb6/0x220
-     load_irks+0x5ef/0x7e0
-     hci_sock_sendmsg+0x128b/0x22e0
-     __sys_sendto+0x425/0x470
-     __x64_sys_sendto+0xe5/0x1c0
-     do_syscall_64+0x115/0x6a0
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+How about:
 
-    Freed by task 0:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     kasan_save_free_info+0x3b/0x60
-     __kasan_slab_free+0x5f/0x80
-     __rcu_free_sheaf_prepare+0x65/0x2a0
-     rcu_free_sheaf+0x1f/0xe0
-     rcu_core+0x661/0x1d10
-     handle_softirqs+0x201/0x930
-     __irq_exit_rcu+0x110/0x1e0
-     irq_exit_rcu+0xe/0x20
-     sysvec_apic_timer_interrupt+0x6c/0x80
-     asm_sysvec_apic_timer_interrupt+0x1a/0x20
+	struct tdx_module_args args = {
+		.rcx = __pa(tdmr_pa_array),
+		.rdx = nr_tdmr_pa,
+		.r8 = global_keyid,
+		.r9 = addon_features0,
+	};
 
-    The buggy address belongs to the object at ffff88810aa60700
-     which belongs to the cache kmalloc-64 of size 64
-    The buggy address is located 44 bytes inside of
-     freed 64-byte region [ffff88810aa60700, ffff88810aa60740)
+	...
 
-    The buggy address belongs to the physical page:
-        page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0
-    pfn:0x10aa60
-    flags: 0x200000000000000(node=0|zone=2)
-    page_type: f5(slab)
-        raw: 0200000000000000 ffff8881000428c0 dead000000000100
-    dead000000000122
-        raw: 0000000000000000 0000000000200020 00000000f5000000
-    0000000000000000
-    page dumped because: kasan: bad access detected
+	if (args.r9)
+		args.version = 1;
 
-    Memory state around the buggy address:
-     ffff88810aa60600: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
-     ffff88810aa60680: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
-    >ffff88810aa60700: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
-                                      ^
-     ffff88810aa60780: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
-     ffff88810aa60800: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
-    ==================================================================
-    Disabling lock debugging due to kernel taint
-
-Fixes: adae20cb2d20 ("Bluetooth: Convert IRK list to RCU")
-Assisted-by: LLM
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
----
-
-diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
-index 1fe11d3ef1aaa8118811fb778b591e0413b4b3f0..14960ad5384df2c41358d838a4ff850744afbad7 100644
---- a/net/bluetooth/hci_sync.c
-+++ b/net/bluetooth/hci_sync.c
-@@ -2554,13 +2554,19 @@ static int hci_le_set_privacy_mode_sync(struct hci_dev *hdev,
- 	if (!(params->flags & HCI_CONN_FLAG_DEVICE_PRIVACY))
- 		return 0;
- 
-+	rcu_read_lock();
-+
- 	irk = hci_find_irk_by_addr(hdev, &params->addr, params->addr_type);
--	if (!irk)
-+	if (!irk) {
-+		rcu_read_unlock();
- 		return 0;
-+	}
- 
- 	memset(&cp, 0, sizeof(cp));
- 	cp.bdaddr_type = irk->addr_type;
- 	bacpy(&cp.bdaddr, &irk->bdaddr);
-+	rcu_read_unlock();
-+
- 	cp.mode = HCI_DEVICE_PRIVACY;
- 
- 	/* Note: params->privacy_mode is not updated since it is a copy */
+> 
+> But I think the version in this patch is super obvious about what is happening
+> and has a nice place for the comment. And this is extremely far from a
+> performance critical path.
+> 
+> 
+> > +	}
+> > +
+> >  	return seamcall_prerr(TDH_SYS_CONFIG, &args);
+> >  }
+> >  
+> > 
+> 
