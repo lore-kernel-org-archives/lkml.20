@@ -1,162 +1,86 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8C9039794E
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 16:25:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F434396D1A;
+	Thu,  8 Oct 2026 16:26:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791476703; cv=none; b=sj5z3RVXFLaJGMGZD9I5pBq1uIi25uTZRMnQvYsuyLyAuuciAGdhJxUTBMfj83ixcd4hTydpgKZUgqbiZfaBZz64ZsuBw3bk8Oai769B9eOe/E1kLrIkz/bys66KW1/L8xyxUMM0xm5Y+hWG+Q/H5HyXPrGmKpEQPirEc7rFGIQ=
+	t=1791476805; cv=none; b=o+skhJl3V4Gx7yfGxXle0iXAqLEgb1gqWC/rQJVJS49HPjW//dpx4VBsWnlKj3s8Ed//UG3ltJkc6tMNDEp1wn2EDWV5OHeC85LoSS4cY6jZ8POYrON7PuBdffkBC0GD2O48qmqB5nuucI/A2pOyF2bPXCW/fzVwgH95YwFPnU8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791476703; c=relaxed/simple;
-	bh=Vs+5rGUucy0PFKqrstrZgmPgXHE8v/mFwnQmllp8gq4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=adwCyZM+euZSmlHThS7DuWJhI0czPCShwlxvRDwkuTvRTQqQbVixdNLoISFT6Ulw9uq3MZZIWFtK66HuhpFzpSiNxApaM7Tkv6EzP+0Gkj6n2eZuVhAYHrX9TUD8ts6Y639e4WG5+ixCAsD1K0YR5wN2u5NVjGcSPLRARthLuPc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hQKewCh+; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KL1sL6B0; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791476805; c=relaxed/simple;
+	bh=yf7aL/4lvkJZpEmzxHngwDFA5owXaDyrVr/z8qpn7kA=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=HgYmFiHd7fpwpkG2m0uvUV8Rx/ajVnuiQf8heuS+gTkhbmQlBNvrb5yIoTUohtMRPtlxXQKt4C0OljozWNCODbtVbXEXZJFXTfPok7cqw/WW00uFcwU7jUs/mmSzo0+eJkUYFh8ZBq8TP3Lh0OQp1702CtX7z9gH3vgedUzpkNk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=cjOt5jQG; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hQKewCh+";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KL1sL6B0"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 698EVCnJ3017371
-	for <linux-kernel@vger.kernel.org>; Thu, 8 Oct 2026 16:25:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	PrPZf5SWpHn7JseCoewc3m7EX0hPPEz3Jrk1GAafdW4=; b=hQKewCh+rxpwHiyJ
-	rSwqE2PX3cd9T+3U53kvUEh5cblkjVgzW8qkVUenjMsD1hry9OjtWr9He1oF8uMP
-	2XoB0464xFZ4iQ0EnFj8xIhR9A2qiPIMOVUH39jdTLP1fnuc782wZFBaRsQKjBvv
-	0Q466bcdVWZKVCo3xJRtFYiDmBq/OXvAJha0rUttpX9g52Q+npw08+R9b8u2l9Il
-	zsPomHgk6I5bhmdmH2FfoaraSV5cwl9qcfzpELR3yETBmX3hpKJ9awst9sa4RSYc
-	qy8WqtyVIvc4XiT9THJPcMMtRdhM5oW4q/g9Aj5GbDhnSfvbu42D8RIQSnQFerPf
-	7iu4yQ==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h6b9kgvd9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 16:25:00 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-38ecc48b3c2so9371323a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 09:25:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791476699; x=1792081499; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PrPZf5SWpHn7JseCoewc3m7EX0hPPEz3Jrk1GAafdW4=;
-        b=KL1sL6B0b0UeL2X06p4jmSQQcggkCmghNKWdZ9sS5L700Hd4szWaK+O+4gsnpyGwsI
-         xelnY5Wvq8UHEvzwH9QjaYTm4Gc+vRkehJO8DePM8kzChyz3SBxtNLka5lzhwCZJx8SZ
-         QvQigSeYD6b5juw67sZdLLLIQ+wnDRTpNBd59iGsOMIvl6tXYnOQK5wH57K2A/NMpXGp
-         I+rKsJdXMJaNiyvDzLKZzQ6H2CkVk85jzFo6clPb2kGGDJCTaeYhHSrRVGc3QgtrpvgE
-         BaKQeou719RCkqGeir2pS7wEiL3Fr1+OY9zctoCUrneU17aCKEF5Y4qRzieqc+2kHcWf
-         ESkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791476699; x=1792081499;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PrPZf5SWpHn7JseCoewc3m7EX0hPPEz3Jrk1GAafdW4=;
-        b=WwaglxQ/OP5h9TYKpcHenkW0hDFbPMR3ryay41uh5T7oO79r+0O36S7IpM0EGziPBf
-         oxhelG4Jih2wlB/ZlgU6+i+AukXxdeFGfN43KakTffo2CJr7EVfxCmZ/9r82ZbkmcIiP
-         Vg6sJ0Gg1A4daob1k3SaeSSyYOjSn/jSAeIuXLD+xwlB7cBiuAjDvgMmxcm+9EvM0ewY
-         XX92YbTVnN7kSC7R8ngOCz9AehvaPmfqN2pERm3FpeUrpsMsxg/8PqecCJW7gOI8ci4D
-         kRUhfwfxj9ydkmku8YC79YST7KX8+BUPaIh8AOQv+9331LtM4/utQeWxNfyg/uNyvKI4
-         TYIA==
-X-Forwarded-Encrypted: i=1; AKwUvByxT38ozL6dp72OW+iXeDcxAsLfyRCqXyuDeCWgOQ5Lfy/NKebpKtKGT2MJBtc5cOprjbZw5C5HycK4aqE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKiYluco7wdK6oEIFQ392EjVJ2fRn4oebf7MgDfJpRxz8T2GJBz
-	5Qgd8pXFoGJ13vaY5zsHu/O5JsdfgDws/9Z5R0eyfFzZBExtRHk4KOydM9J/xAdi2aoDC5Lp2eS
-	ugzAjmy5Sd5VTvFGdnLgq8P1ju5aj846LprEa6WpYKf9gtDl4lT17GNza4X8ZNofg600=
-X-Gm-Gg: AYBFou2xnL6E1QJFHMqbgwPeYu5q4j4AsykkI7PCmspMj0lcXa8pUJtjUwpij1uM2nI
-	KCgeqJX4+7cu4pzcJfDGR7uB6WW6HbBZT3sj5wrQdwg2zV4qJDaCcwYCkhSe7KXxF4u1dUYVCYJ
-	0hBlgDUKGRj/rNRgU0gZfXvlLRyfpsyr6+bPWtswmAocqIwpA8dMrIWR23tLpiC/9A6ZJum9cDE
-	b6LIhx3Oy3h97/lXHWHQ3GwQBPcKV1bSo+6oq8M+jRpnC7hm9xEL5pR6BEvB0VA3d9WOxPpW2VZ
-	XP/i7Z2JplDmhR8+AYH3Fiy6NC9tu1w26IVe9caGryyD/GuZ+DPe8SFrxuI8cqMPvSUSDlanBUs
-	gky7L/PZIT+AtsGtbCQyTyzEfjuqWKhjJxln5tZPPdL4=
-X-Received: by 2002:a17:90b:164d:b0:3ab:413:49af with SMTP id 98e67ed59e1d1-3ab04134fcdmr2005759a91.49.1791476699430;
-        Thu, 08 Oct 2026 09:24:59 -0700 (PDT)
-X-Received: by 2002:a17:90b:164d:b0:3ab:413:49af with SMTP id 98e67ed59e1d1-3ab04134fcdmr2005742a91.49.1791476698950;
-        Thu, 08 Oct 2026 09:24:58 -0700 (PDT)
-Received: from [192.168.11.104] ([124.123.80.135])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9ff8669eesm4665613a91.10.2026.10.08.09.24.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 08 Oct 2026 09:24:58 -0700 (PDT)
-Message-ID: <b792c43c-1b59-40c9-9ddc-0ed263104aa3@oss.qualcomm.com>
-Date: Thu, 8 Oct 2026 21:54:54 +0530
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="cjOt5jQG"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:
+	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=iavQoIHlWsREU4nJw55w+0cA3N6o8b1GBh7368gJd9g=; b=cjOt5jQGxPhq1u6ZSqfF+JsMnL
+	yzqwmNsDKjrgv5uEn/jvIMGJViHvQvO5JfuwwtnQWKGhc4oftpuqeX7Nsziz21F2xHVwjLY+mbUbv
+	RXktCpf/B6ZcE71mneZNjPKAreYBpSOL6e/9/42bre4Wund1/8kRx4PuuTSKoZTL/VOqT6MGAEZSA
+	mxZI8JihNnxvLL+vV3SZ2pFSOLypP13CIxXCCOuKlrDIY4vFfRUbUPiR+Bps79B7WxXe8BHyr8nNG
+	lCitaKP839fZPltVFWHDPxCByJE0xXEtwRl3E7Rl9JsWYYuTOzZDT68tOWnRVlTYLVfryXqlSawp1
+	ZYYPhvBA==;
+Received: from [::1] (port=54688 helo=pf-012.whm.fr-par.scw.cloud)
+	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.100.1)
+	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
+	id 1xEqx7-0000000E5so-0Hv1;
+	Thu, 08 Oct 2026 18:26:41 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH ath-next 0/2] wifi: ath12k: Configure RXDMA buffer ring
- size per memory profile
-To: Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>,
-        Jeff Johnson <jjohnson@kernel.org>
-Cc: linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
-        linux-kernel@vger.kernel.org,
-        Pavankumar Nandeshwar <pavankumar.nandeshwar@oss.qualcomm.com>
-References: <20261007-mpp_ws-v1-0-739b1fb87d24@oss.qualcomm.com>
-From: Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <20261007-mpp_ws-v1-0-739b1fb87d24@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: OyffDY5H_Bh3ZJu5okhMjNOZX9fMG7a2
-X-Authority-Analysis: v=2.4 cv=U98Hnuru c=1 sm=1 tr=0 ts=6ac7c3dc cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=kllYWVK2JqQtNyhMtAlpJw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=xhaovxbADAV7QXi6LY8A:9 a=QEXdDO2ut3YA:10
- a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDA2NSBTYWx0ZWRfX4Qm6cTh9lz57
- wkg/OYawRpiTp7rZmFRNwNthXgwk/467pVQruz+8y3EE+lgQINmmwv25jTjphCzoQOUJr1bd+Xg
- QTgjM7gkSgYTb8SamSYtVvryZgPFGNU=
-X-Proofpoint-GUID: OyffDY5H_Bh3ZJu5okhMjNOZX9fMG7a2
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDA2NSBTYWx0ZWRfX6CT+Nvtvcvp/
- gXVAD9PSh7muz+2wkp09HVkF24DZ/chexCXGjwOVwMUY3yMbaQd6dVV85myF13M7QLklZWB2geA
- hrsl5dRQVXOrFygms5EA7avr8zADlCs7IF/5KTrUsahR+FKNHUpKUN7eVpFhDEBoBSpKseNEOLZ
- dOWG+iIUR7I/05HnxC2Y1G4SbnyoVIKFburcKTEFwzZ3RL7edFRtzDXI5NNnxmlzwSDk2kWBwLA
- 77nQExS3+woqE3HTW21vFe+anU1/qpyvZleoLzRjBiVTmejLyokvAfE26htpLu84J6GYL9nZJgQ
- Py0wq2k8d/09x1BRjl81CEFtGYZ/4V96IlJzvUALWjUDZUO4SJXPkZ2tU+Mhe0vFiysPB6NsWNk
- vAr7PzrAdJ6MiMFhrW6bFnNS39loa1AJdkFF8fCVaWdhI+je002k68uLGvHTk8rdyUBngh2CXBD
- s9GLaHXWTg7PygNrGIQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-08_05,2026-10-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 adultscore=0 clxscore=1015 malwarescore=0
- spamscore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080065
+Date: Thu, 08 Oct 2026 18:26:40 +0200
+From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
+To: "Jason A. Donenfeld" <Jason@zx2c4.com>
+Cc: netdev-bot+sinfo@kernel.org, rafael@kernel.org, lenb@kernel.org,
+ pavel@kernel.org, willemdebruijn.kernel@gmail.com, kuba@kernel.org,
+ pabeni@redhat.com, linux-pm@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net] udp_tunnel: drop packets when hibernating
+In-Reply-To: <CAHmME9rypRmL0tA-20vJumRBckpbzEaBXdE+xhMqi5M5OKPFhg@mail.gmail.com>
+References: <20261008124106.665014-1-Jason@zx2c4.com>
+ <179146356621.2527009.11001901701574636880@kernel.org>
+ <CAHmME9rypRmL0tA-20vJumRBckpbzEaBXdE+xhMqi5M5OKPFhg@mail.gmail.com>
+User-Agent: Roundcube Webmail/1.6.19
+Message-ID: <e443f48537e6ac61a8863e1a678736f9@oss.cyber.gouv.fr>
+X-Sender: jeremy.jean@oss.cyber.gouv.fr
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On 10/7/2026 2:53 PM, Aaradhana Sahu wrote:
-> The RXDMA buffer ring size is currently hardcoded and shared across all
-> memory profiles. This makes it difficult to tune the ring size based on
-> the requirements of individual profiles.
+On 2026-10-08 14:47, Jason A. Donenfeld wrote:
+> On Thu, Oct 8, 2026 at 2:46 PM <netdev-bot+sinfo@kernel.org> wrote:
+>> This is an automated message. This series looks like a fix, but its
+>> commit messages seem to be missing some information:
+>> 
+>>  - Whether the issue was actually triggered, or is only theoretical
+>>    (e.g. found by code inspection). If it was triggered please include
+>>    the symptoms, like the stack trace or error messages.
 > 
-> This series first makes the RXDMA buffer ring size configurable through
-> the memory profile configuration and then increases the ring size for
-> the default profile to improve RX traffic handling.
+> Yea, I really have no idea. That's for Jérémy to elucidate.
 > 
-> Signed-off-by: Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
-> ---
-> Aaradhana Sahu (1):
->        wifi: ath12k: Make RXDMA buffer ring size configurable per memory profile
-> 
-> Pavankumar Nandeshwar (1):
->        wifi: ath12k: Increase RXDMA buffer ring size for default memory profile
->   
->   drivers/net/wireless/ath/ath12k/core.c  | 2 ++
->   drivers/net/wireless/ath/ath12k/dp.h    | 8 +++++++-
->   drivers/net/wireless/ath/ath12k/dp_rx.c | 2 +-
->   3 files changed, 10 insertions(+), 2 deletions(-)
-> ---
-> base-commit: a90ebf2176db07c5d91e0a62e15ded1fd50710a0
-> change-id: 20261007-mpp_ws-a041d5cfac9a
-> 
+> Jason
 
-Other than a commit text nit in 1/2
+Yes, the bug was actually triggered.
+It was found by code inspection with help from a LLM.
 
-Reviewed-by: Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>
-
-
+Jérémy
