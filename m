@@ -1,146 +1,127 @@
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011030.outbound.protection.outlook.com [52.101.62.30])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A02D31E831;
-	Thu,  8 Oct 2026 01:30:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.30
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791423016; cv=fail; b=kEzSSFV82XOxa3N8LAc4HZEntriZDcWGjOxpxIQRxJRJqwJlbyDjFOYSQjCDt9lCCgNE0kJTFMHEAdiwLLCg4Rnqze9YcLQl7Sd5fW1yheVJECtzW/Oh88xqRZ4PYu4xyROW27DeOScXERhe/6UikDRfzIHqAbjx6poo3dUBB78=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791423016; c=relaxed/simple;
-	bh=zZkg7dwJr5D+cAqCF/OtDHKnfUVCaahTRIivKD6uXdM=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Wj0b6xTVM2DlsX8hfdQrJBX8Bnf+gIkwjR562Bv1OUj5SGu5YhnsrkRjjmluE7kZl9ZZbZZ+8Iiw2Udyopz3vjVTO7W1pATHxWGNbywumOi56kuAuhc3YG2sbMvFXTw4zgUfoaNTwqoPKVSjB0hj5JhVEijkTO9cNrLyAqUgFak=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=P9zZ7qXv; arc=fail smtp.client-ip=52.101.62.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA7A62931F5;
+	Thu,  8 Oct 2026 01:39:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791423571; cv=none; b=qNrS6KLTvHicYwYB3ryC4vCyDBtY7bgdrXG3lDvpw2NdaIecTDQc06UiqzpZaFgkhLedh0j5ERJja/BScwGyA7CktvNxzEGBA0ps0PS1Tlep0WoplOUXOZkcfDMxQJYxyTbYnPqiAtt+rHboUIJY1XAIv69KlzN+YwV5bj+ItGQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791423571; c=relaxed/simple;
+	bh=0GXQGuAcREKXfgh4lINceA7vez8LtOZqhWpDymD9sRs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Wlp0yKj9Qvg8y05jgHT9sX4hyZlK0qcWWvSDtSRtRm/ZACU7rKx2D9VSaB/L2mgkLjxUEZe5Ovv0XviKGTfs0NUt0BTsN7Db/nabriQX7/Xdoc2ZJLg1lWojzbKfj3Yls8L193MB53vj0ZGHnHUYyfIfb9BfneYnv0amPLYctbM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H7byY9HY; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="P9zZ7qXv"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=D2DHWzd9WCIgASBvEqbC4Y6+cUkj0OPYBNy/zOwXVWxXbIausxfU0R/JmrBxsczboq53kOQmi3990GKW35lwVhNYW43fZndj3FNmgwtujdQoIMz4F12QwySK5nN1xGMkS7It2fgjssRJqjUr4r7zY/zwm7zlpfkcAbs0dGtgvTw2CI/yTory1/Q3DW6C+IgP2luFc0gu/jfbpyzAwfMILceh+X3Exb3KDGGIRdkAj6aFP5+IpD35LUf4ZYKgQ98sNTwrzAywu9eZAVXq1Aq32k7ymw32gPPTArBfo8KWaUFP2KsIX/Lotr1XLC3UP/odT8P+ehjcgghZtcrMZ6nWsg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=joVq/SLGYIR7p+H9WE/4a22MFuUDNP6W4nL5Y06B5A8=;
- b=AJHTf2MWsjbttFMK5yT8NCZIj+Bi25Bkg+Wb1evAg95y6kS8C+uy8QCWJtnczwb6oj8BqP0Zfzi2pHIIMg057XrE7P5YDl4g8/KMqJv0BpdbpGkkbiFsoaAM68Ph8lrjMk+ORaY+FXqO7B0njU3cV0NvgZoLF0DM1g4hQGyHojex4jPla1glHn5rXWCIDnB56axKpGqFtj7SC8cgqngFTAUDPuCAtwocG3/0OhfEIKCTRIip9iu4YHlyBzdkC+YyaNQsi8ATzg4WjobaJRbIQgEiqz/holWWRCpE2qJ3+MnGDfhCwq+Vy1V3WFqAVTccOegyYAuoy0RDQ8qDU9MGbQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=oss.nxp.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=joVq/SLGYIR7p+H9WE/4a22MFuUDNP6W4nL5Y06B5A8=;
- b=P9zZ7qXvOVOm59NAOOXYlIrT3kfPZQ8gFyviY9guztf+FkWz9NALX/TksCTVFeiRRRNTsrEcd9+svR90GnPTfWwS8zd2nzqd9uXzc+PqvxLes4O8t0X59s8VT0vr1bOxgOGyHfGPC7EpW5FUrBk6tl7DHKq8iaW1C06FENf7d2KoUUpKGsAh1N2CwItK1h8cSu5t8abGWoPTdzwzUpIOcPJ1OMKJGw2C9fdyKEkWEw9T78BKS6s58Q1IoQ3dH80LNEGjN+2SJTLmi5RdoWCKKdBX4Ic55STguOGx9ZRPZfAVtJTOdYhn1a5Pr+feND9zWbxgui5myGDU5xB7InJAyQ==
-Received: from SJ0PR13CA0005.namprd13.prod.outlook.com (2603:10b6:a03:2c0::10)
- by DS0PR12MB7777.namprd12.prod.outlook.com (2603:10b6:8:153::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Thu, 8 Oct
- 2026 01:30:08 +0000
-Received: from MWH0EPF000C618B.namprd02.prod.outlook.com
- (2603:10b6:a03:2c0:cafe::14) by SJ0PR13CA0005.outlook.office365.com
- (2603:10b6:a03:2c0::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Thu, 8
- Oct 2026 01:30:07 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- MWH0EPF000C618B.mail.protection.outlook.com (10.167.249.123) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.14 via Frontend Transport; Thu, 8 Oct 2026 01:30:07 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 7 Oct
- 2026 18:29:53 -0700
-Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 7 Oct
- 2026 18:29:53 -0700
-Received: from nvidia.com (10.127.8.9) by mail.nvidia.com (10.129.68.7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
- Transport; Wed, 7 Oct 2026 18:29:51 -0700
-Date: Wed, 7 Oct 2026 18:29:49 -0700
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-CC: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, "Joerg
- Roedel (AMD)" <joro@8bytes.org>, Jean-Philippe Brucker <jpb@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>, Thierry Reding <thierry.reding@kernel.org>,
-	Krishna Reddy <vdumpa@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>,
-	<linux-arm-kernel@lists.infradead.org>, <iommu@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>, <linux-tegra@vger.kernel.org>, Peng Fan
-	<peng.fan@nxp.com>
-Subject: Re: [PATCH RFC v5 6/6] iommu/arm-smmu-v3: Wire up shared-SID STE
- ordering and feature gating
-Message-ID: <asbyDdO5dInAkm63@nvidia.com>
-References: <20261006-smmu-shared-sid-v5-0-169a59c671d3@nxp.com>
- <20261006-smmu-shared-sid-v5-6-169a59c671d3@nxp.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H7byY9HY"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 3BA5FC2BCF7;
+	Thu,  8 Oct 2026 01:39:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791423571;
+	bh=0GXQGuAcREKXfgh4lINceA7vez8LtOZqhWpDymD9sRs=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=H7byY9HYhY1s4rotvzy0egXeBw5NafNkBed1/nxjbmBNrWqGl5Us+aZYHH1jwygAs
+	 0IlPQ1smFVcGOJhjzcSGVlstW3+oW4pefVvJFJqUSM9cvkKYWcntcxOY67U4psvd++
+	 q7H5ayyaCadGcZq6K/XhsqId3ky0nSBaK4mPT6QiA9N3AAwSChI6FoHum70mpGy3o3
+	 C6BW1JSPkauDuBsa+LQ4R3x7q7VVx0PDEgjCDeZnwJpCIJ4PWv0+wM2PAzu5wIN06f
+	 BdO1YinfOLIctw3JSTcx1iCG+QIevZUjENsgOUmx08OZYiTEsTR25mhFOWtvGpQTGp
+	 BefXr5nHNPRqg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 19FB2CA600C;
+	Thu,  8 Oct 2026 01:39:31 +0000 (UTC)
+From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
+Date: Thu, 08 Oct 2026 10:39:31 +0900
+Subject: [PATCH 2/8] xfs: refuse a direct allocation whose block
+ reservation would wrap
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20261006-smmu-shared-sid-v5-6-169a59c671d3@nxp.com>
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000C618B:EE_|DS0PR12MB7777:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5142d6f0-5127-4eb8-1149-08df24dbafe5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|23010399003|7416014|376014|1800799024|10067099003|56012099006|11063799006|4143699003|18002099003|22082099003|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	DpX4cpkh6zL8N4Blnb80iU2Oe8tCBzdCdUhnl7JdP7L+RI6aVLeaF0rZs0NAyUmLvZtP7RCjt0QTWo4FgIXmebfTEHKIAvonmHj9mz45gAUf2C2kqt5pFG/mAVS8/ICHxWLX6PlFwXqnlUYK0HIrcO2BUMiw/koV/XSFLjBH7mOojWabs99tdzZ29rYaXriklY1+zjt8ii1gINhMFjyi9OyKoDdGu7M6S9puTQLvRvP5IZFnC16+0TY0mSkrRtb2IQrv4YfwAM6pzO7TsBwJGgtkFFXvr7dxk88s+LRodsDj64hZZqKXKt1+5oDp6YiD0P1B0c/qxhPvI49tZMKwis7CQM29vr2774BnEHO2hxRE49CDfYBidGPZ0tt8izQTE473kY5BYugkltNErYWRidYjO+2BbMweor6lawO17frmK+TEnOY5pAOo1j5bvRdwNlwMJGf1eFJXvr7XbnTvb0gaY8bswK6zncJ+rV3as4/SqcUi5GicPsddUHLRc+DhhgyENvNLtWoc8rEFHgAgBAfmzSVH3rPUBXelhQSkG/tmNyhl7YMQfjB5LHAvKKUs/MZ7wnJMKJkJKVOQuI+j/roFn8wu24muuwH5FLUHXtdGNvWazFHbxzEn6gL0Pz5BW1ryTAWGOsvDIdC3FYHtxo6lZlZzlE6/QCXoiD+/vSIDItPb8RalFLZXFmvb1T3SIUvWURjHZidbGNO7jdMtdA==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(23010399003)(7416014)(376014)(1800799024)(10067099003)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	38BZNsELOLzUKEImALIA4TEkKVzmJxSucTzixo67kihIDmRdhBX+MRhR6MUaOehT3zuTSbETP4q4qRelHrC36Fo8Qu3VcFl3d/ooczovrpdQDd4ClZMFr8TVYECKBQ5vYHdImQALP32G8CrxDUltr0YOlfn0EbpDhOTTFeJlA9uwCYIe6spT5BUfU2vrz/ITov3IokHRDOhrEUvh+7sanw+ObXiwybnvWgcAq/zPLHE29yCZhUc3L5LVyjNOZfA+7U8fDL0D2WRyyMVDTgA+u846Yqhv8UR89I90EbXxxyOKoAKVuHb3V74DdrtSNstt+PjOeoF23pVgwgeQlgquZpRDB9N8nuoFTRhIw5HQ1Pvg0KvFBJMl9b4APwc8shn5vQNuipCInEmvnVNSAc364Wbf/vzUJz/SWOenmwZmPytOit7RxcRKyBgpwxAjWSxF
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 01:30:07.6360
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5142d6f0-5127-4eb8-1149-08df24dbafe5
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MWH0EPF000C618B.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7777
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261008-xfs-nfsd-map-blocks-v1-2-560026cdccb6@samsung.com>
+References: <20261008-xfs-nfsd-map-blocks-v1-0-560026cdccb6@samsung.com>
+In-Reply-To: <20261008-xfs-nfsd-map-blocks-v1-0-560026cdccb6@samsung.com>
+To: Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
+ NeilBrown <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>, 
+ Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>, 
+ Christoph Hellwig <hch@lst.de>, Carlos Maiolino <cem@kernel.org>, 
+ Amir Goldstein <amir73il@gmail.com>
+Cc: "Darrick J. Wong" <djwong@kernel.org>, Dave Chinner <dgc@kernel.org>, 
+ Sergey Bashirov <sergeybashirov@gmail.com>, 
+ Christian Brauner <brauner@kernel.org>, linux-nfs@vger.kernel.org, 
+ linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Daejun Park <daejun7.park@samsung.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791423569; l=2365;
+ i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
+ bh=TgcEzJiRm0kG/kpwtVJnUxNYpa17XFqyuVHzFMTWefc=;
+ b=nXT2lMRKwomwin0Noo+Pg4rGnzfPT+T2Y7oHvm/DoqBqcmWCQJn3sAJBobXBULzhKPCsWc7IC
+ 1ljV0rHj6NLB5PZosP/0MaKg0Mk7evQ8dmue6dIXOkxL9K26h5rEITz
+X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
+ pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
+X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
+ auth_id=1122
+X-Original-From: Daejun Park <daejun7.park@samsung.com>
+Reply-To: daejun7.park@samsung.com
 
-On Tue, Oct 06, 2026 at 08:19:12PM +0800, Peng Fan (OSS) wrote:
-> +static bool arm_smmu_is_shared_sid(struct arm_smmu_master *master)
-> +{
-> +	return !list_empty(&master->shared_masters_elm);
-> +}
-> +
-> +static bool arm_smmu_skip_shared_ste(struct arm_smmu_device *smmu,
-> +				     u32 sid, bool is_abort)
-> +{
-> +	struct arm_smmu_stream *stream;
-> +
-> +	lockdep_assert_held(&smmu->streams_mutex);
-> +
-> +	stream = arm_smmu_find_stream(smmu, sid);
-> +	if (!stream || list_empty(&stream->shared_masters))
-> +		return false;
-> +
-> +	if (is_abort)
-> +		return true;
-> +	if (stream->ste_installed)
-> +		return true;
-> +	stream->ste_installed = true;
-> +	return false;
+From: Daejun Park <daejun7.park@samsung.com>
 
-There is some issue here; check sashiko report:
-https://sashiko.dev/#/patchset/20261006-smmu-shared-sid-v5-0-169a59c671d3%40nxp.com
+xfs_iomap_write_direct() maps one extent, but it reserves blocks for the
+whole count it is given, in an unsigned int. A count of about 2^32
+blocks or more wraps the reservation. If it wraps to a few blocks, the
+allocation uses more blocks than the transaction reserved, and
+xfs_trans_mod_sb() shuts the filesystem down. If it wraps to nearly 2^32
+blocks, the allocation fails with -ENOSPC.
 
-Nicolin
+Direct I/O, DAX and buffered writes with an extent size hint never ask
+for that much, as xfs_direct_write_iomap_begin() limits them to
+1024 pages to keep the count below 32 bits. xfs_fs_map_blocks() has no
+such limit: it asks for everything from the start of a hole to the end
+of the range of a pNFS layout, which a client chooses, and an RW
+LAYOUTGET at offset 0 of an empty file for 16 TiB does it.
+
+Fail such a count with -ENOSPC before anything is reserved, also on a
+filesystem with that much free space, as the transaction cannot take
+it. A count that fits is reserved in full, as before, so a hole longer
+than the free space still fails before it is allocated.
+
+With pynfs as the client and a 32 GiB XFS, an RW LAYOUTGET at offset 0
+of an empty file for 16 TiB shut the filesystem down: "Corruption of
+in-memory data (0x8) detected at xfs_trans_mod_sb". With this patch it
+gets NFS4ERR_NOSPC and nothing is allocated, as with 100 GiB, and one
+for 16 GiB, which fits, is still granted, in three extents.
+
+Fixes: 527851124d10 ("xfs: implement pNFS export operations")
+Cc: stable@vger.kernel.org
+Signed-off-by: Daejun Park <daejun7.park@samsung.com>
+---
+ fs/xfs/xfs_iomap.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/fs/xfs/xfs_iomap.c b/fs/xfs/xfs_iomap.c
+index 7c6238fed6..1917e49166 100644
+--- a/fs/xfs/xfs_iomap.c
++++ b/fs/xfs/xfs_iomap.c
+@@ -287,6 +287,13 @@ xfs_iomap_write_direct(
+ 
+ 	resaligned = xfs_aligned_fsb_count(offset_fsb, count_fsb,
+ 					   xfs_get_extsz_hint(ip));
++	/*
++	 * The transaction takes the block reservation as an unsigned int.
++	 * Refuse a count that does not fit rather than reserve too little;
++	 * only a pNFS layout for a huge range asks for that much.
++	 */
++	if (resaligned > UINT_MAX - XFS_DIOSTRAT_SPACE_RES(mp, 0))
++		return -ENOSPC;
+ 	if (unlikely(XFS_IS_REALTIME_INODE(ip))) {
+ 		dblocks = XFS_DIOSTRAT_SPACE_RES(mp, 0);
+ 		rblocks = resaligned;
+
+-- 
+2.43.0
+
+
