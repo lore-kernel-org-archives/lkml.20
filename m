@@ -1,98 +1,72 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B28B23BD64A
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 21:50:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 462D53EA957;
+	Thu,  8 Oct 2026 21:52:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791496227; cv=none; b=iPhrkS+Dm2vOiyc11mV+W4soA/O7yTbYEnta87eEEIJqSM5Nyhxt/uEc6A7M2mGvxaHeZ1cs8NTEQbN38FnbRXxNY4FzpCX6xKhwtarXuhhh96uvJXXe8GEx6kv2BBV5LCNn5Ngy1uSqR2bQ+PfFATlGPdBO4L7uANZ5yG5I6Ec=
+	t=1791496338; cv=none; b=Z3Q0WQOfLUo+2CJKl2Cp1KZL+edokVC0Sf+amZa4IjQ1o8b5Wo8ldT9IORMn9HeIWMyLEi33PMwrZjLySXkVZ8mtfZ7yuAqZ8wnk2B+1RXIACZFXCdmm+zzoh36pfN/LY/MlHNZ+lQFktdanUcgJdNwVKfQ20ZMMxFcPeyYUKYY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791496227; c=relaxed/simple;
-	bh=rWKG1JijV4BQTTWj7dooJHzcLuJslHBO516+1i97GkM=;
+	s=arc-20240116; t=1791496338; c=relaxed/simple;
+	bh=VFMtpDGQ6NtHr0UNClV9iiXHAtjgfbnLbgOLKDEkDvA=;
 	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=YkVsemi0yzNNZ6zlnmwMer0xAthWvcIJvGmTu4RzkbFE7eleBILMYGR46KtNuIrH4zq6+rpLqui7JzWaocpBC+Dcga5EPYlT7aM++ZutaqtWfyfiqoDu/60gT3ygKr6vjBrmskbBsZGNHntCxjg3HmZNnXMTM6Ra6Rl5anM72fw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=TwrZ/gB1; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=nz5a3+GD; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 Content-Type:MIME-Version; b=lQSdkp+2quGeo7H0HvYG2V2XtEvyf2Sics6qCRks4QyeS4wTsXVwmDkqGOtcEZXIPuXanl7c4xxXBMk1hJK0ehxQpUFfnwAsZfFJKVt0PBQKFxaeEPhfgP8WWpwZ7wAEveeaZbs3ZCh0Nb5/UFQux8ajIvbrmq9JswkP9mX7ptk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=IWyp9vHe; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="TwrZ/gB1";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="nz5a3+GD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791496225;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Yj5+6LkgWgCIxY4tLK8pHE/X0tclHYwKwnVGo/2N7mk=;
-	b=TwrZ/gB1T27kOwPxv40tZRNszGRVAiRtxnHBY/Po78pd8sdPgkc4bxe8SXrZ61QBjIOTYf
-	g8WrG66MErJgcXuBVkPRA+AMWACFmFZv4c/i8N7rJc62hwsjSAq4gwI1Jc6tjX/qSvogRt
-	e2s2I89mIdiZ6SykaeAetjoPsj01tmM=
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-317-vet8u3oMMTKVrOPyxeb7jQ-1; Thu, 8 Oct 2026 21:50:24 +0000
-X-MC-Unique: vet8u3oMMTKVrOPyxeb7jQ-1
-X-Mimecast-MFC-AGG-ID: vet8u3oMMTKVrOPyxeb7jQ_1791496224
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-91430af782dso121492536d6.2
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 14:50:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1791496224; x=1792101024; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=Yj5+6LkgWgCIxY4tLK8pHE/X0tclHYwKwnVGo/2N7mk=;
-        b=nz5a3+GDhCsonSb9ZHl6wee3mvxOKsueXFNdf1aKihvQ2S7IgXsx/tyNVoJLbHqOQ/
-         IthXxAgipxVj0OOcQKQ7xr0o1DLiTTs+/v5aheyb8tcyuf2AvSbG4utgzN+3NGRxakmX
-         IbG5TfbyAFaHASI15W8yDtbhIWrQWwQRWzvRw/NuYn+JLCG19lqwuzIQGkUC9xFgKMpw
-         4oZ2/2ivT4nZ0uDfh7li8cGot8sJz0WRDBjUKY0vwYiExmSqbQFmCsgw/CK4BEF64fKD
-         beF0IzKlBJV10C+RRd48/AxEtCcnf5OrtXuYy0mbAT0hWCr3wZdeM7aCRcnqhVCmk64g
-         LqDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791496224; x=1792101024;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Yj5+6LkgWgCIxY4tLK8pHE/X0tclHYwKwnVGo/2N7mk=;
-        b=aZHKVTHwKPluhToGDfIOq+irtc9GFk751LMSnOUSUwnqoRYyU5BdcoHcyPL64w2Jhk
-         KbQqlFm59nqcifpP44DGfSvmfywuU7ygw2n8x2Bx3Y3lcv+7JnciOu520/5RQBaFHthP
-         u0ciluA0irqrPpcU35ioMk02shgTUvKOVqIdrH4ajuC9XWgpGeWPRkUtMSVdWuiWBFoX
-         Wq9cerSg4chszv1xVotOcrRP/4FUopd5ZqPHeSFqj8MBOBDqoZa2djEZUck+1C2nbhws
-         A8e1qpjIozw8U42AnBQ/BBCrKALy5y4uv2Nq1YPVFyQaztmTy7pEPWdAwSutCCaMdTXp
-         C+Bw==
-X-Forwarded-Encrypted: i=1; AKwUvBz/pAscCkmkgYh0ztMWNtiSxHdE1ECaw4o0AcydsVbPI5RQRtoZNGf1MTbpRweTXi4rPiFxoAA2bWuFCZM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLCPz08xX2xYMPK1yx98X9iKVR3aIsdvLkd2Fv57p9VXQY3w7Rz
-	fUZll1bO9LN83zLD5mvWdy+l9wHlvy/jijcsiIqpham6L2+Vjf3AnlgkAq7vmVGEpG/2cX1Wlxi
-	yMMwI6Fq06aBVhvcyqcJ8BOWJW+NLOBkqNira7R4Wfook763x1OX/oG4B6vCr6Dr1ag==
-X-Gm-Gg: AYBFou0GFjHSZsBczkcp8TQdMk8Wj7TpogHXXnSp8gi3POEwrBcsukKe6VFyu5ho5V6
-	sbf1bC7ZyeWqamGTWg7UVqBnWJkb53u3kNlrZQ9PjKvNwzw2uMizOXyERfFsi2sEMeDs/yuyRcc
-	o6wmCgC4tI6AZBtMqopEoojGhX6wt1Dpr++MkmNiHLZ/SXXnZrFTFmpVUbjr81N18BnroGdSDjP
-	Xo/YE9kzbPj8UTvQmgOCHOXfJ3kDZBhaD59mkoyG+V3O6WZDDJiDu5YXd/YrFOtI7OT6r0xYkHe
-	qtikeFak93+ijEBnINTEzvrRnELZOZWqIaVDwODqaIhzPoMtS2Q+WxpZfaVHRqCo0+FsjHI=
-X-Received: by 2002:a05:6214:4497:b0:917:edd4:d1d5 with SMTP id 6a1803df08f44-91b557bd604mr849466d6.42.1791496223764;
-        Thu, 08 Oct 2026 14:50:23 -0700 (PDT)
-X-Received: by 2002:a05:6214:4497:b0:917:edd4:d1d5 with SMTP id 6a1803df08f44-91b557bd604mr849236d6.42.1791496223367;
-        Thu, 08 Oct 2026 14:50:23 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b55120027sm1006706d6.49.2026.10.08.14.50.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 14:50:22 -0700 (PDT)
-Message-ID: <728a8ff2bea09d6e35446bb13ac663f2c3a63ea8.camel@redhat.com>
-Subject: Re: [PATCH] drm/nouveau: Skip the Turing CE workaround object for
- non-GR channels
-From: lyude@redhat.com
-To: Mary Guillemard <mary@mary.zone>, Danilo Krummrich <dakr@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org
-Date: Thu, 08 Oct 2026 17:50:22 -0400
-In-Reply-To: <20261007-turing-async-ce-fix-v1-1-12ee6ccd1a3c@mary.zone>
-References: <20261007-turing-async-ce-fix-v1-1-12ee6ccd1a3c@mary.zone>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="IWyp9vHe"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791496337; x=1823032337;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=VFMtpDGQ6NtHr0UNClV9iiXHAtjgfbnLbgOLKDEkDvA=;
+  b=IWyp9vHeoWENJ4lbIwt/VFR7zB0ocFER9UMAW2xFHIiobE0FYtVPe+/S
+   B9o9gbH5He8ObClhdGopE3YY2NLxbxUjow/1GHDRFEWC3M0HR3cduEsDi
+   7zIP8VZjm3kFqMIjj3LE/loGEM0mFDwZz61b2NRso1eWCGnXOwt4OUCyR
+   Ws+T5ZiH/6loi7hjgSJ4WOQVl4jMh0pUX32Z0F9oIJjINUKUMXvXMZ9d3
+   jMTJx7VpmOt5beHseg4F8R6CWSqH2KZyKs7qKcM/bbCAu/IR0RNuMDabT
+   WQ/LjV3R8+QBINkn3igdpAH9juHOvVPy8p5Vzo9NRNj5WJ3kD6KDyWLPB
+   Q==;
+X-CSE-ConnectionGUID: nSOqQxioT4uyLKsQNPzAiw==
+X-CSE-MsgGUID: DZCl9TGaTSGMxO0D7yxHmg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11929"; a="293869"
+X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
+   d="scan'208";a="293869"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 14:52:15 -0700
+X-CSE-ConnectionGUID: fE5RVaruQxWcpjQJ7FDELw==
+X-CSE-MsgGUID: oBvg58+kT/SL/EOp4ZFNUw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
+   d="scan'208";a="269742"
+Received: from unknown (HELO [10.241.243.185]) ([10.241.243.185])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 14:52:14 -0700
+Message-ID: <30e586ab643a8911f6c3cd930796292a7da460ef.camel@linux.intel.com>
+Subject: Re: [PATCH RFC 0/2] sched: Introduce idle SMT priority for
+ asymmetric capacity systems
+From: Tim Chen <tim.c.chen@linux.intel.com>
+To: Andrea Righi <arighi@nvidia.com>, Mete Durlu <meted@linux.ibm.com>
+Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
+ <vincent.guittot@linaro.org>, Dietmar Eggemann	 <dietmar.eggemann@arm.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall	 <bsegall@google.com>, Mel
+ Gorman <mgorman@suse.de>, Valentin Schneider	 <vschneid@redhat.com>, K
+ Prateek Nayak <kprateek.nayak@amd.com>, Shrikanth Hegde
+ <sshegde@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik	
+ <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, Christian
+ Borntraeger <borntraeger@linux.ibm.com>, Sven Schnelle
+ <svens@linux.ibm.com>, Chen Yu <yu.c.chen@intel.com>,  Ilya Leoshkevich	
+ <iii@linux.ibm.com>, linux-kernel@vger.kernel.org,
+ linux-s390@vger.kernel.org
+Date: Thu, 08 Oct 2026 14:52:14 -0700
+In-Reply-To: <aseIPhrDGCYFtJNE@gpd4>
+References: <20261008-hiperdispatchfix-v1-0-73fe41081070@linux.ibm.com>
+	 <aseIPhrDGCYFtJNE@gpd4>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+User-Agent: Evolution 3.58.1 (3.58.1-1.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -100,48 +74,155 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Reviewed-by: Lyude Paul <lyude@redhat.com>
+On Thu, 2026-10-08 at 14:10 +0200, Andrea Righi wrote:
+> Hi Mete,
+>=20
+> On Thu, Oct 08, 2026 at 10:30:46AM +0200, Mete Durlu wrote:
+> > Summary
+> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D
+> > On systems with asymmetric CPU capacities, the scheduler prefers fully =
+idle
+> > cores over idle SMT siblings of busy cores. This works generally well b=
+ut
+> > virtualized platforms where low capacity cores should be avoided are no=
+t
+> > considered. Introduce a new config option and arch hook to prioritize
+> > SMT utilization.
+> >=20
+> > Background
+> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D
+> > The scheduler has been moving toward better utilization of fully idle c=
+ores
+> > and avoiding SMT penalties. This trend (notably after commit 25a32e400a=
+14
+> > ("sched/fair: Prefer fully-idle SMT cores in asym-capacity idle selecti=
+on")
+> > broke the behavior s390 is relying on to concentrate workloads on its
+> > high-capacity cores. On s390 CPU capacities represent the CPUs runtime
+> > entitlement assigned by the hypervisor. The idle SMT siblings of busy
+> > high-capacity cores start to perform better than fully idle low-capacit=
+y
+> > cores as the whole machine(containing the logical partitions) starts
+> > approaching to a {fully,over}loaded state. Grouping load on high-capaci=
+ty
+> > cores keeps shared low-capacity cores(which are shared more aggressivel=
+y)
+> > idle longer, reducing noise to neighboring partitions and improving
+> > overall performance.
+> >=20
+> > Approach
+> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D
+> > This series introduces SCHED_IDLE_SMT_PRIO config option and the
+> > sched_idle_smt_prio static branch, allowing architectures to treat idle
+> > SMT siblings of busy cores as equal candidates during asymmetric capaci=
+ty
+> > load balancing.
+> > Static branch checks are placed at paths considering fully idle cores
+> > over idle SMT threads in presence of asymmetric CPU capacities within
+> > scheduling groups. Inserted checks mostly override hints for idle core
+> > selection or cause early exits favoring idle SMT siblings.
+> > One more static branch check is added to new task path in order to favo=
+r
+> > high capacity SMT siblings during initial task placement, therefore the
+> > tasks are immediately placed in high capacity SMT siblings instead of
+> > considering most idle but low capacity cores.
+> >=20
+> > Architectures opt in by selecting ARCH_SUPPORTS_SCHED_IDLE_SMT_PRIO and
+> > implementing arch_needs_idle_smt_prio(), which is evaluated during each
+> > asym_cpu_capacity_scan() to track the state as runtime topology changes=
+.
+> >=20
+> > The second patch enables the feature for s390 when running on
+> > hardware-backed topology in an LPAR with vertical polarization active
+> > and system is approaching to a target state.
+> > Otherwise the branch stays disabled and the scheduler falls back to the
+> > standard idle-core preference.
+> >=20
+> > No functional change on architectures that do not select
+> > ARCH_SUPPORTS_SCHED_IDLE_SMT_PRIO.
+> >=20
+> > Performance Results
+> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D
+> > Since this change effects the {fully,over}loaded state it is difficult
+> > to test at the moment. Therefore there are no concrete numbers or
+> > metrics for now for s390.
+> > For architectures which do not opt in to this feature, no performance
+> > change is expected.
+> >=20
+> > Considerations and Open Questions
+> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D
+> > The main goal for this series is adding a simple mechanism for
+> > architectures to switch between idle core and idle SMT priority while
+> > keeping the introduced footprint as small as possible. But there are
+> > some ideas and questions to consider;
+> >=20
+> > 1. Should arch_needs_idle_smt_prio() hook be removed?
+> >    The architecture hook is there to allow for any sort of logic to
+> >    dynamically decide when to flip the mechanism, but it can also be
+> >    removed if everyone agrees that this behaviour is not something that
+> >    should be dynamically flipped. It can be simply tied to detection of
+> >    asymmetric capacities and selection of Kconfig option.
+> >=20
+> > 2. Is there a simpler way to implement this mechanism?
+> >    The proposed approach is chosen as the other features effecting the
+> >    scheduler's behavior, use the same method. If there is a more
+> >    efficient way to implement the same mechanism I'd be glad to use
+> >    that instead.
+> >=20
+> > 3. There are no performance measurements *yet*.
+> >    On s390 the ideal conditions for this mechanism to be beneficial
+> >    usually surface when the whole system is fully loaded and resource
+> >    sharing between the logical partitions starts to get expensive.
+> >    Creating such an environment requires time, therefore no benchmark
+> >    results are available yet.
+>=20
+> I'm wondering if we could build on Shrikanth's cpu_preferred_mask infrast=
+ructure
+> to express a "soft preference" for the s390 higher-entitlement CPUs. Unli=
+ke the
+> mask's current behavior, soft preference would allow tasks to spill onto =
+other
+> CPUs once the preferred CPUs have no idle threads available (we have some=
+thing
+> like this in sched_ext's scx_cosmos).
 
-Will push to drm-misc-fixes in just a moment
+Soft preference is okay if contention is low.
+But if steal% remains high, we may still need to transition to hard
+boundaries/preferences on the cores to run on to bring steal% down.
 
-On Wed, 2026-10-07 at 16:30 +0200, Mary Guillemard wrote:
-> This workaround is here for the old Gallium driver and predate async
-> CE
-> and NVDEC.=C2=A0 Instead of only skipping it for NVDEC, let's only apply
-> it
-> in case of GR channels.
->=20
-> This should make async CE work properly on Turing by stopping the
-> assign
-> of a GRCE. (here CE0)
->=20
-> Signed-off-by: Mary Guillemard <mary@mary.zone>
-> ---
-> =C2=A0drivers/gpu/drm/nouveau/nouveau_abi16.c | 2 +-
-> =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_abi16.c
-> b/drivers/gpu/drm/nouveau/nouveau_abi16.c
-> index e907c1d07887..e876f154963d 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_abi16.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_abi16.c
-> @@ -488,7 +488,7 @@
-> nouveau_abi16_ioctl_channel_alloc(ABI16_IOCTL_ARGS)
-> =C2=A0			goto done;
-> =C2=A0		break;
-> =C2=A0	case NV_DEVICE_INFO_V0_TURING:
-> -		if (engine !=3D NV_DEVICE_HOST_RUNLIST_ENGINES_NVDEC)
-> {
-> +		if (engine =3D=3D NV_DEVICE_HOST_RUNLIST_ENGINES_GR) {
-> =C2=A0			ret =3D nvif_object_ctor(&chan->chan->user,
-> "abi16CeWar",
-> =C2=A0					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0, TURING_DMA_COPY_A,
-> NULL, 0,
-> =C2=A0					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &chan->ce);
->=20
-> ---
-> base-commit: 70456f05d4b6396b22048c4b8cd3cb98ecf9f9e3
-> change-id: 20261007-turing-async-ce-fix-42e179e27d4a
->=20
-> Best regards,
+Tim
 
+>=20
+> That might let us preserve the general preference for fully idle SMT core=
+s while
+> searching in this order: fully idle preferred cores, idle SMT threads on
+> preferred cores, then non-preferred cores. This current patch series seem=
+s to
+> drop the first distinction, allowing a partially idle preferred core to w=
+in even
+> when another preferred core is fully idle.
+>=20
+> This would need to coexist with the steal governor's stronger use of
+> cpu_preferred_mask, so I'm suggesting it as a potential direction to expl=
+ore
+> rather than a drop-in replacement.
+>=20
+> What do you think (Mete / Shrikanth)?
+>=20
+> Thanks,
+> -Andrea
