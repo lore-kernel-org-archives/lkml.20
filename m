@@ -1,310 +1,247 @@
-Received: from fhigh-b1-smtp.messagingengine.com (fhigh-b1-smtp.messagingengine.com [202.12.124.152])
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012048.outbound.protection.outlook.com [52.101.66.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6384304BB3
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 14:01:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.152
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791468086; cv=none; b=VMXsbFeC6pOO4O9LT3+CufVHcZRaDGarHkBzuewMe8BZner5oU7Ce2ARlNhBcuhIVM6Gt8F7ba+T9ZOU6wGFXdxRM6oHaNdtZ7YQ37rGk5HxbZGe0aL36oPqEY5m/f939zOMjOOQeQQe89U5I4kayWQsbcJrbmq25i1h+yuUlao=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791468086; c=relaxed/simple;
-	bh=wtsgXzdzW772t462jGglI26xUtnXk8tAMQT9HuAFRcI=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=ss/eFzoFIzP6FmyvdC88U6pFmB82o6v0xfzMVOqAMacAHw1UiwdOx3GUjXdCHN7VV1lG6iPoCErm0ljIF1is3MVZOsByVIkZdXEwXdDH5p/VeFQU4/ZRdCBN/9uaFeRHXnxmWczihEJtuEcwpeXWBkJHnZ0QEKjVFYxS741VrUA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca; spf=pass smtp.mailfrom=squebb.ca; dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b=B5hsaUYM; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=V5y5UuNQ; arc=none smtp.client-ip=202.12.124.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squebb.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5D6F2D2381;
+	Thu,  8 Oct 2026 14:01:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791468111; cv=fail; b=gm5ok//bFRfu+R8mowP1539uJYD7VQ7fqMWsTjXdAJ/S+WznDZc74SeEtNVcOVtwA4UkN/0ulKzyHRlGA9Z1UbEbnq7RRjSJ0Eps+EY/ufat1iDdKyDDWwMjGFI/CUuW4nl9M2GnIuQsNfn6iuqPQTY/JeE18kDKthkZ6iCXTlY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791468111; c=relaxed/simple;
+	bh=2NESZ9q9mVtp2CCXxFQp7IToHxpmAJYdxh0VoG1wv4U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=eBhxhM45av++gO5OTmlg1VwBZaUmp4LQWQkKOEUz2HpfXoSLbnm+O+xubnLsxsB1ZJb4OxcAXrX3Lw4P6tZotceslGt8I74RakZ5iSbzbJHjfdWaix9a8HnNotKDi8TQy86doUqtEzyb4h2rFNa6Ci9SA2raH39xMVkFxLAVZ/k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=k4PCedRW; arc=fail smtp.client-ip=52.101.66.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b="B5hsaUYM";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="V5y5UuNQ"
-Received: from stl-compute-04.internal (stl-compute-04.internal [10.204.2.64])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 17D6E7A0119
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 10:01:23 -0400 (EDT)
-Received: from stl-imap-02 ([10.204.2.93])
-  by stl-compute-04.internal (MEProxy); Thu, 08 Oct 2026 10:01:23 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squebb.ca; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1791468082;
-	 x=1791554482; bh=r5MCL2Ka3EEO4/PrwUxyt9JzsOTCfxWKgRcWIq0sB58=; b=
-	B5hsaUYMRn6PKm64g9O6d4tA/5ruQKrn4QyN7tkXqjGLZV809ZaFqnJUEQ4zv3mD
-	GenWLTTR7AO9IyX1Z862BeXf2WpkvYySM3h/iUEmAHgyYPxZRzuOIQkuEd1PqO78
-	U9O/fGQ5yX5FwOtBapOUdypW/PIVgTXWQxGKcQOIwbFFurT1NOKtImCp+yK1jHNz
-	QbhzNmFcxrNCB+664xIp5cenST+Wqph+7dUvCPewV59Ipoe/Ndcq3BGnJagZ7Ab6
-	UAL9L0FYcT4oZmOesu0KWfTaXSvmtMipIFfoZRAYGNOTl0g6JFQEkJQSqG3eW1EG
-	QmnQtENjNsYolskuglcL7Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791468082; x=
-	1791554482; bh=r5MCL2Ka3EEO4/PrwUxyt9JzsOTCfxWKgRcWIq0sB58=; b=V
-	5y5UuNQIFjEskbBYTz2QqRUsNiVJ2NTYE+1lymx6U76EfFC6EUF/kF8mA4bK9EHS
-	5nizpTKo5tVw3vc6R3pPSUKlNk5dv/CuoQpKXtZA3++ZM7U6KtJcU5KchszISzfp
-	UTQELVcfDNRyTDGiqdGbFLQqD4uKVP8z9xH4k13uvLErun8i7ChPvToRSz4eflZe
-	nG+Z08y0MmLM43j5FOVC5MWQCb5BzH3P0bgOjF594fIrhIXjW+QsbpArBdH1YgTn
-	VcCYenH6HSJa6Y3PHAZNSY54T34QdbAoPp1fJPSD1ilDcg4SA5MYWPwQ9HiOtaK5
-	ji1sXffYr8cmKVLktLlIg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=squebb.ca a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791468082; d=squebb.ca;
-	mf=PG1wZWFyc29uLWxlbm92b0BzcXVlYmIuY2E+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:K5bUejqGf0c+GTg9ybkVuysKSEbuZ/tX2Ux5q8aoFv65TnC
-	MhN2prgbkAlsSS1+4nGN/2vNr1/X/iUMIagRSLbwOunRYtRdH05zhRUyIcAU0K8L
-	0183AZMqmiuO1kjkl2Xfvtuq2rNCBJEqROEoUCvOK2X9ZDMzX8cmb+wDKe4DGRhf
-	9+u/RRAFVT535+GSzGe6MMpUtx+9VOr/tq22Pv/Hu0r8c37rFjqsazX119W7Jy/q
-	Fg9NxRj+ipqtad8743AyxJs1V+3xI2Ot1xSt8DAXJEHsWrP8efvSI7ng5XIvJ3US
-	0uCfX+DawiM777xkNSvA6VirsXK9lirnLB8dOUA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:vASxxLqrbQ+WSM3jaCjlzGRqME/biHEqrSeTIyGxoNg=:wtsgXzdzW772t462jGglI26xUtnXk8tAMQT9HuAFRcI=;
-X-ME-Sender: <xms:MqLHajI7eOKuY7TSEOswCX325NO4iljPmTJTrivdXSGFtkWWzkQmtw>
-    <xme:MqLHah_0Bjzey-NgB-evkb1chVoVhtYi5d3P-CJ75GvmO4afKTXC86wT_X8iKFQwC
-    PI51HuGqHbvEMb1rbcJZ7HuKA-tYw5aaJ1iM0Y3C1XhJ87vK8qNIZnJ>
-X-ME-Proxy-Cause: dmFkZTFZ2Uc++oD7btFoBcevN6p250JYIi2Giz7UZrkDsbEdgyWwV6HmLNPPdtKwD0vmlx
-    0iEg3GaGt3Hxb4p0JS1flQ1bO5cuPEyNzu/P32ZDEkyrtJS5eVC7NJeZz7+jFdCxraCsBc
-    7dafM1B0qmmWcSka4PtuMU4ZKKW22CVivCxrpCjrnXpGCLdWA6vR/KmRUzMFf/11s0KrSl
-    otBsgdqVoxh0/U+3a/MIKOupKX6Q1qQrVA5OV8BFwp7qUPQf/8chX6rfspP2mIxRABWhRQ
-    7062fPrcxB8+oUDR2U99jfkLKbSt7EEQZ6+oPokr6kUIguVJKMU8cyr7qy0COa8M3H37lu
-    1928Ny4enN403QBXS+KYogayiC34/XUTi1YhZvMpIrTh/5DBPprL0LeSd+NRP2VhgspSv8
-    cNb2CeT3S4bSB1MhPyrK33nCsF5PbAtXyIB5f6cI9jqLLD8zl9osPMp84FmqZ+eAwVvXUD
-    bgOnNCeYOPu7IgQdzQCvzaUKkUaSJ4OW+VgvmA/jqX3AIzw4b0gNWJhfOcz84RYjj/OFL8
-    LD9NMUt9mO4g7bqNdyg93m+e/bWlYoYq00P2PKiYksWjfqUwB5SsRhNUMzi+JvFvP4Xebh
-    S1mJHIhTKgG7lpJDNu4wvgeeqU2Veub1J/qgQbx6LMx1W7RmfS52VDe/4aCQ
-X-ME-Proxy: <xmx:MqLHatpwk1dAi19uqZ2nQr7aCOnof4OWnhy-19Umcn8FsCJCPyVOeA>
-    <xmx:MqLHasPP7k3KGQH0_L3pdFxjp-tl_b979e7BgqXKGp8hQHNkfmSYsg>
-    <xmx:MqLHaurgwdKoQP7JAR8v4NEHEGrxYP21S71wnMrWqgBO-IYuEjLNMQ>
-    <xmx:MqLHavsAzGBiVrvKHrrBABLIjchNZeuh6fDGEXI4gNe609407zsVDg>
-    <xmx:MqLHapW6PSsvBRF8SN02RDKQ5XKMH3kp3tAcZ2gaXcGTcbLiw-u_apF7>
-Feedback-ID: ibe194615:Fastmail
-Received: by mailuser.stl.internal (Postfix, from userid 501)
-	id E9DBD2C00076; Thu,  8 Oct 2026 10:01:21 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="k4PCedRW"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=A+fGWcrMsV7Jknj1luhXv7GHxBkb7D3es95zMYEm8svAD1WvDZfd5O9zPAn8BYZH/Cs0eqz2Glmv2aCWdnuPJVE9AvC/2JdUcZJGtSa+n6eIkdJflgUYhnP2BW0aPKFRrnK510/S2ftiZV3D46MCAmIRQCoHzoQjiTPAWx+S/VoBkt5uw+7iWD+DB0T/3FluKw9BLNPKtWf1LxZY6mpSa1ZTHyJC60RYZR/pXXrNUlH+PyoJZFqd0bNOTvC9rP3cg6XdIop9fBfMC12hUlCYPfsXfmJUlMeLSEyjd03tA1cBSHaw+fcrlvvPGlNZthe+My+wOOrUY7PmgTpUk7YiIg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=F9Nh5+DMSqtllKtgoyq4B2P0bzw2yMbsUyPt2F4ZETE=;
+ b=xQ/Jea+6sWJeft75kFePz4pJMCa2TXkj3FFfJ1f2maQY3XN/2jdWfj7yu0v4QhqQXT8Vl+N/9yiPBSqHryUNxdMplNeDtG3sUY0F99cbPAfqYIvhLi0EuLSPu/NNdinUHukw7R5rzhZl3GxQG3yP0M3Gs2hN0polmwWO1TVQTGOXJBc+IvLMofKKs9AKTNxGbCTtGlsO7RjQFYqEX04mE6V5aD4KsmP8MEsmrjsyJHnqpBC4fQJnqLvxW42wZROhXj0/Qb7Kd6iFvSDOiU3w1KDOSQvq7kS2AX5HHCvPsOneEjiJEGAkzsbGRkMCmgJXu+AcwvkKON6vGQj4O4wDuw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=F9Nh5+DMSqtllKtgoyq4B2P0bzw2yMbsUyPt2F4ZETE=;
+ b=k4PCedRWhCczF8PNj3CnTpyd+M3ty4m4XUlO+r39X/alU9rJJWnExO59vqg9GEndTlGz4Qa43HhUi7J65h4oIVN4+bfTQDWxAFDomQMNWsJ0iWttwv2UxluhqwOLkclWRS6uUnXkRmDR3Ao/XF+OaZBg5F5a4rj7GJsJMQKcNNNg/gsAGHBYtQ2JeXgfENb7Oar4Nuy6RzYIX65wo09nvo/HC1EW0LnfbH/UV3Yb0dVDnZ34g3EWsYI6mdcQZiXuM4eH8mLjI0Laa18gRVCbIndLtZn6gdUrMTa1dLhNrMSBxzcxtdp3xb8xg3o5S16MMj/sM8XrMaL7FJnD4L1lsQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from MI9PR04MB019273.eurprd04.prod.outlook.com
+ (2603:10a6:290:d3::17) by AM8PR04MB7796.eurprd04.prod.outlook.com
+ (2603:10a6:20b:243::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Thu, 8 Oct
+ 2026 14:01:46 +0000
+Received: from MI9PR04MB019273.eurprd04.prod.outlook.com
+ ([fe80::263c:943a:dcb0:29d8]) by MI9PR04MB019273.eurprd04.prod.outlook.com
+ ([fe80::263c:943a:dcb0:29d8%5]) with mapi id 15.21.0496.015; Thu, 8 Oct 2026
+ 14:01:45 +0000
+Date: Thu, 8 Oct 2026 17:01:41 +0300
+From: Ioana Ciornei <ioana.ciornei@nxp.com>
+To: Josua Mayer <josua@solid-run.com>
+Cc: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Horia =?utf-8?B?R2VhbnTDg+KAng==?= <horia.geanta@nxp.com>, 
+	Pankaj Gupta <pankaj.gupta@nxp.com>, Gaurav Jain <gaurav.jain@nxp.com>, 
+	Herbert Xu <herbert@gondor.apana.org.au>, Yazan Shhady <yazan.shhady@solid-run.com>, 
+	Jon Nettleton <jon@solid-run.com>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	"linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>, 
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>, 
+	"linux-crypto@vger.kernel.org" <linux-crypto@vger.kernel.org>
+Subject: Re: [PATCH RFC net-next 2/3] crypto: caam/qi2 - skip isolated CPUs
+ when setting up queue pairs
+Message-ID: <kcyo2qvl5qnjydmsntrmk36rdp6e44ti7rijduh6qsor5avqxp@eyglumj7ib4f>
+References: <20260930-dpaa2-isolcpus-v1-0-66c13f4fd75b@solid-run.com>
+ <20260930-dpaa2-isolcpus-v1-2-66c13f4fd75b@solid-run.com>
+ <cozavqeupdtr7cyn33nvtfqoqkw3sop5tffou6753vwg63hgwf@jr6gx236yblx>
+ <6d6f2e02-afd3-4e24-8b54-68cb93ce8174@solid-run.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6d6f2e02-afd3-4e24-8b54-68cb93ce8174@solid-run.com>
+X-ClientProxiedBy: AS4PR09CA0020.eurprd09.prod.outlook.com
+ (2603:10a6:20b:5d4::7) To MI9PR04MB019273.eurprd04.prod.outlook.com
+ (2603:10a6:290:d3::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AroOoK2VWtDw
-Date: Thu, 08 Oct 2026 10:01:01 -0400
-From: "Mark Pearson" <mpearson-lenovo@squebb.ca>
-To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- "Rong Zhang" <i@rong.moe>
-Cc: "Derek J . Clark" <derekjohn.clark@gmail.com>,
- "Armin Wolf" <W_Armin@gmx.de>, "Hans de Goede" <hansg@kernel.org>,
- Charles <hanker007@gmail.com>,
- "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
- LKML <linux-kernel@vger.kernel.org>,
- "Navon John Lukose" <navonjohnlukose@gmail.com>
-Message-Id: <aebd2a7e-dc65-43dd-8768-68d069d0786e@app.fastmail.com>
-In-Reply-To: <65e44beb-740a-8d41-9e3e-2ef1fa6cd6f1@linux.intel.com>
-References: <20260914-lwmi-wmi-new-api-v1-0-7a400f2f69f8@rong.moe>
- <20260926210415.3465939-1-navonjohnlukose@gmail.com>
- <E2EDCF4A-09BB-4FE7-9E67-5086401C0848@rong.moe>
- <9789f452-d7eb-4f1e-8a13-7335332193a7@app.fastmail.com>
- <55927121-62DB-43D7-B1BD-19519A775659@rong.moe>
- <83776200-4A60-4756-A99F-D5A3BB4D834A@rong.moe>
- <584854BC-16C5-44A1-83D1-63F6FDD51BEF@gmail.com>
- <8e0f9c12-2e6a-089b-387e-25fbdc3dd5d8@linux.intel.com>
- <372185f86fc1f5fbeddde42b1378a5d454f91e60.camel@rong.moe>
- <65e44beb-740a-8d41-9e3e-2ef1fa6cd6f1@linux.intel.com>
-Subject: Re: [PATCH 0/9] platform/x86: lenovo-wmi-{other,capdata,helpers}: Improve
- robustness on buggy firmware
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI9PR04MB019273:EE_|AM8PR04MB7796:EE_
+X-MS-Office365-Filtering-Correlation-Id: 22de3b17-5059-4e35-bcf3-08df2544b065
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|1800799024|366016|7416014|23010399003|376014|18002099003|22082099003|4143699003|10067099003|11063799006|56012099006|5023799004;
+X-Microsoft-Antispam-Message-Info:
+	uXPTUYJifgQQbGfTFrb6/2F+LjM85al0SLlpIsJYfvBMXAWiAWj/+4oHJiqS4uNrM5IlgATTlnorlerd1AAEdq8CKDYRcxrnzA27Bd2aTxyb7qWTo9WCrIZHkER349/saC9+qIkobjSyPqoXEk651HaLHbLFyS+lrIPxB6srUxs04WV/dnx3wldTSmOhg5bgE9pSXR2CR9X5VbCs7LUQ3N8Fc5n4rmi52xr6nVaouBV7q0QU1AucMpJFboWlsJYwAiHkn6tFRs1ea9dizZ2Vce6sODN3kKMjXD6qkDDEJrZ7R7OjZo1CQOtqHToKDdXLPYV0SJbMROlCWso/thRwQk8R7KYB05PjXx/4UILk6PM8Mu4xGBnDjKHMehLnrDcLTd+hB8txolIx2pGoJpDYWuqAbMrpS89p1HQj8JWcpqqPkI2mQ44J6rkgqJCCcuAcjYPoMa8/WIDEBFVr0HVLLbvqDmSDdYOEnK5L6nptJiFLM9NOFKNs3WfksXj5PJbsO/+zBo1Tqc/gyXDNUdryjNlpzw9ovEnuYIOcR9ML9F5mraQzTDM24h4hGxivTliQNdI+C9IJJKrSBErMx9UrIiZD+LzE4DV9VH82RCpUjfDNkHi+VHLHJYXTWczMYsprIwKynTmRfWA1836rR8VjjeGC5C12fu2ww3qXd/S3Pbo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI9PR04MB019273.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(1800799024)(366016)(7416014)(23010399003)(376014)(18002099003)(22082099003)(4143699003)(10067099003)(11063799006)(56012099006)(5023799004);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?dzlNfKAqnSk8aZEs3RtuQupN3jBkRqakOd0KgXLLu/WYv95GSQlV8bn3L9Yy?=
+ =?us-ascii?Q?2OoRXanXRSfofqRklFFgq3voRIjo8OwbWGpyIXmMpUCAhU7VO7ZwyQ5x2dNm?=
+ =?us-ascii?Q?POcM2bnBxW5F2HXUp6wMK69BYqTETEAis2RNKxyembgTqJowivUt8Szu9AqY?=
+ =?us-ascii?Q?glDE2dlINWqJZH/I4PdlV9iJg5WozNYnzLMhD7R4+8CZJTPhleDjXuPJFo92?=
+ =?us-ascii?Q?rXUQO96nSYOp+JWZtdMlMUubio9lLnD6I8FGN7KgFaXNLZmFNOlK6r8XedG8?=
+ =?us-ascii?Q?nWytaXceaswSDxHIKbkyDNctnHSDIJbugOaT0GxkRn5r3mxfOdwo8kV44/GX?=
+ =?us-ascii?Q?Y/ph8NByjFDxg3v1GEFNtFlh29CoKg4lrCePb1KKZEXuxglNj8rjPwKLxtMR?=
+ =?us-ascii?Q?p7ue2GCJJZldGqYlu503eyVu0SlHoUTM9DYvd5I8ZhZVImqRS/Ykyp3m2NaM?=
+ =?us-ascii?Q?+47bP2AbXnrc7WRNR0OZcYqiQVSjfROn+IyOh3l4wmUK5/74ALIHjoOyCGQ9?=
+ =?us-ascii?Q?etVEz7gWAgimO6SLCNBfk2mn0EcwkIPc5uC9/enmU2Cc1s03FhPZoIMofzSj?=
+ =?us-ascii?Q?FLLG9B2TrINP6vzOB492mgH8WpJCskQBi8I7majtOm+MIVLpeU0MWDWM5U7f?=
+ =?us-ascii?Q?5QcRQsGQSDLfU2hW3Y7NcnKh4DCvZYdEhT7BVEG7UPRqZL1v4nbA2AcvrU+T?=
+ =?us-ascii?Q?0vwpbY/bK61TSdHNW0yrHCDR99sxviF6G/SZs8OAej3OciwrlITYXU3FJL08?=
+ =?us-ascii?Q?3hiWX0IwnnzYjZVXHxrddbdJe3rSpim3V43WptuH5z++yCayU/i53qVFrRoA?=
+ =?us-ascii?Q?Wl+uJUB6LkBvIM583XjnU/vip07fuLSrpuQp2bcHhEX62zsj+BP3DPX7CU2M?=
+ =?us-ascii?Q?BvusQVttsDsqWjRH7sBf3PJ3ejvUWrvyVMIqZuNIPbweyCadSEoWeQbC1Gbz?=
+ =?us-ascii?Q?DxNNqL4Gm66mAR7TgszEZzxoGsTauyUkNnMjOkkTYA+UdO00Joz9/vbcIUYr?=
+ =?us-ascii?Q?YjpfBaB7H0amnuh6GO0IMA3tiyPHnl7WyMLDtrmqsTsBax6acfeCxjaJGDOv?=
+ =?us-ascii?Q?oT58lQHvXhqpONOfLf3AHYKwYtVT0AOQaWD5d7q8hn3EbCoYMdCUiuY87j0G?=
+ =?us-ascii?Q?hSQU/YrkeDBix08Dca5FgsyuY1OZKuoo6rmH7k+JoxoMxX5BxvJSu4txQPE9?=
+ =?us-ascii?Q?MRLJZTRiCEdtkvmglZPzvUw1s8bUCgEM/HQiJgZOhfXW0Vtrr2cRNX5eOpPG?=
+ =?us-ascii?Q?V/BI2QrLXWhUHSDSIz6msxcJcMOoQNsJX0q9eiUqUpl3shpG7vddyJAo9OrE?=
+ =?us-ascii?Q?nmQ57NPP8gsRn99TkhZGyar8UyeVWGNiT2VEBeNSUBQxqevm4zBFAtnhpTWy?=
+ =?us-ascii?Q?MNiZvWhq8mzssAY1X1NVi9nzdnszyhOawiYinkHFq5ZukGg6V1ydrfyyy6C9?=
+ =?us-ascii?Q?2iG8bJHZ9AmaWHC3EXWuqDRZ8+h3EPu13Bavqres3bQDuM9jneZc2J4rsprn?=
+ =?us-ascii?Q?b08BJ+/LbTLeico1veaaXUla/CRu7VpomjepoYmu59dr6YkiRiVVt7VyBQvG?=
+ =?us-ascii?Q?3BwGVcrvaxuOHCpXxh2rL1m5hNpBstTy30fZECzCpakuJ6ukjs57WS1FZcj9?=
+ =?us-ascii?Q?e0fTSFQRao8JTnOTAUifL0a81ZJhQQ/jknn2ty4r2o0n84QjmRUuy/Hi1w7i?=
+ =?us-ascii?Q?yYUI8mjaT7s7/j3hWvA61HU7napN81ZVcXAiwM6RSADCROCcaBaS+mlXAHLR?=
+ =?us-ascii?Q?xckvWyYJNQ=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 22de3b17-5059-4e35-bcf3-08df2544b065
+X-MS-Exchange-CrossTenant-AuthSource: MI9PR04MB019273.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 14:01:45.8118
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: m3LrEOpwtNnca2IRtK665XY2qSP8PfDETpvC6JsPyLnZf1N4rgEWH8B9dlVlwL3dnTtAa9JUlP38CEGcJHVp3g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7796
 
+On Thu, Oct 08, 2026 at 10:49:57AM +0000, Josua Mayer wrote:
+> Hi Ioana,
+> 
+> Thank you for taking a look at my patch!
+> 
+> On 10/6/26 11:27, Ioana Ciornei wrote:
+> > On Wed, Sep 30, 2026 at 06:54:59PM +0200, Josua Mayer wrote:
+> >> The driver looks up the affine DPIO and sets up one Rx/Tx queue pair for
+> >> each online CPU, up to the number of queues. Response notifications and
+> >> NAPI polling are handled on the DPIO object's assigned CPU. All online
+> >> may enqueue requests.
+> >>
+> >> When isolcpus=managed_irq is used to reserve CPUs for latency-sensitive
+> >> applications, those CPUs are expected to be free of routine device
+> >> interrupts.
+> >>
+> >> The DPIO driver assigns affine CPUs only from the HK_TYPE_MANAGED_IRQ
+> >> housekeeping mask, leaving isolated CPUs without an affine DPIO. This
+> >> defers caam qi2 probe indefinitely once DPIO setup reaches an isolated
+> >> CPU.
+> >>
+> >> Restrict queue pairs, notifications and NAPI polling to the online CPUs
+> >> in the HK_TYPE_MANAGED_IRQ housekeeping mask, so that isolated CPUs are
+> >> skipped and don't defer probe. Isolated CPUs may still enqueue requests,
+> >> with responses handled on housekeeping CPUs.
+> >
+> > Don't you need to also change the for_each_online_cpu() from
+> > dpaa2_dpseci_setup() to take into account only the housekeeping
+> > managed_irq cores?
+> I initially thought no, because of the "Allow all cores to enqueue"
+> comment in code.
+> >
+> >
+> > Something like:
+> >
+> > --- a/drivers/crypto/caam/caamalg_qi2.c
+> > +++ b/drivers/crypto/caam/caamalg_qi2.c
+> > @@ -5101,7 +5101,7 @@ static int __cold dpaa2_dpseci_setup(struct fsl_mc_device *ls_dev)
+> >          }
+> >
+> >          i = 0;
+> > -       for_each_online_cpu(cpu) {
+> > +       for_each_cpu_and(cpu, cpu_online_mask, hk_mask) {
+> >                  u8 j;
+> >
+> >                  j = i % priv->num_pairs;
+> 
+> Correct.
+> 
+> The loop is doing two things in one: assign tx queue to each cpu,
+> and assign rx queue to each cpu.
+> 
+> Only rx side is an issue for isolcpus. Do you have any idea why each cpu
+> got a tx queue assigned, and if this may be changed?
+> 
+> 
+> Here is a copy of the complete loop, with inline comments on the
+> control flow:
+> 
+> > 	i = 0;
+> > 	for_each_online_cpu(cpu) {
+> > 		u8 j;
+> >
+> > 		j = i % priv->num_pairs;
+> >
+> > 		ppriv = per_cpu_ptr(priv->ppriv, cpu);
+> > 		ppriv->req_fqid = priv->tx_queue_attr[j].fqid;
+> Assigns a tx queue to the cpu, one tx queue may be assigned to
+> multiple cores due to modulo above (if i >= num_pairs).
+> > 		/*
+> > 		 * Allow all cores to enqueue, while only some of them
+> > 		 * will take part in dequeuing.
+> > 		 */
+> > 		if (++i > priv->num_pairs)
+> > 			continue;
+> After this i <= num_pairs.
+> > 		ppriv->rsp_fqid = priv->rx_queue_attr[j].fqid;
+> > 		ppriv->prio = j;
+> Assigns a rx queue to the cpu.
+> This is the case which causes issues with isolcpus, and it should
+> be avoided for non-housekeeping cpus.
+> > 		dev_dbg(dev, "pair %d: rx queue %d, tx queue %d\n", j,
+> > 			priv->rx_queue_attr[j].fqid,
+> > 			priv->tx_queue_attr[j].fqid);
+> >
+> > 		ppriv->net_dev = alloc_netdev_dummy(0);
+> > 		if (!ppriv->net_dev) {
+> > 			err = -ENOMEM;
+> > 			goto err_alloc_netdev;
+> > 		}
+> > 		cpumask_set_cpu(cpu, priv->clean_mask);
+> > 		ppriv->net_dev->dev = *dev;
+> >
+> > 		netif_napi_add_tx_weight(ppriv->net_dev, &ppriv->napi,
+> > 					 dpaa2_dpseci_poll,
+> > 					 DPAA2_CAAM_NAPI_WEIGHT);
+> > 	}
+> dpaa2_caam_enqueue unconditionally accesses ppriv->dpio per-cpu
+> and ppriv->req_fqid, not gated by any checks, percpu (any cpu).
+> 
+> This causes two issues:
+> 1. each cpu is still expected to have a dpio object
+> 2. each cpu is still expected to have an assigned tx queue
+> 
+> I don't quite understand how we get into dpaa2_caam_enqueue,
+> I suppose it can legitimately happen on any cpu core whatsoever?
 
+I don't have any experience in the crypto area but from the looks of it,
+there is nothing limiting on what cpus crypto_aead_encrypt() could run on.
 
-On Thu, Oct 8, 2026, at 7:47 AM, Ilpo J=C3=A4rvinen wrote:
-> On Thu, 8 Oct 2026, Rong Zhang wrote:
->
->> Hi Ilpo,
->>=20
->> On Wed, 2026-10-07 at 23:54 +0300, Ilpo J=C3=A4rvinen wrote:
->> > On Wed, 7 Oct 2026, Derek J. Clark wrote:
->> >=20
->> > > On October 7, 2026 11:30:00 AM PDT, Rong Zhang <i@rong.moe> wrote:
->> > > > Hi Mark, Armin,
->> > > >=20
->> > > > =E4=BA=8E 2026=E5=B9=B49=E6=9C=8829=E6=97=A5 GMT+08:00 01:53:18=
-=EF=BC=8CRong Zhang <i@rong.moe> =E5=86=99=E9=81=93=EF=BC=9A
->> > > > > Hi Mark,=20
->> > > > >=20
->> > > > > Thanks for the information.=20
->> > > > >=20
->> > > > > =E4=BA=8E 2026=E5=B9=B49=E6=9C=8829=E6=97=A5 GMT+08:00 00:04:=
-14=EF=BC=8CMark Pearson <mpearson-lenovo@squebb.ca> =E5=86=99=E9=81=93=EF=
-=BC=9A
->> > > > > >=20
->> > > > > >=20
->> > > > > > On Sat, Sep 26, 2026, at 11:01 PM, Rong Zhang wrote:
->> > > > > > > Hi Navon,
->> > > > > > >=20
->> > > > > > > Thanks a lot for your test.=20
->> > > > > > >=20
->> > > > > > >=20
->> > > > > > > =E4=BA=8E 2026=E5=B9=B49=E6=9C=8827=E6=97=A5 GMT+08:00 05=
-:04:15=EF=BC=8CNavon John Lukose=20
->> > > > > > > <navonjohnlukose@gmail.com> =E5=86=99=E9=81=93=EF=BC=9A
->> > > > > > > > Tested on a Yoga Pro 7 14IAH10 (83KF, BIOS QGCN35WW). N=
-either mainline
->> > > > > > > > nor the series binds here. This firmware has no
->> > > > > > > > LENOVO_CAPABILITY_DATA_01 in _WDG at all, so no compone=
-nt ever
->> > > > > > > > registers for that match and lwmi_om_master_bind() neve=
-r runs. Skipping
->> > > > > > > > the match for GUIDs the firmware doesn't declare fixes =
-it:
->> > > > > > > >=20
->> > > > > > > > diff --git a/drivers/platform/x86/lenovo/wmi-capdata.c =
-b/drivers/platform/x86/lenovo/wmi-capdata.c
->> > > > > > > > index 805e36ef7..d64520be1 100644
->> > > > > > > > --- a/drivers/platform/x86/lenovo/wmi-capdata.c
->> > > > > > > > +++ b/drivers/platform/x86/lenovo/wmi-capdata.c
->> > > > > > > > @@ -76,11 +76,13 @@ enum lwmi_cd_type {
->> > > > > > > >  #define LWMI_CD_TABLE_ITEM(_type)		\
->> > > > > > > >  	[_type] =3D {				\
->> > > > > > > >  		.name =3D #_type,			\
->> > > > > > > > +		.guid =3D _type##_GUID,		\
->> > > > > > > >  		.type =3D _type,			\
->> > > > > > > >  	}
->> > > > > > > > =20
->> > > > > > > >  static const struct lwmi_cd_info {
->> > > > > > > >  	const char *name;
->> > > > > > > > +	const char *guid;
->> > > > > > > >  	enum lwmi_cd_type type;
->> > > > > > > >  } lwmi_cd_table[] =3D {
->> > > > > > > >  	LWMI_CD_TABLE_ITEM(LENOVO_CAPABILITY_DATA_00),
->> > > > > > > > @@ -166,6 +168,14 @@ void lwmi_cd_match_add_all(struct =
-device *master, struct component_match **match
->> > > > > > > >  		if (lwmi_cd_table[i].type =3D=3D LENOVO_FAN_TEST_DAT=
-A)
->> > > > > > > >  			continue;
->> > > > > > > > =20
->> > > > > > > > +		/*
->> > > > > > > > +		 * Some firmware does not declare every capdata GUID=
- at all, in
->> > > > > > > > +		 * which case no component would ever register for i=
-t and the
->> > > > > > > > +		 * master could never bind.
->> > > > > > > > +		 */
->> > > > > > > > +		if (!wmi_has_guid(lwmi_cd_table[i].guid))
->> > > > > > > > +			continue;
->> > > > > > >=20
->> > > > > > > This was exactly what I did in the earlier revision while=
- I was=20
->> > > > > > > introducing the support for capdata00 and capdata_fan.
->> > > > > > >=20
->> > > > > > > The wmi_has_guid() approach was eventually replaced by th=
-e=20
->> > > > > > > sub-component approach, because the use of the former is =
-strongly=20
->> > > > > > > discouraged.
->> > > > > > >=20
->> > > > > > > In the next revision I am going to convert capdata01 into=
- a=20
->> > > > > > > sub-component, too. In this manner some heavy and complex=
- work in the=20
->> > > > > > > series will become needless and can be simplified. While =
-the=20
->> > > > > > > sub-component approach itself is complex, we've had the i=
-nfrastructure=20
->> > > > > > > to make it work. Therefore wiring it up should be a trivi=
-al work.
->> > > > > > >=20
->> > > > > > > Mark, Derek,
->> > > > > > >=20
->> > > > > > > Do you know if there is any way to determine the existenc=
-e of capdata01=20
->> > > > > > > using capdata00?=20
->> > > > > > >=20
->> > > > > > Note that I can see I'm afraid
->> > > >=20
->> > > > So there is no way to determine the existence of capdata01 usin=
-g capdata00, correct?
->> > > >=20
->> > > > > >=20
->> > > > > > I'm guessing the patch Armin posted on my thread "[RFC PATC=
-H 5/7] platform/x86: think-lmi: Initial ThinkLMI v2 driver" to check if =
-it exists won't help here?
->> > > > >=20
->> > > > > After some consideration, it seems that we don't really need =
-to determine the existence of capdata01 if we take the sub-component app=
-roach, thanks to the fact that every functionality either depends on cap=
-data00 or depends on capdata01, but never both.
->> > > >=20
->> > > > Unfortunately, it turned out that it can't resolve the issue by=
- simply converting capdata01 into a sub-component, unless a virtual devi=
-ce is also created to split the component matching list into two, which =
-is more like a dirty workaround.
->> > > >=20
->> > > > So yeah, the series needs the wmidev_exists() patch from Armin.=20
->> > > > Considering that the ThinkLMI v2 series is probably still at th=
-e RFC=20
->> > > > stage, do you mind if I integrate the wmidev_exists() patch int=
-o my=20
->> > > > series?=20
->> > >=20
->> > > Rong/Mark,
->> > >=20
->> > > My $0.02, I don't think it matters who sends it up. If Ilpo is ok=
-ay with=20
->> > > it of course, both series should include it as a prerequisite 1/X=
- and=20
->> > > whichever gets picked up first will get into next. Then that patc=
-h can=20
->> > > be omitted from the other series when it gets picked. That way bo=
-th=20
->> > > series will build if you apply the mbox onto next until one is me=
-rged.
->> >=20
->> > Hi,
->> >=20
->> > For me it's fine either way:
->> >=20
->> > 1) Have the same patch in both series.
->> >=20
->> > 2) If we know for sure we need the API anyway, just add it as a sta=
-ndalone=20
->> > in advance.
->> >=20
->> > I suppose 2 would be slightly simpler but it's up to you which way =
-you=20
->> > prefer.
->> >=20
->> > Lets not make things more complicated than they have to be. :-)
->>=20
->> Thanks for you suggestion.
->>=20
->> The v2 patch is almost ready, and I will submit it today or tomorrow.=
- It
->> will anyway depend on the wmidev_exists() patch to build, so I'd pref=
-er
->> 1.
->>=20
->> Or we can combine 1 and 2 -- do a subset apply with the wmidev_exists=
-()
->> patch if it looks good but my v2 series has issues. Then Mark and I c=
-an
->> rebase and resubmit.
->
-> I've no problem in taking only a part of series as needed, if you pref=
-er=20
-> that.
->
-> Armin had something to say about the interface but I suppose you saw t=
-hat=20
-> already.
->
+For example, one of crypto_aead_encrypt() callers is the macsec software
+implementation. In that case, I would expect that the macsec's
+.ndo_start_xmit() callback could be run on a non-housekeeping, which in
+turn means that caam_qi2 needs to be prepared to run the enqueue() from
+any cpu.
 
-I'm still a bit away from having it ready on my side so Rong, go for it =
-(with Armin's original - I'll just have to refactor to handle that)
-
-Mark
+Ioana
