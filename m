@@ -1,109 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9806A1F30BB
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 14:12:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 381F52ECD3A
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 14:12:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791468742; cv=none; b=HWOaz1aQuPPI25YAGADj7U/P6+Nmuhab+TBXFU0Xv/gPIHVl99q+E78+MV44zNFJwrQKHjrSTgKhsz4bfHdW5dwX2Fx+voqTuAr+JmDVcjADtA/OQ+V3z8W8LXzf+yRnDxyOEKnpDuWk4jIwypjk9JjGguIHs/LWAYe3gSd4XvY=
+	t=1791468748; cv=none; b=O5y7KyhPgZJ6BumP29Buqq+QXlbubL4z200Lh4VHXfeUDGqAu2M6k6vuVDsL1ZUgtM/uqsbuNPx0QIokNBJt47FcB9T7uV2JLaJVfyrKJki9paiKph9szS4Zjs8MPAIY1lR14oUkzzXSrPxsbePRUjnj43Y/0xtp/uukbCH7Q54=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791468742; c=relaxed/simple;
-	bh=MJwTrP4CVwGddIK6J5OAaQDSOlc0mGdIiD8769a/zNY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rajigOfpWvn6Y2E9Z20SBgg5lzO4ZujCjkXS/W/zPM1YQCCFj7V2fFjX0yns0lmHMBlWs2YfhAhL9bTmrwSV+IAkP4eqOBfI/sp9yTiL4bnYKNRaVP3NZUYmZ9oSAJoTHCPE/WY+mzeIJLnufioj1omnKjow7aACVaszI+kQZc4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EkgcNu5B; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791468748; c=relaxed/simple;
+	bh=7wkyy2yD82sNGCCk9GhwGN9YlxLXNUi2Q97VaIvfv0Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iOZRjXKyEjusSd6U61HdWBQl41JrQcKfSfEclfIIHHQ8R0Spy5gfLgxPMaS9jN3LMQCxtzDpmDiP5N8Lf/FtZENc/JIOhn4e4HWyq6YzD5izwZmOMqyiUlzCVheJdokJn197632msvz+KUAliPJKl6oLEeq76UBACyT8EErTje4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k9JrYA/b; arc=none smtp.client-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EkgcNu5B"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D60A1F000FF
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 14:12:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791468741;
-	bh=O36gv6hlKGTB1dGwK8PnWmjb6kQ34dtwDZu/ftfPJIA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=EkgcNu5BSyXIyahsHdzEONGetFWujVkPYgj2oYqFEILZaCtXHN6ufbTuNMiEQPRcU
-	 taP4OCyhOXYNhSCVURRhhJnHkY/I8vIp0PIRQGDVnWdKgHAKCPEXnRsHmrjtF4KQYN
-	 qz+JVfqHfYllPJ84tJnE4xDIRtb8pcOoY+g9ljzLEbG1i1S1se9zjOtVCToITy8BvQ
-	 aQ3T/SJSSheFZNWRT3RnpPAG2yIhbgvULAoI1Q1ymP1JCmNMeFhjhiegZkgote1FfU
-	 bA9CDuUp2Xaw5d7K+G6rO91NWX9ykmpditYZNZNPDzA0jKyuwpFVraq0igoLHGZACD
-	 leXE0lSol0X9Q==
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5bcdab9a82bso238757e87.3
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 07:12:21 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwsDrfhVOqpUwAdhHW0vNLpR3HeyF3ax35NmUK3Iwwa4Xdvl/N15JuUFZ/hxYbUxhX8BRm6CgYxpA6B6cA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKT7w8tfHUVbKy44PvyFn6EWQaqLKy7kJ8wY1w6mqQ8xtW04Y08
-	/jFGFQWCww2/JNQX7nrgo0NTQDmrBRP0bNZS7MBFH/bpfwEnjNUybJOB2ZvkKBbR9sHaBeF8ivJ
-	Y61loWD5hHc7hWX9ddvPSMr4tfbXoLig=
-X-Received: by 2002:a17:906:dc8d:b0:c2e:378c:8cee with SMTP id
- a640c23a62f3a-c317bf5bc3dmr595588366b.34.1791468405551; Thu, 08 Oct 2026
- 07:06:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k9JrYA/b"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48870973bddso539449f8f.1
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 07:12:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791468745; x=1792073545; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pkucfHp2dQjWmjG5BzeIOm/V3naD65FK94W1wx43iBg=;
+        b=k9JrYA/blZOIltF5SAL7ZhHTDsl+C5KHqAA/kOk2SBUcYBhLRp5aIh7Ptp6LbxZ3tc
+         PcHTXNvsnj5nI0vHrHK287YiSeph7BTY0oSH5jWEKpov+Xe5E2126i6G8gvb3Z/PxF3n
+         sM/z74nAtv9jQu237X7TmhkWMVMeTPCg+IkWTUOhbTM9G44v9Yt0snpdQ4yHF8Ok1//7
+         4HPJ/iW5PkuquBdsr4jkMEa3MITPcSIfKMFeRIjnWNHjFhZVW9W1RweowzwL1ltMbw93
+         HMf/zD9jOfkJgVtLjB+/I3lxIP5rRdHY2wIa+45fzwc2HZfbGI7KAy5bfqI6KoOuANw0
+         82AA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791468745; x=1792073545;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pkucfHp2dQjWmjG5BzeIOm/V3naD65FK94W1wx43iBg=;
+        b=zScHDHxmMWdS6YYa+wwfed52MJn0yQsvcJf9hYTXVdxsVmvGuZR0rxwLcdnmFOCgTd
+         YgwWBz8X4DWGQ8lojmVFvRM3JmpxPMOFmWbA7n7bkDGMWsd3vEvuM7Z25SV4q+NITDd5
+         kWIWMt5vxmngtMptMl5C8bqQTrHpME3aOZe+TMlmnTN03A64C+VM6/ViTTEm/0pEEShP
+         lBhTGfYJp+ZK1Q8ZDJKr2oI3hLjL2bEa8KhDJIU/ib2oFmeSJWiZetcFrIxmH3gGPkQx
+         kikmTp7G1V6f5cXCFzV32jrcAIPHWNdiR+LKHKbePdGrgTwW9EeMkFT9xKi9uwqT1+I/
+         eVfw==
+X-Forwarded-Encrypted: i=1; AKwUvBxRCIP32yiffUqfitnZRbfX2rvpSr9uDDaErjhgplY6c1bMu5nEdGyLN3VpDR+jM9YxGPCGZAypSj0XyKM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI9FllhqCAprVMa9Xi8Dsc399wvM1LyJXw6aVPrK3YTvGact7rw
+	Jl7idvVT5TEh0a94Avn1jrdcgSVXHEfBTi6iHV3YKTrMO+2H9CKJMNeZ
+X-Gm-Gg: AYBFou2LuJBCEWJlE3f72YwFFEvO2TiJyOnWDWx85329e/yJT5iigJ8ARtVYotJnPb8
+	Q7PM/iWT1mqFfsEcg0BbdqokuxWNBwQBOrziSi0S84aNWlQeWi8OGVA/7I4iIkjK9hnsausCtpI
+	TEFDXeLqKh9nnuZKx1lY6l9RtkQPzmVp85Peg+yisFhbEV3PcbrsP7TuLTa/GpWBYL0tvA+i5k/
+	01oAcHG5NzMVuqRnD0hhFlCHXPCJGgPEHh2phBZExunrcJ3BUgrWZjYb89FtHJNa25Luy7rCOcu
+	vWMsjSM5QbMn/mmYBAEHx7RYtvMvUQ3EW8KvnvWitYguRUK+6KYR71mf3aB2NDlsnAu4WTqYqNp
+	+8fvM8vsP5+RuT3TG1cK4UIx8Uc5k2xvnMo1wV9ZER/HxZoGmQAOedg1v13gf8bqubF1LAzdGmb
+	VKD/UVBm2rfpcyEaXS0MPjRQ8TV+FWh4uagZhDVBKy6eZpEBwBk+hAn6FB64FukklJ5YFfVvFbV
+	4g7rqIQmAdUldxgFFKZkVDsiscUgnShW8fvRl8c574608bMPtVovK+1SoE9q4LJm+VXYln1IZBD
+	hwuDYk4iZU7ATrg=
+X-Received: by 2002:a5d:64ee:0:b0:48c:47fc:df31 with SMTP id ffacd0b85a97d-48c7f0e9f94mr5528408f8f.7.1791468744882;
+        Thu, 08 Oct 2026 07:12:24 -0700 (PDT)
+Received: from SD.localdomain (heme-13-b2-v4wan-167795-cust403.vm32.cable.virginm.net. [81.108.45.148])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71d04c0fsm11395902f8f.10.2026.10.08.07.12.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 07:12:23 -0700 (PDT)
+From: Prathamesh Deshpande <prathameshdeshpande7@gmail.com>
+To: Leon Romanovsky <leon@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Prathamesh Deshpande <prathameshdeshpande7@gmail.com>,
+	Doug Ledford <dledford@redhat.com>,
+	Haggai Eran <haggaie@mellanox.com>,
+	linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH rdma] RDMA/mlx5: Cancel software CQ notifications before teardown
+Date: Thu,  8 Oct 2026 15:12:02 +0100
+Message-ID: <20261008141209.6923-1-prathameshdeshpande7@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261008-selftests-bpf-cgroup-stats-bpffs-v1-0-76b9a6d1be34@gmail.com>
- <20261008-selftests-bpf-cgroup-stats-bpffs-v1-1-76b9a6d1be34@gmail.com>
-In-Reply-To: <20261008-selftests-bpf-cgroup-stats-bpffs-v1-1-76b9a6d1be34@gmail.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Thu, 8 Oct 2026 07:06:31 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zM86_kXTpAdsOAFvesvB-yenCMLSGYa7sS1uLVDQUH_fg@mail.gmail.com>
-X-Gm-Features: AclHuK80zBKuPr-w8TV96q0Wje7e_GRnQyZXP68dEjes43wo6RtpVGexSq9898Q
-Message-ID: <CAO9r8zM86_kXTpAdsOAFvesvB-yenCMLSGYa7sS1uLVDQUH_fg@mail.gmail.com>
-Subject: Re: [PATCH bpf-next 1/2] selftests/bpf: Unmount the bpffs that
- cgroup_hierarchical_stats mounted
-To: Qiliang Yuan <odys.yuan@gmail.com>
-Cc: Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Ihor Solodrai <ihor.solodrai@linux.dev>, Alexei Starovoitov <ast@kernel.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
-	Emil Tsalapatis <emil@etsalapatis.com>, Shuah Khan <shuah@kernel.org>, Hao Luo <haoluo@google.com>, 
-	bpf@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 8, 2026 at 7:03=E2=80=AFAM Qiliang Yuan <odys.yuan@gmail.com> w=
-rote:
->
-> setup_bpffs() mounts a bpffs on /sys/fs/bpf and records in mounted_bpffs
-> whether it did, so that cleanup_bpffs() unmounts only a bpffs that the
-> test mounted itself.
->
-> cleanup_bpffs() checks the flag the other way around. As mounting on
-> /sys/fs/bpf succeeds even when a bpffs is already there, the test never
-> unmounts the bpffs it mounted, and every run leaves another one stacked
-> on /sys/fs/bpf.
->
-> Unmount the bpffs only when setup_bpffs() mounted it.
->
-> Fixes: 88886309d2e8 ("selftests/bpf: add a selftest for cgroup hierarchic=
-al stats collection")
-> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+GSI completions queue notify_work to invoke the CQ completion handler.
+CQ destruction drains hardware events and core polling, but does not
+cancel this software notifier. Queued or running work can therefore
+access a freed CQ, or restart polling after ib_free_cq() has drained it.
 
-Reviewed-by: Yosry Ahmed <yosry@kernel.org>
+Cancel notify_work in the pre-destroy callback, before core polling is
+stopped and CQ memory is released. Skip user CQs, which do not initialize
+this work item.
 
-> ---
->  tools/testing/selftests/bpf/prog_tests/cgroup_hierarchical_stats.c | 2 +=
--
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/tools/testing/selftests/bpf/prog_tests/cgroup_hierarchical_s=
-tats.c b/tools/testing/selftests/bpf/prog_tests/cgroup_hierarchical_stats.c
-> index 3bd27d2ea668c..a93b16ed629e9 100644
-> --- a/tools/testing/selftests/bpf/prog_tests/cgroup_hierarchical_stats.c
-> +++ b/tools/testing/selftests/bpf/prog_tests/cgroup_hierarchical_stats.c
-> @@ -110,7 +110,7 @@ static void cleanup_bpffs(void)
->         ASSERT_OK(rmdir(BPFFS_ATTACH_COUNTERS), "rmdir "BPFFS_ATTACH_COUN=
-TERS);
->
->         /* Unmount bpffs, if it wasn't already mounted when we started */
-> -       if (mounted_bpffs)
-> +       if (!mounted_bpffs)
->                 return;
->
->         ASSERT_OK(umount(BPFFS_ROOT), "unmount bpffs");
->
-> --
-> 2.43.0
->
+Fixes: 25361e02c448 ("IB/mlx5: Generate completions in software")
+Signed-off-by: Prathamesh Deshpande <prathameshdeshpande7@gmail.com>
+---
+ drivers/infiniband/hw/mlx5/cq.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/infiniband/hw/mlx5/cq.c b/drivers/infiniband/hw/mlx5/cq.c
+index 49b4bf148a4a..1653b2747f5f 100644
+--- a/drivers/infiniband/hw/mlx5/cq.c
++++ b/drivers/infiniband/hw/mlx5/cq.c
+@@ -1117,6 +1117,9 @@ int mlx5_ib_pre_destroy_cq(struct ib_cq *cq)
+ 	struct mlx5_ib_dev *dev = to_mdev(cq->device);
+ 	struct mlx5_ib_cq *mcq = to_mcq(cq);
+ 
++	if (!cq->uobject)
++		cancel_work_sync(&mcq->notify_work);
++
+ 	return mlx5_core_destroy_cq(dev->mdev, &mcq->mcq);
+ }
+ 
+-- 
+2.43.0
+
