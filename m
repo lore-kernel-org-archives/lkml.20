@@ -1,131 +1,159 @@
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F3BD22A4F1
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 02:27:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBE9F33CEA5
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 02:28:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791426476; cv=none; b=Y8mBVSSDmucrJNvf5MwD+s+dG2jrdvawZik7+DHE1WYThgmSSRS5H58mTRsHoJvp+BGnUcgd2uzPi+MFDBI56cNwN4zO9nULQ8NtOe0CpmTQhU85bGd4f1hTqXE+4BQB67xysbsRdHsg7yHblJaXTJThCUywGJe0fDg+F6tGi0Q=
+	t=1791426522; cv=none; b=u6vo69e+s6eaniQM7V7odzUh8+QxFhzB+z+oMI02adDTMlfUGzqOtvowzFvE62f+nAfDPG9UYibaXn+FbAcEAcAkSePcTm7dDsi9rRBnbA3069HcdhueVaToxlpyWBrsEI0JRqPId6A1T1o4XkiPhzu4n5aFOsWlOAbLJZSueoQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791426476; c=relaxed/simple;
-	bh=MsGtLoYg/fHyK+zakXoLrA3ulP+FAQoPdel6fLVn2zM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KeYF5sj9SjSlpTKp+UO0RZ8CrQUoiJd7IuGQXIC4JboORQDwuIsrtlBmb+tLNs+Lag1prg4mrqh3/KCxu+98pqc9InIZIk05BbcWYsFQGhx27Ssj+gThEa3VvKD8ItmDtXxhxU+8KpCbW/ubqOoVLYjBu++hk213YCSPQIlp+to=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r16+URJJ; arc=none smtp.client-ip=74.125.82.47
+	s=arc-20240116; t=1791426522; c=relaxed/simple;
+	bh=pJCcvTykfNBX4OcOIfs+L/ELsHjM37PhVPLQgZLGoKc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QWg9BDTy8gx1dNZDY4Zg3wr3ElbLunU4LEXt0Ccb7z5OoJo86tjgfn5hddUouZHH5lLl6yxZg4ZppHchSX0WPjSJEq9vP90xO/hTPtCNqzn0PSAeldwgDxzbc79cxqtyhX3GzYHG3tgsmyaNZPzzdK++LF0SmeZPhmp2dVclzxc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g8bUAgYv; arc=none smtp.client-ip=209.85.214.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r16+URJJ"
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-15354aa70e8so22245c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 19:27:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g8bUAgYv"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2e7e742a2c7so1701085ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 19:28:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791426474; x=1792031274; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XrXlWfL0sTc52Kvx+LtccQ+F2NsmCMYUwJ2EU4o8Vus=;
-        b=r16+URJJuBiOka3pTeY1eh8A5oZCUfVQ8iG0oXDGBwfNbUvIJvquvtVSfRf9No6mF6
-         Nm2krMOvubxezmPAyRfG+BNnIefksdimRSZ+i9nLVFszuUq+MJVPzIee//i4ih+17TP6
-         HZ/GK7EQmBXGdosFbDq9MRKgHFjm2VuM2TZqkJJ/k13p7n/MhwvBw+3CbrpAoUrInegl
-         BxzTiVni3Lm+BLGRsI9XkHNFjlKxG0bbrBhlmz0leE48qVohtHvpMJVlXV5sa7w/r4OJ
-         aeFlB49vH87Cn90wUuQDBw4FntRWWtrQp5HqTO1fc94Sr1jxTx87dg/uNgNl79y5ZZNW
-         GLHQ==
+        d=gmail.com; s=20251104; t=1791426521; x=1792031321; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MwahjYlmNg5Sb7TImh0bCwCphihNsrlCradydgL/hSk=;
+        b=g8bUAgYvUY1cSrIHQrLmGj+aXyvUoFGrUvIxL3wjuZUcVPMm3KveIridAPoFndt5j+
+         e9MZm6s0KPBSoA3TMFYwaO1kHW7fKmV+BNOFq3mf3pUDN10xFjyn0rbRQ5u9YnP5uZWn
+         k5aayMHWYgtP1ipgTAS0uYIWi03aEmP9yTs7KAs3kAHynoFFsbSGBLY0MKVtlA5Pp0Ll
+         yZGyzQ9lQ7+Sqq1mIpYu8rxO9q30qXeiazn95KtSPnzQSxhXHicDCdXaKKWN1yVzxKjP
+         zI4SVmdtXg0LFrJTdTBpseYiRcTYNqU8SO+fJIoVLaREL5BTigklrzzWFqgx5q8/hAFw
+         u6iw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791426474; x=1792031274;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XrXlWfL0sTc52Kvx+LtccQ+F2NsmCMYUwJ2EU4o8Vus=;
-        b=aWT03tfO11uItsYmt/7zpdu1wtVBGntYz5iHcXogbkoqTH4jkoMX4KYlScRxptJoWK
-         fm23Mn5m8jyByAEaVdIyb2m6EIEOzOF1DshYW2NzLE9/wD3hYprlPfospUVLDTg6DLeg
-         wfdFnGJ2PeGGe0xSUH5bD5D6yGHZjT69UseodyY8jb3oXfjGtQnlXWUEV0jNjA4V1sV6
-         EoipBvJ2xOMhM2zNMxQSsR1YOk31c3e9n8CNZM01LpiGZmU9wgHc4D2Ak+VjiYLYmbp5
-         39dO72EruiNsrFMFRontJcoBk8kfSysMjP2MNREbDl3bgC6P0hTarAo3+R69MF0qJIWD
-         qiRg==
-X-Forwarded-Encrypted: i=1; AKwUvBz8O+NbrHMgS5xzYyw6hYcUgdxmZfJEkPWl52hjt3upb23+dhG9KDU8ndJOFkfVOFTQGkMWDqsu3BdaR2c=@vger.kernel.org
-X-Gm-Message-State: AFuF++kpmSmpJDKNp2U/fRuz27YsDWrlYxhhNEm4dw5Ryhwq+07KneeW
-	mtnEMibmiy67FPKUSt8wiCBGo8SgCOfKZZLfNg1+HJ80dmpitJnZ8sd6
-X-Gm-Gg: AYBFou1wgSNQTwj9Ph447fNtGNS4tR5QnaKwkS2RTvH1iMttnA6W+OA2a24oJdmGMR1
-	i/4uflYtHyPAjYSyaAPOZNPQPYHSybLCC5OeRWiu82d2tg96gR7WpDdrBpfn8mOQ0sg8fbmGVPB
-	IMUtJGTndlVCt7XvXyHaFotZ03gFcEQ149F4xTiCu0XUlEVv9EXHJrXNvP2qAqn68i/Jso8s10b
-	NSyTDzOWpc7NGDnjxDfQvCLJfOVj5xKNuz/1YS0fmgJgLlJ3lshhS04nrF3fN2NjEcadiTKfYza
-	qK2XJW4wps+B2wZMVc7N1o1prvdBpXOeUmG/hrmrfmb/bcV/tDWGgdYy8VR+II1PCDU9ZULe0gs
-	+tSUxrxiWtHjRx4T9dmlOd292eVnp0ePGWCSTxxGasyspx4AfovAcC4jqM0uwC7tVdcqkmsWB51
-	w25O9tMdSJQv7V2XpIzmwyuGoRqzWgksLxK3xsydeoUtTv0CxU4woK35Y3jDZgxOJZOxLhIYwv
-X-Received: by 2002:a05:701b:271b:b0:143:2984:6518 with SMTP id a92af1059eb24-16209760e7emr4246517c88.39.1791426473966;
-        Wed, 07 Oct 2026 19:27:53 -0700 (PDT)
-Received: from ubuntu.. ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-16166121f74sm9367598c88.5.2026.10.07.19.27.51
+        d=1e100.net; s=20260707; t=1791426521; x=1792031321;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MwahjYlmNg5Sb7TImh0bCwCphihNsrlCradydgL/hSk=;
+        b=KH9+yKDSO+p/eENH3EGzevyw9mo2WuduK+kSj9CZ20rRPcyH7jnPh2ZS+zNz3YAQcE
+         /XmmaG0NiV/JiekO8B1psSGiHmMsBcI+zQOpU0HvQGSJZKcGxgaYxAj9MqseXX0ZGPnO
+         6f7ICaBXzOio92b89QvyVx12yFQztudpMBkF9nx+3SahkxNc2ApvZTGingCITlpydBpF
+         rCAnZc94jKDSHraiMd/c2XIMsbVwZG7cNL5yzMeS1xsQy9p/6xCA1ojWQL5Wp+H2iiTp
+         Jsbcrxnku7zBwf8LmtMbZX5K3o6rk6QKSuzJvZZjxaRfwQDkXhCqT0E0ajnjrwpljEGl
+         IIyw==
+X-Forwarded-Encrypted: i=1; AKwUvBwx5Oj9SSGAgv0GxVnmGY0UdlrRcONEt/ohTgaEAmzAyVikyjFk/qkP6FKJpkIK5sUuO3T/fBYSwhTlkkY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKDvm1U8GYh4lWB9YTW8OtsE39aua6EO6VjLKwzBNXu/Gx5bhfb
+	ClyMtgNQtbKXqd+YtpPBQdnJpOEsAGnmgo8gKWVKeoyKU0FMFL0JFCkL
+X-Gm-Gg: AYBFou3xy7ea8cfqNQ4EV6E4cM3Lxf36migvrUeLwMZNUqOCbcPOCrRydzx6akX7TKp
+	retD89dT2vp2wu7Aa4lHdVDlCxp/1xPjJrTWuDPBahZazQNc8d10DlQPLo4PcvW4qHmIak0CFTj
+	RjKrSzH2G6Vx3yNQyDYdZ/rx0IFOjj6nsOw5X0hBWF4fySEYEVMKTHNdk2tt5y1w7WTpZ4xrOQ6
+	xcWBW5+Cur52s18cxs9zbZoc2ErMMAY04omVVvrLnyvLrAtgsJvj9u0cqQLz13JzBRX6j8UY476
+	aZS3/Te53GU3dm8AGkmVmH9nmK4SM1a5l80pIDZaSdnuek44CHraKLDtoSsf2tESrH1/LCHk8Es
+	8hi6uGXb+S1lzH+//jc6TUzQVTC6e5j+XIkjzJL7o4IpBaOnIO32vp4cF0xTPrAhzT5BB0UMKoq
+	0WoG4PYVnCK2DpCAWI+W5cGvnc6CWFIQa3g27AKCq2H1yeUhVkbd1VzlbtytcklJ10DZRa0/u2L
+	oC16ZgT3lARuyZIC+Ry0gP6Jg==
+X-Received: by 2002:a17:902:eb8d:b0:2df:375f:b7ee with SMTP id d9443c01a7336-2e7ffde9b3dmr5405065ad.18.1791426520826;
+        Wed, 07 Oct 2026 19:28:40 -0700 (PDT)
+Received: from d.home.yangfl.dn42 ([2a09:bac5:661c:1246::1d2:d1])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e60482cab0sm18045865ad.50.2026.10.07.19.28.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 19:27:53 -0700 (PDT)
-From: Qiliang Yuan <odys.yuan@gmail.com>
-To: "Huang, Ying" <ying.huang@linux.alibaba.com>,
-	David Hildenbrand <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	Byungchul Park <byungchul@sk.com>,
-	Gregory Price <gourry@gourry.net>,
-	Alistair Popple <apopple@nvidia.com>,
-	linux-mm@kvack.org,
+        Wed, 07 Oct 2026 19:28:40 -0700 (PDT)
+From: David Yang <mmyangfl@gmail.com>
+To: netdev@vger.kernel.org
+Cc: David Yang <mmyangfl@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	=?UTF-8?q?Andreas=20F=C3=A4rber?= <afaerber@suse.de>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Ciprian Regus <ciprian.regus@analog.com>,
+	Andreas Larsson <andreas@gaisler.com>,
+	Jian Shen <shenjian15@huawei.com>,
+	Jijie Shao <shaojijie@huawei.com>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
+	MD Danish Anwar <danishanwar@ti.com>,
+	Parvathi Pudi <parvathi@couthit.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	Mohan Reddy Putluru <pmohan@couthit.com>,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Simon Horman <horms@kernel.org>,
+	Jacob Keller <jacob.e.keller@intel.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Nicolai Buchwitz <nb@tipi-net.de>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-actions@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] mm/migrate: walk runs of consecutive pages in do_pages_stat_array()
-Date: Thu,  8 Oct 2026 10:27:48 +0800
-Message-ID: <20261008022748.3349345-1-odys.yuan@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <87v77ggu14.fsf@DESKTOP-5N7EMDA>
-References: <20261002-bug-mm-move-pages-stat-batch-v2-0-f73b5d20519f@gmail.com> <20261002-bug-mm-move-pages-stat-batch-v2-1-f73b5d20519f@gmail.com> <87v77ggu14.fsf@DESKTOP-5N7EMDA>
+Subject: [PATCH net 00/10] net: Move setting of netops to fix crash
+Date: Thu,  8 Oct 2026 10:26:42 +0800
+Message-ID: <20261008022656.3592191-1-mmyangfl@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Ying, David,
+Commit ded86da4bbb7 ("net: ethtool: relax ethnl_req_get_phydev()
+locking assertion") put a netdev_need_ops_lock() check on the
+phy_attach_direct() path, in phy_link_topo_add_phy(). With
+CONFIG_NET_SHAPER enabled netdev_need_ops_lock() reads
+dev->netdev_ops->net_shaper_ops, so any driver that connects a PHY
+before assigning ndev->netdev_ops now dies with a NULL pointer
+dereference at probe time. The breakage showed up in v7.3-rc1.
 
-On Mon, 05 Oct 2026 21:24:07 +0800, Huang, Ying wrote:
-> As pointed out by David, nanosecond-level optimization for a not-so-hot
-> path isn't very attractive.  I understand the target of your
-> optimization is not the performance of a single page but that of a large
-> number of pages (such as 16 GiB).  So, please describe more clearly why
-> your change is necessary, for example, by providing the performance
-> improvement of querying 16 GiB memory.
+ibm/emac was hit first and fixed by commit 7c9f391ec89c ("net: emac:
+move setting of netops to fix crash"). These ten patches apply the
+same one-line move to the remaining in-tree drivers whose probe path
+attaches a PHY before filling in netdev_ops:
 
-Right, the target is large buffers, which also answers David's question
-about the need. Mooncake, the KV-cache store used for Kimi serving,
-calls move_pages() with a NULL node list on every 4K page of the
-buffers it registers for RDMA, to find which NUMA node each one lives
-on. Its issue tracker reports 216 ms for a 4 GiB buffer, and it
-registers hundreds of GiB per instance, so this query alone takes
-seconds of every startup.
+  1. hisilicon/hisi_femac   (crash reproduced on hardware)
+  2. hisilicon/hip04
+  3. actions/owl-emac
+  4. adi/adin1140
+  5. marvell/mv643xx_eth
+  6. amd/au1000_eth
+  7. ethoc
+  8. aeroflex/greth
+  9. ti/icssm-prueth
+ 10. microchip/lan865x      (attach happens inside oa_tc6_init())
 
-Time to query every page of a populated buffer, with the two v2
-patches applied, median of 5 runs:
+Only patch 1 was reproduced and verified on hardware; patches 2-10
+were found by source inspection and are neither build nor boot
+tested.
 
-                       before      after      change
-  1 GiB,  4K pages     27.3 ms     3.2 ms     -88%
-  4 GiB,  4K pages     109.5 ms    13.0 ms    -88%
-  16 GiB, 4K pages     486.1 ms    52.3 ms    -89%
-  1 GiB,  THP          23.5 ms     0.5 ms     -98%
-  4 GiB,  THP          95.0 ms     2.1 ms     -98%
-  16 GiB, THP          381.0 ms    9.1 ms     -98%
+Note that ti/netcp_ethss and cavium/thunder_bgx attach a PHY to
+netdevs that never get a netdev_ops at all (dummy netdevs), so they
+cannot be fixed by reordering and are not addressed here.
 
-> Additionally, the raw performance number depends on the system under
-> test.  Please provide a little more information about your testing
-> system, for example, the CPU architecture, generation, physical core
-> count, etc.  For comparison, the performance improvement percentage
-> would also be helpful.
+David Yang (10):
+  net: hisilicon: hisi_femac: Move setting of netops to fix crash
+  net: hisilicon: hip04_eth: Move setting of netops to fix crash
+  net: ethernet: actions: Move setting of netops to fix crash
+  net: ethernet: adi: Move setting of netops to fix crash
+  net: mv643xx: move setting of netops to fix crash
+  net: au1000: move setting of netops to fix crash
+  net: ethoc: move setting of netops to fix crash
+  net: ethernet: aeroflex: move setting of netops to fix crash
+  net: ti: icssm-prueth: Move setting of netops to fix crash
+  microchip: lan865x: move setting of netops to fix crash
 
-The host is a 2-socket AMD EPYC 9654 (Zen 4, 96 cores per socket). The
-test runs in a KVM guest on 7.3-rc5 with 16 vCPUs pinned to one host
-NUMA node and 32 GiB of memory, split into two guest NUMA nodes. The
-test program is bound to CPU 0, and the before and after kernels were
-measured back to back in the same guest.
+ drivers/net/ethernet/actions/owl-emac.c          | 3 ++-
+ drivers/net/ethernet/adi/adin1140.c              | 3 ++-
+ drivers/net/ethernet/aeroflex/greth.c            | 3 ++-
+ drivers/net/ethernet/amd/au1000_eth.c            | 3 ++-
+ drivers/net/ethernet/ethoc.c                     | 3 ++-
+ drivers/net/ethernet/hisilicon/hip04_eth.c       | 3 ++-
+ drivers/net/ethernet/hisilicon/hisi_femac.c      | 3 ++-
+ drivers/net/ethernet/marvell/mv643xx_eth.c       | 4 ++--
+ drivers/net/ethernet/microchip/lan865x/lan865x.c | 3 ++-
+ drivers/net/ethernet/ti/icssm/icssm_prueth.c     | 3 ++-
+ 10 files changed, 20 insertions(+), 11 deletions(-)
 
-Thanks,
-Qiliang
+-- 
+2.53.0
+
