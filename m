@@ -1,276 +1,286 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E94E727466A
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 03:12:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44B4D2EEE76
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 03:12:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791429128; cv=none; b=ddJ6a0wXkmpNKmGd6yR0RUmscVXQeCigjOwFJXzKcB6jRYaVJeLKDDQro3CL+VV731WnX2wAtUje2/naJvx84+aEeGaV72zxL2SazYkquuIvH3WpkK5NcoKmgS31xzHIyZ3CywhLwLNeSkhqNPe8kold0BdMSEuaTIGt1Ha9ITo=
+	t=1791429156; cv=none; b=r0oE+V199RZFVEUi5hIaxV3W7+czbsHNyBxJVGn2KVVaaKH+qfcOW64a+BopnxZCJezTVdRshn5l0CrWfbpGLsY9nM28aWr6EXggXQgIToYcYgRbCTLnMnOix0x8hpOBaNNHJujJckkG2KT0OrZ7NuoXMfacv0CHg8vJl4+hCyg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791429128; c=relaxed/simple;
-	bh=tkeZ6QKECN4uRnnat8d3f1rWRCe/1IOkwR8LV4JSC8s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NK2YT2cmMUXWi8l5QofnnAByd4z7R9MIsT/fzUvJcDS43EnSfBCpe7mSDYlzURyYa6DBL/BBKEZSZYf/pMEOpEAZPp36FKLnT65yBc+smXo2DAL7WYdOH0Mf+ScPEIhLY5fcMl6qhU5imbltaKFaEI/uprveAaEYoMD0t4eUsPE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Abzp8AzM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Y85DiLbF; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Abzp8AzM";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Y85DiLbF"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6981hOlu2452351
-	for <linux-kernel@vger.kernel.org>; Thu, 8 Oct 2026 03:12:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	1KVmEdWOafiMPjikiSHCknyPjVh/YtlD1R8rru/D4bU=; b=Abzp8AzMlJ8HqrHS
-	VYfpRrZ9HLQMguIYr/P9L+X89UScB4PEiua6NADStsqmDAQXNtFXeuOLs8cnZG0U
-	Ai99UjvuASNO8FRrb0jFobuICsJdghp7sI5Jpr4TqtdyMPAwVY+wbbRih0hKz1XS
-	ZyUEMr5pPQ2PDbI9Jq2QVUSFN0vSAZElCB5v7kefROYozxT136GAoZl5GGvm7ime
-	ZcViKFZ7SCeZumYB1zw8lFBMqVSOb89jqbyF1imMR8u8wAb6xjjr88Mrp19i0Dcj
-	AiGkqT3+UsnKZGrswrhqCtw59H+tTdu1vPgOGyipyLMDgJ/1uNcUcKBsFd05TnuK
-	aQR89A==
-Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe68uny-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 03:12:05 +0000 (GMT)
-Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-155a75f91e1so3569952c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 20:12:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791429124; x=1792033924; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1KVmEdWOafiMPjikiSHCknyPjVh/YtlD1R8rru/D4bU=;
-        b=Y85DiLbFBJnEHnIDjPC/+sSl5uCCSjv+RTG7ek+me5dwmW5OwkMEI3bpkVIHs1CZSZ
-         11zXYbB0eBPma0vw0X+rIe8EOLkoadvQ8aMQRV8BEOrvfz80XD4qBcukoc57HiEDkz9f
-         gIoL+kHtVf0zFvaDJeYa+Jlh6wTZaKbiFzL83TJ99eokpiQei3yqRSHVP+ggUX4gvsxG
-         Sy8/rSssaTB2Y1fVL0iYC6/tBHlj7VP5hh4FzKae09BAgVVYGw724bbQL9AVxCRzTwfm
-         IQR1CQ6jv36w/iwg6Nwy8pgWCiCUiLwJpJdc/su8vtKycKTf+wg8lxk6+aYDMSJlRDs5
-         MPqg==
+	s=arc-20240116; t=1791429156; c=relaxed/simple;
+	bh=0WtJGUa2Ei1qT4G2+P8o7gdOU6/Tk4RPwU5TXDvYfXU=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=msemjNQ+oPQjjFFTj6EepAY/z/eiOFvgFE2YKki8YN3MKFDQxgjeGcRFFprhtyeaI43Nhy439ZXtVrt1WZCMe0+GYrLUCGENecjKnkHYLdP2J0+KiFdoAYq2Q634R+621aBcIA0aq0kvaNIA227cC7UR2KHHCXg3g9qZMxNLkuE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4cc89e86e4dso4289689b6e.2
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 20:12:34 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791429124; x=1792033924;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1KVmEdWOafiMPjikiSHCknyPjVh/YtlD1R8rru/D4bU=;
-        b=ZiMsPbjggnkpKSigjzqL608kW7DAH3lFztflq2zYejk8BqPkVmblzSHhO1ruVbXyhF
-         HVY1Iks+PQET3yRhq7zoXhvAmiEbN3KxL0xs2MFp593ITpqPwDG6CTg4hUvX3cWjC3fb
-         7o8EZM6AVmx237YylmGYpCy/cH03CkUztDMWsC5b5mdfr6Anz2+Fi4tSY38CuFNVsKy+
-         e0h5NfW4GncBND1n59Iqvt6gYMG27W7e0hA2UXJJlpCkKf10C6F3grJX6xrWw3F4B6aj
-         dwtopubmNs6X4+MTR1veKXLFi/b9bH/xMflEJ0A9fHrAAh8LdMrqi/cuR08U/VHsDlf0
-         /jjQ==
-X-Forwarded-Encrypted: i=1; AKwUvBweVRSf3MX0C5JjrAPRxmL39pSsHSHMB5v619qPK0sgyaZEU1H0lao9Awea/i1yT9NoOwp+CY7alU9bdUE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kG3FG1qUlomHJSMcigLjDHnGEdx8SWGPqnHyvW/CR8zn4BJQk2
-	Rk6BBThkNy5r1F0LvgWc0hYyzDsJ8jWEsdSCakE+KrZ3o/Pq54Gk4dfOnFQ2wmhcQlvAKuZ40d4
-	rBeq+2QxkBIhtDU2QZo/aQx7nxZUfXYcZ+NlJChsFus056yWJlrCeLrFVeCC6wU7iwi0=
-X-Gm-Gg: AYBFou16W/QxxDr4NmblZ0qrI1T+jMpbIm5NGj5h80BT+CCjnLi3ofBoOz2WIshUsiJ
-	gRaturWoCuG9l3guFYAA3k3rhLUfE4lLyIhmAhnv76B+8Zaqz8JR8w+DKsT94/BieEEFUHPhM6I
-	gFhQKa9nfv3omjSIeErv9cm4qvtZTYa9Z3zGR7lOZMeBp2gJtq4gHLge8uAQw0wVej8K86nZtd0
-	aQxUdtvzT4t0BdRWUVDGwZFuGSrL6C/9L/9l4GYhVxwi9gL+/chKpCZTV+j6nL1EER3dNLZwRuY
-	b3i4F4Dl2FoANYGBb/yg5OncI0jVL+Isb3JmfpI4fumQxB45DF7D4au0fmdRIvIOh4/fKRNTosy
-	olonYCxabXC2X02MmFBTZLVLfFs5eFJ0QDGTa0cblGUAj8HCI8BuOUD3zBauFva1aeB18noosUw
-	NNmLOolldBmbHBp9+wkjI=
-X-Received: by 2002:a05:7022:4381:b0:149:f2b3:efcb with SMTP id a92af1059eb24-165a602bc41mr2109309c88.14.1791429124225;
-        Wed, 07 Oct 2026 20:12:04 -0700 (PDT)
-X-Received: by 2002:a05:7022:4381:b0:149:f2b3:efcb with SMTP id a92af1059eb24-165a602bc41mr2109240c88.14.1791429123253;
-        Wed, 07 Oct 2026 20:12:03 -0700 (PDT)
-Received: from [10.79.117.82] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-163e3c5bed6sm5057986c88.7.2026.10.07.20.11.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 07 Oct 2026 20:12:02 -0700 (PDT)
-Message-ID: <5555b1ee-1355-429f-b3de-f0926e4c30d6@oss.qualcomm.com>
-Date: Thu, 8 Oct 2026 08:41:57 +0530
+        d=1e100.net; s=20260707; t=1791429153; x=1792033953;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=k4GFIqZuYztypf5nVdacwFxbDWwpq1vZGFNBg/M0eKc=;
+        b=b+hp+CByIF6sCKT13KA7ROqmLT6+86BlKuEGgGHtmipR7WxpKo3F9l0TEeChWTtExb
+         N0xCxapFOtRLHm6g1Cg7vJkcss2juafp9Tt6GGp9He95Pp1cy/dWtu7iV1zfPYEXIQXm
+         R2E+gUOS7CHe71/SZlIVo6etjrb5fk2NYLx8tHKXUqI65uS3cq5EbMAubKExRTv14cfs
+         ZikthxO9EMQs1xBTdiEA8ihI5moJD7emsSpxxxYW2huakK4VuCRRwe5B8JyzAod5Pxdj
+         fmoLkm8COUWbUSfPtEpRegnhF2vT/Mjzn9wmbQihVjAJ2BpAGXS9iwbnXQYvck9qT9vt
+         2OHA==
+X-Forwarded-Encrypted: i=1; AKwUvBxxsvXrqsW9uHV+fk5kCu1/ebK9xSvlMriQuc3RyblQ0tF8jlolvNDMJVvTr1oMRmZ+NCW+6FWUaSe7uyA=@vger.kernel.org
+X-Gm-Message-State: AFuF++npdIavwGZFK5LRepw2BhWHQb/ZlK8Kjz/ljf60eJJalXHEdW05
+	RpLNSsIpbSmJY55Rwi+R+mypadVe66IzWFc4wwmIGiIQ6LvuwlJ3N75B5wYBFe+vp82n2uPPULh
+	R0AwEC9qCF9Hm3sjZ5CtL7SEcgEODfx7ejjf2RDuGPMHXz7Aj3ATcI9Dkfsw=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 0/2] Add initial support for Qualcomm Kuno SoC
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Linus Walleij <linusw@kernel.org>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>
-References: <20260929-kuno-soc-support-v7-0-530f62dc4020@oss.qualcomm.com>
-Content-Language: en-US
-From: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
-In-Reply-To: <20260929-kuno-soc-support-v7-0-530f62dc4020@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: ggdyzXbMOXFd4JokOwZMGAep0cb91PMt
-X-Authority-Analysis: v=2.4 cv=HcWB3SE8 c=1 sm=1 tr=0 ts=6ac70a05 cx=c_pps
- a=JYo30EpNSr/tUYqK9jHPoA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Gpu_kyyjuvhznk9Z_CEA:9 a=QEXdDO2ut3YA:10
- a=O8hF6Hzn-FEA:10 a=Fk4IpSoW4aLDllm1B1p-:22
-X-Proofpoint-GUID: ggdyzXbMOXFd4JokOwZMGAep0cb91PMt
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDAxMiBTYWx0ZWRfXxp2aIdAQHgNW
- xEAcCRZ9wmAwbRGHbjBYn1D4iQF63h9jANl9hCv+0oUJ2WatN0dLsTbIBKGYtM2YPUhEyOtb/f4
- g6KCZ6hBkgF4IAaugdxenaxfdbO98Pb1mImLxMn7KFPPAKIzEeztOuec3y6V0exEBJ8jHvTHrBb
- TfTnIM/+vBHIzfJNjizqcjtE6TafJKVZ3oOI6XsBBWKjiHnf8EWcJu+bCG8hU6ovU8v227G2Dx+
- 9K4mXszhyqxvyk1miGBZ5Vgv/LGsIygFQ+njHR3UTcL1X2SjH0GhFuakAjFlarvlCuzxMKWrNvT
- qrJn7Iur6xEuK0t75aQ5oDb9qzYy6E0lEStBKeezlGItdeJnNYLoDp1k/mqrJjsr2jj81c4Mdol
- BJAvmKrdt+xrHemqU/46PAIOu5TwDAmmypGf/JdnxHpxu508srRlui6+GovN9HR3ttBpb9wVt+l
- YbG1KuEvfQQLOP2ofKA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDAxMiBTYWx0ZWRfXz6DCR/BaRvZB
- kF+UUrH6wx5MUQQVMVuwZHzChHuiehpaIzNkw8XA0HtFSAPmHXGVtH7a+uqvLwReBqtKijaqBBz
- oz4pMQLmIinqMS70Ngz6gzFwV3KwSVQ=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-08_01,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 spamscore=0 bulkscore=0 adultscore=0
- priorityscore=1501 impostorscore=0 suspectscore=0 phishscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610020000
- definitions=main-2610080012
+X-Received: by 2002:a05:6808:138e:b0:4d6:9113:25b0 with SMTP id
+ 5614622812f47-4fc4739b36emr4054169b6e.51.1791429152951; Wed, 07 Oct 2026
+ 20:12:32 -0700 (PDT)
+Date: Wed, 07 Oct 2026 20:12:32 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ac70a20.a36481ec.1ba24c.0006.GAE@google.com>
+Subject: [syzbot] [acpica?] KASAN: slab-use-after-free Read in acpi_ns_check_package_list
+From: syzbot <syzbot+eb4f9a996f9ad47f435d@syzkaller.appspotmail.com>
+To: acpica-devel@lists.linux.dev, lenb@kernel.org, linux-acpi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, rafael@kernel.org, robert.moore@intel.com, 
+	saket.dumbre@intel.com, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+
+Hello,
+
+syzbot found the following issue on:
+
+HEAD commit:    f5098b6bae76 Linux 7.2-rc5
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=10dfc6b9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=f221a1b5d497ed15
+dashboard link: https://syzkaller.appspot.com/bug?extid=eb4f9a996f9ad47f435d
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+userspace arch: i386
+
+Unfortunately, I don't have any reproducer for this issue yet.
+
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-f5098b6b.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/29f89292ccd5/vmlinux-f5098b6b.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/6b54f72b862e/bzImage-f5098b6b.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+eb4f9a996f9ad47f435d@syzkaller.appspotmail.com
+
+ACPI Error: AE_NO_MEMORY, 
+Could not update object reference count (20260408/utdelete-651)
+==================================================================
+BUG: KASAN: slab-use-after-free in acpi_ns_check_object_type+0x5c8/0x760 drivers/acpi/acpica/nspredef.c:202
+Read of size 1 at addr ffff888020923688 by task kworker/u33:8/1163
+
+CPU: 3 UID: 0 PID: 1163 Comm: kworker/u33:8 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Workqueue: async async_run_entry_fn
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_address_description mm/kasan/report.c:378 [inline]
+ print_report+0x13d/0x4b0 mm/kasan/report.c:482
+ kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
+ acpi_ns_check_object_type+0x5c8/0x760 drivers/acpi/acpica/nspredef.c:202
+ acpi_ns_check_package_list+0x6c6/0xaf0 drivers/acpi/acpica/nsprepkg.c:495
+ acpi_ns_check_package+0xac4/0x1740 drivers/acpi/acpica/nsprepkg.c:295
+ acpi_ns_check_return_value+0x38d/0x420 drivers/acpi/acpica/nspredef.c:136
+ acpi_ns_evaluate+0x69e/0x1670 drivers/acpi/acpica/nseval.c:261
+ acpi_ut_evaluate_object+0xf7/0x610 drivers/acpi/acpica/uteval.c:60
+ acpi_rs_get_prt_method_data+0xa0/0x150 drivers/acpi/acpica/rsutils.c:446
+ acpi_get_irq_routing_table+0xb8/0x140 drivers/acpi/acpica/rsxface.c:137
+ acpi_pci_irq_find_prt_entry+0x179/0xdd0 drivers/acpi/pci_irq.c:215
+ acpi_pci_irq_lookup+0x8e/0x6b0 drivers/acpi/pci_irq.c:299
+ acpi_pci_irq_enable+0x1f5/0x6f0 drivers/acpi/pci_irq.c:414
+ pcibios_enable_device+0xb6/0xe0 arch/x86/pci/common.c:699
+ do_pci_enable_device+0x21f/0x4a0 drivers/pci/pci.c:1998
+ pci_enable_device_flags+0x27c/0x370 drivers/pci/pci.c:2089
+ usb_hcd_pci_probe+0x56/0xcb0 drivers/usb/core/hcd-pci.c:184
+ ehci_pci_probe+0x35/0x50 drivers/usb/host/ehci-pci.c:385
+ local_pci_probe+0xdd/0x1b0 drivers/pci/pci-driver.c:332
+ pci_call_probe+0x176/0x800 drivers/pci/pci-driver.c:394
+ __pci_device_probe drivers/pci/pci-driver.c:455 [inline]
+ pci_device_probe+0x1cd/0x370 drivers/pci/pci-driver.c:489
+ call_driver_probe drivers/base/dd.c:628 [inline]
+ really_probe+0x241/0xa60 drivers/base/dd.c:706
+ __driver_probe_device+0x20e/0x450 drivers/base/dd.c:868
+ driver_probe_device+0x4a/0x140 drivers/base/dd.c:898
+ __device_attach_driver+0x1df/0x320 drivers/base/dd.c:1026
+ bus_for_each_drv+0x159/0x1e0 drivers/base/bus.c:500
+ __device_attach_async_helper+0x1d1/0x2b0 drivers/base/dd.c:1055
+ async_run_entry_fn+0x9f/0x580 kernel/async.c:129
+ process_one_work+0xa23/0x1940 kernel/workqueue.c:3322
+ process_scheduled_works kernel/workqueue.c:3405 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3486
+ kthread+0x370/0x450 kernel/kthread.c:436
+ ret_from_fork+0x72b/0xd50 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+
+Allocated by task 1:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ unpoison_slab_object mm/kasan/common.c:340 [inline]
+ __kasan_slab_alloc+0x89/0x90 mm/kasan/common.c:366
+ kasan_slab_alloc include/linux/kasan.h:253 [inline]
+ slab_post_alloc_hook mm/slub.c:4584 [inline]
+ slab_alloc_node mm/slub.c:4917 [inline]
+ kmem_cache_alloc_noprof+0x26b/0x6a0 mm/slub.c:4931
+ acpi_ut_allocate_object_desc_dbg+0x86/0x240 drivers/acpi/acpica/utobject.c:359
+ acpi_ut_create_internal_object_dbg+0x51/0x260 drivers/acpi/acpica/utobject.c:69
+ acpi_ds_build_internal_object+0x173/0x790 drivers/acpi/acpica/dsobject.c:94
+ acpi_ds_build_internal_package_obj+0x481/0xe60 drivers/acpi/acpica/dspkginit.c:202
+ acpi_ds_eval_data_object_operands+0x2fd/0x640 drivers/acpi/acpica/dsopcode.c:638
+ acpi_ds_exec_end_op+0xe41/0x1e60 drivers/acpi/acpica/dswexec.c:617
+ acpi_ps_parse_loop+0x5e1/0x26e0 drivers/acpi/acpica/psloop.c:553
+ acpi_ps_parse_aml+0x81e/0x1120 drivers/acpi/acpica/psparse.c:489
+ acpi_ps_execute_table+0x393/0x500 drivers/acpi/acpica/psxface.c:295
+ acpi_ns_execute_table+0x596/0x970 drivers/acpi/acpica/nsparse.c:116
+ acpi_ns_parse_table+0xcb/0x160 drivers/acpi/acpica/nsparse.c:268
+ acpi_ns_load_table+0xc9/0x490 drivers/acpi/acpica/nsload.c:71
+ acpi_tb_load_namespace+0x2b0/0x8f0 drivers/acpi/acpica/tbxfload.c:158
+ acpi_load_tables+0x89/0x160 drivers/acpi/acpica/tbxfload.c:59
+ acpi_bus_init drivers/acpi/bus.c:1479 [inline]
+ acpi_init+0x146/0x840 drivers/acpi/bus.c:1592
+ do_one_initcall+0x11d/0x700 init/main.c:1347
+ do_initcall_level init/main.c:1409 [inline]
+ do_initcalls init/main.c:1425 [inline]
+ do_basic_setup init/main.c:1445 [inline]
+ kernel_init_freeable+0x6ea/0x7b0 init/main.c:1658
+ kernel_init+0x1f/0x1e0 init/main.c:1548
+ ret_from_fork+0x72b/0xd50 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+Freed by task 1163:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
+ poison_slab_object mm/kasan/common.c:253 [inline]
+ __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:285
+ kasan_slab_free include/linux/kasan.h:235 [inline]
+ slab_free_hook mm/slub.c:2677 [inline]
+ slab_free mm/slub.c:6377 [inline]
+ kmem_cache_free+0x127/0x6b0 mm/slub.c:6504
+ acpi_os_release_object+0x1c/0x30 drivers/acpi/osl.c:1661
+ acpi_ut_delete_object_desc+0xea/0x130 drivers/acpi/acpica/utobject.c:402
+ acpi_ut_delete_internal_obj drivers/acpi/acpica/utdelete.c:316 [inline]
+ acpi_ut_update_ref_count.part.0+0x510/0x2250 drivers/acpi/acpica/utdelete.c:436
+ acpi_ut_update_ref_count drivers/acpi/acpica/utdelete.c:374 [inline]
+ acpi_ut_update_object_reference+0x258/0x800 drivers/acpi/acpica/utdelete.c:553
+ acpi_ut_remove_reference drivers/acpi/acpica/utdelete.c:740 [inline]
+ acpi_ut_remove_reference+0x192/0x1d0 drivers/acpi/acpica/utdelete.c:710
+ acpi_ds_clear_implicit_return drivers/acpi/acpica/dsutils.c:55 [inline]
+ acpi_ds_clear_implicit_return+0x137/0x220 drivers/acpi/acpica/dsutils.c:34
+ acpi_ds_exec_end_control_op+0x319/0xf60 drivers/acpi/acpica/dscontrol.c:226
+ acpi_ds_exec_end_op+0xff7/0x1e60 drivers/acpi/acpica/dswexec.c:462
+ acpi_ps_parse_loop+0x5e1/0x26e0 drivers/acpi/acpica/psloop.c:553
+ acpi_ps_parse_aml+0x81e/0x1120 drivers/acpi/acpica/psparse.c:489
+ acpi_ps_execute_method+0x5c4/0xe90 drivers/acpi/acpica/psxface.c:190
+ acpi_ns_evaluate+0x640/0x1670 drivers/acpi/acpica/nseval.c:205
+ acpi_ut_evaluate_object+0xf7/0x610 drivers/acpi/acpica/uteval.c:60
+ acpi_rs_get_prt_method_data+0xa0/0x150 drivers/acpi/acpica/rsutils.c:446
+ acpi_get_irq_routing_table+0xb8/0x140 drivers/acpi/acpica/rsxface.c:137
+ acpi_pci_irq_find_prt_entry+0x179/0xdd0 drivers/acpi/pci_irq.c:215
+ acpi_pci_irq_lookup+0x8e/0x6b0 drivers/acpi/pci_irq.c:299
+ acpi_pci_irq_enable+0x1f5/0x6f0 drivers/acpi/pci_irq.c:414
+ pcibios_enable_device+0xb6/0xe0 arch/x86/pci/common.c:699
+ do_pci_enable_device+0x21f/0x4a0 drivers/pci/pci.c:1998
+ pci_enable_device_flags+0x27c/0x370 drivers/pci/pci.c:2089
+ usb_hcd_pci_probe+0x56/0xcb0 drivers/usb/core/hcd-pci.c:184
+ ehci_pci_probe+0x35/0x50 drivers/usb/host/ehci-pci.c:385
+ local_pci_probe+0xdd/0x1b0 drivers/pci/pci-driver.c:332
+ pci_call_probe+0x176/0x800 drivers/pci/pci-driver.c:394
+ __pci_device_probe drivers/pci/pci-driver.c:455 [inline]
+ pci_device_probe+0x1cd/0x370 drivers/pci/pci-driver.c:489
+ call_driver_probe drivers/base/dd.c:628 [inline]
+ really_probe+0x241/0xa60 drivers/base/dd.c:706
+ __driver_probe_device+0x20e/0x450 drivers/base/dd.c:868
+ driver_probe_device+0x4a/0x140 drivers/base/dd.c:898
+ __device_attach_driver+0x1df/0x320 drivers/base/dd.c:1026
+ bus_for_each_drv+0x159/0x1e0 drivers/base/bus.c:500
+ __device_attach_async_helper+0x1d1/0x2b0 drivers/base/dd.c:1055
+ async_run_entry_fn+0x9f/0x580 kernel/async.c:129
+ process_one_work+0xa23/0x1940 kernel/workqueue.c:3322
+ process_scheduled_works kernel/workqueue.c:3405 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3486
+ kthread+0x370/0x450 kernel/kthread.c:436
+ ret_from_fork+0x72b/0xd50 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+The buggy address belongs to the object at ffff888020923680
+ which belongs to the cache Acpi-Operand of size 72
+The buggy address is located 8 bytes inside of
+ freed 72-byte region [ffff888020923680, ffff8880209236c8)
+
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x20923
+flags: 0xfff00000000000(node=0|zone=1|lastcpupid=0x7ff)
+page_type: f5(slab)
+raw: 00fff00000000000 ffff88801bc4da40 dead000000000100 dead000000000122
+raw: 0000000000000000 0000000800270027 00000000f5000000 0000000000000000
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 0, migratetype Unmovable, gfp_mask 0xd2cc0(GFP_KERNEL|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 1, tgid 1 (swapper/0), ts 2238826461, free_ts 0
+ set_page_owner include/linux/page_owner.h:32 [inline]
+ post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1859
+ prep_new_page mm/page_alloc.c:1867 [inline]
+ get_page_from_freelist+0xf48/0x3530 mm/page_alloc.c:3946
+ __alloc_frozen_pages_noprof+0x299/0x2dc0 mm/page_alloc.c:5304
+ alloc_slab_page mm/slub.c:3266 [inline]
+ allocate_slab mm/slub.c:3380 [inline]
+ new_slab+0xa2/0x640 mm/slub.c:3426
+ refill_objects+0xe3/0x410 mm/slub.c:7310
+ refill_sheaf mm/slub.c:2804 [inline]
+ __pcs_replace_empty_main+0x376/0x680 mm/slub.c:4675
+ alloc_from_pcs mm/slub.c:4773 [inline]
+ slab_alloc_node mm/slub.c:4905 [inline]
+ kmem_cache_alloc_noprof+0x46e/0x6a0 mm/slub.c:4931
+ acpi_ut_allocate_object_desc_dbg+0x86/0x240 drivers/acpi/acpica/utobject.c:359
+ acpi_ut_create_internal_object_dbg+0x51/0x260 drivers/acpi/acpica/utobject.c:69
+ acpi_ds_build_internal_package_obj+0xa8c/0xe60 drivers/acpi/acpica/dspkginit.c:92
+ acpi_ds_eval_data_object_operands+0x2fd/0x640 drivers/acpi/acpica/dsopcode.c:638
+ acpi_ds_exec_end_op+0xe41/0x1e60 drivers/acpi/acpica/dswexec.c:617
+ acpi_ps_parse_loop+0x5e1/0x26e0 drivers/acpi/acpica/psloop.c:553
+ acpi_ps_parse_aml+0x81e/0x1120 drivers/acpi/acpica/psparse.c:489
+ acpi_ps_execute_table+0x393/0x500 drivers/acpi/acpica/psxface.c:295
+ acpi_ns_execute_table+0x596/0x970 drivers/acpi/acpica/nsparse.c:116
+page_owner free stack trace missing
+
+Memory state around the buggy address:
+ ffff888020923580: 00 00 fc fc fc fc 00 00 00 00 00 00 00 00 00 fc
+ ffff888020923600: fc fc fc fa fb fb fb fb fb fb fb fb fc fc fc fc
+>ffff888020923680: fa fb fb fb fb fb fb fb fb fc fc fc fc 00 00 00
+                      ^
+ ffff888020923700: 00 00 00 00 00 00 fc fc fc fc fa fb fb fb fb fb
+ ffff888020923780: fb fb fb fc fc fc fc 00 00 00 00 00 00 00 00 00
+==================================================================
 
 
-On 9/29/2026 3:18 PM, Hardeep Sharma wrote:
-> This series adds initial support for the Qualcomm Kuno SoC and the Kuno
-> IDP reference board.
->
-> Kuno is a 32-bit ARM (Cortex-A7) Qualcomm platform. The rest of the
-> series (bindings, GCC, RPMh clocks and power domains, interconnect,
-> pinctrl, geni-se) has been applied and is in linux-next, so v7 carries
-> only the SoC and IDP board devicetree, plus a small geni-se binding
-> update that lets the QUP wrapper use one address/size cell on 32-bit
-> SoCs.
->
-> Signed-off-by: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
-> ---
-> Changes in v7:
-> - Addressed v6 review feedback:
->    - New patch: allow 1 or 2 #address-cells/#size-cells in the geni-se
->      QUP wrapper binding.
->    - Switched the QUP wrapper to one address/size cell with an empty
->      ranges, instead of the explicit 32-bit window.
-> - Link to v6: https://lore.kernel.org/all/20260929-kuno-soc-support-v6-1-a16afafbcbc7@oss.qualcomm.com/
->
-> Changes in v6:
-> - Rebased on next-20260928. The rest of the series has been applied,
->    so only the devicetree patch remains.
-> - Addressed v5 review feedback:
->    - Added the full qcom,pdc-ranges map (22 ranges instead of 3), so
->      that all PDC-routed wakeup GPIOs can wake the system.
->    - Added wakeup-parent = <&pdc> to the TLMM node.
->    - Replaced the explicit soc ranges with an empty ranges and named the
->      node soc, matching the other 32-bit Qualcomm SoCs.
->    - Widened the QUP wrapper ranges to cover the whole 32-bit address
->      space instead of a 16 MiB window.
-> - Link to v5: https://lore.kernel.org/all/20260827-kuno-soc-support-v5-0-6d47636a8f09@oss.qualcomm.com/
->
-> Changes in v5:
-> - Selected QCOM_GDSC from the Kuno GCC config. The driver registers GDSCs
->    (added in v4), so like the other Qualcomm GCC drivers it must select
->    QCOM_GDSC; otherwise, in a configuration where nothing else enables it
->    (e.g. COMPILE_TEST or a minimal Kuno-only build), gdsc_register() returns
->    -ENOSYS and the clock controller fails to probe.
-> - Link to v4: https://lore.kernel.org/all/20260827-kuno-soc-support-v4-0-dd34f235fc1a@oss.qualcomm.com/
->
-> Changes in v4:
-> - Addressed v3 review feedback:
->    - Registered the interconnect NoC provider from an explicit
->      core_initcall() instead of module_platform_driver(), matching the
->      established qcom interconnect driver convention.
->    - Replaced the NA mux-slot placeholder with _ across the pinctrl
->      PINGROUP table, matching the upstream qcom pinctrl convention.
->    - Added minItems: 1 to the interconnect binding clocks property so a
->      single clock is valid (system-noc), and aligned the binding
->      examples with the sdx75 labelled-node style.
->    - Added GDSC power-domain support to the Kuno GCC: the binding now
->      defines GDSC macros and the driver registers the EMAC0, PCIe and
->      USB20 GDSCs, so #power-domain-cells has real backing providers.
->    - Split the cpu-idle-states phandle list so each phandle is on its
->      own line.
->    - Collected Acked-by / Reviewed-by tags from v3.
-> - Link to v3: https://lore.kernel.org/all/20260821-kuno-soc-support-v3-0-196e2b306368@oss.qualcomm.com/
->
-> Changes in v3:
-> - Addressed v2 review feedback:
->    - Reworked the interconnect binding clocks: dropped clock-names and
->      replaced the flexible min/maxItems list with fixed per-compatible
->      clocks (aggre-noc: 2, system-noc: 1), required where present and
->      disallowed otherwise, matching the sdx75/glymur shape.
->    - Made #power-domain-cells required on the Kuno GCC binding and
->      declared it on the SoC gcc node, since the Kuno GCC hosts GDSCs and
->      is a power-domain provider (following qcom,sdx75-gcc); the driver's
->      GDSC support will follow separately.
->    - Made the GPIO65/66 QDSS CTI trig1 funcsel-3 route selectable: added
->      a distinct qdss_cti_trig1_mire pin function (and allowed it in the
->      TLMM binding enum), as the duplicate funcsel-2/3 entry left
->      funcsel-3 unreachable.
->    - Collected Acked-by / Reviewed-by tags from v2.
-> - Link to v2: https://lore.kernel.org/all/20260814-kuno-soc-support-v2-0-3079794f0f73@oss.qualcomm.com/
->
-> Changes in v2:
-> - Addressed v1 review feedback:
->    - Reworked soc: qcom: geni-se commit message; dropped the Fixes: tag.
->    - Reworded dt-bindings commit messages to the "Document X for the
->      Qualcomm Kuno SoC" one-liner form.
->    - Canonicalized copyright headers on interconnect binding / driver /
->      NoC ID header to the single-line Qualcomm Technologies form.
->    - Dropped unused <linux/mod_devicetable.h> from the interconnect
->      driver.
->    - Fixed MODULE_DESCRIPTION casing "KUNO" -> "Kuno" in the interconnect
->      driver.
->    - Extended interconnect binding to optionally allow up to four QoS AHB
->      clocks (matches sdx75/glymur shape).
->    - Cleaned up brace/space style in gcc-kuno.c to match peer clock
->      drivers.
->    - Reworked initial DTS: moved idle-states / domain-idle-states inside
->      cpus{}, wrapped fixed clocks in a clocks{} container with peer node
->      names (xo-board, sleep-clk), dropped the pcie_pipe_clk fixed-clock
->      stub (the GCC 4th clock now uses <0> in DTS to match the sdx75
->      idiom; the YAML example uses a named placeholder), dropped the
->      RPMHPD_CX power-domain reference on GCC (Kuno GCC has no GDSCs /
->      no corner votes / no pm_runtime, so the reference was inert), and
->      added a bootloader hand-off comment on the memory node.
->    - Collected Acked-by / Reviewed-by tags from v1.
-> - Link to v1: https://lore.kernel.org/all/20260809-kuno-soc-support-v1-0-5e0ede4a0c72@oss.qualcomm.com/
->
-> ---
-> Hardeep Sharma (2):
->        dt-bindings: soc: qcom,geni-se: Allow 1 or 2 address and size cells
->        ARM: dts: qcom: Add initial device tree for Kuno SoC
->
->   .../devicetree/bindings/soc/qcom/qcom,geni-se.yaml |   4 +-
->   arch/arm/boot/dts/qcom/Makefile                    |   1 +
->   arch/arm/boot/dts/qcom/qcom-kuno-idp.dts           |  25 ++
->   arch/arm/boot/dts/qcom/qcom-kuno.dtsi              | 444 +++++++++++++++++++++
->   4 files changed, 472 insertions(+), 2 deletions(-)
-> ---
-> base-commit: 6375e61c01e93e35ee7acd336a689ac1fae4b509
-> change-id: 20260809-kuno-soc-support-1dab826de0bf
->
-> Best regards,
-> --
-> Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-Hello All,
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-Both of the following patches are ready to be picked:
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
-[PATCH v7 1/2] dt-bindings: soc: qcom,geni-se: Allow 1 or 2 address and 
-size cells
-[PATCH v7 2/2] ARM: dts: qcom: Add initial device tree for Kuno SoC
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
 
-Could you please pick them ?
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
 
-Thank you for your review and support.
-
-Best Wishes
-
-Hardeep Sharma
-
+If you want to undo deduplication, reply with:
+#syz undup
