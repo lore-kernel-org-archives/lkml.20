@@ -1,40 +1,68 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D4383B14D7;
-	Thu,  8 Oct 2026 10:14:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85CFF375AC4
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 10:16:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791454492; cv=none; b=QCMtTeMALzYJbxgEiVykB6LYgHRSmWcmEHa61JOURzOwjScd4/Qy4wPc5E088Pgbu1i7JTz72zGWIKCfjhVP5MpY5ErYO5C0phQQgE1WMbJuqsuqEebBJzvtJBqrWjvo61CTctsa4MfXbFTnNBIkcx4KVJ3emEwKUv6FU0e+cOw=
+	t=1791454572; cv=none; b=k1GrK5QWPeaXV1nvYlXFOwxjCtpEueu/Qqmh+UnwAJka7JXT0+yj1HIbsLi8Nsp9mtZukpQf5ALp3IdE3fdOOvhf8hC/nCJX1gzz9aUQu1YKaNzRFxftZjBZT2msL0schlDoo2/CJtf9m3aD0G9kDnKXbJcJzeq+q70Euda+xHU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791454492; c=relaxed/simple;
-	bh=mb+knxQeWrLQpgSQvPFgzD84aJw7bFwp6tZ2hcWcGGo=;
+	s=arc-20240116; t=1791454572; c=relaxed/simple;
+	bh=e4wh8k5S9G0ULPslHxGFjvETPiXMDjfoHfIlUwB5f0w=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Nip8d9qAeHZLgryh9VHi+dtIruoBrdXTWKelJD1wSy96G20fPgX1rP/yuz17XOFcfPJsF5afSBLjqV2GqyTblOb3ZNnQjSvAIVM9WCuRAhXBR4oJbPDl9Y87trKEq63EKm5JROW7HgvBLZJAEbLpzW8nr12E2nkcbAuSacoxzMc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=DmDHRn5C; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	 In-Reply-To:Content-Type; b=jcxqrzN56hgk+WbI18h3pKv9nS5z349/odZwnTf42UTY12YLsqDRex4y42ImBzjnix20w7JBTaiIKloBZGM2RC8kRfhiOL0H2rM2nJGgzDKnwtd78taHj0q5SsvXQz+i3lqm1DfnGJe1BWf7cUXcSDdFwVxuP58a/Z4FqzjAkrA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=MjCtSS5Z; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="DmDHRn5C"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 32D551A1196;
-	Thu,  8 Oct 2026 10:14:42 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id EFE5B60341;
-	Thu,  8 Oct 2026 10:14:41 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3C50410333874;
-	Thu,  8 Oct 2026 12:14:33 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791454480; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=mdRZrJtN9FgdZCPO3nME/34pN1D6OmSnqjEe0tYXdVE=;
-	b=DmDHRn5CPrt/BbOThmCBjnAmlKyqU3XDz6zCOs0/WG5jeiwuZRNwtdARLhor8mGpKXY/xy
-	UUdQUvpw8i8nR+GfitrKZkypI3S1FlaPf9x9cijrs89n7nfMQLLTchQA25kw/uxI2aenOp
-	8Mafjhf8QH0ka1ZPYz/sS6lsGUge9/VF8dpF3CV1Qj+HnrbWdTkRzpzyBJD0WFvv/IBO18
-	dJuFjfmteEw2F1O59bnMnh/gBUQ0BRwX/1wcYV9lKujGo8WbUv/rxruhLC3ay5kmzcWqu4
-	eu06kzZl+6x4o4N10U896lHWeQ3wgdtyI0xNs2SPDB3iNmAFh1PEYXYG7LGRtg==
-Message-ID: <bea80b7e-3d44-4662-b3b2-e97a7f903aa9@bootlin.com>
-Date: Thu, 8 Oct 2026 12:14:31 +0200
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="MjCtSS5Z"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a018dc1f98so24173575e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 03:16:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1791454570; x=1792059370; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8etGjMJEeVxrETmezgIDHyTK7amt3qspU/qe6Xo8zl8=;
+        b=MjCtSS5ZppmmoQiK32B2etd8AUOfdp/Mey4MKj6HjFkEnknGFKna6YDju/beRZYg14
+         QnvCaf5combpVGv2EhI7zLrCQzTjPjUKC29f3SFQ7YkLOK4ztDtQIeqPrib6Pm+OS9qX
+         zYeUtcAOvYRj5uU0IZZMdb4kPxATITZOQiLO0Hrqe9cecyRBdEOQ0yYdB8Cyo+dPSv0v
+         5YVgeSfUcAWAVD0Bo/g1UPNZ43o5+rCiUH1Yvpcx4GcczTftkhw6JsDUS0O/1SFK1qKW
+         YuiWMDBvzEaBXyL9q5ZfZpeRljMViOHv8OSfx8P4C+/xJHc/s0Ok3SiLjbYgjPbAaH6k
+         gG1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791454570; x=1792059370;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8etGjMJEeVxrETmezgIDHyTK7amt3qspU/qe6Xo8zl8=;
+        b=V8xvabA210tG4obM1rmsh8rWcjDWAUHe4zwYiAT0KAHYXwB+y1bKaNjnma3N4f5u1C
+         Jur+gxq/zuBLqEY2djOU90klBp5YIwhyK6mfBZVA/ztSvc8J8C7xaCAWqmS/jephekAX
+         v7E5nxoJkB3PfC6Y7iKxnwVimPWJn5VToFDy49FsU3Po8lWVtY2WJEMRymZO3cqSHaCo
+         acAa90sfRSg4ID1xF6w+A5qfr1VyPNnlSVueUZrkFHJQ/KEpYoQHH7SO8bnIlO+n9V+C
+         usOP9mAxpcS2LlRBFn02xTfHRIK/169IoHUPctnc65T4OCwnEcp2ohJLhOhzZFE7FId4
+         ozEg==
+X-Forwarded-Encrypted: i=1; AKwUvByZ61BuGw/dDXUwxiH59zE9mzOuQ7SzvnNUC+d7wu+AE+Ml5iX1RQbBPCHfzwZLWPZiZFAUgWtFTLOfJV8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kKY/DLgTPSHGhAX306fXV/CtTGqtIlwYPSUFIiaaY+3ciBN1U1
+	uahBHswMh+jLmqvT8Uas3EcZHO65lY0K/2Jeq54Hub4osR5+YPfxMx4gsCJ7T6xWq1g=
+X-Gm-Gg: AYBFou3kDpzaD4/5hMUgMMDih83mmlGSUGyVAJaN2wyeD2QZq0HYP06TgKUO7NoBIUx
+	DUwUkdqmYRiUYuJPHacdb3NGn4klCFZxXjoQ5aeHU2+HiEuo6e+75miw31rXh0hp2PqVxbTAT7i
+	sRUg6NL7eyODSdWuoUupSz/2Se39WNLdjOr+JbI7NoovFSjltZEVSkP811xaVwYHf4BqgalkOfo
+	/zJLp7/3uIiBVzlmB7CHq2gtNKfPYLhew6w+LQ00yh+Aani/Fy2WojYO+//3lCrGZ57HfricGaI
+	DUj9WRZ3NlupbJA5I764MNmuXuZwIjuPFRpT/dIdgMAfhoPoqaePQ6iejZ0Ru3UhIty5feo3b5s
+	Gw7cCF3fT6fOHkg1BPlUg6HJ/xOGm3G6T73zQlIeb1w15SPy4UINl6TFNf1Tq+A3ZQCs9sHNwq5
+	iRaqD/dWh0YE4LE7CqGrUIJvwT0wy8gzPVqa+R0AOUv5fUjd1rE0+vGGg2OOpqJ+UsmbdKD4d8W
+	iVNR8ZwbRjVdbH6/R0IZ7oHBL7ZU99hUrK4b/NgCZ8=
+X-Received: by 2002:a05:600c:3ba7:b0:49c:fa20:cbfd with SMTP id 5b1f17b1804b1-4a18043b426mr99970595e9.20.1791454569556;
+        Thu, 08 Oct 2026 03:16:09 -0700 (PDT)
+Received: from ?IPV6:2001:a61:13be:f901:8903:c5f1:e7c8:72f0? ([2001:a61:13be:f901:8903:c5f1:e7c8:72f0])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1843bd060sm75338045e9.14.2026.10.08.03.16.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 08 Oct 2026 03:16:09 -0700 (PDT)
+Message-ID: <f713829e-0fbc-4ce6-9508-9d015c85e614@suse.com>
+Date: Thu, 8 Oct 2026 12:16:08 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,151 +70,117 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v2] net: stmmac: dwxgmac2: enable L2 split header
- support
-To: Sagar Cheluvegowda <sagar.cheluvegowda@oss.qualcomm.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: netdev@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
- Hongmei Xu <hongmei.xu@oss.qualcomm.com>,
- Abhishek Chauhan <abhishek.chauhan@oss.qualcomm.com>,
- Sarosh Hasan <sarosh.hasan@oss.qualcomm.com>
-References: <20261007183905.2582759-1-sagar.cheluvegowda@oss.qualcomm.com>
+Subject: Re: [PATCH v3 1/3] usb: xhci: Add support for eUSB2v2 1024-byte bulk
+ packet size
+To: pawell@cadence.com, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Mathias Nyman <mathias.nyman@intel.com>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261005-eusb2v2-packet-size-v3-0-fde610a3c47a@cadence.com>
+ <20261005-eusb2v2-packet-size-v3-1-fde610a3c47a@cadence.com>
 Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20261007183905.2582759-1-sagar.cheluvegowda@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+From: Oliver Neukum <oneukum@suse.com>
+In-Reply-To: <20261005-eusb2v2-packet-size-v3-1-fde610a3c47a@cadence.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi,
 
-On 10/7/26 20:39, Sagar Cheluvegowda wrote:
-> XGMAC2 doesn't program the MAC extended configuration registers
-> needed for L2 header splitting when split-header mode is enabled,
-> so tagged AV packets can't use the split-header path. Configure
-> split mode (SPLM) and header saving (SAVE_EN) in XGMAC_EXT_CFG1,
-> extending the dwmac4 sequence added by commit d10f1a4e44c3 ("net:
-> stmmac: Programming sequence for VLAN packets with split header")
-> to XGMAC2.
-> 
-> Also fix the RX header-length calculation for split-header
-> descriptors. Per the XGMAC2 descriptor format, RDES3's L34T and
-> L2T fields are only valid on the last descriptor (LD set); on a
-> non-last descriptor they can hold stale write-back data from a
-> previous packet. Read the header length from RDES2[9:0] directly
-> for non-last descriptors, and only consult L34T/L2T on the last
-> descriptor: RDES2[9:0] for IP packets (L34T set) and RDES2[9:2]
-> for non-IP packets (L2T set).
-> 
-> Finally, disable the variable-length preamble when L2 splitting
-> is enabled. A variable-length preamble shifts the position of the
-> Ethernet header, making the L2 split offset non-deterministic.
-> 
-> Co-developed-by: Abhishek Chauhan <abhishek.chauhan@oss.qualcomm.com>
-> Signed-off-by: Abhishek Chauhan <abhishek.chauhan@oss.qualcomm.com>
-> Co-developed-by: Sarosh Hasan <sarosh.hasan@oss.qualcomm.com>
-> Signed-off-by: Sarosh Hasan <sarosh.hasan@oss.qualcomm.com>
-> Signed-off-by: Sagar Cheluvegowda <sagar.cheluvegowda@oss.qualcomm.com>
-> ---
-> v2:
->   - Add XGMAC_CONFIG1_SPLM_MASK and use it in XGMAC_CONFIG1_SPLM()
-> v1: https://lore.kernel.org/netdev/20260922232116.889630-1-sagar.cheluvegowda@oss.qualcomm.com/
-> 
->  drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h       |  8 ++++++++
->  drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c | 12 +++++++++++-
->  drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c   | 10 ++++++++++
->  3 files changed, 29 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-> index f8ab347f7b5b..fb29dd489714 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-> @@ -167,6 +167,12 @@
->  #define XGMAC_HW_FEATURE4		0x0000012c
->  #define XGMAC_HWFEAT_EASP		BIT(4)
->  #define XGMAC_HWFEAT_PCSEL		GENMASK(1, 0)
-> +#define XGMAC_EXT_CFG0			0x140
 
-Let's keep it coherent and use 0x00000140
+On 05.10.26 10:18, Pawel Laszczak via B4 Relay wrote:
+> From: Pawel Laszczak <pawell@cadence.com>
+> 
+> The eUSB2 v2 specification (bcdUSB 0x0230) introduces support for
+> 1024-byte maximum packet sizes for Bulk endpoints in High-Speed mode.
+> However, an eUSB2v2 peripheral will revert its internal maximum packet
+> size back to 512 bytes after events like a bus reset, disconnect, or
+> deconfiguration.
+> 
+> To support 1024-byte bulk transfers on capable hosts, add a new
+> is_eusb2v2 flag to the usb_bus structure, populated via the HCCPARAMS2
+> E2V2C capability bit in the xHCI driver.
+> 
+> When an eUSB2v2 host configures an eUSB2v2 device, issue a specific
+> SET_FEATURE (USB_DEVICE_BULK_MAX_PACKET_UPDATE) request during device
+> configuration to switch the peripheral to 1024-byte packet mode, and
+> allow the xHCI endpoint initialization to accept up to 1024 bytes for
+> HS bulk endpoints.
 
-> +#define XGMAC_EXT_CFG0_VPRE		BIT(8)
-> +#define XGMAC_EXT_CFG1			0x00000144
-> +#define XGMAC_CONFIG1_SAVE_EN		BIT(24)
-> +#define XGMAC_CONFIG1_SPLM_MASK		GENMASK(9, 8)
-> +#define XGMAC_CONFIG1_SPLM(v)		FIELD_PREP(XGMAC_CONFIG1_SPLM_MASK, v)
->  #define XGMAC_MAC_DPP_FSM_INT_STATUS	0x00000150
->  #define XGMAC_MAC_FSM_CONTROL		0x00000158
->  #define XGMAC_PRTYEN			BIT(1)
-> @@ -434,6 +440,7 @@
->  #define XGMAC_RDES2_L4FM		BIT(28)
->  #define XGMAC_RDES2_L3FM		BIT(27)
->  #define XGMAC_RDES2_HL			GENMASK(9, 0)
-> +#define XGMAC_RDES2_NONIPHL		GENMASK(9, 2)
->  #define XGMAC_RDES3_OWN			BIT(31)
->  #define XGMAC_RDES3_CTXT		BIT(30)
->  #define XGMAC_RDES3_IOC			BIT(30)
-> @@ -441,6 +448,7 @@
->  #define XGMAC_RDES3_CDA			BIT(27)
->  #define XGMAC_RDES3_RSV			BIT(26)
->  #define XGMAC_RDES3_L34T		GENMASK(23, 20)
-> +#define XGMAC_RDES3_L2T			GENMASK(19, 16)
->  #define XGMAC_RDES3_ET_LT		GENMASK(19, 16)
->  #define XGMAC_L34T_IP4TCP		0x1
->  #define XGMAC_L34T_IP4UDP		0x2
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
-> index 6719ac6e395b..65ac5403ec58 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
-> @@ -292,8 +292,18 @@ static int dwxgmac2_get_rx_hash(struct dma_desc *p, u32 *hash,
->  
->  static void dwxgmac2_get_rx_header_len(struct dma_desc *p, unsigned int *len)
->  {
-> -	if (le32_to_cpu(p->des3) & XGMAC_RDES3_L34T)
-> +	u32 rdes3 = le32_to_cpu(p->des3);
+[..]
+> +int eusb_update_max_packet(struct usb_device *udev, struct usb_host_config *cp)
+> +{
+> +	struct usb_host_config *config = cp ? cp : udev->actconfig;
+> +	struct usb_hcd *hcd = bus_to_hcd(udev->bus);
+> +	struct usb_interface_cache *intfc;
+> +	struct usb_host_interface *alt;
+> +	struct usb_host_endpoint *ep;
+> +	bool has_bulk = false;
+> +	int i, j, a;
+> +	int ret;
 > +
-> +	/* when FD=1 and LD=0, HL is RDES2[9:0] */
-> +	if (!(rdes3 & XGMAC_RDES3_LD)) {
-> +		*len = le32_to_cpu(p->des2) & XGMAC_RDES2_HL;
-> +		return;
+> +	if (le16_to_cpu(udev->descriptor.bcdUSB) != 0x0230 ||
+> +	    !hcd->self.is_eusb2v2)
+> +		return 0;
+> +
+> +	if (!config)
+> +		return 0;
+> +
+> +	for (i = 0; i < config->desc.bNumInterfaces; i++) {
+> +		intfc = config->intf_cache[i];
+> +
+> +		if (!intfc)
+> +			continue;
+> +
+> +		for (a = 0; a < intfc->num_altsetting; a++) {
+> +			alt = &intfc->altsetting[a];
+> +
+> +			for (j = 0; j < alt->desc.bNumEndpoints; j++) {
+> +				ep = &alt->endpoint[j];
+> +
+> +				if (usb_endpoint_xfer_bulk(&ep->desc)) {
+> +					has_bulk = true;
+> +					goto found_bulk;
+> +				}
+> +			}
+> +		}
 > +	}
 > +
-> +	if (rdes3 & XGMAC_RDES3_L34T)
->  		*len = le32_to_cpu(p->des2) & XGMAC_RDES2_HL;
-> +	else if (rdes3 & XGMAC_RDES3_L2T)
-> +		*len = (le32_to_cpu(p->des2) & XGMAC_RDES2_NONIPHL) >> 2;
->  }
->  
->  static void dwxgmac2_set_sec_addr(struct dma_desc *p, dma_addr_t addr, bool is_valid)
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-> index ff83858ebc1f..0a9c787305a4 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-> @@ -561,6 +561,16 @@ static void dwxgmac2_enable_sph(struct stmmac_priv *priv, void __iomem *ioaddr,
->  	value |= XGMAC_CONFIG_HDSMS_256; /* Segment max 256 bytes */
->  	writel(value, ioaddr + XGMAC_RX_CONFIG);
->  
-> +	value = readl(ioaddr + XGMAC_EXT_CFG1);
-> +	value |= XGMAC_CONFIG1_SPLM(1);
-> +	value |= XGMAC_CONFIG1_SAVE_EN;
-> +	writel(value, ioaddr + XGMAC_EXT_CFG1);
+> +	if (!has_bulk)
+> +		return 0;
 > +
-> +	/* Disable variable preambles to keep the L2 split offset deterministic. */
-> +	value = readl(ioaddr + XGMAC_EXT_CFG0);
-> +	value &= ~XGMAC_EXT_CFG0_VPRE;
-> +	writel(value, ioaddr + XGMAC_EXT_CFG0);
+> +found_bulk:
+> +	ret = usb_control_msg(udev, usb_sndctrlpipe(udev, 0),
+> +			      USB_REQ_SET_FEATURE, USB_RECIP_DEVICE,
+> +			      USB_DEVICE_BULK_MAX_PACKET_UPDATE, 0, NULL, 0,
+> +			      USB_CTRL_SET_TIMEOUT);
+> +	if (ret < 0) {
+> +		dev_warn(&udev->dev, "eUSB2v2 1KB update failed: %d\n", ret);
+> +		return ret;
+> +	}
+
+Why not handle eusb2v2_mps_active here?
+
 > +
->  	value = readl(ioaddr + XGMAC_DMA_CH_CONTROL(chan));
->  	if (en)
->  		value |= XGMAC_SPH;
+> +	return 0;
+> +}
+> +
+>   /*
+>    * usb_set_configuration - Makes a particular device setting be current
+>    * @dev: the device whose configuration is being updated
+> @@ -2123,6 +2188,15 @@ int usb_set_configuration(struct usb_device *dev, int configuration)
+>   	if (dev->state != USB_STATE_ADDRESS)
+>   		usb_disable_device(dev, 1);	/* Skip ep0 */
+>   
+> +	ret = eusb_update_max_packet(dev, cp);
+> +	if (ret < 0)
+> +		dev->eusb2v2_mps_active = 0;
+> +	else if (cp && le16_to_cpu(dev->descriptor.bcdUSB) == 0x0230 &&
+> +		 hcd->self.is_eusb2v2)
+> +		dev->eusb2v2_mps_active = 1;
+> +	else
+> +		dev->eusb2v2_mps_active = 0;
+> +
 
-The rest looks good to me :)
+You are effectively duplicating the logic of eusb_update_max_packet()
 
-Maxime
+	Regards
+		Oliver
 
