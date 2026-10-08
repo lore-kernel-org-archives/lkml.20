@@ -1,78 +1,82 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B5F649B449
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 12:52:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54A3F49F107
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 12:52:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791463944; cv=none; b=jW/O3pVgAbyZN9To/S61xXR/ZbuEpoIoYcbHNrhrM3uLqnoIWr/Jc/TrV6tgGf5xsGRY8gUlcBI60nrxNMCtc1zQkDBqiqAceTIQcyWwJR3I/WNDP7fPlt2wZAlFbPupl5FigoCftMQIETpcUc5NIMwU0CBT3V4X/Izl7yCkb1I=
+	t=1791463947; cv=none; b=eUY/LrXKl8e3R6AdRLdXLFQuT5xeASHvKETpGeNBs/2BQC4FKpUnXZUBJOWL2KCl0XozRe4ONjyxFb92aiUWK4BIFPQTQaaCdz9moQw/AD4Hn4awJ9byj1bObk/0+C+ohqWWoxKoV2HKgZr7a1VtE6D/Rag4tdjLL8I3Qc9lM60=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791463944; c=relaxed/simple;
-	bh=6dIlz9XXAXD7hMCFtpO+FQoMd6e7ys9QKDGE/4a3ZjA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aIsg7U0H0s+Zra4WKEUILwhHahvzTQWEUja5aM/Lu9Q9rK7JEvhXJYtnxovQn9urzgfKEdx4KscfoWafHK/m/wAFAbL2wzKffzzuqdPfhf30xBWhUSV4r6+0OYdhKFS2DmcyAZIex9ksfQ1ryV8vaSY/2N0AqBB3YgLLkXsWsv0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TF0EHQyA; arc=none smtp.client-ip=209.85.221.51
+	s=arc-20240116; t=1791463947; c=relaxed/simple;
+	bh=InKd0aGfeFCx3LdYyd/roSH5k1JSRlrS3BGElWrnj1g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Ma0alPzOvIr6+N3m8YW82fpE+eGu1bPI9SntzDPvKQm7/SzChYiqjAsdPk8C5hCLefWEDbdCDVXN+CnYg5uAxIOHroCRzE6A+RW4Z2Pqnt30ilq20BpHBs2ylLbL8lrdZ5FXCczC2jI/VvRmtTg2Eg5oNxKmEjXvfvKjSg9RDw8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g4iJo2XV; arc=none smtp.client-ip=209.85.128.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TF0EHQyA"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48b0d19cf7eso506436f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 05:52:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g4iJo2XV"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a171b677d2so21436875e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 05:52:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791463940; x=1792068740; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=f8QWxVZoZeLawAHvciNRJOIulLw+ldBkjXIfdbSrmQ4=;
-        b=TF0EHQyAG9PNAh4TfZGhVe5jmkKdbYRZ9BADEOSPz50nWw4hSzjBSwuuGsqkGxZQH0
-         X61Mc24QbUEDLFJSd4EXqhE1Sy++eKJtItSBCGTiy08UA2xWrchqEfE0HQ0SHW5aRpqD
-         H7GJF984MWbUbl6lvLNmh0GhwElU111R6+Cu2TFa7VJlSQkssVSkO13CyxG1yFTk+AdK
-         xSowB7SV5vswI9YO2Lw7A0VUQLshlHUIT26gU12CrJZusKUTS+Gzgp3tA/t0ppmYLAuX
-         gj/U90RJva80R/eNz4ZJF/sfRGEYWBTnN+us4gNa8TIMPSVEnif8Y5Eusk4/7L8W2JIL
-         fGXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791463940; x=1792068740;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791463943; x=1792068743; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=f8QWxVZoZeLawAHvciNRJOIulLw+ldBkjXIfdbSrmQ4=;
-        b=w9mTUOrLkU/gwJC9tj1XIzLz6mDzz0AEgXqmQQp06IYy+QHziCE53KfM3pSdyMAl8y
-         kz4zWiBQZEBsLrw+b18ct+2jnCTQryPe0AkUFE6ElppgBfY0pJfrJVDDETX808qnoHFu
-         lci9xpC1V1/GMKUXl6reunYotK85sqB4zjKEEtk9f4ey57HFYi8VAxQCw8zhkoud7ypy
-         VurycgnAvi59PtEYqGFtDGdjrhizlxn7ovc7Vh5JSGkwsYbxhqbSviSom9w+MmuPC4Hg
-         8BUzPH+DsiyFc2jzGFiNhc2KVuibfFyzsB0QiH+Qu5ZredDkFpBvcGNtkbcymUHWPpJW
-         S3Ug==
-X-Forwarded-Encrypted: i=1; AKwUvBzyk21luHuO7boAWWGrd3QJDr6QJHuMTvVxuiHTrOy7o50AQEH3qwHtQ1SaAHlXM6QNIkUNgrB7xBUXl8A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKuGA4inxt2IT7cBoi25fP2UmeO+HmXsYu0o/vrNVOk8FeXHpsK
-	yvgZGm/owYclzdyKFS+Gp2PAp8mY8OyRVgPuswWzASHS3az9yZAhxVLK
-X-Gm-Gg: AYBFou21OvNKS26n+Ck3AXr6ln4j8f01RliRQuNcB0QeT5WRGJ+9y1Z9vR/svqPmjsH
-	rWf7FfcCltYAxyIjKUvd/s/8R8xqyG+v+PAYIYkX8m0hlV+kSfSZlpWv+MqS+paEgV6dqfOGorh
-	MbLdA9tHpYDcnes/sVENzt0rJMEHGOJGLESAwp04qYpvfvVFNXJiryFWs4uKhVZ+7gjUp/cGmxW
-	uWN7i6sZBklbA++juGeaLuynq9Qkn5riIyk40x14u1v4Ge1JilJViVTSo2H4+X01prSaDt8mxeR
-	VodCdbrEp/8ZM5MBq2ueR34tfU++N3yEXYlNyBuTCukI1VNIUzHfCFieH+eedvHSMNjRENJBR2p
-	o3SxdRhO3d3S2d6cksl/9OlE3io0DOPkCegh5sQ/apEjascipiPi6lh2/0JALYCFW3978v0Sh2H
-	M7xWKMgq6OHwiJsbQc0NhCY205qxLFGHyq4tiKBA3t8FrHnvi4D9iRKnmX6B0+RGle/i0oiFzlF
-	4kJJgfQQyi8IcmxKEid6XuCT1tEo477/BDJDd9/SXr+TKytZT9k7RY=
-X-Received: by 2002:a5d:56ca:0:b0:48c:4f4d:4d6a with SMTP id ffacd0b85a97d-48c7f12dee4mr3518058f8f.28.1791463940003;
-        Thu, 08 Oct 2026 05:52:20 -0700 (PDT)
+        bh=vFDGRaN1e/ydGZumamNoz8kHvK8qVk3vu4oV3GD+iPM=;
+        b=g4iJo2XVdAOKu/5cplw4x7xD7zypKqgEZNUVuOgWzVf/XBw/3mCuaN+PLQFqWbh47T
+         NGqg7uuMY/WqBuj+ZY+huwxSgFotsme7Cbf/hjp6ED96GYl9S4HbF9itaQ7+oXO9nhQw
+         05BDGOQeEW1JAwEXlPIHAuLHoGfhDpUAhs09ac7Ob/Tu1MPwIz3NhYVeOOTTthaLqxMd
+         Td7ATOewgJHs95sOpAbHevuqfUfdT4djiPRCbHLgZiWdLm0W6T/yHjLZ8I+n9oX9aCvM
+         4fBa2Q2qr99f/4kOGdccQF6t9vKHah9+tSbDjcPfVNR57X4Ms3vMIcvg9P2bpym2hhAp
+         TxBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791463943; x=1792068743;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vFDGRaN1e/ydGZumamNoz8kHvK8qVk3vu4oV3GD+iPM=;
+        b=waIVpPa3y1K7T33YnCLRIehP3eawttzm7UzLMMxkuo3y6W7t4sbbpsgIGfOycfdIvb
+         qxXqyYnkY106lZYV6hwjl3IcnoUZNqWTCDqaOwx8l20dmmx2ENMy+WvtvQQ0bSiQHmxA
+         m7RAb7wg9xORScEKeReS6iw+f1wDKd4Ww6hfUSxYtBR5vDfJRNXf73RR1Lssr3ZGKtY4
+         rGU6j/XuwS3u33AGuK+I4sVbDJCPkaneRQqdPUpYFKXWcKO194zoqcNm7Xocbse083iY
+         QjOuxJWYWR6Ky8zEE00R8hUEMFaK9dgU1jVz/l7U5l4YwxjhN/EZw8XnMhKGhczudJ5Q
+         zRmg==
+X-Forwarded-Encrypted: i=1; AKwUvBxQDX2mCM+Me2vOL2t0Pz5HWS87a/f1TPDGDNvdyIUgGZLpO2VtUDJz0RFE90w4OuMY1CarvEhGo7nlJ3U=@vger.kernel.org
+X-Gm-Message-State: AFuF++m/E2w2/V8/bTgDYZ+b0alMDdhaZziGFIShrgfrWoChyQxqMgGP
+	ONRbhc15B38MZlqedt7ezLXRSMhv0tk5WtrLGV2C9CrB6PM2Q0nlpxzYyLWaFDo1
+X-Gm-Gg: AYBFou16tQO5OTbcaFPhzWZXn2Lj4sG6xEoarhZdtXM7Yib/jt8BQAa9x9x9BxJkXQh
+	57vHqucrBLUCcRPnyyiBlSQisy8agoSsEg7eN5SyOQNBpm0JimThHsogH//UpqMZjwAUhp6AOTF
+	18rQ7LbOF8hNJWhwFiakgOOWafGf7BzSOGny3B/cvUwVL0oe62fMXMDwWGz/cSwlu//vBAICDLb
+	UJuRYEEDODDIuQCbRPOOfSNBUvRvFsgR9e2KmYEuGKcu9M9iaFgaL98GxH8hPVOsOXwnxxjZEFa
+	tJQ4EJ7oqPqWX7lQlI7lLYQSrVDUTfUYUbOvy7Kzzn2v0Ay6FQiTssAMJLJfTqKBge2i8lfdF2o
+	wEQd4k8pOMIV9FQR6ElG16EOHcz1yyllR3omDMnlKNekD5BhUknSlSdmm7vWALoXhUvr1GtXWpv
+	YtLCf3+Z5UxPllJpUw6Tr6GU6iMnS13gSyWpFCD1xDUvgw0bRgtj2YETY72XrsiX8z8QAthF0S7
+	S2eTjtnArGmdXOurlnxqXfziFNZmDAhztzeAG4eoacy
+X-Received: by 2002:a05:600c:524c:b0:49c:c0d4:53d9 with SMTP id 5b1f17b1804b1-4a1802f632bmr93922995e9.14.1791463943266;
+        Thu, 08 Oct 2026 05:52:23 -0700 (PDT)
 Received: from andreayoga.wind3.hub ([31.189.41.237])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71d3032csm10584338f8f.45.2026.10.08.05.52.17
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71d3032csm10584338f8f.45.2026.10.08.05.52.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 05:52:18 -0700 (PDT)
+        Thu, 08 Oct 2026 05:52:22 -0700 (PDT)
 From: Andrea Parri <parri.andrea@gmail.com>
 To: Jason Gunthorpe <jgg@ziepe.ca>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Shuah Khan <shuah@kernel.org>
+	Kevin Tian <kevin.tian@intel.com>
 Cc: Andrea Parri <parri.andrea@gmail.com>,
 	Joerg Roedel <joro@8bytes.org>,
 	Will Deacon <will@kernel.org>,
 	Robin Murphy <robin.murphy@arm.com>,
 	Nicolin Chen <nicolinc@nvidia.com>,
 	iommu@lists.linux.dev,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/2] iommufd: Keep dmabuf MMIO attributes in domains added later
-Date: Thu,  8 Oct 2026 14:52:02 +0200
-Message-ID: <20261008125206.11990-1-parri.andrea@gmail.com>
+	linux-kernel@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/2] iommufd: Keep dmabuf PFNs MMIO when filling another domain
+Date: Thu,  8 Oct 2026 14:52:03 +0200
+Message-ID: <20261008125206.11990-2-parri.andrea@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261008125206.11990-1-parri.andrea@gmail.com>
+References: <20261008125206.11990-1-parri.andrea@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,57 +85,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A VFIO PCI dmabuf mapped into an IOAS gets IOMMU_MMIO only in the domains
-that exist when it is mapped. A domain attached afterwards, or an
-IOMMU_IOAS_COPY of the area, reads the PFNs back from the existing
-domain and maps the BAR as cacheable CPU memory. Patch 1 always takes
-dmabuf PFNs from the recorded phys range instead.
+A VFIO PCI dmabuf mapped into an IOAS is mapped with IOMMU_MMIO only in
+the domains present when it is mapped. A domain added later, or a copy
+of the area into another IOAS, maps the same BAR as cacheable CPU
+memory: IOMMU_CACHE set and IOMMU_MMIO clear.
 
-Sashiko first reported this on patch 6 of David Woodhouse's RFC "KVM:
-Allow alternative providers of guest_memfd backed by PFNMAP memory",
-which picks the batch kind in pfn_reader_fill_dmabuf() from the
-exporter's memory type. This fix does not depend on that series and
-combines with it: with both, a domain added later gets the kind the
-exporter reports.
+Once the area is in pages->domains_itree, pfn_reader_fill_span() reads
+its PFNs back from the storage domain through batch_from_domain(), which
+adds them with batch_add_pfn() as BATCH_CPU_MEMORY. Only a hole in the
+span reaches pfn_reader_fill_dmabuf() and gets BATCH_MMIO, so
+batch_to_domain() programs the later domain with the wrong prot.
 
-The mock page table has no memory type bits, so the existing selftests
-cannot see the difference. Patch 2 makes the mock record, per domain,
-the pages mapped with IOMMU_MMIO, adds IOMMU_TEST_OP_MD_CHECK_MMIO, and
-checks the domain filled later in two new tests, dmabuf_mmio_new_domain
-and dmabuf_mmio_copy.
+The effect depends on the page table format. io-pgtable-arm maps the BAR
+as Normal cacheable instead of Device memory, the AMDv1 and x86_64
+generic_pt formats set the SME C-bit on it when the tables are encrypted,
+and the RISC-V format with Svpbmt maps it as normal memory instead of IO.
 
-Tested on x86-64 under virtme-ng with CONFIG_IOMMUFD_TEST=y. Without
-patch 1 both new tests fail on the second domain in all three mock
-domain variants; in dmabuf_mmio_new_domain, a temporary print in
-batch_to_domain() showed that domain mapped with IOMMU_READ |
-IOMMU_WRITE | IOMMU_CACHE, where the first got IOMMU_READ | IOMMU_WRITE |
-IOMMU_MMIO. With patch 1 the dmabuf tests pass, and the other iommufd
-selftests give the same results as on the base tree. Patch 2 also
-builds for i386 with W=1.
+Read dmabuf PFNs from the recorded phys for every span, before the
+xarray and domain paths. The phys range is always available, and the
+read-back from a domain only serves to avoid re-pinning user pages.
 
-Not tested on hardware that uses the memory type bits (ARM SMMUv3, AMD
-with SME, RISC-V).
+Sashiko pointed this out while reviewing an RFC that plumbs the dma-buf
+memory type through pfn_reader_fill_dmabuf().
 
-Changes in v2:
-- Validate the MMIO check range before converting 64-bit ioctl inputs
-  to native-width page indices. Reject range overflow and values that
-  cannot be represented on 32-bit kernels. (Sashiko)
-- Patch 1 is unchanged.
+Fixes: 74014a4b55f5 ("iommufd: Have pfn_reader process DMABUF iopt_pages")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://lore.kernel.org/all/20260716154123.32DC01F000E9@smtp.kernel.org/
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+---
+ drivers/iommu/iommufd/pages.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-V1: https://lore.kernel.org/all/20261005143737.2915-1-parri.andrea@gmail.com/
-
-Andrea Parri (2):
-  iommufd: Keep dmabuf PFNs MMIO when filling another domain
-  iommufd/selftest: Check dmabuf MMIO mappings filled from another
-    domain
-
- drivers/iommu/iommufd/iommufd_test.h          |  5 +
- drivers/iommu/iommufd/pages.c                 | 13 ++-
- drivers/iommu/iommufd/selftest.c              | 92 +++++++++++++++++++
- tools/testing/selftests/iommu/iommufd.c       | 51 ++++++++++
- tools/testing/selftests/iommu/iommufd_utils.h | 13 +++
- 5 files changed, 170 insertions(+), 4 deletions(-)
-
+diff --git a/drivers/iommu/iommufd/pages.c b/drivers/iommu/iommufd/pages.c
+index 404f31d8f7291..2f6153108add7 100644
+--- a/drivers/iommu/iommufd/pages.c
++++ b/drivers/iommu/iommufd/pages.c
+@@ -1178,6 +1178,15 @@ static int pfn_reader_fill_span(struct pfn_reader *pfns)
+ 	    WARN_ON(span->last_used < start_index))
+ 		return -EINVAL;
+ 
++	/*
++	 * Always read a dmabuf from its phys, even where a domain already
++	 * maps it: a domain can only report CPU memory PFNs, losing
++	 * BATCH_MMIO. last_hole aliases last_used, so this covers any span.
++	 */
++	if (iopt_is_dmabuf(pfns->pages))
++		return pfn_reader_fill_dmabuf(&pfns->dmabuf, &pfns->batch,
++					      start_index, span->last_hole);
++
+ 	if (span->is_used == 1) {
+ 		batch_from_xarray(&pfns->batch, &pfns->pages->pinned_pfns,
+ 				  start_index, span->last_used);
+@@ -1201,10 +1210,6 @@ static int pfn_reader_fill_span(struct pfn_reader *pfns)
+ 		return 0;
+ 	}
+ 
+-	if (iopt_is_dmabuf(pfns->pages))
+-		return pfn_reader_fill_dmabuf(&pfns->dmabuf, &pfns->batch,
+-					      start_index, span->last_hole);
+-
+ 	user = &pfns->user;
+ 	if (start_index >= user->upages_end) {
+ 		rc = pfn_reader_user_pin(user, pfns->pages, start_index,
 -- 
 2.53.0
 
