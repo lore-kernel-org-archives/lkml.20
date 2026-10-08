@@ -1,127 +1,129 @@
-Received: from out30-113.freemail.mail.aliyun.com (out30-113.freemail.mail.aliyun.com [115.124.30.113])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32C3047D477;
-	Thu,  8 Oct 2026 09:39:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.113
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A0B73D1CAE
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 09:39:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791452383; cv=none; b=u6UeN+reIwZH739HBEX66uxC1GyEuyf7fDT2R3bXQ6qG2D2c7YTercYpytaGbdn+kZI4EOL/koiPfiBD1OoQshGhGshumwG29z3el5JDzbCGuZOyjLjrZjTFpQQJy4S2gr3P9CydU5E7+90j/7iy6fqUwtMo99ZoeoIfzyqrw3Y=
+	t=1791452394; cv=none; b=B6wBxg+dARRODX5LnRiqBRvV2wBvPVcXYmxe4hQK6+kO899rgi56T23QFsOl23Qm6BAtmGdkDE4TKWZLpVJLnmEJ8bf8OtNnv531cjoOtMIp310JxaLVPdc8Ls9qqmr02lqy7ajVZ8MUeQrj83YEhtoykIBrrSPkXOGshQjjYro=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791452383; c=relaxed/simple;
-	bh=JiikRSQcRMKViLurKtaeEtPPp4n+9wSR+dYlqCVdtOQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=f5q+atnJY5P0NuZni9aiDkoFVmLO0y9pbpBenuqdjxlJ2X1FoZTU5iH3flXnfRTf7rdZA22K//utyRK1HaTc+YVVCAaa1zacktsRYLVeEJs74rHmDdBvw6FnHt599aDn2KDAUqJANPsbiC39VlrrSSHIuW3MBB6iBh0DRWh0iIE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=usSYJIdZ; arc=none smtp.client-ip=115.124.30.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1791452394; c=relaxed/simple;
+	bh=yt1krHFUizCiyHqPICB6u5BfJy6aereXdPVeh3hzHTU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=chKEPeX+iJ8oQK+7Bc1kmVzExVEapyuNjr+evmB65OLtAc9cWB0FkQ1bY3hujtR7QuSvvzpZYL3FAKk2FcVP8gKQUm4SxKJRg6uOY0o771yB02oavjrZ35TTLdmeo5lp4QllHd+PYTW1FUPPZCZqQaZ0GCmfEwViuHA6VOLpMa8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ExHxV0Fu; arc=none smtp.client-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="usSYJIdZ"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1791452375; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=4IJ4lYBRnOH1ELDqm8p1BYesqSHem4oJyVkCQ2OMYXU=;
-	b=usSYJIdZoezjfGixiBtwdBpx5hLTKNC8coFxvrI7frm3yjsAMoaT5p9f5j2jU5iS/c1oBVjoGO8gQp4kkzw8TKhFqN8ojKXfRtZOfV0xesjuZsXxvJtSf+3vVSOqXNiE/EUMjiAAnvMEGfiRGLRVNNDKnVo81aZYQxrTAdlxgoE=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R611e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=qinyuntan@linux.alibaba.com;NM=1;PH=DS;RN=21;SR=0;TI=SMTPD_---0XCNdeuW_1791452367;
-Received: from 30.178.85.189(mailfrom:qinyuntan@linux.alibaba.com fp:SMTPD_---0XCNdeuW_1791452367 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 08 Oct 2026 17:39:33 +0800
-Message-ID: <01f89ece-9d46-47f2-b660-d32ab5d32923@linux.alibaba.com>
-Date: Thu, 8 Oct 2026 17:39:26 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ExHxV0Fu"
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-351775aa1c0so943055eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 02:39:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791452392; x=1792057192; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=DhD2kC+TgI9jVZahgsNkJ3B3BbFkorvXCqZ87mDIfYA=;
+        b=ExHxV0FuzTx+rnLcPKq83SE3g3CF+BW0bOisGBafGWIGQLXhynJSLZX0VcR0rMvwiX
+         nP5qUsbe05zWJKpJuunhl2RFZ93RSrmW0QocsJqbxwLr2CuRh83PrXuGl3MjBt2irAJx
+         QVganH73EshthWxDMRVoMdVtb4pmT1r4iFSfMNF/+ajXYf+sYDpNB4vTL+DGEaQAWrbG
+         HHQmSaqe5m+FI/NyrzCWJvqPama46FKVL7ywD2XbT98pVkQJO7ye6gi1YP+jt0xBugCt
+         0cyY7m4+yBJy0SpzdSWocMBKlcY39xDV6rlWc/WWmd/gfrho9/PF5oGOi7iIPYSiCCZs
+         PeNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791452392; x=1792057192;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=DhD2kC+TgI9jVZahgsNkJ3B3BbFkorvXCqZ87mDIfYA=;
+        b=odQIRT2gmTxGlNbdRD99psTp8ptwJLcn19R1Mm1eMSKX/f4Tkz7+dXeSNSM22W7l2/
+         JxigQvDK2UcC3gEJ95M6vARWutWHmekzJO20QzIanj0Vane1OeVNZ8Y5AujmrPfMZ1fW
+         sl7tvp/COjleqZ7FZAPjuopycMMVxcwzgQ+ub0uRxXBU0i0waXbtKQj0ZGqF40ikDHXV
+         zhVR8mkfqy3KwkfP9z95LTbkddJcIgDXh/qIH9rNDGaEHR3DGxuuvq0KibAXGMWdOH7L
+         HRqj8+Kt5LEtde0Qmi4hKsONkDk4ySY8gCbPbaFh+w7EyYwrMmKuO4c3/QPikhbfQfMa
+         eG1w==
+X-Forwarded-Encrypted: i=1; AKwUvByvmeyIZqY5uZhlawzJt8h0P/41PCcC3AzY1u+ABIEdkqv/+y45jHNGEtany9fO/gprYeFuLtRVRPbFXc8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nUFzqH1R0MDiAaDH8kx7S2MbOzPHlM1jGUYf+DI+L57UxfxhVX
+	IFgORUyyQxHBZnogXiKLEw7AGQVcYzi6cI2JRHMKVFTLdwgiVxlE3f5Q
+X-Gm-Gg: AYBFou1lG5Eunf16m8QxPQwyipFpv8XTvZa/z6X6l7oA0wk/dfAlQKMUccOt9rNp9Nk
+	yUbE2w1lWX8VZNgxcv9QYJfZiMqHFU/1DPM3j9QEJvTWA9l9Yv0p0Oq5Ja7gELYc+Hw9URXgYGi
+	Xzs3y7Z89ZYDLSaHi2F0t9OkltwzJsPkJkVH2ErZdKxdKitXu8ihk7vC49W53937I4lQBZNyPll
+	Hy5Tk/A0vv68f6jvuiHVaHZumV3j2wXwtHpQ9JiGKxJegFCMZDGLk3Osn7LZ53anQKagOe800bb
+	KZ6MEv/Yn0UjOxY18IzQ1Psys1gF7k+k2cizHf2amaPAkD/b+afi5GuKJa5635SbasG1guvZMQS
+	CBiNH9Xl+p7jm71WbSx5hVJCQtbyJWms7tfdyKyj/S14NJ2NII5epyLOpb7T5i9RK1o3ILCY50V
+	4wgaG6i5PO8TxGNlYfzOJnXxS03GBvqdccnP7Rt8QhSWSv9fIi7p/5B1G0D8HdMv7UWkcZEjkNB
+	T+yAWUCmCx0EYyHov+0lBnQ4/W0RjgIQRYezrmdLqI1rbxjI541xgJ8SQuNMtQ=
+X-Received: by 2002:a05:7300:7314:b0:34d:96cb:d75e with SMTP id 5a478bee46e88-3515de9ff53mr9040330eec.27.1791452392170;
+        Thu, 08 Oct 2026 02:39:52 -0700 (PDT)
+Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:3002:e11e:c053:ebcb])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3517810b895sm6873252eec.17.2026.10.08.02.39.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 02:39:51 -0700 (PDT)
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Subject: [PATCH v2 0/2] wifi: carl9170: revert broken devres conversions
+ for input and hwrng
+Date: Thu, 08 Oct 2026 02:39:41 -0700
+Message-Id: <20261008-carl9170-reverts-v2-0-3ecb12089797@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/4] mm: memcontrol: drop kmemcg_id and use
- mem_cgroup_id() for list_lru indexing
-To: Kairui Song <ryncsn@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>,
- =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
- David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Usama Arif <usama.arif@linux.dev>, Dave Chinner <david@fromorbit.com>,
- Qi Zheng <qi.zheng@linux.dev>, Yosry Ahmed <yosry@kernel.org>,
- Nhat Pham <nphamcs@gmail.com>, Chengming Zhou <chengming.zhou@linux.dev>,
- Xunlei Pang <xlpang@linux.alibaba.com>, cgroups@vger.kernel.org,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <20260910080722.3961351-1-qinyuntan@linux.alibaba.com>
- <20260910080722.3961351-2-qinyuntan@linux.alibaba.com>
- <CAMgjq7DkLi7aPLRyGv__f6NLPkRHY=0Fw0kLEdevnoTFpqsbzw@mail.gmail.com>
-From: Qinyun Tan <qinyuntan@linux.alibaba.com>
-In-Reply-To: <CAMgjq7DkLi7aPLRyGv__f6NLPkRHY=0Fw0kLEdevnoTFpqsbzw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAN1kx2oC/32Nyw6CMBBFf4XM2po+eARX/odh0dYRxgAlbW00h
+ H+34N7lSc49d4WAnjDApVjBY6JAbs4gTwXYQc89MrpnBsllzVvFmdV+bEXDWbbRx8CMLY0ytRZ
+ aVpBni8cHvY/krftxeJkn2rh3dmOgEJ3/HJ9J7N6ffBKMs4YrZapG1FaU137SNJ6tm6Dbtu0Le
+ Fk7ecIAAAA=
+X-Change-ID: 20260930-carl9170-reverts-bc4b3b6a1a25
+To: Christian Lamparter <chunkeey@googlemail.com>, 
+ Kalle Valo <kvalo@kernel.org>
+Cc: Christian Lamparter <chunkeey@gmail.com>, 
+ linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.17-dev-e6826
 
+Commits 23de0fa0d2a0 ("carl9170: devres-ing hwrng_register usage") and
+87ddb2fc29f1 ("carl9170: devres-ing input_allocate_device") converted
+the HWRNG and WPS button input device registrations in carl9170 to
+devres attached to the parent struct usb_device (&ar->udev->dev) and
+removed explicit unregistration from carl9170_unregister().
 
+In carl9170_usb_disconnect(), the driver calls carl9170_unregister()
+followed immediately by carl9170_free(), which frees struct ar9170
+inside the interface .disconnect() callback before devres_release_all()
+runs. Furthermore, devres on &ar->udev->dev is not released on
+interface unbind or registration failure in carl9170_register().
+As a result, both the WPS input device (whose input->name and
+input->phys point into freed memory) and the embedded struct hwrng
+remain registered after struct ar9170 has been freed, leading to
+use-after-free bugs.
 
-On 9/27/26 4:29 AM, Kairui Song wrote:
-> 
-> Hi Qinyun
-> 
-> With this commit, my arm64 VM hangs at every boot with a
-> 100%-reproducible infinite loop in xas_find(), driven by
-> the dcache shrinker during the first remount of the root filesystem.
-> Reverting this fixes the issue:
-> 
->    CPU: 2 UID: 0 PID: 579 Comm: mount Not tainted
-> 7.3.0-rc4.orig-00725-g09d9672a5d4f #33 PREEMPT(full)
->    pc : xas_find+0x184/0x1c8
->    lr : xas_find+0x6c/0x1c8
->    Call trace:
->     xas_find+0x184/0x1c8
->     xa_find_after+0x88/0x120
->     list_lru_walk_node+0xc0/0x2a0
->     shrink_dcache_sb+0x80/0x130
->     reconfigure_super+0xc0/0x1f8
->     vfs_fsconfig_locked+0xa8/0x120
->     __arm64_sys_fsconfig+0x280/0x33c
-> 
-> Just for reference, this also fixed it:
-> 
-> diff --git a/mm/list_lru.c b/mm/list_lru.c
-> index 7dbb6125cb1d..42c48c3b9235 100644
-> --- a/mm/list_lru.c
-> +++ b/mm/list_lru.c
-> @@ -427,13 +427,13 @@ unsigned long list_lru_walk_node(struct list_lru
-> *lru, int nid,
->   unsigned long index;
-> 
->   xa_for_each(&lru->xa, index, mlru) {
-> - rcu_read_lock();
-> - memcg = mem_cgroup_from_private_id(index);
-> - if (!memcg || !mem_cgroup_tryget(memcg)) {
-> - rcu_read_unlock();
-> + memcg = mem_cgroup_get_from_id(index);
-> + if (!memcg)
->   continue;
-> - }
-> - rcu_read_unlock();
->   isolated += __list_lru_walk_one(lru, nid, memcg,
->   isolate, cb_arg,
->   nr_to_walk, false);
-> 
-> ===
-> 
-> And BTW cgroup ID lookups seem much heavier, not sure about the
-> performance impact.
+Revert both commits to restore explicit lifecycle management in
+carl9170_unregister().
 
-Hi Kairui,
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+---
+Changes in v2:
+- Clarify commit messages to focus on the teardown order in
+  carl9170_usb_disconnect() and the error path in carl9170_register()
+  rather than request_firmware_nowait().
+- Link to v1: https://patch.msgid.link/20260930-carl9170-reverts-v1-0-7033b5716c14@gmail.com
 
-Thanks for tracking this down. I missed the reverse lookup in
-list_lru_walk_node() when switching to cgroup IDs. Your change fixes
-that mismatch.
+---
+Dmitry Torokhov (2):
+      wifi: carl9170: Revert "carl9170: devres-ing input_allocate_device"
+      wifi: carl9170: Revert "carl9170: devres-ing hwrng_register usage"
 
-There is a catch with mem_cgroup_get_from_id(), though: it calls
-cgroup_get_from_id(), which only looks up cgroups visible in the
-current task's cgroup namespace. Here we need to walk all memcgs
-on the LRU, including those outside that namespace, so we need
-a lookup without that restriction.
+ drivers/net/wireless/ath/carl9170/carl9170.h |  1 +
+ drivers/net/wireless/ath/carl9170/main.c     | 42 ++++++++++++++++++++++++----
+ 2 files changed, 38 insertions(+), 5 deletions(-)
+---
+base-commit: 6474fa070f2b8013b4b87350b775b8c3be6e8aac
+change-id: 20260930-carl9170-reverts-bc4b3b6a1a25
 
-Thanks,
-Qinyun Tan
+Thanks.
+
+-- 
+Dmitry
 
