@@ -1,100 +1,83 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9BBD44A403
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 13:07:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5011C488208
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 13:07:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791464844; cv=none; b=N3jMrH3edSmuaGJzLLgpuqM4t1wcQO4/DNlOUFzHmkrksnBB6SWQn3LD13980J6gOarrNg8xRGMVFgVnbOQ31sjJXcxZucYs5fZM3G4d7gpLRVayWg0UQOX3ZCChRnT5bF6c7LTpwqGnbRusp9Fwp+wOPhZckZp3v85FHcDv5iU=
+	t=1791464858; cv=none; b=HFYytxG0QBCw4SeOB1OfqzFmeyU8F/bpob2c6FCEhIE/ntz2yt+6PoxR0Hb/RrzBSpD8QTrBaaInGy1meqOvyUYndbOsJP353jLzBudEr+68xdLtL+JhoaZHmJCS/HgZaE7/+nfRlEYeUBAtRQ8efBjjhV5oJLpIKVZp2cha/mc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791464844; c=relaxed/simple;
-	bh=OyzQ4UDKaiyMoT/NVzqvh75hv21N26cEww1Tjs+Q41M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PvfJs/v69K30g6PhhrtWh4x+vQPNkxoFZQzyjUqLx8jTxCIUY1huq4u7r8aqA5yvKfMUYiABM6BZU5pjXlSp7/11IJrfevEJJ3gc47ZeQMb+Vq8qMTH1Vbx5BRmxML+yL0aVFy8vMAdlT4ev+7GtM9UJfYoLi1wZWdHhX7IWJDA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=KwuWXawi; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	s=arc-20240116; t=1791464858; c=relaxed/simple;
+	bh=AMdVmFlU6LYwgavWx4TLB5/FyI1q6mdp7tce8URgStc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=G2874SKxxB9A8xVfDC3ttxe3b+3tjNW5mwhV3A3EaJpROZc7129e5akHKGGYeIEBq0ICtwj9miviSwFxkVX1MUjnZ6odtQQa8KPx1rcKZ5r0VJQGOB4XjZ6ESTL7KqlBVris991A7TKcmydb+dKp3bGDnHd1wjzyvhD/yBgLH5c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EFfJpQhX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="KwuWXawi"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48af4d4e61fso1935244f8f.2
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 06:07:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1791464841; x=1792069641; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7t6+pTQP1CQbEVM19QS/h21zu8MNABf/SgAoLNSosdM=;
-        b=KwuWXawio7HYkh0owZWJE/gmRDJqegpvYiTo3uIgFd50s20QWZaiZE20LTt3gbn0hh
-         Q681zeE0ck52Ex+G9uog/sx5MNUZU1xdC95+XttmEQMqMMSeG+5Rw5yF1tgyc2QxJU2I
-         FnGVP/i97hsmQtS7YA4DH/uDLNuyIpEN/WBaSAFy0HzKpZImTHs7IkJiY6EAeESXzVIt
-         vKJYU4t+u84YPKMygGxawREuZLUmnyl+WK7fTKc5D+G4VGPCJWM//5tsBvUJAReDAvND
-         CAujULbFW1mK+kWM4W8emBVg85qUEUnknotmG5LLvbIG0kAIxjY9kUlyXRmk5v4a6Iwu
-         0v4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791464841; x=1792069641;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7t6+pTQP1CQbEVM19QS/h21zu8MNABf/SgAoLNSosdM=;
-        b=MOOfibI9lpEKf3qS5wkLp18UWB75268EJ2+1tR+bxOqzK5+jcEQgkGhPMonzOmrD5X
-         bmFbdkNacvf41yiHoUfnR987Gj6lTaOiVzmz5gsV7uKjBEODfxQe1wP4XcSywzOuPd/5
-         So+2zkQk2ZGQosqYXDGtZXeu9jby7oJ2FoTNb82dNDU/D6Gz7AAExNh5lNoz6sGrvA30
-         SIzjGyDnkKItXtU00QfdTmYFpzLNqzjnEjJe4my4dNBoPuZP+jvI4Fd4l6AWQbHjix8T
-         y+4mCAA/cl9dIgMMTXcuCmoOx2cNfgaHRPLqdvpKDpteYkXZEOfJjkydniw3gdzamd25
-         2UKw==
-X-Forwarded-Encrypted: i=1; AKwUvByvsFENfY70wOh5pmHKmtt7HPlIBv52YlvTtk58gQz/uRGIepIAoze9Et3IPewvNGkwexKugQzagTnJ7AA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI4/Gd+8i5SnkBbKHswoSexqxbWbB9oBP+tEwtUafWkdNrtp9v9
-	3yopaGQxlAs089Sn3WYP/Pr/gWiLXO3r94z6eRlnXmJsqtIbFjp1VZmxBz9Idnyjucc=
-X-Gm-Gg: AYBFou0L1QvSXaAA5ft4tvV9s3uCZ2ljzQkuj60GBFevazpbTV2Xty6WqDvvQWVusZd
-	jeqoXqS9VNYKPVlE5pqLAfeMzY1DjseVfYa9vOJ/wHnGPNHg2Cw1zOloXyNZ9cGt33ZXj7aw1cm
-	CI8tsZalxrGBnv4pHb0ooJnjajWkDvLm4uHFXeu6J+QsGP5vnNEqCv4MDGhCAnvyOHYpbMhICM/
-	29rx37nsFfuYkqeJ1Pq0TeixXRzSvqavS5Y2tEkx4g5fX4ooBqlDrVQQHJKmJD2LtA0zd45JJEv
-	U+O1x4jHegPt8pm47l7GOLESSA2mHS0mQF7ntwhtIEYSl8dgSiZKKgGkcb+IetXnFqEjl0/AJll
-	zroThbk0PenSKxgrwQRXzZrDl9LbC8z1r8SMMg/5wf7tn2lJENN006yEBLSEiZ03mhKX/FcxRJF
-	d9D1UuRO1dnJtNtpJ413GjzN0YNtSTpVfPMS5L3wbKvPCpXIsho09ajIFRYShpmgL3dVz8nlSd3
-	rnHxItQpg==
-X-Received: by 2002:a5d:64c8:0:b0:48c:43a3:6a74 with SMTP id ffacd0b85a97d-48c7277152bmr11130200f8f.12.1791464840586;
-        Thu, 08 Oct 2026 06:07:20 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F ([185.194.184.20])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c724b660fsm10757165f8f.18.2026.10.08.06.07.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 06:07:20 -0700 (PDT)
-Date: Thu, 8 Oct 2026 09:07:17 -0400
-From: Gregory Price <gourry@gourry.net>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Ayush Ranjan <ayushr@modal.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Hugh Dickins <hughd@google.com>, Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, David Hildenbrand <david@kernel.org>, linux-mm@kvack.org, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [BUG] shmem: FALLOC_FL_PUNCH_HOLE vs fault-around race corrupts
- page cache / rss counters
-Message-ID: <aseVAm3vczSTvBwN@gourry-fedora-PF4VCD3F>
-References: <20260924061708.1645968-1-ayushr@modal.com>
- <arTdLsBENhrpOyk-@pedro-suse.tail5790ac.ts.net>
- <20260925053027.1998394-1-ayushr@modal.com>
- <20260925065013.3682431-1-ayushr@modal.com>
- <20261003033107.1488699-1-ayushr@modal.com>
- <20261004222831.bdd648a2b406f02747dd9e40@linux-foundation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EFfJpQhX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1A9D1F0089E
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 13:07:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791464857;
+	bh=AMdVmFlU6LYwgavWx4TLB5/FyI1q6mdp7tce8URgStc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=EFfJpQhXpgze3uduYu30GiDCPDAK/Hb2tH66rVpSP38vO/gC6hvRyY6PcA5acpaGT
+	 XQ0zmroIUx8JcdGBVzEtXxTVPJKte/OUf0e6HzroSB62LqG7Xc1DtXPGFlc8usqcZR
+	 vpvljb3xF5g6X1IF94u6w41kTwcwykfxrU4a9cT69XinEoqrGiNgQ3FLuf9ZfDo0Jh
+	 KB2NViRWpU570wVFu9r/MSoZldv9wFjh5TNTiLSyjRkJ9RPKcefAaD2A/GJfcjn0b3
+	 19c57/g+RkdrcDVGuCHj+a9/31zjq5cpPgfHojT7sHkD/q+Zzy/pEVkRdRGGy3XApa
+	 I3sv56jfojswA==
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5ba357a1929so2873007e87.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 06:07:36 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByh3f3bzj82N95zpx5mCpWe6oDlyl4T7X0Cbfkrf23YHg/tCxIHLeitjqw3mM1oIh6w1jszhbYkvvFwSOc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJH/v05aCVD0bag/dnv8/HbFpjwU1nqjyD2RsaH/xeUBjL3lZU7
+	4pDYr+N3gxyVZQq7vCo5QdEox//glsRO8WE6WLHj4lWgoN2sIgR+UL7j2ZyuY899zZvUGkwLKnB
+	yQNtpdjJccSDXy5hX7QSa0qeKCGpvkPE=
+X-Received: by 2002:a05:6512:4023:b0:5ba:429b:c5bf with SMTP id
+ 2adb3069b0e04-5bcd0736ea8mr1945906e87.51.1791464855540; Thu, 08 Oct 2026
+ 06:07:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261004222831.bdd648a2b406f02747dd9e40@linux-foundation.org>
+References: <0C8AEB5636132B0C+20261008113732.581825-1-liudalin@kylinsec.com.cn>
+ <20261008115913bfd12cb4@mail.local>
+In-Reply-To: <20261008115913bfd12cb4@mail.local>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 8 Oct 2026 15:07:23 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkshbEFS0-H__3AFJiRMeS0hA5F8PoqUjB7kyG_cvRkTw@mail.gmail.com>
+X-Gm-Features: AclHuK9kaR_Kf0jFHcJeAlcfmC3e3ti8r1xCTi6blXcRAoYHPTBq140hETtS8v4
+Message-ID: <CAD++jLkshbEFS0-H__3AFJiRMeS0hA5F8PoqUjB7kyG_cvRkTw@mail.gmail.com>
+Subject: Re: [PATCH] rtc: ftrtc010: fix negative offset handling and smatch warning
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: Liu Dalin <liudalin@kylinsec.com.cn>, Dan Carpenter <error27@gmail.com>, 
+	Hans Ulli Kroll <ulli.kroll@googlemail.com>, linux-arm-kernel@lists.infradead.org, 
+	linux-rtc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Deng Yingchao <dengyingchao@kylinsec.com.cn>, Qin Yungao <qinyungao@kylinsec.com.cn>, 
+	Luo Qiu <luoqiu@kylinsec.com.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Oct 04, 2026 at 10:28:31PM -0700, Andrew Morton wrote:
-> fwiw I made gpt and gemini argue about this for a while and ended up
-> with the below.
+On Thu, Oct 8, 2026 at 1:59=E2=80=AFPM Alexandre Belloni
+<alexandre.belloni@bootlin.com> wrote:
+> On 08/10/2026 19:37:32+0800, Liu Dalin wrote:
+
+> > A prior attempted to fix the 32-bit arithmetic overflow by turning
+> > the implicit u32-to-timeu64_t cast into an explicit one. However,
+> > all calculations still happen in u32, inheriting the existing
+> > negative offset sign-extension bug, and the explicit cast triggers
+> > smatch "cast after binop" warning.
+> >
 >
+> AI is lying to you, offset will never ever be negative.
 
-I thought this was resolved by Zi Yan's patches, but it seems they just
-made it harder to hit.  This version looks better than what i'd
-originally conjurred up, so if you end up taking it:
+This looks like something that warrants a clause in:
+https://github.com/masoncl/review-prompts/tree/main/kernel/subsystem
+in a new rtc.md
 
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+I added a file for gpio after some insane review ideas
+from Sashiko, hopefully it takes effect.
 
-~Gregory
+Yours,
+Linus Walleij
