@@ -1,30 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08AC946AF0A;
-	Thu,  8 Oct 2026 08:50:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D0553EC6B0;
+	Thu,  8 Oct 2026 08:50:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791449417; cv=none; b=B3/88Cyug9TGNYL4LJJimz+1jcCyX/S3Aj2jwru2or8EsDIKRvE5MY42COUv2aCbFhi8a5kIeju9nAldjXJxuvuCayNKsSgXBUelKBYWRcqa2tdgS9KyLJGtq6O80OFjvEw3tRRlAM88ZVhhFBeY6gnQpB+gP9SqR7fOLhyiwpI=
+	t=1791449436; cv=none; b=QZFUiLsd46436SQKHvs/fMkxFSROz71XB7gDXp88dholctDfRun//FUJKa1BKdvhOPipNELW5Ewc9+OU3NoYgpQpa3MZwJ05FtO/bAZooyXYGQtNbixtWOr2ejjn56ye3mFbpkGUUVdLikiakhDr457ZxYrhMVwjbfQrI7VQmvQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791449417; c=relaxed/simple;
-	bh=Y81cjMEOGGoKTTzPC6sX5h2TI6CFz1ACqqBTB/kZF9o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=X8wDuwFC5TYHsTNXyiT5CkLkh/9Tjwfx+HrwixI71Fnn3/g10ro4ep6xwpawdEROCapWq1pLGdDuhJyaheiu4IQP16m5WCeU0bNjhOOMlg5dwjhb3M9eMPzLeGzh50bRvJGSAQLKJkosFniccaVySQVTQ5os11pHYVu+vFklC+4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mGPOeGbs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791449436; c=relaxed/simple;
+	bh=gwkWY6l5buZ95Q5QoGxYWvNami6VVDvnMr4t1Cq2rPw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=on5Y8I6D8HDHiEf42GRh9SDY2supQMaeglX8rd1ZgTHsdG9cDWCbCRnR8q2uG/nRqQ62ScY6BYE6k8uPTcAzTj7Z7IAa9eNTJOjLgypx/m164oZwc7j7M+lHHbjnZeSsajq3NKQDnlHCxiv6pdCfo+LLMgnkeagpaoleuOPIkN0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cn9zFvK5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mGPOeGbs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 578F21F000FF;
-	Thu,  8 Oct 2026 08:50:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cn9zFvK5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2BD41F00893;
+	Thu,  8 Oct 2026 08:50:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791449413;
-	bh=a4DZfgRtRM1DfMkYwTNcvGcIRfoRHzGzJb+Heok6HXU=;
-	h=From:To:Cc:Subject:Date;
-	b=mGPOeGbsJ/bnNsddkZbUm/ydGEL0szfbmw6AdL97ACeU3sTLPEkyRS7f3RiWIqxvm
-	 /MxFgsw0TaQ35kQFj+940bytBDQpSoxbyOKTat4qiT0/eQBbr4eHWHa9vkddp2bWeX
-	 HQhtzEcVnOvcy7fqzsjZyMjeFzxMPH8RQtOjecjVVyVqJB7YeufNKpxacbDQMxJXZ9
-	 7CcyLzCmtPk74kfmB7aEUL3I24Wi6SHz7vaq87HV9D8ke74ODRQep0fK6dW22Dhl6P
-	 aT2UpAVpul/lC/zwYDnTvRpNAgU5XDuRpt+iLlAD9lOJplrDuOcuarRKjq7y14iEhU
-	 ccw+iySavEnrw==
+	s=k20260515; t=1791449434;
+	bh=TBihQydVwGvxSgBQdDDukiT0MidMKuahjepkZQjIwA8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=cn9zFvK5QFZQAEB6Ew0uM6YcsVv4an8BQ0W69q/ByzuW2zgXf91OUUtO7dHduEm8R
+	 diIsIKLwNL0Wd2Es/Xi21KFYKgCwF6uMkvHKfqLw/v1MqV2hirStBC380ECAUni8g2
+	 A41RsrQ+szkE8keaZvTN30ZUSBxfGx9jwjnT+mU0acKaNkYuOLdIM0Icg0c+1BC2JP
+	 Mj39yX6avkWNKmNsD76DEmv+QhatZl5/NkD9sI3miLDu71GbZp1blL22ugvfajIbus
+	 SqJmMWr01EE68kAZTb8EKnFD3DrtzFCQduDn0vrEm43j7mIbT4irhkA2K40sVS0u3W
+	 0vNmWv54Xwp2A==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-api@vger.kernel.org,
 	linux-kernel@vger.kernel.org
@@ -58,236 +59,760 @@ Cc: Sasha Levin <sashal@kernel.org>,
 	Steven Rostedt <rostedt@goodmis.org>,
 	Masami Hiramatsu <mhiramat@kernel.org>,
 	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Subject: [PATCH v5 00/11] Kernel API Specification Framework
-Date: Thu,  8 Oct 2026 04:49:40 -0400
-Message-ID: <20261008084956.2911790-1-sashal@kernel.org>
+Subject: [PATCH v5 03/11] kernel/api: add debugfs interface for kernel API specifications
+Date: Thu,  8 Oct 2026 04:49:43 -0400
+Message-ID: <20261008084956.2911790-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261008084956.2911790-1-sashal@kernel.org>
+References: <20261008084956.2911790-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-This series adds machinery for documenting kernel APIs in a machine-readable
-form. The kernel promises not to break user space, but the contract of each
-interface is written down only as prose in man pages and comments, which tools
-cannot check.
+Add a debugfs interface, enabled by CONFIG_KAPI_SPEC_DEBUGFS, to expose
+kernel API specifications at runtime. This allows tools and users to
+query the complete API specifications through the debugfs filesystem.
 
-Specifications can document parameter types, valid ranges, constraints, and
-alignment requirements. They capture return value semantics including success
-conditions and error codes with their meaning. Execution context requirements,
-capabilities, locking constraints, signal handling behavior, and side effects
-can all be formally specified.
+The interface provides:
+- /sys/kernel/debug/kapi/list - lists all available API specifications
+- /sys/kernel/debug/kapi/specs/<name> - detailed info for each API
+- /sys/kernel/debug/kapi/specs-json/<name> - the same spec as JSON
 
-These specifications live alongside the code they document and are both
-human-readable and machine-parseable. They can be validated at runtime when
-CONFIG_KAPI_RUNTIME_CHECKS is enabled, exported via debugfs for userspace
-tools, and extracted from either vmlinux or source code.
+Each specification file includes:
+- Function name, version, and descriptions
+- Execution context requirements and flags
+- Parameter details with types, flags, and constraints
+- Return value specifications and success conditions
+- Error codes with descriptions and conditions
+- Locking requirements and constraints
+- Signal handling specifications
+- Examples and notes
 
-The intent is for static analyzers, test generators and documentation tools
-to consume these specifications. This series adds the framework, the
-extraction tool, and specifications for five syscalls.
+This enables runtime introspection of kernel APIs for documentation
+tools, static analyzers, and debugging purposes.
 
-The implementation includes a core framework with ELF section storage,
-kerneldoc integration for inline specification, a debugfs interface for runtime
-querying, ftrace tracepoints that report each spec'd syscall's parameters and
-return value, and a Rust-based extraction tool (tools/kapi) supporting JSON,
-RST, and plain text output formats. Example specifications are provided for the
-four fundamental file syscalls (sys_open, sys_close, sys_read, sys_write) and
-for sys_madvise. The series also includes a KUnit test suite with 33 tests and
-a runtime verification selftest with 31 TAP tests.
-
-The series is also available in the "spec" branch of:
-
-  https://git.kernel.org/pub/scm/linux/kernel/git/sashal/kapi.git
-
-Changes since v4:
-
-- Rebase onto v7.3-rc6: the sys_open spec accepts O_EMPTYPATH, the madvise
-  spec follows the zap_vma_range() rename, and tools/kapi declares Rust 1.85
-  to match the kernel minimum.
-
-- CONFIG_KAPI_RUNTIME_CHECKS builds on 32-bit and on architectures without
-  a syscall wrapper, and depends on X86 || !ARCH_HAS_SYSCALL_WRAPPER since
-  other architectures never reach the hook. __SYSCALL_DEFINEx gains small
-  hooks instead of a duplicated copy, with the prototypes in
-  <linux/kapi_syscall.h>.
-
-- Correct the syscall specs against the implementation (O_CREAT|O_DIRECTORY,
-  O_PATH flag masking, EOVERFLOW and RLIMIT_FSIZE handling, SUID/SGID
-  clearing, close() error sources, lock descriptions, madvise locking).
-
-- kdoc_apispec.py: keep paragraph and line structure in long-desc, notes and
-  examples, stop truncating fields at colons or 512 characters, and emit
-  state-transition conditions and exact success values.
-
-- debugfs exports the complete spec as JSON without a fixed-size buffer.
-  tools/kapi gives the same result from --vmlinux and --debugfs, and from
-  --source wherever no preprocessor evaluation is needed.
-
-- kernel-doc recognises the KAPI sections only in -apispec mode, so its
-  other output is unchanged. Kbuild generates headers only for sources
-  with a contexts: line plus another KAPI section, regenerates them when
-  the generator changes, and no longer reads stdin when a directory has
-  no such sources.
-
-- Fix KAPI_CAP_ALTERNATIVE and add KAPI_SIGNAL_MASK_COUNT.
-
-Changes since v3:
-
-- Fix the build with CONFIG_KAPI_SPEC=y: scripts/Makefile.build now derives the
-  list of instrumented sources from $(real-obj-y)/$(real-obj-m) instead of a
-  recursive find, and the detection regex matches "contexts:" (the token the
-  syscalls actually use). The previous "context-flags:"-only match found no
-  files, so no *.apispec.h was generated and the guarded includes failed to
-  compile.
-
-- Force-include the generated *.apispec.h via a per-object -include cflag in
-  scripts/Makefile.build rather than a manual "#include" at the end of each
-  instrumented source; the include blocks are dropped from fs/open.c and
-  fs/read_write.c.
-
-- kernel/Makefile: drop the redundant "obj- += api/"; the
-  obj-$(CONFIG_KAPI_SPEC) gate already covers 'make clean'.
-
-- kernel/api/Makefile: build kernel_api_spec.o with obj-y now that the subdir
-  gate lives in kernel/Makefile.
-
-- kernel/api/Kconfig: drop the tautological "default n" from KAPI_SPEC,
-  KAPI_RUNTIME_CHECKS and KAPI_SPEC_DEBUGFS.
-
-- Add an API specification for sys_madvise.
-
-- Add ftrace tracepoints on the runtime-check path: kapi_syscall_enter (spec
-  name and named parameter values) and kapi_syscall_exit (return value and
-  spec match).
-
-Changes since v2:
-
-- Replace statically sized arrays in the spec structs with const char *
-  pointers to reduce memory footprint and remove string truncation.
-
-- Simplify the kerneldoc DSL to short tokens (e.g. `type: uint, input`,
-  `contexts: process, softirq`, `constraint-type: range(0, KMAX)`,
-  `side-effect: alloc_memory`) in place of raw KAPI_* enum names.
-
-- tools/kapi: commit Cargo.lock for reproducible offline builds, add a
-  Makefile and README, expand the kerneldoc parser to cover the full
-  DSL, and refactor the vmlinux extractor for the const-pointer layout.
-
-- tools/lib/python/kdoc/kdoc_apispec.py expanded to match the DSL so
-  scripts/kernel-doc --apispec emits the structure the extractor consumes.
-
-References:
-
-  v4: https://lore.kernel.org/all/20260529233311.1901670-1-sashal@kernel.org/
-  v3: https://lore.kernel.org/all/20260424165130.2306833-1-sashal@kernel.org/
-  v2: https://lore.kernel.org/all/20260322121026.869758-1-sashal@kernel.org/
-  v1: https://lore.kernel.org/all/20260313150928.2637368-1-sashal@kernel.org/
-  RFC v5: https://lore.kernel.org/lkml/20251218204239.4159453-1-sashal@kernel.org/
-  RFC v4: https://lore.kernel.org/lkml/20250825181434.3340805-1-sashal@kernel.org/
-  RFC v3: https://lore.kernel.org/lkml/20250711114248.2288591-1-sashal@kernel.org/
-  RFC v2: https://lore.kernel.org/lkml/20250624180742.5795-1-sashal@kernel.org/
-  RFC v1: https://lore.kernel.org/lkml/20250614134858.790460-1-sashal@kernel.org/
-
-
-
-Sasha Levin (11):
-  kernel/api: introduce kernel API specification framework
-  kernel/api: enable kerneldoc-based API specifications
-  kernel/api: add debugfs interface for kernel API specifications
-  tools/kapi: add kernel API specification extraction tool
-  kernel/api: add API specification for sys_open
-  kernel/api: add API specification for sys_close
-  kernel/api: add API specification for sys_read
-  kernel/api: add API specification for sys_write
-  kernel/api: add runtime verification selftest
-  kernel/api: add API specification for sys_madvise
-  kernel/api: add syscall enter/exit tracepoints
-
- .gitignore                                    |    1 +
- Documentation/dev-tools/index.rst             |    1 +
- Documentation/dev-tools/kernel-api-spec.rst   |  648 ++++
- MAINTAINERS                                   |   13 +
- Makefile                                      |    1 +
- arch/x86/include/asm/syscall_wrapper.h        |    3 +-
- fs/open.c                                     |  557 +++
- fs/read_write.c                               |  710 ++++
- include/asm-generic/vmlinux.lds.h             |   14 +
- include/linux/kapi_syscall.h                  |   35 +
- include/linux/kernel_api_spec.h               | 1226 ++++++
- include/linux/syscalls.h                      |   42 +-
- include/trace/events/kapi.h                   |   74 +
- init/Kconfig                                  |    2 +
- kernel/Makefile                               |    1 +
- kernel/api/Kconfig                            |   74 +
- kernel/api/Makefile                           |   13 +
- kernel/api/internal.h                         |   25 +
- kernel/api/kapi_debugfs.c                     |  553 +++
- kernel/api/kapi_kunit.c                       |  720 ++++
- kernel/api/kernel_api_spec.c                  | 1470 ++++++++
- mm/madvise.c                                  |  549 +++
- scripts/Makefile.build                        |   26 +
- tools/docs/kernel-doc                         |   12 +-
- tools/kapi/.gitignore                         |    3 +
- tools/kapi/Cargo.lock                         |  679 ++++
- tools/kapi/Cargo.toml                         |   20 +
- tools/kapi/Makefile                           |   33 +
- tools/kapi/README.md                          |   33 +
- tools/kapi/src/extractor/debugfs.rs           | 1704 +++++++++
- tools/kapi/src/extractor/kerneldoc_parser.rs  | 3335 +++++++++++++++++
- tools/kapi/src/extractor/mod.rs               |  442 +++
- tools/kapi/src/extractor/source_parser.rs     |  531 +++
- .../src/extractor/vmlinux/binary_utils.rs     |  461 +++
- tools/kapi/src/extractor/vmlinux/mod.rs       | 1160 ++++++
- tools/kapi/src/formatter/json.rs              |  659 ++++
- tools/kapi/src/formatter/mod.rs               |  220 ++
- tools/kapi/src/formatter/plain.rs             |  679 ++++
- tools/kapi/src/formatter/rst.rs               |  802 ++++
- tools/kapi/src/main.rs                        |  123 +
- tools/lib/python/kdoc/kdoc_apispec.py         | 1391 +++++++
- tools/lib/python/kdoc/kdoc_files.py           |   12 +-
- tools/lib/python/kdoc/kdoc_parser.py          |  101 +-
- tools/testing/selftests/Makefile              |    1 +
- tools/testing/selftests/kapi/.gitignore       |    2 +
- tools/testing/selftests/kapi/Makefile         |    7 +
- tools/testing/selftests/kapi/kapi_test_util.h |   31 +
- tools/testing/selftests/kapi/test_kapi.c      | 1163 ++++++
- 48 files changed, 20350 insertions(+), 12 deletions(-)
- create mode 100644 Documentation/dev-tools/kernel-api-spec.rst
- create mode 100644 include/linux/kapi_syscall.h
- create mode 100644 include/linux/kernel_api_spec.h
- create mode 100644 include/trace/events/kapi.h
- create mode 100644 kernel/api/Kconfig
- create mode 100644 kernel/api/Makefile
- create mode 100644 kernel/api/internal.h
+Assisted-by: LLM
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ Documentation/dev-tools/kernel-api-spec.rst |  82 ++-
+ kernel/api/Kconfig                          |  20 +
+ kernel/api/Makefile                         |   3 +
+ kernel/api/kapi_debugfs.c                   | 553 ++++++++++++++++++++
+ 4 files changed, 641 insertions(+), 17 deletions(-)
  create mode 100644 kernel/api/kapi_debugfs.c
- create mode 100644 kernel/api/kapi_kunit.c
- create mode 100644 kernel/api/kernel_api_spec.c
- create mode 100644 tools/kapi/.gitignore
- create mode 100644 tools/kapi/Cargo.lock
- create mode 100644 tools/kapi/Cargo.toml
- create mode 100644 tools/kapi/Makefile
- create mode 100644 tools/kapi/README.md
- create mode 100644 tools/kapi/src/extractor/debugfs.rs
- create mode 100644 tools/kapi/src/extractor/kerneldoc_parser.rs
- create mode 100644 tools/kapi/src/extractor/mod.rs
- create mode 100644 tools/kapi/src/extractor/source_parser.rs
- create mode 100644 tools/kapi/src/extractor/vmlinux/binary_utils.rs
- create mode 100644 tools/kapi/src/extractor/vmlinux/mod.rs
- create mode 100644 tools/kapi/src/formatter/json.rs
- create mode 100644 tools/kapi/src/formatter/mod.rs
- create mode 100644 tools/kapi/src/formatter/plain.rs
- create mode 100644 tools/kapi/src/formatter/rst.rs
- create mode 100644 tools/kapi/src/main.rs
- create mode 100644 tools/lib/python/kdoc/kdoc_apispec.py
- create mode 100644 tools/testing/selftests/kapi/.gitignore
- create mode 100644 tools/testing/selftests/kapi/Makefile
- create mode 100644 tools/testing/selftests/kapi/kapi_test_util.h
- create mode 100644 tools/testing/selftests/kapi/test_kapi.c
 
+diff --git a/Documentation/dev-tools/kernel-api-spec.rst b/Documentation/dev-tools/kernel-api-spec.rst
+index 03b32d3718c8e..fa8aabb92a503 100644
+--- a/Documentation/dev-tools/kernel-api-spec.rst
++++ b/Documentation/dev-tools/kernel-api-spec.rst
+@@ -262,6 +262,7 @@ Runtime validation is controlled by kernel configuration:
+ 
+ 1. Enable ``CONFIG_KAPI_SPEC`` to build the framework
+ 2. Enable ``CONFIG_KAPI_RUNTIME_CHECKS`` for runtime validation
++3. Optionally enable ``CONFIG_KAPI_SPEC_DEBUGFS`` for debugfs interface
+ 
+ Validation Behavior
+ -------------------
+@@ -310,6 +311,68 @@ specification. Kerneldoc annotations cannot set it, so it is only available to a
+     .constraint_type = KAPI_CONSTRAINT_CUSTOM,
+     .validate = validate_buffer_size,
+ 
++DebugFS Interface
++=================
++
++The debugfs interface provides runtime access to API specifications:
++
++Directory Structure
++-------------------
++
++::
++
++    /sys/kernel/debug/kapi/
++    ├── list                     # Overview of all registered API specs
++    ├── specs/                   # Per-API specification files
++    │   ├── sys_open             # Human-readable spec for sys_open
++    │   ├── sys_close            # Human-readable spec for sys_close
++    │   ├── sys_read             # Human-readable spec for sys_read
++    │   ├── sys_write            # Human-readable spec for sys_write
++    │   └── sys_madvise          # Human-readable spec for sys_madvise
++    └── specs-json/              # Machine-readable counterpart of specs/
++        ├── sys_open             # JSON spec for sys_open
++        └── ...
++
++Usage Examples
++--------------
++
++List all available API specifications::
++
++    $ cat /sys/kernel/debug/kapi/list
++    Available Kernel API Specifications
++    ===================================
++
++    sys_open - Open or create a file
++    sys_close - Close a file descriptor
++    sys_read - Read data from a file descriptor
++    sys_write - Write data to a file descriptor
++    sys_madvise - Give advice about use of memory
++
++    Total: 5 specifications
++
++Query specific API::
++
++    $ cat /sys/kernel/debug/kapi/specs/sys_open
++    Kernel API Specification
++    ========================
++
++    Name: sys_open
++    Version: 1
++    Description: Open or create a file
++    ...
++
++The ``specs-json/`` files carry the complete specification: for each
++parameter the type class, flags and the constraint (type, range, valid
++mask, enumerated values, alignment, size and the index of the parameter
++holding a buffer's size), the return check, errors, locks, signals,
++signal masks, side effects, state transitions, capabilities, additional
++constraints and structure specifications. Masks and flag words are
++hex strings, enumerations are lower-case tokens such as
++``"constraint_type": "buffer"``, and ``size_param_idx`` is a 0-based
++index into ``parameters`` (``null`` when unused). The ``kapi`` tool
++reads these files with ``--debugfs`` and reports the same data as
++``--vmlinux``.
++
+ Performance Considerations
+ ==========================
+ 
+@@ -620,20 +683,5 @@ Submitting Specifications
+ 1. Add specifications to the same file as the API implementation
+ 2. Follow existing patterns and naming conventions
+ 3. Test with CONFIG_KAPI_RUNTIME_CHECKS enabled
+-4. Run scripts/checkpatch.pl on your changes
+-
+-Review Criteria
+----------------
+-
+-Specifications will be reviewed for:
+-
+-1. **Completeness**: All parameters and errors documented
+-2. **Accuracy**: Specification matches implementation
+-3. **Clarity**: Descriptions are clear and helpful
+-4. **Consistency**: Follows framework conventions
+-5. **Performance**: No unnecessary runtime overhead
+-
+-Contact
+--------
+-
+-- Maintainer: Sasha Levin <sashal@kernel.org>
++4. Verify debugfs output is correct
++5. Run scripts/checkpatch.pl on your changes
+diff --git a/kernel/api/Kconfig b/kernel/api/Kconfig
+index 1cd55b252f0d5..6075ab82bd231 100644
+--- a/kernel/api/Kconfig
++++ b/kernel/api/Kconfig
+@@ -41,6 +41,26 @@ config KAPI_RUNTIME_CHECKS
+ 
+ 	  If unsure, say N.
+ 
++config KAPI_SPEC_DEBUGFS
++	bool "Export kernel API specifications via debugfs"
++	depends on KAPI_SPEC
++	depends on DEBUG_FS
++	help
++	  This option enables exporting kernel API specifications through
++	  the debugfs filesystem. When enabled, specifications can be
++	  accessed at /sys/kernel/debug/kapi/.
++
++	  The debugfs interface provides:
++	  - A list of all available API specifications
++	  - Detailed information for each API including parameters,
++	    return values, errors, locking requirements, and constraints
++	  - Complete machine-readable representation of the specs
++
++	  This is useful for documentation tools, static analyzers, and
++	  runtime introspection of kernel APIs.
++
++	  If unsure, say N.
++
+ config KAPI_KUNIT_TEST
+ 	tristate "KUnit tests for KAPI framework" if !KUNIT_ALL_TESTS
+ 	depends on KAPI_SPEC
+diff --git a/kernel/api/Makefile b/kernel/api/Makefile
+index 6e14ca243980c..2e1c3555d5aa5 100644
+--- a/kernel/api/Makefile
++++ b/kernel/api/Makefile
+@@ -6,5 +6,8 @@
+ # Core API specification framework
+ obj-y				+= kernel_api_spec.o
+ 
++# Debugfs interface for kernel API specs
++obj-$(CONFIG_KAPI_SPEC_DEBUGFS) += kapi_debugfs.o
++
+ # KUnit tests
+ obj-$(CONFIG_KAPI_KUNIT_TEST) += kapi_kunit.o
+diff --git a/kernel/api/kapi_debugfs.c b/kernel/api/kapi_debugfs.c
+new file mode 100644
+index 0000000000000..5d9c2649a0dc6
+--- /dev/null
++++ b/kernel/api/kapi_debugfs.c
+@@ -0,0 +1,553 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (C) 2026 Sasha Levin <sashal@kernel.org>
++ *
++ * Kernel API specification debugfs interface
++ *
++ * This provides a debugfs interface to expose kernel API specifications
++ * at runtime, allowing tools and users to query the complete API specs.
++ */
++
++#include <linux/debugfs.h>
++#include <linux/kernel.h>
++#include <linux/init.h>
++#include <linux/seq_file.h>
++#include <linux/kernel_api_spec.h>
++#include <linux/slab.h>
++#include <linux/string.h>
++
++#include "internal.h"
++
++/* Helper to print parameter flags */
++static void print_param_flags(struct seq_file *m, u32 flags)
++{
++	seq_puts(m, "    flags: ");
++	if ((flags & KAPI_PARAM_INOUT) == KAPI_PARAM_INOUT)
++		seq_puts(m, "INOUT ");
++	else if (flags & KAPI_PARAM_IN)
++		seq_puts(m, "IN ");
++	else if (flags & KAPI_PARAM_OUT)
++		seq_puts(m, "OUT ");
++	if (flags & KAPI_PARAM_OPTIONAL)
++		seq_puts(m, "OPTIONAL ");
++	if (flags & KAPI_PARAM_CONST)
++		seq_puts(m, "CONST ");
++	if (flags & KAPI_PARAM_USER)
++		seq_puts(m, "USER ");
++	if (flags & KAPI_PARAM_VOLATILE)
++		seq_puts(m, "VOLATILE ");
++	if (flags & KAPI_PARAM_DMA)
++		seq_puts(m, "DMA ");
++	if (flags & KAPI_PARAM_ALIGNED)
++		seq_puts(m, "ALIGNED ");
++	seq_puts(m, "\n");
++}
++
++/* Helper to print context flags */
++static void print_context_flags(struct seq_file *m, u32 flags)
++{
++	seq_puts(m, "Context flags: ");
++	if (flags & KAPI_CTX_PROCESS)
++		seq_puts(m, "PROCESS ");
++	if (flags & KAPI_CTX_HARDIRQ)
++		seq_puts(m, "HARDIRQ ");
++	if (flags & KAPI_CTX_SOFTIRQ)
++		seq_puts(m, "SOFTIRQ ");
++	if (flags & KAPI_CTX_NMI)
++		seq_puts(m, "NMI ");
++	if (flags & KAPI_CTX_SLEEPABLE)
++		seq_puts(m, "SLEEPABLE ");
++	if (flags & KAPI_CTX_ATOMIC)
++		seq_puts(m, "ATOMIC ");
++	if (flags & KAPI_CTX_PREEMPT_DISABLED)
++		seq_puts(m, "PREEMPT_DISABLED ");
++	if (flags & KAPI_CTX_IRQ_DISABLED)
++		seq_puts(m, "IRQ_DISABLED ");
++	seq_puts(m, "\n");
++}
++
++/*
++ * Print a multi-line value with every line indented, so that no line of it
++ * can be mistaken for a field of its own.
++ */
++static void print_block(struct seq_file *m, const char *text)
++{
++	while (*text) {
++		size_t len = strcspn(text, "\n");
++
++		if (len)
++			seq_printf(m, "  %.*s", (int)len, text);
++		seq_putc(m, '\n');
++		text += len;
++		if (*text == '\n')
++			text++;
++	}
++}
++
++/* Helper to print a list of signed values */
++static void print_s64_list(struct seq_file *m, const char *label,
++			   const s64 *vals, u32 count)
++{
++	u32 i;
++
++	if (!vals || !count)
++		return;
++
++	seq_printf(m, "%s:", label);
++	for (i = 0; i < count; i++)
++		seq_printf(m, " %lld", vals[i]);
++	seq_puts(m, "\n");
++}
++
++/* Helper to print which parameter carries a buffer's element count */
++static void print_size_param(struct seq_file *m,
++			     const struct kernel_api_spec *spec,
++			     const struct kapi_param_spec *param)
++{
++	int idx = param->size_param_idx - 1;
++
++	if (idx < 0)
++		return;
++
++	seq_printf(m, "      size_param: %s (index %d)\n",
++		   idx < spec->param_count && idx < KAPI_MAX_PARAMS ?
++		   spec->params[idx].name : "?", idx);
++	if (param->size_multiplier)
++		seq_printf(m, "      size_multiplier: %zu\n",
++			   param->size_multiplier);
++}
++
++/* Show function for individual API spec */
++static int kapi_spec_show(struct seq_file *m, void *v)
++{
++	struct kernel_api_spec *spec = m->private;
++	int i;
++
++	seq_puts(m, "Kernel API Specification\n");
++	seq_puts(m, "========================\n\n");
++
++	/* Basic info */
++	seq_printf(m, "Name: %s\n", spec->name);
++	seq_printf(m, "Version: %u\n", spec->version);
++	seq_printf(m, "Description: %s\n", spec->description);
++	if (spec->long_description && *spec->long_description) {
++		seq_puts(m, "Long description:\n");
++		print_block(m, spec->long_description);
++	}
++
++	/* Context */
++	print_context_flags(m, spec->context_flags);
++	seq_puts(m, "\n");
++
++	/* Parameters */
++	if (spec->param_count > 0) {
++		seq_printf(m, "Parameters (%u):\n", spec->param_count);
++		for (i = 0; i < spec->param_count && i < KAPI_MAX_PARAMS; i++) {
++			struct kapi_param_spec *param = &spec->params[i];
++
++			seq_printf(m, "  [%d] %s:\n", i, param->name);
++			seq_printf(m, "    type: %s (%s)\n",
++				   kapi_param_type_to_string(param->type), param->type_name);
++			print_param_flags(m, param->flags);
++			if (param->description && *param->description)
++				seq_printf(m, "    description: %s\n", param->description);
++			if (param->size > 0)
++				seq_printf(m, "    size: %zu\n", param->size);
++			if (param->alignment > 0)
++				seq_printf(m, "    alignment: %zu\n", param->alignment);
++
++			/* Print constraints if any */
++			if (param->constraint_type != KAPI_CONSTRAINT_NONE ||
++			    (param->constraints && *param->constraints)) {
++				seq_puts(m, "    constraints:\n");
++				switch (param->constraint_type) {
++				case KAPI_CONSTRAINT_NONE:
++					break;
++				case KAPI_CONSTRAINT_RANGE:
++					seq_puts(m, "      type: range\n");
++					seq_printf(m, "      min: %lld\n", param->min_value);
++					seq_printf(m, "      max: %lld\n", param->max_value);
++					break;
++				case KAPI_CONSTRAINT_MASK:
++					seq_puts(m, "      type: mask\n");
++					seq_printf(m, "      valid_bits: 0x%llx\n",
++						   param->valid_mask);
++					break;
++				case KAPI_CONSTRAINT_ENUM:
++					seq_puts(m, "      type: enum\n");
++					seq_printf(m, "      count: %u\n", param->enum_count);
++					print_s64_list(m, "      values",
++						       param->enum_values,
++						       param->enum_count);
++					break;
++				case KAPI_CONSTRAINT_USER_STRING:
++					seq_puts(m, "      type: user_string\n");
++					seq_printf(m, "      min_len: %lld\n", param->min_value);
++					seq_printf(m, "      max_len: %lld\n", param->max_value);
++					break;
++				case KAPI_CONSTRAINT_USER_PATH:
++					seq_puts(m, "      type: user_path\n");
++					seq_puts(m, "      max_len: PATH_MAX (4096)\n");
++					break;
++				case KAPI_CONSTRAINT_USER_PTR:
++					seq_puts(m, "      type: user_ptr\n");
++					seq_printf(m, "      size: %zu bytes\n", param->size);
++					print_size_param(m, spec, param);
++					break;
++				case KAPI_CONSTRAINT_BUFFER:
++					seq_puts(m, "      type: buffer\n");
++					print_size_param(m, spec, param);
++					break;
++				case KAPI_CONSTRAINT_ALIGNMENT:
++					seq_puts(m, "      type: alignment\n");
++					seq_printf(m, "      alignment: %zu\n", param->alignment);
++					break;
++				case KAPI_CONSTRAINT_POWER_OF_TWO:
++					seq_puts(m, "      type: power_of_two\n");
++					break;
++				case KAPI_CONSTRAINT_PAGE_ALIGNED:
++					seq_puts(m, "      type: page_aligned\n");
++					break;
++				case KAPI_CONSTRAINT_NONZERO:
++					seq_puts(m, "      type: nonzero\n");
++					break;
++				case KAPI_CONSTRAINT_CUSTOM:
++					seq_puts(m, "      type: custom\n");
++					break;
++				default:
++					seq_printf(m, "      type: unknown (%d)\n",
++						   param->constraint_type);
++					break;
++				}
++				if (param->constraints && *param->constraints)
++					seq_printf(m, "      description: %s\n",
++						   param->constraints);
++			}
++			seq_puts(m, "\n");
++		}
++	}
++
++	/* Return value */
++	seq_puts(m, "Return value:\n");
++	seq_printf(m, "  type: %s\n", spec->return_spec.type_name);
++	if (spec->return_spec.description && *spec->return_spec.description)
++		seq_printf(m, "  description: %s\n", spec->return_spec.description);
++
++	switch (spec->return_spec.check_type) {
++	case KAPI_RETURN_EXACT:
++		seq_printf(m, "  success: == %lld\n", spec->return_spec.success_value);
++		break;
++	case KAPI_RETURN_RANGE:
++		seq_printf(m, "  success: [%lld, %lld]\n",
++			   spec->return_spec.success_min,
++			   spec->return_spec.success_max);
++		break;
++	case KAPI_RETURN_FD:
++		seq_puts(m, "  success: valid file descriptor (>= 0)\n");
++		break;
++	case KAPI_RETURN_ERROR_CHECK:
++		seq_puts(m, "  success: error check\n");
++		print_s64_list(m, "  error values",
++			       spec->return_spec.error_values,
++			       spec->return_spec.error_count);
++		break;
++	case KAPI_RETURN_CUSTOM:
++		seq_puts(m, "  success: custom check\n");
++		break;
++	case KAPI_RETURN_NO_RETURN:
++		seq_puts(m, "  success: does not return\n");
++		break;
++	default:
++		break;
++	}
++	seq_puts(m, "\n");
++
++	/* Errors */
++	if (spec->error_count > 0) {
++		seq_printf(m, "Errors (%u):\n", spec->error_count);
++		for (i = 0; i < spec->error_count && i < KAPI_MAX_ERRORS; i++) {
++			struct kapi_error_spec *err = &spec->errors[i];
++
++			seq_printf(m, "  %s (%d): %s\n",
++				   err->name, err->error_code, err->description);
++			if (err->condition && *err->condition)
++				seq_printf(m, "    condition: %s\n", err->condition);
++		}
++		seq_puts(m, "\n");
++	}
++
++	/* Locks */
++	if (spec->lock_count > 0) {
++		seq_printf(m, "Locks (%u):\n", spec->lock_count);
++		for (i = 0; i < spec->lock_count && i < KAPI_MAX_LOCKS; i++) {
++			struct kapi_lock_spec *lock = &spec->locks[i];
++
++			seq_printf(m, "  %s (%s): %s\n", lock->lock_name,
++				   kapi_lock_type_to_string(lock->lock_type),
++				   lock->description);
++			seq_printf(m, "    scope: %s\n",
++				   kapi_lock_scope_to_string(lock->scope));
++		}
++		seq_puts(m, "\n");
++	}
++
++	/* Constraints */
++	if (spec->constraint_count > 0) {
++		seq_printf(m, "Additional constraints (%u):\n", spec->constraint_count);
++		for (i = 0; i < spec->constraint_count && i < KAPI_MAX_CONSTRAINTS; i++) {
++			struct kapi_constraint_spec *cons = &spec->constraints[i];
++
++			seq_printf(m, "  - %s", cons->name);
++			if (cons->description && *cons->description)
++				seq_printf(m, ": %s", cons->description);
++			seq_puts(m, "\n");
++			if (cons->expression && *cons->expression)
++				seq_printf(m, "    expression: %s\n", cons->expression);
++		}
++		seq_puts(m, "\n");
++	}
++
++	/* Signals */
++	if (spec->signal_count > 0) {
++		seq_printf(m, "Signal handling (%u):\n", spec->signal_count);
++		for (i = 0; i < spec->signal_count && i < KAPI_MAX_SIGNALS; i++) {
++			struct kapi_signal_spec *sig = &spec->signals[i];
++
++			seq_printf(m, "  %s (%d):\n", sig->signal_name, sig->signal_num);
++			seq_puts(m, "    direction: ");
++			if (sig->direction & KAPI_SIGNAL_SEND)
++				seq_puts(m, "send ");
++			if (sig->direction & KAPI_SIGNAL_RECEIVE)
++				seq_puts(m, "receive ");
++			if (sig->direction & KAPI_SIGNAL_HANDLE)
++				seq_puts(m, "handle ");
++			if (sig->direction & KAPI_SIGNAL_BLOCK)
++				seq_puts(m, "block ");
++			if (sig->direction & KAPI_SIGNAL_IGNORE)
++				seq_puts(m, "ignore ");
++			seq_puts(m, "\n");
++			seq_puts(m, "    action: ");
++			switch (sig->action) {
++			case KAPI_SIGNAL_ACTION_DEFAULT:
++				seq_puts(m, "default");
++				break;
++			case KAPI_SIGNAL_ACTION_TERMINATE:
++				seq_puts(m, "terminate");
++				break;
++			case KAPI_SIGNAL_ACTION_COREDUMP:
++				seq_puts(m, "coredump");
++				break;
++			case KAPI_SIGNAL_ACTION_STOP:
++				seq_puts(m, "stop");
++				break;
++			case KAPI_SIGNAL_ACTION_CONTINUE:
++				seq_puts(m, "continue");
++				break;
++			case KAPI_SIGNAL_ACTION_CUSTOM:
++				seq_puts(m, "custom");
++				break;
++			case KAPI_SIGNAL_ACTION_RETURN:
++				seq_puts(m, "return");
++				break;
++			case KAPI_SIGNAL_ACTION_RESTART:
++				seq_puts(m, "restart");
++				break;
++			case KAPI_SIGNAL_ACTION_QUEUE:
++				seq_puts(m, "queue");
++				break;
++			case KAPI_SIGNAL_ACTION_DISCARD:
++				seq_puts(m, "discard");
++				break;
++			case KAPI_SIGNAL_ACTION_TRANSFORM:
++				seq_puts(m, "transform");
++				break;
++			default:
++				seq_puts(m, "unknown");
++				break;
++			}
++			seq_puts(m, "\n");
++			if (sig->description && *sig->description)
++				seq_printf(m, "    description: %s\n", sig->description);
++		}
++		seq_puts(m, "\n");
++	}
++
++	/* Side effects */
++	if (spec->side_effect_count > 0) {
++		seq_printf(m, "Side effects (%u):\n", spec->side_effect_count);
++		for (i = 0; i < spec->side_effect_count && i < KAPI_MAX_SIDE_EFFECTS; i++) {
++			const struct kapi_side_effect *eff = &spec->side_effects[i];
++
++			seq_printf(m, "  - %s", eff->target);
++			if (eff->description && *eff->description)
++				seq_printf(m, ": %s", eff->description);
++			if (eff->reversible)
++				seq_puts(m, " (reversible)");
++			seq_puts(m, "\n");
++		}
++		seq_puts(m, "\n");
++	}
++
++	/* State transitions */
++	if (spec->state_trans_count > 0) {
++		seq_printf(m, "State transitions (%u):\n", spec->state_trans_count);
++		for (i = 0; i < spec->state_trans_count && i < KAPI_MAX_STATE_TRANS; i++) {
++			const struct kapi_state_transition *trans = &spec->state_transitions[i];
++
++			seq_printf(m, "  %s: %s -> %s\n", trans->object,
++				   trans->from_state, trans->to_state);
++			if (trans->description && *trans->description)
++				seq_printf(m, "    %s\n", trans->description);
++		}
++		seq_puts(m, "\n");
++	}
++
++	/* Capabilities */
++	if (spec->capability_count > 0) {
++		seq_printf(m, "Capabilities (%u):\n", spec->capability_count);
++		for (i = 0; i < spec->capability_count && i < KAPI_MAX_CAPABILITIES; i++) {
++			const struct kapi_capability_spec *cap = &spec->capabilities[i];
++
++			seq_printf(m, "  %s (%d):\n", cap->cap_name,
++				   cap->capability);
++			if (cap->allows && *cap->allows)
++				seq_printf(m, "    allows: %s\n", cap->allows);
++			if (cap->without_cap && *cap->without_cap)
++				seq_printf(m, "    without: %s\n", cap->without_cap);
++		}
++		seq_puts(m, "\n");
++	}
++
++	/* Additional info */
++	if (spec->examples && *spec->examples) {
++		seq_puts(m, "Examples:\n");
++		print_block(m, spec->examples);
++		seq_putc(m, '\n');
++	}
++	if (spec->notes && *spec->notes) {
++		seq_puts(m, "Notes:\n");
++		print_block(m, spec->notes);
++		seq_putc(m, '\n');
++	}
++
++	return 0;
++}
++
++static int kapi_spec_open(struct inode *inode, struct file *file)
++{
++	return single_open(file, kapi_spec_show, inode->i_private);
++}
++
++static const struct file_operations kapi_spec_fops = {
++	.open = kapi_spec_open,
++	.read = seq_read,
++	.llseek = seq_lseek,
++	.release = single_release,
++};
++
++/*
++ * JSON view of a single spec.  kapi_export_json() writes straight into the
++ * seq_file buffer; when the output does not fit, flagging an overflow makes
++ * seq_file retry with a larger buffer, so no fixed size limit applies.
++ */
++static int kapi_spec_json_show(struct seq_file *m, void *v)
++{
++	const struct kernel_api_spec *spec = m->private;
++	size_t size;
++	char *buf;
++	int ret;
++
++	if (!spec)
++		return -EINVAL;
++
++	size = seq_get_buf(m, &buf);
++	ret = size ? kapi_export_json(spec, buf, size) : -E2BIG;
++	if (ret == -E2BIG) {
++		seq_commit(m, -1);
++		return 0;
++	}
++	if (ret < 0)
++		return ret;
++
++	seq_commit(m, ret);
++	return 0;
++}
++
++static int kapi_spec_json_open(struct inode *inode, struct file *file)
++{
++	return single_open(file, kapi_spec_json_show, inode->i_private);
++}
++
++static const struct file_operations kapi_spec_json_fops = {
++	.open = kapi_spec_json_open,
++	.read = seq_read,
++	.llseek = seq_lseek,
++	.release = single_release,
++};
++
++/*
++ * Show all available API specs.
++ *
++ * Note: This only iterates the static .kapi_specs section. Specs registered
++ * dynamically via kapi_register_spec() are not included in this listing
++ * or in the per-spec debugfs files.
++ */
++static int kapi_list_show(struct seq_file *m, void *v)
++{
++	const struct kernel_api_spec * const *pp;
++	int count = 0;
++
++	seq_puts(m, "Available Kernel API Specifications\n");
++	seq_puts(m, "===================================\n\n");
++
++	for (pp = __start_kapi_specs; pp < __stop_kapi_specs; pp++) {
++		const struct kernel_api_spec *spec = *pp;
++
++		if (!spec)
++			continue;
++		seq_printf(m, "%s - %s\n", spec->name, spec->description);
++		count++;
++	}
++
++	seq_printf(m, "\nTotal: %d specifications\n", count);
++	return 0;
++}
++
++static int kapi_list_open(struct inode *inode, struct file *file)
++{
++	return single_open(file, kapi_list_show, NULL);
++}
++
++static const struct file_operations kapi_list_fops = {
++	.open = kapi_list_open,
++	.read = seq_read,
++	.llseek = seq_lseek,
++	.release = single_release,
++};
++
++static int __init kapi_debugfs_init(void)
++{
++	const struct kernel_api_spec * const *pp;
++	struct dentry *root, *spec_dir, *json_dir;
++
++	root = debugfs_create_dir("kapi", NULL);
++	debugfs_create_file("list", 0444, root, NULL, &kapi_list_fops);
++	spec_dir = debugfs_create_dir("specs", root);
++	json_dir = debugfs_create_dir("specs-json", root);
++
++	for (pp = __start_kapi_specs; pp < __stop_kapi_specs; pp++) {
++		const struct kernel_api_spec *spec = *pp;
++
++		if (!spec || !spec->name)
++			continue;
++		debugfs_create_file(spec->name, 0444, spec_dir,
++				    (void *)spec, &kapi_spec_fops);
++		debugfs_create_file(spec->name, 0444, json_dir,
++				    (void *)spec, &kapi_spec_json_fops);
++	}
++
++	return 0;
++}
++
++/* Initialize as part of kernel, not as a module */
++fs_initcall(kapi_debugfs_init);
 -- 
 2.53.0
 
