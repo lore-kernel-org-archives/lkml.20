@@ -1,222 +1,168 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 73C0B3655EE;
-	Thu,  8 Oct 2026 01:50:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D1203655EE
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 01:50:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791424245; cv=none; b=tjEIBopcmBa/aNxzQv6XmoeOjirV/RFG4ts/1qV8B6c8DPikimoKvras729ELKdrRIkTnxfu7/Ss2qA0C5IxiKu3rlgafpL/CbTuWejx/2B6GCMOeOK9UI5ix822YhUrUQ5X+X9l2b0uZi/XZC+y90o+BlvGi5R9SuefGlbKspk=
+	t=1791424256; cv=none; b=YEOr2fPejyhpGzopHp/427QpUqJpUSvYc/0U0DauvpblHfMRlryQOsXW/3GYCgr18otYKS5svuHxdpPCvGjEp1OF9Htr0WYd1cEaPflBa4m43ieNL73FiFCH7HYiocjOEAg7uSz861LeV2issJFpuhkq2kCE2qsJ9u/BD7P4umE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791424245; c=relaxed/simple;
-	bh=6H1sphCec9/JfHpvbPLJGtz2WgB9Ply+2cWrGuPViH8=;
-	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=X5TbAiysPrru2/PeXOZY6gXJRiaJL4huFaNvUgV9KZgq4foRrS/gSG60+oWVhVP40iRVej2z+WDlFR+RZ+E0l7BbmKELNgu/BzEuLwitfrW0lJ5GmNZ3RSPpynS//S/0sfodIGTGVLEGJs/eYIsC7oC5P7RGyOO/XuLA8lCSImY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.62])
-	by gateway (Coremail) with SMTP id _____8CxvtLo9sZqwo4TAA--.57130S3;
-	Thu, 08 Oct 2026 09:50:32 +0800 (CST)
-Received: from [10.20.42.62] (unknown [10.20.42.62])
-	by front1 (Coremail) with SMTP id qMiowJBxpMze9sZqTc0pAA--.61679S2;
-	Thu, 08 Oct 2026 09:50:22 +0800 (CST)
-Subject: Re: [PATCH] LoongArch: KVM: Add hypercall crash support
-To: Huacai Chen <chenhuacai@kernel.org>
-Cc: WANG Xuerui <kernel@xen0n.name>, kvm@vger.kernel.org,
- loongarch@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20260909085350.2046788-1-maobibo@loongson.cn>
- <CAAhV-H5uz3SM=tYG02Lz3WiN9stJocY7MQJFSKmVbNrNnz+9Gw@mail.gmail.com>
-From: Bibo Mao <maobibo@loongson.cn>
-Message-ID: <82f2c59a-59f5-8e49-f0c5-dc6feb4070df@loongson.cn>
-Date: Thu, 8 Oct 2026 09:51:46 +0800
-User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	s=arc-20240116; t=1791424256; c=relaxed/simple;
+	bh=jbfW2dh69ZgGP9uLkvYBYX7FLH5kTWOCnEzgCNeNJUY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BbqMGFLqQfZ+KqF24xhEXPdifmlOvxYOceR4kKgG8pwZK4DbPk3+J9nZLNBDvEex2y+lVw55lsNiLm20/L9ECpgyAtZauRpbdMGbpUhGaboed4A13ITGfu3AcghlPgDLjCqdNm12dlrM13vH7WyFSQO6B4jY6Ek4Sv9uj00KZOk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fNZiUt1C; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GxN6ugpA; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fNZiUt1C";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GxN6ugpA"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6981hOaR2452351
+	for <linux-kernel@vger.kernel.org>; Thu, 8 Oct 2026 01:50:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=FPQv2BXDyf9TNW1n7k+P5bScY5jgJTIXz5h
+	lo65sNBs=; b=fNZiUt1CyRqyIvjI2mgVnn9In0nLOZdBFOErt99kLe9R/iYqvOh
+	anX/VWD9/wJJVC2OyvVPkLDRHuTSnm5uLAai3YtdYgQagIFCm45+CDbD2YLcUyte
+	/GaRERDVrVW4QJSp6W/eJlZxsPrCrvFQqzKX/Yb18i4j6qxSG1IduOBrv2QvVJjc
+	JdEB3RnHTCX0MIjBnhNf83h7lGh7YIGIfZW4hB8R28E7FXYGvFdDMGwmqaHYKfKC
+	d5Dr6yeYVERw03sVY580XKPSs4kaCoGUqx08L/g36ut+np7/u3PjslW46PWE7EFl
+	QMXZhNA2ojTEE2bgeaAdAmNv043ugu4c0lg==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe68kxw-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 01:50:54 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-30f1b904861so6197932eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 18:50:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791424254; x=1792029054; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FPQv2BXDyf9TNW1n7k+P5bScY5jgJTIXz5hlo65sNBs=;
+        b=GxN6ugpAWXpZbsrNHFJr2ByjB8KwqURrMucBUL9+PtvA3wkEn9X6/xRaVAcTckJRuV
+         rWgMWyYPs7sJDhhjMGSmUZnu67YE5L6m1yTNm0xGE4u/OSmeWLukfDVcJac+MrJqC330
+         AEt+Dj/Vt2HjRtj6njoKd37eHegetY2nup3zQP1XOpPBx6T7oO/RpzNzm5hbCwrf0VQR
+         JV5WlrVUFPGQVXzeK6CLnmJ2O9pK3XGCxlKviuClwY37fHyc/yikmELH+GK3NfAg+ozY
+         bUl6LZTvyZgOfSMZFlzJOMQ86VA2HyVJ4Gtv/oVhI3NhpASa+lY/2WaBgd8TPddnyYo1
+         E9kg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791424254; x=1792029054;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FPQv2BXDyf9TNW1n7k+P5bScY5jgJTIXz5hlo65sNBs=;
+        b=U8uZ0isznmxjefuv5CtoJRj2I11QT28H0zHMF+Z96fYnX0AEAcywe/AKI+XB8tyTHi
+         o8Ro1wC1Z6pVG2R9RTfOv1iv+gVlMlIxaWqyw0j64EnEpxf0comj/3F1snDbNikxdoh5
+         taUGVNuZqyc1q7zE92U413DkbqTklJ5+rxJI7tEzQDLkFB2B76Ba4l5IWMLCWSYV6NMp
+         n8eP9JY6oEhPs7dbnwX/G+GSsqBoyXlbgBn+0FkW/nbemMdDP08fW2tranUgHzxJrlNT
+         86mo2Qu07YBa6s0eZ//rsTZxFqWCvFej0ZEdUf8cc543CRMMVQZwUTW21SbFmPGUbVKS
+         UMEA==
+X-Forwarded-Encrypted: i=1; AKwUvBzwWa1VrzpatKOlPmDWgQoaSfKLMc0MDxaJu/o29OM9WuLAg67nb/T0mlubn8Xe0LBEzQre4ybD092Fj8M=@vger.kernel.org
+X-Gm-Message-State: AFuF++mv3I1fynQurUz4bxBDtYDpVhufc/sacoZeHfXqJznCUcNrI1Sf
+	jIfJ3NXUOu+DtUJWAQVq3w9pMmQfcLtfUFp1mYaO6EQhmbo3TW8qnkd8jF30BpbzRR0jpMnpJsg
+	Sx6ul/grvI5W0L8Nwekty+zsN2oFSLTvJBC6lVmm2/OWVsesIsmOy3ADBFuzMtAZC72A=
+X-Gm-Gg: AYBFou0KEOPLb3r8zR99gKsxgHG+W299WGFVyUIELvg87HVv2x5oVRu77B+50LhyAvc
+	rk2yEPJq4YVyte38AGdpmx7AXFM5kSXNPpoomejiSEXq90ofQJ9dDaT9d4WVev/kHnTneSEFwyW
+	NmR9dGbu0gBisdXS8fmBh+Q1aBDboqBAZhr+wPKxtNyTRs5R+JeF9yHqdYQ5gSpNKPdLQtP/P3O
+	UHt9R2GyS4zutnYtOFPDJSSFF2SicZkW18gYt66GlKs79SAql0uUw8/fC2KdcHrf9qbGVaafUAn
+	3L41Nqk9GuNoaoK7KTf5/YZNmjdLWUDW1IjxLsufpH4TF2mSoWU6QG9afseUCh47Y9thY34eKlh
+	57+Z5Rhl1HeQdNfpXLA9CY9SIUeZcZu+iZKRi7Fu846opnkFh0V+nMLFXeVw=
+X-Received: by 2002:a05:7300:e9c8:20b0:34d:3ad2:680e with SMTP id 5a478bee46e88-3515dd51cd5mr5153692eec.14.1791424253580;
+        Wed, 07 Oct 2026 18:50:53 -0700 (PDT)
+X-Received: by 2002:a05:7300:e9c8:20b0:34d:3ad2:680e with SMTP id 5a478bee46e88-3515dd51cd5mr5153648eec.14.1791424252763;
+        Wed, 07 Oct 2026 18:50:52 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3515abb7117sm11761823eec.3.2026.10.07.18.50.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 18:50:52 -0700 (PDT)
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Vinod Koul <vkoul@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Subject: [PATCH 0/3] phy: qcom: Describe the AHB2PHY bridge clock on Nord
+Date: Thu,  8 Oct 2026 09:50:14 +0800
+Message-ID: <20261008015017.3359804-1-shengchao.guo@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <CAAhV-H5uz3SM=tYG02Lz3WiN9stJocY7MQJFSKmVbNrNnz+9Gw@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJBxpMze9sZqTc0pAA--.61679S2
-X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
-X-Coremail-Antispam: 1Uk129KBj93XoW3GFyUAryxKr4UurWkJrWkuFX_yoWxWrW7pF
-	92yFs5GrW8Kr1fCws3twnI9ry3Grs7Gr1Iga429rWrAF4Y9wn5ur18KryDCFyDJ3y8Wa40
-	vF9Yq3s8ZFsrt3cCm3ZEXasCq-sJn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUv0b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
-	8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AK
-	xVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7I2V7IY0VAS07AlzV
-	AYIcxG8wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E
-	14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIx
-	kGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAF
-	wI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r
-	4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU8j-e5UU
-	UUU==
+X-Proofpoint-ORIG-GUID: pJIMe8aDslfx9VX_wF50tBATAbBJV72Z
+X-Authority-Analysis: v=2.4 cv=HcWB3SE8 c=1 sm=1 tr=0 ts=6ac6f6fe cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=oDUT7GkQECwNgSz8oMgA:9 a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-GUID: pJIMe8aDslfx9VX_wF50tBATAbBJV72Z
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDAwNyBTYWx0ZWRfX56e1fukv7eQF
+ 5fVnsaGExfWsEotA9h5F2+KzMTNsNdRP7/jfJZvA92CuPFsZ5IQA0O2AeEq0nkssWW24AxoCJVR
+ 7foQgVaugFsnhBwBghT2TYQz+ETSmpqVErrAe+bIYsRBf/X73MVAzXiJvE9wHElH4rq9T5J2+iD
+ StsvG8nxreC16oGTooC0tMZQD6Ronj7lZQeQLnzKt8pqmtiLgabms46iy/MWy5BvdjuK8hTkqd4
+ qJJP3aRX11So99x+UlDDS5izRwcnJaMuyEW/OehexsL1fgtnMCMACdb35fMXzslzkxsHqYeAa3l
+ A8ydiZHmR3LKdRsZJ7Pc39kKZOld+iKLoHXo0hDrbiXsCsJzdwHKS/7uDme76RMBrpY+zJrWXfN
+ ySi21GQJYV70N2RJ80r4AlXGUbjjcQc/kdxSSM+983b2a+jQaJwrk2CnIZ6aorkSHY/KcygJDA+
+ n2zCn7LXezv6xSxVsOQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDAwNyBTYWx0ZWRfX+XAMMWNbMG5N
+ zGtbeAYDb/vgWqK8pqbNKICC+2ztn0TBXcpYQ3BTXQvnY5OEptewI/AgNjVR6gtBBQfabjzvqOy
+ 7ljdu3K5fnzjP6wI/kFAxM4YSA0GqyY=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-08_01,2026-10-06_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 spamscore=0 bulkscore=0 adultscore=0
+ priorityscore=1501 impostorscore=0 suspectscore=0 phishscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610020000
+ definitions=main-2610080007
 
+On Nord, the register space of all the USB PHYs (the two USB3-DP QMP
+PHYs and the three eUSB2 PHYs) sits behind the AHB2PHY_0 bridge, which
+is gated by NE_GCC_AHB2PHY_CLK. None of the PHYs currently describe or
+enable that clock, so clk_disable_unused() gates it before the PHYs are
+initialized. The PHY init sequences then never reach the hardware and
+the controllers fail to come up:
 
+  dwc3-qcom a600000.usb: DWC3 controller soft reset failed.
+  dwc3-qcom a600000.usb: error -ETIMEDOUT: failed to initialize core
+  xhci-hcd xhci-hcd.2.auto: can't setup: -110
 
-On 2026/10/3 下午12:02, Huacai Chen wrote:
-> Hi, Bibo,
-> 
-> On Wed, Sep 9, 2026 at 5:01 PM Bibo Mao <maobibo@loongson.cn> wrote:
->>
->> Now generic pvpanic is supported in Linux kernel which will notify VMM
->> with VM crash event. There is some limitations with pvpanic, such as it
->> requires good kernel stack or CPU hardware context and panic() C function
->> is in health state.
->>
->> Sometimes CPU hardware context or kernel/irq stack is corrupted. Hypercall
->> code is more direct and low-level crash method, which is useful in
->> exception entry with assmble language, here add one hypercall code to
->> support VM crash function, so that VMM can capture CPU crash context
->> in time.
->>
->> Signed-off-by: Bibo Mao <maobibo@loongson.cn>
->> ---
->>   arch/loongarch/include/asm/kvm_host.h      |  1 +
->>   arch/loongarch/include/asm/kvm_para.h      | 15 +++++++++++++++
->>   arch/loongarch/include/uapi/asm/kvm.h      |  1 +
->>   arch/loongarch/include/uapi/asm/kvm_para.h |  1 +
->>   arch/loongarch/kvm/exit.c                  | 11 +++++++++++
->>   arch/loongarch/kvm/vm.c                    |  3 ++-
->>   6 files changed, 31 insertions(+), 1 deletion(-)
->>
->> diff --git a/arch/loongarch/include/asm/kvm_host.h b/arch/loongarch/include/asm/kvm_host.h
->> index 65d91c3ce313..96f9f1317cad 100644
->> --- a/arch/loongarch/include/asm/kvm_host.h
->> +++ b/arch/loongarch/include/asm/kvm_host.h
->> @@ -168,6 +168,7 @@ enum emulation_result {
->>   #define LOONGARCH_PV_FEAT_MASK         (BIT(KVM_FEATURE_IPI) |         \
->>                                           BIT(KVM_FEATURE_PREEMPT) |     \
->>                                           BIT(KVM_FEATURE_STEAL_TIME) |  \
->> +                                        BIT(KVM_FEATURE_CRASH) |       \
->>                                           BIT(KVM_FEATURE_USER_HCALL) |  \
->>                                           BIT(KVM_FEATURE_VIRT_EXTIOI))
->>
->> diff --git a/arch/loongarch/include/asm/kvm_para.h b/arch/loongarch/include/asm/kvm_para.h
->> index fb17ba0fa101..3b183bb1aaa8 100644
->> --- a/arch/loongarch/include/asm/kvm_para.h
->> +++ b/arch/loongarch/include/asm/kvm_para.h
->> @@ -14,6 +14,7 @@
->>   #define KVM_HCALL_CODE_SERVICE         0
->>   #define KVM_HCALL_CODE_SWDBG           1
->>   #define KVM_HCALL_CODE_USER_SERVICE    2
->> +#define KVM_HCALL_CODE_CRASH           3
->>
->>   #define KVM_HCALL_SERVICE              HYPERCALL_ENCODE(HYPERVISOR_KVM, KVM_HCALL_CODE_SERVICE)
->>   #define  KVM_HCALL_FUNC_IPI            1
->> @@ -22,6 +23,7 @@
->>   #define KVM_HCALL_SWDBG                        HYPERCALL_ENCODE(HYPERVISOR_KVM, KVM_HCALL_CODE_SWDBG)
->>
->>   #define KVM_HCALL_USER_SERVICE         HYPERCALL_ENCODE(HYPERVISOR_KVM, KVM_HCALL_CODE_USER_SERVICE)
->> +#define KVM_HCALL_CRASH                        HYPERCALL_ENCODE(HYPERVISOR_KVM, KVM_HCALL_CODE_CRASH)
->>
->>   /*
->>    * LoongArch hypercall return code
->> @@ -161,6 +163,19 @@ static __always_inline long kvm_hypercall5(u64 fid,
->>          return ret;
->>   }
->>
->> +static __always_inline long kvm_hypercall_crash(void)
->> +{
->> +       register long ret asm("a0");
->> +
->> +       __asm__ __volatile__(
->> +               "hvcl "__stringify(KVM_HCALL_CRASH)
->> +               : "=r" (ret)
->> +               : : "memory"
->> +               );
->> +
->> +       return ret;
->> +}
-> Why this function has no caller?
-Currently we directly modify guest kernel and hard-code the hypercall 
-instruction to debug. This inline function is only example for howto 
-usage, the normal usage such as checking KVM_FEATURE_USER_HCALL feature 
-+ kvm_hypercall_crash() is too complicated in exception entry assemble 
-language.
+As a result, USB on Nord only works when booting with clk_ignore_unused.
 
-Regards
-Bibo Mao
-> 
-> 
-> Huacai
-> 
->> +
->>   #ifdef CONFIG_PARAVIRT
->>   bool kvm_para_available(void);
->>   unsigned int kvm_arch_para_features(void);
->> diff --git a/arch/loongarch/include/uapi/asm/kvm.h b/arch/loongarch/include/uapi/asm/kvm.h
->> index cd0b5c11ca9c..b222bfc48042 100644
->> --- a/arch/loongarch/include/uapi/asm/kvm.h
->> +++ b/arch/loongarch/include/uapi/asm/kvm.h
->> @@ -106,6 +106,7 @@ struct kvm_fpu {
->>   #define  KVM_LOONGARCH_VM_FEAT_PTW             8
->>   #define  KVM_LOONGARCH_VM_FEAT_MSGINT          9
->>   #define  KVM_LOONGARCH_VM_FEAT_PV_PREEMPT      10
->> +#define  KVM_LOONGARCH_VM_FEAT_CRASH           11
->>
->>   /* Device Control API on vcpu fd */
->>   #define KVM_LOONGARCH_VCPU_CPUCFG      0
->> diff --git a/arch/loongarch/include/uapi/asm/kvm_para.h b/arch/loongarch/include/uapi/asm/kvm_para.h
->> index d28cbcadd276..bf1a0c826ca6 100644
->> --- a/arch/loongarch/include/uapi/asm/kvm_para.h
->> +++ b/arch/loongarch/include/uapi/asm/kvm_para.h
->> @@ -16,6 +16,7 @@
->>   #define  KVM_FEATURE_IPI               1
->>   #define  KVM_FEATURE_STEAL_TIME                2
->>   #define  KVM_FEATURE_PREEMPT           3
->> +#define  KVM_FEATURE_CRASH             4
->>   /* BIT 24 - 31 are features configurable by user space vmm */
->>   #define  KVM_FEATURE_VIRT_EXTIOI       24
->>   #define  KVM_FEATURE_USER_HCALL                25
->> diff --git a/arch/loongarch/kvm/exit.c b/arch/loongarch/kvm/exit.c
->> index 4f58e6e2cf86..3b6daa946c76 100644
->> --- a/arch/loongarch/kvm/exit.c
->> +++ b/arch/loongarch/kvm/exit.c
->> @@ -911,6 +911,17 @@ static int kvm_handle_hypercall(struct kvm_vcpu *vcpu, int ecode)
->>                  vcpu->run->hypercall.ret = KVM_HCALL_INVALID_CODE;
->>                  ret = RESUME_HOST;
->>                  break;
->> +       case KVM_HCALL_CRASH:
->> +               if (!kvm_guest_has_pv_feature(vcpu, KVM_FEATURE_CRASH)) {
->> +                       kvm_write_reg(vcpu, LOONGARCH_GPR_A0, KVM_HCALL_INVALID_CODE);
->> +                       break;
->> +               }
->> +
->> +               vcpu->run->exit_reason = KVM_EXIT_SYSTEM_EVENT;
->> +               vcpu->run->system_event.type = KVM_SYSTEM_EVENT_CRASH;
->> +               vcpu->run->system_event.ndata = 0;
->> +               ret = RESUME_HOST;
->> +               break;
->>          case KVM_HCALL_SWDBG:
->>                  /* KVM_HCALL_SWDBG only in effective when SW_BP is enabled */
->>                  if (vcpu->guest_debug & KVM_GUESTDBG_SW_BP_MASK) {
->> diff --git a/arch/loongarch/kvm/vm.c b/arch/loongarch/kvm/vm.c
->> index 6dabb227a732..e5d10ceb5e67 100644
->> --- a/arch/loongarch/kvm/vm.c
->> +++ b/arch/loongarch/kvm/vm.c
->> @@ -49,8 +49,9 @@ static void kvm_vm_init_features(struct kvm *kvm)
->>                  kvm->arch.kvm_features |= BIT(KVM_LOONGARCH_VM_FEAT_PMU);
->>
->>          /* Enable all PV features by default */
->> -       kvm->arch.pv_features |= BIT(KVM_FEATURE_IPI);
->> +       kvm->arch.pv_features |= BIT(KVM_FEATURE_IPI) | BIT(KVM_FEATURE_CRASH);
->>          kvm->arch.kvm_features |= BIT(KVM_LOONGARCH_VM_FEAT_PV_IPI);
->> +       kvm->arch.kvm_features |= BIT(KVM_LOONGARCH_VM_FEAT_CRASH);
->>          if (kvm_pvtime_supported()) {
->>                  kvm->arch.pv_features |= BIT(KVM_FEATURE_PREEMPT);
->>                  kvm->arch.pv_features |= BIT(KVM_FEATURE_STEAL_TIME);
->>
->> base-commit: df2908090cda368b01ff43709f51890076c56157
->> --
->> 2.39.3
->>
->>
+An earlier attempt marked the clock always-on in the NE GCC driver [1].
+This series instead makes the PHYs consumers of the bridge clock, so it
+is only kept enabled while a PHY is in use:
+
+ - Patch 1 adds a fifth "cfg_ahb" clock to the Nord QMP USB3-DP PHY
+   binding. The qmp-combo driver already gets all clocks in bulk, so no
+   driver change is needed.
+ - Patches 2 and 3 add a "bus" clock to the Nord eUSB2 PHY binding, and
+   Nord-specific match data in the snps-eusb2 driver that enables it
+   alongside the "ref" clock.
+
+[1] https://lore.kernel.org/r/20261007073146.3162478-1-shengchao.guo@oss.qualcomm.com
+
+Shawn Guo (3):
+  dt-bindings: phy: qcom,sc8280xp-qmp-usb43dp-phy: Add Nord cfg_ahb
+    clock
+  dt-bindings: phy: qcom,snps-eusb2-phy: Add Nord bus clock
+  phy: phy-snps-eusb2: Enable AHB2PHY bus clock on Nord
+
+ .../phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml    |  2 ++
+ .../bindings/phy/qcom,snps-eusb2-phy.yaml     | 22 +++++++++++++++++++
+ drivers/phy/phy-snps-eusb2.c                  | 13 +++++++++++
+ 3 files changed, 37 insertions(+)
+
+-- 
+2.43.0
 
