@@ -1,90 +1,183 @@
-Received: from va-1-115.ptr.blmpb.com (va-1-115.ptr.blmpb.com [209.127.230.115])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBB493AE6FD
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 06:00:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.115
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D06CC2D2385;
+	Thu,  8 Oct 2026 06:00:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791439218; cv=none; b=R7jJ0I2CzeKhskYNnc44vUxtmF2hLPoOWmf7fNvWoaa5kwBpK/Va0wvGgRJmoP1PDnkfPLc2O4XdXX9FAPWpRClYXv3M4V6gihmHk7BOVGtjM85bnaaF9sq2M4U3BX2IXbK2rpfD/Kl4tVffxUWGhuO3iC3n0JX+5jvFOrS2wcI=
+	t=1791439224; cv=none; b=GMjLmpgjiFiv6ElpLIVwOMwJ7hWrtpTNkc7TlcoqTUy1UuS6Rm/jo8ktPrKfzVPnc6vM2BjcUbFZfJE76EC5j6de6ggwdzKLSm/jBqDffenXrtcSDBONiBWGRmV7j3w7qHpjNehZVsXJbldWUP3KEcmn9kBD0Hmh+sdcU5CZDUg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791439218; c=relaxed/simple;
-	bh=atopTEU82pKWj1hIlC0ATvjBX+nda9tdm3dbSc/Tkbk=;
-	h=Cc:Mime-Version:From:Subject:Date:Message-Id:To:Content-Type; b=Flqe77/iCiZ7XogL9LOmm6zTlRRoeQqkAxqp1kZjUDXeam3lKC8bQigatwTnsplfIYHTiEQI8MGXpy00JowMy/Cek0UM78kIGszsJM26RXQwVqHjoZSj5kFWbWXQ1YruzGWlQobjtu4isjbeycrXK3lnZHwLiL11HZcwa3ffpXo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=GzDaP0Mu; arc=none smtp.client-ip=209.127.230.115
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1791439224; c=relaxed/simple;
+	bh=BEjJAxiiNWF1ZVSRG/bmM+g95ZgL09WfJD+YqAyMpPw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=RKhRaRAt4r8aPIj/oCPQo2XzhXmiZ5/Xua3p1knhs2E4irPuvGnzxpKHRkmBObBhVWWrr8OizJhZsoHF4MKxdw3uQs8JXobKauYBdUWNudpn+Bz8hg4G1qybMIgfHs4JaDe/oXQqJtlJ19Yd+5UpWcTvHESQHT54gy9mERTQ+cs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P9UImMUk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="GzDaP0Mu"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1791439206; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=IJJMdUiSpOAuCXacXIpmuvPEGQiEu8gSCHcioGm/R8A=;
- b=GzDaP0MuMFZrBT6NzCgqmQX8upaOIGvOJ+tWxAvwkCi/TZPbZYOObmMLz5zNUNRvfH1J+q
- rWaL5X6GUcJkP/+LFvAXI8Kow5l1Op96F1duVuAHaLNH9D0I5rHnGToWYfSh5ImxdjpuVh
- YEn/A0tDHt3Rr9B5AapozYOhb/S0FKNcd8j/r+E2wge0B8PSidEN+mF53H+JQhU+Ccmpdl
- pvZmIMcxc/jbsJHDvMKSsGxIIdohxnh5kRdhgXECaW3ebge151czD8PT5FpN5dLub4a4gy
- oQVm2BbMGRDgtZtZphIl74NZl7q/2rvVICLjhDVwvtdBUuii+UhQk5ZGpnC+xw==
-X-Original-From: Guixiong Wei <weiguixiong@bytedance.com>
-Cc: "Guixiong Wei" <weiguixiong@bytedance.com>, 
-	"Thomas Gleixner" <tglx@kernel.org>, "Ingo Molnar" <mingo@redhat.com>, 
-	"Borislav Petkov" <bp@alien8.de>, 
-	"Dave Hansen" <dave.hansen@linux.intel.com>, 
-	"H . Peter Anvin" <hpa@zytor.com>, 
-	"Chang S . Bae" <chang.seok.bae@intel.com>, 
-	"Shuah Khan" <shuah@kernel.org>, <linux-kernel@vger.kernel.org>, 
-	<linux-kselftest@vger.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P9UImMUk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94E8F1F00893;
+	Thu,  8 Oct 2026 06:00:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791439223;
+	bh=09vdsORecMf9R07NLZLGzvSGWUHz+vByZgriB/KkWl8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=P9UImMUkB6ZBa0F624VUITeS94cpMKfiMuu5EaO3MED3RxVnqOLaVwp7WKx7GQwDZ
+	 4xjbA3wxek8XKsktpGJQhwYBDUh9wxHXfgcImpQWcYQyBfOEGMn5Wl5EzrqIPWHnnM
+	 kflInl1v/KR6ZELgOsVxBTwE7o4opHWHGsEcaW8NdyAWA3D+bPWE3gsRD4bqg974Rs
+	 j+A8lIytq+lK6vBh/izbBj+Z6UReMVMYwJWXkUzazqs9doPCl8rAEmHFbImtD8SbBe
+	 dd42fX0NRnY93iRcSV0pR4PVXDuz2E+5CNfB69KuYL8xLkgxVhOPaR+nZNq3GlK++B
+	 IKAE5PneqHjpA==
+From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+To: iommu@lists.linux.dev
+Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+	Alex Williamson <alex@shazbot.org>,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jacob Pan <jacob.pan@linux.microsoft.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Joerg Roedel <joro@8bytes.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Krishna Reddy <vdumpa@nvidia.com>,
+	Lukas Wunner <lukas@wunner.de>,
+	Nicolin Chen <nicolinc@nvidia.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Samuel Ortiz <sameo@rivosinc.com>,
+	Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
+	Steven Price <steven.price@arm.com>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Vasant Hegde <vasant.hegde@amd.com>,
+	Will Deacon <will@kernel.org>,
+	Xu Yilun <yilun.xu@linux.intel.com>,
+	kvm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-coco@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Janosch Frank <frankja@linux.ibm.com>
+Subject: [PATCH v7 01/16] KVM: Introduce file_to_kvm_<arch>() infrastructure
+Date: Thu,  8 Oct 2026 11:29:40 +0530
+Message-ID: <20261008055955.4014342-2-aneesh.kumar@kernel.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261008055955.4014342-1-aneesh.kumar@kernel.org>
+References: <20261008055955.4014342-1-aneesh.kumar@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-From: "Guixiong Wei" <weiguixiong@bytedance.com>
-Subject: [PATCH v2 0/2] x86/fpu: Fix dynamic fpstate leak on exec()
-Date: Thu,  8 Oct 2026 13:59:34 +0800
-Message-Id: <cover.1791428412.git.weiguixiong@bytedance.com>
-Content-Transfer-Encoding: 7bit
-X-Mailer: git-send-email 2.55.0
-To: <x86@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-X-Lms-Return-Path: <lba+26ac73163+9dfaf3+vger.kernel.org+weiguixiong@bytedance.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-An exec() after using an XFD-controlled xfeature resets fpu->fpstate to
-its embedded storage without freeing the dynamically allocated state.
-Fix the leak in fpstate_reset() and add an AMX regression selftest.
+From: Steffen Eiden <seiden@linux.ibm.com>
 
-The fix preserves the old pointer, installs and initializes the embedded
-fpstate, and then frees the detached allocation. Since fpstate_reset()
-now owns cleanup, fpu_clone() initializes dst_fpu->fpstate to NULL before
-invoking it.
+Add a macro mechanism that generates an opt-in and arch-namespaced
+file_to_kvm_<arch>() to convert a file reference to a kvm object if the
+file handle represents a kvm handle.
 
-The selftest performs ten XTILEDATA request, XRSTOR and self-exec cycles
-in the same task and checks the associated /proc/vmallocinfo entries.
-It fails with 10 leaked allocations on the unfixed kernel and passes
-with zero on the fixed kernel.
+Activate for x86 and for s390 (native KVM only).
 
-Changes since v1:
-- Rename the fix and describe the memory leak explicitly.
-- Move cleanup into fpstate_reset().
-- Detach the old fpstate before freeing it.
-- Initialize dst_fpu->fpstate to NULL before resetting it.
-- Add the requested AMX regression selftest as a separate patch.
+Suggested-by: Sean Christopherson <seanjc@google.com>
+Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
+Acked-by: Sean Christopherson <seanjc@google.com>
+Acked-by: Janosch Frank <frankja@linux.ibm.com>
+---
+ arch/s390/include/asm/kvm_host_s390.h |  2 ++
+ arch/x86/include/asm/kvm_host.h       |  2 ++
+ arch/x86/kvm/Makefile                 |  1 +
+ include/linux/kvm_host.h              | 12 ++++++++++++
+ virt/kvm/kvm_main.c                   | 11 +++++++++++
+ 5 files changed, 28 insertions(+)
 
-v1: https://lore.kernel.org/r/20260929151013.81562-2-weiguixiong@bytedance.com
-
-Guixiong Wei (2):
-  x86/fpu: Fix memory leak with dynamic fpstate and exec()
-  selftests/x86/amx: Test dynamic fpstate cleanup across exec()
-
- arch/x86/include/asm/fpu/api.h    |   6 +-
- arch/x86/kernel/fpu/core.c        |   5 ++
- arch/x86/kernel/fpu/xstate.c      |  10 +--
- arch/x86/kernel/process.c         |   2 +-
- tools/testing/selftests/x86/amx.c | 144 +++++++++++++++++++++++++++++-
- 5 files changed, 156 insertions(+), 11 deletions(-)
-
-
-base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+diff --git a/arch/s390/include/asm/kvm_host_s390.h b/arch/s390/include/asm/kvm_host_s390.h
+index cd692f8fb764..8a7eed5847e1 100644
+--- a/arch/s390/include/asm/kvm_host_s390.h
++++ b/arch/s390/include/asm/kvm_host_s390.h
+@@ -27,6 +27,8 @@
+ #include <asm/isc.h>
+ #include <asm/guarded_storage.h>
+ 
++#define kvm_file_to_kvm_arch s390
++
+ #define KVM_HAVE_MMU_RWLOCK
+ #define KVM_MAX_VCPUS 255
+ 
+diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
+index 683bb8bf43a9..e460073ff176 100644
+--- a/arch/x86/include/asm/kvm_host.h
++++ b/arch/x86/include/asm/kvm_host.h
+@@ -44,6 +44,8 @@
+ 
+ #include <hyperv/hvhdk.h>
+ 
++#define kvm_file_to_kvm_arch x86
++
+ #define __KVM_HAVE_ARCH_VCPU_DEBUGFS
+ 
+ /*
+diff --git a/arch/x86/kvm/Makefile b/arch/x86/kvm/Makefile
+index 0474604ab8a1..e6d395ede9e2 100644
+--- a/arch/x86/kvm/Makefile
++++ b/arch/x86/kvm/Makefile
+@@ -61,6 +61,7 @@ exports_grep_trailer := --include='*.[ch]' -nrw $(srctree)/virt/kvm $(srctree)/a
+ 				-e kvm_page_track_unregister_notifier \
+ 				-e kvm_write_track_add_gfn \
+ 				-e kvm_write_track_remove_gfn \
++				-e kvm_file_to_kvm_fn \
+ 				-e kvm_get_kvm \
+ 				-e kvm_get_kvm_safe \
+ 				-e kvm_put_kvm
+diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
+index cf7fe835c4ad..bc3abfde8393 100644
+--- a/include/linux/kvm_host.h
++++ b/include/linux/kvm_host.h
+@@ -1082,6 +1082,18 @@ void kvm_get_kvm(struct kvm *kvm);
+ bool kvm_get_kvm_safe(struct kvm *kvm);
+ void kvm_put_kvm(struct kvm *kvm);
+ bool file_is_kvm(struct file *file);
++
++/*
++ * Architectures define kvm_file_to_kvm_arch to <arch>
++ * to get a typed, arch-namespaced helper:
++ *
++ *   struct kvm *file_to_kvm_<arch>(struct file *file)
++ */
++#ifdef kvm_file_to_kvm_arch
++#define kvm_file_to_kvm_fn CONCATENATE(file_to_kvm_, kvm_file_to_kvm_arch)
++struct kvm *kvm_file_to_kvm_fn(struct file *file);
++#endif /* kvm_file_to_kvm_arch */
++
+ void kvm_put_kvm_no_destroy(struct kvm *kvm);
+ 
+ static inline struct kvm_memslots *__kvm_memslots(struct kvm *kvm, int as_id)
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index 85f42289748d..07fc874a38e1 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -5519,6 +5519,17 @@ bool file_is_kvm(struct file *file)
+ }
+ EXPORT_SYMBOL_FOR_KVM_INTERNAL(file_is_kvm);
+ 
++#ifdef kvm_file_to_kvm_arch
++struct kvm *kvm_file_to_kvm_fn(struct file *file)
++{
++	if (!file || file->f_op != &kvm_vm_fops)
++		return NULL;
++
++	return file->private_data;
++}
++EXPORT_SYMBOL_GPL(kvm_file_to_kvm_fn);
++#endif
++
+ static int kvm_dev_ioctl_create_vm(unsigned long type)
+ {
+ 	char fdname[ITOA_MAX_LEN + 1];
 -- 
-2.50.1 (Apple Git-155)
+2.43.0
+
