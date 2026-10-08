@@ -1,106 +1,147 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45DD640FD9B
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 11:24:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C87E73F9278;
+	Thu,  8 Oct 2026 11:25:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791458646; cv=none; b=gGHxzGAQ/BSYVZ18c1tyAqCgtcJTGBsijmRos9PlcLNaWy2hoQfQJ8ohqHb2k3l9n0SH1Z4cxNvC9TtW07LQQFWrUaReLhYt+gx0lYfURmuCEaUL1DPyNdPNFsC7xFpBPuOBiacMTE7XVEoGw5bM7NEiKXUbMwn3nv0vNExRet8=
+	t=1791458710; cv=none; b=kMwEURF3RP7fbAh3D1laQY5p1muOgnz/ZiiWWmpn2BghrCsIgNrKMVKB63riNiUktYxQJIHlxP0lgccfBGYc4UC0U+Iu0d1pimZ6rMbYcIAWQ/8gTOfo0yGRtPYFTg2VCpXcPMOTpsDlRwsF2Cq/LhKitZLHYZd+V4gyKD2mVNI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791458646; c=relaxed/simple;
-	bh=VIsLR6MnQ2cCtF2zNSWuryXqb0+AoC1v+XRTD9qa3PM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DeNX+BSORvLg1TRCOaZffAtYR7XId/OZzT/Wz1sxVtVOVqFdiJ2AYY24ItRXCoyX9XdVBhxV0lt98oJC8MMqDiaBWAaaajZuXkfZW5XUGDc3deD/W6/Ds/MHWTtCbLt0ILWzyltUhf5W/9JEDMqHvAVItsSqTcTolPToqezL2r8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nQBLIVXp; arc=none smtp.client-ip=209.85.216.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791458710; c=relaxed/simple;
+	bh=n1zXg+ubN5fMmYdyWRd04OhARz9l/0jBEVVvFXlnO4A=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=HrAgy7+iCKEWYWdHtIlHlIgOmKkbFzLKoRNVv0uMzzwRkA/LIOpI1ruzazM3AH9d2FPTlLR1YH52SfjsOtBQ4Ei92B4NsRpBYkGUQx8p21x3DZxyTWB/4/DS+4PK4dUJ8q9LK1irzw7ZQ0uoiiJ2OHabYPag6xmF/eT7PmCCqfk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ps1HK+Jh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nQBLIVXp"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3a7cfe8f761so358168a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 04:24:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791458644; x=1792063444; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GK/NzQ7B7TCPuEAkNeYo7IlMKawycpDaCj1cdyO7pWY=;
-        b=nQBLIVXpxdscORzFo/W8vzco38ugt7bsGtKVYYiE8vBkPISpG4D9IE810w3J5a9qbm
-         AI0LO9J2yTvDsyi04OGHzsGcchNF6vQwKSuscdQQ2ya0FwDTENsGTvVkGf1xHqO2H2F6
-         nA/KriDnZmuxmEnqaLp/NNLfZPcIf8XNXV3xA7C0H6ARqI5Q0ShmgOssHE/Z9lkpKYu7
-         THrx/WckA3ZZcaxo/9hbw4zxds8d1AXOHuQZJ9uisDoAR6XDvKptAM7EiOs0M49M4N2q
-         aJsZoLQ6Koe6FMj+pXR7YwnRRQeSnaorIploK+4D5iLGXEOQaug/1U/3aX1hcAMx/zQ6
-         Kvyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791458644; x=1792063444;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GK/NzQ7B7TCPuEAkNeYo7IlMKawycpDaCj1cdyO7pWY=;
-        b=ZvrvaE9VoQU1HiJsfK7hbBob6J455GPA+aKsA/njgvG6UcIbQCOZHu8r7zfHYAjklP
-         kL9nFY7kijdo4dHuE9fmCtKe8NUZdFjIlwmCaKtF3WquiJ8i2UBrAHwEWs1V+pqtkUoB
-         Zpwpw3apoGi7oIsMSHI8Eh24xhX2+ivS0DC9e7MkABQSf1CUr/5Qf41/lxSEMnkQrPga
-         4b97EYBNy6CVvWUopl4B8/V14Gr4BMe8EwN9yp/RFBREZpkiN672t2WkHgtZMrRKweZ9
-         YVpBXCyF0GoRNg1DrpK3y7wEZbXB6NxmdvlzQKACvmpIfNXp+0UrrY+d6TUIADt+Ck0j
-         n5gQ==
-X-Gm-Message-State: AFq9FYLYaLdptSocrg4943a4/yYvya6fcTs8sUM74R1qZ5NF5MZkix45
-	9z6rXJRdlRmtUzATnaWt1IIbFbYU3LtCJ1UVrquSwBwSwUT8T8qF7VsvHr/uHPVN
-X-Gm-Gg: AYBFou24GWfwxT59LbIDJYTjHbSmDiHczajGSfRYV0/wzxmyKRnqz1ehO1+zKNboK9G
-	thCUSE8O+n18aJreVEhqCtUmftwUXm/lC9w24MJIsPebW8JR9oGrAuaM0QwaC6q6jMqwJF4sZls
-	Nna11uUm8jnBrJzGQ5Bx40v3tp850ydggCOosmcJnq+I09MFAyQdMaU/ipCnXu+K8Q//8BxE14d
-	hq+yfL+3ng7Dl055oxX62RnSkcfGviY4e75HttiRGlgpONMEaGb5W3tx7YGtlNaiJ4TrrEtJECy
-	itpmwabFLItllKr5TFUrHP0X9Px6TgkNJ6qCoAyqAuOXcwhEwG3Yg3hrkd0aytKDjKVHWsTd1nC
-	ecL8W7NtxRQsaTuFEiz5fwPYKB9e6RMY1rjriH/YBnc9s/yAg2hQmdw0W7Zw+CdYiRPN1ReBfXx
-	Ax5ZYjowBZLwO5wdCp37bhQzD0R+jGyFy/BcH2QoiPVK5oa/mq8LsSXvSry9bydNG14OctPFHJN
-	JtW8D/UPlAxxm9tt0D8yDuJWns=
-X-Received: by 2002:a17:90a:141:b0:3ab:1a5:cd2 with SMTP id 98e67ed59e1d1-3ab01a5236emr464701a91.35.1791458644295;
-        Thu, 08 Oct 2026 04:24:04 -0700 (PDT)
-Received: from obadmin-Precision-3680.atlascopco.group ([167.103.3.1])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a89d718333sm4330053a91.1.2026.10.08.04.24.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 04:24:03 -0700 (PDT)
-From: Sahaj Chaudhari <sahaj123.sc@gmail.com>
-To: linux-fsdevel@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	kees@kernel.org,
-	syzbot+6a0633f11d3fb88860bf@syzkaller.appspotmail.com
-Subject: [PATCH] fs/qnx6: reject zero block size in MMI superblock
-Date: Thu,  8 Oct 2026 16:54:41 +0530
-Message-ID: <20261008112441.3957200-1-sahaj123.sc@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ps1HK+Jh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B61DC1F000FF;
+	Thu,  8 Oct 2026 11:25:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791458709;
+	bh=FLHQ3z0rCPAU/bcGQQoije/kQRz+r11dxAy44WD1rb8=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Ps1HK+JhbffBvuxRoj/rHaqI5HPo1Pa7JQMfDh/5TfM3gyn4fEczTX2+fxdov+e8E
+	 5rXoJ8F6GhGxaF7zLWy10Xwzowbqf6H/MXLyhAnLOiJZDEYEnzFIVH/cBu+Gfb0N9i
+	 rIYUxiSYGg7NlL5nqtk7aD1QG+Qr1bRlQ3mCh5hkNtwzwfZtNzrPJVOgsDFFZMnTdz
+	 mh6Uf2cKjBtGNPDiyzd/ZJGQ72E2Yi2EPf+2MCnSW2mFG9aJHoNol7Q3yWWywz2D+B
+	 3TT96Rw7KclX2YhaBdZAFnOiZjCI/7vL9y7nAtLPwuuL/oITX1rTQZm7G8r6lcWave
+	 7TxPDFQgPl0Kw==
+Subject: Re: [PATCH net V2] net/mlx5: Lag, reset vport speed on MPESW teardown
+From: netdev-bot+sashiko@kernel.org
+To: tariqt@nvidia.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, netdev@vger.kernel.org, pabeni@redhat.com,
+ edwards@nvidia.com, gal@nvidia.com, kees@kernel.org, leon@kernel.org,
+ linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org, msanalla@nvidia.com,
+ mbloch@nvidia.com, moshe@nvidia.com, ohartoov@nvidia.com, saeedm@nvidia.com,
+ shayd@nvidia.com
+Date: Thu, 08 Oct 2026 11:25:08 +0000
+Message-ID: <179145870829.434549.18408966313287855938@kernel.org>
+In-Reply-To: <20261006112415.259157-1-tariqt@nvidia.com>
+References: <20261006112415.259157-1-tariqt@nvidia.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-A malformed MMI superblock may specify a zero block size.
-qnx6_mmi_fill_super() divides by this value while calculating the
-second superblock offset, before sb_set_blocksize() rejects invalid
-sizes. Reject zero before the division so mounting the malformed
-image fails through the existing cleanup path.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Reported-by: syzbot+6a0633f11d3fb88860bf@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=6a0633f11d3fb88860bf
-Signed-off-by: Sahaj Chaudhari <sahaj123.sc@gmail.com>
----
- fs/qnx6/super_mmi.c | 4 ++++
- 1 file changed, 4 insertions(+)
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-diff --git a/fs/qnx6/super_mmi.c b/fs/qnx6/super_mmi.c
-index b8afb6f388b29..960ca68207d61 100644
---- a/fs/qnx6/super_mmi.c
-+++ b/fs/qnx6/super_mmi.c
-@@ -65,6 +65,10 @@ struct qnx6_super_block *qnx6_mmi_fill_super(struct super_block *s, int silent)
- 	}
- 
- 	/* calculate second superblock blocknumber */
-+	if (!fs32_to_cpu(sbi, sb1->sb_blocksize)) {
-+		pr_err("invalid blocksize\n");
-+		goto out;
-+	}
- 	offset = fs32_to_cpu(sbi, sb1->sb_num_blocks) + QNX6_SUPERBLOCK_AREA /
- 					fs32_to_cpu(sbi, sb1->sb_blocksize);
- 
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] The fix says it removes stale cached and FW-configured vport
+  speeds after MPESW teardown, and it relies on…
+
+--
+
+net/mlx5: Lag, reset vport speed on MPESW teardown
+
+This adds a call to mlx5_lag_reset_vports_speed() in
+mlx5_lag_disable_mpesw(). Regular LAG teardown in mlx5_do_bond() already
+makes this call, and the MPESW path now matches it. The goal is to stop
+cached and FW-configured vport speeds from going stale after MPESW
+teardown.
+
+> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/lag/mpesw.c b/drivers/net/ethernet/mellanox/mlx5/core/lag/mpesw.c
+> index abf72026c7513..e0a57b7dd82ed 100644
+> --- a/drivers/net/ethernet/mellanox/mlx5/core/lag/mpesw.c
+> +++ b/drivers/net/ethernet/mellanox/mlx5/core/lag/mpesw.c
+> @@ -157,6 +157,7 @@ void mlx5_lag_disable_mpesw(struct mlx5_lag *ldev)
+>  	if (ldev->mode != MLX5_LAG_MODE_MPESW)
+>  		return;
+>  
+> +	mlx5_lag_reset_vports_speed(ldev);
+
+[Severity: Medium]
+The commit message says this addresses "stale cached and FW-configured
+speeds after MPESW is torn down". Does mlx5_lag_reset_vports_speed()
+actually put the vports back into their pre-LAG unset state?
+
+The helper reads the current uplink oper speed and writes it as a non-zero
+value:
+
+drivers/net/ethernet/mellanox/mlx5/core/lag/lag.c:mlx5_lag_reset_vports_speed() {
+    ...
+		ret = mlx5_port_oper_linkspeed(mdev, &speed);
+    ...
+		speed = speed / MLX5_MAX_TX_SPEED_UNIT;
+		mlx5_lag_modify_device_vports_speed(mdev, speed);
+}
+
+mlx5_lag_modify_device_vports_speed() then caches that value. It also
+programs the value into FW for every enabled non-uplink vport:
+
+		vport->agg_max_tx_speed = speed;
+    ...
+		ret = mlx5_modify_vport_max_tx_speed(mdev, op_mod,
+						     vport->vport, true, speed);
+
+Elsewhere, 0 looks like the "no override" value. mlx5_esw_vport_enable()
+only programs a speed when the cached value is non-zero:
+
+	if (vport->agg_max_tx_speed)
+		mlx5_esw_vport_set_max_tx_speed(esw, vport);
+
+mlx5_ib_query_port_speed_from_vport() falls back to the live port speed
+only when max_tx_speed is 0:
+
+	if (vport_state == VPORT_STATE_DOWN || max_tx_speed == 0)
+		/* Value 0 indicates field not supported, fallback */
+
+After teardown, nothing refreshes this snapshot.
+mlx5_mpesw_speed_update_work() only acts when ldev->mode is still
+MLX5_LAG_MODE_MPESW.
+
+Say the uplink later renegotiates to a different speed. Would the vports
+keep reporting the teardown-time speed, with FW still holding it as
+max_tx_speed? VFs created after the LAG is gone would also get the
+snapshot through mlx5_esw_vport_enable().
+
+There is also the failure path. If mlx5_port_oper_linkspeed() fails during
+the reset, the helper skips that device:
+
+		if (ret) {
+			mlx5_core_dbg(mdev, ...);
+			continue;
+		}
+
+That leaves the full MPESW aggregate in both agg_max_tx_speed and FW for
+that device. Isn't that the same stale state this commit is meant to
+remove?
+
+Should teardown clear the override back to 0 instead of writing a
+snapshot of the current oper speed?
+
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261006112415.259157-1-tariqt%40nvidia.com
