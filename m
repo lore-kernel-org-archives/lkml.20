@@ -1,147 +1,148 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62E4826ED4F;
-	Thu,  8 Oct 2026 01:12:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C568E1F2B8D
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 01:14:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791421943; cv=none; b=R/QS0+FL99xw8OB0bLHBfCCCrOQBPs+rKFGRsiDGZotJj+JZYVHCFD78/YIjRnRu14HMhzOMtXU1bk2jpacxF+0+WxwjexwFabNGbz4O205ZuHfhXaGgb3pTVHbASgI+flS/zmIMQz3lEW95OVAa84BxJW1r51RzkHm33FAEwy8=
+	t=1791422048; cv=none; b=o6NTZ4YW8Z0iDQYQRdbDC2hQjO79hLd7R3GlY6F/1eIRW0p4jqhhGdB6/KU0lVXFBOuJt05/DCz/D+IwQ3nS4K1rhjjVT/s7D6UR7rw1OE7t58Aj0IWLlb5MWcy3zSB7qqRdx5oMrC1mOUlhU0YrpEN+Kbz4e2Ez+URs1fBGlWk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791421943; c=relaxed/simple;
-	bh=Z5ybaKWBPOL6QX0nuxqg9f/Zcrh90lwNVkVMjmF3vBo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IZbVCMMvNxuiWzGEA8YQCOSkktbvqekvTvkaAJOr4kEpTnJkhqctUYrdGbBkCqe5RSa6vC5ZKpeVPZQGVfvXgPqEJRe1Bs4ous2/fFReu9Z/wQtQ/2Ae0kXfGYdb0IMhyoQfwAQRYS7ijI49iVkJK6RuFZmLgG2N1glc2ba0LHk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=m6CJgjHm; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791422048; c=relaxed/simple;
+	bh=bextlbdLEL1x7OK1WA/qkO4fVbrMdsVFqmmkNDgwT10=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EBcrdBT4QJmAQ7+71ih/Tc76I/eLOOZQasjVXVG1kZpK+UEfq2s58NoALzQRrGT11mKnBSzMvqgLy5D9c7BpEuhn5ec8sL3L52QzmuLtfwW1enTPewPLTvrungVMn4s6dgAbLxaj4SYiGkfwonDE8b1KS1U78J9STNnWo3Vq8Cc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=YnJbNBJn; arc=none smtp.client-ip=209.85.210.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="m6CJgjHm"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791421943; x=1822957943;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Z5ybaKWBPOL6QX0nuxqg9f/Zcrh90lwNVkVMjmF3vBo=;
-  b=m6CJgjHmQSvI4440r4BmKqarYma1GWQdLPnYTWrCQTNJdl3mz0qKDXEj
-   HXNBrBJu6rNWS9PVQATwr7168MzsP3X5e8gz0JdKIpt6P54my5ghLm69P
-   8hHvJ6vWteLVFhtWOk/QwB4mCYGfoZXVgPDc9iPbeF8chidxFmsK49uiM
-   fsvO+IccufskqdWpNeWd5d/dDBkP2SaEsY8Nh6ZcnCMWEjA7S4HkeVjjg
-   LWu6QX8fMh6C87IX6NgTfPIQghtfk0QLl1M+WFaY7+yLwK9hJK/FF0Q55
-   fWcQhkPa9t1Sb5tzABKTk0HvEnxvA6ohOrM4epMj50urZiX2xifzYQNkl
-   A==;
-X-CSE-ConnectionGUID: b/w2Q7xvThekawBSLIV+XQ==
-X-CSE-MsgGUID: ugJ4uB+CSHq1kb7wPkALtA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="83121"
-X-IronPort-AV: E=Sophos;i="6.27,145,1787036400"; 
-   d="scan'208";a="83121"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 18:12:22 -0700
-X-CSE-ConnectionGUID: ZGn9PKkVQWa98h1ZNrPAwg==
-X-CSE-MsgGUID: cqNaiWUXTz6lTxb/IDpp+A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,145,1787036400"; 
-   d="scan'208";a="285685618"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa005.fm.intel.com with ESMTP; 07 Oct 2026 18:12:18 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xEcg9-000000003oW-3MzK;
-	Thu, 08 Oct 2026 01:12:13 +0000
-Date: Thu, 8 Oct 2026 09:11:19 +0800
-From: kernel test robot <lkp@intel.com>
-To: Alexander Gordeev <agordeev@linux.ibm.com>,
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Claudio Imbrenda <imbrenda@linux.ibm.com>,
-	Andrey Ryabinin <ryabinin.a.a@gmail.com>
-Cc: oe-kbuild-all@lists.linux.dev,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
-	linux-s390@vger.kernel.org, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com
-Subject: Re: [PATCH v8 14/15] mm/kasan: Introduce helpers for lazy MMU mode
- sanitizer
-Message-ID: <202610080827.zfszZlVj-lkp@intel.com>
-References: <e42d9f02ec1f8478a50fce424b95d0e7ff6a359f.1791365932.git.agordeev@linux.ibm.com>
+	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="YnJbNBJn"
+Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-7f48c750afcso3191559a34.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 18:14:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=openai.com; s=google; t=1791422045; x=1792026845; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=K7dN6q1DVq+JBc4NWV9L91mIrstCqQxMk6a5w1N4MMM=;
+        b=YnJbNBJnymd8pDJP+zkyB1YSMU1DYLba+9QgtaIP8kEBqY0FJNHjPA3/g8bHVoUtzv
+         0f/mrHZjLVcE4+3+aV1+6OUdNeL9FZpEV4VZdmrtA+8S6CKMuQptdkka3BmvuNQ2P0jZ
+         NiDaXXsPwoMp2iHA97FZEIjoPOOhs4yX6Qm64=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791422045; x=1792026845;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=K7dN6q1DVq+JBc4NWV9L91mIrstCqQxMk6a5w1N4MMM=;
+        b=2cS4I1uFpxWIQeYz1VQJpIVuFSGRyr/WPtC0F0YdCJj2cYreY/IMUWgeAfss/Iav76
+         PyAuDdZytRDa2Yg0ikVsvcw96FE8ddftZkEVMDsyNruYdzJHem+anyPJAbffW6kWPBam
+         edAcuQpEm1gngJA3EaFy11JUFycU4wbrS/yZcwufK/Y1dvDW7kdPZsSNk1+gGKORVB0k
+         aas3mQddxXBzfTo3GU0KfkwRDCC8Z/K0mRQagMRA6irV181BUGXHTSufvAmOij7tFPUr
+         RXSb9rueK/3BsbFX418lL29/bNOxB2Y4whkSPPgs+eZnN7OLgGEiowUYCA2TG96Wgg3l
+         uSpQ==
+X-Gm-Message-State: AFuF++nYcxVC5igqTKOxMOdM/sCFAqGcilecf9WI5Uu07wWJNvL1GKC9
+	8JkiB+SpJJZwdQqN7f5/4fvcpEWT/hl7XPVnwPm9lBlkqAPC3YtiSYk5oucFLLXqQNA=
+X-Gm-Gg: AYBFou3hHx7jAe1wGgsdE5JAB3CKqMaJzliC4DbyX64FcH5TEHlCZdxjrcvyxWdLcin
+	y9VPxXMcvqCVa7vlSpcjZda3qIvvGCX/qsAIJdhd02uMSsICfQPi1o/ywx/+oCav7Q/1YLh0DmI
+	bMBYUw+ZMcbwT9gEesYDCRFrytZtXXZ9K138Lg+R//0o7Z/11R8EP4RApFzJovoM8etaHHMyvrz
+	P8vR3+DAG1bixsqtYlQY0Cy0BE/DFZvM149clDEutyR01vvmpTiXB5oSmAg8FzaCQPnc63BOkc/
+	oD9GkSwaXxGD/Te43skBWrza8icRj25HZnjWX7vJwgv2m4dPx6YHaxpvZoPVVJi7s/8F7+3CerT
+	VenYRGZ572oTj/FQFKkhHu1T0v4MwPzuFadJ+KJ2Qb9Haz+Lw2KEbmb+eqSBDBErYniprTw0lUN
+	Ng+ei1z7wyJ1z8SDXsETd8Pytb2c+jv4yady2BPRD7TJB09gqN56NJbPv7hhxwHml8xjwJsrWeX
+	M8s4CR7f+37jEPy3Bx1gOJapo2r5WnPkPeLR+GD0Jt978dO+hNs4klbevZ9BpEInvWuXLNpipF7
+	lqk1zYKQGA==
+X-Received: by 2002:a05:6830:82be:b0:81b:8032:716d with SMTP id 46e09a7af769-82acf9ac9c4mr5132412a34.20.1791422045501;
+        Wed, 07 Oct 2026 18:14:05 -0700 (PDT)
+Received: from com-75606.corp.openai.org ([199.47.143.7])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-82adbdf42f1sm5179099a34.8.2026.10.07.18.14.04
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 07 Oct 2026 18:14:05 -0700 (PDT)
+From: Kyle Zeng <kylebot@openai.com>
+To: netdev@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	outbounddisclosures@openai.com,
+	Kyle Zeng <kylebot@openai.com>
+Subject: [PATCH net v2] netlink: avoid hashing the network namespace pointer
+Date: Wed,  7 Oct 2026 18:14:00 -0700
+Message-ID: <20261008011359.63727-2-kylebot@openai.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e42d9f02ec1f8478a50fce424b95d0e7ff6a359f.1791365932.git.agordeev@linux.ibm.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Alexander,
+The netlink rhashtable key includes a raw struct net pointer and a
+user-controlled port ID. Both /proc/net/netlink and socket diagnostics
+expose the table's bucket order. By binding and rebinding chosen
+NETLINK_USERSOCK port IDs, an unprivileged reader can distinguish equal
+buckets and recover the low bits of the Jenkins hash. Its 32-bit seed
+and the limited set of kernel-image slides can then be searched offline
+to recover the address of init_net.
 
-kernel test robot noticed the following build warnings:
+Use the namespace's unique, non-address net_cookie in the comparison
+key instead. It is assigned before the per-net initializers run and
+remains unchanged for the namespace's lifetime. The lookup key and
+object hash are still built by netlink_compare_arg_init(), keeping
+lookup, insertion, removal and rehashing consistent while preserving
+namespace separation. Neither public table walker needs to change.
 
-[auto build test WARNING on linus/master]
-[also build test WARNING on v7.3-rc6]
-[cannot apply to akpm-mm/mm-everything s390/features kvms390/next next-20261006]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Reading the socket's namespace cookie in netlink_compare() is safe
+under RCU, including during namespace teardown. netlink_release()
+removes the socket from the hash table and defers its final put with
+call_rcu(). cleanup_net() runs the per-net exit methods and waits for
+outstanding RCU callbacks with rcu_barrier() before freeing namespace
+storage.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Alexander-Gordeev/mm-introduce-hw_pte_t-for-PTE-table-storage/20261007-134144
-base:   linus/master
-patch link:    https://lore.kernel.org/r/e42d9f02ec1f8478a50fce424b95d0e7ff6a359f.1791365932.git.agordeev%40linux.ibm.com
-patch subject: [PATCH v8 14/15] mm/kasan: Introduce helpers for lazy MMU mode sanitizer
-config: mips-maltaup_xpa_defconfig (https://download.01.org/0day-ci/archive/20261008/202610080827.zfszZlVj-lkp@intel.com/config)
-compiler: mips-linux-gcc (GCC) 16.1.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261008/202610080827.zfszZlVj-lkp@intel.com/reproduce)
+Unlike ns.ns_id, net_cookie is also available and initialized during
+setup_net() in older stable kernels, making the change straightforward
+to backport to v5.15 and later.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610080827.zfszZlVj-lkp@intel.com/
+Fixes: c428ecd1a21f ("netlink: Move namespace into hash key")
+Assisted-by: LLM
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+---
 
-All warnings (new ones prefixed by >>):
+Changes in v2:
+- Use net_cookie for compatibility with older stable kernels.
+- Name the key field net_cookie to avoid confusion with netns IDs.
+- Explain the RCU lifetime of the socket and network namespace.
 
-   In file included from include/asm-generic/hardirq.h:17,
-                    from arch/mips/include/asm/hardirq.h:16,
-                    from include/linux/hardirq.h:11,
-                    from include/linux/interrupt.h:11,
-                    from arch/mips/include/asm/highmem.h:24,
-                    from arch/mips/include/asm/pgtable-32.h:22,
-                    from arch/mips/include/asm/pgtable.h:14,
-                    from include/linux/pgtable.h:6,
-                    from include/linux/kasan.h:9,
-                    from include/linux/slab.h:276,
-                    from include/linux/fs.h:45,
-                    from include/linux/compat.h:17,
-                    from arch/mips/kernel/asm-offsets.c:14:
-   include/linux/irq.h: In function 'irq_free_generic_chip':
-   include/linux/irq.h:1211:9: error: implicit declaration of function 'kfree' [-Wimplicit-function-declaration]
-    1211 |         kfree(gc);
-         |         ^~~~~
-   include/linux/slab.h: At top level:
->> include/linux/slab.h:595:6: warning: conflicting types for 'kfree'; have 'void(const void *)'
-     595 | void kfree(const void *objp);
-         |      ^~~~~
-   include/linux/irq.h:1211:9: note: previous implicit declaration of 'kfree' with type 'void(const void *)'
-    1211 |         kfree(gc);
-         |         ^~~~~
-   make[3]: *** [scripts/Makefile.build:185: arch/mips/kernel/asm-offsets.s] Error 1
-   make[3]: Target 'prepare' not remade because of errors.
-   make[2]: *** [Makefile:1425: prepare0] Error 2
-   make[2]: Target 'prepare' not remade because of errors.
-   make[1]: *** [Makefile:248: __sub-make] Error 2
-   make[1]: Target 'prepare' not remade because of errors.
-   make: *** [Makefile:248: __sub-make] Error 2
-   make: Target 'prepare' not remade because of errors.
+ net/netlink/af_netlink.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
+diff --git a/net/netlink/af_netlink.c b/net/netlink/af_netlink.c
+index 9fdf964224ab..39db078c925c 100644
+--- a/net/netlink/af_netlink.c
++++ b/net/netlink/af_netlink.c
+@@ -464,7 +464,7 @@ netlink_unlock_table(void)
+ 
+ struct netlink_compare_arg
+ {
+-	possible_net_t pnet;
++	u64 net_cookie;
+ 	u32 portid;
+ };
+ 
+@@ -479,14 +479,14 @@ static inline int netlink_compare(struct rhashtable_compare_arg *arg,
+ 	const struct netlink_sock *nlk = ptr;
+ 
+ 	return nlk->portid != x->portid ||
+-	       !net_eq(sock_net(&nlk->sk), read_pnet(&x->pnet));
++	       sock_net(&nlk->sk)->net_cookie != x->net_cookie;
+ }
+ 
+ static void netlink_compare_arg_init(struct netlink_compare_arg *arg,
+ 				     struct net *net, u32 portid)
+ {
+ 	memset(arg, 0, sizeof(*arg));
+-	write_pnet(&arg->pnet, net);
++	arg->net_cookie = net->net_cookie;
+ 	arg->portid = portid;
+ }
+ 
 
-vim +595 include/linux/slab.h
-
-7bd230a26648ac Suren Baghdasaryan 2024-03-21  594  
-72d67229f522e3 Kees Cook          2021-11-05 @595  void kfree(const void *objp);
-af92793e52c3a9 Alexei Starovoitov 2025-09-08  596  void kfree_nolock(const void *objp);
-72d67229f522e3 Kees Cook          2021-11-05  597  void kfree_sensitive(const void *objp);
-05a940656e1eb2 Kees Cook          2022-09-23  598  
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+base-commit: 602042bf29f6efde39cfb5fdd9289bf4854bc0c5
