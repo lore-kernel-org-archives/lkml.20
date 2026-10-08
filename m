@@ -1,429 +1,194 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011061.outbound.protection.outlook.com [52.101.57.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 615BB3A8FE1
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 03:24:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.61
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791429859; cv=fail; b=EVew5BirugbyDFzdLeipYQwhQDqRX1XKa4e8CKnGaxYgDBxwhYKXTfpn+HP1iKr2DhJFux0EDN7aptrHBEmaUXhmpw8nOBWgNWBf08f5qX4bd7HJUMmsDCyDtXlCL4X76zkFMWFzEz/5WrmWL6qy6Q55IrFy2xAti/9/uR5Bz2c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791429859; c=relaxed/simple;
-	bh=M78qTEhaAaWI1RCaku3O8apMa9PQWYBFRJPZTffcWcs=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=A/g6Bxgxk/pSTYVgS+kgk+KG0Rury/hBweDiO/lAAfElmfcDk8/j9HfopgBRKUn2kvtMuySv2sVQGyKGL2t3pFeDpEUH2H14BNCegmhHoFYEpyIEF0Yt1RLpLYsYpWiBE69D2JICneoNOaBP8ilaGcD+FxWA76x/JZD3HJ9BPf8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=l99m/6M0; arc=fail smtp.client-ip=52.101.57.61
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBDAF3B0ADB
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 03:24:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.180
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791429863; cv=none; b=Wiys7ePRRFmsJP9PU1jNhitTTG4DKDFu7D8v1HX8DAhwLTlV01VoNsZfTkkoFYI1yx4CS+IAqOGfIm8+XDw9fgPpD17uzAooJflhft72DokA9akIM6rqwOzHU+7IbNq9h7i+MiGVVuMet0JHgI0QRf7QlSKz+sx1q9FMAQpK0+U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791429863; c=relaxed/simple;
+	bh=MiGh0F1fXpTDGtwJXf27agb2AocbQkG5vNBYtclmnCQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=SbaiUm6L8jodnzECSiKpzHQOnHGo3nVUpqt5M/E3RIemFgguVdC6V+nFlAvKue8ZgvY4K6xMC4/wk/3J7ExsgoMG3yaIwOO5YVtK2Th8runEBKLhFWrNL3dlPWDkdBudcjUdLKg+TA4H5SLtrX2rfLHyEdgP3Iil9AU30khS9dc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XwyPYW1Y; arc=none smtp.client-ip=209.85.128.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="l99m/6M0"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ke5bf4WLOumQZ7H6aM5pNdTDTzIHQIp1Lp3Y8KERIEQ5ImC3xWIi1ikkkPE8YnkrRyCL974PPlmdfN7XJZ4NHN7ALjpTm23ulvf5CWh8aayVGb/inEj8Nv+K+XPA25JxCUwV7rdVVxQpz3U2gQMAN4kG/gWrjM7FQvWy1h6HSCI/y34c4Iv+7DveVSIZHP/AGYBQOycOWDYiG+RT6V8+Nr+8bAwJtiwJG11u/a1IU8cC2YCz/BYuzOFz3jz9HcE/sNISTsxMbOAZFQYlGu1AFF255BsKepQKiimUrRwUy6YNIW2RyTePjmWN58vSQz4+qYDzCYq5qD0zs8tSOtHYeQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=u+BbyQndnptdjyqCakpBu39VklaLVBQZhqTTcs7+l/g=;
- b=ZLO1VNPhWU3+cDjgk/1cO4+7nJR//miNHNzIofWDMD96gKgLcI5AKIJAtalAOEolCzaUZ6cMlRckJkWmcewor6j19k5gE+JrbOwzhvhx6LjkXQd2A2l/ihE4qYiv/EFZQ79INYDWuwvE5OD1W+2VYcV09Myhn+6AwpBzgv+JXzSjw9qd6L4tneyki2dZ2nL0vLoNDltQzgGIbDOJfYZD9jlyJwsbmNM+7sBpSWDyIku+5GfD0HiYJzEiZ/VMUz5vvJ6V9yZpCkfgvmqsqCbx5GI0JX4UW9xpaQXclOLi5/yuENGrtKm1udUhjcZkyxDx4TgRj3PPGldnxnZBb3G16Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=u+BbyQndnptdjyqCakpBu39VklaLVBQZhqTTcs7+l/g=;
- b=l99m/6M0+loif7EMpTqy7Km4BN0VY+XjDo8UjkrpDiP92NU28ZXD4VRouYNEEkwWgwAizGlzLXtirrglr8Xmdbo0R1UW4sTMdH0O/PabIJ6oUXHHQOeEAt2xqw73XOTDXtG2yEuYeVfAQx0j4nV2gyQrmx61ipW72b6ju3N3V20=
-Received: from SJ0PR05CA0011.namprd05.prod.outlook.com (2603:10b6:a03:33b::16)
- by MW6PR12MB8758.namprd12.prod.outlook.com (2603:10b6:303:23d::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Thu, 8 Oct
- 2026 03:24:12 +0000
-Received: from SJ1PEPF000037AC.namprd03.prod.outlook.com
- (2603:10b6:a03:33b:cafe::49) by SJ0PR05CA0011.outlook.office365.com
- (2603:10b6:a03:33b::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Thu, 8
- Oct 2026 03:24:12 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF000037AC.mail.protection.outlook.com (10.167.244.186) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.14 via Frontend Transport; Thu, 8 Oct 2026 03:24:12 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 7 Oct
- 2026 22:24:03 -0500
-Received: from xsjdavidzha51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Wed, 7 Oct 2026 22:24:02 -0500
-From: David Zhang <yidong.zhang@amd.com>
-To: <quic_jhugo@quicinc.com>, <karol.wachowski@linux.intel.com>,
-	<max.zhen@amd.com>, <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
-	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-CC: David Zhang <yidong.zhang@amd.com>, <sonal.santan@amd.com>,
-	<mario.limonciello@amd.com>, Nishad Saraf <nishads@amd.com>
-Subject: [PATCH V3 09/19] accel/amdxdna: Add context switch hysteresis with debugfs control
-Date: Wed, 7 Oct 2026 20:23:38 -0700
-Message-ID: <20261008032348.2044667-10-yidong.zhang@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261008032348.2044667-1-yidong.zhang@amd.com>
-References: <yidong.zhang@amd.com>
- <20261008032348.2044667-1-yidong.zhang@amd.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XwyPYW1Y"
+Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8565d77c277so28454827b3.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 20:24:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791429859; x=1792034659; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=S4S8uHhcZPXnDPMPsSq6PcQ2rrfio9+ag3jtaYhXorg=;
+        b=XwyPYW1YR0shtp7/oWqLQusOlt/V/la1tz7CbyZ2TxdSHw4VoQ0tif3R69htkVg3G3
+         ORvbCkWmUqARkQ7rh576E5CmEoOx8iVmQT5U8VNAJ/OxxAeYpZUfNtaxNQ+nIPKqzyNz
+         svScc1egRT6ngLcs+0Y4KMW3VMWUFTrtuqkjl5z1MvQuUlHI759sJEPkIf6mGcUUx7zm
+         z202dypLmRbY0su4CxNYLM8FZMFq83vz7GFyCbhtAnw0Alp6Y4/FKn0FQmbNP4K+3LsW
+         PL1W2XHENR3cLvnbjnauDsYCTRWqH1Mp08ck8p4qZtbsFhEJBXJwDl5IkEjNFLxWQYSy
+         jSKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791429859; x=1792034659;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=S4S8uHhcZPXnDPMPsSq6PcQ2rrfio9+ag3jtaYhXorg=;
+        b=MYIy0Fpy4MHYXaV2p8vHfmF9bs3olWCGyEpQvxfDHacP3155HaQizNnUSMePj7XcLQ
+         HfPasgU0zEv7uA/x/I+M55fCwf+OjhcbSbva/TXwrwIqv7azzdwMVMYYfrG1HpqiTBwk
+         McKu1/HhvXijyBgfKVdSKAeub1CUa7tToe1IsWrSKwScbDKVSHTKo9ZQK15LqjEHDo0j
+         LG2BQ70EbZ5G+/eVNnmA6vAGwP5rbxFhTTwS0WUFMZyouIl5WeJPyOdQx7VaDwOpr8Lm
+         ErtzErSKgvdf6/Nt/+hNvSLf/uyR1e5N4soWJC5U8jUNeKoosICfgPACASkzdU1WjUeV
+         4leQ==
+X-Forwarded-Encrypted: i=1; AKwUvByIoTT1ezEK7Sn41m+opL/7B67G+diqANapcEf2oC9dHXH4i4dLnycrejDLAvzqioyqUSlPKzrVPgCTetY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJJ50WeyHVyWUHnPgXcwzxg1xm8wd1QuGYv8kuKON6tIZBzc1PJ
+	rHTl+1uNjOf1gnrJ7fvk8hDl3w7QCRaMTjE4Azak7inj2jooW1fkEdp2
+X-Gm-Gg: AYBFou1ZHghby7+8cPz1x2DwJIoXFOG73vit7rxrw66wdmom9MfZGR6MXnseLV+gVvE
+	gZZMeLuDw4qcU0a4Gx2rRN8hQMUeQmbcBbnXNaiRVbT2H2iIqxBGZLxmX/schi24BPJVZU4Ax0x
+	DiFMiVzZV7ZyTalqC58VHecij94RkoYab0Ci8S16erxOA6DuT3iTPCGJLQ0qayd1a3KrU7TqAlt
+	qvaSlxyVsRmSMVu/4U+ATwC/hK2+wsdPBUoPoEOPkT1+DYbURkbDj18ZCA3YUPlcWnm2QLxvii5
+	89ki8FbaDukpfMsIUQlGAcj5ofwkE9qd2Sv0wX9M8sPheOehc4YLAHN+RKDOz9ToENBD9kGELsE
+	wfeaO64VjCKHrtcb9KnxNep+qIR1XLoUdcEPUIEaJSXBXeyAaZt8TlywD5PJ4GxsU4Y6mltVLs2
+	pJJdYXhFOYmrR22clDib8wIU8cjyDWx4My1XZ6M7kOhnc4KoZai8Q4/mlZOE/L4BHF0Dw/9rs=
+X-Received: by 2002:a05:690c:281:b0:8b0:702f:3253 with SMTP id 00721157ae682-8b070304f03mr3338477b3.31.1791429859132;
+        Wed, 07 Oct 2026 20:24:19 -0700 (PDT)
+Received: from localhost ([2600:1702:7a90:6f9f:8bc4:8aec:108d:7a04])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b05ab73a8bsm15350057b3.24.2026.10.07.20.24.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 20:24:17 -0700 (PDT)
+From: Matt Turner <mattst88@gmail.com>
+Date: Wed, 07 Oct 2026 23:24:07 -0400
+Subject: [PATCH v2 4/6] alpha: define granularity hint PTE bits
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000037AC:EE_|MW6PR12MB8758:EE_
-X-MS-Office365-Filtering-Correlation-Id: c22da9b4-aafa-4d91-9c80-08df24eb9f76
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|36860700016|1800799024|82310400026|56012099006|11063799006|4143699003|10067099003|22082099003|6133799003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	LxmZ4zvfP9QzVxTpzgPv6XqlRQQWnLfVjYyXzxctnBP3B0g11zu7WGq/0823CNY9cMG0Yqk4zS8qpQdDF4g+v1IyqdA099Gscu5z8pKuu/bE8d5xKldxRUVavRbAMCAL6H9hcWuAFnX5HklNpSIESJuqKmaw3k8V7uVcMxNlhnOSUg1xleIovrzVUHtEwIcHBh7MQhv2dETJc7XZkEmnlso1xJFaKwV8jVXUdN+elH42xQt96vI1M1XUwx6js34RjTxiz9lmbBIZDhgSM0ys23uKBSDu18AdCByVQ1eQqth3Pp5U7DT6mT9auvLrlGs6cXA6IwneWnWDIyDxq02s0lr0RxjsQU1nMaTQeCQVz/AaWP0sAXYGv/zkwkqPN0QwKxsKR2yYRo7QzzjC1e7FW4bzFe1eqH+IDEo+XeijCO2AmYTsQSDSBBpxScnygzClSIu3m6fh6UcM3YemzJP0gOL3S0fWxB4R1qL6Lvvlm9gVlGVe9AIQDU7yTqu4N/hLUL3KBvIEIq+xjtvG4Q2jUaF9WrUFj2HXHHj5PRbHMG4tXTi2DZDs/wT2sqYIrW6leUChCaX/yUIzkF3Fz/oZPl6PY/pRZol+gFS4MUstH9ERw06GgAeE17cre2DZdfQW77VdEijidA9pQUhOoXsAkmHo0+FmpFZx51FNZSFxN5Vswb+BIO+ETNf9jlRKuNAOXsaBiLo8cxnt1McHXI2hfw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(36860700016)(1800799024)(82310400026)(56012099006)(11063799006)(4143699003)(10067099003)(22082099003)(6133799003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	4kgJEtBvyhk86bonEypyfCnKBqZDbZxDUpe/xK8gp3FlVXS6ZqB/LHfkwP3wFo+k2h1Ja9uGyjGea3w3LwP2XuPouE2rWaRjb6aVlr7xx4bWa15zMsaxlqp6d8RdqGswqWMawVzSiZyurDJbOoiDRwonv5CG0vY+fBUB4cVNzkfKfcb9ATB+1xAZtgY6KXFn1zl1EAJJShfVC/3+u2/FQxKE4oGdoqMzTIaHjaZCDu4nFtbidiIWUotgsYofPeUKiGr0lwjTCJvbQC+3OaSSpn4xJy7pp6PmFTYWmRupN2X7hGTq6rxaq8JH/FvfsztyMsxTpX76U3+G7iGl7VyLGb2AH0lLAIgdS1/KT5SwAQ7puX+xR1Ly75Lpz9A4atej3nHlzt719DePmUWElCAJjBffANg8d749AF9nM0fZcDs+MbtzRgKdqmNPR/qnYqEA
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 03:24:12.0501
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c22da9b4-aafa-4d91-9c80-08df24eb9f76
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000037AC.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8758
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261007-alpha-hugepages-v2-4-8e108af2d961@gmail.com>
+References: <20261007-alpha-hugepages-v2-0-8e108af2d961@gmail.com>
+In-Reply-To: <20261007-alpha-hugepages-v2-0-8e108af2d961@gmail.com>
+To: Richard Henderson <richard.henderson@linaro.org>, 
+ Magnus Lindholm <linmag7@gmail.com>, 
+ Axel Rasmussen <axelrasmussen@google.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, Peter Xu <peterx@redhat.com>
+Cc: linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Matt Turner <mattst88@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4428; i=mattst88@gmail.com;
+ h=from:subject:message-id; bh=MiGh0F1fXpTDGtwJXf27agb2AocbQkG5vNBYtclmnCQ=;
+ b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLKO81yZUH3d/clGvw+e5reSEzm4HZm6CpntV+5b7d7cP
+ 5lvRXBRx0cWBjEuhpliiixx6xVZZrXtWOpzWvoXzBxWJpAh0iINDEDAwsCXm5hXaqRjpGeqbahn
+ CGToGMVD5PQYNDKLi0tTi3TTCooc8vJLEksy8/OK9fILUvMK0gv00jLTSjIy8ouKU4FG6OWllpi
+ 6OroZGRqYWDpamDlZOJqaODs7GTq5OTo6uzoZWZqbGDhbOpq4WpozcHEKwFxjeYyR4Xxrq8alQ1
+ Xc297uyzrhmW4X/ud+/06fHqk5ckpHKhZk6jH8T2ucd3Lx6dZQ/icvDd/cspD8cOP25XvKJ7XuH
+ Zs97yuDJDMA
+X-Developer-Key: i=mattst88@gmail.com; a=openpgp;
+ fpr=3BB639E56F861FA2E86505690FDD682D974CA72A
 
-Add aie4_set_ctx_hysteresis() to configure the AIE4 context switch
-hysteresis timeout via the SET_RUNTIME_CONFIG message, applied at hw
-start (PF and classic paths) with a default of 1000 us.
+Bits <6:5> of the Alpha PTE are the granularity hint, described in Table
+22-3 of the Alpha Architecture Reference Manual. A hint of N marks the
+PTE as one of a block of 8^N physically contiguous, naturally aligned
+pages that the translation buffer may map with a single entry. With 8KB
+pages that gives 64KB, 512KB and 4MB blocks.
 
-Expose a debugfs node 'ctx_switch_hysteresis_us' to change the timeout
-at runtime (0 disables hysteresis). The stored value is re-applied on
-every hw start so it survives runtime suspend/resume.
+Define the field and the helpers to encode and decode it. Nothing sets a
+non-zero hint yet.
 
-Co-developed-by: Nishad Saraf <nishads@amd.com>
-Signed-off-by: Nishad Saraf <nishads@amd.com>
-Signed-off-by: David Zhang <yidong.zhang@amd.com>
+Add the hint to _PAGE_CHG_MASK so that pte_modify() preserves it. Swap
+PTEs leave bits <31:0> clear, so pte_huge() is false on swap, migration
+and marker entries, and page table entries above the last level keep a
+zero hint where pmd_bad() would reject anything else.
+
+Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
+Tested-by: Magnus Lindholm <linmag7@gmail.com>
+Signed-off-by: Matt Turner <mattst88@gmail.com>
 ---
- drivers/accel/amdxdna/aie4_message.c    | 43 +++++++++++++
- drivers/accel/amdxdna/aie4_msg_priv.h   | 24 +++++++
- drivers/accel/amdxdna/aie4_pci.c        | 83 ++++++++++++++++++++++++-
- drivers/accel/amdxdna/aie4_pci.h        |  9 +++
- drivers/accel/amdxdna/amdxdna_debugfs.c |  3 +
- drivers/accel/amdxdna/amdxdna_pci_drv.h |  1 +
- 6 files changed, 161 insertions(+), 2 deletions(-)
+ arch/alpha/include/asm/pgtable.h | 51 +++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 50 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/accel/amdxdna/aie4_message.c b/drivers/accel/amdxdna/aie4_message.c
-index 7112b0bc3725..fc0b498b2923 100644
---- a/drivers/accel/amdxdna/aie4_message.c
-+++ b/drivers/accel/amdxdna/aie4_message.c
-@@ -262,3 +262,46 @@ int aie4_msg_set_power_mode(struct amdxdna_dev_hdl *ndev, u8 power_mode)
+diff --git a/arch/alpha/include/asm/pgtable.h b/arch/alpha/include/asm/pgtable.h
+index d22e28b956fb..7cf685a694b6 100644
+--- a/arch/alpha/include/asm/pgtable.h
++++ b/arch/alpha/include/asm/pgtable.h
+@@ -65,6 +65,8 @@ struct vm_area_struct;
+ #define _PAGE_FOW	0x0004	/* used for page protection (fault on write) */
+ #define _PAGE_FOE	0x0008	/* used for page protection (fault on exec) */
+ #define _PAGE_ASM	0x0010
++#define _PAGE_GH_MASK	0x0060	/* granularity hint, PTE<6:5> */
++#define _PAGE_GH_SHIFT	5
+ #define _PAGE_KRE	0x0100	/* kernel read enable, in __ACCESS_BITS */
+ #define _PAGE_URE	0x0200	/* user read enable, in __ACCESS_BITS */
+ #define _PAGE_KWE	0x1000	/* kernel write enable, in __DIRTY_BITS */
+@@ -95,7 +97,36 @@ struct vm_area_struct;
+ #define _PFN_MASK	0xFFFFFFFF00000000UL
  
- 	return ret;
- }
+ #define _PAGE_TABLE	(_PAGE_VALID | __DIRTY_BITS | __ACCESS_BITS)
+-#define _PAGE_CHG_MASK	(_PFN_MASK | __DIRTY_BITS | __ACCESS_BITS | _PAGE_SPECIAL)
++/*
++ * pte_modify() must preserve the granularity hint, or
++ * hugetlb_change_protection() would turn a block into single-page PTEs.
++ */
++#define _PAGE_CHG_MASK	(_PFN_MASK | __DIRTY_BITS | __ACCESS_BITS | \
++			 _PAGE_GH_MASK | _PAGE_SPECIAL)
 +
-+int aie4_set_runtime_cfg(struct amdxdna_dev_hdl *ndev, u32 type,
-+			 const void *data, size_t size)
++/*
++ * Granularity hints. A PTE with hint order N is one of a block of 8^N
++ * physically contiguous pages, naturally aligned both virtually and
++ * physically, that the TB may map with a single entry. With 8KB pages the
++ * four encodings give 8KB, 64KB, 512KB and 4MB.
++ *
++ * Every PTE of a block must still carry the PFN of its own page, and all of
++ * them must agree in bits <15:0>: the protection, fault, hint and valid bits.
++ * __ACCESS_BITS and __DIRTY_BITS reach into that range, so young and dirty
++ * updates have to be applied to the whole block too.
++ *
++ * The hint is advisory: an implementation that ignores it still translates
++ * correctly through the individual PTEs, so it is safe to set on any Alpha.
++ */
++#define GH_ORDER_MAX	4			/* hint orders 0..3 */
++
++#define gh_cont_shift(order)	(PAGE_SHIFT + 3 * (order))
++#define gh_cont_size(order)	(1UL << gh_cont_shift(order))
++#define gh_cont_mask(order)	(~(gh_cont_size(order) - 1))
++#define gh_pte_num(order)	(1UL << (3 * (order)))
++
++#define for_each_gh_order(order) \
++	for ((order) = 1; (order) < GH_ORDER_MAX; (order)++)
+ 
+ /*
+  * All the normal masks have the "page accessed" bits on, as any time they are used,
+@@ -261,6 +292,24 @@ extern inline pte_t pte_mkyoung(pte_t pte)	{ pte_val(pte) |= __ACCESS_BITS; retu
+ extern inline int pte_special(pte_t pte)	{ return pte_val(pte) & _PAGE_SPECIAL; }
+ extern inline pte_t pte_mkspecial(pte_t pte)	{ pte_val(pte) |= _PAGE_SPECIAL; return pte; }
+ 
++extern inline unsigned int pte_gh_order(pte_t pte)
 +{
-+	DECLARE_AIE_MSG(aie4_msg_set_runtime_cfg, AIE4_MSG_OP_SET_RUNTIME_CONFIG);
-+	u8 buf[sizeof(req.type) + AIE4_RUNTIME_CFG_MAX_DATA_SIZE] __aligned(4) = { 0 };
-+	int ret;
-+
-+	if (size > AIE4_RUNTIME_CFG_MAX_DATA_SIZE)
-+		return -EINVAL;
-+
-+	/* Stage runtime config type and payload for firmware mailbox message. */
-+	req.type = type;
-+	memcpy(buf, &req.type, sizeof(req.type));
-+	memcpy(buf + sizeof(req.type), data, size);
-+
-+	msg.send_data = buf;
-+	msg.send_size = sizeof(req.type) + size;
-+
-+	ret = aie_send_mgmt_msg_wait(&ndev->aie, &msg);
-+	if (ret)
-+		XDNA_ERR(ndev->aie.xdna, "Failed to set runtime cfg %u: %d", type, ret);
-+	return ret;
++	return (pte_val(pte) & _PAGE_GH_MASK) >> _PAGE_GH_SHIFT;
 +}
 +
-+int aie4_set_ctx_hysteresis(struct amdxdna_dev_hdl *ndev, u32 timeout_us)
++extern inline pte_t pte_mkgh(pte_t pte, unsigned int order)
 +{
-+	struct aie4_msg_runtime_config_ctx_switch_hysteresis cfg = {
-+		.timeout_us = timeout_us,
-+	};
-+	int ret;
-+
-+	ret = aie4_set_runtime_cfg(ndev, AIE4_RUNTIME_CONFIG_CTX_SWITCH_HYSTERESIS,
-+				   &cfg, sizeof(cfg));
-+	if (ret)
-+		XDNA_WARN(ndev->aie.xdna,
-+			  "Failed to set ctx switch hysteresis to %u us (%d), using fw default",
-+			  timeout_us, ret);
-+	else
-+		XDNA_DBG(ndev->aie.xdna, "Context switch hysteresis set to %u us", timeout_us);
-+
-+	return ret;
-+}
-diff --git a/drivers/accel/amdxdna/aie4_msg_priv.h b/drivers/accel/amdxdna/aie4_msg_priv.h
-index fe78df9e23c8..636bf8d04c76 100644
---- a/drivers/accel/amdxdna/aie4_msg_priv.h
-+++ b/drivers/accel/amdxdna/aie4_msg_priv.h
-@@ -12,6 +12,7 @@
- enum aie4_msg_opcode {
- 	AIE4_MSG_OP_IDENTIFY                         = 0x10002,
- 	AIE4_MSG_OP_SUSPEND                          = 0x10003,
-+	AIE4_MSG_OP_SET_RUNTIME_CONFIG               = 0x10007,
- 	AIE4_MSG_OP_QUERY_CERT_FIRMWARE_VERSION      = 0x1000F,
- 
- 	AIE4_MSG_OP_CREATE_VFS                       = 0x20001,
-@@ -65,6 +66,29 @@ struct aie4_msg_suspend_resp {
- 	enum aie4_msg_status status;
- } __packed;
- 
-+/* Type selector for AIE4_MSG_OP_SET_RUNTIME_CONFIG. */
-+enum aie4_msg_runtime_config_type {
-+	AIE4_RUNTIME_CONFIG_CTX_SWITCH_HYSTERESIS	= 0xD,
-+	AIE4_MAX_RUNTIME_CONFIG
-+};
-+
-+struct aie4_msg_set_runtime_cfg_req {
-+	__u32 type;
-+	__u8 data[4];
-+} __packed;
-+
-+struct aie4_msg_set_runtime_cfg_resp {
-+	enum aie4_msg_status status;
-+} __packed;
-+
-+/* Maximum payload for runtime config firmware message. */
-+#define AIE4_RUNTIME_CFG_MAX_DATA_SIZE 16
-+
-+/* Context switch hysteresis timeout in microseconds (0 disables). */
-+struct aie4_msg_runtime_config_ctx_switch_hysteresis {
-+	__u32 timeout_us;
-+} __packed;
-+
- struct aie4_msg_create_vfs_req {
- 	__u32 vf_cnt;
- } __packed;
-diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie4_pci.c
-index fdcf6b8602e9..d051aa1b51e6 100644
---- a/drivers/accel/amdxdna/aie4_pci.c
-+++ b/drivers/accel/amdxdna/aie4_pci.c
-@@ -5,8 +5,10 @@
- 
- #include <drm/amdxdna_accel.h>
- #include <drm/drm_drv.h>
-+#include <drm/drm_file.h>
- #include <drm/drm_managed.h>
- #include <drm/drm_print.h>
-+#include <linux/debugfs.h>
- #include <linux/firmware.h>
- #include <linux/sizes.h>
- 
-@@ -321,6 +323,22 @@ int aie4_restore_power_mode(struct amdxdna_dev_hdl *ndev)
- 	return aie4_msg_set_power_mode(ndev, ndev->pw_mode);
- }
- 
-+static int aie4_config_fw(struct amdxdna_dev_hdl *ndev)
-+{
-+	int ret;
-+
-+	ret = aie4_attach_work_buffer(ndev);
-+	if (ret)
-+		return ret;
-+
-+	/* Best-effort tuning knob; failure is warned inside and does not fail hw start */
-+	ret = aie4_set_ctx_hysteresis(ndev, ndev->ctx_switch_hysteresis_us);
-+	if (ret == -ETIME)
-+		return ret;
-+
-+	return 0;
++	pte_val(pte) &= ~_PAGE_GH_MASK;
++	pte_val(pte) |= (unsigned long)order << _PAGE_GH_SHIFT;
++	return pte;
 +}
 +
- static int aie4_pf_hw_start(struct amdxdna_dev_hdl *ndev)
- {
- 	int ret;
-@@ -333,7 +351,7 @@ static int aie4_pf_hw_start(struct amdxdna_dev_hdl *ndev)
- 	if (ret)
- 		goto stop_fw;
- 
--	ret = aie4_attach_work_buffer(ndev);
-+	ret = aie4_config_fw(ndev);
- 	if (ret)
- 		goto mbox_fini;
- 
-@@ -417,7 +435,7 @@ static int aie4_classic_hw_start(struct amdxdna_dev_hdl *ndev)
- 	if (ret)
- 		goto mailbox_fini;
- 
--	ret = aie4_attach_work_buffer(ndev);
-+	ret = aie4_config_fw(ndev);
- 	if (ret)
- 		goto mailbox_fini;
- 
-@@ -572,6 +590,7 @@ static int aie4m_pcidev_init(struct amdxdna_dev *xdna)
- 
- 	ndev->priv = xdna->dev_info->dev_priv;
- 	ndev->aie.xdna = xdna;
-+	ndev->ctx_switch_hysteresis_us = AIE4_CTX_HYSTERESIS_US;
- 	ndev->pw_mode = POWER_MODE_DEFAULT;
- 	xdna->dev_handle = ndev;
- 
-@@ -917,15 +936,74 @@ static void aie4_classic_fini(struct amdxdna_dev *xdna)
- 	aie4_free_work_buffer(xdna->dev_handle);
- }
- 
-+static int aie4_ctx_hysteresis_get(void *data, u64 *val)
-+{
-+	struct amdxdna_dev_hdl *ndev = data;
-+	struct amdxdna_dev *xdna = ndev->aie.xdna;
++/*
++ * Swap PTEs leave bits <31:0> clear, so this is false for every swap,
++ * migration and marker entry, not just for ordinary small pages.
++ */
++extern inline int pte_huge(pte_t pte)		{ return pte_val(pte) & _PAGE_GH_MASK; }
 +
-+	guard(mutex)(&xdna->dev_lock);
-+	*val = ndev->ctx_switch_hysteresis_us;
-+
-+	return 0;
-+}
-+
-+static int aie4_ctx_hysteresis_set(void *data, u64 val)
-+{
-+	struct amdxdna_dev_hdl *ndev = data;
-+	struct amdxdna_dev *xdna = ndev->aie.xdna;
-+	int ret, idx;
-+
-+	if (val > U32_MAX)
-+		return -EINVAL;
-+
-+	if (!drm_dev_enter(&xdna->ddev, &idx))
-+		return -ENODEV;
-+
-+	mutex_lock(&xdna->dev_lock);
-+
-+	ret = amdxdna_pm_resume_get_locked(xdna);
-+	if (ret)
-+		goto unlock;
-+
-+	ret = aie4_set_ctx_hysteresis(ndev, (u32)val);
-+	if (!ret)
-+		ndev->ctx_switch_hysteresis_us = (u32)val;
-+
-+	amdxdna_pm_suspend_put(xdna);
-+
-+unlock:
-+	mutex_unlock(&xdna->dev_lock);
-+	drm_dev_exit(idx);
-+
-+	return ret;
-+}
-+
-+/* Context switch hysteresis timeout in microseconds; 0 disables hysteresis. */
-+DEFINE_DEBUGFS_ATTRIBUTE(aie4_ctx_hysteresis_fops, aie4_ctx_hysteresis_get,
-+			 aie4_ctx_hysteresis_set, "%llu\n");
-+
-+static void aie4_debugfs_init(struct amdxdna_dev *xdna)
-+{
-+	struct amdxdna_dev_hdl *ndev = xdna->dev_handle;
-+
-+	/* Context switch hysteresis is only supported on PF and classic devices. */
-+	if (!to_pci_dev(xdna->ddev.dev)->is_virtfn)
-+		debugfs_create_file_unsafe("ctx_switch_hysteresis_us", 0600,
-+					   xdna->ddev.accel->debugfs_root, ndev,
-+					   &aie4_ctx_hysteresis_fops);
-+}
-+
- const struct amdxdna_dev_ops aie4_pf_ops = {
- 	.init			= aie4_pf_init,
- 	.fini			= aie4_pf_fini,
-+	.debugfs_init		= aie4_debugfs_init,
- 	.sriov_configure        = aie4_sriov_configure,
- };
- 
- const struct amdxdna_dev_ops aie4_vf_ops = {
- 	.init			= aie4_vf_init,
- 	.fini			= aie4_vf_fini,
-+	.debugfs_init		= aie4_debugfs_init,
- 	.hwctx_init		= aie4_hwctx_init,
- 	.hwctx_fini		= aie4_hwctx_fini,
- 	.cmd_wait		= aie4_cmd_wait,
-@@ -936,6 +1014,7 @@ const struct amdxdna_dev_ops aie4_vf_ops = {
- const struct amdxdna_dev_ops aie4_classic_ops = {
- 	.init			= aie4_classic_init,
- 	.fini			= aie4_classic_fini,
-+	.debugfs_init		= aie4_debugfs_init,
- 	.hwctx_init		= aie4_hwctx_init,
- 	.hwctx_fini		= aie4_hwctx_fini,
- 	.cmd_wait		= aie4_cmd_wait,
-diff --git a/drivers/accel/amdxdna/aie4_pci.h b/drivers/accel/amdxdna/aie4_pci.h
-index 6e9e7f874a44..959ef3695813 100644
---- a/drivers/accel/amdxdna/aie4_pci.h
-+++ b/drivers/accel/amdxdna/aie4_pci.h
-@@ -14,6 +14,9 @@
- #include "aie4_msg_priv.h"
- #include "amdxdna_mailbox.h"
- 
-+/* Default context switch hysteresis timeout in microseconds. */
-+#define AIE4_CTX_HYSTERESIS_US	1000
-+
- struct cert_comp {
- 	struct amdxdna_dev_hdl          *ndev;
- 	u32                             msix_idx;
-@@ -69,6 +72,9 @@ struct amdxdna_dev_hdl {
- 
- 	u8				pw_mode;
- 
-+	/* Context switch hysteresis timeout in microseconds. */
-+	u32				ctx_switch_hysteresis_us;
-+
- 	struct amdxdna_drm_query_firmware_version cert_version;
- };
- 
-@@ -92,6 +98,9 @@ int aie4_init_dpm_freq_table(struct amdxdna_dev_hdl *ndev);
- int aie4_query_dpm_level(struct amdxdna_dev_hdl *ndev,
- 			 u32 *aieclk_dpm_level, u32 *npuhclk_dpm_level);
- int aie4_msg_set_power_mode(struct amdxdna_dev_hdl *ndev, u8 power_mode);
-+int aie4_set_runtime_cfg(struct amdxdna_dev_hdl *ndev, u32 type,
-+			 const void *data, size_t size);
-+int aie4_set_ctx_hysteresis(struct amdxdna_dev_hdl *ndev, u32 timeout_us);
- u32 aie4_msg_pasid(struct amdxdna_client *client);
- 
- /* aie4_ctx.c */
-diff --git a/drivers/accel/amdxdna/amdxdna_debugfs.c b/drivers/accel/amdxdna/amdxdna_debugfs.c
-index a6ec17c63629..1f63cc91b168 100644
---- a/drivers/accel/amdxdna/amdxdna_debugfs.c
-+++ b/drivers/accel/amdxdna/amdxdna_debugfs.c
-@@ -126,4 +126,7 @@ void amdxdna_debugfs_init(struct amdxdna_dev *xdna)
- 				    xdna,
- 				    amdxdna_dbgfs_files[i].fops);
- 	}
-+
-+	if (xdna->dev_info->ops->debugfs_init)
-+		xdna->dev_info->ops->debugfs_init(xdna);
- }
-diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.h b/drivers/accel/amdxdna/amdxdna_pci_drv.h
-index 953bf783b3f7..11f46ec738d7 100644
---- a/drivers/accel/amdxdna/amdxdna_pci_drv.h
-+++ b/drivers/accel/amdxdna/amdxdna_pci_drv.h
-@@ -54,6 +54,7 @@ struct amdxdna_sched_job;
- struct amdxdna_dev_ops {
- 	int (*init)(struct amdxdna_dev *xdna);
- 	void (*fini)(struct amdxdna_dev *xdna);
-+	void (*debugfs_init)(struct amdxdna_dev *xdna);
- 	int (*resume)(struct amdxdna_dev *xdna);
- 	int (*suspend)(struct amdxdna_dev *xdna);
- 	int (*sriov_configure)(struct amdxdna_dev *xdna, int num_vfs);
+ /*
+  * The smp_rmb() in the following functions are required to order the load of
+  * *dir (the pointer in the top level page table) with any subsequent load of
+
 -- 
-2.34.1
+2.55.0
 
