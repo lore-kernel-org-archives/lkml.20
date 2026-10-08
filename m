@@ -1,421 +1,155 @@
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5A0A3CC314
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 06:56:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E92E6283FE5;
+	Thu,  8 Oct 2026 07:01:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791442576; cv=none; b=VdjfN8Do5sn/NKxTI28fat1JZdNksubnhXGnwdJv2sht2Bp7Wehd0FgeHdu1JSzRVSoXLyoqbk3KrTLDnBI95xCzN+dlONrKBvZjOfUXkl3HfEcoOSDTuoar+//H9PTxVuATm3mBQKNtyGqyuJwFvr5TFVg747ZQ6Qh37kfjrHw=
+	t=1791442872; cv=none; b=UIVcpY4IM4U7AXHOLMhr7deYq7ty/IUlmUpmgy/SsyIypoIr0w/JKyrZxW2QuH9QZcWvN2C0ACtQPZmxK52XajaU5F7WK++6kLK+RyJRx79mRnA1MIZMyvwklb6OTCJg1mlah3Ht8bTq4SrVCHZdEHfycbme6GbxZ/jX+ecdTVs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791442576; c=relaxed/simple;
-	bh=htQGzewoljnt8qeiBZrlM3+HFfiGm6UC95cSw3S2ViA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aAwZMmsKi03JnIlktcmtGmS/J//ik/z1cG69Tw9YVRy7QcUECRKnJfmuxWpZr2hl36ZyPgIMpkI8O4TYJAkrbm2KstQJCHQJ1CfsXT9aPthfCaNIAWRMMsZOJ/UuZAl/zmOgMCKW+1zoU29UrR15wtpAD5yy8GLJXT/r5CnSNTA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EUiKMhKf; arc=none smtp.client-ip=209.85.215.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EUiKMhKf"
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cc4aa18f9afso2333533a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 23:56:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791442574; x=1792047374; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pAms67KOUjYSfr9b9G0rcYKa8JtQ8KPqGJVcyzHBOmw=;
-        b=EUiKMhKf9Xd09xCI1t5b6hhNC0H3eIwWlwgQqhIP6K/qMPfRGi07itIms0OcoJK95y
-         2MtJuQF5ankT7zyjvN4/wscMDDFD4/IP5nKagE2UiHBuv11VW6HWp/v4lTd3Q9bx7sI4
-         HW/ml07mifXlegJbPI/UKVjA9mYUO2mGxcrfkhDpKb3QERYovXhv9tY06DvOQSijZp5U
-         bkg+rk2N1vxLCRFli7jCzy8x3oCoVSo2vpW+k9EwL+EZkI0dzn9xOwk9YzZ/nAxm/WW6
-         DlGTKu2y9bZQHtkYshnHz3YvxGwbtn41saKGavLUX+XnE63l+iUEUa6RlCpexDpbNo01
-         rKkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791442574; x=1792047374;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pAms67KOUjYSfr9b9G0rcYKa8JtQ8KPqGJVcyzHBOmw=;
-        b=E69gsPJ/EiOGFUDDBueDcvIhWY4xwN+60ZbQ2AzjiH7E3LoD8bHbLA4wD33rYYM19I
-         24JdzFuCAQgzEqpicrvd13V22reF947JuOxBc0z9+9WEqxYEAX33CcJjevRbm+ZcBxBP
-         BCZE7fsrDxWTOwVDS948UfYa2XnDFOU2SexAu1/3h3+xRV+o/14hfmg4OECV15LbZnvV
-         u7h0t6k2Yp/2aRA8Li4N6iKGT7RUrXXBMAZc/TWZqnPbECrzPt+xJ3ap5g1aCB0l0+XL
-         7/6SoVWhM24ajlo6w4FpVyHXizlPU4dSVlJFOUqHVz/ydLJFZx2c6s53wxfrLCD09fUv
-         /uug==
-X-Gm-Message-State: AFq9FYKbStY91d4Rfdlr4VyOF001FzoX0ZYmGUjDMfG1JhQMOzBekwoj
-	KbKzxtVznYpbchQrI7OTd2kfPsRWar55ayBn7wExqZGm6rkhG0uNEzJrlNY5PUCj
-X-Gm-Gg: AYBFou1fmF4ctg+t1RKC+SMkV/FlcedEYEp1CdPPQiuhY9ZZgNMzWRkJ+ZpGWq1ZNcj
-	VP3AOM/uG0W3XoTCjNTuv8uQ/Iw3NXW7khjK3CAY6uMLfYSDtGy0NoWmrPicbbC2bH/KSgL1mey
-	EbzX7PWE4XlmU4sAkqRFfPSvDGwFbjEn15oXdoV555PEVe/pDGTGwau4AN1qJZiFG2KLoHxI8cu
-	QQjBvCU16apNQJpdWksApsH5UtGBXbKzFZrRgIoNPkMhzohonkGMHxlUCubCI4d0QQ6FXIOiL/D
-	Q9GrPhCbTBoH8Pkul/SV2ivrmccJQwZ/ouH4Wnu8kfFpSSCZTiYcOOVepwh3E5g3qeK3+VdbKpQ
-	u+1SqolIPHD/HL3fmEgTqNwRh3Q0AW1FQZdIcDHnv4mE5ncFZ/mIp92HzetjuB8fwQaqSQlSBm0
-	hOxe3qCDddTEOOHSs7pUWyqf9tDAJSj8DrYtwq0EjNBqNZdQZHlkYjL7ox3GQMIznu+57TbABbj
-	NxmHYrahBeD8kZIXeOUfBT6A++CJzyV
-X-Received: by 2002:a17:90b:3c50:b0:3a7:a34:6f8e with SMTP id 98e67ed59e1d1-3a8a1ca2236mr3801587a91.41.1791442573971;
-        Wed, 07 Oct 2026 23:56:13 -0700 (PDT)
-Received: from obadmin-Precision-3680.atlascopco.group ([136.226.232.164])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9ff848f9csm2806544a91.9.2026.10.07.23.56.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 23:56:13 -0700 (PDT)
-From: Sahaj Chaudhari <sahaj123.sc@gmail.com>
-To: Shuah Khan <shuah@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
-	Jan Kara <jack@suse.cz>
-Cc: linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH] selftests/filesystems: test ext4 reserved GID block allocation
-Date: Thu,  8 Oct 2026 12:26:51 +0530
-Message-ID: <20261008065651.3517824-1-sahaj123.sc@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1791442872; c=relaxed/simple;
+	bh=h73wPTVLtVL8bmddHdlMfN6vKjZ1mA+xoY6PQLngFrs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=I5SmKUgCvTr2xY1aN4zdAdfwe0ki2VZdDW2mp9VmHVSVeVSA00WyBMGnFPJV9Sfr3Ls8D/HM/Dskhyjyeh9DTr/B8Sl05T4aISxmzA4U3B0K/ww5b2qQg3gR4IKlsbBKKWYjwWZvLhrm6ZShKpbFqBD55DLdcn7wvsPzJy81Gm0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.20.42.102])
+	by gateway (Coremail) with SMTP id _____8CxKvC0P8dqFaATAA--.57200S3;
+	Thu, 08 Oct 2026 15:01:08 +0800 (CST)
+Received: from [10.20.42.102] (unknown [10.20.42.102])
+	by front1 (Coremail) with SMTP id qMiowJAx1cywP8dqS+spAA--.60369S2;
+	Thu, 08 Oct 2026 15:01:06 +0800 (CST)
+Message-ID: <42bb8b65-226f-42f9-8fa1-81e2f5a7a3cd@loongson.cn>
+Date: Thu, 8 Oct 2026 14:58:21 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/3] EDAC/loongson: Encode node and MC info into mc_idx
+To: Borislav Petkov <bp@alien8.de>
+Cc: tony.luck@intel.com, linux-edac@vger.kernel.org,
+ linux-kernel@vger.kernel.org, chenhuacai@kernel.org,
+ Wang Jinwei <wangjinwei@loongson.cn>, Yulong Wang <wangyulong@loongson.cn>,
+ Dongyan Qian <qiandongyan@loongson.cn>, Chao Li <lichao@loongson.cn>
+References: <20260902084827.2652-1-zhaoqunqin@loongson.cn>
+ <20260902084827.2652-2-zhaoqunqin@loongson.cn>
+ <20260930003412.GEarxZBOHFAgZg7TL6@fat_crate.local>
+Content-Language: en-US
+From: Qunqin Zhao <zhaoqunqin@loongson.cn>
+In-Reply-To: <20260930003412.GEarxZBOHFAgZg7TL6@fat_crate.local>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJAx1cywP8dqS+spAA--.60369S2
+X-CM-SenderInfo: 52kd01pxqtx0o6or00hjvr0hdfq/
+X-Coremail-Antispam: 1Uk129KBj93XoWxCF45KrWkXw4rtr4kGr1ruFX_yoW5WryDpF
+	WUA3WYkrs8tr10934ktr4DZFySkw4xJasxArsaq3yFkwnIyF1xWF9agr45uFn8Ary0kFyI
+	qFWUtw4kuFnrAFXCm3ZEXasCq-sJn29KB7ZKAUJUUUU5529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUyEb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6r4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0cIa020Ex4CE44I27w
+	Aqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE
+	14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCF04k20xvY0x0EwI
+	xGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480
+	Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7
+	IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k2
+	6cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxV
+	AFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU8zwZ7UUUUU==
 
-Verify that ext4 allows a process in the configured reserved GID to
-allocate reserved blocks after ordinary free space is exhausted.
 
-Create a temporary ext4 image with distinct reserved UID and GID values,
-mount it in a private mount namespace, and fill ordinary free space as
-an unprivileged user. Then verify that a process with the reserved GID
-can allocate one more block. Register the test with the filesystem
-selftests and ignore its generated binary.
+在 2026/9/30 08:34, Borislav Petkov 写道:
+> On Wed, Sep 02, 2026 at 04:48:25PM +0800, Qunqin Zhao wrote:
+>> @@ -23,6 +24,8 @@ struct loongson_edac_pvt {
+>>  	 * register state.
+>>  	 */
+>>  	int last_ce_count;
+>> +	u32 mcs_per_node;
+>> +	bool mc_idx_valid;
+> Why do you need a silly bool if you have valid indices in any case?
+>
+> You either get it from edac_device_alloc_index() and in that case, the node
+> number is always 0 and when you get it from ACPI, you get the right thing
+> anyway?
+>
+> IOW, you init mc_idx properly in the probe function and then you're all set.
+The indices are unique, but they are not physically meaningful.
 
-Skip when root privileges, required utilities, or private mount namespace
-support are unavailable.
+`edac_device_alloc_index()` returns a global atomic counter:
 
-Tested: fails with ENOSPC on 7.0.0-34-generic; passes on the fixed
-kernel in QEMU.
+```c
+int edac_device_alloc_index(void)
+{
+    static atomic_t device_indexes = ATOMIC_INIT(0);
+    return atomic_inc_return(&device_indexes) - 1;
+}
+```
 
-Signed-off-by: Sahaj Chaudhari <sahaj123.sc@gmail.com>
----
- .../testing/selftests/filesystems/.gitignore  |   1 +
- tools/testing/selftests/filesystems/Makefile  |   3 +
- .../selftests/filesystems/ext4_resgid.sh      |  43 ++++
- .../selftests/filesystems/ext4_resgid_test.c  | 239 ++++++++++++++++++
- 4 files changed, 286 insertions(+)
- create mode 100755 tools/testing/selftests/filesystems/ext4_resgid.sh
- create mode 100644 tools/testing/selftests/filesystems/ext4_resgid_test.c
+It only guarantees uniqueness; it does not encode any node or MC
+information. When firmware lacks the "mc-idx" _DSD property on a
+multi-node system and the probes run concurrently on different CPUs,
+There is no guarantee that `alloc_index()` values map to physical
+MC order. Decoding `mc_idx / mc_per_node` and `mc_idx % mc_per_node`
+from this counter can report a wrong location.
+>>  static int read_ecc(struct mem_ctl_info *mci)
+>> @@ -44,7 +47,8 @@ static int read_ecc(struct mem_ctl_info *mci)
+>>  static void edac_check(struct mem_ctl_info *mci)
+> In a prepatch, please remove the "edac_" prefix from all your driver-local
+> definitions like edac_probe() or loongson_edac_pvt. The edac_ namespace
+> belongs to the EDAC core functions. Since your functions are static, you can
+> simply call them probe(), check() etc.
+Will fix.
+>>  	struct loongson_edac_pvt *pvt = mci->pvt_info;
+>> -	int new, add;
+>> +	char other_detail[64] = {0};
+>> +	int new, add, node, mc;
+>>  
+>>  	new = read_ecc(mci);
+>>  	add = new - pvt->last_ce_count;
+> ...
+>
+>>  static int edac_probe(struct platform_device *pdev)
+>>  {
+>>  	struct edac_mc_layer layers[2];
+>>  	struct mem_ctl_info *mci;
+>> +	struct device *dev = &pdev->dev;
+>>  	void __iomem *vbase;
+>> +	u32 mcs_per_node;
+>>  	int ret;
+>> +	bool mc_idx_valid = true;
 
-diff --git a/tools/testing/selftests/filesystems/.gitignore b/tools/testing/selftests/filesystems/.gitignore
-index 9eb185fb2f9d..c5807237efcb 100644
---- a/tools/testing/selftests/filesystems/.gitignore
-+++ b/tools/testing/selftests/filesystems/.gitignore
-@@ -7,3 +7,4 @@ anon_inode_test
- kernfs_test
- idmapped_tmpfile
- ustat_test
-+ext4_resgid_test
-diff --git a/tools/testing/selftests/filesystems/Makefile b/tools/testing/selftests/filesystems/Makefile
-index 03be337c1f35..a3590e0e5c07 100644
---- a/tools/testing/selftests/filesystems/Makefile
-+++ b/tools/testing/selftests/filesystems/Makefile
-@@ -4,6 +4,9 @@ CFLAGS += $(KHDR_INCLUDES)
- TEST_GEN_PROGS := devpts_pts file_stressor anon_inode_test kernfs_test fclog ustat_test
- TEST_GEN_PROGS += idmapped_tmpfile
- TEST_GEN_PROGS_EXTENDED := dnotify_test
-+TEST_GEN_PROGS_EXTENDED += ext4_resgid_test
-+TEST_PROGS += ext4_resgid.sh
-+TEST_INCLUDES := ../kselftest/ktap_helpers.sh
- 
- include ../lib.mk
- 
-diff --git a/tools/testing/selftests/filesystems/ext4_resgid.sh b/tools/testing/selftests/filesystems/ext4_resgid.sh
-new file mode 100755
-index 000000000000..544bfd736d91
---- /dev/null
-+++ b/tools/testing/selftests/filesystems/ext4_resgid.sh
-@@ -0,0 +1,43 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-2.0
-+
-+set -e
-+
-+DIR="$(dirname "$(readlink -f "$0")")"
-+# shellcheck source=../kselftest/ktap_helpers.sh
-+source "${DIR}"/../kselftest/ktap_helpers.sh
-+
-+ksft_skip()
-+{
-+	ktap_skip_all "$1"
-+	exit "$KSFT_SKIP"
-+}
-+
-+[ "$(id -u)" -eq 0 ] || ksft_skip "must be run as root"
-+
-+for tool in mke2fs tune2fs losetup truncate; do
-+	command -v "$tool" >/dev/null 2>&1 ||
-+		ksft_skip "missing required command: $tool"
-+done
-+
-+tmpdir=$(mktemp -d)
-+loop_dev=
-+
-+cleanup()
-+{
-+	if [ -n "$loop_dev" ]; then
-+		losetup -d "$loop_dev"
-+	fi
-+	rm -rf "$tmpdir"
-+}
-+trap cleanup EXIT
-+
-+image="$tmpdir/ext4.img"
-+truncate -s 16M "$image"
-+mke2fs -q -F -t ext4 -b 4096 -N 1024 -m 10 -O ^has_journal "$image"
-+tune2fs -u 123 -g 456 "$image" >/dev/null
-+
-+loop_dev=$(losetup --find --show "$image") ||
-+	ksft_skip "could not allocate a loop device"
-+
-+./ext4_resgid_test "$loop_dev"
-diff --git a/tools/testing/selftests/filesystems/ext4_resgid_test.c b/tools/testing/selftests/filesystems/ext4_resgid_test.c
-new file mode 100644
-index 000000000000..9d40d04bdafc
---- /dev/null
-+++ b/tools/testing/selftests/filesystems/ext4_resgid_test.c
-@@ -0,0 +1,239 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#define _GNU_SOURCE
-+#include <errno.h>
-+#include <fcntl.h>
-+#include <grp.h>
-+#include <sched.h>
-+#include <stdbool.h>
-+#include <stdio.h>
-+#include <string.h>
-+#include <sys/mount.h>
-+#include <sys/stat.h>
-+#include <sys/types.h>
-+#include <sys/wait.h>
-+#include <unistd.h>
-+
-+#include "kselftest.h"
-+
-+#define TEST_UID 1000
-+#define FILL_GID 1001
-+#define RESGID 456
-+#define TEST_BLOCK_SIZE 4096
-+#define MAX_BLOCKS 32768
-+
-+struct worker_result {
-+	off_t offset;
-+	int error;
-+	int setup_error;
-+};
-+
-+static void worker(int fd, gid_t gid, bool fill, off_t offset, int pipefd)
-+{
-+	struct worker_result result = {
-+		.offset = offset,
-+	};
-+	int i;
-+
-+	if (setgroups(0, NULL) || setresgid(gid, gid, gid) ||
-+	    setresuid(TEST_UID, TEST_UID, TEST_UID)) {
-+		result.setup_error = errno;
-+		goto report;
-+	}
-+
-+	if (fill) {
-+		for (i = 0; i < MAX_BLOCKS; i++) {
-+			if (fallocate(fd, 0, result.offset, TEST_BLOCK_SIZE)) {
-+				result.error = errno;
-+				goto report;
-+			}
-+			result.offset += TEST_BLOCK_SIZE;
-+		}
-+		result.error = EFBIG;
-+	} else if (fallocate(fd, 0, result.offset, TEST_BLOCK_SIZE)) {
-+		result.error = errno;
-+	}
-+
-+report:
-+	if (write(pipefd, &result, sizeof(result)) != sizeof(result))
-+		_exit(1);
-+	_exit(0);
-+}
-+
-+static int run_worker(int fd, gid_t gid, bool fill, off_t offset,
-+		      struct worker_result *result)
-+{
-+	int pipefd[2], status;
-+	pid_t pid, waited;
-+	ssize_t n;
-+
-+	if (pipe(pipefd))
-+		return -errno;
-+	pid = fork();
-+	if (pid < 0) {
-+		int error = errno;
-+
-+		close(pipefd[0]);
-+		close(pipefd[1]);
-+		return -error;
-+	}
-+	if (!pid) {
-+		close(pipefd[0]);
-+		worker(fd, gid, fill, offset, pipefd[1]);
-+	}
-+
-+	close(pipefd[1]);
-+	do {
-+		n = read(pipefd[0], result, sizeof(*result));
-+	} while (n < 0 && errno == EINTR);
-+	close(pipefd[0]);
-+	do {
-+		waited = waitpid(pid, &status, 0);
-+	} while (waited < 0 && errno == EINTR);
-+	if (waited != pid)
-+		return -errno;
-+	if (n != sizeof(*result) || !WIFEXITED(status) ||
-+	    WEXITSTATUS(status))
-+		return -EIO;
-+
-+	return 0;
-+}
-+
-+int main(int argc, char **argv)
-+{
-+	char mountpoint[] = "/tmp/ext4-resgid.XXXXXX";
-+	char filename[sizeof(mountpoint) + sizeof("/fill")];
-+	struct worker_result fill_result, group_result;
-+	bool mounted = false, skipped = false;
-+	int fd = -1, ret, failed = 0;
-+	char message[160] = "reserved GID can allocate reserved ext4 blocks";
-+
-+	ksft_print_header();
-+	ksft_set_plan(1);
-+
-+	if (geteuid()) {
-+		ksft_test_result_skip("must be run as root\n");
-+		ksft_finished();
-+	}
-+	if (argc != 2) {
-+		ksft_test_result_fail("usage: %s block-device\n", argv[0]);
-+		ksft_finished();
-+	}
-+	if (unshare(CLONE_NEWNS)) {
-+		if (errno == EPERM || errno == EINVAL) {
-+			ksft_test_result_skip("private mount namespace is unavailable\n");
-+			ksft_finished();
-+		}
-+		ksft_exit_fail_perror("creating mount namespace");
-+	}
-+	if (mount(NULL, "/", NULL, MS_REC | MS_PRIVATE, NULL)) {
-+		if (errno == EPERM || errno == EACCES) {
-+			ksft_test_result_skip("cannot make mounts private\n");
-+			ksft_finished();
-+		}
-+		ksft_exit_fail_perror("making mounts private");
-+	}
-+	if (!mkdtemp(mountpoint))
-+		ksft_exit_fail_perror("creating mountpoint");
-+	if (mount(argv[1], mountpoint, "ext4", 0, NULL)) {
-+		int error = errno;
-+
-+		rmdir(mountpoint);
-+		errno = error;
-+		ksft_exit_fail_perror("mounting ext4 test image");
-+	}
-+	mounted = true;
-+
-+	snprintf(filename, sizeof(filename), "%s/fill", mountpoint);
-+	fd = open(filename, O_CREAT | O_EXCL | O_RDWR, 0666);
-+	if (fd < 0) {
-+		snprintf(message, sizeof(message), "creating test file: %s",
-+			 strerror(errno));
-+		failed = 1;
-+		goto out;
-+	}
-+	if (fchown(fd, TEST_UID, FILL_GID) || fchmod(fd, 0666)) {
-+		snprintf(message, sizeof(message), "setting test-file owner: %s",
-+			 strerror(errno));
-+		failed = 1;
-+		goto out;
-+	}
-+
-+	ret = run_worker(fd, FILL_GID, true, 0, &fill_result);
-+	if (ret) {
-+		snprintf(message, sizeof(message), "filling filesystem: %s",
-+			 strerror(-ret));
-+		failed = 1;
-+		goto out;
-+	}
-+	if (fill_result.setup_error) {
-+		if (fill_result.setup_error == EPERM) {
-+			snprintf(message, sizeof(message),
-+				 "cannot drop worker privileges: %s",
-+				 strerror(fill_result.setup_error));
-+			skipped = true;
-+			goto out;
-+		}
-+		snprintf(message, sizeof(message), "dropping worker privileges: %s",
-+			 strerror(fill_result.setup_error));
-+		failed = 1;
-+		goto out;
-+	}
-+	if (fill_result.error != ENOSPC) {
-+		snprintf(message, sizeof(message),
-+			 "unprivileged fill stopped with %s, expected ENOSPC",
-+			 strerror(fill_result.error));
-+		failed = 1;
-+		goto out;
-+	}
-+
-+	ret = run_worker(fd, RESGID, false, fill_result.offset, &group_result);
-+	if (ret) {
-+		snprintf(message, sizeof(message), "testing reserved GID: %s",
-+			 strerror(-ret));
-+		failed = 1;
-+		goto out;
-+	}
-+	if (group_result.setup_error) {
-+		snprintf(message, sizeof(message), "setting reserved GID: %s",
-+			 strerror(group_result.setup_error));
-+		failed = 1;
-+		goto out;
-+	}
-+	if (group_result.error) {
-+		snprintf(message, sizeof(message),
-+			 "reserved-GID allocation failed: %s",
-+			 strerror(group_result.error));
-+		failed = 1;
-+	}
-+
-+out:
-+	if (fd >= 0 && close(fd)) {
-+		snprintf(message, sizeof(message), "closing test file: %s",
-+			 strerror(errno));
-+		failed = 1;
-+	}
-+	if (unlink(filename) && errno != ENOENT) {
-+		snprintf(message, sizeof(message), "removing test file: %s",
-+			 strerror(errno));
-+		failed = 1;
-+	}
-+	if (mounted && umount(mountpoint)) {
-+		snprintf(message, sizeof(message), "unmounting test image: %s",
-+			 strerror(errno));
-+		failed = 1;
-+	}
-+	if (rmdir(mountpoint)) {
-+		snprintf(message, sizeof(message), "removing mountpoint: %s",
-+			 strerror(errno));
-+		failed = 1;
-+	}
-+
-+	if (failed)
-+		ksft_test_result_fail("%s\n", message);
-+	else if (skipped)
-+		ksft_test_result_skip("%s\n", message);
-+	else
-+		ksft_test_result_pass("%s\n", message);
-+	ksft_finished();
-+}
--- 
-2.43.0
+If this bool variable serves a real purpose, I'll place it between the u32 and int.
+
+
+Thanks,
+
+Qunqin.
+
+> The EDAC tree preferred ordering of variable declarations at the
+> beginning of a function is reverse fir tree order::
+>
+> 	struct long_struct_name *descriptive_name;
+> 	unsigned long foo, bar;
+> 	unsigned int tmp;
+> 	int ret;
+>
+> The above is faster to parse than the reverse ordering::
+>
+> 	int ret;
+> 	unsigned int tmp;
+> 	unsigned long foo, bar;
+> 	struct long_struct_name *descriptive_name;
+>
+> And even more so than random ordering::
+>
+> 	unsigned long foo, bar;
+> 	int ret;
+> 	struct long_struct_name *descriptive_name;
+> 	unsigned int tmp;
+>
+> Thx.
+>
 
