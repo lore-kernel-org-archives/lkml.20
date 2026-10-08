@@ -1,187 +1,285 @@
-Received: from mail.zytor.com (terminus.zytor.com [198.137.202.136])
+Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDFA829B766;
-	Thu,  8 Oct 2026 12:19:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 397DF2E738B;
+	Thu,  8 Oct 2026 12:21:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791461955; cv=none; b=iy1Kkpxb9jln54CnRi+VBMyV6jWJ73CdWNmCmDtV8fS4bIjq9Dxd+dmU7QjyAX+nV+zu/Ngr9PWllOF/k5n+VrKWPaMJy6P0vfWi2Ozn+oHxf4CRrk4Lq6IBfAyLmhvj4o/iyWHUy/h1zsivjbCUV/hOzg+lzkEGILEpJq0ls3Q=
+	t=1791462066; cv=none; b=ZSkOmKsZslSI5e2tiFRqbTKTWahxzNF80wBibL72oznGQwDnbB4MAMQTq9bVKCaxmobA/AqY+52dhw9OV2jWJWwG5qXFeNqoBeelc5yfBOesTzk8VgRnJ7j06vKN1F4LNBXo6MPfy8eL4nDwD3CnXfc7Y3FqEew+jTXVYP2RQtA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791461955; c=relaxed/simple;
-	bh=8VH9pRt2I9MNz1f69L61xSEks35xSCJIXeoRIRkjUNs=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=mh5k0LBpjkLs9V7y0H4Fz7pJSwoomLw3MEk9aYF3eUw8JShIHMgJGX4YX1T/5Haw9beZiOBjt/pU80fsQmjUNLoBpWCva+0tpU5vAdO19fC2vXT5yoErHj63mZBjkMzuOBxWkxL/FOr4b03THv2ZQ1JOD1qAyMz406TnNtyEH1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com; spf=pass smtp.mailfrom=zytor.com; dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.b=0zc37iog; arc=none smtp.client-ip=198.137.202.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zytor.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.b="0zc37iog"
-Received: from ehlo.thunderbird.net ([172.59.192.127])
-	(authenticated bits=0)
-	by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 698CFIZG2829579
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
-	Thu, 8 Oct 2026 05:15:20 -0700
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 698CFIZG2829579
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2026092801; t=1791461724;
-	bh=4Sz+pK3R9YulfyfGBdLHONm7eyTCy5vssqIi6afeE5I=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
-	b=0zc37iogkRc+Ny5WtnRgGp6d0N+G+hCV1xV08/36cQC1/RUKYc+HXj83dVkwHaT+M
-	 weCNA7wkOa+mLStcOMqDXTTlhR9ivTae6/UsCzoF0m4s4AYQfKT6hEB2pykjAUX+UL
-	 GeY549uYg0HCgAFexWRSYRkCcUj3PAIwOTg4fzwk4/0cNBkHNGbQxJdjmLDzn8vT4x
-	 Gk3hC7/35wxQVZj0v+yWPYH/0ZhLvFEJ9s8XPrbjUwo3M5JWIy+iIR0repEygzMmm1
-	 SFQ0TY+/tmurP0E9JfXQxchCQzHQsvZL6fAJGsGSCBQzNk3JvfSqB4dD4bwWKzmXQ8
-	 7WSTXgLo1lANQ==
-Date: Thu, 08 Oct 2026 14:15:09 +0200
-From: "H. Peter Anvin" <hpa@zytor.com>
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-        linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-CC: Sebastian Andrzej Siewior <sebastian@breakpoint.cc>,
-        "Maciej W. Rozycki" <macro@orcam.me.uk>,
-        Bill Wendling <morbo@google.com>, Borislav Petkov <bp@alien8.de>,
-        Dave Hansen <dave.hansen@linux.intel.com>,
-        Ingo Molnar <mingo@redhat.com>,
-        John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-        Jonathan Corbet <corbet@lwn.net>,
-        Justin Stitt <justinstitt@google.com>,
-        Nathan Chancellor <nathan@kernel.org>, Neal Gompa <neal@gompa.dev>,
-        Nick Desaulniers <ndesaulniers@google.com>,
-        Richard Purdie <richard.purdie@linuxfoundation.org>,
-        Sam James <sam@gentoo.org>, Shuah Khan <shuah@kernel.org>,
-        Thomas Gleixner <tglx@kernel.org>,
-        =?ISO-8859-1?Q?Thomas_Wei=DFschuh?= <linux@weissschuh.net>,
-        Tomas Glozar <tglozar@kernel.org>, Willy Tarreau <w@1wt.eu>,
-        x86@kernel.org
-Subject: Re: [PATCH v4 1/2] selftests/nolibc: remove the x32 testcase
-User-Agent: K-9 Mail for Android
-In-Reply-To: <20261008-x32_removal-v4-1-d389a193c506@breakpoint.cc>
-References: <20261008-x32_removal-v4-0-d389a193c506@breakpoint.cc> <20261008-x32_removal-v4-1-d389a193c506@breakpoint.cc>
-Message-ID: <981CB9F6-143F-4EB0-9B95-8476B5A55633@zytor.com>
+	s=arc-20240116; t=1791462066; c=relaxed/simple;
+	bh=lMSRThv56yqi2c1Kr6mK4q4tinGZFq3KIyA9Qp/k5GU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FcrEV8ATolB32pmWmTrGOIL4QM5gDEzULp+Y/strL3ijo0Zwoib+5Xa+jVRwD6xv0vPMFlB0a7jzyqeFyKeys51XCvYhnpxSa152sbUwewbDzhpdfVKkLOn8ai+BK2gayjkzvLSYDUvwBwDP0h5UE9ZnV+ZWYHWv5K3FhKIDcaE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.177])
+	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4j0pwc4cVNzYQvW9;
+	Thu,  8 Oct 2026 20:20:16 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.128])
+	by mail.maildlp.com (Postfix) with ESMTP id 4213140599;
+	Thu,  8 Oct 2026 20:20:59 +0800 (CST)
+Received: from [10.174.179.19] (unknown [10.174.179.19])
+	by APP4 (Coremail) with UTF8SMTPSA id gCh0CgBHFyqgisdqshvpDA--.27979S3;
+	Thu, 08 Oct 2026 20:20:58 +0800 (CST)
+Message-ID: <d1a2d713-e329-41a4-aae0-3f315a8be06c@huaweicloud.com>
+Date: Thu, 8 Oct 2026 20:20:48 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 27/31] ext4: set DISKSIZE_GROW_PENDING after zeroing
+ unaligned EOF block
+To: Ojaswin Mujoo <ojaswin@linux.ibm.com>
+Cc: linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, tytso@mit.edu, adilger.kernel@dilger.ca,
+ libaokun@linux.alibaba.com, jack@suse.cz, ritesh.list@gmail.com,
+ djwong@kernel.org, hch@infradead.org, yi.zhang@huawei.com,
+ yizhang089@gmail.com, chengzhihao1@huawei.com, yangerkun@huawei.com,
+ wangkefeng.wang@huawei.com, yukuai@fnnas.com
+References: <20260903123543.2302999-1-yi.zhang@huaweicloud.com>
+ <20260903123543.2302999-28-yi.zhang@huaweicloud.com>
+ <asNl-SOu1im5mJhc@li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com>
+Content-Language: en-US
+From: Zhang Yi <yi.zhang@huaweicloud.com>
+In-Reply-To: <asNl-SOu1im5mJhc@li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:gCh0CgBHFyqgisdqshvpDA--.27979S3
+X-Coremail-Antispam: 1UD129KBjvJXoW3AFyxXw1xGF13Xw4rCF45ZFb_yoW3tryUp3
+	yUK3Z5Ar4DKr9F9r1IqF1Sqr129395Jw4UGFZxGrW2vF98ur1IgFyIg34rWFy8A39xGa12
+	qF4UGrZ7u3W0yrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvjb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
+	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7Cj
+	xVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I
+	0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40E
+	x7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x
+	0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AF
+	wI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
+	xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5
+	MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I
+	0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWU
+	JVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUIa
+	0PDUUUU
+X-CM-SenderInfo: d1lo6xhdqjqx5xdzvxpfor3voofrz/
 
-On October 8, 2026 11:07:42 AM GMT+02:00, Sebastian Andrzej Siewior <bigeas=
-y@linutronix=2Ede> wrote:
->From: Sebastian Andrzej Siewior <sebastian@breakpoint=2Ecc>
->
->From: Thomas Wei=C3=9Fschuh <linux@weissschuh=2Enet>
->
->Support for the x32 ABI is about to be removed from the kernel itself=2E
->This will break the nolibc x32 testcase=2E
->
->Remove the testcase to avoid breaking the testsuite in general=2E
->
->This also ends official support from nolibc proper for x32=2E But as ther=
-e
->is no clear x32-specific code in the nolibc codebase, there won't be a
->removal patch for that=2E
->
->Signed-off-by: Thomas Wei=C3=9Fschuh <linux@weissschuh=2Enet>
->Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix=2Ede>
->---
-> tools/testing/selftests/nolibc/Makefile=2Enolibc | 6 ------
-> tools/testing/selftests/nolibc/run-tests=2Esh    | 7 +------
-> 2 files changed, 1 insertion(+), 12 deletions(-)
->
->diff --git a/tools/testing/selftests/nolibc/Makefile=2Enolibc b/tools/tes=
-ting/selftests/nolibc/Makefile=2Enolibc
->index f70c8dfca0186=2E=2E895a6ea7a8e45 100644
->--- a/tools/testing/selftests/nolibc/Makefile=2Enolibc
->+++ b/tools/testing/selftests/nolibc/Makefile=2Enolibc
->@@ -47,7 +47,6 @@ XARCH_riscv      =3D riscv64
-> XARCH            =3D $(or $(XARCH_$(ARCH)),$(ARCH))
->=20
-> # map from user input variants to their kernel supported architectures
->-ARCH_x32         =3D x86
-> ARCH_armthumb    =3D arm
-> ARCH_ppc         =3D powerpc
-> ARCH_ppc64       =3D powerpc
->@@ -70,7 +69,6 @@ ARCH            :=3D $(or $(ARCH_$(XARCH)),$(XARCH))
-> # kernel image names by architecture
-> IMAGE_i386       =3D arch/x86/boot/bzImage
-> IMAGE_x86_64     =3D arch/x86/boot/bzImage
->-IMAGE_x32        =3D arch/x86/boot/bzImage
-> IMAGE_x86        =3D arch/x86/boot/bzImage
-> IMAGE_arm64      =3D arch/arm64/boot/Image
-> IMAGE_arm        =3D arch/arm/boot/zImage
->@@ -106,7 +104,6 @@ DEFCONFIG_sh4        =3D rts7751r2dplus_defconfig
-> DEFCONFIG_openrisc   =3D virt_defconfig
-> DEFCONFIG            =3D $(or $(DEFCONFIG_$(XARCH)),defconfig)
->=20
->-EXTRACONFIG_x32       =3D -e CONFIG_X86_X32_ABI
-> EXTRACONFIG_arm       =3D -e CONFIG_NAMESPACES
-> EXTRACONFIG_armthumb  =3D -e CONFIG_NAMESPACES
-> EXTRACONFIG_sparc32   =3D -e CONFIG_TMPFS
->@@ -119,7 +116,6 @@ EXTRACONFIG           =3D $(EXTRACONFIG_$(XARCH))
-> TEST =3D
->=20
-> # QEMU_ARCH: arch names used by qemu
->-QEMU_ARCH_x32        =3D x86_64
-> QEMU_ARCH_x86        =3D x86_64
-> QEMU_ARCH_arm64      =3D aarch64
-> QEMU_ARCH_armthumb   =3D arm
->@@ -151,7 +147,6 @@ endif
-> # QEMU_ARGS : some arch-specific args to pass to qemu
-> QEMU_ARGS_i386       =3D -M pc -append "console=3DttyS0,9600 i8042=2Enoa=
-ux panic=3D-1 $(TEST:%=3DNOLIBC_TEST=3D%)"
-> QEMU_ARGS_x86_64     =3D -M pc -append "console=3DttyS0,9600 i8042=2Enoa=
-ux panic=3D-1 $(TEST:%=3DNOLIBC_TEST=3D%)"
->-QEMU_ARGS_x32        =3D -M pc -append "console=3DttyS0,9600 i8042=2Enoa=
-ux panic=3D-1 $(TEST:%=3DNOLIBC_TEST=3D%)"
-> QEMU_ARGS_x86        =3D -M pc -append "console=3DttyS0,9600 i8042=2Enoa=
-ux panic=3D-1 $(TEST:%=3DNOLIBC_TEST=3D%)"
-> QEMU_ARGS_arm64      =3D -M virt -cpu cortex-a53 -append "panic=3D-1 $(T=
-EST:%=3DNOLIBC_TEST=3D%)"
-> QEMU_ARGS_arm        =3D -M virt -append "panic=3D-1 $(TEST:%=3DNOLIBC_T=
-EST=3D%)"
->@@ -189,7 +184,6 @@ Q=3D@
-> endif
->=20
-> CFLAGS_i386 =3D $(call cc-option,-m32)
->-CFLAGS_x32 =3D -mx32
-> CFLAGS_arm =3D -marm
-> CFLAGS_armthumb =3D -mthumb -march=3Darmv6t2
-> CFLAGS_parisc32 =3D -mfast-indirect-calls
->diff --git a/tools/testing/selftests/nolibc/run-tests=2Esh b/tools/testin=
-g/selftests/nolibc/run-tests=2Esh
->index dc0b1649c6419=2E=2E20e0d2dc0e9b9 100755
->--- a/tools/testing/selftests/nolibc/run-tests=2Esh
->+++ b/tools/testing/selftests/nolibc/run-tests=2Esh
->@@ -18,7 +18,7 @@ test_mode=3Dsystem
-> werror=3D1
-> llvm=3D
-> all_archs=3D(
->-	i386 x86_64 x32
->+	i386 x86_64
-> 	arm64 arm armthumb
-> 	mips32le mips32be mipsn32le mipsn32be mips64le mips64be
-> 	openrisc
->@@ -119,7 +119,6 @@ crosstool_arch() {
-> 	mips*) echo mips;;
-> 	s390*) echo s390;;
-> 	sparc*) echo sparc64;;
->-	x32*) echo x86_64;;
-> 	parisc32) echo hppa;;
-> 	*) echo "$1";;
-> 	esac
->@@ -198,10 +197,6 @@ test_arch() {
-> 		echo "Unsupported configuration"
-> 		return
-> 	fi
->-	if [ "$arch" =3D "x32" ] && [ "$test_mode" =3D "user" ]; then
->-		echo "Unsupported configuration"
->-		return
->-	fi
->=20
-> 	mkdir -p "$build_dir"
-> 	swallow_output "${MAKE[@]}" defconfig
->
+On 10/5/2026 4:55 PM, Ojaswin Mujoo wrote:
+> On Thu, Sep 03, 2026 at 08:35:39PM +0800, Zhang Yi wrote:
+>> From: Zhang Yi <yi.zhang@huawei.com>
+>>
+>> In the iomap buffered I/O path, data=ordered mode is not used, so the
+>> zeroed EOF block has no implicit ordering with later i_disksize updates.
+>> Without the pending state being set, i_disksize can be advanced past the
+>> zeroed block before writeback completes, exposing stale data after a
+>> crash.
+>>
+>> Previous patches added the consumer side of the
+>> disksize-grow-pending mechanism: the state bit, clear and wait helpers,
+>> and ioend tagging. Now add ext4_iomap_mark_disksize_pending() and call
+>> it from ext4_block_zero_eof() after zeroing the tail of the block that
+>> straddles i_disksize.
+>>
+>> The helper locks the folio, waits for any in-flight writeback on it to
+>> complete, then sets EXT4_STATE_DISKSIZE_GROW_PENDING only if the folio
+>> is still dirty. Waiting for writeback prevents folio_test_dirty() from
+>> returning false mid-writeback, which would cause us to skip the pending
+>> state while zeroed data is still in flight. The dirty check then avoids
+>> setting the bit when the data has already been written back.
+>>
+>> Suggested-by: Jan Kara <jack@suse.cz>
+>> Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
+> 
+> Hey Zhang, so I've been looking at the last few patches
+> (DISKSIZE_GROW_PENDING) handling as a whole, and I have a race that I
+> think might hit. (This is assuming we will revert 3/31 patch here as its
+> buggy). Imagine the following set of operations:
 
-Acked-by: H=2E Peter Anvin (Rosaic) <hpa@zytor=2Ecom>
+Thank you for the review! Though I don't think this race can actually
+happen. See below.
+
+> 
+>     Initial state: i_size = i_disksize = 2k
+>     pwrite(4k,6k)
+>     pwrite(8k,10k)
+> 
+>     The following order might cause an issue:
+> 
+>     1. pwrite(4k,6k)
+>        - ext4_block_zero_eof(2k,4k)
+>          set inode state DISK_SIZE_GROW_PENDING
+>        - i_size=6k, i_disksize=2k
+>     2. writeback(2k,4k)
+>        - submits a GROW_IO ioend for 0,4k
+>        - i_size=6k, i_disksize=2k (unchanged)
+>     3. writeback(4k,6k)
+>        - Imainge here a parallel mmap has written beyond 6k so we have
+>          data past EOF
+>        - submits IO for 4k,8k
+>        - i_size=6k, i_disksize=2k (unchanged)
+>     4. IO for 3. completes (disk has data past 6kb now)
+>        - completion not called yet.
+>     5. pwrite(8k,10k)
+>        - ext4_block_zero_eof(6k,8k)
+
+Please note that ext4_iomap_mark_disksize_pending() will call
+folio_wait_writeback() before setting bit, so this will wait for I/O for
+3 to complete. Once it's done, we can obtain a fresh, stable i_disksize
+and re-set the DISK_SIZE_GROW_PENDING flag. So the 6k - 8K data shouldn't
+be exposed below.
+
+Thanks,
+Yi.
+
+>          DISK_SIZE_GROW_PENDING already set
+>        - i_size=10k, i_disksize=2k (updated)
+>     6. endio handler for 2.
+>        - Sees GROW_IO ioend, clears DISK_SIZE_GROW_PENDING
+>        - i_size=10k i_disksize=10k (updated)
+>     7. writeback (8k, 10k) for 5.
+>        - submits IO for 8k,12k
+>        - i_size=10k i_disksize=10k (unchanged)
+>     8. endio handler for 7.
+>        - Sees DISK_SIZE_GROW_PENDING cleared.
+>        - converts 8k,12k written.
+>        - i_size=10k i_disksize=10k (unchanged)
+>     9. end handler for 3.
+>        - Sees DISK_SIZE_GROW_PENDING cleared.
+>        - converts 4k,8k to written. This exposes 6k to 8k data
+>          which is zeroed in folio but not on disk yet.
+>        - i_size=10k i_disksize=10k (unchanged)
+>     10. **crash**
+>     11. We now have i_disksize of 10k with 6k to 8k written data that was
+>         supposed to be zeroed but is not
+> 
+> In this case, ideally 6. should not clear the DISKSIZE_GROW_PENDING
+> state and update the i_disksize. That should happen once the zero doen
+> in 5. is complete. I think, just having an inode state might not be
+> enough to handle such cases, we either might need an atomic counter or a
+> linked list of ranges.
+> 
+> But I'd first like to to hear your opinion on it to see if the race is
+> possible or did I miss something in the logic.
+> 
+> Regards,
+> ojaswin
+> 
+>> ---
+>>  fs/ext4/inode.c | 85 ++++++++++++++++++++++++++++++++++++++++++-------
+>>  1 file changed, 73 insertions(+), 12 deletions(-)
+>>
+>> diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+>> index 8e8859c8f5b0..4cb0ea82f58c 100644
+>> --- a/fs/ext4/inode.c
+>> +++ b/fs/ext4/inode.c
+>> @@ -4838,6 +4838,68 @@ static int ext4_block_zero_range(struct inode *inode,
+>>  					zero_written);
+>>  }
+>>  
+>> +/*
+>> + * Inodes using the iomap buffered I/O path do not use data=ordered mode.
+>> + * Therefore, we mark the inode as disksize-grow-pending after zeroing the
+>> + * EOF block. The zeroed block will be submitted before any subsequent
+>> + * data.
+>> + *
+>> + * In the I/O completion path, ext4_iomap_wb_disksize_pending_wait() will
+>> + * wait for I/O completion before advancing i_disksize if the write
+>> + * extends beyond the zeroed boundary.
+>> + *
+>> + * When zeroed I/O is in progress, operations that extend i_disksize are
+>> + * handled as follows:
+>> + *
+>> + *  - Truncate up, append fallocate and zero_range:
+>> + *    Defer the update. The file size will be updated to i_size by the
+>> + *    end_io handler once the ongoing pending I/O completes.
+>> + *
+>> + *  - Insert range and collapse range operations:
+>> + *    Wait synchronously for the relevant I/O to complete before updating
+>> + *    i_disksize.
+>> + */
+>> +static int ext4_iomap_mark_disksize_pending(struct inode *inode, loff_t from)
+>> +{
+>> +	struct folio *folio;
+>> +
+>> +	folio = filemap_lock_folio(inode->i_mapping, from >> PAGE_SHIFT);
+>> +	if (IS_ERR(folio))
+>> +		/* Already in writeback and cleared? */
+>> +		return PTR_ERR(folio) == -ENOENT ? 0 : PTR_ERR(folio);
+>> +
+>> +	/*
+>> +	 * Ensure that in-flight writeback, possibly started after
+>> +	 * iomap_zero_range() unlocked the folio, has completed. Without
+>> +	 * this wait folio_test_dirty() below may miss the zeroed data
+>> +	 * (writeback clears PG_dirty), causing us to skip the
+>> +	 * disksize-grow-pending tracking and potentially expose stale
+>> +	 * on-disk data.
+>> +	 */
+>> +	folio_wait_writeback(folio);
+>> +	WARN_ON_ONCE(folio_test_writeback(folio));
+>> +
+>> +	/*
+>> +	 * Mark the inode as disksize-grow-pending. The zeroed block will
+>> +	 * be written out by the generic writepages cycle or any other
+>> +	 * syncing operation.
+>> +	 *
+>> +	 * Multiple overlapping unaligned EOF writes should not happen,
+>> +	 * because we only mark the pending state after zeroing the on-disk
+>> +	 * EOF block, and i_disksize can only be updated after the previous
+>> +	 * zeroed pending block has been written back or the dirty folio
+>> +	 * has been discared.
+>> +	 */
+>> +	if (likely(folio_test_dirty(folio) &&
+>> +		   !ext4_test_inode_state(inode,
+>> +					  EXT4_STATE_DISKSIZE_GROW_PENDING)))
+>> +		ext4_set_inode_state(inode, EXT4_STATE_DISKSIZE_GROW_PENDING);
+>> +
+>> +	folio_unlock(folio);
+>> +	folio_put(folio);
+>> +	return 0;
+>> +}
+>> +
+>>  /*
+>>   * Submit and wait for the pending zeroed EOF block range to complete
+>>   * if the given range [@offset, @end) fully covers it.  Must be called
+>> @@ -4926,22 +4988,21 @@ int ext4_block_zero_eof(struct inode *inode, loff_t from, loff_t end)
+>>  	 * concurrent writeback that updates i_disksize. And if such a race
+>>  	 * occurs, it means the previous unaligned EOF block has already been
+>>  	 * zeroed (if needed) and persisted to disk.
+>> -	 *
+>> -	 * TODO: In the iomap path, handle this by tracking the ordered range
+>> -	 * and updating i_disksize to i_size after the zeroed data has been
+>> -	 * written back.
+>>  	 */
+>> -	if (ext4_should_order_data(inode) &&
+>> -	    did_zero && zero_written && !IS_DAX(inode) &&
+>> +	if (did_zero && zero_written && !IS_DAX(inode) &&
+>>  	    from < round_up(READ_ONCE(EXT4_I(inode)->i_disksize), blocksize)) {
+>> -		handle_t *handle;
+>> +		if (ext4_should_order_data(inode)) {
+>> +			handle_t *handle;
+>>  
+>> -		handle = ext4_journal_start(inode, EXT4_HT_MISC, 1);
+>> -		if (IS_ERR(handle))
+>> -			return PTR_ERR(handle);
+>> +			handle = ext4_journal_start(inode, EXT4_HT_MISC, 1);
+>> +			if (IS_ERR(handle))
+>> +				return PTR_ERR(handle);
+>>  
+>> -		err = ext4_jbd2_inode_add_write(handle, inode, from, length);
+>> -		ext4_journal_stop(handle);
+>> +			err = ext4_jbd2_inode_add_write(handle, inode, from,
+>> +							length);
+>> +			ext4_journal_stop(handle);
+>> +		} else if (ext4_inode_buffered_iomap(inode))
+>> +			err = ext4_iomap_mark_disksize_pending(inode, from);
+>>  		if (err)
+>>  			return err;
+>>  	}
+>> -- 
+>> 2.52.0
+>>
+
