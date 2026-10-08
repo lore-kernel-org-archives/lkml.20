@@ -1,233 +1,386 @@
-Received: from SLXP216CU001.outbound.protection.outlook.com (mail-koreacentralazon11021123.outbound.protection.outlook.com [40.107.42.123])
+Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com [162.62.57.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AC2934DCD2;
-	Thu,  8 Oct 2026 07:16:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.42.123
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791443791; cv=fail; b=FuNNtJxpDZbFp5Y+ibdU7ma8tr8g8mXayH+xMyIsqyMgLvm3eZqPwwhA8fGQamLGtOv7qMqxfx3bMu7fAdAS4fJeDfqRtkuPn+V3rrFZ8fhN61QMRrGzIpWl6vGnf6VeBee9kOdav7nqXrnnMnwpcOSw343fNEfHa3Uoj+VED8Y=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791443791; c=relaxed/simple;
-	bh=6AKe5QgN3j/HRKLGuSFKpWhFGAsqnjCJ5ivtkmC1mfE=;
-	h=From:To:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=FyBBwa0a+cdsg/mOvYWuAeX9lQ4LFPHJRuxPTlfSWBg+hCpig9dgzyMknBTCxyjSqa8SWlq2LVp65kou3hK5kecghTqXUCzMbWhGw3HPSuc0gxcJ3v4bKS2gYlTxPCnzOaET4zhXf8J+NW1fV4Rg0fW9IH1gfD88seJ2PHPq2QA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chipsnmedia.com; spf=fail smtp.mailfrom=chipsnmedia.com; dkim=pass (2048-bit key) header.d=chipsnmedia.com header.i=@chipsnmedia.com header.b=TV3Z6QwA; arc=fail smtp.client-ip=40.107.42.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chipsnmedia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=chipsnmedia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 328443C0606
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 07:17:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.49
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791443841; cv=none; b=k8vp6dCIPMmua9MCFsvuJfKeifc5XCXuQ6gz8JySyMrF1ayHVEyOER1dVZlRZZwpXFrDvk+FyYGQ4EJMigVs/ZFQQwbA8yEtDFlqwuBTMjCEN6ydbj9E+p6ulCAOgcFjh6xDEqrhHzgAA0nNz+2n1pO2eygJwJMpE+kQvJBg4H0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791443841; c=relaxed/simple;
+	bh=jDRn4Vtu9boiUYFRIyC0RRkQVY9VAdMECvoyS4gwzAs=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=KKLix0YtPWw0UDKpJp40sqUN7s9mlwSP7A1M4gKdFlPMYsEuOZDQoVtJpGhigLAF4QegeLsMPL6hVfPGBbUywZ32dJATnvNpUNuXf96QdaL7jmlCIqMdHJGfjBRjcXkEEp/LVSRXi1Ugx7Z0tGk22Ay++tts6jjQnWPLflAyzLM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=X9NDnxZD; arc=none smtp.client-ip=162.62.57.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=chipsnmedia.com header.i=@chipsnmedia.com header.b="TV3Z6QwA"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QpHt/FQcC8sQU1LYUGWXEj6s39cgS7gZMVCPj29++FBGL/8bmaiUC1Vb9vuERfhFcrvUYkZiAFg7zbmse8R+SIcuoki+7hkEom4xNjo+RI1OOAulvHXhSooxwsJrRBQlpaNoiuocy1Mt22XDde4UdV4xu4zTt3IFMUCwzWTb1R+iAM2pUTVAc6ZJvtG+RFGpV/r6IrGqFC0bTPTAHZLMNyJTnJ/teGcswFNYf5Js+X7OsA9hT5izKRFNvWH3iqjQ1P7aBw9fffxU8QCgD8VcNXNTqP1OQAQsKbtT487O4GcYZ8oCutkk3cu5aq6UU22rysR/16xE+3GKDMvOz0nbXg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+JsdVLpaJAjTReZxE8YvrGx33lHzV5nlG/S7/KZjCVc=;
- b=nGQH0f0Ge9o4ZOYTo05DVcjdEiPqsJMU3B5oWfYit//F7eBL+H4qB73R38e4Y4pUFf7mFHgVBW9TG98UjocCgjNXUGkY0Hnay8NV9MYr3vF6um9BkokQc51qna2FX8xjJUQrBc6cLcD9EAPWZqzcfldZonMlAdAoqF4u9CIbjoAFk7slbo9etyduHWh0rIU35nuWCStNqgBjT/nPtRWiD+KRn7Jmo0+zlSYA5XffHJQX+lLG14GB8N4Vro/nQA43eaedcrvQx9T8Xhtzypx984eZuokp9MDHJctr0HUTZkzFL1CWn1XhbACJNMjvGLVgEgm1NoHAiw6+eK5NsekEGw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=chipsnmedia.com; dmarc=pass action=none
- header.from=chipsnmedia.com; dkim=pass header.d=chipsnmedia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chipsnmedia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+JsdVLpaJAjTReZxE8YvrGx33lHzV5nlG/S7/KZjCVc=;
- b=TV3Z6QwAziPvbYHAKP7BnKHCK2/T9q0I8YwiyOf05LCXkCkvCGylyqZEVaHIquRn2/9nJSLQ8Qt0MpJZasyJezVci5xDXYFcUm9Vu2FkshER7gllCWE7EQbibt8A+SuRMf21uPKx2MRUCzVyh6BBy42jomFgGfiMVmzmfGZup6ej6yzxPKb70ZDfN8Wtyh61n96coCdeX8rVqOYnTVE+PAQ8LvXcOf/T7qoxG/IQ+lfCDZjisSf/7V5G1DQ5cA9X/Jlwye7sAJdZyL6mdcnWGdY5x5sc0vw0A6ZTqbgWDF5QKZ2bc8rMJHNmwo8jjRpEnl6mqJfKi8rg7UecpYjNSg==
-Received: from SLXP216MB1148.KORP216.PROD.OUTLOOK.COM (2603:1096:101:f::14) by
- PUYP216MB3127.KORP216.PROD.OUTLOOK.COM (2603:1096:301:158::14) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.17; Thu, 8 Oct 2026 07:16:23 +0000
-Received: from SLXP216MB1148.KORP216.PROD.OUTLOOK.COM
- ([fe80::8f6c:834c:6cef:7be]) by SLXP216MB1148.KORP216.PROD.OUTLOOK.COM
- ([fe80::8f6c:834c:6cef:7be%5]) with mapi id 15.21.0496.015; Thu, 8 Oct 2026
- 07:16:23 +0000
-From: "jackson.lee" <jackson.lee@chipsnmedia.com>
-To: Jiale Yao <yaojiale02@163.com>, Nas Chung <nas.chung@chipsnmedia.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Nicolas Dufresne
-	<nicolas.dufresne@collabora.com>, Hans Verkuil <hverkuil@kernel.org>,
-	Sebastian Fricke <sebastian.fricke@collabora.com>,
-	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH 2/4] media: wave5: handle encoder runtime resume failures
-Thread-Topic: [PATCH 2/4] media: wave5: handle encoder runtime resume failures
-Thread-Index: AQHdUw5yzVy7a7iGWEaJMJFhoo5WNbbzQ4OQ
-Date: Thu, 8 Oct 2026 07:16:23 +0000
-Message-ID:
- <SLXP216MB11483788D54B7A534681CB66ED932@SLXP216MB1148.KORP216.PROD.OUTLOOK.COM>
-References: <20261003080853.430099-1-yaojiale02@163.com>
- <20261003080853.430099-3-yaojiale02@163.com>
-In-Reply-To: <20261003080853.430099-3-yaojiale02@163.com>
-Accept-Language: ko-KR, en-US
-Content-Language: ko-KR
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=chipsnmedia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SLXP216MB1148:EE_|PUYP216MB3127:EE_
-x-ms-office365-filtering-correlation-id: 97cdae5e-a37f-44b8-0edb-08df250c0f1b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|38070700021|56012099006|4143699003|5023799004|10067099003|18002099003|22082099003|3023799007;
-x-microsoft-antispam-message-info:
- 2UBH0O7gEQXeVirPFjaYxI+b2JW3hhFKK8muSNJepGjDjyTCbxeFFJldg2+MUA98qs9xhWw9UrkS/tsJlB8PrMg6ESzEwkLr1lFzpXBtPzxK7k3RjkFz4Z8BH7H4XhOaZr8rvCynWbSYfxHPJkkWKYj6FlaIlxgVRjJ5HNFhnIJz1h+2T1vcB35/UlloGumA7DweDBaDIjiwNs1Wumyh3FaqYs8ENZkL0HEuz4Vs4LnoJ+ht//Mst1kvD/coQoEBPGUVr5w0Hpvto5dZXT8+p+i6Mz3Jf3NPj7ogzMtfNaJBXNEObU32RdVJ/5mWhYnPNGJuzjI/cHenIJTQe6F2DNRcLw99R/G8LTH2sgYpmZXGGcgpK4LxdbmCRaHRzKL7vM1S7q/q3baJD3b5Z9mp0CFTTA0QvoRwdVn97iMsJU8UEqTtOVL/q2eqNHEcodw441d9AKGrxmx+JRRHk5vxs/FimWud8WX92oF0U51XKNLZTz0InJ5ZwaFVSfcsDYHoYHGFEVB9yGFLENNgQbfYMiJJqlvB6lRAxeGIAuaGi5AHUMBceAHsnh4jkZRLrQP+aGSfObyf2zUI4Wl5vGZJl+/uQVbUk0zajTQz2aTmmcA3PCmXAeWYIKR96BZ0s8BZKy72d1BJDukJsVcxvzGubySHMEqHG54Z/8cNmJJyU0E9+zwha3iZSGlY0wjvEf/BBcyOekIZUXZcXf5fkywoOU8GoG5/3yysROtd1s7NMZQ=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SLXP216MB1148.KORP216.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(38070700021)(56012099006)(4143699003)(5023799004)(10067099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?axM9w3q7UkE474lAdtJXJCnat52Z9BCIs67fj7fzkXLNmSSP9bSO1qHs+DPl?=
- =?us-ascii?Q?OmXy+8MDSZny6T/X6ruHyNZ4eXIMnhrFH4ze7VLky3xPSZ3sUVN6GZ3/5Nkm?=
- =?us-ascii?Q?Cm6bwz0LtYQfwv+mjho78wAiZRVUOhOoq+DGwkLS0J0R7CzXLS0QjWUL70vV?=
- =?us-ascii?Q?xQo1fQWSXqARIzLZAlFt6SoE4KJa39Q9G7Ok+798TOy+sN+gQ0nKgsH9+aQo?=
- =?us-ascii?Q?cESJVF6U5XNw2lr3bjz09dkq134tQVA4IYYHS1hPj4wl/kb24UIl6qZPz0yA?=
- =?us-ascii?Q?UDl4Fy3Bvriv0i9V3mZx456O1AtF2NdKGcwCa4bsDMQMSpDAcFH77pzmcRZn?=
- =?us-ascii?Q?SBlGLMm3gyr0UL4ira3sS5x+j4oudakVjHCm8IlQEQx7OSNFShBt5a2i6Uu3?=
- =?us-ascii?Q?/HfJ4wwAARxLL/AJJF/qPG7kunRgW3vilywwY+eBmWOAZhBp+ADqwvmNw+hM?=
- =?us-ascii?Q?wYgGWklpq08ZX3cOJUmXsTN48/PYgXBaAz9PUvGw4ZX9N/gEcI3SMUChxLt3?=
- =?us-ascii?Q?fwmUhx77VUnXP25ebHmxIhY06lABMLIzHmRySd+VN8ORtDoSCTD/+Q7L1p2B?=
- =?us-ascii?Q?Ll6MzXZUstXZZjKrCl6JD+eFeptkmJvLA8rZjW1r5szeji0k8Jo/DL7RwJmq?=
- =?us-ascii?Q?zEoNC4LT8bInyMFQSuG3HaK49Cb6lxPy1JNNzroOISh2f0Bx9tep59zyjt81?=
- =?us-ascii?Q?1KPTmCM+DBkeEuVpxdyjhlqiVe4ySUvMAKdZbEWdczLqIpkrcpRVkgLmBNeL?=
- =?us-ascii?Q?Qmw4l460GzzHdAvA/nWGW88VJNij+nrqjWVFjyquJCub3v47dv1L/E9b3LJf?=
- =?us-ascii?Q?NGHCy2UM6nzW+LJm+3UKj+DLqMnr8vFtgmi7tbOcYs4+FDrZeNmB+iO59ATj?=
- =?us-ascii?Q?7n6v1IeKdz5Gncyf2C5HhifS6s5eyxuVAgE2OaJrzG8ux34QfYknq3m7Pysp?=
- =?us-ascii?Q?RnVJWH9U1QP09fTgr8sENLNiwfA0KeH8M9SG3LqVaflBRJr46jj23rpIRd4Y?=
- =?us-ascii?Q?bolzWHyBF6WXjuXWZcHvU9dTRXibJlQ5TOLxhS2OLAGpd+z6tbFALvhwZvgC?=
- =?us-ascii?Q?HY/xepuGC48jbHc5pwN10ZTB/CoVbovinPMFOJMJlRQJxCnOasn8ypgRhI8k?=
- =?us-ascii?Q?C5sArvtCFN6ei2FzYFNxEMRjcw/QdoYqPHVwD4wJBwLhGQM36s5pXoN8QyKM?=
- =?us-ascii?Q?dx6Q9x4x+t3C7fVcC52DSZU6A2+hf6FBbKBxatV+IqicuH5inM/s/gtLTWf0?=
- =?us-ascii?Q?usXFPEQDnTa3g39yn7775q4DcWnGoQ+azpnTih2U6po4ltBVbzUj+Mvxz3wx?=
- =?us-ascii?Q?EmySw2vXmjAmCksxvs71X/j2phwJdudASB/BX+hhkFUAvzzR94SrAPxHhZKI?=
- =?us-ascii?Q?iRrhNRBupxOa36Q7wcIiYTmf5W43155o2APOzbMSgp0P8q2eeUQYcBsvkKSY?=
- =?us-ascii?Q?tQ4rkuXcRqxp/BpSYqO0sD/LA3LB41471lHugmH5BP2tmhG/xsBObFi958pK?=
- =?us-ascii?Q?psMr0cy/crSxtnZngnm65NuLaK/Tb0eQGdUlVJJeko6RzFaq2ZWqkJPqKAd4?=
- =?us-ascii?Q?wbx9P0Kf5UAt3JUsy+4jLNkFO6TT0+4qMRh8Fr3+72/hDb4RaUS/JPb0Yraq?=
- =?us-ascii?Q?SWnZG4S9kLnqFnEahxjAo58SSoAA56Wc+R9orrTvlWNNK1o8SGLNzVrcDoC8?=
- =?us-ascii?Q?dgCPmXy36CJhu82JIm7GQMCKNRgOJgpC5Ivzn2zN3ww81Hekb66BjFMiETsp?=
- =?us-ascii?Q?rk4WOwWQOQ=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="X9NDnxZD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1791443826; bh=R454WeZIZx0fGBpfO5iMULnx8b+XzjR8Ok5RQcB8RTc=;
+	h=From:To:Cc:Subject:Date;
+	b=X9NDnxZDPna2nGIE7JBVXYiQoUwMSvmwjzuSrQSRPk/Q8KAQJHMA2IsAOw7gMzFeH
+	 kgXSmlZahTOCe+456bGSRPPfbKho0ot5EDkHR8B2caDGIqIGvfNzD78XZLTnScfHvj
+	 cw9+7CXA+Y8JAh2WgsM9siCiC5Cy+q4Wt9vyh8o4=
+Received: from localhost.localdomain ([116.128.244.169])
+	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+	id 4428A614; Thu, 08 Oct 2026 15:17:02 +0800
+X-QQ-mid: xmsmtpt1791443822t0oj1sozp
+Message-ID: <tencent_3F4F1469A115C5112FD7CA3CC4A9CF6F6C07@qq.com>
+X-QQ-XMAILINFO: MpYZqmNm/7vMf3GiqJ+kHOJuLpcOSc6M+xpzqjWmbsKM/BqgvyDuGg7xW/GR33
+	 6ZG1JnDHTixk7j3Mj5vxdul1kx37G9WjGBsZAmPBoc0ZPHQB24ZXAnFTGtcvkvXZBud/MHBlmsrW
+	 ATVssq3w1p4OaR/XqVRCApPP/k9TIV1oUqEHVo65M363Xe98Jxm3pdyb1+A+DFZ4u8KHuDdOd9Hx
+	 0mQKm+TLyWEwPBbUCdogJHXIVoBGDt8tDz+G69pxsI2P+bnOEdp7Z98uIJM9h3AqT7qEDu7GZ0/X
+	 y8eG7sQt2DapiKv0lC0Wux/V3BSX/bmp86fX5SgNBQKjNYrRxJuIuaZ8s7PB22oKR55bc97nmX16
+	 4LEa4UqK/o6dpvkEmGdAU487jKzQ8v5GPE5mov2LPZCT6zKBEPXpcbLK+HQPbVk8GTUqf+kJExFM
+	 tmcPj8yKwOa4HcJ06vylrzQDYIjD9LcIhFGQlmzXetC+gi7/T/7k3rgmd7v2qtQFmrQe5mm/ozq3
+	 qG+mw2g9J3sZP2HamInRtAdy6XTUfFqDxqHhk/lVSGzjlEY3nQleBqfCZOZmq8WOlPHPXDsEMId8
+	 QJ+NlHrwWmSyxYcHxqWPbMMM5otSqox+o1Cj75odHjmbkXJbbPCoW30xtqIRRZKfkAvZQ3yd4vRh
+	 BBxEFY2ERAECZYznZOyh7MwXPg7kJ+vvxj6meNoQm+Q/VYtScgLsmrwDxW3aTpv312TN0yQ6K8CV
+	 Z6FenOEARhY5fu1wHl/yH30R36Gm3iQPN0x75sUB2aFtZ9MHBnwb/BeTLKNMksdPXg81aHUiimmr
+	 2GxWjDInqQpjI8d28vod9UrvKbC0JPYON+7GZEgksmPgfTMqfP2OqfL9zk4mpVs//USA9QD2K3LP
+	 fOeAS9Js7W7og9EpsQDNAt9meRLqcnkyoWo8lOoBTBmGECTcd4TiKMcS/QRYxdM3PHNhRNQP6AW8
+	 K22NIwwtJjJUO6KuEhytqA8782xTe4P7bZqRg+cgsxCKZyXuFymFzSxI0jESBd/Mnh39U8PIsQQY
+	 d1sD87dAy27rQE++bv
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+From: 2564278112@qq.com
+To: Harry Wentland <harry.wentland@amd.com>,
+	Leo Li <sunpeng.li@amd.com>,
+	Rodrigo Siqueira <siqueira@igalia.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	amd-gfx@lists.freedesktop.org
+Cc: Alex Hung <alex.hung@amd.com>,
+	Mario Limonciello <superm1@kernel.org>,
+	=?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+	Ray Wu <ray.wu@amd.com>,
+	Ivan Lipski <ivan.lipski@amd.com>,
+	Lu Yao <yaolu@kylinos.cn>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Wang Jiang <jiangwang@kylinos.cn>
+Subject: [PATCH] drm/amd/display: Snapshot dm_crtc_state->stream before use
+Date: Thu,  8 Oct 2026 15:16:59 +0800
+X-OQ-MSGID: <20261008071700.552056-1-2564278112@qq.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: chipsnmedia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SLXP216MB1148.KORP216.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: 97cdae5e-a37f-44b8-0edb-08df250c0f1b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Oct 2026 07:16:23.2757
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 4d70c8e9-142b-4389-b7f2-fa8a3c68c467
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: bkD45DkwD8mcK2Z1vDhdLiAK6GqdKYVD1N2YyO8DHXsVqPFrf4kbcrHLfZh6eU4yYt/sx5Qwp6Oytu4ujFLpWlXohqsE0I/wbDCtlpWe3Cg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PUYP216MB3127
+Content-Transfer-Encoding: 8bit
 
-Hi Jiale
+From: Wang Jiang <jiangwang@kylinos.cn>
 
-> -----Original Message-----
-> From: Jiale Yao <yaojiale02@163.com>
-> Sent: Saturday, October 3, 2026 5:09 PM
-> To: Nas Chung <nas.chung@chipsnmedia.com>; jackson.lee
-> <jackson.lee@chipsnmedia.com>; Mauro Carvalho Chehab <mchehab@kernel.org>=
-;
-> Nicolas Dufresne <nicolas.dufresne@collabora.com>; Hans Verkuil
-> <hverkuil@kernel.org>; Sebastian Fricke <sebastian.fricke@collabora.com>;
-> linux-media@vger.kernel.org; linux-kernel@vger.kernel.org
-> Cc: Jiale Yao <yaojiale02@163.com>
-> Subject: [PATCH 2/4] media: wave5: handle encoder runtime resume failures
->=20
-> The encoder callbacks ignore failures from pm_runtime_resume_and_get() an=
-d
-> continue issuing firmware commands. Runtime resume can fail while enablin=
-g
-> the VPU clocks, leaving the registers inaccessible. The callbacks then
-> also drop a runtime PM reference that was not acquired.
->=20
-> Check each resume result. Propagate the error from start_streaming(), and
-> return queued buffers or finish the job from void callbacks without
-> accessing the hardware or issuing an unmatched put.
->=20
-> Fixes: 2092b3833487 ("media: chips-media: wave5: Support runtime
-> suspend/resume")
-> Signed-off-by: Jiale Yao <yaojiale02@163.com>
-> ---
->  .../chips-media/wave5/wave5-vpu-enc.c         | 25 ++++++++++++++++---
->  1 file changed, 22 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c
-> b/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c
-> index f9fcdf4c224b..5a5ee70cd854 100644
-> --- a/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c
-> +++ b/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c
-> @@ -1351,7 +1351,12 @@ static int wave5_vpu_enc_start_streaming(struct
-> vb2_queue *q, unsigned int count
->  	struct v4l2_m2m_ctx *m2m_ctx =3D inst->v4l2_fh.m2m_ctx;
->  	int ret =3D 0;
->=20
-> -	pm_runtime_resume_and_get(inst->dev->dev);
-> +	ret =3D pm_runtime_resume_and_get(inst->dev->dev);
-> +	if (ret < 0) {
-> +		wave5_return_bufs(q, VB2_BUF_STATE_QUEUED);
-> +		return ret;
-> +	}
-> +
->  	v4l2_m2m_update_start_streaming_state(m2m_ctx, q);
->=20
->  	if (inst->state =3D=3D VPU_INST_STATE_NONE && q->type =3D=3D
-> V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE) { @@ -1451,6 +1456,7 @@ static void
-> wave5_vpu_enc_stop_streaming(struct vb2_queue *q)  {
->  	struct vpu_instance *inst =3D vb2_get_drv_priv(q);
->  	bool check_cmd =3D true;
-> +	int ret;
->=20
->  	/*
->  	 * Note that we don't need m2m_ctx->next_buf_last for this driver,
-> so we @@ -1458,7 +1464,14 @@ static void
-> wave5_vpu_enc_stop_streaming(struct vb2_queue *q)
->  	 */
->=20
->  	dev_dbg(inst->dev->dev, "%s: type: %u\n", __func__, q->type);
-> -	pm_runtime_resume_and_get(inst->dev->dev);
-> +	ret =3D pm_runtime_resume_and_get(inst->dev->dev);
-> +	if (ret < 0) {
-> +		if (q->type =3D=3D V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE)
-> +			streamoff_output(inst, q);
-> +		else
-> +			streamoff_capture(inst, q);
-> +		return;
-> +	}
->=20
->  	if (wave5_vpu_both_queues_are_streaming(inst))
->  		switch_state(inst, VPU_INST_STATE_STOP); @@ -1526,7 +1539,13
-> @@ static void wave5_vpu_enc_device_run(void *priv)
->  	u32 fail_res =3D 0;
->  	int ret =3D 0;
->=20
-> -	pm_runtime_resume_and_get(inst->dev->dev);
-> +	ret =3D pm_runtime_resume_and_get(inst->dev->dev);
-> +	if (ret < 0) {
-> +		dev_err(inst->dev->dev, "Failed to resume VPU: %d\n", ret);
-> +		v4l2_m2m_job_finish(inst->v4l2_m2m_dev, m2m_ctx);
-> +		return;
-> +	}
-> +
+The suspend/resume path releases the DC streams and clears
+dm_crtc_state->stream (dm_destroy_cached_state()) while an atomic commit
+can still be in flight.  A commit that races with it therefore observes
+the member becoming NULL after it has already been NULL checked, and
+dereferences it again for every plane or stream update.  The fbdev
+damage worker is one such commit: it is queued by the console and runs
+after the workqueues are thawed during resume, which is exactly when the
+display manager is tearing down and rebuilding its cached state.
 
-Runtime PM keeps the resume error, so every later resume fails too.
-wave5_vpu_enc_job_ready() returns true in PIC_RUN while
-m2m_ctx->is_draining is set or source buffers are queued. Nothing is
-consumed here, so the job is rescheduled right away and device_run()
-fails in a loop. Please switch the instance to STOP, return the
-OUTPUT/CAPTURE buffers with VB2_BUF_STATE_ERROR, call vb2_queue_error()
-on both queues, and then finish the job.
+Observed with the amdgpu DKMS module:
 
-Thanks
-Jackson
+  BUG: unable to handle page fault for address: 0000000000006490
+  RIP: amdgpu_dm_atomic_commit_tail+0x14c3/0x3cb0 [amdgpu_pro]
+  Workqueue: events drm_fb_helper_damage_work
+  Kernel panic - not syncing: amdgpu-pro 0000:04:00.0: unrecoverable failure
 
->  	switch (inst->state) {
->  	case VPU_INST_STATE_PIC_RUN:
->  		ret =3D start_encode(inst, &fail_res);
-> --
-> 2.34.1
+0x6490 is offsetof(struct dc_stream_state, abm_level), i.e. the stream
+pointer read as NULL right before
+
+  acrtc_state->stream->abm_level = acrtc_state->abm_level;
+
+Take a single snapshot of dm_crtc_state->stream in
+amdgpu_dm_commit_planes() and amdgpu_dm_enable_self_refresh(), check it
+before use, and use the same snapshot for the connector stream update in
+amdgpu_dm_atomic_commit_tail(), skipping the update when no stream is
+attached.
+
+Signed-off-by: Wang Jiang <jiangwang@kylinos.cn>
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 112 ++++++++++++------
+ 1 file changed, 73 insertions(+), 39 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 91fdf3de7202..c4c8904fea42 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -3696,10 +3696,21 @@ static void amdgpu_dm_enable_self_refresh(struct amdgpu_display_manager *dm,
+ 					  const struct dm_crtc_state *acrtc_state,
+ 					  const u64 current_ts)
+ {
+-	struct psr_settings *psr = &acrtc_state->stream->link->psr_settings;
+-	struct replay_settings *pr = &acrtc_state->stream->link->replay_settings;
+-	struct amdgpu_dm_connector *aconn =
+-		(struct amdgpu_dm_connector *)acrtc_state->stream->dm_stream_context;
++	struct dc_stream_state *stream = acrtc_state->stream;
++	struct psr_settings *psr;
++	struct replay_settings *pr;
++	struct amdgpu_dm_connector *aconn;
++
++	/*
++	 * The stream can be cleared concurrently by the system suspend/resume
++	 * path, so make sure the snapshot we are about to dereference is valid.
++	 */
++	if (!stream || !stream->link)
++		return;
++
++	psr = &stream->link->psr_settings;
++	pr = &stream->link->replay_settings;
++	aconn = (struct amdgpu_dm_connector *)stream->dm_stream_context;
+ 
+ 	/* Decrement skip count when SR is enabled and we're doing fast updates. */
+ 	if (acrtc_state->update_type == UPDATE_TYPE_FAST &&
+@@ -3720,10 +3731,10 @@ static void amdgpu_dm_enable_self_refresh(struct amdgpu_display_manager *dm,
+ 		 */
+ 		if (acrtc_attach->dm_irq_params.allow_sr_entry &&
+ 			(current_ts - psr->psr_dirty_rects_change_timestamp_ns) > 500000000) {
+-			amdgpu_dm_psr_set_event(dm, acrtc_state->stream, false,
++			amdgpu_dm_psr_set_event(dm, stream, false,
+ 				psr_event_hw_programming, false);
+ 
+-			amdgpu_dm_replay_set_event(dm, acrtc_state->stream, false,
++			amdgpu_dm_replay_set_event(dm, stream, false,
+ 				replay_event_hw_programming, false);
+ 		}
+ 	} else {
+@@ -3799,6 +3810,15 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+ 	struct dm_crtc_state *acrtc_state = to_dm_crtc_state(new_pcrtc_state);
+ 	struct dm_crtc_state *dm_old_crtc_state =
+ 			to_dm_crtc_state(drm_atomic_get_old_crtc_state(state, pcrtc));
++	/*
++	 * Take a single snapshot of the stream pointer and use it everywhere
++	 * below. dm_crtc_state->stream can be cleared concurrently, e.g. by the
++	 * system suspend/resume path (dm_destroy_cached_state()), so re-reading
++	 * the member after a NULL check can observe NULL and crash while writing
++	 * dc_stream_state members (see the NULL write at
++	 * offsetof(struct dc_stream_state, abm_level)).
++	 */
++	struct dc_stream_state *stream = acrtc_state->stream;
+ 	int planes_count = 0, vpos, hpos;
+ 	unsigned long flags;
+ 	u32 target_vblank, last_flip_vblank;
+@@ -3836,12 +3856,12 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+ 	    dm_old_crtc_state->cursor_mode == DM_CURSOR_NATIVE_MODE) {
+ 		struct dc_cursor_position cursor_position = {0};
+ 
+-		if (!dc_stream_set_cursor_position(acrtc_state->stream,
++		if (!dc_stream_set_cursor_position(stream,
+ 						   &cursor_position))
+ 			drm_err(dev, "DC failed to disable native cursor\n");
+ 
+ 		bundle->stream_update.cursor_position =
+-				&acrtc_state->stream->cursor_position;
++				&stream->cursor_position;
+ 	}
+ 
+ 	if (acrtc_state->active_planes == 0 &&
+@@ -3919,12 +3939,12 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+ 		bundle->surface_updates[planes_count].plane_info =
+ 			&bundle->plane_infos[planes_count];
+ 
+-		if (acrtc_state->stream->link->psr_settings.psr_feature_enabled ||
+-		    acrtc_state->stream->link->replay_settings.replay_feature_enabled) {
++		if (stream->link->psr_settings.psr_feature_enabled ||
++		    stream->link->replay_settings.replay_feature_enabled) {
+ 			fill_dc_dirty_rects(plane, old_plane_state,
+ 					    new_plane_state, new_crtc_state,
+ 					    &bundle->flip_addrs[planes_count],
+-					    acrtc_state->stream->link->psr_settings.psr_version ==
++					    stream->link->psr_settings.psr_version ==
+ 					    DC_PSR_VERSION_SU_1,
+ 					    &dirty_rects_changed);
+ 
+@@ -3935,14 +3955,14 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+ 			 * amdgpu_dm_crtc_vblank_control_worker() if user
+ 			 * pause the video during the PSR-SU was disabled.
+ 			 */
+-			if (acrtc_state->stream->link->psr_settings.psr_version >= DC_PSR_VERSION_SU_1 &&
++			if (stream->link->psr_settings.psr_version >= DC_PSR_VERSION_SU_1 &&
+ 			    acrtc_attach->dm_irq_params.allow_sr_entry &&
+ 			    dirty_rects_changed) {
+ 				mutex_lock(&dm->dc_lock);
+-				acrtc_state->stream->link->psr_settings.psr_dirty_rects_change_timestamp_ns =
++				stream->link->psr_settings.psr_dirty_rects_change_timestamp_ns =
+ 				timestamp_ns;
+ 				dc_exit_ips_for_hw_access(dm->dc);
+-				amdgpu_dm_psr_set_event(dm, acrtc_state->stream, true,
++				amdgpu_dm_psr_set_event(dm, stream, true,
+ 					psr_event_hw_programming, true);
+ 				mutex_unlock(&dm->dc_lock);
+ 			}
+@@ -3985,7 +4005,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+ 			amdgpu_dm_update_freesync_state_on_stream(
+ 				dm,
+ 				acrtc_state,
+-				acrtc_state->stream,
++				stream,
+ 				dc_plane,
+ 				bundle->flip_addrs[planes_count].flip_timestamp_in_us);
+ 
+@@ -4038,10 +4058,10 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+ 			usleep_range(1000, 1100);
+ 		}
+ 
+-		if (acrtc_state->stream) {
++		if (stream) {
+ 			if (acrtc_state->freesync_vrr_info_changed)
+ 				bundle->stream_update.vrr_infopacket =
+-					&acrtc_state->stream->vrr_infopacket;
++					&stream->vrr_infopacket;
+ 		}
+ 	}
+ 
+@@ -4063,7 +4083,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+ 
+ 	/* Update the planes if changed or disable if we don't have any. */
+ 	if ((planes_count || acrtc_state->active_planes == 0) &&
+-		acrtc_state->stream) {
++		stream) {
+ 		/*
+ 		 * If PSR or idle optimizations are enabled then flush out
+ 		 * any pending work before hardware programming.
+@@ -4071,10 +4091,10 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+ 		if (dm->vblank_control_workqueue)
+ 			flush_workqueue(dm->vblank_control_workqueue);
+ 
+-		bundle->stream_update.stream = acrtc_state->stream;
++		bundle->stream_update.stream = stream;
+ 		if (new_pcrtc_state->mode_changed) {
+-			bundle->stream_update.src = acrtc_state->stream->src;
+-			bundle->stream_update.dst = acrtc_state->stream->dst;
++			bundle->stream_update.src = stream->src;
++			bundle->stream_update.dst = stream->dst;
+ 		}
+ 
+ 		if (new_pcrtc_state->color_mgmt_changed) {
+@@ -4083,18 +4103,18 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+ 			 * already modified the stream in place.
+ 			 */
+ 			bundle->stream_update.gamut_remap =
+-				&acrtc_state->stream->gamut_remap_matrix;
++				&stream->gamut_remap_matrix;
+ 			bundle->stream_update.output_csc_transform =
+-				&acrtc_state->stream->csc_color_matrix;
++				&stream->csc_color_matrix;
+ 			bundle->stream_update.out_transfer_func =
+-				&acrtc_state->stream->out_transfer_func;
++				&stream->out_transfer_func;
+ 			bundle->stream_update.lut3d_func =
+-				(struct dc_3dlut *) acrtc_state->stream->lut3d_func;
++				(struct dc_3dlut *) stream->lut3d_func;
+ 			bundle->stream_update.func_shaper =
+-				(struct dc_transfer_func *) acrtc_state->stream->func_shaper;
++				(struct dc_transfer_func *) stream->func_shaper;
+ 		}
+ 
+-		acrtc_state->stream->abm_level = acrtc_state->abm_level;
++		stream->abm_level = acrtc_state->abm_level;
+ 		if (acrtc_state->abm_level != dm_old_crtc_state->abm_level)
+ 			bundle->stream_update.abm_level = &acrtc_state->abm_level;
+ 
+@@ -4106,7 +4126,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+ 		if (amdgpu_dm_is_dc_timing_adjust_needed(dm_old_crtc_state, acrtc_state)) {
+ 			spin_lock_irqsave(&pcrtc->dev->event_lock, flags);
+ 			dc_stream_adjust_vmin_vmax(
+-				dm->dc, acrtc_state->stream,
++				dm->dc, stream,
+ 				&acrtc_attach->dm_irq_params.vrr_params.adjust);
+ 			spin_unlock_irqrestore(&pcrtc->dev->event_lock, flags);
+ 		}
+@@ -4114,7 +4134,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+ 		update_planes_and_stream_adapter(dm->dc,
+ 					 acrtc_state->update_type,
+ 					 planes_count,
+-					 acrtc_state->stream,
++					 stream,
+ 					 &bundle->stream_update,
+ 					 bundle->surface_updates);
+ 		updated_planes_and_streams = true;
+@@ -5045,6 +5065,7 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_commit *state)
+ 		struct dc_stream_update stream_update;
+ 		struct dc_info_packet hdr_packet;
+ 		struct dc_stream_status *status = NULL;
++		struct dc_stream_state *stream = NULL;
+ 		bool abm_changed, hdr_changed, scaling_changed, output_color_space_changed = false;
+ 
+ 		memset(&stream_update, 0, sizeof(stream_update));
+@@ -5065,6 +5086,7 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_commit *state)
+ 							     dm_old_con_state);
+ 
+ 		if ((new_con_state->hdmi.broadcast_rgb != old_con_state->hdmi.broadcast_rgb) &&
++			dm_old_crtc_state->stream && dm_new_crtc_state->stream &&
+ 			(dm_old_crtc_state->stream->output_color_space !=
+ 				amdgpu_dm_get_output_color_space(&dm_new_crtc_state->stream->timing, new_con_state)))
+ 			output_color_space_changed = true;
+@@ -5078,24 +5100,36 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_commit *state)
+ 		if (!scaling_changed && !abm_changed && !hdr_changed && !output_color_space_changed)
+ 			continue;
+ 
+-		stream_update.stream = dm_new_crtc_state->stream;
++		/*
++		 * Take a snapshot of the stream pointer once. The member can be
++		 * cleared concurrently by the system suspend/resume path
++		 * (dm_destroy_cached_state()), so re-reading it after this point
++		 * can observe NULL and crash.
++		 */
++		stream = dm_new_crtc_state->stream;
++		if (!stream) {
++			drm_dbg_state(dev, "No stream attached to CRTC, skipping stream update\n");
++			continue;
++		}
++
++		stream_update.stream = stream;
+ 		if (scaling_changed) {
+ 			amdgpu_dm_update_stream_scaling_settings(dev, &dm_new_con_state->base.crtc->mode,
+-					dm_new_con_state, dm_new_crtc_state->stream);
++					dm_new_con_state, stream);
+ 
+-			stream_update.src = dm_new_crtc_state->stream->src;
+-			stream_update.dst = dm_new_crtc_state->stream->dst;
++			stream_update.src = stream->src;
++			stream_update.dst = stream->dst;
+ 		}
+ 
+ 		if (output_color_space_changed) {
+-			dm_new_crtc_state->stream->output_color_space
+-				= amdgpu_dm_get_output_color_space(&dm_new_crtc_state->stream->timing, new_con_state);
++			stream->output_color_space
++				= amdgpu_dm_get_output_color_space(&stream->timing, new_con_state);
+ 
+-			stream_update.output_color_space = &dm_new_crtc_state->stream->output_color_space;
++			stream_update.output_color_space = &stream->output_color_space;
+ 		}
+ 
+ 		if (abm_changed) {
+-			dm_new_crtc_state->stream->abm_level = dm_new_crtc_state->abm_level;
++			stream->abm_level = dm_new_crtc_state->abm_level;
+ 
+ 			stream_update.abm_level = &dm_new_crtc_state->abm_level;
+ 		}
+@@ -5105,7 +5139,7 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_commit *state)
+ 			stream_update.hdr_static_metadata = &hdr_packet;
+ 		}
+ 
+-		status = dc_stream_get_status(dm_new_crtc_state->stream);
++		status = dc_stream_get_status(stream);
+ 
+ 		if (WARN_ON(!status))
+ 			continue;
+@@ -5133,7 +5167,7 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_commit *state)
+ 		dc_update_planes_and_stream(dm->dc,
+ 					    dummy_updates,
+ 					    status->plane_count,
+-					    dm_new_crtc_state->stream,
++					    stream,
+ 					    &stream_update);
+ 		mutex_unlock(&dm->dc_lock);
+ 		kfree(dummy_updates);
+-- 
+2.25.1
 
