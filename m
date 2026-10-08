@@ -1,215 +1,89 @@
-Received: from mailtransmit04.runbox.com (mailtransmit04.runbox.com [185.226.149.37])
+Received: from mail2.kuutio.org (mail2.kuutio.org [91.107.195.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB31F3B0AF3
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 17:12:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.226.149.37
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 539FB3B0589;
+	Thu,  8 Oct 2026 17:13:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.107.195.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791479575; cv=none; b=jMyKNWMhRu0m5YL59/s0fP1wsXvInSx1LvjLcjlhDR0shdgCkLZegUqT7hG8X4srC9Iv99whLEF/UkFk6EOplCXB3C3TJ+M4x91cLj2xPzpDyaYT/Qu2xn8yVC1yLeI1sgo+PlkUa5ISYR0+eUb7A9Zgymm1ZRve3vFS4r6iJ7A=
+	t=1791479589; cv=none; b=O4vxcxmuMXR10LQW7Za4a0TGWHuedxaIHUyS6MTFyc3R/5SoiIRXsccztRXoFuLiNjymzGrBToe2ZvDWW36+OxwycAsjYu9O5JCpzBOB0ZfUQ6uAZLxe4GShc4tB/eRS42DkU4gdh3RVrN6GzMxsN3JiegpOT+HDPfWxzdrZiaE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791479575; c=relaxed/simple;
-	bh=qVP//0v3O30bvMDrXzIZA3OqyjiI5lij9RLIwJfZhas=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ZSAbPw+YVTejsU84m6g0uCcROuYofiwM5IhQ2O71dACWxGyYS+qmTOd98Cu5p8Jag173bL2ByHKjxqnVf1pg2dLaocWI1azsg/1fM+DdtRgTkGXgONN0KlVnYNyCwaujRMrHflMcN7zXebMv9O/MDxZCe6vuR8Xc5keumZM8VJw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rbox.co; spf=pass smtp.mailfrom=rbox.co; dkim=pass (2048-bit key) header.d=rbox.co header.i=@rbox.co header.b=ZdbVxgI6; arc=none smtp.client-ip=185.226.149.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rbox.co
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rbox.co
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rbox.co header.i=@rbox.co header.b="ZdbVxgI6"
-Received: from mailtransmit02.runbox ([10.9.9.162] helo=aibo.runbox.com)
-	by mailtransmit04.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.93)
-	(envelope-from <mhal@rbox.co>)
-	id 1xErfZ-0050HP-1m; Thu, 08 Oct 2026 19:12:37 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=rbox.co;
-	s=selector1; h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Subject:Date:From;
-	bh=UYOo421Yw7/Xv7jeCLkN+7Vf+jpi3svVWN1flCjNphw=; b=ZdbVxgI6Sdq7UZNPIsS6kPDJt3
-	EuOEivBEHLdaORiFX9jPEo672ygz2tL3rKlvY5G8HcqXVjrhHWZJZuZs89kV+3KZpm44qTn9Fe1DT
-	A9HNsi1u/5uF8YENETpfaFB+oVMzsVVIy9WlB17Vv6xOejD8x7NEoI2V55OErPIVvRW7U7iL8vI/X
-	bq2YKrQ6OeyXdQMLcWvCJNPeLnPLC5WoVIXOclrJlFMYcEtjfbdTw1yDeSB8KAzxZHSRc2LpmhTFV
-	QCzAJXfJuksXYp0/IEPJCfHu167kQnMdS4x8LlTPT1caJ/V3hW7NwFP6dEsW8BgFJiGzYek0Ur02R
-	KmJcmTZQ==;
-Received: from [10.9.9.73] (helo=submission02.runbox)
-	by mailtransmit02.runbox with esmtp (Exim 4.86_2)
-	(envelope-from <mhal@rbox.co>)
-	id 1xErfY-0001sT-BT; Thu, 08 Oct 2026 19:12:36 +0200
-Received: by submission02.runbox with esmtpsa  [Authenticated ID (604044)]  (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.95)
-	id 1xErfJ-006XMM-BQ;
-	Thu, 08 Oct 2026 19:12:21 +0200
-From: Michal Luczaj <mhal@rbox.co>
-Date: Thu, 08 Oct 2026 19:12:15 +0200
-Subject: [PATCH bpf-next] selftests/bpf: Clean up sa_family_t-stringifier
+	s=arc-20240116; t=1791479589; c=relaxed/simple;
+	bh=8Yf/XyMJzFg7n3z2XL1IPOKC+UGir4d1kaUlkkwNpOQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tLrAsfB/PP9dTlSgZsVZf1JRZDXCggo68r+J+0ESrKwGItPFt1JNgiA57AAqLKaIuJGz6yCTPG6wCvqn33igxk529UlNEC7R6o7TVpszV57BOTmRZ9MxJ/24tUb13fNA6LcoVGb5mM2p3sZCLhVAtvTkdot6u042oOAZIH4vpGE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lemmela.net; spf=pass smtp.mailfrom=lemmela.net; arc=none smtp.client-ip=91.107.195.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lemmela.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lemmela.net
+Received: from localhost (mail2.kuutio.org [127.0.0.1])
+	by mail2.kuutio.org (Postfix) with ESMTP id 487A120F08;
+	Thu,  8 Oct 2026 17:12:47 +0000 (UTC)
+X-Virus-Scanned: amavis at kuutio.org
+Received: from mail2.kuutio.org ([127.0.0.1])
+ by localhost (mail2.kuutio.org [127.0.0.1]) (amavis, port 10024) with LMTP
+ id uOLzj1buIJml; Thu,  8 Oct 2026 17:12:39 +0000 (UTC)
+Received: from [IPV6:2001:99a:adc:6a00::8be] (nbqchc6j3dhrbnnpubi-1.v6.elisa-laajakaista.fi [IPv6:2001:99a:adc:6a00::8be])
+	by mail2.kuutio.org (Postfix) with ESMTPSA id CD2E21FD45;
+	Thu,  8 Oct 2026 17:12:38 +0000 (UTC)
+Message-ID: <2562030d-2508-4131-a27f-fe161961f627@lemmela.net>
+Date: Thu, 8 Oct 2026 20:12:24 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261008-selftests-sockmap_listen-cleanup-v1-1-f6d1a4ff540d@rbox.co>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNUQrCMBAFr1L224U2lBa9iogk6YtGYxqyqRRK7
- 27Uz2FgZiNB9hA6NRtlvL34OVboDg3Zu443sJ8qk2rV0I6qZ0FwBVKEZbbPl07X4KUgsg3QcUk
- 8Oqc6HA0mO1DNpAzn19/iTCY5jlgLXf5GFvOALd8D7fsHxa9plI4AAAA=
-X-Change-ID: 20260724-selftests-sockmap_listen-cleanup-7ff21e9bedc6
-To: Andrii Nakryiko <andrii@kernel.org>, 
- Eduard Zingerman <eddyz87@gmail.com>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
- Emil Tsalapatis <emil@etsalapatis.com>, Shuah Khan <shuah@kernel.org>
-Cc: bpf@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Kuniyuki Iwashima <kuniyu@google.com>, 
- Michal Luczaj <mhal@rbox.co>
-X-Mailer: b4 0.15.2
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v2 2/2] net: phy: realtek: support unaligned
+ RTL8224 PHY packages
+To: netdev-bot+sashiko@kernel.org
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, hkallweit1@gmail.com, daniel@makrotopia.org,
+ javen_xu@realsil.com.cn, vladimir.oltean@nxp.com, olek2@wp.pl,
+ o.rempel@pengutronix.de, ih@simonwunderlich.de, amadeus@jmu.edu.cn,
+ jan@3e8.eu, f.fainelli@gmail.com, linux@armlinux.org.uk, andrew@lunn.ch,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, mensi@mensi.ch
+References: <20261005201540.913977-3-oskari@lemmela.net>
+ <179144751562.434549.8240253139319713521@kernel.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Oskari_Lemmel=C3=A4?= <oskari@lemmela.net>
+In-Reply-To: <179144751562.434549.8240253139319713521@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Following commit f3de1cf621f7 ("selftests/bpf: sockmap_listen cleanup: Drop
-af_unix redir tests") and commit 9266e49d608c ("selftests/bpf:
-sockmap_listen cleanup: Drop af_vsock redir tests"), sockmap_listen.c:
-family_str() becomes functionally identical to select_reuseport.c:
-family_str(). Move the logic to socket_helpers.h.
 
-Suggested-by: Kuniyuki Iwashima <kuniyu@google.com>
-Link: https://msgid.link/CAAVpQUDULzZh58oKkRaYqgM9bRToGb7wHrzT+cZNpRmAtM12Ow@mail.gmail.com
-Signed-off-by: Michal Luczaj <mhal@rbox.co>
----
- .../selftests/bpf/prog_tests/select_reuseport.c    | 16 +++-------------
- .../selftests/bpf/prog_tests/socket_helpers.h      | 12 ++++++++++++
- .../selftests/bpf/prog_tests/sockmap_listen.c      | 22 +++-------------------
- 3 files changed, 18 insertions(+), 32 deletions(-)
+On 10/8/26 11:18, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential
+> issue(s) to consider.
+> 
+> Critical: 0 · High: 0 · Medium: 1 · Low: 1
+> 
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+> 
+> - [Medium] The RTL8224 text added to realtek,rtl82xx.yaml (preceding
+>    commit "dt-bindings: net: realtek,rtl82xx: document RTL8224 packages")…
+> - [Low] The new RTL8224 package example in realtek,rtl82xx.yaml
+>    (preceding commit "dt-bindings: net: realtek,rtl82xx: document RTL8224…
+> 
+> --
+> 
+The aligned-address fallback is retained for existing device trees
+without package nodes. Without an explicit package description, the
+driver cannot reliably distinguish aligned and unaligned layouts from
+individual PHY addresses.
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/select_reuseport.c b/tools/testing/selftests/bpf/prog_tests/select_reuseport.c
-index 3dbcc091f16c..3b4b233e21d1 100644
---- a/tools/testing/selftests/bpf/prog_tests/select_reuseport.c
-+++ b/tools/testing/selftests/bpf/prog_tests/select_reuseport.c
-@@ -6,6 +6,7 @@
- #include <stdbool.h>
- #include <string.h>
- #include <errno.h>
-+#include <error.h>
- #include <assert.h>
- #include <fcntl.h>
- #include <linux/bpf.h>
-@@ -21,6 +22,7 @@
- #include "bpf_util.h"
- 
- #include "test_progs.h"
-+#include "socket_helpers.h"
- #include "test_select_reuseport_common.h"
- 
- #define MAX_TEST_NAME 80
-@@ -740,18 +742,6 @@ static const char *maptype_str(enum bpf_map_type type)
- 	}
- }
- 
--static const char *family_str(sa_family_t family)
--{
--	switch (family) {
--	case AF_INET:
--		return "IPv4";
--	case AF_INET6:
--		return "IPv6";
--	default:
--		return "unknown";
--	}
--}
--
- static const char *sotype_str(int sotype)
- {
- 	switch (sotype) {
-@@ -794,7 +784,7 @@ static void test_config(int sotype, sa_family_t family, bool inany)
- 
- 		snprintf(s, sizeof(s), "%s %s/%s %s %s",
- 			 maptype_str(inner_map_type),
--			 family_str(family), sotype_str(sotype),
-+			 inet_family_str(family), sotype_str(sotype),
- 			 inany ? "INANY" : "LOOPBACK", t->name);
- 
- 		if (!test__start_subtest(s))
-diff --git a/tools/testing/selftests/bpf/prog_tests/socket_helpers.h b/tools/testing/selftests/bpf/prog_tests/socket_helpers.h
-index 0d59503a0c73..4a570998612d 100644
---- a/tools/testing/selftests/bpf/prog_tests/socket_helpers.h
-+++ b/tools/testing/selftests/bpf/prog_tests/socket_helpers.h
-@@ -470,4 +470,16 @@ static inline const char *socket_kind_to_str(int sock_fd)
- 	return "???";
- }
- 
-+static inline const char *inet_family_str(sa_family_t family)
-+{
-+	switch (family) {
-+	case AF_INET:
-+		return "IPv4";
-+	case AF_INET6:
-+		return "IPv6";
-+	default:
-+		return "unknown";
-+	}
-+}
-+
- #endif // __SOCKET_HELPERS__
-diff --git a/tools/testing/selftests/bpf/prog_tests/sockmap_listen.c b/tools/testing/selftests/bpf/prog_tests/sockmap_listen.c
-index 1c96a3cf4b97..235e1d56f044 100644
---- a/tools/testing/selftests/bpf/prog_tests/sockmap_listen.c
-+++ b/tools/testing/selftests/bpf/prog_tests/sockmap_listen.c
-@@ -1232,22 +1232,6 @@ static void test_ops_cleanup(const struct bpf_map *map)
- 	}
- }
- 
--static const char *family_str(sa_family_t family)
--{
--	switch (family) {
--	case AF_INET:
--		return "IPv4";
--	case AF_INET6:
--		return "IPv6";
--	case AF_UNIX:
--		return "Unix";
--	case AF_VSOCK:
--		return "VSOCK";
--	default:
--		return "unknown";
--	}
--}
--
- static const char *map_type_str(const struct bpf_map *map)
- {
- 	int type;
-@@ -1315,7 +1299,7 @@ static void test_ops(struct test_sockmap_listen *skel, struct bpf_map *map,
- 	char s[MAX_TEST_NAME];
- 	int map_fd;
- 
--	family_name = family_str(family);
-+	family_name = inet_family_str(family);
- 	map_name = map_type_str(map);
- 	sotype_name = sotype_str(sotype);
- 	map_fd = bpf_map__fd(map);
-@@ -1355,7 +1339,7 @@ static void test_redir(struct test_sockmap_listen *skel, struct bpf_map *map,
- 	const struct redir_test *t;
- 	char s[MAX_TEST_NAME];
- 
--	family_name = family_str(family);
-+	family_name = inet_family_str(family);
- 	map_name = map_type_str(map);
- 
- 	for (t = tests; t < tests + ARRAY_SIZE(tests); t++) {
-@@ -1387,7 +1371,7 @@ static void test_reuseport(struct test_sockmap_listen *skel,
- 	const struct reuseport_test *t;
- 	char s[MAX_TEST_NAME];
- 
--	family_name = family_str(family);
-+	family_name = inet_family_str(family);
- 	map_name = map_type_str(map);
- 	sotype_name = sotype_str(sotype);
- 
+Would clarifying that a package node is required for unaligned RTL8224
+layouts be sufficient to address the medium finding, while preserving
+the fallback for existing aligned layouts?
 
----
-base-commit: e1d84a37cba984388988d2f1ddc84561413f0db2
-change-id: 20260724-selftests-sockmap_listen-cleanup-7ff21e9bedc6
+For the schema-coverage concern, would adding a dedicated RTL8224
+package binding with a compatible such as "realtek,rtl8224-package"
+be the preferred approach? This could follow the QCA807x package-binding
+pattern and provide explicit validation of the package and child PHYs.
 
-Best regards,
---  
-Michal Luczaj <mhal@rbox.co>
-
+I would appreciate maintainer guidance before preparing v3.
