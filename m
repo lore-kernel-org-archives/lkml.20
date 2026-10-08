@@ -1,155 +1,151 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E92E6283FE5;
-	Thu,  8 Oct 2026 07:01:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 073E23B05A7;
+	Thu,  8 Oct 2026 07:01:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791442872; cv=none; b=UIVcpY4IM4U7AXHOLMhr7deYq7ty/IUlmUpmgy/SsyIypoIr0w/JKyrZxW2QuH9QZcWvN2C0ACtQPZmxK52XajaU5F7WK++6kLK+RyJRx79mRnA1MIZMyvwklb6OTCJg1mlah3Ht8bTq4SrVCHZdEHfycbme6GbxZ/jX+ecdTVs=
+	t=1791442890; cv=none; b=hz3yXKNF20l0TrV57F4O05QX05phErcZL6IbK6sbCKGROoG3nhxuOaNsMfD9tVQ7HY1q6/RA69090fdCTqCDejTuZcsITmI9e3n8BxBrgW74Ud234m6wcZy5bDP1erXCgYrKl83KuhkZubhYUBmw7jwGAsuinHMPZOWHrYI1inY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791442872; c=relaxed/simple;
-	bh=h73wPTVLtVL8bmddHdlMfN6vKjZ1mA+xoY6PQLngFrs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=I5SmKUgCvTr2xY1aN4zdAdfwe0ki2VZdDW2mp9VmHVSVeVSA00WyBMGnFPJV9Sfr3Ls8D/HM/Dskhyjyeh9DTr/B8Sl05T4aISxmzA4U3B0K/ww5b2qQg3gR4IKlsbBKKWYjwWZvLhrm6ZShKpbFqBD55DLdcn7wvsPzJy81Gm0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.102])
-	by gateway (Coremail) with SMTP id _____8CxKvC0P8dqFaATAA--.57200S3;
-	Thu, 08 Oct 2026 15:01:08 +0800 (CST)
-Received: from [10.20.42.102] (unknown [10.20.42.102])
-	by front1 (Coremail) with SMTP id qMiowJAx1cywP8dqS+spAA--.60369S2;
-	Thu, 08 Oct 2026 15:01:06 +0800 (CST)
-Message-ID: <42bb8b65-226f-42f9-8fa1-81e2f5a7a3cd@loongson.cn>
-Date: Thu, 8 Oct 2026 14:58:21 +0800
+	s=arc-20240116; t=1791442890; c=relaxed/simple;
+	bh=z5WC5Oh8VXR9CcMI4p5XcyJpZLp7SF8z1n4K/iuDZkA=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=N6hyssu6hhBtCvTIB5FwTu6PMb1Rwl29u4PlDyLXm9C2XHFvp6MV9oBronSCjRSBWpCa82gIKQUse+T6+aHzJL9wQtFDSo5JIeh71KpyW7FBqlpOZdFeSuSz8TTUiT4B6oMun6Ir9suWOhFxbjwCqrYg/6aT7fU9biSXpU3o2ew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=KtHzrvNL; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=la++t47T; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=u6wYS2ur; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=FuQs3qHB; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="KtHzrvNL";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="la++t47T";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="u6wYS2ur";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="FuQs3qHB"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 338DD1F799;
+	Thu,  8 Oct 2026 07:01:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791442886; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UdUhKWglyOJlEjxltVwov626EhVkyCueNw5irqO7AGY=;
+	b=KtHzrvNLkHow6HafrhK+IzN6TS9PNRGF3ZiIKp+SfnWScat8tlOrc6RtdjcFHCqrO//q2P
+	DBHG6JBit3hUJ9MYMPrprBgrnpFimF7Wtj4djOKDkLDE+a14mtF8hSJJddpu4uFbyNOmzi
+	rBA5Ogp73RgI5j/zUUiJsv6t1iPOhFo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791442886;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UdUhKWglyOJlEjxltVwov626EhVkyCueNw5irqO7AGY=;
+	b=la++t47TG8FMUGChhk3gSVEK+hC13pjqjrQXlTMP91JPqX45RzZabikQW9qEr961tOw4Ku
+	MdbX+2cp9oSxBvAQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791442885; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UdUhKWglyOJlEjxltVwov626EhVkyCueNw5irqO7AGY=;
+	b=u6wYS2urMzX14qurIKP4K4muwPqsusP0y/vNDe3IATsurTKGqBzq9ziNyEdm8UatO17y64
+	ZGwco6TfTUb9fAa3HuW6lVleOiF/3HeJtFFwhZkX4TwQU+z2ZJlZ18LmEn3tuCDStcPuwE
+	HSfX0Y4Pg1JhfWnhgysnLPyEzuUEX/w=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791442885;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UdUhKWglyOJlEjxltVwov626EhVkyCueNw5irqO7AGY=;
+	b=FuQs3qHBNkIvL5B7spPvZd8PzA1j01JOonyq7dqA5H9tUWGFsaGy9BGjZY2nuu5/PnOCRf
+	j80OKhXOlxSS/0Dg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EB65F13354;
+	Thu,  8 Oct 2026 07:01:24 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id lB90MMQ/x2ozXgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Thu, 08 Oct 2026 07:01:24 +0000
+Date: Thu, 08 Oct 2026 09:01:24 +0200
+Message-ID: <87v77c65h7.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Matej Sochan <matej.sochan@gmail.com>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Eric Naim <dnaim@cachyos.org>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ALSA: hda/realtek: Fix silent speakers on Lenovo Legion S7 15IMH05
+In-Reply-To: <20261007-legion-s7-v1-1-8ea7fb7ee766@gmail.com>
+References: <20261007-legion-s7-v1-1-8ea7fb7ee766@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/3] EDAC/loongson: Encode node and MC info into mc_idx
-To: Borislav Petkov <bp@alien8.de>
-Cc: tony.luck@intel.com, linux-edac@vger.kernel.org,
- linux-kernel@vger.kernel.org, chenhuacai@kernel.org,
- Wang Jinwei <wangjinwei@loongson.cn>, Yulong Wang <wangyulong@loongson.cn>,
- Dongyan Qian <qiandongyan@loongson.cn>, Chao Li <lichao@loongson.cn>
-References: <20260902084827.2652-1-zhaoqunqin@loongson.cn>
- <20260902084827.2652-2-zhaoqunqin@loongson.cn>
- <20260930003412.GEarxZBOHFAgZg7TL6@fat_crate.local>
-Content-Language: en-US
-From: Qunqin Zhao <zhaoqunqin@loongson.cn>
-In-Reply-To: <20260930003412.GEarxZBOHFAgZg7TL6@fat_crate.local>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJAx1cywP8dqS+spAA--.60369S2
-X-CM-SenderInfo: 52kd01pxqtx0o6or00hjvr0hdfq/
-X-Coremail-Antispam: 1Uk129KBj93XoWxCF45KrWkXw4rtr4kGr1ruFX_yoW5WryDpF
-	WUA3WYkrs8tr10934ktr4DZFySkw4xJasxArsaq3yFkwnIyF1xWF9agr45uFn8Ary0kFyI
-	qFWUtw4kuFnrAFXCm3ZEXasCq-sJn29KB7ZKAUJUUUU5529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUyEb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
-	6r4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0cIa020Ex4CE44I27w
-	Aqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE
-	14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCF04k20xvY0x0EwI
-	xGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480
-	Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7
-	IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k2
-	6cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxV
-	AFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU8zwZ7UUUUU==
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Flag: NO
+X-Spam-Score: -1.80
+X-Spam-Level: 
+X-Spamd-Result: default: False [-1.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_TO(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+
+On Wed, 07 Oct 2026 22:37:46 +0200,
+Matej Sochan wrote:
+> 
+> The speakers on the Legion S7 15IMH05 (PCI SSID 17aa:3811, ALC287) stay
+> silent after a cold boot with the current quirk, which applies
+> ALC287_FIXUP_LEGION_15IMHG05_SPEAKERS. They only start working after a
+> suspend/resume cycle.
+> 
+> The amplifier setup is sent through COEF 0x24/0x26 on NID 0x20. On this
+> machine the first pass of that sequence appears to only wake the
+> amplifiers. Sending the identical sequence a second time makes both
+> speakers work, provided the second write comes a few milliseconds after
+> the first: back-to-back writes leave the speakers silent, a 7 ms gap
+> makes only the right speaker work, and 8 ms or more is reliable. A dump
+> of all COEF registers of NID 0x20 taken before and after the second
+> write shows no difference.
+> 
+> Add a dedicated fixup that writes the sequence, waits 20 ms to keep a
+> margin over the measured minimum, and writes it again on every codec
+> init. It chains to the same AUTOMUTE fixup as before. To share the
+> sequence, move the verbs of ALC287_FIXUP_LEGION_15IMHG05_SPEAKERS into a
+> named array; this has no functional change for the other users of that
+> fixup.
+> 
+> Fixes: 67f4c61a73e9 ("ALSA: hda/realtek: Add quirk for Legion S7 15IMH")
+> Cc: stable@vger.kernel.org
+> Link: https://github.com/CachyOS/linux-cachyos/issues/792
+> Signed-off-by: Matej Sochan <matej.sochan@gmail.com>
+
+Applied to for-next branch now.  Thanks.
 
 
-在 2026/9/30 08:34, Borislav Petkov 写道:
-> On Wed, Sep 02, 2026 at 04:48:25PM +0800, Qunqin Zhao wrote:
->> @@ -23,6 +24,8 @@ struct loongson_edac_pvt {
->>  	 * register state.
->>  	 */
->>  	int last_ce_count;
->> +	u32 mcs_per_node;
->> +	bool mc_idx_valid;
-> Why do you need a silly bool if you have valid indices in any case?
->
-> You either get it from edac_device_alloc_index() and in that case, the node
-> number is always 0 and when you get it from ACPI, you get the right thing
-> anyway?
->
-> IOW, you init mc_idx properly in the probe function and then you're all set.
-The indices are unique, but they are not physically meaningful.
-
-`edac_device_alloc_index()` returns a global atomic counter:
-
-```c
-int edac_device_alloc_index(void)
-{
-    static atomic_t device_indexes = ATOMIC_INIT(0);
-    return atomic_inc_return(&device_indexes) - 1;
-}
-```
-
-It only guarantees uniqueness; it does not encode any node or MC
-information. When firmware lacks the "mc-idx" _DSD property on a
-multi-node system and the probes run concurrently on different CPUs,
-There is no guarantee that `alloc_index()` values map to physical
-MC order. Decoding `mc_idx / mc_per_node` and `mc_idx % mc_per_node`
-from this counter can report a wrong location.
->>  static int read_ecc(struct mem_ctl_info *mci)
->> @@ -44,7 +47,8 @@ static int read_ecc(struct mem_ctl_info *mci)
->>  static void edac_check(struct mem_ctl_info *mci)
-> In a prepatch, please remove the "edac_" prefix from all your driver-local
-> definitions like edac_probe() or loongson_edac_pvt. The edac_ namespace
-> belongs to the EDAC core functions. Since your functions are static, you can
-> simply call them probe(), check() etc.
-Will fix.
->>  	struct loongson_edac_pvt *pvt = mci->pvt_info;
->> -	int new, add;
->> +	char other_detail[64] = {0};
->> +	int new, add, node, mc;
->>  
->>  	new = read_ecc(mci);
->>  	add = new - pvt->last_ce_count;
-> ...
->
->>  static int edac_probe(struct platform_device *pdev)
->>  {
->>  	struct edac_mc_layer layers[2];
->>  	struct mem_ctl_info *mci;
->> +	struct device *dev = &pdev->dev;
->>  	void __iomem *vbase;
->> +	u32 mcs_per_node;
->>  	int ret;
->> +	bool mc_idx_valid = true;
-
-If this bool variable serves a real purpose, I'll place it between the u32 and int.
-
-
-Thanks,
-
-Qunqin.
-
-> The EDAC tree preferred ordering of variable declarations at the
-> beginning of a function is reverse fir tree order::
->
-> 	struct long_struct_name *descriptive_name;
-> 	unsigned long foo, bar;
-> 	unsigned int tmp;
-> 	int ret;
->
-> The above is faster to parse than the reverse ordering::
->
-> 	int ret;
-> 	unsigned int tmp;
-> 	unsigned long foo, bar;
-> 	struct long_struct_name *descriptive_name;
->
-> And even more so than random ordering::
->
-> 	unsigned long foo, bar;
-> 	int ret;
-> 	struct long_struct_name *descriptive_name;
-> 	unsigned int tmp;
->
-> Thx.
->
-
+Takashi
