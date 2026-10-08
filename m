@@ -1,215 +1,387 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com [209.85.208.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71935443C0F;
-	Thu,  8 Oct 2026 21:16:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAA2C37E5DF
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 21:17:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.179
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791494180; cv=fail; b=BF9cJbFlFdiG6gtxWOvdfdQ5Bfr6G8/TRIN7bpfYdPotpZpicFJZovoKdrk0oWzHahqjgKSfI5uwB1g6n8RCHP6iskIFk3nI/JYdYqgqEu43QVyGA9nINrgvZdkwrjrQbmFO4urBFKdQAN6ex1EX72DzBbKmrpupvM0woEQqRKc=
+	t=1791494244; cv=pass; b=B6XSHZb4ZQ4t5OZhVR3mQy4+fk0LQtLEoGVJgNj1Rf1jvJa68OtAptBU42vO5ab9cb8Qwks0CBiJ4Bo+q6RorO/yrIdXu8MyphFwdaysAKDtL2hN/dodjCi85uF+JhAHod9xr85Ww9bzDhjMQpXwBRI9J5e5jJJ4Fx4H2/oXXyI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791494180; c=relaxed/simple;
-	bh=UuqUbXfk5v/PcBkVxlVZJCqRnEg7paBdKfeDMwMFBhE=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=geEHmJopNSckRyMyIWKebYZnvMVzGIYizNiWgU1qf/rdSv9yRZcS1pv24jQ/7TV2+4zR7Q24EGbrrBXI+TEDlr1xwZN+jGEoG5TLhZuLS3lbRFmWv/dom1RJ+9lpAesNSNu+cEAujHg9mMPWJrIA1Oy2W/VSxSU38HBXXkA1Oi4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YKVFz3Uh; arc=fail smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791494244; c=relaxed/simple;
+	bh=meN0Ll6LUzDbkPO67/mJkijRkV0KVpj0ph/a6EON/QE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Gc/2cWYAGhpBZqa+PrFgVGX+1UX6xTdd53BTE1MDBi7npo0dl8KQiDGObNb//nY1llxvzuo/bs+JGS2tUlR2hZ6JFnpE7u2ASWh4DmaQIniMHckPvhsXxuymSftscQEgAdkS1/AjzOljQu3FdoSub1I1AvmCjm7nPGOkpXV2+hM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WLMiYyMM; arc=pass smtp.client-ip=209.85.208.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YKVFz3Uh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791494176; x=1823030176;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-id:content-transfer-encoding:
-   mime-version;
-  bh=UuqUbXfk5v/PcBkVxlVZJCqRnEg7paBdKfeDMwMFBhE=;
-  b=YKVFz3Uh18FRFjXcDbt5mx00QajThU7JxdMDXjcpNUD1Suum/iQAE0v7
-   kI09WBAmIA9k0UHkAnKx1ny2/cZasvh5x+/OK+UeneGnblBdOm0m/6nsB
-   G7Zdcmk+Ku9juoxpB/5C1oWwn0mzb52lXUNCmnwj6nObo3+z1dez7Oq5y
-   E9sPcw53yl8ZuirE8Kck7S0yPTmWJFvTHEvBfD7VZQXb2ERrFhlY7PO6V
-   UEUBpsqlFCMLhzi5+njmhU0dB2UEK6mUXnN5K4xkVyGV1qAy+4aXnn+Nk
-   dWKpCc+hSppmEshWZ1DtFFNBmYOwezuR5njRa9lNw/ycs4dzK7ZygfqPx
-   w==;
-X-CSE-ConnectionGUID: xR+f73h9R6Se9yC7Mfxj8A==
-X-CSE-MsgGUID: AD49W2q7RhioXa+UkQZeiQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11929"; a="173940"
-X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
-   d="scan'208";a="173940"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 14:16:15 -0700
-X-CSE-ConnectionGUID: 5d9KIXcWQvGaweTjADL9Sw==
-X-CSE-MsgGUID: FgKK7D/+RrCNnxGnPoVhXw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
-   d="scan'208";a="593822"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
-  by orviesa010.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 14:16:14 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 8 Oct 2026 14:16:14 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Thu, 8 Oct 2026 14:16:14 -0700
-Received: from BN1PR04CU002.outbound.protection.outlook.com (52.101.56.15) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 8 Oct 2026 14:16:14 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Akjb6kFjUAkcKTGMK0Ev5Ywg8Q1z4zHSsu8IC5MKs7xzfdvELOtbbozjde1ZaSZ+JCsrOTXZY6mnXHx/bYJGR2ugqXNKZEBBLggj3ymyi/Jl2/zQWF3hXyWrACkamHKW/+cITag/6drmE28pHvaIvDbM913U5L1wcbwk/abMHiDcSawq5/ktDAbtwa+jXFXwiHPYMDpBkSz9UU9Fqc3HYAvqnL3SygfqqTaqlUR+dP/TCXA9+6D9DaO9EX0VffVuhfJ+wek/022HRYmCCSZ/xMJCvIiXirjUDtQg75dZYZGOMxYBubJseOey8vwBS31Z+Pq26DBJ8IT01EmNuR7pMw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UuqUbXfk5v/PcBkVxlVZJCqRnEg7paBdKfeDMwMFBhE=;
- b=hxOjAHMIKbrJD2VU0qmaF6SUKhdXzMSNVKB/ZmtmA4jmCiEd5owenRGTZBqY4Nhw3w1i4DkujryMARpr2VeB0HeCXtG/wqaZTdZnng0NCHmcX4kJQ9CdAhDR9dbg/a9alvbv6ChL4XFEYv4k1qXCw6VgDIj7AXZdFy3ACw1LUDRmwpXJBdtTsvQyHd8bxFN0E6kth7WQMiXAX2yFmaHtSyo5mPWRR5s9s2guOjIV6SplHyx2j0m1Wf3wgQvBjSO7cO3QEtxjLkMYMrYFZ9a9Ad6esxRl/HBppk9pgIS8N4JvnGmMI0AAm3S7xgcATS8lgBT62XqJyGXMGxPH3U7emA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from PH7PR11MB6771.namprd11.prod.outlook.com (2603:10b6:510:1b5::20)
- by SA1PR11MB8448.namprd11.prod.outlook.com (2603:10b6:806:3a3::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Thu, 8 Oct
- 2026 21:16:10 +0000
-Received: from PH7PR11MB6771.namprd11.prod.outlook.com
- ([fe80::effa:162e:c9c9:a1b4]) by PH7PR11MB6771.namprd11.prod.outlook.com
- ([fe80::effa:162e:c9c9:a1b4%4]) with mapi id 15.21.0496.015; Thu, 8 Oct 2026
- 21:16:09 +0000
-From: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-To: "Aktas, Erdem" <erdemaktas@google.com>, "Li, Xiaoyao"
-	<xiaoyao.li@intel.com>, "shuah@kernel.org" <shuah@kernel.org>,
-	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
-	"afranji@google.com" <afranji@google.com>, "kas@kernel.org" <kas@kernel.org>,
-	"Chatre, Reinette" <reinette.chatre@intel.com>, "seanjc@google.com"
-	<seanjc@google.com>, "pbonzini@redhat.com" <pbonzini@redhat.com>,
-	"binbin.wu@linux.intel.com" <binbin.wu@linux.intel.com>,
-	"isaku.yamahata@intel.com" <isaku.yamahata@intel.com>,
-	"ackerleytng@google.com" <ackerleytng@google.com>,
-	"pratikrajesh.sampat@amd.com" <pratikrajesh.sampat@amd.com>,
-	"oupton@kernel.org" <oupton@kernel.org>, "wyihan@google.com"
-	<wyihan@google.com>, "ira.weiny@intel.com" <ira.weiny@intel.com>,
-	"sagis@google.com" <sagis@google.com>, "Gao, Chao" <chao.gao@intel.com>,
-	"linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>, "Wang,
- Roger" <runanwang@google.com>, "ajones@ventanamicro.com"
-	<ajones@ventanamicro.com>, "chenyi.qiang@intel.com" <chenyi.qiang@intel.com>
-CC: "kvm@vger.kernel.org" <kvm@vger.kernel.org>, "linux-coco@lists.linux.dev"
-	<linux-coco@lists.linux.dev>, "jmcrey@google.com" <jmcrey@google.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Hunter,
- Adrian" <adrian.hunter@intel.com>, "x86@kernel.org" <x86@kernel.org>
-Subject: Re: [PATCH v14 00/22] TDX KVM selftests
-Thread-Topic: [PATCH v14 00/22] TDX KVM selftests
-Thread-Index: AQHdGi/fD3HeSKoX5UGSIW2nqtNBd7actxyAgAAE64CABQ68gIAA5NqAgFHwfIA=
-Date: Thu, 8 Oct 2026 21:16:09 +0000
-Message-ID: <b2a03539707ee8155f277a7c9f3e505de8978c0b.camel@intel.com>
-References: <20260722-tdx-selftests-v14-0-15ad654a50db@google.com>
-	 <5a44a6925715e1edbd379ac0ea5526ec990eb819.camel@intel.com>
-	 <4828f8e29801adb29a4d48b8980d3b3a0a813e06.camel@intel.com>
-	 <CAEvNRgELDhXvPFKaoz+w-yywoJn0WMWvA-Y2jfdnwJVSbCSWyw@mail.gmail.com>
-	 <0782a971b1e6aa64c12ba76f9a4e68c8fe72bd2c.camel@intel.com>
-In-Reply-To: <0782a971b1e6aa64c12ba76f9a4e68c8fe72bd2c.camel@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-user-agent: Evolution 3.44.4-0ubuntu2.1 
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR11MB6771:EE_|SA1PR11MB8448:EE_
-x-ms-office365-filtering-correlation-id: a4586a32-ce75-4313-fc92-08df25815fe0
-x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|366016|376014|7416014|23010399003|38070700021|921020|11063799006|56012099006|4143699003|10067099003|18002099003|22082099003;
-x-microsoft-antispam-message-info: xk7T19Ntw+vJLodr8E7SH9b14DI/vd4XbetTjZpGxYZdKY4N8xbFH8noUwjNjtgBcJHCKwKuSJ5F13cEGneagRh4z+zPwQG0SBndzM0eawV0XljcFE0Hhc1uBDh4H6B33XPJAfvEPO+AO0QWE7INjL1UVqXsMEXXwk0PoPiWsVuVzJH66j3Kyg+tERzvrnBMCZKe0Lo7dihhmW6Ld8ffZgxzmMK8oCMTzpLSPRlg7iNfAMNrbZh7zAA4HbFRQlaUNEC0qQZGzm0je/j1esVE2id/BraDFbNZekrevmGMNEZONXgKfEufFi+cBXmY9+zjxBFy2rVhU1Sz+/tTmoyT4UHJ+7a28TCCGoxsBmy06uEjkEbaxZqaUlL+GECflgYzT4bR7fmIFmSx2YvzwgsZDdSYMiwJKbL1u1qtTUJLVGy0qa9JtsIq5AEaf71x8BWjQr6+GwylCZ5Mn6cvG078ffuHsZRBsmSAzJnH9roRcq6YQs38g9mBYEAeiWThvwF47VGVq5/FNWcwTePBE33KChSW/x2AzHYDk4kZvN4gIhf8ois5fRNq8xwC84j3GgNBtdOrqtyk2I9i+50BCIm7hLV1SWnEDL/uWOidK2IGPXrGmFp65ySRkaAV+wMtJpaXD1EO+fM/6s8x3d8UUYU0SiVe9/7+/SH5uIt4kUhtpH88TisfbYvEQK5HRiz/UMcsRimtICMnmaGai1S+hvQK1Dev4LJwk/oMm150Otu0I84ncBp/HfNf8/KfaEiipWhh
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR11MB6771.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(38070700021)(921020)(11063799006)(56012099006)(4143699003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?Q3hYUG9TOWpKODBJMTFBaENjeSt0TjljVUEvcFhnVUhaUFlvejVwTXpSR1k2?=
- =?utf-8?B?d2VVVGVtZWxJN0wzWFd3VGExNUJUcUtuWi9Od21zeVJmdXNpZDdENzMxbEdV?=
- =?utf-8?B?TktadVBucUpnaFQzb0U2UzZkWWFvaVlFTXVUclNORnd5Mk9hOTdlVUFTRjQ5?=
- =?utf-8?B?YnpKelFnZnJ6cGZXZDNCUVBWV0I0VE9tbTNjK296ajlpYjVRZUdpQkVHRVQr?=
- =?utf-8?B?WGs0K3BRNVZQdGFxcUhYQ2lLWXdQRnNoZS9ycEZtQVRueGwxUjF6ck1jUzFx?=
- =?utf-8?B?TWRPYTdNMVV0WHM1UEFiZHJMSXcxVHduREY0c3FYY3RmZ3BQekhCdXVrcHNy?=
- =?utf-8?B?OWp2eCtueGhldlU4L1IwNXpmaUl0NzZxMU85OUVpeG83blpPckhnZ2Q5UlVl?=
- =?utf-8?B?a0VxcEs3MzlWaWJWT0pGZmFaRElRM2FnRWxEcFZDdzRLb2tOUno4RGR3dXJ0?=
- =?utf-8?B?SnpudEJwTXJLTHhrM3cxTHFyY3A2WTVlMjFjcitLUllUZlJINjh3S3VtVVJo?=
- =?utf-8?B?aGRNOTN0bDJndGVJaUxJT3FSUUY4QU9uSWNVRFQ4UGtHTkQzRjFGdytlQTA3?=
- =?utf-8?B?MEd1UXVjYzZ2c0cwd3lORlFKekhWcHFsenlUaWFZN0V1S2hzWUpFNmRJYUti?=
- =?utf-8?B?RVZvWEx0NzIxZUxvYzBjTUk3NUtFSVpvc01ZL0lGR0NXNko4N25sRkErNWNx?=
- =?utf-8?B?aTQ2NnlHUCtITGh2MEloNzYxbVpkUWt0VGFpdkVydkMwZkhDcU9mKzJXSHBp?=
- =?utf-8?B?R0NSUFJRTWZtbjJlUURjcWRXTDcwV0R0bWh0MSs0UjZKQ2gxMGEra3R5Z3JN?=
- =?utf-8?B?WWlXMjdNVE9tUzRYN1ZIcEh4Smw2YzJYRGl2aXE2UTBtNU8xY2RFK0NUWThy?=
- =?utf-8?B?Q0ttRlpsRVVhZXBtRVgzWWlLZlUxdjhzR2gyM2RydXZVSXFSUWxYS2t0QmZi?=
- =?utf-8?B?cU1oRVZwUW90NWRQejdSRVVjK2lZemU5NnZyK1V1Z3JLeVlEY2M5VDYvWWxI?=
- =?utf-8?B?ZWJ6NVdtMHlPTVpKLzNBaXBiZEt6ajZkczBPYW8xM29uZTJ4UGY0MkxTQUVa?=
- =?utf-8?B?U1hDcVd1bWFGMWFWanRQTXdxOEp5SGtsRU1XOExiV0xQMzBFb3dZRzF3SThy?=
- =?utf-8?B?RkRYd25rMExOR2Z3MkFDKzVybERRam9lNllxL2RDcFlYekRka3JEb1VRSzRv?=
- =?utf-8?B?VDNXR1FGaC8vVEtxYThkRHNwRmlMVHd4elk5WndwREs3MjYzREZ0elc5bnpB?=
- =?utf-8?B?KzdiQkZXUzd6c2JHallIQnh0ZFVkTU41QmYxRE1xUGwxc080cXpZYlhiam8z?=
- =?utf-8?B?Z1krOEdEemdGMUJxL3pKVTltSVFBdStUaXlnVlI4RURxNkkxVnBrcm1ZYU5M?=
- =?utf-8?B?ZC9YRWc0Rytkd0dQYWZUbUJWYU1wZWdpdkhZcGR5cERPSEs4cXBZYVM5TVpP?=
- =?utf-8?B?akFxNHhWTHdhTzB2NC9NY3d4enVwaGN1TmlEUjlsRmNsVXBUTDFjdG9FVlZT?=
- =?utf-8?B?SzZ3ZlFtWXg1WklFeHlVK3lHT0ZpeTRPUFQvYWR2L3gvZ2lpSDMrUnhGcG80?=
- =?utf-8?B?QjMxNmFiMnVIdThnSFFTYjNPTnlRWk44WUxPQUZ6bU9sRWVFMUdwQXIwTHdr?=
- =?utf-8?B?aW8zcFdwcnBIaGdYVk9HNVhrWlZ3SzBvZTM5QlVwZ1pTTmRsRlByT1U4eG9U?=
- =?utf-8?B?eUJRL0Nod3NEc0VFRDU4ZE5wYXYyWHdNVy9oc3NuN0lrYVUzMm1adXhtcC9o?=
- =?utf-8?B?a2VHeWxnZUFyQW95UjFvYjJhL2VIeENlWjBZeTlicUovZ1hWZ0s1cE5DdXRW?=
- =?utf-8?B?L2ErMEtKOTBvejJBVWtWNWF0NUt4WWtydVhNMFk2Z1NzckQrWTl5YTJvd1hs?=
- =?utf-8?B?YkRDRkhZV1FKbWZzMmxLWm1MK1IyZzhIMyt3YlJjc3BmY005c0RRWkJsUTJC?=
- =?utf-8?B?aitjZkc0a2ZaRkNSZDg2L2hIZTA5anZnbXVIdnZNaFNiYldqOW9mL0EwTkdY?=
- =?utf-8?B?QjFXVGMvWUZBSmtqV0xCNUNUck9JT1B6OVZ1bnkxdVdMMjdOUWpuWUQwcnlP?=
- =?utf-8?B?dk5ZNEpISG9vQTRZbXhnZnZHZjZJMEUxbVJRanpreXA2bzkwNVFURmJLMXZa?=
- =?utf-8?B?YlRma1ZHVlFIajBRWEJUVVpHdGtVcUZJMS9QNlFlM2V3UmZQN0ZIL2JVenFh?=
- =?utf-8?B?RUx2dVdvbU8zMTRWUVdlTWc3Y2VWdldZUHhKeE9hRDlROWxva2FONkhHeW5M?=
- =?utf-8?B?K3FvRVFlZldaaklvRll1U0ppTnZLNWsybE9XSjJSTmhxTUtoOU4vNEFtdmVy?=
- =?utf-8?B?QWQyQlJpRG44T1VZejZyQ01XQ1RIRnMzQUtVTGNlL2JOemtYSEFMRDdmOFBM?=
- =?utf-8?Q?XquoqE1KcYjaDRQs=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <E08605ADF515E345A5E2EAB3D5430AAE@namprd11.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WLMiYyMM"
+Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-3a9bcdf29a6so6010741fa.1
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 14:17:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791494241; cv=none;
+        d=google.com; s=arc-20260327;
+        b=BqOAdyLVjsB9b3tVT3HvDiuRg5D3Kmg2rwXOPHb46vUIkjbf9J0USeq1qvXvZ5jFPJ
+         j7jW5E+9H/hV2QHk4bCF1zZYFy6Kjvdu4UjB9S/dIjM87taW4UKFz3saDko397KIdw5K
+         +ZEobq8UnmVSUGrRBNQZQoS2JyfhkvsTWKaEfD+VewrfDZSxNHZKN/Bi1ORHUk7zEwBY
+         HuElVIGWV+ovt3pLt5VSj+q8yYNZ1gDE/dus2aMH4+kki/8zgkNMhvdYnyenfzgBTP8/
+         u1bheTZD/tlZSOJH74F4n0GD6twnSp2l03ghH5543Lff5laAdTWf5WBVhoal7xO44IFh
+         Fh0A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=2FzXQmYZVAwCNX837xb6ZTBU+i6noRkiGOVGBEr1k6A=;
+        fh=cdT9OJw1opw/8+T/f1lojXuR2GPWzdAMqVLjEAubCPA=;
+        b=ZSHH0FLkzb0u3iBQNhPgZifBdVoo/SW/ez8gELVZUw0MdkEry4diUYyrEfEJzsr4Bf
+         ChGIy33vRc4AeaSQoT2kxD0dYfSBNHprGny/+Pubdpaz8p3X8/gup4dIqF3ftVMeS0Oh
+         Ygl7kJjSL1iWBzKx45PWpdAqN6utGRZk77XXcLHgS7+g9WMA+KH17OV7QQH6Rdy1YbNw
+         GIgdyZTD1Bj+hZm6k6p2QRkzaXTwMxYX1twvktDwAYpqZTesmcbh8x2iSd9kD0ilh+VO
+         DD1mU0zyN3W9XfJOpPRd6GihAsxv89yjPqAox/0PB8ET7//ZxfuJ92Ln3biVR+ERxure
+         2JhQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791494241; x=1792099041; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2FzXQmYZVAwCNX837xb6ZTBU+i6noRkiGOVGBEr1k6A=;
+        b=WLMiYyMM5ft0DqDt2lUCu7V1asOQi/U+qFN+AemxwBjTpPodenYM37sSbYD9vIPaoB
+         z5uAdJKGZXId+j994GrhnnoJX5Z+GWVE5kaLHRMp7kUz1UV6b9YjKGozOprXPFvWqbAd
+         VU5kk7pyGFrT+qLExGoQGYn3blsM1FOuVbT9U7dLA3KuHaJImmtnzAhuCNZZgp+gmb1b
+         JwG70fOzL6WCGWYmdm0RMropnZBJsSR4Ngs8KYcZ40IodZuIs06ZDZqG8Kem2D3CPQVm
+         uuHJRCa6Kq3wvo38YjJz2SdlBf15wcAzSGSAm/43lIFMFm48tYSMl7NClwlIcBOcjn7n
+         qDUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791494241; x=1792099041;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=2FzXQmYZVAwCNX837xb6ZTBU+i6noRkiGOVGBEr1k6A=;
+        b=eGgpakiG2C4GmK6D4u36M4MztcX+pScJ8YJ4BF3MhOmhG26GCejSOYKf6Ti2gMTzjC
+         AabzFOLMBnuWaBn1isCPxq2NsUoWprRY9BHS6ZoynIKETRzS8vcLk8lqMzovhYKy4hed
+         R9iZcnEHoof7rWZAvocIKbkbsN1mvJTh3ZgpHQF5Mghj/z7NDZWsxIEYUZbcFgaHwRa8
+         0+Xc0Y86EokvPUwtH8w/bIZDmQ8DpXXK9vKl6dgoOgnOiQCHThTEobBIx8SE5haGFFaJ
+         TOw90so3UBLnTSsu22dzHVCEujoOQS1W7Niw/M+EOPf8gko8xLVgMjFLtvK0h6PsF3v3
+         EahQ==
+X-Gm-Message-State: AFq9FYI5Pv/FU5D7vIJQjUcM+tSYcTcLjvV4I91wB3d89WnDUvtk612M
+	03CtjXJ+wnk4pZbPKM+6hD3Zya+1p/WZG0QDPFxzW9TKoTU/D2Bsj5Hijd90YhUJoo7XIGKc/Fc
+	ZPbYIp0oqGQo4xwPAauNskVbR4Srd4/g=
+X-Gm-Gg: AYBFou3iP8nZ929nyJNCD2pG8txYDn+zZGACB8By3z70v5R/zJSI8gaSdgIVAEIP8/a
+	DqUxTDdPCAchFhbRpLFY/H7SCT8eyPpmpLSwl/y+FrSwR3bpI4BMFzQropuncuFqJW1aYM5hzg1
+	wCDZCNTgCPYuu5QNmZIOgtxZjglvrtqpqnywDcDgslV4hFdf9U/XeQSN45OhMhlkMFyM+dMFGUj
+	4uUiqMF6LeVKL7ZjblUVChTZyVDLYLn7ElhnLhS8KDFbisoMvtD+9MSrZcSq7et3Jt4u6eVfofK
+	Ng2lfA9SblWpnkgWffDVu+79fElQqInJhO/4O76TxburB8G2D8s5SQH5q4TharV4mpEXy3aQT0A
+	QkgCY2/m5l4+m9w==
+X-Received: by 2002:a05:651c:a104:20b0:3a9:9b0b:e0e4 with SMTP id
+ 38308e7fff4ca-3a9c2a55a1fmr806871fa.15.1791494240482; Thu, 08 Oct 2026
+ 14:17:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: iX4jaI1ZmSpw+iQkG6UnVqPRb0AmTXi56Vul7nYzUGUiEWChWal7hvrqxE6Am1NHOpHu9sstgxuAyxvEYKDlbM5uuJTuM0lVbiwvk0dWLhwZ/T/s6+TU/jPFSufDqcJX6pjZhYfplPu+DzMOwSCVqcE34XejvyFgCPmPkxxlQpgGT70S27VIY5UHBF7YOr27mL40qs6ZbhlG/1s4OfqHcpyetzcvncq+oS4ycTcgqeegxzKq4G158jPoS3W/TxBz7qD0CUNjWx929agEw1s315gE6J/xFVkabNUXM218Y3zLAJBIkzka+1UdCfP/9yfsj7t5/BWgni/XjQasJ9wpCg==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6771.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a4586a32-ce75-4313-fc92-08df25815fe0
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Oct 2026 21:16:09.8903
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 3sakI8BnWWITSMootKw/H0LVbdPFgy/6zMOFuQTRSfvwLpEQEKEUIqFTUwt8iq0fPFTxkxlh5zWpqA3JoXU9AKS/EkQfPKLG+408gUKNSFk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR11MB8448
-X-OriginatorOrg: intel.com
+References: <20251125224352.32034-1-linmag7@gmail.com>
+In-Reply-To: <20251125224352.32034-1-linmag7@gmail.com>
+From: Matt Turner <mattst88@gmail.com>
+Date: Thu, 8 Oct 2026 17:17:08 -0400
+X-Gm-Features: AclHuK_3NR7u2TBoZF4JS4BgnPEGqMgw73IA_3xwxC4Z7JwDuQqB9CYxYCGMj2M
+Message-ID: <CAEdQ38FciXzBqTpHxFYS5F5DiS5CaMe69Rh4cLVwDeCkLyebow@mail.gmail.com>
+Subject: Re: [PATCH v4] alpha: machine check handler for tsunami
+To: Magnus Lindholm <linmag7@gmail.com>
+Cc: linux-kernel@vger.kernel.org, linux-alpha@vger.kernel.org, 
+	hch@infradead.org, macro@orcam.me.uk, glaubitz@physik.fu-berlin.de, 
+	richard.henderson@linaro.org, ink@unseen.parts
+Content-Type: text/plain; charset="UTF-8"
 
-T24gTW9uLCAyMDI2LTA4LTE3IGF0IDEwOjU4IC0wNzAwLCBFZGdlY29tYmUsIFJpY2sgUCB3cm90
-ZToNCj4gPiA+IEFjdHVhbGx5IHdoeSBpcyB0aGlzIG9uIHRvcCBvZiBpbi1wbGFjZSBjb252ZXJz
-aW9uPyBJIHRob3VnaHQgdGhlIGlkZWEgd2FzDQo+ID4gPiB0byBicmVhayB0aGUgc2VyaWVzIGFw
-YXJ0IHRvIGdldCBzb21ldGhpbmcgYmFzaWMgdXBzdHJlYW06DQo+ID4gPiBodHRwczovL2xvcmUu
-a2VybmVsLm9yZy9hbGwvYUotNkpwSEQ2eGhBdlpQeUBnb29nbGUuY29tLw0KPiA+ID4gDQo+ID4g
-PiBBZGRpbmcgaW4tcGxhY2UgY29udmVyc2lvbiB0ZXN0cyBzZWVtcyB0byBiZSBnb2luZyBpbiB0
-aGUgb3Bwb3NpdGUNCj4gPiA+IGRpcmVjdGlvbi4NCj4gPiA+IA0KPiA+IA0KPiA+IFdlIHdhbnRl
-ZCB0byBoYXZlIHRoaXMgc2VyaWVzIGJhc2VkIG9uIGluLXBsYWNlIGNvbnZlcnNpb24gc2luY2UN
-Cj4gPiBub24taW4tcGxhY2UgY29udmVyc2lvbiBpcyBvbiBhIGRlcHJlY2F0aW9uIHBhdGguDQo+
-IA0KPiBIbW0sIHdoYXQga2luZCBvZiB0aW1lbGluZSBkbyB5b3Ugc2VlIGZvciB0aGUgb2xkIGlu
-dGVyZmFjZSBhY3R1YWxseSBnZXR0aW5nDQo+IHlhbmtlZCBvdXQgb2YgdGhlIGtlcm5lbD8gSSB3
-YXMgaW1hZ2luaW5nIGl0IHdvdWxkIGJlIHRoZXJlIGZvciBtYW55IHllYXJzIGF0DQo+IG1pbmlt
-dW0sIGluIHdoaWNoIGNhc2UgaXQgd291bGQgbmVlZCB0ZXN0cyB0b28uDQo+IA0KPiBUaGUgbGV2
-ZWwgb2YgZGVwZW5kZW5jaWVzIHdlIGhhdmUgb24gY29jbyBzdHVmZiBpcyBwcmV0dHkgdW5mb3J0
-dW5hdGUgSSB0aGluay4NCj4gQ29uc2lkZXJpbmcgdGhlc2UgdGVzdHMgc2hvdWxkIGhhdmUgaWRl
-YWxseSBxdWlja2x5IGZvbGxvd2VkIHRoZSBURFggYmFzZQ0KPiB1cHN0cmVhbWluZywgaXQgd291
-bGQgYmUgbmljZSBpZiB3ZSBjb3VsZCBhdm9pZCBpdCBoZXJlLg0KDQpJIHNhdyB0aGUgbmV3IHZl
-cnNpb24gaXMgYWxzbyBiYXNlZCBvbiBpbi1wbGFjZSBjb252ZXJzaW9uICh3aGljaCBpcyBub3cg
-aGVhZGVkDQp1cHN0cmVhbSwgY29uZ3JhdHMhKS4gQnV0IGNhbiB3ZSB0YWxrIGFib3V0IHRoZSBs
-ZWdhY3kgZGVwcmVjYXRpb24/IElzIHRoZXJlIGENCnBsYW4gdG8gYWN0dWFsbHkgZGVwcmVjYXRl
-IGFuZCByZW1vdmUgaXQsIG9yIGV2ZW4gbW92ZSBxZW11IG9mZiBvZiB0aGUgb2xkDQppbnRlcmZh
-Y2U/DQoNCk90aGVyd2lzZSwgSSBkaXNhZ3JlZSB3aXRoIHRoZSBwbGFuIHRvIGRyb3AgdGhlIHRl
-c3RzIGZvciB0aGUgb2xkIGludGVyZmFjZS4NClRoYXQgc2FpZCBJJ2Qgd291bGQgYmUgdGhyaWxs
-ZWQgdG8gaGF2ZSBhbnl0aGluZyB1cHN0cmVhbSwgc28gaWYgdGhlIHNldCBjYW4gYmUNCnNtYWxs
-ZXIgb3IgZmFzdGVyIHRoYXQgd2F5LCB0aGVuIEkgYWdyZWUgd2l0aCB0aGUgY2hhbmdlLg0KDQpC
-dXQgaW4gZ2VuZXJhbCwgSSdkIGxpa2UgdG8ga25vdyB0aGUgcGxhbiBmb3IgdGhlIG9sZCBpbnRl
-cmZhY2UuDQo=
+On Tue, Nov 25, 2025 at 11:38 PM Magnus Lindholm <linmag7@gmail.com> wrote:
+> This patch implements a machine check handler with detailed information on
+> error conditions in the event of a machine check exception on the Tsunami
+> platform.
+
+Sorry this sat for so long. I would like to see this go in. I went
+through it against the 21272 Hardware Reference Manual (21 October
+1999) and the ES40 Service Guide, and build tested it on your
+for-next. Comments below, roughly in order of importance. Section
+numbers and Tables 10-x refer to the chipset manual, Tables D-x to
+the service guide.
+
+Build
+-----
+
+> +obj-$(CONFIG_ALPHA_DP264)  += err_ev6.o err_tsunami.o
+> +obj-$(CONFIG_ALPHA_EIGER)  += err_ev6.o err_tsunami.o
+
+CONFIG_ALPHA_SHARK also builds sys_dp264.o, so a non-generic Shark
+kernel fails to link:
+
+  sys_dp264.c:300: undefined reference to `tsunami_register_error_handlers'
+  sys_dp264.o:(.ref.data+0x118): undefined reference to `tsunami_machine_check'
+
+The commit message says CONFIG_ALPHA_TSUNAMI, and that is what the
+Makefile should use: a single
+"obj-$(CONFIG_ALPHA_TSUNAMI) += err_ev6.o err_tsunami.o".
+
+PERROR decode
+-------------
+
+> +#define TSUNAMI__PCHIP_PERROR__SADDR__S    (19)
+> +#define TSUNAMI__PCHIP_PERROR__SADDR__M    (0x7FFFFFFF80000ul)
+> +#define TSUNAMI__PCHIP_PERROR__PADDR__S (18)
+> +#define TSUNAMI__PCHIP_PERROR__PADDR__M (0x0FFFFFFFC0000ul)
+[...]
+> +           addr = EXTRACT(perror, TSUNAMI__PCHIP_PERROR__SADDR) >> 16;
+> +   else
+> +           addr = EXTRACT(perror, TSUNAMI__PCHIP_PERROR__PADDR) >> 16;
+
+The field positions match Table 10-42, but EXTRACT() shifts right by
+__S first and then applies __M, so __M has to be the mask of the
+field after shifting. With the masks in register position, and the
+extra ">> 16", the PCI case ends up with PCI address bits <31:20> in
+bits <13:2> of addr, so addr is never larger than 0x3ffc. Per the
+table it should be
+
+      ADDR<47:18> = PCI address <31:2>      -> ((perror >> 18) &
+0x3fffffff) << 2
+      ADDR<50:19> = system address <34:3>   -> ((perror >> 19) &
+0xffffffff) << 3
+
+This matters for more than the printout:
+
+> +       ((((cmd & 0xE) == 2) && (addr <= 0x80000)) ||
+> +        (((cmd & 0xE) == 6) && (addr >= 0xA0000) && (addr < 0x100000)))) {
+> +           status = MCHK_DISPOSITION_DISMISS;
+
+With the current decode the I/O test is always true, so every I/O
+master abort is dismissed whatever its address, and the memory test
+is never true. The "unclear if this is correct on tsunami?" comment
+above it should be resolved rather than merged. Is 0x80000 really
+the intended I/O limit? The comment text talks about 0x1000.
+
+Other things the decode misses, all from Table 10-42 and section
+8.8.2:
+
+ - INV<51> is not checked. When it is set, SYN, CMD and ADDR are not
+   valid and must not be used, in particular not for the dismissal
+   decision.
+ - When SERR is set the address and command are undefined (8.8.2.6).
+ - For CRE and UECC, CMD is not a PCI command: 0 is DMA read, 1 is
+   DMA RMW, 3 is SGTE read. The patch prints it through perror_cmd[],
+   so an ECC error on a DMA read is reported as "Interrupt
+   Acknowledge".
+ - There is no message for RDPE, UECC or CRE, although all three are
+   in ERRMASK, and SYN<63:56> is never printed. The ECC cases are the
+   ones the changelog gives as motivation.
+ - DAC (bit 16) and MWIN (bit 17) are only meaningful when the error
+   is not CRE or UECC, so they should be decoded in that branch only.
+ - For SGE the address is only valid to 8KB granularity (8.8.2.5).
+
+Clearing the error
+------------------
+
+> +   pchip->perror.csr = 0x040;
+
+10.2.5.6 says that once any of bits <11:0> is set the register is
+frozen and b_error stays asserted until all of bits <11:0> are clear.
+The bits are W1C, so 0x040 clears only TA. That was enough while no
+other error was enabled. With PERRMASK opened up, an NDS, PERR or ECC
+error will stay latched, hold irq<0> asserted, and turn every later
+error into LOST. Please write back the bits that were read.
+
+The same applies to the Cchip: MISC<NXM> is W1C, and the interrupt is
+only cleared and NXS unlocked by writing a 1 to it (6.6.1). The
+handler never does that.
+
+The patch has a comment asking whether PALcode has already cleared
+PERROR. That needs an answer for both registers. Do you know what the
+SRM PALcode does here?
+
+Enabling errors
+---------------
+
+> +   /* Enable pchip error */
+> +   pchip->perrmask.csr = 0x0fff;
+
+This should be a separate patch with its own justification, because
+PERRMASK is not only a reporting mask. Per 10.2.5.7:
+
+ - RDPE, PERR and APE enable the parity checking itself; with the
+   bits clear the Pchip ignores parity.
+ - With PERR enabled, a write data parity error seen as target makes
+   the Pchip force uncorrectable ECC into memory for that data
+   (8.8.2.4). The manual says software is expected to crash the
+   system in that case.
+
+So this changes how the hardware behaves on every Tsunami and Typhoon
+machine, including ones with a card that has always driven bad
+parity. Questions:
+
+ - What does SRM leave in PERRMASK? The reset default is all
+   disabled.
+ - Should the previous value be saved and restored in
+   tsunami_kill_one_pchip() like the window registers?
+ - Bit 9 is reserved in PERROR. I would write 0xdff.
+
+On the positive side, 8.8.2.1 says configuration reads and special
+cycles do not set NDS, so PCI probing of empty slots is fine.
+Configuration writes are not exempt.
+
+Severity
+--------
+
+The manual says software is expected to crash the system on an
+uncorrectable ECC error (8.8.1.1.2) and on a target write parity
+error (8.8.2.4), because bad data has been or will be delivered. The
+new handler prints and returns for everything. I think UECC and PERR
+at least need to panic.
+
+Which machine checks are handled
+--------------------------------
+
+> +   /*
+> +    * Only handle system errors here
+> +    */
+> +   switch (mchk_header->code) {
+
+The comment is followed by a switch that only picks a string.
+titan_machine_check() hands anything other than SCB_Q_SYSMCHK and
+SCB_Q_SYSERR to ev6_machine_check(). I think this should do the same,
+since:
+
+ - The "System Correctable/Uncorrectable" header is wrong for the
+   processor vectors.
+ - The old handler went through process_mcheck_info() with
+   mcheck_expected(). The NXM_MACHINE_CHECKS_ON_TSUNAMI code in
+   core_tsunami.c still sets mcheck_expected(), and nothing consumes
+   it any more.
+
+> +    * 63 - CChip Error
+> +    * 62 - PChip 0 H_Error
+> +    * 61 - PChip 1 H_Error
+> +    * 60 - PChip 0 C_Error
+> +    * 59 - PChip 1 C_Error
+> +    */
+> +#define TSUNAMI_MCHECK_INTERRUPT_MASK      0xF800000000000000UL
+
+This is the Titan description. A Tsunami Pchip has a single b_error
+output. Table D-21 of the ES40 Service Guide has <63> as the Cchip
+NXM error, <62> and <61> as Pchip 0 and Pchip 1, <60:59> as "future
+designs" and <58> as OCP or RMC halt, which the mask leaves out. The
+define is also unused.
+
+Related: the logout frame's "sesf" and "dir" fields are filled in but
+never used, and both Pchip PERROR values are always parsed. The
+summary flags say which one is meaningful: bit 0 is a Pchip 0
+PERROR<9:0> error, bit 1 the same for Pchip 1, and bit 2 an ECC error
+on either. Using them to select what to decode would also cover
+single Pchip systems.
+
+> +   printk("%sSystem %s Error (Vector 0x%x) reported on CPU %d:\n",
+[...]
+> +   printk("Machine check error code is 0x%x (%s)",
+> +           mchk_header->code, reason);
+> +   status = clipper_process_logout_frame(mchk_header, 0);
+> +   if (status != MCHK_DISPOSITION_DISMISS) {
+
+The header is printed before the disposition is known, so dismissed
+errors are no longer silent, contrary to the comment above it. The
+second printk has no log level and no newline.
+
+Clipper environmental frame
+---------------------------
+
+I checked this against the ES40 Service Guide. The copy I have is
+EK-ES240-SV A01; the file header cites EK-ES239-SV, is that a typo?
+
+The layout of el_CLIPPER_envdata_mcheck matches Table D-20, and the
+string tables and most of the masks match Table D-21. The problems
+are these:
+
+> +static char *CLIPPER_EnvQW6TEMP[] = {
+[7 strings]
+> +#define CLIPPER_ENV_TEMP_MASK      0xFFL
+
+Environ_QW_6 only defines bits <6:0>, bit 7 is unused. With 0xFF and
+a length of 8, bit 7 reads past the end of the seven entry table. The
+mask should be 0x7F.
+
+> +   /* Process erros in QW7FAN */
+> +   status |= clipper_process_680_reg(CLIPPER_EnvQW7FAN,
+> +                           emchk->temp_warn,
+
+This should be emchk->fan_ctrl.
+
+clipper_process_680_frame() and clipper_process_680_reg() ignore
+"print". The frame is processed once with print == 0 and once with
+print == 1, so every environmental event is printed twice.
+
+> +   /* Process enables PSU in QW3PSIR */
+> +   status |= clipper_process_680_reg(CLIPPER_EnvQW3PSIR, emchk->psir,
+> +                           CLIPPER_ENV_PSIR_ENA_MASK, 8);
+
+PSIR<2:0> are status ("Power Supply N is enabled"), not errors, and
+the same goes for the "door is closed" bits <7:5> in Environ_QW_5.
+Because these return MCHK_DISPOSITION_REPORT, every 680 event is
+reported even when no fault bit is set. Please print them as context
+only when a real fault bit is set, and keep them out of the status.
+
+> +"System Power Supply state change detected",
+> +"OCP or RMC halt detected",
+
+Table D-21 has SMIR<0> as "System Power Supply failure detected".
+SMIR<1> is listed as "Inverted OCP_RMC_Halt", as are the three reset
+bits. Have you confirmed the polarity on hardware? The patch reports
+a halt when the bit is set.
+
+> +   /* Process erros in QW8POWER */
+> +   status |= clipper_process_680_reg(CLIPPER_EnvQW8POWER,
+> +                           emchk->code,
+
+The note under Table D-20 says only Environ_QW_1 to 7 are valid in
+the 680 machine check frame and QW_8 is zeroed. QW_8 is only valid in
+the console data log frame (Table D-18), where QW_1 to 7 are zeroed
+instead. So this is fine for the cdl path, but a comment saying so
+would help, and "code" is a confusing name next to
+mchk_header->code. Something like fatal_power_down would be clearer.
+
+Smaller things in the same decode:
+
+ - LM78_ISR<41:40> identify the power supply that the warnings in
+   <47:42> refer to. They are not decoded.
+ - The guide calls 680 "System Correctable Environmental", but the
+   header printed by tsunami_machine_check() says "Uncorrectable"
+   for everything that is not SCB_Q_SYSERR.
+
+The guide only covers the ES40, but the handler is installed for
+DP264, Monet, Webbrick, Shark and Eiger as well. Is the 680 layout the
+same there? If you cannot confirm that, should the decode be limited
+to Clipper? In the other direction, tsunami_register_error_handlers()
+is only called from clipper_init_pci(), so the other machines get the
+new handler without the subpacket registration.
+
+Structure and cleanup
+---------------------
+
+ - Please split this: (1) move the existing functions to
+   err_tsunami.c with no change, (2) fill in
+   el_TSUNAMI_sysdata_mcheck, (3) PERRMASK, (4) the new handler,
+   (5) the Clipper environmental decode.
+ - The "reason" switch is a copy of the table in
+   process_mcheck_info(), including Alcor and EISA codes that cannot
+   occur here, and it disagrees with the TSUNAMI_MCHK__* defines
+   further down (0x90 is "callsys in kernel mode" in one and
+   OS_BUGCHECK in the other). Please keep one.
+ - core_tsunami.h already has perror_m_* masks for this register. Use
+   those, or replace them, rather than adding a second set.
+ - err_tsunami.h defines static tables in a header with no include
+   guard. Move them into err_tsunami.c as
+   "static const char * const".
+ - Several of the CLIPPER_EVN_* names are typos for ENV.
+ - EL_TYPE__REGATTA__TSUNAMI_PCHIP{0,1}_EXTENDED belong in
+   asm/err_common.h next to the Titan ones.
+ - The "Changes since" block is above the "---" and would end up in
+   the git history.
+ - Typos: "macine", "marriers", "erros", "allready".
+
+Which machines has v4 been tested on, and how did you provoke the
+system and environmental machine checks?
