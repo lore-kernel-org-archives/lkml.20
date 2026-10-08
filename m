@@ -1,119 +1,142 @@
-Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com [209.85.210.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A76F739D6FF
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 22:29:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32903305695
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 22:32:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791498581; cv=none; b=cuNmzRsxoAEJcyznIMAJ5jJ+eT3k3DjjIy0uYnEWSEblUXnCCMYJd3gPGvL+TzksodRgh4ScLNb5I1BB3GLV+8sbnD3FAOyvyJsgUsD/bBOKPm8wRgQP3mEY8UulJa4GlM0SIUAJ9mfl7BNKZaz3VhQMkpRNnRNLReNGrq0ZOHQ=
+	t=1791498757; cv=none; b=mUGtxCpb2ypRO2KUsLyBzbpbyEAdaVYSQ1Ty5WfXHYsTpVP2PhtqkSpgLfy3yrDk56rDJTOkDF0M2s6ztsG3mkmC2VyBTT1sxHk8n4BhC9Dxayy6Zn+LWQU5MHGyib2HmP6y7sgMh8WeeCXXV2HNocfmAXUTwZK9rGTNVBhXqMA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791498581; c=relaxed/simple;
-	bh=MMkFjdCVMG5VlmQMbxTqaxCN0UUVNziiQoEjmEPy7OU=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=uWVcGx1P8vwwPHUIhLzSeQeHCeil2p2mKWdzWwgfuCPMJRfIwzIk2FwrYdtaDAUCP8TmSWJcwtegbmbA15i3Rl1decpDjPKDkhf/ov4t8jzGGUQ2kUgaX22O+yXLgxQhXyGO+P7/w/kq0oTXWYWezU6r9nLuKaC4pBKDP5JQmDQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.b=r3ELd5KY; arc=none smtp.client-ip=209.85.210.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	s=arc-20240116; t=1791498757; c=relaxed/simple;
+	bh=SIc4iwA5XrGPQ2J5CyhQjre/d7+7alnceRYs7l0hTO4=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=IDt324xsHUmVpkQ/ZvSW+XqM1EPi2VcHOLI4H36tUaQ7dEjO/1loaJqUyIy8zSbC1LULuzTGh4V9KAnpFUd/yrTg+E+LPxtbyUQ0yAWZ4M0sN06SovRcBvT0ymMnu5pJ27esdqYpeEab5/B0KL7sqtQW3viK6l+acbhjvZIyr9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bWyl+jJ2; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=JiGwRsDS; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.b="r3ELd5KY"
-Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-821b5c73292so2995500a34.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 15:29:40 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bWyl+jJ2";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="JiGwRsDS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791498752;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SIc4iwA5XrGPQ2J5CyhQjre/d7+7alnceRYs7l0hTO4=;
+	b=bWyl+jJ2pB3KHzW6jXVOADPvy6rN8wKXy0QK9P2jYtnjH/lTFjstiq1ZUT7bR4P9etNUnB
+	tRz645CCuBbJCqthT9cOsS4Po4QBhrB0uo3VW8+n77NKYGeRwsqg59RhXY6yUn7CNRO3Zq
+	2goVOqfJDMLV/Kp5qBWgzL8/nSs2gfU=
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-554-jF4F0dxjMWaz5Wp5AkRPeQ-1; Thu, 08 Oct 2026 18:32:31 -0400
+X-MC-Unique: jF4F0dxjMWaz5Wp5AkRPeQ-1
+X-Mimecast-MFC-AGG-ID: jF4F0dxjMWaz5Wp5AkRPeQ_1791498751
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93caf7856ffso1081420085a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 15:32:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=everpuredata.com; s=google; t=1791498579; x=1792103379; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fXHi3/KeYOzGlvHrMQmcR6EwJ6rahH5N/eWTDsqU4mE=;
-        b=r3ELd5KYh+ph7WvPnW3eDjqD+R83vkIzNIx9LMbwxhDI1xkpMXrL9OMr5aULjlEYfa
-         U+ML5WXLyWEzaVjQD3S9P3hZdfd72qBvWffJIZvdWhsQmBchRKU6EWOXhiPNQmhYadCS
-         UlBs0eY+ewls+RTLmtQbH5wCQIyP0v4r5vkO6U440d4TVR/56XBUF7cOhZfP1ebU2lG+
-         +uhom1xPYw2EecL9SyRRfnb6CtuJ1YLypjFHaSeNB/pMX7CFuJzsfiW4uE3bQ3soLA7x
-         n3xjApCKVwFPBJwRjYrMRgvvpb09iX2CWV3iFVCOfCWd5TCjD82U8CvSrQ6D0JMaaxty
-         mbjw==
+        d=redhat.com; s=google; t=1791498750; x=1792103550; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=SIc4iwA5XrGPQ2J5CyhQjre/d7+7alnceRYs7l0hTO4=;
+        b=JiGwRsDS0N2n1fpHdm7Lkkbjgv6QxCvFvtqm5lkl/vJIIt8z2FhggHONvnmTi3sxDz
+         PPKXSAAI+la1WuzoEtgvbxxgisdCRRTldHCbgafgN/lMyVhstzSM7cAbiEXaDka7pl9r
+         QwKHb80WDfqspfMQMFxNI2xYCVxIoSjPcZRodK49F+4OEtBU+gQuJkUf6JO8BnpBwd7C
+         xmXt9t0lb4+aGKIxcJMTTqmJ5uECqg3Vt7twR5eP774/luX7ALR+h0iRP0XALFqcABVl
+         ZaJxcpMzN1Z6HyU6Bxh8qSBv1LvoUGtIxGEyoDw9xNs+SQhN1r7RWeKLJOB58G5dbypl
+         cwaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791498579; x=1792103379;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fXHi3/KeYOzGlvHrMQmcR6EwJ6rahH5N/eWTDsqU4mE=;
-        b=EP9g2Jd0P8TWznG44GVZNUixiYuJXKNqlFuFXkFyloK6Nk4B4X3BclAZtJuxx5E+ak
-         I0HW9NRjz2jyWZrN8njojUeyZw6hW8PywYZVFqfWo2FVqX/J+Q7LdbNRRhHRlKl2imAf
-         6js7d1OqBpzIAR7d19BgK2R42Py+6zKBoQCBchepU+pX4fiQH3ivE7hkQeJWQMocMq6o
-         BmDPPBjKYxHNW3k6f/g+xq8eolsgOIhk35cMpbqj2hJrVsFJzhPfbeIwrfCxXM0CM9NR
-         VDXTAFibg0n8dRWEtz9ZwXn8Ik+ISDMuvblgx6UBkcODDh9i4JvO/flTqMJBkm8H1h/Q
-         L82g==
-X-Gm-Message-State: AFuF++ltLiY3lHKfpfKx9b5IJWkKwuW44VGSkOb0M3Y8x4E6diZ1v0tt
-	YFWMwFipwIxL8hVvahrNju+M8qIX6VCWygAWKFlBzzi83jPyb8MJQvxmy0eiWhPfesQ=
-X-Gm-Gg: AYBFou37nfUPLCRT8CYr+WZBJdkTJBcq7eifhE9qg+7pYCN8VCEp5y5WSqQng/Y8zPE
-	B7pa3ZW07YPpkwvPKvOnnFvWC54PX+MrM59RNN/J8uPjlbaD11YVvkSghoOuZMTxNthAqLpQdwU
-	hkYP8Q7mjlVha4FB7szN5mZ8CCHK7EyRPFDQ151pMpUGWyNDa3N96bKi1YwxB33fhRywFzyI4S/
-	uG3JAtRyWtNRm/byr4pNaUm7ojeeyyXeURf+vIBpFobS+QyDWevc1j3CtXgAX9QrdEGTShT+6qf
-	KMvH6FIuJx1PAJypdXsc6R+gNiEt+oxYZG6iVaTxhhCNxaQrmWeM0X40DBvZi7uM23vF+CBM6pp
-	HwcneaWR/2eEK6xixfDkhVRdubxnNNgLGHE4YMeX7525pepVpB4MvirPwxsW4hiduAQDjacc1Jr
-	MFFjSqW/vFeegE7ZVZW27iffJhKEnW0RhyGAu4r1y21IPprUFT7hratn5NPummPiYs1tApr4CXg
-	3q5NVqH8Fi8K/duUIVpiL5T1Ar3GEndxGn6
-X-Received: by 2002:a05:6830:410f:b0:81b:c6da:c351 with SMTP id 46e09a7af769-8302ae8089dmr414913a34.17.1791498579523;
-        Thu, 08 Oct 2026 15:29:39 -0700 (PDT)
-Received: from irdv-lubao.dev.purestorage.com ([208.88.158.129])
-        by smtp.googlemail.com with ESMTPSA id 46e09a7af769-83038f82468sm278874a34.11.2026.10.08.15.29.37
+        d=1e100.net; s=20260707; t=1791498750; x=1792103550;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SIc4iwA5XrGPQ2J5CyhQjre/d7+7alnceRYs7l0hTO4=;
+        b=gZRXKPljalWIv8WUpIAmrkvRcYB4y/Epf+ZOC9mJhhuiRBbWY/sqYRKuP3fYZ2DQl1
+         DJeNsae1Dg9ou2eXxmaoNr06+FbGOf6P7cYoshXAhia3ILg7Vr4ycWbQ7OIZXCYW+hP9
+         gP5d5IUnMqJiKrVRegAu//c+jRe7eouLURZGPNw9kIKCUofX0RnAr6sDGMN8G7cQYB5E
+         7FcDkb0i5luMy8aGKsVhwXnrVcJoSdFOh7CprYlrSPhR6T/evQvBLJTVVOP/sxCDZM9S
+         Cs7CCkeCQ0eYENxq2CkI6GrxIRBwKWKpQspaD+0Xa94VFoKWwAJyQEpqhDgYWPJ3ceEo
+         NGiw==
+X-Forwarded-Encrypted: i=1; AKwUvBwY5mevFnSQSf1+ZjSXiRXOxMw97YcE8ywAJzKs1EXIFql7+Iv8eTwRwnTCXIbT3MykhDJCI0W5QGzunvQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lDrYMVVuUAjKTWW6VZ55QGbDS1IPcEU5uj1CTLPy8obsCLkjG2
+	GjA9WMekOY/8jb8lQ4NzJnkWcyW+u3LAA9UUZm0R/p1T/Xb/hJGAMYXN2V1Tjp6pnVcUWl4L9Xv
+	hib2QI6kJH36ewpvEXclaxzmJN7WY+RiB3TdCjdytLw9qQOMlkErBH2xGSa4vhbissA==
+X-Gm-Gg: AYBFou1Wc7HVNeFFv9WsnK1fwjk22Yc14nxO3CTaTOkageDnnLGfWFOcXcuTFERyOS1
+	gTLsWOwfMUJ+eMo8QQMkjDAyUf3QG0l/Ft9w1GJ96Az29/C7jvRWxTEOjTAg4a39q/rp0tataRA
+	5pHVqeJiN+dVUm+xdQQw8IubqkCPmJ6TEZflV40e1QWpTC5fli5CIKCog9Jg/+23JMiFV6njmPK
+	EpY/YxvbvAvVRBDG3NOTqYQMKHp4y8cMEFIknZhJV/F/8jD/I/Beo7/9K6kbQkXYCh6AUnmyUoe
+	RxDAXutWKYaa0a2IAd5SLA/ZPWs2GcLKNGjF0mGT3MhoQDHpkdn9WTBoDz1h6noaHZpj8rU=
+X-Received: by 2002:a05:620a:31a7:b0:93e:739a:7ca0 with SMTP id af79cd13be357-93ebd22937cmr7032185a.18.1791498750535;
+        Thu, 08 Oct 2026 15:32:30 -0700 (PDT)
+X-Received: by 2002:a05:620a:31a7:b0:93e:739a:7ca0 with SMTP id af79cd13be357-93ebd22937cmr7027385a.18.1791498750001;
+        Thu, 08 Oct 2026 15:32:30 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b550d394bsm1890416d6.41.2026.10.08.15.32.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 15:29:38 -0700 (PDT)
-From: Lucheng Bao <lubao@everpuredata.com>
-To: linux-nfs@vger.kernel.org,
-	Trond Myklebust <trondmy@kernel.org>,
-	Anna Schumaker <anna@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	tmenninger@everpuredata.com,
-	jcurley@everpuredata.com,
-	Lucheng Bao <lubao@everpuredata.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 2/2] NFSv4/pNFS: defer LAYOUTRETURN after an unsuccessful OLD_STATEID refresh
-Date: Thu,  8 Oct 2026 22:28:43 +0000
-Message-Id: <20261008222843.63319-3-lubao@everpuredata.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261008222843.63319-1-lubao@everpuredata.com>
-References: <20261008222843.63319-1-lubao@everpuredata.com>
+        Thu, 08 Oct 2026 15:32:29 -0700 (PDT)
+Message-ID: <57528a486e149dc398d0ca443b33b16f805ea4e7.camel@redhat.com>
+Subject: Re: [PATCH 0/3] nouveau: fix 3 null-ptr derefs
+From: lyude@redhat.com
+To: jim.cromie@gmail.com, Danilo Krummrich <dakr@kernel.org>, Maarten
+ Lankhorst	 <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>,  Thomas Zimmermann <tzimmermann@suse.de>, David
+ Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Dave Airlie	
+ <airlied@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org
+Date: Thu, 08 Oct 2026 18:32:28 -0400
+In-Reply-To: <20261002-my-fixups-v1-0-a83d20f9d3fe@gmail.com>
+References: <20261002-my-fixups-v1-0-a83d20f9d3fe@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Commit c16467dc03db ("pnfs: Fix handling of NFS4ERR_OLD_STATEID replies
-to layoutreturn") made stateid refresh fail while newer layout segments
-remain busy. The standalone LAYOUTRETURN handler still treats this as a
-completed return, potentially discarding a pending LAYOUTCOMMIT.
+Actually - sorry for going back on a review, but before pushing these I
+realized we might want to do a bit more of a concrete fix than just
+these patches. Why don't we modify nvkm_gsp_rm() so that it also checks
+gsp->rm, and then use coccinelle to convert as many instances of open-
+coded `if (!gsp)` as we can find?
 
-Set rpc_status to -EAGAIN before the existing completion handling so the
-release callback defers the return for a live inode. Leave successful
-refreshes and inode-teardown behavior unchanged.
+Would you be up for handling that? If not, I could just modify these
+patches, update nvkm_gsp_rm(), and send out a new series with your
+modified work included.
 
-On 6.8.0, this change applies without commit bbbff6d5edd1 ("NFSv4/pNFS:
-Retry the layout return later in case of a timeout or reboot"), but that
-commit and its prerequisites are required for the deferred-release
-behavior.
-
-Fixes: c16467dc03db ("pnfs: Fix handling of NFS4ERR_OLD_STATEID replies to layoutreturn")
-Cc: stable@vger.kernel.org # See commit message for prerequisites
-Signed-off-by: Lucheng Bao <lubao@everpuredata.com>
----
- fs/nfs/nfs4proc.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/fs/nfs/nfs4proc.c b/fs/nfs/nfs4proc.c
-index 1ae047a062b8..9993e4d29d72 100644
---- a/fs/nfs/nfs4proc.c
-+++ b/fs/nfs/nfs4proc.c
-@@ -9867,6 +9867,7 @@ static void nfs4_layoutreturn_done(struct rpc_task *task, void *calldata)
- 					&lrp->args.range,
- 					lrp->args.inode))
- 			goto out_restart;
-+		lrp->rpc_status = -EAGAIN;
- 		fallthrough;
- 	default:
- 		task->tk_status = 0;
--- 
-2.34.1
+On Fri, 2026-10-02 at 12:09 -0600, Jim Cromie via B4 Relay wrote:
+> These 3 patches fix NULL ptr derefs I hit while booting kernels with
+> unrelated work (dynamic-debug) on a 2019 amdgpu+noueau laptop.=C2=A0 One
+> of
+> them is possibly hard to reproduce, the others are "dependable".
+>=20
+> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+> ---
+> Jim Cromie (3):
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/nouveau: Fix NULL pointer dereferences=
+ in GETPARAM ioctl
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/nouveau: Fix NULL pointer dereference =
+in GET_ZCULL_INFO
+> ioctl
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/nouveau/gsp: Fix NULL dereference in n=
+vkm_gsp_gcx_ready()
+>=20
+> =C2=A0drivers/gpu/drm/nouveau/nouveau_abi16.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 27
+> ++++++++++++++++++-----
+> =C2=A0drivers/gpu/drm/nouveau/nvkm/engine/device/user.c |=C2=A0 2 +-
+> =C2=A0drivers/gpu/drm/nouveau/nvkm/subdev/gsp/base.c=C2=A0=C2=A0=C2=A0 |=
+=C2=A0 2 +-
+> =C2=A03 files changed, 24 insertions(+), 7 deletions(-)
+> ---
+> base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+> change-id: 20261002-my-fixups-324d25f3bd05
+>=20
+> Best regards,
 
