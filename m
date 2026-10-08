@@ -1,113 +1,113 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C57AA3C3F73;
-	Thu,  8 Oct 2026 06:38:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A388C1B4F0A;
+	Thu,  8 Oct 2026 06:42:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791441526; cv=none; b=gjwl6+G8F+BF22FP7mFnxWe1Ucn4n1v6OuJvtCUwPSK6wF8htvwsOz5hyFKYfTCJ4kG6+84lHCCYy5X6EO4BrVZMpAdVw/Lo3T4yUfLHXGdPN7ZfAGcgTZnbuSzZQ8YDzz7gCrP4Lo/xCYh1D2PMDR5ppLNlkT7XXO5bSORiiPs=
+	t=1791441766; cv=none; b=HuNzVj+XrFZGvUqd/OXsc38MjVT+VQ+smjEtU2gjG7uI9J1mbK27Z3bsiBsmfJuWxwcjlpaZbZ6+6J/q6Jlhfo0b4OK0Faf8RAAtJI2v/BDJHLSwHRuCddlKdLodnIn94xay4IBFqx31KObOczAewL6ges856GzLaneivhxPbAc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791441526; c=relaxed/simple;
-	bh=mrUnNoXDONCeClzizhA+PfBKBytz99Ww9uSa0wPOvGo=;
+	s=arc-20240116; t=1791441766; c=relaxed/simple;
+	bh=gMtBmjb8PEyCjTU9lBWISEAPQcRPvGaHz8QkfLqMP/g=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=M2kDbXkaoXVF+AgKHKVyng0o09fCF7JrE/PopuWRBvNJQ34SYDORJk+3XvdFNmYJqUrrIxJWZxGw4SxvZglCx095zRwctMhcM4p6GizX+u19iRL146Py+H18VNL4FuO+gxRtQZE9wyv9kcqA3VZblVvNdXZLyvEN5/L8xhv09Ck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j38/YTG9; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=so27Mhxf7/DW3oShwOT9jXYiIcEbTFF/8rnqDzZOnYwjv+4W7CdgqzGgGlfhziR+xj+9HFjhIN2YpNJ6jRg7ZkCSQ/F6SG5h/VHQeYIitSw00mZ7rxbAh6KmfwlUSd5m5BPW90ccWB/daLX+HbGcC3mmiv5bY/4Hii64DBaXfNg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LzwrJChR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j38/YTG9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 100691F000FF;
-	Thu,  8 Oct 2026 06:38:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LzwrJChR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF9461F000FF;
+	Thu,  8 Oct 2026 06:42:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791441524;
-	bh=/RsqwdaewrKioDzHveOJKZewBC7grld6bvE/46a8ao4=;
+	s=k20260515; t=1791441765;
+	bh=QYjlbETRxQW9RMjfplUAnmTLI8vDWVyFt6dBT1ysNAc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=j38/YTG9lX9S2OLVXDrkb9B+8qcyyKaQeMspUhzgHXZ8OBa+qZnuSMP76709ZUhs+
-	 a2No4Xym2pRTE25zOa0YSWg1zIR0kv5unhOKYSL/1ewwvfOgo4NJsFKdKsz8awTWX4
-	 /6DtOBH0rcPuvqE9YaHNUMuGvM6gi5M72z4YFQzK+hsEcgkXstEWOdF23UpXTvDC1e
-	 rcXu6NMXbPo8akDEKg13ENAmZ4oJ4LGXJ/exQ0zvvwBHued3rbZO1rBc8wWJ/EeQCD
-	 ahpWpWePxF5W8jZpuc4bs15phLuYmjwyc3dTZ6oM5VUf+2nbrrXsgQSnnY9wHAOIMN
-	 OuVHTEGQbZ1dQ==
-Date: Thu, 8 Oct 2026 08:38:38 +0200
+	b=LzwrJChRSmVjEsRakCz7KZMyALTXRiMMTQqt+Pq1DfhvTRhANdPa2qsjY85CoeKmU
+	 +smyn7Lotjz8Z+6My1XtXdRcAWv0Bk3+so9601+yHD0hXOPoxrMliq4uNlyMYvPyEN
+	 /KxKGNEGsRLbC5gh5Fpx/irufkYMSkObZy2nAEfpl7+01CgTBFC4KUpi+Rt44aL8Zf
+	 NTIbo4/T2UBb6sZftaMcHpGWW78wNUfUZX3n+aegjkdkvaCrfhtnmdLmCzyRFXWi5O
+	 KzhbRY6JsNtjGiT0SU3GKlmfmu9GhVSnGRLyWq6PEohhumSDv1uECF+lTxE7sLA503
+	 DyPwUh9lm6nsw==
+Date: Thu, 8 Oct 2026 08:42:25 +0200
 From: Mike Rapoport <rppt@kernel.org>
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: Wandun <chenwandun1@gmail.com>, robh@kernel.org, saravanak@kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org, akpm@linux-foundation.org
-Subject: Re: [PATCH v3 0/5] of: reserved_mem: several fixes about reserved
- memory
-Message-ID: <asc6brs_g0ky0wOM@kernel.org>
-References: <20260920092852.614973-1-chenwandun1@gmail.com>
- <arJA6fOMetzoBhDH@kernel.org>
- <060fb694-ba1d-40e7-8a18-f32d5a4039ab@gmail.com>
- <CGME20261003080438eucas1p2bdb68c248ecad088559285a4f736bfe5@eucas1p2.samsung.com>
- <asC3DBvtlcO5AVsz@kernel.org>
- <5dccea9b-a9e1-44f5-84d9-bc9efe04edee@samsung.com>
+To: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com,
+	chenhuacai@kernel.org, kernel@xen0n.name, maddy@linux.ibm.com,
+	mpe@ellerman.id.au, npiggin@gmail.com, chleroy@kernel.org,
+	ritesh.list@gmail.com, sshegde@linux.ibm.com, tglx@kernel.org,
+	mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
+	hpa@zytor.com, gregkh@linuxfoundation.org, rafael@kernel.org,
+	dakr@kernel.org, akpm@linux-foundation.org, baoquan.he@linux.dev,
+	pasha.tatashin@soleen.com, pratyush@kernel.org,
+	ruirui.yang@linux.dev, leitao@debian.org, yeoreum.yun@arm.com,
+	sourabhjain@linux.ibm.com, robh@kernel.org, coxu@redhat.com,
+	kees@kernel.org, tangyouling@kylinos.cn, liukexin@kylinos.cn,
+	zhangtianyang@loongson.cn, guodongtai@kylinos.cn,
+	maqianga@uniontech.com, chao.gao@intel.com, kai.huang@intel.com,
+	vishal.l.verma@intel.com, seanjc@google.com, piliu@redhat.com,
+	thuth@redhat.com, jbouron@amazon.com, me@linux.beauty,
+	mclapinski@google.com, graf@amazon.com, bgwin@google.com,
+	hbathini@linux.ibm.com, eric.devolder@oracle.com,
+	takahiro.akashi@linaro.org, james.morse@arm.com,
+	palmer@rivosinc.com, x86@kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev, linuxppc-dev@lists.ozlabs.org,
+	driver-core@lists.linux.dev, kexec@lists.infradead.org
+Subject: Re: [PATCH v6 00/14] crash: Fix several bugs
+Message-ID: <asc7UdlRsy7502j8@kernel.org>
+References: <20260921090450.807575-1-ruanjinjie@huawei.com>
+ <f4ba3a6b-537d-4328-b0c1-c0e5aa61924f@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <5dccea9b-a9e1-44f5-84d9-bc9efe04edee@samsung.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <f4ba3a6b-537d-4328-b0c1-c0e5aa61924f@huawei.com>
 
-On Tue, Oct 06, 2026 at 03:26:21PM +0200, Marek Szyprowski wrote:
-> On 03.10.2026 10:04, Mike Rapoport wrote:
-> > On Tue, Sep 22, 2026 at 05:24:32PM +0800, Wandun wrote:
-> >>>> From: Wandun Chen <chenwandun@lixiang.com>
-> >>>>
-> >>>> This series fixes several error-handling issues in the reserved-memory
-> >>>> initialization paths.
-> >>>>
-> >>>> v2 --> v3:
-> >>>> 1. Rework the mechanism that checks in the late scan whether the early
-> >>>>    reservation succeeded (patches 3-5, suggested by Marek, thanks).
-> >>>>
-> >>>>    Patch 3 adds a new memblock flag MEMBLOCK_RSRV_RMEM, which is set when
-> >>>>    the early reservation of a static region succeeds and checked in the
-> >>>>    late scan.
-> >>> Can we keep this local to of_reserved_mem please?
-> >> Probably not. I do not see a way to keep this entirely local to
-> >> of_reserved_mem while handling the issue robustly.
-> >>
-> >> I previously implemented an approach in of_reserved_mem that records
-> >> static reserved-memory nodes whose early reservation failed in a local
-> >> array [1]. However, the early scan runs before paging_init(), so the array
-> >> cannot be dynamically expanded. If the number of failed nodes exceeds
-> >> the array size, some failures cannot be recorded and the issue remains,
-> >> and that is why Marek said "partial solution", although in practice
-> >> having that many failed nodes is unlikely.
-> > Even before paging_init() there is memblock_alloc().
+Hi Jinjie,
+
+On Thu, Oct 08, 2026 at 09:57:30AM +0800, Jinjie Ruan wrote:
 > 
-> One can call it, but such memory cannot be dereferenced/accessed for example
-> on ARM64, because it is not yet mapped in the linear map.
-
-Can't we use early_memremap() for it?
-
-If there are many regions that need MEMBLOCK_RSRV_RMEM set, memblock will
-need to allocate memory. If that memory is still not mapped we'll end up
-with a crash in memblock.
- 
-> >> To handle this robustly, the late scan needs a way to determine whether
-> >> the corresponding early reservation actually succeeded. Current approach
-> >> uses memblock to retain that state.
-> > I can't say I like the idea of keeping this state in memblock.
-> > This add flags and code to memblock to deal with corner cases of bad
-> > firmware that reports weird memory layouts, and once there is a flag in
-> > the common infrastructure, people tend to abuse it.
+> 在 2026/9/21 17:04, Jinjie Ruan 写道:
+> > As Baoquan and Catalin suggested, this patch set fixes
+> > several pre-existing code issues found by Sashiko AI [1][2][3].
+> > 
+> > The major improvements and fixes included in this series are:
+> > - Fix several memory leaks for arm64, and similar issues on LoongArch.
+> > - Fix out-of-bounds write on 32-bit Highmem for x86.
+> > - Fix TOCTOU race in crash memory range collection.
 > 
-> So far I found no better place to store the information about successful
-> region reservation.
+> Hi all,
+> 
+> Gentle ping.
+> 
+> Could anyone take a look or let me know if there's anything
+> else needed? I can rebase/resend if required.
 
-We can have reserve_failed_nodes larger than MAX_RESERVED_REGIONS, it's
-__initdata and anyway discarded after boot.
+Sorry for the delay, I was travelling for the past few weeks.
+I'm planning to review this next week. 
 
-But even a DT with more than 64 bad regions seems broken enough to WARN()
-and ignore remaining errors.
+And we do need acks from arch maintainers for most of the patches in this
+series.
 
-> Best regards
-> -- 
-> Marek Szyprowski, PhD
+> > Jinjie Ruan (14):
+> >   kexec: Fix CMA segment address translation with non-zero text_offset
+> >   kexec: Record allocated CMA pages to fix release size mismatch
+> >   kexec: Extract kexec_free_segment_cma() from kimage_free_cma()
+> >   arm64: kexec_file: Fix CMA page leaks in segment placement retry loops
+> >   arm64: kexec_file: Fix elf_headers memory leak in retry loop
+> >   LoongArch: kexec_file: Fix CMA page leaks in segment placement retry
+> >     loops
+> >   LoongArch: kexec_file: Fix elf_headers memory leak in retry loop
+> >   LoongArch: kexec_file: Fix a modified_cmdline leak
+> >   x86/crash: Fix massive out-of-bounds write on 32-bit Highmem
+> >   crash: Extract crash_get_memory_ranges() helper
+> >   crash: Factor out crash_find_elfcorehdr() helper
+> >   crash: Normalize the kexec_load elfcorehdr at load time
+> >   driver core: Add device_hotplug_lock_assert_held() helper
+> >   crash: Fix TOCTOU race in crash memory range collection
 
 -- 
 Sincerely yours,
