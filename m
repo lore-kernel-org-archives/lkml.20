@@ -1,157 +1,134 @@
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1B7238333A
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 06:04:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CC5237CD52
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 06:06:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791439443; cv=none; b=XBZ8BYXTKJmZLwDf4shZUTgGGXcOrXpZPdZ1tYrmIwQYwcJ5oC0+iI1JKBwfeZ2CC+h8/vJ9nd2Rb6mjqrum3x/VGKe1kKC06L/Bw/BnaMA7YbYjhJykS6ek9IFn8vRM0hYNBdo3NGUQHVbe92TJaeaIaZls1TK79VzxpStrgzo=
+	t=1791439598; cv=none; b=f/rXAJZSNljbxGj8AZC1ZVSZvRno40ouGa2TqiKuAZqDQYpJtdS+CsLhSE6UgXJJcl5JCbnkFPduzexDTC1fD9B8eshBM5Ti9ye440GNIsYUCgcGVBPbRqCtvbdix8zqIOLFdCjsAeLZvSG7Iuk76f8uf411SkU1ipUxm0E7vI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791439443; c=relaxed/simple;
-	bh=PcW31aLcf7QLC4AFyS3qRN9LhPHMzg2IsGPcFvZQ/B0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=RTQsTTfC12TTvb8ejVbBssw4qI3GKimJZ0p/9J9CEFG4TGE3k4k+jNZ6rW6pBhkbHY6A8YU2nqHPg9yTvaoZmWcB4W9qjU6JdJ4yXcMNI4vqTBB2/OcwimrMU7QMgyn3cC1b2tE3Yw6W5NPnNVxELMX55+ai0U9rusfe6+YcGc4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=boekfo6q; arc=none smtp.client-ip=209.85.215.176
+	s=arc-20240116; t=1791439598; c=relaxed/simple;
+	bh=vRQFQ0/bN/cY2yMjmaiKgpsVQx1nHdnB9AcWyqVzs0M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DmxDEpucGumg/i/h7AknfVJMRTrQVNVzJWS0UAKRuVQPLNh19Z0p+LnYuJJLBxDavntaIBrbKDPUV8Wtz+A1cV/PMwWt/u1EK9mk1Plwc8KXTTdZK0hU+Ohs0T+7r00l2UvkktrtRpGf8XgiXlnzNH82kGH4XF2VANUU+TvGIyM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gNpaJ6aN; arc=none smtp.client-ip=209.85.216.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="boekfo6q"
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-ccce6d9abfeso1737869a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 23:04:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gNpaJ6aN"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3a813079a55so198411a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 23:06:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791439442; x=1792044242; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vVfVT+UFtA5oYCaZRmFTBLRBViF4NDwZkeVmLB9yJho=;
-        b=boekfo6qv/pvKGqXukdDZOIGXAEYcAewXA0vPEIQ4xwSZUf2nIT38jQxZAgQkYrxj8
-         D/aEApqm9/4JQL2w+QvpPq12bAOnK12IhdkK4J8+zbksdAX3irP4jO8M9aAaHbJF4t34
-         wYC/xwfw2dk0r5/G2/FLF4feidpxWhbFJNC1urPi6rb8ssQNuXC76A59TU4fO2s6IQb0
-         SCQa0iyqpkg0S7GTDwozs4LDmdrg0sdFAinFGvvzGjHOhfvirGQJ792vH82zvoDEwbZr
-         uSDDLjVkSk7l7OYV++JKJcgtrdqQEuRab1y5hjLNLVwf5R60GilgLyvoLbCuAJr5YHmK
-         BFLA==
+        d=gmail.com; s=20251104; t=1791439597; x=1792044397; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7yznlhzA/LCCyg8VcHmCAqbKM1iwate4R5ON9EtsImI=;
+        b=gNpaJ6aN4qfxeYrHAJjEnCiNAsmt8BCQMeNTv4NXdZoMM7/Di9O19X6mEvH0d9Git9
+         KvvKUzeovHNNBLe3Ssl3GlSIum5hf3zBoJ2vLKIfl8HyO8PsTAp0msXPk8L0j6MJV2Lh
+         0ZqxgeJkQyc1e3afqx1WdqLNfrSUBYCuYsILQ2wCm3Sx4oiBcF9TCltO4ybk10pB/mBy
+         Hdms3WI0BHOBgerPxcSsyYdOdf/s3V00uyVUhWd7MVM7xG9laeU7ib/o7WOneGgxLrFw
+         tgRNrJqpY4EPW4XzcBMS2LhhuClxO3DRPlE6HO43yvNaF6RAR6g9yxXKe8Zhofn6hBVq
+         ssTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791439442; x=1792044242;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vVfVT+UFtA5oYCaZRmFTBLRBViF4NDwZkeVmLB9yJho=;
-        b=J9jstdLvgJ2effaZ2AwgJ8N2Wx0TruV25e3PDVNIneykTz6f/2Ri/iJslPvrHWAQrN
-         Smx5K4ZRK1yS/5Dq7uadGKqpppuUu0Ju7K1pU0O/vosPN8XSdBiWvMvxljUZrgji8nEB
-         pYGDAv7P/lUFqomHsrNqHglVdpoUu2ZUFFiHP0x3Ml5OWneolopP97kw4czDA1ddhBkU
-         xfluujKrA5AsAKalGvLZyt5TE5ki3SqN9O+2akh+W+mPUZRgmhhD8c7SMAB+5ZvJ1m2X
-         ugA9RY/QwRupmPArzxnibflckFGCztZSk3KBpBCW84lvpqMB3t8NpFUt3lcaS046kA6X
-         FN5A==
-X-Forwarded-Encrypted: i=1; AKwUvByuQ9uodv3klVJTy9JOq6yt8CIAtiP/6lnt3cZzAbf5USawZkc8FkIBwXS2TVI9f7FHawHWW4djpeBPA+0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKz5bkAIWKtbVKr5/xA1eFFs6Ku68H+01Owd1Mc+HzkbNhDYp/V
-	KUWs3BRQeKijG70GFi3ukTFZxVpDqp74/6M0M1pmqk4Epb9KjQ+IfohN
-X-Gm-Gg: AYBFou19YP9V3MR5sbn6w7vZf9St5w6IIQFNTenj97kzB4JKZ3/+BTjd23Wl4SEITHS
-	FogJNRcmdO7qX7FNLOEJhQvZPgJnW9Y7DFbR0LKukZgq3cxmW6DcrX2EerLzVuOVbwjR2x6GckE
-	iWyVht3kvWq2Dm8xLh8lv8cQyKxneD44dJIJLgbyW0DhQHlUKugTKg2S5L9cGHXcLIRBgD33QBJ
-	dtwcvSb4otmjGXKweKNGn9V2uLxN4JhoSjLKW+2ODKBX7eGXX/quAA72ajuK593TfWoGJSXMXg6
-	EVR4dRW+S+275pVdjsZOlQD2EJLVR2+qr0nx1qbz0tRQsRQVI0IpSBmlstzs/IzSmeAwEBtDICk
-	9WJ6NfvEevEC+eqGgy1OTlmDuvCpfy/jodjirvQOu3g+Et//ex1pz2Mda6q1Xi3RbFoDdKGlAym
-	Oynh3/H4Hso3r2jKP89eGrmFQiyUg2axPjNacv7kfN9bmkn/tqyK1MeTYo49I+XeuQkgqOS5aIt
-	wNo
-X-Received: by 2002:a17:90b:4a89:b0:3a4:f6b0:7de with SMTP id 98e67ed59e1d1-3a8a08515acmr4074044a91.22.1791439441844;
-        Wed, 07 Oct 2026 23:04:01 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3aa0cbccea3sm2622298a91.15.2026.10.07.23.03.58
+        d=1e100.net; s=20260707; t=1791439597; x=1792044397;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7yznlhzA/LCCyg8VcHmCAqbKM1iwate4R5ON9EtsImI=;
+        b=DODS82kfcQ5MjfvT8d61ERLTCdjNwaKc4Obvj+aMMqoTF00yg9mF037ExQnteWtDMV
+         l45CKgnnUOnJLAI7SZRwpDPF2f67+NIWab7PNtLtN78fhM+yB384MTUMTv5ZJFYAzmMM
+         JIXd65JhKlJSAmnnyxwIaQI6aIjytlT2IgWh/EX9pkWWQyw7uzA7a4Z14OUvXSXQ7V2Q
+         MX7sIR+3V5fRtEhdhuS1PAp+A2Xhy5CmD7kciyU0Ep+glavKtC0Q/Q8xCk61hd6RMX5B
+         DsY/Ld4mlTMVSm4S0cK2rJdAUllf46HpMqmXmqEgVtVuAZStwo6roUpX68KuooziFFRp
+         DtrQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxdtK7TMA4LU0+e8mIcD20+gY6GCApX56O7sdzKGbp2C3WIBKewxk7Kj5iOA1A/FBmvUdnu8hGrCl8wXMA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKKaPVrNwsnNCLnYjFruMFMssv0oxsDv2jS1AhHl+UzWGhwvNDQ
+	jOteNoGasAvA4Y1+zkwyfFhl1l2+8YmmLqz1gNMS/HIk7dSgnFU+upS6
+X-Gm-Gg: AYBFou1zhviiBxuBCM2UBF7b4QVVDqRALkmGQ4ICAOIYQI+XkI6t82Rxbddf5ShPIkg
+	w7aRQXY0EDxU1Sv9iswRMK1ugwkxBFKYf1ChTJTqNUdyZVifMdRt1RNwDyYc6WaFvDHnl4YaUBt
+	LR+hyfYShxEdxk8pZ92SIuSj2yaSczWoiOo5+idjckWm+a0nu/xsUIoAu24PFeLRbwg1A/LlTUc
+	AtV1GSKB9qxSiNiOVzB3EppolK08QYe1p0Fmepyt45TTPvAsyz37cNAZ6hZz/DT+soKdz89DaAm
+	tODDBSSuNOkQFQrWs+Av1QQuiJ3OH3PdQjlS9w2KxIDT+YFc9DQd7QvJeq+/W9t6VCEVedA4cZr
+	ZNI1t1AJ/vZpOUlNJUlEsbr6cdNfIHNXbNVy0vJ6e/AfYi7Ses+TDIPc8thBFvW0D/rI+v2C1Bm
+	FKoM99ow/BYVX/IZxEPsWnAiUQVcYQB5LEn82ntLGE4JApiO+ma7sD5wEmRNRtqaHW1X7efcYEC
+	U19dR9Svp039bNNSlfd/3zEv1ADqBQVZYnSi0mr/4ARGS522zaTlRfFtF9XbWUyOmX/OXtNgg==
+X-Received: by 2002:a17:90b:1347:b0:3a7:9ec3:ea0e with SMTP id 98e67ed59e1d1-3aaed7c10c2mr702874a91.22.1791439596767;
+        Wed, 07 Oct 2026 23:06:36 -0700 (PDT)
+Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3aa0cbccea3sm2632203a91.15.2026.10.07.23.06.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 23:04:01 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: marcel@holtmann.org,
-	luiz.dentz@gmail.com
-Cc: linux-bluetooth@vger.kernel.org,
+        Wed, 07 Oct 2026 23:06:36 -0700 (PDT)
+From: Joey Lu <a0987203069@gmail.com>
+To: Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jacky Huang <ychuang3@nuvoton.com>,
+	Shan-Chun Hung <schung@nuvoton.com>,
+	Hui-Ping Chen <hpchen0nvt@gmail.com>,
+	Joey Lu <yclu4@nuvoton.com>,
+	linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH] Bluetooth: MSFT: Serialize handle map cleanup with event processing
-Date: Thu,  8 Oct 2026 14:03:55 +0800
-Message-Id: <pm-bluetooth-objects-candidate-0242-v6-e48e08db5265b66aeda9@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	Joey Lu <a0987203069@gmail.com>
+Subject: [PATCH v7 0/4] phy: nuvoton: extend MA35D1 USB2 PHY driver for dual-port OTG support
+Date: Thu,  8 Oct 2026 14:06:25 +0800
+Message-ID: <20261008060629.2736806-1-a0987203069@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-MSFT monitor handle mappings must remain valid while vendor events look
-up and use them under hdev->lock. msft_do_close() removes and frees the
-mappings without that lock.
+The MA35D1 SoC has two USB PHY ports managed by a shared hardware block:
 
-hci_dev_close_sync() clears HCI_UP and drains the RX workqueue before
-MSFT cleanup. However, a transport callback that already passed
-hci_recv_frame()'s state check can queue a vendor event after the drain
-returns, if no earlier shutdown callback has quiesced reception. The
-driver close callback runs after MSFT cleanup, so event processing can
-overlap the unlocked removal. msft_monitor_device_evt() can then
-traverse freed list entries or read handle_data->mgmt_handle after it is
-freed.
+  - PHY0 (USB0): OTG port shared between the DWC2 gadget controller and
+    the EHCI0/OHCI0 host controllers.  A hardware mux automatically routes
+    USB0 signals to the correct controller based on the USB ID pin state.
 
-Take hdev->lock while resetting monitor states and removing handle
-mappings in msft_do_close(), as normal monitor cancellation already
-does. An active event reader then finishes before its mapping is freed,
-and later lookups see an empty handle map.
+  - PHY1 (USB1): dedicated host-only port for EHCI1/OHCI1.
 
-An instrumented kernel produced the following report:
+This series extends the existing phy-ma35d1-usb2.c driver and its binding
+to cover both ports and add OTG role-switch support, while keeping full
+backward compatibility with existing device trees.
 
-    BUG: KASAN: slab-use-after-free in msft_vendor_evt+0x1906/0x1990
-        [Thu Oct  1 15:01:51 2026] Read of size 2 at addr ffff888104df3602
-    by task kworker/u17:2/502
-    [...]
-    [Thu Oct  1 15:01:51 2026] Workqueue: hci0 hci_rx_work
-    [Thu Oct  1 15:01:51 2026] Call Trace:
-    [...]
-    [Thu Oct  1 15:01:51 2026]  msft_vendor_evt+0x1906/0x1990
-    [Thu Oct  1 15:01:51 2026]  hci_vendor_evt+0x6f/0x90
-    [Thu Oct  1 15:01:51 2026]  hci_event_packet+0x894/0xc70
-    [...]
-    [Thu Oct  1 15:01:51 2026]  hci_rx_work+0x3f8/0xfa0
-    [...]
-    [Thu Oct  1 15:01:51 2026] Freed by task 499:
-    [...]
-    [Thu Oct  1 15:01:51 2026]  kfree+0x307/0x580
-    [Thu Oct  1 15:01:51 2026]  msft_do_close+0x238/0x750
-    [Thu Oct  1 15:01:51 2026]  hci_dev_close_sync+0x546/0x1380
-    [...]
-        [Thu Oct  1 15:01:51 2026] The buggy address belongs to the object
-    at ffff888104df3600
-                                                                which
-                                belongs to the cache kmalloc-32 of size 32
-        [Thu Oct  1 15:01:51 2026] The buggy address is located 2 bytes
-    inside of
-                                                                freed
-                                32-byte region [ffff888104df3600,
-                                ffff888104df3620)
-    [...]
+Changes since v6:
 
-Fixes: 145373cb1b1f ("Bluetooth: Add framework for Microsoft vendor extension")
-Assisted-by: LLM
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
----
-diff --git a/net/bluetooth/msft.c b/net/bluetooth/msft.c
-index d9dd722db3..667c9951c3 100644
---- a/net/bluetooth/msft.c
-+++ b/net/bluetooth/msft.c
-@@ -681,6 +681,8 @@ void msft_do_close(struct hci_dev *hdev)
- 
- 	bt_dev_dbg(hdev, "Cleanup of MSFT extension");
- 
-+	hci_dev_lock(hdev);
-+
- 	/* The controller will silently remove all monitors on power off.
- 	 * Therefore, remove handle_data mapping and reset monitor state.
- 	 */
-@@ -695,6 +697,8 @@ void msft_do_close(struct hci_dev *hdev)
- 		kfree(handle_data);
- 	}
- 
-+	hci_dev_unlock(hdev);
-+
- 	mutex_lock(&msft->filter_lock);
- 	list_for_each_entry_safe(address_filter, n, &msft->address_filters,
- 				 list) {
+  - phy: update the copyright notice in the rewritten driver header to
+    "2024-2026" instead of "2026", preserving the original 2024 date
+    rather than dropping it.
+
+  - phy: split the unused linux/io.h removal out of patch 4 into its
+    own patch (3/4), since it's unrelated cleanup that predates this
+    series (the driver has never done direct MMIO access; all register
+    access goes through regmap via syscon_regmap_lookup_by_phandle()).
+    Placed immediately before patch 4 since that is the first patch in
+    the series to touch this file.
+
+Joey Lu (4):
+  dt-bindings: phy: nuvoton,ma35d1-usb2-phy: extend for dual-port and
+    OTG
+  arm64: dts: nuvoton: ma35d1: add USB controllers and dual-port PHY
+    node
+  phy: nuvoton: phy-ma35d1-usb2: remove unused linux/io.h include
+  phy: nuvoton: phy-ma35d1-usb2: extend to dual-port with OTG support
+
+ .../bindings/phy/nuvoton,ma35d1-usb2-phy.yaml |  44 ++-
+ .../boot/dts/nuvoton/ma35d1-iot-512m.dts      |  36 +++
+ .../boot/dts/nuvoton/ma35d1-som-256m.dts      |  36 +++
+ arch/arm64/boot/dts/nuvoton/ma35d1.dtsi       |  65 ++++
+ drivers/phy/nuvoton/phy-ma35d1-usb2.c         | 286 +++++++++++++-----
+ 5 files changed, 390 insertions(+), 77 deletions(-)
+
+
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+-- 
+2.43.0
+
