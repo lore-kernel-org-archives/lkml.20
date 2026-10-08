@@ -1,78 +1,72 @@
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6FB83A7189
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 06:28:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D77D33C3F7C
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 06:29:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791440907; cv=none; b=GhTIuFGJ1mRog8mKhnoLm+eHkkOnD7F7hNSZ9O0bQv3JNLBVv9o7oOVAvqbpeaIGN9pS/Hex72HtaafsMtZzRlIYdKTSGvkfCJ/REibsi+/yXKXp/tdItXlLU12H0R+wSfF6cjyuchr+lvvKdFRvy8wpKYzAscoZARe8OQ0F2G0=
+	t=1791440954; cv=none; b=Fb0LrdE8vji3nchaC/ATr4SPnigb9AFORAXAqAr7buUKCRjxXV9iudlC1bai11ySPvnt7TyLT3jHo/+kl/CN/fQmcZ69UK5wJOanoTHAKecgN7r5jPyl0Tn5+bK47KkJRWuYfYLenqHjzEa1vIbQsP4CokWqiJsOlg5WyGcm6pI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791440907; c=relaxed/simple;
-	bh=qT1ApMN67FAl49r3eZXNoECQB2vHEWXg3tsEboZQnYY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=us6GHKpPNAARlRZr6ax9pVivLVp7KgA9WvvH58KU+NtF1U0f7OOrEt7drK0f44vflOvJ/f+NSDvKqPXDGp8bJZxaw03tJEDnue+/cvpm/weH1+J/3f+pHwF/easLSgTDEwOvrpdU9s+qsXyt5IOb9J0o9yCFdKMrqLW0B9RcofA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PA9v/XF2; arc=none smtp.client-ip=209.85.210.173
+	s=arc-20240116; t=1791440954; c=relaxed/simple;
+	bh=Jvpan4dWi71lxbGY7TiGmaQM4y+M5f9WlxOyl/ZFFzo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=YwAJE+kQ2Tk5ryU/31P8fIi96pL7MhaPoRZ7Dqzmsw79SyQXjcV6utT08BMfnZ7aLvK43Ce1DcFehV0Z7X7bDM6hIxoWsB9DBhNgr3DzyEbd6OlUkkDUBnA3wm5mq+pDLpxletYZ12kPnX70zz1SXbPR9aQAzEIHcbw2tcLM0JU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hU5DLSvd; arc=none smtp.client-ip=209.85.216.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PA9v/XF2"
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-88834d30002so1316623b3a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 23:28:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hU5DLSvd"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3a89d1ca907so1561815a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 23:29:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791440905; x=1792045705; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791440951; x=1792045751; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=U5JwFoCLBlceY3GnHhr8EwznFrHNwv6ytANdj+M7B2w=;
-        b=PA9v/XF29wMwN9cqkI9uURpoczP7yXbPjaIw1oBdshF7hXCgM4rK7KXpcz4+5ko1zd
-         EDkWtz82aZ+59dHyyB/4z2DcsBxv0ZrfZ2T+LKd9+LBh5WBTLk22+TPmBUkPynMpJxgG
-         /p5rBoqUvbKf9N4dUBiCHhQ/W6cat3gaAhZ4oWHrvQiL0dYaY/FIHpiQ6z4NROcwl5dX
-         weBhkxdvcbigrr7TvxqAwgiureGg/1diZn93hjMVPhoWSDLmHDpO3z7lUCF2mfF1r26e
-         YeFRWkTgtCFyu9umWulClS04T69DaWSmhfLuvAxO3y32DcrQKPJLmkiSfw7MIPmOfZ7h
-         UJAQ==
+        bh=ErIg12kw9nT+LPeqjyXQhVml7IYT+IyJFoWMvc7q7ZQ=;
+        b=hU5DLSvdk4i7OFqywykVFMz9XFlDnvoRLi7WDVYfOM/q0YMzBvBFpXJOQ8RjjcdS9w
+         /80ePQE40gXMRNi/RRtiF08uKSmHQZaRqF3Gjdwu2FfzLoCLm7uoc9QAJNRH64oh9WP4
+         PcKuOs7h4/YasRIz95gA3ZiBoMNTvMjaDcEKie2UOV9KdgmE/eZz4EHY65B9v9gvVgKk
+         VP+4Bc8feYscznzgcziL7orTNehUm8/m0YDiVZ47z7FnKYTxGubvbLmfi7424RaIKlTg
+         yzhY/5GQzf4g5kUr92R0koae6QKlEeggsEZd/YjcEy3Jv111NSyGilfK0zMl4mkE0g1l
+         zArg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791440905; x=1792045705;
+        d=1e100.net; s=20260707; t=1791440951; x=1792045751;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=U5JwFoCLBlceY3GnHhr8EwznFrHNwv6ytANdj+M7B2w=;
-        b=qNTT5ePZSdGkLapF6q2rWYkcYRrHLoaLIsJZfDYagSh0HuJmvom6VfFI7s4bd8HhPW
-         8sot/X3IvRJIUlTfNnSMh+NuqwzvT9R/kxqZVj1aND1tivQuMCd5RxgroGikH0Sn8mqP
-         elRxcrRYgxacufmm4vNy3/sNaQ1AuoBTCfnrXe0ZLunIlAZQ3OMzzp5OWJfx7L6Mh5xU
-         C/N4eVjHQmefhC2kwc6EZ3uj0iW3/sgKjZsNTlS+W7e/q4Lt+Sim+ZscagrTC9Vd/J9e
-         nWEwKHthixf3Yk3YKYIJk4hZsE4iGL1o6MDdVUeM8C+v5mJSS553Rz4rb78vyPuXF+B2
-         uaQw==
-X-Forwarded-Encrypted: i=1; AKwUvBz3zHo41JrnC6F/XM4wNAaWn4D1T1rdDSn7r7vb3WTqlZLsbZNO2Hveh/sfobX7tKqrEaTvnM932boT7tk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nfRkrpNUstJ405XAg9hjjtfcKRgt6c4DwGd2/KLnxjjLM4uHZd
-	GsxYWSyEXyjZW/l6W+yG4bGdek0yhxJCSiNxpEs+GEt/yhWDc0V0P5ay
-X-Gm-Gg: AYBFou0PUp1ib5Q0KKE9oWGGgKNFF2EbINF2NuqOR6tipx567uBgGtRD/PYcK2AiUp8
-	YjsGWIkQPsgCNLBOMKuaDJRdGU7qCW0rvs2RA+LoGpg9Yfp3TQ6N1tlwzUCfVo0BId4eHOxMgzL
-	VcPozLD70lAWf/vT7va0vkBVKNRIWfGVBAyhVmmL+rLfVJP6zyc1oNm3m/k+bsfM+D5WmIPkdsp
-	SPgHYR+6DtkRJCgT96lNnu7gZowMKeKDQ719/mNmrZrFTh6pgUmPtEKrs8ldBG3iC/UMktIUQ6h
-	xsF4PcYUjcKkzmWewFApgdE3d8QdLUWQJof+ln/ira5ICHhOLY+P2/oiZWWAgFrcz7LLIhDZJ2d
-	XquZiw+el55sy0c03VZ3zaFomTOYIddOvghwW4COkvME83lOxqIoMCU9b5NspSmgzjjoyEq3Nvo
-	xq6eCe/rQZdyuVfMOAlBjTFblXVvye72LIleQJUpeHGxEOM9u4XtgQmcVdyQ94Z51K8w==
-X-Received: by 2002:a05:6a20:c905:b0:3e0:da23:874a with SMTP id adf61e73a8af0-3e134053904mr4449875637.18.1791440904887;
-        Wed, 07 Oct 2026 23:28:24 -0700 (PDT)
+        bh=ErIg12kw9nT+LPeqjyXQhVml7IYT+IyJFoWMvc7q7ZQ=;
+        b=AD42q1CETT7q7S2RnZvcMLpE6iCxJ/G9b2IeaGnBFRe8UnM8u6tQd14Zv73p9SzFSZ
+         hY+wrSCx97W96ilLwwnCJLhOUb1XBI4mU+/scLTpMMye+cyLV4dzOf4CLYoxqwkEHOKT
+         gPPGSM2MFA23KObsdb9Wwi4RWKIqnjWdj08UIq7Sp6+0ZOqPyGWOnN8vj35NEb1xNH/N
+         JRcFuVYutQZ8PzSryHyPNaNGirA1K1+338cbM6HvWYmBh2NmsIWv7XubHHmWKIXjAmNj
+         musbZ4xvYnnXGaNhFyUyWqA3rTXUAkDq0zrUCQybVlVmuiEIErdO3e3cSjYxXYq8r2s0
+         nQEw==
+X-Forwarded-Encrypted: i=1; AKwUvBwQo0LqWG+kfMQ3cSmJLifvrZqLU06pOwSkYQElrlMa9xLBT9kU7calmxbnn+lZbXv2KRKrmSv+Xm5jJCw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLkaMMqVJZ8iuOPlSzICLPSCBv9ByRVOcbCnaUEmkpBMDDAKOOO
+	45wh4nb7+CmooeUlrAcTlnuM1VDv+6Q3GBhRi1bUFFCKdxpUIf3bZa3/
+X-Gm-Gg: AYBFou3kdxyF4LoTbAUzIV1B8ciIGv1pMmnqogkkNZOImbEhTONDk+ys/Zq+QYb6wwd
+	SyVOqs8+9JjqCD+5wqXZRWlWxYAU9ycVcTdgPQzjHll+sBXfxxfABZYjYlraSqHAoFLsyBpN1pS
+	/F8iE2nMwoiiPtQ70f+pNj0VinFj0ksdTnTDJb70sb0Ml40g0OxxceA5M9MIKZBp4X5CcDp/ys+
+	wTqHFkXf0orWYeIkJQFx0nLkAXzxdeuVj4gnN0sFyWDgsArkEjCZFLmEcchrgiqM913sR/sdGN8
+	22goMMSolKCDJYLYHy4i7yyTcylKmA5HJiVOdA0YwGjVcj7SvdkKNUczkcVSHXnfYpWxcENM+85
+	W1w13ZchHz8IabPRL+2PsOAeIdsEhZ/aPdhgfW8rt9xOHPUo4dcwWvy6LKn4sW1AhtIbGeZ2a6U
+	pNJ00f2buYzLiS5w0y3W/tQmLlFauseHAmfFERy3lgAubay+VPndnTPbDGV12mpo4JPA==
+X-Received: by 2002:a17:90b:3b48:b0:3a4:97ea:f0d8 with SMTP id 98e67ed59e1d1-3a8a1187f01mr4513444a91.51.1791440950814;
+        Wed, 07 Oct 2026 23:29:10 -0700 (PDT)
 Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-892b86fc748sm1142143b3a.7.2026.10.07.23.28.20
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a8a5f778fasm3546331a91.3.2026.10.07.23.29.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 23:28:24 -0700 (PDT)
+        Wed, 07 Oct 2026 23:29:10 -0700 (PDT)
 From: Cen Zhang <zzzccc427@gmail.com>
-To: dsahern@kernel.org,
-	idosch@nvidia.com,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org
-Cc: netdev@vger.kernel.org,
+To: miklos@szeredi.hu
+Cc: fuse-devel@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	baijiaju1990@gmail.com,
 	jjzuming@gmail.com,
 	zzzccc427@gmail.com
-Subject: [PATCH] ipv6: Protect the cork MTU read with RCU
-Date: Thu,  8 Oct 2026 14:28:18 +0800
-Message-Id: <pm-ip-core-objects-candidate-0007-v2-46f5bb8aa2cc9824a047@gmail.com>
+Subject: [PATCH] fuse: serialize processing table installation with I/O
+Date: Thu,  8 Oct 2026 14:29:05 +0800
+Message-Id: <pm-fuse-full-objects-candidate-0002-v2-17d6013e5066de33396c@gmail.com>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -83,170 +77,123 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-ip6_setup_cork() must keep the metrics image alive until the MTU read
-completes. Its destination reference protects the rt6_info allocation,
-but dst6_mtu() reads the metrics through a raw pointer outside RCU.
+The processing table of a /dev/fuse endpoint must be initialized before
+I/O can use it. fuse_dev_open() leaves pq.processing NULL, and
+fuse_dev_install_with_pq() publishes fud->chan before assigning the
+table. fuse_get_dev() accepts the published channel without taking
+fch->lock, so the installer's channel lock does not protect the reader.
 
-A route with dynamically allocated metrics can share them with a
-Redirect-created RTF_CACHE exception. This also happens when RTAX_MTU
-is zero, for example on a route with an RTT metric. A UDP send using
-that exception can overlap a Packet Too Big update for the same flow
-and deletion of the owning FIB route in the following order:
+On SMP, a daemon can issue FUSE_DEV_IOC_CLONE and read concurrently on
+the same fresh endpoint. If the source channel has a reply-requiring
+request pending and the read copies it successfully, the following
+order is possible:
 
-1. udpv6_sendmsg() calls ip6_make_skb() and ip6_setup_cork(). The MTU
-   lookup loads the old metrics pointer in dst_metric_raw().
-2. icmpv6_err() calls ip6_update_pmtu(), which finds the same exception.
-   rt6_do_update_pmtu() calls dst_metric_set(); COW installs private
-   metrics and drops the destination's old metrics reference.
-3. After Packet Too Big processing returns, fib6_del_route() purges the
-   exception. ip6_dst_ifdown() clears rt->from and releases its FIB
-   reference while the send still holds the destination.
-4. After the remaining owners drain, fib6_info_destroy_rcu() drops the
-   last reference to the old metrics and frees them.
-5. The send reads RTAX_MTU through the saved pointer to freed memory.
+  Clone ioctl                         Daemon read
+  -----------                         -----------
+  fuse_dev_install_with_pq()
+    lock fch->lock
+    publish fud->chan
+                                      fuse_get_dev() sees fud->chan
+                                      fuse_dev_do_read()
+                                        dequeue request under fiq->lock
+                                        lock fpq->lock
+                                        add request to fpq->io
+                                        unlock fpq->lock
+                                        copy request to userspace
+                                        lock fpq->lock
+                                        list_move_tail() to
+                                          fpq->processing[hash]
+    set fud->pq.processing
 
-The MTU helper's existing RCU section starts after the raw metrics
-read, so it cannot prevent this use-after-free. Enclose MTU selection
-in an RCU read-side critical section in ip6_setup_cork(). Since COW
-replaces the metrics pointer before route deletion, the existing FIB
-and destination RCU callbacks must wait for this read before releasing
-the remaining old metrics owners.
+The list operation accesses a NULL-derived list head and can fault
+before the installer stores the table.
+
+Take fud->pq.lock before publishing the channel and hold it until
+installation finishes. The reader then waits at its existing queue
+lock until the table is initialized. This follows the fch->lock then
+fpq->lock order already used by abort, resend and device release, and
+preserves the handling of unsuccessful installation.
 
 KASAN report as below:
 
-    BUG: KASAN: slab-use-after-free in ip6_mtu+0x6c8/0x790
-    Read of size 4 at addr ffff888101348c84 by task pmbd-send/551
-
-    CPU: 2 UID: 0 PID: 551 Comm: pmbd-send Not tainted 7.2.0-rc5-pmb-bt-functional-v1+ #1 PREEMPT(lazy)
+    Oops: general protection fault, probably for non-canonical address 0xdffffc0000000039: 0000 [#1] SMP KASAN NOPTI
+    KASAN: null-ptr-deref in range [0x00000000000001c8-0x00000000000001cf]
+    CPU: 1 UID: 0 PID: 500 Comm: fuse-clone-race Not tainted 7.2.0-rc5-pmb-bt-functional-v1+ #1 PREEMPT(lazy)
     Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+    RIP: 0010:fuse_dev_do_read+0x1693/0x2480
+    Code: c1 ea 03 80 3c 02 00 0f 85 b9 0b 00 00 4d 89 27 e8 42 07 2c ff 4c 8d 7b 08 48 b8 00 00 00 00 00 fc ff df 4c 89 fa 48 c1 ea 03 <80> 3c 02 00 0f 85 7f 0a 00 00 4c 8b 63 08 48 89 da 4c 89 ef 4c 89
+    RSP: 0018:ffff888118ecfab0 EFLAGS: 00010216
+    RAX: dffffc0000000000 RBX: 00000000000001c0 RCX: ffffffff8258e60e
+    RDX: 0000000000000039 RSI: 0000000000000000 RDI: ffff8881066f9768
+    RBP: ffff888112b6d7a8 R08: 0000000000000001 R09: 0000000000000001
+    R10: ffffffff893dbc57 R11: ffff888108fbd700 R12: ffff8881066f9760
+    R13: ffff888112b6d7a0 R14: 0000000000000050 R15: 00000000000001c8
+    FS:  00007feb22c636c0(0000) GS:ffff8881fd82c000(0000) knlGS:0000000000000000
+    CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+    CR2: 00007feb22c62f38 CR3: 0000000107252004 CR4: 0000000000770ef0
+    PKRU: 55555554
     Call Trace:
      <TASK>
-     dump_stack_lvl+0x93/0xd0
-     print_report+0xce/0x630
-     ? ip6_mtu+0x6c8/0x790
      ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __virt_addr_valid+0x20d/0x410
-     ? ip6_mtu+0x6c8/0x790
-     kasan_report+0xe0/0x110
-     ? ip6_mtu+0x6c8/0x790
-     ip6_mtu+0x6c8/0x790
-     ? __pfx_ip6_mtu+0x10/0x10
-     ip6_setup_cork+0xf50/0x1470
-     ip6_make_skb+0x228/0x390
-     ? __pfx_ip_generic_getfrag+0x10/0x10
-     ? __pfx_ip6_make_skb+0x10/0x10
-     ? find_held_lock+0x2b/0x80
-     ? ip6_dst_hoplimit+0xd1/0x450
+     ? __pfx_fuse_dev_do_read+0x10/0x10
      ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_release+0xc8/0x280
      ? srso_alias_return_thunk+0x5/0xfbef5
-     ? udpv6_sendmsg+0x1f5e/0x2a00
-     udpv6_sendmsg+0x1f5e/0x2a00
-     ? __pfx_udpv6_sendmsg+0x10/0x10
+     ? pmbd_probe_hit_cookie+0xee/0x1c0
+     ? __pfx_pmbd_probe_hit_cookie+0x10/0x10
+     fuse_dev_read+0x19d/0x250
+     ? __pfx_fuse_dev_read+0x10/0x10
      ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __lock_acquire+0x466/0x2260
-     ? __lock_acquire+0x466/0x2260
+     ? security_file_permission+0x26/0x80
+     vfs_read+0x7d2/0xc20
+     ? __pfx_vfs_read+0x10/0x10
+     ksys_read+0x111/0x200
+     ? __pfx_ksys_read+0x10/0x10
      ? srso_alias_return_thunk+0x5/0xfbef5
-     ? sock_has_perm+0x278/0x320
-     ? ip6_datagram_release_cb+0x26d/0x510
-     ? __pfx_udpv6_sendmsg+0x10/0x10
-     ? inet6_sendmsg+0xff/0x140
-     inet6_sendmsg+0xff/0x140
-     __sys_sendto+0x320/0x470
-     ? __pfx___sys_sendto+0x10/0x10
-     ? __pfx___do_sys_prctl+0x10/0x10
-     __x64_sys_sendto+0xe5/0x1c0
-     ? lockdep_hardirqs_on_prepare+0xea/0x1a0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? trace_hardirqs_on+0x18/0x160
+     ? restore_fpregs_from_fpstate+0x55/0x100
      do_syscall_64+0x115/0x6a0
      entry_SYSCALL_64_after_hwframe+0x77/0x7f
-    RIP: 0033:0x7fbdea3b3687
-    Code: 48 89 fa 4c 89 df e8 58 b3 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
-    RSP: 002b:00007ffd43d66d40 EFLAGS: 00000202 ORIG_RAX: 000000000000002c
-    RAX: ffffffffffffffda RBX: 00007fbdea31f780 RCX: 00007fbdea3b3687
-    RDX: 0000000000000017 RSI: 00007fbdea10bbd0 RDI: 0000000000000003
-    RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
-    R10: 0000000000000000 R11: 0000000000000202 R12: 0000000000000000
-    R13: 0000000000000000 R14: 00000000006fe390 R15: 0000000000a83590
+    RIP: 0033:0x7feb23d039ee
+    Code: 08 0f 85 f5 4b ff ff 49 89 fb 48 89 f0 48 89 d7 48 89 ce 4c 89 c2 4d 89 ca 4c 8b 44 24 08 4c 8b 4c 24 10 4c 89 5c 24 08 0f 05 <c3> 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 80 00 00 00 00 48 83 ec 08
+    RSP: 002b:00007feb22c62df8 EFLAGS: 00000246 ORIG_RAX: 0000000000000000
+    RAX: ffffffffffffffda RBX: 00007feb22c636c0 RCX: 00007feb23d039ee
+    RDX: 0000000000010000 RSI: 000055615dac9114 RDI: 0000000000000005
+    RBP: 0000000000000004 R08: 0000000000000000 R09: 0000000000000000
+    R10: 0000000000000000 R11: 0000000000000246 R12: 000055615dac9114
+    R13: 000055615dac9070 R14: ffffffff00000000 R15: 0000000000000001
      </TASK>
+    Modules linked in:
+    ---[ end trace 0000000000000000 ]---
+    RIP: 0010:fuse_dev_do_read+0x1693/0x2480
+    Code: c1 ea 03 80 3c 02 00 0f 85 b9 0b 00 00 4d 89 27 e8 42 07 2c ff 4c 8d 7b 08 48 b8 00 00 00 00 00 fc ff df 4c 89 fa 48 c1 ea 03 <80> 3c 02 00 0f 85 7f 0a 00 00 4c 8b 63 08 48 89 da 4c 89 ef 4c 89
+    RSP: 0018:ffff888118ecfab0 EFLAGS: 00010216
+    RAX: dffffc0000000000 RBX: 00000000000001c0 RCX: ffffffff8258e60e
+    RDX: 0000000000000039 RSI: 0000000000000000 RDI: ffff8881066f9768
+    RBP: ffff888112b6d7a8 R08: 0000000000000001 R09: 0000000000000001
+    R10: ffffffff893dbc57 R11: ffff888108fbd700 R12: ffff8881066f9760
+    R13: ffff888112b6d7a0 R14: 0000000000000050 R15: 00000000000001c8
+    FS:  00007feb22c636c0(0000) GS:ffff8881fd82c000(0000) knlGS:0000000000000000
+    CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+    CR2: 00007feb22c62f38 CR3: 0000000107252004 CR4: 0000000000770ef0
+    PKRU: 55555554
+    Kernel panic - not syncing: Fatal exception
+    Kernel Offset: disabled
+    Rebooting in 1 seconds..
 
-    Allocated by task 542:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     __kasan_kmalloc+0xaa/0xb0
-     __kmalloc_cache_noprof+0x251/0x630
-     ip_fib_metrics_init+0xc1/0x6b0
-     ip6_route_info_create+0x1a0/0x8c0
-     ip6_route_add.part.0+0x29/0x150
-     inet6_rtm_newroute+0x16a/0x180
-     rtnetlink_rcv_msg+0x7b9/0xce0
-     netlink_rcv_skb+0x133/0x390
-     netlink_unicast+0x504/0x840
-     netlink_sendmsg+0x7f7/0xcf0
-     ____sys_sendmsg+0x88b/0x9d0
-     ___sys_sendmsg+0x125/0x1d0
-     __sys_sendmsg+0x13e/0x1e0
-     do_syscall_64+0x115/0x6a0
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-    Freed by task 0:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     kasan_save_free_info+0x3b/0x60
-     __kasan_slab_free+0x5f/0x80
-     kfree+0x236/0x5a0
-     fib6_info_destroy_rcu+0x1fa/0x240
-     rcu_core+0x661/0x1d10
-     handle_softirqs+0x201/0x930
-     __irq_exit_rcu+0x110/0x1e0
-     irq_exit_rcu+0xe/0x20
-     sysvec_apic_timer_interrupt+0x6c/0x80
-     asm_sysvec_apic_timer_interrupt+0x1a/0x20
-
-    The buggy address belongs to the object at ffff888101348c80
-     which belongs to the cache kmalloc-96 of size 96
-    The buggy address is located 4 bytes inside of
-     freed 96-byte region [ffff888101348c80, ffff888101348ce0)
-
-    The buggy address belongs to the physical page:
-    page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x101348
-    flags: 0x200000000000000(node=0|zone=2)
-    page_type: f5(slab)
-    raw: 0200000000000000 ffff888100042280 dead000000000100 dead000000000122
-    raw: 0000000000000000 0000000000200020 00000000f5000000 0000000000000000
-    page dumped because: kasan: bad access detected
-
-    Memory state around the buggy address:
-     ffff888101348b80: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
-     ffff888101348c00: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
-    >ffff888101348c80: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
-                       ^
-     ffff888101348d00: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
-     ffff888101348d80: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
-    ==================================================================
-
-Fixes: f5b51fe804ec ("ipv6: route: purge exception on removal")
+Fixes: 48649c0603bd ("fuse: alloc pqueue before installing fch in fuse_dev")
 Assisted-by: LLM
 Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 ---
 
-diff --git a/net/ipv6/ip6_output.c b/net/ipv6/ip6_output.c
-index 5509650589915cac54ea7767f0cb237c6c1d71e5..0440acc3dec0b0bdb8fe484810a9c84f1af67881 100644
---- a/net/ipv6/ip6_output.c
-+++ b/net/ipv6/ip6_output.c
-@@ -1421,12 +1421,14 @@ static int ip6_setup_cork(struct sock *sk, struct inet_cork_full *cork,
- 	v6_cork->hop_limit = ipc6->hlimit;
- 	v6_cork->tclass = ipc6->tclass;
- 	v6_cork->dontfrag = ipc6->dontfrag;
-+	rcu_read_lock();
- 	if (rt->dst.flags & DST_XFRM_TUNNEL)
- 		mtu = READ_ONCE(np->pmtudisc) >= IPV6_PMTUDISC_PROBE ?
- 		      READ_ONCE(rt->dst.dev->mtu) : dst6_mtu(&rt->dst);
- 	else
- 		mtu = READ_ONCE(np->pmtudisc) >= IPV6_PMTUDISC_PROBE ?
- 			READ_ONCE(rt->dst.dev->mtu) : dst6_mtu(xfrm_dst_path(&rt->dst));
-+	rcu_read_unlock();
+diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
+index 4fec31fc0b845008ae037472065284e8f8dea87e..106daf2d10b34886fa5cda3c641121a08181adb4 100644
+--- a/fs/fuse/dev.c
++++ b/fs/fuse/dev.c
+@@ -466,6 +466,8 @@ static bool fuse_dev_install_with_pq(struct fuse_dev *fud, struct fuse_chan *fch
+ 	struct fuse_chan *old_fch;
  
- 	frag_size = READ_ONCE(np->frag_size);
- 	if (frag_size && frag_size < mtu)
+ 	guard(spinlock)(&fch->lock);
++	/* Serialize processing table setup with I/O. */
++	guard(spinlock)(&fud->pq.lock);
+ 	/*
+ 	 * Pairs with:
+ 	 *  - xchg() in fuse_dev_release()
