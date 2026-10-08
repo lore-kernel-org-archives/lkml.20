@@ -1,117 +1,102 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B0F2D3A3E73;
-	Thu,  8 Oct 2026 16:42:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E7A3364EAA;
+	Thu,  8 Oct 2026 16:42:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791477750; cv=none; b=DiQahmE5c+/9oJ5YTSx0vWii+mDt9R0iliGuoi6qhfrvyaGnRPVMEyoYRHIYy2hLoGpFAGp0dgQiCOdJp0KrkzayFzpW+Kiu4IbmXExr+Hme9qTnCtPLsfbhYjqoHkHKQV4jw+JT0ty3xxqin7GzMlgwc93gne1Pfm8Fruuo4WU=
+	t=1791477778; cv=none; b=UHedxcQKezRtaHYRs1UsECbpiO3gvbC13gD5X1V3AofVIseV7LXrD850yLZTe42CDp3qfxg6ZzP4cJ1rSBQbazCdPgnGKJqypBp2W7j0W6W5K0/ZlIZpE2T7Ch6rdtnl9cNFUKAS0HayPyy/3kgo1BdYsXo1yC0QkbAMEpECqA0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791477750; c=relaxed/simple;
-	bh=7mvuGWTaFOWJp1wnSmxCGFTK8yaJ6uwg08XxlyeCyKo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=uzDJSUtZASsNwbU1NTNxz/3hcl/Jsi4kelyHnngow9OcRCV+BOTYn+S0Pkd9yemVTx/Ohz0FcH+7zvfn9jLSeFvbQ429OIZz/8dUTblyAht8YLU6K5NfSeCpyyCFANg86Bg8R7tL1ENPl9z1YCZ6KNYxmeNr9nXlTzpuB/rMWXE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=iEZgnBHl; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="iEZgnBHl"
-Received: from eahariha-devbox.5bhznamrcrmeznzvghz2s0u2eh.xx.internal.cloudapp.net (unknown [20.114.54.184])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 25BB820B7166;
-	Thu,  8 Oct 2026 09:41:30 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 25BB820B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1791477690;
-	bh=RrdGR8+5+7JD9zLubC3R5Nrwx3f6rQnHI7MHAeeFjZE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=iEZgnBHlg1T1yn8CZKhtuBx45f1+HQol4iZG3iM7TQiQXiFIlmf21T9mvH4xgbgRy
-	 qUB/J1fkHFphCRL55R8CWqDa4i5ZPlrg3EWE4PLqdRgqrJtOfmoZ39QDPhyiFLR0uK
-	 JIx2GA3l12I4vaoXbAFUVMUa5oGTMjpbEw8yJcIw=
-From: Easwar Hariharan <easwar.hariharan@linux.microsoft.com>
-To: jeffbarnes@linux.microsoft.com
-Cc: Frank.li@oss.nxp.com,
-	Zhiqiang.Hou@nxp.com,
-	bhelgaas@google.com,
-	imx@lists.linux.dev,
-	kwilczynski@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	lpieralisi@kernel.org,
-	mani@kernel.org,
-	minghuan.Lian@nxp.com,
-	mingkai.hu@nxp.com,
-	robh@kernel.org,
-	roy.zang@nxp.com,
-	Easwar Hariharan <easwar.hariharan@linux.microsoft.com>
-Subject: [PATCH v2] Revert "PCI: layerscape: Change default error response behavior"
-Date: Thu,  8 Oct 2026 16:42:02 +0000
-Message-ID: <20261008164202.64477-1-easwar.hariharan@linux.microsoft.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261001153323.1965074-1-jeffbarnes@linux.microsoft.com>
-References: <20261001153323.1965074-1-jeffbarnes@linux.microsoft.com>
+	s=arc-20240116; t=1791477778; c=relaxed/simple;
+	bh=t0UgcrUY/CuOUsXCOb0vIoQLZNgJjyV2lhlo0hZ0a6s=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=N3a4FntUKUbdUV5sYqRNA2Y1z5w92wmoqtYloyB9XQ5MG94PGw4x4xnbhaz9OezHEFxOSidXf9UmeBHtd7FMeYnW0T9jEczLWODc61yV6Q2i6Ws9N87bRqMOQyt+Qp+yAxpKkFNr6NPoyJeSt+6JREve7969fsn+k54Vgw1q+3E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from fc87d0ffb700.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowADHzz39x8dqB1YOCg--.11888S2;
+	Fri, 09 Oct 2026 00:42:38 +0800 (CST)
+From: Haotian Zhang <vulab@iscas.ac.cn>
+To: Florian Fainelli <florian.fainelli@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] net: phy: bcm7xxx: preserve __phy_write() error in write_mmd()
+Date: Fri,  9 Oct 2026 00:42:40 +0800
+Message-Id: <20261008164240.2694229-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowADHzz39x8dqB1YOCg--.11888S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7AF47Xr4DXw4fGr45AFWDurg_yoW8Ar1xpr
+	s0kFy2kr1DKan7XanrKF4kJw15uan7tryIka4DKw4fuFn5tw4vvayYqFy0qr1rArykJayf
+	Zw4v9F98ZF4jvaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvGb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8Jw
+	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkI
+	wI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr
+	0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY
+	17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcV
+	C0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY
+	6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa
+	73UjIFyTuYvjxUqVcEUUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwgOA2rHpl1U-gAAs+
 
-> This reverts commit 84d897d69938
-> ("PCI: layerscape: Change default error response behavior").
-> 
-> The Layerscape PCIe driver programs the DesignWare
-> AMBA_ERROR_RESPONSE_DEFAULT register at offset 0x8d0 with 0x9401.
-> 
-> For AXI, the documented default with AMBA_ERROR_RESPONSE_GLOBAL cleared
-> returns OKAY with all-ones data for errors on non-posted requests.
-> Setting AMBA_ERROR_RESPONSE_GLOBAL causes an AXI error response instead,
-> with AMBA_ERROR_RESPONSE_MAP selecting SLVERR or DECERR for individual
-> PCIe completion errors.
-> 
-> The value 0x9401 sets AMBA_ERROR_RESPONSE_GLOBAL and maps Unsupported
-> Request, Completer Abort, and Completion Timeout to SLVERR.
-> 
-> A PCI configuration access can race with the link going down after
-> dw_pcie_other_conf_map_bus() checks the link but before
-> pci_generic_config_read() performs the MMIO access. If the transaction
-> results in a Completion Timeout, the Layerscape error response setting
-> propagates it to AXI as SLVERR, resulting in an asynchronous SError and
-> kernel panic.
-> 
+bcm7xxx_28nm_ephy_write_mmd() jumps to reset_shadow_mode when the write of
+the shadow register address fails and then returns the value of the
+__phy_set_clr_bits() cleanup call, overwriting the negative error code from
+__phy_write(). Since __phy_set_clr_bits() returns the positive register
+value on success, the failure is reported to phy_write_mmd() as a success.
+The write of the shadow register value is also unchecked the same way.
 
-Could you bring back the kernel panic backtrace from v1?
+Keep the negative error code in ret and return it after the shadow mode
+reset, and check the shadow register value write, matching the read_mmd()
+counterpart.
 
-With that,
+Fixes: d88fd1b546ff ("net: phy: bcm7xxx: Fixed indirect MMD operations")
+Assisted-by: DeepSeek-V4.1-Flash
+Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
+---
+ drivers/net/phy/bcm7xxx.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-Reviewed-by: Easwar Hariharan <easwar.hariharan@linux.microsoft.com>
+diff --git a/drivers/net/phy/bcm7xxx.c b/drivers/net/phy/bcm7xxx.c
+index 71a163f62c0e..a0c758e2b214 100644
+--- a/drivers/net/phy/bcm7xxx.c
++++ b/drivers/net/phy/bcm7xxx.c
+@@ -677,12 +677,13 @@ static int bcm7xxx_28nm_ephy_write_mmd(struct phy_device *phydev,
+ 		goto reset_shadow_mode;
+ 
+ 	/* Write the desired value in the shadow register */
+-	__phy_write(phydev, MII_BCM7XXX_SHD_2_CTRL_STAT, val);
++	ret = __phy_write(phydev, MII_BCM7XXX_SHD_2_CTRL_STAT, val);
+ 
+ reset_shadow_mode:
+ 	/* reset shadow mode 2 */
+-	return __phy_set_clr_bits(phydev, MII_BCM7XXX_TEST, 0,
+-				  MII_BCM7XXX_SHD_MODE_2);
++	__phy_set_clr_bits(phydev, MII_BCM7XXX_TEST, 0,
++			   MII_BCM7XXX_SHD_MODE_2);
++	return ret;
+ }
+ 
+ static int bcm7xxx_28nm_ephy_resume(struct phy_device *phydev)
+-- 
+2.25.1
 
-> Reproduce the race by obtaining the configuration-space mapping while
-> the link is up, then disabling the link from another CPU immediately
-> before performing the MMIO configuration read.
-> 
-> With the error response override enabled, the overlapping configuration
-> read results in an asynchronous SError and kernel panic. With the
-> DesignWare default behavior restored, the same test returns 0xffffffff.
-> AER reports a non-fatal Completion Timeout, and no SError or kernel
-> panic occurs.
-> 
-> Restore the documented DesignWare default error response behavior so a
-> failed non-posted PCIe transaction does not become a fatal AXI error.
-> 
-> Fixes: 84d897d69938 ("PCI: layerscape: Change default error response behavior")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jeff Barnes <jeffbarnes@linux.microsoft.com>
-> 
-> Changes in v2:
-> - Change the subject to identify this as a revert, as requested by
->   Frank Li.
-> - Document the DesignWare AMBA_ERROR_RESPONSE_DEFAULT behavior and
->   decode the 0x9401 setting used by Layerscape.
-> - Clarify that the setting propagates Completion Timeout as AXI SLVERR
->   rather than causing the underlying PCIe transaction failure.
->
-> ---
-> drivers/pci/controller/dwc/pci-layerscape.c | 12 ------------
-> 1 file changed, 12 deletions(-)
