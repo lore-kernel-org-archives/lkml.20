@@ -1,214 +1,196 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C181472F78;
-	Thu,  8 Oct 2026 08:53:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D00EE47209F;
+	Thu,  8 Oct 2026 08:53:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.244.123.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791449626; cv=none; b=ErK3sFJMMxrVvXy9kT3wE2ONCtU3VUFza/GRf5vEY7M0y+f1jhIPglxgwummMyQMHroEMKUn4CXagZ9KK2TdpgYVdLZLUwIORFwiljcpr11DSwYdE1m/guxl4990uPF7p+8KsZGRP3FKIr9g3ZMirvi3A1BR/wQJlJW+ZZJpEd8=
+	t=1791449627; cv=none; b=gVpDrXVnu8PQU9WWXpGNnbY76UX4FOcu6mmKxyFcstN3GexyTUQ2W/M2aZ7HT4o3ibOnu+Qb5IENzItcQGL7V3LvnA3LMWchW89OxW3gFLttrAEqPxEQyYRjzv/uoX30Q4VeUaP6WCQDA3voAZ+iFa49gMg/x7SoZY1Df5jJPpc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791449626; c=relaxed/simple;
-	bh=O3YnTtbd10Xw9sLF9/frn1oBli2TWFOYF+69kuWOGAQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VZJ30OgKgpaZ2uxdywZ4Bpd88opcz0mz22MQowdfXbK+FWcN97LJCgw7pwuPz22Vr/kmcoz9UCULTSRdpNyxKXSYHrRh8HMvRzD29iDsYDIcUdK+ERq/rWtmonwmEYaa0ne3kVI/DajkzjEzoSyzVENgm7ILgF2KwucomeamYK8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=U13CQPwD; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1791449627; c=relaxed/simple;
+	bh=LA4fDF9BplPPgGkz5iJDTFLtks9svHDAM/NEHzN9LpU=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=b8HiaDB/F5pXlBL2ZT0KyRCJxDmVkjAIC+eXI5RNkcgpcuKDpvG+POh+VdvHkgXXLOUbteFGrurwKcaiCjjog67s8x9RwbnbdaYtbJn9rYloOMTMingrge9zAphCpfYhH1UFW+g3AeaVQZT2AROtRHWqv+v1rvSccwyJxfM1UTc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=DIVk3fho; arc=none smtp.client-ip=60.244.123.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="U13CQPwD"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6987Zbav731290;
-	Thu, 8 Oct 2026 08:53:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=yCaVqR
-	c9yjueH1hFzVHbm+BxIaJ3wN3cQfVAJe78FX0=; b=U13CQPwDK8MQKGtwN1EIBt
-	VpZ2M5+3kmu+1U9A1ehMofwC2NySsm3QwhBMeZl54kFRmyVNTXkBpgBQrFgvuhb0
-	OKD/kcWTr6yv0iXjZmZpnIXCR7vLMdzTsXqLaFlbaaHQKv6/vWb2TM4gkVK65vbg
-	Cj4DYX/TBiEC+B8BjvV9CF8tHjWNvJg4GAYq9JSzmJnrzy1wnFVTFsGY6t7YFVSJ
-	W2IIaZkuQzu814T2sQ8eTrs3GMQiolm19+f7dyTD5D+F79RopHwU5KY1X/NEm3le
-	OrUk7N60t/uDXPWnkFlJq7SOO5tZ0HASy5wpzlRXh8WnTkJRbB3vdAAkm6S/trCg
-	==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h5xjvj9jg-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 08 Oct 2026 08:53:38 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6987XMQo3111519;
-	Thu, 8 Oct 2026 08:53:38 GMT
-Received: from smtprelay04.wdc07v.mail.ibm.com ([172.16.1.71])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h5s34u5fp-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 08 Oct 2026 08:53:38 +0000 (GMT)
-Received: from smtpav05.dal12v.mail.ibm.com (smtpav05.dal12v.mail.ibm.com [10.241.53.104])
-	by smtprelay04.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6988rbFQ49348886
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 8 Oct 2026 08:53:37 GMT
-Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 4C9E158090;
-	Thu,  8 Oct 2026 08:53:37 +0000 (GMT)
-Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 8B6B45807C;
-	Thu,  8 Oct 2026 08:53:31 +0000 (GMT)
-Received: from [9.124.217.43] (unknown [9.124.217.43])
-	by smtpav05.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Thu,  8 Oct 2026 08:53:31 +0000 (GMT)
-Message-ID: <b70659c4-c1c1-4e73-b67b-0b1ad3dc61ef@linux.ibm.com>
-Date: Thu, 8 Oct 2026 14:23:29 +0530
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="DIVk3fho"
+X-UUID: bf1507fac2f511f1b1788b6acf885367-20261008
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=jGdz7yLAg+mrvuFLQWM7yy6NK755mXWFHUSIqMTw69A=;
+	b=DIVk3fhoVRf5HnQ8d5hgar0cfOevqlZAGccPWHa9c3fxyLYfs2zb9gnDriRHSzvY4sg4OyGLjAFs6qiYNCycMiY884Mx5UX17psRWtX/KwkvQjYK4OrNQOLB9fdf3WMY5rqfhhJ8hLhLI1KM8gMiqrw5vel+m8/VWgUpk/BeeiQ=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.20,REQID:c8922fc0-eae1-4d4d-a13b-99e8e8441c99,IP:0,U
+	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:-25
+X-CID-META: VersionHash:291e20b,CLOUDID:769b59ec-a538-4631-9c6c-6898e3cb1d37,B
+	ulkID:nil,BulkQuantity:0,SF:81|82|102|136|836|865|888|898,TC:-5,Content:0|
+	15|50|99,EDM:-3|-100,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL
+	:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: bf1507fac2f511f1b1788b6acf885367-20261008
+Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by mailgw01.mediatek.com
+	(envelope-from <tim.kuo@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 1188297454; Thu, 08 Oct 2026 16:53:35 +0800
+Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
+ MTKMBS09N1.mediatek.inc (172.21.101.35) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Thu, 8 Oct 2026 16:53:34 +0800
+Received: from mtksitap99.mediatek.inc (10.233.130.16) by
+ mtkmbs11n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Thu, 8 Oct 2026 16:53:34 +0800
+From: Tim Kuo <Tim.Kuo@mediatek.com>
+To: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matthias
+ Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+	<angelogioacchino.delregno@collabora.com>
+CC: <linux-spi@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-mediatek@lists.infradead.org>, Steven Liu <Steven.Liu@mediatek.com>,
+	Sky Huang <Skylake.Huang@mediatek.com>, Sam Shih <Sam.Shih@mediatek.com>, Tim
+ Kuo <Tim.Kuo@mediatek.com>
+Subject: [PATCH v3 2/2] spi: mt65xx: support wider tick delay field on MT7987/MT7989
+Date: Thu, 8 Oct 2026 16:53:32 +0800
+Message-ID: <20261008085332.802898-2-Tim.Kuo@mediatek.com>
+X-Mailer: git-send-email 2.45.2
+In-Reply-To: <20261008085332.802898-1-Tim.Kuo@mediatek.com>
+References: <20261008085332.802898-1-Tim.Kuo@mediatek.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v3] net/smc: protect clcsock lifetime in smc_getname
-To: Chengfeng Ye <nicoyip.dev@gmail.com>,
-        "D . Wythe" <alibuda@linux.alibaba.com>,
-        Dust Li
- <dust.li@linux.alibaba.com>,
-        Sidraya Jayagond <sidraya@linux.ibm.com>
-Cc: Tony Lu <tonylu@linux.alibaba.com>, Wen Gu <guwen@linux.alibaba.com>,
-        "David S . Miller" <davem@davemloft.net>,
-        Eric Dumazet
- <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
-        linux-rdma@vger.kernel.org, linux-s390@vger.kernel.org,
-        netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org
-References: <20261008084444.787449-1-nicoyip.dev@gmail.com>
-Content-Language: en-US
-From: Mahanta Jambigi <mjambigi@linux.ibm.com>
-In-Reply-To: <20261008084444.787449-1-nicoyip.dev@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: agaMw4ZeHjn_ip_txaBPouXLAjfGHefl
-X-Proofpoint-ORIG-GUID: f9Z4xotu3fH-_uc5RIHv87pvYPVXRxqn
-X-Authority-Analysis: v=2.4 cv=FoOQbGrq c=1 sm=1 tr=0 ts=6ac75a12 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=pGLkceISAAAA:8 a=slhZEP1NsPBYwTPRAy0A:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDAzNCBTYWx0ZWRfXzFN9isecd6OQ
- mt9jAmc/pDedw9fwnVBTLcAakBF/tSqxahfg1zL2h6og6qWSpYyvh9H4R3fmMxBkX71LDwN33tR
- jyMdjydcqlTHrMCNvmNyk6qHeMaGHzw=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDAzNCBTYWx0ZWRfX7KCiUly/dDUz
- 3DtblOTSwHiwrUDAe7xgYQNiiesIbd0Bx7Eaakscf9DZK+zZpcAwnxGPc4YX0sIS4f//e7JRG7Y
- TN42s1DIP+d1uwz/jb4i2qCV3KqpIgD0LlJlMk1cLsnUFVvAMbrJx3wBU1n5Kv2EI5T4zzI7eec
- NkX4AdspB2ZKZhN/na1jJspOmXLzAQ3k1tzaYdXlvxZNryxlZiYVHXBIGxMWZ2SuQMy1priaiGJ
- 7/a3gvs6Tjg0XeNiTMb081IBkBbOy6RKJoP87H7s2oC263gMsp2Htmg55VJaZx2el/2Ua+xPpos
- Em9sloNcw86brVzr82RBPhTafjQ3kDiw7TO0SBRssb2vYSiNYTwvDLlX8TkXIuexQIfVFqB4T3/
- QtvHMs30gyt3NfJ1HyRxb8hRQGcB7cvtgySNUFtRPWPlsvoXUCvypIUBoE6lfpG+x0aUyQ9kTfG
- VrRJ2wE4o7Osj9ACpzA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-08_03,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0 bulkscore=0
- adultscore=0 priorityscore=1501 spamscore=0 phishscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080034
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-MTK: N
 
+The MT7987 and MT7989 SPI IPs widen the tick delay field in SPI_CMD_REG
+from 3 bits (bits 24:22) to 7 bits (bits 28:22), so the field width can
+no longer be hardcoded in mtk_spi_hw_init().
 
+Add a tick_dly_mask member to struct mtk_spi_compatible and use
+field_prep() with the per-SoC mask instead of the open-coded
+mask-and-shift, then add a mt7987_compat entry carrying the wider mask
+and match it against both "mediatek,mt7987-spi" and
+"mediatek,mt7989-spi".
 
-On 08/10/26 2:14 pm, Chengfeng Ye wrote:
-> smc_getname() dereferences smc->clcsock without holding
-> clcsock_release_lock. Link-group termination can release the CLC socket
-> through smc_close_active_abort() while the SMC socket is still open,
-> for example after shutdown(SHUT_WR).
-> 
-> A getsockname() caller can load smc->clcsock, then the termination worker
-> can clear the pointer and call sock_release() before the caller accesses
-> clcsock->ops or invokes getname(). This causes a use-after-free; if the
-> worker clears the pointer before the load, it causes a NULL dereference.
-> The syscall's file reference keeps the SMC socket alive but does not
-> prevent asynchronous release of its CLC socket.
-> 
-> KASAN reported the following with test-only timing instrumentation:
-> 
->   BUG: KASAN: slab-use-after-free in smc_getname+0x19e/0x1b0
->   Read of size 8 at addr ffff888109abb4e0 by task poc/103
->   Call Trace:
->    smc_getname+0x19e/0x1b0
->    do_getsockname+0xe5/0x170
->    __sys_getsockname+0x8c/0x100
-> 
->   Allocated by task 95:
->    sock_alloc_inode+0x1e/0x280
->    sock_alloc+0x3d/0x240
->    __sock_create+0x7e/0x430
->    smc_create+0x121/0x240
-> 
->   Freed by task 0:
->    kmem_cache_free+0xcc/0x340
->    rcu_core+0x50a/0x1850
-> 
->   Last potentially related work creation:
->    evict+0x446/0x6c0
->    smc_clcsock_release+0xa8/0xd0
->    smc_close_active_abort+0x26a/0x3a0
->    __smc_lgr_terminate.part.0+0x137/0x2e0
-> 
-> Hold clcsock_release_lock across the pointer check and the getname()
-> callback to serialize with smc_clcsock_release(). Return -EBADF if the
-> CLC socket has already been released, preserving the existing peer
-> state check and the callback's return value otherwise.
-> 
-> Fixes: b03faa1fafc8 ("net/smc: postpone release of clcsock")
-> Cc: stable@vger.kernel.org
-> Assisted-by: GPT-6.1-Sol
-> Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-> ---
-> Changes in v3:
-> - Limit the fix to smc_getname(), as requested by Mahanta. The code
->   change is identical to v1 and uses the existing release mutex.
-> - Drop the new clcsock_lock and the other v2 changes. Mahanta will
->   address the other readers through the broader CLC lifetime changes
->   discussed with Dust Li.
-> - Rebase onto current net/main; keep the stable Cc.
-> 
-> Review:
-> https://lore.kernel.org/r/4bb7f15e-2cd8-4598-9bab-1ea5f5d2bb59@linux.ibm.com/
-> v2:
-> https://lore.kernel.org/r/20261003183325.2289707-1-nicoyip.dev@gmail.com/
-> v1:
-> https://lore.kernel.org/r/20260926180404.2721010-1-nicoyip.dev@gmail.com/
-> 
-> Validation: W=1 builds of net/smc/ passed with IPv6 enabled and disabled.
-> The KASAN excerpt is the original report; no runtime test was run for v3.
-> 
->  net/smc/af_smc.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
-> 
-> diff --git a/net/smc/af_smc.c b/net/smc/af_smc.c
-> index e9f93b3ab435b..8b3ee70f8433f 100644
-> --- a/net/smc/af_smc.c
-> +++ b/net/smc/af_smc.c
-> @@ -2784,6 +2784,7 @@ int smc_getname(struct socket *sock, struct sockaddr *addr,
->  		int peer)
->  {
->  	struct smc_sock *smc;
-> +	int rc = -EBADF;
->  
->  	if (peer && (sock->sk->sk_state != SMC_ACTIVE) &&
->  	    (sock->sk->sk_state != SMC_APPCLOSEWAIT1))
-> @@ -2791,7 +2792,11 @@ int smc_getname(struct socket *sock, struct sockaddr *addr,
->  
->  	smc = smc_sk(sock->sk);
->  
-> -	return smc->clcsock->ops->getname(smc->clcsock, addr, peer);
-> +	mutex_lock(&smc->clcsock_release_lock);
-> +	if (smc->clcsock)
-> +		rc = smc->clcsock->ops->getname(smc->clcsock, addr, peer);
-> +	mutex_unlock(&smc->clcsock_release_lock);
-> +	return rc;
->  }
->  
->  int smc_sendmsg(struct socket *sock, struct msghdr *msg, size_t len)
-> 
-> base-commit: 6d25ffca055a77787c21a36b66c253f76239411b
+Existing IPM designs keep GENMASK(24, 22) and are functionally
+unchanged.
 
-Reviewed-by: Mahanta Jambigi <mjambigi@linux.ibm.com>
+Signed-off-by: Tim Kuo <Tim.Kuo@mediatek.com>
+---
+v2: remove unused tickdly offset deadcode
+v3: 
+  - remove spi-ipm-v59 compatible
+  - add mt7987 and mt7989 compatible
+
+ drivers/spi/spi-mt65xx.c | 28 +++++++++++++++++++++++-----
+ 1 file changed, 23 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/spi/spi-mt65xx.c b/drivers/spi/spi-mt65xx.c
+index b845a599f7c6..0603c9f051a8 100644
+--- a/drivers/spi/spi-mt65xx.c
++++ b/drivers/spi/spi-mt65xx.c
+@@ -4,6 +4,7 @@
+  * Author: Leilk Liu <leilk.liu@mediatek.com>
+  */
+ 
++#include <linux/bitfield.h>
+ #include <linux/clk.h>
+ #include <linux/device.h>
+ #include <linux/err.h>
+@@ -78,9 +79,9 @@
+ #define SPI_CMD_PAUSE_IE		BIT(17)
+ #define SPI_CMD_IPM_NONIDLE_MODE	BIT(19)
+ #define SPI_CMD_IPM_SPIM_LOOP		BIT(21)
+-#define SPI_CMD_IPM_GET_TICKDLY_OFFSET	22
+ 
+ #define SPI_CMD_IPM_GET_TICKDLY_MASK	GENMASK(24, 22)
++#define SPI_CMD_IPM_V59_GET_TICKDLY_MASK	GENMASK(28, 22)
+ 
+ #define PIN_MODE_CFG(x)	((x) / 2)
+ 
+@@ -120,6 +121,7 @@
+  * @dma_ext:		DMA address extension supported
+  * @no_need_unprepare:	Don't unprepare the SPI clk during runtime
+  * @ipm_design:		Adjust/extend registers to support IPM design IP features
++ * @tick_dly_mask:	Tick delay field of SPI_CMD_REG, IPM designs only
+  */
+ struct mtk_spi_compatible {
+ 	bool need_pad_sel;
+@@ -128,6 +130,7 @@ struct mtk_spi_compatible {
+ 	bool dma_ext;
+ 	bool no_need_unprepare;
+ 	bool ipm_design;
++	u32 tick_dly_mask;
+ };
+ 
+ /**
+@@ -187,6 +190,14 @@ static const struct mtk_spi_compatible mtk_ipm_compat = {
+ 	.enhance_timing = true,
+ 	.dma_ext = true,
+ 	.ipm_design = true,
++	.tick_dly_mask = SPI_CMD_IPM_GET_TICKDLY_MASK,
++};
++
++static const struct mtk_spi_compatible mt7987_compat = {
++	.enhance_timing = true,
++	.dma_ext = true,
++	.ipm_design = true,
++	.tick_dly_mask = SPI_CMD_IPM_V59_GET_TICKDLY_MASK,
+ };
+ 
+ static const struct mtk_spi_compatible mt6765_compat = {
+@@ -226,6 +237,7 @@ static const struct mtk_spi_compatible mt6991_compat = {
+ 	.enhance_timing = true,
+ 	.dma_ext = true,
+ 	.ipm_design = true,
++	.tick_dly_mask = SPI_CMD_IPM_GET_TICKDLY_MASK,
+ };
+ 
+ /*
+@@ -262,6 +274,12 @@ static const struct of_device_id mtk_spi_of_match[] = {
+ 	{ .compatible = "mediatek,mt7629-spi",
+ 		.data = (void *)&mt7622_compat,
+ 	},
++	{ .compatible = "mediatek,mt7987-spi",
++		.data = (void *)&mt7987_compat,
++	},
++	{ .compatible = "mediatek,mt7989-spi",
++		.data = (void *)&mt7987_compat,
++	},
+ 	{ .compatible = "mediatek,mt8135-spi",
+ 		.data = (void *)&mtk_common_compat,
+ 	},
+@@ -366,7 +384,7 @@ static int mtk_spi_hw_init(struct spi_controller *host,
+ 			   struct spi_device *spi)
+ {
+ 	u16 cpha, cpol;
+-	u32 reg_val;
++	u32 reg_val, mask;
+ 	struct mtk_chip_config *chip_config = spi->controller_data;
+ 	struct mtk_spi *mdata = spi_controller_get_devdata(host);
+ 
+@@ -443,10 +461,10 @@ static int mtk_spi_hw_init(struct spi_controller *host,
+ 	/* tick delay */
+ 	if (mdata->dev_comp->enhance_timing) {
+ 		if (mdata->dev_comp->ipm_design) {
++			mask = mdata->dev_comp->tick_dly_mask;
+ 			reg_val = readl(mdata->base + SPI_CMD_REG);
+-			reg_val &= ~SPI_CMD_IPM_GET_TICKDLY_MASK;
+-			reg_val |= ((chip_config->tick_delay & 0x7)
+-				    << SPI_CMD_IPM_GET_TICKDLY_OFFSET);
++			reg_val &= ~mask;
++			reg_val |= field_prep(mask, chip_config->tick_delay);
+ 			writel(reg_val, mdata->base + SPI_CMD_REG);
+ 		} else {
+ 			reg_val = readl(mdata->base + SPI_CFG1_REG);
+-- 
+2.45.2
 
