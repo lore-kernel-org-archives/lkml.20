@@ -1,183 +1,182 @@
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55FB53B895E
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 19:01:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FB944F5E0
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 19:03:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791486083; cv=none; b=ZtD3n6f17OmyZoQ22JaJKmFuI7wywk9/ZvomOlpvZVfiH6Cx1/I7jIgsgdC25j2j2zcIfdUiZp9KUfI0/nzuSLiIAs8q2C3WrMEMG616ZoYnfVBkPCnhI54ZWr+nYA6leyVNDZ0A+7WgXLpY86w+lGf9ujNGbrZOFh816hKXf18=
+	t=1791486197; cv=none; b=IH6j2IPih9cnbl5imqZmaDed5lD/NAshUbqQGkqo/DcrAW0IoGID6wkn3IRXqZHi1urNvDpZhHswU26EeRGrVwVjNAc4qNYImsutvLquHW9psy9Kal56ARrqDWQwJLO2MZIS/PwmrJ4B5zLjJSCAnE+3wAgABL/GEGoLBUEWG6U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791486083; c=relaxed/simple;
-	bh=dI/ediDEtYW1zJEmi2TVBHlg+BaG4nXKtBtA6rC2rD4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=a+1IQuEUahkM2ZnMruxw4ZEXBl5jpj2lOB583Z4XMn4KvNmJyHDrE9QCw7SJrkyzpztFXY1m91STER2M1RPX+3oNLOKFyp0Op5iPJA9SlNd71xCpgMdMBML+OPxIhm3kLmKK7BHrpfH6PrD/x+E8utYw5erojssKwNCRQ+BTvG8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=Zv5xF3Wk; arc=none smtp.client-ip=74.125.82.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	s=arc-20240116; t=1791486197; c=relaxed/simple;
+	bh=cGCTkuphDdXab6FhUHbQzB91AfpjIaKc/p1pgUNBsVA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uHZe24bw07PkAcmHCzLQvkJQiJkHLFuGF20Z53CY5/iMOr4CddtRj6K900N9rYjiRRed0DtnBcLWbIqXT3LR5jrXSeyAW0mHTh3Sp4U2piOUNvP37CuyyU4Y38WQ7/ZOL/VLJutoJPsUuVmfX8nXTm7VCxHFWkETq5Y+4mtkAwU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=I7efawdQ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gcBgjhjK; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="Zv5xF3Wk"
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-30b6dad2382so7754775eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 12:01:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="I7efawdQ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gcBgjhjK"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 698HVMXt3411249
+	for <linux-kernel@vger.kernel.org>; Thu, 8 Oct 2026 19:03:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=2zcL0LiMvrJA6V63SGWxmku4
+	SnTILn+WZTgNkzMK1l4=; b=I7efawdQ48XRgy7apJ/aEfb+tTbRqFZVLWlSch4d
+	JSUxrBdPnmWEhUbD7jj8m2GxOGqzlYX36Rv1r+YJ5BpicZCXUzS6d9jcGSmWA2lq
+	BJK2MNsJyPWayvQbLnCzdtSDXiUwSXN3NQINW5alGJ92Y674WPQxiQ6E5fuI9hT4
+	MXhEdx4A/RsBS4MeNQmI+SAiEwo+wYZwOFxWX0YC1vi7VgHROxuL0bHNBzrjSDgb
+	OA/9ZDnWfb54d21jjN5he/spotqs+Mu6DS5x3agJOIsDmbM9dU1pjmxfFc23Zgm2
+	zJ2MTXiPWHVOxHcPG5S0Vf0V2kYKr4kxNczuYe8/t2ZwRg==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h6b9khfm2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 19:03:14 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-3510d0baf63so11347583eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 12:03:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1791486081; x=1792090881; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wH0vSAnuTtk11qs15jI11qzpg6PrfnUwzzqFGPyRMD0=;
-        b=Zv5xF3Wkd20FnYuORrKy04mz5wMYsFBJ+7jgdNI/IUKP3WuIcRidiv0nziZ9eklelf
-         m4oZPV4Ns24RxBDd9lgFS3gX+W2EFGdSiEWcA9qa3jZPRxFDWh3Ll/reDSr+31j6ufca
-         fm/ndCCKJgFKWNshElzNnrJ9mog0lRqDBZVRIs/odfEMVE5BBsv/WOFur++/QWGGsgFL
-         kjkwkyO3Sma/CZmf9mfiA7FqTyGLI/aGNIOLsYXfw7Rp8rNcUSnQyvTBJE5oyObM2gLM
-         ccQ+uJJ/CKGvyTH4jwh+edS1HbO/1IUt/YxBamCaDnygjbxRioEuK1thl/iT9X1X1/HM
-         9IwA==
+        d=oss.qualcomm.com; s=google; t=1791486193; x=1792090993; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2zcL0LiMvrJA6V63SGWxmku4SnTILn+WZTgNkzMK1l4=;
+        b=gcBgjhjKmyJm0Yv4uOagrCdg9SKDKF2FkCR7MgzBCQEFWKSGYKQvGYWeFf6KqmKpiU
+         ZsW0iCVL2sg8ich7rukk1ljUowFpTWb1kO3HFD1OMYLMc92Qjgw2LnMx0CcxAJmFaC1P
+         X6n1mnKbs0coFwPvEfSLRxvZjYwSb/Z4pJrs7XpQiybRCSZOm2h8zV5bOa7PKRVQV+ti
+         88wG4Fa/yNcqK7Gpcs57iHjWXiBAV39jawRRrjcc69mS0jFSUop2aIDpasuLevjjBqJR
+         wElRar2ufzQONa4FDie69RTwV1H0IRnOJySOzh2Br/8DoiQBwgy+NINhb3a6D3xvzxwP
+         TvvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791486081; x=1792090881;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wH0vSAnuTtk11qs15jI11qzpg6PrfnUwzzqFGPyRMD0=;
-        b=dyY7nf7IZHrdSuDJwbLSgc2y+oRIReD77swX7dAWOBTJ4+rALJWK65hXPWSibLsNiB
-         QzPA6zGx8JvrpskpGcaB9U1pX6cd4xz+9qYfbJOhi4Ien7ho2FLdYfuR2AmG8yBMXdBm
-         pjnlVeAt9yVsgt+2kuTZka6RQ3hqCJ73d6e9wz3qqFhqgLdWDeK8N54cVODhDEc0hmw6
-         3u0iDs0bBO38rArayAIK2eQELjEZVhb+G9LHrEirIcMmRBJGcMne8nxe7mGoJi0bXdkD
-         9bZa51MfEX/4dhX5xNSFsGhUV+wcnvF65qF3tzkfJfmUmWjOdh2SZOD1QfBBcBOfXQ8W
-         m6aw==
-X-Forwarded-Encrypted: i=1; AKwUvBzdfdmTcg48DL2T5AbGhLVxKeXG+csIbNVsLjceiZBfFO7N1h49mAxmXQIlff9zl3dr2tFo3MzgAVKzZVM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kAxcwQCdiF+Hf//jSVVHIf72l3Zifx5UKGR7Uk1cPgsRKdtLsn
-	XwL3Kvs5Ocay/mLCPmbN2Ti4/tZpzhRFFS3DkQOfUegktcQHghTMc+XdwlhwGdYRDvA=
-X-Gm-Gg: AYBFou3Z5kj7pUZOKxXSj3HqjtnY/XW1tIlF6MM+VEpQFxKEWXIN2ruxR7jzb3OJpmH
-	4MR3tIvt9nFhw9UOxmPYZII3JzoigHQKQgkRWwyJomp0bIXy71DwHieqQorytUgcu5/ARycOa6a
-	8cGftRSGeILI9909x9TVOCXHdEgY2w1+gKUiDecBU0DC3FDsAyl2AhnQBZdKkRrGlh6IzKKQQK+
-	VVKsl2i50yTvmdZ6yH43tBz+33ZInz4ifr4BE49Sl+UswE1I/9F9PwEdF7Cqxz6umHNkc/ruXfc
-	yZY9Jdr3bqzo6KSEQ6++Nn8R/iyUXCY7wncMdFr61oPH+S9DAVhbnsoP1fCyppiIzAaCnxXiC6A
-	0Vx/uy4nOEhvH5DJckmc8iD9bgS3RFAbgs4DDPYamvz52X6GJIkgeIPlNIC3W4RXN2+Cr6fwb8t
-	fei7BrjkTaj8kAZFc38/02MVXmvG/5Z8Y//GwHEKxlHZ1S3TLRKfbmUHn+FtwAGdnR4/xwXx4iY
-	AMJdmJYNS1idqBYJkQa7slyqlO9MDPiszFRJTsNUB9EKFZIJn23DbCOsf0QVAA509Rn758=
-X-Received: by 2002:a05:7022:2513:b0:14b:1e78:a19f with SMTP id a92af1059eb24-161fdbedf4bmr10042490c88.6.1791486079633;
-        Thu, 08 Oct 2026 12:01:19 -0700 (PDT)
-Received: from localhost.localdomain ([2603:8001:5f01:8bab:bc88:5ec1:4f8a:5b23])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537b3eccebsm405691eec.12.2026.10.08.12.01.17
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 08 Oct 2026 12:01:18 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: Artem Dinaburg <artem@trailofbits.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Seppo Ingalsuo <seppo.ingalsuo@linux.intel.com>,
-	Liam Girdwood <liam.r.girdwood@intel.com>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Mark Brown <broonie@kernel.org>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	sound-open-firmware@alsa-project.org,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
-	linux-sound@vger.kernel.org
-Subject: [PATCH 6.6.y 2/2] ASoC: SOF: ipc4-topology: Harden loops for looking up ALH copiers
-Date: Thu,  8 Oct 2026 15:01:04 -0400
-Message-ID: <20261008190108.96660-3-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261008190108.96660-1-artem@trailofbits.com>
-References: <20261008190108.96660-1-artem@trailofbits.com>
+        d=1e100.net; s=20260707; t=1791486193; x=1792090993;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2zcL0LiMvrJA6V63SGWxmku4SnTILn+WZTgNkzMK1l4=;
+        b=nYSLOByCVvZNOLrh4p1d6p9md6ABR7KEKrKYH8El84GixF72YhFsRjHQEX9pkGa1HX
+         NSCdkT8zuPrLexeDcbmDORrKRbwb6wfOJb9dp1IcfX9bYHthZPXz+ufj2udqzi7Hsjyz
+         rzB8p1xob0u3dKIiB66gfIjLE7/Uu4JjJnwkIeuz0qza3rKoZbL9pHm8tDszdck86c77
+         PR74tdAkT6uk1Tw3TU7EGFgtdQiTFtwyYTLxff3ldc3qOEv5Cd5uyCfyyGKKG+fD5d7U
+         shhVnenc+zttZusRdg1hxgb8c+ktWYyV11kE8UXhVKxuOJ30BDqa0dMYCSNKZ1G2KBLW
+         iWVQ==
+X-Forwarded-Encrypted: i=1; AKwUvByngd33UVvg5UO1J40t27v0gGHwS59XEbqgqCNtvPbzc/WdikbbAomn+MIhmu+JyzJvACLPj57IpU+VuW8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL5hZQwPdtEeguuRKcnOUk5TsGGIlToqiZitWkepmbTWobIVsST
+	deZYkvMdqSEF2rtCiZR2hBvkDYzCttHXbxmL3QHHwhrprsAI5AhmuFPMlwmxpuCsCfaZJw9IbLh
+	ffJsqhqI+J6tK7sYwvuWbNbnqucPafnCC5BxSODDJs8KmdBRn5O3TgcC2N2DHk5hWCIY=
+X-Gm-Gg: AYBFou1HxEuRW5dioQIFxrIICAaDO9BcVLrwqJiMlUNYDBi8sONZsPTY/AgdR1ClXr+
+	d384sxwpqB4gPQHGUrU/l44xrlqJdufkM/H1maAD4wEKwcGSBlSb02hmdkzGGgVwmF0UFHxZQYz
+	E1ayvEXB61V6BIMCV7wVNKw/fovERmbJrG3d09tkZOLWvMY/t97ZWquZMBICItpS9eZjNArjlaJ
+	gdkYbCMX4A3UzvhPTZyYHI9fvAxJ1ri/5DPuJmXfMNGow4fMBvACm1aNdhEWhdQFdofgaghhChm
+	xHIrXGyH3yzY/1/Q7KUVLodgFD26dkbmbEheikrsPvoEQBLMDNAhGmdU59LbwGeNK7g1lp0zVQT
+	6g51fJCOjS65+WZ00EOjK/VifXA==
+X-Received: by 2002:a05:7301:1929:b0:340:e422:fd40 with SMTP id 5a478bee46e88-3515dea7d59mr7265642eec.16.1791486193045;
+        Thu, 08 Oct 2026 12:03:13 -0700 (PDT)
+X-Received: by 2002:a05:7301:1929:b0:340:e422:fd40 with SMTP id 5a478bee46e88-3515dea7d59mr7265589eec.16.1791486192176;
+        Thu, 08 Oct 2026 12:03:12 -0700 (PDT)
+Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537c84147dsm32563eec.2.2026.10.08.12.03.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 12:03:11 -0700 (PDT)
+Date: Fri, 9 Oct 2026 00:33:04 +0530
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+To: Pavan Kondeti <pavan.kondeti@oss.qualcomm.com>
+Cc: Albert Esteve <aesteve@redhat.com>, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Unnathi Chalicheemala <unnathi.chalicheemala@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Ninad Naik <quic_ninanaik@quicinc.com>,
+        Murali Nalajala <quic_mnalajal@quicinc.com>,
+        Venkatakrishnaiah Pari <quic_vpari@quicinc.com>,
+        Jian Shu <quic_jianshu@quicinc.com>,
+        Guru Das Srinagesh <linux@gurudas.dev>
+Subject: Re: [PATCH v3 1/2] firmware: qcom: scm: Introduce new locking
+ mechanism for SCM driver
+Message-ID: <20261008190304.rz2kbniwviinls36@hu-mojha-hyd.qualcomm.com>
+References: <20261001-port-scm-patches-v3-0-17520fa3c541@redhat.com>
+ <20261001-port-scm-patches-v3-1-17520fa3c541@redhat.com>
+ <66ad2051-193c-4990-ab4f-efce0000c00f@quicinc.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <66ad2051-193c-4990-ab4f-efce0000c00f@quicinc.com>
+X-Proofpoint-ORIG-GUID: fH24ZVOwK___j2RIRn7Kc2FdR2cChP_G
+X-Authority-Analysis: v=2.4 cv=U98Hnuru c=1 sm=1 tr=0 ts=6ac7e8f2 cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=COk6AnOGAAAA:8 a=20KFwNOVAAAA:8 a=1Dzrq4baI6OGQhUDbtIA:9 a=CjuIK1q_8ugA:10
+ a=PxkB5W3o20Ba91AHUih5:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDA3NSBTYWx0ZWRfXyxwqNzc7C6j9
+ oav3uALmovSy36qQNNMr2aAXcEUuvMWCBKRdQfrIEbn7w/KCMFpQPPPYivqkiDrGgabcd5XfvNB
+ +z2oW20EJZY5B5G2eOLWQ7FxApp9WGw=
+X-Proofpoint-GUID: fH24ZVOwK___j2RIRn7Kc2FdR2cChP_G
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDA3NSBTYWx0ZWRfX62NcYsIn4owO
+ 58eV7xkMLJUUGqyOUlRnT3RkHTzBRSw0OVuoy9/rpapjvE36F5Fok3sl6Fyi/o0D1cb6eWNXkC2
+ RecINz6mwZZcmU7evcc4lwJT3cnciwXt5mm5a5z+F8SQpVPK60yup57O0t+cFkAnteBs1oi37Wn
+ b18zyrJ3SE7o42CGVpHfIKJ4lWZ9e4PkmfRteCvc70sHLy3Qmx1XglGfGqpGqoGEH1oUjTy8LrZ
+ HwQTJfqV7WZ78xBjWOicsU7NQuQ8euvxCOxYqvqbW+Hxog4INagx1OaYLVt/qN7wnnc31t4i2C6
+ gjLXhy+/VwLaem3+TiX4U0cQblxihFk0AAH3HLy+aXq6jge5gFEzPq4gPdpGJO2Vbfb1rflbgtg
+ 0HPPV9Nq4+wjJflsEku0nUXaQ+BmPGZKHU1C/WZAbPNgF5nVWT4oVQDpQsX+u3ycyzd1lIfvy0/
+ T+mABE61FEcWz9Lqi5g==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-08_06,2026-10-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 phishscore=0 adultscore=0 clxscore=1015 malwarescore=0
+ spamscore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080075
 
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+On Tue, Oct 06, 2026 at 02:57:45PM +0530, Pavan Kondeti wrote:
+> On Thu, Oct 01, 2026 at 06:16:48PM +0200, Albert Esteve wrote:
+> > From: Ninad Naik <quic_ninanaik@quicinc.com>
+> > 
+> > qcom_scm holds its global mutex across WAITQ_SLEEP and
+> > wait_for_completion(). Firmware waitqs allow multiple SMCs in
+> > flight (wq_cnt). If one call is parked on a waitq while holding
+> > the mutex, a second call (e.g., SMCInvoke) cannot enter firmware
+> > and both stall on the waitq.
+> > 
+> > Replace the global mutex with a counting semaphore sized from wq_cnt,
+> > with at least 1 wait queue.
+> > 
+> > Fixes: ccd207ec848e ("firmware: qcom_scm: Support multiple waitq contexts")
+> > Signed-off-by: Murali Nalajala <quic_mnalajal@quicinc.com>
+> > Co-developed-by: Guru Das Srinagesh <quic_gurus@quicinc.com>
+> > Signed-off-by: Guru Das Srinagesh <quic_gurus@quicinc.com>
+> > Signed-off-by: Venkatakrishnaiah Pari <quic_vpari@quicinc.com>
+> > Signed-off-by: Jian Shu <quic_jianshu@quicinc.com>
+> > Signed-off-by: Ninad Naik <quic_ninanaik@quicinc.com>
+> > Signed-off-by: Albert Esteve <aesteve@redhat.com>
+> > ---
+> >  drivers/firmware/qcom/qcom_scm-legacy.c | 8 ++------
+> >  drivers/firmware/qcom/qcom_scm-smc.c    | 7 ++-----
+> >  drivers/firmware/qcom/qcom_scm.c        | 6 +++++-
+> >  drivers/firmware/qcom/qcom_scm.h        | 3 +++
+> >  4 files changed, 12 insertions(+), 12 deletions(-)
+> > 
+> I don't know all the history, but in downstream [1] selective calls only
+> allowed to sleep w/o mutex.
+> 
+> Mukesh, do you know if it is safe to allow all slow calls w/o mutex?
 
-[ Upstream commit 6fd60136d256b3b948333ebdb3835f41a95ab7ef ]
+In the downstream implementation, there can be calls that occupy waitq
+contexts and sleep waiting for events from other VMs.  However, there can
+be multiple such calls and we may run out of waitq contexts. Normally,
+these calls are SMCinvoke calls or qcom_scm_qtee_invoke_smc() users. In
+those scenarios, even normal slow SMC calls will wait for a context and may
+wait forever for one. For this reason, one waitq context is always reserved
+for slow calls to ensure forward progression. So, slow calls
+still need mutex for such cases.. However, I doubt if we have
+sleeping SMCinvoke in upstream ..
 
-Other, non DAI copier widgets could have the same  stream name (sname) as
-the ALH copier and in that case the copier->data is NULL, no alh_data is
-attached, which could lead to NULL pointer dereference.
-We could check for this NULL pointer in sof_ipc4_prepare_copier_module()
-and avoid the crash, but a similar loop in sof_ipc4_widget_setup_comp_dai()
-will miscalculate the ALH device count, causing broken audio.
-
-The correct fix is to harden the matching logic by making sure that the
-1. widget is a DAI widget - so dai = w->private is valid
-2. the dai (and thus the copier) is ALH copier
-
-[ Backport to 6.6.y: Apply both widget-kind and ALH-type predicates to
-  the target loops; the newer node_type local is absent and unused by
-  this implementation. ]
-
-Fixes: a150345aa758 ("ASoC: SOF: ipc4-topology: add SoundWire/ALH aggregation support")
-Reported-by: Seppo Ingalsuo <seppo.ingalsuo@linux.intel.com>
-Link: https://github.com/thesofproject/sof/pull/9652
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Liam Girdwood <liam.r.girdwood@intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Link: https://patch.msgid.link/20250206084642.14988-1-peter.ujfalusi@linux.intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Assisted-by: LLM
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
----
-This is patch 2 of 2 in the ordered 6.6.y backport series.
-This change addresses CVE-2025-21870. Limits ALH aggregation searches to
-DAI widgets of ALH type, preventing NULL private-data dereferences and
-incorrect device counts from same-name non-DAI widgets.
-Each loop checks WIDGET_IS_DAI() before interpreting w->private as a
-DAI, then checks SOF_DAI_INTEL_ALH before incrementing the device
-count or accessing copier data.
-
-The fix is already present in 6.12.y, 6.18.y, and 7.2.y, but not in 6.6.y.
-This fix also affects 6.1.y, which will need a separate backport; this
-submission contains only the 6.6.y patch.
-
- sound/soc/sof/ipc4-topology.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
-
-diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
-index 18096aefce13..8911c075251c 100644
---- a/sound/soc/sof/ipc4-topology.c
-+++ b/sound/soc/sof/ipc4-topology.c
-@@ -577,10 +577,16 @@ static int sof_ipc4_widget_setup_comp_dai(struct snd_sof_widget *swidget)
- 		}
- 
- 		list_for_each_entry(w, &sdev->widget_list, list) {
--			if (w->widget->sname &&
-+			struct snd_sof_dai *alh_dai;
-+
-+			if (!WIDGET_IS_DAI(w->id) || !w->widget->sname ||
- 			    strcmp(w->widget->sname, swidget->widget->sname))
- 				continue;
- 
-+			alh_dai = w->private;
-+			if (alh_dai->type != SOF_DAI_INTEL_ALH)
-+				continue;
-+
- 			blob->alh_cfg.device_count++;
- 		}
- 
-@@ -1692,11 +1698,13 @@ sof_ipc4_prepare_copier_module(struct snd_sof_widget *swidget,
- 			 */
- 			i = 0;
- 			list_for_each_entry(w, &sdev->widget_list, list) {
--				if (w->widget->sname &&
-+				if (!WIDGET_IS_DAI(w->id) || !w->widget->sname ||
- 				    strcmp(w->widget->sname, swidget->widget->sname))
- 					continue;
- 
- 				dai = w->private;
-+				if (dai->type != SOF_DAI_INTEL_ALH)
-+					continue;
- 				alh_copier = (struct sof_ipc4_copier *)dai->private;
- 				alh_data = &alh_copier->data;
- 				blob->alh_cfg.mapping[i].device = alh_data->gtw_cfg.node_id;
 -- 
-2.39.5
+-Mukesh Ojha
