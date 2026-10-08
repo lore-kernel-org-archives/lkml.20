@@ -1,793 +1,164 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EEF049B5B5
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 14:27:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791469677; cv=none; b=nXdU4GobchPsqVv1MtOU5gWNiGjL9S030l3R2KPGYyKIDgiF7swmeoBlwTLJaOZfaVI8LCUs9+HKhp5EDrk7R5fO+28On9sUpwxF2ol0EammVmcY1OtoKZnjCrOaJ3XbfYxGtlJVfkx7Rham4g12iBiA9E9yHgqGWcC8MQzFTDo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791469677; c=relaxed/simple;
-	bh=eNTbyrhZ9YQ8sZ99oyZCrK4fMnYrteG+ywlW8dtVJxY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=nV+YvCCAfl7xe7c8NEKJeP9kerNLoiDEx4BUMGQnt28EEe3bF6dxZo1czltbpgZllF7poIRwA0x1+eSeXjotfI/s0Dm0UXr64PYKBn1Gd6iBvope59tT/OtL+K7u95AUWHQ9Gsle1OsWEHPjN7zXcfVko+MFlXlwqkDDox138+4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PaRq1ZHD; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78DCE393DE9
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 14:28:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791469684; cv=pass; b=obtWIUNI6q5NxGjCv6FrvZBogN9p+KFx0mAbae9SFgiWK/WkkkuYdi612xK8mCz+qxinsS95RSCZUmS4vrv6dOfz/5Nld/SeaQAFBf1gG37QzHOHeo5t2KfRC8xCCPEZ+oHt0Yr9pjm9Gj+dv1VatChS8tgynsLt1pHyXTBj3SY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791469684; c=relaxed/simple;
+	bh=keOSQgCBg5o9yF+yqfS+kAZznzz3Kp36g6dua0RP338=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KHxKEjur1mTBBPyQni/6SIg+N12o6bJUtISPGihOalh5t9H3oXUG4kwtq5msCDJzopLTdi6i2WMV9Iz/oZCnA0Zp+0MpuN7vZYUQYnAUMJn8myV1Z4RaBXKdQ4i0qWw3x7LjJYuFZN26JEJLG4BpasJsqlJL9c5JF2zUvMjrg3Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Da3JbWQe; arc=pass smtp.client-ip=209.85.208.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PaRq1ZHD"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a02667ccebso24927005e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 07:27:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Da3JbWQe"
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b1701294d0so304915a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 07:28:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791469682; cv=none;
+        d=google.com; s=arc-20260327;
+        b=gObkr2LSOyXzaPAOxNrfxWXx2YMO7I2ve4xFzOyijhXhZDwGIQzzSCXGKO4IeCER6x
+         Dt0ywnMv8q/BANIUfPqefV6DAEwCjG2W4ab7+hngUusJcaXw5s6QgyGKdXLVQVnuGv45
+         kAgs854G2oUveQPzsqudZm0R2pba1JmImFSLqYxtuQDMIyvKMI6BzeCtiOFERE9Ct3dy
+         6WdHE7aEztq2WHA/mfrnz4ebJUH+awx6GJ+pSgyo1SgRzJBO7//oyE2kqNn8av3nWAgk
+         CRznStycTOPDJjT8wKSBaGQUjsUk5cFsvcJNrVZeiVj3CdZRqcyRSiXQTgEB625Pc50U
+         w4Pw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=5ZGFIe06azsu9BMIbRvkzv0DNeRxdepAkNT9gQZRAmc=;
+        fh=dF39DWvnqZaX44PxIBVGw4m2vP8iBD7uzLS5DUmqP/w=;
+        b=OW+Yu/cUz+GhNrRyA/Ae9D4Jh6rFv09/qxTNLO3voL4cyOKGi2xgcGlfkYdouPiYcv
+         Mt89eT8arabFYL90ddZdj5rA0XaCpW69QLB/Yw9MU0RmTsWzCICkuHoGbFNy0h4rr2mm
+         tWwC4IXM2l4Gf9F8iKspAy2+t9eFDTRHeqtgRBmE86kq3c2DfLBBWl7X1YzU+IvPajVS
+         2uAyHKPMdU5A/N2b60n3A+zABI/QI9ewJa6OeCR0l9P4pBj8d8SvkNcflFso0ta4lYnI
+         mJRKgv6qDOwRMymtyMPrSGOqMMOq+SEBCpclQWFZjdhhz3X3DL/BcCgONm0MJ9JXnvff
+         fxXg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791469672; x=1792074472; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1791469682; x=1792074482; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=qvHvblG2C0bFu75uZQts5KU8wYjZyENS6e5NZCp7PMU=;
-        b=PaRq1ZHD0ZVTMqF/UupdgYX6tT6uXLX8Jpdove0OfH26pwQdCe1F/L28vDqC7xs7aU
-         r7TCbj57Mq1JLJ+3Env5ttSAd9/xai4CppLnPQDq+/IddpJOQYAIWZNi18dISvEQd7H2
-         F+KBd/9kwPiXhUOinE8+FIcLBqiK63WpiwBimVgnUJBc1dCAvKn60FClsAPYo1rvaUMY
-         Xn3BMfywniboonEX0dVR1oEmoHQYVWJWhj5fwWToGP6tI2gIODbSZIyarXjQkUglINv8
-         ceyCAlQ/iOX/Jsv4WS60cyKE4bwL3mMweY70p3pUreiyrFqYA/PqXJWfD/G4kLAsS4QC
-         wlyQ==
+        bh=5ZGFIe06azsu9BMIbRvkzv0DNeRxdepAkNT9gQZRAmc=;
+        b=Da3JbWQeOtcpPXfQI66ZICgXO1r2Fqmrg5UUtPSXnS/O5xdNmymUeL+yjv9372N/lU
+         FfpcMCvhxoSwG7FM3K0wqIJfRrv0q7OuXLm/PzIrU5DsZ312S8zSPycY1NFvlPdE6lUp
+         /libW7P1jYEDs4i9LUl5aPDzrMgVWdDaaNek5QZU+eyF2dmN0CqQMOSpn+Q7cxS/WEWT
+         g0giq5KVepyTxr6szWhuTCXzG3bP51Y/Ft6p/7Iz0VkzIs/XssBdus65nyfiU3XqpFCI
+         HgfFBNcjmRnTsQlLNlBITOwrkpJ6jKCA8goMYvZpLodBR7cOIfzUN6Eq5BePhHOVrGMs
+         PFAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791469672; x=1792074472;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1791469682; x=1792074482;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=qvHvblG2C0bFu75uZQts5KU8wYjZyENS6e5NZCp7PMU=;
-        b=X4Ak2gvkACE2thkeOzw54w1mHWzFqbnRH2s+S2B1LBBBb23pgbQiMUTc9djCGfXsRW
-         gbh5I5Wk3p46OVVBEkpd0d89Jfchd43RXSziwST/Cppu0JJS1K0hy+uT4obTdapA/Gsa
-         IWY2BKe0c43CMRt9nZxBoJAMjKH2etoYFAi1b7Xvcz6zSrX0BMlSIX9z2FEez73XSun0
-         RohVheKxHJkXXXiqMmNcAA1q1bnY7TMV8R6TTz5beG16cQ8u8X8Jn1uL7ZbikPqw9+R/
-         ai1B+Q2K+avPrRraOQW3BrA5tTMmMYQpk0q36fCrlMcLe3oHhfzXixTUxVdaDUicV95Y
-         eWHg==
-X-Forwarded-Encrypted: i=1; AKwUvByhtqifj5e2KIqxGyFjv0xFVdmTvxi9hfLInKTbI93mCAns0f0Xu41JewOapLDIfSYv5HJEeBX19fNC7TE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mul8qakVTZI3sKqjnwvQBGM0XRBeA5Jyi4k3cym4CLAxtPgT3o
-	PiQXnLKoiMg+jiIFi/0lA9OeCMUc2Yivf554lx64pVBl/z+CPRscVc++
-X-Gm-Gg: AYBFou0cg71KCVfcjhQcU6ln32TMyu4tpU+tMVRTyTLEx6KcdvCMSOOS8JPC/NTlDQe
-	QkfpWDP4uD6ZEfKcZa6zPyicn7AfX6008ZOef5G4xTcoGT/k5DKSnI9u7vTMn0qJwUHWYz9QW1f
-	24ZwXLeUIdiZ1ChbG1SS4dVn1J3U7f111dZxw9s1+l7HhyucdDJBJeGNHFnZ9lOmFtFbGckJOvt
-	XSHsuzYBnUn5KYS9Z9gnMkUZ6RRtI6FiU+kJvvXoR+lGI2FxJRW1pGU+dZlfmffaT8ie0tIhqun
-	d6VnxL1OrZ/277VQUJ5Pnpho/7J38q+VDU9I/j5HQ4K4gUN2A8AzWx7TklSdAMDeD6LVlDSC77M
-	x/tGsmvaMb2MNVIZ2LjY2+Yf3fc5/oZ/KgSdYoTdajqQ+gsY7EE8XZ2hvv0oz0lbQiNuaGceUY+
-	RDGF5Lnomkj+gn4LG9qyThSzYKo5TH+/IYnoSKe5ThTtyYsE53k4lvj534cbWGT71ZBAvx//I36
-	YB/MA4DTWal0NLw82Svb9AEL+P8Lc80vQ==
-X-Received: by 2002:a05:600c:8209:b0:4a1:7ba9:da34 with SMTP id 5b1f17b1804b1-4a180086586mr104436775e9.0.1791469672185;
-        Thu, 08 Oct 2026 07:27:52 -0700 (PDT)
-Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71d123b5sm11268744f8f.24.2026.10.08.07.27.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 07:27:51 -0700 (PDT)
-From: =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
-To: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
-Cc: Wang Yan <wangyan01@kylinos.cn>,
-	linux-kselftest@vger.kernel.org,
-	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>,
-	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 26/27] selftests/landlock: Use EXPECT for closing FDs and stopping threads
-Date: Thu,  8 Oct 2026 16:25:55 +0200
-Message-ID: <20261008142604.39107-28-gnoack3000@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261008142604.39107-2-gnoack3000@gmail.com>
-References: <20261008142604.39107-2-gnoack3000@gmail.com>
+        bh=5ZGFIe06azsu9BMIbRvkzv0DNeRxdepAkNT9gQZRAmc=;
+        b=TGgZJ3yO3UJtw8fhdE7O+0NgLOBdGqWF5nAZofusCskx37Iui1tcL+MVxxG3tUNpkY
+         /1K1t4LlqjE4f6jsswnGl5XlfgbHBoCeCnupCz4cDjQoNY1M60ZC+SYgY786j5VCrcWO
+         mZq4Zdkr0vaDgyJBEY+XI4BHRTD24MEduQK+OljgLv7oUIccDwoe4I26snNITfEB4ke+
+         Ya+WdvEVTWNGyZAH560WBxlgKeHWDUHShQh3hGNUst7mWOARaFIo1kXvsXCgok/hceHE
+         kBZSiQP86uld49sHoQyV3QyundW8C+tkyXBYaxg0S/LWRowS4MAXBepnGlhXI9CEOUeK
+         xTNg==
+X-Forwarded-Encrypted: i=1; AKwUvBylFPdIhabSg2NadpSKkTEFooMbG6LalF3Zo79VzEKqyV80/BX+d/vByJH98nodOycaRVPrQu1lA4gEf9I=@vger.kernel.org
+X-Gm-Message-State: AFuF++kCeAfPJWFc+e3Gbrc+m0ycSsxtlUFL1X9YmRLBhLKda2jWfe+e
+	uqVNgnXxqTRmJPMScICZYO46tX7AFfbFdyGVQ5CnDrMA9aFZ5RLn8YHY8rroS9Cy6YKrIjtg8/C
+	94EcFVnG4gllmJXZzZa1so87WLMzI4LQ=
+X-Gm-Gg: AYBFou3zVdcJUMHItG5verww7e2p5p9uDS+bzdWlOusDGSvbxYKh6sGgbwGa9m7NKxM
+	1orrh2yk60qMz+MK1Se52/4k0C4sjG4slROPsXdtiGTiRGkAKwm+l7Sur8NXHsefEp/4YDsMqjJ
+	+F3cX5ME4KVYaVGCJhmRKiENZKPWsLPaNW9snts+/7pFl3Fjg2PtKbcVYj+PM2gjlRwmO0jQg/i
+	IDY9UOhKw370bFtuQ2i2NEI4CiL2GX6/c1g6sXM12nzyUDrMmqIfhpfzvBjSn07xrjjffe/LxT5
+	IDfg/XVu2IRofCccFDzYFOCH5/PyDv7osgOe/D+RHuhspmoXkEe9WidmSIH8y/CGfJx4oDnwb85
+	sIb5xlA+3/7yjZrrM8YlwU/gXKds2/KSHZTVHFYVBwg==
+X-Received: by 2002:a17:907:c17:b0:c29:5340:182e with SMTP id
+ a640c23a62f3a-c317bb4d250mr588692966b.2.1791469681494; Thu, 08 Oct 2026
+ 07:28:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261007-alpha-hugepages-v2-0-8e108af2d961@gmail.com> <20261007-alpha-hugepages-v2-3-8e108af2d961@gmail.com>
+In-Reply-To: <20261007-alpha-hugepages-v2-3-8e108af2d961@gmail.com>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Thu, 8 Oct 2026 16:27:48 +0200
+X-Gm-Features: AclHuK9MTZQWArXmwotud4oJKmlLTivFsz8qsoyMOcL8h1IMQPbVLGFB76zHeI8
+Message-ID: <CA+=Fv5Rzq8_6wYKpaKb6xfZp6_YECw8bRmTLawA7A8if3kDpSg@mail.gmail.com>
+Subject: Re: [PATCH v2 3/6] alpha: describe the PTE read and write enable bits
+To: Matt Turner <mattst88@gmail.com>
+Cc: Richard Henderson <richard.henderson@linaro.org>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Peter Xu <peterx@redhat.com>, 
+	linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Closing FDs and cancelling or joining threads whose results are not
-used is teardown, whether it happens at the end of a test or in the
-middle of it.  No later check depends on it, so a failure should be
-reported without aborting the test.  Use EXPECT for these calls, as
-most tests already do.  The same applies to removing the FIFO and
-reaping the child at the end of named_pipe_ioctl.
+Hi Matt,
 
-The close(0) in ioctl_error() stays an ASSERT, as the following IOCTL
-relies on FD 0 being closed.
+On Thu, Oct 8, 2026 at 5:24=E2=80=AFAM Matt Turner <mattst88@gmail.com> wro=
+te:
+>
+> The comments on _PAGE_KRE and _PAGE_URE said only "xxx". Describe the
+> four enable bits as the Alpha Linux PTE defines them, in Table 22-3 of
+> the Alpha Architecture Reference Manual: kernel and user read enable in
+> bits 8 and 9, kernel and user write enable in bits 12 and 13, with bits
+> <11:10> and <15:14> reserved. There are only two processor modes, user
+> and kernel (section 22.5.1). Linux uses the read enables as its accessed
+> bit and the write enables as its dirty bit, so say which of
+> __ACCESS_BITS and __DIRTY_BITS each one belongs to.
+>
+> The names differ from what the hardware calls those bits on the 21264.
+> Its PALcode loads the PTE unchanged into DTB_PTE (21264/EV67 Hardware
+> Reference Manual, section 6.9), where bits 9 and 13 are the Executive
+> read and write enables (Figure 5-27), Executive being mode 1 of the four
+> the processor implements (Table 5-5). That is a detail below the PALcode
+> interface, and it is also the layout of the OpenVMS PTE in Table 11-2,
+> which is not the one Linux uses.
+>
+> No functional change.
+>
+> Suggested-by: Magnus Lindholm <linmag7@gmail.com>
+> Signed-off-by: Matt Turner <mattst88@gmail.com>
+> ---
+>  arch/alpha/include/asm/pgtable.h | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+>
+> diff --git a/arch/alpha/include/asm/pgtable.h b/arch/alpha/include/asm/pg=
+table.h
+> index 8a175e0c2b42..d22e28b956fb 100644
+> --- a/arch/alpha/include/asm/pgtable.h
+> +++ b/arch/alpha/include/asm/pgtable.h
+> @@ -65,10 +65,10 @@ struct vm_area_struct;
+>  #define _PAGE_FOW      0x0004  /* used for page protection (fault on wri=
+te) */
+>  #define _PAGE_FOE      0x0008  /* used for page protection (fault on exe=
+c) */
+>  #define _PAGE_ASM      0x0010
+> -#define _PAGE_KRE      0x0100  /* xxx - see below on the "accessed" bit =
+*/
+> -#define _PAGE_URE      0x0200  /* xxx */
+> -#define _PAGE_KWE      0x1000  /* used to do the dirty bit in software *=
+/
+> -#define _PAGE_UWE      0x2000  /* used to do the dirty bit in software *=
+/
+> +#define _PAGE_KRE      0x0100  /* kernel read enable, in __ACCESS_BITS *=
+/
+> +#define _PAGE_URE      0x0200  /* user read enable, in __ACCESS_BITS */
+> +#define _PAGE_KWE      0x1000  /* kernel write enable, in __DIRTY_BITS *=
+/
+> +#define _PAGE_UWE      0x2000  /* user write enable, in __DIRTY_BITS */
+>
+>  /* .. and these are ours ... */
+>  #define _PAGE_DIRTY    0x20000
+>
+> --
+> 2.55.0
+>
 
-Assisted-by: LLM
-Signed-off-by: Günther Noack <gnoack3000@gmail.com>
----
- tools/testing/selftests/landlock/base_test.c  |  40 +++----
- tools/testing/selftests/landlock/fs_test.c    | 106 +++++++++---------
- .../testing/selftests/landlock/ptrace_test.c  |  16 +--
- .../selftests/landlock/trace_fs_test.c        |   8 +-
- tools/testing/selftests/landlock/trace_test.c |   6 +-
- tools/testing/selftests/landlock/tsync_test.c |  22 ++--
- 6 files changed, 99 insertions(+), 99 deletions(-)
+Looks good to me.
 
-diff --git a/tools/testing/selftests/landlock/base_test.c b/tools/testing/selftests/landlock/base_test.c
-index f7c063fdc397..862ff91f6418 100644
---- a/tools/testing/selftests/landlock/base_test.c
-+++ b/tools/testing/selftests/landlock/base_test.c
-@@ -184,7 +184,7 @@ TEST(create_ruleset_checks_ordering)
- 	ruleset_fd =
- 		landlock_create_ruleset(&ruleset_attr, sizeof(ruleset_attr), 0);
- 	ASSERT_LE(0, ruleset_fd);
--	ASSERT_EQ(0, close(ruleset_fd));
-+	EXPECT_EQ(0, close(ruleset_fd));
- }
- 
- /* Tests ordering of syscall argument checks. */
-@@ -230,8 +230,8 @@ TEST(add_rule_checks_ordering)
- 	ASSERT_LE(0, path_beneath_attr.parent_fd);
- 	ASSERT_EQ(0, landlock_add_rule(ruleset_fd, LANDLOCK_RULE_PATH_BENEATH,
- 				       &path_beneath_attr, 0));
--	ASSERT_EQ(0, close(path_beneath_attr.parent_fd));
--	ASSERT_EQ(0, close(ruleset_fd));
-+	EXPECT_EQ(0, close(path_beneath_attr.parent_fd));
-+	EXPECT_EQ(0, close(ruleset_fd));
- }
- 
- /* Tests ordering of syscall argument and permission checks. */
-@@ -253,7 +253,7 @@ TEST(restrict_self_checks_ordering)
- 	ASSERT_LE(0, path_beneath_attr.parent_fd);
- 	ASSERT_EQ(0, landlock_add_rule(ruleset_fd, LANDLOCK_RULE_PATH_BENEATH,
- 				       &path_beneath_attr, 0));
--	ASSERT_EQ(0, close(path_beneath_attr.parent_fd));
-+	EXPECT_EQ(0, close(path_beneath_attr.parent_fd));
- 
- 	/* Checks unprivileged enforcement without no_new_privs. */
- 	drop_caps(_metadata);
-@@ -288,7 +288,7 @@ TEST(restrict_self_checks_ordering)
- 
- 	/* Checks valid call. */
- 	ASSERT_EQ(0, landlock_restrict_self(ruleset_fd, 0));
--	ASSERT_EQ(0, close(ruleset_fd));
-+	EXPECT_EQ(0, close(ruleset_fd));
- }
- 
- TEST(restrict_self_max_layers)
-@@ -309,7 +309,7 @@ TEST(restrict_self_max_layers)
- 	ASSERT_LE(0, path_beneath_attr.parent_fd);
- 	ASSERT_EQ(0, landlock_add_rule(ruleset_fd, LANDLOCK_RULE_PATH_BENEATH,
- 				       &path_beneath_attr, 0));
--	ASSERT_EQ(0, close(path_beneath_attr.parent_fd));
-+	EXPECT_EQ(0, close(path_beneath_attr.parent_fd));
- 
- 	/* Enforces the maximum number of allowed layers. */
- 	for (int i = 0; i < LANDLOCK_MAX_NUM_LAYERS; i++)
-@@ -323,7 +323,7 @@ TEST(restrict_self_max_layers)
- 
- 	/* Checks that the failed call did not set no_new_privs. */
- 	ASSERT_EQ(0, prctl(PR_GET_NO_NEW_PRIVS, 0, 0, 0, 0));
--	ASSERT_EQ(0, close(ruleset_fd));
-+	EXPECT_EQ(0, close(ruleset_fd));
- }
- 
- TEST(restrict_self_fd)
-@@ -477,7 +477,7 @@ TEST(ruleset_fd_io)
- 	ASSERT_EQ(-1, read(ruleset_fd, &buf, 1));
- 	ASSERT_EQ(EINVAL, errno);
- 
--	ASSERT_EQ(0, close(ruleset_fd));
-+	EXPECT_EQ(0, close(ruleset_fd));
- }
- 
- /* Tests enforcement of a ruleset FD transferred through a UNIX socket. */
-@@ -506,14 +506,14 @@ TEST(ruleset_fd_transfer)
- 	ASSERT_EQ(0,
- 		  landlock_add_rule(ruleset_fd_tx, LANDLOCK_RULE_PATH_BENEATH,
- 				    &path_beneath_attr, 0));
--	ASSERT_EQ(0, close(path_beneath_attr.parent_fd));
-+	EXPECT_EQ(0, close(path_beneath_attr.parent_fd));
- 
- 	/* Sends the ruleset FD over a socketpair and then close it. */
- 	ASSERT_EQ(0, socketpair(AF_UNIX, SOCK_STREAM | SOCK_CLOEXEC, 0,
- 				socket_fds));
- 	ASSERT_EQ(0, send_fd(socket_fds[0], ruleset_fd_tx));
--	ASSERT_EQ(0, close(socket_fds[0]));
--	ASSERT_EQ(0, close(ruleset_fd_tx));
-+	EXPECT_EQ(0, close(socket_fds[0]));
-+	EXPECT_EQ(0, close(ruleset_fd_tx));
- 
- 	child = fork();
- 	ASSERT_LE(0, child);
-@@ -521,32 +521,32 @@ TEST(ruleset_fd_transfer)
- 		const int ruleset_fd_rx = recv_fd(socket_fds[1]);
- 
- 		ASSERT_LE(0, ruleset_fd_rx);
--		ASSERT_EQ(0, close(socket_fds[1]));
-+		EXPECT_EQ(0, close(socket_fds[1]));
- 
- 		/* Enforces the received ruleset on the child. */
- 		ASSERT_EQ(0, prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0));
- 		ASSERT_EQ(0, landlock_restrict_self(ruleset_fd_rx, 0));
--		ASSERT_EQ(0, close(ruleset_fd_rx));
-+		EXPECT_EQ(0, close(ruleset_fd_rx));
- 
- 		/* Checks that the ruleset enforcement. */
- 		ASSERT_EQ(-1, open("/", O_RDONLY | O_DIRECTORY | O_CLOEXEC));
- 		ASSERT_EQ(EACCES, errno);
- 		dir_fd = open("/tmp", O_RDONLY | O_DIRECTORY | O_CLOEXEC);
- 		ASSERT_LE(0, dir_fd);
--		ASSERT_EQ(0, close(dir_fd));
-+		EXPECT_EQ(0, close(dir_fd));
- 		_exit(_metadata->exit_code);
- 		return;
- 	}
- 
--	ASSERT_EQ(0, close(socket_fds[1]));
-+	EXPECT_EQ(0, close(socket_fds[1]));
- 
- 	/* Checks that the parent is unrestricted. */
- 	dir_fd = open("/", O_RDONLY | O_DIRECTORY | O_CLOEXEC);
- 	ASSERT_LE(0, dir_fd);
--	ASSERT_EQ(0, close(dir_fd));
-+	EXPECT_EQ(0, close(dir_fd));
- 	dir_fd = open("/tmp", O_RDONLY | O_DIRECTORY | O_CLOEXEC);
- 	ASSERT_LE(0, dir_fd);
--	ASSERT_EQ(0, close(dir_fd));
-+	EXPECT_EQ(0, close(dir_fd));
- 
- 	ASSERT_EQ(child, waitpid(child, &status, 0));
- 	ASSERT_EQ(1, WIFEXITED(status));
-@@ -651,9 +651,9 @@ TEST(useless_quiet_rule_fs)
- 	ASSERT_EQ(EINVAL, errno);
- 
- 	/* Check that the rule had not been added. */
--	ASSERT_EQ(0, close(root_fd));
-+	EXPECT_EQ(0, close(root_fd));
- 	enforce_ruleset(_metadata, ruleset_fd);
--	ASSERT_EQ(0, close(ruleset_fd));
-+	EXPECT_EQ(0, close(ruleset_fd));
- 
- 	ASSERT_EQ(-1, open("/", O_RDONLY | O_DIRECTORY | O_CLOEXEC));
- 	ASSERT_EQ(EACCES, errno);
-@@ -681,7 +681,7 @@ TEST(useless_quiet_rule_net)
- 				    &net_port_attr, LANDLOCK_ADD_RULE_QUIET));
- 	ASSERT_EQ(EINVAL, errno);
- 
--	ASSERT_EQ(0, close(ruleset_fd));
-+	EXPECT_EQ(0, close(ruleset_fd));
- }
- 
- TEST(invalid_quiet_bits_1)
-diff --git a/tools/testing/selftests/landlock/fs_test.c b/tools/testing/selftests/landlock/fs_test.c
-index 7e36baffdf36..76f319c972db 100644
---- a/tools/testing/selftests/landlock/fs_test.c
-+++ b/tools/testing/selftests/landlock/fs_test.c
-@@ -499,7 +499,7 @@ TEST_F_FORK(layout1, inval)
- 					&path_beneath, 0));
- 	/* Returns EBADF because ruleset_fd is not a landlock-ruleset FD. */
- 	ASSERT_EQ(EBADF, errno);
--	ASSERT_EQ(0, close(ruleset_fd));
-+	EXPECT_EQ(0, close(ruleset_fd));
- 
- 	ruleset_fd = open(dir_s1d1, O_DIRECTORY | O_CLOEXEC);
- 	ASSERT_LE(0, ruleset_fd);
-@@ -507,7 +507,7 @@ TEST_F_FORK(layout1, inval)
- 					&path_beneath, 0));
- 	/* Returns EBADFD because ruleset_fd is not a valid ruleset. */
- 	ASSERT_EQ(EBADFD, errno);
--	ASSERT_EQ(0, close(ruleset_fd));
-+	EXPECT_EQ(0, close(ruleset_fd));
- 
- 	/* Gets a real ruleset. */
- 	ruleset_fd =
-@@ -515,14 +515,14 @@ TEST_F_FORK(layout1, inval)
- 	ASSERT_LE(0, ruleset_fd);
- 	ASSERT_EQ(0, landlock_add_rule(ruleset_fd, LANDLOCK_RULE_PATH_BENEATH,
- 				       &path_beneath, 0));
--	ASSERT_EQ(0, close(path_beneath.parent_fd));
-+	EXPECT_EQ(0, close(path_beneath.parent_fd));
- 
- 	/* Tests without O_PATH. */
- 	path_beneath.parent_fd = open(dir_s1d2, O_DIRECTORY | O_CLOEXEC);
- 	ASSERT_LE(0, path_beneath.parent_fd);
- 	ASSERT_EQ(0, landlock_add_rule(ruleset_fd, LANDLOCK_RULE_PATH_BENEATH,
- 				       &path_beneath, 0));
--	ASSERT_EQ(0, close(path_beneath.parent_fd));
-+	EXPECT_EQ(0, close(path_beneath.parent_fd));
- 
- 	/* Tests with a ruleset FD. */
- 	path_beneath.parent_fd = ruleset_fd;
-@@ -563,13 +563,13 @@ TEST_F_FORK(layout1, inval)
- 	ASSERT_EQ(ENOMSG, errno);
- 	path_beneath.allowed_access &= ~(1ULL << 60);
- 
--	ASSERT_EQ(0, close(path_beneath.parent_fd));
-+	EXPECT_EQ(0, close(path_beneath.parent_fd));
- 
- 	/* Enforces the ruleset. */
- 	ASSERT_EQ(0, prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0));
- 	ASSERT_EQ(0, landlock_restrict_self(ruleset_fd, 0));
- 
--	ASSERT_EQ(0, close(ruleset_fd));
-+	EXPECT_EQ(0, close(ruleset_fd));
- }
- 
- /* clang-format off */
-@@ -639,9 +639,9 @@ TEST_F_FORK(layout1, file_and_dir_access_rights)
- 			ASSERT_EQ(EINVAL, errno);
- 		}
- 	}
--	ASSERT_EQ(0, close(path_beneath_file.parent_fd));
--	ASSERT_EQ(0, close(path_beneath_dir.parent_fd));
--	ASSERT_EQ(0, close(ruleset_fd));
-+	EXPECT_EQ(0, close(path_beneath_file.parent_fd));
-+	EXPECT_EQ(0, close(path_beneath_dir.parent_fd));
-+	EXPECT_EQ(0, close(ruleset_fd));
- }
- 
- TEST_F_FORK(layout0, ruleset_with_unknown_access)
-@@ -683,8 +683,8 @@ TEST_F_FORK(layout0, rule_with_unknown_access)
- 						&path_beneath, 0));
- 		EXPECT_EQ(EINVAL, errno);
- 	}
--	ASSERT_EQ(0, close(path_beneath.parent_fd));
--	ASSERT_EQ(0, close(ruleset_fd));
-+	EXPECT_EQ(0, close(path_beneath.parent_fd));
-+	EXPECT_EQ(0, close(ruleset_fd));
- }
- 
- TEST_F_FORK(layout1, rule_with_unhandled_access)
-@@ -741,7 +741,7 @@ static void add_path_beneath(struct __test_metadata *const _metadata,
- 		TH_LOG("Failed to update the ruleset with \"%s\": %s", path,
- 		       strerror(errno));
- 	}
--	ASSERT_EQ(0, close(path_beneath.parent_fd));
-+	EXPECT_EQ(0, close(path_beneath.parent_fd));
- }
- 
- struct rule {
-@@ -843,7 +843,7 @@ TEST_F_FORK(layout0, proc_nsfs)
- 	ASSERT_EQ(-1, landlock_add_rule(ruleset_fd, LANDLOCK_RULE_PATH_BENEATH,
- 					&path_beneath, 0));
- 	ASSERT_EQ(EBADFD, errno);
--	ASSERT_EQ(0, close(path_beneath.parent_fd));
-+	EXPECT_EQ(0, close(path_beneath.parent_fd));
- }
- 
- TEST_F_FORK(layout0, unpriv)
-@@ -866,7 +866,7 @@ TEST_F_FORK(layout0, unpriv)
- 
- 	/* enforce_ruleset() calls prctl(no_new_privs). */
- 	enforce_ruleset(_metadata, ruleset_fd);
--	ASSERT_EQ(0, close(ruleset_fd));
-+	EXPECT_EQ(0, close(ruleset_fd));
- }
- 
- TEST_F_FORK(layout1, effective_access)
-@@ -914,14 +914,14 @@ TEST_F_FORK(layout1, effective_access)
- 	ASSERT_LE(0, lseek(reg_fd, 0, SEEK_SET));
- 	ASSERT_EQ(1, read(reg_fd, &buf, 1));
- 	ASSERT_EQ('.', buf);
--	ASSERT_EQ(0, close(reg_fd));
-+	EXPECT_EQ(0, close(reg_fd));
- 
- 	/* Just in case, double-checks effective actions. */
- 	reg_fd = open(file1_s2d2, O_RDONLY | O_CLOEXEC);
- 	ASSERT_LE(0, reg_fd);
- 	ASSERT_EQ(-1, write(reg_fd, &buf, 1));
- 	ASSERT_EQ(EBADF, errno);
--	ASSERT_EQ(0, close(reg_fd));
-+	EXPECT_EQ(0, close(reg_fd));
- }
- 
- TEST_F_FORK(layout1, unhandled_access)
-@@ -1370,7 +1370,7 @@ TEST_F_FORK(layout1, inherit_subset)
- 	add_path_beneath(_metadata, ruleset_fd, LANDLOCK_ACCESS_FS_WRITE_FILE,
- 			 dir_s1d3, 0);
- 	enforce_ruleset(_metadata, ruleset_fd);
--	ASSERT_EQ(0, close(ruleset_fd));
-+	EXPECT_EQ(0, close(ruleset_fd));
- 
- 	/*
- 	 * Same tests and results as above, except for open(dir_s1d3) which is
-@@ -1481,7 +1481,7 @@ TEST_F_FORK(layout1, empty_or_same_ruleset)
- 
- 	/* Enforces a second time with the same ruleset. */
- 	enforce_ruleset(_metadata, ruleset_fd);
--	ASSERT_EQ(0, close(ruleset_fd));
-+	EXPECT_EQ(0, close(ruleset_fd));
- }
- 
- TEST_F_FORK(layout1, rule_on_mountpoint)
-@@ -1770,7 +1770,7 @@ TEST_F_FORK(layout1, covered_rule)
- 	ASSERT_EQ(0, test_open(dir_s3d2, O_RDONLY));
- 
- 	enforce_ruleset(_metadata, ruleset_fd);
--	ASSERT_EQ(0, close(ruleset_fd));
-+	EXPECT_EQ(0, close(ruleset_fd));
- 
- 	/* Checks that access to the new mount point is denied. */
- 	ASSERT_EQ(EACCES, test_open(dir_s3d2, O_RDONLY));
-@@ -1893,8 +1893,8 @@ static void test_relative_path(struct __test_metadata *const _metadata,
- 	}
- 
- 	if (rel == REL_OPEN)
--		ASSERT_EQ(0, close(dirfd));
--	ASSERT_EQ(0, close(ruleset_fd));
-+		EXPECT_EQ(0, close(dirfd));
-+	EXPECT_EQ(0, close(ruleset_fd));
- }
- 
- TEST_F_FORK(layout1, relative_open)
-@@ -1936,8 +1936,8 @@ static void copy_file(struct __test_metadata *const _metadata,
- 	ASSERT_EQ(0, fstat(src_fd, &statbuf));
- 	ASSERT_EQ(statbuf.st_size,
- 		  sendfile(dst_fd, src_fd, 0, statbuf.st_size));
--	ASSERT_EQ(0, close(src_fd));
--	ASSERT_EQ(0, close(dst_fd));
-+	EXPECT_EQ(0, close(src_fd));
-+	EXPECT_EQ(0, close(dst_fd));
- }
- 
- static void test_execute(struct __test_metadata *const _metadata, const int err,
-@@ -3582,7 +3582,7 @@ TEST_F_FORK(layout1, proc_unlinked_file)
- 
- 	proc_fd = open_proc_fd(_metadata, reg_fd, O_RDONLY | O_CLOEXEC);
- 	ASSERT_LE(0, proc_fd);
--	ASSERT_EQ(0, close(proc_fd));
-+	EXPECT_EQ(0, close(proc_fd));
- 
- 	proc_fd = open_proc_fd(_metadata, reg_fd, O_RDWR | O_CLOEXEC);
- 	ASSERT_EQ(-1, proc_fd)
-@@ -3592,7 +3592,7 @@ TEST_F_FORK(layout1, proc_unlinked_file)
- 	}
- 	ASSERT_EQ(EACCES, errno);
- 
--	ASSERT_EQ(0, close(reg_fd));
-+	EXPECT_EQ(0, close(reg_fd));
- }
- 
- TEST_F_FORK(layout1, proc_pipe)
-@@ -3633,7 +3633,7 @@ TEST_F_FORK(layout1, proc_pipe)
- 		TH_LOG("Failed to write through /proc/self/fd/%d: %s",
- 		       pipe_fds[1], strerror(errno));
- 	}
--	ASSERT_EQ(0, close(proc_fd));
-+	EXPECT_EQ(0, close(proc_fd));
- 
- 	/* Checks read access to pipe through /proc/self/fd . */
- 	proc_fd = open_proc_fd(_metadata, pipe_fds[0], O_RDONLY | O_CLOEXEC);
-@@ -3644,10 +3644,10 @@ TEST_F_FORK(layout1, proc_pipe)
- 		TH_LOG("Failed to read through /proc/self/fd/%d: %s",
- 		       pipe_fds[1], strerror(errno));
- 	}
--	ASSERT_EQ(0, close(proc_fd));
-+	EXPECT_EQ(0, close(proc_fd));
- 
--	ASSERT_EQ(0, close(pipe_fds[0]));
--	ASSERT_EQ(0, close(pipe_fds[1]));
-+	EXPECT_EQ(0, close(pipe_fds[0]));
-+	EXPECT_EQ(0, close(pipe_fds[1]));
- }
- 
- /* Invokes truncate(2) and returns its errno or 0. */
-@@ -3908,10 +3908,10 @@ TEST_F_FORK(layout1, ftruncate)
- 	EXPECT_EQ(0, test_ftruncate(fd_layer2));
- 	EXPECT_EQ(EACCES, test_ftruncate(fd_layer3));
- 
--	ASSERT_EQ(0, close(fd_layer0));
--	ASSERT_EQ(0, close(fd_layer1));
--	ASSERT_EQ(0, close(fd_layer2));
--	ASSERT_EQ(0, close(fd_layer3));
-+	EXPECT_EQ(0, close(fd_layer0));
-+	EXPECT_EQ(0, close(fd_layer1));
-+	EXPECT_EQ(0, close(fd_layer2));
-+	EXPECT_EQ(0, close(fd_layer3));
- }
- 
- /* clang-format off */
-@@ -4002,7 +4002,7 @@ TEST_F_FORK(ftruncate, open_and_ftruncate)
- 	if (fd >= 0) {
- 		EXPECT_EQ(variant->expected_ftruncate_result,
- 			  test_ftruncate(fd));
--		ASSERT_EQ(0, close(fd));
-+		EXPECT_EQ(0, close(fd));
- 	}
- }
- 
-@@ -4039,10 +4039,10 @@ TEST_F_FORK(ftruncate, open_and_ftruncate_in_different_processes)
- 
- 		if (fd >= 0) {
- 			ASSERT_EQ(0, send_fd(socket_fds[0], fd));
--			ASSERT_EQ(0, close(fd));
-+			EXPECT_EQ(0, close(fd));
- 		}
- 
--		ASSERT_EQ(0, close(socket_fds[0]));
-+		EXPECT_EQ(0, close(socket_fds[0]));
- 
- 		_exit(_metadata->exit_code);
- 		return;
-@@ -4054,15 +4054,15 @@ TEST_F_FORK(ftruncate, open_and_ftruncate_in_different_processes)
- 
- 		EXPECT_EQ(variant->expected_ftruncate_result,
- 			  test_ftruncate(fd));
--		ASSERT_EQ(0, close(fd));
-+		EXPECT_EQ(0, close(fd));
- 	}
- 
- 	ASSERT_EQ(child, waitpid(child, &status, 0));
- 	ASSERT_EQ(1, WIFEXITED(status));
- 	ASSERT_EQ(EXIT_SUCCESS, WEXITSTATUS(status));
- 
--	ASSERT_EQ(0, close(socket_fds[0]));
--	ASSERT_EQ(0, close(socket_fds[1]));
-+	EXPECT_EQ(0, close(socket_fds[0]));
-+	EXPECT_EQ(0, close(socket_fds[1]));
- }
- 
- /* Invokes the FS_IOC_GETFLAGS IOCTL and returns its errno or 0. */
-@@ -4096,7 +4096,7 @@ TEST(memfd_ftruncate_and_ioctl)
- 		EXPECT_EQ(0, test_ftruncate(fd));
- 		EXPECT_EQ(0, test_fs_ioc_getflags_ioctl(fd));
- 
--		ASSERT_EQ(0, close(fd));
-+		EXPECT_EQ(0, close(fd));
- 
- 		/* Enables Landlock. */
- 		enforce_fs(_metadata, ACCESS_ALL, NULL);
-@@ -4127,7 +4127,7 @@ TEST_F_FORK(layout1, o_path_ftruncate_and_ioctl)
- 	EXPECT_EQ(EBADF, test_ftruncate(fd));
- 	EXPECT_EQ(EBADF, test_fs_ioc_getflags_ioctl(fd));
- 
--	ASSERT_EQ(0, close(fd));
-+	EXPECT_EQ(0, close(fd));
- 
- 	/* Enables Landlock. */
- 	enforce_fs(_metadata, ACCESS_ALL, NULL);
-@@ -4143,7 +4143,7 @@ TEST_F_FORK(layout1, o_path_ftruncate_and_ioctl)
- 	EXPECT_EQ(EBADF, test_ftruncate(fd));
- 	EXPECT_EQ(EBADF, test_fs_ioc_getflags_ioctl(fd));
- 
--	ASSERT_EQ(0, close(fd));
-+	EXPECT_EQ(0, close(fd));
- }
- 
- /*
-@@ -4175,7 +4175,7 @@ static int ioctl_error(struct __test_metadata *const _metadata, int fd,
- 
- 	/* Restores the old FD 0 and closes the backup FD. */
- 	ASSERT_EQ(0, dup2(stdinbak_fd, 0));
--	ASSERT_EQ(0, close(stdinbak_fd));
-+	EXPECT_EQ(0, close(stdinbak_fd));
- 
- 	if (res < 0)
- 		return err;
-@@ -4251,7 +4251,7 @@ TEST_F_FORK(layout1, blanket_permitted_ioctls)
- 	/* Default case is also blocked. */
- 	EXPECT_EQ(EACCES, ioctl_error(_metadata, fd, 0xc00ffeee));
- 
--	ASSERT_EQ(0, close(fd));
-+	EXPECT_EQ(0, close(fd));
- }
- 
- /*
-@@ -4285,10 +4285,10 @@ TEST_F_FORK(layout1, named_pipe_ioctl)
- 	/* FIONREAD is implemented by pipefifo_fops. */
- 	EXPECT_EQ(0, test_fionread_ioctl(fd));
- 
--	ASSERT_EQ(0, close(fd));
--	ASSERT_EQ(0, unlink(path));
-+	EXPECT_EQ(0, close(fd));
-+	EXPECT_EQ(0, unlink(path));
- 
--	ASSERT_EQ(child_pid, waitpid(child_pid, NULL, 0));
-+	EXPECT_EQ(child_pid, waitpid(child_pid, NULL, 0));
- }
- 
- /*
-@@ -4441,7 +4441,7 @@ TEST_F_FORK(ioctl, handle_dir_access_file)
- 	EXPECT_EQ(0, ioctl(fd, FIOASYNC, &flag));
- 	EXPECT_EQ(0, ioctl(fd, FIGETBSZ, &flag));
- 
--	ASSERT_EQ(0, close(fd));
-+	EXPECT_EQ(0, close(fd));
- }
- 
- TEST_F_FORK(ioctl, handle_dir_access_dir)
-@@ -4483,7 +4483,7 @@ TEST_F_FORK(ioctl, handle_dir_access_dir)
- 	EXPECT_EQ(0, ioctl(dir_fd, FIOASYNC, &flag));
- 	EXPECT_EQ(0, ioctl(dir_fd, FIGETBSZ, &flag));
- 
--	ASSERT_EQ(0, close(dir_fd));
-+	EXPECT_EQ(0, close(dir_fd));
- }
- 
- TEST_F_FORK(ioctl, handle_file_access_file)
-@@ -4517,7 +4517,7 @@ TEST_F_FORK(ioctl, handle_file_access_file)
- 	EXPECT_EQ(0, ioctl(fd, FIOASYNC, &flag));
- 	EXPECT_EQ(0, ioctl(fd, FIGETBSZ, &flag));
- 
--	ASSERT_EQ(0, close(fd));
-+	EXPECT_EQ(0, close(fd));
- }
- 
- /*
-@@ -7435,7 +7435,7 @@ TEST_F_FORK(layout3_fs, release_inodes)
- 	clear_cap(_metadata, CAP_SYS_ADMIN);
- 
- 	enforce_ruleset(_metadata, ruleset_fd);
--	ASSERT_EQ(0, close(ruleset_fd));
-+	EXPECT_EQ(0, close(ruleset_fd));
- 
- 	/* Checks that access to the new mount point is denied. */
- 	ASSERT_EQ(EACCES, test_open(TMP_DIR, O_RDONLY));
-@@ -8167,7 +8167,7 @@ static int apply_a_layer(struct __test_metadata *const _metadata,
- 	{
- 		TH_LOG("Failed to enforce ruleset: %s", strerror(errno));
- 	}
--	ASSERT_EQ(0, close(rs_fd));
-+	EXPECT_EQ(0, close(rs_fd));
- 
- 	if (debug_quiet_tests) {
- 		sprint_access_bits(handled_access_s, sizeof(handled_access_s),
-@@ -8302,7 +8302,7 @@ void audit_quiet_layout1_test_body(struct __test_metadata *const _metadata,
- 			ASSERT_EQ(0, audit_count_records(self->audit_fd,
- 							 &records));
- 			ASSERT_EQ(0, records.access);
--			ASSERT_EQ(0, close(fd));
-+			EXPECT_EQ(0, close(fd));
- 		}
- 	}
- }
-diff --git a/tools/testing/selftests/landlock/ptrace_test.c b/tools/testing/selftests/landlock/ptrace_test.c
-index ea8e4be6659e..f253c6a3a436 100644
---- a/tools/testing/selftests/landlock/ptrace_test.c
-+++ b/tools/testing/selftests/landlock/ptrace_test.c
-@@ -183,8 +183,8 @@ TEST_F(scoped_domains, trace)
- 	if (child == 0) {
- 		char buf_child;
- 
--		ASSERT_EQ(0, close(pipe_parent[1]));
--		ASSERT_EQ(0, close(pipe_child[0]));
-+		EXPECT_EQ(0, close(pipe_parent[1]));
-+		EXPECT_EQ(0, close(pipe_child[0]));
- 		if (variant->domain_child)
- 			create_domain(_metadata);
- 
-@@ -238,8 +238,8 @@ TEST_F(scoped_domains, trace)
- 		return;
- 	}
- 
--	ASSERT_EQ(0, close(pipe_child[1]));
--	ASSERT_EQ(0, close(pipe_parent[0]));
-+	EXPECT_EQ(0, close(pipe_child[1]));
-+	EXPECT_EQ(0, close(pipe_parent[0]));
- 	if (variant->domain_parent)
- 		create_domain(_metadata);
- 
-@@ -370,8 +370,8 @@ TEST_F(audit, trace)
- 	if (child == 0) {
- 		char buf_child;
- 
--		ASSERT_EQ(0, close(pipe_parent[1]));
--		ASSERT_EQ(0, close(pipe_child[0]));
-+		EXPECT_EQ(0, close(pipe_parent[1]));
-+		EXPECT_EQ(0, close(pipe_child[0]));
- 
- 		/* Waits for the parent to be in a domain, if any. */
- 		ASSERT_EQ(1, read(pipe_parent[0], &buf_child, 1));
-@@ -400,8 +400,8 @@ TEST_F(audit, trace)
- 		return;
- 	}
- 
--	ASSERT_EQ(0, close(pipe_child[1]));
--	ASSERT_EQ(0, close(pipe_parent[0]));
-+	EXPECT_EQ(0, close(pipe_child[1]));
-+	EXPECT_EQ(0, close(pipe_parent[0]));
- 	create_domain(_metadata);
- 
- 	/* Signals that the parent is in a domain. */
-diff --git a/tools/testing/selftests/landlock/trace_fs_test.c b/tools/testing/selftests/landlock/trace_fs_test.c
-index 64014ade3a0e..06161aa6d5d7 100644
---- a/tools/testing/selftests/landlock/trace_fs_test.c
-+++ b/tools/testing/selftests/landlock/trace_fs_test.c
-@@ -210,8 +210,8 @@ TEST_F(trace_fs, add_rule_path_beneath)
- 
- 	ASSERT_EQ(0, landlock_add_rule(ruleset_fd, LANDLOCK_RULE_PATH_BENEATH,
- 				       &path_beneath, 0));
--	ASSERT_EQ(0, close(path_beneath.parent_fd));
--	ASSERT_EQ(0, close(ruleset_fd));
-+	EXPECT_EQ(0, close(path_beneath.parent_fd));
-+	EXPECT_EQ(0, close(ruleset_fd));
- 
- 	buf = tracefs_read_buf();
- 	ASSERT_NE(NULL, buf);
-@@ -274,8 +274,8 @@ TEST_F(trace_fs, add_rule_path_beneath_escaped_path_overflow)
- 
- 	ASSERT_EQ(0, landlock_add_rule(ruleset_fd, LANDLOCK_RULE_PATH_BENEATH,
- 				       &path_beneath, 0));
--	ASSERT_EQ(0, close(path_beneath.parent_fd));
--	ASSERT_EQ(0, close(ruleset_fd));
-+	EXPECT_EQ(0, close(path_beneath.parent_fd));
-+	EXPECT_EQ(0, close(ruleset_fd));
- 
- 	buf = tracefs_read_buf();
- 	ASSERT_NE(NULL, buf);
-diff --git a/tools/testing/selftests/landlock/trace_test.c b/tools/testing/selftests/landlock/trace_test.c
-index a331df746dbc..df6cc3c4d945 100644
---- a/tools/testing/selftests/landlock/trace_test.c
-+++ b/tools/testing/selftests/landlock/trace_test.c
-@@ -163,7 +163,7 @@ TEST_F(trace, create_ruleset)
- 	ruleset_fd =
- 		landlock_create_ruleset(&ruleset_attr, sizeof(ruleset_attr), 0);
- 	ASSERT_LE(0, ruleset_fd);
--	ASSERT_EQ(0, close(ruleset_fd));
-+	EXPECT_EQ(0, close(ruleset_fd));
- 
- 	buf = tracefs_read_buf();
- 	ASSERT_NE(NULL, buf);
-@@ -508,7 +508,7 @@ TEST_F(trace, add_rule_invalid_fd)
- 	/* Invalid ruleset fd (-1). */
- 	ASSERT_EQ(-1, landlock_add_rule(-1, LANDLOCK_RULE_PATH_BENEATH,
- 					&path_beneath, 0));
--	ASSERT_EQ(0, close(path_beneath.parent_fd));
-+	EXPECT_EQ(0, close(path_beneath.parent_fd));
- 
- 	buf = tracefs_read_buf();
- 	ASSERT_NE(NULL, buf);
-@@ -544,7 +544,7 @@ TEST_F(trace, create_domain_invalid)
- 	/* Unknown flags. */
- 	ASSERT_EQ(-1, landlock_restrict_self(ruleset_fd, -1));
- 
--	ASSERT_EQ(0, close(ruleset_fd));
-+	EXPECT_EQ(0, close(ruleset_fd));
- 
- 	buf = tracefs_read_buf();
- 	ASSERT_NE(NULL, buf);
-diff --git a/tools/testing/selftests/landlock/tsync_test.c b/tools/testing/selftests/landlock/tsync_test.c
-index 2b53596c986e..aff973ba4735 100644
---- a/tools/testing/selftests/landlock/tsync_test.c
-+++ b/tools/testing/selftests/landlock/tsync_test.c
-@@ -152,10 +152,10 @@ TEST_F(multi_threaded, restrict)
- 	EXPECT_EQ(variant->expected_no_new_privs,
- 		  prctl(PR_GET_NO_NEW_PRIVS, 0, 0, 0, 0));
- 
--	ASSERT_EQ(0, pthread_cancel(t1));
--	ASSERT_EQ(0, pthread_cancel(t2));
--	ASSERT_EQ(0, pthread_join(t1, NULL));
--	ASSERT_EQ(0, pthread_join(t2, NULL));
-+	EXPECT_EQ(0, pthread_cancel(t1));
-+	EXPECT_EQ(0, pthread_cancel(t2));
-+	EXPECT_EQ(0, pthread_join(t1, NULL));
-+	EXPECT_EQ(0, pthread_join(t2, NULL));
- 
- 	/* Checks the no_new_privs state of the sibling threads. */
- 	EXPECT_EQ(variant->expected_no_new_privs, no_new_privs1);
-@@ -184,10 +184,10 @@ TEST(multi_threaded_success_despite_diverging_domains)
- 	EXPECT_EQ(0, landlock_restrict_self(ruleset_fd,
- 					    LANDLOCK_RESTRICT_SELF_TSYNC));
- 
--	ASSERT_EQ(0, pthread_cancel(t1));
--	ASSERT_EQ(0, pthread_cancel(t2));
--	ASSERT_EQ(0, pthread_join(t1, NULL));
--	ASSERT_EQ(0, pthread_join(t2, NULL));
-+	EXPECT_EQ(0, pthread_cancel(t1));
-+	EXPECT_EQ(0, pthread_cancel(t2));
-+	EXPECT_EQ(0, pthread_join(t1, NULL));
-+	EXPECT_EQ(0, pthread_join(t2, NULL));
- 	EXPECT_EQ(0, close(ruleset_fd));
- }
- 
-@@ -309,11 +309,11 @@ TEST(tsync_interrupt)
- 					    LANDLOCK_RESTRICT_SELF_TSYNC));
- 
- 	sd.stop = true;
--	ASSERT_EQ(0, pthread_join(signaler, NULL));
-+	EXPECT_EQ(0, pthread_join(signaler, NULL));
- 
- 	for (i = 0; i < NUM_IDLE_THREADS; i++) {
--		ASSERT_EQ(0, pthread_cancel(threads[i]));
--		ASSERT_EQ(0, pthread_join(threads[i], NULL));
-+		EXPECT_EQ(0, pthread_cancel(threads[i]));
-+		EXPECT_EQ(0, pthread_join(threads[i], NULL));
- 	}
- 
- 	EXPECT_EQ(0, close(ruleset_fd));
--- 
-2.56.0
-
+Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
