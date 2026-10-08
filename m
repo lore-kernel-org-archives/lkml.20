@@ -1,75 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from wxsgout04.xfusion.com (wxsgout03.xfusion.com [36.139.52.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4EB03769F4;
-	Thu,  8 Oct 2026 16:59:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC5C23AD530
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 16:59:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=36.139.52.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791478770; cv=none; b=XBOrgfY756K5fUTEI5bYMlVf8aHvzRsXXsCp9fo+/FawI52eO4rySBo58dkVX1xgd9OfN50lIW6vMTiOjVyyyeFgsEwor4Bm1ARMQ4lfQtQwYDgqVFgGfKFq3mGzLCSgcHHgwulBsxhqYmFwN9CoHIp8pMrU2vcKqt0W8qm+TXs=
+	t=1791478797; cv=none; b=UqhZkLZMC1L9PpOAnlPJYpWbbqIgb0eDbonNVaiAUeZROXx07RukLravEwb7uHjjOdjPQyBOSk9x+nKKbPWHtBO8k/bmitDLGNhPqLXdWnSLsMFqN3vox2hlcStTO5BJ0m8zAVjxuiHyO1UD5o7mi4mJa3DmbLhHjQoSm+eXcB8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791478770; c=relaxed/simple;
-	bh=DxOA3K04TdGKgV9RBzwq7NMB042SfZvdvrNpiga7nYU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=S9EjurEBG2JkYZWGaXctxFbx0fUXz1ct0V+nmMckdS2u8bmQ2wi+Tui2jbTBODI/4WK4c5+yWrpIGSa3KfMqz0KIW0rb4kmiVdY1ekkHQfml4tEcq9ui7GB9OQOMfW8At/eB4P4v6Tzj290ncMenFYVOGJRgJNGzdCCQev4g4JE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=czNx/g1a; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="czNx/g1a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEE7A1F000FF;
-	Thu,  8 Oct 2026 16:59:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791478769;
-	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=czNx/g1a1gDSp+cfNeebeb/DgFh6TTsU1myEM6pagKzVUK2Xu2+fpaTrnPzE/T8Jw
-	 EibsJBjFsDhmC7fo1ewkEbn4pDWJUcg2oGmt+o9QebtpGY3ebAsH1jyd9edBv8kpex
-	 uJoOzI/Ma0cKaDw79RKSTqih9yN8M9BsJhHEwa3hyhUUXf0XqwW2cSsOoySi+0xb7G
-	 RgE/Pp27prl0vg80hX11jTeHdP7D6DSwTkZ9csTz2k/hFUSZAqaN6ruVxibjXOUNLx
-	 fUmUFxv4I5a4fD49tGLkzDAWUGP0S0QghJ8nkdAb+CY8lOT8gjOUZs6+ivgbkTBdmM
-	 qSycB9t+Blrnw==
-From: netdev-bot+sinfo@kernel.org
-To: Haotian Zhang <vulab@iscas.ac.cn>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Josua Mayer <josua@solid-run.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] net: mvmdio: fix clk reference leak in orion_mdio_probe()
-Date: Thu, 08 Oct 2026 16:59:28 +0000
-Message-ID: <179147876825.2527009.4031641692421195903@kernel.org>
-In-Reply-To: <20261008165328.2702289-1-vulab@iscas.ac.cn>
-References: <20261008165328.2702289-1-vulab@iscas.ac.cn>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	s=arc-20240116; t=1791478797; c=relaxed/simple;
+	bh=DPS89jnvGKfosnNmRUYPSk22BtY8EzulP4pxtvNuLic=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Cpf5kU5SZ9n50ElP2urBgD86wPnPlP6Z9lzesDdwrewJ3YJgd77DnqbqWUHhPt1Nat8+UAaZgg9cGc0Bb2RUZRvLSqt6bE2rh62y5J9US0ta4uU9tUfVpONKK/KwYYf9XHExmwN5jUnfPYJU6L4XkAHRNDx0+bWKAyuXGR5lMFs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xfusion.com; spf=pass smtp.mailfrom=xfusion.com; arc=none smtp.client-ip=36.139.52.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xfusion.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xfusion.com
+Received: from wuxpheds03048.xfusion.com (unknown [10.32.143.30])
+	by wxsgout04.xfusion.com (SkyGuard) with ESMTPS id 4j0wjw3TzqzBDpk5;
+	Fri,  9 Oct 2026 00:41:24 +0800 (CST)
+Received: from DESKTOP-Q8I2N5U.xfusion.com (10.82.130.100) by
+ wuxpheds03048.xfusion.com (10.32.143.30) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_RSA_WITH_AES_128_CBC_SHA256) id 15.2.2562.46;
+ Fri, 9 Oct 2026 00:41:53 +0800
+From: shechenglong <shechenglong@xfusion.com>
+To: <dmitry.osipenko@collabora.com>, <airlied@redhat.com>,
+	<kraxel@redhat.com>, <tzimmermann@suse.de>
+CC: <gurchetansingh@chromium.org>, <olvaffe@gmail.com>,
+	<maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>, <simona@ffwll.ch>,
+	<dri-devel@lists.freedesktop.org>, <virtualization@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>, <stone.xulei@xfusion.com>,
+	<chenjialong@xfusion.com>
+Subject: Re: [PATCH RESEND] drm/virtio: expose GEM memory statistics through fdinfo
+Date: Fri, 9 Oct 2026 00:41:34 +0800
+Message-ID: <20261008164135.510-1-shechenglong@xfusion.com>
+X-Mailer: git-send-email 2.37.1.windows.1
+In-Reply-To: <ce72b2f5-1343-44e9-89fe-e2de4efb7e9c@collabora.com>
+References: <ce72b2f5-1343-44e9-89fe-e2de4efb7e9c@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: wuxpheds03045.xfusion.com (10.32.131.99) To
+ wuxpheds03048.xfusion.com (10.32.143.30)
 
-Hi!
+On Thu, 8 Oct 2026 00:44:34 +0300, Dmitry Osipenko wrote:
+> Usefulness of this change is dubious. VirtIO-GPU has different types of
+> RAM, I'd expect them all represented properly instead of only shmem.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Hi Dmitry,
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+Thanks for the review.
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
+Agreed that a generic memory collector does not map well onto
+virtio-gpu, given its different memory types. For v2, I plan to
+replace it with virtio-gpu-specific accounting and to document the
+semantics of each reported value explicitly:
 
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
+- Guest shmem objects: reported under the "memory" region as
+  drm-total/drm-shared, based on the guest GEM object size. These
+  reflect the requested buffer size; drm-resident, if reported, would
+  be derived from the actual state of the guest backing pages.
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+- Host-only blobs (VIRTGPU_BLOB_MEM_HOST3D): reported under a separate
+  region, tentatively "host3d", using the requested blob size. These
+  values would be documented as logical sizes and not as actual host
+  RAM or VRAM consumption.
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+- Mixed blobs (VIRTGPU_BLOB_MEM_HOST3D_GUEST): the guest shadow
+  backing is accounted under "memory", while the logical blob size is
+  exposed through a separate, documented supplementary key. This
+  distinguishes mixed resources from guest-only ones without
+  presenting the supplementary value as additional measured host
+  memory.
+
+- Imported dma-bufs: handled explicitly, without assuming that they
+  are backed by local shmem.
+
+Usage of the host-visible memory region would be reported separately
+from the backing statistics and would not be used to infer host
+residency.
+
+The actual host allocation size and residency, including legacy virgl
+resources and the host part of mixed blobs, are not available through
+the existing guest/host interface. Reporting them would require
+additional host/renderer support, so I propose leaving that out of
+this series unless you consider it a prerequisite.
+
+Does this scope match your expectations for v2? Are there other
+memory types or accounting semantics you would like covered?
+
+Best regards,
+Chenglong She
