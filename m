@@ -1,72 +1,73 @@
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 911DA389106
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 19:01:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55FB53B895E
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 19:01:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791486079; cv=none; b=JMgktyFr7KUbyEI2NcEi5V4aXJOpBKdG2909Ngz4sMbwS2SrvKYAbr+jB0EzJA7VVOXIb5kvlP+PS9gZjMtp/346TXJXzd9hreJsOqUfZ7wDaHqdsRv+A6QGJA7SYYdd+mcX0b/7mqLGQMP1Uu3hV/kcP46A9UF8B8CmqckEIxI=
+	t=1791486083; cv=none; b=ZtD3n6f17OmyZoQ22JaJKmFuI7wywk9/ZvomOlpvZVfiH6Cx1/I7jIgsgdC25j2j2zcIfdUiZp9KUfI0/nzuSLiIAs8q2C3WrMEMG616ZoYnfVBkPCnhI54ZWr+nYA6leyVNDZ0A+7WgXLpY86w+lGf9ujNGbrZOFh816hKXf18=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791486079; c=relaxed/simple;
-	bh=NV297hPhL0HERbs2IyoZwWWLUO44XQvPJKokBPrQwBI=;
+	s=arc-20240116; t=1791486083; c=relaxed/simple;
+	bh=dI/ediDEtYW1zJEmi2TVBHlg+BaG4nXKtBtA6rC2rD4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Az3jErfmVqYIexTtwCw0W85vDZ2nhvHjamngNVc8S1I/pJehm1CN2BDaY9gBLVAw0UUEFC56e9xQMoWupCMbK3kUXjOLXNLf7jcLR5QJLipnfvVMm3nuvlrG1YKnsNFr72LV2sBQlEmcW/PivtNe5UER01og76rwleaZlI2A8KM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=coIvsxtw; arc=none smtp.client-ip=74.125.82.171
+	 MIME-Version; b=a+1IQuEUahkM2ZnMruxw4ZEXBl5jpj2lOB583Z4XMn4KvNmJyHDrE9QCw7SJrkyzpztFXY1m91STER2M1RPX+3oNLOKFyp0Op5iPJA9SlNd71xCpgMdMBML+OPxIhm3kLmKK7BHrpfH6PrD/x+E8utYw5erojssKwNCRQ+BTvG8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=Zv5xF3Wk; arc=none smtp.client-ip=74.125.82.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="coIvsxtw"
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-3516c82e96cso3588402eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 12:01:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="Zv5xF3Wk"
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-30b6dad2382so7754775eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 12:01:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1791486078; x=1792090878; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZaD67jW1zaHMwLOSmvc/1aeKMLwK1RpzPD9+yhLQ1do=;
-        b=coIvsxtwe3OV7tt8S6kRysvfsC6BEQ5PNXTuAfGjE10y3+yzM9qrK6TfsNRJPlFUuv
-         kzXxy5bAk0dr3SGYjVqYYNjKutuHvkNM2sUPCwzNlMzbIWYZ5e8llppSiCArViX4plSH
-         4hhwChUs/5C2iQrbdIt5cMkxSz+5ecD5EopWGVEvgFkNkgkRCFZ0xweOu+109/5ueu+I
-         52OXT1LQEEhTkyoceFCJfvE6dV1dVy0UhnA/TQvttVUlcb35t3G2shtx8RVyBgPsv4Ho
-         CZeDQbiiPCp1f/K18KsLQiQ6aAMWtlZEHYrGBEqmCkMBZ+xgdmJDAkqtFUfIrsoXYb72
-         e3KA==
+        d=trailofbits.com; s=google; t=1791486081; x=1792090881; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wH0vSAnuTtk11qs15jI11qzpg6PrfnUwzzqFGPyRMD0=;
+        b=Zv5xF3Wkd20FnYuORrKy04mz5wMYsFBJ+7jgdNI/IUKP3WuIcRidiv0nziZ9eklelf
+         m4oZPV4Ns24RxBDd9lgFS3gX+W2EFGdSiEWcA9qa3jZPRxFDWh3Ll/reDSr+31j6ufca
+         fm/ndCCKJgFKWNshElzNnrJ9mog0lRqDBZVRIs/odfEMVE5BBsv/WOFur++/QWGGsgFL
+         kjkwkyO3Sma/CZmf9mfiA7FqTyGLI/aGNIOLsYXfw7Rp8rNcUSnQyvTBJE5oyObM2gLM
+         ccQ+uJJ/CKGvyTH4jwh+edS1HbO/1IUt/YxBamCaDnygjbxRioEuK1thl/iT9X1X1/HM
+         9IwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791486078; x=1792090878;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZaD67jW1zaHMwLOSmvc/1aeKMLwK1RpzPD9+yhLQ1do=;
-        b=kRSG67aW7h1tGKWnfz3iwzLHWixPr/KBmZWsKLvwvCeBgEIYruIcySiTSc8qpbqrX2
-         aEUtUik7JFyh4bwC+PGzAzY8Sj7bdpp+aUMOQbjdqWnQiLYvP9zrTwfJIdlgbKJ+2L7k
-         hM+HuZSE33vdzLuQiNI6aQ/STTGRQ/qMTuzMFGIY3LGlnKsb0104q0eoB2+lduFXEL9w
-         lGU+P/+Fe0NDW7p9JViYLm6GeZWfsncsSNzrj7GvuMztzFeI0MxGoUqqk/DynZCld2Rn
-         cxmLHQXBvpYVN9FmR67XIPeQkRT/zigjmH07zBmfV44klikbSd5B4omLGVyymCMb6z5F
-         BgdQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzOiRZN4Wb1HpfX5weOM8olyCXxrkbC7eZlTNSyIo22xPqEAki1DAa8/ZBb5hvkXVh/B6UgFiS+e0ZvDGc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIbXG14hwhk+0GmWavWy4IoLV7Yn7rTpXS0cs+nVyvbo8VE69ut
-	LrQdYvxaRHC/sZuP7lpz8ZwM6ts3miUSUT5oAm+oMzK9XdGQlorISmtS0M9dwCC4DA4=
-X-Gm-Gg: AYBFou3qAzAUOy9EMou3PseAkk6RYyuTCYWjhJ5LmYhp0zOR8Mo1Hyruvv4iEFo6920
-	a35GBxTdCuXBHBcy4f263MoGv5smaZgXbX7OHVSs9yTswEAfIC3PNl9GKisuCVmr81n12Memh/z
-	4MmnTKwNx4rlDIjO7pGKjpreaZmD+FNa1YdZfUO24iAnUszN2Mjg7g6DEhOxgWbnJMBnZtpf05E
-	ntgNPTHEntkOSzi9uk6S1f9XoCsZqNeky0VclwsWAH/jkhMoUpH3rA3FmiferM9ZuZrsd1vw5IT
-	paT3kf/XYwoWbVvfS3ikUG1LFi90NpQhr+2LXQu+7WnIYH5ODvfsFmFvmGga2oURDy9vnTUNAtH
-	2cOZWbIwzMRCsoxqsHXEG0iQwTixnzf3bm2X1tX4YVTbCRt+XBqZA0ZKzwlW5xNvxXUoJ0sKfTt
-	sUUgkJH+Kemwdbp/McFMMjIajaqBVk/UJMualAbtoJoJ91uDrTsc+qOw59j7U6Dtw/Y/uV+VHDI
-	+f25wxU17ItNmNUnx9BUOsrDZEhGnximhBIGCDrtSFvQz01efZPNfRRTwdI6FKUnnMxwLc=
-X-Received: by 2002:a05:7301:7305:b0:351:31c7:ab1d with SMTP id 5a478bee46e88-3515dda8789mr6908917eec.16.1791486076904;
-        Thu, 08 Oct 2026 12:01:16 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791486081; x=1792090881;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wH0vSAnuTtk11qs15jI11qzpg6PrfnUwzzqFGPyRMD0=;
+        b=dyY7nf7IZHrdSuDJwbLSgc2y+oRIReD77swX7dAWOBTJ4+rALJWK65hXPWSibLsNiB
+         QzPA6zGx8JvrpskpGcaB9U1pX6cd4xz+9qYfbJOhi4Ien7ho2FLdYfuR2AmG8yBMXdBm
+         pjnlVeAt9yVsgt+2kuTZka6RQ3hqCJ73d6e9wz3qqFhqgLdWDeK8N54cVODhDEc0hmw6
+         3u0iDs0bBO38rArayAIK2eQELjEZVhb+G9LHrEirIcMmRBJGcMne8nxe7mGoJi0bXdkD
+         9bZa51MfEX/4dhX5xNSFsGhUV+wcnvF65qF3tzkfJfmUmWjOdh2SZOD1QfBBcBOfXQ8W
+         m6aw==
+X-Forwarded-Encrypted: i=1; AKwUvBzdfdmTcg48DL2T5AbGhLVxKeXG+csIbNVsLjceiZBfFO7N1h49mAxmXQIlff9zl3dr2tFo3MzgAVKzZVM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kAxcwQCdiF+Hf//jSVVHIf72l3Zifx5UKGR7Uk1cPgsRKdtLsn
+	XwL3Kvs5Ocay/mLCPmbN2Ti4/tZpzhRFFS3DkQOfUegktcQHghTMc+XdwlhwGdYRDvA=
+X-Gm-Gg: AYBFou3Z5kj7pUZOKxXSj3HqjtnY/XW1tIlF6MM+VEpQFxKEWXIN2ruxR7jzb3OJpmH
+	4MR3tIvt9nFhw9UOxmPYZII3JzoigHQKQgkRWwyJomp0bIXy71DwHieqQorytUgcu5/ARycOa6a
+	8cGftRSGeILI9909x9TVOCXHdEgY2w1+gKUiDecBU0DC3FDsAyl2AhnQBZdKkRrGlh6IzKKQQK+
+	VVKsl2i50yTvmdZ6yH43tBz+33ZInz4ifr4BE49Sl+UswE1I/9F9PwEdF7Cqxz6umHNkc/ruXfc
+	yZY9Jdr3bqzo6KSEQ6++Nn8R/iyUXCY7wncMdFr61oPH+S9DAVhbnsoP1fCyppiIzAaCnxXiC6A
+	0Vx/uy4nOEhvH5DJckmc8iD9bgS3RFAbgs4DDPYamvz52X6GJIkgeIPlNIC3W4RXN2+Cr6fwb8t
+	fei7BrjkTaj8kAZFc38/02MVXmvG/5Z8Y//GwHEKxlHZ1S3TLRKfbmUHn+FtwAGdnR4/xwXx4iY
+	AMJdmJYNS1idqBYJkQa7slyqlO9MDPiszFRJTsNUB9EKFZIJn23DbCOsf0QVAA509Rn758=
+X-Received: by 2002:a05:7022:2513:b0:14b:1e78:a19f with SMTP id a92af1059eb24-161fdbedf4bmr10042490c88.6.1791486079633;
+        Thu, 08 Oct 2026 12:01:19 -0700 (PDT)
 Received: from localhost.localdomain ([2603:8001:5f01:8bab:bc88:5ec1:4f8a:5b23])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537b3eccebsm405691eec.12.2026.10.08.12.01.14
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537b3eccebsm405691eec.12.2026.10.08.12.01.17
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 08 Oct 2026 12:01:15 -0700 (PDT)
+        Thu, 08 Oct 2026 12:01:18 -0700 (PDT)
 From: Artem Dinaburg <artem@trailofbits.com>
 To: stable@vger.kernel.org
 Cc: Artem Dinaburg <artem@trailofbits.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Seppo Ingalsuo <seppo.ingalsuo@linux.intel.com>,
+	Liam Girdwood <liam.r.girdwood@intel.com>,
 	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	=?utf-8?q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
 	Bard Liao <yung-chuan.liao@linux.intel.com>,
 	Mark Brown <broonie@kernel.org>,
 	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
@@ -81,9 +82,9 @@ Cc: Artem Dinaburg <artem@trailofbits.com>,
 	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
 	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
 	linux-sound@vger.kernel.org
-Subject: [PATCH 6.6.y 1/2] ASoC: SOF: topology: Parse DAI type token for dspless mode
-Date: Thu,  8 Oct 2026 15:01:03 -0400
-Message-ID: <20261008190108.96660-2-artem@trailofbits.com>
+Subject: [PATCH 6.6.y 2/2] ASoC: SOF: ipc4-topology: Harden loops for looking up ALH copiers
+Date: Thu,  8 Oct 2026 15:01:04 -0400
+Message-ID: <20261008190108.96660-3-artem@trailofbits.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261008190108.96660-1-artem@trailofbits.com>
 References: <20261008190108.96660-1-artem@trailofbits.com>
@@ -93,99 +94,90 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 
-[ Upstream commit f9618ff105a0f6f5a6beed3edc557ea6a7d26df6 ]
+[ Upstream commit 6fd60136d256b3b948333ebdb3835f41a95ab7ef ]
 
-Starting with LunarLake, the dspless mode can handle SoundWire/ALH,
-DMIC and SSPs, so we need to identify the dai type from topology.
+Other, non DAI copier widgets could have the same  stream name (sname) as
+the ALH copier and in that case the copier->data is NULL, no alh_data is
+attached, which could lead to NULL pointer dereference.
+We could check for this NULL pointer in sof_ipc4_prepare_copier_module()
+and avoid the crash, but a similar loop in sof_ipc4_widget_setup_comp_dai()
+will miscalculate the ALH device count, causing broken audio.
 
-[ Backport to 6.6.y: 6.6.y still uses a stack-allocated snd_sof_dai in
-  the dspless topology path; parse the DAI type into that existing object
-  before connecting it. ]
+The correct fix is to harden the matching logic by making sure that the
+1. widget is a DAI widget - so dai = w->private is valid
+2. the dai (and thus the copier) is ALH copier
 
-Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+[ Backport to 6.6.y: Apply both widget-kind and ALH-type predicates to
+  the target loops; the newer node_type local is absent and unused by
+  this implementation. ]
+
+Fixes: a150345aa758 ("ASoC: SOF: ipc4-topology: add SoundWire/ALH aggregation support")
+Reported-by: Seppo Ingalsuo <seppo.ingalsuo@linux.intel.com>
+Link: https://github.com/thesofproject/sof/pull/9652
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Link: https://msgid.link/r/20240213101247.28887-12-peter.ujfalusi@linux.intel.com
+Reviewed-by: Liam Girdwood <liam.r.girdwood@intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Link: https://patch.msgid.link/20250206084642.14988-1-peter.ujfalusi@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Assisted-by: LLM
 Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
 ---
-This is patch 1 of 2 in the ordered 6.6.y backport series.
-This is the prerequisite needed for the CVE-2025-21870 backport. Stores and
-populates each SOF DAI type so the following ALH hardening can distinguish
-ALH DAI widgets from same-name non-DAI or non-ALH widgets.
-This needed a target-specific adjustment; I called it out in the bracketed
-backport note above.
+This is patch 2 of 2 in the ordered 6.6.y backport series.
+This change addresses CVE-2025-21870. Limits ALH aggregation searches to
+DAI widgets of ALH type, preventing NULL private-data dereferences and
+incorrect device counts from same-name non-DAI widgets.
+Each loop checks WIDGET_IS_DAI() before interpreting w->private as a
+DAI, then checks SOF_DAI_INTEL_ALH before incrementing the device
+count or accessing copier data.
 
 The fix is already present in 6.12.y, 6.18.y, and 7.2.y, but not in 6.6.y.
 This fix also affects 6.1.y, which will need a separate backport; this
 submission contains only the 6.6.y patch.
 
- sound/soc/sof/ipc4-topology.c |  1 +
- sound/soc/sof/sof-audio.h     |  1 +
- sound/soc/sof/topology.c      | 11 +++++++++++
- 3 files changed, 13 insertions(+)
+ sound/soc/sof/ipc4-topology.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
 diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
-index 39e4f0fdd5e4..18096aefce13 100644
+index 18096aefce13..8911c075251c 100644
 --- a/sound/soc/sof/ipc4-topology.c
 +++ b/sound/soc/sof/ipc4-topology.c
-@@ -534,6 +534,7 @@ static int sof_ipc4_widget_setup_comp_dai(struct snd_sof_widget *swidget)
- 	dev_dbg(scomp->dev, "dai %s node_type %u dai_type %u dai_index %d\n", swidget->widget->name,
- 		node_type, ipc4_copier->dai_type, ipc4_copier->dai_index);
+@@ -577,10 +577,16 @@ static int sof_ipc4_widget_setup_comp_dai(struct snd_sof_widget *swidget)
+ 		}
  
-+	dai->type = ipc4_copier->dai_type;
- 	ipc4_copier->data.gtw_cfg.node_id = SOF_IPC4_NODE_TYPE(node_type);
- 
- 	pipe_widget = swidget->spipe->pipe_widget;
-diff --git a/sound/soc/sof/sof-audio.h b/sound/soc/sof/sof-audio.h
-index 7620596ead07..13b9026ffd4d 100644
---- a/sound/soc/sof/sof-audio.h
-+++ b/sound/soc/sof/sof-audio.h
-@@ -514,6 +514,7 @@ struct snd_sof_route {
- struct snd_sof_dai {
- 	struct snd_soc_component *scomp;
- 	const char *name;
-+	u32 type;
- 
- 	int number_configs;
- 	int current_config;
-diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
-index 7eb8eb35b137..011095722a80 100644
---- a/sound/soc/sof/topology.c
-+++ b/sound/soc/sof/topology.c
-@@ -2364,7 +2364,10 @@ static int sof_dspless_widget_ready(struct snd_soc_component *scomp, int index,
- 				    struct snd_soc_tplg_dapm_widget *tw)
- {
- 	if (WIDGET_IS_DAI(w->id)) {
-+		static const struct sof_topology_token dai_tokens[] = {
-+			{SOF_TKN_DAI_TYPE, SND_SOC_TPLG_TUPLE_TYPE_STRING, get_token_dai_type, 0}};
- 		struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
-+		struct snd_soc_tplg_private *priv = &tw->priv;
- 		struct snd_sof_widget *swidget;
- 		struct snd_sof_dai dai;
- 		int ret;
-@@ -2375,6 +2378,14 @@ static int sof_dspless_widget_ready(struct snd_soc_component *scomp, int index,
- 
- 		memset(&dai, 0, sizeof(dai));
- 
-+		ret = sof_parse_tokens(scomp, &dai.type, dai_tokens, ARRAY_SIZE(dai_tokens),
-+				       priv->array, le32_to_cpu(priv->size));
-+		if (ret < 0) {
-+			dev_err(scomp->dev, "Failed to parse DAI tokens for %s\n", tw->name);
-+			kfree(swidget);
-+			return ret;
-+		}
+ 		list_for_each_entry(w, &sdev->widget_list, list) {
+-			if (w->widget->sname &&
++			struct snd_sof_dai *alh_dai;
 +
- 		ret = sof_connect_dai_widget(scomp, w, tw, &dai);
- 		if (ret) {
- 			kfree(swidget);
++			if (!WIDGET_IS_DAI(w->id) || !w->widget->sname ||
+ 			    strcmp(w->widget->sname, swidget->widget->sname))
+ 				continue;
+ 
++			alh_dai = w->private;
++			if (alh_dai->type != SOF_DAI_INTEL_ALH)
++				continue;
++
+ 			blob->alh_cfg.device_count++;
+ 		}
+ 
+@@ -1692,11 +1698,13 @@ sof_ipc4_prepare_copier_module(struct snd_sof_widget *swidget,
+ 			 */
+ 			i = 0;
+ 			list_for_each_entry(w, &sdev->widget_list, list) {
+-				if (w->widget->sname &&
++				if (!WIDGET_IS_DAI(w->id) || !w->widget->sname ||
+ 				    strcmp(w->widget->sname, swidget->widget->sname))
+ 					continue;
+ 
+ 				dai = w->private;
++				if (dai->type != SOF_DAI_INTEL_ALH)
++					continue;
+ 				alh_copier = (struct sof_ipc4_copier *)dai->private;
+ 				alh_data = &alh_copier->data;
+ 				blob->alh_cfg.mapping[i].device = alh_data->gtw_cfg.node_id;
 -- 
 2.39.5
-
