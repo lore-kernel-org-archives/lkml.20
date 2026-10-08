@@ -1,228 +1,332 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 462D53EA957;
-	Thu,  8 Oct 2026 21:52:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5343B3E40F1
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 21:52:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791496338; cv=none; b=Z3Q0WQOfLUo+2CJKl2Cp1KZL+edokVC0Sf+amZa4IjQ1o8b5Wo8ldT9IORMn9HeIWMyLEi33PMwrZjLySXkVZ8mtfZ7yuAqZ8wnk2B+1RXIACZFXCdmm+zzoh36pfN/LY/MlHNZ+lQFktdanUcgJdNwVKfQ20ZMMxFcPeyYUKYY=
+	t=1791496340; cv=none; b=Zb/APGlLTa/32NxpZQLWKHOTg0RXFVtImLI6O0cL+j3jqGgOO9ULrLUBINsUi61ih0qycRStRv3SZZ04mqx0unxRy1GE4ZdNipzYdlkp2/ALpoSS33LMcwmG7GLu7danX/5jnoyT9opoz9e594WcEDrCGqyvg+RLzot5r5jMqSs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791496338; c=relaxed/simple;
-	bh=VFMtpDGQ6NtHr0UNClV9iiXHAtjgfbnLbgOLKDEkDvA=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=lQSdkp+2quGeo7H0HvYG2V2XtEvyf2Sics6qCRks4QyeS4wTsXVwmDkqGOtcEZXIPuXanl7c4xxXBMk1hJK0ehxQpUFfnwAsZfFJKVt0PBQKFxaeEPhfgP8WWpwZ7wAEveeaZbs3ZCh0Nb5/UFQux8ajIvbrmq9JswkP9mX7ptk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=IWyp9vHe; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791496340; c=relaxed/simple;
+	bh=FhHUcaD8UXSzbiyTZq4K/AtVaFMkDoVaPhEfzChUsDY=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=nvWmfnZrWGQmoJzv/mUx0N7mQUzMap4sQtZyZ+G5ZiYS0EtqgJxqqJCqx4AvRzoyaLbyDsXu07YbccdwbRbSOFwF3X+b3QTv28JMPBNRu/p26saRb2FTQmgrZpYvt9Nu6j1v0u5WL99VxbsdoKDz5FY1QqReLDSzqK915Y4oEc8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pQKn+KYf; arc=none smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="IWyp9vHe"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791496337; x=1823032337;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=VFMtpDGQ6NtHr0UNClV9iiXHAtjgfbnLbgOLKDEkDvA=;
-  b=IWyp9vHeoWENJ4lbIwt/VFR7zB0ocFER9UMAW2xFHIiobE0FYtVPe+/S
-   B9o9gbH5He8ObClhdGopE3YY2NLxbxUjow/1GHDRFEWC3M0HR3cduEsDi
-   7zIP8VZjm3kFqMIjj3LE/loGEM0mFDwZz61b2NRso1eWCGnXOwt4OUCyR
-   Ws+T5ZiH/6loi7hjgSJ4WOQVl4jMh0pUX32Z0F9oIJjINUKUMXvXMZ9d3
-   jMTJx7VpmOt5beHseg4F8R6CWSqH2KZyKs7qKcM/bbCAu/IR0RNuMDabT
-   WQ/LjV3R8+QBINkn3igdpAH9juHOvVPy8p5Vzo9NRNj5WJ3kD6KDyWLPB
-   Q==;
-X-CSE-ConnectionGUID: nSOqQxioT4uyLKsQNPzAiw==
-X-CSE-MsgGUID: DZCl9TGaTSGMxO0D7yxHmg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11929"; a="293869"
-X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
-   d="scan'208";a="293869"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 14:52:15 -0700
-X-CSE-ConnectionGUID: fE5RVaruQxWcpjQJ7FDELw==
-X-CSE-MsgGUID: oBvg58+kT/SL/EOp4ZFNUw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
-   d="scan'208";a="269742"
-Received: from unknown (HELO [10.241.243.185]) ([10.241.243.185])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 14:52:14 -0700
-Message-ID: <30e586ab643a8911f6c3cd930796292a7da460ef.camel@linux.intel.com>
-Subject: Re: [PATCH RFC 0/2] sched: Introduce idle SMT priority for
- asymmetric capacity systems
-From: Tim Chen <tim.c.chen@linux.intel.com>
-To: Andrea Righi <arighi@nvidia.com>, Mete Durlu <meted@linux.ibm.com>
-Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
- Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
- <vincent.guittot@linaro.org>, Dietmar Eggemann	 <dietmar.eggemann@arm.com>,
- Steven Rostedt <rostedt@goodmis.org>, Ben Segall	 <bsegall@google.com>, Mel
- Gorman <mgorman@suse.de>, Valentin Schneider	 <vschneid@redhat.com>, K
- Prateek Nayak <kprateek.nayak@amd.com>, Shrikanth Hegde
- <sshegde@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik	
- <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, Christian
- Borntraeger <borntraeger@linux.ibm.com>, Sven Schnelle
- <svens@linux.ibm.com>, Chen Yu <yu.c.chen@intel.com>,  Ilya Leoshkevich	
- <iii@linux.ibm.com>, linux-kernel@vger.kernel.org,
- linux-s390@vger.kernel.org
-Date: Thu, 08 Oct 2026 14:52:14 -0700
-In-Reply-To: <aseIPhrDGCYFtJNE@gpd4>
-References: <20261008-hiperdispatchfix-v1-0-73fe41081070@linux.ibm.com>
-	 <aseIPhrDGCYFtJNE@gpd4>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.1 (3.58.1-1.fc43) 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pQKn+KYf"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48af4d4e61fso2271801f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 14:52:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791496336; x=1792101136; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=/pDad/p1iYw8HWC/CzvqEa/trY0DbP6hqYsWT2Ny3bA=;
+        b=pQKn+KYfohZHYdKIhpQ42znbsuDIFpCuzLdT3niCwj06xbznGXVvjZOu8XgfhZvHQu
+         Ljed8qroJ5SZ4Nfwu7yn9MRwFZaVhqvhNE8d1wmkcZR16BETT3G4junF0irSBLjRuYzE
+         6KGNmTcl0oAgj1h6b2tMukuSAEmMIn0w43OjFpsPS3VA19Uef7YD/PyGwqhcRcYiUimR
+         df+uYMq9EAYnjN/4l608ARCL3leI+lWQangbIOwjYkvgq6fTWnDM8Irbj1fMeejNwXZd
+         QC0pnqImVmsU8Ssd2sx8dJJuDUcfQpg4Ax50G+mSc3u0sx7WOHRgvSllxn0XUOjrjUhd
+         Tr8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791496336; x=1792101136;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/pDad/p1iYw8HWC/CzvqEa/trY0DbP6hqYsWT2Ny3bA=;
+        b=Ppun8iC8e6InMgQ7b/3jxskfNwtrSQCWc26BUk/qygBUH53plKfJzUezH1DrXAga1Y
+         v6pjE2jl7eSHWTvfnQTEs+Ka+O3Xnlh8iG9nu3SE20f3oO57OfTeHfDs/5Q48IZFPLEZ
+         wnJfqT/d8svDNMnAaT/07Dipp+2UYOaaJfpcO5aqFD6d3SFWy42XS3/OpOSAiSizs3uh
+         GZrGID0EAUjHyOHPtYolnEoDKWmklAImkjseRF4oprpd2GyFR1MRlOr1/jNV63KPwGXD
+         MXm+SWvHoMlOazrkGRJI7AVZc3Y6N/2yGBY6q5bNknv4WyeVsVBjS3d7NMfMYiiSXgqX
+         St1w==
+X-Forwarded-Encrypted: i=1; AKwUvBzif/8XbElEmJgiana/ZR+53FQ9Gu22Cnp/HGk2r2rDfw3ifdnuqiltRPR9W4RpQBbhONiMpFMCOlV7Hq0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJwk0Iey7XZoXD6P1K2g+s0VUHlWMheYS+XkX/KxSKetQKenkuD
+	KKvxBIdOUOhV3gMgdMlOtBWX3wpOokYFABNLcxOJzYglFqHblMMuFxmZ
+X-Gm-Gg: AYBFou0dao4C1LNQGKmCBrdZCWv/eLHkDcDsOkhZtbw7VURql/3xdgKfaQAV+uV+IsM
+	y1UXQhBBbpKMV26qHyVZ6T4mOnXSmj2hBzSLjFEDVbY2q0rF4Md9vQvnre4Fp7x6R31tOBEecVg
+	Rl3+R4i5fyDI1E5G7r1glo/0Kf2gPlLQo4IshnmSXGLi2VbPO/SX5iB7nj6qrNcaBE1OCM520h4
+	ftSIEnCNzJhMmosKLlB0f/6LKceR2XoVrc1IOHN5M8wWSrJ1ID6mSnPJGoHk27EH7AYA18ReKo1
+	bWWs+8vsjKUWXSHTiYUGFAk11kN7TGZxo7La9WvYRWclCx1wuRrZ5bpP9sU55aoiRn45vTxO7Lv
+	Brw7pKDIDnx8K18H7j5BFldxu7y3G3X7ct8041zJWCuLEPBK/9wln1d2bYCkmfFV22k0+/48Qv4
+	YFjrW7Ol7U6b0iIqVO3QsRbw248hP0Yah0XJQ3Q/amUH3LwkdGDwUFm1mIg9KbVXxSDCxBUBa9r
+	57KotkaWnZFVYynsA==
+X-Received: by 2002:a05:6000:2205:b0:48c:54c0:4cf3 with SMTP id ffacd0b85a97d-48db94b3293mr405257f8f.28.1791496336232;
+        Thu, 08 Oct 2026 14:52:16 -0700 (PDT)
+Received: from ehlo.thunderbird.net ([2a02:b027:8013:a311:38c3:93ff:fe00:31b1])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9463a9dsm406901f8f.6.2026.10.08.14.52.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 08 Oct 2026 14:52:15 -0700 (PDT)
+Date: Thu, 08 Oct 2026 23:52:11 +0200
+From: Denis Benato <benato.denis96@gmail.com>
+To: =?ISO-8859-1?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Denis Benato <denis.benato@linux.dev>, Bartu Alev <bartualev@gmail.com>
+CC: platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
+ Hans de Goede <hansg@kernel.org>, "Luke D . Jones" <luke@ljones.dev>
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2_2/2=5D_platform/x86=3A_asus-wm?=
+ =?US-ASCII?Q?i=3A_add_TUF_keyboard_RGB_readback_support?=
+User-Agent: Thunderbird for Android
+In-Reply-To: <570a8f23-0782-8a45-d62f-c95bb28dade9@linux.intel.com>
+References: <20260925200744.129714-1-bartualev@gmail.com> <20260926005625.171560-1-bartualev@gmail.com> <20260926005625.171560-3-bartualev@gmail.com> <c0301eb2-62b9-4dbd-ba24-3a2c40675b20@linux.dev> <570a8f23-0782-8a45-d62f-c95bb28dade9@linux.intel.com>
+Message-ID: <2C6A459C-890A-418C-9331-D8B521B226A5@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 2026-10-08 at 14:10 +0200, Andrea Righi wrote:
-> Hi Mete,
->=20
-> On Thu, Oct 08, 2026 at 10:30:46AM +0200, Mete Durlu wrote:
-> > Summary
-> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D
-> > On systems with asymmetric CPU capacities, the scheduler prefers fully =
-idle
-> > cores over idle SMT siblings of busy cores. This works generally well b=
-ut
-> > virtualized platforms where low capacity cores should be avoided are no=
-t
-> > considered. Introduce a new config option and arch hook to prioritize
-> > SMT utilization.
-> >=20
-> > Background
-> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D
-> > The scheduler has been moving toward better utilization of fully idle c=
-ores
-> > and avoiding SMT penalties. This trend (notably after commit 25a32e400a=
-14
-> > ("sched/fair: Prefer fully-idle SMT cores in asym-capacity idle selecti=
-on")
-> > broke the behavior s390 is relying on to concentrate workloads on its
-> > high-capacity cores. On s390 CPU capacities represent the CPUs runtime
-> > entitlement assigned by the hypervisor. The idle SMT siblings of busy
-> > high-capacity cores start to perform better than fully idle low-capacit=
+Il 8 ottobre 2026 14:48:31 CEST, "Ilpo J=C3=A4rvinen" <ilpo=2Ejarvinen@linu=
+x=2Eintel=2Ecom> ha scritto:
+>On Sat, 26 Sep 2026, Denis Benato wrote:
+>> On 9/26/26 02:56, Bartu Alev wrote:
+>> > TUF Gaming laptops expose kbd_rgb_mode and kbd_rgb_state as write-onl=
 y
-> > cores as the whole machine(containing the logical partitions) starts
-> > approaching to a {fully,over}loaded state. Grouping load on high-capaci=
-ty
-> > cores keeps shared low-capacity cores(which are shared more aggressivel=
-y)
-> > idle longer, reducing noise to neighboring partitions and improving
-> > overall performance.
-> >=20
-> > Approach
-> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D
-> > This series introduces SCHED_IDLE_SMT_PRIO config option and the
-> > sched_idle_smt_prio static branch, allowing architectures to treat idle
-> > SMT siblings of busy cores as equal candidates during asymmetric capaci=
-ty
-> > load balancing.
-> > Static branch checks are placed at paths considering fully idle cores
-> > over idle SMT threads in presence of asymmetric CPU capacities within
-> > scheduling groups. Inserted checks mostly override hints for idle core
-> > selection or cause early exits favoring idle SMT siblings.
-> > One more static branch check is added to new task path in order to favo=
+>> > attributes (DEVICE_ATTR_WO), preventing userspace from querying the
+>> > active hardware configuration=2E
+>> >
+>> > Add readback support by querying ASUS_WMI_DEVID_TUF_RGB_READBACK
+>> > (0x0010005B) via the WMI DSTS method=2E On supported platforms this
+>> > evaluates the DSDT method EC0=2EKBLS(), which returns a 16-byte buffe=
 r
-> > high capacity SMT siblings during initial task placement, therefore the
-> > tasks are immediately placed in high capacity SMT siblings instead of
-> > considering most idle but low capacity cores.
-> >=20
-> > Architectures opt in by selecting ARCH_SUPPORTS_SCHED_IDLE_SMT_PRIO and
-> > implementing arch_needs_idle_smt_prio(), which is evaluated during each
-> > asym_cpu_capacity_scan() to track the state as runtime topology changes=
-.
-> >=20
-> > The second patch enables the feature for s390 when running on
-> > hardware-backed topology in an LPAR with vertical polarization active
-> > and system is approaching to a target state.
-> > Otherwise the branch stays disabled and the scheduler falls back to the
-> > standard idle-core preference.
-> >=20
-> > No functional change on architectures that do not select
-> > ARCH_SUPPORTS_SCHED_IDLE_SMT_PRIO.
-> >=20
-> > Performance Results
-> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D
-> > Since this change effects the {fully,over}loaded state it is difficult
-> > to test at the moment. Therefore there are no concrete numbers or
-> > metrics for now for s390.
-> > For architectures which do not opt in to this feature, no performance
-> > change is expected.
-> >=20
-> > Considerations and Open Questions
-> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D
-> > The main goal for this series is adding a simple mechanism for
-> > architectures to switch between idle core and idle SMT priority while
-> > keeping the introduced footprint as small as possible. But there are
-> > some ideas and questions to consider;
-> >=20
-> > 1. Should arch_needs_idle_smt_prio() hook be removed?
-> >    The architecture hook is there to allow for any sort of logic to
-> >    dynamically decide when to flip the mechanism, but it can also be
-> >    removed if everyone agrees that this behaviour is not something that
-> >    should be dynamically flipped. It can be simply tied to detection of
-> >    asymmetric capacities and selection of Kconfig option.
-> >=20
-> > 2. Is there a simpler way to implement this mechanism?
-> >    The proposed approach is chosen as the other features effecting the
-> >    scheduler's behavior, use the same method. If there is a more
-> >    efficient way to implement the same mechanism I'd be glad to use
-> >    that instead.
-> >=20
-> > 3. There are no performance measurements *yet*.
-> >    On s390 the ideal conditions for this mechanism to be beneficial
-> >    usually surface when the whole system is fully loaded and resource
-> >    sharing between the logical partitions starts to get expensive.
-> >    Creating such an environment requires time, therefore no benchmark
-> >    results are available yet.
->=20
-> I'm wondering if we could build on Shrikanth's cpu_preferred_mask infrast=
-ructure
-> to express a "soft preference" for the s390 higher-entitlement CPUs. Unli=
-ke the
-> mask's current behavior, soft preference would allow tasks to spill onto =
-other
-> CPUs once the preferred CPUs have no idle threads available (we have some=
-thing
-> like this in sched_ext's scx_cosmos).
+>> > containing the active lighting mode, RGB color channels, effect speed
+>> > and power-state flags=2E
+>> >
+>> > Introduce kbd_rgb_read_status() to evaluate and validate the buffer,
+>> > and convert both attributes to DEVICE_ATTR_RW=2E Map the hardware spe=
+ed
+>> > codes (0xe1, 0xeb, 0xf5) to their sysfs indices (0, 1, 2)=2E
+>> >
+>> > The command field is not part of the status buffer: "immediate vs
+>> > save-to-flash" is a property of the write verb (0xb3/0xb4), not of
+>> > readable state, and the EC mirror is updated identically by both=2E
+>> > Readback therefore emits a synthetic leading '1' - the canonical
+>> > input form userspace writes - so that output matches input=2E
+>> >
+>> > Suggested-by: Denis Benato <denis=2Ebenato@linux=2Edev>
+>> > Signed-off-by: Bartu Alev <bartualev@gmail=2Ecom>
+>> > ---
+>> >  drivers/platform/x86/asus-wmi=2Ec            | 79 ++++++++++++++++++=
++++-
+>> >  include/linux/platform_data/x86/asus-wmi=2Eh |  3 +
+>> >  2 files changed, 80 insertions(+), 2 deletions(-)
+>> >
+>> > diff --git a/drivers/platform/x86/asus-wmi=2Ec b/drivers/platform/x86=
+/asus-wmi=2Ec
+>> > index db6ee1974838=2E=2Efe1dcc7701ad 100644
+>> > --- a/drivers/platform/x86/asus-wmi=2Ec
+>> > +++ b/drivers/platform/x86/asus-wmi=2Ec
+>> > @@ -1046,7 +1046,58 @@ static ssize_t gpu_mux_mode_store(struct devic=
+e *dev,
+>> >  static DEVICE_ATTR_RW(gpu_mux_mode);
+>> >  #endif /* IS_ENABLED(CONFIG_ASUS_WMI_DEPRECATED_ATTRS) */
+>> > =20
+>> > +static int kbd_rgb_read_status(u8 data[16])
+>> > +{
+>> > +	int err;
+>> > +
+>> > +	err =3D asus_wmi_evaluate_method_buf(ASUS_WMI_METHODID_DSTS,
+>> > +					   ASUS_WMI_DEVID_TUF_RGB_READBACK,
+>> > +					   0, data, 16);
+>> > +
+>> > +	if (err)
+>> > +		return err < 0 ? err : -ENODEV;
+>> > +
+>> > +	/* DUBF[0] is a constant 1 set by the AML: anything else is not KBL=
+S */
+>> > +	if (data[0] !=3D 1)
+>> > +		return -ENODEV;
+>> > +
+>>=20
+>> -ENODEV or -ENOTSUPP ? Which one is better suited for these kind of thi=
+ngs?
+>
+>If something is not there, -ENODEV is appropriate=2E
+>
+>Unexpected comms is -EIO (-EINVAL is unfortunately often misused for=20
+>this but it -EINVAL is to say input parameter was wrong)=2E
+>
+>-ENOTSUPP is not a standard error code (the correct one would be=20
+>-EOPNOTSUPP)=2E
+>
+>TBH, I don't really know where the line between -ENODEV and -EOPNOTSUPP=
+=20
+>is=2E I'd personally use the latter mostly for the case where software si=
+de=20
+>lacks something=2E
+>
+>In anycase, wrong errno's are endemic and hard to fix without running=20
+>afoul with something as they often relate also to userspace ABIs=2E
+>
 
-Soft preference is okay if contention is low.
-But if steal% remains high, we may still need to transition to hard
-boundaries/preferences on the cores to run on to bring steal% down.
+-ENODEV it is=2E=2E=2E=2E Or -ENODATA when we can write but not read back =
+the status?
 
-Tim
 
->=20
-> That might let us preserve the general preference for fully idle SMT core=
-s while
-> searching in this order: fully idle preferred cores, idle SMT threads on
-> preferred cores, then non-preferred cores. This current patch series seem=
-s to
-> drop the first distinction, allowing a partially idle preferred core to w=
-in even
-> when another preferred core is fully idle.
->=20
-> This would need to coexist with the steal governor's stronger use of
-> cpu_preferred_mask, so I'm suggesting it as a potential direction to expl=
-ore
-> rather than a drop-in replacement.
->=20
-> What do you think (Mete / Shrikanth)?
->=20
-> Thanks,
-> -Andrea
+>> If we go with two separate sysfs attrs you don't register the read one,
+>> otherwise I am not sure=2E
+>>=20
+>> > +	return 0;
+>> > +}
+>> > +
+>> >  /* TUF Laptop Keyboard RGB Modes ***********************************=
+***********/
+>> > +static ssize_t kbd_rgb_mode_show(struct device *dev,
+>> > +				 struct device_attribute *attr,
+>> > +				 char *buf)
+>> > +{
+>> > +	u8 data[16] =3D {};
+>> > +	u32 speed;
+>> > +	int err;
+>> > +
+>> > +	err =3D kbd_rgb_read_status(data);
+>> > +	if (err)
+>> > +		return err;
+>> > +
+>> > +	/* Map hardware speed codes back to sysfs index:
+>> > +	 * 0xe1 -> 0 (slow), 0xeb -> 1 (normal), 0xf5 -> 2 (fast)
+>> > +	 */
+>> > +	switch (data[5]) {
+>> > +	case 0xe1:
+>> > +		speed =3D 0;
+>> > +		break;
+>> > +	case 0xeb:
+>> > +		speed =3D 1;
+>> > +		break;
+>> > +	case 0xf5:
+>
+>Name literals with defines=2E When it comes to offsets, consider if a=20
+>struct would be viable instead of byte array + named define index=2E
+>
+>> > +		speed =3D 2;
+>> > +		break;
+>> > +	default:
+>> > +		speed =3D 1;
+>> > +		break;
+>> > +	}
+>> > +
+>> > +	return sysfs_emit(buf, "1 %d %d %d %d %d\n",
+>> > +			  data[1], data[2], data[3], data[4], speed);
+>>=20
+>> We had this discussion in discord so I want to update everyone reading:
+>> the status returned is the current one and both cmd=3D0 and cmd=3D1 on =
+write
+>> update the current status=2E
+>>=20
+>> Therefore this is an asymmetry that doesn't really need to be,
+>> what if we introduce another sysfs that is RO? Ilpo?
+>
+>I'm not entirely sure what's the suggestion=2E
+>
+
+1 sysfs attribute for read and don't touch the write one since they are in=
+ two different formats=2E
+
+Like one returns 4 values and one accepts 5: they are asymmetric hence my =
+suggestion=2E
+
+>> > +}
+>> >  static ssize_t kbd_rgb_mode_store(struct device *dev,
+>> >  				 struct device_attribute *attr,
+>> >  				 const char *buf, size_t count)
+>> > @@ -1099,7 +1150,7 @@ static ssize_t kbd_rgb_mode_store(struct device=
+ *dev,
+>> > =20
+>> >  	return count;
+>> >  }
+>> > -static DEVICE_ATTR_WO(kbd_rgb_mode);
+>> > +static DEVICE_ATTR_RW(kbd_rgb_mode);
+>> > =20
+>> >  static DEVICE_STRING_ATTR_RO(kbd_rgb_mode_index, 0444,
+>> >  			     "cmd mode red green blue speed");
+>> > @@ -1115,6 +1166,30 @@ static const struct attribute_group kbd_rgb_mo=
+de_group =3D {
+>> >  };
+>> > =20
+>> >  /* TUF Laptop Keyboard RGB State ***********************************=
+***********/
+>> > +static ssize_t kbd_rgb_state_show(struct device *dev,
+>> > +				  struct device_attribute *attr,
+>> > +				  char *buf)
+>> > +{
+>> > +	u8 data[16] =3D {};
+>> > +	u8 flags;
+>> > +	int err;
+>> > +
+>> > +	err =3D kbd_rgb_read_status(data);
+>> > +	if (err)
+>> > +		return err;
+>> > +
+>> > +	/*
+>> > +	 * data[6] power-state bitmask:
+>> > +	 * BIT(1) boot, BIT(3) awake, BIT(5) sleep, BIT(7) shutdown
+>> > +	 */
+>> > +	flags =3D data[6];
+>> > +
+>> > +	return sysfs_emit(buf, "1 %d %d %d %d\n",
+>> > +			  !!(flags & BIT(1)),
+>> > +			  !!(flags & BIT(3)),
+>> > +			  !!(flags & BIT(5)),
+>> > +			  !!(flags & BIT(7)));
+>
+>These BIT(x) should be named with defines as you clearly know what they=
+=20
+>mean (I assume the _store ones too match to these so do the addition and=
+=20
+>conversion in own patch)=2E
+>
+>A comment like the one above is almost always an indication of a naming=
+=20
+>problem that, after fixed, makes the comment totally redundant=2E
+>
+>We try to leave comments for something that is tricky, non-intuitive, or
+>complex=2E
+>
+>> > +}
+>> >  static ssize_t kbd_rgb_state_store(struct device *dev,
+>> >  				 struct device_attribute *attr,
+>> >  				 const char *buf, size_t count)
+>> > @@ -1146,7 +1221,7 @@ static ssize_t kbd_rgb_state_store(struct devic=
+e *dev,
+>> > =20
+>> >  	return count;
+>> >  }
+>> > -static DEVICE_ATTR_WO(kbd_rgb_state);
+>> > +static DEVICE_ATTR_RW(kbd_rgb_state);
+>> > =20
+>> >  static DEVICE_STRING_ATTR_RO(kbd_rgb_state_index, 0444,
+>> >  			     "cmd boot awake sleep shutdown");
+>> > diff --git a/include/linux/platform_data/x86/asus-wmi=2Eh b/include/l=
+inux/platform_data/x86/asus-wmi=2Eh
+>> > index b5ed8c83ace1=2E=2E1447c7f354bc 100644
+>> > --- a/include/linux/platform_data/x86/asus-wmi=2Eh
+>> > +++ b/include/linux/platform_data/x86/asus-wmi=2Eh
+>> > @@ -161,6 +161,9 @@
+>> >  /* TUF laptop RGB power/state */
+>> >  #define ASUS_WMI_DEVID_TUF_RGB_STATE	0x00100057
+>> > =20
+>>=20
+>> The pre-existing one should probably be renamed to make clear
+>> it's write only and it is a command=2E=2E=2E In its own patch=2E
+>>=20
+>> ASUS_WMI_DEVID_TUF_RGB_CMD probably?
+>>=20
+>> > +/* TUF laptop RGB keyboard status readback*/
+>> > +#define ASUS_WMI_DEVID_TUF_RGB_READBACK	0x0010005B
+>> > +
+>>=20
+>> ASUS_WMI_DEVID_TUF_RGB_READ_STATUS ?
+>>=20
+>>=20
+>> >  /* Bootup sound control */
+>> >  #define ASUS_WMI_DEVID_BOOT_SOUND	0x00130022
+>> > =20
+>>=20
+>
+
