@@ -1,198 +1,152 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC74143F0B9;
-	Thu,  8 Oct 2026 22:58:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BFD431C567;
+	Thu,  8 Oct 2026 22:58:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791500308; cv=none; b=RG72O1GhOXPArDjr45pzjaKzEO7pvFkZ08pVc73usHa47S9AN7bg/qo5zx0nW9ZH/5rsRT8Fg4Hk9iC8V8jA6OPl+qYW0tcbGmagTi2fCTgzyx0Bx4c95WhhWDNcy4GpPgnZ2UM+mypagXkWEKF6JUr0Lkkv6ioinxRKdo0GDMs=
+	t=1791500336; cv=none; b=RjNHYxdIHXNcoDEyZHpkJfZT1p+wzP6l/QWgIsiDN4xm1GBkUFzLiWQPWjfjIEhr8rjeulp0BNYwA0L55I8GeXQfNiZ76VI7BSLQjE7EvIqXkAottNMdRsUrisRFWVr+T4YX7Ga9g8lUNHS+1bGBk4JeEntSWc8Q1BGSLCPyW1E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791500308; c=relaxed/simple;
-	bh=6ledDbc1icilumrn67YZWHjzbO7jiGjL9Pj7pGrbcPo=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=BfpmGH1+2vOA736JpfikYdhssYoYwWHpQ4DwPrWvweYCbhKrKOtOQ8JK1/w1UHkZKHxtaWpCJjwiqbORj+Io1a6dHNY8vEUNs4aJwh4nj4to3O0W4KkwBMGTqvAjrrdI1yQfqGonb6DgjyjUZrD2Qvaxq5MJBDyFVutbVX2OJnA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FruiToyY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791500336; c=relaxed/simple;
+	bh=Etn31UNku7VCsJLoEXol2PzDljV1RmMABZd3Im1OZYM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VdWPTydrhOiAul4/U2pfaZ3THXg+dXzG4TbhHjvd/rDAieh13+u9RRj2UPwxrgWNUbAg+2hEX0A7TUkuQKzone9jZC5Q92t3XCMWgeSeDu8C2GFmo8XPBZG8v/MuAhS5WhYXzphCqKxLKtBH56NeWYGR1ZVtXTHTXTHXYnKMRjU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mx5lVjhK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FruiToyY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10F651F000FF;
-	Thu,  8 Oct 2026 22:58:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mx5lVjhK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 329221F000FF;
+	Thu,  8 Oct 2026 22:58:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791500307;
-	bh=6qFEzIPBySpVPhDEQgfALvqJAxbUkX21t+O7OuW7n9g=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=FruiToyYmvanYv5jz0I4XZ7bEgfjpl2JMb/0viK6RMrm3xNjzBG1c4z5aO8SIr0lq
-	 8tkFJNjZN1cOj6+kEgDiRIQ9PRtGnHKAeZi9FH095RYZEQlRmsxrVpWUPSSMOS2cFg
-	 yezNTJoOc8wUwRPuBnU9q3idXT9l+Z9e4wgRnz7oiE/R5RZk4IWdCC14dMIX/Y+SpF
-	 f8tna4qUxgMwO6qh8iGu38wUos4/pVz5SV8VKIcS730gP8tMWtTfTCCocd2ot/NB/i
-	 yDmqP7NyZ2mm6yBZLncMhNjWgh5uS7q/Pxf3o+DK9zIVy/sszTpPX5Fn8gkYmwyowZ
-	 Riqb3pKU1Y1YA==
-Date: Thu, 8 Oct 2026 17:58:25 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Francisco =?utf-8?B?QmVsdHLDoW4gTWlsbGFsw6lu?= <fbeltranmillalen@gmail.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
-	Alan Stern <stern@rowland.harvard.edu>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Lukas Wunner <lukas@wunner.de>, Farhan Ali <alifm@linux.ibm.com>,
-	Andreas Noever <andreas.noever@gmail.com>,
-	Mika Westerberg <westeri@kernel.org>,
-	Yehezkel Bernat <YehezkelShB@gmail.com>
-Subject: Re: [PATCH v2 2/3] PCI/PM: Do not save the config space of an
- inaccessible device
-Message-ID: <20261008225825.GA936610@bhelgaas>
+	s=k20260515; t=1791500335;
+	bh=4dyYpzzqWX64rhPXAppTWubez23gpMFqzDA0FYPPM6o=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=mx5lVjhKlkAPc7pNGHfFdLepNOmkjA0EnqfXcX1UjaMemOqPDxpnmzkNUKGcYncMk
+	 TTs3YFNCV5a/TQIU05YB4ID0U+7+w4PYcPzL0UhXLvnDQQA/AqZrPkGJdynmHJ2SV+
+	 JjcM55O7alNZvtGXzlXjTJSptt3H8tDGgNyqvff9O33JO7pFLERp4rnM0baAIrq4HY
+	 ME0Gdc9EpzrHOTWC/HrffGrujB2rT6FKnXSso6x2qeQZWtH/Wst6STs6uaa67EEg6F
+	 GL5olwoaEFD6XKKXm3K+MQb+Uk38oKvNw9dKCy9QuCLXncHy6wKos/ideIdok7HUx1
+	 BLQiys+0iiK3Q==
+Message-ID: <ee1f2c84-0d55-47f1-b16c-51eeea5220eb@kernel.org>
+Date: Thu, 8 Oct 2026 23:58:48 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260930141914.6678-3-fbeltranmillalen@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 02/13] dt-bindings: media: qcom,sm8550-iris: Add
+ context bank subnodes
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Stephan Gerhold <stephan.gerhold@linaro.org>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Abel Vesa <abelvesa@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, iommu@lists.linux.dev,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+References: <20260926-vpu_iommu_iova_handling-v5-0-0322ca5dc10c@oss.qualcomm.com>
+ <hLqc3RgTVCPMd48Rfj4trNSCRbEc1nXr2QFr6tw8vCrGKXhc5qJd7Uh86c1y1em2mvKEI6IfCxS0LGKzy8h4Qg==@protonmail.internalid>
+ <20260926-vpu_iommu_iova_handling-v5-2-0322ca5dc10c@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20260926-vpu_iommu_iova_handling-v5-2-0322ca5dc10c@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-[+cc Lukas, Farhan, Andreas, Mika, Yehezkel]
-
-On Wed, Sep 30, 2026 at 11:19:13AM -0300, Francisco Beltrán Millalén wrote:
-> pci_save_state() reads the standard header into dev->saved_config_space
-> and marks it valid without checking that the device answered.  If the
-> device is not accessible, every read returns all ones, the previous
-> snapshot is overwritten, and pci_restore_state() writes the all-ones
-> values back once the device answers again.  On a bridge that sets every
-> writable bit of the Bridge Control register, Secondary Bus Reset
-> included, and sets the primary, secondary and subordinate bus numbers
-> to 0xff, which cuts off everything below it.
+On 26/09/2026 07:34, Vikash Garodia wrote:
+> The VPU issues DMA through several SMMU streams, and the hardware does
+> not give every stream the same addressable range. The non-pixel stream
+> cannot address the low 600MB of IOVA space, while the pixel stream can
+> address the full range:
+>      +-----------------------------------------------------------+
+>      | non-pixel stream addressable range (600 MB - 3.5 GB)      |
+>      | 0x25800000 - 0xe0000000                                   |
+>      +-----------------------------------------------------------+
+>      | pixel stream addressable range (0 - 3.5 GB)               |
+>      | 0x00000000 - 0xe0000000                                   |
+>      +-----------------------------------------------------------+
+> A single "iommus" property on the video-codec node puts every stream in
+> one IOMMU domain sharing one IOVA allocator, so nothing restricts a
+> non-pixel buffer to avoid 0 to 600MB. Once an allocation lands below
+> that boundary the hardware faults, which shows up as unhandled SMMU page
+> faults and spontaneous reboots:
+> https://gitlab.freedesktop.org/drm/msm/-/work_items/100
 > 
-> On a MacBookPro14,3 this happens to the upstream bridge of a
-> Thunderbolt controller that drops off the bus while the system is
-> suspending: after resume the bridge answers again, but with bus numbers
-> ff/ff/ff and Secondary Bus Reset asserted, and the xHCI controllers
-> behind it are removed.
-
-Apparently this is a reproducible issue on MacBookPro14,3.  That makes
-me a little hesitant because we're not actually dealing with the fact
-that the Thunderbolt controller isn't responsive during suspend.
-
-It seems worthwhile to me to skip pci_save_state() if the device isn't
-accessible, but I don't think it's a real solution to whatever is
-going on with Thunderbolt, and I don't think we should mention it here
-as though it is.
-
-> Commit e18d1abc3bff ("PCI: Avoid saving config space state if
-> inaccessible") added pci_dev_config_accessible() and checks it before a
-> reset.  Check it in pci_save_state() itself, so that system suspend,
-> where the state is saved by pci_pm_suspend_noirq() or by a driver's
-> suspend_noirq callback, is covered as well.  pci_dev_config_accessible()
-> reads the Command and Status registers rather than the Vendor and Device
-> IDs, which always read as all ones on SR-IOV VFs.
+> Given that the address range restriction is for specific VPU stream, it
+> should be ideally be moved to that stream. To achieve the same, a subset
+> of streams is now represented as subnodes, so that each can be
+> associated with its respective addressable range. The design was
+> discussed and agreed by mainatiners here
+> https://lore.kernel.org/all/c7b956a9-d3e8-4e18-b780-5d08f5cd2ca1@kernel.org
 > 
-> Check again after reading, as the device may become inaccessible in the
-> meantime, and only then replace the previous snapshot of the header and
-> set state_saved.  The capabilities are saved straight into their own
-> buffers and are not covered by the second check, and both checks are
-> racy, as pci_dev_config_accessible() notes.
+> In the past, this limitation was addressed with an iommu-map approach,
+> with the iris driver dynamically creating the devices. That approach was
+> later concluded to be a hack to avoid having subnodes, and was NAKed by
+> the iommu maintainers. It was discussed in detail here:
+> https://lore.kernel.org/all/c7b956a9-d3e8-4e18-b780-5d08f5cd2ca1@kernel.org/
 > 
-> If the device is not accessible, return -EIO and leave state_saved as it
-> was.
+> Update example to the subnode form. Doing so, it picks up the supporting
+> properties needed on the video-codec node, address-cells, size-cells and
+> dma-ranges to declare 1:1 DMA translation into the parent.
 > 
-> Assisted-by: LLM
-> Signed-off-by: Francisco Beltrán Millalén <fbeltranmillalen@gmail.com>
-> ---
-> v2:
-> - Use pci_dev_config_accessible() instead of reading the Vendor ID,
->   which always reads as all ones on SR-IOV VFs: v1 refused to save the
->   state of every VF.  In the v1 thread I said I would use
->   pci_device_is_present(), but for a VF that checks the PF and cannot
->   tell whether the VF itself answers.
-> - Do the second check after saving the capabilities, and set
->   state_saved only if both checks pass.
-> - The bus numbers are set to 0xff, not cleared.
-> 
->  drivers/pci/pci.c |   53 +++++++++++++++++++++++++++++++++++++----------------
->  1 file changed, 37 insertions(+), 16 deletions(-)
-> 
-> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-> index b2879a6be..94de99d31 100644
-> --- a/drivers/pci/pci.c
-> +++ b/drivers/pci/pci.c
-> @@ -1776,31 +1776,52 @@ static void pci_restore_pcix_state(struct pci_dev *dev)
->   * pci_save_state - save the PCI configuration space of a device before
->   *		    suspending
->   * @dev: PCI device that we're dealing with
-> + *
-> + * If the config space of @dev is not accessible, nothing is saved and the
-> + * previous snapshot of the standard header is kept, as writing back the
-> + * all-ones values read from such a device would corrupt it once it is
-> + * accessible again.
-> + *
-> + * Return: 0 on success, -EIO if @dev is not accessible, or another
-> + * negative errno if a capability could not be saved.
->   */
->  int pci_save_state(struct pci_dev *dev)
->  {
-> -	int i;
-> +	u32 config[16];
-> +	int i, ret;
-> +
-> +	if (!pci_dev_config_accessible(dev, "save state"))
-> +		return -EIO;
-
-Maybe we should remove the check in pci_dev_save_and_disable() and
-make it check the return value of pci_save_state()?  I don't think
-checking twice adds anything.
-
->  	/* XXX: 100% dword access ok here? */
->  	for (i = 0; i < 16; i++) {
-> -		pci_read_config_dword(dev, i * 4, &dev->saved_config_space[i]);
-> -		pci_dbg(dev, "save config %#04x: %#010x\n",
-> -			i * 4, dev->saved_config_space[i]);
-> +		pci_read_config_dword(dev, i * 4, &config[i]);
-> +		pci_dbg(dev, "save config %#04x: %#010x\n", i * 4, config[i]);
->  	}
-> -	dev->state_saved = true;
->  
-> -	i = pci_save_pcie_state(dev);
-> -	if (i != 0)
-> -		return i;
-> +	ret = pci_save_pcie_state(dev);
-> +	if (!ret)
-> +		ret = pci_save_pcix_state(dev);
-> +	if (!ret) {
-> +		pci_save_dpc_state(dev);
-> +		pci_save_aer_state(dev);
-> +		pci_save_ptm_state(dev);
-> +		pci_save_tph_state(dev);
-> +		ret = pci_save_vc_state(dev);
-> +	}
-> +
-> +	/*
-> +	 * The device may have become inaccessible while it was being read.
-> +	 * Keep the previous header snapshot in that case.  The capabilities
-> +	 * are saved directly into their buffers, so they are not protected.
-> +	 */
-> +	if (!pci_dev_config_accessible(dev, "save state"))
-> +		return -EIO;
-
-I bet we get 99% of the usefulness here by just adding the first
-accessibility check above.
-
-This second check only helps if the device becomes inaccessible during
-the tiny window while we're saving its state, and I'm not sure that
-the extra complexity here and being able to restore a valid config
-header with junk in the capabilities is really a benefit.
-
-> -	i = pci_save_pcix_state(dev);
-> -	if (i != 0)
-> -		return i;
-> +	memcpy(dev->saved_config_space, config, sizeof(config));
-> +	dev->state_saved = true;
->  
-> -	pci_save_dpc_state(dev);
-> -	pci_save_aer_state(dev);
-> -	pci_save_ptm_state(dev);
-> -	pci_save_tph_state(dev);
-> -	return pci_save_vc_state(dev);
-> +	return ret;
->  }
->  EXPORT_SYMBOL(pci_save_state);
->  
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Co-developed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
