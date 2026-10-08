@@ -1,31 +1,37 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DDB446F4AB;
-	Thu,  8 Oct 2026 22:08:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43D7E43933F;
+	Thu,  8 Oct 2026 22:10:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791497323; cv=none; b=qiDRS84aPsWayqtK0uj8gge3AyueDa5+bAcoDkDVDxhyL4nNiR2NYucrS57zO3MQHHBvp04OHgokQ3u+UoLvYBUPupEbdsU+kAr+0cWr/GUWTHxUKQQwcn570BFhhuXOSTqlDgWMLagi6EKg0V03FgqXOErUnmBrEb9/efu0dgc=
+	t=1791497450; cv=none; b=LUqLBDhMsEiL5+VCmSw9uJK5z4IwSBBXQbJ8QzfwgXdVL5Moy4XC6BqGV5szslwzpv6sMyuy6OKCcDlEpMPObsDRBgSBf1X4u1CibBpgXsPMvbue5WFpWNj3HtIyfFeOWadN7TJ1lyHQH+Zt5T1LNRlaIUxpVUFJFz2H1kBlXeI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791497323; c=relaxed/simple;
-	bh=eRblbaaMdD3qYzSuBB3wPhjAunn//Cj4LtEGCA1rFPg=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=SAhmzSgBWfnfDs6pJXKgVsp4i64XjFsfBsH0AILeXfbQENRSElI3alUWDdIqw26t9zYqvaOZZ0+f3OuPOGHFr0vNqk/5r9gHtvenzettZs3l/pzOH5znK+4CNSmVkUoc9CvCKbJX12XysEWbbkYeiBLiJdq5j0vDGmWBTuNwNV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cJTy0lzx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791497450; c=relaxed/simple;
+	bh=2I+EmY3mbtv7VjjzqsO0KGbYkgiqcaiXpFxLJFltkLE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=TsMNK3X1bmB66b5tX4SdB8txYqubxLWxsgEh1nMIq3/DPzFR/EuXHEmS/GyRSMXdyle1NH7NkazF7G4jDgQHznQFalijB1Kqvbrk66YZuhhBOMKyN8vZvd8T2mbenHdJIT5d2gmGOC0uanmO0XF2lyB04fNQp+cmVZiEngIA2F8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uR9B8sQS; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cJTy0lzx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE4FA1F000FF;
-	Thu,  8 Oct 2026 22:08:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791497315;
-	bh=hi6Y1jF7rzkDox6iMM/GOuscnU90KBUVydmrsxYU/oU=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=cJTy0lzxj3UqFePIMni0r4eDUHfydXPrE963w6xx2lD7fzRv1L5EGCuBuQEaki63v
-	 E4fxtO7Dzbv1eknKOHshe1QSbYjbihmnvvMgRwbXBs1lAnrDlV6uAGqx7LStsWjccG
-	 SHLFxxfymv8sthB6GK4g8SENHqCBJNAoNCPopfYrvhl1lunT3AKqAkCE7/N7KediMB
-	 OInbAwwhpsMgObOOgaGtRSpW1avwPU3cdoTx0Z64OsSELdzQsLhZZm8CZ9EBkbdMLW
-	 m6+SU9+Qzc8kwV2c4IJB3uZABy5qTmMh7ooDWzA+3YCFjaTmyQByhUsgKieUlhKZ0k
-	 Rkg3OR9nbu2ig==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uR9B8sQS"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id BADC3C2BCF5;
+	Thu,  8 Oct 2026 22:10:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791497449;
+	bh=2I+EmY3mbtv7VjjzqsO0KGbYkgiqcaiXpFxLJFltkLE=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=uR9B8sQSVjcMexdckCbpwVObH+grZkrx9dCvBKNXOS6sV8Vn0gy9uQsuHkoKrfQy5
+	 31hYmZtMNeXNO79iMf4RVzjKkJH2c4QOIfQkO9yF6Mnqhhyb/wnsdPb7XcI0wVXsCs
+	 BTYKKDMX5q/46Yl3OMjls8uSCZGO6NKpKwVkTZvRqA6t2EiNu1lC54IWJDg9K/Lk9+
+	 HmfdjB0tg0RmdguhRTYG2Bc5pPdFckftfbUnUSE9lroOL3sYHxQakOALJh3Mhjrbsu
+	 hyDHQ3r8JkzkDaArOAXebXcqlceJX3/Luj9fqU6HgcSsxF7KUXOeJT22HUV9FpNjyf
+	 eVCXuksAe7uQw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A37FECA6016;
+	Thu,  8 Oct 2026 22:10:49 +0000 (UTC)
+From: =?utf-8?q?Dani=C3=ABl_Trujillo_via_B4_Relay?= <devnull+datrujillo.nvidia.com@kernel.org>
+Date: Thu, 08 Oct 2026 22:10:49 +0000
+Subject: [PATCH net] ipv4: fib_trie: prevent speculative out-of-bounds
+ child access
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -33,63 +39,85 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v19 02/12] phy: qcom-mipi-csi2: Parametrise the common
- status register offset
-From: bod@kernel.org
-To: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- linux-phy@lists.infradead.org, linux-media@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, jeyaprakash.soundrapandian@oss.qualcomm.com, 
- Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>
-In-Reply-To: <20261008-kaanapali-camss-v19-2-b2c583ef50e0@oss.qualcomm.com>
-References: <20261008-kaanapali-camss-v19-0-b2c583ef50e0@oss.qualcomm.com>
- <20261008-kaanapali-camss-v19-2-b2c583ef50e0@oss.qualcomm.com>
-Date: Thu, 08 Oct 2026 23:08:28 +0100
-Message-Id: <179149730801.2577499.10468166672933780845.b4-reply@b4>
-X-Mailer: b4 0.17-dev-3d1b8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=723; i=bod@kernel.org;
- h=from:subject:message-id; bh=eRblbaaMdD3qYzSuBB3wPhjAunn//Cj4LtEGCA1rFPg=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqyBRc1xaZXqej1CMSNuu7LGI2oPqMKFtT1aFsA
- 1yjdUKDboyJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasgUXAAKCRAicTuzoY3I
- OiHsD/9aU1jMXunv8pLcm8hoimvz2tW594L0B+QZQvI/FvhUCQyBZyHU5LdFReGHVhn7IQ13K9G
- O5fnAX9LKeZ3APXoC5Z98apIjmZWS0oMfy9pGoJ0LVJdKZFFtxYDdRr6AfD/onEPSCBzAY6GCfT
- TCvGX8bIQHe4ZVTcmiz/dJy2kAkRWHRRomBKQ/uIYFWQF2DURCjJMBGlAOU7cRVOaId8yXoZwzj
- Vn53ggtu8/8pxF0wl/Jw64H79ABTEx90N6n+2AgX/yso9W1qDst+KLdd7Lgse/kVVCXV3RCc0s2
- ETWv8iYuft0OMCTHtbQ5iPNfSo3hHONrja8JxBhoqluckbhNNL4ACrLKAq8m/Y5h4XmoD99Vg5W
- W5o2BgGdyAJqmq8jTH1NZrD/nkXND5a0hHfTx8WTNEqakGvh4aVpCHlXfgiMzmBeARrg+ktsCEw
- mIiuRLgHXB9TSL8OncIXx7lPoj6OFUWeFr/GE1xr2XIHWfq5dcjPSc63A0Ru9a5anQrFDF8AUqa
- kDiYjgPFtKWMLToDN6SquEWa7AVbfmLhxrqfl4PwlBQGCnzufAZwoGXlNW8AsSuSvUs3T5Z4aWB
- LLppmN9hO+VWm7iOnKuz+4I7UMIigFuASrptPOMULX+eR5fERt7ozRi5dbUX251Tu/iBp7PMKtk
- 92WESRGLGUNBMlA==
-X-Developer-Key: i=bod@kernel.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261008-fib-trie-nospec-v1-1-fa18726d485e@nvidia.com>
+X-B4-Tracking: v=1; b=H4sIAOgUyGoC/yWMwQqDMBAFf0XeuQsxoIb+SvFQ17XdHqJkowjiv
+ ze2xxmYOWCSVAz36kCSTU3nWKC+VeD3M76EdCwM73xbOxdo0oFySSjOtghTw13rfOAgHaNUS5J
+ J99/xgSgZ/V/aOnyE8/XCeX4BztmtWHgAAAA=
+X-Change-ID: 20261008-fib-trie-nospec-5c76028c8e7c
+To: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, 
+ Alexander Duyck <alexander.h.duyck@redhat.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, 
+ =?utf-8?q?Dani=C3=ABl_Trujillo?= <datrujillo@nvidia.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791497449; l=1811;
+ i=datrujillo@nvidia.com; s=20261008; h=from:subject:message-id;
+ bh=xnFr+ktZBjHYJMb2dgrr672XmryMDvsweL3LbYJlrKI=;
+ b=QAIQxu04rBsFZ4Fxj+43aqwMG1AkLo/JzAr74GzYjH648cOjifagKJGv9Z2KIMVti4++R5V3l
+ /eM9rxWRIKUBvPsm4W0RllZ8H1X8B5SEr9fTvgVPZmfC0wq1gOJB7EE
+X-Developer-Key: i=datrujillo@nvidia.com; a=ed25519;
+ pk=AP24zUwENFy2geglpKJAA8oaT41tkteCL9hTWGd88rs=
+X-Endpoint-Received: by B4 Relay for datrujillo@nvidia.com/20261008 with
+ auth_id=1128
+X-Original-From: =?utf-8?q?Dani=C3=ABl_Trujillo?= <datrujillo@nvidia.com>
+Reply-To: datrujillo@nvidia.com
 
-On 2026-10-08 00:14 -0700, Hangxiang Ma wrote:
-> The CSI2 PHY common status registers are not at a fixed offset from the
-> common register block across SoCs: x1e80100 uses 0xb0 while other 3PH
-> v2.4.0 parts differ.
-> 
-> Replace the hard-coded 0xb0 in CSIPHY_3PH_CMN_CSI_COMMON_STATUSn() with
-> a per-SoC common_status_offset field in struct mipi_csi2phy_device_regs,
-> initialising x1e80100 to 0xb0 so behaviour is unchanged. This is a
-> no-functional-change preparation for describing other SoC offsets.
-> 
-> Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
->  	csi2phy->hw_version |= (tmp << 8) & 0xFF00;
+From: Daniël Trujillo <datrujillo@nvidia.com>
 
-Reviewed-by: Bryan O'Donoghue <bod@kernel.org>
+fib_table_lookup() checks the child index against the bounds before
+passing it to get_child_rcu().
 
--- 
-Bryan O'Donoghue <bod@kernel.org>
+The index is derived from the lookup key, which in turn is derived from
+flp->daddr. A userspace process can therefore influence the index by
+triggering lookups for chosen destination IPv4 addresses.
+
+If this bounds check is mispredicted as in-bounds, an out-of-bounds index
+can be transiently passed to get_child_rcu(). The value loaded beyond the
+child array is then treated as a node pointer. The next loop iteration
+dereferences that transient pointer through get_cindex(), causing a
+page-table walk whose cache footprint can leak (parts of) the pointer.
+
+Sanitize the index with array_index_nospec() before accessing the child
+array.
+
+Fixes: 9f9e636d4f89 ("fib_trie: Optimize fib_table_lookup to avoid wasting time on loops/variables")
+Cc: stable@vger.kernel.org
+Signed-off-by: Daniël Trujillo <datrujillo@nvidia.com>
+---
+ net/ipv4/fib_trie.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/net/ipv4/fib_trie.c b/net/ipv4/fib_trie.c
+index 248514dce0cd..bd8a368c5502 100644
+--- a/net/ipv4/fib_trie.c
++++ b/net/ipv4/fib_trie.c
+@@ -61,6 +61,7 @@
+ #include <linux/export.h>
+ #include <linux/vmalloc.h>
+ #include <linux/notifier.h>
++#include <linux/nospec.h>
+ #include <net/net_namespace.h>
+ #include <net/inet_dscp.h>
+ #include <net/ip.h>
+@@ -1474,6 +1475,7 @@ int fib_table_lookup(struct fib_table *tb, const struct flowi4 *flp,
+ 			cindex = index;
+ 		}
+ 
++		index = array_index_nospec(index, 1ul << n->bits);
+ 		n = get_child_rcu(n, index);
+ 		if (unlikely(!n))
+ 			goto backtrace;
+
+---
+base-commit: 37f12441f557468a56c1e27790413aa78c82afa2
+change-id: 20261008-fib-trie-nospec-5c76028c8e7c
+
+Best regards,
+--  
+Daniël Trujillo <datrujillo@nvidia.com>
+
+
