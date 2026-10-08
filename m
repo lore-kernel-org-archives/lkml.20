@@ -1,87 +1,95 @@
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A18D3CF1FD
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 19:13:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA4E93A2551
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 19:13:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791486804; cv=none; b=CJ+zBRhNLyGtnR6BF0bdj6Kirw99iLPxAKPenThti+f6SP/drm4XTlEx2SShk4zL3B7ksBrdSV6v+rMZfylWUDUOvzsSmFy02nhp/u5/W0SberfOFO06f3I5xmDq702pUizsGjApFcRhN65qkrfQHKaokWtJkCSt29YKf5In8/0=
+	t=1791486805; cv=none; b=VV0efqfgBfTz3jafFGMBoK2/rLVFsdhnqU4KdI7/wQGgwUHb0MylRePRss3aCdLSheEqqJmrgaHqYzdOymzAa6ibG8lF85zVRtdRrsn7IWd0e1liFgtuO/QP4SP5b/LzxMNi07HdAnAa986IVS44n+9Vqb8t/I0Dzk5y+I2JTno=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791486804; c=relaxed/simple;
-	bh=DXiazg6UQaRF76JYvcx8H+xAmZxX+Ufp+SNzoF0UFok=;
+	s=arc-20240116; t=1791486805; c=relaxed/simple;
+	bh=Gns521/EKZLdx7MAed51/yhfAPJrg46pDNraWUEqGY8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=c0JFLW0AP+VUAMBiVBlEDlxyGelVI3Tp8j8uMGNTlumDeNjRQ8d4Xl14SObDCWUiF8v2X9zBwnJZySBAFHSxySbCgxNWYoXS5ZsZNnPswr8EmvMvq9tfREHU15d/RRw+IVtjxIBnmozJyOPlAmpPHXWl2IUN4CeUyifnOmqtlco=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=INmdfW9O; arc=none smtp.client-ip=74.125.82.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	 MIME-Version; b=BLYsAHA8XYGuHZl7hd6I11dCzXABHfGOzGp4M4FUTeWt/z0aASP5K3bBMQgs0mFUTTjEglhm40Gf1daj1VPS2aiGeHnu16wGv65sf8XvC7Jvh4w9xTlq8AE8boYoXywFOiwt2754P7ZXwjDD/bumpUIXI3SC2+2JIef0zWvFHjg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HRIy6el4; arc=none smtp.client-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="INmdfW9O"
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-33fb4680717so2079380eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 12:13:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HRIy6el4"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48c5b7d5865so153964f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 12:13:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1791486796; x=1792091596; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791486802; x=1792091602; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=IWU3gZsRjQK7kls2sJA9yEwySYblQEWHXA6BXaEKqjg=;
-        b=INmdfW9O+H+7B5/3X6RGDluPhHT+Y5KHtiwZQvgTA5viCZbLjFbeNGpR4Q08SYBOWZ
-         36XKXFnZ/7ikB/aKCMslP3MOeznOvxoHvI5DyXCY7+UJogg503gh5HLJKnmoJpN3JW9P
-         K57j2+pYhe6/Musg+Iv0j7vFLJkGHNVc2fF6/t5jGf1s6huIOsMz4bEQce3rqdKYxxwi
-         57QOB+FrbNx3tL6YgL8tFHDX9n8HXtQ2dSsjIetSoMgICvBf/4I5J71D5lAbUqglk/4E
-         Ux/ZHynYetNf8uWDQBFQEYTFeWtuXfSvnXhgfv2AQRbXfz/VNjkttA8PAd+lBa68OIo0
-         nCwA==
+        bh=NsKnBLI7Oap+/MtZR28XECViUHg4ECBk5FTj278RiYo=;
+        b=HRIy6el4IpC9LCt71Kunj7c3EIR9OEG8R9pOQ6KFslG/klJUzr3FGgI1jgd87Dz40/
+         aB0H42gGQwD6evC2BfjW+N5julgGKxkoU8IHFJMk5e8lHU77pfw0NXaYUo4hrqVPkAhi
+         /XHxnRBF13FjQF72XnvfO7fhlejI0pajNy+x8WOBY7wPYqxYhfov36NG5xQBYoQjH/LK
+         KfC3UXDCkJ+ziYK2QAXH5YoFbl70x9QSftnmHNZFK3hYl5qvyT3U7SPZZimBuOt6xUTQ
+         C3CcbAIKroB/02+CDu9sBMYxLqNBgay5yn5iVN5yy5m2u6DSRTCdcsgP1bOmtC/DxNH0
+         KBvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791486796; x=1792091596;
+        d=1e100.net; s=20260707; t=1791486802; x=1792091602;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IWU3gZsRjQK7kls2sJA9yEwySYblQEWHXA6BXaEKqjg=;
-        b=lneLFUkoThWTAbCe5Pj3ulz+9d5RGfDdfnkkqkd8KUFaRsgbU2DfGffU7pKEIKplxP
-         FgNDv44LqO7iTwn1/QwkFD2LzeTQ7HNsw/84yOWMZfGh2zzBv70pOJzmcMw/gDO5ivX9
-         FtbtRUmDGAOj7ojnmkJw3cvyiL3Z/QKg+5RuNryk3NamwgMCKny40BmRJDctgrcRGNxS
-         7MAtctMdlransp5Jnve7T5DOIavauhe0oxybfFSJIEiGyD36QMestCbogs4JXG3kgrCW
-         fj14RrqmWvJeZ6/mKjGx4QIGDk8HaaV6oykBw0tYQW5u8kc6H6nlI82L+McImGFZxgj6
-         UM7Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwAPkbQ3sLxyifGwRfp4G/aME/o1A6+ZcEw+7Owd3+qaNjip382K7jPW4itvm2Wl/0/w5MAYDnsIcW+uYU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKH6UiUU9FYpiJuhHdNiSN+tI24P5F/qVgFfWGCi80gnP3kxU7N
-	IrdiJB+1jvzSFJMR7N74KoiaudGX9WLyTbZlbNfxSLcq9RPfE4qyEvuUXQaCElkrSVE=
-X-Gm-Gg: AYBFou0TELBSF/T5wQo1LXqW7QBsJh4mFTreohdVyjS9sjngwro18eaLAl+Fpd17744
-	N6YL8wLl97K0KlS4Ggfx26EEfmEm4Vp0+VZ8xSaHMqCYSpzi0QPfHY5iCcSjw/j4q9lZyl3ltcW
-	mMHuqxr183ADyJH69OcqlijQfrPATsnvv2Clwf+IbJqYkzyUbv58kuYa5zTBNGT8dxKZmkQZu3Z
-	XkHlJWIKzY+U7EOuBpBfd/URVmkbktTaPBQNBI6+KCzFuO6cQ0Ch2/6tG5loq99SdKeQCpI2r0P
-	cN4Gx09ST59hduFDUAl3oHNvxu8wPXAUUyQKvykYHhn2hZjI5YAyk7R/Rm143+N1qoF5FapPups
-	uGaHyRzxBHNLjQ7KHGhirVmtkqGihVYVInMtjxNdg6KEAh9bMzDiS1wqUHjTKFlWtSa0B6C+Jl8
-	3wBn32TZfoWGWwntOaz1c80DJ8Pyg+z33CaENonaQ4VQ5Anodoc6+GXAEAHsGaXJkvPwQ9Cq1/y
-	E0tzGxblGTGw1kKBdx/yskQq3vlp1vuEHCfWzfmhnztYChdMWDOX15g7qjec0eb8TxlqGE=
-X-Received: by 2002:a05:7301:b8b:b0:351:78e9:944e with SMTP id 5a478bee46e88-35178e99942mr4032116eec.41.1791486795573;
-        Thu, 08 Oct 2026 12:13:15 -0700 (PDT)
-Received: from localhost.localdomain ([2603:8001:5f01:8bab:bc88:5ec1:4f8a:5b23])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537c841579sm94214eec.4.2026.10.08.12.13.14
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 08 Oct 2026 12:13:15 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: Artem Dinaburg <artem@trailofbits.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Saurabh Sengar <ssengar@linux.microsoft.com>,
-	Michael Kelley <mhklinux@outlook.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Dexuan Cui <decui@microsoft.com>,
-	Helge Deller <deller@gmx.de>,
-	linux-hyperv@vger.kernel.org,
-	linux-fbdev@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
+        bh=NsKnBLI7Oap+/MtZR28XECViUHg4ECBk5FTj278RiYo=;
+        b=p7DMMaXPhKQyWU07lXyykUYMetd6AAtZy9Gvuczs/S2vK76ajC2BQqs4GKzBRcQh/u
+         Dmyfc7LWIeEnUVHnl5LXi6+8+fXTWlVfVdLK7UXZVHY44N/JU2mWYL/MECjy8snRWM/A
+         t08Z8HT/V9Jv1g50lmLbcq9bsUschJQtC9U3mvx8N8p3cGSk3IqBlHqngAtp5bwV4M2A
+         AHQxeEEWheh92DsqO+JltF/riDk7VtBUz1tnHXnz5whRRzCS6VdS3FvEG+QxOIftPz0z
+         Jx2dMCv2IcFti1vrOh4YYybzTXVGQm/Pyx9DReCfFfPMSendRO1Z5qCeibcWiqJmvHmR
+         Nf7w==
+X-Forwarded-Encrypted: i=1; AKwUvBzyNWx3qT765FMMsmqxeJmXyT5dLm4kTf9iq/gMEp5GPM2cRN24bqO/xl7zCPuLBoN9MLLCUKLJildJBoU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK04ZyYloH1M0opkZeJUiqOEhUls+i47xfiZ2UiIS3wQ1h0S0b4
+	u2+VfpfmBDWXHwu87F7ZNyjF6dBNWW1XCWB+amJ4Cg1TkH9MrSe0YlHd
+X-Gm-Gg: AYBFou1ZM1pC4e8V2gXp1Uim498pVRy0p+qx61Qpt1lKNQnPHxVVrwER93yhapLAht9
+	U42/Y1VnES+zUoZSI4yuInWx5ftMzCy2lkmusEskhOB1WmI4LzEDrsyY/+JVNRxFJSrXCX+D//v
+	fLCFHZnVl8t1xaXa3h6Sh3OrBC+73+AnuhjNC/mpAnY2PIadMDZffyNeKDrymyizt8kNO6fqbMa
+	75qmnxqvyb23HH1bzeVL2jEot24QPPyUJfTD6dgBbmFWDq4zNLoiAbR1/yu1esCdo/XDDqMITKm
+	p8L3oG7z58DLdL3tr4FT2mkwTuno7IGFYdbitcHVvm09dXzEh0dQbR5pxcmZdqhJJ/9mhGifs33
+	iStt3XDRQPcJWXwF2hdX6PcV2r02gVAgahoC+jlorXEyS5zfqZ465GOU/wH+WhsdigNmIh3Knwn
+	ScSX9QTGqXWBtMhl+ekp1dSeIhQ2tXKWNORUemu7wDBCOeb4JjZrfi06ISYWdhwmt3qNXpqRlrq
+	3KYBPZjga09jwp3R7XtYmDf3g8fwjI=
+X-Received: by 2002:a05:6000:38c:b0:48a:f4c1:4301 with SMTP id ffacd0b85a97d-48c7edcd161mr6378457f8f.6.1791486801862;
+        Thu, 08 Oct 2026 12:13:21 -0700 (PDT)
+Received: from lima-kdev.local ([85.100.66.184])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db652e52asm1158763f8f.36.2026.10.08.12.13.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 12:13:21 -0700 (PDT)
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: vincent.guittot@linaro.org
+Cc: arighi@nvidia.com,
+	bsegall@google.com,
+	changwoo@igalia.com,
+	christian.loehle@arm.com,
+	dietmar.eggemann@arm.com,
+	juri.lelli@redhat.com,
+	kprateek.nayak@amd.com,
 	linux-kernel@vger.kernel.org,
-	akpm@linux-foundation.org
-Subject: [PATCH 6.6.y 2/2] fbdev: hyperv_fb: Allow graceful removal of framebuffer
-Date: Thu,  8 Oct 2026 15:13:05 -0400
-Message-ID: <20261008191309.98263-3-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261008191309.98263-1-artem@trailofbits.com>
-References: <20261008191309.98263-1-artem@trailofbits.com>
+	linux-pm@vger.kernel.org,
+	lukasz.luba@arm.com,
+	mgorman@suse.de,
+	mingo@redhat.com,
+	peterz@infradead.org,
+	pierre.gondois@arm.com,
+	qyousef@layalina.io,
+	rafael@kernel.org,
+	rostedt@goodmis.org,
+	sched-ext@lists.linux.dev,
+	sshegde@linux.ibm.com,
+	tj@kernel.org,
+	void@manifault.com,
+	vschneid@redhat.com,
+	Kayra Cizmeci <kayracizmeci@gmail.com>
+Subject: Re: [PATCH 00/18 v2] Improving latency of short slice tasks
+Date: Thu,  8 Oct 2026 22:12:36 +0300
+Message-ID: <20261008191236.152916-1-kayracizmeci@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261002154415.2270586-1-vincent.guittot@linaro.org>
+References: <20261002154415.2270586-1-vincent.guittot@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -90,123 +98,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Saurabh Sengar <ssengar@linux.microsoft.com>
+Hi All,
 
-[ Upstream commit ea2f45ab0e53b255f72c85ccd99e2b394fc5fceb ]
+I wanted to ran some tests for this patch series. I couldn't really
+apply it without some issues, but I think I managed to apply
+it cleanly this time... Tho I may have been doing something wrong.
+Please let me know if so.
 
-When a Hyper-V framebuffer device is unbind, hyperv_fb driver tries to
-release the framebuffer forcefully. If this framebuffer is in use it
-produce the following WARN and hence this framebuffer is never released.
+base: 4a3b51aab6e25244d97936aa65e6d5425adf98e1 (on tip/sched/core)
 
-[   44.111220] WARNING: CPU: 35 PID: 1882 at drivers/video/fbdev/core/fb_info.c:70 framebuffer_release+0x2c/0x40
-< snip >
-[   44.111289] Call Trace:
-[   44.111290]  <TASK>
-[   44.111291]  ? show_regs+0x6c/0x80
-[   44.111295]  ? __warn+0x8d/0x150
-[   44.111298]  ? framebuffer_release+0x2c/0x40
-[   44.111300]  ? report_bug+0x182/0x1b0
-[   44.111303]  ? handle_bug+0x6e/0xb0
-[   44.111306]  ? exc_invalid_op+0x18/0x80
-[   44.111308]  ? asm_exc_invalid_op+0x1b/0x20
-[   44.111311]  ? framebuffer_release+0x2c/0x40
-[   44.111313]  ? hvfb_remove+0x86/0xa0 [hyperv_fb]
-[   44.111315]  vmbus_remove+0x24/0x40 [hv_vmbus]
-[   44.111323]  device_remove+0x40/0x80
-[   44.111325]  device_release_driver_internal+0x20b/0x270
-[   44.111327]  ? bus_find_device+0xb3/0xf0
+Command Used Each Run:
 
-Fix this by moving the release of framebuffer and assosiated memory
-to fb_ops.fb_destroy function, so that framebuffer framework handles
-it gracefully.
+hackbench -g 4 -l 100000 > /dev/null & sudo chrt -o -T 300000 0 ~/rt-tests/cyclictest --policy=other -t 1 -i 1000 -D 20 -q -m; wait
 
-While we fix this, also replace manual registrations/unregistration of
-framebuffer with devm_register_framebuffer.
+Environment:
 
-[ Backport to 6.6.y: retain explicit unregister_framebuffer(), but call it
-  only after delayed work and the VMBus channel are shut down; defer
-  hvfb_putmem()/framebuffer_release() to fb_destroy. This preserves the
-  upstream teardown order without requiring devm_register_framebuffer(). ]
+Zen 3 with 8 Cores and 16 Threads. And Fedora.
 
-Fixes: 68a2d20b79b1 ("drivers/video: add Hyper-V Synthetic Video Frame Buffer Driver")
+THE RESULTS (COOKED):
 
-Signed-off-by: Saurabh Sengar <ssengar@linux.microsoft.com>
-Reviewed-by: Michael Kelley <mhklinux@outlook.com>
-Tested-by: Michael Kelley <mhklinux@outlook.com>
-Link: https://lore.kernel.org/r/1740845791-19977-3-git-send-email-ssengar@linux.microsoft.com
-Signed-off-by: Wei Liu <wei.liu@kernel.org>
-Message-ID: <1740845791-19977-3-git-send-email-ssengar@linux.microsoft.com>
-Assisted-by: LLM
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
----
-This is patch 2 of 2 in the ordered 6.6.y backport series.
-This change addresses CVE-2025-21976. The target remove path unregisters the
-framebuffer before completing driver cleanup and then directly frees its
-memory even when another open reference keeps the framebuffer alive.
-This needed a target-specific adjustment; I called it out in the bracketed
-backport note above.
+On Base in 5 runs, average values are: Min: 3.8, Act: 5.8, Avg: 8.8 and
+Max: 2511.6 (I need tea.)
 
-The fix is already present in 6.12.y, 6.18.y, and 7.2.y, but not in 6.6.y.
-This fix also affects 6.1.y, which will need a separate backport; this
-submission contains only the 6.6.y patch.
+On Base + Patches in 5 runs, average values bla bla you get it:
+Min 4, Act: 5.8, Avg: 7.2 and Max: 1781.6
 
- drivers/video/fbdev/hyperv_fb.c | 19 +++++++++++++++----
- 1 file changed, 15 insertions(+), 4 deletions(-)
+Or, in the shape of art made with love and passion:
 
-diff --git a/drivers/video/fbdev/hyperv_fb.c b/drivers/video/fbdev/hyperv_fb.c
-index 80e6d9682179..e0d68953aa1a 100644
---- a/drivers/video/fbdev/hyperv_fb.c
-+++ b/drivers/video/fbdev/hyperv_fb.c
-@@ -283,6 +283,8 @@ static uint screen_depth;
- static uint screen_fb_size;
- static uint dio_fb_size; /* FB size for deferred IO */
- 
-+static void hvfb_putmem(struct fb_info *info);
-+
- /* Send message to Hyper-V host */
- static inline int synthvid_send(struct hv_device *hdev,
- 				struct synthvid_msg *msg)
-@@ -887,6 +889,17 @@ static void hvfb_cfb_imageblit(struct fb_info *p,
- 					       image->width, image->height);
- }
- 
-+/*
-+ * fb_ops.fb_destroy is called by the last put_fb_info() call at the end
-+ * of unregister_framebuffer() or fb_release(). Do any cleanup related to
-+ * framebuffer here.
-+ */
-+static void hvfb_destroy(struct fb_info *info)
-+{
-+	hvfb_putmem(info);
-+	framebuffer_release(info);
-+}
-+
- static const struct fb_ops hvfb_ops = {
- 	.owner = THIS_MODULE,
- 	.fb_check_var = hvfb_check_var,
-@@ -897,6 +910,7 @@ static const struct fb_ops hvfb_ops = {
- 	.fb_imageblit = hvfb_cfb_imageblit,
- 	.fb_blank = hvfb_blank,
- 	.fb_mmap = fb_deferred_io_mmap,
-+	.fb_destroy = hvfb_destroy,
- };
- 
- 
-@@ -1246,14 +1260,11 @@ static void hvfb_remove(struct hv_device *hdev)
- 
- 	fb_deferred_io_cleanup(info);
- 
--	unregister_framebuffer(info);
- 	cancel_delayed_work_sync(&par->dwork);
- 
- 	vmbus_close(hdev->channel);
- 	hv_set_drvdata(hdev, NULL);
--
--	hvfb_putmem(info);
--	framebuffer_release(info);
-+	unregister_framebuffer(info);
- }
- 
- static int hvfb_suspend(struct hv_device *hdev)
--- 
-2.39.5
+ +------BASE-----+--PATCHED--+
+ | MIN   3.8     |    4      |
+ | ACT   5.8     |   5.8     |
+ | AVG   8.8     |   7.2     |
+ | MAX  2511.6   |  1781.6   |
+ +--------------+------------+ 
+
+Hmhp... Hope I'm not missing something. I need water. Bah.
+
+Tested-by: Kayra Cizmeci <kayracizmeci@gmail.com>
+
+Dancing donkey chases a car while shouting "Linux is the best, my dancing is the coolest. Cry."
+
+Thanks,
+Kayra
+
+
+
+I'll add other not too important things below, these are pretty raw.
+But if you wanna have a look you can.
+
+
+THE RESULTS (RAW):
+
+BASE 7.3.0-rc1+ #2:
+
+RUN 1:
+[1] 1950
+# /dev/cpu_dma_latency set to 0us
+T: 0 ( 2115) P: 0 I:1000 C:  19990 Min:      4 Act:    6 Avg:    8 Max:    1885
+[1]+  Done                       hackbench -g 4 -l 100000 > /dev/null
+
+RUN 2:
+[1] 2132
+# /dev/cpu_dma_latency set to 0us
+T: 0 ( 2297) P: 0 I:1000 C:  19990 Min:      4 Act:    6 Avg:    9 Max:    2695
+[1]+  Done                       hackbench -g 4 -l 100000 > /dev/null
+
+linuxfucks@micro-softly:~$ (Opsies. Who's hostname is this? It's so cool. Wow. 'linuxfucks')
+
+RUN 3: 
+[1] 2307
+# /dev/cpu_dma_latency set to 0us
+T: 0 ( 2472) P: 0 I:1000 C:  19988 Min:      4 Act:    5 Avg:    8 Max:    3246
+[1]+  Done                       hackbench -g 4 -l 100000 > /dev/null
+
+RUN 4:
+[1] 2493
+# /dev/cpu_dma_latency set to 0us
+T: 0 ( 2658) P: 0 I:1000 C:  19995 Min:      3 Act:    6 Avg:    9 Max:    1991
+[1]+  Done                       hackbench -g 4 -l 100000 > /dev/null
+
+RUN 5:
+[1] 2671
+# /dev/cpu_dma_latency set to 0us
+T: 0 ( 2836) P: 0 I:1000 C:  19992 Min:      4 Act:    6 Avg:   10 Max:    2741
+[1]+  Done                       hackbench -g 4 -l 100000 > /dev/null
+
+BASE + PATCHES 7.3.0-rc1+ #3:
+
+RUN 1:
+[1] 1490
+# /dev/cpu_dma_latency set to 0us
+T: 0 ( 1657) P: 0 I:1000 C:  19993 Min:      4 Act:    5 Avg:    7 Max:    3091
+[1]+  Done                       hackbench -g 4 -l 100000 > /dev/null
+
+RUN 2:
+[1] 1671
+# /dev/cpu_dma_latency set to 0us
+T: 0 ( 1836) P: 0 I:1000 C:  19999 Min:      4 Act:    6 Avg:    7 Max:    1529
+[1]+  Done                       hackbench -g 4 -l 100000 > /dev/null
+
+RUN 3:
+[1] 1848
+# /dev/cpu_dma_latency set to 0us
+T: 0 ( 2013) P: 0 I:1000 C:  19998 Min:      4 Act:    6 Avg:    7 Max:    1455
+[1]+  Done                       hackbench -g 4 -l 100000 > /dev/null
+
+RUN 4:
+[1] 2023
+# /dev/cpu_dma_latency set to 0us
+T: 0 ( 2188) P: 0 I:1000 C:  19995 Min:      4 Act:    6 Avg:    7 Max:    1524
+[1]+  Done                       hackbench -g 4 -l 100000 > /dev/null
+
+RUN 5:
+[1] 2200
+# /dev/cpu_dma_latency set to 0us
+T: 0 ( 2365) P: 0 I:1000 C:  19989 Min:      4 Act:    6 Avg:    8 Max:    1309
+[1]+  Done                       hackbench -g 4 -l 100000 > /dev/null
+
+
+
