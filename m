@@ -1,476 +1,610 @@
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF24A46AF2C
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 23:09:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791500995; cv=pass; b=EAzK40DrY1Zd9tMM+ME1COm8huoKUDhLmRK16CJUA+RoRn+yywkBRihneiJKDUl01SC9ZVVAThSqX86ByNoZ0E95QGGMGBHtz2Vqj3WvBZlVT0d8bneVb0Unoox9vZs/d/FxkixG71d859EhLIEeUgR/vZupWXLCeQFjTZ+8/uY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791500995; c=relaxed/simple;
-	bh=2c3IvCJlq17nHLsZnMWDAKYTuVwffS7S0es1lw68GbA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JMIicgWQPyXwp6mipFRy+RU35YqJGREIHUfrk3ugEAfAEGJ/slah65og87EBUFRB7d13aB8VcUjN17mXC8xtzFMo496EUX22rns1JWDRR9awDfPxXNZEQjADit/0q4F73FuCEyn9vnkf0YcJAd3harERMctgXrVVmgI2p6BIyu4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bcvChL7B; arc=pass smtp.client-ip=209.85.208.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47E24484234
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 23:10:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791501033; cv=none; b=NPR4AxWcEmEz3CWJuQV1dEMbrDajHKa22TWvhgJmVbTaa5kfbZ8Quv9mIaMDmO52Zg1WCjQcHm4j+X1UC4Ri3oToJIZEpDjyt1Y40ipsU/cFGAg7jgnCOEUbd21uCPeshRYF6lv6R3aG6yiyNDBgR8Bl+gN146F/hoW7+dM0JQc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791501033; c=relaxed/simple;
+	bh=3JPoUSC2KZfTrEBFZXcobUlut49MAPzO6HJRSmSUFI0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hiYp9Or+g48Vr0mOTzlWcv5CUbf8Xy3Efj4VM+ZmGNU8z1W5hjqdZJ4yDYlkwkJ+/bL91KcVsS1YEyNCrOGvljogmJFxqlynf4RCKob+B045ipbA6AFJ5z3Hk+cxuZ7y4Ptg6S4kdC4W9Vvev2YdEF6/ZRHCVQcov4QzMRObMp4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SipJQauG; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MnEztZO/; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bcvChL7B"
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6afa651700eso5537921a12.2
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 16:09:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791500992; cv=none;
-        d=google.com; s=arc-20260327;
-        b=AMD2pJfao4IJKBd0vInf4qy3wY/TeHDzTI53qK2JkIUf1XW2KOYp8Ftwx6TxLA/fTd
-         uaetrSl1Dv5VdmQx2DpI1cPk5IW8lG1Kww9isx/mD/pSc4NH0fejI/cjANRWq/BtGQeo
-         iwUAKrkEmF+Id/E9R8guMKhtTu29mklfSZGBRpaSDUojTSTbJLulcv+9UQAwKL1YNKfl
-         cm31euonrW5QocJDDHICte2jtNiOtaRU9hE+bInugJCcn1dMaQbJhRCwAs+RTMmmxgzL
-         dpVDOiqlJWrOqaQQJe0pVDiT0REgji5ZAr48tzZFbe467rzep/hScY2LMYJKn3P/8gSG
-         3Trw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=riNn6Uie2S9eDMsQh+vXBNmgd3xoMp+NULbpGq04Tp8=;
-        fh=2TzMdIwaGcR20unIih0iiwAegtqMW13T+Gt/nR/lxkM=;
-        b=fhk6y4QNWEw2J/am41ahUilR4gpZxuORRexPos+/WyVADarjGdCa5Yw4EotuRDfN5f
-         aVblui/s/wtvUzrbeBGl1XtgfkoS0Pgy1f7mzMTE7xYkRFWQpoc7eBYSefgXuqEP72Ks
-         YgkRNAQwAhXdZ/0yh04ATEFFNJJjDUGx24LmstkTmgIlNEYvuUExuWEevU3PhycJclLG
-         KyVZra5ompqWV/w+CzXIS2+422NCFAhzavFNL9IUFPmFNXUti6I4gIWeJHJ4L3TqJcww
-         YQpMubmmYV0QIQeTnuY61REvZUcQZr6TeDuta1BpHEAeBYjwVMBshTKfSumo0CPlkBWN
-         lYRA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SipJQauG";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MnEztZO/"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 698KxvS7921806
+	for <linux-kernel@vger.kernel.org>; Thu, 8 Oct 2026 23:10:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	gSq6/6XQj4OlzZaKrS745qYxJEneJToNIcTrfWhxKIU=; b=SipJQauGRBvUuWV5
+	L6+ZVzCDV6B7V9e9dl2SKdn/rt6o9lCtnK5KllBS0naYzeY+QWUskw6ImECe4R4j
+	zQgFjCT8T0ICamqGoPV+K01rhiSwZeEehXjXDDaA02tuQEC5ZGeCwR2kIC39N+Yi
+	KWie2F5ASFqIXwjwIdRCHhzlu+35vg8BcVvB3ZJBqgx0anTK+SchzgqTkeh030hA
+	JhCky7R6TwwKZggr6iBZmPsRCbYFAbQeVeUkFKrF1Pw+leCUndqgPOOYV60xy71G
+	2PYxmr9jkyS/D+wMNh5v41WYuLaEdJWB3JhGu6jPTTYSfV9ewMQDt3E+OpK+w4WN
+	ahYsbA==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h6fxw8yy8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 23:10:31 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3a89dd31fdaso2122071a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 16:10:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791500992; x=1792105792; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=riNn6Uie2S9eDMsQh+vXBNmgd3xoMp+NULbpGq04Tp8=;
-        b=bcvChL7BohCaukfEk25bl4uo+KaYJDJi3aif6uHQwa7M7b/QrrH359CRKZJsY9p1zR
-         P+UcXOlmRBAG8sJlkuYtucEtmpYkGLIo56lXwZrF+IXSi1GF5ND3tbYCde9riHFXy0VZ
-         nnOiDmCI85pLtiJMFbxAsSxv2oXEZs8Asv0lAGnxKWJ94AhhyexlbWXLiawa9ry2z5ga
-         2WPfSxgZ3apGTmpSA81Uv5RGc+IxQh0mGEP1oxbRGzC7Y6rJ4Zpyv4kIG9FIAsgwYzXT
-         TWl8jZoY5x94/r+ff0yWw5m18Tf/xhkeYh8t1f//BAkvlaaWnZc8nBGaZnz9evFACevd
-         s4+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791500992; x=1792105792;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1791501030; x=1792105830; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=riNn6Uie2S9eDMsQh+vXBNmgd3xoMp+NULbpGq04Tp8=;
-        b=H02XoACAHxIjziwyCZS6s/fbcMCz+tEU9D4TjZLkjQFYVOCr+0c/XaqBEE4mKzmf80
-         VdUzGtD0ybWYlD1letJh3zmyXsqnE5hGP+SGJUj8ZNbCLIBvkK5NgFtyiFiDfKMYgMFl
-         uf2O22QG3BYPMwju3H2n/TQeFJHMXfb4rAmg0ZoTee2xH/g/tu1/awoP+pcVjzMHm/2w
-         PlShalorJHjKk48T9xnDTWSa1fMC1TGdh7HA0vX8DY95WX6Og3YjWfqw54cQFMuaqarG
-         ZQQESY6COdp96uqdpdg+lxEUdbHViymT/+hJ7iJSxpBj3CVTVVg1/B7Eyw+1sjAvBVMS
-         nuzA==
-X-Gm-Message-State: AFuF++kg3qkdIYzaGwu/YEcIcxvyXGnXvZ66tQZS5uuztzUn2UfLGkWK
-	kxlnCymTBjpmF01z1iTAW+2IBePUqa9goTUW7kwmyAMwGMJMxzoHmAnpE/xhlBueiI1CbEF5HrB
-	HLaSMWO3Yy7D2NyWoOHyORJKFMZwEei4=
-X-Gm-Gg: AYBFou0ZYYS7QXYiKIbyx/UWskmIuUTDcJbGWzo5r9bPu6Uni9s9qTm/+wJMqcGBHXI
-	elHZvyOKDq/b+pcHJOGu/jiLXZMGYwO1dp4lRgH98Q/xjmEcaDX5N1vxZkZcZQbxqudEawZp3xO
-	dK14h0iUEY9tjdA9Mfqwx+Z19EF3DiyhpFtG1+nllLpsAQyKmJ916Yu54Yw1/b1JsPJFMZpNC9l
-	2ALTwZrDPLPhS3poz8BSd/swITeBNYhD67BzbzPTcbfXRxkhhDn1TtfM76L5ByBpKyA/0c9em0V
-	qeNUSLyHLBFXgs9CiBQ1YkqjZcNxKz+WfEU1Q6sNNTZWABN9T4V8I01LXl/DVYj0Qb+16aTx7XQ
-	lkmz/Cgke9y23wUgph+TprGn4oQh2mqZI+I7SLAyljuE=
-X-Received: by 2002:a17:907:a089:b0:c2d:cbc9:3529 with SMTP id
- a640c23a62f3a-c31a9ffd78amr19716366b.20.1791500991734; Thu, 08 Oct 2026
- 16:09:51 -0700 (PDT)
+        bh=gSq6/6XQj4OlzZaKrS745qYxJEneJToNIcTrfWhxKIU=;
+        b=MnEztZO/1BBwTmHOolhCPVMRqwCa4ezRneoSMuQewx6ohcApQklsKbgENcBdE5R/gm
+         wmQNUFtzhx5L6sDBO+HeY2e9eQ/KD4192HDCXffj4Z7/+oXuslv0Xsl441AwI0I4vKAm
+         6I+klL5OmmiA1WE17MSD5eAVJ31p2xejNziw/WX+EOwuigdtSFHlB7CZvpjxbV+iR2Jk
+         2xA62QlBXlkRiu4p/sVfgn2bsd0lLtKlH2DKA8/usimWshZdH8v9YrvN3dBlQKLiWlFy
+         plRV3kCTZWpv5TvlCKfBWWZC7L07JKtfk2geqknMvLwRVhBAKk3l42R6PxEUP7vbuxiy
+         bKGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791501030; x=1792105830;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gSq6/6XQj4OlzZaKrS745qYxJEneJToNIcTrfWhxKIU=;
+        b=Kc2bTCzam/KYZ4o3iJV+kuRDlbd0aylOhDDETa7KfGBFU4jYsqtdTrZwofP+IXj7SZ
+         gpxKATClkD459Sciw2ObdNx+TOY30az+r7NNYDeLr/WB9aGJMa2mzArK+SIzh97CRI6e
+         HWwQs/x8QWIJJbtLUXeKVQaDv16NARWDPVF9uNa6QvF3WY2FWLQxSOHodt59GQUHj5Zt
+         wCp4SsgxTlzJbuF2ZBMNiubifXxXKSYLgiunuFUUIsAwQCRq2SXkJZrnBUOvA3V4nfuz
+         vlGW4V7nKuTWsvOyQYx0zb1u66xSIxpj4tWCmcoZMbRSNUiWdvCJ3kyQCXkbaz4B7gRn
+         dG6g==
+X-Forwarded-Encrypted: i=1; AKwUvBzCXA4d2duxKZJgC6ahwi5IiI/q3/PncPgz58rvtnPjURLLoCEiIHe92XeOg1XJJj47Hl/2G6b/J8+HDTo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKUTvIZFw8J7th9kbDBphhH8c0LF4fjGrHes0p6hL/QryM8eITp
+	WLF+plQevPmo1FwGAR1G1tnXEqp0Cymwsx2fxGxBWKUl9lsHr3LhBL8PrBr+9B5HImIdbMtGRc/
+	bE2/IePpG0iY1JCTX258lOxy8XZG9+aAp6fmphj06URT6+hId7Ggz58rcLPm5rceWeDvP3zkYTI
+	Sj
+X-Gm-Gg: AYBFou3dAmZyvN9Ncnj1ApSU4tertKqCNgks2cZPwSi22NS0vIWU5HQcy2lFFY6MHiS
+	mrDslElgHDyqknKTAMCUtjPPprHbKMQqb52MEJftCqz4g/N+qnDqnoEoXqSg/FkT28O7Q7+6qhK
+	dbOUnfSxkreFvItaz0R0Z69iSr2Cy+N1MoFn5neLYc/V4tjyrrE+pzkGDY4zr+AWYz98Tyas2ay
+	UGXR2mfrG9jISNBvOvVC8edRo28U6RbQji2TR66SBUwD9cH/Jni+uA/To2yN44rTKZYyMYW14qR
+	i1jWr0tXMJkTnmtUqV8PvSmTuH/OqjcL+kt8WXrSu4NYUJ3AVqJwPTGaEFa/QdmRyaasnRmnSgE
+	G9Xki0/vO9M8AtOsUrPTVkYco0frRC1zo
+X-Received: by 2002:a17:90b:4a45:b0:3aa:9a32:504f with SMTP id 98e67ed59e1d1-3ab3a359e32mr241827a91.7.1791501030296;
+        Thu, 08 Oct 2026 16:10:30 -0700 (PDT)
+X-Received: by 2002:a17:90b:4a45:b0:3aa:9a32:504f with SMTP id 98e67ed59e1d1-3ab3a359e32mr241797a91.7.1791501029663;
+        Thu, 08 Oct 2026 16:10:29 -0700 (PDT)
+Received: from [192.168.1.86] ([65.181.12.250])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab36ed0daesm717974a91.5.2026.10.08.16.10.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 08 Oct 2026 16:10:29 -0700 (PDT)
+Message-ID: <f9e91a7d-1628-4746-b2e7-03c7b1be11cc@oss.qualcomm.com>
+Date: Fri, 9 Oct 2026 10:10:19 +1100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20251125224352.32034-1-linmag7@gmail.com> <CAEdQ38FciXzBqTpHxFYS5F5DiS5CaMe69Rh4cLVwDeCkLyebow@mail.gmail.com>
-In-Reply-To: <CAEdQ38FciXzBqTpHxFYS5F5DiS5CaMe69Rh4cLVwDeCkLyebow@mail.gmail.com>
-From: Magnus Lindholm <linmag7@gmail.com>
-Date: Fri, 9 Oct 2026 01:09:40 +0200
-X-Gm-Features: AclHuK9KBb05J6WCzSlIV2JR0bldX75v7on7Z-1oDMtAx5Kufd-i6QR9liEejKQ
-Message-ID: <CA+=Fv5TxHDALWErD=vQ2CMwgNBbAv8W_7y+fnXHy6n_s9JxbZA@mail.gmail.com>
-Subject: Re: [PATCH v4] alpha: machine check handler for tsunami
-To: Matt Turner <mattst88@gmail.com>
-Cc: linux-kernel@vger.kernel.org, linux-alpha@vger.kernel.org, 
-	hch@infradead.org, macro@orcam.me.uk, glaubitz@physik.fu-berlin.de, 
-	richard.henderson@linaro.org, ink@unseen.parts
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC v2 7/8] tee: optee: bind RPMI services and negotiate
+ backend capabilities
+To: Jens Wiklander <jens.wiklander@oss.qualcomm.com>
+Cc: Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>,
+        Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+        Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+        Rahul Pathak <rahul@summations.net>, Anup Patel <anup@brainfault.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Marouene Boubakri <marouene.boubakri@oss.nxp.com>,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        op-tee@lists.trustedfirmware.org, linux-riscv@lists.infradead.org,
+        devicetree@vger.kernel.org
+References: <20261005-rpmi-tee-service-grp-dev-v2-0-72f222e23ec1@oss.qualcomm.com>
+ <20261005-rpmi-tee-service-grp-dev-v2-7-72f222e23ec1@oss.qualcomm.com>
+ <CAGgiveU+8d-MmPL4n_ADimkrthsE1sU4QHJoBeh==sxLZmdrFw@mail.gmail.com>
+Content-Language: en-US
+From: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
+In-Reply-To: <CAGgiveU+8d-MmPL4n_ADimkrthsE1sU4QHJoBeh==sxLZmdrFw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDA5MiBTYWx0ZWRfX1HUK9EEb/oIY
+ n64x8YqKVFVaVTbI5BLW3NfrZFA0orXr8hUG2uh6iryH599NqPwmAh1/IF3s6BMqmopdE7tVlRl
+ RHCCTw7JRK0UTS9ebAtClrIVGSRP4l2CKXAjdOEp1+Wg4u0LeMfCZc991s5HzGeKDRtETJhmyCv
+ uqnCchd882hBTN3mbv166YmYJXiyv8OMjZrQZMAR5DUrD+dgUm8ai1fAoPgv/jbrhs61s/AGCsS
+ HHECEEo/5VIrZ/LK56PLdiALUQx8gHwtPbsL+/ptTaULLMf69aB4NxQ7fMCh1RGK+Nf75bSTM+m
+ ivWW0aQ/zh4T/etyUHnvd/DI/X83IWIR0A86Js2ZDKusngTKCLIdQiMmkb/uVVJZPqHvnDDpZSC
+ ceR+Ezmpb1eD2zymKxyfqes3aNHBAIUkTK/c8MhjPvLojSuCh1xXGCM+kSuuxfxNFD4hQ0wlXFt
+ JGT2GeDhr/5N7fY/gYA==
+X-Proofpoint-GUID: o3pQ1oaxm-xXpFTNlnAyn9KwVDdb6s_8
+X-Authority-Analysis: v=2.4 cv=cMB1IVeN c=1 sm=1 tr=0 ts=6ac822e7 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=9v5PfQ1E2GNzj2RibJmqVw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=b14n5p5ovfXgHId7m2sA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDA5MiBTYWx0ZWRfX8aZHWyyu9H1c
+ hzSEtuLoOdovPwsIaKahmbaX4c084YpPAYrmuqrr3XrvxUqigU0RiwPy5SlQ32xlYYLUu40vcC+
+ lcNTlNaZBsPoXvZ+dkPPscIogm+hD1E=
+X-Proofpoint-ORIG-GUID: o3pQ1oaxm-xXpFTNlnAyn9KwVDdb6s_8
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-08_07,2026-10-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 spamscore=0 lowpriorityscore=0
+ malwarescore=0 adultscore=0 bulkscore=0 impostorscore=0 phishscore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610020000
+ definitions=main-2610080092
 
-Hi Matt,
+Hi jens,
 
-Thanks for the detailed review and build testing. Replies inline below.
+On 10/8/2026 7:20 PM, Jens Wiklander wrote:
+> Hi Amir,
+> 
+> On Tue, Oct 6, 2026 at 2:40 AM Amirreza Zarrabi
+> <amirreza.zarrabi@oss.qualcomm.com> wrote:
+>>
+>> Register an RPMI service driver matching the OP-TEE service UUID and
+>> integrate it with OP-TEE module initialization and removal.
+>>
+>> Check the service API version, query the trusted OS revision, and
+>> obtain the RPC parameter and logical notification counts. Initialize
+>> shared-memory tracking, the call queue, supplicant state and internal
+>> context before publishing the client and supplicant TEE devices.
+>>
+>> Connect the RPMI backend to the common OP-TEE operations and enumerate
+>> trusted application devices. Enable in-kernel RPMB routing when the
+>> RPMB subsystem is reachable.
+>>
+>> Add removal and probe failure cleanup for the backend resources.
+>>
+>> Signed-off-by: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
+>> ---
+>>  drivers/tee/optee/core.c          |  10 +-
+>>  drivers/tee/optee/optee_private.h |  21 ++-
+>>  drivers/tee/optee/rpmi_abi.c      | 286 ++++++++++++++++++++++++++++++++++++++
+>>  3 files changed, 312 insertions(+), 5 deletions(-)
+>>
+>> diff --git a/drivers/tee/optee/core.c b/drivers/tee/optee/core.c
+>> index a52c1f498b99..8a44a25ebc66 100644
+>> --- a/drivers/tee/optee/core.c
+>> +++ b/drivers/tee/optee/core.c
+>> @@ -220,6 +220,7 @@ void optee_remove_common(struct optee *optee)
+>>
+>>  static int smc_abi_rc;
+>>  static int ffa_abi_rc;
+>> +static int rpmi_abi_rc;
+>>  static bool intf_is_regged;
+>>
+>>  static int __init optee_core_init(void)
+>> @@ -245,14 +246,15 @@ static int __init optee_core_init(void)
+>>
+>>         smc_abi_rc = optee_smc_abi_register();
+>>         ffa_abi_rc = optee_ffa_abi_register();
+>> +       rpmi_abi_rc = optee_rpmi_abi_register();
+>>
+>> -       /* If both failed there's no point with this module */
+>> -       if (smc_abi_rc && ffa_abi_rc) {
+>> +       /* Keep the module if any supported transport registered successfully. */
+>> +       if (smc_abi_rc && ffa_abi_rc && rpmi_abi_rc) {
+>>                 if (IS_REACHABLE(CONFIG_RPMB)) {
+>>                         rpmb_interface_unregister(&rpmb_class_intf);
+>>                         intf_is_regged = false;
+>>                 }
+>> -               return smc_abi_rc;
+>> +               return -EOPNOTSUPP;
+>>         }
+>>
+>>         return 0;
+>> @@ -270,6 +272,8 @@ static void __exit optee_core_exit(void)
+>>                 optee_smc_abi_unregister();
+>>         if (!ffa_abi_rc)
+>>                 optee_ffa_abi_unregister();
+>> +       if (!rpmi_abi_rc)
+>> +               optee_rpmi_abi_unregister();
+>>  }
+>>  module_exit(optee_core_exit);
+>>
+>> diff --git a/drivers/tee/optee/optee_private.h b/drivers/tee/optee/optee_private.h
+>> index 2422caf3c883..07c27e322a71 100644
+>> --- a/drivers/tee/optee/optee_private.h
+>> +++ b/drivers/tee/optee/optee_private.h
+>> @@ -188,6 +188,8 @@ struct rpmi_tee_device;
+>>   * @rdev: owning RPMI service device
+>>   * @shm_rht_lock: protects parcel lookup, insertion, removal and publication
+>>   * @shm_rht: lookup by the host-endian parcel ID and nonce pair
+>> + * @sec_caps: negotiated optional OPTEE_RPMI_CAP_* features
+>> + * @notification_count: negotiated nonzero number of logical notification keys
+>>   *
+>>   * Callers keep their tee_shm alive while using its registration. Lookup
+>>   * returns a raw pointer; the mutex does not protect its lifetime after
+>> @@ -199,6 +201,8 @@ struct optee_rpmi {
+>>         /* Protects parcel lookup, insertion, removal and publication. */
+>>         struct mutex shm_rht_lock;
+>>         struct rhashtable shm_rht;
+>> +       u32 sec_caps;
+>> +       u32 notification_count;
+> 
+> Why are these two needed?
+> 
 
-On Thu, Oct 8, 2026 at 11:17=E2=80=AFPM Matt Turner <mattst88@gmail.com> wr=
-ote:
->
-> On Tue, Nov 25, 2025 at 11:38 PM Magnus Lindholm <linmag7@gmail.com> wrot=
-e:
-> > This patch implements a machine check handler with detailed information=
- on
-> > error conditions in the event of a machine check exception on the Tsuna=
-mi
-> > platform.
->
-> Sorry this sat for so long. I would like to see this go in. I went
-> through it against the 21272 Hardware Reference Manual (21 October
-> 1999) and the ES40 Service Guide, and build tested it on your
-> for-next. Comments below, roughly in order of importance. Section
-> numbers and Tables 10-x refer to the chipset manual, Tables D-x to
-> the service guide.
->
-> Build
-> -----
->
-> > +obj-$(CONFIG_ALPHA_DP264)  +=3D err_ev6.o err_tsunami.o
-> > +obj-$(CONFIG_ALPHA_EIGER)  +=3D err_ev6.o err_tsunami.o
->
-> CONFIG_ALPHA_SHARK also builds sys_dp264.o, so a non-generic Shark
-> kernel fails to link:
->
->   sys_dp264.c:300: undefined reference to `tsunami_register_error_handler=
-s'
->   sys_dp264.o:(.ref.data+0x118): undefined reference to `tsunami_machine_=
-check'
->
-> The commit message says CONFIG_ALPHA_TSUNAMI, and that is what the
-> Makefile should use: a single
-> "obj-$(CONFIG_ALPHA_TSUNAMI) +=3D err_ev6.o err_tsunami.o".
->
+Neither needs to be retained in the instance state: sec_caps is currently unused,
+and notification_count is consumed during probe. I'll remove both fields.
+I thought it would be nice to keep them.
 
-Thanks, I'll fix this in v5 accordingly.
+>>  };
+>>  #endif
+>>
+>> @@ -211,8 +215,8 @@ struct optee;
+>>   * @os_build_id:       OP-TEE OS build identifier (0 if unspecified)
+>>   *
+>>   * Values come from OPTEE_SMC_CALL_GET_OS_REVISION (SMC ABI) or
+>> - * OPTEE_FFA_GET_OS_VERSION (FF-A ABI); this is the trusted OS revision, not an
+>> - * FF-A ABI version.
+>> + * OPTEE_FFA_GET_OS_VERSION (FF-A ABI) or OPTEE_RPMI_GET_OS_VERSION (RPMI ABI).
+>> + * This is the trusted OS revision, not a transport ABI version.
+>>   */
+>>  struct optee_revision {
+>>         u32 os_major;
+>> @@ -490,5 +494,18 @@ static inline void optee_ffa_abi_unregister(void)
+>>  }
+>>  #endif
+>>
+>> +#if IS_REACHABLE(CONFIG_RISCV_RPMI_TEE_TRANSPORT)
+>> +int optee_rpmi_abi_register(void);
+>> +void optee_rpmi_abi_unregister(void);
+>> +#else
+>> +static inline int optee_rpmi_abi_register(void)
+>> +{
+>> +       return -EOPNOTSUPP;
+>> +}
+>> +
+>> +static inline void optee_rpmi_abi_unregister(void)
+>> +{
+>> +}
+>> +#endif
+>>
+>>  #endif /*OPTEE_PRIVATE_H*/
+>> diff --git a/drivers/tee/optee/rpmi_abi.c b/drivers/tee/optee/rpmi_abi.c
+>> index 6e76316794c1..db541f3de425 100644
+>> --- a/drivers/tee/optee/rpmi_abi.c
+>> +++ b/drivers/tee/optee/rpmi_abi.c
+>> @@ -684,3 +684,289 @@ static int optee_rpmi_do_call_with_arg(struct tee_context *ctx,
+>>
+>>         return optee_rpmi_yielding_call(ctx, &req, rpc_arg, system_thread);
+>>  }
+>> +
+>> +/* Query and store the trusted OS revision. */
+>> +static int optee_rpmi_get_os_version(struct optee *optee)
+>> +{
+>> +       struct optee_rpmi_probe_req req = {
+>> +               .op = cpu_to_le32(OPTEE_RPMI_GET_OS_VERSION),
+>> +       };
+>> +       struct optee_rpmi_os_resp os;
+>> +       int ret;
+>> +
+>> +       ret = optee_rpmi_call(optee, &req, sizeof(req), &os, sizeof(os));
+>> +       if (ret)
+>> +               return ret;
+>> +
+>> +       optee->revision.os_major = get_unaligned_le32(&os.major);
+>> +       optee->revision.os_minor = get_unaligned_le32(&os.minor);
+>> +       optee->revision.os_build_id = get_unaligned_le64(&os.build_id);
+>> +
+>> +       if (optee->revision.os_build_id)
+>> +               pr_info("revision %u.%u (%016llx)\n",
+>> +                       optee->revision.os_major, optee->revision.os_minor,
+>> +                       optee->revision.os_build_id);
+>> +       else
+>> +               pr_info("revision %u.%u\n", optee->revision.os_major,
+>> +                       optee->revision.os_minor);
+>> +
+>> +       return 0;
+>> +}
+>> +
+>> +/* Query and store secure-world capabilities and buffer limits. */
+>> +static int optee_rpmi_exchange_caps(struct optee *optee)
+>> +{
+>> +       struct optee_rpmi_probe_req req = {
+>> +               .op = cpu_to_le32(OPTEE_RPMI_EXCHANGE_CAPABILITIES),
+>> +       };
+>> +       struct optee_rpmi_caps_resp caps;
+>> +       u32 rpc_count, sec_caps, notif_count;
+>> +       int ret;
+>> +
+>> +       ret = optee_rpmi_call(optee, &req, sizeof(req), &caps, sizeof(caps));
+>> +       if (ret)
+>> +               return ret;
+>> +
+>> +       sec_caps = get_unaligned_le32(&caps.secure_caps);
+>> +       rpc_count = get_unaligned_le32(&caps.rpc_param_count);
+>> +       notif_count = get_unaligned_le32(&caps.notification_count);
+>> +       if (!notif_count || !rpc_count)
+>> +               return -EPROTO;
+>> +
+>> +       optee->rpc_param_count = rpc_count;
+>> +       optee->rpmi.sec_caps = sec_caps;
+>> +       optee->rpmi.notification_count = notif_count;
+>> +       optee->in_kernel_rpmb_routing = IS_REACHABLE(CONFIG_RPMB);
+> 
+> What if OP-TEE is built without RPMB support?
+> 
 
-> PERROR decode
-> -------------
->
-> > +#define TSUNAMI__PCHIP_PERROR__SADDR__S    (19)
-> > +#define TSUNAMI__PCHIP_PERROR__SADDR__M    (0x7FFFFFFF80000ul)
-> > +#define TSUNAMI__PCHIP_PERROR__PADDR__S (18)
-> > +#define TSUNAMI__PCHIP_PERROR__PADDR__M (0x0FFFFFFFC0000ul)
-> [...]
-> > +           addr =3D EXTRACT(perror, TSUNAMI__PCHIP_PERROR__SADDR) >> 1=
-6;
-> > +   else
-> > +           addr =3D EXTRACT(perror, TSUNAMI__PCHIP_PERROR__PADDR) >> 1=
-6;
->
-> The field positions match Table 10-42, but EXTRACT() shifts right by
-> __S first and then applies __M, so __M has to be the mask of the
-> field after shifting. With the masks in register position, and the
-> extra ">> 16", the PCI case ends up with PCI address bits <31:20> in
-> bits <13:2> of addr, so addr is never larger than 0x3ffc. Per the
-> table it should be
->
->       ADDR<47:18> =3D PCI address <31:2>      -> ((perror >> 18) &
-> 0x3fffffff) << 2
->       ADDR<50:19> =3D system address <34:3>   -> ((perror >> 19) &
-> 0xffffffff) << 3
->
-> This matters for more than the printout:
->
+I discussed this with Sumit, and the intention was to make RPMB probing
+part of the baseline for the new ABI rather than negotiate it separately.
+I can enable the capability bit if it should remain optional.
 
-You're right. I'll correct both address decodes and the other PERROR
-issues you listed: INV/SERR validity, ECC commands and syndrome, missing
-error messages, window flags and SGE granularity.
+>> +
+>> +       return 0;
+>> +}
+>> +
+>> +static int optee_rpmi_api_is_compatible(struct optee *optee)
+>> +{
+>> +       struct optee_rpmi_probe_req req = {
+>> +               .op = cpu_to_le32(OPTEE_RPMI_GET_API_VERSION),
+>> +       };
+>> +       struct optee_rpmi_api_resp api;
+>> +       int ret;
+>> +
+>> +       ret = optee_rpmi_call(optee, &req, sizeof(req), &api, sizeof(api));
+>> +       if (ret)
+>> +               return ret;
+>> +
+>> +       if (get_unaligned_le32(&api.major) != OPTEE_RPMI_VERSION_MAJOR)
+>> +               return -EPROTONOSUPPORT;
+>> +
+>> +       /* Version 1.0 has no minimum minor revision beyond zero. */
+>> +       return 0;
+>> +}
+>> +
+>> +static void optee_rpmi_get_version(struct tee_device *teedev,
+>> +                                  struct tee_ioctl_version_data *vers)
+>> +{
+>> +       *vers = (struct tee_ioctl_version_data) {
+>> +               .impl_id = TEE_IMPL_ID_OPTEE,
+>> +               .gen_caps = TEE_GEN_CAP_GP | TEE_GEN_CAP_REG_MEM |
+>> +                           TEE_GEN_CAP_MEMREF_NULL,
+>> +       };
+>> +}
+>> +
+>> +static int optee_rpmi_open(struct tee_context *ctx)
+>> +{
+>> +       return optee_open(ctx, true);
+>> +}
+>> +
+>> +static const struct tee_driver_ops optee_rpmi_clnt_ops = {
+>> +       .get_version = optee_rpmi_get_version,
+>> +       .get_tee_revision = optee_get_revision,
+>> +       .open = optee_rpmi_open,
+>> +       .release = optee_release,
+>> +       .open_session = optee_open_session,
+>> +       .close_session = optee_close_session,
+>> +       .invoke_func = optee_invoke_func,
+>> +       .cancel_req = optee_cancel_req,
+>> +       .shm_register = optee_rpmi_shm_register,
+>> +       .shm_unregister = optee_rpmi_shm_unregister,
+>> +};
+>> +
+>> +static const struct tee_driver_ops optee_rpmi_supp_ops = {
+>> +       .get_version = optee_rpmi_get_version,
+>> +       .get_tee_revision = optee_get_revision,
+>> +       .open = optee_rpmi_open,
+>> +       .release = optee_release_supp,
+>> +       .supp_recv = optee_supp_recv,
+>> +       .supp_send = optee_supp_send,
+>> +       .shm_register = optee_rpmi_shm_register,
+>> +       .shm_unregister = optee_rpmi_shm_unregister_supp,
+>> +};
+>> +
+>> +static const struct tee_desc optee_rpmi_clnt_desc = {
+>> +       .name = DRIVER_NAME "-rpmi-clnt",
+>> +       .ops = &optee_rpmi_clnt_ops,
+>> +       .owner = THIS_MODULE,
+>> +};
+>> +
+>> +static const struct tee_desc optee_rpmi_supp_desc = {
+>> +       .name = DRIVER_NAME "-rpmi-supp",
+>> +       .ops = &optee_rpmi_supp_ops,
+>> +       .owner = THIS_MODULE,
+>> +       .flags = TEE_DESC_PRIVILEGED,
+>> +};
+>> +
+>> +static const struct optee_ops optee_rpmi_ops = {
+>> +       .do_call_with_arg = optee_rpmi_do_call_with_arg,
+>> +       .to_msg_param = optee_rpmi_to_msg_param,
+>> +       .from_msg_param = optee_rpmi_from_msg_param,
+>> +};
+>> +
+>> +/* Keep callback state and memory tables alive until all TEE users release. */
+>> +static void optee_rpmi_remove(struct rpmi_tee_device *rdev)
+>> +{
+>> +       struct optee *optee = dev_get_drvdata(&rdev->dev);
+>> +
+>> +       optee_remove_common(optee);
+>> +       optee_rpmi_shm_rht_uninit(optee);
+>> +       kfree(optee);
+>> +}
+>> +
+>> +static int optee_rpmi_probe(struct rpmi_tee_device *rdev)
+>> +{
+>> +       struct tee_device *teedev;
+>> +       struct tee_context *ctx;
+>> +       int ret;
+>> +
+>> +       struct optee *optee __free(kfree) = kzalloc_obj(*optee);
+> 
+> The cleanup macros should, if I understand it correctly, not be used
+> in functions using gotos for cleanup.
 
-> > +       ((((cmd & 0xE) =3D=3D 2) && (addr <=3D 0x80000)) ||
-> > +        (((cmd & 0xE) =3D=3D 6) && (addr >=3D 0xA0000) && (addr < 0x10=
-0000)))) {
-> > +           status =3D MCHK_DISPOSITION_DISMISS;
->
-> With the current decode the I/O test is always true, so every I/O
-> master abort is dismissed whatever its address, and the memory test
-> is never true. The "unclear if this is correct on tsunami?" comment
-> above it should be resolved rather than merged. Is 0x80000 really
-> the intended I/O limit? The comment text talks about 0x1000.
->
+I'll remove all cleanup.h related macros as requested.
 
-I can't justify that limit or the borrowed Titan dismissal policy. I'll
-remove the rule for v5 and report these aborts.
+> 
+>> +       if (!optee)
+>> +               return -ENOMEM;
+>> +
+>> +       optee->rpmi.rdev = rdev;
+>> +       optee->ops = &optee_rpmi_ops;
+>> +
+>> +       ret = optee_rpmi_api_is_compatible(optee);
+>> +       if (ret)
+>> +               return ret;
+>> +
+>> +       ret = optee_rpmi_get_os_version(optee);
+>> +       if (ret)
+>> +               return ret;
+>> +
+>> +       ret = optee_rpmi_exchange_caps(optee);
+>> +       if (ret)
+>> +               return ret;
+>> +
+>> +       optee->pool = optee_rpmi_shm_pool_alloc();
+> 
+> Perhaps it's just me, but it seems a bit odd to store an err pointer
+> in a struct like this.
+> 
 
-> Other things the decode misses, all from Table 10-42 and section
-> 8.8.2:
->
->  - INV<51> is not checked. When it is set, SYN, CMD and ADDR are not
->    valid and must not be used, in particular not for the dismissal
->    decision.
->  - When SERR is set the address and command are undefined (8.8.2.6).
->  - For CRE and UECC, CMD is not a PCI command: 0 is DMA read, 1 is
->    DMA RMW, 3 is SGTE read. The patch prints it through perror_cmd[],
->    so an ECC error on a DMA read is reported as "Interrupt
->    Acknowledge".
->  - There is no message for RDPE, UECC or CRE, although all three are
->    in ERRMASK, and SYN<63:56> is never printed. The ECC cases are the
->    ones the changelog gives as motivation.
->  - DAC (bit 16) and MWIN (bit 17) are only meaningful when the error
->    is not CRE or UECC, so they should be decoded in that branch only.
->  - For SGE the address is only valid to 8KB granularity (8.8.2.5).
->
-> Clearing the error
-> ------------------
->
-> > +   pchip->perror.csr =3D 0x040;
->
-> 10.2.5.6 says that once any of bits <11:0> is set the register is
-> frozen and b_error stays asserted until all of bits <11:0> are clear.
-> The bits are W1C, so 0x040 clears only TA. That was enough while no
-> other error was enabled. With PERRMASK opened up, an NDS, PERR or ECC
-> error will stay latched, hold irq<0> asserted, and turn every later
-> error into LOST. Please write back the bits that were read.
->
+Ack.
 
-Agreed. I'll acknowledge the observed defined PERROR W1C bits and
-MISC<NXM>.
+>> +       if (IS_ERR(optee->pool))
+>> +               return PTR_ERR(optee->pool);
+>> +
+>> +       ret = optee_rpmi_shm_rht_init(optee);
+>> +       if (ret)
+>> +               goto err_pool;
+>> +
+>> +       optee_cq_init(&optee->call_queue, 0);
+>> +       optee_supp_init(&optee->supp);
+>> +       optee_shm_arg_cache_init(optee, OPTEE_SHM_ARG_SHARED);
+>> +       mutex_init(&optee->rpmb_dev_mutex);
+>> +       INIT_WORK(&optee->rpmb_scan_bus_work, optee_bus_scan_rpmb);
+>> +       optee->rpmb_intf.notifier_call = optee_rpmb_intf_rdev;
+>> +       ret = optee_notif_init(optee, optee->rpmi.notification_count);
+>> +       if (ret)
+>> +               goto err_common;
+>> +
+>> +       /* Allocate all keys, then restrict the inclusive bound to the last key. */
+>> +       optee->notif.max_key = optee->rpmi.notification_count - 1;
+> 
+> Why? Do you have any plans for that?
+> 
 
-> The same applies to the Cchip: MISC<NXM> is W1C, and the interrupt is
-> only cleared and NXS unlocked by writing a 1 to it (6.6.1). The
-> handler never does that.
->
-> The patch has a comment asking whether PALcode has already cleared
-> PERROR. That needs an answer for both registers. Do you know what the
-> SRM PALcode does here?
->
+The comment is misleading; there is no additional restriction intended.
+The ABI currently reports a key count, while the common notification code uses an
+inclusive maximum key. I'll change the ABI to report the maximum key instead
+and remove this adjustment.
 
-I haven't verified its clearing behavior for either register. I'll remove
-that assumption and explicitly acknowledge any live error bits remaining.
+Thanks Jens for the review.
 
-> Enabling errors
-> ---------------
->
-> > +   /* Enable pchip error */
-> > +   pchip->perrmask.csr =3D 0x0fff;
->
-> This should be a separate patch with its own justification, because
-> PERRMASK is not only a reporting mask. Per 10.2.5.7:
->
+Best Regards,
+Amir
 
-Agreed. I'll drop the PERRMASK change from v5 and leave the firmware
-setting unchanged. Any follow-up enabling more errors will need hardware
-testing, exclusion of reserved bit 9, and saving/restoring the old mask.
+> Cheers,
+> Jens
+> 
+>> +
+>> +       teedev = tee_device_alloc(&optee_rpmi_clnt_desc, &rdev->dev,
+>> +                                 optee->pool, optee);
+>> +       if (IS_ERR(teedev)) {
+>> +               ret = PTR_ERR(teedev);
+>> +               goto err_notif;
+>> +       }
+>> +       optee->teedev = teedev;
+>> +
+>> +       teedev = tee_device_alloc(&optee_rpmi_supp_desc, &rdev->dev,
+>> +                                 optee->pool, optee);
+>> +       if (IS_ERR(teedev)) {
+>> +               ret = PTR_ERR(teedev);
+>> +               goto err_devices;
+>> +       }
+>> +       optee->supp_teedev = teedev;
+>> +
+>> +       optee_set_dev_group(optee);
+>> +
+>> +       /* Internal RPC allocation must be ready before userspace can enter. */
+>> +       ctx = teedev_open(optee->teedev);
+>> +       if (IS_ERR(ctx)) {
+>> +               ret = PTR_ERR(ctx);
+>> +               goto err_devices;
+>> +       }
+>> +
+>> +       optee->ctx = ctx;
+>> +       dev_set_drvdata(&rdev->dev, optee);
+>> +       if (optee->in_kernel_rpmb_routing)
+>> +               blocking_notifier_chain_register(&optee_rpmb_intf_added,
+>> +                                                &optee->rpmb_intf);
+>> +
+>> +       ret = tee_device_register(optee->teedev);
+>> +       if (ret)
+>> +               goto err_initialized;
+>> +
+>> +       ret = tee_device_register(optee->supp_teedev);
+>> +       if (ret)
+>> +               goto err_initialized;
+>> +
+>> +       ret = optee_enumerate_devices(PTA_CMD_GET_DEVICES);
+>> +       if (ret)
+>> +               goto err_initialized;
+>> +
+>> +       dev_info(&rdev->dev, "OP-TEE RPMI %u.%u initialized\n",
+>> +                optee->revision.os_major, optee->revision.os_minor);
+>> +       retain_and_null_ptr(optee);
+>> +
+>> +       return 0;
+>> +
+>> +err_initialized:
+>> +       /* The remove path owns and frees the published backend state. */
+>> +       retain_and_null_ptr(optee);
+>> +       optee_rpmi_remove(rdev);
+>> +
+>> +       return ret;
+>> +err_devices:
+>> +       tee_device_unregister(optee->supp_teedev);
+>> +       tee_device_unregister(optee->teedev);
+>> +       optee_shm_arg_cache_uninit(optee);
+>> +err_notif:
+>> +       optee_notif_uninit(optee);
+>> +err_common:
+>> +       optee_supp_uninit(&optee->supp);
+>> +       mutex_destroy(&optee->call_queue.mutex);
+>> +       rpmb_dev_put(optee->rpmb_dev);
+>> +       mutex_destroy(&optee->rpmb_dev_mutex);
+>> +       optee_rpmi_shm_rht_uninit(optee);
+>> +err_pool:
+>> +       tee_shm_pool_free(optee->pool);
+>> +
+>> +       return ret;
+>> +}
+>> +
+>> +static const struct rpmi_tee_device_id optee_rpmi_device_ids[] = {
+>> +       { OPTEE_RPMI_SERVICE_UUID },
+>> +       {}
+>> +};
+>> +
+>> +static struct rpmi_tee_driver optee_rpmi_driver = {
+>> +       .name = DRIVER_NAME "-rpmi",
+>> +       .probe = optee_rpmi_probe,
+>> +       .remove = optee_rpmi_remove,
+>> +       .id_table = optee_rpmi_device_ids,
+>> +};
+>> +
+>> +int optee_rpmi_abi_register(void)
+>> +{
+>> +       return rpmi_tee_register(&optee_rpmi_driver);
+>> +}
+>> +
+>> +void optee_rpmi_abi_unregister(void)
+>> +{
+>> +       rpmi_tee_unregister(&optee_rpmi_driver);
+>> +}
+>> +
+>> +MODULE_ALIAS("rpmi_tee:486178e0-e7f8-11e3-bc5e-0002a5d5c51b");
+>>
+>> --
+>> 2.34.1
+>>
 
->  - RDPE, PERR and APE enable the parity checking itself; with the
->    bits clear the Pchip ignores parity.
->  - With PERR enabled, a write data parity error seen as target makes
->    the Pchip force uncorrectable ECC into memory for that data
->    (8.8.2.4). The manual says software is expected to crash the
->    system in that case.
->
-> So this changes how the hardware behaves on every Tsunami and Typhoon
-> machine, including ones with a card that has always driven bad
-> parity. Questions:
->
->  - What does SRM leave in PERRMASK? The reset default is all
->    disabled.
->  - Should the previous value be saved and restored in
->    tsunami_kill_one_pchip() like the window registers?
->  - Bit 9 is reserved in PERROR. I would write 0xdff.
->
-> On the positive side, 8.8.2.1 says configuration reads and special
-> cycles do not set NDS, so PCI probing of empty slots is fine.
-> Configuration writes are not exempt.
->
-> Severity
-> --------
->
-> The manual says software is expected to crash the system on an
-> uncorrectable ECC error (8.8.1.1.2) and on a target write parity
-> error (8.8.2.4), because bad data has been or will be delivered. The
-> new handler prints and returns for everything. I think UECC and PERR
-> at least need to panic.
->
-
-Agreed, I'll make those fatal.
-
-> Which machine checks are handled
-> --------------------------------
->
-> > +   /*
-> > +    * Only handle system errors here
-> > +    */
-> > +   switch (mchk_header->code) {
->
-> The comment is followed by a switch that only picks a string.
-> titan_machine_check() hands anything other than SCB_Q_SYSMCHK and
-> SCB_Q_SYSERR to ev6_machine_check(). I think this should do the same,
-> since:
->
->  - The "System Correctable/Uncorrectable" header is wrong for the
->    processor vectors.
->  - The old handler went through process_mcheck_info() with
->    mcheck_expected(). The NXM_MACHINE_CHECKS_ON_TSUNAMI code in
->    core_tsunami.c still sets mcheck_expected(), and nothing consumes
->    it any more.
->
-
-I'll delegate processor vectors to EV6 and preserve expected probe
-machine checks. I'll also remove the unused Titan interrupt mask, use
-the summary flags to select Pchip errors, and fix the logging issues.
-
-
-> > +    * 63 - CChip Error
-> > +    * 62 - PChip 0 H_Error
-> > +    * 61 - PChip 1 H_Error
-> > +    * 60 - PChip 0 C_Error
-> > +    * 59 - PChip 1 C_Error
-> > +    */
-> > +#define TSUNAMI_MCHECK_INTERRUPT_MASK      0xF800000000000000UL
->
-> This is the Titan description. A Tsunami Pchip has a single b_error
-> output. Table D-21 of the ES40 Service Guide has <63> as the Cchip
-> NXM error, <62> and <61> as Pchip 0 and Pchip 1, <60:59> as "future
-> designs" and <58> as OCP or RMC halt, which the mask leaves out. The
-> define is also unused.
->
-> Related: the logout frame's "sesf" and "dir" fields are filled in but
-> never used, and both Pchip PERROR values are always parsed. The
-> summary flags say which one is meaningful: bit 0 is a Pchip 0
-> PERROR<9:0> error, bit 1 the same for Pchip 1, and bit 2 an ECC error
-> on either. Using them to select what to decode would also cover
-> single Pchip systems.
->
-> > +   printk("%sSystem %s Error (Vector 0x%x) reported on CPU %d:\n",
-> [...]
-> > +   printk("Machine check error code is 0x%x (%s)",
-> > +           mchk_header->code, reason);
-> > +   status =3D clipper_process_logout_frame(mchk_header, 0);
-> > +   if (status !=3D MCHK_DISPOSITION_DISMISS) {
->
-> The header is printed before the disposition is known, so dismissed
-> errors are no longer silent, contrary to the comment above it. The
-> second printk has no log level and no newline.
->
-> Clipper environmental frame
-> ---------------------------
->
-> I checked this against the ES40 Service Guide. The copy I have is
-> EK-ES240-SV A01; the file header cites EK-ES239-SV, is that a typo?
->
-
-Yes, that's a typo. My copy is EK-ES240-SV A01 too.
-
-> The layout of el_CLIPPER_envdata_mcheck matches Table D-20, and the
-> string tables and most of the masks match Table D-21. The problems
-> are these:
->
-> > +static char *CLIPPER_EnvQW6TEMP[] =3D {
-> [7 strings]
-> > +#define CLIPPER_ENV_TEMP_MASK      0xFFL
->
-> Environ_QW_6 only defines bits <6:0>, bit 7 is unused. With 0xFF and
-> a length of 8, bit 7 reads past the end of the seven entry table. The
-> mask should be 0x7F.
->
-> > +   /* Process erros in QW7FAN */
-> > +   status |=3D clipper_process_680_reg(CLIPPER_EnvQW7FAN,
-> > +                           emchk->temp_warn,
->
-> This should be emchk->fan_ctrl.
->
-
-Thanks, I'll fix these, honor the print argument, and keep supply-enable
-and door-closed status out of the error disposition
-
-> clipper_process_680_frame() and clipper_process_680_reg() ignore
-> "print". The frame is processed once with print =3D=3D 0 and once with
-> print =3D=3D 1, so every environmental event is printed twice.
->
-> > +   /* Process enables PSU in QW3PSIR */
-> > +   status |=3D clipper_process_680_reg(CLIPPER_EnvQW3PSIR, emchk->psir=
-,
-> > +                           CLIPPER_ENV_PSIR_ENA_MASK, 8);
->
-> PSIR<2:0> are status ("Power Supply N is enabled"), not errors, and
-> the same goes for the "door is closed" bits <7:5> in Environ_QW_5.
-> Because these return MCHK_DISPOSITION_REPORT, every 680 event is
-> reported even when no fault bit is set. Please print them as context
-> only when a real fault bit is set, and keep them out of the status.
->
-> > +"System Power Supply state change detected",
-> > +"OCP or RMC halt detected",
->
-> Table D-21 has SMIR<0> as "System Power Supply failure detected".
-> SMIR<1> is listed as "Inverted OCP_RMC_Halt", as are the three reset
-> bits. Have you confirmed the polarity on hardware? The patch reports
-> a halt when the bit is set.
->
-
-Plugging/unplugging PSU power on my ES40 produced the expected
-power-supply indication. I'll correct the message to =E2=80=9CSystem Power =
-Supply
-failure detected=E2=80=9D. I haven't specifically tested the OCP/RMC halt o=
-r reset
-bits, so their polarity remains unverified.
-
-> > +   /* Process erros in QW8POWER */
-> > +   status |=3D clipper_process_680_reg(CLIPPER_EnvQW8POWER,
-> > +                           emchk->code,
->
-> The note under Table D-20 says only Environ_QW_1 to 7 are valid in
-> the 680 machine check frame and QW_8 is zeroed. QW_8 is only valid in
-> the console data log frame (Table D-18), where QW_1 to 7 are zeroed
-> instead. So this is fine for the cdl path, but a comment saying so
-> would help, and "code" is a confusing name next to
-> mchk_header->code. Something like fatal_power_down would be clearer.
->
-> Smaller things in the same decode:
->
->  - LM78_ISR<41:40> identify the power supply that the warnings in
->    <47:42> refer to. They are not decoded.
->  - The guide calls 680 "System Correctable Environmental", but the
->    header printed by tsunami_machine_check() says "Uncorrectable"
->    for everything that is not SCB_Q_SYSERR.
->
-> The guide only covers the ES40, but the handler is installed for
-> DP264, Monet, Webbrick, Shark and Eiger as well. Is the 680 layout the
-> same there? If you cannot confirm that, should the decode be limited
-> to Clipper? In the other direction, tsunami_register_error_handlers()
-> is only called from clipper_init_pci(), so the other machines get the
-> new handler without the subpacket registration.
->
-
-Agreed; I haven't verified the other platforms' environmental layouts.
-I'll limit this decode to Clipper and register console-log handling for
-all Tsunami boards.
-
-> Structure and cleanup
-> ---------------------
->
->  - Please split this: (1) move the existing functions to
->    err_tsunami.c with no change, (2) fill in
->    el_TSUNAMI_sysdata_mcheck, (3) PERRMASK, (4) the new handler,
->    (5) the Clipper environmental decode.
->  - The "reason" switch is a copy of the table in
->    process_mcheck_info(), including Alcor and EISA codes that cannot
->    occur here, and it disagrees with the TSUNAMI_MCHK__* defines
->    further down (0x90 is "callsys in kernel mode" in one and
->    OS_BUGCHECK in the other). Please keep one.
->  - core_tsunami.h already has perror_m_* masks for this register. Use
->    those, or replace them, rather than adding a second set.
->  - err_tsunami.h defines static tables in a header with no include
->    guard. Move them into err_tsunami.c as
->    "static const char * const".
->  - Several of the CLIPPER_EVN_* names are typos for ENV.
->  - EL_TYPE__REGATTA__TSUNAMI_PCHIP{0,1}_EXTENDED belong in
->    asm/err_common.h next to the Titan ones.
->  - The "Changes since" block is above the "---" and would end up in
->    the git history.
->  - Typos: "macine", "marriers", "erros", "allready".
->
-
-Will do. With PERRMASK deferred, v5 will have four patches. I'll also
-address the duplicate definitions, table placement and other cleanups
-you listed, and keep the revision history out of the commit messages.
-
-> Which machines has v4 been tested on, and how did you provoke the
-> system and environmental machine checks?
-
-An AlphaServer ES40. For environmental events I plugged/unplugged PSU
-power cables and opened hatches. For software-triggered tests I used a
-module calling callsys() in kernel mode, this will trigger a machine check,
-with modified handling to simulate errors. These tests don't establish real
-ECC/parity fault recovery or SRM's clearing behavior. But it gave me a tool
-to inject error codes and ensure correct parsing in the error handler.
-
-I'll rework the patch into a series and send it out as soon as possible.
-
-Thanks again,
-Magnus
