@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 586CB37D114;
-	Thu,  8 Oct 2026 00:14:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FB93381EB1;
+	Thu,  8 Oct 2026 00:14:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791418492; cv=none; b=I53KzKRxDk9gpKgO3le4l4Z4sSGESVdJe/OFc0BeS/9WJgEAwH/4iyfMP5Gd2NOc4jDomcD3pHp+5k+NHy/nQuVICPUvZ3YhlTiaXDgtStTXSiuDw/khBNSuZ0NP3gqaxcAyEHtCObREtjWGir7GI2Rk5I1leHTI8FZu9/OmSWA=
+	t=1791418493; cv=none; b=qu0fZcrPGuWi9rAaR3PNG0atzrUsy6NPGHO5IgRbLQlS1/6HMhOzoponKdsCQFyy+HkgoFwqRc/rKNOaVFfQZfgj2jQYRFhSti7hfEuY/8gJ/7vdB6t6NFBkOnl/nVkDxMT/+OZy23S6pB1FU4yo7EpKYvRhpUa0vPEyUl3fiYE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791418492; c=relaxed/simple;
-	bh=p/JHLdJ/2FcqZ4i07VEkcyq+jZG7UT3p/7zwFIbGbSY=;
+	s=arc-20240116; t=1791418493; c=relaxed/simple;
+	bh=jzTBNuQYePMYzWL6AMfy5zNz+TJV4q0sBwhvElEgARk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Y3Mfb8VqqXrtB16M41QCJWR9QbUFkbEt6YCJpaGJ9iogdy4UrjmBQvhk/JoP6F861xIHI34/PV05WicOS65pScUuK60NgUwhbO6eb+bMlEDm+AQam964Jlju+A/8eoJ5HnLTd5No0/uYqpTSERg5r5I1yOX3UEDEdXcGPcg6Cac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=emAGPrDY; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Yf5b/uHphN7yp+p9Npy5zucvNmZpwPHf5KrXL8XpCDOZQSc3Fy3X3VvIokgPtM33PHVDoBHET3+Nkyq4SGTXGNi9M4qiC3G7RWoN8JXxXiqFiSEyfIl91+qwKqb3Vadk+U3QvTTNVNQVInnkioRJWVu18/3PkG+L5Y2MIXEMguE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QfPS2Ihc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="emAGPrDY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E52A71F0089B;
-	Thu,  8 Oct 2026 00:14:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QfPS2Ihc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBF581F0089A;
+	Thu,  8 Oct 2026 00:14:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791418491;
-	bh=YWxlI+8uD8m7L0GQ/Idq54KFRyMP2tzsHbXZXRIEqGQ=;
+	s=k20260515; t=1791418492;
+	bh=O9KdHNHutDV+JQ59rRSBVNijPi9fkvprm9/+/9dn/es=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=emAGPrDY4X5m2CHTviXpvYDPiuREotrzlr+SCLNdE2h1Lsoonj9NWk+9WGdGf+heq
-	 Z08voAY5x1+XWqkmfeFcUen7pb7u9WAgMvdXRxxT+eS4eG2itvQ96jW2KVOHiP+40x
-	 z01iWgI4OTNA6+A225KdgN8DZFovE0TfPTYzZsQ048JBQm2TAbteOzkC8mJsMUPhtE
-	 yAqtnsXzMUYK45Lm1iDfqHG1qRoxM00VdST3zEYKfBr/BidbJ4CbADJc010ZXF/78S
-	 9ynuMP+RcxuuvoYLqToEWj54iRxYf3tQ6hqV8l6oGyzhjw7TC0cPPosI8WduEnMAri
-	 EKjnlg50ZSVoQ==
+	b=QfPS2Ihc1eaqGRhWGCfb+7ozBh6fMwtSYJcVQwL+9aaCpBKGzTW6kyqBU0b0OjKWF
+	 8MRFTiyAngPp7R9gO+ck+6GyOABCzZSeOg2PqaIg72GvKiGHsQ09I0EzUHxQnkTaQ0
+	 tE+L3w8nspCWopAWGR76TlnXxhRgY4+Y7F7QuH4LBACqhQOTt1UK0+gKL90UYEqjpH
+	 5mW7Bz2PiRnA5W6/aYwbeMvNTwI0+ybM8wmzS4t34MACKuF6otzA6fqoknql4Lb2Js
+	 YeotiaUyaUpPxpQ59FVPw5ElTPQV4yTiOeCg8/AHwyWL6ys/nAPA7K/Tl//t7HXwdL
+	 O1ruJ6bfQTG2w==
 From: Yosry Ahmed <yosry@kernel.org>
 To: Sean Christopherson <seanjc@google.com>
 Cc: Paolo Bonzini <pbonzini@redhat.com>,
@@ -36,9 +36,9 @@ Cc: Paolo Bonzini <pbonzini@redhat.com>,
 	kvm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Yosry Ahmed <yosry@kernel.org>
-Subject: [PATCH v2 25/29] KVM: x86/mmu: Refactor kvm_mmu_invlpg() to allow skipping the GVA flush
-Date: Thu,  8 Oct 2026 00:14:21 +0000
-Message-ID: <20261008001425.2458927-26-yosry@kernel.org>
+Subject: [PATCH v2 27/29] KVM: nSVM: Flush the ASID on nested transitions if shared by L1 and L2
+Date: Thu,  8 Oct 2026 00:14:23 +0000
+Message-ID: <20261008001425.2458927-28-yosry@kernel.org>
 X-Mailer: git-send-email 2.56.0.360.g66cac248cb-goog
 In-Reply-To: <20261008001425.2458927-1-yosry@kernel.org>
 References: <20261008001425.2458927-1-yosry@kernel.org>
@@ -50,81 +50,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Refactor helpers out of kvm_mmu_invalidate_addr() and kvm_mmu_invlpg()
-that take in an extra argument to skip the GVA flush.
+If L1 and L2 use the same ASID in hardware, always flush it on nested
+transitions to avoid using L1 TLB entries for L2 or vice versa, since
+from L1's perspective they are two different TLB domains.
 
-This will be used when invalidating GVAs in a different context than the
-current one (i.e.  invalidating an L2 GVA from L1), so flushing the
-current context would flush the wrong TLB entries.
+This is currently always the case, but KVM will start using separate
+ASIDs for L1 and L2 in most cases soon.
 
-No functional change intended.
+Note that KVM_REQ_TLB_FLUSH_CURRENT is required here, not
+KVM_REQ_TLB_FLUSH_GUEST (used for L1 TLB flush requests). This is
+because KVM could be switching between different NPT roots on the same
+ASID. While this generally requires an ASID flush in the VMCB, which is
+done by both KVM_REQ_TLB_FLUSH_CURRENT and KVM_REQ_TLB_FLUSH_GUEST, it
+also requires a hypercall to specifically flush NPT mappings when
+running on Hyper-V, which is only done with KVM_REQ_TLB_FLUSH_CURRENT
+(as KVM_REQ_TLB_FLUSH_GUEST is only meant to flush translations created
+by the guest).
+
+Note that this is currently a noop as KVM requests
+KVM_REQ_TLB_FLUSH_CURRENT unconditionally on nested transitions, but
+this will soon be removed in favor of conditional flushes.
 
 Signed-off-by: Yosry Ahmed <yosry@kernel.org>
 ---
- arch/x86/kvm/mmu/mmu.c | 24 ++++++++++++++++++------
- 1 file changed, 18 insertions(+), 6 deletions(-)
+ arch/x86/kvm/svm/nested.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index b3085f409d0de..433ed69b1e1e4 100644
---- a/arch/x86/kvm/mmu/mmu.c
-+++ b/arch/x86/kvm/mmu/mmu.c
-@@ -6769,8 +6769,8 @@ static void kvm_mmu_sync_addr(struct kvm_vcpu *vcpu, struct kvm_mmu *mmu,
- 	write_unlock(&vcpu->kvm->mmu_lock);
- }
- 
--void kvm_mmu_invalidate_addr(struct kvm_vcpu *vcpu, struct kvm_pagewalk *w,
--			     u64 addr, unsigned long roots)
-+static void __kvm_mmu_invalidate_addr(struct kvm_vcpu *vcpu, struct kvm_pagewalk *w,
-+				      u64 addr, unsigned long roots, bool flush_gva)
- {
- 	struct kvm_mmu *mmu;
- 	int i;
-@@ -6783,7 +6783,8 @@ void kvm_mmu_invalidate_addr(struct kvm_vcpu *vcpu, struct kvm_pagewalk *w,
- 		if (is_noncanonical_invlpg_address(addr, vcpu))
- 			return;
- 
--		kvm_x86_call(flush_tlb_gva)(vcpu, addr);
-+		if (flush_gva)
-+			kvm_x86_call(flush_tlb_gva)(vcpu, addr);
- 
- 		if (tdp_enabled)
- 			return;
-@@ -6805,9 +6806,15 @@ void kvm_mmu_invalidate_addr(struct kvm_vcpu *vcpu, struct kvm_pagewalk *w,
- 			kvm_mmu_sync_addr(vcpu, mmu, addr, mmu->prev_roots[i].hpa);
+diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
+index 738ec1f2ec869..4ffc10bf9232e 100644
+--- a/arch/x86/kvm/svm/nested.c
++++ b/arch/x86/kvm/svm/nested.c
+@@ -723,6 +723,13 @@ static void nested_svm_entry_tlb_flush(struct kvm_vcpu *vcpu)
+ 		kvm_make_request(KVM_REQ_TLB_FLUSH_GUEST, vcpu);
  	}
- }
+ 
++	/*
++	 * If L1 and L2 share the same ASID in hardware (when using the fallback
++	 * ASID for both, or for SEV guests), flush it on nested transitions.
++	 */
++	if (svm->asid == svm->nested.asid02)
++		kvm_make_request(KVM_REQ_TLB_FLUSH_CURRENT, vcpu);
 +
-+void kvm_mmu_invalidate_addr(struct kvm_vcpu *vcpu, struct kvm_pagewalk *w,
-+			     u64 addr, unsigned long roots)
-+{
-+	__kvm_mmu_invalidate_addr(vcpu, w, addr, roots, true);
-+}
- EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_mmu_invalidate_addr);
+ 	/* TODO: optimize unconditional TLB flush/MMU sync */
+ 	kvm_make_request(KVM_REQ_MMU_SYNC, vcpu);
+ 	kvm_make_request(KVM_REQ_TLB_FLUSH_CURRENT, vcpu);
+@@ -738,6 +745,9 @@ static void nested_svm_exit_tlb_flush(struct kvm_vcpu *vcpu)
+ 	if (svm->nested.ctl.tlb_ctl == TLB_CONTROL_FLUSH_ALL_ASID)
+ 		kvm_make_request(KVM_REQ_TLB_FLUSH_GUEST, vcpu);
  
--void kvm_mmu_invlpg(struct kvm_vcpu *vcpu, gva_t gva)
-+static void __kvm_mmu_invlpg(struct kvm_vcpu *vcpu, gva_t gva, bool flush_gva)
- {
- 	/*
- 	 * INVLPG is required to invalidate any global mappings for the VA,
-@@ -6819,11 +6826,16 @@ void kvm_mmu_invlpg(struct kvm_vcpu *vcpu, gva_t gva)
- 	 * be synced when switching to that new cr3, so nothing needs to be
- 	 * done here for them.
- 	 */
--	kvm_mmu_invalidate_addr(vcpu, &vcpu->arch.gva_walk, gva, KVM_MMU_ROOTS_ALL);
-+	__kvm_mmu_invalidate_addr(vcpu, &vcpu->arch.gva_walk, gva,
-+				  KVM_MMU_ROOTS_ALL, flush_gva);
- 	++vcpu->stat.invlpg;
++	if (svm->asid == svm->nested.asid02)
++		kvm_make_request(KVM_REQ_TLB_FLUSH_CURRENT, vcpu);
++
+ 	kvm_make_request(KVM_REQ_MMU_SYNC, vcpu);
+ 	kvm_make_request(KVM_REQ_TLB_FLUSH_CURRENT, vcpu);
  }
--EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_mmu_invlpg);
- 
-+void kvm_mmu_invlpg(struct kvm_vcpu *vcpu, gva_t gva)
-+{
-+	__kvm_mmu_invlpg(vcpu, gva, true);
-+}
-+EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_mmu_invlpg);
- 
- void kvm_mmu_invpcid_gva(struct kvm_vcpu *vcpu, gva_t gva, unsigned long pcid)
- {
 -- 
 2.56.0.360.g66cac248cb-goog
 
