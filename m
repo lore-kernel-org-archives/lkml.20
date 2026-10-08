@@ -1,33 +1,43 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E2923F3287;
-	Thu,  8 Oct 2026 07:34:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791444863; cv=none; b=smIhBR7uKzbrSI7owKN1efUjxdLEd8tbu2IMLHETT515Jzkm3nxiI5KWyoJXaF+thsngr6cA+C4K1bAI6xwaQQfp6FyYm9phqzhHi3rOBT/UPVdwhpYOuVz0p+jNm7atfa0Xbp/pv1NRkN2LcVFdK33cT5hz/FgQpZNcUtu1dVI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791444863; c=relaxed/simple;
-	bh=e0hBhow9KRT8FwJn/ps+XOQSvtA1IVYFn0vQ0A+fil4=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=K2gQ+RkBlntB+eC30UWyGY1cfdSTM7KqAT06Sf/BAaBYfEvRvhz6sM5S/rm8mdKz4Q63bixb2gXuDxDdVbK6BCxdxu2OB4jIXmg6TynkZAeTn+9b32hGu4m3Ft6VkeRpYR4Smsiq+tMEj0meBFqhuy86lHXe/Sp1Yp2I6aOUGp4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jxT2bjsr; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69C9D3F0AB7
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 07:34:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791444866; cv=pass; b=q4dpTKl4jVy256qC/jKV189Phk8fNzAs+t4f/YoOl83/1jTzf8JuatrrVmI579moVqhOQL5AX2tBbDHTfJhYI53PXs+fguLDxOq5pt9ueZcn1h5MHxeOhl2HsXLMJJT+lLS02jbgWr1i3s/LnjB9qJwMEHnSKqQkR1RJOCtKIfs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791444866; c=relaxed/simple;
+	bh=poW2hJOolFF/fNYHQtxj9zyIw1Fphk+8AKVZ10FxhXE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UuJAeUmXjdck2m9OhHGUx9oE+esr/HFA/nCs783y2iFo3n+YZdpOTWh4eRrpUt2X4ROawBoX3hQcCoLj4VG8M+7pOdb9xZVIP1BU0OGl5RLusPZqYsaeni6tNB2SwYdJfp4c+OCyY9ontd9bZor67zWEhamvsCZodYivF97l+JY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=VfMI44Yg; arc=pass smtp.client-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jxT2bjsr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C169D1F000FF;
-	Thu,  8 Oct 2026 07:34:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791444859;
-	bh=Dl/KwIat9uOLJfUc5znoyB2//bi652X+PGKCiSsewcQ=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=jxT2bjsrsLY5SmebDqqSeEoZozsP02Oz2lhSJa0Ve5IynarE3F6uRqBnQCsiHo+gn
-	 m3h6bRoprtLbFn3Z7acrBnTCS3rDXOkFL01n0XJVrFqgSKA9XKLI0NYKsgSXn17YMc
-	 PpcvE2x/MmD8g/A5giiiPh4mPvhkMKbXsgbzIhA54V5Xca8ZntYEwLfWFc8vLoJtuu
-	 kz8NWpHJBPmiSiaPOzmatUZW+EuGswAtAx0fhlX8Ta/MrgiYqNw3sjGk7Mfn8ROUac
-	 ATwX9IwdXIohuvhwQdjfpq1s66okqf4Z47t0d2Ki6Cm7R8ZRN+y1qbIsn/mLw4nNcj
-	 TiKwyvUKH2OjA==
-Message-ID: <d72d754b-767c-4101-a778-d68a94095cf2@kernel.org>
-Date: Thu, 8 Oct 2026 09:34:14 +0200
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="VfMI44Yg"
+ARC-Seal: i=1; a=rsa-sha256; t=1791444796; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=mTXh61NiLKraP85kc4UaugKyB1TEwN0hWZoFoa6N2LdPKFsF8F+1gyhuph+qjOCSOfEXwlHiykBA4oE+cdgOHN/eaCw24q5M7SZa6TP0b7VMAE4+e8Po9eZUUnQ2z3+SK9qJwpqCckEjYMtngq2P+voMJk1mSvbRVc4Bpsu8+4A=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1791444796; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=NT1FtZat0efjcSWI1PONK/4auTqiGUlP1uANOzVuEYM=; 
+	b=IPfureZKksdFt+/6AE8DFadXNrbxuNSVKhggKc40JShVTWe1CL+3ARyFSsbMNTkDVXKumS2DMZuxq+gtHJRptw0Sn3XrZrraqoyDaNjuZm8zpIVfnkuzfMefBpagyTymCm8zWWEvvnlFge8L+CEiHkAtFQfXRVV5q9DqCMSWRGk=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791444796;
+	s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=NT1FtZat0efjcSWI1PONK/4auTqiGUlP1uANOzVuEYM=;
+	b=VfMI44Yg7//sz5ycJDAf9JSZtWZSa1pmQYKPNq22N9ciru+ejpI9JPpfntufUJpC
+	C5r/FM+5sI59fLzbrExFMAzaor0PkEok3LmCTyyGxuTZdMoI9av/P/w56f5hQbqlV7Z
+	wwQTdkhjyMuevhBOL0sqlvYuwINU5/A0WM5xiDR8=
+Received: by smtp.zohomail.com with SMTPS id 1791444795885952.4681401339243;
+	Thu, 8 Oct 2026 00:33:15 -0700 (PDT)
+Message-ID: <8b0fbe1a-1410-42d7-8031-611795ae39d9@collabora.com>
+Date: Thu, 8 Oct 2026 10:33:11 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,78 +45,63 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Subject: Re: [PATCH] irqchip/qcom-pdc: fix builtin vs. module build error
-To: Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org
-Cc: Maulik Shah <maulik.shah@oss.qualcomm.com>,
- Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- linux-arm-msm@vger.kernel.org
-References: <20261006231845.461332-1-rdunlap@infradead.org>
+Subject: Re: [PATCH v2] drm/virtio: do not enforce blob_alignment in
+ cross-domain contexts
+To: Val Packett <val@invisiblethingslab.com>,
+ David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
+ <olvaffe@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Simona Vetter <simona@ffwll.ch>, Sergio Lopez <slp@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20261006154913.2689067-2-val@invisiblethingslab.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261006231845.461332-1-rdunlap@infradead.org>
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <20261006154913.2689067-2-val@invisiblethingslab.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-On 07/10/2026 01:18, Randy Dunlap wrote:
-> When CONFIG_QCOM_SCM=m and CONFIG_QCOM_PDC=y, the build fails with
-> aarch64-linux-ld: drivers/irqchip/qcom-pdc.o: in function `qcom_pdc_probe':
-> qcom-pdc.c:(.text+0x1060): undefined reference to `qcom_scm_is_available'
-> aarch64-linux-ld: qcom-pdc.c:(.text+0x1094): undefined reference to `qcom_scm_io_writel'
+On 10/6/26 18:42, Val Packett wrote:
+> VIRTIO_GPU_F_BLOB_ALIGNMENT is designed for GPU rendering context types,
+> however VIRTIO_GPU_CAPSET_CROSS_DOMAIN is not one of those. Resources
+> created under cross-domain contexts are arbitrary shared system memory
+> files, which includes unusual things like Wayland keymaps received
+> from the host compositor. Do not enforce alignment requirements there.
 > 
-> [ARCH_QCOM=y, COMPILE_TEST=y]
+> Fixes: 47248e0d8264 ("drm/virtio: honor blob_alignment requirements")
+> Signed-off-by: Val Packett <val@invisiblethingslab.com>
+> ---
 > 
+> v2: also check has_virgl_3d to prevent dereferencing NULL vfpriv
+> v1: https://lore.kernel.org/all/20261006004044.2242154-1-val@invisiblethingslab.com/
+> 
+> ~val
+> 
+> ---
+>  drivers/gpu/drm/virtio/virtgpu_ioctl.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_ioctl.c b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
+> index 3ddd5481d6bc..4d5ae062834d 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_ioctl.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
+> @@ -551,7 +551,9 @@ static int verify_blob(struct virtio_gpu_device *vgdev,
+>  	params->blob_flags = rc_blob->blob_flags;
+>  	params->blob_hints = rc_blob->blob_hints;
+>  
+> -	if (vgdev->has_blob_alignment &&
+> +	if (vgdev->has_blob_alignment && vgdev->has_virgl_3d &&
+> +	    (vfpriv->context_init & VIRTIO_GPU_CONTEXT_INIT_CAPSET_ID_MASK) !=
+> +	    VIRTIO_GPU_CAPSET_CROSS_DOMAIN &&
+>  	    !IS_ALIGNED(params->size, vgdev->blob_alignment))
+>  		return -EINVAL;
+>  
 
+What userspace has this problem and why it re-purposes virtio-gpu to act
+as udmabuf for arbitrary data that never reaches host?
 
-Posted 3 weeks ago by Arnd already:
-https://lore.kernel.org/all/20260915195948.3521662-1-arnd@kernel.org/
-
-Got also review and that patch should be picked up.
-
+-- 
 Best regards,
-Krzysztof
-
+Dmitry
