@@ -1,112 +1,131 @@
-Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F9A0277007
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 01:24:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 681A4298CC4;
+	Thu,  8 Oct 2026 01:25:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791422671; cv=none; b=otZ13zS9AJDICaIFm3KA8FUZBRbis2KFJHdRUZZOPvjeEZyyCu7x69GI2Kn0S+uklQeaLDmVZ9onI3Gf5A3T2gqLbeshVi4IdbJMFDSd/FEMvsHsoPQejaAhfMIhTer56y+PdefaTBlf8elSIb0glj8aypMK2TufweihlJpLKOM=
+	t=1791422737; cv=none; b=iTrfhnivsf8gvpW6QEXpdoLAmWIEpZdN3Qx5tdALoNRHR5LO4tjkv10jfTnxPNnZ2AN0VftOsQemXI03S/LIWLCj2tO7iAbZy+ZP6CSvCUziAIHfldHFbaZsybgpKtFop1ZwRjZGXEDJcsM8HtDRZXgea2JeXJCFGLDfok0xj0s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791422671; c=relaxed/simple;
-	bh=aOKZGZ5CSaNk8bAYpcBFQuWB0cJkwnqFmR9dJ1mHt5Y=;
-	h=Mime-Version:Subject:From:To:CC:In-Reply-To:Message-ID:Date:
-	 Content-Type:References; b=akW53CI5x9733kGvw8/tprTLpOUjXOu4BfaxjvU//9t5XHU/3AmFgtrr37D7ZoizmvhsAhGCMDZ03eEdMKz5dO54VNvdlAkkBbFifbfyFuLHALS2KT/2ffasJc2yfVqVrfsH4A/OsMgzfcibHqWqt4Ylo0aOyvJ0tndeZwKpjfE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=kmdZHcJv; arc=none smtp.client-ip=203.254.224.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1791422737; c=relaxed/simple;
+	bh=nPFeDsRzzhamAEnETiulO1V4ii1rNA+AWGDbUJ2U/nk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=ellVF/JgDjHBXt1xWBu6F36I1r4HxNRXA2KuOmQaQosK2v8HyOpkWnjuMgJoV5pRqPAuj5vIBoyTg1X2Vvp76Gmu9YqXC3M3rwlmZP8WhpMKuyATBwMZIxUislAuZ7F7/dJPQLz+pD2KEvWX04HT6vi5s8xrkr+L+5PpPn2cX1Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l1kK7bLb; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="kmdZHcJv"
-Received: from epcas2p1.samsung.com (unknown [182.195.41.53])
-	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261008012426epoutp025c8f449b4b486c9d0488b8720ba0649c~caWyTp0CD0184201842epoutp02c
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 01:24:26 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261008012426epoutp025c8f449b4b486c9d0488b8720ba0649c~caWyTp0CD0184201842epoutp02c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1791422666;
-	bh=aOKZGZ5CSaNk8bAYpcBFQuWB0cJkwnqFmR9dJ1mHt5Y=;
-	h=Subject:Reply-To:From:To:CC:In-Reply-To:Date:References:From;
-	b=kmdZHcJvX9T8u73FD4mBDxCALiPdKnx9OUJUFP5cG/IJIs98vXJVqbL3g7JxAWZw2
-	 M7xozcm3wY+0NUJCi//SuhrSS1mq1ehQ/UNQpSc4l28AlVGudxwYO9KqecfFHg1e8U
-	 R8Un7KKrrR9OX3nDh/Mk7UuGbWJDcwP9RYuIUGRY=
-Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
-	epcas2p4.samsung.com (KnoxPortal) with ESMTPS id
-	20261008012426epcas2p48941fe3a08e2fd1e99adf9308f33b7b0~caWxz8zFH3076630766epcas2p4g;
-	Thu,  8 Oct 2026 01:24:26 +0000 (GMT)
-Received: from epcas2p4.samsung.com (unknown [182.195.38.201]) by
-	epsnrtp01.localdomain (Postfix) with ESMTP id 4j0XMs6pKLz6B9m5; Thu,  8 Oct
-	2026 01:24:25 +0000 (GMT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l1kK7bLb"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 111A2C2BCF7;
+	Thu,  8 Oct 2026 01:25:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791422737;
+	bh=nPFeDsRzzhamAEnETiulO1V4ii1rNA+AWGDbUJ2U/nk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=l1kK7bLbvzBaW1ODniulEd1fiTkRW7iWEmj2RqUlxa99sEmqcm5q7PWvaXcBymBEE
+	 UjA5SJw5OzLMkqIZXEjR8AFi1nFmMmhAMBBS8E9RVjXCvHUDKI1R9gEAMy3S7zW/70
+	 2BI+44SMZP2y2R69JQVsB1Is02pn8z0Ie+AseZOg0dipYc312vop3UuiYqFFzjpa1J
+	 ZspndQmw86CPbC7ZCZmEsl7Rx2l8XdkkAarlafX8VKMEA2iasp8+3twwDY2YHlXLTG
+	 YrzZcVQnsx/O0LuNW/aZ5gcuIxLOJJ452vS+LsFJvfnX14y0PSKl8eadVAzlsHlDK7
+	 rL14IK4XSNIZw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E4AA2CA6007;
+	Thu,  8 Oct 2026 01:25:36 +0000 (UTC)
+From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
+Date: Thu, 08 Oct 2026 10:25:36 +0900
+Subject: [PATCH v2 1/2] ext4: don't cache unzeroed blocks as written after
+ a failed zeroout
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Subject: RE:(2) [PATCH 2/2] ext4: track zeroed out blocks of unwritten
- extents for fast commit
-Reply-To: daejun7.park@samsung.com
-Sender: Daejun Park <daejun7.park@samsung.com>
-From: Daejun Park <daejun7.park@samsung.com>
-To: Jan Kara <jack@suse.cz>
-CC: Theodore Ts'o <tytso@mit.edu>, "linux-ext4@vger.kernel.org"
-	<linux-ext4@vger.kernel.org>, Andreas Dilger <adilger.kernel@dilger.ca>,
-	Baokun Li <libaokun@linux.alibaba.com>, Ojaswin Mujoo
-	<ojaswin@linux.ibm.com>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Zhang Yi <yi.zhang@huawei.com>, Zhang Yi <yi.zhang@huaweicloud.com>, Harshad
-	Shirwadkar <harshadshirwadkar@gmail.com>, Li Chen <me@linux.beauty>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>, Daejun Park
-	<daejun7.park@samsung.com>
-X-Priority: 3
-X-Content-Kind-Code: NORMAL
-In-Reply-To: <vxase3lkctmatpkj3p4vvhgyrvauqyilkfd5dcz47jjtgfdipx@imb4onyzk3bw>
-X-CPGS-Detection: blocking_info_exchange
-X-Drm-Type: N,general
-X-Msg-Generator: Mail
-X-Msg-Type: PERSONAL
-X-Reply-Demand: N
-Message-ID: <20261008012425epcms2p1c4ddc3f2cc72dd30b0f18ee4f2ec9178@epcms2p1>
-Date: Thu, 08 Oct 2026 10:24:25 +0900
-X-CMS-MailID: 20261008012425epcms2p1c4ddc3f2cc72dd30b0f18ee4f2ec9178
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-X-CPGSPASS: Y
-X-CPGSPASS: Y
-cpgsPolicy: CPGSC10-223,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261007134122epcas2p261c7ea484933b17c10e745ec844b0aff
-References: <vxase3lkctmatpkj3p4vvhgyrvauqyilkfd5dcz47jjtgfdipx@imb4onyzk3bw>
-	<20261007-ext4-fc-zeroout-v1-0-b86de6439431@samsung.com>
-	<20261007-ext4-fc-zeroout-v1-2-b86de6439431@samsung.com>
-	<CGME20261007134122epcas2p261c7ea484933b17c10e745ec844b0aff@epcms2p1>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261008-ext4-fc-zeroout-v2-1-55cab1e24fa3@samsung.com>
+References: <20261008-ext4-fc-zeroout-v2-0-55cab1e24fa3@samsung.com>
+In-Reply-To: <20261008-ext4-fc-zeroout-v2-0-55cab1e24fa3@samsung.com>
+To: Theodore Ts'o <tytso@mit.edu>, linux-ext4@vger.kernel.org
+Cc: Jan Kara <jack@suse.cz>, Andreas Dilger <adilger.kernel@dilger.ca>, 
+ Baokun Li <libaokun@linux.alibaba.com>, 
+ Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
+ Zhang Yi <yi.zhang@huawei.com>, Zhang Yi <yi.zhang@huaweicloud.com>, 
+ Harshad Shirwadkar <harshadshirwadkar@gmail.com>, Li Chen <me@linux.beauty>, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Daejun Park <daejun7.park@samsung.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791422735; l=2376;
+ i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
+ bh=ZXBsp2KR944OJd1cOp2rHhViwJH53RZyyfzB8Lb5lOM=;
+ b=GDJnH07QqjNoAu+2nxXwxkkuy5IX8dRKw2LIXDCwLRfywNwSc+sG5IEV4ex3BbpnS41pRdFRh
+ hZ5PRtiOEs1Dyex3sWHq7d2CVb63lJHBldHFXIxHJQyBnZNKoQD5/XV
+X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
+ pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
+X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
+ auth_id=1122
+X-Original-From: Daejun Park <daejun7.park@samsung.com>
+Reply-To: daejun7.park@samsung.com
 
-Hi Jan,
+From: Daejun Park <daejun7.park@samsung.com>
 
-On Wed, Oct 07, 2026 at 15:41:17 +0200, Jan Kara wrote:
-> Also putting this into ext4_split_extent_zeroout() looks a bit too easy to
-> miss. In fact I think placing ext4_fc_track_range() into
-> ext4_issue_zeroout() would make sense because that is where the writing of
-> "data" really happens. This will fix the use in
-> ext4_split_extent_zeroout() as well as ext4_ext_convert_to_initialized().
-> And it will also fix the same class of problem which I think we have in
-> ext4_alloc_file_blocks()...
+ext4_ext_convert_to_initialized() may zero out the blocks before and
+after the range being written and convert them to written together with
+it, instead of splitting them off the unwritten extent. If
+ext4_ext_zeroout() fails for one side, it falls back to splitting the
+extent, so the blocks on that side stay unwritten in the extent tree.
+But zero_ex1 or zero_ex2 keeps its length, and ext4_zeroout_es() still
+inserts those blocks into the extent status tree as written.
 
-Thanks, that makes sense. In v2, ext4_issue_zeroout() and
-ext4_ext_zeroout() take the handle, and the range is tracked there once
-the zeroout has succeeded.
+Until that entry goes away, a read of those blocks returns whatever was
+on the disk before the extent was allocated. A write to them is mapped
+from the cache and goes in place without converting the extent, so its
+data would read back as zeroes once the entry is dropped. To reproduce
+on 4 KiB blocks with -o nodelalloc: fallocate 32 KiB, map the last seven
+blocks of that extent to dm-error, write the first block, restore the
+mapping and read the second block. It returns the old disk contents
+instead of zeroes.
 
-ext4_alloc_file_blocks() zeroes out without a handle, so it passes NULL.
-As far as I can tell there is no gap there:
-ext4_convert_unwritten_extents() right after it tracks the blocks it
-converts through ext4_map_blocks(), and blocks that were already written
-keep their mapping. I also tried FALLOC_FL_WRITE_ZEROES on scsi_debug
-(lbpws=1 lbprz=1) over an unwritten extent, over one block in the middle
-of one, and over a hole, each followed by an in-place write, fsync and
-EXT4_IOC_SHUTDOWN. The written block survives replay on the base kernel
-as well, and the tracepoint shows the range tracked twice, at allocation
-and at conversion. If you had a different path in mind, please let me
-know.
+Clear the length of an extent that could not be zeroed out, so that
+ext4_zeroout_es() skips it, as the comment at the out label intends.
 
-I'll send v2 shortly.
+Fixes: 308c57ccf431 ("ext4: if zeroout fails fall back to splitting the extent node")
+Cc: stable@vger.kernel.org
+Reviewed-by: Jan Kara <jack@suse.cz>
+Signed-off-by: Daejun Park <daejun7.park@samsung.com>
+---
+ fs/ext4/extents.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-Daejun
+diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
+index 836396ea79..d65e30f3c1 100644
+--- a/fs/ext4/extents.c
++++ b/fs/ext4/extents.c
+@@ -3755,8 +3755,10 @@ ext4_ext_convert_to_initialized(handle_t *handle, struct inode *inode,
+ 				ext4_ext_pblock(ex) + split_map.m_lblk +
+ 				split_map.m_len - ee_block);
+ 			err = ext4_ext_zeroout(inode, &zero_ex1);
+-			if (err)
++			if (err) {
++				zero_ex1.ee_len = 0;
+ 				goto fallback;
++			}
+ 			split_map.m_len = *allocated;
+ 		}
+ 		if (split_map.m_lblk - ee_block + split_map.m_len <
+@@ -3769,8 +3771,10 @@ ext4_ext_convert_to_initialized(handle_t *handle, struct inode *inode,
+ 				ext4_ext_store_pblock(&zero_ex2,
+ 						      ext4_ext_pblock(ex));
+ 				err = ext4_ext_zeroout(inode, &zero_ex2);
+-				if (err)
++				if (err) {
++					zero_ex2.ee_len = 0;
+ 					goto fallback;
++				}
+ 			}
+ 
+ 			split_map.m_len += split_map.m_lblk - ee_block;
+
+-- 
+2.43.0
+
+
