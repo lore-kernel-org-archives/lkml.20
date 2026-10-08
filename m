@@ -1,39 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29B2442050;
-	Thu,  8 Oct 2026 17:51:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58AB842050;
+	Thu,  8 Oct 2026 17:51:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791481895; cv=none; b=CRnLYRNiSt3a2O4Flo7z6qbWZpMSFbuheMnG6mL2K8wQed3ghL/M78nIQqt3p9tKckN/ly+/9xrrkypATQVT7gmBMMxQ62Xx8iE6vVjew6AHkbqL3wPLMY3/X/rZ20OjLpCgUfKG6oIDHSsQKTuksyXarVOJtsLj9TPFKrI/0AE=
+	t=1791481904; cv=none; b=k+stXpkj2w18cGFGJiv2dP+/GMNoP3IlZ+ywqgmq3ssd3cJuIjxtksoHOFfkFZUWoXMLJBg5mRAzc6Rgl+7nEQG64uytX8vvr1ZhXGnFR1lUneTOMhfeLY9mJtBXbeKzJBLIGN7fXwMroyOW0baCI8wEjpmwvY/ud4pHIeoqgUQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791481895; c=relaxed/simple;
-	bh=coEOf7VvstEN+/puSQtK5DzsqaxuGoLDYFgfQ/StXZ0=;
+	s=arc-20240116; t=1791481904; c=relaxed/simple;
+	bh=rBFWQbhkH900ZEQUv0RU4iR949i2ZbAFgh+zqLo3xVE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AeKsFrnV+k976xcfCga9a3Y4nqwwabRdVROQ7OY/a9hY9PVIGSOp0Axc4j0Lnkx8zAMoKjpRFx2LQ2j07Al6zkEQonZtNrrY9n1aAMMkx6kVnUugFLCObhgoOo2JQ0MLCnOaGycYPKzQP7x9Ux16a9zimC4idJRncGyv/j7UMhs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dZtr2hYl; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=XFpXL0lhPL7XaoGO41QPXZx1lSQlSlFQumxxvj35QymRex7bPee1UnRyMRYSiAk5bYOG1BhR9BYnj9oi+d+XmAgyloyvcRagJ1JAfSGC2Brq6nDsAt65ShnBybhBkdKXX2oTRHsZT8zV1uVvmvCxuxMbTLmJz7Ae4TU4PV7iMCc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cr6aMcxY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dZtr2hYl"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 3B50B1F000FF;
-	Thu,  8 Oct 2026 17:51:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cr6aMcxY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43D001F000FF;
+	Thu,  8 Oct 2026 17:51:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791481893;
-	bh=K8IULXfDl+3FFz8mk7/ic31KXQ0P/QtgfW1f4yI2uUc=;
+	s=k20260515; t=1791481902;
+	bh=QHmYeC2UpPFyvVtZ5YJtR7pkqTeCTUBI7PeV4rONroM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dZtr2hYl/G9Zj0V9+bivYtXserEJY8G3THJTp6Isi76gsw1mwuiN/1Szc3uuOiE5K
-	 I+uIgpG2Kan4Z/x04ikjyqRK7QvDcV2J62PWcDuUqF52sog633qXM0ow6NWhLCu5BS
-	 QWLrKKGelNsELC6HKu4v36tQLi4lG3SrxpVPNQfAfPpDig4K2bdwv+VoHpWy0nhPNe
-	 U6nQlcB2HMIGgpDCP6KqFhb6upBhXLhXRW7yPImmrbtkF+jrvd0m6eAGNTmvzBN2h9
-	 m1N1nw/NH+UF9+y7TJNegAt2rmLGE/lZI3JMrP5OBSLh1em8TG52kE33pJH397+j+e
-	 PvIptDETInFjA==
-Date: Thu, 8 Oct 2026 20:51:30 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Pei Xiao <xiaopei01@kylinos.cn>
-Cc: peterhuewe@gmx.de, linux-integrity@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/4] tpm: some tpm small fixes.
-Message-ID: <asfYIg95-qQ4JrL_@kernel.org>
-References: <cover.1791421672.git.xiaopei01@kylinos.cn>
+	b=Cr6aMcxYQHQByuaI/HcZkCnFmVrN4zG8lckY1rUcNZxPl7T6BpjdKyJYcB/EkrCZ2
+	 1jQc6J/U1JrO0aL974lLwihVJibYvKVtPv+5lbuwkXx7v6EqEfLk27x4Il/3YuoRlV
+	 dZQw06RGn0EkQpSD/Tei5nqLKlmbUFMAtFVE6eU0i66O3N9x4s5KfrIdOf+AUw1yjr
+	 SfpHf/cQFUFj7Aiu7S71xKJxV5OTjfkmbdQ0Mdc574G8Ik0FZP1KKXWt9MpYE4TTM/
+	 /PI2o5D91GunuWSRYOXLMwVJJP4W0HRcRhd92Tc7jAGt02NhEDdmhzs/P4I8gEpRYg
+	 6RGLQ+qN5+BqQ==
+Date: Thu, 8 Oct 2026 19:51:36 +0200
+From: Nathan Chancellor <nathan@kernel.org>
+To: kernel test robot <lkp@intel.com>
+Cc: Emerson Busson <emersonbusson@gmail.com>, mhklinux@outlook.com,
+	llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	kys@microsoft.com, haiyangz@microsoft.com, wei.liu@kernel.org,
+	decui@microsoft.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+	gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+	linux-hyperv@vger.kernel.org, netdev@vger.kernel.org
+Subject: Re: [PATCH v2 10/14] hv: vmbus: pin buffer pages across UIO mmap to
+ close the reclaim race
+Message-ID: <20261008175136.GA3580170@ax162>
+References: <20261007190752.336426-11-emersonbusson@gmail.com>
+ <202610090058.hvXsWpoT-lkp@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,62 +49,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <cover.1791421672.git.xiaopei01@kylinos.cn>
+In-Reply-To: <202610090058.hvXsWpoT-lkp@intel.com>
 
-On Thu, Oct 08, 2026 at 09:16:19AM +0800, Pei Xiao wrote:
-> This series fixes several small issues found during a code review of
-> drivers/char/tpm:
+On Fri, Oct 09, 2026 at 12:49:37AM +0800, kernel test robot wrote:
+> Hi Emerson,
 > 
->   1. tpm_ppi: tpm_show_ppi_response() stores its return value in an
->      acpi_status (a u32 typedef), so error codes such as -EINVAL reach
->      user space as huge positive values.  Declare the variable as
->      ssize_t to match the show callback's return type.
+> kernel test robot noticed the following build warnings:
 > 
->   2. tpm_nsc: tpm_nsc_remove() doubles as the release callback of the
->      hand-created platform device and dereferences the chip drvdata
->      unconditionally; init failures before tpmm_chip_alloc() crash
->      module load.  Return early when the chip has not been created.
+> [auto build test WARNING on char-misc/char-misc-testing]
+> [also build test WARNING on char-misc/char-misc-next char-misc/char-misc-linus linus/master v7.3-rc6 next-20261008]
+> [If your patch is applied to the wrong git tree, kindly drop us a note.
+> And when submitting patch, we suggest to use '--base' as documented in
+> https://git-scm.com/docs/git-format-patch#_base_tree_information]
 > 
->   3. tpm_nsc: the cleanup runs twice on module exit because
->      tpm_nsc_remove() is both the explicit cleanup and the device
->      release callback; the second run operates on an already freed
->      chip.  Stop overriding the release callback, which also stops the
->      platform object allocation from leaking.
+> url:    https://github.com/intel-lab-lkp/linux/commits/Emerson-Busson/hv-vmbus-convert-ring-backing-through-the-chunk-allocator/20261007-160739
+> base:   char-misc/char-misc-testing
+> patch link:    https://lore.kernel.org/r/20261007190752.336426-11-emersonbusson%40gmail.com
+> patch subject: [PATCH v2 10/14] hv: vmbus: pin buffer pages across UIO mmap to close the reclaim race
+> config: i386-randconfig-1001-20261008 (https://download.01.org/0day-ci/archive/20261009/202610090058.hvXsWpoT-lkp@intel.com/config)
+> compiler: clang version 22.1.3 (https://github.com/llvm/llvm-project e9846648fd6183ee6d8cbdb4502213fcf902a211)
+> reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261009/202610090058.hvXsWpoT-lkp@intel.com/reproduce)
 > 
->   4. tpm_dev: a zero-length read() discards a pending response,
->      breaking the command/response pairing of the TPM character
->      devices, although POSIX requires zero-count reads to have no side
->      effects.  Return early on a zero count.
+> If you fix the issue in a separate patch/commit (i.e. not just a new version of
+> the same patch/commit), kindly add following tags
+> | Reported-by: kernel test robot <lkp@intel.com>
+> | Closes: https://lore.kernel.org/oe-kbuild-all/202610090058.hvXsWpoT-lkp@intel.com/
 > 
-> chhanges in v2:
-> 1.add reviewed-by tag
-> 2.remove patch 5: 
-> make the tpm_init() error messages consistently prefixed with "tpm: " and
-> report the actual failure of tpm_dev_common_init().
-> 3.modify patch 1 git commit information.
+> All warnings (new ones prefixed by >>):
 > 
-> Pei Xiao (4):
->   tpm: tpm_ppi: fix zero-extension of negative error codes
->   tpm: tpm_nsc: fix NULL pointer dereference on init failure
->   tpm: tpm_nsc: stop using the cleanup callback as dev.release
->   tpm: fix zero-length read discarding the pending response
-> 
->  drivers/char/tpm/tpm-dev-common.c | 3 +++
->  drivers/char/tpm/tpm_nsc.c        | 8 ++++++--
->  drivers/char/tpm/tpm_ppi.c        | 2 +-
->  3 files changed, 10 insertions(+), 3 deletions(-)
-> 
-> -- 
-> 2.25.1
-> 
+>    In file included from drivers/uio/uio_hv_generic.c:428:
+> >> drivers/uio/uio_hv_generic_mmap_test.c:36:34: warning: implicit conversion from 'u64' (aka 'unsigned long long') to 'unsigned long' changes value from 18446744073709551615 to 4294967295 [-Wconstant-conversion]
+>       36 |                            hv_uio_mmap_range_valid(8, U64_MAX, 1));
+>          |                            ~~~~~~~~~~~~~~~~~~~~~~~    ^~~~~~~
 
-Right, so I've already applied some of the patches so I'm a bit 
-confused what to do with this.
+GCC also warns in the same way. Should probably be ULONG_MAX since
+'pgoff_t' is 'unsigned long'?
 
-See:
-
-https://git.kernel.org/pub/scm/linux/kernel/git/jarkko/linux-tpmdd.git/log/
-
-Is there something wrong in the ones that I already applied?
-
-Br, Jarkko
+-- 
+Cheers,
+Nathan
