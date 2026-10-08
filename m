@@ -1,404 +1,288 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2130.outbound.protection.partner.outlook.cn [139.219.146.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5D044749E9
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 09:10:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33A16477981;
+	Thu,  8 Oct 2026 09:11:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.130
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791450652; cv=pass; b=nrB35Epc95AGltCby/WCoS6V2pDU0TwFxb4M7OS6l5E4Hqw+FqXMyVWqJxnOQ2rudDP0zrasutiIoRdl1pBuCqE2nax52QDyI6m8nMTlUviooTqsqjfOHzeglsD/9q7sJh8xXHfYuaaTd3s5AeVPDAR9Jj3K4EgkkPMdR0GpI1E=
+	t=1791450707; cv=fail; b=JROElSR5tHn62+p6UeSLmjCjTKzET7IvIovMrjLMmkdyXWgvn9JokD0VOSNA4LwejtYd8Amp1XgLcLj6uiAi2i7KqQOoikbnOYf7l1vPq5I4LvxzhnrHzFADTbt85GrTrovfljh/Kvgp70umFrbvMg46dSTkqKnuBzsf2FxBgCE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791450652; c=relaxed/simple;
-	bh=jit4CxS58l8kQilp5b3EQlArayXKB2WNR27kunanXgw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qcgophce7QX954epm1lAHxVGIi3YZfQ+EjDnKJohHsU1L4pS+N3AqvuThw9yFQ//reQX+yCkeBJ9wH3oCCHEUp+v6Epzwf0NHVLe/qp3ROsbvxw0+kCO5T9cNg0y8De59DWghV8vAnbbvENcB7CxbuLmI3dUyhxyH32ZPpJM3o8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TjKZW8Qk; arc=pass smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TjKZW8Qk"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a0286c981dso46050125e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 02:10:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791450645; cv=none;
-        d=google.com; s=arc-20260327;
-        b=JObvUyB/oS/Y5LqpJo+JvFnnbyUfRA5dVeC/YF+PKn7d9QaO0WsPnvZtg6MATb9vP3
-         ak2eUp3jMFrjj613DfKxPTppQQHJqIun2Ev+4u7hZhV1QKz/uUsJbP+5pH8fIDcbt5dd
-         nsDczjkx0ICcvklNfFnXDe6jXJMIs2Ka3GueZ7tPgqTvWEnJJpet8I3eEdWSy3f2H0DA
-         04UEbSHZWm0/JEJCVLmkac04xU98vVWm92flsJlwlJTWbOwdEC52hr3+DFOu9WtsD1Br
-         LnZpzmWoFE1H6Hl391la7kBvUBZjBFzgFeOhnyS2d4i9ozXq+Sn0U2iabCkw0EWyY/iq
-         4s8g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=EVekyCoytYvsWEA/xawPaTKhkTfUsMDuQvQjTfILfOc=;
-        fh=HFJDLMpU8BXl2VSQjN6bfjeWDKnJ+kfjkJBkooYPjns=;
-        b=g8ypmDbDhYqdqmFDBExicz9kH/DIY982iK7uQxXBB5mP8dFkZ+mP8L5IhCAiBFql5b
-         SVrdpshrBzV1FD2FveDkWxAIeCAxlGxOzcr99eP4vEf/xK1UFlyKiEJWkXzHpIWNtd7U
-         orTH0q1Qcq5G1oiZ55KbB5cEWs8gOthc17Ox8ppsK1zYoFZk/m1clflBckJr+pcmfrMv
-         anFqE2QDg3sprDVENVKcnYqOJMsgPcm6g4jrOMJrX4JG2tTKb4twGHCmZU8HcXhkDzuI
-         OODATr5oRmkJOPuWlNU8/5Yll2eecjF5IdK0xeT1PZ/kPfkAiFkBc1Pml5rL8g0Oxykx
-         Q6Xg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791450645; x=1792055445; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=EVekyCoytYvsWEA/xawPaTKhkTfUsMDuQvQjTfILfOc=;
-        b=TjKZW8Qkc0JWiqBVoXgQHSumXFcJJjgoMal1OT0UTLW0m0J5PiuDzpxSoGZYzrmSIg
-         M5MtsfxfWCX7Uymmf+jnzhQn2wD6mU1cx5BKKLSdA4NcPqCZsVvAozw6doHozok5LhGn
-         leYmUOk/IGabLwhoCMk/NHQuzNyj64H2yz4TLwJ8YAwkQAUbcYC1czv57MC9LDsjVzh7
-         PPC1EAtSfTbeBN6mOPmUVL1gt5aFNthViXWJJ1oFeA8DV7ZaSNdfX3qgQxWyE6nWgfmH
-         OU7R49xlnvVDbZOfKMeZKGpGJPqFemnWzb+bNrOIjWHYGV+V7132gP/pNRy9sYnqhx6Y
-         lGSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791450645; x=1792055445;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EVekyCoytYvsWEA/xawPaTKhkTfUsMDuQvQjTfILfOc=;
-        b=nwdwH8kDks0nfll31+Qbvm9X39i829yfsbYqWVUgGoo7+oi8+gcd2VFSjzuFrsoGRL
-         G/cNZH6YkfYY+tw7guAX6VnebP817988lAXjVFPEhqWivQJlQQC8fTe57D48nlQmdgXu
-         886qu+EuFEX2iR2AtaFux5fbfRkVYtGcbbdYfX9QA0lRIXA5jGFFahY2r5f/QXoH+4Y1
-         b8wH+uuU5uil5hxSIIeExNEyeM4HyicRIPrwwsQtIsdqrzyRCwK2NBXpE1Y5KJ9T1Tpv
-         2Xk69hTM6dL9JOT6kHVcwSQ9zKT5vxWcze3ojeYAY5nXizsvRRlrnOx5nRrrZLR1305S
-         hXfw==
-X-Forwarded-Encrypted: i=1; AKwUvBx6xjnXPDmdlg5tn6S3U0VnoXFHj1rQC3NfbVzxAtiwLMdrlEKh/VU8+dttvwbM0NlhSexTGlOGyhyMcy4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lTM9uvt2gjtY/v/K9UV7EMiE8zfDB2qeo6QskEoDIQNxF1PqwV
-	W6gvgFoipEq0Bc6b+DZNupeVqUWKagapgu8Qhm5j36VJdBdh3RBFw2ol27v6bobvep6WPSNAgJi
-	RNVIimSnY8KpAECzpCk1rljNtDhJo++E=
-X-Gm-Gg: AYBFou3yM2OezYx9BYFSRG+C+FaP2djELmAET/sMDuXodQw/eyIHtwHXKdRjL7CnCnw
-	bYDBtoOwZ/T09Y5SBqOOikW0i93/7JB1GBLWZP2Nd76iZgypapj7ZygudZBLh71HSx8fGWPB2wb
-	C4rhr8FFttUs+I0ivDIVP6DZ+aN+AEhq3Xc+Opgbo9j1NtHIvlmiimfKwFh9zAlAauReZNZ+HnU
-	QD3Zu3qGWAuGJJRyj2p+graTgnHOIfVubUBh2nb/ht6F4ofAM0Kgy3FbbKc2PGCttwLecWh1riF
-	hkBuecZbyYm9qXmX8KuA5t5hpYO9FwHLtd6BwtjzlB2N1fKqFIWhYk5e
-X-Received: by 2002:a05:600c:8211:b0:4a1:6f78:842f with SMTP id
- 5b1f17b1804b1-4a18041acfbmr82208975e9.11.1791450643778; Thu, 08 Oct 2026
- 02:10:43 -0700 (PDT)
+	s=arc-20240116; t=1791450707; c=relaxed/simple;
+	bh=R3/iX6ZC4avWQp1BJlg8RYIzJInazzJ0ctvt6zioSKo=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=EKPEZFEwXOtLPet23aOoXfknCFl9b+Ppu20qI4gL8Dy36MKVUhKTsSMqMnDHY9ETwrkGYKs7i1dBO52kMf1TVDjHP/2VIOt9k7Ou++kMf7AXqBjA7skijA+2MTLkjgV2dbtUyzu1+GtjELHqOXV5cLfwj04F5HZDI6wd5lptsgQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=PAkozTZjhWJxSO99mAKh60+UalrUGS5GRl4qE7NJN8AmCjv2de5RRPGzE1CWGzndbrjbs+jskTF688dajEnOiBeqkEbRbH38JYQc1fGfVLuqv7Ee3XGqgfVtp5yQBTCJ6XybwPDkYwe9JFOEsVgliBqqzsNB9o6ypsoLSdwkqJ3uJ01VhC/HKeBPEDsUsVa82bDDQS9QwbpbVW6/2ZcYoDubprOubjCvuw4jTnS8vU8A0T03p8LxQH5oxCxcSGxZKYdqIlct7tNB2AKnEehKCMyskImkxc8c5DyIZK4fuVr2IHq0YSe1XpU5mPgzgEcQWQ22abnMuoKJJVkFYtnMZw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6GbqlGt3YchyV3gtIj30g2hW9T1pc+LU0E6nXL4yeTE=;
+ b=Bxu3QiPD6CTRP4viowLtEa0SBRlzogimwxDotM+X8ZJFg1GW5+chzSFf9TcUmo6sZDx8atWTVCyTqGpNEitMkTEmzrxJoouSp5qs7rbPNAEuNAFbRLr/ClHpFoWAXWqUTO3ej50n67BOt66uqSnup7x9BqcmqNpTYRVFHMtx+Zf/6GRRr0tAiynBXSkUEdqZI7BuiEYGmNFUPDdVZpA890PQBpRJiS8V63n1QhkychPUyr5Jdl7/dsiuSv3+2OOkxpBpfirLvj9SVnBC+hqCbxActJTLtGCoc47nt9ch4yP/c9g02JNYANp2c6ZZiIRg72m40ZR2uUBqIA4yytpZIA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from NT0PR01MB1325.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:f::11) by NT0PR01MB1309.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:f::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Thu, 8 Oct
+ 2026 09:11:35 +0000
+Received: from NT0PR01MB1325.CHNPR01.prod.partner.outlook.cn
+ ([fe80::6da4:f1ae:9ce:9a24]) by NT0PR01MB1325.CHNPR01.prod.partner.outlook.cn
+ ([fe80::6da4:f1ae:9ce:9a24%6]) with mapi id 15.21.0496.010; Thu, 8 Oct 2026
+ 09:11:34 +0000
+From: Joshua Yeong <joshua.yeong@starfivetech.com>
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	rafael@kernel.org,
+	viresh.kumar@linaro.org,
+	ulfh@kernel.org,
+	rahul@summations.net,
+	anup@brainfault.org,
+	lftan.linux@gmail.com
+Cc: alex@ghiti.fr,
+	joshua.yeong@starfivetech.com,
+	linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/7] Add RISC-V RPMI performance service support
+Date: Thu,  8 Oct 2026 17:10:24 +0800
+Message-ID: <20261008091032.2832333-1-joshua.yeong@starfivetech.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: ZQ0PR01CA0015.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:5::9) To NT0PR01MB1325.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:f::11)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261003003136.750633-1-hebaoquan@kylinos.cn> <20261003003136.750633-9-hebaoquan@kylinos.cn>
-In-Reply-To: <20261003003136.750633-9-hebaoquan@kylinos.cn>
-From: KunWu Chan <kunwu.chan@gmail.com>
-Date: Thu, 8 Oct 2026 17:10:32 +0800
-X-Gm-Features: AclHuK8IQys48doaeIzJ4ioSb5lXI_GS92fTzf02uQErFmsCZ6PV2LE-OBf22GI
-Message-ID: <CAN_Opa_JCCd-+o5y9JXbzypPtYjTGvyvnOy7KmSUKHYtVab85w@mail.gmail.com>
-Subject: Re: [PATCH v4 08/14] mm, swap: defer xswap shrink to workqueue to
- avoid lock recursion
-To: Baoquan He <hebaoquan@kylinos.cn>
-Cc: linux-mm@kvack.org, akpm@linux-foundation.org, chrisl@kernel.org, 
-	kasong@tencent.com, hannes@cmpxchg.org, nphamcs@gmail.com, baohua@kernel.org, 
-	youngjun.park@lge.com, yosry@kernel.org, shikemeng@huaweicloud.com, 
-	chengming.zhou@linux.dev, baoquan.he@linux.dev, david@kernel.org, 
-	linux-kernel@vger.kernel.org, klarasmodin@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: NT0PR01MB1325:EE_|NT0PR01MB1309:EE_
+X-MS-Office365-Filtering-Correlation-Id: 87540d22-10a1-4dab-769d-08df251c2653
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|7416014|52116014|921020|38350700014|56012099006|10067099003|18002099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	OG3e+N4HsVlsHo3pZdGZnXBec46zMZSRcOEnQexV3IEsgYjVvGyfZj4ncVTZ4crHleFJR/cPUd8Z+E2DwPXBJB4+e+VNvu4zzJNDn+CClz82NWkqYfG1Un2212Rm6z4ziyzEwczY3uzaq3TRy0VH3dGkUYjETipBPKH8kmXgM4pogV/nzvBJGDQnM0IcvsOkpfpg5D5Ab+u0SKcY5f8uAtrpDDriLClzgU0V2clEANOizd9pEW8JrptuDFK/IsozmtrnD5OkTP8PCHb6KJdsBTeEvqhdVo6H90x9friiobZ1I9TthUVjxeiGG0NeOsjU0RR1sotM+7kIwur+M0A8d1JsEAjd/mf/hrwC9H4OWOwp0onXY09BtuYOT+Hus5XV+FYh0NWN6YYvaiB0pFQORnFWK4tPMtCgNH+EzdHxk6K0l7Zp/0PHzQ+9pqvX9+9YLq+a3ORp41jFx9qJ1Fu+pl73pjXxx8mtbekKs+dGk/ssdMuIDttEfoLxM6TlIDZl5DOkJv0BT1bFj14zRJnaZqZDrlegc26FwQbh0m/YbQsrcfqpknxuDv3Qaw5JHNU+MvEUSGnBUX1YVDx+2/EUlQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:NT0PR01MB1325.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(7416014)(52116014)(921020)(38350700014)(56012099006)(10067099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?5l+CtLTY7wYARPg1I/nNcxlaS+/EobFNKNz6gz/j/JL9ADV/ZwpSbQM4hBtZ?=
+ =?us-ascii?Q?zS3ARrSlzFrjJchzAG/wKmfvvCf28ww60lYMWsjcGsv7eQccKRowDEceaIwF?=
+ =?us-ascii?Q?vyuGQYLvytX3spd1VoWFov0145WVb/Nr2yCzlFpmOSN2m8hB8J5uecYm65ct?=
+ =?us-ascii?Q?w3/v1x6sDGtQ/9ia3HPf4xJwTVYeWG0wEGrmpYjD48+h5VrbC+JK5Dky0NR3?=
+ =?us-ascii?Q?107ovTGAVltnM+Mt0yc3Rb+i2kMw0fY4A0lzSMzhM497BIBCFWL2PFLnKCY9?=
+ =?us-ascii?Q?m7h68XhQOKVNufQ+WrcMPqV80n7c6mO72+LmWgx6f5w0y1baN9QXgsxPFuJe?=
+ =?us-ascii?Q?x/gcAI/RsY16baOhobOYCyRsK5ALvsf9m+7ftE8FV2Ji4WqgDkdQ1xJaoCrh?=
+ =?us-ascii?Q?HG4sUMPiARvdEWfZEIjSSxq4YYYP0GTK7pyr6xncneh+v6auQqetRbkIp1aD?=
+ =?us-ascii?Q?rebkpjmU3BB2OnzoUh2PiFMPZhm0/Vhk339iNRVPC+6Q+IC06+QEPV+mmDxH?=
+ =?us-ascii?Q?sIu0MnJuZkHMpbu77fElKESFfHd1vdZnlbqlJjcl76euHLH2lFyuxABKsUNC?=
+ =?us-ascii?Q?qEoWHV2OcAb23QN5LxQWZSLnfctD+SMR65TfZwT5c+fq2S+g507IZsNQ0J9E?=
+ =?us-ascii?Q?roF8H2ylo9FFPD3sIRhkV/0eaXjNvCwhvh0Eb1Te5t2R/QbUjVH+DPmsFx8G?=
+ =?us-ascii?Q?pALzoUUjsh24ze3xxAp9f3JEmQ4AsH35ReFykdVfSVM0NQeB6i/VZnu/MD/q?=
+ =?us-ascii?Q?9KSodH1LXH6Z2vOgOBw/6n8SrySNx2leYFuxinyn5NEUoNDZl38hO3t0C0VF?=
+ =?us-ascii?Q?hezYGidSZ7PSjlWieeXbvfWkxRWyGztF1z90hxZjETbhb0JJlRGkSiHMoK8k?=
+ =?us-ascii?Q?rxqNIlCAerrQ77DLp0yLqPZqLXBodOeOwSBqCvOx0F4i9A1HsBhnsdGddZQ/?=
+ =?us-ascii?Q?YlmFAeXAkKIH4IxZ/bAlLNNWm0ATV9F3pPZRBKi9f31zM62qx7XE9JkWXHaZ?=
+ =?us-ascii?Q?35rKkfTejbT36noj4PaKMbGU0SOJDi5pGiSfQx4FMny4qpJn5MQUYsZW6fPv?=
+ =?us-ascii?Q?6SL2HyQVsWRUCQ+yBLlmSs4EEI4NOVBRGajVPQ91XCOm4UXVrBb6fRZGCAOu?=
+ =?us-ascii?Q?dmeKkvbiEExJ3G7mlIiybry3lIHUKZMG4PkDmlkSfvvujpe4pgRMLVNuJq6i?=
+ =?us-ascii?Q?9aU/juAfKCWBDDScEJlF48QQ16G6+Sa+172uT7NqNZusg0a5lwUyLgwQXOiW?=
+ =?us-ascii?Q?hGR/rcbsbHp44IuewwfS6Por9z9+cmfYtMTqlGCk9C7vwh9qM6YE3mtSo6JH?=
+ =?us-ascii?Q?C3j2nhXaqw952VW3ESe5AAp+Y3ynNPNKAXGEY0s+sDpt3iw7V172WTZoAEKk?=
+ =?us-ascii?Q?npcYZkxk1PtxK9ZJ2hWQem4ab4m4Hb6claCUBquFollMiQmaqN2j+vJQZLdV?=
+ =?us-ascii?Q?5NLE3wxiTriqKV7vW65jz/+SdZV6eq9bBOk9oa93+xs8NCL+WPZKlDcXrNb7?=
+ =?us-ascii?Q?opcfGxXyQy+b8dGO1CLnKqmxMcdocP+PTKV+edBlWaw3HJJVwVWSjSJ/GDnb?=
+ =?us-ascii?Q?+SO54UWUdJwvsnWo0FzyRjY0FSK3oy0AjX+TNtglGFHR4UhwlF+RkD4qtNLq?=
+ =?us-ascii?Q?ra53Sg0moc1wESfE4RaPTvXof5Lm7N2JsMEgsI/85J5Xxa7p2x3zVtIEMkhG?=
+ =?us-ascii?Q?JkakdqQtHuW//XJr9iYMH7dtaWEULVQz0zv9QCKbKRgx7wGMLSXvoFrkF7Lv?=
+ =?us-ascii?Q?QhmROHGpCyRwZBhVT6kRntS0OxijoUI=3D?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 87540d22-10a1-4dab-769d-08df251c2653
+X-MS-Exchange-CrossTenant-AuthSource: NT0PR01MB1325.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 09:11:34.3878
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jlvpt6xaGcFp9i3RBPmvHLHAwGRFoVblMdZYLf4o0lasCI+nQq+QQSDQuVsonVt7plA7FeFdShvkp1BFNxImQ3ZH2T2wf3WSqIkyukrrk+w=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: NT0PR01MB1309
 
-On Sat, Oct 3, 2026 at 8:32=E2=80=AFAM Baoquan He <hebaoquan@kylinos.cn> wr=
-ote:
->
-> __free_cluster() called xswap_try_shrink() while holding ci->lock, but
-> shrinking unmaps the backing pages and the subsequent unlock faults on
-> the unmapped address. Run the shrink via schedule_work() instead, so no
-> cluster lock is held. The work is only scheduled for xswap devices and
-> is cancelled on swapoff.
->
-> Signed-off-by: Baoquan He <hebaoquan@kylinos.cn>
-> ---
->  include/linux/swap.h |   1 +
->  mm/swapfile.c        | 129 ++++++++++++++++++++++++++++++++-----------
->  2 files changed, 97 insertions(+), 33 deletions(-)
->
-> diff --git a/include/linux/swap.h b/include/linux/swap.h
-> index 382a578140b5..12cdc00f78f9 100644
-> --- a/include/linux/swap.h
-> +++ b/include/linux/swap.h
-> @@ -246,6 +246,7 @@ struct swap_info_struct {
->         struct vm_struct        *cluster_vm;    /* VM_SPARSE area for clu=
-ster_info */
->         unsigned long           nr_clusters_max;/* total clusters in the =
-xswap address space */
->         unsigned long           nr_clusters_mapped; /* currently mapped c=
-luster count */
-> +       struct work_struct      xswap_shrink_work; /* deferred shrink tri=
-gger */
->         struct mutex            xswap_lock;     /* serialize map/unmap op=
-erations */
->  #endif
->         struct list_head free_clusters; /* free clusters list */
-> diff --git a/mm/swapfile.c b/mm/swapfile.c
-> index 7c062e772f5b..49703731ffd5 100644
-> --- a/mm/swapfile.c
-> +++ b/mm/swapfile.c
-> @@ -727,7 +727,9 @@ static void __free_cluster(struct swap_info_struct *s=
-i, struct swap_cluster_info
->         move_cluster(si, ci, &si->free_clusters, CLUSTER_FLAG_FREE);
->         ci->order =3D 0;
->  #ifdef CONFIG_XSWAP
-> -       xswap_try_shrink(si);
-> +       /* Only xswap devices, and not while the device is being torn dow=
-n. */
-> +       if ((si->flags & SWP_XSWAP) && (si->flags & SWP_WRITEOK))
-> +               schedule_work(&si->xswap_shrink_work);
->  #endif
->  }
->
-> @@ -3334,6 +3336,7 @@ static void free_swap_cluster_info(struct swap_info=
-_struct *si)
->         if (si->flags & SWP_XSWAP) {
->                 unsigned long nr_mapped;
->
-> +               cancel_work_sync(&si->xswap_shrink_work);
->                 /*
->                  * Cluster 0 keeps the bad header slot, so it never empti=
-es
->                  * and __free_cluster() never frees its table.
-> @@ -3452,6 +3455,11 @@ SYSCALL_DEFINE1(swapoff, const char __user *, spec=
-ialfile)
->         spin_unlock(&p->lock);
->         spin_unlock(&swap_lock);
->
-> +#ifdef CONFIG_XSWAP
-> +       if (p->flags & SWP_XSWAP)
-> +               cancel_work_sync(&p->xswap_shrink_work);
-> +#endif
-> +
->         wait_for_allocation(p);
->
->         set_current_oom_origin();
-> @@ -4074,8 +4082,9 @@ static void xswap_unmap_range(struct swap_info_stru=
-ct *si,
->                 __free_page(pages[i]);
->  }
->
-> -static void xswap_unmap_clusters(struct swap_info_struct *si,
-> -                                unsigned long start_idx, unsigned long n=
-r)
-> +/* Caller must hold si->xswap_lock.  Cannot fail. */
-> +static void xswap_unmap_clusters_locked(struct swap_info_struct *si,
-> +                                       unsigned long start_idx, unsigned=
- long nr)
->  {
->         unsigned long start_addr =3D (unsigned long)si->cluster_info +
->                                    (size_t)start_idx * sizeof(struct swap=
-_cluster_info);
-> @@ -4087,11 +4096,9 @@ static void xswap_unmap_clusters(struct swap_info_=
-struct *si,
->         unsigned int noreclaim_flags;
->         unsigned long npages, idx;
->
-> -       mutex_lock(&si->xswap_lock);
-> -
->         if (vm_start >=3D vm_end) {
->                 WRITE_ONCE(si->nr_clusters_mapped, start_idx);
-> -               goto out_unlock;
-> +               return;
->         }
->
->         /*
-> @@ -4113,7 +4120,7 @@ static void xswap_unmap_clusters(struct swap_info_s=
-truct *si,
->                 xswap_unmap_range(si, vm_start, vm_end, pages, npages);
->                 kvfree(pages);
->                 WRITE_ONCE(si->nr_clusters_mapped, start_idx);
-> -               goto out_unlock;
-> +               return;
->         }
->
->         /* No memory for the array: unmap in bounded batches instead. */
-> @@ -4133,7 +4140,13 @@ static void xswap_unmap_clusters(struct swap_info_=
-struct *si,
->         }
->
->         WRITE_ONCE(si->nr_clusters_mapped, start_idx);
-> -out_unlock:
-> +}
-> +
-> +static void xswap_unmap_clusters(struct swap_info_struct *si,
-> +                                unsigned long start_idx, unsigned long n=
-r)
-> +{
-> +       mutex_lock(&si->xswap_lock);
-> +       xswap_unmap_clusters_locked(si, start_idx, nr);
->         mutex_unlock(&si->xswap_lock);
->  }
->
-> @@ -4157,6 +4170,16 @@ static int xswap_mapped_end(pte_t *pte, unsigned l=
-ong addr, void *data)
->  #define XSWAP_SHRINK_SLACK     XSWAP_GROW_CLUSTERS
->  #define XSWAP_SHRINK_MIN       (XSWAP_GROW_CLUSTERS * 8)
->
-> +static void xswap_shrink_work_fn(struct work_struct *work)
-> +{
-> +       struct swap_info_struct *si =3D container_of(work,
-> +                       struct swap_info_struct, xswap_shrink_work);
-> +
-> +       if (!(READ_ONCE(si->flags) & SWP_WRITEOK))
-> +               return;
-> +       xswap_try_shrink(si);
-> +}
-> +
->  /*
->   * Try to shrink the cluster_info tail: unmap contiguous free clusters
->   * at the end of the mapped range.
-> @@ -4164,14 +4187,20 @@ static int xswap_mapped_end(pte_t *pte, unsigned =
-long addr, void *data)
->  static void xswap_try_shrink(struct swap_info_struct *si)
->  {
->         struct swap_cluster_info *ci;
-> -       unsigned long nr_mapped, last, keep, idx;
-> +       unsigned long nr_mapped, nr_tail, keep, nr_unmap, start_idx, i;
->
->         if (!(si->flags & SWP_XSWAP))
->                 return;
->
-> +       mutex_lock(&si->xswap_lock);
-> +
-> +       /* A swapoff raced us and is about to walk this mapping. */
-> +       if (!(READ_ONCE(si->flags) & SWP_WRITEOK))
-> +               goto out_unlock;
-> +
->         nr_mapped =3D READ_ONCE(si->nr_clusters_mapped);
-> -       if (nr_mapped <=3D 1) /* keep cluster 0 */
-> -               return;
-> +       if (nr_mapped <=3D 1)     /* keep cluster 0 */
-> +               goto out_unlock;
->
->         /*
->          * Reclaim on our own, but only once the mapped range is at most
-> @@ -4181,40 +4210,73 @@ static void xswap_try_shrink(struct swap_info_str=
-uct *si)
->          */
->         if (swap_usage_in_pages(si) * 100 >
->             nr_mapped * SWAPFILE_CLUSTER * XSWAP_SHRINK_WHEN)
-> -               return;
-> +               goto out_unlock;
->
-> -       /* Find the last non-free cluster from the tail */
-> -       last =3D nr_mapped;
-> -       while (last > 1) {
-> -               idx =3D last - 1;
-> -               ci =3D &si->cluster_info[idx];
-> -               if (ci->count || ci->flags !=3D CLUSTER_FLAG_FREE)
-> +       /*
-> +        * Count the free clusters at the tail of the mapped range.  Scan=
-ned,
-> +        * not tracked: the count must be exact to size the unmap, and an
-> +        * incremental count falls behind on out-of-order frees.
-> +        */
-> +       nr_tail =3D 0;
-> +       while (nr_mapped - nr_tail > 1) {
-> +               ci =3D &si->cluster_info[nr_mapped - nr_tail - 1];
-> +               if (READ_ONCE(ci->count) ||
-> +                   READ_ONCE(ci->flags) !=3D CLUSTER_FLAG_FREE)
->                         break;
-> -               last =3D idx;
-> +               nr_tail++;
->         }
-> -
-> -       if (last =3D=3D nr_mapped)
-> -               return; /* nothing to shrink */
-> -
-> -       /* Below `last` has to stay mapped: the free ones in between are
-> -        * not part of the tail, and unmapping them orphans what is above=
-.
-> -        */
-> -       if (nr_mapped - last < XSWAP_SHRINK_SLACK + XSWAP_SHRINK_MIN)
-> -               return;
-> +       if (nr_tail < XSWAP_SHRINK_SLACK + XSWAP_SHRINK_MIN)
-> +               goto out_unlock;
->
->         /*
->          * Stop at SHRINK_UNTIL rather than at the end of the tail, or th=
-e
-> -        * range comes out full enough for the grow to be woken.
-> +        * range comes out full enough for the grow to be woken.  Below t=
-he
-> +        * tail everything stays mapped, and one chunk of tail with it.
->          */
->         keep =3D DIV_ROUND_UP(swap_usage_in_pages(si) * 100,
->                             XSWAP_SHRINK_UNTIL * SWAPFILE_CLUSTER);
-> -       if (keep < last + XSWAP_SHRINK_SLACK)
-> -               keep =3D last + XSWAP_SHRINK_SLACK;
-> +       if (keep < nr_mapped - nr_tail + XSWAP_SHRINK_SLACK)
-> +               keep =3D nr_mapped - nr_tail + XSWAP_SHRINK_SLACK;
->
->         if (nr_mapped < keep + XSWAP_SHRINK_MIN)
-> -               return;
-> +               goto out_unlock;
-> +
-> +       nr_unmap =3D rounddown(nr_mapped - keep, XSWAP_GROW_CLUSTERS);
-> +       if (!nr_unmap)
-> +               goto out_unlock;
-> +       start_idx =3D nr_mapped - nr_unmap;
-> +
-> +       /*
-> +        * Only shrink a run that reaches the mapped end; otherwise
-> +        * truncating nr_clusters_mapped would orphan the active tail.
-> +        */
-> +       spin_lock(&si->lock);
-> +       for (i =3D start_idx; i < nr_mapped; i++) {
-> +               ci =3D &si->cluster_info[i];
-> +               if (READ_ONCE(ci->flags) !=3D CLUSTER_FLAG_FREE)
-> +                       break;
-> +               if (!spin_trylock(&ci->lock)) {
-> +                       spin_unlock(&si->lock);
-> +                       goto out_unlock;
-> +               }
-> +               spin_unlock(&ci->lock);
-> +       }
-> +       if (i !=3D nr_mapped) {
-> +               spin_unlock(&si->lock);
-> +               goto out_unlock;
-> +       }
-> +
-> +       for (i =3D start_idx; i < nr_mapped; i++) {
-> +               ci =3D &si->cluster_info[i];
-> +               list_del_init(&ci->list);
-> +               WRITE_ONCE(ci->flags, CLUSTER_FLAG_NONE);
-> +       }
-> +       spin_unlock(&si->lock);
->
-> -       xswap_unmap_clusters(si, keep, nr_mapped - keep);
-> +       xswap_unmap_clusters_locked(si, start_idx, nr_unmap);
-> +
-> +out_unlock:
-> +       mutex_unlock(&si->xswap_lock);
->  }
->  #endif /* CONFIG_XSWAP */
->
-> @@ -4278,6 +4340,7 @@ static int setup_swap_clusters_info(struct swap_inf=
-o_struct *si,
->                         }
->                 }
->
-> +               INIT_WORK(&si->xswap_shrink_work, xswap_shrink_work_fn);
->                 return 0;
->
->  err_unmap:
-> --
-> 2.54.0
->
+The RISC-V Platform Management Interface (RPMI) specification defines a
+modular and extensible messaging protocol between the supervisor software
+and a platform microcontroller (PuC). Among the service groups it defines
+is the performance service group (service group ID 0x0000A), which allows
+the supervisor to enumerate the performance domains managed by the PuC,
+query their attributes and supported levels, and get/set their
+performance level and limits, optionally through fast channels in shared
+memory.
 
-Hi Baoquan,
+The specification says the service group is primarily meant for devices
+such as GPUs and accelerators, though it can also be used for application
+processors. This series adds supervisor-side support for both:
 
-While following the shrink path across these patches, I wanted to
-clarify the lifetime guarantee for the `cluster_info` backing pages.
+ - DT bindings for the performance domain controller exposed to the
+   supervisor ("riscv,rpmi-performance") and for the SBI MPXY channel
+   that the SBI implementation uses to expose the service group to the
+   supervisor ("riscv,rpmi-mpxy-performance"). A CPU names its domain
+   through "performance-domains", documented for RISC-V CPUs. Any other
+   device names it through "power-domains": the controller is also a
+   power domain provider, with one power domain per performance domain
+   and the levels of the domain as the performance states of that power
+   domain.
 
-P07 flushes the per-CPU swap cluster cache and calls
-`synchronize_rcu()` before unmapping the tail. P09 clears
-`SWP_WRITEOK` and cancels the shrink work before proceeding with
-`wait_for_allocation()` and `try_to_unuse()`.
+ - A core for the service group, drivers/firmware/riscv/
+   riscv-rpmi-performance.c, which owns the mailbox channel, since the
+   channel cannot be shared between drivers. At probe it checks the
+   RPMI and service group versions, queries PERF_GET_NUM_DOMAINS, then
+   for each domain PERF_GET_ATTRIBUTES and PERF_GET_SUPPORTED_LEVELS, and
+   sets up the level fast channels from PERF_GET_FAST_CHANNEL_REGION and
+   PERF_GET_FAST_CHANNEL_ATTRIBUTES. It exports an interface to read and
+   set the levels and limits of a domain, and creates the devices the
+   front-ends below bind to.
 
-Could you clarify how the shrink path ensures that, before the tail
-is unmapped, no allocation-side reader can still access the tail or
-republish a stale per-CPU cache entry that points into it, and no
-swapoff-side walker can still access the unmapped range?
+ - A cpufreq driver, drivers/cpufreq/riscv-rpmi-cpufreq.c. CPUs that
+   name the same domain share a policy, the levels of the domain become
+   its frequency table, and the level is set through the domain's fast
+   channel when it has one, so that the governor can switch frequency
+   from the scheduler. An energy model is registered from the power cost
+   of each level.
 
-Thanks,
-Kunwu
+ - A power domain driver, drivers/pmdomain/riscv/riscv-rpmi-perf-domain.c,
+   which registers each performance domain as a generic power domain
+   with performance states. A device that attaches is handed an
+   operating point per level of the domain, and its driver drives the
+   domain through the OPP library, with devfreq on top if it wants a
+   governor. Several devices can share a domain, and genpd runs it at the
+   highest level any of them asks for. Performance state N is RPMI level
+   index N - 1, since genpd keeps state 0 for "no request". A device
+   that names a domain the CPUs use is refused, so that cpufreq and genpd
+   never both set the level of one domain.
+
+ - A MAINTAINERS update adding the drivers and their bindings to the
+   RPMI device power entry, renamed "RISC-V RPMI DEVICE POWER AND
+   PERFORMANCE DRIVERS".
+
+The series has a prerequisite: the RPMI device power series ("Add
+RISC-V RPMI device power service support"), which has been applied for
+next:
+
+  https://lists.infradead.org/pipermail/linux-riscv/2026-September/099498.html
+
+Changes in v2:
+ - Split the driver. The RPMI protocol, the mailbox channel and the
+   domain enumeration move into a core for the service group under
+   drivers/firmware/riscv/, and the cpufreq driver becomes a front-end
+   over it.
+ - Add the power domain front-end, so that devices other than CPUs can
+   use a performance domain. CPUs changes the performance through
+   "performance-domains" and other devices through "power-domains".
+
+v1: https://lore.kernel.org/r/20260106092117.3727152-1-joshua.yeong@starfivetech.com
+
+Testing
+=======
+
+The series was tested under QEMU with the RPMI performance service
+implemented in firmware.
+
+Components:
+
+ - OpenSBI: v1.9
+   https://github.com/riscv-software-src/opensbi
+
+ - QEMU: the RPMI-enabled tree at
+   https://github.com/yeongjoshua/qemu/tree/rpmi-v11.1.0
+
+Kernel config: enable CONFIG_RISCV_RPMI_PERFORMANCE,
+CONFIG_RISCV_RPMI_CPUFREQ and CONFIG_RISCV_RPMI_PERF_DOMAIN (all default
+y on RISC-V when MAILBOX is enabled) along with the SBI MPXY mailbox
+driver.
+
+Run with:
+
+  qemu-system-riscv64 \
+      -M virt -m 2G -smp 4 \
+      -bios fw_dynamic.bin \
+      -kernel Image \
+      -M rpmi=true \
+      -nographic \
+      -initrd rootfs-busybox.cpio \
+      -append "root=/dev/ram rw console=ttyS0,115200 no_console_suspend mem=2048M earlycon=uart8250,mmio,0x10000000"
+
+The emulated PuC advertises seven performance domains. With -smp 4, cpu0
+and cpu1 share one domain and one cpufreq policy, cpu2 has a domain of
+its own, and cpu3 has none. A test device names one of the remaining
+domains through "power-domains". Each policy's frequency table matches
+the levels of its domain, and frequencies set through the userspace
+governor read back from the PuC, with the level set through the fast
+channel and its doorbell. A consumer test driver, kept out of this
+series, attached the test device to its power domain, drove it through
+the OPP library with devfreq on top, set every operating point and read
+the level behind each one back from the PuC, checked that a level the
+domain never advertised is refused, and ran alongside cpufreq without
+either disturbing the other's domain. A device naming a CPU's domain was
+refused, and so was a CPU naming another provider. With failures
+simulated in the core (a domain that fails enumeration, a level table
+returned in reverse order, a fast-channel region too small for its
+channels), the affected domain or fast channel was left out or fell
+back to the mailbox, as intended. All checks passed. The series also
+builds for arm64 with COMPILE_TEST.
+
+Joshua Yeong (7):
+  dt-bindings: dvfs: Add RPMI performance service message proxy bindings
+  dt-bindings: dvfs: Add RPMI performance service bindings
+  dt-bindings: riscv: cpus: document performance-domains property
+  firmware: riscv: Add RPMI performance service
+  cpufreq: Add RISC-V RPMI cpufreq driver
+  pmdomain: riscv: Add RPMI performance domains as power domains
+  MAINTAINERS: Add RISC-V RPMI performance driver
+
+ .../dvfs/riscv,rpmi-mpxy-performance.yaml     |   65 +
+ .../bindings/dvfs/riscv,rpmi-performance.yaml |   88 ++
+ .../devicetree/bindings/riscv/cpus.yaml       |    3 +
+ MAINTAINERS                                   |    7 +-
+ drivers/cpufreq/Kconfig                       |   16 +
+ drivers/cpufreq/Makefile                      |    4 +
+ drivers/cpufreq/riscv-rpmi-cpufreq.c          |  294 ++++
+ drivers/firmware/Kconfig                      |    1 +
+ drivers/firmware/Makefile                     |    1 +
+ drivers/firmware/riscv/Kconfig                |   17 +
+ drivers/firmware/riscv/Makefile               |    3 +
+ .../firmware/riscv/riscv-rpmi-performance.c   | 1186 +++++++++++++++++
+ drivers/pmdomain/riscv/Kconfig                |   16 +
+ drivers/pmdomain/riscv/Makefile               |    1 +
+ .../pmdomain/riscv/riscv-rpmi-perf-domain.c   |  265 ++++
+ .../firmware/riscv/riscv-rpmi-performance.h   |  148 ++
+ include/linux/mailbox/riscv-rpmi-message.h    |   16 +
+ 17 files changed, 2130 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/dvfs/riscv,rpmi-mpxy-performance.yaml
+ create mode 100644 Documentation/devicetree/bindings/dvfs/riscv,rpmi-performance.yaml
+ create mode 100644 drivers/cpufreq/riscv-rpmi-cpufreq.c
+ create mode 100644 drivers/firmware/riscv/Kconfig
+ create mode 100644 drivers/firmware/riscv/Makefile
+ create mode 100644 drivers/firmware/riscv/riscv-rpmi-performance.c
+ create mode 100644 drivers/pmdomain/riscv/riscv-rpmi-perf-domain.c
+ create mode 100644 include/linux/firmware/riscv/riscv-rpmi-performance.h
+
+
+base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
+prerequisite-patch-id: 907ffadca74a65c93ad38f428e002d2b34341067
+prerequisite-patch-id: 5a4df94e66de2f63697891a0f1382fabd9df7b6f
+prerequisite-patch-id: 0827a7050d08fea7deaab8e82f2dd16acdca507d
+--
+2.43.0
