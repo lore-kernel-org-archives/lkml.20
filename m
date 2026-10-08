@@ -1,203 +1,195 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011043.outbound.protection.outlook.com [52.101.65.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97A6545D5E7;
-	Thu,  8 Oct 2026 08:18:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791447518; cv=none; b=FDyrCQTdNQycdDiiEaLmbMgjuIvOLrnu+SOkpdAIXhPGB+pQrXBpM6Hw6prriJQO04Qv0w9Zup9vUlPHSr4de3XreuioprlSatEnWpQ7k/odzZd6lIrvCxyW6M2F5Ej9CR6Tm0hIS1nIjJyy+ziNVL7xMgHV5hgycsTxcipszws=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791447518; c=relaxed/simple;
-	bh=xWUfOU8MuvctbubLUZLnCbRCMKaCKdNv8oxG9XGx8n8=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=W794PQ6aiIHVtkyoaJWuJbIssuFo9WbVVbVfm6t+FlHP2Ty5za2vXzyCp9LIGTGkfM+c+z3zsTesjkV26kvQXzetfkJB/IDrU2XETDD2vq3LdeguDB4K4hpxrHzO5+I0SmZbZlS8o8H6es7x7qPQ79PnlsBxbgevSWwG+ptKtYU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iDfC9//0; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81D83391E6D;
+	Thu,  8 Oct 2026 08:19:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.43
+ARC-Seal:i=3; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791447564; cv=fail; b=pZOKB/hJSiOJILw5YiP6FSoYUQd/128XP1EQ5UyrVCdg3B8OpONiDIln0fgG4zMpGPBAphTLvGk24z8WJAZW+Sm6UgQdKA1+jj85ual/oM4gEC1qVTciuRNGF/T+VPdbDUHiZ9WGbcwpKmYXxPC+ke1aJsVrxK8BmgNjfnto04k=
+ARC-Message-Signature:i=3; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791447564; c=relaxed/simple;
+	bh=AfIuXa8QcB4NV/nD8tGhAdxs1/im7oDHZYmDxex0G7Y=;
+	h=Message-ID:Date:Cc:Subject:To:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=hLN/h/YbjMV/9tVuM0Jpeq/QFrYi0io3pZkUhR3UQBCP35jkOWIFOYwq8g0nh95rxSO4oxrpCt9xtzRSjYnWa2TtS7hG0R/jgR6R+Wqu03zeplsgheyVcVQynPq7eCsas8Qawi7yuUyrx21l+1L1MSpAiBDGgl6Ii8z3B+4aPQY=
+ARC-Authentication-Results:i=3; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Qignhpwq; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Qignhpwq; arc=fail smtp.client-ip=52.101.65.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iDfC9//0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A7481F00893;
-	Thu,  8 Oct 2026 08:18:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791447517;
-	bh=Mzpy3pXiZbbNuv4st42NYIwUfkQrYV+MjLygJ2qXHRI=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=iDfC9//0XDrOFu6ad0yHNqi0Az5C/ay57kTGzulGGnIEY/iB62zvE9G4YFynasyDw
-	 /rOIeHd+G8VngwBR5SQ17rz9heNpdpcDoNaKOA134KUHd/+gwzbLRqp69GmFP2Xjsu
-	 HAEd2KCmgRdosJQoCm7SZSC8XiHX0zM/7cKgJUHNypx6pwde4v6D2b346HWn0s7hqi
-	 FZ6zVJz72c9BE2dOhsDWKvX5HNWwKL7ORCz9nzK/SJolyZqEkwNNhOc4WbfhFozlEh
-	 GgfS8s8l8oLy3KHPQZ4+XBb557AtX/gnZq+BJ1oy/0uZ587eFrqFcwZcY/7NPHHQiG
-	 hrJxfqU1EnkRA==
-Subject: Re: [PATCH net-next v2 2/2] net: phy: realtek: support unaligned
- RTL8224 PHY packages
-From: netdev-bot+sashiko@kernel.org
-To: oskari@lemmela.net
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, hkallweit1@gmail.com, daniel@makrotopia.org,
- javen_xu@realsil.com.cn, vladimir.oltean@nxp.com, olek2@wp.pl,
- o.rempel@pengutronix.de, ih@simonwunderlich.de, amadeus@jmu.edu.cn,
- jan@3e8.eu, f.fainelli@gmail.com, linux@armlinux.org.uk, andrew@lunn.ch,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, mensi@mensi.ch
-Date: Thu, 08 Oct 2026 08:18:35 +0000
-Message-ID: <179144751562.434549.8240253139319713521@kernel.org>
-In-Reply-To: <20261005201540.913977-3-oskari@lemmela.net>
-References: <20261005201540.913977-3-oskari@lemmela.net>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Qignhpwq";
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Qignhpwq"
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=y/Kn7f2LIUo8cqJB+fmx6REjWlGEgqTxx1zDCXOavbRT2kRKz72KyGM9jDxFAfxGSrkZFB+mBg9Ggu+xJUkzuVYoUUnfBvF+rrtEWW2O9tUEULIw9duCFWm0SGgeg4gG2NQwrK0btCp30Dz1uH/SASVSGyUHTUSpI3t3/1OSsBJcKSvT72Kb7AlwDaGCAqR+IksS2whBin1un0BCnAagWesgn1OZxQfNLTkbXDc820srpRmcve3scfuGyiB165BsxxUrYmFy8JYiUuH0WTUYWHBEvyAnGj2U36cDad2Vqouc6taYIHQkPgMaz+TgSj/qYXrvHAIeqbNH08L3zzMhjA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=j9xmXzL6tFsZzlFEq2VdqlC6nUBbqk1eYY6n1C6SKOQ=;
+ b=vQFDdEAIZyBxY2mjBmxA1BlhSFHBYlG4fBrOD/c/GWEf6iiRSFu6DOWbIFKJNlRzXoQ7xeWqkadvKERu2wx4y7Wq4ZEvb4MHMpc80+MK+YCIn5jQJz9xo3efdrb5O9xPJObJF1hn0j5uFH2Zcf8pzhLS355KDQrR6ZCiP1xs691xvO/sqCbPQtmENVAYqipi/3NhRUM1/PIQ2bqLDMm7C2xJ3q696Gag7KO5WidIkzkRj79PYhkvQaq8BPmmBlwbCdtgLF6xptczC43jSkMq2vmXtYFFwSWEY4aqfFrhtJM+/A2t4CRfc5Ikb/Svx4yuYp6mR1F8rgDVRquq3r5ZdQ==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=linux.dev smtp.mailfrom=arm.com; dmarc=pass
+ (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
+ (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=j9xmXzL6tFsZzlFEq2VdqlC6nUBbqk1eYY6n1C6SKOQ=;
+ b=QignhpwqPlGpi22hw+dDMHJqeIosrrXA0vHT57JVAyh1TO7XH43UIivF5zy1//qVsATVI9UeIkN8qt0+3hi5phjD5ko0FixOFBmD32J3lBU85jmy9fl7H0YNoOJOIrB4+BunaXgFreySBrhrHcGB53E1XEvoDYhf1PyufjJHTE8=
+Received: from LO4P123CA0115.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:192::12)
+ by AS4PR08MB8166.eurprd08.prod.outlook.com (2603:10a6:20b:58d::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Thu, 8 Oct
+ 2026 08:19:17 +0000
+Received: from ZR1PEPF0000E463.eurprd04.prod.outlook.com
+ (2603:10a6:600:192:cafe::31) by LO4P123CA0115.outlook.office365.com
+ (2603:10a6:600:192::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Thu, 8
+ Oct 2026 08:19:17 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 4.158.2.129) smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ ZR1PEPF0000E463.mail.protection.outlook.com (10.167.241.56) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.14
+ via Frontend Transport; Thu, 8 Oct 2026 08:19:17 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PbtmiIXvWrVs0/TL/y4fwlsVWl3L6yfcMpt8QIAXGQFCr/caQJnZ/l10w6uwtDWVRqOIThp4p/l221tXNBwtvvEG3E3B3q+jmnOn87o4jRtvhMjt44s0HIPcw6dyFakE/xiOXbUML4+fTyH2SJ1ibKvp34XHBdBxhOtfvx8aJg7HNo6JertiTm7OSyY6OxvaAJQQHQziaTUwHvE4+jyOqg3sy8i2ZC/pHgovhhWvwYFTxsytBRJLtT21kTjT3q/gXVBjH3JaHGeQ33AJgqPX95B73Ou/7yVExwyNvyr/md1I/LfJUQL5SVTG21/zQan4sSj2gLqdxrpceJ6Fc9XMcw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=j9xmXzL6tFsZzlFEq2VdqlC6nUBbqk1eYY6n1C6SKOQ=;
+ b=qPT5s677NxJB1NChD6fzoZtzIBnrwCwu3BqSHaZAI2KkjgDvED+Kasj9E3g2k+Il3x7zB6bxZNN+tOGka3iM+/t/9stEQ0yy5ntPpFKW3EavNWJn+LFOe+pgwZUKUErxWjinbRZMXZY8phhFb5FbX07BU8yZqtosNAP3MulqLvgy051MIqI7ogE47mVXX2QL2A3EdlFPSMgG12sh90ylk8qvIzJ6UzW4W3KwjMMixUyIFjM7zjO6r16V2/VdZE5FvZO7FgIJKyE37AiBpWfwnvXedYlwsJLyctsDvbr4OmK7pF5hJKOjmNgQvKHI3hpO9zbwYgkFHaLvdP9N4CyObw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=j9xmXzL6tFsZzlFEq2VdqlC6nUBbqk1eYY6n1C6SKOQ=;
+ b=QignhpwqPlGpi22hw+dDMHJqeIosrrXA0vHT57JVAyh1TO7XH43UIivF5zy1//qVsATVI9UeIkN8qt0+3hi5phjD5ko0FixOFBmD32J3lBU85jmy9fl7H0YNoOJOIrB4+BunaXgFreySBrhrHcGB53E1XEvoDYhf1PyufjJHTE8=
+Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
+ signed) header.d=none;dmarc=none action=none header.from=arm.com;
+Received: from VI1PR08MB3421.eurprd08.prod.outlook.com (2603:10a6:803:80::16)
+ by AS2PR08MB8696.eurprd08.prod.outlook.com (2603:10a6:20b:55f::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.13; Thu, 8 Oct
+ 2026 08:18:43 +0000
+Received: from VI1PR08MB3421.eurprd08.prod.outlook.com
+ ([fe80::e079:6bd:fbe0:89b4]) by VI1PR08MB3421.eurprd08.prod.outlook.com
+ ([fe80::e079:6bd:fbe0:89b4%3]) with mapi id 15.21.0496.010; Thu, 8 Oct 2026
+ 08:18:42 +0000
+Message-ID: <6e3c298f-9b93-43b2-840d-65c5ffa3bc36@arm.com>
+Date: Thu, 8 Oct 2026 09:18:40 +0100
+User-Agent: Mozilla Thunderbird
+Cc: usama.anjum@arm.com, Andrew Morton <akpm@linux-foundation.org>,
+ "David Hildenbrand (Arm)" <david@kernel.org>,
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Kiryl Shutsemau (Meta)" <kas@kernel.org>, linux-mm@kvack.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Usama Arif <usama.arif@linux.dev>,
+ "Nico Pache (Red Hat)" <nico.pache@linux.dev>, Zi Yan <ziy@nvidia.com>,
+ Barry Song <baohua@kernel.org>, Dev Jain <dev.jain@arm.com>,
+ Hugh Dickins <hughd@google.com>, Lance Yang <lance.yang@linux.dev>,
+ "Liam R. Howlett" <liam@infradead.org>, Michal Hocko <mhocko@suse.com>,
+ Ryan Roberts <ryan.roberts@arm.com>, Shuah Khan <shuah@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>,
+ "Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
+ Alexander Gordeev <agordeev@linux.ibm.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Leon Romanovsky <leon@kernel.org>, kernel-team@meta.com,
+ Kiryl Shutsemau <kirill@shutemov.name>
+Subject: Re: [PATCH v6 16/19] selftests/mm: add khugepaged race harness
+To: Zenghui Yu <zenghui.yu@linux.dev>
+References: <20260919002451.496763-1-kirill@shutemov.name>
+ <20260919002451.496763-17-kirill@shutemov.name>
+ <85b3725a-6dde-4a57-b303-4ae2b53b60a5@linux.dev>
+From: Muhammad Usama Anjum <usama.anjum@arm.com>
+Content-Language: en-US
+In-Reply-To: <85b3725a-6dde-4a57-b303-4ae2b53b60a5@linux.dev>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: AS4PR10CA0024.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:20b:5d8::16) To VI1PR08MB3421.eurprd08.prod.outlook.com
+ (2603:10a6:803:80::16)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-TrafficTypeDiagnostic:
+	VI1PR08MB3421:EE_|AS2PR08MB8696:EE_|ZR1PEPF0000E463:EE_|AS4PR08MB8166:EE_
+X-MS-Office365-Filtering-Correlation-Id: b05259ac-b18f-4446-2261-08df2514d898
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|366016|23010399003|7416014|1800799024|376014|10067099003|56012099006|4143699003|11063799006|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info-Original:
+ zPIBKzAxrdDlxKGvuVidcghrTcAsPt0DwNZlOezXJNZf0jdlY4d0X9vHpKUcY9J63n0R8vPQUZVRFXSkjLBmB1TZV30pqKA0PnaOw1ElZqpGjTZ9vClHwbR89+IOW9FelvaLceXwSZ/oaj8pwDSUITn1l40plPB+uPzAdqh+MfvBSHrLy7ruwZ5Dn67/I4o6Qex9F1ZsuocypPBuxZRcCdMUCxJu9em8dD4ayfac8+s6eMlSctJGfYGSRK7u+zVpN1+Wfrcheg/9iEmeKHZWfIvPUYwR9FBechCscpU3pWxh4bUAAxk39TNiEsDqAf9nqOoT3tXL/AXaSFEWbwOtm5AIMZm5W+YpYzQLevNnmUNyjKlUAl5moYQK+N03KnBOBkTpF5OYRj6K7UlKSf2YMQ/2nKQLspRbu5/LH6QrvivDx8c45lRLeGk0SRmplF4Q0sGqRWckxmOfGltUhXbLrM8Wk6Qd5/ZDDRAWBcmDe3m1oDMO9e3qBnxFhdlfBlIKX7SEOx0ubyYQBvlq6AaOgAUkFzTIlx4D3+ZVUAJtEsNkbihtRANe2XXbNwnYIXvFVE9+SgAgz2LCuJgfpGFunO1Lil3Q6fiPTAvlVbQHKiDFWA/x5gwoAYtotjKCneiDAMPiZWWAdxYZPO1sOaiIok01OA4rSZKiOylT9BF2mpU=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR08MB3421.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(7416014)(1800799024)(376014)(10067099003)(56012099006)(4143699003)(11063799006)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-Exchange-RoutingPolicyChecked:
+ l3yHF1IvH0nlxOZzok1RtrWm1s3NConfWLcRcZpIRQDgsboKRvOTabEmGQypDcFqEu053x1u6UYIpEmdnYBYFAm3oIi5o3G7M/cXXq7UfRRm6qzFyqKLQolqZrQn+LYdUqwI+ToAQQkKl0DrFIHj5YwJ2p5skkiia9TXtSz6Jl+Me+/g5xomEIKiNZjpbTqaVA0EmH39B5RMJwZxMVRUOE/+EAeEjOY5t9beoEBxfrXzK1uNdubNgh06GJrMNX1RbA5TSvypYYfERJa4O1g9X+ygGVtZTBCSPknds//3aPyGKv6dsu2CEqGmOIM4nBjyD2JFgPcMbRguspIJzzAvVw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR08MB8696
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ ZR1PEPF0000E463.eurprd04.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	6347e238-5bf2-4e8f-4b4b-08df2514c3c3
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|14060799003|7416014|376014|1800799024|35042699022|23010399003|82310400026|11063799006|4143699003|6133799003|10067099003|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	Gh4Rs/+HLcaUYTQj70KRcZ/koQynjebDiliF+dL71s8rqNJ7T0Bst7bTyDNu520WQh1nPxqsfWm+2n1TWKKnYvpmejlz47BrRpZeqJw5ij1B1etmkVVSa9sMnijCJfey0fH0wS8VtUPpa22oGl2NCTzG5Zrr0kE7s8CzIBdv6ZA8eyMf8SYaEkq6+FasQ/doHhGvV9WVqSATWq/WFKqlnv2s4nkXo2jRaGqFmVgYKSpWqFvVma6QIYu6Iu46xQONFiUFZexBKVzt6ZNIO/mUJ0zMxfRrJZ9Qlqe6cG3fsayWzg5Rj6mP+ULGE8xOWPwkZaZTlrKumkX5A0o8ZBkMUXHnYkze4lvbxSK3r4CzicwqGHj/HfqrSHbF24N3mJVpgNwXcIWeUA6wyQz6JQnyDQ1Lt5Ift3OKQySY9t/Zxx9Qp/19gfsB9pG8PfQuGZFTXapanXXDs2VjrHUKzswtVASu8UISyLg/HQnLINfY0mLu8fg/gWbk55v49wkpMQ508JIu3CATqRbE9YPwcksy/FdTi/M5cyfSozScG9ovJLQ2YS/bVub+gxUUPQmZsr1Yv4Z7FQJtOqAr9C0EsAt0Sm5IgeIl0QNj6dtMlW1EpY9zlU77v9pBlPOeINx75WQxTaMW3wcgAh5oqPnKsnmrrQeis6UX1pNMmHmR3GSztiCoeAaClR8DEfFARZm3A/ZT0GK1xadZfSGBjym5vytHBQ==
+X-Forefront-Antispam-Report:
+	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(14060799003)(7416014)(376014)(1800799024)(35042699022)(23010399003)(82310400026)(11063799006)(4143699003)(6133799003)(10067099003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	KzdSFSvIZ+QM331PDVoHrvHNg5SIVqCwTfOboK3DI+y26YTwG/bhHsFnsOPPE2L95vU9cfRnvbvlU+Jtery4wKMTCTEN2sb0K2qXdxQcTJa50LAUyc/awhS8pBp0FlqRThMfwBlN4qXQxp/tYw2k1qPqeeh2sBz7ZedBJO+S0ODMlTfIa4CL8g44B9qaOaLC9G0zANfm13LPy570O6BMtwtRBjvvTlIzz/cnzyEjGbJZSrbGMoijRfTnIIsnii9laT/vH6xeBA0cmICinOizgAABgV3LQ4G+iwTYHEewq1TKuGJvjiebsEldQAseb3t8IkniSemxEB08kiTxGPS26rZxRJBG7ba4qY9jS+wjTEGdrzyVQRzyIm6Eplh2bvkbjiDXObGxwCHnHc/dFX1oEEkza5qCiEWBik2XqB80V0iyzUr4fv3xS6h1d4jEGIx3
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 08:19:17.1801
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b05259ac-b18f-4446-2261-08df2514d898
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	ZR1PEPF0000E463.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR08MB8166
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On 08/10/2026 8:30 am, Zenghui Yu wrote:
+> On 9/19/26 8:24 AM, Kiryl Shutsemau wrote:
+> 
+>> +		} else {	/* madvise */
+>> +			while (now_ms() < end_ms && !corrupted) {
+>> +				for (i = 0; i < nr_shared_areas; i++) {
+>> +					madvise(region + i * hpage_pmd_size,
+>> +						hpage_pmd_size, MADV_COLLAPSE);
+> 
+> I got the following error when compiling it:
+> 
+> khugepaged_race.c: In function ‘main’:
+> khugepaged_race.c:506:23: error: ‘MADV_COLLAPSE’ undeclared (first use in this function); did you mean ‘MADV_COLD’?
+>   506 |       hpage_pmd_size, MADV_COLLAPSE);
+>       |                       ^~~~~~~~~~~~~
+>       |                       MADV_COLD
+> khugepaged_race.c:506:23: note: each undeclared identifier is reported only once for each function it appears in
+> make: *** [../lib.mk:225: /data/code/mm/tools/testing/selftests/mm/khugepaged_race] Error 1
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+I've just tested with and without make headers on linux-next
+which has this patch and I've not received such error.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+If your system headers are old, running make headers can help.
 
-- [Medium] The RTL8224 text added to realtek,rtl82xx.yaml (preceding
-  commit "dt-bindings: net: realtek,rtl82xx: document RTL8224 packages")…
-- [Low] The new RTL8224 package example in realtek,rtl82xx.yaml
-  (preceding commit "dt-bindings: net: realtek,rtl82xx: document RTL8224…
+> 
+> Thanks,
+> Zenghui
 
---
-
-net: phy: realtek: support unaligned RTL8224 PHY packages
-
-This commit makes the RTL8224 driver take the package base address from
-the reg property of an ethernet-phy-package parent node, rather than
-always rounding the PHY address down to a multiple of four. The port
-index relative to the package is stored in a new struct rtl8224_priv and
-used to pick the MDI pair order and polarity fields. When there is no
-package node, the old aligned-address assumption still applies.
-
-> diff --git a/drivers/net/phy/realtek/realtek_main.c b/drivers/net/phy/realtek/realtek_main.c
-> index e14960192e791..91cf34d134202 100644
-> --- a/drivers/net/phy/realtek/realtek_main.c
-> +++ b/drivers/net/phy/realtek/realtek_main.c
-
-[ ... ]
-
-> @@ -2783,9 +2789,42 @@ static int rtl8224_config_init(struct phy_device *phydev)
->  
->  static int rtl8224_probe(struct phy_device *phydev)
->  {
-> -	/* Chip exposes 4 ports, join all of them in the same package */
-> -	return devm_phy_package_join(&phydev->mdio.dev, phydev,
-> -				     phydev->mdio.addr & ~3, 0);
-> +	struct device *dev = &phydev->mdio.dev;
-> +	u32 base_addr = phydev->mdio.addr & ~3;
-> +	struct rtl8224_priv *priv;
-> +	struct device_node *np;
-> +	int ret;
-
-[ ... ]
-
-> +	np = of_get_parent(dev->of_node);
-> +	if (of_node_name_eq(np, "ethernet-phy-package")) {
-> +		ret = of_property_read_u32(np, "reg", &base_addr);
-> +		of_node_put(np);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "Missing or invalid PHY package reg\n");
-> +
-> +		if (phydev->mdio.addr < base_addr ||
-> +		    phydev->mdio.addr - base_addr >= 4)
-> +			return dev_err_probe(dev, -EINVAL,
-> +					     "PHY address outside RTL8224 package\n");
-> +
-> +		ret = devm_of_phy_package_join(dev, phydev, 0);
-> +	} else {
-> +		of_node_put(np);
-> +		/* Without a package node, assume four aligned PHY addresses. */
-> +		ret = devm_phy_package_join(dev, phydev, base_addr, 0);
-
-[Severity: Medium]
-What happens in this fallback when an RTL8224 is unaligned and has no
-ethernet-phy-package parent?
-
-The binding text added in the preceding commit "dt-bindings: net:
-realtek,rtl82xx: document RTL8224 packages" says the package node is
-optional:
-
-  Its PHY nodes may be grouped under an ethernet-phy-package node ...
-  This address need not be a multiple of four.
-
-That text never says the package node is required when the first PHY
-address is not a multiple of four. So a DT for the Hasivo
-S1100WP-8GT-2S+ layout (chips at 1-4 and 5-8) that has no package nodes
-still passes the schema.
-
-For that DT, this branch uses base_addr = addr & ~3 with no check:
-
-  PHYs 1-3 join base 0, which is not part of either chip
-  PHY 4 joins base 4 with port_offset 0
-  PHYs 5-7 (ports 0-2 of chip B) also join base 4, with offsets 1-3
-
-rtl8224_package_modify_mmd() then does a read-modify-write of
-RTL8224_VND1_MDI_PAIR_SWAP and RTL8224_VND1_MDI_POLARITY_SWAP at package
-address 0:
-
-	val = __phy_package_read_mmd(phydev, 0, devad, regnum);
-	...
-	ret = __phy_package_write_mmd(phydev, 0, devad, regnum, val);
-
-Wouldn't chip B's pair order and polarity settings end up in chip A's
-registers? They would also overwrite the settings for chip A port 3, and
-nothing reports an error or warning.
-
-Commit 330296ea9e15 ("net: phy: realtek: add RTL8224 pair order
-support") says the swap "has to be set correctly for each of the 4 ports
-before the chip can detect a link". The affected copper ports may
-therefore fail to link.
-
-Could the binding require the package node when the first PHY address
-is not a multiple of four? Alternatively, could this fallback reject or
-warn about the ambiguous case?
-
-> +	}
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to join PHY package\n");
-
-[Severity: Low]
-This isn't a bug, but I have a question about the RTL8224 package
-example added to realtek,rtl82xx.yaml in the preceding commit
-"dt-bindings: net: realtek,rtl82xx: document RTL8224 packages".
-
-The only compatible on each child PHY in that example is:
-
-	compatible = "ethernet-phy-ieee802.3-c45";
-
-The schema has no explicit select, and its compatible enum lists only
-ethernet-phy-id001c.xxxx values.
-
-Doesn't that mean dt-schema never applies realtek,rtl82xx.yaml to these
-nodes? They would then be checked only against ethernet-phy-package.yaml
-and ethernet-phy.yaml.
-
-If so, the example never exercises the RTL8224-specific rules in this
-file: unevaluatedProperties: false, the leds: false rule and the vendor
-properties. A wrong property in the example would still pass
-dt_binding_check.
-
-This is partly an existing limitation. The first example has no
-compatible either, and cameo-rtl9302c-2x-rtl8224-2xge.dts also uses only
-the c45 compatible for RTL8224.
-
-> +
-> +	priv->port_offset = phydev->mdio.addr - base_addr;
-> +	phydev->priv = priv;
-> +
-> +	return 0;
->  }
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261005201540.913977-1-oskari%40lemmela.net
+Thanks,
+Usama
