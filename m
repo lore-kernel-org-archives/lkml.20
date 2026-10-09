@@ -1,65 +1,65 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22B723B47EF
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 07:33:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6452B479883
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 07:33:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791531221; cv=none; b=U74/vk/Embll/BT+uQmr/UrNE6i5NW5wErGeBfD2uNRUThm1+FFwON4qzQXHb51m6SnGJFPWabf6qj6pAAOFkgDMlCgyF29pQEnWuvc5c591noGxSZbXRP9Z2JEkDkDje8ZRX/S8PeOYyrYoj4F2L7/q+gHMlVTlObyXasgiql0=
+	t=1791531223; cv=none; b=WgpV55BSmnpLZJifruj4BCnrsWykhJNSsM4uYHaO9l4WDeIQGiTtH9Zr3IFWO5zEuSIo4Lb+LpKXeZKcOdOcbFDoeeMFzUYxxoAeoU97eUElBaD9drMAL4UXyXbnAGFG5ZsH+2xYGysV6zVm7Dbp+z3TrxPkKW0udhpu+RR3hEs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791531221; c=relaxed/simple;
-	bh=5mJcWpPhz5V4cVbv/UViMTOOd0qIceb8QnAN5ZLKMmg=;
+	s=arc-20240116; t=1791531223; c=relaxed/simple;
+	bh=8z/FFQnXOxdzl3p5tOL4cIwCDvHXyhm9zhyHQK545js=;
 	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ye4boiJVMHBYxaeRbQCFCcD/PE4l99CppeGOFip7s+JERk7VvwvvTHcW743jYw6xM7dRwWghdZSDp+NbS47GWk/3XJ5yK9sqt6ns+pfi/xIzhM/fW6+Y1Fhbc3m/5o32bW69mYuHk3Fq3XmEhuXiQo7WK0T047nyo4Y0bchCTt8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FqF0jwma; arc=none smtp.client-ip=209.85.128.45
+	 MIME-Version; b=KEexbZhjRUyng2/7VEWojEBxWNGHIwur2TNk/x3x7RdmdOeVkm/VgCU6m0SLPGDAJSnHgi6wAZBYWJ06qNb38gPlBvV0gkHVtgfQjAyubFmrgxLBcSV5gJBBKqH8IdI3d4PWhdjvpha8kXIMbUHrNVqEwq8Uq1fVSMCaJUxwW7U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VNZnLQKj; arc=none smtp.client-ip=209.85.128.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FqF0jwma"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4998b5a63e2so59227655e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 00:33:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VNZnLQKj"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a018792ab3so33939005e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 00:33:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791531218; x=1792136018; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791531219; x=1792136019; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=0GMj/PCcw0jRmoExFmKfgop12tPuP6GJMya0pF2cELQ=;
-        b=FqF0jwma4IP5kwzsKggDkN+pLFqQXtFGl0jp5cwO9x1Z+9bRm3sBM9yFNhl6OTLGvO
-         j7IP8+ewM33sDskMf9eEKtJYXzmQxaXL8k15yWBvRQooZXhBhWmWehYIQPWfxgEZcnLO
-         d2I3b7GN1fTvEkOy4InEbcILDxkS45HTE8MO0zZL/qO8+osqkDRfu5rWCiHaCyFrF2WO
-         I0AjMwFO52oczxLKH2xAEUkg03Wurgq8QS29rPDZywg8gbhbFBWuxaWHL8hLnPQ985KA
-         4BKKuu4MEjNsnI8It3UFdyiBI6IcIV8fDGU04B4FQmYhomHeRSDjNfNKWxg9AlP+y3jR
-         f20g==
+        bh=9zvsyCoSUSpU/kUBc5mwp1RR1hEpEUYd+NykVR8nqgo=;
+        b=VNZnLQKjUzqzxkjoMCZmEJW0eQw1o3ybivJINlKE4apI521cYMRaC+O9neZU4C15qK
+         G4+LNuFe11lR0YynWlwxXUlKvTTs6vhHt1jtI8vwoLhTTTN7Zv7mZFmoW/h66HdzHY/E
+         EuYSLiir0kwtYOjrw9kTIGRVda3pVtxXuisiuWnFp1TknJ1zM88gaZ7G7J4D6Qn95XgW
+         72fkbFxoas6FIhBuBT6qVAt121/tysaojjZl9x6GWXz7p/d8tY60UBANccbThlcVUUmf
+         yuNZOUweMXhriKNOSnGvSxkpgG+rhEoDKnDaJ5zsYvkFu7jWwqUh1hha/cB3mrldbP+c
+         PShg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791531218; x=1792136018;
+        d=1e100.net; s=20260707; t=1791531219; x=1792136019;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=0GMj/PCcw0jRmoExFmKfgop12tPuP6GJMya0pF2cELQ=;
-        b=BWpLRtj/1dHETlE8fvWiD1KNd/UwtP4X70VBE6s7eDjkz9H8G2pSnW9qmSw91FwQyB
-         EQ8EgsEhaF1coOc6jjleJy8iSTED+siqx5ma1NvTX9+TRc9h8s5r9gBvDuD4pw7dM5Ij
-         AgRkIWwmnxoVYU/OmirsfXX4bp8h/l2hf6hqSlcjZKMjYZ05fwFrc+dDJ+Jv0p1jRnnJ
-         zcBHxzUaD/eAOP55uehp24zvX4860vTpQ6Wv7DItsaUNCtycz/ECad4MHmZq3yxecG0E
-         CxWNeIllrw+IhhkRFuvIFslsA1zISl+94wnAcyTUL1b/1jltl0BRNMpADpt4i8DaooLM
-         tqnQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz99gI//9b2fSY21+NQ5WElj3kUN50syVoibvLdQz1bHMG3qVpga+awqn08yrvKysVuuAJeYmQHlnXsdw0=@vger.kernel.org
-X-Gm-Message-State: AFuF++n9cxMUQLEBeqh5E4Rv1IY2P9vIRzjC3J40M5poTGV5AJgyF7nt
-	qyUCKJ1YIACYCMK+NzBq0KASntOhAye2kdKT4yb1ZjtORaQuD/erLRcv
-X-Gm-Gg: AYBFou2fC0KUxJhT0yLfP2F1x+HTVKiqLljC/sWAi0vUoCqIiF0hHP3fwreEQyLBZLh
-	tglQB8GsBTiHN4G2qRfxeCvDB0mkSNybpAXMwQBP+JIyvAVuwKuNeZ4vrTh2e3DAu2gqJjco77/
-	lPWKvtFApyjDSUgZNeNjf0uBA+us+5I6fvHDO0vnWaAJSHrTGBgPSMBR6qLO1fuKPvvUupzNn9n
-	I60CrI/QFH5w0jlFCP2KEgIlF22CKofErbm39Zqufv1t0bEwgVP5HWgL80b2O/L7QXvfFa9/nYY
-	0RxJxPBFNKe6Z7+f3PKup7FDJ/snIWKRsgvPgR1MuGA12oRJfMp8oXTNNYmn6TciMsP834XWtEv
-	3aX5L/X6DIoFzV59kRPRhl1MO0scfk56XSYZc17tU1gjn/87ZCLtpgqIBABFWif5/euQ+Sf4YGw
-	OlFZDCP2p0ugc7AdVbhQtRClxWatdh4JWUI6imFjKocCI5W4XxAl6gAWFwKdSHhs4Xu3JxoVmGz
-	t9a+qHfAStCek2wRx11ZfSUIAVItec82dfR9UTerixhudXaEbbn1D2vIlxGiaX+VwyO+Q8PnpdE
-	3LVY+IiMkARkiHAUUQ==
-X-Received: by 2002:a05:600c:198c:b0:4a0:1c0e:b136 with SMTP id 5b1f17b1804b1-4a18e4cdbfbmr17253525e9.29.1791531218222;
-        Fri, 09 Oct 2026 00:33:38 -0700 (PDT)
+        bh=9zvsyCoSUSpU/kUBc5mwp1RR1hEpEUYd+NykVR8nqgo=;
+        b=yQPpXXzlnGH0dZNq11Ht5QGIyedB9l2Hk3orVtZW4kCu4T2OU3FTIZhhtGATaQBcg3
+         VA6+QNQFbYdckU7jzar3m7MAwUK1PmuTqaE9Hg8cX6cSbAuXJobAEYsRaxPh0Qr2N7m/
+         ckjyOESjCPENMNvhGiwMoVVDRmIX1ytQBGyN2tQo1JY8RMmuGBgqxkNeXFTIYd+Hia7w
+         WmQF1YtYGRuGPM0hHDf3fvmwOsZcFfJauycwYyahrSJ+umamISj/vaucQQVAUgzbR/n6
+         rk78ALc6cwyTz/yzW4t6uy3jXobMWT6egyVOoZu72bDJV2Rjn000L4LM0VSbR5qyPCve
+         HXNQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxj/iJ6j3o2q7eR0d8f/pqHAFbYO6C34zund7i6E98RrFmI19URPJwPo1keDHYljjuY0TAk66+0vv40BYQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lCn9squY5tIxWO2jZqupB0HH7IM5gFkJhYjl9AV4/cPfSicyzL
+	5MIf0bDOA5CPdsRG2vB2MfpBMBITGIQa9TY9g0FvizqrfHvlnIm4Rn5H0k2qWQ==
+X-Gm-Gg: AYBFou2iphrjFHIHpmd99MfyvOxuOP7VmUSh8/dP9ToqlhHmn5TGma5bDrewUJ9MV9C
+	cz2+ue8PdT9aVWM1uu3+IShUUFig3I0CzEspyPKZgGn4AOQWvtfGKTDKD5t0XgI2ecFFJBmUGom
+	eWqebnu7DHwlcaWmWP3m06jPomQ4z4H2RaXUxGbjwUlVUsnqow2JiL4dmEfILMeN8592t7au38I
+	OeeYac/1yUiGPW/wLz4RTKoDrp1I16ZM2egtAkU7I2nrwafy+EQZLvwDrU2CDWFn7ozAj0OYLYg
+	M8pcQFMeqkYttMaJ6pxwRlpMLnWoQ7ZqvYV1Mg2l7HsVRLsrfru58DAZjj1yKTFEzpWrldLuiMD
+	EYaccWrhSlogSdtpglaw6QO2bUqOsgUNQJMLbkXG4HjbrhEDcIXEQSDvh9Pa0+2RyYXg1PJGEMQ
+	+mXHNlI5iXzweVzE0wYnxLmFK+7UPmF7JBc+MWZKnLP4ta95fso2U2xDmnP2+CYhczCch7Ixw3B
+	Pb7epmEC0koonBwxYlOsmxm4w+3BQ5HqeXGqj4Ybyem+XTSxnrlaKX0OcLPkR9CMz8SDrby+G6d
+	HKGRG+EYJpwU4wPrMOA=
+X-Received: by 2002:a05:600c:3111:b0:4a1:811c:8069 with SMTP id 5b1f17b1804b1-4a18e49d640mr16841015e9.8.1791531219347;
+        Fri, 09 Oct 2026 00:33:39 -0700 (PDT)
 Received: from Ansuel-XPS24.localdomain (host-213-45-9-252.retail.telecomitalia.it. [213.45.9.252])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a18be96549sm55116365e9.6.2026.10.09.00.33.37
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a18be96549sm55116365e9.6.2026.10.09.00.33.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 00:33:37 -0700 (PDT)
+        Fri, 09 Oct 2026 00:33:39 -0700 (PDT)
 From: Christian Marangi <ansuelsmth@gmail.com>
 To: MyungJoo Ham <myungjoo.ham@samsung.com>,
 	Kyungmin Park <kyungmin.park@samsung.com>,
@@ -71,9 +71,9 @@ To: MyungJoo Ham <myungjoo.ham@samsung.com>,
 	linux-pm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/2] dt-bindings: devfreq: Document support for Airoha Subsystem Scale
-Date: Fri,  9 Oct 2026 09:33:28 +0200
-Message-ID: <20261009073330.18175-2-ansuelsmth@gmail.com>
+Subject: [PATCH v2 2/2] PM / devfreq: add Airoha SoC Subsystem devfreq driver
+Date: Fri,  9 Oct 2026 09:33:29 +0200
+Message-ID: <20261009073330.18175-3-ansuelsmth@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261009073330.18175-1-ansuelsmth@gmail.com>
 References: <20261009073330.18175-1-ansuelsmth@gmail.com>
@@ -85,143 +85,167 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Airoha SoC contains multiple subsystems that are scaled to a
-specific OPP taking the CPU clock as reference. Such subsystem
-can enter idle or performance state based on the system load
-and power consumption conditions.
+Add simple Airoha SoC devfreq driver. This simple driver register a
+driver from a given clock and register a passive governor to scale the
+frequency with the CPU frequency.
 
-Example of such subsystems are GSW (Gigabit Switch), NPU (Custom
-Risc Co-Processor for Network acceleration), SOE (Crypto Module) BUS...
+Each subsystem is scaled to idle, nominal or turbo state based on the CPU
+frequency to reflect the performance state required by the SoC.
 
-Document all the required property and provide examples for the various
-subsystem OPP + subsystem scale nodes.
+required-opp on the CPU frequency will be used to correctly bind the
+clock to the related CPU frequency.
+
+GSW, NPU, SOE, BUS and many other clock will register this devfreq
+driver to scale all these internal peripheral  from idle to performance
+mode.
 
 Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
 ---
- .../devfreq/airoha,subsystem-scale.yaml       | 114 ++++++++++++++++++
- 1 file changed, 114 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/devfreq/airoha,subsystem-scale.yaml
+ drivers/devfreq/Kconfig                    |  10 +++
+ drivers/devfreq/Makefile                   |   1 +
+ drivers/devfreq/airoha-subsystem-devfreq.c | 100 +++++++++++++++++++++
+ 3 files changed, 111 insertions(+)
+ create mode 100644 drivers/devfreq/airoha-subsystem-devfreq.c
 
-diff --git a/Documentation/devicetree/bindings/devfreq/airoha,subsystem-scale.yaml b/Documentation/devicetree/bindings/devfreq/airoha,subsystem-scale.yaml
+diff --git a/drivers/devfreq/Kconfig b/drivers/devfreq/Kconfig
+index c999c4a1e567..e8ea0c0af319 100644
+--- a/drivers/devfreq/Kconfig
++++ b/drivers/devfreq/Kconfig
+@@ -75,6 +75,16 @@ config DEVFREQ_GOV_PASSIVE
+ 
+ comment "DEVFREQ Drivers"
+ 
++config ARM_AIROHA_SUBSYSTEM_DEVFREQ
++	tristate "Scaling support for Airoha SoC Subsystems"
++	depends on ARCH_AIROHA || COMPILE_TEST
++	select DEVFREQ_GOV_PASSIVE
++	help
++	  This adds the DEVFREQ driver for the Airoha SoC Subsystems.
++
++	  The driver register with the cpufreq notifier and find the right frequency
++	  based on the required OPP set in DT.
++
+ config ARM_EXYNOS_BUS_DEVFREQ
+ 	tristate "ARM Exynos Generic Memory Bus DEVFREQ Driver"
+ 	depends on ARCH_EXYNOS || COMPILE_TEST
+diff --git a/drivers/devfreq/Makefile b/drivers/devfreq/Makefile
+index 404179d79a9d..31cdfe8fb704 100644
+--- a/drivers/devfreq/Makefile
++++ b/drivers/devfreq/Makefile
+@@ -8,6 +8,7 @@ obj-$(CONFIG_DEVFREQ_GOV_USERSPACE)	+= governor_userspace.o
+ obj-$(CONFIG_DEVFREQ_GOV_PASSIVE)	+= governor_passive.o
+ 
+ # DEVFREQ Drivers
++obj-$(CONFIG_ARM_AIROHA_SUBSYSTEM_DEVFREQ)	+= airoha-subsystem-devfreq.o
+ obj-$(CONFIG_ARM_EXYNOS_BUS_DEVFREQ)	+= exynos-bus.o
+ obj-$(CONFIG_ARM_HISI_UNCORE_DEVFREQ)	+= hisi_uncore_freq.o
+ obj-$(CONFIG_ARM_IMX_BUS_DEVFREQ)	+= imx-bus.o
+diff --git a/drivers/devfreq/airoha-subsystem-devfreq.c b/drivers/devfreq/airoha-subsystem-devfreq.c
 new file mode 100644
-index 000000000000..2cf7f23a926c
+index 000000000000..4b89121f7b8e
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/devfreq/airoha,subsystem-scale.yaml
-@@ -0,0 +1,114 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/devfreq/airoha,subsystem-scale.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/drivers/devfreq/airoha-subsystem-devfreq.c
+@@ -0,0 +1,100 @@
++// SPDX-License-Identifier: GPL-2.0
 +
-+title: Airoha SoC Subsystem Scale Driver
++#include <linux/kernel.h>
++#include <linux/init.h>
++#include <linux/module.h>
++#include <linux/cpufreq.h>
++#include <linux/devfreq.h>
++#include <linux/of.h>
++#include <linux/platform_device.h>
++#include <linux/clk.h>
++#include <linux/slab.h>
++#include <linux/pm_opp.h>
 +
-+maintainers:
-+  - Christian Marangi <ansuelsmth@gmail.com>
++struct airoha_devfreq_data {
++	struct clk *clk;
 +
-+description:
-+  Airoha SoC contains multiple subsystems that are scaled to a
-+  specific OPP taking the CPU clock as reference. Such subsystem
-+  can enter idle or performance state based on the system load
-+  and power consumption conditions.
++	struct devfreq_passive_data gov_data;
++};
 +
-+  Example of such subsystems are GSW (Gigabit Switch), NPU (Custom
-+  Risc Co-Processor for Network acceleration), SOE (Crypto Module) BUS...
++static int airoha_devfreq_get_cur_freq(struct device *dev, unsigned long *freq)
++{
++	struct airoha_devfreq_data *data = dev_get_drvdata(dev);
 +
-+properties:
-+  compatible:
-+    const: airoha,an7581-subsystem-scale
++	*freq = clk_get_rate(data->clk);
 +
-+  clocks:
-+    maxItems: 1
++	return 0;
++}
 +
-+  operating-points-v2:
-+    description:
-+      OPP table of the related subsystem supported rates that referenced
-+      clocks will be scaled to.
++static int airoha_devfreq_target(struct device *dev, unsigned long *freq,
++				 u32 flags)
++{
++	struct airoha_devfreq_data *data = dev_get_drvdata(dev);
 +
-+required:
-+  - compatible
-+  - clocks
-+  - operating-points-v2
++	return clk_set_rate(data->clk, *freq);
++}
 +
-+additionalProperties: false
++static int airoha_devfreq_get_dev_status(struct device *dev,
++					 struct devfreq_dev_status *stat)
++{
++	struct airoha_devfreq_data *data = dev_get_drvdata(dev);
 +
-+examples:
-+  - |
-+    #include <dt-bindings/clock/en7523-clk.h>
++	stat->busy_time = 0;
++	stat->total_time = 0;
++	stat->current_frequency = clk_get_rate(data->clk);
 +
-+    npu_opp_table: opp-table-npu {
-+        compatible = "operating-points-v2";
++	return 0;
++}
 +
-+        npu_low: opp-400000000 {
-+           opp-hz = /bits/ 64 <400000000>;
-+        };
++static struct devfreq_dev_profile airoha_devfreq_devfreq_profile = {
++	.target = airoha_devfreq_target,
++	.get_dev_status = airoha_devfreq_get_dev_status,
++	.get_cur_freq = airoha_devfreq_get_cur_freq
++};
 +
-+        npu_high: opp-720000000 {
-+           opp-hz = /bits/ 64 <720000000>;
-+        };
-+    };
++static int airoha_devfreq_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct airoha_devfreq_data *data;
++	struct devfreq *devfreq;
++	int ret;
 +
-+    emi_opp_table: opp-table-emi {
-+        compatible = "operating-points-v2";
++	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
++	if (!data)
++		return -ENOMEM;
 +
-+        emi_low: opp-400000000 {
-+            opp-hz = /bits/ 64 <400000000>;
-+        };
++	data->clk = devm_clk_get_enabled(dev, NULL);
++	if (IS_ERR(data->clk))
++		return dev_err_probe(dev, PTR_ERR(data->clk), "failed to get clk\n");
 +
-+        emi_high: opp-540000000 {
-+           opp-hz = /bits/ 64 <540000000>;
-+        };
-+    };
++	ret = devm_pm_opp_of_add_table(dev);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to parse fab freq thresholds\n");
 +
-+    bus_opp_table: opp-table-bus {
-+        compatible = "operating-points-v2";
++	dev_set_drvdata(dev, data);
 +
-+        bus_low: opp-200000000 {
-+           opp-hz = /bits/ 64 <200000000>;
-+        };
++	data->gov_data.parent_type = CPUFREQ_PARENT_DEV;
++	devfreq = devm_devfreq_add_device(dev, &airoha_devfreq_devfreq_profile,
++					  DEVFREQ_GOV_PASSIVE, &data->gov_data);
 +
-+        bus_high: opp-300000000 {
-+           opp-hz = /bits/ 64 <300000000>;
-+        };
-+    };
++	return PTR_ERR_OR_ZERO(devfreq);
++}
 +
-+    gsw_opp_table: opp-table-gsw {
-+        compatible = "operating-points-v2";
++static const struct of_device_id airoha_devfreq_match_table[] = {
++	{ .compatible = "airoha,devfreq" },
++	{}
++};
++MODULE_DEVICE_TABLE(of, airoha_devfreq_match_table);
 +
-+        gsw_low: opp-200000000 {
-+            opp-hz = /bits/ 64 <200000000>;
-+        };
++static struct platform_driver airoha_devfreq_driver = {
++	.probe		= airoha_devfreq_probe,
++	.driver		= {
++		.name   = "airoha-subsystem-devfreq",
++		.of_match_table = airoha_devfreq_match_table,
++	},
++};
++module_platform_driver(airoha_devfreq_driver);
 +
-+        gsw_high: opp-500000000 {
-+           opp-hz = /bits/ 64 <500000000>;
-+        };
-+    };
-+
-+    npu-subsystem {
-+        compatible = "airoha,an7581-subsystem-scale";
-+        operating-points-v2 = <&npu_opp_table>;
-+        clocks = <&scuclk EN7523_CLK_NPU>;
-+    };
-+
-+    emi-subsystem {
-+        compatible = "airoha,an7581-subsystem-scale";
-+        operating-points-v2 = <&emi_opp_table>;
-+        clocks = <&scuclk EN7523_CLK_EMI>;
-+    };
-+
-+    bus-subsystem {
-+        compatible = "airoha,an7581-subsystem-scale";
-+        operating-points-v2 = <&bus_opp_table>;
-+        clocks = <&scuclk EN7523_CLK_BUS>;
-+    };
-+
-+    gsw-subsystem {
-+        compatible = "airoha,an7581-subsystem-scale";
-+        operating-points-v2 = <&gsw_opp_table>;
-+        clocks = <&scuclk EN7523_CLK_GSW>;
-+    };
++MODULE_DESCRIPTION("Airoha Devfreq driver");
++MODULE_AUTHOR("Christian Marangi <ansuelsmth@gmail.com>");
++MODULE_LICENSE("GPL");
 -- 
 2.55.0
 
