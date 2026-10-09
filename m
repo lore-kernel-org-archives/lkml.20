@@ -1,276 +1,176 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010047.outbound.protection.outlook.com [40.93.198.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B3994E50A7
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 15:11:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791558691; cv=none; b=oqLOJr4P6RpI7ZFK3AnTStq0O3Y9QuKbg/cd8twWVd1j2gLQvFPSW6dZQ6KXz9sETOo0N8AIOLr5xJkPwDaOZrfrXX6Py5oKwn2N0UKOa7uRVPOko1XxTfsreHX1RVLk3rVJ2OZ0OEjK/UWkBAXCiUDc1jxArIKBJVNyuxy+ioM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791558691; c=relaxed/simple;
-	bh=CWQ8/i2hnWz9mwtHhRbUBlfXDq/qLQBYT+2/sqfdVJE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mTgOfK4dq1qKXrefgKzVjN97XhjCsqnMkuSLEk8BF+qIBH4G8MqvN25VOMjel61wNFXVXzZL3pQUKhZgl3cXlX0Xis//OUxn5KPDjUdZG9WcC7E6YWD1UbzIJtZ3k2azeUCEq7vC4QS3xG5BqgrT+11+imT9ECwQKWAlZIYCEK0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ADL/kRLg; arc=none smtp.client-ip=209.85.216.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39FBE3A4F47;
+	Fri,  9 Oct 2026 15:12:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791558748; cv=fail; b=ogPQ9GgK5vm/2iXt26Wjnm9KIyrl87JP6AMmVt3cOFZvKgK1ExZSL7AYt/89jy55pWfWc4/Om4xI7V05W1cHya94f9wwwkCSP1A7ci/IlcfKjIQMVHDl8GxLXGe7/joti6ekAgNYn93vevTpd/NilBNG6oD9toTR/HEwzwHJsb4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791558748; c=relaxed/simple;
+	bh=Kd13XS+IllmUs726NETAM+SvNho3gyNBS1N718i+SEU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=dQ+9I+tiUudBDrtXQ/D9sM2RglQaUw3QJiv7H8UGrBlEhlSYbSmdgjXiGW8FVKYBtlXlQ+MfWlZIGWfuVETxyDpuHnazKrE1xJb3a2PuRyjes5fAjBiuRb2QGBbLV3tEicgjziS7DWWD2668gT8fKz1x2oSbMEQQI2DW7AbsZcc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=P9YP7wr8; arc=fail smtp.client-ip=40.93.198.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ADL/kRLg"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3856d6fbcb3so3580469a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 08:11:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791558689; x=1792163489; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=tI0FBjJw5y4gdtGFwBDX98lJORYRvSjv3jiqMKoW3vI=;
-        b=ADL/kRLgxYvb2vmXo6ektfonSXfo7q/3fQUxvDoRarNQ4Oqmeh8QJOrtr81/+RPgm7
-         YbYhy1Hd6+j87jiY/kmVXa10jfutcD92Q2RvNsZRQZysXSRiDVcvwlwB98eqLtkY1y5I
-         D8TnLlCop7nowO5BRce68uOb09VVp/GBa1GXpoPccej9QdrqynrqoDSH9geCx+0XB94Z
-         fY5hVDWQj0LRxPAxZCm894J2RgirkZUaSSqC6Q2GwUpZBt0zn7JCZ8QFcYfA9N1DO71x
-         Qz7BtOranTwMhmGqWzItlsFp7mU6yKCuEhk/nfIQS7+k8Aya7wZC0ltJmc3LFUAABTcz
-         46Ww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791558689; x=1792163489;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tI0FBjJw5y4gdtGFwBDX98lJORYRvSjv3jiqMKoW3vI=;
-        b=Z7YgK2xFC0CtirCH4dpLiJt5Utdmx65fEdC8FdgK0ayvcS6qbyaNu13gZxlbBPQSHa
-         tURDilQyxSpCM8jnBS3dKWAH3YG7UfGSY8KrlcR3/dCsD3AHJzA7gB35oAy38NpYU3VU
-         4vLw8ReL8VMOx+NprZO8UlBtQZhIzbFfeQFXfAb6AcL8yKo9o6ofDlvIHOQzRosNiLDC
-         x/63EnliLK3BixRHcrsmZMt1nf3vjIn5rdoD3+uoWE5ZD030oMTSOshcl7aDtcBWIs2M
-         lH8i1U/aPcoPqxp/T7TTTanUiKS6wlcul7oh+Vd8D0OcEcapfMMTjr0fIMUJ3TV4ZNsx
-         DgAA==
-X-Forwarded-Encrypted: i=1; AKwUvBzCW43xz3TDWDH5lJrbn3C0Vff/XuzcjbPcNGAZCPQjpV5opqVJxA9znlgXso3INtXdG3p/QGpgFALlTBo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLvQH8x+nHm/uDayrgHjV3WvH4uXKJp9TtZeW38XoXiGZNNwFiV
-	q+eX9I46HX0GXv3sM7KJbI8GUrzT3JYT7l7i3gRxigSUpnk5zbH6YQZmaLZ/7fls4lE=
-X-Gm-Gg: AYBFou3aCo4LCZL/syKKvuF1NRfNUlEEfCH13dqL8VH+NBj25nn6R/8JZw3sdf6btsm
-	9qrPeNRq6v7ktnTKLpM6GxMiG4u9njs24aRrKNqTYJUS/Q3c6le23+PperiU+lNG0OV8v3hkW9Y
-	01siYjwe+pH2lzyvd0b3BSRGGC1FXMsrV0wKVOF+bAVi5c60eV6ZbDgsM2TWHH4DgQU2mYdkgNW
-	VR5LOuZxexLl0ULD/wBuArHPLVLmCllTmFo0uHbyCm0MsexIlGXv6ZCAA4geUg62/fYGbO59wCV
-	CXIqAteseLuK0Vfae+NiGy7kwDKYTW2x1x2wK/YXuuwUDlsNc4LYCOposQYkav42CZrfXmbhJab
-	ZAyLlit8OIq1jYrAWkpe2JJov3/PsrRVsZXO6V4sSXnNbBqG9UoisVK7lqBr8a+HhEBct2k18x5
-	Auoa5ot0JqR47cXKkh3zXxu8OsrsUZTTwktOxRHJ3N5Yyx6QIxMNejTY5il6Bq7GoNPuNzaqw19
-	Q==
-X-Received: by 2002:a17:90b:3145:b0:3a8:86d6:aab2 with SMTP id 98e67ed59e1d1-3ab3a99b883mr2053681a91.63.1791558689150;
-        Fri, 09 Oct 2026 08:11:29 -0700 (PDT)
-Received: from p14s ([2604:3d09:148c:c800:9f78:f82f:d05e:99a4])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3da05caaesm1117345a12.32.2026.10.09.08.11.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 08:11:28 -0700 (PDT)
-Date: Fri, 9 Oct 2026 09:11:26 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Yonghao Zhang <hyz3367@gmail.com>
-Cc: andersson@kernel.org, linux-kernel@vger.kernel.org,
-	linux-remoteproc@vger.kernel.org
-Subject: Re: [PATCH v3] remoteproc: core: Fetch the auto-boot firmware only
- once
-Message-ID: <askEHoKkTrrmG46N@p14s>
-References: <ar0lvsu80miGJdGS@p14s>
- <20261001081056.38293-1-hyz3367@gmail.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="P9YP7wr8"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=v0R1n/yZLC9dbHmv/CJ9OJCFeUosYtJvY1vlZh4zL8jWAC1qlPXXo7SyyjXKO8/Cyk49bK7/Ba1PFe8GJrvPpX0n6mZY6tP3P391PZVbreBW+6SiFp+kfEWvVxM5KYFG1xP3Xr8Y6YLSVe1Ix15mbiRyldmQiAVo/vNkCytruayTaCa61RaWXRhT3i6524Plz1dW5+HG/UNhlmPEAfUFlsXlSrOqerVeCFScukq4n4JgD9W+k2fk57+YY1zTSJ36RqqcD8IaIGrGHDOFNdzU1VjFWNvO0o6eQLZJ/HBLXuD0pSTPhu/4Mkgs+rm+i2bGsAFMavvw+K5P/l8/rv8CFQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=s8cFf4svrcpxlLMnNwcZASzpsorFHskhSLjkniJWG9c=;
+ b=Jmt8DzTE5tbNpbxGqOW+UHk+0Bq7pMDW9PL/c15NEVceP77Vvs/J0f5VJ3XNzUrmnkFnvwqoaVawQzs5BN9QnwCSL+py4ibe1LsIjAotoQ0M0/7VLMhTUNnQhKFLBM4GdFLXsDOKD0xPN5DibdKWoJIyHn5uU7qY9rq8jjRyZrsR8gudJ15do1JqMA8XWd03bSyx6m9Xt6A+iSMH6qa572c5m4+O6BHMtg1gqxOnQzptYbY9ku4gCLxxfiXT/bLDTJ/xZeVUzWcXHd947mkSerJM4uRAX9oXxbFJVg8U+QqyK4bgBJmwd952hva/xFS2rqhH0ocN3mnfl27WxjEVvQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=s8cFf4svrcpxlLMnNwcZASzpsorFHskhSLjkniJWG9c=;
+ b=P9YP7wr8ajx/tz4U14en3YxUrfxPcY46mokH41niKHVq8qSf14DAyciYpKZB8ke4Lk0JzBG7SmDYLyasbTKPKBYpL8QbnyM8AOkgwkL/2v4NTBbVDU7J1ioOtIK8kq2Zv/927SuqFtPmnceUzOfJ3vRjkjPxFWcSNeLM581i04I+cfLNntcIJNk8hZcrzQDSd7HxRfXvigJIf1PrzEI9X8HihOoJL1Jpd2PazMTLZ+y5Vx3xrCGthKnGJxMVkGLIlCFSlv4grildXEb2doYDCbrd0YokFBPLkmon4rfGafrSbpkVHkdxjORCK9WEgirKClQzIFnF0fSCdNyl6xflpA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL1PR12MB5174.namprd12.prod.outlook.com (2603:10b6:208:31c::19)
+ by SA1PR12MB7344.namprd12.prod.outlook.com (2603:10b6:806:2b7::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Fri, 9 Oct
+ 2026 15:12:16 +0000
+Received: from BL1PR12MB5174.namprd12.prod.outlook.com
+ ([fe80::58de:822b:868:96e9]) by BL1PR12MB5174.namprd12.prod.outlook.com
+ ([fe80::58de:822b:868:96e9%6]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
+ 15:12:16 +0000
+Date: Fri, 9 Oct 2026 17:12:05 +0200
+From: Andrea Righi <arighi@nvidia.com>
+To: Shrikanth Hegde <sshegde@linux.ibm.com>
+Cc: Mete Durlu <meted@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Tim Chen <tim.c.chen@linux.intel.com>,
+	Chen Yu <yu.c.chen@intel.com>, Ilya Leoshkevich <iii@linux.ibm.com>,
+	linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
+Subject: Re: [PATCH RFC 0/2] sched: Introduce idle SMT priority for
+ asymmetric capacity systems
+Message-ID: <askERc5Xa9NhAfk_@gpd4>
+References: <20261008-hiperdispatchfix-v1-0-73fe41081070@linux.ibm.com>
+ <aseIPhrDGCYFtJNE@gpd4>
+ <90454932-1d82-450a-ac4c-499acdedb9d7@linux.ibm.com>
+ <ffbeae31-0e93-4386-8e0e-dba13960b283@linux.ibm.com>
+ <cc926e51-7223-4d3b-9896-3ed8955b584f@linux.ibm.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cc926e51-7223-4d3b-9896-3ed8955b584f@linux.ibm.com>
+X-ClientProxiedBy: MI1P293CA0022.ITAP293.PROD.OUTLOOK.COM
+ (2603:10a6:290:3::19) To BL1PR12MB5174.namprd12.prod.outlook.com
+ (2603:10b6:208:31c::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001081056.38293-1-hyz3367@gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5174:EE_|SA1PR12MB7344:EE_
+X-MS-Office365-Filtering-Correlation-Id: 932284a5-358e-4312-f695-08df2617b419
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|7416014|366016|1800799024|18002099003|22082099003|3023799007|4143699003|11063799006|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	8v0PPMPIgf59pQw1tIulNiDCih1pQR+ZywQlJfEoma1TM398FjpPbHNZhdYbchSLbgrpbZoUJ7FYkR1Kl7FFJRQjqtD28Vu5RHYFgg0E6UiFPalC644ewyGLOE71rBEDKrd/FVlxHb3IPs3eBF9sKNovkjo4Crd4Y5mi/eeAkctbDmhoDZ8BQxqjcspM2ksYqZ44BIUlqkrL/cDm54keLU5oJ9L9fk+jf7oCHHKyn953byFXxmGZ2eF5ZKhCO5fHz6/FACArF2eRZ4JaM2jEx1eO1DDMKpj2ERsfAOcLLutHEtKX/ScOCJCxqkqF4Mg0xHn/T1Kx01AXjEz1uVtffEOY0GQnCzb8mBRIvUnG+pxZV64fVj4FwepBWDOe9h2KKk9vEM74HGAOvyKUYZxLFalqLHEtWU2/RYA7iuAqfsi5rWJPUhOyEWcAnxlsrTzTPkGEk/P+0EjiNszOguTJQkU/FnT/gGLHIjHU62c1/UPvLoR+6ZBLEd7E98Pk5RkldST/p5uWaRBJVLw9DffamPoz0HdDkeFvvRePeJ2xaqMRitwx3vzC/axXRX8IBK3yK2CvbS40Qbrhlgp+zTO1FmW67/pO3E3iEJzn9STNAxlsAfD/2VK1/E6Ery+zUTWHrxNabg3JTKGJEoKSypkMlDgbkGLhaDn1zgpwSF9H6LA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(366016)(1800799024)(18002099003)(22082099003)(3023799007)(4143699003)(11063799006)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?+wb3SqGTeLCiKiOEkUveesaIbWHMPA5/6t5H6WPZhIcOukiN0BT6DU0Lw31J?=
+ =?us-ascii?Q?ZfNTp5ghcj6KCgK/0n1hV93A/kgKOKDyli36oBLEreG9SRCy1bA5gx6s2lEJ?=
+ =?us-ascii?Q?MNnj2umNSK+YJnQ1SagpCwDymYvXjevRZfdPrrpr69uXF5s3EnTVwoBEELlv?=
+ =?us-ascii?Q?/cOm5C0Vi/desYDc6ViWZidhM+ZE3mvVbLLT/HnTScuAgBSwL13eFg33Q4AP?=
+ =?us-ascii?Q?A66Uo3hf9ZsOvGY0yZXiKOeiVwkFX4PEn83rXReyI4GPuzbPXHbJzlZpg9dH?=
+ =?us-ascii?Q?NYMng6ZgZQvO/NHGorgA0UQlfnQssqBvToBUtcR3Fi+Euq0IA3D7TQGypulJ?=
+ =?us-ascii?Q?oSbYRQHUqedkbAHS3a6k8JQK2VnVnsZDuCNsWmZK84hFUBZ3dOXywTnHF2/k?=
+ =?us-ascii?Q?igOYepE2KTyNrLd7SSK8FLLyclVszKSsKTWb2YNc8EL3YXQnO1hi7BNu2eGT?=
+ =?us-ascii?Q?1ifxTfst+qW/MrMzQ1+vO9FaLzp1G4zoMqHSNANHnKQrMFpTfpa3zy1Pn8ho?=
+ =?us-ascii?Q?ZT6+b4lXZIWQUuYwITjOuEjj/oj1cygCpHNlIWje4E1BayY7UJPDSJVxNEz0?=
+ =?us-ascii?Q?5uRT7ZlivPG8hDZmYU8cTSg85OMl1yZfEPsO7rRw0Zdmsmr7VVQ0JdmR4c9e?=
+ =?us-ascii?Q?UY+hNTQSv52kgM62uNtDLptu6Kro5SDR6jCCUP8HA6tbr34ce1MGakh81qsT?=
+ =?us-ascii?Q?MTtPOt3iPALmdHjfHehiBIR2mwuqW8lvGTB27JRotrlUKBDi1Bxf3hiDIlv6?=
+ =?us-ascii?Q?LxGbxZBm0PFcp4I+FiBeivZ9/ql7WUnFoAnj5AxUhI6xis11/EgJqIm6cCr0?=
+ =?us-ascii?Q?JeU/cKql/U/p5zVZzCBRLY+nVyza7U5PfWy7DZ9xtZxEHiZ+mYqvvqQOf7SR?=
+ =?us-ascii?Q?PE3vPSqBNWebSiCLRjKBzbXfngeOGldh1nwFra5+yCt93eNvRqw+cw1G8PI8?=
+ =?us-ascii?Q?016Bw+11aso6dPWJHTlnAfLWmK98+oPzpiy74TA26z2ijAknH/tfO6c+Zoz/?=
+ =?us-ascii?Q?t6xy+W/Zr+2o2ihJE3ejZk7OaU+gZbOxY/giRBijxU26DFAJWg+E05nHNBpb?=
+ =?us-ascii?Q?LSOXFmKxbdpmhupebdEtjZJ1iT3nCuWaUgMoBUA5h9Fq8mFBAWwRoaSW746v?=
+ =?us-ascii?Q?P2gKpKCWnbS6jC+AEv8PZotBc08aE14W6UfzXF2cvLXfb7TGOMaTBm89Ek+b?=
+ =?us-ascii?Q?mbAvb2pHeDi+7xdkLtcO6Zemky7IfjWh39v+kEgZGPwz2hWIzo/uMvpbloPD?=
+ =?us-ascii?Q?EPoSmk28afEV8AEUg5fXSkvdrEvbPvKhDMlUlnKqbUcrGx82Fs0AY0LRKnS6?=
+ =?us-ascii?Q?oYcEJjHtHDdby+x65byBxh8vlP8ddFGNefjqib2C2wlg4Tt0ccBqDX+UQjHU?=
+ =?us-ascii?Q?3rI1mvCO4Hu68iZZ4Y563kArLOUVPzdG5p54U8Po61NdjFLgaxQssizzmLm0?=
+ =?us-ascii?Q?qxD8EQpFFQeLFyNJHH73h4fi/n44rCp7di5elsF4RcaYIl6q2Bqn4in9/pKq?=
+ =?us-ascii?Q?H16v3V74ObFh2ZtTneDkLwFuiAepL30bpkuyzTJfyZ3nuCz/M/4XMaK38GhG?=
+ =?us-ascii?Q?OvE5dZvEyVCbmMjm4G+Z7av9nH7tbzbzlSDjm7pUiLdIvPKF/VUAH3Hv2rWb?=
+ =?us-ascii?Q?6IMBiKFqYU+gKVTfwZx2+ivTgsZtrhbFjYfaaSEkYuBejfWEuR1us8nDyG1F?=
+ =?us-ascii?Q?eQhW2rds8MYu2/T5mi6sbKZzu03McoiwRDCsjW0ieBB2eascVDfPWhqUQzrn?=
+ =?us-ascii?Q?9x8/DWg6xQ=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 932284a5-358e-4312-f695-08df2617b419
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5174.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 15:12:16.1531
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: uHoHf1vR6cJ+QbUSFmnY/w7CEYhrZ7F4CqGMeDRYFBfEq9fpLF6C8OFV7RGGNues43exK0jC48Xbq/c4MOplag==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7344
 
-On Thu, Oct 01, 2026 at 04:10:56PM +0800, Yonghao Zhang wrote:
-> Auto-boot for an always-on remote processor registers an asynchronous
-> request_firmware_nowait() whose callback, rproc_auto_boot_callback(),
-> calls rproc_boot() first and only releases the fetched image at the
-> very end of the callback.  rproc_boot() does not take this image as an
-> argument: it fetches the very same image again with a synchronous
-> request_firmware(), so every auto-boot reads the firmware image twice
-> and allocates the buffer twice; on kernels with the sysfs fallback
-> enabled, the uevent round-trip is repeated as well.
+On Thu, Oct 08, 2026 at 09:14:49PM +0530, Shrikanth Hegde wrote:
+...
+> > > > That might let us preserve the general preference for fully idle SMT cores while
+> > > > searching in this order: fully idle preferred cores, idle SMT threads on
+> > > > preferred cores, then non-preferred cores. This current patch series seems to
+> > > > drop the first distinction, allowing a partially idle preferred core to win even
+> > > > when another preferred core is fully idle.
+> > > > 
+> > > > This would need to coexist with the steal governor's stronger use of
+> > > > cpu_preferred_mask, so I'm suggesting it as a potential direction to explore
+> > > > rather than a drop-in replacement.
+> > 
+> > I think this makes a lot of sense. An approach to first fill preferred
+> > CPUs before spilling to the non-preferred cores until contention
+> > forces the evacuation of non-prefered CPUs.
 > 
-> The asynchronous request exists only so that rproc_add() does not
-> block on the filesystem read; the image it fetches is never used.
-> The core already defers rproc_boot() to a worker for detached
-> processors (attach_work).  Reuse that worker for offline processors
-> too and drop the asynchronous firmware request: rproc_boot() fetches
-> the image exactly once and dispatches between a firmware boot and
-> an attach based on the processor state.  The work is renamed to
-> boot_work to match its widened role.
+> Well, when we see steal time, it usually means there is high contention and
+> we are using more vCPUs at this moment than possible.
+> So we mark them as non-preferred. Note that they are idle cpus. But non-preferred.
 > 
-> commit 400e64df6b23 ("remoteproc: add framework for controlling remote
-> processors") noted back in 2011 that "we must wait until it completes
-> before we try to unregister the device".  rproc_del() now does exactly
-> that: it waits for the boot work with cancel_work_sync(), which also
-> closes the theoretical window in which a pending attach work could
-> outlive the rproc instance.
-> 
-> The changed fallback behaviour only matters for legacy
-> configurations.  udev dropped its userspace firmware loader back in
-> 2014, as recorded in
-> Documentation/driver-api/firmware/fallback-mechanisms.rst, and the
-> kernel has documented since commit 02c399306826 ("firmware_loader:
-> enhance Kconfig documentation over FW_LOADER") that "Linux no longer
-> relies on or uses a fallback mechanism in userspace".  Auto-boot now
-> uses the same synchronous fallback semantics as every other explicit
-> boot source (sysfs, cdev).
-> 
-> Signed-off-by: Yonghao Zhang <hyz3367@gmail.com>
-> ---
-> Changes in v3:
-> - Drop rproc_trigger_auto_boot() wrapper and schedule boot_work
->   directly in rproc_add() (Mathieu).
-> 
-> Changes in v2:
-> - Fix the order described in the changelog: the callback calls
->   rproc_boot() first and releases the asynchronously fetched image at
->   the end of the callback (Mathieu).
-> - Fix typo "proccessor".
-> 
->  drivers/remoteproc/remoteproc_core.c | 66 +++++++---------------------
->  include/linux/remoteproc.h           |  4 +-
->  2 files changed, 19 insertions(+), 51 deletions(-)
->
+> That means preferred CPUs may have more than 1 task. If we spill over if there
+> is idle non-preferred CPUs, we will be back to square one. No?
 
-Applied.
+I agree that CPUs excluded by the steal governor should remain avoided even when
+all preferred CPUs are busy.
+
+I'm wondering if we should have two levels: cpu_preferred_mask acting as a hard
+affinity constraint and an entitlement-based soft affinity within that mask? The
+soft affinity would prefer high-entitlement CPUs: first fully idle cores, then
+idle SMT siblings. Once those CPUs are busy, tasks could spill onto
+lower-entitlement CPUs still inside cpu_preferred_mask, again preferring fully
+idle cores over idle SMT siblings. If all CPUs inside cpu_preferred_mask are
+busy, tasks would queue there. The soft affinity would never override the
+governor's restriction by spilling onto CPUs it excluded due to contention.
 
 Thanks,
-Mathieu
- 
-> diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
-> index 263e12f022ea..b88bf179507d 100644
-> --- a/drivers/remoteproc/remoteproc_core.c
-> +++ b/drivers/remoteproc/remoteproc_core.c
-> @@ -1662,51 +1662,23 @@ static int rproc_attach(struct rproc *rproc)
->  }
->  
->  /*
-> - * take a firmware and boot it up.
-> - *
-> - * Note: this function is called asynchronously upon registration of the
-> - * remote processor (so we must wait until it completes before we try
-> - * to unregister the device. one other option is just to use kref here,
-> - * that might be cleaner).
-> + * Boot or attach the remote processor in the background: rproc_add()
-> + * runs in probe context and must not block while the firmware image is
-> + * read from storage.  rproc_boot() dispatches on the processor state,
-> + * so this covers both a firmware boot and an attach to a processor
-> + * started by another entity.
-> + *
-> + * Note: rproc_del() waits for this work to complete with
-> + * cancel_work_sync(), so the rproc instance remains valid for the
-> + * entire lifetime of this function.
->   */
-> -static void rproc_auto_boot_callback(const struct firmware *fw, void *context)
-> -{
-> -	struct rproc *rproc = context;
-> -
-> -	rproc_boot(rproc);
-> -
-> -	release_firmware(fw);
-> -}
-> -
-> -static void rproc_attach_work(struct work_struct *work)
-> +static void rproc_boot_work(struct work_struct *work)
->  {
-> -	struct rproc *rproc = container_of(work, struct rproc, attach_work);
-> +	struct rproc *rproc = container_of(work, struct rproc, boot_work);
->  
->  	rproc_boot(rproc);
->  }
->  
-> -static int rproc_trigger_auto_boot(struct rproc *rproc)
-> -{
-> -	int ret;
-> -
-> -	if (rproc->state == RPROC_DETACHED) {
-> -		schedule_work(&rproc->attach_work);
-> -		return 0;
-> -	}
-> -
-> -	/*
-> -	 * We're initiating an asynchronous firmware loading, so we can
-> -	 * be built-in kernel code, without hanging the boot process.
-> -	 */
-> -	ret = request_firmware_nowait(THIS_MODULE, FW_ACTION_UEVENT,
-> -				      rproc->firmware, &rproc->dev, GFP_KERNEL,
-> -				      rproc, rproc_auto_boot_callback);
-> -	if (ret < 0)
-> -		dev_err(&rproc->dev, "request_firmware_nowait err: %d\n", ret);
-> -
-> -	return ret;
-> -}
-> -
->  static int rproc_stop(struct rproc *rproc, bool crashed)
->  {
->  	struct device *dev = &rproc->dev;
-> @@ -2348,11 +2320,8 @@ int rproc_add(struct rproc *rproc)
->  	rproc_create_debug_dir(rproc);
->  
->  	/* if rproc is marked always-on, request it to boot */
-> -	if (rproc->auto_boot) {
-> -		ret = rproc_trigger_auto_boot(rproc);
-> -		if (ret < 0)
-> -			goto rproc_remove_dev;
-> -	}
-> +	if (rproc->auto_boot)
-> +		schedule_work(&rproc->boot_work);
->  
->  	/* expose to rproc_get_by_phandle users */
->  	mutex_lock(&rproc_list_mutex);
-> @@ -2361,10 +2330,6 @@ int rproc_add(struct rproc *rproc)
->  
->  	return 0;
->  
-> -rproc_remove_dev:
-> -	cancel_work_sync(&rproc->crash_handler);
-> -	rproc_delete_debug_dir(rproc);
-> -	device_del(dev);
->  rproc_remove_cdev:
->  	rproc_char_device_remove(rproc);
->  	return ret;
-> @@ -2552,7 +2517,7 @@ struct rproc *rproc_alloc(struct device *dev, const char *name,
->  	INIT_LIST_HEAD(&rproc->subdevs);
->  	INIT_LIST_HEAD(&rproc->dump_segments);
->  
-> -	INIT_WORK(&rproc->attach_work, rproc_attach_work);
-> +	INIT_WORK(&rproc->boot_work, rproc_boot_work);
->  	INIT_WORK(&rproc->crash_handler, rproc_crash_handler_work);
->  	spin_lock_init(&rproc->crash_handler_lock);
->  
-> @@ -2630,6 +2595,9 @@ int rproc_del(struct rproc *rproc)
->  	if (cancel_work_sync(&rproc->crash_handler))
->  		pm_relax(rproc->dev.parent);
->  
-> +	/* auto-boot may still be fetching firmware: wait for it here */
-> +	cancel_work_sync(&rproc->boot_work);
-> +
->  	__rproc_shutdown(rproc, true);
->  
->  	rproc_delete_debug_dir(rproc);
-> diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
-> index a44368737b39..d77e24539133 100644
-> --- a/include/linux/remoteproc.h
-> +++ b/include/linux/remoteproc.h
-> @@ -231,7 +231,7 @@ enum rproc_features {
->   * @subdevs: list of subdevices, to following the running state
->   * @notifyids: idr for dynamically assigning rproc-wide unique notify ids
->   * @index: index of this rproc device
-> - * @attach_work: workqueue for attaching rproc
-> + * @boot_work: workqueue for booting rproc
->   * @crash_handler: workqueue for handling a crash
->   * @crash_handler_lock: serializes crash handler queueing and deletion
->   * @deleting: remoteproc deletion has begun
-> @@ -277,7 +277,7 @@ struct rproc {
->  	struct list_head subdevs;
->  	struct idr notifyids;
->  	int index;
-> -	struct work_struct attach_work;
-> +	struct work_struct boot_work;
->  	struct work_struct crash_handler;
->  	spinlock_t crash_handler_lock;
->  	bool deleting;
-> -- 
-> 2.34.1
-> 
+-Andrea
