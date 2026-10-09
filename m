@@ -1,99 +1,190 @@
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83D4F3F54BD;
-	Fri,  9 Oct 2026 12:56:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791550587; cv=pass; b=T+bdeKKFvF6PDDvonk+ITOsEioCzdJgux1zJAAegIBzi3Ffe7VSRlC85WAihA5dyEuzuHGXvZiRt0Er1lndcHFVIP2Lo3MBokr7fdl1WWVeVDWdWxuugcPGDdGyhisGZcSJUzapjE1oAqg6TID40+RUhjAPfDQ75xBr0OYEKXe8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791550587; c=relaxed/simple;
-	bh=QX1Ng6UYlSkzsnVOg7lT/ha9YIU+XzvEkCZJBtVx9kA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=AJyPOLROkIbSzBek0x1Scthd6/af1EkeKhCZeflTc5fXYH9l/5yKhQUDD3chvfe3GQBPnJFKGRfjpJpg9PmDSGBZ0+w4XSSa9yKmmnzGWY7uSM4/mQ0epo/bCut79+Wjdp9GZpIe/jt6NXU9YUJsSeOlIEnS/0tI1TIDeKgA9EM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=d+APO6rF; arc=pass smtp.client-ip=136.143.188.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 127FD3D9526
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 12:58:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791550693; cv=none; b=p+jhQpLsBmgC7C9GDZwTJJKzpSNWXOvvQCp0vz6MyhEHuUFsu3Tp5BoWASi6DCzPbGSj6j8BE61IA+Y53FuADvxLaprjcHmRuEIXIZJyBwGIK9ctX1LY9Zb3fi+u6pyywcYGZ0omUb+yjUIwzG9VK5rGRRlweBMIIhf/TaudI1w=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791550693; c=relaxed/simple;
+	bh=DTfyjQQ9QaZhOHLOFw2CFdJ3L2v5f+YHPDHs4G0YlSo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=JbliVPPZtzrBff6ZHUJ0eVWkZ3NLbQXW61oA9szwQxkxsLw8tmNmnhGm+r7caPYf7/yNX2y1gi0n4AVF0C3ZBbbdUGT6q3lp3sY77iU7yIsHgEo2Xpx3TK70/bI04zm2ZNzWZGmKrKEgT2Bp9+G7bfKAivz0xNelFDE/D3d0y6s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TxMoB1QN; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="d+APO6rF"
-ARC-Seal: i=1; a=rsa-sha256; t=1791550493; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=DHOtUbILShknKosfChXDMIb+DwXiwjdLsqDZjJ8U2OF8IOP/RwvEKJTIlczhdBZ/OzCdpNnNhejk5fJY5lNHfIMA5ulx6+d2BTNIX1RtivoMecBBOA6mgHH8ADn8GlSICNxl0u/UgjP31Y4kfxUzMQoQaG+0a1ODV7t4nEB62iI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1791550493; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=t2TzSpFyz3JcENf8gmzwfQ6e/Pqrx0H55RTixR3PUEg=; 
-	b=DhNO6MHuSRXxA3rXMpNYsJOY02YhmTclmgaf2RcrvaMpr1kSDoT1EjNEanCMOXb1EomDCYrfKfTe15WHFNlcHTLi7zZOBMSlmJItQQRgB/mRLr4TfcjdJXPHd6lYKnihIjRsPjvd0D1txsxHCvDK6cqMLItNoYg7dJqKTTzdZmk=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791550493;
-	s=zmail2048; d=rong.moe; i=i@rong.moe;
-	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
-	bh=t2TzSpFyz3JcENf8gmzwfQ6e/Pqrx0H55RTixR3PUEg=;
-	b=d+APO6rFQ8H0xYw3rTCDo4e1Mve04zvdn5piErROyg7/7da1hGHUePbt2J1eOEbu
-	3U8zuqhZI5fdAzJHMYoDvQaSWwa7vw4uUwVXvoXcY8NHRxDKiC+78NggG3t4WzfjAu+
-	U6q7c0Mt4i4jNZi2EQ08gTE9ZoXrNPglb0JCYVnV78Cfvys9d1ODguUcaCCt1Ef8JhV
-	Rytwa/lmRt2thhyoab8P/ekWE7Uw8HxFBcoiknYicOovPfcq+WuPaMT1NhDBTViJYtd
-	CAdSPfd4MVZAW888PHPfObhDWE1v8a+blFdIikNrYcaoNeH3Ks1nvhSf1/yaTpq3LNZ
-	PpdT/mGW7A==
-Received: by smtp.zohomail.com with SMTPS id 1791550493164135.4886936038523;
-	Fri, 9 Oct 2026 05:54:53 -0700 (PDT)
-From: Rong Zhang <i@rong.moe>
-Date: Fri, 09 Oct 2026 20:53:54 +0800
-Subject: [PATCH v2 12/12] MAINTAINERS: Add myself as a LENOVO drivers
- co-maintainer
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TxMoB1QN"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49d05d51553so45430185e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 05:58:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791550690; x=1792155490; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Z8lzbZmWc3hYBJ722sfbQgqeG/5EFg1Z6AcAAII8xsM=;
+        b=TxMoB1QNTXXw5hJb/lAWvxm3q39GdwOPlvzxLi+FvYagc5VIGVTTy1xlR93JqyorBS
+         Alpx8Evk0ys5DOPTmo4rT0Zgg6fiMueDO2mumXWu3hpNgPUxnniwUHy4xdEFXz1GySvV
+         Ola6LLSMuffCbmO5k59zzJN13Aau/rEnvC2MoGou+JmsC9RJCiOiCbBYPwqTCPdRlQl2
+         i1suAmuvhnOJu3ouFmsdzoM3q9yLI1VPXN3bzC+oTaYhTlHoiWUc1MSeV4ULmkgiaOUf
+         bhWaOGXNKu/3XDNe8AuWxOl5dz0PEiQBES9N+2ycFHjgaP6UxnXLZZ7iVncQ7vT9MwHN
+         z9AA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791550690; x=1792155490;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Z8lzbZmWc3hYBJ722sfbQgqeG/5EFg1Z6AcAAII8xsM=;
+        b=EAaMVluxSOqWRiLDwariLLHryDMiHlsbFZKbNpVtP5s8oKzq/B/jI8Sv1PLWy5s+kA
+         t5u3cx3WxMdfS3flb6gswy/vA7RvJURY04FIPaC2dR6ZGpgwEh79q3he15R66j0Q/nM+
+         ELruBUrdlJaJHNM0zzuOuthAC9CDDjPrjGIVw2DRwH5+5Zgy/OdvqK4+Xvm9YWS7M2tZ
+         Zxjbc/w7Tvr7UOwDbi7fcayf9XkHOky2MzrN2J12WKe5aQJnlIoAd6oA7s87gl103vPJ
+         tiaY3fI2Y9J7oM3OCc18JH12eEiVESkoPKvH0d0i9sU+fee55WD/97ooY66uQ8/Ri48B
+         LOCA==
+X-Forwarded-Encrypted: i=1; AKwUvBya9csriweV+PRUx9XxjL6kcqS9YPRra31qCCectz4+2AejWK1IGzFAH2+XnYVFpLUt/jIHs9Mos3VDYf0=@vger.kernel.org
+X-Gm-Message-State: AFuF++m5vCGCuVELL9lYnDz7APmCtUz2FfJMoeLiQX4nuOwL0fbZ5oR1
+	GciunSgE8B42tomRNgSUJMLyRtt1lLEC5+OISiMi7dDchdSsHTrZiN6H
+X-Gm-Gg: AYBFou3hnfZ5/Q++I7uZ6Fh15PA2PNg65/8FmObjAE9j5v7cMN+2K6ANTzJvVGlsWon
+	kPzHxCD6v/SJNJD8XPL04VxfGIBKqHiS9uU4cML4yDYGn9CErtTL9JNH3L97p8DuwIKkxnsxX+E
+	aU5jGDeac9uHDOHY3Rvr8YTdiuWxrvnXaNUY/VJSn2aYcHa6fCpxFK/+Jbwfwdr3VBWYHi7GAc/
+	SGxsv3SqcQtLfdQ8kNYIDOwMRfH7Un14n0XuqxBWjJ7OE8dcY1+GorinVnr5ZnCI8U0jVnfoSxS
+	i/YnwCu6MsP1wqhXy1QUD0kaYe8db0azy8h74sHduJV9iNgNGu1Ln27YsaSoOBBlecyjPSHzNp/
+	vPakt1pNPGB+UfnAr/LvJJbkgqqK3TdKA8Ltw+PMfLVOueM384zvHykn2vu1LuUGXIT6aaRyHOP
+	OgcEt4KrIcqiIjegXExjC9CVvoe4qjdHghJvp3Jf2fivtLpUmXlgZW1ZuGlsIb70pZElTGyM+yh
+	xB/fg==
+X-Received: by 2002:a05:600c:4e02:b0:4a1:7428:8195 with SMTP id 5b1f17b1804b1-4a18e4aa2c2mr37465875e9.29.1791550690117;
+        Fri, 09 Oct 2026 05:58:10 -0700 (PDT)
+Received: from [192.168.1.50] ([81.196.40.70])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18e4a3b4asm87903985e9.5.2026.10.09.05.58.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 09 Oct 2026 05:58:09 -0700 (PDT)
+Message-ID: <5af02fd9-1657-45dc-97ee-2d88ee858fa8@gmail.com>
+Date: Fri, 9 Oct 2026 15:58:07 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RESEND FIX PATCH wireless-next] wifi: mt7601u: add vnd_reset
+ parameter to fix probe failure on Tenda U2
+To: Herman Semenoff <germanaizek0@gmail.com>, kuba@kernel.org,
+ kvalo@kernel.org, linux-wireless@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <CAMnMt5aD83-6x8oRBo56kEwkrjPibZZ5SNR8MkwU9DSpM8HRqQ@mail.gmail.com>
+Content-Language: en-US
+From: Bitterblue Smith <rtl8821cerfe2@gmail.com>
+In-Reply-To: <CAMnMt5aD83-6x8oRBo56kEwkrjPibZZ5SNR8MkwU9DSpM8HRqQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-lwmi-wmi-new-api-v2-12-402828382679@rong.moe>
-References: <20261009-lwmi-wmi-new-api-v2-0-402828382679@rong.moe>
-In-Reply-To: <20261009-lwmi-wmi-new-api-v2-0-402828382679@rong.moe>
-To: Mark Pearson <mpearson-lenovo@squebb.ca>, 
- "Derek J. Clark" <derekjohn.clark@gmail.com>, 
- Hans de Goede <hansg@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Armin Wolf <W_Armin@gmx.de>
-Cc: Charles <hanker007@gmail.com>, 
- Navon John Lukose <navonjohnlukose@gmail.com>, 
- platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Rong Zhang <i@rong.moe>
-X-Mailer: b4 0.17-dev-73bef
-X-ZohoMailClient: External
 
-I regularly review patches and resolve bug reports posted on the pdx86
-mailing list or the kernel Bugzilla to improve LENOVO drivers (including
-lenovo-wmi-* and ideapad-laptop) along with Derek J. Clark and Mark
-Pearson. I've been submitting patches to add new features and fix issues
-on my devices, too.
+On 16/09/2026 04:33, Herman Semenoff wrote:
+> On certain MT7601U adapters, such as Tenda U2 (USB ID 148f:7601) and
+> other newer hardware revisions, driver initialization consistently fails
+> during probe with vendor request timeouts (-110 / -ETIMEDOUT):
+> 
+>     mt7601u 3-14:1.0: ASIC revision: 76010001 MAC revision: 76010500
+>     mt7601u 3-14:1.0: Firmware Version: 0.1.00 Build: 7640
+>     mt7601u 3-14:1.0: Vendor request req:07 off:09a8 failed:-110
+>     mt7601u 3-14:1.0: Vendor request req:02 off:09a8 failed:-110
+>     mt7601u 3-14:1.0: Vendor request req:07 off:0734 failed:-110
+>     mt7601u 3-14:1.0: Vendor request req:42 off:0230 failed:-110
+>     mt7601u 3-14:1.0: probe with driver mt7601u failed with error -110
+> 
+> The failure occurs because mt7601u_load_firmware() unconditionally calls
+> mt7601u_vendor_reset() (MT_VEND_DEV_MODE_RESET) before uploading firmware
+> chunks. On these devices, issuing this vendor reset leaves the internal
+> MCU / FCE DMA engine in an unresponsive state after the first firmware
+> URB is submitted. As a result, reading MT_TX_CPU_FROM_FCE_CPU_DESC_IDX
+> (0x09a8) immediately times out.
+> 
+> The USB device is already reset during mt7601u_probe() via
+> usb_reset_device(), making this additional vendor-specific reset
+> redundant. The vendor driver never used it, and devices that work with
+> vendor reset also work properly without it.
+> 
+> Drop mt7601u_vendor_reset() and its definition to allow firmware upload
+> and probe to succeed on all MT7601U adapters.
+> 
 
-Add myself as a LENOVO drivers co-maintainer to reflect this.
+The subject ("add vnd_reset parameter...") doesn't match anymore what
+the patch is doing.
 
-Suggested-by: Derek J. Clark <derekjohn.clark@gmail.com>
-Link: https://msgid.link/782FE636-A06A-4E12-9563-786374805947@gmail.com
-Signed-off-by: Rong Zhang <i@rong.moe>
----
- MAINTAINERS | 1 +
- 1 file changed, 1 insertion(+)
+When you send a new version of a patch please add "v2", "v3", etc next to
+"PATCH".
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index f53047aa8d3c..fa576b4b5919 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -14808,6 +14808,7 @@ F:	drivers/usb/misc/legousbtower.c
- LENOVO drivers
- M:	Mark Pearson <mpearson-lenovo@squebb.ca>
- M:	Derek J. Clark <derekjohn.clark@gmail.com>
-+M:	Rong Zhang <i@rong.moe>
- L:	platform-driver-x86@vger.kernel.org
- S:	Maintained
- F:	Documentation/wmi/devices/lenovo-wmi-gamezone.rst
+"RESEND" is only for a patch that you send again completely unchanged for
+whatever reason.
 
--- 
-2.55.0
+> Link: https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1716301
+> Link: https://www.opena.tv/viewtopic.php?t=63919
+> Link: https://askubuntu.com/questions/1418850/the-problem-with-wi-fi-u2
+> Link: https://bbs.archlinux.org/viewtopic.php?id=224859
+> Link: https://reddit.com/r/archlinux/comments/1d6dfv5/mt7601u_usb_wifi_not_working/
+> Signed-off-by: Herman Semenoff <GermanAizek@aizekgroup.ru>
+> ---
+>  drivers/net/wireless/mediatek/mt7601u/mcu.c | 3 ---
+>  drivers/net/wireless/mediatek/mt7601u/usb.c | 6 ------
+>  drivers/net/wireless/mediatek/mt7601u/usb.h | 3 ---
+>  3 files changed, 12 deletions(-)
+> 
+> diff --git a/drivers/net/wireless/mediatek/mt7601u/mcu.c
+> b/drivers/net/wireless/mediatek/mt7601u/mcu.c
+> index bad6ca821400..979bc506d4ed 100644
+> --- a/drivers/net/wireless/mediatek/mt7601u/mcu.c
+> +++ b/drivers/net/wireless/mediatek/mt7601u/mcu.c
+> @@ -459,9 +459,6 @@ static int mt7601u_load_firmware(struct mt7601u_dev *dev)
+>   mt7601u_wr(dev, 0x94c, 0);
+>   mt7601u_wr(dev, MT_FCE_PSE_CTRL, 0);
+> 
+> - mt7601u_vendor_reset(dev);
+> - msleep(5);
+> -
+>   mt7601u_wr(dev, 0xa44, 0);
+>   mt7601u_wr(dev, 0x230, 0x84210);
+>   mt7601u_wr(dev, 0x400, 0x80c00);
+> diff --git a/drivers/net/wireless/mediatek/mt7601u/usb.c
+> b/drivers/net/wireless/mediatek/mt7601u/usb.c
+> index 9306870cbc91..0d38644c491e 100644
+> --- a/drivers/net/wireless/mediatek/mt7601u/usb.c
+> +++ b/drivers/net/wireless/mediatek/mt7601u/usb.c
+> @@ -116,12 +116,6 @@ int mt7601u_vendor_request(struct mt7601u_dev
+> *dev, const u8 req,
+>   return ret;
+>  }
+> 
+> -void mt7601u_vendor_reset(struct mt7601u_dev *dev)
+> -{
+> - mt7601u_vendor_request(dev, MT_VEND_DEV_MODE, USB_DIR_OUT,
+> -       MT_VEND_DEV_MODE_RESET, 0, NULL, 0);
+> -}
+> -
+>  /* should be called with vendor_req_mutex held */
+>  static u32 __mt7601u_rr(struct mt7601u_dev *dev, u32 offset)
+>  {
+> diff --git a/drivers/net/wireless/mediatek/mt7601u/usb.h
+> b/drivers/net/wireless/mediatek/mt7601u/usb.h
+> index 723025f84483..49fede310c3b 100644
+> --- a/drivers/net/wireless/mediatek/mt7601u/usb.h
+> +++ b/drivers/net/wireless/mediatek/mt7601u/usb.h
+> @@ -14,8 +14,6 @@
+>  #define MT_VEND_REQ_MAX_RETRY 10
+>  #define MT_VEND_REQ_TOUT_MS 300
+> 
+> -#define MT_VEND_DEV_MODE_RESET 1
+> -
+>  #define MT_VEND_BUF sizeof(__le32)
+> 
+>  enum mt_vendor_req {
+> @@ -65,7 +63,6 @@ void mt7601u_complete_urb(struct urb *urb);
+>  int mt7601u_vendor_request(struct mt7601u_dev *dev, const u8 req,
+>     const u8 direction, const u16 val, const u16 offset,
+>     void *buf, const size_t buflen);
+> -void mt7601u_vendor_reset(struct mt7601u_dev *dev);
+>  int mt7601u_vendor_single_wr(struct mt7601u_dev *dev, const u8 req,
+>       const u16 offset, const u32 val);
+> 
 
