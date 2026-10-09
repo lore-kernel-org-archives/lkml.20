@@ -1,67 +1,67 @@
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6130C3F0A81
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 08:39:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6BBA39768D
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 08:40:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791535162; cv=none; b=dDDxqqWJCkUzkJDH7IHE01S6qdZrb8pD9P3FQKA5bcvV/F8T58HDvT2QSBzRFLNYy0HURVcs7dEGFzzNYyOIFkPnxQE5A6Os4dgKItg67WffXUa2vvcgKvifBM8DSHCEdu25A/vAK74Ybh3vM9MKugO+pPcxGJ5yh209exQzLEg=
+	t=1791535234; cv=none; b=dugg8G/oRY+fWenokVoaRHf2on6pYfFO3yn8JRt3VRAExD8Vst7YfB+CpePf30lq1u+vdC7pNNnBIBaKWoR+CyTgSgY/VERgKvhdLF+SkTbbU/+Aei/QSwIpAHOWHXxLaabOv6HZtI/K4tWGiJKcHFnkvreHjZwIybaGTIwhw+Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791535162; c=relaxed/simple;
-	bh=+e4H2njOhdGoAJi63SmPW8H1YZ7+lUPpHguznv3trDc=;
+	s=arc-20240116; t=1791535234; c=relaxed/simple;
+	bh=ErHS1o9w9dfqEkjc8XU/LM68Lx+ef5IJwQKQG4bY2Ic=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lbQ0AP0oUW8R+OKEo/ReTUN8su7+3Z/ln+NQtY2Oy1tYLr5I5S6pFkzCb+YX7zKO7RPW1iFW1JW5IzmjCL5N7G1CPpTEYmWTZAPpRaEGWAniZDItT33q569ZjdSxqagPWWX2azUxa4k7ymWQe1EODW7oxkKc6Pi1jeivskVGsDo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=MyKnmoP8; arc=none smtp.client-ip=209.85.208.53
+	 In-Reply-To:Content-Type; b=cn6+xq+d0Nq/cWiKlFF9EwuTbecTJnm+TqVdvZSdrcGodyX1OQG2lAu/RJE6J/jIWE0pYqgAgu4x3R3fIGEHwuwo7Lyn9Kwa2HxE+MNMp0kiz8128h1Ko1W0jZIHOAGeClHwTBdEJNV2vrJ9U6LomTZmoXSkXa/FB60gP2rTmmI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=V/qDGQdb; arc=none smtp.client-ip=209.85.208.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="MyKnmoP8"
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6a642495d81so6164680a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 01:39:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="V/qDGQdb"
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6acb9c018ffso2638532a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 01:40:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791535159; x=1792139959; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1791535231; x=1792140031; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:content-language
          :from:references:cc:to:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=p+vqQSz3CWMehrnqKQx0wIXwhLvGj+tDDI6FZmqwFVU=;
-        b=MyKnmoP8osjJjnTq5n1sqFyk/h8RL2ekclvLPOpQ4xihAKJLebXAsadFS2WfGs/8Cu
-         hdPZYyVsomXvfJb0xwo+UwdWQIpzl3jNcULeN61QzsamL93HwR8F+Paat0MF6NywGS2a
-         Hi7YCO5+QdKQeYXDoWRwUiimzM842y2Ofseyov5y4sF0fEMs+41xlhi6OgQ4vTgqacLO
-         15t7bH/+fYAGxP5ZNDS+QaY5A8tGxZeDJfQAdJ+aX79xf+6LKA2D9SQcRGNh/3QjUZ6K
-         9RgnoZ95YTHfQi0QA6x14pAiHsbqmdf44Hvq4ggT6+JK04N2084RmaXOEmRefIc5w22S
-         xG8Q==
+        bh=a3s76qkdukLICqlg6Em16V7dzhtvzS9YFXiNuwW4824=;
+        b=V/qDGQdbz6/iD4Km7EymrAwEOqSe1LEMyXiFtQN7pvTYbwKqlcsPF8X0pD4X0N/gjB
+         wjBYl/oo5uWkMpqqE2N5QXXNLXx4BqSB8Rah561eKCVjjKsoQ/2wNzGF1sUUMnKkNKe3
+         L8WGV8ZOsG66WXO9VB7mJP7CTd5BT6dMg5oKyoch7SE2y+uWcOAaw2UBaWMyhNsU8eTB
+         wQ3DM+Hdsq6e1LPvCdjJwkVvZ9ttdno93X4ljoCXjvjcObrfdzSmF/VuBunpgElMPEdJ
+         HcVgkSYWGqlkh+72XVQQJAoMuaeqiImJ9O4edDnNeW5SozxeNv8VrtvxCnc7y73YUZzv
+         WytQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791535159; x=1792139959;
+        d=1e100.net; s=20260707; t=1791535231; x=1792140031;
         h=content-transfer-encoding:content-type:in-reply-to:content-language
          :from:references:cc:to:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=p+vqQSz3CWMehrnqKQx0wIXwhLvGj+tDDI6FZmqwFVU=;
-        b=RDAvcaz9Ydn+WvbOd6rawgVmy8LqSLWdgouh4WY+P/qeqpIqFVhxTCxUVJ23i9fpdr
-         SOBbweVyfupMkkuJBaR/SPJ8XRzdSsxA4vn2uFbcR9kmu+34qTFmlqHg0HUVBPq084N1
-         /2l3az0/NffaKPQ55BRlWTvTU0MfJ+lOiCeQMLTWrdgjIqHiVxURHHv981jQhlWNGbfd
-         7oZZxp8KpGCF4V/BdeEfRVKIqoPpZcNV4bRtYvoAwiyhBTzC177U9Njh3jkeq/ep3kfn
-         9hJ7n8MOqqqYeLqUsHv3+WuJFDfnJE0M7Yt4yKSYrGIxdlM6btHrdGSRHm/lhsrs28pa
-         0Rsw==
-X-Forwarded-Encrypted: i=1; AKwUvBwdcBU2jh3wnvLBUSvnLZR3EPErwvnLS5Ia0ocPV9b/P6RdZf9U3ZDFjA0ONBv76XCoLISfvupIfAPm1dU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLbzjFdFhVeOcaLDXF0uv3vZHuWCYb+eQrTEcVY0xyJWgQF6eLs
-	VPVkEHuH4X77Fcz8TJeeaLScnVMbJYm8qUSDOJgKzclbIbZ3WaqJ02r3TXJVITS1/oo=
-X-Gm-Gg: AYBFou117NdKUTRZMk47KhfTAjihNIOveVOGSGmyGk9oHP466yZT+WLn/q/ty/796li
-	8+TeV+WqNjBG9kONHWiPtRZ60Hm8B04WciSHkjoXvHjUnEpXjSoiBTCL+RJcemOdmrh/yO/6yBY
-	ff/cSWFnOVi1o65bM1/nINyhp9DHmjcX9Tsc9m1BHM9ETaokVpFtxvRqLRQx3NmRqzE1nUhLYc4
-	Gm1/lpUX/t6gbETTz7o1QbYB/ZwJOM6c3h75vYNcN76pleokkfKX8F0LfLYuVBSfk4G5Rn75Ud+
-	wh/efSuGXQ6hTwNiaB2KCJyZizop+7KPtmU/9nNhe7S6o6JNrqVcUo/gBixiEpQEzTrZ+QQJdBh
-	UfxChXXLva2qAvIpqu3uwLYHigxVBH6PHLXUXt7VL5fwqL7K9hHM0OrthKFOlkyZVHyBjL+RZ/W
-	cbrT7ILZGdAsq9uaJC9xqR9sA+XG4oSiu3zKy1ovUixc9UiBWP5+TI7Fai5dsQMFCNcLI3hauZI
-	Im1SPk7gw==
-X-Received: by 2002:a17:907:3d52:b0:c26:1648:a076 with SMTP id a640c23a62f3a-c31aa0e93bdmr117241666b.49.1791535159415;
-        Fri, 09 Oct 2026 01:39:19 -0700 (PDT)
+        bh=a3s76qkdukLICqlg6Em16V7dzhtvzS9YFXiNuwW4824=;
+        b=dG/E5o/SxIenZ7iAt7RPPGRIqoZ3qGRLS6SYp/86FU6D98uDxnryxLXl4kww+h79hx
+         raoufNTIzrP2IZFkzhdJ90eYuIGqzMIRUsblk4N4XSNbcXF3+RZuThJKco/n0gwbgZ5b
+         P9Ma5590NyVy3zHoU8i48oxsr/GkTIl/POC0womH7SR5cTtbC9SAarLgoE4x1FVcbIb1
+         714NQwS4hPWnMEe6vgoIHwboKSspiP9namMff4R/7gBGi74t1YXrx1Raz1DW7K87rMEm
+         abuX0OLCr1LWlzdjm4lBLdKBM/D3noAXnZCX4NSEUmWZ32gujLdc5w4FrRoNBKrVq9Qy
+         tn8g==
+X-Forwarded-Encrypted: i=1; AKwUvBx2W9xL7s1GhXxKbMjCB9m2CFw/uhSUGBEH8QaWY08M6TyVYJZ08e7JVmleljF20iAWZw49O5uoQc6MK1c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJVJDzCL0XdHoEOX42QXXYug70YgFHh9TwlqmWLh6Yv5JnwIaGc
+	IpQ4/MfNhzRme7YOruNc7N5QXWm6YmY+5Sdo/fh7AfoQHsdfBH9L9WaTq5dEGeXeDto=
+X-Gm-Gg: AYBFou1++mg2IGWC/GoZ9/7hNs94WmEGFW/kIlPZd42AP8uXpV/aN2dpXH61zpG+AjO
+	KHoLwZiEwXEiYnKMKP7zSxX0bOZOI7c4jM7SJG2JBduM+iqpREpimyCq4fkpD8uuLlhw5QfFkZf
+	cBjfLUOTEtBQ6mO2aq4/zJkfiBfnTzBOhUW6h0jjHGFIpeSsEG9DoYMbsOaYRXg2/LDV4S4qx6X
+	2h8Pb4IgRdvlhjtz0ci2EOVUGmGNSxltJe7ge9KYh4c44V4w0IJE1Ok/M96jo2W1ecKG3lTsc8y
+	0hfDaI1NCxy56CDFLbkVYM7GmDdhEa4KgrLMyBzWhNK8wFPEGXccul13FGtt8hJeeSA4RXLxHsb
+	QA/J6QE3VUFuh6colm+zUHoDvu+R0MTYNcFIBPhwvHnl81FsOE4Ns8sncCqvCJGSnyE7CDKwEIA
+	+IP4hSIkRm8LAhB6ayF0UBvt0sUKDMbYq2nK9xmosyw3vJTjWukCnxlIXLL5GfUKgG3aNxQUBGL
+	newA6oE1z5rr0QiWNzo
+X-Received: by 2002:a05:6402:234d:b0:6af:d794:4a8 with SMTP id 4fb4d7f45d1cf-6b17c2a3834mr926471a12.12.1791535231094;
+        Fri, 09 Oct 2026 01:40:31 -0700 (PDT)
 Received: from [192.168.0.167] ([109.77.78.86])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9a3ae32sm64239766b.28.2026.10.09.01.39.18
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b179de7913sm781218a12.23.2026.10.09.01.40.29
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 09 Oct 2026 01:39:18 -0700 (PDT)
-Message-ID: <8a2ff836-57ce-4df6-aaae-0db3f36e8b58@linaro.org>
-Date: Fri, 9 Oct 2026 09:39:17 +0100
+        Fri, 09 Oct 2026 01:40:30 -0700 (PDT)
+Message-ID: <82d48200-f13d-4b14-8cc4-4b1b2dd2bb37@linaro.org>
+Date: Fri, 9 Oct 2026 09:40:29 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -69,69 +69,57 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v19 08/12] media: qcom: camss: vfe: Add support for VFE
- 1080
-To: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>, bod@kernel.org
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+Subject: Re: [PATCH v19 10/12] arm64: dts: qcom: kaanapali: Add CAMSS and
+ CSIPHY block definitions
+To: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
+ Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
  Loic Poulain <loic.poulain@oss.qualcomm.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>,
  Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, jeyaprakash.soundrapandian@oss.qualcomm.com,
- Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>,
- Atiya Kailany <atiya.kailany@oss.qualcomm.com>
+ Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>
 References: <20261008-kaanapali-camss-v19-0-b2c583ef50e0@oss.qualcomm.com>
- <20261008-kaanapali-camss-v19-8-b2c583ef50e0@oss.qualcomm.com>
- <179149982796.2596899.756044515233442982.b4-reply@b4>
- <7452d85d-83a8-493c-8d74-5020ab72982d@oss.qualcomm.com>
+ <20261008-kaanapali-camss-v19-10-b2c583ef50e0@oss.qualcomm.com>
 From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 Content-Language: en-GB
-In-Reply-To: <7452d85d-83a8-493c-8d74-5020ab72982d@oss.qualcomm.com>
+In-Reply-To: <20261008-kaanapali-camss-v19-10-b2c583ef50e0@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 09/10/2026 03:59, Hangxiang Ma wrote:
->>> diff --git a/drivers/media/platform/qcom/camss/Makefile b/drivers/ 
->>> media/platform/qcom/camss/Makefile
->>> index 218ba3a95939..42a14e8fe1b7 100644
->>> --- a/drivers/media/platform/qcom/camss/Makefile
->>> +++ b/drivers/media/platform/qcom/camss/Makefile
->>> @@ -26,6 +26,7 @@ qcom-camss-objs += \
->>>           camss-vfe-340.o \
->>>           camss-vfe-480.o \
->>>           camss-vfe-680.o \
->>> +        camss-vfe-1080.o \
->>
->> Can't say I'm 1000000% clear on when reg_update() is supposed to 
->> happen in
->> the flow of the logic you have here.
->>
->> I'm a bit suspicious of adding a new flag which skips the update but
->> assumes some other bit of code executes later and does that update.
->>
->> Can you explain this some more please.
->>
-> 
-> Thanks for the review. These points were discussed in an earlier 
-> revision, but I should have explained them directly in this version.
-> 
-> Vijay once clarified that the configuration principle became more strict 
-> since Kaanapali. We can back to <https://lore.kernel.org/all/662a21a3- 
-> de8b-406f-a15d-b8a572aa79ab@oss.qualcomm.com/> for more details.
-> 
-> In short, the hardware guidance asks to issue the REG_UPDATE after all 
-> of the CSID configuration registers are written. Kaanapali seems to have 
-> very strict dependency in the hardware about this sequence and with the 
-> original sequence, no RUP DONE or BUF DONE events are received at all. 
-> While other chipsets can work normally.
+On 08/10/2026 08:14, Hangxiang Ma wrote:
+> +		csiphy0: phy@9523000 {
+> +			compatible = "qcom,kaanapali-csi2-phy";
+> +			reg = <0x0 0x09523000 0x0 0x2000>;
+> +
+> +			clocks = <&camcc CAM_CC_CSIPHY0_CLK>,
+> +				 <&camcc CAM_CC_CSI0PHYTIMER_CLK>,
+> +				 <&camcc CAM_CC_CORE_AHB_CLK>;
+> +			clock-names = "core",
+> +				      "timer",
+> +				      "ahb";
+> +
+> +			interrupts = <GIC_SPI 477 IRQ_TYPE_EDGE_RISING>;
+> +
+> +			operating-points-v2 = <&csiphy_mxc_opp_table>;
+> +
+> +			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>,
+> +					<&rpmhpd RPMHPD_MMCX>,
+> +					<&rpmhpd RPMHPD_MXC>;
+> +			power-domain-names = "top",
+> +					     "mmcx",
+> +					     "mx";
+> +
+> +			status = "disabled";
+> +		};
 
-But how/where are we saying that happens ?
+These PHYs should have their ports defined.
 
 ---
 bod
