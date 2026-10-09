@@ -1,28 +1,28 @@
 Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E91B4BD106;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 824BE4BD36A;
 	Fri,  9 Oct 2026 10:37:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791542257; cv=none; b=eWTrC00DelQOmyuoB7wgZZG5H0ITR8xNMjHZIRfuzQI03lB4RrV2sg4AadLNtMorVOQ1wl6z9wRToUJfiKW1SqNShgkA9vDv9aIM3Rp53kE2kWzj7B90k9Odz+HhpGrfStKE1kJ6dSb7gCVlxNWOt4/2yGVIN0OxMo+kqRhDUJs=
+	t=1791542256; cv=none; b=jjVwS24xDOe6BxXaETBZpXE207uXBXU10WyX0SwnZreNam0MsWYUSSRP6TS17sktt+oXSS+g0Y/aXIjCpLFgWJ9E6EaqJidC6Ux/O1d/ADybggvu/mebDeCOa60pzO+q6sxEOay/TFa6TSc9fw6z6uVrSpRQ0RYljSYDmSo9bMg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791542257; c=relaxed/simple;
-	bh=0cmH9u0anDqJitGZHtlrpiQRGV6BWN1RPhjWlIaUFSc=;
+	s=arc-20240116; t=1791542256; c=relaxed/simple;
+	bh=LArAFUO78P9GxtegYIjPPTv1M9EqSTpz9oSqAhD9La4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UHvlJ8W8BNq9osWjOv2/IGyNYX7KpbeKSZdXJvCg94sK16RQ2kRvo5meMLZIxp5mkPKOQ8vGj3Hs3yN+95KhNdpP+w0strEjQfV80iqWnsAPVUT9p+vVGlFE3Uvkg7PRNmSuHanu0BVbUxtMfRBb9bV7W+sF+GQPQmYfC8ZtavA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=none smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
+	 MIME-Version; b=CjVKJgGdljQ/NBkcTAe0CpniIqpDaRl9+2sK3lJi83+q5TFmIUZUnaVUfkIIzE7vwxsIrqYKSRBIj3frq6dNtlQvU5mvhp5piRN5gv8DfrWdWIWWinLbsoJopMD1n8dRkfYZ29Vtr6WMLQ5Z0mIB0vehVjYbmO83TvZOdKjnrSM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.170])
-	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4j1NZY1QCnzYQv95;
-	Fri,  9 Oct 2026 18:36:37 +0800 (CST)
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.177])
+	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4j1NZX727JzYQv8Z;
+	Fri,  9 Oct 2026 18:36:36 +0800 (CST)
 Received: from mail02.huawei.com (unknown [10.116.40.252])
-	by mail.maildlp.com (Postfix) with ESMTP id 660264056D;
+	by mail.maildlp.com (Postfix) with ESMTP id 30FB040D38;
 	Fri,  9 Oct 2026 18:37:21 +0800 (CST)
 Received: from huaweicloud.com (unknown [10.50.85.155])
-	by APP3 (Coremail) with UTF8SMTPSA id _Ch0CgBXGG3Vw8hqUHceDQ--.45810S28;
-	Fri, 09 Oct 2026 18:37:21 +0800 (CST)
+	by APP3 (Coremail) with UTF8SMTPSA id _Ch0CgBXGG3Vw8hqUHceDQ--.45810S26;
+	Fri, 09 Oct 2026 18:37:20 +0800 (CST)
 From: Zhang Yi <yi.zhang@huaweicloud.com>
 To: linux-ext4@vger.kernel.org,
 	linux-fsdevel@vger.kernel.org
@@ -42,9 +42,9 @@ Cc: linux-kernel@vger.kernel.org,
 	yangerkun@huawei.com,
 	wangkefeng.wang@huawei.com,
 	yukuai@fnnas.com
-Subject: [PATCH v7 24/31] ext4: defer i_disksize update while DISKSIZE_GROW_PENDING is set
-Date: Fri,  9 Oct 2026 18:30:25 +0800
-Message-ID: <20261009103033.2920530-25-yi.zhang@huaweicloud.com>
+Subject: [PATCH v7 22/31] ext4: submit and wait for pending disksize-grow I/O on writeback
+Date: Fri,  9 Oct 2026 18:30:23 +0800
+Message-ID: <20261009103033.2920530-23-yi.zhang@huaweicloud.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20261009103033.2920530-1-yi.zhang@huaweicloud.com>
 References: <20261009103033.2920530-1-yi.zhang@huaweicloud.com>
@@ -55,175 +55,234 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_Ch0CgBXGG3Vw8hqUHceDQ--.45810S28
-X-Coremail-Antispam: 1UD129KBjvJXoWxtr4rAF4rCF4UtrW7KFW7urg_yoWxJr1xpr
-	9xKF95Jr1vq3sF9ws2qryIvr4Fya18Jw4UGry29F4qvFy5Cw4IqF1xtry7GFW8trZ5Ja1j
-	qFZ5Gr4rCw1rCrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUmS14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+X-CM-TRANSID:_Ch0CgBXGG3Vw8hqUHceDQ--.45810S26
+X-Coremail-Antispam: 1UD129KBjvJXoWxKryUZFy8KF48WF15Kr4kZwb_yoW3Cw4Dpr
+	Z8Kry5Gr4DXr9F9rsaqFW7Zr1Yva1rtr4UJry3WayDZry5ury7KFW8KFya9F1qk393A3y2
+	qF4v9rW8Cw1UArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUmq14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
 	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JF0E3s1l82xGYI
 	kIc2x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2
-	z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr1j6r
-	xdM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq
-	3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7
-	IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4U
-	M4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2
-	kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkE
-	bVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67
-	AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVW5JVW7JwCI
-	42IY6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF
-	4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBI
-	daVFxhVjvjDU0xZFpf9x0pRiF4iUUUUU=
+	z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F
+	4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE
+	3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2I
+	x0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8
+	JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2
+	ka0xkIwI1lc7CjxVAaw2AFwI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Y
+	z7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zV
+	AF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Xr0_Ar1l
+	IxAIcVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r
+	1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIY
+	CTnIWIevJa73UjIFyTuYvjTRRyxRDUUUU
 X-CM-SenderInfo: d1lo6xhdqjqx5xdzvxpfor3voofrz/
 
 From: Zhang Yi <yi.zhang@huawei.com>
 
-Operations like append allocate, zero range, and truncate update
-i_disksize directly. If the new i_disksize exceeds the original value
-while the zeroed EOF block is still awaiting writeback, metadata may be
-persisted before the zeroed data, exposing stale data on crash.
+When the current writeback pass begins beyond the disksize-grow-pending
+zeroed EOF block, the ioend worker would otherwise have to wait for the
+pending EOF block to complete before it can advance i_disksize.
+Otherwise the old EOF block could be exposed as stale data once
+i_disksize advances past it.
 
-Defer i_disksize updates while EXT4_STATE_DISKSIZE_GROW_PENDING is set;
-the ioend worker for the pending block will advance i_disksize to i_size
-once the zeroed data is written back. The tradeoff is that i_disksize
-may lag i_size transiently, but this is observable only to callers that
-read i_disksize directly.
+Therefore, introduce the ioend mechanism for the pending range, tag
+ioends that cover the pending zeroed EOF block which straddles
+i_disksize with EXT4_IOMAP_IOEND_DISKSIZE_GROW_IO in
+ext4_iomap_writeback_submit(), and clear the bit and wake up all waiters
+in ext4_iomap_end_bio() when such an ioend completes.
 
-Introduce __ext4_set_i_disksize() to centralize the bit check for
-callers already holding i_data_sem (ext4_ext_truncate and
-ext4_set_inode_size), and refactor ext4_update_inode_size() to take
-i_data_sem itself and check the bit atomically with i_size_write(), so
-the ioend worker observes the latest i_size under the same lock.
+Clearing EXT4_IOMAP_IOEND_DISKSIZE_GROW_IO does not depend on whether
+the disksize grow I/O succeeds. That is, even if the I/O fails, we still
+allow subsequent writes in the range to update i_disksize. This is
+consistent with the previous behavior, and we rely on data_err=abort to
+prevent metadata updates when data write failures occur.
 
-Note that in the O_SYNC mode of ext4_do_fallocate() or
-ext4_zero_range(), we need to flush out pending blocks that can update
-i_disksize synchronously. This will be handled later, and
-EXT4_STATE_DISKSIZE_GROW_PENDING will also be set after everything is
-done.
+In order to avoid the ioend that passes the pending range waiting for a
+long time, proactively submit the pending range first in
+ext4_iomap_writepages() so it completes in parallel with the rest of the
+writeback.
 
-Suggested-by: Jan Kara <jack@suse.cz>
+Note that the handling of discarding the zeroed EOF folio will be
+processed later, otherwise the bit will be set forever.
+EXT4_STATE_DISKSIZE_GROW_PENDING will be set after everthing is done.
+
 Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
 ---
- fs/ext4/ext4.h    | 47 ++++++++++++++++++++++++++++++++++++++++++-----
- fs/ext4/extents.c |  2 +-
- fs/ext4/inode.c   |  8 +++++---
- 3 files changed, 48 insertions(+), 9 deletions(-)
+ fs/ext4/ext4.h    |  6 +++++
+ fs/ext4/inode.c   | 56 ++++++++++++++++++++++++++++++++++++++++++++++-
+ fs/ext4/page-io.c | 40 +++++++++++++++++++++++++++++++++
+ 3 files changed, 101 insertions(+), 1 deletion(-)
 
 diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-index 089dbd39c5c24..b26ce3183bacb 100644
+index 1c3d736fb700b..089dbd39c5c24 100644
 --- a/fs/ext4/ext4.h
 +++ b/fs/ext4/ext4.h
-@@ -3605,30 +3605,67 @@ do {								\
- #define EXT4_FREECLUSTERS_WATERMARK 0
- #endif
+@@ -3986,6 +3986,12 @@ extern int ext4_move_extents(struct file *o_filp, struct file *d_filp,
+ 			     __u64 len, __u64 *moved_len);
  
--/* Update i_disksize. Requires i_rwsem to avoid races with truncate */
+ /* page-io.c */
 +/*
-+ * Update i_disksize. Requires i_rwsem to avoid races with truncate.
-+ *
-+ * In the iomap buffered I/O path, the EXT4_STATE_DISKSIZE_GROW_PENDING
-+ * inode state bit indicates that the zeroed EOF partial block which
-+ * straddles i_disksize is still waiting writeback.  In that case,
-+ * i_disksize will be updated after the pending zeroed data has been
-+ * written out.
++ * The I/O range covers the zeroed EOF block that straddles i_disksize
++ * and will advance it upon completion.
 + */
- static inline void ext4_update_i_disksize(struct inode *inode, loff_t newsize)
- {
- 	WARN_ON_ONCE(S_ISREG(inode->i_mode) &&
- 		     !inode_is_locked(inode));
- 	down_write(&EXT4_I(inode)->i_data_sem);
--	if (newsize > EXT4_I(inode)->i_disksize)
-+	if (newsize > EXT4_I(inode)->i_disksize &&
-+	    !ext4_test_inode_state(inode, EXT4_STATE_DISKSIZE_GROW_PENDING))
- 		WRITE_ONCE(EXT4_I(inode)->i_disksize, newsize);
- 	up_write(&EXT4_I(inode)->i_data_sem);
- }
- 
--/* Update i_size, i_disksize. Requires i_rwsem to avoid races with truncate */
-+static inline void __ext4_set_i_disksize(struct inode *inode, loff_t newsize)
-+{
-+	WARN_ON_ONCE(!rwsem_is_locked(&EXT4_I(inode)->i_data_sem));
++#define EXT4_IOMAP_IOEND_DISKSIZE_GROW_IO	1UL
 +
-+	if (newsize < EXT4_I(inode)->i_disksize ||
-+	    !ext4_test_inode_state(inode, EXT4_STATE_DISKSIZE_GROW_PENDING))
-+		WRITE_ONCE(EXT4_I(inode)->i_disksize, newsize);
-+}
-+
-+/*
-+ * Update i_size and i_disksize to @newsize.  Requires i_rwsem to avoid
-+ * races with truncate.
-+ *
-+ * In the iomap buffered I/O path, i_disksize is updated only if no zeroed
-+ * pending block straddles i_disksize (EXT4_STATE_DISKSIZE_GROW_PENDING
-+ * clear), otherwise the ioend worker for the pending block will advance
-+ * i_disksize once the pending block is written back.  Both updates happen
-+ * under i_data_sem so that the writeback ioend worker can always see the
-+ * latest i_size under the same semaphore.
-+ *
-+ * Returns 0 if nothing changed, 1 if i_size was raised, 2 if i_disksize
-+ * was raised, or 3 if both were.
-+ */
- static inline int ext4_update_inode_size(struct inode *inode, loff_t newsize)
- {
- 	int changed = 0;
- 
-+	if (newsize <= inode->i_size && newsize <= EXT4_I(inode)->i_disksize)
-+		return 0;
-+
-+	down_write(&EXT4_I(inode)->i_data_sem);
- 	if (newsize > inode->i_size) {
- 		i_size_write(inode, newsize);
- 		changed = 1;
- 	}
--	if (newsize > EXT4_I(inode)->i_disksize) {
--		ext4_update_i_disksize(inode, newsize);
-+	if (newsize > EXT4_I(inode)->i_disksize &&
-+	    !ext4_test_inode_state(inode, EXT4_STATE_DISKSIZE_GROW_PENDING)) {
-+		WRITE_ONCE(EXT4_I(inode)->i_disksize, newsize);
- 		changed |= 2;
- 	}
-+	up_write(&EXT4_I(inode)->i_data_sem);
- 	return changed;
- }
- 
-diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
-index 83d040e36b682..b52e5fb156894 100644
---- a/fs/ext4/extents.c
-+++ b/fs/ext4/extents.c
-@@ -4561,7 +4561,7 @@ int ext4_ext_truncate(handle_t *handle, struct inode *inode)
- 	 */
- 
- 	/* we have to know where to truncate from in crash case */
--	EXT4_I(inode)->i_disksize = inode->i_size;
-+	__ext4_set_i_disksize(inode, inode->i_size);
- 	err = ext4_mark_inode_dirty(handle, inode);
- 	if (err)
- 		return err;
+ extern int __init ext4_init_pageio(void);
+ extern void ext4_exit_pageio(void);
+ extern ext4_io_end_t *ext4_init_io_end(struct inode *inode, gfp_t flags);
 diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-index 76e070eaa6f89..5644807cc875b 100644
+index 9c45a0c01d1c1..76e070eaa6f89 100644
 --- a/fs/ext4/inode.c
 +++ b/fs/ext4/inode.c
-@@ -6635,8 +6635,10 @@ static void ext4_wait_for_tail_page_commit(struct inode *inode)
-  * Set i_size and i_disksize to 'newsize'.
-  *
-  * Both i_rwsem and i_data_sem are required here to avoid races between
-- * generic append writeback and concurrent truncate that also modify
-- * i_size and i_disksize.
-+ * generic append writeback (or zeroed pending I/O writeback) and
-+ * concurrent operations (e.g., fallocate, truncate) that also modify
-+ * i_size and i_disksize. This also ensures that the writeback ioend worker
-+ * observes the latest i_size under the same lock protection.
-  */
- static inline void ext4_set_inode_size(struct inode *inode, loff_t newsize)
+@@ -4372,7 +4372,10 @@ static int ext4_iomap_writeback_submit(struct iomap_writepage_ctx *wpc,
+ 				       int error)
  {
-@@ -6644,7 +6646,7 @@ static inline void ext4_set_inode_size(struct inode *inode, loff_t newsize)
+ 	struct iomap_ioend *ioend = wpc->wb_ctx;
+-	struct ext4_inode_info *ei = EXT4_I(ioend->io_inode);
++	struct inode *inode = ioend->io_inode;
++	struct ext4_inode_info *ei = EXT4_I(inode);
++	unsigned int blocksize = i_blocksize(inode);
++	loff_t pstart, plen;
  
- 	down_write(&EXT4_I(inode)->i_data_sem);
- 	i_size_write(inode, newsize);
--	EXT4_I(inode)->i_disksize = newsize;
-+	__ext4_set_i_disksize(inode, newsize);
- 	up_write(&EXT4_I(inode)->i_data_sem);
+ 	/*
+ 	 * After I/O completion, a worker needs to be scheduled when:
+@@ -4385,6 +4388,21 @@ static int ext4_iomap_writeback_submit(struct iomap_writepage_ctx *wpc,
+ 	    test_opt(ioend->io_inode->i_sb, DATA_ERR_ABORT))
+ 		ioend->io_bio.bi_end_io = ext4_iomap_end_bio;
+ 
++	/*
++	 * Mark the I/O as DISKSIZE_GROW_IO by setting io_private to
++	 * EXT4_IOMAP_IOEND_DISKSIZE_GROW_IO if it covers the pending range.
++	 * Such I/O will allow or trigger i_disksize advancement in the
++	 * ioend worker.
++	 */
++	plen = ext4_iomap_get_disksize_pending_range(inode, &pstart);
++	if (plen &&
++	    round_down(ioend->io_offset, blocksize) <= pstart &&
++	    round_up(ioend->io_offset + ioend->io_size, blocksize) >=
++			pstart + plen) {
++		ioend->io_bio.bi_end_io = ext4_iomap_end_bio;
++		ioend->io_private = (void *)EXT4_IOMAP_IOEND_DISKSIZE_GROW_IO;
++	}
++
+ 	/*
+ 	 * ext4_iomap_end_bio() always defers endio processing, disable
+ 	 * generic BIO in task to avoid double deferral since we will use
+@@ -4404,6 +4422,36 @@ static const struct iomap_writeback_ops ext4_writeback_ops = {
+ 	.writeback_submit = ext4_iomap_writeback_submit,
+ };
+ 
++/*
++ * If the current writeback range begins after the pending zeroed EOF
++ * block range which straddles i_disksize, issue a separate writeback to
++ * flush it first, so as to avoid prolonged waiting.
++ */
++static void ext4_iomap_wb_submit_zeroed_eof(struct inode *inode,
++					    struct writeback_control *wbc)
++{
++	struct address_space *mapping = inode->i_mapping;
++	loff_t pstart, plen, range_start;
++
++	if (wbc->range_cyclic)
++		range_start = (loff_t)mapping->writeback_index << PAGE_SHIFT;
++	else
++		range_start = wbc->range_start;
++
++	plen = ext4_iomap_get_disksize_pending_range(inode, &pstart);
++	if (!plen)
++		return;
++	if (round_down(range_start, mapping_min_folio_nrbytes(mapping)) <
++	    pstart + plen)
++		return;
++
++	/* Keep the caller's sync mode to avoid stalling the background flusher. */
++	if (wbc->sync_mode == WB_SYNC_ALL)
++		filemap_fdatawrite_range(mapping, pstart, pstart + plen - 1);
++	else
++		filemap_flush_range(mapping, pstart, pstart + plen - 1);
++}
++
+ static int ext4_iomap_writepages(struct address_space *mapping,
+ 				 struct writeback_control *wbc)
+ {
+@@ -4421,6 +4469,12 @@ static int ext4_iomap_writepages(struct address_space *mapping,
+ 	if (unlikely(ret))
+ 		return ret;
+ 
++	/*
++	 * Submit the pending zeroed EOF block range if the entire
++	 * writeback range lies beyond it.
++	 */
++	ext4_iomap_wb_submit_zeroed_eof(inode, wbc);
++
+ 	alloc_ctx = ext4_writepages_down_read(sb);
+ 	trace_ext4_writepages(inode, wbc);
+ 	ret = iomap_writepages(&wpc);
+diff --git a/fs/ext4/page-io.c b/fs/ext4/page-io.c
+index 9b0e12b5463cf..697e12a54a49a 100644
+--- a/fs/ext4/page-io.c
++++ b/fs/ext4/page-io.c
+@@ -549,6 +549,34 @@ void ext4_bio_write_folio(struct ext4_io_submit *io, struct folio *folio,
+ 	} while ((bh = bh->b_this_page) != head);
  }
  
++/*
++ * If the current writeback range starts beyond the zeroed EOF pending
++ * range that straddles i_disksize, wait for the zeroed data from
++ * ext4_block_zero_eof() to be written out first. Otherwise, extending
++ * i_disksize may expose stale data in the old EOF block.
++ */
++static void ext4_iomap_wb_disksize_pending_wait(struct inode *inode,
++						loff_t pos, size_t size)
++{
++	loff_t disksize = READ_ONCE(EXT4_I(inode)->i_disksize);
++	loff_t pstart, plen;
++
++	/*
++	 * Overwrite I/Os and I/Os covering the EOF block do not need to
++	 * wait: the former do not advance i_disksize past the pending
++	 * boundary, and the latter are the pending I/O itself (cleared in
++	 * the bio completion path).
++	 */
++	if (pos < round_up(disksize, i_blocksize(inode)))
++		return;
++
++	plen = ext4_iomap_get_disksize_pending_range(inode, &pstart);
++	if (!plen || pos < pstart + plen)
++		return;
++
++	ext4_iomap_wait_disksize_pending(inode);
++}
++
+ static int ext4_iomap_wb_update_disksize(handle_t *handle, struct inode *inode,
+ 					 loff_t end)
+ {
+@@ -594,6 +622,9 @@ static void ext4_iomap_finish_ioend(struct iomap_ioend *ioend)
+ 	    end <= READ_ONCE(EXT4_I(inode)->i_disksize))
+ 		goto out;
+ 
++	/* Wait for disksize-pending zeroed data to be written out. */
++	ext4_iomap_wb_disksize_pending_wait(inode, pos, size);
++
+ 	/*
+ 	 * We may need to convert one extent, update the i_disksize and
+ 	 * dirty the inode.
+@@ -660,8 +691,17 @@ void ext4_iomap_end_bio(struct bio *bio)
+ {
+ 	struct iomap_ioend *ioend = iomap_ioend_from_bio(bio);
+ 	struct ext4_inode_info *ei = EXT4_I(ioend->io_inode);
++	unsigned long io_mode = (unsigned long)ioend->io_private;
+ 	unsigned long flags;
+ 
++	/*
++	 * This is a disksize-pending I/O: clear the disksize-pending
++	 * state set in ext4_block_zero_eof() and wake up all waiters
++	 * that will update the inode i_disksize.
++	 */
++	if (io_mode == EXT4_IOMAP_IOEND_DISKSIZE_GROW_IO)
++		ext4_iomap_clear_disksize_pending(ioend->io_inode);
++
+ 	spin_lock_irqsave(&ei->i_completed_io_lock, flags);
+ 	if (list_empty(&ei->i_rsv_conversion_list))
+ 		queue_work(EXT4_SB(ioend->io_inode->i_sb)->rsv_conversion_wq,
 -- 
 2.52.0
 
