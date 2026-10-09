@@ -1,141 +1,73 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 680694E9C1F;
-	Fri,  9 Oct 2026 15:40:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA263175A74;
+	Fri,  9 Oct 2026 15:41:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791560445; cv=none; b=PmD69/3PshgsqUDzmVyWeTpOCQ9LrahfsFTWTKgK0kD/k5wyE+MZFVWRV7Wsm80Y9EhkSnyr0dzb8/q8jqWT5hMbXLzd2V8KieUmQNsTPdf5gUlM9M2Uos++EJGCkxX9vEYXZ/nUDEftb3mmR4ZYMwh0oULt1CmLADZdfn/M7NE=
+	t=1791560510; cv=none; b=oR0Vw4JVWMw+5GBgi6tJavJuS3sLGpJp1zvX7HuwOPBrX+Y8slIpMqbo1ZnnqADjb1mQ1lceuc2IN5eeyYLhZOb9ARXUV356+Ckp7Xc38SX7AL3jAPSftBTEO/ASs069PRz6eTvtQMThIGhM8tkc/v63OrIqhUrVq9U+Jn79Wek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791560445; c=relaxed/simple;
-	bh=0He91j+NLkc6ay6xB5gisdcSQfhw4mLqqGXjqh3X+wQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=i/6PON9+yuLsgU4eDk8aLJRVDQcI0XyDdh7xv/pOGxF8ZL7Q8f0nJxTDbWoPJwuimNYzcajDzE8uXNZSwrJGJB6dx3hzRMBj05crXvEdclRIoJGY9OE3zwSICFbv97NlAfagWIqPx8tVWgpLwpVfKOCZjwqMmlRrAlXIb5+3Ejw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=laZe3h8O; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791560510; c=relaxed/simple;
+	bh=dUWZmZOch5Qb4AzmbYv9GLjnStjLEJtXiqFclZadx5M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XkhRAF+MZUw+uUYgfBOsfkAM/80iCwA2pZrRj1a8XUI/ms5u3pACvS1Xyl2xIXa4dBxdWoKP+5aqGUdwrynFxjN/bSOT0IJR2J6H+bU4/DBrRTkeM0nPIv1L6Pxnj6A7KtxMAP1FgM27iosYehQtbwPlrskCJJBP9gMexMSlmNw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HDsIToSK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="laZe3h8O"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791560442; x=1823096442;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=0He91j+NLkc6ay6xB5gisdcSQfhw4mLqqGXjqh3X+wQ=;
-  b=laZe3h8OdHwIa3DJtEqZ4cG2bGuITMoTJfnDUj0mScsD6GXqjhi4oCUV
-   cj8G/p5fZjLLLo+lYP1WfiqQdVnz2Vhwg80Cg9RR3s+FenqgWOdCl2My4
-   nUcH1xdwBEKkboGMMj8nvijv1F2rsmQubQyuaWsgEg6OfAZttmFDxP2Od
-   PgmChXNQf0k0TUoGqfmaRAj6DH7AoSwdla/titEvMkXSxE77yhOMym0A+
-   pwUkK7lH5pnEo1asNIYKU4Q4I6k4rGQDOMkOXziTvpAV9Wi04R/vn/lmq
-   ZkjNUTrGaQQQWPzXlAU0MYJJFJOq4neRSnDMHsuD4U2SEx5S4uxgBU8Xx
-   w==;
-X-CSE-ConnectionGUID: BwQ0FHkbQ1evoexzJ2WiOQ==
-X-CSE-MsgGUID: qWllO0FKTyK8507/rD7nSQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11930"; a="255208"
-X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
-   d="scan'208";a="255208"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 08:40:37 -0700
-X-CSE-ConnectionGUID: qFJgp2eVTCGPokh+9mlZ6w==
-X-CSE-MsgGUID: 9n3Zv15wSuahWcl+3GSULA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
-   d="scan'208";a="674639"
-Received: from pavel-dev.sc.intel.com (HELO pepopov-mobl2.amr.corp.intel.com) ([10.3.206.11])
-  by fmviesa008.fm.intel.com with ESMTP; 09 Oct 2026 08:40:36 -0700
-From: Pavel Popov <pavel.e.popov@intel.com>
-To: Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>
-Cc: pavel.e.popov@intel.com,
-	Jim Chow <jim.chow@broadcom.com>,
-	Radu Rugina <radu.rugina@broadcom.com>,
-	Alexey Makhalov <alexey.makhalov@broadcom.com>,
-	bcm-kernel-feedback-list@broadcom.com,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] PCI/P2PDMA: Allow P2PDMA in VMware guests on Intel hosts
-Date: Fri,  9 Oct 2026 08:40:33 -0700
-Message-ID: <20261009154034.82321-2-pavel.e.popov@intel.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261009154034.82321-1-pavel.e.popov@intel.com>
-References: <20261009154034.82321-1-pavel.e.popov@intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HDsIToSK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 021F51F000FF;
+	Fri,  9 Oct 2026 15:41:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791560509;
+	bh=m7+KzHXqKWMyDE/8urLgeEGgBfz4aMSR0uxlEDv1yNs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HDsIToSKhlKo1OKsP5MwpHPGh84Kvc1vLzR6nGW7O8qXWJpXHoDSLMw0IuYjsUMc/
+	 fYtdZ3u6P1zcTjGs0IiM3FJauq/x/+6jJr7veGtiyOjNhgA1W2XDvXqJ6Nu8YyT5mM
+	 BbzH6VWCwycy0pJiqpt3+K6/FmIo2Wt80f4voy3h7hU9H3UMDNwBAfj2MGfZTyYDq8
+	 JUwxcTONqgf2btIozJnkFRwPEobSd396Am6c2zfnU2boR/cRVVsM9r4ogtzOzf6j5Z
+	 eXW76I+F94BFSiuwyFLNGKbjj+K7rwTqMQQLMkxEX1KNjYgGT14aDUEkdu9o7vAO/i
+	 yr8fp8Z4mUuWg==
+Date: Fri, 9 Oct 2026 10:41:48 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-sound@vger.kernel.org,
+	Conor Dooley <conor+dt@kernel.org>
+Subject: Re: [PATCH v3 1/2] ASoC: dt-bindings: airoha: Add AN7581 PCM
+ controller
+Message-ID: <179156050784.2261655.11183119560977756251.robh@kernel.org>
+References: <20261009111334.23522-1-ansuelsmth@gmail.com>
+ <20261009111334.23522-2-ansuelsmth@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261009111334.23522-2-ansuelsmth@gmail.com>
 
-Peer-to-Peer DMA (P2PDMA) between two devices requires either a shared
-upstream bridge or a host bridge matching pci_p2pdma_whitelist[]. In
-VMware guests, passthrough devices appear directly on virtual root
-buses without host bridge devices. Consequently, P2PDMA checks
-evaluate endpoint Device IDs against the host bridge whitelist,
-causing P2PDMA requests to fail regardless of host support.
 
-This affects discrete devices such as GPUs, NICs and NVMe drives.
+On Fri, 09 Oct 2026 13:13:31 +0200, Christian Marangi wrote:
+> The Airoha AN7581 SoC provides a PCM interface for VoIP applications,
+> supporting playback and capture at sample rates of 8 kHz and 16 kHz.
+> The driver configures the PCM bit clock to 2.048 MHz and supports
+> 8-bit and 16-bit samples, with up to 32 channels.
+> 
+> Document the related compatible and required interrupt/reset and provide an
+> example for it.
+> 
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> ---
+>  .../bindings/sound/airoha,an7581-pcm.yaml     | 52 +++++++++++++++++++
+>  1 file changed, 52 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/airoha,an7581-pcm.yaml
+> 
 
-The P2PDMA host bridge check does not work in a VMware guest. Bypass it on
-Intel hosts under VMware, starting with Skylake-SP, the first Xeon
-Scalable generation. Xeon Scalable introduced UPI and is whitelisted for
-P2PDMA without restrictions. AMD Zen and newer are already covered by
-cpu_supports_p2pdma(), so the bypass is implemented for Intel hosts only.
-
-Tested with the Intel Level Zero P2P benchmark (ze_peer) on Arc Pro B60
-cards in a Linux guest on VMware ESXi 9.0 (Emerald Rapids host).
-
-Reviewed-by: Jim Chow <jim.chow@broadcom.com>
-Signed-off-by: Pavel Popov <pavel.e.popov@intel.com>
----
- drivers/pci/p2pdma.c | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
-
-diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
-index 9334eb314663..d96f44d0738a 100644
---- a/drivers/pci/p2pdma.c
-+++ b/drivers/pci/p2pdma.c
-@@ -21,6 +21,12 @@
- #include <linux/seq_buf.h>
- #include <linux/xarray.h>
- 
-+#ifdef CONFIG_X86
-+#include <asm/cpu_device_id.h>
-+#include <asm/hypervisor.h>
-+#include <asm/intel-family.h>
-+#endif
-+
- struct pci_p2pdma {
- 	struct gen_pool *pool;
- 	bool p2pmem_published;
-@@ -532,6 +538,19 @@ static bool cpu_supports_p2pdma(void)
- 	return false;
- }
- 
-+static bool hypervisor_supports_p2pdma(void)
-+{
-+#ifdef CONFIG_X86
-+	/* Hypervisor hides host topology, allow p2pdma on Skylake and newer */
-+	if (boot_cpu_data.x86_vendor == X86_VENDOR_INTEL &&
-+	    boot_cpu_data.x86_vfm >= INTEL_SKYLAKE_X &&
-+	    hypervisor_is_type(X86_HYPER_VMWARE))
-+		return true;
-+#endif
-+
-+	return false;
-+}
-+
- static const struct pci_p2pdma_whitelist_entry {
- 	unsigned short vendor;
- 	int device;
-@@ -781,6 +800,7 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
- 
- map_through_host_bridge:
- 	if (!cpu_supports_p2pdma() &&
-+	    !hypervisor_supports_p2pdma() &&
- 	    !host_bridge_whitelist(provider, client, acs_redirects)) {
- 		if (verbose)
- 			pci_warn(client, "cannot be used for peer-to-peer DMA as the client and provider (%s) do not share an upstream bridge or whitelisted host bridge\n",
--- 
-2.53.0
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
