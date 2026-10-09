@@ -1,79 +1,74 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com [209.85.222.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A0461CAA6C
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 00:32:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8B2C242D62
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 00:35:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791505938; cv=none; b=EAzOi6Pj0qFj3S6zr3FWXWxpFagIFx41GPTkVEEEY0BTmSiRuPpIf3Ok/uMeuZH4qUu/G5IzybPSDy+82B2VoUKk9DMvD2gZ/7/0puJgHPCtkO2UxpTIW+OpTs9p+AfKhPa+ATgIICi0NANaiB4VKLvUgDivsjplqjC+wb0yrwY=
+	t=1791506143; cv=none; b=DJB5xbf2l/jYwCDAOJYXc1EhLr+HRW7+jLjuDG6xLF5/Q+M4gysSA181U9cMCYlC/g7zK2eugmGJhFnMWn645TGp0hWq5pVVgevmOW8hJGwAEMVpa5XMIxTE5IlQWteSbhFFjoZ/xn3p02RwpWt5aluFkEevTfwpl6nWvs/ystw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791505938; c=relaxed/simple;
-	bh=gNLg6Qgamg7mjc3UkG6SuB4YvLH7gMzwvVuIS70oNsE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=HOTT/LVUSzsDmswBomR82rF+vEgGfoi0pEokKYUGDfffH3BmNdktjTGIcpLlweA9l5vIk0zPa4w/Da3ENC9UHstmv3+SAYvLYlk9uA/3QZ6AOGmtArU5m34GDo/b5nGAe1y4my/EbmG2qQgpAXTjVmO0BiCS1NKeOQVybJdodyk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g187p4h6; arc=none smtp.client-ip=209.85.128.42
+	s=arc-20240116; t=1791506143; c=relaxed/simple;
+	bh=2UfdJs69sO/fEFk4xEcV6sqiZJ4cwTu93x1gV3HZJK4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kZaly4t1bshecd9L2Sb/fLieG3uQ7m4ud+13/kLs22zxqAcqnsDmSnrOflJePUH1TvdONq5Y9ucfGp+eu2beZ9q8abBcOn6ZMH5k0ifJMyyth5oLyFDaQdHRaGYCc76RcU4YL4KaM0c2NOOvNNMmK1Cr24adzkJl+tBjxcDXEyI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e/lRtbNc; arc=none smtp.client-ip=209.85.222.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g187p4h6"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a168355946so32558395e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 17:32:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e/lRtbNc"
+Received: by mail-ua1-f42.google.com with SMTP id a1e0cc1a2514c-98c7e996596so26232241.2
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 17:35:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791505936; x=1792110736; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791506140; x=1792110940; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kd9f6IzxLdOe+YXs15sHvBb+DnWpHr6FxR7UwEMv3EU=;
-        b=g187p4h6vRTvEAN9SN1eHqKnvSL3K8myML0YpfTVkjnPaRau9gUL5cFxuxJTE7G+sp
-         zniXPOfAcg2iSrYVj4lcoUjqwarsoe7zfY2AWeZelcsEDHBDVWNXkkypVtF/p6jK4Q5j
-         3JmgAX0jwrEfbiuMUEANIi0118cETltnC80faHbUJSfV3FKVQYGU1qYux5Jt+DkfzgwT
-         0a5W2h66tpXwUQa1txV13DzAf5tyNQ6veG4o84aepwG9DpaVLlTBAT9XEVXN0wYW+4j0
-         GNG99KIWDld+MLpShvhzdBhXdr+miGHsb8ug8hz9VLNoCXUuc31qxRlPIX9FDf6E0dfq
-         3hCg==
+        bh=x11PvIESSkGOPE/y8CqSvSINYIoP3r5FMwi0SVUBQUc=;
+        b=e/lRtbNc2hQeqtz+U1EUVBRwiRWgCoEBQKruPJR5Ov8L2Dzy0hlvlsh6Q+2tDD1qMb
+         /EVnWuXBhJGRpEmpUGO23cuYIVmh0XUD4sO3XAB3XpthQ72y8erz+8SjxnZ2mm9hmMkR
+         TC15wn2oz95R+liYzLerl1EKiNi+yBkEEvB0kqAIVzZ22aWx4PJR0/hsbXY99FOqQrS3
+         Ru6f2FFzmvWpYZ5qorqhek/0Mp3EtJMmrH5zdq0x1Q5cgReNy4ZvWDIso/Hz2YJvanW1
+         J7at/JN9OvVFI+RFud/XmqI+l7xzqszlA31zxLEoAh4J7TZ7NvGwc+BdbZM4zmIoIKRp
+         JgAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791505936; x=1792110736;
+        d=1e100.net; s=20260707; t=1791506140; x=1792110940;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=kd9f6IzxLdOe+YXs15sHvBb+DnWpHr6FxR7UwEMv3EU=;
-        b=p811ujLR4lpuGUZ4cmp4IwgAoMuWJjCEVo14AlI7zGAXIww4ucPPt9UtBxwa0hds1h
-         zX9xYMM1o/9kVcnAczUvnryxMoBl85VBcawbMUA71YcuWg/xhpviPQOF/HfMsyJVK3o/
-         3AVIgusOXjPdIlEmiczDE5HFxhQPc59Jd890Qmc98f2Tdnvb2ulJ17VUl5+VVrq9YF5I
-         7lWb50inpPIa7tlT0p+AJ51vPa4lOsQL4QIfUiDdKkRlzsPb8jTwCxEy2QLGig5rKE+S
-         T0pyCjU9jcLe5BYFoOQTLmA/xsrUK9KK6pZafh/T1mCDL6PdSeJdQpfkW+j0fkEitz6O
-         +d9A==
-X-Forwarded-Encrypted: i=1; AKwUvByMMQXY4Epcc6kLyNhba4FR+H4dlTleb+WrmR5F6sVNIyJFNAGZT3jkaKCPj1rsQVKCPjm4eM58lQvqehg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mfPqq3WMOfIfd/u5xJPqnQ3lHVqJQLI7+KLQyt49l6eR7DOXpU
-	kDsWdi2dYXK9Jp6RVLrqAYv7ehxraIyLh5RE81pA8y5PPoiwirr6JX5m
-X-Gm-Gg: AYBFou3Sf5pl4J5R6vy0krDX9OoYobP75DyT5AAQmoyqGwBdVpEmYrr3Dc2fbUigBPR
-	YPtZhmCBEWrWIGqLOTbgwOXegz8yqQJh/3tIz0HiJsT6ScCHe0uFGzX5OEM3d8okm7yxLKFcmdx
-	+qaGyQkcHdLTozYOT5bc3bCa1n+2U3Mp2PE82lZTkKpZUun/sJT4UyVIz6+yzZ7I2yEtx+x/1MY
-	4i66RrG8lfo607+t+JDxpfEYxMgddTeu7Q8TQilAaQcBtQzsmS6/Tyi2G3lsfuOqg+utVm2tjWu
-	xrBmR+37QbNvQ4OPGzdltQQrStafDR1LDZUIAlw6lMHuAR5+gfeEolIz9bcfoC9Rx5ftNn4Dw0/
-	2BwuGAF3aJOxoXmmLumWyy4MHBbA3A0rqz6YqacD85G2hPHXRMuiaxvslKLFAE9DUnFMGMFAD1u
-	5jpV39B7D+nTetUMa6vG7rT8RW7WcV8K0m+4EMRJhPPLsDFttuEoCzOmCMu2X48wq6pQ0RoOxyB
-	8KaSys+F04B1IQWlEQhJMrhOXzwERiupmIL2eBHQ7Y/Sj7cEhjfNp7n+XRtRXNkspEH54DBc9L8
-	Crm/7v7yygz+OBppXqPBsw4FvN1qtyNWLMdeMF9Mts3l16jb8A38CaYh3b1X4TF8T2Zbx/LddlK
-	r4lm+DNc=
-X-Received: by 2002:a05:600c:3510:b0:4a1:7033:5b55 with SMTP id 5b1f17b1804b1-4a18e4cc437mr2753135e9.21.1791505935518;
-        Thu, 08 Oct 2026 17:32:15 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-ad61-5a01-743c-891f-b33c-cae7.310.pool.telefonica.de. [2a02:3100:ad61:5a01:743c:891f:b33c:cae7])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db94e33d2sm1133434f8f.9.2026.10.08.17.32.14
+        bh=x11PvIESSkGOPE/y8CqSvSINYIoP3r5FMwi0SVUBQUc=;
+        b=wpJox2/r4JmNXGowTpliYeOXA6KLra0mZ2ZjvjEJi54oPIX0uFAtFjATKGaX6vJvui
+         rXywlKfy8HcGwlpJF74rs2QU/pa/cN+4m6pdQce3m/sggsuL8JvBJ+X+sWjvwAacVV5i
+         dh6S3HxA8Bu/udTgi+Zxqw46Dgc4XeMdWOEDFAqNTe9KEqrxoR0t2jMd/UsLXoIq47FZ
+         3QzMxp/XVhurpe0DKQyPW0//rUxHXIxnx2ixAzltseSY/VO/oLtRx8PjmlM9pdKNcKb1
+         sFQ66ip0rwo69ymdSO+Vjiuw54U7W7Y9s90qwB23ud99inZmwmrcbMih5MR32Woj1atw
+         SXpQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwG1QgjmIXit5GIV4uevqg0uRU4OpvhkkH+4GzWWccy195HES2s3LoWswMEjyejMghRLaCPD6fGmIkPJkI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKfkjStEkEHxuGBkKvr1tp89qSmR7aKdPiOmy6/RtDSzVAkdYR6
+	hC4Lto2xBdeik4+Hq2gpjTkaqLYt9GLhTYkLFKnJdjGDB/3oV/A03QLE
+X-Gm-Gg: AYBFou24CZkyXowokIVz/LEaSe4LtTdzKMewql9wNhyu9gfX8gOG+BIW1KVEo0P4ZFy
+	Sv92MzFgG8zTwR8Vxcs9tfDlTwhy+E7eYEzSuc/Y+r8jzealbCxRyvCjrlbTusW/1gd3pqU38RX
+	MaMk1zwfnhTt7TpB3y5XgruEciq+nfUD0baEjTY/OUnfmPOGZzPQullt3qEXsRslXiLMtxwFEf9
+	EyLGuXXtH2fAQUXJghxQQkPgzEW7zuKTN2UomcHLZcm1+QmUSAGs4OoC8r+K2Tkpv6nAyFvV4iy
+	MajQaHqwRFnZl73GgHR4pnt+4V1osOoKwpSqZIoGD9IOcnm26gz0x0Pm4dO9b5LGsOC+CuvqDbB
+	QFIdutwEKfZ0oUGOA29dodaSSgUqHPQX/yjqTafvq7IH0uTD/8iiCNYowvw/oV0H7pRNSNmmbQg
+	1bgYhJi1hvs3h+0J1wZyPCny57GEFCRA5HBuOywKAlELLfYVnlj1oZ8lo56lInb8SlSUZZiMSJ/
+	Q4qegGgI6wSKEWtqj4m5gDDCe2Idg6wkZcFIEUmaIFWM7hztkm/oGdnW4PjyxhL5I2WnsHkCoV5
+	6ltOo4KVGTEx4elv5hZUuWFckisyZg==
+X-Received: by 2002:a05:6102:a4d:b0:7c3:83a9:edc9 with SMTP id ada2fe7eead31-7cb36485419mr123513137.1.1791506140555;
+        Thu, 08 Oct 2026 17:35:40 -0700 (PDT)
+Received: from localhost.localdomain ([132.170.205.109])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7cb3539092esm488922137.3.2026.10.08.17.35.39
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 08 Oct 2026 17:32:14 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Kamal Dasu <kamal.dasu@broadcom.com>,
-	Al Cooper <alcooperx@gmail.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Ulf Hansson <ulfh@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	linux-mmc@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] mmc: sdhci-brcmstb: don't log an error for missing BOOT registers
-Date: Fri,  9 Oct 2026 02:32:01 +0200
-Message-Id: <20261009003201.68288-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+        Thu, 08 Oct 2026 17:35:40 -0700 (PDT)
+From: Sanan Hasanov <sanan.hasanou@gmail.com>
+To: "Martin K. Petersen" <mkp@kernel.org>
+Cc: Sanan Hasanov <sanan.hasanov@ucf.edu>,
+	linux-scsi@vger.kernel.org,
+	target-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+fa495e1497c48a6ed885@syzkaller.appspotmail.com
+Subject: [PATCH v4 0/4] scsi: target: rd: Fix oversized ramdisk allocations
+Date: Thu,  8 Oct 2026 20:35:30 -0400
+Message-ID: <20261009003537.62265-1-sanan.hasanou@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,63 +77,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The BOOT register range is optional: the probe function ignores a
-failure to map it and the suspend/resume code checks for NULL. It is
-mapped with devm_platform_get_and_ioremap_resource(), though, which
-calls dev_err_probe() when the resource does not exist. Every
-non-removable host without a third reg entry therefore logs an error
-at probe time and then works normally.
+From: Sanan Hasanov <sanan.hasanov@ucf.edu>
 
-The binding only describes the "host" and "cfg" ranges, so this is the
-case for the in-tree users. On the Raspberry Pi 5 family (BCM2712),
-where the SDIO host of the Wi-Fi module is non-removable, each boot
-prints:
+A ramdisk page count set through configfs (rd_pages=) has no upper bound.
+syzbot found that a large value makes rd_build_device_space() attempt a
+single sg table array allocation above the page allocator's maximum
+order, which triggers a WARNING. Patch 1 rejects page counts that
+exceed system RAM and allocates the array with kvzalloc so that valid
+large ramdisks also work.
 
-  sdhci-brcmstb 1001100000.mmc: error -EINVAL: invalid resource (null)
+A page count close to system RAM still passes that check, and the
+backing pages are allocated with GFP_KERNEL, which invokes the OOM
+killer instead of failing. On a 1 GiB VM, rd_pages=250000 panics the
+system with "System is deadlocked on memory". Patch 3 allocates the
+backing pages with __GFP_RETRY_MAYFAIL so that enabling such a device
+fails with -ENOMEM instead.
 
-Look the resource up with platform_get_resource() first and map it only
-when it is present. Hosts that do have the range are mapped by the same
-two calls as before.
+That makes the failure path in rd_build_prot_space() reachable, and it
+leaks the partially allocated protection space when pi_prot_type is
+written again. Patch 2 fixes that first, so that patch 3 does not
+introduce a leak.
 
-Fixes: b7e614802e3f ("mmc: sdhci-brcmstb: save and restore registers during PM")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
-Tested on a Raspberry Pi 500+ with v7.3-rc4: the message is gone, the
-SDIO card is detected as before and Wi-Fi works. Suspend/resume, the
-only user of these registers, was not tested.
+Patch 4 fixes an older bug in the same function: the protection space
+size is computed in 32 bits and wraps for ramdisks of 2 TiB and larger,
+which leaves the protection sg tables too small.
 
- drivers/mmc/host/sdhci-brcmstb.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+Tested on an arm64 QEMU VM with 1 GiB RAM, with the syzbot reproducer,
+normal and NULLIO ramdisks, DIF protection space, device removal, and
+rd_pages=250000. The leak was checked with kmemleak by making
+pi_prot_type=1 fail under memory pressure and then writing it again:
+two unreferenced objects from rd_init_prot() are reported without
+patch 2, none with it. I could not test the 2 TiB case of patch 4.
 
-diff --git a/drivers/mmc/host/sdhci-brcmstb.c b/drivers/mmc/host/sdhci-brcmstb.c
-index 1de2f05..7c17a3c 100644
---- a/drivers/mmc/host/sdhci-brcmstb.c
-+++ b/drivers/mmc/host/sdhci-brcmstb.c
-@@ -491,6 +491,7 @@ static int sdhci_brcmstb_probe(struct platform_device *pdev)
- 	struct sdhci_brcmstb_priv *priv;
- 	u32 actual_clock_mhz;
- 	struct sdhci_host *host;
-+	struct resource *boot_res;
- 	struct clk *clk;
- 	struct clk *base_clk = NULL;
- 	int res;
-@@ -534,9 +535,13 @@ static int sdhci_brcmstb_probe(struct platform_device *pdev)
- 
- 	/* map non-standard BOOT registers if present */
- 	if (host->mmc->caps & MMC_CAP_NONREMOVABLE) {
--		priv->boot_regs = devm_platform_get_and_ioremap_resource(pdev, 2, NULL);
--		if (IS_ERR(priv->boot_regs))
--			priv->boot_regs = NULL;
-+		boot_res = platform_get_resource(pdev, IORESOURCE_MEM, 2);
-+		if (boot_res) {
-+			priv->boot_regs = devm_ioremap_resource(&pdev->dev,
-+								boot_res);
-+			if (IS_ERR(priv->boot_regs))
-+				priv->boot_regs = NULL;
-+		}
- 	}
- 
- 	/*
+pi_prot_type_store() does not serialize concurrent writes, so two
+writers can still race in rd_build_prot_space() and
+rd_release_prot_space(). That was already the case before this series
+and is not addressed here.
+
+Changes in v4:
+- Patch 2: build the protection space in local variables and store it
+  in rd_dev only on success, so that the error path cannot free an
+  array installed by a concurrent pi_prot_type write (Sashiko AI
+  review).
+- New patch 4 to compute the protection space size in 64 bits
+  (Sashiko AI review).
+
+Changes in v3:
+- New patch 2 to release the protection space when its allocation
+  fails (Sashiko AI review).
+
+Changes in v2:
+- Allocate the sg table arrays with kvzalloc_objs() so that ramdisks
+  larger than 512 GiB do not hit the same WARNING (Sashiko AI review).
+- New patch to avoid the OOM killer when the backing pages cannot be
+  allocated (Sashiko AI review).
+
+v3: https://lore.kernel.org/all/20261008235411.56641-1-sanan.hasanou@gmail.com/
+v2: https://lore.kernel.org/all/20261008223712.49827-1-sanan.hasanou@gmail.com/
+v1: https://lore.kernel.org/all/20261008215709.46014-1-sanan.hasanou@gmail.com/
+
+Sanan Hasanov (4):
+  scsi: target: rd: Fix oversized sg table array allocation
+  scsi: target: rd: Release protection space on allocation failure
+  scsi: target: rd: Don't invoke the OOM killer for ramdisk pages
+  scsi: target: rd: Avoid 32-bit overflow in protection space size
+
+ drivers/target/target_core_rd.c | 29 ++++++++++++++++++++---------
+ 1 file changed, 20 insertions(+), 9 deletions(-)
+
 
 base-commit: 6c377d19d4a5116d9bec5203aa3c6c11523e7898
+-- 
+2.48.1
+
