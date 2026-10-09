@@ -1,179 +1,133 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-b8-smtp.messagingengine.com (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25D2725DB0D
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 00:21:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83C791B983F
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 00:22:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.159
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791505294; cv=none; b=AbIgnKQ1BHvDAvc5vjilOJkyeO4gEm8H2grbHMYbq6eEALMVA1Iw1u2hqnBK9VJUY5CLMidYYAmZUDLDTh0j7IXg25WueLvNQq8Ih/6e3nt50nDdY9K4slAv9yXfIc75G+4vVgkgPUTk+due1i7zcvV2ElmRkWoMQLoiwdeMTls=
+	t=1791505341; cv=none; b=WKpwemM0hFgkr9vR5yAq45LcZC079cxiGqa3M7bCeeU/NUMz8d9hTIQV/chx8bKttLwoKdK2lwqUsNGxbn1peUip6gVqoPhzvYP4F8Onnxu6s2dGoxvXoOu1HCzd/dzdDBwKd8eiIaPi0P0a6s0dB5wgYmoV63EfqI+MDrmH2wE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791505294; c=relaxed/simple;
-	bh=NVIDiLXAJf3+ZJHF4QiA1R4ioaT/JGKrOJyAdNKIbc4=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=bDRl8XGdOZFt+yWUhu4RmhhQeF1fsWBTQO72Yo0utnDLP1f5ISGF8eyCVBYq8r2pPtcei0UbQm5Jt6xrF6z49cyj8lArwKCg6z6dlcihzk83yIPzSzx2zMcytqYxpnVhuaxfpPwQV7fyqPdB7uW/Pf7vrKtp6HOFlJsuJq1cGdk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AsZsNgD3; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791505341; c=relaxed/simple;
+	bh=/LG/kBUYcfDw+XJrbmpq0J8dcrVTxAKe7TmfiozsELE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JPdD90AkdxosWcIxkwePPHj8wLAbmoYyepAKJeB+1Xjgv/924b29EvpgMV/jPM3u8myI0sjl/vwC+4VIIIBxnzEBHOjhmFDS/H+YOxPBTTn2DdKcV0q9kDpbp8cE/P6tfNJHchbdh3qeZsY6olzDzllY5+RheyqUBseavLssxeQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=dwB8JxaL; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=ma+26YPH; arc=none smtp.client-ip=202.12.124.159
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AsZsNgD3"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a020e65269so26900975e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 17:21:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791505291; x=1792110091; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kIz/qZTA1DVdo8Wv1KvtH0Jov9NyNDxXYjGr4vU3wa4=;
-        b=AsZsNgD3nHdz21PLQgZ9iXPTrTocPQsn3eJA3Ub4TWfW2i7ZuU8DZOKbOJv0EciY8c
-         knP1v5LY/Wd2wcDJac3mImvkpuGHCWeKc/Jf0FLed+EXrBO40BmHp4sOhfixNyiy+4y7
-         kx2da2PAZ4xHnYCrgkSntSSB2F3odSDqx8tADYOuP09hHVhI7y6UiuWfACa/BZRvqWlC
-         VlHgoMAQF9YTuZOzD4+cxu0ozPjiYHkU5wbRC62uw4b6v4Km8KC7s8bksKJKDSaMlDgJ
-         ACFlkOUNqABrYCdq6PK18x/tolT4fa/NkILv130RmoYQBD3x+si/m9IZuAr4OHafjTkP
-         Dhkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791505291; x=1792110091;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kIz/qZTA1DVdo8Wv1KvtH0Jov9NyNDxXYjGr4vU3wa4=;
-        b=J8zKW6lrlTGJF50zqSB2sLlpg+OO3G8TViE6+wdO05g8ER7X5S7cgJSDbx3bVwpyKL
-         GiOGxmzIxcyAIeTrCpd0uc0C4/9jxt3wCOOww1Vzmj7ryIeNarCFmXDqDCpcHZ5sPCfN
-         XMYyuEzHc7hHKp2leWSV19Xb2HXWdTzjXnY9bz/gLK+Wy6eg3eGNPwl/hgL8a7Wzbs5z
-         H3nmdPjt8imwgfZwisSK7czNuK28qs6L+WUiXIOUzPAYLrmfNDSeMb94UVGtTpfGX0lL
-         L2MWJw4pLvPLJBptXJ6HEiRsW/OD26qXp7w1PSBf3DN0/0ADml9J9gZNJVZjfsNTF2du
-         2XBg==
-X-Forwarded-Encrypted: i=1; AKwUvByc7fgZV9V6X8MREl1qRHsAXuphjSocbpbySi4od1knkDpN3bYWdezOnU+7FgRg6Vw9tH8EMFmKppVDoq8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lh4+nDXjf14dgZ09iSJC1o898B0jVtqXdYp7EBetzpBAJoMkB3
-	8IKaKsRD/oNhSiMY2o9y89QtSjs9cZDjum2fJ583iy2e3eCngkGyqUQA
-X-Gm-Gg: AYBFou1JnaRIUsVouuC08Zgsub+//6fr5gco2JKxJStYyV9au0dZtEiEedQUCRJSA2o
-	CmsNUtCUZ61z/VdYCuRRxXKSX5NhRWbKxIl9EKp2HeG4jlgmME7iwPQk+WZrtn7H5ZGCjSPR1CA
-	Qdk6FFpG01OF6627eaZZkkPFVIvZ1vgLiurh+NHH/bvkm7uPegyWOk1IY0f/noqxTW89jyCaG/6
-	bHSQrH1mtkP7XYcs5sjCG80S7LNlECjoYXIicdUtiDN91cHldi2YJZW+08jCnNWB/a43LfswDLQ
-	XFVcMNRJNVfW3sAqpU/bUX/M+KxpLzZFXYPsxm2hAhknmj03qRyNiMrMBBpysR1YmJjN9hWFKaH
-	uV7racjxLvU27whSQYkoxieU0MuXxdgOiHuxdykEAe5Z1id9D2UweF/FRoogw6gNtIJqXnxCt2V
-	sjUyVu7Ax1aoYeQEZw4qRuk0RouAzwiWMvJF1yb68xV97yHM/WP+VQTdXGLtLjNoF8hpg1baoYz
-	EoAgYCzuMQbHU0Un+ZcCgyKATCxciZMpU7A/0NjXRcgCI48LN6imbm4lPHWBV7ysW8d0dnKz/LG
-	pf9bGOO6Fi6K3ZyxomLtfknJKesZ/4+n2MHdcR2f2+LGuGSp20aluNBHONkcRyRRmOTEhKvIB/G
-	fuTHy2Kk=
-X-Received: by 2002:a05:600c:6990:b0:4a0:1ea1:477a with SMTP id 5b1f17b1804b1-4a18e4d8bbamr2152055e9.27.1791505291199;
-        Thu, 08 Oct 2026 17:21:31 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-ad61-5a01-743c-891f-b33c-cae7.310.pool.telefonica.de. [2a02:3100:ad61:5a01:743c:891f:b33c:cae7])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18e4987casm3364605e9.1.2026.10.08.17.21.29
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 08 Oct 2026 17:21:30 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: iommu@lists.linux.dev,
-	dri-devel@lists.freedesktop.org
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Diederik de Haas <diederik@cknow-tech.com>,
-	Joerg Roedel <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Sandy Huang <hjc@rock-chips.com>,
-	=?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
-	Andy Yan <andyshrk@163.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Rob Clark <robin.clark@oss.qualcomm.com>,
-	Jason Gunthorpe <jgg@nvidia.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Jianfeng Liu <liujianfeng1994@gmail.com>,
-	linux-media@vger.kernel.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="dwB8JxaL";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="ma+26YPH"
+Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id CF6DE7A00BF
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 20:22:19 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-09.internal (MEProxy); Thu, 08 Oct 2026 20:22:19 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm2; t=1791505339; x=
+	1791591739; bh=uYN44cNXKO4ATQAeqK571RTfnbDl0xic5yYgSrkxiNc=; b=d
+	wB8JxaLy6mTNr7Bn2iT77Ki4iRe03FEf4hkoQTO9qXksnqnfiit1qS9E9ydE65Fn
+	QTZrxdh0ucsevbsgKLKj6zOK+px4RuqTV/E7K9HzP4SeBTPXth69iGUwSv5BOYKN
+	HjtETCCfVa7sTGCcf3UDI0UT9Wnx11FwBoQmW2h6/EGESuN+HmcEamTUoBddN8bq
+	Ei7drLaVczILF+u+Xc9MxXFUziiTTSbFHGuIB5liQS+QEY6kzdekzAM6tA+YRMfi
+	p5DTrhhQf+5oqveVvqDZ4kpKxqBdvaGh1Uuhn/p+1oitv2GzA6v8HgLSlkD8X0TQ
+	RQvmhTAKJ4aaQ2T2n7bIA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1791505339; x=1791591739; bh=uYN44cNXKO4ATQAeqK571RTfnbDl0xic5yY
+	gSrkxiNc=; b=ma+26YPHxtlFog5OqsoHLvFBZF2D/ot0ZvJck5iRWjfedzmairE
+	6SKpSMpUt201EC6TWerLBJ/+FdhAce3NUE99aFqwT3A95lrN4TmPOX0sC34TuSe2
+	HfVBRWa1NX+c3FH2aJBiVkEyXh9rQBotpHuIJQuAi9Ym+8SISOFJEZA3bhsPFiz1
+	6Fkrq7OQjPYuMCy21QkRxxP5sQaPP6FdeHLYdFQaiEPIO+OvROGJkPOUqZQ56dfd
+	GSMinsOWm4a673bO85h9UEA5lSL0xeOEXMYlrk6g4giWcp7kTQp5UOdsWHxNeV+V
+	9KVMFTiGGwAU25KBjliAY4U4wbyduqMs5gQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=sakamocchi.jp a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791505339; d=sakamocchi.jp;
+	mf=PG8tdGFrYXNoaUBzYWthbW9jY2hpLmpwPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:YCfTk+aAFqePr4fu77M6sOvLjiOGgyklILx8OvRLfkhuRyl
+	5XMLIFofMb/+TlH/o14eadHz0c0Q7vA/y8nykiraLoXQigi+uLFSdp7tLJjC1v3Y
+	B4L6vzcqcxqzOKDlcRJixbzscLDnsrN4/uwYmAOFee+oDjbUhdA25ez0jwRtWTId
+	nKDPvjyv6PGxqnRqNmDxaunHQyt8hXpIQLODdKKG9TyB5/C1vEDAQ0O5HbsNHVdi
+	TD/PdLNaF2fQ+/K8FSoAlXuAQd9LOzCm4Sp22plSbwupHsh+IbBr/CcQQwe8Jvvz
+	D8/S89FO8DI0IAIhnWQJNVoyG6KO0pn72Dk2BtQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=13;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,mail-followup-to,message-id,mime-version,references,
+	subject,to;
+Message-Instance: m=1; h=sha256:vgKCjTSwS8p8bMc9zGz8MxGyjRZp34qvLiOIhrrnCYc=:/LG/kBUYcfDw+XJrbmpq0J8dcrVTxAKe7TmfiozsELE=;
+X-ME-Sender: <xms:uzPIaiGGEakCAd1g1ipoDMAl3G6wLJjGr_lIhCyKdY6hoBZg95X7kg>
+    <xme:uzPIahQLPidg9cA_18m9gPpeS5ij3g5Q2QrLMSsmQtONAKUSsfqLB3pyJTtrNEihS
+    -h-_Eik68Yq_ohiKgYyRM0SemFxqoCuGoBPO0N_JPqvu1AhkUqCK0P6>
+X-ME-Received: <xmr:uzPIajstletjWDXP3pA1cT_A4D4mDi7dx_ix4hkfcMp5OwStAMGPWkEKjZIN2Pkj7CR86ccLLJxQ9AJa9YCsZezeCA_udg>
+X-ME-Proxy-Cause: dmFkZTG0VSET79bmHtwwbGMA4O+hbVN3uJH5Z5BAVENfUZwlUpEcl3UwKcldlaUTuVtarn
+    iZeoCoR4sk0jpON5/2y4ufDu8FbS/4bRXB2G7Za4EUPKMMNvakgU8pBgKmAsWH/WYdJ6M0
+    5kQZZI5C16F/1oMmmfHJ7Tqv4NcEDTV1amddr+nzFdGEiOn+yk6Zse33QOB+OFcMBco66g
+    G45JajNQPaOOnYJHQ2FzDCSmkxX7k5QH7scS1b19FFGT7gWGTWc9V86sa8DjtgVh3/HpK+
+    1D1LqWYfv7AEeT88NK7o8LfZgYZi224P6ieoVEjFYgi6R2sTLZmWGNltt47cg37VU9oSBb
+    gqwcMxVAozVzv5D4RSDeqrd/dCNYNiKty1sjDVDhfM6hOb6ikrl6pzcq3HXTsoThbVpJel
+    PT/4lgWsffeJllQPMHGkoLURD/awIyifoctBtLoWRhjuSRT8WpuxAYzbuSSylJqGVmTB8H
+    4Jzfs86zpz0DoTqPnr6wDEZ/MNBkyrtNLnPmd9A9PZsCwKVUzrrNUV1cdfOy4nwwAyyHr1
+    cWcPWXfxluHoSYnfqUT696P/qkNxZJ8uhnmDubEFXL4keMmisFyFLtrBPIDVj6YNbciKF5
+    OPDSbRspLu281bs3jifMaRv9J/BHUxACUwRouKFTQlJNG148KUl1xXJeklxQ
+X-ME-Proxy: <xmx:uzPIaowvI899dVzwSOw6oNIMDS7HpT7Q8tho7QWc93DGpPGFhwHYyg>
+    <xmx:uzPIal65V-eMCr4KY0FZn8g7Q824J4j8DKxVGVL5nlS7h4Qq-gtEmQ>
+    <xmx:uzPIaqVYXmmZXNTHWE-FjNPgoHkfrI6SlGr8qMyNDGQ4qK_SYKtMAQ>
+    <xmx:uzPIap0EaqMRFGvE4xMRMA53T4AesJkcSwrJvuDw1vQGInvk8WHueA>
+    <xmx:uzPIaobKYlzC-8lwW3hbeaH8j95i4GUc_zH4s-dfkCr1inhbHt_Pe7p7>
+Feedback-ID: ie8e14432:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 8 Oct 2026 20:22:18 -0400 (EDT)
+Date: Fri, 9 Oct 2026 09:22:16 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: linux1394-devel@lists.sourceforge.net
+Cc: linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/6] firewire: core: use spinlock_irqsave() appropriately
+ for transaction list lock
+Message-ID: <20261009002216.GA258845@sakamocchi.jp>
+Mail-Followup-To: linux1394-devel@lists.sourceforge.net,
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 2/2] drm/rockchip: Map imported buffers from DMA addresses
-Date: Fri,  9 Oct 2026 02:21:14 +0200
-Message-Id: <20261009002114.67851-3-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20261009002114.67851-1-kmehltretter@gmail.com>
-References: <20261009002114.67851-1-kmehltretter@gmail.com>
+References: <20261008234432.251412-1-o-takashi@sakamocchi.jp>
+ <20261008234432.251412-2-o-takashi@sakamocchi.jp>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261008234432.251412-2-o-takashi@sakamocchi.jp>
 
-rockchip_gem_prime_import_sg_table() uses iommu_map_sgtable(), which reads
-CPU-side pages and lengths. DMABUF_DEBUG clears these fields, causing
-the RK3588 import failures reported by Diederik de Haas.
+On Fri, Oct 09, 2026 at 08:44:27AM +0900, Takashi Sakamoto wrote:
+> The transaction.lock in the fw_card structure protects the transaction
+> list from concurrent access. The list is mostly accessed from process
+> context, with two exceptions: split_transaction_timeout_callback()
+> acquires the lock in softIRQ context for the timer wheel, and
+> __fw_send_request() acquires it in the caller's context, which can
+> include hardIRQ context.
+> 
+> Use spinlock_irq() in process context and spinlock_irqsave() in the other
+> contexts. Update the relevant scoped_guard() invocations accordingly and
+> remove the unnecessary comments.
+> 
+> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+> ---
+>  drivers/firewire/core-transaction.c | 27 +++++----------------------
+>  1 file changed, 5 insertions(+), 22 deletions(-)
 
-The attachment's DMA addresses belong to the VOP's default domain,
-while scanout uses a separate DRM domain. Use iommu_map_sgtable_dma()
-to copy the live mapping into that domain.
+I realized that the change is incorrect in the way to use these spin_lock
+variants. Drop this from the series.
 
-Keep native allocations unchanged. Unsupported imports still use the
-old page-based path and remain unfixed under strict DMABUF_DEBUG.
-This RFC retains reverse translation rather than sharing the DMA domain.
 
-Reported-by: Diederik de Haas <diederik@cknow-tech.com>
-Link: https://lore.kernel.org/r/DLR74W1U9YPC.375IK0HOYHDIG@cknow-tech.com/
-Link: https://lore.kernel.org/r/DLYLA3WQNN3X.3FB9MO8ZWBQ5@cknow-tech.com/
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
- drivers/gpu/drm/rockchip/rockchip_drm_gem.c | 19 ++++++++++++++-----
- 1 file changed, 14 insertions(+), 5 deletions(-)
+Regards
 
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_gem.c b/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
-index 9a1dc9f12072..501c94cb921a 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
-@@ -20,7 +20,8 @@
- #include "rockchip_drm_drv.h"
- #include "rockchip_drm_gem.h"
- 
--static int rockchip_gem_iommu_map(struct rockchip_gem_object *rk_obj)
-+static int rockchip_gem_iommu_map(struct rockchip_gem_object *rk_obj,
-+				  struct device *dma_dev)
- {
- 	struct drm_device *drm = rk_obj->base.dev;
- 	struct rockchip_drm_private *private = drm->dev_private;
-@@ -40,8 +41,16 @@ static int rockchip_gem_iommu_map(struct rockchip_gem_object *rk_obj)
- 
- 	rk_obj->dma_addr = rk_obj->mm.start;
- 
--	ret = iommu_map_sgtable(private->domain, rk_obj->dma_addr, rk_obj->sgt,
--				prot);
-+	if (dma_dev) {
-+		ret = iommu_map_sgtable_dma(private->domain, rk_obj->dma_addr,
-+					    dma_dev, rk_obj->sgt, prot);
-+		if (ret == -EOPNOTSUPP)
-+			ret = iommu_map_sgtable(private->domain, rk_obj->dma_addr,
-+						rk_obj->sgt, prot);
-+	} else {
-+		ret = iommu_map_sgtable(private->domain, rk_obj->dma_addr,
-+					rk_obj->sgt, prot);
-+	}
- 	if (ret < (ssize_t)rk_obj->base.size) {
- 		DRM_ERROR("failed to map buffer: size=%zd request_size=%zd\n",
- 			  ret, rk_obj->base.size);
-@@ -131,7 +140,7 @@ static int rockchip_gem_alloc_iommu(struct rockchip_gem_object *rk_obj,
- 	if (ret < 0)
- 		return ret;
- 
--	ret = rockchip_gem_iommu_map(rk_obj);
-+	ret = rockchip_gem_iommu_map(rk_obj, NULL);
- 	if (ret < 0)
- 		goto err_free;
- 
-@@ -457,7 +466,7 @@ rockchip_gem_iommu_map_sg(struct drm_device *drm,
- 			  struct rockchip_gem_object *rk_obj)
- {
- 	rk_obj->sgt = sg;
--	return rockchip_gem_iommu_map(rk_obj);
-+	return rockchip_gem_iommu_map(rk_obj, attach->dev);
- }
- 
- static int
--- 
-2.53.0
-
+Takashi Sakamoto
