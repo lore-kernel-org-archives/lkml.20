@@ -1,71 +1,41 @@
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E60D33D3CE5
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 05:05:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.171
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D1BF727B35F;
+	Fri,  9 Oct 2026 05:06:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791522303; cv=none; b=NE1dS8ByGSGTLwkTZqf7PX8Rj8zSbcLPtFuIhcfTgpKST9pIMaO07szLIZ/5iHhdp4c9zqG1QqFehuQC5/Z0ziHMgSzuiisRdXAQM/5UXUP31COrnGf/B8mdnjT3seB+YTf1wk8k4G8cKzgyZEA6wsMm7PuiQkFkaKYY/QQVYnQ=
+	t=1791522365; cv=none; b=dyBOftllhElFkwxZTG3iAGF3wwYFpzepKXSRoMPXp0TISVld3v3v2Dqf7kc035Vc9Dl260N6py6GEHo3UqwEZUrPJRfcMWEzNmA6SUXgw4wyDM5PWyrJ9XE8sgwumu+Pkg3kiuEEwnnYv4xH/Zh1rrJyKoArlm45psD4jFNvJUw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791522303; c=relaxed/simple;
-	bh=bZxLCwanPVCt7fTYXMHOHM3p9tdM8lOdphND76v9MSA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qZSHDxxgoEEftPXWxotD9nGl79FxOhe8hYt1aFZRsv9bR+vSmxgS/EQR+e+uWyX/SdIdDNmTgAcl8Ne/3MLgJ70Pwx1BesdUlbCOy+arxwkmBm9q3qzxa3z3/r16Ctu69B0UHwX/6rk91fmjAqRtuWnmpVvtCE+R8uSFmJPNW2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T/JPCTbC; arc=none smtp.client-ip=74.125.82.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791522365; c=relaxed/simple;
+	bh=oudSEG2LlP69gVam2I4tXXvj58D8RUehRTIph05vmZQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BNQd2KUf4PLKXyjZmcRO2Vv5tjn+QaEBuhRRswMqHyhDu3DGnJ9Ecg8bxr7GBmQku7apIso/+PU4zb3fjg/bkEbRrAPYx7kIeZLxRdiLkwSAP+325df/za6Ayg1ibOi4zkB+5RGf/jc4VzGWszKBuvE9FWJN6SwgFF5QdidOa5c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=api2nSQv; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T/JPCTbC"
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-3115c4451c8so5151694eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 22:05:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791522301; x=1792127101; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9nzcEWRTzfm59zGLMlJVKe3ebiLwVSDP7QGjSAIGyLc=;
-        b=T/JPCTbCGBeEZSIuFSJ8QazTGIEwZSGQe9k0Pai3pptJe81vZaJYjgxaqL1SzPdVSa
-         UDJFILO1UZrYGx6yFSRMXu52fmydk+PpB2VRCYNhneUItdUDmSwJt2r4cTleL+12hIbR
-         briBNtg3O5uHDjywk7rxWQ+fSH8FArSt3hCIn4oFeDe/45G6H9+kYM7Axlv7CwTxDCuu
-         wyWzwGImUsZgW07m5VugqA1mP+4iSN1PRYFbj4DTy5z+vLgdNVrb0D0/clAsj8HisjL5
-         dQ02IbnnTZXDY1eFIa23L+W04aUB/8GPq5EqcM+d8fKxdca6ESZK+AehgNPKrOYcL+Ch
-         GQlQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791522301; x=1792127101;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9nzcEWRTzfm59zGLMlJVKe3ebiLwVSDP7QGjSAIGyLc=;
-        b=kShWMwN2q485puX4Cl7efFoCqgSHdIH9eE++MLx3hI+LXEbWC64D5AWLGH1Z7ibYgo
-         mOx1nyBBuQQtQoWj90Nnnda0pwQExm1omQ//gbxNCs5KMIsYJDU+KLj5+/6Wf7sw1aRM
-         B1YVBxg06KHCgYQd4f8tqhxhGkNJy4ebr4y6ib6JP6fomCIagqpK0QKF56Ajy0Zn1CLG
-         LIX0HBZGELjmL65dFFLkLkgxz2/c442N6GfePylv1GLuFBRLwEskoij8BjhXWw9riaZs
-         nfylwu9RUVg5GPuqyNjga6cQDPCamTMDC+8RSbFF+oMv6n30sRh1m+yHJg2FLid9RQ4r
-         Qrfg==
-X-Forwarded-Encrypted: i=1; AKwUvBwkoD4f92B9sk90+iphcoI8eu0MPmfOjP3IiI0W3CUtxA7GIYDAMcrWz6D29hqV7hAAHzRth6TSXku55wk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI+GemaTbAo5Knv1ofY1rU7DSSrasIBw104NKo5r+NIA0YYdVJL
-	H2CRakaZG+tcLZi9am0RurY86ci5BFRwD6/5U/AHSmJBWOOP6b9yJzEI
-X-Gm-Gg: AYBFou2v0UZQtVDIik7ihBp52D5PRBT6Qvm4HLMrEqOzAG7yi//jLKNlpZRTjLNfNOe
-	PFqg0GF+VLzLtlu3OnbEF8E0BVeYPmixjr7Z3pvf25g/i4lyigPVgR4tyWy7uherjWqnw8dgeE+
-	+U4lOcN0iWMAXL1mF1Syvou6JjS3upRNTRkKbMR71ywur7a8sx7fQjN8/qHQrzvrUBoXrKJgb55
-	uVolYC4etzLALo3+y87H8ZWkxW9ylVvOjayNma2V8W+qZJ6BVkuG6TMM5YU9M7nsb6Ln96RExWy
-	AAKFtwnWwpMshGMzQPiD662dc2bxGaE8MmfqGRZAYyhayjzH8IRVTwDP6HKPBolHEW2yM4RYmKo
-	cRj6+DdD3mCydMRViPU9iNJEwyjEYI+y5KjCQqBLibGgyS5vz2tQnDtfjr46qNTwPocVxxTs/Fl
-	NJ7TxGJX8ZqyLCpkkJf/BLEzUpXFxXTrdp8EcDbkwL8/8zYJgx+me3f9jQOZx3H7NpL6Rtg/sWQ
-	ISOUanA
-X-Received: by 2002:a05:7301:190a:b0:33b:ecf4:7f80 with SMTP id 5a478bee46e88-3536c5e54a0mr1837405eec.22.1791522300872;
-        Thu, 08 Oct 2026 22:05:00 -0700 (PDT)
-Received: from amd.ban-spse ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca6d20dsm3416926eec.12.2026.10.08.22.04.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 22:05:00 -0700 (PDT)
-From: Priyanka Mani <priyankamani2100@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com,
-	syzbot+baf3cbba7dd980984f0d@syzkaller.appspotmail.com
-Subject: [PATCH] ihex: reject firmware images smaller than a single record
-Date: Fri,  9 Oct 2026 05:03:30 +0000
-Message-ID: <10da8e7f7c7070fc9a9da1d274b78f1d3f379703.1791521373.git.priyankamani2100@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="api2nSQv"
+Received: from CPC-namja-026ON.localdomain (unknown [4.213.232.18])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 1561420B7166;
+	Thu,  8 Oct 2026 22:05:59 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 1561420B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1791522362;
+	bh=EZHcU/fJ75D/YFV+/52EKTOe0fXHRks66pGLOM+iPCY=;
+	h=From:To:Cc:Subject:Date:From;
+	b=api2nSQvkXes0vTfLg8ltk+65TUyn+gYl+AKbhcr7+VC2/zdTpYLVLuL4KJZUNhWg
+	 1fb48ktyspoGOlV+iTWyo2lRKhQWjSZxarROwXNlGD3strzkxf571jrckizgqp9HIT
+	 NkGL4E/SOlFQgUz6QMuXH1mDieFosT0CCqV9nBSM=
+From: Naman Jain <namjain@linux.microsoft.com>
+To: linux-nvme@lists.infradead.org
+Cc: Keith Busch <kbusch@kernel.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Michael Kelley <mhklinux@outlook.com>,
+	linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH 0/3] nvme-pci: yield completions under scheduler pressure
+Date: Fri,  9 Oct 2026 05:05:53 +0000
+Message-ID: <20261009050556.2817978-1-namjain@linux.microsoft.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -75,66 +45,182 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ihex_validate_fw() computes the end of the record area as
+Hi,
 
-	end = (const void *)&fw->data[fw->size - sizeof(*end)];
+On systems with several fast NVMe controllers, completion interrupts can
+keep returning to the same CPUs faster than scheduled work can run. Each
+handler may drain only a small number of completions, but the combined
+interrupt stream can still prevent scheduler and watchdog progress.
 
-Both fw->size and sizeof(*end) are size_t, so when the firmware image
-is smaller than a single struct ihex_binrec (6 bytes) the subtraction
-wraps around. 'end' then points far beyond the buffer, the
+This series keeps the existing hardirq completion path for normal I/O.
+For an I/O queue with a dedicated MSI-X vector, if an interrupt arrives
+with a completion pending while need_resched() is set, mask that vector
+and hand the queue to irq_poll. The poller drains bounded batches and
+returns the queue to interrupt mode as soon as it catches up.
 
-	for (; rec <= end; rec = __ihex_next_binrec(rec))
+The completion-path transitions are:
 
-loop condition is satisfied, and the body dereferences 'rec' while
-walking records that do not exist.
+                         +-----------------+
+                         | normal IRQ mode |
+                         +-----------------+
+                                  |
+                   CQE pending and need_resched()
+                                  |
+                                  v
+                     mask vector, schedule irq_poll
+                                  |
+                                  v
+                +--------------------------------+
+          +---->| drain up to one poll budget    |
+          |     +--------------------------------+
+          |              |                 |
+          |         full budget        short batch
+          |              |                 |
+          |              v                 v
+          |     remain on poll list   irq_poll_complete()
+          |              |           mark handoff allowance
+          |     generic irq_poll      clear poll ownership
+          |     invokes next pass     enable vector
+          |              |                 |
+          +--------------+                 v
+                                  +-----------------+
+                                  | normal IRQ mode |
+                                  +-----------------+
 
-This is trivially reachable from userspace via the sysfs firmware
-fallback: loading an empty image (write "1" then "0" to .../loading
-without writing any data) leaves fw->size == 0 and fw->data == NULL, so
-the first ihex_binrec_size() reads rec->len at NULL + 4:
+A full-budget return deliberately stays on the irq_poll list. The generic
+irq_poll core invokes another bounded pass. Eventually a pass consumes
+less than its budget, takes the short-batch path, and restores interrupt
+mode.
 
-  Oops: general protection fault, probably for non-canonical address ...
-  KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
-  RIP: 0010:ihex_binrec_size include/linux/ihex.h:26 [inline]
-  RIP: 0010:__ihex_next_binrec include/linux/ihex.h:35 [inline]
-  RIP: 0010:ihex_validate_fw include/linux/ihex.h:54 [inline]
-  RIP: 0010:request_ihex_firmware include/linux/ihex.h:74 [inline]
-  RIP: 0010:emi26_load_firmware drivers/usb/misc/emi26.c:86 [inline]
-  RIP: 0010:emi26_probe+0x283/0x1690 drivers/usb/misc/emi26.c:232
+An MSI-X message may have been latched while the vector was masked, but
+not every MSI-X hierarchy can report pending state. The handoff allowance
+therefore does not claim that an interrupt is known to be stale. It lets
+exactly one empty interrupt after unmasking return IRQ_HANDLED. If a new
+completion is present, the normal completion path handles it.
 
-A valid ihex image must contain at least the mandatory zero-length
-terminating record, so anything smaller than sizeof(struct ihex_binrec)
-cannot be valid. Reject it up front before the wrapping subtraction.
+The core idea is simple: when a hardirq sees need_resched(), it masks the
+interrupt and offloads completion processing to irq_poll. The interrupt is
+unmasked once the CQ catches up. Everything else handles queue and
+controller state changes while irq_poll is active, because its asynchronous
+callback can outlive the hardirq that scheduled it.
 
-Fixes: f1485f3deb89 ("ihex: request_ihex_firmware() function to load and validate firmware")
-Reported-by: syzbot+baf3cbba7dd980984f0d@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=baf3cbba7dd980984f0d
-Signed-off-by: Priyanka Mani <priyankamani2100@gmail.com>
----
- include/linux/ihex.h | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+The lifecycle transitions are:
 
-diff --git a/include/linux/ihex.h b/include/linux/ihex.h
-index b824877e6d1b..61f1df4f7819 100644
---- a/include/linux/ihex.h
-+++ b/include/linux/ihex.h
-@@ -48,6 +48,16 @@ static inline int ihex_validate_fw(const struct firmware *fw)
- {
- 	const struct ihex_binrec *end, *rec;
- 
-+	/*
-+	 * The firmware must be large enough to hold at least the mandatory
-+	 * zero-length terminating record. Without this check a short (e.g.
-+	 * empty) image makes the fw->size - sizeof(*end) subtraction below
-+	 * wrap around, yielding a bogus 'end' pointer and an out-of-bounds
-+	 * walk over the records.
-+	 */
-+	if (fw->size < sizeof(*end))
-+		return -EINVAL;
-+
- 	rec = (const void *)fw->data;
- 	end = (const void *)&fw->data[fw->size - sizeof(*end)];
- 
+  normal IRQ mode / irq_poll
+              |
+              | set PAUSED, join IRQ and irq_poll, mask vector
+              v
+          +--------+
+          | paused |---- temporary ----> resume after controller is ready
+          +--------+                      clear PAUSED, restore IRQ mode
+              |
+              | permanent stop
+              | clear INIT, balance owned mask, synchronize replay
+              v
+        free registered IRQ
+
+INIT means the queue has an initialized irq_poll instance and a dedicated
+MSI-X vector. IRQ_POLL owns completion processing, while MASKED records the
+matching disable_irq_nosync(). PAUSED blocks IRQ handling and new admission.
+HANDOFF allows one empty interrupt after unmasking. A temporary pause keeps
+MASKED set for resume; permanent stop keeps PAUSED set through IRQ removal.
+
+Admin, shared, legacy, and threaded interrupt paths are unchanged. Explicit
+polling never enters irq_poll; it only disables bottom halves while holding
+the shared CQ polling lock. The series adds no timer, rate sampler,
+workqueue, sysfs knob, module parameter, or IRQ thread.
+
+Why not use nvme.use_threaded_interrupts=1 instead?
+
+Threaded mode installs nvme_irq_check() as the primary handler and
+nvme_irq() as the IRQ thread. When the primary handler finds a pending
+completion, it returns IRQ_WAKE_THREAD, so completion queue draining runs
+through a schedulable task rather than the normal hardirq fast path.
+
+That remains a useful opt-in mode and this series does not change it. On
+the affected VM it prevented the lockup, but it also reduced peak
+throughput. This series has a narrower goal: retain direct hardirq
+completion while the CPU is keeping up, and use bounded irq_poll work
+only after the scheduler has already asserted need_resched().
+
+The distinction is not that irq_poll is always faster than an IRQ thread.
+It is that the normal path is left alone, while the fallback creates a
+scheduling boundary only after a reschedule request is observed.
+
+need_resched() is used here as a best-effort pressure signal, not as an
+interrupt-flood detector or an elapsed-time guarantee. It is transient,
+and irq_poll may execute one bounded callback before the scheduler runs.
+The narrower claim is that, once an NVMe hardirq observes an already
+pending reschedule request, it stops unbounded CQ draining in hardirq.
+
+Previous NVMe attempts made the fallback the normal high-load path. An
+all-irq_poll RFC in 2016 reported an 8-10% single-core IOPS loss and a
+measurable low-queue-depth latency cost. A hardirq-first, threaded
+overflow series in 2019 fixed the Azure lockup, but Azure testing
+reported a substantial throughput loss.
+
+Relevant discussions from the past around this problem:
+
+  https://lore.kernel.org/linux-nvme/1475660534-16681-1-git-send-email-sagi@grimberg.me/
+  https://lore.kernel.org/lkml/1566281669-48212-1-git-send-email-longli@linuxonhyperv.com/
+  https://lore.kernel.org/linux-nvme/20191209175622.1964-1-kbusch@kernel.org/
+
+The first patch selects IRQ_POLL. The second makes existing task-context
+CQ polling safe against the new softirq user. The third adds the NVMe
+queue handoff and lifecycle handling.
+
+The RFC starts with a per-queue weight of 256, matching the existing
+global irq_poll budget. This is a starting point, not a claim that 256 is
+the optimal NVMe value.
+
+Testing included:
+
+  - full x86_64 kernel build and strict checkpatch
+  - four-controller QEMU fio, full-disable S3, controller reset, and
+    post-reset I/O
+  - QEMU lockdep, prove-locking, and atomic-context validation
+  - ARM64 Hyper-V VM with four 14-queue NVMe data controllers
+  - natural irq_poll activation with threaded interrupts disabled
+  - matching default-hardirq, IRQ-poll fallback, and threaded-IRQ comparison
+  - four controller resets followed by successful reads
+
+Read-only 4 KiB random-read results follow. "Default hardirq" uses the
+unpatched base. The other modes use the same kernel built from this series:
+"IRQ-poll fallback" uses the default nvme.use_threaded_interrupts=0, while
+"threaded IRQs" uses nvme.use_threaded_interrupts=1. Low-load values are
+medians of two 30-second runs. High-load fallback and threaded values are
+medians of two and three 90-second runs respectively; the default-hardirq
+run locked up before it could complete.
+
+                              default       IRQ-poll      threaded
+                              hardirq       fallback      IRQs
+  1 disk, QD1
+    IOPS                      24.42K        24.96K        21.24K
+    mean completion latency  38.94 us      38.17 us      44.60 us
+    p99 completion latency   90.6 us       90.1 us       94.2 us
+    p99.9 completion latency 94.7 us       94.7 us      103.9 us
+
+  4 disks, 128 jobs, QD256
+    status                    lockup (26s)  pass           pass
+    IOPS                      N/A           4.986M         3.165M
+    bandwidth                 N/A          19.0 GiB/s     12.1 GiB/s
+    mean completion latency   N/A           6.544 ms      10.332 ms
+    p99 completion latency    N/A          14.483 ms      22.151 ms
+    p99.9 completion latency  N/A          22.544 ms      24.773 ms
+
+IRQ-poll fallback prevents hardirq starvation while avoiding the 15-37%
+IOPS loss and higher latency observed with threaded interrupts, by
+activating only under scheduler pressure.
+
+Naman Jain (3):
+  nvme-pci: select IRQ_POLL
+  nvme-pci: make completion queue polling softirq-safe
+  nvme-pci: defer completions when rescheduling is needed
+
+ drivers/nvme/host/Kconfig |   1 +
+ drivers/nvme/host/pci.c   | 295 ++++++++++++++++++++++++++++++++++++++++++++--
+ 2 files changed, 283 insertions(+), 13 deletions(-)
+
+base-commit: eea3fef32a9cf36abcb5975a5a594e4135a6b026
 -- 
 2.43.0
-
