@@ -1,74 +1,73 @@
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFE544AEEF
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 03:01:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ACF1298CA5
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 03:01:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791514916; cv=none; b=N2c1FBoGF8g93HcW13Y6l0nxIU3WAnsuZJaF1UxsuRW8ztiNkGbOumPQBDS0uIAJyugF/vtPHkkmvBMKEvPaWiWyhJnwl7eZOSgAvkc0CSi9Ykb3ntGAM8/md5dJZDAQyt0p3ZQXvv5Jlq0E/XlTeIBRrYVKPlcdwcpsJfLNFBM=
+	t=1791514921; cv=none; b=IIeZMOvWEEDkCzM/86A/HXmYK0oAIZdsOTeyPJE1vL3Fa8hxnRDv+ZflaTdMEbr5qYakg0mDDJnD7iU7CqDLPchwzWCOZlHLrqCKqkwMUCIHs/C1Z/Rdlr4dkz4rXiI1sqX6hT9KnACOGY91rd4AkLkyWOxO7NzuQJcbsPvSBwQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791514916; c=relaxed/simple;
-	bh=fAfeaYkRoda0ScYbnl/LdL1i2AxcArp7U3fGSyNi7mU=;
+	s=arc-20240116; t=1791514921; c=relaxed/simple;
+	bh=B7jI/Ig9Y0jE+4zf3/j3VC+OK5vOUXZ3LtRn8jfaBgw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hX4vlur+fptLpRwGQTAf52BE0bEa23sPRvS99RT5lcvbf8KvaRzfKU0ZI3HpejiPEjepgzMd7b0fJk1RxM0HlwdwbMpPwyG4wjHLlMauT7r5zhm18TjGgDizOvF8D07ZGIXMnjiHks5IxeaOMBP5ExvQiPLchCcM9C4zQQ/OGeU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smartx.com; spf=pass smtp.mailfrom=smartx.com; dkim=pass (2048-bit key) header.d=smartx-com.20251104.gappssmtp.com header.i=@smartx-com.20251104.gappssmtp.com header.b=taBkoJWU; arc=none smtp.client-ip=74.125.82.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smartx.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smartx.com
+	 MIME-Version; b=nnPqjY6q7+98Vw9ZnceTQCHWedmPTzDEhLspYJxzuWt61x4n+1cX6OvibKY0ZomqibHVLFo41CaWkzLr2FtkI2HRZaHk25ihVMX/G7FrZx9c+dduD9UPGg/WAhhZE2tFHyJ1GYxoT+tvWzX9ZrvOcZ1j/rg388l7nkPTQfUuXE0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=smartx.com; spf=none smtp.mailfrom=smartx.com; dkim=pass (2048-bit key) header.d=smartx-com.20251104.gappssmtp.com header.i=@smartx-com.20251104.gappssmtp.com header.b=EkxPt+Qp; arc=none smtp.client-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=smartx.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=smartx.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=smartx-com.20251104.gappssmtp.com header.i=@smartx-com.20251104.gappssmtp.com header.b="taBkoJWU"
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-35154cb9de2so5454144eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 20:01:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=smartx-com.20251104.gappssmtp.com header.i=@smartx-com.20251104.gappssmtp.com header.b="EkxPt+Qp"
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-33c2520ad38so8794201eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 20:01:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=smartx-com.20251104.gappssmtp.com; s=20251104; t=1791514914; x=1792119714; darn=vger.kernel.org;
+        d=smartx-com.20251104.gappssmtp.com; s=20251104; t=1791514918; x=1792119718; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=aC/g7xjWVfJaoPMEUZKtxHfBHePPvpHU5a/3ivgfcfw=;
-        b=taBkoJWUdC7LUlzncUUtHUelMfWg28NmvAM5V62agkjKlGp8sEuqr/7ubu2vUxavua
-         zJWeUPHFlpU6aK8NpqBBQWXVYC+o3Xl6e5GcIo9SxEKWUBRTGbcOEv6FTBNr6lu6mP5N
-         Ui/BifTCz0NI7fjKU7Uh8k5yZT2epL/uqpEe2LTpPWo4/fEEcQzKT3STlULdFxNRmGEL
-         J5TYvZeVOy/+yQWv54M9FjlHFBnpxUDW4JhUxSUn2hw25H32Bto1WaK0CNfR7sMAIRY4
-         +RiQ0on7aZTy/MViDA/T/a7DxSdniLUC7cdtTizXzexVxAZAic0pRFxDjbzK6fEgG+7n
-         kJfw==
+        bh=GItNRM5Gwx4ZrpXxGQ/srYtE9okvv9VZklFBQRdwF7A=;
+        b=EkxPt+QpFD6nnU0RZalxXr5aIHYSCDM+VATWsesorrisJuMb+O6Z/U0lIyNeHrDnf1
+         3fGCPjaHwf3fCJDnxbwGF4B2M0OrVgvgj0/8HsFywB1QRe23wlN/eqozzNQHGEO+iY0G
+         pEOMFV6vg0rziuZ+9dWzWImKB4ENHcSaqf3mTZ2UgRjTssyZAoGk09rYBYhfAlVhuY8P
+         Blhp4YOys4hn4TMc2IJlRXO2KEVa5UXFS62VP2sLKxVAxJN28BrG0qNeDHNddk8SvInK
+         SnUejwSfqj5h+Qsg4I1Q1D0hWVdcMQAage9ceUggyiU5pTA/JBcOHIppw6j3RPPj0H5m
+         2Ayw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791514914; x=1792119714;
+        d=1e100.net; s=20260707; t=1791514918; x=1792119718;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aC/g7xjWVfJaoPMEUZKtxHfBHePPvpHU5a/3ivgfcfw=;
-        b=mzYGkxd82g5jytwB66MSlvoFcHlQHJEsOLMQMosuagR+7EH22iyruDyFKEITMm+COF
-         LPvC0VnzCIl+CIn22R9j4H8PAdAeW0qSoVE5naLk/46hKRrwK1AO/WWXq90ViU1wQtC9
-         IAgCQBZY38Di/ATqhQy+487yn+UaFliQtOPWJsMp2VUQDtM/ZJpEmhW9z5oihMVcSmcD
-         aQtCvyDPt/c7VlvtUehy+ki7QX0t+mVkL7QfJfFrO9NBzCxXtGGPPVRCb50R0LlZHbBt
-         dtsf73hRoJ5BB3DXZmbdZ/FsJ2eE7+McsTTbnT8pdD9D2YmNdPSp03IhgY525ApSyt2G
-         A0RQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxrFlD54xz4uSR1QEJk3STh1MQ6MqQziLv2SjhxOH5TWcnho3X9E1K6aAiOLuo6RKGOBNDq8e73oRCVALY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIMB7g6fwZdEHOyXfrpuzrY2BUflx9nBYq5DzhJ8ARk69JDVSuL
-	6DIvnMnW6CguF/De0tnoRjq0XrB/LeDoQgY/VKwCIR/cgOIi8OKf2UDcEBSWsTKNi1IIP2EbMLd
-	IbMs3YI6dxTGutTznVKmvj0ZTpfYs9xa7CvCr4Y0wI9i70IfpEo/SAFwZ5MWjlDZBNThCkmNwqi
-	k=
-X-Gm-Gg: AYBFou0knufFp1ZUslDaXZSbbodll6Ccsyp8nJ6fg5+QtgOkOYrKlkEVtm5EQcY4kpk
-	7voxDNuhaSxel5AXfxI0J1Bi1ANJ7CWUQ3PaS5I0TC4SeBuwUAxUXuEqT8wKI9jACVU53O0oZIl
-	ySFwO043gERXY4uAL8lEuyMMGxugx52GKb2MAqTRTI9Z/cc2RJjOTBJBX0BJ2/WAKD37rV5wzNA
-	31hcUXHyKPq1YbbgapoQJ9JWo989aOcJf9rpKFOFYsXC5sUoG5gm2k1bTyjJEZA8h3r2/z250fl
-	ODYW8kgs/WhFchRZ3HasX0fjDgqdxh1Q13NsQYp4QQepVgCEgqVAFLD/PwKLsHvJNm4OMWOpgdV
-	s4WCb6a9R97Ows97DjOUujQhanXWDLBKsvmmkw0Bkh7uxdW4NJ//PiZGyJfEloUtSmWsHsyp6KE
-	y1KcDdeI3Y0JwMjiKFFAmEPMUOX+BtLWaDZCttG3YmJKj7FUQMGv2ViWuIfCZCW+lDMkBRMTHPj
-	IGnSnpRKw==
-X-Received: by 2002:a05:7301:6e98:b0:33c:e74:4624 with SMTP id 5a478bee46e88-3537e112919mr1091305eec.27.1791514913646;
-        Thu, 08 Oct 2026 20:01:53 -0700 (PDT)
+        bh=GItNRM5Gwx4ZrpXxGQ/srYtE9okvv9VZklFBQRdwF7A=;
+        b=zaA6VwqG71oUpfgJ3Glukkmb6gyF18UWLX9J9HEhvf0xlk6EyZBUEn9CtxU3oEIgTm
+         YMm8Wyjz3WRsB5X23+755kzUc4yGB3ksmVql7HpTA7jItWjV4mnGmbPf4aSX7DmVRrLu
+         rqlKlk7UZuRZciHvofzL/sGVz/GcMxgGER6B+CBEG3guEbiKxUg6RgdZrFLGQqvO5WLM
+         v5oAIx+B+r3Uwh2Buod3WsQh1mEogcmfvviiDJqUpFGCM+AAOD04rOxB6vvkJNLoV2Fn
+         vaEcppZnh5eGgZNljLPoUEkCXVI7OgSi9V2yMGj5XugMOStm5qt1tFkUp0xpU6K0LHVf
+         CUHA==
+X-Forwarded-Encrypted: i=1; AKwUvBy/FrDPIJE+D2cPhC4gY++Dsd7twJiR/iemxQgYoiqec0S3B1T+fRSZ7XA1K2Of3mWmlT0KRXX2jNhwfJc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLRDFhjcoeMAEN0/ho4G4v04bXMChBdfXXGmxAY/S+5dRUh23NS
+	noenJYJP6ZdmgT12bqWraNxnrd6C8KZAkrqmGqlnDnOiPvP0nGPlTtUpHtGEe38BkasAwyuPY0d
+	DeoslOsiHt1MdJtUCDDgMmW/lqfmGwdI3TRgdl3ilW0u1GhzkAJVWIsDn6bI=
+X-Gm-Gg: AYBFou23JxGUBZAA5QeGqVHpwFA+9OflActzde15KcmFYthZcnDxK2Bv+9vMFObKioV
+	g1fVgEXmWoKX5Q8wmk/dV90Ju5K5/YgAB7W09vNqBslUsMzZjFNV5phR3TyX27le6HOoasq/nwV
+	59jZGXFzcnKl8HYIBLHiHlQgIRlGqvIbzeaDC+SYxHq7m98ZiCG+uZJybqoQdSVKK0akILlz0CE
+	E0+KMqG2U/Wha/D0iArXo1hvEJ+32lmchyBChmDjdGlxSCs2F6rbCMqZ71qwVg70YYLwvUpuxey
+	AgQPo9JRmsEJXxtmRusf13euV7EnRn43nkoAnOhX9gTXM4VR9ORp9Agp152faVFj393wLn9Wh+E
+	V80smF2AeAcf27ABgLVbdeJztWF3NV9RPkGNRVvk3jgUKTzKjvNt0pvIMpIu0edsyPeZnxjTg0I
+	Vw7f/biKBKOilcj+NF42m8d59YF6Xq52QfaIxstKwswwM2/phEvOak+b45CgRYcfZnpXg8uR0g3
+	cTsHEf2KYY=
+X-Received: by 2002:a05:7301:fd8c:b0:351:2cc8:523d with SMTP id 5a478bee46e88-3537e248993mr1219667eec.35.1791514918100;
+        Thu, 08 Oct 2026 20:01:58 -0700 (PDT)
 Received: from localhost.localdomain ([23.148.204.128])
-        by smtp.googlemail.com with ESMTPSA id 5a478bee46e88-3537cb1e02asm2427626eec.27.2026.10.08.20.01.50
+        by smtp.googlemail.com with ESMTPSA id 5a478bee46e88-3537cb1e02asm2427626eec.27.2026.10.08.20.01.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 20:01:53 -0700 (PDT)
+        Thu, 08 Oct 2026 20:01:57 -0700 (PDT)
 From: Lei Chen <lei.chen@smartx.com>
 To: Jens Axboe <axboe@kernel.dk>
 Cc: linux-block@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Lei Chen <lei.chen@smartx.com>
-Subject: [PATCH v1 1/4] blk-mq: remove stale comment about non-present CPU mapping
-Date: Fri,  9 Oct 2026 11:01:08 +0800
-Message-ID: <20261009030111.57784-2-lei.chen@smartx.com>
+Subject: [PATCH v1 2/4] blk-mq: manage driver tags at the tag set level
+Date: Fri,  9 Oct 2026 11:01:09 +0800
+Message-ID: <20261009030111.57784-3-lei.chen@smartx.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261009030111.57784-1-lei.chen@smartx.com>
 References: <20261009030111.57784-1-lei.chen@smartx.com>
@@ -80,42 +79,297 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Commit 20e4d8139319 ("blk-mq: simplify queue mapping & schedule with each
-possisble CPU") changed blk_mq_map_swqueue() to iterate over all possible
-CPUs instead of only present CPUs, but left the comment claiming that
-non-present CPUs are mapped to the first hctx.
+blk_mq_map_swqueue() allocates and frees driver tags while initializing
+an individual request queue, even though those tags are shared by all
+queues using the tag set. Which hardware queues need tags is determined
+by the tag set's CPU maps, so manage their lifetime at that level.
 
-The function now uses the tag set's CPU-to-hardware-queue maps for all
-possible CPUs, without checking whether a CPU is present. Non-present
-CPUs are therefore not necessarily mapped to hctx0. The fallback to
-hctx0 in this function handles tag allocation failure, independently
-of CPU presence.
+Move tag allocation and reclamation out of blk_mq_map_swqueue(). Reclaim
+unmapped tags before returning a newly allocated tag set. When updating
+the hardware queue count, allocate missing tags after rebuilding the CPU
+maps and before rebuilding hardware contexts. Free unused tags only after
+all request queues have been remapped, while they are still frozen, since
+old hardware contexts may still reference them during teardown. Serialize
+these runtime changes with update_nr_hwq_lock.
 
-Remove the outdated statement and retain the description of the mapping
-loop.
+Track hardware queue indices referenced by the CPU maps in a bitmap to
+avoid rescanning every CPU and map for each tag being reclaimed. Keep
+queue 0's tags for allocation failure fallback and rebuild the bitmap
+when fallback changes the mappings.
+
+This leaves request queue initialization to associate software and
+hardware contexts without changing the shared driver tags or CPU maps.
 
 Signed-off-by: Lei Chen <lei.chen@smartx.com>
 ---
- block/blk-mq.c | 6 +-----
- 1 file changed, 1 insertion(+), 5 deletions(-)
+ block/blk-mq.c         | 129 ++++++++++++++++++++++++++++++++---------
+ include/linux/blk-mq.h |   5 ++
+ 2 files changed, 108 insertions(+), 26 deletions(-)
 
 diff --git a/block/blk-mq.c b/block/blk-mq.c
-index a26a11c73ee3..59452b855afe 100644
+index 59452b855afe..12e28d779e2c 100644
 --- a/block/blk-mq.c
 +++ b/block/blk-mq.c
-@@ -4173,11 +4173,7 @@ static void blk_mq_map_swqueue(struct request_queue *q)
- 		hctx->dispatch_from = NULL;
+@@ -9,6 +9,7 @@
+ #include <linux/module.h>
+ #include <linux/backing-dev.h>
+ #include <linux/bio.h>
++#include <linux/bitmap.h>
+ #include <linux/blkdev.h>
+ #include <linux/blk-integrity.h>
+ #include <linux/kmemleak.h>
+@@ -4159,9 +4160,74 @@ static void __blk_mq_free_map_and_rqs(struct blk_mq_tag_set *set,
+ 	set->tags[hctx_idx] = NULL;
+ }
+ 
++static void blk_mq_update_mapped_tags_bitmap(struct blk_mq_tag_set *set)
++{
++	unsigned int i, cpu;
++
++	bitmap_zero(set->mapped_tags_bitmap, set->nr_hw_queues);
++	if (set->nr_hw_queues == 1) {
++		__set_bit(0, set->mapped_tags_bitmap);
++		return;
++	}
++
++	for (i = 0; i < set->nr_maps; i++) {
++		struct blk_mq_queue_map *map = &set->map[i];
++
++		if (!map->nr_queues)
++			continue;
++		for_each_possible_cpu(cpu)
++			__set_bit(map->mq_map[cpu], set->mapped_tags_bitmap);
++	}
++}
++
++static void blk_mq_alloc_mapped_tags(struct blk_mq_tag_set *set)
++{
++	unsigned int cpu, i;
++	bool remapped = false;
++
++	lockdep_assert_held_write(&set->update_nr_hwq_lock);
++
++	for_each_possible_cpu(cpu) {
++		for (i = 0; i < set->nr_maps; i++) {
++			struct blk_mq_queue_map *map = &set->map[i];
++			unsigned int hctx_idx;
++
++			if (!map->nr_queues)
++				continue;
++			hctx_idx = map->mq_map[cpu];
++			if (!set->tags[hctx_idx] &&
++			    !__blk_mq_alloc_map_and_rqs(set, hctx_idx)) {
++				/* Queue 0 always has tags available for fallback. */
++				map->mq_map[cpu] = 0;
++				remapped = true;
++			}
++		}
++	}
++	if (remapped)
++		blk_mq_update_mapped_tags_bitmap(set);
++}
++
++static bool blk_mq_tagset_tags_mapped(struct blk_mq_tag_set *set,
++				      unsigned int hctx_idx)
++{
++	return test_bit(hctx_idx, set->mapped_tags_bitmap);
++}
++
++/* The queue maps must be stable and the unused tags no longer in use. */
++static void blk_mq_free_unmapped_tags(struct blk_mq_tag_set *set)
++{
++	unsigned int i;
++
++	/* Keep queue 0 as a fallback if a later tag allocation fails. */
++	for (i = 1; i < set->nr_hw_queues; i++) {
++		if (set->tags[i] && !blk_mq_tagset_tags_mapped(set, i))
++			__blk_mq_free_map_and_rqs(set, i);
++	}
++}
++
+ static void blk_mq_map_swqueue(struct request_queue *q)
+ {
+-	unsigned int j, hctx_idx;
++	unsigned int j;
+ 	unsigned long i;
+ 	struct blk_mq_hw_ctx *hctx;
+ 	struct blk_mq_ctx *ctx;
+@@ -4183,19 +4249,6 @@ static void blk_mq_map_swqueue(struct request_queue *q)
+ 						HCTX_TYPE_DEFAULT, i);
+ 				continue;
+ 			}
+-			hctx_idx = set->map[j].mq_map[i];
+-			/* unmapped hw queue can be remapped after CPU topo changed */
+-			if (!set->tags[hctx_idx] &&
+-			    !__blk_mq_alloc_map_and_rqs(set, hctx_idx)) {
+-				/*
+-				 * If tags initialization fail for some hctx,
+-				 * that hctx won't be brought online.  In this
+-				 * case, remap the current ctx to hctx[0] which
+-				 * is guaranteed to always have tags allocated
+-				 */
+-				set->map[j].mq_map[i] = 0;
+-			}
+-
+ 			hctx = blk_mq_map_queue_type(q, j, i);
+ 			ctx->hctxs[j] = hctx;
+ 			/*
+@@ -4226,18 +4279,8 @@ static void blk_mq_map_swqueue(struct request_queue *q)
+ 	queue_for_each_hw_ctx(q, hctx, i) {
+ 		int cpu;
+ 
+-		/*
+-		 * If no software queues are mapped to this hardware queue,
+-		 * disable it and free the request entries.
+-		 */
++		/* Disable hardware queues with no mapped software queues. */
+ 		if (!hctx->nr_ctx) {
+-			/* Never unmap queue 0.  We need it as a
+-			 * fallback in case of a new remap fails
+-			 * allocation
+-			 */
+-			if (i)
+-				__blk_mq_free_map_and_rqs(set, i);
+-
+ 			hctx->tags = NULL;
+ 			continue;
+ 		}
+@@ -4778,12 +4821,18 @@ static void blk_mq_update_queue_map(struct blk_mq_tag_set *set)
+ 		BUG_ON(set->nr_maps > 1);
+ 		blk_mq_map_queues(&set->map[HCTX_TYPE_DEFAULT]);
+ 	}
++	blk_mq_update_mapped_tags_bitmap(set);
+ }
+ 
++/*
++ * On successful growth, also install a larger mapped_tags_bitmap. The caller
++ * rebuilds its contents when updating the queue maps under update_nr_hwq_lock.
++ */
+ static struct blk_mq_tags **blk_mq_prealloc_tag_set_tags(
+ 				struct blk_mq_tag_set *set,
+ 				int new_nr_hw_queues)
+ {
++	unsigned long *new_mapped_tags_bitmap;
+ 	struct blk_mq_tags **new_tags;
+ 	int i;
+ 
+@@ -4795,6 +4844,13 @@ static struct blk_mq_tags **blk_mq_prealloc_tag_set_tags(
+ 	if (!new_tags)
+ 		return ERR_PTR(-ENOMEM);
+ 
++	new_mapped_tags_bitmap = bitmap_zalloc_node(new_nr_hw_queues, GFP_KERNEL,
++						    set->numa_node);
++	if (!new_mapped_tags_bitmap) {
++		kfree(new_tags);
++		return ERR_PTR(-ENOMEM);
++	}
++
+ 	if (set->tags)
+ 		memcpy(new_tags, set->tags, set->nr_hw_queues *
+ 		       sizeof(*set->tags));
+@@ -4811,12 +4867,15 @@ static struct blk_mq_tags **blk_mq_prealloc_tag_set_tags(
+ 		cond_resched();
  	}
  
--	/*
--	 * Map software to hardware queues.
--	 *
--	 * If the cpu isn't present, the cpu is mapped to first hctx.
--	 */
-+	/* Map software to hardware queues. */
- 	for_each_possible_cpu(i) {
++	bitmap_free(set->mapped_tags_bitmap);
++	set->mapped_tags_bitmap = new_mapped_tags_bitmap;
+ 	return new_tags;
+ out_unwind:
+ 	while (--i >= set->nr_hw_queues) {
+ 		if (!blk_mq_is_shared_tags(set->flags))
+ 			blk_mq_free_map_and_rqs(set, new_tags[i], i);
+ 	}
++	bitmap_free(new_mapped_tags_bitmap);
+ 	kfree(new_tags);
+ 	return ERR_PTR(-ENOMEM);
+ }
+@@ -4880,9 +4939,17 @@ int blk_mq_alloc_tag_set(struct blk_mq_tag_set *set)
+ 		if (ret)
+ 			goto out_free_srcu;
+ 	}
++
++	set->mapped_tags_bitmap = bitmap_zalloc_node(set->nr_hw_queues, GFP_KERNEL,
++						     set->numa_node);
++	if (!set->mapped_tags_bitmap) {
++		ret = -ENOMEM;
++		goto out_cleanup_srcu;
++	}
++
+ 	ret = init_srcu_struct(&set->tags_srcu);
+ 	if (ret)
+-		goto out_cleanup_srcu;
++		goto out_free_mapped_tags_bitmap;
  
- 		ctx = per_cpu_ptr(q->queue_ctx, i);
+ 	init_rwsem(&set->update_nr_hwq_lock);
+ 
+@@ -4907,6 +4974,7 @@ int blk_mq_alloc_tag_set(struct blk_mq_tag_set *set)
+ 	ret = blk_mq_alloc_set_map_and_rqs(set);
+ 	if (ret)
+ 		goto out_free_mq_map;
++	blk_mq_free_unmapped_tags(set);
+ 
+ 	mutex_init(&set->tag_list_lock);
+ 	INIT_LIST_HEAD(&set->tag_list);
+@@ -4922,6 +4990,9 @@ int blk_mq_alloc_tag_set(struct blk_mq_tag_set *set)
+ 	set->tags = NULL;
+ out_cleanup_tags_srcu:
+ 	cleanup_srcu_struct(&set->tags_srcu);
++out_free_mapped_tags_bitmap:
++	bitmap_free(set->mapped_tags_bitmap);
++	set->mapped_tags_bitmap = NULL;
+ out_cleanup_srcu:
+ 	if (set->flags & BLK_MQ_F_BLOCKING)
+ 		cleanup_srcu_struct(set->srcu);
+@@ -4968,6 +5039,9 @@ void blk_mq_free_tag_set(struct blk_mq_tag_set *set)
+ 	kfree(set->tags);
+ 	set->tags = NULL;
+ 
++	bitmap_free(set->mapped_tags_bitmap);
++	set->mapped_tags_bitmap = NULL;
++
+ 	srcu_barrier(&set->tags_srcu);
+ 	cleanup_srcu_struct(&set->tags_srcu);
+ 	if (set->flags & BLK_MQ_F_BLOCKING) {
+@@ -5158,6 +5232,7 @@ static void __blk_mq_update_nr_hw_queues(struct blk_mq_tag_set *set,
+ 
+ fallback:
+ 	blk_mq_update_queue_map(set);
++	blk_mq_alloc_mapped_tags(set);
+ 	list_for_each_entry(q, &set->tag_list, tag_set_list) {
+ 		__blk_mq_realloc_hw_ctxs(set, q);
+ 
+@@ -5174,6 +5249,8 @@ static void __blk_mq_update_nr_hw_queues(struct blk_mq_tag_set *set,
+ 		}
+ 		blk_mq_map_swqueue(q);
+ 	}
++	/* All queues have stopped using tags excluded by the new maps. */
++	blk_mq_free_unmapped_tags(set);
+ switch_back:
+ 	/* The blk_mq_elv_switch_back unfreezes queue for us. */
+ 	list_for_each_entry(q, &set->tag_list, tag_set_list) {
+diff --git a/include/linux/blk-mq.h b/include/linux/blk-mq.h
+index af878597afb8..3ef989dc4f99 100644
+--- a/include/linux/blk-mq.h
++++ b/include/linux/blk-mq.h
+@@ -517,6 +517,10 @@ enum hctx_type {
+  *		   tag set.
+  * @tags:	   Tag sets. One tag set per hardware queue. Has @nr_hw_queues
+  *		   elements.
++ * @mapped_tags_bitmap: Bitmap of hardware queue indices referenced by active
++ *		   CPU maps. Rebuilt before publication or with update_nr_hwq_lock
++ *		   held for writing. Tags for index 0 are retained as a fallback
++ *		   even when its bit is clear.
+  * @shared_tags:
+  *		   Shared set of tags. Has @nr_hw_queues elements. If set,
+  *		   shared by all @tags.
+@@ -545,6 +549,7 @@ struct blk_mq_tag_set {
+ 	void			*driver_data;
+ 
+ 	struct blk_mq_tags	**tags;
++	unsigned long		*mapped_tags_bitmap;
+ 
+ 	struct blk_mq_tags	*shared_tags;
+ 
 -- 
 2.43.0
 
