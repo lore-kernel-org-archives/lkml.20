@@ -1,114 +1,156 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2C663349CF3;
-	Fri,  9 Oct 2026 04:38:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6D2032470F;
+	Fri,  9 Oct 2026 04:43:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791520735; cv=none; b=pOdAIFtLtrTDfOioeoT/iGBjLvVGcCJdXuxzPGzs2dXiiZvRS/+6HLvU7u+0FGjrlBdbEREzBbQd6Tbejghr+AbdNQJZmKcRayAo91PuCVoti2mM+ExrqdUAKetNVR4PZnIA6/NCZl0RNsc/WAbEQxPRs/gkUpqd0BjK8oxNCWg=
+	t=1791521003; cv=none; b=C3cCedw0CdCSPU9tIQYcaWXLlhNh4QIqcw+cvRxY4Bx1xglU/IY8tEKU9FXKTjr+StfGTrjzovFOj1suyL+ac9PsvvsixsQfp3W7Zzk7U/jdoT+oHjHaxiCjkFyHH6kibViR6z0yeLPFpc2dMJg1lvLBLaez8osDpvRGvAy0+RQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791520735; c=relaxed/simple;
-	bh=40PhoDpFwRMrrCSgvozCqNIV1mEtoQSqQkxl43AkcUA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=BAbCgOUMKnFXO0zji2JfWMerV1QfxIWWT8dfmxv1IXmCgfmSoeD4jcJjTnXwT31bEYEzuljKNpZH9Wsnh+w8YOcV7+nAKwt6/PQuq2VR9p9NyBZu6BvXx7ZRTzi9Ur4TGLi0kE5r0p9q/iJWzKBjZ6EBg41L2iYEdmAg7KOaxpg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=h5lNvXGH; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1791521003; c=relaxed/simple;
+	bh=gYKwme7cGDspest2JH7MvCdf1dDale5YKmGq7Pm2wGs=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=GpM68X8889FmctAn0RjxgeE1mCPsZ5VLsL7/mQ1seF1f3DGNdDVWbzVxvdDAMtCyogQP9jkYxlcT6J87KXXZjh5Xn+m6NwR/P7tKDLx6lKgqghpGNq5eBKU0uWXw4GrqukoPzL/U2sMMCmGRlsF05tXScocHjTcZeu4EeGwvu2g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ch1Ek4ET; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="h5lNvXGH"
-Received: from [10.95.65.84] (unknown [52.172.102.253])
-	by linux.microsoft.com (Postfix) with ESMTPSA id C692420B7167;
-	Thu,  8 Oct 2026 21:38:49 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com C692420B7167
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1791520732;
-	bh=Y22h9L7Z0Omcr36XbYZ2pAvWDo1kv9/vTOpu5KrYdCw=;
-	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=h5lNvXGHP7MdC9Vus+cKTGbikmv2qaxt1YffjN60IP2xtNZJRxBlW4Sa4kAeOcPe6
-	 5lQemD4lu4/zhSY9T6Xpn3douKIFSVUKNFbKdoQ7DI2CdNbvfP/1ciQmMVmSxFhsjH
-	 hlaCPUtDiDnL6DkF0jmsHgFhX7ilinZ/E7CU/4Wo=
-Message-ID: <396ae01e-c1c4-49f5-a9fa-6dc4430e8690@linux.microsoft.com>
-Date: Fri, 9 Oct 2026 10:08:48 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ch1Ek4ET"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A03D21F000FF;
+	Fri,  9 Oct 2026 04:43:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791521001;
+	bh=e3u7A0jEzt7ajdqOCz62G92JJKZgGXS0eX5q4SHD6jk=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Ch1Ek4ETx0Pd7yqIbUIQllIhRiwamLh6m7EXR7MoxmepcqLbzgd7pGYlxF6ydS8kd
+	 ysdhHgzV9lTjQgBnMDMO7Gcfp8mYbEJsmBhHdsxJs+J8Zwm/fm4KBjPViYuKAAuNEz
+	 js+TsviwVGicyMe55CHrnEsruUGfSLAsoOYGPXTNSICnFyCMhfFunRwG95nPezgTat
+	 a7v//cvNWHV5UeHHxvSJ4/JR4kR38q84W1TMzA4U/3GXqBubQgCQms/dtweCb19Qd+
+	 phfTYi1A+8NJ1aovAAkNLTcyhxHzZUePwfUWtMgDCht12tSJm1tBKHkvZpCYNIZBBN
+	 Ti43GwChdR/AQ==
+Message-ID: <6855034f0b219b0b8e6a6f47aef802cf2803e42b.camel@kernel.org>
+Subject: Re: [PATCH 1/2] NFSv4/pNFS: prevent i_size regression while
+ layoutcommit is outstanding
+From: Trond Myklebust <trondmy@kernel.org>
+To: Lucheng Bao <lubao@everpuredata.com>, linux-nfs@vger.kernel.org, Anna
+ Schumaker <anna@kernel.org>
+Cc: linux-kernel@vger.kernel.org, tmenninger@everpuredata.com, 
+	jcurley@everpuredata.com, stable@vger.kernel.org
+Date: Fri, 09 Oct 2026 00:43:19 -0400
+In-Reply-To: <20261008222843.63319-2-lubao@everpuredata.com>
+References: <20261008222843.63319-1-lubao@everpuredata.com>
+	 <20261008222843.63319-2-lubao@everpuredata.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] Documentation: hyperv: Remove support for guests on
- Hyper-V 2012/2012R2
-To: mhklinux@outlook.com, haiyangz@microsoft.com, wei.liu@kernel.org,
- decui@microsoft.com, corbet@lwn.net, skhan@linuxfoundation.org,
- rdunlap@infradead.org, linux-kernel@vger.kernel.org,
- linux-hyperv@vger.kernel.org, linux-doc@vger.kernel.org
-References: <20261009023437.3326-1-mhklinux@outlook.com>
-Content-Language: en-US
-From: Naman Jain <namjain@linux.microsoft.com>
-In-Reply-To: <20261009023437.3326-1-mhklinux@outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
+On Thu, 2026-10-08 at 22:28 +0000, Lucheng Bao wrote:
+> Commit ac46bd374c9a ("pNFS: Ensure we layoutcommit before
+> revalidating
+> attributes") replaced outstanding-layoutcommit attribute filtering
+> with
+> synchronization before explicit revalidation. For layouts requiring
+> LAYOUTCOMMIT, OPEN attributes can still shrink i_size before metadata
+> synchronization completes.
 
+The client can't police OPEN. It has no idea which file will be
+affected (particularly when doing an open-by-filename) so unlike the
+case of an explicit truncate() call, it can't serialise with the
+truncate.
+It is therefore up to the server to resolve any ambiguity, either by
+recalling or revoking the layout before allowing the OPEN truncate to
+proceed.
 
-On 10/9/2026 8:04 AM, Michael Kelley wrote:
-> Support for running Linux guests on Windows Server 2012/2012 R2 Hyper-V
-> hosts and Windows 8/8.1 hosts has been removed, which includes removing
-> support for operating Hyper-V synthetic timers in other than Direct Mode.
-> Update the documentation to reflect these removals.
-> 
-> Signed-off-by: Michael Kelley <mhklinux@outlook.com>
+>=20
+> Commit d8c951c313ed ("NFSv4.1: Don't trust attributes if a pNFS
+> LAYOUTCOMMIT is outstanding") moved LAYOUTCOMMIT post-op attribute
+> processing after cleanup, leaving another unprotected window after
+> NFS_INO_LAYOUTCOMMITTING is cleared.
+
+This is unrelated to the above problem, so fixes for this issue need to
+be in a separate patch.
+
+>=20
+> Extend the existing writeback checks to reject smaller sizes while a
+> LAYOUTCOMMIT is pending or in flight, preserving size increases and
+> WCC
+> checks. Process the reply's attributes and establish their generation
+> barrier before cleanup removes that protection.
+>=20
+> Fixes: d8c951c313ed ("NFSv4.1: Don't trust attributes if a pNFS
+> LAYOUTCOMMIT is outstanding")
+> Fixes: ac46bd374c9a ("pNFS: Ensure we layoutcommit before
+> revalidating attributes")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lucheng Bao <lubao@everpuredata.com>
 > ---
-> This patch reflects changes that are already in linux-next for merging
-> into the 7.4 kernel.
-> 
->   Documentation/virt/hyperv/clocks.rst   | 8 ++------
->   Documentation/virt/hyperv/overview.rst | 6 +++---
->   2 files changed, 5 insertions(+), 9 deletions(-)
-> 
-> diff --git a/Documentation/virt/hyperv/clocks.rst b/Documentation/virt/hyperv/clocks.rst
-> index 176043265803..9527e6073654 100644
-> --- a/Documentation/virt/hyperv/clocks.rst
-> +++ b/Documentation/virt/hyperv/clocks.rst
-> @@ -64,12 +64,8 @@ applying the scale and offset to get the constant 10 MHz clock.
->   
->   Linux clockevents are based on Hyper-V synthetic timer 0 (stimer0).
->   While Hyper-V offers 4 synthetic timers for each CPU, Linux only uses
-> -timer 0. In older versions of Hyper-V, an interrupt from stimer0
-> -results in a VMBus control message that is demultiplexed by
-> -vmbus_isr() as described in the Documentation/virt/hyperv/vmbus.rst
-> -documentation. In newer versions of Hyper-V, stimer0 interrupts can
-> -be mapped to an architectural interrupt, which is referred to as
-> -"Direct Mode". Linux prefers to use Direct Mode when available. Since
-> +timer 0. stimer0 is operated in what Hyper-V calls "Direct Mode"
-> +where timer interrupts are mapped to an architectural interrupt. Since
->   x86/x64 doesn't support per-CPU interrupts, Direct Mode statically
->   allocates an x86 interrupt vector (HYPERV_STIMER0_VECTOR) across all CPUs
->   and explicitly codes it to call the stimer0 interrupt handler. Hence
-> diff --git a/Documentation/virt/hyperv/overview.rst b/Documentation/virt/hyperv/overview.rst
-> index 77408a89d1a4..c4c262b77aa3 100644
-> --- a/Documentation/virt/hyperv/overview.rst
-> +++ b/Documentation/virt/hyperv/overview.rst
-> @@ -157,9 +157,9 @@ when accessing data shared with Hyper-V.
->   Versioning
->   ----------
->   Current Linux kernels operate correctly with older versions of
-> -Hyper-V back to Windows Server 2012 Hyper-V. Support for running
-> -on the original Hyper-V release in Windows Server 2008/2008 R2
-> -has been removed.
-> +Hyper-V back to Windows Server 2016 Hyper-V and Windows 10. Support for
-> +running on Windows Server 2012/2012 R2, Windows Server 2008/2008 R2,
-> +and Windows 8.1 and earlier has been removed.
->   
->   A Linux guest on Hyper-V outputs in dmesg the version of Hyper-V
->   it is running on.  This version is in the form of a Windows build
+> =C2=A0fs/nfs/inode.c=C2=A0=C2=A0=C2=A0 | 8 ++++++--
+> =C2=A0fs/nfs/nfs4proc.c | 2 +-
+> =C2=A02 files changed, 7 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/fs/nfs/inode.c b/fs/nfs/inode.c
+> index 3022454f7698..11432f521b04 100644
+> --- a/fs/nfs/inode.c
+> +++ b/fs/nfs/inode.c
+> @@ -1636,7 +1636,9 @@ static void nfs_wcc_update_inode(struct inode
+> *inode, struct nfs_fattr *fattr)
+> =C2=A0	if ((fattr->valid & NFS_ATTR_FATTR_PRESIZE)
+> =C2=A0			&& (fattr->valid & NFS_ATTR_FATTR_SIZE)
+> =C2=A0			&& i_size_read(inode) =3D=3D
+> nfs_size_to_loff_t(fattr->pre_size)
+> -			&& !nfs_have_writebacks(inode)) {
+> +			&& !nfs_have_writebacks(inode)
+> +			&& (nfs_size_to_loff_t(fattr->size) >=3D
+> i_size_read(inode)
+> +				||
+> !pnfs_layoutcommit_outstanding(inode))) {
 
-Thanks Michael. Change LGTM, but while at it, please add a similar 
-change in 
-Documentation/networking/device_drivers/ethernet/microsoft/netvsc.rst as 
-well.
+Under what circumstance is the client legally supposed to be able to
+call nfs_wcc_update_inode() with NFS_ATTR_FATTR_PRESIZE set, while
+there is an outstanding layoutcommit?
 
-Reviewed-by: Naman Jain <namjain@linux.microsoft.com>
+> =C2=A0		trace_nfs_size_wcc(inode, fattr->size);
+> =C2=A0		i_size_write(inode, nfs_size_to_loff_t(fattr-
+> >size));
+> =C2=A0	}
+> @@ -2392,7 +2394,9 @@ static int nfs_update_inode(struct inode
+> *inode, struct nfs_fattr *fattr)
+> =C2=A0		if (new_isize !=3D cur_isize && !have_delegation) {
+> =C2=A0			/* Do we perhaps have any outstanding
+> writes, or has
+> =C2=A0			 * the file grown beyond our last write? */
+> -			if (!nfs_have_writebacks(inode) || new_isize
+> > cur_isize) {
+> +			if ((!nfs_have_writebacks(inode) &&
+> +			=C2=A0=C2=A0=C2=A0=C2=A0 !pnfs_layoutcommit_outstanding(inode))
+> ||
+> +			=C2=A0=C2=A0=C2=A0 new_isize > cur_isize) {
+> =C2=A0				trace_nfs_size_update(inode,
+> new_isize);
+> =C2=A0				i_size_write(inode, new_isize);
+> =C2=A0				if (!have_writers)
+> diff --git a/fs/nfs/nfs4proc.c b/fs/nfs/nfs4proc.c
+> index 04b1987115d5..1ae047a062b8 100644
+> --- a/fs/nfs/nfs4proc.c
+> +++ b/fs/nfs/nfs4proc.c
+> @@ -10093,9 +10093,9 @@ static void nfs4_layoutcommit_release(void
+> *calldata)
+> =C2=A0{
+> =C2=A0	struct nfs4_layoutcommit_data *data =3D calldata;
+> =C2=A0
+> -	pnfs_cleanup_layoutcommit(data);
+> =C2=A0	nfs_post_op_update_inode_force_wcc(data->args.inode,
+> =C2=A0					=C2=A0=C2=A0 data->res.fattr);
+> +	pnfs_cleanup_layoutcommit(data);
+> =C2=A0	put_cred(data->cred);
+> =C2=A0	nfs_iput_and_deactive(data->inode);
+> =C2=A0	kfree(data);
 
-Regards,
-Naman
-
-
+--=20
+Trond Myklebust
+Linux NFS client maintainer, Hammerspace
+trondmy@kernel.org, trond.myklebust@hammerspace.com
