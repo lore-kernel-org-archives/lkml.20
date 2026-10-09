@@ -1,206 +1,177 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013044.outbound.protection.outlook.com [52.101.83.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com [209.85.221.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F34F2609C5;
-	Fri,  9 Oct 2026 03:11:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791515518; cv=fail; b=NJP1cDqanhYORE35hyjnbPUdo9ESVSmT6cVnikLQj3oQrh51+J5GcaP0DBki1bEylghsTC3tTBUa/B21OuYEkjsr5svAotQxXkDeOSA0SqYPQFCSB4JTK8luoYZ/YI8fQKZXDG1yg23ODB9sxht1tIPh+I3pVSwak9ZAgVy6wuk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791515518; c=relaxed/simple;
-	bh=kX0CWEdzUIVF91wy0ZGSnA3F2KGTe0yyIXtYWS8s5sI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=C5tu/SRMbwF1fyi3SLScqEUbbYPm6Yi/vyWwRjCPfrPZzikNvyGdFI4QaS4k+XtkCC6iuJuuKSLPkktqkPt2QpfsBkwvduGkMZ9GAJPlTHncvQzpPjoKaq6UHp0Z+489+A1ofcwF5AsLjraR1wZfRq8SlXDqQPgLkC0X6q60v6E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=fail (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=xSYiR9Xk reason="signature verification failed"; arc=fail smtp.client-ip=52.101.83.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA71C35AC12
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 03:12:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.182
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791515536; cv=none; b=hGyDbjtaYje1yrAIZkzO+/zImfu/lWCo5cq/pcPZVHHJLav6Ur4kCXu0mxOEuQEMjZhyP278e6Hm6Y7/m6HB+H3BQAmSHcm5+M1UKQ/4jgQVmW6oiK+0dgAhrw+6r4vtm0kHTJ2lPoxiHFBCurncJB2/AgBe7GuUIZYS+NeKgq0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791515536; c=relaxed/simple;
+	bh=FfXq19o0LIgTCw0SO+Op5Rv5TKYGoxRLlU+jTxLkmk4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DZi6FxUoIwQfCbrydCRUGUqhmV3QT6vVu4nmp9twzP7A2gi5Mgzxqau6v3sIEy/b7D+TEfv3+UcZxLIP0UfD+mxcS+u/B2mhNomAoEKmOACPx910hkcZ1xizPWBNNTP6+i8jT/Mht7iuo5Nj4c3FGlkv5ldk51uFL8NzvP60ytQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=idaFz2bj; arc=none smtp.client-ip=209.85.221.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="xSYiR9Xk"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bM20vcJVN/LxWiQl0y6t4UFd8hOPrAfPvCFlYhrhB4Y3s9RhxZFoSoMRCL5NAYBxw0hjaccpGrtgsCXTglBbC+Jsy8ds+n4RHsT119bp5oYYVh1xY1xV2DCUpYBzDrvqxNy0ZAWbIV2xzq+efCjKtURDj/44c+hcjDue9CISuAGm1dHyaSZlQdB3G7tJt1513cCNnJxQt8Se67k+XGO0HRYPL8K1bGXoCWWtQIl/9n2I1Ws1jEZTUrvpo9r8Rde7MnypHeyOYF6l4W3KQYjtBIjY6TiMQsXX0VHblUcx7RKZl9NVqVazAUYiChgJmKOTMu9cCVxFTaAOrqlsyM4/mw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vXgaBu0wXQvZ2R1ogj1MKUL/ySep5Q4zwMMSm0C+aC0=;
- b=QRiharMiq1QZr/VqbaCkHmjh2izLlh9Zx1GOhLvKvbBFjKhv2dmD4J4KZBhMQ+5RDpSbZ1PdGhzrpr3lV7UehVRw/xBigXyy15s/2VBs2IXyKJ7tmUOdnjUiJ3xxif7PAPnjqCTToz57FSnKwTmWkWWFhSGbpshydki65cXcxTOwCmVIcXZRdlodvfvDFIgFk2wy/yz3Ujtn//lanzZbqdN5e9uyah89sxL4GIDYSVf6xTPiqlknYY06Va5Y2rkv0/XmKqTnX5lJE0EeppURzrcQ0YpslRd3qtySxYVovQ+NnBMLvbOmghirzkVtT3L56pypBptO4/+lqWqiMpKEJA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vXgaBu0wXQvZ2R1ogj1MKUL/ySep5Q4zwMMSm0C+aC0=;
- b=xSYiR9Xk7wOQDFS6kqdecZgVu3aBzg/gMYdEt2pKqeqj52mUDX8j3rKDFgw3iP2BzApvyc3oIgiqHZwA3Yy4xK8aXqd5KWVOkGcdkjNdGfvHv8AuSnyXWOZxsIB2eu5NN2EZUsDHzmFBpG26cDCCWKrbVe/h5x89uw3WQYqHq2Ij4Q99KrbQ4ikp8PAWdbzWQv8EAF/9MUxtDT8FgnGpCdz3DLgRy9B9NQ6yRyH+xhUqaWl2IlgoQweCYPDlYSrC2niwXi1ISnqSaolMcSLbQtG03JKXuxFoSD8FHNi289G9pYixVSy4y7s/BDoz4Wkkn/V6f1mQlujp/UapAO8PHA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
- by AMBPR04MB226274.eurprd04.prod.outlook.com (2603:10a6:20b:75c::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Fri, 9 Oct
- 2026 03:11:53 +0000
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0496.010; Fri, 9 Oct 2026
- 03:11:53 +0000
-Date: Fri, 9 Oct 2026 11:16:26 +0800
-From: Peng Fan <peng.fan@oss.nxp.com>
-To: Frank.Li@oss.nxp.com
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>,
-	linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="idaFz2bj"
+Received: by mail-vk1-f182.google.com with SMTP id 71dfb90a1353d-5e507e778e4so1276445e0c.1
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 20:12:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791515533; x=1792120333; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2lGnbxYVsuq+Lgb6XonYa97KYSsgkUoCFPmQ6flzydM=;
+        b=idaFz2bjpJqJl9ER5G3rR77VHQTLOlQzUztwWxO7i+TtPiE7y80EMCNcdtxt1DHMco
+         DJBu7ZSAsEsXnNla5QdQmXQhYnMD9Qlc3Ek5uWux6UBMlOw/zfTJpg0l6W87zGRZy3d6
+         AmSVKr+PBC9bP8rlAl1pKwmiwDfxs3IxML/QguGYNLEoUHLk2FAko0Zj/IOW/xwD/j5x
+         mo8An1LDZNbKYjvVpYd1TLazQqayoepf+AQloQlPLo92e3Iip3cddRk8wC0v+T+RwToT
+         o2Z4VB6uk3dzXVyrFg8Plaje/8MSgv/cX3H7cct8RAjMXfobIvUY0gMSufTuIwiP/icL
+         M0Eg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791515533; x=1792120333;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2lGnbxYVsuq+Lgb6XonYa97KYSsgkUoCFPmQ6flzydM=;
+        b=p+WXqBdX1W8rqx4P4smoWfnTwVj5xawGFgnW3yZbVFt3qVdW7MFO5DpF8AAmc1A4Au
+         SMZmIQjSwEEI8Chquci7LEjXrO40ilLC34NPw99tMxoQCyu/WvsT6eaTqu5eUcAFRcLX
+         LYsfoa1PwsSs6e3HZ3qQWudyoKa8Cj5rkJKxH3XeJf7ur+BbmaUB9Ami5Y1X9lHS2h8H
+         AIqb5yRX6t6xXqSt4dKvQ+hbRbL9Ck4EpiqN1AK68xmMR62GWkMos3iDZVmUMQIq54me
+         ulCI0/JxO5sa5kTMQWxRYQU8TP+OOSlqJTn6L5m6Zj4itvBJNwKgADrxo3kzYj72dDzH
+         Atbg==
+X-Forwarded-Encrypted: i=1; AKwUvBxIoJEIzNeauWGLiVuUVwq6SMM+GWhFV6v8O2DFLTgt/lv6LfAFzdcHTBVlmO3a+gLDDzArcUmLdmj9GqQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJrIDpILxxZyu9wFl+aoHKLH9pSSS/6Zv6ZF3+A1yIHC4nDvfI5
+	72ycb5B1oEn49wmQkblw75OpndupgESGdrEy862PUQ3S0CieGDBYcU+f2JKj1T7fO5yvAA==
+X-Gm-Gg: AYBFou3MtZtGk1oRoBKzlJP0wd/5FEqSEmWq95r6nySRmPGCCE6FnL6rvOYIgD7XGTa
+	JFs/LBp7GZGqLTBWId3kP6OquBX2kTw2Uh2zvbwdF9nRoMi+hInMQgBF7vFf6chq+Ru5Js6Unr0
+	ZUvnI5N1VDybacdLqUWk35/aB0eGuJXJ9shS4959Kv6xN1pYZjZCZSyV7yDAqEcxwt90q56zAXZ
+	wivVf9FAiDf0H0rlMazikBEl0GEb8T0XN4no+cEHIOQlYRVuvdr5kmt4fLxPowk9niKyvgjMoYO
+	ri7p1V5DlaXxh2wuH0zMuUvjmCN4k4Z74lhfTtCs+jRA5l/PS5IP1qkNA2bkPVcvObsAniPnw55
+	T5UugpNFHRZMz3oDz2ZTPZkKZjJnxQkn/8aL2o53hk8Chcoq9SkUlmmafuCOfRdm2l7ea6b51il
+	PnjnpwbR8qv/e1O9GIulRURV7vZWije84kSygViD4aPYKk9DH/ecUY4Er9UzsT90s=
+X-Received: by 2002:a05:6122:1da0:b0:5c9:a60d:3279 with SMTP id 71dfb90a1353d-5e91f4d6f14mr145097e0c.13.1791515533458;
+        Thu, 08 Oct 2026 20:12:13 -0700 (PDT)
+Received: from beelink.. ([187.13.210.57])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5e91cbf5d1fsm766684e0c.14.2026.10.08.20.12.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 20:12:12 -0700 (PDT)
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>,
-	Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v4 1/4] dt-bindings: remoteproc: imx_rproc: document
- memory-region-names to avoid hidden ABI
-Message-ID: <ashciuN/Po8nIElu@shlinux89>
-References: <20260917-memory-region-name-v4-0-260755920ebf@nxp.com>
- <20260917-memory-region-name-v4-1-260755920ebf@nxp.com>
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260917-memory-region-name-v4-1-260755920ebf@nxp.com>
-X-ClientProxiedBy: SG2PR04CA0204.apcprd04.prod.outlook.com
- (2603:1096:4:187::16) To AM8PR04MB7874.eurprd04.prod.outlook.com
- (2603:10a6:20b:24d::9)
+	stable@vger.kernel.org,
+	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Subject: [PATCH] HID: haptic: fix use-after-free of devm haptic data in hid_haptic_destroy()
+Date: Fri,  9 Oct 2026 00:12:03 -0300
+Message-ID: <20261009031203.3127352-1-qwe.aldo@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|AMBPR04MB226274:EE_
-X-MS-Office365-Filtering-Correlation-Id: 06804b07-411f-4929-98b5-08df25b31142
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|1800799024|19092799006|376014|7416014|4143699003|56012099006|5023799004|11063799006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	QKlQQp9ijbAi0KIA4plOguyPIPpMaMHgsjoDSZWMyVuHBASPrQ7/b05f4Lrimnk3qb89EEOP2DPAeeOFfkMPBEH7QofR4M0J1sJvwApl4fG8doHV2MXWPkZZCeMOZwQBamuLbsTpliDb+cSCndBf//+ePOKDZ+Yc1JwB7MTcL5stKxpsivGfNVlOKC+kUsdXH8/FXKhNbWsfuYRAuwY3ZRdtRQAk0HJe/jbpKq6PkZeONnmnnVgWHXGYIqaCqvujRmuEEjy1lzXfIsS+NgeN6iED6dyubOO53Jht3At+xa26W4TNj7/d1OPTPrOw2kibn3fD6jChhNueaJ2+hxF+fSP/8U2rq9DsK/xzHop1T+BjO1ML4jGH7x2kPJtgxzUS4eR4Qf/LCQiERaH2IwieIGhw2iHECNU3yjFOAoKEDit1DydkX8Z1tALKmAh7UCRi9luUh0e/upcE53BzkLc81vh5t6QXo+DwK2Frrvtw/aiLM6h1yvSpSl3ZvxS4yZGcoGTh6zdJbNWcDn9Dq9UVerJQ5gMTveUqVjGXzmUui9OKskT6AOaKB8PLt57mmQBOOeiK+0eh6Qisgyk3/azjwah/dBXKrObAwbCSTUaODK3uo2xVFdDaOH7DQPGcak7D
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(19092799006)(376014)(7416014)(4143699003)(56012099006)(5023799004)(11063799006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?iso-8859-1?Q?WrRNaALDXQUZJ9NVnA8ZU1xyF8BwQKgkNnChP0uhTpRo4FI/Pbd8ouGRDY?=
- =?iso-8859-1?Q?r5mN7rUF9EyI/vIYReQVqWQgFVFyrvGQx5Px8drQi9NbTdt3FQbkoZEp5j?=
- =?iso-8859-1?Q?EWaCn7N4+hIkBzKnYaw7Qzn6SXkDLr++2VNu9GRBDM9ua5NzPUmZ6djcUf?=
- =?iso-8859-1?Q?XArQiM59ufN/N865ZUOcI2UX1rVd+TS85qP21+CQ9xEuk/9xhSNaJWla9i?=
- =?iso-8859-1?Q?8Raz6miZUZWTbm7N5TrwyYQMh3cmKvA4JmH/TDa6pvB56MztbJ0SEBkA0x?=
- =?iso-8859-1?Q?AWlt+CDApKAYlkdUgD7rXNXWxgAk2pNYTpSe2TgwmuY+dsHPBnhEP9cCKM?=
- =?iso-8859-1?Q?DnmH/2a7a6zZ2VwPdHv7MirZ1wnaaCwAxQnWxeLeY/Rr3vhQg+aX8NGhbR?=
- =?iso-8859-1?Q?A+oHw43QZ6gY5d3wcEs6lGZxbbbzHdpyJWXJhGhYr2xuHjo0orhbOWpexo?=
- =?iso-8859-1?Q?wnPC5cRtpxUbB7KMGChz71FiGofSbPzjrrh/hZ1UIup30JkIuLXuERH60Y?=
- =?iso-8859-1?Q?It7YiU8n9Nz/v3uG3juEPx+gzbzpOr0JHe+EQrLqr0q/SzA+o+ndx2OSMp?=
- =?iso-8859-1?Q?l5SnutdYwi2zIdjWGLIx/oOj57ploPVXlUfMp0gUSxG17jQU6YGNTl7sD8?=
- =?iso-8859-1?Q?5vTL1TraRFZIYovphk0jfQ4Af91WDImWINpnjb6626Mvu09A3IL/glyqau?=
- =?iso-8859-1?Q?wkZr8bpZxSyIIFE5rxr/fVTlU1I0R71bvTFq+0dXCL1icCKJhms4dliFtx?=
- =?iso-8859-1?Q?IEpWF21SES1S6jgrWsplzvap/4RRhEbcUHiEFfmgLSO4OQq0K7BRTrsFTL?=
- =?iso-8859-1?Q?heKWRTLSF6eP9B9tg1SjRhKftZ0+L8TM4WMYiYlRV0eEPsDuqNZ57lzC+6?=
- =?iso-8859-1?Q?GEbbHQjR8esmnDODMzUvrLvbnfrVlOGuCVVkho0dmtYWoXj9pofL/3mz5L?=
- =?iso-8859-1?Q?xZw+78h+YTbZKJjMxI8ECMGhzCT3r8PYO3sRbmw1qWEVPhef3rQcFSqwm5?=
- =?iso-8859-1?Q?4BvZtJUajF0KvHIGlUCs988BlbunCZSwsw0an+jImpHdJBpoEg9rJuc7GW?=
- =?iso-8859-1?Q?fC/ekq0Bw37MHaxNzKPRkdcoGfvX50q12COVWTSeNwaq5OcThbJtOelb0U?=
- =?iso-8859-1?Q?68D1SbIs7AmXqTFT3rHNKP5C1rmWe5ZhW1CuP2u+PJBskvgufVKeA0ojY9?=
- =?iso-8859-1?Q?EAiAgpqpkYb4q9zwQMo5+GZwijFkccyi9YnxSZN2s2Mz6qGzEEGU2igWQp?=
- =?iso-8859-1?Q?U+U7Omxq6rOkrT4pKpL7590adKxvV6ibwj39p7/Wts+kvvQc/ut2TWRgE9?=
- =?iso-8859-1?Q?84WUN30iehzXOUJU6XX22jjbYcX0W5gfYixvMpniAiFb3rcoP3e8i9Mqud?=
- =?iso-8859-1?Q?pWnyHI5YicAuHl4E3uGYzcZbhHpwkpTA+8UIhnz0PKF4ictb9XxnDRlEms?=
- =?iso-8859-1?Q?BwShk50zM0y3xieVQauxVLLbgjiAxFA5XMo1cpGr7cNyqGAeaX+KzjFbit?=
- =?iso-8859-1?Q?C02ygtoYVyJ2ElGdo8dq+s6GRS9+hrVEtNvbTLnDHMxpmsGFDcR7shn0WM?=
- =?iso-8859-1?Q?DHgsosDJ/g0WPCx2TzaYi+Pr51FzxxMDSBZA8AbubNIUK7LaiM/y6+G2FI?=
- =?iso-8859-1?Q?Log76SP8N3N/KHKNe476V2F6dZx67qA1nEtDwrRejM84tGHMWcaON9xo7r?=
- =?iso-8859-1?Q?YunetRK8OPfKVxcugqhkUViprgoabPDWEiPjpiKd9+XZarlZKqWVmur9ja?=
- =?iso-8859-1?Q?zgTlrID7Vsvz2YgnUJUSv3xpwVC18jsNP6OfiQFAC367L0u1BtdtsIdLC7?=
- =?iso-8859-1?Q?bfWP9SeH2QpS2lQ4tEErcxk+H+2CSTHBRYG7R+HeZ5/7JslKLqeZ?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 06804b07-411f-4929-98b5-08df25b31142
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 03:11:53.2196
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ntddJdoIQYrqvum9TuMetROCZ0FqjMFy+2HfhrqO7TKO08qFZHHzXW8+qeu1ztXn+kax1zX9oRp6ggdl3USRLoze23sREtH8jySQdesmq5F1Pumhg2VGKMx0+hEsi6MQ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMBPR04MB226274
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 17, 2026 at 02:19:42PM -0400, Frank.Li@oss.nxp.com wrote:
->From: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
->
->Document the optional memory-region-names property.
-> 
->The driver currently derives the memory region type from the referenced
->memory node name, creating a hidden DT ABI. Since memory node names are
->not constrained by the binding, incorrect names can silently pass DT
->validation, as seen in examples using "vdevbuffer" instead of
->"vdev0buffer" ([1] and [2]).
->
->Add memory-region-names to explicitly identify the expected memory regions
->and avoid relying on memory node names as ABI.
->
->Link: https://lore.kernel.org/imx/a3602ef8-2b77-4cc3-adef-2c4cba08a5d9@nabladev.com/ [1]
->Link: https://lore.kernel.org/imx/alexXTYQHUs76J7v@SMW015318/T/#mb9dc709ff3adc24d9db6d30c973f37b580f6f1f9 [2]
->Signed-off-by: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
->Signed-off-by: Frank Li <Frank.Li@nxp.com>
->---
->Use optional property to keep back compatible with old platform.
->New platform should use memory-region-names.
->---
-> .../devicetree/bindings/remoteproc/fsl,imx-rproc.yaml         | 11 +++++++++++
-> 1 file changed, 11 insertions(+)
->
->diff --git a/Documentation/devicetree/bindings/remoteproc/fsl,imx-rproc.yaml b/Documentation/devicetree/bindings/remoteproc/fsl,imx-rproc.yaml
->index c18f71b648890..5d98d21035f8c 100644
->--- a/Documentation/devicetree/bindings/remoteproc/fsl,imx-rproc.yaml
->+++ b/Documentation/devicetree/bindings/remoteproc/fsl,imx-rproc.yaml
->@@ -62,6 +62,15 @@ properties:
->     minItems: 1
->     maxItems: 32
-> 
->+  memory-region-names:
->+    minItems: 1
->+    maxItems: 32
->+    items:
->+      anyOf:
->+        - const: rsc-table
->+        - pattern: "^vdev[0-9]+(buffer|vring[0-9])+$"
+mt_probe() allocates td->haptic with devm_kzalloc(), tying its
+lifetime to the HID device's driver unbind.  hid_haptic_init() then
+installs hid_haptic_destroy() as the force-feedback destroy callback,
+which dereferences haptic->hdev on its very first line.
 
-Should be "^vdev[0-9]+(buffer|vring[0-9]+)$"?
+When the HID device is removed while a process still holds an evdev
+fd, devres frees td->haptic at unbind time, but hid_haptic_destroy()
+runs later from input_dev_release() when the last fd closes.  The
+callback operates on freed memory.
 
-Regards
-Peng
+The existing get_device()/put_device() pair in init/destroy pins the
+struct hid_device but does not keep its devres allocations alive,
+since devres runs at driver unbind, not at the final device kref put.
 
->+        - pattern: "^m(4|7|33)-reserved(-[a-z0-9-]+)+$"
->+
->   power-domains:
->     minItems: 2
->     maxItems: 8
->@@ -134,6 +143,7 @@ examples:
->     imx7d-cm4 {
->       compatible = "fsl,imx7d-cm4";
->       memory-region = <&m4_reserved_sysmem1>, <&m4_reserved_sysmem2>;
->+      memory-region-names = "m4-reserved-sysmem1", "m4-reserved-sysmem2";
->       syscon = <&src>;
->       clocks = <&clks IMX7D_ARM_M4_ROOT_CLK>;
->     };
->@@ -149,6 +159,7 @@ examples:
->                 &mu 1 1
->                 &mu 3 1>;
->       memory-region = <&vdev0buffer>, <&vdev0vring0>, <&vdev0vring1>, <&rsc_table>;
->+      memory-region-names = "vdev0buffer", "vdev0vring0", "vdev0vring1", "rsc-table";
->       syscon = <&src>;
->     };
-> ...
->
->-- 
->2.43.0
->
->
+Replace devm_kzalloc() with plain kzalloc() for the haptic struct so
+it outlives the driver.  Free it at the end of hid_haptic_destroy(),
+which already tears down every sub-allocation manually and holds a
+device reference that keeps hdev alive until the kfree.  On the
+non-haptic path and the error paths in mt_probe(), use kfree()
+instead of devm_kfree().
+
+Fixes: 8d0bf7908b5a ("HID: multitouch: add haptic multitouch support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+---
+ drivers/hid/hid-haptic.c     |  2 ++
+ drivers/hid/hid-multitouch.c | 18 ++++++++++++------
+ 2 files changed, 14 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/hid/hid-haptic.c b/drivers/hid/hid-haptic.c
+index 8760eeb08..6c365dbf0 100644
+--- a/drivers/hid/hid-haptic.c
++++ b/drivers/hid/hid-haptic.c
+@@ -406,6 +406,8 @@ static void hid_haptic_destroy(struct ff_device *ff)
+ 	haptic->hid_usage_map = NULL;
+ 
+ 	module_put(THIS_MODULE);
++
++	kfree(haptic);
+ }
+ 
+ int hid_haptic_init(struct hid_device *hdev,
+diff --git a/drivers/hid/hid-multitouch.c b/drivers/hid/hid-multitouch.c
+index 4e19a0c4d..4f7b97cd4 100644
+--- a/drivers/hid/hid-multitouch.c
++++ b/drivers/hid/hid-multitouch.c
+@@ -2132,7 +2132,7 @@ static int mt_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 		dev_err(&hdev->dev, "cannot allocate multitouch data\n");
+ 		return -ENOMEM;
+ 	}
+-	td->haptic = devm_kzalloc(&hdev->dev, sizeof(*(td->haptic)), GFP_KERNEL);
++	td->haptic = kzalloc(sizeof(*(td->haptic)), GFP_KERNEL);
+ 	if (!td->haptic)
+ 		return -ENOMEM;
+ 
+@@ -2181,12 +2181,14 @@ static int mt_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 
+ 	ret = hid_parse(hdev);
+ 	if (ret != 0)
+-		return ret;
++		goto err_free_haptic;
+ 
+ 	if (mtclass->name == MT_CLS_APPLE_TOUCHBAR &&
+ 	    !hid_find_field(hdev, HID_INPUT_REPORT,
+-			    HID_DG_TOUCHPAD, HID_DG_TRANSDUCER_INDEX))
+-		return -ENODEV;
++			    HID_DG_TOUCHPAD, HID_DG_TRANSDUCER_INDEX)) {
++		ret = -ENODEV;
++		goto err_free_haptic;
++	}
+ 
+ 	if (mtclass->quirks & MT_QUIRK_FIX_CONST_CONTACT_ID)
+ 		mt_fix_const_fields(hdev, HID_DG_CONTACTID);
+@@ -2196,7 +2198,7 @@ static int mt_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 
+ 	ret = hid_hw_start(hdev, HID_CONNECT_DEFAULT);
+ 	if (ret)
+-		return ret;
++		goto err_free_haptic;
+ 
+ 	ret = sysfs_create_group(&hdev->dev.kobj, &mt_attribute_group);
+ 	if (ret)
+@@ -2206,9 +2208,13 @@ static int mt_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 	mt_set_modes(hdev, HID_LATENCY_NORMAL, TOUCHPAD_REPORT_ALL);
+ 
+ 	if (!td->is_haptic_touchpad)
+-		devm_kfree(&hdev->dev, td->haptic);
++		kfree(td->haptic);
+ 
+ 	return 0;
++
++err_free_haptic:
++	kfree(td->haptic);
++	return ret;
+ }
+ 
+ static int mt_suspend(struct hid_device *hdev, pm_message_t state)
+-- 
+2.43.0
+
