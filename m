@@ -1,261 +1,208 @@
-Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
+Received: from mail-oa1-f43.google.com (mail-oa1-f43.google.com [209.85.160.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6732435C69E
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 15:15:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791558945; cv=pass; b=qpHXMJ66i0c6ukiV2duQ6WbsmL1jtx7L26Txfe4OM5W0jTku77//XS0+8WbPkOwrL7YqfE9I5gUKavpCVPmDl+pzhLrTZh0d4Ja7XZ5/5y3+1OWlM9IgKLfA5A8QtbSniHwb81mmQ33q9OUPXtFdiR75SSoLc6thncdgPFPxp2I=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791558945; c=relaxed/simple;
-	bh=xvA8DTirzMNyhS52A8f+1loxVqPpu9nQXkLXOqerews=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PxByDAGN4gi7EIZsPe0RDFg6+21gytd+amvSf/fPDFqKk9PidQdC4IV8wdBBVMSXGcRPW5RfYp9KLO/JfFhtXkjDlVklT+L3BeSBPteO4ytRghl1nkcVM/bjSO3G7NtqJHzHPCppJw+jNnjQ3iG1yxHxTDoYgpznbWpn7AOtq0o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gYVvTc1H; arc=pass smtp.client-ip=209.85.219.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 828363546DF
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 15:15:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791558952; cv=none; b=Rb+TVNSVOIWpxO+666mpwR8OMW0Zhl2VXOqfgXTTk6mHmve2VzXD4VwQsyT+2yqp65Xc40h06H3BKCQ8Rgm6Q3efoEUuyhpfZJuewSA3xCpd4H0f66KsjW+ccrL+gbOSrp4TDA3UEl5u6Cn1eZawUtwcIo0dmFq7wbHLeveASk4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791558952; c=relaxed/simple;
+	bh=r/WHkbVyybyZQ1LlyN5FyLuD1RrUb1aDMYV1OPx3h0Y=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=qd0P/HnyJqgCi6mhqX5MUlnqrnJMwxImtwn+Vb73d+Kp2qTMXhvc4gHwcfNMntrEB/2L4SzbfRkwXCs9hPNe9AyAJKUsNeez41VqTigizo3QmLxYUyRBXbOIyNFXdGeQ14YwGw8IlH3A9uWbFgQp0b4Ss0lg6SXd+pJc20LTaaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WsOaLSQh; arc=none smtp.client-ip=209.85.160.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gYVvTc1H"
-Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-9199927cb42so23141236d6.2
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 08:15:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791558941; cv=none;
-        d=google.com; s=arc-20260327;
-        b=VERzdQ4BegrYRykE1jU7/RrH74r48s1brYa74TEFU3Lrq4+yhZdC5hwrRW1/oX7wqp
-         Dm3hiTxG4P3JFvASu/ttUGr5vX/JBpgadRIlxEiodnt9yc61+Cw1KpDEltHblNce4NaS
-         vNHpkLx80T3orQi/4JUy0kJpB3V/Lk3Xerr1znyqTKQtZFrfJx2sXRNKmVhDIWEREJFu
-         7wVeXFhKpa4LmeVu8WtRj+15KEata+cM+lxggOKall/ZL+H8BWVGSCQQ/G59z3I02BLh
-         W98tsNiz78LbT9FdrenA9ByfPGVhLbGC1darLSqNwIK1976xEsa+cho8kbl99joHM/aX
-         79fw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=liSfgm3aLspZBk/EvQTw5ZezUOYb7ES99ZZ1K8Pg3bo=;
-        fh=3tTtyorlAxGMfMvbimz0FHcGHnEooLKaBBDggyFmI9Q=;
-        b=I/XTyG6NF9/j6yONL/1ohXRSLCO6IGXouYqyLboMhzHBGmbKqrdf/2+CWq3HZR9gGj
-         j5m5me6mI9ajWkxfxDUX5M7Qn6HJPm0BYC+O1t1KNay/BUG+cpCIRe8owwKLT3VQ/GLo
-         0U/Y1Z2cIBm1Fyy8JVDTsDe3ofS7WbMtWKxyeo++BO7wxqw4bTNvxAI73Pn4DtVJPLDA
-         2ujhO8iwooby6oJKm6J93U/ss4HbyqDIUchjUOEQsvNz4K1nEveEnrd9hhaVy/lnO5yc
-         cvdklf+WTGCpcgStsAwa+HNoYYgph/56R2n2AVxv6Aim3wAGHZsMkmWX9CIvL/NtJaSa
-         j0lw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WsOaLSQh"
+Received: by mail-oa1-f43.google.com with SMTP id 586e51a60fabf-49e1dbfe15eso1903184fac.2
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 08:15:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791558941; x=1792163741; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=liSfgm3aLspZBk/EvQTw5ZezUOYb7ES99ZZ1K8Pg3bo=;
-        b=gYVvTc1HAv1GJYETcIWnG6sJrHeaO2yVkq/jA5JpDnvcmzCDtIxWtzkhE04kuBJMzw
-         oPTITqRxv8L6ZqrGjdtHT2xI4NyMZ/ZS38wh4tZ/KOjrk4EHt8NAYAkhd/3oIkXI88iw
-         mXaGKfMTbwj65C6xD6u6z1+udIAwV8woLg898RiqBFPYFyQfsjKoYlZX04LUfEICd3bM
-         J5b4/rACNEdwtzlwCIFRJN31REabD/cpzOvcORgxL8w4z1WXArRO5dSC1OLCjUXHXHq0
-         SVg8wLFsk4e3k+laNInWMFrl5JVZQU6LUhISMWx3VH28kuS7UIZKyqd5hCJT5KEEQXf7
-         Yi8g==
+        d=gmail.com; s=20251104; t=1791558950; x=1792163750; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=cd/NKQgH/SPcEVf62kJ3YHPeBmhuQBl0/uewYv3guOw=;
+        b=WsOaLSQhFrwp0YPNpdanGuzm77Lu6TlstY/x61/RibDkGJJRrkdZ8VsdvxbvFSYzWe
+         bNEWYoSaEEOdUdY8PFKwoYUZAxTzI0YZ75ffMV4Wju200XaE7He/YFqnOzbC8AbOGaHQ
+         jpqgqZOM26cx2UrSw3mlnoW5qod3wTQoh5hHdFMyepU2CiaBXdcJyOesKa07fGHylK+3
+         RGHq6AyRyn/NWdK/fCBTN85HJ8n50CL0yDvNgeo4pidhfskKekMcxH55fijJVLr4D0q6
+         dnN1MxsSRgXNOenfjxWIrUG8a6/6JS5d/VWE3Wzho3uZgM9cB6T/Wzkkt+kqaaHlwgjF
+         zr5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791558941; x=1792163741;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=liSfgm3aLspZBk/EvQTw5ZezUOYb7ES99ZZ1K8Pg3bo=;
-        b=SfHmWDeVzwpwQopP/jXJZShmoN+zl4rmvHkCE9QQzdWCJI2acRNEjC2PepPXwXVMY7
-         ZU7HXdJMnew3/Zxz1vJOD8nhUtRUdWpTGzShIoemvInmTbAPOtU7TF7+E5NHf+eOeXfB
-         WR4I9NoldyERKqmFsjLZdvthacVLWIWGecBWRtBgMagULB7gbwUMuh53UMe1Pp5VyRKN
-         WPalLsQdcbOGdF2SIFypFjwrMO2xd7sqIr5okbbEFnaUP4HimnZV0VH1ipK4VOurXWP5
-         AP5M0SEsQTaxnyOYqLL3LfvojDxeqr1caZVnbwg+/8fAKG0ygyciJ0yGOYp9e42hw1R8
-         jFmQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzG/SJw787imXaEE2nBgAXtynp/VPjrZNXm2FBG2nqLe+Re588JDyq3C14yH72J2YXfNUlTlLvkjELhYdI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJe1zcLmtul6O6o/LnTK2SPd8zucD5fWGz8EH8XU7AoToh54dqs
-	vJSB1x9XLGXzojSJqzjDjjkdCbDPZDR+bKfMu16p+558OpRqaaTcP5Bob6V46mFoDD2sgq3TLdf
-	jW7LTQPhS7cW3U60cVGzZ37Aq8kTr6gw=
-X-Gm-Gg: AYBFou0wbkt6/b6+v4WaTK2hV0/K9dJ1jRsaFJ9qLYwZm1D7Jw2PRSu4P64bS9HsF+o
-	rT2pbVSe2iSVO3MecXZKv/kS7SWS+D44NxWn2UI7KsR7nZNieiH/8KgTCgpcMbEMVt6L7vW+0XS
-	rOCimTy2T+crdIpgeP+3rBDksc1D06Jr2OEvRhjIdVsB/7N8R9P0L3gO4SHZvayD27EhmXP5Bl+
-	B4CPyeou7Fru3YSI34Y0LTlKMeSvAyFxHq+LxIn+Ln+gKaf8anKJ6KspGr+RYY0PRh5hy4kisss
-	qn4NA1RH4S9BTfI8BCM6nqZEP/yXJBV/AbOZE+srwLVA7d3GMOUU6Pj1fEkA2yaHUnGNjDRWIaD
-	h7I5gA3y13ZztIfQfvWoDRa2GQunWb4jleg==
-X-Received: by 2002:a05:6214:4e82:b0:91b:5d3a:510a with SMTP id
- 6a1803df08f44-91b5d3a56admr20534886d6.56.1791558941026; Fri, 09 Oct 2026
- 08:15:41 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791558950; x=1792163750;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cd/NKQgH/SPcEVf62kJ3YHPeBmhuQBl0/uewYv3guOw=;
+        b=fH9lNW/EmZc5q97+AYJggLdVDUT93cmvEwE+2wXMgP5pFQdKiBxb+QGE36dzsP4T4E
+         bpTBgkJ+ovm6AdNrVvo8EIkczZCPBhq43tK49D68xsmG3EbSSJbN1kX5jwcQe7sTO83E
+         gMJFSBUZ/UTw88ykseeWDRxMUCr1Qcoxlxp/tZhaSmIWGLg+ZJSjMyXAgbbDa6QAYrs6
+         /dO6xbGXlKDScw7fhw/J1ot+53lAmE7dHxk2CoL1RdA+W+9inI1GJEyUPEPG6TTjZuVV
+         dDrcRaVutCBX426w0WO4iH8oSojgmFWYvuyueH6ssCXyjClEmJ5HKvTd2nrCJu/fQW0K
+         wtbw==
+X-Forwarded-Encrypted: i=1; AKwUvBxIAU8vQ5o8ajAMwsbQCBWW9LBRM5g5eX+ssuodSg2KTmIIiqL9o1AZUGCquigkoDWJyxW4HbjiLUQjO2Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJTQDnFyAmBpIWNSY/hFaTHNEQw8nPl8K57MmndqLIvvhtv4ZNw
+	15Rb4jwYg5vfIFwCaFLfCmNXNZKRSIF3viLfmxG88S2lQ60M+FPnO9sc
+X-Gm-Gg: AYBFou3hs12Ex2QeIK+SblM3gzkJOihAwpBAgwaoHFOBF91JPLX3mwY70vixlxHF1A2
+	HLnwVMvVics0bGEAQTQ+o1TmNN88MHPil//weIti7CYIApFfZDCGgf6EfJPZW4k/rlBlyO2jn/e
+	NU2/dvGYn+ZQ9CBMR6pWoSRyJs8RqrFO+69j48zuGqb3lJktYzpzaxl4GrKR+cmXVBwgb2d3wxs
+	Neb9XYQi1aB6adzksaqRGWXbjG6GT8h9J/UlhP9VDNkUy2eM1H6QdUhe+SZJQcKhcOaYKtWpQaA
+	o5nrWfrN81peezceNt46OVjjCJTALoJd9Ted9zoq+C5geDiRcRUWeF1iEcwNVVprKiMwTbwpyPb
+	KZUX8/VviFRze4SCVhwOX3wBu1iq5Fd3spIPdu3zWpZWKJiKb+V/mclw+DPiisp3n77GFKMk6m0
+	+ExVx/MPOJmCqVPfcvrbZBDaV0dZf8C4G4fgyrlZNwlUNETudoVQarWIXhfl1oEE2Z3ADaAb+ri
+	1duanaMQM4O42P8+tZO1BnCHvCPniX7vm20ZHs6OAWKOLd9V9TcbQZAWmTFbNqR0/q6iosDAun8
+	JhQ=
+X-Received: by 2002:a05:6870:f213:b0:48f:e107:8e48 with SMTP id 586e51a60fabf-4a2a8911601mr1832630fac.41.1791558950273;
+        Fri, 09 Oct 2026 08:15:50 -0700 (PDT)
+Received: from ehlo.thunderbird.net (108-228-232-20.lightspeed.sndgca.sbcglobal.net. [108.228.232.20])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a2a86317a5sm1904867fac.17.2026.10.09.08.15.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 09 Oct 2026 08:15:49 -0700 (PDT)
+Date: Fri, 09 Oct 2026 08:15:46 -0700
+From: "Derek J. Clark" <derekjohn.clark@gmail.com>
+To: Rong Zhang <i@rong.moe>, Mark Pearson <mpearson-lenovo@squebb.ca>,
+ Hans de Goede <hansg@kernel.org>,
+ =?ISO-8859-1?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Armin Wolf <W_Armin@gmx.de>
+CC: Charles <hanker007@gmail.com>, Navon John Lukose <navonjohnlukose@gmail.com>,
+ platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2_03/12=5D_platform/x86=3A_lenovo-wmi-cap?=
+ =?US-ASCII?Q?data=3A_Only_allocate_sub-master_info_when_necessary?=
+User-Agent: Thunderbird for Android
+In-Reply-To: <20261009-lwmi-wmi-new-api-v2-3-402828382679@rong.moe>
+References: <20261009-lwmi-wmi-new-api-v2-0-402828382679@rong.moe> <20261009-lwmi-wmi-new-api-v2-3-402828382679@rong.moe>
+Message-ID: <807F11B7-33B6-454F-B550-F516E974703B@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261009073330.18175-1-ansuelsmth@gmail.com> <20261009073330.18175-2-ansuelsmth@gmail.com>
- <20261009-7326174694c52ccce16615b2@squawk>
-In-Reply-To: <20261009-7326174694c52ccce16615b2@squawk>
-From: "Christian Marangi (Ansuel)" <ansuelsmth@gmail.com>
-Date: Fri, 9 Oct 2026 17:15:27 +0200
-X-Gm-Features: AclHuK_TaWQMRaZGsQ3qxEM8_zEYr5bmwxiSK0Zad2EZWuG4HWavWzZ47j3MGaA
-Message-ID: <CA+_ehUyP35PF6cm17dzeLcREVFEPv=89Do-s5-hm-T3mKveuKQ@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] dt-bindings: devfreq: Document support for Airoha
- Subsystem Scale
-To: Conor Dooley <conor@kernel.org>
-Cc: MyungJoo Ham <myungjoo.ham@samsung.com>, Kyungmin Park <kyungmin.park@samsung.com>, 
-	Chanwoo Choi <cw00.choi@samsung.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-pm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Il giorno ven 9 ott 2026 alle ore 17:06 Conor Dooley
-<conor@kernel.org> ha scritto:
+On October 9, 2026 5:53:45 AM PDT, Rong Zhang <i@rong=2Emoe> wrote:
+>When capdata00 declares no fan test support, there is no need to
+>allocate sub-master info as it's basically unused except for the
+>priv->sub_master->sub_component_list =3D=3D ERR_PTR(-ENODEV) placeholder=
+=2E
 >
-> On Fri, Oct 09, 2026 at 09:33:28AM +0200, Christian Marangi wrote:
-> > Airoha SoC contains multiple subsystems that are scaled to a
-> > specific OPP taking the CPU clock as reference. Such subsystem
-> > can enter idle or performance state based on the system load
-> > and power consumption conditions.
-> >
-> > Example of such subsystems are GSW (Gigabit Switch), NPU (Custom
-> > Risc Co-Processor for Network acceleration), SOE (Crypto Module) BUS...
+>Therefore, only allocate priv->sub_master when necessary, otherwise its
+>absence implies the absence of sub-component=2E With that,
+>PTR_ERR(sub_component_list) =3D=3D -ENODEV is repurposed for the followin=
+g
+>changes to represent stubbed sub-component=2E
 >
-> The device you document here does not appear to exist at all, since it
-> just consumes a clock without any registers or anything. Why can't these
-> operating points be added to the actual consumers: the switch, the npu,
-> or event the bus itself in one case. In the bus case, I think that's
-> exactly what simple-pm-bus does?
+>Signed-off-by: Rong Zhang <i@rong=2Emoe>
+>---
+> drivers/platform/x86/lenovo/wmi-capdata=2Ec | 36 ++++++++++++++++++-----=
+--------
+> 1 file changed, 21 insertions(+), 15 deletions(-)
+>
+>diff --git a/drivers/platform/x86/lenovo/wmi-capdata=2Ec b/drivers/platfo=
+rm/x86/lenovo/wmi-capdata=2Ec
+>index 58787da959b4=2E=2E3a823aee608a 100644
+>--- a/drivers/platform/x86/lenovo/wmi-capdata=2Ec
+>+++ b/drivers/platform/x86/lenovo/wmi-capdata=2Ec
+>@@ -101,9 +101,11 @@ struct lwmi_cd_priv {
+> 	struct lwmi_cd_sub_master_priv {
+> 		struct device *master_dev;
+> 		cd_list_cb_t master_cb;
+>-		struct cd_list *sub_component_list; /* ERR_PTR(-ENODEV) implies no sub=
+-component=2E */
+>+		struct cd_list *sub_component_list; /* ERR_PTR(-ENODEV) implies stubbe=
+d
+>+						     * sub-component=2E
+>+						     */
+
+Hi Rong,
+
+Hitting the column limit here looks ugly and harms readability IMO=2E Perh=
+aps we could rename the variable (sc_list?) or be less explicit about the f=
+ull error signature?
+- Derek
+
+> 		bool registered;                    /* Has the sub-master been registe=
+red? */
+>-	} *sub_master;
+>+	} *sub_master;                              /* NULL impLnlies no sub-co=
+mponent=2E */
+> };
+>=20
+> struct cd_list {
+>@@ -258,6 +260,12 @@ static int lwmi_cd_component_bind(struct device *cd_=
+dev,
+> 	case LENOVO_CAPABILITY_DATA_00:
+> 		binder->cd00_list =3D priv->list;
+>=20
+>+		/* Missing sub-master info implies missing sub-component=2E */
+>+		if (!priv->sub_master) {
+>+			binder->cd_fan_list_cb(om_dev, NULL);
+>+			break;
+>+		}
+>+
+> 		priv->sub_master->master_dev =3D om_dev;
+> 		priv->sub_master->master_cb =3D binder->cd_fan_list_cb;
+> 		lwmi_cd_call_master_cb(priv);
+>@@ -288,13 +296,9 @@ static void lwmi_cd_component_unbind(struct device *=
+cd_dev,
+> {
+> 	struct lwmi_cd_priv *priv =3D dev_get_drvdata(cd_dev);
+>=20
+>-	switch (priv->list->type) {
+>-	case LENOVO_CAPABILITY_DATA_00:
+>+	if (priv->sub_master) {
+> 		priv->sub_master->master_dev =3D NULL;
+> 		priv->sub_master->master_cb =3D NULL;
+>-		return;
+>-	default:
+>-		return;
+> 	}
+> }
+>=20
+>@@ -369,17 +373,19 @@ static int lwmi_cd_sub_master_add(struct lwmi_cd_pr=
+iv *priv,
+> 	struct component_match *master_match =3D NULL;
+> 	int ret;
+>=20
+>+	/*
+>+	 * If the sub-master has no sub-component, there is no need to allocate
+>+	 * or register the sub-master=2E The master callback will be called wit=
+h
+>+	 * NULL on master <-> sub-master bind to inform the master about the
+>+	 * absence of sub-component=2E
+>+	 */
+>+	if (sub_component_type =3D=3D CD_TYPE_NONE)
+>+		return 0;
+>+
+> 	priv->sub_master =3D devm_kzalloc(&priv->wdev->dev, sizeof(*priv->sub_m=
+aster), GFP_KERNEL);
+> 	if (!priv->sub_master)
+> 		return -ENOMEM;
+>=20
+>-	if (sub_component_type =3D=3D CD_TYPE_NONE) {
+>-		/* The master callback will be called with NULL on bind=2E */
+>-		priv->sub_master->sub_component_list =3D ERR_PTR(-ENODEV);
+>-		priv->sub_master->registered =3D false;
+>-		return 0;
+>-	}
+>-
+> 	/*
+> 	 * lwmi_cd_match() needs a pointer to enum lwmi_cd_type, but on-stack
+> 	 * data cannot be used here=2E Steal one from lwmi_cd_table=2E
+>@@ -404,7 +410,7 @@ static int lwmi_cd_sub_master_add(struct lwmi_cd_priv=
+ *priv,
+>  */
+> static void lwmi_cd_sub_master_del(struct lwmi_cd_priv *priv)
+> {
+>-	if (!priv->sub_master->registered)
+>+	if (!priv->sub_master || !priv->sub_master->registered)
+> 		return;
+>=20
+> 	component_master_del(&priv->wdev->dev, &lwmi_cd_sub_master_ops);
 >
 
-Can the consumer be registered as a devfreq with all the other thing?
-Isn't that problematic?
-
-Also one big problem is that some subsystem are used internally.
-Example SOE and BUS. (and also NPU)
-
-How those can be configured to follow the CPU frequency and
-use the required-opp and opp?
-
-> >
-> > Document all the required property and provide examples for the various
-> > subsystem OPP + subsystem scale nodes.
-> >
-> > Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
-> > ---
-> >  .../devfreq/airoha,subsystem-scale.yaml       | 114 ++++++++++++++++++
-> >  1 file changed, 114 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/devfreq/airoha,subsystem-scale.yaml
-> >
-> > diff --git a/Documentation/devicetree/bindings/devfreq/airoha,subsystem-scale.yaml b/Documentation/devicetree/bindings/devfreq/airoha,subsystem-scale.yaml
-> > new file mode 100644
-> > index 000000000000..2cf7f23a926c
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/devfreq/airoha,subsystem-scale.yaml
-> > @@ -0,0 +1,114 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/devfreq/airoha,subsystem-scale.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: Airoha SoC Subsystem Scale Driver
-> > +
-> > +maintainers:
-> > +  - Christian Marangi <ansuelsmth@gmail.com>
-> > +
-> > +description:
-> > +  Airoha SoC contains multiple subsystems that are scaled to a
-> > +  specific OPP taking the CPU clock as reference. Such subsystem
-> > +  can enter idle or performance state based on the system load
-> > +  and power consumption conditions.
-> > +
-> > +  Example of such subsystems are GSW (Gigabit Switch), NPU (Custom
-> > +  Risc Co-Processor for Network acceleration), SOE (Crypto Module) BUS...
-> > +
-> > +properties:
-> > +  compatible:
-> > +    const: airoha,an7581-subsystem-scale
-> > +
-> > +  clocks:
-> > +    maxItems: 1
-> > +
-> > +  operating-points-v2:
-> > +    description:
-> > +      OPP table of the related subsystem supported rates that referenced
-> > +      clocks will be scaled to.
-> > +
-> > +required:
-> > +  - compatible
-> > +  - clocks
-> > +  - operating-points-v2
-> > +
-> > +additionalProperties: false
-> > +
-> > +examples:
-> > +  - |
-> > +    #include <dt-bindings/clock/en7523-clk.h>
-> > +
-> > +    npu_opp_table: opp-table-npu {
-> > +        compatible = "operating-points-v2";
-> > +
-> > +        npu_low: opp-400000000 {
-> > +           opp-hz = /bits/ 64 <400000000>;
-> > +        };
-> > +
-> > +        npu_high: opp-720000000 {
-> > +           opp-hz = /bits/ 64 <720000000>;
-> > +        };
-> > +    };
-> > +
-> > +    emi_opp_table: opp-table-emi {
-> > +        compatible = "operating-points-v2";
-> > +
-> > +        emi_low: opp-400000000 {
-> > +            opp-hz = /bits/ 64 <400000000>;
-> > +        };
-> > +
-> > +        emi_high: opp-540000000 {
-> > +           opp-hz = /bits/ 64 <540000000>;
-> > +        };
-> > +    };
-> > +
-> > +    bus_opp_table: opp-table-bus {
-> > +        compatible = "operating-points-v2";
-> > +
-> > +        bus_low: opp-200000000 {
-> > +           opp-hz = /bits/ 64 <200000000>;
-> > +        };
-> > +
-> > +        bus_high: opp-300000000 {
-> > +           opp-hz = /bits/ 64 <300000000>;
-> > +        };
-> > +    };
-> > +
-> > +    gsw_opp_table: opp-table-gsw {
-> > +        compatible = "operating-points-v2";
-> > +
-> > +        gsw_low: opp-200000000 {
-> > +            opp-hz = /bits/ 64 <200000000>;
-> > +        };
-> > +
-> > +        gsw_high: opp-500000000 {
-> > +           opp-hz = /bits/ 64 <500000000>;
-> > +        };
-> > +    };
-> > +
-> > +    npu-subsystem {
-> > +        compatible = "airoha,an7581-subsystem-scale";
-> > +        operating-points-v2 = <&npu_opp_table>;
-> > +        clocks = <&scuclk EN7523_CLK_NPU>;
-> > +    };
-> > +
-> > +    emi-subsystem {
-> > +        compatible = "airoha,an7581-subsystem-scale";
-> > +        operating-points-v2 = <&emi_opp_table>;
-> > +        clocks = <&scuclk EN7523_CLK_EMI>;
-> > +    };
-> > +
-> > +    bus-subsystem {
-> > +        compatible = "airoha,an7581-subsystem-scale";
-> > +        operating-points-v2 = <&bus_opp_table>;
-> > +        clocks = <&scuclk EN7523_CLK_BUS>;
-> > +    };
-> > +
-> > +    gsw-subsystem {
-> > +        compatible = "airoha,an7581-subsystem-scale";
-> > +        operating-points-v2 = <&gsw_opp_table>;
-> > +        clocks = <&scuclk EN7523_CLK_GSW>;
-> > +    };
-> > --
-> > 2.55.0
-> >
