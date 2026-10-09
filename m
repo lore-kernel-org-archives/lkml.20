@@ -1,141 +1,147 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FDEA471D16;
-	Fri,  9 Oct 2026 07:11:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 322CF472558
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 07:12:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791529918; cv=none; b=AAziLLxFdYOxvv7Gs7stjJpK1whkta/PH6LgirjHBmIs+qxiDpHe7NoVpPVBo3XZchr9KBIDxO8lmsXRqWsZInQYSZoq0w0CkyM+BWZ5E5AJs1p3JnfMvPRuQSXbhrcOBljDTNdauEgxNdtIeQ7Lz3iF/82lo0NcJM2Fu75t0yQ=
+	t=1791529930; cv=none; b=KnMyq9fsZMDZiyFbbmJBSskG1CQxceN29Xit9QJYBa+vZ0meUwaxvJg1oU0OePDZrGsrFOACwYN7cB8Jphkhte16ik6uSSAA3uL/Rvg0y9VBK99A7BDNhWhbRVHhx0CjTjpM5xb6MXwTjDW2NCVuehGhwu7S7uGZTsdBZUBIXM4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791529918; c=relaxed/simple;
-	bh=kn4vth4vq4LX7Nr/w7aiUn7PLILS+b8gFxVLKowNkOo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HGBfxVyJNYp+HGczpAQL1GD0GHLEyKf8FzAi5ODy8Uxdz9aejrBUNPpaNMwEcq3iCtvRgUdKnyBa/0NkZEnkC2yqfDQJn3rR/M3G78YyNMWd9c01YFATBQYxcZH1ErOrWJ3VH9SopMvxMYBaLbBmwGKv+Z57VbdPfGCINY8WRrE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=X3sIV03m; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=+soDEjPx; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1791529930; c=relaxed/simple;
+	bh=X4DNJeH4NIWDGqEQUeTyIwAV6Gcd67RBpdsYRXRTbwo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WDTGbNE9gY13VwR/sXEbtbfsPLCQz4kxBKtAobFOn7BtPx6gXSUCF47jz43bB3aFk7OdlWbBnOIf+UeVVDLqlU7xVh5UfOgoFrSIvrIcMjLsADZB/6tCn7SXn1CVCtC/v6xpbId+gogTOs9pNii9Xl26OWqUycLDItvXfzQoWlE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=jLt355cs; arc=none smtp.client-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="X3sIV03m";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="+soDEjPx"
-Date: Fri, 9 Oct 2026 09:11:53 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1791529915;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qI0teZcXrHycO5RdYnELojTgh/o+UFCV/n+9LzyZqFg=;
-	b=X3sIV03mGRKoi7W8A8eLx21lFQPk9jNvzBAIVcDFgpTgkCEXR3BOBvxukpbzsI6qt4reRZ
-	u0U9jOaAH9hG4rsvdpa5JfYLRg6VRuPfnFUq7Yn7lOM4/Z6sGhlDTN0vKoiRGnt81Z+F+t
-	hdjl51it/uC+VSPkeIkGsx+iMqOV3+MNtthUdtUovz4Sl8emgaCgXLtCTygyaF16VvJbeL
-	oJlMBJtml6YpUkxWTRq88TIww9eXnU5zJsL2WMBK8asW+vZ3qAYVVSRVNUoOrmCIxiYBfT
-	khqmkEyZMoPwM6v2b9ZOnpwYdUPQdCp/VJfgwTy1ags17xJmfPS+WkjPsdU5/g==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1791529915;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qI0teZcXrHycO5RdYnELojTgh/o+UFCV/n+9LzyZqFg=;
-	b=+soDEjPxyf7SrT/DzxVpdDu44pE7aWoLjRK7cUgf3pcfnbJ8WFq2o6tDuDmZbsjly7XNh0
-	ErnOHbhE1ujbCWBw==
-From: Gregor Herburger <gregor.herburger@linutronix.de>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Kamal Dasu <kamal.dasu@broadcom.com>, Al Cooper <alcooperx@gmail.com>, 
-	Adrian Hunter <adrian.hunter@intel.com>, Ulf Hansson <ulfh@kernel.org>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, linux-mmc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mmc: sdhci-brcmstb: don't log an error for missing BOOT
- registers
-Message-ID: <cfhxi3zbkkhnslbocne3moqdm34zre7x2qjdizlrlpmurcl5hj@vdvp5aevi7gk>
-References: <20261009003201.68288-1-kmehltretter@gmail.com>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="jLt355cs"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2e8455755f3so1546155ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 00:12:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1791529928; x=1792134728; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aptDd8Np6uwn+I29ocduigmysLweAOQhXRAknslhT0Y=;
+        b=jLt355csH4TuUq3r/8aTHjkJf4V0t5TiCVh+iFivaTWq69deuGz5+nEqssZrabIVVU
+         4tYxMcUoCnZslqm0GGayRy+TqbJET/0HOkOiKi8IwHP2ynExpkvhWaWghzBiijKw1xBo
+         qeH8+2S3MFp3aVon3tMve9Q+atfFaavyERv3c=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791529928; x=1792134728;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aptDd8Np6uwn+I29ocduigmysLweAOQhXRAknslhT0Y=;
+        b=FOQB2ksP19Z/0RCYf3q3jDBcZLNQYMM4BYhxV90U5ddGIlykIPWJhB2oMS4ElnSwHt
+         qMIPIA3UdsFYWD0Bu/rycrQV1tH6RBFVcNuMtaezBg0ufey/mMvAgiQGvQ9X0QdXA+Rt
+         UtKvHaaX242KOO8rOWViI3PteksVGEavNSItA/tuk53SajPgES52Qz2b3J3CDiphDSzH
+         hnqOTWk3sk2oOZqJipFYanNBRRIJUbG7IfhaCZO8C9hfesH/mIyZ+TTaPY+SgeZuXapG
+         ygXwm5JPd0hxrhxbnZmkgXEVcQgCS2PQfLhT4yMYX9zPGtXT0fdOQWHjX0Jt7LSVPvlF
+         FhNQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy45z+VDfoOoKf0QIMHgCTMBWwn4TljjTPIuoXURiUd0zi6L7PArV2EEnoD6Ck1gcPoRsOzx2T2CdvoJVk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLM5mM8v9ZTUErrPgdxAXocZWM8IyQjeYtwrwHVgc4lMgK4Xzja
+	6NlOMs3vY8NmO8u5hGVCmrGMEbxdWs6ymo29OSZ127NYOTPUxSejJk2TSwC/dqxHWA==
+X-Gm-Gg: AYBFou1ZPVIlqQV0Hs8rQ7qsEIW2zHFOGwSDtv7lXHQIUu8+kzU/cTBgewTNowVFBgO
+	/m9mHqECUI7rae16WBOTI8iqEhUxtzDv3IrnO7ch4IdvjYgz++3OLNBosmIkd2EDLtj9pUhi/bM
+	A6NaxksRs/CeRW3BKyOKc+zzmaKwhRbHIiqG2TzEGGpwLtBp7ez2gwkPHXHzKbYeI/ll9T5kAEV
+	AjoVcBh7BefCem9LWCRDZW+bX6epQ5idVUWB/aMmjASpyIjk8Jf/oLnzZtrqrHihVZNuLbfJSqG
+	O4QoogL/7sBjTREPpc2E320HFAWrEpcGcWhKOEfOeX9znm2CvPcNX2Gwb68aQvNv8vgrh/EVbib
+	Ylkua00qsV+UPLU48ad0+H2HrpxMfF9rB+D62wY6AZY7E31dzfFYi/taIjU2mMdoQhbBARNVpNt
+	tfVts9ifMg8x53q0RKhVJp0493MZjEft9YLdYIQX/bZoGvraewIkPk0xAdsN0M68TxxYL/cSSZY
+	MqtiLwBraKKTFdK90zyOPFe52zipoq1VhTzlc71hPLsGRFBYGkvSXU/EcsYp9M=
+X-Received: by 2002:a17:902:f54f:b0:2dd:c100:b2c3 with SMTP id d9443c01a7336-2e842ce0ad9mr8639605ad.46.1791529928470;
+        Fri, 09 Oct 2026 00:12:08 -0700 (PDT)
+Received: from tigeriii.tok.corp.google.com ([2a00:79e0:2031:6:383b:5817:8167:5051])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8421b19a2sm4483535ad.46.2026.10.09.00.12.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 00:12:07 -0700 (PDT)
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Brian Geffon <bgeffon@google.com>,
+	Minchan Kim <minchan@kernel.org>,
+	Richard Chang <richardycc@google.com>,
+	linux-kernel@vger.kernel.org,
+	linux-block@vger.kernel.org,
+	linux-mm@kvack.org,
+	Sergey Senozhatsky <senozhatsky@chromium.org>
+Subject: [PATCH v2 00/11] zram: redesign zcomp and rework backends
+Date: Fri,  9 Oct 2026 16:11:23 +0900
+Message-ID: <20261009071157.3730698-1-senozhatsky@chromium.org>
+X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261009003201.68288-1-kmehltretter@gmail.com>
 
-Hi, 
+The series has a number of memory usage optimisations and fixes
+that result in savings from double digits KB to triple digits
+KB per-context/per-CPU, depending on backend and its configuration.
+More details are in the corresponding commit messages.
 
-On Fri, Oct 09, 2026 at 02:32:01AM +0200, Karl Mehltretter wrote:
-> The BOOT register range is optional: the probe function ignores a
-> failure to map it and the suspend/resume code checks for NULL. It is
-> mapped with devm_platform_get_and_ioremap_resource(), though, which
-> calls dev_err_probe() when the resource does not exist. Every
-> non-removable host without a third reg entry therefore logs an error
-> at probe time and then works normally.
-> 
-> The binding only describes the "host" and "cfg" ranges, so this is the
-> case for the in-tree users. On the Raspberry Pi 5 family (BCM2712),
-> where the SDIO host of the Wi-Fi module is non-removable, each boot
-> prints:
-> 
->   sdhci-brcmstb 1001100000.mmc: error -EINVAL: invalid resource (null)
-> 
-> Look the resource up with platform_get_resource() first and map it only
-> when it is present. Hosts that do have the range are mapped by the same
-> two calls as before.
-> 
-> Fixes: b7e614802e3f ("mmc: sdhci-brcmstb: save and restore registers during PM")
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-Reviewed-by: Gregor Herburger <gregor.herburger@linutronix.de>
-> ---
-> Tested on a Raspberry Pi 500+ with v7.3-rc4: the message is gone, the
-> SDIO card is detected as before and Wi-Fi works. Suspend/resume, the
-> only user of these registers, was not tested.
-I have seen this error a few times but newer looked into it. Thanks for the fix.
-> 
->  drivers/mmc/host/sdhci-brcmstb.c | 11 ++++++++---
->  1 file changed, 8 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/mmc/host/sdhci-brcmstb.c b/drivers/mmc/host/sdhci-brcmstb.c
-> index 1de2f05..7c17a3c 100644
-> --- a/drivers/mmc/host/sdhci-brcmstb.c
-> +++ b/drivers/mmc/host/sdhci-brcmstb.c
-> @@ -491,6 +491,7 @@ static int sdhci_brcmstb_probe(struct platform_device *pdev)
->  	struct sdhci_brcmstb_priv *priv;
->  	u32 actual_clock_mhz;
->  	struct sdhci_host *host;
-> +	struct resource *boot_res;
->  	struct clk *clk;
->  	struct clk *base_clk = NULL;
->  	int res;
-> @@ -534,9 +535,13 @@ static int sdhci_brcmstb_probe(struct platform_device *pdev)
->  
->  	/* map non-standard BOOT registers if present */
->  	if (host->mmc->caps & MMC_CAP_NONREMOVABLE) {
-> -		priv->boot_regs = devm_platform_get_and_ioremap_resource(pdev, 2, NULL);
-> -		if (IS_ERR(priv->boot_regs))
-> -			priv->boot_regs = NULL;
-> +		boot_res = platform_get_resource(pdev, IORESOURCE_MEM, 2);
-> +		if (boot_res) {
-> +			priv->boot_regs = devm_ioremap_resource(&pdev->dev,
-> +								boot_res);
-> +			if (IS_ERR(priv->boot_regs))
-> +				priv->boot_regs = NULL;
-> +		}
->  	}
->  
->  	/*
-> 
-> base-commit: 6c377d19d4a5116d9bec5203aa3c6c11523e7898
+The zcomp redesign and backend rework happen in the final three
+patches.  zcomp part, basically, attempts to address the priority
+inversion problem, that is seen on some setups.  In zcomp, we have
+always kept Read and Write contexts together in per-CPU streams.
+With preemptible zram this becomes a bit of a problem, as a higher
+priority Reader can preempt a Writer, which may hold a stream
+lock, but since the compression stream is locked by the preempted
+Writer, the Reader gets blocked on the very same stream lock.
+However, we don't have any reasons to have Read and Write contexts
+share and compete for the stream, because Read (decompression) and
+Write (compression) paths are completely independent, they never
+touch each other's buffers.  Thus, we can split compression streams
+into per-CPU Read streams and per-CPU Write streams, so that Readers
+and Writers don't block each other anymore.  Kudos to Barry Song
+for the idea.  Decoupling Reads and Writes results in noticeable
+performance improvements on synthetic tests.
 
--- 
-Gregor Herburger
-Linutronix GmbH | Bahnhofstrasse 3 | D-88690 Uhldingen-Mühlhofen
-Phone: +49 7556 25 999 35; Fax.: +49 7556 25 999 99
+"use a singleton compression context for recompression" patch
+builds atop of decoupled Read and Write streams and reworks the
+way secondary streams are handled.  Secondary compression streams
+are only used from recompression, which is serialized by device
+lock, IOW it's single-threaded.  However, we still allocated
+secondary streams per-CPU (we needed to permit concurrent Reads
+of recompressed objects).  Because we now have dedicated R/W
+streams, we can allocate a singleton compression context (for
+recompression) yet still have per-CPU decompression contexts.
+This saves a notable amount of memory with some backends and
+configurations (e.g. zstd, deflate, lz4hc).
 
-Hinweise zum Datenschutz finden Sie hier (Informations on data privacy 
-can be found here): https://linutronix.de/legal/data-protection.php
+The final patch in the series pushes performance gains even
+further by switching to rw-semaphores for Read streams.  This
+allows multiple Readers to concurrently decompress objects (with
+some caveats).
 
-Linutronix GmbH | Firmensitz (Registered Office): Uhldingen-Mühlhofen | 
-Registergericht (Registration Court): Amtsgericht Freiburg i.Br., HRB700 
-806 | Geschäftsführer (Managing Directors): Dr. Wilfried Wessner, 
-Katharina Kopp, Alexander Gieringer
+v1 -> v2:
+-- Switched to rw-sem for Read streams (Brian)
+
+Sergey Senozhatsky (11):
+  zram: prefix backends printk-s
+  zram: remove debugfs entry on init failure
+  zram: zstd: do not allocate empty C/D-dictionaries
+  zram: lz4hc: pre-initialize dictionary stream in setup_params
+  zram: lz4: use LZ4_decompress_safe_usingDict()
+  zram: lz4hc: use LZ4_decompress_safe_usingDict()
+  zram: zstd: do not use kvzalloc() for zstd allocations
+  zram: reset writeback state in zram_reset_device()
+  zram: split zcomp into separate R/W streams
+  zram: use a singleton compression context for recompression
+  zram: use rw_semaphore for decompression streams
+
+ drivers/block/zram/backend_842.c     |   6 +-
+ drivers/block/zram/backend_deflate.c |  98 ++++++++-----
+ drivers/block/zram/backend_lz4.c     |  85 +++--------
+ drivers/block/zram/backend_lz4hc.c   | 105 +++++--------
+ drivers/block/zram/backend_lzo.c     |   6 +-
+ drivers/block/zram/backend_lzorle.c  |   6 +-
+ drivers/block/zram/backend_zstd.c    | 133 +++++++++++------
+ drivers/block/zram/zcomp.c           | 212 ++++++++++++++++++++++-----
+ drivers/block/zram/zcomp.h           |  43 ++++--
+ drivers/block/zram/zram_drv.c        |  55 ++++---
+ 10 files changed, 456 insertions(+), 293 deletions(-)
+
+--
+2.56.0.385.gd3acb90ef8-goog
+
