@@ -1,32 +1,31 @@
-Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
+Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1572038DC72;
-	Fri,  9 Oct 2026 03:19:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DED5638D3F2;
+	Fri,  9 Oct 2026 03:19:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791516001; cv=none; b=ALRY6NE8JuTHT1NRxYazlkeNXRJt7i3SQOTlAut1xj7mQAonsIjoKjBP3MsHNmJiB2nkAhLZbmCb+MP509i8GUFugRfWCRwIu4yXXjhiu4L1qOXXUshyxjEcYKoREFjOt2I37l4MoSPn8Ex+hKULr58SiP6b0aJHWbbZjw0mkMk=
+	t=1791516012; cv=none; b=AAHwlnINFAWUr/6hy92T2T36/uiiPXIfT586uVKa/CxZ70FJAzUQ/fNpyT7LJbCPAaI01HTzmCIuA6ZpbYrGa2aANSwo6bZx/xMcJhS1g0uC8t/F3muaaJOM8PRFqbS5tDEmnoMydNpDoxt2RhjVC/0xmVIiLoZLf8J4zq8vGgA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791516001; c=relaxed/simple;
-	bh=zAWb8Glhddd6Vv1wBVo/Tvg1bgNDLXlYGvg69s8uu4w=;
+	s=arc-20240116; t=1791516012; c=relaxed/simple;
+	bh=jV+NKP5wd7+th5uGz3VcadTxsByLPMZY731XOUUipHg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=GLMgLVqtBBARiLEj7TYf/Yc4UtFqAzpDU8mMVTJhUeVUzSxhraiT8afKc8qr88Uq3lEMTg1Khzel8BKDB9cVjKBZWAAQN3mKRJe7K1/bZvVdg/kqb8koxG8acrS1vS0FBYGUTnkWAjiCFNoAzoTK+srq8633gCgpbZQMJn+wuOM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.204.34.129
+	 In-Reply-To:To:Cc; b=OcCFrtSXuT5Vm7TAJaF0okccezfgRQAX19ai6NZe8hoMiSE+9RHt4o3ron9XRdcC6raG4v01ArmvuCOdLJEM9puhKBqup0RLbOfjXiVV/uR3rbDKuFcD2jv6PoLC5ZQ1hliOtwqOpMagYxpdO9VMrfXi2O7KzkUDXutWxaGnscY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.204.34.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
-X-QQ-mid: zesmtpip2t1791515874t6745428c
-X-QQ-Originating-IP: ISKGB3N9ww0B4T197i+uj+bopdv7/aejHUrX1eOox3s=
+X-QQ-mid: zesmtpip2t1791515878t01bec5eb
+X-QQ-Originating-IP: W901LGDAxK9FnKMrdb8jn/PLHEBs5fLGm4GCmdLNebs=
 Received: from [192.168.30.32] ( [localhost])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 09 Oct 2026 11:17:51 +0800 (CST)
+	id ; Fri, 09 Oct 2026 11:17:55 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 9782716897286075627
+X-BIZMAIL-ID: 851849396968121917
 EX-QQ-RecipientCnt: 29
 From: Xilin Wu <sophon@radxa.com>
-Date: Fri, 09 Oct 2026 11:16:05 +0800
-Subject: [PATCH v2 13/20] drm/msm/dp: Track output bit depth in bridge
- atomic state
+Date: Fri, 09 Oct 2026 11:16:06 +0800
+Subject: [PATCH v2 14/20] drm/msm/dp: Clear stale MSA colorimetry bits
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,7 +34,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-msm-dp-hdr10-v2-13-1835d4966da3@radxa.com>
+Message-Id: <20261009-msm-dp-hdr10-v2-14-1835d4966da3@radxa.com>
 References: <20261009-msm-dp-hdr10-v2-0-1835d4966da3@radxa.com>
 In-Reply-To: <20261009-msm-dp-hdr10-v2-0-1835d4966da3@radxa.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -58,595 +57,62 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  dragon@radxa.com, Xilin Wu <sophon@radxa.com>, 
  linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=20383; i=sophon@radxa.com;
- h=from:subject:message-id; bh=zAWb8Glhddd6Vv1wBVo/Tvg1bgNDLXlYGvg69s8uu4w=;
- b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFknYlZpBlW7KxkvZL+3uLFSTMilXPQ2d8u3A0cL9A5fV
- akQV1jRUcrCIMbFICumyKIQzzCXvTL32lOxUj2YOaxMIEMYuDgFYCLfmBj+F7h2dnQJrPvHdXz9
- BD9P+aBrXF0ZVa73H78uie/pzsiQY/gfuKp2v9glwdmbiraVPD0VorlwfsqrWeXMB39Fu1R/Wnm
- TGwA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1160; i=sophon@radxa.com;
+ h=from:subject:message-id; bh=jV+NKP5wd7+th5uGz3VcadTxsByLPMZY731XOUUipHg=;
+ b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFknYlbpHZU9IvZcT795xa3Kji/MLyYxMl7neyeTkrZ3L
+ 79b09vZHaUsDGJcDLJiiiwK8Qxz2Stzrz0VK9WDmcPKBDKEgYtTACay/hMjw45PuU5zvq2qe/Uy
+ 79bKKwVlradCpi3j2NL0V0V6usbydZGMDEd95NKXPMoySZn3YPKKhcWTQlqvh3LdWTvffudd62c
+ Xc1gA
 X-Developer-Key: i=sophon@radxa.com; a=openpgp;
  fpr=205F009D07796DD6E516752E32C31567AD9E324E
 X-QQ-SENDSIZE: 520
 Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: NyTsQ4JOu2J2N79cLSf3J6Ejsz1Nxg4ZjU7rWqQFJ1JcXx5Zr1bv7uO4
-	BsNnrhfMWs9W4WhY2MAKvEhdigLvscBQ9gfEH8KK7XYOj+CrGe7gUGKbcmoRR1MG7exl1nk
-	DXLjxUfjr2g2MvEgf185ty2umHZJLZXswSgtOi37MpMrzu0CHyFzZi0onW3Zgm+RIuSbrg1
-	kLAcY08dmGc4K6TfSi3rOdZV5qhYFzPGfUk/oUL0XiPZKTKju8jbFwuudaQn7Bms6qhr0KG
-	GogY4YhBmAlLcqAYKpybzAed3jdeXizGfJVK3k61Ncs3M4W/pV7qSGXajPfgfWHXSsnuQ6B
-	H3+JCdIyNTJpv39eCUUpnjk7WYhW/qHrlbUWWxOHLRQj/crgE17IDs+CfU2F4JRE9h2bgJa
-	gZjqAoEWwNRRoS6tg6qesg558PzTrpGSu6PGxb+yZl/482Ula4tdZguF8G8yZXSQQJqS+Bc
-	IGFUd3DSu5JVcLdBDYVVLTb+7Dwaema6G38wQHyWGNQ4AEtJP72NVPyfXXK1hW8Lv81suyj
-	RgzaVeZBD7ERqdx2NYyYF40kK9yjf87zbonsUtXSLNjOV5tmfe2yuR91xYmUFyEdI0/EOuZ
-	cnlmgzSR2/zC9v/2+BPpM0tKXDtDLmJaf4JS2V3Bl4qXLiikfFpr/emGq2WzPkZZAiS5C3M
-	T/jRonCr9OBsWCKu8+en0e868SXdvt/pNdnOCLA0kuzQsIOUf/jAf3Qe2zwMvVN53nJcO3f
-	5FxwOLbVEh3gwey+xWyuBlJRSLxX5eacqMBzXf1ZpEESY9AsOpeAW0YWhbrDK0Qxsrjvpij
-	UlbmnySfvxMsb97hzSgbwFMf53y9BqB9LsZVGX2Ce9js/ranitVi5LF0sluASrk0bE4rhXN
-	bCKoaYkqOVbof9wO49CJOw2ZPRxcLNxnPGOYhUd0fpM9nbQlsUFd0VvXIwnFVzVbSts9zSX
-	XYt94tcH90TqS5QOgseG3Z/nJoZT1vQIapcuRRXo1SP99wIrHT/ILM6gVfi293ugkui91JH
-	9YUkQCt1szlebLD3/RDXyoH1d4maiza4VGzFHxQZwcvbeMMjzsm9OKc/om8XM0fy1gi6S+0
-	g==
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-XMAILINFO: MhHYuF7Otq+o/2QhaoGILUwwqASitdCe2B45+QG4zC1fXrwEhKXmmnW/
+	d7qckvOvg3H3XhqhFRVLqor9tixY2lE+5kbnCka5dNPHHdUUIIvW9HB9wp6otP0FFEJIDJi
+	njISww943PyIZiGUCpgUQ6FGhPFDdDxJGpf+1IoLFyfsbowj74hq6yzyA7yJvQnp/ESr6Fx
+	tZCTWBth2b1/jP7LqHvQ/KTxx/fRukGjM/nN1ykuIPdZ0uMCEfgCFvBej7fiuB/s0HiKDcV
+	92DEcnapLRUGbj+8bH/6nr5S4dZILSqpqac8B0hvC9Uhu9043C/X4paHnFVTcMqsGSQKKaP
+	XFiJE+B7MDtZgRBsnGKZP+A7XwWJ+8tfyOoI/A5AhsnaKhjwEhsXFthJD7fuIQmVgbGYiqk
+	AsxGhsHVDeATQZ8l86QcKXCQtSjkeLLslIt4Jb+Or0tUvK+c/iZKtMec7TpJEPg9aEoa2Py
+	yHx0r//k9h/cp5io22OOUew9sNLdo+WxVBHBfGQa3pLL2pHWIPfIqfCzZOHzyKWxU+ZMYuJ
+	zmDCwTY/y18CJwe+G41a4VxNJIg7uct5bo314tcdSLhIYWgXsGoAA+F+zfnv7sW197KmQ1c
+	OTdiEyhdt0SL8busd1kp+MtdhuQRqC06JOtiZ90UhMeyZTPS2yoivCVFE+nN/mIceNZoaNz
+	BljMj6+Rup5Scj+2XUl8D1kzH28VQoxy9UnTi/2H2Oykpr0WxWEiIOCurQpMtZ8zJRU9lQO
+	VJLO4EldN+irpk2/HvE0lzsWV4YQjc0tvHuRGzqnTWpx+oRyN0ZJsQuQwCEwsmi9eQRisBh
+	oTK7R0REYAQqh0U6gB2Tx7tuZsXGje0Y/I6fVINANeiFasoXOvw5SGnbgwtnW1z5FkGDhtp
+	ZnRg52uFc8XvGFcnbAeC3nRy73QD3sF/3DRDQVXrb/QWlZ+rJ/Zm9i6OULfndXPlMkDAFRn
+	FBlBQJK8nl68FIDeGJUAjtQt/yPH88ms6bryc2LN845gmg1+0zbC9UiBItHuuLamsxwWRBb
+	s3+ZAZ7RSu0D9laarR0lG7CedruTQgFIXoGSzsTw==
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
 X-QQ-RECHKSPAM: 0
 
-Advertise the 10 bpc DP and eDP capability through bridge->max_bpc so
-the bridge connector helper attaches the max bpc property. Select a
-supported component depth from the new connector state. Keep the result
-in a private bridge state so TEST_ONLY atomic commits do not modify the
-running stream. Force a modeset when max bpc changes to apply the new
-depth to the stream.
+The MISC0 update clears the bit-depth field but only ORs in the new
+colorimetry value. Bits from the previous stream can therefore survive
+when the new value clears them.
 
-Require valid cached bandwidth limits during atomic check. The preceding
-eDP discovery change supplies them before the first modeset. Reject
-unknown limits instead of accepting a configuration for validation during
-enable. Retain support for 6 bpc SDR panels and use an 8 bpc ceiling when
-the bridge chain does not expose max bpc.
-
-Keep the selected depth throughout enable. Filter link training fallback
-candidates against the checked stream bandwidth, including YUV420, and
-retain a final bandwidth check before starting video. A lower-rate link
-may be used only if it carries the unchanged stream. Otherwise unwind
-and report the link failure rather than silently lowering the depth.
-PHY and video compliance tests retain their specified parameters.
-
-Continue searching when a candidate lacks bandwidth: reducing the lane
-count restores the maximum rate and can yield a viable combination.
-Only successful link training completes the search; successful PHY
-reinitialization on the final retry must not masquerade as training
-success. Keep sink training cleanup on the failure path.
-
-Retain the generic bridge helper's missing-state guard in the custom
-duplicate callback. Initial state allocation can fail at bridge attach;
-return NULL in that case so atomic state acquisition reports -ENOMEM
-instead of copying from a NULL pointer.
+Clear the colorimetry field together with the bit-depth field before
+programming the new stream.
 
 Assisted-by: LLM
 Signed-off-by: Xilin Wu <sophon@radxa.com>
 ---
- drivers/gpu/drm/msm/dp/dp_ctrl.c    | 117 ++++++++++++++++++++++--------------
- drivers/gpu/drm/msm/dp/dp_display.c |  39 +++++++++++-
- drivers/gpu/drm/msm/dp/dp_display.h |   6 ++
- drivers/gpu/drm/msm/dp/dp_drm.c     |  82 ++++++++++++++++++++++---
- drivers/gpu/drm/msm/dp/dp_drm.h     |   7 +++
- drivers/gpu/drm/msm/dp/dp_panel.c   |   5 --
- drivers/gpu/drm/msm/dp/dp_utils.c   |  33 ++++++++++
- drivers/gpu/drm/msm/dp/dp_utils.h   |   6 ++
- 8 files changed, 232 insertions(+), 63 deletions(-)
+ drivers/gpu/drm/msm/dp/dp_ctrl.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-index f633f6cf5764..791bb3af2cad 100644
+index 791bb3af2cad..783cafb22374 100644
 --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
 +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-@@ -23,6 +23,7 @@
+@@ -476,7 +476,8 @@ static void msm_dp_ctrl_config_misc1_misc0(struct msm_dp_ctrl_private *ctrl,
+ 	misc_val = msm_dp_read_link(ctrl, REG_DP_MISC1_MISC0);
  
- #include "dp_reg.h"
- #include "dp_ctrl.h"
-+#include "dp_utils.h"
- #include "dp_link.h"
- 
- #define POLLING_SLEEP_US			1000
-@@ -2365,10 +2366,56 @@ static bool msm_dp_ctrl_channel_eq_ok(struct msm_dp_ctrl_private *ctrl)
- 	return drm_dp_channel_eq_ok(link_status, num_lanes);
- }
- 
-+static bool msm_dp_ctrl_link_fits(struct msm_dp_ctrl_private *ctrl,
-+				  const struct msm_dp_panel *panel)
-+{
-+	return msm_dp_utils_link_fits(panel->msm_dp_mode.drm_mode.clock,
-+				      panel->msm_dp_mode.bpp,
-+				      ctrl->link->link_params.rate,
-+				      ctrl->link->link_params.num_lanes,
-+				      panel->msm_dp_mode.out_fmt_is_yuv_420);
-+}
-+
-+static int msm_dp_ctrl_next_link_params(struct msm_dp_ctrl_private *ctrl,
-+					struct msm_dp_panel *panel,
-+					unsigned int training_step,
-+					const u8 *link_status, bool check_bw)
-+{
-+	unsigned int lanes;
-+	int ret;
-+
-+	do {
-+		lanes = ctrl->link->link_params.num_lanes;
-+		if (training_step == DP_TRAINING_1) {
-+			ret = msm_dp_ctrl_link_rate_down_shift(ctrl);
-+			if (ret) {
-+				if (!msm_dp_ctrl_clock_recovery_any_ok(link_status, lanes))
-+					return ret;
-+				ret = msm_dp_ctrl_link_lane_down_shift(ctrl, panel);
-+			}
-+		} else if (training_step == DP_TRAINING_2) {
-+			if (!drm_dp_clock_recovery_ok(link_status, lanes))
-+				ret = msm_dp_ctrl_link_rate_down_shift(ctrl);
-+			else
-+				ret = msm_dp_ctrl_link_lane_down_shift(ctrl, panel);
-+		} else {
-+			return -EIO;
-+		}
-+		if (ret)
-+			return ret;
-+
-+		/* Reducing lanes restores the maximum rate; keep looking. */
-+	} while (check_bw && !msm_dp_ctrl_link_fits(ctrl, panel));
-+
-+	return 0;
-+}
-+
- int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_ctrl,
- 			struct msm_dp_panel *panel)
- {
- 	int rc = 0;
-+	bool trained = false;
-+	bool check_bw;
- 	struct msm_dp_ctrl_private *ctrl;
- 	u32 rate;
- 	int link_train_max_retries = 5;
-@@ -2382,6 +2429,8 @@ int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_ctrl,
- 
- 	ctrl = container_of(msm_dp_ctrl, struct msm_dp_ctrl_private, msm_dp_ctrl);
- 
-+	check_bw = !(ctrl->link->sink_request & DP_TEST_LINK_PHY_TEST_PATTERN) &&
-+		   !panel->video_test;
- 	rate = panel->link_info.rate;
- 	pixel_rate = panel->msm_dp_mode.drm_mode.clock;
- 
-@@ -2404,6 +2453,9 @@ int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_ctrl,
- 		ctrl->link->link_params.rate, ctrl->link->link_params.num_lanes,
- 		pixel_rate);
- 
-+	if (check_bw && !msm_dp_ctrl_link_fits(ctrl, panel))
-+		return -ENOSPC;
-+
- 	rc = msm_dp_ctrl_enable_mainlink_clocks(ctrl, panel);
- 	if (rc)
- 		return rc;
-@@ -2411,55 +2463,22 @@ int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_ctrl,
- 	while (--link_train_max_retries) {
- 		training_step = DP_TRAINING_NONE;
- 		rc = msm_dp_ctrl_setup_main_link(ctrl, panel, &training_step);
--		if (rc == 0) {
--			/* training completed successfully */
-+		if (!rc) {
-+			trained = true;
- 			break;
--		} else if (training_step == DP_TRAINING_1) {
--			/* link train_1 failed */
--			if (!msm_dp_aux_is_link_connected(ctrl->aux))
--				break;
--
--			drm_dp_dpcd_read_link_status(ctrl->aux, link_status);
--
--			rc = msm_dp_ctrl_link_rate_down_shift(ctrl);
--			if (rc < 0) { /* already in RBR = 1.6G */
--				if (msm_dp_ctrl_clock_recovery_any_ok(link_status,
--					ctrl->link->link_params.num_lanes)) {
--					/*
--					 * some lanes are ready,
--					 * reduce lane number
--					 */
--					rc = msm_dp_ctrl_link_lane_down_shift(ctrl, panel);
--					if (rc < 0) { /* lane == 1 already */
--						/* end with failure */
--						break;
--					}
--				} else {
--					/* end with failure */
--					break; /* lane == 1 already */
--				}
--			}
--		} else if (training_step == DP_TRAINING_2) {
--			/* link train_2 failed */
--			if (!msm_dp_aux_is_link_connected(ctrl->aux))
--				break;
--
--			drm_dp_dpcd_read_link_status(ctrl->aux, link_status);
-+		}
- 
--			if (!drm_dp_clock_recovery_ok(link_status,
--					ctrl->link->link_params.num_lanes))
--				rc = msm_dp_ctrl_link_rate_down_shift(ctrl);
--			else
--				rc = msm_dp_ctrl_link_lane_down_shift(ctrl, panel);
-+		if (!msm_dp_aux_is_link_connected(ctrl->aux))
-+			break;
- 
--			if (rc < 0) {
--				/* end with failure */
--				break; /* lane == 1 already */
--			}
-+		if (drm_dp_dpcd_read_link_status(ctrl->aux, link_status) < 0)
-+			break;
- 
--			/* stop link training before start re training  */
--			msm_dp_ctrl_clear_training_pattern(ctrl, panel, DP_PHY_DPRX);
--		}
-+		msm_dp_ctrl_clear_training_pattern(ctrl, panel, DP_PHY_DPRX);
-+		rc = msm_dp_ctrl_next_link_params(ctrl, panel, training_step,
-+						  link_status, check_bw);
-+		if (rc)
-+			break;
- 
- 		rc = msm_dp_ctrl_reinitialize_mainlink(ctrl, panel);
- 		if (rc) {
-@@ -2468,6 +2487,10 @@ int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_ctrl,
- 		}
- 	}
- 
-+	/* Reinitializing the PHY is not a successful training attempt. */
-+	if (!trained && !rc)
-+		rc = -EIO;
-+
- 	if (ctrl->link->sink_request & DP_TEST_LINK_PHY_TEST_PATTERN)
- 		return rc;
- 
-@@ -2617,6 +2640,10 @@ int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl, struct msm_dp_panel *
- 
- 	ctrl = container_of(msm_dp_ctrl, struct msm_dp_ctrl_private, msm_dp_ctrl);
- 
-+	/* Never change the stream depth selected by atomic check. */
-+	if (!panel->video_test && !msm_dp_ctrl_link_fits(ctrl, panel))
-+		return -ENOSPC;
-+
- 	pixel_rate_orig = panel->msm_dp_mode.drm_mode.clock;
- 	pixel_rate = pixel_rate_orig;
- 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 9b7a1d18dfe0..1f9595ff5fd9 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -28,6 +28,7 @@
- #include "dp_panel.h"
- #include "dp_display.h"
- #include "dp_drm.h"
-+#include "dp_utils.h"
- #include "dp_audio.h"
- #include "dp_debug.h"
- 
-@@ -677,7 +678,8 @@ static int msm_dp_init_sub_modules(struct msm_dp_display_private *dp)
- 
- static int msm_dp_display_set_mode(struct msm_dp *msm_dp_display,
- 				   const struct drm_display_mode *adjusted_mode,
--				   struct msm_dp_panel *msm_dp_panel)
-+				   struct msm_dp_panel *msm_dp_panel,
-+				   const struct msm_dp_bridge_state *state)
- {
- 	struct msm_dp_display_private *dp;
- 	u32 bpp;
-@@ -687,7 +689,7 @@ static int msm_dp_display_set_mode(struct msm_dp *msm_dp_display,
- 	if (msm_dp_display_check_video_test(msm_dp_display))
- 		bpp = msm_dp_display_get_test_bpp(msm_dp_display);
- 	else
--		bpp = msm_dp_panel->connector->display_info.bpc * 3;
-+		bpp = state->bpp;
- 
- 	msm_dp_panel_init_panel_info(msm_dp_panel, adjusted_mode, bpp ? bpp : 24);
- 
-@@ -697,6 +699,34 @@ static int msm_dp_display_set_mode(struct msm_dp *msm_dp_display,
- 	return 0;
- }
- 
-+int msm_dp_display_atomic_check(struct msm_dp *msm_dp_display,
-+				struct msm_dp_bridge_state *state,
-+				const struct drm_display_mode *mode,
-+				const struct drm_connector_state *conn_state)
-+{
-+	const struct drm_display_info *info = &conn_state->connector->display_info;
-+	struct msm_dp_display_private *dp;
-+	unsigned int clock = mode->clock;
-+	int bpp;
-+
-+	dp = container_of(msm_dp_display, struct msm_dp_display_private, msm_dp_display);
-+
-+	guard(mutex)(&dp->plugged_lock);
-+
-+	if (!dp->panel->link_caps_valid)
-+		return -EINVAL;
-+
-+	bpp = msm_dp_utils_select_bpp(info->bpc, conn_state->max_requested_bpc ?: 8,
-+				      clock, dp->panel->link_info.rate,
-+				      dp->panel->link_info.num_lanes,
-+				      drm_mode_is_420_only(info, mode));
-+	if (bpp < 0)
-+		return bpp;
-+
-+	state->bpp = bpp;
-+	return 0;
-+}
-+
- static int msm_dp_display_prepare(struct msm_dp_display_private *dp)
- {
- 	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
-@@ -1593,6 +1623,7 @@ void msm_dp_display_atomic_pre_enable(struct msm_dp *msm_dp_display,
- 	struct msm_dp_display_private *dp;
- 	struct drm_crtc *crtc;
- 	struct drm_crtc_state *crtc_state;
-+	struct drm_bridge_state *bridge_state;
- 
- 	dp = container_of(msm_dp_display, struct msm_dp_display_private, msm_dp_display);
- 
-@@ -1600,13 +1631,15 @@ void msm_dp_display_atomic_pre_enable(struct msm_dp *msm_dp_display,
- 	if (!crtc)
- 		return;
- 	crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
-+	bridge_state = drm_atomic_get_new_bridge_state(state, msm_dp_display->bridge);
- 
- 	/*
- 	 * The DPU encoder's .atomic_enable() reads the mode's YUV420 / wide bus
- 	 * state and runs before the bridge's .atomic_enable(), so the mode must
- 	 * be programmed here, in .atomic_pre_enable().
- 	 */
--	msm_dp_display_set_mode(msm_dp_display, &crtc_state->adjusted_mode, dp->panel);
-+	msm_dp_display_set_mode(msm_dp_display, &crtc_state->adjusted_mode, dp->panel,
-+				to_dp_bridge_state(bridge_state));
- }
- 
- static void msm_dp_display_abort_enable_locked(struct msm_dp_display_private *dp)
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
-index 83117e7619f3..6a77e5952530 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.h
-+++ b/drivers/gpu/drm/msm/dp/dp_display.h
-@@ -11,6 +11,8 @@
- 
- #define DP_MAX_PIXEL_CLK_KHZ	675000
- 
-+struct msm_dp_bridge_state;
-+
- struct msm_dp {
- 	struct drm_device *drm_dev;
- 	struct platform_device *pdev;
-@@ -43,4 +45,8 @@ enum drm_mode_status msm_dp_display_mode_valid(struct msm_dp *dp,
- 					       const struct drm_display_info *info,
- 					       const struct drm_display_mode *mode);
- 
-+int msm_dp_display_atomic_check(struct msm_dp *dp, struct msm_dp_bridge_state *state,
-+				const struct drm_display_mode *mode,
-+				const struct drm_connector_state *conn_state);
-+
- #endif /* _DP_DISPLAY_H_ */
-diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
-index df224ae46d9d..9f1aa87a3687 100644
---- a/drivers/gpu/drm/msm/dp/dp_drm.c
-+++ b/drivers/gpu/drm/msm/dp/dp_drm.c
-@@ -4,6 +4,7 @@
-  */
- 
- #include <linux/string_choices.h>
-+#include <linux/slab.h>
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_atomic.h>
- #include <drm/drm_bridge.h>
-@@ -116,10 +117,71 @@ static enum drm_mode_status msm_dp_bridge_mode_valid(struct drm_bridge *drm_brid
- 	return msm_dp_display_mode_valid(dp, info, mode);
- }
- 
-+static struct drm_bridge_state *msm_dp_bridge_create_state(struct drm_bridge *bridge)
-+{
-+	struct msm_dp_bridge_state *state;
-+
-+	state = kzalloc_obj(*state);
-+	if (!state)
-+		return ERR_PTR(-ENOMEM);
-+
-+	__drm_atomic_helper_bridge_state_init(&state->base, bridge);
-+	return &state->base;
-+}
-+
-+static struct drm_bridge_state *msm_dp_bridge_duplicate_state(struct drm_bridge *bridge)
-+{
-+	struct msm_dp_bridge_state *state;
-+	struct drm_bridge_state *old_state;
-+
-+	if (WARN_ON(!bridge->base.state))
-+		return NULL;
-+
-+	old_state = drm_priv_to_bridge_state(bridge->base.state);
-+	state = kmemdup(to_dp_bridge_state(old_state), sizeof(*state), GFP_KERNEL);
-+	if (!state)
-+		return NULL;
-+
-+	__drm_atomic_helper_bridge_duplicate_state(bridge, &state->base);
-+	return &state->base;
-+}
-+
-+static void msm_dp_bridge_destroy_state(struct drm_bridge *bridge,
-+					struct drm_bridge_state *state)
-+{
-+	kfree(to_dp_bridge_state(state));
-+}
-+
-+static int msm_dp_bridge_atomic_check(struct drm_bridge *bridge,
-+				      struct drm_bridge_state *bridge_state,
-+				      struct drm_crtc_state *crtc_state,
-+				      struct drm_connector_state *conn_state)
-+{
-+	struct drm_connector_state *old_conn_state;
-+	int ret;
-+
-+	if (!conn_state->crtc)
-+		return 0;
-+
-+	ret = msm_dp_display_atomic_check(to_dp_bridge(bridge)->msm_dp_display,
-+					  to_dp_bridge_state(bridge_state),
-+					  &crtc_state->adjusted_mode, conn_state);
-+	if (ret)
-+		return ret;
-+
-+	old_conn_state = drm_atomic_get_old_connector_state(conn_state->state,
-+							    conn_state->connector);
-+	if (old_conn_state->max_requested_bpc != conn_state->max_requested_bpc)
-+		crtc_state->mode_changed = true;
-+
-+	return 0;
-+}
-+
- static const struct drm_bridge_funcs msm_dp_bridge_ops = {
--	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
--	.atomic_destroy_state   = drm_atomic_helper_bridge_destroy_state,
--	.atomic_create_state           = drm_atomic_helper_bridge_create_state,
-+	.atomic_check           = msm_dp_bridge_atomic_check,
-+	.atomic_duplicate_state = msm_dp_bridge_duplicate_state,
-+	.atomic_destroy_state   = msm_dp_bridge_destroy_state,
-+	.atomic_create_state           = msm_dp_bridge_create_state,
- 	.atomic_pre_enable      = msm_dp_bridge_atomic_pre_enable,
- 	.atomic_enable          = msm_dp_bridge_atomic_enable,
- 	.atomic_disable         = msm_dp_bridge_atomic_disable,
-@@ -154,7 +216,7 @@ static int msm_edp_bridge_atomic_check(struct drm_bridge *drm_bridge,
- 	if (crtc_state->self_refresh_active && !dp->psr_supported)
- 		return -EINVAL;
- 
--	return 0;
-+	return msm_dp_bridge_atomic_check(drm_bridge, bridge_state, crtc_state, conn_state);
- }
- 
- static void msm_edp_bridge_atomic_enable(struct drm_bridge *drm_bridge,
-@@ -283,9 +345,8 @@ static enum drm_mode_status msm_edp_bridge_mode_valid(struct drm_bridge *bridge,
- 		return MODE_CLOCK_HIGH;
- 
- 	/*
--	 * The eDP controller currently does not have a reliable way of
--	 * enabling panel power to read sink capabilities. So, we rely
--	 * on the panel driver to populate only supported modes for now.
-+	 * Atomic check validates bandwidth for the selected component depth
-+	 * against the capabilities cached during connector detection.
- 	 */
- 	return MODE_OK;
- }
-@@ -304,9 +365,9 @@ static const struct drm_bridge_funcs msm_edp_bridge_ops = {
- 	.atomic_disable = msm_edp_bridge_atomic_disable,
- 	.atomic_post_disable = msm_edp_bridge_atomic_post_disable,
- 	.mode_valid = msm_edp_bridge_mode_valid,
--	.atomic_create_state = drm_atomic_helper_bridge_create_state,
--	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
--	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
-+	.atomic_create_state = msm_dp_bridge_create_state,
-+	.atomic_duplicate_state = msm_dp_bridge_duplicate_state,
-+	.atomic_destroy_state = msm_dp_bridge_destroy_state,
- 	.atomic_check = msm_edp_bridge_atomic_check,
- 	.debugfs_init = msm_edp_bridge_debugfs_init,
- };
-@@ -328,6 +389,7 @@ int msm_dp_bridge_init(struct msm_dp *msm_dp_display, struct drm_device *dev,
- 
- 	bridge = &msm_dp_bridge->bridge;
- 	bridge->type = msm_dp_display->connector_type;
-+	bridge->max_bpc = 10;
- 	bridge->ycbcr_420_allowed = yuv_supported;
- 
- 	/*
-diff --git a/drivers/gpu/drm/msm/dp/dp_drm.h b/drivers/gpu/drm/msm/dp/dp_drm.h
-index d37e2ff95f4b..4c651cc40f4d 100644
---- a/drivers/gpu/drm/msm/dp/dp_drm.h
-+++ b/drivers/gpu/drm/msm/dp/dp_drm.h
-@@ -17,6 +17,13 @@ struct msm_dp_bridge {
- 	struct msm_dp *msm_dp_display;
- };
- 
-+struct msm_dp_bridge_state {
-+	struct drm_bridge_state base;
-+	u32 bpp;
-+};
-+
-+#define to_dp_bridge_state(x) container_of((x), struct msm_dp_bridge_state, base)
-+
- #define to_dp_bridge(x)     container_of((x), struct msm_dp_bridge, bridge)
- 
- struct drm_connector *msm_dp_drm_connector_init(struct msm_dp *msm_dp_display,
-diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
-index d144af2fe008..af05441bc32a 100644
---- a/drivers/gpu/drm/msm/dp/dp_panel.c
-+++ b/drivers/gpu/drm/msm/dp/dp_panel.c
-@@ -734,11 +734,6 @@ int msm_dp_panel_init_panel_info(struct msm_dp_panel *msm_dp_panel,
- 				drm_mode->clock);
- 	drm_dbg_dp(panel->drm_dev, "bpp = %d\n", msm_dp_panel->msm_dp_mode.bpp);
- 
--	msm_dp_panel->msm_dp_mode.bpp = msm_dp_panel_get_mode_bpp(msm_dp_panel, msm_dp_panel->msm_dp_mode.bpp,
--						      msm_dp_panel->msm_dp_mode.drm_mode.clock);
--
--	drm_dbg_dp(panel->drm_dev, "updated bpp = %d\n",
--				msm_dp_panel->msm_dp_mode.bpp);
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/msm/dp/dp_utils.c b/drivers/gpu/drm/msm/dp/dp_utils.c
-index 72bae48a1fe0..8b6ef2f6d7f4 100644
---- a/drivers/gpu/drm/msm/dp/dp_utils.c
-+++ b/drivers/gpu/drm/msm/dp/dp_utils.c
-@@ -89,6 +89,39 @@ void msm_dp_utils_pack_sdp_header(const struct dp_sdp_header *sdp_header,
- 		FIELD_PREP(PARITY_3_MASK, msm_dp_utils_calculate_parity(sdp_header->HB3));
- }
- 
-+bool msm_dp_utils_link_fits(unsigned int clock, unsigned int bpp,
-+			    unsigned int rate, unsigned int lanes, bool yuv420)
-+{
-+	u64 available = (u64)rate * lanes * 8;
-+
-+	if (!clock || !bpp || !rate || !lanes)
-+		return false;
-+
-+	if (yuv420)
-+		available *= 2;
-+
-+	return (u64)clock * bpp <= available;
-+}
-+
-+int msm_dp_utils_select_bpp(unsigned int bpc, unsigned int max_bpc,
-+			    unsigned int clock, unsigned int rate,
-+			    unsigned int lanes, bool yuv420)
-+{
-+	unsigned int bpp;
-+
-+	bpc = min3(bpc ? bpc : 8, max_bpc, 10U);
-+	bpc = round_down(bpc, 2);
-+	if (bpc < 6)
-+		return -EINVAL;
-+
-+	for (bpp = bpc * 3; bpp >= 18; bpp -= 6) {
-+		if (msm_dp_utils_link_fits(clock, bpp, rate, lanes, yuv420))
-+			return bpp;
-+	}
-+
-+	return -EINVAL;
-+}
-+
- bool msm_dp_utils_psr_needs_modeset(const struct drm_crtc_state *state)
- {
- 	/* active_changed alone also describes a normal self-refresh exit. */
-diff --git a/drivers/gpu/drm/msm/dp/dp_utils.h b/drivers/gpu/drm/msm/dp/dp_utils.h
-index 5d86c978dffd..c6b62e3900bb 100644
---- a/drivers/gpu/drm/msm/dp/dp_utils.h
-+++ b/drivers/gpu/drm/msm/dp/dp_utils.h
-@@ -36,6 +36,12 @@ u8 msm_dp_utils_calculate_parity(u32 data);
- void msm_dp_utils_pack_sdp_header(const struct dp_sdp_header *sdp_header,
- 				  u32 header_buff[2]);
- 
-+bool msm_dp_utils_link_fits(unsigned int clock, unsigned int bpp,
-+			    unsigned int rate, unsigned int lanes, bool yuv420);
-+int msm_dp_utils_select_bpp(unsigned int bpc, unsigned int max_bpc,
-+			    unsigned int clock, unsigned int rate,
-+			    unsigned int lanes, bool yuv420);
-+
- bool msm_dp_utils_psr_needs_modeset(const struct drm_crtc_state *state);
- 
- #endif /* _DP_UTILS_H_ */
+ 	/* clear bpp bits */
+-	misc_val &= ~(0x07 << DP_MISC0_TEST_BITS_DEPTH_SHIFT);
++	misc_val &= ~((0x07 << DP_MISC0_TEST_BITS_DEPTH_SHIFT) |
++		      GENMASK(4, 1));
+ 	misc_val |= colorimetry_cfg << DP_MISC0_COLORIMETRY_CFG_SHIFT;
+ 	misc_val |= test_bits_depth << DP_MISC0_TEST_BITS_DEPTH_SHIFT;
+ 	/* Configure clock to synchronous mode */
 
 -- 
 2.56.0
