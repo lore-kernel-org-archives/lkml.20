@@ -1,67 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8950E44F56C;
-	Fri,  9 Oct 2026 19:23:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6459451049
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 19:26:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791573784; cv=none; b=B05GHiVVeRf+goJuOnukN2i7ofQ+MjkfwC0G93nDMrwBYp4fx+YZrkqreAA7NN0kUehHTp9fdZMWNAk7xrrTrUE2CeHl8Lq4Pls6WXDDmdA/L6Z32yBvsoH31d3RC02AHQUIqUeSxDvyw28mpzMtUV45q6Cztlf9050OvLX2Rh0=
+	t=1791573976; cv=none; b=tg1eoUx15VzKnlHqqxkFYwJRk/+9LLbw5XG8QyMHk5r1HcDkOpcxUxV9dmQvgQr8922HRckYWYR/uXURYEpapuGaz9FgD5D7PtUH3BLmtowJuieVsw2Uy6s7GYWzssPxlHo9vcvJokdkgOlA2FIcUcGE6fO9h5i7jAuURCKjPFY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791573784; c=relaxed/simple;
-	bh=9fivYErWR3az3ws/yUPKvJeJo9Q8wbp0GRcf5zpVGlo=;
-	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=J998U4nXA2q8RSo3+3iZrNBKCrlYCY6FpvoelvFO2utk1PffCvNPAt+AGR+qU1htyeSZt1qzK89yqKwY3Q5z1B/oFJyuM2NlvIVTFwD4x8+n6MFuR3OrJU+kQCHDh7/lDXUCrkX6KKjVV0x6JKIKTnQyrGaGwhmVjvpEkDugCDE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i83PIFqe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791573976; c=relaxed/simple;
+	bh=fdt/b8OQvRdoVdjdggZpBSwOT1AmS4X7S1z5GH2GJHU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PCLS5WIGCvdhKETq7P0QpeRGmA4y+hLd4LwgkffkLIBto+Rn18VzJ7PrkcmvipTZYi5rYbcIZlFddoF5BA9rMa9hGRyiyXU/9Qt+hhOeQRQybH8PI2WvH9z2FDCV6sshPBLpsBoXDjr50PD72tT10Sag+UtutcVd4yNI3VfJuXM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=WNQuFyWR; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i83PIFqe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96C9A1F00893;
-	Fri,  9 Oct 2026 19:23:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791573782;
-	bh=bdau4Tcx1JAfLZxDR6Vp+aBRhqCnR5Up6k2LlVVNc34=;
-	h=Date:From:To:Subject:References:In-Reply-To;
-	b=i83PIFqe43LhS2s3vMdOG4pD/26QDSgWIj5HD3/SfTwfDmWL/PyWN1ksDKrQeyqks
-	 apBc5iYGxzboi30alaXRfaYSTBoromFtjIEqj40CnFion4rMabrd8N9aF4uKuJIbBH
-	 CAJPy71PtCGBqlalrjRNTLrNqldfmrwBkup0toDCM4HeVAhlXJYWmdSBmxUDNste0r
-	 KQqqPuTjI5ltqeFM1TaaW+Cn72gI+UIn5ktbpdBbwyp5LLNZRpBKOeJDRyLfX8zoX7
-	 X5NxJxFdCz/dQaXUMewoj4X9Uu+ElVkRjIHL0GEwH4V1uLq9V9DEKN8ggSpZzFKhIq
-	 y4ty+QOWfn30Q==
-Date: Fri, 9 Oct 2026 21:22:57 +0200
-From: Nathan Chancellor <nathan@kernel.org>
-To: Nicolas Schier <nsc@kernel.org>, Kees Cook <kees@kernel.org>,
-	Julian Braha <julianbraha@gmail.com>,
-	Lorenzo Stoakes <ljs@kernel.org>, linux-kbuild@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="WNQuFyWR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791573970;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=Iwt0nYxaRyrgSyypUr+4YtTlj4UkzxsZeKXIwuV3Feg=;
+	b=WNQuFyWRa4oAZc5T4G8KEu2zIF9MxV8wVqScFRldcncO5y0LLzALWP38hYZQJlTJ/AtyNo
+	0n8Ue5uCR5byoHSxUHjuAjRcotMN+KfN7Z92+6RTSIO4oOr6/7+ePD+Xs2ne7SXY2MLdzA
+	sN3vZXxIFmpuikGiiJXgHjJfLNhHy8Q=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-383-IgS9HxliNOurHMBlVRxeRA-1; Fri,
+ 9 Oct 2026 19:26:02 +0000
+X-MC-Unique: IgS9HxliNOurHMBlVRxeRA-1
+X-Mimecast-MFC-AGG-ID: IgS9HxliNOurHMBlVRxeRA_1791573961
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id BC3B41953996;
+	Fri,  9 Oct 2026 19:26:00 +0000 (UTC)
+Received: from ivecera-thinkpadp16vgen1.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 17E2918004D2;
+	Fri,  9 Oct 2026 19:25:57 +0000 (UTC)
+From: Ivan Vecera <ivecera@redhat.com>
+To: netdev@vger.kernel.org
+Cc: Min Li <min.li@microchip.com>,
+	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+	Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Prathosh Satish <Prathosh.Satish@microchip.com>,
+	Paolo Abeni <pabeni@redhat.com>,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] scripts/Kconfig.toolchain: Drop compiler symbols
- from dependencies
-Message-ID: <20261009192257.GC757048@ax162>
-References: <20261007-scripts-kconfig-toolchain-improvements-v1-0-1e524178da11@kernel.org>
- <20261007-scripts-kconfig-toolchain-improvements-v1-1-1e524178da11@kernel.org>
- <202610082352.C92AC57@keescook>
- <asiorcpffrSJ6_cM@derry.ads.avm.de>
+Subject: [PATCH net v4 0/5] dpll: zl3073x: fix output pin frequency, esync and sibling notifications
+Date: Fri,  9 Oct 2026 21:25:51 +0200
+Message-ID: <20261009192556.272263-1-ivecera@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <asiorcpffrSJ6_cM@derry.ads.avm.de>
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-On Fri, Oct 09, 2026 at 10:41:17AM +0200, Nicolas Schier wrote:
-> On Thu, Oct 08, 2026 at 11:54:30PM -0700, Kees Cook wrote:
-> > Hm, does this mean we're running more probes at start-up now compared to
-> > before (since the Makefile idef would have suppressed them)?
-> 
-> Yes, probing compiler flags via Kconfig results in more
-> useless probing calls.  That's unfortunate, but the move to Kconfig look
-> still reasonable to me due.
+This series fixes several issues in the zl3073x output pin handling:
 
-Right, we probe in more cases when we have to but the trade off is that
-we shouldn't have to in the common case of incremental compiles with the
-same toolchain.
+1. Do not offer 0 Hz as a supported frequency, it leads to a division
+   by zero.
+2. Reject output frequencies whose divisor is too small for the HW.
+3. Update the eSync period and width when the output frequency changes.
+4. Reject N-divided output frequencies that cannot be set exactly.
+5. Notify the sibling pin when a shared output setting changes.
+
+Changes since v3:
+- New patch 1 to fix a division by zero reported by Sashiko.
+- Patch 2: state that the check is necessary but not sufficient for
+  N-divided outputs.
+- Patch 3: report the eSync frequency and pulse from the registers again
+  instead of a fixed 1 Hz / 25%; compute the pulse in 64 bits.
+- Patch 4: keep the P-pin quotient in 64 bits and reject values above
+  U32_MAX; check esync_n_period < 2 first; fix comments and extack.
+- Patch 5: fix the sibling lookup kernel-doc and the commit message.
+
+Changes since v2:
+- Added patches 2 and 4.
+- Patch 3: simplify zl3073x_out_esync_is_enabled().
+- Patch 5: add/remove pins from zldpll->pins around dpll_pin_register()/
+  dpll_pin_unregister() so a registered sibling is always found.
+
+Changes since v1:
+- Patch 3: pass the actual output carrier to zl3073x_out_esync_enable(),
+  drop a redundant "? true : false", fix a comment typo.
+- Patch 5: commit message wording.
+
+v3: https://lore.kernel.org/netdev/20261006153116.347497-1-ivecera@redhat.com/
+v2: https://lore.kernel.org/netdev/20261002074520.30048-1-ivecera@redhat.com/
+v1: https://lore.kernel.org/netdev/20261001080648.1424172-1-ivecera@redhat.com/
+
+Ivan Vecera (5):
+  dpll: zl3073x: do not offer 0 Hz as a supported pin frequency
+  dpll: zl3073x: reject output frequencies with too small divisor
+  dpll: zl3073x: make embedded sync follow the output carrier frequency
+  dpll: zl3073x: reject inexact frequencies for N-divided outputs
+  dpll: zl3073x: notify sibling pin when shared output config changes
+
+ drivers/dpll/zl3073x/dpll.c | 237 +++++++++++++++++++++++++++---------
+ drivers/dpll/zl3073x/out.h  |  36 ++++++
+ drivers/dpll/zl3073x/prop.c |  56 +++++++--
+ 3 files changed, 264 insertions(+), 65 deletions(-)
 
 -- 
-Cheers,
-Nathan
+2.56.0
+
