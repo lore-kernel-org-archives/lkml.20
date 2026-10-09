@@ -1,142 +1,154 @@
-Received: from mta1.migadu.com (out-75.mta1.migadu.com [95.215.58.75])
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A11D45DF41
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 07:21:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C5AF45DF41
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 07:22:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791530516; cv=none; b=SoaFHJwp8tBr/bSqfQKzhedjKl8j/eJLukZ4pvo+CZMN1ali8ckWjtamgiYElDu/S+ZSvcxKwmC/t/bfGr7oSJZUULg+iScGz9v3g/XclN8nQ+opdvf7C/y+w/JWv9acT1DAQGy4BUiJInSc5b4/IsdHsJtwU6br2B6jhk2lMR0=
+	t=1791530525; cv=none; b=paO/Lqm+Em685f1Aug40R0OKoCFSJdCP1dP69M7mB9zxHZ3Zhv7C7l+x1zwSEGvvuvlPlB+GS117q/NSLeOLh4m+K1Y6GPNprmflv8iAMsLWxYT4iWYLZIOyxE+I0UWWOyMuOPdpVILqNddOJkKS+hdqOK3dtWi8EbtbwGTJkrU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791530516; c=relaxed/simple;
-	bh=eDr9qjbDolMTro9PuTSl1NUMeg1X4qjYnOhBaA6KHn0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=g+PXJzdfMCfsecpscr4hOwF8NKiUbsMkY7MqQy8CVo/hM5uD7fAu92j1gPJcO4SyJj87odQc8psYtuwPUU/4hmcbdUonyHc931IcWL1VAVJdwhdZuPe3ehQeFn4rPy7HzCVFkUIXaE19RncP+wsmaWnaUkPzakeLYC5SHyn4R6k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=QBamTnqe; arc=none smtp.client-ip=95.215.58.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791530525; c=relaxed/simple;
+	bh=ay7Lrhmehs7j0JdHgXH5IIpsVNVS4CqUBpPRiqIzs/k=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pwMFoE4s/wfWjV72k2NaZsAJwzpVa2TH8i62H8Hv5NuNsIigahAzaNw+ImvM3EMKZvJMrIdoizzqua+VcZ6E6QZpXSRkASkt9Vst1jQEsu/22F/pD62qwLnSkMF+rlGLnhcLmJ8bpGKJbMl1UaQrPZLxTAdIi9koMQA4VcvAAZI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gJ7WAWXy; arc=none smtp.client-ip=209.85.215.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="QBamTnqe"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=eDr9qjbDolMTro9PuTSl1NUMeg1X4qjYnOhBaA6KHn0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791530512; v=1; x=1792135312;
- b=QBamTnqegQZF2tA8Df/34tbz2lyvUTdLGhl5uhL2NPbxzgg130RZAvRe/gsN8ZWCTwOtZSy8
- CgLO1fHJXlnc7RBkqjs5aTVDUL8GNEIen2W0UE08AWzobddBn/4x+4tvUVDy3AxddNbVLwfQrWY
- 3NKqOQV8sDiiRd8Xt+buNmi8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0e4ce33aa79cbb04;
-	Fri, 09 Oct 2026 07:21:52 +0000
-X-Mizu-Trace-ID: 0e4ce33aa79cbb04
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: catalin.marinas@arm.com,
-	will@kernel.org
-Cc: mark.rutland@arm.com,
-	maz@kernel.org,
-	oupton@kernel.org,
-	joey.gouly@arm.com,
-	suzuki.poulose@arm.com,
-	yuzenghui@huawei.com,
-	anshuman.khandual@arm.com,
-	tabba@google.com,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] arm64: Use symbolic constants for the ccmp NZCV immediates
-Date: Fri,  9 Oct 2026 08:21:47 +0100
-Message-Id: <20261009072147.474952-1-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.39.5
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gJ7WAWXy"
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc1cb472b76so1767755a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 00:22:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791530524; x=1792135324; darn=vger.kernel.org;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vGQ1K2lnEtPHoywNrrfZAa9ebz8nSIt73vgH/dzJD9c=;
+        b=gJ7WAWXy+WcB/LFetY1pL/TwuUe8XtFQ5aPHkvI/AMwy8gYtq3dQkeyrI1SygF3D0+
+         Y9lW9MHZhEUtNX9GDBXP8ICdDyh/Zmq4QAPonYcXw2j+skSp3g3doVRUOulcdoXX4hSG
+         ilNrB1mEtlY2s7duH5OxYslO7uPMjznHvejIByYL3i9Mln0BE67RqknMWVqbMPF2NcZt
+         l4Fvbght//qL70PH4myZ246aEW6SiA5hvZZvb7oe6iPlsTn9wrm390WuVghTxsGWts2G
+         M7FmI9eKLCkee9tcKlVUoAXq6t9wV3piw6zIP/Vo7dwPjAhUZR1FCAJUEJL7LDcrhj0o
+         j+Yw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791530524; x=1792135324;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vGQ1K2lnEtPHoywNrrfZAa9ebz8nSIt73vgH/dzJD9c=;
+        b=w22hn1j5LSqQ0Gd732eZtHGnp2UamIPD95veEuZBw74sKf/HRSbxoaCT9F8njQThgC
+         CEUhpEgBcOdsls6LX6ATCj57WMI99P97263p/ZEvaXiTQDR9LBOew39T1sf83BEpFYjh
+         YnIHzMV7ZpAj06NbtgGRv09cF5X9lUSW5tdlVh840cxTOHNmdXPER71S6+lGHAv7UICT
+         219LKd1ZyiYWVZO1K4dm1liynboI4BT8j4RU6bwcBS9lqrGznc92rjk4IRxgBMT8DXqL
+         p9oae+d27hz3wM03I4mk/qqAs2cAhq3AezllsI/OXEOD2ilbvpuJRPKR+k5tajianTDh
+         zk3Q==
+X-Forwarded-Encrypted: i=1; AKwUvBy4Y1zfyjyHQ5gTmIGcjJGYI9muWDYAtxeQp1c271+oS1xycqyqI8qaIAeq9ZbGYtK6nqyYNa3/F+1sgBw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLbS6E+QsEcAdO6p6qAIbRk9poDHmLGJFDQPxX2cbVjVFS5B279
+	IZSopblKHGNDu9kSk/j6VjvUCVpaD6Q/tZoa1g0dSjD51t585ZZd/zuw
+X-Gm-Gg: AYBFou28u6h7pqVl/mVaM0Lvvnr0GNzW9c6CKF93oS5koLlRRBbWxT+akdu5k689OUa
+	gQGiUmuVLM8plWtC3E5Uf1AMa32nHFusyGQylpjoSDpJAKIu9IXTxUa9YrpxbWfHaiusNfR2cXc
+	vGcturIN6xHCwfbq5bz3q1sVUQOjHzUXPUc2geXTfB8te8JOphD+iyF/rb8tVdZ/rFVCaTYOt8F
+	Xqy96EMgQAoMN27v4xjqyrKj3v/kgpKXIVli5CyJHESRFlFPeASf5s5KF9KjMlhAYT1+zOBJstp
+	sSoJOqjOiEJ++z6bZctp0xUHv+mdqjNn1ML0fI+enrrdHL9zPsjeRlKUnkX+BoCv1h3AtzlcFst
+	6/PsQ3DRwchIy2gZ2SbZV6HaUYm1SLrLzmyaa6R8F/UVuwbvgWR2sGCPTt6GCESmkKHEBnfSaB3
+	I6D7XhGwzfa+ZJ4kB+ALLj7KHFkLFvFres9y/x8DZPDhcHUjBHkkp5m1NWk1EolAcFljXs6jbmY
+	Lq8fIvxGxkXLGDUWK90clTgE8YXAWSeq6G7u/DtlV9rPUdaLfoGtBa0NlDsMtmlqyNZq75QPMpX
+	6HNKBZ6kQZmocPuNQjhFrjDR5RpabWc2pmw6xXNNCb3xnHmbiDU=
+X-Received: by 2002:a17:90b:3a48:b0:3ab:413:49b6 with SMTP id 98e67ed59e1d1-3ab3a79a2d8mr1074419a91.41.1791530523677;
+        Fri, 09 Oct 2026 00:22:03 -0700 (PDT)
+Received: from setsuna.localnet ([2403:581e:d87e:0:fc2d:ed31:e80e:412d])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab397920b4sm1115948a91.4.2026.10.09.00.21.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 00:22:02 -0700 (PDT)
+From: James Calligeros <jcalligeros99@gmail.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: David Rhodes <david.rhodes@cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Martin =?UTF-8?B?UG92acWhZXI=?= <povik+lin@cutebit.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+ Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
+ Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
+ Neal Gompa <neal@gompa.dev>, asahi@lists.linux.dev,
+ linux-sound@vger.kernel.org, patches@opensource.cirrus.com,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+Subject:
+ Re: [PATCH v2 05/21] ASoC: dt-bindings: Add binding for Apple Silicon Mac
+ audio
+Date: Fri, 09 Oct 2026 17:21:52 +1000
+Message-ID: <rT1KWd0SSiuQLd7MLQWREA@gmail.com>
+In-Reply-To: <20261009-daring-objective-flounder-c0b66d@quoll>
+References:
+ <20261004-macaudio-v2-0-7b47ed6335a8@gmail.com>
+ <20261004-macaudio-v2-5-7b47ed6335a8@gmail.com>
+ <20261009-daring-objective-flounder-c0b66d@quoll>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-The ccmp instructions in the EL2 setup code, reset_pmuserenr_el0 and
-the hyp vectors give the flags to set when their condition fails as a
-raw NZCV immediate, #4 or #8. Which condition that leaves true for the
-branch that follows has to be worked out from the pseudocode each time.
+On Friday, 9 October 2026 5:17:53=E2=80=AFpm Australian Eastern Standard Ti=
+me=20
+Krzysztof Kozlowski wrote:
+> On Sun, Oct 04, 2026 at 04:03:32PM +1000, James Calligeros wrote:
+> > +examples:
+> > +  - |
+> > +    sound {
+> > +      compatible =3D "apple,j416-macaudio", "apple,j316-macaudio";
+> > +      model =3D "MacBook Pro J416";
+> > +
+> > +      #address-cells =3D <1>;
+> > +      #size-cells =3D <0>;
+> > +
+> > +      dai-link@0 {
+> > +        reg =3D <0>;
+> > +        link-name =3D "Speakers";
+> > +
+> > +        dai-tdm-idle-mode-0 =3D "zero";
+> > +        dai-tdm-idle-mode-3 =3D "zero";
+> > +        dai-tdm-slot-tx-idle-mask-0 =3D <0xf0f0f0>;
+> > +        dai-tdm-slot-tx-idle-mask-3 =3D <0x0f0f0f>;
+> > +
+> > +        codec {
+> > +          sound-dai =3D <&speaker_left_woof1>,
+> > +                      <&speaker_left_tweet>,
+> > +                      <&speaker_left_woof2>,
+> > +                      <&speaker_right_woof1>,
+> > +                      <&speaker_right_tweet>,
+> > +                      <&speaker_right_woof2>;
+> > +        };
+> > +
+> > +        cpu {
+> > +          sound-dai =3D <&mca 0>, <&mca 1>;
+> > +        };
+> > +      };
+> > +
+> > +      dai-link@1 {
+> > +        reg =3D <1>;
+> > +        link-name =3D "Headphone Jack";
+> > +
+> > +        codec {
+> > +          sound-dai =3D <&jack_codec>;
+> > +        };
+> > +
+> > +        cpu {
+> > +          sound-dai =3D <&mca 2>;
+>=20
+> Example looks incomplete, you miss TDM slot properties.
 
-Define CCMP_NZCV_EQ and CCMP_NZCV_LT from the PSR bits, named for the
-condition each leaves true, and pass those instead.
+The machine driver generates the TDM slot assignments for the DAIs
+and sets them at runtime.
 
-No functional change intended.
 
-Suggested-by: Will Deacon <will@kernel.org>
-Link: https://lore.kernel.org/all/asIQ1ZwUjkmNJbRP@willie-the-truck/
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
----
- arch/arm64/include/asm/assembler.h | 2 +-
- arch/arm64/include/asm/el2_setup.h | 4 ++--
- arch/arm64/include/asm/ptrace.h    | 4 ++++
- arch/arm64/kvm/hyp/hyp-entry.S     | 2 +-
- 4 files changed, 8 insertions(+), 4 deletions(-)
 
-diff --git a/arch/arm64/include/asm/assembler.h b/arch/arm64/include/asm/assembler.h
-index 0b58b550e8dce..b4b97e03db828 100644
---- a/arch/arm64/include/asm/assembler.h
-+++ b/arch/arm64/include/asm/assembler.h
-@@ -500,7 +500,7 @@ alternative_else_nop_endif
- 	mrs	\tmpreg, id_aa64dfr0_el1
- 	ubfx	\tmpreg, \tmpreg, #ID_AA64DFR0_EL1_PMUVer_SHIFT, #4
- 	cmp	\tmpreg, #ID_AA64DFR0_EL1_PMUVer_NI
--	ccmp	\tmpreg, #ID_AA64DFR0_EL1_PMUVer_IMP_DEF, #4, ne
-+	ccmp	\tmpreg, #ID_AA64DFR0_EL1_PMUVer_IMP_DEF, #CCMP_NZCV_EQ, ne
- 	b.eq	9000f				// Skip if no PMU present or IMP_DEF
- 	msr	pmuserenr_el0, xzr		// Disable PMU access from EL0
- 9000:
-diff --git a/arch/arm64/include/asm/el2_setup.h b/arch/arm64/include/asm/el2_setup.h
-index 1da277baacf78..c0ece880e85bd 100644
---- a/arch/arm64/include/asm/el2_setup.h
-+++ b/arch/arm64/include/asm/el2_setup.h
-@@ -137,7 +137,7 @@
- 	mrs	x1, id_aa64dfr0_el1
- 	ubfx	x0, x1, #ID_AA64DFR0_EL1_PMUVer_SHIFT, #4
- 	cmp	x0, #ID_AA64DFR0_EL1_PMUVer_NI
--	ccmp	x0, #ID_AA64DFR0_EL1_PMUVer_IMP_DEF, #4, ne
-+	ccmp	x0, #ID_AA64DFR0_EL1_PMUVer_IMP_DEF, #CCMP_NZCV_EQ, ne
- 	b.eq	.Lskip_pmu_\@			// Skip if no PMU present or IMP_DEF
- 	mrs	x0, pmcr_el0			// Disable debug access traps
- 	ubfx	x0, x0, #11, #5			// to EL2 and allow access to
-@@ -422,7 +422,7 @@
- 	mrs	x1, id_aa64dfr0_el1
- 	ubfx	x1, x1, #ID_AA64DFR0_EL1_PMUVer_SHIFT, #4
- 	cmp	x1, #ID_AA64DFR0_EL1_PMUVer_IMP_DEF
--	ccmp	x1, #ID_AA64DFR0_EL1_PMUVer_V3P9, #8, ne
-+	ccmp	x1, #ID_AA64DFR0_EL1_PMUVer_V3P9, #CCMP_NZCV_LT, ne
- 	b.lt	.Lskip_pmuv3p9_\@		// Skip if < PMUv3p9 or IMP_DEF
- 
- 	orr	x0, x0, #HDFGRTR2_EL2_nPMICNTR_EL0
-diff --git a/arch/arm64/include/asm/ptrace.h b/arch/arm64/include/asm/ptrace.h
-index f7dc5fb9427d6..15c381ef7d2c2 100644
---- a/arch/arm64/include/asm/ptrace.h
-+++ b/arch/arm64/include/asm/ptrace.h
-@@ -30,6 +30,10 @@
- #define PSR_MODE_THREAD_BIT	(1 << 0)
- #define PSR_IL_BIT		(1 << 20)
- 
-+/* CCMP NZCV immediates that make the named condition hold */
-+#define CCMP_NZCV_EQ		(PSR_Z_BIT >> 28)
-+#define CCMP_NZCV_LT		(PSR_N_BIT >> 28)
-+
- /* AArch32-specific ptrace requests */
- #define COMPAT_PTRACE_GETREGS		12
- #define COMPAT_PTRACE_SETREGS		13
-diff --git a/arch/arm64/kvm/hyp/hyp-entry.S b/arch/arm64/kvm/hyp/hyp-entry.S
-index 03f97d71984c4..8621eacd13738 100644
---- a/arch/arm64/kvm/hyp/hyp-entry.S
-+++ b/arch/arm64/kvm/hyp/hyp-entry.S
-@@ -46,7 +46,7 @@ el1_sync:				// Guest trapped into EL2
- 	mrs	x0, esr_el2
- 	ubfx	x0, x0, #ESR_ELx_EC_SHIFT, #ESR_ELx_EC_WIDTH
- 	cmp	x0, #ESR_ELx_EC_HVC64
--	ccmp	x0, #ESR_ELx_EC_HVC32, #4, ne
-+	ccmp	x0, #ESR_ELx_EC_HVC32, #CCMP_NZCV_EQ, ne
- 	b.ne	el1_trap
- 
- 	/*
--- 
-2.39.5
 
