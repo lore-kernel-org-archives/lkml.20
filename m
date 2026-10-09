@@ -1,154 +1,144 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com [209.85.222.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 235A83932E8
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 17:33:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA9FC44CF44
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 17:34:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791567192; cv=none; b=QwKEmGyksCJn+teUmPkIStgkXtgV1x1lnKqzOjOsHScpxzPhreIAFj7AMuvH3aGYfiIG/O3/CgMfFdJzmXhVw55uXyixlsnv7qoucwFW8t7hTPhHT4ZCKQMeRB39ick9gQyo7IoqnIzx3ve8681/w9bEF5FQpKWBxYpRY+b+kRo=
+	t=1791567259; cv=none; b=QWPYE+0U7LoAFFg1+eTpOJ08cNSaX+w4T0iRRAedkGby6IUSg+KwFq5GMF2Erencawghxhqep4dZNv6hDOfRERQBsutnjQlbSLbNLSIPGZCCiQfkJ6IMU3UiEnjRjSBPIXmfp66yKsSOLSDe5jEwyt+yEymVV/utWi4JXJyEI/A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791567192; c=relaxed/simple;
-	bh=HkIkB+dqyxrAL4iBkZUM6mZrOi0zi8ugvAIKpk7F+dE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QlRVfTUZnmh49t2xfwvBvjEL9TmvBQoHprkKJO9gn+5U3yPa7HxYq+udBI7VeP+ylLq4qHDMqNuSF9VwUf2C91eVLhDmFfIgcanyXP64pSO4dlO11ebrqhQKH4FjUEcGHW61ehBTMowJtq5yoVAwUwpm6jGGCNKVRwmLOrHQtx8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=Kz+M7ghT; arc=none smtp.client-ip=209.85.216.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
+	s=arc-20240116; t=1791567259; c=relaxed/simple;
+	bh=4QzvFpJrMIBOFL1LClfdnGhTbQVQVWWI+SlIcvg95ZY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jO/M+dQai5FmGBbmlaaeBSO/x5goounO4xGonjgXhnYALFNM6cg286Y66Ve8PB3SMtnQBf0XZq5phCz7iwDmCQjQfl3NuZyGiFI0mYp9re5Us61HtvmXmyGszWX3xMmGi0GWN8m9D+Rb35U8WfbghodWxwEt8GGXEajUQlkA03w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu; spf=pass smtp.mailfrom=cs.unc.edu; dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b=Yua6chXR; arc=none smtp.client-ip=209.85.222.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="Kz+M7ghT"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3a02551822eso1789791a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 10:33:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b="Yua6chXR"
+Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-93e76469b93so389055085a.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 10:34:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1791567190; x=1792171990; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:mail-followup-to:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=c2jD9IJYGfmVcnhpThjvZylfTJOWRr2wSFSn38TwVbE=;
-        b=Kz+M7ghToLcxEPLsGhNMENOREy02pE8g1DL2Ja3ecdo3GQulOGf9xLnItO87cAgrGp
-         Ikh8XzTzeSNw8/EbIVGELTdxvEckVB6ibaRUgOW8RxS/BjysdykXS7/yMLjj18UNyMPn
-         v+g5qkIM8vHoAIPx+ndnta9TuSiXJkOCZihznMh1FCJs8GQ/T6Uy3Wqgi43dRxUAunUP
-         RoxQOD/7tr5hqsscCMwBUp7nTHSHH833BEaWFAqGtGwM7eadZmXul8V9FvVllr8OcX7a
-         6btmH+5Dp/3OP2K0jYmLtI4EYmQ2dV6uQadQsZoPaop32HeT3mGzq//F8s9YyPw5uXvc
-         nvew==
+        d=cs.unc.edu; s=google; t=1791567256; x=1792172056; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UwD4Whw0BsO3CL4xljsuE9wjdul1Y3ABr5wVzug+v1w=;
+        b=Yua6chXRFeG43IGQ6rz0wJwiS+ZsJikqXnfwVGzxSfvLPCe7rUkCI7RUJnau9bjhl8
+         kgeRz43OUXNSSQphvMOsc8C6fqI+gmaXG9JUniliBBItKjwMSTvubTLoM7MIkcRIaaaf
+         6HW/HdLJrQdmBquzkQdNLkRhr+jhoDRtfAKfLTzgKSqPC949wEXIZUNG5NqPtoKpyckc
+         L14LbKpMBzpa+m3LB0OdqchuYSmxVDqipcyb94C3+otykzdii3LnJJds81LlEgYoTP/N
+         SBjkb0HMcv+71o39WTMUPAvNVkdsm2FewHCkMvJiT4gJW614hOQwcVbBrqFbFpUQQClP
+         pD3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791567190; x=1792171990;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:mail-followup-to:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=c2jD9IJYGfmVcnhpThjvZylfTJOWRr2wSFSn38TwVbE=;
-        b=Tl6UUIPiOTlOo+j84Ew+fMCbb+9s4iLtp5f4acwedk46Oa2OgHqRkN0b14AO4S0vnP
-         TdiG7CXHAK7LRdb0Ke8yf2p3Z2SbH4iQUbFL3xE+z1sYrBOg+546Ht6wuXBNfdZ4dmF/
-         w+wo/KqpXT5TNqp3hy271i9jHB0AROhybSbLmYHrTNd7iFMVzU5mC1heCQ3tAUIkbfsK
-         kmPZP8AUUpqRB5g6bwk337ehx+m297gx9DcF0O67NzAYAiM3WAmaZMzjAHo5XZxYyPdl
-         8yTlMiL5IjVSxxsjFfLRxX9oEK4kSpGXjCNeCfM73Kjl9W5Tke44/MbWnFukjRwLMkje
-         NY4A==
-X-Forwarded-Encrypted: i=1; AKwUvBx6PgGTnTRhxYakkYREGhGRvk0FUdWCnON/NwQnHcM8nJ/x1VKFidu28dA4tkFELKe0fBG2/DOcotKnuhc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLODXXJwX2Ej3JWQQQpBB2q+axRuSsZlXPLUP6zH+k69hhD/fdO
-	jWUWEz09BnbvzUFC02wSNQGadZDo2FXRxOI0GQufqOJYHu+xa43hLA4+tgsbUATfcLc=
-X-Gm-Gg: AYBFou1Y2hUceM8Te5qLVXeP5topchYPwHTzesxJioKCh7tgfUIquFxQ6y0mqhxFRk8
-	kV8p9ZF5JYAMD9fFW1dngD+3lxLQU/Uqjd0s+/pTLEC0hbVySwbMXvPnn9fNheTFc4Xs6HM88kX
-	iZ/TuP0WmZZ4DLlHzZt5hvhUe9CbkhY5/VDLMhMrM+FnAH+DTzCI4gW6Zk8UTixfivAKSBBcPu4
-	ao9OWXsfUIVRjwE0+8PPa2TPNmFAFwBx6hcXZ/rEaehUoJjURnrRTamAxgKnN0dEheN4PWQIV11
-	2V2jU162/kBkURBjvRBpWcUOjSXF8EmsZacK09nhcebSsacXiIzzya+HqTxsjMCc8HNuC/mgvxc
-	P6tXk/UzAw1C7eNkpdJ9hZ6F7miImxZx8EL/GN6sRVweLLGvNIf9uoGYvundscsEIDwGGvQy/no
-	yD481JFCFQmkMdd3gSMNdhAD7LhDdHMIr85EcaetXjiKrc8Lnh3Vomjl4/NZ1HITqN0PLwGWcH7
-	od1/y4jehsJ
-X-Received: by 2002:a17:90b:3912:b0:3a4:e735:b3a3 with SMTP id 98e67ed59e1d1-3ab3aceb920mr1536825a91.40.1791567190330;
-        Fri, 09 Oct 2026 10:33:10 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:70::])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab395e11a0sm2740419a91.2.2026.10.09.10.33.09
+        d=1e100.net; s=20260707; t=1791567256; x=1792172056;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UwD4Whw0BsO3CL4xljsuE9wjdul1Y3ABr5wVzug+v1w=;
+        b=xT7tv+oyMiqaY4BEWf5E1xpDvF+kQ9x8SdTW/IACpFu4LDB7Z98xmjDDANNUM3e3VI
+         TrHsLnpfIfNnZkRXXLjUDKSzgKDQ/oOrS9wHy15w5Yu3h7/8Dkv5kY8ic9O7SOJ/36fv
+         vspDFu5L/IBNaksh/PBG9tOCavSzORyO2s1xt4HiwmyqKhIp888I+Dt1DBIvfK5y+usc
+         fi5G2ILZB1DQw5MMvTHGxmQRqODEtW6aiw9UHHRaC7dTMNn3QIwQn6AR29tZh3VFzATN
+         nmsm4s9Gq1sRo21WdXhkwKqz6O1iG8X6RwteTZklW+cjgAsMpIhQi34cGFyvUEWhpE63
+         F5sg==
+X-Forwarded-Encrypted: i=1; AKwUvBzd5rJlISqUHQU0Y1XFn4MwqNx28oyLtB7w9L0llJlA8xInkb1RJdaZmSfU54pIxF1JsYzl5sjY9S96qRE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kA52y9r1WFNkKHkZayb14n7SLasVV/72e57hRERNcREST8emPL
+	9DeuyssA/geUT48XiXcyMfGBDY8zwqEVIzETAdTJVaJ2VEy4424rUA48atXObd3A9sSkavCCOzC
+	pB0WiyA==
+X-Gm-Gg: AYBFou2G3hnCTR7f5OhAj2KgjQHkQKQK08jNOUEE7tGgSYt1baKYeIgCU3B6Vep36ac
+	vMqahOUiJy1oQsGtCW3s1mGVLsxYy6r+5ajlINscq/sUdfASfd8JrpQBzRdd1ulZddmwGBde2pd
+	XMFvWUAzE4FHMwUTu1alL1tBb5nmgFl/yJXesqE7uwigMxbUd2Pp4gZbEEHRo/w9ZSUOsujty9i
+	8qzbkcWuk3qWFxR2kS5Wxn1uqv9h/oCQL0xLJDHPsWQ7q+m/oJ7iXgHYdZuEKizH6fkyZb2ejJ/
+	iXeAOrHZoGClqMhKbziG8Rxoc9PF0MCIYT0R6K2KDnQI5sojhd/GE1GTTZfLVxtzSp6jBu4O/hz
+	dRknhGU2KkKvydDf8JxavqRapRWNBr2rCXirw18M5l3XJBUcnzl2sUvjAlUGV+kQTf7mOL87Qm0
+	466AZzBqRjyJzFPrVdpXKgVRGzT+r8I/kqJimEW9P043q5W9DtI3kgCGKnQ754QXgJz5Q0Hnnfc
+	ixYQ6x3bCJmi3vYdDfoJUAKMAyV+D35
+X-Received: by 2002:a05:620a:44c8:b0:93a:14c:32ad with SMTP id af79cd13be357-93ebcd339d8mr378214385a.0.1791567255058;
+        Fri, 09 Oct 2026 10:34:15 -0700 (PDT)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb9720f19sm238494785a.4.2026.10.09.10.34.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 10:33:09 -0700 (PDT)
-Date: Fri, 9 Oct 2026 10:33:08 -0700
-From: Joe Damato <joe@dama.to>
-To: Michael Chan <michael.chan@broadcom.com>
-Cc: netdev@vger.kernel.org, Pavan Chebbi <pavan.chebbi@broadcom.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	edumazet@google.com, horms@kernel.org, linux-kernel@vger.kernel.org,
+        Fri, 09 Oct 2026 10:34:14 -0700 (PDT)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: David Sterba <dsterba@suse.com>
+Cc: Chris Mason <mason@kernel.org>,
+	Boris Burkov <boris@bur.io>,
+	linux-btrfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Hengyu Liang <hengyul@cs.unc.edu>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH net 2/2] bnxt_en: Pad short SW USO segments to
- BNXT_MIN_PKT_SIZE
-Message-ID: <asklVFvUJx8P/k1d@devvm20253.cco0.facebook.com>
-Mail-Followup-To: Joe Damato <joe@dama.to>,
-	Michael Chan <michael.chan@broadcom.com>, netdev@vger.kernel.org,
-	Pavan Chebbi <pavan.chebbi@broadcom.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	edumazet@google.com, horms@kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-References: <20261008191114.3736826-1-joe@dama.to>
- <20261008191114.3736826-3-joe@dama.to>
- <CACKFLikWkH6QaOG=EO_zu8cqCFRxGqtA2-+R-btp0TwUbJjVBg@mail.gmail.com>
+Subject: [PATCH] btrfs: return -ENOTTY for unknown ioctls on the control device
+Date: Fri,  9 Oct 2026 13:33:59 -0400
+Message-ID: <20261009173359.3486877-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CACKFLikWkH6QaOG=EO_zu8cqCFRxGqtA2-+R-btp0TwUbJjVBg@mail.gmail.com>
 
-On Thu, Oct 08, 2026 at 10:26:06PM -0700, Michael Chan wrote:
-> On Thu, Oct 8, 2026 at 12:11 PM Joe Damato <joe@dama.to> wrote:
-> 
-> > diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c b/drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c
-> > index ef04c9d08066..f87e02ef3033 100644
-> > --- a/drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c
-> > +++ b/drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c
-> > @@ -82,11 +82,14 @@ int bnxt_sw_udp_gso_xmit(struct bnxt *bp, struct bnxt_tx_ring_info *txr,
-> >         if (unlikely(num_segs <= 1))
-> >                 goto drop;
-> >
-> > +       if (unlikely(bnxt_sw_gso_pad_len(hdr_len, mss)))
-> > +               goto drop;
-> > +
-> 
-> This looks redundant since you already have the same check in
-> bnxt_features_check().
+Commit 5ab2b180884c ("btrfs: factor out validation of
+btrfs_ioctl_vol_args::name") made btrfs_control_ioctl() store the result
+of btrfs_check_ioctl_vol_args_path() in ret before it looks at the
+command.
 
-It's redundant for skbs that go through validate_xmit_skb(), but generic XDP
-doesn't AFAIU. Not sure how else to handle this case, but open to suggestions.
+However, ret is initialized to -ENOTTY and the switch has no default
+case, so this initial value was what an unknown command returned. As of
+now, every unknown ioctl on /dev/btrfs-control returns 0. A tool that
+tries a control ioctl which the running kernel does not have is told
+that the ioctl succeeded.
 
-If you agree and are OK with dropping these, then I could add a comment
-clarifying this in the v2. LMK what you think.
+The issue can be reproduced with a simple C program, run as root:
 
-> >         /* Upper bound on the number of descriptors needed.
-> >          *
-> >          * Each segment uses 1 long BD + 1 ext BD + payload BDs, which is
-> >          * at most num_segs + nr_frags (each frag boundary crossing adds at
-> > -        * most 1 extra BD).
-> > +        * most 1 extra BD). The last segment may need 1 pad BD.
-> >          */
-> >         bds_needed = 3 * num_segs + skb_shinfo(skb)->nr_frags + 1;
-> 
-> I don't quite understand why we don't need to add 1 more for possible
-> padding here.
+    #include <fcntl.h>
+    #include <stdio.h>
+    #include <sys/ioctl.h>
 
-Re-reading the code, I think the +1 was never needed in the first place.
-Payload BDs come from at most 1 + nr_frags DMA regions. Going from one region
-to the next adds at most one BD on top of one BD per segment. There are
-nr_frags boundaries at most, so I think the math is:
+    int main(void)
+    {
+            static char buf[4096];
+            int fd = open("/dev/btrfs-control", O_RDWR);
 
-  2*num_segs + num_segs + nr_frags
+            if (ioctl(fd, TCGETS, buf) < 0)
+                    perror("ioctl");
+            else
+                    printf("ioctl succeeded\n");
+            return 0;
+    }
 
-which simplifies to 3*num_segs + nr_frags.
+Before commit 5ab2b180884c ("btrfs: factor out validation of
+btrfs_ioctl_vol_args::name"), the result is:
 
-I would appreciate a double check on the math :) but I think the +1 from the
-original code was actually unnecessary and so for this change we can use it
-for the pad BD.
+    ioctl: Inappropriate ioctl for device
 
-Shockingly: it seems sashiko didn't find any issues (?). If you agree with the
-above I can respin to add the comment for the generic XDP path and re-send
-later today.
+After that commit, the result is:
 
-Thanks,
-Joe
+    ioctl succeeded
+
+This patch will add a default case that returns -ENOTTY.
+
+Fixes: 5ab2b180884c ("btrfs: factor out validation of btrfs_ioctl_vol_args::name")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+---
+ fs/btrfs/super.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/fs/btrfs/super.c b/fs/btrfs/super.c
+index 823a58bd2685..acb704b20c2b 100644
+--- a/fs/btrfs/super.c
++++ b/fs/btrfs/super.c
+@@ -2291,6 +2291,9 @@ static long btrfs_control_ioctl(struct file *file, unsigned int cmd,
+ 	case BTRFS_IOC_GET_SUPPORTED_FEATURES:
+ 		ret = btrfs_ioctl_get_supported_features((void __user*)arg);
+ 		break;
++	default:
++		ret = -ENOTTY;
++		break;
+ 	}
+ 
+ out:
+-- 
+2.53.0
+
