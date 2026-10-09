@@ -1,92 +1,105 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18D493B058F;
-	Fri,  9 Oct 2026 07:22:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3158F3E9C3C;
+	Fri,  9 Oct 2026 07:23:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791530568; cv=none; b=X0tjYv8jvv/UUiKyzYtbCqguOTi+IofBMnwpxcHGZJEEMT8TkMRrMQ6UBYJNwpzFv+9DQOsCZJKzaCHV59G8z0d1tlctMj7QybnrDJMepF6IcfdHzR/cqk6fU9TKSzA+9Vf/ngRX4+rMyOa8GAXEBk7t6qWibhAgCuVZI/9pG9I=
+	t=1791530584; cv=none; b=k6plCuZv+gePhNzoRVAIpdsv+ymCQcEZ5/BgZARFQUk3FV7v4l5GOdmCUOFXqKrt/z30/GF8Rsev7K9peIQGGY+w2D7uG2xmZBhOgMtUXyJ0XuNMyLmawP8eKB9/d+sOOQVDYBg1Gh1tSFhuoAbexl6baEQIWTeoh+rZ8vUbPEg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791530568; c=relaxed/simple;
-	bh=0dI3k+gxfGj9M0cvqQzcyughoM9wXOQcQMwXsBwyM+4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=K5WfUpBSc/AIssCcW4LnPdsRGO81JwHEQQ3jTHRZoiUoxUt0RIhDgYKzRHGJEQ1nWOJQJD5/D+QzvcRBOKwx47gUAtXCkFKmxy7aVQJUoCQmC+d/tb7v6t+eMOvH+wyB+CpZMCBIobPzyeZHYwVgDngA4sUZoShf+aiv5/pIDBI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=H2Jj9dPH; arc=none smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791530584; c=relaxed/simple;
+	bh=WsYk4mwXHGtEeA9/sqqtPLloNXN/PsNfk1fSu7KICtk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QXefCkkFe5FKSOTbUuVCLLEMQCo/4me2aywLsk/KgVdt8IY7FwPdKfoz/gXeCz8E3yTr7c3YjAtQiomVvFFkvJMqpdXHQw/ZLPiRWSS0UaWcsCwb67oZSLDP97qsz7cPT6vL8zttXNzXAJJaYQXXn4/CDA7O8hGiOyZAepk6+QA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=t8CehVv4; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="H2Jj9dPH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791530567; x=1823066567;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=0dI3k+gxfGj9M0cvqQzcyughoM9wXOQcQMwXsBwyM+4=;
-  b=H2Jj9dPHOnOsGHUQOwWC2ER6i2UoTG7nyxr8HaJwIt5CtnWHQGVbM2FP
-   z1PyeP7I3IDXeY+y6uTj/hhNrBGSyoaQXXT/pCqnYjb0/FG6VY3VsFebh
-   gK2uSdtieGq2kXQhQRX3Zb4eShCAoI3gsNMWiEsn4QZO7c5PucU/OsLk3
-   EiBBmdUiVlIdFJmQ8CL8r4nPF5r61PvcKyvwEma984xLYUp56r1XOyPd7
-   EVO6/6OHnjdCL87T5yGdEnRuv98bZtlgPzIDSS9vgXbHGKt9mN3pPN+qk
-   IRJqw+6gCk/mCoI/QrFKI+T2+A7mF4u4xYC4F2D/TsWsMF852BH3cKp2w
-   A==;
-X-CSE-ConnectionGUID: TcA0FnV6Q3Slx299IZoQrg==
-X-CSE-MsgGUID: bQTL6yMuRMauAXSuNj20AA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11929"; a="212494"
-X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
-   d="scan'208";a="212494"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 00:22:46 -0700
-X-CSE-ConnectionGUID: oY1O8vM0RnW0NYXh5YrIjw==
-X-CSE-MsgGUID: qXlPkVodRJKero9ROwJfJA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
-   d="scan'208";a="584103"
-Received: from yizheliu-ivm.ccr.corp.intel.com (HELO [10.238.208.114]) ([10.238.208.114])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 00:22:40 -0700
-Message-ID: <0e5ceeb8-492b-48e6-80d2-462c437a6dce@intel.com>
-Date: Fri, 9 Oct 2026 15:22:37 +0800
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="t8CehVv4"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DE6991692;
+	Fri,  9 Oct 2026 00:22:57 -0700 (PDT)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 29DE03F8C6;
+	Fri,  9 Oct 2026 00:22:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791530581; bh=WsYk4mwXHGtEeA9/sqqtPLloNXN/PsNfk1fSu7KICtk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=t8CehVv4+Lz8Ugsv96BmQeZ1twjOPHaeTSryLFZ8XK8XZigz5W+IYmOHxXvNgxCos
+	 N7BdEXolPVcgXabranRPAkc3TgIpNDG7vL7on5JnWLSDBD8O+6Xi8OgL/yfdqoaAGW
+	 FrYeFAl55KJTNtuwLj3854pSMLI1wyh9ufDn1hq0=
+Date: Fri, 9 Oct 2026 08:22:55 +0100
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Peng Fan <peng.fan@oss.nxp.com>
+Cc: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	"Ivan T. Ivanov" <iivanov@suse.de>,
+	Francesco Dolcini <francesco@dolcini.it>,
+	Frank Li <frank.li@nxp.com>, linux-arm-kernel@lists.infradead.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	kvmarm@lists.linux.dev, imx@lists.linux.dev,
+	Peng Fan <peng.fan@nxp.com>
+Subject: Re: [PATCH v4] arm64: errata: Add NXP iMX8QM workaround for A53
+ cache coherency issue
+Message-ID: <asiWTxgGxJ5JIFcl@arm.com>
+References: <20260824-imx8qm-cache-coherency-v4-v4-1-b2e528c7d05e@nxp.com>
+ <asTZEhzMDs869r_n@arm.com>
+ <aseZUwi0CYTXuE/I@shlinux89>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v15 10/23] KVM: selftests: Set up TDX boot parameters
- region
-To: Lisa Wang <wyihan@google.com>, Andrew Jones <ajones@ventanamicro.com>,
- Ackerley Tng <ackerleytng@google.com>, Binbin Wu
- <binbin.wu@linux.intel.com>, Chao Gao <chao.gao@intel.com>,
- Chenyi Qiang <chenyi.qiang@intel.com>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- Erdem Aktas <erdemaktas@google.com>, Ira Weiny <iweiny@kernel.org>,
- Isaku Yamahata <isaku.yamahata@intel.com>, Kiryl Shutsemau <kas@kernel.org>,
- linux-kselftest@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>,
- "Pratik R. Sampat" <pratikrajesh.sampat@amd.com>,
- Reinette Chatre <reinette.chatre@intel.com>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>,
- Roger Wang <runanwang@google.com>, Ryan Afranji <afranji@google.com>,
- Sagi Shahar <sagis@google.com>, Sean Christopherson <seanjc@google.com>,
- Shuah Khan <shuah@kernel.org>, Oliver Upton <oupton@kernel.org>
-Cc: Jeremiah McReynolds <jmcrey@google.com>, kvm@vger.kernel.org,
- linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org, x86@kernel.org
-References: <20261001-tdx-selftests-v15-0-7c62a5d8a992@google.com>
- <20261001-tdx-selftests-v15-10-7c62a5d8a992@google.com>
-Content-Language: en-US
-From: Xiaoyao Li <xiaoyao.li@intel.com>
-In-Reply-To: <20261001-tdx-selftests-v15-10-7c62a5d8a992@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aseZUwi0CYTXuE/I@shlinux89>
 
-On 10/2/2026 3:37 AM, Lisa Wang wrote:
-> From: Sagi Shahar <sagis@google.com>
+On Thu, Oct 08, 2026 at 09:23:31PM +0800, Peng Fan wrote:
+> On Tue, Oct 06, 2026 at 12:18:42PM +0100, Catalin Marinas wrote:
+> >On Mon, Aug 24, 2026 at 12:02:04PM +0800, Peng Fan (OSS) wrote:
+> >>   - Disabling KVM since correct TLB maintenance cannot be guaranteed
+> >>     for guests.
+> >
+> >Do you need virtualisation on such platform? An alternative would be for
 > 
-> Allocate memory for TDX boot parameters and define the utility functions
-> necessary to fill this memory with the boot parameters.
+> We not have KVM support in our software release for i.MX8QM.
 > 
-> Co-developed-by: Ackerley Tng <ackerleytng@google.com>
-> Signed-off-by: Ackerley Tng <ackerleytng@google.com>
-> Signed-off-by: Sagi Shahar <sagis@google.com>
-> Signed-off-by: Lisa Wang <wyihan@google.com>
+> >the guests to be aware of the erratum as well and use the right TLBI/IC
+> >ops. But you'd also need to upgrade the VMID-aware ops in KVM (unless
+> >the hardware can't work around stage 2 TLBI at all).
+> 
+> We not have test cases for this since KVM is not in our release scope. 
+> Could we take this as a future enablement to avoid uneccessary churn
 
-Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
+Yes, you can leave it out if you don't care about the KVM use-cases.
+
+> >There's a precedent with 4311569 to wire up a SoC erratum into the CPU
+> >errata framework. That one is a system wide feature, so only probed once
+> >for the CPUs coming up at boot (though still probed for each late CPUs).
+> >For iMX, you need this turned on early, hence the boot probing. But
+> >calling it a strict boot CPU feature is a bit of a stretch. It also gets
+> >probed on every CPU, unnecessarily.
+> >
+> >I think we could do with something like below (maybe as a preparatory
+> >patch). We could also add it to 4311569 even if it changes its scope
+> >from system to boot CPU (the early param is available).
+> >
+> >Only compile-tested and haven't tried wiring up your workaround:
+> 
+> With type set to ARM64_CPUCAP_SOC_ERRATUM for i.MX8QM and your patch
+> applied, I not see issues in my test.
+> 
+> Would you post it as a formal patch or need me to include your patch
+> with i.MX8QM errata patch in a patchset?
+
+Please post it with your patchset. Feel free to add a co-developed-by or
+suggested-by me on the new cpucap proposal.
+
+-- 
+Catalin
