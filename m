@@ -1,149 +1,239 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from a9-38.smtp-out.amazonses.com (a9-38.smtp-out.amazonses.com [54.240.9.38])
+	(using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C94FB4F4024
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 19:41:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE7464F4020;
+	Fri,  9 Oct 2026 19:41:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.240.9.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791574879; cv=none; b=CHWt8VGozmryjgDo3Rpsp4sb23YiS/Yy14xb/9xwyeCBmbkUK9rkDAGSnlCPwYGWKtib6WomjgbzK6g/Z18q+H9L/knGHr65qrBNDYetYW92TzmqYFDgzNnQvBHtoh3twLZKz7bE+mHmwqNBFhSn5gTrv3/IGOoXsI3u0TorDl8=
+	t=1791574906; cv=none; b=nUJ1ZwUwsb+961PKbg77O/+13+1Q9Z3ZmloyA3UDx2CfCIPCUTFs+bT7UIz9wPNkFyviSPz+V7ipzd8q2kcLPcs7wSVHff2+aoHikMx4mrXTKnJl63jlS9Xut+G42xQz/vwPaQsne8G35wGX4dQyzUe6OEHMaqT5zwtF3e1+cGU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791574879; c=relaxed/simple;
-	bh=qE7MTt4BGcpRKDSoy2OHuGGL4066Bjr5wE12UIwf/nE=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=b7gxzOEuI1CwF483XJpXtQ7kmcW5BR4Tw1WNkE1Wi0g1TrbNiFmc9P0YWw70r+hhdlIIRpYiV0pjtkZfXVkh6YqdztvT0iPouzREfT14sLFntFugW3J3fCmIJg+jLx3WiynrWjr9feRuHqMt2oiUgsaNHZ0zv34IkSlcPOxUJSg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ePuKnpRi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791574906; c=relaxed/simple;
+	bh=zo2hHrAETes0BxoLPKZMZ693zKCAzqOlZOVWCwq+IDQ=;
+	h=From:To:Cc:Subject:Message-ID:Date:MIME-Version:Content-Type; b=oHBHG8HTr5rpaFgzZPF+19kxEgj/Xc04Dq2crJuyYGYAfZqVYjivX1NHRx/Soi4m8K9nzR1qIuHbGoGuw5Yryd/cLrdqYOVEh98nNzxRaAXgoAEQS5HQLqJWIALg1kf3ioEXmX7raPCtbdTxCjNaPx+4+/+iPgVt7oPxW46P2V4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nicolasfalesy.com; spf=pass smtp.mailfrom=send.nicolasfalesy.com; dkim=pass (1024-bit key) header.d=nicolasfalesy.com header.i=@nicolasfalesy.com header.b=FX0iCcFF; dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b=o9IdWwpl; arc=none smtp.client-ip=54.240.9.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nicolasfalesy.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=send.nicolasfalesy.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ePuKnpRi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A8B81F000FF;
-	Fri,  9 Oct 2026 19:41:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791574867;
-	bh=0+HxdfpCd0lGOL923ZgNNScB6cTLzMhRAVhXSQOhDp4=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=ePuKnpRiUiEPUNtRZbZNduCO+pLQ7HKZmX5wkQMMrA7tV/3zgW8/tYGnFM9xDvPtp
-	 tjkqeoIoanPl1EGilMYxN6iXUQx5F21HgHuKOO1w+qREnYRRuKJRRKrkl31qWN/BRq
-	 P4VJeGDJjilhh9AiQC4NOeWOC4GDr3KuXeYPO25qJfS5Yg3b3un3YYNG4fVMHBSPjg
-	 zD4zRcV06yR1ey+HXzZW0Iaj+jWd9ZtpvSQ8ZvKyaCkqnDN3pSlkzEUidoC9FGttlH
-	 z6DvVGS87Pf3jzRTpeTKpwT0gYhRj18GJ7vBUAnp8ZlrrjWzs/Y4DFNtedvk93OfKL
-	 bfSDhKs5ZCeXw==
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfauth.phl.internal (Postfix) with ESMTP id E8B1DF40066;
-	Fri,  9 Oct 2026 15:41:06 -0400 (EDT)
-Received: from phl-imap-15 ([10.202.2.104])
-  by phl-compute-10.internal (MEProxy); Fri, 09 Oct 2026 15:41:06 -0400
-X-ME-Sender: <xms:UkPJamwNxJGQbsJBEubJSZSZk_REJEtxKqwSp0mX9Hj6Rq4k-BqW5A>
-    <xme:UkPJatGSpxdzc3m3SXIsJhJ5Tb1VADTrWYMCWQ9djEdFBeHHayJsm0H_9R7iQQDQb
-    RbHDptH5VVKPpIHnEZBOxLlISMEKDQVcJL3pOZvF2t0DTSNyuuFfwOs>
-X-ME-Proxy-Cause: dmFkZTGSiTPAtGOtyP1wIURv6n+bh2o/hREy6sGtp6Q2MkIB9VDo2FvGtsNYUa3zd3f6pV
-    L12EIJzrM37cbua8bXoardeuVbn14dedg0NSt1KLN/Nz+SVLyn3Kcil3TRVuZiuveTEIrI
-    +5vVN7Clsjvuxlr0cwe36kT7+mihnjpUpy7CxnvkdU3sAWJ5im3IZ3SRkmT8900xwEQWsE
-    zobBoNDy3jCmeeGi3j3V3f36y1vCvIa42zd8AboJweM/WWdN/MLpm82sK9kqHYK/zqT9cl
-    XAGR/bFmKJ/9lZc5HZdlGM3hSsOj04Xgpvj6asdeof98rBUXAplKQysnrRdkp5wy9urAF7
-    1mbzTnKRGMpDEdrKQXilDxUGYMX0z0WKLzlxFy0LeFEaFcbCz8MNhjxcz8hEp6RZj4Lql8
-    Uj32/R8uyeKlnvgSFdPPr6jnQTET9YSXCMt9E+QgVrApS3urSqEuzYvCRnNb2L6tx0GESD
-    dVKgfK970SKdetubrKv/8ufHY/ucbU2X9tJEmUkwHlLL8987HdBGy+hdJA+S2tHw7kuCNb
-    dWv2aTE8qMD77JdiVx4/SYKvQl/+RdSHw3WTNnO+NsafGTQBs3ys1DnwmPWjCZ0vg96pLD
-    GIODp8rHkF51Ikd7/MEt8hebDeKlvEbYbQRyS9deegxcvbbAIEwfKi3+0wrQ
-X-ME-Proxy: <xmx:UkPJaiDRrW77RKgkjcocOmRcgYndEmoeW_QMfooSowjkbSUh1Z1Nbg>
-    <xmx:UkPJajBq0jiyZSYhfEY-1Kap_o2mkg1TfqAR8CR0QjEc20BS8Mezzg>
-    <xmx:UkPJajlhKFqzuho95n-IcFpoLhrK_csCP1CvhIwrY3lzOklNF1kNbA>
-    <xmx:UkPJajjnwMZRrE-pT9i-yUB1VEITmeNxOmSGdD7t-BvZI2EUE10hsg>
-    <xmx:UkPJatilbCEJzhvQ8oezqstFbaxGPoGyRKKsNwB5N56sd4a-HxcG91IT>
-Feedback-ID: ifa6e4810:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id C4A39780070; Fri,  9 Oct 2026 15:41:06 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key) header.d=nicolasfalesy.com header.i=@nicolasfalesy.com header.b="FX0iCcFF";
+	dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b="o9IdWwpl"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
+	d=nicolasfalesy.com; t=1791574894;
+	h=From:To:Cc:Reply-To:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
+	bh=zo2hHrAETes0BxoLPKZMZ693zKCAzqOlZOVWCwq+IDQ=;
+	b=FX0iCcFFcno0z74mhSy0D92djf9ZvP7EOnN4SyFgtvHgyFOWx3JtGfm+34IOwS0D
+	SlyhQ7Ytl2adrzBQWzRuGRRZtU6HI0Ir8AeivmpPNoERqzpem6SXHKzrGIJ+NfIDX44
+	k6Y/YCX+Mc176+OJhbNGUVJ9mt6Qae2lMQZO7hyo=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=224i4yxa5dv7c2xz3womw6peuasteono; d=amazonses.com; t=1791574894;
+	h=From:To:Cc:Reply-To:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
+	bh=zo2hHrAETes0BxoLPKZMZ693zKCAzqOlZOVWCwq+IDQ=;
+	b=o9IdWwplYefV+66L8k8YRNQgtSXB5DkWO0ySiSd1LLaC1mPBjpbgkhizIACdaet4
+	a9vK/jv6dxggCFIiWSpB5IzRU4ATmnBAURm55fE6cK4xGG8fWEiUK4qNXH0CHXcg9TX
+	QcBHo3fdyhB+zSHpP26XW0xSASmeTpcip+cMhUXw=
+From: Nicolas Falesy <nicolas@nicolasfalesy.com>
+To: linkinjeon@kernel.org, sj1557.seo@samsung.com
+Cc: yuezhang.mo@sony.com, exfat@lists.linux.dev, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	regressions@lists.linux.dev, hch@lst.de, djwong@kernel.org, 
+	nfalesy@gmail.com
+Reply-To: nfalesy@gmail.com
+Subject: [REGRESSION 7.2] exfat: stale dentry buffer of a deleted directory
+ overwrites new file data
+Message-ID: <010001a1222f66ba-0c745f29-d4fe-4862-93ff-1db2055b05fc-000000@email.amazonses.com>
+Content-Transfer-Encoding: 7bit
+Date: Fri, 9 Oct 2026 19:41:34 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: A2C7vSpxgoAN
-Date: Fri, 09 Oct 2026 15:40:46 -0400
-From: "Chuck Lever" <cel@kernel.org>
-To: "Tim Menninger" <tmenninger@everpuredata.com>,
- "Trond Myklebust" <trondmy@kernel.org>, "Anna Schumaker" <anna@kernel.org>
-Cc: "Olga Kornievskaia" <okorniev@redhat.com>, "Tom Talpey" <tom@talpey.com>,
- linux-nfs@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, "Eric Badger" <ebadger@everpuredata.com>,
- "Jon Curley" <jcurley@everpuredata.com>,
- "Yongjian Mu" <ymu@everpuredata.com>, stable@vger.kernel.org
-Message-Id: <e62ff502-be18-454e-8a64-80b366d477f4@app.fastmail.com>
-In-Reply-To: <20261009181554.2280374-1-tmenninger@everpuredata.com>
-References: <20261009181554.2280374-1-tmenninger@everpuredata.com>
-Subject: Re: [PATCH] xprtrdma: trim head iovec when the payload arrives via a Write
- chunk
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Feedback-ID: :1.us-east-1.ab+1BOhI2G8lKXniYmrQtu8hqInlQv0hMf7S3fw6DdXZuhPmWRop4As2nYC+PvMCg/MeYgni+TDnIGoO6UR5+695Ups99kH4xr2cW/T33RKlxcJfmzZvDG+/D2zFM008PnQSMHraaQXnsyHltCPK4i0yAdm73tum8YqlC4670Nc=:1.us-east-1.QSNtDRXSTq9sAuvRl56h5mypgasnQ5yDLNpVzTnziu0=:AmazonSES
+X-SES-Outgoing: 2026.10.09-54.240.9.38
 
+Resent as plain text from a different address: the earlier copies
+from my Gmail were rejected by the lists for containing HTML.
+Sorry to the maintainers for the duplicates.
 
+Hi,
 
-On Fri, Oct 9, 2026, at 2:15 PM, Tim Menninger wrote:
-> From: Yongjian Mu <ymu@everpuredata.com>
->
-> The upper layer sets rq_rcv_buf.head[0].iov_len from its estimate of the
-> reply header size. For RPCSEC_GSS that estimate includes
-> auth->au_ralign, which gss_create_new() initializes to GSS_VERF_SLACK >>
-> 2 (25 XDR words, or 100 bytes) and which is corrected to the real
-> verifier size only after the first reply on that rpc_auth has been
-> unwrapped. In this case, the krb5 MIC verifier is 36 bytes, so every
-> request encoded before the first reply completes has a head that is 64
-> bytes too long.
->
-> On TCP this is harmless: xdr_realign_pages() moves the excess head
-> bytes, which are genuine reply data, into the page list. With
-> RPC-over-RDMA and a Write chunk (sec=krb5, i.e. RPC_GSS_SVC_NONE, where
-> DDP is allowed), the payload has already been placed directly into the
-> page list, and the receive buffer holds only the inline part of the
-> reply. rpcrdma_inline_fixup() clamps its local copy of the head length
-> to the inline length but leaves head.iov_len untouched, so
-> xdr_realign_pages() still sees iov_len > cur and shifts whatever lies
-> past the inline reply in the receive buffer into the front of the
-> directly-placed payload:
->
->   rpc_xdr_recvfrom:  head=[...,196] page=524288 tail=[...,64]
->   rpc_xdr_alignment: nfsv4 READ offset=132 copied=64
->
-> The first 64 bytes returned by each such READ are incorrect (zeroed, or
-> shifted right by 64 bytes depending on the kernel's xdr_shrink_bufhead()
-> implementation). This is readily hit with pNFS flexfiles over RDMA and
-> sec=krb5: the per-DS rpc_clnt gets a fresh rpc_auth whose first RPC is a
-> large READ. Reads following the first completed reply return the
-> expected data.
->
-> Commit cb0ae1fbb2f5 ("xprtrdma: Do not update {head, tail}.iov_len in
-> rpcrdma_inline_fixup()") removed the head-length correction while fixing
-> the handling of pure-inline krb5p replies.
->
-> When a Write chunk conveyed the payload, trim head.iov_len (in both
-> rq_rcv_buf and rq_private_buf, which call_decode() expects to match) to
-> the inline length actually received so that the XDR layer does not
-> realign the page list. Pure inline replies and Reply chunk replies are
-> unchanged.
+Since v7.2, exfat can silently corrupt a newly written file: if a
+directory with entries is deleted and its cluster is then reused for
+file data, the deleted directory's dirty dentry buffer_head is still
+in the block device mapping, and a later flush of the bdev (fsync,
+syncfs, umount) writes it over the new data. The file reads back with
+one 512-byte sector replaced by the deleted directory's (now
+"not in use") directory entries. No error is reported.
 
-pNFS flexfiles exposes this issue because a per-DS rpc_clnt gets a fresh
-rpc_auth, and its first RPC can be a large READ.
+It reproduces 100% of the time on v7.2.x and v7.3-rc6, and not at all
+on v7.1.11 or v6.18.55. It happens with buffered writes (with or
+without fsync) and with O_DIRECT. A syncfs() between the delete and
+the new write avoids it.
 
-On the MDS mount (and on non-pNFS mounts) the first GSS reply is a small
-non-DDP operation. The RPC client corrects the auth slack value before
-any READ can occur.
+#regzbot introduced: v7.1..v7.2
 
-Reviewed-by: Chuck Lever <cel@kernel.org>
+Reproducer (run as root; any non-exFAT working directory):
 
-Nit: The kernel-doc still says the upper layer's per-component maximums
-live in head.iov_len and buflen, implying the transport leaves them alone.
-That rule was set by commit cb0ae1fbb2f5.
+---8<---
+#!/bin/sh
+set -e
+W=${1:-/tmp/exfat-repro}
+mkdir -p "$W/mnt"; cd "$W"
+truncate -s 0 img; truncate -s 256M img
+mkfs.exfat img >/dev/null
+DEV=$(losetup -f --show img)
+mount -t exfat "$DEV" mnt
+# A pushes the next allocation to ~188 MiB, where D's cluster goes.
+dd if=/dev/zero of=mnt/A bs=1M count=188 status=none
+mkdir mnt/D
+touch mnt/D/f0 mnt/D/f1 mnt/D/f2
+umount mnt; mount -t exfat "$DEV" mnt       # start with clean buffers
+rm mnt/D/f0 mnt/D/f1 mnt/D/f2               # dirties D's dentry buffer
+rmdir mnt/D                                 # frees D's cluster
+rm mnt/A
+# B reuses A's clusters, then D's freed cluster (file offset 188M).
+head -c 200M /dev/urandom > ref
+cp ref mnt/B
+umount mnt; mount -t exfat "$DEV" mnt
+if cmp ref mnt/B; then R=PASS; else R=FAIL; fi
+umount mnt; losetup -d "$DEV"; rm -f img ref
+echo "$R: exfat stale dentry repro on $(uname -r)"
+[ "$R" = PASS ]
+---8<---
 
-But the inline fixup function now lowers both in rq_rcv_buf and
-rq_private_buf when a Write chunk is present. The commit message should
-mention that, and/or the kdoc should explain why Write chunks are a safe
-exception to that rule.
+On an affected kernel it prints, every time:
 
-Anna/Trond, does the NFS client or XDR code rely on the reply-side kvec
-lengths staying as set during send preparation, or might there be an
-in-tree reader of head[0].iov_len on the post-receive path that I missed?
+  ref mnt/B differ: char 197132289, line ...
+  FAIL: exfat stale dentry repro on 7.3.0-rc6
 
+Results
 
--- 
-Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
+All runs in a KVM guest (4 vCPU, 4 GiB), image on tmpfs behind a
+loop device, mkfs.exfat from exfatprogs 1.4.3 with default options
+(256 MiB volume, 4 KiB clusters, 512-byte sectors).
+
+"nofsync/fsync/O_DIRECT" is a harness equivalent to the script above
+that writes B (filling the volume minus 1 MiB) with a per-4KiB-block
+pattern and checks it with O_DIRECT reads after a remount; "syncfs"
+adds a syncfs() on the mount between the deletes and writing B.
+
+  kernel                     nofsync  fsync  O_DIRECT  syncfs  script
+  6.18.55 (Arch linux-lts)    0/20    0/10    0/10     0/10    0/5
+  7.1.11  (Arch linux)        0/20    0/10    0/10     0/10    0/5
+  7.2.5   (distro build)     20/20   10/10   10/10     0/10    5/5
+  7.2.9   (Arch linux)       20/20   10/10   10/10     0/10    5/5
+  7.3-rc6 (defconfig +
+           kvm_guest +
+           EXFAT_FS/LOOP)    20/20   10/10   10/10     0/10    5/5
+
+(n/N = corrupted runs / runs.) Every corrupted run had exactly one
+bad 512-byte sector, always at file offset 197132288 (188 MiB), which
+is the disk location of the deleted directory's cluster
+(volume offset 199249920).
+
+Observed bytes
+
+First 64 bytes of the bad sector (7.3-rc6, buffered, no fsync; the
+same layout on every kernel, only timestamps/checksum vary):
+
+  05 02 e3 79 20 00 00 00 38 98 49 5d 38 98 49 5d
+  38 98 49 5d ac ac 80 80 80 00 00 00 00 00 00 00
+  40 03 00 07 13 c2 00 00 00 10 00 00 00 00 00 00
+  00 00 00 00 08 bc 00 00 00 10 00 00 00 00 00 00
+
+i.e. a File entry (0x85) and Stream Extension entry (0xC0) with the
+InUse bit cleared: the deleted entries of a file inside the removed
+directory (this harness used 4 KiB files named "zqfile0".."zqfile2";
+first cluster 0xbc08, length 0x1000). The rest of the 4 KiB cluster
+holds B's correct data; only the one sector whose buffer was dirtied
+by the deletes is overwritten.
+
+Analysis (hypothesis, from reading v7.3-rc6 fs/exfat)
+
+exfat accesses directory entries through buffer_heads of the block
+device (sb_bread() on s_bdev). Deleting the files in D marks their
+entries free in D's cluster and dirties that buffer
+(exfat_remove_entries() -> exfat_put_dentry_set() ->
+exfat_update_bhs(), fs/exfat/dir.c). After exfat_rmdir(), D's
+cluster is freed when the inode is evicted (exfat_evict_inode() ->
+__exfat_truncate() -> exfat_free_cluster()), but nothing cleans or
+forgets the dirty buffer, so it stays dirty in the bdev mapping.
+
+Up to v7.1 this was harmless: file data went through
+exfat_get_block() and __block_write_begin_int() /
+do_direct_IO(), which call clean_bdev_bh_alias()/clean_bdev_aliases()
+for newly allocated (buffer_new) blocks, dropping any stale bdev
+buffer for the reused blocks.
+
+In v7.2, commit 82a81a7352bc ("exfat: add iomap buffered I/O
+support") and 867b9c96dc83 ("exfat: add iomap direct I/O support")
+moved data I/O to iomap. __exfat_iomap_begin() (fs/exfat/iomap.c)
+allocates clusters via exfat_map_cluster() and sets IOMAP_F_NEW, but
+nothing calls clean_bdev_aliases() for the new clusters any more. The
+file data is written through the inode's mapping, and the later
+sync_blockdev() (exfat_file_fsync(), or sync_filesystem() at syncfs /
+umount) writes the stale dentry buffer over it. That fits all of the
+above: always exactly one sector, at the freed directory cluster;
+fixed by syncfs() between delete and write (the buffer is written
+back to its old, still-free place first); FAT/vfat, still on
+buffer_heads for data, did not show it (0/60 with an equivalent
+harness on 7.2.5).
+
+A candidate fix (not a formal patch; tested only with this
+reproducer, all cases above 0/N on v7.3-rc6 with it applied):
+
+--- a/fs/exfat/iomap.c
++++ b/fs/exfat/iomap.c
+@@ -7,6 +7,7 @@
+ 
+ #include <linux/iomap.h>
+ #include <linux/pagemap.h>
++#include <linux/buffer_head.h>
+ 
+ #include "exfat_raw.h"
+ #include "exfat_fs.h"
+@@ -77,6 +78,21 @@
+ 	if (err)
+ 		goto out;
+ 
++	/*
++	 * New clusters may still have dirty buffer_heads in the bdev
++	 * mapping (e.g. dentries of a just-removed directory).  Drop
++	 * them, as __block_write_begin_int() did for buffer_new
++	 * blocks, so a later bdev flush cannot write stale metadata
++	 * over the new file data.
++	 */
++	if (balloc) {
++		sector_t first = exfat_cluster_to_sector(sbi, cluster);
++		sector_t nr = (sector_t)num_clusters <<
++			      sbi->sect_per_clus_bits;
++
++		clean_bdev_aliases(sb->s_bdev, first, nr);
++	}
++
+ 	cluster_offset = exfat_cluster_offset(sbi, offset);
+ 	cluster_length = exfat_cluster_to_bytes(sbi, num_clusters);
+ 
+
+An alternative would be to bforget()/clean the directory's buffers
+when its clusters are freed (exfat_free_cluster(),
+fs/exfat/fatent.c), but other freed metadata clusters could have the
+same problem, so cleaning aliases on allocation (as the buffer_head
+path did) seems the more complete fix. I have not checked whether
+other iomap paths (e.g. page_mkwrite / fallocate) also allocate
+clusters without it.
+
+Workaround
+
+Call syncfs() (or sync) on the exFAT mount after deleting
+directories and before writing new data, or avoid v7.2+ for exFAT
+volumes until fixed.
+
+Disclosure: I found this while building a tool with an AI coding
+assistant (Claude), which also helped with the analysis and the
+candidate fix. The reproducer and every result above were run on the
+kernels listed.
+
+Thanks,
+Nicolas Falesy
