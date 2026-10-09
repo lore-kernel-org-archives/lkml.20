@@ -1,124 +1,125 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f9.google.com (mail-oi2-f9.google.com [74.125.231.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B17AA4E50D7;
-	Fri,  9 Oct 2026 11:44:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19C7E477E2E
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 11:45:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791546272; cv=none; b=epsvIFkcOfr9rharyUWZNreWAUTR0dpH+fKhKMncx0UB2dHYtV3+9lYpx7wqh65N8q3k8iD0qLN+uTmWmCcuzS+aEQCiNHdI3orSkKM4Q6v5y/0X17hA2GitK3qshTECUw+5Ik6QqXtqQPRDklD+p4DouQFMZ8N3YhFA7n3HN18=
+	t=1791546321; cv=none; b=LZfOYp+xZ0cnaSTvBdKadVfHnH1JvoYgi7nBrx5clE3BB+qKyCh9gw6NQh99Qi5sIc6bU88Na2+w4CYbInPDU5VWtqY/fNkBQTY8gK75Xh1SbqTBdLk/YXnlBHt/2FJdFBqJOg2WYtXOTlyLXV9PAnYDuTGqCET1uV0iEZXjLFk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791546272; c=relaxed/simple;
-	bh=TFe6ratGAWSGPk8lq/znVCcKhncDY2ITq4xTs3UQDII=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hqyYk4A9s4jp1dzEY0bgEwzIlZUMIGwuCt3SqSjVo1zSPrRbfIGFylHsAjX+idYEU5y4CrHNSv93M1tcWAPxO+jhrqpzjcpGto5fTLNOAX3dz/ggYE9bcT5oup4nwu0cxip93eR4sF9LbEwJVvxw98ywDt2VNjDMwPgH1XSv5ss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=meUlrgnX; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791546321; c=relaxed/simple;
+	bh=E1XMyad7VnkVzB7/p/Kp/l/hcMQbzp3Rdwh357Rvu5A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ESqg7HH/z+tY28UGxjC2q+sV87qphhQm+0zOU9q1smAnFui0htMH7YsRQlCFYkXtm+VQRVAQwyFpBAbSLP9lllghteIpwSOtKUx8T+/VJzM7dt49HYf/hOrK6IENkhYOu1nLyMc1CaR0aknKy0qv8/IuihV+Wyl4melMXTOanDc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dzEDyHU2; arc=none smtp.client-ip=74.125.231.201
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="meUlrgnX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791546253; x=1823082253;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=TFe6ratGAWSGPk8lq/znVCcKhncDY2ITq4xTs3UQDII=;
-  b=meUlrgnX3fxwV2Gvfrq8mIzimOVs4T4UREY4CoVbqQAi7Lu3HNUywGW+
-   sCtrwejM5MhX791sk+bvXUCCNVp9T2P5yWZok5OT4oWwnsUL/1V06r4BE
-   CG4Wu21/ANj2PV/hAMwrjhr5W7oQcHoxShxMSy/0egVlqGFUF9GOBb4wy
-   A4CxqqTmu4pAD4xSGvE9v1e5eMH8arrLj3wLncJy/F9Ohc7z9nFpTeaLw
-   Nor/uJ4GSkZJt3lZbmiNw2Ruux62hm34mKisXqT74UnGq3uoEsJ3RrGPs
-   kcMw12UNC+HkDggoSFoU2RXG23s3n1Bod26fc4udcAKh9v1tXigLhk4cl
-   A==;
-X-CSE-ConnectionGUID: t3QHlYP+TiSH94pVaIvKxA==
-X-CSE-MsgGUID: bZDj+QClQRO1tjBubZNI7A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11929"; a="248774"
-X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
-   d="scan'208";a="248774"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 04:44:11 -0700
-X-CSE-ConnectionGUID: ZHwS2gisSDWlZElOakjP8g==
-X-CSE-MsgGUID: vskpS8dnQ2+v0gYwFH/Cjw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
-   d="scan'208";a="307958"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa006.jf.intel.com with ESMTP; 09 Oct 2026 04:44:09 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id B964399; Fri, 09 Oct 2026 13:44:08 +0200 (CEST)
-Date: Fri, 9 Oct 2026 13:44:08 +0200
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: 8967858b87@gmail.com
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] usb: typec: ucsi: acpi: Add quirk for ASUS ROG Zephyrus
- Duo 16 GX650PI
-Message-ID: <asjTiL1AneXlRrpY@black.igk.intel.com>
-References: <20261009-usb-next-v1-1-95a2288ad9b2@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dzEDyHU2"
+Received: by mail-oi2-f9.google.com with SMTP id 5614622812f47-4f2a0576df3so480204b6e.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 04:45:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791546313; x=1792151113; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aQv3jnCfnGYGyZdLu9hITrZVCdW0zrEfT+n6BY05h+8=;
+        b=dzEDyHU2wxFXFDt6Me4PEeRfJQtoK8Ay4yAywJ+GG3mHldb40IqHL9e9Xeqci+WqOZ
+         9OrSo3kvRB5s290L6damegaOlBHav0N2mBxyCJD9W7F7kxE1IrlebyAYkdGEfdT3ahUD
+         dhXTvsJg6PJY7INY+mi9QVxXPYrUKiRRQD0887OcU9Kwx3/QTKYEwRpCeuDlK/RovHd2
+         M2N4/KQvyIEDTCsjA7hdpejlcH3kGS2zqbli5IokLOI7bPNl4NaDV6QI5apjTH3jgC1a
+         v5Htt7iRmyE7+1C0gA+fgrGw/Qo0LXamSlDCZOHgqavnmwNFoyPWVMdM7diisDRSHv0x
+         18kA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791546313; x=1792151113;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aQv3jnCfnGYGyZdLu9hITrZVCdW0zrEfT+n6BY05h+8=;
+        b=1l0fB2lFIcHWkvxsRfxVPM0d7QvgdfJE3ccGvn5NDC+zXm9PqxXT3tzkLr3kcsNdSr
+         OViWtSEgD3LGOLBvLRfvAeAeRk00semaT1Ogp8IIyNugYLbQCTtWkuUwuAHMLGJEQIar
+         /eLQD1ZRvhhh9grD7ZAkiAR7k+9a1k8j6bEpKZ+fEW9n5XwAXsGP5oMOxsWUfCqtDaFt
+         y6rDqNpuPkcEuDz6XbYATDN54FSEGh7YkrGvGLKvqIm5km0EmnqjfK6TpXtSu8Lq0jRK
+         TPn3JPJIN3iWXB/IAYmNi7EKqr5Cg4XRQnta0D4mv/IzHTht+QZbnhLMZw1iQXKv+xRn
+         Wlkw==
+X-Forwarded-Encrypted: i=1; AKwUvBwYg5gevRtXuHRFJCfjyuRb0zngvflrcTGNEjnqu2xBZQZntYdBUbFSd27hOB4Z4Lmwi/8GWkdXQtwnWo4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mDF29taWyNq1hFyylGVS0nhWP6Xr2viOWo+dsTF/W8CdUkIDA5
+	LIDtBnscjUeDJ4Mk6ZVkfVq3WuiemXYZLXGZF6z/gAVyHt3kvufMlO54
+X-Gm-Gg: AYBFou2Dgvy9jYYpJcug85e0OiD8p59QXhF7ZzptNKNKHGTKGCy9sWBu3dzaDyDbVlm
+	9odTKZRKPUIpIzrci7YoshzC2U7MMYeTZ8OfyEyzRuuL9YqSD42iw+E3yZYE7TJXwTSziTLcVK6
+	470I6uQNN9QW7p5RcJSj05cDSbJjxvOMHhtQkKa6AdctirfyDjPnLNUVTobgSwFDBo6U86t43Sw
+	UZHj8w51JmijrzD/Af7us7Gj6cNFWNOlqUB9+driROmDs+btE2h/lZULcXlkMIS1IgwKBy/EvIs
+	KMJ+yGo/FDzKaty9wi0k/gQJI0t3T27j8yipmkAUjBSRgBpsv5bgvSzFVctBT8gcFXj+CmF+wD2
+	s4BZEaOxlr856vuFmatr/uu8+wLBJK50A8Xd+7LY2pTI3HXrr8W2WR9LY1rhJENo0xF0JWwbFYw
+	rNMToNm2YjRTDTitqccjAgfw4Y1mzE4E9fXeUt7m41sqm+WQPxt3EFckntRZELA5uwkERxh3zRX
+	IVsMpdpjL8FMD9gVhVbyd24S+X/e5J35PSI
+X-Received: by 2002:a05:6808:1907:b0:4c3:cec9:fd18 with SMTP id 5614622812f47-50c4e681ad4mr1048459b6e.11.1791546312802;
+        Fri, 09 Oct 2026 04:45:12 -0700 (PDT)
+Received: from localhost.localdomain ([14.22.11.165])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-50c1a325a38sm1682405b6e.12.2026.10.09.04.45.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 04:45:11 -0700 (PDT)
+From: Henry Martin <bsdhenrymartin@gmail.com>
+To: "Darrick J . Wong" <djwong@kernel.org>,
+	Carlos Maiolino <cem@kernel.org>
+Cc: linux-xfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Henry Martin <bsdhenrymartin@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] xfs: fix out-of-bounds cursor access from rtrmap level off-by-one
+Date: Fri,  9 Oct 2026 19:45:03 +0800
+Message-ID: <20261009114503.3669142-1-bsdhenrymartin@gmail.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261009-usb-next-v1-1-95a2288ad9b2@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 09, 2026 at 02:41:19AM +0400, Aleksei Berezin via B4 Relay wrote:
-> From: Aleksei Berezin <8967858b87@gmail.com>
-> 
-> On the ASUS ROG Zephyrus Duo 16 (GX650PI, BIOS GX650PI.314) the firmware
-> loads the EC-based variant of the AMD CPM UCSI SSDT ("CPMUCSI"). Its _DSM
-> read function only copies MESSAGE_IN and CCI from the EC into the shared
-> mailbox and never fills in the VERSION field. The only code that sets the
-> version (M31F) lives in the "UCSIPLT" SSDT of the I2C-based variant, which
-> is present in the firmware image but not loaded on this machine.
-> 
-> As a result ucsi_register() reads a zero version and the probe fails
-> silently with -ENODEV, so neither Type-C port is registered and no
-> typec, usb_power_delivery or ucsi-source-psy devices are created.
-> 
-> Reuse the existing zero-version workaround from the Acer Nitro ANV15-41
-> quirk and assume UCSI 1.2 on this machine. With this change both ports,
-> the PD partner and the UCSI power supplies are registered and report the
-> connected USB PD charger correctly.
-> 
-> Assisted-by: Claude Opus 5.5 iasl
-> Signed-off-by: Aleksei Berezin <8967858b87@gmail.com>
+m_rtrmap_maxlevels includes the inode root level, so a valid on-disk
+bb_level is strictly less than m_rtrmap_maxlevels.  Both
+xfs_rtrmapbt_verify() and xfs_iformat_rtrmap() compare with ">"
+instead of ">=", letting a forged block with level == maxlevels pass
+validation.  The cursor is then sized for maxlevels entries while
+bc_nlevels is set to level + 1, so the generic btree code indexes one
+element past bc_levels[] - an out-of-bounds read/write on the cursor
+allocation.
 
-Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+xfs_rtrmapbt_mem_verify() in the same file (from commit
+4a61f12eb1195 "xfs: create a shadow rmap btree during realtime rmap
+repair") already uses ">=".
 
-> ---
->  drivers/usb/typec/ucsi/ucsi_acpi.c | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/drivers/usb/typec/ucsi/ucsi_acpi.c b/drivers/usb/typec/ucsi/ucsi_acpi.c
-> index 5697ccc24..c8e6efdba 100644
-> --- a/drivers/usb/typec/ucsi/ucsi_acpi.c
-> +++ b/drivers/usb/typec/ucsi/ucsi_acpi.c
-> @@ -196,6 +196,13 @@ static const struct dmi_system_id ucsi_acpi_quirks[] = {
->  		},
->  		.driver_data = (void *)&ucsi_acer_ops,
->  	},
-> +	{
-> +		.matches = {
-> +			DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
-> +			DMI_MATCH(DMI_BOARD_NAME, "GX650PI"),
-> +		},
-> +		.driver_data = (void *)&ucsi_acer_ops,
-> +	},
->  	{
->  		.matches = {
->  			DMI_MATCH(DMI_SYS_VENDOR, "LG Electronics"),
-> 
-> ---
-> base-commit: 42bcac323cc3b16566fed8c5b250318ad02a0de0
-> change-id: 20261009-usb-next-98711bc6d682
-> 
-> Best regards,
-> --  
-> Aleksei Berezin <8967858b87@gmail.com>
-> 
+This vulnerability was discovered by Tencent CodeBuddy Security.
 
--- 
-heikki
+Cc: stable@vger.kernel.org
+Fixes: fc6856c6ff086 ("xfs: introduce realtime rmap btree ondisk definitions")
+Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+---
+ fs/xfs/libxfs/xfs_rtrmap_btree.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/fs/xfs/libxfs/xfs_rtrmap_btree.c b/fs/xfs/libxfs/xfs_rtrmap_btree.c
+index a15e460a1ec7..6833c924a383 100644
+--- a/fs/xfs/libxfs/xfs_rtrmap_btree.c
++++ b/fs/xfs/libxfs/xfs_rtrmap_btree.c
+@@ -256,7 +256,7 @@ xfs_rtrmapbt_verify(
+ 	if (fa)
+ 		return fa;
+ 	level = be16_to_cpu(block->bb_level);
+-	if (level > mp->m_rtrmap_maxlevels)
++	if (level >= mp->m_rtrmap_maxlevels)
+ 		return __this_address;
+
+ 	return xfs_btree_fsblock_verify(bp, mp->m_rtrmap_mxr[level != 0]);
+@@ -888,7 +888,7 @@ xfs_iformat_rtrmap(
+ 	numrecs = be16_to_cpu(dfp->bb_numrecs);
+ 	level = be16_to_cpu(dfp->bb_level);
+
+-	if (level > mp->m_rtrmap_maxlevels ||
++	if (level >= mp->m_rtrmap_maxlevels ||
+ 	    xfs_rtrmap_droot_space_calc(level, numrecs) > dsize) {
+ 		xfs_inode_mark_sick(ip, XFS_SICK_INO_CORE);
+ 		return -EFSCORRUPTED;
+--
+2.43.7
+
