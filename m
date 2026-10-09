@@ -1,103 +1,262 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B17C63C416A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 829913D9DDB
 	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 14:23:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791555815; cv=none; b=oOLtxE765uITPEgv85pT8LxRcqug63T6Sm6CaK7UuSL3aRGdwj97gbjLpt7+csetMjjFSv+KYXwETUQbY5APSqFO+bwsvE7efI1qyK9xzBImOpPxTN+7DL97MVRmL/rA0NCFSuZSVT1iQ3g2kNumGv+jx34CVplguNJdSsEboOA=
+	t=1791555817; cv=none; b=q2uMte3/8MIRv6WoB92+IJjiHGy+oCL39o86bUyoZjOSznzxvwh0L/6Duy1tvtoWLIJDliIg2OCG3NYREtlnbZeJb++7eadZ6NGOPLnT2tnwepn0rYrVSWute/5T0Q5WcXJvJJgQNy4qAXqxogeKx325NGAubS0e/n85/waE+qw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791555815; c=relaxed/simple;
-	bh=/1UEOuZ+Ll6lf+9/1SsGFJnZKpP/B6Tg0ZL9vkY0f+k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=N4YWSc6/tA8+usEhrfFrdG7bDX8krwivCtD+4K9zXhuWGsYLZ2W7qjdWdKR6veJFRwfbxKWiHzCWGHuZr5qDYh6cl6qkPkw/gDGXnpRNe/YMSwoOnSTfVr73uJIiTR0DMAxLvcuML1hwwJ2txsnwPGqNMuduLorJGA3oGaVqKho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RTMGPW6R; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791555817; c=relaxed/simple;
+	bh=/6LUW+j3zISrC3zDmKTf2zpa7V849gZv42gCk7LOMFg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=g4djvmH6E5fffCurREPmdfOdNJYmJCNrEpGuge7fAzvbK6yPFXo0pTeO2oCCgBy8ZqTYTu8I/HmjqIzQKG8XtUda8zn1A+hGEQs3X9kSrCJvIUB/YScz5/uvVOxfeKqV8XYXMTFJk6Mu+bwiz+HrIvpfDyFtvx15NHDSAa4zKDY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hjCGqSyF; arc=none smtp.client-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RTMGPW6R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F27091F00893;
-	Fri,  9 Oct 2026 14:23:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791555814;
-	bh=zPximgPYOjlnCBCEig1+vZE6bEGZG5a82BOf6YtVY4o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RTMGPW6Rf6jdy8aKKQGd83rIgqGX9ybuYlrgS+P/krAulZaM/2lpkjFFP2wToYlIe
-	 dGerEFluEqbmRf6AT4D8AzffOq/ct5j7B5d8a8Rsz1SNrdGIyccEfyxVa4bVwaQXC9
-	 F6QpnOYnz9rNWD537Xt+jKrNzaBnqtG+/Iqpf8WuyI515i9qLpWKCBbFpMLeDImyZu
-	 RuO4UQWVA7rwVykMRdxArVjt4GCilkbKpU7HWGRqUPoHsX4oDSjyP2S/tUIRFbNyuG
-	 IjAr9yvfN5QeubvXCvPfBkmNtqjEsIIkvgnogJnXIYfUpMD2y2DZ8TWzEq4huTpPR7
-	 rZI/KCsULASew==
-Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
-	by mailfauth.ams.internal (Postfix) with ESMTP id E84CB198003A;
-	Fri,  9 Oct 2026 10:23:26 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-12.internal (MEProxy); Fri, 09 Oct 2026 10:23:31 -0400
-X-ME-Sender: <xms:3vjIak5OfMatuMjarmix0UGXN9ymKCh7KNBSxpIeGyRvRDbxPYUFaQ>
-    <xme:3vjIajlLi65LZnGk3miWEo-WjVfhYvQPK5SxsxT1FTkhW6pZHoYYtuHKhgoTQYG24
-    Eqcm9vDXImwPiVjahIUJQjDleP4Ph8Hhdy0-Qog36u-4kLdnxACrRg>
-X-ME-Received: <xmr:3vjIargk_6s28Rg8sHa_MatlAM745MGgF8lHvjBk9D429RWzwS2XtQEEJXk>
-X-ME-Proxy-Cause: dmFkZTGO+g2zX1FiOhy8heZwWXTAz6Uw5TzxGJTmOuPIKGRaFAZhdrZAa5U7NDL1Brz9IB
-    qzfwrM+86at4iyZba1Y1MmLORr8YwJmYmkQg/zLXkc0jHlVc8E9gxrnVvqLlQ7pOzrtq07
-    Q18eInU1fNpsV0pno0Nn2WfvNFjpIc0H/FmNRVToRXNau5ypP/DrC04ygf07Al3LlsNzqP
-    rYUg4t+AJ14euEZAud0Eqbty+KzUsFTLCCYsBe19xXI3axeQGkFauh20UKs0+0DYBXXfvc
-    UUc0Ld2G8pWFta2rG3CBnvSHOxJwb7DC5URbyyyAQgUPdjnon9NEu31HqU4S0/g4U1sBh7
-    4b6fAmlbDW0OF2ApsFt7nmRBK4DudgGVCTYx8WCa9Qthu0WDZGlcRb0PFp/pjGnlpEVddG
-    3hS2xcsa+RSzRvaGsths2eiHzNr/ULe2y5+CQVGRC9RJamEJ448EE8TKOvMJRL9mGbjyLd
-    XiV/u3Ha10+NkI0m+PxmCutsZ2tjzAsCxOlUQ3VKAd6aBbM2lJz/7UF6TZlAX8pLOO3vgd
-    10jgXY0epXeynoieydnUPC6PtH7FV3/b9mL/2IE6HHHTlqSILETiYoJYQC9kD/8EWV9FZb
-    xtOEnu1G+eMtCGPu161eqRouSKMyyb04lmLLuybaDHmEjl0hShtDiIDWIkNg
-X-ME-Proxy: <xmx:3vjIahjVsBtyc936QCJzoCo7GG3N8WYZea2VQim_Bq9sfVojVVwqgw>
-    <xmx:3vjIavV3kR7ZYZBaFT6UKjVJq1KDzi7goKo7pmS0iRFcMqMIKCpLqg>
-    <xmx:3vjIav17DzBbrYPRTwErbq6gHDEkMjcvQqQtENqeQacN8CwVB8LcOA>
-    <xmx:3vjIahRpFhGjxziaVH8O-4n2ZWNYv_9RcNNWpINFxGPRjAL-C-KWGA>
-    <xmx:3vjIasDRvBq0p7trqMof6sH5LYJwF8dj_zIxSyPSo6cqmtjjcIDHHsM2>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 9 Oct 2026 10:23:25 -0400 (EDT)
-Date: Fri, 9 Oct 2026 15:23:24 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: Yeoreum Yun <yeoreum.yun@arm.com>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, Peter Xu <peterx@redhat.com>, 
-	linux-mm@kvack.org, linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	Shuah Khan <shuah@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	Leon Romanovsky <leon@kernel.org>, Sarthak Sharma <sarthak.sharma@arm.com>
-Subject: Re: [PATCH v5 2/3] kselftest: mm: remove HPAGE_SIZE and HPAGE_SHIFT
- macro
-Message-ID: <asj4dT2Q__SlKhgr@thinkstation>
-References: <20261009-fix_hpage_macro-v5-0-54378ae45add@arm.com>
- <20261009-fix_hpage_macro-v5-2-54378ae45add@arm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hjCGqSyF"
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so1649611eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 07:23:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791555814; x=1792160614; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fj5ZGPYDc8+BnuBTFqzv+vqOHduFDbEPmpj8Sqnl360=;
+        b=hjCGqSyFNHYM0cVzrncPkI+H7hZLfcNe0/gNtA/H58I00uiMzg7qzmSkxLj9b+4jAF
+         F2Kray2RN4UgdB31bkxac+nKT5JL+TJNc1zyM4tpyplyZcvyY+ReKipYSMOBWf0BBrl2
+         NEsvuuU32XS6nv1cUcWn/bHWUfCmx0LOZJ30ewPYtYKu42Z3zvCVI4mdpn4HfJkdzwqA
+         YBN4n/iimsNLIBw7EooLDTULTU28g/pdUAxxVxr+d3HuqRuvwt2BOlu0DfDv12HjS10n
+         elkFLLilk1nj+DtTsXfz12R8XQG0dPohSNSEh0BJ63szg3Cr0WWDUWjqVE2UrFa0xGdC
+         9gOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791555814; x=1792160614;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fj5ZGPYDc8+BnuBTFqzv+vqOHduFDbEPmpj8Sqnl360=;
+        b=o/uZIsnSgx4GnwvO0szl47Rutjse/p6eIqPRL+n6T2Nrbd9iRQcWD225d0MQ3ezg/z
+         lPjMJDLKgZ1xZIjt5SjroAyUU9iRNwyxf3nk5bCFBlT06OAGdBnMfCbtXOTOyc+E6FdP
+         MUfbwyuOhpOrjoUk8r5AgbMh1+CmutrHj/8OWkINqjR7kQWHITh0X14eoaSExkmFdNzk
+         2EH9U0/Zmyv7qq93YNgalt3T4Ms7NCLncvEpWjSuJ6YPoNumwXxmNnRjJpAK5WGPUQkJ
+         mNV59/mdhiinyx2hyewEg6QJL3sTME6VHZrTCL37LmawziyhKKkCLlZfEoyCGsHGhVcO
+         GI5Q==
+X-Gm-Message-State: AFq9FYKI4/DppshbePu+kOL3t4O/N2cjrnqU6dimPSJ/NAhPMtemBnkl
+	1WwRwyh/e7wm5pMSvDljkxSLMwtJNHkTKuSyBEiitX48ABRQ30htEh1M
+X-Gm-Gg: AYBFou27iirOJF6BPjhUlpOVJiR9+W+jc8CxK5BpRR7Cq6fW7aOGyvkt7A8JtyR2GaM
+	BMZ/eKckbFdC2xKYdVd2YfmbllYNX7kFc+E7S89WsvfX8GX/yBTt4plFalsMWGy27IrrFEn86Ga
+	t+xUkTqWdUG3lTtl2hCyL9R6hYakslkVk+GUCGAcSyzA9Xda2UO845hVBZOhgTyZWTDNJMgEd0W
+	ALArAiL7gL/TAvY8xV+uqxbjYG3rIgjBck1hqn3K2T4zYu8EVJA6oUoGgnXvINt1f4DmpJvhYno
+	U/SUVqhZxmH0QxhsXgm9YWCQZN57wKJeUtpHyXawqfHD7lYlK0d6P2+UCN5YHXOg4Rk3PeX2eoE
+	KiN9Jwil4RhHLqIM5RBDJD+OdQflo7MCyey+lH1K8oG3HMSFEsdarnODwsRFdP3J3zYn7fRtuvZ
+	pQVb8zQicHQPAbuTnIUYrc11NFILqBtZw+CTYCXGwwPF4o4JOylDqje+NijaIacbvtXifxsbPKC
+	GRXM9OXEyHinSIKUUjxtxQ=
+X-Received: by 2002:a05:7301:797:b0:353:7e28:9c58 with SMTP id 5a478bee46e88-3537e289d93mr2932453eec.41.1791555805307;
+        Fri, 09 Oct 2026 07:23:25 -0700 (PDT)
+Received: from fedora.tail44843d.ts.net ([2406:b400:66:1bba:a266:257f:3c5c:90be])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb68e56sm6534357eec.29.2026.10.09.07.23.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 07:23:24 -0700 (PDT)
+From: Mirza Ishan Beg <seedandsyntax@gmail.com>
+To: linux-media@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Slawomir Stepien <sst@poczta.fm>,
+	Mirza Ishan Beg <seedandsyntax@gmail.com>,
+	syzbot+6102f1c3a0ea8073fd64@syzkaller.appspotmail.com
+Subject: [PATCH] media: dvb-core: fix OOB read in dtv_property_process_get()
+Date: Fri,  9 Oct 2026 19:53:03 +0530
+Message-ID: <20261009142303.166373-1-seedandsyntax@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261009-fix_hpage_macro-v5-2-54378ae45add@arm.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 09, 2026 at 02:27:33AM +0100, Yeoreum Yun wrote:
-> +uint64_t pmd_pshift(void)
-> +{
-> +	if (__pmd_pshift != -1ull)
-> +		return __pmd_pshift;
-> +
-> +	if (__pmd_psize != -1ull)
-> +		__pmd_psize = pmd_psize();
+dtv_property_process_get() switches on 'tvp->cmd' and, in each case,
+writes a different member of the union 'u' in struct dtv_property.
+'u.data' carries the scalar commands, while u.st carries the
+'DTV_STAT_*' commands, and u.buffer only DTV_ENUM_DELSYS.
 
-Sashiko pointed that this check is inverted.
+After the switch, a single shared dev_dbg() reads 'u.buffer.len'
+and 'u.buffer.data' via %*ph, regardless of which member the case
+wrote.
 
-> +
-> +	__pmd_pshift = (__pmd_psize > 0) ? ffsl(__pmd_psize) - 1 : 0;
-> +
-> +	return __pmd_pshift;
->  }
+struct 'dtv_property' is 76 bytes and union 'u' begins at offset 16:
 
+    u.data      : 4 bytes at 16
+    u.st        : 37 bytes at 16
+    u.buffer    : 56 bytes at 16 ('data[32]' at 16-47, 'len' at 48-51)
+
+For commands that only write 'u.data', 'u.buffer.len' is never set by
+the kernel and keeps whatever userspace supplied to FE_GET_PROPERTY,
+because dvb_get_property() copies the array in with
+memdup_array_user() and does not clear the union. A large value (the
+reproducer uses 1163001896) makes vsprintf() emit "field width ...
+out of range" and hex_string() clamp the length to 64 bytes. The
+read starts at 'u.buffer.data', offset 16, so 64 bytes reach offset 80
+and KASAN reports a slab-out-of-bounds read past the 76-byte object.
+
+The DTV_STAT_* cases hit the same shared print. 'u.buffer.len' overlaps
+'u.st.stat[3].uvalue', so the debug output is meaningless even when the
+read stays in bounds. The same applies to the clamp added by
+60f0618d157b, which writes to 'u.buffer.len' and therefore into the
+just-written stats payload.
+
+Fix by storing the point of writing which union member each case
+populated, and by branching the final dev_dbg() on that stored point.
+Add a local enum 'dtv_get_shape' with values 'SHAPE_DATA', 'SHAPE_ST'
+and 'SHAPE_BUFFER', initialised to 'SHAPE_DATA' and set in the
+'DTV_ENUM_DELSYS' and 'DTV_STAT_*' cases. The final print then reads only
+the member the case actually wrote, and every branch stays inside the
+76-byte object. The clamp and the now-unused 'len' variable are removed.
+
+Fixes: 60f0618d157b ("media: dvb-core: frontend: make GET/SET safer")
+Suggested-by: Slawomir Stepien <sst@poczta.fm>
+Reported-by: syzbot+6102f1c3a0ea8073fd64@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=6102f1c3a0ea8073fd64
+Link: https://lore.kernel.org/all/2a5ea27d-445e-4ffe-9447-9d7bfccd4a36@mail.kernel.org/
+Signed-off-by: Mirza Ishan Beg <seedandsyntax@gmail.com>
+---
+ drivers/media/dvb-core/dvb_frontend.c | 73 ++++++++++++++-------------
+ 1 file changed, 38 insertions(+), 35 deletions(-)
+
+diff --git a/drivers/media/dvb-core/dvb_frontend.c b/drivers/media/dvb-core/dvb_frontend.c
+index 0286da57f..f4b599a1a 100644
+--- a/drivers/media/dvb-core/dvb_frontend.c
++++ b/drivers/media/dvb-core/dvb_frontend.c
+@@ -1342,13 +1342,19 @@ static int dtv_get_frontend(struct dvb_frontend *fe,
+ static int dvb_frontend_handle_ioctl(struct file *file,
+ 				     unsigned int cmd, void *parg);
+ 
++enum dtv_get_shape {
++	SHAPE_DATA,
++	SHAPE_ST,
++	SHAPE_BUFFER,
++};
++
+ static int dtv_property_process_get(struct dvb_frontend *fe,
+ 				    const struct dtv_frontend_properties *c,
+ 				    struct dtv_property *tvp,
+ 				    struct file *file)
+ {
++	enum dtv_get_shape shape = SHAPE_DATA;
+ 	int ncaps;
+-	unsigned int len = 1;
+ 
+ 	switch (tvp->cmd) {
+ 	case DTV_ENUM_DELSYS:
+@@ -1358,7 +1364,7 @@ static int dtv_property_process_get(struct dvb_frontend *fe,
+ 			ncaps++;
+ 		}
+ 		tvp->u.buffer.len = ncaps;
+-		len = ncaps;
++		shape = SHAPE_BUFFER;
+ 		break;
+ 	case DTV_FREQUENCY:
+ 		tvp->u.data = c->frequency;
+@@ -1536,51 +1542,35 @@ static int dtv_property_process_get(struct dvb_frontend *fe,
+ 	/* Fill quality measures */
+ 	case DTV_STAT_SIGNAL_STRENGTH:
+ 		tvp->u.st = c->strength;
+-		if (tvp->u.buffer.len > MAX_DTV_STATS * sizeof(u32))
+-			tvp->u.buffer.len = MAX_DTV_STATS * sizeof(u32);
+-		len = tvp->u.buffer.len;
++		shape = SHAPE_ST;
+ 		break;
+ 	case DTV_STAT_CNR:
+ 		tvp->u.st = c->cnr;
+-		if (tvp->u.buffer.len > MAX_DTV_STATS * sizeof(u32))
+-			tvp->u.buffer.len = MAX_DTV_STATS * sizeof(u32);
+-		len = tvp->u.buffer.len;
++		shape = SHAPE_ST;
+ 		break;
+ 	case DTV_STAT_PRE_ERROR_BIT_COUNT:
+ 		tvp->u.st = c->pre_bit_error;
+-		if (tvp->u.buffer.len > MAX_DTV_STATS * sizeof(u32))
+-			tvp->u.buffer.len = MAX_DTV_STATS * sizeof(u32);
+-		len = tvp->u.buffer.len;
++		shape = SHAPE_ST;
+ 		break;
+ 	case DTV_STAT_PRE_TOTAL_BIT_COUNT:
+ 		tvp->u.st = c->pre_bit_count;
+-		if (tvp->u.buffer.len > MAX_DTV_STATS * sizeof(u32))
+-			tvp->u.buffer.len = MAX_DTV_STATS * sizeof(u32);
+-		len = tvp->u.buffer.len;
++		shape = SHAPE_ST;
+ 		break;
+ 	case DTV_STAT_POST_ERROR_BIT_COUNT:
+ 		tvp->u.st = c->post_bit_error;
+-		if (tvp->u.buffer.len > MAX_DTV_STATS * sizeof(u32))
+-			tvp->u.buffer.len = MAX_DTV_STATS * sizeof(u32);
+-		len = tvp->u.buffer.len;
++		shape = SHAPE_ST;
+ 		break;
+ 	case DTV_STAT_POST_TOTAL_BIT_COUNT:
+ 		tvp->u.st = c->post_bit_count;
+-		if (tvp->u.buffer.len > MAX_DTV_STATS * sizeof(u32))
+-			tvp->u.buffer.len = MAX_DTV_STATS * sizeof(u32);
+-		len = tvp->u.buffer.len;
++		shape = SHAPE_ST;
+ 		break;
+ 	case DTV_STAT_ERROR_BLOCK_COUNT:
+ 		tvp->u.st = c->block_error;
+-		if (tvp->u.buffer.len > MAX_DTV_STATS * sizeof(u32))
+-			tvp->u.buffer.len = MAX_DTV_STATS * sizeof(u32);
+-		len = tvp->u.buffer.len;
++		shape = SHAPE_ST;
+ 		break;
+ 	case DTV_STAT_TOTAL_BLOCK_COUNT:
+ 		tvp->u.st = c->block_count;
+-		if (tvp->u.buffer.len > MAX_DTV_STATS * sizeof(u32))
+-			tvp->u.buffer.len = MAX_DTV_STATS * sizeof(u32);
+-		len = tvp->u.buffer.len;
++		shape = SHAPE_ST;
+ 		break;
+ 	default:
+ 		dev_dbg(fe->dvb->device,
+@@ -1588,15 +1578,28 @@ static int dtv_property_process_get(struct dvb_frontend *fe,
+ 			__func__, tvp->cmd);
+ 		return -EINVAL;
+ 	}
+-
+-	if (len < 1)
+-		len = 1;
+-
+-	dev_dbg(fe->dvb->device,
+-		"%s: GET cmd 0x%08x (%s) len %d: %*ph\n",
+-		__func__, tvp->cmd, dtv_cmd_name(tvp->cmd),
+-		tvp->u.buffer.len, tvp->u.buffer.len, tvp->u.buffer.data);
+-
++	switch (shape) {
++	case SHAPE_BUFFER:
++		dev_dbg(fe->dvb->device,
++			"%s: GET cmd 0x%08x (%s) len %d: %*ph\n",
++			__func__, tvp->cmd, dtv_cmd_name(tvp->cmd),
++			tvp->u.buffer.len, tvp->u.buffer.len,
++			tvp->u.buffer.data);
++		break;
++	case SHAPE_ST:
++		dev_dbg(fe->dvb->device,
++			"%s: GET cmd 0x%08x (%s) len %d: %*ph\n",
++			__func__, tvp->cmd, dtv_cmd_name(tvp->cmd),
++			tvp->u.st.len, (int)sizeof(tvp->u.st),
++			&tvp->u.st);
++		break;
++	case SHAPE_DATA:
++		dev_dbg(fe->dvb->device,
++			"%s: GET cmd 0x%08x (%s) = 0x%08x\n",
++			__func__, tvp->cmd, dtv_cmd_name(tvp->cmd),
++			tvp->u.data);
++		break;
++	}
+ 	return 0;
+ }
+ 
 -- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+2.56.0
+
