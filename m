@@ -1,35 +1,40 @@
-Received: from mail.8bytes.org (mail.8bytes.org [85.214.250.239])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 00B133BB689
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 09:03:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.214.250.239
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791536584; cv=none; b=RUov2p6qZWeYqGIXxSf7KbqjNWazwyR6+hvEzgHSKSblnRBDZ6HBxb9SJQXaiClfirrSMX4apb0vmrakVYSmoBscxWMWmbYKYl9bmiPPg0pBco2L9aAP4YopZ8Y5ePHXCZ8lfXjxTVvXOD+YDJuSQwwHmJqELvzt9dj2pPs6jOE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791536584; c=relaxed/simple;
-	bh=GPCWI6nVfOfpazpLXLX1aP8CSGxk059XPKv+ekl7lhw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qoRMpcRxH/7TKKOu9CJyJM2GSVmB97PkjhaahVRlMfnekefkmEDsiNht9Z+Q0MPGIYh/7eQo5PaiY7G4yJqduVq0FdcGqsGO6k22UvzRf/8d6psHI/1Mf+Hq3Ba/760gB3wzCPTK7J4JELpXIeFVjWEwojFiPekGWxfHJVwmC1s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org; spf=pass smtp.mailfrom=8bytes.org; arc=none smtp.client-ip=85.214.250.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=8bytes.org
-Received: from 8bytes.org (p200300f6af404a00448550d0471e54ea.dip0.t-ipconnect.de [IPv6:2003:f6:af40:4a00:4485:50d0:471e:54ea])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.8bytes.org (Postfix) with ESMTPSA id 1FC8B1C77A3;
-	Fri,  9 Oct 2026 11:03:01 +0200 (CEST)
-Date: Fri, 9 Oct 2026 11:02:59 +0200
-From: =?utf-8?B?SsO2cmcgUsO2ZGVs?= <joro@8bytes.org>
-To: Ankit Soni <Ankit.Soni@amd.com>
-Cc: Rik van Riel <riel@surriel.com>, linux-kernel@vger.kernel.org, 
-	kernel-team@meta.com, will@kernel.org, robin.murphy@arm.com, iommu@lists.linux.dev, 
-	liam@infradead.org, maple-tree@lists.infradead.org, linux-mm@kvack.org, 
-	ashok.raj@oss.qualcomm.com, jgg@ziepe.ca, kyle@mcmartin.ca
-Subject: Re: [PATCH v5 0/3] iommu/iova: convert from rbtree to maple tree
-Message-ID: <asith_7x71HNWMDl@8bytes.org>
-References: <20260818152505.1057922-1-riel@surriel.com>
- <arUZwesREX05SZ0J@8bytes.org>
- <mcki6p5d6u7ofhiucoz6vi3jdldzmc7yv7n3ppoiwdjbwuriji@e2ezt37ga6i7>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4F8B3BB689;
+	Fri,  9 Oct 2026 09:03:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791536594; cv=none; b=AeQkUvwab1CW/nFTN+velRNRkfF5KuRXvY8CMlqLzJPvyavM8331QSBSmzG/SJsNd4ePFNQqfUJyXtVq4L7GRMT3yjVz63yPE64CDE4sGk3lGUe43kdcXc+dH+nbDNOCmBwi32GV2rSdip6K9JGQWbWceKIOexgTPV6gi4+xldg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791536594; c=relaxed/simple;
+	bh=hfn1azwIJFS/2XV6P3tF/6Ix4dHPT7wWFixCYC5+Q+w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=upO8hzoeddig+QfOrngYprkNUet4K8ml5S6/dXgcVnAXIdRxxUEWh0nn+pMSV4fowXnQz64uWLeil8H0+ZPGp+/rKskLb5lY/WNpLZaQ1C0PZaBFEFjn/NaWjbVeAJ5N2xrmWntgSJK3H2WgLEZquj19GvypYTBYxxJiZVSec4k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JDiKJHlt; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JDiKJHlt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0555F1F000FF;
+	Fri,  9 Oct 2026 09:03:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791536593;
+	bh=eMnhfMDmJdVNVQdZpkXeWoQbrxBrAgRwu4y8o+OD8xQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JDiKJHltUySqtmFidFpVVrhrU5z9ATr+/a0pDp7D2nKaLEncRxM2U95IJYGgcAqAn
+	 fW+T3y0oD5jBHup55QPnM9m5VFGxvNIQ+eQ1qcDGDbRU3WLs4uX8Y2anLKWwFBVbL/
+	 0lKlx+EJ8utOoDiggdoZSTj5wvjcZ8VWxsj5M0u0c06oAEiM09D4DwHrhZZd+aF+qM
+	 NPC4dr9Cv7+P72cqh0GnZ8jU7x0d6y3P07Dy3QB/xqf5Kl2NZYWal3IkbcpZPjnliU
+	 K5A/FDSQw7kB5CKggjoODRR+OAA6m3fIkJgCjddtZD6wAAIBXggJSQBXRUIRIz05HW
+	 JTKy7XEQwD9Eg==
+Date: Fri, 9 Oct 2026 11:03:08 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Hitesh Patel <hitesh@ebytelogic.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Loic Poulain <loic.poulain@oss.qualcomm.com>, Robert Foss <rfoss@kernel.org>, linux-i2c@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, ravi@ebytelogic.com
+Subject: Re: [PATCH v3] i2c: qcom-cci: always enable SCL clock stretching
+Message-ID: <asittIGjIL-oLnUe@zenone.zhora.eu>
+References: <20261007050147.274096-1-hitesh@ebytelogic.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,20 +43,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <mcki6p5d6u7ofhiucoz6vi3jdldzmc7yv7n3ppoiwdjbwuriji@e2ezt37ga6i7>
+In-Reply-To: <20261007050147.274096-1-hitesh@ebytelogic.com>
 
-Hi Ankit,
+Hi Hitesh,
 
-On Fri, Oct 09, 2026 at 08:45:29AM +0000, Ankit Soni wrote:
-> Summary:
+On Wed, Oct 07, 2026 at 10:31:46AM +0530, Hitesh Patel wrote:
+> The CCI timing tables leave SCL clock stretching disabled. A slave that
+> holds SCL low is then not waited for: the master keeps its own clock
+> timing and the transfer fails with a NACK or returns corrupt data.
 > 
-> alloc_iova() is O(log n) in practice, on two CPUs and by two independent
-> tools. The series costs about 2x on a near-empty tree and wins by orders
-> of magnitude on a deep one, which is the trade you describe. Memory is
-> the same within noise below 786k live IOVAs and a third less at 12.58M. 
-> The costs are confined to microbenchmarks on near-empty trees, No regression
-> in any real workload.
+> This is hit with a camera reached through a GMSL serializer/deserializer
+> I2C tunnel (MAX9296A/MAX96717 on the RB3 Gen2 vision mezzanine). The
+> deserializer acknowledges the address locally, but forwards the
+> transaction over the coax link and stretches SCL until the remote side
+> has completed it, which takes well over one clock period at 100 kHz.
+> Without stretching the register reads of the sensor behind the link
+> intermittently return garbage and writes are dropped, which shows up as
+> random sensor init failures.
+> 
+> Clock stretching is part of the I2C specification for every speed mode
+> and a device that does not stretch is unaffected by enabling it, so set
+> the bit unconditionally in cci_init() and drop the per-table
+> scl_stretch_en field, which is zero in every table.
+> 
+> Signed-off-by: Hitesh Patel <hitesh@ebytelogic.com>
+> Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 
-Thanks for providing these numbers, this is very helpful.
+pushed to i2c/i2c.
 
--Joerg
+Thanks,
+Andi
