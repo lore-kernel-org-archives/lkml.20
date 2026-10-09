@@ -1,41 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2424A4349B4;
-	Fri,  9 Oct 2026 06:10:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A7F9431A44;
+	Fri,  9 Oct 2026 06:10:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791526231; cv=none; b=s22H8iYWUrlX30HvR7LetHUqJX3OkPvoaqsp9C3nSFZ6tMFDfHweLnjLFxYCN2NQItqtX6d+9wiLdvruy/eVb+MJHAjOjkl6CW312odwuukaMEc4HFKRBDBDMeecmOyuLvZGNc1JPd3j83B/AiqoKktUFtLqvgy5u5AvZ3HSIIs=
+	t=1791526239; cv=none; b=CobtlnH6V+9CzL/pITvEdE6HKRNrL9w1NW4rWGafwz4lF3f0keb2eb89IdlgG6E6FH7G+Qeb30xsoKy4BvEZE0Tr/SDyVFqA0UDZo1iD+5u5TLmMdgPH3ksfu2gWMqJn/a3UWaEV/vhCtg/gBaAJt3pXH/4maEsmLk5CEgFgXrU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791526231; c=relaxed/simple;
-	bh=kWsPIqNtq3dfL1MPQGCI0jC5qPVI+JrGzF8byfVKfhI=;
+	s=arc-20240116; t=1791526239; c=relaxed/simple;
+	bh=Lu2Ltr3/Ksh0rUUz4TP+cGlhV1FTJXteCg9QUdIuA/s=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AStQaJO/eQ6aqdZmDuqSrd2S/iA2Nqm65qd5RFx4oU3BRuqQjhYvTNAE5r+w5zyvauoJng1xwS7gwXRtvft4Q0j0f/2IRokpEMNoEJjzP7DouX6pxclEvhNPrKXt6uFr3ogo9j17WV3CJb8RWZeGL13tJCLmv3uIVhGz7JFk/DE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CYKWGO1o; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=r6b011F0bCFfVrphgP8flaG4Jwg7jf6cZQ0fX4dpAvTJw0pEJNIOfKDvOH7MU/52i6Y0uAguEYNS9ba26Xawz2RS1s428AlC2eZRDt3a1sItLxn4Pfqnj8/YuKbb53/46DiT7E/iSQ1py4uOFKxlU9YXTLVdshB/4SdJFYy6sr0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m94c6dJS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CYKWGO1o"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E90911F00898;
-	Fri,  9 Oct 2026 06:10:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m94c6dJS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 331381F000FF;
+	Fri,  9 Oct 2026 06:10:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791526228;
-	bh=lefL3w5mp8FRAbgX7vv6Ls9VsjcS51OeBLllBPaETSs=;
+	s=k20260515; t=1791526232;
+	bh=KS3sgP/eUxT87vqgC+drQoOFDrxJo6kTsTRnflTVKSQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CYKWGO1omKZOaZiryYM2adsuHHwF1WllI3bOFdx18EO1B41vtErAaj5+70D+wYeoy
-	 pJQIzcv6TBdQIVI2bVedg2gEDpSvbz7yf51EZNbAXw6mLChF+wZ56XxHotJeCZvl7K
-	 xv0b7OWbzF4pVFz5mEpuiwpv+W9wPNIf2H4uWVEmwUrwbtV2TF4D6qOaSZ+R663py3
-	 HP+INa0RmuQkELJHmgzwKaKg91eUx+O9oUBoSYX+QCJ7O5rIxH9CnO/Fh1VVu78FXk
-	 942Rm2bQq67X24nbKMdEWRqrgpchu4s9zh7q9WlPah0jSJ3CLozO0I0T4WzjIkcjCz
-	 2KgE1vU7EQ/Kw==
-Date: Fri, 9 Oct 2026 08:10:25 +0200
+	b=m94c6dJSC6KB2dY78IwIoo8ekBqOmd5nw+PtP+EH8lg2F8MXcrX/vt3CFVrmOjORv
+	 2EZcDAFb4QoRnqGS5kx7W98EH9zEaLaPwkPI/sSf6f+cYA5X3B4MimVwk5d4etzekH
+	 CJKJoXOxGGIsm6zdVospuTVNU3mm07SjCcgwNg6s2dM/85dezrqsNeydzljQ/CFw6g
+	 GB200OaV+9b8p32LdR1KpQpP2jAdQESH9QrZk9J7w8bRpbqyo6FrNQG37HatBt2XSb
+	 2V9ADm+ETbiwbYEFCiuS/DB95TengT1AHQbNZdwCYpxRA75JeP7K0e7JhB4w6vCjdw
+	 Obi/bn1qnQ3mg==
+Date: Fri, 9 Oct 2026 08:10:29 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Haotian Zhang <vulab@iscas.ac.cn>
-Cc: David Heidelberg <david@ixit.cz>, linux-kernel@vger.kernel.org, 
-	Shikha Singh <shikha.singh@st.com>, Samuel Ortiz <sameo@linux.intel.com>, 
-	oe-linux-nfc@lists.linux.dev
-Subject: Re: [PATCH] nfc: st95hf: register NFC device after drvdata and locks
- are set up
-Message-ID: <20261009-impartial-hummingbird-of-respect-2f9d48@quoll>
-References: <20261009031734.3052980-1-vulab@iscas.ac.cn>
+Cc: imx@lists.linux.dev, Thomas Gleixner <tglx@kernel.org>, 
+	linux-arm-kernel@lists.infradead.org, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Peng Fan <peng.fan@nxp.com>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, linux-kernel@vger.kernel.org, Jacky Bai <ping.bai@nxp.com>
+Subject: Re: [PATCH v2] clocksource/drivers/timer-imx-gpt: fix resource leak
+ on init error paths
+Message-ID: <20261009-miniature-platinum-beaver-fcf647@quoll>
+References: <20261009022818.3025610-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,29 +46,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261009031734.3052980-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261009022818.3025610-1-vulab@iscas.ac.cn>
 
 
-On Fri, 09 Oct 2026 11:17:34 +0800, Haotian Zhang wrote:
-> st95hf_probe() calls nfc_digital_register_device() before
-> nfc_digital_set_drvdata().  The nfc_digital_dev is allocated with
-> kzalloc(), so ddev->driver_data is still NULL when the device becomes
-> visible to userspace.  A NFC_CMD_DEV_UP from userspace can then reach
-> digital_dev_up() -> digital_switch_rf() -> st95hf_switch_rf(), which gets
-> a NULL stcontext from nfc_digital_get_drvdata() and passes it to
-> st95hf_select_protocol()/rf_off(), dereferencing it.  The exchange_lock
-> semaphore and rm_lock mutex used by the command paths are initialized
-> after registration for the same reason.
+On Fri, 09 Oct 2026 10:28:18 +0800, Haotian Zhang wrote:
+> mxc_timer_init_dt() maps the timer registers with of_iomap() and obtains
+> the ipg and per clocks with of_clk_get_by_name(), but every error path
+> jumps to err_kfree, which only frees the imx_timer structure.  The
+> ioremap'd mapping, the clock references and the mapping created by
+> irq_of_parse_and_map() are leaked when irq_of_parse_and_map() or
+> _mxc_timer_init() fails.
 > 
-> Set the driver data and initialize the locks before registering the
-> device.
+> Release the ioremap mapping when irq_of_parse_and_map() fails, and drop
+> the clock references and the IRQ mapping when _mxc_timer_init() fails.
 > 
-> Fixes: cab47333f0f7 ("NFC: Add STMicroelectronics ST95HF driver")
+> _mxc_timer_init() can fail after mxc_clocksource_init() has registered
+> the sched_clock and the clocksource, and after mxc_clockevent_init() has
+> registered the clock event device.  Those subsystems keep using
+> imxtm->base and imxtm, so neither the mapping nor imxtm itself may be
+> released on that path; request_irq() cannot have succeeded there, so
+> disposing the IRQ mapping is safe.
+> 
+> Fixes: 8051a993ce22 ("clocksource/drivers/timer-imx-gpt: Fix potential memory leak")
 > Assisted-by: DeepSeek-V4.1-Flash
+> Suggested-by: Frank Li <Frank.li@oss.nxp.com>
 > Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
 > ---
->  drivers/nfc/st95hf/core.c | 12 ++++++------
->  1 file changed, 6 insertions(+), 6 deletions(-)
+> Changes in v2:
+>  - Dispose the IRQ mapping and drop the clock references when
+>    _mxc_timer_init() fails, instead of leaking the IRQ mapping.
+>  - Do not unmap imxtm->base nor free imxtm on that path: the sched_clock,
+>    the clocksource and the clock event device may already have been
+>    registered and keep using them.
+> 
+>  drivers/clocksource/timer-imx-gpt.c | 14 ++++++++++++--
+>  1 file changed, 12 insertions(+), 2 deletions(-)
 > 
 
 
