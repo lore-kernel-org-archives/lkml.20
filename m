@@ -1,169 +1,180 @@
-Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com [209.85.167.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 660DD35E1B0
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 15:09:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791558564; cv=pass; b=YIAc0XxaSS1rxDCtYY17wlHLQVzpVX7qqNRRHhjv1muA8Io/R7G54bjVGgSHI6jWZQpCJXOZKRRy0rgMEOy3k0igirZsfnbljn1WYliB5PCMGRx0h96UrBnIQUSNnhi28aLW1XUS4Hufp7o9DTjl32gpzz8a9zfxclVop9b/3tI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791558564; c=relaxed/simple;
-	bh=YZbKpJCBFS61X4flLoy7/qmLVhvZ751onacMoLVN1KM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=C4uue/j9Cp/EhL70kpntPC7gkEsh0CJqJar3bO5BeMtgPrVVgdtcwO7tKdSl4efjvn9GE6ZBc21XmzVqy2DLdQUH8jBAqDQzd1jgCeXrtOv/2raR8AiG7sV6ui8l/ZwsuYex9xHTjZXVmBJ+ZbRsmECuVOVyeVKRMh5b3QDu6fI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m2wq+wH3; arc=pass smtp.client-ip=209.85.167.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1DC6457E7A;
+	Fri,  9 Oct 2026 15:09:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791558574; cv=none; b=HR/B4wmfpRhkAUDR53ZVGjXSsRTk6N/tETQ5h6hb6+ENGAS7lXNMlc4F5YlZi0uR6pY9/Zb5GeHH4fdhTzsR7+RXAaZagfrZhH0OhgJz9wVTUGDbUSBv1R8mDmvHi2GAH+ujUEqQirtbto5050slFbbcF9pqI6YybxjpMZrDViI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791558574; c=relaxed/simple;
+	bh=3ZHtsVhckn9fRoblbC1iHEhRp+UvpLMNLCDjAncW8wI=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=bMhJxMItdQlWdYFeMw6UqsqPdAYrQAXB6j8OvsyJ7HBGd7dwXkFZ5T7yKzVJ+oh+0imidpDnkf32DFBwC0X6R/IynaMGtrdJRG+m4i8fPTAVMESfUXiTSyHbhRvgzhFs/xiUAF0TB7S5SQN1WhejemMTlMHcf9r2sGHXW7DoMIE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sl0pXThs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m2wq+wH3"
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5ba3ac592faso2858978e87.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 08:09:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791558560; cv=none;
-        d=google.com; s=arc-20260327;
-        b=S6ib29zKy/sr99QxUdjt7HGzOi80EKdAnb+LXJ6OG7vkWFRfwlryFivO28G1FUdwNl
-         xYCzDcqSb5h3ixVvpM/9J+byqLMzWAY9/WU6kfxjyMWrZhf1QYSZ4WTYzKfSZSsy8k80
-         kFnGGUXBNuK315s2afdmI1NV+4DNmVt8qn6itgQ1nVL7hNGLU391Dda/h2fEGeDZWsYU
-         tisPPHpypttwoUCemDLIHNcV6QUv1h0cMtGcU8IP6D5Xles4hNZ6RrcGD1FtgMZPUd7u
-         oQi3Oa59+g2dr8RJVOaGiQ5WM8UqQprITf+8/5xiAdZlm4Tj/+IpJ2XOmdAy26b3HKin
-         ZDtA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=A/HDEM6SAMd1TqfEczfv3U/biPTo6BFTefjmZrIo9H4=;
-        fh=sPilOYAT4QfMgYxGH2LjRrcqbLUzvrQqMQUicHZMufQ=;
-        b=iaRjkIx2zmjhisroaTBV2ObN7uY8qHGZJc17TWI9JyYzr0d9ZTLuoHXJWk/TkyEWzp
-         uMSl2Uw9i3TyZvm97ISU7XDn0WCd7i8TRcT80jhc74iNnFadKXrVwJCUX4FCpzmoN6Ot
-         MWNbAbakZsqypcO+upFy8EWA5JDs4J9FFwdsKqcNYnkjhwlnlfld7VAHO+Ri+zpnRH0X
-         +iKdIiNlWHMrwBm6hsTqVqDCCYTXUI1chD5DZbQDs/WEtoL7xPHhgCoHAV8lqel1HBXi
-         ycvsRkyzi0jP2Iyu0IzKjc8xVx6dWyDp8OSoejTdJnBuYtZJMGketrUjp1aRqFioSH2S
-         1o9A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791558560; x=1792163360; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=A/HDEM6SAMd1TqfEczfv3U/biPTo6BFTefjmZrIo9H4=;
-        b=m2wq+wH3x9e5ctREVvlcvSDSA/0U9fDg3+X/xGhfLChkRVY6j0gz3qLL2tT2Ysst7n
-         ks04It0/zXlHVt28Vu29nWGsLWd8usVED94gokoA3WeYtsyo+sN64hBaVK1WOmwuPOVG
-         vEtcnJNeKang3clhH2xZp2bQRl6YN2DnSnbixsBcOzGfD0b8h5PI62o4tnvswvd0g4q3
-         NjP2PsLSxWvofZqBYuWrB5TuOLCHR/ik09VBB/ARhpu3vSizxiYIvKSZE74eq3wQgDqR
-         SWLzIEOEf2BZLglNH8pHWqkFH9dKDZ9zgX6qeUbrwr8YPSLAruqy+2r+b3jTcaWvbFXg
-         XSMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791558560; x=1792163360;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=A/HDEM6SAMd1TqfEczfv3U/biPTo6BFTefjmZrIo9H4=;
-        b=IDjBkf8l5rFx3x3vkrmAOb7yRi6xKA/WEv5YsI9QwljZOuNR91d8nuwRt5aRtoCxhx
-         3feAeGATzCN9hgjrvWExXB+J7S0Jx+3u6pnWCxVQrhWmZ0QIaFBgg6w1yicDYXI8txBt
-         g1Zf2Yw4LUWYDWUKu1rnQfuQQlqL6a2KM347kO4ol0gihLHNDr2M5iEEOqhhYujSN+2H
-         eRsHE9Up/VByy8zunBwUCaRoFtI3OoxJQmDzKFXVNlWpM/308cjq1pFcFIWlvZ4Pc9zj
-         oLqeDi0hwUyDtaETK1wcc5xMZETbBuxZK9be/glR5XOixZ7HsOQzo1qAnwM0pND4Cpne
-         k4sA==
-X-Gm-Message-State: AFq9FYKcRUAiYgM0rQUGFhDIm/xRqNfr5y3KZnIACKRqjufGBXcGp1yF
-	Ltd9JuKoGuW4UK8EeyCMbMHBKWfDdnRwbIfacU73/aO+MKSvt9waUycN/A39p8F+BjPLa2HOE2M
-	jeJ8PBlFlUwq+q9ZJdFLg+eab6t8YVgY=
-X-Gm-Gg: AYBFou3okKf3u4R2I/SvzGsWYIvlWfkvmwo9HFeaTsuQGTw30NoXnWOd/QaFO+FTZmV
-	l3DVET54Wk/3t96Ag946ZzcvqOxXzg6ZzQ/3uBmlv+7bGZNXrq+REJsn4tu+DZO7b7m2h0Kwxle
-	X7u0vmGtotZeHEIbCkVBsrCuKSWnK4YdOz84iWRnKm1DLk/HqqtoppxKibAZEAf0S1Pg0trDJ5y
-	V2Qmo/EU5yT8ghJcnESqqUp9kxzKQBdffBnY9gmzC8Mw0UFIMdXDHgz/F/OlIDlIBcGAKaeg7OM
-	jut+D6GJORfRT5HjK4ESoQqj1dwX/NPjWxvmfFTy9koUQ7yrSZFax3HuwEyJLxiPiIG5UXcbiJl
-	VxW3zkhLaQuI/3W7tlCXw7WB4BzJkv9xotoSIow6ZUUw=
-X-Received: by 2002:a05:6512:a83:b0:5bb:42a2:31fa with SMTP id
- 2adb3069b0e04-5bcde8d79ecmr856633e87.60.1791558560095; Fri, 09 Oct 2026
- 08:09:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sl0pXThs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 659091F000FF;
+	Fri,  9 Oct 2026 15:09:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791558572;
+	bh=/QeZ0yqQGSY+Sd45pKd4C1KhZgWw8oPZUiyILj5JSKc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=Sl0pXThs0FM2f+1VRAJJwTdbwTmzbPSP4HGM84Bee4tQWO6vGlsI/VCmmNlobQP+8
+	 ME7Yh2B4Hh/HeKTiipJ9KusdyPkwsAjoEyzYRvYUPcSJer72hMzSCl9eFU3MNaZiTr
+	 3Gm0LxOh5OHdDN8tm94ucmx0Jaj9MijwFrmbDc1kG3fQ82iazDfuQXFeXbBlQzycnD
+	 OnuxMhGoDf8ATdoh/Rynyp/p/0WPEIbX9MzlP9JJxjLUi9oSjLSa5wQOq4BSuJOkXc
+	 EXVyCdnuBzD0FLkN4ve8mM5WLhxiS3QbMDf/kjfJQWI73eIu8CBwInSOSba8lcJnGL
+	 e3WHHeJjPjIxg==
+Date: Fri, 9 Oct 2026 10:09:31 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Koichiro Den <den@valinux.co.jp>
+Cc: Dave Jiang <dave.jiang@intel.com>, Davidlohr Bueso <dave@stgolabs.net>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Alison Schofield <alison.schofield@intel.com>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Dan Williams <djbw@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	Ira Weiny <iweiny@kernel.org>, Li Ming <ming.li@zohomail.com>,
+	Richard Cheng <icheng@nvidia.com>,
+	Terry Bowman <terry.bowman@amd.com>,
+	Alejandro Lucero <alucerop@amd.com>, linux-cxl@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org
+Subject: Re: [PATCH 2/3] cxl: Account for link width in latency calculation
+Message-ID: <20261009150931.GA974538@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261007223608.2158904-1-daeho43@gmail.com> <411bd479-f3ba-48cd-9b96-ec017c685b1c@kernel.org>
-In-Reply-To: <411bd479-f3ba-48cd-9b96-ec017c685b1c@kernel.org>
-From: Daeho Jeong <daeho43@gmail.com>
-Date: Fri, 9 Oct 2026 08:09:07 -0700
-X-Gm-Features: AclHuK-b0iOAUVp3Gb3M3uy87PAKMjg-PM45YloYZBWvj1PWu9YXwALNhrlHGRc
-Message-ID: <CACOAw_x0ahtE3bdD0TG3FjzbkFzyQYTah-trPVrkmH62AGCAqg@mail.gmail.com>
-Subject: Re: [f2fs-dev] [PATCH] f2fs: write the directory inode in fsync
- before checkpoint
-To: Chao Yu <chao@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net, 
-	kernel-team@android.com, Daeho Jeong <daehojeong@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261009045452.1107921-3-den@valinux.co.jp>
 
-On Fri, Oct 9, 2026 at 2:03=E2=80=AFAM Chao Yu <chao@kernel.org> wrote:
->
-> On 10/8/26 06:36, Daeho Jeong wrote:
-> > From: Daeho Jeong <daehojeong@google.com>
-> >
-> > fsync() on a directory is done by a checkpoint, but the checkpoint
-> > does not write timestamp-only inode updates. Since commit 7c45729a4d6d
-> > ("f2fs: keep dirty inodes selectively for checkpoint"), such updates
-> > are marked with sync=3Dfalse and left to inode writeback on purpose.
-> >
-> > fsync() on a regular file calls f2fs_write_inode() first when the
-> > inode is dirty, but fsync() on a directory goes to the checkpoint
-> > directly and misses it. So if the last change to a directory only
-> > updated its timestamps, e.g. unlinking a file in it, the new mtime is
-> > lost after a sudden power off even though fsync() returned. generic/547
-> > fails sometimes because of this.
->
-> Has 9ec09d5f4b31 ("f2fs: dirty directory inodes on mtime/ctime update") f=
-ixed
-> this issue?
->
-> Thanks,
+On Fri, Oct 09, 2026 at 01:54:51PM +0900, Koichiro Den wrote:
+> cxl_pci_get_latency() derives bandwidth from the per-lane speed returned
+> by pcie_link_speed_mbps(), ignoring the negotiated link width. This
+> overestimates the FlitLatency contribution for multi-lane links.
+> Sections 2.11.3 and 2.11.4 of the Intel CXL Memory Device Software Guide
+> describe the link bandwidth as the product of the negotiated speed and
+> width.
+> 
+> Replace pcie_link_speed_mbps() with pcie_link_bandwidth_mbps() and
+> migrate both CXL callers (the only users of the API). The new helper
+> obtains speed and width from a single Link Status read. The CXL
+> bandwidth calculation no longer needs a separate width read and
+> multiplication.
+> 
+> While at it, make error handling more robust by converting PCI config
+> read errors to negative errno values and checking for zero bandwidth
+> before calculating latency.
+> 
+> Fixes: 4d07a05397c8 ("cxl: Calculate and store PCI link latency for the downstream ports")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Koichiro Den <den@valinux.co.jp>
 
-Oh, yes, it does. I missed that commit since I tested on a tree
-without it. Please drop this patch.
+Acked-by: Bjorn Helgaas <bhelgaas@google.com>	# pci/pci.c
 
-Thanks,
-
-Thanks,
-
->
-> >
-> > Call f2fs_write_inode() for a directory before the checkpoint, as the
-> > regular file path does. The inode block becomes dirty and is written by
-> > the same checkpoint, so no extra checkpoint or flush is added.
-> > Timestamp-only updates without fsync() are still not written by the
-> > checkpoint.
-> >
-> > Fixes: 7c45729a4d6d ("f2fs: keep dirty inodes selectively for checkpoin=
-t")
-> > Signed-off-by: Daeho Jeong <daehojeong@google.com>
-> > ---
-> >  fs/f2fs/file.c | 9 ++++++++-
-> >  1 file changed, 8 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-> > index 56c686b8580..b012cc22307 100644
-> > --- a/fs/f2fs/file.c
-> > +++ b/fs/f2fs/file.c
-> > @@ -351,8 +351,15 @@ static int f2fs_do_sync_file(struct file *file, lo=
-ff_t start, loff_t end,
-> >
-> >       trace_f2fs_sync_file_enter(inode);
-> >
-> > -     if (S_ISDIR(inode->i_mode))
-> > +     if (S_ISDIR(inode->i_mode)) {
-> > +             /*
-> > +              * Checkpoint writes only the inodes on the dirty meta li=
-st.
-> > +              * Timestamp updates of a directory, e.g. by unlinking a =
-file
-> > +              * in it, do not put it on the list, so write it here.
-> > +              */
-> > +             f2fs_write_inode(inode, NULL);
-> >               goto go_write;
-> > +     }
-> >
-> >       /* if fdatasync is triggered, let's do in-place-update */
-> >       if (datasync || get_dirty_pages(inode) <=3D SM_I(sbi)->min_fsync_=
-blocks)
->
+> ---
+>  drivers/cxl/core/pci.c | 22 ++++++++--------------
+>  drivers/pci/pci.c      | 23 ++++++++++++++++++-----
+>  include/linux/pci.h    |  2 +-
+>  3 files changed, 27 insertions(+), 20 deletions(-)
+> 
+> diff --git a/drivers/cxl/core/pci.c b/drivers/cxl/core/pci.c
+> index 43b9b7afff29..8b52621ffea1 100644
+> --- a/drivers/cxl/core/pci.c
+> +++ b/drivers/cxl/core/pci.c
+> @@ -660,8 +660,8 @@ long cxl_pci_get_latency(struct pci_dev *pdev)
+>  {
+>  	long bw;
+>  
+> -	bw = pcie_link_speed_mbps(pdev);
+> -	if (bw < 0)
+> +	bw = pcie_link_bandwidth_mbps(pdev);
+> +	if (bw <= 0)
+>  		return 0;
+>  	bw /= BITS_PER_BYTE;
+>  
+> @@ -765,18 +765,12 @@ EXPORT_SYMBOL_NS_GPL(cxl_pci_setup_regs, "CXL");
+>  
+>  int cxl_pci_get_bandwidth(struct pci_dev *pdev, struct access_coordinate *c)
+>  {
+> -	int speed, bw;
+> -	u16 lnksta;
+> -	u32 width;
+> -
+> -	speed = pcie_link_speed_mbps(pdev);
+> -	if (speed < 0)
+> -		return speed;
+> -	speed /= BITS_PER_BYTE;
+> -
+> -	pcie_capability_read_word(pdev, PCI_EXP_LNKSTA, &lnksta);
+> -	width = FIELD_GET(PCI_EXP_LNKSTA_NLW, lnksta);
+> -	bw = speed * width;
+> +	int bw;
+> +
+> +	bw = pcie_link_bandwidth_mbps(pdev);
+> +	if (bw < 0)
+> +		return bw;
+> +	bw /= BITS_PER_BYTE;
+>  
+>  	for (int i = 0; i < ACCESS_COORDINATE_MAX; i++) {
+>  		c[i].read_bandwidth = bw;
+> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+> index b2879a6be5f8..aa3d180de56e 100644
+> --- a/drivers/pci/pci.c
+> +++ b/drivers/pci/pci.c
+> @@ -5980,18 +5980,31 @@ static enum pci_bus_speed to_pcie_link_speed(u16 lnksta)
+>  	return pcie_link_speed[FIELD_GET(PCI_EXP_LNKSTA_CLS, lnksta)];
+>  }
+>  
+> -int pcie_link_speed_mbps(struct pci_dev *pdev)
+> +/**
+> + * pcie_link_bandwidth_mbps - get the current bandwidth of a single PCIe link
+> + * @pdev: PCI device to query
+> + *
+> + * The bandwidth includes all negotiated lanes and does not account for
+> + * encoding overhead. A negotiated width of zero gives zero bandwidth.
+> + *
+> + * Return: Bandwidth in Mb/s, or a negative errno on failure.
+> + */
+> +int pcie_link_bandwidth_mbps(struct pci_dev *pdev)
+>  {
+>  	u16 lnksta;
+> -	int err;
+> +	int speed, err;
+>  
+>  	err = pcie_capability_read_word(pdev, PCI_EXP_LNKSTA, &lnksta);
+>  	if (err)
+> -		return err;
+> +		return pcibios_err_to_errno(err);
+> +
+> +	speed = pcie_dev_speed_mbps(to_pcie_link_speed(lnksta));
+> +	if (speed < 0)
+> +		return speed;
+>  
+> -	return pcie_dev_speed_mbps(to_pcie_link_speed(lnksta));
+> +	return speed * FIELD_GET(PCI_EXP_LNKSTA_NLW, lnksta);
+>  }
+> -EXPORT_SYMBOL(pcie_link_speed_mbps);
+> +EXPORT_SYMBOL(pcie_link_bandwidth_mbps);
+>  
+>  /**
+>   * pcie_bandwidth_available - determine minimum link settings of a PCIe
+> diff --git a/include/linux/pci.h b/include/linux/pci.h
+> index d31a8d107b1e..bbfb0b98ff46 100644
+> --- a/include/linux/pci.h
+> +++ b/include/linux/pci.h
+> @@ -1477,7 +1477,7 @@ int pcie_set_mps(struct pci_dev *dev, int mps);
+>  u32 pcie_bandwidth_available(struct pci_dev *dev, struct pci_dev **limiting_dev,
+>  			     enum pci_bus_speed *speed,
+>  			     enum pcie_link_width *width);
+> -int pcie_link_speed_mbps(struct pci_dev *pdev);
+> +int pcie_link_bandwidth_mbps(struct pci_dev *pdev);
+>  void pcie_print_link_status(struct pci_dev *dev);
+>  int pcie_reset_flr(struct pci_dev *dev, bool probe);
+>  int pcie_flr(struct pci_dev *dev);
+> -- 
+> 2.51.0
+> 
