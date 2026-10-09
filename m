@@ -1,178 +1,232 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010011.outbound.protection.outlook.com [52.101.193.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3653E2F361B;
-	Fri,  9 Oct 2026 02:19:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791512385; cv=fail; b=gK+07ARFUJAV/3+SiDMZWAAFGmdzgtTiSwY8RG96cg8aYAd2sDZqdQeamzC9EgA+g3S7VSpVBbtdpmNt7kANvCj8BDCW7QpvX+A28/dxUAx4bxDiUV+xq6i06haaqMwKCqYXBNfEHGmqQQka4NCDlMvbwmPIZ0YG8ZqEhrKvhkA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791512385; c=relaxed/simple;
-	bh=qocaau2kGtnBzi6oUwn19+VhQXU7Y2leGbWZvkUlQ1c=;
-	h=Content-Type:Date:Message-Id:To:Cc:Subject:From:References:
-	 In-Reply-To:MIME-Version; b=j7hXRRrIwJJv9bL2kKhesusVynbPo0v+DbGaemAyKyb4bECx5p+gpXWJ4R5z2zyVcHrr7nEoCmbHaqXPv4UPjKQmBqItlQ0cIyFotYCTcGFiL3K04jkdMVKP6CSSijicGNv16WthYJBLjErK+47+CZfE4Ee/ZTAvKtoDX4LwWw8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=DIAAxTrS; arc=fail smtp.client-ip=52.101.193.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79E681E7C2E
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 02:22:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791512563; cv=none; b=gEQ/hif25Oj5CjTyz4cOunFn+y2YCKCXO9N0TzlAT636DdNAygudooAr/PRgT94F69h12WA+QQnB8FvTt2YsM51uXd/YsZDEfx4ZDRkQb/OXDWUs8Zb6ZGpiofCOF03Wn7R+IkkSO1ZFv580MK6x4sAaYtjKR4u89Y4NoZRBUoQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791512563; c=relaxed/simple;
+	bh=rZnfs9jlSy7nC72mCIFsVJ0m5TXQkQiypYbpWhi7fg4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=nxRftuA6Xmo2QRUC5ae+J7i4dIwT6MngVZitdjbONSjh6Ovp663t/zs8UYVyUCDxIuS40EDL8fOjXXOlH2GGY/KHsmHuL1JCmdTQstxqep3tRED3/g9A5pmbWWPVOy11nAd/Fn0qiMjb/adoSx6qirBJpGCQKu+QMh6aE/558J0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E+B7Xs8m; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="DIAAxTrS"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Aa0x9m+FYwP8rRb/LVlsN3kM56sodfS2KaoNPUuOiN+mXzCLF4ypofSXG8lEIRUNHugQJN1h0c8397XAbDtnQ/5WAonCGAGzF1PCfzD5+HIwpNq4ORDj2FKEALDw4FKypoGXzIArNmvCesQy8xTUObJIjAmwG8dKtbV8otTyZg1+ImZqUcgX6PBWEVLxhNyEE29Ho/SyPmY81myERs7Zjed1XT0+ySp1RjWVLqjyzwGAg5mthfaFKsD9Cz/AG2a5QG7WOd/I1KvQYyLybkZtszTSyKt07z7ya3Bl+VRsiXAwRAf4J00jX0H7XxFs4b9UPlk6c0nlVoZrbtqJqlWk9A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VnMKO/VxczDJ4kyc33S8NaO64A2Fif65U9J9P5aRO+Q=;
- b=TAmLo7qRb23HPWSdH4cXYpeHHTJKeJu7ZVXZcSdTPiqC9zR28wC20MAnxof3zCVFMqrOFcJdbW4vmsn9Cc6rXqOAaHcHqqX0lTZUrv3rBdJ9zm7Ov46+7ytWwCKPtjiRoL7lieWdDl11sGj0Pqj9jTQQuANvTSDlYGnmwlO3jUX5mlw4lE7h0hqrDdXVUQUkXff6QX0SOzj2UqC4aOL/PBr4be7BTJIFiNeIB2UHHzahQV1+Sgc38xyV0XbQcyXaq+ZoafyESNQ+hVMlODrtKfD4vnuwwjzyTH1JAK+XMHiqUdAqMOXMAZofl3dhW0zXgms6RYOCun6QmiFhUmZi2A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VnMKO/VxczDJ4kyc33S8NaO64A2Fif65U9J9P5aRO+Q=;
- b=DIAAxTrSBQHO95inndSX3/EyGJ2ZzzxWWBmGbB9BwXVnlJpGuklfcdn69uf/QgxW8EwEbdfjGh9+n0SCqhQUFqPRrYvKJT+L8K8C9VYn2eckKFdPiPxHEEsz2UnsXR7kgUqXOGC36yiqTncQiv43Ib2elrm9aKrfmwLQ/MA4//AvDYbT/OT66eaqcBdUI2pCnZpLn8VOCRcfWDNvse0fXPKYPBHYPeftU1wALNt3DuKhqUPD88JnzCDMZiTlZSePbZKKqVYDR/RlzqB1xJlW20b5bFXdhsTk/dt69kiJ4FGmetWu2GzQrKkHwcLSnXUfXyQK6muNkOt+cU6FNBNviA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by PH7PR12MB9202.namprd12.prod.outlook.com (2603:10b6:510:2ef::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
- 2026 02:19:39 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0472.016; Fri, 9 Oct 2026
- 02:19:39 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 09 Oct 2026 11:19:36 +0900
-Message-Id: <DLZY4W2CTZGL.3K38U20U8KLLF@nvidia.com>
-To: "Eliot Courtney" <ecourtney@nvidia.com>
-Cc: "John Hubbard" <jhubbard@nvidia.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Benno Lossin"
- <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Alistair Popple"
- <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Zhi Wang"
- <zhiw@nvidia.com>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, "dri-devel"
- <dri-devel-bounces@lists.freedesktop.org>
-Subject: Re: [PATCH v3 7/9] gpu: nova-core: gsp: cmdq: move the RPC code
- into a sub-module
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-References: <20260930-cmdq-rpc-v3-0-91613f06520b@nvidia.com>
- <20260930-cmdq-rpc-v3-7-91613f06520b@nvidia.com>
- <DLT8T5HQDV6N.30T90TO3IDNKM@nvidia.com>
-In-Reply-To: <DLT8T5HQDV6N.30T90TO3IDNKM@nvidia.com>
-X-ClientProxiedBy: TY4PR01CA0031.jpnprd01.prod.outlook.com
- (2603:1096:405:2bd::9) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E+B7Xs8m"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a171b677d2so25994385e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 19:22:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791512560; x=1792117360; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pJgi0wCSIv3Jg52XE1Hkh6T6+QnvPZ+aw5SFZUSnXYQ=;
+        b=E+B7Xs8mJ39DnYfuvLafpSsMI9xQdyC9cNyzu6GBEUCvuM3p1vOeJ2SNxU1U9hWeoP
+         llX8QFlTR0Y5xDfwlyyDIPAqnOdYyjAciROlGiyI4bZ9N3CK4cON0y3nDM11ZpmX258H
+         Z/0+IYbQvbiyfeK/koGYbkMc4rqKLTuIckSKIJzRDdjKlpPMyQHY5XLeK28OLxkQJU0c
+         6tFGLG31y3SIiI8SKKdzyAdBAnHPPrRPl9PeUDMZPzYFfHlxRSz6tK8dsaYPqtpwxia5
+         gIC38HiAjlqyQLhOl9EJ9TkyafBJFKcDO43qLbqUlS955crQtSMoeVC+DztPfHKefkWx
+         7FHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791512560; x=1792117360;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pJgi0wCSIv3Jg52XE1Hkh6T6+QnvPZ+aw5SFZUSnXYQ=;
+        b=Y3CVM6Rs2dl891UC9Hxrn6KGv36AzyFS5Mw/SoR2l3FcvkN23FrtBTJxEcA1Xrg/3k
+         4PSdvhegWjCDDrJRjsz2ovlDlHWe9xuEZxRfF2lKyqHHKhajTko5Mc019mLkIlOr62cJ
+         1ITFSjHdwiZ2dAGdUHoVsYKsyP0sTiaAwZqiH8pmn+wM35679ynd2lf+tQl8v4O0FLoF
+         CuSMGuJjv4NQM2OOm2kMsabbz2ceM4A5bw8aHxbAnGgEe1kyoK0AJwDfUSWq8HM3nVhk
+         9M3Nlcir7qTPANpR9KYClaETGJOsdprR18puhASyig0XGDNJBBKYrFnb0K4RK3/Z0SCo
+         ssLw==
+X-Forwarded-Encrypted: i=1; AKwUvBxf79Z5yxCudeYbv10LsyhJ5nyOG3dDfru/qqpCE6JdLjP7xo2NAdxma/tYYx+Wpot5sVJhOrqR0pkoM3w=@vger.kernel.org
+X-Gm-Message-State: AFuF++nKo2Cy82dSQ+VqO8t8wCXpwmtCt+fCNFNEspL8hZ5h9/fuxaFw
+	OQgDm0KisUYNTGrgHJzzKY/fwMmrTGn1BDrSg1ZLMhpXejSrO6NG/dYD
+X-Gm-Gg: AYBFou0pq9NZjukD68adfwdVp1Rdd0GCRyak1Ix3YyTg5vdNo3pj9GSx2U6X8UZsZsL
+	tU+uqlea74TwGOWrho17h+wosBZS4xvkdKWanetENpOYt4xMsa7LpdvL+b14HM+JrDDDig11r3G
+	iA/HmxaHydjkJevfm/V008h3PX7jc2bIS4+KSscud/SJ18Ccy45LWjr2KDhwlaUAD4M24XfMDlp
+	iQsLMyTgXqcPTeVS1/vMfUc7VGKXU1tZqb/VITUctDo7WilWLHR8tXUe7G/cBwhLNK/GxAPF8jI
+	ceHVtFWVAf6Nl/inaR1vhYm9e3EsGEH3z7VczdLe2pQNh9qtnBr9uyN0c9WuZn8Q2tWkgHeRaTS
+	Gh7ntm8KNwMxck2Q9fkJnBPgp8pVXRMZ2HX90LV2vxzfP0J3QK+ShwyvoE9ZTJ18nmr921GJY7E
+	ndotj9hJyI+6PzfKzdZg05eg14HQBmu0BfJ8LvhcKLvoMTs6O1V0e2OUn7Tf90mYmykuqyfo+g/
+	STdMG6au7mSq0AZI9lB2kLuahHLQ1PjB3tfhhT8WzPsTdPuxIe5x9ySUDgorKcdEFjh7wxA11Al
+	ucNm54NLfPXbameoMhirX6nIOyToxDkll33xSyu8ymj9ilFHCnA=
+X-Received: by 2002:a05:600c:524d:b0:4a1:80d8:aeb3 with SMTP id 5b1f17b1804b1-4a18e4a95c2mr5608385e9.12.1791512559401;
+        Thu, 08 Oct 2026 19:22:39 -0700 (PDT)
+Received: from mikebook.tail5724d6.ts.net (83-244-142-114.cust-83.exponential-e.net. [83.244.142.114])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf3e044sm21438765e9.14.2026.10.08.19.22.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 19:22:38 -0700 (PDT)
+From: Michal Pluta <michalpl2003@gmail.com>
+To: Ian Rogers <irogers@google.com>
+Cc: Namhyung Kim <namhyung@kernel.org>,
+	acme@kernel.org,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/5] perf symbol: Grow the Rust demangle buffer geometrically
+Date: Fri,  9 Oct 2026 03:22:34 +0100
+Message-ID: <20261009022236.992515-1-michalpl2003@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <asVUvfhz4wG5CnZC@google.com>
+References: <20260928010227.1903673-4-michalpl2003@gmail.com> <CAP-5=fVe=VxnxypQYNt1h-s+3=Me8D_fpBL3LD1Eeb1cGvUc3g@mail.gmail.com> <asVUvfhz4wG5CnZC@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|PH7PR12MB9202:EE_
-X-MS-Office365-Filtering-Correlation-Id: 295aa73a-d944-4f28-bd49-08df25abc588
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|366016|10070799003|7416014|376014|22082099003|18002099003|10067099003|3023799007|4143699003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	KBtdUZPyftsnKfjsUs9SA0jyqpMZzLrX4bqvrSDwArenGO6HD8I+DRNBJ34bqRHo/1FtxWB5rt95IRSJpQPdeXQWmv1c/ahLyfYD6sr17mLXUVV7u47dZVc445Is+4y1hdYLpJ+aRkw2IJPRDtuEBTtmKj79thNopKOxZOF/304M/NmIcwRgqbHm67TK9kD6S6N2oxwudSBF/SLnoSdD4X/utHIBhUvpR9ShJhbiWIcvdev+I7A3zLAyrHQT7xR4cXJZT9usRx+vtdvo6ChGFCbW6TGaojRoZYqKUqcoJ6b5evzfMCfiV3I5N0G3QkTsvUg5j2FJagw07Rlfg6eS+/rhD2FG3PX3pU0NAS06rwrsjHl+0jEQf3uCIkqAtDHxj7pFhesswDCYRuQ2QzFH9q2EWaPD/OlFtNaZw8a0iYVHIswR3Ql3p7hW4wSS6afw74iVJdwmyJQZQMxKO3rSQ080cC3uVCyE05EmZkme4JeofKiiM5AiyYJ2DXnIoTdcwJwW03ZyyohCX7iK56NJa2wFeNTAn2rd8fdixFJj45MZf3erp7qFdHPoq1wFrOCyoC4JP8bZzd6h6VmlMs7ZTPlEaoZ8s5NbXhe1q2yAKQKc8sm6L7gmZ1Psf0I8AJ0Anv88xqJ2JrqS3YapITkcJTPb77vwYT1srXFx2JteBvM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(10070799003)(7416014)(376014)(22082099003)(18002099003)(10067099003)(3023799007)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SEgyaWhuV0hqbXJiU04rYllNNkRxSndlTkFaSlZlaFMwZVRhdHVOTTZVUTV4?=
- =?utf-8?B?Y0tkMk9Wd1lqMXpmbmpSY3NhWFZIUFZCMURpT3l4dlhieHNGNTJPZ1FHOFl2?=
- =?utf-8?B?UFVyS2FydWRXOGtoUTlLYkpUSkthWjgzMVhJTEsxMUpJZDg0K0xRSnNCY2FO?=
- =?utf-8?B?My95MnJzVG5uUUZFb3N2WnQwa2plMGo1YmNBb0xmUTFRa203MHBlU08zY2hZ?=
- =?utf-8?B?dFlqaWlScnRCYlhGNUh1ai9HTTFnT3k4RlNKZ1VnSzZGVkdaRTAyL1JYQm9o?=
- =?utf-8?B?QndzaXc5MEJSUjA4Z3ZhOVRwVHM1cUJBemUzUDFTMkhhRUNmNTJjVm1WTUth?=
- =?utf-8?B?Y0JSNjVzQURsMUZVd01ZbkhpOHNCL1NoRmc4cEJ5aFVEaitYWjFTSHVFTjlT?=
- =?utf-8?B?aGpRMHlNU3lLcElBUzdGRGNQQmlEeDFXbFU4ZVU0TXVTdnhjUE1kN0Nubmkv?=
- =?utf-8?B?dm9ZeVRpSkVub21ZSklVTjJETEtxKzhOOWVvUHNZZHpHSUlvYUwxNTFScHdN?=
- =?utf-8?B?aVAvSzZBdUVIZG5nNW9URWFjN2dSajg5Y05pdGFJT3MwTnNVZnRMS1NlK3dp?=
- =?utf-8?B?c014Tjd0Mk9qcDE5dTV6My93b0pGTzlXN2dId2V4VDNudlJkZlVQVE5iaGkx?=
- =?utf-8?B?NEJURTZXL1BtQnY1RnM0ZkpkMkhpQzlFUStnSmpOZjh4dG1uT1oxc0FNU0NC?=
- =?utf-8?B?Q1F0QWRFQmxRMHNKNXZsR1BhWUVTY3JJN1htRkZtOTRzVmc5SzZaUkFtSEFQ?=
- =?utf-8?B?V0hmWGh4Tk5oVG9FWkJRMGNQRTl2T2s5YVJ3SUEvZzc1dzVEaVBMK2FrNGVo?=
- =?utf-8?B?SFYrUmJGY21JdmdGVG5BWVRZVlVhQzNHT2QrQjA5dUtPZTUrUDFpREFTZHVX?=
- =?utf-8?B?Vkp5RVBFLzlid1VaM2ZzNFNsbit6QVlOcEhhOTVlRmVYcGpOQlkybTl2R3NL?=
- =?utf-8?B?WHdFaGtuQXhHRVE0dlJuNUNraC9YRkZOTGtGbTlLb0JnVThETUEybm9ZL0U2?=
- =?utf-8?B?L29pRzRma0NQd0JuNlllSGF3dGw2TDdKRXlBaFB0Ri9mRVRVTjU0akFnNDdu?=
- =?utf-8?B?V2cyZFpQZWJ6VU1wbk1rR3hpN1lxQU82TVZ3RXp3V0xnY01sNWpmMkNrMEpD?=
- =?utf-8?B?VGFoZ21VMmVBZmNXVHdHVTJ4ZEdXbUN4ZmtIM2Z6Nm95dnRjdHdrSnJFNVM1?=
- =?utf-8?B?aHhVU25xMFAxaWNsVHFaV1k0ZVQ0NU12NnJncWpKeXZZNXFKM1hVbkNVcTY0?=
- =?utf-8?B?Uzh0SC80Umdud09lN3VvSmg3Qm42NjJXUHkxL0t2djMvM0hBSU9PQ1ZCaFJH?=
- =?utf-8?B?WnhTZ2l2bWtWZ29uZDhEdjBuVUd3djdYUFBLOGI0RzJWeVhIUE5OU3UrRTFG?=
- =?utf-8?B?Zmovc0NaclhsTXV3aDBxdDFEQ2daT1hmZWt4a0M3SWNYRmE0MUUwbjlESEdK?=
- =?utf-8?B?c1pZM0NJUzNhdzdTNm4xbjFXR3NaYnJaTkljeW5zSVkrc0tibXJaeFZOZFln?=
- =?utf-8?B?Qkh1bktPT2hkczgyaFpnTkJnUlRrK1Nlc0lLdVh2cm9qRkRLRVJSRXBjWTIr?=
- =?utf-8?B?cWUyaWlEOHBKY3VNOWI3TzhuVjVrTlJReEZwenJ2bjVDQ01uNHd0UldsMzZt?=
- =?utf-8?B?eHFNM1RTdXlrYVdMRFRjMXlsem1PK1F5VXorYkl2R04wb3hiYUFpTmtITHYr?=
- =?utf-8?B?cUxoM0pSM3p3azA0U1BiNkJKamt6eWMyRDV2OGk1YS9EOXNQM3QyaXh0Y1Q3?=
- =?utf-8?B?amJ0MldObnExR0lleVdDT2F3Tk9CdmxWMUFtcXRkYjBrS1d5Mkk0K081Mzdo?=
- =?utf-8?B?K1pkVlBhUTB0ZW5rQjVNUXJkMHNYckcyd3FxVWJsOVg2dHpsZHdORjZBR2pw?=
- =?utf-8?B?SjBMajN3SW9hb1pPM2RvWVpWWm5iMFg5UloydWdqZTlXMUxzbnNQNktNL2RR?=
- =?utf-8?B?MXdwQ2xFbndTNSs5aERnQWUxYmxrelg5RDR0ZVpsNWcrYURDYmhrWFlKL2pp?=
- =?utf-8?B?dnYvY3l1enREYys3MmF0cTF1WGU2S3o3cktyWXBmd0QzUHk1azlMUWJMZVlp?=
- =?utf-8?B?R0pqd3laL3lPYjIzK0lQRHorMnNRcXdaU3JzeFd6a0RyNmd4VDhLcmh4NDcv?=
- =?utf-8?B?b0JlbXRWNHFmcWk5OGhhT25xWnZTclVhVEtuV3JJRDBRRDJZWkVMNmptaXkz?=
- =?utf-8?B?akpyR1BHQmY1TUx3Y2xLUWdqaXc1OFZ4S3Rsc0NRVEtEdUM1REc4MWxHVGgr?=
- =?utf-8?B?RGMyWXRRSDc3N0RqemVveFBiWVhLbjE1Zi9pSjdSWVVGNGdlUS9KN3lTKy9y?=
- =?utf-8?B?VFpHMlozaVQ2ZGdRR1REL2NXMW81WXlnNlhFeCtFRTlXMEptdU04TGpjUmNn?=
- =?utf-8?Q?QpW5ska6vfskvHR/RdI/1oTdIK4A95KuOzK6nAetOILZ8?=
-X-MS-Exchange-AntiSpam-MessageData-1: hgFQ/OZG0+QwRg==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 295aa73a-d944-4f28-bd49-08df25abc588
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 02:19:39.4856
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2yWyN2xdOFYSoSfKlsb4/ZVzvBoMWmFRXzV1PVwbJOgKEiTY3zYLCBpdU92skRb5O88c70dh4ck01v3e1C571w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9202
+Content-Transfer-Encoding: 8bit
 
-On Thu Oct 1, 2026 at 2:12 PM JST, Eliot Courtney wrote:
-> On Wed Sep 30, 2026 at 11:55 PM JST, Alexandre Courbot wrote:
->> Move the types and code related to sending and receiving RPC commands
->> and messages into the `rpc` sub-module. The methods are still declared
->> as members of `CmdqInner` and `Cmdq`; only they are now in their own
->> sub-module.
->>
->> This is a pure move commit, with no functional change intended.
->>
->> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
->> ---
->>  drivers/gpu/nova-core/gsp/cmdq.rs                  | 343 +-------------=
------
->>  drivers/gpu/nova-core/gsp/cmdq/rpc.rs              | 380 ++++++++++++++=
-+++++++
->>  .../nova-core/gsp/cmdq/{ =3D> rpc}/continuation.rs   |   0
->>  drivers/gpu/nova-core/gsp/commands.rs              |   6 +-
->>  drivers/gpu/nova-core/gsp/sequencer.rs             |   4 +-
->>  5 files changed, 388 insertions(+), 345 deletions(-)
->>
->> diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/g=
-sp/cmdq.rs
->> index 07036972dbec..06386d1ab192 100644
->> --- a/drivers/gpu/nova-core/gsp/cmdq.rs
->> +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
->> @@ -1,6 +1,7 @@
->>  // SPDX-License-Identifier: GPL-2.0
->> +// SPDX-FileCopyrightText: Copyright (c) 2025-2026 NVIDIA CORPORATION &=
- AFFILIATES. All rights reserved.
->> =20
->> -mod continuation;
->> +pub(crate) mod rpc;
+On Mon, Sep 28, 2026 at 2:43 PM Ian Rogers <irogers@google.com> wrote:
 >
-> Should this be pub(super)?
+> It seems changing the scope of this variable is unnecessary.
+>
+> Thanks for digging into this problem and exploring a fix! Previously,
+> we guessed the demangled length was twice the mangled length, then
+> added 32 bytes for each retry. These were numbers I pulled out of thin
+> air, so I'm glad you've found them to be wrong :-). Could we estimate
+> the initial demangled size better? Could you get data from Bevy and
+> Typst? I'm a little concerned that a demangled symbol of say just over
+> 2KB might require 4KB with this change, instead of 2KB + 32bytes.
 
-This cannot be unfortunately, as commands (which are in a sibling module
-of `cmdq`) are protocol-dependent and need to view `CommandToGsp` and
-`MessageFromGsp`.
+Thank you for the reviews. I'll move the buf_len declaration back to
+where it was before.
+
+For context, the other demanglers in perf don't size their buffer by
+retrying. The OCaml one allocates len + 1, as the output is never longer
+than the input. The Java one allocates strlen * 3 + 1 and truncates. The
+C++ demangler (libiberty) starts with an empty buffer and doubles it,
+but it writes through a callback so growing doesn't restart the
+formatting. The Rust one writes into a caller provided buffer and has to
+start over each time it is too small.
+
+I collected some data from release builds of Bevy and Typst and a few
+other large(r) Rust projects. For each binary I took the defined symbols
+and counted the number of attempts that the buffer loop in
+dso__demangle_sym() makes for them. I ran both the current +32 loop and
+the doubling one from this series in a small test program. No symbol
+went over the 1 MiB limit.
+
+Builds (mostly v0 symbols, plus up to 148 C++ ones per binary from
+linked libraries):
+
+  bevy         0f38358f573a  cargo +1.98.1 build --example 3d_scene
+                             --release --config profile.release.strip=false
+  datafusion   acf5c89e6454  cargo +1.98.1 build --locked -p datafusion-cli
+                             --profile release-nonlto
+  materialize  54a6aca7b5f1  bin/environmentd +1.98.1 --build-only --optimized
+                             (clusterd and environmentd)
+  polars       750bbaa9054c  cargo +nightly-2026-09-01 build --locked
+                             -p polars-dylib --profile fast-release
+                             --config profile.fast-release.debug=0
+                             --config profile.fast-release.strip=false
+  risingwave   be77a6149e97  cargo +nightly-2026-06-21 build --locked
+                             -p risingwave_cmd_all --bin risingwave --release
+                             --config profile.release.debug=0
+                             --config profile.release.strip=false
+  typst        9dfd3a08500b  cargo +1.98.1 build --locked -p typst-cli --release
+               (v0.15.1)     --config profile.release.package.typst-cli.strip=false
+
+Firstly some data on how often initial guesses are too small and how
+many retries they cause. "retried symbols" is the share of symbols whose
+output did not fit in the initial buffer. The other columns count the
+extra attempts after the first one ("total"), and the most any single
+symbol needed ("max"):
+                              symbols   retried      +32 loop       doubling
+                                        symbols    total     max    total  max
+  materialize clusterd        295,365    5.66%  3,500,913  17,844   27,960    8
+  risingwave                1,051,376    0.87%    297,151   1,561   10,180    5
+  polars libpolars_dylib      276,797    5.61%    247,424     236   16,149    3
+  bevy 3d_scene               218,042    1.09%    205,030   1,135    3,493    5
+  materialize environmentd    377,085    0.51%    117,485   1,539    2,302    5
+  datafusion-cli              175,020    1.10%     24,304     125    1,957    3
+  typst                        36,504    0.12%        907      66       50    2
+
+Only 0.1% to 5.7% don't fit in the initial buffer, but with +32 this is
+very costly. In clusterd it adds up to 3.5 million extra attempts with
+one symbol needing 17,844 retries. Doubling does the same job in 27,960
+total retries and no symbol needs more than 8 retries.
+
+You asked whether a better initial guess would help, so here I keep the
++32 loop and change only the initial buffer. Its size is the mangled
+length multiplied by a factor N and rounded up to a power of two. The
+code uses 2x today, so 1x is a smaller guess than today and 4x and 8x
+are larger ones. Each value is the total extra attempts for that binary:
+
+             N                  1x         2x         4x         8x
+  materialize clusterd      4,507,480  3,500,913  2,460,193  1,528,046
+  risingwave                1,306,091    297,151     71,074     25,133
+  polars libpolars_dylib    1,254,174    247,424     14,214        305
+  bevy 3d_scene               357,175    205,030     94,936     29,978
+  materialize environmentd    271,354    117,485     59,697     22,265
+  datafusion-cli              179,241     24,304      1,003         29
+  typst                         7,066        907         15          0
+
+A bigger guess reduces the retries for every binary, but the symbols
+that still miss are the ones with many backrefs. In every binary, all
+the symbols that missed the initial buffer have backrefs, with a median
+of 53-138 expansions compared to 1-4 for the symbols that fit.
+
+Running the same experiment with the doubling loop from this series:
+
+                                 1x         2x         4x         8x
+  materialize clusterd         70,399     27,960     11,231      4,073
+  risingwave                  106,878     10,180      1,016        128
+  polars libpolars_dylib       84,502     16,149        634          9
+  bevy 3d_scene                15,742      3,493      1,115        192
+  materialize environmentd     22,668      2,302        365         73
+  datafusion-cli               15,366      1,957         38          1
+  typst                         2,310         50          5          0
+
+On the 2KB example you mentioned, a symbol that barely misses a power of
+two could get a buffer up to twice what it needs, but the next patch
+shrinks it to the exact string length before returning, so the extra
+memory is only held during the call. I'll move the realloc patch ahead
+of this one.
+
+One other way I tried to avoid retries is a minimum size for the initial
+buffer. Here the initial buffer is the larger of this minimum and the
+current 2x guess, and each cell is the total extra attempts.
+
+First with the +32 loop:
+                             current      1KiB      4KiB     16KiB     64KiB
+  materialize clusterd     3,500,913 3,500,867 3,181,650 1,425,379   216,505
+  risingwave                 297,151   296,929   151,909    14,567         0
+  polars libpolars_dylib     247,424   246,715    15,413         0         0
+  bevy 3d_scene              205,030   204,818   132,911    17,038         0
+  materialize environmentd   117,485   117,455    79,073    37,531         0
+  datafusion-cli              24,304    24,277       866         0         0
+  typst                          907       898         2         0         0
+
+And with doubling:
+                             current      1KiB      4KiB     16KiB     64KiB
+  materialize clusterd        27,960    27,945    18,824     3,260       183
+  risingwave                  10,180    10,117     1,887        63         0
+  polars libpolars_dylib      16,149    16,043       686         0         0
+  bevy 3d_scene                3,493     3,472     1,574        64         0
+  materialize environmentd     2,302     2,282       419        88         0
+  datafusion-cli               1,957     1,939        27         0         0
+  typst                           50        47         1         0         0
+
+As we can see, a minimum does help but it depends a lot on the size
+chosen and would mean we incur a large allocation per-symbol albeit only
+during the call.
+
+Sorry for the long reply, just wanted to get all the data and rationale
+across.
+
+Fun fact: the largest symbol I encountered was in materialize's
+clusterd. It is 1,091 bytes mangled and demangles to 575,074 bytes.
+
+Thanks,
+Michal
