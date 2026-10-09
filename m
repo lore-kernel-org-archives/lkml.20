@@ -1,98 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA1863BB134
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 07:30:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D13103DAADC
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 07:30:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791531029; cv=none; b=SEOejYx2SChTCQqkMGxF2knXD5QK8IhuY4fU4qFdganyEVO0NWrxneo1wm7aKtqbmhG2Mv4EaepRgFDbPuOkWv4lJZk4L4kYIYZfSQitH1VHYwA864duzFttJ4WGI3GfEyxivDv0/w0dPA1fSo+KM1CKRzwZvWWeORHIEeA0SME=
+	t=1791531042; cv=none; b=RVpfkpke3LRDDm6+sqXNSs7e4TuuqnMFLyYKWbS0xbv9RicFgjwNCGMwjFb+tv5Vw4/ZB49RzQCiGo9u+3ellYs81vdvj1nP6wN5+Lvae+iOnCA47JSTN/TwKtKrW9URLHIEa9TJcGv2VnaT6OYau6GKbDpF5m8JMB907hdKtpc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791531029; c=relaxed/simple;
-	bh=VYDZY2uGKu33vKOyYd6NW2GKWHjdqDv69Ge3kjWDmHg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MXj0QX+Rnv3vhwZigDUyKxP6x+j4mxtgmVhRFgrTjs9bqc70RDEVHhMJxaJNvlb6koj+DatoARS/NgNY0LI8cya+Vhm+CiQEUHx5zRKbMvIYyY77UYQhnajfhPxpDmg+cTK03hunGWB2/dgZzt0l9SPctikb4oTsPNpbGh9ppuY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JwIUDr3s; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791531042; c=relaxed/simple;
+	bh=m2sbDzTVz80zNixXWIi0WDat1SU37qeKuIL9ZzrWE0s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=n8p32DxRoHY2hh6sZNi4lxkWx/4ZopRc94uddYZLVyrK9dJ1m+OcbHvHn6pnGWh+XTfFX4yPuf6JJg0eL9Gt215C07lJOGC6fhExq+UMWmICxSay9J2NHSZuaIDx8nUjmX8AEw86383+uo7OGTO6i7El33PFixlLTg9bIZFg6Sw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TisiumbA; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JwIUDr3s"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DAB81F008A0
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 07:30:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791531026;
-	bh=VYDZY2uGKu33vKOyYd6NW2GKWHjdqDv69Ge3kjWDmHg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=JwIUDr3s/MfSM7kcKnUID52hZC5kSpTTuEkc+3ww3rh3REqeBLTEOlZBf7UExohXk
-	 +ijBF1puacoxRVPWtk0LaU/94rCUSoT5K3cvAilB+Zz0MHDfI/Yo28jkhr2a6cRlDp
-	 V42CMcttMu55r75vyi06asWkSVicuIkNE5b+hm6t2i+9L+HUK3/9o28y1FwlHhl+dg
-	 u2FOqySJdm4iM+LdE+eyTYYNTnfmMi2tYlsNDVfxeYuj+uBbxR7Q+kNVfkGmOGYRw3
-	 +plZLYhbBRrMmbUfgBO2bGQohQRCbUuHjMNyoS/p8rlHGES0lkj/bs9zM8LUcLizOr
-	 7/kwdUfQ5x4MA==
-Received: by mail-qk1-f177.google.com with SMTP id af79cd13be357-93e55db58cfso543821985a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 00:30:26 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxDfjLmMHW45RhgKvV9/ziC+db5MlBsNE5FalJGH+Tocd3qEnafyd27X1ZUclrKCP/gw1/LprpvgvYon+M=@vger.kernel.org
-X-Gm-Message-State: AFuF++mOaUv1oQ5ZvdmqQfNDHMbkm305SZHlxrLYFjzERFsCnV3LcCZ0
-	YfwdIcjxerELrXb+s+Yjf9TM60SCrELHWZEm/yAW0YA1R6BjWjsQoAWpaCkJXcZmim3YrWvlVjr
-	cUp4emF11e6QYT93AbZ/mr7jAh/nQav4=
-X-Received: by 2002:a05:620a:a416:20b0:93e:c12c:9b76 with SMTP id
- af79cd13be357-93ec12c9f3cmr30877285a.81.1791531025574; Fri, 09 Oct 2026
- 00:30:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TisiumbA"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a16aaf2067so69106645e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 00:30:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791531039; x=1792135839; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QhfdgCnusoug/g1d4W12Bzr39jd94gg5/ulsL7PdlMY=;
+        b=TisiumbAcAGgBzjagMugUD4vnd5QOPbyuCPbgGXc2bY11YasM0iNwBx90vl1OnQhBW
+         0lIUXSaGBcnnkD3lTHRIZN1F6t7n9FchBO+t5uHEJdUAM+H6nI1jMlnD0eZpm/ymMSUT
+         oPdnbxWZmMT/YSC+wiRo2R7q5jVgeUwQcJj/L/54jTi/pvv2YdaQvODC8QbNgHuE6PWQ
+         cYBAvtdXW8KG591U4nJWV3r8usAFp3pXPL95DgUB2lSTxTUPDsC8QU/wwr2YTQhJpIT3
+         EW153KTI7R8y1OV7WeMZ4MD0uw+IUvjXzxZ2+AtyrweGBGERMBx0lx/mYx+gJaFTjL8w
+         dlVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791531039; x=1792135839;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QhfdgCnusoug/g1d4W12Bzr39jd94gg5/ulsL7PdlMY=;
+        b=YiRwZdzb72ntOledmdhISkWjsol0wqPtWod3N+1m6xVo+1FZJYZvOYj+ZEfAlu278i
+         iA/qGIz4OG8qLwlgSVH7/LXzI3qpF1UXme2LieeRZBjBic1yOt/n9x2HHX9fFcMpFn04
+         HG/frFWJWQRAFTFH44ioDggU0Ey7xYJRlA4JfXtWVGw59K4kAJFgmcPQvX6ukc6D7TAE
+         ecrF+9GI9Hd/CeZVIguELukmRZPN4oWfzmH3Iyygk78Lp7irQLrs2I/ofhPnL5uiw2/W
+         +CcOVlnKbpfscGBEjET7LiAGthRpChYTHdscmPXSXv1eDFKNsgy5vtQ5WkG3ghwQF+3p
+         Rrfg==
+X-Forwarded-Encrypted: i=1; AKwUvBytCYLVD/M+/aKOE4ZvgC49iN+LGCClz2sEzjHXKr+4V3anCcDUUYoJTbDDaeVp2aYrMG5Sx50v3jWwonc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nWsiUXDzUZnXe/ASF9fwEb0Phgr6MU4WUugT94gdUVKVv/6YcO
+	GlZiYgt2sUBErsbAUlDPAZsrS8fm3RZAhqHVvsbNLK0S/KkETRDnNXwX
+X-Gm-Gg: AYBFou0vWd/8T7vnxwJR/7ItbvN77xwZ+dNzorzU0wFe0t2uuea2yCqgPZgrZ1WdM+W
+	AAp/uFeu69S0vcnfRTmKZa9MNxfvUxAJJqs8EPYOBgVwwsgLrjhyGNvjje5FhVx7qeENA0P0ygs
+	/uJa02Zvha5qynUSml9BqFOTdQIsuTvOzt2rFZfPcW4ZchHwFK1hb1c2q+iO87BMNBV1hg5ZALc
+	aN5pCLMiH+hW4W8MnFTqJzvfooWHk3k6nws4VFwW90c3VUOXV9m8Cweh4tmNMqEeSQkUB6wTi+U
+	hZJYxquv/QiNNVY/4HYMc5hfhVXltjou6Deb+GT18AG2sjfVUO5r+FugFS1CtUyk1egPjp7pzgP
+	1PtRZFuYYG8ZMD0vcyIeXOqFT/nm4LCKXr3bdUWmLmHAGEUi0MP9BJMDFHMANPX6A5m/MeIDEES
+	kZP5+ks7bN5+SG/aRtQ8wPhn4zsfliVh8phMcfqp94oEPJX77Pe6bMlRX7a6JKl11bgT4emcPit
+	hAwzZGTokm2k91t0aNb5GmUHTm+dAvoPXYhJJHZ9BBfUxG/KD1rJaSAg788YF6kxliZtnNZUw6h
+	4b4HarKLec5LfKHu9Uj5KBO3hVFbU61IMZmboPwU7OGJj8I5DR6X3ybNJzY8e4y3GmIK+FemB1y
+	T
+X-Received: by 2002:a05:600d:82c6:b0:4a0:1fe2:d4c8 with SMTP id 5b1f17b1804b1-4a18e4a4c3emr19524635e9.5.1791531038809;
+        Fri, 09 Oct 2026 00:30:38 -0700 (PDT)
+Received: from unknown748F3CBA5068 (dynamic-2a02-3100-a128-aa01-297a-7094-853e-a20c.310.pool.telefonica.de. [2a02:3100:a128:aa01:297a:7094:853e:a20c])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf31b83sm38426495e9.12.2026.10.09.00.30.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 00:30:38 -0700 (PDT)
+Date: Fri, 9 Oct 2026 09:30:37 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Arend van Spriel <arend.vanspriel@broadcom.com>
+Cc: linux-wireless@vger.kernel.org, 
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, "David S . Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, brcm80211@lists.linux.dev, brcm80211-dev-list.pdl@broadcom.com, 
+	linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH] wifi: brcmfmac: avoid sleeping tx locks in netpoll
+ context
+Message-ID: <asiX75kRueyFqWuO@gmail.com>
+References: <20260930185417.61865-1-kmehltretter@gmail.com>
+ <20261004122910.1392318-1-arend.vanspriel@broadcom.com>
+ <asR1TaKQJlPFqEvR@gmail.com>
+ <802a092a-314a-4f77-aa1d-134b3d020069@broadcom.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261009062637.176005-1-hui.zhu@linux.dev>
-In-Reply-To: <20261009062637.176005-1-hui.zhu@linux.dev>
-From: Barry Song <baohua@kernel.org>
-Date: Fri, 9 Oct 2026 15:30:14 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4xYGDXMKjbcnkvZAVf3GEd_bnjdJY=84dfyak=rmQVA1Q@mail.gmail.com>
-X-Gm-Features: AclHuK-MFYBp2Fx57JVqeSVV6ggA-SIdiDol7zrPg6odH2nr65hN0ZFPuJg2TWo
-Message-ID: <CAGsJ_4xYGDXMKjbcnkvZAVf3GEd_bnjdJY=84dfyak=rmQVA1Q@mail.gmail.com>
-Subject: Re: [PATCH bpf-next v4] selftests/bpf: Add bpf_proactive_reclaim test
-To: Hui Zhu <hui.zhu@linux.dev>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>, JP Kobryn <inwardvessel@gmail.com>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
-	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Ihor Solodrai <ihor.solodrai@linux.dev>, Alexei Starovoitov <ast@kernel.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
-	Emil Tsalapatis <emil@etsalapatis.com>, Shuah Khan <shuah@kernel.org>, 
-	David Hildenbrand <david@kernel.org>, Geliang Tang <geliang@kernel.org>, 
-	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
-	Jesper Dangaard Brouer <hawk@kernel.org>, John Fastabend <john.fastabend@gmail.com>, 
-	Stanislav Fomichev <sdf@fomichev.me>, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
-	linux-mm@kvack.org, linux-kselftest@vger.kernel.org, netdev@vger.kernel.org, 
-	Hui Zhu <zhuhui@kylinos.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <802a092a-314a-4f77-aa1d-134b3d020069@broadcom.com>
 
-On Fri, Oct 9, 2026 at 2:27=E2=80=AFPM Hui Zhu <hui.zhu@linux.dev> wrote:
->
-> From: Hui Zhu <zhuhui@kylinos.cn>
->
-> bpf_proactive_reclaim() performs one bounded reclaim pass per call and,
-> unlike a write to memory.reclaim, does not retry until the goal is
-> reached.
->
-> Charge 32 MiB of page cache to a cgroup, ask for all of it in one call,
-> and check that the result is positive but well below the request: one
-> pass is capped at MEMCG_CHARGE_BATCH pages, far short of 32 MiB on both
-> 4K and 64K page kernels.
->
-> The test deliberately covers only the kfunc itself. A full example of
-> the intended asynchronous use, where a BPF program watches one cgroup's
-> workingset refaults and reclaims another one from bpf_wq callbacks, is
-> maintained out of tree at [1], released under GPLv2.
->
-> Add CONFIG_MEMCG to the config fragment, without which mm/bpf_memcontrol.=
-c
-> is not built at all.
->
-> [1] https://github.com/teawater/memcg-async-reclaim
->
-> Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
+On Tue, Oct 06, 2026 at 10:27:27AM +0100, Arend van Spriel wrote:
+> > 
+> > Lockdep instrumentation in fcmode=1 and 2 confirmed that cleanup enters
+> > without txq_lock.
+> 
+> This is an observation unrelated to the patch, right? You mentioned in the
+> patch it only covers fcmode=0, right?
+> 
 
-Thanks very much!
+Yes, the cleanup observation is unrelated to the fcmode=0 fix. I
+mentioned it to explain why I kept brcmu_pktq_penq() for normal calls.
 
-Reviewed-by: Barry Song <baohua@kernel.org>
+I'm looking at a separate brcmfmac FWS-path RT/netpoll fix for modes
+1 and 2. The prototype defers IRQ-disabled transmit to the FWS worker.
+
+Are modes 1 and 2 used or recommended on SDIO devices? That would
+help me prioritise the follow-up.
+
+Thanks,
+Karl
