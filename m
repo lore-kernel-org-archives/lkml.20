@@ -1,124 +1,181 @@
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mxde.zte.com.cn (mxde.zte.com.cn [209.9.37.142])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B606A392C2C
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 09:11:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A25AE4973B5;
+	Fri,  9 Oct 2026 09:14:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.9.37.142
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791537077; cv=none; b=NZyC7Cx1RkpTSGe3Nvj0ZMigyWtfSXnweIr3PqxxT89o65LA1mBtJdSQgtMZ1cKTlh/5yBK151yqYaabQE7VRdd6jKQgtTEyeIE5pCYTjOTZx+mlxS5sg3qsB46d+8fAvPOZieylmya7q+D1DD4rPiEnWwTX/85xsvw32/yEsIA=
+	t=1791537303; cv=none; b=ZFvt9rpbsFKGTQlsaRNjgPicjyjM86HPCl3LfbgQBY+gj4SXx5YcaVBq2x5Fp66QFxYUeATGU0M63iufniKn+O6t09+QAeqT36BD5dAi8QtGTi8Z22LOiQT+Rupt8mBqci7A9MBT15AwE/YBxlcwH3nRYrD5TeadDJxSw18vSgg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791537077; c=relaxed/simple;
-	bh=tBfBkIWljJahaYTO0anHftOa/Mal7hPXpw/F/dtZxT0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VJK91n/auHnEU+6MxJxLqPkf148vUjyefkJzRUuKkaFHqPfulp64FKaEZyHpFkqFpZMlpcxaxz/MhB3HsvFw0S615JMUE0innd4N7g3Inx0DnqKACcePnzXooy76m3LO/KPcF7urZ8EP5xj2m5wEXkSVz5WAwQrGAqDwVeiy7m8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UpdYpg7U; arc=none smtp.client-ip=74.125.82.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UpdYpg7U"
-Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-141395927feso6532574c88.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 02:11:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791537076; x=1792141876; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oaT+zyiVDF+oO1apwHrrvZj9B+eawsITqiWBF5tkJHQ=;
-        b=UpdYpg7UN+h24CathvVYDNLHYtq6tD+DtqREEiZTiQ4f4Snubry8dizzNgUQ/hv0NL
-         Tlsya7wcE6IHsEKiKF5MszOpiPZEroMvDVZV3vDMDA/iEGqKL0x6+tQarvuJsnyUcvP7
-         SmwRdgKtK73AiofHRGj3Da1PPusi8XJmNMxJzvZe/wnJMhtT0P6DLZRIOZMAMYmzCJkm
-         RnyGJjP6keH4vMCd8SUZXufGCBo+yNgM0Y8DIuD9DHw05IjvvvMEBW9u0qhQEKs4YrJS
-         zhwUMEs6VeJc97YQ8VcLR0DN+TGmUDAOqTKAn6uiCsvIiD5FBmrzx3wi0asts8faz2JH
-         0cmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791537076; x=1792141876;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oaT+zyiVDF+oO1apwHrrvZj9B+eawsITqiWBF5tkJHQ=;
-        b=OZgquthJXhJ2078fd0NARSd8huD6ZM3NviaziqM5M4ci8cV+t0c68V7KEuOX8NF45S
-         d49HISSggRBad+t35/dcae3uYaQX+CMgIkzul5BuCKIa3KoWB8Za30Jie7m5xYy4ps5D
-         2Wjzu2BoZlCsbOiNNhWKt1dB71B0t8K1EX4pe7sEmH88PVtKo7ejP13ywu6geQrL8vFL
-         bjsc9FeJnqhUQSwpSClQW7CI7VN29mepY5Dml7u/lWbR91HFAevknorKv4kCGjH2i2Sf
-         rC7ooJuXZnUYlqof3FeIa/UlHP9+Wre4C5EC2o7Ponb7MOshzx4K1W+yTW9RLsUXAYQB
-         GOSw==
-X-Forwarded-Encrypted: i=1; AKwUvBwaINJ6OloK3zy8V1Vo6xLxDt6kjojkXYR+jvmCRgIkjE8w57OXxm3aGOXWn7cMJ7mR3vZ3EekFwDOlZTk=@vger.kernel.org
-X-Gm-Message-State: AFuF++m8S/QuL7cvgFxJJzxfSzanxZuv6Ir628cvXyW2yXyF9/IjJDtd
-	ZZjYSsRM0kx0vbZMFRjaQq+utJHNNBigR2N0NCBq2j8IwnJIRy2fzFJbvodaPw==
-X-Gm-Gg: AYBFou13fRWbqw2KErb3p5NrxcPskIi9m6Djk6dvHbcZrK5UyShW/6dkIBnC+CsjCrX
-	0BJk8Ln6AlfSm0oDjWXZZmIP83OmfoR3W7cu+ggrG6XxlpGAZXAjSEK6C+lK+YSZYgtmekW1+RR
-	YnPWuXSulkkbRpyBxiKkzlSPTrGRrRL0we2f1Dz8QvY2RkTsunLWcU75iZIddJ0kPuPCZ6wzUGm
-	YIJVBRGpiniuWeuxSvFGxW26jxbzTIZUK7nFNljIm7Uj/P4IpOYa8Hj9oT4TejfvHYJqTWleL2R
-	HTw2KXTtg5DcxBd6pnaV5c6l/+710Fj4IY2lfvj/riouJu1dgOxXmUQCKW36tBDIEwjlsAA5CVH
-	1eW+T1C/Qj1XWmoyk9IXxsgl81bqZLUU0m22v1ZswdYq/fp0dQLn4KgeHJBNP5ekIgFO38WlHeC
-	5XbNFhJzfXw9+BM9pRwSXMOoVwCpvy2h2CQS8EmChxbgvLf8aOdqhpFPxreJMDT++ZptMyyh/1x
-	qqtKQPxq6q9BvcAO1mLTtk63Q0r+HEOoCih97r8o+uTs29kOPf8Y5VRjAWQq8bmH06J0nE3nQL9
-	D5kAFAGYqMGRBlE3J++ajN1E
-X-Received: by 2002:a05:7022:ea4d:b0:144:e38d:8e52 with SMTP id a92af1059eb24-16a60ce7512mr1263776c88.37.1791537075733;
-        Fri, 09 Oct 2026 02:11:15 -0700 (PDT)
-Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a1becefdsm5125444c88.7.2026.10.09.02.11.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 02:11:15 -0700 (PDT)
-From: phucduc.bui@gmail.com
-To: Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	linux-leds@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Jacek Anaszewski <jacek.anaszewski@gmail.com>,
-	Dan Murphy <dmurphy@ti.com>,
-	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH v2 2/2] leds: lm3532: Avoid duplicate error messages
-Date: Fri,  9 Oct 2026 16:10:59 +0700
-Message-ID: <20261009091059.25729-2-phucduc.bui@gmail.com>
+	s=arc-20240116; t=1791537303; c=relaxed/simple;
+	bh=cFJXizfmrElWI9zVTKNIIsrYqGqqIWoznlaActFHRr0=;
+	h=Message-Id:From:To:Cc:Subject:Date:In-Reply-To:References:
+	 MIME-Version; b=QmdoGRC+45HM/Jr402fsXJErALH0jG0ebLm4cdYsYqHatdqGagSyYcFwhHgzPGVjLh+WltI4D4Sb9q+cwbztA6nu46M+cuqUU+++wV4XgLJ1i2trQeKOgYDaz8NA8sM8nIaYxOg9BMOjW9Ft237W5xTy4Ys5Rk7XSIOogv+TOow=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sanechips.com.cn; spf=pass smtp.mailfrom=sanechips.com.cn; arc=none smtp.client-ip=209.9.37.142
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sanechips.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sanechips.com.cn
+Received: from mxhk.zte.com.cn (unknown [192.168.250.138])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxde.zte.com.cn (FangMail) with ESMTPS id 4j1LmG56D0zBQkJl;
+	Fri, 09 Oct 2026 17:14:54 +0800 (CST)
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4j1Lm45T4rz4yjjH;
+	Fri, 09 Oct 2026 17:14:44 +0800 (CST)
+Received: (from root@localhost)
+	by mse-fl1.zte.com.cn id 6999EfSj006317;
+	Fri, 9 Oct 2026 17:14:41 +0800 (+08)
+	(envelope-from gong.shuai@sanechips.com.cn)
+Message-Id: <202610090914.6999EfSj006317@mse-fl1.zte.com.cn>
+Received: from szxlzmapp04.zte.com.cn ([10.5.231.166])
+	by mse-fl2.zte.com.cn with SMTP id 69995Y26078728;
+	Fri, 9 Oct 2026 17:05:34 +0800 (+08)
+	(envelope-from gong.shuai@sanechips.com.cn)
+Received: from localhost.localdomain (unknown [10.230.214.35])
+	by smtp (Zmail) with SMTP;
+	Fri, 9 Oct 2026 17:05:36 +0800
+X-Zmail-TransId: 3e816ac8ae5a022-c22f1
+X-Zmail-LocalSMTP: 1
+X-Zmail-RealSender: gong.shuai@sanechips.com.cn
+From: Gong Shuai <gong.shuai@sanechips.com.cn>
+To: andrew.jones@oss.qualcomm.com
+Cc: anup@brainfault.org, atish.patra@linux.dev, fangyu.yu@linux.alibaba.com,
+        iommu@lists.linux.dev, jgg@nvidia.com, jgg@ziepe.ca, joro@8bytes.org,
+        kvm-riscv@lists.infradead.org, kvm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+        palmer@dabbelt.com, pjw@kernel.org, robin.murphy@arm.com,
+        tglx@kernel.org, tomasz.jeznach@linux.dev, will@kernel.org,
+        zhangzhanpeng.jasper@bytedance.com, zong.li@sifive.com,
+        gong.shuai@sanechips.com.cn, gsh517025@gmail.com
+Subject: Re: [RFC PATCH v3 04/14] iommu/riscv: Reject live S2 replacement with forwarded IRQs
+Date: Fri,  9 Oct 2026 17:05:30 +0800
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261009091059.25729-1-phucduc.bui@gmail.com>
-References: <20261009091059.25729-1-phucduc.bui@gmail.com>
+In-Reply-To: <20260928143113.49838-5-andrew.jones@oss.qualcomm.com>
+References: <20260928143113.49838-5-andrew.jones@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-ZMAIL-USEORIGINALEMLTOOUTBOUND: 1
 Content-Transfer-Encoding: 8bit
+X-MAIL:mse-fl1.zte.com.cn 6999EfSj006317
+X-MSS: AUDITRELEASE@mse-fl1.zte.com.cn
+X-TLS: YES
+X-ENVELOPE-SENDER: gong.shuai@sanechips.com.cn
+X-SOURCE-IP: 192.168.250.138 unknown Fri, 09 Oct 2026 17:14:55 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AC8B08D.000/4j1LmG56D0zBQkJl
 
-From: bui duc phuc <phucduc.bui@gmail.com>
+Hi Drew,
 
-Most error paths in lm3532_parse_node() already log errors. Add an
-error message for the devm_add_action() failure and remove the
-redundant error message from lm3532_probe() to avoid duplicate logs.
+> MSI forwarding state is tied to the S2 domain MSI table. Replacing a
+> device's S2 domain while one of its IRQs is forwarded would leave the
+> IRQ state referring to the detached table.
+> 
+> Reject direct S2-to-S2 replacement when the moving device has forwarded
+> IRQs. Introduce a per-device nr_forwarded_irqs counter, rather than
+> domain-wide accounting, so other devices in the same IOMMU group can
+> still move and can be rolled back if a later device fails.
+> 
+> Later patches which introduce interrupt remapping support will manage
+> the newly introduced nr_forwarded_irqs counter.
+> 
+> Signed-off-by: Andrew Jones <andrew.jones@oss.qualcomm.com>
+> ---
+>  drivers/iommu/riscv/iommu.c | 36 ++++++++++++++++++++++++++++++++++++
+>  1 file changed, 36 insertions(+)
+> 
+> diff --git a/drivers/iommu/riscv/iommu.c b/drivers/iommu/riscv/iommu.c
+> index 57f2884dec42..d48667112cd9 100644
+> --- a/drivers/iommu/riscv/iommu.c
+> +++ b/drivers/iommu/riscv/iommu.c
+> @@ -872,6 +872,7 @@ PT_IOMMU_CHECK_DOMAIN(struct riscv_iommu_domain, riscvpt.iommu, domain);
+>  /* Private IOMMU data for managed devices, dev_iommu_priv_* */
+>  struct riscv_iommu_info {
+>  	struct riscv_iommu_domain *domain;
+> +	unsigned int nr_forwarded_irqs;
+>  };
+>  
+>  static struct riscv_iommu_msi_table *riscv_iommu_domain_msi_table(struct iommu_domain *iommu_domain)
+> @@ -1432,6 +1433,36 @@ static int riscv_iommu_msi_table_alloc(struct riscv_iommu_domain *domain,
+>  	return 0;
+>  }
+>  
+> +static bool riscv_iommu_can_attach_paging_domain(struct iommu_domain *iommu_domain,
+> +						 struct device *dev,
+> +						 struct iommu_domain *old)
+> +{
+> +	struct riscv_iommu_domain *domain = iommu_domain_to_riscv(iommu_domain);
+> +	struct riscv_iommu_info *info = dev_iommu_priv_get(dev);
+> +	bool new_is_s2 = domain->gscid;
+> +	struct riscv_iommu_msi_table *new_msi_table, *old_msi_table;
+> +
+> +	if (iommu_domain == old)
+> +		return true;
+> +
+> +	new_msi_table = riscv_iommu_domain_msi_table(iommu_domain);
+> +	old_msi_table = riscv_iommu_domain_msi_table(old);
+> +
+> +	if (new_msi_table)
+> +		lockdep_assert_held(&new_msi_table->lock);
+> +	if (old_msi_table)
+> +		lockdep_assert_held(&old_msi_table->lock);
+> +
+> +	/*
+> +	 * Per-device accounting allows other devices in the same IOMMU group
+> +	 * to move or roll back while this device has forwarded interrupts.
+> +	 */
+> +	if (new_is_s2 && old_msi_table && info->nr_forwarded_irqs)
 
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
----
- drivers/leds/leds-lm3532.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+This check might miss one case. old_msi_table comes from this
+attach's old domain, so only a direct S2 to S2 swap is caught.
+A device with live forwarded IRQs can still be moved to blocking
+and then to a different S2 domain, and on that second attach old
+is the blocking domain, so old_msi_table is NULL and the check
+passes. This is only from reading the code, I have no test program
+that triggers it.
 
-diff --git a/drivers/leds/leds-lm3532.c b/drivers/leds/leds-lm3532.c
-index a3bc9680dc4c..05856c053fac 100644
---- a/drivers/leds/leds-lm3532.c
-+++ b/drivers/leds/leds-lm3532.c
-@@ -566,7 +566,8 @@ static int lm3532_parse_node(struct lm3532_data *priv)
- 	if (priv->enable_gpio) {
- 		ret = devm_add_action(&priv->client->dev, gpio_set_low_action, priv);
- 		if (ret)
--			return ret;
-+			return dev_err_probe(&priv->client->dev, ret,
-+					     "failed to add GPIO action\n");
- 	}
- 
- 	priv->regulator = devm_regulator_get(&priv->client->dev, "vin");
-@@ -708,10 +709,8 @@ static int lm3532_probe(struct i2c_client *client)
- 	i2c_set_clientdata(client, drvdata);
- 
- 	ret = lm3532_parse_node(drvdata);
--	if (ret) {
--		dev_err(&client->dev, "Failed to parse node\n");
-+	if (ret)
- 		return ret;
--	}
- 
- 	return ret;
- }
--- 
-2.43.0
+If you think this is a real gap, one idea would be to record the
+table the forwarding was set up on in riscv_iommu_info(a pointer to
+riscv_iommu_msi_table), set when the first IRQ of the device is
+forwarded and cleared when the last one is unforwarded. The pointer
+survives the blocking hop, since attaching to blocking domain only
+clears info->domain. Then can_attach here will reject when the new
+domain's table differs from it. That covers both the direct and the
+blocking case, and the PCI reset path still works because the device
+returns to the same S2 domain. The unforward path can use the pointer
+instead of info->domain. Note that the S2 domain owning the table
+must not be freed while a device still points at that table.
 
+Thanks,
+Shuai
+
+> +		return false;
+> +
+> +	return true;
+> +}
+> +
+>  static int riscv_iommu_attach_paging_domain(struct iommu_domain *iommu_domain,
+>  					    struct device *dev,
+>  					    struct iommu_domain *old)
+> @@ -1477,6 +1508,11 @@ static int riscv_iommu_attach_paging_domain(struct iommu_domain *iommu_domain,
+>  	bond->dev = dev;
+>  
+>  	flags = riscv_iommu_msi_tables_lock(old, iommu_domain);
+> +	if (!riscv_iommu_can_attach_paging_domain(iommu_domain, dev, old)) {
+> +		riscv_iommu_msi_tables_unlock(old, iommu_domain, flags);
+> +		kfree(bond);
+> +		return -EBUSY;
+> +	}
+>  	riscv_iommu_bond_link(domain, bond);
+>  	riscv_iommu_iodir_update(iommu, dev, &dc);
+>  	riscv_iommu_bond_unlink(info->domain, dev);
+> -- 
+> 2.43.0
