@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0DC240803B
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 06:07:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13D0924676D;
+	Fri,  9 Oct 2026 06:07:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791526042; cv=none; b=hAEd/glSLCH0qVb7S+riWvyrZlb5ZEovK2Mav02VkZsM8xbrUIWEvpJQFcG1DZwWPeqe7SNbtvuFTJeJNBTY6dC/tqN1GyUk56SYL72VwjI6VgTmOSrmQTvCxRz6kzPeJqcetOrXsYa2P64fbvH58OnXn2dk6TqRHjoDFgtDQJM=
+	t=1791526046; cv=none; b=bDgx52QceDCbeGlehUjtt2R0e2aVlzu3QEq172f8IwAj2x0zSK2kHbOi6evGmJ+tHqqvbn17083J7JZw5OCM88em77cJ1r3d3T6PuRzKFGLGLhaXF4hczMUkF2zIc+PX+iMaBvEd7qlR2y2ELYstu4u7Rs1cnBpt/xtrCTgcQ8M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791526042; c=relaxed/simple;
-	bh=ucz54He50teWdkvD3Snqc8YIYro1LUAPY8BIylS3u58=;
+	s=arc-20240116; t=1791526046; c=relaxed/simple;
+	bh=AD40QHPRM/uPwoHpI96Dy5bfJgcMMuQjmBqpRU26B8I=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YQEYyjgieIxdWTE+JM5dOM2ofxgwpozH5S8fMp6j4SijE3dXKJqGCJKzk9kYZM55mSCGEM8LIJDj+E726jyeGRF+TStC5vWlBJT2KYtZ0WTwMccN7xTLFAaESEIsqg357r9/6DcjL1YdWB5h3QRvxxTzVeDeVaQfbskn2lQGN5Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ooQmuCRr; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=u7rZxG/DGP6LeHukjTI4XSE6XrbokaAMdnyzN/p5IZQf8WuZ8Ml/3a7A8oDHYctSnaZyBWFXV7FmMRLVd3EmRjckZ0P7cxlNQ9JzI0vBE6qXxqbIwstMqXiLFgVNe5NcUDWCCaPAN/gQ3XNorSRVMQIrRGfR7x8j04Zf+kvkZfM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lsWXZLHG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ooQmuCRr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B69AE1F00898;
-	Fri,  9 Oct 2026 06:07:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lsWXZLHG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0956F1F000FF;
+	Fri,  9 Oct 2026 06:07:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791526041;
-	bh=B7Ii4YlWHCyeaKp0gLPF5MWlKWp8ViEZqDPsU+H/HW8=;
+	s=k20260515; t=1791526044;
+	bh=nu+dGy6K2wM7mg9NfbX2EmyZWS9ACuR8SVMuMJ67eCY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ooQmuCRrCE5aFUD4BZwQcK5zAfOLDk6hyyXYVa8dSCgbAC8devBKiuhNYYLFobljP
-	 tNborRn0GcIdyIxURCKpcZX87MdXTOHE3j2FtGFSptKa5nBegyIX6meRjLnY+16zIs
-	 YXzlghEH3o14P+hj1HJkABfg7kFlI1UZhOeRk8wH+WzyAK6wqb0Ld+DvK6cWcck0xT
-	 JM54oCdJHOH8Bn74cKWbhHLxmKNGj0kXt7yrumrVFxQ+0KOM43mOSvWVmvuWqtjgkm
-	 4KEUmwFGOEQkuUlff3wS/9KI8BKwCcONyAbNeWVC3ZNsCZsVuJnXVm9RBWklTyHBSX
-	 0Ehm+Rl84tEOw==
-Date: Fri, 9 Oct 2026 08:07:18 +0200
+	b=lsWXZLHGKW2d2+Z35HBZLV1PotEui8iEuqNVncbT4hdRK1ZrvjZk3AB0esw0+hC9/
+	 StuOHgd0s59rQ+fGwUAmDrR0hKC3Ea23kQjIps1TJWCABjchlEFMzH092WkcZwODfk
+	 wZ8t6B6oT8TuylWzF10VbSixCoZt7+E1JI3h6rqhg+zLBnTe8NE2gkUfPR9KJbygDk
+	 UursROFQKY3C9aunlrWwN61gjCnzmzjgvbYzpMtiMBR7L6F9gnMXysFNnZAfcxEWB2
+	 LG/jpYeqPejrrBKeAZCSOY2PZXGejFmW8f9+VvyyV1svJs2JOvWY+BWuSrGPmKp8Hm
+	 mHXSZABNCu9fQ==
+Date: Fri, 9 Oct 2026 08:07:22 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Haotian Zhang <vulab@iscas.ac.cn>
-Cc: Gavin Schenk <g.schenk@eckelmann.de>, linux-kernel@vger.kernel.org, 
-	Thorsten Scherer <t.scherer@eckelmann.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Uwe =?utf-8?B?S2xlaW5lLUvDg8K2bmln?= <u.kleine-koenig@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>
-Subject: Re: [PATCH] siox: fix memory leak of master buffer on device release
-Message-ID: <20261009-evasive-caped-oxpecker-d1aa06@quoll>
-References: <20261009045626.3122539-1-vulab@iscas.ac.cn>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	David Mosberger-Tang <davidm@egauge.net>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Re: [PATCH] usb: host: max3421-hcd: stop SPI thread before freeing
+ its DMA buffers
+Message-ID: <20261009-durable-adaptable-bumblebee-a032da@quoll>
+References: <20261009044431.3115704-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -43,23 +43,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261009045626.3122539-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261009044431.3115704-1-vulab@iscas.ac.cn>
 
 
-On Fri, 09 Oct 2026 12:56:26 +0800, Haotian Zhang wrote:
-> siox_device_add() grows smaster->buf with krealloc() when the first
-> device is added, but the buffer is never freed. siox_master_release()
-> only frees the siox_master structure itself, so every unregister of a
-> master that had at least one device leaks its transfer buffer.
+On Fri, 09 Oct 2026 12:44:31 +0800, Haotian Zhang wrote:
+> In max3421_probe(), the error path frees the kmalloc'd tx and rx buffers
+> with kfree() before calling kthread_stop() on max3421_hcd->spi_thread.
+> The SPI thread entry point max3421_spi_thread() immediately starts using
+> those buffers through spi_rd8()/spi_wr8(), so when usb_add_hcd() or
+> request_irq() fails and the thread is still running, it can access the
+> freed buffers, giving a use-after-free.
 > 
-> Release smaster->buf in siox_master_release().
+> Stop the SPI thread first and only free the tx/rx buffers afterwards.
 > 
-> Fixes: bbecb07fa0af ("siox: new driver framework for eckelmann SIOX")
+> Fixes: 05dfa5c9bc37 ("usb: host: max3421-hcd: fix "spi_rd8" uses dynamic stack allocation warning")
 > Assisted-by: DeepSeek-V4.1-Flash
 > Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
 > ---
->  drivers/siox/siox-core.c | 1 +
->  1 file changed, 1 insertion(+)
+>  drivers/usb/host/max3421-hcd.c | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
 > 
 
 
