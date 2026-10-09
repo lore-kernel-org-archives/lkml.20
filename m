@@ -1,126 +1,92 @@
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76919440A25;
-	Fri,  9 Oct 2026 13:26:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C7A04E0B67;
+	Fri,  9 Oct 2026 13:26:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791552387; cv=none; b=W0bT54mMw+2EdbVEXGuu9JpFEbxXfrpfsd7oJFOQ10upmYMFdHeIIXLFrQEbyTZ3QnidNqtQka8EMRVykI1velCyqplOO4kLPUaMmZg4dW1o/iQcuYYHwFFvcvmC/gglfD9Bp8EjtPiZ4qx00JPV1dKB+XOnMKRkOg9LNVY4XZA=
+	t=1791552390; cv=none; b=tlMY0IFARTwOprCt2rB5h/TSAqmTGPo1dF0Wh5iUEj8QmbuH8u4A2S/l/EMtMn29hptX6PRqlc5g/rqYyrYn6PNjVyUmUi0EZUlwoLyvw/9oAd9adVcpai2oqbZXrzqoMQMiO6gXqkNi3YzuFPvxMqMGOuf3HWEjFZNp2ipcHm8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791552387; c=relaxed/simple;
-	bh=iVfJIfIE/XENcWWZ9WWJ+tx0CmQq9Yzyw64UOlG421g=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=lExq1YsGM5xWzrGHVBFh/JLi2srAAQhZgZQEe0zbBlhf0fDNbt3yxJEVVJnOzMhKv8NmvKm7+YjRe7v+l1Fn5DJ8IZY6jSon9sqc9kHmH14nbb6OCq/Vs/4W8pgAhpXwMnItlTMWQQU+Ja2I0lNH/DlSDkXSIigFrjNlaccaxkw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=Mwb6ScPc; arc=none smtp.client-ip=51.159.188.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="Mwb6ScPc"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:
-	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=VfRAaihF3W9H/OxSy62htlpGcHV+yg/dlUcG3KVF9Mc=; b=Mwb6ScPcHwAQ0frNn++S7CnnGo
-	GNY3ULWNtVcky4Z39VWOuC9tCXdVNpUclftextn2v4WP21Hj2GBbDeIzJZWAQAsfaTuguOTs+jCKY
-	wbchbRfsjX8Fr4Zu9GUkec95YOYDQYgzoZ68Ta7cwlhzsVwRDQ0RCCdR8iCqGcQM8yo74xQUeTXlu
-	Kn96WtG6mc4IhV0DibsirohuspAQVXdMHffKVO8arv4Q+wcYPw7LVZtahsi9z9t2g5l6URssU6OYn
-	ortqng8fL2weHF2xYMj6whk12A9ZPWzvuO3T20NvlJA/YeLVNAwT/3EFrxfpaxY09DHTZr+vVZ4MV
-	ws3v210g==;
-Received: from [::1] (port=53922 helo=pf-012.whm.fr-par.scw.cloud)
-	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.100.1)
-	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
-	id 1xFAcC-0000000Cuxr-0nJ3;
-	Fri, 09 Oct 2026 15:26:23 +0200
+	s=arc-20240116; t=1791552390; c=relaxed/simple;
+	bh=Qv7ujzDmq4OGtWPiit/kn5nP9RXKJM4A0D/BbUGoVlU=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=t7hUnfuPBlFxgWOsqfpuRIUKnzRMckMcSuGKsDQ5D+XaXJWojCEfUuVB0D5MnTX4ebYNQUbBqY/VHWhNQutJrRWn959mBk3UU/rvolaudqb7O/tz/Nr7Z/0WPAjWVCu3y6+0/HkTaJxzi+sqncXBuNCCCDlxQbvRfBmBJXFrpr4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 8A1651F7CB;
+	Fri,  9 Oct 2026 13:26:27 +0000 (UTC)
+Authentication-Results: smtp-out2.suse.de;
+	none
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3E03A1326D;
+	Fri,  9 Oct 2026 13:26:27 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id TwCZBYPryGp6XgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Fri, 09 Oct 2026 13:26:27 +0000
+Date: Fri, 09 Oct 2026 15:26:26 +0200
+Message-ID: <87mrsn3szh.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: d@zerovolt.org
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ALSA: usb-audio: Add feedback snap quirk for Mayflower ARC AMP
+In-Reply-To: <20261009-mayflower-fb-v1-1-a84e82e05ac9@zerovolt.org>
+References: <20261009-mayflower-fb-v1-1-a84e82e05ac9@zerovolt.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Date: Fri, 09 Oct 2026 15:26:23 +0200
-From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: "Jason A. Donenfeld" <Jason@zx2c4.com>, Ard Biesheuvel
- <ardb@kernel.org>, linux-crypto@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] lib/crypto: arm64: Fix lost Poly1305 carry when
- resuming NEON state
-In-Reply-To: <20261009130310.GA309826@quark>
-References: <20261008201949.561207-2-Jeremy.Jean@oss.cyber.gouv.fr>
- <20261008201949.561207-4-Jeremy.Jean@oss.cyber.gouv.fr>
- <20261009130310.GA309826@quark>
-User-Agent: Roundcube Webmail/1.6.19
-Message-ID: <98223a03dc250211153c1013232f2ce6@oss.cyber.gouv.fr>
-X-Sender: jeremy.jean@oss.cyber.gouv.fr
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Pre-Result: action=no action;
+	module=Unknown lua;
+	unknown reason
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Rspamd-Pre-Result: action=no action;
+	module=Unknown lua;
+	unknown reason
+X-Spamd-Result: default: False [0.00 / 50.00]
+X-Spam-Score: 0.00
 
-On 2026-10-09 15:03, Eric Biggers wrote:
-> On Thu, Oct 08, 2026 at 08:19:50PM +0000, Jérémy Jean wrote:
->> These limbs in base 2^26 represent the value
->>       4
->>     + (2^26    ) * 2^26
->>     + (2^26 - 1) * 2^52
->>     + (2^26 - 1) * 2^78
->>     + (2^24 - 1) * 2^104
->>   = 2^128 + 4,
->> so converting back to base 2^64 must produce
->>   h0 = 4, h1 = 0, h2 = 1,
->> so that h0 + h1 * 2^64 + h2 * 2^128 = 2^128 + 4.
->> 
->> The third limb starts at bit 52, so its low 12 bits belong in h0 and
->> its upper 14 bits belong in h1. The low-word ADDS starts from
->>   4 + 2^26 * 2^26 = 2^52 + 4
->> and adds the low 64 bits of
->>   (2^26 - 1) << 52 = 2^78 - 2^52,
->> namely 2^64 - 2^52. The sum is 2^64 + 4, so it leaves h0 = 4 and
->> carry = 1.
->> 
->> The middle word contains the upper 14 bits of the third limb, all of
->> the fourth limb, and the low 24 bits of the fifth limb. The next ADC
->> adds the carry from h0 to
->>   ((2^26 - 1) >> 12) + ((2^26 - 1) << 14),
->> giving
->>   (2^14 - 1) + (2^40 - 2^14) + 1 = 2^40.
->> The following ADDS adds the low 64 bits of
->>   (2^24 - 1) << 40 = 2^64 - 2^40,
->> so the sum is 2^64, h1 wraps to 0, and carry = 1.
->> 
->> The top word starts from the remaining bits of the fifth limb,
->>   (2^24 - 1) >> 24 = 0.
->> The final ADC must add the carry from h1 and set h2 = 1. Writing the
->> carry into d2 instead leaves h2 = 0, so the reconstructed value is 4
->> instead of 2^128 + 4.
+On Fri, 09 Oct 2026 13:44:53 +0200,
+Dimitri Wegner via B4 Relay wrote:
 > 
-> Thanks, but this LLM-generated "explanation" is way too verbose and
-> doesn't really say anything useful.  The new test in patch 2 is also
-> unnecessarily specialized to this exact issue and implementation, isn't
-> properly explained, and it's apparently LLM-generated too.  I'd 
-> normally
-> give a bit more time for submitters to fix things up, but since it will
-> likely just go back into the LLM, I don't think there's much point 
-> here.
-> So I went ahead and sent out a v3 that addresses these issues.
+> From: Dimitri Wegner <d@zerovolt.org>
+> 
+> The Mayflower ARC AMP DAC (USB ID 0493:4170, MAG Technology front-end)
+> at times gets stuck reporting feedback of nominal+1 sample/frame (97
+> instead of 96 at 96 kHz) and does not recover. The driver follows this
+> feedback, and audible pops occur every 1-2s until the stream is
+> restarted.
+> 
+> Add a quirk for this device that ignores feedback values more than
+> 1/128 (~0.8%) away from nominal and uses the nominal rate instead.
+> Normal feedback corrections are far smaller than that and pass
+> through unchanged. Other devices are not affected.
+> 
+> Signed-off-by: Dimitri Wegner <d@zerovolt.org>
+> ---
+> Tested on this DAC at 96 kHz for ~10 weeks on kernels 7.1 and 7.2.
+> The pops no longer occur. The quirk triggered ~680 times over that
+> period, always with feedback 0x61.0000 against nominal 0x60.0000.
 
-I did get help from LLM for the test, but I did write the explanation 
-myself
-to explain the carry propagation in the computations. I thought it 
-explained
-the carry bug nicely enough with an example, sorry that you disagree.
-I also added a paragraph on the probability that this happens, because 
-it's
-very low and AFAICT, does not really impact current deployements.
+OK, so I assume that dev_warn_ratelimited() isn't too annoying, then.
 
-Jérémy
+Applied to for-next branch now.  Thanks.
+
+
+Takashi
