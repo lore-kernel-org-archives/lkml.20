@@ -1,233 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com [209.85.128.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6BB440803D;
-	Fri,  9 Oct 2026 05:58:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAC62421239
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 06:00:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791525533; cv=none; b=P9ynftD1BfcQY6PmTG60VlALrnigGW2tobK7Vm9KGu2qptp3eInykhb1NzO5w4THmQUseRUrQDp+2CCJGi33sSq/KvDx4GctgsBICgyToLgiHqcZpIjKrBApkdkZ2AtGIgUUKZaYfuAsDwE7W+lyLfyyJ0QT2mD9j60wWenbl+w=
+	t=1791525606; cv=none; b=WhRW30D9yGMpa+/VyL3SuNfv82JXsGgFv0Xrgdv/PR5w/AxBA8mN75TYOzYCAqx3RnjvSVv+WNDPZFvXWSp4Kccdst1CYor/Az1mpZdUF9XeJKMj/IJ6QSVZ8fnZPczsA1JflP6121OUcPak0kG6L4se4qG1wkCj+YnVUwObrHc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791525533; c=relaxed/simple;
-	bh=KjK8ntwPO6bSpyBoSTYcmLXAZ1NuFeJD6b1g7yEq6OI=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=gUz3Mv+a1aJ/bru2IzVipFAkyG89sP5QM+ysigZr6ZzqoOKGH4NJMqjA4AUroLi4BG0+3YB2niHChpxY5g3iGS346cfoxLQG0FRJlIXqhovxTADzal7b7ggMs/UaHxVtoeCz2hwZXzZo6lsAfoqAwT/kabz/2zdWQw6Wi9POh1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iAR/z1zr; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iAR/z1zr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F05B11F0089B;
-	Fri,  9 Oct 2026 05:58:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791525531;
-	bh=XMDi6LSC4gfBO0GBDHQ2H3dSPEu1MrCd8/4Fxy8VdP0=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=iAR/z1zrXms15Snodx9FlR52rB+oiG7RyMp0E+VlIceeH8btwWxixgfoo6mwSawkL
-	 oQA59cu6+hktQd96RyGOirYUwwP02R8lmKzYCFSTWuGgYai+EJ9rqmtZULWMMTXoQw
-	 TWtZ1oL/S5M1yJN5R10A8k0YjE1TH5VUf6fDHPoCb+sfxLrblWSUr5aLGY0XJVyzmd
-	 U81soclsoIjLrb7h4p8PbojWSWBcxAuUEcRrNrtE0LBWf8qC3pxQV4YOHRLwRh0Lp4
-	 s3aRVW4uT/fOdvSWbNtUa5HssKHPC/xQ5pl1100qAPdesJMOTOE2eVWJcNr1DlXa9k
-	 TTdoanUNvBeYA==
-Subject: Re: [PATCH] tun: fix skb length underflow in NAPI frags path
-From: netdev-bot+sashiko@kernel.org
-To: harshit.m.mogalapalli@oracle.com
-Cc: maheshb@google.com, willemdebruijn.kernel@gmail.com, jasowangio@gmail.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, peterpenkov96@gmail.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- kernel-janitors@vger.kernel.org, error27@gmail.com, stable@vger.kernel.org
-Date: Fri, 09 Oct 2026 05:58:50 +0000
-Message-ID: <179152553052.434549.7841966987517379353@kernel.org>
-In-Reply-To: <20261005054224.4154727-1-harshit.m.mogalapalli@oracle.com>
-References: <20261005054224.4154727-1-harshit.m.mogalapalli@oracle.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=arc-20240116; t=1791525606; c=relaxed/simple;
+	bh=is4gJLoi2ipJmooXAfray6TyXKGcAgJe47D+iW9qPlA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=E3972S8Z2HF/lrCEuXmbD5dRBKR3z6ID/h5S8hAWzziH+J0TJK8MSD6Z4wh+tnrradPjxMRhbKwMIVr3BAcKJ68nBgxfstcyAhbYBF5gz79c4BQNgdJeGkGU+9kwM+zOHsirQeNz2FyjrjbuT+i3EKuOri/RD6G4+gHXv+aG5UA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.128.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-yw1-f173.google.com with SMTP id 00721157ae682-8ab38a051aaso38545887b3.3
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 23:00:04 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791525604; x=1792130404;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tWTuV8nTat+7Ise5DAVZrckoXbB3rEEMphlZwWdvIzs=;
+        b=KTVCs5cvxNr1VpSNRWEuw/+b0NfHxvGH/7RvjnXPybKjWzqy4dVMHjzjNIPjiooh9C
+         DOydZsM+LYPWH3gb3ymOrVKgYRj8Ci3tK3SrI8LukYYcBveivK15zIVTxm+r7yImidsu
+         jv/HCu79uNvZ7wRcOtWPx5WgeoOA9MxlKZXN/omLtmDItg/J1QBHxqKEgUwR/4olf86r
+         fksWcfOfv9EmlGoA+j6Djph2xOhKAXb0a9EDCMDB09IQ3+HW4WZM4R7wIXEd/kqjZ/ew
+         fQ678rdGjUyskVoHEq0k46t3Wnbog3A3sekz/JawJD0f74BieFRgixndxUSgmG1F4PJT
+         r4gA==
+X-Forwarded-Encrypted: i=1; AKwUvBxTa6/axnr+ioSe9ECDem8qMLEzkbL6buMJRGax6pp1T0p2Qlo59ZL3sZLZjtDhgisZZMNDMTQ+HDnHSW8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIhensos5ANQBgPtkqJwhNZH6wflmEhro4DKdPEuj9lroIo1DEF
+	mfbaB/vc7BVDft+ILswWiVhSNvbup+0hKWqCO5g9kM46Su6iFHlCEX1Hjzf+LqmAD08=
+X-Gm-Gg: AYBFou2KT4NVwDfVjQ6+eTodWrbhlNhny6bqfef+M49YYDxW42n7pdXG/krfpn2VbV4
+	/dZ7nSc4UT035egqy9PfMTmOLIPQctI+aCmJoAHEW2Wb6/tUp9JBEhhMxKn8zemCD0UDryw8tsC
+	H3/Ik/lS8sP907X2dLEh+Z/dNx7Bmm3nhKbNITlz2eGNdim5WXPYUoYaW78DSR91EgkzpEtxfJk
+	LphQVgC6aZFbB51FNkE1Cc3U9xOpKbU1ZP8feVMV3aMBKi9HRPvKan6MX32YH5+GbnNVWv6W/SN
+	fEkr/mizBp41fqR8laJQ1Pjjtth3s6yyeb6DcaHxmPR/j8u/I3m2+Zco7bOO/hxHKHDtC0hBepe
+	pXxB//J3jc45Xc2QwbuMTJtEVv2lYv3LE9GB4ob+//vP+m5Ft0HN1QpEuI43kuKP/xzhT5V6eC1
+	hXOlN+2nPCj6hUJohRNXnJpYeh0nmOefjwpwwFadcqOVPShmHxuLWOqbyP/UeNU5S9zI8NXM8yY
+	SqMM0O9NSj/0/6Vt0TaGdaWQDL9hjmWVlkrttqZtmbL7XYrGPD9SNQMP8duEEi2x0KhceOlSsqy
+	QuM=
+X-Received: by 2002:a05:690c:4f8a:b0:8ae:a9c6:2740 with SMTP id 00721157ae682-8b07ee51851mr2561217b3.48.1791525603709;
+        Thu, 08 Oct 2026 23:00:03 -0700 (PDT)
+Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com. [209.85.128.173])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b07f21bc70sm3559857b3.27.2026.10.08.23.00.00
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 08 Oct 2026 23:00:01 -0700 (PDT)
+Received: by mail-yw1-f173.google.com with SMTP id 00721157ae682-8ab38a051aaso38545477b3.3
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 23:00:00 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz+84hmQotRqogL5rFR3MeGJmHLft/Ibjc9LLgMUt8ktMLxfhDx/XCjDItiry9dYi/MenPJUuibzw8Et6c=@vger.kernel.org
+X-Received: by 2002:a05:690c:ec4:b0:8ae:8d28:77ca with SMTP id
+ 00721157ae682-8b07edfbad7mr3120487b3.33.1791525600619; Thu, 08 Oct 2026
+ 23:00:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20261007082627.63807-1-tanure@linux.com> <d23dfdf3-5837-459f-afd6-6c198a05c13c@lunn.ch>
+In-Reply-To: <d23dfdf3-5837-459f-afd6-6c198a05c13c@lunn.ch>
+Reply-To: tanure@linux.com
+From: Lucas Tanure <tanure@linux.com>
+Date: Fri, 9 Oct 2026 06:59:49 +0100
+X-Gmail-Original-Message-ID: <CAJX_Q+2au4x99kj=UBqn4joQCM3-D2kbaJ0zro9Y4RXka7ePvQ@mail.gmail.com>
+X-Gm-Features: AclHuK8Z8XHB904erYGkjWemp1Y2Gn2Ya3i9_K0CjW0XJN3l42AYcMZ32Srg4dI
+Message-ID: <CAJX_Q+2au4x99kj=UBqn4joQCM3-D2kbaJ0zro9Y4RXka7ePvQ@mail.gmail.com>
+Subject: Re: [RFC PATCH v2 0/7] Add ethernet support for the Amlogic T7
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
+	Jerome Brunet <jbrunet@baylibre.com>, 
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+	Maxime Chevallier <maxime.chevallier@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, netdev@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On Wed, Oct 7, 2026 at 2:01=E2=80=AFPM Andrew Lunn <andrew@lunn.ch> wrote:
+>
+> On Wed, Oct 07, 2026 at 09:26:20AM +0100, Lucas Tanure wrote:
+> > The T7 pairs a Synopsys gigabit MAC with the same glue registers the
+> > G12A has, but nothing described it. This adds the binding, the driver
+> > support and the device tree nodes, and enables the port on the Khadas
+> > VIM4.
+> >
+> > Unlike the G12A, the controller reaches DRAM through a pipeline stage
+> > with a gate of its own, sys_ampipe_eth. Nothing else claims it, so
+> > clk_disable_unused switches it off and transfers stop.
+> >
+> > v2 changes the RGMII delays, after review. phy-mode describes the
+> > board, not which chip adds the delay, so this board is rgmii-id.
+> > dwmac-meson8b did the opposite, and ignored the *-internal-delay-ps
+> > properties. Patch 1 fixes that. The VIM4 needs it because the RTL8211F
+> > transmit delay does not work here.
+>
+> What is special about the RTL8211F?
+Maybe nothing, it may be this board. I cannot tell from here.
 
-Critical: 0 · High: 1 (1) · Medium: 0 · Low: 0 (1)
+The RTL8211F does add the delays, the driver sets both bits and the
+chip takes them. But when the RTL8211F adds the transmit delay, this
+board gets no working link.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+I measured the receive side by sweeping the MAC delay against the CRC
+counter, with the PHY delay off and then on. The window moves by
+about 2200ps, so the PHY receive delay is right.
 
-- [High] This fix is incomplete.
+Transmit is the problem. With the PHY doing TX the peer sees nothing
+we send. With the MAC doing TX it runs at 935Mbit/s both ways with no
+errors.
 
-Pre-existing issues:
-- [High] tun_napi_alloc_frags() builds fragments from `iter_iov(it) + i`
-  and the raw `iov->iov_len` (drivers/net/tun.c:1505-1506).
-- [Low] In tun_get_user(), the `if (msg_control)` block
-  (drivers/net/tun.c:1837-1849) still computes copylen/linear and walks…
-
---
-
-tun: fix skb length underflow in NAPI frags path
-
-This patch moves the clearing of zerocopy for the IFF_NAPI_FRAGS path in
-tun_get_user() so it happens before copylen is computed. The NAPI frags
-allocation is then sized for the complete iterator instead of the zerocopy
-linear prefix. This avoids a skb->data_len underflow and a BUG() in
-__skb_pull().
-
-> diff --git a/drivers/net/tun.c b/drivers/net/tun.c
-> index 5a302709a68aa..1124b8b33664e 100644
-> --- a/drivers/net/tun.c
-> +++ b/drivers/net/tun.c
-> @@ -1848,6 +1848,10 @@ static ssize_t tun_get_user(struct tun_struct *tun, struct tun_file *tfile,
->  			zerocopy = true;
->  	}
->  
-> +	/* The NAPI frags path copies the complete iterator. */
-> +	if (frags)
-> +		zerocopy = false;
-> +
-
-[Severity: Low]
-This isn't a bug introduced by this patch, but with this override in
-place, the msg_control block just above in tun_get_user() has no useful
-effect when frags is set:
-
-drivers/net/tun.c:tun_get_user() {
-    ...
-	if (msg_control) {
-		struct iov_iter i = *from;
-
-		/* There are 256 bytes to be copied in skb, so there is
-		 * enough room for skb expand head in case it is used.
-		 * The rest of the buffer is mapped from userspace.
-		 */
-		copylen = min(hdr_len ? hdr_len : GOODCOPY_LEN, good_linear);
-		linear = copylen;
-		iov_iter_advance(&i, copylen);
-		if (iov_iter_npages(&i, INT_MAX) <= MAX_SKB_FRAGS)
-			zerocopy = true;
-	}
-    ...
-}
-
-For frags, the !zerocopy branch overwrites copylen and linear, and the
-result of the iov_iter_npages() walk is discarded.
-
-The comment doesn't describe the frags path either. It also says 256
-bytes, but GOODCOPY_LEN is defined as 128.
-
-Would gating the block with msg_control && !frags make the code and the
-comment agree, and also skip the extra iov_iter_npages() walk?
-
->  	if (!frags && tun_can_build_skb(tun, tfile, len, noblock, zerocopy)) {
->  		/* For the packet that is not easy to be processed
->  		 * (e.g gso or jumbo packet), we will do it at after
-> @@ -1868,11 +1872,6 @@ static ssize_t tun_get_user(struct tun_struct *tun, struct tun_file *tfile,
->  		if (frags) {
->  			mutex_lock(&tfile->napi_mutex);
->  			skb = tun_napi_alloc_frags(tfile, copylen, from);
-
-[Severity: High]
-Does this fully close the underflow described in the commit message?
-
-copylen is an int, but len is a size_t taken from iov_iter_count(). The
-frags path now always goes through this assignment:
-
-drivers/net/tun.c:tun_get_user() {
-    ...
-		if (!zerocopy) {
-			copylen = len;
-			linear = min(hdr_len, good_linear);
-		}
-    ...
-}
-
-tun_napi_alloc_frags() checks the truncated value against ETH_MAX_MTU. It
-then takes linear from the first segment, which is not truncated:
-
-drivers/net/tun.c:tun_napi_alloc_frags() {
-    ...
-	linear = iov_iter_single_seg_count(it);
-	err = __skb_grow(skb, linear);
-	if (err)
-		goto free;
-
-	skb->len = len;
-	skb->data_len = len - linear;
-    ...
-}
-
-So when len is over 4 GiB, the first segment can still be larger than the
-allocation length.
-
-vhost-net appears able to deliver such an iterator to an IFF_NAPI_FRAGS
-TAP backend. init_iov_iter() adds the guest descriptor lengths into a
-size_t, and get_tx_bufs() only rejects a length of 0. The default copy
-mode then calls handle_tx_copy()->tun_sendmsg()->tun_get_user() with
-msg_control = NULL.
-
-For example, this needs a guest memslot of at least 4 GiB. The guest
-builds a chain whose first iovec is about 0xfffffff3 bytes after the
-vnet header, followed by a 272 byte iovec. That gives len = 0x100000103
-and copylen = 259:
-
-- __skb_grow() with diff = 0xfffffff3 passes a negative ntail to
-  pskb_expand_head(), so it makes a small allocation instead of failing
-- skb->len = 259 and skb->data_len = 272
-- skb_copy_datagram_from_iter() and pskb_may_pull(ETH_HLEN) both succeed
-- eth_type_trans()->__skb_pull() sees skb->len < skb->data_len and
-  calls BUG()
-
-Copy mode already reached copylen = len before this patch. With this
-change, the msg_control case reaches it too.
-
-Would it make sense to pass the size_t len directly to
-tun_napi_alloc_frags(), or to reject lengths that don't fit in an int
-before narrowing?
-
-[Severity: High]
-This is a pre-existing issue, but tun_napi_alloc_frags(), which this fix
-relies on, assumes the iterator is ITER_IOVEC. It also doesn't clamp the
-last fragment to the remaining count:
-
-drivers/net/tun.c:tun_napi_alloc_frags() {
-    ...
-	for (i = 1; i < it->nr_segs; i++) {
-		const struct iovec *iov = iter_iov(it) + i;
-		size_t fragsz = iov->iov_len;
-    ...
-}
-
-io_uring IORING_OP_WRITE_FIXED on a tun fd reaches tun_get_user() through
-tun_chr_write_iter() with an ITER_BVEC iterator. io_import_fixed() sets
-the count to len, but the last bvec keeps its full bv_len:
-
-io_uring/rsrc.c:io_import_fixed() {
-    ...
-	nr_segs = (offset + len + bvec->bv_offset + folio_mask) >> imu->folio_shift;
-	iov_iter_bvec(iter, ddir, bvec, nr_segs, len);
-    ...
-}
-
-In this case iter_iov() returns the bio_vec array cast to struct iovec.
-On 64-bit little-endian, iov_len reads as bv_len | (u64)bv_offset << 32.
-For page-aligned bvecs that is just bv_len.
-
-Take a 5000 byte write from a page-aligned registered buffer. linear is
-about 4084 and data_len is about 904, but the second fragment is given a
-size of 4096. skb_copy_datagram_from_iter() writes only 904 bytes into it.
-
-Can this leave about 3192 bytes of uninitialized netdev_alloc_frag()
-memory inside the fragment? The fragment sizes would then add up to more
-than skb->data_len.
-
-If so, anything that later walks the frags by skb_frag_size() could expose
-that memory.
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261005054224.4154727-1-harshit.m.mogalapalli%40oracle.com
+I asked Khadas about the board, no answer yet.
+>
+>      Andrew
