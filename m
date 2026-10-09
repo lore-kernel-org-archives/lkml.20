@@ -1,305 +1,195 @@
-Received: from mta1.migadu.com (out-132.mta1.migadu.com [95.215.58.132])
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A25B471428
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 15:07:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.132
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2CF34E4321
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 15:08:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791558445; cv=none; b=aNJzUJlElt5ridjdGPFz1NHG6CSYW68DWpeepGS181M5ZtnWbdP6lJv5Z3iIsKIcDL3QK9LkqO5ZNLiyF+kRE0fIFIXliM+LXR9B3fOdQKIxOb95oT3pJ0zSap1+xhujAvnGkQEp4FPfnsgkRfbMTQsDZemJc3NvNoOLevkbFAc=
+	t=1791558486; cv=none; b=E383udbo/u2LD4LMTGtn5D6xH5HkrDKAGGms1xQLG2N6NInj7Dy4ADIFsRLXS/zagIuQkZ6z6kyesiLZ0rynFYDzbvojfLcAo4iYhJH/CSzYEcGhJKu3WVqZC53iSh02Rr4vAYuKk/3G4oqYf7yEmkIF1nKqMht2bcFv+J8Aqmg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791558445; c=relaxed/simple;
-	bh=2q4HFbJwewXeqyQtO6Fho3xQ9TR3Tl8vkll4qv6dMzY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mUZvdbDE0++PY3oXys57dzHjzfEIJf3Mef22bFqJ/LtU2ZjQTWLVOMV+3hshq4+8BOxiqw+6bnTXJLuzendOt7PwlFEjk0aYs7R4kqf/7KHXIJETi7dB5kHOasAX+k1r6C1nb9Dtx+UZW3+5p4UZ1bHj78VNEyEEIBRIN2ggFpk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=i+ZYF2zv; arc=none smtp.client-ip=95.215.58.132
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791558486; c=relaxed/simple;
+	bh=5622vFjjrUQ8N4J/FirkFRj5hIIji0qwNLtjg3ohHK8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BpOcc1M7jxtzwtVt9urMVr/kpJoeZYCXnh5Iw022Kqb6ZmhtrJbjxgrTGGMGDdzuKBpJBjYppisYrckbA/UgLYmEyEx5S9St3HevQ95fQllovNE84fUs6qiTYT7CDFb9oiEtGSQWNfBRl9QUOBtOPx+QiWKh26cDMn389CEreYA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=WcZkcfMA; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="i+ZYF2zv"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=2q4HFbJwewXeqyQtO6Fho3xQ9TR3Tl8vkll4qv6dMzY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791558439; v=1; x=1792163239;
- b=i+ZYF2zvZesYiTVc9Icd8XX0d3P+C4sTkXMn9ejOK5yaeg0mupaKB3gq7xQytllhBF3JYC7Q
- QBmxnKea4rvU+9a+W1X0xAiF0Gj4RWuUOWqSNgM2ra+VxayYkesmLki2hv6dJ+0CzZh/wlzYmBn
- XAvmMo2qFNRztdcJXyCNrpZk=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3c44e9004eab4323;
-	Fri, 09 Oct 2026 15:07:18 +0000
-X-Mizu-Trace-ID: 3c44e9004eab4323
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <3465c889-de07-48b7-b6b4-7fc8dcac4e67@linux.dev>
-Date: Fri, 9 Oct 2026 16:07:17 +0100
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="WcZkcfMA"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a172da1049so1409495e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 08:08:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1791558481; x=1792163281; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=l7FAggyg1PuXiF2goI0uppUUtryZ3eugWEM0zzhFv98=;
+        b=WcZkcfMAJ/LYVHVKfPvcfogQFSTMIeSunO3wONb4r7QMtKqarYuSEmSCeZJdKglMC4
+         /Fv1qygKtTzkc4iPxUGd0xBePRHgfLwjPQjkUjyTfu8PuAAQyfcE1jlzf8VAVgS93+jy
+         nO04TF58YrtSy9al7vvP+CJCmT6tgrWH6Gbd2KKMNef7re3poCLXtFyGOL35BDj/OBEG
+         rsMRgnB9wg2ZIwJIufcQCI+Xoq3Cg28lrMqahaRGhhM/yWEj396bMutIKKaFj5fIVrhz
+         ilOIMpiH20dKqHlv/9/hZhd7ZHgLX0pG3ZFvm1+XBqi/xaUPRrDTu7/IxcPXMOEQEexi
+         LQnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791558481; x=1792163281;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=l7FAggyg1PuXiF2goI0uppUUtryZ3eugWEM0zzhFv98=;
+        b=MuyPJu86E63Il2KB1Xn20Q1NZI8bcuSIiQMM1NI1Y2FJ0vwlN36qOxj61spoMclhYQ
+         EQvB6e8m2NHxpKt3wnG7WhG18ICfpLEqIDbmp8BpGoarT+1D0t7FXnzC+hDYDqWGJb7L
+         apK/5FZgwsz1pP0cQBV5iNzr2bEPCnMn6mRapMTprUnTpGZsIlIT8AUEBs7sF3GQTcPf
+         McXXa2CziNuE7qnfp6kDLrArzYY6PLABHKSYGwSeQAV9coW9XSFJCkHiMIIvVkWrKmbe
+         N/J6Ij7eigRHBtQ+ATR+ZHEcaV+ehcDSFu9MkhgsKkBpGMDBcPbIs55aEjOiDMvR+KvF
+         tGjA==
+X-Forwarded-Encrypted: i=1; AKwUvBzIKYnlv8Ka0vTbtqnKQf+utP9l5fif2YNEkQYAAZhmyT/d9Z9MuFj+UYr+h6xJISeaaee/vqySJJhdP5A=@vger.kernel.org
+X-Gm-Message-State: AFuF++nxViQTmV1v9GuFFRKTTPdU0PyODdwGRJRrOlh/ciOgXEkrKFnh
+	mFcWMAKokNP9TU0XCntAUZvMfnzpcUAGb/nA+TpSXrD1nKpryttA1vtxWvIaD8H3PB4=
+X-Gm-Gg: AYBFou1CT5pZumKzZld8zqOoszYtWE5DF+qCvJKjnLdjIbKoofCSyUpwR+1VmVCcq7+
+	kS2jMZGBeUjWA7nXF7WXWYcFHCDCW4lXr71gtgjt+bVcX4EX5OKmpWp+4uja6bzM1kkHuPLE6O4
+	djeOFrbdG649of8g2Ma6ygBFzgkYI+Tn3OBgSCStRjN/TvtiIAEJrq3CxBl4W5LM0y4PRzMBJf2
+	3ALcPh5ybhy1C1e0UtywD1f48N36gJdMnLi4vkrGb25eDks9QXajXADn+mYlAax9d2A+plCbwgj
+	cUmaFn2ioDW0XZGjjXiZPD1bsF3Rs6eIb8rkf9hGyCCZ9fbjHlpzYMu3u7HN94kS5J5LZkJKaIp
+	5dky/MFVJ3Y0dAtE6zt5NGqPHfpVA+seF9n63vfWzAS31iiZ2QjUY0rmAsDGYVZYK5JtolRBC1N
+	jYNP5LUXZGd9m7xCUJ+mgM18+eRqoxds7CTgvXmVc5sfbTbZYa0sIWu24D8hFMUvCmdwEH
+X-Received: by 2002:a05:600c:1912:b0:4a0:1e9f:64f6 with SMTP id 5b1f17b1804b1-4a18e3ef211mr38754775e9.0.1791558480773;
+        Fri, 09 Oct 2026 08:08:00 -0700 (PDT)
+Received: from localhost ([202.127.77.110])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab36ed0daesm3998972a91.5.2026.10.09.08.07.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 08:07:59 -0700 (PDT)
+Date: Fri, 9 Oct 2026 23:05:51 +0800
+From: Heming Zhao <heming.zhao@suse.com>
+To: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Anderson Ferneda <anderson.ferneda@braza.com.br>, Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>, 
+	ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] ocfs2: use the stored hash when checking xattr
+ bucket collision
+Message-ID: <askCqE-GKFv8tK1q@p15>
+References: <20261009083002.2621201-1-joseph.qi@linux.alibaba.com>
+ <20261009083002.2621201-3-joseph.qi@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] mm: zswap: use separate compression and decompression
- requests
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, chengming.zhou@linux.dev,
- dsterba@suse.com, hannes@cmpxchg.org, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, nphamcs@gmail.com, terrelln@fb.com, riel@surriel.com,
- shakeel.butt@linux.dev, alex@ghiti.fr, senozhatsky@chromium.org,
- kernel-team@meta.com
-References: <20261006002307.2669023-1-usama.arif@linux.dev>
- <20261006002307.2669023-2-usama.arif@linux.dev>
- <CAO9r8zPm4B1_wtAUMeSR9PQ5ja+kJz14Ub7MCuJit_NSH2DQsQ@mail.gmail.com>
-Content-Language: en-US
-From: Usama Arif <usama.arif@linux.dev>
-In-Reply-To: <CAO9r8zPm4B1_wtAUMeSR9PQ5ja+kJz14Ub7MCuJit_NSH2DQsQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261009083002.2621201-3-joseph.qi@linux.alibaba.com>
 
-
-
-On 07/10/2026 23:01, Yosry Ahmed wrote:
-> On Mon, Oct 5, 2026 at 5:23 PM Usama Arif <usama.arif@linux.dev> wrote:
->>
->> Stores and loads serialize on the same per-CPU acomp request and mutex.
->> A low-priority store can be preempted as soon as the compressor drops
->> its stream lock, while it still holds the mutex. A higher-priority load
->> on that CPU then waits until the store runs again, which can take a
->> long time when other tasks are runnable.
->>
->> Give compression and decompression their own request, completion wait
->> and mutex. Since commit e2c3b6b21c77f ("mm: zswap: use SG list
->> decompression APIs from zsmalloc"), the per-CPU buffer is only used for
->> compression. The two requests can share the per-CPU transform: no
->> in-tree implementation modifies transform state while (de)compressing,
->> and shared codec state has its own locking.
-
-
-Hello Yosry!
-
-Thanks for the reviews!
-
+On Fri, Oct 09, 2026 at 04:30:01PM +0800, Joseph Qi wrote:
+> ocfs2_check_xattr_bucket_collision() decides whether splitting a full
+> bucket can make room for the entry being set by recomputing the hash of
+> the name:
 > 
-> I am a bit uncomfortable with this. If future changes modify the
-> transform state while (de)compressing, it may result in nasty bugs.
-
-Independent acomp requests can share a transform. UBIFS already uses its
-shared compr->cc for compression and decompression without caller
-serialization. IPComp also submits per-packet requests on a shared
-transform, and EROFS allows concurrent decompression on one transform.
-
-Drivers synchronize their shared state internally. For example, HiSilicon
-protects its transform-owned request bitmap with req_lock. Unsynchronized
-shared state would break those existing callers too. Separate compression
-and decompression transforms would still leave concurrent stack
-decompressions sharing a transform.
-
-
+> 	u32 name_hash = ocfs2_xattr_name_hash(inode, name, strlen(name));
 > 
-> As for the buffer, I would also prefer some protection, but I feel
-> less strongly about this. For example, we can put it inside
-> zswap_acomp_req and not initialize it for the decompression request.
-> Alternatively, we can have an intermediary struct that contains
-> zswap_acomp_req + buffer, and use that for the compression request.
-
-
-Done for next revision. Added zswap_comp_ctx containing the compression
-request and output buffer. Allocation, use and cleanup now go through that
-context. The compression mutex protects the buffer until zs_obj_write()
-finishes, and decompression has no buffer member.
-
+> 	if (name_hash != le32_to_cpu(xh->xh_entries[0].xe_name_hash))
+> 		return 0;
 > 
->> Loads can still wait for
->> each other on the decompression mutex, and stores still serialize on
->> the compression mutex.
->>
->> This follows the proposal from Sergey Senozhatsky for the same split
->> for zram [1].
->>
->> [1] https://lore.kernel.org/all/20261005122036.718976-10-senozhatsky@chromium.org/
->>
->> Signed-off-by: Usama Arif <usama.arif@linux.dev>
->> ---
->>  mm/zswap.c | 89 +++++++++++++++++++++++++++++++-----------------------
->>  1 file changed, 52 insertions(+), 37 deletions(-)
->>
->> diff --git a/mm/zswap.c b/mm/zswap.c
->> index ae19e301fced7..54187b1ef751d 100644
->> --- a/mm/zswap.c
->> +++ b/mm/zswap.c
->> @@ -137,14 +137,20 @@ bool zswap_never_enabled(void)
->>  * data structures
->>  **********************************/
->>
->> -struct crypto_acomp_ctx {
->> -       struct crypto_acomp *acomp;
->> +struct zswap_acomp_req {
->>         struct acomp_req *req;
->>         struct crypto_wait wait;
->> -       u8 *buffer;
->>         struct mutex mutex;
->>  };
->>
->> +/* Separate requests, so that decompression does not wait for compression. */
->> +struct crypto_acomp_ctx {
->> +       struct crypto_acomp *acomp;
->> +       struct zswap_acomp_req comp;
->> +       struct zswap_acomp_req decomp;
->> +       u8 *buffer;
->> +};
->> +
->>  /*
->>   * The lock ordering is zswap_tree.lock -> zswap_pool.lru_lock.
->>   * The only case where lru_lock is not acquired while holding tree.lock is
->> @@ -270,14 +276,10 @@ static void acomp_ctx_free(struct crypto_acomp_ctx *acomp_ctx)
->>         if (!acomp_ctx)
->>                 return;
->>
->> -       /*
->> -        * If there was an error in allocating @acomp_ctx->req, it
->> -        * would be set to NULL.
->> -        */
->> -       if (acomp_ctx->req)
->> -               acomp_request_free(acomp_ctx->req);
->> -
->> -       acomp_ctx->req = NULL;
->> +       acomp_request_free(acomp_ctx->comp.req);
->> +       acomp_ctx->comp.req = NULL;
->> +       acomp_request_free(acomp_ctx->decomp.req);
->> +       acomp_ctx->decomp.req = NULL;
->>
->>         /*
->>          * We have to handle both cases here: an error pointer return from
->> @@ -796,6 +798,28 @@ static void zswap_entry_free(struct zswap_entry *entry)
->>  /*********************************
->>  * compressed storage functions
->>  **********************************/
->> +static int zswap_acomp_req_init(struct zswap_acomp_req *areq,
->> +                               struct crypto_acomp *acomp)
->> +{
->> +       /* acomp_request_alloc() returns NULL in case of an error. */
->> +       areq->req = acomp_request_alloc(acomp);
->> +       if (!areq->req)
->> +               return -ENOMEM;
->> +
->> +       crypto_init_wait(&areq->wait);
->> +
->> +       /*
->> +        * if the backend of acomp is async zip, crypto_req_done() will wakeup
->> +        * crypto_wait_req(); if the backend of acomp is scomp, the callback
->> +        * won't be called, crypto_wait_req() will return without blocking.
->> +        */
->> +       acomp_request_set_callback(areq->req, CRYPTO_TFM_REQ_MAY_BACKLOG,
->> +                                  crypto_req_done, &areq->wait);
->> +
->> +       mutex_init(&areq->mutex);
->> +       return 0;
->> +}
->> +
->>  static int zswap_cpu_comp_prepare(unsigned int cpu, struct hlist_node *node)
->>  {
->>         struct zswap_pool *pool = hlist_entry(node, struct zswap_pool, node);
->> @@ -827,25 +851,13 @@ static int zswap_cpu_comp_prepare(unsigned int cpu, struct hlist_node *node)
->>                 goto fail;
->>         }
->>
->> -       /* acomp_request_alloc() returns NULL in case of an error. */
->> -       acomp_ctx->req = acomp_request_alloc(acomp_ctx->acomp);
->> -       if (!acomp_ctx->req) {
->> +       if (zswap_acomp_req_init(&acomp_ctx->comp, acomp_ctx->acomp) ||
->> +           zswap_acomp_req_init(&acomp_ctx->decomp, acomp_ctx->acomp)) {
->>                 pr_err("could not alloc crypto acomp_request %s\n",
->>                        pool->tfm_name);
->>                 goto fail;
->>         }
->>
->> -       crypto_init_wait(&acomp_ctx->wait);
->> -
->> -       /*
->> -        * if the backend of acomp is async zip, crypto_req_done() will wakeup
->> -        * crypto_wait_req(); if the backend of acomp is scomp, the callback
->> -        * won't be called, crypto_wait_req() will return without blocking.
->> -        */
->> -       acomp_request_set_callback(acomp_ctx->req, CRYPTO_TFM_REQ_MAY_BACKLOG,
->> -                                  crypto_req_done, &acomp_ctx->wait);
->> -
->> -       mutex_init(&acomp_ctx->mutex);
->>         return 0;
->>
->>  fail:
->> @@ -866,14 +878,15 @@ static bool zswap_compress(struct folio *folio, long index,
->>         bool mapped = false;
->>
->>         acomp_ctx = raw_cpu_ptr(pool->acomp_ctx);
->> -       mutex_lock(&acomp_ctx->mutex);
->> +       mutex_lock(&acomp_ctx->comp.mutex);
->>
->>         dst = acomp_ctx->buffer;
->>         sg_init_table(&input, 1);
->>         sg_set_folio(&input, folio, PAGE_SIZE, index * PAGE_SIZE);
->>
->>         sg_init_one(&output, dst, PAGE_SIZE);
->> -       acomp_request_set_params(acomp_ctx->req, &input, &output, PAGE_SIZE, dlen);
->> +       acomp_request_set_params(acomp_ctx->comp.req, &input, &output,
->> +                                PAGE_SIZE, dlen);
->>
->>         /*
->>          * it maybe looks a little bit silly that we send an asynchronous request,
->> @@ -885,10 +898,12 @@ static bool zswap_compress(struct folio *folio, long index,
->>          * existing method to send the second page before the first page is done
->>          * in one thread doing zswap.
->>          * but in different threads running on different cpu, we have different
->> -        * acomp instance, so multiple threads can do (de)compression in parallel.
->> +        * acomp instance, and compression and decompression use separate
->> +        * requests, so multiple threads can do (de)compression in parallel.
->>          */
->> -       comp_ret = crypto_wait_req(crypto_acomp_compress(acomp_ctx->req), &acomp_ctx->wait);
->> -       dlen = acomp_ctx->req->dlen;
->> +       comp_ret = crypto_wait_req(crypto_acomp_compress(acomp_ctx->comp.req),
->> +                                  &acomp_ctx->comp.wait);
->> +       dlen = acomp_ctx->comp.req->dlen;
->>
->>         /*
->>          * If a page cannot be compressed into a size smaller than PAGE_SIZE,
->> @@ -932,7 +947,7 @@ static bool zswap_compress(struct folio *folio, long index,
->>         else if (alloc_ret)
->>                 zswap_reject_alloc_fail++;
->>
->> -       mutex_unlock(&acomp_ctx->mutex);
->> +       mutex_unlock(&acomp_ctx->comp.mutex);
->>         return comp_ret == 0 && alloc_ret == 0;
->>  }
->>
->> @@ -948,7 +963,7 @@ static bool zswap_decompress(struct zswap_entry *entry, struct folio *folio)
->>                 return false;
->>
->>         acomp_ctx = raw_cpu_ptr(pool->acomp_ctx);
->> -       mutex_lock(&acomp_ctx->mutex);
->> +       mutex_lock(&acomp_ctx->decomp.mutex);
->>         zs_obj_read_sg_begin(pool->zs_pool, entry->handle, input, entry->length);
->>
->>         /* zswap entries of length PAGE_SIZE are not compressed. */
->> @@ -965,15 +980,15 @@ static bool zswap_decompress(struct zswap_entry *entry, struct folio *folio)
->>         } else {
->>                 sg_init_table(&output, 1);
->>                 sg_set_folio(&output, folio, PAGE_SIZE, 0);
->> -               acomp_request_set_params(acomp_ctx->req, input, &output,
->> +               acomp_request_set_params(acomp_ctx->decomp.req, input, &output,
->>                                          entry->length, PAGE_SIZE);
->> -               ret = crypto_acomp_decompress(acomp_ctx->req);
->> -               ret = crypto_wait_req(ret, &acomp_ctx->wait);
->> -               dlen = acomp_ctx->req->dlen;
->> +               ret = crypto_acomp_decompress(acomp_ctx->decomp.req);
->> +               ret = crypto_wait_req(ret, &acomp_ctx->decomp.wait);
->> +               dlen = acomp_ctx->decomp.req->dlen;
->>         }
->>
->>         zs_obj_read_sg_end(pool->zs_pool, entry->handle);
->> -       mutex_unlock(&acomp_ctx->mutex);
->> +       mutex_unlock(&acomp_ctx->decomp.mutex);
->>
->>         if (!ret && dlen == PAGE_SIZE)
->>                 return true;
->> --
->> 2.53.0-Meta
->>
+> For a new entry that is the hash it will be stored under, so comparing it
+> is correct.  An existing entry keeps the hash it already has: an update
+> never rewrites xe_name_hash, since ocfs2_xa_add_entry() is the only
+> writer of that field for a real entry and ocfs2_xa_prepare_entry() calls
+> it only when loc->xl_entry is NULL.
+> 
+> An entry stored by a kernel that sign-extended the name bytes when
+> hashing can still be updated, because ocfs2_xattr_find_entry() searches
+> a non-indexed xattr block by memcmp on the name and never looks at
+> xe_name_hash.  Growing it past the space left in the block converts the
+> block into a tree, ocfs2_cp_xattr_block_to_bucket() fills the bucket in
+> stored hash order, and the update runs out of room in the bucket too.
+> The collision check then compares the unsigned hash against the legacy
+> hashes in the bucket and reports no collision.
+> 
+> ocfs2_xattr_set_entry_index_block() goes on to allocate a bucket that
+> ocfs2_divide_xattr_bucket() cannot fill: a bucket whose entries all share
+> one hash has no divide position, so all it does is append an empty bucket
+> with a sentinel hash one above the last entry's.
+> 
+> The re-search that follows depends on where the unsigned hash sorts.
+> Below the legacy ones, it comes back to the full bucket and the set fails
+> with -ENOSPC, having grown the tree for nothing.  Above them, it lands on
+> the new empty bucket, which ocfs2_xattr_bucket_find() handles explicitly
+> and ocfs2_find_xe_in_bucket() scans zero times, so the set stores a second
+> copy of the entry under the unsigned hash and returns success.  The
+> original stays in the full bucket, listxattr reports the name twice and
+> getxattr returns the new copy.
+> 
+> Pass the hash the entry is stored under instead: the stored one for an
+> existing entry, the unsigned one for a new entry.  A tree whose entries
+> are all stored under the unsigned hash sees no change, since there the
+> two are the same value.
+> 
+> Exposed-by: 3bc753c06dd0 ("kbuild: treat char as always unsigned")
+> Cc: <stable@vger.kernel.org> # 6.2+
+> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 
+LGTM.
+Reviewed-by: Heming Zhao <heming.zhao@suse.com>
+> ---
+>  fs/ocfs2/xattr.c | 27 +++++++++++++++++----------
+>  1 file changed, 17 insertions(+), 10 deletions(-)
+> 
+> diff --git a/fs/ocfs2/xattr.c b/fs/ocfs2/xattr.c
+> index a428fe908116..c5a39a7d43d0 100644
+> --- a/fs/ocfs2/xattr.c
+> +++ b/fs/ocfs2/xattr.c
+> @@ -5896,16 +5896,14 @@ static int ocfs2_rm_xattr_cluster(struct inode *inode,
+>  
+>  /*
+>   * check whether the xattr bucket is filled up with the same hash value.
+> - * If we want to insert the xattr with the same hash, return -ENOSPC.
+> - * If we want to insert a xattr with different hash value, go ahead
+> - * and ocfs2_divide_xattr_bucket will handle this.
+> + * If the entry being set carries that same hash, return -ENOSPC, since
+> + * ocfs2_divide_xattr_bucket() has no divide position to work with.
+> + * Otherwise go ahead and ocfs2_divide_xattr_bucket() will handle this.
+>   */
+> -static int ocfs2_check_xattr_bucket_collision(struct inode *inode,
+> -					      struct ocfs2_xattr_bucket *bucket,
+> -					      const char *name)
+> +static int ocfs2_check_xattr_bucket_collision(struct ocfs2_xattr_bucket *bucket,
+> +					      u32 name_hash)
+>  {
+>  	struct ocfs2_xattr_header *xh = bucket_xh(bucket);
+> -	u32 name_hash = ocfs2_xattr_name_hash(inode, name, strlen(name));
+>  
+>  	if (name_hash != le32_to_cpu(xh->xh_entries[0].xe_name_hash))
+>  		return 0;
+> @@ -5974,6 +5972,7 @@ static int ocfs2_xattr_set_entry_index_block(struct inode *inode,
+>  					     struct ocfs2_xattr_search *xs,
+>  					     struct ocfs2_xattr_set_ctxt *ctxt)
+>  {
+> +	u32 name_hash;
+>  	int ret;
+>  
+>  	trace_ocfs2_xattr_set_entry_index_block(xi->xi_name);
+> @@ -5993,10 +5992,18 @@ static int ocfs2_xattr_set_entry_index_block(struct inode *inode,
+>  	 * the maximum number of collisions we will allow for then is
+>  	 * one bucket's worth, so check it here whether we need to
+>  	 * add a new bucket for the insert.
+> +	 *
+> +	 * An existing entry keeps the hash it was stored under, and that is
+> +	 * the hash a split has to work with.  A new entry is stored under the
+> +	 * unsigned one, which is what ocfs2_xa_add_entry() will write.
+>  	 */
+> -	ret = ocfs2_check_xattr_bucket_collision(inode,
+> -						 xs->bucket,
+> -						 xi->xi_name);
+> +	if (xs->not_found)
+> +		name_hash = ocfs2_xattr_name_hash(inode, xi->xi_name,
+> +						  xi->xi_name_len);
+> +	else
+> +		name_hash = le32_to_cpu(xs->here->xe_name_hash);
+> +
+> +	ret = ocfs2_check_xattr_bucket_collision(xs->bucket, name_hash);
+>  	if (ret) {
+>  		mlog_errno(ret);
+>  		goto out;
+> -- 
+> 2.39.3
+> 
