@@ -1,56 +1,59 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010050.outbound.protection.outlook.com [52.101.46.50])
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013026.outbound.protection.outlook.com [40.107.201.26])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42AA7476058
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 07:36:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EE2C478E38
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 07:36:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.26
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791531365; cv=fail; b=jru4Ss05iMn9knYHoKbPPdmEVYTUcr5mzSMWihr0jPc4nog3PcUhb+ZqqxVzcvjbPD85zI5Riu8SyUb2UBokE15nQ67qPQ3s46xibTISX/T1ZxCfomkiL6kZRhfAx0/3avUIHh9SO521Uq2p+b/6+cmJBdNu/jV1KFMJSJobqC0=
+	t=1791531367; cv=fail; b=U277LJz/dSH5SK1+NXN4xLyHfz34TgpHoNF3uOMWErii1t6Hh5Q7I6xpXRm1Hq0rISz8JOVEPkNZbdDJaHN/lUVHOhn7RcjN9HqTnHFysGrFQ0Kf7XAXD5JnFMlhyDgSN74YX019STbWU1R+oMF2f9b2dttIyUjz8PWKJfNCQ6w=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791531365; c=relaxed/simple;
-	bh=FmGklDFqApqkODWjHctt8PYRT/RxcaK2FMmf5RMYJxQ=;
-	h=From:To:Subject:Date:Message-ID:Content-Type:MIME-Version; b=oJoM3jftNGDGxC/RgQjgVwT3fTiYjrWLHRV61Gr64nAIyFy25Z+pKmVJPWbrIk3YtENkFFlfdQIu6apmKHzr8+dOGEqCvZ5/OKADEtKwbbcDxERbsc6DpxkiFUCjwDWQhW2eichnXg+u//bTwhuKKStkFSe2s8PFV24EzkA+ggI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=jtsy2nvq; arc=fail smtp.client-ip=52.101.46.50
+	s=arc-20240116; t=1791531367; c=relaxed/simple;
+	bh=y7XGtL0O1qRE4Q3y+YVQDxAA6H0+rOFWwTrWHkvwk68=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=D2XWeFZMA3863LDwNiyMB2kBkox7QWJ/q+hYKJFvWcioo/VBbVLS2dfhMvwUw9Le7VPCCn5HjYyCrr0HG61dBmW8iKIO55rP4E7AlH8fmkhJuZxtW4h85/r7uQQjtfG1PKxuR4W6SNR1R3o9pk7Jo0CTyikaWiy9OeNdCcvcc1I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=wVeAb54U; arc=fail smtp.client-ip=40.107.201.26
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="jtsy2nvq"
+	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="wVeAb54U"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=B4Z/HBwRvn/+YyhLQXDYOwGZe1sueLamWT2JmFpNNmdoohplmuk8Jb0pUVpnm4p6LGcvggY+/8wACef5vucITGN8aeQzoMVBJsjb9ysgobZkevIKLgeJN1wlHcay6n7EwblUOdNeo123DehmmI0vRWWP4FPYXkODoHVGnIUD3LqrX014xA6KjYtS4SUp1Db3OBIChnH6qFEXDo2cdxR1o7jA12j79pMc7e2i6gRLoYBI+oqPpQrPGMcF1Tk7dhEm2JGiPYleuRAvAZ4yNTa1UNA5EAGc/Jzl0m5jsFq5QodRqF0vD3aKg8J5dIXEOFqAinFCVVYKLY1mzpFGsO2GCg==
+ b=O9PzcjvZUBHFpqynrPXJedPyFzQYg9ljRs5iDbdjJEV7tM0JCmDxZKbq4OKHyWo1/3W+gOiVgZPcnX1qOrddzi96bzSYESakTg5LwoVRMOHFRr9rwRYEeUmCSTmJAToUcu6TOCay3c6KmESK+LAoNrxN7o0loWONIadex8YqUK5gNUnzVY2iV61dktp3Yzsg35HTmEmqaKbbt0dUyr37pc96IcfureD4+Oj8Bbd7oq0hPbSrV+QzjR3D8sV7mW2aEy+M3V+sfakoSt64fZiFt0UrTdXq1ndlCXTc1CW0/KGi5IZfecujRjzEMHQUoCpKNbOQNBnag37Yo5rNHVeMlQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CPtYExY3q/fulSJr8WSevaWid2+0kbiuxu+E/W6u5lg=;
- b=XY/ZJRVSKM513zDpTvJmdAE8ypjU/SAkcx4DJhlxiSIxom1z0QpKOG2BwRGs2KbOK+iTCem5z4V1T9sdQt7RavYvABUlyZKtyhs2dDjLu4Ot/eVikJn1s6tjiETUETxv0bJ4KMD3hyHWb9i9I6wmCuIPmzbn8k/FSIZmKhtOxjU2UZxzSQN203sd18ylJ4z7rHD9J3P4uK8tEbNQWTTcVfYhilPMVLKDUnRYt8LfvZV/F7Ub5oc0Q+MkSKaAFb2tmceCc1iAjM4AOhY4LCnq16a9eM20EGravy3Dgj+qoaeFUhW31IGcYtNEhlKal4FtitLBg7HPQIhaTe5JZ0WaIA==
+ bh=NkiWqnpToSRkUkylTDICW/AjsKTEAS1gM2GlTHjJdFk=;
+ b=rA9kso7DUfTLUqU4P5cNfwsyKPjmyXGktXTMUgA/GJDAOQioy324yetfyN6hfbxPNXJk3d0knqo+GmBadGH32EZzp0nAixNx1hYswPwE6Y/J7sLjoDqY7lsDX3imHrUPyoGD0ixtTOrtWxIwPewPeZ4cVZHkVVmhazxh7XHtSFb1hCrWEbMwfhBgcMfujgulfwPus8YjrD2Yz8+TlqvpQZsbkMOZQJ/wd8UMsFbyzfiFjlgaUWl+y7v5xnTbD0DF+nTOg2S9ZTlKW57S9gHTxOexxlYZJfCcuRpAb9+FKjD12J4NwvA59VVO2CdNLIh+00GEMXCltOLXFqrrP5sTIA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
  dkim=pass header.d=altera.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CPtYExY3q/fulSJr8WSevaWid2+0kbiuxu+E/W6u5lg=;
- b=jtsy2nvq7XbgYeUTGJGlLp88DG5Dve0i5M4yaowO+yzvKD9/2+hpi/vsXlPgMwg+kWA8DUM34OVT2gnDhU3gRspbRwBuBxp9ifa4sMOt4PNe3Ob605tv9u2ok2tKuVCVRDQk80M7pWM+ytOxLqeEtFqAlk/oj4EV2hygv/STO+12WczaTixWUAshS2gMUaOMC/roO4zvdd6Ce/K4Vxotcexjh0lg3a8GK8HV8uA+zDy/6yaB6H+9A7pSqzv6jLSEVEYwFAMtDevNZPvkhIoTr/WtVTE+nCjc3iXhrcRLpSQhBfr+8ESaY1QEQaa9naRAenAz93ai4+GNL/gk/7FZ6Q==
+ bh=NkiWqnpToSRkUkylTDICW/AjsKTEAS1gM2GlTHjJdFk=;
+ b=wVeAb54UrJ4tMuk4RKSC+Le0BAWphJKlL0P3Q7pSaLX7FpVymJowTcErNmI5PkRRKhHRXux5FNqzIOb2hVk08abp7IxO0ymcHXR0ApxKIXVh5pTqg/79WF3BwhRIMK7B51GL9LfSrZw4dEG0r2/rYrCVAMlDHsjVaPuLYevt8usiznBcYZtE7phetZyooitvG20HDD2lITLaf6RzW6uVOx2w4PAMppZrIgM7YKdifg9wFcYo46VQsZrTNWCnlrTmKAc4NCMjGvC8NZGnwmvh4usfLmuz67Qz5pLyYfypYKLzbrbx7BoQUO9HZtSev+c7VXk88g82n2avKHiGBAmmyQ==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=altera.com;
 Received: from SJ0PR03MB5950.namprd03.prod.outlook.com (2603:10b6:a03:2d3::20)
- by PH7PR03MB7224.namprd03.prod.outlook.com (2603:10b6:510:244::7) with
+ by EAYPR03MB989279.namprd03.prod.outlook.com (2603:10b6:303:2cf::11) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
- 2026 07:36:01 +0000
+ 2026 07:36:03 +0000
 Received: from SJ0PR03MB5950.namprd03.prod.outlook.com
  ([fe80::53a0:bf93:6b6b:de01]) by SJ0PR03MB5950.namprd03.prod.outlook.com
  ([fe80::53a0:bf93:6b6b:de01%5]) with mapi id 15.21.0472.016; Fri, 9 Oct 2026
- 07:36:01 +0000
+ 07:36:03 +0000
 From: tze.yee.ng@altera.com
 To: linux-kernel@vger.kernel.org,
 	Pratyush Yadav <pratyush@kernel.org>,
 	Michael Walle <mwalle@kernel.org>,
 	Takahiro Kuwano <takahiro.kuwano@infineon.com>,
 	linux-mtd@lists.infradead.org
-Subject: [PATCH v2 0/2] mtd: fix use-after-free on unbind with open handles
-Date: Fri,  9 Oct 2026 15:35:53 +0800
-Message-ID: <cover.1791512623.git.tze.yee.ng@altera.com>
+Subject: [PATCH v2 1/2] mtd: core: add release hook and removed flag for unbind with open handles
+Date: Fri,  9 Oct 2026 15:35:54 +0800
+Message-ID: <e4312228d241860b3e3238864d12aae47b721db1.1791512623.git.tze.yee.ng@altera.com>
 X-Mailer: git-send-email 2.43.7
+In-Reply-To: <cover.1791512623.git.tze.yee.ng@altera.com>
+References: <cover.1791512623.git.tze.yee.ng@altera.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-ClientProxiedBy: SJ0PR05CA0086.namprd05.prod.outlook.com
@@ -63,110 +66,220 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB5950:EE_|PH7PR03MB7224:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2859e7c5-94ce-42c3-4584-08df25d7f755
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB5950:EE_|EAYPR03MB989279:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0f39857d-06f5-44a5-f723-08df25d7f88f
 X-MS-Exchange-AtpMessageProperties: SA
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|56012099006|11063799006|10067099003|18002099003|55112099003;
+	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|55112099003|22082099003|10067099003|18002099003|11063799006|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	ELpQl+XSwl+27EOYoRvI/QPYEYw5gvyipM6hioRzJgaqQrS/OyqUpqTWpNVI7mNojSdadmsBEUvPwDaoLghNWjdsYoHsZQeq1aHJ41mskrpeJzW9fzGoXt7cA38nfusGcjeVyve8wE3XcCxQo1Ig+hoUySCJYyOOYWAxU1LvhTojmQedq+Nc1EuJAQbANXYOitewslrf6i7obHn9ymVjQDF2BM2NXPzKyfIJHGNpVlMGr2kFaoVz5rSRV4GPTMRMwaV2ccnMEAMEcE8awhi69xqzVzBNDKFSajaFkIjsiujzhWOLKnpHeebavT4LQAHuOFJKR1aV44GjDsG59p21rdpazE8+EBFghL2DGB8SPFYwz2uxdNAIM5GCVTDPlaKCWeT6Q9bj1+b4RpDU6v+gCiEO3JXinU76AIjfYzksVlpJnpD/Fl11r17Anz7AAGEnu4pWEe3snacE9dm9w8V/cXC8+RfGKO7dHNDlYCuZ98+3JgmZngFWf50VHbSK37IKODfcaQ0RPJKFleppneZ2ecP/4fR+0trjehasZ9p0Smi+syKEFEGxVm92Vah8AYvBL7yYjqyIgbUVl05WPncZ3lR7xnkiDOLiANAuLOnT5r6BGfIgEyxU7f1zcLnAQDh5xMXmKfbm+XRou350yb4uME3V8T9CPis16M9r9N82+ak=
+	gNRI0sfcgvqdgN5o5srO08QXvn0L5RT7DPoxNlXPl5jP5GZwAsxN4RM9lgO9+7XmF1HUyZGsq3fEMwhvG0H0gFM6diZmgHgVK/8+cJFgELlIIekQ2t1LZwL1ds0ZulRwVJ0fdN7SrcAWBrVOKkpMEtDE8jDaWJ8CygpgqYrBGQTyCoPuAjdAcOS+ZaEsyEIuTb1YpgW3+hXQgpHWH3PwogZ7Lu4AQYeEGD5T7HbJ3ek+li8jQUSKGoPFnDwR/vXphosusXgTzdXviUARMWCnskLpHJQAeqFm6QJYOjxN45cXKdCV5tbZaooQQm4fpEjCypicouoPEIXpkT1+Z7OTjMYD7w/C66jRV18mJ1n++8n5X2VgQC/FJoCriUu7r0BEtNmBDqcI7bEo5yQjlOwDbHcFqj0F0+tlfB1ebEzabkcgbY6YI9hj6I1dqWR3QYSitYkNc8UZ/LdaMIAbUyoxcnrTK4hYvgnwVZ4fTLqRj8XCVxgJ1q2PEMlfVx/xKDMbM+tW8ftRoHNW98D137pD8ImJc2CGSf7Nq5+Xosa4GmEjmwTGYGjwe+j11DUBnns/7ZJGcy+UBteiMp9lafJj+cM9ZeYXcUK4+P6HlGrlykLjMLLhfRjNaIASeGX6hkbIHLDkZvj2TeLSobzUmuV/lJoKrsauG1+b6z1bahVLO8Q=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB5950.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(56012099006)(11063799006)(10067099003)(18002099003)(55112099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB5950.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(55112099003)(22082099003)(10067099003)(18002099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WGc0ZHAwSnU0aWFBOVZnTE9GWDB5RHFwU21kNnZMVFk4VGtTM1FPMTZXNmZj?=
- =?utf-8?B?OGUwZlVJRG80THd4Zk9kbVdnNStCSXJnelVJWVNHaTNFWWdscThzaWk2eUJo?=
- =?utf-8?B?bC9BejVxWHRTSWkweEYrR3VjWWhUSlJETVNBZ1JpREF0a3Z4U3JvNG5SNmt1?=
- =?utf-8?B?TUJ3QlpPVFJmQ1dtUWVUUThISjZWem5DQTdKd0FrVnRMeC9GS2RSUnRZSjJp?=
- =?utf-8?B?SVNCV2dmODRRK2kzVVhZNjN6VUxtZVRXMFJwWXM2RGQwNjZNTExPaUkrV01F?=
- =?utf-8?B?MUgxN0s5RFBLRi95ZENqdnhFQnBoOXBScUZLVm5YbXJHaUhqT3Rqbk1mVGxh?=
- =?utf-8?B?cmpIby9yT0JBcGRlcmlOUnB3YUorY2VBQ29sUTMwN0VCSXh5S3I3MFlDaXRh?=
- =?utf-8?B?TTRva3FCMlJ6b3ZCZ0UrRXhScldBeG5mcWo2dUdGZGszOTJ3SUxOMGZNUjE0?=
- =?utf-8?B?TkdGbkNtcGhlcENacHlzbDA1aUlqc2E4YmEvMFhrdTJ3bWVrNlM2bmVxcFJB?=
- =?utf-8?B?cTB5UUFITDNsc2dsazdJc0pkTkYrY0pUUkJSUVBEWldkQnNyUUcvUUNhUFY4?=
- =?utf-8?B?QnFkRTE4ZG4wK0pXRldndjhMdG95elBINXRESzBmbE9GSTJqVlBBNUhoaHVZ?=
- =?utf-8?B?U1g1dmlYOCtFbXlIb3RDT2drWlhHY0FTVUNER29XNGtEUkZxOStNYnJpcGN4?=
- =?utf-8?B?c1JtMFVHOU94U29wKzZGVndIbmNYMHcrbXpsNGN6TnhHcUwvSFBVQk5nYkgz?=
- =?utf-8?B?K1lFTVFEd0h0VEtrNEhNZFR5WDhYdnJ2QVdEZEpacW1xSzZGZFJ2SVA4bEww?=
- =?utf-8?B?cjdzY3BzRGdrdWdUbkRDNlpOL05jRldaZk5ucTFxNUFNTHQrRzdZZnNtV3Uz?=
- =?utf-8?B?a3VRSURwclFyNFVoS2Z2NkRYRHFjM0dGTU1tYy9qM0hoaUdCY284bitPa1JZ?=
- =?utf-8?B?Wk1PNGErckhEY3EreUk5dmZTTllVTGZXZDNkbVpRRmd2d3EvTlpRK3FJbXZF?=
- =?utf-8?B?SWc1Nm9majUweTRDT2lPVnlSUFV2bVBDMGRtcEJmcDdmaThnb3ZEZy9qVHdu?=
- =?utf-8?B?OVo1MnhMeFZKcjZqTFJZRU1zSzdvTHBySkh6TVNnbkZ6TWVGSjdJcHdTWWhq?=
- =?utf-8?B?MmtvK0c5cVRjU0tWRXpjMkJoa0dFSGI4aXp4NzJaUEdVU2VJcGxWYmxhNmpv?=
- =?utf-8?B?dGN1OC9Od2NtZzFZcXQ2eTBoZlEzc1B1V1pSdlE3M2VGUjBUTEFPTW1Wa2JG?=
- =?utf-8?B?M29BRWl5VkVJckVETERPVnUzWGZybG42L21kTVc1SzQ5cmNteFlWcEhNTzBZ?=
- =?utf-8?B?U0JWYXpudFRDc1NwT0NkVWpLWGJtb3ZlYXQ3SDlYWDF1TEpvdjI1MWVvVWNn?=
- =?utf-8?B?ZFlLT25YV0FGS3B5eFVYOWZ4L1lSTmRaYXhERW9sV2VvZnQ0Q3ZIWWNtQjR6?=
- =?utf-8?B?b2g3SGx5VzRic3Y3TmlnVER6YWx2elp5clIxZTlXb2V2M0JlMTAzclVkelQy?=
- =?utf-8?B?MEVCMUFLQ0wwWGdjeHVhdzF3Vkh0eXA4c3YwSHdRUU1icWZpVXhiWGs0Y3Jh?=
- =?utf-8?B?OTZ6NjluVjlpaVhiMm5ubWFlZVNQMFAwalBxSTYzTGFpL1AyM2w1dENiaU9u?=
- =?utf-8?B?b0NHUU5kOEd1TjN3YytFOGMyVHpKODM1dkVpRkR4RnpweWxUb2ViWDhXWCtL?=
- =?utf-8?B?U2duUm5VUjdNbTFPaE9Ub1pGNTVBSWVPVDN6K25hWGJxSWJaZVZYWTU1RzhS?=
- =?utf-8?B?N2lOUTlkMHZ4TFRULzRaeHFqTjZ3c3RlL3Z6MVBuTlRrWXlpTEUreTcwVFdC?=
- =?utf-8?B?ZU9LY0tWMW5tQk9pMUk5SFgyd2RaeHFiY1g1TFdJdzRmRENhcHRXYWFUbzVJ?=
- =?utf-8?B?Qi80dlk0QytaZjd2YjBOVDJYRkZhQTlrbjhxQ1lsSEZMbi9lNXhvSTlmblYr?=
- =?utf-8?B?Tkx1bVdQaWF3dEdBMVBGSHFIWUlPajFZSUFjVzVhaTNJWXViM0dnR08rc3Jl?=
- =?utf-8?B?Nk5neDlXQ3NMOXphWk02UDEvWGVsOFcxdGN1Y1YzUVZTaWljNnorMTU2OHV1?=
- =?utf-8?B?Y2xXelNvVGtmZFphVi9LbWllb0drK0gxRENnT09PNHRERkE2ZktPbFJIR1Bl?=
- =?utf-8?B?Rkl3VFNjN0lzNEdwaEErelN2TEpkUi9lVGpEQnlWRmE5anlqSm5uYU5VRGpy?=
- =?utf-8?B?MFlBSGVzSzV6MWJKQ1FrWXEyTGtvK1VLOE9SaC9zSEpoZFd4ck5EY3ZaOEZH?=
- =?utf-8?B?cXFKY25xNkVqQkptT3IwQ2Q4emN5RWhEYmZFZS9Fc0JyQmYrcGhJcnFFODN3?=
- =?utf-8?B?N25WdStUV2FzUFdZNWFiaFdwTnZaNVJtVWZxMy9TbG42bmNSV2RNQT09?=
+	=?utf-8?B?aWxQMnlvOVA0UU1sWVNiTTBmUis1dXlLZTFlcFBpc0NqdlJPS1hiN2E1d1ZL?=
+ =?utf-8?B?ckcrbDJaUHJMTXo5OE55S0JSZmtPdXBuM05XVlozVzZWYy9MLys5SUttRmNy?=
+ =?utf-8?B?MTM1aytURlkyQWtWTGdZa1JwWUNoQ1pnVzkyVFlZZFFWVkllMW9pa043L0RZ?=
+ =?utf-8?B?N3lGdVgwQnpPakhFc3lQWWtlZzhPVjRZQ2ovQ05kYmtEeFRLZmtMU1lEVmo5?=
+ =?utf-8?B?eDJsVWJTTXZqTHBCSFRiRXpra3FFbHRDZTFnd0RZUzZHaHQrZ1h5UmlzMFVN?=
+ =?utf-8?B?bVdwV016djE5UTVaVitTZjJYM0RWU0pidTY3MzZaV1VobnM1WEVOYU56ZTE3?=
+ =?utf-8?B?NCs0MW9EWkd6OVBGYjA0eHN2NTdINk03ZjNSTnhPcUszSHBJQjQ1dUpiYk1X?=
+ =?utf-8?B?Z0dlb3RCSXQwOGE4bTJxazRDMkN0WXE0V3REdXZqZWM1bDVzMGdyUlVLMlJ1?=
+ =?utf-8?B?NzI2d2FzQmJlSzZBakNkODBLT0ZZSVNGb2dxaTVLTzVoak05L010cFUwMThE?=
+ =?utf-8?B?VmNBRVZ5RGQ2QjI4dEtRSnYrdmVuRUtSUStzUkVzTlo1RDR5SUFhV3Y0VUpU?=
+ =?utf-8?B?TzdOZmFZaXBZbWhtWnZGNnJ5Z1ozM0Q4ejhWd3RPdnhLZERPNEQ0eU9Obzl6?=
+ =?utf-8?B?YTV6cG9XSm1PTm1RME10V0RWSE9uUFM1TXZFSEY4b29SSzl5MElUQTRYN1Q1?=
+ =?utf-8?B?eW4wT1BJV0MwTkxVRFBTOTdvdEJoRjdYZEg1bUJqVGNIRFo1MllCVmUxLzVW?=
+ =?utf-8?B?bkQ4WFRPS2RTTTF4NlVrUFpZWGlvdWZsWnI2a2UwSWs2ZythbjFCWFZpNXhF?=
+ =?utf-8?B?OG83eXcvbDBRMnJleS9BVHZTRld3ck9id2wzcjQrMGVHTFJpZkRubGxXcVFv?=
+ =?utf-8?B?UnkzYXBnZFZma280L2VtYjNtblhjTWlCK0lKT3czVmFxbERzQ2pab2VWcGli?=
+ =?utf-8?B?TzY5Z2FzcS9pQVBEOUxvZFlFQ1BwSitQZDBUZFdleGY0VFpuWXpTRWJNOHNy?=
+ =?utf-8?B?MGhBOGNuWlFURThCTDRNWGRhcFBWY0RKTGpkVnhCRk9qeU14ZWJBMER6QXpG?=
+ =?utf-8?B?MW81WWNCYm9aR2tQMG40RVlkTzB4SFZIZkJ1aUdNajgxenJHNEhSdmUrNlZw?=
+ =?utf-8?B?RjdUNzVYcUgwemt2TTZOVEo3VDVnbUVOazBDTVNZVERmWEFodVlDZnFKbHlX?=
+ =?utf-8?B?VnlzbVkvem00d1NBaEg1cDhaUGhzSitZTlduUTJIY3pWbWZjMXRDMXBUeExj?=
+ =?utf-8?B?MGNPVjZjL2hXNEI2UjZ0VHJPME90RFV0UW41NHlVOVROViswT0ltbVNPY1BP?=
+ =?utf-8?B?dndvRXpCMkQ4dFJmUXJXaU0yVVlZQml3NUVDODdaWHFzT3VjNDJUUzZjV3Z3?=
+ =?utf-8?B?aDU4R0t4a0ppWXlGeEdjODZsL1ZIOHUxaDUyRmNkbzRLckczTmxwMjFNRzBj?=
+ =?utf-8?B?eGM4VjZjVGVFWkdaSlB5SGdSUkZENE9GU3Eza3RaS0ZVajZFbGZlWURIMTY0?=
+ =?utf-8?B?RmN3MWpYOUtRQUlzSnhtRmIzaDV3VmJLWG4wSTJ0YWFxbEhmamo3ZGtNY0Rt?=
+ =?utf-8?B?MitsbmhkWDBHb3hXZ0FoVmZqTTZNVzdUNWJnMHdXanUzUHIvb2VEMks1SFVi?=
+ =?utf-8?B?M3FTMllWUTI5aGVDQ3orWjdOeWhScHdWdzQ0VzFHWFd5eDFjN1pCdFZFMW4w?=
+ =?utf-8?B?RE1FSU90UkFheVRFYVl3SXVML3RJNG1jTVBVYkhtV05YRS9UWlhXbFRIOFZw?=
+ =?utf-8?B?RUxUVzBjc0RaQlpMNnVXTTRhbDlIcThpcVhQbVBQdit4SzJBTWRCNVFGTTlK?=
+ =?utf-8?B?N0xrbEoyRXRzMEJBY1VZTTdsR1FOcCtNV0FuczcvQmhWV3hmck83d3BES3lX?=
+ =?utf-8?B?dDc0bzNRV0VxWkhYaFNUWkNGYzNSVTY2YkFhdW4zYXluZFpKQUQ1bWorU3hz?=
+ =?utf-8?B?U3JpS0JUNXYyWDB6SzU3OFhUNk9IQkhwL2tYcDZWRklpc1lpNG9HQ09GNEdi?=
+ =?utf-8?B?bjJ2RGVYWDdSMXZmaUpXMGgvc25nalhHVERDV3F5eFQ3QWNaS2FlaUNnU0Zp?=
+ =?utf-8?B?QXJwWWVrV1JLcEp4WnMzK2x5b09yeFF0YWo3MGdrb0M5bFRZZlljSER0REZE?=
+ =?utf-8?B?SjUrVG8xc1c5NEUrSmkvbCtkOW01SUUwclJ4WDd0Y1NQZTJSRUV5UVFkS1l6?=
+ =?utf-8?B?WnpqSXJaR2pGSVFpWmtlWFpBSUo0NnZpN0lhZFhna1g1UktUL2xwaHlkcGgz?=
+ =?utf-8?B?S1F1UVhaOTRTMkxsZjBJWnA2TWN0WUpGZ2RvUXl3NXlpa1RJZDdJT29heWg5?=
+ =?utf-8?B?bXpkUWxvcUUrOGl5UDU5czZDdFJyMG53MWt6UDN2bXpxdmtCYU5qQT09?=
 X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2859e7c5-94ce-42c3-4584-08df25d7f755
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0f39857d-06f5-44a5-f723-08df25d7f88f
 X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB5950.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 07:36:01.0943
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 07:36:03.5888
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: h1OJR+i67EbyNzcGrE+I15DeRPmgoiGZ0EjtvQTQfOaneg7mAQsjl43hnnMh4g3Nr7m35J43FgaF6/1ZFXNe3A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR03MB7224
+X-MS-Exchange-CrossTenant-UserPrincipalName: Tofgw2iLjiP4K5WEc2AvhDG72kw3diUIl4f+LQ6HKsryRiztjnpF++lDC5cJ4OO/TgBQ1C1pISdBRPdJUO8enw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: EAYPR03MB989279
 
 From: Tze Yee Ng <tze.yee.ng@altera.com>
 
-An open /dev/mtdX can outlive driver unbind. The MTD core keeps
-mtd_info registered until the last close, but a spi-nor allocated
-with devm_*() on the SPI device is already freed, so a later
-close/ioctl/read hits freed memory.
+An open /dev/mtdX can outlive unbind. refcnt defers device teardown, but
+the driver-owned object embedding mtd_info (and its bus resources) may
+already be gone when remove() returns — UAF for parent-devm allocations.
 
-v1 tried to fix that with a spi-nor-local kref and nor->removed.
-That duplicated mtd->refcnt and still missed get_device() after
-unbind, suspend/resume, and eraseregions. v2 puts the lifetime in
-the MTD core instead.
+Add optional core hooks:
 
-  - Patch 1: add optional mtd->_free() (called from kref release)
-    and mtd->removed so the core returns -ENODEV for hw ops, new
-    openers, and suspend/resume.
-  - Patch 2: on the spi-mem path, allocate spi_nor / params /
-    eraseregions / bouncebuf with kmalloc, install mtd->_free, and
-    set mtd->removed in remove() after draining in-flight ops.
-    Legacy controllers keep the old devres lifetime.
+- mtd->_free(): called from kref release so the backing object lives until
+  the last reference drops
+- mtd->removed: set after draining ops; core returns -ENODEV for hw ops,
+  new openers, and suspend/resume
 
+Signed-off-by: Tze Yee Ng <tze.yee.ng@altera.com>
+---
 Changes in v2:
-  - Drop the unrelated RWW self-deadlock fix.
-  - New patch 1: MTD-core _free / removed hooks.
-  - Patch 2: drop the spi-nor kref / refcounted / controller_module
-    and the prep_and_lock*() removed checks; use the core hooks.
-    Also keep eraseregions on that lifetime, free on the probe
-    error path, and unregister debugfs from _free.
+- New.
+- Drop the spi-nor-local kref and nor->removed.
+- Add mtd->_free and mtd->removed in the core so the backing
+  object outlives unbind and later ops return -ENODEV.
+---
+ drivers/mtd/mtdcore.c   | 20 ++++++++++++++++++++
+ include/linux/mtd/mtd.h | 13 +++++++++++++
+ 2 files changed, 33 insertions(+)
 
-Tze Yee Ng (2):
-  mtd: core: add release hook and removed flag for unbind with open
-    handles
-  mtd: spi-nor: fix use-after-free on unbind with open handles
-
- drivers/mtd/mtdcore.c         | 20 ++++++++
- drivers/mtd/spi-nor/core.c    | 92 +++++++++++++++++++++++++++++------
- drivers/mtd/spi-nor/core.h    |  2 +
- drivers/mtd/spi-nor/debugfs.c |  9 +---
- include/linux/mtd/mtd.h       | 13 +++++
- 5 files changed, 112 insertions(+), 24 deletions(-)
-
+diff --git a/drivers/mtd/mtdcore.c b/drivers/mtd/mtdcore.c
+index 491a27d0315f..59133894b5e5 100644
+--- a/drivers/mtd/mtdcore.c
++++ b/drivers/mtd/mtdcore.c
+@@ -118,6 +118,7 @@ static void mtd_device_release(struct kref *kref)
+ {
+ 	struct mtd_info *mtd = container_of(kref, struct mtd_info, refcnt);
+ 	bool is_partition = mtd_is_partition(mtd);
++	void (*mtd_free)(struct mtd_info *mtd) = mtd->_free;
+ 
+ 	debugfs_remove_recursive(mtd->dbg.dfs_dir);
+ 
+@@ -135,6 +136,9 @@ static void mtd_device_release(struct kref *kref)
+ 		memset(&mtd->dev, 0, sizeof(mtd->dev));
+ 
+ 	module_put(THIS_MODULE);
++
++	if (mtd_free)
++		mtd_free(mtd);
+ }
+ 
+ #define MTD_DEVICE_ATTR_RO(name) \
+@@ -1332,6 +1336,9 @@ int __get_mtd_device(struct mtd_info *mtd)
+ 	struct mtd_info *master = mtd_get_master(mtd);
+ 	int err;
+ 
++	if (master->removed)
++		return -ENODEV;
++
+ 	if (master->_get_device) {
+ 		err = master->_get_device(master);
+ 		if (err)
+@@ -1471,6 +1478,9 @@ int mtd_erase(struct mtd_info *mtd, struct erase_info *instr)
+ 	instr->fail_addr = MTD_FAIL_ADDR_UNKNOWN;
+ 	adjinstr = *instr;
+ 
++	if (master->removed)
++		return -ENODEV;
++
+ 	if (!mtd->erasesize || !master->_erase)
+ 		return -ENOTSUPP;
+ 
+@@ -1792,6 +1802,9 @@ int mtd_read_oob(struct mtd_info *mtd, loff_t from, struct mtd_oob_ops *ops)
+ 
+ 	ops->retlen = ops->oobretlen = 0;
+ 
++	if (master->removed)
++		return -ENODEV;
++
+ 	ret_code = mtd_check_oob_ops(mtd, from, ops);
+ 	if (ret_code)
+ 		return ret_code;
+@@ -1836,6 +1849,9 @@ int mtd_write_oob(struct mtd_info *mtd, loff_t to,
+ 
+ 	ops->retlen = ops->oobretlen = 0;
+ 
++	if (master->removed)
++		return -ENODEV;
++
+ 	if (!(mtd->flags & MTD_WRITEABLE))
+ 		return -EROFS;
+ 
+@@ -2331,6 +2347,8 @@ int mtd_lock(struct mtd_info *mtd, loff_t ofs, uint64_t len)
+ {
+ 	struct mtd_info *master = mtd_get_master(mtd);
+ 
++	if (master->removed)
++		return -ENODEV;
+ 	if (!master->_lock)
+ 		return -EOPNOTSUPP;
+ 	if (ofs < 0 || ofs >= mtd->size || len > mtd->size - ofs)
+@@ -2351,6 +2369,8 @@ int mtd_unlock(struct mtd_info *mtd, loff_t ofs, uint64_t len)
+ {
+ 	struct mtd_info *master = mtd_get_master(mtd);
+ 
++	if (master->removed)
++		return -ENODEV;
+ 	if (!master->_unlock)
+ 		return -EOPNOTSUPP;
+ 	if (ofs < 0 || ofs >= mtd->size || len > mtd->size - ofs)
+diff --git a/include/linux/mtd/mtd.h b/include/linux/mtd/mtd.h
+index 8d10d9d2e830..28fd98c4193c 100644
+--- a/include/linux/mtd/mtd.h
++++ b/include/linux/mtd/mtd.h
+@@ -362,6 +362,9 @@ struct mtd_info {
+ 	int (*_get_device) (struct mtd_info *mtd);
+ 	void (*_put_device) (struct mtd_info *mtd);
+ 
++	/* Optional free of the embedding object; called from kref release. */
++	void (*_free) (struct mtd_info *mtd);
++
+ 	/*
+ 	 * flag indicates a panic write, low level drivers can take appropriate
+ 	 * action if required to ensure writes go through
+@@ -380,6 +383,10 @@ struct mtd_info {
+ 	struct module *owner;
+ 	struct device dev;
+ 	struct kref refcnt;
++
++	/* Set on unbind while refs held; core returns -ENODEV for hw ops. */
++	bool removed;
++
+ 	struct mtd_debug_info dbg;
+ 	struct nvmem_device *nvmem;
+ 	struct nvmem_device *otp_user_nvmem;
+@@ -548,6 +555,9 @@ static inline int mtd_suspend(struct mtd_info *mtd)
+ 	struct mtd_info *master = mtd_get_master(mtd);
+ 	int ret;
+ 
++	if (master->removed)
++		return 0;
++
+ 	if (master->master.suspended)
+ 		return 0;
+ 
+@@ -563,6 +573,9 @@ static inline void mtd_resume(struct mtd_info *mtd)
+ {
+ 	struct mtd_info *master = mtd_get_master(mtd);
+ 
++	if (master->removed)
++		return;
++
+ 	if (!master->master.suspended)
+ 		return;
+ 
 -- 
 2.43.7
 
