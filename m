@@ -1,160 +1,149 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ED4E49BD83
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 10:03:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63FBB4A4407
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 10:04:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791540205; cv=none; b=QHjZCK2dS2VYnA2X8++h/PDmDnVSHHHlnFSQUfLk6dN+NU7/HlDNiVgnVqGZY7nc025dZLoayNzP4nC4+IYTetJBerMZUvvZvy7Tic4FE/OsYPP0kRM996hrhbNfbjZhyL9cjE1AVw2mdPG6+4Y2YDqvLbaK+HU2Rbpeh5+Cg+I=
+	t=1791540281; cv=none; b=hiM1V3ZYW24H0yv5q7rNhFyq5pOns9riX3F/YYpnSXZpbOR9rK9Cg0kDOZZgFLhLQqjR5Ka+LixgFVXPzyhzyebmEQ8Xh8IEvWD9X0W36Y4E7MQNSqiuurU2eg2K/HCfhk9idBD1VvPgSpVPnJXEL2QyI9Usjjfg0KO3Qea4c2M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791540205; c=relaxed/simple;
-	bh=KPAFyUw7nX/MpchqdZD/H9rJtTKOPIWkCTHK0liR+yE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=m1LQyOIuSvXg5Bu3rw2dup9x9at7TI6z26nKc+B8tYl1rUwPbQYNZu30S9fczsINehyPTzUSiFSSEJujvfg9C+Pxcdgbs49fEgTRFpZotiwAy5ZtO9N4u8XRe7gC7NsnSV8+8QoXip/fHNvudF+7H9j0SaG7khulTRyMsfpFMrY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com; spf=pass smtp.mailfrom=sifive.com; dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b=X+gJx+86; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sifive.com
+	s=arc-20240116; t=1791540281; c=relaxed/simple;
+	bh=5yLkz2OZBQ4ipEjXEN7/lCEXtkQpCiwl45030Q1M6lA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=K21634kKaJZyZiQOoGd25UMC6Xq+7XIrsNnp87y0YfmfGi/W+3/Lr1kMgHWIkVYMnxJeBBTEEiyMVvBwGWlZiGks15f5OqJmuSw6HmLlFcvCiRPaEkLi0j/7+pxkHkRQQcNA+oij9MRO+/bGG/XIjyECs31IbWv6kCIiuem1ZDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Mv0bXuY/; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b="X+gJx+86"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a16aaf2067so70865955e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 03:03:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Mv0bXuY/"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso64271245e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 03:04:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sifive.com; s=google; t=1791540200; x=1792145000; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qPWJMeDyVSRIeJtDK0w7ULZSIZyQfconBMNDwO4cVgs=;
-        b=X+gJx+86UR0wiJapCi7qYJfEeUAnWJx723oaYX2UjY8JGe38SiECpw65yTvFfitb2y
-         drJYwVo25AZuQFWgsiQ8ca/vcIL9sQoBvMuhhQKzp9NmI99vthM0fSTEjRVc8/Vu9d9L
-         L3INcs9Fd/MZXkrDMjUetbfWkSUm5LHPQuNsSjqca/BvaJW7yY4UWMJhc9zWeITJyaxp
-         Ni446nAlJuF6+1buV0EmsonK9YDbSpYgW+RUYIVTtq/WtjV3Xk2ua/y6vG+Z9QJqw/Bt
-         NTb3gNqQUChi27ieP0sKxK6XHRf4qno/OVrwOUg7IiWrLs2Z0sTIc7vZt7glZM/EG/vf
-         diuA==
+        d=gmail.com; s=20251104; t=1791540276; x=1792145076; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WCfrYFQWaB6ljrpcA5mB+GvPCr6ztXX1INv06kJj6BA=;
+        b=Mv0bXuY/dbslJrVlIeMtcxPdMhLIu3/yZLmI50/So5GHoEeQlXlcQKfT0SUHwVk5Kx
+         R+6aWsPXaKh/7fFnAtl0/YG7zxU8j2j3kckVubW399a9rtWIpvskoUxAs+X9xngQygCx
+         a87s25iG26dO4mAjyHuF+kQ5cJQzgxTIO5J10VcL44URFMev9rQ5ejJNZmdKtmIVQS79
+         ueEOTvGWtd0OeaYefX23YBmg4pzUxHliPw8wAeyYfjXk9OmTmGyJvy41qBBG1HPkACTt
+         q1rc+IgaRF5GB88OVPs2YFDDbyW2l/GfwVAgW5E6rPwMieA0a+R+g2K8thOHn0su1y/G
+         YWOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791540200; x=1792145000;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qPWJMeDyVSRIeJtDK0w7ULZSIZyQfconBMNDwO4cVgs=;
-        b=jm4Ue/24KR9vaHL+mF4+7QwD9PvCX6dnz0s0dDpgq6Q3zq6uy+l6rFV3dLGKVxb4ON
-         +q8vBnquhYmowo4cV2YBVVNCj2DF3OcUCkQVpT38NvfhjWJXucEGp7f0n9k3pALzgVz1
-         tpLVAdTULgfSrfkYx3hjbdiARL5KFUIWtRimuOlU7HNhQVg0/j1HSMTIOou/qVNsHAVx
-         kFnvqa1I0zQDliEecZCBaT6WRVXCdmlth1jBaS4Bvuk7uJHaU33Ge4iYHWCAeiDg8N4z
-         tt2pr8R9/e6oYnSbaTLUJ6pQsNbYg0UXPkMnnNAheCoEGOWOc69QL5JLaCr/Sbn81Vb2
-         9/lA==
-X-Forwarded-Encrypted: i=1; AKwUvBzKjKx3zLstyd+bKubrQNWPgL7KD2tM6WHi38SAryVWVMBzsotii3UgeMcOvpw9YMJOLJYmft9KVu5HzGA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mH7WfGg/iWsliU55POIr9H8sBhbefCdiaqkCGANWohLwQC4GZF
-	r7gTLdSO2VVS9gPBx1STP1j+I/wd58w02KBBUJU6bmUVgSl2ZiVAq+IMF9tQOXt6K3w=
-X-Gm-Gg: AYBFou2Th3zuv2MQ89wsMIWTyjy7vUZ591C1DfclmXrNvdr+SjzUe+6DmQhsNohDScL
-	mPYVk9l65QeY/6mgJJAo3F/FAAip89MmR3gf70QqajueI22ntCxYaQdoyY2iNA4wvL+YN/dXEXm
-	x/0iRjjHzxOq/lre6SS9DVNpuolDay1agAc0yILdVoFIMduvzSfPhj2/1/nvESg8F8hkxCDFGB5
-	qnJGGZ1+VOTCL5vwsrrk8iG1xkfMkkHrpStX8KIN2eDMcl231iIzWvlPXSI9/GsZRqmAZLpjbtQ
-	o/YoWwxn66GVVA3VEphbxYeWxnhQyuhF86Vubhn/pjfpVg9MZEZqBgszBg6TsNK2bWad9kfhSJW
-	oUQv46dnBuZlywtYywuIewU7U0Ri0lSzsLJdHLFBK0pIoBTd4QDNvR0fmOJBYcXwIxCFoN42Mja
-	dbIBD7SxPFtWlIZzDJxKGIcnA6Zt2gAqnF/ipkIzEQA8kXnJHDOX57KYBLNLNeqQaAO3IE7JTCH
-	CPf9c6BkC50
-X-Received: by 2002:a05:600c:4ecb:b0:4a1:76c9:5408 with SMTP id 5b1f17b1804b1-4a18e4a510emr26609695e9.11.1791540198883;
-        Fri, 09 Oct 2026 03:03:18 -0700 (PDT)
-Received: from [100.64.0.1] ([147.161.130.187])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18eb4485dsm68317565e9.2.2026.10.09.03.03.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 09 Oct 2026 03:03:18 -0700 (PDT)
-Message-ID: <d998b030-fe82-4206-bcab-e00a53c4b28e@sifive.com>
-Date: Fri, 9 Oct 2026 12:03:16 +0200
+        d=1e100.net; s=20260707; t=1791540276; x=1792145076;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WCfrYFQWaB6ljrpcA5mB+GvPCr6ztXX1INv06kJj6BA=;
+        b=hZ3MacE3wYutjCVNWhwFolSubxfZFmQv+uYlk5W300YPRZ1mm+dtrIEAUzYWkg7oD4
+         6NawNcYM6avHzUkA1465oFjYqpHfu5wRwveQLvNcgWlnjOr2CxYqM7XFukCE9oI5jbJd
+         GIt6kR2yMAhOTVJFSRaGrqIqUf1RoX7ZWou07Zmdi6B9csw03ZmYCgRbhg/3QMyXF8zA
+         ycVY9oOqaa/1m/PlBWBM8z2TwUsSud4JAjIlVVHZ3W+IYAozreKN6uQsb960a87bUQvC
+         wcE8+qj6GY/t4E0YBkEvpWVvJZDufJUDbf/9+94JE/2AkOKv82MEY5uv+Qkg97ht8TTm
+         3KkQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwG3hEx9tKqPfUYI1HHrHXlSmjtIMEXswMhUX6+FGoZiHAi61mWrZ4VRGM8DTtehLnxTpqiPABehow1CLo=@vger.kernel.org
+X-Gm-Message-State: AFuF++nZgpc4GXBctCA73UBUuhc59h5LqqkBr7xM2qVElXnWmCo96l9z
+	2v0Hv1TyE20/v96EboVaEQHJtulxPfImjwgcRH1Prr2VhFebOYQ7dEqv
+X-Gm-Gg: AYBFou2p1yk6hVgmu8dk9SPe7EBOc6SC2YvaFQfTFcJhEFD1jEIrcoB4GQnKUJGfVdD
+	LvImydZWyGK50xUmgM66F2heH58VC+Zt2ci0wlli14dMr5om8aJoZ1qOhsVBMOlQXJnwuE4hKJo
+	VOSkBLTmpgR5cmlt3YJUxbzxUN+fJgKxlCf5h4p2xZOTFaQ+hdysYSzxUmE9pPmJqR8ABU60iwj
+	RS+hTiwfwOMtFCJOPns6NHKvexwoxdyWtB3knmaTSmG0OJH64bNXn9dphveFMI3EeUjkN493a08
+	FJTcjhO8EiCIZ+9ymsuaH/Sh4fR9PCKFQM0pO/6SlUlKZfxsQrPAgvZzpdGTtfoaw5r4pAZlOlZ
+	OP1BydFP1akTV2+JPuDRJcWb0tP8lpE+UXXor5sI59UENIB0PTRNyDQslQ3VpoKEoJn1k0QzwWN
+	OOEuDfaFhcIB7CDKTo96YHdldyfaygdrXBqy2Xo7+bYuwywmYSTW6iZIrFmU8WFsvn0cQpO3xc6
+	UNrJqNnlICYmWZf1oR7+e3pSD9X+6WJjsDkN6xcCjo96465wiOQYTR0Ou0M00V/cR4YbG/5LoCj
+	3WqHw95nZiHEZK1g9pEzbSlrsPnxA2VKk/qGjpbnBvOOjrLAPVGg5eQAUB1mMPj/IxwbZKop8w2
+	0XtMR65b2+lsAvUU=
+X-Received: by 2002:a05:600c:3f16:b0:4a0:2150:55fb with SMTP id 5b1f17b1804b1-4a18e44395bmr24842945e9.4.1791540276044;
+        Fri, 09 Oct 2026 03:04:36 -0700 (PDT)
+Received: from unknown748F3CBA5068 (dynamic-2a02-3100-a128-aa01-297a-7094-853e-a20c.310.pool.telefonica.de. [2a02:3100:a128:aa01:297a:7094:853e:a20c])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf2caf4sm53382635e9.10.2026.10.09.03.04.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 03:04:35 -0700 (PDT)
+Date: Fri, 9 Oct 2026 12:04:33 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Harry Yoo <harry@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, 
+	Thomas Gleixner <tglx@linutronix.de>, Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+	Andrew Morton <akpm@linux-foundation.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Alexei Starovoitov <ast@kernel.org>, Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>, 
+	Boqun Feng <boqun@kernel.org>, Waiman Long <longman@redhat.com>, 
+	Jonathan Corbet <corbet@lwn.net>, David Hildenbrand <david@kernel.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	David Stevens <stevensd@google.com>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, Martin KaFai Lau <martin.lau@linux.dev>, 
+	Shuah Khan <shuah@kernel.org>, Amery Hung <ameryhung@gmail.com>, 
+	Swaraj Gaikwad <swarajgaikwad1925@gmail.com>, Clark Williams <clrkwllms@kernel.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-mm@kvack.org, linux-rt-devel@lists.linux.dev, bpf@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, cgroups@vger.kernel.org
+Subject: Re: [RFC PATCH v2 0/3] locking, mm: Add atomic allocator trylocks on
+ RT
+Message-ID: <asi6Kj3TcCd6HAM5@gmail.com>
+References: <20261005070625.8871-1-kmehltretter@gmail.com>
+ <asZ8jmWNoGk5tYce@thinkpad>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 6/7] riscv: dts: eswin: add I2C controller support
-To: Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>
-Cc: Yulin Lu <luyulin@eswincomputing.com>,
- Darshan Prajapati <darshan.prajapati@einfochips.com>,
- Pritesh Patel <pritesh.patel@einfochips.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>, Andi Shyti <andi.shyti@kernel.org>,
- Mika Westerberg <mika.westerberg@linux.intel.com>,
- "linux-i2c@vger.kernel.org" <linux-i2c@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
- Min Lin <linmin@eswincomputing.com>
-References: <20260814070007.1662455-1-pinkesh.vaghela@einfochips.com>
- <20260814070007.1662455-7-pinkesh.vaghela@einfochips.com>
- <a55c26e3-1bf0-4ba1-b8b9-14ad76a44a14@sifive.com>
- <BY5PR04MB70253B3321460DCF7ADB54DF838B2@BY5PR04MB7025.namprd04.prod.outlook.com>
-Content-Language: en-US
-From: Samuel Holland <samuel.holland@sifive.com>
-In-Reply-To: <BY5PR04MB70253B3321460DCF7ADB54DF838B2@BY5PR04MB7025.namprd04.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <asZ8jmWNoGk5tYce@thinkpad>
 
-Hi Pinkesh,
-
-On 2026-09-30 3:06 PM, Pinkesh Vaghela wrote:
->>> +             aon_i2c0: i2c@51830000 {
->>
->> Please keep nodes sorted (the aon block controllers go below GPIO, etc.).
+On Wed, Oct 07, 2026 at 07:15:29PM +0100, Harry Yoo wrote:
+> > This RFC instead adds an atomic owner state for bounded PREEMPT_RT spinlock
+> > trylocks. Atomic acquisition succeeds only from the completely free state.
 > 
-> As per DTS coding style document [1], "Order of Nodes" states that
-> "Nodes on any bus, thus using unit addresses for children, shall be ordered by unit
-> address in ascending order. Alternatively for some subarchitectures, nodes of the 
-> same type can be grouped together, e.g. all I2C controllers one after another even
-> if this breaks unit address ordering."
+> Please don't skip discussion stage and jump into submitting a very
+> intrusive change across locking and mm, assisted by LLM? :/
 > 
-> Do you still prefer to change order?
-
-Yes. I believe the alternative option is allowed because a few platforms were
-already doing things that way, to avoid forcing them to change. However, for a
-new platform, it is best to follow the recommended pattern; simple numerical
-order is easier to understand, verify, and automate with tooling (which is on
-the way).
-
-Regards,
-Samuel
-
-> [1] https://docs.kernel.org/devicetree/bindings/dts-coding-style.html
-> 
-> Regards,
-> Pinkesh
-> 
->>
->> Regards,
->> Samuel
->>
->>> +                     compatible = "eswin,eic7700-i2c", "snps,designware-i2c";
->>> +                     reg = <0x0 0x51830000 0x0 0x8000>;
->>> +                     interrupts = <290>;
->>> +                     clocks = <&clk EIC7700_CLK_GATE_AON_I2C0_PCLK>;
->>> +                     clock-names = "ref";
->>> +                     clock-frequency = <100000>;
->>> +                     resets = <&reset EIC7700_RESET_ANO0>;
->>> +                     #address-cells = <1>;
->>> +                     #size-cells = <0>;
->>> +                     status = "disabled";
->>> +             };
->>> +
->>> +             aon_i2c1: i2c@51838000 {
->>> +                     compatible = "eswin,eic7700-i2c", "snps,designware-i2c";
->>> +                     reg = <0x0 0x51838000 0x0 0x8000>;
->>> +                     interrupts = <291>;
->>> +                     clocks = <&clk EIC7700_CLK_GATE_AON_I2C1_PCLK>;
->>> +                     clock-names = "ref";
->>> +                     clock-frequency = <100000>;
->>> +                     resets = <&reset EIC7700_RESET_ANO1>;
->>> +                     #address-cells = <1>;
->>> +                     #size-cells = <0>;
->>> +                     status = "disabled";
->>> +             };
->>> +
->>>               gpio@51600000 {
->>>                       compatible = "snps,dw-apb-gpio";
->>>                       reg = <0x0 0x51600000 0x0 0x80>;
+> I don't think attempts to tackle this problem will make progress without
+> discussing and getting buy-in from (PREEMPT_RT) locking folks.
 > 
 
+Sorry, I should have followed up on the additional v1 replies before
+posting this v2.
+
+On the alternatives in [1], Alexei [2] preferred detecting
+scheduler-lock contexts and returning NULL. He confirmed that NULL
+returns are allowed, rejected restoring the local-storage allocator, and
+raised the RT unlock/wakeup objection.
+
+I initially tried that detection, tracking pi_lock, rtmutex wait_lock
+and rq locks. With RT, lockdep and slab_debug enabled, task-storage
+allocation under an independently held hrtimer base lock reported this
+cycle:
+
+  hrtimer_bases.lock -> rtmutex wait_lock -> pi_lock -> rq->__lock
+    -> hrtimer_bases.lock
+
+I don't know whether my changes introduced or exposed the dependency.
+The timer lock was not covered by that guard. This was a lockdep warning
+and the workload completed.
+
+I then tried atomic ownership in v2 to avoid that unlock path, at
+the cost of IRQ-disabled spinning without PI boosting of the owner.
+
+One possible interpretation of "raw_local_trylock_t" would be preserving
+the non-RT local_trylock semantics on RT for short per-CPU cache
+operations, with allocation failing when it needs an rtmutex-backed
+fallback.
+
+Would that be worth exploring? Sebastian suggested
+consolidating the existing local-lock variants first. What should that
+cover?
+
+For arena user faults, backing-page allocation failure returns
+VM_FAULT_SIGSEGV on the RFC base. next-20261007 preallocates outside the
+raw lock. Failed fallback allocation returns VM_FAULT_SIGBUS. If
+restricting that fallback increases fault failures, is that acceptable?
+
+Thanks,
+Karl
+
+[1] https://lore.kernel.org/r/arIY0wMQjCCsqidI@gmail.com
+[2] https://lore.kernel.org/r/DLO3RV3IQUOV.21BNLF4QS9T4W@gmail.com
