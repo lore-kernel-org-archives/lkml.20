@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0325A298CA5
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 10:07:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1565D2D2381
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 10:07:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791540475; cv=none; b=MrAQiRInxQiQYC5be7r4chIEyjPH/KQjwDjO4LX/L4oy7ONiACJvE8ITK4jhf5WceCLeldLbmV3ZJArsfWvVLZfW8T20bBVSrEQADPMzKrrEIrV2I255VG3NpUw/xqvDXt6eOUXzwsu3gtlFyWFqPTRb4wtYIWPDcrFASOt1CqI=
+	t=1791540480; cv=none; b=uoDllXn129Zjb4C9Ia7V1vm5n9RwmgEYTJ6bBMRcxvCL2z7voCnAbn9+xTAsm/rJnsg/ckU95IQC5l/3iitVgaL6c/kSpQon7bnbGjQhCM/uXlHe87MedrT/ag0XcmQDVZHB/511bv3dJY2CR4B+qGBQezyqN6MqeNdy5ZsO7/c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791540475; c=relaxed/simple;
-	bh=H2pso/1jAKRy8QRPb4tMmjjGjmDL0+cZxHY8Cl6wvP0=;
+	s=arc-20240116; t=1791540480; c=relaxed/simple;
+	bh=dG6yaarN7wPQbioysVtWG7EAmpIMja53RBZpwJfUSrw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Slt4K3V2hGxMhsQvQ0oKUwbTvikHMJF520Sd3YQ7ACtqZTH1PS+rsVHGVPgt1/byS0oBC3U1Vcm1WiBHKI8l0C5HCZOiOMkpcxNIzBrZoIqHTvIsICM510x670M2YIzGvOA4c8ob4s/7evo39424pRX0/lJw4Q4XT80eumf3S5g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=In3kowbK; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=mqLttS+BE2u1sxmh1FJ/wXOQMGLa4I1u3uXZnFdnsPc/wsfd+3S8WbLYl5dD6ag2ViDgu7IPNyrEt0CPIIxWj5iK0WBz1iacUs49bK6lDGutTiDah3556ORXwTWebTYxGLf1QgAmg1n7I4atxDeIPRmM3SclbMth4LGhfsJkqsQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cKfqshKB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="In3kowbK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76BAC1F00899;
-	Fri,  9 Oct 2026 10:07:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cKfqshKB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A9BC1F000FF;
+	Fri,  9 Oct 2026 10:07:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791540474;
-	bh=pfHxhycY4c003LsMRsPy6F6Xh21xTwGQzv/lLDaJzCU=;
+	s=k20260515; t=1791540478;
+	bh=yuatJsYuabYYvzPBBzh4zcG6HEJg4mE6fowtxZTSlU0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=In3kowbKxzi0zjMZuqzN80/iyK437ZerWuTZkRHz6Jyik7ekEn2cYLzTUoak3EWUd
-	 EjfkFJ9ZOzenPO/lmMhvKJlvq/Y/0tTyuLIUpaDWbf7hyWs5QacL9fDRzeZ1zkz3hq
-	 ClDcSUsA8cXXojGHySxdI7B0GCzCAkrjl2HDjG3zVCKGh6kQASybloEz4+HIcI3iw7
-	 8XzvEmG96MXY5TFBzKR7YEklflWXQiN+gIQZc9AdIBRpjRL3ig+Ih1OC0NERgxZvK6
-	 hSID8wHl5AQPNENRKy4yvp7Jo83XQuHjFY/r3TvDO+bHQdvRvoYs8+0ZUfwnAbMptz
-	 9LhUT8gZ//h+g==
+	b=cKfqshKBfJc3VMLlat94tBBi/MIBRn9tTRz6ntjL0YoKvrE54VlbPuaoR2rKbA0od
+	 lGLN9X1iEdgAL7xDZpl7/YUMUmTC7pP1NuY9KUh+D7B6DLY4oaqD51NSIF7AHh3poi
+	 9EA+tVVX7l6PXamV0hmZa4iwf72jvvUZV6QjAXWLRxKxBpzFYfD+F1816F6xLtyLSJ
+	 Aejflcc5vuMoUUz7KDGTSAYQLWy5YIK2a6ZtaAGaco5l8WuWP0VJsSGlyzGOof4XLM
+	 qhmdUPgiHS7yeNt9MZYOhfgSydjz2D2x4WqboyoKwsVnvwKwPJ+0IYPfhls+V8p9gm
+	 i0JPTqQSmJrJA==
 From: Will Deacon <will@kernel.org>
 To: linux-arm-kernel@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org,
@@ -44,9 +44,9 @@ Cc: linux-kernel@vger.kernel.org,
 	David Woodhouse <dwmw@amazon.co.uk>,
 	Peter Zijlstra <peterz@infradead.org>,
 	Marc Zyngier <maz@kernel.org>
-Subject: [PATCH v2 02/23] cpu/hotplug: Avoid trying to bring up CPUs that are already online
-Date: Fri,  9 Oct 2026 11:07:13 +0100
-Message-ID: <20261009100738.31288-3-will@kernel.org>
+Subject: [PATCH v2 03/23] cpu/hotplug: Avoid busy-polling on archs where cpu_relax() is a no-op
+Date: Fri,  9 Oct 2026 11:07:14 +0100
+Message-ID: <20261009100738.31288-4-will@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261009100738.31288-1-will@kernel.org>
 References: <20261009100738.31288-1-will@kernel.org>
@@ -58,34 +58,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-There's little point trying to bring up a CPU that is already online.
-Although _cpu_up() handles this case by doing nothing (because the
-target state has already been reached), it's wasted effort when we can
-easily elide the call to cpu_up() in the first place.
+On some architectures (such as arm64), cpu_relax() is effectively a NOP
+and so isn't particularly efficient when used in a tight polling loop
+such as the CPU state synchronisation in cpuhp_ap_sync_alive().
 
-Check that the target CPU isn't already online before invoking cpu_up()
-from cpuhp_bringup_mask().
+Once an incoming CPU has reached the SYNC_STATE_ALIVE state, we know
+that it is executing within the kernel and so we can use the more
+efficient polling mechanism provided by the atomic_cond_read* API,
+allowing the use of WFE on arm64 and Zawrs on RISC-V.
+
+Change cpuhp_ap_sync_alive() to poll using atomic_cond_read_relaxed()
+instead of cpu_relax(). No change on x86.
 
 Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
 Signed-off-by: Will Deacon <will@kernel.org>
 ---
- kernel/cpu.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ kernel/cpu.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/kernel/cpu.c b/kernel/cpu.c
-index 198c929c452a..97a9bfe4edad 100644
+index 97a9bfe4edad..786c3191431c 100644
 --- a/kernel/cpu.c
 +++ b/kernel/cpu.c
-@@ -1769,7 +1769,8 @@ static void __init cpuhp_bringup_mask(const struct cpumask *mask, unsigned int n
- 	for_each_cpu(cpu, mask) {
- 		struct cpuhp_cpu_state *st = per_cpu_ptr(&cpuhp_state, cpu);
+@@ -395,8 +395,7 @@ void cpuhp_ap_sync_alive(void)
+ 	cpuhp_ap_update_sync_state(SYNC_STATE_ALIVE);
  
--		if (cpu_up(cpu, target) && can_rollback_cpu(st)) {
-+		if (!cpu_online(cpu) && cpu_up(cpu, target) &&
-+		    can_rollback_cpu(st)) {
- 			/*
- 			 * If this failed then cpu_up() might have only
- 			 * rolled back to CPUHP_BP_KICK_AP for the final
+ 	/* Wait for the control CPU to release it. */
+-	while (atomic_read(st) != SYNC_STATE_SHOULD_ONLINE)
+-		cpu_relax();
++	atomic_cond_read_acquire(st, VAL == SYNC_STATE_SHOULD_ONLINE);
+ }
+ 
+ static bool cpuhp_can_boot_ap(unsigned int cpu)
 -- 
 2.56.0.385.gd3acb90ef8-goog
 
