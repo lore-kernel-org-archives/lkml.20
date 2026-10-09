@@ -1,492 +1,172 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D5FC49DBB9;
-	Fri,  9 Oct 2026 09:09:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9A6949A3BE
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 09:09:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791536978; cv=none; b=KcSbK4F/y9/z9WOxuEdoba/1ydg4wh7E8l63FD/QaEB84bDptq5Vb6izFirmR44CjEypepelKx2p3RERT9AR9SRPLTU4AMaNVZx/BxzRvPoIQLS+yPzYMC85HSo+8/oobOLMiUkV1f3mdmENSX8Q79FbtC09nCnbxcm2vqbx3VY=
+	t=1791536997; cv=none; b=SG3IWz/Cfg3079ip2tlWGkri5aPdZA8uwaEi4Xv78RUbZ1o2eFuxos+aRyc1HybUsllEQveGAZ8yQqfKgBSk2HUbmFUK0PahidFy3GQ3wx2fCP+g9DdA75qHCwGIOVjriDJhdDYcfCEg4ExTzFdKx792AocqCFNYvcvZ8rWVyK8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791536978; c=relaxed/simple;
-	bh=y/DdLvZwcbjQxjHN8oQ9pYfPq48DBk/RMYgxKlGaCw8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=b049r+rYGHdzZEyGFtjc67b+pAxJC7ct/vNQJnIbfFx5H8vrUJFC7PQI/d3ks9XPRFEYcw7n5EG5ll2l8oi2gqbbUOoNeoEZuIWmCRO563CJdYFlNtE2tmfwfPgReNCohOxmJI8xrEV/8way7S/sXpT2Z1FVKWx0B8zbSW715KA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=SFcTPKK7; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	s=arc-20240116; t=1791536997; c=relaxed/simple;
+	bh=cB08DrKfnhr8nUV/zbaASjyuSsJDvjbc5ojn6q9zItY=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=TgBzhw/zan9RiPdCbOtQh0fTFeVvcX/psicsIQlskbNHIpZFXwUWVR0WeGr4RKNbwkwX68Jpxnnb5aTLW2Gfgii4kNjL3r/+wPfbsPIw9p/JeApVfIwhPU/SRtJKagfU/WWqeqwz/oL77OBMhWiSiyWt1RwI7PiAsyr55AkpiBk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=C6YHPOSy; arc=none smtp.client-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="SFcTPKK7"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:In-Reply-To:References:
-	Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:
-	From:Reply-To:Content-ID:Content-Description;
-	bh=k253xa+jW0J1+auPkR3Hs4PCn1fzRXXjoAXncl1ClCo=; b=SFcTPKK7EPB8jfgojL7E510+BI
-	azC1BMbNrZA6C4zqx9rhWi9e3l2lwpnQDTTUG67gWiiMnbsQsAlct1eIdwlGs+MSorWXDhleJyGVO
-	uyvURLnWBkf3kZ1due2Srq0kzxxmNOFmNRxgSwDb0SBaO3kMRwTDgPCw7zG4S6rdZeW71K+In8Non
-	dwKGLhVJBT22lTVX71nhjRv8SlsTVcl22C4ZhRG3xeyTHWc8NgXWeQ4o4beubOav40uiQzgr3VmVK
-	AGN4rJsabjEm/tIq8Kor6oZZHl15s2iyH9jkuTbYHgZauGffVdEjnFGqvFMyRB5gJIBy/K9miL+sC
-	lVRysSmQ==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xF6bR-000QKx-0H;
-	Fri, 09 Oct 2026 09:09:21 +0000
-From: Breno Leitao <leitao@debian.org>
-Date: Fri, 09 Oct 2026 01:53:41 -0700
-Subject: [PATCH net-next v2 7/7] selftests: net: getsockopt_iter: cover ip
- and ipv6
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="C6YHPOSy"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48c4649b3aaso2509643f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 02:09:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1791536994; x=1792141794; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hjjt+5c5DdZVts//sptIbu9PvjR5EqO62EChRfFRIRI=;
+        b=C6YHPOSyTGsAN+QZmJic8d4U2rZYggLIiLge4NbkjydX7/kV2kHvkp32j2W3EBvT0r
+         nbVYRtDmbZpDCCsO0cnAIJTGiBWpP5LxxoEGChwoLah/Mvrb8l5qDNB434yI4vguAq3X
+         YVAxhvJs0w85EgLNyXLKGwweRDi9qNfNfBb+1Tdbm96VyHG8a1GR8Bf8SMaBUv5r9Tai
+         2tautA4Tq7Zzds4+I1hAQonL0sAgDodlJhAcwFBYFHAiMMBv1HDitG+HUBDwtxnhlkR5
+         gRR7zd5eoRj8LPWm/6kBls4qsxB0D/BZrDnoj5L2XhApeg3f88BALrnpd/TLuDDOA11F
+         wGlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791536994; x=1792141794;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hjjt+5c5DdZVts//sptIbu9PvjR5EqO62EChRfFRIRI=;
+        b=1Vb9aFqAzcwzin/Y18fJbgCXZDDHmjCykr0I++ooefVaOgGF4/KJLKxQcWCmimdZ0e
+         v5T9H8AQIH49SP6TGA1+EyWV8md/Hmw9k7cfKTWTAoMrWgQF5ORgLikbPbwmq10MY3sq
+         Tclxli4ubDNj0b/HeGOZKijsHCitslBTkx1RstLiU+I9QSuTuU+Nhlmn/6OJIj1rJ9EX
+         DCH/h7ZoVWwmFcvwNFDLnwMs7xqq4T0wlkdS+LHnwhUQ4Wh0uzNUPYnuljKaAyBLikJP
+         el6M13fHmJGUAoohHVPgyFUK8vomQN4E7B3Bs8oenX+3coJ5HnK81DEMKej9rQTj2t+b
+         oT5w==
+X-Forwarded-Encrypted: i=1; AKwUvBwzU+9aSw6+z2OINx+ejUNXxGoZ/z1tzGAT61tNRvw22dlNjPmxrfMW1LVklR7XTzLAoKrTAgny3R7wWyk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJx5spQqJkXo3NLwdKUx/aurHVge0V0qEiPGQQicFzsNpt2zhyX
+	yZrwlgjg6ydjVjOCt+6X1ExsRjgz8oB6GIYHPcA0SJWcz1HFnwBRN9HhO59X4qZJcIU=
+X-Gm-Gg: AYBFou3CASEnSJxYPmmQx4fFSIiFtuTRQAMsqhPS1z85PaMqp3ICQVPyBVVyJBf9Pi1
+	xZvg7DXmJzqgGDstFlkWX4pvNOm+9uy7EK/YGFOceELGwVPLesOSxnNVqtphkzB+mpsbHgMTRJ4
+	8N9XxEb5RcbbrMLu/vq+/wGcAnO4pEk6RqsOgrY4zrS84lrooQR9sIDEBhJaP4YkbQ+4Sam6Ryg
+	9t6DqWADMQNnzCVBPsQ5XzRxnZW1P1uBSLDRnCw+PrqB/doEmP97OL1yKFYJv+KFSvFijtKnfmb
+	Fn7iTQ+Fl+TTbJ98ITmK5YdKim8R0hRY/LCUT+vb10lMbFt8757l5dOBGoaZ39bgA6lXe4bghH0
+	QlVxtrLyCklFZhT6CBxpVWRzhDiirNvKXCLoJ8EpHCYZ7Xh7WrXn4auC9imMToeZqYX2XRTbtgM
+	3K1tP/FaFVR3XHl05WgZCoMErqkwdkHLoWF8HJ15IntwY+lvaEGPk414+em5sOYtw1K8aaZzEw4
+	2w=
+X-Received: by 2002:a5d:5cc2:0:b0:488:8212:5d73 with SMTP id ffacd0b85a97d-48dbacda836mr2080643f8f.31.1791536993946;
+        Fri, 09 Oct 2026 02:09:53 -0700 (PDT)
+Received: from [192.168.1.3] ([37.18.141.193])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db94e2d8fsm2938651f8f.19.2026.10.09.02.09.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 09 Oct 2026 02:09:53 -0700 (PDT)
+Message-ID: <b174823d-2e5e-422d-a958-ee11c5bfc1a9@linaro.org>
+Date: Fri, 9 Oct 2026 10:09:52 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+From: James Clark <james.clark@linaro.org>
+Subject: Re: [PATCH v2 07/14] perf arm-spe: Use generic snapshot search
+To: Leo Yan <leo.yan@arm.com>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach
+ <mike.leach@arm.com>, John Garry <john.g.garry@oracle.com>,
+ Will Deacon <will@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>,
+ Leo Yan <leo.yan@linux.dev>, linux-arm-kernel@lists.infradead.org,
+ coresight@lists.linaro.org, linux-perf-users@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Arnaldo Carvalho de Melo <acme@redhat.com>,
+ linux-doc@vger.kernel.org
+References: <20260821-james-cs-unformatted-per-thread-fix-v2-0-00c4fd0701b4@linaro.org>
+ <20260821-james-cs-unformatted-per-thread-fix-v2-7-00c4fd0701b4@linaro.org>
+ <20260827161619.GN8904@e132581.arm.com>
+Content-Language: en-US
+In-Reply-To: <20260827161619.GN8904@e132581.arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-sockopt_expand_out_v2-v2-7-8ac08c469ecb@debian.org>
-References: <20261009-sockopt_expand_out_v2-v2-0-8ac08c469ecb@debian.org>
-In-Reply-To: <20261009-sockopt_expand_out_v2-v2-0-8ac08c469ecb@debian.org>
-To: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
- Emil Tsalapatis <emil@etsalapatis.com>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, 
- John Fastabend <john.fastabend@gmail.com>, 
- Stanislav Fomichev <sdf@fomichev.me>, Shuah Khan <shuah@kernel.org>, 
- Eric Dumazet <edumazet@kernel.org>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- bpf@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- david.laight.linux@gmail.com, Breno Leitao <leitao@debian.org>, 
- kernel-team@meta.com
-X-Mailer: b4 0.16-dev-f8e9d
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10798; i=leitao@debian.org;
- h=from:subject:message-id; bh=y/DdLvZwcbjQxjHN8oQ9pYfPq48DBk/RMYgxKlGaCw8=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBqyK8OuJaZyFMeyjKUlFdHfkZBuygqnUwMOUJhB
- A5GwpoMYNmJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCasivDgAKCRA1o5Of/Hh3
- bchdD/9jvAouWnFuj7QEZ1zUJaGrvyHDGkH1b6tlEEbajwRdHEP5BsN8hXV5u9Rmjl/qOlM62uk
- QdtX2wa9UfoM8XY+/IS4lUcbBYcKZsNChUqAUTzcbYlZZlTPC3T3CUkSmZUN8fAlbsUXhP79zmE
- GCfU7ILkPdKrfk22qoo85kuaA1WAIL6SQyy9hyMcUIA3sUcXrdG3akv0M7jHyc0k1DJtmJOwlDT
- h4XLjq8zICL8cTqOuYHtZrKw3Hh9BybbSjs7zcXvb0Mi25F3abMb7PrH498PM+oRAdH46EOYhAR
- SsRUeHsYkv1UEueQzxLWgReb9Qo/ZR6gAp8z+bWot8ah/tYBuhKrBI1fdJwm57S6Jxd4w507WFE
- ICmVagOc37L7SIPY7Nufnjc8pVRx4KKFE7TSMouwM/Bf+Bg98QQS9BKiaEzhzYuTgIqW+WCTt7S
- 3T7BWjmN+DltRxeXAcvCjeNwf9NdCeQPh6lxu2qJLduZNjAGFdw79Jr2/HHXHIKdxU543URI9QG
- RvKCeS+nqYzY1scR7Br0Q3GTXyJtnIj4WS7Z8lsIKJSP95XBa4q1YMKkp2dhVMcv0sGhP5SptZa
- G15zQTxouuURn3mVEEbofX565O0Fdhm2vd7vrAPZZe13DO8upKJWf1ejpuRaoe/KfXvfJR8To/q
- rTiTP33yaLyeYNA==
-X-Developer-Key: i=leitao@debian.org; a=openpgp;
- fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
-X-Debian-User: leitao
 
-Add an ip and an ipv6 fixture, pinning the returned length and errno
-across buffer sizes, the branches that answer empty, an unknown
-optname and the options dispatched before the switch. The clamp tests
-also compare the bytes copied back, not just the length.
 
-SOL_IP answers a sub-int buffer with one byte where SOL_IPV6 clamps the
-int. IP_PKTOPTIONS and IPV6_2292PKTOPTIONS want a stream socket;
-MRT_*/MRT6_* want a raw one.
 
-Only the two hop-by-hop tests set IPV6_HOPOPTS, which needs
-CAP_NET_RAW, so the other ipv6 tests run unprivileged.
+On 27/08/2026 17:16, Leo Yan wrote:
+> On Fri, Aug 21, 2026 at 10:49:05AM +0100, James Clark wrote:
+> 
+> [...]
+> 
+>> SPE also had a special fixup case for head pointers greater than the
+>> buffer length, which is not needed because the SPE driver always wraps
+>> them, and __auxtrace_mmap__read() handles that anyway. It also didn't
+>> have the special case for old > head for when the wrap heuristic fails
+>> but the pointers showed a wrap had happened.
+> 
+> Here mentioned the "special fixup case" is:
+> 
+>    if (head >= buffer_size)
+>        return true
+> 
+> If the hardware pointer is exactly the end of buffer, it is a strong
+> indication for wrapping. So it might be worth adding an explicit
+> "head == buffer_size" check in the common code.
+> 
+> That said, if always checking the final 512 bytes, this case is very
+> likely to be detected anyway, so I am not concerned about dropping the
+> check.
+> 
 
-The MRT_*/MRT6_* tests skip on a missing /proc/net/ip_mr_vif or
-ip6_mr_vif, rather than on the ENOPROTOOPT the switch also answers for
-an unrelated regression. A kernel with CONFIG_IP_MROUTE or
-CONFIG_IPV6_MROUTE built in no longer hides that regression behind a
-skip.
+I can't visualise why head == buffer_size indicates wrapping any more 
+than head equaling any other index in the buffer. The heuristic seems to 
+be impossible to make perfect, so I'm inclined to leave it as is.
 
-MRT_VERSION and MRT6_VERSION are spelled out; linux/mroute.h does not
-coexist with netinet/in.h here.
+Couldn't you also say "head > buffer - 512" indicates a wrap? But that 
+could also just be the first time around with no wrap if there is no 
+data after that point. Same way that head == buffer_size could also not 
+be a wrap on the first iteration. But then you end up saving the whole 
+buffer anyway when *old is still 0 or any of it isn't padding, so it 
+doesn't make a difference.
 
-Signed-off-by: Breno Leitao <leitao@debian.org>
----
- tools/testing/selftests/net/getsockopt_iter.c | 359 ++++++++++++++++++++++++++
- 1 file changed, 359 insertions(+)
+Really we should move to the duplicate detection algorithm like IntelPT, 
+or update the driver to use a monotonic head if we think it won't break 
+anything. It's so much more usable.
 
-diff --git a/tools/testing/selftests/net/getsockopt_iter.c b/tools/testing/selftests/net/getsockopt_iter.c
-index 6c2408df461232..252a46d44e522b 100644
---- a/tools/testing/selftests/net/getsockopt_iter.c
-+++ b/tools/testing/selftests/net/getsockopt_iter.c
-@@ -55,6 +55,13 @@
- #ifndef TCP_ULP
- #define TCP_ULP 31
- #endif
-+/* linux/mroute.h does not coexist with netinet/in.h here. */
-+#ifndef MRT_VERSION
-+#define MRT_VERSION 206
-+#endif
-+#ifndef MRT6_VERSION
-+#define MRT6_VERSION 206
-+#endif
- 
- /* ---------- netlink ---------- */
- 
-@@ -492,6 +499,358 @@ TEST_F(rawv6, bad_optname)
- 	ASSERT_EQ(sizeof(val), optlen);
- }
- 
-+/* ---------- ip (SOL_IP) ---------- */
-+
-+FIXTURE(ip)
-+{
-+	int fd;
-+};
-+
-+FIXTURE_SETUP(ip)
-+{
-+	/* a router alert option, so IP_OPTIONS has something to answer with */
-+	static const unsigned char ipopts[4] = { 0x94, 0x04, 0x00, 0x00 };
-+	int ttl = 42;
-+
-+	self->fd = socket(AF_INET, SOCK_DGRAM, 0);
-+	if (self->fd < 0)
-+		SKIP(return, "AF_INET dgram socket: %s", strerror(errno));
-+
-+	if (setsockopt(self->fd, SOL_IP, IP_TTL, &ttl, sizeof(ttl)) < 0)
-+		SKIP(return, "set IP_TTL: %s", strerror(errno));
-+
-+	if (setsockopt(self->fd, SOL_IP, IP_OPTIONS, ipopts,
-+		       sizeof(ipopts)) < 0)
-+		SKIP(return, "set IP_OPTIONS: %s", strerror(errno));
-+}
-+
-+FIXTURE_TEARDOWN(ip)
-+{
-+	if (self->fd >= 0)
-+		close(self->fd);
-+}
-+
-+TEST_F(ip, ttl_exact)
-+{
-+	socklen_t optlen = sizeof(int);
-+	int val = 0;
-+
-+	ASSERT_EQ(0, getsockopt(self->fd, SOL_IP, IP_TTL, &val, &optlen));
-+	ASSERT_EQ(sizeof(int), optlen);
-+	ASSERT_EQ(42, val);
-+}
-+
-+TEST_F(ip, ttl_oversize_clamped)
-+{
-+	socklen_t optlen = 64;
-+	int buf[16] = {};
-+
-+	ASSERT_EQ(0, getsockopt(self->fd, SOL_IP, IP_TTL, buf, &optlen));
-+	ASSERT_EQ(sizeof(int), optlen);
-+	ASSERT_EQ(42, buf[0]);
-+}
-+
-+/* SOL_IP answers a sub-int buffer with a single byte when the value fits
-+ * in one, rather than clamping the int down.
-+ */
-+TEST_F(ip, ttl_single_byte)
-+{
-+	unsigned char buf[3] = {};
-+	socklen_t optlen = sizeof(buf);
-+
-+	ASSERT_EQ(0, getsockopt(self->fd, SOL_IP, IP_TTL, buf, &optlen));
-+	ASSERT_EQ(1, optlen);
-+	ASSERT_EQ(42, buf[0]);
-+}
-+
-+TEST_F(ip, ttl_zero_len)
-+{
-+	socklen_t optlen = 0;
-+	int val;
-+
-+	ASSERT_EQ(0, getsockopt(self->fd, SOL_IP, IP_TTL, &val, &optlen));
-+	ASSERT_EQ(0, optlen);
-+}
-+
-+TEST_F(ip, negative_optlen)
-+{
-+	socklen_t optlen = (socklen_t)-1;
-+	int val;
-+
-+	ASSERT_EQ(-1, getsockopt(self->fd, SOL_IP, IP_TTL, &val, &optlen));
-+	ASSERT_EQ(EINVAL, errno);
-+}
-+
-+TEST_F(ip, options_roundtrip)
-+{
-+	static const unsigned char ipopts[4] = { 0x94, 0x04, 0x00, 0x00 };
-+	unsigned char buf[40] = {};
-+	socklen_t optlen = sizeof(buf);
-+
-+	ASSERT_EQ(0, getsockopt(self->fd, SOL_IP, IP_OPTIONS, buf, &optlen));
-+	ASSERT_EQ(sizeof(ipopts), optlen);
-+	ASSERT_EQ(0, memcmp(buf, ipopts, sizeof(ipopts)));
-+}
-+
-+TEST_F(ip, options_undersize_clamped)
-+{
-+	static const unsigned char ipopts[2] = { 0x94, 0x04 };
-+	unsigned char buf[2] = {};
-+	socklen_t optlen = sizeof(buf);
-+
-+	ASSERT_EQ(0, getsockopt(self->fd, SOL_IP, IP_OPTIONS, buf, &optlen));
-+	ASSERT_EQ(sizeof(buf), optlen);
-+	ASSERT_EQ(0, memcmp(buf, ipopts, sizeof(buf)));
-+}
-+
-+/* With no option set the reply is empty and the call still succeeds. */
-+TEST_F(ip, options_absent)
-+{
-+	unsigned char buf[40] = {};
-+	socklen_t optlen = sizeof(buf);
-+	int fd;
-+
-+	fd = socket(AF_INET, SOCK_DGRAM, 0);
-+	if (fd < 0)
-+		SKIP(return, "AF_INET dgram socket: %s", strerror(errno));
-+
-+	ASSERT_EQ(0, getsockopt(fd, SOL_IP, IP_OPTIONS, buf, &optlen));
-+	ASSERT_EQ(0, optlen);
-+	close(fd);
-+}
-+
-+TEST_F(ip, multicast_if_oversize_clamped)
-+{
-+	struct in_addr any = { .s_addr = INADDR_ANY };
-+	socklen_t optlen = 64;
-+	unsigned char buf[64];
-+
-+	memset(buf, 0xaa, sizeof(buf));
-+	ASSERT_EQ(0, getsockopt(self->fd, SOL_IP, IP_MULTICAST_IF, buf,
-+				&optlen));
-+	ASSERT_EQ(sizeof(struct in_addr), optlen);
-+	ASSERT_EQ(0, memcmp(buf, &any, sizeof(any)));
-+	ASSERT_EQ(0xaa, buf[sizeof(any)]);
-+}
-+
-+/* IP_PKTOPTIONS only answers on a stream socket. */
-+TEST_F(ip, pktoptions_wrong_type)
-+{
-+	socklen_t optlen = 64;
-+	char buf[64];
-+
-+	ASSERT_EQ(-1, getsockopt(self->fd, SOL_IP, IP_PKTOPTIONS, buf,
-+				 &optlen));
-+	ASSERT_EQ(ENOPROTOOPT, errno);
-+}
-+
-+/* The MRT_* options are dispatched ahead of the rest of the switch and
-+ * want a raw IGMP socket. Without CONFIG_IP_MROUTE they are not
-+ * dispatched at all and the switch also answers ENOPROTOOPT, so the
-+ * config check has to come from somewhere other than this errno.
-+ */
-+TEST_F(ip, mroute_wrong_type)
-+{
-+	socklen_t optlen = sizeof(int);
-+	int val;
-+
-+	if (access("/proc/net/ip_mr_vif", F_OK))
-+		SKIP(return, "CONFIG_IP_MROUTE disabled");
-+
-+	ASSERT_EQ(-1, getsockopt(self->fd, SOL_IP, MRT_VERSION, &val,
-+				 &optlen));
-+	ASSERT_EQ(EOPNOTSUPP, errno);
-+}
-+
-+TEST_F(ip, bad_optname)
-+{
-+	socklen_t optlen = sizeof(int);
-+	int val;
-+
-+	ASSERT_EQ(-1, getsockopt(self->fd, SOL_IP, 0x7fff, &val, &optlen));
-+	ASSERT_EQ(ENOPROTOOPT, errno);
-+	ASSERT_EQ(sizeof(int), optlen);
-+}
-+
-+/* ---------- ipv6 (SOL_IPV6) ---------- */
-+
-+/* an 8 byte hop-by-hop header, so the sticky options answer */
-+static const unsigned char hopopt[8] = { 0, 0, 1, 4, 0, 0, 0, 0 };
-+
-+FIXTURE(ipv6)
-+{
-+	int fd;
-+};
-+
-+FIXTURE_SETUP(ipv6)
-+{
-+	int hops = 42;
-+
-+	self->fd = socket(AF_INET6, SOCK_DGRAM, 0);
-+	if (self->fd < 0)
-+		SKIP(return, "AF_INET6 dgram socket: %s", strerror(errno));
-+
-+	if (setsockopt(self->fd, SOL_IPV6, IPV6_UNICAST_HOPS, &hops,
-+		       sizeof(hops)) < 0)
-+		SKIP(return, "set IPV6_UNICAST_HOPS: %s", strerror(errno));
-+}
-+
-+FIXTURE_TEARDOWN(ipv6)
-+{
-+	if (self->fd >= 0)
-+		close(self->fd);
-+}
-+
-+TEST_F(ipv6, hops_exact)
-+{
-+	socklen_t optlen = sizeof(int);
-+	int val = 0;
-+
-+	ASSERT_EQ(0, getsockopt(self->fd, SOL_IPV6, IPV6_UNICAST_HOPS, &val,
-+				&optlen));
-+	ASSERT_EQ(sizeof(int), optlen);
-+	ASSERT_EQ(42, val);
-+}
-+
-+TEST_F(ipv6, hops_oversize_clamped)
-+{
-+	socklen_t optlen = 64;
-+	int buf[16] = {};
-+
-+	ASSERT_EQ(0, getsockopt(self->fd, SOL_IPV6, IPV6_UNICAST_HOPS, buf,
-+				&optlen));
-+	ASSERT_EQ(sizeof(int), optlen);
-+	ASSERT_EQ(42, buf[0]);
-+}
-+
-+/* Unlike SOL_IP, SOL_IPV6 clamps a sub-int buffer down to what fits
-+ * rather than answering a single byte.
-+ */
-+TEST_F(ipv6, hops_sub_int)
-+{
-+	unsigned char buf[3];
-+	socklen_t optlen = sizeof(buf);
-+	int hops = 42;
-+
-+	memset(buf, 0xaa, sizeof(buf));
-+	ASSERT_EQ(0, getsockopt(self->fd, SOL_IPV6, IPV6_UNICAST_HOPS, buf,
-+				&optlen));
-+	ASSERT_EQ(sizeof(buf), optlen);
-+	ASSERT_EQ(0, memcmp(buf, &hops, sizeof(buf)));
-+}
-+
-+TEST_F(ipv6, hops_zero_len)
-+{
-+	socklen_t optlen = 0;
-+	int val;
-+
-+	ASSERT_EQ(0, getsockopt(self->fd, SOL_IPV6, IPV6_UNICAST_HOPS, &val,
-+				&optlen));
-+	ASSERT_EQ(0, optlen);
-+}
-+
-+/* Unlike SOL_IP, a negative optlen has always behaved as 4 here. */
-+TEST_F(ipv6, negative_optlen)
-+{
-+	socklen_t optlen = (socklen_t)-1;
-+	int val = 0;
-+
-+	ASSERT_EQ(0, getsockopt(self->fd, SOL_IPV6, IPV6_UNICAST_HOPS, &val,
-+				&optlen));
-+	ASSERT_EQ(sizeof(int), optlen);
-+	ASSERT_EQ(42, val);
-+}
-+
-+TEST_F(ipv6, hopopts_roundtrip)
-+{
-+	unsigned char buf[64] = {};
-+	socklen_t optlen = sizeof(buf);
-+
-+	if (setsockopt(self->fd, SOL_IPV6, IPV6_HOPOPTS, hopopt,
-+		       sizeof(hopopt)) < 0)
-+		SKIP(return, "set IPV6_HOPOPTS: %s", strerror(errno));
-+
-+	ASSERT_EQ(0, getsockopt(self->fd, SOL_IPV6, IPV6_HOPOPTS, buf,
-+				&optlen));
-+	ASSERT_EQ(sizeof(hopopt), optlen);
-+	ASSERT_EQ(0, memcmp(buf, hopopt, sizeof(hopopt)));
-+}
-+
-+TEST_F(ipv6, hopopts_undersize_clamped)
-+{
-+	unsigned char buf[4] = {};
-+	socklen_t optlen = sizeof(buf);
-+
-+	if (setsockopt(self->fd, SOL_IPV6, IPV6_HOPOPTS, hopopt,
-+		       sizeof(hopopt)) < 0)
-+		SKIP(return, "set IPV6_HOPOPTS: %s", strerror(errno));
-+
-+	ASSERT_EQ(0, getsockopt(self->fd, SOL_IPV6, IPV6_HOPOPTS, buf,
-+				&optlen));
-+	ASSERT_EQ(sizeof(buf), optlen);
-+	ASSERT_EQ(0, memcmp(buf, hopopt, sizeof(buf)));
-+}
-+
-+/* With no header set the reply is empty and the call still succeeds. */
-+TEST_F(ipv6, hopopts_absent)
-+{
-+	unsigned char buf[64] = {};
-+	socklen_t optlen = sizeof(buf);
-+	int fd;
-+
-+	fd = socket(AF_INET6, SOCK_DGRAM, 0);
-+	if (fd < 0)
-+		SKIP(return, "AF_INET6 dgram socket: %s", strerror(errno));
-+
-+	ASSERT_EQ(0, getsockopt(fd, SOL_IPV6, IPV6_HOPOPTS, buf, &optlen));
-+	ASSERT_EQ(0, optlen);
-+	close(fd);
-+}
-+
-+/* IPV6_PATHMTU wants room for the whole struct ip6_mtuinfo. */
-+TEST_F(ipv6, pathmtu_undersize)
-+{
-+	socklen_t optlen = 8;
-+	char buf[8];
-+
-+	ASSERT_EQ(-1, getsockopt(self->fd, SOL_IPV6, IPV6_PATHMTU, buf,
-+				 &optlen));
-+	ASSERT_EQ(EINVAL, errno);
-+}
-+
-+TEST_F(ipv6, pktoptions_wrong_type)
-+{
-+	socklen_t optlen = 64;
-+	char buf[64];
-+
-+	ASSERT_EQ(-1, getsockopt(self->fd, SOL_IPV6, IPV6_2292PKTOPTIONS, buf,
-+				 &optlen));
-+	ASSERT_EQ(ENOPROTOOPT, errno);
-+}
-+
-+TEST_F(ipv6, mroute_wrong_type)
-+{
-+	socklen_t optlen = sizeof(int);
-+	int val;
-+
-+	if (access("/proc/net/ip6_mr_vif", F_OK))
-+		SKIP(return, "CONFIG_IPV6_MROUTE disabled");
-+
-+	ASSERT_EQ(-1, getsockopt(self->fd, SOL_IPV6, MRT6_VERSION, &val,
-+				 &optlen));
-+	ASSERT_EQ(EOPNOTSUPP, errno);
-+}
-+
-+TEST_F(ipv6, bad_optname)
-+{
-+	socklen_t optlen = sizeof(int);
-+	int val;
-+
-+	ASSERT_EQ(-1, getsockopt(self->fd, SOL_IPV6, 0x7fff, &val, &optlen));
-+	ASSERT_EQ(ENOPROTOOPT, errno);
-+	ASSERT_EQ(sizeof(int), optlen);
-+}
-+
- /* ---------- tls ---------- */
- 
- FIXTURE(tls)
+>> The other feature lost is that this search only looked from head to the
+>> end of the buffer, rather than always at the last 512 bytes. This was
+>> flawed because once head is close to the end, it's likely it could
+>> contain zero padding from actual SPE data and a wrap would be missed.
+> 
+>> It's better to err on the side of caution and mark as a wrap, rather
+>> than trying to optimize by limiting the search from head onwards.
+> 
+> Wouldn't this be a trade-off between missing a wrap and reporting a
+> false positive wrap?
 
--- 
-2.53.0-Meta
+Yep, and false positives are basically harmless with this algorithm. It 
+doesn't do anything do remove duplicate data, so you might as well mark 
+it as wrapped as early as possible and save it all anyway.
+
+> 
+> Ignoring head makes the search overlap valid trace data when head is
+> close to the end of the buffer but has not wrapped yet
+> (e.g. mm->len - head < 512). That data can then be mistaken as evidence
+> of a wrap.
+> 
+> For a false positive wrap, [head..mm->len] contains zero data. This
+> should be fine, as zero data are treated as PAD packets and discarded
+> during decoding.
+> 
+> I'd suggest adding this info into the commit log, in case later we need
+> to understand these weird cases. With that:
+
+The summaries are pretty good, will add to the commit message.
+
+> 
+> Reviewed-by: Leo Yan <leo.yan@arm.com>
 
