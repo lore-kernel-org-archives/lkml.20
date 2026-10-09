@@ -1,71 +1,83 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E299A4E36E1;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEE0D4E324F;
 	Fri,  9 Oct 2026 14:20:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791555612; cv=none; b=KNS5XDVdSdj+p1qRAB6zB0zae/xfJE1/lSZyCyhntmB3vUAMuZSmwMSRPqFSXPQwjYAzWCZbdVbwZ4qcQfiv4XZ+oLdQfdJTZGwKD2V1MJRaf3vCLfp9SwTW6csYMFebaKZ0smKys/s/MOqaxxaDApArFg6ckQO7C6xPvSEL87s=
+	t=1791555612; cv=none; b=hWT2gY2LjD93ycyB3cn8mUBf8i5PICDtYt/EN88b6V2mYMWYi+3JyLv7A0foa0hZgHHljuZ0Ozg+qvilroOoWv/nOXXfT+VnNMOhu3ODkOs4FkPKUVTjc8jUPY9kHFp9u6SnAvLjfedEaLJtYbfC+AJHnBuV+Iwf4NiiC4wsCVs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791555612; c=relaxed/simple;
-	bh=OjGKxXpJaFjdVOG5Ol2AwyL+NtDgFBCAiso2ZYhyLTE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Pd7P/4i0dT6fRB4CaPYuzZUbU6/4YTfQhaVj61Kvt3YVwvuXYhSHTdnkHB/EOWH5lGGJCrkBnBpm2Q00HlO5MZmqzUFQ/Qk0mCQvO41r0tkWgBBS5dZMuwAm+2CK+Nz3Luy9EIKfsMKf+fOkZ6G4N1uVCcjC0Re8snZI3q562us=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SftOsoAX; arc=none smtp.client-ip=100.103.45.18
+	bh=FsOoSK9larQ1a8GxYHh826DxEKgeRxZCwAWMdUqFvoc=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=Iaj/2NPOk+IiSeEQYb6mh+CvQAVjQRYKGzBnum/1Y5iQLuDzEwBT6QiYdnOaSrFx/ZLETZd61pWcOAA7Q+YQbAsx+QYtUHTs+KJzd1R63NSm1WH7Rgma+v0bXlDYnIgC/TjhzfayhbweorMlgkEnHGkeHLmGmspDe0HOiJL0hHM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GuW81jiS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SftOsoAX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D371C1F00893;
-	Fri,  9 Oct 2026 14:20:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GuW81jiS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 832851F00898;
+	Fri,  9 Oct 2026 14:20:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1791555607;
-	bh=hfizGw9RYkpI5EiT+JchxQEGoEgZV/MvZJPcW1lwzbg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SftOsoAXny0HftFV9n79w8VZ3lZRTXm4UVRgeApKYG5MCBK4wtn5zbWZ5Ebriq9Ik
-	 xz99DKPuRLSMgSpGE8kDMCRG3UiLOixlzzS8y/hlPWUzsVJ38T4b2pjt+Ijv0or/yc
-	 LfSdsPg0nsQCELmJ6XvSulEeTjO3s5zjhL3X95kEOzGNUAABN5qYjIPc3bghiNQ97A
-	 8j7wnt/VzrnOBWP1YlkkR1DY3cuUZxYzMzyDlO2MrQflDqB/HRbV6GAGa1PMPRkKym
-	 sbIU3pH8sYItJY0tz/6Dw+l2Pi513lW40XlzgSSGidEzvKLeVd4YZ6dVnPT3EuKqLR
-	 bSkcq0pnAb+sQ==
-Date: Fri, 9 Oct 2026 10:20:04 -0400
-From: Sasha Levin <sashal@kernel.org>
-To: Leon Romanovsky <leon@kernel.org>, konstantin@linuxfoundation.org
-Cc: workflows@vger.kernel.org, ksummit@lists.linux.dev,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
-	broonie@kernel.org, tytso@mit.edu
-Subject: Re: [PATCH 1/2] agents: add infrastructure for agent resources
-Message-ID: <asj4FCbBoca8TUK6@laps>
-References: <cover.1791499378.git.sashal@kernel.org>
- <5dfafd6f79165526fe17774c55b553b7dfe4b3fe.1791499378.git.sashal@kernel.org>
- <20261009134025.GA11438@unreal>
+	bh=0dU+CeDLS2/syMkumwBLuxcJ7FiQJnpdbMZTMAnDj6U=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=GuW81jiSAOsw/I6oosp/8JM6s1PsIKfyCZRaYstsv/plYJyTXMlQHTynOiE5wVz9u
+	 tYpT8m9wBMOmvr1du4jg4hkvxfp4cpVHiYRah9xNv8Y3Qf99MisFxmiJt9X8aWy+cG
+	 CghgfNEldSD/yd3rgv0056DzisEwYGK5AdQ8RYK3gnR95ZEwm+bzdufPIX16sEgnSd
+	 CyVBtIuDAL0zrB2x2SFsxw/izCdjUn4lA/IKMWd3WbX2Mc1QzONWDMn80KfDdsqVmn
+	 EwvU2T5ELyHZ/o7r0KWMNypfiUgoETcBWxIOXXYopAcUGaW+pqHja07jsOqscthXXr
+	 vWLM/mdw2KLeQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 773C039253CC;
+	Fri,  9 Oct 2026 14:20:07 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20261009134025.GA11438@unreal>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] Bluetooth: 6lowpan: Pin module for 6lowpan_control
+ debugfs
+ file
+From: patchwork-bot+bluetooth@kernel.org
+Message-Id: 
+ <179155560628.812174.5344547417953773024.git-patchwork-notify@kernel.org>
+Date: Fri, 09 Oct 2026 14:20:06 +0000
+References: <20261008051129.508322-1-dungvn2345@gmail.com>
+In-Reply-To: <20261008051129.508322-1-dungvn2345@gmail.com>
+To: Bui Viet Dung <dungvn2345@gmail.com>
+Cc: marcel@holtmann.org, luiz.dentz@gmail.com,
+ linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
 
-On Fri, Oct 09, 2026 at 04:40:25PM +0300, Leon Romanovsky wrote:
->On Thu, Oct 08, 2026 at 06:54:52PM -0400, Sasha Levin wrote:
->> +AGENT RESOURCES
->> +M:	Sasha Levin <sashal@kernel.org>
->> +L:	linux-kernel@vger.kernel.org
->> +S:	Maintained
->> +F:	agents/
->
->If you choose a separate entry instead of adding this to the existing
->"Documentation Process" entry, let's update the mailing list to
->workflows@vger.kernel.org. This is where all process changes are announced.
+Hello:
 
-Hm... What do you think Konstantin?
+This patch was applied to bluetooth/bluetooth-next.git (master)
+by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
 
-I remember the workflows@ list was originally created to share our
-secret/magical workflows, and I'm not sure that this one qualifies. We can
-start a new list too if it's easier.
+On Thu,  8 Oct 2026 12:11:29 +0700 you wrote:
+> An open debugfs file retains lowpan_control_fops in the debugfs proxy
+> state. However, lowpan_control_fops has no .owner set to THIS_MODULE.
+> As a result, full_proxy_open_regular() calls fops_get() which succeeds
+> without taking a reference to the bluetooth_6lowpan module.
+> 
+> With CONFIG_BT_6LOWPAN=m, a userspace process can keep the debugfs file
+> descriptor for 6lowpan_control open across module unload
+> (delete_module / rmmod bluetooth_6lowpan). When the process subsequently
+> closes the file descriptor, full_proxy_release() accesses the already
+> freed and unmapped lowpan_control_fops table, causing a kernel page fault
+> or oops.
+> 
+> [...]
 
+Here is the summary with links:
+  - Bluetooth: 6lowpan: Pin module for 6lowpan_control debugfs file
+    https://git.kernel.org/bluetooth/bluetooth-next/c/b019e48cee2d
+
+You are awesome, thank you!
 -- 
-Thanks,
-Sasha
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
