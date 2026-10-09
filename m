@@ -1,145 +1,199 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D8A43DDAFE
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 05:52:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDE493F1062;
+	Fri,  9 Oct 2026 05:52:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791525145; cv=none; b=WLCnTI1F/aNr+ZP+naL4rsvVM53s7Kae4ji2FkMMkpo31k96qIfZG23W8TfSVEq88gizzL4qIN160lGyShddJFlLWYeFpZym2HAaxJI+jcnFdlsUOy8DZcyTYsWkkx3k+Jyr96RL4h3aWUDVhGrgChF6Dcf2lwwNKORZppE3UD8=
+	t=1791525147; cv=none; b=dyKvVT6lrs7U5Jr5SmvcXF+5Mdk4is5YgRGiNFcsVbE7S1QcnfnJtpqcO7kXd8deyD08CXTtlxzehIINgVdS+iIbbrwcEjlVvNaErK06nkAG2dgt5tgn2GHs1phUqjWNoUZuUsTVCnAmO4nkdo6uJK1WxAff/u5z4nFC1WYXBig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791525145; c=relaxed/simple;
-	bh=wKugUad1fZWni/TgB2VXp3zn2WGwy2cTnibHFzOKM9g=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=kY6lYqNAy6YIwawueKCnYmrWiPwWaeoFm+iStTxmTpekyNOFZ9/9Ftr5O+lwtX8JAKZewhlbWCaZVfQnX9F1gJ4T03941fDqyIJfRbPpqY+eQ8tmcMdFsnaPYSoXALGxH6EzQOILE+NOezTaW/VKHPdwOJ5HQM6EQaHhZuHSApk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cnqbkmUa; arc=none smtp.client-ip=209.85.216.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791525147; c=relaxed/simple;
+	bh=FOvH8w4C9wvY4okS7M3MXG/xmU9mgKI/kDapv4ZTltw=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=R6gbAEuID1ibHoK8LL1eW2OdXdm862rKKyjHFZ9ZMdrri1VLHt/FwE53uzL7hlNuxT79UiUSPY22DrF3T2mb4tW6xnx2c8U+aBzc5otKmgpD5/e3EWkrnl0+sSbtrpUSic/aju7NqYFZQdRO7CdvPWuTVTel6gM70OwOHfDvUAg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OXYu2lB7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cnqbkmUa"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3a80d1c98f5so3642039a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 22:52:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791525143; x=1792129943; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VfWy+Ja9qxE77oobFy0N0Hs21rb2wAAVBQ2jt8NTcMM=;
-        b=cnqbkmUalFR+hslIzWx06IfEZPCtxb/t42O8cyfelOR2IWhDB/MC/lGHJ3FLON4DMO
-         nVI5m9rQwY1SrXZLFN4wfV+smIdCXtE/Zynk9msOaSueWOedfKJI5x2fG0eo8Kvbe3oh
-         oxnuxyPdD0Uqw22kfmqpz5RhvK+xOBXq7Sz0BTRjpE5my0fpzvD8oIzDDdAcx4cw4uEM
-         ezCD7HQ2p+kIekfdCjnHAYKFzd/r9WDMbc8z7vCadOuMzIqqHnkBxgnoaGWT0tsu8gDl
-         ZJjAOUz3OkEgx/iAuet2hwpc6b9IEoy0kmSQPrFefAszE3oKO+EWVJKDmVfHwXeLwJzf
-         FIag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791525143; x=1792129943;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VfWy+Ja9qxE77oobFy0N0Hs21rb2wAAVBQ2jt8NTcMM=;
-        b=dURviKzt8cXmdIYnUfbCzZfedTptKGK5nnEri60pyjpVYp602O08S1OCTmkAvhf8wD
-         5gdv/qHpMXe8DqsBeVvyh/h+AJJnw2GwpoQQr7c4ohUUUNOu25kMp+be8dRk7sSGHh1x
-         rilgqP93RUx8V6fpPAfI8BJ8vvYguiqeoUXfEWm140ZYLds/no0MSSnPAmtyY2fNZM/N
-         qoP1vTEadaxp+5vCGGGL6UfJm8mxh26b3c1Hjek4DQsY7xClF41iGRoMNg64qnywawh7
-         fn6BFb5mRA5ONBHZI9VZeymXuTDmN392ktJYczu0H1BDsuvZxjpNkgwMm27vSh1jPgIh
-         eFEg==
-X-Forwarded-Encrypted: i=1; AKwUvByfYJRK/9O5neiTgunmvsj9A2VWdfTeYTy2vbAJggmNNfoE9PgQLWucjrtruu+SpAd8hSIQ4FdSlMpl4UA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKbSEJyxsIYpdWDhQx+0t1pTiKSEAFLtYgCbXl/b06+m+b1jJRe
-	fvw0QcxiBGfl4hR9BV+Mr3ds3X+Yx8CJahBQgCh+K/vGVKC2uoDocVfa
-X-Gm-Gg: AYBFou0xIVjSjnzZhtUoarRkuqwoytHJ9+eneofnZqmUV/huGiPDczogsfQc9iv0Mbg
-	/KZ2nUeJx7++hAmP+MApDB6Zj6jqTErOlsMLkncs/PB40YOHNHF7GjSvbsh81pZC71AzL1LP6d8
-	m44XjIdW4lT4ZJHEVsFrmLxkB1FvhAhL7v3ZAoVaZTUWGNrhOc9i3q59PlCd6IRTrUVppMp0jD/
-	1lVAIt5iRueRAe+z7Q4BWVDL9BwStNj6xwuCdXKQL+3NBKlkXwDaipiYl3QafVTvzZSRkLLDIJK
-	8AMlsUh6D40khO55PhlPbkG/3h1TS/lo3wJ+DlHmv2bQ9lVX2P1lwho8GJdPGfijGUn7eUwVCEf
-	xo6GQkDb3eSNIzjk7VdLB3edJ4o7279dhSG5i1zJmJ9Bu6l417z5su+bL88YVMvewS9fV3C6VZ1
-	jOyZJxoQdBTfHbi/Wk7Ke6IOegqGk5glFB2F4+oB8pNHhUnVujeaf3qsXWTd9ZoorjaQ==
-X-Received: by 2002:a17:90b:2688:b0:3a0:516d:9f87 with SMTP id 98e67ed59e1d1-3ab3a911707mr845874a91.13.1791525142740;
-        Thu, 08 Oct 2026 22:52:22 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38ff0d34sm2046675a91.14.2026.10.08.22.52.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 22:52:22 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: dhowells@redhat.com,
-	jarkko@kernel.org,
-	paul@paul-moore.com,
-	jmorris@namei.org,
-	serge@hallyn.com
-Cc: keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH] keys: Check the authorization payload in process keyring searches
-Date: Fri,  9 Oct 2026 13:52:16 +0800
-Message-Id: <pm-key-management-objects-candidate-0004-v3-598361863b76bc25d58d@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OXYu2lB7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4BA11F000FF;
+	Fri,  9 Oct 2026 05:52:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791525145;
+	bh=/7dg6dToZwdakbPOV94KUonfQlPDX7kUrfbPFVUg5GY=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=OXYu2lB73Iq2XVmnFtMMVSekthwGDH1CaEefXVwE8oGTgF0+O82lz6rjShb7DR+a1
+	 iKTFh5aMR4Cwy5MyucR6q737BVbJ1BzOfpYjdIxFsthWvskhKh6kMUSEfpnKRJHYqW
+	 uvP1whvcvoLQo5dtbCm5mhxKI4xJFqEAwSv2LS9zyGk/8dMP9EbCyFsLM4TLganYt5
+	 QKB3e8FlzYefFIDBld/R2iMDXo8Og/5OQJ7U/jzq6mTBlhCrFNZcLRhzpbQ1JUuATq
+	 7oK5IueH9TbgzqZRhx5FPaoyh746VhhtSw7yo8knqHmjq/ewshlzD3t7Jwjm6FnFVj
+	 ABfmBlLrTEFeg==
+Subject: Re: [PATCH v3] net: phy: marvell: keep WOL_EIE across interrupt
+ reconfiguration
+From: netdev-bot+sashiko@kernel.org
+To: rosenp@gmail.com
+Cc: netdev@vger.kernel.org, andrew@lunn.ch, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, michael@stapelberg.de,
+ linux-kernel@vger.kernel.org
+Date: Fri, 09 Oct 2026 05:52:24 +0000
+Message-ID: <179152514441.434549.4140686458634721887@kernel.org>
+In-Reply-To: <20261005225028.465866-1-rosenp@gmail.com>
+References: <20261005225028.465866-1-rosenp@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-An authorization payload and its saved credentials must remain valid
-while search_process_keyrings_rcu() searches the requestor's keyrings.
-The function validates the authorization key, then separately loads
-payload.data[0] and unconditionally reads rka->cred. Validation does
-not prevent request_key_auth_revoke() from clearing the payload.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-A request-key helper can assume authority and fork a descendant that
-inherits the authorization key. If the descendant misses in its own
-keyrings, it falls back to the saved requestor credentials. Successful
-target instantiation invalidates the authorization key without clearing
-the payload. After the helper exits, UMH_WAIT_PROC returns to the
-requester, which calls complete_request_key() and revokes that key.
+Critical: 0 · High: 0 · Medium: 2 · Low: 0
 
-With the descendant paused after validation, the paths can interleave
-as follows:
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-  1. The descendant enters search_process_keyrings_rcu() under RCU and
-     key_validate() succeeds.
-  2. The helper instantiates the target, invalidates the authorization
-     key, and exits.
-  3. The requester resumes from UMH_WAIT_PROC, calls
-     complete_request_key(), and revokes the authorization key.
-     request_key_auth_revoke() sets its payload pointer to NULL.
-  4. The descendant loads NULL and dereferences rka->cred.
+- [Medium] The commit message says the interrupt register layout is the
+  same across all PHYs this driver handles.
+- [Medium] In the PHY_INTERRUPT_DISABLED branch, marvell_config_intr()
+  now calls phy_modify(phydev, MII_M1011_IMASK,…
 
-This NULL dereference can oops the kernel. RCU delays payload disposal
-but does not prevent the pointer from being cleared.
+--
 
-Load the payload with dereference_key_rcu() and require a non-NULL
-result before validating the authorization key and searching its saved
-credentials. A non-NULL payload and its credentials remain alive for
-the caller's RCU read-side section; a cleared payload skips the fallback
-search and follows the existing error selection.
+net: phy: marvell: keep WOL_EIE across interrupt reconfiguration
 
-KASAN report as below:
+This patch makes marvell_config_intr() use phy_modify() with a mask that
+leaves WOL_EIE alone. With that, the config_intr call from phy_init_hw() on
+resume no longer disarms Wake-on-LAN on the 88E1318S and 88E1510. When WoL
+is disabled, m88e1318_set_wol() now clears WOL_EIE itself, and the shared
+marvell_handle_interrupt() also claims WoL events.
 
-    Oops: general protection fault, probably for non-canonical address 0xdffffc0000000005: 0000 [#1] SMP KASAN NOPTI
-    KASAN: null-ptr-deref in range [0x0000000000000028-0x000000000000002f]
-    RIP: 0010:search_process_keyrings_rcu+0x32b/0x790
+> diff --git a/drivers/net/phy/marvell.c b/drivers/net/phy/marvell.c
+> index f71cffa884062..56650182bf3e4 100644
+> --- a/drivers/net/phy/marvell.c
+> +++ b/drivers/net/phy/marvell.c
+> @@ -55,6 +55,11 @@
+>  #define MII_M1011_IMASK			0x12
+>  #define MII_M1011_IMASK_INIT		0x6400
+>  #define MII_M1011_IMASK_CLEAR		0x0000
+> +/* Bits updated by config_intr. The WoL interrupt enable is owned by
+> + * set_wol, so the config_intr call from phy_init_hw() on resume does not
+> + * silently disarm Wake-on-LAN.
+> + */
+> +#define MII_M1011_IMASK_CONFIG_MASK	(U16_MAX & ~MII_88E1318S_PHY_CSIER_WOL_EIE)
+>  
+>  #define MII_M1011_PHY_SCR			0x10
+>  #define MII_M1011_PHY_SCR_DOWNSHIFT_EN		BIT(11)
+> @@ -393,11 +398,13 @@ static int marvell_config_intr(struct phy_device *phydev)
+>  		if (err)
+>  			return err;
+>  
+> -		err = phy_write(phydev, MII_M1011_IMASK,
+> -				MII_M1011_IMASK_INIT);
+> +		err = phy_modify(phydev, MII_M1011_IMASK,
+> +				 MII_M1011_IMASK_CONFIG_MASK,
+> +				 MII_M1011_IMASK_INIT);
+>  	} else {
+> -		err = phy_write(phydev, MII_M1011_IMASK,
+> -				MII_M1011_IMASK_CLEAR);
+> +		err = phy_modify(phydev, MII_M1011_IMASK,
+> +				 MII_M1011_IMASK_CONFIG_MASK,
+> +				 MII_M1011_IMASK_CLEAR);
 
-Fixes: e59428f721ee ("keys: Move the RCU locks outwards from the keyring search functions")
-Assisted-by: LLM
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
----
+[Severity: Medium]
+When interrupts are disabled, this branch no longer clears WOL_EIE. Does it
+still meet the config_intr contract in include/linux/phy.h?
 
-diff --git a/security/keys/process_keys.c b/security/keys/process_keys.c
-index a63c46bb2d148080add6a194579f7b1093c04d82..76da13fa07fab70115966e9ea8360af66390dd85 100644
---- a/security/keys/process_keys.c
-+++ b/security/keys/process_keys.c
-@@ -556,9 +556,8 @@ key_ref_t search_process_keyrings_rcu(struct keyring_search_context *ctx)
- 	    ) {
- 		const struct cred *cred = ctx->cred;
- 
--		if (key_validate(cred->request_key_auth) == 0) {
--			rka = ctx->cred->request_key_auth->payload.data[0];
--
-+		rka = dereference_key_rcu(cred->request_key_auth);
-+		if (rka && key_validate(cred->request_key_auth) == 0) {
- 			//// was search_process_keyrings() [ie. recursive]
- 			ctx->cred = rka->cred;
- 			key_ref = search_cred_keyrings_rcu(ctx);
+  @config_intr: Enables or disables interrupts.
+  It should also clear any pending interrupts prior to enabling the
+  IRQs and after disabling them.
+
+The commit message only covers the resume path through phy_init_hw().
+Teardown also reaches this branch:
+
+phy_disconnect()
+  phy_free_interrupt()
+    phy_disable_interrupts()
+      marvell_config_intr()   /* WOL_EIE is kept */
+    free_irq()
+
+Take an 88E1318S or 88E1510 in interrupt mode with WoL armed by
+m88e1318_set_wol(). WOL_EIE stays set, and LED[2] is still routed as INTn
+through MII_88E1318S_PHY_LED_TCR_INTn_ENABLE. Nothing undoes either one on
+teardown.
+
+Suppose a magic packet (WAKE_MAGIC) or a link-up event (WAKE_PHY) arrives
+after ifdown. Can the PHY then assert the active-low INTn after its handler
+has been freed? Nothing would be left to read MII_M1011_IEVENT and release
+the pin.
+
+phy_request_interrupt() requests the line with IRQF_ONESHOT | IRQF_SHARED.
+If another device shares the line, could the IRQ core end up disabling the
+line for that device as unhandled?
+
+Before this patch, the disabled branch wrote 0x0000, which cleared WOL_EIE.
+Would it work to keep WOL_EIE only across the resume reconfiguration, or to
+track the WoL state and re-apply it after config_intr, and still clear it
+in the disable path?
+
+>  		if (err)
+>  			return err;
+>  
+> @@ -417,7 +424,8 @@ static irqreturn_t marvell_handle_interrupt(struct phy_device *phydev)
+>  		return IRQ_NONE;
+>  	}
+>  
+> -	if (!(irq_status & MII_M1011_IMASK_INIT))
+> +	if (!(irq_status & (MII_M1011_IMASK_INIT |
+> +			    MII_88E1318S_PHY_CSIER_WOL_EIE)))
+>  		return IRQ_NONE;
+>  
+>  	phy_trigger_machine(phydev);
+
+[Severity: Medium]
+The commit message says:
+
+  The interrupt register layout is the same across the PHYs this driver
+  handles, so extend the shared handler to also claim a WoL event instead
+  of adding a per-PHY one.
+
+Does that hold for bit 7? drivers/net/ethernet/marvell/skge.h describes the
+same registers (PHY_MARV_INT_MASK = 0x12, PHY_MARV_INT_STAT = 0x13), but
+there bit 7 is a FIFO error:
+
+  PHY_M_IS_FIFO_ERROR	= 1<<7, /* FIFO Overflow/Underrun Error */
+
+skge's default interrupt mask also enables this bit.
+
+About 20 entries in marvell_drivers[] share marvell_config_intr() and
+marvell_handle_interrupt(): 88E1101, 88E1112, 88E1111, 88E1111 (Finisar),
+88E1118, 88E1121R, 88E1145, 88E1149R, 88E1240, 88E1116R, 88E1540/1545,
+88E3016, 88E1340S, 88E1548P and the 88E6xxx switch PHYs. Of these, only
+88E1318S and 88E1510 have .set_wol.
+
+On the other PHYs, MII_M1011_IMASK_CONFIG_MASK means config_intr never
+clears bit 7 of register 0x12. If a bootloader or a marvell,reg-init entry
+left it set, does it stay armed even after phylib asks config_intr to
+disable interrupts (polling mode, phy_probe(), phy_free_interrupt())?
+Nothing else in the driver manages bit 7 on these PHYs.
+
+marvell_handle_interrupt() now also returns IRQ_HANDLED and triggers the
+state machine for IEVENT bit 7 on all of these PHYs. On the older parts,
+that bit is a FIFO over/underrun event the driver never enabled. Since
+phylib requests the IRQ with IRQF_SHARED, could this also hide spurious
+interrupt detection?
+
+Would it be better to limit the bit 7 handling to the 88E1318S and 88E1510?
+That could be their own config_intr/handle_interrupt callbacks, or a
+per-driver mask.
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261005225028.465866-1-rosenp%40gmail.com
