@@ -1,144 +1,131 @@
-Received: from mail-106111.protonmail.ch (mail-106111.protonmail.ch [79.135.106.111])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4E8931A045;
-	Fri,  9 Oct 2026 14:25:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C2EF37E2E9
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 14:26:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791555920; cv=none; b=B9Ehdg4+5ozG5cWdqb4TnPtym40ntphwZLifSKOTg7hGBd7XJXMx9Kd3bzGD+0XiGiK7czZgZM4qOJ4XKhWVi2N1WrRS4yN/b94PUTv9J5xQpFs2V+4vSqTrCCo7DuoNTEFsVuderAaqz7KRZD1cwa++bruYhBAg7qwee5F+TY8=
+	t=1791555991; cv=none; b=c0tGVQoVDEN5h5XjZjd1IxgfeI7tSU5vC/IyiiX2qpxnqGtLfSYE+QZyQ3Q1sduqqMVaxaIamYqG92ca0K9eLUgDLhZkLR0QofOBqdgCIFQpFTy8jQ0NsV9namiqBpL71294DsKbB9PcWIar5zF58xOHR7Ca/hDW5aTITuqSdzs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791555920; c=relaxed/simple;
-	bh=aNRTNYpGfo4uHEBNRnktsZ6z26AOTtU29zqpNIgIEgU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Tk3kgmA5oiNB3+mbWpu3WKfsUCs0REj4pmYTLw2swG0uK3lh6nKht5Ccen5sQy+OvIhPbDqEJwkN8nK+7IPNLz56bVjcWGV9t+auyRKHCW+baFwIobG0xA+/vbuzSFmvMD9sW4Xa0ScGI+6RHYKEaFAnYLdBMImdaGyedx3JF2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=karaolidis.com; spf=pass smtp.mailfrom=karaolidis.com; dkim=pass (2048-bit key) header.d=karaolidis.com header.i=@karaolidis.com header.b=fi35R3+t; arc=none smtp.client-ip=79.135.106.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=karaolidis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=karaolidis.com
+	s=arc-20240116; t=1791555991; c=relaxed/simple;
+	bh=z8Ql0rx9474CVXsbDoQ1DGgX6nKH4NOGjG3vyIDSecA=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=njejjiCk7COEIPfTV6N1HJs1B9yLWRb4KVKVRKFR0ihxecqb/HHcC3Bs4JcPDN6AUZrZi/B7BG2EXNU8Fuc0biQueI+Jgl44wo+1LBBhz95vMVyr6vWuFW0UUMjk0x41UBI5YXn8PUamGIxAMfxCWWjZg9m0GSHQoSbYEQ6B8r4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FcZIUlgn; arc=none smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=karaolidis.com header.i=@karaolidis.com header.b="fi35R3+t"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=karaolidis.com;
-	s=protonmail3; t=1791555909; x=1791815109;
-	bh=0ry/qEt4RcAqTFIzYK3t8eJQNo0m/0+YmGFQ1p2ujng=;
-	h=From:To:Cc:Subject:Date:Message-ID:From:To:Cc:Date:Subject:
-	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=fi35R3+teJ1yCUX4Dbv3ad1OWvzyqTT73ihrUmXQewn40TRhfezIhW1OhzCpipLj3
-	 5KtC6dNbbLpoiTLtPCehZp09NBIPvhoRPAaL+tpOEL9W0IEsD6Vjqjes/Mv/CrWkAh
-	 znMUR1iSjqwKCJxzreVY75b9DXAZqXbrWwHNLF8ztgVG7hyhExCIwsMQszmePZ3J5h
-	 eiWdwa1xtDc6yIJGVmLn3w0N8hXewm/qLKjU9JSjY/JvseZtzYX+q2rT3lJb7ZtEES
-	 vhfwlxJqcwKZmPDP3akkWGilZW2ketrY7frK+Sr3+8pWn6fwAl6y76LGWJquW26wB+
-	 FSoyhUpCStcBg==
-X-Pm-Submission-Id: 4j1Tf961fLz2SdVd
-From: Nikolaos Karaolidis <nick@karaolidis.com>
-To: Christian Brauner <brauner@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>
-Cc: Jan Kara <jack@suse.cz>,
-	Zhihao Cheng <chengzhihao1@huawei.com>,
-	Mateusz Guzik <mjguzik@gmail.com>,
-	linux-fsdevel@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Nikolaos Karaolidis <nick@karaolidis.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] fs: don't lose inodes that another LRU walker is isolating
-Date: Fri,  9 Oct 2026 14:24:31 +0000
-Message-ID: <20261009142431.713875-1-nick@karaolidis.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FcZIUlgn"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48c6f764f82so1560024f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 07:26:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791555989; x=1792160789; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+kpVKujAoxSPhrY4wgMm8ZhIwBFuY1fo6PWDoxAdBmY=;
+        b=FcZIUlgnw6Z/4WnopPtuEKfuilNNisRomUJVEA8Kz6gkmJ7vGThNbEoWdYfljjKdqY
+         v6MH8NdOzhsAl8vXVaUJrc4e1WB75B3fNKyiPyuoA7jgIo4ryIsfR22/NLof7xcEs+9O
+         9AR9OepJUJ5sh2MKtSa+bysa41xI2QdCYHyg86GS32w+34AeeYLbIFKvoKlcDMkf4lrY
+         jzxspygyU5BhJO3/JqFZXaTZAS2QrY/oFYUhOBlo3l9YO0HRo+LxH6PU+H+gFvpGUgwh
+         r6Kam7DVsuwQTZQ2Zmp9/v1tytFCYmovI4z5zEmV2gdbE6yRO/q8RvNmhJCc/PrQZVrZ
+         If0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791555989; x=1792160789;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+kpVKujAoxSPhrY4wgMm8ZhIwBFuY1fo6PWDoxAdBmY=;
+        b=GdgIIvTk5X/7/o5Y+UIue/dh3BfAICkNrTlcF2qqeKBsV8MWmgT9YGcdOaNJqoEvMZ
+         VR2Kv6zRG3epBTLM7HsnrWdd8HMM7j4VthUK0OmQhL/0W01maLiIKRn1fueB1KqgZDCn
+         b1Nx7s+uMqTpYKFetoYmKVMZYcm58eVrZGmoOL2eLysINzJ672lqdJcyPBMt60BDJbuy
+         4B4N8KCxuJ1OyAyo4mqC8RqEhhRpNPe0Bsq7SZLjhFmXlz2PZtQ9c4JMttcXS7+Mvl3F
+         wqEv8Wl5g7xldmUIy2tL+KysGyHuyey6G7jrb4OO6dFePb9oqQB1odaT4DqQCBd/54iT
+         lvOw==
+X-Forwarded-Encrypted: i=1; AKwUvBxBAssz6m+vsI8ZxTQPSMvauj+snOKuQJWHxUhKQOu9jKx1uqbAeMqvsGCOVMdR29HGhFqed3aktynQE8E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL8ahkgcuxpgAcQNwyZbEge0YfwXm65ql+ZYVlSF8CxLJ/mKl6L
+	L60qSYAuMGsiw7wSbQfhS4bLUfZ/Uw7PoFn8wQ6NHPFTfMAP2pQNDOOS
+X-Gm-Gg: AYBFou21oOJobQR3u7bAXZRXH9j5IO+JS8nO1Jfwy0373L1WKrXWbyx5m1zZKiAdTor
+	XuKI9/uz3MiwCo5Vedx7CTuWSGmQ3u5X8Ayc6DL4f/Mctcav3n3rbi+dDyTtaKq/ZSi84ahIpLr
+	dF8dN3kJ5Q8UknyFJmt8EXkI9Hfw7l+yJ1t0lbk6nMFK8LCr6eV9HajwCytOQYBG5oSgVJgctmX
+	O5xINwK04oGe2XilcIEuhXm7KyrR4ZlrUH0Lk4hAmaStu1A5HqxHL+ZG3gOaIdbQnDPcTJ3+URu
+	ikv/h0Y83t/jWuMxpgVYfkC7GYIZWORHR7Glk03qSOQPea7UUpxrpn7kQ976E2rHC84963r5wxl
+	+jiY3wosJNNs9sKHprK23oJIV5GvEFJlxFdvGvbNMqllea9XAFMf/4LXrTXzZmEO3YYKdTXdq81
+	nVbEI7W+yr+Xaq0HSqXfZupVeQqZ+XPBn3F/g40YNL/0035bNyjoeg0Xu8HYfYoGKiDyR7YK9K0
+	xu+zzkXlhspTJe/r3jyZ3Hul9SxWU9wskTe
+X-Received: by 2002:a05:6000:29c3:b0:48a:ffc4:72e0 with SMTP id ffacd0b85a97d-48dba7892f4mr2610537f8f.4.1791555988382;
+        Fri, 09 Oct 2026 07:26:28 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db94e3519sm4591765f8f.16.2026.10.09.07.26.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 07:26:28 -0700 (PDT)
+Date: Fri, 9 Oct 2026 15:26:27 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Petr Mladek <pmladek@suse.com>
+Cc: helpdesk@kernel.org, Steven Rostedt <rostedt@goodmis.org>, John Ogness
+ <john.ogness@linutronix.de>, Sergey Senozhatsky <senozhatsky@chromium.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Rasmus Villemoes
+ <linux@rasmusvillemoes.dk>, Andrew Morton <akpm@linux-foundation.org>,
+ Linus Torvalds <torvalds@linux-foundation.org>, Geert Uytterhoeven
+ <geert+renesas@glider.be>, Jiri Slaby <jirislaby@kernel.org>,
+ linux-kernel@vger.kernel.org
+Subject: Re: Create printk@lists.linux.dev
+Message-ID: <20261009152627.285d814b@pumpkin>
+In-Reply-To: <asjrq9g8EoUGepcH@pathway.suse.cz>
+References: <asjrq9g8EoUGepcH@pathway.suse.cz>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-When inode_lru_isolate() finds an unused inode that still has page
-cache, it sets I_LRU_ISOLATING, drops i_lock and the list_lru lock,
-invalidates the page cache, clears the flag again and returns
-LRU_RETRY so that the restarted walk can free the inode.
+On Fri, 9 Oct 2026 15:27:07 +0200
+Petr Mladek <pmladek@suse.com> wrote:
 
-Another walker of the same list can reach the inode in that window.
-It sees a non-zero i_state and takes the inode off the LRU, as it
-would an inode that is in use. Page cache deletion requeues the inode
-once the mapping is shrinkable, so this is harmless if it happens
-before the last deletion. If it happens after, nothing puts the inode
-back: it stays in memory, unused, clean and without page cache, out
-of reach of the shrinker and of drop_caches, until it is looked up
-again or the filesystem is unmounted.
+> Address    : printk@lists.linux.dev
+> Description: Linux printk and kernel string formatting development
+> Owners     : pmladek@suse.com, john.ogness@linutronix.de, andriy.shevchenko@linux.intel.com, rostedt@goodmis.org
+> Allow HTML : N
+> Archives   : Y
+> 
+> Reasons for the list and additional info:
+> 
+> Honestly, the main motivation is to allow sending Sashiko review
+> for changes in PRINTK and VSPRINTF subsystems as a reply to
+> the mailing list.
 
-Before commit 2a0629834cd8 ("vfs: Don't evict inode under the inode
-lru traversing context") the pin was an i_count reference, and the
-final iput() put the inode back on the LRU.
+There is also the smaller/faster printf code in 'nolibc'.
+Might be worth mentioning that as well.
 
-Skip inodes that are being isolated and leave them to the walker that
-pinned them, which restarts its walk once it has unpinned them.
+David
 
-The window is reached by any unused inode with page cache on
-CONFIG_HIGHMEM kernels, and otherwise by inodes whose page cache is a
-single shadow entry at index 0. On an i386 HIGHMEM guest, eight
-concurrent "echo 2 > /proc/sys/vm/drop_caches" over 2000 freshly read
-one-page ext4 files leave roughly 400 of the inodes off the LRU per
-round; on x86_64, with the files' pages first evicted through
-memory.reclaim, 3 to 4 per round. With this patch, none in either case.
+> 
+> I have discussed this with John at Plumbers conference. We both
+> agree that Sashiko review is useful and often has to be addressed.
+> It is much easier to reply a mail than searching for the review
+> via the WebUI, copy/paste it to a mail, and comment on it.
+> 
+> In addition, there are several people interested into printk and
+> string formatting code. The mailing list would make it easier to get
+> all interested people notified about new patches and problems
+> in this area.
+> 
+> That said, printk and string formatting are related only to some
+> degree. The printk() code is more about tricks how to store
+> the messages and show them in various context. While the string
+> formatting is about tricky buffer manipulation and helpers for
+> generating a human readable output of various data structures.
+> 
+> There is only partial overlap of people interested into these
+> two areas. Each group might deserve its own mailing list. But
+> I would start simple with a common mailing list. We could always
+> add another one when needed.
+> 
+> Best Regards,
+> Petr
 
-Fixes: 2a0629834cd8 ("vfs: Don't evict inode under the inode lru traversing context")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Nikolaos Karaolidis <nick@karaolidis.com>
----
-
-Found while working on reclaim of inodes pinned by page cache in
-ZONE_MOVABLE.
-
-Tested on master af32da41b032 (v7.3-rc6-232) in QEMU/KVM with a small
-stress program: mount an ext4 image, read 2000 one-page files, run 8
-concurrent "echo 2 > /proc/sys/vm/drop_caches", drop caches again
-single-threaded (2, then 1, then 2), and count the filesystem's inodes
-still in memory via how many the umount frees:
-
-  i386 HIGHMEM:      ~390 of 2000 lost per round without the patch
-                     (3 runs x 20 rounds), 0 with it
-  x86_64, pages evicted through memory.reclaim first (single shadow
-  entry left):       ~4 per round without, 0 with
-  x86_64 with KASAN, PROVE_LOCKING, DEBUG_VM, DEBUG_LIST:
-                     6109 lost in 50 rounds without, 0 with, no splats
-
-The reproducer is a single C file run as init; I can post it if useful.
-
-I went with skipping the inode rather than requeueing it on unpin
-(which would be closer to what the final iput() did before
-2a0629834cd8) because it avoids the remove/re-add and leaves the inode
-where the pinning walker finds it again. Happy to switch if preferred.
-
-Jan, this applies cleanly before or after "fs: Basic infrastructure for
-offloading inode reclaim" (v2 3/5); happy to rebase onto that series if
-you'd rather take it there.
-
-For stable: 6.18 and older need inode->i_state instead of
-inode_state_read(). I have only tested master.
-
-An LLM was used to check the analysis against the code, write the
-reproducer and draft the changelog; I have reviewed all of it.
-
- fs/inode.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/fs/inode.c b/fs/inode.c
-index a9d37be390a1..74dfc379b377 100644
---- a/fs/inode.c
-+++ b/fs/inode.c
-@@ -942,6 +942,12 @@ static enum lru_status inode_lru_isolate(struct list_head *item,
- 	if (!spin_trylock(&inode->i_lock))
- 		return LRU_SKIP;
-
-+	/* Another walker is dropping its page cache, leave it to that one */
-+	if (inode_state_read(inode) & I_LRU_ISOLATING) {
-+		spin_unlock(&inode->i_lock);
-+		return LRU_SKIP;
-+	}
-+
- 	/*
- 	 * Inodes can get referenced, redirtied, or repopulated while
- 	 * they're already on the LRU, and this can make them
-
-base-commit: af32da41b0327b9c6a37856ba82b6760d6c8d10e
---
-2.55.0
