@@ -1,222 +1,116 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45C2B49CF3E;
-	Fri,  9 Oct 2026 09:34:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.20
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791538468; cv=fail; b=qiETW9P795sK3ru9LyjCByY3WUwcJmG+nruNlmHo0CfpnjsnTkjelNVxOkkiv/umqfpMTBsAZQCncxvoO2ogTcqSoY6uH2SHvOb0Ghue0/+Exf2KYKjd4NuQKpoQVEcJcHH1IEdXbFDGZ/pSR2mzIypo4850Ss+0RX5aycIKAl4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791538468; c=relaxed/simple;
-	bh=RSmCLyd4a4h9Hj8b+ucOK7yE6wJnYw0MhVWqZqTYoJ4=;
-	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=mqgiPcc2oqA7gvgHHc6NLkC4sa/7JFMsYFVl9weM7exuBUWncLXtBP9+AAxDBGYAIH2oh/g2LXL/8M4dQnNY5tOiHAEa+ENY6WPWGbwE12vUTFb/3l5MU9daeWrmBqw25cUWEhSyxoTaPFxEkIkw2RyH7txMihFnPgerc2NG2xo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=g4Ve5Ize; arc=fail smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D0ED49B5A7
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 09:35:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791538517; cv=none; b=W2vLSOLVpXJZ9fJlyZvbW4JljXe6eLI6Yb0vzA6nDlojXKFShlS6EmuM+8shd+hMbzPIh3hXrST6epxTwYHZ1Q4ibCEWht1J2vaGxrDTHsD/4heYsYC4NJARmIhzFASS6rm/3JDCJLkW5vH1gywZUqZSbP/oDzNC7lam2HuPdb0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791538517; c=relaxed/simple;
+	bh=/c8N48QbtXgR/eVlCX4e1X5WhhCM4Hemay3LC9ggKPk=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gsos3Suh6sFTTK56vMWu0wgOm8G+nyBU3VaIcfabcvfjqwxR3R40kZxg4R6LndPwW3VmVsUVf3+Lj5IIK8T6le4sLD58T5Olnax8L5A1u4+jOwE4pS+kD0D9ImobHnhH9HpNX9cdcRISawK+WD2bQm/bWVUaWCLzsOiMLKKiN0w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com; spf=pass smtp.mailfrom=cloudflare.com; dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b=IGkscjq0; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudflare.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="g4Ve5Ize"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791538463; x=1823074463;
-  h=date:from:to:cc:subject:message-id:reply-to:references:
-   in-reply-to:mime-version;
-  bh=RSmCLyd4a4h9Hj8b+ucOK7yE6wJnYw0MhVWqZqTYoJ4=;
-  b=g4Ve5Izez/zRKQ/Zcydc+HQmLLkpziT5NLoLyV8GbOt+VaHsbk7ckZXg
-   XZNFiErHuxseWGAmfpawlNrZRkZaB/Vx6OLwVGrI0ccMvDKBEKeVHjWAl
-   ZkuNiERsbRVoKoTOhzzI5py+2fiPfOiZoJn8ePm8bffLt7N7R/iQ2YY7Y
-   4+76Z4VqdBCHko62Ax8gWBBC3WWYFe6dRuQIbWAPL9POil7kvjBHHRbVJ
-   /lm9X+h+cMwt2D7h4CWhH5j3SLUN+1xAjdp7QYlf/3yDKnnStpv2tJ0Iv
-   YODG//avJk02wbdqx/vRIEwoDRbhRTDmKujRtitAj77+lQ6KZz9NRzjCy
-   w==;
-X-CSE-ConnectionGUID: YJkU9mavRhq3onC9uaOujQ==
-X-CSE-MsgGUID: KNaOX6ehTv+NO2FktK6WFQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11929"; a="340237"
-X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
-   d="scan'208";a="340237"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 02:34:22 -0700
-X-CSE-ConnectionGUID: 4zKMep/gRou5GplXxzcHSQ==
-X-CSE-MsgGUID: 24okHB7oRg+wv4SJmL/hPA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
-   d="scan'208";a="265888"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 02:34:21 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Fri, 9 Oct 2026 02:34:21 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Fri, 9 Oct 2026 02:34:21 -0700
-Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.44) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Fri, 9 Oct 2026 02:34:20 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OOw8T2lEdvhKf6S4eNBrh5SZUvwDcZ/VecQfhImLgYfayqDkwHKrwNzjGlQoOPNL1tVxCkjlJm9oHRefhKBuall4epOlj44fwQOuEERw4dY7TiwjyIuloSD7m6nwvQheQ2COM16my7gZsm1JLZGhzuJSv2tiBPotorDxWKV7a9qG8HUpoVWwjQU/KgooVzBZxm/zW6gQk6lCv20r/pi9clDZNjALdVizRWeqjve9ovFq40XHS8xV+TlIjOZqkOb838DkN0Pkc5YXgIv2JRh4jc3aIXz+K7NzNR6AKwkZh1smacQiDUUw/3z7fbYjk6BY1VNzBmGNThaeXptJ0TwxiQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gX/6wCbs2IiRbxlvSbG4YsN/DbVMU4cXmKUzjt3j2UQ=;
- b=X1xnkqaMntufgpGbsA/2gJRWESatFH0LBtFOFJLBeQpZgtd7Vixp3PWXF+8LXgIGcgbTkT2zwJKTdHRvzCOWpwZyMBgd0VLKtXpTXcA33+ALo3OaQT8WAFrrcAd2Yi4pILz1tPyvVkLKrsIc9f8KZj6JlXZLfqE5Wp4QC6K8Twi9ElOirBwpS0++uQTR0Nl3rB+zbztMu4xA0brlWCw+NPaBLFH9kJkhgf/nYJCqSlR4jbW4JiM19cNREDg8SIwgzEahhcyw70jP4b04EgDH2wQe6DVnmrqXdvH7NTFKoDL3NMrBztdZp+lK/YVKSNiDvhREMN1DpcxX1uRYVGYm1A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from BL0PR11MB3236.namprd11.prod.outlook.com (2603:10b6:208:60::18)
- by DS4PR11MB086599.namprd11.prod.outlook.com (2603:10b6:8:507::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
- 2026 09:34:13 +0000
-Received: from BL0PR11MB3236.namprd11.prod.outlook.com
- ([fe80::b026:a3ba:5162:beb2]) by BL0PR11MB3236.namprd11.prod.outlook.com
- ([fe80::b026:a3ba:5162:beb2%5]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
- 09:34:13 +0000
-Date: Fri, 9 Oct 2026 17:33:23 +0800
-From: Yan Zhao <yan.y.zhao@intel.com>
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-CC: "pbonzini@redhat.com" <pbonzini@redhat.com>, "Hansen, Dave"
-	<dave.hansen@intel.com>, "seanjc@google.com" <seanjc@google.com>,
-	"kvm@vger.kernel.org" <kvm@vger.kernel.org>, "Du, Fan" <fan.du@intel.com>,
-	"Li, Xiaoyao" <xiaoyao.li@intel.com>, "Huang, Kai" <kai.huang@intel.com>,
-	"thomas.lendacky@amd.com" <thomas.lendacky@amd.com>, "tabba@google.com"
-	<tabba@google.com>, "vbabka@suse.cz" <vbabka@suse.cz>, "david@kernel.org"
-	<david@kernel.org>, "kas@kernel.org" <kas@kernel.org>, "michael.roth@amd.com"
-	<michael.roth@amd.com>, "binbin.wu@linux.intel.com"
-	<binbin.wu@linux.intel.com>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "Peng, Chao P" <chao.p.peng@intel.com>,
-	"ackerleytng@google.com" <ackerleytng@google.com>, "nik.borisov@suse.com"
-	<nik.borisov@suse.com>, "francescolavra.fl@gmail.com"
-	<francescolavra.fl@gmail.com>, "sagis@google.com" <sagis@google.com>,
-	"Annapurve, Vishal" <vannapurve@google.com>, "Chen, Farrah"
-	<farrah.chen@intel.com>, "Gao, Chao" <chao.gao@intel.com>, "Miao, Jun"
-	<jun.miao@intel.com>, "jgross@suse.com" <jgross@suse.com>,
-	"pgonda@google.com" <pgonda@google.com>, "x86@kernel.org" <x86@kernel.org>
-Subject: Re: [PATCH v4 11/17] KVM: TDX: Honor the guest's accept level
- contained in an EPT violation
-Message-ID: <asi04xo+LJWmkkTt@yzhao56-desk.sh.intel.com>
-Reply-To: Yan Zhao <yan.y.zhao@intel.com>
-References: <20260928090729.15468-1-yan.y.zhao@intel.com>
- <20260928091116.15647-1-yan.y.zhao@intel.com>
- <68f139713ee0adcca0d7a3d30e48a9c6cbc1f4d4.camel@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <68f139713ee0adcca0d7a3d30e48a9c6cbc1f4d4.camel@intel.com>
-X-ClientProxiedBy: TPYP295CA0022.TWNP295.PROD.OUTLOOK.COM
- (2603:1096:7d0:a::18) To BL0PR11MB3236.namprd11.prod.outlook.com
- (2603:10b6:208:60::18)
+	dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b="IGkscjq0"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a02753c04fso22129875e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 02:35:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloudflare.com; s=google09082023; t=1791538510; x=1792143310; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=oJvujCG6Ef+ooO87W/Kfsk5ax+KDA0Y6he4rHd/9/6A=;
+        b=IGkscjq05/VuTlEGylZ0tPumx/YjRJcVe+CMB584AsxZF7ioC1ojWkI+S9bDCmadGN
+         3oHbrjxTnv7iiCyYtEoFv36uKFDLWC5Ks+aHaqgwKE7NMq8aNdlbkW7I9PVjdKAcJCO5
+         ReK9hv9QVku9rm58f0EwKFMEbK8X2oAlDHPNkPF7vRDBmeGt6Zbh7J+XfO2eckYsPNaB
+         9T8meJ1AHhfiYFU9krpj0FKQc14PKjPzu/LQZXmx4wEKBLh2H8DULILBuDmwiiqN1l7A
+         Mty11O2KjiKdmio2QApQxZXaEabmYonTxMpNUx26my94LdaMV9AgwUYFMn3gZNcerf/O
+         WdgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791538510; x=1792143310;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oJvujCG6Ef+ooO87W/Kfsk5ax+KDA0Y6he4rHd/9/6A=;
+        b=lFSaYpRtVPcV1boJsCyJ4mm3g6VBFaNvYf0U6aFnuGB0qB5tjl1Xii3CvS/37UYgJD
+         yx8CnO+lkC6o066Boc6MirkfnCkC3knB4B9gBNvGAZAwE40lKzIrj8MNacjeKLUV5k2M
+         HtukcALgXO/j9rbHJ6rfrz/+zuW8F6fzX8DUUKoJ47JNPXhmF5n7fnnoui7RitAXw7Vb
+         rcv//Yqf7r10hxryDaa5hHUFgmMop2psoUNSy2XlSlcllPpIEi/31T034jle8xHygtgF
+         AVoLHSB9toHqB4iw7ZqgxMNgGflm+5MaCdv6qfqKUcMgi6D2R+i4b3tNUJr990i4soYt
+         KRDw==
+X-Forwarded-Encrypted: i=1; AKwUvBxIXkcKfbjm7P7OYBFKCiAnlI/0qzb4S5V73f1JG8k+yIRdFrStPgPqbD7fmo8aQ/7eZ9drVQ5+OlFUSU4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mBh5sE6h6fA9Ycr8S3MaTHuYqqKpO32eLapETQ+vlu/UCUBw36
+	7fB/uU5b2NQuqTqQ82YdmfmoijaPOxzfxdfEUEgXLNs6Z9t3pL704n9nl5Ca1SR2cxw=
+X-Gm-Gg: AYBFou1jDjBo+bEGbiqzbUGj0gvTsuLjIcR4KAMtwtr2VrLHFdyw3qbtqRM2rdogQMx
+	qu5CmxPzuQ0Je6pD4dhy2Gx8YYpSgIe2gQUas8ykFa9Agk750zeTEDY38h89xuPfLHfboWCnuTW
+	A6WRt+JmZbbdlCTL9uc1I1AxS21eFw5quiJWuOWxABLswQF+37b64HT3PRlpt29PEaDklEXq0Lz
+	9JTTFQlh9L2fELBTyn9Xt2pkqAM12Hw0qVspjyv/nDIvP1y0fCVVy//rpjUyF9TqvVAooVXStYs
+	ZwNYHw4qJ5BiP9ClAIjJwSf1WdyM53AdSupy3EaltAgvMBIsxvxfo3Z1q9ItDGsERC9DRudSMQ9
+	HAVOd8HDDHFCfBPPjG13267dIOY3JQjLGQK+Tfw6Row33C/HBPyEy9LMY6m7Os3wju9Y6mZGsUM
+	DdcTDq37HNv6XFyYYdj9G9XtmLQgv7Z2Hps0nSvp5HS3DANDJZtYuB/vM=
+X-Received: by 2002:a05:600c:4f10:b0:4a0:d1f4:b1d1 with SMTP id 5b1f17b1804b1-4a18e4bff89mr26548565e9.24.1791538510535;
+        Fri, 09 Oct 2026 02:35:10 -0700 (PDT)
+Received: from localhost ([2a09:bac6:37a8:2696::3d8:4])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bea1021sm43339765e9.10.2026.10.09.02.35.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 02:35:10 -0700 (PDT)
+From: Matt Fleming <mfleming@cloudflare.com>
+X-Google-Original-From: Matt Fleming <matt@readmodwrite.com>
+Date: Fri, 9 Oct 2026 10:35:09 +0100
+To: Joerg Roedel <joro@8bytes.org>
+Cc: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>, 
+	Ashish Kalra <ashish.kalra@amd.com>, Vasant Hegde <vasant.hegde@amd.com>, 
+	Sairaj Kodilkar <sarunkod@amd.com>, Baoquan He <bhe@redhat.com>, iommu@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, kernel-team@cloudflare.com
+Subject: Re: [PATCH 0/2] iommu/amd: Fix device table setup in kdump kernels
+Message-ID: <asi0gnLD2v2Ir5bX@matt-Precision-5490>
+References: <20261002133143.3628181-1-matt@readmodwrite.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL0PR11MB3236:EE_|DS4PR11MB086599:EE_
-X-MS-Office365-Filtering-Correlation-Id: c8e03494-bba6-4610-4334-08df25e87a81
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|376014|23010399003|366016|1800799024|4143699003|56012099006|11063799006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: ikJ/Hkl7Qsc0gN/9HhXBORJdX2rV2cRMqD77cM0lQKt3KrGXgT/s7E6prghrjmJ6307CZiAsd7ykIJYrprwy4kMQHLjHbAfgDwtusp5WYBzDpnQIJrz1lbJPqzRfmKvYPN27gt/dmjJzCh8DPfm9IP1+dgEo8vPon39D1ZO2xzoPkbUP4D+MQbUEvoJDbX/efyyhM3WIyQuMmlYyhFx+Idhr41w2qzN56q5hsPoVh1dgsofnDJskKBWpjAUo9zlg6zoHU5lNKFD4Wbvwc3XHFmMgf0j1qzyyXYxH26Egi5BWAbPqNGcwFo/XbuajcitFmgeeiC/Ep4LqC5tzu84Ix00SOEwVKmds6Ayz/9chQEvVV6QekONhYMHEAQCjEsLiKfdT8u2NG0pFplDLoZsQFwIZckbjG32LNnuTJ4/5U7TJAhO0ojYPE4Y0JipSXxYYkor6UbdSGDG9rPVWYLOGDziitBG3KWL0DuVNQ2oswct1P43gCwNXC8mQeRaIE89I5aNYZtx669KnjAspfEL7gobquhdelO3OlU8ma7fd+mEjIx72u8IgqCwKNhAgaDcCQI6TtxGzsCMXlAQv8lr3ogVKgnss9EvK5+SKTvOX2cgO7wTbEw9gCCzHZcWAdfSUSE5j+30DZYzKboUiHVem1zp9R/H0mYMJUz8F8I5YJs8=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL0PR11MB3236.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(366016)(1800799024)(4143699003)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?++yCCpnZ2Zsni3vmxIsQFl66QEQVXSJEKnISrOq4mGZ6daEDpsKAGJ/30fK/?=
- =?us-ascii?Q?YNAHXor0Jfg+iLuc+T5uba46R4cQtM81fk1r+w24H1J4EbuVqFsKqilbXa+H?=
- =?us-ascii?Q?h1Gq++vBgaGlgQ1RG3LxzzQN/pVT12eHuBqd8tZWngJWjd4DPF+ZLuixvyy8?=
- =?us-ascii?Q?IBkSgfOj+Q9eN1e66jtHp2K8M5jeoTDziGULjOjiNEpAo6PqwD1Xib1pmKae?=
- =?us-ascii?Q?JTKpN5hD9PUWhGtTcrFdQT3J8Mt36sq3SSp4GV8E7+AJrcIL4gUdBDcAOm1g?=
- =?us-ascii?Q?l6j33X7bzKPsZ5l2NASnjOVW9d4YtkdahsBThn8M56b8ICz5SaRDJLJee4tk?=
- =?us-ascii?Q?ZfEDHsBvvBgeLpKDvWqUB2+iORCzowNTPfgGggRdb3eZdy7/S9HN28XhoGJg?=
- =?us-ascii?Q?YEdkmiixJnG/jeSCa0LI7TDRp6mdJoAclD11fKxGjmAIHL9PNGi6PT53Z2Ou?=
- =?us-ascii?Q?OmuXt/hOlQ+Ma+WPx2t/zdJsmJiwKlFDdGSP3dmzKN0l2nYFxEdMBHJ4mWL3?=
- =?us-ascii?Q?pk4gW0m8f7qKHOMfxwMsWvNo85ex9qwdyqMH/auQ2uePa+sAcS4N0HfNdLJz?=
- =?us-ascii?Q?GDnfcBNK6vWlteSfRO2rrcaxpz84KE6bQASXyjEP4C9HwkDFiDWr+2m6l9k1?=
- =?us-ascii?Q?odDfXztnnb/RdWJydNUeyZGVT2PcMFqiQhqpeNxlrkNQDW6QAxp5F7lJM0wb?=
- =?us-ascii?Q?6iVmOxS+mQuGbs6EUn6H91JvnS7XulfSiBoixo2gBYeq75Zb+u9uvt7cBi3L?=
- =?us-ascii?Q?4YgiwyV+mwaXLwzVuh2KX+8YqGclRUF9S3Y7uxmhJu25H5r/RoVSzxIB7vKO?=
- =?us-ascii?Q?9OTO8ReI4xk933VJjcW6uTM3Kg5nz4rwDGwk11dtHHScXI7g8yhO9vZBx7tM?=
- =?us-ascii?Q?pvTlosp38spigE7xT59ZkNgEMXNyc4Nn49z30TDLwcugPYBg8IEKD2Xqleuq?=
- =?us-ascii?Q?f6pu9VkuQJ41cOWDqg7aD1EMhSXTYFEYkthd6+1tlj6y/nsHrSiWMTTtzpfz?=
- =?us-ascii?Q?ZuCFIa3O4sgQ1GgsQ3MjBSz6hhz53Gch82weFTxPiwmdWuz44WO7WJtEPUZa?=
- =?us-ascii?Q?pjho6ecfyJEqo3a3nZ5AphAM5oM7jk+0USsQYpFpetT/Jsh/wdQ1hJfXperV?=
- =?us-ascii?Q?rFA6aT9Pkc2jFJMZ5LsbDx7Mr9b8dmdGEymz4G2zevZJFFxm9hfRBaZa1ta0?=
- =?us-ascii?Q?RUDaxJSTfxemq7C8YfIO9xQi1OtdwKAVhRpAj6nUymMeo0pGUlkygcaQNaJh?=
- =?us-ascii?Q?D7aqoO0QAc7UKDZyjvfPSgzbdSyIlL7sNFUmFeglcSBQTkn9I+4F+iF+Xr46?=
- =?us-ascii?Q?reeAOjH8soPAtiCLt/yNXpv0oGjvYO9dp92uvAqcutVlB6Y6qQSzcVKhzMim?=
- =?us-ascii?Q?ahF0sjRa9cl/js73ZONAj8sW/OaV5u2oXX0gO6m9tLeq45QfA8KMaGfOg+C7?=
- =?us-ascii?Q?cQSUh3NI1iIx+RCIfJmdpMqlllJFby3f4zsNR4/XAkkDgZWOSlx+omjCcEtp?=
- =?us-ascii?Q?cNmQEX+HbvZuLP9sO8r88yZC19iaPGuPKMTq/6uQx4cO6apceKexDm4n0ti6?=
- =?us-ascii?Q?uMbvtuPMbnFkEQAzuJdz5gzPLJ8bbBoGVXvo0PPlLjoZYlv6eMGW8PNY68lt?=
- =?us-ascii?Q?azZYBfnQwcKD3haxnKLYnjkVWERuz9QwExKlXWOOEcirisQeBIQCykJdm2CZ?=
- =?us-ascii?Q?uga+kCA38bcpV1CFsUExpJjRktta+owQ9f0ysZ5A1H9TQzBP5sZw5ct+V355?=
- =?us-ascii?Q?NhNhkHh3aw=3D=3D?=
-X-Exchange-RoutingPolicyChecked: 0ulwOJmfegtjQ0duPnW80+mk+t9M3JJnQo40iqoO3yOGri/g/kTA8zgCToGzb0zjAiDmlOLx6q5BusVoOKeTyWToHswWolgmH7KQ848AHncfcUkIXcuQJd9dKB6aMLpZaLGOo+HNZVFVWIFw1lOyCA+6qSKbd8V+7P+YXI6x5xSJOHDqxIstF5ZVZp2n1JXC0sLdoDBLTgaL2f3pIapkFL7v5CI5nzPyfmcWt7jfkOnnL6wywDHK6CiPupepzdAfK8GA60F2lqRswb5KIv67HcggYGXpTODaCI3UC7CPgW4NFr921HHmGImOZPpWxrCFwbCoKYztVe5DxeEzap98WQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: c8e03494-bba6-4610-4334-08df25e87a81
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR11MB3236.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 09:34:12.9809
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1Qwh/GWKcyzknztsttcLDDfYmLTv+ozR0ICBgCIHZxL4IPqnE2GNjQwSCxO/tDircnIBEZ6LUxOEmoW2PlY5nQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR11MB086599
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261002133143.3628181-1-matt@readmodwrite.com>
 
-On Thu, Oct 08, 2026 at 09:05:32AM +0800, Edgecombe, Rick P wrote:
-> On Mon, 2026-09-28 at 17:11 +0800, Yan Zhao wrote:
+On Fri, Oct 02, 2026 at 02:31:41PM +0100, Matt Fleming wrote:
+> From: Matt Fleming <mfleming@cloudflare.com>
 > 
-> > +
-> > +	/*
-> > +	 * No TLB flush is required, as the "BLOCK + TRACK + kick off vCPUs"
-> > +	 * sequence required by the TDX-Module includes a TLB flush.
-> > +	 */
+> An AMD kdump kernel booted with crashkernel=512M,high and
+> crashkernel=0,low fails to allocate its device table because there's no
+> memory below 4G. IOMMU init fails and, on our systems with an Intel
+> E810 NIC, the ice driver's TX queues time out, so the dump never gets
+> sent.
 > 
-> I think the TLB flush is actually more obvious than the level + 1/2 bits below.
-> It is worried about inhibiting 1GB mappings, why?
-Hmm, including inhibiting 1GB mappings can make the logic more generic and more
-correct in concept. That is, when the guest accept level is 2MB, 1GB mappings
-should be inhibited conceptually. This help remove the code dependency on the
-assumption that 1GB mappings are impossible with the initial implementation,
-given that inhibiting 1GB mappings as well is simple.
+> Since commit 38e5f33ee359 ("iommu/amd: Reuse device table for kdump"), a
+> kdump kernel normally reuses the previous kernel's table. Patch 1
+> programs the new table if reuse fails. Patch 2 drops GFP_DMA32 for
+> kdump kernels. Normal kernels still allocate below 4G, because that's
+> what the kdump kernel checks before reusing the table.
+> 
+> On an AMD EPYC system with an E810 NIC, the kdump kernel without these
+> patches failed the order-9 GFP_DMA32 allocation and its TX queues timed
+> out. With these patches, the kdump kernel reused the old device table
+> and the dump was written over the network.
+> 
+> Matt Fleming (2):
+>   iommu/amd: Program device table when kdump reuse fails
+>   iommu/amd: Don't allocate kdump device table from DMA32
+> 
+>  drivers/iommu/amd/init.c | 23 ++++++++++++++++++++---
+>  1 file changed, 20 insertions(+), 3 deletions(-)
 
-> > +	hugepage_set_guest_inhibit(slot, gfn, level + 1);
-> > +	if (level == PG_LEVEL_4K)
-> > +		hugepage_set_guest_inhibit(slot, gfn, level + 2);
-> > +
-> > +	return 0;
-> > +}
-> > +
-If you have a strong opinion to drop inhibiting 1GB mappings for now, I can add
-the following diff:
+Hey Joerg, 
 
-@@ -2183,7 +2172,13 @@ static int tdx_handle_guest_accept_ept_violation(struct kvm_vcpu *vcpu, gfn_t gf
-                return 0;
+I know it was Plumbers and ksummit this week, but have you had chance
+to look at these two patches?
 
-        level = tdx_get_ept_violation_level(vcpu);
--       if (level > PG_LEVEL_2M)
-+       KVM_BUG_ON(level != PG_LEVEL_2M && level != PG_LEVEL_4K, kvm);
-+
-+       /*
-+        * No need to inhibit 1GB mappings since they are unsupported with
-+        * the initial huge page implementation.
-+        */
-+       if (level == PG_LEVEL_2M)
-                return 0;
-
-        if (hugepage_test_guest_inhibit(slot, gfn, level + 1))
-@@ -2203,8 +2198,6 @@ static int tdx_handle_guest_accept_ept_violation(struct kvm_vcpu *vcpu, gfn_t gf
-         * sequence required by the TDX-Module includes a TLB flush.
-         */
-        hugepage_set_guest_inhibit(slot, gfn, level + 1);
--       if (level == PG_LEVEL_4K)
--               hugepage_set_guest_inhibit(slot, gfn, level + 2);
-
-        return 0;
- }
-
+Thanks,
+Matt
