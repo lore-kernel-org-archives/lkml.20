@@ -1,49 +1,80 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 93A9113A258;
-	Fri,  9 Oct 2026 22:52:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791586323; cv=none; b=fNU9THis4sx98pyEpi5wKPdJ4zZcLhZg2hsqW7PizZKMaKbnrlQfFsWyF4hX7X2KnNpeEuFKRBjk8KERXDkkxgQ796TBAKKvzn9hPP7Ylh4SDK9SvBMVo+eJMyG+MkROjGizFM4kXIW1xR/UI50X/iPBCLjewFvKZCAn9ShRdPs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791586323; c=relaxed/simple;
-	bh=v/TAjBE1UUbpIO6vyUnpk9uA82N5vj3fjiVm6XpI/wc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lCQZ2gjTCaEMyrPWrqzHS7Cd+fu70Osf0ied1vNzTYNlO+ZnqD2WUy1AIokIEO25zJ1x0asB9WWgbyIhS7dzCj84CcZIpr6fnxpV8OzhautxyqbDvBrKAMa1wGsuzDESBjgb/94Jqdqt3NZF0qBexythpBZjN4TR1xm5gi/gTjU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=djWKgrWw; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011015.outbound.protection.outlook.com [40.107.208.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78ED72DB7BE
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 22:53:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791586434; cv=fail; b=ASqhao07xjtHrUy8QoKBo2PQe9Qv7M7OBhhn7nE9vFf4x+Z7h3l2p7e98NoqS2GWmH7KBjawRgwWYReu/qm+5ihU1XriYuOH094WTJeAAo8GDR2t9Q5rj7V1BhtnKvkJebwSSBdXTspQFEhq+IV20G+pTsn5ph6reACkHuCJIag=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791586434; c=relaxed/simple;
+	bh=D9qtpuIzWKXuj/V5gNMPh4FVCXcggkZ5XgNZ6CiF5DE=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=c0eZ5aGVuuLylo+q2YpQPRtCgzrbc/c8/zxWE5NFgAVVmUSHM2e8Dsgl5wur2Om0DDcuPQ7C82N056xMxWPwT+WrnnfDxCM0/E8OwR7JhbBwx3k1JzuZS6AgH5McBkBatfD0uXzGR6akMqCBZfuENsczePsBX0M0rFjvA9aY4Zk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=l2LNbjP0; arc=fail smtp.client-ip=40.107.208.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="djWKgrWw"
-Received: from localhost.localdomain (unknown [4.194.122.170])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 7007320B7168;
-	Fri,  9 Oct 2026 15:51:51 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 7007320B7168
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1791586320;
-	bh=SB6i8Q/z/JBPFDBZwt31VaHf1p4MoLNT0AmWMeHfREs=;
-	h=From:To:Cc:Subject:Date:From;
-	b=djWKgrWwhisrmcXPOafuVy6rBaoKPKlAV2naI3A2Du7g1U+MJHAZO9SL12vaONz6z
-	 +BWGP36wsc4um/LIG9RcCIUUEQqGCXZ4xNmCC91Z0py2/TZ4Yfy1Ce5sezZpVfUfQ7
-	 F7qZAu4yCwSm+ox6KU9JRw8DNaE+ZrN4mH7HG1T8=
-From: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>
-To: David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Simon Horman <horms@kernel.org>,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	Ben Greear <greearb@candelatech.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	AutonomousCodeSecurity@microsoft.com,
-	tgopinath@linux.microsoft.com,
-	Cen Zhang <cenzhang@linux.microsoft.com>
-Subject: [PATCH net] ipv6: fix fib6 walker UAF on NLM_F_REPLACE
-Date: Fri,  9 Oct 2026 18:51:42 -0400
-Message-ID: <20261009225142.47005-1-cenzhang@linux.microsoft.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="l2LNbjP0"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SZxzD15ihRKr0oA1X4FtoAEKQXNAey5yr9mjMVLVdKZhgLIvhdoRi+3z3p9gz2Q5utkwq5FCz+hcnklGrO63zF0r/Wib6CzC3G7+dn3JxvzQaGmTrTB/uN1uwtgNVQkNH/wnYuEdDWQrDKDMO/KabFPxrGf9fxk0skF18hMEcs8+BZyfQSuYkpAIgnZvrYO1dlChTVKts2d/QoisL25yFmsYA3tGYBbaVbUef6qa6phRCygXkZb+pFhk0O+E9kwt+jPVbvnrpsWrS9LlL4xDG9b+ahn06fCs56WIqcKmFgTi0cs5k5IONkM74WzjBL66U6PzageSb/04ovdXLT/22A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rF1u17LOajU99h9A93l3jH0PLIzkE6/S40gRuQo2Yto=;
+ b=PvMsXfJtdM25lMPdQKaTx9fX/QI2DPFgMvM2krzkz+imhSY1o0TLXIh+BO+3ySa6Q5iLNB50CV6AkDsocVINcTlxApimEMYOpyoxX5jYfQW71r/Wh5kcMieAgUK06ECX0Lif1SCPgMjz9uHNTVx2AcbJ93vzHMeCH8CgvTPfZ21djIj0G3Wv/vgRp2nyyAEV0DGnz7DTrnGucjsFUWLh4+cmCsOO4vifS9cJbLU6xBhfepd+gaXVkBxAlM+46pQxnWkclhlBlKGEjSLlNW9Ldv/28nymVRHbNw17VWtEzKe75PP2gO8r60zMybN0iBF7aVW7LznjQ4zUAJnGCEnwNA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rF1u17LOajU99h9A93l3jH0PLIzkE6/S40gRuQo2Yto=;
+ b=l2LNbjP0dp97DWnBN6xB0Ki7H3WhmXKOJCasTr/NCObk7tpBSN/qWKfZLY5qUyMnF6/3dRgkv8Tg3tHgUTCCz2s8hL117mKTKeOHsjw1j4RdqvEpo9EL2u8lmHfdZn716ybtdClnm5TlCQ4dIs4ACWb3OvYUTrkIYfTv3gPY/wI=
+Received: from BN0PR04CA0017.namprd04.prod.outlook.com (2603:10b6:408:ee::22)
+ by MN0PR12MB5740.namprd12.prod.outlook.com (2603:10b6:208:373::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Fri, 9 Oct
+ 2026 22:53:48 +0000
+Received: from BN3PEPF00022BC1.namprd04.prod.outlook.com
+ (2603:10b6:408:ee:cafe::2f) by BN0PR04CA0017.outlook.office365.com
+ (2603:10b6:408:ee::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Fri, 9
+ Oct 2026 22:53:48 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN3PEPF00022BC1.mail.protection.outlook.com (10.167.248.120) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Fri, 9 Oct 2026 22:53:47 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 9 Oct
+ 2026 17:53:42 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 9 Oct
+ 2026 17:53:42 -0500
+Received: from xsjdavidzha51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Fri, 9 Oct 2026 17:53:42 -0500
+From: David Zhang <yidong.zhang@amd.com>
+To: <quic_jhugo@quicinc.com>, <karol.wachowski@linux.intel.com>,
+	<max.zhen@amd.com>, <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
+	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+CC: David Zhang <yidong.zhang@amd.com>, <sonal.santan@amd.com>,
+	<mario.limonciello@amd.com>
+Subject: [PATCH V4 01/19] accel/amdxdna: Rename NPU3 firmware files
+Date: Fri, 9 Oct 2026 15:53:25 -0700
+Message-ID: <20261009225343.3079074-2-yidong.zhang@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261009225343.3079074-1-yidong.zhang@amd.com>
+References: <yidong.zhang@amd.com>
+ <20261009225343.3079074-1-yidong.zhang@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,120 +82,74 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BC1:EE_|MN0PR12MB5740:EE_
+X-MS-Office365-Filtering-Correlation-Id: a2c3c9c4-4d5c-4af1-6b08-08df26582de8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|23010399003|1800799024|376014|36860700016|56012099006|11063799006|4143699003|22082099003|18002099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	MJTi28TEqJtth+2JOT5xThUoV2ij0Bsi/mxg4pvnF3ZXVhdSAC1Ws3InpAhFAHHFaeKsrwhMbIkLNUU4+trj7qQyrYS4dJXD6ZdBOuT6OVlZLUuDM0nw72FYpChBAgWOx/hIWa4lqKdLCyCAQM+mMadAIYskujypfG6GfYlM2D36nKCvNb0lnWWkxaWw/Z1+vQQuAByhJk/IT4sUL9qxr9npvHfpTvFokMHm4gQEmyBKO04TJmq9xZzwbR+0uYDo3i3oAr6UAypKrhWWexezThSGyxQVTchB0s3V/K/oIRQx+OOAaa7VTzcq7eJW0LZLo+JML6eKf5T8SLh5xTfIr4NK/zEn8HD++omLj2V/nIzBJNJSvB6CEx3yk/edRQPckAIcmDPdZ0UGDNLSII6Ioh22sQJqBt4bELpfu4b29kNJKwfjYgI1oJb0coLPJE7mlnEDIiEb564CI9BlX0ZzIAvqGqRna54skXiWBAfABonMFjQLVOwQi8q7zZlDOheAD/O1BVeRReR844FHxp/s097KHW+LBZoqQy9kIcdOanD3BBZiI+ZBQUid1PxurfrycfCEkR8qVSh0Vlmozn/cFGfaNnReFHSlTKl7FGWZsgvgkSYsA7GNZ77+amfOdVf51x5efLijkKmY8bau4eFN4mSJde4G4+5Cul2dfNMDKdDRZbQegTvUuNQhL6ZnGSraZWMCrxkl7en3+Bc3smV/JA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(1800799024)(376014)(36860700016)(56012099006)(11063799006)(4143699003)(22082099003)(18002099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Os3OhZ9gZQ4VC2Qzjui8jeXzAF/iqG7dgn/6G1AEh+3cNNxMWWQ/3bclSeTuxwvNnX04WbyD9N7XYWS8mF5PetkARbMr2ifujl7vnG2aDT9qM0iN7fUIDILOIAcf0r1PJMHWsscUPxtuRhsCVR2jvydDoosC1MSBnSnxnHbrj2iv1nPI2JcKZz6LWuMt19KZ6veWIe4no5ozndOmsTkjYrKwUZQ6W+FfaXtj6996Sa4aXQ2usRAJOHJLQOBMLP6JeJjELZ38U7PWHy81lB73NKTtgYfBlgOnStxEg50EplefIAFdUR2hTbH5tGikqL7g2AzTBSMX2jRGs+umr8XWFPTApGSEXIJ4TtFXlUbmAPdt9Ab0wYkbjh9QeMLi4qeQpgSyl3HrIyTv6yEWAWJEJ0d3pwLWSexi+gr+ld+WWGsLh4f4eID/ll3I5LfwgJ57
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 22:53:47.8654
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a2c3c9c4-4d5c-4af1-6b08-08df26582de8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF00022BC1.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5740
 
-fib6_walker uses w->leaf to remember the next fib6_info to dump, so an
-RTM_GETROUTE dump can continue there on the next recvmsg().  This
-assumes that whoever removes a route from the tree also updates the
-walkers pointing at it. The NLM_F_REPLACE branch of fib6_add_rt2node()
-can break this assumption. It removes the old route, fib6_add() frees
-it, and w->leaf keeps pointing at the freed object.
+The NPU3 firmware files will be released as npu.sbin and cert.sbin.
+Rename the current firmware names to match the firmware release names,
+and add MODULE_FIRMWARE() declarations for the new 17f2_10 npu.sbin and
+cert.sbin names.
 
-The fn_sernum version check in fib6_dump_table() normally protects
-against resuming on a stale w->leaf, but it can be bypassed:
-ip6_link_failure() resets fn_sernum to -1 when the default route
-fails, which an unprivileged user in a user+net namespace can cause:
-
-  1) link failure            fn_sernum = -1
-  2) dump pauses on route R
-  3) replace R               fn_sernum changed, R freed
-  4) link failure            fn_sernum = -1
-  5) dump resumes            -1 == -1, reads freed R  <- UAF
-
-  BUG: KASAN: slab-use-after-free in rt6_fill_node+0x1c22/0x2cd0
-  Read of size 4 at addr ff11000011fa0064 by task poc/101
-   rt6_fill_node <- rt6_dump_route
-
-Fix by making the walker adjustment of fib6_del_route() as a common
-function fib6_walkers_skip_rt() and call it from both fib6_del_route()
-and the NLM_F_REPLACE branch, for the replaced route and each removed
-ECMP sibling.
-
-Fixes: 4a287eba2de3 ("IPv6 routing, NLM_F_* flag support: REPLACE and EXCL flags support, warn about missing CREATE flag")
-Reported-by: AutonomousCodeSecurity@microsoft.com
-Assisted-by: LLM
-Signed-off-by: Cen Zhang (Microsoft) <cenzhang@linux.microsoft.com>
+Signed-off-by: David Zhang <yidong.zhang@amd.com>
+Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
 ---
- net/ipv6/ip6_fib.c | 39 ++++++++++++++++++++++++++-------------
- 1 file changed, 26 insertions(+), 13 deletions(-)
+ drivers/accel/amdxdna/amdxdna_pci_drv.c | 2 ++
+ drivers/accel/amdxdna/npu3_regs.c       | 4 ++--
+ 2 files changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/net/ipv6/ip6_fib.c b/net/ipv6/ip6_fib.c
-index 9ff761962b45..a5699809fe04 100644
---- a/net/ipv6/ip6_fib.c
-+++ b/net/ipv6/ip6_fib.c
-@@ -89,6 +89,29 @@ static void fib6_walker_unlink(struct net *net, struct fib6_walker *w)
- 	write_unlock_bh(&net->ipv6.fib6_walker_lock);
- }
+diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/amdxdna/amdxdna_pci_drv.c
+index bb339e641416..d9e2e71d3e05 100644
+--- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
++++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
+@@ -28,6 +28,8 @@ MODULE_FIRMWARE("amdnpu/17f0_20/npu.sbin");
+ MODULE_FIRMWARE("amdnpu/1502_00/npu_7.sbin");
+ MODULE_FIRMWARE("amdnpu/17f0_10/npu_7.sbin");
+ MODULE_FIRMWARE("amdnpu/17f0_11/npu_7.sbin");
++MODULE_FIRMWARE("amdnpu/17f2_10/npu.sbin");
++MODULE_FIRMWARE("amdnpu/17f2_10/cert.sbin");
  
-+/* Move the walkers resting on @rt to the next route, or up the tree if
-+ * @rt is the last one.  Called with tb6_lock held.
-+ */
-+static void fib6_walkers_skip_rt(struct net *net, struct fib6_info *rt)
-+{
-+	struct fib6_info *next;
-+	struct fib6_walker *w;
-+
-+	next = rcu_dereference_protected(rt->fib6_next,
-+					 lockdep_is_held(&rt->fib6_table->tb6_lock));
-+
-+	read_lock(&net->ipv6.fib6_walker_lock);
-+	FOR_WALKERS(net, w) {
-+		if (w->state == FWS_C && w->leaf == rt) {
-+			pr_debug("walker %p adjusted by unlink of %p\n", w, rt);
-+			w->leaf = next;
-+			if (!next)
-+				w->state = FWS_U;
-+		}
-+	}
-+	read_unlock(&net->ipv6.fib6_walker_lock);
-+}
-+
- static int fib6_new_sernum(struct net *net)
- {
- 	int new, old = atomic_read(&net->ipv6.fib6_sernum);
-@@ -1315,6 +1338,7 @@ static int fib6_add_rt2node(struct fib6_node *fn, struct fib6_info *rt,
- 		fib6_info_hold(rt);
- 		rcu_assign_pointer(rt->fib6_node, fn);
- 		rt->fib6_next = iter->fib6_next;
-+		fib6_walkers_skip_rt(info->nl_net, iter);
- 		rcu_assign_pointer(*ins, rt);
- 		if (!info->skip_notify)
- 			inet6_rt_notify(RTM_NEWROUTE, rt, info, NLM_F_REPLACE);
-@@ -1337,6 +1361,7 @@ static int fib6_add_rt2node(struct fib6_node *fn, struct fib6_info *rt,
- 				if (iter->fib6_metric > rt->fib6_metric)
- 					break;
- 				if (rt6_qualify_for_ecmp(iter)) {
-+					fib6_walkers_skip_rt(info->nl_net, iter);
- 					*ins = iter->fib6_next;
- 					iter->fib6_node = NULL;
- 					list_add(&iter->purge_link, purge_list);
-@@ -1971,7 +1996,6 @@ static void fib6_del_route(struct fib6_table *table, struct fib6_node *fn,
- 			   enum rt_del_reason del_reason)
- {
- 	struct fib6_info *leaf, *replace_rt = NULL;
--	struct fib6_walker *w;
- 	struct fib6_info *rt = rcu_dereference_protected(*rtp,
- 				    lockdep_is_held(&table->tb6_lock));
- 	struct net *net = info->nl_net;
-@@ -2022,18 +2046,7 @@ static void fib6_del_route(struct fib6_table *table, struct fib6_node *fn,
- 		rt6_multipath_rebalance(next_sibling);
- 	}
+ /*
+  * 0.0: Initial version
+diff --git a/drivers/accel/amdxdna/npu3_regs.c b/drivers/accel/amdxdna/npu3_regs.c
+index d76b2e99c308..8d287ef32fff 100644
+--- a/drivers/accel/amdxdna/npu3_regs.c
++++ b/drivers/accel/amdxdna/npu3_regs.c
+@@ -43,8 +43,8 @@ static const struct amdxdna_fw_feature_tbl npu3_fw_feature_table[] = {
+ };
  
--	/* Adjust walkers */
--	read_lock(&net->ipv6.fib6_walker_lock);
--	FOR_WALKERS(net, w) {
--		if (w->state == FWS_C && w->leaf == rt) {
--			pr_debug("walker %p adjusted by delroute\n", w);
--			w->leaf = rcu_dereference_protected(rt->fib6_next,
--					    lockdep_is_held(&table->tb6_lock));
--			if (!w->leaf)
--				w->state = FWS_U;
--		}
--	}
--	read_unlock(&net->ipv6.fib6_walker_lock);
-+	fib6_walkers_skip_rt(net, rt);
- 
- 	/* If it was last route, call fib6_repair_tree() to:
- 	 * 1. For root node, put back null_entry as how the table was created.
+ static const struct amdxdna_dev_priv npu3_dev_priv = {
+-	.npufw_path             = "npu.dev.sbin",
+-	.certfw_path            = "cert.dev.sbin",
++	.npufw_path             = "npu.sbin",
++	.certfw_path            = "cert.sbin",
+ 	.mbox_bar		= NPU3_MBOX_BAR,
+ 	.mbox_rbuf_bar		= NPU3_MBOX_BUFFER_BAR,
+ 	.mbox_info_off		= NPU3_MBOX_INFO_OFF,
 -- 
-2.55.0
+2.34.1
 
