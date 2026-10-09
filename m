@@ -1,259 +1,222 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7E7F03806C9
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 15:51:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFC1B38A733;
+	Fri,  9 Oct 2026 15:52:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791561081; cv=none; b=JbN90NDTtwR47yX4YLuICwHYGWyP6ju5wSgh2jZC4LcjQA6LcVv0unHLAer0LYaNQuWl/6WYxyu6sAnmuCMuL0Wgh7tz64U/gP3kFlSxxAWR+YlHNYq4CR3hzOwCg6mGYvuqbJZThwt5MXVSWP8wm2/2LK5p4sCK+o/AvI8EPv4=
+	t=1791561150; cv=none; b=RNWZuJOq2qSM4qj/xIEd+9IRzYOLzbuoXRp1yrvFko1U/aD0Jrf9cO1zlYsEHUjNPORW+fPVqFQgAQlsC49yEzcz6O40BZYj24weINASKOZVVGprrN41xzq6at2IA/H2pQhceON71FBRvixziTE9G/37nc1xCjza8A5db8e5spo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791561081; c=relaxed/simple;
-	bh=5feYH3+pbVTgr2fGF5M7AvFuJa8U8vWQ+HLCanQrhAA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=vCT8Arqpz0zAD78EJAE+/PoYkODWY8mTBPPuNicpFaQBUtT7oQTr8GBgwg1fD3404SPcJEywisxdN/VCm2YI0ltVlRWkvcs4xBEcc3QwTF6Th6zfgcuG0gJgUk/hFysDoQx6F7a+xom6zgYOdGuwkQX02OLwBWcvzwO9Eiqup8I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=FPTNnYX7; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791561150; c=relaxed/simple;
+	bh=Bp8Y3B+4k1arBEAPTQHV+Jezm+XIuoVKGwAJXnjuv9c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gsQoG7DNXVGRstNKiDgMd9MARgV25IZqm3SV1/WSee8uhsfrhvqqPILkmwrrEOeIDhI0Jbbm23zvIIIfyjyYLQuNFZWejCB5f8iWnTlWXxfQtwOh/GErArDb+hp7uzW/N3qzOvaNKKJUq1rxjceH3EmHDwJ/R2WuyNywcrMGxDg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=0hK3+yrw; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=yMZxadU1; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="FPTNnYX7"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4EE7C1EA6;
-	Fri,  9 Oct 2026 08:51:15 -0700 (PDT)
-Received: from [10.211.55.3] (unknown [10.57.54.134])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1925C3F763;
-	Fri,  9 Oct 2026 08:51:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791561078; bh=5feYH3+pbVTgr2fGF5M7AvFuJa8U8vWQ+HLCanQrhAA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=FPTNnYX7zZFTTJCyQPGAmjHeQa2rVc1EDVWcM6O+UjiE7YdAMfA8o3nOJ9cdCAKzo
-	 sC5ZYKzeqGVEajDT7sVKkWNc9uanX0/6uJoUxi0ka4Gz8TOsyVCu5+g0vPNT5LYg4G
-	 igIO8qcu7W/QRTkCJgDEw0Zg2dqnR90lhNz+Okok=
-Message-ID: <814a1d78-73df-4b8c-b596-65fb82f7cceb@arm.com>
-Date: Fri, 9 Oct 2026 16:51:14 +0100
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="0hK3+yrw";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="yMZxadU1"
+Date: Fri, 9 Oct 2026 17:52:25 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1791561146;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=80QEXrpzD+kFda3/t4OvfmIyHa2usi5G2SbXsA7Iaek=;
+	b=0hK3+yrwjLIuBKWsevUjEqlQwGjIc1bngq037sYMRJadfTM6pWehYVHiL8wQoE/dW6w9xt
+	bYVDKnraYa7sB0xO/OuinBr3i1iI3hJHi2G1940ynLPs3ELBknW5L2+RyWzoA8bt28r7yJ
+	dvjm4IEuMhU9Qqyn8zvEYm34M5l44Tn4nVHV5U7znEJzsbNl3/2GY9qd3jHU8vL/m6lPhY
+	yBOJDdtxPQFUCECQuToR2gFFlH6a/+QRGMg8H5f8RvlP0kZEl3D/eW6V/Kfh3/lj1i4SwX
+	kFXCu0NxeVjJpFgIwTLRaKhx/2zCZ5GPKTQpQxrBWoGCL8O33Va+V0yKW7ww5w==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1791561146;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=80QEXrpzD+kFda3/t4OvfmIyHa2usi5G2SbXsA7Iaek=;
+	b=yMZxadU1OrZtchHsqw7H5PtHO4vxKtc1FDCeI9sB+ECH0vjq7LRfJOxAlO5nsNJyAabYlJ
+	hzUHf1pkzHfvsKDg==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: netdev@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Stephen Hemminger <stephen@networkplumber.org>,
+	Arend van Spriel <arend.vanspriel@broadcom.com>,
+	linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+	Breno Leitao <leitao@debian.org>
+Subject: Re: [PATCH net v2 1/2] netpoll: use a raw lock for the deferred
+ transmit queue
+Message-ID: <20261009155225.6Uy7b0wd@linutronix.de>
+References: <20260928064239.32456-1-kmehltretter@gmail.com>
+ <20260930192103.62973-2-kmehltretter@gmail.com>
+ <20261001074819.gQ3w8q6P@linutronix.de>
+ <ar7sTVun7mF-4nl6@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Thunderbird Daily
-Subject: Re: [PATCH v2 08/23] arm64: cpufeature: Store every ID register with
- its overrides applied
-To: Will Deacon <will@kernel.org>, linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@kernel.org>,
- =?UTF-8?Q?=C8=98tefania_Ion?= <stefion@google.com>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Pankaj Patil <pankaj.patil@oss.qualcomm.com>, Borislav Petkov
- <bp@alien8.de>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Jinjie Ruan <ruanjinjie@huawei.com>, Mark Rutland <mark.rutland@arm.com>,
- Tarun Sahu <tarunsahu@google.com>, Fuad Tabba <fuad.tabba@linux.dev>,
- David Woodhouse <dwmw@amazon.co.uk>, Peter Zijlstra <peterz@infradead.org>,
- Marc Zyngier <maz@kernel.org>
-References: <20261009100738.31288-1-will@kernel.org>
- <20261009100738.31288-9-will@kernel.org>
-Content-Language: en-US
-From: Ben Horgan <ben.horgan@arm.com>
-In-Reply-To: <20261009100738.31288-9-will@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <ar7sTVun7mF-4nl6@gmail.com>
 
-Hi Will,
-
-On 10/9/26 11:07, Will Deacon wrote:
-> From: Fuad Tabba <fuad.tabba@linux.dev>
+On 2026-10-02 01:30:45 [+0200], Karl Mehltretter wrote:
+> > >   BUG: sleeping function called from invalid context
+> > >   in_atomic(): 0, irqs_disabled(): 1, non_block: 0
+> > >   rt_spin_lock
+> > >   skb_queue_tail
+> > >   netpoll_send_skb
+> > 
+> > How is this possible? netpoll is only used by netconsole right? And this
+> > is CON_NBCON so it only prints threaded. What is the missing piece?
+> > 
 > 
-> __cpuinfo_store_cpu() stores ID_AA64PFR0_EL1 and ID_AA64PFR1_EL1 with
-> their overrides applied and every other register raw. Store the rest
-> the same way. Everything read with read_cpuid() goes through
-> read_cpuid_with_overrides(). CTR_EL0 and CNTFRQ_EL0, which are read
-> otherwise, go through arm64_ftr_reg_override(). It returns a register
-> with no override unchanged, so an override added to one later takes
-> effect without a change here.
+> The call is from the NBCON printer thread, but netpoll_send_skb()
+> explicitly disables hard interrupts around __netpoll_send_skb():
 > 
-> init_cpu_ftr_reg() then gets values that already carry every valid
-> override, so its code to apply one is dead. Remove that code.
-> init_cpu_ftr_reg() still removes an unsafe override, so the same
-> overrides are rejected and sys_val is unchanged. Only its log changes.
-> The raw value is gone, so it logs an override equal to that value as
-> "forced" rather than "already set".
+>         local_irq_save(flags);
+>         ret = __netpoll_send_skb(np, skb);
+>         local_irq_restore(flags);
 > 
-> Secondaries are compared with the boot CPU on their stored values, so
-> CPUs that differ only in a field the command line turned off no longer
-> taint the kernel.
-> 
-> Suggested-by: Will Deacon <will@kernel.org>
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-> Signed-off-by: Will Deacon <will@kernel.org>
-> ---
->  arch/arm64/kernel/cpufeature.c | 17 +++----
->  arch/arm64/kernel/cpuinfo.c    | 82 +++++++++++++++++-----------------
->  2 files changed, 46 insertions(+), 53 deletions(-)
-> 
-> diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
-> index 9212f10c1d1a..d69a5b8304b6 100644
-> --- a/arch/arm64/kernel/cpufeature.c
-> +++ b/arch/arm64/kernel/cpufeature.c
-> @@ -1043,6 +1043,8 @@ void __init validate_ftr_regs(void)
->   * Also initialises the strict_mask for the register.
->   * Any bits that are not covered by an arm64_ftr_bits entry are considered
->   * RES0 for the system-wide value, and must strictly match.
-> + * @new has been through arm64_ftr_reg_override(), so a valid override is
-> + * already applied to it. Only an unsafe one is left to remove here.
->   */
->  static void init_cpu_ftr_reg(u32 sys_reg, u64 new)
->  {
-> @@ -1063,29 +1065,20 @@ static void init_cpu_ftr_reg(u32 sys_reg, u64 new)
->  		s64 ftr_ovr = arm64_ftr_value(ftrp, reg->override->val);
->  
->  		if ((ftr_mask & reg->override->mask) == ftr_mask) {
-> -			s64 tmp = arm64_ftr_safe_value(ftrp, ftr_ovr, ftr_new);
-> -			char *str = NULL;
-> +			char *str = "forced";
->  
-> -			if (ftr_ovr != tmp) {
-> +			if (arm64_ftr_safe_value(ftrp, ftr_ovr, ftr_new) != ftr_ovr) {
->  				/* Unsafe, remove the override */
->  				reg->override->mask &= ~ftr_mask;
->  				reg->override->val &= ~ftr_mask;
-> -				tmp = ftr_ovr;
->  				str = "ignoring override";
-> -			} else if (ftr_new != tmp) {
-> -				/* Override was valid */
-> -				ftr_new = tmp;
-> -				str = "forced";
-> -			} else {
-> -				/* Override was the safe value */
-> -				str = "already set";
->  			}
->  
->  			pr_warn("%s[%d:%d]: %s to %llx\n",
->  				reg->name,
->  				ftrp->shift + ftrp->width - 1,
->  				ftrp->shift, str,
-> -				tmp & (BIT(ftrp->width) - 1));
-> +				ftr_ovr & (BIT(ftrp->width) - 1));
->  		} else if ((ftr_mask & reg->override->val) == ftr_mask) {
->  			reg->override->val &= ~ftr_mask;
->  			pr_warn("%s[%d:%d]: impossible override, ignored\n",
-> diff --git a/arch/arm64/kernel/cpuinfo.c b/arch/arm64/kernel/cpuinfo.c
-> index 0ae40b0c7b2f..1b92e52989b1 100644
-> --- a/arch/arm64/kernel/cpuinfo.c
-> +++ b/arch/arm64/kernel/cpuinfo.c
-> @@ -443,33 +443,33 @@ static void cpuinfo_detect_icache_policy(struct cpuinfo_arm64 *info)
->  
->  static void __cpuinfo_store_cpu_32bit(struct cpuinfo_32bit *info)
->  {
-> -	info->reg_id_dfr0 = read_cpuid(ID_DFR0_EL1);
-> -	info->reg_id_dfr1 = read_cpuid(ID_DFR1_EL1);
-> -	info->reg_id_isar0 = read_cpuid(ID_ISAR0_EL1);
-> -	info->reg_id_isar1 = read_cpuid(ID_ISAR1_EL1);
-> -	info->reg_id_isar2 = read_cpuid(ID_ISAR2_EL1);
-> -	info->reg_id_isar3 = read_cpuid(ID_ISAR3_EL1);
-> -	info->reg_id_isar4 = read_cpuid(ID_ISAR4_EL1);
-> -	info->reg_id_isar5 = read_cpuid(ID_ISAR5_EL1);
-> -	info->reg_id_isar6 = read_cpuid(ID_ISAR6_EL1);
-> -	info->reg_id_mmfr0 = read_cpuid(ID_MMFR0_EL1);
-> -	info->reg_id_mmfr1 = read_cpuid(ID_MMFR1_EL1);
-> -	info->reg_id_mmfr2 = read_cpuid(ID_MMFR2_EL1);
-> -	info->reg_id_mmfr3 = read_cpuid(ID_MMFR3_EL1);
-> -	info->reg_id_mmfr4 = read_cpuid(ID_MMFR4_EL1);
-> -	info->reg_id_mmfr5 = read_cpuid(ID_MMFR5_EL1);
-> -	info->reg_id_pfr0 = read_cpuid(ID_PFR0_EL1);
-> -	info->reg_id_pfr1 = read_cpuid(ID_PFR1_EL1);
-> -	info->reg_id_pfr2 = read_cpuid(ID_PFR2_EL1);
-> +	info->reg_id_dfr0 = read_cpuid_with_overrides(ID_DFR0_EL1);
-> +	info->reg_id_dfr1 = read_cpuid_with_overrides(ID_DFR1_EL1);
-> +	info->reg_id_isar0 = read_cpuid_with_overrides(ID_ISAR0_EL1);
-> +	info->reg_id_isar1 = read_cpuid_with_overrides(ID_ISAR1_EL1);
-> +	info->reg_id_isar2 = read_cpuid_with_overrides(ID_ISAR2_EL1);
-> +	info->reg_id_isar3 = read_cpuid_with_overrides(ID_ISAR3_EL1);
-> +	info->reg_id_isar4 = read_cpuid_with_overrides(ID_ISAR4_EL1);
-> +	info->reg_id_isar5 = read_cpuid_with_overrides(ID_ISAR5_EL1);
-> +	info->reg_id_isar6 = read_cpuid_with_overrides(ID_ISAR6_EL1);
-> +	info->reg_id_mmfr0 = read_cpuid_with_overrides(ID_MMFR0_EL1);
-> +	info->reg_id_mmfr1 = read_cpuid_with_overrides(ID_MMFR1_EL1);
-> +	info->reg_id_mmfr2 = read_cpuid_with_overrides(ID_MMFR2_EL1);
-> +	info->reg_id_mmfr3 = read_cpuid_with_overrides(ID_MMFR3_EL1);
-> +	info->reg_id_mmfr4 = read_cpuid_with_overrides(ID_MMFR4_EL1);
-> +	info->reg_id_mmfr5 = read_cpuid_with_overrides(ID_MMFR5_EL1);
-> +	info->reg_id_pfr0 = read_cpuid_with_overrides(ID_PFR0_EL1);
-> +	info->reg_id_pfr1 = read_cpuid_with_overrides(ID_PFR1_EL1);
-> +	info->reg_id_pfr2 = read_cpuid_with_overrides(ID_PFR2_EL1);
->  
-> -	info->reg_mvfr0 = read_cpuid(MVFR0_EL1);
-> -	info->reg_mvfr1 = read_cpuid(MVFR1_EL1);
-> -	info->reg_mvfr2 = read_cpuid(MVFR2_EL1);
-> +	info->reg_mvfr0 = read_cpuid_with_overrides(MVFR0_EL1);
-> +	info->reg_mvfr1 = read_cpuid_with_overrides(MVFR1_EL1);
-> +	info->reg_mvfr2 = read_cpuid_with_overrides(MVFR2_EL1);
->  }
->  
->  static void __cpuinfo_store_cpu(struct cpuinfo_arm64 *info)
->  {
-> -	info->reg_cntfrq = arch_timer_get_cntfrq();
-> +	info->reg_cntfrq = arm64_ftr_reg_override(SYS_CNTFRQ_EL0, arch_timer_get_cntfrq());
->  	/*
->  	 * Use the effective value of the CTR_EL0 than the raw value
->  	 * exposed by the CPU. CTR_EL0.IDC field value must be interpreted
-> @@ -478,35 +478,35 @@ static void __cpuinfo_store_cpu(struct cpuinfo_arm64 *info)
->  	 * effective value of the CTR_EL0 in our internal records for
->  	 * accurate sanity check and feature enablement.
->  	 */
-> -	info->reg_ctr = read_cpuid_effective_cachetype();
-> -	info->reg_dczid = read_cpuid(DCZID_EL0);
-> +	info->reg_ctr = arm64_ftr_reg_override(SYS_CTR_EL0, read_cpuid_effective_cachetype());
-> +	info->reg_dczid = read_cpuid_with_overrides(DCZID_EL0);
->  	info->reg_midr = read_cpuid_id();
->  	info->reg_revidr = read_cpuid(REVIDR_EL1);
->  	info->reg_aidr = read_cpuid(AIDR_EL1);
->  
-> -	info->reg_id_aa64dfr0 = read_cpuid(ID_AA64DFR0_EL1);
-> -	info->reg_id_aa64dfr1 = read_cpuid(ID_AA64DFR1_EL1);
-> -	info->reg_id_aa64isar0 = read_cpuid(ID_AA64ISAR0_EL1);
-> -	info->reg_id_aa64isar1 = read_cpuid(ID_AA64ISAR1_EL1);
-> -	info->reg_id_aa64isar2 = read_cpuid(ID_AA64ISAR2_EL1);
-> -	info->reg_id_aa64isar3 = read_cpuid(ID_AA64ISAR3_EL1);
-> -	info->reg_id_aa64mmfr0 = read_cpuid(ID_AA64MMFR0_EL1);
-> -	info->reg_id_aa64mmfr1 = read_cpuid(ID_AA64MMFR1_EL1);
-> -	info->reg_id_aa64mmfr2 = read_cpuid(ID_AA64MMFR2_EL1);
-> -	info->reg_id_aa64mmfr3 = read_cpuid(ID_AA64MMFR3_EL1);
-> -	info->reg_id_aa64mmfr4 = read_cpuid(ID_AA64MMFR4_EL1);
-> +	info->reg_id_aa64dfr0 = read_cpuid_with_overrides(ID_AA64DFR0_EL1);
-> +	info->reg_id_aa64dfr1 = read_cpuid_with_overrides(ID_AA64DFR1_EL1);
-> +	info->reg_id_aa64isar0 = read_cpuid_with_overrides(ID_AA64ISAR0_EL1);
-> +	info->reg_id_aa64isar1 = read_cpuid_with_overrides(ID_AA64ISAR1_EL1);
-> +	info->reg_id_aa64isar2 = read_cpuid_with_overrides(ID_AA64ISAR2_EL1);
-> +	info->reg_id_aa64isar3 = read_cpuid_with_overrides(ID_AA64ISAR3_EL1);
-> +	info->reg_id_aa64mmfr0 = read_cpuid_with_overrides(ID_AA64MMFR0_EL1);
-> +	info->reg_id_aa64mmfr1 = read_cpuid_with_overrides(ID_AA64MMFR1_EL1);
-> +	info->reg_id_aa64mmfr2 = read_cpuid_with_overrides(ID_AA64MMFR2_EL1);
-> +	info->reg_id_aa64mmfr3 = read_cpuid_with_overrides(ID_AA64MMFR3_EL1);
-> +	info->reg_id_aa64mmfr4 = read_cpuid_with_overrides(ID_AA64MMFR4_EL1);
->  	info->reg_id_aa64pfr0 = read_cpuid_with_overrides(ID_AA64PFR0_EL1);
->  	info->reg_id_aa64pfr1 = read_cpuid_with_overrides(ID_AA64PFR1_EL1);
-> -	info->reg_id_aa64pfr2 = read_cpuid(ID_AA64PFR2_EL1);
-> -	info->reg_id_aa64zfr0 = read_cpuid(ID_AA64ZFR0_EL1);
-> -	info->reg_id_aa64smfr0 = read_cpuid(ID_AA64SMFR0_EL1);
-> -	info->reg_id_aa64fpfr0 = read_cpuid(ID_AA64FPFR0_EL1);
-> +	info->reg_id_aa64pfr2 = read_cpuid_with_overrides(ID_AA64PFR2_EL1);
-> +	info->reg_id_aa64zfr0 = read_cpuid_with_overrides(ID_AA64ZFR0_EL1);
-> +	info->reg_id_aa64smfr0 = read_cpuid_with_overrides(ID_AA64SMFR0_EL1);
-> +	info->reg_id_aa64fpfr0 = read_cpuid_with_overrides(ID_AA64FPFR0_EL1);
->  
->  	if (IS_ENABLED(CONFIG_ARM64_MTE) && id_aa64pfr1_mte(info->reg_id_aa64pfr1))
-> -		info->reg_gmid = read_cpuid(GMID_EL1);
-> +		info->reg_gmid = read_cpuid_with_overrides(GMID_EL1);
->  
->  	if (id_aa64pfr0_mpam(info->reg_id_aa64pfr0) || id_aa64pfr1_mpamfrac(info->reg_id_aa64pfr1))
-> -		info->reg_mpamidr = read_cpuid(MPAMIDR_EL1);
-> +		info->reg_mpamidr = read_cpuid_with_overrides(MPAMIDR_EL1);
->  
->  	if (id_aa64pfr0_32bit_el0(info->reg_id_aa64pfr0))
->  		__cpuinfo_store_cpu_32bit(&info->aarch32);
+> When direct transmission cannot complete, __netpoll_send_skb() calls
+> skb_queue_tail() before interrupts are restored. Its spinlock can sleep
+> on PREEMPT_RT despite the caller being a thread.
 
-For completeness shouldn't read_cpuid(SMIDR_EL1) change to
-read_cpuid_with_overrides(SMIDR_EL1)?
+We have netconsole as a user of netpoll. The netconsole user is nbcon.
+There are users such as macvlan and dsa and this looks like not a real
+user but just forwarding the netpoll packet. According to the history
+for macvlan, it is just there to forward the netconsole packets so it
+appears to check out.
 
-Thanks,
+So it is just netconsole which is NBCON but has CON_NBCON_ATOMIC_UNSAFE.
 
-Ben
+In the ::write_thread() case the interrupts are disabled due invoking
+::device_lock(). In the ::write_atomic() the lock function might not be
+invoked but due to the nature of the situation the interrupts will be
+disabled anyway. So disabling interrupts looks like a lazy way of
+letting everyone know that ::ndo_start_xmit() will be invoked from
+netpoll/ netconsole.
+I don't see anything that would mandate disabling interrupts in
+__netpoll_send_skb() except BH need to be disabled before
+HARD_TX_TRYLOCK(). 
+
+I would suggest to untangle that local-irq-disable assumption. Then we
+end up with the ::write_atomic callback on PREEMPT_RT which will raise
+warnings. But those will appear only on panic() and as the last console
+due to CON_NBCON_ATOMIC_UNSAFE so everything will go according to the
+plan.
+On !RT the whole __netpoll_send_skb() will be with disabled interrupts
+due to the console lock. On RT it won't and I don't know if anything
+down the call chain assumes that.
+
+To illustrate my idea a bit
+
+diff --git a/include/linux/netpoll.h b/include/linux/netpoll.h
+index 1c6b1eec5efd6..3853611f672be 100644
+--- a/include/linux/netpoll.h
++++ b/include/linux/netpoll.h
+@@ -71,6 +71,9 @@ void netpoll_zap_completion_queue(void);
+ unsigned int netpoll_get_carrier_timeout(void);
+ 
+ #ifdef CONFIG_NETPOLL
++
++DECLARE_PER_CPU(atomic_t, netpoll_active);
++
+ static inline void *netpoll_poll_lock(struct napi_struct *napi)
+ {
+ 	struct net_device *dev = napi->dev;
+@@ -96,7 +99,7 @@ static inline void netpoll_poll_unlock(void *have)
+ 
+ static inline bool netpoll_tx_running(struct net_device *dev)
+ {
+-	return irqs_disabled();
++	return atomic_read(this_cpu_ptr(&netpoll_active)) > 0;
+ }
+ 
+ #else
+diff --git a/net/core/netpoll.c b/net/core/netpoll.c
+index fe1e0cda5d6bf..8ecdac601ca13 100644
+--- a/net/core/netpoll.c
++++ b/net/core/netpoll.c
+@@ -73,7 +73,9 @@ static netdev_tx_t netpoll_start_xmit(struct sk_buff *skb,
+ 		}
+ 	}
+ 
++	/* local_irq_save() ? */
+ 	status = netdev_start_xmit(skb, dev, txq, false);
++	/* local_irq_restore() ? */
+ 
+ out:
+ 	return status;
+@@ -258,7 +260,8 @@ static int netpoll_owner_active(struct net_device *dev)
+ 	return 0;
+ }
+ 
+-/* call with IRQ disabled */
++DEFINE_PER_CPU(atomic_t, netpoll_active) = ATOMIC_INIT(0);
++
+ static netdev_tx_t __netpoll_send_skb(struct netpoll *np, struct sk_buff *skb)
+ {
+ 	netdev_tx_t status = NETDEV_TX_BUSY;
+@@ -268,12 +271,11 @@ static netdev_tx_t __netpoll_send_skb(struct netpoll *np, struct sk_buff *skb)
+ 	/* It is up to the caller to keep npinfo alive. */
+ 	struct netpoll_info *npinfo;
+ 
+-	lockdep_assert_irqs_disabled();
+-
+ 	dev = np->dev;
+ 	/* npinfo->txq belongs to np->dev, so retries must stay bound to it. */
+ 	skb->dev = dev;
+-	rcu_read_lock();
++	rcu_read_lock_bh();
++	atomic_inc(this_cpu_ptr(&netpoll_active));
+ 	npinfo = rcu_dereference_bh(dev->npinfo);
+ 
+ 	if (!npinfo || !netif_running(dev) || !netif_device_present(dev)) {
+@@ -306,11 +308,6 @@ static netdev_tx_t __netpoll_send_skb(struct netpoll *np, struct sk_buff *skb)
+ 
+ 			udelay(USEC_PER_POLL);
+ 		}
+-
+-		WARN_ONCE(!irqs_disabled(),
+-			"netpoll_send_skb_on_dev(): %s enabled interrupts in poll (%pS)\n",
+-			dev->name, dev->netdev_ops->ndo_start_xmit);
+-
+ 	}
+ 
+ 	if (!dev_xmit_complete(status)) {
+@@ -319,7 +316,8 @@ static netdev_tx_t __netpoll_send_skb(struct netpoll *np, struct sk_buff *skb)
+ 	}
+ 	ret = NETDEV_TX_OK;
+ out:
+-	rcu_read_unlock();
++	atomic_dec(this_cpu_ptr(&netpoll_active));
++	rcu_read_unlock_bh();
+ 	return ret;
+ }
+ 
+@@ -332,9 +330,7 @@ netdev_tx_t netpoll_send_skb(struct netpoll *np, struct sk_buff *skb)
+ 		dev_kfree_skb_irq(skb);
+ 		ret = NET_XMIT_DROP;
+ 	} else {
+-		local_irq_save(flags);
+ 		ret = __netpoll_send_skb(np, skb);
+-		local_irq_restore(flags);
+ 	}
+ 	return ret;
+ }
 
 
+and this did not even see the compiler. Plus queue_process() has been
+ignored.
+
+> Thanks,
+> Karl
+
+Sebastian
