@@ -1,123 +1,156 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5410A42668B
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 09:50:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7024834B1A6
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 09:55:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791539458; cv=none; b=N/9E9lP5ZZ6VoQy5N0v+mnPIYOUqpegIQqk4TC+oDFvHM4UCGDnOrt+nxUZhdFX/s1feHjeyhMYgpZhSEzq+1F//nh2kaLqlM9wiU3AQ4Uscr1xoNVBJ0qbulAb0mRdEZZA1KkKQ5XM5urgsG9c6nNWz3KqsA7JgJhBP1ph3F1Y=
+	t=1791539759; cv=none; b=mYB1PBUOs0UeWiGP5Mp9TOQvj7lk8L2AsBnM1xX7qArH1pY/kCTWbILsRXdoasHoyXE1iM9oYQ8eRpf2Lsagif1iY0xp+63EC9XMfDqCChlMODhdyHEiTTbAWh9EiqhfTz1HCHFT76tTXAfCtY1BNJTpIVIsJVX4ohrYvOJAY1w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791539458; c=relaxed/simple;
-	bh=Yz6wuPAWR3FnxaZD/Hsy6uS1+1e7lH+YUjWeAZdItXM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=s+6tEa7i/LjpzMI+Zqbmm4c3cIllpA3AMyShsV5WaUqU+Zsj5JST4Vc91MsMS1r+xo3di90yDddIsQyjfBbpAbfOtntuaVabxGk4g4lvMV2PABewDRS477T3U91nUxgxsJjI3bcdguK/H36ibTSN3DtiZPx0GfTKBbqmYlo0A3o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=6wind.com; spf=pass smtp.mailfrom=6wind.com; dkim=pass (2048-bit key) header.d=6wind.com header.i=@6wind.com header.b=HJOGT9n/; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=6wind.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=6wind.com
+	s=arc-20240116; t=1791539759; c=relaxed/simple;
+	bh=QbQ2/AtCs501q7UDf1Jv6gkx1pyrMNlfW45xsO5RoQw=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=eXeWh5R+DBgG2H1o9RXTG98PylU7yoc/bbIIHqWcq91oq30wakRUqR3DTWtbfdLSeL/K6/Kek65IXqVwiLa2EyfllzUW3BfMMNK8156c7/QHodmmFJXVnXqw6oqV8Bl1Hzj8yO5V/d/QcYrDqH8imokuxF6KhzJWfVTRoBgnYkA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=iVA3e4/K; arc=none smtp.client-ip=209.85.218.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=6wind.com header.i=@6wind.com header.b="HJOGT9n/"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a018485638so1753235e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 02:50:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="iVA3e4/K"
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c2533d83e3bso630472466b.2
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 02:55:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=6wind.com; s=google; t=1791539455; x=1792144255; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :content-language:from:references:cc:to:subject:reply-to:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=mkuIOGDPXPuT/7Tp+eZvAIWGyivfRf31PISNCWLWipU=;
-        b=HJOGT9n/exi7W6Ub/a7/97Ih7XhdRTGSAzdhav22oypY2OoixR7XQGTM58UD6zaq4+
-         QrUneJt1T2XlDLlvNl4oMavkpIkcdQBK4atg47nGl1y5xl17xKxJUf0ITs6t8AP2YODh
-         9emns+a+2aRnOQgamI4y/qh001sX0OMmtGYuokvfFh+ZHPY/122jQo6Qnh0BL2h8WFOb
-         D5a9OX/de3ZP6u0nd0ZLF0H9dOCTQQQtGMc/D5mfVBUhi6R2onzjhKHQIokNHEcoZkTO
-         69neR0pTzLXIXqNWuSKgX4vkeRCeUJb7zkLvZkMOR8eIbqhlM4D9qoWYonx36r8d3VSe
-         B0TA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791539455; x=1792144255;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :content-language:from:references:cc:to:subject:reply-to:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+        d=fairphone.com; s=fair; t=1791539756; x=1792144556; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=mkuIOGDPXPuT/7Tp+eZvAIWGyivfRf31PISNCWLWipU=;
-        b=IM4xdPm+j4G1efi1ooKBqy1FnBbliIGVCUBsBrSSXo/8OO9vUfMDPlaKRJ6l3DVVLH
-         +HiV5ePHUhRMWay9pymJaFRcIY/OVSI76m3BmXN7TVljRJoHhuOU/jlOsQz9F7lNiila
-         72apyXwHMvQmvqu9FCeAnP52Q1YtbKSEjAqxE5yZgHBClf+gq4OiWEb+LaUY3cM39ZLc
-         FwL9Gf3Sua2PcdlDPBVCmcSB3Du/1w3lVRj/cDWD2Z0VJvCXyDRsSDe9xjHBFlIZzqML
-         JFVRhgkPmr5oRC2QXkDp/sQDg43w2c69OoGS1gzQscHy/P9qr/C1Ga9hX0qJnhjScHaj
-         hGDg==
-X-Forwarded-Encrypted: i=1; AKwUvBxBPjdwvicOINzjt87UxJAB6LfrzhMuT1CVgbGFWtr8Bg6BHrBEzl2eMHjXhQumF/JFNRrFUbJZgA4CEWM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kV9ayjMRtK03Ux7uSlRrGna+2Sjl5tdLcWr6zdi553hswvJ82c
-	fb5dqkjkmYLJiZ+ZTGOiOi6mFue0UNH+r0Bcok+ET9Q54NIw+0L31yUf5veb2KQc3VI=
-X-Gm-Gg: AYBFou1dcJdywSql0OC/Q5SYeewomGu6VmzWGtquVrQEzFpTWn1ehPESB25LtE0QuB6
-	Okb4xjKDU4q+8LM4YwBLj2ZCV2CG0ammiAArCUbj2Jt5Gkb8qK665r9L/L9VFNFRJiY36xEmZgE
-	fHsnAvfXu66PJw2nxwc3hku9ErANvdUgFt6HoDt5C561A7QAWKkl7gfqWjiLE/V7E1oeYeHhJZ+
-	a2IX/p+i2u1SQorx1ZiVfoKVm4NLvCtNYyhD6Yl5o5QFt4S1dVKPvy/S//mdvBsNANb0zVd9pzc
-	HiTeX5jUUrH/s98siUBt/GXaBrUbEWe5qFQcOuxLoEvfyq4g1BdrL1FLqcwHr0Ms7FEmIn4aDrs
-	+4o6eA665TxhSJRsU7xprdfbKI/sqSPOczhx3MFBPjqiH/n7cN0+wkrROXqH+IZQBQLwED7ERnP
-	P3rrYE5IP84YJ8sRIOanKrHNDmZfa1RS6GmQxvZ3E1WdFvF5sqr+MKPJsbf3o6y3zLSgftm+KZV
-	5WA2MuESF5z9HezZGjaWQ1xfxhzefTMfz407wRj9GzP4xH0iWU=
-X-Received: by 2002:a05:600c:4e45:b0:4a0:13d8:cd0c with SMTP id 5b1f17b1804b1-4a18e47e330mr25254745e9.2.1791539455518;
-        Fri, 09 Oct 2026 02:50:55 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:ab7:2110:6a1d:efff:fe52:1959? ([2a01:e0a:ab7:2110:6a1d:efff:fe52:1959])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bea1021sm44280795e9.10.2026.10.09.02.50.54
+        bh=QbQ2/AtCs501q7UDf1Jv6gkx1pyrMNlfW45xsO5RoQw=;
+        b=iVA3e4/KGcNGREd24E+mHwDu/qtLEHh4zil04bmUOmDn4eXHsO8XQiCAMiG48ZlG7D
+         Rq1Pn6XrpKD3B83jjP0umt++aE8uVHDGNU4lB8AQagJs/dlLEmjxo8WopbWKnqbWdeb8
+         lplDKNl+mwSPFIRUaHYqgjs/8fChu78ds73BAvXcQx8nxFCXxIEdZyNrKvPwQcD2SSmy
+         vpNU7piITLvZ9p/3gNLVyaVV3fE/8OiGVoYv+MBWngpFY2TYO3D+hjEhx4L2yCKtDpDK
+         xal1EjPl3V63VoRmsGnghGhbJ7GhCGTGYbSRjE1IV3f7pcjIubV6ZSIDmsw8yrV+aNDr
+         XXVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791539756; x=1792144556;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QbQ2/AtCs501q7UDf1Jv6gkx1pyrMNlfW45xsO5RoQw=;
+        b=cYGV40TPCr0Sy0GQvqjxotciaHxTZ/l2GBLqIKlPqFSIx6b89KnMyqT6uR8gE4PmfV
+         4I1Cr3+Uc986z5h7f7ZZJjv0qCLEfyiPanOzN6v6cuYsrIyjEI4ZPGDbwJ7cr7m93P1c
+         cMeo3b1XhuQHlh3M0gzbuI3HeGobDZsvI61u2eNEleLJT/sl51lVcaHYkd7q4sWrWfGg
+         AmzkoguupxKS79MM6kX3xaoGbylCeQReQNaKUF1snsrzqgsO8blXpWk6EAjzpMyAmwRS
+         +gBFWiq/doP1QpyW0UcyPgG82wncYR6VeypJ7W3GUpnqmvyutXtdIhsWTVUKd/85b+Qi
+         juCA==
+X-Forwarded-Encrypted: i=1; AKwUvBwtz3fKhENSR/usLdrEZAPxg+XoxNLXXrynu+272Z4JbLy9AATHmFkPfqtI6zeSfLCcGOH1TZ04y60GOUA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIRjEl2bx4Y6QDkQTP48zkhoZNzETtcJyOGy7Rl8qsdNWvi6bBL
+	sbe62JSnWyuIxWgTaSgYATuaFQqWlfbNOOWzvliVC17Hx3tBM3wQaVQ50j568lrfWdM=
+X-Gm-Gg: AYBFou38iq09FKJd35UZWpKjAOEiBsXr5EPqw4J/sRMYfz7X5TzOEpefv1zV3hIGnC4
+	xnpaSVsPEdOlNdQCTEnztmlvH70sOXZVaDCLdH4i3xnSBq90/jbRjNTgjUoiTNPlgrHORXLj4Qy
+	OOkonQWAiJikoDoPc5EYBp3qHIzcIrhp6cYedzUgbPtcHG30GT+G1G07yOaRFr0cDlsX4yrq3uY
+	c7fss/Wv4TLctkAtfqAJpJLOYKaX/+CznDFGJGlWLolDBrX23j3flT5K2BJ9MuTSZ6jNpSL8E2w
+	WOevKcGhuVcudv17mwmjeusWIxvmCj6tHBnehiCSYXuNt8+oxVa371bNhMcldq5+tgRu2gXivft
+	TjZO24HGU4W5cAOiM1Zu9ZnEPnahLqzOm8hFf2QsoPGjffVuvLQ1pl98KaMcasXOo/8QE47pKL8
+	tPMQz8Fim5NEvCbrUTEkmK6d0CSt/4mMSIym/v8E6C5LPmOCNgUv3vZkgVk73397VSY5YZrHjnO
+	5RPXP6JjpmxQsNsjn+xrYWjyRn/6q2Ak6bY59CHGWw=
+X-Received: by 2002:a17:906:6205:b0:c2e:4292:d27e with SMTP id a640c23a62f3a-c31aa017fb2mr131169466b.22.1791539755796;
+        Fri, 09 Oct 2026 02:55:55 -0700 (PDT)
+Received: from localhost (144-178-202-138.static.ef-service.nl. [144.178.202.138])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9af103csm68942466b.87.2026.10.09.02.55.55
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 09 Oct 2026 02:50:55 -0700 (PDT)
-Message-ID: <5d0a21f2-0a7c-4c66-a3c8-e4290dfc0e13@6wind.com>
-Date: Fri, 9 Oct 2026 11:50:54 +0200
+        Fri, 09 Oct 2026 02:55:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: nicolas.dichtel@6wind.com
-Subject: Re: [PATCH net-next v10 3/6] net: add a generation counter for
- dev->mc changes
-To: Yuyang Huang <sigefriedhyy@gmail.com>
-Cc: Ajay Singh <ajay.kathat@microchip.com>,
- Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- "David S. Miller" <davem@davemloft.net>, David Ahern <dsahern@kernel.org>,
- Donald Hunter <donald.hunter@gmail.com>, Eric Dumazet <edumazet@google.com>,
- Ido Schimmel <idosch@nvidia.com>, Jacob Keller <jacob.e.keller@intel.com>,
- Jakub Kicinski <kuba@kernel.org>, Johannes Berg <johannes@sipsolutions.net>,
- Kees Cook <kees@kernel.org>, Kory Maincent <kory.maincent@bootlin.com>,
- Kuniyuki Iwashima <kuniyu@google.com>,
- Nikolaos Gkarlis <nickgarlis@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
- Sabrina Dubroca <sd@queasysnail.net>, Shuah Khan <shuah@kernel.org>,
- Simon Horman <horms@kernel.org>, Stanislav Fomichev <sdf.kernel@gmail.com>,
- Vadim Fedorenko <vadim.fedorenko@linux.dev>,
- Willem de Bruijn <willemb@google.com>, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, linux-wireless@vger.kernel.org,
- netdev@vger.kernel.org
-References: <20261007115821.11332-1-sigefriedhyy@gmail.com>
- <20261007115821.11332-4-sigefriedhyy@gmail.com>
-From: Nicolas Dichtel <nicolas.dichtel@6wind.com>
-Content-Language: en-US
-Organization: 6WIND
-In-Reply-To: <20261007115821.11332-4-sigefriedhyy@gmail.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Fri, 09 Oct 2026 11:55:54 +0200
+Message-Id: <DM07U9H4GK87.1NU4DXWEDZKAM@fairphone.com>
+Cc: <~postmarketos/upstreaming@lists.sr.ht>, <phone-devel@vger.kernel.org>,
+ <linux-sound@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>
+Subject: Re: [PATCH RFC 0/2] Correctly use TX macro v9.4 for SC7280 / Kodiak
+From: "Luca Weiss" <luca.weiss@fairphone.com>
+To: "Srinivas Kandagatla" <srini@kernel.org>, "Luca Weiss"
+ <luca.weiss@fairphone.com>, "Liam Girdwood" <lgirdwood@gmail.com>, "Mark
+ Brown" <broonie@kernel.org>, "Jaroslav Kysela" <perex@perex.cz>, "Takashi
+ Iwai" <tiwai@suse.com>, "Bjorn Andersson" <andersson@kernel.org>, "Konrad
+ Dybcio" <konradybcio@kernel.org>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, <cros-qcom-dts-watchers@chromium.org>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3-dirty
+References: <20260526-sc7280-tx-macro-v1-0-1aad6900fec0@fairphone.com>
+ <96294c65-171e-48e4-9938-9f321b4c5e6c@kernel.org>
+In-Reply-To: <96294c65-171e-48e4-9938-9f321b4c5e6c@kernel.org>
 
-Le 07/10/2026 à 13:58, Yuyang Huang a écrit :
-> A multi-part RTM_GETMULTICAST dump of dev->mc resumes by position, so
-> entries added or removed between two dump rounds can be skipped or
-> repeated. The IPv4 and IPv6 dumps report that with NLM_F_DUMP_INTR by
-> stamping cb->seq from a per netns generation counter combined with
-> dev_base_seq, see inet_base_seq().
-> 
-> Add the equivalent for the device multicast lists: a per netns counter
-> bumped whenever an entry is added to or removed from any dev->mc. The
-> list helpers do not know which device a list belongs to, so give
-> netdev_hw_addr_list an mc_dev pointer, set for dev->mc only, and bump
-> the counter of dev_net(mc_dev) from the count helpers. That covers the
-> dev_mc_* helpers, both lists of a sync, the hardware sync helpers
-> drivers call from their rx mode callbacks or their own workers and the
-> reconciliation after an asynchronous rx mode update. It is atomic
-> since the writers only hold the address lock of their own device.
-> 
-> Used by the following patch for the AF_PACKET multicast dump.
-> 
-> Signed-off-by: Yuyang Huang <sigefriedhyy@gmail.com>
-Reviewed-by: Nicolas Dichtel <nicolas.dichtel@6wind.com>
+Hi Srini,
+
+On Fri Sep 18, 2026 at 10:34 PM CEST, Srinivas Kandagatla wrote:
+>
+>
+> On 5/26/26 4:29 PM, Luca Weiss wrote:
+>> As a bit of a note where I'm coming from, I'm working on microphone
+>> bringup for qcm6490-fairphone-fp5 where so far we've been using
+>> qcom,sm8450-lpass-tx-macro to get the correct control names. I've tried
+>> reverting to sc7280-lpass-tx-macro, updating audio-routing in dts and
+>> UCM to the v9.0 names and it does seem that microphone (AMIC1) is
+>> working with that, but I'm not particularly happy about leaving the
+>> wrong control names everywhere, so I'm happy to try and untangle this
+>> situation.
+> Are you referring to the enum values that go into "TX SMIC MUX" mixer
+> control?
+
+Yep.
+
+>
+> if this is the problem, i think we could use values instead of enum in
+> your setup. They do endup in the same register.
+
+I mean technically we can also use the incorrect v9 names in dts & UCM,
+and they resolve to the same register values in the end.
+
+> However I do acknowledge the issue.
+>
+> pl let me know your thoughts.
+
+My preferred solution would be cleaning this up completely, as in change
+to v9.2 and update dts and upstream UCM configs to the 'correct' values.
+
+I do understand that this will likely not be accepted due to
+backwards/forwards compatibility issues that kernel people want to avoid.
+
+The most straightforward path I see is add a new compatible which uses
+&lpass_ver_9_2 and can be used by boards that have been added before,
+while new boards can use the new compatible.
+This is suggestion (2) in my original email.
+
+>
+>>=20
+>> I'm also not sure where this v9.x actually comes from, maybe I'm lacking
+>> some documentation, downstream kernel only refers to Bolero v1.x and
+>> v2.x so these seems to be a completely different versioning system.
+> Am not sure how we ended up using lpass versions instead of codec
+> version in tx, this is a redundant to codec version. I want to clean
+> that up at somepoint.
+
+I don't understand this whole versioning anyways because there's afaik
+no public reference what SoC has which versions, feels quite arbitrary
+to me.
+
+If you have some internal references and can sort this out, that'd be
+appreciated.
+
+Regards
+Luca
+
+>
+> --srini
+>
+>>=20
+>> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+
+
