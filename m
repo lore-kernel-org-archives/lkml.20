@@ -1,62 +1,63 @@
-Received: from mail-qk2-f8.google.com (mail-qk2-f8.google.com [74.125.230.200])
+Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD19C4519A0
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 14:35:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B70953C9893
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 14:35:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791556517; cv=none; b=N3oHRi/DrA6x5r+R5tVkdMUiF4dgHI+blxQyEjYHrjrT4iYtOI74O4DrHeNS21cuWykUeQmHQ0x2ekOPLjEcN+8FVMNlcIcjm0yf465Sa0950sCQRyLZlc5Qx2dgMG5xWPeDPn8xnObsxEk3kAPz5vmbr47XmQe0mUCWT7G7m+E=
+	t=1791556523; cv=none; b=UDzZzAhJtjlBJgtZ2CxFs54cGGtiiL/9+Xe5HmJtP5G5XbuwkpCKhNepLWuf8PlASKxicxjYIKFJD5kSgL/8m1ksv4wcI8JYvIRyzYxj7uBX0HkZqrX65SeK+Bzp3XHR3PftDpvU1NpiGkhgDeJkvA6VONinYkk9i3TUUioudL0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791556517; c=relaxed/simple;
-	bh=M51Pb28xTuQKlfy45if+HMsxPmrZWTqvJOnq+kRZwfs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=DB0CvqCICCYBDm4RRZEKMuqPxLMMA/5Hua0/33XDICH9bg/aY4qYCLh3QwBFBGlVaovnwnbwblO5Lh7FI1OG58guV9T+LDVwTae9i6TVDqgsqiTl80rt1/jrJwJyIi8bnm43vmGz9XqHG+jmW2tN8IRD2JBmPaKcEIUxasOd20E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com; spf=pass smtp.mailfrom=jclark.com; dkim=pass (2048-bit key) header.d=jclark-com.20251104.gappssmtp.com header.i=@jclark-com.20251104.gappssmtp.com header.b=MSTQS0Jm; arc=none smtp.client-ip=74.125.230.200
+	s=arc-20240116; t=1791556523; c=relaxed/simple;
+	bh=XjY9ZgtYkoP4Amh/eci2Ig0MslB2hC/NfbIZFA6Q9j0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KdNk7E18LOaRSaUweu8hT/UtEur5VLBljKLFty3b/JjMtfrswTdM19cUpZbRhwd7SuO5IkvphmzVZpRD5GJn9WCu4X0xj5nW0LEUXfreMBt+o+PyIIDKuHxawxaEsAgGQ1UWPMU4bxEcQfPVMp5If4GV0eEUsoblCvL14+53Utg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com; spf=pass smtp.mailfrom=jclark.com; dkim=pass (2048-bit key) header.d=jclark-com.20251104.gappssmtp.com header.i=@jclark-com.20251104.gappssmtp.com header.b=Yw1Rd7n4; arc=none smtp.client-ip=209.85.222.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jclark.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jclark-com.20251104.gappssmtp.com header.i=@jclark-com.20251104.gappssmtp.com header.b="MSTQS0Jm"
-Received: by mail-qk2-f8.google.com with SMTP id d75a77b69052e-53524092d9cso52857971cf.1
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 07:35:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=jclark-com.20251104.gappssmtp.com header.i=@jclark-com.20251104.gappssmtp.com header.b="Yw1Rd7n4"
+Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-93e5c8f53a9so355733985a.3
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 07:35:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=jclark-com.20251104.gappssmtp.com; s=20251104; t=1791556514; x=1792161314; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NsWnTIlvL/h4GuHBlTNOAc+vTPtrPntNGG2ofKxiW1U=;
-        b=MSTQS0Jmpdxum5sJQueGPAEtCvPnorFffo0wIUjpQOwfTRyU+8mC4adUJSui5Ar4pl
-         gJgeiea5igsWD5RfRxN6jW620F3az755tgolrp4Mj7n+sEdDb+P/9aJWOgZAK58obA+v
-         5gNZXoaHZzpLtx4+ohKeWuaI+GgIeRLBWDJWgfZSxUcuy+VY5ewCDNxB4TGpqIu+TrqH
-         cJNxPZKJ3JwXqyswiShMD8OfUu/VOjz2TJeeDNyzuzsz9udhtYuLBKlNkPklSzYacJyI
-         7iR9czFg4MTamQfoI4J0imKomUeDXDSLibxiRKOkmjpK/TlciC8jv2XjkDrPfflkWbc/
-         M0aw==
+        d=jclark-com.20251104.gappssmtp.com; s=20251104; t=1791556520; x=1792161320; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IiMKQZLsG+92+V8twkMsjG56s12mZLkh2CzsWkHiPjI=;
+        b=Yw1Rd7n44EjqhZR8psRjOsBHLT3wYgZJebF92v1md8mmYkvSXq9gTOdw4s9NHrP/em
+         f6owUaIIHwHxt9NpePwGjR2MZaVBoG3po8BPAewaDjZQsZaKzTGe9KDJybPhODt8VKZT
+         WA/E8PIhmx9AzbCFsMgtUgfnP5TKvOXrlEYJ8UDAWApWbcYWwAmw034dcwi4dTpS4WgY
+         WIh8kA65KL8GaJgo8clw2UeHRmLyiM7tV1S2JFntP3wFv9k7Lhl3ZzPe+UkJF8o1VTh4
+         T67+sllOHFVpzZ8rjapGwUe5Rf9cLHYGgr3v4HXlnYLKXeS6EmPmCzTx+vCPhUqupoGf
+         feUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791556514; x=1792161314;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=NsWnTIlvL/h4GuHBlTNOAc+vTPtrPntNGG2ofKxiW1U=;
-        b=WT7MZAx4FdsV7tzreXqsle/vsNdVKru5B0TcFBkv0fpYWtYbutC0ogLLlZE40vLPTN
-         /lCF7snzbARtltWGzGoM9qOIHw1oJuEaUjWuQcnQsBbS+T8X+QKtY5HUVeCW68I9xBkT
-         gyNUndSg9Wr9SBfXTkGVCdvGJLdVAeNMqmEK8O/ukkR28FMD7vhpZFUhVeM19cOxwlsY
-         UoWWDugN0clu0pYyq9IB9LMJ9VkEqYQBBfvrKCdWjyCEq8TaTqSVNj+f1lJiiohHovLa
-         V6k0/4ZoqkvnXyREWcQ4ttWH8fp7QGgZEZmuONYpGBu5bW2DJqFHp3UCGoM6Eyb3Z+Wm
-         ONWQ==
-X-Forwarded-Encrypted: i=1; AKwUvByJu1WX8F0u9naqIw6x2Yjg0tKEuB6t7DMJAo6NY8LbVZhLGgnmqqIDp37MA1MiWWaeyDuwSNQiE0337Ds=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKYq/uvdWXhL9gwnXI/i7EMN/6DZO6Xu6pztx58lARYESZrZKAX
-	az+++rm7FcOkt1zAbuWqPWJVj0BUO94jFl1vBt6X7ZyP+RdocPrIQ5M2n0IRVYNnzQ==
-X-Gm-Gg: AYBFou2Zq1Vg2T27f7eUE21WkRo9+U9bLszsve1h6E+1Uhf2HWqLfcLRFTIJ3w/pa+3
-	PWl4tnefFcCcVAAMeVCkw9I83g44TSxhoNMON8kZirDQHGaqSDr4qqnIrjJHa2u4IH0imObLoyj
-	5L3CrDSIdkDHYJEQAytqPeDKZUgpUrk+A5nfsN+lu2D/I4DFv/Pg+b0XhpqbkjXNjOQJu3bOLvS
-	di4+IvrKg5+ucXt5AEdQVqbaphwoSUEuMsuw387ntzQp8/ZPyZ9rCKxkvPJ/OA/JfnHQItbS2G+
-	L3wLN6ugzPV8itBkN+1O6OMGo+4aVrgkG3zwn6lldKiyeWh0jA53118ZnhH/g2adI5NQDTrwy5l
-	HrjFrk/Sx1sxRgRH5bUUd0lqlgqNewFXWr14ymDoRF09hPlu+fvfNxeXy0aL5D5pljZCffyZ9bC
-	mFw7tX29D3flIT8hfUwvyhjFXq0ct00zpMrYQRsSOXnIfX8xbbaVxrAwqOfzaL
-X-Received: by 2002:a05:6214:411e:b0:913:ffb2:e8d9 with SMTP id 6a1803df08f44-91b557bcb73mr32107296d6.40.1791556514366;
-        Fri, 09 Oct 2026 07:35:14 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791556520; x=1792161320;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IiMKQZLsG+92+V8twkMsjG56s12mZLkh2CzsWkHiPjI=;
+        b=NNKApgaNMGaE0qDRVhKz5wDtrAc2TrTVeOQRns4baKhH2UjwaW45ewiEtjzcQ4rn3r
+         q6cQlkYfvkbWnaIH8wYx2jx1O5B8rcjdRQekQpNeSAj0F+pnJwu3BZzyeb4JFxROt8zz
+         2yxSG1n6vpG1TOV/ItFua7QZ1yfJR0ku4hvPYv9CUC2tED4KbSS3SApbh63sdU25H9v1
+         pBXxBV3Pl8vDnn0nuJXWiUszsvknGQy194T9MYbTkY3OVJQF/a5hzMY/o5JQ48JpDu4C
+         B22QmhMyo3SQDAD76pJ/0NTsxz3bWHEZI4UWHi4yQLj4GuYWJhyB4TPCb+uPhNeDNEVZ
+         CViw==
+X-Forwarded-Encrypted: i=1; AKwUvBz/A3jXSsAyZN2+w77AYhb2tSv+2aqC8emOYJdoRN8gDHVD6CMGFSaurEbdjQtU7qUTd6ypiLhzLPnc8X0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mOvdPdbWy1MsQPbKZZnwfTggka4ajPUgCbpjIaaQKZi8UNW6FC
+	7yS+aF8UhxXZ9yhQ1peJRvBQT8zYcKchuK5q1evlXTUayBtoPtUE7SOw+wPH84i8rg==
+X-Gm-Gg: AYBFou2cKrGUgQXd4m1pEc91hH+uwyrqkzch6pfPudaiuu9rvz46L5ZCA5HYaOkRPJo
+	0USu1YxRjSOz5cjHhQBSD1FPQDnohfgdJnKUmufFpnYhMW40EgRAiAzqgzFGS66WLgEOaVVlfeR
+	IvrxMHIYQGxwmbdLxDTLkstIlI8+BngM19BqWNAImynzdSx2FadKptBODlzCH0lsFRdU7pOHqch
+	d+PfYmP47VhntmQCHOYjVXlqqiUYpTHDUg1c9WVrh7IqIWwZbFl650GU73uTnosfh5jMh3JXb6a
+	mx+eS5kbZ/DjWtxXNePCZljnBnAf8F0DdtyTl2zaeIFVvSiy+0epNUdN3et3aeYDHpBG6RQHLPJ
+	xjGt441p4/YP1u5CQNaffXQb/jc7JEKwuiaWU3YXp2+jtAPpzbwXiHAdkT8ppcTPAnJnl1t+10Q
+	ewS3XInc73ADOarZ6V0dGh3b1MpwEkSngVlZseS871MEOtbbKo1F+t3X89mrLj
+X-Received: by 2002:a05:620a:2985:b0:93c:9d56:a860 with SMTP id af79cd13be357-93ebd228f3dmr313532885a.19.1791556520243;
+        Fri, 09 Oct 2026 07:35:20 -0700 (PDT)
 Received: from cantal.lan ([58.136.72.162])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b5501751dsm19769456d6.17.2026.10.09.07.35.08
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b5501751dsm19769456d6.17.2026.10.09.07.35.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 07:35:13 -0700 (PDT)
+        Fri, 09 Oct 2026 07:35:19 -0700 (PDT)
 From: James Clark <jjc@jclark.com>
 To: "David S. Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@kernel.org>,
@@ -76,104 +77,279 @@ Cc: Russell King <linux@armlinux.org.uk>,
 	Miroslav Lichvar <mlichvar@redhat.com>,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next 0/5] net: mdio: add timestamped MDIO writes for PHY gettimex64
-Date: Fri,  9 Oct 2026 21:35:01 +0700
-Message-ID: <20261009143506.2507607-1-jjc@jclark.com>
+Subject: [PATCH net-next 1/5] net: mdio: add timestamped write operation
+Date: Fri,  9 Oct 2026 21:35:02 +0700
+Message-ID: <20261009143506.2507607-2-jjc@jclark.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261009143506.2507607-1-jjc@jclark.com>
+References: <20261009143506.2507607-1-jjc@jclark.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-PTP_SYS_OFFSET_EXTENDED uses gettimex64 to bracket each PHC read with
-system clock reads. Some PHYs have a PTP hardware clock (PHC) that is
-read over MDIO and sometimes multiple MDIO transfers are needed to read
-the clock. This leads to brackets in the tens of microseconds.
-Applications that synchronize the system clock from the PHC typically
-use the midpoint of the bracket as the system time of the PHC reading.
-With multiple transfers, the midpoint of the bracket is typically far
-from the time when the PHC reading actually occurred.
+Add an optional write_sts bus operation returning system timestamp
+bounds for completion of an MDIO write. This allows PHY drivers to
+obtain tighter bounds when implementing gettimex64. SPI introduced a
+similar facility to allow a device driver to obtain timestamp bounds
+from the bus controller in commit 79591b7db21d ("spi: Add a PTP system
+timestamp to the transfer structure").
 
-For example, using PTP_SYS_OFFSET_EXTENDED on the Raspberry Pi CM5 to
-synchronize the system clock from the BCM54210PE PHY PHC leads to the
-system clock being 32 µs ahead of the PHC. On the CM4, it is about 7 µs.
-(The difference is because the MDIO clock frequency is higher on the
-CM4: 10 MHz as opposed to 2.08 MHz on the CM5.) The brackets are about
-74 µs on the CM5 and 42 µs on the CM4. In comparison, the MAC PHC
-on the CM5 has brackets of about 1 µs. See below for measurement
-process.
+The core provides no fallback, because a bus driver's write may return
+before the transfer has completed.
 
-This series introduces a new MDIO operation that allows PHY drivers to
-ask MDIO bus drivers to compute a bracket for the completion of an MDIO
-write transfer. It then makes bcm-phy-ptp use this operation, and
-implements it for both the macb and UniMAC drivers. A bus driver
-computes a bracket for completion of a transfer by shifting the bracket
-for the start of the MDIO transfer by bounds on its duration.
+Signed-off-by: James Clark <jjc@jclark.com>
+Assisted-by: LLM
+---
+ drivers/net/mdio/mdio-mux.c |  27 ++++++++++
+ drivers/net/phy/mdio_bus.c  | 100 ++++++++++++++++++++++++++++++++++++
+ include/linux/mdio.h        |   4 ++
+ include/linux/phy.h         |  37 +++++++++++++
+ 4 files changed, 168 insertions(+)
 
-The effect of this series is to reduce PTP_SYS_OFFSET_EXTENDED brackets
-from 74 µs to about 1.3 µs on the CM5, and from 42 µs to about 0.9 µs on
-the CM4. The synchronization error drops from 32 µs and 7 µs to tenths
-of microseconds, below the level that can be reliably measured with the
-methods below.
-
-Note that SPI introduced a similar facility to allow a device driver to
-obtain timestamp bounds from the bus controller in commit 79591b7db21d
-("spi: Add a PTP system timestamp to the transfer structure"). This
-series implements the operation for only one PHY driver. But I surveyed
-other PHY drivers and identified at least two for which this operation
-could be implemented: micrel (specifically LAN8814) and dp83640,
-although they would need updating to use gettimex64 first.
-
-The system clock synchronization accuracy can be measured on the CM5 by
-making use of its second PHC. /dev/ptp0 is the BCM54210PE PHC; /dev/ptp1
-is the macb MAC PHC. PTP_SYS_OFFSET_EXTENDED brackets with macb are
-about 1 µs after upstream commit 9ca4ba242591 ("net: macb: fix ordering
-around PTP timestamp read"). So we can use the following measurement
-approach: select /dev/ptp1 as the PHC for packet timestamping and then
-synchronize it to a PTP grandmaster; synchronize /dev/ptp0 to a PPS from
-a GPS using ts2phc or satpulse; synchronize the system clock from
-/dev/ptp1 using phc2sys or chrony; then measure the offset between the
-system clock and the result of PTP_SYS_OFFSET_EXTENDED.
-
-An alternative way to check, which does not require a PTP grandmaster,
-is to connect the same PPS signal to both the GPIO PPS pin (header pin
-12) and to SYNC_OUT. Then have an NTP server discipline the system clock
-using the GPS PPS signal, and as before measure the offset between the
-system clock and the result of PTP_SYS_OFFSET_EXTENDED. But kernel PPS
-has a significant bias (of the order of 10 µs). However, I have
-developed a tool called ppsbias (https://github.com/jclark/ppsbias) to
-measure this, which works by polling GPIO memory. If you configure the
-NTP server with the offset from ppsbias, then you can get an estimate
-that is accurate to within about 1 µs. The results from ppsbias are
-consistent with results from using PTP with MAC PHC. On a CM4, this is
-the only method available, since /dev/ptp1 is not available.
-
-James Clark (5):
-  net: mdio: add timestamped write operation
-  net: phy: broadcom: use timestamped MDIO writes in gettimex64
-  ptp: add functions to adjust system timestamps
-  net: macb: implement timestamped MDIO writes
-  net: mdio: bcm-unimac: implement timestamped MDIO writes
-
- drivers/net/ethernet/cadence/macb.h      |   1 +
- drivers/net/ethernet/cadence/macb_main.c |  95 ++++++++++++++++++--
- drivers/net/mdio/mdio-bcm-unimac.c       | 105 ++++++++++++++++++++++-
- drivers/net/mdio/mdio-mux.c              |  27 ++++++
- drivers/net/phy/bcm-phy-lib.c            |  25 ++++++
- drivers/net/phy/bcm-phy-lib.h            |   7 ++
- drivers/net/phy/bcm-phy-ptp.c            |  27 ++++--
- drivers/net/phy/mdio_bus.c               | 100 +++++++++++++++++++++
- include/linux/mdio.h                     |   4 +
- include/linux/phy.h                      |  37 ++++++++
- include/linux/ptp_clock_kernel.h         |  48 +++++++++++
- 11 files changed, 459 insertions(+), 17 deletions(-)
-
-
-base-commit: 45ad84d2800e4a092fb8d96006a533b2d0ab13f6
+diff --git a/drivers/net/mdio/mdio-mux.c b/drivers/net/mdio/mdio-mux.c
+index fe0e46bd796..ed463a087ce 100644
+--- a/drivers/net/mdio/mdio-mux.c
++++ b/drivers/net/mdio/mdio-mux.c
+@@ -123,6 +123,31 @@ static int mdio_mux_write_c45(struct mii_bus *bus, int phy_id, int dev_addr,
+ 	return r;
+ }
+ 
++static int mdio_mux_write_sts(struct mii_bus *bus, int phy_id, int regnum,
++			      u16 val, struct ptp_system_timestamp *sts)
++{
++	struct mdio_mux_child_bus *cb = bus->priv;
++	struct mdio_mux_parent_bus *pb = cb->parent;
++
++	int r;
++
++	mutex_lock_nested(&pb->mii_bus->mdio_lock, MDIO_MUTEX_MUX);
++	r = pb->switch_fn(pb->current_child, cb->bus_number, pb->switch_data);
++	/* write_sts must not return -EOPNOTSUPP. */
++	if (r == -EOPNOTSUPP)
++		r = -EIO;
++	if (r)
++		goto out;
++
++	pb->current_child = cb->bus_number;
++
++	r = pb->mii_bus->write_sts(pb->mii_bus, phy_id, regnum, val, sts);
++out:
++	mutex_unlock(&pb->mii_bus->mdio_lock);
++
++	return r;
++}
++
+ static int parent_count;
+ 
+ static void mdio_mux_uninit_children(struct mdio_mux_parent_bus *pb)
+@@ -222,6 +247,8 @@ int mdio_mux_init(struct device *dev,
+ 			cb->mii_bus->read_c45 = mdio_mux_read_c45;
+ 		if (parent_bus->write_c45)
+ 			cb->mii_bus->write_c45 = mdio_mux_write_c45;
++		if (parent_bus->write_sts)
++			cb->mii_bus->write_sts = mdio_mux_write_sts;
+ 		r = of_mdiobus_register(cb->mii_bus, child_bus_node);
+ 		if (r) {
+ 			mdiobus_free(cb->mii_bus);
+diff --git a/drivers/net/phy/mdio_bus.c b/drivers/net/phy/mdio_bus.c
+index 00d0e4159e9..8e734227b2c 100644
+--- a/drivers/net/phy/mdio_bus.c
++++ b/drivers/net/phy/mdio_bus.c
+@@ -18,6 +18,7 @@
+ #include <linux/mm.h>
+ #include <linux/module.h>
+ #include <linux/phy.h>
++#include <linux/ptp_clock_kernel.h>
+ #include <linux/slab.h>
+ #include <linux/spinlock.h>
+ #include <linux/string.h>
+@@ -145,6 +146,105 @@ int __mdiobus_write(struct mii_bus *bus, int addr, u32 regnum, u16 val)
+ }
+ EXPORT_SYMBOL(__mdiobus_write);
+ 
++/**
++ * __mdiobus_write_sts - Timestamped version of the __mdiobus_write function
++ * @bus: the mii_bus struct
++ * @addr: the phy address
++ * @regnum: register number to write
++ * @val: value to write to @regnum
++ * @sts: system timestamps bounding completion, or NULL
++ *
++ * Return: Zero if successful, negative error code on failure. Returns
++ *	   -EBUSY or -EINVAL if the system timestamps are not valid. If @sts
++ *	   is not NULL, -EOPNOTSUPP is returned only if
++ *	   mdiobus_supports_write_sts() is false.
++ *
++ * Write a MDIO bus register, with system timestamps bounding completion;
++ * a transfer is considered complete on the rising edge of the MDC
++ * that clocks the last data bit. Caller must hold the mdio bus lock.
++ *
++ * For clocks that can be stepped, validate the clock generation through
++ * the raw time of the upper bound.
++ *
++ * If @sts is NULL, perform an ordinary write.
++ *
++ * NOTE: MUST NOT be called from interrupt context.
++ */
++int __mdiobus_write_sts(struct mii_bus *bus, int addr, u32 regnum, u16 val,
++			struct ptp_system_timestamp *sts)
++{
++	struct system_time_snapshot now;
++	ktime_t deadline;
++	int err;
++
++	if (!sts)
++		return __mdiobus_write(bus, addr, regnum, val);
++
++	lockdep_assert_held_once(&bus->mdio_lock);
++
++	if (addr >= PHY_MAX_ADDR)
++		return -ENXIO;
++
++	if (bus->write_sts)
++		err = bus->write_sts(bus, addr, regnum, val, sts);
++	else
++		err = -EOPNOTSUPP;
++
++	trace_mdio_access(bus, 0, addr, regnum, val, err);
++	mdiobus_stats_acct(&bus->stats[addr], false, err);
++
++	if (err)
++		return err;
++
++	if (!sts->pre_sts.valid || !sts->post_sts.valid)
++		return -EINVAL;
++
++	if (sts->clockid == CLOCK_MONOTONIC ||
++	    sts->clockid == CLOCK_MONOTONIC_RAW)
++		return 0;
++
++	/* Fail if the clock was stepped; callers must retry anyway. */
++	if (sts->pre_sts.clock_was_set_seq != sts->post_sts.clock_was_set_seq)
++		return -EBUSY;
++
++	/* The shifted upper bound can be later than actual completion. */
++	deadline = ktime_add_ns(ktime_get_raw(), NSEC_PER_MSEC);
++	for (;;) {
++		ktime_get_snapshot_id(sts->clockid, &now);
++		if (!now.valid)
++			return -EINVAL;
++
++		if (now.clock_was_set_seq != sts->pre_sts.clock_was_set_seq)
++			return -EBUSY;
++
++		if (!ktime_before(now.monoraw, sts->post_sts.monoraw))
++			return 0;
++
++		/* Cap the wait at 1 ms, which is more than any single
++		 * write's delay. This guards against an aux clock being
++		 * disabled and reenabled, which restarts its raw time.
++		 */
++		if (!ktime_before(ktime_get_raw(), deadline))
++			return -EBUSY;
++
++		cpu_relax();
++	}
++}
++EXPORT_SYMBOL_GPL(__mdiobus_write_sts);
++
++/**
++ * mdiobus_supports_write_sts - Check for timestamped write support
++ * @bus: the mii_bus struct
++ *
++ * Return: true if __mdiobus_write_sts() can return system timestamps
++ * for writes on @bus.
++ */
++bool mdiobus_supports_write_sts(struct mii_bus *bus)
++{
++	return bus->write_sts;
++}
++EXPORT_SYMBOL_GPL(mdiobus_supports_write_sts);
++
+ /**
+  * __mdiobus_modify_changed - Unlocked version of the mdiobus_modify function
+  * @bus: the mii_bus struct
+diff --git a/include/linux/mdio.h b/include/linux/mdio.h
+index a7d9e3ae362..07b6b0c5f8f 100644
+--- a/include/linux/mdio.h
++++ b/include/linux/mdio.h
+@@ -11,6 +11,7 @@
+ 
+ struct gpio_desc;
+ struct mii_bus;
++struct ptp_system_timestamp;
+ struct reset_control;
+ 
+ /* Multiple levels of nesting are possible. However typically this is
+@@ -574,6 +575,9 @@ static inline void mii_c73_mod_linkmode(unsigned long *adv, u16 *lpa)
+ 
+ int __mdiobus_read(struct mii_bus *bus, int addr, u32 regnum);
+ int __mdiobus_write(struct mii_bus *bus, int addr, u32 regnum, u16 val);
++int __mdiobus_write_sts(struct mii_bus *bus, int addr, u32 regnum, u16 val,
++			struct ptp_system_timestamp *sts);
++bool mdiobus_supports_write_sts(struct mii_bus *bus);
+ int __mdiobus_modify(struct mii_bus *bus, int addr, u32 regnum, u16 mask,
+ 		     u16 set);
+ int __mdiobus_modify_changed(struct mii_bus *bus, int addr, u32 regnum,
+diff --git a/include/linux/phy.h b/include/linux/phy.h
+index 7c5098a0dd6..d4f57c9bb7a 100644
+--- a/include/linux/phy.h
++++ b/include/linux/phy.h
+@@ -374,6 +374,14 @@ struct mii_bus {
+ 	/** @write_c45: Perform a C45 write transfer on the bus */
+ 	int (*write_c45)(struct mii_bus *bus, int addr, int devnum,
+ 			 int regnum, u16 val);
++	/**
++	 * @write_sts: Perform a write transfer on the bus,
++	 * with system timestamps bounding its completion. Set only
++	 * if timestamps can always be provided. Must not return
++	 * -EOPNOTSUPP.
++	 */
++	int (*write_sts)(struct mii_bus *bus, int addr, int regnum, u16 val,
++			 struct ptp_system_timestamp *sts);
+ 	/** @reset: Perform a reset of the bus */
+ 	int (*reset)(struct mii_bus *bus);
+ 	/**
+@@ -1792,6 +1800,35 @@ static inline int __phy_write(struct phy_device *phydev, u32 regnum, u16 val)
+ 			       val);
+ }
+ 
++/**
++ * phy_supports_write_sts - Check for timestamped PHY register writes
++ * @phydev: the phy_device struct
++ *
++ * Return: true if __phy_write_sts() can return system timestamps.
++ */
++static inline bool phy_supports_write_sts(struct phy_device *phydev)
++{
++	return mdiobus_supports_write_sts(phydev->mdio.bus);
++}
++
++/**
++ * __phy_write_sts - Write a PHY register with a frame-end timestamp
++ * @phydev: the phy_device struct
++ * @regnum: clause 22 register number
++ * @val: value to write
++ * @sts: system timestamp bounds, or NULL
++ *
++ * Return: As for __mdiobus_write_sts().
++ *
++ * The caller must hold the MDIO bus lock.
++ */
++static inline int __phy_write_sts(struct phy_device *phydev, u32 regnum, u16 val,
++				  struct ptp_system_timestamp *sts)
++{
++	return __mdiobus_write_sts(phydev->mdio.bus, phydev->mdio.addr,
++				   regnum, val, sts);
++}
++
+ /**
+  * __phy_modify_changed() - Convenience function for modifying a PHY register
+  * @phydev: a pointer to a &struct phy_device
 -- 
 2.56.0
 
