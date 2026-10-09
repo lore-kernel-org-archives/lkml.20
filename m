@@ -1,53 +1,85 @@
-Received: from mail-m1973198.qiye.163.com (mail-m1973198.qiye.163.com [220.197.31.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com [209.85.208.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B4B24D37B3;
-	Fri,  9 Oct 2026 12:39:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 857D94D795B
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 12:39:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791549567; cv=none; b=Eq7lKQh4O3E5LZh438Sl/QD9bIZiPLlWoN+rYmh6O5ux77quEKJoonXsS8tW1MYDsoFs1CCrMsurXceAevDJ/OvhByQhNLcQToaZnyyAYkQaDoFD+2oQ1Rj6a6v3A0BNbxIt7C97eZsZ+0BNeeOiAJv8MbAhY0c80YLLdZ0NHuI=
+	t=1791549581; cv=none; b=cIS/U20gSbSfd9yz/AJGRn5eQpbhMuZIZ6BLjaixXxk9QkYsVduo4axcZWy6uD+NWbfasiOCBIxApY41ylgV38yqz/jmcoj58uoDLse1CUOtxoXNYodGo47ejYoWUr2mOLUgH7ME5NyKoQWvb/Xh4zQ7BJqsFCGZ/b6tnRNuCyA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791549567; c=relaxed/simple;
-	bh=36R2gIevv+gNJ9JHGkNR4b0oPzf5iWxYXe0kNa1FjQY=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=ZNYykmsk1CFgWNIqWUS2CakJD849tqt9fYE5G17LSIiuG4iAqbcydqf9Advtfy03PbZG83/q2nk6ntPBzLNHKW7ggKbAQQYh+foPvT2mHSDvCC7JhYhOWMkkw2dhHyg3/m4J/lkRBHiUgfK8TKk4fPGy5Pn3r/I+2RmGWPcBKfg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn; spf=pass smtp.mailfrom=easystack.cn; arc=none smtp.client-ip=220.197.31.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=easystack.cn
-Received: from localhost.localdomain (unknown [218.94.118.90])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 1fe2901a8;
-	Fri, 9 Oct 2026 19:23:32 +0800 (GMT+08:00)
-From: Zhen Ni <zhen.ni@easystack.cn>
-To: ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com,
-	martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	akpm@linux-foundation.org,
-	vbabka@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	brendan.jackman@linux.dev,
-	hannes@cmpxchg.org,
-	ziy@nvidia.com,
-	shuah@kernel.org
-Cc: bpf@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
+	s=arc-20240116; t=1791549581; c=relaxed/simple;
+	bh=YkFngmUHJVNtqW4md/XBpJxxkgF7T+dBARvecXA4TKU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Mw5vQ41eVi3RnZFV2B+zV6AW+ahPDlzIH3VSJ42bPpRkULJij4ZFU/wg4w3aEbz7Oy2/AyAM6Gdme580jES0y66YmSTui4pSpuIzpiC6/OnXU5Cmmr+u1WWt8tOHehE8Z/ZaDkdiEbRHDcNGOYzCvd0zQDaymvNHP2/6WzbZabo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XQcts8ut; arc=none smtp.client-ip=209.85.208.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XQcts8ut"
+Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3a6313cb899so30976541fa.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 05:39:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791549572; x=1792154372; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kyY83NomyQWfh4LKX7bgA+B05RDisIzsK5TyQRhxHSo=;
+        b=XQcts8utbnFWyDR2h9ZGUIOpzNZR6Z6PuazvleT+oEA/CzCd+cRYfnWZWkD0V5Jfx6
+         yXRd/OeaJpaZfZJ/ijIdMY3DuipEFnbkUSWNSlGJLNitl7x48sMzygVlFAU8Bgjjslvy
+         j/b1aY4NAvuSposZiOeMs6cSEHZicRCxIfGWZJvsSH2UC5aruO25QghzVXwxVzI+gnsk
+         /SHZdZeYEd8bqG/ADYuX0/8LoGNfPzLDMedWsMwvdvKfBU+dW+ddXU8D8rW4ftOkQ1RK
+         KZX8mK4OtWcBRAPWDmvCuOGzv4u8hOdr1xN56DY15TtFGDU975CQr86WRAJy8tFjY2zw
+         ok5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791549572; x=1792154372;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kyY83NomyQWfh4LKX7bgA+B05RDisIzsK5TyQRhxHSo=;
+        b=Bj6wgmbObRG2uImOAZACgIpevzoAWdpWaWvYOsm0NimwPxyuhMvx4U3I76O0QDVeO7
+         kRDl7zaHfp8RAm+osLYfsVAufuBQFjgavQK5TZ/GeBHJTo/y45Qt/QkLBJzuQWsf77Kc
+         rJcq/YZkZCKV4Vrm6NNEcah3qtZTg9YddaGmWcCV0an9ZZ3RPylkaP4WjiF/IJjs9NVM
+         vx6oLKhfZPkhpcm+O6qMh6+H/XHqMyTyMBBgjopBKp2izIL56MWwj1ETFJLGRew6MONl
+         tuphRsz7+E5tPLDLTK6a5WShAdYAFkRAapRn5Sv5ahgeSB5qqr7t1KJtXWLYx2uASCV+
+         zNWg==
+X-Forwarded-Encrypted: i=1; AKwUvBz4L1vQ1+lcVbePPekoY+0nL0EgGkAXfTcKjo0/5U66LoYvpMPyrgT5VhEhVCNo9dCjNS+VZ0ITa50RHpU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJiOEzJeaWNglkRRLeED83aKI271d7E98ZtGvhriB/hvtv5dVfW
+	o6Dvw5DpHuhEuXVd16eyLsufyWrNGtQr2sJfrW8EFVKtLeAUFoKVqx5n
+X-Gm-Gg: AYBFou2/F7Pk1sDvJn4FnsgEfx21x29GcbiCxqb1Pd9+HtgmVo7cr7WepiIQPzwe10v
+	2buGT8K0lm0PxJGGRYfA8VsWgUECs17gxbp1laaePCXwtR8gCGykUL0Ooe1X3OpNlPOxF2G6IYa
+	2XSvl/dvaMM1mSBYVk9i/HiP9xAvfml90o3knZkaWXtM0PcQXMiQOCbpXWr3Jam4cxGeDguZqC0
+	zT1z7226mFJ4fdWR40A2UE6q8XvLMnepsljvIxhv69Idir1X7F7nOKmtoQb3/Z52SjBHyeYkCQ/
+	exWO9zyZY+ANcisUjkiUYemH4OhorUpw4BMxjcmLqb5cuskwzSJeGx+QhPyTOgKy0f/imO7JVcy
+	qzdzOIl7fmStO4GiCkpgVAPd6d6RzFlvZupLqeAddJcrfbAi9wwlfZPrfGCY2PhvGQRycLHV2FD
+	oP5MqGpkDw0+F63te/fjc6bFhmYyZvO84CSnfKYI7Y4s3dRFyDs60+U5NqJTEQxlYdGiHe53QjX
+	TDr
+X-Received: by 2002:a05:651c:549:b0:3a9:7b12:b35b with SMTP id 38308e7fff4ca-3a9c53b2811mr4542691fa.12.1791549572202;
+        Fri, 09 Oct 2026 05:39:32 -0700 (PDT)
+Received: from grower.uveon.ru ([37.230.157.20])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a9c3cf5903sm6729281fa.42.2026.10.09.05.39.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 05:39:31 -0700 (PDT)
+From: Alexander Martyniuk <alexevgmart@gmail.com>
+To: pchelkin@ispras.ru,
+	stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: alexevgmart@gmail.com,
+	davem@davemloft.net,
+	johannes.berg@intel.com,
+	johannes@sipsolutions.net,
+	kuba@kernel.org,
 	linux-kernel@vger.kernel.org,
-	Zhen Ni <zhen.ni@easystack.cn>
-Subject: [PATCH 6/6] selftests/bpf: add tests for the page_owner bpf_iter target
-Date: Fri,  9 Oct 2026 19:23:08 +0800
-Message-Id: <20261009112308.240769-7-zhen.ni@easystack.cn>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20261009112308.240769-1-zhen.ni@easystack.cn>
-References: <20261009112308.240769-1-zhen.ni@easystack.cn>
+	linux-wireless@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	netdev@vger.kernel.org,
+	syzbot+63a84ea9c0f57d6133fa@syzkaller.appspotmail.com,
+	thomas@cozybit.com
+Subject: [PATCH 5.10/5.15 v2] wifi: mac80211: mesh: release the channel if start fails
+Date: Fri,  9 Oct 2026 15:39:26 +0300
+Message-ID: <20261009123926.22180-1-alexevgmart@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261008220352-4a493878ce385d22bedcf4a4-pchelkin@ispras>
+References: <20261008220352-4a493878ce385d22bedcf4a4-pchelkin@ispras>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -55,379 +87,65 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa12067716e0229kunmd33b3e054cb292
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFJQjdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCQx8fVktPGE5JGR9KQhkZH1YVFA
-	kWGhdVGRETFhoSFyQUDg9ZV1kYEgtZQVlJSkNVQk9VSkpDVUJLWVdZFhoPEhUdFFlBWU9LSFVKS0
-	lPT09IVUpLS1VKQktLWQY+
 
-Add a sleepable BPF program and a userspace runner covering the seq_file
-and open-coded page_owner iterators and the get_nid, stack_snprint and
-get_memcg_info kfuncs. The test checks:
+From: Johannes Berg <johannes.berg@intel.com>
 
-  - seq_file walk, unfiltered and pid-filtered: records read back from
-    the iterator fd match the lines the program printed.
-  - open-coded iterator parity with the seq path.
-  - the kfuncs' contracts: valid nid per page, a non-empty stack
-    trace, and memcg classification.
+commit ae97fff6495a8764bc0ef281cfe5444f701e527f upstream.
 
-Skipped when debugfs page_owner is unavailable.
+ieee80211_join_mesh() acquires a channel context and then calls
+ieee80211_start_mesh(), which can fail. In that case, the chanctx
+isn't released then interface removal will attempt to unassign it
+after it's removed from the driver, hitting:
 
-Signed-off-by: Zhen Ni <zhen.ni@easystack.cn>
+  wlan0: Failed check-sdata-in-driver check, flags: 0x0
+  WARNING: net/mac80211/driver-ops.c:366 at drv_unassign_vif_chanctx
+   ieee80211_assign_link_chanctx
+   __ieee80211_link_release_channel
+   ieee80211_link_release_channel
+   ieee80211_teardown_sdata
+   unregister_netdevice_many_notify
+   _cfg80211_unregister_wdev
+   ieee80211_remove_interfaces
+   ieee80211_unregister_hw
+   mac80211_hwsim_del_radio
+   hwsim_exit_net
+
+Correctly release the channel on start failures.
+
+Assisted-by: LLM
+Reported-by: syzbot+63a84ea9c0f57d6133fa@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=63a84ea9c0f57d6133fa
+Fixes: 2b5e19677592 ("mac80211: cache mesh beacon")
+Link: https://patch.msgid.link/20260908122838.201719-21-johannes@sipsolutions.net
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+[Alexander: No such function ieee80211_link_release_channel(), so
+ieee80211_vif_release_channel() is used]
+Signed-off-by: Alexander Martyniuk <alexevgmart@gmail.com>
 ---
- .../bpf/prog_tests/page_owner_iter.c          | 173 ++++++++++++++++++
- .../selftests/bpf/progs/bpf_iter_page_owner.c | 161 ++++++++++++++++
- 2 files changed, 334 insertions(+)
- create mode 100644 tools/testing/selftests/bpf/prog_tests/page_owner_iter.c
- create mode 100644 tools/testing/selftests/bpf/progs/bpf_iter_page_owner.c
+Backport fix for CVE-2026-98326
+ net/mac80211/cfg.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/page_owner_iter.c b/tools/testing/selftests/bpf/prog_tests/page_owner_iter.c
-new file mode 100644
-index 000000000000..a621712272bc
---- /dev/null
-+++ b/tools/testing/selftests/bpf/prog_tests/page_owner_iter.c
-@@ -0,0 +1,173 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/* Copyright (c) 2026 */
-+
-+#include <test_progs.h>
-+#include "bpf_iter_page_owner.skel.h"
-+
-+#define DEBUGFS_PAGE_OWNER	"/sys/kernel/debug/page_owner"
-+
-+static bool page_owner_available(void)
-+{
-+	return access(DEBUGFS_PAGE_OWNER, R_OK) == 0;
-+}
-+
-+/* Count link_fd output lines; -1 on error. */
-+static long iter_record_count(int link_fd)
-+{
-+	char *line = NULL;
-+	size_t len = 0;
-+	long count = 0;
-+	int iter_fd, err;
-+	FILE *f;
-+
-+	iter_fd = bpf_iter_create(link_fd);
-+	if (!ASSERT_GE(iter_fd, 0, "bpf_iter_create"))
-+		return -1;
-+
-+	f = fdopen(iter_fd, "r");
-+	if (!f) {
-+		close(iter_fd);
-+		return -1;
-+	}
-+	while (getline(&line, &len, f) > 0)
-+		count++;
-+	err = ferror(f);
-+	free(line);
-+	fclose(f);
-+	return err ? -1 : count;
-+}
-+
-+/* Validate bpf_page_owner_get_memcg_info() results from the open-coded run. */
-+static void check_memcg_skel(struct bpf_iter_page_owner *skel)
-+{
-+	fprintf(stderr,
-+		"memcg: seen=%u charged=%u online=%u nodata=%u notsup=%u bad=%u first='%s' name='%s' flags=%u\n",
-+		skel->bss->memcg_seen, skel->bss->memcg_charged,
-+		skel->bss->memcg_online, skel->bss->memcg_nodata,
-+		skel->bss->memcg_notsup, skel->bss->memcg_bad,
-+		skel->bss->memcg_first_path, skel->bss->memcg_first_name,
-+		skel->bss->memcg_first_flags);
-+
-+	if (!ASSERT_GT(skel->bss->memcg_seen, 0, "memcg_seen_gt_0"))
-+		return;
-+
-+	/* all -EOPNOTSUPP: CONFIG_MEMCG is off */
-+	if (skel->bss->memcg_notsup == skel->bss->memcg_seen) {
-+		ASSERT_EQ(skel->bss->memcg_bad, 0, "memcg_stub_invariants");
-+		return;
+diff --git a/net/mac80211/cfg.c b/net/mac80211/cfg.c
+index 29bcb5f6013a..d5865f4083cf 100644
+--- a/net/mac80211/cfg.c
++++ b/net/mac80211/cfg.c
+@@ -2311,7 +2311,14 @@ static int ieee80211_join_mesh(struct wiphy *wiphy, struct net_device *dev,
+ 	if (err)
+ 		return err;
+ 
+-	return ieee80211_start_mesh(sdata);
++	err = ieee80211_start_mesh(sdata);
++	if (err) {
++		mutex_lock(&sdata->local->mtx);
++		ieee80211_vif_release_channel(sdata);
++		mutex_unlock(&sdata->local->mtx);
 +	}
 +
-+	if (!ASSERT_EQ(skel->bss->memcg_bad, 0, "memcg_kfunc_invariants"))
-+		return;
-+
-+	/* Every call is either charged or nodata */
-+	if (!ASSERT_EQ(skel->bss->memcg_charged + skel->bss->memcg_nodata,
-+		       skel->bss->memcg_seen, "memcg_ret_classified"))
-+		return;
-+
-+	if (!skel->bss->memcg_first_saved)
-+		return;
-+
-+	if (!ASSERT_EQ(skel->bss->memcg_first_path[0], '/',
-+		       "memcg_first_path_abs"))
-+		return;
-+
-+	if (skel->bss->memcg_first_name[0])
-+		ASSERT_OK_PTR(strstr(skel->bss->memcg_first_path,
-+				    skel->bss->memcg_first_name),
-+			      "memcg_name_in_path");
-+}
-+
-+void serial_test_page_owner_iter(void)
-+{
-+	struct bpf_iter_page_owner *skel = NULL;
-+	LIBBPF_OPTS(bpf_test_run_opts, opts);
-+	long iter_count, unfiltered_count, oc_diff, pid;
-+	unsigned int printed_before;
-+	int link_fd, prog_fd;
-+
-+	if (!page_owner_available()) {
-+		test__skip();
-+		return;
-+	}
-+
-+	skel = bpf_iter_page_owner__open_and_load();
-+	if (!ASSERT_OK_PTR(skel, "bpf_iter_page_owner__open_and_load"))
-+		return;
-+
-+	/* --- seq file iterator: unfiltered run --- */
-+	skel->bss->filter_en = 0;
-+
-+	if (!ASSERT_OK(bpf_iter_page_owner__attach(skel), "skel_attach"))
-+		goto destroy;
-+
-+	link_fd = bpf_link__fd(skel->links.dump_page_owner);
-+	iter_count = iter_record_count(link_fd);
-+	if (iter_count < 0)
-+		goto destroy;
-+	unfiltered_count = iter_count;
-+
-+	fprintf(stderr, "iter_count=%ld printed_lines=%u total_seen=%u\n",
-+		iter_count, skel->bss->printed_lines, skel->bss->total_seen);
-+
-+	ASSERT_GT(iter_count, 0, "unfiltered_lines_gt_0");
-+
-+	ASSERT_EQ((long)skel->bss->printed_lines, iter_count,
-+		  "lines_match_printed");
-+
-+	/* unfiltered: every visited page is printed, so the two must match */
-+	ASSERT_EQ(skel->bss->total_seen, skel->bss->printed_lines,
-+		  "unfiltered_all_printed");
-+
-+	/* --- seq file iterator: pid-filtered run --- */
-+	pid = getpid();
-+	skel->bss->filter_en = 1;
-+	skel->bss->filter_pid = (pid_t)pid;
-+
-+	/* printed_lines is cumulative across runs: compare the delta */
-+	printed_before = skel->bss->printed_lines;
-+	iter_count = iter_record_count(link_fd);
-+	if (iter_count < 0)
-+		goto destroy;
-+
-+	fprintf(stderr,
-+		"pid=%ld iter_count=%ld printed_delta=%u\n",
-+		pid, iter_count, skel->bss->printed_lines - printed_before);
-+
-+	ASSERT_GT(iter_count, 0, "filtered_lines_gt_0");
-+	ASSERT_EQ(skel->bss->printed_lines - printed_before, iter_count,
-+		  "filtered_printed_match");
-+
-+	/* --- open-coded iterator parity --- */
-+	prog_fd = bpf_program__fd(skel->progs.scan_open_coded);
-+
-+	ASSERT_OK(bpf_prog_test_run_opts(prog_fd, &opts), "prog_test_run");
-+	fprintf(stderr,
-+		"open_coded_seen=%u nid_seen=%u first_nid=%d "
-+		"stack_bytes=%u stack=[\n%s]\n",
-+		skel->bss->open_coded_seen, skel->bss->nid_seen,
-+		skel->data->first_nid, skel->bss->stack_bytes,
-+		skel->bss->stack_text);
-+
-+	/* same eligibility as the seq path: counts must be close */
-+	ASSERT_GT(skel->bss->open_coded_seen, 0, "oc_seen_gt_0");
-+	oc_diff = (long)skel->bss->open_coded_seen - unfiltered_count;
-+	if (oc_diff < 0)
-+		oc_diff = -oc_diff;
-+	ASSERT_LE(oc_diff, unfiltered_count / 100 + 64,
-+		  "oc_seen_close_to_iter");
-+
-+	/* the nid kfunc returned a valid node for every page */
-+	ASSERT_EQ(skel->bss->nid_seen, skel->bss->open_coded_seen,
-+		  "nid_valid_all");
-+	ASSERT_GE(skel->data->first_nid, 0, "first_nid_valid");
-+
-+	ASSERT_GT(skel->bss->stack_bytes, 0, "stack_snprint_ok");
-+	ASSERT_OK_PTR(strstr(skel->bss->stack_text, "+0x"), "stack_frames");
-+	ASSERT_OK_PTR(strchr(skel->bss->stack_text, '\n'), "stack_lines");
-+
-+	check_memcg_skel(skel);
-+
-+destroy:
-+	bpf_iter_page_owner__destroy(skel);
-+}
-diff --git a/tools/testing/selftests/bpf/progs/bpf_iter_page_owner.c b/tools/testing/selftests/bpf/progs/bpf_iter_page_owner.c
-new file mode 100644
-index 000000000000..fada6a314a15
---- /dev/null
-+++ b/tools/testing/selftests/bpf/progs/bpf_iter_page_owner.c
-@@ -0,0 +1,161 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/* Copyright (c) 2026 */
-+
-+#include <vmlinux.h>
-+#include <bpf/bpf_helpers.h>
-+
-+char _license[] SEC("license") = "GPL";
-+
-+__u32 filter_en;
-+__u32 filter_pid;
-+__u32 total_seen;
-+__u32 printed_lines;
-+
-+__u32 open_coded_seen;
-+__u32 nid_seen;
-+__s32 first_nid = -1;
-+char stack_text[2048];
-+__u32 stack_bytes;
-+
-+__u32 memcg_seen;
-+__u32 memcg_charged;
-+__u32 memcg_online;
-+__u32 memcg_nodata;
-+__u32 memcg_notsup;
-+__u32 memcg_bad;
-+__u32 memcg_first_saved;
-+__u32 memcg_first_flags;	/* bit0 is_online, bit1 is_kmem */
-+__u32 memcg_first_path_len;
-+char memcg_pathbuf[4096];
-+char memcg_first_path[4096];
-+char memcg_first_name[80];
-+
-+#define MEMCG_ENODATA 61
-+#define MEMCG_EOPNOTSUPP 95
-+
-+#define MEMCG_F_ONLINE	(1 << 0)
-+#define MEMCG_F_OBJCG	(1 << 1)
-+
-+extern int bpf_iter_page_owner_new(struct bpf_iter_page_owner *it) __ksym;
-+extern struct page_owner_scan *
-+bpf_iter_page_owner_next(struct bpf_iter_page_owner *it) __ksym;
-+extern void bpf_iter_page_owner_destroy(struct bpf_iter_page_owner *it) __ksym;
-+extern int bpf_page_owner_stack_snprint(depot_stack_handle_t handle,
-+					char *buf, u32 buf_size) __ksym;
-+extern int bpf_page_owner_get_nid(struct page_owner_scan *scan) __ksym;
-+extern int bpf_page_owner_get_memcg_info(struct page_owner_scan *scan,
-+					 struct memcg_info *info,
-+					 char *buf, u32 size) __ksym;
-+
-+static __u32 copy_str(char *dst, const char *src, const __u32 max)
-+{
-+	__u32 i = 0;
-+
-+	while (i + 1 < max && src[i]) {
-+		dst[i] = src[i];
-+		i++;
-+	}
-+	dst[i] = '\0';
-+	return i;
-+}
-+
-+/*
-+ * Exercise bpf_page_owner_get_memcg_info() until 32 pages charged to an
-+ * ONLINE memcg have been seen, checking its per-return contract:
-+ *  - 0:          buf holds an absolute cgroup path;
-+ *  - -ENODATA:   buf was NUL-terminated;
-+ *  - -EOPNOTSUPP: counted (CONFIG_MEMCG is off);
-+ *
-+ * The first online charged sample is saved for userspace to print and
-+ * cross-check (name vs basename of path).
-+ */
-+static void check_memcg(struct page_owner_scan *scan)
-+{
-+	static struct memcg_info info;
-+	int err;
-+
-+	err = bpf_page_owner_get_memcg_info(scan, &info, memcg_pathbuf,
-+					    sizeof(memcg_pathbuf));
-+	memcg_seen++;
-+
-+	if (err == 0) {
-+		memcg_charged++;
-+
-+		if (memcg_pathbuf[0] != '/') {
-+			memcg_bad++;
-+			return;
-+		}
-+
-+		if (!info.is_online)
-+			return;
-+		memcg_online++;
-+
-+		/* keep the first online sample for userspace */
-+		if (!memcg_first_saved) {
-+			memcg_first_path_len = copy_str(memcg_first_path,
-+							memcg_pathbuf,
-+							sizeof(memcg_first_path));
-+			copy_str(memcg_first_name, info.name,
-+				 sizeof(memcg_first_name));
-+			memcg_first_flags = MEMCG_F_ONLINE |
-+					    (info.is_kmem ? MEMCG_F_OBJCG : 0);
-+			memcg_first_saved = 1;
-+		}
-+	} else if (err == -MEMCG_ENODATA) {
-+		memcg_nodata++;
-+		if (memcg_pathbuf[0] != '\0')
-+			memcg_bad++;
-+	} else if (err == -MEMCG_EOPNOTSUPP) {
-+		memcg_notsup++;
-+		if (memcg_pathbuf[0] != '\0')
-+			memcg_bad++;
-+	} else {
-+		memcg_bad++;
-+	}
-+}
-+
-+SEC("syscall")
-+int scan_open_coded(const void *ctx)
-+{
-+	struct bpf_iter_page_owner it;
-+	struct page_owner_scan *scan;
-+
-+	bpf_iter_page_owner_new(&it);
-+
-+	while ((scan = bpf_iter_page_owner_next(&it))) {
-+		open_coded_seen++;
-+		if (bpf_page_owner_get_nid(scan) >= 0)
-+			nid_seen++;
-+		if (memcg_online < 32)
-+			check_memcg(scan);
-+		/* grab the stack of the 100th page for userspace to check */
-+		if (open_coded_seen == 100) {
-+			first_nid = bpf_page_owner_get_nid(scan);
-+			if (scan->po_snap.handle)
-+				stack_bytes = bpf_page_owner_stack_snprint(
-+					scan->po_snap.handle,
-+					stack_text, sizeof(stack_text));
-+		}
-+	}
-+	bpf_iter_page_owner_destroy(&it);
-+	return 0;
-+}
-+
-+SEC("iter/page_owner")
-+int dump_page_owner(struct bpf_iter__page_owner *ctx)
-+{
-+	struct page_owner *po = ctx->po;
-+
-+	if (!po)
-+		return 0;
-+
-+	total_seen++;
-+
-+	if (filter_en && po->pid != (pid_t)filter_pid)
-+		return 0;
-+
-+	BPF_SEQ_PRINTF(ctx->meta->seq, "pfn %llu pid %d comm %s\n",
-+		       ctx->pfn, po->pid, po->comm);
-+	printed_lines++;
-+	return 0;
-+}
++	return err;
+ }
+ 
+ static int ieee80211_leave_mesh(struct wiphy *wiphy, struct net_device *dev)
 -- 
-2.20.1
+2.43.0
 
