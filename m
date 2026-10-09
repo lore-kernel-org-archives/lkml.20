@@ -1,222 +1,206 @@
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com [209.85.167.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CWXP265CU010.outbound.protection.outlook.com (mail-ukwestazon11022117.outbound.protection.outlook.com [52.101.101.117])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3791E3D0BE5
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 14:10:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.44
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791555009; cv=none; b=Z5G5FTJbD4Vl5WHFW0IPQmUC/27Fh0PawoiMq19DIpjPMS6/0TXxGY8MlnOoUdeczhVSC2XNGQsgDbDKSm0T9zHmjxUYTqdM2FRdF9JoKPOhaL7GAthMLZ7R3kLZxLPhl14GdtWFXInwiiJX+i1RyXWr8sZfnHy64jtweJZK334=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791555009; c=relaxed/simple;
-	bh=/wYwIrIQK4xiLW7OvS3VyX36IIyt93+83vMJBDyZoPE=;
-	h=Message-ID:Date:MIME-Version:To:Cc:From:Subject:Content-Type; b=nJqP2Vvmk/zrO9W+J9AfP73Yvz6E1lbuWN5NzxEeH0N0kQ12Zcg5dOJy/no246UHCOYZILtAI9XE4e4WTXo6lspMXEso5XGafziw33h0lokDLrd2RdIyf5b9eUpnaV7P41zMICJdsid/XbLujdB2alzM6biHTwV45huoyby3XHE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jmpcfIhO; arc=none smtp.client-ip=209.85.167.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4576047126D;
+	Fri,  9 Oct 2026 14:11:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.101.117
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791555092; cv=fail; b=Vk7iV+aZ+0C+0dJaTHtPpICyNI9bRBbEq3RKovWUL3VDwpwfp1DHwMg82WyyEsGBKgqWH2qdYZP1WVAfG8QyGIbD7DbmcfBgow0KYT08GwNFymD1n0XGsNyV4SwBfsACl68vNUHtyTJNbD4Ge+YKYlMVYH+SdGbb/eAjqZVEW/c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791555092; c=relaxed/simple;
+	bh=zxwCsfXA7tUvrkRoFDnG8sCr4CPeuKmG5u3i6HCviIo=;
+	h=Content-Type:Date:Message-Id:From:To:Cc:Subject:References:
+	 In-Reply-To:MIME-Version; b=mD13hlteY88gQPUTl3zIh4kc7qHgLX3uOEzJnPml9z6x+Ufmoxr9zQ+gVyUtbuf6fERn94F3M2CIMyB5EF5/ZGbI/D2UOgx5WnDfhlkXsGWFs44cGXRq5AVi26V5oaF8CRYnpx4Acl/mAP6aY+xYZsEmXUpv3phh0RDHJ5GmEBM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=s/Ebh1AF; arc=fail smtp.client-ip=52.101.101.117
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jmpcfIhO"
-Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5bb7c6980f1so3500847e87.2
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 07:10:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791554999; x=1792159799; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=VcCKhy+ULTce1/sRIbiZhrqW/+l3/hqpSg51rQi2k5A=;
-        b=jmpcfIhOl0FWaUzgoqv1N/bnKnJbtE2H1bdbW/QicIi5lw6iN9C7UX3bJLOkRiMRVv
-         gLBpTUAiFEYvJ8kKLOC+XE2c+CWZxFGeA0XX7VjXKTXZXXs8uLA8QaH4ydQEgpqRzKT8
-         MgttbfQ6BE641uVnCWthuT1L5yR27m/IaJ/+yebpEpzYm112uS1oyp01uibtv6igh9Lx
-         /w8jOJk33G3w7xo0KQFcU4bDw5VATIJaFiQvo1TtmrLGgOvplrhng5NL8vhl6Vy49aDZ
-         t9JuiX0/9OoS4CSjy65P+T4nxRwNFisfk/zDXENg0g5weGTW7K0mFdgn/usTKoEJ1JAL
-         YcAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791554999; x=1792159799;
-        h=content-transfer-encoding:content-type:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VcCKhy+ULTce1/sRIbiZhrqW/+l3/hqpSg51rQi2k5A=;
-        b=oFhF2nWErC8qdhAL6xyJ1BMEhUVYNbbg9W617i3tjFLx3pSdpslkp6t+CI0k0f2XqK
-         wz+ZxKbjVlYfUmsejd0e2MjcAF8CCi7QFW/LNs3WHAiaVlEQszsuS7t+FPBiE3wXi/TU
-         ESQaNzW4FBr2KheOY/j6+Tc67vN4ukbAQwP1Var7B+xeI70RZ/Sn3bifZ6vB1/ClcVWF
-         3RwxIVB+UCfzSgPsDkiiZDUJ+ZOUI/QK/3N8MIZMFW8rTQhr5aNbWu7Kyncunwc1u09U
-         Z9RDj9baEG15QY3uSeIU2OP8hWQ248cKT4mUbpUgbW5r/Z8oBE13958U5aflL91Kd4Ty
-         g98Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwaKNNrBluPbfj8LdkiiVW3y7pk6loSM8G0afq+Kt1cbVPZ3XSqvqk4HwrbsnuyuC2ZoSUAXH5B3PbBNLM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIKaVtkEQX9noTZP6vwA9zoNegXVXrdhfvq0iwmaj/Dp23/Sxer
-	gCRFRsmm6HvQ8yjiAttw6U6fG55RmSZAkn4+WT/K0xf5EWzGCSHOFwdqECJWrA==
-X-Gm-Gg: AYBFou1nsniQjgn5IW6AAhTFxi62qNZmvclZYvxm8H+eJEm2wYtOM8E+uM9uySOs9xA
-	2MgJPT/+iRXiPMGkSB7DbsTrPfYcC7//HkmuEzLdlm9B0uWo5DyTGJ4T+44JFfspg4IjUMdUSj3
-	sr4Z20JtzCAvZQaXNWOv7AwIZrcYx3a2QZ13zV1RoULUp67omnQkBqtqQDyxP6SxtRFl2VK6VW5
-	XfWvcMQuU0ZIrdnxOYNu+BHN6Ai7CVcxmn7ITz50gUUULgqSjL2wt1+mN6nsWPjnbgKajtOl1xd
-	JiOlIlm9jDi+zrnjhpFAGrroj6oCEQZUus/TUp99MmhZIcVsXqIgnexqof8oSAv7kvht/qTplHh
-	Y7pU45YvXOIe+VRfyYu+Hg4GW2URqoTsVfxsmJxrfYKwND56sTEXivDEdSVXVKWM5jI2+fxEAAM
-	bMdmOvEhMTNYMb26HI2h36RrmFKYrk6Pn+/JBvBzgik3w8uGsWygN9jmdRFrSrBPcAX88WyC9PW
-	PWSkq/Qj3FwP81UsvtS1LXQPzVR9Az3
-X-Received: by 2002:a05:6512:3da7:b0:5ba:4408:7801 with SMTP id 2adb3069b0e04-5bcde8c9b10mr811066e87.53.1791554998613;
-        Fri, 09 Oct 2026 07:09:58 -0700 (PDT)
-Received: from [10.128.170.180] ([77.234.210.12])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bcdde913d0sm689165e87.26.2026.10.09.07.09.57
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 09 Oct 2026 07:09:58 -0700 (PDT)
-Message-ID: <47d7da4a-5029-4c56-a5ac-3e4c526cc569@gmail.com>
-Date: Fri, 9 Oct 2026 17:09:57 +0300
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="s/Ebh1AF"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BX12BKor8BWWFtcOh0Ce9NupkAP6rpVV5y7uo7LD9T7UrSRIdNUVYjx9E4P+s+QBqFhLimHWFxkJHqRRv2uyWKHmNeFr+Xg7/zkffQRJB+/UaxilqMDVWi92LDcuBbDJ1J5rvW9tXvHhoVxM8PcYwh3EUpJWDNWaxo5l3PyLq/OxQ4A5HYzisVaMGsTqeM1q4bG5hb2NbgctVQ6PvvY+K25ddIr7Qwi8DWSiD91WnCrRU3lflWQHTmWdzp67CgMrr1MGRjXIxEQjwysxNmfWT9xQ44aSt39GiU51A+eyk+wGQ0oMrVVGj38DVVWKVn3WDU4J3WAfHqKVrhKtZ81qFg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eDkInDRgULduSamGqUWHTl3IiKl+E00czi51d2XSk80=;
+ b=i4k5RAQgKP6U3yHVd/qaZEXeTHSWrIIEYj2BedKEg1wvSvlHxbJKyZN2T8TNiLbo7yTuh3Ypd/Q37f/V3aKz568LVXcdHXqRcM7SaIjp5fSnDaDf9TKBh7KX9kS4f+Qahi20aejrt7GZ0qTiEH49FJIzl63DGdWYVhGcPjLRElMncxwJXfbvIZyVwrLEYTrUPgPIVPlpE9e75n4bfN2Cl7EvNJmHcHnExInzOpgC2BxPfHmPbpavENLkBBxJgg1tJlIG488hwzssLd8mlpoze50CwKUvw02dkmI6EEO+vNxlna5BCZvQ9cq6OGsMyJKgeCzVMxjR5ZvWZigrWDEfbw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eDkInDRgULduSamGqUWHTl3IiKl+E00czi51d2XSk80=;
+ b=s/Ebh1AF4JEDm9d53prtEdLizSjma/+4po8ZYQQeTSkPA0qKhQFEyZagSeBy/OZF5JuiJ/Qj2NJsj+0pmm8ckT5ZQWa/FJrc/TO3EmIc6iFEp6I0501V7tkg24SV16cfiBQPCFkimOpr88mo8049Klz2uPuoiMvkAOF4MziyEZo=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by CWXP265MB3495.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:fc::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Fri, 9 Oct
+ 2026 14:11:20 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
+ 14:11:20 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 09 Oct 2026 15:11:19 +0100
+Message-Id: <DM0D9TERQAM3.2Y3HV6P68E2N8@garyguo.net>
+From: "Gary Guo" <gary@garyguo.net>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Gary Guo" <gary@garyguo.net>
+Cc: "Thorsten Blum" <blum@kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>,
+ "Boqun Feng" <boqun@kernel.org>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
+ "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
+ <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Timur Tabi"
+ <ttabi@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] rust: uaccess: avoid unsafe unwrap_unchecked() in
+ strcpy_into_buf()
+X-Mailer: aerc 0.22.0
+References: <20261008061326.177841-2-blum@kernel.org>
+ <DLZHGS3GBIT9.16N0JVOTMONZO@nvidia.com> <asflx_blsGkQ7Obn@kernel.org>
+ <DLZPAM0YRU3L.2TDZ2GLI7AS6S@garyguo.net>
+ <DM0C9ZEJA9EF.12IOGM4R4QG3E@nvidia.com>
+In-Reply-To: <DM0C9ZEJA9EF.12IOGM4R4QG3E@nvidia.com>
+X-ClientProxiedBy: LO4P123CA0296.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:196::13) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: konishi.ryusuke@gmail.com, slava@dubeyko.com
-Cc: linux-nilfs@vger.kernel.org, linux-kernel@vger.kernel.org
-From: Vyacheslav Kovalevsky <slava.kovalevskiy.2014@gmail.com>
-Subject: System writes out modified portions of the last memory mapped page
- beyond file end if file is resized
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CWXP265MB3495:EE_
+X-MS-Office365-Filtering-Correlation-Id: 754979bc-068f-4d50-0818-08df260f30fa
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|366016|23010399003|7416014|1800799024|4143699003|56012099006|10067099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	jrt5NKHNGo6mrxt+gMa086T6qCl/vRXEmK5+Z1aZ7QDysLi9+dMS8MYKFwsP09AsBlptZan7lbn0wzTvm8BZU5saM9QbEkwJdiKKyr8SeWzgNx9mdBxTIwR7HjyJ20RdG3f3rGI2mxDh2yKSiLj484GsAtnr76YQ4lnVSyWcaM9XUrHwc7WxjDk0OMTKq0F7gFe7A/mUGl+o0nLQaH9UA7Tkk9k6vIgLWc+9YxgwvZ14pgoP//4yVoHbiDX+8A/r27eX/7K1oGga0SF7Fqjbu11QCexMyIBMWyA+QSyENyxD6INeLbKClc7lTl+ik2vzntGlgdB+M0yaeQCYHS/YPhmT8lWu0sBXZR+9obb21GbcqaZpUnVtmP4TKKqksaqafl4Zd3/Yid0/KbWSYW95dcnv/X1io020X8SMiptCC/b8xi0PuuVGhHlrV18HZJE7VAU52gXxle++4Efmy14vFdD7NpwPorv0QixgSskf/Qpz7IvD9c3mKVUFdgE+uXI4aUlnxhJKnNiUwcyclJhdq14IFtLQ2Qy0FkiJ2S7pQWBk9kJLzPP896vm79NoYVbRSQ0u1hC/BPuYUlmwrVlGO7rbQGr3xuYPb4QeEubyFYz/sip1nrNmUwPjJb0T0LtVt6mQo0WYjeKS4GiyvNyzV6HSxGSCAe+0OkOr3JeV9Rc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(23010399003)(7416014)(1800799024)(4143699003)(56012099006)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dnE3TzRlbDhvUkNReDB3RkEvTmRDWDMvNkNYOTY0VEt6OGJBWFZ6T2dheEVM?=
+ =?utf-8?B?bTlJTWt3bzBaVGlPNjliOVlFbWFTSENSaTF6RHc3QnlmYm5mTWE0UHFjR2Js?=
+ =?utf-8?B?Sm13dE1TNzhqRmtQcUZmUS9vNElWczNKWkRUL0VkcjNnTXo0YTNtckppUXpR?=
+ =?utf-8?B?ZFp6SVUwWVVSdmU2NWl1RSs5NnRUNlhYZG1pT0tFZ1ZyVzhkVUdxNUoweGhz?=
+ =?utf-8?B?Z3RhUFJkK0FiUzJISzlOSG1IRDVod0dJVjQrYXpqUEtZdU5RR1FjOWl2VnZl?=
+ =?utf-8?B?emJYS1NvV0dMZU9IRy94U3I0UmhoYUx4OUZDV1A5bndRbXovejF6U042OEV1?=
+ =?utf-8?B?VWJlQ0JxaWVlN084Y3NQWGszU0g5R05tVGhhZm1rSlhwT1h3eEpWMnArY0Ft?=
+ =?utf-8?B?YVR5K0xmcVlyZXBMblVkTU8wT1RQL2N2M3pUYUtZUjdkZTcvV2M2RUxNWnRY?=
+ =?utf-8?B?a0RqbFlVeitMRHhvTEhmOXl1V0pLNUgvVjZxTHZjRmFIeHYxSXd4aENlTk9O?=
+ =?utf-8?B?WXU5ckNRRitCSTIrUFMzR2FDM0RwWjU5UHNtbHJvTHNPeUhFWXZpVWppR0lV?=
+ =?utf-8?B?MXVGRXo3cVRMK0ZIZ1BMSTBOZVdIWVFrbTlmcWQ4Y3VSKzVOZ3RqN2VFTHA3?=
+ =?utf-8?B?VWlqR2dKNU9RdmpWbGU3UXVNMTM0N3ZKOTNhZXBjQzRYVE42RW4wWGFHbEMv?=
+ =?utf-8?B?WTBVYUpFbHJ4dVoxYVcyTEV2K3dKVlNXQWxhL0FBSERocGR3V01EZVFOM1lj?=
+ =?utf-8?B?K0pYUXg1MVFKQUYxd0V4V3RzOGVwQUd1ZVh5MkRiajJtaVhNNFZNQXdkODdm?=
+ =?utf-8?B?a2lUTkdaV2NLaVRUYWxoT2NrWXZ1V25FSGN0MGMyWCtsUVVBemRpdVFTM0g0?=
+ =?utf-8?B?SFl3bEg5ZXBJZVpxRWJ0YzR5aFJGMHBmdTI4QkpyeUhRVUxFczB1dzFObkIz?=
+ =?utf-8?B?YXR1L1ZhU1ZHVHJSRUJIZ3ZWdWhYeXQwK1JMOUMrdTh5Z1lBakJVQmJSZUVJ?=
+ =?utf-8?B?REdIV2ZZR2Q3M0ZyTFJPQkFmblFIUEZBd3FlUHVWY3E0dEN0TzZTQ1JFQllQ?=
+ =?utf-8?B?czlHaXhVWVFzYzNaNm1nb1BJVFdENUgyenBQbHplWE1Nb1dBL1MxK2NUR21Q?=
+ =?utf-8?B?Y0NZa2pQb3cxWStaSFVwTHZlOGE2SnBENDdGQ0xMYXZ1M0lYamJaZ1kydUpM?=
+ =?utf-8?B?djFYcVRySStNRFVCYVJnUzBTZng0ZDNtSm1JVHplTmJnYzl0TU1Gd0pQekhM?=
+ =?utf-8?B?SjF4S0JwSXk1cytidTkwTnBjMzlmWGNRN0t4Y09QcjVBUnJEeERUZEZrV0d4?=
+ =?utf-8?B?ZHlkMGtucG0rY2VMaDdGL2R3bTkrNDNWaTdpUGY2cWlRY3YyV1Exdjk0S1hL?=
+ =?utf-8?B?ZFJlS3NzbUlnVlBPN2lqVmd6TGgyVmQ4aTl0Mm9LQWdTbXpNemx3aDZIUHJR?=
+ =?utf-8?B?dnY0VHZ4THV0bCt6T1lXcVdYRTc2NzN0bzhza1VtUWFyc3ZjNDZhempud054?=
+ =?utf-8?B?QzVVMnBVMDdRSm1pRWlKN1hSUHZVNVpjUGEyc2ljbms2TkVYWmZ6UnJ2dFlp?=
+ =?utf-8?B?RlUveEgzaGZhKy9CT2lDbVpKR2xkdTB6dEh1VzMyMENmblFDTW1pTlFTK1dn?=
+ =?utf-8?B?T29ZeFhqSHBlU01jVC9MejA2Z0ZXV0hIdVpLQUoydzVrRXhyQzkzUUtURUcw?=
+ =?utf-8?B?RSs5N1BVZlhaczBEbDZNbWdocFowZkR1K05TK0ZXeHZsVmJBUWR2TXdsay9M?=
+ =?utf-8?B?ZXlyWEZkc2Zta1h5Z0hlV1VmZGhGbXY2b0krOUJ0akFsR01ZNDliRmFnL0FG?=
+ =?utf-8?B?cTN5T0prYWhOQmZab3h0SEZ5cjFuVjNxMmRhTjh0dTBkdXU1cHFqeDRkMzFL?=
+ =?utf-8?B?TDE5REVpMUtpZTlqSUpjekFOYmZnTmh2MmxLVkNqMjhIWk5PWUZZMnVjdTdW?=
+ =?utf-8?B?bGtnem00QTROWnU4bkZkUFY4NjdiNWpuaGZ3RzdQaGVJbmdUajUycEt3d1BC?=
+ =?utf-8?B?K3BEVHRuVExrY0E1Y3hPanRZa0V1aDk3UVF6MExSK0d4eU5zK1h2UTRKME9K?=
+ =?utf-8?B?RnBLV0h6bWJpTTl5VlQ0Y2lsRGZwZjY4anRhOTc3NTNTODBObVltalFYbTBX?=
+ =?utf-8?B?Rm1yRUFtR1Y3YWNaN3JyVGFweno1amZwcTdiVGk4TTQ5U2IzcE1GM09GcGl5?=
+ =?utf-8?B?YllaQUs5c1lsMUZWdklyTlY4dWN5ZjFWQzU1dHhlTENoOXh0RlpUTXpFRTJD?=
+ =?utf-8?B?Zk1weTFyRjFNRFNXWGhhU1NMcTJ1RW5LSGNuTXpmL2pTYVlSazRWTFhMUmpj?=
+ =?utf-8?B?ZHgyeXZhemtVektxcGV0eHpCYTh6ektUUmMxTys0eERUNXdyaUc4Zz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 754979bc-068f-4d50-0818-08df260f30fa
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 14:11:19.9034
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: x6Qqso5KsDddXFrHRX5QyCQic2Ih+NWFBQO+aug2eWFUFS4xxp+emGEtPPVathCrGpMBUDdzLE3V3qR99EvvQw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP265MB3495
 
-Detailed description
-====================
+On Fri Oct 9, 2026 at 2:24 PM BST, Alexandre Courbot wrote:
+> On Fri Oct 9, 2026 at 4:23 AM JST, Gary Guo wrote:
+>> On Thu Oct 8, 2026 at 7:49 PM BST, Thorsten Blum wrote:
+>>> On Thu, Oct 08, 2026 at 10:15:49PM +0900, Alexandre Courbot wrote:
+>>>> On Thu Oct 8, 2026 at 3:13 PM JST, Thorsten Blum wrote:
+>>>> > Since strcpy_into_buf() already rejects empty buffers, use ok_or()
+>>>> > instead of unwrap_unchecked() when NUL-terminating the buffer.
+>>>> >
+>>>> > Signed-off-by: Thorsten Blum <blum@kernel.org>
+>>>> > ---
+>>>> >  rust/kernel/uaccess.rs | 4 +---
+>>>> >  1 file changed, 1 insertion(+), 3 deletions(-)
+>>>> >
+>>>> > diff --git a/rust/kernel/uaccess.rs b/rust/kernel/uaccess.rs
+>>>> > index 5f6c4d7a1a51..2a0af795e75d 100644
+>>>> > --- a/rust/kernel/uaccess.rs
+>>>> > +++ b/rust/kernel/uaccess.rs
+>>>> > @@ -422,9 +422,7 @@ pub fn strcpy_into_buf<'buf>(self, buf: &'buf mu=
+t [u8]) -> Result<&'buf CStr> {
+>>>> >              // This means that we filled the buffer exactly. In thi=
+s case, we add a NUL-terminator
+>>>> >              // and return it. Unlike the `len < dst.len()` branch, =
+don't modify `len` because it
+>>>> >              // already represents the length including the NUL-term=
+inator.
+>>>> > -            //
+>>>> > -            // SAFETY: Due to the check at the beginning, the buffe=
+r is not empty.
+>>>> > -            unsafe { *buf.last_mut().unwrap_unchecked() =3D 0 };
+>>>> > +            *buf.last_mut().ok_or(EINVAL)? =3D 0;
+>>>>=20
+>>>> I am not sure this gives us much - we are trading an unsafe statement
+>>>> that is well-controlled (enforced by the first two lines of the method=
+)
+>>>> for a runtime check. I'd say this is working as intended here.
+>>>
+>>> I checked the generated code before and after the patch and it is
+>>> identical since the compiler is able to remove the additional check.
+>>> Therefore, this removes an unsafe block without adding runtime cost.
+>>>
+>>> It also avoids relying on the buf.is_empty() check to prevent undefined
+>>> behavior.
+>>
+>> Adding an error returning path is worse for something that cannot happen=
+ is
+>> worse than invoking unsafe in my opinion.
+>>
+>> Why not just unwrap?
+>>
+>>     *buf.last_mut().unwrap() =3D 0;
+>
+> I guess the author of the code decided to avoid `unwrap` for the same
+> reason they avoided a runtime error: the first two lines of the method
+> guarantee that the access is valid. Now I wish we could keep the
+> enforcing statement closer to the unsafe block relying it, but I cannot
+> find a better way to write that method. `unwrap` would just switch the
+> `SAFETY` statement for a `PANIC` one.
+>
+> Honestly I think this code is fine as it is.
 
-Hello, there seems to be an issue with NILFS2:
+A `NonEmptySlice<T>` which is `[T]` but `first`/`last` can just not return
+`Option`?
 
-1. Create a file, truncate it to some size that is not multiple of OS 
-page size (which is usually 4096).
-2. Open the file.
-3. Create a new shared mapping (MAP_SHARED) using `mmap` from 0 to some 
-point beyond file end (but still on the same OS page as the file end, 
-otherwise next steps will fail).
-4. Write some data beyond file end using the mapping.
-5. Resize file (e.g. using `truncate`) so the file end is now after the 
-mapping range.
-6. Observe that bytes written beyond file end (using the mapping) were 
-also written to backing file after resizing.
-
-The last bit violates the POSIX specification, extract from `mmap` 
-documentation at 
-<https://pubs.opengroup.org/onlinepubs/9799919799/functions/mmap.html>:
-
- > The system shall always zero-fill any partial page at the end of an 
-object. Further, __the system shall never write out any modified 
-portions of the last page of an object which are beyond its end__.
-
-Linux manual <https://man7.org/linux/man-pages/man2/mmap.2.html>:
-
- > For a file that is not a multiple of the page size, the remaining 
-bytes in the partial page at the end of the mapping are zeroed when 
-mapped, and __modifications to that region are not written out to the 
-file__.
-
-For reference: `ext4` / `btrfs` / `xfs` do not write the data to file 
-after resizing, as
-
-The exact same issue was recently reported for ZFS: 
-<https://github.com/openzfs/zfs/issues/19220>
-
-
-System info
-===========
-
-Linux version 7.0.0-34-generic (Ubuntu 26.04.1 LTS)
-nilfs-tools version 2.2.11
-
-
-How to reproduce
-================
-
-```
-#include <err.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <unistd.h>
-
-#define WRITE_OFF 10
-#define WRITE_SIZE 10
-#define WRITE_DATA "Test data!"
-#define MMAP_SIZE WRITE_SIZE + WRITE_OFF
-#define FILE_SIZE_INI 10
-#define FILE_SIZE_END 32
-
-int main() {
-   char buffer[FILE_SIZE_END + 1] = {};
-   int status;
-   int fd;
-   void *addr;
-
-   status = creat("file", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
-   printf("CREAT: %d\n", status);
-   close(status);
-
-   status = truncate("file", FILE_SIZE_INI);
-   printf("TRUNCATE: %d\n", status);
-
-   status = open("file", O_RDWR);
-   printf("OPEN: %d\n", status);
-   fd = status;
-
-   addr = mmap(NULL, MMAP_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
-   if (addr == MAP_FAILED) {
-     printf("MMAP: FAILED\n");
-     return EXIT_FAILURE;
-   }
-   printf("MMAP: OK\n");
-   close(fd);
-
-   memcpy(((char *)addr) + WRITE_OFF, WRITE_DATA, WRITE_SIZE);
-
-   status = munmap(addr, MMAP_SIZE);
-   printf("MUNMAP: %d\n", status);
-
-   status = truncate("file", FILE_SIZE_END);
-   printf("TRUNCATE: %d\n", status);
-
-   status = open("file", O_RDONLY);
-   printf("OPEN: %d\n", status);
-   fd = status;
-
-   status = read(fd, buffer, FILE_SIZE_END);
-   printf("READ: %d\n", status);
-   printf("BYTES: ");
-   for (int i = 0; i < status; i++) {
-     printf("%02x ", buffer[i]);
-   }
-   printf("\n");
-}
-
-// ::Expected::
-// CREAT: 3
-// TRUNCATE: 0
-// OPEN: 3
-// MMAP: OK
-// MUNMAP: 0
-// TRUNCATE: 0
-// OPEN: 3
-// READ: 32
-// BYTES: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
-00 00 00 00 00 00 00 00 00 00 00
-
-// ::Actual::
-// CREAT: 3
-// TRUNCATE: 0
-// OPEN: 3
-// MMAP: OK
-// MUNMAP: 0
-// TRUNCATE: 0
-// OPEN: 3
-// READ: 32
-// BYTES: 00 00 00 00 00 00 00 00 00 00 54 65 73 74 20 64 61 74 61 21 00 
-00 00 00 00 00 00 00 00 00 00 00
-```
-
-Steps:
-
-1. Create and mount new NILFS2 filesystem in default configuration.
-2. Change directory to root of the filesystem and run the compiled test.
-3. Observe that last operation returns unexpected value.
+Best,
+Gary
