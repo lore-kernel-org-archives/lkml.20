@@ -1,57 +1,57 @@
 Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EABE4CC26A;
-	Fri,  9 Oct 2026 11:43:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 084964D1797;
+	Fri,  9 Oct 2026 11:43:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791546199; cv=none; b=jlpBtsaCvlikRoC4STA14H/MlWBR1WhXVk6ahYBCuZzHXTUzN9k+LL3xbbDk0cV3dWSaFg1psql1udHSGQFDWzVHpAQ5J7eYn6l7ZM3bG+qXj2xKWi/ygAPZxr2EctFTpHdMWFC8P+LxXZ4xvOmnjB0bXvQXWsQBL0dJXefW+o0=
+	t=1791546202; cv=none; b=I9jbWR2Uo5x43qOzradmrep/ym9o8F6h/u/R/6KBs8u04aJb6WDA7ByS/eM2SJe69CDZny4ON6NfqyRrKPDkpg4t4KuUYTwpSiga89GLH54NslpNcY6N0cV9atwKWAMBYnk5T5jyeTJoGAbtPy2IePpgNyr/G9qsXSSsP7i8aVI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791546199; c=relaxed/simple;
-	bh=JC1CK88ePsM9OS+thuff0gsNgpF9PgRizobi4TNPs+Y=;
+	s=arc-20240116; t=1791546202; c=relaxed/simple;
+	bh=stOag1eM2e3ktvWsD/UCDytefx6z1v8t3vr8OyEpI0c=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=T73Az3YWZNWg7XCU5PPYfW4K/797MsWxzBDlR7JAA1TbL7adkP+xDsPeXHRvkH3m21/+vWZ4WmG/qV0HbDKzojuj01gKVe/0vmqHAJ6GpWaWuD1HsvqycP7JFK8atcTVDf6uWpfye1ur9C112YsY5KqCnlcEJDXtla7W9OCfyOw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=LduWsnNh; arc=none smtp.client-ip=148.163.156.1
+	 MIME-Version; b=YGJC6Q92AIFnMnHmTo7Lk2vtRoOtRNDQHWhDq9uZiVnJYRZ/UyE3sl0epWtgtQIkhmU4lwJYiBR1pWqYl2bOsZeazqoZz4SbsExitwfKfoc8vh35HBB7NnBp5v7nwUxzbZ/IoZyKjg/6UMg4LUkoPh97a9X0BZegpwChDaXgb+M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=bBnQTjo/; arc=none smtp.client-ip=148.163.156.1
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="LduWsnNh"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6998ZTg02007509;
-	Fri, 9 Oct 2026 11:43:02 GMT
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="bBnQTjo/"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6998ZaRD3773968;
+	Fri, 9 Oct 2026 11:43:06 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
 	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=t8L5yX5WuFLQN2SG/
-	Jg8rDZt8k/Wc5W5GaluxLJrQeo=; b=LduWsnNhZPEZSjc0QBYeh7REkDRQa1U7v
-	dLcyJ4+GplIgp7ytkqPBVmrejtHh3cusObbZIYBqQz/8Wf6KellRzgR/NYNLF46c
-	4jJRIT4NFu2aDiEmoKz2fMlm/Gd92QLqAPQOaWupdahJSztXfsj0BzpW1yrAdM2U
-	Y+ZqiR2Doxn7gTJpbQHAoKFIL39MTZK11N9WOQHayr5dmxTk8zgc7wUp4atTJtTX
-	trab0Hq5Hgewx4THldC/CU0oVMF5lAzFqmd1FyBM3M63TLBSOKGHRFO2vMO8Xqyb
-	JJMJt4DXG2fWtfrBtlXGWyokYL/QrgzprVTgqMAD3eZo6GpVE/1nA==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h5xjwae76-1
+	:mime-version:references:subject:to; s=pp1; bh=vmigop82pP2ICkkpL
+	x/1phcp7fszWB85DwuBAtpEFTM=; b=bBnQTjo/GlaALBKIU6ATqDABDhaVRlmpR
+	ugLqE5IA9lIZJMN52Me1T+ABEy//ApFXaJoGT7rUany5fRENDIcb6mAzjdJ0ByaP
+	1wqw8AppQEHw01znmN523gehgBsuYWZ77cXv/FnJnFj+yAwk7TLk2ktNS6AIFfVw
+	aSP19BMMWe95SVH+OKDtd6roJkVc5/9YP8v4umMAJmN3F51GAPNJnOQgs0bYCm57
+	OrOTMhMrL6pc2/Hq5pGgLnDKFUEeSeI6RdMgEeBloy1oAsn4G62OiUdlFXVkZw3/
+	UFYVh9rVt+EhzdnvJXDfE4TbbJDet6xettxHqeR075Lm49WCBTZeg==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h5xjvjckr-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 09 Oct 2026 11:43:02 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6998I3sA621423;
-	Fri, 9 Oct 2026 11:43:01 GMT
-Received: from smtprelay05.wdc07v.mail.ibm.com ([172.16.1.72])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h6hsnjtnj-1
+	Fri, 09 Oct 2026 11:43:05 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6998I0Jw578908;
+	Fri, 9 Oct 2026 11:43:05 GMT
+Received: from smtprelay02.dal12v.mail.ibm.com ([172.16.1.4])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h6v76rrm5-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 09 Oct 2026 11:43:01 +0000 (GMT)
+	Fri, 09 Oct 2026 11:43:05 +0000 (GMT)
 Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com [10.39.53.231])
-	by smtprelay05.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 699Bh0kS25756172
+	by smtprelay02.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 699Bh3J510551970
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 9 Oct 2026 11:43:00 GMT
+	Fri, 9 Oct 2026 11:43:04 GMT
 Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id EC4F258050;
-	Fri,  9 Oct 2026 11:42:59 +0000 (GMT)
+	by IMSVA (Postfix) with ESMTP id ABC3D58056;
+	Fri,  9 Oct 2026 11:43:03 +0000 (GMT)
 Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 4634B58054;
-	Fri,  9 Oct 2026 11:42:58 +0000 (GMT)
+	by IMSVA (Postfix) with ESMTP id 031AF58045;
+	Fri,  9 Oct 2026 11:43:02 +0000 (GMT)
 Received: from li-4c4c4544-004d-4810-8043-b7c04f423534.ibm.com.com (unknown [9.61.159.45])
 	by smtpav04.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Fri,  9 Oct 2026 11:42:58 +0000 (GMT)
+	Fri,  9 Oct 2026 11:43:01 +0000 (GMT)
 From: Anthony Krowiak <akrowiak@linux.ibm.com>
 To: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
         kvm@vger.kernel.org
@@ -60,9 +60,9 @@ Cc: jjherne@linux.ibm.com, borntraeger@de.ibm.com, mjrosato@linux.ibm.com,
         fiuczy@linux.ibm.com, pbonzini@redhat.com, frankja@linux.ibm.com,
         imbrenda@linux.ibm.com, agordeev@linux.ibm.com, hca@linux.ibm.com,
         gor@linux.ibm.com
-Subject: [PATCH v8 07/15] s390/vfio-ap: File ops called to save the vfio device migration state
-Date: Fri,  9 Oct 2026 07:42:36 -0400
-Message-ID: <20261009114244.1213173-8-akrowiak@linux.ibm.com>
+Subject: [PATCH v8 09/15] s390/vfio-ap: Prepare lock helpers and matrix init for cross-file use
+Date: Fri,  9 Oct 2026 07:42:38 -0400
+Message-ID: <20261009114244.1213173-10-akrowiak@linux.ibm.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261009114244.1213173-1-akrowiak@linux.ibm.com>
 References: <20261009114244.1213173-1-akrowiak@linux.ibm.com>
@@ -74,357 +74,183 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: EOlP3LIVqXYBUi7tER4sGWRc8D3iaWOE
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDA0NiBTYWx0ZWRfX3n5QEt+vvzqi
- /m2Jwdq5Z6iPYzNlfmU+1uxD5Y/usz3KeZRlqmdtZp/l1IzBdPjPzwoAhpG4XrJ0J3lAkjDbuif
- UCvekTV+cpR53YnIKXR/8Pc1w+HHSLJVqUUwmEqrxqxk/AG/3KY7pcFMBkY2ofiy9BM7F8rOYYH
- nvVKrTp/k27KFJnp93ZlbWsNW/SNYzhygmIFa6i+7wZ3srTWOVkYUA+75kzi+IYLm+1WhgjZhTh
- QrSflbchZ2UNbVjIyLG1dbBv5J6bGWi7a5UkXmviXovMK7eYSTH7NC8eK3LtR0GrnxRWwsyIsY1
- TCDc/1JSsTiIfweO6pvVVl7huM5igEj8+IOtyJo8hzZDeA97McNCM0nuz5l7vHSBzT5YMo92tAQ
- LqMkTVXofGrTVVFyoozBryz4qYAox9eVNALCpCcaYw3S+SVddjny8eLnnvrWF1kDOydBoCTW5NJ
- 5LJaX9sxqsfF+WzAAJQ==
-X-Authority-Analysis: v=2.4 cv=cIt1IVeN c=1 sm=1 tr=0 ts=6ac8d346 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+X-Proofpoint-GUID: SuZcRJELSNkTVqeOsVatn9YPuBZ9ZD26
+X-Proofpoint-ORIG-GUID: SuZcRJELSNkTVqeOsVatn9YPuBZ9ZD26
+X-Authority-Analysis: v=2.4 cv=H8NOUOYi c=1 sm=1 tr=0 ts=6ac8d349 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
  a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8 a=ZWre1ubLZxLeUn0Ve90A:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDA0NiBTYWx0ZWRfX7sErzISp3Pc0
- Bt16/Q1/7EcdPExLxXf5x743pk0OsLPsd1COSns4w4T5lMRx1Ho8wLL19F7Y+AMMg0hDvyW+9H+
- O9NT+0URJmLJYCMLaD8c4eguJZD0aAI=
-X-Proofpoint-ORIG-GUID: EOlP3LIVqXYBUi7tER4sGWRc8D3iaWOE
+ a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8 a=fTSzii-f3gA6o6vWqDQA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDA0NiBTYWx0ZWRfX/1EhrZMNFbos
+ IWtWZM1/gv05VzoC+hL2+OpA1njx24fMqrGhF1K8KGb4lDnD1YguIgzyEiehiY5d2khWPYFIofC
+ /gfDnb5wQU5wrZAAIApLjHpEI5MIUnFCiXDazJgTd/2H6BbtgQ6wpVijt4CQJKY23ORKy/na8jt
+ qRlaL7qcrAfromAUj/J3OVbC1zRysWuBDeRzpCSEmtK74lmn1nkx5rpoZt/KrDsttwJ+cNYtZ9i
+ lq9pQunWGDSvGZ0wehfHDOziPZwN7JzWjmJb2hQGf8lMRLIHLU+qKyxiUpKoagQDBqjfw0KMPyj
+ 29EWHFhgnrGaXx1kuVZAiKwf1k3Ob/uLLY6TtQH8BZOrWUyOtW75N4+3wLxAyO9zwHKDvvlpWL3
+ QeXpTZ67NaNrY8kCIWfy2mR0b6vc3IXLlHp51wGqQE1iabHKLJYgpPMuNfxDHOfe02OIltdTdHv
+ xDr0MaMkKPKy5ROyTlg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDA0NiBTYWx0ZWRfX+UTFHTqw08SC
+ N3J12+vs0s6yJygwyiXVj7J+XHWuarHAU5NbMd3J4MwnY1T80MhBTCQq5sKlUay1ZPJZmdgXPfs
+ Uegz3beK9lYRN378ABwOLNg3H2kqn8c=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-09_03,2026-10-08_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 priorityscore=1501 adultscore=0 impostorscore=0
- lowpriorityscore=0 suspectscore=0 spamscore=0 phishscore=0 bulkscore=0
+ bulkscore=0 adultscore=0 phishscore=0 lowpriorityscore=0 impostorscore=0
+ clxscore=1015 spamscore=0 priorityscore=1501 malwarescore=0 suspectscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610090046
 
-Implements the read callback function that was added to the
-file_operations structure for the file created to save the state of the
-vfio-ap device when the migration state transitioned from STOP to
-to the STOP_COPY state.
+Move get_update_locks_for_mdev(), release_update_locks_for_mdev(),
+and assert_has_update_locks_for_mdev() from vfio_ap_ops.c into
+vfio_ap_private.h as static inline functions so they are accessible
+to vfio_ap_migration.c in subsequent patches.
 
-This function copies the guest's AP configuration information to
-userspace. The information copied is comprised of the APQN of each queue
-device passed through to the guest along with its hardware information.
-This state data will be transferred to the vfio_ap device driver on the
-destination host when the state is transitioned to RESUMING.
+Make vfio_ap_matrix_init() non-static and add its declaration to
+vfio_ap_private.h for the same reason.
+
+No functional change.
 
 Signed-off-by: Anthony Krowiak <akrowiak@linux.ibm.com>
 ---
- drivers/s390/crypto/vfio_ap_migration.c | 284 +++++++++++++++++++++++-
- 1 file changed, 274 insertions(+), 10 deletions(-)
+ drivers/s390/crypto/vfio_ap_ops.c     | 50 +----------------------
+ drivers/s390/crypto/vfio_ap_private.h | 58 +++++++++++++++++++++++++++
+ 2 files changed, 59 insertions(+), 49 deletions(-)
 
-diff --git a/drivers/s390/crypto/vfio_ap_migration.c b/drivers/s390/crypto/vfio_ap_migration.c
-index bbd007c06a77..0c43f25e2d9b 100644
---- a/drivers/s390/crypto/vfio_ap_migration.c
-+++ b/drivers/s390/crypto/vfio_ap_migration.c
-@@ -117,9 +117,10 @@ struct vfio_ap_config {
- static void
- vfio_ap_release_stop_copy_file(struct vfio_ap_migration_data *mig_data)
- {
--	/* Stub to be implemented when the mig_data->stop_copy_mig_file.ap_config
--	 * object is allocated.
--	 */
-+	kvfree(mig_data->stop_copy_mig_file.ap_config);
-+	mig_data->stop_copy_mig_file.ap_config = NULL;
-+	mig_data->stop_copy_mig_file.config_sz = 0;
-+	mig_data->stop_copy_mig_file.filp = NULL;
+diff --git a/drivers/s390/crypto/vfio_ap_ops.c b/drivers/s390/crypto/vfio_ap_ops.c
+index 3095e771b6a5..c951f289f305 100644
+--- a/drivers/s390/crypto/vfio_ap_ops.c
++++ b/drivers/s390/crypto/vfio_ap_ops.c
+@@ -88,53 +88,6 @@ static inline void release_update_locks_for_kvm(struct kvm *kvm)
+ 	mutex_unlock(&matrix_dev->guests_lock);
  }
  
- static void vfio_ap_release_resuming_file(struct vfio_ap_migration_data *mig_data)
-@@ -129,13 +130,6 @@ static void vfio_ap_release_resuming_file(struct vfio_ap_migration_data *mig_dat
- 	 */
- }
- 
--static ssize_t
--vfio_ap_stop_copy_read(struct file *, char __user *, size_t, loff_t *)
+-/**
+- * get_update_locks_for_mdev: Acquire the locks required to dynamically update a
+- *			      KVM guest's APCB in the proper order.
+- *
+- * @matrix_mdev: a pointer to a struct ap_matrix_mdev object containing the AP
+- *		 configuration data to use to update a KVM guest's APCB.
+- *
+- * The proper locking order is:
+- * 1. matrix_dev->guests_lock: required to use the KVM pointer to update a KVM
+- *			       guest's APCB.
+- * 2. matrix_mdev->kvm->lock:  required to update a guest's APCB
+- * 3. matrix_dev->mdevs_lock:  required to access data stored in a matrix_mdev
+- *
+- * Note: If @matrix_mdev is NULL or is not attached to a KVM guest, the KVM
+- *	 lock will not be taken.
+- */
+-static inline void get_update_locks_for_mdev(struct ap_matrix_mdev *matrix_mdev)
 -{
--	/* TODO */
--	return -EOPNOTSUPP;
+-	mutex_lock(&matrix_dev->guests_lock);
+-	if (matrix_mdev && matrix_mdev->kvm)
+-		mutex_lock(&matrix_mdev->kvm->lock);
+-	mutex_lock(&matrix_dev->mdevs_lock);
 -}
 -
- static int vfio_ap_release_mig_file(struct inode *file_inode, struct file *filp)
- {
- 	struct ap_matrix_mdev *matrix_mdev = filp->private_data;
-@@ -150,6 +144,276 @@ static int vfio_ap_release_mig_file(struct inode *file_inode, struct file *filp)
+-/**
+- * release_update_locks_for_mdev: Release the locks used to dynamically update a
+- *				  KVM guest's APCB in the proper order.
+- *
+- * @matrix_mdev: a pointer to a struct ap_matrix_mdev object containing the AP
+- *		 configuration data to use to update a KVM guest's APCB.
+- *
+- * The proper unlocking order is:
+- * 1. matrix_dev->mdevs_lock
+- * 2. matrix_mdev->kvm->lock
+- * 3. matrix_dev->guests_lock
+- *
+- * Note: If @matrix_mdev is NULL or is not attached to a KVM guest, the KVM
+- *	 lock will not be released.
+- */
+-static inline void release_update_locks_for_mdev(struct ap_matrix_mdev *matrix_mdev)
+-{
+-	mutex_unlock(&matrix_dev->mdevs_lock);
+-	if (matrix_mdev && matrix_mdev->kvm)
+-		mutex_unlock(&matrix_mdev->kvm->lock);
+-	mutex_unlock(&matrix_dev->guests_lock);
+-}
+-
+ /**
+  * get_update_locks_by_apqn: Find the mdev to which an APQN is assigned and
+  *			     acquire the locks required to update the APCB of
+@@ -649,8 +602,7 @@ static int handle_pqap(struct kvm_vcpu *vcpu)
  	return 0;
  }
  
+-static void vfio_ap_matrix_init(struct ap_config_info *info,
+-				struct ap_matrix *matrix)
++void vfio_ap_matrix_init(struct ap_config_info *info, struct ap_matrix *matrix)
+ {
+ 	matrix->apm_max = info->apxa ? info->na : 63;
+ 	matrix->aqm_max = info->apxa ? info->nd : 15;
+diff --git a/drivers/s390/crypto/vfio_ap_private.h b/drivers/s390/crypto/vfio_ap_private.h
+index 79cd378c30d8..9044ef4408c8 100644
+--- a/drivers/s390/crypto/vfio_ap_private.h
++++ b/drivers/s390/crypto/vfio_ap_private.h
+@@ -177,4 +177,62 @@ int vfio_ap_init_migration_data(struct ap_matrix_mdev *matrix_mdev);
+ void vfio_ap_release_migration_data(struct ap_matrix_mdev *matrix_mdev);
+ void vfio_ap_reset_migration_state(struct ap_matrix_mdev *matrix_mdev);
+ 
 +/**
-+ * validate_stop_copy_read_parms: Validate the input parameters to the
-+ *                                vfio_ap_stop_copy_read function
++ * get_update_locks_for_mdev: Acquire the locks required to dynamically update a
++ *			      KVM guest's APCB in the proper order.
 + *
-+ * @filp: Pointer to the file stream used to read the vfio-ap device state
-+ * @len:  The length of the data to be read
++ * @matrix_mdev: a pointer to a struct ap_matrix_mdev object containing the AP
++ *		 configuration data to use to update a KVM guest's APCB.
 + *
-+ * Verify the following:
-+ * - @filp private data is an ap_matrix_mdev instance
-+ * - @filp is the instance opened when state transitioned from STOP to STOP_COPY
-+ * - @filp->f_pos + @len does not cause integer overflow
++ * The proper locking order is:
++ * 1. matrix_dev->guests_lock: required to use the KVM pointer to update a KVM
++ *			       guest's APCB.
++ * 2. matrix_mdev->kvm->lock:  required to update a guest's APCB
++ * 3. matrix_dev->mdevs_lock:  required to access data stored in a matrix_mdev
 + *
-+ * Returns: 0 if the parameters pass validation; otherwise returns an error
++ * Note: If @matrix_mdev is NULL or is not attached to a KVM guest, the KVM
++ *	 lock will not be taken.
 + */
-+static int validate_stop_copy_read_parms(struct file *filp, size_t len)
++static inline void get_update_locks_for_mdev(struct ap_matrix_mdev *matrix_mdev)
 +{
-+	struct vfio_ap_migration_data *mig_data;
-+	struct ap_matrix_mdev *matrix_mdev;
-+	loff_t total_len;
-+
-+	lockdep_assert_held(&matrix_dev->mdevs_lock);
-+
-+	if (check_add_overflow((loff_t)len, filp->f_pos, &total_len))
-+		return -EIO;
-+
-+	/*
-+	 * matrix_mdev is guaranteed live here: vfio_ap_open_file_stream() took
-+	 * a vfio_device registration reference that is held until
-+	 * vfio_ap_release_mig_file() runs, so the embedding matrix_mdev cannot
-+	 * be freed while this file descriptor is open.
-+	 */
-+	matrix_mdev = filp->private_data;
-+
-+	if (!matrix_mdev->mig_data)
-+		return -ENODEV;
-+
-+	mig_data = matrix_mdev->mig_data;
-+
-+	if (mig_data->stop_copy_mig_file.filp != filp)
-+		return -EINVAL;
-+
-+	return 0;
-+}
-+
-+static size_t vfio_ap_config_size(struct ap_matrix_mdev *matrix_mdev,
-+				  int *num_queues)
-+{
-+	size_t qinfo_size;
-+
-+	lockdep_assert_held(&matrix_dev->mdevs_lock);
-+
-+	*num_queues = vfio_ap_mdev_get_num_queues(&matrix_mdev->shadow_apcb);
-+	qinfo_size = *num_queues * sizeof(struct vfio_ap_queue_info);
-+
-+	return qinfo_size + sizeof(struct vfio_ap_config);
-+}
-+
-+static int get_hardware_info_for_queue(const char *mdev_name,
-+				       struct ap_tapq_hwinfo *hwinfo,
-+				       unsigned long apqn)
-+{
-+	struct ap_queue_status status;
-+
-+	status = ap_tapq(apqn, hwinfo);
-+
-+	switch (status.response_code) {
-+	case AP_RESPONSE_NORMAL:
-+	case AP_RESPONSE_RESET_IN_PROGRESS:
-+	case AP_RESPONSE_DECONFIGURED:
-+	case AP_RESPONSE_CHECKSTOPPED:
-+	case AP_RESPONSE_BUSY:
-+		/* For all these RCs the tapq info should be available */
-+		return 0;
-+	case AP_RESPONSE_Q_NOT_AVAIL:
-+		pr_err_ratelimited("vfio_ap_mdev %s: Failed to get hwinfo for queue %02lx.%04lx: TAPQ rc=%d",
-+				   mdev_name, AP_QID_CARD(apqn), AP_QID_QUEUE(apqn),
-+				   status.response_code);
-+		return -ENODEV;
-+	default:
-+		/*
-+		 * Without a pending async error, the tapq info should be
-+		 * available
-+		 */
-+		if (status.async)
-+			return 0;
-+
-+		pr_err_ratelimited("vfio_ap_mdev %s:Failed to get hwinfo for queue %02lx.%04lx: TAPQ rc=%d",
-+				   mdev_name, AP_QID_CARD(apqn), AP_QID_QUEUE(apqn),
-+				   status.response_code);
-+		return -EIO;
-+	}
-+}
-+
-+/**
-+ * vfio_ap_store_queue_info:
-+ *
-+ * Stores the hardware information returned from the PQAP(TAPQ) command for each
-+ * queue device identified in the 'qinfo' field of the a vfio_ap_config
-+ * object. The APQNs in the 'qinfo' field must already have been snapshotted
-+ * prior to calling this function.
-+ *
-+ * @mdev_name:	The name (UUID) of the mediated device to use in log messages
-+ * @ap_config:	A reference to the vfio_ap_config instance in which to store
-+ *		the queue information. It is expected that each APQN identifying
-+ *		a queue device for which hardware information is to be retrieved
-+ *		shall be snapshotted prior to calling this function.
-+ *
-+ * Returns:	Zero (0) if the hardware information is retrieved for each queue
-+ *		device in the AP configuration; otherwise, returns an error.
-+ */
-+static int vfio_ap_store_queue_info(const char *mdev_name,
-+				    struct vfio_ap_config *ap_config)
-+{
-+	struct ap_tapq_hwinfo source_hwinfo;
-+	unsigned long num_queues;
-+	int ret;
-+
-+	for (num_queues = 0; num_queues < ap_config->num_queues; num_queues++) {
-+		ret = get_hardware_info_for_queue(mdev_name, &source_hwinfo,
-+						  ap_config->qinfo[num_queues].apqn);
-+		if (ret)
-+			return ret;
-+
-+		ap_config->qinfo[num_queues].data = source_hwinfo.value;
-+	}
-+
-+	return 0;
-+}
-+
-+static int vfio_ap_get_config(struct ap_matrix_mdev *matrix_mdev)
-+{
-+	struct vfio_ap_config *ap_configuration;
-+	unsigned long *apm, *aqm, apid, apqi;
-+	unsigned int num_queues;
-+	const char *mdev_name;
-+	size_t ap_config_size;
-+	int ret, qindex;
-+
-+	lockdep_assert_held(&matrix_dev->mdevs_lock);
-+
-+	ap_config_size = vfio_ap_config_size(matrix_mdev, (int *)&num_queues);
-+
-+	ap_configuration = kvzalloc(ap_config_size, GFP_KERNEL_ACCOUNT);
-+	if (!ap_configuration)
-+		return -ENOMEM;
-+
-+	ap_configuration->magic   = VFIO_AP_MIG_MAGIC;
-+	ap_configuration->version = VFIO_AP_MIG_VERSION;
-+
-+	/*
-+	 * num_queues must be set before writing qinfo[] elements; the
-+	 * __counted_by(num_queues) annotation on qinfo[] causes the compiler to
-+	 * insert bounds checks that evaluate against ap_configuration->num_queues.
-+	 * Writing through qinfo[i] with num_queues still 0 would trap.
-+	 */
-+	ap_configuration->num_queues = num_queues;
-+
-+	apm = matrix_mdev->shadow_apcb.apm;
-+	aqm = matrix_mdev->shadow_apcb.aqm;
-+	qindex = 0;
-+	for_each_set_bit_inv(apid, apm, AP_DEVICES) {
-+		for_each_set_bit_inv(apqi, aqm, AP_DOMAINS) {
-+			ap_configuration->qinfo[qindex].apqn =
-+				AP_MKQID(apid, apqi);
-+			qindex += 1;
-+		}
-+	}
-+	memcpy(ap_configuration->adm, matrix_mdev->shadow_apcb.adm,
-+	       sizeof(ap_configuration->adm));
-+	mdev_name = dev_name(matrix_mdev->vdev.dev);
-+
-+	ret = vfio_ap_store_queue_info(mdev_name, ap_configuration);
-+	if (ret) {
-+		kvfree(ap_configuration);
-+		return ret;
-+	}
-+
-+	matrix_mdev->mig_data->stop_copy_mig_file.ap_config = ap_configuration;
-+	matrix_mdev->mig_data->stop_copy_mig_file.config_sz = ap_config_size;
-+
-+	return 0;
-+}
-+
-+static ssize_t vfio_ap_stop_copy_read(struct file *filp, char __user *buf,
-+				      size_t len, loff_t *pos)
-+{
-+	struct vfio_ap_migration_file *mig_file;
-+	struct ap_matrix_mdev *matrix_mdev;
-+	loff_t read_pos;
-+	ssize_t ret;
-+
-+	/*
-+	 * This file was opened with stream_open(), so pos should be NULL for
-+	 * sequential read() calls; a non-NULL pointer will be passed only
-+	 * for positional pread() calls in which case we return an error
-+	 * indicating broken pipe/illegal seek on a non-seekable file
-+	 */
-+	if (pos)
-+		return -ESPIPE;
-+
++	mutex_lock(&matrix_dev->guests_lock);
++	if (matrix_mdev && matrix_mdev->kvm)
++		mutex_lock(&matrix_mdev->kvm->lock);
 +	mutex_lock(&matrix_dev->mdevs_lock);
-+
-+	pos = &filp->f_pos;
-+
-+	ret = validate_stop_copy_read_parms(filp, len);
-+	if (ret) {
-+		mutex_unlock(&matrix_dev->mdevs_lock);
-+		return ret;
-+	}
-+
-+	matrix_mdev = filp->private_data;
-+	mig_file = &matrix_mdev->mig_data->stop_copy_mig_file;
-+
-+	/*
-+	 * Lazy initialization: the migration config is generated on the first
-+	 * read() call. vfio_ap_open_file_stream() initializes ap_config to NULL
-+	 * and config_sz to 0. On first read, we generate the config by
-+	 * snapshotting the guest's APQNs from shadow_apcb and retrieving hardware
-+	 * info via TAPQ for each queue. The result is cached in mig_file->ap_config
-+	 * for subsequent read() calls. The config is freed when the migration FD
-+	 * is released (vfio_ap_release_mig_file -> vfio_ap_release_stop_copy_file).
-+	 */
-+	if (!mig_file->ap_config) {
-+		ret = vfio_ap_get_config(matrix_mdev);
-+		if (ret) {
-+			mutex_unlock(&matrix_dev->mdevs_lock);
-+			return ret;
-+		}
-+	}
-+
-+	/*
-+	 * Compute the offset and clamped length fully under the lock so that
-+	 * concurrent read()s on this stream file each see a consistent view of
-+	 * the current position.  *pos is advanced here while we still hold the
-+	 * lock; copy_to_user() then uses the snapshot read_pos.  This prevents
-+	 * two threads from calculating the same offset and both copying the
-+	 * same region (or one reading past the end of the buffer).
-+	 */
-+	if (*pos >= mig_file->config_sz) {
-+		mutex_unlock(&matrix_dev->mdevs_lock);
-+		return 0;
-+	}
-+
-+	len = min_t(size_t, mig_file->config_sz - *pos, len);
-+	if (len == 0) {
-+		mutex_unlock(&matrix_dev->mdevs_lock);
-+		return 0;
-+	}
-+
-+	read_pos = *pos;
-+	*pos += len;
-+
-+	/*
-+	 * Keep mdevs_lock held across copy_to_user() to prevent a concurrent
-+	 * vfio_ap_reset_migration_state() from freeing ap_config while we are
-+	 * reading it.  copy_to_user() may fault on a non-resident user page,
-+	 * but that is legal for a sleeping mutex.  The data transferred is at
-+	 * most a few KB for any realistic AP configuration, so holding the lock
-+	 * here is acceptable.
-+	 */
-+	if (copy_to_user(buf, (char *)mig_file->ap_config + read_pos, len)) {
-+		mutex_unlock(&matrix_dev->mdevs_lock);
-+		return -EFAULT;
-+	}
-+
-+	mutex_unlock(&matrix_dev->mdevs_lock);
-+
-+	return len;
 +}
 +
- static const struct file_operations vfio_ap_stop_copy_fops = {
- 	.owner = THIS_MODULE,
- 	.read = vfio_ap_stop_copy_read,
++/**
++ * release_update_locks_for_mdev: Release the locks used to dynamically update a
++ *				  KVM guest's APCB in the proper order.
++ *
++ * @matrix_mdev: a pointer to a struct ap_matrix_mdev object containing the AP
++ *		 configuration data to use to update a KVM guest's APCB.
++ *
++ * The proper unlocking order is:
++ * 1. matrix_dev->mdevs_lock
++ * 2. matrix_mdev->kvm->lock
++ * 3. matrix_dev->guests_lock
++ *
++ * Note: If @matrix_mdev is NULL or is not attached to a KVM guest, the KVM
++ *	 lock will not be released.
++ */
++static inline void release_update_locks_for_mdev(struct ap_matrix_mdev *matrix_mdev)
++{
++	mutex_unlock(&matrix_dev->mdevs_lock);
++	if (matrix_mdev && matrix_mdev->kvm)
++		mutex_unlock(&matrix_mdev->kvm->lock);
++	mutex_unlock(&matrix_dev->guests_lock);
++}
++
++static inline void
++assert_has_update_locks_for_mdev(struct ap_matrix_mdev *matrix_mdev)
++{
++	lockdep_assert_held(&matrix_dev->guests_lock);
++	if (matrix_mdev && matrix_mdev->kvm)
++		lockdep_assert_held(&matrix_mdev->kvm->lock);
++	lockdep_assert_held(&matrix_dev->mdevs_lock);
++}
++
++void vfio_ap_matrix_init(struct ap_config_info *info, struct ap_matrix *matrix);
++
+ #endif /* _VFIO_AP_PRIVATE_H_ */
 -- 
 2.53.0
 
