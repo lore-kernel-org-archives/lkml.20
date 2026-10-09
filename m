@@ -1,89 +1,110 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75168457E73;
-	Fri,  9 Oct 2026 10:18:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FC7243712D;
+	Fri,  9 Oct 2026 10:18:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791541088; cv=none; b=u8cPul5hRa0nGT1dkUPL+jpjeOJtSvu+hXe9foNGuYKaTV5q/whEBHh3WRXpBaJ5LMqk/1BfSgGNY9gqJtZRZGbMtAtf7BkbGz0x3+aKNIoPF1aowXJ9L5yfR6/TVonYoh3ALA5pszoTFKe4iHx6RWSBbKN6VUhIkq2u+UNWDkw=
+	t=1791541100; cv=none; b=in7cU4F0s9aw/k3/XWYTWtWpqNMSGzyGEDom/fLcKUNuu3dQnpfCxYgodHXWVu+dFRXFRlQ+oQI9E/57zPFnGq+u7cwY2QuOzriO7MHVog+LpmYaR1ZZxDLo8kcvxd6UR6dgwjJR7HzO5+tdu5YrRPiWezB9L6ix/Ze5a/dGw/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791541088; c=relaxed/simple;
-	bh=+DNKmuouHw3F2sUn7rERptXulQELLgYCH592z3UCDWQ=;
+	s=arc-20240116; t=1791541100; c=relaxed/simple;
+	bh=Abb6ExL+zdNLeWtkL/SrnN/NL/IFI90mg1+qHNwetUs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=erJhTaC72LtU990G8ZeBMmOTS69eCKyEfoaVgBAt8jRfl/7gAqS1MLDwtkOdB509Bgud8vVSy+F0tvx7PgUGkEr/Z1sKfElRHNS6fUbCkjwi4HTzP13EX8mzWp8+9ZIm8899Pg43j5DXSqYxaMIwdbcEPVOSvBCQ9y8Dgik459c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MIDk5/IU; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Bw6x6sP2tndr7frUWpaHDD39oSplC+uoPZ6CYkqDMUB4iX0dfBt8XHZdJMmLleVmKv9CzxOpys7HtepgvoAUDQtuZMLep2RtvmfOa+lnGtWSoMR3QfaNNgWuVdW2t1UG7IeZtybITOLkmsBLNBOFSGh/9jHES6VJT5wKPKcUWCA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J/Ulp1ki; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MIDk5/IU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AE501F000FF;
-	Fri,  9 Oct 2026 10:18:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J/Ulp1ki"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40FA51F000FF;
+	Fri,  9 Oct 2026 10:18:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791541087;
-	bh=2IK08WvoWJC1h6DlgEI7ITQrkIpsRhrwFymhPxbueT8=;
+	s=k20260515; t=1791541098;
+	bh=wxARsjGuquaiLxgSm18RK/GYX/5yHnqt2BOAs4KeGsQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MIDk5/IU6tP3YARpKWHfyeeG7ABschktkAyCEp43D1TgmMbNhOnbWuBEzKUe9lWMR
-	 /CeFpSIl8ufe90s/Wj6YSXA790NYrCVsD/XaiFPrAXIUoy5zv077JDbwfOGfBHnyE/
-	 sYHwIJ6/3zjaaO/jmSOCGbNfKnCqX4PMK8LZEGaoxVzmJ0SWiD3f9xAnAAu3gdQZsl
-	 rP020XSgCfBZJozzUCXHBjZlzD9pHyfe1LVKQZcyQU+wwfTu4KrSPWEs2Tv7/4Jpv5
-	 hsvQXwOCt7ynkBKCapGo5icvAj5mPENhu6iEZFYuyLRzhlSD6Chd9NXO7gQtP/ABb1
-	 3FJyzVLyxAj7A==
-Date: Fri, 9 Oct 2026 12:18:03 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Tim Kuo <Tim.Kuo@mediatek.com>
-Cc: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-mediatek@lists.infradead.org, Steven Liu <Steven.Liu@mediatek.com>, 
-	Sky Huang <Skylake.Huang@mediatek.com>, Sam Shih <Sam.Shih@mediatek.com>
-Subject: Re: [PATCH v3 1/2] spi: dt-bindings: mediatek,spi-mt65xx: add
- MT7987/MT7989 compatibles
-Message-ID: <20261009-tricky-fine-aardwolf-cca31a@quoll>
-References: <20261008085332.802898-1-Tim.Kuo@mediatek.com>
+	b=J/Ulp1kiU/fHLorufnUGZviVewHpZ4i2nh7ovjmbgtSVM9rKK3zfjolFAXlJiCoG/
+	 BMW5Ubh23ZkHDtz2gC3M7BH0DoQb7aWS09Fvb5ai3Tah7LXu0pj6waoAyV4+Ys7d5Z
+	 +iywIF9ht9ECEh7ry8yPogWZ87BGl4TKzbkbZrEJI5fQcCBS3ROhYfkTdcqveZDJbP
+	 aeEe9F9SdlEQjf4RfVxNp6TljhzSQkjK1V50hbw9FBfJgs2u42Zj9iTGwDxFCYK4CY
+	 7TdAyz5T7sPBsEmViOMRCDgegOg9M7rT99tg9OQAo14hJB5idOZRFpneZ6VooRc89y
+	 jEHJjjoVpql9w==
+Date: Fri, 9 Oct 2026 11:18:05 +0100
+From: Will Deacon <will@kernel.org>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>, iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org, Robin Murphy <robin.murphy@arm.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Jiri Pirko <jiri@resnulli.us>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Mostafa Saleh <smostafa@google.com>,
+	Petr Tesarik <ptesarik@suse.com>,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Xu Yilun <yilun.xu@linux.intel.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
+	linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+	x86@kernel.org
+Subject: Re: [PATCH v6 6/8] dma: swiotlb: Centralize memory-encryption pool
+ sizing
+Message-ID: <asi_XW2FaVjjWhxk@willie-the-truck>
+References: <20260924060756.1325156-7-aneesh.kumar@kernel.org>
+ <asVs3doaJ4WrT3M2@willie-the-truck>
+ <asYZFXGyafRjjBS0@arm.com>
+ <asYiOgskwi8JYLe_@willie-the-truck>
+ <yq5awlrt3dwo.fsf@kernel.org>
+ <yq5av77c92oo.fsf@kernel.org>
+ <aseRzPshcoys7AJS@arm.com>
+ <CGME20261008143238eucas1p1ee087352709f2a82d2aec95540ae2031@eucas1p1.samsung.com>
+ <yq5ao6d48dqr.fsf@kernel.org>
+ <c2e38455-cb31-4854-ab84-4a370fabc1f9@samsung.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261008085332.802898-1-Tim.Kuo@mediatek.com>
+In-Reply-To: <c2e38455-cb31-4854-ab84-4a370fabc1f9@samsung.com>
 
-On Thu, Oct 08, 2026 at 04:53:31PM +0800, Tim Kuo wrote:
-> The MT7987 and MT7989 SPI IPs are IPM designs, so they keep
-> "mediatek,spi-ipm" as their fallback compatible, but they widen the tick
-> delay field of SPI_CMD_REG and therefore need compatibles of their own.
+On Thu, Oct 08, 2026 at 05:32:44PM +0200, Marek Szyprowski wrote:
+> On 08.10.2026 16:32, Aneesh Kumar K.V wrote:
+> > Patch 3 is a fix, so you may want to take it even if we drop the rest of
+> > the series. Perhaps the first three patches could be taken together?
 > 
-> Signed-off-by: Tim Kuo <Tim.Kuo@mediatek.com>
-> ---
-> v2: Add mt7987 and mt7989 real device compatible
-> v3:
->  - Drop "mediatek,spi-ipm-v59" 
->  - Move compatible of mt7987 and mt7989 to group of spi-ipm fallback
-> 
->  Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml b/Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml
-> index 3bf3eb1f8728..63b23928c734 100644
-> --- a/Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml
-> +++ b/Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml
-> @@ -35,8 +35,10 @@ properties:
->            - enum:
->                - mediatek,mt7981-spi-ipm
->                - mediatek,mt7986-spi-ipm
-> +              - mediatek,mt7987-spi
->                - mediatek,mt7988-spi-quad
->                - mediatek,mt7988-spi-single
-> +              - mediatek,mt7989-spi
->                - mediatek,mt8188-spi-ipm
->            - const: mediatek,spi-ipm
+> Okay, I will take only the first 3 patches to dma-mapping-for-next branch now
+> and wait for the remaining patches until they gets sorted out.
 
-Nope. How is this a specific compatible?
+Thanks, Marek.
 
-Look at git or even read the REST of this file.
-
-Best regards,
-Krzysztof
-
+Will
