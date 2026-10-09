@@ -1,88 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95FE83A7F60;
-	Fri,  9 Oct 2026 16:58:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C562391E55
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 16:58:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791565116; cv=none; b=LcJQEihI4iZfWvYKdJLk+ML+vPIcjIdhbR3VgJ6Hjfznb8PRFemyM0ubc85CxX2eoViw6urPFZU9EPRuKExunBNlbB1NXJRBAVjmTmR5md4rqtf1jGz+soRDCqMGerc9d5CorpXfqHEpXYGSCFeh0JusdLFWGVnaHAZ8TfFRaDU=
+	t=1791565124; cv=none; b=HgOSxQ1lTYSNCTNPiVWQvQpNHb9jLS6qQhbulIxylaVgnEdD5Z3B8PRu4psweylD/xN479qRo/sUahQCx7zVWfcRV1g6kVkgw3lt0dPYOrrcMsz+bfLf9pIZqYeDClKBfK45cUop55HstqJrvnAp0c611s6Sd1DuLULYYPh7QD8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791565116; c=relaxed/simple;
-	bh=vZUUCPkR42j2Q6m7d0wSJzBAnLa4QHv12WhFAYBChmA=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=eVIXoUskSJEOMDLFsdgjxcBo1QRoyRFZ66yteRFKk0Ze+DeNy9R0fjg246q9dPRKRob0baf+KEnVONXCo70gVnUzwfwmBAWAbqdgfD/8D2MxUjLCgkw6wB5fyr12njPYBtJingTLUNI88W/9ETgDhFSL0M/rZew3rgEooCgW+Ns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BVoXvf4K; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791565124; c=relaxed/simple;
+	bh=buZ6qltwC1ejIwyTNn15zGgc6lh0GpPbL07r50E9di0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=K/q3dIbRRetmKJD2ZtZR41hfGiEBM3OylNkGVzK4qeys2oER+oKoLXRfz7w6wcgKjrMmJDs9AUfd44Sqoi7oRJ5P+h0TSBcp2eG1rVgI7WbU4RENKwjv5rDT/Vd7pBR6iYS8QQuyFMoRPVNPpiPehxF7T/tCwkKeRc7DN+5WBf4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Blm4zhXr; arc=none smtp.client-ip=209.85.210.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BVoXvf4K"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D5901F00893;
-	Fri,  9 Oct 2026 16:58:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791565115;
-	bh=gWAZfmGtLpnZ15mtiy/59v4KdsbXL8BjzcebF5S/Icw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=BVoXvf4Koh6siMmZ7rbJRKVPCewM9nb5GQvZ3RKnJFbcEBh3H5TPZ+L0a/nJ/v8iC
-	 OYrZ5OBC1dlkR8yp1Wsoic0CxAThiApYK8FO57cuI856bCZBqPlStvusp3wZlbdnGq
-	 JfOhKReXHRZmdQyVPZ/3EN6bJGbdz0t7UPVL/aI5SuChJaElCJ+MAOVdofMn5oPHuG
-	 RsYKeuYF7w4oEamvEzKy7W1UlPFCsVZfJl+CLxbnXYvegy3O2UImHzMU0QTV4YHrbs
-	 5Mm+L1Q5InWEcnJMz9SR/ikI+jK8YPeslP2t/dGsVx7w9+cNkEnF9vQwg+wK20EYql
-	 VDcx2AXmStxUA==
-Date: Fri, 9 Oct 2026 11:58:33 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Pavel Popov <pavel.e.popov@intel.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Jim Chow <jim.chow@broadcom.com>,
-	Radu Rugina <radu.rugina@broadcom.com>,
-	Alexey Makhalov <alexey.makhalov@broadcom.com>,
-	Wei Liu <wei.liu@kernel.org>, Michael Kelley <mhklinux@outlook.com>,
-	Lukas Wunner <lukas@wunner.de>, Leon Romanovsky <leonro@nvidia.com>,
-	Nathan Ciobanu <nathan.d.ciobanu@linux.intel.com>,
-	bcm-kernel-feedback-list@broadcom.com,
-	virtualization@lists.linux.dev, linux-hyperv@vger.kernel.org,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] PCI/P2PDMA: Allow P2PDMA in VMware and Hyper-V
- guests on Intel hosts
-Message-ID: <20261009165833.GA991924@bhelgaas>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Blm4zhXr"
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-86b41d77a05so2071697b3a.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 09:58:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791565122; x=1792169922; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KlijA4wF7PV1etHWVzlP7RU50laOzEh5e/QgJFQcuts=;
+        b=Blm4zhXrRLyFimufOtIiYyCx7EOUslxZgUWXDFI1Qx+xQRs2ICjfR0TuTphkbFJ9AI
+         oXwHr7kMzzQ5sqbK6V6P5DBNHdxBasoZ61kwHUWtWPuqnwke6Ru+duelLiL59Udyb9xT
+         8W7sMAHi/ZaDL2Rj6hDSf6/8X81ijn+3PBgygzUhzD/0NNba2BqKBjEzygSTv/NQe7ZF
+         1Adum989tvGVwivkOLXNgaFWXRwWD3PVaGUXPwa5YUYg/dhoixNPDKnY5D/MwEVe44Oa
+         Oj+n1O8MLeMKMzPT7wdLZI8EHqeI9bzFkAF2aut21/abOfktl/qQ6pf7H/rUw4vZxImE
+         H0dg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791565122; x=1792169922;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KlijA4wF7PV1etHWVzlP7RU50laOzEh5e/QgJFQcuts=;
+        b=TLv3lsNZu09d+kQ3RtJsZv3TmPn5RpyU8dYSmXqvXXdwHnvxzKY4avFuU/DYCnxGHN
+         1jhDl0D7iCJP7390UCunrvEFuQSlqZ1ixro2YBXw7beb7EcZPTCJh4wTHNLnihnrFhKV
+         8fB3tIRJShnQrP2+Vh6V4JCgHHogJEvUguRYqpm69h5+G1a5W5EwEMxMqomn0dPmxnEW
+         184gEA6Rt5nyfkaVGfGbWeMHqgoNgBO+LGWGL9haGItZXK8GPhrYUk5j75S2NNtzJR+0
+         abA8td5RxM4WOtNv5cYyR/3kB9SnXp8785gY1NlZGtwgT3YKQjOJZqOU2nBTcL6OUN3n
+         U53g==
+X-Forwarded-Encrypted: i=1; AKwUvBxlqAnKskvLRoeuVR7i+sEutC7iBTBAOKaa7fRkzeqbaTa1AqNzKmRVj2XHj88cX28L7300mTmgvTL9H70=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJpsWIgs6pB3ilgUpgldHQDXtyWBUFhCEatrpVUhopadXJd0ju6
+	KgRGmcFAkFin50A2j8GZYp2WOj7E/Za8eauK6aRlBh3yobvI82y+LeHM
+X-Gm-Gg: AYBFou0G6oe9yFbLvBF9ZCFDUfyljeubVuq3tiKdmKIT7gqotHQBF680Pcw0B4NGUnY
+	WN92fO9SoNL7Ni1mFks7gkFtNVKMKW0MAoPcVaQbVCui3eQ5bsYwVhOMiygVEKwM4T6qGxyJqR5
+	Mtu1N4ryMkrZIivMPp9adobSow3oMjlQYC4/o2n2ILrJ/DOUfHSQsp29dsQA1HBkatLa2nhGHjO
+	yysz2RjhjFwZAsO1ash2QPuLMhApKzsYUAwDsIURP5gbxaqEGxKqu2hHpezEMtW21n2ZeCWLdaM
+	LGlFSyY/1mkeg3JEoUAYEAf1Bgg7/p0T8MVyaiaaVuoQi0P7hCVW3RGMU1iXiptVOcCeiv9+GJ3
+	aAKZep4egDYO4qZo7udsfV+n5mmp2QaTOuZdHQhBagjmQuwSjmWErRZVGdv5By8oVi1YTIdomZF
+	qOMGI1jiXpY9GUsuy8ETv/fpizBebSkzbiygVm9E/fmlKrMEip+tGYFZtp1om1+CtXjqdR0tToa
+	v/7tEzMEfrY/AKJTn9noj0E3w==
+X-Received: by 2002:a05:6a00:2e86:b0:874:705d:f65d with SMTP id d2e1a72fcca58-897c6e18d04mr2218928b3a.43.1791565122176;
+        Fri, 09 Oct 2026 09:58:42 -0700 (PDT)
+Received: from d.home.yangfl.dn42 ([2a09:bac5:661c:1246::1d2:d1])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c37de994sm1494437b3a.26.2026.10.09.09.58.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 09:58:40 -0700 (PDT)
+From: David Yang <mmyangfl@gmail.com>
+To: netdev@vger.kernel.org
+Cc: David Yang <mmyangfl@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v3 0/4] net: dsa: motorcomm: TC offload follow-ups
+Date: Sat, 10 Oct 2026 00:58:18 +0800
+Message-ID: <20261009165825.359259-1-mmyangfl@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261009154034.82321-1-pavel.e.popov@intel.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 09, 2026 at 08:40:32AM -0700, Pavel Popov wrote:
-> VMware and Hyper-V expose passthrough devices to guest VMs without an
-> explicit host bridge device. Consequently, host_bridge_whitelist()
-> cannot automatically identify the underlying host bridge structure,
-> causing Peer-to-Peer DMA (P2PDMA) requests to be rejected unless the
-> device IDs are explicitly listed in pci_p2pdma_whitelist[]. To enable
-> P2PDMA support in virtualized environments on Intel hosts, this series
-> introduces hypervisor_supports_p2pdma().
-> 
-> Although alternative P2PDMA mechanisms are in development [1], their
-> adoption timeline in hypervisors remains uncertain. This solution
-> addresses the immediate need to support both new and existing
-> hypervisor deployments.
-> 
-> The patches are organized by hypervisor for clarity. While the primary
-> focus is VMware, a corresponding Hyper-V patch addresses the same
-> pattern and is included for maintainer consideration.
-> 
-> [1] https://lore.kernel.org/r/20260812-hmat-p2p-v1-0-75ac41380585@nvidia.com
-> 
-> Pavel Popov (2):
->   PCI/P2PDMA: Allow P2PDMA in VMware guests on Intel hosts
->   PCI/P2PDMA: Allow P2PDMA in Hyper-V guests on Intel hosts
-> 
->  drivers/pci/p2pdma.c | 21 +++++++++++++++++++++
->  1 file changed, 21 insertions(+)
+This series continues the traffic control work on the Motorcomm YT9215S
+DSA driver: it reorganizes the offload code and then adds ACL enablement
+on demand and flower priority mapping.
 
-Applied with the #ifdef tweak Logan suggested to pci/p2pdma for v7.4,
-thanks!
+v3:
+  - rebase
+  - reword commit messages and comments
+  - fix cleanup path in acl_add()
+v2: https://lore.kernel.org/r/20261001204851.2576101-1-mmyangfl@gmail.com
+  - move type casting helper into chip.h
+  - remove flow statistics and broadcast/multicast policers
+v1: https://lore.kernel.org/r/20260926211813.935723-1-mmyangfl@gmail.com
 
-FWIW, it's better if responses like Jim's Reviewed-by actually appear
-on the mailing list.  I don't see anything in lore, so I assume it
-must have been private review.
+David Yang (4):
+  net: dsa: motorcomm: Split TC module
+  net: dsa: motorcomm: Use NSEC_PER_SEC
+  net: dsa: motorcomm: Enable ACL on demand
+  net: dsa: motorcomm: Add TC prio support
+
+ drivers/net/dsa/motorcomm/Makefile |    1 +
+ drivers/net/dsa/motorcomm/chip.c   | 1662 ++--------------------------
+ drivers/net/dsa/motorcomm/chip.h   |  352 +-----
+ drivers/net/dsa/motorcomm/tc.c     | 1583 ++++++++++++++++++++++++++
+ drivers/net/dsa/motorcomm/tc.h     |  381 +++++++
+ 5 files changed, 2059 insertions(+), 1920 deletions(-)
+ create mode 100644 drivers/net/dsa/motorcomm/tc.c
+ create mode 100644 drivers/net/dsa/motorcomm/tc.h
+
+-- 
+2.53.0
+
