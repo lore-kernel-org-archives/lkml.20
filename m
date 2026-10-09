@@ -1,136 +1,129 @@
-Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7594A3DE452
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 23:28:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A7313EB0F0
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 23:29:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791588537; cv=none; b=EwJsvVcXWTxiyZTKiwsNcFp8kIKKwdSm+7b8JN7dEnoCoZrGrO4EqL0+sbEtv9rx2//4F+b+Jr/Zt2yduZ0gkgCuGrKM8tO5D3NWnphaxnGFowN+eJ1g2hxr5YaXLGqkppvaOIZzhhGYLJXVyJzkUFdqVITI/lFRCAnCRzWQgl0=
+	t=1791588542; cv=none; b=VeGRA7oyXMeG/+WupuVIdR6qHX4fvu2C402eu9q78wns2df9zzJy6nI5R9YG+Gt8WdBBO/0qaQjUjH3uUQftaSTAucqc17pCQ6u9WZoZucXRYysYfvNb+i0lTtiJuLiHY1tsD/LWtQWkwpsOwvDNA9OWKLUvaq+YogwqvdAfObc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791588537; c=relaxed/simple;
-	bh=3p5XqxeYR4CnRWjEkfitWmRDeFwIoCUnBHgm/AzDALk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iU7Uv7Wq4Goypl3RCR7zrgCeYy9qjiaGS5Rz8lXTKMegoFPFfSQQRu7kkvhyz+CybzxabAckmkpICekvHjbAf/lweXcMshzTzKTD+1AGreucHstbfU5mfoarDWTM2RUkpEenOkflZXeUgFg+UyHOG/XVDrVPRv75iifLsHAJAdQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=ih4qwODr; arc=none smtp.client-ip=209.85.219.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	s=arc-20240116; t=1791588542; c=relaxed/simple;
+	bh=mLqMNkEfqZixT18rfTh2xaYltQQWNBAMspvKIAef3Ec=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=J6li+NIh2Gppq0q61DKkuHr4XQe2jK6/r9wTC1S8np7+PAJerRCl/uzJ/RZpQ4wA2NisLBA+MU/K6n8E9f/n3QTT47p84H634CyZn+bBenf5Dy4GqxkQ/HPVSSjDrbKAYnxtMLvvgLgQBWM0Y0f5wXHluMxL+GR83oXdSpgvH0k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FbvQNKkX; arc=none smtp.client-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="ih4qwODr"
-Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-917866225aaso4575606d6.1
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 16:28:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FbvQNKkX"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3ab2cb8d577so129855a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 16:29:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1791588535; x=1792193335; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=i8fGiA3xoaDWPU6XKjh9IcWOAynrlR15W4KHQ08CPA0=;
-        b=ih4qwODrnvCH2f+Gc10APFAT/TSdW1gD3TOiiyrYhoxJIyC0o+X+be7weMOMGX6Lye
-         dgQzaI+GcB8/xQPR+8OPYqWZz7BcYHOMPdF44dFY/tIA0mmw0c50NHdG2i/Ev82MlvYg
-         DH9zdRGUwi5r7V1tvIAFkluekYD7yPAWQlE6MRO9dz0WKVzPVE8LramMzIhGxekL1/cw
-         EdjjMDD2jYotwjTfL9LszMZJDqfqPd1Qq9aqj+6IG77NWpAPWXLu1ympjbrJB5NiZ9Wb
-         smZeHXua4b5Lb77QwGo1adsWY81qMcsN0PeDyLbMItvCz1JrMG1SviMVpuyuk2WRNb4R
-         qAOg==
+        d=gmail.com; s=20251104; t=1791588541; x=1792193341; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oSlxszekxGveYsrL4DF7hT5F5fsZN6SpIJIkMN18hKw=;
+        b=FbvQNKkXzmSYmPwgz0nfBH7l6Vyijn9rPhhHkYSzxwVScyRSFB67Au61e2aIvNKFAe
+         4AM1IBYQQXOkAaqHENleI8isR2UfqesEwBt5qRikP0WNcU8ePVpPgBWvrGSczB96MhWO
+         qEgwt4UWL2O+GYLoR6w0B4xOpjTQH38nX879KSlvzZ4/Y8y/b8JMWRyL1RZfGv+3AbZe
+         lxKaKHfK+MdN9VQOuGqlbovSGoXEfvv+VCTXT8AUCZToPdU6duzPEncECfYTMhtDCsAO
+         4G75B9Dd0aQT+VTn0vocnmEFZutL3i5N11vFih2NBogDFH+LKVaUUxTvmH10WYFAWAgE
+         bt8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791588535; x=1792193335;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=i8fGiA3xoaDWPU6XKjh9IcWOAynrlR15W4KHQ08CPA0=;
-        b=rFYI+y5vmrzwNKWLxmqX1l7u9rYOQjOWs7ZI3+YsK0CTHM3jC0ScD25LpucLwArvnm
-         grlsNWc/DULw+3rM36r5EtHzbYqcqRLzG0L7pSuoDSQwcNdKzPMsdyj40j2L/+HeDb/S
-         qoZjWSf02o4aMvhm8L84gWJnG2a5m+pxlAR6JhCxSN5/2Roi5vdmPs5HK9cqUUcrbT52
-         ZLZbuhRtOE+Gxs1Hn0dqOSZyC+P+JWf0chAQpLACyFftudgbBTXUvDMyfws/2Eaz+uGe
-         94Chdk/nTwLCPy2qCn3G15jdWLrTvMFrufHgqUcupwc4ZcT/dF7EOHeRva60/t12nWw0
-         8caQ==
-X-Forwarded-Encrypted: i=1; AKwUvByKk81nWZbefkJLbopMmIS6cQoYWtP8G6psMzYN0H/bc8zgRLGafhzmIZ5Mq+gc1hirjKSvtcG73z/KJlA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI3qwAa2+LraNRX4nr+9Owok4gPx7SVnF3plSTXEXSeHbLH7Ktc
-	bq+hxF1Sdgiw3Q33nvB+QP704lkIrAwDxNvhBJQp0k97NVId9DiKGZcuyCWqJQEfU5s=
-X-Gm-Gg: AYBFou1AzFqeuD4grF5sKYmzw2WGdh9ZeeuwXn6beNw21AzOhBrVDBG6qFtGh3B5PDI
-	TtGPd1MF59aqmOtfkSSxlcBloYHYychra4PnvyDsHECVDqwK6jbXCPGeOoRbMNZ8HQOijogEfxb
-	vVVTNGAz69169Tzt1eXMEN10NfdnKmoqr7kUA/cDvoaMldrSxGh30axX81ma4gcMmcY9E4NFXKd
-	3qpg0Dkux+uCB6/Adc3uMyhJpomWiCj1Grp9Wovo8gUGkrjutuW+6j5jQa3O6rqXGvdCPBI4U6e
-	7KBCS/SKD0i7Nbov51y2NpHiDHED8PBLQ+hHSflS0S39lFiCpQ7FlUYcTcFSGP7ayG0yioT98hC
-	A55Nmd/JA53ZOuYUkCQMNTqPRbAWuBCrfLrx7yzfyHMilg9y7BMQ6RYpvctJFNsq3m1dz2J1XF0
-	i1famEZbvSvgZRbcwpkO/UlY8MjQTlEXC/wkZnFoQ7Xne08tCptdQ4/4/w+FSCLXw6z22o/FnH9
-	VYd4rp4afzRmDJk7SuLht7RtejoXbmtVf4D4GGKTLWtMcuKcSHxoHY=
-X-Received: by 2002:a05:620a:1a1c:b0:93b:d7a0:d9e4 with SMTP id af79cd13be357-93ebd263d45mr580212785a.62.1791588535148;
-        Fri, 09 Oct 2026 16:28:55 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb984889fsm301000185a.13.2026.10.09.16.28.54
+        d=1e100.net; s=20260707; t=1791588541; x=1792193341;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oSlxszekxGveYsrL4DF7hT5F5fsZN6SpIJIkMN18hKw=;
+        b=mJvoM2c8yajQAVtZPinDCMAjnDCqs875vEV7PX5v6o+U4qdBAy7oXGHMJQnBiDx1yk
+         Yr/gBE8NX1cMtt4qJvlIp/eSgdGYP7MunprJPYkBQ4KcgkGAbFu9BGsEekHscoSF5BJt
+         g9Mf7c2uzeP5MLW5Hus2sPvkICBdXRMceTSsJuOk5ArY6AZEeZP0vL04LYqXw49gOtPD
+         QU95v8Iu4jAwYvZPrMjPWFi6oqmzbxQd4VyH2izvNsJe+6FQ8ayYWwbRhq7WBDyiyMOn
+         3A/gif2b4ayDGsI3/sbzsgKzB7vayeFRsk5KqZZKHpSEATzotCZJliTnWHlxKn2qGYo6
+         X82Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxGJsIxfznSuALUi+mNBNUPg6ffiUFX/GoznoimoWD835pvsFfxGTxdPhmagXCEab5kb7CoNHYERqs5nSI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIEe7wOHgSF4VRvOBeySyzO1xoH+56RDu1bIN/0yn73zKhe6eKC
+	E67BQMVEmSZEWhFOcsGUyYw8/CFtbMT47et6DxweSL03QAAlbl9QSGgK
+X-Gm-Gg: AYBFou10Fw+psLjWeboV2T09EfU1kqCdEBp7qapI5UvxTLqQhIKDfEaqnEMCxbKlLD2
+	yeC7hkEOFTukgQzvodqhOvQ3t2Yj7jNEUwLKFp4N+m1r/zxzjSqGeVXLOBK7FmUbY0HXNxfph56
+	ERcFYA2BNSp0mG5T7B6SOUeGVctDRSj55jtY6BM//6df0vMhEKqJWktAYaRTYgbOz7Qj+idIfZI
+	85yHobE4z1+CIzDLQTDA9rSCrpz9cK9XSCh0yHosw+S4odJZoYizLPLWd9Kr1sgXCgr76vQTmjw
+	qYfxSI+Ghmsty2kbHhWlwAzildfBSKwDO1EaBVRkp1rVmwu23wRcpdbQhxjInJ4Ohvle3C3JrrW
+	hSnJMn/FyvmPk+PQewLUE1wLOM/TFI8vBSiVX6HJJ26jKyFNpcWlvnbEaFyF7dWWd4eJQ5Ot39E
+	mAvt44sWve3IHX9/FW0UVEeuJ/sGcPbj2lj9HtvSwvAxdrO7+SGHlrJlm61V6uMcqrvygxycxoD
+	28QKX2wJtloKajq45Ed3ji/TsQR/P/fAogYknD0dF8l+ge0z8yxKg/NcsDFqtM1Yaj2/8Z+61Kr
+	Szhs4i2U25gFE1fujbZzn3xet3XIK1Nfrf3tfml9GaLXLhm0lxdSblk/+AE=
+X-Received: by 2002:a17:90b:2645:b0:3a8:10e2:ad08 with SMTP id 98e67ed59e1d1-3ab3ace48edmr3043646a91.48.1791588540601;
+        Fri, 09 Oct 2026 16:29:00 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e34])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab39533ee7sm3396362a91.4.2026.10.09.16.28.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 16:28:54 -0700 (PDT)
-Date: Fri, 9 Oct 2026 19:28:52 -0400
-From: Gregory Price <gourry@gourry.net>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: linux-mm@kvack.org, willy@infradead.org, vbabka@kernel.org, 
-	brendan.jackman@linux.dev, linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	kernel-team@meta.com, jack@suse.cz, akpm@linux-foundation.org, ziy@nvidia.com, 
-	joshua.hahnjy@gmail.com, rakie.kim@sk.com, ying.huang@linux.alibaba.com, 
-	surenb@google.com, mhocko@suse.com, hannes@cmpxchg.org
-Subject: Re: [RFC PATCH 0/6] mm: pass alloc_flags through folio, filemap, and
- bulk allocators
-Message-ID: <asloWFM96BATH8SB@gourry-fedora-PF4VCD3F>
-References: <20260923211041.3127588-1-gourry@gourry.net>
- <asdTptfeLkuypU8t@gourry-fedora-PF4VCD3F>
- <df588805-6f97-4ef6-a64f-39222669bf3a@kernel.org>
+        Fri, 09 Oct 2026 16:29:00 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-mips@vger.kernel.org
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	linux-kernel@vger.kernel.org (open list),
+	llvm@lists.linux.dev (open list:CLANG/LLVM BUILD SUPPORT:Keyword:\b(?i:clang|llvm)\b)
+Subject: [PATCH] MIPS: boot: compressed: place .rodata.* and discard .MIPS.abiflags
+Date: Fri,  9 Oct 2026 16:28:57 -0700
+Message-ID: <20261009232857.655265-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <df588805-6f97-4ef6-a64f-39222669bf3a@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 09, 2026 at 10:55:05PM +0200, David Hildenbrand (Arm) wrote:
-> I do agree that two sets of flags is suboptimal, but likely more flexible. I
-> guess an alloc_flags only interface is not easily possible ...
-> 
-> I do wonder whether it should be:
-> 
-> 	typedef int __bitwise alloc_flags_t;
-> 
-> instead of "unsigned int alloc_flags".
-> 
-> ... while at it
+The decompressor linker script only collects .rodata. Clang emits the
+decompressor's strings in .rodata.str1.1 and also produces a
+.MIPS.abiflags section. GNU ld places such orphans next to similar
+sections, but ld.lld puts them after .bss:
 
-Does it make sense to leave alloc_flags to internal-only state
-and just implement a new flag field?
+  [ 5] .bss            NOBITS   809246c0 5346b8 402010
+  [ 6] .MIPS.abiflags  ...      80d266d0 9366d0 000018
+  [ 7] .rodata.str1.1  PROGBITS 80d266e8 9366e8 000164
 
-gfp_t       -> describe the page (fully public)
-req_t       -> describe the allocator behavior (mm-internal only)
-alloc_flags -> internal allocator state only
+This pulls the 4 MB of .bss (mostly the boot heap) into the file and
+leaves the strings beyond _end. For BCM47XX vmlinuz grows from 5.4 MB
+to 9.6 MB.
 
-typedef int __bitwise pa_req_t; /* Page Allocator Request Flags */
+Collect .rodata.* with .rodata, and discard .MIPS.abiflags and
+.gnu.attributes as arch/mips/kernel/vmlinux.lds.S does.
 
-#define PA_REQ_DEFAULT        0
-#define PA_REQ_NOLOCK         BIT(0) /* from ALLOC_NOLOCK */
-#define PA_REQ_NO_CODETAG     BIT(1) /* from ALLOC_NO_CODETAG */
-#define PA_REQ_SPREAD_DIRTY   BIT(2) /* from __GFP_WRITE */
-#define PA_REQ_DEFER_INIT     BIT(3) /* from __GFP_SKIP_ZERO */
-#define PA_REQ_ZERO_TAGS      BIT(4) /* from __GFP_ZERO_TAGS */
-#define PA_REQ_NO_FALLBACK    BIT(5) /* select no fallback list */
-#define PA_REQ_NO_OOM         BIT(6) /* do not oom */
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ arch/mips/boot/compressed/ld.script | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Off the bat we recover 2 ALLOC flags and 3 GFP flags. Possibly more with
-a bit more work.
+diff --git a/arch/mips/boot/compressed/ld.script b/arch/mips/boot/compressed/ld.script
+index 0ebb667274d6..c45be18c6f0d 100644
+--- a/arch/mips/boot/compressed/ld.script
++++ b/arch/mips/boot/compressed/ld.script
+@@ -17,7 +17,7 @@ SECTIONS
+ 	/* . = VMLINUZ_LOAD_ADDRESS; */
+ 	.text : {
+ 		*(.text)
+-		*(.rodata)
++		*(.rodata .rodata.*)
+ 	}: text
+ 	/* End of text section */
+ 
+@@ -50,7 +50,9 @@ SECTIONS
+ 
+ 	/* Sections to be discarded */
+ 	/DISCARD/ : {
++		*(.MIPS.abiflags)
+ 		*(.MIPS.options)
++		*(.gnu.attributes)
+ 		*(.options)
+ 		*(.pdr)
+ 		*(.reginfo)
+-- 
+2.56.0
 
-Then we get:
-
-#define PA_REQ_PRIVATE        BIT(7) /* allow private node allocation */
-#define PA_REQ_UNMAPPED       BIT(8) /* page must be unmapped */
-
-And we might not even need a new zonelist for private nodes in this case
-as long as we require internal users to pass PA_REQ_PRIVATE and add a
-function like
-
-folio_alloc_private(void *owner, ...) {
-   /* validate (pgdat->owner == owner) before allowing allocation */
-   __folio_alloc(..., req | PA_REQ_PRIVATE | PA_REQ_NOFALLBACK, ...);
-}
-
-User still has the option to request NO_OOM via __GFP_THISNODE :]
-
-~Gregory
