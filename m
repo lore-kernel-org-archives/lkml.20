@@ -1,155 +1,141 @@
-Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AB4A2DF719;
-	Fri,  9 Oct 2026 09:08:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.223
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1300D392C2C;
+	Fri,  9 Oct 2026 09:09:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791536936; cv=none; b=OSENmdWGvZTZMP6nhas5GNv9Ip6CaKTBUgrIIg9DZJxJs0Kdmhhm8nvJV+bnsJu27nXtfRzmBJbF6ovSc4TVKK9nJas0dZJvIftF8cp/YFJ9BiwfBbdNg8A6OBk4/RXnlEDnAzbgczpbptq5bOsPjfB6x4WXM/ZZlM5IsmrH8No=
+	t=1791536947; cv=none; b=iEuARoBHqmoyNGEjWwTBmusHfpk5LO38gTIW83R2il9bBiMaetKOk4D6PXYLS6hXjAZVB6r5ctLAxmBa+1o5/hHhI96OdnC4U6kJqc5il4bThmgWLlOCra/7r5nNJ/X+wopwuRAMSqmjUZjVtxlzChHAA9XzO/mCzvp2BWoeeco=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791536936; c=relaxed/simple;
-	bh=vQdys6JN84qg0vz5KWOJgWvBl7/qJN+mWAbDcm8siIk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=gb2ubE1tbk3jQLXq9IRkHWy9kVGjEfBugOVwfAiY0wr+kD3IT5hUQF8TcO2YeA9mUgeG9ZfZHoKwsdKTKKA38lvLy8ph4EDKk/x0IidzS6JUCCVnTZPX1K3xJt3+rszrf6cs6FZtRJLO/Lif936CgZOjUdARvRU8rdpiHPazNwY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=h-partners.com; dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b=dfoshPIm; arc=none smtp.client-ip=113.46.200.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=h-partners.com
+	s=arc-20240116; t=1791536947; c=relaxed/simple;
+	bh=UssMmlpVtkPI5Wr6neO959SSjUtPHjWJdh77WyJr1rM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=hQlCCIu8fSEoh/D+3f3QuA0DDKCm/5y+HOCHQyi2FVq2x0jPLMPIztHhEcSxI3ywferF3bKL3Obboy6Ci6hmT67/KZAGkYwhzbzvs37OOAUJ36+dWK7AWqy/wTHmdWC8GL96c0ECDwUF29gOEL1gQZys9AQo9PzL+VT0LxitXrQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=DR8d+5vx; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b="dfoshPIm"
-dkim-signature: v=1; a=rsa-sha256; d=h-partners.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=spanpOD4ZJ9QlA2oL7DcTdTt5EE5NuZI/P6v2qXOSew=;
-	b=dfoshPImi0g9u9saXtSWtqZqWbh9XPf/vqWyoUF1U4HP0OyBag8RXs+op8hmHY9On1T7pDjvf
-	LzkC9WeGskN9xUAv4ZzkOnUfRf5G2bF5gnNtyauq326x+MCC6Gh2VosdR6IG82xW6ggmyYJpXxv
-	959YujpuO5llEPyBX+T49To=
-Received: from mail.maildlp.com (unknown [172.19.163.127])
-	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4j1LM100GVzmV8H;
-	Fri,  9 Oct 2026 16:56:28 +0800 (CST)
-Received: from kwepemp500007.china.huawei.com (unknown [7.202.195.151])
-	by mail.maildlp.com (Postfix) with ESMTPS id 6B12240561;
-	Fri,  9 Oct 2026 17:08:43 +0800 (CST)
-Received: from kwepemp500015.china.huawei.com (7.202.195.9) by
- kwepemp500007.china.huawei.com (7.202.195.151) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Fri, 9 Oct 2026 17:08:43 +0800
-Received: from [10.67.120.108] (10.67.120.108) by
- kwepemp500015.china.huawei.com (7.202.195.9) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Fri, 9 Oct 2026 17:08:33 +0800
-Message-ID: <51d44015-cbbf-ab69-47ed-0c9b397da203@huawei.com>
-Date: Fri, 9 Oct 2026 17:08:33 +0800
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="DR8d+5vx"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:In-Reply-To:References:
+	Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:
+	From:Reply-To:Content-ID:Content-Description;
+	bh=g1HSaSuXUDV17Nv/I4lWWspoQoSuGywUd6SpKuR4wJY=; b=DR8d+5vxo4pibCgG9MYD7Za0iA
+	dl3rsgfGikRa/6/+wx1NeHkfxmASPMW0JOE1csSYMP5XusjIZLeY7TqTgfD6/QpabeBr8bYKKB+79
+	53kA2n6cNi4axMbcz63OsCpNzpIf47gM19FI5/vngfsBI0Reqsbxrq2U/POOE1vSThpluyMCskNjw
+	GGaLm0Hm34PItlvPxupjSqQCIdkzFZ+lMYnNjF43FJtrDwtlhUcKpDGzF96OUoqEOOuc6AJ1SZWvS
+	+cF09Xgck70VgW/iYkF5kfPW573GpOfYAWS7X9/J1tunHzYcE0UkPQHcKq7ssRQCOp/X8IL/LPlFc
+	lKYZ2bTw==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xF6aq-000QDB-2h;
+	Fri, 09 Oct 2026 09:08:45 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Fri, 09 Oct 2026 01:53:35 -0700
+Subject: [PATCH net-next v2 1/7] ipv6: treat a negative optlen as 4 in
+ do_ipv6_getsockopt()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.1
-Subject: Re: [PATCH v3 0/4] scsi: hisi_sas: Some misc fixes
-Content-Language: en-CA
-To: <mkp@kernel.org>, <jejb@linux.ibm.com>, <john.garry@linux.dev>,
-	<yanaijie@huawei.com>
-CC: <linux-scsi@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linuxarm@huawei.com>, <liuyonglong@huawei.com>, <kangfenglong@huawei.com>
-References: <20261009033238.1076098-1-yangxingui@huawei.com>
-From: yangxingui <yangxingui@huawei.com>
-In-Reply-To: <20261009033238.1076098-1-yangxingui@huawei.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
- kwepemp500015.china.huawei.com (7.202.195.9)
+Message-Id: <20261009-sockopt_expand_out_v2-v2-1-8ac08c469ecb@debian.org>
+References: <20261009-sockopt_expand_out_v2-v2-0-8ac08c469ecb@debian.org>
+In-Reply-To: <20261009-sockopt_expand_out_v2-v2-0-8ac08c469ecb@debian.org>
+To: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+ Emil Tsalapatis <emil@etsalapatis.com>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, 
+ John Fastabend <john.fastabend@gmail.com>, 
+ Stanislav Fomichev <sdf@fomichev.me>, Shuah Khan <shuah@kernel.org>, 
+ Eric Dumazet <edumazet@kernel.org>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ bpf@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ david.laight.linux@gmail.com, Breno Leitao <leitao@debian.org>, 
+ kernel-team@meta.com
+X-Mailer: b4 0.16-dev-f8e9d
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2091; i=leitao@debian.org;
+ h=from:subject:message-id; bh=UssMmlpVtkPI5Wr6neO959SSjUtPHjWJdh77WyJr1rM=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBqyK8N7gbgS47YCjeeENEWvwqFa2drZykdowiQy
+ OFABDV6m7qJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCasivDQAKCRA1o5Of/Hh3
+ belREACXeK3CiefomWL2OShRO38fWPwn84Hz/Weo8k/9D3gq+0wzoVla8ADCW5W4kINgWSSIk4V
+ q8VCwaRIJFYkTwle4WMDNButYWbIsNveClRmw8XF4fYQYPr/L3OGSifR1J3m+HFARYDttt3sJFF
+ 8yU7d5lM5fFtBzAa5Jx2N2CildLktXg/SRbNueyz8Rf3Hdv7AKtDK+Xsjq53vZ83a8E+zKqNip2
+ lGRyIJvMji+/KfwXC8id2JthCzi3pKrx5mS9NoMAC2GSQlp/E63569z2jBLSmWDi9fDbki4aZsh
+ jttxLoveqUs8C/9VpcU/vFHfnyLpbgLZ//fMpVjqlR2TsGawWPEMnEyjhwJ9JsywjgMBb+rLpmH
+ w2xTA3haUoUhcoMVIlhEQEGwWmjidFpSRIDVbCjP9yh+5q+ViknEfQxILF9yJ+6jkn7zwaZrson
+ cMPH5cIIX/j+prFuD2Iz2BjrS++5J9JzkASeu/bToBB82BNM/FDrr3M0+VFnJ4c1Uoux5cBpLtl
+ k4gRr/j2qN21lQUZIe0m+uspRP5YbE93kNBq/WBfijq/qoyKsiaWE8QVcwTnoj6Zcdhj3CAMdCc
+ uh9pwGyKTzIAt6X0744fnummnRwynhhLUlS9EXFZeRoDvsqJkJcutQDybm+uy6jUXnln02oqP7o
+ GIhFlwdzR0waSMg==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
-Hi Martin, James,
+do_ipv6_getsockopt() reads optlen into an int and never checks its
+sign. Most of what consumes len compares it as unsigned, so a negative
+optlen reads as a huge buffer, and the reply depends on the option.
 
-We have gone through all of the Sashiko review comments on v2 and v3
-one by one.  Of the six v2 findings, two were fixed in v3 (clearing
-all five error counters and taking the runtime PM reference with
-pm_runtime_get_if_active()), and one was answered in the v3 commit
-message (the software counters are cumulative statistics and are not
-reset by design).  The rest are pre-existing issues, summarized below
-by trigger condition and impact:
+The int options clamp it to their own size:
 
-- The delays in the phy disable and host shutdown paths predate this
-   series.  The 50 ms wait for the PHY to go down is a hardware
-   requirement, and a poll-based rework is planned.
-- The pm8001 and mvsas response-IU findings are pre-existing issues
-   in those drivers.  The libsas patch leaves these cases unchanged
-   and strictly narrows the worst case, and fixing them is outside the
-   scope of this series.
-- The suspend flush-ordering window from the v2 review also predates
-   this series.
-- The suggested CHL_INT2 clear order would trade delayed reporting of
-   error counters for actual data loss.
-- The negative-return concern of pm_runtime_get_if_active() cannot be
-   triggered on this driver, and the suggested check would disable the
-   fix on !CONFIG_PM builds.
+	len = min_t(unsigned int, sizeof(int), len);
 
-In short, none of the remaining findings is a regression introduced
-by this series.
+so getsockopt(fd, SOL_IPV6, IPV6_TCLASS, buf, &len) with len set to -1
+answers 4 bytes and reports 4, rather than failing.
 
-One concern to raise: Sashiko reviews every posting from scratch, and
-its findings change from round to round.  Of the six v2 findings, one
-was re-raised in v3 and three were not raised again, while six new
-ones appeared (7 findings on all 4 patches for v3).  Iterating on its
-comments alone will not converge.
+The other options see a huge buffer. The sticky options reply with
+their whole header, IPV6_2292PKTOPTIONS writes every pending control
+message without a limit, and IPV6_PATHMTU and IPV6_FLOWLABEL_MGR pass
+their length check.
 
-Could you let us know whether this series is fine to be merged as is,
-and how you would prefer the pre-existing findings to be handled: in
-a follow-up series, or folded into this one?
+do_ip_getsockopt() rejects a negative optlen, but doing that here would
+turn a call that works today into an error for a caller that passes an
+uninitialized length. Answer it as 4, as the int options do, for every
+option.
 
-Thanks,
-Xingui
+That leaves the int options as they are. The sticky headers are cut to
+4 bytes, IPV6_2292PKTOPTIONS gets a 4 byte control buffer, and
+IPV6_PATHMTU and IPV6_FLOWLABEL_MGR fail with -EINVAL, as they do for
+any other undersized buffer.
 
-On 2026/10/9 11:32, Xingui Yang wrote:
-> This series contains three independent fixes for the hisi_sas driver,
-> plus a libsas fix found during review.
-> 
-> Patch 1 fixes an out-of-bounds memcpy in sas_ssp_task_response(): a
-> device-provided sense_data_len >= 0x80000000 turns negative in the
-> min_t(int, ...) clamp and becomes a huge memcpy length.
-> 
-> Patch 2 fixes incorrect delay values introduced by a previous
-> magic-number cleanup commit. Three delay sites were changed to use
-> a single macro (value 100) which did not match their original values,
-> causing increased boot and shutdown time.
-> 
-> Patch 3 clears stale PHY error counts on phyup so that error detection
-> is not misled by intermediate errors generated during link
-> establishment.
-> 
-> Patch 4 fixes spinup failures of directly-attached SAS HDDs that power
-> up in the Active_Wait state and wait for a NOTIFY(ENABLE SPINUP)
-> primitive before becoming ready: parse the sense data in the slot
-> completion path and send the primitive from deferred work.
-> 
-> Changes from v2:
-> Addresses the Sashiko AI review of v2.
-> - Clear all five error counter registers.
-> - Use pm_runtime_get_if_active().
-> 
-> Changes from v1:
-> Addresses the Sashiko AI review of v1.
-> - Add Patch 1, found in review of the sense parsing of patch 4.
-> - Clear the counters under phy->lock.
-> - Take a runtime PM reference for the deferred work
-> 
-> The remaining review findings are pre-existing issues, left for
-> separate fixes in the future.
-> 
-> Xingui Yang (4):
->    scsi: libsas: Fix out-of-bounds memcpy in sas_ssp_task_response()
->    scsi: hisi_sas: Fix incorrect delay values from magic-number cleanup
->    scsi: hisi_sas: Clear PHY error counts on phyup
->    scsi: hisi_sas: Fix spinup failure for SAS SSP devices in Active_Wait
->      state
-> 
->   drivers/scsi/hisi_sas/hisi_sas.h       |  3 ++
->   drivers/scsi/hisi_sas/hisi_sas_main.c  | 43 ++++++++++++++++++++++
->   drivers/scsi/hisi_sas/hisi_sas_v1_hw.c |  4 ++
->   drivers/scsi/hisi_sas/hisi_sas_v2_hw.c |  4 ++
->   drivers/scsi/hisi_sas/hisi_sas_v3_hw.c | 51 ++++++++++++++++++--------
->   drivers/scsi/libsas/sas_task.c         |  2 +-
->   6 files changed, 90 insertions(+), 17 deletions(-)
-> 
+The conversion of this function to sockopt_t builds its buffers from
+optlen, which the standard helpers reject when negative, so the answer
+has to be settled before that.
+
+Suggested-by: David Laight <david.laight.linux@gmail.com>
+Signed-off-by: Breno Leitao <leitao@debian.org>
+---
+ net/ipv6/ipv6_sockglue.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/net/ipv6/ipv6_sockglue.c b/net/ipv6/ipv6_sockglue.c
+index 4b3536571c9804..4091d1521cc09f 100644
+--- a/net/ipv6/ipv6_sockglue.c
++++ b/net/ipv6/ipv6_sockglue.c
+@@ -1002,6 +1002,11 @@ int do_ipv6_getsockopt(struct sock *sk, int level, int optname,
+ 
+ 	if (copy_from_sockptr(&len, optlen, sizeof(int)))
+ 		return -EFAULT;
++	/* Historic bug compatibility: the int options have always taken a
++	 * negative optlen as 4, so take it as 4 everywhere.
++	 */
++	if (len < 0)
++		len = 4;
+ 	switch (optname) {
+ 	case MCAST_MSFILTER:
+ 		if (in_compat_syscall())
+
+-- 
+2.53.0-Meta
+
