@@ -1,378 +1,237 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCC8B4F85C0
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 18:51:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791571890; cv=pass; b=ZnIJo0wy8R4ZS60aytEzY8uKmu1VIYpono0DO+jWzfaNws5v9IIGGw4FgrRbiF3JjIf7LUEKCtRkIblMySwOBSSTp8ARv1UU/Oq31NQYm+I3JQ6p4JkHxdJSEP91AvJ22o6mm1axekGmvLhuTe1OjbSU0JvAad1lhSObSJKGK10=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791571890; c=relaxed/simple;
-	bh=SaEwHTBxhGvxRikjH8R5QK6X6O0lBouPFtjb7tjhfUk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OXRrC5G4GDbRBmdAJwCNUxFrRkygL6xxdgOkMs4q2i2uzJs2OUO4tWXg441sqIXCDLQKWOTx8Zq+P+4zyWHWZ75o20mio9Ssx23ypsoiXUM2uZDJ8MhZeIBhEwGI24jl07aAum5yvZk8f5iZk509HT9GjO31MA3kAfvuHh2blXA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org; spf=none smtp.mailfrom=brainfault.org; dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b=loiAJyQ6; arc=pass smtp.client-ip=209.85.221.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC9A04FC8DA
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 18:51:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791571909; cv=none; b=Hs0BLkQmY4vl/cMYFWjlYH0B67GBe3dnFZKqHi3JXhiyrmMed0a76k3Uu/dS5g/E/XdVv7sjJ82Z7zUkXHs+stRXweR41BHbqPsIeR9WOAZ78UhzpIr10bcUdZMw/d+sJe8BRiGqybZPCIfi8tBxRUwpv1u7DBpNhhr8P1dmO1M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791571909; c=relaxed/simple;
+	bh=bDjFbIr8Y6dod909EUu5GKAp+s9Z70jMQPcuGu2Dwak=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=oranHgqeOMR3fixR8/Qwxps9WJokRy21dhGOM+kNwdYy2+nAD5wiam2LrugD/oAjk7v0q/8Azy9NrtBgbwjazrQJjw4HQSQuGabkI53nBggsefsALH6ukc+h1LtpJ7rx5QmV+kvWh+mFuLpB1d70nXN0ftfRFkPR/gh3Oct74S4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=hah9CJou; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b="loiAJyQ6"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48b042c0759so72837f8f.2
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 11:51:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791571887; cv=none;
-        d=google.com; s=arc-20260327;
-        b=aadUeW11NUIRTbFY8y81/Izu5nieiUIdDdclng20fuOeDBsGFANPluunUSXZEwV2aW
-         xtlEmR44HmTVCxhIOKthfpRr3S/+bbknRcjmUAnniksybElzQ+4PVm06V/WY+Y0G4KJx
-         dyj3QTrmiBEOuid1bruTWCTAYiHiqm10VPHyv01G0+W40XWV7qPlCAin+jTrPJr0ND1o
-         NYpr7E7sFnb54bMQdCrU0QUuI0A8j0UV7TYhMsoWK8MqCDHfRiRDZEqhStUTXCQrosGK
-         Mg+nvEgMqZStLIK9fgWyfzCn+buTA8Vvah1uJ1awrF6tpSxQii+LLwwe7dLMGuNCmR9z
-         u1lw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=pTwMuIojjnToAANiKhe/g+cf/Y5TPrRL6sZUxpSOQdY=;
-        fh=QlkBV/tSudy5uTcqUZKB63NV7uPPRnLP9lCBa4BMBP8=;
-        b=fR9A7eqd1+5zV/E7Fq/DZ5ivfdJ4+78AK8jgOK7Z5BKWtnQxOme5Vbcj8r1xEtB5V5
-         UYXZ+kkYNhdW+UZCaT/EC70L5EZDBs/AZTxTBJDxBsl2YxKpqXShQbSrIeJqr/ea1Rre
-         tVdt+Dq/uTKh/2940oFIdbAeW6m3+mGiC1KYRnpa9p5+N86nCESb1ctUKYwSeKujW3V0
-         WNEbtdyj5CgtzCXz/sZeQDZYWRcEuic9Pa4TuQ5OI18jOvVv3n93SBjXt2x+W6ho7GIW
-         5BAYQoO1Sdvf3RTNwQ1+xZiME7SFUg7OwzFvnopbBD4HFi20Z2RdJMWJYz1YBVV/E/eM
-         o4VQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=brainfault.org; s=google; t=1791571887; x=1792176687; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pTwMuIojjnToAANiKhe/g+cf/Y5TPrRL6sZUxpSOQdY=;
-        b=loiAJyQ6kyVgTBlHgifKV+O3164kKhiaPY+Cii46O3zqPUyk8S7aMGAZV5wrVV60st
-         R5YT8R66l8o0bejxg4HwfQ/eNQCycsz5X7XsddC0P1e4gBEO8lbd5LoLD12dlbJh2m3q
-         TYaeCVwY8LBxz+YckKXM9Mwo9q3Z5eslAVIY6Bx9AOqF3NW8iT+kHS1kkglDIP2haQVj
-         PSJvD2PkjCIP0DcDQvvOAi6OMT/0WRAcGQMz2ytAM+XflV3k5BSg2BMlVztruXA6190u
-         kqVolpbMlwXE/FuGoJrZ0C8lNCz4vYnZE1ulpV8laa+DTiJjIHpUwRMF3sOnxw/hGiVJ
-         vBrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791571887; x=1792176687;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pTwMuIojjnToAANiKhe/g+cf/Y5TPrRL6sZUxpSOQdY=;
-        b=qeekjuD06ddgj7ayINruOQIuBETxmD2DPu0hDi36MVF2VltMlLhkMcXyKABbGXJNAp
-         zdonvX1zvyqHtBTol9SgfrggSY3j1UW4Wo72NXG7ll/KYZCjZonsCcYLJ4n2+gm+GD2Z
-         syzfVEVr1d+NdzFr+zc9FLoxOM/Lkd4gAfSDGabzpcFBOK870MfonxH2KHnRc5r8Hg2z
-         OmQVBkAwIfdUfKxc/mjlJXpgFV5dqkI24Tu4HSeW3I+DI8LkQ1ySgGsNFxwWr0S+NwHz
-         7P8AhO0mzo57KvFe3GqLw1GkJ4VUOoc7Re9ixHGId+XkE/js7VcW+UpiL+h4Z4k5DbLH
-         jp1w==
-X-Forwarded-Encrypted: i=1; AKwUvBxpU5M9sz/JTdPHS2M8e0gzNoEgvx+XnZQYkjYnajygJ0hpO+dJzfIVQP9TWy6BvDV2nwCr4pWg7TN5+Co=@vger.kernel.org
-X-Gm-Message-State: AFuF++kNdH8TFgXcLPOMlUOdjmx52OqUl5G5ftGvgmc7aHKoMyP9PWE0
-	Ke5CFdS6yXHKS5p1pUu/Vm6UxrWE9kicHox4os2SgXruylERYdT8eshKPezeFaReStzxFzENxM0
-	FOE9/v3HlLO+oMu0vTsve0Vum2O2mQ/teSfa6Eny4Lw==
-X-Gm-Gg: AYBFou01NOqtbdDr9bAj1Jz5VrZl/VRR16HN1d7HVrG2wiZysiYuydzWKW+8dLTwYUk
-	703zqc31OFXq782x9khHQP3KR0xcXf/fkXALYnWAsCyBeZQtMpybBXMqup87zTsiV3BfpANC+tu
-	ez4x+JuOn9z1j6Ud4tTRVwHc+nkUNSi21b87ZSprS2PSztsSQz0Uwjym0dyTh3/mxArGMCvW34l
-	oC5N0wbbib4eKxCzaC+Yh6dpAuKTCnBxPw+SJJR+jbx3AICkyUqDbzpaSQyt4KG/AAReQHSQlSb
-	EfOMM6moWEdvTfSRr+mjMbrjIhXdCmZxWXQYLXoqefMDhHAaMoeoNCD5TsJS0GYZhxro5/RO9Vu
-	noaUiwnF05p3vwxEWCl0hH27gwUWH9MNzxij4sZ7vCJdjeowH45PsYwBa5r/rSoM/mp1e+U4pDg
-	==
-X-Received: by 2002:a05:600c:1909:b0:4a0:159b:d283 with SMTP id
- 5b1f17b1804b1-4a18e4d5412mr52437895e9.30.1791571886366; Fri, 09 Oct 2026
- 11:51:26 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="hah9CJou"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791571905;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=boSMJ8W5SZY4egD4A43ydHSAalOMwEiCjd69J7IHCDE=;
+	b=hah9CJouf1+qGsP0fX91yG+jyMSZBcE4Kgb0xNsKshy9R8aPhXYREI+cmyYD1Yub3J+98c
+	RFhVQhI6wuL9EHl1iQZZgpONHxEOHz4GUs94zb3QsR7SVv43Tow8fv0loLDttNUg4vgvTo
+	7+e6lcaw1mP7iuk+Hf7+MqV+Y8/2IK8=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-518-kJxJgLhpP82K_x74CaHMVg-1; Fri,
+ 9 Oct 2026 18:51:40 +0000
+X-MC-Unique: kJxJgLhpP82K_x74CaHMVg-1
+X-Mimecast-MFC-AGG-ID: kJxJgLhpP82K_x74CaHMVg_1791571899
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 6C4031844BC1;
+	Fri,  9 Oct 2026 18:51:38 +0000 (UTC)
+Received: from [100.91.101.41] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 8C6131800586;
+	Fri,  9 Oct 2026 18:51:35 +0000 (UTC)
+Message-ID: <eefa9f84-62cd-45aa-be00-9105108a2692@redhat.com>
+Date: Fri, 9 Oct 2026 20:51:34 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260817102447.40259-1-guoyaxing@bosc.ac.cn>
-In-Reply-To: <20260817102447.40259-1-guoyaxing@bosc.ac.cn>
-From: Anup Patel <anup@brainfault.org>
-Date: Fri, 9 Oct 2026 20:51:13 +0200
-X-Gm-Features: AclHuK-R8aeNbEa0DRQqSNimuLjIFPfg4YE0zWymfuyfO_mPCIzLXp3g4GDDc8A
-Message-ID: <CAAhSdy2qwdHE7SB2gRK3_PQ6m_bMSfWpvcuSG-31W2yd3-UTKg@mail.gmail.com>
-Subject: Re: [PATCH] RISC-V: KVM: Flush VS-stage TLB before reusing a host CPU
-To: Yaxing Guo <guoyaxing@bosc.ac.cn>
-Cc: Atish Patra <atish.patra@linux.dev>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, kvm@vger.kernel.org, kvm-riscv@lists.infradead.org, 
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	majiuyue@bosc.ac.cn, anzoso@outlook.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v3 4/4] dpll: zl3073x: notify sibling pin when shared
+ output config changes
+To: netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org, min.li@microchip.com, vadim.fedorenko@linux.dev,
+ arkadiusz.kubalewski@intel.com, jiri@resnulli.us, kuba@kernel.org,
+ Prathosh.Satish@microchip.com, pabeni@redhat.com,
+ linux-kernel@vger.kernel.org
+References: <20261006153116.347497-5-ivecera@redhat.com>
+ <179147350520.434549.16772916744710272674@kernel.org>
+Content-Language: en-US
+From: Ivan Vecera <ivecera@redhat.com>
+In-Reply-To: <179147350520.434549.16772916744710272674@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-On Mon, Aug 17, 2026 at 12:25=E2=80=AFPM Yaxing Guo <guoyaxing@bosc.ac.cn> =
-wrote:
->
-> Guest Linux uses mm_cpumask to decide whether an sfence.vma needs to be
-> local or remote. Under KVM that mask tracks guest CPUs, not the host CPUs
-> that previously backed a vCPU.
->
-> This can miss stale VS-stage TLB entries when a vCPU migrates across host
-> CPUs. For example:
->
->   - vcpu0 runs on host CPU1 and fills a VS-stage TLB entry.
->   - vcpu0 migrates to host CPU0.
->   - the guest updates the mapping on vcpu0 and issues a local sfence.vma.
->   - later, the guest task runs on vcpu1 while vcpu1 is backed by host CPU=
-1.
-
-When the vcpu0 is brought back to host CPU1, the kvm_riscv_local_tlb_saniti=
-ze()
-will ensure TLB entries associated with Guest/VM are nuked.
-
-By default, kvm_riscv_local_hfence_gvma_vmid_all() will only do HFENCE.GVMA
-for the associated VMID because most RISC-V H-extension implemenation will
-tag VS-stage TLB entries with VMID and HFENCE.GVMA must remove both
-G-stage and VS-stage TLB entries for given VMID.
-
-If your HW does not tag VS-stage TLB enteries with VMID then it buggy
-/ inefficient
-so you have to set kvm_riscv_vsstage_tlb_no_gpa in
-kvm_riscv_setup_vendor_features()
-as work-around.
-
-NACK to this patch from myside.
-
-Regards,
-Anup
-
->
-> Host CPU1 did not observe the guest-local sfence.vma, and KVM can enter
-> vcpu1 with a stale VS-stage translation left behind by vcpu0.
->
-> The reported failure was seen on a XiangShan RISC-V system. A bash task
-> ran on vcpu0 while vcpu0 was backed by host CPU1, and a read-only page wa=
-s
-> prefetched into CPU1's VS-stage TLB. vcpu0 later migrated to host CPU0,
-> where the guest triggered COW, updated the mapping, and issued only a loc=
-al
-> sfence.vma. The stale VS-stage entry on CPU1 survived. When the same gues=
-t
-> task later ran on another vCPU backed by host CPU1, it hit the stale
-> translation. The page contained a GOT pointer, and using the stale data l=
-ed
-> to a NULL dereference and a userspace segmentation fault.
->
-> The existing local TLB sanitize path flushes G-stage entries when a vCPU
-> migrates, and flushes VS-stage entries only for implementations selected =
-by
-> the Andes-specific kvm_riscv_vsstage_tlb_no_gpa static key. That handles =
-a
-> split two-stage TLB implementation where HFENCE.GVMA does not invalidate
-> VS-stage entries, but it does not cover the generic guest-local sfence.vm=
-a
-> case above.
->
-> Track, per VM and per host CPU, the last vCPU that entered the guest on
-> that CPU. Before guest entry, flush the current CPU's VS-stage context fo=
-r
-> the VM if either the current vCPU migrated since its last exit, or this
-> host CPU is switching from another vCPU of the same VM. Keep the existing
-> HFENCE.GVMA behavior tied to vCPU migration.
->
-> This also subsumes the Andes split-TLB workaround. That workaround was
-> needed because the migration sanitize path previously relied on
-> HFENCE.GVMA alone for most implementations, and only issued HFENCE.VVMA
-> when kvm_riscv_vsstage_tlb_no_gpa was set. The new sanitize path always
-> issues HFENCE.VVMA when reusing a host CPU for a VM context that may have
-> missed a guest-local sfence.vma, so it no longer depends on HFENCE.GVMA
-> invalidating VS-stage entries. The implementation-specific static key and
-> setup hook are therefore no longer needed.
->
-> Reported-by: Zhizun Wang <anzoso@outlook.com>
-> Reviewed-by: Jiuyue Ma <majiuyue@bosc.ac.cn>
-> Signed-off-by: Yaxing Guo <guoyaxing@bosc.ac.cn>
-> ---
->  arch/riscv/include/asm/kvm_host.h |  6 +++---
->  arch/riscv/kvm/main.c             | 15 ---------------
->  arch/riscv/kvm/tlb.c              | 31 +++++++++++++++++++++++--------
->  arch/riscv/kvm/vm.c               | 16 ++++++++++++++++
->  4 files changed, 42 insertions(+), 26 deletions(-)
->
-> diff --git a/arch/riscv/include/asm/kvm_host.h b/arch/riscv/include/asm/k=
-vm_host.h
-> index 24585304c..396ac6209 100644
-> --- a/arch/riscv/include/asm/kvm_host.h
-> +++ b/arch/riscv/include/asm/kvm_host.h
-> @@ -91,6 +91,9 @@ struct kvm_arch {
->         /* G-stage vmid */
->         struct kvm_vmid vmid;
->
-> +       /* Last VCPU that ran on each physical CPU */
-> +       int __percpu *last_vcpu_ran;
-> +
->         /* G-stage page table */
->         pgd_t *pgd;
->         phys_addr_t pgd_phys;
-> @@ -330,7 +333,4 @@ bool kvm_riscv_vcpu_stopped(struct kvm_vcpu *vcpu);
->
->  void kvm_riscv_vcpu_record_steal_time(struct kvm_vcpu *vcpu);
->
-> -/* Flags representing implementation specific details */
-> -DECLARE_STATIC_KEY_FALSE(kvm_riscv_vsstage_tlb_no_gpa);
-> -
->  #endif /* __RISCV_KVM_HOST_H__ */
-> diff --git a/arch/riscv/kvm/main.c b/arch/riscv/kvm/main.c
-> index 0f3fe3986..b1bbc0835 100644
-> --- a/arch/riscv/kvm/main.c
-> +++ b/arch/riscv/kvm/main.c
-> @@ -10,23 +10,10 @@
->  #include <linux/err.h>
->  #include <linux/module.h>
->  #include <linux/kvm_host.h>
-> -#include <asm/cpufeature.h>
->  #include <asm/kvm_mmu.h>
->  #include <asm/kvm_nacl.h>
->  #include <asm/sbi.h>
->
-> -DEFINE_STATIC_KEY_FALSE(kvm_riscv_vsstage_tlb_no_gpa);
-> -
-> -static void kvm_riscv_setup_vendor_features(void)
-> -{
-> -       /* Andes AX66: split two-stage TLBs */
-> -       if (riscv_cached_mvendorid(0) =3D=3D ANDES_VENDOR_ID &&
-> -           (riscv_cached_marchid(0) & 0xFFFF) =3D=3D 0x8A66) {
-> -               static_branch_enable(&kvm_riscv_vsstage_tlb_no_gpa);
-> -               kvm_info("VS-stage TLB does not cache guest physical addr=
-ess and VMID\n");
-> -       }
-> -}
-> -
->  long kvm_arch_dev_ioctl(struct file *filp,
->                         unsigned int ioctl, unsigned long arg)
->  {
-> @@ -172,8 +159,6 @@ static int __init riscv_kvm_init(void)
->                 kvm_info("AIA available with %d guest external interrupts=
-\n",
->                          kvm_riscv_aia_nr_hgei);
->
-> -       kvm_riscv_setup_vendor_features();
-> -
->         kvm_register_perf_callbacks();
->
->         rc =3D kvm_init(sizeof(struct kvm_vcpu), 0, THIS_MODULE);
-> diff --git a/arch/riscv/kvm/tlb.c b/arch/riscv/kvm/tlb.c
-> index ff1aeac4e..1541d059a 100644
-> --- a/arch/riscv/kvm/tlb.c
-> +++ b/arch/riscv/kvm/tlb.c
-> @@ -8,6 +8,7 @@
->  #include <linux/errno.h>
->  #include <linux/err.h>
->  #include <linux/module.h>
-> +#include <linux/percpu.h>
->  #include <linux/smp.h>
->  #include <linux/kvm_host.h>
->  #include <asm/cacheflush.h>
-> @@ -160,12 +161,19 @@ void kvm_riscv_local_hfence_vvma_all(unsigned long =
-vmid)
->
->  void kvm_riscv_local_tlb_sanitize(struct kvm_vcpu *vcpu)
->  {
-> +       bool vcpu_migrated;
-> +       bool vcpu_switched;
->         unsigned long vmid;
-> +       int *last_ran;
->
-> -       if (!kvm_riscv_gstage_vmid_bits() ||
-> -           vcpu->arch.last_exit_cpu =3D=3D vcpu->cpu)
-> +       last_ran =3D this_cpu_ptr(vcpu->kvm->arch.last_vcpu_ran);
-> +       vcpu_migrated =3D (vcpu->arch.last_exit_cpu !=3D vcpu->cpu);
-> +       vcpu_switched =3D (*last_ran !=3D vcpu->vcpu_idx);
-> +       if (!vcpu_migrated && !vcpu_switched)
->                 return;
->
-> +       vmid =3D READ_ONCE(vcpu->kvm->arch.vmid.vmid);
-> +
->         /*
->          * On RISC-V platforms with hardware VMID support, we share same
->          * VMID for all VCPUs of a particular Guest/VM. This means we mig=
-ht
-> @@ -176,16 +184,23 @@ void kvm_riscv_local_tlb_sanitize(struct kvm_vcpu *=
-vcpu)
->          * To cleanup stale TLB entries, we simply flush all G-stage TLB
->          * entries by VMID whenever underlying Host CPU changes for a VCP=
-U.
->          */
-> -
-> -       vmid =3D READ_ONCE(vcpu->kvm->arch.vmid.vmid);
-> -       kvm_riscv_local_hfence_gvma_vmid_all(vmid);
-> +       if (vcpu_migrated && kvm_riscv_gstage_vmid_bits())
-> +               kvm_riscv_local_hfence_gvma_vmid_all(vmid);
->
->         /*
-> -        * Flush VS-stage TLB entries for implementation where VS-stage
-> -        * TLB does not cahce guest physical address and VMID.
-> +        * Guest-local sfence.vma only invalidates VS-stage translations =
-on
-> +        * the Host CPU currently backing the VCPU. If a VCPU migrates, o=
-r
-> +        * if this Host CPU switches between VCPUs of the same VM, stale
-> +        * VS-stage entries can be left behind on a Host CPU that missed =
-a
-> +        * guest-local flush. Flush the current CPU's VS-stage context be=
-fore
-> +        * entering the guest.
->          */
-> -       if (static_branch_unlikely(&kvm_riscv_vsstage_tlb_no_gpa))
-> +       if (kvm_riscv_nacl_available())
-> +               nacl_hfence_vvma_all(nacl_shmem(), vmid);
-> +       else
->                 kvm_riscv_local_hfence_vvma_all(vmid);
-> +
-> +       *last_ran =3D vcpu->vcpu_idx;
->  }
->
->  void kvm_riscv_fence_i_process(struct kvm_vcpu *vcpu)
-> diff --git a/arch/riscv/kvm/vm.c b/arch/riscv/kvm/vm.c
-> index 13c63ae1a..2907218a1 100644
-> --- a/arch/riscv/kvm/vm.c
-> +++ b/arch/riscv/kvm/vm.c
-> @@ -9,6 +9,7 @@
->  #include <linux/errno.h>
->  #include <linux/err.h>
->  #include <linux/module.h>
-> +#include <linux/percpu.h>
->  #include <linux/uaccess.h>
->  #include <linux/kvm_host.h>
->  #include <asm/kvm_mmu.h>
-> @@ -30,7 +31,9 @@ const struct kvm_stats_header kvm_vm_stats_header =3D {
->
->  int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
->  {
-> +       int *last_ran;
->         int r;
-> +       int cpu;
->
->         r =3D kvm_riscv_mmu_alloc_pgd(kvm);
->         if (r)
-> @@ -42,6 +45,17 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long ty=
-pe)
->                 return r;
->         }
->
-> +       kvm->arch.last_vcpu_ran =3D alloc_percpu(int);
-> +       if (!kvm->arch.last_vcpu_ran) {
-> +               kvm_riscv_mmu_free_pgd(kvm);
-> +               return -ENOMEM;
-> +       }
-> +
-> +       for_each_possible_cpu(cpu) {
-> +               last_ran =3D per_cpu_ptr(kvm->arch.last_vcpu_ran, cpu);
-> +               *last_ran =3D -1;
-> +       }
-> +
->         kvm_riscv_aia_init_vm(kvm);
->
->         kvm_riscv_guest_timer_init(kvm);
-> @@ -54,6 +68,8 @@ void kvm_arch_destroy_vm(struct kvm *kvm)
->         kvm_destroy_vcpus(kvm);
->
->         kvm_riscv_aia_destroy_vm(kvm);
-> +
-> +       free_percpu(kvm->arch.last_vcpu_ran);
->  }
->
->  int kvm_vm_ioctl_irq_line(struct kvm *kvm, struct kvm_irq_level *irql,
+On 10/8/26 17:31, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found more severe
+> issue(s) in other patches of this series. This mail is only an FYI, in case
+> you want to address the nit picks below when you respin.
+> 
+> Low priority / nit picks for your consideration:
+> 
+> - [Low] The commit message describes the old teardown incorrectly.
+> - [Low] The documentation for zl3073x_dpll_output_pin_sibling_get() does
+>    not match its code, and the commit message's safety claim is only…
+> 
 > --
-> 2.43.0
->
+> 
+> dpll: zl3073x: notify sibling pin when shared output config changes
+> 
+> The P and N pins of a zl3073x output share the divisor, clock type,
+> esync and phase compensation registers. This patch adds a sibling
+> lookup helper and sends a change notification to the sibling pin from
+> frequency_set(), esync_set() and phase_adjust_set(). It also changes
+> the order of list_add()/list_del() on zldpll->pins relative to DPLL
+> pin registration, and does both under zldpll->lock.
+> 
+>> diff --git a/drivers/dpll/zl3073x/dpll.c b/drivers/dpll/zl3073x/dpll.c
+>> index 65107b4cc4f82..9c678acc3e777 100644
+>> --- a/drivers/dpll/zl3073x/dpll.c
+>> +++ b/drivers/dpll/zl3073x/dpll.c
+> 
+> [ ... ]
+> 
+>> @@ -132,11 +134,39 @@ zl3073x_dpll_pin_get_by_ref(struct zl3073x_dpll *zldpll, u8 ref_id)
+>>   	return NULL;
+>>   }
+>>   
+>> +/**
+>> + * zl3073x_dpll_output_pin_sibling_get - get the other pin of an output pair
+>> + * @pin: output pin whose sibling is sought
+>> + *
+>> + * Output pin ids are allocated in P/N pairs (P even, N odd) that share a
+>> + * single HW output. Looks up the other pin of the pair, if it is
+>> + * registered as a dpll_pin on this DPLL.
+>> + *
+>> + * Return: pointer to sibling pin, or NULL if it is not registered
+>> + */
+>> +static struct zl3073x_dpll_pin *
+>> +zl3073x_dpll_output_pin_sibling_get(struct zl3073x_dpll_pin *pin)
+>> +{
+>> +	struct zl3073x_dpll_pin *sibling;
+>> +
+>> +	lockdep_assert_held(&pin->dpll->lock);
+>> +
+>> +	list_for_each_entry(sibling, &pin->dpll->pins, list) {
+>> +		if (!zl3073x_dpll_is_input_pin(sibling) &&
+>> +		    sibling->id == (pin->id ^ 1))
+>> +			return sibling;
+>> +	}
+>> +
+>> +	return NULL;
+>> +}
+> 
+> [Severity: Low]
+> Does this kernel-doc match what the helper does? It says NULL is
+> returned when the sibling is not registered. The loop only checks list
+> membership, direction and id.
+> 
+> This patch makes zl3073x_dpll_pin_register() and
+> zl3073x_dpll_nco_pin_register() add the pin to zldpll->pins before
+> dpll_pin_register(). It also makes zl3073x_dpll_pin_unregister()
+> remove the pin only after dpll_pin_unregister(). During those windows
+> the helper can return a pin that is not registered.
+> 
+> esync_set(), frequency_set() and phase_adjust_set() then pass that pin
+> directly to __dpll_pin_change_ntf(), whose kernel-doc says:
+> 
+>   * @pin: registered pin pointer
+> 
+> The window looks reachable. zl3073x_dpll_register() registers the DPLL
+> device before its pins, so a PIN_SET on the P pin can run while the N
+> pin's dpll_pin_register() waits on dpll_lock. On teardown, the N pin is
+> unregistered while the P pin is still available.
+> 
+> The commit message also says:
+> 
+>    A pin that is transiently on the list while
+>    not registered is harmless: __dpll_pin_change_ntf() is a no-op for a
+>    pin that is not available
+> 
+> Is that accurate? Only dpll_pin_event_send() checks
+> dpll_pin_available(). dpll_pin_notify() runs first and calls the
+> in-kernel notifier chain without any check:
+> 
+> __dpll_pin_change_ntf()
+>      dpll_pin_notify(pin, pin->clock_id, DPLL_PIN_CHANGED);
+>          call_dpll_notifiers(action, &info);
+>      return dpll_pin_event_send(DPLL_CMD_PIN_CHANGE_NTF, pin);
+> 
+> So an in-kernel DPLL_PIN_CHANGED event can be sent for a pin that is
+> not registered. Nothing in the tree seems to be affected today: the
+> only in-tree notifier, ice_dpll_pin_notify(), ignores actions other
+> than CREATED and DELETED.
+> 
+> Should the kernel-doc and the commit message be corrected? The other
+> option is to check that the sibling is actually registered before it
+> is notified.
+
+Will correct.
+> [ ... ]
+> 
+>> @@ -1784,6 +1874,13 @@ zl3073x_dpll_pin_unregister(struct zl3073x_dpll_pin *pin)
+>>   	/* Unregister the pin */
+>>   	dpll_pin_unregister(zldpll->dpll_dev, pin->dpll_pin, ops, pin);
+>>   
+>> +	/* Remove the pin from the list only after it has been unregistered so
+>> +	 * that a still-registered pin is always findable as a sibling.
+>> +	 */
+>> +	mutex_lock(&zldpll->lock);
+>> +	list_del(&pin->list);
+>> +	mutex_unlock(&zldpll->lock);
+>> +
+>>   	dpll_pin_put(pin->dpll_pin, &pin->tracker);
+>>   	pin->dpll_pin = NULL;
+>>   
+>> @@ -1803,9 +1900,11 @@ zl3073x_dpll_pins_unregister(struct zl3073x_dpll *zldpll)
+>>   {
+>>   	struct zl3073x_dpll_pin *pin, *next;
+>>   
+>> +	/* Unregister each pin before removing it from the list so that a
+>> +	 * still-registered pin is always findable as a sibling.
+>> +	 */
+>>   	list_for_each_entry_safe(pin, next, &zldpll->pins, list) {
+>>   		zl3073x_dpll_pin_unregister(pin);
+>> -		list_del(&pin->list);
+>>   		zl3073x_dpll_pin_free(pin);
+>>   	}
+>>   }
+> 
+> [Severity: Low]
+> The commit message says:
+> 
+>    and teardown detached the whole list before unregistering any
+>    pin, so a sibling that is registered - and thus reachable by a PIN_SET
+>    on the other pin - could be missing from the list and never notified.
+> 
+> Does this describe the old teardown correctly? Before this patch,
+> zl3073x_dpll_pins_unregister() already unregistered each pin before
+> removing it from the list:
+> 
+> 	list_for_each_entry_safe(pin, next, &zldpll->pins, list) {
+> 		zl3073x_dpll_pin_unregister(pin);
+> 		list_del(&pin->list);
+> 		zl3073x_dpll_pin_free(pin);
+> 	}
+> 
+> drivers/dpll/zl3073x/ has no list_splice() or similar call on this
+> list. A pin that was still registered therefore stayed on zldpll->pins
+> during teardown.
+> 
+> The list and the registration state only got out of step at
+> registration time, because dpll_pin_register() ran before list_add().
+> On the teardown side, this hunk mainly moves list_del() under
+> zldpll->lock, which the new lockdep-asserted lookup needs.
+> 
+> Could the commit message describe what the teardown change actually
+> does?
+Yes, will rewrite it in v4.
+
+Thanks,
+Ivan
+
