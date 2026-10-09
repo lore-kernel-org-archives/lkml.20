@@ -1,153 +1,82 @@
-Received: from mail-oo2-f5.google.com (mail-oo2-f5.google.com [74.125.231.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04B7E2931F0
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 07:45:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5D5838836C;
+	Fri,  9 Oct 2026 07:46:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791531937; cv=none; b=KP9BpMlMT0xib8F8BgnP2RauZE66IYOQI6i8DM8uLQNFt4hCYzK0hLtUUECjgwgxS6HtJoCRzcLl4Nj4msRPMnTANIhknoVZeu/qsCcy/kM1x3RiSI8LKEJ1huf8lCUwT63SxuBTbBFRUHO8KQhDbuGgr7gvMXsafPX3GGqhMrc=
+	t=1791531976; cv=none; b=mt0VzD9PtlLAxZNqU2ARf3REtUD0ihJ14yj0Q0ltQt/3Cp5ZbCQMo5tBFoCzb1NQLzId+ODVL1O1vu73gByqE4yzpKs0wrUSqnEbVHxeWV8z3XR/aPZifm+00T21Uc0ZZ1KblZpFfv4CTCUBLlX3rZEcax/Pu4MCUAx5M7RKjZM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791531937; c=relaxed/simple;
-	bh=ZwfTSJk9JG0mkL6vUHY4wYZ/zxFnLxRfeSs6ksDOhpo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=A49AFZjoHYpOWN/u6/JA0xCPhPC1exYuc+JlcqkMDOIAfeftCQp6q4c/j2NEA2+OLtfMF/4hf+5ICQvWAlO+DSkpM+L+bSlmedu9tFlvDu6MyJeezxzAizcJdHuPOaR7CSDeOes7OzuuM7ZFm0IYjGdlwfMQzo7uggsf5UH8djQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S95puc0R; arc=none smtp.client-ip=74.125.231.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791531976; c=relaxed/simple;
+	bh=wZv8TbBp1Y6GzSkuwSZImYDggbd85GwINuhGYKZX2bc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qOFOERIBbA7mZQD2tiYd0mm/0oH7gdWzrsADiGgAVkHz9HKq7hwZw2FsqPmIScSiMPo1NQUxmrbH3OwgBgb1VrkfqP0RjqvPIqlJP9DxLjgU9wcoMYenvLjSyq8AHAlF0+OlwKfvr+2hhtDmkpo1y5ZGmQTkPk0ZagBjV/ADABk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lxOKpDs4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S95puc0R"
-Received: by mail-oo2-f5.google.com with SMTP id 006d021491bc7-6df6e4b7470so1914155eaf.1
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 00:45:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791531935; x=1792136735; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eLXuH3kNk2vtVW5LR5Zl+GGZ0SinlHLiZHSL9eCZFA0=;
-        b=S95puc0RLtS/vPtRVlKMYhIuNfW7fz6IXJGZYdNEoVXpNvL1b4UA1Jzy3SVRLOK+zE
-         En60cMn55v7/hLPqrZR1OSMgcyKd0nyDkmgwXLZ3jT256GRx7R0KngzB9oTl8JG8czTL
-         F7F0kekTy47AIPmPFk7EXsBa5Zk9ctd7re0fvFw+23UvCGy7gdyAqLpl8r5T1I9pd95p
-         zmN0YSUPGpUAaIjl3xxsyMQY7ETsvQaELoSSEbKlmiIGRos0s50cQsUykbtJmEPjRq0g
-         z2l2s+4NAq+8cTLMxN1QD2kAKHlWVzRuPkprNj26MFFd6XRSAxi6PFX5a86fiAPVJpSl
-         Hr/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791531935; x=1792136735;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=eLXuH3kNk2vtVW5LR5Zl+GGZ0SinlHLiZHSL9eCZFA0=;
-        b=zbrNazU+4i6R1EBiq2+8bSPt+1NKIvzEk5W4v7fjEVwuQoFoejsjxkWUHZP2ZdBBNu
-         /ydvimH8ba/7AeJspHee5c1TPmUb573ZNxr5OdYBYi3tsrOwnNpQQ5RwJ9Y+8Zkn7u/f
-         7Ms3LqcvZBG/mPPTgqdxD8/vNudnA6r8U8WDqfIv2L0WR6eX1xPCIwSeoFTjED5PayGd
-         3+zbsCKxmJLN4OxWQTCkz+geoA5HWZmHHpAPZsOFisjyPd4WKwHku6es7Fn+0JFjXCXc
-         tt4HZEb9gJGK4M/bWcKDTKh7ERr7tDjn1b0LLLeBqb8skjna/1TdOXav8s+BZs+cgM8c
-         DHhw==
-X-Forwarded-Encrypted: i=1; AKwUvBysBoYd1O71al8H0kfqvn/UIokAgfoO4uPUckG5J2zu09lQFF0RuLWYKr0pAgbURssO+HjgIZ3hD0YKlh8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kKqtQhYj6jVWk0xnPuByiJA+yowA7wOsf6fciygee9JJqRiccG
-	NNQig9Um7WD1zt70kxFo7y+CwCG/+PzXN1SOemx03LWUDh1aDBTv10j1
-X-Gm-Gg: AYBFou2I+gW7iy8W/Lspo4hvqp/YTO4TG7ELKYrKiyU6LQDA1fJc0asL3dFVlT9y9R7
-	YRhCSp07dZj6daVuaxHrjj61QhG+sSN85EoUXNdM6l5+8518eAQAwAck3PtowOcX5JCuU+4NJlv
-	YRVw6mhEg4mZObXwf8nHpSYvWMHemlCE83ULtOnJpDpZfEyIRXBwmsha4tprsafHHEUgYvFPwQ4
-	Wr3JQhcZgjykzDC+Ib75VvkrXO8ugu/SYbv+PjjUT5IEmFWgj87khxojRYP7j/FBHY7roMhED6O
-	BV6+WiP6UbSQ6/EnWJaFqBPVanqv/2Dd6jnLlJcBpfwVItnWzK+MpQLd+7x6T64EjnYnFIfhRp1
-	PaGo7f2ZMY7q+82b3gyTT5hmK25xJlX/EhonIy275JMrnjHzYJy4zFhC8mdlACcxhLbBpNu6F+O
-	L0dNv9tTKTnSMvi1o9hqUZ+7jHN9wO/+rOej3F4PAm6LuHIpcPqOBmwcf9fEQ2hCtVNLWq5Jr0w
-	aRT/s3MRkyAbZZBE4hmi4Yxx/z2eVqpciGB
-X-Received: by 2002:a05:6820:f004:b0:6c8:d1cc:38a9 with SMTP id 006d021491bc7-6ef08c7a67bmr886377eaf.8.1791531934819;
-        Fri, 09 Oct 2026 00:45:34 -0700 (PDT)
-Received: from localhost.localdomain ([14.22.11.164])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6ef01dba775sm1138539eaf.9.2026.10.09.00.45.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 00:45:33 -0700 (PDT)
-From: Henry Martin <bsdhenrymartin@gmail.com>
-To: David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Henry Martin <bsdhenrymartin@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] ipconfig: fix use-after-free of device list after ic_close_devs()
-Date: Fri,  9 Oct 2026 15:45:20 +0800
-Message-ID: <20261009074523.2747168-1-bsdhenrymartin@gmail.com>
-X-Mailer: git-send-email 2.43.7
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lxOKpDs4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDCDB1F000FF;
+	Fri,  9 Oct 2026 07:46:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791531975;
+	bh=v6z02uFgszMrykfA+H9Lp9iL6Wt8zF9IJww9x8UauC4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=lxOKpDs4KsGTOWH08PpkeJrjcTh98rZoJrZqvjkYBmeSULddDTjFYd+6/ktBJfDlw
+	 KhAAdp+9TWemJ7qVAj2WLf2JCrCVLJ3MzJFSgscZGL33vTFBmYafaq5AOKpKLE6jMk
+	 U0xcHPbo8ho9M+eRkw1LVBPSx+Z6CDsxYYDz4Bs4DTo0tmp+IFUZ8lABKU7lVjEwFN
+	 AciVb8xjvVPJlW7efCXAr12cG7HfN9pZM9Q8t+JQdiWMqtt0tHp0Erj8iUj3RI8zTr
+	 NZIE6NUMTmy3MsiB20dS8LDPw+JotggZp6Pqh0/wUlpBqaNS+nfMm4K/7Ueig8At1w
+	 C433LXcVW8yIQ==
+From: SJ Park <sj@kernel.org>
+To: Suhaas Joshi <suhaas@s-joshi.in>
+Cc: SJ Park <sj@kernel.org>,
+	akpm@linux-foundation.org,
+	aethernet65535@gmail.com,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] mm/damon/core: Use only installed probe in damon_merge_two_regions()
+Date: Fri,  9 Oct 2026 00:46:10 -0700
+Message-ID: <20261009074611.40973-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <ase2u791QTcV1LZt@fedora>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-ic_close_devs() kfree()s every ic_device node but leaves the static
-ic_first_dev and ic_dev pointers dangling behind.  When a DHCP reply
-consists of an OFFER that is never followed by an ACK (a misbehaving
-or lossy DHCP server, or a network that drops the ACK), the boot-time
-autoconfiguration loop becomes vulnerable:
+On Thu, 8 Oct 2026 21:03:15 +0530 Suhaas Joshi <suhaas@s-joshi.in> wrote:
 
-  1. ic_bootp_recv() accepts the OFFER and records ic_dev = <list
-     node> ("We have a winner!" state);
-  2. the retransmit round times out in ic_dynamic(), so
-     ic_close_devs() frees the whole list — node included;
-  3. the dynamic retry path (try_try_again) runs ic_open_devs() and
-     ic_dynamic() again; on failure it falls through ic_close_devs()
-     once more, where the entry point evaluates
+> For some inexplicable reason, the cover-letter hasn't been sent again.
+> 
+> I am just adding the changelog here, in case the cover letter never arrives.
+> 
+> Changelog v1->v2:
+> 
+> 1. Simplified patch 1's commit message to make it clearer 
+>    (Liew's suggestion)
+> 2. Added comment docs for extra arguments I am adding to functions
+>    (SJ's suggestion)
+> 3. Destroyed the context in case r2 allocation fails in damon_test_merge_two()
+>    (Sashiko/Liew/SJ suggestion)
+> 4. Wrapped lines at 80 characters 
+>    (SJ's suggestion)
+> 
+> As for why the cover-letter isn't being sent, I have no idea. Everything seems
+> fine during `git send-email --dry-run`. Also seemed fine when I sent the series
+> to myself as a test.
+> Apologies for the inconvenience. I will make sure I fix this issue before sending
+> v3 or any more series in the future.
 
-         struct net_device *selected_dev = ic_dev ? ic_dev->dev : NULL;
+No worries.  Thank you for clarifying this!  Maybe a possible workaround is
+sending only cover letter first, confirming it is sent and appear on the
+mailing list, and then sending patches using 'git send-email --in-reply-to'?
 
-     — an 8-byte use-after-free read against the freed ic_device.
 
-KASAN confirms (boot-time bootload, no userspace yet):
+Thanks,
+SJ
 
-  BUG: KASAN: slab-use-after-free in ic_close_devs+0x214/0x220
-  Read of size 8 by task swapper/0/1
-   Call Trace:
-    ic_close_devs+0x214/0x220
-    ip_auto_config+0x172b/0x34e0
-    do_one_initcall+0x9f/0x370
-    kernel_init_freeable+0x432/0x760
-    kernel_init+0x24/0x1f0
-  Allocated by task 1:
-    __kmalloc_cache_noprof+0x1b5/0x430 <- ip_auto_config+0x587/0x34e0
-    (ic_open_devs' kmalloc_obj of the ic_device list node)
-  Freed by task 1:
-    kfree+0x166/0x450 <- ic_close_devs+0xcb/0x220
-    (ic_close_devs freeing the same node at round end)
-
-NULL both pointers after the free loop so subsequent retry rounds
-take the clean empty-list path instead of acting on freed entries.
-
-This vulnerability was discovered by Tencent CodeBuddy Security.
-
-Cc: stable@vger.kernel.org
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
----
- net/ipv4/ipconfig.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/net/ipv4/ipconfig.c b/net/ipv4/ipconfig.c
-index 1b8585404a41..ac4851e59c3b 100644
---- a/net/ipv4/ipconfig.c
-+++ b/net/ipv4/ipconfig.c
-@@ -346,6 +346,13 @@ static void __init ic_close_devs(void)
- 		kfree(d);
- 	}
- 	rtnl_unlock();
-+
-+	/* The whole ic_device list was just kfree()'d above; clear the
-+	 * static pointers so retry rounds (e.g. dynamic retry after an
-+	 * OFFER without ACK) don't dereference them (use-after-free).
-+	 */
-+	ic_first_dev = NULL;
-+	ic_dev = NULL;
- }
-
- /*
---
-2.43.7
-
+[...]
