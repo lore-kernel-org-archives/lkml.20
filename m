@@ -1,151 +1,97 @@
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA2B33C7692
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 22:33:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791585237; cv=pass; b=meTekGa/yTAXpaLvEnGlMY0nHgx8txoY+nOV8Som6rLcGXHhR8zLiswTWIm4Y6sGhoakfkjm+WPk9hmb+JMThlKMEv0efrfLwLl561tPW7VWUNzpSxVM2g7hPORA+aca8lrvGdqARo5Q/zA9K3OQOVR6NzVEyHwmc4dpJhTeG0Y=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791585237; c=relaxed/simple;
-	bh=9quX5CnvIgOd2bqETq3nY4+kaqua2/tRKQhSxS2Xq3o=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=e07qca/v4+ALlCYDiBakZYG1sfiJJjyXhfiQy+hYj0A0iKajZcSUb2mihkH3B7K8hMzCgrm2+auiVvoXhBbnoWW4Tv9MBHw3PXG+s6D7EYsRomMOGjGo9W1fXyIFLiK2e6Q8NFZ4SEQtNJnlNQHZCZMCFTHyWTaM2jZ3EuDMo+Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TD/ymqd2; arc=pass smtp.client-ip=209.85.208.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5656F3CA499;
+	Fri,  9 Oct 2026 22:39:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791585557; cv=none; b=nBUMaCPn8kloctQhpFXNVrZAxQUSzZbBtmBNLVjkwLB3BSCJvINVNDpYD8slMF6dXz0OlQb2vFPi5NCUFOqC0TxP0Wlcccm/JnzJAAObaQJkc15QMdEtFjVFpNB641ZLgyUjIe2/XEAb6GL07i3P4NEnNQZlXhtdTcTTZDmPBo8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791585557; c=relaxed/simple;
+	bh=KWpQFquq7avx1bUklcWT3BnzeA5u9h49N5vuVBzTD3k=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=tsRzWw47Z01jG6J8qvQaTG72IVq39BGr+VSFED5Nb88YKadumJRLqOEqWrB5HQshkhVhVibyFCFU6jrYw8vg1+OQa3XpL7nmxZVdn0hOG+ayyOu6lQj8bFWj2ZmbDyaz7GFXug+wZLEOi2BMGY7IaBvh9Ln83ZYVuTACDlnBMGQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GUeJCHz8; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TD/ymqd2"
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6ae27f06c2fso290883a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 15:33:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791585234; cv=none;
-        d=google.com; s=arc-20260327;
-        b=s1a39OOFh1iNEHRZKYJRSRbMEzp7+wAASkzAZfXJRz3lZ7hSWU9WhrhPOpsGYrYEO6
-         27T3APnt/94YvwAol7WEuZFmxJdHKpjEUHhsyyAg3aMT2qwTvjk4U4BT+u81Jsg0QLye
-         ETqjzEJxEkY03ujxfZKiqmMe1z2y2A8DcPWqgw4yfL7zLy1SYltl5U+KYrDXCJFhcJAw
-         mcov8bCXh8a7Vay6Qns7EP1VGOxlFdKJi0Awu50nSoyQS+2ZJNA/0hkrYg7IenU2bii0
-         avErZO59l8+FGOSiKEaivE2ur3Ssv4BmKKoCDGmHVxppCU9Tz4w9nW5efqPhT9c1ivZC
-         MCiA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Y2x5f8OW9Jzw5234KyE0CilJDEpfG7QLEYaTd+TOUYw=;
-        fh=NP/jWiK4/evGD4vYz9xZiQRV+ibLKPA4rTljmWmRwog=;
-        b=FgbVN8V2mmzJGXMI6f1ppZFESn6dbxFhcd855hMlp+mPNSgO2g36rEw4SpJd7ziQnm
-         A/GIzr1jKAH2k5IRvBu59pMDfT6dfHR0LT+QaAmHb4/dH12gQzTfqXlo/rNmXY+HU4Cx
-         SOUkGVSjag2BSWGIeEsOamocbQYTwniyzUzlsXNZ0pkRsldhws5fLD320R76qt8cxlGI
-         /k9U/memITL4hD5QJb2x8xRe0HtXfL60iGljPPekcLMtiHIRs+Hgn/Zn4xOZrRPj92rh
-         LdcE4ffuc098Ctx6cpDVnvvpHJnnHUVzLHI1BhbcY0U0tOno59HvnZwD/kBvUm8v91Bw
-         uTfA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791585234; x=1792190034; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Y2x5f8OW9Jzw5234KyE0CilJDEpfG7QLEYaTd+TOUYw=;
-        b=TD/ymqd2VZsqvzs84kGAYMrXgiIsi0tA/PegsHu60frn/DOT1ctF+MiMGTsbyQcTYD
-         kQLVASiSGlEMPvWB15cd5iUyNzTfQZlopj4Y7NmufQsK2RrX3CFxQYf52BKSHodzesEu
-         fADYmaEg0us2ZEJ0fDS0jp6WlgwgxBHbZCIWMKicO/QiMbNSS4KWjQYZGbomk0PTNWQh
-         s+MTM1qFHBgs7uBmGGHLKLRX6rbN1EEvAxcHMRxZ7f8bKEGht1J17tKRdFBi0Qi9SxpD
-         vCu6OLUG/PcLRS/FPHqqBDsRK3k4F1BW8hvgfMjdX9M39G1RUrD7yIs3hqGq/Lmi4agJ
-         tW9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791585234; x=1792190034;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Y2x5f8OW9Jzw5234KyE0CilJDEpfG7QLEYaTd+TOUYw=;
-        b=v3DyU4C2ksfuTTf2Wcukg25UZpizaP/NpAsrfhtLDQeLpkybRlmq5CNy7AplPG6L4y
-         +Ggg2bAu1bHMaAAOkRUlGWdp+tQRHrlNWMAAkMZMkqYxkmKvcj4FZyaFNlUuuqqGmmNa
-         BCTqAks7pIdXclibkzhejsss/1dBgzVaXFfFeB5CE2KnWAjHItEA6vS2+SHnMR8gecEq
-         WjhtGnKiM8JMP2I0413wDlsDAr6JUpFAg6ha1c9CErXFKeUqo7Auy1OETB/wR5ED0keK
-         YXRZhe9+f8gqIH+cs21yQVFmA6CLIHR55D5dcaOmLoDfAhltH5JQ8BzJoMqK34w3nWkX
-         7A9Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxwmV8BtxqVXbeoq7DdpD20Cj+/OchXaMGq6rCB2/SPd1pZdiIQ81PcRF6Y2scWxsOQNrCp+oNUaBzZ5vs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK93tXNBnGTC2VeG8SvvuMHFNuTTkR4FvW7WPyMzY//ByRYQcEh
-	rHm0CAji8HcbmxKP3vtt5sWI3pt4W2Cslh0G7ZmZEOXxvdco9cgsK8BDTYH3KNXpt/mhJ2XzuzO
-	lyWdohNrg1GFjriEvDcY0ZeI0ERxcuNQ=
-X-Gm-Gg: AYBFou03LAsh2//3Ui8ShYb4Owbckg/zuTramkgvHJI5eY4KXhsjQB/iy+sOuf48cis
-	tkMQ+WdzJhz7ujT4mqHxqrJPKZwfMC5r8BYBe4sZYLswZVOlVaw/FLq4hjkuoRFRCSTwRYJcZWq
-	Z3rs26XjgRHB+XRVnI9jMoPoBZeop196CerOEG+pif3R98BuEQzPkLmmW6LvPJUY+FhTo6U7whj
-	NgBZbZvZWtsOW5SYZ/4+AMrPZPQlAm+3dmJTLlquVCZ+/sfVGMyY5zJdO5XzJIumM9wB66CrBmr
-	QAPZEQJXgAyO5wBegw6D5xO6EfjoLSRDC20XmAtwtv0/kMGwGSHp0ALydsRTOU7g71+smPxWEvX
-	L2wZrf05ajFzNYxc+muR0R4tyh1ynRkU/tIBp6uH7InY+DdtP5vpcRoQCn3m8EBvUZuqK+9z6M4
-	GeTbPZamyDpk+53KfYOL4DmBC5mh/iYLG/Bretq7GahPMMuIlX/cIz0gKdX0EeKntSzy0nAbmna
-	4LB
-X-Received: by 2002:a17:907:3f87:b0:c2e:2e1b:30e3 with SMTP id
- a640c23a62f3a-c31aa00e12fmr387733666b.21.1791585233913; Fri, 09 Oct 2026
- 15:33:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GUeJCHz8"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B41E5C2BCF4;
+	Fri,  9 Oct 2026 22:39:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791585556;
+	bh=KWpQFquq7avx1bUklcWT3BnzeA5u9h49N5vuVBzTD3k=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=GUeJCHz8iwxZtfLlgszI6BlYxL/MqgIC/DQ098sJ5RC1afr9zUMkk1uD1OMLuduzp
+	 UJCmdnbgRY7rfo76x3fha8xm4hJzz4T4RQx9+g9ObSTmeq9xkunStQHUUjq7Q7B5+t
+	 swFfi3Cni8TDsaOdpA7nTIvjmsgpVdLGp9CErnPCgLU+9wAoIxSp0pPELUCwzYEESO
+	 EViwsk9ssccI33MhB3+exEx8lM8M2ugCSmFnOeyxrxB3wUcOD3YPtzLX3qaQmNhjMn
+	 7qE3m1kzpjhsj4XPBLP0iGfYGVJhiZ9YrtpF7fChBgOyChmL3eW4McsdxwZjByrBwp
+	 UqmeHld5Pw3Sg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8E54ECA601E;
+	Fri,  9 Oct 2026 22:39:16 +0000 (UTC)
+From: Kim Wooseok via B4 Relay <devnull+5mghybrid.khu.ac.kr@kernel.org>
+Subject: [PATCH rtw-next] wifi: rtl8xxxu: isolate the USB register buffer
+Date: Sat, 10 Oct 2026 07:39:15 +0900
+Message-Id: <20261010-rtl8xxxu-usb-dma-v1-0-e670d9c08fdf@khu.ac.kr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261007174449.671416-1-rosenp@gmail.com> <20261009164732.GG83879@horms.kernel.org>
- <CAKxU2N_=H=D0p=g0XBqFtJFHDpidO-5d7P1kKZxXEDX86BGnPw@mail.gmail.com>
-In-Reply-To: <CAKxU2N_=H=D0p=g0XBqFtJFHDpidO-5d7P1kKZxXEDX86BGnPw@mail.gmail.com>
-From: Rosen Penev <rosenp@gmail.com>
-Date: Fri, 9 Oct 2026 15:33:42 -0700
-X-Gm-Features: AclHuK--vcR19Q4c1HmMxBuosb_aBRVRtTK0Kor0FuyXWmfdeo3iVtKqvmIrSjw
-Message-ID: <CAKxU2N8svLRziH_AYKMVdL0t-ndUfxSGO+=ftekFG0KQFsXVZQ@mail.gmail.com>
-Subject: Re: [PATCH net-next] net: ag71xx: align the IP header behind DSA tags
-To: Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org, Chris Snook <chris.snook@gmail.com>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/z2MwQ7CIBBEf6XZs5tAQ1r1V4wHoFuLUTS7oCRN/
+ 13QxOPMvHkrCHEggWO3AtMrSHjEGvSuA7/YeCEMU83Qq37QSivkdNuXUjJmcTjdLfqDmc04kFZ
+ mhHp7Ms2hfJUn4PTGSCXB+bdIdlfyqRkb66wQOrbRL63609v2AbDrgCuZAAAA
+X-Change-ID: 20261010-rtl8xxxu-usb-dma-c94f476e1047
+To: linux-wireless@vger.kernel.org
+Cc: Jes Sorensen <Jes.Sorensen@gmail.com>, 
+ Ping-Ke Shih <pkshih@realtek.com>, Kalle Valo <kvalo@kernel.org>, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Kim Wooseok <5mghybrid@khu.ac.kr>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791585555; l=1272;
+ i=5mghybrid@khu.ac.kr; s=kernel-20260913; h=from:subject:message-id;
+ bh=KWpQFquq7avx1bUklcWT3BnzeA5u9h49N5vuVBzTD3k=;
+ b=YCKDuTM5arzlyP5KChB/r3Xqskn7TypP3HRG1TFZaZUbljeb1n2LZ79C27gogbLTxln71VstU
+ HvTbYg4enNeDdWP8kN2+SqY1cfmMUtdjCJgpRfVMTA0NcnizT/goeO1
+X-Developer-Key: i=5mghybrid@khu.ac.kr; a=ed25519;
+ pk=1az/6lC8Tmd6BcvyarPc8FWoSxsV/WRr5NLs1v+kjlE=
+X-Endpoint-Received: by B4 Relay for 5mghybrid@khu.ac.kr/kernel-20260913
+ with auth_id=1028
+X-Original-From: Kim Wooseok <5mghybrid@khu.ac.kr>
+Reply-To: 5mghybrid@khu.ac.kr
 
-On Fri, Oct 9, 2026 at 3:27=E2=80=AFPM Rosen Penev <rosenp@gmail.com> wrote=
-:
->
-> On Fri, Oct 9, 2026 at 9:47=E2=80=AFAM Simon Horman <horms@kernel.org> wr=
-ote:
-> >
-> > On Wed, Oct 07, 2026 at 10:44:49AM -0700, Rosen Penev wrote:
-> > > The receive buffer offset includes NET_IP_ALIGN to get the IP header
-> > > aligned behind a 14 byte Ethernet header. Most ag71xx devices use DSA
-> > > switches whose tag sits in front of the EtherType, which moves the IP
-> > > header by another 2 bytes. Every access to the IP and TCP headers the=
-n
-> > > traps and gets emulated by the unaligned access handler, around 6 tim=
-es
-> > > per forwarded frame.
-> > >
-> > > Take the headroom needed by the DSA tagger into account when choosing
-> > > the offset.
-> > >
-> > > TP-Link Archer C7 v2 (qca8k), median of 3 runs, Mbit/s:
-> > >
-> > >                        before   after
-> > >   routed up               743     855
-> > >   routed down             660     749
-> > >   local receive           554     572
-> > >
-> > > The unaligned instruction counter no longer moves while forwarding.
-> > >
-> > > Assisted-by: LLM
-> > > Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> >
-> > Unfortunately this patch did not apply cleanly to net-next at the time =
-it
-> > was posted, so our CI did not run.
-> It appears I was careless and sent it ahead of local commits. Will resend=
-.
-I see the issue
+I encountered reconnect failures on four Raspberry Pis in my project.
+While investigating the failure on a Raspberry Pi 5 after an AP power
+cycle, I found that RF_MODE had been corrupted. Restoring its initialized
+value restored reception without reloading the driver.
 
-A different patch removes the comment:
+The USB register buffer shared a cache line with CPU-written mutex state.
+This patch allocates the buffer separately while keeping the existing
+register access and locking.
 
-For our NAPI weight bigger does *NOT* mean better - it means more
+I tested the separate-buffer approach on the Pi's Linux 6.18.34 kernel.
+During repeated scan requests, wireless ping traffic kept receiving
+replies and the RF_MODE and HSSI values stayed stable. I also built the
+submission's rtl8xxxu driver for ARM64 with W=1; sparse reported no
+diagnostics in core.c.
 
-so git am fails but git apply works.
-> >
-> > Please rebase and repost.
-> >
-> > --
-> > pw-bot: changes-requested
+Signed-off-by: Kim Wooseok <5mghybrid@khu.ac.kr>
+
+---
+Kim Wooseok (1):
+      wifi: rtl8xxxu: isolate the USB register buffer from CPU state
+
+ drivers/net/wireless/realtek/rtl8xxxu/core.c     | 35 ++++++++++++++++--------
+ drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu.h |  2 +-
+ 2 files changed, 24 insertions(+), 13 deletions(-)
+---
+base-commit: 83de3a16c7b37064a59305040ba9b0f93b832794
+change-id: 20261010-rtl8xxxu-usb-dma-c94f476e1047
+
+Best regards,
+--  
+Kim Wooseok <5mghybrid@khu.ac.kr>
+
+
