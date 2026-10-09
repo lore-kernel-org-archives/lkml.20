@@ -1,62 +1,64 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 262C43DCDA4
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 05:40:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E848F3B52FF
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 05:40:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791524456; cv=none; b=qV0DsjM7ZUahI+tPpqAiyEX4jB/Nwt7ysEUxRtzvQVCm6gkdMhvb2i1vgtJraS1BuepupO23yC9ah8X4+0cUmxCSOcOUKaUm4gypSKGldh6LnPGIAc+J6/pYeedPWpDNtBjlbYh1CpyKhokvib8yBQI+/mCNs/IHF4El8YRfyQ4=
+	t=1791524459; cv=none; b=psUS7WSvUU8gA/cdRWT8sk9q7FJ7/HPB1tSLNP0TsmlHLIxlDzdZ/+O4Oqc0kFkm6ibtYniK/0inIHOZajycVLtxyVgqiUIwwtgLd+zXTq9oxrE2Z8ekvZ37xnOVpaLU+V6AjVAQ7bUpANt12FxjemRFSL26sbXIIix3kXXO0QA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791524456; c=relaxed/simple;
-	bh=HnB57wgD3GFiYI3A8kNtqpj2zQ6URRPxoqjg9tTokok=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uYR51GGlnNB9DIIKwbijIXYFzrjkSZuZwa27bs+7DPHvjMWT87Bok1e8ACnQPc8zgtPmFe9V5gfOkSCXMYplduTPzfCwGJd8k4Gt5uSjmkvrDjT1nTQCej5zHygoSddsLyeqh2kawQo23EgeEFr4KsNiH9DHCyrEtMtbcQ6lxCE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l00VCcxi; arc=none smtp.client-ip=209.85.216.45
+	s=arc-20240116; t=1791524459; c=relaxed/simple;
+	bh=MJhf/VdVlwR4/z1tqw+ESVPZyrpQOjiiuMxVZCsI8gc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Gk6rwCjXjyavzjZjJ+IVs7h3SNUnSg5qMmTdqCWgilPeHr9dBuEtGviLxNdV0TnZfJ9W2g5K1t90j196BUEYW69IKzCWtcknJS1Vxnw99d2341SS5a4Z4fLHz2GTHQ65yzDv64LYYDsX6lZvOgl6egpqpBB4t06GUf5I1Gp+Rpc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ID1Osszv; arc=none smtp.client-ip=209.85.215.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l00VCcxi"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3ab3260b35dso310910a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 22:40:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ID1Osszv"
+Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-ccc6b11a19aso2124472a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 22:40:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791524453; x=1792129253; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=w+4kAAJ3Fw9J4WUA2k2oRC3BjB3Bj1YsgSFYbXXKqEM=;
-        b=l00VCcxiWhQpi5que07Q0W3yGNo8szkB2tQaZHf8S4HPl8CM7raK9U0kkHuZ72mTWZ
-         L0AelV66X03VtLkjqk8ib+qiNK9c+JZrqkYS6kRgoMmHBZJRvJuCBM3Vrt741i4697wI
-         OJYoh4ij5K6EwgyNzwXAM1AC0H0fws07V6B7qkM2y/aufVQ6fxyvqrJ2OV3ccKU87vHe
-         4NNLF2M06R6JZ0d3Gtx/XUM76vxyYyUaV34MWLpHWa1VwuiB6JhdXos3vczJD7Y+Ovi7
-         /AosKo+NyorA9ZgXi3+ZTMoZzMKzIxo3u4mhLgHXV/GuvhzAxXJBeMqwvmFrsOSYYvcI
-         s7LQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791524453; x=1792129253;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791524457; x=1792129257; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=w+4kAAJ3Fw9J4WUA2k2oRC3BjB3Bj1YsgSFYbXXKqEM=;
-        b=Dl5uhsPd0W1WCKzPFvzfgMpkBruUB07Bv1f95CjFaNX1ChUo28EYUEdHHNq/HKRmb8
-         tt1LkiFJ1RUh1xnkNP3ElHZ6skWJ7BxbC9YAn3Wwtyd7GXGkZ22f5CgmIMRSKC38YyAl
-         Aql9Q17dZ9+bo0/kSrKmkB8RYof3mq4FIAuDXllBSthP5PdtgPFUlXGoMyGhqwhP45sY
-         5PIgdfdG7cjGBlkdH0Qw95Nu3oAaLpFlkDiun6o6EtuAk4qVPf5RKflCk+la1t5wrFO2
-         IU+Radeq+rKf7P9swhmgQ645Ku2BN6tkpbZinWhhCYciovGT1qvPqt6ai8jFC5d1JjsL
-         Wahw==
-X-Forwarded-Encrypted: i=1; AKwUvByIO6OhydhHm0Kvpg0/ZkNparf4eYJeNesYl4EgFywBSrl2Nxl4AnocPxQe8vTJjG0N2RxugL5EYV413cc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIcbVSJcw177sNTOGpYlMEFDjJOwrH2Jrh5PJGt7u/LGrvWvic5
-	YZjRgm8OieJUO4Jx7yrq40TjFbLe24LTQkZVTvP98C47VBFjnhKgNzY0
-X-Gm-Gg: AYBFou2lMLb/qT3Pn5Mi9uF3LmDYNq2DsM6umU1BPahsYB+aDbpy2rH0qdQnu703IDA
-	+nKafKwGSBx406zewBnMOoqIEho1UWEfJQoZxTTWAliGzKVXxSykAr+Hze9RLWmmI7T5sJTFQne
-	kU8qT+GbpaRNrAHoYVfsdSEPZD+GKydaTYZm8SECJwbAS2atYIi8ZpC7urxUUhG+BdhHHZpjKEb
-	iG4TBr+uWPeVHqTpfdQtepkMaxu7ZvkuGUE+ori13xpg+vsBdXCcFmwf8rYuZlMDZeIpT+nQiKO
-	tbnmGDP37qXZOYTyhK4iMu3T347ruMRHvShvgxGLIHJziZNdGV2OPXDmNk6YRwVr8NZoUHyKd1y
-	Wit8/40FNdC7CYmkit8jixgG4tEYBdjOHe6ApPg3fXkKj2NPYX16Vpuf5cAzawc5UpWa+7x+Fp5
-	9w/gO2Pw/00tplig6M/YyJFqq3xdNhcobMwZoz5NzQbJWEzSkzotDZxLeC2LnpBoIo+t2TkWWpQ
-	niZrue+X3zk
-X-Received: by 2002:a17:90b:5346:b0:3a4:e635:a8c9 with SMTP id 98e67ed59e1d1-3ab3a773f40mr964916a91.24.1791524453388;
-        Thu, 08 Oct 2026 22:40:53 -0700 (PDT)
+        bh=mYDcawsl/q6WnSRicggMNThMT7mmzOe7cZcZv/tuVvw=;
+        b=ID1OsszvROSLigPfmbh/ftT8d2CfZqzP9bFi5XVjdQNQUUookgLY2RVaIFRhKXL+Sf
+         0+1iW1rtiXqrY4r8YHq5Bqdc11gnQJk5ka3icEKozsrDAXq6PX/ynWENVwxEeWrELi1u
+         C45ioX08jqlfQJ1AUWUNjpl/JYf5wbD1DGnpuNyE722v0NkRbqMg6Wc7phgGRNC8easZ
+         JKILsX2AAyfBvLRnWQx6lUOBpA9sMDMslJ2rtObTP0zd1TZlo+4E8A0ekn2KO4RUM9/S
+         r2BhSqxi1FUwo7oV3zR3WmZejpOi4j7SvwZ+6j7lLEt1vmnlPEL1G+PRyroxYzvx0uUO
+         5W0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791524457; x=1792129257;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mYDcawsl/q6WnSRicggMNThMT7mmzOe7cZcZv/tuVvw=;
+        b=HYYuLS88lPygsgu19MOgXcRvZaL3/dsC91x/idjLF+3EjQiVHfqEgfmyncfY5drqud
+         B6UJEUD0A1ik9wXTT4tOG2bTYYNfXEQOizb8TLNDH2wo3oihfFj444ot8tRjKmnO1tW+
+         l3Mkw3RYxudYzLJFMMqYFdue6yLitS7QMdUdijCvgC7stdlij2GKERejllOfkWZUcqHT
+         Ym8guLggG0jtizCRa7GIiX7TpyYQABjdxzBKRqPGOd4YZA6/k3NB61BiNm4uei9qsfYi
+         N6JbPyCwKNh9XibVxxAymVsd5joQMZCOWU9mgUwxgrszcjwyXfJhx8K1Y1GEvJcmbgeb
+         lAag==
+X-Forwarded-Encrypted: i=1; AKwUvBzFddIyQ5eWt817a+/F9Ez6Yhmz5i4bdDHns0WfPAPfgBs5F+yux/eSNcyDZ0m8pSBmLXeckMCfxIV0Hew=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLc5NDlH/1UX3Y8VsHXGBrMKxekIczXdikMjwwLCbJ1FR2ND/jL
+	a9IVA4jUai+qxh855WaqzR7BeeaVTwvHzIMdf6zVlBSEdKgkwwBWibyO
+X-Gm-Gg: AYBFou2GpTSJSF1kNOWSQPf+jwRFMJNIlnoVvpMwCGebFizw4uY/7fO6BpyMKnUehnO
+	zulhYaqT3CfeMFbgO44Me1iyO6rEdPxzu3PexzNjRvcFa36BpBP9KBjGOSvEVU2xPXkTE9pPQl1
+	51AOI+OmIwsLjdZLK7lPW8YNpyoZEzqqHJYPtvNCXZ6zMycrLo0+z4Encu+63YGzJiUHOoRGc1c
+	pXPqas36GW7AXS1GipEEJMs6k00HbzfupuWxhS1OntVua7T4zFk9WsYybUEXky+U9wJJ9C7+Dz2
+	yG0Dp7KscjAKPfa7N2zLI+6Rq/LKoH3BwGQOsK21u3XJ6jISKcnSaU7/vCnFfwHydV4lmzwP7Na
+	EOvAcXwDd3xxKcQQZQXg3YTnJnwUiPSqm/ZrTCmhDCS5VGG1m0HOLmnTXr9t/34JpeNk+Kf9Zpe
+	H6qz2MzfcA6H9H8h4eguW6M6Z62KZq42OZz2I9Sxb1Ci7ONwWB+Pv/8HU3403IB391MWLJIZSH7
+	A4mrgB4hXE=
+X-Received: by 2002:a17:90b:17c8:b0:39e:6c69:7777 with SMTP id 98e67ed59e1d1-3ab3ac63cc1mr876888a91.32.1791524457160;
+        Thu, 08 Oct 2026 22:40:57 -0700 (PDT)
 Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab3690474esm2028695a91.0.2026.10.08.22.40.49
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab3690474esm2028695a91.0.2026.10.08.22.40.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 22:40:52 -0700 (PDT)
+        Thu, 08 Oct 2026 22:40:56 -0700 (PDT)
 From: Daehyeon Ko <4ncienth@gmail.com>
 To: David Ahern <dsahern@kernel.org>,
 	Ido Schimmel <idosch@nvidia.com>
@@ -68,10 +70,12 @@ Cc: "David S . Miller" <davem@davemloft.net>,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Daehyeon Ko <4ncienth@gmail.com>
-Subject: [PATCH net v3 0/3] ipv6: fix address publication races with addrconf_ifdown
-Date: Fri,  9 Oct 2026 14:40:39 +0900
-Message-ID: <20261009054042.272944-1-4ncienth@gmail.com>
+Subject: [PATCH net v3 1/3] ipv6: serialize address publication with device teardown
+Date: Fri,  9 Oct 2026 14:40:40 +0900
+Message-ID: <20261009054042.272944-2-4ncienth@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261009054042.272944-1-4ncienth@gmail.com>
+References: <20261009054042.272944-1-4ncienth@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,50 +84,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The first patch serializes address publication with device teardown by
-taking idev->lock before the address hash lock. It uses READ_ONCE() for
-the initial lockless state checks and rechecks both dead and disable_ipv6
-before publishing.
+ipv6_add_addr() checks idev state before allocating an ifaddr, but
+publishes the object later. addrconf_ifdown() can mark and detach the
+idev between the check and publication.
 
-The second patch handles an address captured by the per-device snapshot
-after the initial hash scan. It removes the address from the hash in the
-existing list-removal block, after delete notification and before dropping
-the list reference.
+This happens when a non-loopback device MTU falls below IPV6_MIN_MTU. A
+forced interleaving published an address on a dead idev, and later device
+deletion waited indefinitely for the leaked references.
 
-The third patch initializes a temporary address's public-ifaddr reference
-before publishing the object. This closes the remaining interval in which
-ifdown could miss the reference and a later store could leak it.
+Protect the dead indication with idev->lock and keep that lock across
+both hash and device-list publication. Use READ_ONCE() for the initial
+lockless state checks, then recheck both dead and disable_ipv6 before
+publishing. If teardown wins, reject the unpublished object.
 
-The original deterministic test used a direct internal caller, kprobes and
-atomic rendezvous at existing instruction boundaries; it did not add delays
-to addrconf.c. A real RA separately reached ipv6_add_addr() with
-can_block=false. No new kernel build or runtime test was run for v3.
+Fixes: 8814c4b53381 ("[IPV6] ADDRCONF: Convert addrconf_lock to RCU.")
+Cc: stable@vger.kernel.org
+Suggested-by: Ido Schimmel <idosch@nvidia.com>
+Assisted-by: LLM
+Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+---
+ net/ipv6/addrconf.c | 18 +++++++++++++-----
+ 1 file changed, 13 insertions(+), 5 deletions(-)
 
-Changes in v3:
-- Use READ_ONCE() for patch 1's initial lockless state checks.
-- Add a third patch that passes ifpub through ifa6_config, as suggested by
-  Ido after the Sashiko review.
-- Move patch 2's unhash into the existing lower !keep block and use
-  73a8bd74e261 as its Fixes commit.
-- Rebase onto current net while preserving the v2 cover and first two patch
-  subjects.
-
-Link: https://lore.kernel.org/r/20261004183639.3773498-1-4ncienth@gmail.com
-Link: https://lore.kernel.org/r/179122559913.434549.12720841717630168470@kernel.org
-Link: https://lore.kernel.org/r/20261007164548.GA1153540@shredder
-Link: https://lore.kernel.org/r/20261007164635.GC1153540@shredder
-
-Daehyeon Ko (3):
-  ipv6: serialize address publication with device teardown
-  ipv6: remove ifaddr from hash during ifdown list cleanup
-  ipv6: initialize temporary ifaddr before publication
-
- include/net/addrconf.h |  1 +
- net/ipv6/addrconf.c    | 25 +++++++++++++++++++------
- 2 files changed, 20 insertions(+), 6 deletions(-)
-
-
-base-commit: af32da41b0327b9c6a37856ba82b6760d6c8d10e
+diff --git a/net/ipv6/addrconf.c b/net/ipv6/addrconf.c
+index c90ee6dd7446cd..77b3b1154d591c 100644
+--- a/net/ipv6/addrconf.c
++++ b/net/ipv6/addrconf.c
+@@ -1095,13 +1095,13 @@ ipv6_add_addr(struct inet6_dev *idev, struct ifa6_config *cfg,
+ 		return ERR_PTR(-EADDRNOTAVAIL);
+ 	}
+ 
+-	if (idev->dead) {
++	if (READ_ONCE(idev->dead)) {
+ 		NL_SET_ERR_MSG_MOD(extack, "device is going away");
+ 		err = -ENODEV;
+ 		goto out;
+ 	}
+ 
+-	if (idev->cnf.disable_ipv6) {
++	if (READ_ONCE(idev->cnf.disable_ipv6)) {
+ 		NL_SET_ERR_MSG_MOD(extack, "IPv6 is disabled on this device");
+ 		err = -EACCES;
+ 		goto out;
+@@ -1168,14 +1168,20 @@ ipv6_add_addr(struct inet6_dev *idev, struct ifa6_config *cfg,
+ 
+ 	rcu_read_lock();
+ 
+-	err = ipv6_add_addr_hash(idev->dev, ifa);
++	write_lock_bh(&idev->lock);
++
++	if (idev->dead)
++		err = -ENODEV;
++	else if (READ_ONCE(idev->cnf.disable_ipv6))
++		err = -EACCES;
++	else
++		err = ipv6_add_addr_hash(idev->dev, ifa);
+ 	if (err < 0) {
++		write_unlock_bh(&idev->lock);
+ 		rcu_read_unlock();
+ 		goto out;
+ 	}
+ 
+-	write_lock_bh(&idev->lock);
+-
+ 	/* Add to inet6_dev unicast addr list. */
+ 	ipv6_link_dev_addr(idev, ifa);
+ 
+@@ -3897,7 +3903,9 @@ static int addrconf_ifdown(struct net_device *dev, bool unregister)
+ 	 *	   Do not dev_put!
+ 	 */
+ 	if (unregister) {
++		write_lock_bh(&idev->lock);
+ 		WRITE_ONCE(idev->dead, 1);
++		write_unlock_bh(&idev->lock);
+ 
+ 		/* protected by rtnl_lock */
+ 		RCU_INIT_POINTER(dev->ip6_ptr, NULL);
 -- 
 2.55.0
 
