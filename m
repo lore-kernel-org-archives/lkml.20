@@ -1,176 +1,159 @@
-Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com [209.85.217.42])
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5D7C3876C1
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 03:26:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DCF538DC69
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 03:26:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791516389; cv=none; b=lmFhr6JqpL6yFmIx4n7TGgzn7gkSQErJvFtrnwley40pA4FEwIObNqcZQmZ7BYSnzA7CBA9vY6MGWZMVBzJUx3bgPBqR1n+ZxBo7GSW4mkcjJUjPAMKVry3zy8LODvvLwa2kxZvuPo1iSCLs9ykS6bmFgPF3emgHfkwzbVrvnMg=
+	t=1791516407; cv=none; b=gabovTrhkAvG/LLSK3gLQn1ebVoKuNc8IRwcdTs0SSoP8bypByaZjJmtyeGnpRPJyld2daFODksIgw/qas/bYPX5Zlj8vlo/ySscGflCg8lBE+bA2RuwCS1jC9dZER6NYe6lk/S6lH+y+BfKT+e2Q2czbjrvQYSuGgEyLUg9l1k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791516389; c=relaxed/simple;
-	bh=FC0tBf/Bbd0fFv+n0zfKmklZj2q8QedkLNsQoVQYUiY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=W6U28SDc/ExxxJyaET1moruV7SjFJQahZNiHHpsL5CdRpM979aNXgKM1E1YJhgftWLXtakBgTVDy+cTrzWMkVGfzx9MI0p2hD+ljcXdjhgEMkVnAC9OilZ1pf835EioOUEYNRF2qPE4flZAHEtbs/ZMTuqmYIlN8kQD632hKIu8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zx4x+YMr; arc=none smtp.client-ip=209.85.217.42
+	s=arc-20240116; t=1791516407; c=relaxed/simple;
+	bh=a7zHqrMj8ltjJpM0sNDbXHJaz5KLofXlEk4pWj+B1bg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tIw36PtjTC2tD8WhvxOfwUwUcZKyIeaZNuLjDbEfRbfJ+F1ZvhDYgsDCa5B2YTASjFUshB/zIPyMt1IhkqNWrMoXxocI1r7nUef+U37E2FHtZZN+DreO3OQblQXOGvcStpPzqgFIk7GtO8kqlTYLfG8OeZwP8/Uj2v9jAnyEz9U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ilLvOIcI; arc=none smtp.client-ip=209.85.216.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zx4x+YMr"
-Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-7c19c6721a3so2126865137.2
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 20:26:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ilLvOIcI"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-38759bcd877so3044199a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 20:26:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791516375; x=1792121175; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=b0oI5ab0SOpcU2oguj2Mvg/3amVLKLWqr9M0+kJZIag=;
-        b=Zx4x+YMrxsZTRjx8vuVtP19LE8VSxgNi6ghVN7P2yxStBZtUJ1W8ZOUJ67kI6Qb0ZA
-         /9eamYyyeVusn2BNXogqJZorrT6WkkENW7MR+HzfW+zi0PpYLcLxNixYzoZnGSqAV77Z
-         fEaGXxLr+MfefLfyg3Ee3Zqj+qzQ249qe7ZvCB2Pal4hbB/pzin+kKrb3xRFiS0wzg4Y
-         Ajp4JF7sXh7WxTfLry7Mgwwy05kQgbYV7eey+jgLmP4vczOBSW6gG8xVHTmwbt+5+swp
-         iuKrjraINgRqYW8DConvFIEO3z95ufE0nMJXd+GWTXMek6mOJ/AqWmvFiU3sRxT93p5Z
-         8Hlw==
+        d=gmail.com; s=20251104; t=1791516393; x=1792121193; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LYAohfURFktRBLdiWxIwClXMCDAhfiRzTvJlH6pEOZU=;
+        b=ilLvOIcIMa/wMrhJp3ledXB/nJ4VPqmQAijB98NRcCLCPTDd4cpB+u5bjtRR5ZCAiE
+         hKAGIpKGGORX0FONhq+HjlqXJv/3NqTUK6zSURt76oCjAa5BlVEZ70e/Zppzg9KCc7wj
+         js+Nd/n/XI1V2LyPN9s5R+D7f+frpdbJ1DkWolp0nl2OXzISnatQ0spyN76niX3xvnEc
+         uCpEiEur9deoQFSTc4JF0QsBVO/nWeRfEJxTK3m/wdbWn5Hh/PbhsAcAskFRFxHTx9+K
+         OTZ2cqaFJCniYFj5wJCK9RMBTX5L9j1/7mY9N3fWvyyYI+J27IKK/4N6+hj+RGA0Pear
+         ZMIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791516375; x=1792121175;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=b0oI5ab0SOpcU2oguj2Mvg/3amVLKLWqr9M0+kJZIag=;
-        b=dzsTtqD9Rwrn+pEM+wXyvkyNiMgLaRHGx/p6dHArSTuktMVeNIZaChR4Dyqg3pSPed
-         OWYBvfAGhpe+Eq2winReGzsMjJkVZLZAVFgDKeyGV1VAJbbH4Zb2WvyqOgYyZpTo5R2j
-         gmg/zBLb8uO3GY0gp7kWA6xt6wdwMkpG1JAYY+/KxN2NuzCART5jKc0kmJr2jHaoheOo
-         7RRpLu1dmqmnLkEBC+9hgxkDZc+7/mhUU2+fb18SI6nlWn70oaRs+Y9j7iCITstuJvhI
-         MwIRVp0/ziGONg97VVLpZc1MgJy3pE2nc9iv7WRMuU7h+is2Zbwtq8crmr36PmReZ6Y7
-         XM+Q==
-X-Forwarded-Encrypted: i=1; AKwUvBynRrEExS0zK9/TqsYqJypPEc+uNuDqv5DUm6vEqmCkV4aLrzQQF/AHxqFLaW4yLwn2W5UyvEm+QQYZuQQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJDLjGxwrYTpgSnzx739OFEeGGZIXhaQsX30Uwb0Kl+nbMsTEZ1
-	mcbQFoQMvus27aUEYnQ4Q0SewvSKGRjDTCSPMR6g8XcLsBcrGPrarYRYgBhGa0uLXrFcAA==
-X-Gm-Gg: AYBFou0ZciRyflPU0B/JEG6vk59dEaEWsrDamq13/RM/juktBNMy0ZkVGI3e6G/k9oW
-	CjJAE3PjyBcejiDs8sudwbuNqXf0EtqG+fmMDTGLZtDUFvu76w/n7BOOuATdh74630QEdaqPfnm
-	A5u9Y6lfp4ScswwGa+ZBHvrCR+xVFpqMNL8/0x3XvZGmnSpLFx5QRyrlBQu85293tb6SWMK7TUN
-	ILIR50u3YhjaU4o4WUePszZPyiZRmhXI8rHHCjNmjHbhuN4vXQCoXDv8dgtZxxbUEcgOjzKr8VC
-	pLzdpl4NmPf9rlFBKElbrrmFeDxZROYa6PLi44ix6n5uIfC2zs+uh7qcsPFbGOEbnikfD0rkjcC
-	tLaNtTtTQkklWsFp+6ySbmFNlnJFTJ2WLg9qaj61342KfNqaKq+KPtdXpOzFx/OX83sy3sDpF9c
-	4q+giYSCuZcsHWfWPZpC13POVQqP3TNj7kT50xVbqG89oFCBSzd70ycEM5VD9GCTc=
-X-Received: by 2002:a05:6102:b02:b0:7a5:2792:32d0 with SMTP id ada2fe7eead31-7cb3a067145mr220615137.15.1791516375576;
-        Thu, 08 Oct 2026 20:26:15 -0700 (PDT)
-Received: from beelink.. ([187.13.210.57])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7cb354681e4sm728780137.10.2026.10.08.20.26.13
+        d=1e100.net; s=20260707; t=1791516393; x=1792121193;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LYAohfURFktRBLdiWxIwClXMCDAhfiRzTvJlH6pEOZU=;
+        b=sp/kL9UXgG5VYXAjn3s1M4050en+10AwI3jxEyXs/qBTsb/AsqPh//QMP0tr05izzg
+         Lr0Y13pfdH9vxyOj3G6G6laN1VwSVobbJFeLe8l7VnHXW4rMwQadu3eZIsLMbNYjmV4E
+         Lm0N+DDfJeTesYxj3oceDzEemabAjjMFVBxYw2zGicM6uFX9DBlbnhKgLKqra9u70x35
+         avDNZgp8dtNzvDR6sV/0ekgGv/jp8eMcQsY6iDd6zw8fDYykbyj7xeOSeFKiPGIzxnrm
+         NXqFBw9EtJeNll0US0pSfNOyvhztRSW+ZOyYl63gLHs53RzzfTmjYLzufAqD+KigQ8gc
+         E6Iw==
+X-Forwarded-Encrypted: i=1; AKwUvBze2J02Piukjhp/0jTiCXnMJ5EEzf5evpd62CGMerWyPBRsXHekYsqoz0ZfHSNGE0DrB6VPxmIKTFIuqMg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKwOgCleyRSGKFc50nU4JzyM1DQL7d4ei19uTZPNaiMJr94Bi4H
+	5+oKsPuQZ6UzhLNE5pRcZLUVU7nP0p6Xtvc5ECKcrLMtnCRBwpRYeD6q
+X-Gm-Gg: AYBFou0L1wUBOR3jaerMgGqboW7wXXlTvG2Ikx+0Q/+F7H9jMj356qMQVAZmiycZQ8f
+	Ep/7hpgCPfeWM9wBgpgI34iIBh2Tg1yEyuD2pgiO5fs7NnenURnYcvhgu0otGUhQSxRyK/QYtbh
+	rw0Nuu6XCpomVIdwAYFVEr5txymJFi/dJNxmLm2eoiI/lqUEYHS8ImR2MA3dP4aZt4/fJmGWI0Q
+	+Ie5lnEEjSjvyuY/J8dwuNGH/rqtvwk8iJ5pZLlscL8QGOBVw5oJ79/lSAtxncePOhz60HI8cJn
+	xZHe6w9Ez99KIKLRPeYglbRvfXRe5x1L4Af03XLNq4tBybHDEjVaeRFHhn2FiPNaLNJF8P1tKBC
+	cWur/PtuAyXUKQDkpmZa+KiNOQLsOFwmsYey1WmSMdvM8MWSGEoj88yy6IdDq/EdDuWjWOjHbSq
+	Kc2O7QxbRdiH78fTxFPEEVihvbnSmDxvyOE4i3AirLKnXoJH5l/kw77Z8V7XoJGUgn8Xp8rxac5
+	R/Tw7j+e6cQ+UiHCM7GzB1Ayhg0H7ZR6FIpQHu84FqUWIinm/1dbH/+Sbv29QZol48XRBLHFC3X
+	kZuWE9HA
+X-Received: by 2002:a17:90b:4b09:b0:39e:3713:c2e4 with SMTP id 98e67ed59e1d1-3ab3ac58076mr575751a91.14.1791516393448;
+        Thu, 08 Oct 2026 20:26:33 -0700 (PDT)
+Received: from 0xiviel ([49.224.123.154])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab371b2f2bsm1436401a91.15.2026.10.08.20.26.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 20:26:15 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Subject: [PATCH v2] HID: haptic: fix use-after-free of devm haptic data in hid_haptic_destroy()
-Date: Fri,  9 Oct 2026 00:26:03 -0300
-Message-ID: <20261009032607.3233482-1-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Thu, 08 Oct 2026 20:26:33 -0700 (PDT)
+From: Eva Crystal <0xiviel@gmail.com>
+To: stable@vger.kernel.org
+Cc: Lizhi Hou <lizhi.hou@amd.com>,
+	Min Ma <mamin506@gmail.com>,
+	Oded Gabbay <ogabbay@kernel.org>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 6.18.y] accel/amdxdna: Bound the sync_bo flush range to the BO size
+Date: Fri,  9 Oct 2026 16:26:14 +1300
+Message-ID: <20261009032616.432392-1-0xiviel@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-mt_probe() allocates td->haptic with devm_kzalloc(), tying its
-lifetime to the HID device's driver unbind.  hid_haptic_init() then
-installs hid_haptic_destroy() as the force-feedback destroy callback,
-which dereferences haptic->hdev on its very first line.
+[ Upstream commit dbc8fd7a03cbc0704e8e558a448015f620547a02 ]
 
-When the HID device is removed while a process still holds an evdev
-fd, devres frees td->haptic at unbind time, but hid_haptic_destroy()
-runs later from input_dev_release() when the last fd closes.  The
-callback operates on freed memory.
+amdxdna_drm_sync_bo_ioctl() passes the caller's offset and size to
+drm_clflush_virt_range() on the BO's kernel mapping without checking
+either against the BO size. The ioctl has no permission flags: any
+process that can open the accel node controls the offset. Any BO with a
+kernel mapping reaches that call: AMDXDNA_BO_DEV_HEAP, AMDXDNA_BO_DEV
+and AMDXDNA_BO_CMD. A DEV_HEAP is vmapped, so an offset equal to its
+size lands the flush on the vmap guard page.
 
-The existing get_device()/put_device() pair in init/destroy pins the
-struct hid_device but does not keep its devres allocations alive,
-since devres runs at driver unbind, not at the final device kref put.
+Measured on 6.18.55 on an AMD Ryzen AI 9 365 NPU, firmware 1.0.0.63,
+as a non-root user with access to the accel node: unpatched, an offset
+equal to the 64 MiB DEV_HEAP size oopses in drm_clflush_virt_range()
+under amdxdna_drm_sync_bo_ioctl(), 2 of 2 runs; patched, the same call
+returns -EINVAL, 2 of 2, and an in-bounds sync returns 0, 2 of 2.
+DEV_HEAP is the type tested; DEV and CMD are by code reading.
 
-Replace devm_kzalloc() with plain kzalloc() for the haptic struct so
-it outlives the driver.  Free it at the end of hid_haptic_destroy(),
-which already tears down every sub-allocation manually and holds a
-device reference that keeps hdev alive until the kfree.  On the
-non-haptic path and the pre-hid_hw_start error paths in mt_probe(),
-use kfree() instead of devm_kfree().
+Upstream bounds the range in amdxdna_flush_bo(), added by commit
+dbc8fd7a03cb ("accel/amdxdna: Add expandable device heap support").
+This applies only that check: an offset at or past the BO's end, or
+an overflowing offset plus size, returns -EINVAL.
 
-Fixes: 8d0bf7908b5a ("HID: multitouch: add haptic multitouch support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Deviations from upstream: that commit adds a feature and is too large
+for stable as a whole. It calls drm_WARN() when the check rejects a BO
+whose type is not AMDXDNA_BO_DEV, which userspace can trigger; this
+fix does not. Upstream bounds AMDXDNA_BO_DEV by the heap chunks it
+spans and flushes only the overlap, reporting no error for an offset
+past the end; 6.18 has one heap per client, so this fix uses the BO's
+own abo->mem.size and rejects such an offset instead. As in upstream,
+a size past the BO's end is clamped, not rejected.
+
+Built from v6.18.55 with the test system's distro-derived config,
+DRM_ACCEL_AMDXDNA=m. The touched file also compiles W=1 clean.
+
+Fixes: e252e3f3488a ("accel/amdxdna: Revise device bo creation and free")
+Cc: stable@vger.kernel.org # 6.18.x
+Assisted-by: LLM
+Signed-off-by: Eva Crystal <0xiviel@gmail.com>
 ---
-v2: do not free td->haptic on hid_hw_start() failure — if
-    hid_haptic_init() ran inside hid_hw_start() and installed the
-    FF destroy callback, the internal cleanup already frees the
-    struct via hid_haptic_destroy().  Only free it on the error
-    paths before hid_hw_start() (found by Sashiko AI review).
+ drivers/accel/amdxdna/amdxdna_gem.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
- drivers/hid/hid-haptic.c     |  2 ++
- drivers/hid/hid-multitouch.c | 16 +++++++++++-----
- 2 files changed, 13 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/hid/hid-haptic.c b/drivers/hid/hid-haptic.c
-index 8760eeb08..6c365dbf0 100644
---- a/drivers/hid/hid-haptic.c
-+++ b/drivers/hid/hid-haptic.c
-@@ -406,6 +406,8 @@ static void hid_haptic_destroy(struct ff_device *ff)
- 	haptic->hid_usage_map = NULL;
+diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
+index ca747457cec7..95d04af2b993 100644
+--- a/drivers/accel/amdxdna/amdxdna_gem.c
++++ b/drivers/accel/amdxdna/amdxdna_gem.c
+@@ -934,6 +934,7 @@ int amdxdna_drm_sync_bo_ioctl(struct drm_device *dev,
+ 	struct amdxdna_drm_sync_bo *args = data;
+ 	struct amdxdna_gem_obj *abo;
+ 	struct drm_gem_object *gobj;
++	u64 end, size;
+ 	int ret;
  
- 	module_put(THIS_MODULE);
-+
-+	kfree(haptic);
- }
- 
- int hid_haptic_init(struct hid_device *hdev,
-diff --git a/drivers/hid/hid-multitouch.c b/drivers/hid/hid-multitouch.c
-index 4e19a0c4d..f4d8d640d 100644
---- a/drivers/hid/hid-multitouch.c
-+++ b/drivers/hid/hid-multitouch.c
-@@ -2132,7 +2132,7 @@ static int mt_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 		dev_err(&hdev->dev, "cannot allocate multitouch data\n");
- 		return -ENOMEM;
+ 	gobj = drm_gem_object_lookup(filp, args->handle);
+@@ -943,6 +944,13 @@ int amdxdna_drm_sync_bo_ioctl(struct drm_device *dev,
  	}
--	td->haptic = devm_kzalloc(&hdev->dev, sizeof(*(td->haptic)), GFP_KERNEL);
-+	td->haptic = kzalloc(sizeof(*(td->haptic)), GFP_KERNEL);
- 	if (!td->haptic)
- 		return -ENOMEM;
+ 	abo = to_xdna_obj(gobj);
  
-@@ -2181,12 +2181,14 @@ static int mt_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 
- 	ret = hid_parse(hdev);
- 	if (ret != 0)
--		return ret;
-+		goto err_free_haptic;
- 
- 	if (mtclass->name == MT_CLS_APPLE_TOUCHBAR &&
- 	    !hid_find_field(hdev, HID_INPUT_REPORT,
--			    HID_DG_TOUCHPAD, HID_DG_TRANSDUCER_INDEX))
--		return -ENODEV;
-+			    HID_DG_TOUCHPAD, HID_DG_TRANSDUCER_INDEX)) {
-+		ret = -ENODEV;
-+		goto err_free_haptic;
++	if (args->offset >= abo->mem.size ||
++	    check_add_overflow(args->offset, args->size, &end)) {
++		ret = -EINVAL;
++		goto put_obj;
 +	}
- 
- 	if (mtclass->quirks & MT_QUIRK_FIX_CONST_CONTACT_ID)
- 		mt_fix_const_fields(hdev, HID_DG_CONTACTID);
-@@ -2206,9 +2208,13 @@ static int mt_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 	mt_set_modes(hdev, HID_LATENCY_NORMAL, TOUCHPAD_REPORT_ALL);
- 
- 	if (!td->is_haptic_touchpad)
--		devm_kfree(&hdev->dev, td->haptic);
-+		kfree(td->haptic);
- 
- 	return 0;
++	size = min(abo->mem.size, end) - args->offset;
 +
-+err_free_haptic:
-+	kfree(td->haptic);
-+	return ret;
- }
- 
- static int mt_suspend(struct hid_device *hdev, pm_message_t state)
+ 	ret = amdxdna_gem_pin(abo);
+ 	if (ret) {
+ 		XDNA_ERR(xdna, "Pin BO %d failed, ret %d", args->handle, ret);
+@@ -955,7 +963,7 @@ int amdxdna_drm_sync_bo_ioctl(struct drm_device *dev,
+ 	if (is_import_bo(abo))
+ 		drm_clflush_sg(abo->base.sgt);
+ 	else if (abo->mem.kva)
+-		drm_clflush_virt_range(abo->mem.kva + args->offset, args->size);
++		drm_clflush_virt_range(abo->mem.kva + args->offset, size);
+ 	else if (abo->base.pages)
+ 		drm_clflush_pages(abo->base.pages, gobj->size >> PAGE_SHIFT);
+ 	else
 -- 
-2.43.0
+2.53.0
 
