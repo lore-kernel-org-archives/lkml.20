@@ -1,68 +1,95 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D1BA3469E7;
-	Fri,  9 Oct 2026 10:33:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55E6B347FC0;
+	Fri,  9 Oct 2026 10:35:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791542006; cv=none; b=nEvyAAd6Z8/F88EGzyX7d5QtJZ6ghrHGDJgasR8xR6n5wfaaWfOjmCK+7vnI3e8BjQ0lHh1ktwGL66F+BTP/05YmoXiaOlQS64gl2t7X5qJ4dMP4tmMk6LIwbN7FP/w2+vL++ixu/nLXpCIp/HDKA71dGvIcIRwYwvZ/cfXF5Ow=
+	t=1791542115; cv=none; b=hXyCtpEUOq4JU11KzoFDCqoYprxpjtWbHDMsoe37fdBDG4FjnzlIArAa3T5rSZreZXWxCfTD76ySm+0gbsrUvGo0Rj+Mzn46DUcl1YmSOCV3CEVYC50Rec3zQjcaqVcSgK3+JpNSoC25RL9AxPNt/QW5faSFTtHb9RAzSQGbGac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791542006; c=relaxed/simple;
-	bh=DGSUNEGmfFdGiK4WxFGLNpa+sGyQ4BMNRg8dgg4jnLQ=;
+	s=arc-20240116; t=1791542115; c=relaxed/simple;
+	bh=Eb8/KNN8EfLJ7R3Abs+8Pt3d74ukyPzW4D4nNuT7GmQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OYLbK6upLqyMc/tyvMMtBAPGz+GhTH0CQmrrmbU+6XYaCJta2cFUDAZZCkC2vtpN8eE9nQpn/ppSE2AkGWVks3st+E1hUild0c8joK5nekRDFtrJlrfJtclnU+TXzDolsnfVkue7deM8QcCgQ8p9C6H4PPdx2lUtcOEmtyXDoyw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WaUM1kYa; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=JaOeFtvFnKJKyXsZkg+/JSqOh5HO2XcRn8aaBtVq2piBEes9qCYOV9WS/g4g54GlhiMqQVIXyMZ8AO9virqITvrckCcsiaqJ2w+9vOJu13tSgOBfp6KmVcLw3LSQ5+9wvoer5DZx1LsTcEtU6c+4naYjFYPH2fI7Y/mnWcwu3V0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lk1MuDMr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WaUM1kYa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 683DE1F000FF;
-	Fri,  9 Oct 2026 10:33:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lk1MuDMr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 341CB1F000FF;
+	Fri,  9 Oct 2026 10:35:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791542005;
-	bh=HtCYHP8bkaekZ1veqlqX8aXKZ4Lf0sSj0bK6Dp/TMpg=;
+	s=k20260515; t=1791542113;
+	bh=DXf9yi1dSguNLEcV5pJRx2gwlhKsWloD62GcFwg+xzw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WaUM1kYadguyw8AItenfIPKE+2el6/RQ4bJ8E+TYjvKl4Il9CdtIZWShD9/VD3/it
-	 9aq9OUbP4tKmDKhdenx9cC6kzeXTgCt9UYIAHBj6J6Ti39TqubXCUVZr4QEx1jpy+H
-	 zToPjLf2lBqGro4dxedF+SQG8Eku5lZRo4Fcgf1MCRcIdQAarEQ7GqlR9AwcVqs9I9
-	 FawLC9aanhudklh9wqqfnJwTw2Nf81SrEjiD69L+UXoRlcEQmaDJb0DqeTU2M+0RhU
-	 uy+RjX84pLmZm7sNntHuNsG6Zd/Z+Id6/WbBTF4sngHLNcVLuMHgaUytAjHDb5l2bO
-	 IFvu16Cb/XBpg==
-Date: Fri, 9 Oct 2026 12:33:21 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Jacky Chou <jacky_chou@aspeedtech.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Ryan Chen <ryan_chen@aspeedtech.com>, 
-	Billy Tsai <billy_tsai@aspeedtech.com>, linux-aspeed@lists.ozlabs.org, linux-phy@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/3] phy: aspeed: Add ASPEED PCIe PHY driver
-Message-ID: <20261009-cherry-caribou-of-glamour-adaba4@quoll>
-References: <20261008-aspeed_pcie_phy-v1-0-96764937aef0@aspeedtech.com>
- <20261008-aspeed_pcie_phy-v1-2-96764937aef0@aspeedtech.com>
+	b=lk1MuDMrDsiMRFX9FVcn6UX0P92CEmUnbgvnScjEKf+Q8vGtEVDqqg28tfZerQ2mK
+	 lB62T9HFcngi5h9ZE5JWhc9RWxM03sIXY6QPITcB0Ti0Ed0FPCyqyvV2KMsAyFqnbL
+	 O4rq7g3T7qOW4y0+zjeYKqjhVl6EpYFg3+Lo4a04gQQDe30AON6qKReIK6FSM3hagN
+	 ktJOGI1TUQmBdnE9IbQhjgc+MIi8aFenvLTvHOTT3UOA5+t+A6mS+KI55mCbkUtVsv
+	 Dr71X+ruSClTnQUkuBZJTSSBoeURHlnXKEQWUCJG8WLhFiyYYIeFhIXjIy39mHNiTP
+	 5f7bQuCHX4cwA==
+Date: Fri, 9 Oct 2026 06:35:10 -0400
+From: Sasha Levin <sashal@kernel.org>
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: workflows@vger.kernel.org, ksummit@lists.linux.dev,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
+	broonie@kernel.org, tytso@mit.edu
+Subject: Re: [PATCH 1/2] agents: add infrastructure for agent resources
+Message-ID: <asjDXvZI1J2KIqgj@laps>
+References: <cover.1791499378.git.sashal@kernel.org>
+ <5dfafd6f79165526fe17774c55b553b7dfe4b3fe.1791499378.git.sashal@kernel.org>
+ <2026100955-enchanted-magnetize-0d26@gregkh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
-In-Reply-To: <20261008-aspeed_pcie_phy-v1-2-96764937aef0@aspeedtech.com>
+In-Reply-To: <2026100955-enchanted-magnetize-0d26@gregkh>
 
-On Thu, Oct 08, 2026 at 07:28:20PM +0800, Jacky Chou wrote:
-> Introduce support for Aspeed PCIe PHY controller available in
-> AST2600/2700.
-> 
-> Signed-off-by: Jacky Chou <jacky_chou@aspeedtech.com>
-> ---
->  drivers/phy/aspeed/Kconfig           |  12 +-
->  drivers/phy/aspeed/Makefile          |   1 +
->  drivers/phy/aspeed/phy-aspeed-pcie.c | 237 +++++++++++++++++++++++++++++++++++
+On Fri, Oct 09, 2026 at 12:27:33PM +0200, Greg KH wrote:
+>On Thu, Oct 08, 2026 at 06:54:52PM -0400, Sasha Levin wrote:
+>> Add agents/ as a home for skills, prompts, and other resources for coding
+>> assistants. Describe the skill layout and how to read the procedures in
+>> coding-assistants.rst, and add a MAINTAINERS entry covering agents/.
+>>
+>> Assisted-by: LLM
+>> Signed-off-by: Sasha Levin <sashal@kernel.org>
+>> ---
+>>  Documentation/process/coding-assistants.rst | 12 ++++++++++++
+>>  MAINTAINERS                                 |  6 ++++++
+>>  2 files changed, 18 insertions(+)
+>>
+>> diff --git a/Documentation/process/coding-assistants.rst b/Documentation/process/coding-assistants.rst
+>> index 051f0d819f68e..3288b32e993f5 100644
+>> --- a/Documentation/process/coding-assistants.rst
+>> +++ b/Documentation/process/coding-assistants.rst
+>> @@ -19,6 +19,18 @@ For guidelines on content generated by AI coding assistants see:
+>>
+>>  * Documentation/process/generated-content.rst
+>>
+>> +Agent resources
+>> +===============
+>> +
+>> +The ``agents/`` directory holds skills, prompts, and other resources for
+>> +coding assistants.
+>> +
+>> +Skills live under ``agents/skills/<name>/``, with a ``SKILL.md`` entry point
+>> +in the `Agent Skills format
+>> +<https://agentskills.io/specification>`_. Read the relevant resource
+>> +directly from its repository path. Links within a skill are relative to
+>> +that skill's directory.
+>
+>Will this "solve" the issue where AGENTS.md is not present and so some
+>do not actually read this file?  Or is that a separate issue that will
+>be resolved with the symlink patch?
 
-And unlike 10 previous versions, this wasn't even built!
+It's a separate issue that will be resolved with the symlink patch.
 
-Best regards,
-Krzysztof
+This patch will only allow us to add agent skills in-tree ("how do I add the
+correct Fixes: tag?" , "Do I need to tag this for stable@?" , ...).
 
+-- 
+Thanks,
+Sasha
