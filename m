@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5819D42C518;
-	Fri,  9 Oct 2026 06:10:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6175942AF82
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 06:10:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791526221; cv=none; b=SZvXwhQQ3YlhgaNyrfK23favSUBtCq452dAATk3RnQn3IBbQcrCI4GY78d07f01lmtzPlm8s0pN3HHaSCLQuJF9ebPA20iDz9UuhP3Y+DuGOUmDf1pNax8xVsKyC8FADDwh9Ssf1gmYHvRNlCednlHsonNEYYLtIU8kXNmB29U0=
+	t=1791526226; cv=none; b=md9yE8sr+lnPuF+CsFt4o9YqNR8O1Iq/PBGBB+tCxziIEGRgtjOCQ8gB9C6kb4kM+Y+PJRYqmZwaDvHR6l/3S5FUKDltVar4GdNoAgFmplFGiU1RxoCQTK0gIpfiaokPEmDhY6O3JNPdNE+dfoPKs7cbYm+U5EcoxcAs82FjPio=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791526221; c=relaxed/simple;
-	bh=flrZtGuBWN5uhPpVz0flFxAvlWbkl/ZkK9l7vI322/s=;
+	s=arc-20240116; t=1791526226; c=relaxed/simple;
+	bh=twyG+hvaeWEgfEEBBs4u/0rfGBcebog+Ejstb/fVe4A=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YU1FNurFTLAnJztx4QOjLAFlAqkSgK86WDJ7EKjHs/dhN9DnRJvrDj5xdeWxwTFRkjaLbgPvfrkfKdWBoaN9pwCwOir0xKHBgPx56MlVaiTR/fqBPBft5A5PimgPtisWMFO8um8zCFOENwT+9GvIMNS4nw9K2VkZVEHDekAcyBE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ItDXhXo2; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=fY+tlrAYiNOEQWCk9i1PuS8dCFI49Wt9vZjordou3deGxOcKMoR6WhoHE6SbMw2Z4ft8jRua2jBPRXYf9jGpyffaFHxT2EGCTRgg5T8aYyBtM+hSwgaCUlZNh5QUoZI1QO+t38DLtFvxsa7n58XpJ31XxyKDKR0jI5hY6OZJo4I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CaHTWuxt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ItDXhXo2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E04D71F000FF;
-	Fri,  9 Oct 2026 06:10:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CaHTWuxt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 307571F00899;
+	Fri,  9 Oct 2026 06:10:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791526218;
-	bh=EKOWnKBJbJXeo8x7ZpRmGUBbXlEBT0+pIRkZH0GNbaw=;
+	s=k20260515; t=1791526221;
+	bh=vkRBDNZq5OcYWLk9onSjYu3HsrthG0aePTr6yUQXG68=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ItDXhXo2lnHxe4Ty/4W3UyneDlSvPXkqY1slCpv+/7L44f/H4MflyLcIPg1F0NZL1
-	 WxWCTDpohl1nagM2Mos1gx+t5J9XCO8EFZUQ449XxQrFF9mkSXJsscKKmdbAdguvWA
-	 MQr75gWIvkmf7QtGuytNbx24zzZh0LgqxMvNHjTw2dPcyl/QaBLztME9BD5ZbtnIQt
-	 Ch/4lZtWUQ2c8qAll6JMREHTy8zt3oRzdQXcIb2A1FtH39mJWx9mR76qQorM5G0Ro9
-	 uI4WIYQYoQ1A4IuEgTxOymxp0leN25nseGB8cen3v6KvCzEEx1pZN/sOp/WbGcjOnB
-	 p2J63HhwyivYA==
-Date: Fri, 9 Oct 2026 08:10:16 +0200
+	b=CaHTWuxt6IErPXeOQk2i7VyB//76jOLgZC55XNz6M7Va8w85X90cBpaReuPraD8Jt
+	 D3eCfCMvJvis7nV43ULVSTIGjKL+cVDVdYjEg/SVVI2hMHIgDM1N9s+osh+NdgOsiV
+	 7aFikB1fq8N8QOwpAqFo9C1C9oiUqtm+dpZd4ouUPOaDqXmj2d7zgrWaIs2kQqW34m
+	 Jkmp6QAYrcyM8YFAmDpIPJNRLcJPVmsaTiZZYpN/+ZVdc76hAY4VcfIFHWOcuH4Ev0
+	 sTZXiPaaqkzZBcmby6/A+MpHHELBYcgttz81MBdzysKAaKAtm/tn66ov9gFTEUg76m
+	 vfChNrRFsgUyg==
+Date: Fri, 9 Oct 2026 08:10:19 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Haotian Zhang <vulab@iscas.ac.cn>
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	iommu@lists.linux.dev, linux-samsung-soc@vger.kernel.org, 
-	Marek Szyprowski <m.szyprowski@samsung.com>, Will Deacon <will@kernel.org>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, Peter Griffin <peter.griffin@linaro.org>, 
-	Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <jroedel@suse.de>
-Subject: Re: [PATCH] iommu/exynos: fix NULL pointer dereference on
- device_link_add() failure
-Message-ID: <20261009-refreshing-squirrel-from-hyperborea-ea10de@quoll>
-References: <20261009034539.3073100-1-vulab@iscas.ac.cn>
+Cc: Linus Walleij <linusw@kernel.org>, David Airlie <airlied@gmail.com>, 
+	Anitha Chrisanthus <anitha.chrisanthus@intel.com>, Simona Vetter <simona@ffwll.ch>, 
+	Louis Chauvet <louis.chauvet@bootlin.com>, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	Luca Ceresoli <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH] drm/kmb: fix bridge reference leak on probe error and
+ remove
+Message-ID: <20261009-adventurous-aboriginal-degu-21ed2e@quoll>
+References: <20261009033537.3065836-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,27 +45,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261009034539.3073100-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261009033537.3065836-1-vulab@iscas.ac.cn>
 
 
-On Fri, 09 Oct 2026 11:45:39 +0800, Haotian Zhang wrote:
-> exynos_iommu_probe_device() stores the result of device_link_add() in
-> data->link without checking it for failure, although device_link_add()
-> returns NULL when the supplier is not PM initialized, on a dependency
-> cycle or on allocation failure. exynos_iommu_release_device() then calls
-> device_link_del() on that entry unconditionally, and device_link_del()
-> dereferences link->flags, so a NULL data->link causes a NULL pointer
-> dereference when the device is released.
+On Fri, 09 Oct 2026 11:35:37 +0800, Haotian Zhang wrote:
+> kmb_dsi_host_bridge_init() looks up the ADV7535 bridge with
+> of_drm_find_and_get_bridge(), which takes a reference on the bridge, and
+> stores it in the global adv_bridge. That reference is never released, so
+> unbinding the driver leaves the bridge refcount permanently elevated and
+> prevents the bridge driver from ever being removed. The same happens
+> when probe fails after the bridge has been found.
 > 
-> Check the returned device link for NULL, unwind the links that were
-> already created and fail the probe instead.
+> Release the reference in kmb_dsi_host_unregister(), which is called both
+> from the probe error path and from kmb_remove().
 > 
-> Fixes: 7a974b29fe5d ("iommu/exynos: Rework runtime PM links management")
+> Fixes: abbe7f8144d5 ("drm/kmb/dsi: convert to of_drm_find_and_get_bridge()")
 > Assisted-by: DeepSeek-V4.1-Flash
 > Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
 > ---
->  drivers/iommu/exynos-iommu.c | 14 +++++++++++++-
->  1 file changed, 13 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/kmb/kmb_dsi.c | 4 ++++
+>  1 file changed, 4 insertions(+)
 > 
 
 
