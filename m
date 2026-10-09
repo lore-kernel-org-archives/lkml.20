@@ -1,151 +1,201 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012009.outbound.protection.outlook.com [52.101.43.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC40B4EBADB
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 17:44:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791567878; cv=none; b=j0GtesJpGS8qk5bmsY2Ohff5mdmr7hjhC+ZcrCrc/7hTxkaKshvYq/AJuS3QjYu/uuHd6bpLbxc7MacAAUS9DYpjLE0nFz5oXwwYLBlpdLgwoi4pPsEnEevwJR9ySucNbewx9sZtV0bnTzdbxO7Ce2r9el03RIdfJ3x7F9VLny4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791567878; c=relaxed/simple;
-	bh=/fFdp633uSwnogK4eY0RGM25kPYtyLeTmwanN+nMgeg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=QhKtLItINNIaisJRrVpShN6R4+mOVbIrqgY739Zmvm2V5dYxaxqkLnYEwBSviKmx0mJMz135s8L5tEZB1AqE3nskorZ1aomT33ZVYJEYuNNqZqvdcuTRJeEIAqFZl9SZshofUkvjfIDhHrlJxE71CmlKdQQQ+dD4gV/RFXuld2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oG6UMmUk; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B90444EF128;
+	Fri,  9 Oct 2026 17:47:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.9
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791568050; cv=fail; b=uDFYkdCUnl5BdMTAGNbWhV5vTwJlR2HBr1jm20BEnNUeIX2e9VvYUmoXWe3c3nXvQb/q+bQjxLKCjKkgfBpwZFvGqulrLiUngQnm67IopkIPZFtnVsj4K47JZMzxdFEsBht285CosQOGHepEx+ZpPMm471EHxwdCVwuVj95dBuI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791568050; c=relaxed/simple;
+	bh=7YHj4v6aNue5WQzhBpV3XkwgMXwEr0MiErDu8ZJUOf0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=b5Amt8XIpgawFjge9RfI8gKd/pdWsOl9s8bqL+6/UAT/c3PRX5OEZC4izxehANRNIZmiCH96tT+gLUJBYLZfakumxiXOS952t47/T+k4Dbe4vAkHxfQU0bW4FklhY2iPscnFT8VcTBcn2qilQwYio1q7OAh6tBH2Lf1ADkzubPA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=UrYI9eiN; arc=fail smtp.client-ip=52.101.43.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oG6UMmUk"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 77C44C4AF09;
-	Fri,  9 Oct 2026 17:44:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791567878;
-	bh=/fFdp633uSwnogK4eY0RGM25kPYtyLeTmwanN+nMgeg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=oG6UMmUkpSGyKapC9SXro0755cq9dMXbujPMbdWiZWsLIvtCdBdzF3850cx/eNkPK
-	 RyfQgzh4GXxXNpKt9FPG+dRIPxhIjZXTpS2V/zvftDM0fImLgliA1e0CtjlsPSWT3K
-	 07ubF2UdMDYoVADELBaV3jFGweRi0ioZTE1Jbw5CeOgUSgqQy5XwxzLF0PR1pBxUkM
-	 LdY3AYWw3J92Tqg9vL8ojttsdwHNySwVQVhcPG3S7vpN7kRJLAl3yv3AToYnSYZ8e7
-	 hO3vZxVXnOdv0JvafqZzJNPgxynp2Bofe/mA9YqY/78rIMTCZeNflHY1vnOG0VMy38
-	 VEhCBpMfUZ3rg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 55DB8CA9EC1;
-	Fri,  9 Oct 2026 17:44:38 +0000 (UTC)
-From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Date: Fri, 09 Oct 2026 11:44:26 -0600
-Subject: [PATCH v2 3/3] nouveau: Fix NULL dereference in
- nvkm_gsp_gcx_ready()
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="UrYI9eiN"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LtNAYJwWvDWv/3qws+tQrwlPlTJ7C1T1CbursGaaegBguDJvEPCeISO4DPuOgIvwZDErY8hS12KrMMsGchghoW4H8KDQthD5glyWoNw6MHZAbOaPZqNr78H7XnADyhW1lk5WKV2uJDxTPCNIFAoA9J91zt8HdCMBdnxOONg2DK2f04+HtikQXdBLHg0qmqqtOXxAf/V1Ag1Mih8K2CVcFZ8fOYXCxUA12Oa4ssL0OgsVLdZeIJx0BEIKxIb5zuwIUybeCBot7uaqIc/1JLEEUgJX2u/fX/pvO6gt+6T7/ar+qSGrY7+Nov404EQVYpBAPf73rYy9yksfIgAkLtcO5w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NliuYMcgFpOkDcUF53VdUo6McQi+UJOU0PXSD4zXYd4=;
+ b=h6gKBDzZII7iw1VVxKkGhHDu9aM8Wlf1uwM7ihiZl0pVQOJyK3JSgwyurJGdu51VmScgYTV5XDU0cX1u5SImALtuKMWT9BmYZryFAcDO7h4GAfAhV1pFmix+HVAKfJ2UvO1SzUtonxwazl5Rqni4dF7BjplitVsk983WX5Nx6qwy9Ni1otw1et0oVJ4uMULgiUaCi+BuQ1g+Cbig0RGtiydwK+ipVRk7K5qUuYkTVwWQXKAAsyoSS68apLeLQQKxsrATxG59lOBrXyHa3qy5x93ywBtOH6OibLSW7MIfGqNu2KKKbgODnnJpcgAxC47RTuF1AziSi7NCW63h+CppPA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NliuYMcgFpOkDcUF53VdUo6McQi+UJOU0PXSD4zXYd4=;
+ b=UrYI9eiNy6TdrF8ttj53hLf0tviHBryxDHgjOgGrfJtpQ/rKAHMNXCNEWJAaI7Zobk7O/cIs99PNtZGL9k5a+8ts6sHvicUY5804iUWNLVkAy7+ItFURvB/Q2McKZo1VgnkkNYjNzmR13Hwuz9fA6gWm5eqXBG01QYYa6fE+mcU=
+Received: from CH0P221CA0020.NAMP221.PROD.OUTLOOK.COM (2603:10b6:610:11c::21)
+ by PH8PR12MB6940.namprd12.prod.outlook.com (2603:10b6:510:1bf::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Fri, 9 Oct
+ 2026 17:47:25 +0000
+Received: from CH3PEPF0000000F.namprd04.prod.outlook.com
+ (2603:10b6:610:11c:cafe::9e) by CH0P221CA0020.outlook.office365.com
+ (2603:10b6:610:11c::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Fri, 9
+ Oct 2026 17:47:25 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CH3PEPF0000000F.mail.protection.outlook.com (10.167.244.40) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Fri, 9 Oct 2026 17:47:24 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 9 Oct
+ 2026 12:47:19 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 9 Oct
+ 2026 12:47:19 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Fri, 9 Oct 2026 12:47:19 -0500
+Message-ID: <74b15e57-1387-e37c-d343-eeba1de33ceb@amd.com>
+Date: Fri, 9 Oct 2026 10:47:18 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-my-fixups-v2-3-839e2bbe514d@gmail.com>
-References: <20261009-my-fixups-v2-0-839e2bbe514d@gmail.com>
-In-Reply-To: <20261009-my-fixups-v2-0-839e2bbe514d@gmail.com>
-To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Dave Airlie <airlied@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Daniel Campos Ramos <Capitain_Jack@yahoo.com>, 
- Jim Cromie <jim.cromie@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791567877; l=3425;
- i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=YyKLmo0bEj/hJpRUlDlZOCssFCXNnz2YynMbMOOeOi4=;
- b=UOPAMqmtzEXw0svG2xoRhLf7pa0/9gTca19f8JoK3eLaMt8FPyB6oNGnlVSyxtXKPSpi3IYhZ
- IiR/juE41x5CH1MMejtk/VLRyAgubmV7cjNA/+0qHI5/NXBvF8OzuRL
-X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
- pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
-X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
- auth_id=958
-X-Original-From: Jim Cromie <jim.cromie@gmail.com>
-Reply-To: jim.cromie@gmail.com
-
-From: Jim Cromie <jim.cromie@gmail.com>
-
-Commit cb4c7603678c ("drm/nouveau/gsp/r570: Add support for
-INTERNAL_GCX_ENTRY_PREREQUISITE") hooked nvif_device_gcx_ready() into
-nouveau_pmops_runtime_suspend() to consult GSP before runtime suspend.
-
-On GPUs running without GSP-RM (e.g. Volta GV100, NvGspRm=0, or missing
-GSP firmware blobs), device->gsp is instantiated but gsp->rm remains
-NULL. nvkm_udevice_gcx_ready() checked "!gsp" instead of verifying
-nvkm_gsp_rm(gsp), allowing non-RM instances to invoke
-nvkm_gsp_gcx_ready(). nvkm_gsp_gcx_ready() then unconditionally
-dereferenced gsp->rm->api, causing a kernel oops:
-
-  RIP: 0010:nvkm_gsp_gcx_ready+0x10/0x30 [nouveau]
-  Code: ... 48 8b 87 70 0e 00 00 <48> 8b 40 18 ...
-  RAX: 0000000000000000 RDI: ffff8c9555fca000
-  Call Trace:
-   nvkm_udevice_mthd+0xa5/0x150 [nouveau]
-   nvkm_ioctl+0xcc/0x1d0 [nouveau]
-   nvif_object_mthd+0x110/0x1e0 [nouveau]
-   nvif_device_gcx_ready+0x36/0x60 [nouveau]
-   nouveau_pmops_runtime_suspend+0x39/0x140 [nouveau]
-
-Instruction decode shows `mov rax, [rdi+0xe70]` loads gsp->rm (0x0),
-and `<48> 8b 40 18` (`mov rax, [rax+0x18]`) faults accessing rm->api.
-
-Fix by:
-0. Checking !nvkm_gsp_rm(gsp) in nvkm_udevice_gcx_ready() so non-RM
-   devices report GC6/GcOff ready and bypass the GSP call entirely.
-1. Guarding gsp and gsp->rm in nvkm_gsp_gcx_ready() before inspecting
-   gsp->rm->api->gsp->gcx_ready.
-
-Fixes: cb4c7603678c ("drm/nouveau/gsp/r570: Add support for INTERNAL_GCX_ENTRY_PREREQUISITE")
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
- drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h | 2 +-
- drivers/gpu/drm/nouveau/nvkm/engine/device/user.c | 2 +-
- drivers/gpu/drm/nouveau/nvkm/subdev/gsp/base.c    | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h b/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
-index ed5c6e0e68d3..933f13ed2a50 100644
---- a/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
-+++ b/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
-@@ -274,7 +274,7 @@ struct nvkm_gsp {
- static inline bool
- nvkm_gsp_rm(struct nvkm_gsp *gsp)
- {
--	return gsp && (gsp->fws.rm || gsp->fw.img);
-+	return gsp && gsp->rm && (gsp->fws.rm || gsp->fw.img);
- }
- 
- #include <rm/rm.h>
-diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/device/user.c b/drivers/gpu/drm/nouveau/nvkm/engine/device/user.c
-index f78e6b9b4292..d469437eb991 100644
---- a/drivers/gpu/drm/nouveau/nvkm/engine/device/user.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/engine/device/user.c
-@@ -201,7 +201,7 @@ nvkm_udevice_gcx_ready(struct nvkm_udevice *udev, void *data, u32 size)
- 	} *args = data;
- 	int ret = -ENOSYS;
- 
--	if (!gsp) {
-+	if (!nvkm_gsp_rm(gsp)) {
- 		args->v0.ready = NV_DEVICE_GC6_READY | NV_DEVICE_GCOFF_READY;
- 		return 0;
- 	}
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/base.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/base.c
-index e475d0e8fa7b..ea895f04293a 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/base.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/base.c
-@@ -51,7 +51,7 @@ nvkm_gsp_intr_stall(struct nvkm_gsp *gsp, enum nvkm_subdev_type type, int inst)
- int
- nvkm_gsp_gcx_ready(struct nvkm_gsp *gsp)
- {
--	if (!gsp->rm->api->gsp->gcx_ready)
-+	if (!nvkm_gsp_rm(gsp) || !gsp->rm->api->gsp->gcx_ready)
- 		return NV_DEVICE_GC6_READY | NV_DEVICE_GCOFF_READY;
- 
- 	return gsp->rm->api->gsp->gcx_ready(gsp);
-
--- 
-2.56.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH 6.18.y] accel/amdxdna: Bound the sync_bo flush range to
+ the BO size
+Content-Language: en-US
+To: Eva Crystal <0xiviel@gmail.com>, <stable@vger.kernel.org>
+CC: Min Ma <mamin506@gmail.com>, Oded Gabbay <ogabbay@kernel.org>,
+	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+References: <20261009032616.432392-1-0xiviel@gmail.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <20261009032616.432392-1-0xiviel@gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PEPF0000000F:EE_|PH8PR12MB6940:EE_
+X-MS-Office365-Filtering-Correlation-Id: d75d49cb-071d-4aa9-a27b-08df262d60c2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|82310400026|23010399003|1800799024|36860700016|6133799003|18002099003|22082099003|11063799006|10067099003|260925022911599003|260925021311599003|260925021911599003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	faOmfbQxLnltujIDyz5ng6bP+VjHhuLDQjiOBb1PtVEoT6y1WD1tLAqoJw2KG87xRU7n/zyd4i5FG7xnm3TWhjior7d7ckkG9bQ/llhVI83Vl++vOkpdpFEDDc/3NIokxS2k6SOSrvLco8pYxVgkS9gadOiEdcTyN8IUSan9kgQ2LufHiNMFp/hYVFXRebyzK0yoBGPpDgxlwHCnoL3ZA/pmD3SpFrcMnoz0hZoQeJ2MawtTB1UAx3xqC+bv+hrlJAxNQQ962UesaZdEdYnmVndCnAr5mern6OjM9a+VICWdAD00PNEzE3fEETREREOXS8YaigzTOYSEmPHGqVueqfnzDLoEdUnvmgdd2bsDe0T1z7fNdIafmoAwElXLgx8k4shOMlX6lKUYbt+p2PyiDDklfijXCfXEgA8lLHMOWSGanZbU5Vn/NEFXKuJ8nc40m8PSUiSFc++Rr8TvGfwfX8mPYlaeqBRhvV8YGlWQJpgNQxBtiJ0IRifGPmLfSSAUxxersqpXW6wN9rs50hVkVWPKYYmUlQoG6cIBcC9Txbpei/Eaq4fd5BH5vUykMqKQ8Cl3SDz4tFzTzQsdwuNRWNok6lksO6xBq4EN9S/CrZoRYx5YrFwULVOa2HDSastMHjBZ0emo2LaV2s4YUoZ+NMX//ErGPQSOlNFZWMnX41vVaB4qvakX8MJycDIE9uiVWf9AHQUVLlyK7JJAgpLxKA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(23010399003)(1800799024)(36860700016)(6133799003)(18002099003)(22082099003)(11063799006)(10067099003)(260925022911599003)(260925021311599003)(260925021911599003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	wJSYp+optEwK666a8bGo7TOLFmJOit+HZTLIesA/MPH4FQdFVs8poiTlFWjVUrQ597jUrW7kwWTbVBJdJanCtzG/kMi3ypBzRy3uBd/OGnwIm+4dQwFcYLo4poXVH5KzWplj2yU0Zve67zNhegdM9V+Obt8cz/PrIXnOq344NQioffCD9t0tj/Alrci86rw50ROgW4zg+T2Z99FtzIpsT8q2APddImMhXVJzXyj5Ebpe2kasW5EENjjvb/7euiBpSY7UTqT/kP9HlWnbyGe44GmOxDZjF2XXOdXkiaH9VHEvlNUHYKPcYUUf+JswtqtqoW2OPP72cUF1I85Tp6PpCI6VDr/UfpVIqELzIMhDAniWa71FHGMPQCeN/IBkda5u3ZUpgK4dLe3Gs/nRWNA0w8b3a9smAwj2f9Ak0NV7bIl7SrzJjUz132fMJnB98kn6
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 17:47:24.8096
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d75d49cb-071d-4aa9-a27b-08df262d60c2
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH3PEPF0000000F.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6940
 
 
+On 10/8/26 20:26, Eva Crystal wrote:
+> [ Upstream commit dbc8fd7a03cbc0704e8e558a448015f620547a02 ]
+>
+> amdxdna_drm_sync_bo_ioctl() passes the caller's offset and size to
+> drm_clflush_virt_range() on the BO's kernel mapping without checking
+> either against the BO size. The ioctl has no permission flags: any
+> process that can open the accel node controls the offset. Any BO with a
+> kernel mapping reaches that call: AMDXDNA_BO_DEV_HEAP, AMDXDNA_BO_DEV
+> and AMDXDNA_BO_CMD. A DEV_HEAP is vmapped, so an offset equal to its
+> size lands the flush on the vmap guard page.
+>
+> Measured on 6.18.55 on an AMD Ryzen AI 9 365 NPU, firmware 1.0.0.63,
+> as a non-root user with access to the accel node: unpatched, an offset
+> equal to the 64 MiB DEV_HEAP size oopses in drm_clflush_virt_range()
+> under amdxdna_drm_sync_bo_ioctl(), 2 of 2 runs; patched, the same call
+> returns -EINVAL, 2 of 2, and an in-bounds sync returns 0, 2 of 2.
+> DEV_HEAP is the type tested; DEV and CMD are by code reading.
+>
+> Upstream bounds the range in amdxdna_flush_bo(), added by commit
+> dbc8fd7a03cb ("accel/amdxdna: Add expandable device heap support").
+> This applies only that check: an offset at or past the BO's end, or
+> an overflowing offset plus size, returns -EINVAL.
+>
+> Deviations from upstream: that commit adds a feature and is too large
+> for stable as a whole. It calls drm_WARN() when the check rejects a BO
+> whose type is not AMDXDNA_BO_DEV, which userspace can trigger; this
+> fix does not. Upstream bounds AMDXDNA_BO_DEV by the heap chunks it
+> spans and flushes only the overlap, reporting no error for an offset
+> past the end; 6.18 has one heap per client, so this fix uses the BO's
+> own abo->mem.size and rejects such an offset instead. As in upstream,
+> a size past the BO's end is clamped, not rejected.
+>
+> Built from v6.18.55 with the test system's distro-derived config,
+> DRM_ACCEL_AMDXDNA=m. The touched file also compiles W=1 clean.
+>
+> Fixes: e252e3f3488a ("accel/amdxdna: Revise device bo creation and free")
+> Cc: stable@vger.kernel.org # 6.18.x
+> Assisted-by: LLM
+> Signed-off-by: Eva Crystal <0xiviel@gmail.com>
+> ---
+>   drivers/accel/amdxdna/amdxdna_gem.c | 10 +++++++++-
+>   1 file changed, 9 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
+> index ca747457cec7..95d04af2b993 100644
+> --- a/drivers/accel/amdxdna/amdxdna_gem.c
+> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
+> @@ -934,6 +934,7 @@ int amdxdna_drm_sync_bo_ioctl(struct drm_device *dev,
+>   	struct amdxdna_drm_sync_bo *args = data;
+>   	struct amdxdna_gem_obj *abo;
+>   	struct drm_gem_object *gobj;
+> +	u64 end, size;
+>   	int ret;
+>   
+>   	gobj = drm_gem_object_lookup(filp, args->handle);
+> @@ -943,6 +944,13 @@ int amdxdna_drm_sync_bo_ioctl(struct drm_device *dev,
+>   	}
+>   	abo = to_xdna_obj(gobj);
+>   
+> +	if (args->offset >= abo->mem.size ||
+> +	    check_add_overflow(args->offset, args->size, &end)) {
+> +		ret = -EINVAL;
+> +		goto put_obj;
+> +	}
+> +	size = min(abo->mem.size, end) - args->offset;
+> +
+
+Thanks for the patch. It needs to check if size is zero. Please see
+
+         dc1475366424 ("accel/amdxdna: return early from a zero-length 
+flush")
+
+Could you help to backport this as well?
+
+Acked-by: Lizhi Hou <lizhi.hou@amd.com>
+
+>   	ret = amdxdna_gem_pin(abo);
+>   	if (ret) {
+>   		XDNA_ERR(xdna, "Pin BO %d failed, ret %d", args->handle, ret);
+> @@ -955,7 +963,7 @@ int amdxdna_drm_sync_bo_ioctl(struct drm_device *dev,
+>   	if (is_import_bo(abo))
+>   		drm_clflush_sg(abo->base.sgt);
+>   	else if (abo->mem.kva)
+> -		drm_clflush_virt_range(abo->mem.kva + args->offset, args->size);
+> +		drm_clflush_virt_range(abo->mem.kva + args->offset, size);
+>   	else if (abo->base.pages)
+>   		drm_clflush_pages(abo->base.pages, gobj->size >> PAGE_SHIFT);
+>   	else
