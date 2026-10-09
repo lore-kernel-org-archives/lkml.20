@@ -1,48 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B63F402429;
-	Fri,  9 Oct 2026 06:09:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F30203F5BE6;
+	Fri,  9 Oct 2026 06:10:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791526176; cv=none; b=PSFTfcPjjI8CtdEdoicixAFwQdxvBEYg5Ra4gLwntRxw2iFfreDaD0XghFnjp7X0crIVDGqP8SRdQkU6WZIsOKqMgCWjn50RuF34NKPeJ7n4uThFo1kCCEGa/7ihQs8oylS2a3m6lg0OKFL8oah4FQHiCzWIk3guFLMhsqt/twk=
+	t=1791526202; cv=none; b=f1iZrNbyWoM74KzCONukG04ScnoGV2+bLVY/ZpXhKufBR9NX/dOXWEd249nwv4ukWye7OTR3+RjrFmboHglfCJ0xgD+ubjF0qsLC93uVljsKEp4eJFKSBYSqhnwP6Yt2eywc0SWSc1kblfFG2dQy8A5w1AHL2icWRaAxLuURECs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791526176; c=relaxed/simple;
-	bh=NOFneBJpQBjYpGhResFHfedaCbPc66X6xO0MyX1Ee34=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=A+W2k+lxVMTTNg6fdh8WKQKkwRIzWNCfhQ0PC15+BFa64kcBNH0MciiSGn1474zCHf3iALZ554qfklENGYae3iAJos3/Vn7O7mJu89pJGfCLpgWtALVuVECcrJ9qjoEvzQc+u3fxq/SiB0HeDHdF0mdMa1KmqrqGSVWdFnD9nik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HWkN5Krl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791526202; c=relaxed/simple;
+	bh=rU+8Mkvi1ga4RAW1RdgldokCwBFLcWC4LjQQokcBo8Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ClDtOfpqJc97v+Cp9UNLSHDnIf+vMsxylXcLPqTu4PaPa/3S5HSJacyVxWlaTI0ZuDVYjYDrp6rEM26byQM5D/SkYgMEkzLgrNr3WFuOP7E0Hp6yU0wcS0VR5vEH1OPMGz6ko9+8RvjmHlbT9kDtL12z4MPieyLE07oxF3giJoQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fHoFb0Pl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HWkN5Krl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC7FE1F000FF;
-	Fri,  9 Oct 2026 06:09:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fHoFb0Pl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A313E1F000FF;
+	Fri,  9 Oct 2026 06:09:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791526175;
-	bh=HaXEEt+6oUYTgk3yLziOOP26vbiRye4IPhhc+D5Un/s=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=HWkN5KrlKIk6OWt38SO9fMGwArGXNLm8Sc0PCX7ZgeMYOylWuJpHNU8t2FYDltQLn
-	 2hKVTP6VzNHCqHXVINEqZTs/LUesNwkJVsuSfNVRWiSG6EM+asdu7XUYpBPEPDbhyg
-	 xxL2L457nAJjsnW9ul382bkmFZlkcJ0BfutYNMatFDZqAAKt4pPj7uICuTiy4ojVEP
-	 ugz5q4KFQCUm7kDaKATbRD/9S7WIDuKfPfrxc0hLnTMVOL+lI7sBSP7t1MeAxfaysa
-	 lqZ9eoh+QQZamGuMRiYovi7Gku403d6K2cuOnrn5lClA+St/Yv/3lziXSu4nT82KA4
-	 ZsIxQ2m9QprXw==
-From: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
-To: Muchun Song <songmuchun@bytedance.com>, akpm@linux-foundation.org
-Cc: linux-mm@kvack.org, stable@vger.kernel.org, david@kernel.org,
- osalvador@suse.de, dave.hansen@linux.intel.com, luto@kernel.org,
- peterz@infradead.org, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
- x86@kernel.org, hpa@zytor.com, catalin.marinas@arm.com, will@kernel.org,
- mark.rutland@arm.com, linux-arm-kernel@lists.infradead.org,
- pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
- linux-riscv@lists.infradead.org, agordeev@linux.ibm.com,
- kevin.brodsky@arm.com, bjorn@rivosinc.com, apopple@nvidia.com,
- linux-kernel@vger.kernel.org, muchun.song@linux.dev
-Subject: Re: [PATCH 2/4] riscv/mm: fix hotplug page-table destructor handling
-In-Reply-To: <20261008073021.2512665-3-songmuchun@bytedance.com>
-References: <20261008073021.2512665-1-songmuchun@bytedance.com>
- <20261008073021.2512665-3-songmuchun@bytedance.com>
-Date: Fri, 09 Oct 2026 08:09:31 +0200
-Message-ID: <87jynrs8v8.fsf@all.your.base.are.belong.to.us>
+	s=k20260515; t=1791526200;
+	bh=UDcK8ZPSq7CkMqztCqSp48WwtN8ye2a+VyWUfSniaSA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fHoFb0PlgBLxBycUHzslEd/t1NRoi99IE1ScTnjg+/cQyu34sqN4nqkd7Sm1XFwlY
+	 xIdw+YLTuNqNLTVcHkKMOyQ8JDo2VDxmJ02BgoLj7MGAF3nh7dgARo0VsRvQwDQEFC
+	 g3GL/yLgYKm/8u9YcWFhXDJf+rYZeTEUNjZy5zY/I6gaVOeNA0LztvSgLBl0pQ8SY6
+	 PtN4ndGkla6zdc3QlaiMxQ6VRmZHbZ7/n9sZaTd4xuyiv0r+ixEFA1eZwGP/0bpqn3
+	 QiyiiRMs0MNqiYfZuHLonubuAjfnhptEJVEinVAUnimyhZUvZd49ulUo1aK/7zwV+x
+	 /ucqcBmBplApw==
+Date: Fri, 9 Oct 2026 08:09:57 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Haotian Zhang <vulab@iscas.ac.cn>
+Cc: Maciej Sosnowski <maciej.sosnowski@intel.com>, 
+	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, Dan Williams <djbw@kernel.org>, 
+	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>
+Subject: Re: [PATCH] dmaengine: ioat: fix completion pool leak on ring
+ allocation failure
+Message-ID: <20261009-electronic-shoebill-of-development-d823ef@quoll>
+References: <20261009043229.3108794-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,63 +43,69 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+In-Reply-To: <20261009043229.3108794-1-vulab@iscas.ac.cn>
 
-Muchun Song <songmuchun@bytedance.com> writes:
 
-> RISC-V uses the same memory-hotplug teardown code for the linear map and
-> vmemmap, although their page-table pages are not always allocated in the
-> same way. Late linear-map allocations run page-table constructors, while
-> vmemmap and early allocations may provide constructor-free pages.
->
-> The PTE path unconditionally runs the destructor, which is wrong for
-> constructor-free vmemmap tables. The PMD path avoids that problem by
-> using is_vmemmap as a proxy for constructor state, but that assumption
-> will no longer hold once runtime vmemmap allocations use the normal
-> pgalloc helpers.
->
-> Page-table constructors record their state in PG_table. Centralize
-> page-table freeing and use PageTable() to decide whether the destructor
-> is required. Keep reserved and constructor-free pages on their existing
-> freeing paths.
->
-> Fixes: c75a74f4ba19 ("riscv: mm: Add memory hotplugging support")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+On Fri, 09 Oct 2026 12:32:29 +0800, Haotian Zhang wrote:
+> ioat_alloc_chan_resources() allocates the channel completion writeback
+> area with dma_pool_zalloc() and then allocates the descriptor ring with
+> ioat_alloc_ring().  The ring allocation runs under GFP_NOWAIT and can
+> fail, in which case the function returns -ENOMEM without freeing the
+> completion area.  As the ring pointer stays NULL, the only teardown path,
+> ioat_free_chan_resources(), bails out early and never releases it; a
+> subsequent retry overwrites ioat_chan->completion, leaking the previous
+> allocation permanently.  The dmaengine core does not call
+> device_free_chan_resources() when device_alloc_chan_resources() fails, so
+> nothing else cleans it up either.
+> 
+> Release the completion area with dma_pool_free() before returning from the
+> ring allocation error path.
+> 
+> Fixes: 5cbafa65b92e ("ioat2,3: convert to a true ring buffer")
+> Assisted-by: DeepSeek-V4.1-Flash
+> Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
 > ---
->  arch/riscv/mm/init.c | 29 ++++++++++++++---------------
->  1 file changed, 14 insertions(+), 15 deletions(-)
->
-> diff --git a/arch/riscv/mm/init.c b/arch/riscv/mm/init.c
-> index 857f9a55039c..429a0b015ec1 100644
-> --- a/arch/riscv/mm/init.c
-> +++ b/arch/riscv/mm/init.c
-> @@ -1486,10 +1486,19 @@ struct execmem_info __init *execmem_arch_setup(vo=
-id)
->  #endif /* CONFIG_EXECMEM */
->=20=20
->  #ifdef CONFIG_MEMORY_HOTPLUG
-> +static void __meminit free_pagetable(struct page *page)
-> +{
-> +	if (PageReserved(page))
-> +		free_reserved_page(page);
-> +	else if (PageTable(page))
-> +		pagetable_dtor_free(page_ptdesc(page));
-> +	else
-> +		pagetable_free(page_ptdesc(page));
-> +}
-
-Is PageReserved() enought to determine if there's no dtor to run? On
-rv64 your code is correct, but maybe for robustness?
-
-  | if (PageTable(page))
-  |         pagetable_dtor(page_ptdesc(page));
-  |=20
-  | if (PageReserved(page))
-  |         free_reserved_page(page);
-  | else
-  |         pagetable_free(page_ptdesc(page));
+>  drivers/dma/ioat/init.c | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+> 
 
 
-Bj=C3=B6rn
+
+Multiple things here:
+1. Your team ignored completely previous feedback.
+
+2. You use multiple identities with this email, thus I actually doubt we speak
+   with actual person.
+
+3. Finally, same feedback:
+You sent multiple independent patches, to multiple independent
+subsystems. The amount of these patches clearly suggest this was
+AI generated and most likely not tested.
+
+More importantly, you sent all this work without properly organizing
+relevant patches into patchsets. This makes reviewing difficult
+and might cause multiple reviewers to address the same issue.
+Replying to the entire set is impossible and requires handling each
+patch independently, instead of applying or discarding the set.
+Maintainers also won't see the bigger picture of your work. Quite
+worrying.
+
+This is on the verge of hostile patch: bomb us with so many
+contributions, we won't be able to handle them in efficient manner,
+like responding ONCE to ask you to slow down.  Considering all this
+is untested and LLM generated, I have even more doubts whether this
+should be considered for review.
+
+Please read kernel documentation BEFORE posting more work. It will
+explain you how to identify subsystems, how to organize your work per
+subsystem (so a patchset grouping multiple patches with a short cover
+letter), how to document usage of LLM and how what you should not do
+if this was posted in a good faith.
+
+Best regards,
+Krzysztof
+
+
+
+
