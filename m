@@ -1,36 +1,87 @@
-Received: from mta0.migadu.com (out-237.mta0.migadu.com [91.218.175.237])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 342BB4CEE73
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 11:29:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.237
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F20424BD79F
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 11:29:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791545367; cv=none; b=UxfdiiJ+wx7ggjO9e08xWOAqSZOtEV6QqN92eWxzJ0LHOkC5j6yNk63+DWp/O8YmmxnfNq3UHTkcBtkObx6ydabx8AjzLZkTRhOuFSqDCi4DYEV7k31ZvDEgzeRQAQib72e4lPGAC7eKetbgT2Brq8jNiqqPSOaZ0tXNeaBt5nw=
+	t=1791545377; cv=none; b=Xp9FvwqfFtOoW+xlWuG3RUBz5Zch1r6SY2vCanaBCg0RST8wWMtDZWWeFwBfqelUWxj6d1pDzhukDOFtbCk4Bs0EaV2kWquLtFuNqtPAtwKphwGSLXwjmMfSqx19jalovmE58ISnL/mjmv/4GVHHDjWla1LAk0YHBIEmCL4udxQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791545367; c=relaxed/simple;
-	bh=9x2VgaCQqq1qe9Sd3mI+ji7pCRHxHu0WOqvf+sHVC10=;
+	s=arc-20240116; t=1791545377; c=relaxed/simple;
+	bh=EdixUANFHy2W/LiaSAuiS/Tx+42OwOUTMhGj/CqPQx0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nzrZor5MouatyJQ9eCH8dmkU2wTGR51aE7GZ9vnFQiH9taK8fM2ewfdP/yNeo+sVnzKy8vtD21oHRca/HqUipZ4LeISKJ/ZXlqQlK1GD7JnwDuVvd3J0TllCsXNdYmXsg14aAoHOb4r1gwwmrtjjTKqdSyddua4KudH1/DMLx7A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=oIAtzHD+; arc=none smtp.client-ip=91.218.175.237
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 In-Reply-To:Content-Type; b=ChtfKEngoVsf2wVYmv1biIHQXyv0M4007vmtgT4SbLOz5hYHleIezGppRVHgJZbVpI15R+4H3yJN5E+pz/H1oGr2Ezqa4ifisv+xeg9pruEE06JJlHDLqs2yqNidPAogmcQdjiIhIDV/q0HnyjTZJcWfWEhaY+M/Xzk2oEC8mRU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SUSg7DTW; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=irZlwIX+; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="oIAtzHD+"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=9x2VgaCQqq1qe9Sd3mI+ji7pCRHxHu0WOqvf+sHVC10=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791545353; v=1; x=1792150153;
- b=oIAtzHD+uyGDbZl2cSPP5H6EUsoC6yqhf1U++gKNvFIMGOyKEhJClrLnVuvCY793VrA007Y7
- 5eas06fDn2HdlS0g6su4jxWsW63kqxYajDnrDpvqWf1nPUNL8H5v6V5Vf43MWNRIQPhU9aYyojF
- tf6q36X2dohhfQoMuRkM9n0E=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 13a9e522eed7582a;
-	Fri, 09 Oct 2026 11:29:13 +0000
-X-Mizu-Trace-ID: 13a9e522eed7582a
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <839d13ef-8ca3-4e58-9bd0-84137f2d6866@linux.dev>
-Date: Fri, 9 Oct 2026 19:30:21 +0800
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SUSg7DTW";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="irZlwIX+"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6998KOTw3977832
+	for <linux-kernel@vger.kernel.org>; Fri, 9 Oct 2026 11:29:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	haBBSODWucHm3mmfANsuSegkfg8lAA0orynM/G8N+1k=; b=SUSg7DTWdbMS5wrU
+	TY0KL30fXocj8trQ5oSlOSkx3Sze/QVQEUmFZG0yzUFKJ8H7nlJmGFHjEwoY0g02
+	X7BD3wjAMya4H202Xa09mDai+GN4NSJOcSZ1BKtQlvCjCmQT6gZC4vxQsA9uTcNv
+	j3kuu2kKW9Dc8YSGcMqLPm44Ye2hElOV5gu/uk1tdW+3WSvylWUI2bIOvnGPnbFY
+	LXs48Mr4Pq/yriK8w9dVrk5IH4TJFe6qbgCnp26TT1q0+LMWPN7WV7J86N1VU+uT
+	ueMZEAHmj09DQoEd8Z2XWfxkqNZEyYO/y9dULU+2DuyvLL+Ia36DwETh6vM7Kn3Z
+	zmSkLQ==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h6ev5bk09-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 11:29:22 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-34d49d8dee1so7470243eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 04:29:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791545362; x=1792150162; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=haBBSODWucHm3mmfANsuSegkfg8lAA0orynM/G8N+1k=;
+        b=irZlwIX+VSPOrfDOu5BRox8EMuZ6tpfa8eF1nOt1qy/ymZ1oMXBMeabnUWBgbU5ftB
+         8NAYWED/HTkU4d3aJ0KemgmsvyOyZ5Lr1A5eMw4S5RRkzz18kpBB5HutU3IHy5fwCMs9
+         mPpuapg5w5TqJP755THlKnRoeq4KfZjK2UqfVD7G8zuupiqKSSG8/WCCToz8Oq0Ymhiz
+         GzqoPWLRkMH9JHK00cHhW68TXTzfQ3a55FLws683/nelVo5ucM0l5U7HNo8MytSGtsty
+         qxoQdEfvop0H0w0HHpGHewXuh+0B27yKuGmG+bwyLedPJ3SobAh9qWlTc0DoLL8d5Ji4
+         pAsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791545362; x=1792150162;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=haBBSODWucHm3mmfANsuSegkfg8lAA0orynM/G8N+1k=;
+        b=HmJvR10Rqyfst582avAmL9Gv1JnBjLNCe4QObhkHvBoXGNcHeqjQJwejq1yz0QBMzL
+         Q2VH+zVeEBxFHimQdGrbbkXFvSjHUb+5G2n+wAMsUmc7kEaC3cSZiGdXztcPOmDCrTMI
+         C7DDvicMK9OxYzrurFuCF6LU90BhA5B+c39PQ1cn4O8nRG0yGAjnPSPo6VUf+1KPiM24
+         o1FbDWNvHuxX2JiFk4qVwtqLHM2RrUjC48sN8/X1ZCIPIucsgiTsNitaHRZfDr0iQBQ4
+         VroCf71oOsmtkX7QbyXWwMtHSyQf84/Ay97zdwJs4PHCVlxiOHEPmXxtqO0XwI4WSmxB
+         iaPw==
+X-Forwarded-Encrypted: i=1; AKwUvBwqVlFKkNIelZetjaizf6y3n1plpbeD2LUE315L16Vewv+1PQwBoTEgtihaFg4voefXsyTuuSJuCl1g5c0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJMIYJiVTNw9i8s0HWlqw2QCoSiIwkkctSLvD3nHjsqNCGnzkY/
+	7ncPotwaJW/ncbjvcWTjeh5FCkFI/e6D+HCYOhaPgeEgulxE7ZQPC7PCxrc76k9DYuSIKvBxQDD
+	Qz0AuGSlJB7RGTqCT61+ohdWJi3N574ig1KzMxPsLxtJNLtTwD8jWG3xKezYXljMfTsw=
+X-Gm-Gg: AYBFou2bZaTvgJ7YIc0bIFI6cH6TO5/W+BZsxBwoBu/gO9RdS2mh84Ssea/5GsirzSB
+	s4EypHxqg3BG8OfXpCClHongbgRFoavwmybBDI/cw9Wn6uwPkI4HClqUj4fyuBBjuO6S5pvMwIl
+	g3RnZmKDetA5Gk29ll+PQ8OrnNa9IJL/sx/y/a1Ilocjirpu/2tNhdEzgfNh/GZD1suFX8RyQAh
+	2YVHoxRL6I2DmGXJ1F0phlDh9se2oBLhsmECtkLOPqua02B+AuBAq8eGRPYUIDX+eqMv9mhwl7U
+	4AEeHNwTLu5I2qBF7XDi844wsNV7nIms78bxnguoW1quOOod0XHbDTVa5utzrMMmowuMmWIvrl5
+	RLjK7ly2gjSRiZHo1gZUCvecv/4fplIb4
+X-Received: by 2002:a05:7301:db14:b0:351:757d:71bd with SMTP id 5a478bee46e88-3537e05b78dmr2342394eec.24.1791545362008;
+        Fri, 09 Oct 2026 04:29:22 -0700 (PDT)
+X-Received: by 2002:a05:7301:db14:b0:351:757d:71bd with SMTP id 5a478bee46e88-3537e05b78dmr2342354eec.24.1791545361310;
+        Fri, 09 Oct 2026 04:29:21 -0700 (PDT)
+Received: from [10.217.218.111] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca1cc25sm8169040eec.8.2026.10.09.04.29.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 09 Oct 2026 04:29:20 -0700 (PDT)
+Message-ID: <c8d61771-1eb5-435f-a4df-9b585e4ef620@oss.qualcomm.com>
+Date: Fri, 9 Oct 2026 16:59:16 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,133 +89,254 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 0/7] alloc_tag and module codetag section fixes
-To: Suren Baghdasaryan <surenb@google.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Kent Overstreet <kent.overstreet@linux.dev>,
- Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
- Aaron Tomlin <atomlin@atomlin.com>, Alexander Potapenko <glider@google.com>,
- Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>,
- Vlastimil Babka <vbabka@kernel.org>, Michal Hocko <mhocko@suse.com>,
- Brendan Jackman <brendan.jackman@linux.dev>,
- Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
- Uladzislau Rezki <urezki@gmail.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, linux-modules@vger.kernel.org,
- kasan-dev@googlegroups.com
-References: <20260929082014.160587-1-hao.ge@linux.dev>
- <20260929134401.a1a385ff4369661f879b5d2f@linux-foundation.org>
- <CAJuCfpFRW3uNUW_VrjpOfLwS1LBHqGEpqK3yBTPSpGOORY5jiQ@mail.gmail.com>
- <fc4f3d08-393f-43ed-934b-e7e1ba6d0137@linux.dev>
- <CAJuCfpGAZUcQnursYh=rvp+EzckvDmXX_KveJvEuyjzzG=9mww@mail.gmail.com>
+Subject: Re: [PATCH v1 3/3] i2c: qcom-geni: Add bus recovery support for GPI
+ DMA mode
+To: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>,
+        Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+        Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+        Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
+        Andi Shyti <andi.shyti@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org
+References: <20260826-i2c_bus_recovery-v1-0-203f0ec76f84@oss.qualcomm.com>
+ <20260826-i2c_bus_recovery-v1-3-203f0ec76f84@oss.qualcomm.com>
+ <7cc05c51-811f-4949-9fe6-10580ff90eea@oss.qualcomm.com>
 Content-Language: en-US
-From: Hao Ge <hao.ge@linux.dev>
-In-Reply-To: <CAJuCfpGAZUcQnursYh=rvp+EzckvDmXX_KveJvEuyjzzG=9mww@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+From: Aniket RANDIVE <aniket.randive@oss.qualcomm.com>
+In-Reply-To: <7cc05c51-811f-4949-9fe6-10580ff90eea@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDA0NSBTYWx0ZWRfX9QQOKtQSGoIC
+ 4cbdscHMIZKu/bUHPKypVXpbEYbbhc7Y+XWrxitiHWzx6VDLPSJ8DTQ2AiyI4ynMAWIQupqjq9u
+ uja/KKE3bWSWnr1UpXfOi3NbP5Pp/Pk=
+X-Authority-Analysis: v=2.4 cv=MMT1C8Zl c=1 sm=1 tr=0 ts=6ac8d012 cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=RhFRd_MFMwiQnDz1XkEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=bBxd6f-gb0O0v-kibOvt:22
+X-Proofpoint-GUID: UApZk-YWqyeVpLX-XL44IDi63fZqcNfb
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDA0NSBTYWx0ZWRfX8GBd6rIH+cB3
+ nXdL3U8Wvm+MZrTaXVQUXu7gjPZv6a1Xv9SLRxDmVxBOhOam3vRwQReY5ZCKYjBFK1PfRSShRjo
+ OovUKy5l8Guc9+0HIOO9dRh4a3C+awU1+nZ/Mwk+EK84Ix1MUdz4w2e+Mz/B/pj+xT33Ql0bbHz
+ jorxU6I4YLNCNE48lb+cAaO8JBBE522sFtF6AM4wBI1ty+e/cBPq7VI8qirev8QOD52l4RHb+4L
+ bLRVQi/GncS1ObgUsSJyOh7AdSVEXsAioIlnU2H1KRoqSyvjEHQSgpTUvEklsoBivpLc29dt48W
+ LXG+uOCoG0qB+fKZGGLTJjITOmkTG4FDynbLAIEF5pnqzXBmgYcjDKI1MCK/XySX/wFaGK6dVCP
+ tH1HBhzxG0L2TZnsMJcC+1SEaztk8zbmbj3kmsMpq1Xr/nuhJaAriGVDhCwlAbZV/TalJgUzGyV
+ E4Yli7DOclNA4SS8xxQ==
+X-Proofpoint-ORIG-GUID: UApZk-YWqyeVpLX-XL44IDi63fZqcNfb
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-09_03,2026-10-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 phishscore=0 clxscore=1015 spamscore=0
+ lowpriorityscore=0 adultscore=0 suspectscore=0 bulkscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610090045
 
-Hi Suren
 
-On 2026/10/5 02:37, Suren Baghdasaryan wrote:
-> On Wed, Sep 30, 2026 at 5:25 AM Hao Ge <hao.ge@linux.dev> wrote:
->>
->> Hi Suren and Andrew
->>
->>
->> On 2026/9/30 10:39, Suren Baghdasaryan wrote:
->>> On Tue, Sep 29, 2026 at 8:44 PM Andrew Morton <akpm@linux-foundation.org> wrote:
->>>>
->>>> On Tue, 29 Sep 2026 16:20:07 +0800 Hao Ge <hao.ge@linux.dev> wrote:
->>>>
->>>>> With profiling toggled off, the overflow check in
->>>>> reserve_module_tags() did not run, a module could load with more
->>>>> tags than the page flags can address, and re-enabling profiling
->>>>> then silently corrupted /proc/allocinfo. On overflow the fix shuts
->>>>> profiling down, releases the reservation and returns -EAGAIN, and
->>>>> the codetag section lands as regular module data in the same load,
->>>>> so the module loads without profiling.
->>>>>
->>>>> Review of the earlier series by Sashiko turned up more problems.
->>>>>
->>>>> One is a race. layout_sections() and move_module() both asked
->>>>> codetag_needs_module_section() where a codetag section goes, and
->>>>> mem_profiling_support can change between the two calls, for instance
->>>>> when another module load overflows the tag index and shuts profiling
->>>>> down. move_module() then copied the codetag section to offset 0 of
->>>>> its regular destination and clobbered the first section placed in
->>>>> that region.
->>>>>
->>>>> v7 reworks where codetag sections are allocated, on a prototype by
->>>>> Petr Pavlu [1]. The allocation runs before layout_sections() and the
->>>>> placement is decided in one step, so nothing re-asks the question
->>>>> and the race is gone. The retry is gone too, on -EAGAIN the section
->>>>> is laid out as regular module data right in the same load.
->>>>
->>>> Thanks.
->>>>
->>>> Seven patches, all cc:stable.  Why is a backport proposed?
->>>> Documentation/process/stable-kernel-rules.rst gives guidelines - does
->>>> this series meet them?  Does Suren have thoughts?
->>
->> Thanks, I've just gone through this carefully.
->>
->>>
->>> I think vmalloc fix in patch#2 should be posted separately and clearly
->>> quialifies for backporting as if fixes issues Hao found at [1].
->>
->> Agreed. Patch #2 was added to this patch series because vm_module_tags_populate
->> suffers from the same issue. If we want to be more conservative, I'd prefer to keep
->> vm_module_tags_populate as it was in V10:
->> https://lore.kernel.org/all/20260915070001.113559-3-hao.ge@linux.dev/
+
+On 9/3/2026 9:44 PM, Jyothi Kumar Seerapu wrote:
 > 
-> I disagree with this approach. That means we are introducing an extra
-> code inside vm_module_tags_populate() only to clean it up later.
-> Instead please post Patch #2 separately. That posting should have your
-> current patch that changes vmap_pages_xxx() to clean up on failure,
-> followed by patch(es) which remove unnecessary cleanup that some
-> functions currently perform by themselves. This patchset should
-> definitely be tagged for stable.
-
-You are right. Sorry for the confusion - my earlier deviation came
-from not fully understanding the rules for getting patches into the
-stable trees.
-
-> Once that patchset is accepted, the rest of your current patchset
-> fixing alloc_tags can be posted with correct assumption that
-> vmap_pages_range() cleans up its partial mapping when it fails.
 > 
-> I know this sequence will take longer to upstream but I think it's the
-> right way to go.
+> On 8/26/2026 3:21 PM, Aniket Randive wrote:
+>> I2C transfers in GPI DMA mode can fail with -EIO when a target holds
+>> SDA low, leaving the bus stuck and preventing subsequent transactions.
+>> The GPI completion callback reports a NACK and a genuine bus error
+>> alike as -EIO, and the existing recovery path switches the SE to FIFO
+>> mode which is not valid in GPI DMA mode.
+>>
+>> Add bus recovery support using the I2C_BUS_CLEAR and I2C_STOP_ON_BUS
+>> opcodes issued via the GPI TX DMA channel. Guard the -EIO recovery
+>> trigger with a SE_GENI_IOS RX_DATA_IN check to skip recovery when SDA
+>> is already released. Extend the recovery callback to dispatch through
+>> the GPI DMA path when gi2c->gpi_mode is set.
+>>
+>> Signed-off-by: Aniket Randive <aniket.randive@oss.qualcomm.com>
+>> ---
+>>   drivers/i2c/busses/i2c-qcom-geni.c | 104 +++++++++++++++++++++++++++ 
+>> ++++------
+>>   1 file changed, 88 insertions(+), 16 deletions(-)
+>>
+>> diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/ 
+>> i2c-qcom-geni.c
+>> index 9fa1a8ac400c..85cb1367958c 100644
+>> --- a/drivers/i2c/busses/i2c-qcom-geni.c
+>> +++ b/drivers/i2c/busses/i2c-qcom-geni.c
+>> @@ -34,8 +34,6 @@
+>>   #define I2C_READ        0x2
+>>   #define I2C_WRITE_READ        0x3
+>>   #define I2C_ADDR_ONLY        0x4
+>> -#define I2C_BUS_CLEAR        0x6
+>> -#define I2C_STOP_ON_BUS        0x7
+>>   /* M_CMD params for I2C */
+>>   #define PRE_CMD_DELAY        BIT(0)
+>>   #define TIMESTAMP_BEFORE    BIT(1)
+>> @@ -1003,6 +1001,70 @@ static int geni_i2c_fifo_bus_cmd(struct 
+>> geni_i2c_dev *gi2c, u32 cmd)
+>>       return gi2c->err;
+>>   }
+>> +static int geni_i2c_gpi_bus_cmd(struct geni_i2c_dev *gi2c, enum 
+>> i2c_op cmd)
+>> +{
+>> +    const struct geni_i2c_clk_fld *itr = gi2c->clk_fld;
+>> +    struct dma_async_tx_descriptor *desc;
+>> +    struct gpi_i2c_config peripheral = {};
+>> +    struct dma_slave_config config = {};
+>> +    unsigned long time_left;
+>> +    unsigned long flags;
+>> +    dma_cookie_t cookie;
+>> +
+>> +    config.peripheral_config = &peripheral;
+>> +    config.peripheral_size = sizeof(peripheral);
+>> +
+>> +    peripheral.set_config  = 1;
+>> +    peripheral.pack_enable = I2C_PACK_TX | I2C_PACK_RX;
+>> +    peripheral.cycle_count = itr->t_cycle_cnt;
+>> +    peripheral.high_count  = itr->t_high_cnt;
+>> +    peripheral.low_count   = itr->t_low_cnt;
+>> +    peripheral.clk_div     = itr->clk_div;
+>> +    peripheral.op          = cmd;
+>> +
+>> +    if (dmaengine_slave_config(gi2c->tx_c, &config)) {
+>> +        dev_err(gi2c->se.dev, "dma config error for bus cmd %u\n", cmd);
+>> +        return -EIO;
+>> +    }
+>> +
+>> +    desc = dmaengine_prep_slave_single(gi2c->tx_c, 0, 0, DMA_MEM_TO_DEV,
+>> +                       DMA_PREP_INTERRUPT | DMA_CTRL_ACK);
+>> +    if (!desc)
+>> +        return -EIO;
+>> +
+>> +    desc->callback_result = i2c_gpi_cb_result;
+>> +    desc->callback_param = gi2c;
+>> +
+>> +    cookie = dmaengine_submit(desc);
+>> +    if (dma_submit_error(cookie))
+>> +        return -EIO;
+>> +
+>> +    /*
+>> +     * cur and err are shared with geni_i2c_irq() and the GPI callback
+>> +     * i2c_gpi_cb_result(); both write err (the IRQ handler under
+>> +     * gi2c->lock). Reset them under the lock before issuing the 
+>> transfer.
+>> +     */
+>> +    spin_lock_irqsave(&gi2c->lock, flags);
+>> +    gi2c->cur = NULL;
+>> +    gi2c->err = 0;
+>> +    spin_unlock_irqrestore(&gi2c->lock, flags);
+>> +    reinit_completion(&gi2c->done);
+>> +    dma_async_issue_pending(gi2c->tx_c);
+>> +
+>> +    time_left = wait_for_completion_timeout(&gi2c->done, XFER_TIMEOUT);
+>> +    if (!time_left) {
+>> +        dev_err(gi2c->se.dev, "timeout waiting for GPI bus cmd %u\n", 
+>> cmd);
+>> +        dmaengine_terminate_sync(gi2c->tx_c);
+>> +        return -ETIMEDOUT;
+>> +    }
+>> +
+>> +    /* ARB_LOST and BUS_PROTO may be expected during recovery; treat 
+>> as success */
+>> +    if (gi2c->err == -EAGAIN || gi2c->err == -EPROTO)
+>> +        return 0;
+>> +
+>> +    return gi2c->err;
+>> +}
+>> +
+>>   static int geni_i2c_recover_bus(struct i2c_adapter *adap)
+>>   {
+>>       struct geni_i2c_dev *gi2c = i2c_get_adapdata(adap);
+>> @@ -1021,15 +1083,23 @@ static int geni_i2c_recover_bus(struct 
+>> i2c_adapter *adap)
+>>           return 0;
+>>       }
+>> -    ret = geni_i2c_fifo_bus_cmd(gi2c, I2C_BUS_CLEAR);
+>> -    if (!ret)
+>> -        ret = geni_i2c_fifo_bus_cmd(gi2c, I2C_STOP_ON_BUS);
+>> +    if (gi2c->gpi_mode) {
+>> +        ret = geni_i2c_gpi_bus_cmd(gi2c, I2C_BUS_CLEAR);
+>> +        if (ret)
+>> +            dev_dbg(gi2c->se.dev, "GPI bus clear returned %d, issuing 
+>> stop anyway\n",
+>> +                ret);
+>> +
+>> +        ret = geni_i2c_gpi_bus_cmd(gi2c, I2C_STOP_ON_BUS);
+>> +    } else {
+>> +        ret = geni_i2c_fifo_bus_cmd(gi2c, I2C_BUS_CLEAR);
+>> +        if (!ret)
+>> +            ret = geni_i2c_fifo_bus_cmd(gi2c, I2C_STOP_ON_BUS);
+>> +    }
+>>       /*
+>> -     * Recovery succeeds only once the slave releases SDA, so the bus
+>> -     * state is the authority: RX_DATA_IN high means the bus is free,
+>> -     * while a clean opcode status with SDA still low is a failed
+>> -     * recovery.
+>> +     * Recovery succeeds when SDA is released. RX_DATA_IN high means the
+>> +     * bus is free; trust this over the opcode return path, which cannot
+>> +     * flag a benign recovery event in GPI mode.
+>>        */
+>>       if (readl_relaxed(gi2c->se.base + SE_GENI_IOS) & RX_DATA_IN)
+>>           ret = 0;
+>> @@ -1066,14 +1136,18 @@ static int geni_i2c_xfer(struct i2c_adapter 
+>> *adap,
+>>       else
+>>           ret = geni_i2c_fifo_xfer(gi2c, msgs, num);
+>> -    if (!gi2c->gpi_mode &&
+>> -        (ret == -EPROTO || ret == -ETIMEDOUT || ret == -EAGAIN)) {
+>> +    if (ret == -EPROTO || ret == -ETIMEDOUT || ret == -EAGAIN ||
+>> +        (gi2c->gpi_mode && ret == -EIO)) {
+>>           /*
+>>            * Only attempt recovery if SDA is stuck low. -EPROTO and
+>>            * -ETIMEDOUT indicate bus errors where the target may be
+>>            * holding SDA low. ARB_LOST (-EAGAIN) on a single-controller
+>>            * bus indicates a stuck target, not a real arbitration loss.
+>> -         * GPI DMA mode extends this trigger separately.
+>> +         * In GPI DMA mode the completion callback reports NACK,
+>> +         * BUS_PROTO and ARB_LOST alike as -EIO, so the SE_GENI_IOS
+>> +         * RX_DATA_IN check below is what distinguishes a genuinely
+>> +         * stuck bus from a benign NACK: a NACK leaves SDA released
+>> +         * (high) after the STOP, so recovery is skipped.
+>>            */
+>>           if (!(readl_relaxed(gi2c->se.base + SE_GENI_IOS) & 
+>> RX_DATA_IN)) {
+>>               int recovery_ret = i2c_recover_bus(adap);
+> This does not appear to handle scenarios such as an I2C multi-message 
+> transfer where the stretch bit is set during the first message, but an 
+> error occurs while preparing the second message (for example, during 
+> memory allocation or DMA descriptor preparation). In such cases, the SCL 
+> line may remain asserted low and impact subsequent transfers.
+>   > @@ -1292,10 +1366,8 @@ static int geni_i2c_probe(struct 
+> platform_device *pdev)
 
-Make sense. Thanks for your continued support.
+Thank you for pointing this out.
+The GPI completion callback reports transfer failures as -EIO, but 
+failures while preparing a later descriptor may return other errors such 
+as -ENOMEM or -EINVAL. If a preceding stretched transfer has left SCL 
+low, this requires separate consideration.
+However, the bus-clear sequence is only applicable when SCL is high and 
+SDA is held low, since it recovers the bus by generating SCL pulses. It 
+cannot recover a bus where SCL itself is held low. The recovery callback 
+therefore detects SCL-low and returns -EBUSY without issuing 
+I2C_BUS_CLEAR or I2C_STOP_ON_BUS.
+The GPI error path already calls dmaengine_terminate_sync() for both 
+channels. I will verify whether this releases a controller-owned stretch 
+before extending the recovery trigger to descriptor-preparation 
+failures. If termination does not release SCL, the appropriate fix is a 
+GPI/GENI abort or reset path, rather than invoking bus-clear.
 
-Best Regards
-Hao
+- Aniket
 
+>>       if (ret < 0)
+>>           return ret;
+>> -    if (!gi2c->gpi_mode) {
+>> -        gi2c->rinfo.recover_bus = geni_i2c_recover_bus;
+>> -        gi2c->adap.bus_recovery_info = &gi2c->rinfo;
+>> -    }
+>> +    gi2c->rinfo.recover_bus = geni_i2c_recover_bus;
+>> +    gi2c->adap.bus_recovery_info = &gi2c->rinfo;
+>>       ret = i2c_add_adapter(&gi2c->adap);
+>>       if (ret)
+>>
 > 
->>
->> Then we can submit a fix for __GFP_NOFAIL retry loop in __vmalloc_area_node() as a hotfix together
->> with our new patch #2. While at it, we can also check if there are any unnecessary calls to
->> vunmap_range family functions that can be cleaned up now that patch #2 is applied.
->>
->>
->>>
->>> The rest are also bug fixes but their size is concerning. I'll review
->>> them first before advising on which ones should be backported. Some
->>> fixes address issues that happen very rarely and if a fix is too
->>> complex it might make sense to leave it be or fix it some other way
->>> with less churn. Please give me a couple of days to review them. With
->>> the upcoming LPC I'm trying to multiplex between several projects.
->>
->> Thanks, sorry for all the hassle on you folks.
->>
->> Thanks
->> Best Regards
->> Hao
->>
->>>
->>> [1] https://lore.kernel.org/all/b8005c24-ecac-45c4-840a-fd282f9693b5@linux.dev/
->>>
->>>>
->>>> Also, Sashiko has been busy again:
->>>>         https://sashiko.dev/#/patchset/20260929082014.160587-1-hao.ge@linux.dev
+
