@@ -1,77 +1,82 @@
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 558843B19D8
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 17:58:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19B663D0BE4
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 17:59:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791568734; cv=none; b=pRHOczvcOL2mFHqgDxgl2lbFjlKrcEoGCfgQ8dkm+tfhaGw+rptfiQInaiJjGGY4GPn8pRSXoOxRQ8qG7cH/0LDeQ4Kajd0l8JvnBS9BsxYC2wBipUqb39nSDeYl/w2KKbjXAu9h4vxWur+DC47Qy5eVK0j7/WvFSl1bPZd45o8=
+	t=1791568788; cv=none; b=trFJIWTG4BHmZkQVj1AgXQiUXRbABraz+irO4wi5jt8XT6Lsr4Dowb0lfvB1qJvXGKags0jNGx1/AajZoeUyna+ti9x9f4vOKHyH4X1voMkdX8nl/AMYiGKSkihkXf71jjoENmdEERwprJsODnnTBtqyNUYYQH5PkU6sGtRjPWI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791568734; c=relaxed/simple;
-	bh=TRAbFOmIuXO7lFa2+5mHt2V6HZzH9UnQ+dCDMXHXAdo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TmeSANeKij5VVIPovmvazfifa//zr0PT1Lhx/XbPtLufMtrDdU7F5cImCErELoN5TL3oAqN4ZeYMe6cWWoXakU6t9y5A30QpKzbHq7FY5MCfMzBF4YjP4Oovuebdr7ks9EJXjM1eKb45nng5Bk/jdQra/W2g6uPvYspu7kuyhHs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=akfm1XvL; arc=none smtp.client-ip=209.85.215.178
+	s=arc-20240116; t=1791568788; c=relaxed/simple;
+	bh=P+poAH8wG69axUkwsD3K3DEA1hw8lvwze1Qf6c/Rtfk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VLcmQBpPq/MXhXd5kLlC/SotSEf3HGsbiryOQuO6Ro5OqzwL7C3wRoyyOVSgVPEC6RCT8wg7niKXCfANWzSA9GfRCP2xXCqKRnTsj/MUZjpNeMpjwg1LIyNDicU7kSeoz0bN3ZFNFMBcYvGcdEVvuixNRyWSTbgZGhRemmyW3K8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BGh8+tN8; arc=none smtp.client-ip=209.85.214.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="akfm1XvL"
-Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cd5cd8d89a7so265337a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 10:58:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BGh8+tN8"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2db710396ffso13097755ad.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 10:59:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791568733; x=1792173533; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791568786; x=1792173586; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eFMcmEx2+Bmb7Wycj6pYJAy5yt+ElDaMMm24XjvbUJI=;
-        b=akfm1XvLyOQ4jtlxookXLAzwE/Y24FOt5MXTJ8ml42M4qBDQxAm9notKBI9bkmaPDz
-         NLWqKb8hTUn+SusPb/XOviRJU4IxJB4rhKPA21ejPvi7VyFTIi1/gkOB+s2a1oYkSGjB
-         7l6itukZ+uk+iWLolJm3EkKf7dUaMogBHdVvTlH/fxTY5iORSCyY6pdb0DDpcrUuX8NB
-         7gkRWbfEIFZ7VCJzdmGylxs1T5O+l/fWpVKir5kU1L92ZKKrPHZ/Z2Dovqo+8KGXR5Q8
-         CNPkG+ZyAljUrirFcxdnKxhqvCxiaGsVUxNUkrhy6ih9SVdmE+8pCRiZO3f1IJ4iEnTp
-         Becw==
+        bh=LFrkjvKvgK+7671NmiTvcg+1m+zHAdrvgRTHztiv1Gs=;
+        b=BGh8+tN8XqMN2QEAJxZV1nS/pmO8qOzKROTHnrON53EJd8IlkiB5vj1orwNNjiJqdo
+         6HJ1ZL9V0jtbL25/qst85fUAXSMTBPXhLcPlIv/1Dw3IV3Q8bGZy5cwTtcFdvZugmfYC
+         ylkMTTdogcgtG/ev/MGP/40XawHgnSsTo9CT9Te+Td4YUuvnVVSyAYD2ajgTHCPLQ3/W
+         3RQVgu3o4/O8BTIeK3Y0r7BBZqjkZzewd0v9FY+Anvje7jHjL8U68I3ENqdiiDPIRCj2
+         pGLf61UXWjqA7liizwaNkAV5TupiA2siDeHYFhv+Wqx8uUUEwvz51ojaX5229mg0EGCZ
+         O4BA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791568733; x=1792173533;
+        d=1e100.net; s=20260707; t=1791568786; x=1792173586;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=eFMcmEx2+Bmb7Wycj6pYJAy5yt+ElDaMMm24XjvbUJI=;
-        b=fw7V3fJK+wbh3WASQAkdK0usU5CAQhCOtF5ubtO5m4h16MYEtpfagACXRu3rtwh4ux
-         7dwr9nASSL1iptRTxSn5LJE/voXrgiJS2YWLVLRo1UiYlBbThUhDniv83HxpkP0Sc/rW
-         6IIa5bKCtjgOMhqzZV4rNaoWEX91J7tzQIlirPCMWWYOzn+peOfaK4BKsh+oRkseoJEf
-         AZqAfM9xAbQH+k1Vy6uAqvbSqEOSGYEfjg8YaTK5WT8lOmhoxz/aU6i95qRyPyc9TSvo
-         tjVmgqz7fHlUXXWQ9VdARUhkPsPY/PZAK5KIK4vR9HulpdnXrD3rX2/EKRXaHFHGwPzd
-         xbwA==
-X-Forwarded-Encrypted: i=1; AKwUvBzvehu7rBdYYqCt6fGF0H5igVdy2J+cDmYgPQEVEzWOjgLSOmDifAU0LFxyDdYdQFBMZq+vzFF8XQk8+hE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKt31BDQtjWyrxwDl1lrlJ+ZouU8zF4EsX96C70FCwz5MfnH3Kf
-	nNvN7gRIBxK9wKUmCbKmiqr103R9SjcariOqANyTwcIhj7J7/24PBkNq
-X-Gm-Gg: AYBFou08RG9FFlfTA9Zy8/6ulhiW/qpbdYuiXDfpjewwT76JW0wGjLo6jc/LUHbA2FG
-	H05jGCV4h8w7iI/qNnTsP2UZfFr+p86haf1X7O8Cnd6oZATpS6jBTKsszerVsrklmb58eux9ZwD
-	Dp4yY9bqVYxfCTGa6gUqqe7gc4w550Le8HgJxxHab9ZOKJiqyD0hMD3AnWcsYoEe91WiQWHvMag
-	ZWtpaxcZPTWI8YF3BFzfvFOyBbuxlCL3EQanQq8FCC/sVQ9yAfhLU7KRj/mvb+7kqBAxNt2BRhL
-	Bfp7nzAsBzNhG1P0rgzzSYV8dq9cQg0Dm144WHJM8QhjWue20cnNjd3nZ8MV8LVOogaDMg+fTf1
-	wRwEqAcA4PnddoMLxOGPNjyQVsn5/1iT20WlaSEdpW040OWW5wo1HaTItOqfqZkS/wQjP6RSFl/
-	7jIN5BduEX4pJWUeWV5PvEhQkGoiqoQXAqTy85IaQnpGYfLIP5mTDRBj27DTM8MuECmtAsWrPmX
-	MfUuPMQ2An7VJ/g3IKh1Knx8InAe09I5QXgycW12Th60OPEiTXNiLzK19H5Ncpocdch52gwvlEH
-	aDTcyL8T5x/O1Tq2xlY4vAde0Gnv2wKIO9kyrM/hCXMuveE3gH28GVsp1I6+oFd8fGOkyCnygG4
-	G2CqWInftvpssjd7pTw==
-X-Received: by 2002:a17:90b:3c8e:b0:3a6:fc30:ce16 with SMTP id 98e67ed59e1d1-3ab3ae696c8mr1964314a91.51.1791568732651;
-        Fri, 09 Oct 2026 10:58:52 -0700 (PDT)
-Received: from localhost.localdomain ([2a09:bac5:d58d:323::50:f5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab36f8277bsm4415918a91.11.2026.10.09.10.58.50
+        bh=LFrkjvKvgK+7671NmiTvcg+1m+zHAdrvgRTHztiv1Gs=;
+        b=uBCrHiiC0JlDdjfAZhaQZGInJZS7xt61LHTg4PbgJOURcJ+54z42rkAB+yhhbPFjqZ
+         pFerEmMJbcVL9Imi6o9Nj+dEsGljFHLUP6s4CysOywqBhMB3okvpzd1BUS2L/OAAumr9
+         Cd4Z+LEqgIad3dTnxMI84X7k5b8QFmxJWNZdZ0kmFOrT7NDuLkkPx+/GtpNUlMwd+w17
+         eLVYN9QsccD1+5vARilyL9RdzCCjwA2gpaeTq+SCmgcLisYdz7kn6CwY5Jn9KbtbUmsR
+         FRgxvDisFnScwsv36qcBvX+8w72Edf3cQQevRNNb1eNOwlIwrIoQsMH1tuaXzbFzuRpI
+         graA==
+X-Forwarded-Encrypted: i=1; AKwUvByM2d0uoxVTzqd9kFgJM4F0P1TnuysKHMvL8EsShfmSRQG9LYErmfbaVHZnBshPt/TzfR4uOkCOOQ8ADD4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJL1Butqr9f0pj+q3CmGLhWOwsm3PoTHU59lRBbHILkvGg4/N/v
+	HJxys2cg5B+1e6IPic4/fAKpjnxLMZzzevDTDe50PRawVjy1ItQGySvb
+X-Gm-Gg: AYBFou07mHLxmy8hlWrS1yV1Sd6N60njiuiP3L5oAci6jFvn/wJCEisITVi1QDrlDNw
+	mVJ7mVqYH2RinOepJfSJ2GTu5RJx2UFDCldlKahFG6dimPlv/Knk1emotdmrTiECp1ISQjC2Y2x
+	uHEQgveCnGBQvf5V/JXYCPaFSrfSK1bwRYEYP7fmkDr1IQY4lQWWld81vSOhimdi87ZFn2ubslL
+	ZxVy3WfOOsb6LPIvqupTjA6VHykejBtSKNuKLUFh/HyojJvXguIv+He2c8UuolLklO8TB/Y8odb
+	hDCLo8GYw1H61ClCCnhYg1ZukpNcndlkiJXpHx3MXZwc7TbTLhpnxI3aHt+p+Gi4TwuzySG7Vs7
+	HQOagFVJ/Eb/rQpIbJoqwZ2WlLKDduCJvgwl1GpGpHVFVz6g6E6hgcBvFJkK4vScd1awFa7yBGh
+	EJYOzkyoEpNcL1uIzbWRvs8GB+/SnM48FT4ktgbnLLhjRbQREFTuFSCua7zlktUohtdb7jg6UGt
+	6tZFd5WMPRhNVwFN2TDKrRaU1v/kCbnFK2j
+X-Received: by 2002:a17:903:26cf:b0:2dd:86a3:232d with SMTP id d9443c01a7336-2e8404bcd1emr20132425ad.8.1791568786245;
+        Fri, 09 Oct 2026 10:59:46 -0700 (PDT)
+Received: from d.home.yangfl.dn42 ([2a09:bac5:661c:1246::1d2:d1])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e84219e74asm14167105ad.29.2026.10.09.10.59.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 10:58:52 -0700 (PDT)
-From: Ting-Han Hou <ue081723@gmail.com>
-To: Nathan Chancellor <nathan@kernel.org>,
-	Nicolas Schier <nsc@kernel.org>
-Cc: Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	llvm@lists.linux.dev,
-	linux-kbuild@vger.kernel.org,
+        Fri, 09 Oct 2026 10:59:45 -0700 (PDT)
+From: David Yang <mmyangfl@gmail.com>
+To: netdev@vger.kernel.org
+Cc: David Yang <mmyangfl@gmail.com>,
+	Frank <Frank.Sae@motor-comm.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] clang-tools: Import os for broken pipe handling
-Date: Sat, 10 Oct 2026 01:58:32 +0800
-Message-ID: <20261009175836.2277-1-ue081723@gmail.com>
-X-Mailer: git-send-email 2.52.0.windows.1
+Subject: [PATCH net-next v3 0/3] net: phy: motorcomm: Add cable test support for internal YT861x PHYs
+Date: Sat, 10 Oct 2026 01:59:29 +0800
+Message-ID: <20261009175936.428256-1-mmyangfl@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,41 +85,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The BrokenPipeError handler in run-clang-tools.py calls os.open() and
-os.dup2() without importing os. If this handler is reached, it raises
-NameError instead of redirecting stdout and exiting with status 1.
+The YT921x switches integrate GbE PHYs of the YT861x family (PHY ID
+0x01e04281) on the switch-internal MDIO bus exposed by the yt921x DSA
+driver. Add a driver entry and TDR cable test support.
 
-Import os so the handler can work as intended.
+v3:
+ - add dt-bindings
+ - add PHY_IS_INTERNAL
+v2: https://lore.kernel.org/r/20261006202352.1616626-1-mmyangfl@gmail.com
+ - split into a driver entry patch and a cable test patch
+ - update comments and kconfig
+ - add yt861x_config_init() and apply the auto sleep setting, restore auto
+   sleep when starting the TDR test fails
+ - use separate variables for the TDR status
+v1: https://lore.kernel.org/r/20261004184246.1260426-1-mmyangfl@gmail.com
 
-Fixes: 87c7ee67deb7 ("scripts: handle BrokenPipeError for python scripts")
-Assisted-by: LLM
-Signed-off-by: Ting-Han Hou <ue081723@gmail.com>
----
-Changes in v2:
-- Drop the regression test and adjust the commit message (Nathan)
-- Use my full name in the Signed-off-by
-- v1: https://lore.kernel.org/r/179017337986.52388.7943687183785012868@gmail.com/
+David Yang (3):
+  dt-bindings: net: motorcomm: Add YT861x PHY compatible
+  net: phy: motorcomm: Add driver entry for internal YT861x PHYs
+  net: phy: motorcomm: Add cable test support for internal YT861x PHYs
 
-Sorry for the mangled resend in the meantime; this one is sent with
-git send-email.
+ .../bindings/net/motorcomm,yt8xxx.yaml        |   1 +
+ drivers/net/phy/Kconfig                       |   3 +-
+ drivers/net/phy/motorcomm.c                   | 152 +++++++++++++++++-
+ 3 files changed, 153 insertions(+), 3 deletions(-)
 
- scripts/clang-tools/run-clang-tools.py | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/scripts/clang-tools/run-clang-tools.py b/scripts/clang-tools/run-clang-tools.py
-index e78be82..79d58b3 100755
---- a/scripts/clang-tools/run-clang-tools.py
-+++ b/scripts/clang-tools/run-clang-tools.py
-@@ -12,6 +12,7 @@ compile_commands.json.
- import argparse
- import json
- import multiprocessing
-+import os
- import subprocess
- import sys
- 
-
-base-commit: fe2ec83746e501645709761605c2464a44fd2929
 -- 
-2.52.0.windows.1
+2.53.0
 
