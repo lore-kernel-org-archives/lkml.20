@@ -1,102 +1,82 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB5363CE489
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 13:36:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B823E451981
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 13:36:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791552977; cv=none; b=gFx9KUTn67rBZF7YTba7ifJ4xiGiSYhehIo6UskgZAxhI48U9bFRUQ5QM2xROQXuKV7kvaA8t19jYO41nD3D/Bw37ph6Hqamano+4QrFtw9RMifXY84Sonxe1suRv16w6/ABO8aDmCefVAb0BaVJd5l6NIa5XF/uy2aA098cCE0=
+	t=1791552977; cv=none; b=GPq+BDCACofubtqqW2hm9WnlfkV2U0hrNDMUi43kAjFzfNcasY8fOkRKf0hdrj45ywoBR8Zpzts2bfJROUuEyd9R2mK3Qh6kT0V5d4gi4WWkGuzLmmhn/Hbn/xPDlJMIgy5VHp2N1175+gVpYp/dkHBQF92j8gvUMJreXyH7eVU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791552977; c=relaxed/simple;
-	bh=wQsA10BEqiV/7ACOyetkUXXIH9J9C+vOrbs7ldgFeKU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ASmBB3eFffFRmz9t7eIUuZzQenrMyyf/uola8BN/b/vgzgv8nyprLQyWlNx/MoUevFNPeo6W2Noj1/UnsQ45g/pcvNqZsAcg5kGXuFs8Rm/f7hQpVferCXjRyv0mkneNhRKlx0AG1Km84wSsH3EoVnBiRoXI9jabwnUIebV0HVs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 1B73B1F7D1;
-	Fri,  9 Oct 2026 13:36:14 +0000 (UTC)
-Authentication-Results: smtp-out2.suse.de;
-	none
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0C97D1326D;
-	Fri,  9 Oct 2026 13:36:12 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id P8nmNMztyGoIaQAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Fri, 09 Oct 2026 13:36:12 +0000
-Date: Fri, 9 Oct 2026 14:36:11 +0100
-From: Pedro Falcato <pfalcato@suse.de>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>, akpm@linux-foundation.org, 
-	david@kernel.org, liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, 
-	surenb@google.com, mhocko@suse.com, qi.zheng@linux.dev, jack@suse.cz, 
-	ayushr@modal.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm: memory: fix truncation removing mapped folios
-Message-ID: <asjr2zCp1BVtfpTV@pedro-suse.tail5790ac.ts.net>
-References: <0d2a1809fa1cfc22ad3df26ec28b2d30e5cdf3bd.1791540483.git.baolin.wang@linux.alibaba.com>
- <asjXJZap53yJWMYi@gremlin>
+	bh=40TIX3NpIG+zOWtJ1x1uDcURK4B5W6fTMv+dybiQMZs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=E6t0zYGxj5WVl/dOVrttcgj+ClILrzhtCtAIkbDhpKKoYw4LHcyI2mPQHTDnj3tpPt0DCssEFhPJ0wzLap11oFmEUBx4ZovqUBU2A8H7QJse1obmw+qaOc3tb7ezEeAMyjIh6UXPNR6ecY2WZATLGF0GyRX0XFyjGjO7ecCt6jU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=aayushk.dev; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.214.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=aayushk.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2d71d1cc8b2so22848975ad.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 06:36:16 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791552976; x=1792157776;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3bcBhjlsgUHjb+oGqPi1QqiXsckIBTQjS/BaSbdqlKM=;
+        b=nBLmGpspsuwTw2FBkoolwdIYvv3fhyScppMx8ggacnOqmI2ffWuR0t9QOMKGcb63j6
+         gd+oI/bgV2r2Hyv7vWfJJJH7NPgVE2zHKBRdbMpelA5xfvasfh+Ca4qCjt3FidKZvKtS
+         WiTN7MS9M9H7BHB85L7lLT2WIuJREtVguQqpRt2OYUMFYosLJpI38IzVT6V5h4TUDQp1
+         ocd8GpwcRONjyjvVVCuAne7XrpxbcgqMmKbCvY6ZjckljVMAMfKY2LozbgHlEZBOjX4c
+         DHarjynnHsoDnOdmfHeCNELNmnBXeteWNPbJ8ef3euQX9lkjJnBjl8dqeAcZd8L3/iF3
+         CgmQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwj+K/3VUBGhAwLQoLnIASHL1Oafmc8Rzh7WqTq7IRbILUZ58AZtZ04Wxh3M78iQ1ziaUZC0jBXhON5xGM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIqwQNuZxjpzADdffIhYWr9Rjrcqb7McpiP6ZsAtWqYN1rYQ3oJ
+	kYXnCdx1UzwAiwg3WsJ8+HGOLohJ/u7X7Jqfrt/0rRy+gJrKX0jnIMkP
+X-Gm-Gg: AYBFou2aYt+Rhrs+eEiuk6SwAKkyFOVYoCijZG59whs+TMCB+vaESl4trQqbNwbZlVh
+	gDV4KqBKFJzNSrWJyO4wlRW/vWHvuSD9vTrvr84bBE5ZFFdo5dBsdDxYSbhanjBV9cgv5Q1RVJi
+	39gI7t8qTGHqb2qCizvLUISqyYnzWMjbdf3yM0mRzd6uUHGXqju33EBVNhQLBdmTKbEZlZmzXeC
+	vO3SVciCF4886xJphKcWpi9XALn6PCWSJZARAm08CQRe2n2evRPMZysyRO7X/VhUSBydoIpGh1w
+	bqVca3JMd6tlBC2fNIdP21oiP2IgNejZ7BjsKyyKwASOoBURkmKS63kyUZnCGpJYzVER+V1FNNL
+	7UsMJ8FuV225VbBYjy23aNhQglhszIlQxkxx9sr5wOELxiMEOPRsY4Ov3BrPwyXAtS+pXSdQYn8
+	35dBFKEHBxeoNuwpV8O8nAc7wDL/vPFaZBndxoCACmoZOO0JqtVcaEftjwbhA=
+X-Received: by 2002:a17:903:1b6b:b0:2ca:e19c:97b with SMTP id d9443c01a7336-2e84280d563mr18482675ad.5.1791552975728;
+        Fri, 09 Oct 2026 06:36:15 -0700 (PDT)
+Received: from linmach ([182.156.30.23])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8484c1641sm7656985ad.15.2026.10.09.06.36.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 06:36:15 -0700 (PDT)
+From: Aayush Kumar <code@aayushk.dev>
+To: broonie@kernel.org
+Cc: linux-spi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Aayush Kumar <code@aayushk.dev>
+Subject: [PATCH 0/5] spi: replace strcpy(), sprintf() and simple_strtoul() with strscpy(), snprintf() and kstrtoul()
+Date: Fri,  9 Oct 2026 19:06:04 +0530
+Message-ID: <20261009133609.579046-1-code@aayushk.dev>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <asjXJZap53yJWMYi@gremlin>
-X-Rspamd-Pre-Result: action=no action;
-	module=Unknown lua;
-	unknown reason
-X-Spam-Flag: NO
-X-Spamd-Bar: /
-X-Rspamd-Queue-Id: 1B73B1F7D1
-X-Rspamd-Pre-Result: action=no action;
-	module=Unknown lua;
-	unknown reason
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Level: 
-X-Spamd-Result: default: False [0.00 / 50.00]
-X-Spam-Score: 0.00
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 09, 2026 at 01:00:52PM +0100, Lorenzo Stoakes (ARM) wrote:
-> On Fri, Oct 09, 2026 at 06:12:03PM +0800, Baolin Wang wrote:
-> > diff --git a/mm/memory.c b/mm/memory.c
-> > index 1f5d5f7d39cd..0272217ad7b0 100644
-> > --- a/mm/memory.c
-> > +++ b/mm/memory.c
-> 
-> > @@ -2044,16 +2053,10 @@ static unsigned long zap_pte_range(struct mmu_gather *tlb,
-> >  	 * to ensure they are still none, thereby preventing the pte entries
-> >  	 * from being repopulated by another thread.
-> >  	 */
-> > -	if (can_reclaim_pt && direct_reclaim && addr == end)
-> > +	if (can_reclaim_pt && direct_reclaim && addr == end) {
-> > +		/* rmap changes need to be observed before e.g PTEs get zapped. */
-> > +		smp_wmb();
-> 
-> What does this pair with? You should always say what in the comment.
+Replace strcpy(), sprintf() and simple_strtoul() with their safer
+modern equivalents (strscpy, snprintf, kstrtoul).
 
-Yep, this is missing a rmb to pair with. The diff I posted at
-https://lore.kernel.org/linux-mm/asigKktcrSY80A_2@pedro-suse.tail5790ac.ts.net/
-had one in zap_pmd_range(), which admittedly isn't the greatest. I'm not sure if
-there's a better way to do this.
+Aayush Kumar (5):
+  spi: butterfly: Use strscpy() instead of strcpy()
+  spi: lm70llp: Use strscpy() instead of strcpy()
+  spi: tle62x0: Use kstrtoul() instead of simple_strtoul()
+  spi: omap2-mcspi: Use snprintf() instead of sprintf()
+  spi: s3c64xx: Use snprintf() instead of sprintf()
 
-> 
-> rmb/wmb are generally not needed vs. acquire/release. Are you sure a wmb is
-> right here?
-
-I don't think that works, because __folio_remove_rmap has a ton of stuff going
-on, some implying full ordering, others not. Plus you'd need to switch the pmd
-dereference to something like an smp_load_acquire().
+ drivers/spi/spi-butterfly.c   | 3 ++-
+ drivers/spi/spi-lm70llp.c     | 2 +-
+ drivers/spi/spi-omap2-mcspi.c | 6 ++++--
+ drivers/spi/spi-s3c64xx.c     | 3 ++-
+ drivers/spi/spi-tle62x0.c     | 6 +++---
+ 5 files changed, 12 insertions(+), 8 deletions(-)
 
 -- 
-Pedro
+2.56.0
+
