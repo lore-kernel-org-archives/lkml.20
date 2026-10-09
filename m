@@ -1,74 +1,75 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 894663B058F;
-	Fri,  9 Oct 2026 07:15:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AB822DA76C
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 07:16:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791530161; cv=none; b=tmZBIBtzq8OGdFDeDmdy9f0s5CPolDQ3nXJ0vGr0D7W9dzszDDZmRqi/j4QTq73dKA1GAI2kPKAY7Pb1OpwJk15E+wbYnSCc/Ul/8skQXrm5vTMHdepokZ5adcXFVZev2sa/oz1YjCtUDhC7lJ+kQRXkNgvv9g4s0z6faLaZqtE=
+	t=1791530173; cv=none; b=SCSvsCgcQIzH2+UgwFNCnk0ZXHchIkvG167II1LufbiHgBF9rjkeC+hIUxryUv3TkdGEpro1HE+Wvcuxo/Giv0wB1PBhPcvionobMdAqzhsytTuPT9RcQFuFDJnrLTWG///BDCJ2aJve4wL8xFxk9K2cWCd5m9+liqId2l49SHY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791530161; c=relaxed/simple;
-	bh=frDbYnuN5wzbU8V6z78m0FPDsCjoDX8J54ZVqLmRxnk=;
+	s=arc-20240116; t=1791530173; c=relaxed/simple;
+	bh=fPH0wVEGimhaW13WJVTQikvyNpiUaeWQCEIDwUN/7GU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=U0tby644D918nEGaXgi8hsHEsfnHwjCgJS7UPwZ9cvETjBIy4uFlH3KbOC5P16yEaE+VD7dECZf5iW3mQm37u3VBkrID1jk4TdflvYjFu96Cx5Afjgd72+Mxm3O+MUGKj+XmjTW33frugJf4uDA0DCzXu9GNTHKQNZAm27xkvkM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=L8ZrUF77; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=qsMX07kYj+S/MJFDiHXklnz3xDMJHTB01+XeIiUuAIaH+1RvZBUQ4NL0rPR4GLEVhcZyPuQo+Bffdtqg6dhB1NujmAAxw1cwMIOp8ClW92GxaDTuvxNqbmpgsDdy9FNUZAz7PjZgbLQZ06YOdQ0gfQ8ymVO2EbwnSpj53xY4uSk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=KKk/oq+J; arc=none smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="L8ZrUF77"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791530160; x=1823066160;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=frDbYnuN5wzbU8V6z78m0FPDsCjoDX8J54ZVqLmRxnk=;
-  b=L8ZrUF77eW7dkvN501Rt3vlzApqcHLIp7PJF5nq6kOD5BgBqB01Y6nvQ
-   +VB/4b5paMN/XY1HLxxL33khc/ub2M/e+qUlpE4YZXGK6mDiwoKM45fa/
-   2uMgMty+jYI/MiDWqiONi7buwHky5PQM62TdOslduYy4DkVc0fNKsPmoV
-   nP1MAEsIduoost4kIjERfAPGAA92ohzJeRZD6XlKrg6W0v52y3ZnXVafO
-   5WbQer9SlqxbxO9NLjQnkMAsAujsqoIW055S4lE7Co3EJSkQP60ad7S1G
-   MBZSN1Tx149cllmetX2xnrX7NCKvQZzAxR2FiUVO14s5l/r1yHy8VMYlx
-   g==;
-X-CSE-ConnectionGUID: Z6rdaxOSRJ2VYOyU5LGnLA==
-X-CSE-MsgGUID: L8ukCZ6kTMuWvnm/Lxn6jw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11929"; a="336912"
-X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
-   d="scan'208";a="336912"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 00:15:04 -0700
-X-CSE-ConnectionGUID: VN43JGbVTcOAqCtNrQ9MCA==
-X-CSE-MsgGUID: 1xM6lJ34QAyWrhgL7Nfo+A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
-   d="scan'208";a="703258"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa010.fm.intel.com with ESMTP; 09 Oct 2026 00:14:45 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xF4oT-000000005S4-0uxX;
-	Fri, 09 Oct 2026 07:14:41 +0000
-Date: Fri, 9 Oct 2026 15:14:40 +0800
-From: kernel test robot <lkp@intel.com>
-To: Bryan O'Donoghue <bod@kernel.org>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Daniel Scally <dan.scally@ideasonboard.com>,
-	Keke Li <keke.li@amlogic.com>,
-	Richard Acayan <mailingradian@gmail.com>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Gjorgji Rosikopulos <quic_grosikop@quicinc.com>,
-	Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>,
-	Robert Foss <rfoss@kernel.org>,
-	Milen Mitkov <quic_mmitkov@quicinc.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-media@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 21/74] media: qcom: camss: vfe: Represent vfe wm inside
- of a struct
-Message-ID: <202610091546.gjktxCLS-lkp@intel.com>
-References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-21-ed985aefd611@kernel.org>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="KKk/oq+J"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3a4b9732d5aso3389269a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 00:16:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1791530172; x=1792134972; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Z2Zp0tbPzypU+Xc8XKZGNu3Y99smdHR6a9gLWnL8e+E=;
+        b=KKk/oq+Jau1pyzzWOxCp52QObFTqL59/Qk2dQ4YSFbJgIkMa26UNdZpw2aZ+BcAjvk
+         C7gFnopiZk5JxGOON2aehCtyKYt/AbGtrwEZ6zUOy6HYtCI668/w8gEdqPrC/G1TwyWf
+         aTex9iPvj4Yy4CD6TtodWKVj03k1o4SJt/lxk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791530172; x=1792134972;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Z2Zp0tbPzypU+Xc8XKZGNu3Y99smdHR6a9gLWnL8e+E=;
+        b=q+2A8RJOTO+7XEBQ6CBACUJsX9HPJXezrJrL6JUabijHcYjdCnyMNaxUiLVaFQXSeQ
+         5itIao+dCBep/zteQJD6bSWFjA68JMUOSr9u7yZWEYhE/z2Jy1UQZuFypXIWuFwGbJj3
+         S7aGk0YerCO6x3V5wpfl02CcIpWC4YO0KnHkT9tmvHn/oRNLyH9wzsK7Tl1Whi007NuA
+         oB4B073UHVoROB3rb15VBqYoNg0WRsk+S4IxYX1TaIn5uwaVE/jT+rL/OmFMeohrB0Og
+         8Hm/r+qMuNJtSyap++k5qGUfcpHfunOkUBuGzefrvHxwRXdQa9ZXhiTCaGhVRdUbYVIx
+         OI/g==
+X-Forwarded-Encrypted: i=1; AKwUvBx7OrWz9ge1aNOuCJFletn+QZWOsc6AXirc6hbc2oBg9zRJqMRteMEJy3jyIVCo20Nd4u8M/oHDgya32nA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJYKcbmKwT/bIQPbyfEaKcY4C6yD/mzYbk1pAQMBs69suoKShLd
+	eEyrgCmjgQ6u3ZSUysSFUvvFsXg6Dmi2cvfQ5OxY4jDZA7+XxaRA5uQ5aP+MM+O+Zw==
+X-Gm-Gg: AYBFou3LAQ/pS7UQ7NA+1Z6YHDZGZZJ43csGQU5G8YmxQZhcZrPccMi4x8qYD86aJIX
+	kPtDqEegAL40Qwo22slOIJZ4qbTyTPM7xJ+9wCdPlFMXf7/JyUFx59cNPA08ZCm9OULSleGgRiv
+	wM5PY1ZrSXIFEsbx/+HG8uq8mZ5n0KG6umkxG1+HSZXHLVX1lJ7OacJ4LEt8K/xrK3mKZYNy8JX
+	YhSqnZPdwl/1idmp/CHoQV88EXgZo9YvrIC0duh7AeB2GqXWXP2fwAZS2OOcTo/j8bW1WCQMgtR
+	73WYptsSeXM9Fpi7zLyzPAWvvuWPW56tZoTEaRHM7gemBllgwpnmkY+07d3rajBVDcF1IetsenU
+	oudrherIeVuovB2tYiD1RpWyrKhZGY6qSL4uMjPCG/8XGAM1IjGKItrHv5o7moa4omjaaXPL98Y
+	fjglxLAUVzOPg1/FimbhKGG1AiOlwMfduoOT4ECQVPU4MfejXESdBZoKf04kdAdTcyFTnzTFFmf
+	UdbYlzp8Fq9xmRaH+DFYbJqtglK5wqNjX2lcVwj
+X-Received: by 2002:a17:90b:4b92:b0:3ab:2d17:51c4 with SMTP id 98e67ed59e1d1-3ab3ac9bc91mr1089309a91.56.1791530171629;
+        Fri, 09 Oct 2026 00:16:11 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2031:6:383b:5817:8167:5051])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3d9e557b1sm471687a12.27.2026.10.09.00.16.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 00:16:10 -0700 (PDT)
+Date: Fri, 9 Oct 2026 16:16:04 +0900
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Usama Arif <usama.arif@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, chengming.zhou@linux.dev, 
+	dsterba@suse.com, hannes@cmpxchg.org, linux-kernel@vger.kernel.org, 
+	linux-mm@kvack.org, nphamcs@gmail.com, terrelln@fb.com, yosry@kernel.org, 
+	riel@surriel.com, shakeel.butt@linux.dev, alex@ghiti.fr, senozhatsky@chromium.org, 
+	kernel-team@meta.com
+Subject: Re: [PATCH 1/2] mm: zswap: use separate compression and
+ decompression requests
+Message-ID: <asiUXpjrE61TLMxQ@google.com>
+References: <20261006002307.2669023-1-usama.arif@linux.dev>
+ <20261006002307.2669023-2-usama.arif@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,84 +78,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-21-ed985aefd611@kernel.org>
+In-Reply-To: <20261006002307.2669023-2-usama.arif@linux.dev>
 
-Hi Bryan,
+On (26/10/05 17:22), Usama Arif wrote:
+> Stores and loads serialize on the same per-CPU acomp request and mutex.
+> A low-priority store can be preempted as soon as the compressor drops
+> its stream lock, while it still holds the mutex. A higher-priority load
+> on that CPU then waits until the store runs again, which can take a
+> long time when other tasks are runnable.
+> 
+> Give compression and decompression their own request, completion wait
+> and mutex. Since commit e2c3b6b21c77f ("mm: zswap: use SG list
+> decompression APIs from zsmalloc"), the per-CPU buffer is only used for
+> compression. The two requests can share the per-CPU transform: no
+> in-tree implementation modifies transform state while (de)compressing,
+> and shared codec state has its own locking. Loads can still wait for
+> each other on the decompression mutex, and stores still serialize on
+> the compression mutex.
+> 
+> This follows the proposal from Sergey Senozhatsky for the same split
+> for zram [1].
 
-kernel test robot noticed the following build errors:
+Greetings zswap peeps,
+We pushed things a little further for even more gains [1]
 
-[auto build test ERROR on 8d3ae59288f1e7d58d76558a6ee96d533bc5019f]
+Catch me if you can ;P
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Bryan-O-Donoghue/media-qcom-camss-vfe-Rename-gen3-back-to-vfe780/20261005-191331
-base:   8d3ae59288f1e7d58d76558a6ee96d533bc5019f
-patch link:    https://lore.kernel.org/r/20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-21-ed985aefd611%40kernel.org
-patch subject: [PATCH 21/74] media: qcom: camss: vfe: Represent vfe wm inside of a struct
-config: sh-allmodconfig (https://download.01.org/0day-ci/archive/20261009/202610091546.gjktxCLS-lkp@intel.com/config)
-compiler: sh4-linux-gcc (GCC) 16.1.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261009/202610091546.gjktxCLS-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610091546.gjktxCLS-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   drivers/media/platform/qcom/camss/camss-vfe-17x.c: In function 'vfe_get_output':
-   drivers/media/platform/qcom/camss/camss-vfe-17x.c:395:16: error: assignment to 'struct vfe_output *' from incompatible pointer type 'struct vfe_output (*)[1]' [-Wincompatible-pointer-types]
-     395 |         output = &line->output;
-         |                ^
->> drivers/media/platform/qcom/camss/camss-vfe-17x.c:408:15: error: 'struct vfe_output' has no member named 'wm_idx'
-     408 |         output->wm_idx[0] = wm_idx;
-         |               ^~
-   drivers/media/platform/qcom/camss/camss-vfe-17x.c:417:35: error: 'struct vfe_output' has no member named 'wm_idx'
-     417 |         vfe_release_wm(vfe, output->wm_idx[0]);
-         |                                   ^~
-
-
-vim +408 drivers/media/platform/qcom/camss/camss-vfe-17x.c
-
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  385  
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  386  static int vfe_get_output(struct vfe_line *line)
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  387  {
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  388  	struct vfe_device *vfe = to_vfe(line);
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  389  	struct vfe_output *output;
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  390  	unsigned long flags;
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  391  	int wm_idx;
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  392  
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  393  	spin_lock_irqsave(&vfe->output_lock, flags);
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  394  
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  395  	output = &line->output;
-8ce158c1be981b drivers/media/platform/qcom/camss/camss-vfe-170.c Milen Mitkov 2022-12-09  396  	if (output->state > VFE_OUTPUT_RESERVED) {
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  397  		dev_err(vfe->camss->dev, "Output is running\n");
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  398  		goto error;
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  399  	}
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  400  
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  401  	output->wm_num = 1;
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  402  
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  403  	wm_idx = vfe_reserve_wm(vfe, line->id);
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  404  	if (wm_idx < 0) {
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  405  		dev_err(vfe->camss->dev, "Can not reserve wm\n");
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  406  		goto error_get_wm;
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  407  	}
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16 @408  	output->wm_idx[0] = wm_idx;
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  409  
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  410  	output->drop_update_idx = 0;
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  411  
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  412  	spin_unlock_irqrestore(&vfe->output_lock, flags);
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  413  
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  414  	return 0;
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  415  
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  416  error_get_wm:
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  417  	vfe_release_wm(vfe, output->wm_idx[0]);
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  418  	output->state = VFE_OUTPUT_OFF;
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  419  error:
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  420  	spin_unlock_irqrestore(&vfe->output_lock, flags);
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  421  
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  422  	return -EINVAL;
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  423  }
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  424  
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+[1] https://lore.kernel.org/all/20261009071157.3730698-12-senozhatsky@chromium.org
