@@ -1,388 +1,159 @@
-Received: from out28-4.mail.aliyun.com (out28-4.mail.aliyun.com [115.124.28.4])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9926D3A63F3;
-	Fri,  9 Oct 2026 09:01:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ABE1366DD3;
+	Fri,  9 Oct 2026 09:02:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791536503; cv=none; b=DsTWsmxs/bfPi/JUO2h2/SyE53/qZFBXokFy6cHb85IsSJgI2BHLsqhSPbgzkHsMdOJJagdE/ZhT+zqyA7S79j9wrKHjJEDIYh8adHRufjwFm22iXL4svdhY8CjkPZ2VxXeUVUI4kS/pqmMay/lwgCl7RDt1+kxRhaJXLkDMd1k=
+	t=1791536577; cv=none; b=UiJ5MJwAgJpPYMtBpj6twLbiHoDCJbmxYO3ohLRsdBy2hHDvseRyTHSD0ll91tparLK802kpcDyB8zYNWGE/SPAlHLkCoJQZmxDrZ5fDbXcDxvDo6vTsbs9hUk+fVV9OdsBqYD/wLo0FcWODkv49p2SYbKaG9R6VGXXwm0v7ZdU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791536503; c=relaxed/simple;
-	bh=Lal7zlevrfBd5o18R1QbACBUMlh3lgzbEUE0VoAbA7Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HlLx1F31vl2qH/KpNK96oy4EiM8+vG2v6zp1B5N3BVPNJQ5+q4Rs8+WTkRwZd44KBprnIsRfSH1+F6HvivXit53Z1zjbqqAOJncAHZX1T1rq5A8G+0/CzgER45sHIxVm45pdunZtqVEx+Bgimu1hHF5ALsLjemIRIaFZYOFW3aE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net; spf=pass smtp.mailfrom=open-hieco.net; arc=none smtp.client-ip=115.124.28.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436259|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.008401-4.41852e-05-0.991555;FP=17875187543762027754|1|1|1|0|-1|-1|-1;HT=maildocker-contentspam033037017159;MF=wanglin@open-hieco.net;NM=1;PH=DS;RN=12;RT=12;SR=0;TI=SMTPD_---.jXYKwGi_1791536491;
-Received: from localhost.localdomain(mailfrom:wanglin@open-hieco.net fp:SMTPD_---.jXYKwGi_1791536491 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Fri, 09 Oct 2026 17:01:32 +0800
-From: Lin Wang <wanglin@open-hieco.net>
-To: Borislav Petkov <bp@alien8.de>,
-	Yazen Ghannam <yazen.ghannam@amd.com>,
-	Mario Limonciello <mario.limonciello@amd.com>
-Cc: Pu Wen <puwen@hygon.cn>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Tony Luck <tony.luck@intel.com>,
-	x86@kernel.org,
-	linux-edac@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v7 7/7] x86/hygon: Add Family 0x18 SMN access
-Date: Fri,  9 Oct 2026 17:01:11 +0800
-Message-ID: <20261009090111.151878-8-wanglin@open-hieco.net>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261009090111.151878-1-wanglin@open-hieco.net>
-References: <20261009090111.151878-1-wanglin@open-hieco.net>
+	s=arc-20240116; t=1791536577; c=relaxed/simple;
+	bh=taOUFV9kmNv+nErGFJjRq/NqQH+ksEPY6YlPKqh2v48=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Yuy0ZPZzwCLRXegA04BZqlahRkjgsrVbTKVq5NEAkEFcirOGlLhD3159itsxP0bbF1l5jNOgF5GzkamJHz5xFIGZ/Jb4PVAP4HJM93hnD4iaXMRPi8xuDheRfE8JFMi3yK0/cenoQp6n82beY8uY4DalRR7ojOCwc1OCQkLSLgA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=yeDfXltA; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="yeDfXltA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1791536576; x=1823072576;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=taOUFV9kmNv+nErGFJjRq/NqQH+ksEPY6YlPKqh2v48=;
+  b=yeDfXltAbYomhXxVgXBgYiwn7sVGvLP7zHIi8CjfttTL32T/8qEZX/C+
+   KquLR75TcqCxJFWS3OxsE54YCA1LZGs914AnufMlc+w5mLZK/ZtErSM2M
+   2jjlEsQ4r8MQjjrl+iv0M3xAlybyYycBMuuTzi1MHsRNqQBCS90Fg4y3K
+   3Uayv5pg4YCcvLTL54JisZl9WkUhtPEWNfGtoZnzRHc7YX2qnGOHCwYp4
+   JLcEdylq/akZ29qRPRKs3UoCAfs8XP/jbEa0irzemTgBc6fB6Hj/qx3WI
+   ckkuUhGXNfNuqWoajygRy/mBeHp45XkLWWs2++Z/R8TMhJUhIbT2HwBD8
+   A==;
+X-CSE-ConnectionGUID: tZbgE63DSXOYBRuzbNl0lA==
+X-CSE-MsgGUID: wCO6vwycTqyDOzPpoi0GGw==
+X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
+   d="scan'208";a="75121798"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 09 Oct 2026 02:02:55 -0700
+Received: from chn-vm-ex04.mchp-main.com (10.10.85.152) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Fri, 9 Oct 2026 02:02:54 -0700
+Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Fri, 9 Oct 2026 02:02:53 -0700
+Date: Fri, 9 Oct 2026 11:02:52 +0200
+From: Daniel Machon <daniel.machon@microchip.com>
+To: Igor Velkov <iav@iav.lv>
+CC: Maxime Chevallier <maxime.chevallier@bootlin.com>, Andrew Lunn
+	<andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>, Russell King <linux@armlinux.org.uk>,
+	<netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net v3] net: stmmac: mask the MAC interrupt while resume
+ resets the MAC
+Message-ID: <20261009090252.cqrmpdn4bpxsbfqr@DEN-DL-M70577.microsemi.net>
+References: <20261007031438.3179966-1-iav@iav.lv>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20261007031438.3179966-1-iav@iav.lv>
 
-All DF nodes in a Hygon socket share one SMN ingress, so SMN accesses
-for a node have to go through a root of the node's socket rather than a
-root per node.
+Hi Igor,
 
-After DF enumeration, map each DF node to the first root of its socket.
-The root socket ID cannot be read back, so group the roots by socket
-in PCI enumeration order. Hold a reference to every root, reserve its
-config space, and serialize each index/data transaction. Enable SMN
-access only after setup succeeds; on failure the DF node cache remains
-usable without it.
+Just a question:
 
-Signed-off-by: Lin Wang <wanglin@open-hieco.net>
----
- arch/x86/include/asm/hygon/node.h |  36 +++++
- arch/x86/kernel/hygon_node.c      | 233 +++++++++++++++++++++++++++++-
- 2 files changed, 268 insertions(+), 1 deletion(-)
+> stmmac_resume() resets the MAC in stmmac_hw_setup(). On dwmac1000 the
+> reset sets GMAC_INT_MASK to 0, which unmasks every core interrupt, until
+> dwmac1000_core_init() writes the mask again. Since commit 2e2c878a3141
+> ("net: stmmac: remove SGMII/RGMII/SMII interrupt handling") nothing on
+> the RGMII path reads GMAC_RGSMIIIS (only the PCS code does), so RGSMIIIS
+> stays pending behind the mask from the first link change on, and the
+> reset lets it through. The line storms:
+> 
+>   dwmac_dma_interrupt: unexpected status 04000000
+> 
+> A register dump at the first message on ODROID-HC4 showed it:
+> 
+>   core int_status 00000001 int_mask 00000000 pmt 00000000 rgsmiiis 0000000d
+> 
+> The mask is written by the resume thread itself. When that thread runs
+> on the CPU that takes the MAC interrupt, the storm starves it and the
+> board hangs until a watchdog reset or a soft-lockup panic; on another
+> CPU the storm ends after a few interrupts.
+> 
+> Disable the interrupt line around stmmac_hw_setup(). This matches
+> open(), which resets the MAC before it requests the interrupt; resume
+> resets it with the line live. The window sits under rtnl_lock(), which
+> stmmac_reset_subtask() also takes, so the reset task cannot free and
+> request the interrupt between the disable and the enable. If the setup
+> fails, it may not have written the mask: mask the core interrupts before
+> enabling the line.
+> 
+> Wake-on-LAN resume with the resume thread on the CPU that takes the MAC
+> interrupt, 7.3-rc5: without this patch the storm hit the first resume
+> on Helios64 (dwmac-rk) twice, ROCK Pi 4A (dwmac-rk) once and ODROID-HC4
+> (dwmac-meson8b) twice. With the thread on another CPU and no patch, the
+> storm printed at most 3 messages per resume in 30 resumes. 7.3-rc6 with
+> this patch: no storm in 10 resumes on ODROID-HC4, 10 on Helios64 with
+> the GMAC kept powered across suspend (an Armbian patch) and 10 on
+> Helios64 with mainline dwmac-rk plus "net: phy: postpone PHY interrupts
+> during sleep with MAC-managed PM"; int_mask read 00000001 after the
+> glue resume and before stmmac_hw_setup() in all 30.
+> 
 
-diff --git a/arch/x86/include/asm/hygon/node.h b/arch/x86/include/asm/hygon/node.h
-index 5a0a86e90ea2..321a40d41ed7 100644
---- a/arch/x86/include/asm/hygon/node.h
-+++ b/arch/x86/include/asm/hygon/node.h
-@@ -96,6 +96,30 @@ struct pci_dev *hygon_node_get_func(u16 node, u8 func);
-  */
- int hygon_pci_dev_to_df_node(struct pci_dev *pdev);
- 
-+/**
-+ * hygon_smn_read() - Read a 32-bit value from a Hygon SMN address
-+ * @node: DF node index in [0, hygon_node_num())
-+ * @address: SMN address
-+ * @value: Output value
-+ *
-+ * Return: 0 on success, -EINVAL if @value is NULL, -ENODEV if Hygon
-+ * SMN is not initialized or @node is out of range, or a negative
-+ * errno from the underlying PCI config access.
-+ */
-+int __must_check hygon_smn_read(u16 node, u32 address, u32 *value);
-+
-+/**
-+ * hygon_smn_write() - Write a 32-bit value to a Hygon SMN address
-+ * @node: DF node index in [0, hygon_node_num())
-+ * @address: SMN address
-+ * @value: Value to write
-+ *
-+ * Return: 0 on success, -ENODEV if Hygon SMN is not initialized or
-+ * @node is out of range, or a negative errno from the underlying
-+ * PCI config access.
-+ */
-+int __must_check hygon_smn_write(u16 node, u32 address, u32 value);
-+
- #else /* !CONFIG_HYGON_NODE */
- 
- static inline u16 hygon_node_num(void)
-@@ -123,6 +147,18 @@ static inline int hygon_pci_dev_to_df_node(struct pci_dev *pdev)
- 	return -ENODEV;
- }
- 
-+static inline int __must_check hygon_smn_read(u16 node, u32 address,
-+					      u32 *value)
-+{
-+	return -ENODEV;
-+}
-+
-+static inline int __must_check hygon_smn_write(u16 node, u32 address,
-+					       u32 value)
-+{
-+	return -ENODEV;
-+}
-+
- #endif /* CONFIG_HYGON_NODE */
- 
- #endif /* _ASM_X86_HYGON_NODE_H */
-diff --git a/arch/x86/kernel/hygon_node.c b/arch/x86/kernel/hygon_node.c
-index 4d492513a433..b4afa296b4ca 100644
---- a/arch/x86/kernel/hygon_node.c
-+++ b/arch/x86/kernel/hygon_node.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0-only
- /*
-- * Hygon Family 0x18 Data Fabric node enumeration
-+ * Hygon Family 0x18 Data Fabric node enumeration and SMN access
-  *
-  * A DF instance exposes sibling PCI functions in one slot. Function 3
-  * is the misc device used for enumeration, function 4 is the link
-@@ -17,9 +17,11 @@
- 
- #include <linux/bitfield.h>
- #include <linux/bitops.h>
-+#include <linux/cleanup.h>
- #include <linux/cpufeature.h>
- #include <linux/export.h>
- #include <linux/init.h>
-+#include <linux/mutex.h>
- #include <linux/pci.h>
- #include <linux/pci_ids.h>
- #include <linux/processor.h>
-@@ -633,6 +635,231 @@ int hygon_pci_dev_to_df_node(struct pci_dev *pdev)
- }
- EXPORT_SYMBOL_GPL(hygon_pci_dev_to_df_node);
- 
-+/*
-+ * SMN index/data register pair offsets in the host-bridge PCI config
-+ * space. Reads and writes to a (node, address) pair are issued as a
-+ * two-step transaction: write the SMN address to the index register,
-+ * then read or write the value at the data register.
-+ */
-+#define SMN_INDEX_OFFSET	0x60
-+#define SMN_DATA_OFFSET		0x64
-+
-+/*
-+ * Runtime SMN state.
-+ *
-+ * The smn_reserved_roots array owns the independent PCI references and
-+ * config-space reservations for the lifetime of the built-in node layer. The
-+ * smn_roots array contains per-node aliases and is published only after
-+ * setup succeeds.
-+ */
-+static struct pci_dev	**smn_roots;
-+static struct pci_dev	**smn_reserved_roots;
-+static u16		smn_num_nodes;
-+static DEFINE_MUTEX(smn_mutex);
-+
-+/*
-+ * Walk PCI host-bridge devices matching the Hygon vendor. The SMN
-+ * index/data registers live in function 0 of each root complex. This
-+ * follows pci_get_class() iterator semantics: @root is consumed and the
-+ * returned device has an iterator reference. A retained device needs an
-+ * independent reference before the iterator advances.
-+ */
-+static struct pci_dev * __init get_next_root(struct pci_dev *root)
-+{
-+	while ((root = pci_get_class(PCI_CLASS_BRIDGE_HOST << 8, root))) {
-+		if (root->devfn)
-+			continue;
-+		if (root->vendor != PCI_VENDOR_ID_HYGON)
-+			continue;
-+		break;
-+	}
-+	return root;
-+}
-+
-+/* Release each config region before dropping its owning device reference. */
-+static void __init release_reserved_roots(struct pci_dev **roots, u16 count)
-+{
-+	u16 i;
-+
-+	for (i = 0; i < count; i++) {
-+		pci_release_config_region(roots[i], 0, PCI_CFG_SPACE_SIZE);
-+		pci_dev_put(roots[i]);
-+	}
-+}
-+
-+/*
-+ * Select one root from each contiguous per-socket enumeration group,
-+ * then map every DF node to the root for its socket. The root socket ID
-+ * cannot be read back, so the grouping follows PCI enumeration order.
-+ *
-+ * The smn_reserved_roots array owns the PCI references and config
-+ * regions. The smn_roots array contains per-node aliases. Enable SMN
-+ * access only after both arrays are complete.
-+ */
-+static int __init smn_setup(void)
-+{
-+	u16 num_roots, roots_per_socket, node, num_nodes, num_sockets, reserved;
-+	struct pci_dev **reserved_roots, **roots;
-+	struct pci_dev *root = NULL;
-+	u8 socket_id;
-+	int ret;
-+
-+	num_roots = 0;
-+	while ((root = get_next_root(root)))
-+		num_roots++;
-+
-+	pr_debug("Found %u Hygon SMN root devices\n", num_roots);
-+
-+	if (!num_roots)
-+		return -ENODEV;
-+
-+	num_nodes = df_cache.num_nodes;
-+	if (!num_nodes)
-+		return -ENODEV;
-+
-+	num_sockets = df_cache.num_sockets;
-+	if (!num_sockets)
-+		return -ENODEV;
-+
-+	if (num_roots % num_sockets) {
-+		pr_err("Root count %u not divisible by socket count %u\n",
-+		       num_roots, num_sockets);
-+		return -ENODEV;
-+	}
-+
-+	roots = kzalloc_objs(*roots, num_nodes);
-+	if (!roots)
-+		return -ENOMEM;
-+
-+	reserved_roots = kzalloc_objs(*reserved_roots, num_roots);
-+	if (!reserved_roots) {
-+		kfree(roots);
-+		return -ENOMEM;
-+	}
-+
-+	/* Reserve every root before publishing the node-to-root mapping. */
-+	roots_per_socket = num_roots / num_sockets;
-+	reserved = 0;
-+	while ((root = get_next_root(root))) {
-+		if (reserved >= num_roots) {
-+			ret = -ENODEV;
-+			goto err_release;
-+		}
-+
-+		pci_dbg(root, "Reserving PCI config space\n");
-+
-+		/*
-+		 * Mark the entire PCI config space kernel-exclusive because it
-+		 * contains the SMN index/data registers.
-+		 */
-+		if (!pci_request_config_region_exclusive(root, 0,
-+							 PCI_CFG_SPACE_SIZE,
-+							 NULL)) {
-+			pci_err(root, "Failed to reserve config space\n");
-+			ret = -EEXIST;
-+			goto err_release;
-+		}
-+
-+		reserved_roots[reserved++] = pci_dev_get(root);
-+	}
-+
-+	if (reserved != num_roots) {
-+		pr_err("Root enumeration changed: expected %u roots, got %u\n",
-+		       num_roots, reserved);
-+		ret = -ENODEV;
-+		goto err_release;
-+	}
-+
-+	for (node = 0; node < num_nodes; node++) {
-+		socket_id = df_cache.nodes[node].socket_id;
-+
-+		if (socket_id >= num_sockets) {
-+			ret = -ENODEV;
-+			goto err_release;
-+		}
-+
-+		roots[node] = reserved_roots[socket_id * roots_per_socket];
-+
-+		pci_dbg(roots[node],
-+			"is root for Hygon node %u (socket %u)\n",
-+			node, socket_id);
-+	}
-+
-+	smn_reserved_roots = reserved_roots;
-+	smn_num_nodes = num_nodes;
-+	smn_roots = roots;
-+	return 0;
-+
-+err_release:
-+	pci_dev_put(root);
-+	release_reserved_roots(reserved_roots, reserved);
-+	kfree(reserved_roots);
-+	kfree(roots);
-+	return ret;
-+}
-+
-+/*
-+ * Serialize the PCI index/data pair between in-kernel SMN users.
-+ * The access sequence follows amd_smn_read() and amd_smn_write().
-+ * The Hygon node-to-root mapping comes from smn_setup().
-+ */
-+static int smn_rw(u16 node, u32 address, u32 *value, bool write)
-+{
-+	struct pci_dev *root;
-+	int err;
-+
-+	if (!smn_roots || node >= smn_num_nodes)
-+		return -ENODEV;
-+
-+	root = smn_roots[node];
-+	if (!root)
-+		return -ENODEV;
-+
-+	guard(mutex)(&smn_mutex);
-+
-+	err = pci_write_config_dword(root, SMN_INDEX_OFFSET, address);
-+	if (err) {
-+		pr_warn("SMN index write failed (addr 0x%x)\n", address);
-+		return pcibios_err_to_errno(err);
-+	}
-+
-+	err = write ? pci_write_config_dword(root, SMN_DATA_OFFSET, *value)
-+		    : pci_read_config_dword(root, SMN_DATA_OFFSET, value);
-+
-+	return pcibios_err_to_errno(err);
-+}
-+
-+int hygon_smn_read(u16 node, u32 address, u32 *value)
-+{
-+	int err;
-+
-+	if (!value)
-+		return -EINVAL;
-+
-+	err = smn_rw(node, address, value, false);
-+
-+	/* Clear the output so callers do not consume a stale value. */
-+	if (err) {
-+		*value = 0;
-+		return err;
-+	}
-+
-+	/* Treat the PCI all-ones value as a missing device. */
-+	if (PCI_POSSIBLE_ERROR(*value)) {
-+		*value = 0;
-+		return -ENODEV;
-+	}
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(hygon_smn_read);
-+
-+int hygon_smn_write(u16 node, u32 address, u32 value)
-+{
-+	return smn_rw(node, address, &value, true);
-+}
-+EXPORT_SYMBOL_GPL(hygon_smn_write);
-+
- static int __init df_node_init(void)
- {
- 	int ret;
-@@ -651,6 +878,10 @@ static int __init df_node_init(void)
- 		df_cache.num_nodes - df_cache.num_cdd,
- 		df_cache.num_sockets);
- 
-+	ret = smn_setup();
-+	if (ret)
-+		pr_warn("SMN setup failed: %d\n", ret);
-+
- 	return 0;
- }
- fs_initcall(df_node_init);
--- 
-2.43.0
+The fix seems OK, but it could have implications on other drivers, for an issue
+that is dwmac1000 specific. Did you consider a fix that would only touch
+dwmac1000?
 
+> Fixes: 2e2c878a3141 ("net: stmmac: remove SGMII/RGMII/SMII interrupt handling")
+> Assisted-by: LLM
+> Signed-off-by: Igor Velkov <iav@iav.lv>
+> ---
+> v3:
+> - disable the line only around stmmac_hw_setup(), under rtnl_lock() and
+>   priv->lock, not for the whole resume (Sashiko)
+> - mask the core interrupts if stmmac_hw_setup() fails (Sashiko)
+> - results with this window on 7.3-rc6, including Helios64 with mainline
+>   dwmac-rk
+> v2: https://lore.kernel.org/r/20261002043558.1302590-1-iav@iav.lv
+> v1: https://lore.kernel.org/r/20260930-stmmac-irq-shut-v1-1-104d1a1dcb28@iav.lv
+> 
+> Build-tested on net: allmodconfig and allyesconfig with W=1, no new
+> warnings.
+> 
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index b837e8e27a35..6091dc2d4ab4 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -8361,7 +8361,15 @@ int stmmac_resume(struct device *dev)
+>         stmmac_free_tx_skbufs(priv);
+>         stmmac_clear_descriptors(priv, &priv->dma_conf);
+> 
+> +       /* On dwmac1000 the MAC reset unmasks every core interrupt until the
+> +        * mask is written again; we keep a pending status bit from storming.
+> +        */
+> +       disable_irq(ndev->irq);
+>         ret = stmmac_hw_setup(ndev);
+> +       /* A failed setup can stop before it writes the mask. */
+> +       if (ret < 0)
+> +               stmmac_mac_irq_modify(priv, ~0U, 0);
+> +       enable_irq(ndev->irq);
+>         if (ret < 0) {
+>                 netdev_err(priv->dev, "%s: Hw setup failed\n", __func__);
+>                 stmmac_legacy_serdes_power_down(priv);
+> --
+> 2.43.0
+> 
+> 
+
+/Daniel
