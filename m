@@ -1,152 +1,165 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 085083806DC
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 19:07:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A8BF382385
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 19:07:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791572863; cv=none; b=F+lfBBhHouruAgnJ3FlL4y3uEYC9fvh35dcVu8aKSPGbFNPFQI7TINA/150qXFGhSMPWqKkBtcUy+sdr/2OqTfHee56/LW0YMuMFJGUuIpVQqS4eZRTmP+tIQ0Q2ntFOHs41XfoBaDpdxHKFRTdbPqt2uD50h0MCdYksBcBsaCk=
+	t=1791572875; cv=none; b=UEOzpaDj3TrT/aNJjFjkbMaQBb6E6pVPadxmlhuj68S+FZtLVK/CcDsqGEVhM7C2QUP0S671HjdWjV09D695BkBr1MJgcLDBqe+6zmMqox5r4skFgGHQzPtX605aeh2rXGpJo/NxyTgotJC2xEv8PRDE4ZrXg7pkAJB76EDEUxw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791572863; c=relaxed/simple;
-	bh=NUU/Ab+Zrm1E2zysy9bbgOAmEA6PP88zabVf0y7lA7I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MJq8ylt2CBaMBRmq8a2CZq+o8Xp9uJiuFx2PHfpeHoWKrRl4yDo2wj9xbX+YeLbW7trAPqoVHfmu1HQbxMl3+BMUXeJOeDJbJWu98+udxrhj/zeZ03X2qZV5JH+1AG0LyzV6BQ5jUoIk5JEEv5xnWR5Se8ILuJccIkeKQKlbDiI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=oOURCnvk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Op6JGj0w; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791572875; c=relaxed/simple;
+	bh=Xj3kRT6xPE7VXYWKueo0H5/7Ixh1C1w6dYyrpbTktjQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=nHn9ZoEdkYAAf6ygFEJiaYQC1tFFgBScHw1yTdU+Cyz7REgV02+FCEZhn2Zgh/gOZoJ39Sx7ui5eOxKOXgRJxCh4cJHHNJINdJA0BW6dTmQrSKl70rQ+kb9xUEeq0YlSWjGq2OLDk49V8CEJhbDv61XRwUuHf4PQp1D9fAx/BMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fYPtIJMy; arc=none smtp.client-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="oOURCnvk";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Op6JGj0w"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 699HZZPh2460063
-	for <linux-kernel@vger.kernel.org>; Fri, 9 Oct 2026 19:07:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=D4eG9FwHyQFv9GDgn+cGvZR8
-	MKJ2fMxH9Tvyu7jW1Mk=; b=oOURCnvkAp/gI8i6J9LIF7KLI4nLfiEO+DY2Mi4d
-	uFdBr019A2pMEl8mX0AtncolezHdo3iHEkb2Sfcq0TZUHB078EYmngIwPjI/gedT
-	eXtmf70oekPbCLEJj99p8ggncws3NEPQgQ4fY4LbXqVTSiQY03+5xmUAAqeQa75k
-	Y9ql8UuJNpu2HdN5dRXJCu5JGRWdhtSoptY5+mD2Nfebqfmkc/ERtbkN3NT6teAW
-	Wafrm32CVIu17Lw//HNZNYNNaYw6tZiMNy5hMAEbTrlwsihfJBfSlGR2kxywbNJs
-	f5C2YqYg6L6PdzO4uN/HpRzd73pQUxGwM0gx0GcBn2/GZQ==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h74t88b5q-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 19:07:40 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93cb6391e89so1436485a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 12:07:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fYPtIJMy"
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-35829219da8so3292eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 12:07:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791572860; x=1792177660; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=D4eG9FwHyQFv9GDgn+cGvZR8MKJ2fMxH9Tvyu7jW1Mk=;
-        b=Op6JGj0w09yYbqeHhyJwlZqUWh2tz99AN5mg4toZn8qJCqTmHTKlh9AxmHnLWYuEDA
-         gOeekVS74BTNEPzIKyKB8Tsc/HsLDA/l8z3eyGLLDqoyV3noFB3pCfZtsD/VsNX1O2+h
-         CWk/m1fnsCRLmvsAwhoi7+go/sychvwZcvMeIBaoe4Qti7LCkn2ETNBHOqoaEorbmqrQ
-         U23UHGNDmPR5ZbMMDwg2UBNtYLFIf40fzjBfEsU/87o6/SViONcsW5f/mMErCDGUa7aF
-         t7gsyjNDOlwEoLT5dzJl1hHNDu1fpuUbAtfAYfmBKwxKa+aiIfxBMBdTLoRhZuKJZ0WP
-         U9QA==
+        d=gmail.com; s=20251104; t=1791572873; x=1792177673; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sETPdBzi3R8Ul8/+76gfS5YN3ljZo4d+VndLRlKoLkI=;
+        b=fYPtIJMyBKQXdyBl5ia96dTtGq4yz26bW9umJGf0EF13e4CYI8OddTpWtmykgQrE6D
+         77eTHBNLessdWuOgc0zvsi3MIn7mayTvRmI9L13TVxjXe3DViC6QXbUVVZ9HAvvIYUka
+         iLZjwoPnVlqIPJdCbP8HU2hFUvETniYu5BGgzyHKu6sS4FjrFRS4CUM/lVkVtfbWMt11
+         8N6g8ShjEpHfqege8YRa0VRdgIlSAEKRg1lSgnew8nuJa19x6gG3+d8Dc2Snve3o6OcA
+         yQOgO9erowWuR3PYS4pVQDxhBlElJ1qlOvdEUA5/wsmbzk2J7kCCSduV09ePjtdiC3Kc
+         3QYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791572860; x=1792177660;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=D4eG9FwHyQFv9GDgn+cGvZR8MKJ2fMxH9Tvyu7jW1Mk=;
-        b=yW8s9HA5itCWI3uoh9eYT3jWbWrQ5ndTs4CHYAju7ixN9B+VzlQGYxm18Sr5r7Bgqh
-         LXgxzgmcnQQCq9KFJd41uaP6TQpGcGt4whSi4e6oYjR1hiPwJF1FPy73EisQigSsX14K
-         fTABo9UHiEqW43Q7amusezmc54722+bPBBNTPoIrpKXjhrBTdAjSI7aXgRuUlkSMHE/B
-         7yCRo6nWw5wS8euTvUZcerdIBA01OI2+QoeQITpv7ZfkZydmuehskmG+ov0GLPNCDCnJ
-         Cq/wQrwymStFUy+/S2WbHshl8v5UqjkNUdekQW3Y0es2rhY7/Z7GxBqIjddF449pZPbV
-         OYvw==
-X-Forwarded-Encrypted: i=1; AKwUvBwnEIDwtztxxiL8TRw1bqoCNB1t6cSn9TEybtE4FjjIrUazqdrk43QhxhnmNhG16s1FqsMtYVwsbfiJ6kI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nzHluvX4lV7kyaEdIwqzHhP+U5UbZx0D98zjUUfXJ5mujVRQhq
-	IQCqOQM6rGT3oV9PuWWq4TtF8bs6P+HtKQcewUnGmiaCN6fBEMIY8Im7uQphDTqCImgEDbS4eol
-	TiUD02W5aE7qu8AzXNNVMxnLdTqnaxsZ3IaguMlhEnHzQrpN6EIzkUtCNhpEFXfGlII0=
-X-Gm-Gg: AYBFou1x+IOFgbk+2F5ALi0t3MgZxXOMKXSoVZ5GmPyyvtvtshLXAAlEuW5QVz3/p10
-	1z/K9nkycZue2Y/M6o30pqw5TZEo3nQHarNfrjJEBSAAX+WKmQwjfZhV22cGOJsI+gFRQzQUAFg
-	ij8Dr7i1hOCQ2YBWHGO591TibMNbDdiiX1oPQmm4TARkNBxiuQMr2eHoDNjUm97iGTL7Tfe4nkg
-	VvERtXo4Us0urIL/gl4/lOYiNXY9lVQzXJwIRtwDGl/7mxIoob6IZMS5rQ84m/cF1RI/7jVf+qA
-	/a2TLK/Rscn3yKxUFxJbhvoawPbyw6YUM/avba8MlmbzdCAX8zmg8POwWLEL4cWTpyoC/uFjTQn
-	HWGcMU1ivp2lcCSo=
-X-Received: by 2002:a05:620a:17a9:b0:93c:ba2a:6c1a with SMTP id af79cd13be357-93ebd271e32mr451542985a.61.1791572860085;
-        Fri, 09 Oct 2026 12:07:40 -0700 (PDT)
-X-Received: by 2002:a05:620a:17a9:b0:93c:ba2a:6c1a with SMTP id af79cd13be357-93ebd271e32mr451536285a.61.1791572859484;
-        Fri, 09 Oct 2026 12:07:39 -0700 (PDT)
-Received: from oss.qualcomm.com ([188.27.161.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18be97d1esm114363625e9.8.2026.10.09.12.07.37
+        d=1e100.net; s=20260707; t=1791572873; x=1792177673;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sETPdBzi3R8Ul8/+76gfS5YN3ljZo4d+VndLRlKoLkI=;
+        b=ER+gAK2axi0gOPvjuSxwt9UKxFZeQ8mwX71Q4VN9Dh3MJT8hVTW8rqU6+blSV/rEy0
+         3U425P9LdRX2Fy3YFm94CZ+kitMj2MnnjfLN+/ARt12qDeD3vJJ+e1+2yT/x+bKYdbYm
+         jqBBSUudO3nmtaoLxb9zPExaMGIzIQzRLSbaJgb1LtbFnNNYaxoaWVbclQR1CuOARFI0
+         BE8FxVMS9lHQljL2XmmCizBWEzfpTWl4VXn1lXoua5GEY9WX8ujYxJ+Dd+r41TMm0ptj
+         64BSJ9MiQBTPWhDn92j/ybMXTke7QDXcTngC7PHGHT7OpDvdohujT/rPlZ57y6iPHHL2
+         IkJA==
+X-Forwarded-Encrypted: i=1; AKwUvBwS7cf3oTvJeFfRlEVG5ULLKaIVoaEXpC/giGvT/MqG5ETKbtZS058ZQpwRwcZkF9eXVCo3cFfAFQoY+p0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJmm75Ohi7OeYyc0vSYMV4ZSij0E2N04necwC2zRG9maeKfLlOo
+	9mJq2mksoIngASH3dfYUPZr29MVtRkF6EKLww2sKbaOtJNUZYri5n+Gw
+X-Gm-Gg: AYBFou2VnuY/aBXevqJMeI6edOFHRLQWTdrZnvowqLg3cusyH6vP1NrlmUsjfAVpmc/
+	iUv/4uQ+R7aGPB9HJ3zq6Gc/HuIKGZ0x8QmN2clyakkTGHkiAS0yhm7b660016PNy8pfBn1GBKd
+	vRXg1ekxD4I/sUA+vPH6YOtoQ//hIqMi8Tyxg5eCujdUK0VE0xOA+XZ2OiuPdPZvO0/oLtGWbZG
+	y5Nec1IymTOQ/UUFfyyHWbWKWoD5rH71Zm7SZxbw5KytzgUzz/YSk4LksSVAdHEcVG4FHQpfa2u
+	6cwXQR1mZmn7L7CA4kNh61UwPVFMcEUFplK8neutZ7CRrkPYWYlCgUMNJVkA1JQm9FUl+SNeBSH
+	ymzccp3bxbqT2pFsQME+k1f0v9LMiyvz/TYVrRGXgOr+jv0mQvxTNBjBLdymPg35ce5cmYIW3wB
+	z9eTSAfl49Yv0aW2huOzm3Ac5qH7KigbedTE3lOOZ/R/LlNou9AR8LE9uEUCgTL+O24jeb/USVv
+	Kqgi0BVOcLJQ2zIfG8IqWfXmLEBND8+iga/+aniK3oxx46Fds6fAVrf05l2wA==
+X-Received: by 2002:a05:7301:6487:b0:351:695d:c942 with SMTP id 5a478bee46e88-3537e01235fmr3494159eec.11.1791572873001;
+        Fri, 09 Oct 2026 12:07:53 -0700 (PDT)
+Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:8725:99de:769c:1fe])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537c61eaa0sm10191598eec.0.2026.10.09.12.07.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 12:07:37 -0700 (PDT)
-Date: Fri, 9 Oct 2026 22:07:36 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Taniya Das <taniya.das@oss.qualcomm.com>,
-        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Bartosz Golaszewski <brgl@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 4/4] arm64: dts: qcom: nord: Fix videocc clock inputs
-Message-ID: <gp2xdq5eysazqsj62zbhv5rimzfrrd74ttzctojl4ol5oouejb@sesvousgwctu>
-References: <20261008081036.3492003-1-shengchao.guo@oss.qualcomm.com>
- <20261008081036.3492003-5-shengchao.guo@oss.qualcomm.com>
+        Fri, 09 Oct 2026 12:07:52 -0700 (PDT)
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: linux-input@vger.kernel.org
+Cc: Ping Cheng <ping.cheng@wacom.com>,
+	Jason Gerecke <jason.gerecke@wacom.com>,
+	Peter Hutterer <peter.hutterer@who-t.net>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 2/3] Input: wacom_w8001 - assign distinct phys paths to pen and touch devices
+Date: Fri,  9 Oct 2026 12:07:43 -0700
+Message-ID: <20261009190746.803607-2-dmitry.torokhov@gmail.com>
+X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+In-Reply-To: <20261009190746.803607-1-dmitry.torokhov@gmail.com>
+References: <20261009190746.803607-1-dmitry.torokhov@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261008081036.3492003-5-shengchao.guo@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDA3NiBTYWx0ZWRfXyPcLbwCefISx
- DA3WvqMDOd/1A9NiC7ll8VyAD3ltMvHpzkpCGhy1EDXQzwHpPvFXWFMhlr9BWt4ZIZwAfQddcwc
- mDdqvZQtJd5yssehNvAmbmgLnbSwptI=
-X-Proofpoint-ORIG-GUID: RmzuxWx5odYkV0REmFL4vrSIdETYHQVv
-X-Authority-Analysis: v=2.4 cv=D9jSufRj c=1 sm=1 tr=0 ts=6ac93b7c cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=EiYrS7xXfcF7w+nkr41hpQ==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=Z62H7OANAOBda0uacUIA:9 a=CjuIK1q_8ugA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-GUID: RmzuxWx5odYkV0REmFL4vrSIdETYHQVv
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDA3NiBTYWx0ZWRfX3F/oC0Fxm/vu
- SNEKKZiGdbdEmESOxlWQs1ydcqA7IusJvCR04n5XhuGHP5Kfxtg6OtPK4XdHRBXKAC2Z0ZeFOyc
- +qWatuilb3PLTdYd9ycB+s4RuWM/flP1lSrwavyWUwFHCPlu1EEqXfX/fdiM+emfsWI8yWcKcEZ
- yGc1aat9QO0gtaF12GI0Fot6fTL2/XiqtI5LoKFBXBuKav5kk0SD9dLn8wKSNsc2jSMhG8ZI0zK
- ZBiVYejg8oHGfkuOGjQHIKFAHaGlHqVvOp8Q9vvBG9j3ddgh3sTmcUfBRmq12Ij9Uqwufaq8kyi
- SougutQYfLhTPepsbXMLZ2bLj3oZpxNpBGc9FfRq/0AJPcs8GIYErvS3Lv3IDt0f4WtKzfoAF8C
- gL9kPqHZgIqfigCVpARUbTrRlAoVVLG2kl14cqeNxEFU/vGKLoCWVFPOyhSL3lNfS6rclD3xC8Z
- SSlrLEdnQECKMqPIFEw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-09_05,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 malwarescore=0 phishscore=0 impostorscore=0 bulkscore=0
- suspectscore=0 clxscore=1015 priorityscore=1501 adultscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610090076
+Content-Transfer-Encoding: 8bit
 
-On 26-10-08 16:10:36, Shawn Guo wrote:
-> The video clock controller binding describes three clock inputs for
-> Nord: the board XO, the always-on board XO and the 32 kHz sleep clock.
-> The videocc node instead passes the board XO and NW_GCC_VIDEO_AHB_CLK,
-> which is not an input of the controller.
-> 
-> Pass bi_tcxo_ao_div2 and the board sleep clock in place of the AHB
-> clock. No functional change, NW_GCC_VIDEO_AHB_CLK is kept always on by
-> the NW GCC driver.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Previously, both pen and touch input devices used the same phys path
+"%s/input0", which made it impossible for userspace or udev rules to
+distinguish the devices by physical topology.
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Assign distinct phys paths by introducing separate buffers pen_phys
+("%s/input0") and touch_phys ("%s/input1") in struct w8001. Pass the
+corresponding phys path to w8001_allocate_device() during pen and touch
+setup, and drop the shared phys buffer from struct w8001.
+
+Fixes: e0361b70175f ("Input: wacom_w8001 - split the touch and pen devices into two devices")
+Assisted-by: LLM
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+---
+ drivers/input/touchscreen/wacom_w8001.c | 17 +++++++++++------
+ 1 file changed, 11 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/input/touchscreen/wacom_w8001.c b/drivers/input/touchscreen/wacom_w8001.c
+index 1c48e2775214..e967f2413706 100644
+--- a/drivers/input/touchscreen/wacom_w8001.c
++++ b/drivers/input/touchscreen/wacom_w8001.c
+@@ -91,7 +91,8 @@ struct w8001 {
+ 	unsigned char response_type;
+ 	unsigned char response[W8001_MAX_LENGTH];
+ 	unsigned char data[W8001_MAX_LENGTH];
+-	char phys[W8001_MAX_PHYS];
++	char pen_phys[W8001_MAX_PHYS];
++	char touch_phys[W8001_MAX_PHYS];
+ 	int type;
+ 	unsigned int pktlen;
+ 	u16 max_touch_x;
+@@ -495,7 +496,8 @@ static bool w8001_detect_touch(struct w8001 *w8001,
+ }
+ 
+ static struct input_dev *w8001_allocate_device(struct w8001 *w8001,
+-					       const char *name)
++					       const char *name,
++					       const char *phys)
+ {
+ 	struct input_dev *dev;
+ 
+@@ -504,7 +506,7 @@ static struct input_dev *w8001_allocate_device(struct w8001 *w8001,
+ 		return NULL;
+ 
+ 	dev->name = name;
+-	dev->phys = w8001->phys;
++	dev->phys = phys;
+ 	dev->id.bustype = BUS_RS232;
+ 	dev->id.product = w8001->id;
+ 	dev->id.vendor = 0x056a;
+@@ -529,8 +531,10 @@ static int w8001_setup_pen(struct w8001 *w8001, const char *basename,
+ 	int error;
+ 
+ 	snprintf(w8001->pen_name, sizeof(w8001->pen_name), "%s Pen", basename);
++	snprintf(w8001->pen_phys, sizeof(w8001->pen_phys), "%s/input0",
++		 w8001->serio->phys);
+ 
+-	dev = w8001_allocate_device(w8001, w8001->pen_name);
++	dev = w8001_allocate_device(w8001, w8001->pen_name, w8001->pen_phys);
+ 	if (!dev)
+ 		return -ENOMEM;
+ 
+@@ -572,8 +576,10 @@ static int w8001_setup_touch(struct w8001 *w8001, const char *basename,
+ 	int error;
+ 
+ 	snprintf(w8001->touch_name, sizeof(w8001->touch_name), "%s Finger", basename);
++	snprintf(w8001->touch_phys, sizeof(w8001->touch_phys), "%s/input1",
++		 w8001->serio->phys);
+ 
+-	dev = w8001_allocate_device(w8001, w8001->touch_name);
++	dev = w8001_allocate_device(w8001, w8001->touch_name, w8001->touch_phys);
+ 	if (!dev)
+ 		return -ENOMEM;
+ 
+@@ -669,7 +675,6 @@ static int w8001_connect(struct serio *serio, struct serio_driver *drv)
+ 	w8001->serio = serio;
+ 	mutex_init(&w8001->mutex);
+ 	init_completion(&w8001->cmd_done);
+-	snprintf(w8001->phys, sizeof(w8001->phys), "%s/input0", serio->phys);
+ 
+ 	serio_set_drvdata(serio, w8001);
+ 	err = serio_open(serio, drv);
+-- 
+2.56.0.385.gd3acb90ef8-goog
+
