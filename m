@@ -1,113 +1,105 @@
-Received: from sm24.hosting.reg.ru (sm24.hosting.reg.ru [31.31.198.150])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-37.mta0.migadu.com [91.218.175.37])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF1191E1A3D;
-	Fri,  9 Oct 2026 02:17:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=31.31.198.150
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A387238C1A
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 02:19:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791512234; cv=none; b=mb2naHSyfxlSl4MQGjtdWi3hXHw8ZPArwtrjjcSEjZ9Q3ibc3P0UKJ9z76MMdVbHPOiMPhyL3iVzaST+fV25rkn+Bgt7GxVlOxbErTSBia34kiP4xq2lIMP4T+3zhdENrKnbxvL32hgelsKh8O0w/FHQgrmVbd87AgH43UnzD0g=
+	t=1791512349; cv=none; b=Cn39twdS4aW7FxGgmmE8xvlgNEh7468aLx/fAWTiy9JBsBtV8zgIIRcQumRRyID4kB4+LZQEb+Bb+2icH0Sxna6uhgq+LYPFr/JDjpk114d0UhQ2RlSaf8WNoHUQqai8gMeXr4nIAcSK82rj+aLnm0zIl92tDB5GA654Wh5DjHE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791512234; c=relaxed/simple;
-	bh=Bu2Lgys5jNS+9UyAJtu3Q3ovtxDVAMP8wHCnbhA8Gm0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tuQYc+yUpM8wjYJF1GyLHmNsfEWAZiq3y+iMoAJBHbGwTIsO4uRyjNXjgyoqkZRrUqYANdYPhe/7Op9mGAKP4APgo4iE01L9WUK3OXWPRI1dsx4g6jPswWtvEOUJeczeJmAlMM7NEj7lc7MFGmO77XHHTpkqR+GP+aVFypLxuF0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=minlexx.ru; spf=none smtp.mailfrom=minlexx.ru; dkim=pass (1024-bit key) header.d=minlexx.ru header.i=@minlexx.ru header.b=X9l/zzV5; arc=none smtp.client-ip=31.31.198.150
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=minlexx.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=minlexx.ru
+	s=arc-20240116; t=1791512349; c=relaxed/simple;
+	bh=AXIi5l9EgmU9TpFEGlZP7Wof8wFRLyDVW5am2ssOVqk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RiuMQZ40Fg+O46PRzqD2hX+pYrn5eWCdemoSIpbqhUv8hMk7WgPjjkFeL0sjEX5ZcZBxrR+h+FAKBHOMwDANuP9zAD89q7/JHSFXXZfAA+zHnwa1jCExHh27+JjCtWBGU1c4kQ1Ip7DDPsLEUJL1mRtkDo4Sk2JqnqjIDRZX/EE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=FtLFzIbm; arc=none smtp.client-ip=91.218.175.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=minlexx.ru header.i=@minlexx.ru header.b="X9l/zzV5"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=minlexx.ru;
-	s=dkim; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:References:
-	Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=y9hVD3xvBEObWSy6ytyspWoTRQCrAHvmo/KoI3ARlD4=; b=X9l/zzV5ooVX/hm3juP8UxtH4Y
-	HEuAnj5GQlpO7uRu2NwFUGJqyl7xy4rCaAzDRn6TeWjF+yHu9BRdOac1W1m3J0V2OcWnR5tOisV11
-	eHMKJwVAhhYUXPfbq3PHbzyzHC6cZAwIO6eOZv18tf2YCPE43m+KNFI0ONptDL6kYR7c=;
-Received: 
-	by sm24.hosting.reg.ru with esmtpsa (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(envelope-from <alexeymin@minlexx.ru>)
-	id 1xF09T-00000009cH9-478w;
-	Fri, 09 Oct 2026 05:16:05 +0300
-Message-ID: <ad0e1019-9080-46e5-9a1a-92d976e8a50f@minlexx.ru>
-Date: Fri, 9 Oct 2026 05:16:02 +0300
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="FtLFzIbm"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=AXIi5l9EgmU9TpFEGlZP7Wof8wFRLyDVW5am2ssOVqk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791512341; v=1; x=1792117141;
+ b=FtLFzIbm88y9d80nYvmcduWjs2s7kX+xky2BUaefrMnZ+Sp0+hpYc8uFF3p6U7DsDch5snPw
+ QLOUcPnWXG3lm0406GiE8NLC4W9/w/K0WR5OCIlCo+aNWUDVt7Pt6j2hD+Xcf+rpqA75fnGhBXe
+ mFcCYVdf8Y6CaDVAKg71R6so=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id b3c6c0365d398abd;
+	Fri, 09 Oct 2026 02:19:01 +0000
+X-Mizu-Trace-ID: b3c6c0365d398abd
+X-Migadu-Flow: FLOW_OUT
+Date: Fri, 9 Oct 2026 10:18:50 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: =?iso-8859-1?Q?Dar=EDo?= Hueso Gisbert <darihueso21@gmail.com>
+Cc: netdev@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>,
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next] selftests: rtnetlink: skip ifalias test if
+ uuidgen is missing
+Message-ID: <ashPChZWM1ZMRMjL@fedora>
+References: <20261008183742.678-1-darihueso21@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/msm: don't tear down shared VM mappings on handle
- close
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Antonino Maniscalco <antomani103@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-References: <20260822-msm-fix-export-v1-0-917b3cbedd43@oss.qualcomm.com>
- <20260822-msm-fix-export-v1-2-917b3cbedd43@oss.qualcomm.com>
-Content-Language: en-US
-From: Alexey Minnekhanov <alexeymin@minlexx.ru>
-In-Reply-To: <20260822-msm-fix-export-v1-2-917b3cbedd43@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261008183742.678-1-darihueso21@gmail.com>
 
-On 22.08.2026 11:48, Dmitry Baryshkov wrote:
-> On targets (like A530 / MSM8996) without per-process pgtables
-> msm_gpu_create_private_vm() uses the global VM, so all DRM files share
-> one GPU address space.  msm_gem_close() unmaps the object from ctx->vm,
-> which on those targets pulls the buffer out from under every other file
-> that still has it open, and frees the iova for immediate reuse.
+Hi Darío,
+On Thu, Oct 08, 2026 at 08:37:41PM +0200, Darío Hueso Gisbert wrote:
+> kci_test_ifalias() uses uuidgen to generate the alias names, but
+> uuidgen is not always installed on minimal systems. When it is
+> missing, the test fails with "uuidgen: command not found" instead of
+> being reported as skipped.
 > 
-> A dma-buf imported into a second file hits this as soon as the exporter
-> closes its handle: the importer's texture keeps sampling the old
-> address, which the next allocation has taken over.  On a530 this is
-> every ext_image_dma_buf_import sampling test, reading back all zeros.
+> Check for uuidgen before running the test and return SKIP when it is
+> not available, as kci_test_promote_secondaries() already does for
+> ifconfig.
 > 
-> The VMA teardown a shared VM needs is the one already used for kms->vm
-> -- defer it to the @vma_ref drop, when the last handle and dma_buf
-> reference are gone.  That restores the pre-drm_gpuvm lifetime without
-> reintroducing the reference loop, since a BO with a live vma_ref is held
-> by userspace anyway.
-> 
-> Fixes: 111fdd2198e6 ("drm/msm: drm_gpuvm conversion")
 > Assisted-by: LLM
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Signed-off-by: Darío Hueso Gisbert <darihueso21@gmail.com>
 > ---
->   drivers/gpu/drm/msm/msm_gem.c | 13 ++++++++++++-
->   drivers/gpu/drm/msm/msm_gpu.c |  4 +++-
->   drivers/gpu/drm/msm/msm_gpu.h |  3 +++
->   3 files changed, 18 insertions(+), 2 deletions(-)
->
+> The commit message and the added check were drafted with the help of
+> an LLM (Claude). I reviewed both and tested the script on a kernel
+> built from mainline, with uuidgen installed (unchanged behaviour) and
+> with it removed (the ifalias test now reports SKIP instead of FAIL).
+> 
+> On that kernel the unrelated ipsec_offload test fails with and without
+> this change.
+> 
+>  tools/testing/selftests/net/rtnetlink.sh | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/tools/testing/selftests/net/rtnetlink.sh b/tools/testing/selftests/net/rtnetlink.sh
+> index 4843d474538f..c758efb734da 100755
+> --- a/tools/testing/selftests/net/rtnetlink.sh
+> +++ b/tools/testing/selftests/net/rtnetlink.sh
+> @@ -412,6 +412,13 @@ kci_test_addrlabel()
+>  kci_test_ifalias()
+>  {
+>  	local ret=0
+> +
+> +	run_cmd uuidgen
+> +	if [ $ret -ne 0 ]; then
+> +		end_test "SKIP: uuidgen not installed"
+> +		return $ksft_skip
+> +	fi
 
-Tested on device with a512, previously faults were easily reproducible,
-like almost on every window/popup close.
-They looked like
+You can use check_command, which will log test and return correctly.
 
-  gpu fault: ttbr0=0000000046fdf000 iova=0000000004635f00 dir=READ 
-type=TRANSLATION source=1030001 (0,0,0,0)
-  gpu fault: ttbr0=0000000046fdf000 iova=000000000462d700 dir=READ 
-type=TRANSLATION source=2030001 (0,0,0,0)
-  gpu fault: ttbr0=0000000046fdf000 iova=0000000004c6e380 dir=READ 
-type=TRANSLATION source=4030001 (0,0,0,0)
-  gpu fault: ttbr0=0000000046fdf000 iova=000000000497eb00 dir=READ 
-type=TRANSLATION source=2030001 (0,0,0,0)
-
-and now cannot be seen anymore with these series applied.
-
-Tested-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
-
---
-Regards,
-Alexey Minnekhanov
+Thanks
+Hangbin
+> +
+>  	namewant=$(uuidgen)
+>  	syspathname="/sys/class/net/$devdummy/ifalias"
+>  	run_cmd ip link set dev "$devdummy" alias "$namewant"
+> -- 
+> 2.53.0
+> 
