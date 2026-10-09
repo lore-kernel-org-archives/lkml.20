@@ -1,675 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A4853F9294;
-	Fri,  9 Oct 2026 19:14:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D6193D5C0B
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 19:16:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791573301; cv=none; b=uPBBlRS/Y2WRSnZzIIEoOAUxIe/iub6FELBs5Uug23XAcnK/vjpAhQ8JP1mGFg5J70yc8z0gs/+JENFp9PPenByMSPmGwzAXy5b4aSfEGbqgkHSwfbpUseVwl19uNadmedahGcyu5AAHsRbMIZoMvzy+OJD/JHtowsjysGVuuUk=
+	t=1791573375; cv=none; b=UHK5rwv21kNCpOOCN+ACrlzsqtQRjbIv9Hu5jFyHzS2W6RS+rHFb6sHYwlWQ7LPUIgjdZtssmldzmsx97HOX2KZofajTgX/lSP8QrMhSSa1CVHGomxwxlwWPItZ3YEgQ17Tv6un9URK3ej7h9T/2voFbpt4KvVEDw2fSXeD9vdg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791573301; c=relaxed/simple;
-	bh=kWlgAZcKZeu9ab12tFQvv8MevwIHPkzZgbqwGDOQpec=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kkDvoJJW4/qlyQ1TwCFDccj/2wwPy7FigSi3JzZo4zAC/rcANqhVRDS9lzpQtgOGu4MqNJHAbxdR17f9xgFIzzDO+ZJBPpWcUpiSZ4FvEjEJd/iYY5T6cDDHAlTvDw5grIjCI9UubhC4XC/exvQ2omZjQ0Hd9Joos+lEK9gMDWk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fIstdx/Z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791573375; c=relaxed/simple;
+	bh=sLOAPCgamWe5dUzceRoWlkyLurqi25tTAPBLcoKdD0w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QTtX6ZVZz08dQnOfFhJZWHLX4LCrzUzuRd2oUaGFSXVZYStnil8iK0Zs20H3dRp6Vvpo7PT34qTR+SGDzNAWEr9vcEzBwGwxJ4C2mjuvKR4n3CdgfxEprCOjEAbVFRR28pZRHZCsQc1LRBHEcGF99W8NiHq03BZgas5Tej9ppnU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TJH2a/bz; arc=none smtp.client-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fIstdx/Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAFDC1F000FF;
-	Fri,  9 Oct 2026 19:14:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791573298;
-	bh=YdUOuicLgqQU2RqlJunP0Guxj52QNgrq8QK2vLYlLQI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fIstdx/ZWjr3ZuMdTmgaGUqJVFC3wZb08v/BVZv+Wv8q9Bcf8288/anOZoGGq3+dy
-	 nZ0aAWhyrtGHbOaJlHZSzx9o/JCL63zH1bmr28rkvz1iPUCN3cj1JcZuzJzhhilZgg
-	 BcA6CtsKFMG01xeZuji2jP/EYmPP9fyxSeACZla1nrPVq8sAFItfn82ih4A0oXWsBs
-	 tnmcFUWpQiKp+ccYGQn+QqDy3EameV2gxjcl5UcT+GDNif+fD15JbbQPd8N0AU/tGO
-	 eI8TqTLX3jUCEubliJ1efeflIZWKj47AXWkkef+wrNSNUfMV3tdhOFJrcsJlWjQDsO
-	 oNZvtGz8ygZLg==
-From: Philipp Stanner <phasta@kernel.org>
-To: Danilo Krummrich <dakr@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Philipp Stanner <phasta@kernel.org>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Trevor Gross <tmgross@umich.edu>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Boris Brezillon <boris.brezillon@collabora.com>,
-	John.harrison@igalia.com,
-	da.gomez@kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	rust-for-linux@vger.kernel.org
-Subject: [RFC PATCH v5 6/6] rust: drm: Add JobQueue
-Date: Fri,  9 Oct 2026 21:11:24 +0200
-Message-ID: <20261009191124.1022902-8-phasta@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261009191124.1022902-2-phasta@kernel.org>
-References: <20261009191124.1022902-2-phasta@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TJH2a/bz"
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-33e6279a1d7so45128eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 12:16:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791573373; x=1792178173; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0bY4AgXSvP8hqipveJnkvyGML0b46h1xg59dJBanoB8=;
+        b=TJH2a/bzgHrxYXnqA9Ues5WjFn+ctabp5gbJ0OurVR1HTZ4htP0fSsFD7mDPBniel2
+         xhjsLHZvM4DFPrA5J4CtkeXl0F526CO1b4BZU2ziC7ymzhqXR7Fc+Vb+76NliwWWwWSX
+         bAU2GKBEISYCPWCEBo5qVTa1pZ1cS+66VZxgGVGo9Y7ljfTqkcFYK5gVc2uhwiPY+PoT
+         x+PMSogRBjxjvaIbs11EF71Qo16RPXYaqR9/nTWBlAoxPcqkEsCY9CHeMO01b+1YvBOU
+         kv/3w9lAPlskNOk9W5K+8IaVjoY8pZipb/lr9c/nLQsnlVPEXR2bTi4IrzgW45fWH13X
+         QCVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791573373; x=1792178173;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0bY4AgXSvP8hqipveJnkvyGML0b46h1xg59dJBanoB8=;
+        b=KkXvUeVo2SNIP0nyX9xYBW9nsK4+M2T+1hrJPdSX3YAIGtwr1MLAxFNk+CrSVDaT7w
+         Cyh3p0VNhFP2vdmi0LV3sb1uQvT9jJXQ2B+M+CBvFiAtOv1r4GQGv8bQw7zCwDGYjBp8
+         /IzJPZMfgdVm8uM9aHfPo+6teiySKcgLN6uLoO+aalLL9XhHCwWhfhCgj0YUt1rZl52f
+         jKVrCC8XEsaZbXUpVrH7BQD9r+H8JDwIF9suQi+0AiCnx9nWOUINnwGtt6GFYMm60O0+
+         V3ToakMW+N+wm50CZw/kzyyO5vEVBn2CJ/QhapnkcWP67UQLOef0eVSUnPOILN6Iwf1D
+         mGTQ==
+X-Forwarded-Encrypted: i=1; AKwUvByEgrPXOcr9n4xqk/VGjWORZK36x1PXNFfUAw377XddwmUbVLDxqGJquJnh8OhBlBcWQ3wY28Ip1BrMAnM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJXb1yaIIM2sy3Kq2WUfv1QjjUbJyAwmn7sIAh5j7oER2aDkdx4
+	RSQBUl06GtrfjJUpzJTXUmLkxogQ9PW2kRNSLngZb67Y2xin3e4dd3ds
+X-Gm-Gg: AYBFou09G0zQHzlHlxQB97rXVCS+0ylRs372zyw8+Zl/Naz8Osd6uCVQ6tCN/0ih7ai
+	RR6abtxGS9MdeyykQcHaipKK+wl3THHo9QHAlGTzf3SeCgc8Cx1Qs9hhrUGpnvTn7Myml3G3BJG
+	jsEeal/w4XiSWljigSYt9EMyaJbTRWahy9w3v41/3P7BPzxaricC1FiX0Z26lF4CloX9GiUv4LO
+	e00Lto1E45fcP5pPn9AywJFkRG2giVX/XMY6jMdcOumPWK6L7LA78AT33HaSVIxnjsvZr56SU6f
+	n8Dg+shoxVwGzKR+ed3qSpczf41NiCXTqJ+Zi6RFgzq5tXHbUMrh+tbGSgQ9af9uiNzqzujiTul
+	6CALus4BwzkevDacZOBIkg4HL15R3aTQkRSTIqC9T3DelEFpR/NKvPL1IGHg4qa4MA7Dc5wRloF
+	3IemF4/sdx5t90PCxwvRfURU5TZnyKMp537+8bK4JS8YTLufiq40HTRTFbXtDD9sWzE8Ngau+7I
+	eoiJRgQVnmD44AGwa69bXF4obw3SpPKjyEykgs7oBSZ6PBF3g==
+X-Received: by 2002:a05:7301:490e:b0:354:e37d:abb2 with SMTP id 5a478bee46e88-354e37daceemr2237247eec.36.1791573373344;
+        Fri, 09 Oct 2026 12:16:13 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:8725:99de:769c:1fe])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cacb61asm8116206eec.21.2026.10.09.12.16.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 12:16:12 -0700 (PDT)
+Date: Fri, 9 Oct 2026 12:16:09 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: krisfur@proton.me
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] Input: xpad - add support for Corsair Novablade Pro
+Message-ID: <ask9bQQVgLhPSSRu@google.com>
+References: <20261009-xpad-corsair-novablade-v1-1-e58746bef99f@proton.me>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261009-xpad-corsair-novablade-v1-1-e58746bef99f@proton.me>
 
-JobQueue is a pure Rust component that handles job submissions for GPUs
-with firmware scheduling, i.e., GPUs that support one exclusive ring per
-execution context.
+On Fri, Oct 09, 2026 at 03:47:10PM +0100, Krzysztof Furman via B4 Relay wrote:
+> From: Krzysztof Furman <krisfur@proton.me>
+> 
+> Add device IDs for the Corsair Novablade Pro leverless fight controller
+> in both wired (0x2b1f) and 2.4 GHz receiver (0x2b2b) modes, and add
+> Corsair's vendor ID to the Xbox 360 vendor match list.
+> 
+> Outside of its PS4/PS5 modes the controller uses the Xbox 360 protocol
+> (vendor-specific class, subclass 93, protocol 1) on interface 0, which
+> xpad does not currently bind, so no gamepad device is created. The
+> PS4/PS5 modes present a standard HID gamepad and already work with
+> hid-generic.
+> 
+> Tested on 7.2.5 with the 2.4 GHz receiver and wired.
+> 
+> Assisted-by: Claude Opus 5.5
+> Signed-off-by: Krzysztof Furman <krisfur@proton.me>
 
-JobQueue's primary task is dependency handling, where the user can set
-dependencies, each in the form of a `dma_buf::Fence`, on a job and then
-submit it to the queue.
+Applied, thank you.
 
-Jobs are being executed in order, following the FIFO principle. Only
-jobs whose dependencies are all fullfilled get executed, otherwise the
-JobQueue pauses.
-
-A core design principle, just like with DmaFence, is to avoid all
-allocations in job submission paths, since this runs danger of
-deadlocking.
-
-Another design principle, new when compared to the older drafts, is the
-ownership relationship with fences:
-
-  1. The JobQueue owns the FenceContext exclusively.
-  2. Jobs are created on the JobQueue, ensuring correct fence sequence
-     number ordering.
-  3. Jobs own the respective DriverFence.
-  4. Jobs are owned by the JobQueue.
-
-Consequently, a driver can only interact with fences and FenceContext
-indirectly through the JobQueue, and can also only complete jobs (and,
-hence, signal fences) through the JobQueue.
-
-Unfortunately, since jobs need a reference to the JobQueue for their
-fence dependency objects (DependencyWaker), this code can currently not
-be used in this form because some work on self-referential PinInit is
-required. See the respective comments in the Example.
-
-When a job shall be run, both its JobQueue::data and Job::data get
-borrowed back to it, together with the sequence number of this job, so
-that the driver can perform the appropriate interaction with the
-hardware.
-
-The submit_worker runs all ready jobs based on a credit count system, so
-that run_job() can be infallible. The same worker drops jobs (and their
-fences) that are already completed. Should this proof to be a
-performance issue, a second worker could trivially be added for this.
-
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
----
- rust/kernel/drm/job_queue.rs | 525 +++++++++++++++++++++++++++++++++++
- rust/kernel/drm/mod.rs       |   4 +
- 2 files changed, 529 insertions(+)
- create mode 100644 rust/kernel/drm/job_queue.rs
-
-diff --git a/rust/kernel/drm/job_queue.rs b/rust/kernel/drm/job_queue.rs
-new file mode 100644
-index 000000000000..b5c7f4ecb3f4
---- /dev/null
-+++ b/rust/kernel/drm/job_queue.rs
-@@ -0,0 +1,525 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) 2026 Red Hat Inc.
-+ * Author: Philipp Stanner <pstanner@redhat.com>
-+ */
-+
-+//! DRM's job dependency manager and load balancer for GPUs with firmware
-+//! scheduling, i.e., GPUs that spawn one ring per user context.
-+//!
-+//! JobQueue abstracts the entire handling of [`dma_buf::FenceContext`] and its
-+//! associated fences for the user.
-+//!
-+//! Jobs created on the JobQueue take over ownership of userspace provided data
-+//! and prepare all memory allocations. A later job submission sets up the fence
-+//! and performs no fallible operations. A fence sequence number always
-+//! corresponds 1:1 with the job sequence number.
-+//!
-+//! Before jobs are submitted, dependencies in the form of [`dma_buf::Fence`]
-+//! can be set on them. Jobs get submitted by the JobQueue in process context
-+//! through a work item in FIFO order. Only jobs whose dependency fences have
-+//! all been signaled get submitted. If the front job's dependency is not yet
-+//! fullfilled, the JobQueue pauses until that's the case.
-+//!
-+//! The driver tells the JobQueue which jobs are finished through
-+//! [`JobQueue::complete_jobs_up_to_seqno`].
-+//!
-+//! This is pure Rust code that does not directly abstract C.
-+
-+use crate::prelude::*;
-+
-+use core::{
-+    convert::Infallible,
-+    ops::Deref, //
-+};
-+
-+use kernel::{
-+    dma_buf::dma_fence::{
-+        DriverFence,
-+        DriverFenceAllocation,
-+        Fence,
-+        FenceContext,
-+        FenceCallback,
-+        FenceCallbackRegistration,
-+        FenceContextOps, //
-+    },
-+    list::*,
-+    revocable::Revocable,
-+    str::CString,
-+    sync::{
-+        aref::ARef,
-+        SpinLockIrq,
-+        new_spinlock_irq,
-+        atomic::{
-+            Atomic,
-+            Relaxed, //
-+        }, //
-+    }, //
-+    workqueue::{
-+        self,
-+        new_scoped_work,
-+//        ScopedQueue,
-+        ScopedWork,
-+        ScopedWorkItem,
-+        ScopedWorkRef,
-+    }, //
-+};
-+
-+struct DependencyWaker<'b, T: JobQueueOps + Send + Sync> {
-+    nr_of_deps: &'b Atomic<u32>,
-+    jq: &'b JobQueue<'b, T>,
-+}
-+
-+impl<'b, T: JobQueueOps + Send + Sync> FenceCallback for DependencyWaker<'b, T> {
-+    fn on_signal(&mut self) {
-+        // Last dependency kicks off the worker.
-+        if self.nr_of_deps.fetch_sub(1, Relaxed) == 1 {
-+            if let Some(jq) = self.jq.inner.try_access() {
-+                let mut jq = jq.deref().lock();
-+                jq.as_mut().check_start_submit_worker();
-+            }
-+        }
-+    }
-+}
-+
-+/// A JobQueue job before it has been submitted.
-+///
-+/// This is only useful for registering dependencies on and for submitting it.
-+pub struct Job<'a, T: JobQueueOps + Send + Sync> {
-+    inner: ListArc<JobInternal<'a, T>>,
-+}
-+
-+impl<'a, T: JobQueueOps + Send + Sync> Job<'a, T> {
-+    /// Add `fence` as a dependency for this job.
-+    ///
-+    /// A JobQueue will only push a job once all dependency fences have been
-+    /// signaled.
-+    pub fn add_dependency(&'a mut self, fence: &Fence) -> Result {
-+        let nr_of_deps = &raw const self.inner.nr_of_deps;
-+
-+        let waker = DependencyWaker {
-+            // SAFETY: `nr_of_deps` lives as long as the job.
-+            // TODO RFC: Is there a better way to do it? The mutable-immutable references
-+            // otherwise run into conflict when `nr_of_deps` is used below.
-+            nr_of_deps: unsafe { &*nr_of_deps },
-+            jq: self.inner.jq,
-+        };
-+
-+        let job = &mut self.inner;
-+
-+        job.dependencies().reserve(1, GFP_KERNEL)?;
-+
-+        // If the registration below gets registered successfully, a signaling
-+        // fence will decrement the atomic. That could race. Thus, increment in
-+        // advance. Ordering is ensured thanks to the dma_fence backend.
-+        job.nr_of_deps.fetch_add(1, Relaxed);
-+
-+        // SAFETY: The `registration` is not forgotten. It drops with JobQueue.
-+        let registration = unsafe { FenceCallbackRegistration::new(fence, waker) };
-+        match KBox::pin_init(registration, GFP_KERNEL) {
-+            Err(e) => {
-+                let _ = job.nr_of_deps.fetch_sub(1, Relaxed);
-+                if e == ENOENT {
-+                    // Was already signaled. No reason to bother the caller.
-+                    return Ok(());
-+                }
-+                return Err(e);
-+            },
-+            Ok(dep) => {
-+                if let Err(e) = job.dependencies().push_within_capacity(dep) {
-+                    // Impossible because of the reservation.
-+                    pr_err!("Job::add_dependency(): reserved memory not available.\n");
-+                    return Err(e.into());
-+                }
-+            },
-+        }
-+
-+        Ok(())
-+    }
-+}
-+
-+#[pin_data]
-+#[repr(C)]
-+struct JobInternal<'b, T: JobQueueOps + Send + Sync> {
-+    #[pin]
-+    links: ListLinks,
-+    cost: u32,
-+    fence_allocation: ListArcField<Option<DriverFenceAllocation<'b, DriverDataWrapper<T>>>, 0>,
-+    fence: ListArcField<Option<DriverFence<'b, DriverDataWrapper<T>>>>,
-+    dependencies: ListArcField<KVec<Pin<KBox<FenceCallbackRegistration<DependencyWaker<'b, T>>>>>>,
-+    nr_of_deps: Atomic<u32>,
-+    jq: &'b JobQueue<'b, T>,
-+}
-+
-+impl_list_arc_safe! {
-+    impl{'b, T: JobQueueOps + Send + Sync} ListArcSafe<0> for JobInternal<'b, T> { untracked; }
-+}
-+impl_list_item! {
-+    impl{'b, T: JobQueueOps + Send + Sync} ListItem<0> for JobInternal<'b, T> { using ListLinks { self.links }; }
-+}
-+
-+
-+impl<'b, T: JobQueueOps + Send + Sync> JobInternal<'b, T> {
-+//    const LIST_JOB_ID: u64 = 0xe7e445f2bb9e97fc;
-+
-+    kernel::list::define_list_arc_field_getter! {
-+        pub(crate) fn fence_allocation(&mut self<0>) -> &mut Option<DriverFenceAllocation<'b, DriverDataWrapper<T>>> { fence_allocation }
-+        pub(crate) fn fence(&mut self<0>) -> &mut Option<DriverFence<'b, DriverDataWrapper<T>>> { fence }
-+        pub(crate) fn dependencies(&mut self<0>) -> &mut KVec<Pin<KBox<FenceCallbackRegistration<DependencyWaker<'b, T>>>>> { dependencies }
-+    }
-+}
-+
-+#[pin_data]
-+struct SubmitWorker<'a, T: JobQueueOps + Send + Sync> {
-+    #[pin]
-+    jq: &'a JobQueue<'a, T>,
-+}
-+
-+impl<T: JobQueueOps + Send + Sync> ScopedWorkItem for SubmitWorker<'_, T> {
-+    fn run(work: &ScopedWorkRef<Self>) {
-+        let Some(jq_accessor) = work.jq.inner.try_access() else {
-+            return;
-+        };
-+
-+        let mut jq = jq_accessor.lock();
-+
-+        while let Some(mut job) = jq.as_mut().project().waiting_jobs.pop_front() {
-+            let new_capacity = jq.capacity as i64 - job.cost as i64;
-+            if new_capacity < 0 {
-+                break;
-+            }
-+            *jq.as_mut().project().capacity = new_capacity as u64;
-+
-+            let runnable_job = JobRunnable {
-+                seqno: job.fence().as_ref().expect("fence not present").as_fence().seqno(),
-+                data: job.fence().as_ref().expect("fence not present").deref(),
-+            };
-+
-+            let jq_data = work.jq.fctx.deref().deref();
-+
-+            drop(jq);
-+            T::run_job(jq_data, runnable_job);
-+            // The driver could now have taken the lock here and try to complete
-+            // this very job. It would then not get signaled because it was not
-+            // yet in the running list. However, since the driver completes jobs
-+            // by sequence number, its subsequent calls to jq.complete_jobs_up_to_seqno()
-+            // will signal this job, because then it will be in the running_jobs
-+            // list.
-+            // We accept this race because it makes the implementation much
-+            // simpler and avoids locking issues. Otherwise, complete_jobs_up_to_seqno()
-+            // would need a distinct signaler-object-list to avoid races between
-+            // this work item and said function.
-+            jq = jq_accessor.lock();
-+
-+            jq.as_mut().project().running_jobs.push_back(job);
-+        }
-+
-+        // Now clean up all already-signaled jobs, dropping their fences.
-+        let mut jq = jq.as_mut().project();
-+
-+        let mut cursor = jq.running_jobs.cursor_front();
-+
-+        while let Some(job) = cursor.peek_next() {
-+            let mut job = job.remove();
-+
-+            if !job.fence().as_mut().expect("fence not present").as_fence().is_signaled() {
-+                jq.running_jobs.push_front(job);
-+                // Jobs complete in order. No point in checking the rest.
-+                break;
-+            }
-+        }
-+
-+        *jq.submit_worker_active = false;
-+    }
-+}
-+
-+#[pin_data]
-+struct JobQueueInner<'a, T: JobQueueOps + Send + Sync> {
-+    submit_worker_active: bool,
-+    #[pin]
-+    submit_worker: ScopedWork<SubmitWorker<'a, T>>,
-+    #[pin]
-+    waiting_jobs: List<JobInternal<'a, T>>,
-+    #[pin]
-+    running_jobs: List<JobInternal<'a, T>>,
-+    capacity: u64,
-+}
-+
-+impl<T: JobQueueOps + Send + Sync> JobQueueInner<'_, T> {
-+    fn check_start_submit_worker(self: Pin<&mut Self>) {
-+        if self.submit_worker_active {
-+            return;
-+        }
-+
-+        // TODO this shouldn't be the system wq
-+        // SAFETY: The worker is carried by the JobQueue and, thus, cannot be
-+        // forgotten.
-+        unsafe { workqueue::system_dfl().enqueue_scoped(&*self.submit_worker) };
-+
-+        *self.project().submit_worker_active = true;
-+    }
-+
-+}
-+
-+/// A JobQueue.
-+///
-+/// # Examples
-+///
-+/// ```
-+/// use core::ops::Deref;
-+///
-+/// use kernel::{
-+///     str::CString,
-+///     dma_buf::*,
-+///     drm::{
-+///         JobQueue,
-+///         JobQueueOps,
-+///         JobRunnable,
-+///     },
-+/// };
-+///
-+/// let driver_name = CString::try_from_fmt(fmt!("dummy_driver"))?;
-+/// let timeline_name = CString::try_from_fmt(fmt!("dummy_timeline"))?;
-+///
-+/// #[pin_data]
-+/// struct JqData {}
-+///
-+/// impl JqData {
-+///     fn new() -> impl PinInit<Self> {
-+///         pin_init!(Self {})
-+///     }
-+/// }
-+///
-+/// struct JobData {
-+///     data: CString,
-+/// }
-+///
-+/// impl JobQueueOps for JqData {
-+///     type JobDataType = JobData;
-+///
-+///     fn run_job<'a>(&self, job: JobRunnable<'a, JobData>) {
-+///
-+///     }
-+/// }
-+///
-+/// let jq_data = JqData::new();
-+/// let jq = KBox::pin_init(JobQueue::new(0, driver_name, timeline_name, 1000, jq_data), GFP_KERNEL)?;
-+///
-+/// struct Callback {}
-+///
-+/// impl FenceCallback for Callback {
-+///     fn on_signal(&mut self) {
-+///
-+///     }
-+/// }
-+///
-+/// let data = CString::try_from_fmt(fmt!("hello there!"))?;
-+/// let data = JobData { data };
-+///
-+/// // TODO RFC:
-+/// // This is the problem where self-references come into play.
-+/// // Jobs need a reference to the JobQueue due to their DependencyWaker
-+/// // callbacks. At the same time, the JobQueue owns the jobs.
-+/// // So the following outcommented code would not compile.
-+/// // Gary is working on a solution for that.
-+///
-+/// //let job = jq.new_job(data)?;
-+/// //jq.submit(job);
-+///
-+/// //drop(job);
-+/// //drop(jq);
-+///
-+/// Ok::<(), Error>(())
-+/// ```
-+#[pin_data(PinnedDrop)]
-+pub struct JobQueue<'a, T: JobQueueOps + Send + Sync> {
-+    #[pin]
-+    // Revocable to prevent a DependencyWaker firing in the moment of JQ-drop
-+    // from deadlocking.
-+    inner: Revocable<SpinLockIrq<JobQueueInner<'a, T>>>,
-+    #[pin]
-+    fctx: FenceContext<DriverDataWrapper<T>>,
-+}
-+
-+// SAFETY: The JobQueue is locked and pinned.
-+unsafe impl<T: JobQueueOps + Send + Sync> Sync for JobQueue<'_, T> {}
-+// SAFETY: The JobQueue is locked and pinned.
-+unsafe impl<T: JobQueueOps + Send + Sync> Send for JobQueue<'_, T> {}
-+
-+/// Object passed to the driver to run a job.
-+pub struct JobRunnable<'a, T> {
-+    /// The job's sequence number.
-+    pub seqno: u64,
-+    /// The associated job data.
-+    pub data: &'a T,
-+}
-+
-+/// Ops for the JobQueue.
-+pub trait JobQueueOps {
-+    /// The type of the data passed over in [`JobQueue::new_job`].
-+    type JobDataType: Send + Sync;
-+
-+    /// Instructs the driver to run this job.
-+    ///
-+    /// Returns true if the job was run, false if there was no capacity.
-+    /// In case of an other error, the driver's callback implementation likely
-+    /// wants to trigger termination of the ring and, thus, dropping of the
-+    /// respective [`JobQueue`].
-+    fn run_job<'a>(&self, job: JobRunnable<'a, Self::JobDataType>);
-+}
-+
-+#[pin_data]
-+struct DriverDataWrapper<T: JobQueueOps + Send + Sync> {
-+    #[pin]
-+    data: T,
-+}
-+
-+impl<T: JobQueueOps + Send + Sync> Deref for DriverDataWrapper<T> {
-+    type Target = T;
-+
-+    fn deref(&self) -> &Self::Target {
-+        &self.data
-+    }
-+}
-+
-+impl<T: JobQueueOps + Send + Sync> DriverDataWrapper<T> {
-+    fn new<E>(data: impl PinInit<T, E>) -> impl PinInit<Self, E>
-+        where
-+            Error: From<E>,
-+            E: From<Infallible>,
-+    {
-+        try_pin_init!(Self {
-+            data <- data,
-+        }? E)
-+    }
-+}
-+
-+impl<T: JobQueueOps + Send + Sync> FenceContextOps for DriverDataWrapper<T> {
-+    type FenceDataType = T::JobDataType;
-+}
-+
-+impl<'a, T: JobQueueOps + Send + Sync> JobQueue<'a, T> {
-+    /// Create a new JobQueue.
-+    pub fn new<E>(
-+        initial_seqno: u64,
-+        // TODO: pass these as &CStr. Figure out how to get the lifetimes for PinInit right.
-+        driver_name: CString,
-+        timeline_name: CString,
-+        capacity: u64,
-+        data: impl PinInit<T, E>,
-+    ) -> impl PinInit<Self, Error>
-+    where
-+        Error: From<E>,
-+        E: From<Infallible>,
-+    {
-+        try_pin_init!(&this in Self {
-+            inner <- Revocable::new(new_spinlock_irq!(try_pin_init!(JobQueueInner {
-+                submit_worker_active: false,
-+                // SAFETY: `this` is valid. The lifetimes ensure that the reference remains valid.
-+                submit_worker <- new_scoped_work!("JobQueueSubmitWorker", Ok(SubmitWorker { jq: unsafe { &*this.as_ptr() } })),
-+                waiting_jobs: List::new(),
-+                running_jobs: List::new(),
-+                capacity,
-+            }))),
-+            fctx <- FenceContext::new(initial_seqno, &driver_name, &timeline_name, DriverDataWrapper::new(data)),
-+        })
-+    }
-+
-+    /// Create a new job.
-+    pub fn new_job(&'a self, cost: u32, data: T::JobDataType) -> Result<Job<'a, T>> {
-+        let fence_allocation = self.fctx.new_fence_allocation(data)?;
-+        let job = try_pin_init!(JobInternal {
-+            links <- ListLinks::new(),
-+            cost,
-+            fence_allocation: ListArcField::new(Some(fence_allocation)),
-+            fence: ListArcField::new(None),
-+            nr_of_deps: Atomic::new(0),
-+            dependencies <- ListArcField::new(KVec::new()),
-+            jq: &self,
-+        });
-+
-+        let inner = ListArc::pin_init(job, GFP_KERNEL)?;
-+
-+        Ok(Job { inner })
-+    }
-+
-+    // TODO RFC the lifetime ensures that only jobs can be submitted that were
-+    // actually created on this JQ, right?
-+    /// Submit a job that has previously been created with [`JobQueue::new_job()`].
-+    ///
-+    /// Returns a [`dma_buf::Fence`] on which the user can register callbacks.
-+    /// The fence will be signaled once the job is completed through
-+    /// [`JobQueue::complete_jobs_up_to_seqno`], which can happen immediately
-+    /// after the job has been submitted.
-+    ///
-+    /// This function does all fence initialization under the JobQueue lock in
-+    /// one go, including setting of the fence sequence numbers. Thus, it is
-+    /// typically unnecessary (and advaised against) calling this function with
-+    /// a driver lock held.
-+    // Mutable `self` so that the user is forced to ensure synchronization.
-+    // That's a bit better so that the fence sequence numbers stay ordered.
-+    pub fn submit(&mut self, job: Job<'a, T>) -> ARef<Fence> {
-+        // unwrap() can't fire because `self` is valid.
-+        let jq = self.inner.try_access().unwrap();
-+        // The lock orders setting of the sequence number, so no driver lock is needed.
-+        let mut jq = jq.lock();
-+        let mut job = job.inner;
-+        let fence = job.fence_allocation().take().expect("fence_allocation not present").new_fence();
-+
-+        let ret_fence = ARef::from(fence.as_fence());
-+
-+        *job.fence() = Some(fence);
-+
-+        jq.as_mut().project().waiting_jobs.push_back(job);
-+        jq.as_mut().check_start_submit_worker();
-+
-+        ret_fence
-+    }
-+
-+    /// Complete all the jobs in the queue's running_list, up to `seqno`.
-+    ///
-+    /// This signals the jobs' fences and drops both job and fence.
-+    ///
-+    /// This function tells the implementation that there is now more capacity
-+    /// for more jobs to be pushed into the GPU ring.
-+    pub fn complete_jobs_up_to_seqno(&self, seqno: u64, status: Result) {
-+        // unwrap() can't fire because `self` is valid.
-+        let jq = self.inner.try_access().unwrap();
-+        let mut jq_locked = jq.lock();
-+        let mut jq = jq_locked.as_mut().project();
-+
-+        let mut cursor = jq.running_jobs.cursor_front();
-+
-+        while let Some(job) = cursor.peek_next() {
-+            let mut job = job.remove();
-+
-+            if job.fence().as_mut().expect("fence not present").as_fence().seqno() > seqno {
-+                jq.running_jobs.push_front(job);
-+                break;
-+            }
-+
-+            *jq.capacity += job.cost as u64;
-+
-+            if let Some(fence) = job.fence() {
-+                fence.signal(status);
-+            } else {
-+                panic!("fence not present.");
-+            }
-+        }
-+
-+        jq_locked.as_mut().check_start_submit_worker();
-+    }
-+}
-+
-+#[pinned_drop]
-+impl<T: JobQueueOps + Send + Sync> PinnedDrop for JobQueue<'_, T> {
-+    fn drop(self: Pin<&mut Self>) {
-+        // Prevent all dependency callbacks (and the submit_worker) from running
-+        // into `self.inner`. Drops the DependencyWaker objects, deregistering
-+        // their events on foreign fences. Thus, this revoke also protects against
-+        // deadlock since deregistering takes the fence locks in reverse order
-+        // to the JobQueue lock, which we would need here without the Revocable
-+        // for said deregistering.
-+        let _ = self.inner.revoke();
-+    }
-+}
-diff --git a/rust/kernel/drm/mod.rs b/rust/kernel/drm/mod.rs
-index fd6ed35bc35a..f2b7fbbce5bb 100644
---- a/rust/kernel/drm/mod.rs
-+++ b/rust/kernel/drm/mod.rs
-@@ -8,6 +8,7 @@
- pub mod gem;
- pub mod gpuvm;
- pub mod ioctl;
-+pub mod job_queue;
- 
- pub use self::device::Device;
- pub use self::device::DeviceContext;
-@@ -20,6 +21,9 @@
- pub use self::driver::DriverInfo;
- pub use self::driver::Registration;
- pub use self::file::File;
-+pub use self::job_queue::JobQueue;
-+pub use self::job_queue::JobQueueOps;
-+pub use self::job_queue::JobRunnable;
- 
- pub(crate) mod private {
-     pub trait Sealed {}
 -- 
-2.55.0
-
+Dmitry
