@@ -1,126 +1,126 @@
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+Received: from mail-dy2-f6.google.com (mail-dy2-f6.google.com [74.125.229.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F6A831F98E
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 01:50:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C417527B340
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 01:50:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791510616; cv=none; b=bgmNoQsthUfYlZ6Ty0/KFXIFzJZPhfc59SSwkDwdiEy6B/p5S1dR49ZcYGYTotxnwdbrZgP2DJJxg1+H0i8jDFBQ9Pj18pTOgg6HY7pVMsVrt8tcvwfd482lPJcBqJDFJ70+icHxKUCC+ydYuwf+bR3peG50dECNPXPU4o5M5DQ=
+	t=1791510627; cv=none; b=Al1cbBMjVjlg9F9vWLILDEo+OkRi9t0Vsub80caQZAsH0u/RTPxUbl92aD4FJFyAsZaQlFzAvtf/A4k63qcGF4p6Ha2r9hOCNf6FArkmgqh9p2Yb/EGe1i9BpWdoEWNrVT4wINYyDzrufkHDA05tgycyC8xmlf2rj0KcIsS2YOo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791510616; c=relaxed/simple;
-	bh=om+GUUwBH6ToUbY7jlQ4dCRdnqUsjvHMbCMe/jqcWHI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=apet4qNmyE2Zs0+U4pXSuSrVmVFdqaPR2gDoK2ROlNmSEUrdocxqDIPF7rkND7wkQBwDMl3eEa7N95dZszm9XDuJbAecLefEFNH+FuRcrIgG4yiAJU1Wib5AB2GUP7hPqrEjrEDxh1hp/45N7Xp5mqxvnxBFfJ8LC8p+9E1YIJs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RYnRVJgf; arc=none smtp.client-ip=74.125.82.173
+	s=arc-20240116; t=1791510627; c=relaxed/simple;
+	bh=s/mLc2JYZ08lN5x24bMO+b1/EM92HqyIhdkyHZszL9o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qj1bnkfieP42Q+DmBHCXz3NFoQXWofk4rYxuJlbCiQUg1ZKxRduPtCM61f1UzSLjUk8g1pmHPUtQlao0nLJsvbra4C94yzVWTJUCvz3We8HhhIY/86aeGKCHST9hYoOoOTEida3rI4+Qc4G2A8iHBYJretCSaCJuRz3myIaumyE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HRoAsuoD; arc=none smtp.client-ip=74.125.229.6
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RYnRVJgf"
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-33e6279a1d7so3949662eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 18:50:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HRoAsuoD"
+Received: by mail-dy2-f6.google.com with SMTP id 5a478bee46e88-33e48934fa8so2265517eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 18:50:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791510614; x=1792115414; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=lV+huXTZ0xAteNiAHITrqOnDsRbJzozwdaHfD5FZYMc=;
-        b=RYnRVJgfmZjR0MfiaMShD93coy7/vpnP9Kd6hqtIK6bvlvCSltZ7cug/e8SlSzOpZO
-         GyRSBH9Hy1GCJIQHRsZ13AQyK9eHmxPjW9HwD/boqfIVFo3iM3KLdnnyBK9m9xh4bURM
-         vNhmWsEjRXI2sF0g2DTgtKdU77W6zhaquANGicZWQKv71DWn+WurZxMZkxDtjuRQw4si
-         BbvLIPmf+whfcKdWsx1ZVA2KqI8dtGf54DjkwGoCsXUcbnkMGX+bXfqnbk+L/aIDqtom
-         xbcEXhefFJmzPNMJESF7aDeRm0I8q9REJKmkPioKs3j7DHWvbtiabSGh1B2m+G6mn27q
-         SArg==
+        d=gmail.com; s=20251104; t=1791510625; x=1792115425; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WhHTyXZW81QBiMLsBQIivjraSKuuYTMoCEnOnmIA0xY=;
+        b=HRoAsuoDIH1uAorXcBeVa2O+PFRZVohxp5hCw8J6DNUp6pRtj50aUTm2qtkvnMymkY
+         gO/qYGDtdIcKvdKQ9sZoYU7hKlmDHmdLJYs9xD5uakN7NxQ+LmBxSLhEsqmz4r12ADSN
+         9OeCDz4zo5XwTDRu0fW4FEPiXe2XTwWPG7DtUVthNPSI5/fP3xdkAK0GJVMbjeaDjjCI
+         d8hPLGeRjfgt7RPLb1ZzzHBDoxHpHRuHlVIq1NgWV7T2B5Nxqi4Tbg3I8WMQ08g/uYet
+         varP65/ATwRvbPRFYWX3gKWMv74+UM5Lh0R/xbCAgKTpNQ5GMwruXoqfvAJ+VHRPlSbZ
+         MjMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791510614; x=1792115414;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=lV+huXTZ0xAteNiAHITrqOnDsRbJzozwdaHfD5FZYMc=;
-        b=FE0zk0ov7zQc5ehPGVYXcgch8fxPbeCZjX+ySit2BoAUf5X7yrXUJrHyPnuqruF3Fx
-         yk4i9K2rOfhiWkmfYUNa/zHTyc5eLnxavp6jjq+Zb+SfD2uE50yH1NtDJiJWskKCys3U
-         ygu2R/hq9RBC7bELw9oYSbaqLnJYc8l+20sp43EiZe7Zei/E+Cavxq47pcKYX6/CMboW
-         7GsUHogLGuwGMoZJwmrblF/W+gQYIV9kogBlB/zp8VLAItoOAvYkF/FrW0uug9hAzLCE
-         oDDq1o0mKq93RdMqfn6h2mTjo0MO+kKjP3Sji8N1LJMx8Li/wOzWr5hX5Ex8EUwEiFlM
-         kpkg==
-X-Forwarded-Encrypted: i=1; AKwUvBxEqtGvoWDEF1Sb5u72uG4dExsHUklCQu94ZdB/UYaLfQg8BRK89xjd5C+lRSb/bdOL4la3ln0EjPmJPso=@vger.kernel.org
-X-Gm-Message-State: AFuF++lwwOYOE9buBSDqSRZgTaiWGupUQ7RZeIJLrXCuUYkGFOIgtYjR
-	fHHMR/yuANMfziI1vP8VruU9n5g+Js1jSSgQrW7tqNGq1EUH1E/jpBmL
-X-Gm-Gg: AYBFou3j75GhJO+4KoZA0yozl3SF9VYc4mGVIGyG4r9iAYK+QoozzubvaJ9CPPTDnAe
-	dajX7cX4jift1nLGDjGUdh25+wLaqf8Y6Ih29hqNsGRTlKrBqCr1io8W8MymC1E+QWpOoyj95M5
-	e24bkD56fmF+nBnjzjAGyxTQ6fTBTIeiENAzJe3xeG45Rourd4h6z2GMWsUxPafSed5sgjLhG6B
-	l/FklORc2/tcwO0Zs4151iqL8CLomUC1jXyzaFMDd3TN7kDeKv8ujNDzppC532Z5jiSDo8at7Fs
-	z/cHAJioh6VMjK8CfNVB9eF1WmwZgZF4lFRGV+V4cAUOF6yxUDawfzPCVg6AieYZDv6RyYN+pWK
-	tJhhI8mcMbocKOBS5c73c959VW2YYXnUWxgtcPT1UPmlz0PXkiMXW5OlcQ+pQl0s9NlyVxuIpq6
-	D5tQD1oUaQKQ0bVx4O8YuvXxLOMnEBrbW2grCzxx36DHZKGzf3Nt1fzEhzAoi99HCOJQ==
-X-Received: by 2002:a05:701b:4588:20b0:151:ceb3:e0f2 with SMTP id a92af1059eb24-16a64aa0fc5mr502094c88.38.1791510613961;
-        Thu, 08 Oct 2026 18:50:13 -0700 (PDT)
-Received: from [127.0.1.1] ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb1e02asm2015555eec.27.2026.10.08.18.50.09
+        d=1e100.net; s=20260707; t=1791510625; x=1792115425;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WhHTyXZW81QBiMLsBQIivjraSKuuYTMoCEnOnmIA0xY=;
+        b=dFjqeiT+ktc11+bU1hnzMXzh74K8Do8Esc2ezkx0wmQ5yhhWbE7mVGuhVeKbHJW/yZ
+         UJeWMg+YHeK0NfUTQ3P4ZfRg7W+H+Cg9gt4kn04b4QsoN/1qVD2I2bjGKuibpSAvFNUZ
+         QOn95tE80MjDJGceiyioeu8pHYDz0yeQXS+YlW2NjDtBMP6MiAr0ChIwr9+fug3eD7iR
+         6T++UrbGlIHgnwRnYsRtAmf80om+5Bxcla84CGWTnhhu9Cw1xkeQB7hGHMiTQDoM21PW
+         XSmDfvjWq0Kmrz2oq8Dei+/GSPb7HhVwGbG9bcAtox7ZZGOXbhzLbczDUZrDLkopM5o/
+         QNQA==
+X-Forwarded-Encrypted: i=1; AKwUvBwtQYH6wN6OOUqCTFuVkx+oEcvtySPTWD0n1XASfebe6rJ0s0wXfszyJaxOdvs8bkBd8Ptt8gd9YnMI7LI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lAG9eLK/xBDmS3Xk8DF1M+C4cdHPMAOE8EsqeaX7YIprkxQZZq
+	YjdZpUBZLlU9NmpQ96mF6eGinGpqiAPaNYRWw24GKdbxCKa3Zx0pAo05SA1zjehP
+X-Gm-Gg: AYBFou3UuUI+lLMrVZdFiVMOzbstQQlIhr5y0u+/XYZaThSRyyKJ/Z4LEjQ+2XEmQIc
+	NLW3ZWAPWy5ZPA1lahKBGUsdb3VjR90Ab/2eCBD2WAfpOoTFsf6n5oT3/eeVbQ0Rwb9ZQLI1fCy
+	cArc5xAEucrVYnsmOUNvu+z+yKJ6Bai6fLHk3A9CGsIwp67XtTkNoo36TMIX5PMCAeHIiQTBdXi
+	bU4K+ee3eqeYB7CSKCuhKYUW9nI42XQ+Ac+dL9E2aoc5P7lH5xV1CVMVtxhfQ0MFzdkebDOPIZJ
+	xX3eBcjfPeOzuaXResXPPo8d0K0XfmiYuP9Ll4YI0hWtzbKhDOflOea/fQTF+HDuuaAwZbTNM8+
+	ONU5z3LmIFjOFsbJ4crrhtzvpnXE2TC5CrbEgVxh28jOQOPkWxT3jwl0s09VyfxmFFeN5U+bwo5
+	Q023NEUmsKhOeUNKssx4lkE4q1U+UJpwd4I1JvxBuOA4foD+SpAsbdtjjqUb4jfu8LhVf7QaqKW
+	XI9NSqnGr9JeunnsTSjwT9V3tNWo5B517reOQ==
+X-Received: by 2002:a05:701b:4212:20b0:168:e942:4e62 with SMTP id a92af1059eb24-16a61789c56mr512934c88.40.1791510624763;
+        Thu, 08 Oct 2026 18:50:24 -0700 (PDT)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-16996eac537sm1903698c88.1.2026.10.08.18.50.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 18:50:12 -0700 (PDT)
-From: Qiliang Yuan <odys.yuan@gmail.com>
-Date: Fri, 09 Oct 2026 09:50:07 +0800
-Subject: [PATCH bpf-next] selftests/bpf: Run tc_edt serially
+        Thu, 08 Oct 2026 18:50:24 -0700 (PDT)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: pkshih@realtek.com
+Cc: linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	phhuang@realtek.com,
+	luka.gejak@linux.dev,
+	rtl8821cerfe2@gmail.com,
+	johannes.berg@intel.com,
+	u.kleine-koenig@baylibre.com
+Subject: [PATCH] wifi: rtw88: sdio: copy RX status after updating the frequency
+Date: Fri,  9 Oct 2026 01:49:41 +0000
+Message-ID: <20261009014941.29137-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-selftests-bpf-tc-edt-serial-v1-1-f72e045f2465@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAE5IyGoC/x3M0QqDMAxA0V+RPC/QirrprwwfuppsAanSBBHEf
- 7fu8cLlHKCUhRSG6oBMm6gsqYR/VBB/IX0JZSoNtas771yPSjMbqSl+VkaLSJPhjYQZ+9i1gZ+
- eX00LRVgzsex//Q33nmg3GM/zApVBAT13AAAA
-To: Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
- Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
- Emil Tsalapatis <emil@etsalapatis.com>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, Shuah Khan <shuah@kernel.org>, 
- =?utf-8?q?Alexis_Lothor=C3=A9_=28eBPF_Foundation=29?= <alexis.lothore@bootlin.com>
-Cc: bpf@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>
-X-Mailer: b4 0.13.0
+Content-Transfer-Encoding: 8bit
 
-tc_edt shapes the traffic of a TCP connection between two netns to
-5Mbps with a BPF program, and checks that the rate it measures from the
-userspace sender and receiver is within 2% of the target.
+rtw_sdio_rx_skb() copies rx_status to the skb before calling
+rtw_update_rx_freq_for_invalid(). If the frequency is corrected, the skb
+still carries the old value when it is passed to mac80211.
 
-The measured time includes the time the sender and the receiver take to
-run. When test_progs runs other tests in parallel, the sender and the
-receiver compete with those for the CPUs, the transfer takes longer,
-and the measured rate falls outside of the 2% margin.
+Move the copy after the frequency update, as the PCI and USB RX paths
+already do.
 
-Make tc_edt a serial test.
-
-Fixes: b0f82e7ab6fb ("selftests/bpf: integrate test_tc_edt into test_progs")
-Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+Fixes: 53ed4b25a79a ("wifi: rtw88: 8822c: Parse channel from IE to correct invalid hardware reports")
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
 ---
- tools/testing/selftests/bpf/prog_tests/test_tc_edt.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Built the rtw88 directory on arm64 with GCC 13.3.0 and W=1, with
+RTW88_8723BS, RTW88_SDIO, RTW88_PCI and RTW88_USB enabled.
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/test_tc_edt.c b/tools/testing/selftests/bpf/prog_tests/test_tc_edt.c
-index 462512fb191f1..1e82d88c987a7 100644
---- a/tools/testing/selftests/bpf/prog_tests/test_tc_edt.c
-+++ b/tools/testing/selftests/bpf/prog_tests/test_tc_edt.c
-@@ -127,7 +127,7 @@ static void run_test(void)
- 		  "rate error is lower than threshold");
+A userspace test of the old and new receive function, with helper calls
+stubbed, confirmed that the corrected frequency reaches skb->cb.
+No hardware testing.
+
+ drivers/net/wireless/realtek/rtw88/sdio.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wireless/realtek/rtw88/sdio.c
+index dc2fd0f8f9ff..7c22f0ba5329 100644
+--- a/drivers/net/wireless/realtek/rtw88/sdio.c
++++ b/drivers/net/wireless/realtek/rtw88/sdio.c
+@@ -1332,8 +1332,6 @@ static void rtw_sdio_rx_skb(struct rtw_dev *rtwdev, struct sk_buff *skb,
+ 			    u32 pkt_offset, struct rtw_rx_pkt_stat *pkt_stat,
+ 			    struct ieee80211_rx_status *rx_status)
+ {
+-	*IEEE80211_SKB_RXCB(skb) = *rx_status;
+-
+ 	if (pkt_stat->is_c2h) {
+ 		skb_put(skb, pkt_stat->pkt_len + pkt_offset);
+ 		rtw_fw_c2h_cmd_rx_irqsafe(rtwdev, pkt_offset, skb);
+@@ -1346,6 +1344,7 @@ static void rtw_sdio_rx_skb(struct rtw_dev *rtwdev, struct sk_buff *skb,
+ 	rtw_update_rx_freq_for_invalid(rtwdev, skb, rx_status, pkt_stat);
+ 	rtw_rx_stats(rtwdev, pkt_stat->vif, skb);
+ 
++	*IEEE80211_SKB_RXCB(skb) = *rx_status;
+ 	ieee80211_rx_irqsafe(rtwdev->hw, skb);
  }
  
--void test_tc_edt(void)
-+void serial_test_tc_edt(void)
- {
- 	struct test_tc_edt *skel;
- 
 
----
-base-commit: e1d84a37cba984388988d2f1ddc84561413f0db2
-change-id: 20261009-selftests-bpf-tc-edt-serial-9c65af71f845
-
-Best regards,
+base-commit: 83de3a16c7b37064a59305040ba9b0f93b832794
 -- 
-Qiliang Yuan <odys.yuan@gmail.com>
+2.43.0
 
