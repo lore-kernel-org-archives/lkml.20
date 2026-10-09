@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36BF134CFB9
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 10:07:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0325A298CA5
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 10:07:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791540472; cv=none; b=f8iEAxTqOWnHUPiwCZ7Y1vr8Of/aee+/c+2YWWp5eG26Zmk3BfyAl0xwtpBanN4bL6SXhypi27oYxRFtvBOtOgXw/nkpjHESLHckB/96qdAXqWcNpvOsZWDc0s4Iq60phnl7ji491jXNArBPdacD6Jj7Ado1aJ/50zuQuZAvhc8=
+	t=1791540475; cv=none; b=MrAQiRInxQiQYC5be7r4chIEyjPH/KQjwDjO4LX/L4oy7ONiACJvE8ITK4jhf5WceCLeldLbmV3ZJArsfWvVLZfW8T20bBVSrEQADPMzKrrEIrV2I255VG3NpUw/xqvDXt6eOUXzwsu3gtlFyWFqPTRb4wtYIWPDcrFASOt1CqI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791540472; c=relaxed/simple;
-	bh=Rq/kuDq+rDL8Cxo8P2KFv74mO08o1Bg5PK9tRs/+gN8=;
+	s=arc-20240116; t=1791540475; c=relaxed/simple;
+	bh=H2pso/1jAKRy8QRPb4tMmjjGjmDL0+cZxHY8Cl6wvP0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZueGbGJgJSGzd6aleHVoIcZ4gmy4g577gYLYeNP9P/XLyaMSaMJebpYu69tBiaqk2Aae+1d1vDvCc6XrIApu9heJKYeF8rQXmOTnrfse/fz+fL4ipLrfmYQ4IbO30/zXeEogNLZyEydVXY9G4sakrnBhEeXnIkArFbllcmLaizk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KOQvmO+c; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Slt4K3V2hGxMhsQvQ0oKUwbTvikHMJF520Sd3YQ7ACtqZTH1PS+rsVHGVPgt1/byS0oBC3U1Vcm1WiBHKI8l0C5HCZOiOMkpcxNIzBrZoIqHTvIsICM510x670M2YIzGvOA4c8ob4s/7evo39424pRX0/lJw4Q4XT80eumf3S5g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=In3kowbK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KOQvmO+c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A92A41F00893;
-	Fri,  9 Oct 2026 10:07:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="In3kowbK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76BAC1F00899;
+	Fri,  9 Oct 2026 10:07:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791540470;
-	bh=Nmcl3acLOdghIcVWJGQcNUT1dxt+y4UDcmDoxuevzy8=;
+	s=k20260515; t=1791540474;
+	bh=pfHxhycY4c003LsMRsPy6F6Xh21xTwGQzv/lLDaJzCU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KOQvmO+cNIRV/YyuucnkVz9UG5LzNGDqnaVyRUMTsdkrXSJ8Fmzny2YgV2PDIB6+m
-	 0uWHPbFLAEtjvO9ZBI14iLjFnyycNHnPy9IBDCUZtTR9t+DC3r8tpZwUm8NSgOPkNU
-	 HPhj/vecc6HUAprhbE394HHGweNe+YxrdyhmvM8CAJjOzHscZZQ5IyCj/OHQX/KLed
-	 DAdR8KXvnhgw0ssXcFwYVzh3eYwxbQStAR+GWKNLAUpWJjiqqIpfgDYz7JSrmK8Rb+
-	 nYXjdXqaWwKNf7Pa+3ELyzZbOkVw9mXAGMZJ2S2LE2UaPWc5DJf13IUtl3Zzbkt5df
-	 LjldAEUGNy8pg==
+	b=In3kowbKxzi0zjMZuqzN80/iyK437ZerWuTZkRHz6Jyik7ekEn2cYLzTUoak3EWUd
+	 EjfkFJ9ZOzenPO/lmMhvKJlvq/Y/0tTyuLIUpaDWbf7hyWs5QacL9fDRzeZ1zkz3hq
+	 ClDcSUsA8cXXojGHySxdI7B0GCzCAkrjl2HDjG3zVCKGh6kQASybloEz4+HIcI3iw7
+	 8XzvEmG96MXY5TFBzKR7YEklflWXQiN+gIQZc9AdIBRpjRL3ig+Ih1OC0NERgxZvK6
+	 hSID8wHl5AQPNENRKy4yvp7Jo83XQuHjFY/r3TvDO+bHQdvRvoYs8+0ZUfwnAbMptz
+	 9LhUT8gZ//h+g==
 From: Will Deacon <will@kernel.org>
 To: linux-arm-kernel@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org,
@@ -44,9 +44,9 @@ Cc: linux-kernel@vger.kernel.org,
 	David Woodhouse <dwmw@amazon.co.uk>,
 	Peter Zijlstra <peterz@infradead.org>,
 	Marc Zyngier <maz@kernel.org>
-Subject: [PATCH v2 01/23] cpu/hotplug: Clean up cmpxchg() logic in cpuhp_can_boot_ap()
-Date: Fri,  9 Oct 2026 11:07:12 +0100
-Message-ID: <20261009100738.31288-2-will@kernel.org>
+Subject: [PATCH v2 02/23] cpu/hotplug: Avoid trying to bring up CPUs that are already online
+Date: Fri,  9 Oct 2026 11:07:13 +0100
+Message-ID: <20261009100738.31288-3-will@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261009100738.31288-1-will@kernel.org>
 References: <20261009100738.31288-1-will@kernel.org>
@@ -58,52 +58,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-cpuhp_can_boot_ap() uses atomic_try_cmpxchg() to transition the sync
-state of the incoming CPU to SYNC_STATE_KICKED. However, this is
-unnecessary if the state is SYNC_STATE_DEAD, since there will not be any
-concurrent state modifications, and also if the state is already set to
-SYNC_STATE_KICKED.
+There's little point trying to bring up a CPU that is already online.
+Although _cpu_up() handles this case by doing nothing (because the
+target state has already been reached), it's wasted effort when we can
+easily elide the call to cpu_up() in the first place.
 
-Restrict the use of cmpxchg() to the case where the existing state is
-SYNC_STATE_ALIVE.
+Check that the target CPU isn't already online before invoking cpu_up()
+from cpuhp_bringup_mask().
 
 Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
 Signed-off-by: Will Deacon <will@kernel.org>
 ---
- kernel/cpu.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ kernel/cpu.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/kernel/cpu.c b/kernel/cpu.c
-index b3c8553d7bd6..198c929c452a 100644
+index 198c929c452a..97a9bfe4edad 100644
 --- a/kernel/cpu.c
 +++ b/kernel/cpu.c
-@@ -408,22 +408,22 @@ static bool cpuhp_can_boot_ap(unsigned int cpu)
- 	switch (sync) {
- 	case SYNC_STATE_DEAD:
- 		/* CPU is properly dead */
-+		atomic_set(st, SYNC_STATE_KICKED);
- 		break;
- 	case SYNC_STATE_KICKED:
- 		/* CPU did not come up in previous attempt */
- 		break;
- 	case SYNC_STATE_ALIVE:
- 		/* CPU is stuck cpuhp_ap_sync_alive(). */
-+		if (!atomic_try_cmpxchg_relaxed(st, &sync, SYNC_STATE_KICKED))
-+			goto again;
- 		break;
- 	default:
- 		/* CPU failed to report online or dead and is in limbo state. */
- 		return false;
- 	}
+@@ -1769,7 +1769,8 @@ static void __init cpuhp_bringup_mask(const struct cpumask *mask, unsigned int n
+ 	for_each_cpu(cpu, mask) {
+ 		struct cpuhp_cpu_state *st = per_cpu_ptr(&cpuhp_state, cpu);
  
--	/* Prepare for booting */
--	if (!atomic_try_cmpxchg(st, &sync, SYNC_STATE_KICKED))
--		goto again;
--
-+	/* Continue with booting */
- 	return true;
- }
- 
+-		if (cpu_up(cpu, target) && can_rollback_cpu(st)) {
++		if (!cpu_online(cpu) && cpu_up(cpu, target) &&
++		    can_rollback_cpu(st)) {
+ 			/*
+ 			 * If this failed then cpu_up() might have only
+ 			 * rolled back to CPUHP_BP_KICK_AP for the final
 -- 
 2.56.0.385.gd3acb90ef8-goog
 
