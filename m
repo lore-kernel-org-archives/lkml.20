@@ -1,198 +1,208 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EA0137AA9E;
-	Fri,  9 Oct 2026 08:08:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 400C1414A1E
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 08:11:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791533347; cv=none; b=MFT0U6nKuQTBnhG9AOkaNHbPy3KdaKroUXWeNUAwequeV+SdKPp7GRRBcCPYz7rJgn9rcT1nu8uQHLXAHxp850RS9rrIZWnCOjkyXK1gJ1mli3dEgoHzKVG5H93kosR2WZECctKlwNAAq1GvhGgykEc1C4mUKjG1Po8ZdSyEjA8=
+	t=1791533500; cv=none; b=NaRLUntPhMghBMFK8eFlQO0wWdQg1qtxMBYA1FOzDUsRzVFcFxrQ/Skv/Jp2nR3efxOl9FJ+7Y38QbKkU5sWNHN9YfkR6U/UE5nJjmo8Emey9GZjpoUVjVsOl2D4v7UDP+5yxGbOfbr53VI5go79go4fRLn/sYqYITBbHc2df20=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791533347; c=relaxed/simple;
-	bh=YqCj2DI45rBAiCTfBWTa8ZEjISoBAV0jHOtCtO+LHRQ=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jS0ttkMeq4zm2YmJSLmAa+piaCYzQfSjNspGcELYcd3SaZfE1Qo5Zc5WnLX3BdSTJ7v30IPQR6CwMseEOgNXFZzIYRKhkTPXklwEOLVkcNfACnnW8C7lQpWVQwMw9jWAcCQKF2h4TMSZI7MR9XBdJkaumnu9mT/VwWuFak+H8e4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=UqPzd8aB; arc=none smtp.client-ip=68.232.153.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1791533500; c=relaxed/simple;
+	bh=HeDRxBrOSXPmm7ASKJRIpyryU/fNruS/AGxremEwaOY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=ZFGvW8kye1pO2QKZkGNjqXYdKea8wztlzwuXs9oDJvnlD2yqlI7ofC0TDiFRQPgZzGT5Bc0oRUjtH7GS/SLG51Qs7h5k7Din0Fs/m6bHpirZnjyaCKvfW02yTXjp+onOqCK0ldZEu9H9G15zTyYdo0XTHFTQvtWlLQOBW9VZ5+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dIdzoRW8; arc=none smtp.client-ip=209.85.210.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="UqPzd8aB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1791533339; x=1823069339;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=YqCj2DI45rBAiCTfBWTa8ZEjISoBAV0jHOtCtO+LHRQ=;
-  b=UqPzd8aBy8NXZI+M86dO/gZUwhbF9gDnB9DsUx1TMEWM0OBd+yLYgm/r
-   n+arK2euNP7kK70kKngZPgkMP+EzxUuHV1xlX7QXdqG6oSLM0PizIOQgE
-   HQDRqU6AE5gPqv3FnRRlwCXALW/5SRY/jeRlg5e+RFm5wi7QbPPVpxZSJ
-   8m37APXdsvMos/dIVGCZg00FxdPqu1/8122DlF26+3nR0jDbhwEIrwjvG
-   6EYThRS1lKaHyK8FTzh9B0qLqyPqI24UxA5DZ2NogwZ6Nd0q/0OyOYCTg
-   nAmaHRkNB4rHSj1bUNCsPzWlbEE1Lg89Z5wLnqECtmxWQa0mM05U9nlMQ
-   Q==;
-X-CSE-ConnectionGUID: dIsZ+WLRTeKwVkIRWHtgXQ==
-X-CSE-MsgGUID: vZlShO7RSgiWPTorujsFvg==
-X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
-   d="scan'208";a="75117816"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 01:08:52 -0700
-Received: from chn-vm-ex04.mchp-main.com (10.10.87.151) by
- chn-vm-ex3.mchp-main.com (10.10.87.32) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.49; Fri, 9 Oct 2026 01:08:51 -0700
-Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Fri, 9 Oct 2026 01:08:49 -0700
-Date: Fri, 9 Oct 2026 10:08:48 +0200
-From: Daniel Machon <daniel.machon@microchip.com>
-To: Kusuma Vasana <kusuma.vasana@amd.com>
-CC: <radhey.shyam.pandey@amd.com>, <andrew+netdev@lunn.ch>,
-	<davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
-	<pabeni@redhat.com>, <michal.simek@amd.com>, <git@amd.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<netdev@vger.kernel.org>
-Subject: Re: [PATCH net-next V4] net: axienet: Clear stale AXI DMA TX/RX
- status before re-enabling interrupts
-Message-ID: <20261009080848.peze77mpvcub5wqv@DEN-DL-M70577.microsemi.net>
-References: <20261005090106.1594994-1-kusuma.vasana@amd.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dIdzoRW8"
+Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-873a4edb243so4461743b3a.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 01:11:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791533490; x=1792138290; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jorHnXCyWEhW+lCsEocQ36hL6FicutQ3r2BseWpNOZY=;
+        b=dIdzoRW8h8uLimMoeMdBJAIFve+xvzY8S1SW/ZQvuzwXmTU4cCCIHWhFbLnjkIafnP
+         7m67OU67cyi13w7vxXp5lyZhH/hney9Em+7y29MQj4Q+NfQceWqZiBeTMmYDeHAMqFD1
+         AXTSuMNQpwjq3/L65N6IKEMHxuCYxQb/jbyjDtFNysR/3GTEhGQOyHs9PHWc6EvnPcru
+         B+0bF2b6Mk/2FnODWpSRZdgdjRzUkjf9HowN1Dv8V3Z/A4gdVSgqZeMUEd6xjhqWuuuD
+         Vp21ff+cFc2QPjQS5zosZE3vLtoXAGccPKXNrb6+unbZlTt3sLz9Vq24nnQyfwbeG7m8
+         d12Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791533490; x=1792138290;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jorHnXCyWEhW+lCsEocQ36hL6FicutQ3r2BseWpNOZY=;
+        b=U0hrREmgf9XkBlRlrW+V99eMiFBTnPNpw5+BGqwOAkhUUS3MTe3SClIeuDjc3Rj2SG
+         p58O2PIeo9sPtZKNnUs55d9wYzubea6WhY7UYlfaQrymB3Kxo+4VkwfC5iq5oz6Z3Gz0
+         w8UZWIhWFOFBxDv7sjqD7/IPIcBeEnNom9qfXiPKpvOZ6Gw1qy+xDAVXIsd991tvhoVa
+         SxafW7bNuPfzuZ3YGcVBboUuwTMVW9zD3B+uGs1my235jCW9TDvFMkG37DwCOaBtnBqV
+         hAMTJE+G5suiVyeF1iQcEw4oJ8BPhhuAv2kVRhOzA38deJqAuosxIVJGka89JQlCjgI1
+         rrng==
+X-Forwarded-Encrypted: i=1; AKwUvByOPfOYt7dZHqVh0+XidJ3QUFrkKyX3ycPPFprUoKDsa8WXiUtx4OdsvrkmSMy+6sdO4TsXVZaJ+E8dfVo=@vger.kernel.org
+X-Gm-Message-State: AFuF++nxWDF1iH8/1SBt38toQLIQEWE/BuaA+WmQSl3msbvRAIBzIebv
+	QHKg6enEvK7TGE5LQRQJ+Oq3VFpFIsdzfJdl521nu/t4r+2aJB9Ox75E
+X-Gm-Gg: AYBFou3Ez9tq4graGpRmA4Y70kc63ZNO61+yjW5Y3YYRWhxjqDHpgZniI9oa0NR6ElH
+	ZzODtybRg//NEkIsZDaqQiKDFW+nsZA6C3doyoS0earr/MdwYwXF6S7OOUqN8qXFAf6YDRPO2YN
+	N8kx5kmJ+3qTOEeZMzBgvS4eqeQ0msRLNoTdiTsJL5F08FYqVZ0AgMYIHXkYu0Asrq7rRMbSnaW
+	dAcCJhNFu8trPEylJvRozsvrBgAmTWJnCLKBtfgRF1VWKSBor2/4mFE37a9veIRMrNLKMefau9K
+	5ow1V0fWi0x+kzuhm14QbQP3vwscyoLcjT0AF1eOY4FHQ7TIju9gocW/ZMQLilPBmU8DoGQkI5+
+	WKJlmtVh8Jm0fM9DdNXd2iBuE9p7RFExvD6m1WxTwr6ye7Ln0pEDXzE9g9iTY2lW9Pm9MDp1+A9
+	WrpQwHrnsbEcpz4goHl4Zlw/efWr6vCGYsASemDPaDDzs7CmVsRn/0/qqNGSH0zziOJg==
+X-Received: by 2002:a05:6a21:600f:b0:3dd:85aa:4533 with SMTP id adf61e73a8af0-3e16be72365mr883547637.37.1791533490194;
+        Fri, 09 Oct 2026 01:11:30 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3d9e53f8bsm552895a12.24.2026.10.09.01.11.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 01:11:29 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: mark@fasheh.com,
+	jlbec@evilplan.org,
+	joseph.qi@linux.alibaba.com,
+	akpm@linux-foundation.org,
+	moonafterrain@outlook.com,
+	brauner@kernel.org,
+	rppt@kernel.org,
+	kees@kernel.org,
+	julia.lawall@inria.fr,
+	kurt.hackel@oracle.com
+Cc: ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com
+Subject: [PATCH] ocfs2: drain domain handlers before destroying the DLM worker
+Date: Fri,  9 Oct 2026 16:11:23 +0800
+Message-Id: <pm-ocfs2-objects-candidate-0056-v2-57239c657ac017b50fa1@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20261005090106.1594994-1-kusuma.vasana@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Kusuma,
+The domain workqueue must remain usable until every network handler that
+can submit work has finished. dlm_unregister_domain_handlers() removes
+handlers from the o2net lookup tree, but an already referenced handler can
+still run. Its dlm_grab() reference pins the context, not dlm_worker.
 
-A few comments:
+On the final local domain disconnect, a migration receive callback can
+have passed dlm_joined() before shutdown changes the domain state, yet
+still be preparing its work item when teardown destroys the queue:
 
-> The AXI DMA interrupt line is level-sensitive: it asserts whenever
-> the IOC (XAXIDMA_IRQ_IOC_MASK) or DELAY (XAXIDMA_IRQ_DELAY_MASK) bits
-> in the status register (XAXIDMA_TX_SR_OFFSET / XAXIDMA_RX_SR_OFFSET)
-> are set and their corresponding enable bits in the control register
-> are active.
-> 
-> During TX/RX, interrupts are disabled in the control register while
-> NAPI runs. Completions arriving in this window cause hardware to latch
-> IOC/DELAY into the status register regardless of the control register
-> mask state. After NAPI completion, re-enabling interrupts immediately
-> re-asserts the IRQ line due to these stale status register bits, even
-> when no new work is pending.
-> 
-> This results in a stale interrupt and redundant NAPI poll cycle with
-> no new work pending, causing unnecessary CPU processing.
-> 
-> In the initial driver, the status register was cleared after polling
-> all packets, which naturally consumed any status accumulated during
-> processing. In later versions of the driver, status register clearing
-> was moved to the ISR before polling begins, leaving no mechanism to
-> clear status bits that arrive during the NAPI poll window.
-> 
-> Clear the status register IOC/DELAY bits before re-enabling interrupts
-> and recheck the next BD to catch race-window completions. Both are
-> skipped on budget exhaustion. On the RX side, both are additionally
-> skipped on refill failure.
-> 
-> Signed-off-by: Kusuma Vasana <kusuma.vasana@amd.com>
-> ---
-> Changes in v4:
-> - Read back SR after W1C so the clear is posted before the BD recheck.
-> - Document that poll may return @budget on that recheck.
-> - Drop the incorrect "leave IRQ armed" wording for RX refill failure.
-> 
-> Changes in v3:
-> - Updated the commit description.
-> - Restricted TX/RX status-register clear and completion recheck to the
->   NAPI completion path, with RX only when refill succeeds.
-> - Rechecked descriptor completion after status-register clear to handle
->   race-window completions.
-> 
-> Changes in v2:
-> -Added net-next prefix in the subject
-> -Updated the commit description
-> 
-> ---
->  .../net/ethernet/xilinx/xilinx_axienet_main.c | 29 +++++++++++++++++--
->  1 file changed, 27 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-> index fcf517069d16..4d8169fc39cd 100644
-> --- a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-> +++ b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-> @@ -986,7 +986,8 @@ axienet_start_xmit_dmaengine(struct sk_buff *skb, struct net_device *ndev)
->   * @napi:      Pointer to NAPI structure.
->   * @budget:    Max number of TX packets to process.
->   *
-> - * Return: Number of TX packets processed.
-> + * Return: Number of TX packets processed, or @budget to continue polling
-> + * after a post-clear completion recheck.
->   *
->   * This function is invoked from the NAPI processing to notify the completion
->   * of transmit operation. It clears fields in the corresponding Tx BDs and
-> @@ -1018,6 +1019,17 @@ static int axienet_tx_poll(struct napi_struct *napi, int budget)
->                         netif_wake_queue(ndev);
->         }
-> 
-> +       /* Clear stale IOC/DELAY bits, flush the clear, and re-check for
-> +        * race-window completions. Skipped on budget exhaustion.
-> +        */
-> +       if (packets < budget) {
-> +               axienet_dma_out32(lp, XAXIDMA_TX_SR_OFFSET,
-> +                                 XAXIDMA_IRQ_IOC_MASK | XAXIDMA_IRQ_DELAY_MASK);
-> +               axienet_dma_in32(lp, XAXIDMA_TX_SR_OFFSET);
-> +               if (lp->tx_bd_v[lp->tx_bd_ci].status & XAXIDMA_BD_STS_COMPLETE_MASK)
-> +                       return budget;
-> +       }
-> +
+  o2net receive worker             Final domain teardown
+  --------------------             ---------------------
+  Get the handler reference
+  dlm_grab(); pass dlm_joined()
+                                   Unregister domain handlers
+                                   Stop the DLM threads
+                                   destroy_workqueue(dlm_worker)
+                                   dlm_worker = NULL
+  Publish the migration work item
+  queue_work(dlm_worker, ...)
 
-The patch does not apply on my tree.
+The handler lookup reference lets the callback continue after unregister.
+The work-list lock does not protect the queue lifetime, and destroying the
+queue drains submitted work without waiting for this producer. The late
+queue_work() therefore passes NULL to __queue_work() and crashes.
 
-This part was reworked in f9d58127380a ("net: axienet: do not report TX
-completions as NAPI work") to not return budget-sized work, it now just returns
-0.
+Use o2net_unregister_and_flush_handler_list() at the existing domain
+handler unregister point. Removing the handlers prevents new lookups,
+and flushing o2net receive work waits for already referenced callbacks
+and their post handlers. They can finish submitting while dlm_worker is
+still live; the subsequent destroy_workqueue() drains those submissions.
+The same unregister helper covers failed registration and join cleanup,
+without changing the DLM thread or workqueue teardown order.
 
->         if (packets < budget && napi_complete_done(napi, packets)) {
->                 /* Re-enable TX completion interrupts. This should
->                  * cause an immediate interrupt if any TX packets are
-> @@ -1204,7 +1216,8 @@ static void axienet_dma_rx_cb(void *data, const struct dmaengine_result *result)
->   * @napi:      Pointer to NAPI structure.
->   * @budget:    Max number of RX packets to process.
->   *
-> - * Return: Number of RX packets processed.
-> + * Return: Number of RX packets processed, or @budget to continue polling
-> + * after a post-clear completion recheck.
->   */
->  static int axienet_rx_poll(struct napi_struct *napi, int budget)
->  {
-> @@ -1301,6 +1314,18 @@ static int axienet_rx_poll(struct napi_struct *napi, int budget)
->         if (tail_p)
->                 axienet_dma_out_addr(lp, XAXIDMA_RX_TDESC_OFFSET, tail_p);
-> 
-> +       /* Clear stale IOC/DELAY bits, flush the clear, and re-check for
-> +        * race-window completions. Skipped on budget exhaustion and on
-> +        * refill failure (cur_p->skb == NULL).
-> +        */
-> +       if (packets < budget && cur_p->skb) {
-> +               axienet_dma_out32(lp, XAXIDMA_RX_SR_OFFSET,
-> +                                 XAXIDMA_IRQ_IOC_MASK | XAXIDMA_IRQ_DELAY_MASK);
-> +               axienet_dma_in32(lp, XAXIDMA_RX_SR_OFFSET);
-> +               if (cur_p->status & XAXIDMA_BD_STS_COMPLETE_MASK)
-> +                       return budget;
-> +       }
-> +
->         if (packets < budget && napi_complete_done(napi, packets)) {
->                 if (READ_ONCE(lp->rx_dim_enabled)) {
->
+KASAN report as below:
 
-I think the RX side looks good.
+    Oops: general protection fault, probably for non-canonical address 0xdffffc0000000038: 0000 [#1] SMP KASAN NOPTI
+    KASAN: null-ptr-deref in range [0x00000000000001c0-0x00000000000001c7]
+    CPU: 0 UID: 0 PID: 14 Comm: kworker/u8:1 Not tainted 7.3.0-rc4-next-20260921-pmb-bt-functional-v1+ #1 PREEMPT(lazy)
 
->struct dim_sample sample = {
-> --
-> 2.43.0
-> 
-> 
+[Hardware details omitted.]
 
-/Daniel
+    Workqueue: o2net o2net_rx_until_empty
+    RIP: 0010:__queue_work+0x9b/0x1600
+
+[Instruction and register dump omitted.]
+
+    Call Trace:
+     <TASK>
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx___queue_work+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? clear_pending_if_disabled+0x83/0x1c0
+     ? __pfx_clear_pending_if_disabled+0x10/0x10
+     ? __pfx_pmbd_probe_hit_cookie+0x10/0x10
+     ? dlm_mig_lockres_handler+0x984/0x1500
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lock_release+0xc8/0x290
+     queue_work_on+0xda/0xf0
+     dlm_mig_lockres_handler+0x9d5/0x1500
+     ? percpu_rwsem_wake_function+0x10/0x480
+     ? __pfx_dlm_mig_lockres_handler+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? trace_hardirqs_on+0x18/0x160
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? kvm_clock_get_cycles+0x31/0x60
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     o2net_rx_until_empty+0x1a55/0x32f0
+     ? reacquire_held_locks+0xdd/0x200
+     ? __pfx_o2net_rx_until_empty+0x10/0x10
+     ? lock_acquire+0x190/0x300
+     ? process_one_work+0x935/0x1b40
+     ? process_one_work+0x834/0x1b40
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lock_release+0xc8/0x290
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     process_one_work+0x9a8/0x1b40
+     ? __pfx_process_one_work+0x10/0x10
+     ? lock_acquire+0x190/0x300
+     ? lock_is_held_type+0x8f/0x100
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     worker_thread+0x65c/0xe40
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __kthread_parkme+0x177/0x220
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_worker_thread+0x10/0x10
+     kthread+0x351/0x460
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork+0x659/0x940
+     ? __pfx_ret_from_fork+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __switch_to+0x74f/0xf70
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork_asm+0x1a/0x30
+     </TASK>
+
+[Empty module list omitted.]
+
+    ---[ end trace 0000000000000000 ]---
+
+Fixes: 3156d2670166 ("ocfs2: move dlm work to a private work queue")
+Assisted-by: LLM
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+---
+
+diff --git a/fs/ocfs2/dlm/dlmdomain.c b/fs/ocfs2/dlm/dlmdomain.c
+index 97bb9400e24bbf6badea1339dd8de1623fe5bac5..b69baf99a4a6e4d5a5c51664625bafa905dc3bf5 100644
+--- a/fs/ocfs2/dlm/dlmdomain.c
++++ b/fs/ocfs2/dlm/dlmdomain.c
+@@ -1708,7 +1708,7 @@ static void dlm_unregister_domain_handlers(struct dlm_ctxt *dlm)
+ {
+ 	o2hb_unregister_callback(dlm->name, &dlm->dlm_hb_up);
+ 	o2hb_unregister_callback(dlm->name, &dlm->dlm_hb_down);
+-	o2net_unregister_handler_list(&dlm->dlm_domain_handlers);
++	o2net_unregister_and_flush_handler_list(&dlm->dlm_domain_handlers);
+ }
+ 
+ static int dlm_register_domain_handlers(struct dlm_ctxt *dlm)
