@@ -1,238 +1,94 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mta0.migadu.com (out-192.mta0.migadu.com [91.218.175.192])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38E6645A2BC;
-	Fri,  9 Oct 2026 14:21:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 494E64E2F1B
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 14:21:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.192
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791555672; cv=none; b=e7IpeE0G1bopVt9L+j6w8CaoxohGZLZR3o8M4tuW5L/K0K6B09/ajTT8xPB/4fj8qYu21KQaVvlyQSZPbDiwqk6o8vberae4Ita0rhhusT+CWvO47vcbD29IWyFFnmE4RLnciI+JKIbGNDAaruV9rum2KTgpgYpMBctBZNxATHs=
+	t=1791555685; cv=none; b=dYaaB2DRprpNoPhWKQtsSTvqL/nkh6J5EWWgvk6GgKz7+Rn/QNzhTk5XpvABhnwObGxRo06QwtfYkGTH0iMtgZp6i6US3fGyWYwBxdL0Zx+m8ILYbeEtUoEESplHteHkriU7oT+Lj3J5UDv0ooeLz9MA8W2U92zVW9ySg98hI7k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791555672; c=relaxed/simple;
-	bh=IpaHEDOQeCRuwwxOZqwR3Eiq9DxscZux6RqoYjr/snw=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=MknmmApXYu/jJbcZ83m0dCGDRyIHC9lKIxG5In67mKlVrwLp9J4XvTgNEfG3oCH9zz4EkUEpzYowJ89zKbHjUDI0H+JCdET8EPS8zWPnBilx7dk/kNduMy0Ib1r9fua21cBKaVnw7ZLoQVpei29OI+Z5UMNa/K1jE1Am1k/7/b0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.127])
-	by APP-03 (Coremail) with SMTP id rQCowADX4T9G+Mhqz14oCg--.5069S2;
-	Fri, 09 Oct 2026 22:20:54 +0800 (CST)
-Message-ID: <576dcb368d9d8c96226a27474f9427e6da2db1da.camel@iscas.ac.cn>
-Subject: Re: [PATCH 2/2] drm/loongson: Handle buffer mapping failures when
- clearing a BO
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Evanshenf
-	 <archwse@gmail.com>, dri-devel@lists.freedesktop.org, Natalie Vock
-	 <natalie.vock@gmx.de>, "Paneer Selvam, Arunpravin"
-	 <Arunpravin.PaneerSelvam@amd.com>
-Cc: Jianmin Lv <lvjianmin@loongson.cn>, Qianhai Wu <wuqianhai@loongson.cn>, 
- Huacai Chen <chenhuacai@kernel.org>, Mingcong Bai <jeffbai@aosc.io>, Xi
- Ruoyao <xry111@xry111.site>, Sui Jingfeng <suijingfeng@loongson.cn>,
- stable@vger.kernel.org, linux-kernel@vger.kernel.org, Huang Rui	
- <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, Matthew Brost	
- <matthew.brost@intel.com>
-Date: Fri, 09 Oct 2026 22:20:54 +0800
-In-Reply-To: <2b0d0a02-99a5-447a-8e3f-6154b2660425@amd.com>
-References: <20261003093415.e64386de1e64-1-archwse@gmail.com>
-	 <20261003093415.902f89244043-2-archwse@gmail.com>
-	 <f25629d4aa3c0132275b0a798e1491119fa8d502.camel@iscas.ac.cn>
-	 <2b0d0a02-99a5-447a-8e3f-6154b2660425@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	s=arc-20240116; t=1791555685; c=relaxed/simple;
+	bh=XumFm+JZ5sp20UCcl1zhPKdv9LGzZM2iFj9GOxKc9Og=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jyke/HMhkmSHNScNOHFg9ejvvm70WVguQMiuZIHCFsdEVmit8TskoLo79fIZebT7AGdtoDkR46QZ756RuGBv+9o8unsAF+Rw80aFdeANdN5pjUAYpk/AbbhDsRIbcVVBR+DXBVwQZcVoN7l0UHBLSsmkCemD4Z5gMFVQLApU440=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=rU7sJd0a; arc=none smtp.client-ip=91.218.175.192
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="rU7sJd0a"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=XumFm+JZ5sp20UCcl1zhPKdv9LGzZM2iFj9GOxKc9Og=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791555681; v=1; x=1792160481;
+ b=rU7sJd0aIZyW1n2XpvCgEvi4uvsqUf1ycvz5fvCBKAPzovW2xOyhs++OdP9ievfP5akKzAvO
+ D2NJqpSF4Zp5P+3jPCFxR0XX2AK/LPQNZsaAxaKu0ZFhpfyHv2qsQye7I58s70A9BYqilcMToZF
+ vVPVpz49013zzrF6jmvqa33o=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7c1bb6afa33d590d;
+	Fri, 09 Oct 2026 14:21:21 +0000
+X-Mizu-Trace-ID: 7c1bb6afa33d590d
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5ba429b64c5so7852e87.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 07:21:21 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwKs9PBBIGNDU+/X46vhAS/5yZ1cBYQrTGp9VaOWjmAIpwR3cJF8m/+65o1D6gMdOQ3Bq4lMRnAnoxWH4Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKctAbpp/chhsuorGXADB9EZUbO/6eLggMsXppmY2jS2OqGHhAr
+	uYOtJYF1uQkzUDZUAb8M/EFpUKZGZiHQV/iEHf+D3qe3UooOdz7CFre5f5i3nZHLVWxIeZOkdfi
+	aNXLDOG2Rv9FIoqaVNIioYlrcFv489OBCu+uMxufy
+X-Received: by 2002:a05:6512:1291:b0:5ae:cf5f:4a88 with SMTP id
+ 2adb3069b0e04-5bcdf948b64mr90202e87.8.1791555680353; Fri, 09 Oct 2026
+ 07:21:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-CM-TRANSID:rQCowADX4T9G+Mhqz14oCg--.5069S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3GF45uw1fZrykXrWfJr15XFb_yoW7AFWxpr
-	ZxAFyjkrWDXrnFkrnFqa4kC3WFya4Fgry7WFW5tasYg39Fyr17WF15WFWDCF9rZF17Ar12
-	vrn3G39xu3Wqy37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvvb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
-	w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
-	vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY
-	1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
-	C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
-	wI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
-	v20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
-	jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73Uj
-	IFyTuYvjxUqiFxDUUUU
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+References: <20261007073537.2454351-1-suzuki.poulose@arm.com> <179155224299.829527.1733164520192309991.b4-ty@b4>
+In-Reply-To: <179155224299.829527.1733164520192309991.b4-ty@b4>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Fri, 9 Oct 2026 15:20:44 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTymHEqCJco+d_yy33ndqPPsoZARhOQZ5A0Zwc5N3SV4Qg@mail.gmail.com>
+X-Gm-Features: AclHuK-kdu9KsnePYPGj9T-71wgfKb376h2mI-vnllt523DbHScqL5HOwi_XcNU
+Message-ID: <CA+EHjTymHEqCJco+d_yy33ndqPPsoZARhOQZ5A0Zwc5N3SV4Qg@mail.gmail.com>
+Subject: Re: [PATCH v23 00/14] KVM: arm64: CCA: Add basic plumbing for Realms
+To: Marc Zyngier <maz@kernel.org>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, will@kernel.org, catalin.marinas@arm.com, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org, 
+	gshan@redhat.com, joey.gouly@arm.com, yuzenghui@huawei.com, 
+	linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com, 
+	sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com, 
+	WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com, 
+	jonathan.cameron@oss.qualcomm.com, Sudeep Holla <sudeep.holla@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-=E5=9C=A8 2026-10-09=E4=BA=94=E7=9A=84 16:14 +0200=EF=BC=8CChristian K=C3=
-=B6nig=E5=86=99=E9=81=93=EF=BC=9A
-> On 10/9/26 15:50, Icenowy Zheng wrote:
-> > =E5=9C=A8 2026-10-03=E5=85=AD=E7=9A=84 09:34 +0000=EF=BC=8CEvanshenf=E5=
-=86=99=E9=81=93=EF=BC=9A
-> > > lsdc_bo_clear() ignores the return value from lsdc_bo_kmap() and
-> > > writes
-> > > to lbo->kptr unconditionally. When the first mapping of a newly
-> > > allocated
-> > > buffer fails, kptr is still NULL and the subsequent memset
-> > > accesses
-> > > it.
-> > >=20
-> > > Return the mapping error without touching the buffer and
-> > > propagate it
-> > > from lsdc_gem_object_create(). Install the GEM object functions
-> > > before
-> > > clearing so that drm_gem_object_put() can release the buffer
-> > > correctly
-> > > on failure. Do not add the failed object to the tracking list or
-> > > return
-> > > an uncleared buffer to the caller.
-> > >=20
-> > > Imported buffers still skip clearing, and successfully mapped
-> > > buffers
-> > > are cleared and unmapped as before.
-> > >=20
-> > > Tested on LS7A2000 with a one-shot range error in ttm_bo_kmap().
-> > > Its
-> > > -EINVAL return reached userspace, the object was destroyed once,
-> > > and
-> > > no GEM handle was published. Normal
-> > > create/map/zero/write/read/close
-> > > cycles passed, with the tracked BO count and VRAM usage
-> > > unchanged.
-> > >=20
-> > > AI assistance was used for the lifetime analysis, fix, fault-
-> > > injection
-> > > tools, build and test execution.
-> > >=20
-> > > Fixes: f39db26c5428 ("drm: Add kms driver for loongson display
-> > > controller")
-> > > Cc: stable@vger.kernel.org
-> > > Assisted-by: LLM
-> > > Signed-off-by: Evanshenf <archwse@gmail.com>
-> > > ---
-> > > =C2=A0drivers/gpu/drm/loongson/lsdc_gem.c | 12 ++++++++----
-> > > =C2=A0drivers/gpu/drm/loongson/lsdc_ttm.c | 10 ++++++++--
-> > > =C2=A0drivers/gpu/drm/loongson/lsdc_ttm.h |=C2=A0 2 +-
-> > > =C2=A03 files changed, 17 insertions(+), 7 deletions(-)
-> > >=20
-> > > diff --git a/drivers/gpu/drm/loongson/lsdc_gem.c
-> > > b/drivers/gpu/drm/loongson/lsdc_gem.c
-> > > index 2fb0348..9eba4e1 100644
-> > > --- a/drivers/gpu/drm/loongson/lsdc_gem.c
-> > > +++ b/drivers/gpu/drm/loongson/lsdc_gem.c
-> > > @@ -157,14 +157,18 @@ struct drm_gem_object
-> > > *lsdc_gem_object_create(struct drm_device *ddev,
-> > > =C2=A0		return ERR_PTR(ret);
-> > > =C2=A0	}
-> > > =C2=A0
-> > > +	gobj =3D &lbo->tbo.base;
-> > > +	gobj->funcs =3D &lsdc_gem_object_funcs;
-> > > +
-> > > =C2=A0	if (!sg) {
-> > > =C2=A0		/* VRAM is filled with random data */
-> > > -		lsdc_bo_clear(lbo);
-> > > +		ret =3D lsdc_bo_clear(lbo);
-> > > +		if (ret) {
-> > > +			drm_gem_object_put(gobj);
-> > > +			return ERR_PTR(ret);
-> > > +		}
-> > > =C2=A0	}
-> > > =C2=A0
-> > > -	gobj =3D &lbo->tbo.base;
-> > > -	gobj->funcs =3D &lsdc_gem_object_funcs;
-> > > -
-> > > =C2=A0	/* tracking the BOs we created */
-> > > =C2=A0	mutex_lock(&ldev->gem.mutex);
-> > > =C2=A0	list_add_tail(&lbo->list, &ldev->gem.objects);
-> > > diff --git a/drivers/gpu/drm/loongson/lsdc_ttm.c
-> > > b/drivers/gpu/drm/loongson/lsdc_ttm.c
-> > > index 88536e2..7b30dea 100644
-> > > --- a/drivers/gpu/drm/loongson/lsdc_ttm.c
-> > > +++ b/drivers/gpu/drm/loongson/lsdc_ttm.c
-> > > @@ -388,9 +388,13 @@ void lsdc_bo_kunmap(struct lsdc_bo *lbo)
-> > > =C2=A0	ttm_bo_kunmap(&lbo->kmap);
-> > > =C2=A0}
-> > > =C2=A0
-> > > -void lsdc_bo_clear(struct lsdc_bo *lbo)
-> > > +int lsdc_bo_clear(struct lsdc_bo *lbo)
-> > > =C2=A0{
-> > > -	lsdc_bo_kmap(lbo);
-> > > +	int ret;
-> > > +
-> > > +	ret =3D lsdc_bo_kmap(lbo);
-> > > +	if (ret)
-> > > +		return ret;
-> > > =C2=A0
-> > > =C2=A0	if (lbo->is_iomem)
-> > > =C2=A0		memset_io((void __iomem *)lbo->kptr, 0, lbo-
-> > > >size);
-> > > @@ -398,6 +402,8 @@ void lsdc_bo_clear(struct lsdc_bo *lbo)
-> > > =C2=A0		memset(lbo->kptr, 0, lbo->size);
-> > > =C2=A0
-> > > =C2=A0	lsdc_bo_kunmap(lbo);
-> > > +
-> > > +	return 0;
-> > > =C2=A0}
-> > > =C2=A0
-> > > =C2=A0int lsdc_bo_evict_vram(struct drm_device *ddev)
-> >=20
-> > Well I currently don't know whether the clearing is meaningful...
-> >=20
-> > It seems that drm_gem_vram_helper doesn't do this.
-> >=20
-> > Cc'ing TTM maintainers for an answer.
->=20
-> Natalie and Arun are TTM maintainers now, but I will try to answer
-> here as well.
+Hi Marc,
 
-Ah I heard about TTM maintenance change, but I used the mailing
-addresses in v7.3-rc6.=20
+On Fri, 09 Oct 2026 14:28:03 +0100, Marc Zyngier <maz@kernel.org> wrote:
+[...]
+> Of course, mmu.c is where the crap happens, so anyone with any interest
+> in this stuff being halfway sane, please review the conflict resolution.
 
->=20
-> OpenGL doesn't necessarily require clearing of VRAM nor isolation of
-> VRAM data between processes.
->=20
-> So it is up to the driver if they want this or not. Classically a lot
-> of drivers didn't clear VRAM allocations until explicitely asked.
+I went through the mmu.c resolution and it looks good to me. Unmap and
+aging are still no-ops for protected VMs, their abort handler is
+unchanged, and the default op keeps the tracked unmap for nested MMUs.
+Two minor things you might want to tidy up.
 
-Then in this case I think it's better to just remove the VRAM clearing
-code -- this driver is even not related to render acceleration at all
-now (and getting rendering to work would be so hacky because loongson
-DC's are paired with either Vivante GPUs with dedicated VRAM or
-proprietary GPUs).
+kvm_vm_stage2_unmap_range() repeats the lockdep_assert_held_write()
+and WARN_ON(size & ~PAGE_MASK) that kvm_stage2_unmap_range() already
+does before calling the op.
 
->=20
-> But if you clear the memory you should have proper error handling and
-> a kmap/vmap can fail at any time for multiple reasons.
+The VM_WARN_ON_ONCE() in kvm_vm_mem_abort() reads the ESR from the
+vcpu again, where next had moved these checks to s2fd->esr. It's the
+same result today, since the only caller handles a real abort, but
+this (and dropping the vcpu local) would keep it in line with the
+rest:
 
-Yes, if the other maintainers prefer to keep the memory clearing code,
-I will accept this specific patch.
+        VM_WARN_ON_ONCE(kvm_s2_fault_is_perm(s2fd) &&
+                        !esr_abt_is_write_fault(s2fd->esr) &&
+                        !kvm_s2_fault_is_exec(s2fd));
 
-Thanks,
-Icenowy
-
->=20
-> Regards,
-> Christian.
->=20
-> >=20
-> > Thanks,
-> > Icenowy
-> >=20
-> > > diff --git a/drivers/gpu/drm/loongson/lsdc_ttm.h
-> > > b/drivers/gpu/drm/loongson/lsdc_ttm.h
-> > > index 843e147..df47d9b 100644
-> > > --- a/drivers/gpu/drm/loongson/lsdc_ttm.h
-> > > +++ b/drivers/gpu/drm/loongson/lsdc_ttm.h
-> > > @@ -89,7 +89,7 @@ size_t lsdc_bo_size(struct lsdc_bo *lbo);
-> > > =C2=A0
-> > > =C2=A0int lsdc_bo_kmap(struct lsdc_bo *lbo);
-> > > =C2=A0void lsdc_bo_kunmap(struct lsdc_bo *lbo);
-> > > -void lsdc_bo_clear(struct lsdc_bo *lbo);
-> > > +int lsdc_bo_clear(struct lsdc_bo *lbo);
-> > > =C2=A0
-> > > =C2=A0int lsdc_bo_evict_vram(struct drm_device *ddev);
-> > > =C2=A0
-> >=20
-
+Cheers,
+/fuad
