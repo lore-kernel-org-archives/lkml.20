@@ -1,64 +1,64 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26BC93C09F5
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 16:58:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 394723BBFCB
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 16:58:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791565136; cv=none; b=cXniureHVlJArfJd3pif56JBIZIfrfiEsYaBpJiaaSeqUcKxSLh+QBcipkVtSEBIPC6D9a1HMWfdrVisKEhcVIOxTgBfrJ4YYbHtFzAcRTXMerPmzyv9wA8wy2WWblXHgJZj+XLVMFuym1SMeLF/BHN7tn8/hQyGoYixTVPQt6E=
+	t=1791565138; cv=none; b=cxz/VsmTkKPDIhCjJf19tkP6knapqw+H+IDgEeVD/KQjZFZpiC1F6DvFNgf+5mucBgoi1WKlUWiaOLXB8jrST8QdCTdHWslPRpB9N9pvfV2u2IIzG4yvNTkJ+6N3Y0LXFqLaQFdn89yC9WJQ8/1bmWGzqIkBB1erCrAEWFLNJeo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791565136; c=relaxed/simple;
-	bh=KKv4PXfGKaQNlVOdkmN184+RSh/O3hDUb5OakGaY9bE=;
+	s=arc-20240116; t=1791565138; c=relaxed/simple;
+	bh=V8cThIRNCnyo9xKKWRG1mucBjPJoc5uJWaiptO5+CE8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nxo/LTcVu70lM8ujPlxb5RgSf3eP9QgKf69YQBy5qvR4s7/0gXtzPasN3VqYi3xigwM00X5x7+hc/Obkf5wySibYaAZk839FfP6Uz0pPn/dIJGI2YTJlOIH+SlKqBbETk4wauoXqFvR5rt5Ta9Ay62CeGk/2yD7gk/rBef9wQBs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CWTFFyjm; arc=none smtp.client-ip=209.85.210.179
+	 MIME-Version; b=oKJs2MSV/13b3Hw94RG1LmpoCAieXCR8+V6zuliAUjkv3Q0wKGmc9s3978y2JuMZhwraXnJBMLrPI1mZ1fPKyKXGnV/Vdo3Hj8rwLjc+NdZdpyR8nhC1CDoZtXLbnxyvdMFEgfOPjqxwKORlJwLerI1kHq4tfXt2NUe8acZFL9Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L0hTFdR5; arc=none smtp.client-ip=209.85.210.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CWTFFyjm"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-887a58523e6so2060268b3a.3
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 09:58:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L0hTFdR5"
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-892734ce7e6so1621560b3a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 09:58:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791565132; x=1792169932; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791565135; x=1792169935; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=I3W2ejNmwhlpisaGyVZNvixyoYWJxUsPffTK5W02M7s=;
-        b=CWTFFyjmfRISbQGJhgnSYAPPyR9rv+rq0ar6LXVBN63szj7cxdp9BExMf3y5mPduOJ
-         Z20fKtP6XRZ29b4gLnt96W5pav+NAjXBEW3UcGL+g94ap5Ua0QBJVSYv3PbGsecRRcXF
-         VCKxnMs72kW4hYO2jqKbhitpoYjcSBeBCCscTvtGS9G83D2nusJad/Ofp0S3NmMuBT/o
-         sNAUPBHGL3fdGiT1wFz2ZUT5Ep7/bdlc4wk1BsbqHEp/ku+AzqXYEptvw2XjmIJcyvRn
-         qfupG73I+wUi46kKEbEa1Ya7H8w4CeIgkVIFow5iRDvoKerGLX9d6XfjL/dh6KjBETME
-         By6w==
+        bh=j8HVGg1UwL+foMzId5fbWtScAv0iyZ12Lp0YwhWR+Iw=;
+        b=L0hTFdR5coto+rY30vOtrg3PEJ91MD/Xf7PBSKT7ztifTOH2ILTeUE6yNZaP3ZrvPr
+         /t4GemLYOpEe8KbPqoOGyhylh3Gp6XIb8I8nv4hSAgfBBN/iWHzo51ZnesfLmX4IZK5d
+         2xvF57U+DoyrmB99RK2bxTEp88i6giAVGjDscTzLb1WuL2fVFsQLCao5a1wjmZAvJpe3
+         d20OUQiAdVgkPlyjuOBYj0a2DVM4WuOkscy/4jl5nMV9kxF8eYqftFnVxqNJ5S6sCrwh
+         3Ms0ef9brYYXZMERS2WXwhwEZysbmVCI8ubGW8fdKMqgXGDV7vJGP4XHFUgduryp422T
+         6SsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791565132; x=1792169932;
+        d=1e100.net; s=20260707; t=1791565135; x=1792169935;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=I3W2ejNmwhlpisaGyVZNvixyoYWJxUsPffTK5W02M7s=;
-        b=LEpjzKLWKEd5d8dA0gVaU1/fmISPR0ihnscZxpIb8AQeFmEFBNiTp4iW4pOEuNFzgU
-         39Ct2taEGFl7lfw6JUDANtrlj8T/i+HIiZ7tHEYwn0+17JSJvlxEG0mmaKJsbCUgQTtS
-         KNJbMLQ85/yKSieG9PlzTGv8UBm4dmMGz00bPmlyYLUylV1TALNhq9I+JefhD2/5J+Di
-         lB/Tl8ckMHY0A2hEq1qXsPWBk6fvXr8t/P/Y6OD8gIxvHJlY5D1NIqIReo85Q1aNvxPl
-         2Q73GZ3elbkTAFPxVNOC9bKM+w5tNUaTX3cKPR8SBDPkuOI12L8k0X8PctESNOt9G8Qg
-         LixA==
-X-Forwarded-Encrypted: i=1; AKwUvBzoWrV/RaHNGTp3bQ5fqCLQGkc5uwKxsNFV374Sh1VhDUuaoMGcBs9oXvl/kxMSxV4S5Op8CsZBEYvoV6k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJvKFIO/2/u8pwdSxbQSrccff9WNGUkh0VwN1ysHIkqBxK/lH8d
-	4TkCwc70vW7CczOuyFh5n7y2mWqzhKiZZGdBUSugv2hbLQ8hHU4T6tCY
-X-Gm-Gg: AYBFou2FsdJcz2Hab3ChWblz06NJC1pPaQszfgmiSaUS+R75BH2skP3XjqHQvBqxmgV
-	Lw3BWNvtLg8zdLPQ1GuvUjMGwiLgPkpRi/p7qdfLE39CghfU1275gdvJGlZCGSTdNux+yR8OXXI
-	00oQ5SQ87zoNLDYW2jmzEvYAvpwCGOV4ThddzlKJnxbu0y4R99TLpsgc3z7ao+RShshZxhtBdUo
-	dvJ9KgAaB5x+F4pzEyH4djAPjK25Lpq371U3n5PEE/yT2PCKU4CoYTAFkDMNy6QtfjZDTFCYmwL
-	vEfRuZ/0t1A72bYwWQ/4AkJmoMnDhbSiSx7reXWLyVS/2F0dXwFOpfJQytaWCj3hbxmQ/DgDswJ
-	Z2VoUCWMLDPFAZKT7JQhpzN7EsjP1Icro9Af0Kot4eOgjZmZowctX1ortusLVmi/ijkHY1GTBks
-	JhnJ7D1Cf2c2l2VsRunbsO3TmiRwshfAoEfmWj1T4IRPb3smztxNr0SfPVZeKmPHKTYQn4JxwWJ
-	ZlFAaxc35bGzNjCcLpXbKYceQ==
-X-Received: by 2002:a05:6a00:3004:b0:87c:f67f:f7d3 with SMTP id d2e1a72fcca58-897c14ead54mr1891350b3a.0.1791565132289;
-        Fri, 09 Oct 2026 09:58:52 -0700 (PDT)
+        bh=j8HVGg1UwL+foMzId5fbWtScAv0iyZ12Lp0YwhWR+Iw=;
+        b=a2lMzD664kZDMWioBrbopkky1ocd/9zzvfLDpGLj509vIDk05E1TpXs4YPsBhNvNm8
+         y/1R/EVRKz3ADSXrsDvQ0mi+yfFWvqtwCAIiu9hjJr8aK0b/m/0j7lcGMJPb/zwBFBXr
+         7y/xnCv8T9qFBPCPBOkxPqz70eKsBFFpdSOh4Kz33Du2T2HaCLNNl4gLUruc4rQnTacv
+         9YYE1/NWIwnY9HdzQJU3d7tS073ZmyqAFSBMyLGvq/BJ5gQPRcJiNjL5/t+24SrnGRx6
+         +HLtx2HObdcmJagvN9MMtPB2kvRiJKmM1BmhiNu/JR9Czbyejqo1eKeDkiI202GZO0fJ
+         sJYQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwJC3Y/PTnjSgF8EAxqsTibQK36NMer1OGC6q7OlSwboQ0xkbbWgkx/R8uS57gLVVExUsMyK6uyakEgS8I=@vger.kernel.org
+X-Gm-Message-State: AFuF++m33cfoyIV0PMyC6B2LT90WpF4+GtV6g/KUfeiFlKE3Ul5DOYfr
+	7L0ca6LirLXTPWjRC/YtlpHN4Zw5jkskX2+iP7Mr6eG/x7f3dZU2/RFh
+X-Gm-Gg: AYBFou1LaCYgt+TbEtAk6RxsfUZTHLmpdoluLA4ZLAinmUedOu6qiitfugbvp9ulWsP
+	Lrc+7mlGm31yztxiAF08mvNwStx9ll4cqQGoGmrMv3lOEMzNdyMn+fVQkMbvihK8vgBDFYrVOtS
+	RitzO4nBUhYbsNqodOqzc4+IHA3ooymVrmiFFk19WJA70XuKU12yhm7BrU0jWnTwVibitpwFbQd
+	FhrmHey+kZESDKhmVW/xXzCUeDg/26Pt2dmsI0Us8A0iavc1AqxJ1htbsCg6EfuZ3SrrDdGetHi
+	Z20hvx83InBbZHW3cB9w8hqeDC24ssNzFgJiDZ9dwmWJ5EiC7WoqjcFvLtO0y+7itonpaWzcU/W
+	tvOZwKsdqyV0fGSk4lbSlvdU/W9yc0Jq3z7EzJNB2/40kD+m+GDt/UbAcAcSN69n6Lv0nbXcdPt
+	xD91FT1kkzIcwytx9FryPjwOWj9Yrkttzq5Ug8LI6ThZ+GAZhW/s6qtFNMX/SJpBcvkeGLePAZF
+	ig4k8K9guAh9+DUJMmUDT39Cg==
+X-Received: by 2002:a05:6a20:431e:b0:3de:3f4d:f2ed with SMTP id adf61e73a8af0-3e16bfcea5bmr2254422637.36.1791565135388;
+        Fri, 09 Oct 2026 09:58:55 -0700 (PDT)
 Received: from d.home.yangfl.dn42 ([2a09:bac5:661c:1246::1d2:d1])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c37de994sm1494437b3a.26.2026.10.09.09.58.49
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c37de994sm1494437b3a.26.2026.10.09.09.58.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 09:58:51 -0700 (PDT)
+        Fri, 09 Oct 2026 09:58:54 -0700 (PDT)
 From: David Yang <mmyangfl@gmail.com>
 To: netdev@vger.kernel.org
 Cc: David Yang <mmyangfl@gmail.com>,
@@ -69,9 +69,9 @@ Cc: David Yang <mmyangfl@gmail.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v3 3/4] net: dsa: motorcomm: Enable ACL on demand
-Date: Sat, 10 Oct 2026 00:58:21 +0800
-Message-ID: <20261009165825.359259-4-mmyangfl@gmail.com>
+Subject: [PATCH net-next v3 4/4] net: dsa: motorcomm: Add TC prio support
+Date: Sat, 10 Oct 2026 00:58:22 +0800
+Message-ID: <20261009165825.359259-5-mmyangfl@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261009165825.359259-1-mmyangfl@gmail.com>
 References: <20261009165825.359259-1-mmyangfl@gmail.com>
@@ -83,183 +83,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Track the usage of ACL rules and enable it per port only when it is
-actually used. This is aligned with ODM recommendations and helps reduce
-latency.
+The HW orders ACL rules by the 9-bit ORD field (512 values, larger
+matching first), while TC priorities span 1..U16_MAX with the smallest
+meaning the highest. Map them as evenly as possible, and reject others
+which do not map onto a hardware order instead of silently colliding
+with a neighbouring one.
 
 Signed-off-by: David Yang <mmyangfl@gmail.com>
 ---
- drivers/net/dsa/motorcomm/chip.h |  2 +
- drivers/net/dsa/motorcomm/tc.c   | 70 ++++++++++++++++++++++++++++----
- 2 files changed, 64 insertions(+), 8 deletions(-)
+ drivers/net/dsa/motorcomm/tc.c | 35 +++++++++++++++++++++++++++++++++-
+ drivers/net/dsa/motorcomm/tc.h |  1 +
+ 2 files changed, 35 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/dsa/motorcomm/chip.h b/drivers/net/dsa/motorcomm/chip.h
-index 012de4f444f5..7047ad98f431 100644
---- a/drivers/net/dsa/motorcomm/chip.h
-+++ b/drivers/net/dsa/motorcomm/chip.h
-@@ -462,6 +462,8 @@ struct yt921x_port {
- 	/* BR_ISOLATED */
- 	bool isolated:1;
- 
-+	unsigned short acl_cnt;
-+
- #if IS_ENABLED(CONFIG_NET_DSA_YT921X_LEDS)
- 	unsigned char led_duty;
- 	unsigned short led_cycle;
 diff --git a/drivers/net/dsa/motorcomm/tc.c b/drivers/net/dsa/motorcomm/tc.c
-index be3321df8868..a302016912b5 100644
+index a302016912b5..3e0f80500f41 100644
 --- a/drivers/net/dsa/motorcomm/tc.c
 +++ b/drivers/net/dsa/motorcomm/tc.c
-@@ -1055,6 +1055,19 @@ yt921x_acl_rule_ext_parse_flow(struct yt921x_acl_rule_ext *ruleext, int port,
- 	return 0;
- }
- 
-+/* Ports that _should_ have ACL activated on. ACL_PORT \succeq activated_ports()
-+ */
-+static u16 yt921x_acl_activated_ports(const struct yt921x_priv *priv)
-+{
-+	u16 mask = 0;
-+
-+	for (int port = 0; port < YT921X_PORT_NUM; port++)
-+		if (priv->ports[port].acl_cnt)
-+			mask |= BIT(port);
-+
-+	return mask;
-+}
-+
- static unsigned int
- yt921x_acl_find(const struct yt921x_priv *priv, enum tc_setup_type type,
- 		unsigned long tag)
-@@ -1199,10 +1212,15 @@ yt921x_acl_del(struct yt921x_priv *priv, enum tc_setup_type type,
+@@ -1029,7 +1029,10 @@ yt921x_acl_rule_ext_parse_flow(struct yt921x_acl_rule_ext *ruleext, int port,
+ 			       const struct flow_cls_offload *cls, bool ingress,
+ 			       struct yt921x_priv *priv)
  {
- 	struct yt921x_acl_rule *aclrule;
- 	struct yt921x_acl_blk *aclblk;
-+	bool refresh_en = false;
- 	unsigned int binid;
- 	unsigned int blkid;
- 	unsigned int entid;
-+	unsigned long m;
-+	unsigned int o;
-+	u32 ctrl;
- 	int res;
-+	int ret;
- 
- 	entid = yt921x_acl_find(priv, type, tag);
- 	if (entid == UINT_MAX)
-@@ -1214,9 +1232,27 @@ yt921x_acl_del(struct yt921x_priv *priv, enum tc_setup_type type,
- 	aclrule = aclblk->rules[binid];
- 
- 	aclblk->rules[binid] = NULL;
--	res = yt921x_acl_commit(priv, entid, aclrule->mask);
-+	ret = yt921x_acl_commit(priv, entid, aclrule->mask);
- 	/* the kernel never rolls back on failure */
- 
-+	m = FIELD_GET(YT921X_ACL_KEYb_SPORTS_M, aclrule->entries[0].key[1]);
-+	for_each_set_bit(o, &m, YT921X_PORT_NUM) {
-+		struct yt921x_port *pp = &priv->ports[o];
-+
-+		if (!WARN_ON(!pp->acl_cnt)) {
-+			pp->acl_cnt--;
-+			if (pp->acl_cnt)
-+				continue;
-+		}
-+		refresh_en = true;
-+	}
-+	if (refresh_en) {
-+		ctrl = yt921x_acl_activated_ports(priv);
-+		res = yt921x_reg_write(priv, YT921X_ACL_PORT, ctrl);
-+		if (res)
-+			ret = res;
-+	}
-+
- 	if (aclrule->action[0] & YT921X_ACL_ACTa_METER_EN)
- 		clear_bit(FIELD_GET(YT921X_ACL_ACTa_METER_ID_M,
- 				    aclrule->action[0]),
-@@ -1227,7 +1263,7 @@ yt921x_acl_del(struct yt921x_priv *priv, enum tc_setup_type type,
- 		kvfree(aclblk);
- 		priv->acl_blks[blkid] = NULL;
- 	}
--	return res;
-+	return ret;
- }
- 
- static int
-@@ -1240,11 +1276,12 @@ yt921x_acl_add(struct yt921x_priv *priv,
- 	struct yt921x_acl_blk *aclblk;
- 	bool use_trap = false;
- 	unsigned int meterid;
--	unsigned long mask;
- 	unsigned int binid;
- 	unsigned int blkid;
- 	unsigned int entid;
-+	unsigned long m;
- 	unsigned int o;
-+	u32 ctrl;
++	const unsigned int scale = (U16_MAX + 1) / YT921X_ACL_ORD_NUM;
+ 	struct netlink_ext_ack *extack = cls->common.extack;
++	u32 prio = cls->common.prio;
++	u32 ord;
  	int res;
  
- 	/* Allocate resources */
-@@ -1293,8 +1330,8 @@ yt921x_acl_add(struct yt921x_priv *priv,
- 
- 	/* Replace the placeholder resource IDs */
- 	aclrule->mask = 0;
--	mask = priv->acl_masks[blkid];
--	for_each_clear_bit(o, &mask, YT921X_ACL_ENT_PER_BLK) {
-+	m = priv->acl_masks[blkid];
-+	for_each_clear_bit(o, &m, YT921X_ACL_ENT_PER_BLK) {
- 		aclrule->mask |= BIT(o);
- 		entscnt--;
- 		if (!entscnt)
-@@ -1312,21 +1349,39 @@ yt921x_acl_add(struct yt921x_priv *priv,
- 	else
- 		aclrule->action[0] &= ~YT921X_ACL_ACTa_METER_EN;
- 
-+	/* Activate ACL if needed */
-+	ctrl = 0;
-+	m = FIELD_GET(YT921X_ACL_KEYb_SPORTS_M, ruleext->r.entries[0].key[1]);
-+	for_each_set_bit(o, &m, YT921X_PORT_NUM)
-+		if (!priv->ports[o].acl_cnt)
-+			ctrl |= YT921X_ACL_PORT_PORTn(o);
-+	if (ctrl) {
-+		ctrl |= yt921x_acl_activated_ports(priv);
-+		res = yt921x_reg_write(priv, YT921X_ACL_PORT, ctrl);
-+		if (res)
-+			goto err;
-+	}
-+
- 	/* Write rules */
- 	aclblk->rules[binid] = aclrule;
- 	res = yt921x_acl_commit(priv, entid, aclrule->mask);
- 	if (res) {
- 		aclblk->rules[binid] = NULL;
--		kvfree(aclrule);
- 		goto err;
+ 	if (!ingress) {
+@@ -1042,6 +1045,36 @@ yt921x_acl_rule_ext_parse_flow(struct yt921x_acl_rule_ext *ruleext, int port,
+ 		return -EOPNOTSUPP;
  	}
  
-+	/* Bookkeeping */
-+	m = FIELD_GET(YT921X_ACL_KEYb_SPORTS_M, ruleext->r.entries[0].key[1]);
-+	for_each_set_bit(o, &m, YT921X_PORT_NUM)
-+		priv->ports[o].acl_cnt++;
++	/* Lower TC priorities take precedence, while larger orders win in
++	 * hardware. Spread the 512 hardware orders over the TC priority range
++	 * as evenly as possible, retaining the relative order:
++	 *
++	 *   prio 65535 -> ORD 0    catchall filter
++	 *   prio 65408 -> ORD 1    highest mappable TC priority
++	 *   ...
++	 *   prio 49152 -> ORD 128  default value for the first tc flower rule
++	 *   ...
++	 *   prio   128 -> ORD 511
++	 *   prio     0             (invalid TC priority)
++	 *
++	 * The catchall filter always comes with priority 65535; pin it to ORD
++	 * 0, the lowest hardware order, instead of rejecting it.
++	 *
++	 * Prefer explicit rejects over implicit behaviour changes: reject
++	 * the priorities which do not map onto a hardware order instead of
++	 * silently colliding with a neighbouring one.
++	 */
++	if (prio == U16_MAX) {
++		ord = 0;
++	} else if (!(prio % scale)) {
++		ord = YT921X_ACL_ORD_NUM - prio / scale;
++	} else {
++		NL_SET_ERR_MSG_FMT_MOD(extack,
++				       "Invalid priority %u, must be a multiple of %u or 65535",
++				       prio, scale);
++		return -EOPNOTSUPP;
++	}
 +
- 	if (meterid < YT921X_METER_NUM)
- 		set_bit(meterid, priv->meters_map);
- 	priv->acl_masks[blkid] |= aclrule->mask;
+ 	res = yt921x_acl_rule_ext_parse_flow_action(ruleext, cls, priv, port);
+ 	if (res)
+ 		return res;
+@@ -1049,7 +1082,7 @@ yt921x_acl_rule_ext_parse_flow(struct yt921x_acl_rule_ext *ruleext, int port,
+ 	if (res)
+ 		return res;
+ 
+-	yt921x_acl_rule_set_ports(&ruleext->r, 0, BIT(port));
++	yt921x_acl_rule_set_ports(&ruleext->r, ord, BIT(port));
+ 	ruleext->r.tag = cls->cookie;
+ 	ruleext->r.type = TC_SETUP_CLSFLOWER;
  	return 0;
+diff --git a/drivers/net/dsa/motorcomm/tc.h b/drivers/net/dsa/motorcomm/tc.h
+index 32b53f1f3825..f11136a1c5e2 100644
+--- a/drivers/net/dsa/motorcomm/tc.h
++++ b/drivers/net/dsa/motorcomm/tc.h
+@@ -331,6 +331,7 @@ enum yt921x_l4_type {
  
- err:
-+	kvfree(aclrule);
- 	if (!priv->acl_masks[blkid]) {
- 		kvfree(aclblk);
- 		priv->acl_blks[blkid] = NULL;
-@@ -1487,8 +1542,7 @@ int yt921x_chip_setup_acl(struct yt921x_priv *priv)
- 	if (res)
- 		return res;
+ #define YT921X_ACL_ENT_PER_BLK	8
+ #define YT921X_ACL_NUM		384
++#define YT921X_ACL_ORD_NUM	512
  
--	ctrl = YT921X_ACL_PORT_PORTS_M;
--	res = yt921x_reg_write(priv, YT921X_ACL_PORT, ctrl);
-+	res = yt921x_reg_write(priv, YT921X_ACL_PORT, 0);
- 	if (res)
- 		return res;
- 
+ struct yt921x_acl_entry {
+ 	u32 key[2];
 -- 
 2.53.0
 
