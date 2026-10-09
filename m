@@ -1,90 +1,90 @@
 Received: from fhigh-a5-smtp.messagingengine.com (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BDDF3911AF
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 20:25:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 583183911AF
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 20:27:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.156
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791577542; cv=none; b=udvghDv6UtgMrtEbCr32AMqjVvyjEpEN4uUseFjHrhpSRhv687PNE31FgmT7X7VdZk/tsxnNXfXiO3xhClaKd2Bnu7RGJpLcxAZkvpIyQIJzoagzr4UQqYdYoXq6bXveky+C6CGCZpe10fWc6JEyReZF0NJPC5UkZLaOzBk1/0g=
+	t=1791577626; cv=none; b=h61CpLl3QrC6fUi/yd4jfpLUnGZrLRXoONSZIrIxLIfoLmGSQq7A0GlHkns6BOs7byzat7yuhVKMMbuiu+wPmKvRboZquS+7eQ0ZGGQRK2IZeTOSZUQhJ4X7WyBvG9smgwm+rpZMeQQkj/+H4OFQurM98pNxV1AFDc4ghxDiDEg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791577542; c=relaxed/simple;
-	bh=pyZGWLbUdbVR2ht18OwxVBiajTp//ZQyF5wG0u8aP9s=;
+	s=arc-20240116; t=1791577626; c=relaxed/simple;
+	bh=Ir79PCQmZFkIrjPdYWuVCGOxkxn5WC61zq1nNu/Mzpw=;
 	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=f+jw2mPpW/AqtJlHw5Xw+hUg5uwvvzDQvd2pt23Rw5ZMYi7eofB9YGYD1dWAdRl0spzQ4iCCEgVKq/qxMdOkX5PvN/3YfqTSPkUUtd9VXb36N1+tCG8xuXARFboFwRi2tWxfglJ/c6Gz5Y3VzHD5EzEnj9UVCN7HJJdpey4j1ls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca; spf=pass smtp.mailfrom=squebb.ca; dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b=DWNcu7S0; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=QHqyNlIr; arc=none smtp.client-ip=103.168.172.156
+	 Subject:Content-Type; b=DwG3dYDcT/aJMZfWKcLhYefrMR5HqbIdfDJiR2JK9dO+j1AsdDVucA25baAI0R6pzNUnvLUFantfwVFk4qrmOHM7wMgXcmEjIgbqjSkCjviJKH7kriMwgxQYP0wcuKlc6+0i3zgY4PN4wCx+pm+2xaN0kGz7kpM4MmP0m6jxjg8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca; spf=pass smtp.mailfrom=squebb.ca; dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b=gUXX2jEB; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=E+J0ZNW1; arc=none smtp.client-ip=103.168.172.156
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squebb.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b="DWNcu7S0";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="QHqyNlIr"
+	dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b="gUXX2jEB";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="E+J0ZNW1"
 Received: from stl-compute-04.internal (stl-compute-04.internal [10.204.2.64])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 820801400130
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 16:25:38 -0400 (EDT)
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 6E2511400168
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 16:27:03 -0400 (EDT)
 Received: from stl-imap-02 ([10.204.2.93])
-  by stl-compute-04.internal (MEProxy); Fri, 09 Oct 2026 16:25:38 -0400
+  by stl-compute-04.internal (MEProxy); Fri, 09 Oct 2026 16:27:03 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squebb.ca; h=cc
 	:cc:content-transfer-encoding:content-type:content-type:date
 	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1791577537;
-	 x=1791663937; bh=MwXmjyG6hRITZ61KJobCPIhvxONJ3FrG39gFZFih0M8=; b=
-	DWNcu7S0/PU3Z7SyXwhl/1L37OZ+Df1VR8hjeUp1EL5DR3KqwcPniy/CsVMIq9Ks
-	xgBZeh6zq7w0/SXsm0fo9eNnHxLW5pDV1U5MSpOJNKvguqD575y5BqyzAcrLwWdz
-	pfB5e5SiKGvcar78HdNzlwvBzVyBgYHhPaqrE8lYe42fu+q9MlugS2nvdZsHqwQZ
-	TBkHceO/duB3ADYblJO17vObsJZuRvRckLulWxz4vRTWXHAbngwqsmo/FP1l7IOs
-	eD8tVK/F7p8WPlQGfRLCpfKgGU9hQ7zz0kuAgXWFV4siazYj8Q1Fj9Iv+W2XnNQ2
-	NjK7hLAQxHmzuGpN8CRrOw==
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1791577622;
+	 x=1791664022; bh=dEtbHgfOwpFMHZP5AJ71Nyd/XYZeP8EfohungrCahtA=; b=
+	gUXX2jEBa27uHL0omF+X2uDb06lNjWiebzg1cSX/g+z9yr50JTSZO0IrG25NK4fN
+	Fq6md+lhHbe4eHAywY5vYx35207dHxxzn8DO4GCFK74AJcseOJTAx9n6prb2y6e+
+	O6sJuJjKJrF/8Fs/4dKfzowhOYe6bvON3Dp++sfAPUPGMVxqZ5pzdYoqlrP65Gnt
+	VTUNsfUDMnPsfUW/B2IHqLycaPQzngSyquwRbUU74B7VyqSqCHf9WPID3xrRvDgo
+	tnDoCWAZis63IHNJX6WA3XHIRbtgZzNhnELEEJ8N/25d91tgUAtWPuoR9+p8LM1k
+	wqN04Naaf3vrnLCyd9laRA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:feedback-id:feedback-id
 	:from:from:in-reply-to:in-reply-to:message-id:mime-version
 	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791577537; x=
-	1791663937; bh=MwXmjyG6hRITZ61KJobCPIhvxONJ3FrG39gFZFih0M8=; b=Q
-	HqyNlIr4QQtk2qIT8HDN5BnCemBsQ+P/wZl7dLPdcl9Ge8EQzbXWrZusvhe/VjvN
-	n5ieC3uA8pu+AAlS/PpIAKQf5bqjoSDCLiLhu5/9IYkPdAwnACLni+Q1ZVuV3RN9
-	Q4+xa+80uO7lEaoIEQTl4nAGF+KDadNF/EKfVR5+9ytgWdXgpDoOzyaseUAeiF97
-	KyQdLj+cSl/zPOKMK559QMN0C0niWLUrWyQN+FUctCG8GpZ2CCQOwXawl6vCdIXJ
-	KA4cyAOTuWcQrj/X1L21jRNFKVOSgoAaKXiWLtFlbKNVCKQ3hZPy8ZmsyC2ekSw4
-	KioqY3flB8G9ufn78Ekag==
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791577622; x=
+	1791664022; bh=dEtbHgfOwpFMHZP5AJ71Nyd/XYZeP8EfohungrCahtA=; b=E
+	+J0ZNW1d7+Fr9A++9cpH7K/yPcYTRc62dyNnkarrFgI6hrTQhb06BKs/tGXgB0BO
+	Lza6khQi4Hwe01i5ZEyiGcZWA6QrWQmgsohlrbx+tn6aCo/PPuTX6qXiBXaL8u/j
+	yGG++zlbMI0hfYquXswCAjvQMvMAgxBmY4QchCW8ErkCZbEcBsPAD1t4p6syIeDd
+	6aFJ4CIqB+Qxj+/fnhwxNyn5N7Go2oziTcdTkx2QizWTmLm6da0GW8RzduMA+5TB
+	0qsK3/Ag0FaN8xWj65gf4i5svUOkha81G+U4lXhCYjbaT1tcZg4qWOtY49P140uk
+	TSN7xaBAVO+kjCfqWRDRA==
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
 	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
 	action=sign d=squebb.ca a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791577537; d=squebb.ca;
+DKIM2-Signature: i=1; m=1; t=1791577622; d=squebb.ca;
 	mf=PG1wZWFyc29uLWxlbm92b0BzcXVlYmIuY2E+;
 	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:LUqjU0oiTyGMPKjb59i4eFEQkHfUxWqSga26mdjHKrml/mu
-	+Dgr1CETGLa3Fvp+GYDy0cJXi7FV3y/dapGz1V4OB4xRXo8/wwZhV02tCJJtpPDu
-	mM98ZvlXk/0S6+GbpE2eMcMLuJ35zIyH91Y8/fr3Ael0f0zwO3ArVwaQg+cVE6wx
-	xegLwLC0IhmFN76sz8qw29MG7l7Ak0awMQIRGpO9JBJ03ql+PKmFIW/cva3V5yZQ
-	ulK0ih0/AJExQcxx08W90Yqu6IJz1/EPrnhO3jYG7dQM2X4q1FcQfxLU1dqOxk9t
-	8gd47Twb00lEbi0aqjZPYwAqsTf61QOq34GK5bQ==;
+	s=fm3:rsa-sha256:Yq04+B0tJ8Ov7eMbvtrl7oq3NAButVv8oi9ZzTe01FPg4hC
+	Y5lHo4X/e3zTWnO9hJBB94g2nle+i/N6NwvfSpb5e6DFdqstYwxUsv0fWV5B7rcu
+	OwGOqr+UreE8U1ySvaAanFonxSalc7SWejYH5MTy7mnD4nr4rcDAEI4jf13Ho06w
+	3pEYIPuZNq3mPYQ3uEUU5vIwDm42alpcu7ywdiesYSLIgzd16lMo+O+4bvjH8E8m
+	Q8NVhXrphsiJloKZT927pvbfgvhrM7Syuh63NeYmknybVPxG661ZzBFqBlJDx4DQ
+	yIsbOEPyU40OL1iBVkGUWyYNZTKd59zpGAW92kw==;
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
 	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
 	action=mi-m=1; hc=12;
 	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
 	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:vKUq455LbtqODxQUr6X/Dw+P7pAsK/X+5c48dEIud5E=:pyZGWLbUdbVR2ht18OwxVBiajTp//ZQyF5wG0u8aP9s=;
-X-ME-Sender: <xms:wE3Jat67A637LAG6NIk-cy3Pr7RProTAIdZQoJFUW21QEDuP5EChaQ>
-    <xme:wE3JaltFl5U-9KJrr3SWK5zNOQAUakL9g9rV7T8sII-yVheg1rQ7EW0tg-zyfYoPb
-    EA25kCy7eN37UrvhsXHV7b-q_EDNzJhZ8zc_Cjgu0gHE58sZEwa8ZSZ>
-X-ME-Proxy-Cause: dmFkZTG3xn7Bbw9gWv5qgurvEjspxkSn4pWk4BdPnBzGnSzq+aSsD4pd7LbLOs4B/V+k2K
-    c3x6Sq4ftLsXtd32AsCMkXakKdY6BUFhwIi/8r6w0qXMxxwu7XIg1f/q6vOryJYhbERXxY
-    FzLSiBuPnBmsTlXmv2koM0aamt2KvB0XgtlS7rWpEHyKqry++PkTofa/iLmvj8TzGus1em
-    BodbaoMS3Dm7czOlTY5jTeMk9xiY5eh9s+eXIUfl/nJxuEfrB+2srqroMKSVuQ+CaL+rHU
-    lq4IL1xUSk1JUm95IpuNAiPQXM9cur7+2gKmJ/49qsaj74ih8HLjShD5GOWaN0f8XDW6D/
-    8BcX0SOat2CWYgGFxn710lns8plwKy7u9BIoZipTeows1WAueRvrtJLgA1oMUohps44gzF
-    9209z70PKsLO1Oy6Puwfz1yGuzgj54OqesWYVVF7th3KrFTHsIdrWkLe5hdQDSj5oglz7O
-    zGYyJFK7DNA0QgEe0BG+sqXR2pXr4N5OLN90JmDi+6iP2qcvwRzFchhLKDd+0TvBrT2X0A
-    2G09QJXgtwxKPIOHNvqqgx8+vX7NG20Kf8KZOngggfuTxcjhuIabmwqzn+9fL+9i0gT+9v
-    sXh8G6bDXaglhBsv7LYyTBiE4hwKAk4cdOoS0PJexzF8D87ZOqNUpUhrf6Lw
-X-ME-Proxy: <xmx:wE3Jap-T6q28Vjs8RQe9UueYi_OennmDs9TWGIZaG3nljCuI8WE3Lg>
-    <xmx:wE3Japbtuzm7DFeJByoE3cG8CYadJiWM8SYEeUq3SFuE5_-NEGPFQQ>
-    <xmx:wE3JajfuNbfevU666xHnj9Gxty0A37VCupZrol1i9U4MFPp_s8s6zg>
-    <xmx:wE3JammvzR6bRdVvkxyRuXx5KAphaqmKLvXgdsXgmvHHGqdIk_W3XQ>
-    <xmx:wU3JauF9yh7Vkbk5u12sT--x1juq_CxFPG9GrDRvjgsVsMIDZf_-8Y0T>
+Message-Instance: m=1; h=sha256:oWKh99HoBR4tNxlO3YuxUEZfMe0K6blkmptBPf4yoCE=:Ir79PCQmZFkIrjPdYWuVCGOxkxn5WC61zq1nNu/Mzpw=;
+X-ME-Sender: <xms:Fk7JatjH1uA-pyujPbFy3frWzJn0XOWbXM22YRUFYXvYLDvz9_bcPg>
+    <xme:Fk7Jas36rRlxgK4kifrrx3eU0O0x6i1QlP_JuIfD4t508eQTSIZy3VMmcWazU1XeB
+    _qQOp1XWbJprqee0XTzSRAABHbOCeB0XmYwa5JquCBK4osTK3q9RTaY>
+X-ME-Proxy-Cause: dmFkZTE78mPxJOrD85wk9mHUAJdhrHXRf6cJoQtlhzUgUZ+tzxwkYmmZOC6/ovWwxRX/hA
+    ZtHSzWj/on8K46ctfhNGTLhewIvk2CZKiRNT/XAUiGa1q2vjZmC6YF0GUZVn/fW8wcFzeh
+    9R2G8Ef2c2z9uPC+2I+MsMgxxI0pIsNKxfPMEfk4tBz6gGAbFjZAwZczTZ1N5CIctEeVy+
+    tgJIHoWkMVDNLpKJNKzCeGYd9987SeM/kl9nxOMBvFutO1qgHVzru7UWlZ/rfN7mq/uB8t
+    JH+MwwK4eaxuvbr/wQ+hEJwFMuNz1MAdRb0nlumx+v51DrqthIItdFdrtQh68a4/AQtogc
+    Mjxgj6tmJqQIa6Gy3pY5mWbAN15I5GUnNhutGhMxo9I+NyDyPR7dKyXLrVjyEnZKYMTprn
+    MpNkQ/J/7drTach7xBBS8G2BEHBLfE9ytJkrdxSf2/UyjhAFCICWhoNiR/ppHgMZYjCMzO
+    okIsfynmTYeoOGv0gaBbLPgn7hGw8uijy5vMwih+hzsbWjUgJnR62H9X46dujyx1nvzekO
+    7zIqHj+4nJ07ryKYzIrMnqMpGm2P11f8HtMGffL94qnQgoDRcQHwSahUBP0k1vHDXm4/e6
+    ropedH0pjeMVQYowXIg6qA0crkjDXAz1L7TzvOZkrfdtWHS320GWTN2t32fw
+X-ME-Proxy: <xmx:Fk7JapBNtUqzGJPrNgbkcxx2njRz3y5Uz5SDChwEb4yj4mJxWs56Yw>
+    <xmx:Fk7JakFNbYsUKcWh_wA0W9mJ7EAVG3yv1thmwSErTTwrmp2Qxje0dg>
+    <xmx:Fk7JapCDhJrp0mMLVyw_Hx42aQLvwt_OXUdFrVqZ3hUZeoHTXI1kKg>
+    <xmx:Fk7Jaqll1DEiIxsZVgmTRh5Chug25o_iZuIb2LJZUY7U3y5w4S69UA>
+    <xmx:Fk7JajuJ2p4GwlBI1XlxmaqsDjBe2wFSNsf9BdumkfYX_Z-pkDlEGkxU>
 Feedback-ID: ibe194615:Fastmail
 Received: by mailuser.stl.internal (Postfix, from userid 501)
-	id 641A62C00076; Fri,  9 Oct 2026 16:25:36 -0400 (EDT)
+	id 09AA52C00076; Fri,  9 Oct 2026 16:27:02 -0400 (EDT)
 X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -92,8 +92,8 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: A3wiYYXT56rJ
-Date: Fri, 09 Oct 2026 16:25:16 -0400
+X-ThreadId: AcJjLO23Rn-3
+Date: Fri, 09 Oct 2026 16:26:41 -0400
 From: "Mark Pearson" <mpearson-lenovo@squebb.ca>
 To: "Rong Zhang" <i@rong.moe>, "Derek J . Clark" <derekjohn.clark@gmail.com>,
  "Hans de Goede" <hansg@kernel.org>,
@@ -103,144 +103,48 @@ Cc: Charles <hanker007@gmail.com>,
  "Navon John Lukose" <navonjohnlukose@gmail.com>,
  "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
  linux-kernel@vger.kernel.org
-Message-Id: <4ae58ee4-7c9e-4f6c-add4-473cd2a8166a@app.fastmail.com>
-In-Reply-To: <20261009-lwmi-wmi-new-api-v2-1-402828382679@rong.moe>
+Message-Id: <7c50bc30-34c5-454c-89bb-1ec0b1c8a6bc@app.fastmail.com>
+In-Reply-To: <20261009-lwmi-wmi-new-api-v2-12-402828382679@rong.moe>
 References: <20261009-lwmi-wmi-new-api-v2-0-402828382679@rong.moe>
- <20261009-lwmi-wmi-new-api-v2-1-402828382679@rong.moe>
-Subject: Re: [PATCH v2 01/12] platform/wmi: Introduce wmidev_exists()
+ <20261009-lwmi-wmi-new-api-v2-12-402828382679@rong.moe>
+Subject: Re: [PATCH v2 12/12] MAINTAINERS: Add myself as a LENOVO drivers co-maintainer
 Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
 
 
 On Fri, Oct 9, 2026, at 8:53 AM, Rong Zhang wrote:
-> From: Armin Wolf <W_Armin@gmx.de>
+> I regularly review patches and resolve bug reports posted on the pdx86
+> mailing list or the kernel Bugzilla to improve LENOVO drivers (including
+> lenovo-wmi-* and ideapad-laptop) along with Derek J. Clark and Mark
+> Pearson. I've been submitting patches to add new features and fix issues
+> on my devices, too.
 >
-> Some WMI drivers need to be able to detect the existence of WMI
-> devices matching a given GUID in order to determine the availability
-> of optional features. Using wmi_has_guid() for this will not work for
-> WMI devices that cannot be used with the legacy GUID-based API (aka
-> have WMI_GUID_DUPLICATED set).
+> Add myself as a LENOVO drivers co-maintainer to reflect this.
 >
-> Introduce wmidev_exists() that also checks WMI devices that are only
-> available to the bus-based API. Also mark wmi_has_guid() as deprecated
-> because only WMI drivers using the legacy GUID-based API will continue
-> to have use for it.
->
-> Signed-off-by: Armin Wolf <W_Armin@gmx.de>
+> Suggested-by: Derek J. Clark <derekjohn.clark@gmail.com>
+> Link: https://msgid.link/782FE636-A06A-4E12-9563-786374805947@gmail.com
 > Signed-off-by: Rong Zhang <i@rong.moe>
 > ---
-> Changes in v2:
-> - New patch in the series as discussed at
->   https://msgid.link/83776200-4A60-4756-A99F-D5A3BB4D834A@rong.moe
-> ---
->  drivers/platform/wmi/core.c | 33 +++++++++++++++++++++++++++++----
->  include/linux/wmi.h         |  3 +++
->  2 files changed, 32 insertions(+), 4 deletions(-)
+>  MAINTAINERS | 1 +
+>  1 file changed, 1 insertion(+)
 >
-> diff --git a/drivers/platform/wmi/core.c b/drivers/platform/wmi/core.c
-> index 529825dcfbfe..a99da9b7039d 100644
-> --- a/drivers/platform/wmi/core.c
-> +++ b/drivers/platform/wmi/core.c
-> @@ -145,7 +145,7 @@ static inline void get_acpi_method_name(const 
-> struct wmi_block *wblock,
->  	buffer[4] = '\0';
->  }
-> 
-> -static int wmidev_match_guid(struct device *dev, const void *data)
-> +static int wmidev_match_guid_legacy(struct device *dev, const void 
-> *data)
->  {
->  	struct wmi_block *wblock = dev_to_wblock(dev);
->  	const guid_t *guid = data;
-> @@ -218,7 +218,7 @@ static struct wmi_device 
-> *wmi_find_device_by_guid(const char *guid_string)
->  	if (ret < 0)
->  		return ERR_PTR(ret);
-> 
-> -	dev = bus_find_device(&wmi_bus_type, NULL, &guid, wmidev_match_guid);
-> +	dev = bus_find_device(&wmi_bus_type, NULL, &guid, wmidev_match_guid_legacy);
->  	if (!dev)
->  		return ERR_PTR(-ENODEV);
-> 
-> @@ -800,10 +800,10 @@ acpi_status wmi_remove_notify_handler(const char *guid)
->  EXPORT_SYMBOL_GPL(wmi_remove_notify_handler);
-> 
->  /**
-> - * wmi_has_guid - Check if a GUID is available
-> + * wmi_has_guid - Check if a GUID is available (deprecated)
->   * @guid_string: 36 char string of the form 
-> fa50ff2b-f2e8-45de-83fa-65417f2f49ba
->   *
-> - * Check if a given GUID is defined by _WDG.
-> + * Check if a given GUID is available and usable with the legacy 
-> GUID-based API.
->   *
->   * Return: True if GUID is available, false otherwise.
->   */
-> @@ -821,6 +821,31 @@ bool wmi_has_guid(const char *guid_string)
->  }
->  EXPORT_SYMBOL_GPL(wmi_has_guid);
-> 
-> +static int wmidev_match_guid(struct device *dev, void *data)
-> +{
-> +	struct wmi_block *wblock = dev_to_wblock(dev);
-> +	const guid_t *guid = data;
-> +
-> +	if (guid_equal(guid, &wblock->gblock.guid))
-> +		return 1;
-> +
-> +	return 0;
-> +}
-> +
-> +/**
-> + * wmidev_exists - Check if a WMI device with a given GUID exists
-> + * @guid: GUID of the WMI device to search for
-> + *
-> + * Check if a WMI device with a given GUID exists at the given moment.
-> + *
-> + * Return: True if a matching WMI device exists, false otherwise.
-> + */
-> +bool wmidev_exists(const guid_t *guid)
-> +{
-> +	return bus_for_each_dev(&wmi_bus_type, NULL, (void *)guid, 
-> wmidev_match_guid) == 1;
-> +}
-> +EXPORT_SYMBOL_GPL(wmidev_exists);
-> +
->  /**
->   * wmi_get_acpi_device_uid() - Get _UID name of ACPI device that 
-> defines GUID (deprecated)
->   * @guid_string: 36 char string of the form 
-> fa50ff2b-f2e8-45de-83fa-65417f2f49ba
-> diff --git a/include/linux/wmi.h b/include/linux/wmi.h
-> index defcb624a7e2..3dd223f2ff18 100644
-> --- a/include/linux/wmi.h
-> +++ b/include/linux/wmi.h
-> @@ -13,6 +13,7 @@
->  #include <linux/acpi.h>
->  #include <linux/device-id/wmi.h>
->  #include <linux/types.h>
-> +#include <linux/uuid.h>
-> 
->  /**
->   * struct wmi_device - WMI device structure
-> @@ -83,6 +84,8 @@ acpi_status wmidev_block_set(struct wmi_device *wdev, 
-> u8 instance, const struct
-> 
->  u8 wmidev_instance_count(struct wmi_device *wdev);
-> 
-> +bool wmidev_exists(const guid_t *guid);
-> +
->  /**
->   * struct wmi_driver - WMI driver structure
->   * @driver: Driver model structure
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index f53047aa8d3c..fa576b4b5919 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -14808,6 +14808,7 @@ F:	drivers/usb/misc/legousbtower.c
+>  LENOVO drivers
+>  M:	Mark Pearson <mpearson-lenovo@squebb.ca>
+>  M:	Derek J. Clark <derekjohn.clark@gmail.com>
+> +M:	Rong Zhang <i@rong.moe>
+>  L:	platform-driver-x86@vger.kernel.org
+>  S:	Maintained
+>  F:	Documentation/wmi/devices/lenovo-wmi-gamezone.rst
 >
 > -- 
 > 2.55.0
 
-Tested and confirmed this works.
+Sounds good to me. Thanks for all the work you do on these platforms.
 
-Tested-by: Mark Pearson <mpearson-lenovo@squebb.ca>
 Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
-
 Mark
