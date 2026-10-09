@@ -1,45 +1,46 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011009.outbound.protection.outlook.com [52.101.57.9])
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010051.outbound.protection.outlook.com [52.101.46.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45F562DB7BE
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 22:54:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A15C502773
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 22:54:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.51
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791586451; cv=fail; b=tvLTnt3eyJvFtsB5Cx2wPoQvOXwrGdPk7oWbI1x4weT42Xo+6gBxQSxgtaeTBiXxWzUjFi6DVj+FGrDcYZZu6ILUdQdHColNQATOUVwCNhwjpvmVanstYCMnG9b0Cddj2/D8JZ6Ts4cgWaFR1WTKSp1YR84SSuIVl2GrU6AYaL4=
+	t=1791586449; cv=fail; b=gQBTsn2DPD0dgl8xVTffq4A+/F9yVl48s/XnkSgFp6KIEolrZB8HyF0I15kMgFzB3lR2DmZA0HYddlNlp6xkGDl3ynCgM1K14uMHvGs+xsyRn/V9FrO/ed+eGe1QLe5JJI1/KUAQIk8G5Quw5omYRhcEmCGsLU9PKwDYy9eDbUY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791586451; c=relaxed/simple;
-	bh=izLiyt+b5j4tt5wMNfsoL1KN0N47VtUpRNerhEio28w=;
+	s=arc-20240116; t=1791586449; c=relaxed/simple;
+	bh=cORjAn35Sx83AMocMLwMUbcOAcPFXJgIN9hh0tS5GgE=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ghLBm3CJhNuJ9LNuKeNbigDnyTC3eKA3MEHS/02w3yeIMwewgOZiNtaG+UHGzwmLluDm6HG5DGQvyIj1ij9lmlhbDjS6TJcdprF+MC6L4Dj4D7aGL4GJONXPpWEtNpGjQ4YQFajLzpvRNL+s2thSqS90qpeKVWS6ZFgPtSeHgvE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=PP0a4XdV; arc=fail smtp.client-ip=52.101.57.9
+	 MIME-Version:Content-Type; b=WReiy/afVtfXSNrvwKlvA/ai/lvIj8QZJ9+TtNMA5QnuChD0fWw7hqtEiSt8sIfsPGgvmnhQriK4woVHoZUasJfde1OQQdepaU8EVe35psTV67YQIV/epY9KoOUrzUhxSls99OMEHKG0FA7S3siBcF8DT9hiJYqJhjVYa9wPgF4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=hvyh21Qt; arc=fail smtp.client-ip=52.101.46.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="PP0a4XdV"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="hvyh21Qt"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FS6jxftMfxE5C12XAFrPGbYQqd+PUzTehvB6bYsTBnbZumHyXYlEsN6SItQcZFi5kiDV9gqKdbhRUKaD/LOnsscSDdVhbgyoSBbxoWJRZWOX3oHdVgu1+SCZZtH7lhW5ZTJcchtRJgeTSyQgiBCH/JMxwH50poKNcxbooLe2puVc3c8KYoouty7kCV6ZHuDe7AtjD55islNnxyXPVgXGXx2zu2y0c5rXdjbKr1sSyvtitiRXFh1WIjrhsb/Qx9fB9wtYGEtqkjz/oEYNImXqJxfSiORNF+e5BJDCMMlXLNFoajTEjuTj2ibGjqLYBIs+wg/X/dXAZXDxoEk7vtA51A==
+ b=aH+PycquGuQXASbUJF65K1JIC07/qr0jvbgOSQIpW2xVYZDCtexLjOxZp1oKlOP11Yz/nM/jehVG30eKR3T3QPe6tVyNboKDnN9cBU2bgi/SCtBukpRhcAwcitMj3dQ9co26WEQxbCG6741t/1uyUaZVrP/v1gsVqCyISR29RGDlVMx7k762yqxjSM0HuYZfldtoe/JiUL9f1/squOLZk1v1Fk2rCb7ElDCNodsHFUYRlN4AWAVsUocfrU+nEVrxzqlyTcvY728HZA2EmdBIi9q5aZn8+TWAsMbzpJgPP4DVkZHTEQAl+fo7rYVeuMrwr/nNLEDXX6sZk5A2Pu9PvA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bYChyx6ntPpkc0yiee7AjpBmeGoVEYVqNJpSfDqib18=;
- b=dvGOGGhK6WeYXOqvWHnEC6hsN1f6DNMLbRRz6XoN712/DwYmNh5PYC+SSY3/htw58JGEq1YOCqFtp5kEtJrsynsxo/qqT7kZ8hTlQRj7DbMtsiNYAZIGI+Wq4TwEubCULuFC+wFg3uY7ayw/lGdRYfsBRJHcvV4jjPwlQF5442QcwedYrDFtpw2xNjZqliHVYG1eD93XjeuzOLQGmK5kK0IFlxvdx/KKqFSFNaj+bRO1uMKJMrURu0HeseG7+J62kw2jwZGK6OR+IfaI3g72R/bhNZaUjV44kmeYisRrXclEAcnSV4bUbl6Lz7hYjaw7emQ2dfzQhYDgTupOjmQpyQ==
+ bh=Xl9cqqOrjqqNBKovJh7NmCbmASO/jxVZ5Q8vGfHg364=;
+ b=xnQKBYa65b4aT6kmHTfSv+bJj/XKUykG8EHNwYUJ0G9BEXjP88rjRI0NfBASZAkSnuwTIjXhE8YQRH65vm0UVt5P2sll+AdLMtlPc7oA/5Kz2ATGe+TAbiL2YuEFd5OvoRR7SN1kh55slsmCr6NY9wo+TWu7kG545Hy8x7oZbvMIZRO7t1Zns5bWlxQOEQpvGQBEyGMMU5bXMrrbUw8TjP8C/YutEbDGu2nVgeNhpkCi315QbhWbQz5kMWRicUOMYcirGBLvL4gvUXw8QcSno7CkiEJ1zDymXvSLw0xp53EbDfvmJiS1nkcluMcNjmUpmaeiHUzOuMmvO9EYyGA3HQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bYChyx6ntPpkc0yiee7AjpBmeGoVEYVqNJpSfDqib18=;
- b=PP0a4XdV9wUDrRttN36M8BQXjoT7ut8JY2gAY+MAurmO2noEgM4YtjTz/pyzk7yxRFOlqhjG+fWvVj1DR2nSPYhzN8TorRrYBZkQJs54VZuU/FEUbYNwp0VYSQvbIK8MDJ1DoKWUHJgQ1iuAYnPur4nXMsAKb64ReQJV+B1xQrI=
-Received: from BL1P222CA0016.NAMP222.PROD.OUTLOOK.COM (2603:10b6:208:2c7::21)
- by DS0PR12MB6390.namprd12.prod.outlook.com (2603:10b6:8:ce::7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.16; Fri, 9 Oct 2026 22:53:59 +0000
-Received: from BN2PEPF000055DB.namprd21.prod.outlook.com
- (2603:10b6:208:2c7:cafe::98) by BL1P222CA0016.outlook.office365.com
- (2603:10b6:208:2c7::21) with Microsoft SMTP Server (version=TLS1_3,
+ bh=Xl9cqqOrjqqNBKovJh7NmCbmASO/jxVZ5Q8vGfHg364=;
+ b=hvyh21QtzGe5PhiVBpHUM8oH0gsT5tP+xCtWWWdAln9tYgMQhZ6NggRdDuwemLV9NR251NKIE1EhJFo1Blbv4uTZaPPP3pwm1W9R8fx01eIoEE8A9leEIdx5r9YrFktK4iq60s5SCJeNYLrd73UfbhJOh3h5/65pW9gowJZKPSk=
+Received: from BL1P222CA0020.NAMP222.PROD.OUTLOOK.COM (2603:10b6:208:2c7::25)
+ by DSVPR12MB999286.namprd12.prod.outlook.com (2603:10b6:8:41a::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
+ 2026 22:53:55 +0000
+Received: from BN2PEPF000055DC.namprd21.prod.outlook.com
+ (2603:10b6:208:2c7:cafe::91) by BL1P222CA0020.outlook.office365.com
+ (2603:10b6:208:2c7::25) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Fri, 9
- Oct 2026 22:53:58 +0000
+ Oct 2026 22:53:55 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,29 +48,29 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF000055DB.mail.protection.outlook.com (10.167.245.5) with Microsoft
+ BN2PEPF000055DC.mail.protection.outlook.com (10.167.245.6) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.0 via Frontend Transport; Fri, 9 Oct 2026 22:53:58 +0000
+ 15.21.546.0 via Frontend Transport; Fri, 9 Oct 2026 22:53:55 +0000
 Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 9 Oct
- 2026 17:53:53 -0500
+ 2026 17:53:50 -0500
 Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
  (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 9 Oct
- 2026 17:53:53 -0500
+ 2026 17:53:50 -0500
 Received: from xsjdavidzha51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Fri, 9 Oct 2026 17:53:52 -0500
+ Transport; Fri, 9 Oct 2026 17:53:49 -0500
 From: David Zhang <yidong.zhang@amd.com>
 To: <quic_jhugo@quicinc.com>, <karol.wachowski@linux.intel.com>,
 	<max.zhen@amd.com>, <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
 	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
 CC: David Zhang <yidong.zhang@amd.com>, <sonal.santan@amd.com>,
-	<mario.limonciello@amd.com>, Wendy Liang <wendy.liang@amd.com>
-Subject: [PATCH V4 11/19] accel/amdxdna: Decouple AIE4 doorbell and MSI-X notify transport hooks
-Date: Fri, 9 Oct 2026 15:53:35 -0700
-Message-ID: <20261009225343.3079074-12-yidong.zhang@amd.com>
+	<mario.limonciello@amd.com>, Soham Donwalkar <soham.donwalkar@amd.com>
+Subject: [PATCH V4 08/19] accel/amdxdna: Add clock, DPM frequency, and resource info queries for AIE4
+Date: Fri, 9 Oct 2026 15:53:32 -0700
+Message-ID: <20261009225343.3079074-9-yidong.zhang@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261009225343.3079074-1-yidong.zhang@amd.com>
 References: <yidong.zhang@amd.com>
@@ -84,296 +85,824 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000055DB:EE_|DS0PR12MB6390:EE_
-X-MS-Office365-Filtering-Correlation-Id: 52c394bb-e84b-433b-3d34-08df2658346b
+X-MS-TrafficTypeDiagnostic: BN2PEPF000055DC:EE_|DSVPR12MB999286:EE_
+X-MS-Office365-Filtering-Correlation-Id: 106660c4-2456-4f70-1573-08df2658324a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|82310400026|36860700016|1800799024|10067099003|5023799004|56012099006|6133799003|11063799006|4143699003|22082099003|18002099003;
+	BCL:0;ARA:13230040|23010399003|376014|36860700016|82310400026|1800799024|56012099006|11063799006|4143699003|10067099003|18002099003|6133799003|22082099003|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	ZpJ+16p1muTD/GSavVtuAaqqSKek1qGrZHRkOwUPVD1GRKySnpELjOQ+bSBO/XPAiyWusFtciIBRFfOBpQ3W2WLoyqh1U/k+WCCf1OiN8CeIuJCWMBVwDCN1FvUFU2VIPjhwivifIaQTGfidj1XPcrr1oXFLVZdbBrAOcbw0f8cp2J6rJUW5tPwpTKnbSBiqnx9t419BjvVg86FeXWsk6awO8040a2h782G5Q/kDSt+nCDTzGFxJImSyNsboroYpRcmA+uzgJO7RCF8DsF8VgLf+UZAh3niZECt5Z6PfKUkktpHVHz+I7G40tmCtYoC4u1TPLhY12SwwjRAOza+5s2ueuts+dR88xiqH5nquk8e7kR+hBYdmZfFMQbBhKwRkNI+Sv685kEE/r2a1SMfMo4sIoj3IYjbtWEWbkilX9MXyT21Jv7ueBtOs2I/sXnP7zdPHyCx0q+Ne/8z/XdY8BtQuoQbI7JAxkhg5oziPzYsTxPj4ELz+HC1CivY/F8U/5JWxz5+NlFztlsldltkC9gERbJLAiVJJ26jlsLV0iLVn+UFrttX9kvx7g4GR8Ij3SiDTYcPF9P+HlzjyFy50igle0DH9wRmV2ybVzY7shyCWW86jedU3VJB39YjJJNyjR1TMjetb9JvJL2Owh7Ykdi6f0jTy3kQzIhFFhSjylUM=
+	Jk00q3HNe3DLN6MPsCjV0jKgbAbLagDKhUOyePdhS3KvMRf232mGONQgkq3QNg1J2kbGvxMfSf7ItxFwY7XpKV/G9pUM7kRFSrV89RQOEZtIrCgYbTr3iU+v5Ug8D96r/FbEQmejzpxno8Jb+g/guk5FLESuSK0j1/GSiZ1y1MyGX1L83OhF9Rfh2TQfGY6edysJvHOaRerJrAqgZ5HBFIIqBony5BhdZ1my9DYtwXFUy0gW1/lDIDu1INOzDhregAmbTMtOKEgioL84E+zVDKyCUjh8SJoUfXNVJfSS+6SYfTRxO+fr+JxDpi6BiryEAR0qyJIoX6DN3T7NNHBtDHL1gzJUBlAzpX2anhEh1CbVIM0aNeAVLPT9O78y58HHEIGeUdjxXKxYCJaQHpLoJ6GwzMVRimu/p9V8NPK6cNu9ZMnOXdGTjj4bVz2u5X8hqlGmKJflIt5Nz2aGfQL1YXpvS2qS2h6uFTBSAQGQOscZAH84pO1IbSLR9ZYds/yt81UEdvEN48lyuyC0c+hIa9z+iw931qbtVR463ie47aYQovpqxbH9xztHbieHLOQwz1UPjvekIlRWdifRuuqldgalyl4bPMOOf9dSDj3p9u3rOmH+wFhJVHR9tt87bEhXAUUwxmHdMeBLJSfrLZEe+867plN0s9RR7GbGR35LP9c=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(82310400026)(36860700016)(1800799024)(10067099003)(5023799004)(56012099006)(6133799003)(11063799006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(36860700016)(82310400026)(1800799024)(56012099006)(11063799006)(4143699003)(10067099003)(18002099003)(6133799003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	1gzXzOXeCruagbZfmJxgfqIK3/+kq9fwO3i8oepFt6ZnWWgqPpWP/Tpe/ePCkiF++ZUWemr3BSWF1bNP4Xd7T/I0/dxox4MuFKV7gsevsRuq56HRDKdvyMcgxk9Y9trkH0YYiLX20FaC7v5dolkbJKhCq3jUlotuWdKB7U4AmjW16PCjWLSnC5GUsFia/GHvmr1JGNf/WWgZPiRJC2tAPYL73mdBWpPSx75AZ2pgQR+nMdsOzjPIZvZIqhSBvCD92tgWnorQccImMbZwm0inf3u5dBhpCKig3LKTd/BTDs81jj9xGC087MaK0zl9ZtvXqAMIBI31ms2cd05PLMZHLTquRNsDkJuiFLlw0utWHMeaTckudodivwP3oDSGidjlwip08UTO46peCmSMvpB9yxxOZ048CREtUABaW2Nen+KnVlK8y1U4I0Mv2T9flRSY
+	flCECSgZUQlWizOzjc+/Yhqn82b8zp5hF8DOfLbGOcXHX1gaa7I6tI1LV/lNfQ96LsibLmsdBiUi5dNU7+U0l2lHmDq+mNa5CjFfmHMk+blP6YSoMCVg5mSM5QJx4A0NbiNfohjlWWYhlucHBtMYlFbfd/rN2cLRIny1zBReYvh1zuCvd3i21nYr6bMaX56Ggm2TMj8/RfBj+PZlz1z3u81i6e6gzGDsKdP7uO8lOS7b59UTxWo7seQIW4TpUV5LZ+MYCd8aFQkcY0si3THahqXgfycSeoJLhcob30nl7ToDL7rXlGlLRV+cowWqMNTe2W4ccwATcyOHVwm+md705HSIfToFcZatFOkiaUlUjKavu66O3Zz9y2wl5yt8ZAR6HljIe32T1vH7e1VsekH95dE9ce/PdceBtBgBgS8GbccjCdDRqoRY5jWkTVhlA/9O
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 22:53:58.7895
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 22:53:55.2160
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 52c394bb-e84b-433b-3d34-08df2658346b
+X-MS-Exchange-CrossTenant-Network-Message-Id: 106660c4-2456-4f70-1573-08df2658324a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF000055DB.namprd21.prod.outlook.com
+	BN2PEPF000055DC.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6390
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR12MB999286
 
-Separate PCI-specific doorbell and interrupt notification handling from
-the transport-neutral context code.
+Add support for querying clock metadata, DPM frequency table, and
+hardware resource information for AIE4/NPU3 devices:
+- Move struct dpm_clk_freq and common clock/TOPS counters into struct
+  aie_device.
+- Add NPU3 DPM clock table, DPM control, and counter updates by querying
+  active DPM levels via AIE4_MSG_OP_GET_CURRENT_DPM_LEVEL.
+- Query AIE4 DPM frequency table from firmware via
+  AIE4_MSG_OP_GET_DPM_FREQ_TABLE.
 
-The new transport functions are wired in later patches in this series.
-Doorbell ringing is not invoked until full context setup and BAR
-validation are done, so no NULL dereference or BAR boundary bypass can
-occur.
-
-Co-developed-by: Wendy Liang <wendy.liang@amd.com>
-Signed-off-by: Wendy Liang <wendy.liang@amd.com>
+Co-developed-by: Soham Donwalkar <soham.donwalkar@amd.com>
+Signed-off-by: Soham Donwalkar <soham.donwalkar@amd.com>
 Signed-off-by: David Zhang <yidong.zhang@amd.com>
 ---
- drivers/accel/amdxdna/aie4_ctx.c    | 38 ++++++-----------
- drivers/accel/amdxdna/aie4_pci.c    | 66 +++++++++++++++++++++++++++++
- drivers/accel/amdxdna/aie4_pci.h    | 14 ++++++
- drivers/accel/amdxdna/amdxdna_ctx.h |  2 +
- 4 files changed, 96 insertions(+), 24 deletions(-)
+ drivers/accel/amdxdna/aie.h           | 36 +++++++++++
+ drivers/accel/amdxdna/aie2_pci.c      | 14 ++---
+ drivers/accel/amdxdna/aie2_pci.h      | 35 +----------
+ drivers/accel/amdxdna/aie2_pm.c       | 10 +--
+ drivers/accel/amdxdna/aie4_message.c  | 88 +++++++++++++++++++++++++++
+ drivers/accel/amdxdna/aie4_msg_priv.h | 31 ++++++++++
+ drivers/accel/amdxdna/aie4_pci.c      | 82 ++++++++++++++++++++++++-
+ drivers/accel/amdxdna/aie4_pci.h      | 12 ++++
+ drivers/accel/amdxdna/npu1_regs.c     | 19 +++---
+ drivers/accel/amdxdna/npu3_regs.c     | 78 ++++++++++++++++++++++++
+ drivers/accel/amdxdna/npu4_regs.c     | 30 ++++-----
+ 11 files changed, 367 insertions(+), 68 deletions(-)
 
-diff --git a/drivers/accel/amdxdna/aie4_ctx.c b/drivers/accel/amdxdna/aie4_ctx.c
-index 5eb918e1d58c..20b725de6ab7 100644
---- a/drivers/accel/amdxdna/aie4_ctx.c
-+++ b/drivers/accel/amdxdna/aie4_ctx.c
-@@ -22,63 +22,52 @@
- #include "amdxdna_mailbox_helper.h"
- #include "amdxdna_pci_drv.h"
+diff --git a/drivers/accel/amdxdna/aie.h b/drivers/accel/amdxdna/aie.h
+index 229b3cfa2361..a7276c25844f 100644
+--- a/drivers/accel/amdxdna/aie.h
++++ b/drivers/accel/amdxdna/aie.h
+@@ -30,8 +30,44 @@ struct aie_device {
  
--static irqreturn_t cert_comp_isr(int irq, void *p)
--{
--	struct cert_comp *cert_comp = p;
--
--	wake_up_all(&cert_comp->waitq);
--	return IRQ_HANDLED;
--}
--
- static struct cert_comp *aie4_lookup_cert_comp(struct amdxdna_dev_hdl *ndev, u32 msix_idx)
+ 	struct amdxdna_drm_query_aie_version version;
+ 	struct amdxdna_drm_query_aie_metadata metadata;
++
++	u32 clk_gating;
++	u32 npuclk_freq;
++	u32 hclk_freq;
++	u32 max_tops;
++	u32 curr_tops;
++};
++
++struct aie_hw_ops {
++	int (*set_dpm)(struct aie_device *aie, u32 dpm_level);
++	int (*update_counters)(struct aie_device *aie);
+ };
+ 
++#define aie_update_counters(ndev)					\
++({									\
++	typeof(ndev) _ndev = ndev;					\
++	if ((_ndev)->priv->hw_ops && (_ndev)->priv->hw_ops->update_counters) \
++		(_ndev)->priv->hw_ops->update_counters(&(_ndev)->aie);	\
++})
++
++struct dpm_clk_freq {
++	u32	npuclk;
++	u32	hclk;
++};
++
++#include <linux/amd-pmf-io.h>
++
++#if IS_ENABLED(CONFIG_AMD_PMF)
++#define AIE_GET_PMF_NPU_METRICS(metrics) amd_pmf_get_npu_data(metrics)
++#else
++#define AIE_GET_PMF_NPU_METRICS(metrics)				\
++({									\
++	typeof(metrics) _m = metrics;					\
++	memset(_m, 0xff, sizeof(*_m));					\
++	(-EOPNOTSUPP);							\
++})
++#endif
++
+ #define DECLARE_AIE_MSG(name, op) \
+ 	DECLARE_XDNA_MSG_COMMON(name, op, -1)
+ #define AIE_FEATURE_ON(aie, feature) test_bit(feature, &(aie)->feature_mask)
+diff --git a/drivers/accel/amdxdna/aie2_pci.c b/drivers/accel/amdxdna/aie2_pci.c
+index 6fa79698f9d8..1b029d33a24b 100644
+--- a/drivers/accel/amdxdna/aie2_pci.c
++++ b/drivers/accel/amdxdna/aie2_pci.c
+@@ -296,7 +296,7 @@ static struct xrs_action_ops aie2_xrs_actions = {
+ 
+ static void aie2_smu_fini(struct amdxdna_dev_hdl *ndev)
  {
- 	struct amdxdna_dev *xdna = ndev->aie.xdna;
--	struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
- 	struct cert_comp *cert_comp;
- 	int ret;
+-	ndev->priv->hw_ops->set_dpm(ndev, 0);
++	ndev->priv->hw_ops->set_dpm(&ndev->aie, 0);
+ 	aie_smu_fini(ndev->aie.smu_hdl);
+ }
  
--	guard(mutex)(&ndev->cert_comp_lock);
+@@ -718,12 +718,12 @@ static int aie2_get_clock_metadata(struct amdxdna_client *client,
+ 	if (!clock)
+ 		return -ENOMEM;
+ 
+-	aie2_update_counters(ndev);
++	aie_update_counters(ndev);
+ 	snprintf(clock->mp_npu_clock.name, sizeof(clock->mp_npu_clock.name),
+ 		 "MP-NPU Clock");
+-	clock->mp_npu_clock.freq_mhz = ndev->npuclk_freq;
++	clock->mp_npu_clock.freq_mhz = ndev->aie.npuclk_freq;
+ 	snprintf(clock->h_clock.name, sizeof(clock->h_clock.name), "H Clock");
+-	clock->h_clock.freq_mhz = ndev->hclk_freq;
++	clock->h_clock.freq_mhz = ndev->aie.hclk_freq;
+ 
+ 	buf_sz = min(args->buffer_size, sizeof(*clock));
+ 	if (copy_to_user(u64_to_user_ptr(args->buffer), clock, buf_sz))
+@@ -879,11 +879,11 @@ static int aie2_query_resource_info(struct amdxdna_client *client,
+ 	ndev = xdna->dev_handle;
+ 	priv = ndev->priv;
+ 
+-	aie2_update_counters(ndev);
++	aie_update_counters(ndev);
+ 	res_info.npu_clk_max = priv->dpm_clk_tbl[ndev->max_dpm_level].hclk;
+-	res_info.npu_tops_max = ndev->max_tops;
++	res_info.npu_tops_max = ndev->aie.max_tops;
+ 	res_info.npu_task_max = priv->hwctx_limit;
+-	res_info.npu_tops_curr = ndev->curr_tops;
++	res_info.npu_tops_curr = ndev->aie.curr_tops;
+ 	res_info.npu_task_curr = ndev->hwctx_num;
+ 
+ 	buf_sz = min(args->buffer_size, sizeof(res_info));
+diff --git a/drivers/accel/amdxdna/aie2_pci.h b/drivers/accel/amdxdna/aie2_pci.h
+index b31f73082c17..709e7545c65f 100644
+--- a/drivers/accel/amdxdna/aie2_pci.h
++++ b/drivers/accel/amdxdna/aie2_pci.h
+@@ -40,8 +40,8 @@
+ 	pci_resource_len(NDEV2PDEV(_ndev), (_ndev)->aie.xdna->dev_info->mbox_bar); \
+ })
+ 
++#define AIE2_GET_PMF_NPU_METRICS(metrics) AIE_GET_PMF_NPU_METRICS(metrics)
+ #if IS_ENABLED(CONFIG_AMD_PMF)
+-#define AIE2_GET_PMF_NPU_METRICS(metrics) amd_pmf_get_npu_data(metrics)
+ #define AIE2_GET_PMF_NPU_DATA(field, val)				\
+ ({									\
+ 	struct amd_pmf_npu_metrics _npu_metrics;			\
+@@ -52,13 +52,6 @@
+ 	(_ret);								\
+ })
+ #else
+-#define AIE2_GET_PMF_NPU_METRICS(metrics)				\
+-({									\
+-	typeof(metrics) _m = metrics;					\
+-	memset(_m, 0xff, sizeof(*_m));					\
+-	(-EOPNOTSUPP);							\
+-})
 -
-+	mutex_lock(&ndev->cert_comp_lock);
- 	cert_comp = xa_load(&ndev->cert_comp_xa, msix_idx);
- 	if (cert_comp) {
- 		kref_get(&cert_comp->kref);
-+		mutex_unlock(&ndev->cert_comp_lock);
- 		return cert_comp;
- 	}
+ #define SENSOR_DEFAULT_npu_power	U32_MAX
+ #define AIE2_GET_PMF_NPU_DATA(field, val)				\
+ ({									\
+@@ -91,11 +84,6 @@ struct rt_config {
+ 	unsigned long feature_mask;
+ };
  
- 	cert_comp = kzalloc_obj(*cert_comp);
- 	if (!cert_comp)
--		return NULL;
-+		goto unlock;
- 
- 	cert_comp->ndev = ndev;
- 	cert_comp->msix_idx = msix_idx;
-+	cert_comp->irq = -ENOENT;
- 	init_waitqueue_head(&cert_comp->waitq);
- 	kref_init(&cert_comp->kref);
- 
--	ret = pci_irq_vector(pdev, cert_comp->msix_idx);
--	if (ret < 0) {
--		XDNA_ERR(xdna, "MSI-X idx %u is invalid, ret:%d", msix_idx, ret);
--		goto free_cert_comp;
--	}
--	cert_comp->irq = ret;
+-struct dpm_clk_freq {
+-	u32	npuclk;
+-	u32	hclk;
+-};
 -
--	ret = request_irq(cert_comp->irq, cert_comp_isr, 0, "xdna_hsa", cert_comp);
-+	/* Transport-specific: PCI wires an MSI-X irq, platform an IPI callback. */
-+	ret = aie4_request_notification(cert_comp);
- 	if (ret) {
--		XDNA_ERR(xdna, "request irq %d failed %d", cert_comp->irq, ret);
-+		XDNA_ERR(xdna, "request notification for msix idx %u failed %d", msix_idx, ret);
- 		goto free_cert_comp;
- 	}
+ /*
+  * Define the maximum number of pending commands in a hardware context.
+  * Must be power of 2!
+@@ -158,11 +146,6 @@ struct amdxdna_dev_hdl {
+ 	u32				dpm_level;
+ 	u32				dft_dpm_level;
+ 	u32				max_dpm_level;
+-	u32				clk_gating;
+-	u32				npuclk_freq;
+-	u32				hclk_freq;
+-	u32				max_tops;
+-	u32				curr_tops;
+ 	u32				force_preempt_enabled;
+ 	u32				frame_boundary_preempt;
  
- 	ret = xa_err(xa_store(&ndev->cert_comp_xa, msix_idx, cert_comp, GFP_KERNEL));
- 	if (ret) {
--		XDNA_ERR(xdna, "store cert_comp for msix idx %d failed %d", msix_idx, ret);
-+		XDNA_ERR(xdna, "store cert_comp for msix idx %u failed %d", msix_idx, ret);
- 		goto free_irq;
- 	}
-+	mutex_unlock(&ndev->cert_comp_lock);
+@@ -177,18 +160,6 @@ struct amdxdna_dev_hdl {
+ 	unsigned long			last_signal_ts;
+ };
  
- 	return cert_comp;
+-struct aie2_hw_ops {
+-	int (*set_dpm)(struct amdxdna_dev_hdl *ndev, u32 dpm_level);
+-	int (*update_counters)(struct amdxdna_dev_hdl *ndev);
+-};
+-
+-#define aie2_update_counters(ndev)				\
+-({								\
+-	typeof(ndev) _ndev = ndev;				\
+-	if (_ndev->priv->hw_ops->update_counters)		\
+-		_ndev->priv->hw_ops->update_counters(_ndev);	\
+-})
+-
+ enum aie2_fw_feature {
+ 	AIE2_NPU_COMMAND,
+ 	AIE2_PREEMPT,
+@@ -219,7 +190,7 @@ struct amdxdna_dev_priv {
+ 	struct aie_bar_off_pair		sram_offs[SRAM_MAX_INDEX];
+ 	struct aie_bar_off_pair		psp_regs_off[PSP_MAX_REGS];
+ 	struct aie_bar_off_pair		smu_regs_off[SMU_MAX_REGS];
+-	const struct aie2_hw_ops	*hw_ops;
++	const struct aie_hw_ops		*hw_ops;
+ };
  
- free_irq:
--	free_irq(cert_comp->irq, cert_comp);
-+	aie4_free_notification(cert_comp);
- free_cert_comp:
- 	kfree(cert_comp);
-+unlock:
-+	mutex_unlock(&ndev->cert_comp_lock);
- 	return NULL;
+ extern const struct amdxdna_dev_ops aie2_ops;
+@@ -234,7 +205,7 @@ extern const struct rt_config npu1_default_rt_cfg[];
+ extern const struct rt_config npu4_default_rt_cfg[];
+ extern const struct amdxdna_fw_feature_tbl npu4_fw_feature_table[];
+ extern const struct amdxdna_rev_vbnv npu4_rev_vbnv_tbl[];
+-extern const struct aie2_hw_ops npu4_hw_ops;
++extern const struct aie_hw_ops npu4_hw_ops;
+ 
+ /* aie2_pm.c */
+ int aie2_pm_init(struct amdxdna_dev_hdl *ndev);
+diff --git a/drivers/accel/amdxdna/aie2_pm.c b/drivers/accel/amdxdna/aie2_pm.c
+index 4fe6030d2c41..f4ced7b67c25 100644
+--- a/drivers/accel/amdxdna/aie2_pm.c
++++ b/drivers/accel/amdxdna/aie2_pm.c
+@@ -23,7 +23,7 @@ static int aie2_pm_set_clk_gating(struct amdxdna_dev_hdl *ndev, u32 val)
+ 	if (ret)
+ 		return ret;
+ 
+-	ndev->clk_gating = val;
++	ndev->aie.clk_gating = val;
+ 	return 0;
  }
  
-@@ -90,7 +79,7 @@ static void cert_comp_release(struct kref *kref)
- 	drm_WARN_ON(&ndev->aie.xdna->ddev, !mutex_is_locked(&ndev->cert_comp_lock));
+@@ -35,7 +35,7 @@ int aie2_pm_set_dpm(struct amdxdna_dev_hdl *ndev, u32 dpm_level)
+ 	if (ret)
+ 		return ret;
  
- 	xa_erase(&ndev->cert_comp_xa, cert_comp->msix_idx);
--	free_irq(cert_comp->irq, cert_comp);
-+	aie4_free_notification(cert_comp);
- 	kfree(cert_comp);
+-	ret = ndev->priv->hw_ops->set_dpm(ndev, dpm_level);
++	ret = ndev->priv->hw_ops->set_dpm(&ndev->aie, dpm_level);
+ 	if (!ret)
+ 		ndev->dpm_level = dpm_level;
+ 	amdxdna_pm_suspend_put(ndev->aie.xdna);
+@@ -49,11 +49,11 @@ int aie2_pm_init(struct amdxdna_dev_hdl *ndev)
+ 
+ 	if (ndev->dev_status != AIE2_DEV_UNINIT) {
+ 		/* Resume device */
+-		ret = ndev->priv->hw_ops->set_dpm(ndev, ndev->dpm_level);
++		ret = ndev->priv->hw_ops->set_dpm(&ndev->aie, ndev->dpm_level);
+ 		if (ret)
+ 			return ret;
+ 
+-		ret = aie2_pm_set_clk_gating(ndev, ndev->clk_gating);
++		ret = aie2_pm_set_clk_gating(ndev, ndev->aie.clk_gating);
+ 		if (ret)
+ 			return ret;
+ 
+@@ -64,7 +64,7 @@ int aie2_pm_init(struct amdxdna_dev_hdl *ndev)
+ 		ndev->max_dpm_level++;
+ 	ndev->max_dpm_level--;
+ 
+-	ret = ndev->priv->hw_ops->set_dpm(ndev, ndev->max_dpm_level);
++	ret = ndev->priv->hw_ops->set_dpm(&ndev->aie, ndev->max_dpm_level);
+ 	if (ret)
+ 		return ret;
+ 	ndev->dpm_level = ndev->max_dpm_level;
+diff --git a/drivers/accel/amdxdna/aie4_message.c b/drivers/accel/amdxdna/aie4_message.c
+index 8d1cad50cbab..263e23aff69f 100644
+--- a/drivers/accel/amdxdna/aie4_message.c
++++ b/drivers/accel/amdxdna/aie4_message.c
+@@ -141,6 +141,94 @@ int aie4_query_cert_firmware_version(struct amdxdna_dev_hdl *ndev,
+ 	return 0;
  }
  
-@@ -100,6 +89,7 @@ static void aie4_put_cert_comp(struct cert_comp *cert_comp)
- 
- 	ndev = cert_comp->ndev;
- 	guard(mutex)(&ndev->cert_comp_lock);
-+
- 	kref_put(&cert_comp->kref, cert_comp_release);
- }
- 
-diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie4_pci.c
-index ffe78c0c4e8b..93594211c169 100644
---- a/drivers/accel/amdxdna/aie4_pci.c
-+++ b/drivers/accel/amdxdna/aie4_pci.c
-@@ -14,6 +14,7 @@
- 
- #include "aie.h"
- #include "aie4_msg_priv.h"
-+#include "amdxdna_ctx.h"
- #include "aie4_pci.h"
- #include "amdxdna_error.h"
- #include "amdxdna_mailbox.h"
-@@ -112,6 +113,69 @@ static void aie4_mailbox_fini(struct amdxdna_dev_hdl *ndev)
- 	ndev->mbox = NULL;
- }
- 
-+static irqreturn_t cert_comp_isr(int irq, void *p)
++int aie4_init_dpm_freq_table(struct amdxdna_dev_hdl *ndev)
 +{
-+	struct cert_comp *cert_comp = p;
-+
-+	wake_up_all(&cert_comp->waitq);
-+	return IRQ_HANDLED;
-+}
-+
-+/* Wire per-cert completion notification interrupt. */
-+int aie4_request_notification(struct cert_comp *comp)
-+{
-+	struct pci_dev *pdev = to_pci_dev(comp->ndev->aie.xdna->ddev.dev);
++	DECLARE_AIE_MSG(aie4_msg_get_dpm_freq_table, AIE4_MSG_OP_GET_DPM_FREQ_TABLE);
++	struct amdxdna_dev *xdna = ndev->aie.xdna;
++	u32 aie_levels, npu_levels, i;
 +	int ret;
 +
-+	ret = pci_irq_vector(pdev, comp->msix_idx);
-+	if (ret < 0)
-+		return ret;
-+	comp->irq = ret;
++	for (i = 0; i < AIE4_MAX_DPM_LEVEL_COUNT && ndev->priv->dpm_clk_tbl &&
++	     ndev->priv->dpm_clk_tbl[i].hclk; i++)
++		ndev->dpm_clk_tbl[i] = ndev->priv->dpm_clk_tbl[i];
++	ndev->max_aieclk_level = i ? i - 1 : 0;
++	ndev->max_npuhclk_level = i ? i - 1 : 0;
 +
-+	ret = request_irq(comp->irq, cert_comp_isr, 0, "xdna_hsa", comp);
++	ret = aie_send_mgmt_msg_wait(&ndev->aie, &msg);
 +	if (ret) {
-+		comp->irq = -ENOENT;
++		XDNA_WARN(xdna, "Get DPM freq table failed, ret %d status 0x%x",
++			  ret, resp.status);
 +		return ret;
 +	}
 +
-+	return 0;
-+}
++	aie_levels = resp.aieclk_table.num_levels;
++	npu_levels = resp.npuhclk_table.num_levels;
 +
-+/* Tear down per-cert completion notification interrupt. */
-+void aie4_free_notification(struct cert_comp *comp)
-+{
-+	if (comp->irq >= 0)
-+		free_irq(comp->irq, comp);
-+}
-+
-+/* Validate and configure hardware context doorbell target. */
-+int aie4_doorbell_setup(struct amdxdna_hwctx *hwctx,
-+			const struct aie4_msg_create_hw_context_resp *resp)
-+{
-+	struct amdxdna_dev *xdna = hwctx->client->xdna;
-+	struct amdxdna_dev_hdl *ndev = xdna->dev_handle;
-+	struct amdxdna_hwctx_priv *priv = hwctx->priv;
-+	struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
-+	u64 db_off = (u64)ndev->priv->doorbell_off + resp->doorbell_offset;
-+
-+	/* Validate doorbell offset against mapped BAR bounds. */
-+	if (db_off + sizeof(u32) >
-+	    pci_resource_len(pdev, xdna->dev_info->doorbell_bar)) {
-+		XDNA_ERR(xdna, "doorbell offset 0x%llx out of BAR", db_off);
++	if (!aie_levels || !npu_levels ||
++	    aie_levels > AIE4_MAX_DPM_LEVEL_COUNT ||
++	    npu_levels > AIE4_MAX_DPM_LEVEL_COUNT) {
++		XDNA_ERR(xdna, "invalid dpm levels, aieclk: %u, npuhclk: %u",
++			 aie_levels, npu_levels);
 +		return -EINVAL;
 +	}
 +
-+	priv->doorbell_addr = ndev->doorbell_base + ndev->priv->doorbell_off +
-+			      resp->doorbell_offset;
++	for (i = 0; i < aie_levels; i++) {
++		if (!resp.aieclk_table.values[i]) {
++			XDNA_ERR(xdna, "invalid dpm aieclk frequency 0 at level %u", i);
++			return -EINVAL;
++		}
++	}
++
++	for (i = 0; i < npu_levels; i++) {
++		if (!resp.npuhclk_table.values[i]) {
++			XDNA_ERR(xdna, "invalid dpm npuhclk frequency 0 at level %u", i);
++			return -EINVAL;
++		}
++	}
++
++	memset(ndev->dpm_clk_tbl, 0, sizeof(ndev->dpm_clk_tbl));
++	for (i = 0; i < aie_levels; i++)
++		ndev->dpm_clk_tbl[i].npuclk = resp.aieclk_table.values[i];
++
++	for (i = 0; i < npu_levels; i++)
++		ndev->dpm_clk_tbl[i].hclk = resp.npuhclk_table.values[i];
++
++	ndev->max_aieclk_level = aie_levels - 1;
++	ndev->max_npuhclk_level = npu_levels - 1;
++
 +	return 0;
 +}
 +
-+/* Ring context doorbell to notify CERT. */
-+void aie4_doorbell_ring(struct amdxdna_hwctx *hwctx)
++int aie4_query_dpm_level(struct amdxdna_dev_hdl *ndev,
++			 u32 *aieclk_dpm_level, u32 *npuhclk_dpm_level)
 +{
-+	writel(0, hwctx->priv->doorbell_addr);
++	DECLARE_AIE_MSG(aie4_msg_get_dpm_level, AIE4_MSG_OP_GET_CURRENT_DPM_LEVEL);
++	struct amdxdna_dev *xdna = ndev->aie.xdna;
++	int ret;
++
++	ret = aie_send_mgmt_msg_wait(&ndev->aie, &msg);
++	if (ret)
++		return ret;
++
++	/*
++	 * Validate against ndev->max_aieclk_level and ndev->max_npuhclk_level
++	 * to ensure reported levels index into populated entries in dpm_clk_tbl.
++	 */
++	if (resp.aieclk_dpm_level > ndev->max_aieclk_level ||
++	    resp.npuhclk_dpm_level > ndev->max_npuhclk_level) {
++		XDNA_ERR(xdna,
++			 "invalid dpm level, aie: %u/%u, npu: %u/%u",
++			 resp.aieclk_dpm_level, ndev->max_aieclk_level,
++			 resp.npuhclk_dpm_level, ndev->max_npuhclk_level);
++		return -EINVAL;
++	}
++
++	*aieclk_dpm_level = resp.aieclk_dpm_level;
++	*npuhclk_dpm_level = resp.npuhclk_dpm_level;
++
++	return 0;
 +}
 +
- static int aie4_irq_init(struct amdxdna_dev *xdna)
+ int aie4_attach_work_buffer(struct amdxdna_dev_hdl *ndev)
  {
- 	struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
-@@ -630,6 +694,7 @@ static int aie4m_pcidev_init(struct amdxdna_dev *xdna)
- 		set_bit(SMU_REG_BAR(ndev, i), &bars);
- 	set_bit(xdna->dev_info->mbox_bar, &bars);
- 	set_bit(xdna->dev_info->sram_bar, &bars);
-+	set_bit(xdna->dev_info->doorbell_bar, &bars);
+ 	DECLARE_AIE_MSG(aie4_msg_attach_work_buffer, AIE4_MSG_OP_ATTACH_WORK_BUFFER);
+diff --git a/drivers/accel/amdxdna/aie4_msg_priv.h b/drivers/accel/amdxdna/aie4_msg_priv.h
+index 4c06792df1bd..fe78df9e23c8 100644
+--- a/drivers/accel/amdxdna/aie4_msg_priv.h
++++ b/drivers/accel/amdxdna/aie4_msg_priv.h
+@@ -24,6 +24,8 @@ enum aie4_msg_opcode {
+ 	AIE4_MSG_OP_AIE_TILE_INFO                    = 0x30006,
+ 	AIE4_MSG_OP_AIE_VERSION_INFO                 = 0x30007,
+ 	AIE4_MSG_OP_POWER_OVERRIDE                   = 0x3000B,
++	AIE4_MSG_OP_GET_DPM_FREQ_TABLE               = 0x30012,
++	AIE4_MSG_OP_GET_CURRENT_DPM_LEVEL            = 0x30013,
  
- 	for (i = 0; i < PCI_NUM_RESOURCES; i++) {
- 		if (!test_bit(i, &bars))
-@@ -643,6 +708,7 @@ static int aie4m_pcidev_init(struct amdxdna_dev *xdna)
+ 	AIE4_MSG_OP_ATTACH_WORK_BUFFER               = 0x40001,
+ };
+@@ -196,6 +198,35 @@ struct aie4_msg_power_override_resp {
+ 	enum aie4_msg_status status;
+ } __packed;
  
- 	ndev->mbox_base = tbl[xdna->dev_info->mbox_bar];
- 	ndev->rbuf_base = tbl[xdna->dev_info->sram_bar];
-+	ndev->doorbell_base = tbl[xdna->dev_info->doorbell_bar];
++#define AIE4_MAX_DPM_LEVEL_COUNT	10
++
++struct aie4_dpm_table {
++	__u32 num_levels;
++	__u32 values[AIE4_MAX_DPM_LEVEL_COUNT];
++} __packed;
++
++/* AIE4_MSG_OP_GET_DPM_FREQ_TABLE */
++struct aie4_msg_get_dpm_freq_table_req {
++	__u32 rsvd;
++} __packed;
++
++struct aie4_msg_get_dpm_freq_table_resp {
++	enum aie4_msg_status status;
++	struct aie4_dpm_table aieclk_table;
++	struct aie4_dpm_table npuhclk_table;
++} __packed;
++
++/* AIE4_MSG_OP_GET_CURRENT_DPM_LEVEL */
++struct aie4_msg_get_dpm_level_req {
++	__u32 rsvd;
++} __packed;
++
++struct aie4_msg_get_dpm_level_resp {
++	enum aie4_msg_status status;
++	__u32 aieclk_dpm_level;
++	__u32 npuhclk_dpm_level;
++} __packed;
++
+ #define AIE4_WORK_BUFFER_MIN_SIZE      SZ_4M
  
- 	pci_set_master(pdev);
+ struct aie4_msg_attach_work_buffer_req {
+diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie4_pci.c
+index 6eacdc026ec7..5593dfb6c7ed 100644
+--- a/drivers/accel/amdxdna/aie4_pci.c
++++ b/drivers/accel/amdxdna/aie4_pci.c
+@@ -299,6 +299,17 @@ static int aie4_query(struct amdxdna_dev_hdl *ndev)
+ 	if (ret)
+ 		return ret;
+ 
++	ndev->total_col = min_t(u32, AIE4_TOTAL_COLUMN, ndev->aie.metadata.cols);
++
++	ret = aie4_init_dpm_freq_table(ndev);
++	if (ret) {
++		if (ret == -ETIME)
++			return ret;
++		/* if query dpm from fw failed, using default value */
++		if (ndev->priv->hw_ops && ndev->priv->hw_ops->set_dpm)
++			(void)ndev->priv->hw_ops->set_dpm(&ndev->aie, 0);
++	}
++
+ 	return 0;
+ }
+ 
+@@ -635,11 +646,71 @@ static int aie4_get_power_mode(struct amdxdna_client *client,
+ 	return 0;
+ }
+ 
++static int aie4_query_clock_metadata(struct amdxdna_client *client,
++				     struct amdxdna_drm_get_info *args)
++{
++	struct amdxdna_drm_query_clock_metadata *clock;
++	struct amdxdna_dev *xdna = client->xdna;
++	struct amdxdna_dev_hdl *ndev;
++	int ret = 0;
++	u32 buf_sz;
++
++	ndev = xdna->dev_handle;
++	clock = kzalloc_obj(*clock);
++	if (!clock)
++		return -ENOMEM;
++
++	aie_update_counters(ndev);
++	snprintf(clock->mp_npu_clock.name, sizeof(clock->mp_npu_clock.name),
++		 "MP-NPU Clock");
++	clock->mp_npu_clock.freq_mhz = ndev->aie.npuclk_freq;
++	snprintf(clock->h_clock.name, sizeof(clock->h_clock.name), "H Clock");
++	clock->h_clock.freq_mhz = ndev->aie.hclk_freq;
++
++	buf_sz = min_t(u32, args->buffer_size, sizeof(*clock));
++	if (copy_to_user(u64_to_user_ptr(args->buffer), clock, buf_sz))
++		ret = -EFAULT;
++
++	kfree(clock);
++	return ret;
++}
++
++static int aie4_query_resource_info(struct amdxdna_client *client,
++				    struct amdxdna_drm_get_info *args)
++{
++	struct amdxdna_drm_get_resource_info res_info = {};
++	struct amdxdna_dev_hdl *ndev;
++	struct amdxdna_dev *xdna;
++	u32 buf_sz;
++
++	xdna = client->xdna;
++	ndev = xdna->dev_handle;
++
++	aie_update_counters(ndev);
++	res_info.npu_clk_max = ndev->dpm_clk_tbl[ndev->max_npuhclk_level].hclk;
++	res_info.npu_tops_max = ndev->aie.max_tops;
++	res_info.npu_tops_curr = ndev->aie.curr_tops;
++	/* Context accounting is populated in later patches in the series. */
++
++	buf_sz = min_t(u32, args->buffer_size, sizeof(res_info));
++	if (copy_to_user(u64_to_user_ptr(args->buffer), &res_info, buf_sz))
++		return -EFAULT;
++
++	return 0;
++}
++
+ static int aie4_get_info(struct amdxdna_client *client, struct amdxdna_drm_get_info *args)
+ {
+ 	struct amdxdna_dev *xdna = client->xdna;
+ 	struct amdxdna_dev_hdl *ndev = xdna->dev_handle;
+-	int ret;
++	int ret, idx;
++
++	if (!drm_dev_enter(&xdna->ddev, &idx))
++		return -ENODEV;
++
++	ret = amdxdna_pm_resume_get_locked(xdna);
++	if (ret)
++		goto dev_exit;
+ 
+ 	switch (args->param) {
+ 	case DRM_AMDXDNA_QUERY_AIE_METADATA:
+@@ -648,19 +719,28 @@ static int aie4_get_info(struct amdxdna_client *client, struct amdxdna_drm_get_i
+ 	case DRM_AMDXDNA_QUERY_AIE_VERSION:
+ 		ret = amdxdna_get_aie_version(client, args, &ndev->aie.version);
+ 		break;
++	case DRM_AMDXDNA_QUERY_CLOCK_METADATA:
++		ret = aie4_query_clock_metadata(client, args);
++		break;
+ 	case DRM_AMDXDNA_QUERY_FIRMWARE_VERSION:
+ 		ret = amdxdna_get_firmware_version(client, args, &xdna->fw_ver);
+ 		break;
+ 	case DRM_AMDXDNA_GET_POWER_MODE:
+ 		ret = aie4_get_power_mode(client, args);
+ 		break;
++	case DRM_AMDXDNA_QUERY_RESOURCE_INFO:
++		ret = aie4_query_resource_info(client, args);
++		break;
+ 	default:
+ 		XDNA_ERR(xdna, "Not supported request parameter %u", args->param);
+ 		ret = -EOPNOTSUPP;
+ 	}
+ 
++	amdxdna_pm_suspend_put(xdna);
+ 	XDNA_DBG(xdna, "Got param %d", args->param);
+ 
++dev_exit:
++	drm_dev_exit(idx);
+ 	return ret;
+ }
  
 diff --git a/drivers/accel/amdxdna/aie4_pci.h b/drivers/accel/amdxdna/aie4_pci.h
-index 959ef3695813..9fcdfcc5a15f 100644
+index fd2c50dc8080..6e9e7f874a44 100644
 --- a/drivers/accel/amdxdna/aie4_pci.h
 +++ b/drivers/accel/amdxdna/aie4_pci.h
-@@ -32,6 +32,8 @@ struct amdxdna_hwctx_priv {
+@@ -11,6 +11,7 @@
+ #include <linux/pci.h>
  
- 	struct cert_comp                *cert_comp;
- 	u32                             hw_ctx_id;
+ #include "aie.h"
++#include "aie4_msg_priv.h"
+ #include "amdxdna_mailbox.h"
+ 
+ struct cert_comp {
+@@ -40,6 +41,9 @@ struct amdxdna_dev_priv {
+ 
+ 	struct aie_bar_off_pair	psp_regs_off[PSP_MAX_REGS];
+ 	struct aie_bar_off_pair	smu_regs_off[SMU_MAX_REGS];
 +
-+	void                    __iomem *doorbell_addr;
++	const struct dpm_clk_freq	*dpm_clk_tbl;
++	const struct aie_hw_ops		*hw_ops;
  };
  
- struct amdxdna_dev_priv {
-@@ -54,6 +56,7 @@ struct amdxdna_dev_hdl {
- 	const struct amdxdna_dev_priv	*priv;
- 	void			__iomem *mbox_base;
- 	void			__iomem *rbuf_base;
-+	void			__iomem *doorbell_base;
+ struct amdxdna_dev_hdl {
+@@ -50,6 +54,11 @@ struct amdxdna_dev_hdl {
  
  	struct mailbox			*mbox;
  	u32				partition_id;
-@@ -111,6 +114,17 @@ int aie4_cmd_wait(struct amdxdna_hwctx *hwctx, u64 seq, u32 timeout);
- /* aie4_pci.c */
- int aie4_restore_power_mode(struct amdxdna_dev_hdl *ndev);
- 
-+/*
-+ * Transport hooks implemented by PCI backend. Doorbell hooks are wired during
-+ * kernel queue creation and command submission in later patches in the series.
-+ */
-+struct aie4_msg_create_hw_context_resp;
-+int aie4_doorbell_setup(struct amdxdna_hwctx *hwctx,
-+			const struct aie4_msg_create_hw_context_resp *resp);
-+void aie4_doorbell_ring(struct amdxdna_hwctx *hwctx);
-+int aie4_request_notification(struct cert_comp *comp);
-+void aie4_free_notification(struct cert_comp *comp);
++	u32				total_col;
++	u32				max_aieclk_level;
++	u32				max_npuhclk_level;
 +
- /* aie4_sriov.c */
- #if IS_ENABLED(CONFIG_PCI_IOV)
- int aie4_sriov_configure(struct amdxdna_dev *xdna, int num_vfs);
-diff --git a/drivers/accel/amdxdna/amdxdna_ctx.h b/drivers/accel/amdxdna/amdxdna_ctx.h
-index 6e78bab8a02c..9bbc3db4ebde 100644
---- a/drivers/accel/amdxdna/amdxdna_ctx.h
-+++ b/drivers/accel/amdxdna/amdxdna_ctx.h
-@@ -6,6 +6,8 @@
- #ifndef _AMDXDNA_CTX_H_
- #define _AMDXDNA_CTX_H_
++	struct dpm_clk_freq		dpm_clk_tbl[AIE4_MAX_DPM_LEVEL_COUNT];
  
-+#include <drm/amdxdna_accel.h>
-+#include <drm/gpu_scheduler.h>
- #include <linux/bitfield.h>
+ 	struct xarray                   cert_comp_xa; /* device level indexed by msix id */
+ 	struct mutex                    cert_comp_lock; /* protects cert_comp operations*/
+@@ -79,6 +88,9 @@ int aie4_query_npu_firmware_version(struct amdxdna_dev_hdl *ndev,
+ 				    struct amdxdna_drm_query_firmware_version *fw_version);
+ int aie4_query_cert_firmware_version(struct amdxdna_dev_hdl *ndev,
+ 				     struct amdxdna_drm_query_firmware_version *cert_version);
++int aie4_init_dpm_freq_table(struct amdxdna_dev_hdl *ndev);
++int aie4_query_dpm_level(struct amdxdna_dev_hdl *ndev,
++			 u32 *aieclk_dpm_level, u32 *npuhclk_dpm_level);
+ int aie4_msg_set_power_mode(struct amdxdna_dev_hdl *ndev, u8 power_mode);
+ u32 aie4_msg_pasid(struct amdxdna_client *client);
  
- #include "amdxdna_gem.h"
+diff --git a/drivers/accel/amdxdna/npu1_regs.c b/drivers/accel/amdxdna/npu1_regs.c
+index ca779674017a..b4a0ede636f0 100644
+--- a/drivers/accel/amdxdna/npu1_regs.c
++++ b/drivers/accel/amdxdna/npu1_regs.c
+@@ -71,24 +71,25 @@ static const struct amdxdna_fw_feature_tbl npu1_fw_feature_table[] = {
+ 	{ 0 }
+ };
+ 
+-static int npu1_set_dpm(struct amdxdna_dev_hdl *ndev, u32 dpm_level)
++static int npu1_set_dpm(struct aie_device *aie, u32 dpm_level)
+ {
++	struct amdxdna_dev_hdl *ndev = aie->xdna->dev_handle;
+ 	u32 npuclk, hclk;
+ 	int ret;
+ 
+ 	npuclk = ndev->priv->dpm_clk_tbl[dpm_level].npuclk;
+ 	hclk = ndev->priv->dpm_clk_tbl[dpm_level].hclk;
+-	ret = aie_smu_set_clocks(ndev->aie.smu_hdl, &npuclk, &hclk);
++	ret = aie_smu_set_clocks(aie->smu_hdl, &npuclk, &hclk);
+ 	if (ret)
+ 		return ret;
+ 
+-	ndev->npuclk_freq = npuclk;
+-	ndev->hclk_freq = hclk;
+-	ndev->max_tops = 2 * ndev->total_col;
+-	ndev->curr_tops = ndev->max_tops * hclk / 1028;
++	aie->npuclk_freq = npuclk;
++	aie->hclk_freq = hclk;
++	aie->max_tops = 2 * ndev->total_col;
++	aie->curr_tops = aie->max_tops * hclk / 1028;
+ 
+-	XDNA_DBG(ndev->aie.xdna, "MP-NPU clock %d, H clock %d\n",
+-		 ndev->npuclk_freq, ndev->hclk_freq);
++	XDNA_DBG(aie->xdna, "MP-NPU clock %d, H clock %d\n",
++		 aie->npuclk_freq, aie->hclk_freq);
+ 	return 0;
+ }
+ 
+@@ -123,7 +124,7 @@ static const struct amdxdna_dev_priv npu1_dev_priv = {
+ 		DEFINE_BAR_OFFSET(SMU_RESP_REG, NPU1_SMU, MPNPU_PUB_SCRATCH6),
+ 		DEFINE_BAR_OFFSET(SMU_OUT_REG,  NPU1_SMU, MPNPU_PUB_SCRATCH7),
+ 	},
+-	.hw_ops		= &(const struct aie2_hw_ops) {
++	.hw_ops		= &(const struct aie_hw_ops) {
+ 		.set_dpm = npu1_set_dpm,
+ 	},
+ };
+diff --git a/drivers/accel/amdxdna/npu3_regs.c b/drivers/accel/amdxdna/npu3_regs.c
+index c82433d62901..cff99ddd3a55 100644
+--- a/drivers/accel/amdxdna/npu3_regs.c
++++ b/drivers/accel/amdxdna/npu3_regs.c
+@@ -37,6 +37,8 @@
+ #define MP1_C2PMSG_61_ALT_1     0x3B109F4
+ #define MP1_C2PMSG_60_ALT_1     0x3B109F0
+ 
++#define NPU3_DPM_TOPS(ndev, hclk) (4096 * (ndev)->total_col * (hclk) / 1000000)
++
+ static const struct amdxdna_fw_feature_tbl npu3_fw_feature_table[] = {
+ 	{ .major = 6, .min_minor = 0 },
+ 	{ 0 }
+@@ -47,9 +49,82 @@ static const struct amdxdna_fw_feature_tbl npu3_cert_feature_table[] = {
+ 	{ 0 }
+ };
+ 
++static const struct dpm_clk_freq npu3_dpm_clk_table[] = {
++	{  400,  400 },
++	{  960,  576 },
++	{ 1108,  576 },
++	{ 1200,  847 },
++	{ 1200, 1200 },
++	{ 1200, 1200 },
++	{ 1200, 1200 },
++	{ 1200, 1200 },
++	{ 0 }
++};
++
++static int npu3_set_dpm(struct aie_device *aie, u32 dpm_level)
++{
++	struct amdxdna_dev_hdl *ndev = aie->xdna->dev_handle;
++	u32 aie_lvl, npu_lvl;
++
++	if (dpm_level > max(ndev->max_aieclk_level, ndev->max_npuhclk_level)) {
++		XDNA_ERR(aie->xdna, "Invalid dpm level %u (max aie %u, npu %u)",
++			 dpm_level, ndev->max_aieclk_level, ndev->max_npuhclk_level);
++		return -EINVAL;
++	}
++
++	aie_lvl = min(dpm_level, ndev->max_aieclk_level);
++	npu_lvl = min(dpm_level, ndev->max_npuhclk_level);
++
++	aie->npuclk_freq = ndev->dpm_clk_tbl[aie_lvl].npuclk;
++	aie->hclk_freq = ndev->dpm_clk_tbl[npu_lvl].hclk;
++	aie->max_tops = NPU3_DPM_TOPS(ndev, ndev->dpm_clk_tbl[ndev->max_npuhclk_level].hclk);
++	aie->curr_tops = NPU3_DPM_TOPS(ndev, aie->hclk_freq);
++
++	XDNA_DBG(aie->xdna, "MP-NPU clock %d, H clock %d\n",
++		 aie->npuclk_freq, aie->hclk_freq);
++
++	return 0;
++}
++
++static int npu3_update_counters(struct aie_device *aie)
++{
++	struct amdxdna_dev_hdl *ndev = aie->xdna->dev_handle;
++	u32 aieclk_level, npuhclk_level;
++	int ret;
++
++	/* Use firmware DPM table or pre-defined table, never mixed. */
++	ret = aie4_query_dpm_level(ndev, &aieclk_level, &npuhclk_level);
++	if (ret) {
++		XDNA_WARN(aie->xdna, "Failed to get DPM level from fw: %d", ret);
++		return ret;
++	}
++
++	if (aieclk_level > ndev->max_aieclk_level ||
++	    npuhclk_level > ndev->max_npuhclk_level) {
++		XDNA_ERR(aie->xdna, "DPM level exceeds max: aie %u/%u, npu %u/%u",
++			 aieclk_level, ndev->max_aieclk_level,
++			 npuhclk_level, ndev->max_npuhclk_level);
++		return -EINVAL;
++	}
++
++	aie->npuclk_freq = ndev->dpm_clk_tbl[aieclk_level].npuclk;
++	aie->hclk_freq = ndev->dpm_clk_tbl[npuhclk_level].hclk;
++	aie->max_tops = NPU3_DPM_TOPS(ndev,
++				      ndev->dpm_clk_tbl[ndev->max_npuhclk_level].hclk);
++	aie->curr_tops = NPU3_DPM_TOPS(ndev, aie->hclk_freq);
++
++	return 0;
++}
++
++static const struct aie_hw_ops npu3_hw_ops = {
++	.set_dpm = npu3_set_dpm,
++	.update_counters = npu3_update_counters,
++};
++
+ static const struct amdxdna_dev_priv npu3_dev_priv = {
+ 	.npufw_path             = "npu.sbin",
+ 	.certfw_path            = "cert.sbin",
++	.dpm_clk_tbl		= npu3_dpm_clk_table,
+ 	.mbox_bar		= NPU3_MBOX_BAR,
+ 	.mbox_rbuf_bar		= NPU3_MBOX_BUFFER_BAR,
+ 	.mbox_info_off		= NPU3_MBOX_INFO_OFF,
+@@ -71,14 +146,17 @@ static const struct amdxdna_dev_priv npu3_dev_priv = {
+ 		DEFINE_BAR_OFFSET(SMU_RESP_REG, NPU3_SMU, MP1_C2PMSG_60_ALT_1),
+ 		DEFINE_BAR_OFFSET(SMU_OUT_REG,  NPU3_SMU, MP1_C2PMSG_61_ALT_1),
+ 	},
++	.hw_ops			= &npu3_hw_ops,
+ };
+ 
+ static const struct amdxdna_dev_priv npu3_dev_vf_priv = {
+ 	/* vf device does not load firmware */
++	.dpm_clk_tbl		= npu3_dpm_clk_table,
+ 	.mbox_bar		= NPU3_MBOX_BAR,
+ 	.mbox_rbuf_bar		= NPU3_MBOX_BUFFER_BAR,
+ 	.mbox_info_off		= NPU3_MBOX_INFO_OFF,
+ 	/* vf device does not have smu and psp */
++	.hw_ops			= &npu3_hw_ops,
+ };
+ 
+ const struct amdxdna_dev_info dev_npu3_pf_info = {
+diff --git a/drivers/accel/amdxdna/npu4_regs.c b/drivers/accel/amdxdna/npu4_regs.c
+index c9648c8032ec..624c1babdff8 100644
+--- a/drivers/accel/amdxdna/npu4_regs.c
++++ b/drivers/accel/amdxdna/npu4_regs.c
+@@ -104,42 +104,44 @@ const struct amdxdna_fw_feature_tbl npu4_fw_feature_table[] = {
+ 	{ 0 }
+ };
+ 
+-static int npu4_set_dpm(struct amdxdna_dev_hdl *ndev, u32 dpm_level)
++static int npu4_set_dpm(struct aie_device *aie, u32 dpm_level)
+ {
++	struct amdxdna_dev_hdl *ndev = aie->xdna->dev_handle;
+ 	int ret;
+ 
+-	ret = aie_smu_set_dpm(ndev->aie.smu_hdl, dpm_level);
++	ret = aie_smu_set_dpm(aie->smu_hdl, dpm_level);
+ 	if (ret)
+ 		return ret;
+ 
+-	ndev->npuclk_freq = ndev->priv->dpm_clk_tbl[dpm_level].npuclk;
+-	ndev->hclk_freq = ndev->priv->dpm_clk_tbl[dpm_level].hclk;
+-	ndev->max_tops = NPU4_DPM_TOPS(ndev, ndev->priv->dpm_clk_tbl[ndev->max_dpm_level].hclk);
+-	ndev->curr_tops = NPU4_DPM_TOPS(ndev, ndev->hclk_freq);
++	aie->npuclk_freq = ndev->priv->dpm_clk_tbl[dpm_level].npuclk;
++	aie->hclk_freq = ndev->priv->dpm_clk_tbl[dpm_level].hclk;
++	aie->max_tops = NPU4_DPM_TOPS(ndev, ndev->priv->dpm_clk_tbl[ndev->max_dpm_level].hclk);
++	aie->curr_tops = NPU4_DPM_TOPS(ndev, aie->hclk_freq);
+ 
+-	XDNA_DBG(ndev->aie.xdna, "MP-NPU clock %d, H clock %d\n",
+-		 ndev->npuclk_freq, ndev->hclk_freq);
++	XDNA_DBG(aie->xdna, "MP-NPU clock %d, H clock %d\n",
++		 aie->npuclk_freq, aie->hclk_freq);
+ 
+ 	return 0;
+ }
+ 
+-static int npu4_update_counters(struct amdxdna_dev_hdl *ndev)
++static int npu4_update_counters(struct aie_device *aie)
+ {
++	struct amdxdna_dev_hdl *ndev = aie->xdna->dev_handle;
+ 	struct amd_pmf_npu_metrics npu_metrics;
+ 	int ret;
+ 
+-	ret = AIE2_GET_PMF_NPU_METRICS(&npu_metrics);
++	ret = AIE_GET_PMF_NPU_METRICS(&npu_metrics);
+ 	if (ret)
+ 		return ret;
+ 
+-	ndev->npuclk_freq = npu_metrics.mpnpuclk_freq;
+-	ndev->hclk_freq = npu_metrics.npuclk_freq;
+-	ndev->curr_tops = NPU4_DPM_TOPS(ndev, ndev->hclk_freq);
++	aie->npuclk_freq = npu_metrics.mpnpuclk_freq;
++	aie->hclk_freq = npu_metrics.npuclk_freq;
++	aie->curr_tops = NPU4_DPM_TOPS(ndev, aie->hclk_freq);
+ 
+ 	return 0;
+ }
+ 
+-const struct aie2_hw_ops npu4_hw_ops = {
++const struct aie_hw_ops npu4_hw_ops = {
+ 	.set_dpm = npu4_set_dpm,
+ 	.update_counters = npu4_update_counters,
+ };
 -- 
 2.34.1
 
