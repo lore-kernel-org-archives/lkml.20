@@ -1,141 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3A21370D5E;
-	Fri,  9 Oct 2026 21:39:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0D6F3D5C31
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 21:40:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791581999; cv=none; b=fQhh/ttoqS/QbLrD5/z0RW80NSICA1EzbefB6B0xjNynj1KqIMTluCHnC1JWMjaVGEio9nee9GtidCgto0PeOL7BTkOXEvmb5bSwPCf6CKWulZEMAVoidvdfLnWtUouFLadR5RJAQrtFMh4w4sSF8Tv2nIeyzzwfprLQGCZDuyY=
+	t=1791582026; cv=none; b=fPVthCB5BlF8hYoT0S8Yd0Hs9+O5A+L9iPViObTyaxjTffupiIleOJKvO0lRXexph8PHJew5zgIyIYpQJUepZlIICklJvfm0R5AsfKphjHRxsSrHK0HNwfNoxaW5Gs4XiAsT609Xcd/P8jVWR6f0y4FGukii8en32xwGxFiC9/Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791581999; c=relaxed/simple;
-	bh=H1oSWJh5fZjQ1XNCXmsBBbTHrJYv8weii6T1h1C2/ZY=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=M13aNuvCb+2gvvyCk9mDLJfdXvEsDSGGKfr75kXhLsfwDG6zBFmpu2hRdkn4Hv9baO7Fhl6KqDyZUWDKnYuF+6114E+abR0/cL1hfjJua+GUdwzDxBzLwSlRX3fJz45479yUrewZtgrdmGv7UPvFjJgF0Nv4dD/jeTHrk64J148=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JVDKU9Rv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791582026; c=relaxed/simple;
+	bh=GEDqi6cQqEPhJR0cVLsj6fg4aKUXmns5XxXs2jZVVBI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=euaLkM77f6NjUv6oNglDGClGDQTWYQP9KVZw2hGij2S0/7JGM6fhkicfJi3tkHDsVrdig6nEzuJLiJVC25rLIVVlcPxhmqMDLY413MDi4v4AgvyFEDI+xTkh7RGIqFAQ3lrzqxWYINcrCNZ/Z6JoBzA//2788QOVyYHfnlaa/8o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=ZjI15pq9; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JVDKU9Rv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5273F1F000FF;
-	Fri,  9 Oct 2026 21:39:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791581998;
-	bh=/DIGfdosI8HTT4ZSUkh5GCIGuTYsQcGon1rOmhIuxoY=;
-	h=Date:From:To:Cc:Subject;
-	b=JVDKU9Rvbak1j1Rct1f8kmkQTPknc7TnLbU9EA9IzH0J1/mYVXeulZbc588DR/rlY
-	 kPb95slpoe6tIl/sPlWfwPEqvG0z9FgD8yEuuMZPqerfU2oLT4A+5+2eHjRU+Nqy4G
-	 EKKmz53PfDlHH0RhyeTwXgbdfdvNPpXwjnE8Xd0hxtkj5OY4qkgP4HtzIhvqIE/UzS
-	 KiC7Aggb1MenRx9WwjmyFTuTNajXPcUk9Vt17tgxYzn5acnu88aTcWPTEugeTcGAhm
-	 3lqu2ahELOY9U5y6b3zRz8T3I3wh0ug0vjClz6ZZLCVwkvEZEwZHCip2yZbW+1Ofgm
-	 LpCfV0rlUIMvg==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 93BD01AC57D0; Fri, 09 Oct 2026 22:39:46 +0100 (BST)
-Date: Fri, 9 Oct 2026 23:39:46 +0200
-From: Mark Brown <broonie@kernel.org>
-To: Greg KH <greg@kroah.com>
-Cc: AmirHossein HajiMohammadi <info@hajimohammadi.net>,
-	David Miller <davem@davemloft.net>,
-	Franco Hector Hugo Montenegro <franco.montenegro.ruke@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Wireless <linux-wireless@vger.kernel.org>,
-	Hungyu Lin <dennylin0707@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Leonardo Martins Martins <dev.lmmrtns@gmail.com>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	Luka Gejak <luka.gejak@linux.dev>,
-	Networking <netdev@vger.kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>, Ping-Ke Shih <pkshih@realtek.com>,
-	Rishik Yechuri <epicrishik@gmail.com>,
-	Rishik Yechuri <rishik.yechuri.code@gmail.com>,
-	Rishik Yechuri <rishikyechuri@protonmail.com>,
-	Siho Kim <siho93.kim@gmail.com>,
-	Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
-Subject: linux-next: manual merge of the staging tree with the wireless-next
- tree
-Message-ID: <aslfIkFxsc9oIqku@sirena.co.uk>
-Mail-Followup-To: Greg KH <greg@kroah.com>,
-	AmirHossein HajiMohammadi <info@hajimohammadi.net>,
-	David Miller <davem@davemloft.net>,
-	Franco Hector Hugo Montenegro <franco.montenegro.ruke@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Wireless <linux-wireless@vger.kernel.org>,
-	Hungyu Lin <dennylin0707@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Leonardo Martins Martins <dev.lmmrtns@gmail.com>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	Luka Gejak <luka.gejak@linux.dev>,
-	Networking <netdev@vger.kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>, Ping-Ke Shih <pkshih@realtek.com>,
-	Rishik Yechuri <epicrishik@gmail.com>,
-	Rishik Yechuri <rishik.yechuri.code@gmail.com>,
-	Rishik Yechuri <rishikyechuri@protonmail.com>,
-	Siho Kim <siho93.kim@gmail.com>,
-	Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="ZjI15pq9"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a1880e1bf1so2398325e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 14:40:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20251104; t=1791582024; x=1792186824; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XYNRxEaVrIcFOPoWfTYwk6GJOOGVb1oRxSuSiudg7mM=;
+        b=ZjI15pq9ILESwcVmVsNj6ThEtCE1tv29V51LOzwKtEDsDmSEzUp4zoWYCHwvQK0mTQ
+         2WCsSi2zQTc5Ntu0eCE/KLvXof0Pu/6xzgT+GocoKwMLtMTjBYC1pPOwGUcWLQJcv6co
+         zfkv4go4kSp/E0fL4snBpwe2EodksJY7xRioyMZmjsuzwEX4jwlPqNZime8P+ACRDRQV
+         8w8rCI2GMYJLhi1Htd5ZDjTpzVY2OxGtwRaLzHTIv5TOPqHGXSKAKZ2K17WibkhEZenJ
+         r0rb0ew9nykZ8kk8OiFBmaSmOylbUZaWMAJde7GLzMHLEK+K26GQlxOpiZK790FsKriG
+         dF+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791582024; x=1792186824;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XYNRxEaVrIcFOPoWfTYwk6GJOOGVb1oRxSuSiudg7mM=;
+        b=ol9S0K/pIFEYHSbAMzmkyKdGsLSet4SOZITVbINenRuljVqRTxxo9UlKnPtTMOawAI
+         O/eOyZ7rijbsnN2D/famLo6Y00iaLZtp6i6zlXVUwu027x3hr1c34VG7WV97jVdTDnOz
+         Jn5Y9tr+0eBGD2ogq8YrgWwiRkLhYKiXhz8MMPGHWKPuhQeJncONii44BGbRfdM2i1so
+         Zpq1KoaUR82OjjF46NJ9c0/kD6svHLU3huUbPyugeexTFTpRncpKrFCv6wqZK7zA8lW9
+         3Ox//ZInL3yEP1F0XUp49RQdapMW8xX3ustXXrlC+h65UFdYLD8lIHRQkVqD8MRDx2fJ
+         qCsg==
+X-Forwarded-Encrypted: i=1; AKwUvBxId5B/zbUA17MaJOnj1TL0fZiaK6yoPLSHIuK37x3K7mT4BDP3Xj9I14+7DUv8VD57w4AJpQJfJgaHq4s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJJ1wmtUqDsXLemR0QNfFKvmwn0NcBjwhWyDlkVUZVTXE0ZDOeI
+	qJolQiOeCUVZLr8ibtrW7SobQJlR7b8L/WezlFk9poqsVPwrmAf8TTg=
+X-Gm-Gg: AYBFou3Nl2NQpzUlSxwbjRyzbSjYyOipAKxKeOkGoFoeU5qRad9pSUjVPvodhydmCCO
+	RhmUf5VIwFHCYsnvWaogtdzNxlQarwMMXy/4qx7DytyAi1jEJPnw6tB6FA6i39krLaNztHMgzUh
+	5WGXNQfPOgjcaGmlfJrLY9npI04Js5Qw8scbXwLxNLzkF43ZYFj5KSMHBKwUxtVahG4n76zc7nq
+	tWOyC/AZh6alKjpZK4OKhZ2ByJUT58HWkw1VjLKSNxp8uvUUmonDmCNZN50cNhkpnbBf/qRCeXm
+	QJqsUf3FoqwUrNPwUbFLLqHYTlSbehXyCNgDCKmiC/shRv6yav0AR5UCDLnUKi5lg5TCM1F3EU9
+	8TLEGit4S2X2kQc6lPY13L2G6bIATgK2XzAH9Fjmz0ONBR1EGfogYppGKYZqBmWFMRVI4eP7txk
+	4djDDlsItWfQA7X3nQpnlfCLLPkxDQIc6Z1Lq5a2rHuc/IWFpEYRpcrOB5EfNEyVk4IZNnxGIo1
+	TW1O8XcXhleSC33xDwZxKM2T40yqf7PMEKkQtjTDfnRaJkkvg==
+X-Received: by 2002:a05:600c:8209:b0:4a0:2375:dc1a with SMTP id 5b1f17b1804b1-4a18e4cb771mr62672595e9.21.1791582023679;
+        Fri, 09 Oct 2026 14:40:23 -0700 (PDT)
+Received: from [192.168.1.3] (p5b2b4680.dip0.t-ipconnect.de. [91.43.70.128])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18f3b43efsm91051495e9.1.2026.10.09.14.40.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 09 Oct 2026 14:40:23 -0700 (PDT)
+Message-ID: <0f8c15f3-702f-407f-8c1d-e64627294ba8@googlemail.com>
+Date: Fri, 9 Oct 2026 23:40:22 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="hSDyjtiM2P12w3nY"
-Content-Disposition: inline
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 6.18 000/403] 6.18.56-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261009140952.119038291@linuxfoundation.org>
+Content-Language: de-DE
+From: Peter Schneider <pschneider1968@googlemail.com>
+In-Reply-To: <20261009140952.119038291@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Am 09.10.2026 um 16:06 schrieb Greg Kroah-Hartman:
+> This is the start of the stable review cycle for the 6.18.56 release.
+> There are 403 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+
+Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697v2 server. No dmesg oddities or regressions found.
+
+Tested-by: Peter Schneider <pschneider1968@googlemail.com>
 
 
---hSDyjtiM2P12w3nY
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Beste Grüße,
+Peter Schneider
 
-Hi all,
+-- 
+Climb the mountain not to plant your flag, but to embrace the challenge,
+enjoy the air and behold the view. Climb it so you can see the world,
+not so the world can see you.                    -- David McCullough Jr.
 
-Today's linux-next merge of the staging tree got a conflict in:
-
-  drivers/staging/rtl8723bs/
-
-between commit:
-
-  c520f3af7df42 ("staging: rtl8723bs: remove the obsolete driver")
-
-=66rom the net-next tree and commits:
-
-  dbc2fa996f446 ("staging: rtl8723bs: Remove manual ifname allocation")
-  eb903412616ff ("staging: rtl8723bs: make rtl8723_dequeue_writeport() retu=
-rn bool")
-  94f8dd8b96b03 ("staging: rtl8723bs: remove unused monitor interface name")
-  0e5058a181451 ("staging: rtl8723bs: rename PHY_ConvertTxPowerLimitToPower=
-Index()")
-  36d9b855cf944 ("staging: rtl8723bs: make xmitframe_swencrypt() return voi=
-d")
-  18a42264074ae ("staging: rtl8723bs: remove unnecessary parentheses around=
- prframe->u.hdr.list")
-  6b4405c0f6001 ("staging: rtl8723bs: align function parameters in aes_deci=
-pher")
-  2268c1bf1a861 ("Staging: rtl8723bs: fixed camel case coding style issue.")
-  bbcc68a61f3be ("staging: rtl8723bs: fix block comment style")
-
-et al from the staging tree.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-(deleted the files)
-
---hSDyjtiM2P12w3nY
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCaslfHQAKCRAv73Ows9A4
-idVTAQCs9er5Tjczolpw7ZuWp0gNJlb3KN8ExwRqXiSYmMGuowD+LdRvPUbAYuLm
-TqyWXQzFnYiRWYw3H3LsHhYap01LtAM=
-=xqIq
------END PGP SIGNATURE-----
-
---hSDyjtiM2P12w3nY--
+OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
+Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
