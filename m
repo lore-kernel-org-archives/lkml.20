@@ -1,140 +1,115 @@
-Received: from mail-108-mta58.mxroute.com (mail-108-mta58.mxroute.com [136.175.108.58])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2F1041D103
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 15:04:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=136.175.108.58
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9AF24E4323;
+	Fri,  9 Oct 2026 15:04:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791558254; cv=none; b=HZxEsYhzAs8+fVPD3Mh2yoFjbPf8nSjMzLvH0KoYI/eqqXxGIpQGoM8tmsizoT/Lge4wxOWfVM1PUWJHCXITLgl+6dvKkkWO+MABVhiGQmM+lheRJYmybprPdvSViakviEYzTXWqi7hPhIQrL75mOlMtlpKFuIs1VCoN7Q/XSk0=
+	t=1791558257; cv=none; b=JlFTTl/zHxSqZsITrragA55U/NR9LWrj7cOlGN9mFijBB2IYCDuLb3ypAd4w5AFewkzjKGpbgKX5RUArNmMcOFwQYnPgJr3QCrfeMNntIj+IxJa8e84AH1knxOUSuu4QW1k7zzcvx58v4HYuG+afJx7wMLI7UtvDTndgbsHMAM0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791558254; c=relaxed/simple;
-	bh=2lHbbukZNZUmKcVPjCEc6ORWQCcyLQX08dp2vWykOXg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mpI/BQwi0L2Izg+/XHV0QfWwjj25gG+xqPAPeVllbjv/S49Uv9hOVW5FLif08udRyO19JZy068DJ7jBKgCu7rqfQfcilQizyyXAAGZmrb/pNtMJKBBJlhJueJF1dwO+Q/F7jZR8iJEK/3KCgyxmIKrzcjhXzsFjmmwrDavdh+M4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=wii.dev; spf=pass smtp.mailfrom=wii.dev; dkim=pass (2048-bit key) header.d=wii.dev header.i=@wii.dev header.b=sXhLU4AZ; arc=none smtp.client-ip=136.175.108.58
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=wii.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wii.dev
+	s=arc-20240116; t=1791558257; c=relaxed/simple;
+	bh=CWDf+4/5YxHaAt9cHoijFqJXNuN0eb5DdzWTqJTxlNU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gMhVdjiF2R5nCnYglyPKNPmEKaq5AYcTJbU9Tt0D7T053B5XFp/gN9J0PFVVl4WOcGIF2bAP/lEI3qbY8t7aR9PQlmO28nNWyFDGyyWhSJxYC0S4b9yRvznhLyej0cuycZvK2P3ltkIBlZuN3sqOspis/qLzfQZf3qaWmcHMz/E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aAd4pUCC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wii.dev header.i=@wii.dev header.b="sXhLU4AZ"
-Received: from filter006.mxroute.com ([136.175.111.3] filter006.mxroute.com)
- (Authenticated sender: mN4UYu2MZsgR)
- by mail-108-mta58.mxroute.com (ZoneMTA) with ESMTPSA id 1a1212cb9a300028b2.009
- for <linux-kernel@vger.kernel.org>
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
- Fri, 09 Oct 2026 14:59:01 +0000
-X-Zone-Loop: 9ee6bfc1f27fc044bc47e2d3d23d6ac3c6cf9c380f02
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=wii.dev;
-	s=x; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:Cc:To:
-	From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:Resent-Date:
-	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:
-	References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:
-	List-Owner:List-Archive; bh=ppjcGpEvrHxjx2Nr7a4lGYoWlI0lJqm2ZuVXqQIqgg0=; b=s
-	XhLU4AZ3EUeI+1KmtuOHjbptHNPifXYNmt6Lp7s8+RKSBVn/k4zZZzvzbxXDXKaWsRzjcyyI1u7T/
-	DuvIsQd7f1VAaGG4qpvPAl5DjdsCKLd8RC3RBzVYICiODrmrMuqPbQI7UtJGtsniumc2yGndGjE4w
-	+hM7B11VRjXeuZ2QsTKywkZCu6HJmriCnc8BujvYtiNIQ+YTZaEWT7UvrlPcPGQYQsK4XSaxDyVFx
-	39ZQruZ7+y/obU4ElqXs+0VyqdPNobN0zkgklNMN0ODFbn24XAOANjYnMrpoy/T4e5auo7sjqeu2K
-	9jXUaO+fv22gHdbJKrsOTKHbt+p0TWIqQ==;
-From: Richard Patel <ripatel@wii.dev>
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	Marc Zyngier <maz@kernel.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Ingo Molnar <mingo@kernel.org>,
-	Andy Lutomirski <luto@kernel.org>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	David Rubin <david@vortan.dev>,
-	PJ Waskiewicz <pwaskiewicz@jumptrading.com>
-Subject: [PATCH 0/2] genirq: fix use-after-free on abnormal IRQ thread exit
-Date: Fri,  9 Oct 2026 14:58:40 +0000
-Message-ID: <20261009145842.1616117-1-ripatel@wii.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aAd4pUCC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06E301F00893;
+	Fri,  9 Oct 2026 15:04:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791558255;
+	bh=S5dCcc6sEnDParSMcBNX+g8x/2XGsg88AsvK7InyEuc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aAd4pUCCnjo+FaIjpip+1t2CJ6iCbVAgDkW4OqMFBLBgAQ62bDJuzIIUCSrO3jJmg
+	 Gb31c6DQC1rRC9nJzjtGtCcd8jAnK53n7MXfq/pD+vpW32pgyD5W/BG4jm5kvxjfw2
+	 9RSHY7cvOi+9E2Y0IesHVR1VPVoymzDLPVsM2xwFtKZnZLY+iN9bkx4feJrX30RWDA
+	 3ISr6qjM7OJKVopHjPfu4k8PvXOOrxu5uK9HqGuBxY/W/PMygF5Gn2AEhfUkfwsZSv
+	 tSHyCs7CvzwblrgMJ33BqSmFF3ZTKfG/lUI9gYj22VXBUnZC3P6K6AhnLu+n71IoHm
+	 jr9nxsP3U26jw==
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfauth.ams.internal (Postfix) with ESMTP id BE992198003A;
+	Fri,  9 Oct 2026 11:04:11 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-03.internal (MEProxy); Fri, 09 Oct 2026 11:04:13 -0400
+X-ME-Sender: <xms:awLJanXsM2I1sGZYMZ8zV8EEZXb5oEUwg8HTGRJY-9rndphFvAN2HQ>
+    <xme:awLJajgTk7aahNxNQlvISKrlE8AIwk80egDwcjhfN0ltVQLlpm1HSHn2TF-DPG71X
+    hBwghO7RNpXu-78A0b8hRhvc6-ZEL7DRp3GhDuh9KCI_uFPpu6G81A>
+X-ME-Received: <xmr:awLJar6-QHAf0vkpyCrvrdz7uFwvhRRrMVn6b-FoIlOrxFWnYMFqTpcDHYk>
+X-ME-Proxy-Cause: dmFkZTGJ/XhBGpPi97MqhD44hU74yMhsQKwQwC/aPUyQ4MaG5oZsznyJvNE4EXcwdzzEyF
+    87tbKrDAR0JtsUQRErGMu+n7kX+YErfUeqecd8yDc4Sx369XclRlObM+DUSB2SyFrJ7hYa
+    gxAsijn36xI/Tr0CoGEx17adMC65DyT4MPcGQUEWxNEqcw4ihMq6UtaAkWxspz2eWmvpo+
+    v4GHKLGyLNkdXcT03bQxlHN2RlesiSH+HycRKl2FswXNTX87OEheEfJTv09IdmzkHpvLcc
+    NB45yZVEGfeUeUPJIzQGFuCh5IUX/oNYngnlv0gJPdZvCbRyhqDH22107TUszX6cFXSfpK
+    q3XbfGfWDdQ56g1Jn/JG1rRk1wvkJwMoUaHyPeGgJWteP9+AgpoRmqi22oEI4p36ZQ+nYb
+    24Q8VA6W601FQsgJPgn9Ar2Ajay/kWCqM5bJ7XR8ldZhsyubcQbZIo3479SckVl8YXfZQm
+    LPLY4z1WVlTttFCeHY/4DCkx+hghBT2alBz3ArIZEWA+3w+/cESqvcppYyeQbH+flhBlk6
+    bZQlMouvgh0BkpFeZmpeN50bF79Xuuvp/pKNU1DY74WZmqHAfdzamhdgesfTWftEnY+jc1
+    SnOy168OU/dmS7QCZdoaCjth9vp+ADs7Ww8xl3iUeSyGQADyXDVWmnztMi3g
+X-ME-Proxy: <xmx:awLJar778wOrEkl1jgfwbaz-4QeMMVVc5RaSA2Seu5yTxJG-FXh6iw>
+    <xmx:awLJapE2_4iwH9Zoa2yMDOMAzvVY_Q4oBfAoqja04cSxi64O-S25iw>
+    <xmx:awLJapyTparEaJgs6lLI_2zPbLVjP2VLkE41sE--LCXn6FUDQ95y1w>
+    <xmx:awLJap0n3xboDZachFfyifzXYHqbv3i_mOxSGT5vwNaSXEtd7LHJqQ>
+    <xmx:awLJasMa-T1M3CZVKEMUN6B3YHNQUESr44WcLS2oZiBut3feTNNaOAIV>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 9 Oct 2026 11:04:10 -0400 (EDT)
+Date: Fri, 9 Oct 2026 16:04:09 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Vishal Verma <vishal.l.verma@intel.com>
+Cc: x86@kernel.org, Dave Hansen <dave.hansen@linux.intel.com>, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev, kvm@vger.kernel.org, 
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH v4 2/2] x86/early_printk: Add earlyprintk=tdx to drive
+ the UART with TDVMCALLs
+Message-ID: <askBV7fBxg9Wfdqz@thinkstation>
+References: <20261005-b4-tdx_earlyprintk_tdcalls-v4-0-3f7c56dd568a@intel.com>
+ <20261005-b4-tdx_earlyprintk_tdcalls-v4-2-3f7c56dd568a@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Authenticated-Id: ripatel@wii.dev
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261005-b4-tdx_earlyprintk_tdcalls-v4-2-3f7c56dd568a@intel.com>
 
-When a threaded IRQ handler oopses on x86, the IRQ thread jumps to a
-function pointer read from freed stack memory. This turned a benign oops
-(NULL dereference) into a wild jump on Panther Lake with FRED.
+On Mon, Oct 05, 2026 at 04:50:07PM -0600, Vishal Verma wrote:
+> A TDX guest cannot execute port I/O instructions directly, but
+> earlyprintk's serial console still issues plain inb()/outb() and lets
+> each one fault into the #VE handler to be emulated as a TDVMCALL.
+> 
+> While that works, it is a roundabout way to get a character out.
+> early_serial_putc() polls the LSR, and then writes a byte, but since the
+> TDX guest can't directly do port I/O, a #VE exception is raised. The #VE
+> handler must call TDG.VP.VEINFO.GET to find out what faulted, and then
+> it can issue the TDVMCALL that does the actual work.
+> 
+> This makes #VE a functional mechanism for doing I/O, which is not
+> desirable, is unnecessarily complicated and fragile, and results in
+> twice the number of calls into the TDX module.
+> 
+> Instead, add an earlyprintk=tdx option, which can issue the TDVMCALLs
+> directly. Add a pair of tdx_serial_in() and tdx_serial_out() accessors
+> and set them up in this case.
+> 
+> Note that the output does not appear any earlier - "earlyprintk=" is an
+> early_param(), so the console is still registered from
+> parse_early_param(). This only changes how the bytes leave the guest
+> once it is up.
+> 
+> LLMs were used under supervision to create this patch, to help
+> understand the scope and mechanisms, create testing instrumentation
+> (throwaway) to count #VEs in the serial vs tdx earlyprintk setups,
+> and to drive lab machines to do this testing.
 
-This series fixes two lifetime bugs in the abnormal exit path of IRQ
-threads:
+Sounds like you are missing "Assisted-by: LLM" tag.
 
-1) irq_thread() stores a 'struct callback_head' (for exit_task_work())
-   on its stack, but the oops handler runs rewind_stack_and_make_dead()
-   before exit_task_work() runs.
+> Signed-off-by: Vishal Verma <vishal.l.verma@intel.com>
 
-2) A concurrent free_irq() and threaded IRQ oops can result in
-   free_irq() calling kfree(struct irqaction) before irq_thread_dtor()
-   runs in exit_task_work().
-
-Whether this stack use-after-free causes a loud crash (wild jump) or
-not probably depends on kernel config and FRED, since callback_head
-might not get clobbered always.
-
-I have some evidence of these use-after-free in the wild going back to
-Linux 4.20, these are all variations of double faults in an IRQ thread's
-exit_task_work().
-
-* 2026-09 (confirmed)
-  * my Panther Lake laptop on recent x86 tip :-)
-  * 7.3.0+: Second fault in task_work_run, wild jump, IBT violation
-* 2026-06 (confirmed)
-  * https://github.com/CachyOS/linux-cachyos/issues/882
-  * https://lore.kernel.org/r/CAFb0CM1X8_rxdfJGM-1D6i0=KDtv9tbMbuWi+PKAhTSMT+5NnA@mail.gmail.com
-  * 7.1.0-2-cachyos: Second fault in task_work_run, wild jump, IBT violation
-  * 7.1.0-1-mainline: Second fault in task_work_run, wild jump, NX violation
-* 2024-07 (confirmed)
-  * https://bbs.archlinux.org/viewtopic.php?id=297634
-  * 6.9.9-arch: Second fault in task_work_run, wild jump to middle of
-                exit_shm, #PF
-* 2024-05 (almost certain)
-  * https://lore.kernel.org/r/cover.1714762038.git.namcao@linutronix.de
-  * 6.8.6 (QEMU): Second fault in task_work_run, wild jump to NULL pointer
-* 2023-01 (unsure)
-  * https://bugzilla.kernel.org/show_bug.cgi?id=216865
-  * 6.2-rc1 (Fedora): Second fault in irq_thread_dtor, GPF
-* 2020-10 (likely)
-  * https://lore.kernel.org/r/a45db8d2-6902-7ec7-cab2-1436209a15a6@gmail.com
-  * 5.9.0: Second fault in task_work_run, wild jump to NULL pointer
-* 2019-02 (unsure)
-  * https://lore.kernel.org/r/524648a9-3fb9-1423-aa1a-376289fafc5d@gmail.com
-  * 4.20.11 (Arch): Second fault in irq_thread_dtor, function call to NULL
-
-And a few more which look sus but I'm too lazy to hand triage:
-* https://github.com/CachyOS/linux-cachyos/issues/1027
-  * "the fault recovery itself triggers a second, more severe oops
-    (attempted execution of a non-executable page)"
-* https://github.com/t2linux/T2-Debian-and-Ubuntu-Kernel/issues/215
-  * double oops / page fault on IRQ thread exit
-* https://github.com/Dasharo/dasharo-issues/issues/1849
-  * wild jump on IRQ thread exit
-* https://github.com/thesofproject/linux/issues/2676
-  * double oops, task_work_run+0x6e jump to NULL
-* https://github.com/thesofproject/linux/issues/820
-  https://github.com/thesofproject/linux/issues/767
-  * double oops, task_work_run jump to NULL
-* https://github.com/libthinkpad/dockd/issues/3
-  * double oops, task_work_run jump to heap address
-* https://github.com/AMDESE/AMDSEV/issues/109
-  * double oops, task_work_run jump to middle of do_exit, crash in a
-    random mutex
-* https://github.com/Askannz/optimus-manager/issues/176
-  * double oops, task_work_run jump to middle of do_exit
-
-Richard Patel (2):
-  genirq: defer kfree(irqaction) until irq_thread_dtor() finishes
-  genirq: move IRQ thread exit_work object to irqaction
-
- include/linux/interrupt.h |  2 ++
- kernel/irq/internals.h    |  2 ++
- kernel/irq/manage.c       | 30 +++++++++++++++++++++---------
- 3 files changed, 25 insertions(+), 9 deletions(-)
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
 -- 
-2.52.0
-
+  Kiryl Shutsemau / Kirill A. Shutemov
