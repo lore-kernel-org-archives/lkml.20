@@ -1,49 +1,49 @@
 Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011035.outbound.protection.outlook.com [52.101.52.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B57F457E7E;
-	Fri,  9 Oct 2026 06:15:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 203B74418E4;
+	Fri,  9 Oct 2026 06:15:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.35
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791526506; cv=fail; b=MNLxebmNxTNOCx56h/YUC9jkyA4wPVRTZT3IserZ0aaG3OHHY9KrhshlaHsZNMpKfGnduRRoLOtcS514kjBLcHHFr9mXo3Gaat3Qwr8gfK2ikkJ8VrrtlS9xawJeJH1ht+jQxPZAiggzQxOfZdn9jqe1J6VhS7rZlcjPRdSc4Wo=
+	t=1791526511; cv=fail; b=ooom9RH72/EVvTQE1h7CulCf1BsiTneisK9+MRNEPxpqjJplmU5rh+01nMCwOWqr93G6VyHC/vdu7lvhZFnC/j0qwoZrTlYRpT1d9vFRpbtYT0iHD7W1B17i8E6AyqXOOK+9nMbZdA62WYDBiOEzzK5Wy9Vct6PRCLo0XfzTSGk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791526506; c=relaxed/simple;
-	bh=vwsbDIKtRx/FryGgVxbfDwKg2bOPA294306mh4tul/w=;
+	s=arc-20240116; t=1791526511; c=relaxed/simple;
+	bh=lkM4mJJp00HByGGf3DRAflHueCE5Ickaq/i+IML812k=;
 	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=Gnj0trFWdHEs2Vugu6RJ+fuKcei2jtWhg/gbiuGdgJCqaiQZ1QDSrShHnNbhj8xjWQ0AQZpLEBJf0wsbgfksX4Zq4Z1u8LksRqE+XFv6ApFNhyK2V34Q2LnD5WCf8JGb8i6ZhILn6QnYtGCwqZTotx/OpEj/thLM+jIuQ+pJkNU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=X5BUdnUU; arc=fail smtp.client-ip=52.101.52.35
+	 Content-Type:MIME-Version; b=Hso3FjqH+N4B0CIzoBz+qw5a7hWY9/h+aJrCI6GwqLvvEUIbLMlQWqaqs8gx2M0WUlaOYGGb9XFOYIt8MRNkZ1RXrUZTlKUlc0PYQmvx8rXcYJifvTykt0C1EVWZIpflh952lIuuxb7athXp8E/YBWESj/DlAvjNZZNfda7FVk8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=A+Eebezc; arc=fail smtp.client-ip=52.101.52.35
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="X5BUdnUU"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="A+Eebezc"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=W86MJDbkHCe7sHlCH30KSCmN+cJNnwrjHlJGfpBEI3TkWygoUiNuLv4csA1BedjSNXfIDa3WBZdS9v0VZaq4aCMZ/1DdNGg2tyU065JOHGSSJ+dlUtdsp+I6LDNFit9zSvZ2FhTfgTVNR/EZUtbDZPu02xcl6hDjfdv5ra1TEajCdSeNp1TMPovVmD6NEtgHqQmB23btfLi20KLCUXO+tppI++P67VYBABctrZrivgFzpfZdACGy/Ft+09/X/N+wJplVKumKTQQRol5Rk5q4hDyxQnLgDxgshmCKVExS00oFObaMhN8hVbkUct8gqFKp19/Tm43Ernblmf8d9lUOhg==
+ b=ogOeUnxWAgTY+gG3ascsTSdyMK0YMOUJ5r/tl4lbj2omf6t8qiKkuV6Q4zWyXYvbGlaMLzSqwg14beTwUIxNPoLht394fD0OE891MDsR1InRjxRitj7l67vECKuCXgoshr/OkFFLWVB9vVMzgcnREKJ5dafOAjV1F5YZaAKioDg6ka6VwuP+qcggjhXK2svn2ImxsC/OZ5bcq3RQlbzUQN26/VLTzTgeMzA6s2UbZKBhmT4ly+UC5YnBeGa5WDTG3riXay8Kubks1NVMoWSRAvuKY3E8h73TDREfvGfbr7AEXTpTDOZIagwVMWLu14Q1gSqaCevvZfaFESC7AYeBWw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kYAiC7sbcLzkd5IONPOc100XBE37miag5VUa/NTOnk8=;
- b=gLeiGD6N03Cxqhvi5LGZszWPASOP4uq4XBlPsuUoW4YZSs0W+BLndgSBibP+oAmr+zucmo2gRY/O4mJmC6s/JvlEaGunAMErUEkkBc9ZbusOQ94OhyNoVHi8A5Vtn5CjDuGnXGkLT4RZn+xJ/epJNQvfVIEwcOPUpclp8xVguP5gDMGLI9eXHhIeYSscWv6zf+uxXlS6cp4n3KA7JO7qu4VrlQZ8lbYl7tAkJibKIhcN4VVgqKa7KFYCpE50jJnAobRITFbYtmqYBbMEWHA7493nPSVYnp6mxL7J6B18l3HaKt7F771aAc7ueeMPzZLcQQNKR1rCa/K6iWrQRkjjHg==
+ bh=L+hsszxJZQomDDYqeSzdcpxWWQPTRfnBXcNevvm9u98=;
+ b=d4UvChORQMh2sA0tCVVfK9xv1gk8Xp9U4Vm8cE5LMI3yiZpHKUf9PKSHh3Qn+rZ9J2o4D/2GYbjJ9eHABkyZ7j4FuiKDHH5fRV53AOqQMnm5KvhSXwQmcTSppPh/mhs/69sDS0wliUd/KI8W4i/lwnz8q7nGH4hevIehP87OybCBSgZB9kbhT/6x4DaqYnLbHbRQCfVViZvQU73e/cTa9gcQQuvP/OVoT4MLMF7jEEDQ652AkkYQ5IbDVgQGoiEH6yDMmUPu3Ud7sYAi0VPmfXTTIIExc8CNpuwzSWTpQ6BydBuAnpcg6RirbHPDwb0QEsczqz4r/hibRam2BiS15w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kYAiC7sbcLzkd5IONPOc100XBE37miag5VUa/NTOnk8=;
- b=X5BUdnUUoENqHivK0Rc2yQuy9ZRqIyYGlvrO9/8334KpqmmHunjWBsqOq5Zf3NJkLCalsCe/xcvnADrnZTcDbPLnk4YOqNLEfH2gZmbeH+1WZDgOSb7CPmMxWeMp+ktWTVTfhIOM44RhX7erZXakC9IOmOyHJSjon7VAdpnepLAQ7pNRJD7F6cuBqD18JCjRsYMPPvKqLdyuwYf+0xKKeFWJmdJneV2S2xGlMPUP9tR77nKfgluycFZl2L+dsyvqz5fMa483SIlmEfoA1nOGREhv/27lxpfn0bFvYWDAzjUo+wCz7RYwKTDPphNMKlYcVUnbAIKZ0gRUnjiM3hag2w==
+ bh=L+hsszxJZQomDDYqeSzdcpxWWQPTRfnBXcNevvm9u98=;
+ b=A+EebezcMbQ3lA+4nnLwud+vYIM6b1Q+Jx+a8ipdixM30NwW1hQZ4fJyHwYSVB7Kdndlvla2E/qxhQi1jG3W0YhOAQHkgzUNt44HQ1Yuz+GrLsMNLjiDvhpBi770AumAI4z0LuFAI0/ru6rVVhJgTjcTM82FN2EJc6T3WHpbcv8FCJ6gnw3bn0Pmu2NNoL+OEpKeEYpBDqG1NGr6GuTvGJM28X5it5n0RHwMIwjCF4iepJS4YQX6bi8ouL+B96lxNqB1r2riZAQs0Jg9RxhisUyr36Kx1N0Jr2lhSZneS1EG18kA7LKGNodW/OU/zRCnxtorKHJvp8kIhrlp/JQELQ==
 Received: from IA1PR12MB9030.namprd12.prod.outlook.com (2603:10b6:208:3f2::22)
  by CH3PR12MB8912.namprd12.prod.outlook.com (2603:10b6:610:169::15) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
- 2026 06:14:56 +0000
+ 2026 06:15:02 +0000
 Received: from IA1PR12MB9030.namprd12.prod.outlook.com
  ([fe80::2c1d:ed27:b53a:97d2]) by IA1PR12MB9030.namprd12.prod.outlook.com
  ([fe80::2c1d:ed27:b53a:97d2%7]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
- 06:14:56 +0000
+ 06:15:01 +0000
 From: Manish Honap <mhonap@nvidia.com>
-To: Alex Williamson <alex@shazbot.org>
-CC: "jgg@ziepe.ca" <jgg@ziepe.ca>, Ankit Agrawal <ankita@nvidia.com>,
-	"jic23@kernel.org" <jic23@kernel.org>, "dave.jiang@intel.com"
+To: Jonathan Cameron <jic23@kernel.org>
+CC: "alex@shazbot.org" <alex@shazbot.org>, "jgg@ziepe.ca" <jgg@ziepe.ca>,
+	Ankit Agrawal <ankita@nvidia.com>, "dave.jiang@intel.com"
 	<dave.jiang@intel.com>, "alejandro.lucero-palau@amd.com"
 	<alejandro.lucero-palau@amd.com>, Srirangan Madhavan <smadhavan@nvidia.com>,
 	"corbet@lwn.net" <corbet@lwn.net>, "skhan@linuxfoundation.org"
@@ -64,18 +64,18 @@ CC: "jgg@ziepe.ca" <jgg@ziepe.ca>, Ankit Agrawal <ankita@nvidia.com>,
 	<linux-pci@vger.kernel.org>, "linux-kselftest@vger.kernel.org"
 	<linux-kselftest@vger.kernel.org>, "linux-hardening@vger.kernel.org"
 	<linux-hardening@vger.kernel.org>, Manish Honap <mhonap@nvidia.com>
-Subject: RE: [PATCH v5 25/27] vfio/cxl: Run the CXL reset at the vfio reset
- points
-Thread-Topic: [PATCH v5 25/27] vfio/cxl: Run the CXL reset at the vfio reset
- points
-Thread-Index: AQHdRgres5Ma1HVBlU6C3tbUNuoztLbZ47kAgBr0PHA=
-Date: Fri, 9 Oct 2026 06:14:56 +0000
+Subject: RE: [PATCH v5 11/27] vfio/pci: Virtualize the CXL DVSEC in
+ vfio_pci_config.c
+Thread-Topic: [PATCH v5 11/27] vfio/pci: Virtualize the CXL DVSEC in
+ vfio_pci_config.c
+Thread-Index: AQHdRgqNmrGQcovvtU6hjipjYSD3Fbbf6riAgBTx9QA=
+Date: Fri, 9 Oct 2026 06:15:01 +0000
 Message-ID:
- <IA1PR12MB90306EE62F781EFF5EDF59EBBD922@IA1PR12MB9030.namprd12.prod.outlook.com>
+ <IA1PR12MB90309DB5F8BEF05759BF606CBD922@IA1PR12MB9030.namprd12.prod.outlook.com>
 References: <20260916183540.3813685-1-mhonap@nvidia.com>
-	<20260916183540.3813685-26-mhonap@nvidia.com>
- <20260921201306.49247ac5@shazbot.org>
-In-Reply-To: <20260921201306.49247ac5@shazbot.org>
+	<20260916183540.3813685-12-mhonap@nvidia.com>
+ <20260925231541.492d5407@jic23-hlaptop>
+In-Reply-To: <20260925231541.492d5407@jic23-hlaptop>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach:
@@ -84,46 +84,46 @@ authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: IA1PR12MB9030:EE_|CH3PR12MB8912:EE_
-x-ms-office365-filtering-correlation-id: c6dcbfbe-5799-41be-847a-08df25cca403
+x-ms-office365-filtering-correlation-id: 22469a7b-ddd1-4a38-0a2c-08df25cca738
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|7416014|6133799003|22082099003|18002099003|10067099003|38070700021|11063799006|4143699003|56012099006;
+ BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|7416014|22082099003|18002099003|10067099003|38070700021|11063799006|4143699003|56012099006;
 x-microsoft-antispam-message-info:
- Z4i+Tx7T9n1KC8/djOoUW5LNxF2bNyAnIZ7vJhFrwA9/fH8K0iRhWxc2pSubvPQ+4grZHph5gXcexfLRVi2oxQSBloGllTbhQTD7OOnrRO+2MEyMCqfR2hkl/Zl+YXP+bsxyRNcp06RbKFahY6ix4n7DfjOMsKVgjfpQhg56vG9ZNVIQpzr5Noy4ubPaCtLWnukWR10bclc1fwYyO3U/40jjP2fBptA9N762t1S5F07WqzkfILlEKrQqxwWnvA98A6aFns8+027VfbAjepfqggPEZoGmwg9IXWQojTEeSQf/Myo7vOM4dZiuabEwEaOvMM4XT+ZvtgrCsOk6aLkeGsx3NhPewBE9LwlPaxCsbSlHdH5Kq83FdSpT/GQxhQbHwSkpoHAblYHtqN0kWz0yrhzI6mSN7MkrY0MrpKASc+Yq7qLrmv3kt1pRmzzJFtGs1AGJmGsqk+rB5lcGD23uk3WPyjH3CzeerP6lx127aZT7aTs+GtfwWKcmgVNON+ox8sVtdFs2ydrMrCef1Hy8CIcE8PDep9c00CV5i//5d6gKqKjBZIzKCrDIaMuCvgwhCpW/ve62ey+XDZyaZpp3X9kSy1FpBmRmyd51Er80NKfCKpkzFxYUK57Ywcl6dA8JWAs1Z7d60foS0OC7JkmkpeobgIRTdBclmeRRxSMYCpoHxKfS/dhMsVKvRLL5j5tHoU/Fzmngxc/Ju1yy0gLb6yBL6+CFm2XOopi4qQrVdLU=
+ sXJLWtK9PuZdvD8gsQUB8Jzrb/3TjtYSaXm1vwtv+JVT4UHB/U6oT5XGicMz6uLJcOD5IDbfsi491sN24wWyFRal0qfAKIINX+4mUM3mFbDr/07P17BZ8DsuKjuGpVoBhGIFi5CyQGVOQVFVf0vKJqZ3ZHAMn/uOKmbfc81mdHuftc8PGB1gyxINL2JB63EvFN0jBg4ZtSFNcI1SeFA1f55FEiSbSe+HjCTQEBEZ7qycWAHPwagX1D4UqB0LKrZRdF4SWJJJraQSDoydUXitPqPVqLTuBEUhb1tEkJZgXfVkIJ9y5OT3Crpe1OenvgiH99xutF9OmI74u8tV4z682y4Rguo9j+Z5T4Yz1p9DCSpQwV1pfnYhwO7+nZOWBAesHwALDFz0K/Rk2AhTt4YEsNTsZoTBasQu7dLmw4XNp2PxlQKbvFRLOVTG2c962MUA96ij3iDO11CKg+mwECsheCoi5Tm92orU5y+ciUl7lA3pbCQaKpGHMK2vZvhZpSOrglS2sSihozTUbRBc2C4VNDiG4l8cLxM4UwmCkCGBhzFFcDmOuTLgaziCIMfHFEN9RTEBoAnqBd9DpsnUV2VwTZqxh6r4Rh0NkvtTWmHUGe/c/u09wbi7dkaOZawUaBLuzZ0bM2/K4r9h0Ozysr2tN/9aXIgoQSRfCSMMTxQ81NUS83ZmDh969Jt5GwpNJlFo8b/DfdeyMkwSAT+Jyzh+Jfcf79sgrIb0MfvcT0erw0w=
 x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR12MB9030.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(6133799003)(22082099003)(18002099003)(10067099003)(38070700021)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR12MB9030.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(22082099003)(18002099003)(10067099003)(38070700021)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?rWHlzI7Jf1OnU+Z90C0c+OGy5MMIiqmFqB0yWfyD0ZnGCFwDo/aDbUX3ECi6?=
- =?us-ascii?Q?Jhq2I33o0BfdlK7P2ZUaGjwzXTPndLpapvffG1GYXz1DrfUSyPXQ7wmEpqqq?=
- =?us-ascii?Q?1YO0pYrlOuPpdjjRWifTKEJuG0rSVwjlKtKLInmB787Aj/r4SKhd8Kt2yNtN?=
- =?us-ascii?Q?c/oCHgJQv0m6k1o5XAYP79kcpPV2ju4AOCNhYhjCdXlmMlbRv1XsPYfX6r0B?=
- =?us-ascii?Q?MbCfj5QlTmkSbU8toSZE+kRtCCE8YKf5yrQFVTSXyHvdTc7LF77a6Nt6UkPb?=
- =?us-ascii?Q?nMRb3uh5fMDnm7s7HszNm4iSKnaHMt/eRcU63KXyiRPVVoIgHh/3de5BrolV?=
- =?us-ascii?Q?crfBcOmSiOdGHNFtdhv+NXCEGArXTN2MHpVXZMATg6MFfgQRI56/HguLLaSa?=
- =?us-ascii?Q?dzbGD255BSo1B29M2TKWp6Lv/IngoCxJ/Pd9XgZ+dW6syrKmSO6lze/vRpGN?=
- =?us-ascii?Q?EkXoOwuC31kS/u8/1EaB5wombdWd/6tgctn3mb6VrAzhLUvRm3w09HZ5B+VL?=
- =?us-ascii?Q?/dU4m/G9jlL6ttW2SC6Eam+FhZtOroYJZUmFo3MAK7wabEYOoFJDuUsqUL2F?=
- =?us-ascii?Q?6hOYQkTYVxdYjXshTnx+alD4zBqSMAPV8gI4TuhvpBLk4xNG/cjpsnGPsanq?=
- =?us-ascii?Q?h4QTBvgw3c+ZPRmLy5E/X4fBTVn341Mt6VbqQLrtTUhJCnmNP2P0SdjQONRy?=
- =?us-ascii?Q?/UAV2G4hDsvRft9U2kKbPFq1teO/3CeyN3bWCM0oJu6kGVDPAUqaRHTRtTXe?=
- =?us-ascii?Q?J0P2Voz6duzHwfIXBcl8tntVb+FfN0mbCnwr7xLABMbYsWeCkbJxeVnM06gD?=
- =?us-ascii?Q?oTgr+7kS7te68Nen/Hcu5fhisY+cW8dNaPPIIin7eZ1ynnMNMpafneH82lzI?=
- =?us-ascii?Q?9mYqt8olF+lj0meeMi3nY2hVRTHyx1wLJXVLF4tHt+Bm4/y6nfd/fThtRLpv?=
- =?us-ascii?Q?l8Q+fthFjHO+nHAV+8tWyzbiMP53SPdUCEHVlXyl1cwsLH2M1dcDgUAY+Zny?=
- =?us-ascii?Q?RDUwz4u4fdBkm8JbvEXckljt6TninoamAQqIeQeJWn60PEM9ykk2dO9W9fZE?=
- =?us-ascii?Q?V95WzouRfBV5Jd/Tf6m6BNbUlQbq+E80p2JOSVxuRgvbxwl4O4N+2ejaqn0z?=
- =?us-ascii?Q?nvhivplC9EpsBCJz7lk41/yetlGSvxxWOvGbxasLrTEcvAznufaWPvKkHcL5?=
- =?us-ascii?Q?yaAfXvZgt6U4DFP5axd1UqAOFOVswMvGYEHdAAZbh0ELWRmZ//I4OPxNgl6U?=
- =?us-ascii?Q?Xowq/5ibRC5cpMeufghS9IsHbtrsIK4KA2tuXyyO8cZbjyVDte1ktapHHw7W?=
- =?us-ascii?Q?Ye7frviu85M0gUomL2ZPqm2/4y3mv42CGo1etWdrHj6ci4qFkF84Wj6g4b5z?=
- =?us-ascii?Q?RRRfEVLRJLtCd0Pk2ddeXb/tKURxba45fzsx5B8kB90Klz4+gm6A8/cb8SsP?=
- =?us-ascii?Q?2apk+FFT3tLpqEc05VqvzaP4aWj55gpH+kItcLg3LvMYn5akfDG452s8H88i?=
- =?us-ascii?Q?KoEBhds0eiL0x07RGHnBoMOe+BuZqk3sR8XdLuEu9bgbVrfE/DdwrZGRXRBg?=
- =?us-ascii?Q?ndXU64MAgMov6Jpja3v2w0AFTemEpc9I70E62LpwlFnLMF1XDcpJ6xI2DAa+?=
- =?us-ascii?Q?uS1QRHpKR0VT4kGbbNz8nRaILRMrt6d5KmpCjeXUjsAwhhHmxZZjz8N51OC8?=
- =?us-ascii?Q?Wd9XBw6FRZG139r6htsDfFW2tdCWm5mdIbi+7v80TBB41vFx?=
+ =?us-ascii?Q?Kw+9TQoxrmq/lvmwrrAjz8ZNkPw6HQ1Ve55uoyhdnqV8USD4qqzRVLnMCkIF?=
+ =?us-ascii?Q?JHeYOvd6eGnZ7sBi9eywKiM05lwlP/6jFgRmcMjR8/+JdDVcJviplYB85plJ?=
+ =?us-ascii?Q?TmM3qI+ZQH2z6Hkj0SmJ7nA/opWKDdjFy0gLHEA1Tx/1K5Tu0ccMQNx/rnlG?=
+ =?us-ascii?Q?vDt3RaBgAO59e64oNM2A0zfrgq97Ld/Qrb0PsSkFhmEgPIPqR1mPrplh0Vv/?=
+ =?us-ascii?Q?X8ivBVC33Z+5bQuwUrw1SSDqvH9oq+wui73HyueDG8mULsmD9I56spkn6vZv?=
+ =?us-ascii?Q?0J78voNGautykQQvahgfzKnEMGrpwLbuj/8ur7kfn8pxZOUEZOSfOpzDFuef?=
+ =?us-ascii?Q?ecJ+RdggLr2ZO0omu5zlmOw6vDe++EvDG7zNpPrWTrI5CtHQxbSJFhxpTksv?=
+ =?us-ascii?Q?FBxQkY2rvL1A26jypDLqP4znfPtnlAR3BWQBZ9zUX/HKs/Ae7OiwjbP1kd2S?=
+ =?us-ascii?Q?2d1Hpm9p7731+PfcyBEjTqOMDCxhlUO1he9I8E+Pccr/xpdiztpK+/wXXd+X?=
+ =?us-ascii?Q?rLufFgg7RjOmaQpcCoVCsqPqIxJ/V20J//qrT+FZ8mFRRc1H5QjSeER12lQU?=
+ =?us-ascii?Q?mfxwSW3qUmiIcJhAPtxIytRfWLxWhpX+Ree3jGig1c40QPVbJtKOZEjy6LQe?=
+ =?us-ascii?Q?2hekdd0GYJw8i61vDeN78dQsiauXYyFMdnz6FHdL2blQZppj5/rysiCJ7FcS?=
+ =?us-ascii?Q?n2pPpN7ToWa/IAOYnrLtUsyI+p5cCTup3K0CR/QuCq8hwqLuXLX5dMigHPA5?=
+ =?us-ascii?Q?0Q7YvKA37Cbqsjm3/r4we9h/ml7/AS+xGvI8Kh3ZNlnwt2870GIFIfInwNC0?=
+ =?us-ascii?Q?sWqOI+ZnAK1SE9HIxkDyf81Zhmv+hXvqNYb+EF0k4toz4GLx59lVP9ocW8nN?=
+ =?us-ascii?Q?bAJGAovWByjMqEws/0Wu6yDzLtwGVzsOcBx50V2LdFkaEsE22GVKxJ7RidSk?=
+ =?us-ascii?Q?MpSxeOUI0jBnyl3Z5oYmVu6zHifKjqtp/RV5Oh2W2cX0QAUG9fWOyVD34dVq?=
+ =?us-ascii?Q?5zq9Ub/QK0z2UIjYzPL4o+Tv5gNN1VpJqKLX4KTrhF/mKpmCAz19Tmhs9rPU?=
+ =?us-ascii?Q?u7NvUnQEvdF0ExVfyudQySz32+PpvtSQoD5pkAEDtdSAjXU6PwUd0V3cS7RI?=
+ =?us-ascii?Q?Mh7PKa492A31doutDVjyN7ZgqJb/C0Lfy9xOEo2sceUFcne+e5kMCt07yQ41?=
+ =?us-ascii?Q?m6v02JBx4E1kKTBWbNmEkIvF95P0zdZuC59CFGMQiyWfyRerYvQ6doVBIP1U?=
+ =?us-ascii?Q?RzJSYL1PoQcUL0M3+78JPk0oGy3k8dYXiNpYEgqi3/PSJbvM0kVyrJVODmyy?=
+ =?us-ascii?Q?nRpsXoVVtrj6SoTWI2mLPBD4aDsALnurNvVNnWPT9fmC/dgSWd5WoGMIQGaz?=
+ =?us-ascii?Q?do0PhdSZ+w9NbdKGXZWAm+0BIsnq35zlHePJyzEFtHFbx3tFBzztsmU6nlwK?=
+ =?us-ascii?Q?lUdQ1oHgHSqrD490RjF7d0NbOsOOPPhK6CPldH+aKPTuPkjB7cNfrUybf1iS?=
+ =?us-ascii?Q?hkidwG+/7PNUIWgv9N4tkoIQn68T9Dyu8ou/7YL1nAItBiH73jbgFfuzkvT5?=
+ =?us-ascii?Q?ZU3VVk2+U8KGwif0zBzdiq9rXBMbd1Fnnhxwq2GD7k3/5RWJGIwQKf6WeCqg?=
+ =?us-ascii?Q?AM2fm/4eTIDv2tSykpjIp9Q+4ij7AsMdAh30D29pgugSG5ieyJBb69f4AMeQ?=
+ =?us-ascii?Q?7HkiRGghpz6JZhc05W1KlUS3LwUOLCoH7T2FdfMv1iRIGeY/?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
@@ -135,21 +135,22 @@ MIME-Version: 1.0
 X-OriginatorOrg: Nvidia.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB9030.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c6dcbfbe-5799-41be-847a-08df25cca403
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Oct 2026 06:14:56.5088
+X-MS-Exchange-CrossTenant-Network-Message-Id: 22469a7b-ddd1-4a38-0a2c-08df25cca738
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Oct 2026 06:15:01.8680
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: l/e2YQlADzfYeOoqCJXghh6aZUeEuVLHV+L7S7aRwYmmu8Nt3KDNjn1nbmpdDP6rE76cHvksNng9UI0SIQdHxA==
+X-MS-Exchange-CrossTenant-userprincipalname: uQ+5+rEUOGUmp1mYvlL2ut6QrKo5HK60kUnxtfZt3XXz4Fh/D8idIWfsRlkgRz/kUEpRTA2sCXEjGaODrbnXpQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8912
 
 
+
 > -----Original Message-----
-> From: Alex Williamson <alex@shazbot.org>
-> Sent: Tuesday, September 22, 2026 7:43 AM
+> From: Jonathan Cameron <jic23@kernel.org>
+> Sent: Saturday, September 26, 2026 3:46 AM
 > To: Manish Honap <mhonap@nvidia.com>
-> Cc: jgg@ziepe.ca; Ankit Agrawal <ankita@nvidia.com>; jic23@kernel.org;
+> Cc: alex@shazbot.org; jgg@ziepe.ca; Ankit Agrawal <ankita@nvidia.com>;
 > dave.jiang@intel.com; alejandro.lucero-palau@amd.com; Srirangan
 > Madhavan <smadhavan@nvidia.com>; corbet@lwn.net;
 > skhan@linuxfoundation.org; dave@stgolabs.net; alison.schofield@intel.com;
@@ -161,532 +162,224 @@ X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8912
 > <vsethi@nvidia.com>; Zhi Wang <zhiw@nvidia.com>; linux-
 > doc@vger.kernel.org; linux-kernel@vger.kernel.org; kvm@vger.kernel.org;
 > linux-cxl@vger.kernel.org; linux-pci@vger.kernel.org; linux-
-> kselftest@vger.kernel.org; linux-hardening@vger.kernel.org; alex@shazbot.=
-org
-> Subject: Re: [PATCH v5 25/27] vfio/cxl: Run the CXL reset at the vfio res=
-et
-> points
+> kselftest@vger.kernel.org; linux-hardening@vger.kernel.org
+> Subject: Re: [PATCH v5 11/27] vfio/pci: Virtualize the CXL DVSEC in
+> vfio_pci_config.c
 >=20
 > External email: Use caution opening links or attachments
 >=20
 >=20
-> On Thu, 17 Sep 2026 00:05:38 +0530
+> On Thu, 17 Sep 2026 00:05:24 +0530
 > <mhonap@nvidia.com> wrote:
 >=20
 > > From: Manish Honap <mhonap@nvidia.com>
 > >
-> > A CXL Type-2 function must not take an FLR: it resets the coherent
-> > CXL.mem state and corrupts the HDM decoder. The PCI core already
-> > reflects this, ordering cxl_reset ahead of flr in
-> > pci_reset_fn_methods[], so a function reset of a CXL device runs the
-> > DVSEC reset sequence rather than FLR.
+> > A CXL Type-2 device is reprogrammable through its CXL DVSEC: a guest
+> > could set Config Lock, toggle CXL.cache and CXL.mem enable, or rewrite
+> > the HDM range registers that govern host memory decode. Virtualize the
+> > DVSEC so the guest sees a shadow it cannot use to reprogram the hardwar=
+e.
 > >
-> > Route the vfio function-reset points (VFIO_DEVICE_RESET and the
-> > virtualized PCIe/AF FLR writes) through a CXL reset op that runs
-> > cxl_reset_dvsec_sequence(). The sequence resets the function, always
-> > clearing device memory, and restores the HDM decoder and PCI config
-> > state, so it is a complete replacement for pci_try_reset_function() on
-> > a CXL device. The op runs under memory_lock and not the PCI device
-> > lock, so
-> > cxl_reset_dvsec_sequence() can take the device lock itself.
+> > Build a per-device cxl_perm permission map, modeled on msi_perm, when
+> > the device is bound through the CXL provider (e.g. vfio-cxl). The
+> > whole CXL DVSEC is served from the vconfig shadow; only Control and
+> > Control2 are guest programmable, while Capability, Status, Lock and
+> > the Range registers keep their firmware snapshot. A vendor DVSEC on
+> > the same device is
+> > unaffected: the map is selected only for the CXL DVSEC offset.
 > >
-> > Clear hdm_valid for the duration of the reset so a fault cannot insert
-> > a PFN into a decoder that is being torn down, and restore it once the
-> > sequence has put the decoder back.
+> > Control2 carries the CXL reset and cache write-back-invalidate
+> > initiate bits as self-clearing doorbells. vfio never forwards them to
+> > hardware, so a custom writefn synthesizes their completion in the
+> > shadow: the initiate bit self-clears and the matching Status2 bit
+> > (Cache Invalid or Reset Done) is set, so a guest following the spec
+> > reset sequence (INIT_CACHE_WBI, poll Cache Invalid, INIT_CXL_RST, poll
+> > Reset Done) progresses instead of timing out. The host performs the
+> > real cache write-back and reset at the vfio reset points.
 > >
 > > Assisted-by: LLM
 > > Signed-off-by: Manish Honap <mhonap@nvidia.com>
+> A few minor comments inline.
+>=20
+> J
 > > ---
-> >  drivers/vfio/pci/cxl/vfio_cxl_core.c | 41 +++++++++++++++
-> >  drivers/vfio/pci/vfio_pci_config.c   | 49 +++++++++++++++---
-> >  drivers/vfio/pci/vfio_pci_core.c     | 77 +++++++++++++++++++++++-----
-> >  drivers/vfio/pci/vfio_pci_priv.h     |  1 +
-> >  include/linux/vfio_pci_core.h        |  4 ++
-> >  5 files changed, 152 insertions(+), 20 deletions(-)
-> >
-> > diff --git a/drivers/vfio/pci/cxl/vfio_cxl_core.c
-> > b/drivers/vfio/pci/cxl/vfio_cxl_core.c
-> > index 55fa1f86850d..795362aea344 100644
-> > --- a/drivers/vfio/pci/cxl/vfio_cxl_core.c
-> > +++ b/drivers/vfio/pci/cxl/vfio_cxl_core.c
-> > @@ -632,6 +632,45 @@ static void vfio_cxl_reset_done(struct
-> vfio_pci_core_device *vdev)
-> >               cxl->hdm_valid =3D false;
-> >  }
-> >
-> > +/*
-> > + * Run the CXL DVSEC reset sequence in place of a PCI function reset.
-> > +A CXL
-> > + * Type-2 function must not take an FLR (it would corrupt CXL.mem),
-> > +so the vfio
-> > + * reset points route here. The sequence resets the function, always
-> > +clearing
-> > + * device memory, and restores the HDM decoder. The caller holds
-> > +memory_lock,
-> > + * and this path does not hold the PCI device lock, so
-> > +cxl_reset_dvsec_sequence()
-> > + * can take it.
-> > + */
-> > +static int vfio_cxl_reset(struct vfio_pci_core_device *vdev) {
-> > +     struct vfio_cxl_state *cxl =3D vdev->cxl;
-> > +     int ret;
-> > +
-> > +     lockdep_assert_held_write(&vdev->memory_lock);
-> > +
-> > +     /* Host CPU access to the HDM range is unsafe until the decoder i=
-s back.
-> */
-> > +     cxl->hdm_valid =3D false;
-> > +
-> > +     ret =3D cxl_reset_dvsec_sequence(vdev->pdev);
-> > +     if (!ret)
-> > +             cxl->hdm_valid =3D true;
-> > +
-> > +     return ret;
->=20
-> Success oriented flow:
->=20
->         if (ret)
->                 return ret;
->=20
->         cxl->hdm_valid =3D true;
->=20
->         return 0;
->=20
-> But I don't see how the case where hdm_valid remains false is really a va=
-lid
-> place for the user to land.  We don't really have a "your device is now b=
-orked,
-> give up" signal to the user.
-
-Okay, I will use the success-oriented flow.
-
-hdm_valid stays false only on a hardware failure: the device reports
-Reset Error in Status2 (-EIO), does not finish within the timeout its
-DVSEC advertises (-ETIMEDOUT), or the decoder restore fails.
-The reset ioctl will return that error.
-
-For the cxl_reset code, it leaves memory decode and
-bus mastering disabled when the restore fails, as the host reset path
-does. Due to this the HDM window stays closed, with faults returning
-SIGBUS and its dma-buf revoked. I will not add a new signal for this case
-of failure.
-
->=20
-> > +}
-> > +
-> > +/*
-> > + * The HDM dma-buf may be armed only while the decoder is valid.
-> > +After a failed
-> > + * reset hdm_valid is clear, so the generic memory-enable re-arm must
-> > +skip the
-> > + * dma-buf rather than map DMA onto an unrestored decoder.
-> > + */
-> > +static bool vfio_cxl_hdm_active(struct vfio_pci_core_device *vdev) {
-> > +     struct vfio_cxl_state *cxl =3D vdev->cxl;
-> > +
-> > +     lockdep_assert_held_write(&vdev->memory_lock);
-> > +
-> > +     return cxl->hdm_valid;
-> > +}
-> > +
-> >  static const struct vfio_cxl_ops vfio_cxl_ops =3D {
-> >       .init           =3D vfio_cxl_init_device,
-> >       .release        =3D vfio_cxl_release_device,
-> > @@ -639,6 +678,8 @@ static const struct vfio_cxl_ops vfio_cxl_ops =3D {
-> >       .close_device   =3D vfio_cxl_close_device,
-> >       .reset_prepare  =3D vfio_cxl_reset_prepare,
-> >       .reset_done     =3D vfio_cxl_reset_done,
-> > +     .reset          =3D vfio_cxl_reset,
-> > +     .hdm_active     =3D vfio_cxl_hdm_active,
-> >       .owner          =3D THIS_MODULE,
-> >  };
->=20
-> It's vfio_cxl_ops, so it's unique to CXL, but still leaking HDM to vfio-p=
-ci-core as
-> something it needs to care about is pretty ugly.
-> It should be something generic, but also this should be wrapped in some
-> abstraction in vfio-pci-core.
->=20
-
-Agreed. I will drop this in v6.
-
+> >  drivers/vfio/pci/vfio_pci_config.c | 132
+> ++++++++++++++++++++++++++++-
+> >  include/linux/vfio_pci_core.h      |   3 +
+> >  2 files changed, 133 insertions(+), 2 deletions(-)
 > >
 > > diff --git a/drivers/vfio/pci/vfio_pci_config.c
 > > b/drivers/vfio/pci/vfio_pci_config.c
-> > index 9a020a768055..8a5a737efa31 100644
+> > index 9914f3ac69ae..9a020a768055 100644
 > > --- a/drivers/vfio/pci/vfio_pci_config.c
 > > +++ b/drivers/vfio/pci/vfio_pci_config.c
-> > @@ -630,7 +630,14 @@ static int vfio_basic_config_write(struct
-> vfio_pci_core_device *vdev, int pos,
-> >               *virt_cmd &=3D cpu_to_le16(~mask);
-> >               *virt_cmd |=3D cpu_to_le16(new_cmd & mask);
-> >
-> > -             if (__vfio_pci_memory_enabled(vdev))
-> > +             /*
-> > +              * Re-arm the dma-bufs on memory-enable, but keep a CXL d=
-evice's
-> > +              * HDM dma-buf revoked while the decoder is unrestored (a=
- failed
-> > +              * reset leaves hdm_valid clear); re-arming would map DMA=
- onto a
-> > +              * decoder the fault path still gates. Plain vfio-pci is =
-unchanged.
-> > +              */
-> > +             if (__vfio_pci_memory_enabled(vdev) &&
-> > +                 (!vdev->cxl_ops || vdev->cxl_ops->hdm_active(vdev)))
->=20
-> HDM space and BAR MMIO space are governed by different things, how can
-> we combine them here to say that dmabufs are invalid until both are activ=
-e?
-> That's not how the hardware works.  Does the HDM need a separate address
-> space of dmabufs to toggle independently?
-
-Okay. In v6 each vfio dma-buf records the region it was exported from.
-vfio_pci_dma_buf_move() keeps moving the BAR dma-bufs on memory enable
-changes, as upstream, and a new export revokes or re-arms the dma-bufs
-of one device-specific region. vfio-cxl calls it around reset, bus
-reset and low power.
-
-I will revert the memory enable paths in vfio_pci_config.c back
-to their upstream forms.
-
-
->=20
-> >                       vfio_pci_dma_buf_move(vdev, false);
-> >               up_write(&vdev->memory_lock);
-> >       }
-> > @@ -720,7 +727,8 @@ static void vfio_lock_and_set_power_state(struct
-> vfio_pci_core_device *vdev,
-> >       }
-> >
-> >       vfio_pci_set_power_state(vdev, state);
-> > -     if (__vfio_pci_memory_enabled(vdev))
-> > +     if (__vfio_pci_memory_enabled(vdev) &&
-> > +         (!vdev->cxl_ops || vdev->cxl_ops->hdm_active(vdev)))
-> >               vfio_pci_dma_buf_move(vdev, false);
-> >       up_write(&vdev->memory_lock);
-> >  }
-> > @@ -910,8 +918,14 @@ static int vfio_exp_config_write(struct
-> vfio_pci_core_device *vdev, int pos,
-> >               if (!ret && (cap & PCI_EXP_DEVCAP_FLR)) {
-> >                       vfio_pci_zap_and_down_write_memory_lock(vdev);
-> >                       vfio_pci_dma_buf_move(vdev, true);
-> > -                     pci_try_reset_function(vdev->pdev);
-> > -                     if (__vfio_pci_memory_enabled(vdev))
-> > +                     ret =3D vfio_pci_reset_function(vdev);
-> > +                     /*
-> > +                      * Keep the HDM dma-buf revoked if a CXL reset
-> > +                      * failed; re-arming would map DMA onto an
-> > +                      * unrestored decoder. Mirrors the reset ioctl.
-> > +                      */
->=20
-> We don't have granularity of "the HDM dma-buf".
-
-Okay; the per-dma-buf region index above will add this part.
-
->=20
-> > +                     if (__vfio_pci_memory_enabled(vdev) &&
-> > +                         (!vdev->cxl_ops || !ret))
-> >                               vfio_pci_dma_buf_move(vdev, false);
-> >                       up_write(&vdev->memory_lock);
-> >               }
-> > @@ -995,8 +1009,14 @@ static int vfio_af_config_write(struct
-> vfio_pci_core_device *vdev, int pos,
-> >               if (!ret && (cap & PCI_AF_CAP_FLR) && (cap & PCI_AF_CAP_T=
-P)) {
-> >                       vfio_pci_zap_and_down_write_memory_lock(vdev);
-> >                       vfio_pci_dma_buf_move(vdev, true);
-> > -                     pci_try_reset_function(vdev->pdev);
-> > -                     if (__vfio_pci_memory_enabled(vdev))
-> > +                     ret =3D vfio_pci_reset_function(vdev);
-> > +                     /*
-> > +                      * Keep the HDM dma-buf revoked if a CXL reset
-> > +                      * failed; re-arming would map DMA onto an
-> > +                      * unrestored decoder. Mirrors the reset ioctl.
-> > +                      */
->=20
-> Same.
->=20
-> > +                     if (__vfio_pci_memory_enabled(vdev) &&
-> > +                         (!vdev->cxl_ops || !ret))
-> >                               vfio_pci_dma_buf_move(vdev, false);
-> >                       up_write(&vdev->memory_lock);
-> >               }
-> > @@ -1781,9 +1801,22 @@ static int vfio_cxl_dvsec_write(struct
-> vfio_pci_core_device *vdev, int pos,
-> >               status2 |=3D PCI_DVSEC_CXL_CACHE_INV;
-> >       }
-> >       if (ctrl2 & PCI_DVSEC_CXL_INIT_CXL_RST) {
-> > +             int ret =3D 0;
-> > +
-> >               ctrl2 &=3D ~PCI_DVSEC_CXL_INIT_CXL_RST;
-> > -             status2 &=3D ~PCI_DVSEC_CXL_RST_ERR;
-> > -             status2 |=3D PCI_DVSEC_CXL_RST_DONE;
-> > +
-> > +             if (vdev->cxl_ops && vdev->cxl_ops->reset) {
-> > +                     vfio_pci_zap_and_down_write_memory_lock(vdev);
-> > +                     vfio_pci_dma_buf_move(vdev, true);
-> > +                     ret =3D vfio_pci_reset_function(vdev);
-> > +                     if (__vfio_pci_memory_enabled(vdev) &&
-> > +                         (!vdev->cxl_ops || !ret))
-> > +                             vfio_pci_dma_buf_move(vdev, false);
-> > +                     up_write(&vdev->memory_lock);
-> > +             }
->=20
-> Isn't this branch deterministic?  IIRC, we only install this handler when=
- vdev-
-> >cxl_ops and that ops always registers a reset function.
-
-Yes. v6 will make the .reset mandatory: registration refuses ops without it=
-,
-and I can remove the checks.
-
 >=20
 > > +
-> > +             status2 &=3D ~(PCI_DVSEC_CXL_RST_DONE |
-> PCI_DVSEC_CXL_RST_ERR);
-> > +             status2 |=3D ret ? PCI_DVSEC_CXL_RST_ERR :
-> > + PCI_DVSEC_CXL_RST_DONE;
-> >       }
-> >
-> >       *pctrl2 =3D cpu_to_le16(ctrl2);
-> > diff --git a/drivers/vfio/pci/vfio_pci_core.c
-> > b/drivers/vfio/pci/vfio_pci_core.c
-> > index f02a5240aa71..8bd4db7afefe 100644
-> > --- a/drivers/vfio/pci/vfio_pci_core.c
-> > +++ b/drivers/vfio/pci/vfio_pci_core.c
-> > @@ -643,8 +643,27 @@ int vfio_pci_core_enable(struct
-> vfio_pci_core_device *vdev)
-> >               goto out_power;
-> >
-> >       /* If reset fails because of the device lock, fail this path enti=
-rely */
-> > -     ret =3D pci_try_reset_function(pdev);
-> > -     if (ret =3D=3D -EAGAIN)
-> > +     if (vdev->cxl_ops && vdev->cxl_ops->reset) {
-> > +             /*
-> > +              * VM power-on resets a CXL Type-2 device through its DVS=
-EC
-> > +              * sequence. vconfig is not built yet here, so take memor=
-y_lock
-> > +              * and call the op directly rather than the wrapper.
-> > +              */
+> > +static int init_cxl_dvsec_perm(struct perm_bits *perm, int len) {
+> > +     int i;
+> > +
+> > +     if (alloc_perm_bits(perm, len))
+> > +             return -ENOMEM;
+> > +
+> > +     perm->writefn =3D vfio_cxl_dvsec_write;
+> > +
+> > +     /* Serve the whole CXL DVSEC from the shadow. */
+> > +     for (i =3D 0; i < len; i++)
+>         for (int i =3D 0;
 >=20
-> B does not follow from A: what's vconfig got to do with taking memory_loc=
-k
-> here?
+> Is mostly acceptable in the kernel these days and keeps the scope tightly
+> defined.
 
-This is a mistake in the comment added here. I will update this in v6.
+Okay, I will add this.
 
 >=20
-> > +             down_write(&vdev->memory_lock);
-> > +             ret =3D vdev->cxl_ops->reset(vdev);
-> > +             up_write(&vdev->memory_lock);
-> > +     } else {
-> > +             ret =3D pci_try_reset_function(pdev);
-> > +     }
+> > +             p_setb(perm, i, (u8)ALL_VIRT, NO_WRITE);
 > > +
 > > +     /*
-> > +      * -EAGAIN means the reset could not run. For a CXL device any re=
-set
-> > +      * error must also fail the open: a failed DVSEC reset can leave =
-the HDM
-> > +      * decoder cleared or unrestored, and continuing would expose the=
- HDM
-> > +      * region for host access through a decoder in an unknown state.
-> > +      */
-> > +     if (ret =3D=3D -EAGAIN ||
-> > +         (vdev->cxl_ops && vdev->cxl_ops->reset && ret))
->=20
-> This suggests to me that our abstraction is lacking.
-
-With the HDM window closed after any failed reset, the enable path
-will not need a CXL case. It fails the open only on -EAGAIN, as upstream, a=
-nd
-a device whose reset failed at open keeps its HDM window closed until a
-reset succeeds.
-
->=20
-> >               goto out_disable_device;
-> >
-> >       vdev->reset_works =3D !ret;
-> > @@ -845,16 +864,30 @@ void vfio_pci_core_disable(struct
-> vfio_pci_core_device *vdev)
-> >        * overwrite the previously restored configuration information.
-> >        */
-> >       if (vdev->reset_works) {
-> > -             bridge =3D pci_upstream_bridge(pdev);
-> > -             if (bridge && !pci_dev_trylock(bridge))
-> > -                     goto out_restore_state;
-> > -             if (pci_dev_trylock(pdev)) {
-> > -                     if (!__pci_reset_function_locked(pdev))
-> > +             if (vdev->cxl_ops && vdev->cxl_ops->reset) {
-> > +                     /*
-> > +                      * VM power-off resets a CXL Type-2 device throug=
-h its
-> > +                      * DVSEC sequence. The sequence takes its own dev=
-ice lock,
-> > +                      * so run it outside the lock below.
-> > +                      * vconfig is already freed here, so call the op =
-directly
-> > +                      * under memory_lock rather than the wrapper.
->=20
-> Again, the comment doesn't actually justify the behavior.  In the previou=
+> > +      * Control and Control2 are guest programmable; Capability, Statu=
 s,
-> vconfig is not setup, so take the lock, here vconfig is already freed, so=
- take the
-> lock... meaningless.
->=20
-> Also, are we dropping the try-lock semantics?  How's that justified?
-
-Sorry for the churn; No, I am not dropping the try-lock semantics.
-cxl_reset_dvsec_sequence() takes the device lock with pci_dev_trylock(); it=
- returned
--EBUSY whereas pci_try_reset_function() returns -EAGAIN.
-
-In v6, I will return -EAGAIN so callers see one errno for contention.
-
->=20
-> > +                      */
-> > +                     down_write(&vdev->memory_lock);
-> > +                     if (!vdev->cxl_ops->reset(vdev))
-> >                               vdev->needs_reset =3D false;
-> > -                     pci_dev_unlock(pdev);
-> > +                     up_write(&vdev->memory_lock);
-> > +             } else {
-> > +                     bridge =3D pci_upstream_bridge(pdev);
-> > +                     if (bridge && !pci_dev_trylock(bridge))
-> > +                             goto out_restore_state;
-> > +                     if (pci_dev_trylock(pdev)) {
-> > +                             if (!__pci_reset_function_locked(pdev))
-> > +                                     vdev->needs_reset =3D false;
-> > +                             pci_dev_unlock(pdev);
-> > +                     }
-> > +                     if (bridge)
-> > +                             pci_dev_unlock(bridge);
->=20
-> Abstraction leaves a lot to be desired here.
-
-I will refactor this part for correct upstream shape.
-
->=20
-> >               }
-> > -             if (bridge)
-> > -                     pci_dev_unlock(bridge);
-> >       }
-> >
-> >  out_restore_state:
-> > @@ -1592,6 +1625,20 @@ static int vfio_pci_ioctl_set_irqs(struct
-> vfio_pci_core_device *vdev,
-> >       return ret;
-> >  }
-> >
-> > +/*
-> > + * Reset the function. A CXL device runs the CXL DVSEC reset sequence
-> > +in place
-> > + * of a PCI function reset: it replaces FLR (which would corrupt
-> > +CXL.mem),
-> > + * always clears device memory, and restores the HDM decoder. Callers
-> > +hold
-> > + * memory_lock for write.
-> > + */
-> > +int vfio_pci_reset_function(struct vfio_pci_core_device *vdev) {
-> > +     if (!vdev->cxl_ops || !vdev->cxl_ops->reset)
-> > +             return pci_try_reset_function(vdev->pdev);
+> > +      * Lock and the Range registers keep their firmware snapshot, so =
+the
+> > +      * guest cannot set Config Lock or rewrite the capability and ran=
+ges.
+> > +      */
+> > +     p_setw(perm, PCI_DVSEC_CXL_CTRL, (u16)ALL_VIRT, (u16)ALL_WRITE);
+> > +     p_setw(perm, PCI_DVSEC_CXL_CTRL2, (u16)ALL_VIRT,
+> > + (u16)ALL_WRITE);
 > > +
-> > +     return vdev->cxl_ops->reset(vdev);
->=20
-> This is all inverted logic and I don't understand why we're trying to lea=
-ve the
-> reset op optional, make it mandatory:
->=20
->         if (vdev->cxl_ops)
->                 return vdev->cxl_ops->reset(vdev);
->=20
->         return pci_try_reset_function(vdev->pdev);
->=20
-> But we're again losing the try semantics on the cxl path(?) and naming of=
- the
-> wrapper drops the try semantics as well.
-
-Agreed. I will rename this to vfio_pci_try_reset_function(), and CXL path w=
-ill keep the trylock.
-
->=20
+> > +     return 0;
 > > +}
 > > +
-> >  static int vfio_pci_ioctl_reset(struct vfio_pci_core_device *vdev,
-> >                               void __user *arg)  { @@ -1614,8 +1661,14
-> > @@ static int vfio_pci_ioctl_reset(struct vfio_pci_core_device *vdev,
-> >       vfio_pci_set_power_state(vdev, PCI_D0);
-> >
-> >       vfio_pci_dma_buf_move(vdev, true);
-> > -     ret =3D pci_try_reset_function(vdev->pdev);
-> > -     if (__vfio_pci_memory_enabled(vdev))
-> > +     ret =3D vfio_pci_reset_function(vdev);
+> > +/* Virtualize the CXL DVSEC so a guest cannot reprogram the device
+> > +through it. */ static int vfio_cxl_dvsec_init(struct
+> > +vfio_pci_core_device *vdev) {
+> > +     struct pci_dev *pdev =3D vdev->pdev;
+> > +     u32 dword;
+> > +     u16 dvsec;
+> > +     int len, ret;
+> > +
+> > +     dvsec =3D pci_find_dvsec_capability(pdev, PCI_VENDOR_ID_CXL,
+> > +                                       PCI_DVSEC_CXL_DEVICE);
+> > +     if (!dvsec)
+> > +             return 0;
+> > +
+> > +     ret =3D pci_read_config_dword(pdev, dvsec + PCI_DVSEC_HEADER1,
+> &dword);
+> > +     if (ret)
+> > +             return pcibios_err_to_errno(ret);
+> > +     len =3D PCI_DVSEC_HEADER1_LEN(dword);
+> > +
 > > +     /*
-> > +      * Re-arm the dma-bufs on success. A CXL device whose reset faile=
-d
-> leaves
-> > +      * the HDM decoder unrestored and hdm_valid clear, so re-arming i=
-ts
-> HDM
-> > +      * dma-buf would map device DMA onto a decoder the fault path sti=
-ll
-> gates;
-> > +      * keep it revoked until a reset succeeds. Plain vfio-pci is unch=
-anged.
+> > +      * The virtualization writes fixed DVSEC offsets up to Status2 (t=
+he reset
+> > +      * doorbell stamps it). A device that reports a shorter DVSEC is =
+not a
+> > +      * usable Type-2 function; leave it as plain vfio-pci rather than=
+ index the
+> > +      * device-length-sized perm allocation past its end.
 > > +      */
-> > +     if (__vfio_pci_memory_enabled(vdev) && (!vdev->cxl_ops || !ret))
-> >               vfio_pci_dma_buf_move(vdev, false);
+> > +     if (len < PCI_DVSEC_CXL_STATUS2 + 2)
+> > +             return 0;
+> > +
+> > +     vdev->cxl_perm =3D kmalloc_obj(struct perm_bits,
+> > + GFP_KERNEL_ACCOUNT);
 >=20
-> I don't think we're doing dmabufs correctly for CXL, I don't see how they=
-'re the
-> same address space, or TBH, how we can have a reset fail so catastrophica=
-lly.
-> Thanks,
->=20
+> I'd use *vdev->cxl_perm instead of struct perm_bits just because that sav=
+es
+> anyone checking types.
 
-In v6 I will separate them as described above.
-A failed reset will leave the HDM window closed until a later reset succeed=
-s.
+Okay, I will update this in v6.
 
-> Alex
 >=20
-> >       up_write(&vdev->memory_lock);
+> > +     if (!vdev->cxl_perm)
+> > +             return -ENOMEM;
+> > +
+> > +     ret =3D init_cxl_dvsec_perm(vdev->cxl_perm, len);
+> > +     if (ret) {
+> > +             kfree(vdev->cxl_perm);
+> > +             vdev->cxl_perm =3D NULL;
+> > +             return ret;
+> > +     }
+> > +
+> > +     vdev->cxl_dvsec =3D dvsec;
+> > +     vdev->cxl_dvsec_len =3D len;
+> > +
+> > +     return 0;
+> > +}
+> > +
+> >  int vfio_config_init(struct vfio_pci_core_device *vdev)  {
+> >       struct pci_dev *pdev =3D vdev->pdev; @@ -1842,6 +1955,12 @@ int
+> > vfio_config_init(struct vfio_pci_core_device *vdev)
+> >       if (ret)
+> >               goto out;
 > >
-> > diff --git a/drivers/vfio/pci/vfio_pci_priv.h
-> > b/drivers/vfio/pci/vfio_pci_priv.h
-> > index c268c99aea82..e1ef21806a2f 100644
-> > --- a/drivers/vfio/pci/vfio_pci_priv.h
-> > +++ b/drivers/vfio/pci/vfio_pci_priv.h
-> > @@ -78,6 +78,7 @@ int vfio_pci_set_power_state(struct
-> vfio_pci_core_device *vdev,
-> >                            pci_power_t state);
+> > +     if (vdev->cxl_ops) {
+> > +             ret =3D vfio_cxl_dvsec_init(vdev);
+> > +             if (ret)
+> > +                     goto out;
+> > +     }
+> > +
+> >       return 0;
 > >
-> >  void vfio_pci_zap_and_down_write_memory_lock(struct
-> > vfio_pci_core_device *vdev);
-> > +int vfio_pci_reset_function(struct vfio_pci_core_device *vdev);
-> >  u16 vfio_pci_memory_lock_and_enable(struct vfio_pci_core_device
-> > *vdev);  void vfio_pci_memory_unlock_and_restore(struct
+> >  out:
+> > @@ -1863,6 +1982,12 @@ void vfio_config_free(struct
+> vfio_pci_core_device *vdev)
+> >               kfree(vdev->msi_perm);
+> >               vdev->msi_perm =3D NULL;
+> >       }
+> > +     if (vdev->cxl_perm) {
+> > +             free_perm_bits(vdev->cxl_perm);
+> > +             kfree(vdev->cxl_perm);
+> > +             vdev->cxl_perm =3D NULL;
+> > +             vdev->cxl_dvsec =3D 0;
+>=20
+> I'd define a vfio_cxl_dvsec_exit() or _unint() for this so it is clear it=
+ pairs with
+> vfio_cxl_dvsec_init() above.
+
+Ack. Alex pointed out that cxl_dvsec_len is unused, so the exit helper clea=
+rs only
+cxl_perm and cxl_dvsec.
+
+>=20
+>=20
+> > +     }
+> >  }
+> >
+> >  /*
+> > @@ -1926,12 +2051,15 @@ ssize_t vfio_pci_config_rw_single(struct
 > vfio_pci_core_device *vdev,
-> >                                       u16 cmd); diff --git
-> > a/include/linux/vfio_pci_core.h b/include/linux/vfio_pci_core.h index
-> > 39a28cc6ae8c..231679dead45 100644
-> > --- a/include/linux/vfio_pci_core.h
-> > +++ b/include/linux/vfio_pci_core.h
-> > @@ -74,6 +74,10 @@ struct vfio_cxl_ops {
-> >       void    (*close_device)(struct vfio_pci_core_device *vdev);
-> >       void    (*reset_prepare)(struct vfio_pci_core_device *vdev);
-> >       void    (*reset_done)(struct vfio_pci_core_device *vdev);
-> > +     /* Run the CXL reset (always clears CXL.mem) in place of FLR */
-> > +     int     (*reset)(struct vfio_pci_core_device *vdev);
-> > +     /* True while the HDM range is valid and its dma-buf may be armed=
- */
-> > +     bool    (*hdm_active)(struct vfio_pci_core_device *vdev);
-> >       /* Pinned per bound CXL device so vfio-cxl cannot unload under us=
-age */
-> >       struct module *owner;
-> >  };
+> >                        * of the extended capability list.  Use default,=
+ ro
+> >                        * access, which will virtualize the id and next =
+values.
+> >                        */
+> > +                     cap_start =3D vfio_find_cap_start(vdev, *ppos);
+> > +
+> >                       if (cap_id > PCI_EXT_CAP_ID_MAX)
+> >                               perm =3D &direct_ro_perms;
+> > +                     else if (cap_id =3D=3D PCI_EXT_CAP_ID_DVSEC && vd=
+ev->cxl_perm
+> &&
+> > +                              cap_start =3D=3D vdev->cxl_dvsec)
+>=20
+> If it is only used here (I haven't read on in series)
+>                                  vfio_find_cap_start(vdev, *ppos) =3D=3D =
+vdev->cxl_dvsec) seems
+> fine to me.  It's only just over 80 chars and hopeful this bit of the ker=
+nel is
+> flexible on that!
+
+cap_start is also used after the branch for the offset into the capability.
+I will keep the variable in v6.
+
+>=20
+> > +                             perm =3D vdev->cxl_perm;
+> >                       else
+> >                               perm =3D &ecap_perms[cap_id];
+> > -
+> > -                     cap_start =3D vfio_find_cap_start(vdev, *ppos);
+> >               } else {
+> >                       WARN_ON(cap_id > PCI_CAP_ID_MAX);
+> >
 
