@@ -1,136 +1,242 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4184B4E322B;
-	Fri,  9 Oct 2026 11:52:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E275B4CC631;
+	Fri,  9 Oct 2026 11:52:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791546734; cv=none; b=PPgvgOMy/K6n931kl1HfJh76q5AdmFlNWxJ8xG/H9OJD+M+c8dWdOfkkY7EDZGSk7j0BiyStvShPxZHDZW1S2z6gv2nIyrABoRItuX0J4TAa1+6KNbgKx8OCrkYSyqzMyRbV4LXDvA/RO9goF2uGAF2TxhjsHkpxkIUvQw8xsZc=
+	t=1791546757; cv=none; b=cZvw+dMYhK+aSs+tetB50PT9pxqNyjtDUXCs8Yjs72wXkIldPGZRPaLzk9/y21O0ztQf+TS8K2agPuCbQutyVzkGpKupcNxwCleNvLe0TwVV+7875SnZUVU+sJYY8V8rjzduGqxAsl+BErikbsDCWU1gTK16hu45oFBTVa8fEdE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791546734; c=relaxed/simple;
-	bh=4/Gga294M8q+YAkg5gHCxHIliBc8snjlyNvp9hHdFFc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pEnEytHb0FBvvS7RXCsahQqkt8/wP0hrfthoBtxO6Lt54uV2o9XBozr4uIY/JWbmkoG2SttoM6bTmHGppPBt3XGpUQHyAXsYw4iCLaEGglTUli2HZ8+JgYHsnPRgwgIMzlx6/gXn1REe2A40CeZNfRylcdZAWHNepivjvbAmv3Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: d2798a54c3d711f19a56ed5b684f684d-20261009
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:c691bcf6-e7dd-4ae4-8863-0b37bebbeaeb,IP:0,U
-	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:25
-X-CID-META: VersionHash:7db8b62,CLOUDID:ceed06e202d5449ce84cc283a9489a01,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|102|136|865|898,TC:nil,Content:0|15|50|99,ED
-	M:5|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,
-	OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: d2798a54c3d711f19a56ed5b684f684d-20261009
-X-User: liupeng01@kylinos.cn
-Received: from t14 [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <liupeng01@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 551343682; Fri, 09 Oct 2026 19:51:54 +0800
-From: liupeng <liupeng01@kylinos.cn>
-To: lyude@redhat.com,
-	dakr@kernel.org
-Cc: maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	linux@roeck-us.net,
-	nouveau@karolherbst.de,
-	bskeggs@redhat.com,
-	dri-devel@lists.freedesktop.org,
-	nouveau@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
-	stable@vger.kernel.org,
-	liupeng <liupeng01@kylinos.cn>
-Subject: [PATCH v3] drm/nouveau: Fix memory leaks in debugfs and hwmon init error paths
-Date: Fri,  9 Oct 2026 19:51:51 +0800
-Message-ID: <20261009115151.13877-1-liupeng01@kylinos.cn>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <ea9a1d374cf3127e5047bc73807ce821022e026e.camel@redhat.com>
-References: <ea9a1d374cf3127e5047bc73807ce821022e026e.camel@redhat.com>
+	s=arc-20240116; t=1791546757; c=relaxed/simple;
+	bh=PPCZdcfKYwdDdilZWLfJBoE2GoRdIaFesAzFZb/zENo=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ghrnx48c/EQQQwwuNd1aZvgeEi/jMiFJl3vvJ+24NHKNMkKGNZ4YA2TQ8H1SpXRKOc+ajpp/sUYprASdG7X5PhhFyCgL1PNrpUZuqB+CBmEIUpKAD1o1m8hT42Qw9Q0HYD4KGIyqIQh9hjesHFZmnbsx7WhhCbIds1+BSGj7v74=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GhCOQaoQ; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GhCOQaoQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2EF01F00893;
+	Fri,  9 Oct 2026 11:52:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791546745;
+	bh=uYGMKbVg+f6Lb1NBO9+91jGmwPF7QqLqXol7N3FJW4Q=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=GhCOQaoQgiNY6ebHFaHu2FI//Gelg1H53MczrkgEKHOJNmtdO7G++9xdlX1RbEYKB
+	 C4OI6sJirqInDQyuZLHjtlxmCCXEbpueFyAaz8UVozn/Kfy5SoUCrk6FCxOGCDqK18
+	 B0NbPtKgh23YqIBUc+LCTTDuK55J78mVxYPpIyBh6vIA9kMwdTaS7p9sPaxcDDUqxd
+	 lyAxCY7Hwa1+BtQeQH9GQGre2MMHrG8cBojl/PxhAyjzXRznL1KHde8mXCwYHo3nKx
+	 3aESgL/wc6czsmkHLsb0TqJwuNDOdvhYJh2rEjKypamAHET1mIuklirynRzMjmb8QF
+	 rRjR0c40ilxQg==
+Subject: Re: [PATCH net] RDS/IB: validate receive completion payload length
+From: netdev-bot+sashiko@kernel.org
+To: tjdqudcks0424@naver.com
+Cc: achender@kernel.org, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, andy.grover@oracle.com,
+ netdev@vger.kernel.org, linux-rdma@vger.kernel.org, rds-devel@oss.oracle.com,
+ linux-kernel@vger.kernel.org
+Date: Fri, 09 Oct 2026 11:52:24 +0000
+Message-ID: <179154674424.434549.17010564396814688195@kernel.org>
+In-Reply-To: <20261006205204.1322102-1-tjdqudcks0424@naver.com>
+References: <20261006205204.1322102-1-tjdqudcks0424@naver.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-In nouveau_debugfs_init(), if nvif_object_ctor() fails, the previously
-allocated drm->debugfs is leaked because the function returns the
-error code directly.
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-In nouveau_hwmon_init(), if hwmon_device_register_with_info() fails,
-the allocated hwmon structure is leaked because the function returns
-the error code directly.
+Critical: 0 · High: 1 · Medium: 1 · Low: 1
 
-Fix both by freeing the allocated memory and clearing the pointer on
-the error paths.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Fixes: b126a200e9db ("drm/nouveau/debugfs: we need a ctrl object for debugfs")
-Fixes: b9ed919f1c8f ("drm/nouveau/drm/pm: remove everything except the hwmon interfaces to THERM")
-Cc: stable@vger.kernel.org
-Reviewed-by: Lyude Paul <lyude@redhat.com>
-Signed-off-by: liupeng <liupeng01@kylinos.cn>
----
-Changes in v3:
-- Drop the extra return in nouveau_debugfs_init() as suggested by Lyude.
-- Add Reviewed-by tag.
+- [High] The new length check can be bypassed, so the stale/uninitialized
+  receive-fragment disclosure that this commit claims to close can still…
+- [Medium] When the new length check in rds_ib_process_recv()
+  (net/rds/ib_recv.c:952-959) rejects a fragment, it jumps to `done` and…
+- [Low] The commit message understates the impact.
 
- drivers/gpu/drm/nouveau/nouveau_debugfs.c | 14 +++++++++++---
- drivers/gpu/drm/nouveau/nouveau_hwmon.c   |  2 ++
- 2 files changed, 13 insertions(+), 3 deletions(-)
+--
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_debugfs.c b/drivers/gpu/drm/nouveau/nouveau_debugfs.c
-index 47d5579c568d..338421e52f69 100644
---- a/drivers/gpu/drm/nouveau/nouveau_debugfs.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_debugfs.c
-@@ -295,13 +295,21 @@ nouveau_drm_debugfs_init(struct drm_minor *minor)
- int
- nouveau_debugfs_init(struct nouveau_drm *drm)
- {
-+	int ret;
-+
- 	drm->debugfs = kzalloc_obj(*drm->debugfs);
- 	if (!drm->debugfs)
- 		return -ENOMEM;
- 
--	return nvif_object_ctor(&drm->client.device.object, "debugfsCtrl", 0,
--				NVIF_CLASS_CONTROL, NULL, 0,
--				&drm->debugfs->ctrl);
-+	ret = nvif_object_ctor(&drm->client.device.object, "debugfsCtrl", 0,
-+			       NVIF_CLASS_CONTROL, NULL, 0,
-+			       &drm->debugfs->ctrl);
-+	if (ret) {
-+		kfree(drm->debugfs);
-+		drm->debugfs = NULL;
-+	}
-+
-+	return ret;
- }
- 
- void
-diff --git a/drivers/gpu/drm/nouveau/nouveau_hwmon.c b/drivers/gpu/drm/nouveau/nouveau_hwmon.c
-index 726397ab035d..ffbe7f542ab0 100644
---- a/drivers/gpu/drm/nouveau/nouveau_hwmon.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_hwmon.c
-@@ -697,6 +697,8 @@ nouveau_hwmon_init(struct drm_device *dev)
- 	if (IS_ERR(hwmon_dev)) {
- 		ret = PTR_ERR(hwmon_dev);
- 		NV_ERROR(drm, "Unable to register hwmon device: %d\n", ret);
-+		drm->hwmon = NULL;
-+		kfree(hwmon);
- 		return ret;
- 	}
- 
+RDS/IB: validate receive completion payload length
+
+This patch adds a check to rds_ib_process_recv(). The payload length
+reported by the receive completion must match the expected length of the
+current fragment, min(i_recv_data_rem, RDS_FRAG_SIZE). On mismatch the
+connection is dropped and reconnected, and the receive fragment is not
+attached to the incoming message.
+
+> An RDS/RDMA peer can declare a fragment length larger than the payload
+> reported by the receive completion. The receive path attaches the recycled
+> receive fragment without validating those lengths, allowing recvmsg() to
+> return stale bytes beyond the actual payload.
+
+[Severity: Low]
+Is "recycled receive fragment" the full picture here? When
+ic->i_cache_frags is empty, rds_ib_refill_one_frag() allocates a new
+page:
+
+net/rds/ib_recv.c:rds_ib_refill_one_frag() {
+    ...
+		ret = rds_page_remainder_alloc(&frag->f_sg,
+					       RDS_FRAG_SIZE, page_mask);
+    ...
+}
+
+page_mask is either GFP_HIGHUSER or the caller's gfp.
+rds_page_remainder_alloc() then calls alloc_page() without __GFP_ZERO:
+
+net/rds/page.c:rds_page_remainder_alloc() {
+    ...
+	if (bytes >= PAGE_SIZE) {
+		page = alloc_page(gfp);
+    ...
+}
+
+On a fresh frag, the bytes after a short payload would be uninitialized
+kernel page contents, not only tails from earlier RDS messages.
+
+The code change covers this case too. Could the commit message also
+describe it as a kernel memory disclosure?
+
+> diff --git a/net/rds/ib_recv.c b/net/rds/ib_recv.c
+> index bd6cb3ffaa571..0daddb108c8a7 100644
+> --- a/net/rds/ib_recv.c
+> +++ b/net/rds/ib_recv.c
+> @@ -949,6 +949,15 @@ static void rds_ib_process_recv(struct rds_connection *conn,
+>  		}
+>  	}
+>  
+> +	if (data_len != min_t(u32, ic->i_recv_data_rem, RDS_FRAG_SIZE)) {
+
+[Severity: High]
+Can an RDMA write with immediate get past this check?
+
+rds_ib_recv_cqe_handler() passes every successful completion to
+rds_ib_process_recv() without checking wc->opcode:
+
+net/rds/ib_recv.c:rds_ib_recv_cqe_handler() {
+    ...
+	if (wc->status == IB_WC_SUCCESS) {
+		rds_ib_process_recv(conn, recv, wc->byte_len, state);
+    ...
+}
+
+A write with immediate uses up the next receive WQE but does not write
+to its scatter list (ic->i_recv_hdrs[slot] and recv->r_frag). For
+IB_WC_RECV_RDMA_WITH_IMM, byte_len is the RDMA write length. In rxe,
+for example:
+
+drivers/infiniband/sw/rxe/rxe_resp.c:do_complete() {
+    ...
+		wc->byte_len = (pkt->mask & RXE_IMMDT_MASK &&
+				pkt->mask & RXE_WRITE_MASK) ?
+					qp->resp.length : wqe->dma.length - wqe->dma.resid;
+    ...
+}
+
+The header buffer for a ring slot is never cleared between uses. It
+still holds the last normal header received into that slot, and that
+header's checksum still verifies.
+
+recv->r_frag is either a recycled frag from the cache or a fresh
+alloc_page() page.
+
+rds_ib_post_reg_frmr() registers RDS MRs with IB_ACCESS_REMOTE_WRITE. A
+peer holding an rkey from a local RDS user could then do this:
+
+  1. send a normal message into a slot with h_len=4096, a bound dport,
+     and RDS_FLAG_RETRANSMITTED clear
+  2. when that slot comes around again, issue a write with immediate of
+     sizeof(struct rds_header) + 4096 bytes to a remote-writable MR
+
+The new check sees data_len == min(i_recv_data_rem, RDS_FRAG_SIZE) and
+passes, so the unwritten frag is attached.
+
+rds_recv_incoming() only drops old sequence numbers when
+RDS_FLAG_RETRANSMITTED is set:
+
+net/rds/recv.c:rds_recv_incoming() {
+    ...
+	if (be64_to_cpu(inc->i_hdr.h_sequence) < cp->cp_next_rx_seq &&
+	    (inc->i_hdr.h_flags & RDS_FLAG_RETRANSMITTED)) {
+    ...
+}
+
+rds_ib_inc_copy_to_user() would then copy h_len bytes of stale or
+uninitialized frag data to userspace.
+
+Should completions whose opcode is not IB_WC_RECV be rejected before the
+receive buffers are parsed or byte_len is trusted?
+
+> +		rds_ib_conn_error(conn,
+> +				  "incoming fragment payload length %u, expected %u; "
+> +				  "disconnecting and reconnecting\n",
+> +				  data_len,
+> +				  min_t(u32, ic->i_recv_data_rem, RDS_FRAG_SIZE));
+> +		goto done;
+> +	}
+
+[Severity: Medium]
+Does this goto done leave the partial message in place for later
+fragments to complete?
+
+ic->i_ibinc stays set (it was just installed if this fragment started
+the message), and ic->i_recv_data_rem is not reduced.
+
+rds_ib_conn_error() ends up in rds_conn_path_drop(). That function only
+sets RDS_CONN_ERROR and queues the shutdown work:
+
+net/rds/connection.c:rds_conn_path_drop() {
+    ...
+	atomic_set(&cp->cp_state, RDS_CONN_ERROR);
+    ...
+	queue_work(cp->cp_wq, &cp->cp_down_w);
+    ...
+}
+
+In the meantime poll_rcq() keeps calling rds_ib_recv_cqe_handler() for
+the rest of the batch. Later tasklet runs do the same until shutdown
+sets i_cq_quiesce.
+
+A later fragment with the same h_sequence, h_len and ports, and the
+expected length, passes both the header comparison and the new check.
+For example, with h_len=8192 and these completions:
+
+  A: 4096 bytes  -> attached, rem = 4096
+  B: 16 bytes    -> rejected here, rem still 4096
+  C: 4096 bytes  -> attached, rem = 0
+
+The message is delivered as A+C, with C's payload where B's belongs.
+
+rds_recv_incoming() does not check the connection error state. The
+message is queued to the socket and acked through state->ack_next, and
+cp_next_rx_seq advances. A later retransmission flagged
+RDS_FLAG_RETRANSMITTED would then be dropped as old.
+
+This seems to contradict the commit message:
+
+  "With this change, the malformed message was not delivered"
+
+The existing fragment header mismatch path has the same weakness, and
+this patch adds a second rejection path that shares it.
+
+Could the in-progress inc be dropped here instead? That would mean
+calling rds_inc_put(&ic->i_ibinc->ii_inc) and clearing ic->i_ibinc and
+ic->i_recv_data_rem. Another option is to stop reassembly once the
+connection is in error.
+
+>  	list_add_tail(&recv->r_frag->f_item, &ibinc->ii_frags);
+>  	recv->r_frag = NULL;
+>
+
 -- 
-2.53.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261006205204.1322102-1-tjdqudcks0424%40naver.com
