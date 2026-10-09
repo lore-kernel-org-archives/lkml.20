@@ -1,185 +1,117 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C2F92D781B
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 02:40:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77150331A61
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 02:40:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791513619; cv=none; b=klX3qzECSWTeAnhpOVYOITCqJU0xpFUpNnGXWXWTwv7CtQ4LS1EcH7IULQB12DaQeb+/os8nvGQaFrcf9AY/Q9rHy1FK/sPON3J/zj/gGqd9uWPC5VQs19yJWVK89KfH49UWPxDz4YWXjv2Bh7D7xmuqboIS0mkfkkAkJv8W/1s=
+	t=1791513655; cv=none; b=ABOOzTMm3uqI8LntRS/1hnpxc3SWUcp+zBwxjj3Vi2n9qgV0Y2idUkh5ZLuILo4ughHo9DV6OmGQ1elO78N5tDZYkb1Si8IqPxBe4oo3heHN17vcNOAjidbOcdefjzjoh6uQvuEN6E71+MQP2hv4Jit1XvS1njPQJU0p8tDYJL8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791513619; c=relaxed/simple;
-	bh=U1npSJzejD5mBi1v3j4ledYzhzb7UttD01lckDzSJgM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Pa2trfVf7lZBu2BNSO1qqNUy2M/lDN+hqovkxnxdzcDIu66tazBqewDQrNGfEsweQwvp0Z6j66yZJz3AcOvt1yYLevLK+75uawTQQB2tFYvlIhrwuQ2jBQX7a4tBMu5Xa/0fJ72ICKffp8DUl8bUtxhM1UOP4TVhyAn39DqNRfk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GhTIjZaf; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791513655; c=relaxed/simple;
+	bh=t3YlafWr1SlDS/aVRT+Oh0oX9kedWLVnAi0UCAFiTB8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=A62y5vpabx4zKwbUdeWqfbVnmQHKTJPTDr9Sa8/QKclyqcmxvJAj7n6D6LLYZv2ynMso1q6VBJcf9gxV6F6hN/7dxv6wfy6CSWS/JB3o07JoaFnQma2MetaxUXBuIMgsoRVUtJi8dPyn2Li0IcLhxhNIa7RL6qNfZQVToenLS0k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l08jL6u/; arc=none smtp.client-ip=74.125.82.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GhTIjZaf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791513616; x=1823049616;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=U1npSJzejD5mBi1v3j4ledYzhzb7UttD01lckDzSJgM=;
-  b=GhTIjZafquIS0jrH0Sm+qRtjzk0lweRckopbiEbI46USacPCuRVOV90R
-   q1xJqgOehyEi3cBUD83DYyY7WXZwT1y1A0pJZGf4D9T0zJhvJxd8A+hCl
-   mxyC+b5ilT6aGMJZj4ZlW+Z/seDC49doIr29rr+XdLlmRsnBlRBJ5bfC5
-   ePCtzECyxA9Hy2pDZ2/ip1B3S0P8/2YVkUUu37CPze9OYxWXHsazawCyB
-   EeAZjxYyGCy4NatnxkhPfAHaspJmqmG6z4oDJGcRP0dQ6l+lPM4znJrA1
-   /zjbdI0lJz+ZLiVrvP9rAlVOMSK8DhUbu9ybwlwz9RPv3pLhpLmHZL/01
-   w==;
-X-CSE-ConnectionGUID: 55J4zbH1RyGIjdh2sr+51g==
-X-CSE-MsgGUID: uzYH7VWFRz2wjSaLzPQUiw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11929"; a="312476"
-X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
-   d="scan'208";a="312476"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 19:40:16 -0700
-X-CSE-ConnectionGUID: NKB6IehzQ2+GXVXta22VSw==
-X-CSE-MsgGUID: gByQKVSEQGSzQsBZiCzfjw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
-   d="scan'208";a="280369"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa004.fm.intel.com with ESMTP; 08 Oct 2026 19:40:13 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xF0Wn-000000005Ce-2mWk;
-	Fri, 09 Oct 2026 02:40:09 +0000
-Date: Fri, 9 Oct 2026 10:40:07 +0800
-From: kernel test robot <lkp@intel.com>
-To: Suhaas Joshi <suhaas@s-joshi.in>, sj@kernel.org,
-	akpm@linux-foundation.org, aethernet65535@gmail.com
-Cc: oe-kbuild-all@lists.linux.dev, damon@lists.linux.dev,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] mm/damon/core: Copy only installed probe in
- damon_split_region_at()
-Message-ID: <202610091039.fhMXCn7d-lkp@intel.com>
-References: <20261008151944.113714-3-suhaas@s-joshi.in>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l08jL6u/"
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-3516c82e96cso4223199eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 19:40:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791513653; x=1792118453; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ys5AkoGHO+1zeYlBeqQfwpPRvZXflN1giC3pkuSBrsc=;
+        b=l08jL6u/UB5CK6VAjEWts4uNebuxwgJIZX+0hbCBm+n0UHtfMgLxNFgMiZexmNpXSW
+         oQrcVhvutIYSR3Ar1qV48y0NCWLQluCbyb5pvOWzeS18l93IgmI1rHFWqAv0FFO1fdCQ
+         6Xp1xya7CBrE9KHx27FasPBHdys9Q874RnKc7gaMcxoHLrUFIIOZTn8CnvH6xAEt3pwx
+         KYNqXSokCEDAs8mK8zV2a6HWDAF9WHmIpfC8L8k5SrZxV0ipFVbZPuzaQY00yzYvkat6
+         v94i+3WaRAgG/yHNPI9YqFA68yGcjpvuKhJgOzhKKrFHnfo67s3l7FYJu47FpwgnCz53
+         FGiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791513653; x=1792118453;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ys5AkoGHO+1zeYlBeqQfwpPRvZXflN1giC3pkuSBrsc=;
+        b=YM2BCAmqUFARu6Z+p8v+lvKxIQsJaseOKBDaDtPmzJeNdMSrJ4l//P/nV0VJ0t6XWF
+         kL1Inc7O4sLliWDk7nQO+Cyoslu/XQUzfUnUHRCzq6uKERsYj5FlzL7DeSIkNjmzxeQt
+         C8GAshjJBKTHYuQ0KaoW46lvBeDIqhiaunPdQrwupFLX8psZfu650ALcduub/JJvUySz
+         1wnLJZ7OP2RjVqoewllpQwt9QUsFUTaIzypuvD4SIFSp0tT0IrNNlYWWhKFrHCfv301E
+         KUhCXC9HgLtRWTtWxyN0TQCpYUVMV4Dv4AK5OEd5phRizLABPNmCnDdZTiFHlrrumDJV
+         co6Q==
+X-Forwarded-Encrypted: i=1; AKwUvByV2pLBDmQBdDwDk5h75qK7cDNldy4iy/mMdSd6sD7smCDN1st1DoLHBYAhGznKq6RZxnnUOVGzOrJap5k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK9MHJdnEgR/tVud5fwIRz0C2YsA/0ePu0Bpztuw9iXz2us/u1b
+	xcTrKpYgp9yR5x0d8bqvfUqjxUHBhXtD6WoscphVjyUx2eb3TmIrwnuW5Dqg3azI
+X-Gm-Gg: AYBFou1/PX1JdMZ8ewuxm4qfnovJBUR8hekHyiabTuoXM0bfW39E8RwelPDElBrMWNJ
+	brL3hGfApH/8aIVUH0IaspSlKfmK2VO2klvpbvp6FY9GiNHphmHfTDVFhecneI84Dsg9/nGR3ZM
+	n+oOT8KNbj3pSaDPpMV+GDcrZ9Da6zCY+ToikL0FDfRnIxWrEml7kEMVoTyqj5TNlP1YZeGfQ46
+	TiBRum2DEpVP5QLrpcor18ZA58AB73jSooJTaDBZNwk7MSJ45Kk8JTvJFu96PNFo31mJyhoOTPM
+	knrNgvUrvKfLRkaNGHYzXhhC0X+zNh4C/adhTCv861iYZvY8nJkD1LGUe00OArcsvQoJWFebgs6
+	5xe60K6vPoqYw7ZnzHBjhaPJ/W2TRG/1O9nS+iSqjCObMs6hCIEQv47pnAh7tLKhgdhkgALOhxa
+	zEjTiWCk9mNlgdSwcodsmUsFkemuCPNvA04xOrCk80jdoKUbVS6k7WtAnAvllLG3gefUesYpUzI
+	pqc1/UF8mUMU5EZJ78=
+X-Received: by 2002:a05:693c:415c:10b0:351:1133:8780 with SMTP id 5a478bee46e88-3537dfd18cfmr1128625eec.25.1791513653255;
+        Thu, 08 Oct 2026 19:40:53 -0700 (PDT)
+Received: from maclinux ([2803:c600:9110:8ba5:1c75:eeaa:b22f:20dc])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb2954bsm2228774eec.26.2026.10.08.19.40.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 19:40:52 -0700 (PDT)
+From: =?UTF-8?q?Francisco=20Beltr=C3=A1n=20Millal=C3=A9n?= <fbeltranmillalen@gmail.com>
+To: helgaas@kernel.org
+Cc: bhelgaas@google.com,
+	linux-pci@vger.kernel.org,
+	stern@rowland.harvard.edu,
+	gregkh@linuxfoundation.org,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lukas@wunner.de
+Subject: Re: [PATCH v2 0/3] PCI/PM: Do not save the config space of an inaccessible device
+Date: Thu,  8 Oct 2026 23:40:38 -0300
+Message-ID: <20261009024038.14888-1-fbeltranmillalen@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261008223411.GA935963@bhelgaas>
+References: <20261008223411.GA935963@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261008151944.113714-3-suhaas@s-joshi.in>
+Content-Transfer-Encoding: 8bit
 
-Hi Suhaas,
+Hi Bjorn,
 
-kernel test robot noticed the following build errors:
+Thanks for reviewing the series.
 
-[auto build test ERROR on akpm-mm/mm-everything]
+On Thu, Oct 08, 2026 at 05:34:11PM -0500, Bjorn Helgaas wrote:
+> If it would be safe to apply patches 2 and 3 without patch 1, I could
+> go ahead and do that.
+>
+> Patch 2 returns errors from pci_save_state() in more cases, but
+> hcd_pci_suspend_noirq() doesn't check for errors anyway, so I think
+> it's would be no worse off it we applied patch 2 without patch 1.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Suhaas-Joshi/mm-damon-core-Copy-only-installed-probe-in-damon_split_region_at/20261008-204926
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git mm-everything
-patch link:    https://lore.kernel.org/r/20261008151944.113714-3-suhaas%40s-joshi.in
-patch subject: [PATCH v2 2/2] mm/damon/core: Copy only installed probe in damon_split_region_at()
-config: csky-randconfig-1001-20261009 (https://download.01.org/0day-ci/archive/20261009/202610091039.fhMXCn7d-lkp@intel.com/config)
-compiler: csky-linux-gcc (GCC) 9.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261009/202610091039.fhMXCn7d-lkp@intel.com/reproduce)
+I tested that combination on the MacBookPro14,3: patch 2 as you suggest
+in your other reply, patch 1 disabled, the Alpine Ridge quirk applied,
+and nothing plugged into one of the two Thunderbolt controllers.  The
+system resumed normally.  The only difference was this warning, once
+per boot:
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610091039.fhMXCn7d-lkp@intel.com/
+  xhci_hcd 0000:07:00.0: Unable to change power state from D0 to D3hot, device inaccessible
+  xhci_hcd 0000:07:00.0: PCI PM: State of device not saved by hcd_pci_suspend_noirq+0x0/0x1c0
+  WARNING: CPU: 2 PID: 4344 at drivers/pci/pci-driver.c:888 pci_pm_suspend_noirq+0x2f4/0x300
 
-All error/warnings (new ones prefixed by >>):
+hcd_pci_suspend_noirq() goes on to pci_prepare_to_sleep(), which fails
+on the inaccessible controller and leaves it marked D3cold, and
+pci_pm_suspend_noirq() then warns.  With patch 1 there is no warning.
 
-   In file included from mm/damon/core.c:4295:
-   mm/damon/tests/core-kunit.h: In function 'damon_test_last_region_quota_reset':
->> mm/damon/tests/core-kunit.h:2519:38: error: passing argument 1 of 'damos_skip_charged_region' from incompatible pointer type [-Werror=incompatible-pointer-types]
-    2519 |  skipped = damos_skip_charged_region(t, r2, &s, min_region_sz);
-         |                                      ^
-         |                                      |
-         |                                      struct damon_target *
-   mm/damon/core.c:2500:57: note: expected 'struct damon_ctx *' but argument is of type 'struct damon_target *'
-    2500 | static bool damos_skip_charged_region(struct damon_ctx *ctx,
-         |                                       ~~~~~~~~~~~~~~~~~~^~~
-   In file included from mm/damon/core.c:4295:
-   mm/damon/tests/core-kunit.h:2519:41: error: passing argument 2 of 'damos_skip_charged_region' from incompatible pointer type [-Werror=incompatible-pointer-types]
-    2519 |  skipped = damos_skip_charged_region(t, r2, &s, min_region_sz);
-         |                                         ^~
-         |                                         |
-         |                                         struct damon_region *
-   mm/damon/core.c:2501:32: note: expected 'struct damon_target *' but argument is of type 'struct damon_region *'
-    2501 |           struct damon_target *t,
-         |           ~~~~~~~~~~~~~~~~~~~~~^
-   In file included from mm/damon/core.c:4295:
-   mm/damon/tests/core-kunit.h:2519:45: error: passing argument 3 of 'damos_skip_charged_region' from incompatible pointer type [-Werror=incompatible-pointer-types]
-    2519 |  skipped = damos_skip_charged_region(t, r2, &s, min_region_sz);
-         |                                             ^~
-         |                                             |
-         |                                             struct damos *
-   mm/damon/core.c:2502:32: note: expected 'struct damon_region *' but argument is of type 'struct damos *'
-    2502 |           struct damon_region *r, struct damos *s,
-         |           ~~~~~~~~~~~~~~~~~~~~~^
-   In file included from mm/damon/core.c:4295:
->> mm/damon/tests/core-kunit.h:2519:49: warning: passing argument 4 of 'damos_skip_charged_region' makes pointer from integer without a cast [-Wint-conversion]
-    2519 |  skipped = damos_skip_charged_region(t, r2, &s, min_region_sz);
-         |                                                 ^~~~~~~~~~~~~
-         |                                                 |
-         |                                                 long unsigned int
-   mm/damon/core.c:2502:49: note: expected 'struct damos *' but argument is of type 'long unsigned int'
-    2502 |           struct damon_region *r, struct damos *s,
-         |                                   ~~~~~~~~~~~~~~^
-   In file included from mm/damon/core.c:4295:
->> mm/damon/tests/core-kunit.h:2519:12: error: too few arguments to function 'damos_skip_charged_region'
-    2519 |  skipped = damos_skip_charged_region(t, r2, &s, min_region_sz);
-         |            ^~~~~~~~~~~~~~~~~~~~~~~~~
-   mm/damon/core.c:2500:13: note: declared here
-    2500 | static bool damos_skip_charged_region(struct damon_ctx *ctx,
-         |             ^~~~~~~~~~~~~~~~~~~~~~~~~
-   cc1: some warnings being treated as errors
+So 2 and 3 can go in first, with patch 1 following through your tree
+with an ack from Alan or Greg, or through the USB tree.  Patch 1 builds
+on its own and has no effect in practice until patch 2 is in.
 
+I'll send a v3 with your changes to patch 2.
 
-vim +/damos_skip_charged_region +2519 mm/damon/tests/core-kunit.h
-
-79500f5843f453 Donggeun Yoo 2026-09-28  2489  
-18793c04abe665 Liew Rui Yan 2026-10-05  2490  static void damon_test_last_region_quota_reset(struct kunit *test)
-18793c04abe665 Liew Rui Yan 2026-10-05  2491  {
-18793c04abe665 Liew Rui Yan 2026-10-05  2492  	struct damos s = {0};
-18793c04abe665 Liew Rui Yan 2026-10-05  2493  	struct damon_target *t;
-18793c04abe665 Liew Rui Yan 2026-10-05  2494  	struct damon_region *r1, *r2;
-18793c04abe665 Liew Rui Yan 2026-10-05  2495  	unsigned long min_region_sz = 1;
-18793c04abe665 Liew Rui Yan 2026-10-05  2496  	bool skipped;
-18793c04abe665 Liew Rui Yan 2026-10-05  2497  
-18793c04abe665 Liew Rui Yan 2026-10-05  2498  	t = damon_new_target();
-18793c04abe665 Liew Rui Yan 2026-10-05  2499  	if (!t)
-18793c04abe665 Liew Rui Yan 2026-10-05  2500  		kunit_skip(test, "target alloc fail");
-18793c04abe665 Liew Rui Yan 2026-10-05  2501  
-18793c04abe665 Liew Rui Yan 2026-10-05  2502  	r1 = damon_new_region(0, 100);
-18793c04abe665 Liew Rui Yan 2026-10-05  2503  	if (!r1) {
-18793c04abe665 Liew Rui Yan 2026-10-05  2504  		damon_free_target(t);
-18793c04abe665 Liew Rui Yan 2026-10-05  2505  		kunit_skip(test, "region 1 alloc fail");
-18793c04abe665 Liew Rui Yan 2026-10-05  2506  	}
-18793c04abe665 Liew Rui Yan 2026-10-05  2507  	damon_add_region(r1, t);
-18793c04abe665 Liew Rui Yan 2026-10-05  2508  
-18793c04abe665 Liew Rui Yan 2026-10-05  2509  	r2 = damon_new_region(100, 200);
-18793c04abe665 Liew Rui Yan 2026-10-05  2510  	if (!r2) {
-18793c04abe665 Liew Rui Yan 2026-10-05  2511  		damon_free_target(t);
-18793c04abe665 Liew Rui Yan 2026-10-05  2512  		kunit_skip(test, "region 2 alloc fail");
-18793c04abe665 Liew Rui Yan 2026-10-05  2513  	}
-18793c04abe665 Liew Rui Yan 2026-10-05  2514  	damon_add_region(r2, t);
-18793c04abe665 Liew Rui Yan 2026-10-05  2515  
-18793c04abe665 Liew Rui Yan 2026-10-05  2516  	s.quota.charge_target_from = t;
-18793c04abe665 Liew Rui Yan 2026-10-05  2517  	s.quota.charge_addr_from = r1->ar.end;
-18793c04abe665 Liew Rui Yan 2026-10-05  2518  
-18793c04abe665 Liew Rui Yan 2026-10-05 @2519  	skipped = damos_skip_charged_region(t, r2, &s, min_region_sz);
-18793c04abe665 Liew Rui Yan 2026-10-05  2520  
-18793c04abe665 Liew Rui Yan 2026-10-05  2521  	/* 'r2' is not processed, it should not skip */
-18793c04abe665 Liew Rui Yan 2026-10-05  2522  	KUNIT_EXPECT_EQ(test, skipped, false);
-18793c04abe665 Liew Rui Yan 2026-10-05  2523  
-18793c04abe665 Liew Rui Yan 2026-10-05  2524  	/* 'r2' is last region, it should reset charge_{target,addr}_from */
-18793c04abe665 Liew Rui Yan 2026-10-05  2525  	KUNIT_EXPECT_PTR_EQ(test, s.quota.charge_target_from, NULL);
-18793c04abe665 Liew Rui Yan 2026-10-05  2526  	KUNIT_EXPECT_EQ(test, s.quota.charge_addr_from, 0);
-18793c04abe665 Liew Rui Yan 2026-10-05  2527  
-18793c04abe665 Liew Rui Yan 2026-10-05  2528  	damon_free_target(t);
-18793c04abe665 Liew Rui Yan 2026-10-05  2529  }
-18793c04abe665 Liew Rui Yan 2026-10-05  2530  
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Francisco
