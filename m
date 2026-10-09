@@ -1,68 +1,88 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C7BA3EDE6C;
-	Fri,  9 Oct 2026 05:44:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 077C32D8391;
+	Fri,  9 Oct 2026 05:45:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791524651; cv=none; b=n+H7x1p6hC/ERLhdpyK52ZJ1Eci1wYl0HQNc41zom3GRDu1IE32gxVXGb9OqP4DgJvbMXGTu0pf/GjshGeb+QgorK1LHi80zm8W4SvF1WKp69MLp4cjm4UoTl5oEemrxAAiIpIGDJG9YquQI+UJWM0TotACl3GWmNlo7cycUbts=
+	t=1791524758; cv=none; b=Vmoi/H3Tu/LKYNhcEg0qYPmiVf1i9luRn3e2qnYZ0yH5CIV8UDEwDnM+v2njsMCNQmumX+0oSxhhiM+CPX41CH2wzR6RNt+VleVXkXcbuCryvwh7UM1hVMUraklJZIJvMccxjA2sK9RWv9jnngIJhKmaDmKKv/psZEXIWBPzDH0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791524651; c=relaxed/simple;
-	bh=T80pmibn7aSi6N9hDzJvCBDoLXDCN4HDH9fhrQVJ60g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=EycjT8N0S54eniIw8c3kcUfisT59COwMq0muksFBIXUtGfh71pp1WmxPyBS/kKPKZM1zHOyXmsFdyNkv8/H6zAWViHS3kfGX+gk4ZCEmh0zZ4BEB52Uzsr84r8v7SHJy3yfP/mt5rkNpi5FSLdA5BU5QgfIl2WstpVfGCGJpHP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L/oUiw0U; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L/oUiw0U"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B8761F000FF;
-	Fri,  9 Oct 2026 05:44:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791524650;
-	bh=ZCAoLYZlSrLohEk+mBrzJi43HvKosm2TxiN/tMhp9/s=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=L/oUiw0Usz/5QkhZs7kdRiF+nsCvD5va0m6qyk92dxiWMRhzydQhOUfvOxgY50HI3
-	 cVF72DYoHAKk2lSQP5dW/jWENxdHtjK99haMw50KME+UE8ZCyBoBSbVx16fyCWKHaW
-	 vTxUTEDrWpCI7pZmSJPcwuBrJ1Xwh2SnggvRSo29AhpYHHnJmCFvxUmXNAX3ssG7m5
-	 6O4CXdOMlcSOgiZ3XLuntYaGX17Lp+RFz+Oyrj7fWEVC6c1d58eXAI594oHiBwDu4n
-	 nZgAyPRngIMH/iPoNgq0IPhWmo9JXaTHZs6XZr+Sd/fap6onl+S8m9FaFBeGSm4B2i
-	 iS15Ni54vJV0g==
-From: netdev-bot+sinfo@kernel.org
-To: Daehyeon Ko <4ncienth@gmail.com>
-Cc: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v3 0/3] ipv6: fix address publication races with
- addrconf_ifdown
-Date: Fri, 09 Oct 2026 05:44:09 +0000
-Message-ID: <179152464915.2527009.3889155025831898857@kernel.org>
-In-Reply-To: <20261009054042.272944-1-4ncienth@gmail.com>
-References: <20261009054042.272944-1-4ncienth@gmail.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	s=arc-20240116; t=1791524758; c=relaxed/simple;
+	bh=lyVy0pfJ6R6GUzVQef0B/Ra6Q+/nG/TdqyVcbWcL8Ig=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Q7qpNgVAf+tan5YZz0+WBtYE0abfMfmwBOWEN408omdENfClS7tv+wbvVBSb0wXsMcTjutuawmjQJ8etgAjvdbOZGwBIAuZRptqqEalSezk1MxSBhaF6tsuXXfOQgxUHBKsjq1PRZrIfGWt/jdQIFn3KKL9Iyi3UhZYVNZFnsoA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from fc87d0ffb700.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowAB3gD6Rf8hqb1IdCg--.22265S2;
+	Fri, 09 Oct 2026 13:45:53 +0800 (CST)
+From: Haotian Zhang <vulab@iscas.ac.cn>
+To: Linus Walleij <linusw@kernel.org>,
+	Sergey Shtylyov <s.shtylyov@omp.ru>
+Cc: linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] pinctrl: core: fix pin name leak on radix_tree_insert() error path
+Date: Fri,  9 Oct 2026 13:45:56 +0800
+Message-Id: <20261009054556.3151123-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowAB3gD6Rf8hqb1IdCg--.22265S2
+X-Coremail-Antispam: 1UD129KBjvJXoWruF4fKFyrJF18CFWrGr1kuFg_yoW8Jry3pF
+	ZxJFWYyr98Wr42va98Ja47XFy3Can7uryxGw4v93y3AF43uFyqgFWYk3W0gF4DCrWrA3Zx
+	XF4rA3y3uw15ArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUyvb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
+	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F
+	4UJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l42xK82IYc2Ij64vIr41l
+	4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67
+	AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8I
+	cVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI
+	8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v2
+	6r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7IU8SoGJUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwgPA2rIaDU-ZAAAsn
 
-Hi!
+pinctrl_register_one_pin() allocates pindesc->name with kasprintf() when
+the pin has no static name, and marks it with pindesc->dynamic_name.  If
+the subsequent radix_tree_insert() fails, the function jumps to the
+failed label, which only calls kfree(pindesc) and never frees the
+dynamically allocated name, leaking it.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Since the insertion failed, the pin is not in the radix tree, so the
+caller's pinctrl_free_pindescs() cleanup cannot find it and cannot
+release the name either.
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
+Release pindesc->name on the failed path when it was dynamically
+allocated.
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+Fixes: ecfe9a015d3e ("pinctrl: core: handle radix_tree_insert() errors in pinctrl_register_one_pin()")
+Assisted-by: DeepSeek-V4.1-Flash
+Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
+---
+ drivers/pinctrl/core.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+diff --git a/drivers/pinctrl/core.c b/drivers/pinctrl/core.c
+index 1675dd36bd5c..3a1d1ff871ef 100644
+--- a/drivers/pinctrl/core.c
++++ b/drivers/pinctrl/core.c
+@@ -249,6 +249,8 @@ static int pinctrl_register_one_pin(struct pinctrl_dev *pctldev,
+ 	return 0;
+ 
+ failed:
++	if (pindesc->dynamic_name)
++		kfree(pindesc->name);
+ 	kfree(pindesc);
+ 	return error;
+ }
+-- 
+2.25.1
+
