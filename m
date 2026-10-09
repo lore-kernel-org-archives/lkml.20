@@ -1,271 +1,653 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66EFE38886C
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 03:19:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1572038DC72;
+	Fri,  9 Oct 2026 03:19:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.129
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791515953; cv=none; b=GnKya9M2vS0ZORZrXiCJptXZaRO+n5x0rgOgQcAxTDTAUyAcaKo6+fuo7em/qWAccwlBv0oH7dehCACMTwPfeJAL8oKtaGQoq78d2of8+45chsPvvpj2rQOaQYkBU4NGf4JAyja33WG0s7u4NfYHyUuLh1fQZt3SDDsBMbPOw08=
+	t=1791516001; cv=none; b=ALRY6NE8JuTHT1NRxYazlkeNXRJt7i3SQOTlAut1xj7mQAonsIjoKjBP3MsHNmJiB2nkAhLZbmCb+MP509i8GUFugRfWCRwIu4yXXjhiu4L1qOXXUshyxjEcYKoREFjOt2I37l4MoSPn8Ex+hKULr58SiP6b0aJHWbbZjw0mkMk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791515953; c=relaxed/simple;
-	bh=2oxsA5sL6UscgvVsOje5/5iiwfa1Jckfyitm9vY7cvQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=q/cQlwQ9Uesl/7fBp1RSmCsNAqxwA58ypD7jg1KDrC+2fO8VQs+bjEuPasdxuNcNv7YZ2SRuXH0ms+QT3ueQBo+wBsbhCAPIeq2zbqdjx/gbYzR4zR6SFYZOptX4GR4PrdaiTWfsX1OYoi3AypZLUo9TF+eD2Mi3ciAwQKN21RU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=Ughc6Jio; arc=none smtp.client-ip=209.85.221.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="Ughc6Jio"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48b06f58380so194046f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 20:19:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1791515944; x=1792120744; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=sDFURmfhLcZd5B9RBewu4q2g5LpMwGxDtDXCFqVP5Ks=;
-        b=Ughc6Jiovb5iru9UXHJPL0gNJpfVzAfAVUcZJ6OprxS+ywHGgzLhv/YnJq7DlkTRpe
-         U2/6QKtpXMi+luTE3AvWGam1ZnycgzQ9otBh1bPv/odHSHWjRKnPHTkbHD/nP6z39qAd
-         SzoCwaKU8Z24CPZWeNabOkmxRbdv/AZtuB2PRvjw9nuyZFDKdXjtYAclnmCoh/aL1uVC
-         G5RkFWlTNoFyhA9VXoAgMLbH/ATlIflxd3UVcsDZnDWgVtLRVWECBrBQITiQE+kxrwBn
-         UctpEblQdqAXRNjLxrzygGNsMEG15m0YSpXfVsv8646w0hNUXl/69y2zA2e//CocCQHJ
-         7VOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791515944; x=1792120744;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sDFURmfhLcZd5B9RBewu4q2g5LpMwGxDtDXCFqVP5Ks=;
-        b=RbozObI181rMg7fi5waZBD+QH7h8bDVegvjj7FVF6SOAPrHhZ6plAJUTm6qvxg7Tp6
-         g8b8ex01GV9POuhEsJsox0GbvqowgVGdulHJXyCjCyIknbj1uNJQIGBp4+vkpt0/QP29
-         Nke+o6scrmZOdo4AcxWl6VM0kRBspvY68RMXA+fM+zV7/+xfM7wyQRX1J8S/bPqVeT5V
-         oS7GtYy5F7MSA2ayP277mgsqosdo6qIGTxzvZd9J/XKkStuKkdk+420eL0n+iDeQm1g+
-         zDB+ECC43kenbKVW9WIn2Hqn5c4y/Ahljo065KRw4LV3yrj0ta+qiX1h+gi3Kxi1bCya
-         fBog==
-X-Forwarded-Encrypted: i=1; AKwUvByug3U7SwWbSWFsOmkuU7YyCAhMgYBmF/WnU9ZkB0zUN8ruVGC23AJOIUtooC0OuSamIRvaBMcRJ423sZ8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kcsbsoS2BLr2SZp9zVVokQCuA+e7AqwT5gGwdD7u/5rbKTFE1K
-	7PUI/ZyqFV22KOr6sftWmr6mRjHcUabGiZnnt35ZDcJfSnOxaTj/xnEsfaCe/CSC3/k=
-X-Gm-Gg: AYBFou0n6aFg5NX6bTFoCow+g1uXgv8SgWu4ru1Js7aFAlfkyXttBU/SSBB7GaNlG1i
-	Wk6gOiH6EaXyK/l2WZjQzXvkvI9zqHqbDw0PgPBGOnxqq02JWS4+iqM+7ftzTdBsGIXUQUblruB
-	LLC/YEMroOvnr0eKy9FoTGcmS/3i0iM+2cdSF/p11osWJ4g0e2F3nOehONjPbpaILxvVh/k9ehU
-	cD31WpXB0g8/+FsAsdaDivbjnWNcX4fwh3rXIdzzbBFfIzvWn6GWP5ShvxQrC4ARMroWw8AqLth
-	wp3OPSo9c8VidKcnCvs3FrNhLIGv7AtpqasQ+YRto0htbg4OhEmzI5wnDL4wJVaC7C6bTQ7hte/
-	O72/jfKQ5RTZe3WAPtc2TTfI4ibXFd8fyt4GR36DRul5o2xTeVMGU+fK7CQXt/Sm0EA6tDUGdfs
-	qn8DvAGRMdufVInuVo65lk0dveM9cUI2w9P9yC/Kqzfmu7i2wR2nMvOLd0wbX2bTUXEwM8
-X-Received: by 2002:a05:600c:1912:b0:4a0:73b:a222 with SMTP id 5b1f17b1804b1-4a18e3ee97dmr7458505e9.0.1791515944392;
-        Thu, 08 Oct 2026 20:19:04 -0700 (PDT)
-Received: from localhost ([202.127.77.110])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e84219e503sm2459595ad.17.2026.10.08.20.19.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 20:19:03 -0700 (PDT)
-Date: Fri, 9 Oct 2026 11:18:26 +0800
-From: Heming Zhao <heming.zhao@suse.com>
-To: Joseph Qi <joseph.qi@linux.alibaba.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Anderson Ferneda <anderson.ferneda@braza.com.br>, Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>, 
-	ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] ocfs2: deal with legacy signed xattr name hash values
-Message-ID: <ashc5y5FgsvxvX0F@p15>
-References: <20261008122743.616779-1-joseph.qi@linux.alibaba.com>
- <20261008122743.616779-2-joseph.qi@linux.alibaba.com>
+	s=arc-20240116; t=1791516001; c=relaxed/simple;
+	bh=zAWb8Glhddd6Vv1wBVo/Tvg1bgNDLXlYGvg69s8uu4w=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=GLMgLVqtBBARiLEj7TYf/Yc4UtFqAzpDU8mMVTJhUeVUzSxhraiT8afKc8qr88Uq3lEMTg1Khzel8BKDB9cVjKBZWAAQN3mKRJe7K1/bZvVdg/kqb8koxG8acrS1vS0FBYGUTnkWAjiCFNoAzoTK+srq8633gCgpbZQMJn+wuOM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.204.34.129
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
+X-QQ-mid: zesmtpip2t1791515874t6745428c
+X-QQ-Originating-IP: ISKGB3N9ww0B4T197i+uj+bopdv7/aejHUrX1eOox3s=
+Received: from [192.168.30.32] ( [localhost])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 09 Oct 2026 11:17:51 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 9782716897286075627
+EX-QQ-RecipientCnt: 29
+From: Xilin Wu <sophon@radxa.com>
+Date: Fri, 09 Oct 2026 11:16:05 +0800
+Subject: [PATCH v2 13/20] drm/msm/dp: Track output bit depth in bridge
+ atomic state
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261008122743.616779-2-joseph.qi@linux.alibaba.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261009-msm-dp-hdr10-v2-13-1835d4966da3@radxa.com>
+References: <20261009-msm-dp-hdr10-v2-0-1835d4966da3@radxa.com>
+In-Reply-To: <20261009-msm-dp-hdr10-v2-0-1835d4966da3@radxa.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ dragon@radxa.com, Xilin Wu <sophon@radxa.com>, 
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=20383; i=sophon@radxa.com;
+ h=from:subject:message-id; bh=zAWb8Glhddd6Vv1wBVo/Tvg1bgNDLXlYGvg69s8uu4w=;
+ b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFknYlZpBlW7KxkvZL+3uLFSTMilXPQ2d8u3A0cL9A5fV
+ akQV1jRUcrCIMbFICumyKIQzzCXvTL32lOxUj2YOaxMIEMYuDgFYCLfmBj+F7h2dnQJrPvHdXz9
+ BD9P+aBrXF0ZVa73H78uie/pzsiQY/gfuKp2v9glwdmbiraVPD0VorlwfsqrWeXMB39Fu1R/Wnm
+ TGwA=
+X-Developer-Key: i=sophon@radxa.com; a=openpgp;
+ fpr=205F009D07796DD6E516752E32C31567AD9E324E
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: NyTsQ4JOu2J2N79cLSf3J6Ejsz1Nxg4ZjU7rWqQFJ1JcXx5Zr1bv7uO4
+	BsNnrhfMWs9W4WhY2MAKvEhdigLvscBQ9gfEH8KK7XYOj+CrGe7gUGKbcmoRR1MG7exl1nk
+	DXLjxUfjr2g2MvEgf185ty2umHZJLZXswSgtOi37MpMrzu0CHyFzZi0onW3Zgm+RIuSbrg1
+	kLAcY08dmGc4K6TfSi3rOdZV5qhYFzPGfUk/oUL0XiPZKTKju8jbFwuudaQn7Bms6qhr0KG
+	GogY4YhBmAlLcqAYKpybzAed3jdeXizGfJVK3k61Ncs3M4W/pV7qSGXajPfgfWHXSsnuQ6B
+	H3+JCdIyNTJpv39eCUUpnjk7WYhW/qHrlbUWWxOHLRQj/crgE17IDs+CfU2F4JRE9h2bgJa
+	gZjqAoEWwNRRoS6tg6qesg558PzTrpGSu6PGxb+yZl/482Ula4tdZguF8G8yZXSQQJqS+Bc
+	IGFUd3DSu5JVcLdBDYVVLTb+7Dwaema6G38wQHyWGNQ4AEtJP72NVPyfXXK1hW8Lv81suyj
+	RgzaVeZBD7ERqdx2NYyYF40kK9yjf87zbonsUtXSLNjOV5tmfe2yuR91xYmUFyEdI0/EOuZ
+	cnlmgzSR2/zC9v/2+BPpM0tKXDtDLmJaf4JS2V3Bl4qXLiikfFpr/emGq2WzPkZZAiS5C3M
+	T/jRonCr9OBsWCKu8+en0e868SXdvt/pNdnOCLA0kuzQsIOUf/jAf3Qe2zwMvVN53nJcO3f
+	5FxwOLbVEh3gwey+xWyuBlJRSLxX5eacqMBzXf1ZpEESY9AsOpeAW0YWhbrDK0Qxsrjvpij
+	UlbmnySfvxMsb97hzSgbwFMf53y9BqB9LsZVGX2Ce9js/ranitVi5LF0sluASrk0bE4rhXN
+	bCKoaYkqOVbof9wO49CJOw2ZPRxcLNxnPGOYhUd0fpM9nbQlsUFd0VvXIwnFVzVbSts9zSX
+	XYt94tcH90TqS5QOgseG3Z/nJoZT1vQIapcuRRXo1SP99wIrHT/ILM6gVfi293ugkui91JH
+	9YUkQCt1szlebLD3/RDXyoH1d4maiza4VGzFHxQZwcvbeMMjzsm9OKc/om8XM0fy1gi6S+0
+	g==
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-RECHKSPAM: 0
 
-On Thu, Oct 08, 2026 at 08:27:43PM +0800, Joseph Qi wrote:
-> Commit 3bc753c06dd0 ("kbuild: treat char as always unsigned") set
-> -funsigned-char globally, which changed the result of the naked 'char'
-> load in ocfs2_xattr_name_hash():
-> 
-> 	hash = (hash << OCFS2_HASH_SHIFT) ^
-> 	       (hash >> (8*sizeof(hash) - OCFS2_HASH_SHIFT)) ^
-> 	       *name++;
-> 
-> A name byte >= 0x80 used to sign-extend and now zero-extends, so the
-> hash no longer matches the xe_name_hash an older kernel stored.  An
-> indexed xattr tree is searched by that hash alone, and both the bucket
-> binary search and the entry scan within it stop as soon as the wanted
-> hash falls below an entry's, so the entry is never reached: getxattr,
-> setxattr and removexattr return -ENODATA for a name that listxattr
-> still lists.
-> 
-> Search with the current unsigned hash and, on a miss, retry with the
-> legacy signed one, as ext4 does in commit f3bbac32475b2 ("ext4: deal
-> with legacy signed xattr name hash values").  New entries are always
-> stored under the unsigned hash.  Skip the retry when the two hashes are
-> equal, so that a miss on an ASCII name does not walk the tree twice.
-> 
-> A miss is not empty handed: ocfs2_xattr_bucket_find() leaves xs->bucket
-> holding the bucket a new entry would go into.  So after a double miss
-> drop it and search once more with the unsigned hash, otherwise a new
-> entry would be placed by its legacy hash and stored under its unsigned
-> one, breaking the ordering the search relies on.
-> 
-> Only indexed trees are affected; inline xattrs and non-indexed xattr
-> blocks compare names with memcmp and never look at the hash.
-> 
-> Also spell out the signedness instead of leaving the current hash to
-> -funsigned-char, as commit 854f0912f813 ("ext4: make xattr char
-> unsignedness in hash explicit") did, so that both variants stay correct
-> if this is backported to a kernel without the flag.
-> 
-> Exposed-by: 3bc753c06dd0 ("kbuild: treat char as always unsigned")
-> Cc: stable@vger.kernel.org # 6.2+
-> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Advertise the 10 bpc DP and eDP capability through bridge->max_bpc so
+the bridge connector helper attaches the max bpc property. Select a
+supported component depth from the new connector state. Keep the result
+in a private bridge state so TEST_ONLY atomic commits do not modify the
+running stream. Force a modeset when max bpc changes to apply the new
+depth to the stream.
 
-I agree with Sashiko review comment, the ocfs2_check_xattr_bucket_collision()
-also requires the same fix.
+Require valid cached bandwidth limits during atomic check. The preceding
+eDP discovery change supplies them before the first modeset. Reject
+unknown limits instead of accepting a configuration for validation during
+enable. Retain support for 6 bpc SDR panels and use an 8 bpc ceiling when
+the bridge chain does not expose max bpc.
 
-Thanks,
-Heming
-> ---
->  fs/ocfs2/xattr.c | 93 ++++++++++++++++++++++++++++++++++++++++++------
->  1 file changed, 82 insertions(+), 11 deletions(-)
-> 
-> diff --git a/fs/ocfs2/xattr.c b/fs/ocfs2/xattr.c
-> index a428fe908116..0834883ae971 100644
-> --- a/fs/ocfs2/xattr.c
-> +++ b/fs/ocfs2/xattr.c
-> @@ -601,9 +601,10 @@ static inline const char *ocfs2_xattr_prefix(int name_index)
->  	return handler ? xattr_prefix(handler) : NULL;
->  }
->  
-> -static u32 ocfs2_xattr_name_hash(struct inode *inode,
-> -				 const char *name,
-> -				 int name_len)
-> +static u32 __ocfs2_xattr_name_hash(struct inode *inode,
-> +				   const char *name,
-> +				   int name_len,
-> +				   bool legacy_signed)
->  {
->  	/* Get hash value of uuid from super block */
->  	u32 hash = OCFS2_SB(inode->i_sb)->uuid_hash;
-> @@ -612,13 +613,30 @@ static u32 ocfs2_xattr_name_hash(struct inode *inode,
->  	/* hash extended attribute name */
->  	for (i = 0; i < name_len; i++) {
->  		hash = (hash << OCFS2_HASH_SHIFT) ^
-> -		       (hash >> (8*sizeof(hash) - OCFS2_HASH_SHIFT)) ^
-> -		       *name++;
-> +		       (hash >> (8*sizeof(hash) - OCFS2_HASH_SHIFT));
-> +		if (legacy_signed)
-> +			hash ^= (signed char)name[i];
-> +		else
-> +			hash ^= (unsigned char)name[i];
->  	}
->  
->  	return hash;
->  }
->  
-> +static u32 ocfs2_xattr_name_hash(struct inode *inode,
-> +				 const char *name,
-> +				 int name_len)
-> +{
-> +	return __ocfs2_xattr_name_hash(inode, name, name_len, false);
-> +}
-> +
-> +static u32 ocfs2_xattr_name_hash_signed(struct inode *inode,
-> +					const char *name,
-> +					int name_len)
-> +{
-> +	return __ocfs2_xattr_name_hash(inode, name, name_len, true);
-> +}
-> +
->  static int ocfs2_xattr_entry_real_size(int name_len, size_t value_len)
->  {
->  	return namevalue_size(name_len, value_len) +
-> @@ -4304,11 +4322,12 @@ static int ocfs2_xattr_bucket_find(struct inode *inode,
->  	return ret;
->  }
->  
-> -static int ocfs2_xattr_index_block_find(struct inode *inode,
-> -					struct buffer_head *root_bh,
-> -					int name_index,
-> -					const char *name,
-> -					struct ocfs2_xattr_search *xs)
-> +static int __ocfs2_xattr_index_block_find(struct inode *inode,
-> +					  struct buffer_head *root_bh,
-> +					  int name_index,
-> +					  const char *name,
-> +					  u32 name_hash,
-> +					  struct ocfs2_xattr_search *xs)
->  {
->  	int ret;
->  	struct ocfs2_xattr_block *xb =
-> @@ -4317,7 +4336,6 @@ static int ocfs2_xattr_index_block_find(struct inode *inode,
->  	struct ocfs2_extent_list *el = &xb_root->xt_list;
->  	u64 p_blkno = 0;
->  	u32 first_hash, num_clusters = 0;
-> -	u32 name_hash = ocfs2_xattr_name_hash(inode, name, strlen(name));
->  
->  	if (le16_to_cpu(el->l_next_free_rec) == 0)
->  		return -ENODATA;
-> @@ -4348,6 +4366,59 @@ static int ocfs2_xattr_index_block_find(struct inode *inode,
->  	return ret;
->  }
->  
-> +static int ocfs2_xattr_index_block_find(struct inode *inode,
-> +					struct buffer_head *root_bh,
-> +					int name_index,
-> +					const char *name,
-> +					struct ocfs2_xattr_search *xs)
-> +{
-> +	u32 name_hash, legacy_hash;
-> +	int name_len = strlen(name);
-> +	int ret;
-> +
-> +	name_hash = ocfs2_xattr_name_hash(inode, name, name_len);
-> +
-> +	ret = __ocfs2_xattr_index_block_find(inode, root_bh, name_index, name,
-> +					     name_hash, xs);
-> +	if (ret != -ENODATA)
-> +		return ret;
-> +
-> +	/*
-> +	 * Nothing under the current hash.  The entry may have been stored by
-> +	 * an older kernel, which sign-extended the name bytes when hashing.
-> +	 * Skip the retry when the two hashes are equal, so that a name made
-> +	 * only of ASCII does not have to walk the tree twice.
-> +	 */
-> +	legacy_hash = ocfs2_xattr_name_hash_signed(inode, name, name_len);
-> +	if (legacy_hash == name_hash)
-> +		return ret;
-> +
-> +	/*
-> +	 * A miss still leaves xs->bucket holding the bucket a new entry would
-> +	 * be inserted into, so drop it before searching again.
-> +	 */
-> +	ocfs2_xattr_bucket_relse(xs->bucket);
-> +
-> +	ret = __ocfs2_xattr_index_block_find(inode, root_bh, name_index, name,
-> +					     legacy_hash, xs);
-> +	if (!ret) {
-> +		pr_warn_once("ocfs2: xattr tree with signed name hash\n");
-> +		return ret;
-> +	}
-> +	if (ret != -ENODATA)
-> +		return ret;
-> +
-> +	/*
-> +	 * Not under either hash.  Restore the unsigned placement, since that
-> +	 * is where a new entry is stored: leaving the bucket where the legacy
-> +	 * hash put it would break the ordering the search relies on.
-> +	 */
-> +	ocfs2_xattr_bucket_relse(xs->bucket);
-> +
-> +	return __ocfs2_xattr_index_block_find(inode, root_bh, name_index, name,
-> +					      name_hash, xs);
-> +}
-> +
->  static int ocfs2_iterate_xattr_buckets(struct inode *inode,
->  				       u64 blkno,
->  				       u32 clusters,
-> -- 
-> 2.39.3
-> 
+Keep the selected depth throughout enable. Filter link training fallback
+candidates against the checked stream bandwidth, including YUV420, and
+retain a final bandwidth check before starting video. A lower-rate link
+may be used only if it carries the unchanged stream. Otherwise unwind
+and report the link failure rather than silently lowering the depth.
+PHY and video compliance tests retain their specified parameters.
+
+Continue searching when a candidate lacks bandwidth: reducing the lane
+count restores the maximum rate and can yield a viable combination.
+Only successful link training completes the search; successful PHY
+reinitialization on the final retry must not masquerade as training
+success. Keep sink training cleanup on the failure path.
+
+Retain the generic bridge helper's missing-state guard in the custom
+duplicate callback. Initial state allocation can fail at bridge attach;
+return NULL in that case so atomic state acquisition reports -ENOMEM
+instead of copying from a NULL pointer.
+
+Assisted-by: LLM
+Signed-off-by: Xilin Wu <sophon@radxa.com>
+---
+ drivers/gpu/drm/msm/dp/dp_ctrl.c    | 117 ++++++++++++++++++++++--------------
+ drivers/gpu/drm/msm/dp/dp_display.c |  39 +++++++++++-
+ drivers/gpu/drm/msm/dp/dp_display.h |   6 ++
+ drivers/gpu/drm/msm/dp/dp_drm.c     |  82 ++++++++++++++++++++++---
+ drivers/gpu/drm/msm/dp/dp_drm.h     |   7 +++
+ drivers/gpu/drm/msm/dp/dp_panel.c   |   5 --
+ drivers/gpu/drm/msm/dp/dp_utils.c   |  33 ++++++++++
+ drivers/gpu/drm/msm/dp/dp_utils.h   |   6 ++
+ 8 files changed, 232 insertions(+), 63 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+index f633f6cf5764..791bb3af2cad 100644
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+@@ -23,6 +23,7 @@
+ 
+ #include "dp_reg.h"
+ #include "dp_ctrl.h"
++#include "dp_utils.h"
+ #include "dp_link.h"
+ 
+ #define POLLING_SLEEP_US			1000
+@@ -2365,10 +2366,56 @@ static bool msm_dp_ctrl_channel_eq_ok(struct msm_dp_ctrl_private *ctrl)
+ 	return drm_dp_channel_eq_ok(link_status, num_lanes);
+ }
+ 
++static bool msm_dp_ctrl_link_fits(struct msm_dp_ctrl_private *ctrl,
++				  const struct msm_dp_panel *panel)
++{
++	return msm_dp_utils_link_fits(panel->msm_dp_mode.drm_mode.clock,
++				      panel->msm_dp_mode.bpp,
++				      ctrl->link->link_params.rate,
++				      ctrl->link->link_params.num_lanes,
++				      panel->msm_dp_mode.out_fmt_is_yuv_420);
++}
++
++static int msm_dp_ctrl_next_link_params(struct msm_dp_ctrl_private *ctrl,
++					struct msm_dp_panel *panel,
++					unsigned int training_step,
++					const u8 *link_status, bool check_bw)
++{
++	unsigned int lanes;
++	int ret;
++
++	do {
++		lanes = ctrl->link->link_params.num_lanes;
++		if (training_step == DP_TRAINING_1) {
++			ret = msm_dp_ctrl_link_rate_down_shift(ctrl);
++			if (ret) {
++				if (!msm_dp_ctrl_clock_recovery_any_ok(link_status, lanes))
++					return ret;
++				ret = msm_dp_ctrl_link_lane_down_shift(ctrl, panel);
++			}
++		} else if (training_step == DP_TRAINING_2) {
++			if (!drm_dp_clock_recovery_ok(link_status, lanes))
++				ret = msm_dp_ctrl_link_rate_down_shift(ctrl);
++			else
++				ret = msm_dp_ctrl_link_lane_down_shift(ctrl, panel);
++		} else {
++			return -EIO;
++		}
++		if (ret)
++			return ret;
++
++		/* Reducing lanes restores the maximum rate; keep looking. */
++	} while (check_bw && !msm_dp_ctrl_link_fits(ctrl, panel));
++
++	return 0;
++}
++
+ int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_ctrl,
+ 			struct msm_dp_panel *panel)
+ {
+ 	int rc = 0;
++	bool trained = false;
++	bool check_bw;
+ 	struct msm_dp_ctrl_private *ctrl;
+ 	u32 rate;
+ 	int link_train_max_retries = 5;
+@@ -2382,6 +2429,8 @@ int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_ctrl,
+ 
+ 	ctrl = container_of(msm_dp_ctrl, struct msm_dp_ctrl_private, msm_dp_ctrl);
+ 
++	check_bw = !(ctrl->link->sink_request & DP_TEST_LINK_PHY_TEST_PATTERN) &&
++		   !panel->video_test;
+ 	rate = panel->link_info.rate;
+ 	pixel_rate = panel->msm_dp_mode.drm_mode.clock;
+ 
+@@ -2404,6 +2453,9 @@ int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_ctrl,
+ 		ctrl->link->link_params.rate, ctrl->link->link_params.num_lanes,
+ 		pixel_rate);
+ 
++	if (check_bw && !msm_dp_ctrl_link_fits(ctrl, panel))
++		return -ENOSPC;
++
+ 	rc = msm_dp_ctrl_enable_mainlink_clocks(ctrl, panel);
+ 	if (rc)
+ 		return rc;
+@@ -2411,55 +2463,22 @@ int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_ctrl,
+ 	while (--link_train_max_retries) {
+ 		training_step = DP_TRAINING_NONE;
+ 		rc = msm_dp_ctrl_setup_main_link(ctrl, panel, &training_step);
+-		if (rc == 0) {
+-			/* training completed successfully */
++		if (!rc) {
++			trained = true;
+ 			break;
+-		} else if (training_step == DP_TRAINING_1) {
+-			/* link train_1 failed */
+-			if (!msm_dp_aux_is_link_connected(ctrl->aux))
+-				break;
+-
+-			drm_dp_dpcd_read_link_status(ctrl->aux, link_status);
+-
+-			rc = msm_dp_ctrl_link_rate_down_shift(ctrl);
+-			if (rc < 0) { /* already in RBR = 1.6G */
+-				if (msm_dp_ctrl_clock_recovery_any_ok(link_status,
+-					ctrl->link->link_params.num_lanes)) {
+-					/*
+-					 * some lanes are ready,
+-					 * reduce lane number
+-					 */
+-					rc = msm_dp_ctrl_link_lane_down_shift(ctrl, panel);
+-					if (rc < 0) { /* lane == 1 already */
+-						/* end with failure */
+-						break;
+-					}
+-				} else {
+-					/* end with failure */
+-					break; /* lane == 1 already */
+-				}
+-			}
+-		} else if (training_step == DP_TRAINING_2) {
+-			/* link train_2 failed */
+-			if (!msm_dp_aux_is_link_connected(ctrl->aux))
+-				break;
+-
+-			drm_dp_dpcd_read_link_status(ctrl->aux, link_status);
++		}
+ 
+-			if (!drm_dp_clock_recovery_ok(link_status,
+-					ctrl->link->link_params.num_lanes))
+-				rc = msm_dp_ctrl_link_rate_down_shift(ctrl);
+-			else
+-				rc = msm_dp_ctrl_link_lane_down_shift(ctrl, panel);
++		if (!msm_dp_aux_is_link_connected(ctrl->aux))
++			break;
+ 
+-			if (rc < 0) {
+-				/* end with failure */
+-				break; /* lane == 1 already */
+-			}
++		if (drm_dp_dpcd_read_link_status(ctrl->aux, link_status) < 0)
++			break;
+ 
+-			/* stop link training before start re training  */
+-			msm_dp_ctrl_clear_training_pattern(ctrl, panel, DP_PHY_DPRX);
+-		}
++		msm_dp_ctrl_clear_training_pattern(ctrl, panel, DP_PHY_DPRX);
++		rc = msm_dp_ctrl_next_link_params(ctrl, panel, training_step,
++						  link_status, check_bw);
++		if (rc)
++			break;
+ 
+ 		rc = msm_dp_ctrl_reinitialize_mainlink(ctrl, panel);
+ 		if (rc) {
+@@ -2468,6 +2487,10 @@ int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_ctrl,
+ 		}
+ 	}
+ 
++	/* Reinitializing the PHY is not a successful training attempt. */
++	if (!trained && !rc)
++		rc = -EIO;
++
+ 	if (ctrl->link->sink_request & DP_TEST_LINK_PHY_TEST_PATTERN)
+ 		return rc;
+ 
+@@ -2617,6 +2640,10 @@ int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl, struct msm_dp_panel *
+ 
+ 	ctrl = container_of(msm_dp_ctrl, struct msm_dp_ctrl_private, msm_dp_ctrl);
+ 
++	/* Never change the stream depth selected by atomic check. */
++	if (!panel->video_test && !msm_dp_ctrl_link_fits(ctrl, panel))
++		return -ENOSPC;
++
+ 	pixel_rate_orig = panel->msm_dp_mode.drm_mode.clock;
+ 	pixel_rate = pixel_rate_orig;
+ 
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 9b7a1d18dfe0..1f9595ff5fd9 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -28,6 +28,7 @@
+ #include "dp_panel.h"
+ #include "dp_display.h"
+ #include "dp_drm.h"
++#include "dp_utils.h"
+ #include "dp_audio.h"
+ #include "dp_debug.h"
+ 
+@@ -677,7 +678,8 @@ static int msm_dp_init_sub_modules(struct msm_dp_display_private *dp)
+ 
+ static int msm_dp_display_set_mode(struct msm_dp *msm_dp_display,
+ 				   const struct drm_display_mode *adjusted_mode,
+-				   struct msm_dp_panel *msm_dp_panel)
++				   struct msm_dp_panel *msm_dp_panel,
++				   const struct msm_dp_bridge_state *state)
+ {
+ 	struct msm_dp_display_private *dp;
+ 	u32 bpp;
+@@ -687,7 +689,7 @@ static int msm_dp_display_set_mode(struct msm_dp *msm_dp_display,
+ 	if (msm_dp_display_check_video_test(msm_dp_display))
+ 		bpp = msm_dp_display_get_test_bpp(msm_dp_display);
+ 	else
+-		bpp = msm_dp_panel->connector->display_info.bpc * 3;
++		bpp = state->bpp;
+ 
+ 	msm_dp_panel_init_panel_info(msm_dp_panel, adjusted_mode, bpp ? bpp : 24);
+ 
+@@ -697,6 +699,34 @@ static int msm_dp_display_set_mode(struct msm_dp *msm_dp_display,
+ 	return 0;
+ }
+ 
++int msm_dp_display_atomic_check(struct msm_dp *msm_dp_display,
++				struct msm_dp_bridge_state *state,
++				const struct drm_display_mode *mode,
++				const struct drm_connector_state *conn_state)
++{
++	const struct drm_display_info *info = &conn_state->connector->display_info;
++	struct msm_dp_display_private *dp;
++	unsigned int clock = mode->clock;
++	int bpp;
++
++	dp = container_of(msm_dp_display, struct msm_dp_display_private, msm_dp_display);
++
++	guard(mutex)(&dp->plugged_lock);
++
++	if (!dp->panel->link_caps_valid)
++		return -EINVAL;
++
++	bpp = msm_dp_utils_select_bpp(info->bpc, conn_state->max_requested_bpc ?: 8,
++				      clock, dp->panel->link_info.rate,
++				      dp->panel->link_info.num_lanes,
++				      drm_mode_is_420_only(info, mode));
++	if (bpp < 0)
++		return bpp;
++
++	state->bpp = bpp;
++	return 0;
++}
++
+ static int msm_dp_display_prepare(struct msm_dp_display_private *dp)
+ {
+ 	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
+@@ -1593,6 +1623,7 @@ void msm_dp_display_atomic_pre_enable(struct msm_dp *msm_dp_display,
+ 	struct msm_dp_display_private *dp;
+ 	struct drm_crtc *crtc;
+ 	struct drm_crtc_state *crtc_state;
++	struct drm_bridge_state *bridge_state;
+ 
+ 	dp = container_of(msm_dp_display, struct msm_dp_display_private, msm_dp_display);
+ 
+@@ -1600,13 +1631,15 @@ void msm_dp_display_atomic_pre_enable(struct msm_dp *msm_dp_display,
+ 	if (!crtc)
+ 		return;
+ 	crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
++	bridge_state = drm_atomic_get_new_bridge_state(state, msm_dp_display->bridge);
+ 
+ 	/*
+ 	 * The DPU encoder's .atomic_enable() reads the mode's YUV420 / wide bus
+ 	 * state and runs before the bridge's .atomic_enable(), so the mode must
+ 	 * be programmed here, in .atomic_pre_enable().
+ 	 */
+-	msm_dp_display_set_mode(msm_dp_display, &crtc_state->adjusted_mode, dp->panel);
++	msm_dp_display_set_mode(msm_dp_display, &crtc_state->adjusted_mode, dp->panel,
++				to_dp_bridge_state(bridge_state));
+ }
+ 
+ static void msm_dp_display_abort_enable_locked(struct msm_dp_display_private *dp)
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
+index 83117e7619f3..6a77e5952530 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.h
++++ b/drivers/gpu/drm/msm/dp/dp_display.h
+@@ -11,6 +11,8 @@
+ 
+ #define DP_MAX_PIXEL_CLK_KHZ	675000
+ 
++struct msm_dp_bridge_state;
++
+ struct msm_dp {
+ 	struct drm_device *drm_dev;
+ 	struct platform_device *pdev;
+@@ -43,4 +45,8 @@ enum drm_mode_status msm_dp_display_mode_valid(struct msm_dp *dp,
+ 					       const struct drm_display_info *info,
+ 					       const struct drm_display_mode *mode);
+ 
++int msm_dp_display_atomic_check(struct msm_dp *dp, struct msm_dp_bridge_state *state,
++				const struct drm_display_mode *mode,
++				const struct drm_connector_state *conn_state);
++
+ #endif /* _DP_DISPLAY_H_ */
+diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
+index df224ae46d9d..9f1aa87a3687 100644
+--- a/drivers/gpu/drm/msm/dp/dp_drm.c
++++ b/drivers/gpu/drm/msm/dp/dp_drm.c
+@@ -4,6 +4,7 @@
+  */
+ 
+ #include <linux/string_choices.h>
++#include <linux/slab.h>
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_bridge.h>
+@@ -116,10 +117,71 @@ static enum drm_mode_status msm_dp_bridge_mode_valid(struct drm_bridge *drm_brid
+ 	return msm_dp_display_mode_valid(dp, info, mode);
+ }
+ 
++static struct drm_bridge_state *msm_dp_bridge_create_state(struct drm_bridge *bridge)
++{
++	struct msm_dp_bridge_state *state;
++
++	state = kzalloc_obj(*state);
++	if (!state)
++		return ERR_PTR(-ENOMEM);
++
++	__drm_atomic_helper_bridge_state_init(&state->base, bridge);
++	return &state->base;
++}
++
++static struct drm_bridge_state *msm_dp_bridge_duplicate_state(struct drm_bridge *bridge)
++{
++	struct msm_dp_bridge_state *state;
++	struct drm_bridge_state *old_state;
++
++	if (WARN_ON(!bridge->base.state))
++		return NULL;
++
++	old_state = drm_priv_to_bridge_state(bridge->base.state);
++	state = kmemdup(to_dp_bridge_state(old_state), sizeof(*state), GFP_KERNEL);
++	if (!state)
++		return NULL;
++
++	__drm_atomic_helper_bridge_duplicate_state(bridge, &state->base);
++	return &state->base;
++}
++
++static void msm_dp_bridge_destroy_state(struct drm_bridge *bridge,
++					struct drm_bridge_state *state)
++{
++	kfree(to_dp_bridge_state(state));
++}
++
++static int msm_dp_bridge_atomic_check(struct drm_bridge *bridge,
++				      struct drm_bridge_state *bridge_state,
++				      struct drm_crtc_state *crtc_state,
++				      struct drm_connector_state *conn_state)
++{
++	struct drm_connector_state *old_conn_state;
++	int ret;
++
++	if (!conn_state->crtc)
++		return 0;
++
++	ret = msm_dp_display_atomic_check(to_dp_bridge(bridge)->msm_dp_display,
++					  to_dp_bridge_state(bridge_state),
++					  &crtc_state->adjusted_mode, conn_state);
++	if (ret)
++		return ret;
++
++	old_conn_state = drm_atomic_get_old_connector_state(conn_state->state,
++							    conn_state->connector);
++	if (old_conn_state->max_requested_bpc != conn_state->max_requested_bpc)
++		crtc_state->mode_changed = true;
++
++	return 0;
++}
++
+ static const struct drm_bridge_funcs msm_dp_bridge_ops = {
+-	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
+-	.atomic_destroy_state   = drm_atomic_helper_bridge_destroy_state,
+-	.atomic_create_state           = drm_atomic_helper_bridge_create_state,
++	.atomic_check           = msm_dp_bridge_atomic_check,
++	.atomic_duplicate_state = msm_dp_bridge_duplicate_state,
++	.atomic_destroy_state   = msm_dp_bridge_destroy_state,
++	.atomic_create_state           = msm_dp_bridge_create_state,
+ 	.atomic_pre_enable      = msm_dp_bridge_atomic_pre_enable,
+ 	.atomic_enable          = msm_dp_bridge_atomic_enable,
+ 	.atomic_disable         = msm_dp_bridge_atomic_disable,
+@@ -154,7 +216,7 @@ static int msm_edp_bridge_atomic_check(struct drm_bridge *drm_bridge,
+ 	if (crtc_state->self_refresh_active && !dp->psr_supported)
+ 		return -EINVAL;
+ 
+-	return 0;
++	return msm_dp_bridge_atomic_check(drm_bridge, bridge_state, crtc_state, conn_state);
+ }
+ 
+ static void msm_edp_bridge_atomic_enable(struct drm_bridge *drm_bridge,
+@@ -283,9 +345,8 @@ static enum drm_mode_status msm_edp_bridge_mode_valid(struct drm_bridge *bridge,
+ 		return MODE_CLOCK_HIGH;
+ 
+ 	/*
+-	 * The eDP controller currently does not have a reliable way of
+-	 * enabling panel power to read sink capabilities. So, we rely
+-	 * on the panel driver to populate only supported modes for now.
++	 * Atomic check validates bandwidth for the selected component depth
++	 * against the capabilities cached during connector detection.
+ 	 */
+ 	return MODE_OK;
+ }
+@@ -304,9 +365,9 @@ static const struct drm_bridge_funcs msm_edp_bridge_ops = {
+ 	.atomic_disable = msm_edp_bridge_atomic_disable,
+ 	.atomic_post_disable = msm_edp_bridge_atomic_post_disable,
+ 	.mode_valid = msm_edp_bridge_mode_valid,
+-	.atomic_create_state = drm_atomic_helper_bridge_create_state,
+-	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
+-	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
++	.atomic_create_state = msm_dp_bridge_create_state,
++	.atomic_duplicate_state = msm_dp_bridge_duplicate_state,
++	.atomic_destroy_state = msm_dp_bridge_destroy_state,
+ 	.atomic_check = msm_edp_bridge_atomic_check,
+ 	.debugfs_init = msm_edp_bridge_debugfs_init,
+ };
+@@ -328,6 +389,7 @@ int msm_dp_bridge_init(struct msm_dp *msm_dp_display, struct drm_device *dev,
+ 
+ 	bridge = &msm_dp_bridge->bridge;
+ 	bridge->type = msm_dp_display->connector_type;
++	bridge->max_bpc = 10;
+ 	bridge->ycbcr_420_allowed = yuv_supported;
+ 
+ 	/*
+diff --git a/drivers/gpu/drm/msm/dp/dp_drm.h b/drivers/gpu/drm/msm/dp/dp_drm.h
+index d37e2ff95f4b..4c651cc40f4d 100644
+--- a/drivers/gpu/drm/msm/dp/dp_drm.h
++++ b/drivers/gpu/drm/msm/dp/dp_drm.h
+@@ -17,6 +17,13 @@ struct msm_dp_bridge {
+ 	struct msm_dp *msm_dp_display;
+ };
+ 
++struct msm_dp_bridge_state {
++	struct drm_bridge_state base;
++	u32 bpp;
++};
++
++#define to_dp_bridge_state(x) container_of((x), struct msm_dp_bridge_state, base)
++
+ #define to_dp_bridge(x)     container_of((x), struct msm_dp_bridge, bridge)
+ 
+ struct drm_connector *msm_dp_drm_connector_init(struct msm_dp *msm_dp_display,
+diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
+index d144af2fe008..af05441bc32a 100644
+--- a/drivers/gpu/drm/msm/dp/dp_panel.c
++++ b/drivers/gpu/drm/msm/dp/dp_panel.c
+@@ -734,11 +734,6 @@ int msm_dp_panel_init_panel_info(struct msm_dp_panel *msm_dp_panel,
+ 				drm_mode->clock);
+ 	drm_dbg_dp(panel->drm_dev, "bpp = %d\n", msm_dp_panel->msm_dp_mode.bpp);
+ 
+-	msm_dp_panel->msm_dp_mode.bpp = msm_dp_panel_get_mode_bpp(msm_dp_panel, msm_dp_panel->msm_dp_mode.bpp,
+-						      msm_dp_panel->msm_dp_mode.drm_mode.clock);
+-
+-	drm_dbg_dp(panel->drm_dev, "updated bpp = %d\n",
+-				msm_dp_panel->msm_dp_mode.bpp);
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/msm/dp/dp_utils.c b/drivers/gpu/drm/msm/dp/dp_utils.c
+index 72bae48a1fe0..8b6ef2f6d7f4 100644
+--- a/drivers/gpu/drm/msm/dp/dp_utils.c
++++ b/drivers/gpu/drm/msm/dp/dp_utils.c
+@@ -89,6 +89,39 @@ void msm_dp_utils_pack_sdp_header(const struct dp_sdp_header *sdp_header,
+ 		FIELD_PREP(PARITY_3_MASK, msm_dp_utils_calculate_parity(sdp_header->HB3));
+ }
+ 
++bool msm_dp_utils_link_fits(unsigned int clock, unsigned int bpp,
++			    unsigned int rate, unsigned int lanes, bool yuv420)
++{
++	u64 available = (u64)rate * lanes * 8;
++
++	if (!clock || !bpp || !rate || !lanes)
++		return false;
++
++	if (yuv420)
++		available *= 2;
++
++	return (u64)clock * bpp <= available;
++}
++
++int msm_dp_utils_select_bpp(unsigned int bpc, unsigned int max_bpc,
++			    unsigned int clock, unsigned int rate,
++			    unsigned int lanes, bool yuv420)
++{
++	unsigned int bpp;
++
++	bpc = min3(bpc ? bpc : 8, max_bpc, 10U);
++	bpc = round_down(bpc, 2);
++	if (bpc < 6)
++		return -EINVAL;
++
++	for (bpp = bpc * 3; bpp >= 18; bpp -= 6) {
++		if (msm_dp_utils_link_fits(clock, bpp, rate, lanes, yuv420))
++			return bpp;
++	}
++
++	return -EINVAL;
++}
++
+ bool msm_dp_utils_psr_needs_modeset(const struct drm_crtc_state *state)
+ {
+ 	/* active_changed alone also describes a normal self-refresh exit. */
+diff --git a/drivers/gpu/drm/msm/dp/dp_utils.h b/drivers/gpu/drm/msm/dp/dp_utils.h
+index 5d86c978dffd..c6b62e3900bb 100644
+--- a/drivers/gpu/drm/msm/dp/dp_utils.h
++++ b/drivers/gpu/drm/msm/dp/dp_utils.h
+@@ -36,6 +36,12 @@ u8 msm_dp_utils_calculate_parity(u32 data);
+ void msm_dp_utils_pack_sdp_header(const struct dp_sdp_header *sdp_header,
+ 				  u32 header_buff[2]);
+ 
++bool msm_dp_utils_link_fits(unsigned int clock, unsigned int bpp,
++			    unsigned int rate, unsigned int lanes, bool yuv420);
++int msm_dp_utils_select_bpp(unsigned int bpc, unsigned int max_bpc,
++			    unsigned int clock, unsigned int rate,
++			    unsigned int lanes, bool yuv420);
++
+ bool msm_dp_utils_psr_needs_modeset(const struct drm_crtc_state *state);
+ 
+ #endif /* _DP_UTILS_H_ */
+
+-- 
+2.56.0
+
