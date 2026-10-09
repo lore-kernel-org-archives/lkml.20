@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57E3A4CCDF7;
-	Fri,  9 Oct 2026 11:00:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA48B4D90C0;
+	Fri,  9 Oct 2026 11:00:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791543604; cv=none; b=vAt39wyI9N97AoZKw/JF6LIwQ8OiMzbmJN3qZeFgN5urdLQ9S+yxRltGMOcgboWqkwns9T/zlgMe/odjs6I79WIw69KOdH1vgmdHKyXf9DupiTlBdGm9YaNNwhXFMpRAMEKwc6aiEIvH/TUAyimr1Ysf3BLVNEk9JasyUBQyn0I=
+	t=1791543617; cv=none; b=TlrTrWshTSTgzn70KvUKFe9Lr/mpcadRSqifx9q+GiyN8KzG8oDdZZKV+SqdewnUib5VZ6kV9VgPg6sbXdCU9Z6SCtJTeojhM6xPUgU0fqLYNmUF8alpVT0TmV2fV9c9iLtC3UgS6FGtJNYbaJ0CMgoTygN2OGPlhsuk9j3V9I0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791543604; c=relaxed/simple;
-	bh=neVZVTGq666oWAg78l5pu/vXnnOetgC6TABJJdn6H6U=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=c7hSL2bZDRh9YxIp01biTt8d4ILbOPLdeILprLoww+omI0SNWwJr2EUk6nRTUgs1uYBq3JmYgrNJ086U1h/KnN00FEiguKZC4UrlfmmtuC8rEdbQnf4cbLzC3HP/QtS612pVzBeK4ammzHKCUEqaX4RzKpavfZi55vZFekOoJIs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uogObXJi; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791543617; c=relaxed/simple;
+	bh=nEmNB/P7dMfDzlN97RLQsTVzEKL8hg1jn6EUL8ZG6dA=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Y/Cy/IhtiD1jg/0B+9qtHo9IW+njd9bobMjv0ouDFSvcM58n3opTWXPI5LD4fqKXaiMir+kBbuYmP4u4MvtPEiaZOSZaIeJCSyovgu2QtS070qfMEZQSpvkIaprib4jW2Wp1Oq83rg1efDqzB2ZDQFu8AtbIGxNsAnesJTkElNI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tubpZ2LZ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uogObXJi"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 3D222C2BCF4;
-	Fri,  9 Oct 2026 11:00:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tubpZ2LZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 1CDE4C2BCF4;
+	Fri,  9 Oct 2026 11:00:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791543603;
-	bh=neVZVTGq666oWAg78l5pu/vXnnOetgC6TABJJdn6H6U=;
+	s=k20201202; t=1791543616;
+	bh=nEmNB/P7dMfDzlN97RLQsTVzEKL8hg1jn6EUL8ZG6dA=;
 	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=uogObXJiR8xRxnnlKQ6Rgnq4vwp5qA1SQKNHoATsEarbDUDBKR4EgjerVbW5YOUOI
-	 y4v4GdWRAKYmescq0TLfsURzbFt45fY+rVds6nDshBETklPYi7vxyAFmfD6/7WCGp9
-	 EqUpssRYELWaEUSWyoJZgUYzW3attmD4W9zg+xalw80OLmfn/nCiK5z3yGE3A2/rod
-	 rxuHkVYmwz9ggytdqnqUbhg5/FJvCR5zWv/1712qI5e/Jywb58t7xYojXy+ZSDelPc
-	 +VyxTsqn504N+tObx4VMUbS8FCSddQGHqNVaTvlv2ZhvXOriQ/9X2SZPRZ6vWhNPUw
-	 /gYvu9cgm7ZDA==
+	b=tubpZ2LZtFEWN/RphMGgME8PHX3Rt1/MI8DUeTkByjySoBF7IlENhQPebetmQaPTy
+	 WA+Xp+ltM3AcY/j/AQtzG7SG+qymsIiqeK/Cs02GfdlWpJJ7vulE3rP2ov1tZDkqEN
+	 fLofamh7+gXJKR5vl343/kexwusw1cVwxlqD8nXIWtPLsCTMcrDS1IszVfR/l8aDBL
+	 jUJBjCGD6DRhBWOa/duccp/nR5WpG+1TeM/BbUgJQw5ax+T7b7AEaGFn3n2WYW/p3D
+	 g8ecV6Lno23SgPx2k9TQrhfrzE+a5Cu72f5BDY+lARtvvQabqwNfmhX2EecsgdJTOR
+	 0Z2aMWIvn2sWA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 296F8CA6019;
-	Fri,  9 Oct 2026 11:00:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 09FB4CA601F;
+	Fri,  9 Oct 2026 11:00:16 +0000 (UTC)
 From: Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>
-Subject: [PATCH 0/2] serial: add Ambarella CV75 8250_dw quirks
-Date: Fri, 09 Oct 2026 18:59:57 +0800
-Message-Id: <20261009-cv75-uart-v1-0-38c098efaa99@ambarella.com>
+Subject: [PATCH 0/2] clk: add Ambarella CV75 RCT clock controller
+Date: Fri, 09 Oct 2026 19:00:11 +0800
+Message-Id: <20261009-cv75-clk-v1-0-6959b4da83c5@ambarella.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -39,16 +39,15 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAC3JyGoC/yXMQQqAIBBA0avErBPUzKirRAuzqaZFhWYE4d2zW
- j74/Bs8OkIPTXaDw5M8bWuCyDOws1knZDQkg+RSC84rZs+qZMG4gyllNJd1r20hIPW7w5Gu79V
- 2v33oF7THO4AYH1MDUtVtAAAA
-X-Change-ID: 20261007-cv75-uart-44a6029b6c31
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, linux-serial@vger.kernel.org
-Cc: Linus Walleij <linusw@kernel.org>, 
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIADvJyGoC/yXM0QpAMBTG8VfRubbaNBavIhczBwehDam1dzdc/
+ ur/fR4cWkIHVeLB4kWOtjVCpAmYUa8DMuqiIeNZIThXzFwqZ2aZWa8kClnKXBUaYr5b7On+rur
+ mtzvbCc3x7iGEBzbbpUJsAAAA
+X-Change-ID: 20261007-cv75-clk-f74e1494576a
+To: Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, linux-clk@vger.kernel.org
+Cc: Jerome Brunet <jbrunet@baylibre.com>, 
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
@@ -56,11 +55,11 @@ Cc: Linus Walleij <linusw@kernel.org>,
  Long Zhao <longzhao@ambarella.com>, Long Zhao <zl020895@163.com>, 
  linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791543601; l=1588;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791543615; l=2190;
  i=longzhao@ambarella.com; s=20260730; h=from:subject:message-id;
- bh=neVZVTGq666oWAg78l5pu/vXnnOetgC6TABJJdn6H6U=;
- b=UDsqMyCeNg+ceA9+UGB3+s8T/RKumgGDR1bj2HJxvAUybi0k6HA0umzSTH8mMAFDByMHfPa4s
- y5Nd+VU1TdeCOOSBzhqSo2BYIg4XLI/HBf+5s69cAhW8AyfTIukmAvB
+ bh=nEmNB/P7dMfDzlN97RLQsTVzEKL8hg1jn6EUL8ZG6dA=;
+ b=Ccza4jQiFmnUVMomgE3ejHoZTGqwXkTT2Q/8/Zxd0/dF8iYXRd0cbXmE+p6pclf4tqY/HeQRl
+ 2r6oZaibcS1BwEF8KJlBKlurGpjzt+ZqaKK3KC/eqrxj5E07v3QyFdT
 X-Developer-Key: i=longzhao@ambarella.com; a=ed25519;
  pk=/xGhPTOX0/eYsyTWzyjjgAIW1Z/YD+IlnOnvcdRozow=
 X-Endpoint-Received: by B4 Relay for longzhao@ambarella.com/20260730 with
@@ -68,21 +67,27 @@ X-Endpoint-Received: by B4 Relay for longzhao@ambarella.com/20260730 with
 X-Original-From: Long Zhao <longzhao@ambarella.com>
 Reply-To: longzhao@ambarella.com
 
-Split from the combined CV75 bring-up series. The 8250_dw driver does
-not depend on ARCH_AMBARELLA. The binding uses the ambarella vendor
-prefix, which is added by the SoC series and is not in mainline yet;
-dt_binding_check needs that prefix.
+Split from the combined CV75 bring-up series.
 
-These patches match the UART patches in the combined v9.
+CLK_AMBARELLA_CV75 depends on ARCH_AMBARELLA || COMPILE_TEST, so the
+driver still builds with COMPILE_TEST when the SoC symbol is absent.
+The binding uses the ambarella vendor prefix, which is added by the
+SoC series and is not in mainline yet; dt_binding_check needs that
+prefix. The MAINTAINERS entry for these files is in the SoC series.
+
+Changes since the patches in the combined v9:
+- drop the redundant linux/math.h include (Andy)
+- use for (unsigned int i = 0; ...) (Andy)
+- initialize the spinlock after the allocation succeeds (Andy)
+- group the ctrl, frac and ctrl2 offsets in struct cv75_pll_regs (Andy)
 
 Link: https://patch.msgid.link/20261001-cv75-v5-v9-0-486cc289a4b8@ambarella.com
 
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Jiri Slaby <jirislaby@kernel.org>
-To: linux-serial@vger.kernel.org
-Cc: Linus Walleij <linusw@kernel.org>
+To: Michael Turquette <mturquette@baylibre.com>
+To: Stephen Boyd <sboyd@kernel.org>
+To: linux-clk@vger.kernel.org
+Cc: Jerome Brunet <jbrunet@baylibre.com>
 Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 Cc: Rob Herring <robh@kernel.org>
 Cc: Krzysztof Kozlowski <krzk@kernel.org>
 Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
@@ -97,15 +102,20 @@ Assisted-by: LLM
 Signed-off-by: Long Zhao <longzhao@ambarella.com>
 ---
 Long Zhao (2):
-      dt-bindings: serial: snps-dw-apb-uart: add ambarella,cv75-uart
-      serial: 8250_dw: add Ambarella CV75 quirks
+      dt-bindings: clock: add Ambarella CV75 RCT
+      clk: ambarella: add CV75 RCT clock controller
 
- .../bindings/serial/snps-dw-apb-uart.yaml          |  1 +
- drivers/tty/serial/8250/8250_dw.c                  | 32 ++++++++++++++++++++++
- 2 files changed, 33 insertions(+)
+ .../bindings/clock/ambarella,cv75-rct.yaml         |  64 ++++
+ drivers/clk/Kconfig                                |   1 +
+ drivers/clk/Makefile                               |   1 +
+ drivers/clk/ambarella/Kconfig                      |   9 +
+ drivers/clk/ambarella/Makefile                     |   3 +
+ drivers/clk/ambarella/clk-cv75.c                   | 361 +++++++++++++++++++++
+ include/dt-bindings/clock/ambarella,cv75-rct.h     |  14 +
+ 7 files changed, 453 insertions(+)
 ---
 base-commit: 34cf6dafc47441dfb6b356a095b89c3585a93714
-change-id: 20261007-cv75-uart-44a6029b6c31
+change-id: 20261007-cv75-clk-f74e1494576a
 
 Best regards,
 --  
