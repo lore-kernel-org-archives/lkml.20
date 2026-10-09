@@ -1,243 +1,108 @@
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012016.outbound.protection.outlook.com [52.101.48.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-91.mta1.migadu.com [95.215.58.91])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D73A4E0B93
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 15:33:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.16
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791560030; cv=fail; b=eacZ050db/37WcsKtF9n41MP+XLLdxQl7ZGmqzl5vPXFxSakk3TlhLZj+tBSzJpFlzh4gXRDgA/UxbAwFtKWKandDaYzk/II8n2cq5yGIFF5D+0glPHynU4jsBgTqSOfLPVovLigemzy++H2BG5Do530O8aDuyIByXGdqbxO2Eg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791560030; c=relaxed/simple;
-	bh=0yPQMpcloLuP8nIs2ezWyR6pHGw1klWeXtMnrZYhDqg=;
-	h=Message-ID:Date:Subject:From:To:Cc:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=GN94BfipUeToxsspOc2W1OSbKSigfxOvY0QB+yLQp4jQ5SG4L2GLO7zEJldqwIKamvMBC2X9TdEdJ/CaSgM1DYPZZOo6yA48+ULdEfsArQs43C8MRVPGVpMqEyqyHSu1Jhxxxrf1i1QILMcKAQYowh5NkvjJupkfSh0verXkyr4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Qdjn2qCB; arc=fail smtp.client-ip=52.101.48.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84E393CC7CC
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 15:33:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.91
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791560041; cv=none; b=ldRMxpfynb6ejTEznNvtFXpIgCopUilnJi5lkkC4PnykN4k8uYMzg/JjabXZCf+z/44WPJyxjAKbPaqK/6zTLJghX5il4T9kePV+OdwLpr8AOZicvMDuS5KFHHeRuWKFJiTnp6VNddl3SzdiJg3SPHViwaF42oAqioms0Q2Pitc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791560041; c=relaxed/simple;
+	bh=n/NzbpOSR98LD7NIhdW6/HMkUVUpaovwUvRlXeZLHbo=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
+	 References:In-Reply-To; b=OZeKWdjyAzIihvLH8WCsrEzTzV5lqOFcvp3qeWG1xXkJprXA99vOHzNFcb1cwmoL7rCWeHeAQVxrFyZYX0UWfVRcKy+RGXpkVgR21l2SvK9SoMWj7hw2m5Yg54/66iF9bQvyGBD8+wLo5T2V/v2b51ZUSQIrXWB34IqLovffPbA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ch0n9HhP; arc=none smtp.client-ip=95.215.58.91
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Qdjn2qCB"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=shxgvDt0me5cde8FK+X5iLzUeym1fm3+zxRG0LbPw9v3i0wwobh+4iRqvspnh0HjZ0MHru1+1WVLnBmXAbHFIPccdVVmU0gm2PvX2Emjmsl7maMhU88h21yJ6+c9GxabPmf8DAdfsNI8jkRKg05HFs0G2zOZWu+771UihtDkHyuUEqd760AAxUvddDb6d0NF349uZRdhYZ3LOu0NvbocQPH25oAW5pgR71lQ2ip0TIlLm+UzOyVMYaMs026zLCOzJiL31z7ZjdbkyeiAfIlAc0jJe4xmPOGv1VnK52qJf4zX9esdmGd+X5xY1gEfkT+jVxTZbPDa44OlGeIasDuGDQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Kqzl5Wlog2CHlRUnqGWTElc0l83f2R3GsoIz2GkTpjA=;
- b=uC2mD+P5Gc81tf6m3kszICZh37jAon0tVwNaQd7c7L2P+X+gasGOGTdmbkwIUwR5n1x1aAyfxs35wD6ELymbSX7RbGdTuV6VJeqmDVd9WYWDI1HeK7kV7g0q2DsEt0WV4z+XcAo4uINy1QdlX5FmUFtrhyCHmJ91RtvQZmEohJiErDbMz8oZn1pB8/7Ws/JDy8eGk9alnpmMAzeh2MjqZ9Z94/yxXJdY1IlOjN6fk9PRZB6FaICWNt0LYuU+kRUTj5OuUoNxZ4jYevIcui6TBhc5jpF0hahWg52euswwUZ58BK+KCkOCXf5gqiWa6nvMX4tnVxG4F9gjRNk/98nNLg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Kqzl5Wlog2CHlRUnqGWTElc0l83f2R3GsoIz2GkTpjA=;
- b=Qdjn2qCByPf0GqhL6ErwZloaAQ8qVVy6v8ONrPK8OGgn1nPXwXd2R0WRn+GCS8ZRbyy4I4Pyu6QQD2UbqXbYRgyxcq7htA7P400YHSu7GOdFd3HSdWp5ejgDKtZIoDi8m8Wmf/I2Y73aXHKhJYGozggJKISod9SPFY35ZfMEKMU=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::607) by MN0PR12MB6150.namprd12.prod.outlook.com
- (2603:10b6:208:3c6::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 9 Oct
- 2026 15:33:44 +0000
-Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- ([fe80::3f44:4881:3c5a:943]) by BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- ([fe80::3f44:4881:3c5a:943%3]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
- 15:33:44 +0000
-Message-ID: <9e519955-e63b-469d-8acf-268b9802e0b6@amd.com>
-Date: Fri, 9 Oct 2026 11:33:38 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] amdkfd: fix doorbell allocation race creating duplicate
- allocations
-From: "Kuehling, Felix" <felix.kuehling@amd.com>
-To: Henry Martin <bsdhenrymartin@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Alex Hung <alex.hung@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20261009101842.3294707-1-bsdhenrymartin@gmail.com>
- <2bbea75d-2e3f-4a57-a291-5f5d9ca698c5@amd.com>
-Content-Language: en-US
-In-Reply-To: <2bbea75d-2e3f-4a57-a291-5f5d9ca698c5@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT3PR01CA0138.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:83::25) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::607)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ch0n9HhP"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=n/NzbpOSR98LD7NIhdW6/HMkUVUpaovwUvRlXeZLHbo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791560036; v=1; x=1792164836;
+ b=ch0n9HhPNpKYpRuYvMF4LH9gmQo8+3L5ZlGYJ9ZlkixW1d3pw8Ff0uKmDc9u2HbPnOFvym4c
+ GDLk8eYdeOfIHwT1oRXZwWHqPkGC7Xl1VRSXC3KQbP2+3yS7SBUQHXKg61/c18L1r8aSdUqaLM1
+ noxg6/k7TIYa/XXBHc7okLBc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 1de585663ba371b8;
+	Fri, 09 Oct 2026 15:33:56 +0000
+X-Mizu-Trace-ID: 1de585663ba371b8
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PPF5F16C5C9C:EE_|MN0PR12MB6150:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0fed93e3-0a9a-4e3b-5f01-08df261ab41e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|4143699003|22082099003|10067099003|18002099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	Zt7NBZVT9ac6/O7FrrmGEnxtgyl8uKrLIXUuyp4mfrixondyRQNLiGnkTh357THKDD3eCcp4pBB9Z4QqM2T4QiAVo+YIGyUiW8npgMN3UHCo+j6wRWzdt+7/2kWfIJYztg+4KM4twQvNhtlmrE6jn1KRS5neJz7AjN//GLvoLAPd+Af2vtmuzbaEexsKAv7or0uQjpS/npSZHmlSXrWWnzGmbL07qHT+g5s83pzLzxKgxZOo574ZbVGMIy5s+a+mcDYQm8Ca3nZ35DZpEl0/ZoaV4O+g0mkhuTUDg05MARaNEhoFe5me5jjjmsyKmun9S1omXFQSIF9pY/VtVwD2ifE4/msgC84sMzL5Tb0DFOYCNFuYkgiI8XYoVLZCpwMWplJgj947f+NNnfA1aw/0lryx13Lbz0RF5V4IjJA8x8vFTUStw8pxN0CxaaVxhsosJKzsEc/k8BemXe0fLsSYV0pDtu6KaH3toQIb7rOtcNT/z1at6B5M5nHX733n2ugxJvOu2SouCp1hVoYADPC7GZ9eeljtTx/LsCecmumQVNvkFPo3Je1kQi7l2ZXUYINquMznaJR1VwgnAQpVIe9dpKz/iWE2051AG7fZuH+w94uGzMUiEr/ohqWoKZjWPSnlHStAj8yPDdTXm3o/B5SdjXEvqGD7ijRmeHi5sUg9EBg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN7PPF5F16C5C9C.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(4143699003)(22082099003)(10067099003)(18002099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?emhoQVUrWGNTcnJ6dlBLa0Vob3JlZUtnNFhobGNsK2R0YjFialZWa2NNNEc2?=
- =?utf-8?B?UHFBSDZqT0RyVWVUSWY0elNaQ0dPcHBaQmxxOVFBdFZLalhxb29ZTFhXN21q?=
- =?utf-8?B?NEVvZjZVOStYZUZab3duOVRUOUFuV1VNK0hEYjdZakJwemdMU00yWXhtQXg2?=
- =?utf-8?B?SytlRWxVK0VOc2Q4UGI1ZWNLOGVNTjlBK0pyYmtLY2FxRVEva3p1cUozRWtu?=
- =?utf-8?B?bDEyN1dleWZ1VStrcmNMcXJQQXRvYytyN1Y1VU14TE1tazlnYnBBRVZMSmF0?=
- =?utf-8?B?bU1PeTN4TlduVnc4RnZWc2JRRDNpZ0gzUTRBSm15dGdyQXQrNkc1UDhZN1pP?=
- =?utf-8?B?Yk9oZ3ROdHFxcS85RXJRaTlWdnpRZFJMV3NqWGFwSk9qRE13R05lUGtSN2w0?=
- =?utf-8?B?Q0pvUmF2dTc1bUY3aWY5ZTRRdzFFVjlYTjZDdnQ1ekVmZTR3TENmeG1ETTh2?=
- =?utf-8?B?SUhNV21wdUhlV3A1b3VTT3c5K3lVampxZi9sQ3d0OUk0blJSTktsZmNDdktr?=
- =?utf-8?B?dlpybGZDUDBxRlRpZ1JEWkVPYlZYMG9KWjc2d2NQMytvSXdNeWhhbnlmY0Fo?=
- =?utf-8?B?MHc4VGs4cXpUN1ZxS3dDRHNQNzYrcUUwdzQzMUpoUzV6VWh0UndVRStJbUdn?=
- =?utf-8?B?aGJaN2w2SHZrQjBmWWNNNGFpeFg4a1pXYnc4NnhueExSSitrOS9BdmVwSUtO?=
- =?utf-8?B?MzN0dnJMTmV0d1lpNkwrQjVaQXFoZC93RzI5eFBTNVRMRGtQQVNqRmR0ZHlQ?=
- =?utf-8?B?a1gvdjJyVHdDTXBicmw5OVlKUEtNZTRRa1l6VWR2THZTNTBqY0taaUFXSVFi?=
- =?utf-8?B?dmp1N3dsWXRjd2FjZkovOXZRUFlSTWYvWG1RUG04Njd2LzA0S1AyVCszNUh3?=
- =?utf-8?B?MTQwMWRxVTVwV3pMeEd4UXROeEpkSXRtZ0NzUXRTekNrNm9KaEk3ZlZ4b014?=
- =?utf-8?B?cEgzZHozSUhiU0szMTBWSDJLN1VJMkU4OWovaWRBV2xBb09jelNISmFrcnRT?=
- =?utf-8?B?c1FIaFBDSUlZMFZhQ1JCYTc4bmR0TmpNQUhyenFvelVoeGVoUmt6cjV1amw1?=
- =?utf-8?B?TXFjNXBoMHpSZUFiYlhVdDFybm1VNy81M2tybHduRTNEZDNoZGJjai9mdVBI?=
- =?utf-8?B?WTlTUGJjdlBmMVRYZHpqTTN0Tk5rNFVCVExtU00vK1QwVXhUYjEvRlI4VjVS?=
- =?utf-8?B?aFRIMWtwOUNLWFhXSkNFcWljS1lIVDRrQUFFeVRNZTNtQUZwR2o1dDQ4a3Nj?=
- =?utf-8?B?UXRUb3lSOFovbmZ0MzA2V1ZJVVcwRE1ha2w0aGVnTzhZS3ArTzNzT1pCZGZs?=
- =?utf-8?B?QUpPT1I2SGpFV1NWeWc4R1BDZGZEaVpiN3F0QU1Ha2NlaUFSd1FBSklGYjUx?=
- =?utf-8?B?aFpNOWRCVVg0MFBPVU1pczA0OUo3V0JlSzNESllrL01vUlV1eFdPZDB1eDVH?=
- =?utf-8?B?M2tIVFJ2SzBDYlhuNE5LM0JjS1FDSzZ3VFo1ZEx1VGltdk9QTVV1ZnEvcXNJ?=
- =?utf-8?B?RVQ2MFVZRGR4THVHMGlZVktGNHZPelZ3cXZWVzBMKzFyWWJ5OUZpRlQxTkNx?=
- =?utf-8?B?bDVPWFp2aWxoOStQOHBZbUJ6QS8xU0c5WmgydzF1elhDUVY1c1J0TEV5WEkz?=
- =?utf-8?B?QXJDRVp6eE5POWozWEJUcHRGV1RzU25KZTdjN1dYRW5JU1JFQm9nSEhSc3Iz?=
- =?utf-8?B?bDl1Rk9HSDIxTU1qamk4MWhMb2VQLzFXenE3Zm5mQlVjRHpJK3Y5c0NNTGZ1?=
- =?utf-8?B?YzBmWVEzQStOOFVMUlZXL0tPamYzMDZLWFNJWjFUOWNTSElyM2w0bGkxL1dw?=
- =?utf-8?B?bFkrY25Nc1dJVm81WEVwblAxTHhMNW10RjBsRXcxRyt2K0ZTRnorbEpQeEJP?=
- =?utf-8?B?eUY5bFdqd0V3SWprc0p3TTlpVGRFZTJzOEVpaUNHTkw5OWl4N2F4TEIxQWRR?=
- =?utf-8?B?cGRzVHdWVUtENFNhL3grdUlMQnJTT2JBNCsrbGt2VEtTSU80ZTlFQlNPSkxG?=
- =?utf-8?B?YTNIYUhpcEdPOHJELy9kYXd4MEFvQXhtWEVJVkNWWGZnQ2plN29NbUJ3S1Jo?=
- =?utf-8?B?bC9BNnh5OXFnNERUejVmY1l0cFFacWRKQTR5TEtCdFAzdTlRSU0zV3NjazdC?=
- =?utf-8?B?MzVlSU1vc1B6NGhySUN5UnBsMXpXRmxDNGJONlNYOFc4RG0rK2J3Nkp1SERY?=
- =?utf-8?B?WUlyUk1JWmlBSkdoOVFlWTlsdVRXdjlEU3RzQjNreFlzdDV5aldFWTJEZWda?=
- =?utf-8?B?Z1E3TkRhRlplRWZ5c3hnazc2S1ZKdVBZOFhjSUdZZjBzWThOOHZnbFcyY3hX?=
- =?utf-8?Q?Ek4iN7H3qvmuwiJWcR?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0fed93e3-0a9a-4e3b-5f01-08df261ab41e
-X-MS-Exchange-CrossTenant-AuthSource: BN7PPF5F16C5C9C.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 15:33:44.4409
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RWd46IskLnKJFm3v/1DmItrjEdwmrp0NdYGEdVHoAAJbNdkP3L4lDPVMwHO0snSbkDUGHfPknJ0O6nSGUVzttA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6150
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 09 Oct 2026 17:33:50 +0200
+Message-Id: <DM0F103PEZKZ.3BTGPMVOEZAUC@linux.dev>
+From: "Luka Gejak" <luka.gejak@linux.dev>
+To: "Bitterblue Smith" <rtl8821cerfe2@gmail.com>, "Luka Gejak"
+ <luka.gejak@linux.dev>, "Ping-Ke Shih" <pkshih@realtek.com>
+Cc: <linux-wireless@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ "Michael Straube" <straube.linux@gmail.com>, "Peter Robinson"
+ <pbrobinson@gmail.com>
+Subject: Re: [PATCH rtw-next v8 5/7] wifi: rtw88: 8723b: add the RTL8723B
+ chip driver
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20261006130701.120460-1-luka.gejak@linux.dev>
+ <20261006130701.120460-6-luka.gejak@linux.dev>
+ <d95aacb8-0032-4d6c-b847-3103afbc3124@gmail.com>
+In-Reply-To: <d95aacb8-0032-4d6c-b847-3103afbc3124@gmail.com>
 
-On 2026-10-09 11:00, Kuehling, Felix wrote:
-> On 2026-10-09 06:18, Henry Martin wrote:
->> The check-and-allocate sequence on pdd->qpd.proc_doorbells is
->> lockless at every call site of kfd_alloc_process_doorbells():
->> kfd_get_process_doorbells() (mmap of /dev/kfd), kfd_ioctl_create_queue()
->> and the CRIU restore path each test the pointer under different
->> locking (or none), so two racing threads can both observe NULL and
->> each allocate a doorbell BO and bitmap, orphaning one allocation and
->> handing the two mappings different backing pages.
->>
->> Move the serialization into kfd_alloc_process_doorbells() itself:
->> take kfd->doorbell_mutex and re-check under it, so all three call
->> sites are covered regardless of their own locking.  The existing
->> doorbell_mutex users (kfd_get_kernel_doorbell() /
->> kfd_release_kernel_doorbell()) only guard the device-global
->> kfd->doorbell_bitmap in short non-sleeping sections and never call
->> into this path, so there is no nesting.
->>
->> This vulnerability was discovered by Tencent CodeBuddy Security.
->>
->> Fixes: 428542d91772 ("drm/amd/display: Setup for 
->> mmhubbub3_warmup_mcif with big buffer")
->> Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+On Fri Oct 9, 2026 at 2:40 PM CEST, Bitterblue Smith wrote:
+> On 06/10/2026 16:06, Luka Gejak wrote:
+>> Add the Realtek RTL8723B 802.11n chip driver: the chip operations, the
+>> power sequences, the efuse layout, the RF and IQ calibration, and the
+>> chip specific coexistence handling.
+[...]
+>> +{
+>> +	/*
+>> +	 * The 8723B PHY status does not report the channel, so we must
+>> +	 * mark it invalid to allow mac80211/rtw88 to parse it from the IE
+>> +	 * during scanning.
+>> +	 */
+>> +	pkt_stat->channel_invalid =3D true;
 >
-> Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+> After testing RTL8723BU for a bit, I think this is wrong.
 >
-> I'm applying the patch to amd-staging-drm-next.
-
-An automatic Claude review pointed out two problems with the patch. I 
-agree with both:
-
-The Fixes: tag points at an unrelated drm/amd/display commit 
-(428542d91772). It must be corrected — 2105a15a2046 ("drm/amdgpu: use 
-doorbell mgr for kfd process doorbells") is the commit that introduced 
-the allocation being fixed.
-
-The patch holds the device-global kfd->doorbell_mutex across 
-bitmap_zalloc(GFP_KERNEL) and amdgpu_bo_create_kernel(), while that same 
-mutex is already acquired under dqm_lock via start_cpsch -> pm_init -> 
-kq_initialize -> kfd_get_kernel_doorbell(). That is a plausible ABBA 
-inversion once reclaim/TTM eviction runs the KFD eviction fence back 
-into dqm_lock. Please either post lockdep (CONFIG_PROVE_LOCKING) results 
-for a boot + queue-create cycle, or switch to a per-process-device lock, 
-which also avoids serialising unrelated processes behind a device-wide 
-mutex for per-process state.
-
-Regards,
-   Felix
-
-
+> mac80211 thinks there is massive beacon loss when connected to a network
+> with 40 MHz channel width, but phy_info in debugfs shows that beacons are
+> being received. The beacons are handed over to mac80211 with a wrong
+> frequency in struct ieee80211_rx_status. In my case, the correct frequenc=
+y
+> is 2472 MHz, but after rtw_update_rx_freq_from_ie() the frequency is set
+> to 2462 MHz. mac80211 is probably discarding the beacons because of this.
+> Removing this line fixes the problem.
 >
-> Thanks,
->   Felix
+> I think channel_invalid is only for chips which do hardware scan offload
+> (RTL8822C). With the chips that only do software scanning the driver
+> should always know what channel it's on and rtw_update_rx_freq_from_ie()
+> is not needed.
 >
->
->> ---
->>   drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c | 15 ++++++++++++++-
->>   1 file changed, 14 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c 
->> b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
->> index fdcf7f2d1b5b4..07f881573837e 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
->> @@ -257,12 +257,21 @@ int kfd_alloc_process_doorbells(struct kfd_dev 
->> *kfd, struct kfd_process_device *
->>       int r;
->>       struct qcm_process_device *qpd = &pdd->qpd;
->>
->> +    mutex_lock(&kfd->doorbell_mutex);
->> +
->> +    /* Another thread may have won the check-and-allocate race */
->> +    if (qpd->proc_doorbells) {
->> +        mutex_unlock(&kfd->doorbell_mutex);
->> +        return 0;
->> +    }
->> +
->>       /* Allocate bitmap for dynamic doorbell allocation */
->>       qpd->doorbell_bitmap = 
->> bitmap_zalloc(KFD_MAX_NUM_OF_QUEUES_PER_PROCESS,
->>                            GFP_KERNEL);
->>       if (!qpd->doorbell_bitmap) {
->>           DRM_ERROR("Failed to allocate process doorbell bitmap\n");
->> -        return -ENOMEM;
->> +        r = -ENOMEM;
->> +        goto unlock;
->>       }
->>
->>       r = init_doorbell_bitmap(&pdd->qpd, kfd);
->> @@ -284,11 +293,15 @@ int kfd_alloc_process_doorbells(struct kfd_dev 
->> *kfd, struct kfd_process_device *
->>           DRM_ERROR("Failed to allocate process doorbells\n");
->>           goto err;
->>       }
->> +
->> +    mutex_unlock(&kfd->doorbell_mutex);
->>       return 0;
->>
->>   err:
->>       bitmap_free(qpd->doorbell_bitmap);
->>       qpd->doorbell_bitmap = NULL;
->> +unlock:
->> +    mutex_unlock(&kfd->doorbell_mutex);
->>       return r;
->>   }
->>
->> -- 
->> 2.43.7
+
+You are right, and thanks for chasing this down.
+
+The assignment causes it. With channel_invalid set, the frequency handed
+to mac80211 comes from rtwdev->hal.current_channel, which
+rtw_update_channel() sets to the center channel rather than the primary.
+At 40 MHz those differ, so mac80211 drops the beacon in
+ieee80211_rx_beacon_freq_valid(). Data frames are not checked, so
+traffic keeps flowing and only beacon loss builds up.
+
+On the RTL8723BS I could not reproduce it, because there the update is a
+no-op. rtw_sdio_rx_skb() copies the status into skb->cb before it calls
+rtw_update_rx_freq_for_invalid() and never copies it back, so the change
+is discarded. usb.c and pci.c call it before their memcpy into skb->cb,
+which is why you see it on the RTL8723BU. With the SDIO path made to
+apply it I got your symptom exactly (2452 instead of 2462, beacon rx 0,
+beacon loss 26, while rtw88 still counted the beacons), and removing
+channel_invalid put it back to 2462 with no beacon loss.
+
+I will send a patch removing the assignment and the comment above it.
+
+Best regards,
+Luka Gejak
