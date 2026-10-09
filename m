@@ -1,89 +1,82 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E44B435523;
-	Fri,  9 Oct 2026 18:46:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791571582; cv=none; b=GBvgdjwReuFZ0eF5XSL8XmcCF42xkRb6PFhFMNF8oQ0li1cMxgcSKyjQFBnKvPE7CWUzaQZIb3vQYvLM/25WI4Wtb5BXlasbtwQL12idypDepo+5fZv8uc4a5wbuUoj/u4OWpBpUFCMUzq0hRo/GGOq7gJhSFxGVuXY1s43+JDM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791571582; c=relaxed/simple;
-	bh=dBVJHBnSjpblWHttUEpKV/Gla9dxr+ZGqyjY8WLu+Fc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jJsqqVR7awlY3aAYTvkbYTQpJ7IxKk+yCl4/XzgYPC6F2veO3A7nVXwWnbUZd8jLDrkNzK/z22HBXX2FrauQ0ki+EvTc2gBhW+PyrxXjKZA+LpLYbKSVVfZjXorooqYVtk3by1LWKDW/Y/QYpoJTqiptEwL/vsleSrp4jPen5Xo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=erOEblbH; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 970994F96C7
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 18:47:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791571632; cv=pass; b=uYvNhJjxqhaVNbKJKpmouh3mwYNVl2QiQRXhDyHSyBdw9NWRlLBjxJ0osOg+StGZ0FaUncxx+EDP3ka3a1M4Vq0zNGqVMmYh5aMAUPkyflIbKOoJEw4bNOoRZ5ukJbbE9qvvbxmcVQ65Vm3BtFW7AdCRLfby+FQBOWGjDAD+Qoo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791571632; c=relaxed/simple;
+	bh=+OhdLoeV7VemjSuPnl9qnv3JFlY77j8/3hG/kgAPlgI=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=p2M4dZlony3fSZQpjTypQm6qM6jymIzqu+oQkx4bsnbmI/6l7SUY2GUlnjodOXmdiERQjr34vDqF17c2kU5ceIBmN+bCoI/o8KTmh511v+qzS4+wE62CMM1umjxVhW5R9eXL1nKFtCdInuJRUUv+Agy3OeZfhNDXdYNkYZPvBJ4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=KOt+7J33; arc=pass smtp.client-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="erOEblbH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 266D71F000FF;
-	Fri,  9 Oct 2026 18:46:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791571581;
-	bh=dBVJHBnSjpblWHttUEpKV/Gla9dxr+ZGqyjY8WLu+Fc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=erOEblbHGRMD+4jrGI5a6S7ey6al2e0ViAa1SaW52cvuBtAUKIGjRKR7uhIHwOKe1
-	 +e4Sl5ca9skE498BKj1398WgQCGJbUIX+ABj3gEpMlqmwlCXQkPGAXzgawu9TXGr1K
-	 PcffrsX5bjq8Kw8/kD17uTd1kwpxuxKXw9U5qKqgLs6brcKX8BNfuJAL3F9+JiEE7b
-	 sUuqbSIu58Ta8u+3ApN6r5o+rVrzHDR5SwcaHIlZNYJQ8ef0arnCmsJu6JBOIzh33E
-	 Eu6DmevKVSsHZY1fQId4qwBUX8VZMDdau7x5I4rV0uhj6VacF5armrrzQrdHkq62xC
-	 zeYxot/VWjNeQ==
-Date: Fri, 9 Oct 2026 19:46:13 +0100
-From: Conor Dooley <conor@kernel.org>
-To: "Christian Marangi (Ansuel)" <ansuelsmth@gmail.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Felix Fietkau <nbd@nbd.name>, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 1/3] dt-bindings: clock: airoha: Document support for
- AN7583 clock
-Message-ID: <20261009-0f838c3bfc48bd3a79f6d013@squawk>
-References: <20261009070725.13196-1-ansuelsmth@gmail.com>
- <20261009070725.13196-2-ansuelsmth@gmail.com>
- <20261009-b41aedc4c5583a8a94926925@squawk>
- <CA+_ehUxMyx-aejgcve4+naou=LQ8-OOSTPMHvSNVhCEiEiw3Vw@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="KOt+7J33"
+ARC-Seal: i=1; a=rsa-sha256; t=1791571616; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=bgSl2cLdivPj0FGLrRjRXccvLNkUXeT8tdAb122PXeae/keTuv4+QZSIIPKfHD1GvjehpWdNOI7G9QGhXDigTq6z4Bmp9dZsmgDgG5LGOQ/PyKjJzf3ngXFn5rVMMbTjevMjL2dyKBpoRHkYzDxvXtJetJuL5/NluyJIQHHNb2A=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1791571616; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=sNaQMcbvojwqaa6CpBCGayYt2Qv26FQpb2UDUBNOFG8=; 
+	b=BfZyZ2/bM2OAAcoVcnOZ01Xq2K5WG7KIYNZ2ufp6e1A7/PbafYKNnDHCC05InIKai7f2WAaa6OsWH8zUqP7uYpqwasP1PEKlnVxuXLdK8ivxdZcKvK2+NyExpTukh0n+iNTfRBK1xEcdxYL2Elr2493sSsKhC8r0CDEP6NsNWGI=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791571616;
+	s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=sNaQMcbvojwqaa6CpBCGayYt2Qv26FQpb2UDUBNOFG8=;
+	b=KOt+7J3380H/WWmsyxhoxHbmGrc1pwnr9bBQgY9PXU4jnGjfRXCF+P1/eFRl1u3q
+	Yey7EY0mfrjpjQbtBOYFKbCb43xufiJ18ZSu2sbUfynrVyPVHnuYzh77Orc+Z48dcja
+	zUNaIOdIpl3PtfFtb6MePPhaKtWoguZm6nUBEJmw=
+Received: by smtp.zohomail.com with SMTPS id 1791571615413714.4154527093252;
+	Fri, 9 Oct 2026 11:46:55 -0700 (PDT)
+Message-ID: <f0c5d61a-d4bd-4f92-aba9-50c67cef74c6@collabora.com>
+Date: Fri, 9 Oct 2026 21:46:51 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="iPrU6NC3mE2h2aw8"
-Content-Disposition: inline
-In-Reply-To: <CA+_ehUxMyx-aejgcve4+naou=LQ8-OOSTPMHvSNVhCEiEiw3Vw@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v9 3/4] drm/virtio: implement userptr resource support
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+To: Honglei Huang <honghuan@amd.com>, odaki@rsg.ci.i.u-tokyo.ac.jp,
+ airlied@redhat.com, kraxel@redhat.com
+Cc: gurchetansingh@chromium.org, olvaffe@gmail.com, Ray.Huang@amd.com,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20260924095556.1326164-1-honghuan@amd.com>
+ <20260924095556.1326164-4-honghuan@amd.com>
+ <f2e66335-5538-442f-80ad-94626a66b4d0@collabora.com>
+Content-Language: en-US
+In-Reply-To: <f2e66335-5538-442f-80ad-94626a66b4d0@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
---iPrU6NC3mE2h2aw8
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+09.10.2026 21:38, Dmitry Osipenko пишет:
+> 24.09.2026 12:55, Honglei Huang пишет:
+>> +	mm = current->mm;
+>> +	mmgrab(mm);
+>> +	lock_limit = rlimit(RLIMIT_MEMLOCK) >> PAGE_SHIFT;
+>> +	new_pinned = atomic64_add_return(userptr->npages, &mm->pinned_vm);
+>> +	if (new_pinned < 0 ||
+>> +	    (new_pinned > lock_limit && !capable(CAP_IPC_LOCK))) {
+>> +		atomic64_sub(userptr->npages, &mm->pinned_vm)
+> 
+> At a quick glance over other kernel code touching pinned_vm, nobody else
+> check for new_pinned < 0 and then doing atomic64_sub() for the negative
+> value will be incorrect.
+Though no, negative will restore pinned_vm. Still neg looks confusing
+and shouldn't be needed as such overflow shouldn't be possible.
 
-On Fri, Oct 09, 2026 at 07:23:19PM +0200, Christian Marangi (Ansuel) wrote:
-> Il giorno ven 9 ott 2026 alle ore 17:12 Conor Dooley
-> <conor@kernel.org> ha scritto:
-> >
-> > Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> > pw-bot: not-applicable
->=20
-> Just for my own info, what is the meaning of not-applicable in this conte=
-xt?
-
-It's for the bot running against the dt patchwork, so that it removes
-the patch from our queue. I guess "not applicable to Rob's tree"? The
-alternate options are handled elsewhere which is applied to drivers by
-us, changes requested which means you need a new revision :)
-
---iPrU6NC3mE2h2aw8
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCask2dQAKCRB4tDGHoIJi
-0rBHAP9aC5phLRdhUdQMCupjcnEI5SBaRrlnoPWRrq8WkxT/8gEAsBdjt5lTUcGz
-m0yqWBt7dZGO3qLJj0oFcA8G9Spy+w8=
-=tSeO
------END PGP SIGNATURE-----
-
---iPrU6NC3mE2h2aw8--
+-- 
+Best regards,
+Dmitry
