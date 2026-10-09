@@ -1,73 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9004738DC57;
-	Fri,  9 Oct 2026 13:08:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E5E549B5C3;
+	Fri,  9 Oct 2026 13:09:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791551304; cv=none; b=HEUkdlwsLj6XM40mkHubS2Ev1DyDm5Iegx00O8nlhCs4UIgpxb5XNdn3dg+faMndBHgTZ9rJfmF5ZF/r4Mvh86FDiB7LVpsLWDJTK1IRWU1as9lMwaFuq22ft92aq+FFJipkGEzRMzz/1nktptZh9QrAlm460wc+0j8TCArds0M=
+	t=1791551392; cv=none; b=mldSXbB26tlnIY+cEC2DxWR0ojWSUWOL6IEOsPhc1YVblvgThFNP3S+7Qzij9sLgb8zBK/7LuhvZxKl2YGR+FIh6N+3KqpnYkquzFTm4T5IOhBVB9mLByRHjnL8xXdCut4AOU4DMbijrPg79mFZ8K/5efuqfZgsoBC68uSVyFEk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791551304; c=relaxed/simple;
-	bh=yhTc7H+0IqN4frsO9baGH1rCR17Pji1FxlEXnUH5cBg=;
+	s=arc-20240116; t=1791551392; c=relaxed/simple;
+	bh=Gkfjb3oXzSXu2jkZh4iyfJzd3EgbuVt3H3vV5J6iCB4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JS3UlEe1SK+DVBqD9RHNTOWIofCMnPpwgVi8Y1kKGEeAc9CROl8t8ZUtDBVW4IlRN6gLUCx4OOgnvOE7PUORYyrnevgPe4ocLZn94uDu1PCalRj89Ei/lFpKAQ5B+K8VMb9ra/MV002bk3xZZ1RGmW+2TnNFU0ueNQUJsfL3las=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c2qqCgv0; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=NXWTCz7+LZi02TV8e4isXR7kowWYVMjKo9n/COWRV8wQmJBIYCVuodXxVjciJvThL98VlRqxr/c3IygK8z8bXZ5MmuzUG+sdY5DzJ3SUBusKFRBWMJaaYb5HERAPL9X9cTjLFmSyMH+UFS883SZxajPZEKUVGAAxNby8za0ynEI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UCQjhnwD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c2qqCgv0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F98C1F00893;
-	Fri,  9 Oct 2026 13:08:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UCQjhnwD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5D851F000FF;
+	Fri,  9 Oct 2026 13:09:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791551303;
-	bh=FpUIQG2ildfJUJXlKIPJfIgmZEi5bWUOemoR8HcahF4=;
+	s=k20260515; t=1791551390;
+	bh=jf99WYUZ2O6JpzKHFQeF5M82mqTlQhLAytBup7eO+u4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=c2qqCgv0D58/0e+k9zxI9o6dg3GYpDAHOtqCZbpcGXac3qwbIvxYpa3bQHSmqrAyV
-	 VsbnWIASJih0kFuAw4OTbBagMheW9GxPXdx7eadF0QUvCJ7NM2xmMlSZ0qprbBTc/K
-	 n20YP9NzuQfludLWwDvLQjdb6QoK3liPhRuyryMZHAyPbZs9AAR4Px0k1NL88KQp9u
-	 UxYSlHPSPJvYXRhzh37T9CMKT8VZVA9w3hFuCqZVVCu9jX6FPCT7ecTe605nzua1sr
-	 biOTq+gYuahC7BnenqIHkldbrWfR2yghlxyKT0NuYKmSdqfectrWBgw2AirTZ9L/f5
-	 k1njNHyfO800Q==
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 92507198003A;
-	Fri,  9 Oct 2026 09:08:16 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-04.internal (MEProxy); Fri, 09 Oct 2026 09:08:19 -0400
-X-ME-Sender: <xms:P-fIajBkki790Caehe3DTmvhDY-2WDVcOvDkZdaUGk9ejDcosdz3Dg>
-    <xme:P-fIagwvaFs17JgJc6_4-W7UbnqQzsF00tXRD44Ft0Mpp3sF00kmWh0Z59Kxq7Hnd
-    rmJaBJp73yKvYu3vIy-zqeVTfQMwnZm1yehbW3roBzX6WbUpYs9YlXq>
-X-ME-Received: <xmr:P-fIanIyPDsDm4HxWS_Ml4co6ihgNtYzg3RKCqcIjKXd1hLONamUEkACkww>
-X-ME-Proxy-Cause: dmFkZTFj6c6YPtf1RuC5ge2DhrVWepaKzhdu396taV7DKjafJHPQen98eiWB0+ajyHRDBo
-    V9e4R6BapcDruKkFzt7wbLaUPtObKYs7i9noBdPNd/Q6HdaKBiK7wc4jCqMfUhvS89D9zD
-    6H8Qa2Lh150MpeNHzv+CKjV1NHARmiVAuljI7sPclv0uj2VaIlohhugxZpGz+KzF2cLXXD
-    aw9miqNb9hjy9GUg6ZWhHJkCKHUPOnumFVmQYAyIbqyiR9vu2DTsyIAAhfPUlXZgZ4aiFu
-    QOaOGft0y6E/laBs0cB6CcqW5Ibby+5XmFvevcK3EPGURVWQnT6jrlijFDsdGYcPZOA3gT
-    mvvTl13TDo8h6/vmkHXJs1G7Ql6NxAv+Ch5hGDhY70m3VIQ9uhGLUoy9F7cLI/eJu4b/nH
-    lZHFRwYYsu8dWgU8q3poX6OpVnmzbYLjMIAvFBb07hNoBj1OAiC7+LOJNVo0Wlqf709ua/
-    unpiNAskSwxOrVmfClu4Wi6a5hNXGTwKeZao5bkjWPxcs5imNSE0IINWKBTC4avlAQQbZ3
-    AMAI7l/Pat2dhWY2egMZFwwCy61AKkUl32pYmptN5sGsIrbFue5WT2TB2Y5QPmTWSaFT7q
-    dOeSzIVEOjElCH6Rc9LqzfHAEcPBk6BUIy5wGHyo0tpH6H2v3Ux0jgPpbRAQ
-X-ME-Proxy: <xmx:P-fIajKGf4zhBmdyhwypcQ3169QKNwWnxMm41auc61SakHcDgCHoRw>
-    <xmx:QOfIagXlsaiZSwUyCDE55Ioe3vzwaWNk2BaouJcaTtI-Kf8uBsnZXQ>
-    <xmx:QOfIav8zCruYSxG2TPYpmSt9_vRXpdghozhNXpAW4iJ7KTnDHAg_bA>
-    <xmx:QOfIaiJAi-7lJkBSB5Hj-ngVS49AhBqCuLjBaj271j_CoRja9LoXSQ>
-    <xmx:QOfIal0RcBbcM0t8osyWDiAAsLKGGpsCc6xY5E_m7UlM0spMTe9MHwpK>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 9 Oct 2026 09:08:14 -0400 (EDT)
-Date: Fri, 9 Oct 2026 14:08:13 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: Xu Yilun <yilun.xu@linux.intel.com>
-Cc: x86@kernel.org, linux-coco@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, Rick Edgecombe <rick.p.edgecombe@intel.com>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, dave.hansen@intel.com, kvm@vger.kernel.org, yilun.xu@intel.com, 
-	xiaoyao.li@intel.com, sohil.mehta@intel.com, adrian.hunter@intel.com, 
-	kishen.maloor@intel.com, tony.lindgren@linux.intel.com, peter.fang@intel.com, 
-	baolu.lu@linux.intel.com, zhenzhong.duan@intel.com, chao.gao@intel.com, 
-	artem.bityutskiy@linux.intel.com, nik.borisov@suse.com
-Subject: Re: [PATCH v3 1/6] x86/virt/tdx: Move TDH.SYS.CONFIG operations into
- a wrapper
-Message-ID: <asjnNXbMfro4k2t8@thinkstation>
-References: <20261006-tdx-module-ext-v3-0-db52cb05b918@linux.intel.com>
- <20261006-tdx-module-ext-v3-1-db52cb05b918@linux.intel.com>
+	b=UCQjhnwDaPHUxCDt5Av6x/T7ePXacI9aujq+Uhpub7n5e+2Bft4ly/g9YqoC25WtN
+	 LezsQYSsk4vP02YsHg+xxc2D4BlvNT1z5Fihj9D8jpQV7M5a1WkfR/Vorncqtd3cWC
+	 GBTFdJPbwzA2koPhC+8GONU1JR74CqiQ42ks0QC5pwXo+Rcxh9gv9/LrRvw2voWoc2
+	 V2QrSyfyQNn9l2NgWUVjlnQb2SlkbOvqXjgBGN5IjNVwnvJQU4RnuiA2lZO0LynlcT
+	 oM4nQIOT1ullKkfRrtLSkFvRJ07hQFNf7+/O+fU/9F76pTCdzeOFq7p9h2bhiCMqIV
+	 5TZtDF3f/MBWQ==
+Date: Fri, 9 Oct 2026 14:09:46 +0100
+From: Simon Horman <horms@kernel.org>
+To: Shashank Mohan Jain <jain.sm@gmail.com>
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, Tal Gilboa <talgi@nvidia.com>,
+	Saeed Mahameed <saeedm@nvidia.com>,
+	Tariq Toukan <tariqt@nvidia.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	linux-kernel@vger.kernel.org, Leon Romanovsky <leon@kernel.org>,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH net] lib/dim: fix 32-bit overflow of epms in
+ dim_calc_stats()
+Message-ID: <20261009130946.GB83879@horms.kernel.org>
+References: <20261005014411.78626-1-jain.sm@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,51 +50,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261006-tdx-module-ext-v3-1-db52cb05b918@linux.intel.com>
+In-Reply-To: <20261005014411.78626-1-jain.sm@gmail.com>
 
-On Tue, Oct 06, 2026 at 01:41:45AM +0800, Xu Yilun wrote:
-> In Linux, SEAMCALL wrappers are introduced to avoid broad SEAMCALL
-> access by exposing only a selection of SEAMCALL leafs, but also to
-> abstract the SEAMCALL register ABIs. The abstraction improves
-> readability and reuse for SEAMCALL leafs that are called multiple times.
+On Mon, Oct 05, 2026 at 07:14:11AM +0530, Shashank Mohan Jain wrote:
+> Commit 0843b2389064 ("lib/dim: fix 32-bit overflow in dim_calc_stats()
+> rates") moved the packet, byte and completion rates in dim_calc_stats()
+> to 64-bit arithmetic, but left the event rate as
 > 
-> Some SEAMCALL leafs are not explicitly wrapped because the level of TDX
-> ABI details needed to perform the call is low enough to flow well with
-> the calling code.
+> 	DIV_ROUND_UP(DIM_NEVENTS * USEC_PER_MSEC, delta_us)
 > 
-> For some of the currently unwrapped SEAMCALL leafs, the TDX architecture
-> has evolved the ABI to introduce new leaf versions. The host can select
-> the version to call based on what is supported by the loaded TDX module.
-> When future kernel implements this version selection, more ABI details
-> will leak into the surrounding caller code, which decreases the
-> readability of the caller logic. To keep the ABI details contained, move
-> the SEAMCALL leaf that will need version selection into a wrapper.
+> DIV_ROUND_UP() computes (64000 + delta_us - 1) / delta_us. On 32-bit
+> architectures that sum is done in a 32-bit unsigned long and wraps for
+> delta_us >= 4294903297, the last 64 ms of the u32 microsecond range
+> that the function is meant to cover ("u32 holds up to 71 minutes").
+> epms then becomes 0 instead of 1.
 > 
-> When defining the wrapper, the cleanest separation would be to have
-> kernel data types for the SEAMCALL wrapper arguments, and have them
-> marshaled into SEAMCALL leaf ABI types (often u64s) inside the wrapper.
-> This works for many SEAMCALL leafs but becomes cumbersome when the
-> register ABI type is a physical address which points to a buffer for an
-> in-memory ABI. If the SEAMCALL wrapper only accepts kernel data types,
-> it may need duplicate buffer allocation and copies to match the
-> in-memory ABI. Another solution is to define a named helper structure
-> that mirrors the in-memory ABI, populate it in a separate flow, then
-> pass it to the SEAMCALL wrapper. struct seamldr_params is an existing
-> example of this pattern.
+> net_dim() and rdma_dim() only wait for DIM_NEVENTS events before they
+> call dim_calc_stats(), with no time limit, so on an almost idle
+> interface a window can last that long. With epms == 0, cpe_ratio is
+> set to 0, net_dim_stats_compare() returns DIM_STATS_BETTER instead of
+> DIM_STATS_SAME when bpms and ppms did not change significantly, and
+> rdma_dim_stats_compare() compares a cpe_ratio of 0. The algorithm can
+> then step to another moderation profile based on a wrong rate.
 > 
-> TDH.SYS.CONFIG requires a list of TDMR information in the form of a PA
-> array. The PA array is the in-memory ABI. Create a structure for the PA
-> array, use it as the argument when creating the wrapper for
-> TDH.SYS.CONFIG.
+> Compute epms with DIV_ROUND_UP_ULL() as well. The result does not
+> change on 64-bit, or on 32-bit for windows shorter than 4294903297 us.
 > 
-> For readability, adjust a bit of the existing PA array size calculation:
-> use the new PA array structure's element type instead of hardcoding u64.
+> The issue was found by the Sashiko AI review of the original patch
+> (see the Closes: link). The fix and the test were written with an LLM
+> assistant. The dim KUnit suite computed the expected epms with the same
+> DIV_ROUND_UP() expression as dim_calc_stats(), so it could not catch
+> this; it now uses explicit expected values and gains two cases with
+> delta_us of 4294903297 and U32_MAX. Without the fix both new cases fail
+> on UML i386 and on qemu i386 (epms 0, expected 1) and pass on UML and
+> qemu x86_64; with the fix all 10 dim cases pass on all four.
 > 
-> Signed-off-by: Xu Yilun <yilun.xu@linux.intel.com>
-> Reviewed-by: Nikolay Borisov <nik.borisov@suse.com>
-> Reviewed-by: Tony Lindgren <tony.lindgren@linux.intel.com>
+> Fixes: 0843b2389064 ("lib/dim: fix 32-bit overflow in dim_calc_stats() rates")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260927051743.71460-1-jain.sm@gmail.com
+> Assisted-by: LLM
+> Signed-off-by: Shashank Mohan Jain <jain.sm@gmail.com>
 
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Reviewed-by: Simon Horman <horms@kernel.org>
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
