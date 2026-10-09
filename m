@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3B6348BD5B
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 10:08:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A63339768D
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 10:08:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791540525; cv=none; b=tHvwpz+9+ddHJ+4zMAYqqqXs5IAG/K7/TbzEaxjwMapPiFRSDK7sEU7J49IXsyyf8SRaSLOe2uCihm56fqXkK6kXTAyYdf9zXl6ldpCPUMwA0wMJqWoiLXb6FPcVftX3izOs9+6P9tPwWct4l7doEJOl42cAP2OvjGD0akhAN54=
+	t=1791540529; cv=none; b=rmQ3mOiAR3gqDWP8Xta9lwpRB76K5huZau8/P+kVx88iKHrMjRKOE4pbdWc6rzhoi4Ku6hJnM95poN9yuIc4UI3eghrTXN9w0Y3TZh/Bd++1Oh2EsRhGLhVv617TUvW4QU710et/tAkFNMrHsODKnrALEquNUYp/OUKwWYdzdoI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791540525; c=relaxed/simple;
-	bh=etkQCjsABNWX5REmtTguCjcieWTLJ5DAvwwWVHQEmow=;
+	s=arc-20240116; t=1791540529; c=relaxed/simple;
+	bh=/RFzRXT1i274yWP12KOobAOHREkprwzLEI+WV66y1rw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=m2VlC2Ri/pmwcR0DxF+xBnWYw15CdWXkg0Jr2hipyBvwt//8qDnrCYIr70svsnclvi0AoGPUSyHWOeEJZXTfh+S0Ds1qq9L32js/9bXBT/lP3zi5BpnEfIb/9NnIVqPvnul1FdWeYM4a61uHwhzlxb7sA3KpN9vZSjKKFGCGNwA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fmj8B0Iw; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Fl83anbZ5raDG+9PlypXblAdM88Nt9dHxC1cyYPfkyQXDQECRi9Z14iSwzCFZxnHIa9HU1+BxTAznk4BV/2wKEK4U2flXx7myWMSGlLXcoGlSYbic5I5Ew+p6umd3CyJy8Aa3zaQZ2QbuW5XFDBCZuQHxniXWvHMC1C2RPTopd8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h2BAUAlc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fmj8B0Iw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D6311F000FF;
-	Fri,  9 Oct 2026 10:08:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h2BAUAlc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE7871F00893;
+	Fri,  9 Oct 2026 10:08:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791540524;
-	bh=QiJYJbjmheWs7wPlkVKR/hdYCqmCDj//JwiCYCX2pGk=;
+	s=k20260515; t=1791540528;
+	bh=8SAwb2KHxo/EKB1KjZuIDXXR8cPoheuP4WaqUgC+rpY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fmj8B0IwM4MxhYYcILMeyRpVwGeVEfR+Yb2D2W8PmpIYhNVMhuWXR6RHlVmC8/pxY
-	 ljntwvQGqJ8CiLpkNPlXUm1X//wqXVZQ3LsworI5gyNkC8OWkIQRWLnBXWnnIffSNU
-	 308NyDXtoX1bxouW1HTuXKFkGDpD9pmYn7fR72vxtGK/wO/UbwgvcJDMRndyFIYd1q
-	 /bAw2b+FZRkxHUOJRdh4ed7Mz08sBCzE0uR24LmImGWxY5fC31BP1owhOeNnsBIqs4
-	 AIZr5+oPiS1bra1vqdJs11SkBRK7biuQy7HxL70whZi4CAb1FNTVJq8wAo2/h1buOw
-	 ouwHgEMfLR9rQ==
+	b=h2BAUAlc9dhrjzb9Kj+S8uacULkrsYjJqHOJwpA26NUNrajQyu2cmnKHB6ydVjrvg
+	 SMwQJenvFNe48h0xkoXYeOphMziUZoU1btAEX+qVGj5bl4gJ4ehtnmoBXJUWb3FhTD
+	 B4ArRhAs/vyuchF299ODxJ8t0Ug0a+/Bp6iP4yVTTK//xSg3/7zTzFxmfdMbPuxdX8
+	 1pw56K2K5jzEFiM4UhHPzJ0nTP3OqNcpF8KW13JSS3bwSM3HrinbXzSmujxHvzV7cO
+	 42e22FEhTimh8eAXS6+NADN6EqqjsNT7NL7Irv87qpA4QvjMYFP40v6GSTFz7vRr3I
+	 UC9271Q1+H2Wg==
 From: Will Deacon <will@kernel.org>
 To: linux-arm-kernel@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org,
@@ -44,9 +44,9 @@ Cc: linux-kernel@vger.kernel.org,
 	David Woodhouse <dwmw@amazon.co.uk>,
 	Peter Zijlstra <peterz@infradead.org>,
 	Marc Zyngier <maz@kernel.org>
-Subject: [PATCH v2 15/23] arm64: smp: Use generic HOTPLUG_SPLIT_STARTUP machinery for CPU onlining
-Date: Fri,  9 Oct 2026 11:07:26 +0100
-Message-ID: <20261009100738.31288-16-will@kernel.org>
+Subject: [PATCH v2 16/23] arm64: cpu_ops: Make 'cpu_operations' pointer global instead of per-cpu
+Date: Fri,  9 Oct 2026 11:07:27 +0100
+Message-ID: <20261009100738.31288-17-will@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261009100738.31288-1-will@kernel.org>
 References: <20261009100738.31288-1-will@kernel.org>
@@ -58,90 +58,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In preparation for enabling parallel bringup of secondary CPUs on arm64,
-take the baby step of moving from HOTPLUG_CORE_SYNC_FULL to
-HOTPLUG_SPLIT_STARTUP.
+'cpu_ops' is an NR_CPUS-length array of 'cpu_operations' pointers, which
+theoretically allows for different CPUs to have different bringup and
+hotplug backends.
 
-Rework the cpu_die_early() path to use a private cpumask, otherwise
-clearing the incoming CPU from the present mask in the 'kick' stage will
-prevent the hotplug stage machine from progressing and
-arch_cpuhp_cleanup_kick_cpu() will not be called.
+In reality, this complexity exists only to deal with the case where CPU0
+is not hotpluggable, so replace the array with a single, global pointer
+and record separately whether or not they apply to the boot CPU. Update
+the logic in init_cpu_ops() to enforce that only a single set of
+'cpu_ops' is required.
 
 Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
 Signed-off-by: Will Deacon <will@kernel.org>
 ---
- arch/arm64/Kconfig           |  2 +-
- arch/arm64/include/asm/smp.h |  1 +
- arch/arm64/kernel/smp.c      | 10 ++++++----
- 3 files changed, 8 insertions(+), 5 deletions(-)
+ arch/arm64/kernel/cpu_ops.c | 29 ++++++++++++++++++++---------
+ 1 file changed, 20 insertions(+), 9 deletions(-)
 
-diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-index 89d1f0f2269c..fd8cf792b7fd 100644
---- a/arch/arm64/Kconfig
-+++ b/arch/arm64/Kconfig
-@@ -230,7 +230,7 @@ config ARM64
- 	select HAVE_SYSCALL_TRACEPOINTS
- 	select HAVE_KPROBES
- 	select HAVE_KRETPROBES
--	select HOTPLUG_CORE_SYNC_FULL
-+	select HOTPLUG_SPLIT_STARTUP
- 	select HOTPLUG_SMT if HOTPLUG_CPU
- 	select IRQ_DOMAIN
- 	select IRQ_FORCED_THREADING
-diff --git a/arch/arm64/include/asm/smp.h b/arch/arm64/include/asm/smp.h
-index fe343c30d620..7b986a6a765b 100644
---- a/arch/arm64/include/asm/smp.h
-+++ b/arch/arm64/include/asm/smp.h
-@@ -89,6 +89,7 @@ asmlinkage void secondary_start_kernel(void);
- struct secondary_data {
- 	struct task_struct *task;
- 	long status;
-+	cpumask_t cpu_died_early_mask;
- };
+diff --git a/arch/arm64/kernel/cpu_ops.c b/arch/arm64/kernel/cpu_ops.c
+index e133011f64b5..eacfb88a0c0c 100644
+--- a/arch/arm64/kernel/cpu_ops.c
++++ b/arch/arm64/kernel/cpu_ops.c
+@@ -20,7 +20,8 @@ extern const struct cpu_operations acpi_parking_protocol_ops;
+ #endif
+ extern const struct cpu_operations cpu_psci_ops;
  
- extern struct secondary_data secondary_data;
-diff --git a/arch/arm64/kernel/smp.c b/arch/arm64/kernel/smp.c
-index d83ba5bbfd37..918b54d1c301 100644
---- a/arch/arm64/kernel/smp.c
-+++ b/arch/arm64/kernel/smp.c
-@@ -62,7 +62,7 @@
-  * so we need some other way of telling a new secondary core
-  * where to place its SVC stack
-  */
--struct secondary_data secondary_data;
-+struct secondary_data secondary_data = {};
- /* Number of CPUs which aren't online, but looping in kernel text. */
- static int cpus_stuck_in_kernel;
+-static const struct cpu_operations *cpu_ops[NR_CPUS] __ro_after_init;
++static const struct cpu_operations *cpu_ops __ro_after_init;
++static bool boot_cpu_has_enable_method __ro_after_init;
  
-@@ -108,7 +108,7 @@ static int boot_secondary(unsigned int cpu, struct task_struct *idle)
- 	return -EOPNOTSUPP;
+ static const struct cpu_operations *const dt_supported_cpu_ops[] __initconst = {
+ 	&smp_spin_table_ops,
+@@ -40,6 +41,9 @@ static const struct cpu_operations * __init cpu_get_ops(const char *name)
+ {
+ 	const struct cpu_operations *const *ops;
+ 
++	if (!name)
++		return NULL;
++
+ 	ops = acpi_disabled ? dt_supported_cpu_ops : acpi_supported_cpu_ops;
+ 
+ 	while (*ops) {
+@@ -49,6 +53,7 @@ static const struct cpu_operations * __init cpu_get_ops(const char *name)
+ 		ops++;
+ 	}
+ 
++	pr_warn("Unsupported enable-method: %s\n", name);
+ 	return NULL;
  }
  
--int __cpu_up(unsigned int cpu, struct task_struct *idle)
-+int arch_cpuhp_kick_ap_alive(unsigned int cpu, struct task_struct *idle)
+@@ -94,25 +99,31 @@ static const char *__init cpu_read_enable_method(int cpu)
+ 	return enable_method;
+ }
+ /*
+- * Read a cpu's enable method and record it in cpu_ops.
++ * Read a cpu's enable method and update/check cpu_ops.
+  */
+ int __init init_cpu_ops(int cpu)
  {
- 	int ret;
+ 	const char *enable_method = cpu_read_enable_method(cpu);
++	const struct cpu_operations *ops = cpu_get_ops(enable_method);
  
-@@ -138,6 +138,9 @@ void arch_cpuhp_cleanup_kick_cpu(unsigned int cpu, bool is_alive)
- 	if (status == CPU_MMU_OFF)
- 		status = READ_ONCE(__early_cpu_boot_status);
+-	if (!enable_method)
++	if (!ops)
+ 		return -ENODEV;
  
-+	if (cpumask_test_and_clear_cpu(cpu, &secondary_data.cpu_died_early_mask))
-+		set_cpu_present(cpu, false);
+-	cpu_ops[cpu] = cpu_get_ops(enable_method);
+-	if (!cpu_ops[cpu]) {
+-		pr_warn("Unsupported enable-method: %s\n", enable_method);
+-		return -EOPNOTSUPP;
+-	}
++	if (!cpu_ops)
++		cpu_ops = ops;
++	else if (cpu_ops != ops)
++		return -EBUSY;
 +
- 	/* A CPU has failed to boot. Try to figure out what happened. */
- 	switch (status & CPU_BOOT_STATUS_MASK) {
- 	default:
-@@ -407,8 +410,7 @@ void __noreturn cpu_die_early(void)
++	if (cpu == 0)
++		boot_cpu_has_enable_method = true;
  
- 	pr_crit("CPU%d: will not boot\n", cpu);
+ 	return 0;
+ }
  
--	/* Mark this CPU absent */
--	set_cpu_present(cpu, 0);
-+	cpumask_set_cpu(cpu, &secondary_data.cpu_died_early_mask);
- 
- 	if (IS_ENABLED(CONFIG_HOTPLUG_CPU)) {
- 		update_cpu_boot_status(CPU_KILL_ME);
+ const struct cpu_operations *get_cpu_ops(int cpu)
+ {
+-	return cpu_ops[cpu];
++	if (cpu || boot_cpu_has_enable_method)
++		return cpu_ops;
++
++	return NULL;
+ }
 -- 
 2.56.0.385.gd3acb90ef8-goog
 
