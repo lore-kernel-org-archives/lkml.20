@@ -1,276 +1,170 @@
-Received: from mta0.migadu.com (out-110.mta0.migadu.com [91.218.175.110])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C957C4E80D4
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 15:27:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.110
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 749504E80C1;
+	Fri,  9 Oct 2026 15:27:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791559634; cv=none; b=aYd4J1+9HIMz5HcpNOHH5vqPUG6p9b4PsrLHzmgZnS+mRSdmnJbzuBsrAc1Dyf3tXTS0mFCmeHpapHZ4in68+V1SDC9asmxywrBpd8OPafrr1wGXJ0g1fLZoIpfr9uKIkDwNCxUn7Y4yFocoX/3JGWBwmd66vAuHu6DZ0Td8cAc=
+	t=1791559643; cv=none; b=IOn+3mYxRdM7pRpEbOSN+L2kELvf7RHZl0Qhto0E6MNkOBAiUJuEEJN7IU///rgCezA/S2Z7R2akAuZYjiyGJD82EF8c9JUy/0p/0bRbGeMuPdqBE4cN30v4jaRnfYSDPq++aCH+gpy8a+ApaLeb7BMuqEzj3uel/OaFrUe1WlY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791559634; c=relaxed/simple;
-	bh=oYvjI9crgDoGo2keD2njZ5LJDYD26IF+7c19OHok5yY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cn6PFTWvRR0tf7NyXqfU+pClJytz4a6rK7er4GN+/gb12A7HmcCOqfen2mrizdt0uvSVe4jCWSMxhrLS9JtEjn07NAWE7y2mouHcfS74q1+1vpnEKI88/zNZM3xxRdn5plIvB0yVSg793r5YamXtEAk3zsgsR62n6z3IVkq7Aok=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=FaTIUcQT; arc=none smtp.client-ip=91.218.175.110
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791559643; c=relaxed/simple;
+	bh=J/r0cmylI3rsbeVOLn/L+u6QaHH8WMrAf4BaJst6G8o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JFQz6OEMzeY+GGEqP0qEkex4UJFswsrEks825Fc2lq2iZK0Qp4QsvluExLEIfxEDTnYhB8zlDWCVNetYCMSAvaFpL9FsRbUznrBbot+t6VVCu2EfV6TR5r8+agfeUIN1kY+0b1rlaC/4BmpoqvoK/Ew4ATf8x85Hi0/8Jg9oc5c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DQDiZNDd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="FaTIUcQT"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=oYvjI9crgDoGo2keD2njZ5LJDYD26IF+7c19OHok5yY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791559630; v=1; x=1792164430;
- b=FaTIUcQTpLUxLOWoOuXERinzwamZPq62wFKl29V91EopPpxE9Ga+VyaHNuMWFGATmZWZf1jF
- irPiqu8J7Jw8uEehaAgaYXJS/i+wvyUsHTRk8XFHBne8PYfBHjD+u9go03x+UnE3bwUJHDmSXoM
- oXW+HInQUVP93W+cLrCr3zqg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c49cc065a38ee442;
-	Fri, 09 Oct 2026 15:27:10 +0000
-X-Mizu-Trace-ID: c49cc065a38ee442
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <b887f721-124c-49ce-8b5b-c1edf0c24e40@linux.dev>
-Date: Fri, 9 Oct 2026 16:27:10 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DQDiZNDd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B73C1F000FF;
+	Fri,  9 Oct 2026 15:27:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791559641;
+	bh=rox2fOsL5pgm67p/vQVOSoocQPIT539zTWquqZ/ztnM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DQDiZNDdWfHLosGRMhZd1DH/xoyDrwu0+pd8Bjnvz9s9OqGNafiu6Z+BwKOr+s0jv
+	 AFZ3McjwsB//8Ge1QIPcuDCULiJvpzzeLCH4ouO00HpjHw1a5QQ+x085eBcVNGWODz
+	 Wl9FXuv06U2GAQ1qTvIQYII2Tq8zRSO+Bjuiv0000wqGp+MZbe2weS/bBpkBcKn+1R
+	 5Yp7D/PsRAPVnh56CL7wLLw4TYQC36WYSWf6Cs5llpJpirJZA1x18BlAl+mvV5FC2K
+	 dV3ti5SkjAE3WG5zAJ+Evd5xV4ILPSB0SxGSvbiejDpdjD6v8PxqGzFsw3I85g+fZe
+	 8DIOMU/H68LKw==
+Date: Fri, 9 Oct 2026 16:27:16 +0100
+From: Sudeep Holla <sudeep.holla@kernel.org>
+To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Cc: Maulik Shah <maulik.shah@oss.qualcomm.com>,
+	Rob Herring <robh@kernel.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH 2/3] pmdomain: Add support for system-suspend-only states
+Message-ID: <20261009-skilled-mature-bittern-2206fc@sudeepholla>
+References: <20261005-s2idle_state-v1-0-3c402c66f388@oss.qualcomm.com>
+ <20261005-s2idle_state-v1-2-3c402c66f388@oss.qualcomm.com>
+ <20261006-romantic-stalwart-seriema-90e71d@sudeepholla>
+ <CAPx+jO-T_0KT3GytYu8w6QvrhXFQNZQzR496RL=McU6rnMtnPA@mail.gmail.com>
+ <20261009-frisky-rottweiler-from-avalon-6c409e@sudeepholla>
+ <CAPx+jO-_aY5pMnWyy1hAs1WRmfW33vc317jdtBsEXYBoHsPfxA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] mm: zswap: use stack requests for synchronous
- decompression
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, chengming.zhou@linux.dev,
- dsterba@suse.com, hannes@cmpxchg.org, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, nphamcs@gmail.com, terrelln@fb.com, riel@surriel.com,
- shakeel.butt@linux.dev, alex@ghiti.fr, senozhatsky@chromium.org,
- kernel-team@meta.com
-References: <20261006002307.2669023-1-usama.arif@linux.dev>
- <20261006002307.2669023-3-usama.arif@linux.dev>
- <CAO9r8zMFm+JsboodgkG-jdQ9eTk+JHo=d-3Dw8PUcEqjr3+xVg@mail.gmail.com>
-Content-Language: en-US
-From: Usama Arif <usama.arif@linux.dev>
-In-Reply-To: <CAO9r8zMFm+JsboodgkG-jdQ9eTk+JHo=d-3Dw8PUcEqjr3+xVg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAPx+jO-_aY5pMnWyy1hAs1WRmfW33vc317jdtBsEXYBoHsPfxA@mail.gmail.com>
 
-
-
-On 07/10/2026 23:28, Yosry Ahmed wrote:
-> On Mon, Oct 5, 2026 at 5:23 PM Usama Arif <usama.arif@linux.dev> wrote:
->>
->> With separate requests for compression and decompression, loads still
->> serialize on the per-CPU decompression mutex. A low-priority load that
->> is preempted after the codec drops its stream lock keeps holding the mutex
->> and stalls every other load on that CPU, including higher-priority ones.
->>
->> Synchronous algorithms whose requests need no extra context can use an
->> on-stack request, so decompress with one and take no zswap lock. All
->> in-tree software compressors qualify. Asynchronous algorithms, and
->> synchronous ones with request context, keep the per-CPU request and
->> mutex, which is still taken before the zsmalloc read lock.
->>
->> Reading the per-CPU context without the mutex is safe. Since
->> commit ef3c0f6cb798e ("mm: zswap: tie per-CPU acomp_ctx lifetime to the
->> pool"), it is set up before its CPU comes online and is not torn down
->> until the pool is destroyed. The codecs keep their own stream locks, and
->> crypto_acomp_decompress() rejects on-stack requests only for
->> asynchronous transforms, which never take this path.
->>
->> For software compressors this drops the heap request added by the
->> previous patch. The on-stack request and wait take 216 bytes, which
->> makes the load path about 270 bytes deeper on x86-64. Asynchronous
->> algorithms pay this too.
->>
->> Signed-off-by: Usama Arif <usama.arif@linux.dev>
->> ---
->>  mm/zswap.c | 65 +++++++++++++++++++++++++++++++++++++-----------------
->>  1 file changed, 45 insertions(+), 20 deletions(-)
->>
->> diff --git a/mm/zswap.c b/mm/zswap.c
->> index 54187b1ef751d..7e7fb6e7ec24c 100644
->> --- a/mm/zswap.c
->> +++ b/mm/zswap.c
->> @@ -147,7 +147,7 @@ struct zswap_acomp_req {
->>  struct crypto_acomp_ctx {
->>         struct crypto_acomp *acomp;
->>         struct zswap_acomp_req comp;
->> -       struct zswap_acomp_req decomp;
->> +       struct zswap_acomp_req decomp;  /* unused by synchronous algorithms */
->>         u8 *buffer;
->>  };
->>
->> @@ -851,15 +851,20 @@ static int zswap_cpu_comp_prepare(unsigned int cpu, struct hlist_node *node)
->>                 goto fail;
->>         }
->>
->> -       if (zswap_acomp_req_init(&acomp_ctx->comp, acomp_ctx->acomp) ||
->> -           zswap_acomp_req_init(&acomp_ctx->decomp, acomp_ctx->acomp)) {
->> -               pr_err("could not alloc crypto acomp_request %s\n",
->> -                      pool->tfm_name);
->> -               goto fail;
->> +       if (zswap_acomp_req_init(&acomp_ctx->comp, acomp_ctx->acomp))
->> +               goto req_fail;
->> +
->> +       /* Synchronous algorithms decompress with an on-stack request. */
->> +       if (acomp_is_async(acomp_ctx->acomp) ||
->> +           crypto_acomp_reqsize(acomp_ctx->acomp) > MAX_SYNC_COMP_REQSIZE) {
+On Fri, Oct 09, 2026 at 04:26:38PM +0200, Ulf Hansson wrote:
+> On Fri, Oct 9, 2026 at 2:21 PM Sudeep Holla <sudeep.holla@kernel.org> wrote:
+> >
+> > On Thu, Oct 08, 2026 at 02:21:49PM +0200, Ulf Hansson wrote:
+> > > On Tue, Oct 6, 2026 at 11:15 AM Sudeep Holla <sudeep.holla@kernel.org> wrote:
+> > > >
+> > > > On Mon, Oct 05, 2026 at 08:59:43PM +0530, Maulik Shah wrote:
+> > > > > Some domain idle states require system-wide coordination and should not be
+> > > > > selected during regular CPU idle. However those states remain valid for
+> > > > > system-wide suspend like s2idle.
+> > > > >
+> > > > > Add a per-state system_state boolean and populate it from the system-state
+> > > > > property. Make the genpd governor skip these states during CPU idle. Leave
+> > > > > the system wide suspend path unchanged so s2idle can select them.
+> > > > >
+> > > >
+> > > > Instead of this I am thinking if we can QoS cpu latency setting and block
+> > > > system level states normally. Since s2idle is user driven, it should be
+> > > > controllable via user-space and we don't have to define bindings again
+> > > > if systems that use platform-coordinated needs this too. They may not
+> > > > use domain-idle-states.
+> > >
+> > > Even if we likely could make that work, it's seems not correct to rely
+> > > on userspace to make the kernel to pick the correct idle state, while
+> > > the decision should be based on the characteristics of the HW.
+> > >
+> > > In regards to PSCI PC mode, I believe we should consider adding the
+> > > similar DT property for the arm,idle-state binding and make a
+> > > corresponding change for the regular CPUIdle path/governors. Although,
+> > > it doesn't necessarily need to be part of the $subject series. I would
+> > >  be fine if that is handled later on too.
+> > >
+> >
+> > While I agree with this line of argument, I am bit worried that there is
+> > more deviation from ACPI _LPI binding(equivalent to these in DT). If other
+> > OS has manged to run the same firmware without adding such information
+> > to the firmware(ACPI in this case), why do we need that in DT. Is that
+> > information encoded elsewhere in a different form in ACPI and is this the
+> > right place(the idle state binding for DT) is what I am trying to understand
+> > here.
 > 
-> Where does the requirement on crypto_acomp_reqsize() come from? I see
-> crypto_acomp_compress() and crypto_acomp_decompress() only checking
-> acomp_is_async().
-
-ACOMP_REQUEST_ON_STACK() reserves sizeof(struct acomp_req) plus
-MAX_SYNC_COMP_REQSIZE, which is currently zero. A synchronous acomp
-algorithm can advertise a larger request context via cra_reqsize. Checking
-only acomp_is_async() would then leave that context outside the reserved
-stack storage.
-
-The core already applies the same size restriction to synchronous fallback
-transforms in crypto_acomp_init_tfm(). The operation functions only reject
-asynchronous stack requests; they do not validate the amount of storage
-provided.
-
+> I don't have the information about ACPI at hand, so I will leave that
+> to Maulik to be answered. Or perhaps, someone else already has this
+> information and can share that with us?
 > 
-> Regardless, these are crypto-specific details that shouldn't be
-> checked directly by zswap. Ideally we'd have something like
-> acomp_can_use_stack_req() or something.
+> In any case, I don't see any other reasonable way to describe this in
+> DT at this point.
 > 
 
-Done for v2. Added documented acomp_can_use_stack_req() in the public acomp
-header. It checks both synchronous completion and request-context size;
-zswap now uses that helper.
+Fair enough, we can consider that once we finalise what we have in this
+set is the way to progress(not important until then).
 
-
-> Also, could you please CC Herbert on future iterations? I would like
-> to get his eyes on any crypto-related changes if possible.
-
-Will do! Thanks! get_maintainers.pl didnt add him.
-
+> >
+> > Also taking the example of screen on, won't that be prevented as the
+> > system domain is shared by the system level idle-states we are talking
+> > and the screen/display device. So it never votes to power down that
+> > and the PSCI OSI domain idle driver must not be able to choose the system
+> > level state.
+> >
+> > In general, there is some device that doesn't vote to power down the domain
+> > and hence we can't enter the state. So my question is, will there be some
+> > device that doesn't explicitly register vote and hence we need an alternate
+> > mechanism like the one proposed in this set ? If so, what are those and
+> > how does that work in system suspend states.
 > 
->> +               if (zswap_acomp_req_init(&acomp_ctx->decomp, acomp_ctx->acomp))
->> +                       goto req_fail;
->>         }
->>
->>         return 0;
->>
->> +req_fail:
->> +       pr_err("could not alloc crypto acomp_request %s\n", pool->tfm_name);
->>  fail:
->>         acomp_ctx_free(acomp_ctx);
->>         return ret;
->> @@ -951,19 +956,14 @@ static bool zswap_compress(struct folio *folio, long index,
->>         return comp_ret == 0 && alloc_ret == 0;
->>  }
->>
->> -static bool zswap_decompress(struct zswap_entry *entry, struct folio *folio)
->> +static bool __zswap_decompress(struct zswap_entry *entry,
->> +                              struct zswap_pool *pool, struct acomp_req *req,
->> +                              struct crypto_wait *wait, struct folio *folio)
->>  {
->> -       struct zswap_pool *pool = zswap_entry_pool(entry);
->>         struct scatterlist input[2]; /* zsmalloc returns an SG list 1-2 entries */
->>         struct scatterlist output;
->> -       struct crypto_acomp_ctx *acomp_ctx;
->>         int ret = 0, dlen;
->>
->> -       if (WARN_ON_ONCE(!pool))
->> -               return false;
->> -
->> -       acomp_ctx = raw_cpu_ptr(pool->acomp_ctx);
->> -       mutex_lock(&acomp_ctx->decomp.mutex);
->>         zs_obj_read_sg_begin(pool->zs_pool, entry->handle, input, entry->length);
->>
->>         /* zswap entries of length PAGE_SIZE are not compressed. */
->> @@ -980,15 +980,14 @@ static bool zswap_decompress(struct zswap_entry *entry, struct folio *folio)
->>         } else {
->>                 sg_init_table(&output, 1);
->>                 sg_set_folio(&output, folio, PAGE_SIZE, 0);
->> -               acomp_request_set_params(acomp_ctx->decomp.req, input, &output,
->> -                                        entry->length, PAGE_SIZE);
->> -               ret = crypto_acomp_decompress(acomp_ctx->decomp.req);
->> -               ret = crypto_wait_req(ret, &acomp_ctx->decomp.wait);
->> -               dlen = acomp_ctx->decomp.req->dlen;
->> +               acomp_request_set_params(req, input, &output, entry->length,
->> +                                        PAGE_SIZE);
+> Assuming I understand the above use case, you are thinking that the
+> display device (for example) is a part of a cluster PM domain, right?
 > 
-> Just use a single line :)
+
+Yes, exactly.
+
+> If that's the case, besides that the cluster PM domain topology must
+> be modelled accordingly, the display device should be hooked up to the
+> cluster PM domain it belongs to.
 > 
->> +               ret = crypto_acomp_decompress(req);
->> +               ret = crypto_wait_req(ret, wait);
->> +               dlen = req->dlen;
->>         }
->>
->>         zs_obj_read_sg_end(pool->zs_pool, entry->handle);
->> -       mutex_unlock(&acomp_ctx->decomp.mutex);
->>
->>         if (!ret && dlen == PAGE_SIZE)
->>                 return true;
->> @@ -1002,6 +1001,32 @@ static bool zswap_decompress(struct zswap_entry *entry, struct folio *folio)
->>         return false;
->>  }
->>
->> +static bool zswap_decompress(struct zswap_entry *entry, struct folio *folio)
->> +{
->> +       struct zswap_pool *pool = zswap_entry_pool(entry);
->> +       struct crypto_acomp_ctx *acomp_ctx;
->> +       bool ret;
->> +
->> +       if (WARN_ON_ONCE(!pool))
->> +               return false;
->> +
->> +       acomp_ctx = raw_cpu_ptr(pool->acomp_ctx);
+
+Ah, I thought that's the way the whole domain-idle was modelled as we
+started this OSI discussion a decade ago with an example of CPU clusters
+sharing power domains with some other devices. I am surprised if that is
+not the case already 🙁.
+
+> Beyond that, it's the corresponding display driver that becomes
+> responsible for what should happen during system suspend. If the
+> screen needs to stay on it may need to call device_set_awake_path()
+> for the display device - unless it's a decision for user space that
+> can control the behaviour for the display device via its sysfs node.
+> If things are managed accordingly, genpd_finish_suspend() may decide
+> to keep the corresponding PM domain powered on during system suspend.
 > 
-> We probably want a comment here explaining the two possible paths?
 
-Added for v2.
+But the s2idle and s2ram anyways suspends all the devices, so they need
+to vote in for the power domains to be turned off. If they are supposed
+to stay on, the system enters the state it can based on the other votes.
 
+> The above said, $subject patch doesn't change any of this. It only
+> allows us to use more states (deeper), which are limited to system
+> suspend (s2idle).
 > 
->> +       if (!acomp_ctx->decomp.req) {
->> +               ACOMP_REQUEST_ON_STACK(req, acomp_ctx->acomp);
->> +               DECLARE_CRYPTO_WAIT(wait);
->> +
->> +               acomp_request_set_callback(req, CRYPTO_TFM_REQ_MAY_BACKLOG,
->> +                                          crypto_req_done, &wait);
-> 
-> I would rather add a wrapper for this (e.g.
-> zswap_set_acomp_req_callback()) to avoid the mental toil of checking
-> that we are passing in the same things as zswap_cpu_comp_prepare().
 
-Added for v2.
+Still not convinced, if all devices are plugged in to the power domain
+hierarchy correctly and the domain-idle states represent or carries
+the entire system power domain topology, we shouldn't need this extra
+information. Having it make cause issues when it conflicts with the
+topology information IMO.
 
-> 
-> 
->> +               return __zswap_decompress(entry, pool, req, &wait, folio);
-> 
-> Hmm would it be more readable if we create a dummy zswap_acomp_req
-> object here and have __zswap_decompress() take in __zswap_decompress
-> instead of taking in the req and wait separately?
-
-
-I would keep req and wait as separate arguments. zswap_acomp_req includes a
-mutex that stack decompression never uses, and taking the address of its
-wait can still reserve the entire wrapper on the stack. Removing the mutex
-from that type would add more restructuring. The shared callback helper and
-path comment make the setup consistent while keeping the existing stack
-footprint.
-
-
-> 
->> +       }
->> +
->> +       mutex_lock(&acomp_ctx->decomp.mutex);
->> +       ret = __zswap_decompress(entry, pool, acomp_ctx->decomp.req,
->> +                                &acomp_ctx->decomp.wait, folio);
->> +       mutex_unlock(&acomp_ctx->decomp.mutex);
->> +       return ret;
->> +}
->> +
->>  /*********************************
->>  * writeback code
->>  **********************************/
->> --
->> 2.53.0-Meta
->>
-
+-- 
+Regards,
+Sudeep
