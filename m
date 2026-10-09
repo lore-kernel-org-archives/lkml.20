@@ -1,49 +1,49 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mta1.formilux.org (mta1.formilux.org [51.159.59.229])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAB523EB7E9;
-	Fri,  9 Oct 2026 17:34:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F8D73D1A82
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 17:36:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.59.229
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791567276; cv=none; b=QvJJt9s19pF4uKigk0nbF28wVjlP+UhynRqwl6vvraTT1epdnkn3/m5jMrnL5VAOadn04/WWD43vFF1QrpeER/Kr8o4dv6pOoaByFuXzbmupC7C6K6oKEfvUqfsCJmK00kPeuwqyYgAlkFkPttmI/C+HoO5HRsWYQ/vw2kmj4dM=
+	t=1791567411; cv=none; b=hdMNYgs5pMapPBRDQWGFYMJZJoK7THQOH3a3406dCPZPVENV9Zit8V6xgvFjzGQnjMa5hJEOlnE47yxieJNhBMb0RF2gPA8nAM8AzLycd0dlPOJwgUKh83l7GWXZ1DgE0iEYgBaV2OAi9SIn6O05f5oVui2hhSGtAtxklo1eUNg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791567276; c=relaxed/simple;
-	bh=7JvhXxV1YuLLBfPgG9f3+Dy/RpnCeQIkzzy63OaQQSk=;
+	s=arc-20240116; t=1791567411; c=relaxed/simple;
+	bh=hmScNbhHpQEdh0jHezEe4irPwmth2ZgOPAFEmTLrLcU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pgN2xvHoPvR1ZitGO9u3BlB8cTuaASogmwg2Bi7gyfW8QqaNqNejjBpYOMCWbGzpALBZc0NBJZ51R3URq9gV2cANHUXeQp5lq2k+Q0jNRXyE5Ma3uEcl4kOkiOjq042bXNg2VJC7vnlsWcmyMzHQxVgoywDsC4Smv5RMxk6xuyY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UOXVnO3z; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y9vSUEcpD3vYx+2d2ohWiouCYH7DfLlSl3I+c4RynFDX+LvpWta0WlHZohlUvn/CAqQooTYlOC05ydGDta2taHQF4vCIQo5JBChNYJFIAsJzRY9S4EKi56OYQX8UtNMtQvUsbILFBP+6aWoVimKt0w5+10Eqgo4usd8QEaMXysU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=1wt.eu; spf=pass smtp.mailfrom=1wt.eu; dkim=pass (1024-bit key) header.d=1wt.eu header.i=@1wt.eu header.b=jQz9mo86; arc=none smtp.client-ip=51.159.59.229
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=1wt.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=1wt.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UOXVnO3z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 457EC1F000FF;
-	Fri,  9 Oct 2026 17:34:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791567275;
-	bh=Y+e5fiagQUAbWq0G0G72uFDu9M2cjMIliK8S5C6avdA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UOXVnO3zLoVszFvsV1E0D3WZpQXkBbOKbF5rRippK/RnbXOYcy3ELkYeimx3uG//V
-	 CdFGVtMRcx7GLbDblh+dkr4XNWLvY/7MZtNA9aC/ABl8Q9d+7g5V6ZZ/tcQQgXUnpm
-	 6W0tuTIBiq4UcdSPP0MZGUdO6pD/xWWMJnGcKnjgov9SfakkP43UUUt+cHr86DK8qb
-	 taFrkhGfWcmDriSUwg2E0QCOewfSjpTMWVm5JsIzzRzHHJfKkkOcCWoSLHu++eImHK
-	 4ZTJ+kzQ9OA+lPEbSGeDbuu5dOlAFZT3wb5CXE0C/ne2qxQNO0JoDukIkWjeatApNC
-	 ljGhNLuwMZsGQ==
-Date: Fri, 9 Oct 2026 12:34:33 -0500
-From: Rob Herring <robh@kernel.org>
-To: Conor Dooley <conor@kernel.org>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Quchaosheng <quchaosheng000406@163.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: display: ti,tpd12s015: Convert to DT
- schema
-Message-ID: <20261009173433.GA2862960-robh@kernel.org>
-References: <20261009105601.301891-1-quchaosheng000406@163.com>
- <20261009105601.301891-2-quchaosheng000406@163.com>
- <20261009-2f34bbada2c463c78b2c05a7@squawk>
- <20261009144434.GD622105@killaraus.ideasonboard.com>
- <20261009-db35f1d74028d0d0a34f1106@squawk>
+	dkim=pass (1024-bit key) header.d=1wt.eu header.i=@1wt.eu header.b="jQz9mo86"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1wt.eu; s=mail;
+	t=1791567405; bh=BXtUr3dZINZu+CEqNINERyUDGN1UDWWUbKnHYQJae6g=;
+	h=From:Message-ID:From;
+	b=jQz9mo86eRH3k3kClHk0yzWDS2CfRPQEwUP82rhviVuW/606vk1Cc3s8bnX1Gn9Du
+	 yVX06AV+6JA06+cpWbotuMjcsQXTAzuZXAgyGMtRmadUEiAi++t+DIuX85GcB62Qvz
+	 3OwIlps+ExRdHYRpnDFYdXYtRayVs8+f5na+54v0=
+Received: from 1wt.eu (ded1.1wt.eu [163.172.96.212])
+	by mta1.formilux.org (Postfix) with ESMTP id 39FF9C090D;
+	Fri, 09 Oct 2026 19:36:45 +0200 (CEST)
+Date: Fri, 9 Oct 2026 19:36:44 +0200
+From: Willy Tarreau <w@1wt.eu>
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Petr Mladek <pmladek@suse.com>, helpdesk@kernel.org,
+        Steven Rostedt <rostedt@goodmis.org>,
+        John Ogness <john.ogness@linutronix.de>,
+        Sergey Senozhatsky <senozhatsky@chromium.org>,
+        Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+        Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Linus Torvalds <torvalds@linux-foundation.org>,
+        Geert Uytterhoeven <geert+renesas@glider.be>,
+        Jiri Slaby <jirislaby@kernel.org>, linux-kernel@vger.kernel.org
+Subject: Re: Create printk@lists.linux.dev
+Message-ID: <askmLHdIBmy6NjDL@1wt.eu>
+References: <asjrq9g8EoUGepcH@pathway.suse.cz>
+ <20261009152627.285d814b@pumpkin>
+ <askBpT-dk59MzcTP@1wt.eu>
+ <20261009183427.7a7d71ba@pumpkin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,84 +52,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261009-db35f1d74028d0d0a34f1106@squawk>
+In-Reply-To: <20261009183427.7a7d71ba@pumpkin>
 
-On Fri, Oct 09, 2026 at 04:42:01PM +0100, Conor Dooley wrote:
-> On Fri, Oct 09, 2026 at 04:44:34PM +0200, Laurent Pinchart wrote:
-> > On Fri, Oct 09, 2026 at 03:25:49PM +0100, Conor Dooley wrote:
-> > > On Fri, Oct 09, 2026 at 06:55:59PM +0800, Quchaosheng wrote:
-> > > > From: Chaosheng Qu <quchaosheng000406@163.com>
+On Fri, Oct 09, 2026 at 06:34:27PM +0100, David Laight wrote:
+> On Fri, 9 Oct 2026 17:00:53 +0200
+> Willy Tarreau <w@1wt.eu> wrote:
+> 
+> > On Fri, Oct 09, 2026 at 03:26:27PM +0100, David Laight wrote:
+> > > On Fri, 9 Oct 2026 15:27:07 +0200
+> > > Petr Mladek <pmladek@suse.com> wrote:
+> > >   
+> > > > Address    : printk@lists.linux.dev
+> > > > Description: Linux printk and kernel string formatting development
+> > > > Owners     : pmladek@suse.com, john.ogness@linutronix.de, andriy.shevchenko@linux.intel.com, rostedt@goodmis.org
+> > > > Allow HTML : N
+> > > > Archives   : Y
 > > > > 
-> > > > Convert the TPD12S015 HDMI level shifter binding to DT schema.
+> > > > Reasons for the list and additional info:
 > > > > 
-> > > > The TI TPD12S015 is an HDMI companion chip that combines a level shifter
-> > > > and ESD protection circuitry. Document the two ports it exposes between
-> > > > the HDMI transmitter and the connector.
-> > > > 
-> > > > The tpd12s016 is software compatible with the tpd12s015 and is listed as
-> > > > a fallback compatible by am57xx-idk-common.dtsi, so accept it as a
-> > > > fallback of "ti,tpd12s015". The driver matches on "ti,tpd12s015" only, so
-> > > > a board using the tpd12s016 must list both compatibles.
-> > > > 
-> > > > Assisted-by: LLM
-> > > > Signed-off-by: Chaosheng Qu <quchaosheng000406@163.com>
+> > > > Honestly, the main motivation is to allow sending Sashiko review
+> > > > for changes in PRINTK and VSPRINTF subsystems as a reply to
+> > > > the mailing list.  
 > > > 
-> > > No idea if the sashiko reply is valid, because I have no clue if
-> > > providing a subset of the gpios is functional. Really this should have
-> > > multiple different gpios properties,
-
-The minItems one is not valid. sashiko struggles on our quirks against 
-normal json-schema. Generally, if either minItems or maxItems is not 
-specified, we make them equal. I think I documented that, so we need to 
-get sashiko to read it...
-
+> > > There is also the smaller/faster printf code in 'nolibc'.
+> > > Might be worth mentioning that as well.  
 > > 
-> > Definitely.
-> > 
-> > > but this binding is really old and
-> > > not worth changing IMO.
-> > > Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> > > pw-bot: not-applicable
-> > 
-> > I'm getting annoyed be the LLM-assisted individual conversions. Can we
-> > start requiring people who convert text bindings to YAML to at least
-> > handle whole groups in one go ? If they're going to do a bad job, I'd
-> > rather have to review it once only.
-
-I have a branch of ~600 questionable patches. :) It does make arm64 
-warning free (and some of the warning fixes are valid).
-
-What's left is really stuff that's old, not getting new platforms and no 
-one cares about. I don't think we need perfection. We should probably 
-just ignore sashiko.
-
+> > Better not mix the two, nolibc is purely user land code and doesn't
+> > have the same constraints.
 > 
-> Or do one, and take the learnings into all the remaining patches - but
-> with LLM conversions I don't think there's really much learning going on
-> at all.
-> 
-> I guess bunching them is fine, provided it is for one subsystem. I
-> definitely don't want to see a set of 15 patches across 9 subsystems,
-> at least with one subsystem it's likely to be the same common problems
-> across the bunch.
+> The kernel version is actually horrid, rewriting based (loosely) on the nolibc
+> version might be an improvement.
+> But I'm not sure how I could do it without it mostly being 'one big patch'.
+> The nolibc version is much more of an embedded system version and a usual libc one.
+> Things like not calling a function to add every character to the output help!
 
-I've tried expressing my preferences in priority, but it hasn't worked. 
-It was mainly GSoC or other programs, but now it's?
+There's obviously nothing wrong with taking inspiration or code there, but
+I meant we should not pollute printk() discussions with nolibc's constraints
+and use cases.
 
-My priority is:
-
-- Fix arm64 warnings
-- Fix arm warnings
-- Convert subsystem bindings
-- Fix other $arch warnings (no one cares AFAICT)
-
-We're actually pretty close to arm64 being warning free. krzk's LPC 
-slides inflate the numbers as N boards for a SoC give N copies of 
-warnings. next is currently sitting at 218 warnings in my deduped count. 
-About half of those are HiSilicon and Mediatek. The rest of the 
-platforms (by subdir) are around ~20 or less.
-
-arm32 is still a long way off. The recent platform removals should help 
-though.
-
-Rob
+Willy
