@@ -1,245 +1,151 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76CBD3B14C4
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 22:31:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791585094; cv=none; b=JQa4ksnynvdJUXfAlfMRe/iUBTgbdanLubuon1k+HtQSkdULv94vbez97yYDM1za4Zb3Jsk7usPjkeWHuEGTDWXNxIPW4xtwDnCTMqOEi26qmbciOg73PnnLU5beOugcD53o7vOORFvc4t1qeCsZCdQGtrA62sIh4lx3Rww9jOU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791585094; c=relaxed/simple;
-	bh=A/kcRKmJR7ozCn7Cl71ZSCtr5qDqDq7RiBTaUIROmyM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hOwvKSXSrjg76s5d82ElRvpSK2fZmQps6E0NfUaWuXlAMjyxQ1AmxzUHawsKJroRb/pGD/OQV0wgtvF295om9gfweWpOgbGjcXhLpT+RUFq1eyBRQ/CiOCIexRYNUOKAoZSujcEjvivES6rLnqYaum1PoGXAY3kvb8Spc5Guks8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k2TFtt9b; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA2B33C7692
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 22:33:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791585237; cv=pass; b=meTekGa/yTAXpaLvEnGlMY0nHgx8txoY+nOV8Som6rLcGXHhR8zLiswTWIm4Y6sGhoakfkjm+WPk9hmb+JMThlKMEv0efrfLwLl561tPW7VWUNzpSxVM2g7hPORA+aca8lrvGdqARo5Q/zA9K3OQOVR6NzVEyHwmc4dpJhTeG0Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791585237; c=relaxed/simple;
+	bh=9quX5CnvIgOd2bqETq3nY4+kaqua2/tRKQhSxS2Xq3o=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=e07qca/v4+ALlCYDiBakZYG1sfiJJjyXhfiQy+hYj0A0iKajZcSUb2mihkH3B7K8hMzCgrm2+auiVvoXhBbnoWW4Tv9MBHw3PXG+s6D7EYsRomMOGjGo9W1fXyIFLiK2e6Q8NFZ4SEQtNJnlNQHZCZMCFTHyWTaM2jZ3EuDMo+Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TD/ymqd2; arc=pass smtp.client-ip=209.85.208.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k2TFtt9b"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49ff639372eso282585e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 15:31:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TD/ymqd2"
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6ae27f06c2fso290883a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 15:33:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791585234; cv=none;
+        d=google.com; s=arc-20260327;
+        b=s1a39OOFh1iNEHRZKYJRSRbMEzp7+wAASkzAZfXJRz3lZ7hSWU9WhrhPOpsGYrYEO6
+         27T3APnt/94YvwAol7WEuZFmxJdHKpjEUHhsyyAg3aMT2qwTvjk4U4BT+u81Jsg0QLye
+         ETqjzEJxEkY03ujxfZKiqmMe1z2y2A8DcPWqgw4yfL7zLy1SYltl5U+KYrDXCJFhcJAw
+         mcov8bCXh8a7Vay6Qns7EP1VGOxlFdKJi0Awu50nSoyQS+2ZJNA/0hkrYg7IenU2bii0
+         avErZO59l8+FGOSiKEaivE2ur3Ssv4BmKKoCDGmHVxppCU9Tz4w9nW5efqPhT9c1ivZC
+         MCiA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Y2x5f8OW9Jzw5234KyE0CilJDEpfG7QLEYaTd+TOUYw=;
+        fh=NP/jWiK4/evGD4vYz9xZiQRV+ibLKPA4rTljmWmRwog=;
+        b=FgbVN8V2mmzJGXMI6f1ppZFESn6dbxFhcd855hMlp+mPNSgO2g36rEw4SpJd7ziQnm
+         A/GIzr1jKAH2k5IRvBu59pMDfT6dfHR0LT+QaAmHb4/dH12gQzTfqXlo/rNmXY+HU4Cx
+         SOUkGVSjag2BSWGIeEsOamocbQYTwniyzUzlsXNZ0pkRsldhws5fLD320R76qt8cxlGI
+         /k9U/memITL4hD5QJb2x8xRe0HtXfL60iGljPPekcLMtiHIRs+Hgn/Zn4xOZrRPj92rh
+         LdcE4ffuc098Ctx6cpDVnvvpHJnnHUVzLHI1BhbcY0U0tOno59HvnZwD/kBvUm8v91Bw
+         uTfA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791585090; x=1792189890; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aWZkp+NCndvQueQ6E2vgtu4DQoR7geHPX3xAT83ymnk=;
-        b=k2TFtt9bWW0OYERa7vi1cRp44lK5lURMFrK+Q/di8x0Uvbg6SrRDfXXxPv/bujI7D2
-         C5RKJL+yL0gvv3Pj8rGkkr84vZrMAEPB6bSFpSU81xxmTZ3t+vm7LpN5o2Cles0b4mqL
-         MSjtEHWZ8BIA5tkH63XRQvRLJs/ZDnx/EAAvTYG+JQpwKgqx3ZwkvMVNKMu9HUdbyfAt
-         BLSa+skhXF2raIXC916OW9lX0rBG9WKr3IVjC5mPl/Xzx9vyInTnccNSCzIdt5zHFV98
-         P1W+EVcSB6+cxrvROJ+VSfrNfErQHa1pNZ/ZWFza7ojeLrYai154kMux0QMoaZqB2Mc6
-         t1VQ==
+        d=gmail.com; s=20251104; t=1791585234; x=1792190034; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Y2x5f8OW9Jzw5234KyE0CilJDEpfG7QLEYaTd+TOUYw=;
+        b=TD/ymqd2VZsqvzs84kGAYMrXgiIsi0tA/PegsHu60frn/DOT1ctF+MiMGTsbyQcTYD
+         kQLVASiSGlEMPvWB15cd5iUyNzTfQZlopj4Y7NmufQsK2RrX3CFxQYf52BKSHodzesEu
+         fADYmaEg0us2ZEJ0fDS0jp6WlgwgxBHbZCIWMKicO/QiMbNSS4KWjQYZGbomk0PTNWQh
+         s+MTM1qFHBgs7uBmGGHLKLRX6rbN1EEvAxcHMRxZ7f8bKEGht1J17tKRdFBi0Qi9SxpD
+         vCu6OLUG/PcLRS/FPHqqBDsRK3k4F1BW8hvgfMjdX9M39G1RUrD7yIs3hqGq/Lmi4agJ
+         tW9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791585090; x=1792189890;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aWZkp+NCndvQueQ6E2vgtu4DQoR7geHPX3xAT83ymnk=;
-        b=AJm8M8JCl/BXTORXd7j9BA/qOs9ySHzzCRgdNuLeTbaXLEoI6rzAkRp7eM+KLmQ27k
-         Mxkw5q/LfqHFXWTdLz2DNF/3ueKA9vm2EeqN0SZhuM1SYbdz+xZZJcLdTjM9iJqBx88u
-         u52ZK/9l/WyYB3KQne7C1wDX1xHWSOrFbTngxo1KkroFpebxEDmDBF+/B0puWNTqqSaS
-         Px0moMWOg352/ACxYSbh95TjfDziXCTM0br0CBsXGgaG9fAewqzKJ1YrRpMSyu0ejKm9
-         nE3T/2gf6mnzvdmpHI0RlQySKk+OOBOR5LxmPiDlSDs1fg19N7cL9kAsAjUaN9z3UkRq
-         BXkg==
-X-Forwarded-Encrypted: i=1; AKwUvBy//LxwR07FGSYz5nFRDfclc95WOgAVxOtAyk8kTQlo2vQJ4JRuzT3iqYgPNSwodwobUAQgh+Cr0+Qbnbw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLwZP42X/kkiiFQsOkD9WHZxqffayVUn2S9SrsKJHTvbb5X5OCH
-	cfqJ4Cv8jjUS1E9ztwTKFjZAVxZr241kaX+tuQaELtT84UbK/XZmaEkcYB+FxdVbMcgLmA==
-X-Gm-Gg: AYBFou2nzq3MZPjSlEl34lRzCf+8E48B6+d0lQH0F+nOesKiZtPUcERVm+1Y+EES7xX
-	WSIIWFu1QC5YoLr2KvOR3hQu0V6f/imt7GhIFh43mNqb0EB3n262DZ0CAb2nNJ6k0VYLC/GigF8
-	DS8XrYrhEn+BTyQr95PA/qypoIkV1dcTCC3LNMno3myYOJ0+MYglwM0vCofQsu1vfVJAn4SEweF
-	bFkfyj9F6WAxfaH7Ctmt/ODd4DY8IyvNbROT/y84TSr77c1NHkbOIQ3hzRgz2ob+K62Uf8WTG/H
-	10EI80Iv7c/ULxyZIUvHBJ24f61lbamGUrN4g0QbLZ71YyIVpOCMNMTVClCN2g0aFSkZO0AbC6e
-	SVO59QS/h/Kvf90xsrxeKQfpmImhSEYMELRd4oYv/lO98PjA3P46xJq2K/vbGvZAsvdapIc/I9Z
-	5mhVc3UiLU08+fSpPJ9bbNG6NyuFbUxbEdWvD/J+yMtrA77IZ1JueeKcYA0tWF47iYzOhCkNxNa
-	EdaiL/uSCmq4uSEq8oqsSeJeZbyDw==
-X-Received: by 2002:a05:600c:1e0f:b0:4a1:8469:e6c8 with SMTP id 5b1f17b1804b1-4a18e46f48fmr62472605e9.1.1791585090364;
-        Fri, 09 Oct 2026 15:31:30 -0700 (PDT)
-Received: from Nuel20.localdomain ([105.118.73.40])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18be97d1esm130254575e9.8.2026.10.09.15.31.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 15:31:29 -0700 (PDT)
-From: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
-To: linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: johannes@sipsolutions.net,
-	skhan@linuxfoundation.org,
-	Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
-Subject: [PATCH] wifi: cfg80211: defer self-managed regulatory processing to wiphy_work
-Date: Fri,  9 Oct 2026 23:31:23 +0100
-Message-ID: <20261009223123.10536-1-emmaonana18@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1791585234; x=1792190034;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Y2x5f8OW9Jzw5234KyE0CilJDEpfG7QLEYaTd+TOUYw=;
+        b=v3DyU4C2ksfuTTf2Wcukg25UZpizaP/NpAsrfhtLDQeLpkybRlmq5CNy7AplPG6L4y
+         +Ggg2bAu1bHMaAAOkRUlGWdp+tQRHrlNWMAAkMZMkqYxkmKvcj4FZyaFNlUuuqqGmmNa
+         BCTqAks7pIdXclibkzhejsss/1dBgzVaXFfFeB5CE2KnWAjHItEA6vS2+SHnMR8gecEq
+         WjhtGnKiM8JMP2I0413wDlsDAr6JUpFAg6ha1c9CErXFKeUqo7Auy1OETB/wR5ED0keK
+         YXRZhe9+f8gqIH+cs21yQVFmA6CLIHR55D5dcaOmLoDfAhltH5JQ8BzJoMqK34w3nWkX
+         7A9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxwmV8BtxqVXbeoq7DdpD20Cj+/OchXaMGq6rCB2/SPd1pZdiIQ81PcRF6Y2scWxsOQNrCp+oNUaBzZ5vs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK93tXNBnGTC2VeG8SvvuMHFNuTTkR4FvW7WPyMzY//ByRYQcEh
+	rHm0CAji8HcbmxKP3vtt5sWI3pt4W2Cslh0G7ZmZEOXxvdco9cgsK8BDTYH3KNXpt/mhJ2XzuzO
+	lyWdohNrg1GFjriEvDcY0ZeI0ERxcuNQ=
+X-Gm-Gg: AYBFou03LAsh2//3Ui8ShYb4Owbckg/zuTramkgvHJI5eY4KXhsjQB/iy+sOuf48cis
+	tkMQ+WdzJhz7ujT4mqHxqrJPKZwfMC5r8BYBe4sZYLswZVOlVaw/FLq4hjkuoRFRCSTwRYJcZWq
+	Z3rs26XjgRHB+XRVnI9jMoPoBZeop196CerOEG+pif3R98BuEQzPkLmmW6LvPJUY+FhTo6U7whj
+	NgBZbZvZWtsOW5SYZ/4+AMrPZPQlAm+3dmJTLlquVCZ+/sfVGMyY5zJdO5XzJIumM9wB66CrBmr
+	QAPZEQJXgAyO5wBegw6D5xO6EfjoLSRDC20XmAtwtv0/kMGwGSHp0ALydsRTOU7g71+smPxWEvX
+	L2wZrf05ajFzNYxc+muR0R4tyh1ynRkU/tIBp6uH7InY+DdtP5vpcRoQCn3m8EBvUZuqK+9z6M4
+	GeTbPZamyDpk+53KfYOL4DmBC5mh/iYLG/Bretq7GahPMMuIlX/cIz0gKdX0EeKntSzy0nAbmna
+	4LB
+X-Received: by 2002:a17:907:3f87:b0:c2e:2e1b:30e3 with SMTP id
+ a640c23a62f3a-c31aa00e12fmr387733666b.21.1791585233913; Fri, 09 Oct 2026
+ 15:33:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261007174449.671416-1-rosenp@gmail.com> <20261009164732.GG83879@horms.kernel.org>
+ <CAKxU2N_=H=D0p=g0XBqFtJFHDpidO-5d7P1kKZxXEDX86BGnPw@mail.gmail.com>
+In-Reply-To: <CAKxU2N_=H=D0p=g0XBqFtJFHDpidO-5d7P1kKZxXEDX86BGnPw@mail.gmail.com>
+From: Rosen Penev <rosenp@gmail.com>
+Date: Fri, 9 Oct 2026 15:33:42 -0700
+X-Gm-Features: AclHuK--vcR19Q4c1HmMxBuosb_aBRVRtTK0Kor0FuyXWmfdeo3iVtKqvmIrSjw
+Message-ID: <CAKxU2N8svLRziH_AYKMVdL0t-ndUfxSGO+=ftekFG0KQFsXVZQ@mail.gmail.com>
+Subject: Re: [PATCH net-next] net: ag71xx: align the IP header behind DSA tags
+To: Simon Horman <horms@kernel.org>
+Cc: netdev@vger.kernel.org, Chris Snook <chris.snook@gmail.com>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Commit f4e72e375807 ("wifi: cfg80211: reduce RTNL holding in regulatory
-enforcement") decoupled channel enforcement from RTNL by offloading
-interface verification to per-wiphy wiphy_work, executing under
-wiphy->mtx without holding the global RTNL.
+On Fri, Oct 9, 2026 at 3:27=E2=80=AFPM Rosen Penev <rosenp@gmail.com> wrote=
+:
+>
+> On Fri, Oct 9, 2026 at 9:47=E2=80=AFAM Simon Horman <horms@kernel.org> wr=
+ote:
+> >
+> > On Wed, Oct 07, 2026 at 10:44:49AM -0700, Rosen Penev wrote:
+> > > The receive buffer offset includes NET_IP_ALIGN to get the IP header
+> > > aligned behind a 14 byte Ethernet header. Most ag71xx devices use DSA
+> > > switches whose tag sits in front of the EtherType, which moves the IP
+> > > header by another 2 bytes. Every access to the IP and TCP headers the=
+n
+> > > traps and gets emulated by the unaligned access handler, around 6 tim=
+es
+> > > per forwarded frame.
+> > >
+> > > Take the headroom needed by the DSA tagger into account when choosing
+> > > the offset.
+> > >
+> > > TP-Link Archer C7 v2 (qca8k), median of 3 runs, Mbit/s:
+> > >
+> > >                        before   after
+> > >   routed up               743     855
+> > >   routed down             660     749
+> > >   local receive           554     572
+> > >
+> > > The unaligned instruction counter no longer moves while forwarding.
+> > >
+> > > Assisted-by: LLM
+> > > Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> >
+> > Unfortunately this patch did not apply cleanly to net-next at the time =
+it
+> > was posted, so our CI did not run.
+> It appears I was careless and sent it ahead of local commits. Will resend=
+.
+I see the issue
 
-However, reg_process_self_managed_hints() still synchronously acquires
-wiphy->mtx under RTNL during wiphy registration. Because wiphy_work
-callbacks hold wiphy->mtx and can acquire RTNL in dependent work or
-driver paths, this creates an ABBA lock inversion between rtnl_mutex and
-wiphy->mtx, which can deadlock generic netlink message dispatch.
+A different patch removes the comment:
 
-Extend the wiphy_work architecture to self-managed regulatory processing
-by deferring hint handling to per-wiphy work. Under RTNL, only check for
-pending requests and queue rdev->reg_self_managed_wk, eliminating the
-synchronous wiphy->mtx acquisition. The regulatory domain update and
-channel verification then run asynchronously under wiphy->mtx without
-RTNL, and pending work is cancelled upon wiphy deregistration.
+For our NAPI weight bigger does *NOT* mean better - it means more
 
-Signed-off-by: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
----
- net/wireless/core.c |  1 +
- net/wireless/core.h |  1 +
- net/wireless/reg.c  | 39 ++++++++++++++++++++++++++++++---------
- net/wireless/reg.h  |  7 +++++++
- 4 files changed, 39 insertions(+), 9 deletions(-)
-
-diff --git a/net/wireless/core.c b/net/wireless/core.c
-index cde3ca85494d..3dfbfb0c10f3 100644
---- a/net/wireless/core.c
-+++ b/net/wireless/core.c
-@@ -671,6 +671,7 @@ struct wiphy *wiphy_new_nm(const struct cfg80211_ops *ops, int sizeof_priv,
- 	INIT_WORK(&rdev->sched_scan_res_wk, cfg80211_sched_scan_results_wk);
- 	wiphy_work_init(&rdev->reg_check_chans_wk, reg_leave_invalid_chans_wk);
- 	INIT_WORK(&rdev->reg_leave_nan_wk, reg_leave_invalid_nan_wk);
-+	wiphy_work_init(&rdev->reg_self_managed_wk, reg_process_self_managed_hint_wk);
- 	INIT_WORK(&rdev->propagate_radar_detect_wk,
- 		  cfg80211_propagate_radar_detect_wk);
- 	INIT_WORK(&rdev->propagate_cac_done_wk, cfg80211_propagate_cac_done_wk);
-diff --git a/net/wireless/core.h b/net/wireless/core.h
-index 6138d207caf4..2b3239d0cf1f 100644
---- a/net/wireless/core.h
-+++ b/net/wireless/core.h
-@@ -116,6 +116,7 @@ struct cfg80211_registered_device {
- 	struct work_struct sched_scan_res_wk;
- 	struct wiphy_work reg_check_chans_wk;
- 	struct work_struct reg_leave_nan_wk;
-+	struct wiphy_work reg_self_managed_wk;
- 
- 	struct cfg80211_chan_def radar_chandef;
- 	struct work_struct propagate_radar_detect_wk;
-diff --git a/net/wireless/reg.c b/net/wireless/reg.c
-index 11665e0a7efc..a0965500d81f 100644
---- a/net/wireless/reg.c
-+++ b/net/wireless/reg.c
-@@ -3180,7 +3180,7 @@ static void reg_process_pending_beacon_hints(void)
- 	spin_unlock_bh(&reg_pending_beacons_lock);
- }
- 
--static void reg_process_self_managed_hint(struct wiphy *wiphy)
-+static bool reg_process_self_managed_hint(struct wiphy *wiphy)
- {
- 	struct cfg80211_registered_device *rdev = wiphy_to_rdev(wiphy);
- 	const struct ieee80211_regdomain *tmp;
-@@ -3188,7 +3188,6 @@ static void reg_process_self_managed_hint(struct wiphy *wiphy)
- 	enum nl80211_band band;
- 	struct regulatory_request request = {};
- 
--	ASSERT_RTNL();
- 	lockdep_assert_wiphy(wiphy);
- 
- 	spin_lock(&reg_requests_lock);
-@@ -3197,7 +3196,7 @@ static void reg_process_self_managed_hint(struct wiphy *wiphy)
- 	spin_unlock(&reg_requests_lock);
- 
- 	if (!regd)
--		return;
-+		return false;
- 
- 	tmp = get_wiphy_regdom(wiphy);
- 	rcu_assign_pointer(wiphy->regd, regd);
-@@ -3217,6 +3216,15 @@ static void reg_process_self_managed_hint(struct wiphy *wiphy)
- 		reg_call_notifier(wiphy, &request);
- 
- 	nl80211_send_wiphy_reg_change_event(&request);
-+	return true;
-+}
-+
-+void reg_process_self_managed_hint_wk(struct wiphy *wiphy, struct wiphy_work *work)
-+{
-+	lockdep_assert_held(&wiphy->mtx);
-+
-+	if (reg_process_self_managed_hint(wiphy))
-+		reg_check_channels();
- }
- 
- static void reg_process_self_managed_hints(void)
-@@ -3226,12 +3234,17 @@ static void reg_process_self_managed_hints(void)
- 	ASSERT_RTNL();
- 
- 	for_each_rdev(rdev) {
--		guard(wiphy)(&rdev->wiphy);
-+		bool has_hint;
- 
--		reg_process_self_managed_hint(&rdev->wiphy);
--	}
-+		spin_lock(&reg_requests_lock);
-+		has_hint = rdev->requested_regd;
-+		spin_unlock(&reg_requests_lock);
- 
--	reg_check_channels();
-+		if (!has_hint)
-+			continue;
-+
-+		wiphy_work_queue(&rdev->wiphy, &rdev->reg_self_managed_wk);
-+	}
- }
- 
- static void reg_todo(struct work_struct *work)
-@@ -4110,8 +4123,8 @@ int regulatory_set_wiphy_regd_sync(struct wiphy *wiphy,
- 		return ret;
- 
- 	/* process the request immediately */
--	reg_process_self_managed_hint(wiphy);
--	reg_check_channels();
-+	if (reg_process_self_managed_hint(wiphy))
-+		reg_check_channels();
- 	return 0;
- }
- EXPORT_SYMBOL(regulatory_set_wiphy_regd_sync);
-@@ -4144,9 +4157,17 @@ void wiphy_regulatory_register(struct wiphy *wiphy)
- 
- void wiphy_regulatory_deregister(struct wiphy *wiphy)
- {
-+	struct cfg80211_registered_device *rdev = wiphy_to_rdev(wiphy);
- 	struct wiphy *request_wiphy = NULL;
- 	struct regulatory_request *lr;
- 
-+	spin_lock(&reg_requests_lock);
-+	kfree(rdev->requested_regd);
-+	rdev->requested_regd = NULL;
-+	spin_unlock(&reg_requests_lock);
-+
-+	wiphy_work_cancel(wiphy, &rdev->reg_self_managed_wk);
-+
- 	lr = get_last_request();
- 
- 	if (!reg_dev_ignore_cell_hint(wiphy))
-diff --git a/net/wireless/reg.h b/net/wireless/reg.h
-index c587079ead8f..4cfac05c6178 100644
---- a/net/wireless/reg.h
-+++ b/net/wireless/reg.h
-@@ -194,6 +194,13 @@ void reg_leave_invalid_chans_wk(struct wiphy *wiphy, struct wiphy_work *work);
-  */
- void reg_leave_invalid_nan_wk(struct work_struct *work);
- 
-+/**
-+ * reg_process_self_managed_hint_wk - process self-managed hint for a wiphy
-+ * @wiphy: the wiphy to process
-+ * @work: the work struct
-+ */
-+void reg_process_self_managed_hint_wk(struct wiphy *wiphy, struct wiphy_work *work);
-+
- extern const u8 shipped_regdb_certs[];
- extern unsigned int shipped_regdb_certs_len;
- extern const u8 extra_regdb_certs[];
--- 
-2.43.0
-
+so git am fails but git apply works.
+> >
+> > Please rebase and repost.
+> >
+> > --
+> > pw-bot: changes-requested
