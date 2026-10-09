@@ -1,70 +1,70 @@
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAB8F3C1D62
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 07:46:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 290D347207F
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 07:46:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791531996; cv=none; b=seW+j+XFwnPcHDvWzklwc7zECNJlm3Bl+pKo4wgrw28mwZPZNMg113GLRVg8DO/C27jLN6iP1nb8NL4HjsxfLsQCJKuOPOSpQIMicct8/nc9w9M+EBTROPGKvAeAeYbgsvzFQf4OCAfsSPv6yrf4TLuduTOplUcxWre4MLno5qM=
+	t=1791532000; cv=none; b=e+a4O9/k31V/1SrSNn0wun2XKfRBr9e8JS2J3OypySkwYy54EgvTD5QD4CY1IXAXlO2lHELVT0YEn60C+NFeKkNiSsZ97JyT0xHaVDN77ezGgwlHC0sQTIG1SY4Jb8NNcLjI9tulCVAQsZX7FvruggNfvxLxj+4Pv96z+TKmpg4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791531996; c=relaxed/simple;
-	bh=gzcIvKTV0eCRqXTbax+Ml31cWnykn6ExDAmr6K91wxE=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References; b=hdCgI5P5umFXoMNg1pAa4dz7WTml62D6DVtqWm7INIttZPcA19zLfYd2uz+Q49cFvQQf5y4Vf9J7OloKLbr5vnsaxwNTz6xeqHPR9urThGBkWalD5rvGsU9VPE10tnpvJiXUGnduETmJiqztVaK1h2Yrytc3g6rfX+vCLT19bNc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GEt7KLnl; arc=none smtp.client-ip=209.85.218.45
+	s=arc-20240116; t=1791532000; c=relaxed/simple;
+	bh=R3LSXZ+FGIRaaZdWRoNl3GlFoExwgG/edLQqbMsfJds=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References; b=NGtJ7dngKEfCm0E8egz4EFxlaGhYGnFyyOT9NU6STwVkvu6I2KhvfJU/ierRRfu/yOWzAx4aYwwBbN7xLqgAu4gJyom7f/vVYUX2fc34WqrHjVqBnKshUayH+qs50DTKFNESNlAvo5UMatMGnY85y9cxDCOxbq5lCO5ffRUlaWs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jatcXYIW; arc=none smtp.client-ip=209.85.208.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GEt7KLnl"
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c2e3846d1caso569330866b.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 00:46:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jatcXYIW"
+Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6afe29c08ccso5035725a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 00:46:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791531993; x=1792136793; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791531995; x=1792136795; darn=vger.kernel.org;
         h=references:in-reply-to:message-id:date:subject:cc:to:from:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=joIT/Se5De6fAT89Sw8RzUc39OQIM51cezNYPIh3/Y8=;
-        b=GEt7KLnl8QkMjqVWnyw1bw3LtQxLgmYAJ/i3fDEJXBZ6P5QHWgjJfMVej1hLCbo41Z
-         GCZjGTzLzBUCEJZ5WH3ET7ljSdlHwEai+k+vB/nbt3yOgGYQ91nSBG+0AC2oTgrTBwu2
-         eFMheD8AYLABPGD93ZyEpD02c2RaI9HaFs7y9Eakr9gxZLrmMWVXS6X5g+OG6NW68XgH
-         esAtfs3fG1NQR05EQhR9xWpLWWtrmdNk70IIMx83wCJgjP06Dw9OLRKX9TRB1M2VZh6A
-         Sbm7RWRPi1JuxDmXNN7kqjXgnq0kq6qJiPlrKpR8MEpIA/a1lBfm5aS6VouGa25/L+fB
-         wt0A==
+        bh=FjvL8b01mXk5DvR4PJw4NeiN/Lrrl4B7yiu5lqkQT5k=;
+        b=jatcXYIWVi9uqpS/SaDUYNz36jvHS6tvDxpTgGTERZMyX2/D9RFzKZ3IIUkv0eFg4r
+         JNxtQrYHVAH+8Z18SRjTkH37kzElJmv2tTWmbnUbBDblpGkRDpln68g8pK3+t+ghQHea
+         L7EHbgfMGnt8kS3Q/QiSBc3yY5jzlzIJkDmBj3QB0P2eQlXLqMf91ZowAE111SqQSic4
+         fa3O9EP83ROdmuGiHC762DdsvC6g4a2UG9vWTp0Yk8Yl2pw60aprKX5XYbMqOzCkH15O
+         3ClKNOCpefvRkpg5W9bee7BU0Ie+Wf7KNp1GJbrA3hRgvXn6rapPjZrHhIvmddkyC73u
+         fCWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791531993; x=1792136793;
+        d=1e100.net; s=20260707; t=1791531995; x=1792136795;
         h=references:in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=joIT/Se5De6fAT89Sw8RzUc39OQIM51cezNYPIh3/Y8=;
-        b=FaVK80ydTWxB7Fi2W1H50HpTvACxT9Y5L8P/gvukWLblgHiFoGSgqdpRhh6AlWZGjQ
-         AIeI+ua3pUmAW1/W0mKsqZ0Q1MzPU3sTlZYMX/4GOmOVYhcdcmjJ3WmdM2hXvyXyWLUs
-         Tu2407jpUCAr7euiW2xViQ3Jah13uMdDylYpke8Ua9qnPEl1xA7FJAErXTvGzjPMedY3
-         V0N2tG/O9HRaCNdnXvGcH1GHvvIQg/da0oukX6kedfJV2w/2+0tAR1wnPTVeccA8lMMl
-         RzBCVw8aibzhL54DOYBicF5Q+Z5dPasZnKU42BMnX1Nrcm/YJ0z5ppIzxgY/QApsYESy
-         +dJQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwVeoumbUAWyPmnGKKdva1CiIk2Sim8u4XH8LJYCDS7DOVIDtnvNKcvihxGggltiSG2myboDntyTktWMB8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI7rswD/FRzZlSiUzgrEfFXjY+Fbf1EpqBeH8Tt/yyW1xq2lHO6
-	YrN6P63AtG5VCl9BeVH9Tbluc8JSajNrNOA9w35JovCyuv55tCbwYVCv
-X-Gm-Gg: AYBFou1oKvIk3A52bTa/y0Uw+2E73Zze/oG3NxPlU2fgV3yF44YnPbWeiZUCv78kpO/
-	tLdeCL9kZuu9TRb/bRdaY/vbpPk0y6Am6obgYNNSr9wYGomT8pEU0uihXxH2mAXekKF2j9uGWKl
-	pt5tM1Plz0D1qFXPTc7OLFAFs1KNd1wT7nyE59EEEXpY3AU4kmeCKER81YjFQOJ1WOtqIC493H5
-	oZaFsZl4vGsgNuzS+MmE6rfnJFzYTaJq4NMZh9SMrJVEip8VY35PIL/QiI20Bbr9OEUtEkmnTDB
-	lLgsSEhG+mntwMcPCy9tg2LfQO0wXWjSKs7IaTo/a6iOf7aPRBbOdu3CYsV4WEfQy6GMMFXmYqS
-	v+YY+XK90Ou+oKREZgANPr5Qz3arm3cU/z45Jde1h6HbnwDbK5EIBMM73ejKTZZufpWijd5RSXH
-	TUyRs9mueCj8ua2ski7nLa3Iyvc8IzU70oQu0UfoRg9DONxUiyp13masIqWPZD1DIbQBZa8CEda
-	SWv2NeYytVk1x51PbH/E575lg==
-X-Received: by 2002:a17:907:d08f:b0:c2d:ba65:4ffe with SMTP id a640c23a62f3a-c31a9d303famr83978066b.24.1791531992825;
-        Fri, 09 Oct 2026 00:46:32 -0700 (PDT)
+        bh=FjvL8b01mXk5DvR4PJw4NeiN/Lrrl4B7yiu5lqkQT5k=;
+        b=1pC63E5925zn9XMHXO0S7wfMdkiOCyTCrpyD00ojuimIiYFTmNFwCwIDM9QtwT243i
+         8i/a22adnQflEfn92mOmNGPaKGhftX9rkUvULvi+PPR6qlawwiRuAU9FGBzdpZnimZ7r
+         /MjZBB/PcdjuMzMHmCPtFZ16gn2s89PPxy4QvgAgiwCrOONjMNql9wAHXmSJVVd0TFoB
+         vOtF6NVQTb0jrdUfy//FQdKyhBaEVOXv+C6eI2yWT14AG7gHXCdV7vcDig/I/IYn8fWT
+         kSk4m8Swj9s8je0pWJy11y2Awq/eqIJe1CtoRUyuPl3rcyTTs1UEHrQ9Hvtuj8kHNMn9
+         Mwdg==
+X-Forwarded-Encrypted: i=1; AKwUvBx98j8MTCIs/eVqkJcaNwVXHEPwszXs+HlcbDTBE874BW+7qyxgyYXClRQDsITaFMidgus68kdkFmxpqqQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKZwAXC1FeAmzklutEFH0eu01SssgIJJLToPwh/SS3vGHOB461h
+	boFm5JQaOk9VRMfSR4WBID18KzW/1gzjfXX+sXDrGXFucToVoX2mKDDvm6/WG2oI
+X-Gm-Gg: AYBFou0dNqGgrvXaaD950U9LVj11zNfGkuWFKzPNiFk4Jv4aC5YAOdk+6ncltCg/+ve
+	Th2t1X8SJIZfsweUfOfdkn18btQ3vP5dKto4gJOHv7bzjsBarxqZXJuleY12xEtJjKX4mxVjfU5
+	ESyt6rcDxxSg6kVvn3OB51zQooWRty5YLebJZS5sesq/b3kBoyf+PFDIaxf5elQibO/SDju1STr
+	uGZaVhmARwp4kHNjoygV0bUCRj5Ky94OCsajrn0zYxItanz31GEfrrdfvvOr3hBUGhYeRKYvbj4
+	o9tV4+61eRrWB2SjFRXdCBkLxeJdNv6nKmysPkTBo2qDYv+F0P+6rDJSZX2i73jZwFLv6r+z/oq
+	G7hg8qX3SeRyl4PwPqO/wjbvIUIFoODF4NnoMnkiY+wrrMXv+E0eXbN8VeSd8S6r4Sh3LY789ZZ
+	gLELxxb7aMC85cVJ7OQdzSB0IgcDEzf4vyw11/09tsQg8GbvGKfe/cIcxkAVpOZ6IDQTrUdZCtz
+	+vLj7WDKH/hCx2/4MWapTE4Gcc=
+X-Received: by 2002:a05:6402:27cb:b0:6af:a566:6f13 with SMTP id 4fb4d7f45d1cf-6b17c4ef796mr786131a12.44.1791531995183;
+        Fri, 09 Oct 2026 00:46:35 -0700 (PDT)
 Received: from localhost (c-85-228-45-68.bbcust.telenor.se. [85.228.45.68])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31b956019esm20398166b.54.2026.10.09.00.46.32
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b179dd5c27sm719571a12.20.2026.10.09.00.46.33
         (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
-        Fri, 09 Oct 2026 00:46:32 -0700 (PDT)
+        Fri, 09 Oct 2026 00:46:34 -0700 (PDT)
 From: Eli Billauer <eli.billauer@gmail.com>
 To: gregkh@linuxfoundation.org
 Cc: arnd@arndb.de,
 	linux-kernel@vger.kernel.org,
 	Eli Billauer <eli.billauer@gmail.com>
-Subject: [PATCH v6 6/7] char: xillybus: Add defensive sanity checks
-Date: Fri,  9 Oct 2026 09:45:56 +0200
-Message-Id: <20261009074557.19996-7-eli.billauer@gmail.com>
+Subject: [PATCH v6 7/7] char: xillybus: Ignore and report unsolicited interrupts
+Date: Fri,  9 Oct 2026 09:45:57 +0200
+Message-Id: <20261009074557.19996-8-eli.billauer@gmail.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20261009074557.19996-1-eli.billauer@gmail.com>
 References: <20261009074557.19996-1-eli.billauer@gmail.com>
@@ -74,263 +74,203 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 
-Add validation checks for values derived from hardware or user input to
-prevent incorrect behavior with malformed data.
+During initialization, the hardware should issue interrupts only in
+response to requests from the host. Ignore and log unexpected interrupts,
+as these indicate misbehaving hardware, and return IRQ_NONE when the
+interrupt appears to be spurious.
+
+In the same spirit, in xilly_quiesce(), assign endpoint->num_channels = 0
+before allowing the ISR, in order to expose whether the hardware
+incorrectly sends messages related to data channels during shutdown.
 
 Assisted-by: Deepseek:v4-pro Kimi:K2.6 ChatGPT:GPT-5.5 Claude:Sonnet-4.6
+Assisted-by: Sashiko-0.2.5:gemini-3.1-pro-preview
 Signed-off-by: Eli Billauer <eli.billauer@gmail.com>
 ---
 
 Notes:
     Changelog:
     =========
-    Changes v5->v6:
-     -- Use SZ_1G instead of numerical constant
-     -- Rebase to current tree
+    Change v5->v6: Rebase to current tree
     
     No change on v4->v5.
     
     Changes v3->v4:
-     -- xillyusb.c: Use mutex_unlock() in response to sanity check failure
-                    in fifo_init(), as guard() isn't used anymore on this
-                    mutex.
-     -- xillyusb.c and xillybus_core.c: Remove sanity check on data count on
-                    read() and write() fops methods, as this check is already
-                    done by the kernel's vfs_read() and vfs_write().
+     -- Return IRQ_NONE if the interrupt is considered spurious, following
+        Sashiko's remark + add attribution to Sashiko.
     
     Changes v2->v3:
      -- Add Assisted-by tag to description
     
-    Changes v1->v2:
-     -- xillybus_class.c: Assign @rc a value before goto in
-                          xillybus_init_chrdev().
-     -- xillybus_class.c: Improve check on @inode in xillybus_find_inode().
-     -- xillybus_of.c:    Remove redundant dev_err(), as platform_get_irq()
-                          outputs an error message if necessary.
+    No change on v1->v2.
 
- drivers/char/xillybus/xillybus_class.c | 18 +++++++++++++--
- drivers/char/xillybus/xillybus_class.h |  3 +++
- drivers/char/xillybus/xillybus_core.c  | 32 ++++++++++++++++++++++++--
- drivers/char/xillybus/xillybus_of.c    |  3 +++
- drivers/char/xillybus/xillyusb.c       | 26 ++++++++++++++++++++-
- 5 files changed, 77 insertions(+), 5 deletions(-)
+ drivers/char/xillybus/xillybus.h      |  3 ++
+ drivers/char/xillybus/xillybus_core.c | 47 ++++++++++++++++++++++++++-
+ 2 files changed, 49 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/char/xillybus/xillybus_class.c b/drivers/char/xillybus/xillybus_class.c
-index 5e8f03b77064..f7e0da233e2a 100644
---- a/drivers/char/xillybus/xillybus_class.c
-+++ b/drivers/char/xillybus/xillybus_class.c
-@@ -57,6 +57,9 @@ int xillybus_init_chrdev(struct device *dev,
- 	size_t namelen;
- 	struct xilly_unit *unit, *u;
+diff --git a/drivers/char/xillybus/xillybus.h b/drivers/char/xillybus/xillybus.h
+index 51de7cbc579e..98c7ac4dd1f9 100644
+--- a/drivers/char/xillybus/xillybus.h
++++ b/drivers/char/xillybus/xillybus.h
+@@ -94,6 +94,9 @@ struct xilly_endpoint {
+ 	__iomem void *registers;
+ 	int fatal_error;
  
-+	if (num_nodes <= 0 || num_nodes > XILLYBUS_MAX_NODES || !idt || !prefix || !dev)
-+		return -ENODEV;
++	bool allow_isr;
++	spinlock_t allow_isr_lock;
 +
- 	unit = kzalloc_obj(*unit);
+ 	struct mutex register_mutex;
+ 	wait_queue_head_t ep_wait;
  
- 	if (!unit)
-@@ -68,6 +71,12 @@ int xillybus_init_chrdev(struct device *dev,
- 		snprintf(unit->name, UNITNAMELEN, "%s", prefix);
- 
- 	for (i = 0; enumerate; i++) {
-+		if (i > 99) {
-+			dev_err(dev, "Failed to obtain unique unit name\n");
-+			rc = -ENODEV;
-+			goto fail_obtain;
-+		}
-+
- 		snprintf(unit->name, UNITNAMELEN, "%s_%02d",
- 			 prefix, i);
- 
-@@ -215,10 +224,15 @@ EXPORT_SYMBOL(xillybus_cleanup_chrdev);
- int xillybus_find_inode(struct inode *inode,
- 			void **private_data, int *index)
- {
--	int minor = iminor(inode);
--	int major = imajor(inode);
-+	int minor, major;
- 	struct xilly_unit *unit = NULL, *iter;
- 
-+	if (!inode || !private_data || !index)
-+		return -ENODEV;
-+
-+	minor = iminor(inode);
-+	major = imajor(inode);
-+
- 	mutex_lock(&unit_mutex);
- 
- 	list_for_each_entry(iter, &unit_list, list_entry)
-diff --git a/drivers/char/xillybus/xillybus_class.h b/drivers/char/xillybus/xillybus_class.h
-index 5dbfdfc95c65..4dbed9adcaf8 100644
---- a/drivers/char/xillybus/xillybus_class.h
-+++ b/drivers/char/xillybus/xillybus_class.h
-@@ -8,6 +8,9 @@
- #ifndef __XILLYBUS_CLASS_H
- #define __XILLYBUS_CLASS_H
- 
-+#define XILLYBUS_MAX_NODES 1024
-+#define XILLYBUS_MAX_IDT 1048576
-+
- #include <linux/types.h>
- #include <linux/device.h>
- #include <linux/fs.h>
 diff --git a/drivers/char/xillybus/xillybus_core.c b/drivers/char/xillybus/xillybus_core.c
-index 3ae95e6b17e9..90c5b3d4e517 100644
+index 90c5b3d4e517..7189c6d97e7d 100644
 --- a/drivers/char/xillybus/xillybus_core.c
 +++ b/drivers/char/xillybus/xillybus_core.c
-@@ -28,6 +28,7 @@
- #include <linux/delay.h>
- #include <linux/slab.h>
- #include <linux/workqueue.h>
-+#include <linux/sizes.h>
- #include "xillybus.h"
- #include "xillybus_class.h"
+@@ -73,6 +73,8 @@ static struct workqueue_struct *xillybus_wq;
+  *
+  * rd_spinlock does the same with rd_*_buf_idx, rd_empty and end_offset.
+  *
++ * allow_isr_lock protects allow_isr.
++ *
+  * register_mutex is endpoint-specific, and is held when non-atomic
+  * register operations are performed. wr_mutex and rd_mutex may be
+  * held when register_mutex is taken, but none of the spinlocks. Note that
+@@ -85,7 +87,8 @@ static struct workqueue_struct *xillybus_wq;
+  * Only interruptible blocking is allowed on mutexes and wait queues.
+  *
+  * All in all, the locking order goes (with skips allowed, of course):
+- * wr_mutex -> rd_mutex -> register_mutex -> wr_spinlock -> rd_spinlock
++ * wr_mutex -> rd_mutex -> register_mutex ->
++ * allow_isr_lock -> wr_spinlock -> rd_spinlock
+  */
  
-@@ -351,6 +352,12 @@ static int xilly_get_dma_buffers(struct xilly_endpoint *ep,
- 	struct device *dev = ep->dev;
- 	struct xilly_buffer *this_buffer = NULL; /* Init to silence warning */
+ static void malformed_message(struct xilly_endpoint *endpoint, u32 *buf)
+@@ -120,6 +123,13 @@ irqreturn_t xillybus_isr(int irq, void *data)
+ 	unsigned int msg_channel, msg_bufno, msg_data, msg_dir;
+ 	struct xilly_channel *channel;
  
-+	if (bytebufsize == 0 || bytebufsize > SZ_1G) {
-+		dev_err(ep->dev,
-+			"Illegal buffer size requested in IDT. Aborting.\n");
-+		return -ENODEV;
++	guard(spinlock)(&ep->allow_isr_lock);
++
++	if (!ep->allow_isr) {
++		dev_err_ratelimited(ep->dev, "Unexpected interrupt! Something is wrong with the hardware.\n");
++		return IRQ_NONE;
 +	}
 +
- 	if (buffers) { /* Not the message buffer */
- 		this_buffer = devm_kcalloc(dev, bufnum,
- 					   sizeof(struct xilly_buffer),
-@@ -623,6 +630,12 @@ static int xilly_scan_idt(struct xilly_endpoint *endpoint,
- 		return -ENODEV;
- 	}
+ 	buf = ep->msgbuf_addr;
+ 	buf_size = ep->msg_buf_size/sizeof(u32);
  
-+	if (count == 0 || count > XILLYBUS_MAX_NODES) {
-+		dev_err(endpoint->dev,
-+			"Unreasonable number of channels. Aborting.\n");
-+		return -ENODEV;
-+	}
-+
- 	idt_handle->entries = len >> 2;
- 	endpoint->num_channels = count;
+@@ -138,6 +148,7 @@ irqreturn_t xillybus_isr(int irq, void *data)
+ 			if (++ep->failed_messages > 10) {
+ 				dev_err(ep->dev,
+ 					"Lost sync with interrupt messages. Stopping.\n");
++				return IRQ_NONE;
+ 			} else {
+ 				dma_sync_single_for_device(ep->dev,
+ 							   ep->msgbuf_dma_addr,
+@@ -284,6 +295,19 @@ irqreturn_t xillybus_isr(int irq, void *data)
+ }
+ EXPORT_SYMBOL(xillybus_isr);
  
-@@ -725,8 +738,18 @@ static ssize_t xillybus_read(struct file *filp, char __user *userbuf,
- 			bufidx = channel->wr_host_buf_idx;
- 			bufpos = channel->wr_host_buf_pos;
- 			howmany = ((channel->wr_buffers[bufidx]->end_offset
--				    + 1) << channel->log2_element_size)
--				- bufpos;
-+				    + 1) << channel->log2_element_size);
++/*
++ * xilly_allow_isr() is similar to enabling / disabling the interrupt,
++ * with the difference that if an interrupt is issued while ep->allow_isr
++ * is false, this is visible in the kernel log.
++ */
 +
-+			if (howmany > channel->wr_buf_size ||
-+			    howmany < bufpos) {
-+				dev_err(channel->endpoint->dev,
-+					"Illegal buffer fill level from hardware\n");
-+				channel->endpoint->fatal_error = 1;
-+				spin_unlock_irqrestore(&channel->wr_spinlock, flags);
-+				break;
-+			}
++static void xilly_allow_isr(struct xilly_endpoint *ep, bool newstate)
++{
++	guard(spinlock_irqsave)(&ep->allow_isr_lock);
 +
-+			howmany	-= bufpos;
++	ep->allow_isr = newstate;
++}
++
+ /*
+  * A few trivial memory management functions.
+  * NOTE: These functions are used only on probe and remove, and therefore
+@@ -652,6 +676,8 @@ static int xilly_obtain_idt(struct xilly_endpoint *endpoint)
  
- 			/* Update wr_host_* to its post-operation state */
- 			if (howmany > bytes_to_do) {
-@@ -1902,6 +1925,11 @@ int xillybus_endpoint_discovery(struct xilly_endpoint *endpoint)
- 		return -ENODEV;
- 	}
+ 	channel->wr_sleepy = 1;
  
-+	if (endpoint->idtlen < 4 || endpoint->idtlen > XILLYBUS_MAX_IDT) {
-+		dev_err(endpoint->dev, "Invalid IDT length. Aborting.\n");
-+		return -ENODEV;
-+	}
++	xilly_allow_isr(endpoint, true);
 +
- 	/* Enable DMA */
- 	iowrite32((u32) (0x0002 | (endpoint->dma_using_dac & 0x0001)),
+ 	iowrite32(1 |
+ 		  (3 << 24), /* Opcode 3 for channel 0 = Send IDT */
+ 		  endpoint->registers + fpga_buf_ctrl_reg);
+@@ -660,6 +686,8 @@ static int xilly_obtain_idt(struct xilly_endpoint *endpoint)
+ 					     (!channel->wr_sleepy),
+ 					     XILLY_TIMEOUT);
+ 
++	xilly_allow_isr(endpoint, false);
++
+ 	if (t <= 0) {
+ 		dev_err(endpoint->dev, "Failed to obtain IDT. Aborting.\n");
+ 
+@@ -1838,6 +1866,9 @@ struct xilly_endpoint *xillybus_init_endpoint(struct device *dev)
+ 	endpoint->failed_messages = 0;
+ 	endpoint->fatal_error = 0;
+ 
++	endpoint->allow_isr = false;
++	spin_lock_init(&endpoint->allow_isr_lock);
++
+ 	init_waitqueue_head(&endpoint->ep_wait);
+ 	mutex_init(&endpoint->register_mutex);
+ 
+@@ -1850,6 +1881,9 @@ static int xilly_quiesce(struct xilly_endpoint *endpoint)
+ 	long t;
+ 
+ 	endpoint->idtlen = -1;
++	endpoint->num_channels = 0;
++
++	xilly_allow_isr(endpoint, true);
+ 
+ 	iowrite32((u32) (endpoint->dma_using_dac & 0x0001),
  		  endpoint->registers + fpga_dma_control_reg);
-diff --git a/drivers/char/xillybus/xillybus_of.c b/drivers/char/xillybus/xillybus_of.c
-index 46e1046abfca..44b0c754deb2 100644
---- a/drivers/char/xillybus/xillybus_of.c
-+++ b/drivers/char/xillybus/xillybus_of.c
-@@ -53,6 +53,9 @@ static int xilly_drv_probe(struct platform_device *op)
- 
- 	irq = platform_get_irq(op, 0);
- 
-+	if (irq < 0)
-+		return irq;
+@@ -1857,6 +1891,9 @@ static int xilly_quiesce(struct xilly_endpoint *endpoint)
+ 	t = wait_event_interruptible_timeout(endpoint->ep_wait,
+ 					     (endpoint->idtlen >= 0),
+ 					     XILLY_TIMEOUT);
 +
- 	rc = devm_request_irq(dev, irq, xillybus_isr, 0, xillyname, endpoint);
++	xilly_allow_isr(endpoint, false);
++
+ 	if (t <= 0) {
+ 		dev_err(endpoint->dev,
+ 			"Failed to quiesce the device on exit.\n");
+@@ -1910,6 +1947,8 @@ int xillybus_endpoint_discovery(struct xilly_endpoint *endpoint)
  
+ 	endpoint->idtlen = -1;
+ 
++	xilly_allow_isr(endpoint, true);
++
+ 	/*
+ 	 * Set DMA 32/64 bit mode, quiesce the device (?!) and get IDT
+ 	 * buffer size.
+@@ -1920,6 +1959,9 @@ int xillybus_endpoint_discovery(struct xilly_endpoint *endpoint)
+ 	t = wait_event_interruptible_timeout(endpoint->ep_wait,
+ 					     (endpoint->idtlen >= 0),
+ 					     XILLY_TIMEOUT);
++
++	xilly_allow_isr(endpoint, false);
++
+ 	if (t <= 0) {
+ 		dev_err(endpoint->dev, "No response from FPGA. Aborting.\n");
+ 		return -ENODEV;
+@@ -1946,6 +1988,7 @@ int xillybus_endpoint_discovery(struct xilly_endpoint *endpoint)
  	if (rc)
-diff --git a/drivers/char/xillybus/xillyusb.c b/drivers/char/xillybus/xillyusb.c
-index ddd583304504..bd3babd39f35 100644
---- a/drivers/char/xillybus/xillyusb.c
-+++ b/drivers/char/xillybus/xillyusb.c
-@@ -24,6 +24,7 @@
- #include <linux/spinlock.h>
- #include <linux/mutex.h>
- #include <linux/workqueue.h>
-+#include <linux/sizes.h>
- #include <linux/crc32.h>
- #include <linux/poll.h>
- #include <linux/delay.h>
-@@ -389,6 +390,12 @@ static int fifo_init(struct xillyfifo *fifo,
- 	fifo->bufnum = 1 << log2_bufnum;
- 	fifo->size = fifo->bufnum * fifo->bufsize;
+ 		goto failed_idt;
  
-+	if (!fifo->size || /* Unsigned integer overflow */
-+	    fifo->size > SZ_1G) { /* Avoid signed int issues */
-+		mutex_unlock(&fifo_buf_order_mutex);
-+		return -ENOMEM; /* Reported as greed for memory */
-+	}
-+
- 	fifo->mem = kmalloc_array(fifo->bufnum, sizeof(void *), GFP_KERNEL);
- 
- 	if (!fifo->mem) {
-@@ -882,6 +889,7 @@ static int process_in_opcode(struct xillyusb_dev *xdev,
- 	struct xillyusb_channel *chan;
- 	struct device *dev = xdev->dev;
- 	int chan_idx = chan_num >> 1;
-+	struct xillyfifo *in_fifo;
- 
- 	if (chan_idx >= xdev->num_channels) {
- 		dev_err(dev, "Received illegal channel ID %d from FPGA\n",
-@@ -906,7 +914,10 @@ static int process_in_opcode(struct xillyusb_dev *xdev,
- 		 */
- 		smp_wmb();
- 		WRITE_ONCE(chan->read_data_ok, 0);
--		wake_up_interruptible(&chan->in_fifo->waitq);
-+
-+		in_fifo = READ_ONCE(chan->in_fifo);
-+		if (in_fifo)
-+			wake_up_interruptible(&in_fifo->waitq);
- 		break;
- 
- 	case OPCODE_REACHED_CHECKPOINT:
-@@ -2066,6 +2077,13 @@ static int xillyusb_discovery(struct usb_interface *interface)
- 	}
- 
- 	idt_len = READ_ONCE(idt_fifo.fill);
-+
-+	if (idt_len < 4 || idt_len > XILLYBUS_MAX_IDT) {
-+		rc = -ENODEV;
-+		dev_err(&interface->dev, "Invalid IDT length. Aborting.\n");
-+		goto unfifo;
-+	}
-+
- 	idt = kmalloc(idt_len, GFP_KERNEL);
- 
- 	if (!idt) {
-@@ -2100,6 +2118,12 @@ static int xillyusb_discovery(struct usb_interface *interface)
- 		goto unidt;
- 	}
- 
-+	if (num_channels == 0 || num_channels > XILLYBUS_MAX_NODES) {
-+		dev_err(&interface->dev, "Unreasonable number of channels. Aborting.\n");
-+		rc = -ENODEV;
-+		goto unidt;
-+	}
-+
- 	rc = setup_channels(xdev, (void *)idt + 3, num_channels);
- 
++	/* xilly_obtain_idt() allows and then disallows the ISR */
+ 	rc = xilly_obtain_idt(endpoint);
  	if (rc)
+ 		goto failed_idt;
+@@ -1964,6 +2007,8 @@ int xillybus_endpoint_discovery(struct xilly_endpoint *endpoint)
+ 	if (rc)
+ 		goto failed_idt;
+ 
++	xilly_allow_isr(endpoint, true);
++
+ 	rc = xillybus_init_chrdev(dev, &xillybus_fops,
+ 				  endpoint->owner, endpoint,
+ 				  idt_handle.names,
 -- 
 2.34.1
 
