@@ -1,81 +1,144 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0804D25228D;
-	Fri,  9 Oct 2026 01:29:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1E70130F7E8;
+	Fri,  9 Oct 2026 01:29:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791509363; cv=none; b=VD0SiuKmXIhrjSfHUSgFVa8xqxD8VP/d3W6hsLJ3FIAXedo61ytFmwCczuKOTjepWaBb28ccQU2lsP0um3JH/ub8xFPjjRbEHsstH1C5WL2GdHPCKj/kOGBgbgj5tsUUmOxdEuV7vtIGy/D3riE2NI3jfT1AqphOUD7gP+8O/ps=
+	t=1791509376; cv=none; b=GhytGm21qdcQa+kTqFuRaEix/u0igxROUsmOz/vfQO8Q7FcZ8WI+Ml/SIu7TdxtfFi20l7HthfnpOVe3RKyJo9E3YkwobKm30TLs6Q7VyF+brGMn21aSA5eJMGPp8Zu/WDA0huciL6TA10VWed04QFV43ENpJTY6Dqu2JIhCVz4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791509363; c=relaxed/simple;
-	bh=sEHnVK+cGI77dBADCJ0be5zStEW7wq7MOe8uU18EpjA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=q4CRsyTjFwfGCvGqeQHreGbNCqQXFT3HxTGblJCDkyDJ93a5+Akh0B6WmZNvw+HTA51eKYAWCYVnlJUfSE+luFPP2+rJX+zIbe8sPCBdeCxyrT8Fz2o8fqy2vpxHQe/RoIKPRi2T7so2JJ2rtWyDlIxqUrc+Ix8+YrQlkkF4eHU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=PIvbZRxs; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1791509376; c=relaxed/simple;
+	bh=jH/l6x487aXDmqSSrS3m30THASRA0bXnGuiuLhFqz9E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ksPa2a1taTeCVIENzafwB/YGjmaYr/BgkFEHBN4pWGHz3lLq2urTF+Va3u9GbbWLzr/aV+NvvNVLXe5E3qwnfS6ObgmXzNH80n9irLKb+9+e4Y50yN/uRszqsi0E6oVhu4F9CoSzdNwjSWFYRZqu2oALb+pofp2flDlquUVcq1E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=aIC2PZ73; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="PIvbZRxs"
-Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 505d38da4;
-	Fri, 9 Oct 2026 09:29:07 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Simon Horman <horms@kernel.org>
-Cc: netdev-bot+sinfo@kernel.org,
-	Sukhdeep Singh <sukhdeeps@marvell.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	netdev@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="aIC2PZ73"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E8C2A1692;
+	Thu,  8 Oct 2026 18:29:30 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4AD283F8C6;
+	Thu,  8 Oct 2026 18:29:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791509374; bh=jH/l6x487aXDmqSSrS3m30THASRA0bXnGuiuLhFqz9E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=aIC2PZ73HdBqmdUfdPvQ7G9DGX8bh4oZr79sFC/dusbcGocrbnPFUaBVxWSQ2gWG+
+	 ATVGW3RmooxUzXX4LK3IIX406QcmqKZoJnYpoD1jTRvZjdlfw5Vfy76utfqDi3jViy
+	 5DueC8mHYK6Z7pKmFAH391smGA1D4Gf2bycJcxDY=
+Date: Fri, 9 Oct 2026 02:29:30 +0100
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: Ard Biesheuvel <ardb@kernel.org>
+Cc: Yeoreum Yun <yeoreum.yun@arm.com>, linux-efi@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: Re: [PATCH] net: atlantic: only free the PTP IRQ after a successful request
-Date: Fri,  9 Oct 2026 09:28:59 +0800
-Message-Id: <20261009012900.1098973-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261006165557.GO83879@horms.kernel.org>
-References: <20260930074023.2943213-1-runyu.xiao@seu.edu.cn> <179075425701.31693.17457011245131119734@kernel.org> <20261006165557.GO83879@horms.kernel.org>
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	Breno Leitao <leitao@debian.org>,
+	"sami.mujawar@arm.com" <Sami.Mujawar@arm.com>
+Subject: Re: [PATCH] firmware: efi: add a separate timeout for UpdateCapsule()
+Message-ID: <ashDevpqfxNKx4nz@e129823.arm.com>
+References: <20260903113238.2291844-1-yeoreum.yun@arm.com>
+ <960e985e-b338-4648-a29b-1f8a31e00599@app.fastmail.com>
+ <apl_29t7Jxr2mv9C@e129823.arm.com>
+ <44097058-9fdc-4e9f-a277-d63e3876b035@app.fastmail.com>
+ <23ce2fb0-1002-409f-bb84-f592db9d0b89@app.fastmail.com>
+ <apmFpUvkRBgMdOH2@e129823.arm.com>
+ <aqkGohQYChzkBPZ7@e129823.arm.com>
+ <b6602c6e-4c77-4dcf-8683-95b5c8fc4693@app.fastmail.com>
+ <aqwO0EdIwzBQlnmW@e129823.arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa11e473a7c03a1kunm611c7a0b42a27a
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaHktMVkxDHUwaHR1OHUlMHVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSUhOQ0
-	NVSktLVUtZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=PIvbZRxsKHbGjKHSx4hyng7e9bSBxSJFujO/Rx8bkX10sxnitH7hkpFwyoOdHX05H1XqkP44bPe1/hYD0QfSBeHmNtSY43qQGmpFFEY5x8Bg1XMNl26YLSZ8kolvXelwjYOd3jgOcTK/azLOEAhqu3qCFhsbc7WTU8EMB1J18YU=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=sEHnVK+cGI77dBADCJ0be5zStEW7wq7MOe8uU18EpjA=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqwO0EdIwzBQlnmW@e129823.arm.com>
 
-Hi Simon,
+On Thu, Sep 17, 2026 at 05:01:20PM +0100, Yeoreum Yun wrote:
+> Hi Ard,
+> 
+> > 
+> > On Tue, 15 Sep 2026, at 10:49, Yeoreum Yun wrote:
+> > >> > On Thu, 3 Sep 2026, at 16:29, Ard Biesheuvel wrote:
+> > >> > > On Thu, 3 Sep 2026, at 16:10, Yeoreum Yun wrote:
+> > >> > >> Hi Ard,
+> > >> > >>
+> > >> > >>> Hello Yeoreum Yun,
+> > >> > >>> 
+> > >> > >>> On Thu, 3 Sep 2026, at 13:32, Yeoreum Yun wrote:
+> > >> > >>> > On platforms that allows to update firmware in runtime, UpdateCapsule()
+> > >> > >>> > may immediately write a firmware image to persistent storage.
+> > >> > >>> > This operation can take longer than EFI_RTS_TIMEOUT.
+> > >> > >>> >
+> > >> > >>> > Use a separate timeout for the UpdateCapsule() runtime service. By
+> > >> > >>> > default, wait indefinitely to avoid interrupting an ongoing firmware
+> > >> > >>> > update. Administrators may configure an appropriate timeout, in seconds,
+> > >> > >>> > through /sys/firmware/efi/capsule_update_timeout.
+> > >> > >>> >
+> > >> > >>> > Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+> > >> > >>> > ---
+> > >> > >>> >  drivers/firmware/efi/efi.c              | 41 +++++++++++++++++++++++++
+> > >> > >>> >  drivers/firmware/efi/runtime-wrappers.c | 14 +++------
+> > >> > >>> >  include/linux/efi.h                     | 10 ++++++
+> > >> > >>> >  3 files changed, 55 insertions(+), 10 deletions(-)
+> > >> > >>> >
+> > >> > >>> 
+> > >> > >>> Given that UpdateCapsule() is rarely used these days at runtime, I
+> > >> > >>> wonder if we should just call it synchronously instead of via the
+> > >> > >>> EFI workqueue.
+> > >> > >>> 
+> > >> > >>> I assume that would also solve the timeout issue?
+> > >> > >>
+> > >> > >> Might be. But it would make *non-preemptible* for UpdateCapsule().
+> > >> > >> AFAIK the purpose of running runtime service with efi_queue to
+> > >> > >> run it in indepdent context and to be preemtible in case of arm64.
+> > >> > >>
+> > >> > >
+> > >> > > No.
+> > >> > >
+> > >> > >> Since most of UpdateCapsule() will be called via capsule-loader's misc
+> > >> > >> device, if UpdateCaspule() is called synchronously, It would be
+> > >> > >> non-preemtible in arm64 platform.
+> > >> > >>
+> > >> > >> But, some platform could be preemptible while updating firmware so
+> > >> > >> I think it would be better that it would be called via EFI workqueue.
+> > >> > >>
+> > >> > >
+> > >> > > EFI runtime service invocations are preemptible on arm64, so this is
+> > >> > > not a problem.
+> > >> > 
+> > >> > Ah wait - you're right, they are only preemptible when invoked from the
+> > >> > work queue.
+> > >> 
+> > >> Yes. That's why I think it would be better to call via EFI workqueue
+> > >> when I see arch_efi_call_virt_setup().
+> > >
+> > > Hi Ard,
+> > >
+> > > Could there be any issues with doing it this way, or would there be
+> > > a better approach?
+> > >
+> > 
+> > Would it make sense to simply have different limits for UpdateCapsule() and
+> > for everything else? How much longer than 2 minutes do you need in the
+> > typical case?
+> 
+> Although the time required to complete a firmware update depends onthe platform
+> and other factors, such as whether the capsule contains a single firmware image
+> or multiple images, it is generally reasonable to expect the update to complete
+> within 10 minutes.
+> 
+> If, for some reason, an update is expected to take longer than 10 minutes,
+> the sysfs interface for configuring capsule_update_timeout would be useful.
+> 
+> This would allow the timeout to be adjusted as needed, for example to
+> 15 minutes, before capsule update. 
+> 
+> Am I missing something?
 
-> Whether the issue was actually triggered, or is only theoretical
-> (e.g. found by code inspection). If it was triggered please include
-> the symptoms, like the stack trace or error messages.
->
-> What hardware the change was tested on. For driver fixes please
-> mention the device (and if relevant firmware version) used for
-> testing, or say that the change was not tested on real hardware.
+Gentle ping in case of forgotten.
 
-The issue was identified by code inspection and was not reproduced at
-runtime. In legacy INTx mode, aq_ptp_irq_alloc() skips request_irq() and
-returns -EINVAL. The aq_ndev_open() error path then calls aq_nic_stop(),
-which invokes aq_ptp_irq_free(); before this change, that path could call
-free_irq() without a matching request_irq(). The expected IRQ-core warning
-is "Trying to free already-free IRQ", but I did not capture a runtime
-warning or stack trace.
-
-I did not test this on real Aquantia Atlantic hardware or firmware.
-
-Thanks,
-Runyu
+-- 
+Sincerely,
+Yeoreum Yun
