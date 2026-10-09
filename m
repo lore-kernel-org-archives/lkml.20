@@ -1,47 +1,47 @@
 Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F075A4DE72E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDD784DE731
 	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 11:43:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.24
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791546233; cv=none; b=YSa+37u1ZliNL5yws0MlKmGB8aZVhwc8rIZ4ixQdu0mlbSGLOJ88X3X8mJIWkh27mwTzuocKfuedGpxciDC6AKToH3bAGpHpfqyKZ1P2aGviaghH4VUiB6xUbWyXUB/23ZYudCYCXjxPqCccYTVU63qOH9ENU9CfkmOOE9wz+bo=
+	t=1791546234; cv=none; b=jYLAHlI5wK+xoJXufI3AlznzMH8JXWheecQVyCkWTZa19qb67A8DF2kfKFdD2VaU+TQsvfERk2yiNI+0egmaQOIV0R5Z/F7G39kqaQOXrNy5dlc/ARc/h0ZfbEC4N3HmXf3EGBA7LBoeSCY02gGVv6442F2IcePMV57N/fgAFk4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791546233; c=relaxed/simple;
-	bh=y8IGao0BdEhcPl/0jwybUqXyYFAw1AL4j8ic7ATdPEA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:MIME-Version:
-	 Content-Type:References; b=pgFKB0IJZOyeKhiSFRG9qM3kQs1qGs219eH6IfVi5T3EFwI+0VNC4H6x7aw+lG6J+if4CZepd1x5c0eZK8Ft1a3nxs//1g+85k8gxb1g+lpmN55lCyNPL4lpCQ/toDpWw+9geDo6ZfCHe1L8sAyAEJ63tlGFXyVCytI6wQ91Ds8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=eXcJOqVq; arc=none smtp.client-ip=203.254.224.24
+	s=arc-20240116; t=1791546234; c=relaxed/simple;
+	bh=dvF+//kJBiuZFF3EvS4E1KQWB/fhUJHNXMJbDYPgIyo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 References; b=I/04cMZDwErigO8T1w/MmVK3tWecjqZPY//lm2XLYvtCN/DMp9sLrrMAA8zu7fVFx/xQFCctv0K6YeYMHArMFf3rM6uRHP+QNN8zKFhXBlE6sL/1PASfxIX/Bh0UO25OZQDMoGWWCNrGne2exAVmIRX6oUAF1YrfcdAxZXtiFMU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=Pxz4/4TR; arc=none smtp.client-ip=203.254.224.24
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="eXcJOqVq"
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="Pxz4/4TR"
 Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
-	by mailout1.samsung.com (KnoxPortal) with ESMTP id 20261009114339epoutp01d84c10cffd5119edb550cdee0ee5cba1~c2ct_CRHM1216112161epoutp01Q
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 11:43:39 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com 20261009114339epoutp01d84c10cffd5119edb550cdee0ee5cba1~c2ct_CRHM1216112161epoutp01Q
+	by mailout1.samsung.com (KnoxPortal) with ESMTP id 20261009114334epoutp01bf529f488ff7c8a418b66fc2818d38db~c2cowOqsp1385013850epoutp01I
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 11:43:34 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com 20261009114334epoutp01bf529f488ff7c8a418b66fc2818d38db~c2cowOqsp1385013850epoutp01I
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1791546219;
-	bh=xZPonB6Lbb0k2OXAWHkAdkEguf5JX+UcZL6exprUdC8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=eXcJOqVqi+aX+wNZBlkXdwZ1hJsf22Ga1DY7dwFz6jTZVdsdWr4Ul48WTllzvWMHD
-	 ZH7NrSSOlbWyV/v8UT8TlVdLYBqM/rXbPbcBvlyqGziCiefjwksUTsa/Y/RYiup5fZ
-	 QVuBp4jUVb0abgwQBo1hdiwXVB57NgUBjLDDlMm0=
-Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
+	s=mail20170921; t=1791546214;
+	bh=F5Vy/YwEGeTk+1lMKsuWeWXc6SaIHmiMxLZ/s5WSiMc=;
+	h=From:To:Cc:Subject:Date:References:From;
+	b=Pxz4/4TRlRx5uLILVhiIUd/6rVXz1WGz+j0vgFVoAxp/pxyH0+f1gOpJoDhuhJANo
+	 UG5dEP/K8V+BNLmRnA/o50E/QHj8ASaKXGOgeZGe1yUL3x9vc9izcAN3Y+fZ/GTGBs
+	 cHCqWX43rq/GG1JLJd7UxpKZbQ58cRfiUSBwqfX8=
+Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
 	epcas5p1.samsung.com (KnoxPortal) with ESMTPS id
-	20261009114337epcas5p1f1c96db9c3e1d67f8b3fe825658c9a0e~c2csFu2oD2444624446epcas5p1A;
-	Fri,  9 Oct 2026 11:43:37 +0000 (GMT)
-Received: from epcas5p1.samsung.com (unknown [182.195.38.91]) by
-	epsnrtp02.localdomain (Postfix) with ESMTP id 4j1Q3q3P1Nz2SSKX; Fri,  9 Oct
-	2026 11:43:35 +0000 (GMT)
+	20261009114333epcas5p1374d0b179fa2d04eaa6f9ab334fc0211~c2cnp2T701432614326epcas5p1x;
+	Fri,  9 Oct 2026 11:43:33 +0000 (GMT)
+Received: from epcas5p1.samsung.com (unknown [182.195.38.95]) by
+	epsnrtp04.localdomain (Postfix) with ESMTP id 4j1Q3m2H24z6B9m7; Fri,  9 Oct
+	2026 11:43:32 +0000 (GMT)
 Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
-	epcas5p4.samsung.com (KnoxPortal) with ESMTPA id
-	20261009114334epcas5p4723a40fefde5ce330b995e94c77dd951~c2co-l5Vg2878528785epcas5p45;
-	Fri,  9 Oct 2026 11:43:34 +0000 (GMT)
+	epcas5p3.samsung.com (KnoxPortal) with ESMTPA id
+	20261009114331epcas5p37f60df8cdaf502a0cc492ad5eacf5e05~c2cmUuXD50307503075epcas5p3Q;
+	Fri,  9 Oct 2026 11:43:31 +0000 (GMT)
 Received: from bose.samsungds.net (unknown [107.108.83.9]) by
 	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261009114331epsmtip2fd9b09b6b9e56e8d5dff51252faebe79~c2cmjw1YK0638806388epsmtip2O;
-	Fri,  9 Oct 2026 11:43:31 +0000 (GMT)
+	20261009114329epsmtip2a2723a73dbcf714ffaacb71972767234~c2cj-jlrw3087430874epsmtip2M;
+	Fri,  9 Oct 2026 11:43:28 +0000 (GMT)
 From: Raghav Sharma <raghav.s@samsung.com>
 To: krzk@kernel.org, s.nawrocki@samsung.com, cw00.choi@samsung.com,
 	peter.griffin@linaro.org, alim.akhtar@samsung.com, sboyd@kernel.org,
@@ -51,12 +51,10 @@ Cc: linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org,
 	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org, is.gandhi@samsung.com, ts.amit@samsung.com,
 	pokala.reddy@samsung.com
-Subject: [PATCH v2 01/14] dt-bindings: soc: samsung: Exynos8855 SYSREG
- compatibles
-Date: Fri,  9 Oct 2026 17:31:24 +0530
-Message-Id: <20261009120137.2801911-2-raghav.s@samsung.com>
+Subject: [PATCH v2 00/14] Add clock support for Exynos8855 SoC
+Date: Fri,  9 Oct 2026 17:31:23 +0530
+Message-Id: <20261009120137.2801911-1-raghav.s@samsung.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261009120137.2801911-1-raghav.s@samsung.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -64,52 +62,73 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261009114334epcas5p4723a40fefde5ce330b995e94c77dd951
+X-CMS-MailID: 20261009114331epcas5p37f60df8cdaf502a0cc492ad5eacf5e05
 X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
 CMS-TYPE: 105P
 cpgsPolicy: CPGSC10-543,Y
 X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261009114334epcas5p4723a40fefde5ce330b995e94c77dd951
-References: <20261009120137.2801911-1-raghav.s@samsung.com>
-	<CGME20261009114334epcas5p4723a40fefde5ce330b995e94c77dd951@epcas5p4.samsung.com>
+X-CMS-RootMailID: 20261009114331epcas5p37f60df8cdaf502a0cc492ad5eacf5e05
+References: <CGME20261009114331epcas5p37f60df8cdaf502a0cc492ad5eacf5e05@epcas5p3.samsung.com>
 
-From: Alim Akhtar <alim.akhtar@samsung.com>
+This patch series adds clock support for below blocks
+found in Exynos8855 SoC
 
-Add exynos8855 sysreg compatibles in bindings
+TOP & PERIC
+PERIS
+HSI
+USB
 
-Signed-off-by: Alim Akhtar <alim.akhtar@samsung.com>
+There are many other blocks, for which the support will be
+added in a forthcoming patch series.
+
 Signed-off-by: Raghav Sharma <raghav.s@samsung.com>
 ---
- .../bindings/soc/samsung/samsung,exynos-sysreg.yaml       | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Changes in v2:
+- Removed name duplicates login, as pointed by Krzysztof Kozlowski
+-Corrected the sequence of binding, driver and DT entries
+- Removed <linux/mod_devicetable.h>, as pointed by Uwe
+- Added all the TOP clocks in single patch
+- Organised the patches in the order: dt-bindings → clk-driver → dtsi
+- Added Automatic Clock Gating, as suggested by Peter Griffin
+-Since we are adding ACG, we need to add SYSREG, hence, added that
+- Followed the name mangling strategy as mentioned in clk-gs101
 
-diff --git a/Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml b/Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml
-index fcdb9ffd2644..845e0caba15a 100644
---- a/Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml
-+++ b/Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml
-@@ -31,6 +31,10 @@ properties:
-               - samsung,exynos5-sysreg
-               - samsung,exynos7870-cam0-sysreg
-               - samsung,exynos7870-disp-sysreg
-+              - samsung,exynos8855-hsi-sysreg
-+              - samsung,exynos8855-peric-sysreg
-+              - samsung,exynos8855-peris-sysreg
-+              - samsung,exynos8855-usb-sysreg
-               - samsung,exynos8895-fsys0-sysreg
-               - samsung,exynos8895-fsys1-sysreg
-               - samsung,exynos8895-peric0-sysreg
-@@ -103,6 +107,10 @@ allOf:
-               - samsung,exynos850-cmgp-sysreg
-               - samsung,exynos850-peri-sysreg
-               - samsung,exynos850-sysreg
-+              - samsung,exynos8855-hsi-sysreg
-+              - samsung,exynos8855-peric-sysreg
-+              - samsung,exynos8855-peris-sysreg
-+              - samsung,exynos8855-usb-sysreg
-               - samsung,exynos8895-fsys0-sysreg
-               - samsung,exynos8895-fsys1-sysreg
-               - samsung,exynos8895-peric0-sysreg
+Link to v1: https://lore.kernel.org/all/20260728121111.2077860-1-raghav.s@samsung.com/
+
+Alim Akhtar (2):
+  clk: samsung: clk-pll: Add support for pll_4313
+  dt-bindings: soc: samsung: Exynos8855 SYSREG compatibles
+
+Raghav Sharma (12):
+  dt-bindings: clock: exynos8855: add top & peric clock definitions
+  dt-bindings: clock: exynos8855: add peris clock definitions
+  dt-bindings: clock: exynos8855: add hsi clock definitions
+  dt-bindings: clock: exynos8855: add usb clock definitions
+  clk: samsung: exynos8855: add block top and peric clock support
+  clk: samsung: exynos8855: add block peris clock support
+  clk: samsung: exynos8855: add block hsi clock support
+  clk: samsung: exynos8855: add block usb clock support
+  arm64: dts: exynos8855: add cmu_top & cmu_peric clock DT nodes
+  arm64: dts: exynos8855: add cmu_peris clock DT nodes
+  arm64: dts: exynos8855: add cmu_hsi clock DT nodes
+  arm64: dts: exynos8855: add cmu_usb clock DT nodes
+
+ .../clock/samsung,exynos8855-clock.yaml       |  178 +++
+ .../soc/samsung/samsung,exynos-sysreg.yaml    |    8 +
+ arch/arm64/boot/dts/exynos/exynos8855.dtsi    |   95 ++
+ drivers/clk/samsung/Makefile                  |    1 +
+ drivers/clk/samsung/clk-exynos8855.c          | 1383 +++++++++++++++++
+ drivers/clk/samsung/clk-pll.c                 |   11 +-
+ drivers/clk/samsung/clk-pll.h                 |    1 +
+ .../dt-bindings/clock/samsung,exynos8855.h    |  233 +++
+ 8 files changed, 1909 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/clock/samsung,exynos8855-clock.yaml
+ create mode 100644 drivers/clk/samsung/clk-exynos8855.c
+ create mode 100644 include/dt-bindings/clock/samsung,exynos8855.h
+
+
+base-commit: aac26bee2287c88af5be5a5ff96d783b19a28790
 -- 
 2.34.1
 
