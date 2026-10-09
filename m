@@ -1,166 +1,95 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93A864DAFB2;
-	Fri,  9 Oct 2026 13:21:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6DEE64582C9;
+	Fri,  9 Oct 2026 13:21:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791552068; cv=none; b=Sw1jcoW3vVaB2kjFxsQ6fYPjIKZoh3KJD40Nz1+sRnbCdGwMIbaJILMy7Oa+hTtUFsWeWmOSeSX22Yp2DOTBGvgsrmGSpUWFJVYbJ7rByUtQXNkK27mHQsVvWSBxmdIrihQAWyXAdcTLTMOx0gw5wdmH6sVp65X2h58fK6pvelk=
+	t=1791552089; cv=none; b=fAz31TPW1/bpLGa0SjFpX+PgLAz3lYj4yrNFhKdA9EZ1DiesnxZdTxmdOxTiIQ3CEwlTWKAts6FLrdW7w1FHkniQ7r1J5b3hlbv2NjETz7cxaq3z1TLoWJI4u92iYA6qaqBGppTR9Bgs/81pED4s5FFl6YAyfXMEGVog0Kj4G3o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791552068; c=relaxed/simple;
-	bh=AUj7OySEVuzLrRKTI2/u/OTDShpb6BsJbutuegVE7Yo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PMqm2uQof/uHisLbo9RjYoOZdlBtymNvyPPvWYDbmYZmg858+d2e8FC3D7X6qiYDuXFbMO/GjqGmfaN0eKT95K0xYabEw3DI+7U9/cBjI4fJHu6McHGd3d/tA4qR9KXjevaNc82Nn79pV9r4eLY+myjVKKan7fMFOBXvqUI8K/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=QRE7GzXF; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791552089; c=relaxed/simple;
+	bh=hRhxlDr3ghluH/n3MjQIcZt8qG0YcCtn6rX1pd593sQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IEnOtojZ00UQQPvsjONZ+9ZeYzmlfi//vQPQaQ7wo2OeZQp7RHOCt6Qz/wlQ5Z55XjdjR1m39R/tPiD6pxM154CIPTVwGjZboTUOLdFQUgzGGwY6zfGijwg50jND7wa5l91TsTOPjyRCpYkqYgGhbT/C7+jBp3uQQGtvyKscsJI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Adl6jA6J; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="QRE7GzXF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=UJ
-	R/c+njOjwBClCYT0vYB+8OCVlBHF2A3nn7qINygic=; b=QRE7GzXFD+fn0WZci7
-	wH594ex4QlL7GMMwU0Gc/nPjtUQYPtMby8rrAZ8Nm4RlYWdtuWg7yphhioTUtFe5
-	AUWiyXBkFd34gxDGe7W79ETj1WCivx5ey7yNQi9B3blQsqt7ixQgE8UOgO+AJNy9
-	SdcdBZBVCs6qhsT6c1omMhQ68=
-Received: from colol4bi5.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD3P_wX6shqSb62DQ--.56277S2;
-	Fri, 09 Oct 2026 21:20:24 +0800 (CST)
-From: Binbin Deng <18983559317@163.com>
-To: sam@mendozajonas.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Binbin Deng <18983559317@163.com>
-Subject: [PATCH net v1] ncsi: Fix use-after-free in the device unregister path
-Date: Fri,  9 Oct 2026 21:20:21 +0800
-Message-ID: <20261009132021.39611-1-18983559317@163.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Adl6jA6J"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 46DCC1BB2;
+	Fri,  9 Oct 2026 06:21:24 -0700 (PDT)
+Received: from [10.2.213.24] (e137867.arm.com [10.2.213.24])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 257993F763;
+	Fri,  9 Oct 2026 06:21:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791552087; bh=hRhxlDr3ghluH/n3MjQIcZt8qG0YcCtn6rX1pd593sQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Adl6jA6J9BYPFxHQzHiaWmUINvAK8wA58GDVWDHD7lg54hvFG7MF1Yc6exVEpsZ6T
+	 D6Xxp5nThjjH+YtvgQDITVhH4czKRwtgYb0d3ufijZ2wktSRmZeqk5SbmJrvGkWieY
+	 II+Yr9pCM6gLKQF6mGQLT9LhFECZ6ow5oVPJX31Y=
+Message-ID: <5becc0b8-9b31-4539-b477-2d4af66c89a4@arm.com>
+Date: Fri, 9 Oct 2026 14:21:18 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3P_wX6shqSb62DQ--.56277S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxCFy8ArW3Cr48tr1fKw15Jwb_yoWrGw1fpF
-	W3GryrKw48JF1FgFZ5WrWrWF15Xr4kW3Wjg39rKw4Sya9xGryUZryrAay09Fy5GFZ7Ca1a
-	vr4YgF4a9rW8ZrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Uc0eXUUUUU=
-X-CM-SenderInfo: jprymmytvvmjmrxbiqqrwthudrp/xtbC3xiNcWrI6hh-CgAA3e
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] ARM, ARM64, LONGARCH, XTENSA: Delay HW BP notification
+ to task_work()
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-rt-devel@lists.linux.dev, linux-perf-users@vger.kernel.org,
+ loongarch@lists.linux.dev, "Luis Claudio R. Goncalves"
+ <lgoncalv@redhat.com>, Waiman Long <longman@redhat.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Clark Williams <clrkwllms@kernel.org>,
+ Steven Rostedt <rostedt@goodmis.org>, Adrian Hunter
+ <adrian.hunter@intel.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Huacai Chen <chenhuacai@kernel.org>, Ian Rogers <irogers@google.com>,
+ Ingo Molnar <mingo@redhat.com>, James Clark <james.clark@linaro.org>,
+ Jiri Olsa <jolsa@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
+ Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+ Russell King <linux@armlinux.org.uk>, WANG Xuerui <kernel@xen0n.name>,
+ Chris Zankel <chris@zankel.net>, Max Filippov <jcmvbkbc@gmail.com>,
+ Linus Walleij <linusw@kernel.org>, Ada Couprie Diaz <ada.coupriediaz@arm.com>
+References: <20261001143516.Ew8C97WS@linutronix.de>
+ <fd405cda-51bd-4b1c-803c-f2597b2b128e@arm.com>
+ <20261008192117.ZIKKU3Yh@linutronix.de>
+From: Ada Couprie Diaz <ada.coupriediaz@arm.com>
+Content-Language: en-US, en-GB, fr
+Organization: Arm Ltd.
+In-Reply-To: <20261008192117.ZIKKU3Yh@linutronix.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-ncsi_unregister_dev() tears the NCSI device down in this order:
+Hi Sebastian,
 
-	dev_remove_pack(&ndp->ptype);
-
-	list_for_each_entry_safe(np, tmp, &ndp->packages, node)
-		ncsi_remove_package(np);
-	...
-	disable_work_sync(&ndp->work);
-
-	kfree(ndp);
-
-ncsi_remove_package() and ncsi_remove_channel() remove the objects
-with list_del_rcu() and free them with an immediate kfree().  Two
-concurrent users are not covered by this sequence:
-
-  1. The NCSI state machine work (ndp->work) iterates the package and
-     channel lists (NCSI_FOR_EACH_PACKAGE/NCSI_FOR_EACH_CHANNEL, which
-     are list_for_each_entry_rcu) while configuring channels, holding
-     neither ndp->lock nor np->lock across the iteration.
-     disable_work_sync() runs only after all packages have been freed,
-     so it does not prevent the work from walking the lists over freed
-     objects.
-
-  2. RCU readers of the published lists.  list_del_rcu() removes the
-     entry for subsequent readers, but the following bare kfree() is
-     not covered by any grace period, so a reader that has already
-     obtained the node pointer (e.g. a list_for_each_entry_rcu
-     iteration in flight) dereferences freed memory when it resumes.
-
-The ordering is reachable on BMC systems: ftgmac100_remove() calls
-ncsi_unregister_dev() before unregister_netdev(), i.e. before
-ncsi_stop_dev() has stopped the state machine, so the work is still
-active while the packages are freed.  Device removal concurrent with
-the NCSI configuration cycle or a netlink query triggers the race.
-
-Fix this in two parts:
-
-  - stop the state machine work before freeing the packages and
-    channels instead of after;
-  - free the package and channel objects with kfree_rcu() so that
-    readers covered by an RCU read-side critical section do not
-    access freed memory.
-
-Fixes: e6f44ed6d04d ("net/ncsi: Package and channel management")
-Signed-off-by: Binbin Deng <18983559317@163.com>
----
- net/ncsi/internal.h    | 2 ++
- net/ncsi/ncsi-manage.c | 8 ++++----
- 2 files changed, 6 insertions(+), 4 deletions(-)
-
-diff --git a/net/ncsi/internal.h b/net/ncsi/internal.h
-index 2c9d1f22c16a..461469cc2600 100644
---- a/net/ncsi/internal.h
-+++ b/net/ncsi/internal.h
-@@ -239,6 +239,7 @@ struct ncsi_channel {
- 	} monitor;
- 	struct list_head            node;
- 	struct list_head            link;
-+	struct rcu_head             rcu_head;
- };
- 
- struct ncsi_package {
-@@ -253,6 +254,7 @@ struct ncsi_package {
- 	bool                 multi_channel; /* Enable multiple channels  */
- 	u32                  channel_whitelist; /* Channels to configure */
- 	struct ncsi_channel  *preferred_channel; /* Primary channel      */
-+	struct rcu_head      rcu_head;
- };
- 
- struct ncsi_request {
-diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
-index 1d63958c4429..39ac7075cd1b 100644
---- a/net/ncsi/ncsi-manage.c
-+++ b/net/ncsi/ncsi-manage.c
-@@ -263,7 +263,7 @@ static void ncsi_remove_channel(struct ncsi_channel *nc)
- 	np->channel_num--;
- 	spin_unlock_irqrestore(&np->lock, flags);
- 
--	kfree(nc);
-+	kfree_rcu(nc, rcu_head);
- }
- 
- struct ncsi_package *ncsi_find_package(struct ncsi_dev_priv *ndp,
-@@ -326,7 +326,7 @@ void ncsi_remove_package(struct ncsi_package *np)
- 	ndp->package_num--;
- 	spin_unlock_irqrestore(&ndp->lock, flags);
- 
--	kfree(np);
-+	kfree_rcu(np, rcu_head);
- }
- 
- void ncsi_find_package_and_channel(struct ncsi_dev_priv *ndp,
-@@ -1958,6 +1958,8 @@ void ncsi_unregister_dev(struct ncsi_dev *nd)
- 	struct ncsi_package *np, *tmp;
- 	unsigned long flags;
- 
-+	disable_work_sync(&ndp->work);
-+
- 	dev_remove_pack(&ndp->ptype);
- 
- 	list_for_each_entry_safe(np, tmp, &ndp->packages, node)
-@@ -1967,8 +1969,6 @@ void ncsi_unregister_dev(struct ncsi_dev *nd)
- 	list_del_rcu(&ndp->node);
- 	spin_unlock_irqrestore(&ncsi_dev_lock, flags);
- 
--	disable_work_sync(&ndp->work);
--
- 	kfree(ndp);
- }
- EXPORT_SYMBOL_GPL(ncsi_unregister_dev);
--- 
-2.43.0
-
+On 08/10/2026 20:21, Sebastian Andrzej Siewior wrote:
+> On 2026-10-06 18:17:52 [+0100], Ada Couprie Diaz wrote:
+>> Hi Sebastian,
+> Hi Ada,
+>
+>> I find the function names a bit counter-intuitive, compared to the other
+>> arch-specific perf functions.
+>> Given the name `perf_arch_...`, I would have expected them to be defined
+>> in arch code, rather than in the generic perf code.
+>>  From what I can see, usually perf functions calling an arch-specific
+>> function lack the `_arch_` infix of their `arch_` counterpart.
+>>
+>> I do not know very well what we expect in perf, so I might be off-base,
+>> but would calling them `perf_hwbp_send_sig()` and `perf_hwbp_notify()`
+>> make sense ?
+> Thanks for looking at this. I renamed them as:
+> - perf_arch_hwbp_notify() -> perf_hwbp_notify() (generic)
+> - arch_hwbp_send_sig() -> perf_arch_hwbp_send_sig() (arch specific)
+> - perf_arch_hwbp_send_sig() -> perf_hwbp_send_sig() (generic)
+>
+> [...]
+>
+> Sebastian
+That sounds good to me, thanks !
+Kind regards
+Ada
