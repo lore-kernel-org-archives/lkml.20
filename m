@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7370409E12
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 06:10:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5819D42C518;
+	Fri,  9 Oct 2026 06:10:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791526216; cv=none; b=QqTU83rF7lvcflsNjYYv5HCoqCCF2c7JABWC1yqqdaE01H+q3fxlu5m8LPzia2/Wn2wtN7FJrNw11skLk5VzFV3bowJYt4Sl8xUW5OFR/o7RDmvkDelm27U/P34Buc1AR9mgoeb0Po3s1nH6qY/lFbSWNS1Kt8tHo9YPnvWZucY=
+	t=1791526221; cv=none; b=SZvXwhQQ3YlhgaNyrfK23favSUBtCq452dAATk3RnQn3IBbQcrCI4GY78d07f01lmtzPlm8s0pN3HHaSCLQuJF9ebPA20iDz9UuhP3Y+DuGOUmDf1pNax8xVsKyC8FADDwh9Ssf1gmYHvRNlCednlHsonNEYYLtIU8kXNmB29U0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791526216; c=relaxed/simple;
-	bh=Uun+gC2AtO1CHHyThqQeKh0pYD6m1fEcrc7dabT0JGw=;
+	s=arc-20240116; t=1791526221; c=relaxed/simple;
+	bh=flrZtGuBWN5uhPpVz0flFxAvlWbkl/ZkK9l7vI322/s=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EBF6fWPq2BhJGST0QuWH5IAJq8R445F4bQcRcqZjHjOPQsJRs80pjKzbSRqeEHTiVxp3KZ2+UG5qRoySa0kzPIt1y8czgNVeM8H4c0VQIoxtYV0UHEGTH0FCh5SCAxqEoUAXojeSmkPa8pXuudSHyXoYLHfnhZtUlYK3I6GiQjQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cuPLDbsq; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=YU1FNurFTLAnJztx4QOjLAFlAqkSgK86WDJ7EKjHs/dhN9DnRJvrDj5xdeWxwTFRkjaLbgPvfrkfKdWBoaN9pwCwOir0xKHBgPx56MlVaiTR/fqBPBft5A5PimgPtisWMFO8um8zCFOENwT+9GvIMNS4nw9K2VkZVEHDekAcyBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ItDXhXo2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cuPLDbsq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9939F1F000FF;
-	Fri,  9 Oct 2026 06:10:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ItDXhXo2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E04D71F000FF;
+	Fri,  9 Oct 2026 06:10:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791526215;
-	bh=1l5hIGSoizBJ4+ECoX3r7MfK+993Pnzr6WRToZvHfW0=;
+	s=k20260515; t=1791526218;
+	bh=EKOWnKBJbJXeo8x7ZpRmGUBbXlEBT0+pIRkZH0GNbaw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cuPLDbsqxxrWPpjOtxYva0hqHGIOsTqPhuw0K3MrIPdTBtW2XYREqvc28E/7r4f25
-	 AaCh3+hEo+OfBSjJNgMDBTojJxsHb36GvRaLW4ELkXyvJpitzZYupq3mw31apvOqVy
-	 rXIplgrkBnVkZsilwzYtlPHxsu1046VN5hDZ7tvR2fdvTtbTTT5N9mTt4ZZrg8KJxY
-	 afcE/AbFHac4MVldmoM77HxmY1v7yjpSkCU4RETytekKZVyasSJwSuASaPJJiE+OFb
-	 n7R9LIum9vWm/b6yEKJdoOeCFmgpfsgz4pcQSPT38TC4ZMKcp5n1Nnnx5WtD+oMS31
-	 +yy8/X2N9mBGA==
-Date: Fri, 9 Oct 2026 08:10:12 +0200
+	b=ItDXhXo2lnHxe4Ty/4W3UyneDlSvPXkqY1slCpv+/7L44f/H4MflyLcIPg1F0NZL1
+	 WxWCTDpohl1nagM2Mos1gx+t5J9XCO8EFZUQ449XxQrFF9mkSXJsscKKmdbAdguvWA
+	 MQr75gWIvkmf7QtGuytNbx24zzZh0LgqxMvNHjTw2dPcyl/QaBLztME9BD5ZbtnIQt
+	 Ch/4lZtWUQ2c8qAll6JMREHTy8zt3oRzdQXcIb2A1FtH39mJWx9mR76qQorM5G0Ro9
+	 uI4WIYQYoQ1A4IuEgTxOymxp0leN25nseGB8cen3v6KvCzEEx1pZN/sOp/WbGcjOnB
+	 p2J63HhwyivYA==
+Date: Fri, 9 Oct 2026 08:10:16 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Haotian Zhang <vulab@iscas.ac.cn>
-Cc: Michael Bringmann <mwb@linux.vnet.ibm.com>, 
-	Madhavan Srinivasan <maddy@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org, 
-	Shrikanth Hegde <sshegde@linux.ibm.com>, Nicholas Piggin <npiggin@gmail.com>, 
-	linux-kernel@vger.kernel.org, Michael Ellerman <mpe@ellerman.id.au>
-Subject: Re: [PATCH] powerpc/pseries: fix device_node leak in drc-info lookup
- error paths
-Message-ID: <20261009-proud-dog-of-stamina-476677@quoll>
-References: <20261009035445.3079660-1-vulab@iscas.ac.cn>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	iommu@lists.linux.dev, linux-samsung-soc@vger.kernel.org, 
+	Marek Szyprowski <m.szyprowski@samsung.com>, Will Deacon <will@kernel.org>, 
+	Alim Akhtar <alim.akhtar@samsung.com>, Peter Griffin <peter.griffin@linaro.org>, 
+	Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <jroedel@suse.de>
+Subject: Re: [PATCH] iommu/exynos: fix NULL pointer dereference on
+ device_link_add() failure
+Message-ID: <20261009-refreshing-squirrel-from-hyperborea-ea10de@quoll>
+References: <20261009034539.3073100-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,26 +46,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261009035445.3079660-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261009034539.3073100-1-vulab@iscas.ac.cn>
 
 
-On Fri, 09 Oct 2026 11:54:45 +0800, Haotian Zhang wrote:
-> cpu_to_drc_index() and drc_index_to_cpu() acquire the /cpus device_node
-> with of_find_node_by_path() and then walk the ibm,drc-info property. When
-> an entry whose drc_type is not "CPU" is encountered, the code jumps to the
-> err label, which is *after* the err_of_node_put label, so of_node_put() is
-> skipped and the reference taken on the /cpus node is leaked on every such
-> exit.
+On Fri, 09 Oct 2026 11:45:39 +0800, Haotian Zhang wrote:
+> exynos_iommu_probe_device() stores the result of device_link_add() in
+> data->link without checking it for failure, although device_link_add()
+> returns NULL when the supplier is not PM initialized, on a dependency
+> cycle or on allocation failure. exynos_iommu_release_device() then calls
+> device_link_del() on that entry unconditionally, and device_link_del()
+> dereferences link->flags, so a NULL data->link causes a NULL pointer
+> dereference when the device is released.
 > 
-> Jump to err_of_node_put instead so the device_node reference is always
-> released.
+> Check the returned device link for NULL, unwind the links that were
+> already created and fail the probe instead.
 > 
-> Fixes: e83636ac3334 ("pseries/drc-info: Search DRC properties for CPU indexes")
+> Fixes: 7a974b29fe5d ("iommu/exynos: Rework runtime PM links management")
 > Assisted-by: DeepSeek-V4.1-Flash
 > Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
 > ---
->  arch/powerpc/platforms/pseries/pseries_energy.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  drivers/iommu/exynos-iommu.c | 14 +++++++++++++-
+>  1 file changed, 13 insertions(+), 1 deletion(-)
 > 
 
 
