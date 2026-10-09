@@ -1,136 +1,131 @@
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2855E4C2241
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 11:22:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.52
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791544954; cv=none; b=khsnMk3ojC1mP3Ss64h43XYrju9QaqT02D3WWeruXu1LTUI35/Nw3/Gg3Xmvj6FlN9qCUI9dhTjtIA0culg4BqphkXO6lvcT1kGj/U7d0m/EpEsVPT+aico5xzQA4nPPxGrbrq70X9jXq7bDc1xa7kfmH5mLE0Ay8PEGxDbrpEI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791544954; c=relaxed/simple;
-	bh=Nrfy526swql1ij9G4gq9I/Gzn0+eqeTqdguk8EGDC4Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Yu4gwnOAOwlIvFJmjiBSb7Emm5gdGV+EtEKlUneAI9H5LFGN8ERcLWY4Lt4Z+1Q3SAD4qSRV5EKkWvggfo0INc/gJxa/pWVjJb1KHhfSaDvL6xgg777FMmrHkQmveNolOq7wuhTlBWQxve5ak6x1Zc4IRVdonosGgbJXty0SVUU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G+BA40Ir; arc=none smtp.client-ip=74.125.82.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 681474A6CCD
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 11:22:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791544957; cv=pass; b=h60hKzXcvRkKb8OA1mCC/ZK8K7pvk1OkIMNzz/lxmEXxzNG6Zab2tNwS5b8tENwFJ5DHBDobdVxSeGV23ue1T+52BtDOo5rSUqqdQeHkNf2b3pIUMOiaBpZr8ForWnixfhkQa3OvznsWqM+DLgrKCyA7ntQbW1miJdSP0xZoY0o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791544957; c=relaxed/simple;
+	bh=RA8fsEDD5Aia9QBWoZvERTD0+3MACqfVNv505KJYqjE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=TTP4UY9N/sqKRhE/dZwYOk5ModCiTF9t35dzmlxYaRqXoo19NLOaOjNTATwr0v/HwtNGMaXsq9Y2dXUuvjtjFX89JhytpI6cX+YQH17D7WI08Dk6x1SHZS9jSS5FEcx+Y5BDw+CLvZpUaLMx9e+Mj5mxZGP2tq7ZP2Ej9SCaIiM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nigauri.org; spf=none smtp.mailfrom=nigauri.org; dkim=pass (2048-bit key) header.d=nigauri-org.20251104.gappssmtp.com header.i=@nigauri-org.20251104.gappssmtp.com header.b=XLk445mr; arc=pass smtp.client-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nigauri.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=nigauri.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G+BA40Ir"
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1433e7b057fso4702535c88.1
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 04:22:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nigauri-org.20251104.gappssmtp.com header.i=@nigauri-org.20251104.gappssmtp.com header.b="XLk445mr"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48afcfc4bf5so5397403f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 04:22:26 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791544945; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YciZlPUvLc4/PGm2hO9QRfbsNlIXzFb6BXyLzPGA3Kst5n47OMmCvmMXpN2nIuKfUH
+         QI5IwrVzL5TnVVnkhBJ1D7QspaZ5U2dQzgbSd/DMkkzRRsbiijNnCnDh2Dfyx8T5SH29
+         NzAuvtIC5fqJWmdZ+H58/fnjPBfZQkKi3tmn+JyixZ3lNAjIxg4cjCMAALMbT0ZIHZiy
+         KdgZFJMY1JKXw8m3Q/WjsQPePZuDbngVX5Ouz9u5pzHx8awlykBR5WvWflYWkWlq00RS
+         sVw9h7mIpBkxrAUUTQOw01D3qFqsAcC1rdJ35yma+SsJeKUDX8KHvwh1IvL+U8RgMGsI
+         uuMw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=vjZIfn36vwwRnDJGfxZP6hB0pBi/BfTnn/8/ousp3gQ=;
+        fh=GOmM+GDr8Zljva/B7WG0hLEfDLbOaP42QCkDpDh/8bo=;
+        b=Tjauhlk5mtkX2Ud4OhIUhfs7/c8V+G5BAmavnN3VNP0PZdiJAE+oESddTqNKD3wpuI
+         qov75aocOhPSB8pHZyUA/RApuL26bSgoCYONe0PBdZdnOn5iJ66tQUp3q3lOpJrVvlPR
+         Scj6UVzj7DWRNR1QKsM6QPB5Xfc8s+GjAcUaXyH+K6Nwz1ldvMdeESRJdn0kaTJtZXZG
+         51aDUrycBmJuGd5B2TR5XDIHe16rjbM5Q05v6H6bHg2LHldqxXbUeRTsECw63DqHd+CP
+         EAum5UKV1PClo69WZqaYWsz3+Evvowh7uSyp04HxgbH9qmEVmdApsQGCy6N5ECu62ZNP
+         MV6g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791544945; x=1792149745; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PkE/mtXxhD7ywmyvlYSqjpdIiOm8dtPe5CfShZ2eazQ=;
-        b=G+BA40IrAZihdwBjzA1ZFDFE4NUaBbgzr8PMGEEcFj7jOpZxYLcYPkIF02mo5QAwWe
-         XpfJ6vDOBzD0M6BqrJ+sDKImcsO8243B4lH2c+QfxggPUt3ELj2qPzIL4C5iHPrMvDQS
-         9ZZvklRO8cl03eKydG0DATaPjlPqsJTIPib/MbkXwMq2jfNBPJQTzsWgZq365PE17VLz
-         ro6p+PZYSd4pw4WN2sKFCfK6MS/TQW+23LaHfLhBBl4UXB3qBIMqDK+TyJfpe6HxK+9a
-         OY4zwHxzpyLOVe7+igYAOEBaAdZWM9KO3Hm6DB610oI2YSKkNDT8qW6zWu89+o2UaZ86
-         flTQ==
+        d=nigauri-org.20251104.gappssmtp.com; s=20251104; t=1791544945; x=1792149745; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vjZIfn36vwwRnDJGfxZP6hB0pBi/BfTnn/8/ousp3gQ=;
+        b=XLk445mrYDSMKeai0RvbQHPBnOEhF/xRbZVvswsNSQpCJZtfQAs3s6E3vq+IAmmTBj
+         sW/f9nkMzh1NjwrptI/MUeAM1bN0WN8eW3EzuUiTk8VMxvyh1JNKinwS0jWpVsOve8Eg
+         mVAllBMrccFK4XwN4paZ0zi9/3zUVMWx1FvrWxhoBna+cqmoODJbk/jMvxmUFvrMpVCO
+         iW7PRIDQwKB296mlxejatOpFpDtRUtHOQ+G6I1OrGAQiwHoblYVUcLXaGwjapbD7wHby
+         Rrk/qh5efoAwttXAzGX9XUnpdZYgNMoqIlkQ2m6lORrJpzpDMAHVP3RgptF/VFycpv6n
+         SSvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1791544945; x=1792149745;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PkE/mtXxhD7ywmyvlYSqjpdIiOm8dtPe5CfShZ2eazQ=;
-        b=J1/Eh6307rjdwus0pLk14o4uGshZL9v5rBloD+LjAg8ROBBFSCjNEeCP+7HxJCI0FE
-         mljdQnvOX+XahWRYeu11yYCg4UnwGyl0ooDDDOg5cfa+sGSnBo+JIThGMAcUc7Q3xZ0X
-         FAlgFedH+GrtvqVp215k3cwgNNHvH/2wtA8aVOq1tHsi6UgB67DBNu8Y5TI5LWtJjdYe
-         ovtBZiDZHDOlvwkTQdZXoxPf0NHaJ23pf9/FUGq3j3fX+2VZUsXz49LiUcV5L9OG75ue
-         bfZyW/KxhKyCFTStO6sRJ5Ny1kRH3Aenu8qGnGWFBzSMfAJ5FNA0RSP1YgpWnw9vxlpG
-         3IOQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxK9AkjQc3HH1trmt9W/9mjnWVvtLoK9dw8D8JdpkM/aOhlltxANS2vJQBobkgjqBWxO09kY4NX5f3LryY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nP3dd7VI/m6QcfbjxoQYRSObKmH4vkkoZ2FfXqeMNM3ZNhj/yM
-	mAeLbT4fmMh2wpq2ri6/Nn1EAjbsnMJ9Y2trElrxoiQaMShhLHZRzUAY
-X-Gm-Gg: AYBFou0xOCRKhcnIwv92Vi9/Q6x6p1S8qI04ysxrBUdGP4+tQR6AxUWNYU57UHZT8I5
-	5VCbIr5aZEDeY4FJ91nCxrhaK2Lq1mSsok/oajvsyTejs0Am5pS1p9VV0+LNw3A/KW2CR8E90i3
-	TKZenIRyaqx3y5BR0TKw0fpSdNSRAEwI46WW6MPhyqut6qBMm7IhMXyV9zr9qqe46vkSJ9wyizh
-	BAKheHC0UwibFtBVB5BJwnh8xXDwarosN8Gnj5Cazv59jjwkEEJwvHVqEN74l6URKWDgqFRlU79
-	2ZHJE1GaPN0lhjzKLciCNH3llErtXYMitJ/1OWmLUwd7my5g/CTEy/8tQX0dFIbVTgh7Kjlhvj2
-	p4nqGAP3ujCRmFWT3+/rhaXks8S1Gujp4EPBrRQWSKfujaYIOde6gUqoSL9BKKOPPA7dzm875PG
-	w9Fd9hX5N84KLQxhzHrGB5kNlLoLXrdTL7KOZ85EfIHeIU4BlUOcGZ4Umv2auUNGAQvm+RBliYV
-	CIs2kpQwG9zNh1uQB/MGt8pSTuKfnh4I07vtk8ocaocepfKyISoQbfVulP6ixXkSUw9WSVvW34W
-	3sX/fx/SZ/nWTg==
-X-Received: by 2002:a05:7022:699a:b0:16b:1a1f:ed8a with SMTP id a92af1059eb24-16b1a1fede2mr1744976c88.39.1791544944883;
-        Fri, 09 Oct 2026 04:22:24 -0700 (PDT)
-Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cacb5e9sm7258752eec.20.2026.10.09.04.22.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 04:22:24 -0700 (PDT)
-From: phucduc.bui@gmail.com
-To: Mark Brown <broonie@kernel.org>,
-	Oder Chiou <oder_chiou@realtek.com>,
-	Bard Liao <bardliao@realtek.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH 1/2] ASoC: codecs: rt5645: Simplify optional GPIO error handling
-Date: Fri,  9 Oct 2026 18:22:03 +0700
-Message-ID: <20261009112204.33199-1-phucduc.bui@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vjZIfn36vwwRnDJGfxZP6hB0pBi/BfTnn/8/ousp3gQ=;
+        b=TzK5r3ELcD38FHM8tipKvxahpSu6p0wBRanG/iXobDlawB8aTEwgHMTBADEfLt3/ra
+         k0mnj4pGZh5uoabJXZ4v+5i3sA2RGohUg7zpyuzdwKD/HSbxBUEcrmsUXUN/Mlf7Zpi2
+         vIwBiKr0R+BRDqG7htz8A6LLx5VbsjMG0sOfpVjjJDszZzMZgspHCm3zq+aePbz6TAy8
+         kqC/rarBiGNtbF2pDX24AIQwCWC4YnfrstB5fKGR9xuO5rM1hkUA81EjS5/mrFs1knYp
+         BVtEsMz6Qay9IUkF/ygUT4fgIZZcbUujqFvIGWLzDuy5Y0OthUNC0SoteUgk2cRBpuVc
+         SPAg==
+X-Forwarded-Encrypted: i=1; AKwUvBzsf+6zhyDmuDlAKM/rg2U53Chc+ZEmft1BBFyIxqmqQbHyVoqMh17JN8nRd5c7+mYtRQ+h2FbltHmltIU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJTHVjoxrJ7q+otdq+XHjSQnCOWTpoM4ZOB2twMAYau58PU0bJO
+	Q/JI+viVxPscCzUX+JY50LuaTht9FULk6tiykmuXogTEKkWXj4p15rY+FB0BiYa6hSM+DxOSxcV
+	b0g6jo+1ADMOspCgG2B5pu+tx3btFtzTHeunZKcs=
+X-Gm-Gg: AYBFou2Qwxn1tLxgksA4bhsRfj9svhKvFTGOxL++w7XQzx9BgJrEc5DSK2Vj2FUYl8p
+	vVsTAPpf0zfgeGxQGkr2V8jQvdVQwG49jrZGBXMedl15eMcBKCifmD6cb1qkXTwnoH9d5fo5cbL
+	PCLyhAXjgqujzp2aMcxolP656IODthUqjkgwOQq/Uiw8zBtHMpDCc0uT9zLiJiz3AOzFf0q1ZkK
+	m0XQGtCp+M2GiVkLQz5cylxDD3xczuiFqYsX2bBnaLynTqL28HQtmnYta4dw/HbsTMVnojq/jDv
+	+yBk9ttf6REaD8AJUcc3S35LKFzKolNr607ABw==
+X-Received: by 2002:a05:6000:240b:b0:487:169f:d339 with SMTP id
+ ffacd0b85a97d-48dbacef394mr2591008f8f.54.1791544942262; Fri, 09 Oct 2026
+ 04:22:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261004-pcf8563-irq-data-v1-1-f176763ddf2f@iav.lv>
+In-Reply-To: <20261004-pcf8563-irq-data-v1-1-f176763ddf2f@iav.lv>
+From: Nobuhiro Iwamatsu <iwamatsu@nigauri.org>
+Date: Fri, 9 Oct 2026 20:21:55 +0900
+X-Gm-Features: AclHuK8WMU2f9s206E9gcJrWGqo1xWTIQN0qw7OLhbmsPMhw7KL5K4OmY2f9m7Q
+Message-ID: <CABMQnVJzcpMqfa-J_rS9rQksoz3XCKrWYmwiD7JU0zXx6BKyPA@mail.gmail.com>
+Subject: Re: [PATCH] rtc: pcf8563: pass the driver data to the alarm interrupt handler
+To: iav@iav.lv
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>, linux-rtc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: bui duc phuc <phucduc.bui@gmail.com>
+Hi,
 
-gpiod_not_found() converts -ENOENT to NULL before
-devm_gpiod_get_optional() returns, so there is no need to handle
--ENOENT explicitly.
+Thanks for your patch.
 
-Use dev_err_probe() to simplify error reporting and handle
--EPROBE_DEFER.
+2026=E5=B9=B410=E6=9C=885=E6=97=A5(=E6=9C=88) 8:57 Igor Velkov via B4 Relay=
+ <devnull+iav.iav.lv@kernel.org>:
+>
+> From: Igor Velkov <iav@iav.lv>
+>
+> pcf8563_irq() takes its dev_id as struct pcf8563, but probe still
+> registers the interrupt with the i2c client. The handler then takes the
+> regmap pointer from the wrong structure: the first alarm oopses, the
+> level-low INT is never acknowledged, and the interrupt gets disabled as
+> spurious.
+>
+> Only an RTC that has an interrupt (client->irq > 0) reaches this path.
+>
+> Fixes: 00f1bb9b8486 ("rtc: pcf8563: Switch to regmap")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Igor Velkov <iav@iav.lv>
+> ---
+> Tested on ODROID-HC4, 7.3-rc5, with the INT line wired to GPIOX_5 in the
+> device tree: the alarm interrupt fires once, the alarm flag is cleared,
+> no oops.
+> ---
+>  drivers/rtc/rtc-pcf8563.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
 
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
----
- sound/soc/codecs/rt5645.c | 22 ++++++----------------
- 1 file changed, 6 insertions(+), 16 deletions(-)
+Reviewed-by: Nobuhiro Iwamtasu <iwamatsu@nigauri.org>
 
-diff --git a/sound/soc/codecs/rt5645.c b/sound/soc/codecs/rt5645.c
-index 7313ea71c958..ea58512a55b0 100644
---- a/sound/soc/codecs/rt5645.c
-+++ b/sound/soc/codecs/rt5645.c
-@@ -4032,26 +4032,16 @@ static int rt5645_i2c_probe(struct i2c_client *i2c)
- 	rt5645->gpiod_hp_det = devm_gpiod_get_optional(&i2c->dev, "hp-detect",
- 						       GPIOD_IN);
- 
--	if (IS_ERR(rt5645->gpiod_hp_det)) {
--		dev_info(&i2c->dev, "failed to initialize gpiod\n");
--		ret = PTR_ERR(rt5645->gpiod_hp_det);
--		/*
--		 * Continue if optional gpiod is missing, bail for all other
--		 * errors, including -EPROBE_DEFER
--		 */
--		if (ret != -ENOENT)
--			return ret;
--	}
-+	if (IS_ERR(rt5645->gpiod_hp_det))
-+		return dev_err_probe(&i2c->dev, PTR_ERR(rt5645->gpiod_hp_det),
-+				     "failed to get hp-detect gpio\n");
- 
- 	rt5645->gpiod_cbj_sleeve = devm_gpiod_get_optional(&i2c->dev, "cbj-sleeve",
- 							   GPIOD_OUT_LOW);
- 
--	if (IS_ERR(rt5645->gpiod_cbj_sleeve)) {
--		ret = PTR_ERR(rt5645->gpiod_cbj_sleeve);
--		dev_info(&i2c->dev, "failed to initialize gpiod, ret=%d\n", ret);
--		if (ret != -ENOENT)
--			return ret;
--	}
-+	if (IS_ERR(rt5645->gpiod_cbj_sleeve))
-+		return dev_err_probe(&i2c->dev, PTR_ERR(rt5645->gpiod_cbj_sleeve),
-+				     "failed to get cbj-sleeve gpio\n");
- 
- 	for (i = 0; i < ARRAY_SIZE(rt5645->supplies); i++)
- 		rt5645->supplies[i].supply = rt5645_supply_names[i];
--- 
-2.43.0
-
+Best regards
+  Nobuhiro
