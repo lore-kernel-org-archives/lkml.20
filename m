@@ -1,155 +1,145 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6B3C3D9DD4
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 05:47:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A1CB3DDAFE
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 05:47:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791524848; cv=none; b=aQRqAPOl7sXeNMU3zZPplq89qavFtCI9ANraDxMmHHCXnFI+IUWm9xTbRsw2+HOzS92jddw0b+wyQvaHbwva7C09FcmXuHAS6zBZnlDB7Mg6qV0XgKGCAsuFwDLyXajYN4XkueORmUpEgJCCXJgxP4B2hXsj89DE9ZK096SASMI=
+	t=1791524859; cv=none; b=dVVq2lv6xCoq0MAvCqa8niaelLn4Ewb6QxoMCHCWLWWWiSZAMQa5ws+jM1A0e4bDYEoQBwENq4cHeBanseylK6EPe0x4It9gQJ7mH7ea9SdLptanpveRFV/fhpgDkvRtwDiX3CuEcIwJ8ofAhobz4jVCPb0+JPVjCX1063F/7hU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791524848; c=relaxed/simple;
-	bh=2YRi+/c4t+6Ygg00E1gkQ4/m1qP5c7APJ+UqWGNMuuM=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=d4vIbkyYaN8kw2QMVitDrL9SOSuEYHJqTLrjo2Zclmz67IPSzyQBgJWopHCz1tMZExHzD1kwm3JW7+es5/gTlf5GEzlm7doXU3l8u9ELkgOwbMaZCGp6IN3XovDU8JiHE65ehRToFm95HJVYkdx91Png/gDLURDGNZB2Tm57oUs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cZgJ8GBQ; arc=none smtp.client-ip=209.85.214.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791524859; c=relaxed/simple;
+	bh=VYy2rbGQC2RdtOpzlrJiWSegUq9hlWo2pAx9579dENE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=onRCpXZY2gREpy5RKV5q/iWJqn3psCRaYG4lfszQ95OLPg195vyV8FJ3XTmRz6jzj4QAO/TNqo1JK+oKEOIFYZPbHHk0qF6QOHjBrvhvwweOOWuU7cJgpUKneP1W/Nm77MQbRd8Z2Z7W4CvF6rGJqTpwaFsPV13pPeko2OFaMsA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fozDY/ZI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cZgJ8GBQ"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2dd9cbb661bso30232235ad.3
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 22:47:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791524846; x=1792129646; darn=vger.kernel.org;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=2YRi+/c4t+6Ygg00E1gkQ4/m1qP5c7APJ+UqWGNMuuM=;
-        b=cZgJ8GBQkwHIsKNIDkdRr7O1+flSN1VUAd805sYFmUuoR+4v7RmOaw/qAb7WCD242p
-         asnRIrGMqYv1ZpZB/sX4Zf5PZC8goCEkdgLYpI4mhxpxJjaP3Ks3F6trRImm10o7TRKA
-         oQBJGFxiUWfIoTxbV2VyYRrdHiuaJgJ+fztc0tcT2ZEXuXwjcq7ChX+Y1Yxj+iTCThUe
-         CIUmUGIYdxqHwYM1rllRODtGDt2wM04Lg8EVUyAeco6ZouvwbPV7G3RBUvNJBkXiKrjo
-         BL1lsHVjiTZnOXgQgSLDc/hbR9MfvqGHR+fkasECDCO/Arlwq8hYlcGOaECsQBphMesT
-         bv7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791524846; x=1792129646;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2YRi+/c4t+6Ygg00E1gkQ4/m1qP5c7APJ+UqWGNMuuM=;
-        b=X5/CPJYxQchIRfPOW7XrLcMJ2CjcreRzKJA6A7Bg1Bk5csbKQ1Mzp4KLAw5G8xEBoD
-         uAvtDC29YQwFOGFA0CcItMoPmd0actVljV7VPz42cp+yZhGtZ981MQcgb7atbMvjLwsr
-         Fs8v+AvGUVxcWzbBp6PXVUMDmK/Yl48xgsJzB6afINA4YWH/5DOQKb1tC2PSFRYLAEg7
-         AtAYLVuvNi/4FjQ/biCEI753M8y4GTnbNfLTGREGmV3oOPfJ0OYmZ9pzMGF/8w6D9ekr
-         coHxKSfufJaUpWVR6+mV2yKTm1VtY0dx4tGY4KgW41sJwOjsGpRbXknO9fGMNj33MG4H
-         p2gg==
-X-Forwarded-Encrypted: i=1; AKwUvBwuREi9fy6tyuEhpSvIeVwn1syVWCB56w42aC9NpW7L00bRE3uCGUXdn90B4UnBEpm0JeO8GplBFoLvR6A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIjye4SCu+tAkUW84HtZ4PU8biGszWtj1QrflVlNheIM6gFaFog
-	cfyXSKvNa7E9cBytZde/Ec7ob9PGXJcEn+1IT8bVMF5mbhkr/4Xd3Q9j
-X-Gm-Gg: AYBFou2FicTsGUvb0QDd2uR0kE5K9Xt5SCV7ds3PSkqPu3sM5SBLwmDji4xjpbgd9qR
-	+cyl3MsDkTZFPTW2x1feXo4e4Ht36aCqwYeNiBPDaeev3Rsa8rAhSqqNTDRRlam1Fpyvf7ls/Ko
-	5ouFMG0fYtXwMKaTlnAPnU9ZqyoMxbGV4cfo/+AN8t4yAA0fzgnVud0LobC0IsiyILyyXudzcVv
-	fpgZKEt3zXNhK74mO2yFPck4DSsIW3XhwJj4h2ZFU9bOlZTnGaQy6yrswKeGG6u/2Mex3lsirRd
-	qOBvdC0VlZm2SEGtcrMGAIPm1hWFnmkatcv4YuRABLceYDxHAWazxfAz2qlcVZ0wH22KkZPY325
-	A/PQSkf4pTGSuMXZvZizmk6gkgECmyHamyrLyejZ568q8Q6YJ4GvugDrYV789tKhsnXXvHZW/bV
-	wni+5Kjsz62kX1SYCMomLr27A6ivZ7sESNE8TI3524m1QG5lIKHQiWTc8NfqLkv1BB8Diu976HO
-	FqP8w==
-X-Received: by 2002:a17:903:3d05:b0:2e6:c39:b23b with SMTP id d9443c01a7336-2e8429a58aemr7757775ad.21.1791524846140;
-        Thu, 08 Oct 2026 22:47:26 -0700 (PDT)
-Received: from smtpclient.apple ([202.8.105.124])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422e20d2sm3660485ad.77.2026.10.08.22.47.19
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 08 Oct 2026 22:47:25 -0700 (PDT)
-Content-Type: text/plain;
-	charset=utf-8
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fozDY/ZI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D754E1F00893
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 05:47:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791524857;
+	bh=IsGx97RgM8+2NU8wXdDA6EIGSG1c/gLn7f6vrBW/zic=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=fozDY/ZIMuTebIYilL17pqjavQHqqp1QISyHsT7DGADT+C5p98gpoADxHFefiUiST
+	 cjKi9zrNnE6+euLt97eK3JcT8BLhTxlQkPxcCyAUH9hhuRkNloZ9yiJdDo5qDOcsC9
+	 uXTuC4zcqxymwzgK+NEXwntzUlX0DXQDhswYW/GC+vvtrpJ8p2GnzmXctf8JErUdxl
+	 zXozCv4zyMJMRL4SvZbSBfJ8qRxoeiCUfiTXNtzcmy5aVo4PTb8X7XCdFELwR8/7Th
+	 ZSVctqj2m7156xAImB5nMyNMaEn6SeJLbqTkWqUE+Cz+RhJgWalBcQnWlvVNKLF47J
+	 k0wpzsHTO0IXQ==
+Received: by mail-oo1-f54.google.com with SMTP id 006d021491bc7-6d7a9e2eb24so3294678eaf.1
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 22:47:37 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwxH4cDWP09dsJeKliwEFxou0EausEaHKwhcI3t8Hf7icXk93RHtMHcxwKeQVzWPN729Xo5slJbYW83AG8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nNE1hyuOwQlvanK/Y4eWymvhRSHcd116pPDps7ut7KkqKguB6Q
+	RSiAweR6ALsBGa4CFHlcokVNNIBh1fsv26skYZAas+SkZEzxLWB76zlMrSm+DIHiAx62jQp2bhj
+	ygZ3HAP+r0ngNxD7MMZPFKS2AUMd29us=
+X-Received: by 2002:a05:6820:8118:b0:6d7:c5f2:9c14 with SMTP id
+ 006d021491bc7-6ef08c78a38mr747471eaf.4.1791524857192; Thu, 08 Oct 2026
+ 22:47:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.66.1.3\))
-Subject: Re: [PATCH 0/3] sched: Fix proxy-exec use of curr and donor
-From: Jemmy Wong <jemmywong512@gmail.com>
-In-Reply-To: <179151887161.2196447.9527206946798924448@163.com>
-Date: Fri, 9 Oct 2026 13:46:57 +0800
-Cc: Kayra Cizmeci <kayracizmeci@gmail.com>,
- jstultz@google.com,
- bsegall@google.com,
- dietmar.eggemann@arm.com,
- juri.lelli@redhat.com,
- kprateek.nayak@amd.com,
- linux-kernel@vger.kernel.org,
- mgorman@suse.de,
- mingo@redhat.com,
- peterz@infradead.org,
- rostedt@goodmis.org,
- tim.c.chen@linux.intel.com,
- vincent.guittot@linaro.org,
- vschneid@redhat.com
+MIME-Version: 1.0
+References: <cover.1791506907.git.nramaswamy@openai.com> <976f8457bffbc513197d6ff5c052ca7c4bd6ed03.1791506907.git.nramaswamy@openai.com>
+In-Reply-To: <976f8457bffbc513197d6ff5c052ca7c4bd6ed03.1791506907.git.nramaswamy@openai.com>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Fri, 9 Oct 2026 07:47:26 +0200
+X-Gmail-Original-Message-ID: <CAL4Wiip9RyA-2=p0SVwBcn-oe0864FqqF3QMTCX_7=+ErcJp6Q@mail.gmail.com>
+X-Gm-Features: AclHuK91G6IRlIqoAjVWmpyrxCrXqPKYP2WF59BVsz-PHSystkYQmdWjZCNt61U
+Message-ID: <CAL4Wiip9RyA-2=p0SVwBcn-oe0864FqqF3QMTCX_7=+ErcJp6Q@mail.gmail.com>
+Subject: Re: [PATCH net v3 3/3] selftests: net: packetdrill: test RTO fallback
+ after partial undo
+To: nramaswamy@openai.com
+Cc: netdev@vger.kernel.org, Neal Cardwell <ncardwell@google.com>, 
+	Neal Cardwell <ncardwell.sw@gmail.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
+	Yuchung Cheng <ycheng@google.com>, Jiayuan Chen <jiayuan.chen@linux.dev>, 
+	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <B242DE20-F1E9-4C61-894B-DC73F3884627@gmail.com>
-References: <20261008132604.98242-1-jemmywong512@gmail.com>
- <20261008153348.92684-1-kayracizmeci@gmail.com>
- <309FAB10-ACB0-4EFF-81B2-5E7906A00ECE@gmail.com>
- <179151887161.2196447.9527206946798924448@163.com>
-To: Hui Su <sh_def@163.com>
-X-Mailer: Apple Mail (2.3901.200.66.1.3)
 
-Hi Hui,
+Le ven. 9 oct. 2026 =C3=A0 07:01, <nramaswamy@openai.com> a =C3=A9crit :
+>
+> From: Neil Ramaswamy <nramaswamy@openai.com>
+>
+> Tests that a segment that is lost but also previously retransmitted is no=
+t
+> added back to the RACK list during partial undo, and is instead
+> retransmitted by the RTO. It utilizes the fact that a TLP doesn't increme=
+nt
+> retrans_out, which needs to be 0 for partial undo (but this scenario may
+> also happen without the TLP).
+>
+> Signed-off-by: Neil Ramaswamy <nramaswamy@openai.com>
+> Assisted-by: LLM
+> ---
 
-Agreed on 2/3. Your Sep 2 patch makes the same task_sched_runtime()
-change: task_current() for the execution context, and update_curr()
-through the donor class. I'll drop it.
+This test passes with or without patch 1/3, so it does not test the fix.
 
-Agreed on 3/3 as well. Andrea's patch is earlier, and it removes the
-nr_running =3D=3D 1 guard that mine keeps. With that guard the bandwidth
-test does not run while a proxy leaves both tasks queued. I'll drop
-this one too.
+It records that a 3-segment flow with one TLP and one late ACK has to
+wait for an RTO, and whoever fixes that later will have to rewrite it.
 
-Thanks for the pointers.
+A single TLP probe is enough to get TCPCB_EVER_RETRANS on a segment, so
+I am not convinced this case is rare.
 
-Jemmy
+Let me come back to tp->tsorted_lost_queue [1]. I was too terse there
+("often") and it did not get discussed.
 
-> On Oct 9, 2026, at 12:07=E2=80=AFPM, Hui Su <sh_def@163.com> wrote:
->=20
->> Yes. My first patch and Hui's v5 2/4 and 3/4 move the NUMA and cache
->> ticks onto rq->curr when that task is fair. Hui's 1/4 is the right
->> shape: task_tick() runs the donor class and, when a proxy crosses
->> classes, the execution class as well. A fair lock holder whose donor
->> is RT or deadline still gets those hooks. My patch only changes
->> task_tick_fair(), so that case stays missing. I'll drop it.
->=20
-> Thanks Jemmy,
->=20
-> Yes, agreed on 1/3.
->=20
-> For 2/3, I think this also overlaps with an earlier standalone patch I
-> posted on Sep 2:
->=20
-> [PATCH] sched/core: fix task_sched_runtime() for proxy execution
-> Message-ID: <20260902112539.879979-1-sh_def@163.com>
-> https://lore.kernel.org/r/20260902112539.879979-1-sh_def@163.com/
->=20
-> It makes the same two changes in task_sched_runtime(): test whether @p =
-is
-> the execution context with task_current(), while still invoking
-> update_curr() through rq->donor->sched_class.
->=20
-> For 3/3, Andrea has an earlier patch, first posted on Jul 16, =
-addressing
-> the same NOHZ CFS bandwidth issue:
->=20
-> sched: Make NOHZ CFS bandwidth checks follow proxy donor
-> https://lore.kernel.org/r/20260716132229.61603-2-arighi@nvidia.com/
->=20
-> In particular, that patch also removes the nr_running =3D=3D 1 =
-restriction.
-> As Andrea points out, a retained proxy donor keeps both the donor and
-> mutex owner queued, so keeping that restriction would skip the =
-bandwidth
-> check in the active proxy case.
->=20
-> Thanks,
-> Hui
->=20
+tcp_rack_detect_loss() walks tsorted_sent_queue from oldest to newest,
+and whatever it leaves there was sent after what it just marked lost.
+So if it does
 
+list_move_tail(&skb->tcp_tsorted_anchor, &tp->tsorted_lost_queue);
+
+instead of list_del_init(), the lost queue stays sorted by send time
+across scans, for free. This also holds for skbs that were retransmitted
+(TLP probe, lost retransmit), because they sit in tsorted_sent_queue at
+their last transmit time. No TCPCB_EVER_RETRANS special case, no
+comparator.
+
+- Retransmit: tcp_update_skb_after_send() already moves the skb to the
+  tail of tsorted_sent_queue.
+- SACK and cumulative ACK: list_del_init()/list_del() are unchanged.
+- tcp_fragment(): buff lands next to skb in the lost queue. Today, for
+  an skb RACK has unlinked, list_add() builds a 2-node ring that belongs
+  to no list.
+- Undo in fast recovery: everything in the lost queue was sent before
+  everything still in tsorted_sent_queue, so this is a
+  list_splice_init() at the head. O(1), no walk, no timestamp compare.
+
+The "often" is the RTO case: tcp_timeout_mark_lost() leaves the skbs it
+marks in tsorted_sent_queue, and they can be older than what RACK moves
+to the lost queue afterwards. So undo needs a check: splice at the head
+if tsorted_sent_queue is empty or the lost tail was sent before the sent
+head, otherwise merge the two sorted lists (the forward walk from Neal's
+patch, without the EVER_RETRANS test).
+
+Cost is one list_head in tcp_sock and an INIT_LIST_HEAD() in
+tcp_init_sock(), tcp_create_openreq_child() and tcp_write_queue_purge().
+Reneged skbs are on neither list and would stay as they are today.
+Neal's point about per-socket state is fair, but I think 16 bytes is a
+reasonable price for not needing the RTO fallback at all.
+
+With that, B is back in tsorted_sent_queue after the undo at .490 in
+your scenario. tcp_undo_cwnd_reduction() sets tp->rack.advanced, RACK
+looks at B in the same ACK (sent around .413, rack.rtt_us 40ms from C,
+reo_wnd around 10ms), marks it lost again and it is retransmitted
+immediately. The test then has the same shape as 2/3 (untested):
+
+  .490 < . 1:1(0) ack 1001 win 20000 <TS val 1390 ecr 210,sack 2001:3001>
+   +0~+.05 > P. 1001:2001(1000) ack 1 <...>
+   +0 %{ assert tcpi_retransmits =3D=3D 0, tcpi_retransmits }%
+
+and it fails on current kernels, which is what we want from a selftest
+shipped with a fix.
+
+If Neal and Yuchung still prefer the stateless version I can live with
+it, but then the 3/3 changelog should say that the test passes without
+1/3 and documents a known limitation.
+
+[1] https://lore.kernel.org/netdev/CAL4WiipKWgA-EcFWDQd3t7nBwU7AnkLvqs6j--h=
+e-dR-SAgqiw@mail.gmail.com/
+
+Thanks.
