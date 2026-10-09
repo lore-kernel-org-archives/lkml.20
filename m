@@ -1,242 +1,249 @@
-Received: from frasgout12.his.huawei.com (frasgout12.his.huawei.com [14.137.139.154])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 065E74CC28B;
-	Fri,  9 Oct 2026 11:29:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=14.137.139.154
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1903D4C10D1;
+	Fri,  9 Oct 2026 11:29:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791545360; cv=none; b=ccWSd7KmJN9nJjVVrUao47dJslD/+bq1HnoVklrLbOc9tq4wRzPvu04IBDnQzMJ5cEv2AHigUimmcxAqftVB1dmdRGBtcxQ87Tm+QjnDynszEclxkB0hzUityTFOZTL0m1VV1XJ4TgwTm3DMKy00rWmA1jQoD8rPWCz7gssQlh8=
+	t=1791545359; cv=none; b=LHQ3AlvH0PU2bzEci/PbKA3AFnZbB1m0w6QcQQkaHk26bi1CGtHUXA2wsmX8IsnvwsqrtPf/Z/L+qmh7TNpzEsqjOPnSMR8ocOndpfKeN11HeRypL6PHVhTv2fXNYxkg1FTo3FybsgpUkNoDQRQ2tSXbddsTU74sohwciWXpIKQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791545360; c=relaxed/simple;
-	bh=MpHafslSgTuO3ufNGAeO92J7Egq7ohQAL0gYI/dZzXE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FV8rzg7Fq8PSsTs/Z3RMfc4bGF+hDwKpJWJ7IzUEuJsQ6VROSqDssoMo942+C6eyhT4AxRqXFbauoZcZgmw9dL6/O9eev3kvy6BAq1dKOuBTuXlLc60LPQJOHyYcyH/W1a5YXOchC3bZGxiYPSusZJF3/93S/KyW6+bQteLtpRk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=14.137.139.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.18.224.196])
-	by frasgout12.his.huawei.com (SkyGuard) with ESMTPS id 4j1PCG32VKzt5JN;
-	Fri,  9 Oct 2026 19:04:58 +0800 (CST)
-Received: from mail02.huawei.com (unknown [7.182.16.27])
-	by mail.maildlp.com (Postfix) with ESMTP id D27E940491;
-	Fri,  9 Oct 2026 19:12:26 +0800 (CST)
-Received: from huaweicloud.com (unknown [10.204.63.22])
-	by APP2 (Coremail) with UTF8SMTPA id GxC2BwAHNS0RzMhqBcK7AQ--.22919S2;
-	Fri, 09 Oct 2026 12:12:26 +0100 (CET)
-From: Roberto Sassu <roberto.sassu@huaweicloud.com>
-To: zohar@linux.ibm.com,
-	dmitry.kasatkin@gmail.com,
-	eric.snowberg@oracle.com,
-	paul@paul-moore.com,
-	jmorris@namei.org,
-	serge@hallyn.com
-Cc: linux-integrity@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Daniel Hodges <git@danielhodges.dev>,
-	Roberto Sassu <roberto.sassu@huawei.com>
-Subject: [PATCH] evm: check return values of crypto_shash functions
-Date: Fri,  9 Oct 2026 13:12:12 +0200
-Message-ID: <20261009111212.1516243-1-roberto.sassu@huaweicloud.com>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1791545359; c=relaxed/simple;
+	bh=Co7woE4HmZ70Ip79dtMQsK+thPOuVw8r2SOQfVGK7Wg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cR3FLkQOhEFiEUCWfaiQ09iC4tbd+6A0rt0gdNxtJdD9l/u+SvvQ4bSb7H33VYQcFXfr2iM5Ch8YdsGcu7YV9B5sspT/+SjwGtHFhA3HqaQjrWDYoa1HWeBknhTwGtBsctYZdykpvPg1+CPS25EQMR0jVJpRpeiVxxkTaV0OtpI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MJSAmpUx; arc=none smtp.client-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MJSAmpUx"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791545351; x=1823081351;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Co7woE4HmZ70Ip79dtMQsK+thPOuVw8r2SOQfVGK7Wg=;
+  b=MJSAmpUxTbFHSZ0jHCNCU5rDxQCvueSvR5R21MxnkQbH5qjGm+DJ7Ykz
+   k0BE/cXu8phrvM5S4ujK/3P9+rtAGTNV6pzB0g26m6mQZp5C31y873w0F
+   1QkeZtut6KQo6wsAa383bWWxN+rQ94FL9vXfcIiDHkW9REu81EKoi7FeA
+   Z3gBIV9/Z6phcjcEWt8aa/KxvNcACKg1NffzXvHaqbyQ28FhRYCqwsGKV
+   nk4kVm9quZ3g3m+kkP+xX661lhj3Z0ZH+FYO0HIYoYAEv9KLzroPgtYIf
+   ZGXKKJ+CSN1b57OJ9yrhs9juDdJAbymRCNBTXAqF1SKinvT3kyQp2M8UJ
+   w==;
+X-CSE-ConnectionGUID: FCFnuadbQ7G3fRlOGFUbFQ==
+X-CSE-MsgGUID: JojQJrNJQseIs055fflXZg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11929"; a="222907"
+X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
+   d="scan'208";a="222907"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 04:29:10 -0700
+X-CSE-ConnectionGUID: TQOaNMgYT/is9sC9axJRxA==
+X-CSE-MsgGUID: RR1spOxlRjGaLAiHWxzDPQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
+   d="scan'208";a="253905"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by orviesa008.jf.intel.com with ESMTP; 09 Oct 2026 04:29:07 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id B886E99; Fri, 09 Oct 2026 13:29:05 +0200 (CEST)
+Date: Fri, 9 Oct 2026 13:29:05 +0200
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: amitsd@google.com
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Badhri Jagan Sridharan <badhri@google.com>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org, RD Babiera <rdbabiera@google.com>,
+	Kyle Tso <kyletso@google.com>
+Subject: Re: [PATCH 2/2] usb: typec: tcpm: Allow configuring tSenderResponse
+ via fwnode
+Message-ID: <asjQAWEWzBX8-qrV@black.igk.intel.com>
+References: <20261004-tcpm-sender-response-time-v1-0-3f8b43084acc@google.com>
+ <20261004-tcpm-sender-response-time-v1-2-3f8b43084acc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:GxC2BwAHNS0RzMhqBcK7AQ--.22919S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxKFWrXF45Kw15Aw13uw18AFb_yoWxJF1fpF
-	W5WayDKr4DJa1UWFZaya1rZ34F9ay0yry7KrWUW34SvFn7Xr1Fqr4Iyw18uF98Gr45Jw1Y
-	qr4S9w1Uuw4aq3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvFb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
-	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
-	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7Cj
-	xVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4A2jsIEc7CjxV
-	AFwI0_Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40E
-	x7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x
-	0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAa
-	w2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxV
-	Aqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q
-	6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6x
-	kF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AK
-	xVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvj
-	xUF1v3UUUUU
-X-CM-SenderInfo: purev21wro2thvvxqx5xdzvxpfor3voofrz/1tbiAQABBGrIkbkfWQABsJ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261004-tcpm-sender-response-time-v1-2-3f8b43084acc@google.com>
 
-From: Daniel Hodges <git@danielhodges.dev>
+On Sun, Oct 04, 2026 at 02:58:29AM +0000, Amit Sunil Dhamne via B4 Relay wrote:
+> From: Amit Sunil Dhamne <amitsd@google.com>
+> 
+> The USB PD specification defines a range of values for tSenderResponse.
+> TCPM currently uses a fixed, relaxed value of 60 ms
+> (PD_T_SENDER_RESPONSE), which may not suit all platforms.
+> 
+> Allow platforms to specify their own tSenderResponse deadline through
+> the "sender-response-time-ms" fwnode property. Platforms that do not
+> set the property keep the existing 60 ms default.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Amit Sunil Dhamne <amitsd@google.com>
+> Reviewed-by: Badhri Jagan Sridharan <badhri@google.com>
 
-The crypto_shash_update() and crypto_shash_final() functions can fail
-and return error codes, but their return values were not being checked
-in several places in security/integrity/evm/evm_crypto.c:
+Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 
-- hmac_add_misc() ignored returns from crypto_shash_update() and
-  crypto_shash_final()
-- evm_calc_hmac_or_hash() ignored returns from crypto_shash_update()
-- evm_init_hmac() ignored returns from crypto_shash_update()
+> ---
+>  drivers/usb/typec/tcpm/tcpm.c | 35 ++++++++++++++++++++++-------------
+>  1 file changed, 22 insertions(+), 13 deletions(-)
+> 
+> diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
+> index 2d6b14aa2085..9f98c87957b1 100644
+> --- a/drivers/usb/typec/tcpm/tcpm.c
+> +++ b/drivers/usb/typec/tcpm/tcpm.c
+> @@ -399,12 +399,14 @@ struct pd_revision_info {
+>   * @sink_wait_cap_time: Deadline (in ms) for tTypeCSinkWaitCap timer
+>   * @ps_src_wait_off_time: Deadline (in ms) for tPSSourceOff timer
+>   * @cc_debounce_time: Deadline (in ms) for tCCDebounce timer
+> + * @sender_response_time: Deadline (in ms) for tSenderResponse timer
+>   */
+>  struct pd_timings {
+>  	u32 sink_wait_cap_time;
+>  	u32 ps_src_off_time;
+>  	u32 cc_debounce_time;
+>  	u32 snk_bc12_cmpletion_time;
+> +	u32 sender_response_time;
+>  };
+>  
+>  /* Convert microwatt to watt */
+> @@ -4316,7 +4318,7 @@ static bool tcpm_send_queued_message(struct tcpm_port *port)
+>  			} else if (port->pwr_role == TYPEC_SOURCE) {
+>  				tcpm_ams_finish(port);
+>  				tcpm_set_state(port, HARD_RESET_SEND,
+> -					       PD_T_SENDER_RESPONSE);
+> +					       port->timings.sender_response_time);
+>  			} else {
+>  				tcpm_ams_finish(port);
+>  			}
+> @@ -5549,7 +5551,7 @@ static void run_state_machine(struct tcpm_port *port)
+>  			port->caps_count = 0;
+>  			port->pd_capable = true;
+>  			tcpm_set_state_cond(port, SRC_SEND_CAPABILITIES_TIMEOUT,
+> -					    PD_T_SENDER_RESPONSE);
+> +					    port->timings.sender_response_time);
+>  		}
+>  		break;
+>  	case SRC_SEND_CAPABILITIES_TIMEOUT:
+> @@ -5896,7 +5898,7 @@ static void run_state_machine(struct tcpm_port *port)
+>  			tcpm_set_state(port, SNK_WAIT_CAPABILITIES, 0);
+>  		} else {
+>  			tcpm_set_state_cond(port, hard_reset_state(port),
+> -					    PD_T_SENDER_RESPONSE);
+> +					    port->timings.sender_response_time);
+>  		}
+>  		break;
+>  	case SNK_NEGOTIATE_PPS_CAPABILITIES:
+> @@ -5921,7 +5923,7 @@ static void run_state_machine(struct tcpm_port *port)
+>  				tcpm_set_state(port, SNK_READY, 0);
+>  		} else {
+>  			tcpm_set_state_cond(port, hard_reset_state(port),
+> -					    PD_T_SENDER_RESPONSE);
+> +					    port->timings.sender_response_time);
+>  		}
+>  		break;
+>  	case SNK_TRANSITION_SINK:
+> @@ -6208,7 +6210,8 @@ static void run_state_machine(struct tcpm_port *port)
+>  			port->message_id_prime = 0;
+>  			port->rx_msgid_prime = -1;
+>  			tcpm_pd_send_control(port, PD_CTRL_SOFT_RESET, TCPC_TX_SOP_PRIME);
+> -			tcpm_set_state_cond(port, ready_state(port), PD_T_SENDER_RESPONSE);
+> +			tcpm_set_state_cond(port, ready_state(port),
+> +					    port->timings.sender_response_time);
+>  		} else {
+>  			port->message_id = 0;
+>  			port->rx_msgid = -1;
+> @@ -6218,7 +6221,7 @@ static void run_state_machine(struct tcpm_port *port)
+>  				tcpm_set_state_cond(port, hard_reset_state(port), 0);
+>  			else
+>  				tcpm_set_state_cond(port, hard_reset_state(port),
+> -						    PD_T_SENDER_RESPONSE);
+> +						    port->timings.sender_response_time);
+>  		}
+>  		break;
+>  
+> @@ -6226,7 +6229,7 @@ static void run_state_machine(struct tcpm_port *port)
+>  	case DR_SWAP_SEND:
+>  		tcpm_pd_send_control(port, PD_CTRL_DR_SWAP, TCPC_TX_SOP);
+>  		tcpm_set_state_cond(port, DR_SWAP_SEND_TIMEOUT,
+> -				    PD_T_SENDER_RESPONSE);
+> +				    port->timings.sender_response_time);
+>  		break;
+>  	case DR_SWAP_ACCEPT:
+>  		tcpm_pd_send_control(port, PD_CTRL_ACCEPT, TCPC_TX_SOP);
+> @@ -6256,7 +6259,7 @@ static void run_state_machine(struct tcpm_port *port)
+>  			tcpm_set_state(port, ERROR_RECOVERY, 0);
+>  			break;
+>  		}
+> -		tcpm_set_state_cond(port, FR_SWAP_SEND_TIMEOUT, PD_T_SENDER_RESPONSE);
+> +		tcpm_set_state_cond(port, FR_SWAP_SEND_TIMEOUT, port->timings.sender_response_time);
+>  		break;
+>  	case FR_SWAP_SEND_TIMEOUT:
+>  		tcpm_set_state(port, ERROR_RECOVERY, 0);
+> @@ -6288,7 +6291,7 @@ static void run_state_machine(struct tcpm_port *port)
+>  	case PR_SWAP_SEND:
+>  		tcpm_pd_send_control(port, PD_CTRL_PR_SWAP, TCPC_TX_SOP);
+>  		tcpm_set_state_cond(port, PR_SWAP_SEND_TIMEOUT,
+> -				    PD_T_SENDER_RESPONSE);
+> +				    port->timings.sender_response_time);
+>  		break;
+>  	case PR_SWAP_SEND_TIMEOUT:
+>  		tcpm_swap_complete(port, -ETIMEDOUT);
+> @@ -6385,7 +6388,7 @@ static void run_state_machine(struct tcpm_port *port)
+>  	case VCONN_SWAP_SEND:
+>  		tcpm_pd_send_control(port, PD_CTRL_VCONN_SWAP, TCPC_TX_SOP);
+>  		tcpm_set_state(port, VCONN_SWAP_SEND_TIMEOUT,
+> -			       PD_T_SENDER_RESPONSE);
+> +			       port->timings.sender_response_time);
+>  		break;
+>  	case VCONN_SWAP_SEND_TIMEOUT:
+>  		tcpm_swap_complete(port, -ETIMEDOUT);
+> @@ -6467,7 +6470,7 @@ static void run_state_machine(struct tcpm_port *port)
+>  	case GET_STATUS_SEND:
+>  		tcpm_pd_send_control(port, PD_CTRL_GET_STATUS, TCPC_TX_SOP);
+>  		tcpm_set_state(port, GET_STATUS_SEND_TIMEOUT,
+> -			       PD_T_SENDER_RESPONSE);
+> +			       port->timings.sender_response_time);
+>  		break;
+>  	case GET_STATUS_SEND_TIMEOUT:
+>  		tcpm_set_state(port, ready_state(port), 0);
+> @@ -6475,14 +6478,14 @@ static void run_state_machine(struct tcpm_port *port)
+>  	case GET_PPS_STATUS_SEND:
+>  		tcpm_pd_send_control(port, PD_CTRL_GET_PPS_STATUS, TCPC_TX_SOP);
+>  		tcpm_set_state(port, GET_PPS_STATUS_SEND_TIMEOUT,
+> -			       PD_T_SENDER_RESPONSE);
+> +			       port->timings.sender_response_time);
+>  		break;
+>  	case GET_PPS_STATUS_SEND_TIMEOUT:
+>  		tcpm_set_state(port, ready_state(port), 0);
+>  		break;
+>  	case GET_SINK_CAP:
+>  		tcpm_pd_send_control(port, PD_CTRL_GET_SINK_CAP, TCPC_TX_SOP);
+> -		tcpm_set_state(port, GET_SINK_CAP_TIMEOUT, PD_T_SENDER_RESPONSE);
+> +		tcpm_set_state(port, GET_SINK_CAP_TIMEOUT, port->timings.sender_response_time);
+>  		break;
+>  	case GET_SINK_CAP_TIMEOUT:
+>  		port->sink_cap_done = true;
+> @@ -8160,6 +8163,12 @@ static void tcpm_fw_get_timings(struct tcpm_port *port, struct fwnode_handle *fw
+>  	ret = fwnode_property_read_u32(fwnode, "sink-bc12-completion-time-ms", &val);
+>  	if (!ret)
+>  		port->timings.snk_bc12_cmpletion_time = val;
+> +
+> +	ret = fwnode_property_read_u32(fwnode, "sender-response-time-ms", &val);
+> +	if (!ret)
+> +		port->timings.sender_response_time = val;
+> +	else
+> +		port->timings.sender_response_time = PD_T_SENDER_RESPONSE;
+>  }
+>  
+>  static void tcpm_fw_get_pd_ident(struct tcpm_port *port)
+> 
+> -- 
+> 2.56.0.rc1.315.gc6ed9934b7-goog
+> 
 
-If these hash operations fail silently, the resulting HMAC could be
-invalid or incomplete, which could weaken the integrity verification
-security that EVM provides.
-
-This patch converts hmac_add_misc() from void to int return type and
-adds proper error checking and propagation for all crypto_shash_*
-function calls. All callers are updated to handle the new return values.
-Additionally, error messages are logged when cryptographic operations
-fail to provide visibility into the failure rather than silently
-returning error codes.
-
-Fixes: 66dbc325afce ("evm: re-release")
-Signed-off-by: Daniel Hodges <git@danielhodges.dev>
-Reviewed-by: Roberto Sassu <roberto.sassu@huawei.com>
-Link: https://github.com/linux-integrity/linux/issues/17
-[zohar@linux.ibm.com: fixed commit 0496fc9cdc38 merge conflict,
-checkpatch.pl warnings]
-[roberto.sassu@huawei.com: call hmac_add_misc() in evm_calc_hmac_or_hash()
- only if no previous error, to avoid overwriting -ENODATA, and jump to out
- only if hmac_add_misc() fails]
-Signed-off-by: Mimi Zohar <zohar@linux.ibm.com>
-Signed-off-by: Roberto Sassu <roberto.sassu@huawei.com>
----
- security/integrity/evm/evm_crypto.c | 69 ++++++++++++++++++++++-------
- 1 file changed, 53 insertions(+), 16 deletions(-)
-
-diff --git a/security/integrity/evm/evm_crypto.c b/security/integrity/evm/evm_crypto.c
-index 1c41af2f91a6..5eae8723f5f9 100644
---- a/security/integrity/evm/evm_crypto.c
-+++ b/security/integrity/evm/evm_crypto.c
-@@ -140,8 +140,8 @@ static struct shash_desc *init_desc(char type, uint8_t hash_algo)
-  * (Additional directory/file metadata needs to be added for more complete
-  * protection.)
-  */
--static void hmac_add_misc(struct shash_desc *desc, struct inode *inode,
--			  char type, char *digest)
-+static int hmac_add_misc(struct shash_desc *desc, struct inode *inode,
-+			 char type, char *digest)
- {
- 	struct h_misc {
- 		/*
-@@ -156,6 +156,7 @@ static void hmac_add_misc(struct shash_desc *desc, struct inode *inode,
- 		gid_t gid;
- 		umode_t mode;
- 	} hmac_misc;
-+	int error;
- 
- 	memset(&hmac_misc, 0, sizeof(hmac_misc));
- 	/* Don't include the inode or generation number in portable
-@@ -176,14 +177,30 @@ static void hmac_add_misc(struct shash_desc *desc, struct inode *inode,
- 	hmac_misc.uid = from_kuid(&init_user_ns, inode->i_uid);
- 	hmac_misc.gid = from_kgid(&init_user_ns, inode->i_gid);
- 	hmac_misc.mode = inode->i_mode;
--	crypto_shash_update(desc, (const u8 *)&hmac_misc, sizeof(hmac_misc));
-+	error = crypto_shash_update(desc, (const u8 *)&hmac_misc,
-+				    sizeof(hmac_misc));
-+	if (error) {
-+		pr_err("crypto_shash_update() failed: %d\n", error);
-+		return error;
-+	}
- 	if ((evm_hmac_attrs & EVM_ATTR_FSUUID) &&
--	    type != EVM_XATTR_PORTABLE_DIGSIG)
--		crypto_shash_update(desc, (u8 *)&inode->i_sb->s_uuid, UUID_SIZE);
--	crypto_shash_final(desc, digest);
-+	    type != EVM_XATTR_PORTABLE_DIGSIG) {
-+		error = crypto_shash_update(desc, (u8 *)&inode->i_sb->s_uuid,
-+					    UUID_SIZE);
-+		if (error) {
-+			pr_err("crypto_shash_update() failed: %d\n", error);
-+			return error;
-+		}
-+	}
-+	error = crypto_shash_final(desc, digest);
-+	if (error) {
-+		pr_err("crypto_shash_final() failed: %d\n", error);
-+		return error;
-+	}
- 
- 	pr_debug("hmac_misc: (%zu) [%*phN]\n", sizeof(struct h_misc),
- 		 (int)sizeof(struct h_misc), &hmac_misc);
-+	return 0;
- }
- 
- /*
-@@ -267,9 +284,14 @@ static int evm_calc_hmac_or_hash(struct dentry *dentry,
- 
- 		if ((req_xattr_name && req_xattr_value)
- 		    && !strcmp(xattr->name, req_xattr_name)) {
--			error = 0;
--			crypto_shash_update(desc, (const u8 *)req_xattr_value,
--					     req_xattr_value_len);
-+			error = crypto_shash_update(desc,
-+						    (const u8 *)req_xattr_value,
-+						    req_xattr_value_len);
-+			if (error) {
-+				pr_err("crypto_shash_update() failed: %d\n",
-+				       error);
-+				goto out;
-+			}
- 			if (is_ima)
- 				ima_present = true;
- 
-@@ -293,15 +315,23 @@ static int evm_calc_hmac_or_hash(struct dentry *dentry,
- 			pr_debug("file %s: xattr %s size mismatch (kernel: %d, user: %d)\n",
- 				 dentry->d_name.name, xattr->name, size,
- 				 user_space_size);
--		error = 0;
- 		xattr_size = size;
--		crypto_shash_update(desc, (const u8 *)xattr_value, xattr_size);
-+		error = crypto_shash_update(desc, (const u8 *)xattr_value,
-+					    xattr_size);
-+		if (error) {
-+			pr_err("crypto_shash_update() failed: %d\n", error);
-+			goto out;
-+		}
- 		if (is_ima)
- 			ima_present = true;
- 
- 		dump_security_xattr(xattr->name, xattr_value, xattr_size);
- 	}
--	hmac_add_misc(desc, inode, type, data->digest);
-+	if (!error) {
-+		error = hmac_add_misc(desc, inode, type, data->digest);
-+		if (error)
-+			goto out;
-+	}
- 
- 	if (inode != d_backing_inode(dentry) && iint) {
- 		if (IS_I_VERSION(inode))
-@@ -409,6 +439,7 @@ int evm_init_hmac(struct inode *inode, const struct xattr *xattrs,
- 	struct shash_desc *desc;
- 	const struct xattr *xattr;
- 	struct xattr_list *xattr_entry;
-+	int error;
- 
- 	desc = init_desc(EVM_XATTR_HMAC, HASH_ALGO_SHA1);
- 	if (IS_ERR(desc)) {
-@@ -423,14 +454,20 @@ int evm_init_hmac(struct inode *inode, const struct xattr *xattrs,
- 				   XATTR_SECURITY_PREFIX_LEN, xattr->name) != 0)
- 				continue;
- 
--			crypto_shash_update(desc, xattr->value,
--					    xattr->value_len);
-+			error = crypto_shash_update(desc, xattr->value,
-+						    xattr->value_len);
-+			if (error) {
-+				pr_err("crypto_shash_update() failed: %d\n",
-+				       error);
-+				goto out;
-+			}
- 		}
- 	}
- 
--	hmac_add_misc(desc, inode, EVM_XATTR_HMAC, hmac_val);
-+	error = hmac_add_misc(desc, inode, EVM_XATTR_HMAC, hmac_val);
-+out:
- 	kfree(desc);
--	return 0;
-+	return error;
- }
- 
- /*
 -- 
-2.43.0
-
+heikki
