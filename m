@@ -1,125 +1,135 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B892D3D1A82
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 17:34:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAB523EB7E9;
+	Fri,  9 Oct 2026 17:34:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791567273; cv=none; b=WhmSXmHa38IWDHA1lDTvjwfEjFp8VG5VoOvsTU2EfNvc+8tjjRgcOaXJTqs4W7MuTQOCP/1wPa3zA6IpaLxwAQYPqiNVsq/ZTTM9PhzIFwu+Evj5IzwkEeI0PaXXZmeA93BVm0P0Uewr/qPK4jVsv7u795/NaycS4vC/0i0DWlc=
+	t=1791567276; cv=none; b=QvJJt9s19pF4uKigk0nbF28wVjlP+UhynRqwl6vvraTT1epdnkn3/m5jMrnL5VAOadn04/WWD43vFF1QrpeER/Kr8o4dv6pOoaByFuXzbmupC7C6K6oKEfvUqfsCJmK00kPeuwqyYgAlkFkPttmI/C+HoO5HRsWYQ/vw2kmj4dM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791567273; c=relaxed/simple;
-	bh=UpiJrSWhkErhXPxV3FL2/OySz2v2wxDssZMQIaO18jM=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Rpd3w37lX08PZHAqCle+N4H/wy9gKZcbDrGejus1s+p5X2nLmj1adE3MAYRhCdIp1GC0URAnOI3H3yFreKd/3ik4TmCDyzcur7NGrE4ZIfoAu5XeSGIYQ72vERCHgXLo7UMZfFC7y9Sz9BdDQwhEyW8v/nSrWQYwth5AAUPiOdI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KpenERko; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791567276; c=relaxed/simple;
+	bh=7JvhXxV1YuLLBfPgG9f3+Dy/RpnCeQIkzzy63OaQQSk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pgN2xvHoPvR1ZitGO9u3BlB8cTuaASogmwg2Bi7gyfW8QqaNqNejjBpYOMCWbGzpALBZc0NBJZ51R3URq9gV2cANHUXeQp5lq2k+Q0jNRXyE5Ma3uEcl4kOkiOjq042bXNg2VJC7vnlsWcmyMzHQxVgoywDsC4Smv5RMxk6xuyY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UOXVnO3z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KpenERko"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a1698ea378so763225e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 10:34:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791567270; x=1792172070; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Rk8GIteAzDc4zWM/lV0RC8+n9X75M+8oRwDQaNES2gw=;
-        b=KpenERkoJ1882vHqUzH/VGitmJwBlz5eXpXL69/V/gYEioHyousMh+gSP8LZ29tZAt
-         GSu1UIjgRE6LI5fNrLk419oJOBzFWGGuMg6gsC3+iElD3p+06TJC6fva90UcL5V8IrWY
-         /zMxP4Ceue57QR3URlbyQw3BRGJNsYGHegmzGDIuGrtYvkquFC4swfWZYqHM2LBwjcOP
-         2XDbqgGGhZXQowuAEcnVt1DswjMLN/4HyTkZUDapRXKWbhLZyzfhfTWItIR3thtbgELA
-         yTccsrGD/JXgAoqV0gYRFZYM5Pac78VpvnrXOqM1D0tmniuqQrU2mQyYtmFeTAxdSJ4T
-         AKLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791567270; x=1792172070;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Rk8GIteAzDc4zWM/lV0RC8+n9X75M+8oRwDQaNES2gw=;
-        b=gCEJynZZBPNh8fEpTakrP+tEVMjtt6wLX/dvG0gNN9qeVUpzUCfHKzXPcxmm2yi9+a
-         apRzodxvxUDMPAYOk1RfZ8k15MNz/88BRK70rrUEZRglOleru/P4a+DpEOJNEOgWk2Wj
-         sQxjJIteLco5q3S20cGtFkv5GmfYjjdlwYbWHbAKlLpc4DWiv6R7keOYJ5NM2idHs115
-         bAgr7TD/Kq0nGh6PlhdsKS4j+oLUbQ0BP0MsYRRJzF5dWeeKxGEfgEM5MjCv+1Xdr8AS
-         6TEc9xN6kuyfPPobodppUH66bRVqBq4pDxrsKsqVrbDUlrGmCCE9xWfQ2amg3t+yaVoV
-         gitQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwmXsV6BzctRtABaOof0imgeDquJGMs4agEsyVMjbo3GSmHeBoLLgHSI0WrMu2sgjtoExXZMoVAgt80vU8=@vger.kernel.org
-X-Gm-Message-State: AFuF++meY/ytpQDR78rtvz1Q0kFcCRVXLOZERGJKsJjAKBM4I/UkCcKB
-	yUiOKS9Ekwckz/b+fdUB3ArxWMoMxpHPQph/jsZAVdftGNo0Aa1mxH3f
-X-Gm-Gg: AYBFou3ksFbycyfcS59YoaIjhgEcXuZ8b6Il4mO9D6lKMNlO+6WMYWQ3s1hdiy1fbN7
-	RHjBS9tNJ985THSSXLbcOtt775sdOXJ0zDwFTSAJNstrjDit9g4+uwOwgJsP28l2KO+EvHtMfLq
-	4G0BYgGHfULsEEW3xtBgQCy4ivVcDDKIlYBj/6OjjixO/sY8WnOlB+mnp9kxpNxD5Iji9SJZSW/
-	tl1bQZtpURRnPRZnySg8dOTddeVfn/L2Adae9iew/VPKPXsrBttNekgHilLLFqqx/srK0af1Icz
-	u6zu9d+ri48uhTsP61ezgvJ83JMKgozCjgU1hbxdEBp2hlhiDGz76cvhS8t6wIbYIEN576je/5z
-	05qPpHDucoBqF8cahu3o/ES6ku1jD5E9A8Mkc432jE5gA3swbae51zZQ1HxF+/8TTtqyisy4BTr
-	yjEEMCPcBVZaSVVJ0orJwv8r2byw9zjuo9IlXjiuz+wyxmrynf/tC4BgM/qnh8y3XmedJ/kJjMr
-	MsHOxVBgwhDmpgyJk+an+O1Q6vMjqvncfo=
-X-Received: by 2002:a05:600c:3146:b0:49d:1fd8:b874 with SMTP id 5b1f17b1804b1-4a18e4af3a8mr54413095e9.19.1791567269816;
-        Fri, 09 Oct 2026 10:34:29 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9ac94c6sm5003011f8f.42.2026.10.09.10.34.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 10:34:29 -0700 (PDT)
-Date: Fri, 9 Oct 2026 18:34:27 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Willy Tarreau <w@1wt.eu>
-Cc: Petr Mladek <pmladek@suse.com>, helpdesk@kernel.org, Steven Rostedt
- <rostedt@goodmis.org>, John Ogness <john.ogness@linutronix.de>, Sergey
- Senozhatsky <senozhatsky@chromium.org>, Andy Shevchenko
- <andriy.shevchenko@linux.intel.com>, Rasmus Villemoes
- <linux@rasmusvillemoes.dk>, Andrew Morton <akpm@linux-foundation.org>,
- Linus Torvalds <torvalds@linux-foundation.org>, Geert Uytterhoeven
- <geert+renesas@glider.be>, Jiri Slaby <jirislaby@kernel.org>,
- linux-kernel@vger.kernel.org
-Subject: Re: Create printk@lists.linux.dev
-Message-ID: <20261009183427.7a7d71ba@pumpkin>
-In-Reply-To: <askBpT-dk59MzcTP@1wt.eu>
-References: <asjrq9g8EoUGepcH@pathway.suse.cz>
-	<20261009152627.285d814b@pumpkin>
-	<askBpT-dk59MzcTP@1wt.eu>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UOXVnO3z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 457EC1F000FF;
+	Fri,  9 Oct 2026 17:34:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791567275;
+	bh=Y+e5fiagQUAbWq0G0G72uFDu9M2cjMIliK8S5C6avdA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UOXVnO3zLoVszFvsV1E0D3WZpQXkBbOKbF5rRippK/RnbXOYcy3ELkYeimx3uG//V
+	 CdFGVtMRcx7GLbDblh+dkr4XNWLvY/7MZtNA9aC/ABl8Q9d+7g5V6ZZ/tcQQgXUnpm
+	 6W0tuTIBiq4UcdSPP0MZGUdO6pD/xWWMJnGcKnjgov9SfakkP43UUUt+cHr86DK8qb
+	 taFrkhGfWcmDriSUwg2E0QCOewfSjpTMWVm5JsIzzRzHHJfKkkOcCWoSLHu++eImHK
+	 4ZTJ+kzQ9OA+lPEbSGeDbuu5dOlAFZT3wb5CXE0C/ne2qxQNO0JoDukIkWjeatApNC
+	 ljGhNLuwMZsGQ==
+Date: Fri, 9 Oct 2026 12:34:33 -0500
+From: Rob Herring <robh@kernel.org>
+To: Conor Dooley <conor@kernel.org>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Quchaosheng <quchaosheng000406@163.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: display: ti,tpd12s015: Convert to DT
+ schema
+Message-ID: <20261009173433.GA2862960-robh@kernel.org>
+References: <20261009105601.301891-1-quchaosheng000406@163.com>
+ <20261009105601.301891-2-quchaosheng000406@163.com>
+ <20261009-2f34bbada2c463c78b2c05a7@squawk>
+ <20261009144434.GD622105@killaraus.ideasonboard.com>
+ <20261009-db35f1d74028d0d0a34f1106@squawk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261009-db35f1d74028d0d0a34f1106@squawk>
 
-On Fri, 9 Oct 2026 17:00:53 +0200
-Willy Tarreau <w@1wt.eu> wrote:
+On Fri, Oct 09, 2026 at 04:42:01PM +0100, Conor Dooley wrote:
+> On Fri, Oct 09, 2026 at 04:44:34PM +0200, Laurent Pinchart wrote:
+> > On Fri, Oct 09, 2026 at 03:25:49PM +0100, Conor Dooley wrote:
+> > > On Fri, Oct 09, 2026 at 06:55:59PM +0800, Quchaosheng wrote:
+> > > > From: Chaosheng Qu <quchaosheng000406@163.com>
+> > > > 
+> > > > Convert the TPD12S015 HDMI level shifter binding to DT schema.
+> > > > 
+> > > > The TI TPD12S015 is an HDMI companion chip that combines a level shifter
+> > > > and ESD protection circuitry. Document the two ports it exposes between
+> > > > the HDMI transmitter and the connector.
+> > > > 
+> > > > The tpd12s016 is software compatible with the tpd12s015 and is listed as
+> > > > a fallback compatible by am57xx-idk-common.dtsi, so accept it as a
+> > > > fallback of "ti,tpd12s015". The driver matches on "ti,tpd12s015" only, so
+> > > > a board using the tpd12s016 must list both compatibles.
+> > > > 
+> > > > Assisted-by: LLM
+> > > > Signed-off-by: Chaosheng Qu <quchaosheng000406@163.com>
+> > > 
+> > > No idea if the sashiko reply is valid, because I have no clue if
+> > > providing a subset of the gpios is functional. Really this should have
+> > > multiple different gpios properties,
 
-> On Fri, Oct 09, 2026 at 03:26:27PM +0100, David Laight wrote:
-> > On Fri, 9 Oct 2026 15:27:07 +0200
-> > Petr Mladek <pmladek@suse.com> wrote:
-> >   
-> > > Address    : printk@lists.linux.dev
-> > > Description: Linux printk and kernel string formatting development
-> > > Owners     : pmladek@suse.com, john.ogness@linutronix.de, andriy.shevchenko@linux.intel.com, rostedt@goodmis.org
-> > > Allow HTML : N
-> > > Archives   : Y
-> > > 
-> > > Reasons for the list and additional info:
-> > > 
-> > > Honestly, the main motivation is to allow sending Sashiko review
-> > > for changes in PRINTK and VSPRINTF subsystems as a reply to
-> > > the mailing list.  
+The minItems one is not valid. sashiko struggles on our quirks against 
+normal json-schema. Generally, if either minItems or maxItems is not 
+specified, we make them equal. I think I documented that, so we need to 
+get sashiko to read it...
+
 > > 
-> > There is also the smaller/faster printf code in 'nolibc'.
-> > Might be worth mentioning that as well.  
+> > Definitely.
+> > 
+> > > but this binding is really old and
+> > > not worth changing IMO.
+> > > Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> > > pw-bot: not-applicable
+> > 
+> > I'm getting annoyed be the LLM-assisted individual conversions. Can we
+> > start requiring people who convert text bindings to YAML to at least
+> > handle whole groups in one go ? If they're going to do a bad job, I'd
+> > rather have to review it once only.
+
+I have a branch of ~600 questionable patches. :) It does make arm64 
+warning free (and some of the warning fixes are valid).
+
+What's left is really stuff that's old, not getting new platforms and no 
+one cares about. I don't think we need perfection. We should probably 
+just ignore sashiko.
+
 > 
-> Better not mix the two, nolibc is purely user land code and doesn't
-> have the same constraints.
-
-The kernel version is actually horrid, rewriting based (loosely) on the nolibc
-version might be an improvement.
-But I'm not sure how I could do it without it mostly being 'one big patch'.
-The nolibc version is much more of an embedded system version and a usual libc one.
-Things like not calling a function to add every character to the output help!
-
-David
-
+> Or do one, and take the learnings into all the remaining patches - but
+> with LLM conversions I don't think there's really much learning going on
+> at all.
 > 
-> Willy
+> I guess bunching them is fine, provided it is for one subsystem. I
+> definitely don't want to see a set of 15 patches across 9 subsystems,
+> at least with one subsystem it's likely to be the same common problems
+> across the bunch.
 
+I've tried expressing my preferences in priority, but it hasn't worked. 
+It was mainly GSoC or other programs, but now it's?
+
+My priority is:
+
+- Fix arm64 warnings
+- Fix arm warnings
+- Convert subsystem bindings
+- Fix other $arch warnings (no one cares AFAICT)
+
+We're actually pretty close to arm64 being warning free. krzk's LPC 
+slides inflate the numbers as N boards for a SoC give N copies of 
+warnings. next is currently sitting at 218 warnings in my deduped count. 
+About half of those are HiSilicon and Mediatek. The rest of the 
+platforms (by subdir) are around ~20 or less.
+
+arm32 is still a long way off. The recent platform removals should help 
+though.
+
+Rob
