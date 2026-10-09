@@ -1,74 +1,79 @@
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FED7175A89
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 04:47:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 495923D091D
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 04:47:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791521222; cv=none; b=LKXyYkYeEScr7mWkwc6LqaoTJtF015H0Y92UFM/oqEip20Ggsp1XzMhQN5fvuHxFNRbori2WQBwHWhdKzECu5JPj43e2EGzLgRxXs0L87qnp+XhtvIZvhJ3kjHeRYfY5sNw+kIo/STwHq+L0xU1RuoGOfWv799fLxKAYdlrj7+A=
+	t=1791521238; cv=none; b=HoXh4U58NwSPWCEhG6bh6kbttxL3SW9yKyVGox774TL2IQpasSIWPnAB0hBeREDOD28vYiXRjeU44dFzXPT7psxSaKD/M2d+a4AMup9zmRwjYPCYqQfe28LOI2RUi8Ct5PcKJ/MjXhxWRqHyT4meLgH1bW9ZFkYuyw+lZ9nKLhU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791521222; c=relaxed/simple;
-	bh=hYEcRZfNO0ZIL03cS/C0g3gPMWns4wpZXwJgVX+O4lY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MFKGLLfCu4KQthqBJiwjUTDJvLfKY1G/cw0bmyywqQo9GL6zasiOIAf64wUYzX2u+2/nwzxfT4nWFf/oonRig3A1octgcqwoLWMD1rJ53ZpTNph08gh5c05PcC47vV3mcRRupgf8hfisGW0rH1dIKwxD+BsKWgFNFKiPEJD5oE8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VfoqvXMw; arc=none smtp.client-ip=209.85.208.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791521238; c=relaxed/simple;
+	bh=L1saLHbBDlhwh2dYd8IVRuZXsAjOA/gPjL4RZrhZkXs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Uzr94Tu5JD4i79N+2Kpl/EHPf8iHwlNIlTtFNKuU5Dp3dtWcrvJS2h02Uh+5QwSnEZvDbr6ZpPjkk9aTMHfNUM+JGMIWYYub1AcCRYklRjANTRMKsgUlTOiJCkvEan+Fb1tIJV9TWd/ybKW5RkE9HU+CnWXN1Lb3fdpPMYtP4ig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu; spf=pass smtp.mailfrom=cs.unc.edu; dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b=JxljPbdu; arc=none smtp.client-ip=209.85.222.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VfoqvXMw"
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b167ffd132so2081007a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 21:47:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b="JxljPbdu"
+Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-93e635220b4so353645885a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 21:47:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791521219; x=1792126019; darn=vger.kernel.org;
+        d=cs.unc.edu; s=google; t=1791521235; x=1792126035; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=x7hgxnnVrOAesdTxc+DeNAbIYuClRLjoTwntAP7fngE=;
-        b=VfoqvXMwVVUZAe1JyUgKnXJeppTUDsNU++4LDA+C6LND2eDYgkfqJjGTOWGghlOZhN
-         Z2tYl6Re77IVibSSaQED1JthBveDpWl+WYZfmXA8XYXZe1clluNlDi5B7FpKhCv/dw9O
-         OdTupRoJEtBSSnzYGtMYiG8t9qeoVSBAIXpGT/BQ7bzpC3kJx/iYSAgS1rRTAeWyLFL9
-         Gfv5+Ql6XswV/oI45VR3P0OaPrxjOJ6eg67yWc8fE4LOK2r8Pczh1ZcZ/P5aKTKDjLWO
-         c/9lZsM39s7aH1Ew5J6oVHG9odreNDuew3j3eboSzjbxpRME29o4GbZwnjITsNRrOCf2
-         Dflg==
+        bh=iwfGogYRFIyzaf6fWKpsQX0/XPwp5O/xWsEk6hWT+9o=;
+        b=JxljPbdum9RdTb0AMPdkUoU2h69jbiK+j5szqdoGScw5E2vAP3DUzXn4nCkYJquakt
+         IuXikEQLYQWwXJ2OcSCJ6foe7N+UzbF0zUqZA+UQTMaqKx6j88Gxh9PrzbOMGlAtEON8
+         PbUqQYcDfn97Xiu9qeyW+LkLf/SmaEDSfLQdVh/NuPtQApQU5+oOuA6NhfcyeT+zNsVd
+         t0Waf66oWPz4fHUNySnTGLk/owWjjO3uLLfyPqjYQuMBsQgXSEF6IZdervB8QwpdheJD
+         SgdNDOg/GFVUigQxB8wrbIyheqyWbBKgi8X1HaiQMbLFjv7z1FfEIOWBjgOizTNA9kDf
+         Fntw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791521219; x=1792126019;
+        d=1e100.net; s=20260707; t=1791521235; x=1792126035;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=x7hgxnnVrOAesdTxc+DeNAbIYuClRLjoTwntAP7fngE=;
-        b=IcYtWIwxWnLrvDH/p3WPaDCzvAGY3Y/AewpoiRzk5NHUXO7lFNEJpJJ9qQLAESR8Nc
-         biETi/eX5IQzgpsFp5RZKkYz50bhLH68xTBVxnd5jG5TjX1W1zN4/DgI0MuQ+zqbDHHb
-         qpKFzOrcpMxtJqZf9WjHiLIC9zcvG2XC6QKi+Lvkc0+vSGjOU+ml38yDkTW8U+IowdAp
-         tXwROhiktMbMRomj7PtC4Z9V8w/RCeixHrbD1EOf1e8MfrD2cSzZ8yFOSnf0xUkoEtWZ
-         r0xFcA+ouLblm/Qs4DXjVT+e/lAQjnj3lGcITpWXChBc3bVYozm4luTVotvC00aT+rnJ
-         8GAw==
-X-Forwarded-Encrypted: i=1; AKwUvBwpGRfjwkPrtOYdLv+dr8WARJ/Bzi7oqqSyeHC8OTqY2sPCQwmjPLcbFUzOlQL28YBDkg79hrBeCNL4xrg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKKm4zoUC3IYhs1JX61ndjD+m4vrkyqsQ7IeB0HninE9Noh86BT
-	wgxjuzXjVCczv01vaTosJoNm2PyVxCXysjnN0MhnbTN6mJd1bBFISCVl
-X-Gm-Gg: AYBFou0nlmETiXdCmT8WcCwqMbtlP3iiYUx3ijy9fzEArPUjOlf0FUJIESUvkzAyQ2U
-	BW9RBw2Niozvfsyw7PuSykDxjlM11cV2jGlKgOyqnsC0uBRP2ZcqNSJRabYUXQbQDuZ9P09/D1b
-	LdMlBvNYenuba8ds8z9wRKDD+0FdNXX4Pj3z965oiJ4JOjsmPnt77obMC3HGlkm7YL2chU2JEI1
-	0sB2jaBMjnGIE4rbENmzhx+6CnmVbuRJJAn/PVQoDOdajmrri+XhhrZpw3+/kk7nNJJD95hPG++
-	smChhvzWkCzYvDXm3DAPcH2t+oSKwdyFRKCwnMtOjS7wcgnqGLLCxTxaF/usQjxY2lFGmb1S2MR
-	XL5Kd0B6P1grHH65sZubD9d8KOyy4H78XlfKkjf0TD4XvA6+TA1J1pi9HV8lgr0oqO79tVoJWy0
-	sjMQ8DOAe37LS3OXX5Xa9eCps6FmmgmmW3dp241k9vVWjK48tr1dGHd+6Ehc2fyTqLcbL57xv3i
-	M1KB4c3izXSdQpMCA5C6s1Y5HvtGd/pHIzD9YGRc7uMLSQ2Qvg2BHNhIUo=
-X-Received: by 2002:a05:6402:5189:b0:6aa:f809:ef44 with SMTP id 4fb4d7f45d1cf-6b17c296a4bmr407721a12.19.1791521219033;
-        Thu, 08 Oct 2026 21:46:59 -0700 (PDT)
-Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b178d1605fsm504745a12.2.2026.10.08.21.46.57
+        bh=iwfGogYRFIyzaf6fWKpsQX0/XPwp5O/xWsEk6hWT+9o=;
+        b=Z/PnfMnaCAE0XQrbOPkpl0cPTRfE8OoLp7Uwwpb7s1HCvC2+ddnjX6ahULSYxwmUYr
+         Ol7Sxu5lOcVVAivO+5OOAYhGva69wzx7faRmmfQ0LK6CBh3/8H5BjUg5vqXoSavH3sEw
+         UJ58fgSlOX88FvUPnDfvu2L/jYsozWGusMi6eTdi7Y1Q8YAwMifNTIj298bzRfZ9rL4M
+         jjy7mepSkL8nNRaf8ooQAf41o7FiyzTTP+TqrZ0n1gcHRduN+lBYRKc+IYXqQaR3jw9a
+         /lMuXLPLTRsdO4kNFqfLoLYu545r0jyFCLLky0aXNXuSEqLQDoNxVWTsRiPt7J6J57hN
+         UjjQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzDKOXnZNxUICxsMczIkEHMSe2KbmwfS3MfoQfNdUEwDAMf1qxIF6Mk8XaK4PgaNOpdawssGMucavRb9AI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lUi6XmByhthvrwCJRy9Mm9vcflq8AOjWGJCCnSb4dVa0bFTWzX
+	MJEZElQSNGICm24G4+Oan2xK3vLrfj4QaYMRR/SRrVv4rXRKIeAF41X1euaNw/7oXg==
+X-Gm-Gg: AYBFou0mirbvM3e/N/AMqkESqCieriO8kmIvAekNuynW266axE1x87TmkqgJqMX+kcd
+	yxuryx4GRhxf+BucVRYf+FCFXZaxTKi8HgaRtpqOoYTzlCiGpufvmDpJYx0U2MFsz1DdbI6XKsN
+	PPusN6tC1G5E48VWMXJ/sTprJOpazEW8ShA+ZLeq8XDnO9XXRf1VTCQEcfdYE3mmEeVKBrpsrNz
+	v16S47cfrns86eKdsKnSZObmjVLxAcZscrrTd8WEOUMKY7IT6fI7lBC3/OHdgQzdP6YSaJQvmfJ
+	mWCj0qVbODJoSZf/33kV8CGBU8VkFlNpCZJyzucFJw41dRVAVQ2Wo6IHlk45TE8p7ZBC7wJPZXH
+	Bum6kyfAL3ZOxHWbDWM86bsSOrAAdW2VDc2k8c9TeBZAlFCI7+FQfmurdmT7zZnyBYh5JTgXIOf
+	bEqyu1bUbVtZ1Xu2NptbYGeuKTWXlsM5EjPdkaRdXft4HB5qRBbxGx7OoFqbQNWewaWiA/66FdX
+	R2cmi1K4ED5v2ph5S4uDA==
+X-Received: by 2002:a05:620a:460d:b0:93e:4ede:8976 with SMTP id af79cd13be357-93ebd224c25mr109453085a.26.1791521234940;
+        Thu, 08 Oct 2026 21:47:14 -0700 (PDT)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b5501f2e3sm8804606d6.8.2026.10.08.21.47.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 21:46:58 -0700 (PDT)
-From: David Carlier <devnexen@gmail.com>
-To: sakari.ailus@linux.intel.com,
-	mchehab@kernel.org
-Cc: himanshu.bhavani@siliconsignals.io,
-	hardevsinh.palaniya@siliconsignals.io,
-	linux-media@vger.kernel.org,
+        Thu, 08 Oct 2026 21:47:14 -0700 (PDT)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: tytso@mit.edu,
+	linux-ext4@vger.kernel.org
+Cc: adilger.kernel@dilger.ca,
+	libaokun@linux.alibaba.com,
+	jack@suse.cz,
+	ojaswin@linux.ibm.com,
+	ritesh.list@gmail.com,
+	yi.zhang@huawei.com,
+	dave.hansen@linux.intel.com,
+	akpm@linux-foundation.org,
 	linux-kernel@vger.kernel.org,
-	David Carlier <devnexen@gmail.com>
-Subject: [PATCH] media: i2c: imx576: Fix line length register
-Date: Fri,  9 Oct 2026 05:46:55 +0100
-Message-ID: <20261009044655.7586-1-devnexen@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	stable@vger.kernel.org
+Subject: [PATCH] ext4: do not advance i_size on a buffered write that copied nothing
+Date: Fri,  9 Oct 2026 00:46:56 -0400
+Message-ID: <20261009044656.1993196-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,30 +82,141 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The line length is written to FRAME_LENGTH_LINES instead of
-LINE_LENGTH_PCK. The value is later overwritten by the VBLANK control,
-so the sensor runs with its default line length while the driver
-reports HBLANK and PIXEL_RATE computed from IMX576_LINE_LENGTH.
+Commit 665575cff098 ("filemap: move prefaulting out of hot write path")
+made generic_perform_write() call ->write_begin() and ->write_end()
+before it finds out that the source buffer cannot be read.  In that
+case ->write_end() is called with copied == 0.
 
-Fixes: ee2e9bf41d3e ("media: i2c: add imx576 image sensor driver")
-Signed-off-by: David Carlier <devnexen@gmail.com>
+However, ext4_write_end(), ext4_journalled_write_end() and
+ext4_da_do_write_end() set i_size to pos + copied without checking
+copied.  As of now, a buffered write() past EOF that fails with EFAULT
+grows the file to the write offset, and the new size can reach the
+disk.
+
+The issue can be reproduced on an ext4 mount with:
+
+    char *p = mmap(NULL, 4096, PROT_NONE,
+                   MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+    int fd = open("/mnt/ext4/file", O_CREAT | O_TRUNC | O_RDWR, 0600);
+    pwrite(fd, p, 4096, 1024 * 1024);   /* fails with EFAULT */
+    fstat(fd, &st);
+
+Before that commit, the result is st_size = 0.
+After it, the result is st_size = 1048576.
+
+This patch will leave i_size alone when nothing was copied, as
+ext4_write_inline_data_end() already does.  The delalloc path does not
+trim after a short write, so in this case it also has to drop the
+folio and the delayed blocks that ->write_begin() set up past i_size.
+Otherwise that folio stays dirty past EOF and writeback never cleans
+it.
+
+Fixes: 665575cff098 ("filemap: move prefaulting out of hot write path")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
 ---
- drivers/media/i2c/imx576.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/ext4/inode.c | 42 +++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 35 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/media/i2c/imx576.c b/drivers/media/i2c/imx576.c
-index 3fcd28d18a51..6243683302c7 100644
---- a/drivers/media/i2c/imx576.c
-+++ b/drivers/media/i2c/imx576.c
-@@ -507,7 +507,7 @@ static int imx576_set_window(struct imx576 *imx576,
- 	format = v4l2_subdev_state_get_format(state, 0);
+diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+index 26f0f9714f03..36e75c89b8c8 100644
+--- a/fs/ext4/inode.c
++++ b/fs/ext4/inode.c
+@@ -1452,15 +1452,18 @@ static int ext4_write_end(const struct kiocb *iocb,
+ 	 * it's important to update i_size while still holding folio lock:
+ 	 * page writeout could otherwise come in and zero beyond i_size.
+ 	 *
++	 * If nothing was copied (e.g. the source buffer was unreadable), do
++	 * not move i_size up to pos.
++	 *
+ 	 * If FS_IOC_ENABLE_VERITY is running on this inode, then Merkle tree
+ 	 * blocks are being written past EOF, so skip the i_size update.
+ 	 */
+-	if (!verity)
++	if (copied && !verity)
+ 		i_size_changed = ext4_update_inode_size(inode, pos + copied);
+ 	folio_unlock(folio);
+ 	folio_put(folio);
  
- 	/* Line length */
--	cci_write(imx576->regmap, CCS_R_FRAME_LENGTH_LINES, IMX576_LINE_LENGTH,
-+	cci_write(imx576->regmap, CCS_R_LINE_LENGTH_PCK, IMX576_LINE_LENGTH,
- 		  &ret);
+-	if (old_size < pos && !verity)
++	if (copied && old_size < pos && !verity)
+ 		pagecache_isize_extended(inode, old_size, pos);
  
- 	/* Imaging area */
+ 	/*
+@@ -1571,13 +1574,13 @@ static int ext4_journalled_write_end(const struct kiocb *iocb,
+ 		if (!partial)
+ 			folio_mark_uptodate(folio);
+ 	}
+-	if (!verity)
++	if (copied && !verity)
+ 		size_changed = ext4_update_inode_size(inode, pos + copied);
+ 	EXT4_I(inode)->i_datasync_tid = handle->h_transaction->t_tid;
+ 	folio_unlock(folio);
+ 	folio_put(folio);
+ 
+-	if (old_size < pos && !verity)
++	if (copied && old_size < pos && !verity)
+ 		pagecache_isize_extended(inode, old_size, pos);
+ 
+ 	if (size_changed) {
+@@ -3210,6 +3213,24 @@ static int ext4_da_should_update_i_disksize(struct folio *folio,
+ 	return 1;
+ }
+ 
++/*
++ * Delalloc counterpart of ext4_truncate_failed_write(): ->write_begin() only
++ * reserved delayed blocks, so drop the page cache and the delayed extents
++ * beyond i_size and leave the blocks that are allocated there alone.
++ */
++static void ext4_da_truncate_failed_write(struct inode *inode)
++{
++	struct address_space *mapping = inode->i_mapping;
++	ext4_lblk_t lblk = EXT4_B_TO_LBLK(inode, inode->i_size);
++
++	filemap_invalidate_lock(mapping);
++	truncate_inode_pages(mapping, inode->i_size);
++	down_write(&EXT4_I(inode)->i_data_sem);
++	ext4_es_remove_extent(inode, lblk, EXT_MAX_BLOCKS - lblk);
++	up_write(&EXT4_I(inode)->i_data_sem);
++	filemap_invalidate_unlock(mapping);
++}
++
+ static int ext4_da_do_write_end(struct address_space *mapping,
+ 			loff_t pos, unsigned len, unsigned copied,
+ 			struct folio *folio)
+@@ -3247,12 +3268,12 @@ static int ext4_da_do_write_end(struct address_space *mapping,
+ 	 * checked, we need to update i_disksize here as certain
+ 	 * ext4_writepages() paths not allocating blocks and update i_disksize.
+ 	 */
+-	if (new_i_size > inode->i_size) {
++	if (copied && new_i_size > inode->i_size) {
+ 		unsigned long end;
+ 
+ 		i_size_write(inode, new_i_size);
+ 		end = offset_in_folio(folio, new_i_size - 1);
+-		if (copied && ext4_da_should_update_i_disksize(folio, end)) {
++		if (ext4_da_should_update_i_disksize(folio, end)) {
+ 			ext4_update_i_disksize(inode, new_i_size);
+ 			disksize_changed = true;
+ 		}
+@@ -3261,9 +3282,16 @@ static int ext4_da_do_write_end(struct address_space *mapping,
+ 	folio_unlock(folio);
+ 	folio_put(folio);
+ 
+-	if (pos > old_size)
++	if (copied && pos > old_size)
+ 		pagecache_isize_extended(inode, old_size, pos);
+ 
++	/*
++	 * A write past i_size that copied nothing leaves i_size alone, so
++	 * trim what ->write_begin() set up beyond it.
++	 */
++	if (!copied && pos > old_size)
++		ext4_da_truncate_failed_write(inode);
++
+ 	if (!disksize_changed)
+ 		return copied;
+ 
 -- 
-2.55.0
+2.53.0
 
