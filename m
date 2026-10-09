@@ -1,124 +1,87 @@
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.9])
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 933654F30DB
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 16:29:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B7454EBAC1
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 16:30:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791563369; cv=none; b=Gz9RK3lvhVdWCste9HEAWZbwRG5itRrY9XBiEY2J2WfUxnsBAVHQczbEyPWtqUDtAQWIiGcWtALr0RaZvdudoRYnT0VHCfC1tjwCpjxQ5zBmq4zym5E48X5Xybi8Jjm4KMBY0hVLjzuWJ0TvlboGQNCJYqE5k1NRBgpG0cPw9LQ=
+	t=1791563459; cv=none; b=Lb2hc5P7qcGqoN0pzSmS7sZ0shNk+UhhcRjSTTiBsB0uUUh5fTGtucGZeGTQhpqvuzn2UgYaDJWUBHeWcLA1Idfd6uxbZCKUWFOTQMpkQRUEqiVErqX6zskeS0IKH4KS19+e0XcGLM5UIwNhxTfMy3cvjrxz8PtW969Bxe7vEjI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791563369; c=relaxed/simple;
-	bh=sLvEgbiTLO6arejuMHgg1E+s2vzm79Ide+972SXNph0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WoPzpI6+8J9Y/kO3STJCoWL+ItNAdF2SnSJhFK02bx7gbSZxxPlZrhH3mDX95cEL5mR65SWmgz02NejRWDDj36PHXg7gsTfWD1s38nnQIYFgenP5qatFs6HzaEfCNX/qDXW+tTIGfKCqXoPYwJexgV2t+UJs8Acbj6xOcHCKIO8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=xiaomi.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=T/P+foUZ; arc=none smtp.client-ip=220.197.31.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=xiaomi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	s=arc-20240116; t=1791563459; c=relaxed/simple;
+	bh=tcmgkuhiNN17EugX4RUpYEsyUNnSbw6ABrqH4Thixe8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=C6wFYCVcfxRFv1zMoZd/rNDbX/VhxiiSajCGPaviPPhLhXbp+qDR8gHBxgCTAeGGwb6W2O/ze4aXAwnMlNwTBLmV8mkY4VaQQa1PBXzfCC1+XaWVQMInVDo/hwpqGKSfaNCI10g/M6PZwe64JXDatJ3ymNh8F4KZtdueNWVQwuM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b=OIqWkl5r; arc=none smtp.client-ip=18.9.28.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="T/P+foUZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=1c
-	Qk51XlykcZdSe2t0RhAhWZuNMJRxECXtGiWzf02L4=; b=T/P+foUZ4FinYEV80K
-	CkUvzHYfv7Zt5q8NqtszQkie1BO+VW3vVtNEgga2IxMP5A3Oaz6JNkWbUKYQRV+D
-	AK3v1VbMXeDrQnAYQ4KBsGz5KRKg++yKR2Ve1TmP3VduE6z93DZjF/R94tHpS8GB
-	UvdJlAA/tl7gpNoyj2Gf/9Xsg=
-Received: from nzzhao-ThinkCentre-M760t.mioffice.cn (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PikvCgDH3_w0FslqWTz5BA--.13078S4;
-	Sat, 10 Oct 2026 00:28:42 +0800 (CST)
-From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
-To: linux-f2fs-devel@lists.sourceforge.net,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	Chao Yu <chao@kernel.org>
-Cc: Daeho Jeong <daehojeong@google.com>,
-	Barry Song <baohua@kernel.org>,
-	Juan Yescas <jyescas@google.com>,
-	Dev Jain <Dev.Jain@arm.com>,
-	linux-kernel@vger.kernel.org,
-	David Hildenbrand <David.Hildenbrand@arm.com>,
-	Bo Zhang <zhangbo56@xiaomi.com>,
-	Kalesh Singh <kaleshsingh@google.com>,
-	Nanzhe Zhao <nzzhao@126.com>,
-	Pengfei Li <lipengfei28@xiaomi.com>,
-	Ryan Roberts <Ryan.Roberts@arm.com>,
-	Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
-	kernel test robot <yi1.lai@intel.com>
-Subject: [PATCH v3 13/17] f2fs: wait for folio writeback before ffs_detach_free
-Date: Sat, 10 Oct 2026 00:28:24 +0800
-Message-ID: <20261009162828.4188050-3-zhaonanzhe@xiaomi.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261009161224.4163796-1-zhaonanzhe@xiaomi.com>
-References: <20261009161224.4163796-1-zhaonanzhe@xiaomi.com>
+	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b="OIqWkl5r"
+Received: from macsyma.thunk.org (99-196-133-108.cust.exede.net [99.196.133.108] (may be forged))
+	(authenticated bits=0)
+        (User authenticated as tytso@ATHENA.MIT.EDU)
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 699GUAvb004081
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 9 Oct 2026 12:30:24 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+	t=1791563429; bh=ZM0CvUeJVuI50r1AFpimp14FZHjiiFE5U0fKRuwYWA0=;
+	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
+	b=OIqWkl5rivkO9/94TUUQ+4lRjfaFQaqIcdZ8GYc97A4RclY6iBe/HBRdaV9q+YQ9E
+	 Dz48C7cRBS2bxqAsKVQRQAatJEbMlVDzwIZbc1VAn5Ba8v+M5Uo3iUMaAR6j1QVKcw
+	 sJJcmNIgsOGrT4TmiE26OOXpebxfsYsWiWhCMEfuNPTC1H97Z4YgYRL2qU72jFxpYr
+	 +Hnwpx/r/ezZacryM/AB38EtA0Ol5kGBesLWiymt8lKM/yjb8rd0OJQxxvSffa8QAG
+	 GZMHfDMHZ7LlP37VCyoEidtWSw+hEXAWO7Gn+XcJGPp1uoVSsFfDmaQDPP+BWNQfoe
+	 QegKAK+8EadaA==
+Received: by macsyma.thunk.org (Postfix, from userid 15806)
+	id 8D8C41FA0BE7; Fri,  9 Oct 2026 12:30:07 -0400 (EDT)
+Date: Fri, 9 Oct 2026 12:30:07 -0400
+From: "Theodore Tso" <tytso@mit.edu>
+To: Sasha Levin <sashal@kernel.org>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+        workflows@vger.kernel.org, ksummit@lists.linux.dev,
+        linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+        corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
+        broonie@kernel.org
+Subject: Re: [PATCH 0/2] agents: add portable agent skills and Fixes
+ attribution
+Message-ID: <askTmFZC6RJKAE_p@mit.edu>
+References: <cover.1791499378.git.sashal@kernel.org>
+ <20261009094237.GA693830@killaraus.ideasonboard.com>
+ <asi91eAf5veKEUA3@laps>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PikvCgDH3_w0FslqWTz5BA--.13078S4
-X-Coremail-Antispam: 1Uf129KBjvJXoW7KryUAFW5tw4kKrykJF45GFg_yoW8Cry3pr
-	WDKwnrWFWkur17WrnrWF4Sqr1rK3y5WFW7Ca97C3WxXFn8Xr1kKF1kt3sYgFW5trykJr9a
-	qw4kAFy8XFy5JF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j5yCJUUUUU=
-Sender: nzzhao@126.com
-X-CM-SenderInfo: xq22xtbr6rjloofrz/xtbBsRugcGrJFjtJjAAA3x
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <asi91eAf5veKEUA3@laps>
 
-truncate_inode_pages_range() can invalidate a large folio that is still
-under writeback, which can result in the following use-after-free:
+On Fri, Oct 09, 2026 at 06:11:33AM -0500, Sasha Levin wrote:
+> 
+> Ted Ts'o asked if we have a way to handle incorrect Fixes: tags in our stable
+> tree work, I pointed out that we have LLM workflows to help us determine the
+> correct Fixes: tag when we determine when the issue is first introduced, at
+> which point other folks showed interest and asked to share it.
 
- CPU0 (writeback)             CPU1 (truncate)
- ----                         ----
-f2fs_write_cache_folios()
-folio_start_writeback(folio)
-/* submit bios */
+The context behind the request was from a conversation I had with
+Hannes Reinecke earlier in the week at Plumbers, who told me that in
+his estimation 15-20% of the Fixes tags were actively wrong, and were
+often due to contributors running "git blame" and just looking at the
+first commit which modified a line touched by the patch --- and
+maintainers (including myself) not having the time to verify every
+single Fixes tags, or adding any missing Fixes tags.
 
-retry_out:
-folio_unlock(folio)
-/* all bios submitted; folio lock released */
+Hence, having some help, either as a standalone AI skill, or as part
+of a Sashiko review, or both, to make sure Fixes tags are correct
+would be really helpful.
 
-                              truncate_inode_pages_range()
-                              find_lock_entries() /* locks the folio */
-                              truncate_cleanup_folio(folio)
-                              folio_invalidate(folio, 0, folio_size(folio))
-                              -> f2fs_invalidate_folio(folio, 0,
-                                                        folio_size(folio))
+What follows from this is that for people who are doing backports to
+their own kernels (if they can't depend on LTS kernels), especially
+for commits before we have Maintainers regularly using the AI skill or
+Sashiko can start suggesting proper Fixes commits, they should not
+depend on the Fixes tags to determine whether their production kernel
+might need a particular security or other bug fix.
 
-f2fs_write_end_bio(bio)
-ffs = folio->private          ffs_detach_free(folio)
-                              folio_detach_private(folio)
-                              kfree(ffs)
-atomic_sub_and_test(nr_pages,
-    &ffs->write_pages_pending) <-- use-after-free
-
-Wait for folio writeback in invalidate_folio, then we can free the
-folio state without any other remaining user.
-
-Reported-by: kernel test robot <yi1.lai@intel.com>
-Closes: https://lore.kernel.org/oe-lkp/202610081027.b13dcf10-lkp@intel.com
-Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
----
- fs/f2fs/data.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index 138a77044e95..19072fe7dbe5 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -5347,6 +5347,14 @@ void f2fs_invalidate_folio(struct folio *folio, size_t offset, size_t length)
- 	}
- 
- 	if (f2fs_folio_has_ffs(folio)) {
-+		/*
-+		 * The folio may still be under writeback with bios in
-+		 * completion that need to access f2fs_folio_state.  Wait
-+		 * for the writeback to complete before freeing the state,
-+		 * otherwise it will result in use-after-free.
-+		 */
-+		folio_wait_writeback(folio);
-+
- 		f2fs_ffs_clear_subrange_dirty_and_test(folio, 0,
- 							folio_size(folio));
- 	} else if (folio_test_dirty(folio)) {
--- 
-2.43.0
-
+						- Ted
+								
