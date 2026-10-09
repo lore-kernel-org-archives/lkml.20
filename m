@@ -1,63 +1,65 @@
-Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CF0937F00D
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 09:11:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B606A392C2C
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 09:11:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791537073; cv=none; b=usQWLA3YBSmxBvbLJqIo5A2MW1s/42Kvs6zAHr/fPfoTtcPz+LO/uyoeuK5wmPuMSnpbQZcj1EUvsPeXbzG6YC0GTDeBR9mlX2/446kspcsbE/AOsbZXaVdmNH09KBT+w2LObbsjJ4b8v9MjqL91MSlz2y2ZE2Ec5PLwiHXPdv4=
+	t=1791537077; cv=none; b=NZyC7Cx1RkpTSGe3Nvj0ZMigyWtfSXnweIr3PqxxT89o65LA1mBtJdSQgtMZ1cKTlh/5yBK151yqYaabQE7VRdd6jKQgtTEyeIE5pCYTjOTZx+mlxS5sg3qsB46d+8fAvPOZieylmya7q+D1DD4rPiEnWwTX/85xsvw32/yEsIA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791537073; c=relaxed/simple;
-	bh=jXxgq9abOLg2kmwgNbaljQUPQ/KD0BTdZQTllhbjBbo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PbBtJxlqNEybCTGwMtGjQAgrAp+pCYv0ZyyodzqbHdB6fU6Yfk+iJOkgSQCDKVSAU8hg+E8NctM3Xc728o1Mr6OQx9x9WguWQGi6vDWTUc4QxalJx48gcsaenG8UqVVR57XFUDjXs7bLT6+Xrf3TiXPGQWUStmSplZ6sjpLJkeI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VcVNGaq9; arc=none smtp.client-ip=74.125.82.51
+	s=arc-20240116; t=1791537077; c=relaxed/simple;
+	bh=tBfBkIWljJahaYTO0anHftOa/Mal7hPXpw/F/dtZxT0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=VJK91n/auHnEU+6MxJxLqPkf148vUjyefkJzRUuKkaFHqPfulp64FKaEZyHpFkqFpZMlpcxaxz/MhB3HsvFw0S615JMUE0innd4N7g3Inx0DnqKACcePnzXooy76m3LO/KPcF7urZ8EP5xj2m5wEXkSVz5WAwQrGAqDwVeiy7m8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UpdYpg7U; arc=none smtp.client-ip=74.125.82.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VcVNGaq9"
-Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-154e9d2d979so3932752c88.1
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 02:11:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UpdYpg7U"
+Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-141395927feso6532574c88.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 02:11:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791537071; x=1792141871; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yqkm1HxfTq1FvqOE6B6FS72pIuLdd3xBnpZcNmBPGCs=;
-        b=VcVNGaq9vmns6Oy+ekhYBQlT3JFZ+XBTRxW8g2AumHtBGSQD+05baClgr2pVPb2i9z
-         OKJ319aOi8sERyaxmXvxFK54YUbK3yx6vj1zggWJX0VY4b3q44xFlnT4+y0/7HyR2gBa
-         DHzH0ksg02ppzldt30/dOuygKtfj0noT0pHgLDOOH9+9kdY5ttPXZFuFBRnomcCRrj1F
-         msu5hI/mb2rHYpv9Wtp88EnPFUSU89AbgRzQcBfBJ//gFou1ce0ZXzEOWfVHjwrS0S7E
-         zKdZEIpTFUAItwxi31Cn4w8nHfDwIDh7b99u7Ix04qxj9AXpF8nsCPKhdMXaZ5kXNCDp
-         AjMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791537071; x=1792141871;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791537076; x=1792141876; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=yqkm1HxfTq1FvqOE6B6FS72pIuLdd3xBnpZcNmBPGCs=;
-        b=mgLTYgiJAgdN3/+GKbXXHNUNmMNtBLPDnPIGbAqjr+mCX+dFzC1rPBeZIiQCtPyQf2
-         5QdLljPvjhdPmHc6XsIiiz0IvMUA4vGrm7EELLgQ9cpyPKQ+aPmRa0lXa6FPJWyTsjKe
-         A/Y2YtYPSUgulHnuqTBNXWIxWCJN3U3vg+Sy+eNOinJoeNBQbpWO2TzOrbZhxEC6pCtU
-         FHkIhTu30qiapHTM2aq1PDaPfHdYpzX3oTLwBhQysuwd76ZHOANiVrLei5m5hGGeU3ho
-         NSNZsD9BhgiK/ke4O1vDCrADVmkvNGad53tjAEQIweEsgysmjIfXY34GjHLz2DPrdqLL
-         nPow==
-X-Forwarded-Encrypted: i=1; AKwUvByGZGyvEAU8p471snvLYPfSOxGi3JMLYzxjkZsUJ+fW8zugKOpCG63cnJ7HtL8loVV37xGdjZOFTyJw+PI=@vger.kernel.org
-X-Gm-Message-State: AFuF++m4JXA7B5qCmklLs13UicFAdmDF7mMWhPVSqzgw2A2vlceiB0EG
-	IMe/D5hiNTyJ8upYhgvTITZqG9gMbdXUlHsLsbWm6wsYbohj0PeH0ubN
-X-Gm-Gg: AYBFou1MUdKk8QIrUPK3Ewwej+jhS/k2gntPPeg6UfLWGfbR71uGCpPpyjJ1yZpjBoz
-	X7un/u7vshhz82fgBe8Q4wGn2e3WNGly4PJP9LHIkiqrxhRUjwo2WRHlAUtUGcdeOwXgYrUUNaF
-	7QLy2oJFQTvZk2Ez/4nOvY72GzvwYFevc1LdxSJdSnbQx0kp7LERuJQFsTw9rKT9Pmxz3Lo6Edw
-	osDBWZ59LNKuBs42ZhMBjRkFOVpLiunq0Qilx4wRk8zn37m7SJYxHKQb8ZoTCC2/QsC9Yg3UEKw
-	FLjOOjRpoNNUezHz9MUuhyqoEV4K2sBZCwjcHH3/e1OaTuakPgBC9yj01udnGuqPdHUwewoNd/B
-	lPFwBIka8hAbn4Z6A8rYldVe69R6upfMMJ/mSZ09qK+W1uCjfPQ+eq8NaGG79FZmO1gdBe0CGCj
-	y0A6ZO9YNm6NAj+0ZNmLvbSEBr6tRBC7StjTh0xIk+DKI3aOVxPIoIFSnmDLYgHR3a5kXO5UMJy
-	a2rQ7Df03RwnmYiq7i5Z1XCAHgSd4E24p9YTKwj4x/Z9ECKwMzMcEwP2N1owJCTEjS3w6mbFgY4
-	ijmyyD/uqQrbww==
-X-Received: by 2002:a05:7022:c84:b0:146:5f73:d45b with SMTP id a92af1059eb24-16a54fab691mr1538668c88.3.1791537071275;
-        Fri, 09 Oct 2026 02:11:11 -0700 (PDT)
+        bh=oaT+zyiVDF+oO1apwHrrvZj9B+eawsITqiWBF5tkJHQ=;
+        b=UpdYpg7UN+h24CathvVYDNLHYtq6tD+DtqREEiZTiQ4f4Snubry8dizzNgUQ/hv0NL
+         Tlsya7wcE6IHsEKiKF5MszOpiPZEroMvDVZV3vDMDA/iEGqKL0x6+tQarvuJsnyUcvP7
+         SmwRdgKtK73AiofHRGj3Da1PPusi8XJmNMxJzvZe/wnJMhtT0P6DLZRIOZMAMYmzCJkm
+         RnyGJjP6keH4vMCd8SUZXufGCBo+yNgM0Y8DIuD9DHw05IjvvvMEBW9u0qhQEKs4YrJS
+         zhwUMEs6VeJc97YQ8VcLR0DN+TGmUDAOqTKAn6uiCsvIiD5FBmrzx3wi0asts8faz2JH
+         0cmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791537076; x=1792141876;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oaT+zyiVDF+oO1apwHrrvZj9B+eawsITqiWBF5tkJHQ=;
+        b=OZgquthJXhJ2078fd0NARSd8huD6ZM3NviaziqM5M4ci8cV+t0c68V7KEuOX8NF45S
+         d49HISSggRBad+t35/dcae3uYaQX+CMgIkzul5BuCKIa3KoWB8Za30Jie7m5xYy4ps5D
+         2Wjzu2BoZlCsbOiNNhWKt1dB71B0t8K1EX4pe7sEmH88PVtKo7ejP13ywu6geQrL8vFL
+         bjsc9FeJnqhUQSwpSClQW7CI7VN29mepY5Dml7u/lWbR91HFAevknorKv4kCGjH2i2Sf
+         rC7ooJuXZnUYlqof3FeIa/UlHP9+Wre4C5EC2o7Ponb7MOshzx4K1W+yTW9RLsUXAYQB
+         GOSw==
+X-Forwarded-Encrypted: i=1; AKwUvBwaINJ6OloK3zy8V1Vo6xLxDt6kjojkXYR+jvmCRgIkjE8w57OXxm3aGOXWn7cMJ7mR3vZ3EekFwDOlZTk=@vger.kernel.org
+X-Gm-Message-State: AFuF++m8S/QuL7cvgFxJJzxfSzanxZuv6Ir628cvXyW2yXyF9/IjJDtd
+	ZZjYSsRM0kx0vbZMFRjaQq+utJHNNBigR2N0NCBq2j8IwnJIRy2fzFJbvodaPw==
+X-Gm-Gg: AYBFou13fRWbqw2KErb3p5NrxcPskIi9m6Djk6dvHbcZrK5UyShW/6dkIBnC+CsjCrX
+	0BJk8Ln6AlfSm0oDjWXZZmIP83OmfoR3W7cu+ggrG6XxlpGAZXAjSEK6C+lK+YSZYgtmekW1+RR
+	YnPWuXSulkkbRpyBxiKkzlSPTrGRrRL0we2f1Dz8QvY2RkTsunLWcU75iZIddJ0kPuPCZ6wzUGm
+	YIJVBRGpiniuWeuxSvFGxW26jxbzTIZUK7nFNljIm7Uj/P4IpOYa8Hj9oT4TejfvHYJqTWleL2R
+	HTw2KXTtg5DcxBd6pnaV5c6l/+710Fj4IY2lfvj/riouJu1dgOxXmUQCKW36tBDIEwjlsAA5CVH
+	1eW+T1C/Qj1XWmoyk9IXxsgl81bqZLUU0m22v1ZswdYq/fp0dQLn4KgeHJBNP5ekIgFO38WlHeC
+	5XbNFhJzfXw9+BM9pRwSXMOoVwCpvy2h2CQS8EmChxbgvLf8aOdqhpFPxreJMDT++ZptMyyh/1x
+	qqtKQPxq6q9BvcAO1mLTtk63Q0r+HEOoCih97r8o+uTs29kOPf8Y5VRjAWQq8bmH06J0nE3nQL9
+	D5kAFAGYqMGRBlE3J++ajN1E
+X-Received: by 2002:a05:7022:ea4d:b0:144:e38d:8e52 with SMTP id a92af1059eb24-16a60ce7512mr1263776c88.37.1791537075733;
+        Fri, 09 Oct 2026 02:11:15 -0700 (PDT)
 Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a1becefdsm5125444c88.7.2026.10.09.02.11.09
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a1becefdsm5125444c88.7.2026.10.09.02.11.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 02:11:10 -0700 (PDT)
+        Fri, 09 Oct 2026 02:11:15 -0700 (PDT)
 From: phucduc.bui@gmail.com
 To: Lee Jones <lee@kernel.org>,
 	Pavel Machek <pavel@kernel.org>,
@@ -66,10 +68,12 @@ To: Lee Jones <lee@kernel.org>,
 Cc: Jacek Anaszewski <jacek.anaszewski@gmail.com>,
 	Dan Murphy <dmurphy@ti.com>,
 	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH v2 1/2] leds: lm3532: Propagate enable GPIO errors
-Date: Fri,  9 Oct 2026 16:10:58 +0700
-Message-ID: <20261009091059.25729-1-phucduc.bui@gmail.com>
+Subject: [PATCH v2 2/2] leds: lm3532: Avoid duplicate error messages
+Date: Fri,  9 Oct 2026 16:10:59 +0700
+Message-ID: <20261009091059.25729-2-phucduc.bui@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261009091059.25729-1-phucduc.bui@gmail.com>
+References: <20261009091059.25729-1-phucduc.bui@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,38 +84,41 @@ Content-Transfer-Encoding: 8bit
 
 From: bui duc phuc <phucduc.bui@gmail.com>
 
-devm_gpiod_get_optional() returns NULL when the optional GPIO is not
-present, but may return -EPROBE_DEFER or other errors.
+Most error paths in lm3532_parse_node() already log errors. Add an
+error message for the devm_add_action() failure and remove the
+redundant error message from lm3532_probe() to avoid duplicate logs.
 
-lm3532_parse_node() currently treats GPIO lookup errors as if the GPIO
-were not present.
-
-Check the return value and propagate errors from the enable GPIO lookup.
-
-Fixes: bc1b8492c764 ("leds: lm3532: Introduce the lm3532 LED driver")
 Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
 ---
-
-Changes in v2:
- - Capitalize the first letter of the commit message subject 
-
- drivers/leds/leds-lm3532.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/leds/leds-lm3532.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/leds/leds-lm3532.c b/drivers/leds/leds-lm3532.c
-index b51496910b08..a3bc9680dc4c 100644
+index a3bc9680dc4c..05856c053fac 100644
 --- a/drivers/leds/leds-lm3532.c
 +++ b/drivers/leds/leds-lm3532.c
-@@ -560,7 +560,8 @@ static int lm3532_parse_node(struct lm3532_data *priv)
- 	priv->enable_gpio = devm_gpiod_get_optional(&priv->client->dev,
- 						   "enable", GPIOD_OUT_LOW);
- 	if (IS_ERR(priv->enable_gpio))
--		priv->enable_gpio = NULL;
-+		return dev_err_probe(&priv->client->dev, PTR_ERR(priv->enable_gpio),
-+				     "failed to get enable GPIO\n");
- 
+@@ -566,7 +566,8 @@ static int lm3532_parse_node(struct lm3532_data *priv)
  	if (priv->enable_gpio) {
  		ret = devm_add_action(&priv->client->dev, gpio_set_low_action, priv);
+ 		if (ret)
+-			return ret;
++			return dev_err_probe(&priv->client->dev, ret,
++					     "failed to add GPIO action\n");
+ 	}
+ 
+ 	priv->regulator = devm_regulator_get(&priv->client->dev, "vin");
+@@ -708,10 +709,8 @@ static int lm3532_probe(struct i2c_client *client)
+ 	i2c_set_clientdata(client, drvdata);
+ 
+ 	ret = lm3532_parse_node(drvdata);
+-	if (ret) {
+-		dev_err(&client->dev, "Failed to parse node\n");
++	if (ret)
+ 		return ret;
+-	}
+ 
+ 	return ret;
+ }
 -- 
 2.43.0
 
