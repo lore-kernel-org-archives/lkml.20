@@ -1,270 +1,191 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BA573DC4AE
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 12:27:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DD804D2EC6
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 12:27:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791548847; cv=none; b=A0WspI+PxRRVTRWNy/k1lqWTasfY0jjAY1O9y1jB61ZL4Je9CpUwlpWVS71di3rSvLo9ABgLrDB06BkfIidg+iecV/FVcuwJMkTRgQWTshHxT9/db5/GrMphT7Bwp0872nwW0mhYjOoBhJjeA9UjWmcJCA8CoxdJy0sRLdLppeQ=
+	t=1791548884; cv=none; b=A9cnnlgez+FiY2Ip2uSPiCylswDBvmastDQWZpaG3j5YVR9DGeldixWQjcaS0wF76l6IiOd22O+jVK2IqpjybdYFdwOCiPELXvL2h5ZCUjtOgxpL33zPL48OkS/Gkyge38apcWfcD+7IjHDOxN2kHT7ZFDJRvqQ0+ZWae4ogIvE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791548847; c=relaxed/simple;
-	bh=yQL6vWb/BG3Uve71UO4ZlJ5qUXIek0So4bhaBdvS6dg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CYhJNfKCOpBmkmtdRHeLykY9xy9XLsIS/LxCr3qdfoxD8sAu0/zhV2o49yIvpOtDCcgl7oRkE4H0xEqDrB2ptMnD3ZXBXYvY/1qirH7fGZVQ265FtCJ/yYYSfXhvXz7Vg0CD2gXWwcMJtwbiRRFle4gVSAe3AVI2h+VdyVrq2WA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=czGq60q7; arc=none smtp.client-ip=209.85.216.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791548884; c=relaxed/simple;
+	bh=6zXT/mNtIqTiOKRUcmo9bYKRehgXBjTqywsbso1n6eo=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=VJoOwx0l3MInNII6KroBFYVRnPAe6aY/YpWhIn87D8MZW5QTjb5odgZj2tICqw/XJtjn+B4aGKfmG3UxOR9z0Y9fDZFd4vasl4XchuPTswF23rR4zqZB67xDs/TzGZL3UsW6duQEkmDrvJLJj55mEAZpX3vTdordUcJfV0qFS+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=URjhoLnA; arc=none smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="czGq60q7"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-38d489b6b71so2019840a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 05:27:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791548837; x=1792153637; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WZBUg/HubW0aIyjM3YpP6WQYya691V6s6+nB/N/24wI=;
-        b=czGq60q7dmlfcW1BxdSLzzLDcrQcIhvYWQ+4VwFL+4EIUtuTRU5HPIR1usfTZWjy0j
-         JvA/8aIO1ydkhn88rLl9DQsWQGK0GNk5UUGBjdBOrMZXrr2szIKXBItmcL7gX6ppa3J/
-         AjurtsLPFOH/iDO7SVL2e/HiuHz0kBw/VP1PvKbu8muXIer++5+AxXAGX283bPls1JhP
-         OguL7DM78ps4ZZ2SIMnS4lTSwqrRoZwi4WtODt1mdG0kxdhdQKMt3PNQD4RyxJSh3mxC
-         rD00RgR4k7T0hfcGOJFjDXrBxwK9amoRSBDHZSRi9r8lcH5pcau5S8qjq02vuAcTCrSc
-         k5Jg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791548837; x=1792153637;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WZBUg/HubW0aIyjM3YpP6WQYya691V6s6+nB/N/24wI=;
-        b=D6EJwKSwU+NIX1NnXK0jV/ii8Dd5teOZZeBYmwfB9TyHb+FhtTMYwbHNCisfnYOSu9
-         GWFm1Kygxp3To3FrwhD7Gtvd2o6U9t0Y683vjNMLgD/qSExhIN91oY10Id8mPznQv8tX
-         wirBpsKIeK2OwgRoazYIAa2LQx1vL5CuO/V9Z0NeOptmuc0LqkR+Pzqjs0asg27mGn2B
-         StGaxV5EHbZ1WkjjsbAXYTkLJ0Lp7FfNHDdg0O05uLZnSAXCgRTjgDji4T3U4vawCu+Q
-         45vuyg6UN2HeGjcgZYMvZWtFxC1EliplqVaZraFmdtzGRYANAqQrMWMNxif8TlVs9qac
-         P0ww==
-X-Forwarded-Encrypted: i=1; AKwUvBwzeEF6TFC9AUfeCOmhqgjX/baQj/Byi7RhpoIe1XcD0i6G/NRxTP5xvgPT++xpPlL4GxlCItkgp57QRiE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLH2Jnx25KfZqNWvrQ+swZ83RlVc639U/wpiocupZcawLDPqm43
-	+6UIYFOpdTvXJYvOkWF0qPFFzQJ/3WHT3qqx2JMXWx6rE5jcF6pAFfZs
-X-Gm-Gg: AYBFou1hUOoDqytkSa+jTySiqZUN3zl0/wlwCMEwYrFOa/1TmFY8l43WRarhBiC6GmP
-	IJmX9VFEj7h718rKcS58qxsxFvk1lKfLywJybpdPUzfiLGSQCTr6FkIWZivwwJyxKtJUhDU3Lm+
-	rx0hFFJz0LpFNPYj2x9woHaKZvXyzPah+m7t0Tcfruhzhls1IZF+uB3wxMRLOz6+gR+WtE4QU4v
-	utTbIqjajflTtn90eOQDlEU+9jdCy7xjem7gFesTBuOOjeq4DzYFOp4mk3yibUSlNzpCCslAMYM
-	7NO8oAsYUnSoMHtB1hxi/c9LgBQiQqcei1fz5oq127HAmFf3TA1bcOMPZZiOFoQiwaX9kHyn5pT
-	26Sg+TuPr8UEg51lsrU3+pIUmj5dHZBW8Fi7lsdfx4GR8x2oB7x/RKbMnEGzfWJo2kHUzfxGhwy
-	HFJrw0JzY04QYbFk1uMBWXPtdVFswiIBAES5w0fAMw2zaNeQOUnBbEIXWD2ki/NZcDZQIKThmn9
-	XjnWM0084t0ohDkVZjLl7KNxBY=
-X-Received: by 2002:a17:90b:1850:b0:3a6:d94d:e147 with SMTP id 98e67ed59e1d1-3ab3a94fffemr1391382a91.15.1791548837289;
-        Fri, 09 Oct 2026 05:27:17 -0700 (PDT)
-Received: from chitransh.. ([2401:4900:9397:bb62:5cb7:971b:ead7:8dc5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab36f4737esm3426729a91.7.2026.10.09.05.27.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 05:27:16 -0700 (PDT)
-From: chitranshmandhaniya@gmail.com
-To: hansg@kernel.org
-Cc: ilpo.jarvinen@linux.intel.com,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Chitransh_Mandhaniya@dell.com
-Subject: [PATCH v3 2/2] platform/x86: dell-uart-backlight: fall back to PCH PWM on UART timeout
-Date: Fri,  9 Oct 2026 17:56:02 +0530
-Message-ID: <20261009122602.56624-3-chitranshmandhaniya@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261009122602.56624-1-chitranshmandhaniya@gmail.com>
-References: <20261009072401.52509-1-chitranshmandhaniya@gmail.com>
- <20261009122602.56624-1-chitranshmandhaniya@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="URjhoLnA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791548878; x=1823084878;
+  h=date:from:to:cc:subject:message-id:mime-version:
+   content-transfer-encoding;
+  bh=6zXT/mNtIqTiOKRUcmo9bYKRehgXBjTqywsbso1n6eo=;
+  b=URjhoLnAnpbtRshcBN1WSxTiGUJu8cyW6whcAY1zujM5JmEhRq5VfGGm
+   Q4jRIN/ZUPftRAFR8O0kVj8oloekCV3jL09W1f2h0kL0TFzbi0hJNsh7e
+   gDwxneg5pXGslhIuzz7ojjELvg/YuAh6Jg5NWfTUO3qolRxbts3JQMi3v
+   AodsJOlC4X4XsP9YNbrSFE4fbSQ9oRIscZZTYeoZT06O8ak72pY93TgDt
+   +i9zc0zwWl7uePvyNWH13oaKziit0XUIOohRlQtVzzN1ieXO/bMxdxFFL
+   R9XTexID6aQBZY5T+Ahq2g2HN8nV44ExUrgiTUgyo+VwxdvYBTOw+tq7n
+   Q==;
+X-CSE-ConnectionGUID: e6UA1S7hQ6Sf3IW6t1xngA==
+X-CSE-MsgGUID: Oli7zB90SE6Hrx3FNkwZ0Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11929"; a="346017"
+X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
+   d="scan'208";a="346017"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 05:27:57 -0700
+X-CSE-ConnectionGUID: fmdXjdxbSk6hyyovJrKmyg==
+X-CSE-MsgGUID: x8ZSZOTvSlmvSx/YMCgq6w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
+   d="scan'208";a="290637"
+Received: from igk-lkp-server01.igk.intel.com (HELO d0de6c2a75a7) ([10.211.93.152])
+  by orviesa005.jf.intel.com with ESMTP; 09 Oct 2026 05:27:54 -0700
+Received: from kbuild by d0de6c2a75a7 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xF9hY-0000000071r-30q6;
+	Fri, 09 Oct 2026 12:27:52 +0000
+Date: Fri, 09 Oct 2026 14:27:32 +0200
+From: kernel test robot <lkp@intel.com>
+To: Andy Chiu <andybnac@gmail.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Paul Walmsley <pjw@kernel.org>
+Subject: arch/riscv/kernel/signal.c:133:15: sparse: sparse: incorrect
+ type in assignment (different address spaces)
+Message-ID: <202610091444.LHHlny4D-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Chitransh Mandhaniya <Chitransh_Mandhaniya@dell.com>
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git =
+master
+head:   af32da41b0327b9c6a37856ba82b6760d6c8d10e
+commit: 818d78ba1b3f88d2bfee249f25020211488a26c3 riscv: signal: abstract he=
+ader saving for setup_sigcontext
+date:   10 months ago
+config: riscv-randconfig-r2306-20261009 (https://download.01.org/0day-ci/ar=
+chive/20261009/202610091444.LHHlny4D-lkp@intel.com/config)
+compiler: riscv64-linux-gcc (GCC) 9.5.0
+sparse: v0.6.5-rc1
+reproduce (this is a W=3D1 build): (https://download.01.org/0day-ci/archive=
+/20261009/202610091444.LHHlny4D-lkp@intel.com/reproduce)
 
-Some Dell OptiPlex AIO 7410 (35W, board 01KP8D) ship with DELL0501 in
-the ACPI DSDT (status = 0x0F) even though no UART scalar board is
-physically present.  This causes acpi_video_get_backlight_type() to
-return acpi_backlight_dell_uart, which makes i915 skip registering
-intel_backlight.  The dell-uart-backlight driver then times out talking
-to the absent board and the probe fails, leaving the machine with zero
-backlight control.
+If you fix the issue in a separate patch/commit (i.e. not just a new versio=
+n of
+the same patch/commit), kindly add following tags
+| Fixes: 818d78ba1b3f ("riscv: signal: abstract header saving for setup_sig=
+context")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610091444.LHHlny4D-lkp@i=
+ntel.com/
 
-A BIOS update fixes this on some models (e.g. OptiPlex 7420, board
-0914RT) by setting DELL0501 _STA to 0, but Dell has not shipped a
-corrected BIOS for the 7410 even in the latest release (1.37.0,
-2026-05-28).
+sparse warnings: (new ones prefixed by >>)
+>> arch/riscv/kernel/signal.c:133:15: sparse: sparse: incorrect type in ass=
+ignment (different address spaces) @@     expected void [noderef] __user *d=
+atap @@     got void * @@
+   arch/riscv/kernel/signal.c:133:15: sparse:     expected void [noderef] _=
+_user *datap
+   arch/riscv/kernel/signal.c:133:15: sparse:     got void *
+>> arch/riscv/kernel/signal.c:133:15: sparse: sparse: incorrect type in ass=
+ignment (different address spaces) @@     expected void [noderef] __user *d=
+atap @@     got void * @@
+   arch/riscv/kernel/signal.c:133:15: sparse:     expected void [noderef] _=
+_user *datap
+   arch/riscv/kernel/signal.c:133:15: sparse:     got void *
+>> arch/riscv/kernel/signal.c:133:15: sparse: sparse: incorrect type in ass=
+ignment (different address spaces) @@     expected void [noderef] __user *d=
+atap @@     got void * @@
+   arch/riscv/kernel/signal.c:133:15: sparse:     expected void [noderef] _=
+_user *datap
+   arch/riscv/kernel/signal.c:133:15: sparse:     got void *
+>> arch/riscv/kernel/signal.c:133:15: sparse: sparse: incorrect type in ass=
+ignment (different address spaces) @@     expected void [noderef] __user *d=
+atap @@     got void * @@
+   arch/riscv/kernel/signal.c:133:15: sparse:     expected void [noderef] _=
+_user *datap
+   arch/riscv/kernel/signal.c:133:15: sparse:     got void *
+   arch/riscv/kernel/signal.c:148:22: sparse: sparse: symbol 'arch_ext_list=
+' was not declared. Should it be static?
+   arch/riscv/kernel/signal.c:155:14: sparse: sparse: symbol 'nr_arch_exts'=
+ was not declared. Should it be static?
+   arch/riscv/kernel/signal.c:300:39: sparse: sparse: cast removes address =
+space '__user' of expression
+   arch/riscv/kernel/signal.c:300:36: sparse: sparse: incorrect type in ass=
+ignment (different address spaces) @@     expected struct __riscv_ctx_hdr [=
+noderef] __user *sc_ext_ptr @@     got void * @@
+   arch/riscv/kernel/signal.c:300:36: sparse:     expected struct __riscv_c=
+tx_hdr [noderef] __user *sc_ext_ptr
+   arch/riscv/kernel/signal.c:300:36: sparse:     got void *
 
-When the initial get_version command returns -ETIMEDOUT, fall back to
-driving the backlight through the Intel PCH PWM registers (BLC_PWM_CTL /
-BLC_PWM_FREQ / BLC_PWM_DUTY at MMIO BAR0 + 0xC8250).  The fallback
-reads the BIOS-programmed PWM frequency as max_brightness and registers
-a BACKLIGHT_PLATFORM device so that compositors (Weston, GNOME, KDE)
-pick it up normally.
+vim +133 arch/riscv/kernel/signal.c
 
-Tested on:
-  - OptiPlex AIO 7410 35W (01KP8D) -- UART times out, PCH PWM fallback
-    activates, backlight fully functional via sysfs and compositor.
-  - OptiPlex AIO 7420 35W (0914RT, old BIOS) -- same timeout and
-    fallback, backlight works.
-  - OptiPlex AIO 7420 35W (0914RT, new BIOS) -- DELL0501 absent, driver
-    not loaded, intel_backlight works natively (no regression).
+8ee0b41898fa26f Greentime Hu 2023-06-05  107 =20
+8ee0b41898fa26f Greentime Hu 2023-06-05  108  /*
+8ee0b41898fa26f Greentime Hu 2023-06-05  109   * Restore Vector extension c=
+ontext from the user's signal frame. This function
+8ee0b41898fa26f Greentime Hu 2023-06-05  110   * assumes a valid extension =
+header. So magic and size checking must be done by
+8ee0b41898fa26f Greentime Hu 2023-06-05  111   * the caller.
+8ee0b41898fa26f Greentime Hu 2023-06-05  112   */
+8ee0b41898fa26f Greentime Hu 2023-06-05  113  static long __restore_v_state=
+(struct pt_regs *regs, void __user *sc_vec)
+8ee0b41898fa26f Greentime Hu 2023-06-05  114  {
+8ee0b41898fa26f Greentime Hu 2023-06-05  115  	long err;
+8ee0b41898fa26f Greentime Hu 2023-06-05  116  	struct __sc_riscv_v_state __=
+user *state =3D sc_vec;
+8ee0b41898fa26f Greentime Hu 2023-06-05  117  	void __user *datap;
+8ee0b41898fa26f Greentime Hu 2023-06-05  118 =20
+c27fa53b858b4ee Bj=C3=B6rn T=C3=B6pel  2024-04-03  119  	/*
+c27fa53b858b4ee Bj=C3=B6rn T=C3=B6pel  2024-04-03  120  	 * Mark the vstate=
+ as clean prior performing the actual copy,
+c27fa53b858b4ee Bj=C3=B6rn T=C3=B6pel  2024-04-03  121  	 * to avoid gettin=
+g the vstate incorrectly clobbered by the
+c27fa53b858b4ee Bj=C3=B6rn T=C3=B6pel  2024-04-03  122  	 *  discarded vect=
+or state.
+c27fa53b858b4ee Bj=C3=B6rn T=C3=B6pel  2024-04-03  123  	 */
+c27fa53b858b4ee Bj=C3=B6rn T=C3=B6pel  2024-04-03  124  	riscv_v_vstate_set=
+_restore(current, regs);
+c27fa53b858b4ee Bj=C3=B6rn T=C3=B6pel  2024-04-03  125 =20
+8ee0b41898fa26f Greentime Hu 2023-06-05  126  	/* Copy everything of __sc_r=
+iscv_v_state except datap. */
+8ee0b41898fa26f Greentime Hu 2023-06-05  127  	err =3D __copy_from_user(&cu=
+rrent->thread.vstate, &state->v_state,
+8ee0b41898fa26f Greentime Hu 2023-06-05  128  			       offsetof(struct __r=
+iscv_v_ext_state, datap));
+8ee0b41898fa26f Greentime Hu 2023-06-05  129  	if (unlikely(err))
+8ee0b41898fa26f Greentime Hu 2023-06-05  130  		return err;
+8ee0b41898fa26f Greentime Hu 2023-06-05  131 =20
+8ee0b41898fa26f Greentime Hu 2023-06-05  132  	/* Copy the pointer datap it=
+self. */
+8ee0b41898fa26f Greentime Hu 2023-06-05 @133  	err =3D __get_user(datap, &s=
+tate->v_state.datap);
+8ee0b41898fa26f Greentime Hu 2023-06-05  134  	if (unlikely(err))
+8ee0b41898fa26f Greentime Hu 2023-06-05  135  		return err;
+8ee0b41898fa26f Greentime Hu 2023-06-05  136  	/*
+8ee0b41898fa26f Greentime Hu 2023-06-05  137  	 * Copy the whole vector con=
+tent from user space datap. Use
+8ee0b41898fa26f Greentime Hu 2023-06-05  138  	 * copy_from_user to prevent=
+ information leak.
+8ee0b41898fa26f Greentime Hu 2023-06-05  139  	 */
+c27fa53b858b4ee Bj=C3=B6rn T=C3=B6pel  2024-04-03  140  	return copy_from_u=
+ser(current->thread.vstate.datap, datap, riscv_v_vsize);
+8ee0b41898fa26f Greentime Hu 2023-06-05  141  }
+818d78ba1b3f88d Andy Chiu    2025-11-12  142 =20
 
-Signed-off-by: Chitransh Mandhaniya <Chitransh_Mandhaniya@dell.com>
----
- .../platform/x86/dell/dell-uart-backlight.c   | 107 +++++++++++++++++-
- 1 file changed, 106 insertions(+), 1 deletion(-)
+:::::: The code at line 133 was first introduced by commit
+:::::: 8ee0b41898fa26f66e32237f179b6989c65600d6 riscv: signal: Add sigconte=
+xt save/restore for vector
 
-diff --git a/drivers/platform/x86/dell/dell-uart-backlight.c b/drivers/platform/x86/dell/dell-uart-backlight.c
-index e3b7f1beda5b..3179f3a3f094 100644
---- a/drivers/platform/x86/dell/dell-uart-backlight.c
-+++ b/drivers/platform/x86/dell/dell-uart-backlight.c
-@@ -13,10 +13,13 @@
- #include <linux/delay.h>
- #include <linux/device.h>
- #include <linux/err.h>
-+#include <linux/io.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
-+#include <linux/pci.h>
- #include <linux/platform_device.h>
- #include <linux/serdev.h>
-+#include <linux/sizes.h>
- #include <linux/string.h>
- #include <linux/types.h>
- #include <linux/wait.h>
-@@ -50,6 +53,12 @@
- #define MIN_RESP_LEN			3
- #define MAX_RESP_LEN			80
- 
-+/* PCH PWM backlight registers relative to Intel GPU MMIO BAR0 */
-+#define PCH_BLC_PWM_CTL		0xC8250
-+#define PCH_BLC_PWM_FREQ	0xC8254
-+#define PCH_BLC_PWM_DUTY	0xC8258
-+#define PCH_BLC_PWM_ENABLE	BIT(31)
-+
- struct dell_uart_backlight {
- 	struct mutex mutex;
- 	wait_queue_head_t wait_queue;
-@@ -64,6 +73,11 @@ struct dell_uart_backlight {
- 	int power;
- };
- 
-+struct dell_pwm_backlight {
-+	void __iomem *mmio;
-+	u32 max_brightness;
-+};
-+
- /* Checksum: SUM(Length and Cmd and Data) xor 0xFF */
- static u8 dell_uart_checksum(u8 *buf, int len)
- {
-@@ -267,6 +281,91 @@ static const struct serdev_device_ops dell_uart_bl_serdev_ops = {
- 	.write_wakeup = serdev_device_write_wakeup,
- };
- 
-+/*
-+ * Some Dell AIO models (e.g. OptiPlex 7410) declare DELL0501 in ACPI but
-+ * have no physical UART scalar board. When the UART times out fall back
-+ * to driving the Intel PCH PWM backlight registers directly.
-+ */
-+static int dell_pwm_update_status(struct backlight_device *bd)
-+{
-+	struct dell_pwm_backlight *pwm = bl_get_data(bd);
-+	u32 duty;
-+
-+	if (bd->props.power != BACKLIGHT_POWER_ON ||
-+	    bd->props.state & BL_CORE_SUSPENDED)
-+		duty = 0;
-+	else
-+		duty = bd->props.brightness;
-+
-+	writel(duty, pwm->mmio + (PCH_BLC_PWM_DUTY - PCH_BLC_PWM_CTL));
-+	return 0;
-+}
-+
-+static int dell_pwm_get_brightness(struct backlight_device *bd)
-+{
-+	struct dell_pwm_backlight *pwm = bl_get_data(bd);
-+
-+	return readl(pwm->mmio + (PCH_BLC_PWM_DUTY - PCH_BLC_PWM_CTL));
-+}
-+
-+static const struct backlight_ops dell_pwm_backlight_ops = {
-+	.update_status  = dell_pwm_update_status,
-+	.get_brightness = dell_pwm_get_brightness,
-+};
-+
-+static int dell_pwm_fallback_register(struct device *dev)
-+{
-+	struct pci_dev *gpu __free(pci_dev_put) = NULL;
-+	struct backlight_properties props = {};
-+	struct dell_pwm_backlight *pwm;
-+	struct backlight_device *bl;
-+	resource_size_t bar0;
-+	u32 freq, duty, ctl;
-+
-+	gpu = pci_get_class(PCI_CLASS_DISPLAY_VGA << 8, NULL);
-+	if (!gpu || gpu->vendor != PCI_VENDOR_ID_INTEL) {
-+		dev_warn(dev, "No Intel GPU found, cannot fall back to PCH PWM\n");
-+		return -ENODEV;
-+	}
-+
-+	bar0 = pci_resource_start(gpu, 0);
-+	if (!bar0) {
-+		dev_warn(dev, "Intel GPU BAR0 not assigned\n");
-+		return -ENODEV;
-+	}
-+
-+	pwm = devm_kzalloc(dev, sizeof(*pwm), GFP_KERNEL);
-+	if (!pwm)
-+		return -ENOMEM;
-+
-+	pwm->mmio = devm_ioremap(dev, bar0 + PCH_BLC_PWM_CTL, SZ_16);
-+	if (!pwm->mmio) {
-+		dev_warn(dev, "Failed to ioremap PCH PWM registers\n");
-+		return -ENOMEM;
-+	}
-+
-+	ctl  = readl(pwm->mmio);
-+	freq = readl(pwm->mmio + (PCH_BLC_PWM_FREQ - PCH_BLC_PWM_CTL));
-+	duty = readl(pwm->mmio + (PCH_BLC_PWM_DUTY - PCH_BLC_PWM_CTL));
-+
-+	if (!(ctl & PCH_BLC_PWM_ENABLE) || freq == 0) {
-+		dev_warn(dev, "PCH PWM not enabled by BIOS (ctl=0x%08x freq=%u)\n", ctl, freq);
-+		return -ENODEV;
-+	}
-+
-+	pwm->max_brightness = freq;
-+
-+	dev_info(dev, "Falling back to PCH PWM backlight (max=%u current=%u)\n", freq, duty);
-+
-+	props.type = BACKLIGHT_PLATFORM;
-+	props.brightness = duty;
-+	props.max_brightness = freq;
-+
-+	bl = devm_backlight_device_register(dev, "dell_uart_backlight", dev, pwm,
-+					    &dell_pwm_backlight_ops, &props);
-+	return PTR_ERR_OR_ZERO(bl);
-+}
-+
- static int dell_uart_bl_init(struct device *dev, struct dell_uart_backlight *dell_bl)
- {
- 	u8 get_version[GET_CMD_LEN], resp[MAX_RESP_LEN];
-@@ -327,7 +426,13 @@ static int dell_uart_bl_serdev_probe(struct serdev_device *serdev)
- 	serdev_device_set_baudrate(serdev, 9600);
- 	serdev_device_set_flow_control(serdev, false);
- 
--	return dell_uart_bl_init(dev, dell_bl);
-+	ret = dell_uart_bl_init(dev, dell_bl);
-+	if (ret == -ETIMEDOUT) {
-+		dev_info(dev, "UART backlight controller not responding, trying PCH PWM fallback\n");
-+		return dell_pwm_fallback_register(dev);
-+	}
-+
-+	return ret;
- }
- 
- static struct serdev_device_driver dell_uart_bl_serdev_driver = {
--- 
-2.43.0
+:::::: TO: Greentime Hu <greentime.hu@sifive.com>
+:::::: CC: Palmer Dabbelt <palmer@rivosinc.com>
 
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
