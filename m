@@ -1,339 +1,295 @@
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012043.outbound.protection.outlook.com [52.101.48.43])
+Received: from mxct.zte.com.cn (mxct.zte.com.cn [58.251.27.85])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5FC83D4112;
-	Fri,  9 Oct 2026 09:03:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791536634; cv=fail; b=s7C58Y7ED2bDuEpeTOKL5vbg5DXcXH160nYO2i7GlllChg7+AoZb4cJWn7zz6/vf6yFA7RsSvRw8zvHs1yzCKEIrDka6O3TjxcgRW8mbsQJ0vaeA/wsUcx3muDKOzw/xrVbLztJT4W1Uw3EABnKuU1FiWWWO8LQ1v261cRU0Hyc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791536634; c=relaxed/simple;
-	bh=kyjh8eRMS8JF/VcsRyNzYoGxrcXROkPwNBMa7B76n4g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=efsEyzJOwJy/o56S/M74GbQDsfu4tQMA9XFnqZDaF3USPkCmXGopV3plOqatLG6Sig9zF0LI/2R6mnnnHu+/u+nM9V9hQFj7rlLjsc0ZTz4wcDCSICeuy7ZhATu5eGJzAXW1y4HmuU35eEf93y8AvMaH8YU2cACuNSFsPConhmE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=r8/LA4r+; arc=fail smtp.client-ip=52.101.48.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="r8/LA4r+"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WRPPP4qIEb5kTbUB0tA7RYZar2ekQYu1sWn1S9Nzz4pG3M0/2ndXhaaTdaVVrJtPHgrUbQbFRetlnc6a1LLw2xSZcCHx3XEYULaIOYOp8OdO5dmIeHnQcJ+BFJA29cK4f+Din7GfXcjKPM5becbLv+VsjLlgn95EowOSoBxZN5bZD5FFqnwxWXaBbvMF2Znr541NSHwyNE7XtDBTMoyN8bq7fBEkq7G8Qe0zs6woAkpekFwhHHDTwMHh2FPj34OyMYDtaoPJqyaQenhm+dZpRvsAFWizv1nxIeUDQtL0sUhm6CF9J9cXRA7LhSs9lbtWtkQQ0fKJpi9hyLpYAlU1UA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9Rb00XrAHRRNxrFsrMkUz3a075Gz04hTRQeE5CPpZIw=;
- b=hNATMAryeoQAu8bgL004LuFxIrsxI4+j5d+pRvVg22mHCG/qt+1B2rjiYEY1t+jcYU26Iw+MTee1CvIKleJMVftUcJhJHff71a/93cKPK1B4MwygzV8//qOk6Ut168kXR3KpENOzpb2WQV7oLtyK1pG0ewfLA/TBgShkjX5drai3LNabgPuZYonDxISME5rxxYcWOZvxEsKubwSbh/xsY+FHVXoTdetT5aV65M4cqcO4tdJy80EwbuXvx6+/gdSGAUcdVzjkuivyJKGeyVTb3mI4OF5nG/uTmlF6kwPc5BTHiciJvb1dcuUjclIZageNO6/KCWSwtO2IARlVmOvm8Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9Rb00XrAHRRNxrFsrMkUz3a075Gz04hTRQeE5CPpZIw=;
- b=r8/LA4r+2fcOOkN2qz/a4X1K5ptE9PHJ0IhSIuPrdcOwRvWbf/qssMNgHhf8hSFcIQja5GBUsB+lNiPBGFueF1xYS7ocj2lSE28X3BKQqXsCG2/dqYHPyNCeNnGkM6enpaQ9ZVSGTJoIa/tpwQ2O+eF3f4eUHX/lIK1H7xhApRajqFFqnJRltloXHz7By8S5IKSPcaaWt7QNW8Se4JlOgzTNvrsw3vTx8YzniK/sE+rVEfBe8a6gKqIk6SPv9X1o1gvGlKoIhmbOCBLtA2sGn5qyyfFiqkqdzIY7VN4lCkgvweOQb2nDT1qJqTUmeSSdSr03vaTQEq4mbQIAnGuftw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
- by DM4PR12MB5841.namprd12.prod.outlook.com (2603:10b6:8:64::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
- 2026 09:03:49 +0000
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
- 09:03:48 +0000
-From: Mikko Perttunen <mperttunen@nvidia.com>
-To: Thierry Reding <thierry.reding@kernel.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Hunter <jonathanh@nvidia.com>, webgeek1234@gmail.com
-Cc: dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- linux-kernel@vger.kernel.org, Aaron Kling <webgeek1234@gmail.com>
-Subject: Re: [PATCH 1/2] drm/tegra: Support swapping chroma planes
-Date: Fri, 09 Oct 2026 18:03:45 +0900
-Message-ID: <xM99yOJgSRK7DZVKa4Skcw@nvidia.com>
-In-Reply-To: <qEporZZOT_abKwO4JObFpQ@nvidia.com>
-References:
- <20261008-tegra-drm-yvu420-v1-0-dc1c443c00f3@gmail.com>
- <20261008-tegra-drm-yvu420-v1-1-dc1c443c00f3@gmail.com>
- <qEporZZOT_abKwO4JObFpQ@nvidia.com>
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-ClientProxiedBy: TY4PR01CA0123.jpnprd01.prod.outlook.com
- (2603:1096:405:379::8) To SJ2PR12MB9161.namprd12.prod.outlook.com
- (2603:10b6:a03:566::20)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA2C23EF672
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 09:03:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=58.251.27.85
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791536639; cv=none; b=LkOV2BUs4Npolf9A9GJ42zjTSA0CerCI7gw29ztZzQUxp7cgJZSkRj/UdHJlVVVsbf5TV3gwNPSbJJRZc85afYWmDS18X12d2RSB68H390v9iZGivojfFfrHWQ9NKujL/Xm1idU4yq0p2gkBvzRNoTVH/F8UcZeGxTpdyW0a2Vo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791536639; c=relaxed/simple;
+	bh=bDasQCtCqawYHR5WmsBVPRY4Zck+TCPL4qbLxeKp9QI=;
+	h=Message-Id:From:To:Cc:Subject:Date:In-Reply-To:References:
+	 MIME-Version; b=lxqykoTt4avmyYFynmoUa5rALZ7r1p7eKss2bVgzWHPgg82hON76rY1JVLr+G6gq13p1q9ryAUeuWvplqOXsFv0gd4tMi6VykjP6qdyxpNrsO/ft5qHWMXO3GUFYH4PcdYIu8qr5rgKHbNSOq7C7S5u5rgi7aEXWnPgXp9PHCvM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sanechips.com.cn; spf=pass smtp.mailfrom=sanechips.com.cn; arc=none smtp.client-ip=58.251.27.85
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sanechips.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sanechips.com.cn
+Received: from mxde.zte.com.cn (unknown [10.35.20.121])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxct.zte.com.cn (FangMail) with ESMTPS id 4j1LJS64X2zYCR
+	for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 16:54:16 +0800 (CST)
+Received: from mxhk.zte.com.cn (unknown [192.168.250.137])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxde.zte.com.cn (FangMail) with ESMTPS id 4j1LJH17jPzBQkJn
+	for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 16:54:07 +0800 (CST)
+Received: from mse-db.zte.com.cn (unknown [10.5.228.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4j1LJ540MDz8Xrr9;
+	Fri, 09 Oct 2026 16:53:57 +0800 (CST)
+Received: (from root@localhost)
+	by mse-db.zte.com.cn id 6998rsRH081065;
+	Fri, 9 Oct 2026 16:53:54 +0800 (+08)
+	(envelope-from gong.shuai@sanechips.com.cn)
+Message-Id: <202610090853.6998rsRH081065@mse-db.zte.com.cn>
+Received: from szxlzmapp02.zte.com.cn ([10.5.231.79])
+	by mse-fl2.zte.com.cn with SMTP id 6998oxoV057114;
+	Fri, 9 Oct 2026 16:50:59 +0800 (+08)
+	(envelope-from gong.shuai@sanechips.com.cn)
+Received: from localhost.localdomain (unknown [10.230.214.35])
+	by smtp (Zmail) with SMTP;
+	Fri, 9 Oct 2026 16:51:02 +0800
+X-Zmail-TransId: 3e816ac8aacf022-c0e61
+X-Zmail-LocalSMTP: 1
+X-Zmail-RealSender: gong.shuai@sanechips.com.cn
+From: Gong Shuai <gong.shuai@sanechips.com.cn>
+To: fangyu.yu@linux.alibaba.com
+Cc: alex@ghiti.fr, andrew.jones@oss.qualcomm.com, aou@eecs.berkeley.edu,
+        guoren@kernel.org, iommu@lists.linux.dev, jgg@nvidia.com, jgg@ziepe.ca,
+        joro@8bytes.org, jroedel@suse.de, kvm-riscv@lists.infradead.org,
+        linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+        palmer@dabbelt.com, pjw@kernel.org, robin.murphy@arm.com,
+        tomasz.jeznach@linux.dev, will@kernel.org, zong.li@sifive.com,
+        gong.shuai@sanechips.com.cn, gsh517025@gmail.com
+Subject: Re: [RFC PATCH 1/3] iommu/riscv: Add guest IMSIC GPA mapping helpers
+Date: Fri,  9 Oct 2026 16:50:23 +0800
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261008140001.94508-2-fangyu.yu@linux.alibaba.com>
+References: <20261008140001.94508-2-fangyu.yu@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|DM4PR12MB5841:EE_
-X-MS-Office365-Filtering-Correlation-Id: 60d85d5a-ba20-46b2-0e86-08df25e43b47
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|10070799003|366016|1800799024|11063799006|56012099006|4143699003|10067099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	Lq+2r8Q+PFA3MkNbKE8skOT5szag5cV3dwIguEOIm59ivL0qPsvvbiC+xwUM9gL3K3hyhZ+iq+FMFqAFFxmCCfUOOLX1gBUpIMYjTSqIMntXKsIVR+isAFHhD5ymuZ41AuEYP9LcyA+UzgGdS93wPTvte5gIb65AgDq2aC3HgWBNZkO9qE3raMdon4nV2wSabG7vetOW2XkYo1vZNRmH2c6NxZjGDdqCwFRgHm/niNgR7VF05qpGxrj/ChEuSUq2EINZUHLtbrXUl4XVJffYjNGHcCuk6Am8QXnJRz7Ir5qIIy56CrfJPh4J7UJTH+U1r/u/fgEOjpo8+Uiq61CvUkHqFyh21d5BohrYEtekgWZ+g7CODt8Cu7O/E8sWPg6JSUBnSKYz4oiBQGbmC52fUdoWK2pdDSUdOTgmZr+nsSFW6q1/IRUrOeVOy6G82xWxGbIvcw3zrWOc8CZagQM5Bht8c7oF4+uy9FubvcnWHp6FXNBLA1BQPPgYc4YOZLydSbL7aNRB80zbjjl6CHLvx5v6vDW2Fs/lc86oTVYmySBvP2/SVAPwSV4i0l1MIYCVZCa28qfKPJt4Q3516+E+lOg3KWEykemFXmE5dlI3seA5T1D4DWvaMjVO13L/cbPVHVnx7Y7iV0mhj3pFaQm07r0+PPL2W21TGcIONfbZ7tU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(10070799003)(366016)(1800799024)(11063799006)(56012099006)(4143699003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Wk1tMFI1REVuWENMZk1mVDhZOWlvaW5udzBoTUZsT0hJSDE3TitnUTAyOWk3?=
- =?utf-8?B?V1hxbFcwUEpkUVlQUndFVmNTaDFGaEZYQ0IxZVFRdk9hQ3ZucSs1Yy9rRFpO?=
- =?utf-8?B?V2dWSjUwYitndHA3M0E0aW93aEZJQXgzUkk2dU1Ca2E5NDhJc1kzdytSaG5G?=
- =?utf-8?B?SVhURDRkcEFMWStldG4vaDBUSU1FVG00b05wSEVJY0JSb1l1cDVaSldQSFZ2?=
- =?utf-8?B?dDE4VnY1c1AveGFDdEFPMTFyOFBDaTNSVzJmV29yc1BHc1UyNUZaVjNoRU1p?=
- =?utf-8?B?T1BTbVhNV1pqUzBRaDdKRzREUU1qMWE2U0M0NFpwaXd2bzl5VnhVU2pxL01J?=
- =?utf-8?B?YXpXZkZjSVEza2RsbGZ3MVorSjJPbWRsbjU1NTcrS0xOY1dDdWJaYkthM3VR?=
- =?utf-8?B?dmlwRFppdkZvWER0WWhIdTFvR1l1WHZKczRkSDJ6MXBoN1JJT08rVmQ1TnhP?=
- =?utf-8?B?b0o5TVFQTjA5ZHZJZGtpSk1pNmUvQ0pHbzMyM0h4RGlPV3ZlSk9ZM1FsbmFy?=
- =?utf-8?B?N3B2c1hIZFlvYm9ia09XaFZnMzhyZC9xYWdZWndidWE2K2ZOYUI1WFgweGRw?=
- =?utf-8?B?WExBRVFOb1VIOGM4TXBlU2xJY1ExdVVIMHpGQkpiVUFjdFZWaC9SeFpnSk9Z?=
- =?utf-8?B?Z1IvMlU5ejVmZTVoOS9ROVhlb29vVEJheG15QktWV0tOL2xIVFJpZXJjWGRm?=
- =?utf-8?B?R2lZa2V4TFRyUzRkUDVzd2lod1NqVFBxMWtOanNDYXZuZWFpMVE1SzFQMlR6?=
- =?utf-8?B?Rk5GVTI0TGhLWHBONys0V1E0NDVKeHdTQmNmTHYwRk1NYXdKRlZmWWhWbzBZ?=
- =?utf-8?B?YlJIRVlkZ2VrUTdjTmVpVndiZHI3d3p0cTJ4c3JXditUdWU5c0hhYncrZVlt?=
- =?utf-8?B?eVI0TlRacnhJR3NBQkZDZjMvaTNVM1lCK0hTTk5aQ1VPWWwrcTlYSDFUdmVX?=
- =?utf-8?B?T1RYeGtZelhBdEhWN0lkZDg4WVNoWCtldjZ2ZHdLeElEUEJQMkwzQXV2RmlL?=
- =?utf-8?B?YlQ1di9NOW5lRFpXS1RSOExWQUlNRmV5OEtvMUNZRFJXMW1hdGZnWUtVVHFZ?=
- =?utf-8?B?WnRJZVhZeTVpTmY1YUpUcXFwYjNqMzhnQ3R1QWF2ZllBV3d3amIrdTdpeUl0?=
- =?utf-8?B?YjYwOThvV0F6QnBvS21UZHhuTkxGaFhoOVYzRGI3R2ZCNk1zZXJrOER4ZHBn?=
- =?utf-8?B?ZkM5cHdLZFBYYUMzNElTaW1kL3lDZStzdmtuMjNMbS83ZUlrUzdjQmszRmdK?=
- =?utf-8?B?UlFUd2E1Y1RxL3l4SUlpOHYyM3VLdzBFVHBnbnIrRVJ2Z0toRS9hamFLYUEx?=
- =?utf-8?B?bVdUM1BPbEJncmtUU1MwNFNQS09OVk91czdxbElkeDBOeklaZGhNU2NBNklu?=
- =?utf-8?B?cFVicFR4NTRob01PaUliQWZrdWRYTXFzcUp4Q3FCN2JMbndJbDlyQ2NsZHFE?=
- =?utf-8?B?NUswUy9RNm5kdDh2YXJ3WTlORzBiWFl6WGdNQUhnZ3NJc3FOZnFBNEFlek54?=
- =?utf-8?B?TjhVenJPTFNKbVBLK0FobXFxN1pwWHhZSHc2ZmQ4cXV6WEE3SzFqUDVUcmoy?=
- =?utf-8?B?djJUWjN3RnJZWlp3Y2N1c3gwa05CTWFxOG5zUnczS1hHZi9FUXdyRFI5dWRT?=
- =?utf-8?B?L0tHZVdjVVI5TE90b20zTUUrdHhFaUNEK25aUHc0NmFPaFRuL1hhdFBpS0Ez?=
- =?utf-8?B?QU9HT1k5R2IyM2ZvUkNheHhRZW1yUzhIU09DRzlNOG1HanFjdjJ4NFJaT3Ex?=
- =?utf-8?B?UVJ1NVVKWmU4UEZnNkk1clhkendEbCtPL3UyME8vNVFOUk9tUW0xdmhBc2dy?=
- =?utf-8?B?YzlSY3o3NWVuKzhXSFZqRzhhNFo5OHJqSG12S0RNVG50djMxOW1VWWZZb0ty?=
- =?utf-8?B?UkY1TEdlMnpnbG0xUnRVNmNLQmhrbDJlTkxFL2o4bTE2MFoyTjhaY0UwMW9D?=
- =?utf-8?B?SHdkbmV5Y1hCblVkWS9ZZnNsZDJvVDBaYUlaV1RWeXhabDlQNzQ2bk12VmJ5?=
- =?utf-8?B?QUxIQTlCRlptQzlvODZkOFN0U1JjdWhmcEJJWjg5Sm9TWHhOdllHTEVGWWt1?=
- =?utf-8?B?QnJZbnBTSGRIWHdya0FzRVBhYWZGWkE5Y3RWaGlENUJvLy8vRk1WOTdOSDdW?=
- =?utf-8?B?aTlNNWNNa0JSem9hTTBxMVoyazlWQzllK2dTU1lOZXRKYmh1RnN0T2RFcXIx?=
- =?utf-8?B?enk2QVpSNDQrcHVQY2RiSHlvUUNYaUFMYUsxakMzVXNlcWsyTWcwaEgvYWdS?=
- =?utf-8?B?WHBUeXl6K0diZmdWY0NxR3pzNVF0c05PMEZIa09zYlE0OUFYUXVmZVZLSThM?=
- =?utf-8?B?N0ZYUjJJRzM0WGJURTRaOHZJd3c4eUtiakY0aDFobXo4THRlNURFRkNBNVBv?=
- =?utf-8?Q?jz6l157bpDWiA/LuQd1/Nm3bFwCR9jKGTiwGY8kDvvzZR?=
-X-MS-Exchange-AntiSpam-MessageData-1: oAmJX2/DqiVnlw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 60d85d5a-ba20-46b2-0e86-08df25e43b47
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 09:03:48.9156
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jh/6LuJZVNxoM1jAKd1t1Dnzksa433lNHlG78w5AZSYQbkNIbIy9m3KorMHdeZthn0juBj353NNExZP3NhbW1g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5841
+X-ZMAIL-USEORIGINALEMLTOOUTBOUND: 1
+Content-Transfer-Encoding: 8bit
+X-MAIL:mse-db.zte.com.cn 6998rsRH081065
+X-MSS: AUDITRELEASE@mse-db.zte.com.cn
+X-TLS: YES
+X-ENVELOPE-SENDER: gong.shuai@sanechips.com.cn
+X-SOURCE-IP: 10.35.20.121 unknown Fri, 09 Oct 2026 16:54:17 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AC8ABB7.001/4j1LJS64X2zYCR
 
-On Friday, October 9, 2026 5:59=E2=80=AFPM Mikko Perttunen wrote:
-> On Friday, October 9, 2026 5:57=E2=80=AFAM Aaron Kling via B4 Relay wrote=
-:
-> > From: Aaron Kling <webgeek1234@gmail.com>
-> >=20
-> > The Tegra display controller supports some yuv types, but not their
-> > chroma swapped variants. For example, yuv420 is supported but yvu420 is
-> > not. This can be efficiently worked around by just passing the hardware
-> > said chroma planes backwards. Add a flag to the plane state struct and
-> > handling to both tegradc and nvdisplay paths.
-> >=20
-> > Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
-> > ---
-> >  drivers/gpu/drm/tegra/dc.c    | 17 ++++++++++++-----
-> >  drivers/gpu/drm/tegra/hub.c   | 14 +++++++++-----
-> >  drivers/gpu/drm/tegra/plane.c |  4 +++-
-> >  drivers/gpu/drm/tegra/plane.h |  3 ++-
-> >  4 files changed, 26 insertions(+), 12 deletions(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/tegra/dc.c b/drivers/gpu/drm/tegra/dc.c
-> > index b0bfa946e6979..76d3841a17b8b 100644
-> > --- a/drivers/gpu/drm/tegra/dc.c
-> > +++ b/drivers/gpu/drm/tegra/dc.c
-> > @@ -444,7 +444,8 @@ tegra_plane_use_vertical_filtering(struct tegra_pla=
-ne *plane,
-> >  }
-> > =20
-> >  static void tegra_dc_setup_window(struct tegra_plane *plane,
-> > -				  const struct tegra_dc_window *window)
-> > +				  const struct tegra_dc_window *window,
-> > +				  struct tegra_plane_state *tegra_plane_state)
-> >  {
-> >  	unsigned h_offset, v_offset, h_size, v_size, h_dda, v_dda, bpp;
-> >  	struct tegra_dc *dc =3D plane->dc;
-> > @@ -510,10 +511,13 @@ static void tegra_dc_setup_window(struct tegra_pl=
-ane *plane,
-> >  	tegra_plane_writel(plane, window->base[0], DC_WINBUF_START_ADDR);
-> > =20
-> >  	if (yuv && planes > 1) {
-> > -		tegra_plane_writel(plane, window->base[1], DC_WINBUF_START_ADDR_U);
-> > +		uint8_t u =3D tegra_plane_state->swap_uv ? 2 : 1;
-> > +		uint8_t v =3D tegra_plane_state->swap_uv ? 1 : 2;
-> > +
-> > +		tegra_plane_writel(plane, window->base[u], DC_WINBUF_START_ADDR_U);
-> > =20
-> >  		if (planes > 2)
-> > -			tegra_plane_writel(plane, window->base[2], DC_WINBUF_START_ADDR_V);
-> > +			tegra_plane_writel(plane, window->base[v], DC_WINBUF_START_ADDR_V);
-> > =20
-> >  		value =3D window->stride[1] << 16 | window->stride[0];
-> >  		tegra_plane_writel(plane, value, DC_WIN_LINE_STRIDE);
-> > @@ -740,7 +744,8 @@ static int tegra_plane_atomic_check(struct drm_plan=
-e *plane,
-> > =20
-> >  	err =3D tegra_plane_format(new_plane_state->fb->format->format,
-> >  				 &plane_state->format,
-> > -				 &plane_state->swap);
-> > +				 &plane_state->swap,
-> > +				 &plane_state->swap_uv);
-> >  	if (err < 0)
-> >  		return err;
-> > =20
-> > @@ -871,8 +876,10 @@ static void tegra_plane_atomic_update(struct drm_p=
-lane *plane,
-> >  		if (i < 2)
-> >  			window.stride[i] =3D fb->pitches[i];
-> >  	}
-> > +	if (tegra_plane_state->swap_uv)
-> > +		window.stride[1] =3D fb->pitches[2];
->=20
-> Based on the comment above, U and V have the same stride, so this
-> isn't required.
->=20
-> > =20
-> > -	tegra_dc_setup_window(p, &window);
-> > +	tegra_dc_setup_window(p, &window, tegra_plane_state);
->=20
-> Instead of passing the plane state, I'd just add a
->=20
->   swap(window.base[1], window.base[2]);
->=20
-> here.
->=20
-> Otherwise looks good to me! I also tested on AGX Xavier.
->=20
-> Mikko
+Hi Fangyu,
 
-(Well, sashiko has some findings, please check them as well)
-
->=20
-> >  }
-> > =20
-> >  static const struct drm_plane_helper_funcs tegra_plane_helper_funcs =
-=3D {
-> > diff --git a/drivers/gpu/drm/tegra/hub.c b/drivers/gpu/drm/tegra/hub.c
-> > index 448f49f3a7d7e..6427155ac4fdf 100644
-> > --- a/drivers/gpu/drm/tegra/hub.c
-> > +++ b/drivers/gpu/drm/tegra/hub.c
-> > @@ -440,7 +440,8 @@ static int tegra_shared_plane_atomic_check(struct d=
-rm_plane *plane,
-> > =20
-> >  	err =3D tegra_plane_format(new_plane_state->fb->format->format,
-> >  				 &plane_state->format,
-> > -				 &plane_state->swap);
-> > +				 &plane_state->swap,
-> > +				 &plane_state->swap_uv);
-> >  	if (err < 0)
-> >  		return err;
-> > =20
-> > @@ -664,24 +665,27 @@ static void tegra_shared_plane_atomic_update(stru=
-ct drm_plane *plane,
-> >  	tegra_plane_writel(p, value, DC_WIN_PLANAR_STORAGE);
-> > =20
-> >  	if (yuv && planes > 1) {
-> > -		base =3D tegra_plane_state->iova[1] + fb->offsets[1];
-> > +		uint8_t u =3D tegra_plane_state->swap_uv ? 2 : 1;
-> > +		uint8_t v =3D tegra_plane_state->swap_uv ? 1 : 2;
-> > +
-> > +		base =3D tegra_plane_state->iova[u] + fb->offsets[u];
-> >  		base |=3D addr_flag;
-> > =20
-> >  		tegra_plane_writel(p, upper_32_bits(base), DC_WINBUF_START_ADDR_HI_U=
-);
-> >  		tegra_plane_writel(p, lower_32_bits(base), DC_WINBUF_START_ADDR_U);
-> > =20
-> >  		if (planes > 2) {
-> > -			base =3D tegra_plane_state->iova[2] + fb->offsets[2];
-> > +			base =3D tegra_plane_state->iova[v] + fb->offsets[v];
-> >  			base |=3D addr_flag;
-> > =20
-> >  			tegra_plane_writel(p, upper_32_bits(base), DC_WINBUF_START_ADDR_HI_=
-V);
-> >  			tegra_plane_writel(p, lower_32_bits(base), DC_WINBUF_START_ADDR_V);
-> >  		}
-> > =20
-> > -		value =3D PITCH_U(fb->pitches[1]);
-> > +		value =3D PITCH_U(fb->pitches[u]);
-> > =20
-> >  		if (planes > 2)
-> > -			value |=3D PITCH_V(fb->pitches[2]);
-> > +			value |=3D PITCH_V(fb->pitches[v]);
-> > =20
-> >  		tegra_plane_writel(p, value, DC_WIN_PLANAR_STORAGE_UV);
-> >  	} else {
-> > diff --git a/drivers/gpu/drm/tegra/plane.c b/drivers/gpu/drm/tegra/plan=
-e.c
-> > index 2148b0c59815c..f4feec62ac023 100644
-> > --- a/drivers/gpu/drm/tegra/plane.c
-> > +++ b/drivers/gpu/drm/tegra/plane.c
-> > @@ -319,11 +319,13 @@ int tegra_plane_state_add(struct tegra_plane *pla=
-ne,
-> >  	return 0;
-> >  }
-> > =20
-> > -int tegra_plane_format(u32 fourcc, u32 *format, u32 *swap)
-> > +int tegra_plane_format(u32 fourcc, u32 *format, u32 *swap, bool *swap_=
-uv)
-> >  {
-> >  	/* assume no swapping of fetched data */
-> >  	if (swap)
-> >  		*swap =3D BYTE_SWAP_NOSWAP;
-> > +	if (swap_uv)
-> > +		*swap_uv =3D false;
-> > =20
-> >  	switch (fourcc) {
-> >  	case DRM_FORMAT_ARGB4444:
-> > diff --git a/drivers/gpu/drm/tegra/plane.h b/drivers/gpu/drm/tegra/plan=
-e.h
-> > index e33a581e6490e..dba5f1b254e98 100644
-> > --- a/drivers/gpu/drm/tegra/plane.h
-> > +++ b/drivers/gpu/drm/tegra/plane.h
-> > @@ -49,6 +49,7 @@ struct tegra_plane_state {
-> >  	struct tegra_bo_tiling tiling;
-> >  	u32 format;
-> >  	u32 swap;
-> > +	bool swap_uv;
-> > =20
-> >  	bool reflect_x;
-> >  	bool reflect_y;
-> > @@ -88,7 +89,7 @@ void tegra_plane_cleanup_fb(struct drm_plane *plane,
-> >  int tegra_plane_state_add(struct tegra_plane *plane,
-> >  			  struct drm_plane_state *state);
-> > =20
-> > -int tegra_plane_format(u32 fourcc, u32 *format, u32 *swap);
-> > +int tegra_plane_format(u32 fourcc, u32 *format, u32 *swap, bool *swap_=
-uv);
-> >  bool tegra_plane_format_is_indexed(unsigned int format);
-> >  bool tegra_plane_format_is_yuv(unsigned int format, unsigned int *plan=
-es, unsigned int *bpc);
-> >  int tegra_plane_setup_legacy_state(struct tegra_plane *tegra,
-> >=20
-> > --=20
-> > 2.54.0
-> >=20
-> >=20
-> >=20
->=20
->=20
->=20
->=20
+> From: Fangyu Yu <fangyu.yu@linux.alibaba.com>
+> 
+> IOMMU implementations without the MSI_FLAT capability translate MSI
+> writes through the second-stage page table, so IRQ forwarding on them
+> will need guest IMSIC pages mapped into the second-stage domain.
+> 
+> Add an xarray to the MSI table that tracks the HPA installed for each
+> mapped guest IMSIC GPA, and two helpers for use with the MSI table lock
+> held: riscv_iommu_msi_table_map_gpa() installs the initial 4 KiB
+> mapping, and riscv_iommu_msi_table_replace_gpa_leaf() atomically swaps
+> the leaf PTE's PFN when a vCPU's VS-file host page moves, rejecting
+> leaves that do not map the expected old HPA.
+> 
+> Signed-off-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
+> ---
+>  drivers/iommu/riscv/iommu.c | 94 +++++++++++++++++++++++++++++++++++++
+>  drivers/iommu/riscv/iommu.h | 12 +++++
+>  2 files changed, 106 insertions(+)
+> 
+> diff --git a/drivers/iommu/riscv/iommu.c b/drivers/iommu/riscv/iommu.c
+> index e2e77469ea3c..48fc57d6409c 100644
+> --- a/drivers/iommu/riscv/iommu.c
+> +++ b/drivers/iommu/riscv/iommu.c
+> @@ -24,6 +24,7 @@
+>  #include <linux/moduleparam.h>
+>  #include <linux/mutex.h>
+>  #include <linux/pci.h>
+> +#include <linux/pgtable.h>
+>  #include <linux/generic_pt/iommu.h>
+>  
+>  #include "../dma-iommu.h"
+> @@ -1217,6 +1218,92 @@ void riscv_iommu_msi_table_inval_all(struct riscv_iommu_msi_table *msi_table)
+>  	riscv_iommu_iotlb_inval(domain, &gather);
+>  }
+>  
+> +int riscv_iommu_msi_table_map_gpa(struct riscv_iommu_msi_table *msi_table,
+> +				  dma_addr_t gpa, phys_addr_t hpa)
+> +{
+> +	struct riscv_iommu_domain *domain =
+> +		container_of(msi_table, struct riscv_iommu_domain, msi_table);
+> +	const int prot = IOMMU_WRITE | IOMMU_NOEXEC | IOMMU_MMIO;
+> +
+> +	/* Guest IMSIC GPA mapping only exists in second-stage translations. */
+> +	if (!domain->gscid)
+> +		return -EOPNOTSUPP;
+> +
+> +	return iommu_map(&domain->domain, gpa, hpa, IMSIC_MMIO_PAGE_SZ, prot,
+> +			 GFP_ATOMIC);
+> +}
+> +
+> +int riscv_iommu_msi_table_replace_gpa_leaf(struct riscv_iommu_msi_table *msi_table,
+> +					   dma_addr_t gpa, phys_addr_t old_hpa,
+> +					   phys_addr_t new_hpa)
 
 
+This might fit better inside generic_pt rather than in the driver,
+since it walks the page tables on its own and duplicates things
+the library already owns, like the per-level index widths, the
+x4 root size, and the PTE layout.
+
+I recently tried something very similar, and doing this inside
+generic_pt turned out to be quite feasible (only a quick experiment,
+not cleaned up for posting).
+
+Thanks,
+Shuai
 
 
+> +{
+> +	struct riscv_iommu_domain *domain =
+> +		container_of(msi_table, struct riscv_iommu_domain, msi_table);
+> +	struct pt_iommu_riscv_64_hw_info pt_info;
+> +	u64 *root, *table, *ptep;
+> +	u64 old, new;
+> +	int top_level, level;
+> +
+> +	if (!IS_ALIGNED(gpa | old_hpa | new_hpa, PAGE_SIZE))
+> +		return -EINVAL;
+> +	if (!domain->gscid)
+> +		return -EOPNOTSUPP;
+> +
+> +	pt_iommu_riscv_64_hw_info(&domain->riscvpt, &pt_info);
+> +	switch (pt_info.iohgatp_mode) {
+> +	case RISCV_IOMMU_DC_IOHGATP_MODE_SV39X4:
+> +		top_level = 2;
+> +		break;
+> +	case RISCV_IOMMU_DC_IOHGATP_MODE_SV48X4:
+> +		top_level = 3;
+> +		break;
+> +	case RISCV_IOMMU_DC_IOHGATP_MODE_SV57X4:
+> +		top_level = 4;
+> +		break;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +
+> +	root = phys_to_virt(pt_info.ppn << PAGE_SHIFT);
+> +	for (;;) {
+> +		table = root;
+> +		for (level = top_level; level >= 0; level--) {
+> +			unsigned int shift = PAGE_SHIFT + level * 9;
+> +			unsigned int index = gpa >> shift;
+> +
+> +			if (level == top_level)
+> +				index &= GENMASK(10, 0);
+> +			else
+> +				index &= GENMASK(8, 0);
+> +			ptep = &table[index];
+> +			old = READ_ONCE(*ptep);
+> +
+> +			if (level) {
+> +				/* A valid non-leaf PTE has R/W/X clear. */
+> +				if ((old & (_PAGE_PRESENT | _PAGE_LEAF)) !=
+> +				    _PAGE_PRESENT)
+> +					return -EADDRINUSE;
+> +				table = phys_to_virt(FIELD_GET(_PAGE_PFN_MASK,
+> +							       old) << PAGE_SHIFT);
+> +				continue;
+> +			}
+> +
+> +			/* Replace only the L0 leaf previously installed for this GPA. */
+> +			if (!(old & _PAGE_PRESENT) || !(old & _PAGE_LEAF) ||
+> +			    FIELD_GET(_PAGE_PFN_MASK, old) !=
+> +			    old_hpa >> PAGE_SHIFT)
+> +				return -EADDRINUSE;
+> +
+> +			new = (old & ~_PAGE_PFN_MASK) |
+> +			      FIELD_PREP(_PAGE_PFN_MASK,
+> +					 new_hpa >> PAGE_SHIFT);
+> +			if (cmpxchg64(ptep, old, new) == old)
+> +				return 0;
+> +			break;
+> +		}
+> +	}
+> +}
+> +
+>  #define RISCV_IOMMU_FSC_BARE 0
+>  /*
+>   * This function sends IOTINVAL commands as required by the RISC-V
+> @@ -1425,6 +1512,8 @@ static void riscv_iommu_iotlb_sync(struct iommu_domain *iommu_domain,
+>  static void riscv_iommu_free_paging_domain(struct iommu_domain *iommu_domain)
+>  {
+>  	struct riscv_iommu_domain *domain = iommu_domain_to_riscv(iommu_domain);
+> +	struct riscv_iommu_noflat_imsic *imsic;
+> +	unsigned long index;
+>  
+>  	WARN_ON(!list_empty(&domain->bonds));
+>  
+> @@ -1435,6 +1524,10 @@ static void riscv_iommu_free_paging_domain(struct iommu_domain *iommu_domain)
+>  	if (domain->gscid > 0)
+>  		ida_free(&riscv_iommu_gscids, domain->gscid);
+>  
+> +	xa_for_each(&domain->msi_table.noflat_imsics, index, imsic)
+> +		kfree(imsic);
+> +	xa_destroy(&domain->msi_table.noflat_imsics);
+> +
+>  	pt_iommu_deinit(&domain->riscvpt.iommu);
+>  	iommu_free_pages(domain->msi_table.root);
+>  	kfree(domain);
+> @@ -1676,6 +1769,7 @@ riscv_iommu_domain_alloc_paging_flags(struct device *dev, u32 flags,
+>  	INIT_LIST_HEAD_RCU(&domain->bonds);
+>  	raw_spin_lock_init(&domain->lock);
+>  	raw_spin_lock_init(&domain->msi_table.lock);
+> +	xa_init(&domain->msi_table.noflat_imsics);
+>  	mutex_init(&domain->mutex);
+>  	iommu = dev_to_iommu(dev);
+>  	cfg.common.hw_max_oasz_lg2 = 56;
+> diff --git a/drivers/iommu/riscv/iommu.h b/drivers/iommu/riscv/iommu.h
+> index 9852962e245b..53a368fbbdf2 100644
+> --- a/drivers/iommu/riscv/iommu.h
+> +++ b/drivers/iommu/riscv/iommu.h
+> @@ -18,6 +18,7 @@
+>  #include <linux/irqdomain.h>
+>  #include <linux/rcupdate.h>
+>  #include <linux/sizes.h>
+> +#include <linux/xarray.h>
+>  
+>  #include "iommu-bits.h"
+>  
+> @@ -74,6 +75,11 @@ struct riscv_iommu_device {
+>  	struct irq_domain *irqdomain;
+>  };
+>  
+> +/* Tracks a guest IMSIC GPA mapped into an S2 domain on IOMMUs without MSI_FLAT. */
+> +struct riscv_iommu_noflat_imsic {
+> +	phys_addr_t hpa;
+> +};
+> +
+>  struct riscv_iommu_msi_table {
+>  	/* Protects attachment, interrupt forwarding state, and MSI PTE updates. */
+>  	raw_spinlock_t lock;
+> @@ -84,6 +90,7 @@ struct riscv_iommu_msi_table {
+>  	u64 msi_addr_pattern;
+>  	const void *owner;
+>  	u64 required_caps; /* RISCV_IOMMU_CAPABILITIES_* required by active MSI PTEs */
+> +	struct xarray noflat_imsics;
+>  };
+>  
+>  /* Private IOMMU data for managed devices, dev_iommu_priv_* */
+> @@ -109,6 +116,11 @@ bool riscv_iommu_msi_table_check_caps(struct riscv_iommu_msi_table *msi_table, u
+>  void riscv_iommu_msi_table_inval(struct riscv_iommu_msi_table *msi_table, unsigned long addr);
+>  void riscv_iommu_msi_table_inval_all(struct riscv_iommu_msi_table *msi_table);
+>  void riscv_iommu_msi_table_update(struct riscv_iommu_msi_table *msi_table, bool activate);
+> +int riscv_iommu_msi_table_map_gpa(struct riscv_iommu_msi_table *msi_table,
+> +				  dma_addr_t gpa, phys_addr_t hpa);
+> +int riscv_iommu_msi_table_replace_gpa_leaf(struct riscv_iommu_msi_table *msi_table,
+> +					   dma_addr_t gpa, phys_addr_t old_hpa,
+> +					   phys_addr_t new_hpa);
+>  
+>  #ifdef CONFIG_RISCV_IMSIC
+>  void riscv_iommu_ir_irq_domain_remove(struct riscv_iommu_device *iommu);
+> -- 
+> 2.50.1
