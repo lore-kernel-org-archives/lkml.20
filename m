@@ -1,128 +1,79 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A47133D6F7
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 17:27:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6125C36F911
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 17:28:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791566862; cv=none; b=uk37BQbCMixyeIGoZD/CZW88HzYionK1I/NiZFNjYdr9Wf5LH1ATe5Wtx8GBMyJzB/LHtcXz0kO2xB+dSZo0hXP2nzqBPs6gmiWn00pqxeSK6/hS3YYVyMgWGpGp8XjJOPi4hYbmzHhehLhsTEUZzd5A8U5A63Vpp7wNbCsHiiQ=
+	t=1791566884; cv=none; b=nnhOfhh62WxLRPc63/BX4VBtKvnNVLGUG1OQOXcWS3B0yDh6iv3N0xqcB2F7cDpIk3LC2WzRpsFoRhFnsKeg9eSttEbTp5/NytU4oeEPjRQ88JuxfnHvR8Jf4i5s6usUVu/VGG0D3IT0jbYGCJApoPJ1aSgjGFWIUswsYdSuI5k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791566862; c=relaxed/simple;
-	bh=CqBnW54Mbv9AWJM08eruBqtBpvvm1r80uZxZrFNmgvs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nEMAukk6viWu5/xCZ2s+okb5GdJZzLJ894VeHsclEKQ8J200tnMYAefXYiFdxxwNp5eVYcLR3wMoDGfWdc4YARrruTBRmqa3tZhJfZ/pOy3PfTCZ0O9X9BjW75XZnUBeDcM0tg92nW6Xzt8fddTTIGcGdVMhSOvHs60tCcqgwf0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SqjXN3Rq; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SqjXN3Rq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B48F01F00893
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 17:27:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791566860;
-	bh=CqBnW54Mbv9AWJM08eruBqtBpvvm1r80uZxZrFNmgvs=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=SqjXN3RqTLfMmSywHxGghzVWZvm8/uzSr3YyQipzhuCRBBFtVTzKfi7S86bs0Kozj
-	 5SXMW1QNYEZWhHSv/jo9sETHqY2j+jXLXhxP92egSuuhVIV8b0viOvr3+s6AoGfSSk
-	 owvFPCFmxdvIYU/Ycel31Cu8chB7Pn1x3MlyiI9kbFpVvmhFc/EWZrSKG1yZoJRAYD
-	 wFr3cTafYmRYzJiyCu1XHVTEuKlONMRGSXlIvB2m1J00x/DxDWaBQeoM9aaVD4CfzE
-	 LDx+UT/p9p86XReCR8jneQuOZJ7GY9YkESK3tqpu5mxbtFm8MwuhVHMMfNa3uTSTcK
-	 ffNel0x9a/FCA==
-Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-91b64fb6010so2827446d6.1
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 10:27:40 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxn2Th1ASKyfQmz8/zasgg248n4BUQhOhzs1RuwGrwcaAmu4zqlgYH+wLvGZJw3KNHnw+TESoiTUY8a4N8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIc8JAyeFUMMB8TVj3zzbebYT7I73SuKMhjg/9H+X83+UCxxV43
-	UzHu3jwcSZ0S+yjH3YtNBBiAiduxOsv2ylyHFNm+NoDTXdIRJ9O67iJU93B73Tnf7z4QVIPk48A
-	5GNyfjofhpAKkyRIARjMMyNYzNvLWFT4=
-X-Received: by 2002:a05:620a:2728:b0:93d:23d5:32fd with SMTP id
- af79cd13be357-93ec1499888mr302127885a.27.1791566860153; Fri, 09 Oct 2026
- 10:27:40 -0700 (PDT)
+	s=arc-20240116; t=1791566884; c=relaxed/simple;
+	bh=lWX+/1RyjNePJnt8pr9EgTlPhArvoVlvf7b5HMomPnY=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=tuQkifTBc4+ieCwv3bgSbAkqr2D1lxw+QT6YgCvgSqKNWcW5N1IMHmVN7tzidcbxoYCZC1qACyp9PdeLyjdekKRhgkZka5NtYyJynCanH+BnIiiiaLVb4OtAwoOjEyxYJB/OZTJLPrviIBBbKhSMkBibWyAFITmbA7KnCml9szQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4b2d1eb484aso21441b6e.2
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 10:28:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791566882; x=1792171682;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=NB7QKtmwUFWZSd8u8+y+zdCE4WNPIGCC42KAhXJZKz0=;
+        b=0jhsXz+2L21isFulFvoddXmdmIbLGkH2E3qTbPM8fYj5cNGr5vi0CDirgKxMku8/X8
+         5HUgoi9aaKKiqxqFbuq9kQZdYU08U3BzrOnGbJRQ7OamqgnP1lpX2BOdbSrmKC9oBvBh
+         1vdlHiqxY7IFq7gHUeJ/oGDYOqP9z6woYD5BoVVQec71uFBe/NFBJqnh8ykxUwl9HQcR
+         Aiq7ipgNtkCQVuVz0u33zFM5AOK++ou8TMvNA7wGKdpRWxGJThuTwzLQm71drIr1eJuK
+         SelEaoy2avuYTyT8nPBEiZEKpLNl3Bo2/CLd5QXsZbfbdWpn0N3O6boNlQqrn4rcTjjM
+         fwAw==
+X-Forwarded-Encrypted: i=1; AKwUvBy8cNKDPILKO0BM2OA/0gvkzK5Rzb2Y/9s4G4GSIn0SATLb46kVG9fI8kJxVDKM4jPZdDy93+2MXwoGXA8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lAw3XTmbdJCZA2DgL52bkwWoxAjfIn+Yt/eFfWTv0WY0bzrlLe
+	pwblskqLbcP48BrUn1z7aF7mzJUBt9hFFmQ6eulDtJ+0Y/b+/VSysAb+Cc1AmxsxbqZIx0dblqi
+	mqKax1SIIsATCAVPqDGld6FlYL91IQzv7wyxwikNpHrYMYap7rYpZZuOqGXw=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261006002307.2669023-1-usama.arif@linux.dev>
- <20261006002307.2669023-2-usama.arif@linux.dev> <CAO9r8zPm4B1_wtAUMeSR9PQ5ja+kJz14Ub7MCuJit_NSH2DQsQ@mail.gmail.com>
- <3465c889-de07-48b7-b6b4-7fc8dcac4e67@linux.dev>
-In-Reply-To: <3465c889-de07-48b7-b6b4-7fc8dcac4e67@linux.dev>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Fri, 9 Oct 2026 10:27:26 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zMjcmoY_pJtCUGbw39Kq7i_L9qUUQXUSBNAqSmwiaVVOg@mail.gmail.com>
-X-Gm-Features: AclHuK-oBA4BdyKvlYo-fUMM-fivKSARBB0CToCpEWZ_rb1EHfIuBapd1xjHTP4
-Message-ID: <CAO9r8zMjcmoY_pJtCUGbw39Kq7i_L9qUUQXUSBNAqSmwiaVVOg@mail.gmail.com>
-Subject: Re: [PATCH 1/2] mm: zswap: use separate compression and decompression requests
-To: Usama Arif <usama.arif@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, chengming.zhou@linux.dev, dsterba@suse.com, 
-	hannes@cmpxchg.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	nphamcs@gmail.com, terrelln@fb.com, riel@surriel.com, shakeel.butt@linux.dev, 
-	alex@ghiti.fr, senozhatsky@chromium.org, kernel-team@meta.com
+X-Received: by 2002:a05:6808:508d:b0:4d6:9153:295c with SMTP id
+ 5614622812f47-50c57695ff0mr2437078b6e.45.1791566882342; Fri, 09 Oct 2026
+ 10:28:02 -0700 (PDT)
+Date: Fri, 09 Oct 2026 10:28:02 -0700
+In-Reply-To: <6a698f41.d9e86bb5.297b12.0051.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ac92422.8cdf6287.1eb53.004f.GAE@google.com>
+Subject: Re: [syzbot] [usb?] KASAN: invalid-free in f_uac2_opts_c_srate_store
+From: syzbot <syzbot+a4f65284f1451010b0a8@syzkaller.appspotmail.com>
+To: a0yami@mailbox.org, christophe.jaillet@wanadoo.fr, 
+	gregkh@linuxfoundation.org, julian@jusst.de, kartikey406@gmail.com, 
+	kees@kernel.org, linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
+	pavel.hofman@ivitera.com, syzbot@kernel.org, syzbot@lists.linux.dev, 
+	syzkaller-bugs@googlegroups.com, 
+	syzkaller-upstream-moderation@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 9, 2026 at 8:07=E2=80=AFAM Usama Arif <usama.arif@linux.dev> wr=
-ote:
->
->
->
-> On 07/10/2026 23:01, Yosry Ahmed wrote:
-> > On Mon, Oct 5, 2026 at 5:23=E2=80=AFPM Usama Arif <usama.arif@linux.dev=
-> wrote:
-> >>
-> >> Stores and loads serialize on the same per-CPU acomp request and mutex=
-.
-> >> A low-priority store can be preempted as soon as the compressor drops
-> >> its stream lock, while it still holds the mutex. A higher-priority loa=
-d
-> >> on that CPU then waits until the store runs again, which can take a
-> >> long time when other tasks are runnable.
-> >>
-> >> Give compression and decompression their own request, completion wait
-> >> and mutex. Since commit e2c3b6b21c77f ("mm: zswap: use SG list
-> >> decompression APIs from zsmalloc"), the per-CPU buffer is only used fo=
-r
-> >> compression. The two requests can share the per-CPU transform: no
-> >> in-tree implementation modifies transform state while (de)compressing,
-> >> and shared codec state has its own locking.
->
->
-> Hello Yosry!
->
-> Thanks for the reviews!
->
-> >
-> > I am a bit uncomfortable with this. If future changes modify the
-> > transform state while (de)compressing, it may result in nasty bugs.
->
-> Independent acomp requests can share a transform. UBIFS already uses its
-> shared compr->cc for compression and decompression without caller
-> serialization. IPComp also submits per-packet requests on a shared
-> transform, and EROFS allows concurrent decompression on one transform.
->
-> Drivers synchronize their shared state internally. For example, HiSilicon
-> protects its transform-owned request bitmap with req_lock. Unsynchronized
-> shared state would break those existing callers too. Separate compression
-> and decompression transforms would still leave concurrent stack
-> decompressions sharing a transform.
+syzbot suspects this issue was fixed by commit:
 
-I guess others relying on this makes me feel better about it. It would
-be nice if we have protection against it. Not asking you to do this,
-but constifying the transform everywhere after it's initialized is one
-way to solidify this.
+commit 844d83d5964b87919b958ff48405188c6ddae9cc
+Author: Qing Ming <a0yami@mailbox.org>
+Date:   Tue May 19 14:33:19 2026 +0000
 
->
->
-> >
-> > As for the buffer, I would also prefer some protection, but I feel
-> > less strongly about this. For example, we can put it inside
-> > zswap_acomp_req and not initialize it for the decompression request.
-> > Alternatively, we can have an intermediary struct that contains
-> > zswap_acomp_req + buffer, and use that for the compression request.
->
->
-> Done for next revision. Added zswap_comp_ctx containing the compression
-> request and output buffer. Allocation, use and cleanup now go through tha=
-t
-> context. The compression mutex protects the buffer until zs_obj_write()
-> finishes, and decompression has no buffer member.
+    usb: gadget: uac: validate rate list length before storing
 
-Thanks!
+bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=12c8c671580000
+start commit:   f5bbbfec59b4 Merge tag 'probes-fixes-v7.2-rc7' of git://gi..
+git tree:       upstream
+kernel config:  https://syzkaller.appspot.com/x/.config?x=158601bb8cb292dd
+dashboard link: https://syzkaller.appspot.com/bug?extid=a4f65284f1451010b0a8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1504aa9e580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=149f7879580000
+
+If the result looks correct, please mark the issue as fixed by replying with:
+
+#syz fix: usb: gadget: uac: validate rate list length before storing
+
+For information about bisection process see: https://goo.gl/tpsmEJ#bisection
