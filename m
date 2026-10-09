@@ -1,105 +1,121 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp6-g21.free.fr (smtp6-g21.free.fr [212.27.42.6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B37113BB10D
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 07:31:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60ED840E8D7;
+	Fri,  9 Oct 2026 07:31:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791531082; cv=none; b=iZBTt+0+nxSeVzBIcnHpXG1/DIO0slHyntqEzARKhbFYlCg/gTPNEUYOZ7lW9eZWVv4tIlTw5rREJ2RBaCEWyK+ZRAWtuT6w+VKE6H6cMlFxCuY9E9DqIL235s6qgAc2+bbtXtzbgQzjQwtwfQd9WeMTNqCk+k/BT4F+bzB8rNQ=
+	t=1791531091; cv=none; b=RerH3EuL3BQ9HhKPpdpO5F2X2ePbQmIzF9O6DyRwabJWNazcfiRxi9Hex2lhiZSRjWVrZPCA4NuSjnnsz3qb4lpLfEEGu6umMmul25vdtJvgm/r81NKZtPU9WgaakzJwttXHEbG+JIqvXgIQLV+b+TeXncA+QO6OMBkC3OxXdxw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791531082; c=relaxed/simple;
-	bh=BcmW3b91oM72Iku0groZz6A77z1jqK6pvYSJRHrTcLo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rM+AIgWgr3zUhaFvEIF/q/GzhM1tPtYcx4SOgPDeRHQzInEXSTDQBDU1Ntiabd8DhCnC0LuwZY55jZWWU3WNNYo9JKAdLdfDRcp16OciaapUDjsAB6IFbA6eKreacBS4Iw4HUZ9MTaPM29AVtZpck3zOdBAMO37AUHu4DqxuZy8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YDGPd5Wj; arc=none smtp.client-ip=209.85.216.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791531091; c=relaxed/simple;
+	bh=Lpz0OuDyaABt8DrFda/UNnzr2ftGZ9uexqEzGQRiEDU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Z0ZhzuO+v+A4uHdauN1ifM3AuIzsanOgJ5Pa9+eqA2EH1MmyPkhF+2C8EmjgTjL9ryWppIzDKENVQvj5IPX0v7pxsGKGKMHkhS/p4CfMcy+VV7tA85JaGNLqdvrnDhwi4w22MCuX49FUnRBuo3s7PaR6InetkiuSLXy2XdpZe7g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr; spf=pass smtp.mailfrom=free.fr; dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b=aNQ2QDS3; arc=none smtp.client-ip=212.27.42.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YDGPd5Wj"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-381b831d535so6116066a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 00:31:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791531081; x=1792135881; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=X2kzGm0pzKQj59Ju5/ds69Z4jxb5t44uQPLNR0z8/S8=;
-        b=YDGPd5Wj1a8PBGCk58z1K51JqtVRj3d0jJGZiBQ/eo2KEga9YJNEPIUVrpxE7BWCzm
-         fjlhuPLdGQ2K2ZkcBUg+61NMNkl27oCx0GMUB2GBIIbKAlvW+U03eOs9AVPHxfcUgr+y
-         T6oeIiC4NfBb3fH4dYobpgE+bJzHPo5iSx/G6b/Gs+Ca/NR9wab7HptrwDzr5HMA0r/P
-         IGCxoDq6Ey42OHi7SI96uPNfSxghLxSNJnHjRpmLozzlIb63V1JxQMiwzJxyfcTrqySP
-         +aUKjN9ei7eafYQ1YBsNBpQh/GWrRcXWiYZqnNVuM4Xpum7Nz9CEd+dvpMPRwir6kdqh
-         aJ5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791531081; x=1792135881;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=X2kzGm0pzKQj59Ju5/ds69Z4jxb5t44uQPLNR0z8/S8=;
-        b=L5OEMd9hTqFhlKCA0DEUY8RkS5ZycEa2bToQiDnFqEn0cpT19yEFVcNmd30xPJ+JNV
-         JB6CG7PIgDFLK5i3o3gAOkJdgTwHpiK5zhGbTIQCUbnIIdWxs+Cd1ChEyWwA+NyPcFHf
-         26I/sNyvA/UYd5wii/mHZ/lOlpnvfwvlIUzaU9i3wJq37+N8xs/86LHZLrComEh23gdG
-         GAHNysO2x+e3IBTHxNwi7yeU3MMJoX59yGCxLBRf3zbng93sz0atdYH9q3K607Vd3wv7
-         qBeH3sDDk8iF2iyPYjwvpD56vknAlmsA71MoK9fNdkwKZzduT5aq/rSJX8OYf1JHff2f
-         hTgA==
-X-Gm-Message-State: AFq9FYKw0bokeUqGrg0b032E3zbjxraOUoXBTK8maxp4W9ak/QMPlihY
-	eWOXy96Ar9G97axnvica6MA1qHzlogI2w790l+uBTjL3iqYGhhmuXZ6I
-X-Gm-Gg: AYBFou3bP/lM7PGn7P5cQZZl99+lS0TejkDUcJsnACQwDiROWfEM8ADC/maRInez+M3
-	AsvohmGyB2Jkb1w9qGB4LOgB8H40JDzOD5L6RBoHA9A65dEmXKKvWNSR6jz7NJgPCaK2eXa+zMo
-	vwP9yVhUQEWLvoZj6HebeF4dWz+FKuEeakRXjzp4qdmKDwANySirISx5GATVDbMrBDYajq4pV8q
-	Bsb/fTc2ms5FeECq+ebxMIcDzj80lq6qJptScIkVsEyI64VKY/p2ceBX+B47aEIJFLdd6on2/jc
-	gemt3yKLiywaAI0z9eFMjFaba66/JMbj5saXpgZgnT1SWnP5ok5yqK1F60+Gm7CJHLngy+oTFCC
-	BRfEzOz09Uq6C8zPCd9/z8nU/yrfsVB6w3UPF3xPsU+fdhqS+8/EtxJ2xjDkTopcNvpAxQLq/NX
-	Y7/nmekr+REZSzjg2hV+pXumznIn98N05mkH/T3Ki80oHewvzWZwdU5D36Hf/dy0/PYFPHJ+U=
-X-Received: by 2002:a17:90b:2d08:b0:3a4:7730:33dd with SMTP id 98e67ed59e1d1-3ab3ae36b1emr1096672a91.58.1791531081056;
-        Fri, 09 Oct 2026 00:31:21 -0700 (PDT)
-Received: from oslab.. ([101.6.42.129])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab32c0f59bsm1433458a91.0.2026.10.09.00.31.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 00:31:20 -0700 (PDT)
-From: Tuo Li <islituo@gmail.com>
-To: akpm@linux-foundation.org
-Cc: linux-kernel@vger.kernel.org,
-	Tuo Li <islituo@gmail.com>
-Subject: [PATCH] lib/test_meminit: handle kmem_cache_alloc() failure
-Date: Fri,  9 Oct 2026 15:30:40 +0800
-Message-ID: <20261009073040.2995938-1-islituo@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b="aNQ2QDS3"
+Received: from localhost.localdomain (unknown [82.96.140.143])
+	(Authenticated sender: stephane.grosjean@free.fr)
+	by smtp6-g21.free.fr (Postfix) with ESMTPSA id 706AD780371;
+	Fri,  9 Oct 2026 09:31:16 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+	s=smtp-20201208; t=1791531085;
+	bh=Lpz0OuDyaABt8DrFda/UNnzr2ftGZ9uexqEzGQRiEDU=;
+	h=From:Subject:Date:To:Cc:From;
+	b=aNQ2QDS37ohNrWmj2PIvD9ZpmUNRrHB+hvncCq1pdU+b0Je263STE3o+vM+VzxfVd
+	 g/Pqi7gThpLZvgFRDlf5HFIzWQndrKt/3WjlFY26Sox7f3OK/eMav4L5KVo/AO/wUS
+	 tJqwp2WAh0oKNd6v3M11aCz15LPHDtnrdcQZFPe3bepNI6YrYJAfcED7j3zEpllPIC
+	 UL/WodtaDxeF0RNB8Pdek5dseCN8cz5UCxe+eqFMEDuhgSX3HVwOzlEUImI+6ujRbf
+	 zKrCJkVvJC4nxqasAvJ7TIb/bSk/q0iqBBGZPGLNf8kMjF77sJvkOe2w5WQR6PSYe5
+	 r6k2wnW2dNEmQ==
+From: =?utf-8?q?St=C3=A9phane_Grosjean?= <stephane.grosjean@free.fr>
+Subject: [PATCH v2 0/5] can: peak_usb: fixes, cleanup and input validation
+ hardening
+Date: Fri, 09 Oct 2026 09:30:27 +0200
+Message-Id: <20261009-canfd_check_channel_idx-v2-0-f7b772929791@peak-system.fr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIABOYyGoC/3WNwQ6CMBAFf4X0bE1biaAn/8MQsrRbqUghXSQQw
+ r9LMR49TjLvzcIIg0Ni12RhAUdHrvMbqEPCdA3+gdyZjZkS6iyFyLgGb02pa9RNGQ2Pr9KZiUN
+ qMpAgETPDtnUf0Lppf74XX6Z39UQ9xLto1I6GLsx7epTR+1Xyv5VRcsEFnKoqVzZFcbn1CA2nm
+ QZsjzawYl3XD4i58IHVAAAA
+X-Change-ID: 20261007-canfd_check_channel_idx-a4d7a1a1ee7d
+To: Marc Kleine-Budde <mkl@pengutronix.de>, 
+ Vincent Mailhol <mailhol@kernel.org>, Dan Carpenter <error27@gmail.com>, 
+ Wolfgang Grandegger <wg@grandegger.com>
+Cc: =?utf-8?q?St=C3=A9phane_Grosjean?= <s.grosjean@peak-system.fr>, 
+ linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Stefan_G=C3=BCnther?= <stefangun@pm.me>, stable@vger.kernel.org
+X-Mailer: b4 0.16.0
 
-In do_kmem_cache_size(), kmem_cache_alloc() may fail and return NULL.
-The returned pointer is subsequently passed to check_buf() and
-fill_with_garbage_skip() without being checked, which may result in a
-NULL pointer dereference.
+This series contains a mix of bug fixes, cleanups, and hardening
+improvements for the PEAK-System USB CAN drivers.
 
-Handle the allocation failure by marking the test as failed and
-continuing with the next iteration.
+The first patch fixes a bug in CAN error frame generation where
+CAN_ERR_CNT accidentally overwrites previously recorded CAN error
+flags. As a result, information about previously detected error
+conditions may be lost when error counters are reported.
 
-Fixes: 5015a300a522 ("lib: introduce test_meminit module")
-Signed-off-by: Tuo Li <islituo@gmail.com>
+The second and third patches are cleanup changes. One makes a public
+header self-contained by including all required dependencies, while
+the other reorders CAN_CTRLMODE_* flags in ctrlmode_supported for
+improved readability without changing driver behavior.
+
+The remaining patches strengthen validation of data received from USB
+devices. They verify device-provided CAN channel numbers before they
+are used as array indexes and introduce additional bounds checking
+when parsing received message buffers.
+
+Malformed messages are now rejected consistently, preventing possible
+out-of-bounds memory accesses caused by corrupted or otherwise
+untrusted device input.
+
 ---
- lib/test_meminit.c | 4 ++++
- 1 file changed, 4 insertions(+)
+Changes in v2:
+- Kill all pending RX URBs before unregistering sibling netdevs.
+- Reject records targeting unavailable channels during device
+  initialization in rare corner cases involving malformed device
+  input.
+- Link to v1: https://patch.msgid.link/20261008-canfd_check_channel_idx-v1-0-0a3bb82f4e09@peak-system.fr
 
-diff --git a/lib/test_meminit.c b/lib/test_meminit.c
-index 68c3b9da090e..db4b4398e1c1 100644
---- a/lib/test_meminit.c
-+++ b/lib/test_meminit.c
-@@ -241,6 +241,10 @@ static int __init do_kmem_cache_size(size_t size, bool want_ctor,
- 		}
- 
- 		buf = kmem_cache_alloc(c, alloc_mask);
-+		if (!buf) {
-+			fail = true;
-+			continue;
-+		}
- 		/* Check that buf is zeroed, if it must be. */
- 		fail |= check_buf(buf, size, want_ctor, want_rcu, want_zero);
- 		fill_with_garbage_skip(buf, size, want_ctor ? CTOR_BYTES : 0);
--- 
-2.43.0
+To: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Vincent Mailhol <mailhol@kernel.org>
+To: Dan Carpenter <error27@gmail.com>
+To: Wolfgang Grandegger <wg@grandegger.com>
+Cc: Stéphane Grosjean <s.grosjean@peak-system.fr>
+Cc: linux-can@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+Marc Kleine-Budde (1):
+      can: peak_usb: add missing includes
+
+Stefan Günther (1):
+      can: peak_usb: fix missing CAN_ERR_FLAG when reporting error counters
+
+Stéphane Grosjean (3):
+      can: peak_usb: sort ctrlmode_supported flags
+      can: peak_usb: validate channel numbers in PCAN-USB FD
+      can: peak_usb: harden PCAN-USB message validation
+
+ drivers/net/can/usb/peak_usb/pcan_usb.c      | 29 ++++++----
+ drivers/net/can/usb/peak_usb/pcan_usb_core.c | 12 +++-
+ drivers/net/can/usb/peak_usb/pcan_usb_core.h |  6 ++
+ drivers/net/can/usb/peak_usb/pcan_usb_fd.c   | 84 ++++++++++++++++++++++------
+ drivers/net/can/usb/peak_usb/pcan_usb_pro.c  |  3 +-
+ 5 files changed, 104 insertions(+), 30 deletions(-)
+---
+base-commit: a7bfaba4823e3c165bb2004c74eff7c096672bc7
+change-id: 20261007-canfd_check_channel_idx-a4d7a1a1ee7d
+
+Best regards,
+--  
+Stéphane Grosjean <s.grosjean@peak-system.fr>
 
