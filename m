@@ -1,275 +1,133 @@
-Received: from mta1.migadu.com (out-11.mta1.migadu.com [95.215.58.11])
+Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 342004F0554
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 16:32:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 808BD4EFFD4
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 16:32:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791563525; cv=none; b=G6sMA6tawo+j4hWREbQliaJudQQdWC3RhRwWvQGX7nzMMcCCrgs/eOIVGHJNht1UfaQAYnr6ukGCCnnNVHTs61VRH7FISjsSYdqe5FxfDT/CNjueaYSCgVUzOAk6VqasjmjWW5eEVnk7D2R6nnKcWWFyDEfq9LROzjQa4Op8D+4=
+	t=1791563560; cv=none; b=je9393mibRybTVFWXwL0jg9qNWRy9gtGDGfEXbbWC0q26HNS0w4rowptj+s6XugmKmSRZjgqJ3EfhI4P/4WukK/ZZ0RGSnXwgL+k8rs3P3eaCvxMNkXNuFEJkmZ5lkLCc/xjNfRpe6V+1cdfjbr+ATbzKLRaC5F4XargShTY6gc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791563525; c=relaxed/simple;
-	bh=Tp5I2SvhZmWxOMIJktdBv2gzK+6jAyJAW9ZaQxpaWes=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Nrwi7eB+UEpTJ1cYvBJau/h3EQ5xlr2gvRt5lIpmn3wlCWq3CzZ9fSS4ZEafeAbcsvOvaZthIXAw9hNIfksG6N9Hg+AtPQo7sJ7qQVg6+DKNhW2euFhfKAdosLGrNtyUM0Z2TnH87p1QkPp9JpMo1ge5nlNpzERKzlrpa2QmMW4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ViJ+tb4a; arc=none smtp.client-ip=95.215.58.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791563560; c=relaxed/simple;
+	bh=07yf6xBRrUXFeq5vbgPfsiIGYgZGyZxl3GUx7RyhdKM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UG7lgNAYQ/lMz7sBh66PuWNJIKiQARsb184hCx1Jn7iH08+t0s5eIBIpQH5DBFOCGKLHpjnAsZfFF34oyrs6xZlGrVBjEKE0zLzV/xsXnwn416V0/SBTVKn1w/vangL+YcH6JGhAu9Qebx/Ma36p/DDWoZ3QCk8K9w1yuDlcgwU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=EBP18Dwa; arc=none smtp.client-ip=209.85.222.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ViJ+tb4a"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Tp5I2SvhZmWxOMIJktdBv2gzK+6jAyJAW9ZaQxpaWes=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791563519; v=1; x=1792168319;
- b=ViJ+tb4apXiT4p0PYRXHROj9EeN7fUMKhohpUAPVZlcpHslZkwo8HqdmtVXv5mw2kU8aPgWl
- 9i1QrqgdzNi8AmcRNIThNZCmAAT5iRbhKxxFDPA/TSuHcSniikgIQ3IloxyUlLblP0hJ3Ux9cKZ
- 86xM2pqXkUeE1/igkjZEc/Fk=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 7de3defa0feb581d;
-	Fri, 09 Oct 2026 16:31:59 +0000
-X-Mizu-Trace-ID: 7de3defa0feb581d
-X-Migadu-Flow: FLOW_OUT
-From: Usama Arif <usama.arif@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	chengming.zhou@linux.dev,
-	dsterba@suse.com,
-	hannes@cmpxchg.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	nphamcs@gmail.com,
-	terrelln@fb.com,
-	yosry@kernel.org,
-	riel@surriel.com,
-	shakeel.butt@linux.dev,
-	alex@ghiti.fr,
-	senozhatsky@chromium.org,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	davem@davemloft.net,
-	linux-crypto@vger.kernel.org,
-	kernel-team@meta.com
-Cc: Usama Arif <usama.arif@linux.dev>
-Subject: [PATCH v2 2/2] mm: zswap: use stack requests for synchronous decompression
-Date: Fri,  9 Oct 2026 09:30:31 -0700
-Message-ID: <20261009163146.83112-3-usama.arif@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261009163146.83112-1-usama.arif@linux.dev>
-References: <20261009163146.83112-1-usama.arif@linux.dev>
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="EBP18Dwa"
+Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-93e55db58cfso593017785a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 09:32:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1791563556; x=1792168356; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=e/TRD6BwLaJ/NfMLCCm5dSOuj3VkkC7kRDobdLq+Uh4=;
+        b=EBP18DwabsAmk/ldPqkZs5ttP4ZXj2zfsqssMvZL2UZ+8gbjGU1+AXzQJaSO1Fx8do
+         Tet0BEfQtbUcaOug7UP3mMhPUXHricqcTX1wsym/eIfnuPw/xyDWwAA4AGY3ltsRW6gN
+         kxUBzKo9mD+TPVikA9PUwFjEqLDwqrxyll6ggOWZn3RVQctdZq3/+Fr3tCEz4E2UctOO
+         d1L/jAKQyEG+xdZqr0wWzAGJkhstAs9djgfSdPyYdJD3h4b4cE/xFqJlcco82d5HIMbk
+         /LlBs5Tzxk0B6a65p9pbjZxWiK0F0FYKh9LclAN52wpwgRY8CILzo1DiY7KsXx9OPnlm
+         mEuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791563556; x=1792168356;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=e/TRD6BwLaJ/NfMLCCm5dSOuj3VkkC7kRDobdLq+Uh4=;
+        b=BwZ68y7KWwaLrVcv3+5o2+P8lEVYhybSYgWEy6+KchAR1mTB4Jpi1j2xxuwd5tibjN
+         Pbamj9+L6tLTV0cNzyHTRE5nkmCtZyESu9IKYWDiwpoIXARSLGLM+tM8uJniu95skL5/
+         vaLJQPJUJq8zJeTOObKoLHfgzVRnKv74O2zix1U6uzYyDBuPlez4vPFyTRm23fmw1PYm
+         YHrB3F4CtQ683TgaCiMnNywnGizAYHStK8aTetmrsViDJVACuwNAclBkVKk4ulmgZcuR
+         wdxNbC4h5Op8qkglUcXBP3XT8HCOrTDhQViFRjLTsZpLUVsbWP6SfU0F7tEzfcAs/4AT
+         se2Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwlVylBA7WIGKKjiQomDAulzvQ67Swp8gn/b5ES+sL01t/IlTjTJld/Obgpwp1MDngUKN63Q3j9joAjkdQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mM7Gshe/aaX2ALjiS3qEsQlU1h/TjeasvM16q/Vl+kIMS0svC8
+	/kyQscoObSw8TNkE0CLUkdGUnYv4DnHP6k1nqaN+matdtqzWVMTP4wIXraidNKgBA2c=
+X-Gm-Gg: AYBFou24js1qV0jNCOx0sGCoAAJPDD9TwrN4/NNICx6MLPvBdkJ5FJM0bcTvY3ls9BZ
+	XZR4iuIqEmjQxlEmub9Kfpa8q/bAEWrVmtdqTJ7843Poo9xjELvIQF7o2yZ7vjxpJ+ZC5bTv5Bh
+	MAu65BETChfLql5rPqxDYBzEqjmNsf8cDa64C04cv2EoQF3uUVOC5OiMOoPo9pyGVHbQqROf3Sf
+	zb4gbkCjjc1/URs7ufc2INUTeMBA1OmsnKD5blpgpncVkFlk2KLOALjyQ/AHJ0CXiIv5Oor41L6
+	0lJxRKjq3mpK8JUfOZotdPdyLnxnjAi1pBxOOilzqnEic+YZ3xWxWDLa5EUyY1XiDFXtHXP+06B
+	u0JqAifRCRakuPOXe1sgP42IZ6jPoNc576SjS54yUSgBJSpXKSnyYQayGFj///mBYSY+uoQ4Qb0
+	9A22wSuGX+AUuU5TAZHuwf2qovrl0LGuvMiAOwWTX7jQLvCzPMD+9tWn7EcXp4WjZ7ODCX389cV
+	lMR7DWJtFwwa2M3Y5n+qm5VJBqg2IY7Av+JeRir1TDpXg7kRlAyPzGv
+X-Received: by 2002:a05:620a:4456:b0:93b:be6d:4f3e with SMTP id af79cd13be357-93ebd1b7386mr410267085a.25.1791563555872;
+        Fri, 09 Oct 2026 09:32:35 -0700 (PDT)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb98906c3sm225037585a.26.2026.10.09.09.32.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 09:32:32 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xFDWK-00000000Kpb-0HpH;
+	Fri, 09 Oct 2026 13:32:32 -0300
+Date: Fri, 9 Oct 2026 13:32:32 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Robin Murphy <robin.murphy@arm.com>
+Cc: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>,
+	Daniel Mentz <danielmentz@google.com>,
+	Will Deacon <will@kernel.org>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
+	Prakash Gupta <prakash.gupta@oss.qualcomm.com>
+Subject: Re: [PATCH v5] iommu/io-pgtable-arm: Add support for contiguous hint
+ bit
+Message-ID: <20261009163232.GB14213@ziepe.ca>
+References: <20260921-iommu_contig_hint-v5-1-e7fbd1c3774d@oss.qualcomm.com>
+ <20260924001502.GO1540250@ziepe.ca>
+ <CAE2F3rCVh0CmW6+a__PcCrBgsMJVompKJX_qYBdQ=exj3bYtCg@mail.gmail.com>
+ <20260924225340.GC16465@ziepe.ca>
+ <7ab6eab6-ec6e-47dc-b387-eb380e2e365c@oss.qualcomm.com>
+ <52ba8a64-2d3d-4c3f-ae8f-54ab4f0f164d@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <52ba8a64-2d3d-4c3f-ae8f-54ab4f0f164d@arm.com>
 
-With separate requests for compression and decompression, loads still
-serialize on the per-CPU decompression mutex. A low-priority load that
-is preempted after the codec drops its stream lock keeps holding the mutex
-and stalls every other load on that CPU, including higher-priority ones.
+On Fri, Oct 09, 2026 at 04:37:08PM +0100, Robin Murphy wrote:
 
-Synchronous algorithms whose requests need no extra context can use an
-on-stack request, so decompress with one and take no zswap lock. All
-in-tree software compressors qualify. Add acomp_can_use_stack_req() to
-keep the synchronous and request-size checks in the Crypto API.
-Asynchronous algorithms, and synchronous ones with request context,
-keep the per-CPU request and mutex, which is still taken before the
-zsmalloc read lock.
+> range size being unmapped, so even if the total gathered size exceeds a
+> single command, we still wouldn't split it _within_ any single one of those
+> ranges, only at a boundary between two unrelated ones.
 
-Reading the per-CPU context without the mutex is safe. Since
-commit ef3c0f6cb798e ("mm: zswap: tie per-CPU acomp_ctx lifetime to the
-pool"), it is set up before its CPU comes online and is not torn down
-until the pool is destroyed. The codecs keep their own stream locks, and
-crypto_acomp_decompress() rejects on-stack requests only for
-asynchronous transforms, which never take this path.
+The question revolves on when the iopgtable path flushes gathers.
 
-For software compressors this drops the heap request added by the
-previous patch. The on-stack request and wait take 216 bytes, which
-makes the load path about 270 bytes deeper on x86-64. Asynchronous
-algorithms pay this too.
+If the gather only holds a single page size and always starts aligned
+to that size then the RIL splitting algorithm won't cause an issue.
 
-Acked-by: Nhat Pham <nphamcs@gmail.com>
-Signed-off-by: Usama Arif <usama.arif@linux.dev>
----
- include/crypto/acompress.h | 13 ++++++
- mm/zswap.c                 | 87 ++++++++++++++++++++++++++------------
- 2 files changed, 72 insertions(+), 28 deletions(-)
+It isn't a question of allowing CONTs to be split, it is about when
+consecutive unmaps can merge into a single gather. iommupt is very
+general here so it can create gathers with mixed up page sizes and
+trigger the problem.
 
-diff --git a/include/crypto/acompress.h b/include/crypto/acompress.h
-index 5d5358dfab734..12c1ce1f6243b 100644
---- a/include/crypto/acompress.h
-+++ b/include/crypto/acompress.h
-@@ -203,6 +203,19 @@ static inline bool acomp_is_async(struct crypto_acomp *tfm)
- 	       CRYPTO_ALG_ASYNC;
- }
- 
-+/**
-+ * acomp_can_use_stack_req() - check whether a transform can use stack requests
-+ * @tfm: ACOMPRESS transform
-+ *
-+ * Return: true if @tfm completes synchronously and its request context fits
-+ * in the storage reserved by ACOMP_REQUEST_ON_STACK(), false otherwise.
-+ */
-+static inline bool acomp_can_use_stack_req(struct crypto_acomp *tfm)
-+{
-+	return !acomp_is_async(tfm) &&
-+	       crypto_acomp_reqsize(tfm) <= MAX_SYNC_COMP_REQSIZE;
-+}
-+
- static inline struct crypto_acomp *crypto_acomp_reqtfm(struct acomp_req *req)
- {
- 	return __crypto_acomp_tfm(req->base.tfm);
-diff --git a/mm/zswap.c b/mm/zswap.c
-index 23c4298765795..572075bb1c1c1 100644
---- a/mm/zswap.c
-+++ b/mm/zswap.c
-@@ -153,7 +153,7 @@ struct zswap_comp_ctx {
- struct crypto_acomp_ctx {
- 	struct crypto_acomp *acomp;
- 	struct zswap_comp_ctx comp;
--	struct zswap_acomp_req decomp;
-+	struct zswap_acomp_req decomp;	/* unused with on-stack requests */
- };
- 
- /*
-@@ -803,6 +803,18 @@ static void zswap_entry_free(struct zswap_entry *entry)
- /*********************************
- * compressed storage functions
- **********************************/
-+static void zswap_set_acomp_req_callback(struct acomp_req *req,
-+					 struct crypto_wait *wait)
-+{
-+	/*
-+	 * if the backend of acomp is async zip, crypto_req_done() will wakeup
-+	 * crypto_wait_req(); if the backend of acomp is scomp, the callback
-+	 * won't be called, crypto_wait_req() will return without blocking.
-+	 */
-+	acomp_request_set_callback(req, CRYPTO_TFM_REQ_MAY_BACKLOG,
-+				   crypto_req_done, wait);
-+}
-+
- static int zswap_acomp_req_init(struct zswap_acomp_req *areq,
- 				struct crypto_acomp *acomp)
- {
-@@ -812,14 +824,7 @@ static int zswap_acomp_req_init(struct zswap_acomp_req *areq,
- 		return -ENOMEM;
- 
- 	crypto_init_wait(&areq->wait);
--
--	/*
--	 * if the backend of acomp is async zip, crypto_req_done() will wakeup
--	 * crypto_wait_req(); if the backend of acomp is scomp, the callback
--	 * won't be called, crypto_wait_req() will return without blocking.
--	 */
--	acomp_request_set_callback(areq->req, CRYPTO_TFM_REQ_MAY_BACKLOG,
--				   crypto_req_done, &areq->wait);
-+	zswap_set_acomp_req_callback(areq->req, &areq->wait);
- 
- 	mutex_init(&areq->mutex);
- 	return 0;
-@@ -856,15 +861,19 @@ static int zswap_cpu_comp_prepare(unsigned int cpu, struct hlist_node *node)
- 		goto fail;
- 	}
- 
--	if (zswap_acomp_req_init(&acomp_ctx->comp.areq, acomp_ctx->acomp) ||
--	    zswap_acomp_req_init(&acomp_ctx->decomp, acomp_ctx->acomp)) {
--		pr_err("could not alloc crypto acomp_request %s\n",
--		       pool->tfm_name);
--		goto fail;
-+	if (zswap_acomp_req_init(&acomp_ctx->comp.areq, acomp_ctx->acomp))
-+		goto req_fail;
-+
-+	/* Skip the per-CPU request when decompression can use the stack. */
-+	if (!acomp_can_use_stack_req(acomp_ctx->acomp)) {
-+		if (zswap_acomp_req_init(&acomp_ctx->decomp, acomp_ctx->acomp))
-+			goto req_fail;
- 	}
- 
- 	return 0;
- 
-+req_fail:
-+	pr_err("could not alloc crypto acomp_request %s\n", pool->tfm_name);
- fail:
- 	acomp_ctx_free(acomp_ctx);
- 	return ret;
-@@ -956,19 +965,14 @@ static bool zswap_compress(struct folio *folio, long index,
- 	return comp_ret == 0 && alloc_ret == 0;
- }
- 
--static bool zswap_decompress(struct zswap_entry *entry, struct folio *folio)
-+static bool __zswap_decompress(struct zswap_entry *entry,
-+			       struct zswap_pool *pool, struct acomp_req *req,
-+			       struct crypto_wait *wait, struct folio *folio)
- {
--	struct zswap_pool *pool = zswap_entry_pool(entry);
- 	struct scatterlist input[2]; /* zsmalloc returns an SG list 1-2 entries */
- 	struct scatterlist output;
--	struct crypto_acomp_ctx *acomp_ctx;
- 	int ret = 0, dlen;
- 
--	if (WARN_ON_ONCE(!pool))
--		return false;
--
--	acomp_ctx = raw_cpu_ptr(pool->acomp_ctx);
--	mutex_lock(&acomp_ctx->decomp.mutex);
- 	zs_obj_read_sg_begin(pool->zs_pool, entry->handle, input, entry->length);
- 
- 	/* zswap entries of length PAGE_SIZE are not compressed. */
-@@ -985,15 +989,13 @@ static bool zswap_decompress(struct zswap_entry *entry, struct folio *folio)
- 	} else {
- 		sg_init_table(&output, 1);
- 		sg_set_folio(&output, folio, PAGE_SIZE, 0);
--		acomp_request_set_params(acomp_ctx->decomp.req, input, &output,
--					 entry->length, PAGE_SIZE);
--		ret = crypto_acomp_decompress(acomp_ctx->decomp.req);
--		ret = crypto_wait_req(ret, &acomp_ctx->decomp.wait);
--		dlen = acomp_ctx->decomp.req->dlen;
-+		acomp_request_set_params(req, input, &output, entry->length, PAGE_SIZE);
-+		ret = crypto_acomp_decompress(req);
-+		ret = crypto_wait_req(ret, wait);
-+		dlen = req->dlen;
- 	}
- 
- 	zs_obj_read_sg_end(pool->zs_pool, entry->handle);
--	mutex_unlock(&acomp_ctx->decomp.mutex);
- 
- 	if (!ret && dlen == PAGE_SIZE)
- 		return true;
-@@ -1007,6 +1009,35 @@ static bool zswap_decompress(struct zswap_entry *entry, struct folio *folio)
- 	return false;
- }
- 
-+static bool zswap_decompress(struct zswap_entry *entry, struct folio *folio)
-+{
-+	struct zswap_pool *pool = zswap_entry_pool(entry);
-+	struct crypto_acomp_ctx *acomp_ctx;
-+	bool ret;
-+
-+	if (WARN_ON_ONCE(!pool))
-+		return false;
-+
-+	acomp_ctx = raw_cpu_ptr(pool->acomp_ctx);
-+	/*
-+	 * Use a private on-stack request when the transform supports it.
-+	 * Otherwise serialize decompression on the shared per-CPU request.
-+	 */
-+	if (!acomp_ctx->decomp.req) {
-+		ACOMP_REQUEST_ON_STACK(req, acomp_ctx->acomp);
-+		DECLARE_CRYPTO_WAIT(wait);
-+
-+		zswap_set_acomp_req_callback(req, &wait);
-+		return __zswap_decompress(entry, pool, req, &wait, folio);
-+	}
-+
-+	mutex_lock(&acomp_ctx->decomp.mutex);
-+	ret = __zswap_decompress(entry, pool, acomp_ctx->decomp.req,
-+				 &acomp_ctx->decomp.wait, folio);
-+	mutex_unlock(&acomp_ctx->decomp.mutex);
-+	return ret;
-+}
-+
- /*********************************
- * writeback code
- **********************************/
--- 
-2.53.0-Meta
+For iopgtable we have several layers of logic splitting and flushing
+things. I keep forgetting about this bit in iommu_iotlb_gather_add_page():
 
+	/*
+	 * If the new page is disjoint from the current range or is mapped at
+	 * a different granularity, then sync the TLB so that the gather
+	 * structure can be rewritten.
+	 */
+	if ((gather->pgsize && gather->pgsize != size) ||
+
+I didn't try to do a full analysis that it really is enough for this
+series, but if size here is the PTE size including the CONT effect
+then it seems like it could be OK. The gather has to be aligned and
+has to have a single CONT size within it.
+
+My original reply was mostly to be taken as 'RIL alone isn't enough',
+meaning write an explanation someplace why it is safe under the
+current system. The commit messages for the SVA and my later fixup for
+iommupt explain the general concept and problem..
+
+Regards,
+Jason
