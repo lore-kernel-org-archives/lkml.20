@@ -1,140 +1,153 @@
-Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 337F842F6FA
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 08:57:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791536257; cv=none; b=rLe8Gc535SNRR3cJ74jVrE5flXdxYFLN6+w71NDRByirYtZbA8q7+18G+EQt/Cu1i9E1pcAv35zU8eV4XuWqE7ALrfGaxamDQ98jXtitZOfE3/AJOG20HzQqjN+4ZydVuqV64CZnLGldlC9mecfRcT/9jMkIbAhM9h4eqvnATfs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791536257; c=relaxed/simple;
-	bh=6J1dPIvYYNfRgSSEaiEuE6KBeVNgm3/y9XQKAWm3jBE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=UQh52ZvufqDLMArxttMkLjd5S5VuFPWVLH9ErftWq3yo6vYk9Bq7vI1ggy+UyjxuoZynBO5gjeRo606W5GggGmAjp9qh4C64mB36vH+QWO+c5cwGlC7AYKNa5SCbOovNTsLJKhaIsrdHWhIdRK2URa703UxqdcLf6R+fH76risY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b=H9jvTPBT; arc=none smtp.client-ip=18.9.28.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36F6636494B
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 08:57:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791536280; cv=pass; b=GvKm4D4ClpNjcwSzGHz971mIuQjQpko4K/1OdWvDXw2E1mlst9PHUWHhBdg9b40Ch1W50qEJe6BKuAPnjZX89cH1VsBTOls5pKvkPR40hJDUoGVUTeytJZDOQ1SgpQnJB8w27GCn3FdQfibJhKrfov2NVf8u6VeKA3u4hJrJyfU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791536280; c=relaxed/simple;
+	bh=NfETxoF4ucCCZgxIexpfcNpfV4dYp0/llOpv6Ji+XEg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=aYjdmTnKyXzqVXJYJ0o6ljvYO7bHJOqB/x+gBtNM56ZF/gc/mJLZDB0CDy2G7wu3Z2Uy21SGjOm3/2kTRya2yefppH+JA+ntRFWgl/rv4FbJSg2GX4TJ9bPk6AluXXMp0WkbQeOUHXzBruFvJgDXDJUuz4BKT2TXzWeAbOfztPE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MhVxsxXe; arc=pass smtp.client-ip=209.85.218.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b="H9jvTPBT"
-Received: from trampoline.thunk.org (pool-173-48-119-87.bstnma.fios.verizon.net [173.48.119.87])
-	(authenticated bits=0)
-        (User authenticated as tytso@ATHENA.MIT.EDU)
-	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 6998uY3c014211
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 9 Oct 2026 04:56:35 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
-	t=1791536198; bh=n+26eLxK3oQ7b/C6oneNrEOgUCszQM7atT4O7C1aafU=;
-	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type;
-	b=H9jvTPBT1bY1ns3y4IbwKuNDBx+CGa7MpLtRpNS+yA8iRZp6CgcaI/1lzSYwErG3s
-	 I9+MnDCiuj3OehFFUyqCusuwrhWCThf9nSKtdCq1NwDkLrt/H25zjFeSEcoaSsPckV
-	 eA3xmi5tCQeojXsEbTrqYo96MlWXpYjA31DbGMf5tSGHQiEzTrE5nrEQ2BTEEDsO7H
-	 GbaZD9L4RCL7UWyOF3YaG5p1DkYrpYUNirMkt0PQRm03hK9xuFwcRWFHf4X99fna5z
-	 D00gBFuAz+EoFN/s0TgeiuNU+3rnUWdIqFmjXjnYdV26rnzHA69hnmsv5feV0/1uCh
-	 G2D+SUE2OkZog==
-Received: by trampoline.thunk.org (Postfix, from userid 15806)
-	id 690C62E014A; Fri, 09 Oct 2026 04:56:31 -0400 (EDT)
-From: "Theodore Ts'o" <tytso@mit.edu>
-To: linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-        Zhang Yi <yi.zhang@huaweicloud.com>
-Cc: "Theodore Ts'o" <tytso@mit.edu>, linux-kernel@vger.kernel.org,
-        adilger.kernel@dilger.ca, libaokun@linux.alibaba.com, jack@suse.cz,
-        ojaswin@linux.ibm.com, ritesh.list@gmail.com, djwong@kernel.org,
-        hch@infradead.org, yi.zhang@huawei.com, yizhang089@gmail.com,
-        chengzhihao1@huawei.com, yangerkun@huawei.com,
-        wangkefeng.wang@huawei.com,
-        yukuai@alb-78bjiv52429oh8qptp.cn-shenzhen.alb.aliyuncs.com
-Subject: Re: [PATCH v6 00/31] ext4: use iomap for regular file's buffered I/O path
-Date: Fri,  9 Oct 2026 04:56:25 -0400
-Message-ID: <179153611724.860602.5266334742364847927.b4-ty@b4>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260903123543.2302999-1-yi.zhang@huaweicloud.com>
-References: <20260903123543.2302999-1-yi.zhang@huaweicloud.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MhVxsxXe"
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c315869241fso707436566b.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 01:57:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791536277; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ZBSNWPFHNznO4IQsdG9bUxic4O1MTC7thdu5kwsAusSTZ2xt7QNqJBQOKw8jwrSiNf
+         UOwaCfykqKo6gwWnFCisyS9uybuvGYBMd0sUv6mM/2N1Xx7R5BAnvdebkzutdVGQvy6E
+         97928didJxHYFA/ZtB/cyw92qE/C3eqmw/418vc4EyMnFy5uMDgA7sgAIIjgYh3yuP8C
+         U36B+1yO4DphybvENGpyn+LUfvutJLFPE2uMHuCjQ8l9oZN0bgS+yrV1Z9OkSueK2xIs
+         9b51Vgp3auVDq6p0+Op17arKMIAQiBXqWSuT9E6lcWQbKsLrFMMt7f8qzeB9+QmaIgte
+         rUmA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=NfETxoF4ucCCZgxIexpfcNpfV4dYp0/llOpv6Ji+XEg=;
+        fh=VbCQzb583LkRqfdtq2BfhehZOx6IMB0aLGo7hRGSaEw=;
+        b=E0lvoxxTroe3mqmYjn3E4aEsj0k7hXI4aBjoxLmh2h3ndknpMVAWyY+K1ZQsw+wFap
+         4GrfXpdH97zB6B5jpTn4AfWhnYzMGYD+dkx/DzL1mtnS508uhBO3mMvvRkk90AI6uA95
+         ZuQhFy1iG14yEgkaBXWMWSk3ac5DEVSm0VLCSMG6qetEVTx9e63zYbEWR9/viLvX1lq5
+         hU81n97I6XjRfaMi00IxI53ANGUNKkBWGwOm4oQE8Yp8PbqeVUDLBzbk2whag+mGxiST
+         cTPLEwhe1w61PNOxtTJbXNSgv4aQ7dflftalE6hsXcXA/DMDxiOxcPX9Lrfa0sCGyLDg
+         fpjw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791536277; x=1792141077; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NfETxoF4ucCCZgxIexpfcNpfV4dYp0/llOpv6Ji+XEg=;
+        b=MhVxsxXecptYlID4IUm6AzVPsaZN7LkFCH0SBo4E+MoN+TJL/npo0mDZK2znYZIeJ2
+         PW97Pa+Osx+gNnMHmIAs7cPvxS12or/PKKUz7/qbkHYy8rLZSxpF20DJap/gyxiYoUAr
+         2q/bGcQby+XFX6NSzE67/53HO8jy5q5b4Cu3xasSGS8cKCfu8jQDgm7eINV96PwWBvc1
+         qegyhSnNxBqvhzB8EEdbyFX6szGaQdDm/sZrdbYE4MSfL+V2UU/vJDMe1yXTZlufVh0D
+         m72ZXvV27HvXndSuaK/h/286TnCgjyzB+oeT3+NhhWuGJ9T/NphgzhKucCkXKfltuH9/
+         tcFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791536277; x=1792141077;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NfETxoF4ucCCZgxIexpfcNpfV4dYp0/llOpv6Ji+XEg=;
+        b=sjfKj2LwsgzYWpRcVfizMT1EMBgNKoX9umsquDleUAgL27vG35Y3g3XBZOgevh/qIl
+         7Fs5AqtUpMR8nk2fhNHlcv0s3H+uH5ajCPAcmeIg+BpjU5lEJkAqBE4CX64UNbwNprkm
+         MZgmED9t7//EBCb/rRy86/5g1hqolTJAAn2Ttdo4SIN13S8itUUBDooXGH89cmJivwMX
+         AT6sUj36Kl7InlsWZTIRtQGMaDTUQvmDfV6GmQwTpprjEllkcxcgvDd8krK4Q7aQVhJT
+         6s8Yy3srGSFD9mU0H3V3lAQ181n7T1c3DVcA1dr31V2SARMe9kzXtcuO9W4uHzcmQ9Bb
+         xuKg==
+X-Forwarded-Encrypted: i=1; AKwUvBx4PSGMFMeVUtKYavOSrtTbjgLZ70gYvgKu7FcEu8zmXSoXoxYAOAXwR+9tsyS3+Y8xVs81Lro85hca+qk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLIZFogfIqOceyRLacnjSSjUtNLOFjNi8/bbmKyTSYDb7J51O0O
+	ov9LfY4Kjr+wxOaQAuo8aagIsYIfLtoeO0tSAp8yVO1WWJOJscutPMN4mscsB+u5dZyXg7x9vle
+	6caZwfrdZv0D9hdKqsJBGjNGbHz2aa1k=
+X-Gm-Gg: AYBFou1iNtqHjpREmOIjWsR6sWNanluS30MnW9GHqCFeCYXDg3sURcpw8OidOrdQUJj
+	DPHS9AfmoGQ6BxbMwjTWGHyqfIZEV5nyUinO54GhileGVHm4t4IJvFafvzBpRm7BTfdZCSn1Wms
+	NEXluylZ9/PGxv0io0ZOaVrM3r/053SEb4NyXmOyV862uzpRZdPL1FFjWdItznnjAwKVSPrh0Jc
+	jdyu84RzkXYW8JiuLZmqRAAmimrLPg2yYSYEQN48OoZj02pOj1TmWd+qj6WTlBTYx5An13W/gLT
+	LCUzyxWPiqh1Gb7zP0PY8UpJdOq7PDcd9we/l7FEZx8K2t8s0WcGWRFfPLoeMWw+oKJcRiGSZGV
+	xBEovWvqAb8eZitKVF7QRu5hScd+sjZqZHDZfY600+vKChEcttZBlFBrS2N3OFuyrr098Kmb5kQ
+	cNdl0vzMeTiH1HnepoQROWc9P8HzBAKQsQuPDd/o3Q
+X-Received: by 2002:a17:907:c19:b0:c26:19de:9ae1 with SMTP id
+ a640c23a62f3a-c31a9f92fafmr107811566b.32.1791536277123; Fri, 09 Oct 2026
+ 01:57:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+References: <20261008-aspeed-vuart-v1-1-d2be17c99cd7@phil.gs>
+In-Reply-To: <20261008-aspeed-vuart-v1-1-d2be17c99cd7@phil.gs>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Fri, 9 Oct 2026 11:57:20 +0300
+X-Gm-Features: AclHuK9b12DMuE5IdZa06_5PZbK1OQ4johR6fh1kbHOWemGxMcH63xDoKEpiMps
+Message-ID: <CAHp75VdiO9tPX2vLqsX2-omNvs-YjkWWD-HOiqyDSzpJrrZ_5w@mail.gmail.com>
+Subject: Re: [PATCH] serial: 8250_pci: Add support for ASPEED BMC VUARTs over PCIe
+To: phil@phil.gs
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	Corey Minyard <corey@minyard.net>, openipmi-developer@lists.sourceforge.net, 
+	Andy Shevchenko <andy@kernel.org>, Joel Stanley <joel@jms.id.au>, 
+	Andrew Jeffery <andrew@codeconstruct.com.au>, Ryan Chen <ryan_chen@aspeedtech.com>, 
+	linux-aspeed@lists.ozlabs.org, Ninad Palsule <ninad@linux.ibm.com>, 
+	Andrew Lunn <andrew@lunn.ch>, linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Thu, Oct 8, 2026 at 4:27=E2=80=AFPM Phil Rosenthal via B4 Relay
+<devnull+phil.phil.gs@kernel.org> wrote:
+>
+> From: Phil Rosenthal <phil@phil.gs>
+>
+> On systems with an ASPEED BMC, the IPMI Serial over LAN (SOL) console
+> shows the firmware and the boot loader but goes silent once Linux
+> starts. The UART that the BMC bridges to SOL is not a legacy COM port:
+> it sits behind a PCIe function that no driver claims.
+>
+> ASPEED BMCs such as the AST2600 present this "BMC device" function to
+> the host (1a03:2402, class 0c0701). Besides KCS, the BMC firmware can
+> expose up to two 16550-compatible virtual UARTs through it, and host
+> firmware redirects its console to them, for example "IPMI Card SOL/COM2
+> (Pci Bus9,Dev1,Func0,Port0)" in the AMI setup of the ASUS Pro WS
+> W680-ACE IPMI. Register these UARTs so that the kernel console and a
+> getty can be used over SOL.
+>
+> The UART registers are in BAR1 at the VUART's LPC I/O address shifted
+> left by two, one 32-bit register per 4 bytes: VUART0 at 0xfe0
+> (0x3f8 << 2) and VUART1 at 0xbe0 (0x2f8 << 2). A VUART that the BMC has
+> not enabled reads back as all ones; skip it so that the ports present
+> are numbered contiguously. If the BMC exposes no VUART at all, decline
+> the device so that it stays available to other drivers such as ipmi_si,
+> whose PCI table matches the same class code.
+>
+> The function has no INTx pin and advertises 32 MSI vectors. On the ASUS
+> board (BMC firmware 1.3.13) no interrupt was delivered on MSI vector 16,
+> which is the vector ASPEED's own host driver uses for VUART0: transmit
+> stalled and nothing was received. Poll the ports instead.
+>
+> The same function also exposes the BMC's KCS interface in BAR1.
+> 8250_pci does not request the BAR, so an ipmi_si interface described by
+> firmware (ACPI or SMBIOS) can still use those registers. ipmi_si's PCI
+> driver, which matches the function by class code, can no longer bind it
+> while a VUART is enabled.
+>
+> Tested on an ASUS Pro WS W680-ACE IPMI (BMC firmware 1.3.13): the kernel
+> console and a getty run on ttyS5 over IPMI SOL, while a non-PCI ipmi_si
+> interface uses the KCS registers in the same BAR.
+>
+> The register layout and MSI vector assignment follow the host driver
+> from ASPEED's SDK as posted in 2023, which was not merged.
 
-On Thu, 03 Sep 2026 20:35:12 +0800, Zhang Yi wrote:
-> This is v6 of the series converting ext4's buffered I/O path from
-> buffer_head to iomap. This iteration doesn't have significant changes
-> since v5. It just fixes bugs pointed out by Sashiko, improves commit
-> messages and comments to prevent false positives from Sashiko. Rebased
-> on 7.3-rc1 (45c13f3f9e3b).
-> 
-> You can get commits here:
-> 
-> [...]
+There is already a driver for this 8250_aspeed_vuart.c. Please, do not
+add new quirks to 8250_pci.c.
 
-Applied, thanks!
-
-[01/31] ext4: simplify size updating in ext4_setattr()
-        commit: f1dac42750c950dbe9f222b7520f082fc063fcf7
-[02/31] ext4: factor out ext4_truncate_[up|down]()
-        commit: 7ef800c025eaeb426883c16f02f930da51160306
-[03/31] ext4: skip ordered I/O wait when zeroing beyond i_disksize block
-        commit: 4df90406bf62f90f4270ced45bd8500134dea5ff
-[04/31] ext4: set EXT4_MAP_NEW flag for delayed allocated blocks
-        commit: eaff8d796722ccce34581b03f24534a6c29bcfa1
-[05/31] ext4: recheck extent status tree before block allocation
-        commit: 9a9ce46904bd90622947567b58188e34bf370e95
-[06/31] ext4: fix orig_mlen initialization in ext4_map_blocks()
-        commit: a151ced18d2f51db2c89c2067c1529d06ff88170
-[07/31] ext4: allow ext4_map_blocks() to start its own transaction handle
-        commit: 8787d53c6c84dd13d5b5027c7d9c890499b7a03b
-[08/31] ext4: avoid unnecessary transaction in ext4_map_blocks() for unwritten extents
-        commit: 5c42228dbb3f2e10ebeae18844e835655e145f0e
-[09/31] ext4: skip block allocation for holes in the data submission path
-        commit: a88a4ccb5d8c09f76fb7eacd85abb34b1d1ee461
-[10/31] ext4: add iomap address space operations for buffered I/O
-        commit: d7b0117968de9bac63b67b23bf980494f4d98093
-[11/31] ext4: implement buffered read path using iomap
-        commit: e933fd1b6cd5322563d5caf283dabd9cd09bcef8
-[12/31] ext4: pass out extent seq counter when mapping da blocks
-        commit: d5fc46e0fe6747f5281cd8e8eca09e53137dcd48
-[13/31] ext4: do not use data=ordered mode for inodes using buffered iomap path
-        commit: ad5eab6106328336f03d59b48332a67f37ae5279
-[14/31] ext4: implement buffered write path using iomap
-        commit: 8dccd9f0a1a93f47b758fcf6b3f7f304a1309680
-[15/31] ext4: implement writeback path using iomap
-        commit: 5c83026214c990923a2ef4ce38c2c773e9ff86ad
-[16/31] ext4: implement mmap path using iomap
-        commit: d13be7c144f9df5fc5cb452043f4a2e275f55114
-[17/31] ext4: implement partial block zero range path using iomap
-        commit: 92cd6a8e63caa0815197921f40fb6235d4bdfe7b
-[18/31] ext4: drain writeback before removing extents on the iomap path
-        commit: 8cdd6123c732c039320edf5105eec25b95edb2ba
-[19/31] ext4: add block mapping tracepoints for iomap buffered I/O path
-        commit: 9baea35b95c29a07b8f2c813a29ebe473202ae16
-[20/31] ext4: disable online defrag when inode using iomap buffered I/O path
-        commit: c6d61f8e3e4f75e341958f83d853b872168b4836
-[21/31] ext4: add EXT4_STATE_DISKSIZE_GROW_PENDING state bit and helpers
-        commit: 7894caa160a917b5c69e6e11773106634f70fe28
-[22/31] ext4: submit and wait for pending disksize-grow I/O on writeback
-        commit: b9dc57ecc8a5ba34299e737d4954c1df54f16ea8
-[23/31] ext4: advance i_disksize to i_size upon disksize-grow I/O completion
-        commit: 61bf54b10d4fdcb32ce0cd625dfc14e7f2c02359
-[24/31] ext4: defer i_disksize update while DISKSIZE_GROW_PENDING is set
-        commit: dce8729e91d2b967574a94e2636adbbb97dea44f
-[25/31] ext4: submit and wait for disksize-grow I/O in fallocate paths
-        commit: 4b0d638453ade967e99883d20564c2b0e53dc290
-[26/31] ext4: clear DISKSIZE_GROW_PENDING on truncate or error
-        commit: d8938e95403ed7888b80cb39d7e7e047a493161e
-[27/31] ext4: set DISKSIZE_GROW_PENDING after zeroing unaligned EOF block
-        commit: 7e6b2d5ae79a8060610fb20fc4690ece412403cb
-[28/31] ext4: add tracepoints for DISKSIZE_GROW_PENDING set, clear, and wait
-        commit: ec18ea1899e51f5a00abe4563d21b362e026cfd5
-[29/31] ext4: add tracepoints for EOF block zeroing and disksize-grow I/O
-        commit: b3ddc732eb4c07947f6b45df58964ea9e3bfc48f
-[30/31] ext4: partially enable iomap for the buffered I/O path of regular files
-        commit: 03616d672cbfae29ca08b706dff8512debfa4781
-[31/31] ext4: introduce a mount option for iomap buffered I/O path
-        commit: 35aefefd7aba0801bab635b11943f932626be3b2
-
-Best regards,
--- 
-Theodore Ts'o <tytso@mit.edu>
+--=20
+With Best Regards,
+Andy Shevchenko
