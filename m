@@ -1,64 +1,63 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55C5445D91C
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 10:19:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 048D043712D
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 10:19:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791541163; cv=none; b=Hlo+I03NtaYlI35GXEMolCmZ8T4SdXvfF3uC0DDLgrsau60RYShT7D0zsINUDR+ADoocYeYodEfeQOZHbGO889H/IunHohlB5nk11Bm0oOIJ4qH77TBW1KFYHdLPCws4MsJDglA7PBMJqd9B8gcr66wLhR+a72KfLsXBdg7PuzE=
+	t=1791541164; cv=none; b=ohoSMEcbhovGuq9QWEZV9dUDAxckjitHKH1ePbiSR/T86h+ouAQsc2YgWUZjhtr9Zho1rfvHVPmpyO9l3C85/CS0Iq5WTv/Y5pcd6H1To8DgkucfonWpey3oz+v7gvB27pWNf+aYgczgZ3zaQCQQt/cZVj8coYPex4x81Lw/Nek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791541163; c=relaxed/simple;
-	bh=/fkyHXb3VwCsr5Urp3Xp9YIdu8mewUpcr+aDP8HiP/g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tBw8YAcMpPTizEPdAANCpUp02MUmq+XF6K34LzESro5ZQLP/bSqVQpqg27j68Iy0UR07/e9COlk6rFjPw39pUex3vH/JYSKILbZsiBY5lOZfJ9i2dXlrWQGKmEE0PyNGAtURPshhNgLpUx0xkOW/GVaqHyEDi6CdMJLT7DhhEeI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=egicon.com; spf=pass smtp.mailfrom=egicon.com; dkim=pass (2048-bit key) header.d=egicon.com header.i=@egicon.com header.b=CQUqNEWx; arc=none smtp.client-ip=209.85.221.48
+	s=arc-20240116; t=1791541164; c=relaxed/simple;
+	bh=hZhsorpyhrdePy/eS4UBgZy3PoTlUAnavPITsk1OkvE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KU5E8qvv+2td6Ydpa1EKzl0Z675MAzKxNEChY9TKh/+KkBfAoV2cTGiRRSmVO4Sn782B2XrANuw+SrjWb+NQwZp2M2gdlq5AoQJF5a/SDu5pyH3spe62jcgeDppxurCD4EX4Dn9dpYYWbzBs39kDxXC/6druLpFZxBYTQaAB1Yo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=egicon.com; spf=pass smtp.mailfrom=egicon.com; dkim=pass (2048-bit key) header.d=egicon.com header.i=@egicon.com header.b=BvDBnx8n; arc=none smtp.client-ip=209.85.128.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=egicon.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=egicon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=egicon.com header.i=@egicon.com header.b="CQUqNEWx"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48b0584ad71so2571700f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 03:19:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=egicon.com header.i=@egicon.com header.b="BvDBnx8n"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a022fee0caso37882125e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 03:19:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=egicon.com; s=google; t=1791541159; x=1792145959; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=A+PiZHw29u045WP6AUybYl05Nsv+v/dCEoZaPbR/Ppc=;
-        b=CQUqNEWxvAxnNE8pfPYEpVj+2WQC8F0ZY4XSjvaI+fyoVgpow6y4UMAp6g1JAmyQo+
-         kc6ZHza8MtAve+xOnSuhcM/7ghPGFcaAWyztx0l1+WS1zrzFgVPyvqYW+aGNXdGflckR
-         ocJBh/wm/ergA9dV67wnKDHUPXQSjGcAfGxCqb+4KcQBqZ1Xg1CxJLDiEmFxaVh6Wrs7
-         LIOTzNWcaJE90GQISo6d67Bs4CgQFQgxFRcEbyrql85kyBsjiDANbeSlH0FcMUTU+Qg2
-         /HVw5y19Y9JKV56CPrQEsTb81PdEuIDDWuVaxctRZ3b/V5EKrjJp36Uq/KXJIss6vs5j
-         gZGA==
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/IxRkMGThu4h80nLCH1Odchuo85RZD5Hjt36tJqVTTI=;
+        b=BvDBnx8nC08RrqlYhZSKKf6LOvcsIv8KTrEy6A2VHCUy73c5jWtJlCNEllUFvT5g87
+         m50sq3t4TALfi+YhlZ1Nm5OObhWXWAGUKxAsrOzxaSeepYRKW9NszwXNkMzmcDRXZH+7
+         4d1OFKfcsMGqJsJCE5zLvW+8Srf3XhKJf+i842p0gs914TNjlLHhaMFrkH7LGEQ7mAHW
+         wsiO8iV/h2sK0H/lUVaX/lubC0dUvXqS58vN//SU+2khTKRtlnO0C9otOhpPlOeWLKgN
+         f+Y9q9GuIIF3Mkyg90Z6nsOpknv2Gox9xWXEajsSII4LW99rfrBpIyQ1cfNrTV4Zbk/N
+         YAKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1791541159; x=1792145959;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=A+PiZHw29u045WP6AUybYl05Nsv+v/dCEoZaPbR/Ppc=;
-        b=UJpGD3vH8l19ApDyr5GKEYWW2CFPzZkJBB/J6/UDblnAiO0aMC9KohebEVnr0hvl+G
-         xHV9X7r6Y0Z98IqFgDlM6gwkb+WoPo7Tmcf0dRW0TQLN130ELsKRDIoD2sL+4X1VtDsV
-         7RGWdjk2YaYF3Q28+if1XGmen3lPFjkfMOnBfV0Bq9G2N9QrBe2FAU3QpB2fe98BNiQb
-         MZXyBYO6EnQcNB3X57fXScifJiOK8wH9Dak5l8SNxdAGXVwxbeVfdfkOnhSUqnaGMltI
-         8cQgl801HaWAsG/2KCv3JBIlKau1Qug+3cA7zoCJbhY5qOqio5GyEEh4384FiHx9mtfU
-         qETQ==
-X-Forwarded-Encrypted: i=1; AKwUvByFTOP0PbSxRDOoyuKQR3TTv2cincmT7/hdqTHTQb5hx7eE4O9/gnnt4IVyZCZ/vi43XzeEndiQEuus2VY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKZCre4gkF4S4kIGsxIMRlfD9qHJFl7fGWwb9NbIHmiU/GMYV5y
-	3QI7eOuM9pvRm6ycI4Dm+dYNcVweVEyK1RMVMSMwOF/umpP9uGB/zXwxmA1Cv0THbw==
-X-Gm-Gg: AYBFou0XJrJ/D2CU20907DDT506/kd05Gg6VdNX8M0w/Y6QMdVxHigp9OlPtnd6oBF3
-	l8Xq6yHnmbdVBm/ybbWP+ESLB2LrRJGMTnO8SmIteWyjpWwUAbimLzkoEnOKOAHZRh38z5aAlv5
-	VddVEDpUMxVwtS5bOnB/41HFO8FFkAbHOjcJpGNC7JqV9F1KqIxfrt8Lym3aMzuDPMnoQv4j9uk
-	I+/zaYisvMn8o12ibIjNj+XXOMUEJhDrdI729pLfWvACOqHAw5rTEb1DQTEwKMU8ZXVPaOKZ7n6
-	ODbIJf0WhcivByS9HehvO7gTMSvYwaYPac2WqizQ6Fs4OyydLJlbRA/SOGNUoVGDyPb6ZcY6ClV
-	2n5V2jRruz9A/2fAhW7n8niWwToUulHcB3ziF3Bc+9gVntIy4MccUdYkKc2Pw4A1FXLTAnn/CIg
-	41enHHW9t7N3qtMFtFzFkNm6w+9tgQwzaR2FSXiOC9/wgZq2M6c7Uhmq+WB6llIAaFhbamiYRm4
-	neGd2sZUMcyUVJ8GFL2TgjHIAKGUP6airut6Ee3EN5uyB8/t9MuEhsjmmO0TOJ3Og==
-X-Received: by 2002:a05:6000:41cc:b0:48c:7037:aee9 with SMTP id ffacd0b85a97d-48dbad48cc3mr2103538f8f.50.1791541159545;
-        Fri, 09 Oct 2026 03:19:19 -0700 (PDT)
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/IxRkMGThu4h80nLCH1Odchuo85RZD5Hjt36tJqVTTI=;
+        b=FMjC6Bcjs9R3PZ9S5PqHmrafiFrBfKuH3LYDsPvDgPTNj0OTo9V5jgngfvWNTup3mC
+         xZtOSbCH+xdNhGUFyGGlz3VDvIZLYbr16u9Abp3sdTSTCQhj8CiW398BtYW2niHAe3xf
+         q0pwQrPdGustA0bh+E7MHUfAXW4qOxg2kp585BLJEYTI0ckFkUrHownMgqexsYRoBIj3
+         fMMCYrD7DT/iAf8P+5lSXIWH31jp813v3+RqMNIuJGwEQO6NIa0l9N0ItpwVb8BJcoke
+         GbEk+ODPV5o7Vl5zVKdL16tX/asJXMTusP9cPvMHZ2giHsq72Lcl7RIM/rYpLfnR3Wcg
+         X/TA==
+X-Forwarded-Encrypted: i=1; AKwUvBxBqsN30hOoD70bIJdQt6pwN7Uzx91Uy3vWiR/4aVLyoOQVhKI4/autM/VyzT7IPCEL+CXln8sGTdzDAYo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mA406CiESVa17Yf7RQEN6daBlfZ5LRuM4FY/BFGuIeIpJriAAF
+	DAdtqln6MZytHGAbrfhIE3ob6ttte8A/eDXhw41GOIP5I7YfBHnv4IbMByjuf9skCFVXj8wH5eF
+	uEdU=
+X-Gm-Gg: AYBFou3QAvQSfiXKR6uEli18n2ia5hQOuB8l4jjwxgQvKNeiBjg70cQogWGAXJmoSA5
+	ertRNmZjbEJ/6x1gW0m3z37b6wA0lDenh4UQyci1hCJk/7lUkK+ajgtNkXu2CrmEug+6fh/7ImS
+	+zmf6FeJT2Wp65lTeS0p1gx6+6dDLmj4IqtzO6kGA9QViOhQNZzP4vy7tNbQ0K0JomiUSXRGw13
+	CE8CMZfTrfwM8dyf+pa+yxKBLH1i2Hy8Pu7/RtqZIRsOqXu5gu1IAOxizveCWCBHlsY8RjaR2Xd
+	VMWgz2hG7r5ZyAvPtROPfdKlJtGQMhdzzNIGu2LeQBQniBwnIovl+EvRKMjwEugpSgM1iRra8i9
+	xYqqZo32y7Q5YfWzKUXd5EWsBOCf+3pb7iwvjAu9dFfdY+TF6hrEfwCEFwuwsRHyqPxCx0kqblK
+	9YiOCrg6ErjhTDL/sG0r7ik5YEyIQX2riLiP8vuTcUWBHMVvzMx/BgQujh8D/XhN9NASbK6p18U
+	A3q19vPaoCzLJa3f/xbmUln50vtdy7GmsfpuB88pzY4PwnhBnZqbQSiJjPnGJU3
+X-Received: by 2002:a05:600c:3494:b0:4a0:bc9:28c6 with SMTP id 5b1f17b1804b1-4a18e4fb31emr24381795e9.34.1791541158877;
+        Fri, 09 Oct 2026 03:19:18 -0700 (PDT)
 Received: from xpsmax.egicon.com ([37.179.95.159])
         by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9acf12bsm3189363f8f.46.2026.10.09.03.19.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 03:19:19 -0700 (PDT)
+        Fri, 09 Oct 2026 03:19:18 -0700 (PDT)
 From: Massimiliano Marretta <massimiliano.marretta@egicon.com>
 To: David Howells <dhowells@redhat.com>,
 	David Woodhouse <dwmw2@infradead.org>,
@@ -68,12 +67,10 @@ Cc: keyrings@vger.kernel.org,
 	linux-kbuild@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Massimiliano Marretta <massimiliano.marretta@egicon.com>
-Subject: [PATCH 1/2] scripts/sign-file: add bulk module signing support
-Date: Fri,  9 Oct 2026 12:19:14 +0200
-Message-ID: <20261009101915.495734-2-massimiliano.marretta@egicon.com>
+Subject: [PATCH 0/2] Add bulk signing support for PKCS#11 keys
+Date: Fri,  9 Oct 2026 12:19:13 +0200
+Message-ID: <20261009101915.495734-1-massimiliano.marretta@egicon.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261009101915.495734-1-massimiliano.marretta@egicon.com>
-References: <20261009101915.495734-1-massimiliano.marretta@egicon.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,241 +79,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When signing kernel modules with a private key stored on a PKCS#11
-token (e.g. a Nitrokey HSM or a SmartCard-HSM), every invocation of
-scripts/sign-file pays a fixed initialization cost that dominates
-the actual signing time. On the reported hardware this cost is
-about 25-36 seconds per invocation, mostly spent in token
-initialization, PIN verification and session setup.
+Add support for signing kernel modules in bulk when the signing
+key is stored on a PKCS#11 token.
 
-Since a typical kernel build produces hundreds of modules, signing
-them one by one is impractical.
+Currently scripts/sign-file signs one module per invocation. When
+the key lives on a PKCS#11 token (e.g. a Nitrokey HSM or a
+SmartCard-HSM), every invocation pays a fixed initialization cost
+of 25-36 seconds, which dominates the actual signing time. For a
+typical build with hundreds of modules this is impractical.
 
-Add a new '-b' (bulk) option that accepts multiple module files in
-a single invocation. The private key and the X.509 certificate are
-loaded once, then each module is signed in sequence, reusing the
-same OpenSSL and PKCS#11 context.
+This series adds a '-b' (bulk) option to scripts/sign-file and
+teaches the kbuild system to use it automatically when the signing
+key is provided as a PKCS#11 URI. The classic one-module-at-a-time
+behavior is preserved when the key is a PEM file.
 
-Measured on 50 modules with a key stored on a SmartCard-HSM:
-  - individual invocations: ~24 minutes
-  - bulk mode:              ~3 min 17 s
+Patch 1/2 also extracts the body of the signing logic into a
+dedicated sign_single_file() helper. This is done to keep the
+new bulk loop in main() readable and to avoid duplicating the
+argument parsing logic. The extracted function contains no
+functional changes with respect to the current upstream code.
 
-The fixed per-invocation overhead is eliminated (~25-36 s), while
-the per-module cost is unchanged (~3.2 s).
+Measured on a build with 50 modules and the key stored on a
+SmartCard-HSM:
+  - before: ~24 minutes
+  - after:  ~3 min 17 s
 
-The default behavior is unchanged: without '-b', sign-file works
-exactly as before.
+Note on checkpatch: the series produces a few "trailing statements
+should be on next line" errors on sign-file.c. These come from the
+switch statement in main() that is moved within the file by patch
+1/2. The affected lines use the exact same style as the current
+upstream sources (case 'x': stmt; break;) and are not introduced
+by this series.
 
-Signed-off-by: Massimiliano Marretta <massimiliano.marretta@egicon.com>
----
- scripts/sign-file.c | 159 ++++++++++++++++++++++++++++----------------
- 1 file changed, 100 insertions(+), 59 deletions(-)
+Massimiliano Marretta (2):
+  scripts/sign-file: add bulk module signing support
+  kbuild: sign modules in bulk when the signing key is on PKCS#11
 
-diff --git a/scripts/sign-file.c b/scripts/sign-file.c
-index 86b010ac1514..241f4538fd17 100644
---- a/scripts/sign-file.c
-+++ b/scripts/sign-file.c
-@@ -46,9 +46,11 @@ static __attribute__((noreturn))
- void format(void)
- {
- 	fprintf(stderr,
--		"Usage: scripts/sign-file [-dp] <hash algo> <key> <x509> <module> [<dest>]\n");
-+		"Usage: scripts/sign-file [-dpk] <hash algo> <key> <x509> <module> [<dest>]\n");
- 	fprintf(stderr,
- 		"       scripts/sign-file -s <raw sig> <hash algo> <x509> <module> [<dest>]\n");
-+	fprintf(stderr,
-+		"       scripts/sign-file -b [-dpk] <hash algo> <key> <x509> <module> [<module> ...]\n");
- 	exit(2);
- }
- 
-@@ -183,76 +185,25 @@ static X509 *read_x509(const char *x509_name)
- 	return x509;
- }
- 
--int main(int argc, char **argv)
-+static void sign_single_file(const char *hash_algo, const char *module_name,
-+			     const char *dest_name, bool replace_orig,
-+			     bool save_sig, bool sign_only, bool raw_sig,
-+			     const char *raw_sig_name, unsigned int use_keyid,
-+			     EVP_PKEY *private_key, X509 *x509)
- {
- 	struct module_signature sig_info = { .id_type = MODULE_SIGNATURE_TYPE_PKCS7 };
--	char *hash_algo = NULL;
--	char *private_key_name = NULL, *raw_sig_name = NULL;
--	char *x509_name, *module_name, *dest_name;
--	bool save_sig = false, replace_orig;
--	bool sign_only = false;
--	bool raw_sig = false;
- 	unsigned char buf[4096];
- 	unsigned long module_size, sig_size;
- 	const EVP_MD *digest_algo;
--	EVP_PKEY *private_key;
- 	CMS_ContentInfo *cms = NULL;
--	unsigned int use_keyid = 0;
--	X509 *x509;
- 	BIO *bd, *bm;
--	int opt, n;
--	OpenSSL_add_all_algorithms();
--	ERR_load_crypto_strings();
--	ERR_clear_error();
--
--	key_pass = getenv("KBUILD_SIGN_PIN");
--
--	do {
--		opt = getopt(argc, argv, "sdpk");
--		switch (opt) {
--		case 's': raw_sig = true; break;
--		case 'p': save_sig = true; break;
--		case 'd': sign_only = true; save_sig = true; break;
--		case 'k': use_keyid = CMS_USE_KEYID; break;
--		case -1: break;
--		default: format();
--		}
--	} while (opt != -1);
--
--	argc -= optind;
--	argv += optind;
--	if (argc < 4 || argc > 5)
--		format();
--
--	if (raw_sig) {
--		raw_sig_name = argv[0];
--		hash_algo = argv[1];
--	} else {
--		hash_algo = argv[0];
--		private_key_name = argv[1];
--	}
--	x509_name = argv[2];
--	module_name = argv[3];
--	if (argc == 5 && strcmp(argv[3], argv[4]) != 0) {
--		dest_name = argv[4];
--		replace_orig = false;
--	} else {
--		ERR(asprintf(&dest_name, "%s.~signed~", module_name) < 0,
--		    "asprintf");
--		replace_orig = true;
--	}
-+	int n;
- 
- 	/* Open the module file */
- 	bm = BIO_new_file(module_name, "rb");
- 	ERR(!bm, "%s", module_name);
- 
- 	if (!raw_sig) {
--		/* Read the private key and the X.509 cert the PKCS#7 message
--		 * will point to.
--		 */
--		private_key = read_private_key(private_key_name);
--		x509 = read_x509(x509_name);
--
- 		/* Digest the module data. */
- 		OpenSSL_add_all_digests();
- 		drain_openssl_errors(__LINE__, 0);
-@@ -307,7 +258,8 @@ int main(int argc, char **argv)
- 
- 		if (sign_only) {
- 			BIO_free(bm);
--			return 0;
-+			CMS_ContentInfo_free(cms);
-+			return;
- 		}
- 	}
- 
-@@ -354,5 +306,94 @@ int main(int argc, char **argv)
- 	if (replace_orig)
- 		ERR(rename(dest_name, module_name) < 0, "%s", dest_name);
- 
-+	CMS_ContentInfo_free(cms);
-+}
-+
-+int main(int argc, char **argv)
-+{
-+	char *hash_algo = NULL;
-+	char *private_key_name = NULL, *raw_sig_name = NULL;
-+	char *x509_name, *module_name, *dest_name;
-+	bool save_sig = false, replace_orig;
-+	bool sign_only = false;
-+	bool raw_sig = false, bulk = false;
-+	EVP_PKEY *private_key = NULL;
-+	X509 *x509 = NULL;
-+	unsigned int use_keyid = 0;
-+	int opt, i, nmodules;
-+
-+	OpenSSL_add_all_algorithms();
-+	ERR_load_crypto_strings();
-+	ERR_clear_error();
-+
-+	key_pass = getenv("KBUILD_SIGN_PIN");
-+
-+	do {
-+		opt = getopt(argc, argv, "sdpkb");
-+		switch (opt) {
-+		case 's': raw_sig = true; break;
-+		case 'p': save_sig = true; break;
-+		case 'd': sign_only = true; save_sig = true; break;
-+		case 'k': use_keyid = CMS_USE_KEYID; break;
-+		case 'b': bulk = true; break;
-+		case -1: break;
-+		default: format();
-+		}
-+	} while (opt != -1);
-+
-+	argc -= optind;
-+	argv += optind;
-+
-+	if (raw_sig && bulk)
-+		format();
-+
-+	if (bulk) {
-+		if (argc < 4)
-+			format();
-+	} else if (argc < 4 || argc > 5) {
-+		format();
-+	}
-+
-+	if (raw_sig) {
-+		raw_sig_name = argv[0];
-+		hash_algo = argv[1];
-+	} else {
-+		hash_algo = argv[0];
-+		private_key_name = argv[1];
-+	}
-+	x509_name = argv[2];
-+
-+	if (!raw_sig) {
-+		private_key = read_private_key(private_key_name);
-+		x509 = read_x509(x509_name);
-+	}
-+
-+	/* In bulk mode all remaining arguments are module names.  In the
-+	 * normal mode there is exactly one module name.
-+	 */
-+	nmodules = bulk ? argc - 3 : 1;
-+	for (i = 0; i < nmodules; i++) {
-+		module_name = argv[3 + i];
-+		dest_name = NULL;
-+		replace_orig = true;
-+
-+		if (!bulk && argc == 5 && strcmp(argv[3], argv[4]) != 0) {
-+			dest_name = argv[4];
-+			replace_orig = false;
-+		} else {
-+			ERR(asprintf(&dest_name, "%s.~signed~", module_name) < 0,
-+			    "asprintf");
-+		}
-+
-+		sign_single_file(hash_algo, module_name, dest_name, replace_orig,
-+				 save_sig, sign_only, raw_sig, raw_sig_name, use_keyid,
-+				 private_key, x509);
-+
-+		if (replace_orig)
-+			free(dest_name);
-+	}
-+
-+	EVP_PKEY_free(private_key);
-+	X509_free(x509);
- 	return 0;
- }
+ scripts/Makefile.modinst |  43 ++++++++++-
+ scripts/sign-file.c      | 159 ++++++++++++++++++++++++---------------
+ 2 files changed, 142 insertions(+), 60 deletions(-)
+
 -- 
 2.43.0
 
