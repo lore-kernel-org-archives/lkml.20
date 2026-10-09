@@ -1,46 +1,75 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1DC6457E7A;
-	Fri,  9 Oct 2026 15:09:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 784533BBFBC
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 15:09:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791558574; cv=none; b=HR/B4wmfpRhkAUDR53ZVGjXSsRTk6N/tETQ5h6hb6+ENGAS7lXNMlc4F5YlZi0uR6pY9/Zb5GeHH4fdhTzsR7+RXAaZagfrZhH0OhgJz9wVTUGDbUSBv1R8mDmvHi2GAH+ujUEqQirtbto5050slFbbcF9pqI6YybxjpMZrDViI=
+	t=1791558593; cv=none; b=h5t033lTjKfc2ShBEjzsZoVbgXqNl1mtW8lWMdXgNs8fPwhsRSEDaV0c+H0ABYCzQktEo8fDUi5y8i/EczzrHkI5SaK+n4tY/+7HYlSSm4WWQmAVwVs8sJnEIUf4ip6bnF7kIn3qQ7VMv0G6ksMjn4OOiS0BAXIdrO/lFa1jb5E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791558574; c=relaxed/simple;
-	bh=3ZHtsVhckn9fRoblbC1iHEhRp+UvpLMNLCDjAncW8wI=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=bMhJxMItdQlWdYFeMw6UqsqPdAYrQAXB6j8OvsyJ7HBGd7dwXkFZ5T7yKzVJ+oh+0imidpDnkf32DFBwC0X6R/IynaMGtrdJRG+m4i8fPTAVMESfUXiTSyHbhRvgzhFs/xiUAF0TB7S5SQN1WhejemMTlMHcf9r2sGHXW7DoMIE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sl0pXThs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791558593; c=relaxed/simple;
+	bh=qNMj5D1fNLlV/nVRkSJPYnmRg/wnN8E/sGYhjBjHrxA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Yh78eJFFHLJpc3JQFPm9miQSqry/T+H8myHX3YCU1/hlmA6JkfiDkPGH+EjNj7lB4wqjYX6qJKHEm2dV7cibfg8kZrTCS4xnJfK+G701OZI2BuiDSGOufZDgUN9gZ/I+DgGos+M8+RSo467qT6fnO+2FAeH4ShJBmW6qNh/B47M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=KZZy6MKn; arc=none smtp.client-ip=209.85.218.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sl0pXThs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 659091F000FF;
-	Fri,  9 Oct 2026 15:09:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791558572;
-	bh=/QeZ0yqQGSY+Sd45pKd4C1KhZgWw8oPZUiyILj5JSKc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=Sl0pXThs0FM2f+1VRAJJwTdbwTmzbPSP4HGM84Bee4tQWO6vGlsI/VCmmNlobQP+8
-	 ME7Yh2B4Hh/HeKTiipJ9KusdyPkwsAjoEyzYRvYUPcSJer72hMzSCl9eFU3MNaZiTr
-	 3Gm0LxOh5OHdDN8tm94ucmx0Jaj9MijwFrmbDc1kG3fQ82iazDfuQXFeXbBlQzycnD
-	 OnuxMhGoDf8ATdoh/Rynyp/p/0WPEIbX9MzlP9JJxjLUi9oSjLSa5wQOq4BSuJOkXc
-	 EXVyCdnuBzD0FLkN4ve8mM5WLhxiS3QbMDf/kjfJQWI73eIu8CBwInSOSba8lcJnGL
-	 e3WHHeJjPjIxg==
-Date: Fri, 9 Oct 2026 10:09:31 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Koichiro Den <den@valinux.co.jp>
-Cc: Dave Jiang <dave.jiang@intel.com>, Davidlohr Bueso <dave@stgolabs.net>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Alison Schofield <alison.schofield@intel.com>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Dan Williams <djbw@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	Ira Weiny <iweiny@kernel.org>, Li Ming <ming.li@zohomail.com>,
-	Richard Cheng <icheng@nvidia.com>,
-	Terry Bowman <terry.bowman@amd.com>,
-	Alejandro Lucero <alucerop@amd.com>, linux-cxl@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org
-Subject: Re: [PATCH 2/3] cxl: Account for link width in latency calculation
-Message-ID: <20261009150931.GA974538@bhelgaas>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="KZZy6MKn"
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c2e252b69c0so43766666b.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 08:09:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1791558590; x=1792163390; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=K+QJFCsdX0b7I85190WFfJTMBp320bxRkXas79ET8+s=;
+        b=KZZy6MKnu2UrgDAm2ZVhdTE/2p84mf6E3gz6i70HlkR04H0/Rc5M3GcgehCcBAAGX0
+         1aNjE7xF6BZhPCQYP9wTKi/Zc/WW5PhpOYexyGn7HXNTSxVp2O3tqTvVTUH3nLTZkBAk
+         j9esxXWyrxvzTAWFXFy8SDQM+LHPxmiBbeSDrgHzp6cXp9fpEzrfUcWrcmKB9BMOjfNQ
+         5QOX5tFofStr0ixYsgV7lWA7YQhKi+Tk/FkwQAxCRWq5e3RKIx+cOcADWGRkpkJ9zQch
+         C/iOB2NSNOGFCCgUfnpTuylwYfUe/MQ9mmXJfkIT43cHuXDQvFcNWnLZvuNAgiHs4joK
+         AmKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791558590; x=1792163390;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=K+QJFCsdX0b7I85190WFfJTMBp320bxRkXas79ET8+s=;
+        b=qzPD6QatbzxrSH0+OSo/SIsaSZQ85lomjY0BI7FvZZG0VySi84IEfGG0CBqK/28wTC
+         hlGK9Y0YxABodRfoirez7DmyFnvjGGS+KtTw9STTOS7LVg64ItfiJ78FQtXuMjhCd4Eb
+         P9KWRD+NqvKeRNIJIdc5icgKZjP9mssOk3WN373cDIgVvnWsq+rZ2axPQDCH0X9ngMC6
+         raLkOkf5lbw5Dg//X/vir9yis7RFxswg0TCeRVX9IlsYZwJZp+iPUL0EscEjDSA00SzE
+         uZHj5MjmqOHFwLx/DVZ7KATz1bausBivYJkF02MAIWhUXVBN2CDGEHPYygHhOqv9It+L
+         OQwg==
+X-Forwarded-Encrypted: i=1; AKwUvBw1jM1u0WmGwWdVRxuaV08Z1hHMWXVUh+citDlINWoalxziJjbK0WaX7ubD9TDPbqf/ew65pm2/5TDLAKk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIBk69za+OUtbVqh3GdPfU46ssLDAhyVL5BhaGqaBvHvqbaPcvV
+	WURoYoUBDRhD9GcxWs1XYIInjfpLtTDqwxPeqx7n7Tj/W5H7ukbQxi6OEn+lgI3crG0=
+X-Gm-Gg: AYBFou3j+FgVVBG3IoVeoH51oPEO5+fwpechUBO4VLjDZhLTcsJCMTPkUR9s4GQaAEZ
+	jvOJ57PhOt4xz/5AJFLDkoqewXsRr4X0+u4W2gz1uCPIs8NlWqGtSdbVA6bEIzxEBqXYVoon/r/
+	39sAUAdSvkWhfQMSpludBPF3g8RmCm9xbQG3PHLAZGjOsWdDahCm8kYEHvAH1Dml4cm8iHeayge
+	Q/+qG0Ifob8gE6VUDlROjk74WMJkWdoE2LSO2/Ja7qotuZGVYCQCWQytDYGfp2rNeOSe9k8GxJK
+	3UNknWDAnI8BBNEKk3EKkysl93l/eyAktbFXIGCyfSbD8GpBTZKsi14YE49Wg954raM4p00kkiT
+	+iuwyC0zJtVwVILZIuiLZAaTKyWUSeKF73dMRSfGg+Mk6302HqtIiqgcPN0z0GwbsKqjra0MKBI
+	P9H0NCXFgSY0Pb7SaLbKJAnXS76Z4sNHpdUNYx55p9oIawPv1XCTGwynglfmYVcL7H6IQB
+X-Received: by 2002:a17:907:d89:b0:c2a:ad68:c6fa with SMTP id a640c23a62f3a-c31a9d1065dmr278270566b.3.1791558589628;
+        Fri, 09 Oct 2026 08:09:49 -0700 (PDT)
+Received: from localhost ([202.127.77.110])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c469ea49sm1234562b3a.53.2026.10.09.08.09.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 08:09:48 -0700 (PDT)
+Date: Fri, 9 Oct 2026 23:09:45 +0800
+From: Heming Zhao <heming.zhao@suse.com>
+To: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Anderson Ferneda <anderson.ferneda@braza.com.br>, Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>, 
+	ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 3/3] ocfs2: deal with legacy signed xattr name hash
+ values
+Message-ID: <askDoqcW-HLPLKrt@p15>
+References: <20261009083002.2621201-1-joseph.qi@linux.alibaba.com>
+ <20261009083002.2621201-4-joseph.qi@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,132 +78,192 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261009045452.1107921-3-den@valinux.co.jp>
+In-Reply-To: <20261009083002.2621201-4-joseph.qi@linux.alibaba.com>
 
-On Fri, Oct 09, 2026 at 01:54:51PM +0900, Koichiro Den wrote:
-> cxl_pci_get_latency() derives bandwidth from the per-lane speed returned
-> by pcie_link_speed_mbps(), ignoring the negotiated link width. This
-> overestimates the FlitLatency contribution for multi-lane links.
-> Sections 2.11.3 and 2.11.4 of the Intel CXL Memory Device Software Guide
-> describe the link bandwidth as the product of the negotiated speed and
-> width.
+On Fri, Oct 09, 2026 at 04:30:02PM +0800, Joseph Qi wrote:
+> Commit 3bc753c06dd0 ("kbuild: treat char as always unsigned") set
+> -funsigned-char globally, which changed the result of the naked 'char'
+> load in ocfs2_xattr_name_hash():
 > 
-> Replace pcie_link_speed_mbps() with pcie_link_bandwidth_mbps() and
-> migrate both CXL callers (the only users of the API). The new helper
-> obtains speed and width from a single Link Status read. The CXL
-> bandwidth calculation no longer needs a separate width read and
-> multiplication.
+> 	hash = (hash << OCFS2_HASH_SHIFT) ^
+> 	       (hash >> (8*sizeof(hash) - OCFS2_HASH_SHIFT)) ^
+> 	       *name++;
 > 
-> While at it, make error handling more robust by converting PCI config
-> read errors to negative errno values and checking for zero bandwidth
-> before calculating latency.
+> A name byte >= 0x80 used to sign-extend and now zero-extends, so the
+> hash no longer matches the xe_name_hash an older kernel stored.  An
+> indexed xattr tree is searched by that hash alone, and both the bucket
+> binary search and the entry scan within it stop as soon as the wanted
+> hash falls below an entry's, so the entry is never reached: getxattr,
+> setxattr and removexattr return -ENODATA for a name that listxattr
+> still lists.
 > 
-> Fixes: 4d07a05397c8 ("cxl: Calculate and store PCI link latency for the downstream ports")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Koichiro Den <den@valinux.co.jp>
+> Search with the current unsigned hash and, on a miss, retry with the
+> legacy signed one, as ext4 does in commit f3bbac32475b2 ("ext4: deal
+> with legacy signed xattr name hash values").  New entries are always
+> stored under the unsigned hash.  Skip the retry when the two hashes are
+> equal, so that a miss on an ASCII name does not walk the tree twice.
+> 
+> A miss is not empty handed: ocfs2_xattr_bucket_find() leaves xs->bucket
+> holding the bucket a new entry would go into.  So after a double miss
+> drop it and search once more with the unsigned hash, otherwise a new
+> entry would be placed by its legacy hash and stored under its unsigned
+> one, breaking the ordering the search relies on.
+> 
+> Only indexed trees are affected; inline xattrs and non-indexed xattr
+> blocks compare names with memcmp and never look at the hash.
+> 
+> Also spell out the signedness instead of leaving the current hash to
+> -funsigned-char, as commit 854f0912f813 ("ext4: make xattr char
+> unsignedness in hash explicit") did, so that both variants stay correct
+> if this is backported to a kernel without the flag.
+> 
+> Exposed-by: 3bc753c06dd0 ("kbuild: treat char as always unsigned")
+> Cc: <stable@vger.kernel.org> # 6.2+
+> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 
-Acked-by: Bjorn Helgaas <bhelgaas@google.com>	# pci/pci.c
-
+LGTM.
+Reviewed-by: Heming Zhao <heming.zhao@suse.com>
 > ---
->  drivers/cxl/core/pci.c | 22 ++++++++--------------
->  drivers/pci/pci.c      | 23 ++++++++++++++++++-----
->  include/linux/pci.h    |  2 +-
->  3 files changed, 27 insertions(+), 20 deletions(-)
+>  fs/ocfs2/xattr.c | 93 ++++++++++++++++++++++++++++++++++++++++++------
+>  1 file changed, 82 insertions(+), 11 deletions(-)
 > 
-> diff --git a/drivers/cxl/core/pci.c b/drivers/cxl/core/pci.c
-> index 43b9b7afff29..8b52621ffea1 100644
-> --- a/drivers/cxl/core/pci.c
-> +++ b/drivers/cxl/core/pci.c
-> @@ -660,8 +660,8 @@ long cxl_pci_get_latency(struct pci_dev *pdev)
->  {
->  	long bw;
->  
-> -	bw = pcie_link_speed_mbps(pdev);
-> -	if (bw < 0)
-> +	bw = pcie_link_bandwidth_mbps(pdev);
-> +	if (bw <= 0)
->  		return 0;
->  	bw /= BITS_PER_BYTE;
->  
-> @@ -765,18 +765,12 @@ EXPORT_SYMBOL_NS_GPL(cxl_pci_setup_regs, "CXL");
->  
->  int cxl_pci_get_bandwidth(struct pci_dev *pdev, struct access_coordinate *c)
->  {
-> -	int speed, bw;
-> -	u16 lnksta;
-> -	u32 width;
-> -
-> -	speed = pcie_link_speed_mbps(pdev);
-> -	if (speed < 0)
-> -		return speed;
-> -	speed /= BITS_PER_BYTE;
-> -
-> -	pcie_capability_read_word(pdev, PCI_EXP_LNKSTA, &lnksta);
-> -	width = FIELD_GET(PCI_EXP_LNKSTA_NLW, lnksta);
-> -	bw = speed * width;
-> +	int bw;
-> +
-> +	bw = pcie_link_bandwidth_mbps(pdev);
-> +	if (bw < 0)
-> +		return bw;
-> +	bw /= BITS_PER_BYTE;
->  
->  	for (int i = 0; i < ACCESS_COORDINATE_MAX; i++) {
->  		c[i].read_bandwidth = bw;
-> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-> index b2879a6be5f8..aa3d180de56e 100644
-> --- a/drivers/pci/pci.c
-> +++ b/drivers/pci/pci.c
-> @@ -5980,18 +5980,31 @@ static enum pci_bus_speed to_pcie_link_speed(u16 lnksta)
->  	return pcie_link_speed[FIELD_GET(PCI_EXP_LNKSTA_CLS, lnksta)];
+> diff --git a/fs/ocfs2/xattr.c b/fs/ocfs2/xattr.c
+> index c5a39a7d43d0..e92bcf401490 100644
+> --- a/fs/ocfs2/xattr.c
+> +++ b/fs/ocfs2/xattr.c
+> @@ -601,9 +601,10 @@ static inline const char *ocfs2_xattr_prefix(int name_index)
+>  	return handler ? xattr_prefix(handler) : NULL;
 >  }
 >  
-> -int pcie_link_speed_mbps(struct pci_dev *pdev)
-> +/**
-> + * pcie_link_bandwidth_mbps - get the current bandwidth of a single PCIe link
-> + * @pdev: PCI device to query
-> + *
-> + * The bandwidth includes all negotiated lanes and does not account for
-> + * encoding overhead. A negotiated width of zero gives zero bandwidth.
-> + *
-> + * Return: Bandwidth in Mb/s, or a negative errno on failure.
-> + */
-> +int pcie_link_bandwidth_mbps(struct pci_dev *pdev)
+> -static u32 ocfs2_xattr_name_hash(struct inode *inode,
+> -				 const char *name,
+> -				 int name_len)
+> +static u32 __ocfs2_xattr_name_hash(struct inode *inode,
+> +				   const char *name,
+> +				   int name_len,
+> +				   bool legacy_signed)
 >  {
->  	u16 lnksta;
-> -	int err;
-> +	int speed, err;
+>  	/* Get hash value of uuid from super block */
+>  	u32 hash = OCFS2_SB(inode->i_sb)->uuid_hash;
+> @@ -612,13 +613,30 @@ static u32 ocfs2_xattr_name_hash(struct inode *inode,
+>  	/* hash extended attribute name */
+>  	for (i = 0; i < name_len; i++) {
+>  		hash = (hash << OCFS2_HASH_SHIFT) ^
+> -		       (hash >> (8*sizeof(hash) - OCFS2_HASH_SHIFT)) ^
+> -		       *name++;
+> +		       (hash >> (8*sizeof(hash) - OCFS2_HASH_SHIFT));
+> +		if (legacy_signed)
+> +			hash ^= (signed char)name[i];
+> +		else
+> +			hash ^= (unsigned char)name[i];
+>  	}
 >  
->  	err = pcie_capability_read_word(pdev, PCI_EXP_LNKSTA, &lnksta);
->  	if (err)
-> -		return err;
-> +		return pcibios_err_to_errno(err);
-> +
-> +	speed = pcie_dev_speed_mbps(to_pcie_link_speed(lnksta));
-> +	if (speed < 0)
-> +		return speed;
->  
-> -	return pcie_dev_speed_mbps(to_pcie_link_speed(lnksta));
-> +	return speed * FIELD_GET(PCI_EXP_LNKSTA_NLW, lnksta);
+>  	return hash;
 >  }
-> -EXPORT_SYMBOL(pcie_link_speed_mbps);
-> +EXPORT_SYMBOL(pcie_link_bandwidth_mbps);
 >  
->  /**
->   * pcie_bandwidth_available - determine minimum link settings of a PCIe
-> diff --git a/include/linux/pci.h b/include/linux/pci.h
-> index d31a8d107b1e..bbfb0b98ff46 100644
-> --- a/include/linux/pci.h
-> +++ b/include/linux/pci.h
-> @@ -1477,7 +1477,7 @@ int pcie_set_mps(struct pci_dev *dev, int mps);
->  u32 pcie_bandwidth_available(struct pci_dev *dev, struct pci_dev **limiting_dev,
->  			     enum pci_bus_speed *speed,
->  			     enum pcie_link_width *width);
-> -int pcie_link_speed_mbps(struct pci_dev *pdev);
-> +int pcie_link_bandwidth_mbps(struct pci_dev *pdev);
->  void pcie_print_link_status(struct pci_dev *dev);
->  int pcie_reset_flr(struct pci_dev *dev, bool probe);
->  int pcie_flr(struct pci_dev *dev);
+> +static u32 ocfs2_xattr_name_hash(struct inode *inode,
+> +				 const char *name,
+> +				 int name_len)
+> +{
+> +	return __ocfs2_xattr_name_hash(inode, name, name_len, false);
+> +}
+> +
+> +static u32 ocfs2_xattr_name_hash_signed(struct inode *inode,
+> +					const char *name,
+> +					int name_len)
+> +{
+> +	return __ocfs2_xattr_name_hash(inode, name, name_len, true);
+> +}
+> +
+>  static int ocfs2_xattr_entry_real_size(int name_len, size_t value_len)
+>  {
+>  	return namevalue_size(name_len, value_len) +
+> @@ -4304,11 +4322,12 @@ static int ocfs2_xattr_bucket_find(struct inode *inode,
+>  	return ret;
+>  }
+>  
+> -static int ocfs2_xattr_index_block_find(struct inode *inode,
+> -					struct buffer_head *root_bh,
+> -					int name_index,
+> -					const char *name,
+> -					struct ocfs2_xattr_search *xs)
+> +static int __ocfs2_xattr_index_block_find(struct inode *inode,
+> +					  struct buffer_head *root_bh,
+> +					  int name_index,
+> +					  const char *name,
+> +					  u32 name_hash,
+> +					  struct ocfs2_xattr_search *xs)
+>  {
+>  	int ret;
+>  	struct ocfs2_xattr_block *xb =
+> @@ -4317,7 +4336,6 @@ static int ocfs2_xattr_index_block_find(struct inode *inode,
+>  	struct ocfs2_extent_list *el = &xb_root->xt_list;
+>  	u64 p_blkno = 0;
+>  	u32 first_hash, num_clusters = 0;
+> -	u32 name_hash = ocfs2_xattr_name_hash(inode, name, strlen(name));
+>  
+>  	if (le16_to_cpu(el->l_next_free_rec) == 0)
+>  		return -ENODATA;
+> @@ -4348,6 +4366,59 @@ static int ocfs2_xattr_index_block_find(struct inode *inode,
+>  	return ret;
+>  }
+>  
+> +static int ocfs2_xattr_index_block_find(struct inode *inode,
+> +					struct buffer_head *root_bh,
+> +					int name_index,
+> +					const char *name,
+> +					struct ocfs2_xattr_search *xs)
+> +{
+> +	u32 name_hash, legacy_hash;
+> +	int name_len = strlen(name);
+> +	int ret;
+> +
+> +	name_hash = ocfs2_xattr_name_hash(inode, name, name_len);
+> +
+> +	ret = __ocfs2_xattr_index_block_find(inode, root_bh, name_index, name,
+> +					     name_hash, xs);
+> +	if (ret != -ENODATA)
+> +		return ret;
+> +
+> +	/*
+> +	 * Nothing under the current hash.  The entry may have been stored by
+> +	 * an older kernel, which sign-extended the name bytes when hashing.
+> +	 * Skip the retry when the two hashes are equal, so that a name made
+> +	 * only of ASCII does not have to walk the tree twice.
+> +	 */
+> +	legacy_hash = ocfs2_xattr_name_hash_signed(inode, name, name_len);
+> +	if (legacy_hash == name_hash)
+> +		return ret;
+> +
+> +	/*
+> +	 * A miss still leaves xs->bucket holding the bucket a new entry would
+> +	 * be inserted into, so drop it before searching again.
+> +	 */
+> +	ocfs2_xattr_bucket_relse(xs->bucket);
+> +
+> +	ret = __ocfs2_xattr_index_block_find(inode, root_bh, name_index, name,
+> +					     legacy_hash, xs);
+> +	if (!ret) {
+> +		pr_warn_once("ocfs2: xattr tree with signed name hash\n");
+> +		return ret;
+> +	}
+> +	if (ret != -ENODATA)
+> +		return ret;
+> +
+> +	/*
+> +	 * Not under either hash.  Restore the unsigned placement, since that
+> +	 * is where a new entry is stored: leaving the bucket where the legacy
+> +	 * hash put it would break the ordering the search relies on.
+> +	 */
+> +	ocfs2_xattr_bucket_relse(xs->bucket);
+> +
+> +	return __ocfs2_xattr_index_block_find(inode, root_bh, name_index, name,
+> +					      name_hash, xs);
+> +}
+> +
+>  static int ocfs2_iterate_xattr_buckets(struct inode *inode,
+>  				       u64 blkno,
+>  				       u32 clusters,
 > -- 
-> 2.51.0
+> 2.39.3
 > 
