@@ -1,181 +1,226 @@
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3090B4E50BB
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 15:05:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791558350; cv=pass; b=b/2f4lWAWrNYfVeL+OxroYz+Zitn+HDFHsr+WLNyTgZMokGFMQiknqtqz/syUqZwmr7e3zDz4tt7IkExuAdDfAsD0mzGHNkbq1weUMMxkpsmGKoWtpNWcuTB7cRPHq0u53OIO9q9DnvAiaVwPhdE7x0dQCwzOrxGsZGbv8QOE5c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791558350; c=relaxed/simple;
-	bh=7uVKv1Bm5O5ArlnRvGqrT8Rpcnz3Rh5hQPXlJaM48oQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=o7N6Zigb+sme3lZWxY88BZklrgeOFUPmXYBbOGwoNxB6Q68vyMi6yM4jPn241APWm5+gnCqLKuc3O+J9WDEEmtPvxUPWPQ4i5/xsa5cpu11FwvuurqQkB5Zup9RjZcoltipCmWVXHR8dNkfTezceKr3+70ws9BLOyGPe3e4FwdQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U5h6y6qM; arc=pass smtp.client-ip=209.85.167.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CDD1225A38;
+	Fri,  9 Oct 2026 15:06:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791558379; cv=none; b=tgAUHJEq4UE1XXwb1GxPQDckPnpxcet1EA9jLbeSaIaAndPilQmaEm6DY2GKrYTSL9h/5+s8W/7gP4MOkBlMM1jEWXa2lIXBn6d63IuLZHeI9GlIWrOUV17IprRT8wlZDGnO5FRL7dak1UQ/W2WcV0XtDkDp+CilMlZGGzIhRuQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791558379; c=relaxed/simple;
+	bh=arjM4x1zh6Y25uW04ojFfMX4lhRk5epm0Qc7C4FmLPE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WziWJPYGV/i8JKPEccC4A9YaCuo7CgcVyTEIUvcQ1pSrN3Fc1hANXZPCFORpeTV3r1WPwK0ezJyU1Zwq/d1ufQg83iBcKI0ZK4dcP6mBAnTAj4ejYoo+lLfhMp9iF/j5KYLv9VZRugWcb5ukcPv0AVJBMozZAVgfiPJQyqmr2G4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k4S2R1LN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U5h6y6qM"
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5ba37877490so3737540e87.3
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 08:05:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791558338; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lF288phhdHmB2HfymoSuYdS9lma1JremgoeZdap6ub3vteXFnAZcDADrqQN7O1Wc7v
-         AzBbJciNh+xM0wvCHTMv1M4MWnO4j2Gsq8FP+EfsLsvC+fMCCVSV1QB5nR7ETAzJc/5P
-         DIzrM6sRyGAaiVw1a5gPPHrJxyGFarxD+pD48ESI9Os7Y2T5KuBHl0eENz0cz5kbb9SU
-         XnQlKXmF6gRs4xHMA2HbFgLWRRsXV3wLZYSl1vLfynDl9VuxVgOg58EnU38Kjs3GzlHI
-         cUfU3GxWy8fsoJAljsYlUnpFU7Xz8F1HbMXSkrq7F/BZ3njwWExQiFmjXF/YqhEeaWq5
-         0AWQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=wDZ2vMGrGE4GsgsQilcLhHHSrN6fikmAwg6tgPE8yrU=;
-        fh=sPilOYAT4QfMgYxGH2LjRrcqbLUzvrQqMQUicHZMufQ=;
-        b=nTALsmLJGMLhdIWJX0/Hi1XtSUsUI/0rOZP8h/USLomYhmlgtqykbYcjZfuggCNps1
-         gf/2cLUDvReGM+x+Jd6Z1KDIJHhoDwwL2F1inNlkfizNUn2D5W9Ll5mi5Ab0OhhH8oQI
-         X5bOBhHzA2ItbU/1m4fXwSUqdZeyAL4BHS6MsO68V6MY0nCO2pTMSNBmOninM1gsNTjH
-         muR2Q6js4AyLN2Ar+BOEheIQjLtgl68JTDPUyLHl36BWRSuP+GxTCB35fwuPsVq2/3dQ
-         ZhbUztr8ndDTpOr4a/fm9je+AEBR3yvcqN9ovVwR2qHwZ9pPDCTSXa+7jZimVliUdb/7
-         xfLA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791558338; x=1792163138; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=wDZ2vMGrGE4GsgsQilcLhHHSrN6fikmAwg6tgPE8yrU=;
-        b=U5h6y6qMNL98QYpdHFJ/tlOik+XBkkQj3UjAvlxvixMrgokF0hObvDXJVbi0ZdLUVq
-         SZv40Aie3DOrzsYrK358jqKGnMa59T4jXqkeyDm2apnxJ3uxJwf1uWxcBE6d6PYHcRrH
-         kf0i6usHCxCwWOCgWJoYzjwBiG8DLy67VohnYarhjSJVs8rrUY25dMqVtm0ouJjAghJe
-         2NnJTyqBAA1sRBMmleVO/n0gfHr8EPzanw9ypMEWb2F8P7hKAb0I5jNBJPqrPMd38qjZ
-         OCYEUTPW9wh6rI04wfzP6AMvmHFm088o2UMekMrGF9hr1KAdfvwGw2ddQptnLwnY5oR8
-         KEDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791558338; x=1792163138;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wDZ2vMGrGE4GsgsQilcLhHHSrN6fikmAwg6tgPE8yrU=;
-        b=ij51abKitnybKxQJmZx0gOH1CUk528j1WvAbxN0ZFwnpJKY/15769cl3hMCbm9UrCq
-         hgNLTRWm7Uk63trWDgMFjogEE8xuqC56pGkKLlTY6+nYclGLWE2mL9rJarEHX/lsjdAe
-         uAqutZ+pT+ed5CGkgJUzFoAus0HZUp43A/3llnKkYLyiSbQ8hQGqBFhbdEKb8D3Sceyg
-         tymOhen6b5lIWCAnZ/4WaexxPwCWiY1Nor4AZ1QZ8Al5ajxLuOnvXmtXe5fJvvta6Okf
-         epTJwYpLEZ6W5MwUTmlRPEPMPMSDmO4lZewWe68yoYhRe2ANeZ+xBZqgEABhSgDNHnSS
-         chiw==
-X-Gm-Message-State: AFq9FYJ492htor1PBamuBaxNzFYI2gqNIWSj8i+q+RGz/sXkXfYNZAxb
-	1+a7O1d2dclQYNb0yBugwiW5LlOjqfouCet2OJUqWBQOv2TyGqTUFa8Dzwl1Nd4QKi/wBXTBa+Y
-	pqIkql9a44D/yEqGT25hgXpgKB4BDGdc=
-X-Gm-Gg: AYBFou2ounrNAsLhtaE5ydd3PaQk9hfg16IpH8DmWb01wuMsVLoOgxzTF8Jy+qyUicM
-	22bKCSCCYSAEYEk5EGTF6itKc31Ly7rCsyVHPdXtERUi3gzN2NstEoTAxkGhYlGrKHk2s9A5xkE
-	DF3FXNaquCAkGQza86kPCwVt3odFo4DQOAUxTtolUzOZV/TztoD+e+V6IK4zE03/IFbZkYB7z7I
-	c3dLLgasqUoODNIen8Ad4+4ZZMlS4UqNwPvJqb3DAaK1uQoeFZkFZR7v282cJamX0M1naAr6zhe
-	QgN7in+zV56eACr1T9tcPqTKhB/zcYSikL5SffBXgq+VCLapU4QRs9+JHvKYxs4LznXkWavV6JU
-	zx5AlWeomixt4hKIBmFG2uRvrJUwS2KKYB7AS6zHG8Xdl
-X-Received: by 2002:a05:6512:3189:b0:5b8:f1ae:cbf3 with SMTP id
- 2adb3069b0e04-5bcde6bb716mr785623e87.21.1791558337820; Fri, 09 Oct 2026
- 08:05:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k4S2R1LN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D999A1F000FF;
+	Fri,  9 Oct 2026 15:06:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791558374;
+	bh=tQp9qKpSn0AbyXHJmWzYFGYGRhRlL+7tyxDSYmxGCHg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=k4S2R1LNC9kLWpX9AQaVbgAzpx43TZwz+y2OVOUd0IBU8w1ht52MCIOjMj9+ACSUi
+	 fIg0O7VrZ3wZaW2KFPuwLozZ1rBVGq3GS7Asn0Wpb1KmZaj/3vEsL+EZL4fLygwMAG
+	 3yvjL3+ICXHTpsJ27h4jNA4G1vwFMYeeMsvFWZJF0BZgYwF0m+Mb/yeD4wS+XCE/Sj
+	 +EHCCYs3FI8AJno9htU0BK+2gNRkzRiqeLSWwldIknZayfPv5rYQ0+Du1qdH+r7Lcu
+	 fB4FIQlfcVrO2mbnNxeMkxETPgvy/ZS3FkWsF9k847TdtiaNSsxMt9W9jd4icp5VnW
+	 qsjVrX+v02E8Q==
+Date: Fri, 9 Oct 2026 16:06:00 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: MyungJoo Ham <myungjoo.ham@samsung.com>,
+	Kyungmin Park <kyungmin.park@samsung.com>,
+	Chanwoo Choi <cw00.choi@samsung.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: devfreq: Document support for Airoha
+ Subsystem Scale
+Message-ID: <20261009-7326174694c52ccce16615b2@squawk>
+References: <20261009073330.18175-1-ansuelsmth@gmail.com>
+ <20261009073330.18175-2-ansuelsmth@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261002171704.3652570-1-daeho43@gmail.com> <63812000-4677-4af6-a3e1-4e87e39f0d88@kernel.org>
-In-Reply-To: <63812000-4677-4af6-a3e1-4e87e39f0d88@kernel.org>
-From: Daeho Jeong <daeho43@gmail.com>
-Date: Fri, 9 Oct 2026 08:05:25 -0700
-X-Gm-Features: AclHuK_BanzYX18T1PuwZKeUxRb9PVETFkcfnNYDdUp-utwELe1CHp99YcU5vzM
-Message-ID: <CACOAw_w5uXiYqGObti+uiWwJSeaNCZc6+t3j2yopL-PLf226=A@mail.gmail.com>
-Subject: Re: [f2fs-dev] [PATCH] f2fs: disallow mmap write and data-modifying
- fallocate on atomic files
-To: Chao Yu <chao@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net, 
-	kernel-team@android.com, Daeho Jeong <daehojeong@google.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="zaGhrI4uIhrDFZEJ"
+Content-Disposition: inline
+In-Reply-To: <20261009073330.18175-2-ansuelsmth@gmail.com>
+
+--zaGhrI4uIhrDFZEJ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 9, 2026 at 1:35=E2=80=AFAM Chao Yu <chao@kernel.org> wrote:
->
-> On 10/3/26 01:17, Daeho Jeong wrote:
-> > From: Daeho Jeong <daehojeong@google.com>
-> >
-> > Stores through a shared writable mapping and fallocate with
-> > FALLOC_FL_PUNCH_HOLE, FALLOC_FL_ZERO_RANGE, FALLOC_FL_COLLAPSE_RANGE or
-> > FALLOC_FL_INSERT_RANGE do not go through ->write_begin, so they bypass
-> > the COW inode and modify the original inode directly. Reject them while
-> > the file is in atomic write mode, as fallocate already does for pinned
-> > and compressed files. A write fault gets SIGBUS and fallocate gets
-> > -EOPNOTSUPP.
-> >
-> > fallocate without these flags only preallocates blocks and stays
-> > allowed.
-> >
-> > Fixes: 3db1de0e582c ("f2fs: change the current atomic write way")
-> > Signed-off-by: Daeho Jeong <daehojeong@google.com>
-> > ---
-> >  fs/f2fs/file.c | 10 ++++++++--
-> >  1 file changed, 8 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-> > index ef4d218e694..56c686b8580 100644
-> > --- a/fs/f2fs/file.c
-> > +++ b/fs/f2fs/file.c
-> > @@ -140,6 +140,10 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_f=
-ault *vmf)
-> >               return VM_FAULT_SIGBUS;
-> >       }
-> >
-> > +     /* mmap stores bypass the COW inode and would break atomicity */
-> > +     if (f2fs_is_atomic_file(inode))
-> > +             return VM_FAULT_SIGBUS;
->
-> Will we suffer race issue due to the check w/o lock?
->
-> Thanks,
+On Fri, Oct 09, 2026 at 09:33:28AM +0200, Christian Marangi wrote:
+> Airoha SoC contains multiple subsystems that are scaled to a
+> specific OPP taking the CPU clock as reference. Such subsystem
+> can enter idle or performance state based on the system load
+> and power consumption conditions.
+>=20
+> Example of such subsystems are GSW (Gigabit Switch), NPU (Custom
+> Risc Co-Processor for Network acceleration), SOE (Crypto Module) BUS...
 
-Hi Chao,
+The device you document here does not appear to exist at all, since it
+just consumes a clock without any registers or anything. Why can't these
+operating points be added to the actual consumers: the switch, the npu,
+or event the bus itself in one case. In the bus case, I think that's
+exactly what simple-pm-bus does?
 
-Yes, there is a race with f2fs_ioc_start_atomic_write().
+Confused,
+Conor.
 
-page_mkwrite cannot take inode_lock, because the lock order is i_rwsem
--> mmap_lock (e.g. fiemap copies to user under inode_lock). So v2 will
-use invalidate_lock instead:
+>=20
+> Document all the required property and provide examples for the various
+> subsystem OPP + subsystem scale nodes.
+>=20
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> ---
+>  .../devfreq/airoha,subsystem-scale.yaml       | 114 ++++++++++++++++++
+>  1 file changed, 114 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/devfreq/airoha,subs=
+ystem-scale.yaml
+>=20
+> diff --git a/Documentation/devicetree/bindings/devfreq/airoha,subsystem-s=
+cale.yaml b/Documentation/devicetree/bindings/devfreq/airoha,subsystem-scal=
+e.yaml
+> new file mode 100644
+> index 000000000000..2cf7f23a926c
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/devfreq/airoha,subsystem-scale.ya=
+ml
+> @@ -0,0 +1,114 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/devfreq/airoha,subsystem-scale.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Airoha SoC Subsystem Scale Driver
+> +
+> +maintainers:
+> +  - Christian Marangi <ansuelsmth@gmail.com>
+> +
+> +description:
+> +  Airoha SoC contains multiple subsystems that are scaled to a
+> +  specific OPP taking the CPU clock as reference. Such subsystem
+> +  can enter idle or performance state based on the system load
+> +  and power consumption conditions.
+> +
+> +  Example of such subsystems are GSW (Gigabit Switch), NPU (Custom
+> +  Risc Co-Processor for Network acceleration), SOE (Crypto Module) BUS...
+> +
+> +properties:
+> +  compatible:
+> +    const: airoha,an7581-subsystem-scale
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  operating-points-v2:
+> +    description:
+> +      OPP table of the related subsystem supported rates that referenced
+> +      clocks will be scaled to.
+> +
+> +required:
+> +  - compatible
+> +  - clocks
+> +  - operating-points-v2
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/en7523-clk.h>
+> +
+> +    npu_opp_table: opp-table-npu {
+> +        compatible =3D "operating-points-v2";
+> +
+> +        npu_low: opp-400000000 {
+> +           opp-hz =3D /bits/ 64 <400000000>;
+> +        };
+> +
+> +        npu_high: opp-720000000 {
+> +           opp-hz =3D /bits/ 64 <720000000>;
+> +        };
+> +    };
+> +
+> +    emi_opp_table: opp-table-emi {
+> +        compatible =3D "operating-points-v2";
+> +
+> +        emi_low: opp-400000000 {
+> +            opp-hz =3D /bits/ 64 <400000000>;
+> +        };
+> +
+> +        emi_high: opp-540000000 {
+> +           opp-hz =3D /bits/ 64 <540000000>;
+> +        };
+> +    };
+> +
+> +    bus_opp_table: opp-table-bus {
+> +        compatible =3D "operating-points-v2";
+> +
+> +        bus_low: opp-200000000 {
+> +           opp-hz =3D /bits/ 64 <200000000>;
+> +        };
+> +
+> +        bus_high: opp-300000000 {
+> +           opp-hz =3D /bits/ 64 <300000000>;
+> +        };
+> +    };
+> +
+> +    gsw_opp_table: opp-table-gsw {
+> +        compatible =3D "operating-points-v2";
+> +
+> +        gsw_low: opp-200000000 {
+> +            opp-hz =3D /bits/ 64 <200000000>;
+> +        };
+> +
+> +        gsw_high: opp-500000000 {
+> +           opp-hz =3D /bits/ 64 <500000000>;
+> +        };
+> +    };
+> +
+> +    npu-subsystem {
+> +        compatible =3D "airoha,an7581-subsystem-scale";
+> +        operating-points-v2 =3D <&npu_opp_table>;
+> +        clocks =3D <&scuclk EN7523_CLK_NPU>;
+> +    };
+> +
+> +    emi-subsystem {
+> +        compatible =3D "airoha,an7581-subsystem-scale";
+> +        operating-points-v2 =3D <&emi_opp_table>;
+> +        clocks =3D <&scuclk EN7523_CLK_EMI>;
+> +    };
+> +
+> +    bus-subsystem {
+> +        compatible =3D "airoha,an7581-subsystem-scale";
+> +        operating-points-v2 =3D <&bus_opp_table>;
+> +        clocks =3D <&scuclk EN7523_CLK_BUS>;
+> +    };
+> +
+> +    gsw-subsystem {
+> +        compatible =3D "airoha,an7581-subsystem-scale";
+> +        operating-points-v2 =3D <&gsw_opp_table>;
+> +        clocks =3D <&scuclk EN7523_CLK_GSW>;
+> +    };
+> --=20
+> 2.55.0
+>=20
 
-f2fs_ioc_start_atomic_write() holds filemap_invalidate_lock() from the
-flush until FI_ATOMIC_FILE is set.
-f2fs_vm_page_mkwrite() rechecks the flag after
-filemap_invalidate_lock_shared(), which it holds until the folio is
-dirtied.
+--zaGhrI4uIhrDFZEJ
+Content-Type: application/pgp-signature; name=signature.asc
 
-If you are okay with this, I'll send v2.
+-----BEGIN PGP SIGNATURE-----
 
-Thanks,
+iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaskC2AAKCRB4tDGHoIJi
+0vHQAP9VdBfVFtl2ISLYhS47stNP+ai3qyFcWCFZ6CIQaGCO0QEAuCa0IZD8T1iw
+wtFRHl5l0EynvOJijfAoExZEoHNzcwo=
+=Mdmf
+-----END PGP SIGNATURE-----
 
->
-> > +
-> >       if (is_inode_flag_set(inode, FI_COMPRESS_RELEASED)) {
-> >               err =3D -EIO;
-> >               goto out;
-> > @@ -2113,9 +2117,11 @@ static long f2fs_fallocate(struct file *file, in=
-t mode,
-> >
-> >       /*
-> >        * Pinned file should not support partial truncation since the bl=
-ock
-> > -      * can be used by applications.
-> > +      * can be used by applications. Atomic files should not either, s=
-ince
-> > +      * these modify the original inode directly and break atomicity.
-> >        */
-> > -     if ((f2fs_compressed_file(inode) || f2fs_is_pinned_file(inode)) &=
-&
-> > +     if ((f2fs_compressed_file(inode) || f2fs_is_pinned_file(inode) ||
-> > +          f2fs_is_atomic_file(inode)) &&
-> >               (mode & (FALLOC_FL_PUNCH_HOLE | FALLOC_FL_COLLAPSE_RANGE =
-|
-> >                       FALLOC_FL_ZERO_RANGE | FALLOC_FL_INSERT_RANGE))) =
-{
-> >               ret =3D -EOPNOTSUPP;
->
+--zaGhrI4uIhrDFZEJ--
