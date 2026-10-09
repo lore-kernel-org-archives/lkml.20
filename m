@@ -1,159 +1,124 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from sender-op-o17.zoho.eu (sender-op-o17.zoho.eu [136.143.169.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A5524FB9CF
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 20:16:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791576995; cv=none; b=I2lQQ33OYHwPf+0mwChXTW2SDHi1lFECdHIlOgAtfm8VnU+gGn4AVC49JQR263OjS1XAm8FcWZgGNkPh7f/qkjWcloRsYEDfYg2zJJTEiJiAGiHfqFZ4DLEt8G6tcJC6MKyw9Vy8JUhthkLJ1wPlHwY9KYlAtV/hbR2WDELMAc0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791576995; c=relaxed/simple;
-	bh=ug1UrfKuRfaHBPrwL3OQJ4KydFLAWT7KvToxSSpT4fQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gGWLew2JT7gjwZABxXjK8mE4ukcmu4oFL3lYxOgtEGpnuCnNxe18yT8wb/9p/wJy1cC6kLVnRqNQ9Ejc3VynUXo1KLpnxGQXiDVYTwubUPuCa9mJgNFnbn5F3CFkn6bm/ZZqISQVCFKLDdME7QOtBpSf4g65gOQgpbi6bj1a/oI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bXLkQn63; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1FBF31A045;
+	Fri,  9 Oct 2026 20:17:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.17
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791577077; cv=pass; b=Z3b3jITmNtWz/Xa5EPxqvX4AhwohErM8Nu7DmARpx4Y8tgHvt1qkyQXBfk8FQnfsjO1AtqDYEIJc/cddZHzYoYDEhMQjwM/6zulew+ANfpzNvOmsUmxayAhuHZZvQOj0xIkgzY1nl3GxTc9sWDC9ECWWev6eNcVCpeutqXkFq74=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791577077; c=relaxed/simple;
+	bh=qvLPHUzM/DJtBoXdupOVEVDXNGXrGTx5/xiPuuOjc1w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pDfG8rrjlrza64QhZ13bEETCMi9hEMtICm5yQPLQsbnT9Kx7StGNl61+W7xAuSpo7L1SItukGXekV+s0M/jzT9DdsdEjEOYPDcwhCztPz+ICUVC8HpkfwnhXLxFQ1zcVwhqY5PHaK4EZVZp1+ZbSBbKqUUk9WOg3R83VpjsYSs0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv; spf=pass smtp.mailfrom=iav.lv; dkim=pass (1024-bit key) header.d=iav.lv header.i=iav@iav.lv header.b=O42Xts5j; arc=pass smtp.client-ip=136.143.169.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iav.lv
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bXLkQn63"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791576993;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=06oOQhiRccqg5uPYKG9qboYKXJc4u6UZT5IOyGCRZqw=;
-	b=bXLkQn63cZIwFcHM9D1aJvMpgIiWyN8oxpUCx5KaWTANEYeKcxxv7xXDdQ+PL8tFpjRs+Q
-	sy0nrtyL/zKNps6GOLSavfkHikOzciBlmWtYJ5XlI130Nw9EtfzCNWHfGNw5A/gMPGHCXk
-	WHVXKsDbipnAflPsDk3MskvTYDw5N/U=
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-209-chXbuhyvNc-DNl8bpaQ7vQ-1; Fri, 9 Oct 2026 20:16:32 +0000
-X-MC-Unique: chXbuhyvNc-DNl8bpaQ7vQ-1
-X-Mimecast-MFC-AGG-ID: chXbuhyvNc-DNl8bpaQ7vQ_1791576991
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93be1861d2dso7759685a.3
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 13:16:32 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791576991; x=1792181791;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=06oOQhiRccqg5uPYKG9qboYKXJc4u6UZT5IOyGCRZqw=;
-        b=CtVJANRIEllo4gx021z40E1S95HGAkcrS1tGMDscDaDrFS/gBqo64eMxqYAdY2lD5T
-         KZ+soYlWtkYj4AmeVJAayQH0kbYht7UnZO0JATxUwSneweiIBeVZaM36OwcZvgE69WbK
-         u5vt3SmQHE62wESy/YFHy6AtHv3atUuxhVoR6xz51zfY7b7Bb8EGwY1V6Jj2WAJEmJDd
-         rorkIaK3lHuaD7Ser57tyNjq+BWsUrF1gE6Fyh5nefAJCkOKZgsjDXs5vF8w1IzNs0aC
-         +8c35wjB7upsXMwxKh8xbNDIR9wTc3aKKeqcycHi/8op3ZbpUS5g5oKXtNg51J7UES47
-         SBDw==
-X-Gm-Message-State: AFuF++nLIyTkf/acEheO2cKyEI634sxhgFwPGR1M6D3QULCHibT62dmB
-	mGm0ofi1/jXJBrPKYpxZmmw21dmP170tvoVetGqIXNiTflBWBCvlvTV57JlRuCG4xziTDtayuj/
-	lwVzzTmCS6rkEfjNkneHv7nxgQ10BAKrdPTbOqulrJOjhxl+XQEBK7/FuOXyWzJBbf1GWYUFT5Q
-	==
-X-Gm-Gg: AYBFou20JtyqRQXFkQed4ToqcDPUWWkZfBsYLYbtzsyl3RrwDN1YR8SUlrKrrFxRNFO
-	X8mUS77XATY1MFUrkhYO6R+btYtqxmRJ9gVEGccWjcXYv0RSl9p/zO+6i2L0B37uPfGKho8tE2p
-	dGncMwiv4QkbRaFwLxFQa3PiSrZkkDB3z61mNniORktPcY99hZqBeVRHu8uXIDoX0oPx7iF8YTn
-	zbtOlDeWMhk/QnSnfyiRGTEWZvRNGnCawa1CN2lY6npDeO7RXCd8atEAeT0jWjQgtXcBYE++UTH
-	gU/tC/oIMdIPIzXf3sfvRgD94+bxGIHmjbi0OWJf+m/idlS6JQe79rhbvCW4cpljoaeiy4hhhTD
-	PdcE=
-X-Received: by 2002:a05:620a:1793:b0:93e:c12c:440a with SMTP id af79cd13be357-93ec12c48f5mr367251185a.70.1791576991383;
-        Fri, 09 Oct 2026 13:16:31 -0700 (PDT)
-X-Received: by 2002:a05:620a:1793:b0:93e:c12c:440a with SMTP id af79cd13be357-93ec12c48f5mr367246085a.70.1791576990896;
-        Fri, 09 Oct 2026 13:16:30 -0700 (PDT)
-Received: from [192.168.2.110] ([142.172.30.162])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb98cd599sm266356485a.39.2026.10.09.13.16.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 09 Oct 2026 13:16:30 -0700 (PDT)
-Message-ID: <e7c7e8df-b1e7-4796-baef-ca5d7676688a@redhat.com>
-Date: Fri, 9 Oct 2026 16:16:29 -0400
+	dkim=pass (1024-bit key) header.d=iav.lv header.i=iav@iav.lv header.b="O42Xts5j"
+ARC-Seal: i=1; a=rsa-sha256; t=1791577032; cv=none; 
+	d=zohomail.eu; s=zohoarc; 
+	b=ejswQMwcCIuxTynSM/R7VtRL2iNOwvKb+oTkzE6EQA/MdziqfQ2tavoMANZLrY05Ys1iMGsgoaQ5bqst6UvUQ5MKie6E2nnTBlORblHJWuVFgCBFDvDDKHh/FqRpAZ/4iVKCK/dBc+fdwWEwH6IEI1pWJW7dUYwKLL3uzRhiS/M=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
+	t=1791577032; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=9tr1qtc6LQ+b+juOf6dlKhYQBymxbiy4xJ9ony0p3rw=; 
+	b=PO+2Yg5szwDxFAvi3fvfrfv3bEIkVv9uDu8lHHFxd787eMavdsVMSV5oZk5TGWdQq3TVzvFqZBamxGPTZ5jbAti8HFlodo3utrJg02FnjiPnU6UJl2EFGD27Og4cvw4CZSgSDPIdc4JRAsCn8TFVM4T8/MLehkYU8uSz3ULkpBI=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+	dkim=pass  header.i=iav.lv;
+	spf=pass  smtp.mailfrom=iav@iav.lv;
+	dmarc=pass header.from=<iav@iav.lv>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791577032;
+	s=zoho; d=iav.lv; i=iav@iav.lv;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=9tr1qtc6LQ+b+juOf6dlKhYQBymxbiy4xJ9ony0p3rw=;
+	b=O42Xts5jKPqc50mKotumhwirNkCnz2A2NOUKUWqBnxrNUq2JMZpJHVkwCUHnEMI2
+	4Ei7D6JWfJZqLlGFWOp4bc09ZYNDyq9jM3FfxsJVh8181hwowCXQA8aCrMhh1x6OLOx
+	dVUgIrW3IE9AKZeRHIDikefYxMwnzEodo8/ySPxY=
+Received: by smtp.zoho.eu with SMTPS id 1791577031212158.22971136146714;
+	Fri, 9 Oct 2026 22:17:11 +0200 (CEST)
+From: Igor Velkov <iav@iav.lv>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
+	Daniel Machon <daniel.machon@microchip.com>,
+	netdev@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Igor Velkov <iav@iav.lv>
+Subject: [PATCH net v4] net: stmmac: dwmac1000: clear the RGMII status interrupt
+Date: Fri,  9 Oct 2026 23:17:09 +0300
+Message-ID: <20261009201709.1917585-1-iav@iav.lv>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] x86: remove the BIOS memory corruption check feature
-To: Thorsten Blum <blum@kernel.org>
-Cc: LKML <linux-kernel@vger.kernel.org>,
- Linux Memory Management List <linux-mm@kvack.org>, x86@kernel.org,
- Andrew Morton <akpm@linux-foundation.org>, Thomas Gleixner
- <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- corbet@lwn.net, hpa@zytor.com, "David Hildenbrand (Red Hat)"
- <david@kernel.org>, Mike Rapoport <rppt@kernel.org>
-References: <9e1a161e-9246-41d1-9651-ffa85b1bc99b@redhat.com>
- <asktOXVRiXNOTcqH@kernel.org>
-Content-Language: en-US
-From: Luiz Capitulino <luizcap@redhat.com>
-In-Reply-To: <asktOXVRiXNOTcqH@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+Since commit 2e2c878a3141 ("net: stmmac: remove SGMII/RGMII/SMII
+interrupt handling") nothing on the RGMII path reads GMAC_RGSMIIIS, so
+RGSMIIIS stays pending behind GMAC_INT_MASK from the first link change
+on. stmmac_resume() resets the MAC in stmmac_hw_setup(); the reset sets
+GMAC_INT_MASK to 0 until dwmac1000_core_init() writes the mask again,
+and the pending status storms the line:
 
+  dwmac_dma_interrupt: unexpected status 04000000
 
-On 10/9/26 2:06 PM, Thorsten Blum wrote:
-> On Mon, Jul 20, 2026 at 04:41:05PM -0400, Luiz Capitulino wrote:
->> By default, the BIOS memory corruption check works by reserving the
->> first 64 KiB physical area from memblock, zeroing it and then scanning it
->> periodically.
->>
->> However, this functionality has been broken since v5.13 by two commits:
->>
->> - Commit a799c2bd29d1 ("x86/setup: Consolidate early memory reservations").
->>    Moved trim_low_memory_range() into early_reserve_memory(), which runs
->>    earlier in setup_arch(), causing the first 64 KiB to be reserved (when
->>    CONFIG_X86_RESERVE_LOW=64) before setup_bios_corruption_check() runs
->>
->> - Commit f1d4d47c5851 ("x86/setup: Always reserve the first 1M of RAM").
->>    Hardcodes the reservation of the first 64 KiB early in
->>    early_reserve_memory()
->>
->> It might be possible to get this feature to work by allowing
->> setup_bios_corruption_check() to run first, but it's just not worth it
->> given that the kernel will never access this memory area anyways.
->>
->> Signed-off-by: Luiz Capitulino <luizcap@redhat.com>
->> ---
->>
->> Changelog
->> =========
->>
->> v2
->> - Rebase against latest Linus tree (v7.2-rc4)
->> - Improve changelog
->>
->>   .../admin-guide/kernel-parameters.txt         |  23 ---
->>   arch/x86/Kconfig                              |  30 ---
->>   arch/x86/configs/i386_defconfig               |   1 -
->>   arch/x86/configs/x86_64_defconfig             |   1 -
->>   arch/x86/include/asm/bios_ebda.h              |  17 --
->>   arch/x86/include/asm/setup.h                  |   1 -
->>   arch/x86/kernel/Makefile                      |   2 -
->>   arch/x86/kernel/check.c                       | 187 ------------------
->>   arch/x86/kernel/setup.c                       |   4 -
->>   9 files changed, 266 deletions(-)
->>   delete mode 100644 arch/x86/kernel/check.c
-> 
-> Hi Luiz,
+A register dump at the first message on ODROID-HC4 showed it:
 
-Hey,
+  core int_status 00000001 int_mask 00000000 pmt 00000000 rgsmiiis 0000000d
 
-> v2 no longer applies to mainline - are you planning to rebase it for v3?
+When the resume thread runs on the CPU that takes the MAC interrupt,
+the storm starves it: a soft lockup, then a watchdog reset or a hang.
 
-If we plan to merge it, I can :)
+Read GMAC_RGSMIIIS in dwmac1000_irq_status() when the status is not
+masked, as the driver did before 2e2c878a3141; the read clears it.
 
-> Regarding the changelog: did you consider that the check is only broken
-> for the default size? Booting with
-> 
->    memory_corruption_check=1 memory_corruption_check_size=256K
-> 
-> still works and I get:
-> 
->    check: Scanning 1 areas for low memory corruption
->    check: Scanning for low memory corruption every 60 seconds
+Wake-on-LAN resume from s2idle with the resume thread and the MAC
+interrupt on one CPU: Helios64 (dwmac-rk), 7.3-rc6, soft-locked in 3 of
+3 resumes without a fix and in 0 of 10 with this patch; it ran with an
+out-of-tree dwmac-rk change that keeps the GMAC powered across suspend.
+ODROID-HC4 (dwmac-meson8b): 0 of 10 with this patch, 2 of 2 without a
+fix on a 7.3-rc5 build. irq_rgmii_n went up by one per resume.
 
-Yes, but IIRC this won't reserve the first 64K and my understanding
-is that checking the first 64K was the main point of the feature.
+Fixes: 2e2c878a3141 ("net: stmmac: remove SGMII/RGMII/SMII interrupt handling")
+Assisted-by: LLM
+Signed-off-by: Igor Velkov <iav@iav.lv>
+---
+v4:
+- Clear RGSMIIIS in dwmac1000_irq_status() instead of disabling the
+  interrupt line around stmmac_hw_setup() in stmmac_resume(), after
+  Daniel Machon asked about a dwmac1000-only fix.
+- Link to v3: https://lore.kernel.org/r/20261007031438.3179966-1-iav@iav.lv
+
+ drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c
+index d4ace3924891..66337cfd9824 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c
+@@ -312,6 +312,12 @@ static int dwmac1000_irq_status(struct stmmac_priv *priv,
+ 	if (intr_status & (PCS_ANE_IRQ | PCS_LINK_IRQ))
+ 		stmmac_integrated_pcs_irq(priv, intr_status, x);
+ 
++	/* Reading RGSMIIIS clears the interrupt the MAC reset unmasks. */
++	if (intr_status & PCS_RGSMIIIS_IRQ) {
++		readl(ioaddr + GMAC_RGSMIIIS);
++		x->irq_rgmii_n++;
++	}
++
+ 	return ret;
+ }
+ 
+-- 
+2.43.0
 
