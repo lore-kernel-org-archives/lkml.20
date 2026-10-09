@@ -1,98 +1,129 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2A1D3D1A98;
-	Fri,  9 Oct 2026 04:32:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78BBE3CC7CE
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 04:33:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791520352; cv=none; b=Y3QA0P/muMRvxEyxwYPwDSrb0Y5PZGNQRrZDD6CJjWnhiAnFdTjD0A8UFXujKAkNQm71hAfgiwnG0dHf2Zp5lDOQq73lb5kfC41mcloY7sTrb2SicUaeXp+VyNdxTSGWUjbsnkRq3gpySwUR9WkvBG9vR8Jt+q2GeQcuPpK0cR8=
+	t=1791520389; cv=none; b=BKti+vDTHd4gqSdlp7IKGsyYOCYzuoK3XZ4NBQe/n4NjUldBJ10MIGF0b9s6XfHisSjeY48B6FyB3ofIC5AE9671X3fhkWeR6LlK+QLxT4nLj3BjYqn9/aDVlwFMrBtqFUdls8M2q3JQYA6G6KrqaPKjvGN29cyIQTqAfEreJPY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791520352; c=relaxed/simple;
-	bh=2gSSs/9j43Bj7FJM0ZsKI+EXUuJSLeAx2PM7wYVe65w=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=VDBkP2e6/x3kt7L+tKnjPIzCtgcJKoB0+lran5JKn7/r+KSdD8fgOzAoMN1SPQYa/g/b5aEbrXcC/8VyZASaInUS991LDij8noyJbEwj8oORFhUXAdcXiS/XDUegmsIu3MlLO2dX6LVHMCZKwe26mRPX0EXGTKJ4E1BWUWflhGA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from fc87d0ffb700.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAD3AkFabshqt+AbCg--.2720S2;
-	Fri, 09 Oct 2026 12:32:27 +0800 (CST)
-From: Haotian Zhang <vulab@iscas.ac.cn>
-To: Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	Dan Williams <djbw@kernel.org>,
-	Maciej Sosnowski <maciej.sosnowski@intel.com>
-Cc: dmaengine@vger.kernel.org,
+	s=arc-20240116; t=1791520389; c=relaxed/simple;
+	bh=BRksUHupWTwAHQEfDLT4q+pk1XcrAhHwf/e+BYIOG/4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KWa3477ea77QJbIK/WAdAIEyI4dLIIJdl5BcV7ZW1Z9fFQfTVN34ZcMlDZsZlY1OVQW7aHo1fKEZcb0VN8s1TbmRu+K4HOvYLVUKoVfU9IV56YucAe7RQIVtmST+uHHawgFJFlBNeoQKutL5qf4ex1NJbH//QFJDUzFKcPxrZ7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=uWe0Q2tb; arc=none smtp.client-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="uWe0Q2tb"
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-351775aa1c0so2253587eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 21:33:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1791520384; x=1792125184; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Er36W4Z+TzVAMFUZ5NmRw1HzZaggY++xCA8t6qC7IVU=;
+        b=uWe0Q2tbYCE83zlGEdbLVOlxhp7phrXOMROncsEM1u1yUjEcWHX/48j1Px7vOH+aeE
+         FBTumHNikDFm9lJbKZaCzEckLuvwdJJAY+obzNKOrmMZQnKFm+kRoBGE7l9xLjcsXt0v
+         SrDCucnZEnNA6elUuSf1IasLvGAhk4rC5yvnwMcQ27zwYCZBCkW/t/VJPlzV5PaSBoiu
+         qb2ZkE9HMxJYQ1FjzSllXJZXUKvYKly9BiNcbWDy6A3BaIvbrKlla6pRx8X7uzL4f6Pl
+         a4zYPCaHuu9ddVlarqCj0YSk8jFEW4osXQT6d0fImqHQReLWyJCq2Bd+6Icy9k2+g1Wh
+         zoCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791520384; x=1792125184;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Er36W4Z+TzVAMFUZ5NmRw1HzZaggY++xCA8t6qC7IVU=;
+        b=NG5ALBuHMDyuanwKbqSZGSIodt2+jNL0+0Frz8X+3pKnFzV3mSGOzQs6KAhqcZZ9P3
+         vppwgI673fAm5fkxxw0lvNYsxB827GjL82Ij7qgzUJbUXIMAIvONVMc7w2C75O0+OW0q
+         Qqi6egwH7XAsafwdu0oO6dumBxbgRZtEDSg6b7CF7lr9SqmxOGuDiuwvvhckTExuBBOT
+         omj3h0DFFBW70LtXeiOeDpKLZTWOaRZRqjNUrGkIgpIq/Ws9UhISCo53aTcLNJcBNbK7
+         yGBvowZ/njraIokzVqxPs2BiSN8RSjz2fbFEpm+BNTB8afmfog96246bkBl7LO/kXvXX
+         ZfUA==
+X-Forwarded-Encrypted: i=1; AKwUvBwrxdiZ6i2yoh6yP35YmdyC4gdukf2m47I015RkRoaEOA5fZStJm8MwWNv6nF7Hp+AIbt2axrdwFQsGOGU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kBHVFZrXFtvJKyyhM+8VgH8y9uEcuiHUfYayzmKt9H6fu+UElC
+	14FphzFZA0HL0Zpo/INzwCPl1Zh8yHKiW7qOUg1bsK6qhYbtqVFQdh1riQaHUrFg6ro=
+X-Gm-Gg: AYBFou3xs0zUFVbTlsaJyQc5eMHmyza8YYBSAYOZ/2wT49xuanhqve8mrx5PRMn87AH
+	YGiOoV6bpKCoNQoB8t6iZv66YWmY8bx9JqkFu3HFk4UfTLhGN4Zfia2K9NLfufQa3Obf/IDErTS
+	Aj+RnLyCjm1LJC30/6lkZhSSVm+Y7NZBvXcdBUBJF9x42KmyKsJBGZorNKLXjopXp8dnmePgSzk
+	ZvsxwEEwyDIuDb64g8fIKLvQXecwNFni+vbqpFVAZ/9vggXsMyGHtD4U677/+gA467VyTzwPCzs
+	XzjpfvG5arxAjHq3xTGIuUdqW1uSjSiDex0yjuRAsG7b+0BqsMsbdfDDeIIfo5ONJUOfdZq3Ads
+	NWKt9hqr/3ewfJ+yNX/fuV+6GSVy10JlC0UNtbjTlSWcXJnUQ0fDRReLERDNQAp3YL3jGdV37Vd
+	xZLntdGJU4ry77U3tENZ36z80yubC4kTQUIWNbKwEcKT1Ezj9F2Lo7DqTBaSoVFggvMSBf9M0Yk
+	Q==
+X-Received: by 2002:a05:701b:205b:10b0:148:722b:7cbc with SMTP id a92af1059eb24-16a5dbfe430mr919153c88.14.1791520383310;
+        Thu, 08 Oct 2026 21:33:03 -0700 (PDT)
+Received: from localhost ([122.172.82.240])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca0e64csm3128557eec.10.2026.10.08.21.33.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 21:33:02 -0700 (PDT)
+Date: Fri, 9 Oct 2026 10:02:59 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Haotian Zhang <vulab@iscas.ac.cn>
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>,
+	Stephen Boyd <swboyd@chromium.org>,
+	Taniya Das <taniya.das@oss.qualcomm.com>,
+	Saravana Kannan <saravanak@kernel.org>,
+	linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] dmaengine: ioat: fix completion pool leak on ring allocation failure
-Date: Fri,  9 Oct 2026 12:32:29 +0800
-Message-Id: <20261009043229.3108794-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.25.1
+Subject: Re: [PATCH] cpufreq: qcom-cpufreq-hw: fix device node refcount leak
+ in phandle parsing
+Message-ID: <ashueyfHcwGHziVG@vireshk-B250M-D3H>
+References: <20261008172442.2725544-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAD3AkFabshqt+AbCg--.2720S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7tr4rurW5WFWDGryxCFy5twb_yoW8ArWxpr
-	4Ig3y5C390qF15KFWDG3WkZFZ7Jay3J3y2gFW2q345Zw1v9r4S93yrta40qr4DJFWktFy2
-	qrZYqrWfAF1DAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkvb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
-	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
-	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWxJVW8Jr
-	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxkF7I0En4kS14v26r126r1D
-	MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
-	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0E
-	wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JV
-	WxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAI
-	cVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x07bnSd9UUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRMPA2rIZLsazwAAs+
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261008172442.2725544-1-vulab@iscas.ac.cn>
 
-ioat_alloc_chan_resources() allocates the channel completion writeback
-area with dma_pool_zalloc() and then allocates the descriptor ring with
-ioat_alloc_ring().  The ring allocation runs under GFP_NOWAIT and can
-fail, in which case the function returns -ENOMEM without freeing the
-completion area.  As the ring pointer stays NULL, the only teardown path,
-ioat_free_chan_resources(), bails out early and never releases it; a
-subsequent retry overwrites ioat_chan->completion, leaking the previous
-allocation permanently.  The dmaengine core does not call
-device_free_chan_resources() when device_alloc_chan_resources() fails, so
-nothing else cleans it up either.
+On 09-10-26, 01:24, Haotian Zhang wrote:
+> of_parse_phandle_with_args() transfers a reference to the provider node
+> in out_args->np, which the caller is responsible for releasing with
+> of_node_put().  Neither qcom_get_related_cpus() nor
+> qcom_cpufreq_hw_cpu_init() ever puts args.np: they only put cpu_np, which
+> is a different node obtained from of_cpu_device_node_get().  The
+> reference is therefore leaked on every successful call, and
+> qcom_get_related_cpus() leaks one per present CPU.
+> 
+> Release args.np after the parsed index has been read in both call sites.
+> 
+> Fixes: 2849dd8bc72b ("cpufreq: qcom-hw: Add support for QCOM cpufreq HW driver")
+> Assisted-by: DeepSeek-V4.1-Flash
+> Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
+> ---
+>  drivers/cpufreq/qcom-cpufreq-hw.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/cpufreq/qcom-cpufreq-hw.c b/drivers/cpufreq/qcom-cpufreq-hw.c
+> index 874ff3fb9d97..060a460716f7 100644
+> --- a/drivers/cpufreq/qcom-cpufreq-hw.c
+> +++ b/drivers/cpufreq/qcom-cpufreq-hw.c
+> @@ -322,6 +322,8 @@ static void qcom_get_related_cpus(int index, struct cpumask *m)
+>  
+>  		if (index == args.args[0])
+>  			cpumask_set_cpu(cpu, m);
+> +
+> +		of_node_put(args.np);
+>  	}
+>  }
+>  
+> @@ -554,6 +556,7 @@ static int qcom_cpufreq_hw_cpu_init(struct cpufreq_policy *policy)
+>  		return ret;
+>  
+>  	index = args.args[0];
+> +	of_node_put(args.np);
+>  	data = &qcom_cpufreq.data[index];
+>  
+>  	/* HW should be in enabled state to proceed */
 
-Release the completion area with dma_pool_free() before returning from the
-ring allocation error path.
+Applied. Thanks.
 
-Fixes: 5cbafa65b92e ("ioat2,3: convert to a true ring buffer")
-Assisted-by: DeepSeek-V4.1-Flash
-Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
----
- drivers/dma/ioat/init.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/dma/ioat/init.c b/drivers/dma/ioat/init.c
-index 737496391109..000b59f0f04e 100644
---- a/drivers/dma/ioat/init.c
-+++ b/drivers/dma/ioat/init.c
-@@ -695,8 +695,14 @@ static int ioat_alloc_chan_resources(struct dma_chan *c)
- 
- 	order = IOAT_MAX_ORDER;
- 	ring = ioat_alloc_ring(c, order, GFP_NOWAIT);
--	if (!ring)
-+	if (!ring) {
-+		dma_pool_free(ioat_chan->ioat_dma->completion_pool,
-+			      ioat_chan->completion,
-+			      ioat_chan->completion_dma);
-+		ioat_chan->completion = NULL;
-+		ioat_chan->completion_dma = 0;
- 		return -ENOMEM;
-+	}
- 
- 	spin_lock_bh(&ioat_chan->cleanup_lock);
- 	spin_lock_bh(&ioat_chan->prep_lock);
 -- 
-2.25.1
-
+viresh
