@@ -1,110 +1,146 @@
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 366634CDDC9
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 11:24:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3518C4B5CD2
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 11:25:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791545089; cv=none; b=sTjd0u7I3c6Lc2EcBQTnnoSqaGT6iAviQaZ6Yck9zb7031NXohtB67/X9mw6iQCuOCrURLJwgTmLM3EOTo+l5FEBHCKbYSqiON6B2LzHxb6KpZNguLwIhYIO1Z1NBa24hIBzZqSWUrdYqi30sjssd4IsMu+pQKOXK6nXutP5Uz4=
+	t=1791545119; cv=none; b=uhkVaHHWa7AV8UDF3TPP3bVCFEYrO81YRMcdmD43L3Dqm0IyRCrqeGq3n2FdpH0JLBH29xC8FfGeRWNK0k+wGJla1A+UUKbOqJYLicosAeuBzgmD6PrGE4EFXqHcKcRLxlgs0gOpxpc5kJqnvHIRn2YhAylsgjYPorJ8yaU39Nw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791545089; c=relaxed/simple;
-	bh=lzV/JOwZceG3YxOPL82K2UBdcZS5W230ZAh1fveVVcM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hv7yC5WtE3/kufMt++25N9a76Zhvla9hjvGHwjbdYweQovRX8dEdMjLYwJps3nK6lRYOZvwjHF8R9etEhyjT/dd6W/NC7ofT2a5K0FrQLTtrj3Gbx3hI2/0YHYa4Bl+iEltDTVA8hpDNPWYjrNCy9X1skurGcfYQ7oJ6igIjeh4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K9aL5ot1; arc=none smtp.client-ip=74.125.82.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791545119; c=relaxed/simple;
+	bh=3RiJrg3T/A4hkKUCBr13+wDz2DdeBZFJrHuY/UKpTuQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=QXUF1rXPPP4i9whSZm34cb9JS9P7W8V970OAECwzgAjTPBl0heAzKFjP5oM4e1ybBvFcYk1M7tVZxdr8jBe984geCO//V3EsvonOjzPLz1ra+j0Mx90MfDN/WnqlUWG7jDid1Sfwa2hdChwaKweBUeJfpDK35vNHguxjIfvmp8o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=MpGRI8OK; arc=none smtp.client-ip=209.85.208.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K9aL5ot1"
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-30b6dad2382so9187929eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 04:24:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="MpGRI8OK"
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6a0a4aa99bdso5372222a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 04:25:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791545082; x=1792149882; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=je2Q3HHMwOmDG5bekFREQfFaKgEfAjyCYUmGYt2rUu0=;
-        b=K9aL5ot1AVomxF4MmjhtFiX4L5DWlQr1g/wmvMuOdSzTLg1quU2zmro2CDX4cUIYgu
-         YMWhuJ87k7RusHDoCQ+Nh2SKvOWynLBisA00Ec/ZhzirRLemu1UDrmvxaLEqWVz4tpPb
-         Z+AvQA6Lf4RGwrlCRBhrxu+gyv5kh8Yv3LZxaoTHA05Llbb9u0i6UHTlhWXcFfGFLK+J
-         b8Mly2zCms7m1+8ZYys4w/wqL3VunMM/JJlNho/hk0DXlv/Y438I50QrDBsV1UGl+zxJ
-         LDMOxB89VeW4nDNXHAXTCIjgmLMOGf/+DVXC5OCO7XKCAfhcMO/EYCAqGnBmri8jRYfg
-         mwHw==
+        d=fairphone.com; s=fair; t=1791545107; x=1792149907; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=N0b0o/iVMAqwN7EkNfQamm6FVceYxCUCOkfAzEvfWWw=;
+        b=MpGRI8OKt4hPgbXGQ54W5nO4Q+98xXay39DFPsWRepYfkTzj8FOQ0VGNjeH1F1NQhR
+         zETB+ef1og9GckSpPIqKrCDUISjs++6JkylXYycbrDc3Rvbb0WvcDOIscoc8ez3Jmp2A
+         U5LP3jF7CKsTYSO0Dt0e+xiPHmBPh2v/JEdkyVx92XePUfjsS6pD0R/LnICGOUbPzbo2
+         01Lb6pY1lH+PDG3CAJZXOxVUpyo2FHrvb3MgXiwQx3s1ePhptG+M09I+wtaFWxnm2bln
+         Hizwz2pHhtqYzqBO4XUkinY8TdJtJjUzEWLBS6BeICcS/3lhYElT4avQ5e+lMQ3rDKDB
+         cqrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791545082; x=1792149882;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=je2Q3HHMwOmDG5bekFREQfFaKgEfAjyCYUmGYt2rUu0=;
-        b=wg82fe4ilSDx095FrAgKeR3y0fdSC5Mi8Zn2f639QFkp1Pr9OWdN03o7lby1+FV0pP
-         tPBm24eT6UKUPwAM52STO4B+6myI5AimP69PSEpgZBMv+EOzplqa2YocEOaqIZokUzjV
-         2tZxnJ42MERok1IutsS9g2T1gMhXw3nSq0UceR0Ap/Oc+KYzTaqEYI7P7KVx4xP/0oiN
-         KtceZcnGCI8JsNC/AO+nzBaEHW/IbSC/FtBJbwLpQAUBv22POd51jFm7k/uP4YVB4m1t
-         ORt4294pX1WXR0f0fwlnfrX4VDqzZZIjlGvaQxXZSAqd28aXpGXBI1buUGpSEKWHwa5a
-         vKWg==
-X-Forwarded-Encrypted: i=1; AKwUvBxmNCKUXDu3f4yxpfQHEbnbYeWJ3fco0ldG1IrbnK6OTxPTuIU7KgIVFtElscP0OW+M2LIyT+QVFTZRc78=@vger.kernel.org
-X-Gm-Message-State: AFuF++nL/8IoxIqMOfzyQt6vnk+2deflkfLBQDJSAkYo61KscT1LcwZZ
-	dRLv5ACk1AJB31wl0CNTbhB3bO+nsOitHlIxrOO2Z9xoHDio56w7im+J
-X-Gm-Gg: AYBFou0qLMWS+kiTxsNsx7J+nSa89ot9P9fOKf6gCzXXFY2tyGeR+usFfTZ9qiP7Gnt
-	cveFtjcJFkqWXfXJ2Y3DXqqj5wzo8ywhjsd3kJ79n6tSdB9Wi2qiyYL+7oZjG8aR0jIzJDY+uQh
-	MYcxdXyTsPsWFYJgx2pbyB56icGKSKcBp7PpE4oo9Z6d0zul74tFwuuzNgIrBDeLfP06v9GjlU7
-	VX19UqGlYc0jEvErz2YI0yBHeMwhe5Jh5ieLmMYktN0H7b8PL3PtGl+r10vpJJhUxNG/sZbLxs1
-	wboPyiOYDctUopPQBFyYPbGU/l2JY0x2XHPEK/I6XaRZpUztmYzxjXexEF6jSNZCW6xGeo/a2fp
-	YEo48dQ3ztBwp00MiPd84VuLlrzYajLVt5O9kiZ97SWWcikOn/FjJQ8eKqaY2Gf/64NC62K3qyv
-	4FUoALGhbmaVKWo8ft18WSFsHuw0EF3TZKoLI71oMajp8r1I5tx0SwcVUYmoNux4g4c8Ope/rHp
-	IZ2y5HQ2L6fbYOKFgE9crDP9WhxR5vL9siCLSFqbJGrr3fYOa9/2GAY3U8xKzwk3kPml5//w40B
-	0z3yrO4Lr2bkrA==
-X-Received: by 2002:a05:701b:2309:b0:153:7a27:b89 with SMTP id a92af1059eb24-16a5ed4008cmr2359046c88.21.1791545081842;
-        Fri, 09 Oct 2026 04:24:41 -0700 (PDT)
-Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-16996eac537sm6304632c88.1.2026.10.09.04.24.39
+        d=1e100.net; s=20260707; t=1791545107; x=1792149907;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=N0b0o/iVMAqwN7EkNfQamm6FVceYxCUCOkfAzEvfWWw=;
+        b=rJxqs77B1MqlVVHHmeEJmOjWP6mT46sZiyx5zdeuPUNYQQB09devQeddpM/hRskax6
+         0Dxl3a7rE4zTiz/BujUOgo++XzhH9TXKMJAlkyorfkUxXxh3en/zPIFbKhJYNRzqq5NC
+         ad8aEdpLyCYpMwdwByZcN0h1EWA5TRnoXCTx0f+HLm2Xi5YI3oF1vxmLnosChwX4K8YZ
+         yjWjXxOrkgS8vDfo2UM7nranNGGkbd/JjDpGziRnHfcmPGGzGe21vqm2OgdMaUdCgYtg
+         OWIEGk7Wfeov2vk6kLlCevkhiPgAIzDGG8ttBCmXS2M9PXt2yR6cltZkRkpsBlGJF9XK
+         A6oA==
+X-Forwarded-Encrypted: i=1; AKwUvBwNuO+lkEPiMm3hW6OVkiK0kmRPwV3YDMHo/otT63Aa6OI3IaQyErF7KHyp7tNshsReM7yu67ge72RkLfc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJE+mEqethpRdVqG55MDnOr9DTmaty/tK4cwpYIgqZAXL+M6d4+
+	4aQHor+MN+H/FdezU/J3BKhbKsndA7g0O4U+xSjv14zD7pbNIyLQ4x0ABnEBJmDsmi8=
+X-Gm-Gg: AYBFou3xrhPAWj+222gdyEIdC+Q72Q6Pvn4SP1ekFy2Nt2/guZbDATCJbT3wsE7+7JG
+	BMcfrDwUrQ0GzyBoW53FkZXia06HZRAvdoTpWmig/eetLlfhW5zeAlgyoWDfXMVbUAJaQNYxLBt
+	fXRdJRYgmhiGVVVTqHRBH6OrLFlSt8speUtVTqiV4vRscNmClalJ+q1J9JMDPxC8gWKEa0EdEHp
+	wBkAIPrNvrMdwiIH3lb1BIFS6Kq6/e3eFVMcasCG6TqEsDuyOAniLHeW86G04tx8rhoOWlGlXG/
+	TjJ2XRPo0VsY84Xl8y8dXmZvw5Q3wohwmLDIq0fjAbPVSIBpMAAsMCB8p0PbWOgT9H6KUnwU3Ae
+	ufPPrWjzpPCQ0FmbaXThn0wfef/d9RgDkzuzFL30VtMj4jajYz/aFHfgw+4jernAuX30wSR2ds6
+	cFNQKSYC8ZU5+9L2RnHDglk5UQbownOlRDDJbKQJ+ESv73xnj2Zww1AHUcpQYFD/yAtazBoIcu1
+	+mnfH1htTCO/rgmyZ2zDxrewTW+v0VZCsOYEPBXR5siI3S5BD0M
+X-Received: by 2002:a05:6402:5189:b0:6aa:96b3:9d7b with SMTP id 4fb4d7f45d1cf-6b17c29892dmr1280328a12.45.1791545106487;
+        Fri, 09 Oct 2026 04:25:06 -0700 (PDT)
+Received: from [172.16.220.101] (144-178-202-138.static.ef-service.nl. [144.178.202.138])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b179dd3597sm985764a12.14.2026.10.09.04.25.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 04:24:41 -0700 (PDT)
-From: phucduc.bui@gmail.com
-To: Sebastian Reichel <sre@kernel.org>,
-	Linus Walleij <linusw@kernel.org>
-Cc: linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH] power: supply: generic-adc-battery: Propagate charged GPIO errors
-Date: Fri,  9 Oct 2026 18:24:29 +0700
-Message-ID: <20261009112429.33318-1-phucduc.bui@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Fri, 09 Oct 2026 04:25:05 -0700 (PDT)
+From: Luca Weiss <luca.weiss@fairphone.com>
+Subject: [PATCH v4 0/4] Add Novatek NT37705 panel driver for Fairphone
+ (Gen. 6)
+Date: Fri, 09 Oct 2026 13:24:59 +0200
+Message-Id: <20261009-fp6-panel-v4-0-7c3819664778@fairphone.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23OQW7CMBAF0KtEXmM0tmPXZtV7VF3EkwlxBUlqB
+ wuEcveaULUIsfzSf3/myhLFQIntqiuLlEMK41BCvakY9s2wJx7akpkEaUCD4N1k+NQMdOCqVRq
+ dc611NSv9KVIXzuvWx+c9p5P/IpxvA7+NSN+ncmS+15hvEnEcj8cw76r8tlU8omI33Yc0j/GyP
+ pbFWn7xQxYcOIFDD9pogfjeNSFO/TjQtsyuS1n+ayfso5ZFG+M01gDWSXil1Z8WAPJRq6Jrb6G
+ zyqNT5lkvy/IDgGAixmABAAA=
+X-Change-ID: 20260501-fp6-panel-3d35c999d894
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ Luca Weiss <luca.weiss@fairphone.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791545105; l=1623;
+ i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
+ bh=3RiJrg3T/A4hkKUCBr13+wDz2DdeBZFJrHuY/UKpTuQ=;
+ b=n9sHWAPeaTz9L7Cy6z9jwdx3y6w5vzk+5mzW0/ZlQz3qGFVUMFYW57e+R6ZqSvxIy0hegT4mX
+ x3/J0mNuhZHBttdJDYIRjMBMuURkyAbJDcdJ6clw7UjiSEyywsqyeAu
+X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
+ pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
 
-From: bui duc phuc <phucduc.bui@gmail.com>
+Add bindings and a panel driver for the NT37705, and then enable display
+on the Fairphone (Gen. 6).
 
-devm_gpiod_get_optional() may return an error pointer such as
--EPROBE_DEFER, but gab_probe() only checks for NULL. The error
-pointer is then passed to gpiod_to_irq() and the original error,
-including -EPROBE_DEFER, is lost.
-
-Check the return value and propagate errors from the charged GPIO lookup.
-
-Fixes: b0327ffb133f ("power: supply: generic-adc-battery: Use GPIO descriptors")
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
 ---
- drivers/power/supply/generic-adc-battery.c | 3 +++
- 1 file changed, 3 insertions(+)
+Changes in v4:
+- Use MIPI_DCS_* for a few commands (Dmitry)
+- Link to v3: https://patch.msgid.link/20261002-fp6-panel-v3-0-4b80f83bc936@fairphone.com
 
-diff --git a/drivers/power/supply/generic-adc-battery.c b/drivers/power/supply/generic-adc-battery.c
-index 185f55d2fd70..f3ca3ebb2533 100644
---- a/drivers/power/supply/generic-adc-battery.c
-+++ b/drivers/power/supply/generic-adc-battery.c
-@@ -238,6 +238,9 @@ static int gab_probe(struct platform_device *pdev)
- 		return dev_err_probe(&pdev->dev, ret, "Failed to register delayed work\n");
- 
- 	adc_bat->charge_finished = devm_gpiod_get_optional(&pdev->dev, "charged", GPIOD_IN);
-+	if (IS_ERR(adc_bat->charge_finished))
-+		return dev_err_probe(&pdev->dev, PTR_ERR(adc_bat->charge_finished),
-+				     "failed to get charged GPIO\n");
- 	if (adc_bat->charge_finished) {
- 		int irq;
- 
--- 
-2.43.0
+Changes in v3:
+- dt-bindings: don't use 'contains' (Sashiko)
+- driver: Use devm_drm_panel_add & devm_mipi_dsi_attach
+- driver: Replace linux/mod_devicetable.h with linux/device-id/of.h
+  (Uwe)
+- Link to v2: https://patch.msgid.link/20260918-fp6-panel-v2-0-6695c4008920@fairphone.com
+
+Changes in v2:
+- Fix kconfig dependencies of panel driver
+- Pick up tags
+- Link to v1: https://patch.msgid.link/20260501-fp6-panel-v1-0-e09cb05651cc@fairphone.com
+
+---
+Luca Weiss (4):
+      dt-bindings: display: panel: Add Novatek NT37705
+      drm/panel: Add driver for Novatek NT37705 panel
+      arm64: defconfig: Enable Novatek NT37705 panel
+      arm64: dts: qcom: milos-fairphone-fp6: Enable display
+
+ .../bindings/display/panel/novatek,nt37705.yaml    |  71 ++++
+ arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts   |  64 ++++
+ arch/arm64/configs/defconfig                       |   1 +
+ drivers/gpu/drm/panel/Kconfig                      |  12 +
+ drivers/gpu/drm/panel/Makefile                     |   1 +
+ drivers/gpu/drm/panel/panel-novatek-nt37705.c      | 396 +++++++++++++++++++++
+ 6 files changed, 545 insertions(+)
+---
+base-commit: c2cd463d6ee7d55a3ec0719d93c49ff99022d58f
+change-id: 20260501-fp6-panel-3d35c999d894
+
+Best regards,
+--  
+Luca Weiss <luca.weiss@fairphone.com>
 
