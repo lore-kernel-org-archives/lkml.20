@@ -1,320 +1,135 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7025E2F9D98
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 00:55:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7017830C152
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 00:56:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791507358; cv=none; b=dbkXK0nwSeNoO/CgyNviKUfqruXzcv0HO1C78a5nlDx5x740YT0zmwnhqC+et369dKjivYbGGijLl0KSXZ90ZKBEDMV0X0Va/bDjcpDJehneCw/PSj8m1Kh4B/RFNDiDXXEWpr05Nv32whICXl/SMEgc6OPxPygivWgPJQiVv2o=
+	t=1791507371; cv=none; b=XRVF+lcKPZ9YObZsVuf00aMSnmbAnUNE2D47aAAI3HOQoKcOchOIZdL1u75mLdWjxEv7ZkAUlSOpVxZ+Wql4qxF1aRq3BF15cQBlHBwcUoBee5r4zwU9kNmF3W1CyptgV8je+GgwV/qnws9JNjvf+/EWykYRh+Gpne7eYg8Ebu0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791507358; c=relaxed/simple;
-	bh=JXPVqttvvX6plFtTAXjvqOhVSR9/yO7AFcR4A3BClpI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZEV0OXwPV/4rSZBu91duHBFWsZTMtsYn85/1sAeSATMDFktXCvHdV4mUKBBGEqxCSGBqGKOFBZnCqsQGvoOdFtQgg2H3QteWXQuZz37xldwb9jqgjTjNRA8UDws044IY5t1AhPlRVPejZbPxiuMtunL2pqVeML6Is5F/TrKAHG8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XWD5Fr7H; arc=none smtp.client-ip=209.85.214.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791507371; c=relaxed/simple;
+	bh=TCmpqhsXFZvHB2hYI7sHMF1aP5fPfOZ0+46+VuzusmM=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=MR+PUlzTzwCf8/jMy5ubfqaNvos2JIofLp5E6VRvWXoBkdpFkXEw+iBB/9cDEANqHPca0+6ouw7nFZUswg/2AQEx9DYWM/WWL6CSOmMsCBgzIHWuCH2EUYafEW2QpFGh1JBl8eD7KRatiGqFlpelcI5NaulRWTFLKvph7bsK32g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=hdYwHpPr; arc=none smtp.client-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XWD5Fr7H"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e812e2b31bso7899735ad.3
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 17:55:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="hdYwHpPr"
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-353804b591eso122628eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 17:56:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791507351; x=1792112151; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=04vfIiU20tq2if36IO5LbwjL3l6PLEbsF088tIv0Xr8=;
-        b=XWD5Fr7HkF4qZ6eRJhjuxAPoe1MREQgay2fB9W2vxOE8dl07E6OaUxeCVVC78tISE/
-         PVjQ9iUiiwk+zfpZK2Odg2C9Hutj0SDiCA9y4eSgMc3tIsJRa3ns6/L0EeD2lxC+hWdl
-         f5B3h4d51nBEecYNAw3xgUQk/IynGcP9lIgKuLktlBMxWcF/nfHGZUMgxeCO6Mgn9t30
-         SUp3m1sEeAD6YHvb4UzkJ+lde041iz4UiYS0ilRzjFF/cf1oEeMegzGIQHddwMIkcQo6
-         NCj5ewfOAGrStY+Mawaxm/LIpsr/mEh1RWghYu8bVI3MEd/QbzXom+kRDWEfdev0B3tF
-         9RGQ==
+        d=nexthop.ai; s=google; t=1791507366; x=1792112166; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=HtES7fePFnMezxtZEKW2N4T9F4gvLmApUzPD0F+adIk=;
+        b=hdYwHpPrRODKcbXfgxO0VfjbViLi/+rEroIl5DNoHuDWcXkwmEwB2Jhy8Gk8Gw/TfU
+         Vr5bNJT+FPAmTIDnNWlNU8ps/jvBWlt7Y5/SEp9S0FwpUtv3LhP3OKbPNpWhGyKQHzJE
+         bVmNsaQ5z7HvnpYRjOBDwlxgMRAa+ibQt20vSV0rwi9gFya59F9eXL1MZBt2fwvzR/EL
+         5qgMYbhQrJqdy/rgWNZYxQkTwoSW6xMQUSpFZBRq0srw8z/a2s+BcwbOx3AhaxTBG+03
+         DojB/7vekxsMb7Vh41kmT1dXF+myHMF30P08UASCVkDy6TM5BHYI6IzFzfLpXlRqYyY+
+         ihAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791507351; x=1792112151;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=04vfIiU20tq2if36IO5LbwjL3l6PLEbsF088tIv0Xr8=;
-        b=m6Q2n5gj5ZJibzG/dutuxFhvU9Qm2eu2sYI5UMAxBhRg23Tm2PEXCSss222P+ba+S0
-         zGGrhX4E6H+XX4O8/FzSK0T4+utz5kKmog81ETq7cJ1LtcxV0r4k2+9V4ZYwyBEv7GUb
-         oBJ0lQCOAMpDOQsaXDHWeyFMC1ARXdGKCDinbyQGy+aQQSaxo2ELU4mqykNsOW9KW/OJ
-         2LvrMDroRNjjJocxDjklGLJM39VaueAHBERPh8EtzB/6AKAbwO/Iuw1/NVL38GK50Ku/
-         oadhK15LzSwUBY/u2utF27MflyDN1glm4RUuP1lqMovcji2F/Kz51r+JVVHKOcCW45Wc
-         Mb1w==
-X-Forwarded-Encrypted: i=1; AKwUvBzVzMoNbwSF2CBpahm8lZd6R16EGBSZ1/gm7ps674gaZWUfBkBJHSLkuW9ftdhdItAR/XmVhjg4dlssp+g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJBsCPUlZjxbtD+xWjgIEwU16Yjk3NCoT/QGQt8I/DH43XONDOG
-	Mpv4eeG8WluyFnr23a3OpmLZ0QVoYeEy0rKH64bommvyL6KOesbiWN98CF4wRRfRGuA=
-X-Gm-Gg: AYBFou02ykyfPncj2mD/P8FMTQLJc7CBZ6UYr0fINwc56EZQQocVeiteporCOOQumKT
-	DrpM2+Qd3HOhFuWOVSRm7G5OzuCzAOHeh/TtxCp61eqiNWBal7qr6zwr6b2oAAqI9sLM9TSg47d
-	ecUK6M09w63IJcNQXpJ6aTRX6gumLvG/AXmSSaQ8yHs1c3H0tnvy1IzVQUrVgab4UULJo/ixvXy
-	irX7kPM5mBsr1ZtIQ5ezToPLbUUtwmYBTqEVwWcpAB7v5Vw9cuhMqDtUXD1vwE38QmZfHlmpfVW
-	/52wnpxtepMtPYAal++JbGEJxgdqUOLFTNzuGdZbz9EvkigpLwlEp5RQbVWCOeZvV30EFhjoDkw
-	MPGjoumqw6OH+CUpS2FemeFJbdnzXFF02SeqJ43a+WJ4Qfv83Tb0rhFDXrPOGtHLIQLca7jnV+C
-	2ecT+WpKqXZXGN6uCbnRLMes3mob+RoJ3ZW0RtwwEmNOOhQrqiTxGA1V2TgJwiUO2clmjM2lIZ/
-	Fl1HWKTZ1jDevlqXxRCd3fEWGIscejNUKUv
-X-Received: by 2002:a17:902:f70f:b0:2df:35f1:8771 with SMTP id d9443c01a7336-2e842dfe4d2mr2440645ad.54.1791507350458;
-        Thu, 08 Oct 2026 17:55:50 -0700 (PDT)
-Received: from d.home.yangfl.dn42 ([2a09:bac5:661c:1246::1d2:d1])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e84219e8c9sm1374625ad.23.2026.10.08.17.55.46
+        d=1e100.net; s=20260707; t=1791507366; x=1792112166;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=HtES7fePFnMezxtZEKW2N4T9F4gvLmApUzPD0F+adIk=;
+        b=ayBXqcW36LUjDtV3/y8rNhFHan0TBe2jhCtZwobpzmsFaDzbROp/aNa2LSInFDYQZb
+         gnUgqXINQg0VZuyZekQPs0buab76tDiBvJH8tv7sbWWzfw/5vFEAvQj/46aZqN1m6pZQ
+         j6li/O2XGF78dQRkozKatvmr+fmUrtPvQ/nyB0m06NbLL4K8sBVl4aLB/c411elFvll9
+         kIi7ZH8zeo7DAMCd2vHq9l1YIUr3e9RRqrGtFpqxKOeg8+b2/TuivobrslaZeN0RuFlT
+         8KjD6o81oAwaoIQA84oCPUENZNjOpUALzsEa32HvEYtUTnow4zSJQvqv/Kdrj9UqYcDd
+         +SPw==
+X-Forwarded-Encrypted: i=1; AKwUvBx5JY9rhS280ZnbquOBA0uhQTVr9k6VbLzUtpy6iFewKwbJ3pp7L/HCCSHymk33nx/pON9N5IA4BkNI6Bk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI9JGVxJHhjU83FD74HuEX5IKTyAZYJrfUIanhqu1PS9aL9CD+1
+	WVQ2lx5chF7EieMk/v5B5WQuDDR3oQTbmKg/1RTb44wROi35duEXetCpHsomwG5g/hE=
+X-Gm-Gg: AYBFou1c4iwzygY+m9lEQEq1zO7T6C08+QjHhzrpnOD6dUvNPLVUREyclXWIQVkgdOC
+	+/Ie6S50aEVi/FvK9F4zfhkTtUCtg+bkqFiYPRnTKhb16j4FJq7k7QeJC3MsGHaadOJgIzUqU+Z
+	oWFpnNPWzZ60aubyXf5A7e8sgWX8Ub3AQ/d1gcAbqEnduxDLaVRqIwOCp+7iGJADxisS/NhDHr1
+	NWNDI2C4lUD5emoASesd5JJY+BH+mFmYVxF/KkydMUbit4qvnO7IN9aXNSEdgnTMH1+yIRZ2zcO
+	MWA3cHANJFkAnSnJKtMZTXQzOzItTUwNjBomllUfDKKYInXsulCcXM77XupDfAbGIzN5lHgqry9
+	G7Knu4yJXNUj7ZJV4jbeP4uM0tW5d+YSUYXGI52vBLjUxvtti6O1z3hJu9v2bhLoBIBXFMYpfMG
+	zKcB+WHbYj/kqe4xL3qVINpa4XU6D4mD6DFl1HBUCo67Gzy9/PVkGj3yphMCA0dpdiBa8Qye7tG
+	g==
+X-Received: by 2002:a05:7300:cc14:b0:353:7b68:4f6e with SMTP id 5a478bee46e88-3537e03ce89mr881856eec.12.1791507366213;
+        Thu, 08 Oct 2026 17:56:06 -0700 (PDT)
+Received: from [127.0.0.2] ([50.145.100.174])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cacb61asm1760205eec.21.2026.10.08.17.56.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 17:55:49 -0700 (PDT)
-From: David Yang <mmyangfl@gmail.com>
-To: netdev@vger.kernel.org
-Cc: David Yang <mmyangfl@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next] net: dsa: motorcomm: Add BR_FLOOD and BR_MCAST_FLOOD support
-Date: Fri,  9 Oct 2026 08:55:38 +0800
-Message-ID: <20261009005542.72860-1-mmyangfl@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Thu, 08 Oct 2026 17:56:05 -0700 (PDT)
+From: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+Subject: [PATCH 0/3] hwmon: (pmbus/fs1412) Add TDK FS1412 support
+Date: Thu, 08 Oct 2026 17:56:01 -0700
+Message-Id: <20261008-hwmon-pmbus-fs1412-v1-0-0ae7e5ee4e41@nexthop.ai>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ6CMBBA4auQWTtJpzagXsWwkDKVMaGQDn8J4
+ e5WWX6L93ZQTsIKj2KHxIuoDDGDLgX47hXfjNJmgzW2JGNu2K39EHHsm1kxKDmyGFrnrq6iytM
+ dcjgmDrL9p8/6tM7Nh/30O8FxfAHOM4/MdgAAAA==
+X-Change-ID: 20261008-hwmon-pmbus-fs1412-fd4434717c19
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Abdurrahman Hussain <abdurrahman@nexthop.ai>, 
+ Guenter Roeck <linux@roeck-us.net>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791507365; l=1864;
+ i=abdurrahman@nexthop.ai; s=20260510; h=from:subject:message-id;
+ bh=TCmpqhsXFZvHB2hYI7sHMF1aP5fPfOZ0+46+VuzusmM=;
+ b=R/58905oO3dCLNvhwPY8tQHf7EUw/OU/AJTnHSg4u/p8RsbmL1yQPDlcoO0ise8CjHl24rRQ+
+ P/K/uALm+oFBlRy0MvoJKKelkaLq953P76jBDofuzCk7Qw8Aqny7jft
+X-Developer-Key: i=abdurrahman@nexthop.ai; a=ed25519;
+ pk=omTm9cCAbO0ZhS32aKfJDKue0W3sQGpG9ub5eYHif8I=
 
-Let the hardware flood the unknown unicast / multicast if all other
-ports in the bridge have BR_FLOOD / BR_MCAST_FLOOD enabled.
+The TDK FS1412 is a 12A uPOL regulator with PMBus telemetry. Its
+VOUT_MODE has bit 7 set, which makes the VOUT limits relative to
+VOUT_COMMAND, and the PMBus core rejects that mode, so the generic pmbus
+driver cannot bind it. This series adds a small client driver that
+clears the bit and converts the limits to absolute voltages.
 
-Signed-off-by: David Yang <mmyangfl@gmail.com>
+Patch 1 adds the TDK vendor prefix, patch 2 documents the FS1412 as a
+trivial device, and patch 3 adds the driver.
+
+The driver only advertises what the datasheet's command table lists.
+READ_IOUT and OT_WARN_LIMIT answer on the bus but are not in the table,
+and the part reports OT_WARNING at room temperature, so the driver leaves
+both alone.
+
+Tested on a 6.12 kernel with an FS1412 behind an AXI IIC controller: the
+driver binds, input voltage, output voltage and temperature match the raw
+registers, the VOUT limits convert both ways, and a written limit reads
+back as described.
+
 ---
- drivers/net/dsa/motorcomm/chip.c | 142 +++++++++++++++++++++++++------
- drivers/net/dsa/motorcomm/chip.h |   4 +
- 2 files changed, 122 insertions(+), 24 deletions(-)
+Abdurrahman Hussain (3):
+      dt-bindings: vendor-prefixes: Add TDK Corporation
+      dt-bindings: trivial-devices: Add TDK FS1412
+      hwmon: (pmbus/fs1412) Add TDK FS1412 driver
 
-diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
-index 91cc5647f2b6..980d066a4bea 100644
---- a/drivers/net/dsa/motorcomm/chip.c
-+++ b/drivers/net/dsa/motorcomm/chip.c
-@@ -2616,6 +2616,7 @@ yt921x_dsa_port_vlan_add(struct dsa_switch *ds, int port,
- 
- static int yt921x_userport_standalone(struct yt921x_priv *priv, int port)
- {
-+	struct yt921x_port *pp = &priv->ports[port];
- 	u32 mask;
- 	u32 ctrl;
- 	int res;
-@@ -2643,6 +2644,17 @@ static int yt921x_userport_standalone(struct yt921x_priv *priv, int port)
- 	if (res)
- 		return res;
- 
-+	mask = BIT(port);
-+	res = yt921x_reg_clear_bits(priv, YT921X_FILTER_UNK_UCAST, mask);
-+	if (res)
-+		return res;
-+	res = yt921x_reg_clear_bits(priv, YT921X_FILTER_UNK_MCAST, mask);
-+	if (res)
-+		return res;
-+
-+	pp->flood = true;
-+	pp->mcast_flood = true;
-+
- 	return 0;
- }
- 
-@@ -2721,6 +2733,61 @@ static int yt921x_bridge(struct yt921x_priv *priv, u16 ports_mask)
- 	return 0;
- }
- 
-+static int
-+yt921x_bridge_flood_set_type(struct yt921x_priv *priv, u16 ports_mask, int type)
-+{
-+	unsigned long targets_mask;
-+	u16 flood_ports_xor;
-+	u32 filter_ctrl;
-+	u16 flood_mask;
-+	u32 addr;
-+	int port;
-+	int res;
-+
-+	ports_mask &= ~priv->cpu_ports_mask;
-+
-+	flood_mask = 0;
-+	targets_mask = ports_mask;
-+	for_each_set_bit(port, &targets_mask, YT921X_PORT_NUM) {
-+		struct yt921x_port *pp = &priv->ports[port];
-+
-+		if (!type ? pp->flood : pp->mcast_flood)
-+			flood_mask |= BIT(port);
-+	}
-+
-+	flood_ports_xor = flood_mask ^ ports_mask;
-+	filter_ctrl = 0;
-+	targets_mask = ports_mask;
-+	for_each_set_bit(port, &targets_mask, YT921X_PORT_NUM) {
-+		if (!(flood_ports_xor & ~BIT(port)))
-+			continue;
-+
-+		filter_ctrl |= BIT(port);
-+	}
-+
-+	addr = !type ? YT921X_FILTER_UNK_UCAST : YT921X_FILTER_UNK_MCAST;
-+	res = yt921x_reg_update_bits(priv, addr, ports_mask, filter_ctrl);
-+	if (res)
-+		return res;
-+
-+	/* ACT_UNK is TRAP for every user port; see yt921x_chip_setup_dsa() */
-+
-+	return 0;
-+}
-+
-+static int yt921x_bridge_flood_set(struct yt921x_priv *priv, u16 ports_mask)
-+{
-+	int res;
-+
-+	for (int type = 0; type < 2; type++) {
-+		res = yt921x_bridge_flood_set_type(priv, ports_mask, type);
-+		if (res)
-+			return res;
-+	}
-+
-+	return 0;
-+}
-+
- static int yt921x_bridge_leave(struct yt921x_priv *priv, int port)
- {
- 	int res;
-@@ -2733,6 +2800,12 @@ static int yt921x_bridge_leave(struct yt921x_priv *priv, int port)
- 	if (res)
- 		return res;
- 
-+	/* By the time port_bridge_leave() is called, the port is already
-+	 * unbridged, thus we cannot recompute flood flags for the affected
-+	 * bridge. This leaves some sub-optimality, but the flood will still
-+	 * be handled (by the CPU).
-+	 */
-+
- 	return 0;
- }
- 
-@@ -2749,6 +2822,10 @@ yt921x_bridge_join(struct yt921x_priv *priv, int port, u16 ports_mask)
- 	if (res)
- 		return res;
- 
-+	res = yt921x_bridge_flood_set(priv, ports_mask);
-+	if (res)
-+		return res;
-+
- 	return 0;
- }
- 
-@@ -2757,7 +2834,12 @@ yt921x_bridge_flags(struct yt921x_priv *priv, int port,
- 		    struct switchdev_brport_flags flags)
- {
- 	struct yt921x_port *pp = &priv->ports[port];
--	bool do_flush;
-+	struct dsa_switch *ds = &priv->ds;
-+	struct net_device *bdev;
-+	bool change_isolated;
-+	struct dsa_port *dp;
-+	bool change_flood;
-+	u32 ports_mask;
- 	u32 mask;
- 	int res;
- 
-@@ -2771,36 +2853,48 @@ yt921x_bridge_flags(struct yt921x_priv *priv, int port,
- 			return res;
- 	}
- 
--	/* BR_FLOOD, BR_MCAST_FLOOD: see the comment where ACT_UNK_ACTn_TRAP
--	 * is set
--	 */
--
- 	/* BR_BCAST_FLOOD: we can filter bcast, but cannot trap them */
- 
--	do_flush = false;
-+	change_isolated = false;
- 	if (flags.mask & BR_HAIRPIN_MODE) {
- 		pp->hairpin = flags.val & BR_HAIRPIN_MODE;
--		do_flush = true;
-+		change_isolated = true;
- 	}
- 	if (flags.mask & BR_ISOLATED) {
- 		pp->isolated = flags.val & BR_ISOLATED;
--		do_flush = true;
-+		change_isolated = true;
- 	}
--	if (do_flush) {
--		struct dsa_switch *ds = &priv->ds;
--		struct dsa_port *dp = dsa_to_port(ds, port);
--		struct net_device *bdev;
- 
--		bdev = dsa_port_bridge_dev_get(dp);
--		if (bdev) {
--			u32 ports_mask;
-+	change_flood = false;
-+	if (flags.mask & BR_FLOOD) {
-+		pp->flood = flags.val & BR_FLOOD;
-+		change_flood = true;
-+	}
-+	if (flags.mask & BR_MCAST_FLOOD) {
-+		pp->mcast_flood = flags.val & BR_MCAST_FLOOD;
-+		change_flood = true;
-+	}
- 
--			ports_mask = dsa_bridge_ports(ds, bdev);
--			ports_mask |= priv->cpu_ports_mask;
--			res = yt921x_bridge(priv, ports_mask);
--			if (res)
--				return res;
--		}
-+	if (!change_isolated && !change_flood)
-+		return 0;
-+
-+	bdev = dsa_port_bridge_dev_get(dp);
-+	if (!bdev)
-+		return 0;
-+
-+	dp = dsa_to_port(ds, port);
-+	ports_mask = dsa_bridge_ports(ds, bdev);
-+	ports_mask |= priv->cpu_ports_mask;
-+
-+	if (change_isolated) {
-+		res = yt921x_bridge(priv, ports_mask);
-+		if (res)
-+			return res;
-+	}
-+	if (change_flood) {
-+		res = yt921x_bridge_flood_set(priv, ports_mask);
-+		if (res)
-+			return res;
- 	}
- 
- 	return 0;
-@@ -3757,9 +3851,9 @@ static int yt921x_chip_setup_dsa(struct yt921x_priv *priv)
- 	 * the "bridged" ports, thus we need to trap and handle those packets by
- 	 * software.
- 	 *
--	 * If there is no more than one bridge, we might be able to drop them
--	 * directly given some conditions are met, but we trap them in all cases
--	 * for now.
-+	 * In some cases, we may offload the flood action to the hardware. This
-+	 * is done by fixing UNK_ACT to TRAP, and toggling the FILTER_UNK on the
-+	 * appropriate ports.
- 	 */
- 	ctrl = 0;
- 	for (int i = 0; i < YT921X_PORT_NUM; i++)
-diff --git a/drivers/net/dsa/motorcomm/chip.h b/drivers/net/dsa/motorcomm/chip.h
-index 25ff77054de3..85b658492f0c 100644
---- a/drivers/net/dsa/motorcomm/chip.h
-+++ b/drivers/net/dsa/motorcomm/chip.h
-@@ -801,6 +801,10 @@ struct yt921x_port {
- 	bool hairpin:1;
- 	/* BR_ISOLATED */
- 	bool isolated:1;
-+	/* BR_FLOOD */
-+	bool flood:1;
-+	/* BR_MCAST_FLOOD */
-+	bool mcast_flood:1;
- 
- #if IS_ENABLED(CONFIG_NET_DSA_YT921X_LEDS)
- 	unsigned char led_duty;
--- 
-2.53.0
+ .../devicetree/bindings/trivial-devices.yaml       |   2 +
+ .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
+ Documentation/hwmon/fs1412.rst                     |  87 ++++++++++
+ Documentation/hwmon/index.rst                      |   1 +
+ MAINTAINERS                                        |   7 +
+ drivers/hwmon/pmbus/Kconfig                        |   9 ++
+ drivers/hwmon/pmbus/Makefile                       |   1 +
+ drivers/hwmon/pmbus/fs1412.c                       | 179 +++++++++++++++++++++
+ 8 files changed, 288 insertions(+)
+---
+base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
+change-id: 20261008-hwmon-pmbus-fs1412-fd4434717c19
+
+Best regards,
+--  
+Abdurrahman Hussain <abdurrahman@nexthop.ai>
 
