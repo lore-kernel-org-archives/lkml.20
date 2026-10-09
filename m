@@ -1,152 +1,154 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazolkn19011028.outbound.protection.outlook.com [52.103.33.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DD7C4C650B;
-	Fri,  9 Oct 2026 11:21:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791544893; cv=none; b=aXr7pGZ7ccumqSf4Wsh/7WH2oGs/H3l25yycXi7dMr+3w1EWNIJHPUclVH9FcN52C8UEQTArPQjBDeGDnpLT2ZelwmVfZ0ymLHWbr6SseQuzgDqGvtxTtbMxeokfndhgbzM6dNlUwEIh+ZqoSmF6l1GULxIs9f/oSLrimNQBLSk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791544893; c=relaxed/simple;
-	bh=NZawBaQ9IJi/GpNjwKAnXaEzI5PhrWb/cau9GOSYIxc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WUjCFrKFZMavr9euHGmMbMgV+eZmDOKW+QkjYthYSZX0fq11OAea3fJTuU+EX2lUOwKvn+pKQKXTT9mBpez8tnh8Nfg/9ikfjzy+cw7IsLS2ggx1h8WAIW/h5YZ5XeoFkzs5ZRLJyJibS0db3VS5APjIy/ukLP40dpQUvf/w9qI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Bf+IXdbC; arc=none smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 006A64C4F79;
+	Fri,  9 Oct 2026 11:21:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.33.28
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791544901; cv=fail; b=h0amR1XlCPH1ob9GENt2gFLDoDSSqKJfbhFJWokVGBhGlGFhh3KQb9b7wcmVG/Btvut/SUNBtUaKsriK4fPDxoVwHQw4kAVIwgSdSwhdkbJjWl+iIxr7v34479jjxBZ9jQNSA1bI4t+C77gxWJDO+0km8qum4mqUFYzvhVHh8wU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791544901; c=relaxed/simple;
+	bh=f9Kjohq4hNaSaUDvoi9jMVGVqKPb7CugVicjjPQujTs=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=V8zg6Gr/MuRvmvTyhhc9vRHIutsSrF2ensFyU8Y+9NazZ2ytzesk6Jm7lGr8Pq+woXaqWY7lwMvNJRnfprACfKAatojOXplAhMAcSTzu7KH/yh3s0KcYWGdfsn5iFro3GR8CPkSL2swg7ioYCLz7uldwk++xOk+I2YLaDjJXUlg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=UImEE1kQ; arc=fail smtp.client-ip=52.103.33.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Bf+IXdbC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791544886; x=1823080886;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=NZawBaQ9IJi/GpNjwKAnXaEzI5PhrWb/cau9GOSYIxc=;
-  b=Bf+IXdbCYXDVraRzARFytTKK9ttlY8xret0de9woWpq4das8HtZhdE4f
-   Wuo+4Byi8Myobdl7y8SKzvstrmGRP3ZKo3SewHbAhU94yba0+1gkQSGu8
-   a8AZmJuUKoXa35pB2hhbMd/NN57MtRPi3zGbvjDVEpr55D6ZvjcRjTYtS
-   ze3dcuV+PT+ci8VlSNROKJmWsupZhMmFIXOTt2UDt3UFHXozWpgHNo35F
-   Gx+SEllqufia/++1nLogdHDBqRLIXIrfvUKfJHl/09/kabHDBhpt4NTIR
-   PRjtAZiLuUTHoBfSvAUI8QWz/QIqShqk2LMPm2ATkNVO4TiE+lMmvNcgc
-   g==;
-X-CSE-ConnectionGUID: R6xts7anRPGzKRq5g75E4Q==
-X-CSE-MsgGUID: KN9UaplNSA6S0CDbg4MBqg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11929"; a="229132"
-X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
-   d="scan'208";a="229132"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 04:21:25 -0700
-X-CSE-ConnectionGUID: 3JWR8+fmQrWcU9wE1DccFw==
-X-CSE-MsgGUID: Izq5uACYRqadtQq8fcyIQg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
-   d="scan'208";a="258573"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa001.jf.intel.com with ESMTP; 09 Oct 2026 04:21:22 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 0D0C099; Fri, 09 Oct 2026 13:21:21 +0200 (CEST)
-Date: Fri, 9 Oct 2026 13:21:21 +0200
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: pip-izony <eeodqql09@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Saranya Gopal <saranya.gopal@intel.com>,
-	Rajaram Regupathy <rajaram.regupathy@intel.com>,
-	Benson Leung <bleung@chromium.org>,
-	Andrei Kuchynski <akuchynski@chromium.org>,
-	Jameson Thies <jthies@google.com>,
-	Kyungtae Kim <Kyungtae.Kim@dartmouth.edu>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] usb: typec: ucsi: reject GET_PDOS responses longer
- than requested
-Message-ID: <asjOMb_guAbHRyWR@black.igk.intel.com>
-References: <2026092932-arbitrate-snorkel-3fca@gregkh>
- <20261002202102.599998-1-eeodqql09@gmail.com>
+	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="UImEE1kQ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yaxczAjcuwJlFQHp55vG+5BNeVFDwDYyUQ8VjwJBoSER0C50O2K/o33Z/gcVRPxHH+GGZfjvPXKWHVBHFmTCWvKWlUIui01mHGrO4kJdIRBrsg3P1V+goeAFgrSdiuN8SeWNKfqDCsLuxh5YA6pDMAbx2gx02YeXtlIkLhxXzfuX7yf9PYm42Vo5ejnimaRRiqJe16ZZBHSFavoRQLFDWOP3a50Wa3RftnIPjzet+ZfRrQMhTAofHXWvAGEgrNVVU5xNnziftxv/jFTo9qMZsg2Y/Fhsmi0cafceQGL/rzYWDnSib0bQC48YYjKRqp7n0H2HFVuOTs53y9G8I4ZVuQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=f9Kjohq4hNaSaUDvoi9jMVGVqKPb7CugVicjjPQujTs=;
+ b=R9BFrJwMVbmnBmq0EfhbD01oGqW2wg4jRtcWE3SB7GU8oHvkc5bi+bXy4ixC78lnUo1xy8U+tzd8rnB45JpXV5+y1dUHscS0b4zCAvXfM4v8e5WhD9tgdSWRJlVJ1mipsu13Ostoj/ikFAwP0b6wPi5mwWjD1QzTmVAkOGy5h8/Oh8cmrUX9SKpxtK8iNXc0QH4jPyfs6qU8USoepkvUAwptRP0ysi2CBwhgeiqioOqxDNRBaegpGcaBoC1+BW+wTKgrn2AfDAfP6hMOfxhsxeqDnpyhJAarScowwfbgfiubsSHG6OHH9IP933S+Amfh/2EbCY/877IRmeljaDgH+A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=f9Kjohq4hNaSaUDvoi9jMVGVqKPb7CugVicjjPQujTs=;
+ b=UImEE1kQaUhrUWt9VtimCpB40bWbxudzCM7XzlyyTlsuoLrCZV1cKxVBl2t1zjnzC1gX7TDVLQ1Wp7D9ksICUMJST/V9e1lbgGHkjY2lNH5E8PVkmK3h3uJIFeZNj7nhW87jJrd/xxwmqkCmWnhk6TDRbN8+lUTi8LTLsv4jxPWm9vGPGgMT8I3H0jqAIE03J74vGRd1rhf26iL3QAckY5udbzIuFP+Rb3ikGET1lZjDySoRlupQIJc8/g+W+zelXxvQSyW3hlKIIvMOdho31SM1TjU9HVzETQe1g8dZu8yekdhxckWeTH1P5C65U9+b73TQgF/9mCjBXUBGgytXKA==
+Received: from DU2PPFBE35756D1.EURP189.PROD.OUTLOOK.COM (2603:10a6:18:3::aa2)
+ by PAXP189MB1950.EURP189.PROD.OUTLOOK.COM (2603:10a6:102:281::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Fri, 9 Oct
+ 2026 11:21:29 +0000
+Received: from DU2PPFBE35756D1.EURP189.PROD.OUTLOOK.COM
+ ([fe80::edfc:2b73:2e6b:c893]) by DU2PPFBE35756D1.EURP189.PROD.OUTLOOK.COM
+ ([fe80::edfc:2b73:2e6b:c893%3]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
+ 11:21:28 +0000
+From: M M <restafvalendergelijke@outlook.com>
+To: "CACKGD6t4Bz1M_-9cNJ8vuNAYnXg5abb_UxmDAoFpW36yP4DnhQ@mail.gmail.com"
+	<CACKGD6t4Bz1M_-9cNJ8vuNAYnXg5abb_UxmDAoFpW36yP4DnhQ@mail.gmail.com>
+CC: Andreas Wild <andiwild@gmail.com>, "blaaaat@hotmail.com"
+	<blaaaat@hotmail.com>, Bjorn Helgaas <bhelgaas@google.com>,
+	"helgaas@kernel.org" <helgaas@kernel.org>, "edwardmalik95@icloud.com"
+	<edwardmalik95@icloud.com>, "linux-pci@vger.kernel.org"
+	<linux-pci@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "regressions@leemhuis.info"
+	<regressions@leemhuis.info>, "regressions@lists.linux.dev"
+	<regressions@lists.linux.dev>, "Maciej W. Rozycki" <macro@orcam.me.uk>,
+	"d.csapak@proxmox.com" <d.csapak@proxmox.com>, "f.ebner@proxmox.com"
+	<f.ebner@proxmox.com>, "f.gruenbichler@proxmox.com"
+	<f.gruenbichler@proxmox.com>, "s.ivanov@proxmox.com" <s.ivanov@proxmox.com>,
+	"t.lamprecht@proxmox.com" <t.lamprecht@proxmox.com>,
+	"f.gruenbichler@proxmox.com" <f.gruenbichler@proxmox.com>,
+	"m.maurer@proxmox.com" <m.maurer@proxmox.com>
+Subject: Re: [PATCH v3] PCI: Skip Target Speed quirk on clamped ports with no
+ link
+Thread-Topic: [PATCH v3] PCI: Skip Target Speed quirk on clamped ports with no
+ link
+Thread-Index: AQHdV9vC8awG/tAuK0CulBv+L5Ruprb1EHmb
+Date: Fri, 9 Oct 2026 11:21:28 +0000
+Message-ID:
+ <DU2PPFBE35756D1154B16C7170AEC95EB56AB922@DU2PPFBE35756D1.EURP189.PROD.OUTLOOK.COM>
+References:
+ <DU2PPFBE35756D171CD64356C8D8DF3C2F8AB922@DU2PPFBE35756D1.EURP189.PROD.OUTLOOK.COM>
+In-Reply-To:
+ <DU2PPFBE35756D171CD64356C8D8DF3C2F8AB922@DU2PPFBE35756D1.EURP189.PROD.OUTLOOK.COM>
+Accept-Language: nl-NL, en-US
+Content-Language: nl-NL
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DU2PPFBE35756D1:EE_|PAXP189MB1950:EE_
+x-ms-office365-filtering-correlation-id: dbe7111f-37ca-4a72-61dd-08df25f7768e
+x-microsoft-antispam:
+ BCL:0;ARA:14566002|24021099003|25010399006|4140399003|8062599012|19110799012|31061999003|15030799006|37011999003|15080799012|51005399006|8060799015|2607281247196008|440099028|102099032|40105399003|3412199025;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?gv6fjBCHM1NLBG6JQS4m5QxYHwVEfozeumG0OyQq8kXSgGivMZRWsC5swy?=
+ =?iso-8859-1?Q?Oa2APL9cDFrj9gMzQQ8ETBebP2H+Ry5QL6WMIlNUJRLGlYjmYBlekQI08a?=
+ =?iso-8859-1?Q?QCfgQ1dd+UDIXdAncTzphHpOoGukpR00vELmc/IJ8LRjIGj0mCjbToljDL?=
+ =?iso-8859-1?Q?7V0hXOiczbZpg5iFGKZsHBrHF5sPWuirmIpLyM/owkA5KBylgRSx8Jliao?=
+ =?iso-8859-1?Q?5FkOeI5QX6Cok5ZyhCd4EocgMWELvl0YsiZ9ZgVAnhnjBA7yerH1uTEGxB?=
+ =?iso-8859-1?Q?GAmJLmo+vNIrgMwr/XZCmpCkq6AXMzb8c0AnUdl76/3JRbDcWDII7SZx07?=
+ =?iso-8859-1?Q?GM0eb/oEDtb39VGR5hS8GNky0O5qZjIhTH9aQk4QVIUDRWQGT+RIF1vw8/?=
+ =?iso-8859-1?Q?8ccPZ2AOYBbS79Wlgqhj3+8U1J4wchHpcXqzRy/DupfvRtBr0CsBFcTFru?=
+ =?iso-8859-1?Q?PHfbUruNaD0xQjCaeoOpDZWqIgsCBRutV8gbUhzDfqFGvi+1B3v/sWzqnS?=
+ =?iso-8859-1?Q?JzX3VimU5YNk8ZrXDDw0zTf41Epi4cSKqgmg8TkFKj6gSaXp1azGpLTuWO?=
+ =?iso-8859-1?Q?VGzx+PDnAgSWP8lIjpSILgTF7V7cEMaGfKhynkPJZMhIa3qCcXLbbkPpkg?=
+ =?iso-8859-1?Q?OEbgchHMLDOwOMsS5y3Qj6hv9jPMI9tmHoVc603KaBSODUEL+Rt/pfTaQo?=
+ =?iso-8859-1?Q?ilE+lJtXvVNSk0nDVfCZWJ8d+7H1ALJaMfW7ENFsRlqqjXg3m7jFC55D4c?=
+ =?iso-8859-1?Q?0WfiDcQMqAC7mBxDWi9tbMsG3a6txsiIzpU5lxJghHNJbVplAa0G4CA9yj?=
+ =?iso-8859-1?Q?XUO63fhFXt2xCZJLBZUnxebhuGCSuB+Iz1A7sm4ND/Zn34euNSiOseptaI?=
+ =?iso-8859-1?Q?cWeZUoEx55G35eKoFps3tWZpIUmObIY649EA2QDrOFCtEEGLvXPf5A1LcR?=
+ =?iso-8859-1?Q?4YgO2JzPj/HyMdhjC1GmlfJA/8R/v9BfE3efEj7lhFN7iuowhbFZMGWKlT?=
+ =?iso-8859-1?Q?RsnYba1vmJtbrX2U65rPZGsfjgLLsWDAfpCU1s?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?oI0OkRPEgRY5KnjhBbIShTnMGkZYM+FZM0x9/Xp53MJwNeIhUYufMUCi4Q?=
+ =?iso-8859-1?Q?j3vYyoziP8ubfQ4q9twQI1+NN3dLuBwcCeYm21W8s6NX4F7M1IzcCW4ce8?=
+ =?iso-8859-1?Q?fzKQ5AtlqqplgdGr4BN5ft+4EM+PRK0NUXFfijpGeVdytODO8w9yLVHrrj?=
+ =?iso-8859-1?Q?7HffpOd58wM7nT4PwMNShlsq0ENJUybQ1a/J+fniMcVA392kZ5pe21b0Y5?=
+ =?iso-8859-1?Q?dT4KCm4D9KynENL+sTSYIQ1Oi8qquM+xlTZlfQJXyPCo0NZ3r/3um5D336?=
+ =?iso-8859-1?Q?T7GwP0pe7q5z08N3vxCddaiEnqf93QR04Xxl5OUf9hc9yW2BiXDVZtg8m/?=
+ =?iso-8859-1?Q?Vv3FJ+VCP2gFUUytYKPXaKvZ2jX5J30ly4Cw/vIR36zFMBnG2VZEff1nNd?=
+ =?iso-8859-1?Q?zKK462SkoUgV2fivyULipgerKbsbL/igmpJOn3G5ECgXvQKYQjYxyDn6VI?=
+ =?iso-8859-1?Q?OW1xurFFvMLahl+GcPoI4V/HXXeONUsEYbAsmcQKxuPZEITbDUuw6oSilg?=
+ =?iso-8859-1?Q?6y0Ijllh/2g9gx0gEvB6otTPlVGpLqkssPfMuo6xIW8L6xyXgxhwLDkNKq?=
+ =?iso-8859-1?Q?HAL3HDy7KosHJHUxmJ8VTeWhcIWmlsCx09lZUnpvpvXGsbeWpzxOUqyfl8?=
+ =?iso-8859-1?Q?SWwpzgd/MWRwL+2Aqgm0NjtGqANZQdaO+Ik4qP6fEcZeZoJ2Op+erhxic2?=
+ =?iso-8859-1?Q?rvqxS4DJoaEddAq/p7KRqohPazKoS8LoRxFSQB/AAw0tLEgOjm3YTH8+hi?=
+ =?iso-8859-1?Q?KlvUYwgKua1n3Mh063lA6aQH//ja1wTH+bgVFKc989tx0Bv/8mnbI1aofM?=
+ =?iso-8859-1?Q?XWwHNYFG6CWLr9IfdgUMHc4z6croz70TAw07cB6j6TFJ0bCHaWS2ngz3MG?=
+ =?iso-8859-1?Q?/5cIArzJpXhvjNj+Q04xCPMcOacKNn425tivzjtIHn7fTpevandd19tq3a?=
+ =?iso-8859-1?Q?8D1LQDKr4y4LUyx23tA12H2wNdH9DokSzvH7Z0QnmpTPsqgXolAqfHgSFK?=
+ =?iso-8859-1?Q?7cfvDn3lwWSz67Akv4dy/1rHJNq63IQKeUFNQViXHExpsBqZDKrwn4m4rR?=
+ =?iso-8859-1?Q?+4YCWX24oft0dtZ45djEbcSlt/CdPyoRwFZD8iOxUm6U8pfoGfcyh3Wyrs?=
+ =?iso-8859-1?Q?RLOiFQYRUGDzZn1Nwx571K7hxYMeZpwM/xI2uSaDVAn/jkw/bTgGX/55Cc?=
+ =?iso-8859-1?Q?Qu7O6fkqLf/6VkHGRRxXmyOou/QhnPZhttOJg4tOSpfFIQPFweJwe7o2Rn?=
+ =?iso-8859-1?Q?i5mYQ+ihVBsU4iPPIHLsn74icjhiUQMwCbvU0pIhbxvIkIKpkSTgIXw67r?=
+ =?iso-8859-1?Q?1nVUwyxPJQbvE5chozkmOl8q19cUkkaMAnqWXOfAPcPl1u+V2FeOqknU92?=
+ =?iso-8859-1?Q?udhqJwyZYtB/Gpz1IGmOJYNqAkg6SYS8AlSEchNl2a6brXaPtFBptBfl4C?=
+ =?iso-8859-1?Q?UAUUo8X+dshw0i/9myhxw9AEyYa7s/T/3W+NsoEA2plzpUcuBS2S+SzYYa?=
+ =?iso-8859-1?Q?fepXiUBll8YjIBz2s1I81f?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261002202102.599998-1-eeodqql09@gmail.com>
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DU2PPFBE35756D1.EURP189.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: dbe7111f-37ca-4a72-61dd-08df25f7768e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Oct 2026 11:21:28.5652
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXP189MB1950
 
-On Fri, Oct 02, 2026 at 04:21:02PM -0400, pip-izony wrote:
-> From: Seungjin Bae <eeodqql09@gmail.com>
-> 
-> In ucsi_get_pdos(), the number of PDOs is derived from the data length
-> reported in the CCI register, which is provided by the PPM firmware.
-> 
-> The function requests at most UCSI_MAX_PDOS PDOs on the first read and
-> PDO_MAX_OBJECTS - UCSI_MAX_PDOS on the second, and ucsi_send_command()
-> only copies that many bytes into the buffer. However, the returned
-> length is taken from the 8 bit CCI data length field and is not bounded
-> by the size of the request.
-> 
-> If a malicious PPM reports a larger length, e.g. 0xFF, each
-> read is counted as 63 PDOs and ucsi_get_pdos() returns up to 126, beyond
-> PDO_MAX_OBJECTS and the number of PDOs actually read.
-> 
-> ucsi_get_src_pdos() stores this value in con->num_pdos, and
-> ucsi_psy_get_voltage_max() and ucsi_psy_get_current_max() use it to
-> index con->src_pdos[con->num_pdos - 1], resulting in an out-of-bounds
-> read. This happens without any userspace action, since
-> ucsi_get_src_pdos() calls ucsi_port_psy_changed() and the resulting
-> uevent reads every property.
-> 
-> Reject such responses in ucsi_read_pdos(), if the PPM reports more data
-> than was requested, print an error and return -EPROTO, so that the
-> invalid count is never used.
-> 
-> Fixes: b04e1747fbcc ("usb: typec: ucsi: Register USB Power Delivery Capabilities")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Seungjin Bae <eeodqql09@gmail.com>
-
-Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-
-> ---
->  v1 -> v2: Print an error and fail instead of limiting the count, as suggested
->  by Heikki.
-> 
->  drivers/usb/typec/ucsi/ucsi.c | 11 +++++++++--
->  1 file changed, 9 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
-> index bef3f9b71d71..17beec16fe19 100644
-> --- a/drivers/usb/typec/ucsi/ucsi.c
-> +++ b/drivers/usb/typec/ucsi/ucsi.c
-> @@ -862,6 +862,7 @@ static int ucsi_read_pdos(struct ucsi_connector *con,
->  			  u32 *pdos, int offset, int num_pdos)
->  {
->  	struct ucsi *ucsi = con->ucsi;
-> +	int len = num_pdos * sizeof(u32);
->  	u64 command;
->  	int ret;
->  
-> @@ -875,11 +876,17 @@ static int ucsi_read_pdos(struct ucsi_connector *con,
->  	command |= UCSI_GET_PDOS_PDO_OFFSET(offset);
->  	command |= UCSI_GET_PDOS_NUM_PDOS(num_pdos - 1);
->  	command |= is_source(role) ? UCSI_GET_PDOS_SRC_PDOS : 0;
-> -	ret = ucsi_send_command(ucsi, command, pdos + offset,
-> -				num_pdos * sizeof(u32));
-> +	ret = ucsi_send_command(ucsi, command, pdos + offset, len);
->  	if (ret < 0 && ret != -ETIMEDOUT)
->  		dev_err(ucsi->dev, "UCSI_GET_PDOS failed (%d)\n", ret);
->  
-> +	if (ret > len) {
-> +		dev_err(ucsi->dev,
-> +			"PPM returned %d bytes of PDOs, but only %d were requested\n",
-> +			ret, len);
-> +		return -EPROTO;
-> +	}
-> +
->  	return ret;
->  }
->  
-> -- 
-> 2.43.0
-
--- 
-heikki
+Thank you Armando for the detailed follow-up. It's "good" to see this probl=
+em is still active, though Proxmox is really slow with this. In the meantim=
+e we are 1,5 month ahead and without the much needed security updates relat=
+ed to the kernel.=0A=
+I can only hope there will be some progress soon on their behalf, but it's =
+pretty much quiet at Proxmox in general.=
