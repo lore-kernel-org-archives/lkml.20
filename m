@@ -1,165 +1,95 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A15839E9D6;
-	Fri,  9 Oct 2026 04:14:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 351F83AC0E7;
+	Fri,  9 Oct 2026 04:14:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791519280; cv=none; b=BOJmEWIsqE8JjfqXng3RngU06yJ2Gv14icHUSEg1GWQNwx2DeoXMt/N6SWBxd77wLkIDjaMfWg/oz2HJrP48zfdRntC5kA02QVTxowLwL9tv3O7sODwIHBIpCnNuVKtfjDFRZ0OZ1lI+BaJx0q79CyAwizFgmQAfqYfOlC0/47g=
+	t=1791519288; cv=none; b=OYXg/ensoHnpG2JVXnm15DhvEnFn73YshAc0Nam15/kbBrQMSW7fR5ohO/Dee/xIjukc6dpravAkR2OGyRmWA3j+PCEje6Dln6zt1HwiJaZZWbE/MHOX/3e8C22FI4fQmx/LB58fapV/W2jQXz3Rw0iGY9NZ7i4hO8LZSEYbHGQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791519280; c=relaxed/simple;
-	bh=CfJLNAjGDthMVhq0Ijs4RyzWCSnHXxmQ05t5I13X7jY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NCA8mU/wt82Z6/67L+rkkqBdYwU6tJmBraT6dWqW1sMzaNYfYWeXbwHv8NyPXo9SArZ7EldXJqmOB/2Y93s6CzL/m4sip3VYGTil6r5ChTQzEY4/oJQnUbLPDaJUAepZw3Q9TcEakaC9MkNMqXnJh6IG2k926wWPdvw6bUIk7ao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=TofXUxlO; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="TofXUxlO"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 0C4B440E0484;
-	Fri,  9 Oct 2026 04:14:25 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id C2ucuVuy8K4q; Fri,  9 Oct 2026 04:14:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1791519247; bh=a/kvWz5vc+K8CURkg+Ghq4OksOZeQYTNt2jO2pxw1w4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=TofXUxlOd3+1p69mP0hGXsklMoEP/qFHjUjfypvkrlurUqzmh3g+XPTvjfIWnaP1c
-	 XlR3BFS3phelZPi1MpakeK/iPMkf8YpkrDRR5iqCDYc61r7dInmhyvQpFPjka7J1kp
-	 6Rbc2wU9BPi90EX4nE13JheWfyAM0qJwu+vj+pt0FuKEYULL3hLyqLB2VCEvFuxk8n
-	 S3edApzJOtueBYJsLdRQcoTAC9V7AGm+9+zi4LL/KO6D4co/gbXG+3PjhIRZfsBDLY
-	 QSj1iUU9TnFKfiLIso6VPHvwAwVxuSL6jYMocuAmk83gqjFq3n5jot0QA7lmrjYJfx
-	 3QyNp8hkGANGruQOF9CnRMZ3FpKVs5IX2htkq8CehI1fhWLKpVQfx5QFGaefNVeung
-	 Nol9HkU0MUcCTCiZM3ExC3qE8M1fu+KpCZBBpnqfFOQYOQKCOShST5+L4ycguQrxqY
-	 8EpA2Pma7BuUw/PQMmxEWSVVkUgMzl+a1d5hJ2+cB/wUtJJsILhC268X/U2Iq2K94L
-	 Zx252oo5TxKuOMrnwtpXlLUiIzFvO00W+/5DlDFyVZhxOh3Ab4asBFFqtYkWMU94/o
-	 w0sw1HISsDzdZjjWPrtDHSanYlBzhhdNwtRrozhBF1+6LbhR4ORIGsUDqMgGoRYwal
-	 N4uON0fKC45ld0XIG7QV/01g=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 39A3440E00B9;
-	Fri,  9 Oct 2026 04:13:49 +0000 (UTC)
-Date: Thu, 8 Oct 2026 21:13:46 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Kumar Kartikeya Dwivedi <memxor@gmail.com>
-Cc: bpf@vger.kernel.org, Puranjay Mohan <puranjay@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	kkd@meta.com, kernel-team@meta.com, x86@kernel.org,
+	s=arc-20240116; t=1791519288; c=relaxed/simple;
+	bh=Zn9YiIWM4CoWiDqy1p3+QNTaaPoQYnG3Cr0qF3WpYIE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=YL18NpELSp2KtxJwzUQimy79iG1V/tLmLJIFB5vF1lIEBFxz0Ba0v6EW8slp6QcZa3WZH6nhDX1zi7zTIZm5VKAtiOlpHa1GGMM/b2kTuXN6pJ1rnp6wU+sOl7v3KOGK5JNw+bA9Y9bFhoyNB+cd1ePCRlwLd3tpUSaSYOZCjmo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from fc87d0ffb700.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowACXljQoashqx4wbCg--.48197S2;
+	Fri, 09 Oct 2026 12:14:32 +0800 (CST)
+From: Haotian Zhang <vulab@iscas.ac.cn>
+To: Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Linus Walleij <linusw@kernel.org>,
+	Joel Stanley <joel@jms.id.au>,
+	Ryan Chen <ryan_chen@aspeedtech.com>,
+	Billy Tsai <billy_tsai@aspeedtech.com>,
+	"Chia-Wei, Wang" <chiawei_wang@aspeedtech.com>
+Cc: linux-aspeed@lists.ozlabs.org,
+	openbmc@lists.ozlabs.org,
+	linux-gpio@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH bpf-next v1 1/3] x86/mm: Resolve BPF exception fixups for
- user address faults under SMAP
-Message-ID: <20261009041346.GHashp-hYpLl-o-l3M@fat_crate.local>
-References: <20261009024925.3169077-1-memxor@gmail.com>
- <20261009024925.3169077-2-memxor@gmail.com>
+Subject: [PATCH] pinctrl: aspeed-g5: fix device node leak on LPC compatible mismatch
+Date: Fri,  9 Oct 2026 12:14:35 +0800
+Message-Id: <20261009041435.3096107-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261009024925.3169077-2-memxor@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowACXljQoashqx4wbCg--.48197S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7ur1fKw4xAFWUGFyDZr18Zrb_yoW8Xr4kpa
+	y3WFWYvr13Jr4Y9rW8XFy0gayaka1fXrW5Ca97K3srZFnxtryftw13KFWjqrs09rWkA3WY
+	qF1Uta4Durn5Ar7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvKb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
+	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVWxJVW8Jr
+	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4IIrI8v6xkF7I0E8cxan2IY
+	04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r
+	1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CE
+	b7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0x
+	vE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAI
+	cVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxh
+	VjvjDU0xZFpf9x07b8kskUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAQPA2rIJHz+tgABs3
 
-On Fri, Oct 09, 2026 at 04:49:21AM +0200, Kumar Kartikeya Dwivedi wrote:
-> With SMAP enabled, do_user_addr_fault() treats a kernel-mode fault on a
-> user address with EFLAGS.AC clear as a kernel bug: it does not consult the
-> exception table and oopses right away. That is correct for ordinary kernel
-> code, where get_kernel_nofault() and the other nofault accessors never let
-> a user address reach a faulting instruction.
-> 
-> JITed BPF programs are different. A privileged program may dereference a
-> pointer the verifier cannot prove valid, and the verifier marks such loads
-> PROBE_MEM. The JIT attaches an exception table entry to each PROBE_MEM
-> load, so that a fault on an unmapped kernel address zeroes the destination
-> register and the program continues. Since a user address would oops
-> instead, the x86 JIT also emits an address range check in front of every
-> PROBE_MEM load, which keeps user addresses, the guard page above
-> TASK_SIZE_MAX and the vsyscall page away from the load. The check
-> duplicates the fault handler's knowledge of the address space layout, got
-> the vsyscall page wrong until commit b599d7d26d6a ("bpf, x86: Fix PROBE_MEM
-> runtime load check"), and costs nine instructions and 32 to 39 bytes of
-> code per load.
+aspeed_g5_acquire_regmap() takes a reference to the LPC device node with
+of_parse_phandle() and then returns -ENODEV if the node's parent is not
+compatible with "aspeed,ast2500-lpc-v2", without dropping that
+reference. The function is called for every pin configuration, so the
+leaked device_node reference accumulates on such systems.
 
-I can't parse that. Why do bpf memory accesses need to be handled differently
-than any other memory accesses when SMAP is enabled?
+Release the node with of_node_put() before returning from the error path.
 
-Perhaps you should give a concrete example.
+Fixes: eaffd32bea0c ("pinctrl: aspeed-g5: Adapt to new LPC device tree layout")
+Assisted-by: DeepSeek-V4.1-Flash
+Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
+---
+ drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-And why can't all that gunk be resolved at program load instead of going all
-the way in the #PF handler?
-
-> When the faulting instruction belongs to a BPF program, resolve its
-> exception table entry instead of oopsing, exactly as is done for faults on
-> kernel addresses. The is_bpf_text_address() lookup sits inside the
-> unlikely() SMAP branch that currently ends in page_fault_oops(), so no path
-> that does not oops today executes any additional code, and the oops itself
-> is unchanged when no entry matches. Non-BPF code keeps the existing
-> behaviour: a kernel-mode user access without STAC still oopses, extable
-> entry or not.
-> 
-> The next patch uses this to drop the range check from the JIT when SMAP is
-
-There's no next patch and previous patch in git history.
-
-> enabled. Nothing changes about which addresses a BPF program may read: a
-> user address never becomes readable, since SMAP forbids the access, and a
-> PROBE_MEM load of a kernel address is handled as before. Without SMAP the
-> JIT keeps its range check and this path is never reached.
-> 
-> Acked-by: Puranjay Mohan <puranjay@kernel.org>
-> Signed-off-by: Kumar Kartikeya Dwivedi <memxor@gmail.com>
-> ---
->  arch/x86/mm/fault.c | 11 +++++++++++
->  1 file changed, 11 insertions(+)
-> 
-> diff --git a/arch/x86/mm/fault.c b/arch/x86/mm/fault.c
-> index aa88370ce739..2060e5f35d77 100644
-> --- a/arch/x86/mm/fault.c
-> +++ b/arch/x86/mm/fault.c
-> @@ -20,6 +20,7 @@
->  #include <linux/mm_types.h>
->  #include <linux/mm.h>			/* find_and_lock_vma() */
->  #include <linux/vmalloc.h>
-> +#include <linux/filter.h>		/* is_bpf_text_address()	*/
->  
->  #include <asm/cpufeature.h>		/* boot_cpu_has, ...		*/
->  #include <asm/traps.h>			/* dotraplinkage, ...		*/
-> @@ -1262,6 +1263,16 @@ void do_user_addr_fault(struct pt_regs *regs,
->  	if (unlikely(cpu_feature_enabled(X86_FEATURE_SMAP) &&
->  		     !(error_code & X86_PF_USER) &&
->  		     !(regs->flags & X86_EFLAGS_AC))) {
-> +		/*
-> +		 * JITed BPF programs dereference untrusted pointers with loads
-> +		 * that carry an exception table entry (PROBE_MEM). SMAP makes
-> +		 * sure such a load cannot read user memory, so resolve the
-> +		 * fault through the exception table, as for an unmapped kernel
-> +		 * address, instead of oopsing.
-> +		 */
-> +		if (is_bpf_text_address(regs->ip) &&
-> +		    fixup_exception(regs, X86_TRAP_PF, error_code, address))
-> +			return;
-
-I'm not at all amused from this adding bpf-specific handling to the #PF
-handler, TBH...
-
+diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c b/drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c
+index b0cba0f3e17e..6ab3ba89bd54 100644
+--- a/drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c
++++ b/drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c
+@@ -2652,8 +2652,11 @@ static struct regmap *aspeed_g5_acquire_regmap(struct aspeed_pinmux_data *ctx,
+ 		np = of_parse_phandle(ctx->dev->of_node,
+ 					"aspeed,external-nodes", 1);
+ 		if (np) {
+-			if (!of_device_is_compatible(np->parent, "aspeed,ast2500-lpc-v2"))
++			if (!of_device_is_compatible(np->parent,
++						     "aspeed,ast2500-lpc-v2")) {
++				of_node_put(np);
+ 				return ERR_PTR(-ENODEV);
++			}
+ 
+ 			map = syscon_node_to_regmap(np->parent);
+ 			of_node_put(np);
 -- 
-Regards/Gruss,
-    Boris.
+2.25.1
 
-https://people.kernel.org/tglx/notes-about-netiquette
