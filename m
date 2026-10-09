@@ -1,154 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D410444C51C;
-	Fri,  9 Oct 2026 19:27:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74A14471D05
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 19:27:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791574043; cv=none; b=IjnZvlQE2kXEZrVsCS8yY5AHmbFQKK4YgGY3Av20Mchor6AhAFzlmXKtR+OcEQ3+MXq9cqVX/8vnfsv7cS6ryRrSz7zj7co7zqo9MyU3sPq/AVQP158UWgy/wiCUr4fBuqzI74XoFb9HAs8PuLWUm3TL6FJbf6baWaZDwqRcEO0=
+	t=1791574060; cv=none; b=rE51uZh9CgJvwGsGuWdsvsXbP5jy1aX+rovSUP3xMcX0LVdOgQAkuEZnYibnouMv4MNQyZUgdm8SQBbtzNIZPwrSgXLvvCLIDLYPKoATpC6tRmtiWSQMaUrjpdInqdPrqDYzYlFzZQXymKvUyv+NKWZnttk/Wp4g90pQ+DHBZjo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791574043; c=relaxed/simple;
-	bh=D7SD21DoMvVyV7YSdZe1MUn1giqdD95rIHlF8jqXGFw=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=anXXd7/hFd1yocS+AcEDacVjV7UXV7b6yGLi43rzqrU5s2YeCNAXDxmIno812WD7A/aSbWwGg3kG0DotGCjP009BuMacdgTrxnV2bXWvPIXQDqYejfmsJ0rPHQDlM2xL7UWpZIaxWVv1rWCENBYTbzv6GoivVMOtVkXfzxvomGw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f17/1qy/; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f17/1qy/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 016A61F00893;
-	Fri,  9 Oct 2026 19:27:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791574037;
-	bh=js4MQwhe0J98ovKD7yCqc27kGlqgykJcML1tKy1sLwQ=;
-	h=Date:From:To:Cc:Subject;
-	b=f17/1qy/cYV+gnaeyXQ9DSesbG/YLh3jqKHyUHNi4WRp0Jr/1TyEb+UeQXumvsOSc
-	 U9N50bU1M+n0GJEsW0oURgkvMeD7XPU7NEaVLbltyAtEKlUFRLySZqb2GlvN9e5XWw
-	 LtzrQq0GdsPV0NQ8cNYLkYFc5I92O8CFG0uv3/nc2fDxbeHfc2LjI5BZ8JDT99FEIm
-	 fHi0zima6z5eI8/6+DmZ0S2oCAMDEnNBKgXPrwgl9ScaEsLXkrQS/EEoauQZSdFFTI
-	 NuOvOD67Yyi7pYdikMMDRzlUk2+xmS5in19lrTknBpyy2j00oRDz19n0eJq3/znBVF
-	 7lnDwklsN4ugg==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id B49A51AC57D0; Fri, 09 Oct 2026 20:27:14 +0100 (BST)
-Date: Fri, 9 Oct 2026 21:27:14 +0200
-From: Mark Brown <broonie@kernel.org>
-To: Manivannan Sadhasivam <mani@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	Lukas Wunner <lukas@wunner.de>,
-	Priyank Rathod <rathodpriyank@google.com>
-Subject: linux-next: manual merge of the pci tree with the pci-current tree
-Message-ID: <aslAEm5Qsgp-9xD9@sirena.co.uk>
+	s=arc-20240116; t=1791574060; c=relaxed/simple;
+	bh=RmuQWBMnPy6zxFGaVHKgzoeqd0qeTN2hgHvOWm1Lbno=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=Sy5hLNEeX5/6CkLvl2vHAk75HXkEhHI4WZw90Tc/VgTX8zZwfnnHzL5lUvixLpBZgYvUlWJMUxJ8u8w8Z/fg+bqNZxqte6SYYwld+eo0e+VQymllA+AYbtYGbPSfiMPyYDvUNaJrx7eiMaKJyEwWqEG+94K+cGHSr5y1b01vMiQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4a7de733fa9so189674b6e.3
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 12:27:36 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791574055; x=1792178855;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QgvqW7P3hvQ2A+fFBXR7HoHy5at4znoy1fWG5506N4Y=;
+        b=xVnk/AMvuSELx6SbK4tuLmrujSxNBiihko/kBYLc5cGZuUTGys7FEF79J6fuxYjXP6
+         lv9nIi2DMkxnd5MMiavWwm8hM8mFAE0PtSEG/AGGtrlfkWCIGiL8FJKCMEpwkQqhmDB9
+         yI2EoZb5gjUQp0Ahx36n9H74pxzwHofsGfwy4C1TwK4ss/R5o/sBQFDao8Cjvxr7b6WV
+         ykA07K1u6SQMPpL0gA64vXP4JU+CafX7zICyqeoyP9p7tQygRpVC4kNp0MNAW8O+HMFi
+         0vc3ZbncV3ceXtrJJL/xU7hJSN+nMn2iqY2wUQvkHy+b5MWTEvCTtmfUBqifibod3RA8
+         bPQw==
+X-Forwarded-Encrypted: i=1; AKwUvBx1lVHfc1x1Ofiz6yfpdoqvZVGfV21mZue7D6tu5DRDwRV5a+QEY1ZmBQRvupYGMowe7i76k5vL4WDOq0Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++l8geqc4eLKdp7abZVyOU9VxlsTf/DGLzRfewv8rZo8utk/ILKh
+	pcXFUoeWyxVflSmOLrtyvRUeZy0oTZitnxMFQohgN8Kj72PjGr+UPsfSWR5LuMNpLXbgzl43v9w
+	Z1bI0Chu1cem2bQaV2BCT0t/8tT4JsKczyZSubZYX7SGWEX2qdOqKxrh748Q=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="KaCU7AGt8SUjp5u7"
-Content-Disposition: inline
+X-Received: by 2002:a05:6808:6f8f:b0:4ea:686e:fe86 with SMTP id
+ 5614622812f47-50c5b464a7emr2535716b6e.63.1791574054953; Fri, 09 Oct 2026
+ 12:27:34 -0700 (PDT)
+Date: Fri, 09 Oct 2026 12:27:34 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ac94026.70ed5d86.2ac85.0077.GAE@google.com>
+Subject: [syzbot] [media?] memory leak in vidtv_psi_pmt_create_sec_for_each_pat_entry
+From: syzbot <syzbot+3bb39e30be6cca84a865@syzkaller.appspotmail.com>
+To: dwlsalmeida@gmail.com, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, mchehab@kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+
+Hello,
+
+syzbot found the following issue on:
+
+HEAD commit:    7b63ef2d55f2 Merge tag 'for-7.3-rc6-tag' of git://git.kern..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=169860a5580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=12c87ae0d043bfa0
+dashboard link: https://syzkaller.appspot.com/bug?extid=3bb39e30be6cca84a865
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1277249c580000
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/797a41c61706/disk-7b63ef2d.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/734af738f380/vmlinux-7b63ef2d.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/bcfa942944b7/bzImage-7b63ef2d.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+3bb39e30be6cca84a865@syzkaller.appspotmail.com
+
+BUG: memory leak
+unreferenced object 0xffff88812cf24108 (size 8):
+  comm "syz.3.32", pid 6127, jiffies 4294946999
+  hex dump (first 8 bytes):
+    00 00 00 00 00 00 00 00                          ........
+  backtrace (crc 0):
+    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
+    slab_post_alloc_hook mm/slub.c:4696 [inline]
+    slab_alloc_node mm/slub.c:4996 [inline]
+    __do_kmalloc_node mm/slub.c:5413 [inline]
+    __kmalloc_noprof+0x3fb/0x540 mm/slub.c:5439
+    _kmalloc_noprof include/linux/slab.h:995 [inline]
+    _kzalloc_noprof include/linux/slab.h:1312 [inline]
+    vidtv_psi_pmt_create_sec_for_each_pat_entry+0x7d/0x1b0 drivers/media/test-drivers/vidtv/vidtv_psi.c:1471
+    vidtv_channel_si_init+0x544/0x770 drivers/media/test-drivers/vidtv/vidtv_channel.c:478
+    vidtv_mux_init+0x115/0x390 drivers/media/test-drivers/vidtv/vidtv_mux.c:525
+    vidtv_start_streaming drivers/media/test-drivers/vidtv/vidtv_bridge.c:194 [inline]
+    vidtv_start_feed+0x1d4/0x260 drivers/media/test-drivers/vidtv/vidtv_bridge.c:239
+    dmx_ts_feed_start_filtering+0x8e/0x130 drivers/media/dvb-core/dvb_demux.c:747
+    dvb_dmxdev_start_feed+0x11c/0x170 drivers/media/dvb-core/dmxdev.c:658
+    dvb_dmxdev_filter_start+0xd8/0x440 drivers/media/dvb-core/dmxdev.c:769
+    dvb_demux_do_ioctl+0x297/0x7d0 drivers/media/dvb-core/dmxdev.c:1072
+    dvb_usercopy+0x116/0x2d0 drivers/media/dvb-core/dvbdev.c:996
+    dvb_demux_ioctl+0x29/0x40 drivers/media/dvb-core/dmxdev.c:1208
+    vfs_ioctl fs/ioctl.c:51 [inline]
+    __do_sys_ioctl fs/ioctl.c:597 [inline]
+    __se_sys_ioctl fs/ioctl.c:583 [inline]
+    __x64_sys_ioctl+0xf4/0x140 fs/ioctl.c:583
+    do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+    do_syscall_64+0xe9/0x530 arch/x86/entry/syscall_64.c:84
+    entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+connection error: failed to recv *flatrpc.ExecutorMessageRawT: EOF
 
 
---KaCU7AGt8SUjp5u7
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-Hi all,
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-Today's linux-next merge of the pci tree got a conflict in:
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
-  drivers/pci/pcie/aer.c
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
 
-between commit:
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
 
-  79c168e2aa957 ("PCI/AER: Skip error recovery on false alarms")
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
 
-=66rom the pci-current tree and commit:
-
-  d4c842c3af5bc ("PCI/AER: Fix memory leak in aer_recover_work_func() when =
-pci_dev is missing")
-
-=66rom the pci tree.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-diff --cc drivers/pci/pcie/aer.c
-index 922a726a52a50,c376c3adbefd2..0000000000000
---- a/drivers/pci/pcie/aer.c
-+++ b/drivers/pci/pcie/aer.c
-@@@ -1373,16 -1370,9 +1372,15 @@@ static void aer_recover_work_func(struc
-  					   entry.domain, entry.bus,
-  					   PCI_SLOT(entry.devfn),
-  					   PCI_FUNC(entry.devfn));
-- 			continue;
-- 		}
-- 		pci_print_aer(pdev, entry.severity, entry.regs);
-+ 		else
-+ 			pci_print_aer(pdev, entry.severity, entry.regs);
- =20
- +		regs =3D entry.regs;
- +		if (entry.severity =3D=3D AER_CORRECTABLE)
- +			err =3D regs->cor_status & ~regs->cor_mask;
- +		else
- +			err =3D regs->uncor_status & ~regs->uncor_mask;
- +
-  		/*
-  		 * Memory for aer_capability_regs(entry.regs) is being
-  		 * allocated from the ghes_estatus_pool to protect it from
-@@@ -1393,15 -1383,15 +1391,21 @@@
-  		ghes_estatus_pool_region_free((unsigned long)entry.regs,
-  					    sizeof(struct aer_capability_regs));
- =20
-- 		if (err) {
-- 			if (entry.severity =3D=3D AER_NONFATAL)
-- 				pcie_do_recovery(pdev, pci_channel_io_normal,
-- 						 aer_root_reset);
-- 			else if (entry.severity =3D=3D AER_FATAL)
-- 				pcie_do_recovery(pdev, pci_channel_io_frozen,
-- 						 aer_root_reset);
-+ 		if (pdev) {
- -			if (entry.severity =3D=3D AER_NONFATAL)
- -				pcie_do_recovery(pdev, pci_channel_io_normal,
- -						 aer_root_reset);
- -			else if (entry.severity =3D=3D AER_FATAL)
- -				pcie_do_recovery(pdev, pci_channel_io_frozen,
- -						 aer_root_reset);
-++			if (err) {
-++				if (entry.severity =3D=3D AER_NONFATAL)
-++					pcie_do_recovery(pdev,
-++							 pci_channel_io_normal,
-++							 aer_root_reset);
-++				else if (entry.severity =3D=3D AER_FATAL)
-++					pcie_do_recovery(pdev,
-++							 pci_channel_io_frozen,
-++							 aer_root_reset);
-++				}
-++			}
-++
-+ 			pci_dev_put(pdev);
-  		}
-- 		pci_dev_put(pdev);
-  	}
-  }
- =20
-
---KaCU7AGt8SUjp5u7
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCaslAEgAKCRAv73Ows9A4
-iUZiAP42/faa30/nshFc5UL2EUUCHO8+SlPH+I2r6UIS0GsQZgEAvPrEvLRrLL7r
-WLOPgSkjN+xCqJSVamuWNJD5wcDF2QY=
-=ER1R
------END PGP SIGNATURE-----
-
---KaCU7AGt8SUjp5u7--
+If you want to undo deduplication, reply with:
+#syz undup
