@@ -1,669 +1,263 @@
-Received: from pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.35.192.45])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B59072C08CF;
-	Fri,  9 Oct 2026 13:54:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.35.192.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 047F24A7CA0;
+	Fri,  9 Oct 2026 13:56:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791554095; cv=none; b=OtalIhlHY43DaXP6Pe5kAwiUxH9JkzMJPRNCM8lmI2gUYm2BhyztZn3oyhNp0cBJdO2YOP8pmHoa+5nKflghsxrCtHNzZeroDNptCcf4UkbgzmfK6ZS9E+radiQaSp7bRqQ2Cefeg/zuGShzd8Ur+qYccE5S1SQcmLwGHkS+1Yw=
+	t=1791554175; cv=none; b=MeanliDoWe8FOpUmUpmrks3cNZuB6viVVFsZ38V8kTAhBZ8G3cHqlqmnCqfp1ZRNdRPjphAn3PebeJKcr2FcD8t4ROgzvcghdFWP/ylR8KVYhwB9CfmB605E4tKCrYesjkbr/NRt//ujMKIhqlo/DAjSjvGX7Rf6aiIyES05Spc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791554095; c=relaxed/simple;
-	bh=IYpG/PJs6o0jLGDsHQEnxKyzom3AePa1x+38OJgDUt4=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=UOrWw8fXRVkjeh+InHQ9X84usJPd6oOSBDarC29asPyuuJiqm30LroI32KquuDJWYOFkT0RHS/8HJHi442hF5uDxMMWlT5PFh8jQkOc0IJG3DH3FoJjN7O7QKdxkyaH9Mq/WYR+DtWKW5AiAgGPQ8JHI0UxdbSh66PgECGtpHqE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=O0Ou6vQk; arc=none smtp.client-ip=52.35.192.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	s=arc-20240116; t=1791554175; c=relaxed/simple;
+	bh=MPjbQE/OEp3RfABQDN3aEJoRDPy5FBYbL6yuafzhE08=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LUb0CkLYyjIJbJgRKIl+VMJ6g3mrYNSrY+bXbAmUGlgI5bAj/UlHN0hYDQUNp0TC8KYrzX0QkNgVdYdQekKXMiTWioWkwWnQwiHvfg/HbdvSx2nxQGcSFwuMRKqW6B9mkS8tQHa9zx0SXKfIc48EOqO9Nifq6MB7UsJ7/96E6WA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m5jbHCM0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="O0Ou6vQk"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1791554092; x=1823090092;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=1GrRbVukNT3UsmTwIVB+8cTu6OC0VfLIZQP2v+gN6bw=;
-  b=O0Ou6vQkI9P2M+PLrNHQ+syNC7G14FhaIFY2UHygFPC1lGT/EIayYw9g
-   7sNhO7SrE7SUBTHdGjUsmq9S8aLgN+2B4f+1Lsi5EHHoqBLWB5Bux9tnO
-   c+O0yqGGXs+6qFH5rvARjQdFEfI4pKDtbh1aicttBrAW23TRnkZskjmNG
-   E50OQG2Vx6rrMofnukKDPeQzrkxFM44JabmqZg2TsZxizH1UvpTlhm1Fl
-   qZ/jKjXNRmVVxqAyuaGa9e4A4Ws3DbSSYdIOqAGFAKmRPv/+V/awQyqVF
-   fHF4ZbeJz3hajNcg/aTl+ncLKI0RipAg8rksCdI/tRSibq+YTrdWBi9MB
-   g==;
-X-CSE-ConnectionGUID: ieyp2cagSFWiNP/MPOiLrg==
-X-CSE-MsgGUID: V5RaLmoHTrWKjmoaDbCNLw==
-X-IronPort-AV: E=Sophos;i="6.27,148,1787011200"; 
-   d="scan'208";a="30602258"
-Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 13:54:49 +0000
-Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.111:22667]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.24.153:2525] with esmtp (Farcaster)
- id edc59693-28f4-4718-985e-5e1bde5a52ec; Fri, 9 Oct 2026 13:54:49 +0000 (UTC)
-X-Farcaster-Flow-ID: edc59693-28f4-4718-985e-5e1bde5a52ec
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Fri, 9 Oct 2026 13:54:49 +0000
-Received: from dev-dsk-nagornyi-2b-f14a9408.us-west-2.amazon.com
- (10.153.215.117) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49; Fri, 9 Oct 2026
- 13:54:48 +0000
-From: Nikita Nagornyi <nagornyi@amazon.de>
-To: <stable@vger.kernel.org>, Konstantin Komarov
-	<almaz.alexandrovich@paragon-software.com>, <ntfs3@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>
-CC: Sasha Levin <sashal@kernel.org>,
-	<syzbot+73d8fc29ec7cba8286fa@syzkaller.appspotmail.com>
-Subject: [PATCH 6.1.y v2 2/4] fs/ntfs3: Mark inode as bad as soon as error detected in mi_enum_attr()
-Date: Fri, 9 Oct 2026 13:54:13 +0000
-Message-ID: <20261009135415.850568-3-nagornyi@amazon.de>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261009135415.850568-1-nagornyi@amazon.de>
-References: <20261009135415.850568-1-nagornyi@amazon.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m5jbHCM0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1EDB1F000FF;
+	Fri,  9 Oct 2026 13:56:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791554173;
+	bh=DtJF/GweLIbUbR7hLO3F/tfaCi8SaxiyqPsE9UseAwA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=m5jbHCM0WZali60BtOLW4t5nKpQACD91YWLUvfKX82tf0ZA/JpTI+ED+gSe6T9SOl
+	 Cd4iwdr6AlsO3AegonNOeZtWHfCFiRM3M88Moa0DVG1HuYKHkXIn5k9yzlAlHeM4a8
+	 0u5GGNwWUJVp003BSxHbZgoMYjkcKuC+6K5HxcQtLuP8ovV4XcrRalv5PN2aKEg43u
+	 dhSR+TiGQsRZv4ezqNcfg5/MDRpc1/Rf8E3/y3GpNaozOD874KkhTgKmdh8fTlaGqV
+	 2ha0idH9F657czAEi4TJ3bljkh+iAmTSGayuyN8qkv6i+HvfTpl/AziNZWr7TWShUh
+	 LoCFWyzXH4Dtw==
+Message-ID: <aafe2703-bfb8-43da-8472-b1dfa36fa8f9@kernel.org>
+Date: Fri, 9 Oct 2026 15:56:03 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWC004.ant.amazon.com (10.13.139.246) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] dt-bindings: clock: introduce
+ toshiba,tc9564-clock.yaml
+To: Alex Elder <elder@riscstar.com>
+Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org,
+ kees@kernel.org, gustavoars@kernel.org, mohd.anwar@oss.qualcomm.com,
+ lorenzo.bianconi@oss.qualcomm.com, danielt@kernel.org,
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Daniel Thompson <daniel@riscstar.com>
+References: <20261005230927.2000398-1-elder@riscstar.com>
+ <20261005230927.2000398-2-elder@riscstar.com>
+ <20261009-gifted-stylish-tortoise-95b14d@quoll>
+ <b190fe58-364b-4b94-9cab-c5f81f874289@riscstar.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <b190fe58-364b-4b94-9cab-c5f81f874289@riscstar.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+On 09/10/2026 15:44, Alex Elder wrote:
+> On 10/9/26 4:31 AM, Krzysztof Kozlowski wrote:
+>> On Mon, Oct 05, 2026 at 06:09:24PM -0500, Alex Elder wrote:
+>>> Define the binding for the clock controller functionality present in
+>>> the Toshiba TC9564 SoC.
+>>>
+>>> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
+>>> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+>>> Signed-off-by: Alex Elder <elder@riscstar.com>
+> 
+> I'm just about to send version 3 of this series (and
+> then a new reset series derived from the code that was
+> previously combined with the clock code).  Some things
+> related to what you mention have changed.  I show that
+> below, but also respond to your other comments, and try
+> to advocate for the approach used.
+>>> ---
+>>> v2: - Only define clock information, not reset information
+>>>      - Reworded description to avoid talking about software
+>>>      - Clock IDs are now consecutive (no more commented-out values)
+>>>
+>>>   .../bindings/clock/toshiba,tc9564-clock.yaml  | 54 +++++++++++++++++++
+>>>   MAINTAINERS                                   |  7 +++
+>>>   include/dt-bindings/clock/toshiba,tc9564.h    | 34 ++++++++++++
+>>>   3 files changed, 95 insertions(+)
+>>>   create mode 100644 Documentation/devicetree/bindings/clock/toshiba,tc9564-clock.yaml
+>>>   create mode 100644 include/dt-bindings/clock/toshiba,tc9564.h
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/clock/toshiba,tc9564-clock.yaml b/Documentation/devicetree/bindings/clock/toshiba,tc9564-clock.yaml
+>>> new file mode 100644
+>>> index 0000000000000..329b8f002cf2d
+>>> --- /dev/null
+>>> +++ b/Documentation/devicetree/bindings/clock/toshiba,tc9564-clock.yaml
+>>> @@ -0,0 +1,54 @@
+>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>>> +%YAML 1.2
+>>> +---
+>>> +$id: http://devicetree.org/schemas/clock/toshiba,tc9564-clock.yaml#
+>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>> +
+>>> +title: Toshiba TC9564 Clock Controller
+>>> +
+>>> +maintainers:
+>>> +  - Alex Elder <elder@riscstar.com>
+>>> +  - Daniel Thompson <daniel@riscstar.com>
+>>> +
+>>> +description:
+>>> +  The Toshiba TC9564 is an SoC accessed by a host system through the
+>>> +  upstream PCIe port on the PCIe switch it implements.  The switch
+>>> +  includes an embedded PCIe endpoint that provides access to various
+>>> +  SoC peripherals (including a clock controller) via its BARs.
+>>> +
+>>> +  A total of 21 clocks are implemented, though two of these are not
+>>> +  controllable.  Access to the clock controller relies on PCIe being
+>>> +  functional, so the PCIe clock is assumed to be always on.  Similarly,
+>>> +  the PCIe controller relies on I2C, so the I2C clock is also assumed
+>>> +  to be always on.
+>>> +
+>>> +  Clock ids are defined in <dt-bindings/clock/toshiba,tc9564.h>.
+>>> +
+>>> +properties:
+>>> +  compatible:
+>>> +    const: toshiba,tc9564-clock
+>>> +
+>>> +  toshiba,config-syscon:
+>>> +    $ref: /schemas/types.yaml#/definitions/phandle
+>>> +    description:
+>>> +      Phandle for the configuration space system controller.
+>>
+>> I do not see my previous comment addressed - you have no resources here,
+>> so this belongs to the parent. You responded something about pci-ep, but
+>> the parent is not pci-ep. Open your code:
+>> https://lore.kernel.org/lkml/20260918165234.687224-5-elder@riscstar.com/
+>>
+>> I clearly see code like:
+>>    syscon {
+>>      clock@ {
+>>      };
+>>    };
+>>
+>> so I do not understand what pci-ep has anything to do here.
+> 
+> What I have now (about to send) looks like this:
+> 
+>      syscon@0 {
+>          compatible = "syscon", "simple-mfd";
+>          reg = <0x0 0x2000>;
+> 
+>          clock {
+>              compatible = "toshiba,tc9564-clock";
+>              #clock-cells = <1>;
+>          };
+>      };
+> 
+> A reset node will also go inside the syscon, so there is another
+> function for that MFD.
+> 
+> The regmap belongs to the parent, and is looked up this way:
+> 
+>      regmap = syscon_node_to_regmap(dev_of_node(dev->parent));
 
-[ Upstream commit 2afd4d267e6dbaec8d3ccd4f5396cb84bc67aa2e ]
+That's driver code, so irrelevant. So how does this solve my comment
+from v1?
 
-Extended the `mi_enum_attr()` function interface with an additional
-parameter, `struct ntfs_inode *ni`, to allow marking the inode
-as bad as soon as an error is detected.
+> 
+>> What's more, I still do not see any usage of these clocks outside. And I
+>> still did not receive actual answers (or I missed them) how these clocks
+>> are routed OUTSIDE of the connector. You said for example:
+>> "Ultimately the TC9564 SoC has a single 25 MHz input clock,"
+>>
+>> but that is input. I did not ask how this device receives clocks. I
+>> asked how the host receives the clocks from this device.
+> 
+> I was explaining that the clock input gets split into a number
+> of "output" clocks derived from that one input.  However you're
+> right, almost all of these clocks are connected to blocks
+> internal to the SoC.  There is only one 25 MHz clock that is
+> exposed externally (CLOCK_REFCLKO).
+> 
+> I think your point (or one of them) is that, even if pci-ep-bus
+> is used, the only things that warrant being described with
+> devicetree are those that can affect things outside the chip.
+> Everything else is not really variable from the perspective of
+> the platform, and inner details can be determined (and controlled)
+> by software.
+> 
+> 
+> Our original version of this code incorporated clock and reset
+> control inside the networking driver.  Rob commented that the
+> DWMAC driver should bind to the PCI functions and "everything
+> else...should be under the PCIe switch upstream node in a
+> pci-ep.bus".
+> 
+> The only driver associated with the switch inside the TC9564
+> is the special power control driver, accessed via I2C.  The
+> PCI switch functionality is otherwise provided without any
+> special handling, or is handled by generic code.
+> 
+> What *is* available is the PCI endpoint functions and their
+> BARs, so the endpoint buses use those.
+> 
+> PCI endpoint bus makes available things that devicetree
+> does that are very useful (including a standard way of
+> describing connections between blocks in the SoC).
+> 
+> 
+> I know that doesn't address the "exposed clocks" issue,
+> but it provides some background on why things were done
+> the way they were.
+> 
+> 
+> The single exposed clock *might* justify presenting the
+> clock controller device in devicetree.  There are also
+> resets exposed externally via GPIOs, and these control
+> external entities (PHYs).
 
-Reported-by: syzbot+73d8fc29ec7cba8286fa@syzkaller.appspotmail.com
-Signed-off-by: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+I cannot find any of these exposed. Please point me to DTS code showing
+this.
 
-[ Backport to 6.1.y: passed `ni` to an extra `mi_find_attr()` caller
-that mainline had refactored differently. `mi_find_attr()`'s `name_len`
-argument is kept as 6.1.y's `size_t`. Kept 6.1.y's last resident fields
-check in `mi_enum_attr()` but replaced `return NULL` with `goto out`. ]
 
-Signed-off-by: Nikita Nagornyi <nagornyi@amazon.de>
----
- fs/ntfs3/attrib.c  | 11 ++++---
- fs/ntfs3/frecord.c | 59 ++++++++++++++++++----------------
- fs/ntfs3/ntfs_fs.h | 21 ++++++------
- fs/ntfs3/record.c  | 79 ++++++++++++++++++++++++----------------------
- 4 files changed, 90 insertions(+), 80 deletions(-)
-
-diff --git a/fs/ntfs3/attrib.c b/fs/ntfs3/attrib.c
-index f4573d276a2cc..db4f2dffed950 100644
---- a/fs/ntfs3/attrib.c
-+++ b/fs/ntfs3/attrib.c
-@@ -815,7 +815,8 @@ int attr_set_size(struct ntfs_inode *ni, enum ATTR_TYPE type,
- 		if (err)
- 			goto out;
- 
--		attr = mi_find_attr(mi, NULL, type, name, name_len, &le->id);
-+		attr = mi_find_attr(ni, mi, NULL, type, name, name_len,
-+				    &le->id);
- 		if (!attr) {
- 			err = -EINVAL;
- 			goto bad_inode;
-@@ -1166,7 +1167,7 @@ int attr_data_get_block(struct ntfs_inode *ni, CLST vcn, CLST clen, CLST *lcn,
- 				goto out;
- 			}
- 
--			attr = mi_find_attr(mi, NULL, ATTR_DATA, NULL, 0,
-+			attr = mi_find_attr(ni, mi, NULL, ATTR_DATA, NULL, 0,
- 					    &le->id);
- 			if (!attr) {
- 				err = -EINVAL;
-@@ -1786,7 +1787,7 @@ int attr_allocate_frame(struct ntfs_inode *ni, CLST frame, size_t compr_size,
- 				goto out;
- 			}
- 
--			attr = mi_find_attr(mi, NULL, ATTR_DATA, NULL, 0,
-+			attr = mi_find_attr(ni, mi, NULL, ATTR_DATA, NULL, 0,
- 					    &le->id);
- 			if (!attr) {
- 				err = -EINVAL;
-@@ -2031,8 +2032,8 @@ int attr_collapse_range(struct ntfs_inode *ni, u64 vbo, u64 bytes)
- 				}
- 
- 				/* Look for required attribute. */
--				attr = mi_find_attr(mi, NULL, ATTR_DATA, NULL,
--						    0, &le->id);
-+				attr = mi_find_attr(ni, mi, NULL, ATTR_DATA,
-+						    NULL, 0, &le->id);
- 				if (!attr) {
- 					err = -EINVAL;
- 					goto out;
-diff --git a/fs/ntfs3/frecord.c b/fs/ntfs3/frecord.c
-index fcdaea02ba04d..17559fca5984c 100644
---- a/fs/ntfs3/frecord.c
-+++ b/fs/ntfs3/frecord.c
-@@ -75,7 +75,7 @@ struct ATTR_STD_INFO *ni_std(struct ntfs_inode *ni)
- {
- 	const struct ATTRIB *attr;
- 
--	attr = mi_find_attr(&ni->mi, NULL, ATTR_STD, NULL, 0, NULL);
-+	attr = mi_find_attr(ni, &ni->mi, NULL, ATTR_STD, NULL, 0, NULL);
- 	return attr ? resident_data_ex(attr, sizeof(struct ATTR_STD_INFO))
- 		    : NULL;
- }
-@@ -89,7 +89,7 @@ struct ATTR_STD_INFO5 *ni_std5(struct ntfs_inode *ni)
- {
- 	const struct ATTRIB *attr;
- 
--	attr = mi_find_attr(&ni->mi, NULL, ATTR_STD, NULL, 0, NULL);
-+	attr = mi_find_attr(ni, &ni->mi, NULL, ATTR_STD, NULL, 0, NULL);
- 
- 	return attr ? resident_data_ex(attr, sizeof(struct ATTR_STD_INFO5))
- 		    : NULL;
-@@ -201,7 +201,8 @@ struct ATTRIB *ni_find_attr(struct ntfs_inode *ni, struct ATTRIB *attr,
- 			*mi = &ni->mi;
- 
- 		/* Look for required attribute in primary record. */
--		return mi_find_attr(&ni->mi, attr, type, name, name_len, NULL);
-+		return mi_find_attr(ni, &ni->mi, attr, type, name, name_len,
-+				    NULL);
- 	}
- 
- 	/* First look for list entry of required type. */
-@@ -217,7 +218,7 @@ struct ATTRIB *ni_find_attr(struct ntfs_inode *ni, struct ATTRIB *attr,
- 		return NULL;
- 
- 	/* Look for required attribute. */
--	attr = mi_find_attr(m, NULL, type, name, name_len, &le->id);
-+	attr = mi_find_attr(ni, m, NULL, type, name, name_len, &le->id);
- 
- 	if (!attr)
- 		goto out;
-@@ -258,7 +259,7 @@ struct ATTRIB *ni_enum_attr_ex(struct ntfs_inode *ni, struct ATTRIB *attr,
- 		if (mi)
- 			*mi = &ni->mi;
- 		/* Enum attributes in primary record. */
--		return mi_enum_attr(&ni->mi, attr);
-+		return mi_enum_attr(ni, &ni->mi, attr);
- 	}
- 
- 	/* Get next list entry. */
-@@ -274,7 +275,7 @@ struct ATTRIB *ni_enum_attr_ex(struct ntfs_inode *ni, struct ATTRIB *attr,
- 		*mi = mi2;
- 
- 	/* Find attribute in loaded record. */
--	return rec_find_attr_le(mi2, le2);
-+	return rec_find_attr_le(ni, mi2, le2);
- }
- 
- /*
-@@ -292,7 +293,8 @@ struct ATTRIB *ni_load_attr(struct ntfs_inode *ni, enum ATTR_TYPE type,
- 	if (!ni->attr_list.size) {
- 		if (pmi)
- 			*pmi = &ni->mi;
--		return mi_find_attr(&ni->mi, NULL, type, name, name_len, NULL);
-+		return mi_find_attr(ni, &ni->mi, NULL, type, name, name_len,
-+				    NULL);
- 	}
- 
- 	le = al_find_ex(ni, NULL, type, name, name_len, NULL);
-@@ -318,7 +320,7 @@ struct ATTRIB *ni_load_attr(struct ntfs_inode *ni, enum ATTR_TYPE type,
- 	if (pmi)
- 		*pmi = mi;
- 
--	attr = mi_find_attr(mi, NULL, type, name, name_len, &le->id);
-+	attr = mi_find_attr(ni, mi, NULL, type, name, name_len, &le->id);
- 	if (!attr)
- 		return NULL;
- 
-@@ -399,7 +401,8 @@ int ni_remove_attr(struct ntfs_inode *ni, enum ATTR_TYPE type,
- 	int diff;
- 
- 	if (base_only || type == ATTR_LIST || !ni->attr_list.size) {
--		attr = mi_find_attr(&ni->mi, NULL, type, name, name_len, id);
-+		attr = mi_find_attr(ni, &ni->mi, NULL, type, name, name_len,
-+				    id);
- 		if (!attr)
- 			return -ENOENT;
- 
-@@ -438,7 +441,7 @@ int ni_remove_attr(struct ntfs_inode *ni, enum ATTR_TYPE type,
- 
- 		al_remove_le(ni, le);
- 
--		attr = mi_find_attr(mi, NULL, type, name, name_len, id);
-+		attr = mi_find_attr(ni, mi, NULL, type, name, name_len, id);
- 		if (!attr)
- 			return -ENOENT;
- 
-@@ -486,7 +489,7 @@ ni_ins_new_attr(struct ntfs_inode *ni, struct mft_inode *mi,
- 		name = le->name;
- 	}
- 
--	attr = mi_insert_attr(mi, type, name, name_len, asize, name_off);
-+	attr = mi_insert_attr(ni, mi, type, name, name_len, asize, name_off);
- 	if (!attr) {
- 		if (le_added)
- 			al_remove_le(ni, le);
-@@ -670,7 +673,7 @@ static int ni_try_remove_attr_list(struct ntfs_inode *ni)
- 	if (err)
- 		return err;
- 
--	attr_list = mi_find_attr(&ni->mi, NULL, ATTR_LIST, NULL, 0, NULL);
-+	attr_list = mi_find_attr(ni, &ni->mi, NULL, ATTR_LIST, NULL, 0, NULL);
- 	if (!attr_list)
- 		return 0;
- 
-@@ -692,7 +695,7 @@ static int ni_try_remove_attr_list(struct ntfs_inode *ni)
- 		if (!mi)
- 			return 0;
- 
--		attr = mi_find_attr(mi, NULL, le->type, le_name(le),
-+		attr = mi_find_attr(ni, mi, NULL, le->type, le_name(le),
- 				    le->name_len, &le->id);
- 		if (!attr)
- 			return 0;
-@@ -728,7 +731,7 @@ static int ni_try_remove_attr_list(struct ntfs_inode *ni)
- 			goto out;
- 		}
- 
--		attr = mi_find_attr(mi, NULL, le->type, le_name(le),
-+		attr = mi_find_attr(ni, mi, NULL, le->type, le_name(le),
- 				    le->name_len, &le->id);
- 		if (!attr) {
- 			/* Should never happened, 'cause already checked. */
-@@ -737,7 +740,7 @@ static int ni_try_remove_attr_list(struct ntfs_inode *ni)
- 		asize = le32_to_cpu(attr->size);
- 
- 		/* Insert into primary record. */
--		attr_ins = mi_insert_attr(&ni->mi, le->type, le_name(le),
-+		attr_ins = mi_insert_attr(ni, &ni->mi, le->type, le_name(le),
- 					  le->name_len, asize,
- 					  le16_to_cpu(attr->name_off));
- 		if (!attr_ins) {
-@@ -765,7 +768,7 @@ static int ni_try_remove_attr_list(struct ntfs_inode *ni)
- 		if (!mi)
- 			continue;
- 
--		attr = mi_find_attr(mi, NULL, le->type, le_name(le),
-+		attr = mi_find_attr(ni, mi, NULL, le->type, le_name(le),
- 				    le->name_len, &le->id);
- 		if (!attr)
- 			continue;
-@@ -830,7 +833,7 @@ int ni_create_attr_list(struct ntfs_inode *ni)
- 	free_b = 0;
- 	attr = NULL;
- 
--	for (; (attr = mi_enum_attr(&ni->mi, attr)); le = Add2Ptr(le, sz)) {
-+	for (; (attr = mi_enum_attr(ni, &ni->mi, attr)); le = Add2Ptr(le, sz)) {
- 		sz = le_size(attr->name_len);
- 		le->type = attr->type;
- 		le->size = cpu_to_le16(sz);
-@@ -885,7 +888,7 @@ int ni_create_attr_list(struct ntfs_inode *ni)
- 		u32 asize = le32_to_cpu(b->size);
- 		u16 name_off = le16_to_cpu(b->name_off);
- 
--		attr = mi_insert_attr(mi, b->type, Add2Ptr(b, name_off),
-+		attr = mi_insert_attr(ni, mi, b->type, Add2Ptr(b, name_off),
- 				      b->name_len, asize, name_off);
- 		if (!attr)
- 			goto out1;
-@@ -908,7 +911,7 @@ int ni_create_attr_list(struct ntfs_inode *ni)
- 			goto out1;
- 	}
- 
--	attr = mi_insert_attr(&ni->mi, ATTR_LIST, NULL, 0,
-+	attr = mi_insert_attr(ni, &ni->mi, ATTR_LIST, NULL, 0,
- 			      lsize + SIZEOF_RESIDENT, SIZEOF_RESIDENT);
- 	if (!attr)
- 		goto out1;
-@@ -995,13 +998,13 @@ static int ni_ins_attr_ext(struct ntfs_inode *ni, struct ATTR_LIST_ENTRY *le,
- 		mi = rb_entry(node, struct mft_inode, node);
- 
- 		if (is_mft_data &&
--		    (mi_enum_attr(mi, NULL) ||
-+		    (mi_enum_attr(ni, mi, NULL) ||
- 		     vbo <= ((u64)mi->rno << sbi->record_bits))) {
- 			/* We can't accept this record 'cause MFT's bootstrapping. */
- 			continue;
- 		}
- 		if (is_mft &&
--		    mi_find_attr(mi, NULL, ATTR_DATA, NULL, 0, NULL)) {
-+		    mi_find_attr(ni, mi, NULL, ATTR_DATA, NULL, 0, NULL)) {
- 			/*
- 			 * This child record already has a ATTR_DATA.
- 			 * So it can't accept any other records.
-@@ -1010,7 +1013,7 @@ static int ni_ins_attr_ext(struct ntfs_inode *ni, struct ATTR_LIST_ENTRY *le,
- 		}
- 
- 		if ((type != ATTR_NAME || name_len) &&
--		    mi_find_attr(mi, NULL, type, name, name_len, NULL)) {
-+		    mi_find_attr(ni, mi, NULL, type, name, name_len, NULL)) {
- 			/* Only indexed attributes can share same record. */
- 			continue;
- 		}
-@@ -1159,7 +1162,7 @@ static int ni_insert_attr(struct ntfs_inode *ni, enum ATTR_TYPE type,
- 	/* Estimate the result of moving all possible attributes away. */
- 	attr = NULL;
- 
--	while ((attr = mi_enum_attr(&ni->mi, attr))) {
-+	while ((attr = mi_enum_attr(ni, &ni->mi, attr))) {
- 		if (attr->type == ATTR_STD)
- 			continue;
- 		if (attr->type == ATTR_LIST)
-@@ -1177,7 +1180,7 @@ static int ni_insert_attr(struct ntfs_inode *ni, enum ATTR_TYPE type,
- 	attr = NULL;
- 
- 	for (;;) {
--		attr = mi_enum_attr(&ni->mi, attr);
-+		attr = mi_enum_attr(ni, &ni->mi, attr);
- 		if (!attr) {
- 			/* We should never be here 'cause we have already check this case. */
- 			err = -EINVAL;
-@@ -1261,7 +1264,7 @@ static int ni_expand_mft_list(struct ntfs_inode *ni)
- 	for (node = rb_first(&ni->mi_tree); node; node = rb_next(node)) {
- 		mi = rb_entry(node, struct mft_inode, node);
- 
--		attr = mi_enum_attr(mi, NULL);
-+		attr = mi_enum_attr(ni, mi, NULL);
- 
- 		if (!attr) {
- 			mft_min = mi->rno;
-@@ -1282,7 +1285,7 @@ static int ni_expand_mft_list(struct ntfs_inode *ni)
- 		ni_remove_mi(ni, mi_new);
- 	}
- 
--	attr = mi_find_attr(&ni->mi, NULL, ATTR_DATA, NULL, 0, NULL);
-+	attr = mi_find_attr(ni, &ni->mi, NULL, ATTR_DATA, NULL, 0, NULL);
- 	if (!attr) {
- 		err = -EINVAL;
- 		goto out;
-@@ -1399,7 +1402,7 @@ int ni_expand_list(struct ntfs_inode *ni)
- 			continue;
- 
- 		/* Find attribute in primary record. */
--		attr = rec_find_attr_le(&ni->mi, le);
-+		attr = rec_find_attr_le(ni, &ni->mi, le);
- 		if (!attr) {
- 			err = -EINVAL;
- 			goto out;
-@@ -3436,7 +3439,7 @@ int ni_write_inode(struct inode *inode, int sync, const char *hint)
- 		if (!mi->dirty)
- 			continue;
- 
--		is_empty = !mi_enum_attr(mi, NULL);
-+		is_empty = !mi_enum_attr(ni, mi, NULL);
- 
- 		if (is_empty)
- 			clear_rec_inuse(mi->mrec);
-diff --git a/fs/ntfs3/ntfs_fs.h b/fs/ntfs3/ntfs_fs.h
-index 482958c016444..d29fdefb477bf 100644
---- a/fs/ntfs3/ntfs_fs.h
-+++ b/fs/ntfs3/ntfs_fs.h
-@@ -733,23 +733,24 @@ int mi_get(struct ntfs_sb_info *sbi, CLST rno, struct mft_inode **mi);
- void mi_put(struct mft_inode *mi);
- int mi_init(struct mft_inode *mi, struct ntfs_sb_info *sbi, CLST rno);
- int mi_read(struct mft_inode *mi, bool is_mft);
--struct ATTRIB *mi_enum_attr(struct mft_inode *mi, struct ATTRIB *attr);
--// TODO: id?
--struct ATTRIB *mi_find_attr(struct mft_inode *mi, struct ATTRIB *attr,
--			    enum ATTR_TYPE type, const __le16 *name,
--			    size_t name_len, const __le16 *id);
--static inline struct ATTRIB *rec_find_attr_le(struct mft_inode *rec,
-+struct ATTRIB *mi_enum_attr(struct ntfs_inode *ni, struct mft_inode *mi,
-+			    struct ATTRIB *attr);
-+struct ATTRIB *mi_find_attr(struct ntfs_inode *ni, struct mft_inode *mi,
-+			    struct ATTRIB *attr, enum ATTR_TYPE type,
-+			    const __le16 *name, size_t name_len, const __le16 *id);
-+static inline struct ATTRIB *rec_find_attr_le(struct ntfs_inode *ni,
-+					      struct mft_inode *rec,
- 					      struct ATTR_LIST_ENTRY *le)
- {
--	return mi_find_attr(rec, NULL, le->type, le_name(le), le->name_len,
-+	return mi_find_attr(ni, rec, NULL, le->type, le_name(le), le->name_len,
- 			    &le->id);
- }
- int mi_write(struct mft_inode *mi, int wait);
- int mi_format_new(struct mft_inode *mi, struct ntfs_sb_info *sbi, CLST rno,
- 		  __le16 flags, bool is_mft);
--struct ATTRIB *mi_insert_attr(struct mft_inode *mi, enum ATTR_TYPE type,
--			      const __le16 *name, u8 name_len, u32 asize,
--			      u16 name_off);
-+struct ATTRIB *mi_insert_attr(struct ntfs_inode *ni, struct mft_inode *mi,
-+			      enum ATTR_TYPE type, const __le16 *name,
-+			      u8 name_len, u32 asize, u16 name_off);
- 
- bool mi_remove_attr(struct ntfs_inode *ni, struct mft_inode *mi,
- 		    struct ATTRIB *attr);
-diff --git a/fs/ntfs3/record.c b/fs/ntfs3/record.c
-index d8d43f6a96fd0..1393e93fef132 100644
---- a/fs/ntfs3/record.c
-+++ b/fs/ntfs3/record.c
-@@ -31,7 +31,7 @@ static inline int compare_attr(const struct ATTRIB *left, enum ATTR_TYPE type,
-  *
-  * Return: Unused attribute id that is less than mrec->next_attr_id.
-  */
--static __le16 mi_new_attt_id(struct mft_inode *mi)
-+static __le16 mi_new_attt_id(struct ntfs_inode *ni, struct mft_inode *mi)
- {
- 	u16 free_id, max_id, t16;
- 	struct MFT_REC *rec = mi->mrec;
-@@ -52,7 +52,7 @@ static __le16 mi_new_attt_id(struct mft_inode *mi)
- 	attr = NULL;
- 
- 	for (;;) {
--		attr = mi_enum_attr(mi, attr);
-+		attr = mi_enum_attr(ni, mi, attr);
- 		if (!attr) {
- 			rec->next_attr_id = cpu_to_le16(max_id + 1);
- 			mi->dirty = true;
-@@ -189,7 +189,8 @@ int mi_read(struct mft_inode *mi, bool is_mft)
- 	return err;
- }
- 
--struct ATTRIB *mi_enum_attr(struct mft_inode *mi, struct ATTRIB *attr)
-+struct ATTRIB *mi_enum_attr(struct ntfs_inode *ni, struct mft_inode *mi,
-+			    struct ATTRIB *attr)
- {
- 	const struct MFT_REC *rec = mi->mrec;
- 	u32 used = le32_to_cpu(rec->used);
-@@ -203,11 +204,11 @@ struct ATTRIB *mi_enum_attr(struct mft_inode *mi, struct ATTRIB *attr)
- 		off = le16_to_cpu(rec->attr_off);
- 
- 		if (used > total)
--			return NULL;
-+			goto out;
- 
- 		if (off >= used || off < MFTRECORD_FIXUP_OFFSET_1 ||
- 		    !IS_ALIGNED(off, 8)) {
--			return NULL;
-+			goto out;
- 		}
- 
- 		/* Skip non-resident records. */
-@@ -237,7 +238,7 @@ struct ATTRIB *mi_enum_attr(struct mft_inode *mi, struct ATTRIB *attr)
- 	 */
- 	if (off + 8 > used) {
- 		static_assert(ALIGN(sizeof(enum ATTR_TYPE), 8) == 8);
--		return NULL;
-+		goto out;
- 	}
- 
- 	if (attr->type == ATTR_END) {
-@@ -248,41 +249,41 @@ struct ATTRIB *mi_enum_attr(struct mft_inode *mi, struct ATTRIB *attr)
- 	/* 0x100 is last known attribute for now. */
- 	t32 = le32_to_cpu(attr->type);
- 	if (!t32 || (t32 & 0xf) || (t32 > 0x100))
--		return NULL;
-+		goto out;
- 
- 	/* attributes in record must be ordered by type */
- 	if (t32 < prev_type)
--		return NULL;
-+		goto out;
- 
- 	asize = le32_to_cpu(attr->size);
- 
- 	if (!IS_ALIGNED(asize, 8))
--		return NULL;
-+		goto out;
- 
- 	/* Check overflow and boundary. */
- 	if (off + asize < off || off + asize > used)
--		return NULL;
-+		goto out;
- 
- 	/* Can we use the field attr->non_res. */
- 	if (off + 9 > used)
--		return NULL;
-+		goto out;
- 
- 	/* Check size of attribute. */
- 	if (!attr->non_res) {
- 		/* Check resident fields. */
- 		if (asize < SIZEOF_RESIDENT)
--			return NULL;
-+			goto out;
- 
- 		t16 = le16_to_cpu(attr->res.data_off);
- 		if (t16 > asize)
--			return NULL;
-+			goto out;
- 
- 		if (le32_to_cpu(attr->res.data_size) > asize - t16)
--			return NULL;
-+			goto out;
- 
- 		if (attr->name_len &&
- 		    le16_to_cpu(attr->name_off) + sizeof(short) * attr->name_len > t16) {
--			return NULL;
-+			goto out;
- 		}
- 
- 		return attr;
-@@ -290,71 +291,75 @@ struct ATTRIB *mi_enum_attr(struct mft_inode *mi, struct ATTRIB *attr)
- 
- 	/* Check nonresident fields. */
- 	if (attr->non_res != 1)
--		return NULL;
-+		goto out;
- 
- 	/* Can we use memory including attr->nres.valid_size? */
- 	if (asize < SIZEOF_NONRESIDENT)
--		return NULL;
-+		goto out;
- 
- 	t16 = le16_to_cpu(attr->nres.run_off);
- 	if (t16 > asize)
--		return NULL;
-+		goto out;
- 
- 	t32 = sizeof(short) * attr->name_len;
- 	if (t32 && le16_to_cpu(attr->name_off) + t32 > t16)
--		return NULL;
-+		goto out;
- 
- 	/* Check start/end vcn. */
- 	if (le64_to_cpu(attr->nres.svcn) > le64_to_cpu(attr->nres.evcn) + 1)
--		return NULL;
-+		goto out;
- 
- 	data_size = le64_to_cpu(attr->nres.data_size);
- 	if (le64_to_cpu(attr->nres.valid_size) > data_size)
--		return NULL;
-+		goto out;
- 
- 	alloc_size = le64_to_cpu(attr->nres.alloc_size);
- 	if (data_size > alloc_size)
--		return NULL;
-+		goto out;
- 
- 	t32 = mi->sbi->cluster_mask;
- 	if (alloc_size & t32)
--		return NULL;
-+		goto out;
- 
- 	if (!attr->nres.svcn && is_attr_ext(attr)) {
- 		/* First segment of sparse/compressed attribute */
- 		/* Can we use memory including attr->nres.total_size? */
- 		if (asize < SIZEOF_NONRESIDENT_EX)
--			return NULL;
-+			goto out;
- 
- 		tot_size = le64_to_cpu(attr->nres.total_size);
- 		if (tot_size & t32)
--			return NULL;
-+			goto out;
- 
- 		if (tot_size > alloc_size)
--			return NULL;
-+			goto out;
- 	} else {
- 		if (attr->nres.c_unit)
--			return NULL;
-+			goto out;
- 
- 		if (alloc_size > mi->sbi->volume.size)
--			return NULL;
-+			goto out;
- 	}
- 
- 	return attr;
-+
-+out:
-+	_ntfs_bad_inode(&ni->vfs_inode);
-+	return NULL;
- }
- 
- /*
-  * mi_find_attr - Find the attribute by type and name and id.
-  */
--struct ATTRIB *mi_find_attr(struct mft_inode *mi, struct ATTRIB *attr,
--			    enum ATTR_TYPE type, const __le16 *name,
--			    size_t name_len, const __le16 *id)
-+struct ATTRIB *mi_find_attr(struct ntfs_inode *ni, struct mft_inode *mi,
-+			    struct ATTRIB *attr, enum ATTR_TYPE type,
-+			    const __le16 *name, size_t name_len, const __le16 *id)
- {
- 	u32 type_in = le32_to_cpu(type);
- 	u32 atype;
- 
- next_attr:
--	attr = mi_enum_attr(mi, attr);
-+	attr = mi_enum_attr(ni, mi, attr);
- 	if (!attr)
- 		return NULL;
- 
-@@ -460,9 +465,9 @@ int mi_format_new(struct mft_inode *mi, struct ntfs_sb_info *sbi, CLST rno,
-  *
-  * Return: Not full constructed attribute or NULL if not possible to create.
-  */
--struct ATTRIB *mi_insert_attr(struct mft_inode *mi, enum ATTR_TYPE type,
--			      const __le16 *name, u8 name_len, u32 asize,
--			      u16 name_off)
-+struct ATTRIB *mi_insert_attr(struct ntfs_inode *ni, struct mft_inode *mi,
-+			      enum ATTR_TYPE type, const __le16 *name,
-+			      u8 name_len, u32 asize, u16 name_off)
- {
- 	size_t tail;
- 	struct ATTRIB *attr;
-@@ -482,7 +487,7 @@ struct ATTRIB *mi_insert_attr(struct mft_inode *mi, enum ATTR_TYPE type,
- 	 * at which we should insert it.
- 	 */
- 	attr = NULL;
--	while ((attr = mi_enum_attr(mi, attr))) {
-+	while ((attr = mi_enum_attr(ni, mi, attr))) {
- 		diff = compare_attr(attr, type, name, name_len, upcase);
- 
- 		if (diff < 0)
-@@ -500,7 +505,7 @@ struct ATTRIB *mi_insert_attr(struct mft_inode *mi, enum ATTR_TYPE type,
- 		tail = used - PtrOffset(rec, attr);
- 	}
- 
--	id = mi_new_attt_id(mi);
-+	id = mi_new_attt_id(ni, mi);
- 
- 	memmove(Add2Ptr(attr, asize), attr, tail);
- 	memset(attr, 0, asize);
--- 
-2.50.1
-
+Best regards,
+Krzysztof
