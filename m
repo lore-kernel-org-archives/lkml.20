@@ -1,274 +1,232 @@
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+Received: from sender5-op-o15.zoho.com (sender5-op-o15.zoho.com [165.173.182.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F09A38E8A1;
-	Fri,  9 Oct 2026 15:53:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.135.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 454AB38D3FD;
+	Fri,  9 Oct 2026 15:53:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.15
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791561225; cv=fail; b=oTVu6bTATcLDn4qyJJkAoGHSgJg4WzHnARLpzfNj3qBqx9vXLSiWCcK6qjafMb/uSuZONnuOs4pbH5Ftf9cvzE/KDIJMOlm2NjxtsxmZFif8Ayk039pRKTGzIa6ADW8OVQdWEtkG1WVfNVuAU4Cq385PDi8NOUMfd0ZkQWDIyUo=
+	t=1791561235; cv=pass; b=LEVEeTdrI0uG+3o6Nj/fh/yow2QAbxCTw6C3vhUD/2cdurtDrpCLyIZh4xVVT+fg83OZu3oEvOms2kYsKTmhlr1LVco+cXS1DnHTSAX9yyEVyKBHkCZBb7nsH0ysCYGX2treQVqv+Xlh9c9shDEGRYk4zPUano8JTSRXh/Ylxu8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791561225; c=relaxed/simple;
-	bh=R1kasKswpeP16RMxsmgzmUSMLnsjXU9QuGz8Md6woss=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=XtjzPzN1/b78XQjHC0hpWiejoHlUkEKwwFVoYsi5QZG6rlj4ZfMLIr0SsOuikp5446MtF4e+y4ScLWPIXqeXTXk6JIAmj4hsIYw7leh1eRMeFxEbEUETDJaGfuPKMWzxLmnu6gTZWdnbQi4IYCMxNDZAghE2x8WP+5htdJFSUH0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=vtelectron.com header.i=@vtelectron.com header.b=ax0Hg0KO; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=t0M5DsNe; arc=fail smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	s=arc-20240116; t=1791561235; c=relaxed/simple;
+	bh=StBWC5rdGl30CGSA8cby9W9feHch4ijdhDIwbiWdprQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=LeIhehMf0vLFKK9hu0oiy32Ju7Y5CC3vkUrhdIVeYUZc22j+7/urdKfqDKH3arMblKGaIMbZkCjhROxAPdekGkXYRgTryT6mhXjQvLGUP7AuAoU65YS6AttoJkxLVWsesPo58KUgPn2NaWTsyHqTAN/yvR92aR27wafzONDAbrk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech; spf=pass smtp.mailfrom=pigmoral.tech; dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b=o5Lm4Xf7; arc=pass smtp.client-ip=165.173.182.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=vtelectron.com header.i=@vtelectron.com header.b="ax0Hg0KO";
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="t0M5DsNe"
-Received: from pps.filterd (m0167089.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 699FKwDb2149848;
-	Fri, 9 Oct 2026 11:52:09 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
-	 h=cc:content-transfer-encoding:content-type:date:from
-	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	DKIM; bh=disbyrhC+/La1dbUAeaB1xtWXaez43nD3RwwqUOjd8c=; b=ax0Hg0K
-	O8UyhrIkz7neWmc4XwDRaV6asNntpp4v3pmk2k9JaWWwQTky3oJo06sB0d3by+tH
-	nMkmgDraNNOh/cm7cy4pSwa9eWLGfpmzL6ELvDYwiBPp4DHQnRqEB26a9qbxkcsy
-	TGsCL8UV1IIOtZk7Y/s5O0Sru3WTZjop8L7GGfUZIkMkv2DcowjE7lPX6s+Z+2Je
-	ia6tTuL5oHl2q9z12OBOp8T/k7xLdlNkSC6FvicB4xgCjRlSh6vnrF2bXJNBu/iR
-	f1VuUYh++mOBJMWd6c2n8zfV4KSKcEbzFCb6KoRuRWOZrfSFcAjI9c5O/gMfhRWE
-	lUA1EikwbO8Krhg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=disby
-	rhC+/La1dbUAeaB1xtWXaez43nD3RwwqUOjd8c=; b=t0M5DsNeVKUk5/9/UryAI
-	7t1GdN2pZ9tM0vYpecs5DI4anaLZcPSbkxAcxkJ3FJ5O5DBsRMpeyOTNAK8wjoZy
-	ejVkwhAtQS38wgFHCpS+VSAMhBIRuZwN2WIENFleAJoGeMwMe9HHXodSqU97UgSd
-	Txc4O2BoTZArJwth/TOXadQObZZkGuYkiwr3AtLLzf28rCwdumZdVaEjDGvXVdHA
-	kZFuDy5hW4uEcqK7hD75H8epz2KtUMDrII9DLLWKkZg3mWJ0FADl/z0EtXZozyjx
-	8AHogMQArzsZjg/hprCqZ7CA0KXEOM8I0JE8+rdRTSnSvY3mEwn67V+b9XVyUvl4
-	g==
-Received: from ph8pr06cu001.outbound.protection.outlook.com (mail-westus3azon11012065.outbound.protection.outlook.com [40.107.209.65])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4h6kyswdt9-2
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 09 Oct 2026 11:52:09 -0400 (EDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Kj54jDwk8jMUQDUMoz7D//Z6K4N0Ja82sQGnpIYXEi0cT6lrHQVlf/6PmG8k1r8mg32NjIlf7AEkzw+HSUOXDqPN0mLZE9j4K9MA8aP3kvoPJXjQ9O8609DCx9n/sEkWIoBponUX1P3RNM+zQBLb6M7C398/0KW8Z+Rb22OLNUlaVi6V220gCCC7HoD9sTMXY5xv/DUnGH9FN212p/L+sBfDop3GHogMhlZv65GsN5cJk7LxlQBtSbzRN57KzYO3h9iP3nBolnkDrRRtXHJ8PeujG6iyXgk8+60ifPS4atuW4PER8ZY61/g45JxFUn3e/52mdHkNO3EI9hAhusqJzQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=disbyrhC+/La1dbUAeaB1xtWXaez43nD3RwwqUOjd8c=;
- b=F+icqKfR8c9GVahSsMFoZFiAWAWktMRib0ekyJGlP0ALbh7tCOu8t4hxl4GIFzB2zsPA8GWKinQGszvZXbHXWyddI+SOdMOvS4fruxwJSUqUyzU0LwF6ag9fjax8LqSLu97jbrhmBMb+zDJwzLp1ThnlibkGsLIHPIrLfwaHY4r3IJC/lntlStQhFm6a3t6XRpnv6d0Rsts/5er+g+BEIBcAzZflxXKpu5jPu6YhPguwLVifiZtxpQhBf42HN2OgcFIUtm77KZ7wt0tGzUk4OFmOyxNyvIZMNbNsgvL0X2C8Dlky7pw1nkZMTHBRvl2PbkqAgg7LxaePfte0P7u/Bw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=analog.com; dmarc=pass action=none header.from=analog.com;
- dkim=pass header.d=analog.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=analog.com;
-Received: from SJ0PR03MB5469.namprd03.prod.outlook.com (2603:10b6:a03:28a::17)
- by DS7PR03MB5496.namprd03.prod.outlook.com (2603:10b6:5:2c8::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
- 2026 15:52:05 +0000
-Received: from SJ0PR03MB5469.namprd03.prod.outlook.com
- ([fe80::2a19:76b2:e731:8c5a]) by SJ0PR03MB5469.namprd03.prod.outlook.com
- ([fe80::2a19:76b2:e731:8c5a%6]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
- 15:52:05 +0000
-From: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>
-Date: Fri, 09 Oct 2026 16:53:00 +0100
-Subject: [PATCH v5 8/9] spi: dw: Use dma_slave_caps bus width helpers
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261009-dmaengine-support-wider-dma-masks-v5-8-4c4e63a7a1af@analog.com>
-References: <20261009-dmaengine-support-wider-dma-masks-v5-0-4c4e63a7a1af@analog.com>
-In-Reply-To: <20261009-dmaengine-support-wider-dma-masks-v5-0-4c4e63a7a1af@analog.com>
-To: linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org,
-        linux-stm32@st-md-mailman.stormreply.com,
-        linux-arm-kernel@lists.infradead.org, linux-iio@vger.kernel.org,
-        linux-sound@vger.kernel.org, linux-spi@vger.kernel.org
-Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-        Lars-Peter Clausen <lars@metafoo.de>,
-        Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
-        =?utf-8?q?Am=C3=A9lie_Delaunay?= <amelie.delaunay@foss.st.com>,
-        Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-        Alexandre Torgue <alexandre.torgue@foss.st.com>,
-        Jonathan Cameron <jic23@kernel.org>,
-        David Lechner <dlechner@baylibre.com>,
-        Andy Shevchenko <andy@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
-        Frank Li <Frank.Li@nxp.com>,
-        Andy Shevchenko <andriy.shevchenko@intel.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791561175; l=2297;
- i=nuno.sa@analog.com; s=20231116; h=from:subject:message-id;
- bh=R1kasKswpeP16RMxsmgzmUSMLnsjXU9QuGz8Md6woss=;
- b=+E8K3w54QmUBHlnTEFfg9gb1ocdA/DhrbouDHGw/iIRtZjzKWluMO4yRIXQ9N0edw1RZ4xQIu
- D9y3Wsq+hNVC8i1jmshSRnKTLm0B78/5U5HoXi/JHWemZhWs2aHW/w8
-X-Developer-Key: i=nuno.sa@analog.com; a=ed25519;
- pk=3NQwYA013OUYZsmDFBf8rmyyr5iQlxV/9H4/Df83o1E=
-X-ClientProxiedBy: MA3P292CA0013.ESPP292.PROD.OUTLOOK.COM
- (2603:10a6:250:2c::6) To SJ0PR03MB5469.namprd03.prod.outlook.com
- (2603:10b6:a03:28a::17)
+	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b="o5Lm4Xf7"
+ARC-Seal: i=1; a=rsa-sha256; t=1791561184; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=atvbFYNzQ6nMs+vHCSb9N2vNC07w8pxOBj5iBtLNWXygmeGmZzHB+w2dB/EWfbxPyMRRtrbTxsbeDFy8ozP2Ry3dqOlfj+sZxy8vWFuX/2zWuJIYdMwpcWVUeexo6I18F9DxtKr3OGP9VmbbkA/0m83NuN3k8eEYvVeOqgsdwXk=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1791561184; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=fPdEIZW7sOTj4odPbZ748d72yqRqKOz4PkPYMfEhMj8=; 
+	b=OmiTjmRSwGJb3v2qBQUgxUE8h2zuxLUKZiirg1HPoaDolmAboO/6JambR2J7ZaofE8jZtb0PW662mzJxYoqJsswmhzU6P4hf5aKoui9aOUGzV8uzVuEWZfHrG6JbsKmRNoLqdqOUkJHRMNOwRx2TVCGLL2Q1QKjCFKGNKUICWLQ=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=pigmoral.tech;
+	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
+	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791561184;
+	s=zmail; d=pigmoral.tech; i=junhui.liu@pigmoral.tech;
+	h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+	bh=fPdEIZW7sOTj4odPbZ748d72yqRqKOz4PkPYMfEhMj8=;
+	b=o5Lm4Xf7oj6XjLNVMW6Ba1V69FgAAAXb8gmGoL6Y84y9/2LkxVMkxY5AkHgglmV4
+	jJEm/x8b5DiCrGn+n6mgBDFX8+LjhclRVUi7irVeYweRAasLzcpV5PTus4OXUy1W7FG
+	P++tMvpGXcIbHkxalP43TkOp/ge5AaZdM5dIPB14=
+Received: by smtp.zohomail.com with SMTPS id 1791561181104459.34509613209946;
+	Fri, 9 Oct 2026 08:53:01 -0700 (PDT)
+From: Junhui Liu <junhui.liu@pigmoral.tech>
+Subject: [PATCH v6 0/8] clk: sunxi-ng: Add support for Allwinner A733 CCU
+ and PRCM
+Date: Fri, 09 Oct 2026 23:52:05 +0800
+Message-Id: <20261009-a733-clk-v6-0-ae8178fce7e8@pigmoral.tech>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB5469:EE_|DS7PR03MB5496:EE_
-X-MS-Office365-Filtering-Correlation-Id: 18dfd38e-0a66-41dd-b1f9-08df261d4448
-X-LD-Processed: eaa689b4-8f87-40e0-9c6f-7228de4d754a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|376014|1800799024|7416014|23010399003|366016|6133799003|18002099003|22082099003|10067099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
- 3wPZU+X4nb4F9whFbbbtjqUYY0EBEITkU+4cN+FwpsMoT+B/Iw7KH5WVLX6Uh7zvEZo7DnQzv2wKncNCYoaU74JLmAVIUf6tmTYbyAPnwRBxTcXJiPpH6RTpsM99n1YmSvneJQhxoXz0iqEBNNuVUfOYhJEV2UodG6IFlpZQdFh5rPkOVp8ASY1RCknhubNGU4d0pO92lmSLj86bY93E487X2eA4MRP0t8PR9O3Cr3XdOTsjILk3aVnxdf3U3R+zu/Sj6zE+ZUfsF/pruI3u/lnetTkTclyGpBV6MVCmKiRhAyR6gXZeoRXCPZtuUtH3K97IriNNhgT9wCj63m1DDc0C7VYVhyVSQRY9/YfPiapTKw5u6ensPAiFUoGif7zC1AtvDK72QdmNJWn6O0uoxLKjNkAh7LSY4kODjZqzx3h1XGKYlIo0Gxgiyhca1kNJVXDhDnxrPliFOELYRBo0vGE0ff9Uy6uQE6F/rT3BCAYHmrp27yKyU0DmDn3eZ3z/hBp4UQRthkIcfhlEZLz7PMfR6iRaKp0jC9UpSLTU4EKehSBkwCTapeHlTcXlX1uj1u+mvvEpDUtmz6OU2QKsqLJkyqlIsVQ4dJu5EzE45cHvCiDiO+fVbyYsO5LQJXZEbY7LpjXncxzyc8j8dMx9q14MFvipH84WUSEweaW094A=
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB5469.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(7416014)(23010399003)(366016)(6133799003)(18002099003)(22082099003)(10067099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?utf-8?B?YkpqOUVXL2svUko3UW5YQnoyY3Z2OEw3cVBZczJGcm54S0NhR1hrQXVSODk3?=
- =?utf-8?B?bkU0cEdxR084MXYyeVFsR3hvUFFPZGVtWDc5T3FDR2pwR0lVR2xNK0dJN1VS?=
- =?utf-8?B?eE1LYlhiM0JEZTlqN2dNcTJjT2NTTXg2NXlScksra3J3WS9IYmdDT080R2sv?=
- =?utf-8?B?bU1VNVU5anFJektIZGk5ZWZWV0c0TEJ2eGpLYWdJZ1JTRGphWU5Ub1BqSzR1?=
- =?utf-8?B?cEhzcFhZRGxPNENHeXRkdFB1b2RpbmJ4SjI2SmVwSlN2NWFpek5tdXNCdHJ3?=
- =?utf-8?B?TlRoQ1JzMVNCWVRzZzlYbm9sVjdWOGJ4OUNsVEFseGlYMjU3aG1NVXc3cTAr?=
- =?utf-8?B?c08wbWttWHhuaDVqaHRFNnJubnNJdTRCR1dOU2xMVFpyZFhoR3Q0cDN2Yytm?=
- =?utf-8?B?MHpueDMrYkV5VzZ0V1JubmNaeFJkWHFWS2pxM0UyQTRmWjlvcExLZzRPMW11?=
- =?utf-8?B?MnV1OUUrMDRzd09wWEpHVDV5V2tiQy9NN21RT0NrSThPSG9OL1BCVEtudW1s?=
- =?utf-8?B?THQ4ZlZJcFZ5ZFh4d2hQWm14cHEvLytwOVNXOWhGUy96Wm1NMmJUMzg0cWs5?=
- =?utf-8?B?Z0ZuOXdFZ3F2YmFsdVBTbFVhcUovMjZkcks3U3ZYTldHMURxdkpOMys1VXpT?=
- =?utf-8?B?Mmhzdkk4V0taeXhhMVZYYUNtWkNiWUhoMk9BclREY1NMcTV4Z3c5Q1c2aHdj?=
- =?utf-8?B?c3lLcTErMkRBRVc2dU1YNG1HVjNYeGZjRmZ4b1FSR3dBNUsyak1UNHpPcDhM?=
- =?utf-8?B?TE9BVVM1UnQ5VUdiLzFxZ3FJclg5dUc2ZFE4YUhUR2JPV1ljY1dKM1gzQkpI?=
- =?utf-8?B?V3BsUnpTUUJCR0N0bFI2WEFUUkRxUjgxMFpjUTVkbTFKUldwZ2UyalZhRFR5?=
- =?utf-8?B?NzczQzNZQ2J6b1lGOW8xU2lzL2pkdzY3VVlaTHJTN0taTlhFbjVpeHIrK241?=
- =?utf-8?B?eVZDN3FiSjNsZTRZR0lUNjBSMHdvcEtETnZsTW9FZVU0UU9GZ0xDNHNYNGZ0?=
- =?utf-8?B?eUxhRGgvM215YnBxd0piY3grdGgrRC9sMmZrYlFhYnFmdlpEeXJRL29TVU5a?=
- =?utf-8?B?WDRxZDE5ZDBwbzB5T1N3VUJPYlRnQ3AySzNyMHJpeG5JdFJ1YUJTQy9DK0R1?=
- =?utf-8?B?d1EvV0RwVWkrMVVQL0lHRlpEbXV0cUpZZ1VoWi9Oa1I2WmZITXJHd3RDcDg1?=
- =?utf-8?B?ZnNiM0tlTWcxME9uaTlBazdOaUZBZ2xIaGtCREhiNlVTQW8wdDhLZ1hCSnZw?=
- =?utf-8?B?V1lxNklwZTBkdnFnQ2k4cEpaWHRIak5JZFJ0YXNBMFViT2RleUpQK0t2Ymwz?=
- =?utf-8?B?NWxDSU1tMXRSbC82NDRHRmZaWnMvVnU5OE93RnBPTHRPR3BZaEhGLzlVd2pI?=
- =?utf-8?B?SFBkQk9qVktORHA0SnBpMjJNZTVBV3hvSzFoNTdPcjNrcFlhbDFhcFdjY2xw?=
- =?utf-8?B?TGlJdnBPblJmVzdUT2hXRzVjcVdCQ1lNL296L2w1TklHeGYxVEhBdmpyVWdU?=
- =?utf-8?B?TkdJT0Y1RGRLY0ltb1hPdVpBc2pEYndoMnRCcFZYNlRpdkZ1OHppaC9UYlNo?=
- =?utf-8?B?RHhHVTMrQjB3ZHptbkYxSDR6dGRqazM0NDl0aXM4SU1Ya3BOSlovWXoyRGdq?=
- =?utf-8?B?SHFvZFJlU3cyY0RoNDBUeUVGVjlhT01pY0J2TFVTWWN5blA5SnNEbFBGM0dU?=
- =?utf-8?B?eFJNZG9NT2hEV0tlMVZIalhpZHdhKzRkYXE3aDNhSGE2Q29uWDFTczd5YUNu?=
- =?utf-8?B?SmFtcVFjVitzc21tTTU3eU0xb25tV1FQdlNEeFBKQ3A5bTBTUHMyRFBKMnpo?=
- =?utf-8?B?VW4zbGRNLzFzeW9Hb2FhZ1dES3RpeENsS1J6dG9KbHVxajRwclV4bHZkTlJ1?=
- =?utf-8?B?Yi91cjkvTjBVaTlWekZpM212SUs1NjhBb2RnV09OaUk2eUlycldsMHVGRmIv?=
- =?utf-8?B?dUdzamdnTituRGFKQ2ZJaEVsK3FqVVFuQlRsekJLRDF0aS8rUThBWUlXbmd1?=
- =?utf-8?B?dExXamxrR0FJRjJXSEJDM25oSVUvOWtFalNiQnNlNksvcFE3bHhzRkg0T1E1?=
- =?utf-8?B?Y05SdU5VNzhKbVVneGxHS1RMZ08yaUxKQytiSklHOU4zcTkwbjZMNnoxSlJk?=
- =?utf-8?B?NStua3lTMkV0ZGJGY2JOWU1hVWNpY3l5UGdJa2lOZEo4YjlpbE1mTzBrRHFp?=
- =?utf-8?B?T3F6dWxEYUZlaXN0bjg0V0FLcERFWXFPOTVId3gyYjhnT0wzTFRIY1NzajYr?=
- =?utf-8?B?WjcwdkU1Y2FZZEhYZEl4dVhURDRjWGhQMGhRMVVreXBzQ0RhVzYvVHVCR3pl?=
- =?utf-8?B?V1M2amFkeUsvV2xTU1lWN0M0UWNPaktmRVZLZVczOWZZTklXVnZ2Zz09?=
-X-Exchange-RoutingPolicyChecked:
-	naqzHIvDmYKmhNoEodkXP9ihztPAe4dgITxI8qAjdQmq2ygP6bzqjnAe9N6zhfTIsN9zhK97bbm3V7AVAlJQRBRNhxdZlTmvRKMBIW3x9EpN+62IvcxYI0BjIr1cC/SOft+tTkuhkc9OgNYIIpZTOv7FQY9ft8iFBX1sDUG1WdKP8IzH5/iP3sxeuZ0iX886U4NFEU2Srg5IMoAq1jPJTLps3WkEoohnpudvmdQgFAh5MUpOMKAEm4sT/lKQTwlcWPHGX0zJrNUFuUESMRBE1vBPvFqZ13icYBuHXgO7hd7dshMNboz+gAGOdeoHfUagZNvNEEbJi8PfUjfBH7Nq/w==
-X-OriginatorOrg: analog.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 18dfd38e-0a66-41dd-b1f9-08df261d4448
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB5469.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 15:52:05.2320
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Z5dXxRy017fkF0veBNl1wYIaFUsHfsenY8GBoyuFk2kZaMGRFK7TpeN023M4mAuRalMyNLpY2K3d4Pto0NJSIA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR03MB5496
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDA2MyBTYWx0ZWRfXze4To5VV+1qF
- dLZpxABfk5YfUalZRF5bpyJcvIXTqvJfU5ZV0UokDH9/v+/sSX8k1F79qv8Lfq9d5Zy9nC1j5sc
- Ioh83U+WLDACKmxTjtityTKD7VmPYJWVTLnCocKZeRvzEvLssLJZZIHVZCs+CjK5oLLfIL0MHD4
- q/66uGNNYU46fpMzcWzyL1saQKuAtVXCHq6NA40LoaWyfOt9z3c4VAY+XNfk99Nnd7oEMKO6UxR
- FJXcIEF9MEQ+CXoFzpuh0mAP5FWjQFDWhbht5nDNIkGonLxakbh6Dl5nnBeLR/U8Q7WAx6iUmJI
- 4UwUeSuX4cDFzEKQuHAghDvPodvFkC1S1Meq08YEh7cYdBg7tMT2Px3FuuIzsTFO9GPFIWwZFc6
- 7LQT0pQt1ABENfvmb3IZ2Q/x+pDLJ0f/SaxRIw1QTPNt6v3eUZRNqlAcQG8BggtI7U3naomVTni
- RnlvXlk7DcQ8O9D78fQ==
-X-Proofpoint-ORIG-GUID: gHw2jU17EDiRkqkCwGRmW5K4872tdCvE
-X-Proofpoint-GUID: gHw2jU17EDiRkqkCwGRmW5K4872tdCvE
-X-Authority-Analysis: v=2.4 cv=VbVir1p9 c=1 sm=1 tr=0 ts=6ac90da9 cx=c_pps
- a=uEqrJT4jjddHaitOG1ym6g==:117 a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19
- a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
- a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=M51BFTxLslgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22 a=Z0pTeXoby7EwIRygza74:22
- a=8AirrxEcAAAA:8 a=VwQbUJbxAAAA:8 a=QyXUC8HyAAAA:8 a=gAnH3GRIAAAA:8
- a=vrfzlmHFqV6-XNZspV0A:9 a=+jEqtf1s3R9VXZ0wqowq2kgwd+I=:19 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=ST-jHhOKWsTCqRlWije3:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDA2MyBTYWx0ZWRfXxA4hSttsza2a
- fa5ZgUNlyMlpHC97ia/ri52tANMJrN1xZ6s+vrZ5WmRQlOQQpEOvFjH0D3hsFzaBkW7vJ3CrQ90
- lJLWW27ODDONosoUlmZETsq/vkDl8MN9J9K+90nbNNdWe7PDkVJV
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-09_04,2026-10-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 phishscore=0 clxscore=1015 malwarescore=0 spamscore=0
- priorityscore=1501 impostorscore=0 lowpriorityscore=0 suspectscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610020000
- definitions=main-2610090063
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22R0WrDMAxFfyX4eS6W7cRxGWP/MfZgK8pq1iSdn
+ YaO0n+fkwyajb4YZHSO0NWVJYqBEtsXVxZpCikMfS6qp4LhwfUfxEOTayaFrER+uDNKcTx+ctH
+ oFoVwtrXIcvspUhsui+rtPdeHkMYhfi/mCebfVaJA3CUTcMFV5TVZL7UuzespfHRDdMfdSHhgs
+ 2iSd9gAbGCZYWt0A3WNngQ+gtUdtqLcwCrDpWilqltl0dSPYL2B5Xaynicj1Jo8WYfwCC43sNr
+ uXGYYAEzpNWAjm//wbU0z0tc532NcI2UdpeSWe+yL5999Kp7O/SUs2n7gpzVP9A1JQNtSZf+6X
+ +ZDeZeI49B1YdwXk9kpHhHy1NsP+5z44Q0CAAA=
+X-Change-ID: 20260202-a733-clk-0d4fc00a9f9c
+To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Junhui Liu <junhui.liu@pigmoral.tech>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Richard Cochran <richardcochran@gmail.com>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ netdev@vger.kernel.org, Jerome Brunet <jbrunet@baylibre.com>, 
+ Enzo Adriano <enzo.adriano.code@gmail.com>, 
+ Andre Przywara <andre.przywara@arm.com>, Norman Herms <dockseed@proton.me>, 
+ Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7311;
+ i=junhui.liu@pigmoral.tech; h=from:subject:message-id;
+ bh=StBWC5rdGl30CGSA8cby9W9feHch4ijdhDIwbiWdprQ=;
+ b=owGbwMvMwCWWvDb1VEXc8j+Mp9WSGLJO8m5yeBZ3r0qYa/oXz7/scp/mnTi9gvPIX20vG49Fy
+ oc3Rkyw6ChlYRDjYpAVU2Th8hf/Z63D8+2IQOt9mDmsTCBDGLg4BWAiv1QYGaYzzj2T7RHzhUFk
+ 04Oyo/rGZQLuvVuFkuuq1aOUThY+ucLIcGzBme6CxI2BU8u59j02e/qxY9ctl9h/Hx4t3Dwv2un
+ TIw4A
+X-Developer-Key: i=junhui.liu@pigmoral.tech; a=openpgp;
+ fpr=15B30CC69C4BF0CC3C08F85A2A90CDC122DF37BF
+X-ZohoMailClient: External
 
-Store the common TX destination and RX source bus widths in a
-driver-owned DMA bus width bitmap and populate it through the
-dma_slave_caps helper.
+Add support for the main CCU and the PRCM module (R-CCU) found in the
+Allwinner A733 SoC. The clock architecture is derived from the previous
+A523 design, with the MCU_CCU removed and the clock tree extended for
+the additional functional blocks found on the A733.
 
-This avoids depending on the legacy src_addr_widths and dst_addr_widths
-masks returned by dma_get_slave_caps().
+The A733 introduces a "pll-ref" clock that normalizes the physical
+oscillator frequency, which can be 19.2MHz, 24MHz, or 26MHz, into a
+consistent 24MHz reference for the PLL clock tree.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Acked-by: Mark Brown <broonie@kernel.org>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Signed-off-by: Nuno Sá <nuno.sa@analog.com>
+The peripheral, video, and DE PLLs provide multiple independently gated
+outputs with programmable dividers. Model these outputs as separate
+divider-and-gate child clocks. Also follow the documented hierarchy for
+the derived peripheral PLL outputs. The explicitly named PLL_AUDIO1 /2
+and /5 outputs are modeled as fixed-factor clocks, with their divider
+fields initialized accordingly.
+
+Also extend the sunxi-ng SDM (Sigma-Delta Modulation) support for the
+dual-pattern register layout used by the A733 PLLs. PLL_AUDIO0 uses the
+dual-pattern SDM support to synthesize its fractional output.
+PLL_AUDIO1 does not expose fractional rates, but its SDM controls are
+modeled so that stale settings left by firmware can be disabled when an
+integer rate is programmed.
+
+The actual parents of a small number of bus gates are not documented in
+the user manual. Follow the vendor BSP and keep these gates parented to
+"hosc" until more complete hardware information is available.
+
+This series depends on the A523 single-divider clock fixes [1], which
+add feature support to the M-only clock macro used by the MBUS and DRAM0
+clocks. The prerequisite series has been applied to the
+sunxi/clk-for-7.4 branch.
+
+Link: https://patch.msgid.link/20260906-sunxi-clk-no-p-v1-0-cbde21c9fe69@pigmoral.tech [1]
+Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
 ---
- drivers/spi/spi-dw-dma.c | 7 ++++---
- drivers/spi/spi-dw.h     | 3 ++-
- 2 files changed, 6 insertions(+), 4 deletions(-)
+Changes in v6:
+- Patches 1 and 3: Drop the R-TWD bus clock, since S_TWD_BGR_REG is
+  always secure and cannot be accessed by the non-secure kernel
+- Patches 1 and 7: Rename mbus-nand and CLK_MBUS_NAND to mbus-nand0 and
+  CLK_MBUS_NAND0
+- Patches 3 and 4: Document the firmware requirements for the PRCM and
+  CCMU security switch registers
+- Patch 4: Add CLK_SET_RATE_PARENT to the video and DE PLL output clocks
+- Patch 5: Document why the CPU_PERI and NSI clocks are not modelled
+- Patch 7: Model ahb-store as the parent of the NAND, MMC, SPI, SPIF and UFS
+  bus gates, and drop its CLK_IS_CRITICAL flag
+- Patch 7: Keep mbus-store critical for the storage DMA paths and make it
+  the parent of mbus-nand0
+- Patch 7: Add comments explaining the ahb-store, ahb-cpus and mbus-store
+  gates
+- Patches 5, 7 and 8: Collect Reviewed-by tags
+- Link to v5: https://patch.msgid.link/20260930-a733-clk-v5-0-11175b41cd2d@pigmoral.tech
 
-diff --git a/drivers/spi/spi-dw-dma.c b/drivers/spi/spi-dw-dma.c
-index f7d848fec9ab..8fdeef653f5c 100644
---- a/drivers/spi/spi-dw-dma.c
-+++ b/drivers/spi/spi-dw-dma.c
-@@ -100,10 +100,11 @@ static int dw_spi_dma_caps_init(struct dw_spi *dws)
- 
- 	/*
- 	 * Assuming both channels belong to the same DMA controller hence the
--	 * peripheral side address width capabilities most likely would be
-+	 * peripheral side bus width capabilities most likely would be
- 	 * the same.
- 	 */
--	dws->dma_addr_widths = tx.dst_addr_widths & rx.src_addr_widths;
-+	dma_bus_width_and(dws->dma_bus_widths, tx.dst_bus_widths,
-+			  rx.src_bus_widths);
- 
- 	return 0;
- }
-@@ -254,7 +255,7 @@ static bool dw_spi_can_dma(struct spi_controller *ctlr,
- 
- 	dma_bus_width = dw_spi_dma_convert_width(n_bytes);
- 
--	return dws->dma_addr_widths & BIT(dma_bus_width);
-+	return dma_bus_width_test(dws->dma_bus_widths, dma_bus_width);
- }
- 
- static int dw_spi_dma_wait(struct dw_spi *dws, unsigned int len, u32 speed)
-diff --git a/drivers/spi/spi-dw.h b/drivers/spi/spi-dw.h
-index e62f919f1188..351034bcbb97 100644
---- a/drivers/spi/spi-dw.h
-+++ b/drivers/spi/spi-dw.h
-@@ -5,6 +5,7 @@
- #include <linux/bits.h>
- #include <linux/completion.h>
- #include <linux/debugfs.h>
-+#include <linux/dmaengine.h>
- #include <linux/irqreturn.h>
- #include <linux/io.h>
- #include <linux/scatterlist.h>
-@@ -228,7 +229,7 @@ struct dw_spi {
- 	struct dma_chan		*rxchan;
- 	u32			rxburst;
- 	u32			dma_sg_burst;
--	u32			dma_addr_widths;
-+	dma_buswidth_mask_t	dma_bus_widths;
- 	unsigned long		dma_chan_busy;
- 	dma_addr_t		dma_addr; /* phy address of the Data register */
- 	const struct dw_spi_dma_ops *dma_ops;
+Changes in v5:
+- Add the CLK_GIC binding ID, inserted after CLK_TRACE
+- Add the GIC clock and mark it critical
+- Fix the continuation line alignment of the trace clock
+- Mark ahb-cpus critical
+- Link to v4: https://patch.msgid.link/20260921-a733-clk-v4-0-9c184ebe9ac1@pigmoral.tech
 
--- 
-2.56.0
+Changes in v4:
+- Model the MBUS and DRAM0 clocks as M-only clocks
+- Base the series on the A523 single-divider clock fixes
+- Link to v3: https://patch.msgid.link/20260905-a733-clk-v3-0-50f238f39c78@pigmoral.tech
+
+Changes in v3:
+- Patch 1: Rename the clock/reset binding headers with the allwinner vendor
+  prefix, use BSD-2-Clause for their dual license, and reorder the binding
+  properties according to the preferred schema layout
+- Patches 1 and 4: Drop the undocumented 12X suffix from the video and DE
+  PLL core clock names and binding IDs
+- Patch 2: Require all PAT1 enable bits to be set when checking whether SDM
+  is enabled
+- Patch 4: Model the independently gated peripheral, video, and DE PLL
+  outputs as programmable-divider child clocks
+- Patch 4: Follow the documented hierarchy for the derived peripheral PLL
+  outputs
+- Patch 4: Model the explicitly named PLL_AUDIO1 /2 and /5 outputs as
+  fixed-factor clocks and initialize their divider fields accordingly
+- Patch 4: Model the PLL_AUDIO1 SDM controls so stale firmware settings are
+  disabled when an integer rate is programmed
+- Patch 4: Add the missing module device table and remove an unused include
+- Patch 6: Replace the MP helpers used by timer clocks, which have no M
+  divider, with the corresponding P-only helpers
+- Patch 7: Document the unresolved parents of bus gates kept on hosc and
+  fix the APB/AHB IOMMU1 system clock names
+- Patches 3 and 8: Make the reset maps const
+- Link to v2: https://patch.msgid.link/20260711-a733-clk-v2-0-974d188cbe0c@pigmoral.tech
+
+Changes in v2:
+- Rework the clocks property in DT bindings to source hosc directly from
+  the oscillator to adapt to the new RTC binding
+- Clean up the SDM dual-pattern helper macro and add the missing enable
+  parameter for pll-audio0
+- Number single-instance clocks with 0, e.g. GPU0, VE_ENC0/VE_DEC0,
+  DRAM0, NAND0, GPADC0, THS0, etc
+- Correct 8x PLL post-divider names to 12x for video and DE PLLs
+  (pll-videoX-12x, pll-de-12x)
+- Drop gic, cpu-peri, nsi clocks
+- Rename clocks: OWA -> SPDIF, USB_REF -> USB01_REF, HDMI_ESM -> HDCP_ESM,
+  PWMCTRL -> PWM
+- Mark bus-dram0, ahb-store and mbus-store critical to avoid DMA, MMC and
+  SPI NOR failures when unused clocks are disabled
+- Switch PRCM timer clocks to P-only helpers
+- Fix bus gate bit positions for UARTs and correct the sysdap register
+  address
+- Interleave bus clocks into function clocks
+- Link to v1: https://lore.kernel.org/r/20260310-a733-clk-v1-0-36b4e9b24457@pigmoral.tech
+
+---
+Junhui Liu (8):
+      dt-bindings: clk: sun60i-a733-ccu: Add Allwinner A733 support
+      clk: sunxi-ng: sdm: Add dual patterns support
+      clk: sunxi-ng: a733: Add PRCM CCU
+      clk: sunxi-ng: a733: Add PLL clocks support
+      clk: sunxi-ng: a733: Add bus clocks support
+      clk: sunxi-ng: a733: Add mod clocks support
+      clk: sunxi-ng: a733: Add bus clock gates
+      clk: sunxi-ng: a733: Add reset lines
+
+ .../bindings/clock/allwinner,sun60i-a733-ccu.yaml  |  107 +
+ drivers/clk/sunxi-ng/Kconfig                       |   10 +
+ drivers/clk/sunxi-ng/Makefile                      |    4 +
+ drivers/clk/sunxi-ng/ccu-sun60i-a733-r.c           |  277 +++
+ drivers/clk/sunxi-ng/ccu-sun60i-a733.c             | 2422 ++++++++++++++++++++
+ drivers/clk/sunxi-ng/ccu_sdm.c                     |   52 +-
+ drivers/clk/sunxi-ng/ccu_sdm.h                     |   29 +-
+ .../dt-bindings/clock/allwinner,sun60i-a733-ccu.h  |  291 +++
+ .../clock/allwinner,sun60i-a733-r-ccu.h            |   38 +
+ .../dt-bindings/reset/allwinner,sun60i-a733-ccu.h  |  129 ++
+ .../reset/allwinner,sun60i-a733-r-ccu.h            |   23 +
+ 11 files changed, 3356 insertions(+), 26 deletions(-)
+---
+base-commit: e5e04726cdd043e309677071ab1b65a4b18f422b
+change-id: 20260202-a733-clk-0d4fc00a9f9c
+prerequisite-message-id: <20260906-sunxi-clk-no-p-v1-0-cbde21c9fe69@pigmoral.tech>
+prerequisite-patch-id: 0df2ae41836b86fd868dfa01ddfde57f888f761a
+prerequisite-patch-id: 88f3a431e7c551a9fa732f062188f10fdd362eeb
+prerequisite-patch-id: 3e88bc873c909059d1199f82cda4013765e7a5e5
+prerequisite-patch-id: 0dbc27cd7417352319a0705a051dff35085e8922
+
+Best regards,
+--  
+Junhui Liu <junhui.liu@pigmoral.tech>
 
