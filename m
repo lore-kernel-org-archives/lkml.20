@@ -1,160 +1,145 @@
-Received: from mail-qk2-f8.google.com (mail-qk2-f8.google.com [74.125.230.200])
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2C7A4FB9C5
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 19:44:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D17941A914
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 19:45:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791575101; cv=none; b=qKtz6GSAoBP0h6N40oZh3jl2UV/4g+1ilrpCg+DCDL4XxEVOgJSLsCWcATvckqMLumU6EUJ+jk/VO+KUoCe01TWcyNI4U6SgpQJXUq0lEBMkG2dNAn2n5cSiR3AIS3jkqSC1QLt1BRETl0NZ+uqRAZgwZCJLlXtLV18Gn2yT7HI=
+	t=1791575126; cv=none; b=SC6wwg0vKsZpgVzbqT5st4HRcbWTr4gPt5qCxEfm8LXhzazaaQL8C+vNU3uOqNNCqsG/NSOb8yy69sVm5k03S/elEimo60y47HhaYJ4yNJgHc2wysoch5PuEX16bAkt6YUGueDVORlkToV/aG/UbqhIPHr18t3IfbpEUs78E8kM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791575101; c=relaxed/simple;
-	bh=L3vc6anihw9NuQdcLcZ4gFYI/0/LOL9Q755uzReuYQk=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=cDmxJ0XaGd2JZFDuMaNNZkL94DnlOMT3Yrwq4ouZTa0PNeEor9ooom7AIgkH4k5/fctGzATfSNtMo3IJ+cfzcDnMrdy1THL7audP567gehAJpCXVHVDoiFwAXUP+qvKJJizZf0W6AmOEOjEmSrKxsg+nca4KVRiYkLbYNqLbnQs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gd2T0oDK; arc=none smtp.client-ip=74.125.230.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791575126; c=relaxed/simple;
+	bh=EloxsBTAFGMBBEvrMxew3OZ84oY2809c07/0bEzcf38=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IOEP24hqZwV4oUNVy5vrBUQbE+XX6mO58/JX7IVJdwFzahFKV3ZnbOJhJS5RyAWl9pI3ICiFvFzSgQLf/aBkmSetRGIfCpVPwS7lGJr37ETv3fXpnZVrMdkKPyoL4+7Lk2WWXNZM1Q0rUI3NeweYIYyqIJ7gFjVd8i4tSxEPbCE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=ejfygQK2; arc=none smtp.client-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gd2T0oDK"
-Received: by mail-qk2-f8.google.com with SMTP id af79cd13be357-9367f27ddcbso3871485a.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 12:44:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="ejfygQK2"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2dd9ec41bc4so420455ad.2
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 12:45:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791575087; x=1792179887; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=n5sVI1GUHdT0XZZxczYNHjQkkrtpSuPJARpcgHnshWU=;
-        b=gd2T0oDKeX7OtKr+ppX3C9jOOA7V7S/djhYo4Xg4ODK1qDdTRTWub1UJlvZicbA7H9
-         +CrpNnkHnohBSTpv8zcvSLu+OS7zPsVn3ziaGw2g5ITK3gLfVxTqcxMTMuTdnCXmgaSX
-         z9F12Z13hCNvlVDviczutAPJP/MUluWeN1ai/ZE1CAYIBC5J58hs3oumMn+d0L8/W82S
-         bm4bC/Y0XOQX5Pwl0IzLb+6Ov14IW1iUeOOFCnMi8/6n13ccycPGZUeoCWb37wzKXVtS
-         qonUE0E9XHmBTVyKn3mBCNHTSytHbFIuOX7CkBcVzflIXZRPtsenzuZQ+pWCcdEuyF2P
-         flSA==
+        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1791575115; x=1792179915; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:mail-followup-to:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zRktNQAINep5jabUt0Um43RJIzgR/yjHPucefqAmOec=;
+        b=ejfygQK2nn5qCHhMJwV7MsO/8AtAu0S8FcCGpKndwEWBgMn1+77n4FVrFfrIM5i62V
+         1CbLz05BBF7qrvOLFqzhPvEpY6GcvZA2tINAtdbzyeDy6JCUc+1Zoxqa3+LBGJx+jMQ8
+         GY3zlV2EQnoHZNtE9EiE3UPLcvtMShKZSi3DoBo6dyjZHtIS+qXfnWmZohJzQpINjG3L
+         hKABRUnVypZvLSzxHMvhFeCJW9FFfoGrFwDB0HEfquWzg5zMzvv18RRj36lO32JjDJ6C
+         lu8WqyYIP4zLSM3tWb/Ggb9tnDV0i4GTqKHvrb24pHzpwZEseysJYOqT9yswKW+b39rj
+         pSQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791575087; x=1792179887;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20260707; t=1791575115; x=1792179915;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:mail-followup-to:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=n5sVI1GUHdT0XZZxczYNHjQkkrtpSuPJARpcgHnshWU=;
-        b=AgalDSj3+T+ec0zijcvtvMggvX9W7iQ9wmFbdjn9dE0x7qazS4qDbN7WhKT8Jk4Lw1
-         ty8Ys7Hnyf5lD9UFLJd+eydz6jF2CN3VVM8+A0kTBxoBbaz+kKhiXB9wjJjAsQ+7y345
-         a1dzSy+A73mobGMW7gP8czLUJ2TS46sRA5o4MrpQ5ubjjy097A3ZRr6Qeyu4o1E6Ih9y
-         67Tb/gDv6xWWfgymLWkA+7eBVZ9RPNeGCE+N5iRe8cKHW+Va5gSRLmGrt/8zIS3EORvA
-         5ko+xXA+nSMqOL2ydJaZ1OGs1Ly54IWbtGsPA2mJF2ej/uehOhcze5x+nuZ0N7irtq7n
-         TUGQ==
-X-Forwarded-Encrypted: i=1; AKwUvByCNjczGOP7HL8Go7oGzh/t/oXOBhvaGOINckVOmeE7pGYruOW2OQWkHzckDEDL+N3I9K4NeXxqJxoQ7YQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lS/shQszA/LGvH81P7PlUEGovKXUwu1uKH1VyvXQBQ/U+QqyzK
-	ssQ56OhRecYtgpF8UzyGJu3HDWGOUH81BleUcL1vk9q555/OruyhSVFO
-X-Gm-Gg: AYBFou3MHt56FW0IdYNah4Qm/UDmkeWLf6x+LPUCam8yRDTQdaETWm/E+acy+UTQ31U
-	qi2hiK11CTXQjwns4dlzgHpjXYZ3t4+rMpBLkKYt6UinRpQTAxWfSw9PUhGwXhK91qwrobAu0iB
-	FtJXVOQLzuMnpLnDkh/D5I3SThh0sLyGv1C3d2+hUIYqN5o1YC54147BQWsuZi8lnHo2hnGxTZd
-	z/820rGlrF6TEx6uANWYX07B92pPT/gKSDVroQ85pStgj9PjwHMhv3b/IKG8g3CqN6VZMo5HWJ3
-	bKPMff4b677ELa/51VQKLsNghFBGnEWuqLr5nL0lGpPniYc4W4Eszgh11AlADGpZpov/ZzCv+Nw
-	a7KOLdmPTXr9PLbD0Lpk/gWYGFbECKSqs3zd4UoOPiBbj7sok2Vlr3vrW1VnWagbMJpH64NqVWU
-	y7n+fZWrIEjdLVwFZbcMe1MPNS2cIZPGTxvd+Vyg1uVKrpt7RnoEOcmFm/9DFW2Y9uCN+GOMIK4
-	Xof+nt84IQ5qLmrZhwzMkyqGoGVvvaB1cTlTQqaXSu4unGT+rVcJgGlDyFbAzhM6Q==
-X-Received: by 2002:a05:620a:3186:b0:939:b057:daf2 with SMTP id af79cd13be357-93ebd26c06amr503914585a.45.1791575087187;
-        Fri, 09 Oct 2026 12:44:47 -0700 (PDT)
-Received: from [10.10.18.223] (wsip-64-207-253-118.tu.ok.cox.net. [64.207.253.118])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb98c5633sm259293485a.35.2026.10.09.12.44.45
+        bh=zRktNQAINep5jabUt0Um43RJIzgR/yjHPucefqAmOec=;
+        b=NNSoVhJQ3iuxnb1ogaeom54w9CfM/kHLDIhy0Cha7Fa7Ar2ZIfoXHeQIkLWtGs8jUf
+         GKPsjErmeu8j6Hlyva2AshRRj+UPDrdOc9m8i/7blceFnv8M1ZkaqnA6uZE1EteQL55z
+         1ZoDivicZLS1MHk3vUOZl4JXMY6kt7Wh4KkH+wjEiblyAZsi+EjDzNmKWIeLrsfv5Lxz
+         BvLQQoBV2XDBpHn4huBj2JDgQFk+Gtu6gpVkfyRQNCZMiil3jyMXXcK9Nq9LlVO9cKkD
+         CSkky5HBsv7NZqbisi1/6uhjIJj4sfHLs+LhZXJISFhjJfyXFXkEhhFMvdCv60SHXCQ7
+         ZQ9w==
+X-Forwarded-Encrypted: i=1; AKwUvBzmIokNSlBQ6AluMOWz9AxezYXFhSYUSOchuOMQcsXgob0pd+ikoc+611slHau6qlWTE3daUudVhZjokxI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIkZ7cCc2rCuvjVzcehiOeTPi6nQy6cArL9FJepwquIFyHEbW34
+	AX8BZx4/M89Tz8gH7z4Qzt0xYAXJ07HRZfak/jd7meaKH19nJZaZsw8hZfwTKOFUx2o=
+X-Gm-Gg: AYBFou3mkG2e/1LWNYoOzOmFTtVQZ83jV3lHNav7bDidZ/ZsTU0CpBnABu1ddzcYdJt
+	4yO+kZrIAwQ5DfiL0EPSyiy3jK9pfeAyWHxkG+u4ocrsuwRPPryCj3LFWWlaq75chGwHX8a7O30
+	KL/ZsZ65gqMOHl6zTvYiVSviCQWcXbnWczkA6k7iwcjzTDgw5/3K4VG9oPOEg/3QjPz4NoNI+yj
+	Ms5+9QG4HUdXzZAqiR13JxrsDKfbAL6f1UxUqI6Qt2zpOMP3X8miPUZe2QYyKj0CYQAl8QquuQq
+	JpB1Uju7ryDFEwJ8PzEej4rApvrS5flQ9tnIRSSq3YLzBYogdgZ2zJovbE/C1p0T20ZFTpIuA5l
+	vcGLN23aV+z2BkfXkwtMkITpHpMV2fq+TDiQnkX9ukS5uHx1KPw4Dw5Jln8Mb9PeIfbsxR3MWmO
+	Pi7sk9RedHNVux9aYXKqfAfNfKWRxbR5qWAgfDpfAlX22VbscuuwP0mSe2lbFP4sCwq9UBDkJTB
+	sWSvNIZ9VY=
+X-Received: by 2002:a17:90b:1e4a:b0:3a7:933a:3195 with SMTP id 98e67ed59e1d1-3ab3a236a1bmr2644773a91.7.1791575115460;
+        Fri, 09 Oct 2026 12:45:15 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:7::])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab36ed0332sm5135080a91.3.2026.10.09.12.45.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 12:44:46 -0700 (PDT)
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-Subject: [PATCH v2 0/2] cpufreq: mediatek: Suspend at the opp-suspend OPP,
- and mark one on MT8173
-Date: Fri, 09 Oct 2026 14:44:42 -0500
-Message-Id: <20261009-rbrue-suez-upstreaming-mtk-cpufreq-suspend-opp-v2-0-ba13f826eae1@gmail.com>
+        Fri, 09 Oct 2026 12:45:14 -0700 (PDT)
+Date: Fri, 9 Oct 2026 12:45:14 -0700
+From: Joe Damato <joe@dama.to>
+To: Michael Chan <michael.chan@broadcom.com>
+Cc: netdev@vger.kernel.org, Pavan Chebbi <pavan.chebbi@broadcom.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	edumazet@google.com, horms@kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net 2/2] bnxt_en: Pad short SW USO segments to
+ BNXT_MIN_PKT_SIZE
+Message-ID: <aslESokQPvYCWarH@devvm20253.cco0.facebook.com>
+Mail-Followup-To: Joe Damato <joe@dama.to>,
+	Michael Chan <michael.chan@broadcom.com>, netdev@vger.kernel.org,
+	Pavan Chebbi <pavan.chebbi@broadcom.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	edumazet@google.com, horms@kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+References: <20261008191114.3736826-1-joe@dama.to>
+ <20261008191114.3736826-3-joe@dama.to>
+ <CACKFLikWkH6QaOG=EO_zu8cqCFRxGqtA2-+R-btp0TwUbJjVBg@mail.gmail.com>
+ <asklVFvUJx8P/k1d@devvm20253.cco0.facebook.com>
+ <CACKFLiksRwZm+Zy74G_u59yEpY5BK+xRv=r6f9Wpo6WgT_TwDQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5WNQQ6CMBBFr2K6dsy0MUBdeQ/DAugAE22pLSUq4
- e5WbuDy/Z//3yoiBaYoLodVBFo48uQyqONBdGPjBgI2mYVCVaBWGkIbEkFM9IHk4xyosewGsPM
- dOp/6QM9cRk/OwOQ9VNJIZQosStmKfOoD9fzahbc688hxnsJ79y/yl+4qifi3apGAoPOyL3V7x
- gqvg234ceomK+pt275iZ9WU7AAAAA==
-X-Change-ID: 20260929-rbrue-suez-upstreaming-mtk-cpufreq-suspend-opp-81d12d60671b
-To: "Rafael J. Wysocki" <rafael@kernel.org>, 
- Viresh Kumar <viresh.kumar@linaro.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Roman Vivchar <rva333@protonmail.com>, linux-pm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
- Ryan Brue <ryanbrue.dev@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791575085; l=2772;
- i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=L3vc6anihw9NuQdcLcZ4gFYI/0/LOL9Q755uzReuYQk=;
- b=hRi+Wn9i8/fos9oTP6rkL2wurMq9Zk3718GB4hzvsxAUVc5U5D9CmncK/Q5GUIoL8THYrgpiG
- pGp5tGoInymCtt/2+7TOUdLSu6ggVJojj74K4eEy/FIuaTSyF+cQksX
-X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
- pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CACKFLiksRwZm+Zy74G_u59yEpY5BK+xRv=r6f9Wpo6WgT_TwDQ@mail.gmail.com>
 
-mediatek-cpufreq has no .suspend callback, so each cluster enters system
-sleep at whatever OPP the governor last chose. On the Amazon Fire HD 10
-(2017), an MT8173 tablet that is not upstream yet, entering
-suspend-to-RAM with both clusters at their highest OPP (2106 and
-1703 MHz) measured 63.5 and 63.6 mA, against 52.0 and 52.0 mA with this
-series. Those are 15-minute windows of the PMIC's coulomb counter,
-alternating with and without the change; one count is about 2.9 mA.
-Earlier, on the board's previous firmware path, s2idle drew 210-232 mA
-against 158 mA.
+On Fri, Oct 09, 2026 at 11:33:07AM -0700, Michael Chan wrote:
+> On Fri, Oct 9, 2026 at 10:33 AM Joe Damato <joe@dama.to> wrote:
+> >
+> > On Thu, Oct 08, 2026 at 10:26:06PM -0700, Michael Chan wrote:
+> > > On Thu, Oct 8, 2026 at 12:11 PM Joe Damato <joe@dama.to> wrote:
+> > >
+> > > > diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c b/drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c
+> > > > index ef04c9d08066..f87e02ef3033 100644
+> > > > --- a/drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c
+> > > > +++ b/drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c
+> > > > @@ -82,11 +82,14 @@ int bnxt_sw_udp_gso_xmit(struct bnxt *bp, struct bnxt_tx_ring_info *txr,
+> > > >         if (unlikely(num_segs <= 1))
+> > > >                 goto drop;
+> > > >
+> > > > +       if (unlikely(bnxt_sw_gso_pad_len(hdr_len, mss)))
+> > > > +               goto drop;
+> > > > +
+> > >
+> > > This looks redundant since you already have the same check in
+> > > bnxt_features_check().
+> >
+> > It's redundant for skbs that go through validate_xmit_skb(), but generic XDP
+> > doesn't AFAIU. Not sure how else to handle this case, but open to suggestions.
+> >
+> 
+> Did you mean generic XDP turning around incoming packets with XDP_TX
+> actions and transmitting them through the software stack?  This path
+> cannot generate USO packets, right?
 
-Patch 1 takes the suspend frequency from the OPP table's opp-suspend
-entry, as cpufreq-dt does, rather than always using the lowest OPP. That
-keeps it opt-in per SoC: this driver also runs mt2701, mt7622, mt8183,
-mt8186 and others I cannot test, and no MediaTek table has opp-suspend
-today, so they are unchanged. Patch 2 marks the lowest OPP of both MT8173
-clusters.
+Hm, I'm probably missing something, but the case I'm describing is generic XDP
+bouncing received packets back out with XDP_TX.
 
-Patch 2 also reaches elm, hana and the EVB, which I cannot test either.
-What they get is a switch to 507 MHz in cpufreq_suspend(), which runs
-before any device is suspended, so the regulators it needs should still
-be up. cpufreq_suspend() also runs from device_shutdown(), so reboot and
-power-off switch first as well; on the tablet, reboot -f still resets in
-1.4 s.
+I could be wrong (and if so I am happy to drop this if statement from the
+code), but IIUC generic XDP runs from __netif_receive_skb_core() after
+software GRO, so the packet it sees can be a GRO'd UDP packet with
+SKB_GSO_UDP_L4 set (because maybe the socket had UDP_GRO set?).
 
-Patch 2 does nothing without patch 1 and is harmless on its own, so the
-two can go through the cpufreq and MediaTek trees independently.
+The generic XDP path seems to keep all of the gso fields. Later generic
+XDP TX calls netdev_start_xmit without validate_xmit_skb being called
+and so gso_size could potentially be some tiny value.
 
-To: Rafael J. Wysocki <rafael@kernel.org>
-To: Viresh Kumar <viresh.kumar@linaro.org>
-To: Matthias Brugger <matthias.bgg@gmail.com>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-Cc: Roman Vivchar <rva333@protonmail.com>
-Cc: linux-pm@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-mediatek@lists.infradead.org
-Cc: devicetree@vger.kernel.org
-
-Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
----
-Changes in v2:
-- Add the Signed-off-by missing from v1. No other change.
-- Link to v1: https://patch.msgid.link/20261009-rbrue-suez-upstreaming-mtk-cpufreq-suspend-opp-v1-0-9100f79b4080@gmail.com
-
----
-Ryan Brue (2):
-      cpufreq: mediatek: Enter system sleep at the suspend OPP
-      arm64: dts: mediatek: mt8173: Mark the lowest CPU OPPs for suspend
-
- arch/arm64/boot/dts/mediatek/mt8173.dtsi | 2 ++
- drivers/cpufreq/mediatek-cpufreq.c       | 2 ++
- 2 files changed, 4 insertions(+)
----
-base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
-change-id: 20260929-rbrue-suez-upstreaming-mtk-cpufreq-suspend-opp-81d12d60671b
-
-Best regards,
---  
-Ryan Brue <ryanbrue.dev@gmail.com>
-
+LMK if that makes sense? I think that's what happens and if so, it is a weird
+corner case that is probably pretty unlikely to happen so it felt like drop
+might be the most appropriate thing to do.
