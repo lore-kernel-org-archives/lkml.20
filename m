@@ -1,622 +1,176 @@
-Received: from sonic.asd.mail.yahoo.com (sonic-usea1-0019.asd.mail.yahoo.com [34.2.64.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D2923EEAF4
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 06:57:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.2.64.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED3173D5C12
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 06:57:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791529059; cv=none; b=SoXG547oXTxeOWb1jg4M41AtTb4yxKkiC/pRSrKxtZyuEH0M99IJ2L/uLJQjdJox8S4b9jvcq/i38GnR6tLaqt/pW15WOh7U1Rjq6VTrXg/BP3pJCWINO7qU53xotrCuYheFffSumxfgC+bElCJvxW1eO0UlnyBgF+QTS/QuFOA=
+	t=1791529074; cv=none; b=goj34c3wj0y2SaFTCewpSRSiFME9oZeqmI6izEl/5YpcpjHz1sqLOjWpL9+oAuzhfAyE9Az/29pSrqmdhuHsJFS2XiUtyzdQPpjbr4Dtq4Mdy8D9z4D8VwmDnxst+n+gQHX4uVf0j5WUcz3koGqxpUo2twkpNS7Hhj0ZisPtHFs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791529059; c=relaxed/simple;
-	bh=nbEBMjp6MWxD0FPgXF7ohUZ5SRckQvtP5TwTgjAAIpM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Re9OXipNQKFYffGDAOnX+gSAqebEL7AiScfXo+KT/kLlob5fX/aqTGR+xU7bscLIFz9yD7UhdRA96pa4gh5bbTtpSFVRGs3rzrPWczd6s0cOKDHhUHCRidUqVv1hYO929S9/JWkdog/y8ES81QMwUAALtE86JdCPJp68VNIrNgM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=aSG73Zc/; arc=none smtp.client-ip=34.2.64.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	s=arc-20240116; t=1791529074; c=relaxed/simple;
+	bh=5ERdhktJIoJIo9p96wQTjyWFqT0l4v/JPHtR8HbIza0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LithYhdNkixSey8L2pwscR6S4H29J/t8zZAJpn623J5Kp69KxvpeCRcqt3gS9CToNgpy68N4NfpL/3EJOR2ptYCr1oB1n5O3n+qvgC+E4Tr71bSw9KIGTjXckok4Mb0Eu/48VdLiIqGFrquyFzHABXJ/rb2YK9yUSPGVAu0LRBM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RS5fKhv4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=S1JnHUi0; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="aSG73Zc/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791529056; bh=Iw/ZLCNV53Y0bK2SE3FJKi1UCBzg1qTnswZ6Yw7hiNc=; h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To; b=aSG73Zc/7ZcQ74JjOGuSzrZvUwqJPUPd3E/fW6T2oxYi1RgDb0al8DTHFMiRDS1Wg2Jue3Q4ERU/Ocaurf1Ke21MBddOcvAUtqJKV62CXszVbR/Gb8GHXSEYr9fF6g3g3ykBX712ky7HoBWFBOx/2tCdyw5aayUGCt9WDPtzYHy4GZD8cjxvDIfbDYU7j/BQQ5hBkOhN4E1HgN88Vz8qFyukb+zffu/CMRUxsbe+x8AT/OaNrmBWJflA3bpDODalueQESSovzVHwz1ZpMPQK7M5634jX8dqf5Y0JcHel+Oidyh7fz5ScbCQ1p7Rwsn7XwwD3nSqFcd8Y4dt6ldkcUA==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791529056; bh=LysxEuhHDaiT1NCtYsZ6IuZrgF5QkyKqrPMaTcjPqiT=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=JQLG8y0CdG7Oo/89J+3Nb6yZ1fqfcJBlc2pTiB1WZNB82xwHogQ+EoCAyMpf4ozS5aURIguwh1FaW7807DiThYn1kstJaB0/TSoqSghcZnizlKxFJd46DMueJaZCEmKUCiRcth2b8mJO8+3vEQ4yA4y7wyaEtpMuUO2Hkc+XEZhBbcrT/vx+x80Zh1IwPPFZHFpRo8WU05wTFfzHKsYEOJ+LwNwVLCK97ExLUuX2Zfl//cA0kgTYrH0Xfa6yp57ussygLdfj0V7zq5z4YIDqEKxB0ujv9ZmHnKZgT9L0eyvuCleQx1oAV/6BkiUxgiOVR/5J8vXs8xmGzouUYb+qyw==
-X-YMail-OSG: I1QNoUEVM1nP0mP9nAemyQvQSJFbB6BrKVohJxTYekKlqu0WOCuJ3jouZuSNEQx
- IFSyjgaZ_JXJ5DOmmUxv1VSnpHAX5NPoDInMlCIpBfguL7N9_TXRENezg_7AG9xxQmO_aEL9ArAR
- smjvA79vmzyN4fX4GXLLs0e_wcLW0h.cu4npkv08YSL8jaUddWzcD_tk2exdxvMHIUW_GJI23gri
- W__nyfKd6b7L1U5CuCr6If7ECv0EiWOWLpP9uamtHL8jcZ8zj56NNN7OOylqNLqw1Q4Vrt.yMBmD
- a8._5t5zhvm.dgvEZ9UJcOIZaBCvcZQ2Eplnb67R7V2.GmoA6pwvxrEJIhqfg6OqaTzNuwghy_v8
- VmQaVSHy3Vg0ooqvSL1J01Z1xJygoXtYOxCqMZDNnttWflLJ5QZlgp_LKmx1L6RtpJSxp2UD7jgi
- oucBjL9StWBoa_DR7TqeCD8.DprWkkiTSi4.krf0KdeXewgehcdWabnRjunaFo0A6INHg4IzSkUM
- Zc7YUyLCqzAfrVEeTCSn7P62PlLOHoagyRMqf4Ucjqh3.kdnCHUfxCy_6CvqU07nSJHg7uf.1Y9A
- qqYkobtRwoRJIJFeI0qxh5Z3fbfbDN4WmNJGiNb1_TPgiI1o8.GYfcfsyRW1vcfd0yn1ngC7Hu1e
- inecKKPLNFl7f1.rS1oNoC.x5_3LuWw8bYTYc.7VwV8Z_TXAakP74Q1PZcxvbyy8q3Pk3RyK3WHN
- by2fTU.EIq8gVucPTZsrjDRUUyhsVdjO4mjvjokea2qS1SUZz5lbCceEOtJckZ8mzjIgXbBtNtek
- GuyG7ZEQ1S1dHdEWzmxR9keZtKTdTwCVXU4qwuKSrZV5yE2hcBtI_d86njeV4rDxIJ8FvAXWwKvU
- K4DvNrCFjqmtQT6JcmKdSIeo43btnMN6bR63IIs_gRJKGEgM9qGPspuylgojzvx0OqHrPQsiaLSv
- v_DOTBSmiy8j2h7AcbwbLdnmlcRt608.gafszgI..pEFLJK4McEscznx4x8ktTWjyrnBTuSdd38I
- 9Nrk7YxbA1Xymm8_8WnDHveHWJlgJtO8bHMrBOF7I0hN7vjdafB4JfsooO6O8On8ouTgzl12V0Hd
- 8urDbJxwFsY4VyUhQuXqDxOtudL7YbFJoNupYSDiBH8FVN.vwe7I3UzIXG07OTuq3yQRl..gr7KQ
- wFPouiAa92Y0LFghKXumS0vG01PImk.XvouWs70WU0eNWajnvG9SXpiuVJUPkMohx_WZjMNWrFSw
- IhhdYqP0ljuWkMiITzthFwJnMHOdf6rO9CKEK4YG8VgfqXsG8uMKzY18UvhylRO5NObIRrFk2ufC
- ADxVjDmCINwuCajoI1mYvYrPsjDXNqC2K4F5DS_L1Z9sAQtkTEGpw4styqulp.sOHCYB9NS60V_9
- tG7l3krgh91d0n18kitU9TPKKNOxV77lUba3w.sWj8aMAtOojqxfgHCMPtc0yAnNyBcSCzcHEJRV
- 4t1Ns.eYqByMgQfq6WW2xTcriSUrZJpHDPCfPnwPiXtzbfAu1d1CX1sKx3rZtdr7fVEl8Aj2_CfH
- iZckE1bVMyTd8XIssMB.WYx.D4TIGeMVLKzKAfc7fNTA9xQ3bCr6w5EU7Oc_44wu8cFe.JKwkCog
- wTQCcTpbJ2CMK5bNTVYdggAKzzd.UmwPRbm2QaE3X2Nzi2uCe14Az4x77cinmswq833DdnBrdDZ9
- 65oH.zizhZz8J0ALQc4WjQXWfjzfaYmDzrmnwUA9uuwRUWV3DIMaEvFcbJ3XXzBMHC5UVDTZ1FFK
- kzsXnl3awuYGpm_WGTqwCe1YzNRP17jBUzbHFbJshw.VaRl5GaKGrd85qqXqIQzVBr45ffmU8qYF
- In8IBDBY5JlLTF9ZD90saOeX7j9m5332zdCkt8zxEUe0aHB129acKB4uSI9MsDs3zSkBvKCyV4ms
- gMftsCfYPS9csNHU5bAa1DdJ4Wk54WwXzBu5iQZCDQWLUy0Oxn4hu0Muz1RC8Qs_C9DhIiGbYCjU
- 65RzwzG7sslvwgVp2mkGPXYoguluiTUJQ1je2FywkVc5C5ozsW.qY9K0-
-X-Sonic-MF: <Capitain_Jack@yahoo.com>
-X-Sonic-ID: 0d4c5a8c-1b9e-4e2a-b8e0-aef6d6ea5f45
-Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-usea1-prod-sonicconsumer-svc-101 with HTTP; Fri, 9 Oct 2026 06:57:36 +0000
-Received: from dip109.lsn.bf1.yahoo.com ([67.195.177.118])
-          by hello (SMTP) with SMTP ID c876e35fe2f2b7cd9ee5c8b0d50dabd2;
-          Fri, 09 Oct 2026 06:57:33 +0000 (UTC)
-From: Daniel Campos Ramos <Capitain_Jack@yahoo.com>
-To: Louis Chauvet <louis.chauvet@bootlin.com>
-Cc: Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Melissa Wen <melissa.srw@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>,
- =?utf-8?q?Jos=C3=A9_Exp=C3=B3sito?= <jose.exposito89@gmail.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 3/3] drm/vkms: Add KUnit tests for stereo modes
-Date: Fri, 09 Oct 2026 03:57:29 -0300
-Message-ID: <179152904903.1726604.8586921343759594120@yahoo.com>
-In-Reply-To: <179152903254.1726604.8785647683993800694@yahoo.com>
-References: <179152903254.1726604.8785647683993800694@yahoo.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RS5fKhv4";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="S1JnHUi0"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6993HF8U3768821
+	for <linux-kernel@vger.kernel.org>; Fri, 9 Oct 2026 06:57:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	/i8NmI7i8KDIOyDpCxYcf9EtRiTu5EYcsw8myqPflEg=; b=RS5fKhv4VL+Bwy9b
+	ZZg3psc2JiyKmybpRSeKfUzHjhdhSEIytJh6dn9LAI9W0FyL+Olr3mSFZquqtgoI
+	HNs9a++2Da1inLUV/6Hvi+zP7jDRrsrbEp8KisUDYqgwDY+SQtmhb3nsPn3Yq2Bt
+	9fXzxwECcYq1yWt4nOAR9VYc0LpYaqn3Y7CAxJv4K6x1xPH0LQ5kFYZwnuf6OIBX
+	lDiVSvXy6/fhuQNt29BvWE4OU2wD8qUEVPg/jjop1lOzm3lHs72NbPBHMwGfrN6S
+	Yy6Ifqi2KtmJ4xLO+hVNGXJXczJkKur9eCIioHRYEO1wxX/NYxJw55Br0HEQZ81M
+	4IBuTg==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h6fxu2av9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 06:57:51 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cd0e92d64a1so1195016a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 23:57:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791529071; x=1792133871; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/i8NmI7i8KDIOyDpCxYcf9EtRiTu5EYcsw8myqPflEg=;
+        b=S1JnHUi0BvHG/MD5gNpfSk+9F5YGxOsQeQd938lBGxgeDle98ZuD4U1p7ohPIKSpAi
+         a31Yi2KzI7j1VuVF0CHGvGI5oD7S52/QOCNg9YpEFkSztsOBj66K/44bzlYPPhqGiZKA
+         NlhKukG/HkulVdWgZGs1j0bl3VJse2mcO2Jbpwl6Sj5bFDXnazMXb8qO4suMNsPPQuaB
+         hu9Xgr2FfAV4kMwpptMBvAY15ZdAdRpSEWtAiDQ72LovLJptVH+LMSvTEh0iSvJDyEqp
+         Hpi+r/Uh4yXTNmo94zh0HqBKpl45wmC4hK8PmYktFBmFjXofO17TrjptNOdiN7MkjtOq
+         NtSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791529071; x=1792133871;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/i8NmI7i8KDIOyDpCxYcf9EtRiTu5EYcsw8myqPflEg=;
+        b=Nz7jUvkiUv9sGsrxZzJwNA01zQRYKbAzFpiJT0o2MRB764/QL8S5WGw/++YsAOvbwT
+         yGQvZeCppIv0cIioExdwhBUXCLWxTr+tY+x9Ci3mdCqqYdXOHty5C+SYoA4rLrQsObZ5
+         n5/J1q10c623z2Dzkv7vrw/7cM8HxHkVPnBZ6PmcCHQnkKVNxzghpcyPj0HxWYAGRfcr
+         N8PW0eBmycnDTUAPB8cM6cPS6a8onDPB3uPqc/6aNTAGHSqoBDlHI1SCoKIEBwnGEV5g
+         OsjiovgzPKPrqVZwPOsZVgvmJB7qWLQlUFaA4pMTav6qFUaXrc7OImo3/kMgXC4cFs8A
+         PnsQ==
+X-Forwarded-Encrypted: i=1; AKwUvByxw9moZRP38nh/e3WVELH6RJ9JQNSLNgbzKt2zQ0iXecCW9l84n3FEuigl2xXlK94FoqGAlmrBVLNsZVQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIaqlTXIRqAfth7kH1opZXwQjw2M89uORbF93RZF+mUo5mCu3w/
+	N8/tvsUaxd4iwYcAE8qAzeBsUoZH+aJ69141ZDP/k8+Q9v41rPJvKQZwf4UrnLZkMpP1/m4BlPR
+	/u7K5P55Tdm2bt9/Sus3NOgkNjpPch7DCcGomPOg25ZaVgudkHJhTAR3GliDgD09G0IQ=
+X-Gm-Gg: AYBFou15zt4OTFxqvAd4Wbh+UU46XvWbnGiiiMegW0mzvvIoQrb78PYj/8/PNlpGOW/
+	Hf/2+8ZrwRVsBZZ/0cLXzPllfWuO9+miv2+/blLtQh03aVeMw23ldqsdfwEuYJeehOTcaZI+KHk
+	5cYHJ7sEEx8o33OVk46LjspEimz9YxMId9Fh9MC8GFW6DCEOW5yVPllgyPwKU6W6E4As82g65FE
+	aaSuRSx6Tr0FG9RcEXqNvLF0zWQuYIQQtB+nq7Pc2Kwgzlh7ZvLNrLQsNedEVgZJtn2RrSfgD2m
+	GLXvWL1TqmcvrYD3iLawWVWcy8m2ajBPykowzp+CdjtxhZum3pvZMmiCgc3CB6BhlzH+2+VjoMw
+	Tx32jCQ1S/vZOnDe3afxiVS4Z5o2QpmDERGeUWrcmjazz2ug=
+X-Received: by 2002:a05:6a00:2b98:b0:881:66c:53e3 with SMTP id d2e1a72fcca58-896a3a512afmr968572b3a.32.1791529070842;
+        Thu, 08 Oct 2026 23:57:50 -0700 (PDT)
+X-Received: by 2002:a05:6a00:2b98:b0:881:66c:53e3 with SMTP id d2e1a72fcca58-896a3a512afmr968556b3a.32.1791529069467;
+        Thu, 08 Oct 2026 23:57:49 -0700 (PDT)
+Received: from [10.152.209.53] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c310737esm514809b3a.10.2026.10.08.23.57.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 08 Oct 2026 23:57:49 -0700 (PDT)
+Message-ID: <e6213779-bed7-4484-a230-ff3508e8ec65@oss.qualcomm.com>
+Date: Fri, 9 Oct 2026 12:27:44 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Mailer: WebService/1.1.26668 mail.core.serving.mcws.prd.acl:role.token.mcws.jsmtp.yahoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] wifi: ath11k: initialize CFR locks before capability
+ checks
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>, Jeff Johnson <jjohnson@kernel.org>
+Cc: linux-wireless@vger.kernel.org, ath11k@lists.infradead.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+        Jianhao Xu <jianhao.xu@seu.edu.cn>
+References: <20261009060326.1162818-1-runyu.xiao@seu.edu.cn>
+Content-Language: en-US
+From: Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>
+In-Reply-To: <20261009060326.1162818-1-runyu.xiao@seu.edu.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDAyNyBTYWx0ZWRfX4FFijnTAzh/7
+ WFnU9NKnbn0fazY7O27MUGVeebcHakBmqQ4fmyJ4HXGM6LveaRYvJEJMRPuwlZP4dxYWTNRswij
+ t3JvRlq5XQrlhokwZxKkacGakvEjkTlGIWlMrubpeJK0FdDOvBT5zom9qROZ515bV/SduxsVnAi
+ Ha6PMI9FhWTDFS7+eMn6uszCzKpSPEmebW0kQriAI2urF16JMmp9bmJJX4YBi06CsDVopoNvLia
+ pmTlRE0NfOwFi7OyEMj0U7Zp4cbUWkBi+D5Tjv8afZkbZueH8NvHAZyl6a4IBkX0jCF1flhk8bw
+ 3b6UdQSkWp9fi75gLeq1IjuU7MqzCoCnEFGUKyhjad5qtVt8mWQgH98Hw/MKPzSnZKiXWi8w47r
+ rsAUa9ZaLHvhx1GLr7cTJsoy3zIwi3hiL2hk7V0i3nOLNoMXWeskqre3zKtl2aU3MsgjWPCuBk+
+ JLoF9MkhZJkVHchlhnA==
+X-Authority-Analysis: v=2.4 cv=QbjzLcbv c=1 sm=1 tr=0 ts=6ac8906f cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VwQbUJbxAAAA:8 a=ZH9U8Pc_akMW9uxFS8YA:9 a=QEXdDO2ut3YA:10
+ a=x9snwWr2DeNwDh03kgHS:22
+X-Proofpoint-GUID: xcQ41frx4Wg0MoiNgbDAAUFTimWeiKUk
+X-Proofpoint-ORIG-GUID: xcQ41frx4Wg0MoiNgbDAAUFTimWeiKUk
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDAyNyBTYWx0ZWRfX0t+dQJwn4FIA
+ WYV04MNNNyksbxkFgkHFi3ko14WX+3bJbgwwyMdbHwsEtfYzHpb6Wwwevcm0Cj2bsWnUYBwu4gt
+ urTzgRg2LYp7lhOBKsPQomQlh9ZHJ1Y=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-09_02,2026-10-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 spamscore=0 priorityscore=1501 malwarescore=0 clxscore=1015
+ bulkscore=0 phishscore=0 impostorscore=0 suspectscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610090027
 
-Build a device from the default configuration with vkms_output_init(),
-its connector reading an EDID that declares 3D in its HDMI
-Vendor-Specific Data Block, and check that:
 
-- the connector lists the stereo modes the EDID declares, frame packing,
-  top-and-bottom and side by side (half), and no other;
-- the writeback connector accepts a buffer of the frame that holds both
-  eyes and refuses other sizes, for each of these layouts and for a 2D
-  mode.
 
-Export vkms_output_init() for KUnit and select the DRM KUnit helpers.
+On 10/9/2026 11:33 AM, Runyu Xiao wrote:
+> ath11k_cfr_init() returns before initializing cfr->lock when CFR
+> capability is absent.  However, station removal still calls
+> ath11k_cfr_decrement_peer_count(), which unconditionally takes this
+> lock.  This leaves a production path using an uninitialized spinlock.
+> 
+> Initialize cfr->lock for every radio before the capability check.  Keep
+> the CFR ring and lookup-table lock initialization conditional, since
+> those objects are only used after CFR capability setup.
+> 
+> Fixes: 9b2e3b4ebec7 ("wifi: ath11k: Add initialization and deinitialization sequence for CFR module")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+> ---
+>   drivers/net/wireless/ath/ath11k/cfr.c | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/net/wireless/ath/ath11k/cfr.c b/drivers/net/wireless/ath/ath11k/cfr.c
+> index a91f25fb6..0708ca28b 100644
+> --- a/drivers/net/wireless/ath/ath11k/cfr.c
+> +++ b/drivers/net/wireless/ath/ath11k/cfr.c
+> @@ -956,6 +956,9 @@ int ath11k_cfr_init(struct ath11k_base *ab)
+>   	struct ath11k *ar;
+>   	int i, ret;
+>   
+> +	for (i = 0; i < ab->num_radios; i++)
+> +		spin_lock_init(&ab->pdevs[i].ar->cfr.lock);
+> +
+>   	if (!test_bit(WMI_TLV_SERVICE_CFR_CAPTURE_SUPPORT, ab->wmi_ab.svc_map) ||
+>   	    !ab->hw_params.cfr_support)
+>   		return 0;
+> @@ -971,7 +974,6 @@ int ath11k_cfr_init(struct ath11k_base *ab)
+>   
+>   		idr_init(&cfr->rx_ring.bufs_idr);
+>   		spin_lock_init(&cfr->rx_ring.idr_lock);
+> -		spin_lock_init(&cfr->lock);
+>   		spin_lock_init(&cfr->lut_lock);
+>   
+>   		num_lut_entries = min_t(u32, CFR_MAX_LUT_ENTRIES, db_cap.min_elem);
 
-Assisted-by: LLM
-Signed-off-by: Daniel Campos Ramos <Capitain_Jack@yahoo.com>
----
- drivers/gpu/drm/vkms/Kconfig                  |   1 +
- drivers/gpu/drm/vkms/tests/Makefile           |   1 +
- drivers/gpu/drm/vkms/tests/vkms_stereo_test.c | 476 ++++++++++++++++++
- drivers/gpu/drm/vkms/vkms_output.c            |   2 +
- 4 files changed, 480 insertions(+)
- create mode 100644 drivers/gpu/drm/vkms/tests/vkms_stereo_test.c
 
-diff --git a/drivers/gpu/drm/vkms/Kconfig b/drivers/gpu/drm/vkms/Kconfig
-index 3977bbb99f..d0b7f772cc 100644
---- a/drivers/gpu/drm/vkms/Kconfig
-+++ b/drivers/gpu/drm/vkms/Kconfig
-@@ -19,6 +19,7 @@ config DRM_VKMS
- config DRM_VKMS_KUNIT_TEST
- 	tristate "KUnit tests for VKMS" if !KUNIT_ALL_TESTS
- 	depends on DRM_VKMS && KUNIT
-+	select DRM_KUNIT_TEST_HELPERS
- 	default KUNIT_ALL_TESTS
- 	help
- 	  This builds unit tests for VKMS. This option is not useful for
-diff --git a/drivers/gpu/drm/vkms/tests/Makefile b/drivers/gpu/drm/vkms/tests/Makefile
-index 92cfa7262b..cad869aa61 100644
---- a/drivers/gpu/drm/vkms/tests/Makefile
-+++ b/drivers/gpu/drm/vkms/tests/Makefile
-@@ -5,5 +5,6 @@ vkms-kunit-tests-y := \
- 	vkms_format_test.o \
- 	vkms_color_test.o \
- 	vkms_configfs_test.o \
-+	vkms_stereo_test.o \
- 
- obj-$(CONFIG_DRM_VKMS_KUNIT_TEST) += vkms-kunit-tests.o
-diff --git a/drivers/gpu/drm/vkms/tests/vkms_stereo_test.c b/drivers/gpu/drm/vkms/tests/vkms_stereo_test.c
-new file mode 100644
-index 0000000000..9229d5ae17
---- /dev/null
-+++ b/drivers/gpu/drm/vkms/tests/vkms_stereo_test.c
-@@ -0,0 +1,476 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+
-+#include <kunit/test.h>
-+
-+#include <drm/drm_atomic.h>
-+#include <drm/drm_atomic_uapi.h>
-+#include <drm/drm_drv.h>
-+#include <drm/drm_fourcc.h>
-+#include <drm/drm_framebuffer.h>
-+#include <drm/drm_kunit_helpers.h>
-+#include <drm/drm_modeset_lock.h>
-+#include <drm/drm_probe_helper.h>
-+#include <drm/drm_writeback.h>
-+
-+#include "../vkms_config.h"
-+#include "../vkms_connector.h"
-+#include "../vkms_drv.h"
-+
-+MODULE_IMPORT_NS("EXPORTED_FOR_KUNIT_TESTING");
-+
-+/*
-+ * edid-decode (hex):
-+ *
-+ * 00 ff ff ff ff ff ff 00 31 d8 3d 00 00 00 00 00
-+ * 00 21 01 03 81 a0 5a 78 0a 00 00 00 00 00 00 00
-+ * 00 00 00 20 00 00 01 01 01 01 01 01 01 01 01 01
-+ * 01 01 01 01 01 01 02 3a 80 18 71 38 2d 40 58 2c
-+ * 45 00 40 84 63 00 00 1e 00 00 00 fc 00 53 74 65
-+ * 72 65 6f 20 45 44 49 44 0a 20 00 00 00 fd 00 17
-+ * 4c 0f 8c 1e 00 0a 20 20 20 20 20 20 00 00 00 10
-+ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 b4
-+ *
-+ * 02 03 1d 81 46 10 04 20 13 1f 22 6e 03 0c 00 10
-+ * 00 00 3c 20 a0 04 01 00 06 50 e2 00 4a 00 00 00
-+ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-+ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-+ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-+ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-+ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-+ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 7f
-+ *
-+ * ----------------
-+ *
-+ * Block 0, Base EDID:
-+ *   EDID Structure Version & Revision: 1.3
-+ *   Vendor & Product Identification:
-+ *     Manufacturer: LNX
-+ *     Model: 61
-+ *     Made in: 2023
-+ *   Basic Display Parameters & Features:
-+ *     Digital display
-+ *     DFP 1.x compatible TMDS
-+ *     Maximum image size: 160 cm x 90 cm
-+ *     Gamma: 2.20
-+ *     RGB color display
-+ *     First detailed timing is the preferred timing
-+ *   Color Characteristics:
-+ *     Red  : 0.0000, 0.0000
-+ *     Green: 0.0000, 0.0000
-+ *     Blue : 0.0000, 0.0000
-+ *     White: 0.0000, 0.0000
-+ *   Established Timings I & II:
-+ *     DMT 0x04:   640x480    59.940476 Hz   4:3     31.469 kHz     25.175000 MHz
-+ *   Standard Timings: none
-+ *   Detailed Timing Descriptors:
-+ *     DTD 1:  1920x1080   60.000000 Hz  16:9     67.500 kHz    148.500000 MHz (1600 mm x 900 mm)
-+ *                  Hfront   88 Hsync  44 Hback  148 Hpol P
-+ *                  Vfront    4 Vsync   5 Vback   36 Vpol P
-+ *     Display Product Name: 'Stereo EDID'
-+ *     Display Range Limits:
-+ *       Monitor ranges (GTF): 23-76 Hz V, 15-140 kHz H, max dotclock 300 MHz
-+ *     Dummy Descriptor:
-+ *   Extension blocks: 1
-+ * Checksum: 0xb4
-+ *
-+ * ----------------
-+ *
-+ * Block 1, CTA-861 Extension Block:
-+ *   Revision: 3
-+ *   Underscans IT Video Formats by default
-+ *   Native detailed modes: 1
-+ *   Video Data Block:
-+ *     VIC  16:  1920x1080   60.000000 Hz  16:9     67.500 kHz    148.500000 MHz
-+ *     VIC   4:  1280x720    60.000000 Hz  16:9     45.000 kHz     74.250000 MHz
-+ *     VIC  32:  1920x1080   24.000000 Hz  16:9     27.000 kHz     74.250000 MHz
-+ *     VIC  19:  1280x720    50.000000 Hz  16:9     37.500 kHz     74.250000 MHz
-+ *     VIC  31:  1920x1080   50.000000 Hz  16:9     56.250 kHz    148.500000 MHz
-+ *     VIC  34:  1920x1080   30.000000 Hz  16:9     33.750 kHz     74.250000 MHz
-+ *   Vendor-Specific Data Block (HDMI), OUI 00-0C-03:
-+ *     Source physical address: 1.0.0.0
-+ *     Maximum TMDS clock: 300 MHz
-+ *     Extended HDMI video details:
-+ *       3D present
-+ *       All advertised VICs are 3D-capable
-+ *       3D: Side-by-side (half, horizontal)
-+ *       3D VIC indices with specific capabilities:
-+ *         VIC  16:  1920x1080   60.000000 Hz  16:9     67.500 kHz    148.500000 MHz (top-and-bottom)
-+ *         VIC  34:  1920x1080   30.000000 Hz  16:9     33.750 kHz     74.250000 MHz (frame packing)
-+ *   Video Capability Data Block:
-+ *     YCbCr quantization: No Data
-+ *     RGB quantization: Selectable (via AVI Q)
-+ *     PT scan behavior: No Data
-+ *     IT scan behavior: Always Underscanned
-+ *     CE scan behavior: Always Underscanned
-+ * Checksum: 0x7f
-+ */
-+static const u8 test_edid_hdmi_3d[] = {
-+	0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x31, 0xd8, 0x3d, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x21, 0x01, 0x03, 0x81, 0xa0, 0x5a, 0x78,
-+	0x0a, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x20,
-+	0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
-+	0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x02, 0x3a, 0x80, 0x18, 0x71, 0x38,
-+	0x2d, 0x40, 0x58, 0x2c, 0x45, 0x00, 0x40, 0x84, 0x63, 0x00, 0x00, 0x1e,
-+	0x00, 0x00, 0x00, 0xfc, 0x00, 0x53, 0x74, 0x65, 0x72, 0x65, 0x6f, 0x20,
-+	0x45, 0x44, 0x49, 0x44, 0x0a, 0x20, 0x00, 0x00, 0x00, 0xfd, 0x00, 0x17,
-+	0x4c, 0x0f, 0x8c, 0x1e, 0x00, 0x0a, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
-+	0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0xb4, 0x02, 0x03, 0x1d, 0x81,
-+	0x46, 0x10, 0x04, 0x20, 0x13, 0x1f, 0x22, 0x6e, 0x03, 0x0c, 0x00, 0x10,
-+	0x00, 0x00, 0x3c, 0x20, 0xa0, 0x04, 0x01, 0x00, 0x06, 0x50, 0xe2, 0x00,
-+	0x4a, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x7f,
-+};
-+
-+struct vkms_stereo_test_priv {
-+	struct vkms_device *vkmsdev;
-+	struct drm_connector *connector;
-+	struct drm_writeback_connector *wb_connector;
-+	struct drm_crtc *crtc;
-+	struct drm_plane *primary;
-+};
-+
-+struct vkms_stereo_test_mode {
-+	int hdisplay;
-+	int vdisplay;
-+	int vrefresh;
-+	u32 layout;
-+};
-+
-+/* The stereo modes the EDID above declares, without the interlaced ones */
-+static const struct vkms_stereo_test_mode test_edid_stereo_modes[] = {
-+	/* 3D_present: the mandatory formats of the 2D formats listed */
-+	{ 1920, 1080, 24, DRM_MODE_FLAG_3D_FRAME_PACKING },
-+	{ 1920, 1080, 24, DRM_MODE_FLAG_3D_TOP_AND_BOTTOM },
-+	{ 1280, 720, 60, DRM_MODE_FLAG_3D_FRAME_PACKING },
-+	{ 1280, 720, 60, DRM_MODE_FLAG_3D_TOP_AND_BOTTOM },
-+	{ 1280, 720, 50, DRM_MODE_FLAG_3D_FRAME_PACKING },
-+	{ 1280, 720, 50, DRM_MODE_FLAG_3D_TOP_AND_BOTTOM },
-+	/* 3D_Structure_ALL: side by side (half) for every VIC */
-+	{ 1920, 1080, 60, DRM_MODE_FLAG_3D_SIDE_BY_SIDE_HALF },
-+	{ 1280, 720, 60, DRM_MODE_FLAG_3D_SIDE_BY_SIDE_HALF },
-+	{ 1920, 1080, 24, DRM_MODE_FLAG_3D_SIDE_BY_SIDE_HALF },
-+	{ 1280, 720, 50, DRM_MODE_FLAG_3D_SIDE_BY_SIDE_HALF },
-+	{ 1920, 1080, 50, DRM_MODE_FLAG_3D_SIDE_BY_SIDE_HALF },
-+	{ 1920, 1080, 30, DRM_MODE_FLAG_3D_SIDE_BY_SIDE_HALF },
-+	/* 3D_Structure_X */
-+	{ 1920, 1080, 60, DRM_MODE_FLAG_3D_TOP_AND_BOTTOM },
-+	{ 1920, 1080, 30, DRM_MODE_FLAG_3D_FRAME_PACKING },
-+};
-+
-+static void vkms_stereo_test_config_destroy(void *config)
-+{
-+	vkms_config_destroy(config);
-+}
-+
-+static void vkms_stereo_test_fb_destroy(struct drm_framebuffer *fb)
-+{
-+	drm_framebuffer_cleanup(fb);
-+}
-+
-+static const struct drm_framebuffer_funcs vkms_stereo_test_fb_funcs = {
-+	.destroy = vkms_stereo_test_fb_destroy,
-+};
-+
-+static void vkms_stereo_test_fb_put(void *fb)
-+{
-+	drm_framebuffer_put(fb);
-+}
-+
-+static struct drm_framebuffer *vkms_stereo_test_create_fb(struct kunit *test,
-+							  int width, int height)
-+{
-+	struct vkms_stereo_test_priv *priv = test->priv;
-+	struct drm_framebuffer *fb;
-+	int ret;
-+
-+	fb = kunit_kzalloc(test, sizeof(*fb), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, fb);
-+
-+	fb->dev = &priv->vkmsdev->drm;
-+	fb->format = drm_format_info(DRM_FORMAT_XRGB8888);
-+	fb->width = width;
-+	fb->height = height;
-+	fb->pitches[0] = width * 4;
-+
-+	ret = drm_framebuffer_init(fb->dev, fb, &vkms_stereo_test_fb_funcs);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	ret = kunit_add_action_or_reset(test, vkms_stereo_test_fb_put, fb);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	return fb;
-+}
-+
-+static int vkms_stereo_test_init(struct kunit *test)
-+{
-+	struct vkms_stereo_test_priv *priv;
-+	struct vkms_config_connector *connector_cfg;
-+	struct vkms_config_plane *plane_cfg;
-+	struct vkms_config_crtc *crtc_cfg;
-+	struct vkms_config *config;
-+	struct device *dev;
-+	int ret;
-+
-+	priv = kunit_kzalloc(test, sizeof(*priv), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, priv);
-+	test->priv = priv;
-+
-+	config = vkms_config_default_create(false, true, false, false);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, config);
-+	ret = kunit_add_action_or_reset(test, vkms_stereo_test_config_destroy, config);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	vkms_config_for_each_connector(config, connector_cfg) {
-+		vkms_config_connector_set_edid_enabled(connector_cfg, true);
-+		vkms_config_connector_set_edid(connector_cfg, test_edid_hdmi_3d,
-+					       sizeof(test_edid_hdmi_3d));
-+	}
-+
-+	dev = drm_kunit_helper_alloc_device(test);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
-+
-+	priv->vkmsdev = drm_kunit_helper_alloc_drm_device(test, dev, struct vkms_device, drm,
-+							  DRIVER_MODESET | DRIVER_ATOMIC);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, priv->vkmsdev);
-+
-+	priv->vkmsdev->config = config;
-+	config->dev = priv->vkmsdev;
-+
-+	ret = vkms_output_init(priv->vkmsdev);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	vkms_config_for_each_crtc(config, crtc_cfg) {
-+		priv->crtc = &crtc_cfg->crtc->crtc;
-+		priv->wb_connector = &crtc_cfg->crtc->wb_connector;
-+		plane_cfg = vkms_config_crtc_primary_plane(config, crtc_cfg);
-+		priv->primary = &plane_cfg->plane->base;
-+	}
-+
-+	vkms_config_for_each_connector(config, connector_cfg)
-+		priv->connector = &connector_cfg->connector->base;
-+
-+	return 0;
-+}
-+
-+static void vkms_stereo_test_probe(struct kunit *test)
-+{
-+	struct vkms_stereo_test_priv *priv = test->priv;
-+	struct drm_device *drm = &priv->vkmsdev->drm;
-+	int count;
-+
-+	mutex_lock(&drm->mode_config.mutex);
-+	count = drm_helper_probe_single_connector_modes(priv->connector, XRES_MAX, YRES_MAX);
-+	mutex_unlock(&drm->mode_config.mutex);
-+
-+	KUNIT_ASSERT_GT(test, count, 0);
-+}
-+
-+static bool vkms_stereo_test_mode_matches(const struct drm_display_mode *mode,
-+					  const struct vkms_stereo_test_mode *expected)
-+{
-+	return mode->hdisplay == expected->hdisplay &&
-+	       mode->vdisplay == expected->vdisplay &&
-+	       drm_mode_vrefresh(mode) == expected->vrefresh &&
-+	       (mode->flags & DRM_MODE_FLAG_3D_MASK) == expected->layout;
-+}
-+
-+static const struct drm_display_mode *
-+vkms_stereo_test_find_mode(struct kunit *test, const struct vkms_stereo_test_mode *expected)
-+{
-+	struct vkms_stereo_test_priv *priv = test->priv;
-+	const struct drm_display_mode *mode;
-+
-+	list_for_each_entry(mode, &priv->connector->modes, head) {
-+		if (vkms_stereo_test_mode_matches(mode, expected))
-+			return mode;
-+	}
-+
-+	return NULL;
-+}
-+
-+/*
-+ * The connector lists the stereo modes of its EDID next to the 2D ones, and
-+ * no other stereo mode. Formats at 24, 30 and 60 Hz are listed twice, at
-+ * the integer rate and at 1000/1001 of it, both covered by one entry.
-+ */
-+static void vkms_stereo_test_edid_modes(struct kunit *test)
-+{
-+	static const struct vkms_stereo_test_mode mode_2d = { 1920, 1080, 60, 0 };
-+	struct vkms_stereo_test_priv *priv = test->priv;
-+	const struct drm_display_mode *mode;
-+	int i;
-+
-+	vkms_stereo_test_probe(test);
-+
-+	for (i = 0; i < ARRAY_SIZE(test_edid_stereo_modes); i++) {
-+		const struct vkms_stereo_test_mode *expected = &test_edid_stereo_modes[i];
-+
-+		KUNIT_EXPECT_NOT_NULL_MSG(test, vkms_stereo_test_find_mode(test, expected),
-+					  "%dx%d@%d layout %u not listed",
-+					  expected->hdisplay, expected->vdisplay,
-+					  expected->vrefresh, expected->layout >> 14);
-+	}
-+
-+	list_for_each_entry(mode, &priv->connector->modes, head) {
-+		bool expected = false;
-+
-+		if (!(mode->flags & DRM_MODE_FLAG_3D_MASK))
-+			continue;
-+
-+		for (i = 0; i < ARRAY_SIZE(test_edid_stereo_modes); i++)
-+			expected |= vkms_stereo_test_mode_matches(mode, &test_edid_stereo_modes[i]);
-+
-+		KUNIT_EXPECT_TRUE_MSG(test, expected, "unexpected " DRM_MODE_FMT,
-+				      DRM_MODE_ARG(mode));
-+	}
-+
-+	KUNIT_EXPECT_NOT_NULL(test, vkms_stereo_test_find_mode(test, &mode_2d));
-+}
-+
-+struct vkms_stereo_test_frame_case {
-+	const char *name;
-+	struct vkms_stereo_test_mode mode;
-+	int width;
-+	int height;
-+	int bad_width;
-+	int bad_height;
-+};
-+
-+/*
-+ * The frame of a mode is the buffer that holds both eyes: frame packing
-+ * adds vtotal lines (1080 + 1125 for these modes), the other layouts keep
-+ * the size of the mode. Each case also names a writeback buffer size that
-+ * must be refused.
-+ */
-+static const struct vkms_stereo_test_frame_case vkms_stereo_test_frame_cases[] = {
-+	{ "2d", { 1920, 1080, 60, 0 }, 1920, 1080, 1920, 2205 },
-+	{ "frame-packing", { 1920, 1080, 30, DRM_MODE_FLAG_3D_FRAME_PACKING },
-+	  1920, 2205, 1920, 1080 },
-+	{ "top-and-bottom", { 1920, 1080, 60, DRM_MODE_FLAG_3D_TOP_AND_BOTTOM },
-+	  1920, 1080, 1920, 2205 },
-+	{ "side-by-side-half", { 1920, 1080, 60, DRM_MODE_FLAG_3D_SIDE_BY_SIDE_HALF },
-+	  1920, 1080, 3840, 1080 },
-+};
-+
-+static void vkms_stereo_test_frame_case_desc(const struct vkms_stereo_test_frame_case *t,
-+					     char *desc)
-+{
-+	strscpy(desc, t->name, KUNIT_PARAM_DESC_SIZE);
-+}
-+
-+KUNIT_ARRAY_PARAM(vkms_stereo_test_frame, vkms_stereo_test_frame_cases,
-+		  vkms_stereo_test_frame_case_desc);
-+
-+/*
-+ * Checks an update showing a primary plane of the frame size and writing
-+ * the composed frame back to a buffer of wb_width x wb_height.
-+ */
-+static int vkms_stereo_test_check_update(struct kunit *test,
-+					 const struct drm_display_mode *mode,
-+					 int width, int height,
-+					 int wb_width, int wb_height)
-+{
-+	struct vkms_stereo_test_priv *priv = test->priv;
-+	struct drm_device *drm = &priv->vkmsdev->drm;
-+	struct drm_framebuffer *fb, *wb_fb;
-+	struct drm_connector_state *conn_state, *wb_state;
-+	struct drm_modeset_acquire_ctx ctx;
-+	struct drm_plane_state *plane_state;
-+	struct drm_crtc_state *crtc_state;
-+	struct drm_atomic_commit *state;
-+	int ret;
-+
-+	fb = vkms_stereo_test_create_fb(test, width, height);
-+	wb_fb = vkms_stereo_test_create_fb(test, wb_width, wb_height);
-+
-+	drm_modeset_acquire_init(&ctx, 0);
-+
-+	state = drm_kunit_helper_atomic_state_alloc(test, drm, &ctx);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state);
-+
-+	crtc_state = drm_atomic_get_crtc_state(state, priv->crtc);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, crtc_state);
-+	ret = drm_atomic_set_mode_for_crtc(crtc_state, mode);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	crtc_state->enable = true;
-+	crtc_state->active = true;
-+
-+	conn_state = drm_atomic_get_connector_state(state, priv->connector);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, conn_state);
-+	ret = drm_atomic_set_crtc_for_connector(conn_state, priv->crtc);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	plane_state = drm_atomic_get_plane_state(state, priv->primary);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, plane_state);
-+	ret = drm_atomic_set_crtc_for_plane(plane_state, priv->crtc);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	drm_atomic_set_fb_for_plane(plane_state, fb);
-+	plane_state->crtc_w = width;
-+	plane_state->crtc_h = height;
-+	plane_state->src_w = width << 16;
-+	plane_state->src_h = height << 16;
-+
-+	wb_state = drm_atomic_get_connector_state(state, &priv->wb_connector->base);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, wb_state);
-+	ret = drm_atomic_set_crtc_for_connector(wb_state, priv->crtc);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	ret = drm_writeback_set_fb(wb_state, wb_fb);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	ret = drm_atomic_check_only(state);
-+
-+	drm_modeset_drop_locks(&ctx);
-+	drm_modeset_acquire_fini(&ctx);
-+
-+	return ret;
-+}
-+
-+/*
-+ * The writeback connector takes a buffer of the frame size, so it receives
-+ * both eyes, and refuses any other size.
-+ */
-+static void vkms_stereo_test_writeback_frame(struct kunit *test)
-+{
-+	const struct vkms_stereo_test_frame_case *t = test->param_value;
-+	const struct drm_display_mode *mode;
-+	int ret;
-+
-+	vkms_stereo_test_probe(test);
-+
-+	mode = vkms_stereo_test_find_mode(test, &t->mode);
-+	KUNIT_ASSERT_NOT_NULL(test, mode);
-+
-+	ret = vkms_stereo_test_check_update(test, mode, t->width, t->height,
-+					    t->width, t->height);
-+	KUNIT_EXPECT_EQ(test, ret, 0);
-+
-+	ret = vkms_stereo_test_check_update(test, mode, t->width, t->height,
-+					    t->bad_width, t->bad_height);
-+	KUNIT_EXPECT_EQ(test, ret, -EINVAL);
-+}
-+
-+static struct kunit_case vkms_stereo_test_cases[] = {
-+	KUNIT_CASE(vkms_stereo_test_edid_modes),
-+	KUNIT_CASE_PARAM(vkms_stereo_test_writeback_frame,
-+			 vkms_stereo_test_frame_gen_params),
-+	{}
-+};
-+
-+static struct kunit_suite vkms_stereo_test_suite = {
-+	.name = "vkms-stereo",
-+	.init = vkms_stereo_test_init,
-+	.test_cases = vkms_stereo_test_cases,
-+};
-+
-+kunit_test_suite(vkms_stereo_test_suite);
-+
-+MODULE_LICENSE("GPL");
-+MODULE_DESCRIPTION("Kunit test for vkms stereo modes");
-diff --git a/drivers/gpu/drm/vkms/vkms_output.c b/drivers/gpu/drm/vkms/vkms_output.c
-index ad901340ba..b484255c43 100644
---- a/drivers/gpu/drm/vkms/vkms_output.c
-+++ b/drivers/gpu/drm/vkms/vkms_output.c
-@@ -5,6 +5,7 @@
- #include "vkms_drv.h"
- #include <drm/drm_managed.h>
- #include <drm/drm_print.h>
-+#include <kunit/visibility.h>
- 
- int vkms_output_init(struct vkms_device *vkmsdev)
- {
-@@ -130,3 +131,4 @@ int vkms_output_init(struct vkms_device *vkmsdev)
- 
- 	return 0;
- }
-+EXPORT_SYMBOL_IF_KUNIT(vkms_output_init);
+NAK. This can never happen.
