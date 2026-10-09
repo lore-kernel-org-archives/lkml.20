@@ -1,242 +1,151 @@
-Received: from mail-oa2-f9.google.com (mail-oa2-f9.google.com [74.125.231.73])
+Received: from mail-vk1-f175.google.com (mail-vk1-f175.google.com [209.85.221.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8415A2EBBAF
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 02:49:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.73
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E23828315D
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 02:51:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791514180; cv=none; b=mNANn2OeNMx73/W/9bfs8ajQHsqSRWh46WRbHYlFSoL7znogs7Z3wxF/sHZWNWqVp25dQ+/qUpTfyUo3eCb7daz4iZyYeG8fFxmWYkAIXFlIfMDNxtP/Rkxc6PsESHHL02aPKFgfcDn2kPkADtvibse2hRmi5JuBMYSCEt7nxlY=
+	t=1791514266; cv=none; b=DETIh5Km7XTo6/83vVrtljDYG9lqyjVlIDno1Z6jzPIf2L+mZsZSGl0t+YSzKTP0WSvfmWzHA+rGUFBn4oymeXwvc1LRki2pSYVdu1aIT6E2i4yuNpF0Ikrxrnb5qIOFaDan2XS1+KzKkpA6HvYXO5HyIzPeuFFWg7bl4p+MnEI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791514180; c=relaxed/simple;
-	bh=pZ2LQ1mcW19e9zbv6dn1tCsFTO3+3e1BnDlqHRe3oWk=;
+	s=arc-20240116; t=1791514266; c=relaxed/simple;
+	bh=NGhGyWBd5XtgeNmO5aOxgvDdwmO9txqX+TtFYdrDA5c=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jjVtMg+rAmSe701b4bKU85pyoyi1LsURrw2C8bYVUcMc+Xzge2gwpPJHqEvR1unOtCseC4+CrI9EYhsdR6QYrJyAkOT8UElkY9uPyYztpMvE9/t2G66NMoYnTiKOQ8noss0pOvyKjGTgd80nF9aHGhY1h18qs2MC4zNsgIxR8rE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hnruczoa; arc=none smtp.client-ip=74.125.231.73
+	 MIME-Version; b=i/MKcf+TIUr4LUCMYW2rZF3pT4pnFevEiVoohiSURJ7ufbWYkXEozFRw/CZB/4mEWVHleAzWQKxsbbVaDXoxSkzt2j82MyJEHJBOQ+PABXNfUUO7oQ131l3QFH+53764EXRT+ibF4WCG0ucyp/13sXeL6pk7lGkBdWf4qTEKK7I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Sp/06fK/; arc=none smtp.client-ip=209.85.221.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hnruczoa"
-Received: by mail-oa2-f9.google.com with SMTP id 586e51a60fabf-47bb3ddaaf6so2395918fac.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 19:49:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Sp/06fK/"
+Received: by mail-vk1-f175.google.com with SMTP id 71dfb90a1353d-5dc2dc6d3fdso1406367e0c.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 19:51:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791514178; x=1792118978; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791514264; x=1792119064; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=yFsPZQMGn5BAWFrELIi38nxVy/jbhNPk/JM7FZWSKto=;
-        b=Hnruczoa0FaTx6HtFxZcYIM0nuZFmKPCC/0EiFsctTPe9VJwvMs/LhLmybm9X6UO2A
-         jE+ZkE/YhOYolDlyZH4O7GgoH6dKQOejanejMxHN2gZxcSwDMNX35ytHLCJSadQdM6KV
-         RGYLbGGthnbp44HBibG7+zYvGRXYqOtP0n2FF1A1qT8lV/vW7wgsWvgx319S8pf7Eszd
-         eQHDdQXhDUQXXNkZzL247X4ANw6XfTS5AxQED8sHsGacXhu8/PyCgM7cAnFaXhQ/53HX
-         41+FC9n7YYTpvUe4zP+E0lpYRFlkFi5iPFdFiigy3EiL3uOchpEh+q7nwa/3hk3Rq0f4
-         OAUw==
+        bh=TI154vCGJt6eYFa0Z4ivT78Q0lANyQelPlGETBwLtck=;
+        b=Sp/06fK/yQb/TssSvQhld6MRlgM+ofnWfDWbX+c5dk9tHasQf/Zwi3C4LobOg6N9QU
+         o+Wtx7sNqCaNtMlZasAPwqrr/MIfj5yv91VHyD7gjRHy3U44do3TiNNdjOEXZF4Tey5b
+         GMuRV0oy1seZgIaPbhsF34LLsxeW8kdAbgYmv8Nav0kkwTDks6U5SWPlr1Q08k7viiPK
+         V5iSKQP2ZxHorPJl71+F308NBzwoRWhPBqVFGAbrukKK1AYoMLSJcYtxxR/c2lBEvCvq
+         rIPXlN19d+IzGiD2PZfzI7GKPE7N7aN8HnmTbVqCFXIdyzPFP0LgzHTQEOX2+KWVKnSp
+         oF+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791514178; x=1792118978;
+        d=1e100.net; s=20260707; t=1791514264; x=1792119064;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yFsPZQMGn5BAWFrELIi38nxVy/jbhNPk/JM7FZWSKto=;
-        b=anhaoOrbMnXSDnjMRO/7n9B8X7vYMO2mDmEp/a9zvaxNHAQUa1uH1MRjcWisemx6XF
-         cSQTCQEkE/vdcQ3yIa8HBJbaW1SmS8Z1Lnt9g4ObjQMAVv6L8aKIgf9nPxvNPXkt/mFU
-         8M0xC/4oSfYIq28Me0OJ1jYsO5pUVAa3y/pWXukwnnWcFl8guLy2v0xWKj4XUnZxPdtr
-         BF3OFuce2UE3KaRiEQ1GXgfuWZ2qZs9ySwu6QF11lpWXznpU8N+STSkk1cIWsS8eFDw/
-         uifiBoHypq7bPhc4e2JZqgY5gizrS46HnlwtrrUGDfgbvOeAUNEKEF0ARlnekzNR+9Kt
-         f3qg==
-X-Forwarded-Encrypted: i=1; AKwUvBwYX1rWMpklN3c3+IUyA9ZEI9vpZZNjqX4abG8cn/m/8S1Y2VTy91LTve+BF7TDNRItV+3wI5aPREtNtG8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKr8bYLgR5VTB+t0FcUVbx8YZENl+G42b1YyNMCnnhHOlNrwu24
-	KpkNJ9wGqHvk+6wBgQ6esEYUpQzl7sqjI23phraGJk7zzzczCRQ+CXue
-X-Gm-Gg: AYBFou0LPpbxeiKMpejopq3FuNSUugtisaNejzoXIuqAGD7RtCwEADKzuFPkJJ78DQD
-	PshOtENI3XGTd8Qq+d6Imh/GTW/deun5b9b4sukm6rmWaADmN4qx7Qejv2OARmXKn9MuFdTlcXt
-	ASbzFSSQqbZ7sr3KACUIfi1r7/ZQVdLq2o2OvsOfi7XZdcPinD9DCiAZStOmU5wED59E7kc/+TH
-	yW3JR7xe5UDZAgtEA19nb2ZdHszRfXsaOqD5ZJRM1wEFu5+AlJWuKMAfjHIstMRr2kKsPlqwJk3
-	DzyGOFTaH1hubiKP1Z9G3c1Dqt0c/dcGPxA5OUIOAx0U6mjHUhSJTV6DwTkVfL5cIJkWacr0gOo
-	S7/u25LThLXoMxG0jtQ2P7Q6FW+fe0lVRvK5+v2RyA96TAo1uMbxkU+xHhhg37jMLlbQP1tYhhp
-	tPNLE1ZA5+PvaLWg3oIQF1W1YRfx+omQoao9L8guIRyYrATPDHYzQb74kV46qIr62VqF8N2tYiM
-	CVVRmBIk3WlWy1t/QvltPW7LiNuhf2WH7gEk+WHYeQWkvGAXwkZr3xLBc6lLgH898Jw++BwZhXm
-	Qe/1tQ==
-X-Received: by 2002:a05:6871:a844:b0:48f:e107:318b with SMTP id 586e51a60fabf-4a2a88f81f3mr595845fac.43.1791514178445;
-        Thu, 08 Oct 2026 19:49:38 -0700 (PDT)
-Received: from localhost ([2a03:2880:10ff:71::])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a2a86317a5sm750913fac.17.2026.10.08.19.49.36
+        bh=TI154vCGJt6eYFa0Z4ivT78Q0lANyQelPlGETBwLtck=;
+        b=BiOF2hwgGHk7AMPradC+5qSNVMOCf3zJJezGa8cBQ8xHCuEA7QI2zYLPFKGvasFcwF
+         6SAytzucrf6i14xAiHNUFcbCC6W/AJ5Rn6yugbm34d9Up/ZMAdvZOJykd8fUaeoBmHMz
+         X33I013jOmrkSavT/fBMvK5Br2HeQqm8sgDknG6xZ9yJKD5euN/pS9PyGiP9yW0X5/0+
+         jMNXSwg+ffkGbHvK4NufeYzLt79O4ku6UFROFinO3io5usK1WlJaVWb2tFZ2N+37YE/q
+         wAKg10qp5FpF+c1M91JmhNT/fHLygqewo1AmrWibBYHfjTlvXaAO1BJnyMNX1LO/CMjb
+         Cl7w==
+X-Forwarded-Encrypted: i=1; AKwUvBzlCdMyb1y+VNbySsWrwnt7g/2cAx92SLyhyxXfQnHSXM1cCwk4Z3Gfh67uhtCDUtoYojeXz0Rb1zD3G+I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI3AlRHn+qyhk6/d5O1KxODGHajc9YzzgeZX37cRu8eHWhWFktP
+	8l5v0CxthQMkPs8so0oaTuwfx4DCdHadtsscjtECr38T9LD+fjumwlVv
+X-Gm-Gg: AYBFou3XVzHHxWSnEMTJpr9rpj2d4tmk2OAxQbKRsJ7Ao3TQGVhxYoebfT8nvcyhd7A
+	A1WPk+Zc5YLMkiLwtph3q55Tfmzebf1Y6aNOw7XA1D/tmJlW+Fc+hvJQ2Xzge8qDo90pjS6hrhu
+	CmDePdoDN2EObcfXmgWVl23JifFXzl46uTMeBlQOIOuEzeczQUVU6U1Dex3RMDUFsQYPMNiq+uR
+	JgIbAkb9INj0kUJgQzHaVQM4bis8ERMKHUZTBGVTbpsaAktplx/enLkqXR4oQUlivz8NUO81Jvv
+	3s84fOZ6YnYwftwMrr8E30JPq0HFZ/KIpCRg291EJZxMzz5sieqULyoWxW8Y2Zx50ju/IeE6+TK
+	AUlDrfEpbWqW3oGxgG9RHV0l5HCHLayPBr4aXr3OEgktX36chGmYr41rVQ1RuC1CZvjQoQIYCZi
+	MPqvv+s7XNBMd8Nql84yaSRl2bsffoOr+N9CfzTM5kA06uADNkWZuha8nr6naBsJHNwxEUxN+Vq
+	PvjzmAP
+X-Received: by 2002:a05:6102:6b09:b0:779:5049:87b2 with SMTP id ada2fe7eead31-7cb361f5f1emr208448137.0.1791514263916;
+        Thu, 08 Oct 2026 19:51:03 -0700 (PDT)
+Received: from maclinux ([2803:c600:9110:8ba5:1c75:eeaa:b22f:20dc])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7cb354a9565sm688041137.12.2026.10.08.19.51.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 19:49:37 -0700 (PDT)
-From: Kumar Kartikeya Dwivedi <memxor@gmail.com>
-To: bpf@vger.kernel.org
-Cc: Alexei Starovoitov <ast@kernel.org>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Puranjay Mohan <puranjay@kernel.org>,
-	kkd@meta.com,
-	kernel-team@meta.com,
-	x86@kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH bpf-next v1 3/3] selftests/bpf: Test PROBE_MEM loads from invalid addresses
-Date: Fri,  9 Oct 2026 04:49:23 +0200
-Message-ID: <20261009024925.3169077-4-memxor@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261009024925.3169077-1-memxor@gmail.com>
-References: <20261009024925.3169077-1-memxor@gmail.com>
+        Thu, 08 Oct 2026 19:51:03 -0700 (PDT)
+From: =?UTF-8?q?Francisco=20Beltr=C3=A1n=20Millal=C3=A9n?= <fbeltranmillalen@gmail.com>
+To: helgaas@kernel.org
+Cc: bhelgaas@google.com,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	andreas.noever@gmail.com,
+	westeri@kernel.org,
+	YehezkelShB@gmail.com,
+	lukas@wunner.de,
+	linux-usb@vger.kernel.org,
+	d@rrell.co
+Subject: Re: [PATCH] PCI: Extend Apple Thunderbolt power quirk to Alpine Ridge
+Date: Thu,  8 Oct 2026 23:50:47 -0300
+Message-ID: <20261009025047.16129-1-fbeltranmillalen@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261008231744.GA938694@bhelgaas>
+References: <20261008231744.GA938694@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4672; h=from:subject; bh=pZ2LQ1mcW19e9zbv6dn1tCsFTO3+3e1BnDlqHRe3oWk=; b=owGbwMvMwCXmrmtenRyi38x4Wi2JIetEmEjVzIzTX/7WZh5dXXPf6vCiL4od10UfNjSamwdxvlfJ uSLXUcrCIMbFICumyFLyfx+T8YnK34G2y7hh5rAygQxh4OIUgIl86GZk6Dp6cYvSMjbjtY8Y4gUW+9 XterBX1in7k2nOLiPZLV93mjEyLO3O+fnwz2vvsn0bg8oENl6sYvf/LjAhtjdEyOvZwiQhbgA=
-X-Developer-Key: i=memxor@gmail.com; a=openpgp; fpr=B34BD741DE8494B76E2F717880EF20021D46C59B
 Content-Transfer-Encoding: 8bit
 
-Add a test that performs PROBE_MEM loads of three sizes through a
-bpf_core_cast() pointer whose value is chosen by userspace: NULL, a low
-user address, the last user page, a non-canonical address and, on x86-64,
-the vsyscall page and an offset into it. Each load must read zero and the
-kernel must survive. A load through the current task pointer checks that
-the same loads read real values when the address is valid.
+Hi Bjorn,
 
-The test passes on kernels that reject the addresses with the JIT's range
-check and on kernels that rely on the fault handler; with only the JIT
-change of the previous patch applied, the first subtest oopses, which is
-what the fault handler change prevents.
+Thanks for looking at this one as well, and for copying the Thunderbolt
+folks.
 
-Signed-off-by: Kumar Kartikeya Dwivedi <memxor@gmail.com>
----
- .../bpf/prog_tests/probe_mem_fault.c          | 69 +++++++++++++++++++
- .../selftests/bpf/progs/probe_mem_fault.c     | 41 +++++++++++
- 2 files changed, 110 insertions(+)
- create mode 100644 tools/testing/selftests/bpf/prog_tests/probe_mem_fault.c
- create mode 100644 tools/testing/selftests/bpf/progs/probe_mem_fault.c
+On Thu, Oct 08, 2026 at 06:17:44PM -0500, Bjorn Helgaas wrote:
+> Thanks for all this detail.  I think it's too much for a commit log,
+> but it would be good to have it after the "---" where it's in the
+> email but not the git commit.  This is easily accessible via the
+> "Link: https://patch.msgid.link/" tag that we add when applying.
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/probe_mem_fault.c b/tools/testing/selftests/bpf/prog_tests/probe_mem_fault.c
-new file mode 100644
-index 000000000000..57a313e35eb6
---- /dev/null
-+++ b/tools/testing/selftests/bpf/prog_tests/probe_mem_fault.c
-@@ -0,0 +1,69 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/* Copyright (c) 2026 Meta Platforms, Inc. and affiliates. */
-+#include <test_progs.h>
-+#include "probe_mem_fault.skel.h"
-+
-+#if defined(__x86_64__)
-+#include <asm/vsyscall.h>
-+#endif
-+
-+/*
-+ * Addresses a PROBE_MEM load has to survive. Either the JIT's address check
-+ * or the fault handler must turn each load into a zero result.
-+ */
-+static const struct {
-+	const char *name;
-+	unsigned long addr;
-+} bad_addrs[] = {
-+	{ "null", 0 },
-+	{ "low_user", 4096 },
-+	{ "last_user_page", (1UL << 47) - 4096 },
-+	{ "non_canonical", 1UL << 63 },
-+#if defined(__x86_64__)
-+	{ "vsyscall", VSYSCALL_ADDR },
-+	{ "vsyscall_tail", VSYSCALL_ADDR + 0x800 },
-+#endif
-+};
-+
-+static void trigger(struct probe_mem_fault *skel, int *runs)
-+{
-+	skel->bss->val_dw = ~0ULL;
-+	skel->bss->val_w = ~0U;
-+	skel->bss->val_b = ~0;
-+	usleep(1);
-+	ASSERT_EQ(skel->bss->runs, ++*runs, "runs");
-+}
-+
-+void test_probe_mem_fault(void)
-+{
-+	struct probe_mem_fault *skel;
-+	int runs = 0, i;
-+
-+	skel = probe_mem_fault__open_and_load();
-+	if (!ASSERT_OK_PTR(skel, "open_and_load"))
-+		return;
-+
-+	skel->bss->target_pid = getpid();
-+	if (!ASSERT_OK(probe_mem_fault__attach(skel), "attach"))
-+		goto out;
-+
-+	/* A valid kernel address is read for real. */
-+	skel->bss->use_current_task = true;
-+	trigger(skel, &runs);
-+	ASSERT_EQ(skel->bss->val_w, getpid(), "pid");
-+	ASSERT_NEQ(skel->bss->val_dw, 0, "start_time");
-+	ASSERT_NEQ(skel->bss->val_b, 0, "comm");
-+
-+	skel->bss->use_current_task = false;
-+	for (i = 0; i < ARRAY_SIZE(bad_addrs); i++) {
-+		if (!test__start_subtest(bad_addrs[i].name))
-+			continue;
-+		skel->bss->addr = bad_addrs[i].addr;
-+		trigger(skel, &runs);
-+		ASSERT_EQ(skel->bss->val_dw, 0, "start_time");
-+		ASSERT_EQ(skel->bss->val_w, 0, "pid");
-+		ASSERT_EQ(skel->bss->val_b, 0, "comm");
-+	}
-+out:
-+	probe_mem_fault__destroy(skel);
-+}
-diff --git a/tools/testing/selftests/bpf/progs/probe_mem_fault.c b/tools/testing/selftests/bpf/progs/probe_mem_fault.c
-new file mode 100644
-index 000000000000..748be45418f5
---- /dev/null
-+++ b/tools/testing/selftests/bpf/progs/probe_mem_fault.c
-@@ -0,0 +1,41 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/* Copyright (c) 2026 Meta Platforms, Inc. and affiliates. */
-+#include <vmlinux.h>
-+#include <bpf/bpf_helpers.h>
-+#include <bpf/bpf_tracing.h>
-+#include <bpf/bpf_core_read.h>
-+#include "bpf_misc.h"
-+
-+char _license[] SEC("license") = "GPL";
-+
-+int target_pid;
-+bool use_current_task;
-+unsigned long addr;
-+int runs;
-+__u64 val_dw;
-+__u32 val_w;
-+__u8 val_b;
-+
-+SEC("fentry/" SYS_PREFIX "sys_nanosleep")
-+int probe_mem_fault(void *ctx)
-+{
-+	struct task_struct *task;
-+	unsigned long p = addr;
-+
-+	if ((bpf_get_current_pid_tgid() >> 32) != target_pid)
-+		return 0;
-+
-+	if (use_current_task)
-+		p = (unsigned long)bpf_get_current_task_btf();
-+	/*
-+	 * bpf_core_cast() yields an untrusted pointer, so every load through it
-+	 * is a PROBE_MEM load. Whatever the address is, the load must either
-+	 * read the field or produce zero; the kernel must not oops.
-+	 */
-+	task = bpf_core_cast((void *)p, struct task_struct);
-+	val_dw = task->start_time;
-+	val_w = task->pid;
-+	val_b = task->comm[0];
-+	runs++;
-+	return 0;
-+}
--- 
-2.53.0-Meta
+I'll move most of it below the "---" in v2 and keep the commit message
+to the problem and the fix.
 
+> Wrap these to fit in 80 columns like the rest of the file.  Ideally 75
+> or so; that allows minor changes and typo fixes without overflowing.
+
+I'll fix that in v2 too.
+
+Before v2, though, I found something this week that changes the patch,
+so I'd ask you not to apply this version.
+
+The quirk works today partly by accident.  On resume, the firmware of
+these Macs tries to write to the Thunderbolt controller through the
+PCIe2CIO mailbox of its upstream bridge, and on Linux those accesses
+currently go to the wrong device: ACPICA works out the PCI address of
+the bridge's config region while the bridge's bus numbers are still
+reset, and caches 00:00.0.  Each access then times out, which is where
+most of the ~16 s noirq resume that Darrell reported comes from.  There
+are two pull requests for this in ACPICA:
+
+  https://github.com/open-acpica/acpica/pull/1235
+  https://github.com/open-acpica/acpica/pull/1236
+
+With that fixed, resume drops to about 4 s, but the firmware's writes
+now succeed, and one of them sets bit 26 of dword 0x3c of the
+controller's switch config space (VSC_CS_20 in the plug events
+capability).  With that bit set, SXFP() really cuts power to the
+controller, and on resume Linux does not bring it back.  With the
+ACPICA change and this patch, and a USB disk attached, the controller
+with the disk was lost in 3 of 3 suspend cycles, in two of them
+together with the other controller, and resume took about 35 s.
+Clearing the bit through the same mailbox before SXFP() runs fixes it:
+15 of 15 cycles resumed in about 4 s with the disk still there.
+Without the ACPICA change the firmware's write never lands, which is
+why this version works as posted and in Darrell's tests.
+
+I also checked whether the ACPICA change makes the quirk unnecessary.
+It doesn't: in my test without the quirk, with the disk attached, the
+link to that controller still did not come up after resume (LnkSta x0),
+as described in the commit message.
+
+So v2 would clear that bit before calling SXFP(), so that the quirk
+keeps working once the ACPICA change lands.
+
+Mika, I only know what this bit does from measuring it: with it set,
+dropping the controller's power pin turns the NHI off; with it clear,
+the NHI stays up.  Do you know what bit 26 of VSC_CS_20 is on Alpine
+Ridge, and whether it is fine for the OS to clear it before cutting
+power this way?  If it has a name, I'd like to use it in v2 instead of
+a magic number.  And if you think this belongs in the thunderbolt
+driver rather than in a PCI quirk, I'm happy to move it there.
+
+Thanks again,
+Francisco
