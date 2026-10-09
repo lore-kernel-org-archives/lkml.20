@@ -1,75 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CE323ACA79;
-	Fri,  9 Oct 2026 16:59:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7710B389458
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 16:59:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791565178; cv=none; b=gRqM8Ier99TMIMQVRPiuWyYCbCyrx12+B2fmxLSTmDDy2BENVt18+mlIgZGZdM1pPeRpZC2g9TQfiouZt164Mf+4XDlKr2jJ62oaS9dK5/7oFL26UyUPWefolYonh/+KRsoGtX7jCQGBYxREH2LJUnKdu4Kws+dU34Z6pHP9wpI=
+	t=1791565185; cv=none; b=RhMWamv9TUO/r6MFY/gw602XLxsgK2YQr27qaEpybjA00SUQSjEKOoQ09xw/d6rICakBFW1TbssFjbY1396lrTBJRSck4QBqV2IqEMx9TNNN3n/ovLXZNVGaUbZ7olTHB6rrU2KkLXewUVg7yGBK0Q5GxgNg7IcgUT3ggiBEl+w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791565178; c=relaxed/simple;
-	bh=ucvLx/kp/9SVY/uyqj/BETSHW3DUzVkzfDMECsWwU0A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WFrt79FuMGW/3JpKUr4+gXDHTOR2ozDLgkvAPD1XSHYGDsfyK+P2i4h7X5j55G42zyaWyZdrdJIby/DRe+dFdJ2ZdJLFb9Cu0M+zpyPEp/WvGAR3a7biM93p/36vcd28kJv/Cp0XDCbZuYO7qILuMr/mc1VWc3FxCxVBnoIjJv8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KvESlhRh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791565185; c=relaxed/simple;
+	bh=Wm/4n7hq3w7tWKgh4LCSdmhnbLipyzt6kn0TkU1RTiM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=A+nD+5XJHcehcu3qfjf/8vngJc7832DeBwKFi1jy1gRMSkgH8vnCWfy/hw6P09CMsKsP3/zstQXgSyGcDjXAvqi7yuiHYSIm57Zp8ShW+YVcvoPYbML2qrA/O5cgo8QIJ7rOlX3nmUNHcOFH7z2lTlq7NkEHX6MHempCOkFKnbk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=W/JbgZKX; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KvESlhRh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73EDA1F000FF;
-	Fri,  9 Oct 2026 16:59:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791565176;
-	bh=I2u5RYrLi5Vo1HxinX/08L+8VcsTjPu5sczVSHgh/yQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KvESlhRhXMB5RiySjeMmv2OIoc8Gdi7xij7cwSN+xkUh1YZXYI4t1SSwGRERnhIHK
-	 a2w0Y7RWh1XH8pGXI0HX8wGG9I1PEDnrbhhANmRg2VYIfurkM2ecrahSvL5OX0Uu55
-	 aahX3lJERxdLwRpZyHBPjSp2QVkbZbW9KY5hV1pQIQklnSqBXQ0ZTUAdGlwxxwZe4O
-	 9KQfFPafjPSS4CXVJNsZezhFqZ8IG7YrUvm1zbssjNXD6uv6s4lYBFTORj+nTbEOaM
-	 RBoqa46+1lALyGhrBKu5ddwzH/U5yEy5yliXcEeLdPr2CkCzUzRYhg0xtvFRAFCX/b
-	 BglZe/PJJa9Kg==
-Date: Fri, 9 Oct 2026 17:59:30 +0100
-From: Simon Horman <horms@kernel.org>
-To: Nicolai Buchwitz <nb@tipi-net.de>
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Oleksij Rempel <o.rempel@pengutronix.de>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Jose Abreu <Jose.Abreu@synopsys.com>,
-	Saeed Mahameed <saeedm@nvidia.com>,
-	Tariq Toukan <tariqt@nvidia.com>, Mark Bloch <mbloch@nvidia.com>,
-	Leon Romanovsky <leon@kernel.org>,
-	Dragos Tatulea <dtatulea@nvidia.com>,
-	Alexei Lazar <alazar@nvidia.com>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-rdma@vger.kernel.org
-Subject: Re: [PATCH net-next 1/3] net: selftests: use skb_share_check() in
- the loopback receive hook
-Message-ID: <20261009165930.GI83879@horms.kernel.org>
-References: <20261007-nb-net-selftest-shared-net-v1-0-458369bfa1ba@tipi-net.de>
- <20261007-nb-net-selftest-shared-net-v1-1-458369bfa1ba@tipi-net.de>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="W/JbgZKX"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6CCED1D14;
+	Fri,  9 Oct 2026 09:59:38 -0700 (PDT)
+Received: from [10.211.55.3] (unknown [10.57.54.134])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 49B1D3F66F;
+	Fri,  9 Oct 2026 09:59:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791565181; bh=Wm/4n7hq3w7tWKgh4LCSdmhnbLipyzt6kn0TkU1RTiM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=W/JbgZKX151jsNiz1uavL74a1MyLB13JRnA5FdGOqftL7vJtE+ylL2jPe8OmT3IuJ
+	 2dz3HTyVI+HO3i7kL21ab84u7byLq53AVE6mDdpyR65jDfQN7Rsyo4jMWjaVU8fDi0
+	 YLT8bK1V1kYikYOcDfoHcCuDr2RSSd1uTIdwDrTs=
+Message-ID: <18df4643-4213-4e0f-94e7-b1e43adcb5c3@arm.com>
+Date: Fri, 9 Oct 2026 17:59:37 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261007-nb-net-selftest-shared-net-v1-1-458369bfa1ba@tipi-net.de>
+User-Agent: Thunderbird Daily
+Subject: Re: [PATCH v2] arm_mpam: make the mon_sel guard conditional only
+To: Sasha Levin <sashal@kernel.org>
+Cc: andre.przywara@arm.com, bot@kernelci.org, fenghuay@nvidia.com,
+ gshan@redhat.com, james.morse@arm.com, jonathan.cameron@oss.qualcomm.com,
+ justinstitt@google.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, llvm@lists.linux.dev, morbo@google.com,
+ nathan@kernel.org, ndesaulniers@google.com, reinette.chatre@intel.com
+References: <7490d5e6-ac9b-4f23-b58d-60eec2882e60@arm.com>
+ <20261009163235.3-1-sashal@kernel.org>
+Content-Language: en-US
+From: Ben Horgan <ben.horgan@arm.com>
+In-Reply-To: <20261009163235.3-1-sashal@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Oct 07, 2026 at 08:29:22PM +0200, Nicolai Buchwitz wrote:
-> The loopback hook gets a shared skb when another ETH_P_IP handler is
-> bound to the device. skb_unshare() does not unshare it, so
-> skb_linearize() on a non-linear frame hits BUG_ON(skb_shared()).
-> 
-> Use skb_share_check() instead.
-> 
-> Fixes: 3e1e58d64c3d ("net: add generic selftest support")
-> Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+Hi Sasha,
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+On 10/9/26 17:32, Sasha Levin wrote:
+> Building arm64 allmodconfig with clang fails:
+> 
+>   drivers/resctrl/mpam_internal.h:207:7: error: ignoring return value
+>   of function declared with 'warn_unused_result' attribute
+>   [-Werror,-Wunused-result]
+>     207 |              mpam_mon_sel_lock(_T), mpam_mon_sel_unlock(_T));
+> 
+> mpam_mon_sel_lock() is __must_check and can fail: for an MSC accessed
+> through the MPAM-Fb firmware interface it returns false when called
+> from a context that cannot sleep. The mon_sel guard was defined with
+> DEFINE_GUARD(), which calls it unconditionally and discards the
+> result, so a guard(mon_sel) user would carry on without the lock and
+> release it on scope exit. The unconditional guard only exists as the
+> base for the conditional mon_sel_lock variant, which is the one
+> actually used.
+> 
+> Define mon_sel_lock directly as a conditional guard class instead, as
+> posix-timers does for lock_timer: the constructor returns NULL when
+> the lock cannot be taken, and the destructor only releases a lock
+> that was taken. ACQUIRE(mon_sel_lock, ...) works as before, including
+> ACQUIRE_ERR() returning -EBUSY on failure, and there is no
+> unconditional variant left to misuse.
+> 
+> Reported-by: kernelci.org bot <bot@kernelci.org>
+> Closes: https://d.kernelci.org/i/maestro:66f869ecbbb5b8592562ffd89f049c5ddf682547
+> Closes: https://d.kernelci.org/i/maestro:647269216758644837afcaac8e67d8dbe713a0e2
+> Fixes: 0db1715e4c9c ("arm_mpam: propagate MSC access errors for hw_probe functions")
+> Assisted-by: LLM
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+
+Looks good to me.
+
+Reviewed-by: Ben Horgan <ben.horgan@arm.com>
+
+Thanks,
+
+Ben
+
+> ---
+> Changes in v2:
+> - Use an if statement in the destructor, as suggested by Ben Horgan.
+> 
+>  drivers/resctrl/mpam_internal.h | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/resctrl/mpam_internal.h b/drivers/resctrl/mpam_internal.h
+> index ee7c3953a9b6c..1f86cc158100b 100644
+> --- a/drivers/resctrl/mpam_internal.h
+> +++ b/drivers/resctrl/mpam_internal.h
+> @@ -203,9 +203,10 @@ static inline int mpam_mon_sel_lock_init(struct device *dev,
+>  	return devm_mutex_init(dev, &msc->mon_sel_mutex);
+>  }
+>  
+> -DEFINE_GUARD(mon_sel, struct mpam_msc *,
+> -	     mpam_mon_sel_lock(_T), mpam_mon_sel_unlock(_T));
+> -DEFINE_GUARD_COND(mon_sel, _lock, mpam_mon_sel_lock(_T), _RET);
+> +DEFINE_CLASS(mon_sel_lock, struct mpam_msc *,
+> +	     if (_T) mpam_mon_sel_unlock(_T),
+> +	     mpam_mon_sel_lock(msc) ? msc : NULL, struct mpam_msc *msc);
+> +DEFINE_CLASS_IS_COND_GUARD(mon_sel_lock);
+>  
+>  /* Bits for mpam features bitmaps */
+>  enum mpam_device_features {
 
