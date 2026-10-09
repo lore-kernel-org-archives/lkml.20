@@ -1,95 +1,122 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C386E3F54BD;
-	Fri,  9 Oct 2026 12:15:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4388A42A152;
+	Fri,  9 Oct 2026 12:17:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791548128; cv=none; b=qNRHy4LGfwRQgh7kB5XGOV1sBLWEZC/7GDnyqFBP5CUc9TOdA3AEwMIUFjQSLhZD0gt1LkGyWlwvOI8z6NA8gMCiMlQL8OFqWBMvYu+73/MXbEeg4E+hiQuKgPYWvzhVg6kpK28xTHSvpGY08J0uMXOkIDxRwG4aOTSQKbq5AWo=
+	t=1791548227; cv=none; b=dDKcTTS2SKPAMOOLfNcRjgpUWx1m8VZCnaSHDMAkSw9rPQmRAZGpVVkUG+3wKcOcq/6sb1/h3c9ophmTEsFkk5W0UfhWScWDwcFal+xF/5/UglhGXxjfW2NlcaJWCSqScn0nMYjX3hI2xCCz/C4P9i1fpAHyETBF5mF7j6gGRio=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791548128; c=relaxed/simple;
-	bh=9s6+go964v+F7zQjZYUB7oxVX1+N07SWkvoqIRb0A4Q=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=aXZcl7+1utOXrbEaui9zwUjPaRM4STS5p1RSRgjvnRpXoZuxd0QdWGVIt11DDApbjkxSC+c982PsKSo99P6zgrsDUuvd5mKdKUT/YXgQ49deE+o9oov+mILXf6IBsDePNq5qZ2EIOoxEZncYfQ6aXk1naNWGjqwpal4VkGNq1xw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WvP1gpYe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791548227; c=relaxed/simple;
+	bh=kf9dg50ujd8CthO4zIArtdQ1S9/f19tZLRH75JxQSkE=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=KuvCsbXQKJ1bTlfIMNvzhLV4sPYEPns98JWbZYYCNBNnXTyLHs0q7yyiHbldMJcDLDGvlHVePzf5YeBC/El1mF3RQ7Mui2eO4f6n9GJQHZjv65k0aCkn5Fy4biACWAze6BM3VD3D/WjU3cdcYq38UY5RXX9oafDyKhZfLXxRPVA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PL9IPTYq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WvP1gpYe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57A281F0089C;
-	Fri,  9 Oct 2026 12:15:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PL9IPTYq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 834B91F000FF;
+	Fri,  9 Oct 2026 12:17:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791548116;
-	bh=qYOnwGjU9FvWidAAprn3NnZ89m+Pt/3YnDA4zAbg1Tk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=WvP1gpYeIki1iYEbjU6ZR3nlyFVirOe7SqIq5+qI4bBLob4GIv55ZFGf1RoROqW2Z
-	 wTliFrXrBuKvO9FbYsu9ptbE/PqESi1st9zxAWgcoKslhid8SirghaC1+UhxEUx4Vg
-	 qw1XGbpEAaGUqTwIfwB4tLYCR0Jtc4wPSXvtCWb+3IH46rYO7gmt3Cl6PKz42qqics
-	 v7XqGUYOBuQfMy/rPNjPdF7Pudn0m0ACg2b8vDQG263Jk8geJW6JH1crEQlp0Z8jMk
-	 8bEUJAxld6ehXEIeU+3NLuv5hQcMjrOt/AG9bmbO/UFxLHV+siRghzH8/Zjsfrqyoz
-	 3mBUtq40ZLRaA==
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 09 Oct 2026 14:15:06 +0200
-Subject: [PATCH 3/3] dt-bindings: arm: Add the actual power domains on
- U8500
+	s=k20260515; t=1791548220;
+	bh=6/A+on6QTcsynPBLF2wcK5YT384IqIK0ywry4fp4NAo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=PL9IPTYqlfvHL+IF9BEowQEj+uuzDibLKxsIj7RBMNCrBx/PdQkyBGqsi9P9NWrWf
+	 X68m6skXLFM4qKc18VNrF8rDSSacoinKTCYD15iSoBkKIbT/Q5n9exe2z42IvNKqON
+	 pXUKAtJmt82QV4EfJDDbNdJX+o4OeJrQG2S22PLdP17PyfptkVlWxlL04uanmVqasy
+	 0C9xFCZ4laTK1J6p10pWLJOzgQLQy64Te5n9pFKsg25loGY2K9vcqtY9wrDW6wR53M
+	 TfvExeqSQUPo1jXgoqfo+VOaGLHWtr9n/l31zaHyuncoJW1kQH1VuqyPm7kKHTy4xf
+	 oGwY+qx3CQy3A==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xF9X0-00000000zPz-1ZsQ;
+	Fri, 09 Oct 2026 12:16:58 +0000
+Date: Fri, 09 Oct 2026 13:16:57 +0100
+Message-ID: <868q472hmu.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Fuad Tabba <tabba@google.com>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
+	kvm@vger.kernel.org,
+	kvmarm@lists.linux.dev,
+	will@kernel.org,
+	catalin.marinas@arm.com,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	steven.price@arm.com,
+	aneesh.kumar@kernel.org,
+	oupton@kernel.org,
+	gshan@redhat.com,
+	joey.gouly@arm.com,
+	yuzenghui@huawei.com,
+	linux-coco@lists.linux.dev,
+	gankulkarni@os.amperecomputing.com,
+	sdonthineni@nvidia.com,
+	alpergun@google.com,
+	fj0570is@fujitsu.com,
+	WeiLin.Chang@arm.com,
+	lpieralisi@kernel.org,
+	enju.kohei@fujitsu.com,
+	sudeep.holla@arm.com,
+	jonathan.cameron@oss.qualcomm.com
+Subject: Re: [PATCH v23 14/14] KVM: arm64: Prevent unsupported vcpu features for VM types
+In-Reply-To: <CA+EHjTxZM2kEtsG7+pq7zygA8Mhwzai9PL7+ex1K35BPVSt6hQ@mail.gmail.com>
+References: <20261007073537.2454351-1-suzuki.poulose@arm.com>
+	<20261007073537.2454351-15-suzuki.poulose@arm.com>
+	<CA+EHjTx-niYPnnRDvAAiY3MXLpSYau_PhiBTCiE9mOYUChASPQ@mail.gmail.com>
+	<86a4on2qxz.wl-maz@kernel.org>
+	<CA+EHjTxZM2kEtsG7+pq7zygA8Mhwzai9PL7+ex1K35BPVSt6hQ@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-ux500-power-domains-v7-3-rc1-redux-v1-3-5eb1b90bc35e@kernel.org>
-References: <20261009-ux500-power-domains-v7-3-rc1-redux-v1-0-5eb1b90bc35e@kernel.org>
-In-Reply-To: <20261009-ux500-power-domains-v7-3-rc1-redux-v1-0-5eb1b90bc35e@kernel.org>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
- Linus Walleij <linusw@kernel.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: tabba@google.com, suzuki.poulose@arm.com, kvm@vger.kernel.org, kvmarm@lists.linux.dev, will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com, joey.gouly@arm.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com, sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-This file has been left in an unfinished state just defining
-the root power domain for the U8500 SoC. Fix it up by adding
-the actual existing power domains in this SoC.
+On Fri, 09 Oct 2026 11:10:55 +0100,
+Fuad Tabba <tabba@google.com> wrote:
+> 
+> Hi Marc,
+> 
+> On Fri, 09 Oct 2026 09:55:52 +0100, Marc Zyngier <maz@kernel.org> wrote:
+> [...]
+> > A rebase would be a terrible idea. This thing *must* go on its own
+> > branch, and not depend on anything else.
+> >
+> > I can however fix things at merge time. is something like this what
+> > you had in mind? It compiles, and is therefore perfect...
+> 
+> Yes, that's what I had in mind, but please keep the PSCI 0.2 check
+> from kvm_vcpu_init_check_features():
+> 
+>         /* EL2 implements PSCI 1.1; the host must not dispatch as 0.1. */
+>         if (vcpu_is_protected(vcpu) &&
+>             !test_bit(KVM_ARM_VCPU_PSCI_0_2, &features))
+>                 return -EINVAL;
+> 
+> Folding the allowed set into the mask covers the rest of the block you
+> dropped, but a mask can only reject a feature, not require one.
+> Without the check a protected vCPU can init without PSCI_0_2, and the
+> host then dispatches the forwarded calls as PSCI 0.1, while EL2
+> returns 1.1 to the guest.
 
-The PRCMU code and old regulator driver is mentioning some
-*_RET domains, this means "retention" and is a state in the
-domain and not a domain of its own.
+I think eventually we will have to implement this stuff as a pair of
+masks on a backend basis: one for what is acceptable, one for what is
+mandatory.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Linus Walleij <linusw@kernel.org>
----
- include/dt-bindings/arm/ux500_pm_domains.h | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+In the meantime, I'll fold the above hack in.
 
-diff --git a/include/dt-bindings/arm/ux500_pm_domains.h b/include/dt-bindings/arm/ux500_pm_domains.h
-index 9d94801d8b89..f7a9fc101fb2 100644
---- a/include/dt-bindings/arm/ux500_pm_domains.h
-+++ b/include/dt-bindings/arm/ux500_pm_domains.h
-@@ -8,6 +8,21 @@
- #define _DT_BINDINGS_ARM_UX500_PM_DOMAINS_H
- 
- #define DOMAIN_VAPE		0
-+#define DOMAIN_VARM		1
-+#define DOMAIN_VMODEM		2
-+#define DOMAIN_VPLL		3
-+#define DOMAIN_VSMPS1		4
-+#define DOMAIN_VSMPS2		5
-+#define DOMAIN_VSMPS3		6
-+#define DOMAIN_VRF1		7
-+#define DOMAIN_SVA_MMDSP	8
-+#define DOMAIN_SVA_PIPE		9
-+#define DOMAIN_SIA_MMDSP	10
-+#define DOMAIN_SIA_PIPE		11
-+#define DOMAIN_SGA		12
-+#define DOMAIN_B2R2_MCDE	13
-+#define DOMAIN_ESRAM_12		14
-+#define DOMAIN_ESRAM_34		15
- 
- 
- #endif
+Thanks,
+
+	M.
 
 -- 
-2.55.0
-
+Without deviation from the norm, progress is not possible.
