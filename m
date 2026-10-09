@@ -1,198 +1,148 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E96A33AD8B;
-	Fri,  9 Oct 2026 15:38:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92CE84E77FC
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 15:39:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791560340; cv=none; b=uVJ30owGeZBtjKSWlLfDEocigQT3HHEEu2+XoWbTgg9yiADiW4C09Yp0tUCwmFvr3Jnw46S2LoTDJOtzqwVA4eNc5WnGO/WjQIRRHTT6cxcGEPIWE1Id7k+WigPB5bD4KwsEhgwUJpG4QBQpAG/D/n2lqcqDZHdKHFjliJYXML4=
+	t=1791560358; cv=none; b=DUPTPDKro5ajkfFt7lWGtuqKR0b5x6O5NC50XZy1nlD/C5soP6Ek5FaAFYlAwc2joimdPKvD+Inj8PEcSUU0GFAFv3g9mjh7+r9NL4a1ly2lbMVd92PlmoEBeO3VQ+6Qw+VZfIgkD+NX9F98LtLny+0uqQSU7+KGiaxRes5HsiI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791560340; c=relaxed/simple;
-	bh=fnMnrukx9Glf3GXBIbnRudycMsbdTuWzE0WiXwuRgL8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=t+PVKX++E3Yl1HTetsnMM+Kxu1/xnDCny57M77onnwMEi+fuLF0N4R8pIzT5Sn/lSvkT+jz8AvvCJMvbPlcRbhfgVrlHOXJ2rXzec57b9XyNvPBFrGGuOrYlWDa2Ad/kedMcMj46bV8iu3TCi3W5CAqyiDukgm0quC4NJEGfOr8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XHxTJXV6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791560358; c=relaxed/simple;
+	bh=TjffoSVP4U16dnt8mBcrf/Uk0C+Nixv+EuwNTgnHh+Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JUlWCR6/qX8EyNc6iJUEtZfRM9OJD/8pxTTnimL9CTcrMS/0KzSj58vgt578oePBkMp8spJQjGY5x+GLamIVUEqWliBv1Kga+DwTLHuPu6eqmXc3LajP0WFq0aytbDmsS+u8hqUG9y1oAv8id2+Bc6lVy3FDjieakUEnpInMCAs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OsRnOCbd; arc=none smtp.client-ip=209.85.215.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XHxTJXV6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98CF51F000FF;
-	Fri,  9 Oct 2026 15:38:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791560338;
-	bh=EyYI5Bvz0oSkR9/M8GqMlgc8PLg+HxYsg2cxJ36I6hA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XHxTJXV6LhebRwBQbr22QEuSv0ftXtEBZTHx7yK2dU6dmmmuTqyK6ekFQ5h5LNt2a
-	 RBbB1gfPVKOUXlbEfz2C3rS3ASpMlEAI12bj+t8bMEQJf9j2X10yakpRvzRX+MfAD1
-	 y7hgB3v8Za7bhdwET4SglQiBrS5Way11BTqokd2NUXyuy2PjCjzSBrjq0KOx+TostC
-	 I32B2gN3+1zQv5QeuZcf9KTjWJUKhtwzO3AegZZ2hdLO6pYYPZPaiwyoOYyIziggSi
-	 vQyDKZttOZwOrDPRDocNEOwtedEpaSpDLnZWaJfY4dLn8fJb/FhTLUbJnMX5KxigqN
-	 jH8GnLydkadBQ==
-Date: Fri, 9 Oct 2026 10:38:57 -0500
-From: Rob Herring <robh@kernel.org>
-To: Quchaosheng <quchaosheng000406@163.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: display: ti,tpd12s015: Convert to DT
- schema
-Message-ID: <20261009153857.GA1690986-robh@kernel.org>
-References: <20261009105601.301891-1-quchaosheng000406@163.com>
- <20261009105601.301891-2-quchaosheng000406@163.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OsRnOCbd"
+Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cc1bc88a20eso4515191a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 08:39:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791560356; x=1792165156; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=c8f77HHpsEH+i+dnyZRMXGpE/YS81V6WgUKKKT/nSTs=;
+        b=OsRnOCbdRbeV2F6Sgld2+YODaq1d+Sxxp6QtaufZzSy0p1p/RaYQijJnWydKRzG67R
+         Kh6wRa/tgdkRD+M/KdDM7PzPNghRcJVhI0AVuYpoMPL6/W6T/o0d/hTTwfzuWQI4Fp1d
+         k+tnJsQzibIK6zlMmBHWK+1PpdCFTmOFJJj0KaUMhj/k2R/hEv+eoYXP/UsY+zp+GSAg
+         7ienKE13+dL04vCVrYEE3g5XVxBs2sf055PprSpKpmXrkJGAyYy/IEi34+71BctKnml1
+         KHZOw2WE5Wpwu8QccuQRgSkcvDI2GcHdW8DWA4V43vHMN8FCDlwO1o90HF6qgmjNef16
+         lhDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791560356; x=1792165156;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=c8f77HHpsEH+i+dnyZRMXGpE/YS81V6WgUKKKT/nSTs=;
+        b=TgecR8CS4DptRkxdYec9sFzjU3pzhdtgag/FCUQtOCLkQOkEWc61/dcNGJst8X6oBo
+         +XF1wn74V0ZezuGf1y6qayrEsuvqRBVgyXoLuVofR8Q4RdSeS0hXibjxcrLFbCPmiHm8
+         dYBci+gfeKW4NCjkgCOSeSYCoGyHkyxlUkfYqdI0ZRIBIoOLDKgLxrCVgSU3tZ5VJCDo
+         z8U48WBBLPCIXrkPk6CFMSM0UOYFmiBuybzG3F+yxDlQXiv+8FTUtwwZruW7SH2CS0Rr
+         nZN3BsbpyqfzklXzqIEUsl6DAke1Q+m305uZNVlCPbtnuJPHswLCFlqpyS/bZRjWQGfU
+         r/4w==
+X-Forwarded-Encrypted: i=1; AKwUvBz+YPhpMIWK6YyWM7wNVbfxU8GtV/uTUzT8E2m6iDCEkdYa0tUwvgMm7RBs2NkAaKlNGPXpSjdPg5z/mU4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJwqxZ2Gl3xaxUNZoF4z6/6R5z3GwcdsdXRJDmkVWDuAcv86O55
+	DNZmCe4tkYSILXTs9WHeU6n4BeJ2xUQJkVbJf6NkyYiA+8nlu/I7iVTu1NnGm0ouXQ8=
+X-Gm-Gg: AYBFou3M/P/mgfg7IEobR+3/PnVWjGGV4N+97Ax5zEC9B6zc/YEYWZ2r5vnKxQSAqXR
+	znXqkgXDG3NpeTV+BRQ0u+ILtQeSDu7+GzbPB0V+Mgi5T/yssMwCbDIv+zYRiSFk057xjS7rAmV
+	11exe3WSzXLpeyoZmmbcZ2C31FGZK115L4ombJ3M5hIHIvl1v7K53M6vGEacQijV+141je768c1
+	JpMgKmXbD9YKgnPuYlQXQsegzyym3uQfC7rs7j3c/yGsnx55bAakf+o1NcfrBB9iojcPC3+dz39
+	kmVdPw8WxBOoTGjohPthxB4iVkpsUtI06MHBC5uXSSHx3RgCTtpK55K3OfdHRQpf4EU5zXJC5/F
+	DNAyzgyhxiY2H784xs2LIGA074BxL7v1psLLbjMJd93EACITDchYzlotPdVOeci/F/NvsApkD/p
+	++pH0lL/Dbkma4HAIMgjn601ZIyLf/RF60bHLkhjHo/2aPhzbfXysQAi/JhVMiJR/t7eH79zj0q
+	5DaTUg=
+X-Received: by 2002:a17:902:ecd1:b0:2e5:a355:56d8 with SMTP id d9443c01a7336-2e842e1555dmr20384135ad.42.1791560355778;
+        Fri, 09 Oct 2026 08:39:15 -0700 (PDT)
+Received: from mincom1 ([14.67.155.18])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8421ae999sm11847705ad.31.2026.10.09.08.39.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 08:39:15 -0700 (PDT)
+From: Jihong Min <hurryman2212@gmail.com>
+To: Guenter Roeck <linux@roeck-us.net>,
+	linux-hwmon@vger.kernel.org
+Cc: Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-api@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/5] hwmon: Introduce uhwmon for userspace implementations
+Date: Sat, 10 Oct 2026 00:38:39 +0900
+Message-ID: <cover.1791531025.git.hurryman2212@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261009105601.301891-2-quchaosheng000406@163.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 09, 2026 at 06:55:59PM +0800, Quchaosheng wrote:
-> From: Chaosheng Qu <quchaosheng000406@163.com>
-> 
-> Convert the TPD12S015 HDMI level shifter binding to DT schema.
-> 
-> The TI TPD12S015 is an HDMI companion chip that combines a level shifter
-> and ESD protection circuitry. Document the two ports it exposes between
-> the HDMI transmitter and the connector.
-> 
-> The tpd12s016 is software compatible with the tpd12s015 and is listed as
-> a fallback compatible by am57xx-idk-common.dtsi, so accept it as a
-> fallback of "ti,tpd12s015". The driver matches on "ti,tpd12s015" only, so
-> a board using the tpd12s016 must list both compatibles.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Chaosheng Qu <quchaosheng000406@163.com>
-> ---
->  .../bindings/display/ti/ti,tpd12s015.txt      | 44 ---------
->  .../bindings/display/ti/ti,tpd12s015.yaml     | 90 +++++++++++++++++++
->  2 files changed, 90 insertions(+), 44 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
->  create mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
-> deleted file mode 100644
-> index 26e6d32e3f20..000000000000
-> --- a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
-> +++ /dev/null
-> @@ -1,44 +0,0 @@
-> -TPD12S015 HDMI level shifter and ESD protection chip
-> -====================================================
-> -
-> -Required properties:
-> -- compatible: "ti,tpd12s015"
-> -
-> -Optional properties:
-> -- gpios: CT CP HPD, LS OE and HPD gpios
-> -
-> -Required nodes:
-> -- Video port 0 for HDMI input
-> -- Video port 1 for HDMI output
-> -
-> -Example
-> --------
-> -
-> -tpd12s015: encoder@1 {
-> -	compatible = "ti,tpd12s015";
-> -
-> -	gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>,	/* 60, CT CP HPD */
-> -		<&gpio2 9 GPIO_ACTIVE_HIGH>,	/* 41, LS OE */
-> -		<&gpio2 31 GPIO_ACTIVE_HIGH>;	/* 63, HPD */
-> -
-> -	ports {
-> -		#address-cells = <1>;
-> -		#size-cells = <0>;
-> -
-> -		port@0 {
-> -			reg = <0>;
-> -
-> -			tpd12s015_in: endpoint@0 {
-> -				remote-endpoint = <&hdmi_out>;
-> -			};
-> -		};
-> -
-> -		port@1 {
-> -			reg = <1>;
-> -
-> -			tpd12s015_out: endpoint@0 {
-> -				remote-endpoint = <&hdmi_connector_in>;
-> -			};
-> -		};
-> -	};
-> -};
-> diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
-> new file mode 100644
-> index 000000000000..1927da3bd736
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
-> @@ -0,0 +1,90 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/display/ti/ti,tpd12s015.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: TI TPD12S015 HDMI level shifter and ESD protection chip
-> +
-> +maintainers:
-> +  - Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-> +
-> +description: |
+This series introduces uhwmon, a generic hwmon interface connecting
+userspace implementations to the kernel. It exposes hwmon sensor and
+attribute definitions to userspace through <linux/hwmon.h>, allowing
+userspace drivers to create standard hwmon sysfs attributes. uhwmon
+forwards reads and writes through /dev/uhwmon. The hwmon core handles
+numeric text conversion and newlines for kernel and userspace drivers.
+The series also adds kernel documentation explaining the interface and
+how to use its UAPI.
 
-Don't need '|'.
+In the October 2024 IT87 discussion [1], a read-only hwmon driver
+configured from userspace was suggested for chips without datasheets and
+for testing new chips. Guenter Roeck said he would need proposal
+details, but questioned whether the hwmon sysfs ABI justified new kernel
+infrastructure: userspace drivers would still need hardware knowledge
+and access. He suggested an API between those drivers and libsensors as
+an alternative.
 
-> +  The TPD12S015 is an HDMI companion chip that combines a level shifter and
-> +  ESD protection circuitry. It sits between an HDMI transmitter and the HDMI
-> +  connector, and provides control over the level shifter enable and the
-> +  hot-plug detect signals.
-> +
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - const: ti,tpd12s015
-> +      - items:
-> +          - const: ti,tpd12s016
-> +          - const: ti,tpd12s015
-> +
-> +  gpios:
-> +    description:
-> +      The CT CP HPD, LS OE and HPD GPIOs, in that order. The first controls
-> +      the level shifter, the second enables the level shifter outputs and
-> +      the third reads the hot-plug detect line.
-> +    maxItems: 3
+But I see practical value in retaining hwmon: the use case below already
+works with unmodified sensors through its existing hwmon interface. A
+common bridge can similarly let other daemons expose measurements
+without adding a new input path to existing hwmon applications, reducing
+duplicated integration work. The idea is conceptually similar to
+dummy_hcd with a userspace gadget interface.
 
-Use this form instead:
+uhwmon's goal is to let applications using the standard hwmon interface
+access sensors without mainline drivers, without adding per-device
+support to userspace libraries or building and loading separate DKMS
+modules. In theory, projects such as wireview-hwmon [2] could replace
+their device-specific DKMS module with uhwmon and adapt their daemon to
+use it. My current use case is bridging the Tapo API [3] to hwmon, using
+a TAPO P110M smart plug to measure my system's power draw at the wall in
+place of an ACPI power meter. I have tested this setup in an Ubuntu VM,
+including live readings, daemon disconnect and recovery, and reboot startup.
 
-items:
-  - description: ...
-  - description: ...
-  - description: ...
- 
-> +
-> +  ports:
-> +    $ref: /schemas/graph.yaml#/properties/ports
-> +
-> +    properties:
-> +      port@0:
-> +        $ref: /schemas/graph.yaml#/$defs/port-base
-> +        unevaluatedProperties: false
+[1] https://lkml.iu.edu/2410.2/11841.html
+[2] https://github.com/emaspa/wireview-hwmon
+[3] https://github.com/mihai-dinculescu/tapo
 
-No extra properties, so use:
+Jihong Min (5):
+  hwmon: Export sensor and attribute definitions to userspace
+  hwmon: Expose attribute validation and string helpers
+  hwmon: Add a generic interface for userspace implementations
+  hwmon: Reject truncated attribute names
+  docs: hwmon: Document the uhwmon userspace interface
 
-$ref: /schemas/graph.yaml#/properties/port
+ Documentation/hwmon/index.rst                      |   1 +
+ Documentation/hwmon/uhwmon.rst                     | 141 +++++
+ Documentation/userspace-api/ioctl/ioctl-number.rst |   1 +
+ MAINTAINERS                                        |   2 +
+ drivers/hwmon/Kconfig                              |   9 +
+ drivers/hwmon/Makefile                             |   1 +
+ drivers/hwmon/hwmon.c                              |  38 +-
+ drivers/hwmon/uhwmon.c                             | 641 +++++++++++++++++++++
+ include/linux/hwmon.h                              | 356 +-----------
+ include/uapi/linux/hwmon.h                         | 372 ++++++++++++
+ include/uapi/linux/uhwmon.h                        |  64 ++
+ 11 files changed, 1267 insertions(+), 359 deletions(-)
+ create mode 100644 Documentation/hwmon/uhwmon.rst
+ create mode 100644 drivers/hwmon/uhwmon.c
+ create mode 100644 include/uapi/linux/hwmon.h
+ create mode 100644 include/uapi/linux/uhwmon.h
 
-(and no need for unevaluatedProperties)
 
-> +        description: HDMI input from the transmitter.
-> +
-> +      port@1:
-> +        $ref: /schemas/graph.yaml#/$defs/port-base
-> +        unevaluatedProperties: false
-> +        description: HDMI output to the connector.
+base-commit: 7b63ef2d55f24519e7e9e5f4d15dbea03f126e40
 
-Same here.
 
-Rob
+Sincerely,
+Jihong Min
