@@ -1,106 +1,101 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD50349738E
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 09:46:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFA4F3A2572;
+	Fri,  9 Oct 2026 09:46:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791539188; cv=none; b=DrO2v7ztEnCKJq55X8/aiLMtOH4UChumkwKQpdp4YieyxXvrPpFKAoMsIWgBerznUaWErwFUVDgTYYnGOnRYU63DcHKWdMWZ0Tfx6XfnOBKTGXtK4L7Nj3t7leKjhHkmvzWodpPvsW3GxsxSBIHHYcR0Zny552F9rd/OVgR+Kgc=
+	t=1791539201; cv=none; b=AIykYzRKMeBpmkR0C9PlVJVAiS1PjCRLhjpVFcnGqyR4sp5Xqa4rZ1O4MYX64v8auc0iMuFrXqbs2RrdFvHGygF0SL8jMYev+8fAD38iVBbEwBQcrqN9KD/mIgyZKrf5fG7YL6ue/0Z5GVaVEyshfDS8+Zo1GgaRGQahgBEBiHE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791539188; c=relaxed/simple;
-	bh=RAJQnKkDBXdd5vQ/P+np194z6Ot3PXYd2Bw3RnHlVSU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=W17365Iv1XuH/8Ld3Auyc7/NGis9vBueUPf0GF+fyKjLxj1v1LDW2yLN8kzc+JHOXCK2ovW3KH5JTbXwFik1elrOLYLHupLjNDzSMWCZUl0SBjqMN8fTbV6ATW3kh3rFgBsMmBhAqouHEM93XZ1ye0hxCLv5YxzljTFP9GKkJ+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OfpnW1d1; arc=none smtp.client-ip=209.85.221.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791539201; c=relaxed/simple;
+	bh=1njo2TJtWy+BvJe0zwGCEK+mas3Hn8jAsrwNaSuqVn4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TGd5eErOLD9an2zUzAGALz2ysUo4jmBQ+hnnZmeGV085aXDrr0jEMwuUH6Dcrg3njXWJTC2PYm0Tq+q0A8E7YchGytvS6wOMicNiqvY0M+h0tkFxq2aPfLvSI/41W5lsLoRB+ptX0BPU4+7XueWY7tTtylU9zNgd33E0/K+5ANY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a1zK0Zsx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OfpnW1d1"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-487048857f6so3460841f8f.3
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 02:46:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791539181; x=1792143981; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sdjcKesxfT3Y1JRnD0eSSSUTshq47A90dMPNUITOibc=;
-        b=OfpnW1d1makdUJB4XeJQfm7B+XJknyWmFqynfa6dtaiH1xURMxMxWXENP8548ANVdm
-         7kkdBhqHRqOTkmPtKTUbixXEQkMGZ6fjxaZO3exJiF9JHOPJPMeeHJIXxwRjcG06Erkh
-         wYKibK54hN1kbJCqx1xTFDRf/o3BbstNERrJYUMs9dM9lfw3LzXrbjd2YkXeqR4AnMOf
-         7XBMPx7XAONsTTnCWaZ/Bmz90yzKNRb4GBuLighXt+YdB3PW3fv0N6NzqlT/RMim00fD
-         Kvqca1xtXhVHVpjlXAeP1Gbxp9TfrA0/5MCCBhCX4Bh3rqhPPXv8UsrauM7+WXeBQRCs
-         6ijQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791539181; x=1792143981;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sdjcKesxfT3Y1JRnD0eSSSUTshq47A90dMPNUITOibc=;
-        b=uabnip20MTyp3Eri2mVhnHFUz7BdbkTqjYueD204si6cfAzHzmuo7zjHwi/FaG8xHU
-         OnDyLgT4z/jPMMQBqN+nNQhUz6QbTCzsVCojerLeZ6sDF3JmdNUS4bxgDa+bJu6l+K00
-         Z4i0NPPn46BvexpEn/jA28mJDQJnIVh6QKzCwgDdRihm8+E7oGHjQay2lRs9CfQyko+v
-         dDY5ZmWFuixbftAw2w6HgafypXrlgV3Ler611zKxEd2XQzxQMaOaWXQc+UhWNsaP1aW9
-         UHEh8WyAZNCoPpJbgLeyQw5AeEp8jZSKR7BPYgr40qruZZ2k/IQohjSlZhQpJabpsPTw
-         yxKw==
-X-Forwarded-Encrypted: i=1; AKwUvBysIAJU239yQPw1Kc8QSJ2srPnWyh7Dgpe9B+KhV5y8KkbZstmhyDB6RY76AJiqfPzScLvtJrtedCh0e9w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLYy4vMvGbaSVWV4e5xGRugcNLLorCpwA0FpQJQeyefDFj2fgC+
-	vWTY9wCocYuEd8QmCZ7HdnbdMwnchz70uMXs21EspX9PBdr07D1nUfPBkt9pBHBN
-X-Gm-Gg: AYBFou2h1ZM1tcBo7/EmF+ipOT3yXHGvRmauA3DYsSxuylCZJsSEO+OpoTf4ZG+MaVE
-	+f6A97j+hMc6dmee7yjj3BbDZF79N93F5DggD1NSzF8GiT99BUujg0gmFxkGzz4RCd/7xNU9Rha
-	fChDUfJoAfLMcvZOb+7YembY1/6SD891TU6j9lNHiCKCw4N6KLdsODAih9yQzteNcfwNfoz22M+
-	Bbqu7qVUYNGVIzLsNX4EjgGqLAaADggwXu/4Ks4M1sqoahrKM8z21SxBLpMj6mIB9NOaOozztx5
-	J7+SREvEXZuXoxpUjbc0DUgK0Jezz9nnNgBxPrqfFElyJ+xCU2eivLIp4dQjxZ8EuwaqRzDzvGH
-	AYQPZ1zEC6fWjhAt3ECPpA/sSmZ9AGTyW2VnRNEDuBc3kJmg7l3w+B0EZXLbE6e3ziUcNMh613S
-	MRcXtPWk95gT8PKQlnLdz0lRw1TvO30e5zgGQvsjDWFGtExufpp5w5o88srsj36CgK8V+ztUi+i
-	ZfX0b/DNYuJEVdExQpviURm2b+iTIi4xDs25OoyD+1+xABqP0V+hQ==
-X-Received: by 2002:a05:6000:1ace:b0:48c:571a:a1aa with SMTP id ffacd0b85a97d-48dba9dacf6mr2801939f8f.19.1791539180541;
-        Fri, 09 Oct 2026 02:46:20 -0700 (PDT)
-Received: from nixos-office (90-182-211-1.rcp.o2.cz. [90.182.211.1])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9adeacdsm3051833f8f.55.2026.10.09.02.46.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 02:46:20 -0700 (PDT)
-Sender: Julian Braha <julian.braha@gmail.com>
-From: Julian Braha <julianbraha@gmail.com>
-To: nathan@kernel.org,
-	nsc@kernel.org
-Cc: linux-kbuild@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Julian Braha <julianbraha@gmail.com>
-Subject: kconfig: cleanup stale comment about 'keys' array
-Date: Fri,  9 Oct 2026 10:46:17 +0100
-Message-ID: <20261009094617.17322-1-julianbraha@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a1zK0Zsx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FF091F00893;
+	Fri,  9 Oct 2026 09:46:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791539196;
+	bh=SfUliCtvkX/s0890PejxBlK3+HjZuFrnVJ8DjoIrU/0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=a1zK0Zsx7ZXb8d6gZbaaeN2GDdXoNvpTmhx3ruZrW2/wTXpnNNSYskxUliqNa+KSA
+	 cdiLwp67xRkq/juybDXEjPH4KtywsiXhiAjl0xAQd9s5ixejNCC0mOFFFXhIyVcEZh
+	 28+dzn9b7WG/joBBY5pw3MFtDGZyAh12NzRFfjgwJiSXyedRY5qD7ETXtgO69s+7bf
+	 e0Js+kthH5d3BrIiWz5LIJvzr9WJeqVAyZeufeKMefD8h9Gvo0I/UNhUjOwyWdKgw1
+	 NkckqdI6rL9yjhPPIDeFpiXPSk9FnIN28W5ngz3mVWG98QT6U0IoU+ws8mJDI8iKrh
+	 pDR4dNwHIVZwQ==
+Date: Fri, 9 Oct 2026 11:46:33 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com
+Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+	Loic Poulain <loic.poulain@oss.qualcomm.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+	Atanas Filipov <atanas.filipov@oss.qualcomm.com>, Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>, 
+	Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Vikram Sharma <vikram.sharma@oss.qualcomm.com>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Daniel Scally <dan.scally@ideasonboard.com>, 
+	Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>, Yuchan Nam <entropy1110@gmail.com>, 
+	Jai Luthra <jai.luthra+renesas@ideasonboard.com>, Robert Foss <rfoss@kernel.org>, 
+	hariram.purushothaman@oss.qualcomm.com, pshrotri@qti.qualcomm.com, johannes.goede@oss.qualcomm.com, 
+	linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Prashant Shrotriya <prashant.shrotriya@oss.qualcomm.com>
+Subject: Re: [PATCH RESEND 25/45] dt-bindings: media: qcom,sa8775p-camss: add
+ pixel path variant
+Message-ID: <20261009-imposing-spaniel-of-tempering-e32e30@quoll>
+References: <20261007090041.3732717-1-gjorgji.rosikopulos@oss.qualcomm.com>
+ <20261007090041.3732717-26-gjorgji.rosikopulos@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261007090041.3732717-26-gjorgji.rosikopulos@oss.qualcomm.com>
 
-'keys' was removed from 'dialog_textbox' in:
-commit e14f1242a8be ("kconfig: menuconfig: simplify global jump key assignment")
-but the comment referencing it was never removed.
+On Wed, Oct 07, 2026 at 12:00:21PM +0300, Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com wrote:
+> From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+> 
+> Document qcom,sa8775p-camss-pix for CAMSS configurations that use IFE
+> pixel paths. Keep qcom,sa8775p-camss for the legacy VFE resources.
+> 
+> Co-developed-by: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+> Signed-off-by: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+> Co-developed-by: Prashant Shrotriya <prashant.shrotriya@oss.qualcomm.com>
+> Signed-off-by: Prashant Shrotriya <prashant.shrotriya@oss.qualcomm.com>
+> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 
-Let's cleanup this stale comment.
 
-Signed-off-by: Julian Braha <julianbraha@gmail.com>
----
- scripts/kconfig/lxdialog/textbox.c | 2 --
- 1 file changed, 2 deletions(-)
+No improvements.
 
-diff --git a/scripts/kconfig/lxdialog/textbox.c b/scripts/kconfig/lxdialog/textbox.c
-index 0abaf635978f..3fe7682fc8a8 100644
---- a/scripts/kconfig/lxdialog/textbox.c
-+++ b/scripts/kconfig/lxdialog/textbox.c
-@@ -145,8 +145,6 @@ static void refresh_text_box(WINDOW *dialog, WINDOW *box, int boxh, int boxw,
- 
- /*
-  * Display text from a file in a dialog box.
-- *
-- * keys is a null-terminated array
-  */
- int dialog_textbox(const char *title, const char *tbuf, int initial_height,
- 		   int initial_width, int *_vscroll, int *_hscroll,
--- 
-2.55.0
+> ---
+>  .../devicetree/bindings/media/qcom,sa8775p-camss.yaml         | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/qcom,sa8775p-camss.yaml b/Documentation/devicetree/bindings/media/qcom,sa8775p-camss.yaml
+> index 48f280e99809..9206c7cfe197 100644
+> --- a/Documentation/devicetree/bindings/media/qcom,sa8775p-camss.yaml
+> +++ b/Documentation/devicetree/bindings/media/qcom,sa8775p-camss.yaml
+> @@ -14,7 +14,9 @@ description:
+>  
+>  properties:
+>    compatible:
+> -    const: qcom,sa8775p-camss
+> +    enum:
+> +      - qcom,sa8775p-camss-pix
 
+No, same reason.
+
+> +      - qcom,sa8775p-camss
+>  
+>    reg:
+>      maxItems: 22
+> -- 
+> 2.34.1
+> 
