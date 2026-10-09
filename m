@@ -1,164 +1,276 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mta0.migadu.com (out-110.mta0.migadu.com [91.218.175.110])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A5134E3ED4
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 15:27:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C957C4E80D4
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 15:27:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.110
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791559630; cv=none; b=LISp8ywBacH2L5/Ui65F2XtDS2koyRLMUo14qSSL8YvIIGIIui+S550LZEdxcpZk/Ih2sJ/s6dMBfeRTvYA01XxqCExOgrgVa+kkIoSGuEDVyIjpaQ0PFkeq9E7C+tysz/GtO1on+vluPeQ/AdEtrwtgPwfDyoe+F0cCOpuumtU=
+	t=1791559634; cv=none; b=aYd4J1+9HIMz5HcpNOHH5vqPUG6p9b4PsrLHzmgZnS+mRSdmnJbzuBsrAc1Dyf3tXTS0mFCmeHpapHZ4in68+V1SDC9asmxywrBpd8OPafrr1wGXJ0g1fLZoIpfr9uKIkDwNCxUn7Y4yFocoX/3JGWBwmd66vAuHu6DZ0Td8cAc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791559630; c=relaxed/simple;
-	bh=KwZjs64/rTuFe0HBKIyW10VbcdJrpzSWVqBnN+zFKDI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KJTEEsGlknDgxscftTfK1dVl5yZmTTPJhQsI/neGqJ4LnBimAdc0jJOnP9JVZW3MmtzDf+OAKoB2kxKAGQlPwaf4fAM1AqZMjXdirDQ1bjgKEGOchvZaXSiUCZjF30hPC1IpVqjVGBodawGdOydOtTILQRpVCtDG0Lddbw5EAVo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=UB/1uD29; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1791559634; c=relaxed/simple;
+	bh=oYvjI9crgDoGo2keD2njZ5LJDYD26IF+7c19OHok5yY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cn6PFTWvRR0tf7NyXqfU+pClJytz4a6rK7er4GN+/gb12A7HmcCOqfen2mrizdt0uvSVe4jCWSMxhrLS9JtEjn07NAWE7y2mouHcfS74q1+1vpnEKI88/zNZM3xxRdn5plIvB0yVSg793r5YamXtEAk3zsgsR62n6z3IVkq7Aok=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=FaTIUcQT; arc=none smtp.client-ip=91.218.175.110
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="UB/1uD29"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a02718da81so32031965e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 08:27:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1791559628; x=1792164428; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=40jmrkdv9yTSAmdr7iVbfZIED5uVomcFd8fALW8sm6A=;
-        b=UB/1uD29POMtua/TFSmvLQecBxQzsgZ0sdD6kG6YK9yXV8/xbhffxtDRMcarmY7ORx
-         Fvncys5suZkthRtfxxyllkZCBIh7dQMtlTGyoLbynFFnaZpd7N4OcHxOYpYezTYkZ3zL
-         uBa9G7Zpvp3b1ptGB15Sx1nhj+F5Dg142LuR2ZTxNV5mf7nR2RdQyJDyQ+/EIHSy7syV
-         iH/Dkf83jq+lTTvMtz9ZANkTu5rWtzvAKFqpvYi6mGX6mYahrsmyIn6PKhE54rWTUAIN
-         06oYwFdBXgN+DPygEfoLnyhzL1K2EVbMHbRYAzXdbqg/KYR1Me4OUm1ApEilv5V3IhaX
-         MlbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791559628; x=1792164428;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=40jmrkdv9yTSAmdr7iVbfZIED5uVomcFd8fALW8sm6A=;
-        b=PT/rHhDJEBgM4Tjxlr+nv0upWNIq5Qs7OlTNReqeAW7UKXDw6NR0sh7b7Gs4XP3MrY
-         6p9sMjj7gcp5nRnLCESEpFF6fdM8I7Ck7t/C4jZZqQysvBdlJiKPqB2dQQEwwVCXN2DK
-         UtbvncFdJkB7sj2RVHCV7pgXyFzWVDV0CBL0HKPzpugS6BkNpuFpzgGf8VJboauthbc0
-         oKFQyeOa+Kn3j9DKZ0vSYbnx1rPZQ3DUzgoc7Yz65f1nDVoc/80e7ayR2Q0bvjEESoeL
-         //N9aahK//oLUedQxNRzqETYKk2BLjnOTcSHXw7kHABfxUnIJFmIdxTzuXAAipjttSVO
-         sH3A==
-X-Forwarded-Encrypted: i=1; AKwUvBz7z9cPaKqnmZdHIKfnIOBiNM4EHVVsbt+bRP6r4BVhTxY5HqPfWSsQL2NC9C3oDaC2/HLeISLFYjHkBFo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kxDfGLF/DINuygS0nDPM+natsXT3Y115SR87iNfsIK+3ZE20yf
-	Qh1Z9BGlVYa4KuSZn2B6ZZcJKC7i1m5qwLOHpljMPLGhlGKKyQLHizPrnKvcy2kh7RI=
-X-Gm-Gg: AYBFou1YInBLDNzBrAFc80zUzTE1TOy5dusFmqpaj1RgyIKmxQS/NorLwuuKUTL7jtC
-	FIvs2H1bgkuXDpLmzOea28lEPmq4puDm9Z3dBYg411l1jXIuRjuVmGVcVA+bzfBjEUlJXhq+k08
-	ax0pN/kxawGrWiTAK4iClo9MjL4Jnuj/7bQgwc0UiBxovy/PwjslQtZg8DjAtj8bCKL7zc05QRL
-	xuP20C0/LDoGkFHb+mqd4yaeIQzlwWPoKD+d3MRhbyxPRBAQQQkAC9DfPR3LegwpNqhCvgsYE1e
-	+knmlS1l5jZT/ynGY910FCdK6pCwUikREuRUaJTeQ6EOY9IgAJhj0wAXXBJ5tzcrRE8K3tgaii3
-	fg5zHzWG/dyf7T4Gu39y/dDjmhRtjBrs1WHfE6WovV45MBw9yo8Tt7Bkt6gjZhq5ytoyy3B465w
-	dF0xSuiDs/+kIw8ZCzivd9d1nflSJ0GdKNfanWxFoZrdmOjyqho0Gkz28gk8yXGzdPLQF4uOP9H
-	k/L6yDyo6I=
-X-Received: by 2002:a05:600c:8b78:b0:4a0:25d5:e853 with SMTP id 5b1f17b1804b1-4a18e4ddd99mr41776475e9.35.1791559627674;
-        Fri, 09 Oct 2026 08:27:07 -0700 (PDT)
-Received: from pathway.suse.cz ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bea1fefsm75191635e9.11.2026.10.09.08.27.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 08:27:07 -0700 (PDT)
-Date: Fri, 9 Oct 2026 17:27:04 +0200
-From: Petr Mladek <pmladek@suse.com>
-To: John Ogness <john.ogness@linutronix.de>
-Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Pavel Tikhomirov <ptikhomirov@virtuozzo.com>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Christian Brauner <brauner@kernel.org>, oe-lkp@lists.linux.dev,
-	lkp@intel.com, linux-serial@vger.kernel.org, oliver.sang@intel.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] nbcon/reboot: Flush nbcon consoles synchronously on
- reboot
-Message-ID: <askHyBX6EPaMYnRt@pathway.suse.cz>
-References: <20261008150852.8286-1-pmladek@suse.com>
- <20261009065152.udyfFRHx@linutronix.de>
- <asiu8orjDvRJMKuX@pathway.suse.cz>
- <87qzhzxatd.fsf@jogness.linutronix.de>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="FaTIUcQT"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=oYvjI9crgDoGo2keD2njZ5LJDYD26IF+7c19OHok5yY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791559630; v=1; x=1792164430;
+ b=FaTIUcQTpLUxLOWoOuXERinzwamZPq62wFKl29V91EopPpxE9Ga+VyaHNuMWFGATmZWZf1jF
+ irPiqu8J7Jw8uEehaAgaYXJS/i+wvyUsHTRk8XFHBne8PYfBHjD+u9go03x+UnE3bwUJHDmSXoM
+ oXW+HInQUVP93W+cLrCr3zqg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id c49cc065a38ee442;
+	Fri, 09 Oct 2026 15:27:10 +0000
+X-Mizu-Trace-ID: c49cc065a38ee442
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <b887f721-124c-49ce-8b5b-c1edf0c24e40@linux.dev>
+Date: Fri, 9 Oct 2026 16:27:10 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87qzhzxatd.fsf@jogness.linutronix.de>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] mm: zswap: use stack requests for synchronous
+ decompression
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, chengming.zhou@linux.dev,
+ dsterba@suse.com, hannes@cmpxchg.org, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, nphamcs@gmail.com, terrelln@fb.com, riel@surriel.com,
+ shakeel.butt@linux.dev, alex@ghiti.fr, senozhatsky@chromium.org,
+ kernel-team@meta.com
+References: <20261006002307.2669023-1-usama.arif@linux.dev>
+ <20261006002307.2669023-3-usama.arif@linux.dev>
+ <CAO9r8zMFm+JsboodgkG-jdQ9eTk+JHo=d-3Dw8PUcEqjr3+xVg@mail.gmail.com>
+Content-Language: en-US
+From: Usama Arif <usama.arif@linux.dev>
+In-Reply-To: <CAO9r8zMFm+JsboodgkG-jdQ9eTk+JHo=d-3Dw8PUcEqjr3+xVg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri 2026-10-09 15:34:30, John Ogness wrote:
-> On 2026-10-09, Petr Mladek <pmladek@suse.com> wrote:
-> > Anyway, IMHO, we should switch to NBCON_PRIO_EMERGENCY for the post-running
-> > states and flush the pending messages immediately. It is more
-> > reliable. It is easy to find the locations when system_state() is set.
-> > And all follow-up printk() calls will try the direct flush so that
-> > they won't rely on an explicit flush.
+
+
+On 07/10/2026 23:28, Yosry Ahmed wrote:
+> On Mon, Oct 5, 2026 at 5:23 PM Usama Arif <usama.arif@linux.dev> wrote:
+>>
+>> With separate requests for compression and decompression, loads still
+>> serialize on the per-CPU decompression mutex. A low-priority load that
+>> is preempted after the codec drops its stream lock keeps holding the mutex
+>> and stalls every other load on that CPU, including higher-priority ones.
+>>
+>> Synchronous algorithms whose requests need no extra context can use an
+>> on-stack request, so decompress with one and take no zswap lock. All
+>> in-tree software compressors qualify. Asynchronous algorithms, and
+>> synchronous ones with request context, keep the per-CPU request and
+>> mutex, which is still taken before the zsmalloc read lock.
+>>
+>> Reading the per-CPU context without the mutex is safe. Since
+>> commit ef3c0f6cb798e ("mm: zswap: tie per-CPU acomp_ctx lifetime to the
+>> pool"), it is set up before its CPU comes online and is not torn down
+>> until the pool is destroyed. The codecs keep their own stream locks, and
+>> crypto_acomp_decompress() rejects on-stack requests only for
+>> asynchronous transforms, which never take this path.
+>>
+>> For software compressors this drops the heap request added by the
+>> previous patch. The on-stack request and wait take 216 bytes, which
+>> makes the load path about 270 bytes deeper on x86-64. Asynchronous
+>> algorithms pay this too.
+>>
+>> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+>> ---
+>>  mm/zswap.c | 65 +++++++++++++++++++++++++++++++++++++-----------------
+>>  1 file changed, 45 insertions(+), 20 deletions(-)
+>>
+>> diff --git a/mm/zswap.c b/mm/zswap.c
+>> index 54187b1ef751d..7e7fb6e7ec24c 100644
+>> --- a/mm/zswap.c
+>> +++ b/mm/zswap.c
+>> @@ -147,7 +147,7 @@ struct zswap_acomp_req {
+>>  struct crypto_acomp_ctx {
+>>         struct crypto_acomp *acomp;
+>>         struct zswap_acomp_req comp;
+>> -       struct zswap_acomp_req decomp;
+>> +       struct zswap_acomp_req decomp;  /* unused by synchronous algorithms */
+>>         u8 *buffer;
+>>  };
+>>
+>> @@ -851,15 +851,20 @@ static int zswap_cpu_comp_prepare(unsigned int cpu, struct hlist_node *node)
+>>                 goto fail;
+>>         }
+>>
+>> -       if (zswap_acomp_req_init(&acomp_ctx->comp, acomp_ctx->acomp) ||
+>> -           zswap_acomp_req_init(&acomp_ctx->decomp, acomp_ctx->acomp)) {
+>> -               pr_err("could not alloc crypto acomp_request %s\n",
+>> -                      pool->tfm_name);
+>> -               goto fail;
+>> +       if (zswap_acomp_req_init(&acomp_ctx->comp, acomp_ctx->acomp))
+>> +               goto req_fail;
+>> +
+>> +       /* Synchronous algorithms decompress with an on-stack request. */
+>> +       if (acomp_is_async(acomp_ctx->acomp) ||
+>> +           crypto_acomp_reqsize(acomp_ctx->acomp) > MAX_SYNC_COMP_REQSIZE) {
 > 
-> We need to be careful about abusing CPU state in order to get certain
-> functionality. We already have things in place to gracefully switch to
-> atomic after shutting down the printing kthreads.
+> Where does the requirement on crypto_acomp_reqsize() come from? I see
+> crypto_acomp_compress() and crypto_acomp_decompress() only checking
+> acomp_is_async().
 
-This explains why I see the messages even without this patch.
-I wonder what is actually going on in the test.
+ACOMP_REQUEST_ON_STACK() reserves sizeof(struct acomp_req) plus
+MAX_SYNC_COMP_REQSIZE, which is currently zero. A synchronous acomp
+algorithm can advertise a larger request context via cra_reqsize. Checking
+only acomp_is_async() would then leave that context outside the reserved
+stack storage.
 
-The log contains:
+The core already applies the same size restriction to synchronous fallback
+transforms in crypto_acomp_init_tfm(). The operation functions only reject
+asynchronous stack requests; they do not validate the amount of storage
+provided.
 
-</paste>
-LKP: ttyS0: 256: LKP: tbox cant kexec and rebooting forcely
-</paste>
+> 
+> Regardless, these are crypto-specific details that shouldn't be
+> checked directly by zswap. Ideally we'd have something like
+> acomp_can_use_stack_req() or something.
+> 
 
-I see this message in lkp-tests/bin/lkp-setup-rootfs:
+Done for v2. Added documented acomp_can_use_stack_req() in the public acomp
+header. It checks both synchronous completion and request-context size;
+zswap now uses that helper.
 
-<cat lkp-tests/bin/lkp-setup-rootfs>
-lkp_reboot()
-{
-	local tbox_state="rebooting"
-	[ -n "$1" ] && tbox_state="rebooting_$1"
 
-	set_tbox_wtmp $tbox_state
+> Also, could you please CC Herbert on future iterations? I would like
+> to get his eyes on any crypto-related changes if possible.
 
-	# Avoid get stuck in yocto minimal rootfs.
-	# LKP: rebooting
-	# [    8.124081] LKP: rebooting
-	# # (shell prompt)
-	is_virt && [ -e '/proc/sysrq-trigger' ] && {
-		sync
-		echo s >/proc/sysrq-trigger
-		echo b >/proc/sysrq-trigger
-	}
+Will do! Thanks! get_maintainers.pl didnt add him.
 
-	start_reboot_watchdog
-	reboot_tbox 2>/dev/null
+> 
+>> +               if (zswap_acomp_req_init(&acomp_ctx->decomp, acomp_ctx->acomp))
+>> +                       goto req_fail;
+>>         }
+>>
+>>         return 0;
+>>
+>> +req_fail:
+>> +       pr_err("could not alloc crypto acomp_request %s\n", pool->tfm_name);
+>>  fail:
+>>         acomp_ctx_free(acomp_ctx);
+>>         return ret;
+>> @@ -951,19 +956,14 @@ static bool zswap_compress(struct folio *folio, long index,
+>>         return comp_ret == 0 && alloc_ret == 0;
+>>  }
+>>
+>> -static bool zswap_decompress(struct zswap_entry *entry, struct folio *folio)
+>> +static bool __zswap_decompress(struct zswap_entry *entry,
+>> +                              struct zswap_pool *pool, struct acomp_req *req,
+>> +                              struct crypto_wait *wait, struct folio *folio)
+>>  {
+>> -       struct zswap_pool *pool = zswap_entry_pool(entry);
+>>         struct scatterlist input[2]; /* zsmalloc returns an SG list 1-2 entries */
+>>         struct scatterlist output;
+>> -       struct crypto_acomp_ctx *acomp_ctx;
+>>         int ret = 0, dlen;
+>>
+>> -       if (WARN_ON_ONCE(!pool))
+>> -               return false;
+>> -
+>> -       acomp_ctx = raw_cpu_ptr(pool->acomp_ctx);
+>> -       mutex_lock(&acomp_ctx->decomp.mutex);
+>>         zs_obj_read_sg_begin(pool->zs_pool, entry->handle, input, entry->length);
+>>
+>>         /* zswap entries of length PAGE_SIZE are not compressed. */
+>> @@ -980,15 +980,14 @@ static bool zswap_decompress(struct zswap_entry *entry, struct folio *folio)
+>>         } else {
+>>                 sg_init_table(&output, 1);
+>>                 sg_set_folio(&output, folio, PAGE_SIZE, 0);
+>> -               acomp_request_set_params(acomp_ctx->decomp.req, input, &output,
+>> -                                        entry->length, PAGE_SIZE);
+>> -               ret = crypto_acomp_decompress(acomp_ctx->decomp.req);
+>> -               ret = crypto_wait_req(ret, &acomp_ctx->decomp.wait);
+>> -               dlen = acomp_ctx->decomp.req->dlen;
+>> +               acomp_request_set_params(req, input, &output, entry->length,
+>> +                                        PAGE_SIZE);
+> 
+> Just use a single line :)
+> 
+>> +               ret = crypto_acomp_decompress(req);
+>> +               ret = crypto_wait_req(ret, wait);
+>> +               dlen = req->dlen;
+>>         }
+>>
+>>         zs_obj_read_sg_end(pool->zs_pool, entry->handle);
+>> -       mutex_unlock(&acomp_ctx->decomp.mutex);
+>>
+>>         if (!ret && dlen == PAGE_SIZE)
+>>                 return true;
+>> @@ -1002,6 +1001,32 @@ static bool zswap_decompress(struct zswap_entry *entry, struct folio *folio)
+>>         return false;
+>>  }
+>>
+>> +static bool zswap_decompress(struct zswap_entry *entry, struct folio *folio)
+>> +{
+>> +       struct zswap_pool *pool = zswap_entry_pool(entry);
+>> +       struct crypto_acomp_ctx *acomp_ctx;
+>> +       bool ret;
+>> +
+>> +       if (WARN_ON_ONCE(!pool))
+>> +               return false;
+>> +
+>> +       acomp_ctx = raw_cpu_ptr(pool->acomp_ctx);
+> 
+> We probably want a comment here explaining the two possible paths?
 
-	exit
-}
-[...]
-	if tbox_cant_kexec; then
-		echo_to_tty "LKP: tbox cant kexec and rebooting forcely"
-		lkp_reboot "cant_kexec"
-	fi
-</cat lkp-tests/bin/lkp-setup-rootfs>
+Added for v2.
 
-so, it ends with reboot_tbox which is:
+> 
+>> +       if (!acomp_ctx->decomp.req) {
+>> +               ACOMP_REQUEST_ON_STACK(req, acomp_ctx->acomp);
+>> +               DECLARE_CRYPTO_WAIT(wait);
+>> +
+>> +               acomp_request_set_callback(req, CRYPTO_TFM_REQ_MAY_BACKLOG,
+>> +                                          crypto_req_done, &wait);
+> 
+> I would rather add a wrapper for this (e.g.
+> zswap_set_acomp_req_callback()) to avoid the mental toil of checking
+> that we are passing in the same things as zswap_cpu_comp_prepare().
 
-<cat lkp-tests/lib/reboot.sh>
-reboot_tbox()
-{
-	reboot
-}
-</cat lkp-tests/lib/reboot.sh
+Added for v2.
 
-which is classic reboot. I am not sure where it expects the warning.
-I actually can't find the code which prints:
+> 
+> 
+>> +               return __zswap_decompress(entry, pool, req, &wait, folio);
+> 
+> Hmm would it be more readable if we create a dummy zswap_acomp_req
+> object here and have __zswap_decompress() take in __zswap_decompress
+> instead of taking in the req and wait separately?
 
-<paste>
-BUG: kernel reboot-without-warning in test stage
-</paste>
 
-I might need to try reproducing it with the lkp-test framework.
-But it has to wait for the next week.
+I would keep req and wait as separate arguments. zswap_acomp_req includes a
+mutex that stack decompression never uses, and taking the address of its
+wait can still reserve the entire wrapper on the stack. Removing the mutex
+from that type would add more restructuring. The shared callback helper and
+path comment make the setup consistent while keeping the existing stack
+footprint.
 
-Best Regards,
-Petr
+
+> 
+>> +       }
+>> +
+>> +       mutex_lock(&acomp_ctx->decomp.mutex);
+>> +       ret = __zswap_decompress(entry, pool, acomp_ctx->decomp.req,
+>> +                                &acomp_ctx->decomp.wait, folio);
+>> +       mutex_unlock(&acomp_ctx->decomp.mutex);
+>> +       return ret;
+>> +}
+>> +
+>>  /*********************************
+>>  * writeback code
+>>  **********************************/
+>> --
+>> 2.53.0-Meta
+>>
+
