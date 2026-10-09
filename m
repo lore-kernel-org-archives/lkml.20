@@ -1,105 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013005.outbound.protection.outlook.com [40.93.196.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77B9A36B934;
-	Fri,  9 Oct 2026 15:57:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791561424; cv=none; b=IPLwN0dSvHcijLQyVINP+9ZHhjUQeAOCEN+DUt2ZHUgVpTEraF5trU9F0JFuHrsY8IHRlK9JsTFst5fmNYxGxW4xiGb7o8k2UECGB1xfX1eY7HybG8I+mlDQJFlxKM6Kw92BXqMeeCXNBdsSV7KKW+SjhyThlmLeuymWgBm5ftk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791561424; c=relaxed/simple;
-	bh=mVDw3558qi2dmbH+1SMnQnVGN6LG7PdfxcI2x2CWViE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nkmuGV9eLAXHYh7vsriQaeIQP5nU2v5MOtoK7I3RY0kgQ52uI1V1YJ5/0xgwiP5/br475HaNS3DN5BjxJdJN24QYDHvo0gaK0l26UsfgYXZZmzmRxZ4WSbVsp3X1Z9mf/oeviUiinpize43ObX68do7/r9i7oruKl/XEijDLsV4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JfSUF17F; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C854E37D101
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 15:57:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.5
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791561458; cv=fail; b=N3YgFwXw90T8FxKrsPv9Vo6ANLaDLYa+SUEY7Fg3Z5dwRxUPM0umN4+BXSmK/PaP2LfbHQOQz1HM8FgwJKbxhCIDD7N+ZItTcWvzK84W8HnKSgjfvoyfkl08YBqPiIl2ZPupmEwm5Fqpne43ZpWiTdvLE7dZkZ1G8B4ESP3FVmw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791561458; c=relaxed/simple;
+	bh=MwJBsHJ/O7qg35AUS62ZynT2W4NJ1F9Hk4nYwxlmb0Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=JkRfb/qBWVs+9x2gTpf5FZSfnTKUoCbzIrHqv4cat1aGdBqC4AVpUq5XKYf/dLOxhRK5e4pwRY3xZ7l9E7Ztb79hTiH1s/WCXZ8U0UGtdcdoTgO7wxrRs3tikR2fhNVkXhQ/L3ElHoSkK9ry2D6A6Q9hWjSLx1AHkwtfY0RUwi8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=uh9MD4Mh; arc=fail smtp.client-ip=40.93.196.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JfSUF17F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 227F71F000FF;
-	Fri,  9 Oct 2026 15:57:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791561423;
-	bh=KuCaZxCYMdZZgfvi4rJIGQNSUWpQj/i0u1SZL9YwMIM=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=JfSUF17FIQ5uG0WgMZv5K8JlPGc6Lo0UfZBDoM/LH9OrsUGdFbx4LmEuxkgZYxsZi
-	 7uwQzI0RWf7VvVp3UiIXgWXdMZsMpWCCi+eFXZzQ5MJuDrudaKVWa6XjrFbinmLX6i
-	 BQhM0qI6lv2pjur4K1esNmz8j+IO3sD0D/FpbrFy3hlgStSiid/Sykt+1oHIiFvXh8
-	 t5rcKW0wOEHOpM3EfEPYJVb4HlNHf+QNyIYQAYNi+55C9yBOo97BVA4wjzlpnZ2l/B
-	 G7Y5x4mB4IrbM21jjIk1KN5kSxtpJrN5r+FgArJ2ooFrxgcsus3xzk4+hHyut3FJHt
-	 WNi41848auhXQ==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id BDF91CE0B28; Fri,  9 Oct 2026 08:57:02 -0700 (PDT)
-Date: Fri, 9 Oct 2026 08:57:02 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Kees Cook <kees@kernel.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, Nicolas Schier <nsc@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Manuel Ebner <manuelebnerli@mailbox.org>,
-	Nathan Chancellor <nathan@kernel.org>, linux-kbuild@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	workflows@vger.kernel.org, Mark Brown <broonie@kernel.org>,
-	linux-next@vger.kernel.org
-Subject: Re: [BUG] Build failure in next-20261007 and next-20261008
-Message-ID: <51aa9736-6e78-40db-9d4f-95dc7142e222@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <0ddb5e5e-f801-444c-aa98-0cfe814a3026@paulmck-laptop>
- <202610082200.752C6C08A5@keescook>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="uh9MD4Mh"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Um3UR+ngUBZiNqHG3gfB4Krt/WHUiWNex6fGCbJiRpQXaGzEo6xjutkqmCnF/Xup68dRIaOsniiqrgKq+2zaKKuCh/5OYXIwkjlpyD3i4nuAEkS4NXF+EYYulpucqpV4PKuCd//+YjbIBwylJSpONTNQ3+WNehPMtpjjsroonnvhpSc/nmDlJl6qf9Uz5R3FKw382NexL5vEst97bJMRdVyf5aOyEw4N0BULuncZ+T0AEZZ796ZV8oFopoIN7nzMDstr0s/17lp83X/Yj1OZNiHUAjfIEKc0nZaUsH+uTZuVyKfnVRvOHMyAx/smsWuR9nao35BLsgg5Bq7UPy+ufw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UDutRPGz3QE9EwRkPudDUt3N1XuqFkxhtJkTbzupVc8=;
+ b=Q5IayKxengn+YP2Jl6u0KWJlqFEGMmIqREXPYSYu2ZDiZf3a7yifZMQ/e9sre6lR3AdA+V5TVaKxJHd7wVVL1BRmMD0i/B/SOh9zXQywzum3PCIkINkjn5+9QRdK51jRemqjlHtUttkY/kholGYcnkMvwnR1RwZ0VC+dMxSGtDxbB+fT7FyLfArJBGqMKYE6ulmTpJyC/N5lCw0J4/vbwCrfgP6ETjPNhTUc6JAK4EHqN8R77RfY+TPfrSQ+dS3cTBJExmM4U8TCWq8asuAXewJg437yfwpXXKd31ab5edUuWdSjkACdWKM0jJw0Fz0IvNlFldDhgelBP/TyG1Ztdw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UDutRPGz3QE9EwRkPudDUt3N1XuqFkxhtJkTbzupVc8=;
+ b=uh9MD4MhSZOMFgHH6iFIpUQ7DWJIr3a6YoDAKh7X/Nsj4hHT9xjWjtmc+imE0Eu0eyOyyMptAUVUXDrmofS3P+PKBqBnCwWyrDnztJD391XcURqnzypXw1sw27E1ecfn/wJvSKcDbZPa/vWT2XYHkS6Og88O1b5VNcNJUFwMNpI=
+Received: from CY5P220CA0003.NAMP220.PROD.OUTLOOK.COM (2603:10b6:930:ed::10)
+ by DS3PR12MB393264.namprd12.prod.outlook.com (2603:10b6:8:43e::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
+ 2026 15:57:33 +0000
+Received: from SJ5PEPF00000204.namprd05.prod.outlook.com
+ (2603:10b6:930:ed:cafe::9e) by CY5P220CA0003.outlook.office365.com
+ (2603:10b6:930:ed::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Fri, 9
+ Oct 2026 15:57:33 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ5PEPF00000204.mail.protection.outlook.com (10.167.244.37) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Fri, 9 Oct 2026 15:57:33 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 9 Oct
+ 2026 10:57:28 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Fri, 9 Oct 2026 10:57:27 -0500
+Message-ID: <bcbfc6c2-705e-ec35-6543-ae5e6ecaab6b@amd.com>
+Date: Fri, 9 Oct 2026 08:57:32 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <202610082200.752C6C08A5@keescook>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] accel/amdxdna: Reject device heap BO when dev_mem_size is
+ not set
+Content-Language: en-US
+To: David Zhang <yidong.zhang@amd.com>, <quic_jhugo@quicinc.com>,
+	<karol.wachowski@linux.intel.com>, <max.zhen@amd.com>, <ogabbay@kernel.org>,
+	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+CC: <sonal.santan@amd.com>, <mario.limonciello@amd.com>
+References: <20261008232416.2646054-1-yidong.zhang@amd.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <20261008232416.2646054-1-yidong.zhang@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF00000204:EE_|DS3PR12MB393264:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9022350e-0398-4092-1498-08df261e080a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|36860700016|82310400026|1800799024|376014|6133799003|22082099003|18002099003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	1rdmSnHSn6MbL74TdtKqcGYzXNKmKg60nyVJ7UjGLxdUKWuK5p06nq+0eiz4UC0eIXx+CNMwuJHWwgO5TbqHVQX705yy+mALs+X1ruRr1AXTfGXTDY9y4k2SPDle226y4nAKpCYSJVJsPRkWubxVdhPkGgPebKXO9keR8lLLC/T28/AQU76LrkrOFCuajIo0XKUqtPAOLdbe1gHJRPA7taybnqTl0/jOkmpyaH3FGpJ2TFG9CVK24ZR7MbyXawQW/XAVnaOJYTLTEJkPkSs/Cgg2sDSHH1S/wk4gZmlartEClauWMNfbV60TJ7ppffaLwlR/GkVv+IOVYrQubkuw5iJPyJOlSxb2y67XugcAaWo3cXDEMRgvpCHg0aPtUQzbP31wbijzlKye3ho3QXsAGYdYIa7PDeyvCV8mHzXlcbRRqzgpiUJQeglLYQktzPZmB/nhuE8NWIvRRJaAuOMzUlmBuH8BzUBLB08nvfgHV6ZB5op4tCnG3ycSUurI4xwLpxS9m2ra/Gs9Q5LwPaRgjLyOEz/2VMPe5IDrNAqvjJ+R8vaLnf97oKmcOzjEg3MugUB3OUqkgB+yAPVegHNgUEm5HhYXglgXlW44RZrMSYg5Oh1ycqli7Vxozxi/a45e3OBUixFo1/Pt/5PZJ0Pwz2EQlSZ2i1ixFiCq12HB9WQmL0oTEAYhCjiF16D+jD2e07QCN8KG87bm90ELF1NIFg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(82310400026)(1800799024)(376014)(6133799003)(22082099003)(18002099003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	kE732TUHBEFz9LMHKIFbhmQb+7cNNX4bjeTahasuQdPFdge/uuu0JQ6HgWbHf323Oro/DDRm+Is6R/vWhgVtdgHfuUxZ1SqyRC9EqiFH2I1BiytfYUEN3PU9sv09G2wG0WYxePyqwjRGS8UpCOghePJ/Nl9/80D6q7X0v552i92HOYQ7sk/eaAunK74Ea7+3kH4QIewE6QWgaOAH3BojbSQ0HbELOmaPJ/Ug3tVojt1PA+V2nsMqHqtIMnekrXk1YShCNQW+BfS0XWalbtiZJwYE/WtIv6llE2Di/HII0cp67x4248r1ESj56K11h3sz4I9riVMsMoGsn2Wn22nuc4cxMise0g3J0Hi3AF3lPoHB22a34jUiwVKXqMiSN9Vc3fcdw8VwdWa7yXyHZAsoyq54wL5UaaNccgrLKcZbe+7D0L1EN9LPqYRwQ7d2qe1Q
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 15:57:33.4374
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9022350e-0398-4092-1498-08df261e080a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ5PEPF00000204.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS3PR12MB393264
 
-On Thu, Oct 08, 2026 at 10:11:14PM -0700, Kees Cook wrote:
-> On Thu, Oct 08, 2026 at 05:56:21PM -0700, Paul E. McKenney wrote:
-> > Building a kernel on CentOS Stream 9 from next-20261007 and next-20261008
-> > (and maybe others?)  on an x86 or arm64 system results in a strange
-> > build failure featuring:
-> > 
-> > WARNING: Unable to reopen jobserver read-side pipe: FileNotFoundError(2, 'No such file or directory')
-> 
-> What are your make and python versions? (Oh, the answer is going to be
-> "CentOS-patched make 4.3")
 
-I get "GNU Make 4.3", so maybe I need to patch or upgrade or something?
-
-And "Python 3.12.15+meta", so maybe I need to talk to people here.  ;-)
-
-> > The failing systems have a pigz command (which complains bitterly when
-> > run without arguments), and the immune system does not.  On the failing
-> > systems, "pigz --version" gives me "pigz 2.5".
-> > 
-> > Do I need a specific version of pigz?  Does this commit need a
-> > version-number check?  Are my systems pigz-intolerant?  ;-)
-> > 
-> > Less flippantly, is this a known problem?  If not, what debugging
-> > information can I provide?
-> 
-> Having pigz just means the parallelism logic kicks in, so I'm suspecting
-> something in scripts/jobserver-exec. That would point to something
-> specific to python or make.
-> 
-> I haven't seen this reported before, no.
-> 
-> Ah, and before I could even finish writing this email, my ever helpful
-> LLM has reported: "pre-4.4 make (like CentOS's 4.3) closes jobserver
-> pipe descriptors in non-recursive recipes but still exports
-> --jobserver-auth=R,W via MAKEFLAGS, whereas 4.4+ uses a named FIFO
-> instead, explaining why it doesn't appear here." And has further found
-> that this is CentOS-specific, since they appear to have incorrectly
-> backported a patch ("make-4.3-cloexec.patch"), as stock make 4.3 doesn't
-> have this problem.
-> 
-> I'll go figure out if there is some proper way to work around CentOS's
-> broken make...
-> 
-> (And given this, I would suspect you can't do a '-j...' build of the
-> "htmldocs" target either?)
-
-I will install sphinx &c and give it a try.  ;-)
-
-							Thanx, Paul
+On 10/8/26 16:24, David Zhang wrote:
+> NPU3 devices do not set dev_mem_size, since they do not use a device
+> heap. Creating an AMDXDNA_BO_DEV_HEAP BO on such a device hits the
+> WARN_ON(!is_power_of_2(dev_mem_size)) check, which any user with
+> access to the device node can trigger.
+>
+> Return -EOPNOTSUPP when dev_mem_size is 0.
+>
+> Fixes: d76856beb4a4 ("accel/amdxdna: Refactor GEM BO handling and add helper APIs for address retrieval")
+> Signed-off-by: David Zhang <yidong.zhang@amd.com>
+> ---
+>   drivers/accel/amdxdna/amdxdna_gem.c | 5 +++++
+>   1 file changed, 5 insertions(+)
+>
+> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
+> index f4832337ec31..f14484bc31ec 100644
+> --- a/drivers/accel/amdxdna/amdxdna_gem.c
+> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
+> @@ -1140,6 +1140,11 @@ amdxdna_drm_create_dev_heap_bo(struct drm_device *dev,
+>   	struct amdxdna_gem_obj *abo;
+>   	int ret;
+>   
+> +	if (!xdna->dev_info->dev_mem_size) {
+> +		XDNA_DBG(xdna, "Device heap is not supported");
+> +		return ERR_PTR(-EOPNOTSUPP);
+> +	}
+> +
+Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
+>   	WARN_ON(!is_power_of_2(xdna->dev_info->dev_mem_size));
+>   	XDNA_DBG(xdna, "Requested dev heap size 0x%llx", args->size);
+>   	if (!args->size || !IS_ALIGNED(args->size, xdna->dev_info->dev_mem_size)) {
