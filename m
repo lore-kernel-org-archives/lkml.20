@@ -1,142 +1,400 @@
-Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
+Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 912F84F85BB
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 18:30:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6724242AFB2;
+	Fri,  9 Oct 2026 18:31:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=158.69.130.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791570634; cv=none; b=PdMlHPdTIhcEhbBmaBNw1FgB+yC1jpj3ekVUjXtuUD7qjlH5IsLPmEvtQ4tzEJKG20cG0esRP9co7nSkLN7kJH9oZGs0Xah7863ZO+QMDk9bgmJ6gYHfB8hLqrl7lxJSN7ehRyTQPHThI3NtX6GLeM6ySffon6+tD6aPTOhT/Dk=
+	t=1791570685; cv=none; b=gWgEbaN9praa/ouY5WUS8Dc7E29Ce22WSoN01WpE+fUOvu08gPVWAVt209goytiQsOv9kiR3IYtm9ClIxIBPGaa3cpD7y5KQCl5v67bmnRVhWB4/mjTHyobVL6HUdTgRaxs8yjHMdBVswGS6sdD9TI/hLWtFlaUIHjWehZ6AUaw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791570634; c=relaxed/simple;
-	bh=L0m2eL5DGHs643vM/O48SFt6nojSAOMcSMn2WKz72D8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GRtSRk3EyHXZ/iKSJMGz+oeIw2vfb9AVeShpS2UyZMtOe8m3U88iq1TJ4LeB1BstzkY3U+QnVCfDuQLY6UUF8tSxoAp5alLhOZe2AHLJQS2//MO83YvXTlk5FuEoSnCI6Cru2nu+Ov+cWxGllkaRNgLBIfvz9TJvET/uU5IzpQk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b=A+0oZYGF; arc=none smtp.client-ip=18.9.28.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
+	s=arc-20240116; t=1791570685; c=relaxed/simple;
+	bh=UO0f+pVtDorvmvloyM7QOdxZ98wwW4wCvG3pRlPPI/Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=FRNIbKjGQNFMxPu2t3CTZI1Xq1hwmUC7NSgquTocYRQPthlxxmOOE9cBsU8dD3YC+affn9U2cx2zEuoyDN4pimM3dU68k9YwVMI9EiLzyF0aoQTK4Gicdg7uTKnqHXMkd2OuiI7i1o5yhv0qZgPj4yncVGEE44YY7pNa51ve/kE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=jyGPsB0i; arc=none smtp.client-ip=158.69.130.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b="A+0oZYGF"
-Received: from macsyma.thunk.org (99-196-133-108.cust.exede.net [99.196.133.108] (may be forged))
-	(authenticated bits=0)
-        (User authenticated as tytso@ATHENA.MIT.EDU)
-	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 699IToKp000611
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 9 Oct 2026 14:29:59 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
-	t=1791570603; bh=nu2YxkOxzlFd2aRModWyqZUYfXEJi/7+8yOaUHs3MmY=;
-	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
-	b=A+0oZYGFK3FVTQY65Jbt7yvPe50q3pcFNemTxzq1D/r4fmbmUB51YC7IH1NKVIHBm
-	 0vf252ESl/L6N5+K5KgkkZjlvPuyvVTbGCYsdpjguyvDT3GBzpac6kaz7s3SX4iVDt
-	 Ewy4xfEPTbaKX7kcX+YexKIEvowu2Cwu3jnH7IilcGsfPU2+A/p2+a1vULrm2kJB0/
-	 c6ZDAiqbXLjMzesVNKWqWfLCX8hmbQYrYein9QaP1RPbmMH/bLcRSEAbqwjDPRXnH8
-	 U+RgWURcay5nKNpyCegF6PCZf9VGZVwxore1jyOapSj4mN3M3coMTqU4QtqNwCDYGM
-	 wEOsqKCSgk8WA==
-Received: by macsyma.thunk.org (Postfix, from userid 15806)
-	id 43C161FA8A71; Fri,  9 Oct 2026 14:29:47 -0400 (EDT)
-Date: Fri, 9 Oct 2026 14:29:47 -0400
-From: "Theodore Tso" <tytso@mit.edu>
-To: Artem Dinaburg <artem@trailofbits.com>
-Cc: stable@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Sasha Levin <sashal@kernel.org>,
-        Max Kellermann <max.kellermann@ionos.com>,
-        Zhang Yi <yi.zhang@huawei.com>, Jan Kara <jack@suse.cz>,
-        Jan Kara <jack@suse.com>, linux-ext4@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 6.6.y 0/2] jbd2: backport CVE-2026-89566, CVE-2026-89567
-Message-ID: <askqkXhBORyXr-v9@mit.edu>
-References: <20261008192048.98833-1-artem@trailofbits.com>
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="jyGPsB0i"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+	s=smtpout1; t=1791570109;
+	bh=D6dAHv/ZRWwL8L15MiRyMUBmmHlyRLSXPowBr/wJwi8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=jyGPsB0ia0biRknMUPC9tLuMc0hB9QXHTf3kpFEnHwim3DVqEVbPLhqIQ07fkw6fF
+	 MGxN6+ns+QVyEvifNXUG2EyNss6SIWEG86iSKL6uhzL9AO39KHI9rNER3OsrRXaFoF
+	 P/GK90H2ArYgDn4rAniRgKb9trNTWs8TaFTNJcM+AVGTBrUq9bjJDrcVfBlemp6YW0
+	 O5RbOc17K1ZO+hijlBBd0LV97QIF3Ixtiscch28WPWqEZUSHsAEFOvy9Xgd9juL898
+	 GGTZ/3EIxtklcJCTo7aFzrReQo2Z1ouPzk9bnfDql2M54F/faqHDSFZIlkYD8ZAXbY
+	 i4t4oUJ2TyjxQ==
+Received: from compudjdev.. (mtl.efficios.com [216.120.195.104])
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4j1ZvK6bylzlxB;
+	Fri, 09 Oct 2026 14:21:49 -0400 (EDT)
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+To: "Paul E . McKenney" <paulmck@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Gary Guo <gary@garyguo.net>,
+	Boqun Feng <boqun@kernel.org>,
+	Bradley Morgan <brads@mainlining.org>,
+	rcu@vger.kernel.org,
+	lkmm@lists.linux.dev,
+	Lian Wang <lianux.mm@gmail.com>,
+	Kunwu Chan <kunwu.chan@gmail.com>
+Subject: [PATCH hazptr v2 4/4] hazptr: Introduce "try acquire" fast path, fallback to overflow list
+Date: Fri,  9 Oct 2026 14:21:35 -0400
+Message-ID: <20261009182142.6311-5-mathieu.desnoyers@efficios.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261009182142.6311-1-mathieu.desnoyers@efficios.com>
+References: <20261009182142.6311-1-mathieu.desnoyers@efficios.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261008192048.98833-1-artem@trailofbits.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 08, 2026 at 03:20:44PM -0500, Artem Dinaburg wrote:
-> Hi Greg, Sasha, and maintainers,
-> 
-> I'm working through the smaller CVE backports still missing from 6.6.y.
-> These 2 upstream changes belong together for CVE-2026-89566,
-> CVE-2026-89567. They must be applied in this order because the later change
-> depends on or completes the earlier one.
+Introduce a "try acquire" hazard pointer fast path, which performs an
+early load of the address to store it into the hazard pointer slot, and
+then re-loads that address after a barrier to check whether it has
+changed meanwhile.
 
-Note that some of the 6.1 and 6.6 LTS backports in the past have
-caused ext4 test regressions.  Since I don't have the time to track
-down said ext4 regressiions (the last one took a week of my time,
-because bisects are painful, and even after I bisected it down to the
-guilty commit, figuring out out to safely revert it also took a lot of
-time), I've largely given up on those LTS releases.
+On comparison failure, rather than re-try, guarantee forward progress by
+falling back to the __hazptr_acquire slow path on failure.
 
-In addition, many corporate security folks are advising that it's
-Simply Not Safe to use an LTS as old as 6.6, because even if you are
-trying to address the 6.6 ext4 CVE's, there are plenty of other CVE's
-that don't necessarily get backported, leaving those older LTS kernels
-vulnerable.  But if you do have a real business need to use 6.6 LTS,
-would you be interested in taking over managing the 6.6 ext4 stable
-backports?
+The acquire slow path attempts a try-acquire for any available per-CPU
+slot. If that fails, it chains the backup slot into the overflow list,
+therefore guaranteeing forward progress for both hazard pointer
+read-side and synchronize:
 
-It's a lot easier to revert ext4 patches if the regressions are noted
-promptly, and so the easist way to do this would be to use
-gce-xfstests[1].   I can send you the results of running:
+- Readers set the wildcard, and then proceed to set the more
+  specific address to replace the wildcard.
 
-    gce-xfstests ltm -c ext4/all,xfs/4k,btrfs/4k -g auto --repo stable-rc.git --watch linux-6.6.y
+- One synchronize alternates between two overflow list periods,
+  scanning each one while readers are added to the other period,
+  thus preventing a steady flow of readers from preventing
+  synchronize forward progress.
 
-... or you can run it yourself if you like.
+With this change, the scan on per-CPU slots don't need to expect a
+wildcard anymore, because none can be produced by readers. Wildcards are
+only expected within overflow lists.
 
-[1] https://thunk.org/gce-xfstests
-[2] https://github.com/tytso/xfstests-bld/tree/master/Documentation/gce-xfstests.md
+Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Suggested-by: Gary Guo <gary@garyguo.net>
+Link: https://lore.kernel.org/lkmm/DLK9MW1N86KD.2GRWUAD2NX4FU@garyguo.net/
+Reviewed-by: Gary Guo <gary@garyguo.net>
+Cc: Paul E. McKenney <paulmck@kernel.org>
+Cc: Boqun Feng <boqun@kernel.org>
+Cc: Bradley Morgan <brads@mainlining.org>
+Cc: Gary Guo <gary@garyguo.net>
+Cc: <rcu@vger.kernel.org>
+Cc: <lkmm@lists.linux.dev>
+Cc: Lian Wang <lianux.mm@gmail.com>
+Cc: Kunwu Chan <kunwu.chan@gmail.com>
+---
+ include/linux/hazptr.h |  48 +++++++++++--------
+ kernel/hazptr.c        | 103 ++++++++++++++++++++---------------------
+ 2 files changed, 77 insertions(+), 74 deletions(-)
 
-If you see failures in the latest stable-rc.git which are not in
-previous test runs, then promply send a note (within 48 hours) to the
-stable maintainers asking them to drop all of the ext4 and jbd2
-patches that were sent to the latest stable-rc.  You can then spend
-time, at your leisure, figuring out which of the ext4/jbd2 patches
-caused the regressions, and then either fix them up or skip them and
-send the rest to the stable maintainers.
+diff --git a/include/linux/hazptr.h b/include/linux/hazptr.h
+index d1670121947a..df2aca9aa26b 100644
+--- a/include/linux/hazptr.h
++++ b/include/linux/hazptr.h
+@@ -25,13 +25,11 @@
+ #include <linux/types.h>
+ #include <linux/cleanup.h>
+ #include <linux/sched.h>
++#include <linux/ptreq.h>
+ 
+ /* 4 slots (each sizeof(hazptr_slot_item)) fit in a single 64-byte cache line. */
+ #define NR_HAZPTR_PERCPU_SLOTS	4
+ 
+-/* The current hazard pointer wildcard. */
+-extern void *hazptr_wildcard;
+-
+ /*
+  * Hazard pointer slot.
+  */
+@@ -190,6 +188,31 @@ void hazptr_note_context_switch(void)
+ 	}
+ }
+ 
++/* Try hazard pointer protection. */
++static inline
++void *__hazptr_try_acquire(struct hazptr_ctx *ctx, void * const *addr_p, struct hazptr_slot *slot)
++{
++	void *early_addr, *addr;
++
++	if (unlikely(slot->addr))
++		return NULL;
++	early_addr = READ_ONCE(*addr_p);	/* Early load. */
++	WRITE_ONCE(slot->addr, early_addr);	/* Store B */
++	/* Memory ordering: Store B before Load A. */
++	smp_mb();
++	addr = READ_ONCE(*addr_p);		/* Load A */
++	/*
++	 * Validate that address did not change between Early load and Load A.
++	 * Use ptr_eq() to make sure that result from Load A is returned to the
++	 * caller to preserve address dependency.
++	 */
++	if (unlikely(!ptr_eq(addr, early_addr))) {
++		WRITE_ONCE(slot->addr, NULL);
++		return NULL;
++	}
++	return addr;
++}
++
+ /**
+  * hazptr_acquire - Load pointer at address and protect with hazard pointer.
+  *
+@@ -245,24 +268,9 @@ void *hazptr_acquire(struct hazptr_ctx *ctx, void * const *addr_p)
+ 	ctx->acquire_cpu = smp_processor_id();
+ 	ctx->acquire_caller = _THIS_IP_;
+ #endif
+-	if (unlikely(slot->addr))
++	addr = __hazptr_try_acquire(ctx, addr_p, slot);
++	if (unlikely(!addr))
+ 		return __hazptr_acquire(ctx, addr_p);
+-	WRITE_ONCE(slot->addr, READ_ONCE(hazptr_wildcard));	/* Store B */
+-
+-	/* Memory ordering: Store B before Load A. */
+-	smp_mb();
+-
+-	/*
+-	 * Load @addr_p after storing wildcard to the hazard pointer slot.
+-	 */
+-	addr = READ_ONCE(*addr_p);	/* Load A */
+-
+-	/*
+-	 * We don't care about ordering of Store C. It will simply
+-	 * replace the wildcard by a more specific address. If addr is
+-	 * NULL, we simply store NULL into the slot.
+-	 */
+-	WRITE_ONCE(slot->addr, addr);	/* Store C */
+ 	slot_item->ctx.ctx = ctx;
+ 	ctx->slot = slot;
+ 	return addr;
+diff --git a/kernel/hazptr.c b/kernel/hazptr.c
+index 13faa5ba7677..3ca73b56a5c2 100644
+--- a/kernel/hazptr.c
++++ b/kernel/hazptr.c
+@@ -13,17 +13,9 @@
+ #include <linux/list.h>
+ #include <linux/export.h>
+ 
+-static DEFINE_MUTEX(hazptr_phase_lock);	/* Protect the wildcard and list phase flip. */
++#define HAZPTR_WILDCARD	((void *) 1UL)
+ 
+-/*
+- * The current hazard pointer wildcard. Flips between 1UL and 2UL to guarantee
+- * hazptr_synchronize forward progress even with a steady stream of readers.
+- * This wildcard value is used by acquire to temporarily tag the per-CPU slots.
+- * This also affects the overflow list selection: the current list used by
+- * readers is array[(unsigned long) hazptr_wildcard - 1].
+- */
+-void *hazptr_wildcard = (void *) 1UL;
+-EXPORT_SYMBOL_GPL(hazptr_wildcard);
++static DEFINE_MUTEX(hazptr_phase_lock);	/* Protect the list phase flip. */
+ 
+ /* The current overflow list phase. */
+ static unsigned int hazptr_overflow_list_phase;
+@@ -41,6 +33,10 @@ struct hazptr_overflow_list {
+  * successively iterates on both lists. Therefore, only list removals
+  * can cause the iteration to retry, and the number of removals is
+  * limited to the number of list elements.
++ *
++ * Due to the overflow list raw spin lock, the hazard pointer readers are
++ * blocking, starvation-free with bounded waiting, assuming bounded critical
++ * sections and no NMI or virtualization-induced holder preemption.
+  */
+ struct hazptr_overflow_list_flip {
+ 	struct hazptr_overflow_list array[2];
+@@ -51,26 +47,12 @@ static DEFINE_PER_CPU(struct hazptr_overflow_list_flip, percpu_overflow_list_fli
+ DEFINE_PER_CPU(struct hazptr_percpu_slots, hazptr_percpu_slots);
+ EXPORT_PER_CPU_SYMBOL_GPL(hazptr_percpu_slots);
+ 
+-static
+-void *flip_wildcard(void *wildcard)
+-{
+-	return ((unsigned long) wildcard == 1UL) ? (void *) 2UL : (void *) 1UL;
+-}
+-
+ static
+ unsigned int flip_list_phase(unsigned int phase)
+ {
+ 	return 1 - phase;
+ }
+ 
+-static
+-bool is_wildcard(void *addr)
+-{
+-	if ((unsigned long) addr == 1UL || (unsigned long) addr == 2UL)
+-		return true;
+-	return false;
+-}
+-
+ static
+ struct hazptr_slot *hazptr_get_free_percpu_slot(struct hazptr_ctx *ctx)
+ {
+@@ -96,16 +78,36 @@ struct hazptr_slot *hazptr_get_free_percpu_slot(struct hazptr_ctx *ctx)
+  */
+ void *__hazptr_acquire(struct hazptr_ctx *ctx, void * const *addr_p)
+ {
+-	struct hazptr_slot *slot = hazptr_get_free_percpu_slot(ctx);
++	struct hazptr_slot *slot;
+ 	void *addr;
+ 
+ 	/*
+-	 * If all the per-CPU slots are already in use, fallback
+-	 * to the backup slot.
++	 * In case we are called due to nested use of hazard pointers,
++	 * try a slot protection with per-CPU slots.
+ 	 */
+-	if (unlikely(!slot))
+-		slot = hazptr_chain_backup_slot(ctx);
+-	WRITE_ONCE(slot->addr, READ_ONCE(hazptr_wildcard));	/* Store B */
++	slot = hazptr_get_free_percpu_slot(ctx);
++	if (likely(slot)) {
++		addr = __hazptr_try_acquire(ctx, addr_p, slot);
++		if (addr) {
++			ctx->slot = slot;
++			return addr;
++		}
++	}
++
++	/*
++	 * The backup slot overflow list guarantees forward progress of both
++	 * hazard pointer readers and synchronize:
++	 *
++	 * - Readers set the wildcard, and then proceed to set the more
++	 *   specific address to replace the wildcard.
++	 *
++	 * - One synchronize alternates between two overflow list periods,
++	 *   scanning each one while readers are added to the other period,
++	 *   thus preventing a steady flow of readers from preventing
++	 *   synchronize forward progress.
++	 */
++	slot = hazptr_chain_backup_slot(ctx);
++	WRITE_ONCE(slot->addr, HAZPTR_WILDCARD);	/* Store B */
+ 
+ 	/* Memory ordering: Store B before Load A. */
+ 	smp_mb();
+@@ -121,20 +123,21 @@ void *__hazptr_acquire(struct hazptr_ctx *ctx, void * const *addr_p)
+ 	 * NULL, we simply store NULL into the slot.
+ 	 */
+ 	WRITE_ONCE(slot->addr, addr);	/* Store C */
++
+ 	ctx->slot = slot;
+-	if (!addr && hazptr_slot_is_backup(ctx, slot))
++	if (!addr)
+ 		hazptr_unchain_backup_slot(ctx);
+ 	return addr;
+ }
+ EXPORT_SYMBOL_GPL(__hazptr_acquire);
+ 
+ /*
+- * Perform piecewise iteration on overflow list waiting until "addr" is
+- * not present. Raw spinlock is released and taken between each list
+- * item and busy loop iteration. The overflow list generation is checked
+- * each time the lock is taken to validate that the list has not changed
+- * before resuming iteration or busy wait. If the generation has
+- * changed, retry the entire list traversal.
++ * Perform piecewise iteration on overflow list waiting until "addr" and
++ * wildcard are not present. Raw spinlock is released and taken between each
++ * list item and busy loop iteration. The overflow list generation is checked
++ * each time the lock is taken to validate that the list has not changed before
++ * resuming iteration or busy wait. If the generation has changed, retry the
++ * entire list traversal.
+  */
+ static
+ void hazptr_synchronize_overflow_list(struct hazptr_overflow_list *overflow_list, void *addr)
+@@ -147,13 +150,11 @@ void hazptr_synchronize_overflow_list(struct hazptr_overflow_list *overflow_list
+ retry:
+ 	snapshot_gen = overflow_list->gen;
+ 	hlist_for_each_entry(backup_slot, &overflow_list->head, overflow_node) {
+-		/* Busy-wait if node is found. */
++		/* Busy-wait if addr or wildcard are found. */
+ 		for (;;) {
+ 			void *load_addr = smp_load_acquire(&backup_slot->slot.addr);	/* Load B */
+ 
+-			/* We don't expect wildcards in overflow list. */
+-			WARN_ON_ONCE(is_wildcard(load_addr));
+-			if (load_addr != addr)
++			if (load_addr != addr && load_addr != HAZPTR_WILDCARD)
+ 				break;
+ 			raw_spin_unlock_irqrestore(&overflow_list->lock, flags);
+ 			cpu_relax();
+@@ -174,7 +175,7 @@ void hazptr_synchronize_overflow_list(struct hazptr_overflow_list *overflow_list
+ }
+ 
+ static
+-void hazptr_synchronize_cpu_slots(int cpu, void *addr, void *scan_wildcard)
++void hazptr_synchronize_cpu_slots(int cpu, void *addr)
+ {
+ 	struct hazptr_percpu_slots *percpu_slots = per_cpu_ptr(&hazptr_percpu_slots, cpu);
+ 	unsigned int idx;
+@@ -182,13 +183,13 @@ void hazptr_synchronize_cpu_slots(int cpu, void *addr, void *scan_wildcard)
+ 	for (idx = 0; idx < NR_HAZPTR_PERCPU_SLOTS; idx++) {
+ 		struct hazptr_slot_item *item = &percpu_slots->items[idx];
+ 
+-		/* Busy-wait if node is found. */
+-		smp_cond_load_acquire(&item->slot.addr, VAL != addr && VAL != scan_wildcard); /* Load B */
++		/* Busy-wait if addr is found. */
++		smp_cond_load_acquire(&item->slot.addr, VAL != addr); /* Load B */
+ 	}
+ }
+ 
+ static
+-void hazptr_scan_cpu_slots_period(void *addr, void *scan_wildcard)
++void hazptr_scan_cpu_slots(void *addr)
+ {
+ 	int cpu;
+ 
+@@ -196,16 +197,13 @@ void hazptr_scan_cpu_slots_period(void *addr, void *scan_wildcard)
+ 	for_each_possible_cpu(cpu) {
+ 		/*
+ 		 * Scan CPU slots.
+-		 * Forward progress against recurring wildcards is guaranteed
+-		 * by scanning for one wildcard while new elements use the
+-		 * other wildcard value (1UL vs 2UL).
+ 		 * Forward progress against recurring single hazard pointer
+ 		 * values is guaranteed by the fact that a hazard pointer
+ 		 * is not reclaimed nor reused until the scan for that hazard
+ 		 * pointer completes, which prevents a steady flow of readers
+ 		 * to acquire that same hazard pointer value.
+ 		 */
+-		hazptr_synchronize_cpu_slots(cpu, addr, scan_wildcard);
++		hazptr_synchronize_cpu_slots(cpu, addr);
+ 	}
+ }
+ 
+@@ -237,7 +235,6 @@ void hazptr_scan_overflow_list_period(void *addr, unsigned int scan_idx)
+ void hazptr_synchronize(void *addr)
+ {
+ 	unsigned int scan_list_phase;
+-	void *scan_wildcard;
+ 
+ 	/*
+ 	 * Busy-wait should only be done from preemptible context.
+@@ -251,16 +248,14 @@ void hazptr_synchronize(void *addr)
+ 	 */
+ 	if (!addr)
+ 		return;
++
+ 	/* Memory ordering: Store A before Load B. */
+ 	smp_mb();
+ 
+ 	guard(mutex)(&hazptr_phase_lock);
+ 
+ 	/* Scan per-CPU slots. */
+-	scan_wildcard = flip_wildcard(hazptr_wildcard);
+-	hazptr_scan_cpu_slots_period(addr, scan_wildcard);
+-	WRITE_ONCE(hazptr_wildcard, scan_wildcard);			/* Flip the current wildcard. */
+-	hazptr_scan_cpu_slots_period(addr, flip_wildcard(scan_wildcard));
++	hazptr_scan_cpu_slots(addr);
+ 
+ 	/*
+ 	 * Scan overflow lists *after* scanning per-CPU slots. See
+-- 
+2.43.0
 
-If you see test regressions which *also* impact the xfs and btrfs
-trees, then it's likely that the bug is in the vfs and mm backported
-patches, so there won't be a need to request that the ext4 patches get
-dropped from the stable-rc --- but if there is a test regression
-impacting ext4, xfs, and btrfs, and you want to use 6.6 in production,
-this might still be an issue for your company.
-
-> The complete series is already present in 6.12.y, 6.18.y, and 7.2.y.
-> These fixes also affect 6.1.y, which will need a separate backport; this
-> series is only for 6.6.y.
->
-> Could you please consider this series for 6.6.y?
-
-If you haven't tried running xfstests to verify that your patches
-don't cause any regressions, I strongly recommend it.  I won't NAK the
-patches if you haven't, but that's because in my personal opinion, I
-strongly recommend **against** using 6.1 and 6.6, and I've given up
-trying to provide any ext4 support for 6.1 and 6.6 --- I just don't
-have the time.  I barely have the time to pay attention to 6.12 and
-6.18 LTS kernels, and those are only best efforts on my part.
-
-Cheers,
-
-						- Ted
-
-P.S.  And if anyone would like to volunteer to be the ext4 stable
-maintainers for 6.12 and 6.18 (and 7.3 or 7.4 when the next LTS is
-declared) they would have my undying gratitude.  :-) And the newer LTS
-kerenls should be much less work than the older LTS kernels, since the
-chances for regressions (and the work involved in trying to track down
-the regressions) are much less.
-
-P.P.S.  It's because of the risk of regressions than XFS has opted out
-from LTS backports.  A few years back, a few companies (including my
-own) contributed engineering resources to test XFS patches and only
-sending patches that were verified to not cause regressions to the LTS
-kernels.  Unfortunately, all of the companies decided it wasn't worth
-the SWE costs, and so the XFS stable backports project collapsed.  I
-am happy to help provide the VM resources for a future XFS stable
-backports effort, since the VM costs are relatively modest.  It's the
-SWE time which is significant burden, whether it's coming out of
-company funded time, or out of volunteer time late at night or on
-weekends....
