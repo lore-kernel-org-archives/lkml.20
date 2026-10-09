@@ -1,290 +1,179 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B50FA472F93
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 07:12:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31C67473C68;
+	Fri,  9 Oct 2026 07:12:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.219
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791529971; cv=none; b=ILbw1ONZKzIyajs7mo5Oh9o7xYEScpHPeFb1kr1x18VIT4+TkvnoXv8QtNAhEEJ0EvZuX28R4D3QWE0UEw6+Mo2atjjOCQQ/wz+Sk+/CP0W66AILRxv+QW5xfBpuq3KNx+s7/JPeLuQroRN1knJ/Qbj6axZPSnWjLFC517lmtQE=
+	t=1791529972; cv=none; b=dsMNo+mI/Vbs9aiLdyUIHDZ7Wi37/MpJw34C4E2OoHcFtNKpb6PAaAgDI4ieXxhdnU6W5ynLLPd/w1tSdp5Kf5MiBq9X2XaOtM6olqiwvYYcCG7vgPmZTxzZ3jALe0iCtB5m7C9maGZPfi+2mXoTxUoDfnfh8ScJdNQsOxeEoCo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791529971; c=relaxed/simple;
-	bh=Lu1XxTY5t6evWCQ8MjlFAV/3maGm0RuyfQrOkIJ4a/U=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rDIRoEqn5rdM5HshkZz/HYv6uv6IOMWB1yKEI5HppnvAO2a2M084IfFUyK0CVNbDfXFd4rg5Im0rIdMKybz6cfpSOGlapl+crm6pBQyLWJyF2QmVsk0u0kf2sY0x8Ofhjtxvasbh11xT3bHahphEmKzZCPENrAIJY3Hx9n2IRAg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=h7riov1h; arc=none smtp.client-ip=209.85.214.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1791529972; c=relaxed/simple;
+	bh=OHPHriyd9zE5R00jtBUeLegaMtPjxjMeS3xqgij/AL0=;
+	h=Subject:To:CC:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=R5/EHgucuaPPZkWjedBQXIY5WrzCwNBCJA96o9VdkuBxq2OUOkRpG7LDr0FgFbGtdII6EzWdqVG2Fo5+PSabQAYCpBavuR5VuEOxja6IusgY8JID5adDGF5pQy5tkuh+zvO5gjbJL89/rN8oLW9Eb1ykl6aHrnu1RP8Ts9QzR9E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=w2lnFrXz; arc=none smtp.client-ip=113.46.200.219
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="h7riov1h"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2e608cd460eso17398085ad.3
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 00:12:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1791529969; x=1792134769; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=v/gZL8VXxbURJSucAog4gqpCMC00QrboweJD1WkTZBw=;
-        b=h7riov1hRwjUkuvENLrkKOzAi49SMV+bSMvaZ5cezKUkfTKDHT1KOgrDNmr52QM/Cx
-         pwTmSwjlWAotVGt1HpCmoqpiFxlkWd5mioeyuFibfCaiOcOweUAocVhrnMAs/WkNz8vh
-         hywg8fes+6dhG9BVXXBuePxEvHRk5UmF4FMU8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791529969; x=1792134769;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=v/gZL8VXxbURJSucAog4gqpCMC00QrboweJD1WkTZBw=;
-        b=fBVmE9VhoxAyC97bin5gkxs6Yq7Tr83wIerYabSbmGRGsPJCTWRnP98Blu4JwjpVD8
-         2ONAK5lLP4wafIAU951CBs4teAgrrC7aHOdzBHxzvVEaES1V7aAee+geo+pERbK3kB+v
-         EZYIdcA0LS7l91rsMntyL86C18Sp/0h6gcSW1TEn575sp4sBFJe/mNLFLmwhYWxDLqRL
-         jGNCetI7GHl3hgplnpcFLrLeZVgLztj7pifCLeA/E/50/R/l/T6ScJfT3wRGQh1i3L+D
-         PMOGP3eosRuJrRkNQpApscF8m3iRsE73Crko27Z86UrfNw1uGrYOvqQzWRQq771RL2h6
-         v+0g==
-X-Forwarded-Encrypted: i=1; AKwUvByBLp9xWVnJcmw3Xcf9N3c9L5MS3agCxPDImaLYeLgnjIu/s1Y6uph9s9LLPBE7puXdDmODFG7Bv+pIbZI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIs7Bo3EdZ1fbvBIlX78te172JjlkD469hjTxO3OR6cR/YtsYuP
-	+HpgD4HbFisS4FUsfimDqy3fFlDeaObkICGefeCVan/uaPe6+PIIfDWfqomN8z5X1B1W/Dx24Jt
-	MXNE=
-X-Gm-Gg: AYBFou2jFXDWQ34wNhIHxNABoQ0BpI6zdKXtG/XazNTnAJ+nMhh0fHVqiBXokxYsKRO
-	Ty2hqO7mf08l+8kVPt9hVFkeiEyiwmjrHDy4TNMxJOjz6Fv8G+5CxElDJDxO7GP2KFxGJTUA0BM
-	nqRh+NKJ8ot4qAQzIEBX7hBzO/XdTjfjMX6AgYw+uXy2lTMjADW4cfvcjulcPHKY4eHR63T4cLT
-	ak4D5LVXhMarjQIroulAsCBBui36rTOH55WcsLj75oL8MJigNrNnGfsQzBxOTKsVG6P5sKDzq1I
-	SMgcr8jnE8PtGu+8vGPNNeOTpf9JlJvSRHVH6qrTqQudGfmLybA7xO/araS1wC4zZjmF3M60dBj
-	Gf9RCGQZhIktKPqVDUcyfAKy5ddhsZy6qa9+2611/8LPhGE5z0+MnnA1S2LudrCJqKLuTdaGtRP
-	It5Sjt7aPvSSJOoyGRHGBLR1F6ey3wx+jeadCLrX13Fcr0EEQKRlpz63zPSlq0N9LAm0DqiNX1d
-	i3b7yCgkqgX9uiWKVtO55eAdBTfghQckDOisjkATjFVo2aGKTevKVdhuLnd++Z+yBJ4NcWJvQ==
-X-Received: by 2002:a17:903:3504:b0:2e2:c55c:90c with SMTP id d9443c01a7336-2e842bd515bmr8036365ad.64.1791529968967;
-        Fri, 09 Oct 2026 00:12:48 -0700 (PDT)
-Received: from tigeriii.tok.corp.google.com ([2a00:79e0:2031:6:383b:5817:8167:5051])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8421b19a2sm4483535ad.46.2026.10.09.00.12.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 00:12:48 -0700 (PDT)
-From: Sergey Senozhatsky <senozhatsky@chromium.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Brian Geffon <bgeffon@google.com>,
-	Minchan Kim <minchan@kernel.org>,
-	Richard Chang <richardycc@google.com>,
-	linux-kernel@vger.kernel.org,
-	linux-block@vger.kernel.org,
-	linux-mm@kvack.org,
-	Sergey Senozhatsky <senozhatsky@chromium.org>
-Subject: [PATCH v2 11/11] zram: use rw_semaphore for decompression streams
-Date: Fri,  9 Oct 2026 16:11:34 +0900
-Message-ID: <20261009071157.3730698-12-senozhatsky@chromium.org>
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-In-Reply-To: <20261009071157.3730698-1-senozhatsky@chromium.org>
-References: <20261009071157.3730698-1-senozhatsky@chromium.org>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="w2lnFrXz"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=7FME7jd+jauy53NyaIyzwYuM5cz0oA7QkLeyMHGBT/8=;
+	b=w2lnFrXzCYmX+JKEtVl4rBHYzY2RLFvEISHaQ7LZqSO1JxQk6iLF96FuSH2t6p+uujcHEKePK
+	sOqk6hBAPaKpPCYzszr2QeVN8ShDE+izuSAKhZh5mw03fCMXJ1IOk6CLoim4coX8BJoi2UOpXL5
+	S7THvSvrieQFhJ/wGLsoK2A=
+Received: from mail.maildlp.com (unknown [172.19.163.0])
+	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4j1Hmy0J1Pz1prLV;
+	Fri,  9 Oct 2026 15:00:18 +0800 (CST)
+Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
+	by mail.maildlp.com (Postfix) with ESMTPS id ABA6440561;
+	Fri,  9 Oct 2026 15:12:34 +0800 (CST)
+Received: from [10.174.178.46] (10.174.178.46) by
+ whupemo200011.china.huawei.com (7.152.185.179) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Fri, 9 Oct 2026 15:12:33 +0800
+Subject: Re: [PATCH v3 1/4] md/raid5: Hide the origin mddev->thread before
+ takeover
+To: <yukuai@fygo.io>, <song@kernel.org>, <shli@kernel.org>, <neil@brown.name>
+CC: <linux-raid@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<yangerkun@huawei.com>, <yi.zhang@huawei.com>
+References: <20260923112159.94175-1-chengzhihao1@huawei.com>
+ <20260923112159.94175-2-chengzhihao1@huawei.com>
+ <1194977a-ef25-4ad3-9bec-df27b6adc4b4@fygo.io>
+From: Zhihao Cheng <chengzhihao1@huawei.com>
+Message-ID: <aaa9d0ee-99ca-55d9-ced4-953d25190d97@huawei.com>
+Date: Fri, 9 Oct 2026 15:12:32 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+In-Reply-To: <1194977a-ef25-4ad3-9bec-df27b6adc4b4@fygo.io>
+Content-Type: text/plain; charset="utf-8"; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ whupemo200011.china.huawei.com (7.152.185.179)
 
-Currently, per-CPU decompression streams use a mutex, so there is
-a chance for priority inversion - a low priority Reader can get
-preempted by a higher priority Reader, which simply will get
-blocked on the stream mutex.
+在 2026/10/9 12:31, yu kuai 写道:
+> Hi,
+> 
+> 在 2026/9/23 19:21, Zhihao Cheng 写道:
+>> The raid5 takeover invokes setup_conf and allocates strip heads, but
+>> it wakes up the wrong thread, which lefts strip heads in the list
+>> 'conf->released_stripes' and not being processed. If raid5_run fails,
+>> the strip heads won't be released, which triggers the following slab
+>> warnings (CONFIG_SLUB_DEBUG):
+>>    BUG raid5-md0 (Not tainted): Objects remaining on __kmem_cache_shutdown()
+>>    Object 0x0000000062fad548 @offset=3968
+>>    Object 0x000000007f74683c @offset=4960
+>>    WARNING: mm/slub.c:1268 at __slab_err+0x31/0x40, CPU#0: bash/865
+>>    RIP: 0010:__slab_err+0x31
+>>    Call Trace:
+>>     __kmem_cache_shutdown.cold+0x15b
+>>     kmem_cache_destroy+0x71
+>>     free_conf+0xf8
+>>     raid5_run.cold+0x463
+>>     level_store+0x64e
+>>     md_attr_store+0xd7
+> 
+> Is this still a problem with following patch?
+> 
+> [PATCH] md/raid5: drain released_stripes before destroying the cache -
+> Li Youhong
+> <https://lore.kernel.org/all/20260929083916.50620-1-dayou5941@163.com/>
+Hi,
 
-Switch zcomp_dstrm lock from mutex to rw_semaphore to permit parallel
-usage.  However, things are not completely straightforward.  Many
-backends have stateless decompression and don't modify decompression
-context, so those can be used concurrently.  But then there are backends
-that do modify decompression context.  We also can have compressed
-object span across physical pages, which zcomp linearises using stream's
-->local_copy buffer before decompression.  That buffer, clearly, cannot
-be used concurrently.
-
-When the backend has no per-stream decompression context (stateless)
-and zsmalloc object fits in a single page (ZCOMP_DECOMP_INPLACE), take
-the stream lock in shared mode (read).  Otherwise, when ->local_copy
-is needed (ZCOMP_DECOMP_BOUNCE) or the backend has a decompression
-context (zstd, deflate), take the lock in exclusive mode (write).
-
-A quick synthetic fio test on 24 CPUs (preempt=full, lz4, 48 low
-priority (nice 19) readers, 24 normal priority (nice 0) CPU hogs
-and 24 high priority (nice -19) readers):
-
-  Metric           Base               Patched
-  ----------------------------------------------------------
-  Read IOPS        473k               680k          (+43.8%)
-  Read clat avg    35.98 us           21.28 us      (-40.9%)
-  Read clat p99.95 55.55 us           20.86 us      (-2.7x)
-  Read clat p99.99 6,717 us           2,834 us      (-2.4x)
-  Read clat max    2,005,100 us       1,614,300 us  (-19.5%)
-
-Suggested-by: Brian Geffon <bgeffon@google.com>
-Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
----
- drivers/block/zram/zcomp.c    | 41 +++++++++++++++++++++++++++--------
- drivers/block/zram/zcomp.h    | 12 ++++++++--
- drivers/block/zram/zram_drv.c | 10 ++++++---
- 3 files changed, 49 insertions(+), 14 deletions(-)
-
-diff --git a/drivers/block/zram/zcomp.c b/drivers/block/zram/zcomp.c
-index 20c487bafff2..79ed957fede4 100644
---- a/drivers/block/zram/zcomp.c
-+++ b/drivers/block/zram/zcomp.c
-@@ -181,21 +181,43 @@ void zcomp_cstrm_put(struct zcomp_cstrm *zstrm)
- 	mutex_unlock(&zstrm->lock);
- }
- 
--struct zcomp_dstrm *zcomp_dstrm_get(struct zcomp *comp)
-+struct zcomp_dstrm *zcomp_dstrm_get(struct zcomp *comp,
-+				    enum zcomp_decomp_mode mode)
- {
-+	/*
-+	 * Backends with a per-stream decompression context modify ->ctx
-+	 * during decompression and cannot share the stream concurrently.
-+	 */
-+	if (comp->ops->create_dctx)
-+		mode = ZCOMP_DECOMP_BOUNCE;
-+
- 	for (;;) {
- 		struct zcomp_dstrm *zstrm = raw_cpu_ptr(comp->dstream);
- 
--		mutex_lock(&zstrm->lock);
--		if (likely(zstrm->local_copy))
--			return zstrm;
--		mutex_unlock(&zstrm->lock);
-+		if (mode == ZCOMP_DECOMP_INPLACE) {
-+			down_read(&zstrm->lock);
-+			if (likely(zstrm->local_copy))
-+				return zstrm;
-+			up_read(&zstrm->lock);
-+		} else {
-+			down_write(&zstrm->lock);
-+			if (likely(zstrm->local_copy)) {
-+				zstrm->excl_locked = true;
-+				return zstrm;
-+			}
-+			up_write(&zstrm->lock);
-+		}
- 	}
- }
- 
- void zcomp_dstrm_put(struct zcomp_dstrm *zstrm)
- {
--	mutex_unlock(&zstrm->lock);
-+	if (zstrm->excl_locked) {
-+		zstrm->excl_locked = false;
-+		up_write(&zstrm->lock);
-+	} else {
-+		up_read(&zstrm->lock);
-+	}
- }
- 
- int zcomp_compress(struct zcomp *comp, struct zcomp_cstrm *zstrm,
-@@ -235,6 +257,7 @@ int zcomp_decompress(struct zcomp *comp, struct zcomp_dstrm *zstrm,
- 		req.src = src + sg->offset;
- 	} else {
- 		/* the object spans two pages, linearize it into local copy */
-+		lockdep_assert_held_write(&zstrm->lock);
- 		sg_copy_to_buffer(sg, 2, zstrm->local_copy, src_len);
- 		req.src = zstrm->local_copy;
- 	}
-@@ -287,9 +310,9 @@ int zcomp_cpu_dead(unsigned int cpu, struct hlist_node *node)
- 	}
- 
- 	dstrm = per_cpu_ptr(comp->dstream, cpu);
--	mutex_lock(&dstrm->lock);
-+	down_write(&dstrm->lock);
- 	zcomp_dstrm_free(comp, dstrm);
--	mutex_unlock(&dstrm->lock);
-+	up_write(&dstrm->lock);
- 
- 	return 0;
- }
-@@ -335,7 +358,7 @@ static int zcomp_init(struct zcomp *comp, struct zcomp_params *params,
- 	}
- 
- 	for_each_possible_cpu(cpu)
--		mutex_init(&per_cpu_ptr(comp->dstream, cpu)->lock);
-+		init_rwsem(&per_cpu_ptr(comp->dstream, cpu)->lock);
- 
- 	ret = cpuhp_state_add_instance(CPUHP_ZCOMP_PREPARE, &comp->node);
- 	if (ret < 0)
-diff --git a/drivers/block/zram/zcomp.h b/drivers/block/zram/zcomp.h
-index e48e3f075352..db9fc7aa5ae4 100644
---- a/drivers/block/zram/zcomp.h
-+++ b/drivers/block/zram/zcomp.h
-@@ -4,11 +4,17 @@
- #define _ZCOMP_H_
- 
- #include <linux/mutex.h>
-+#include <linux/rwsem.h>
- 
- struct scatterlist;
- 
- #define ZCOMP_PARAM_NOT_SET	INT_MIN
- 
-+enum zcomp_decomp_mode {
-+	ZCOMP_DECOMP_INPLACE,
-+	ZCOMP_DECOMP_BOUNCE,
-+};
-+
- struct deflate_params {
- 	s32 winbits;
- };
-@@ -48,7 +54,8 @@ struct zcomp_cstrm {
- };
- 
- struct zcomp_dstrm {
--	struct mutex lock;
-+	struct rw_semaphore lock;
-+	bool excl_locked;
- 	/* local copy of handle memory */
- 	void *local_copy;
- 	struct zcomp_ctx ctx;
-@@ -102,7 +109,8 @@ void zcomp_destroy(struct zcomp *comp);
- struct zcomp_cstrm *zcomp_cstrm_get(struct zcomp *comp);
- void zcomp_cstrm_put(struct zcomp_cstrm *zstrm);
- 
--struct zcomp_dstrm *zcomp_dstrm_get(struct zcomp *comp);
-+struct zcomp_dstrm *zcomp_dstrm_get(struct zcomp *comp,
-+				    enum zcomp_decomp_mode mode);
- void zcomp_dstrm_put(struct zcomp_dstrm *zstrm);
- 
- int zcomp_compress(struct zcomp *comp, struct zcomp_cstrm *zstrm,
-diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.c
-index 70d3f0ed9a3c..d47d1e4129bd 100644
---- a/drivers/block/zram/zram_drv.c
-+++ b/drivers/block/zram/zram_drv.c
-@@ -1373,7 +1373,7 @@ static int decompress_bdev_page(struct zram *zram, struct page *page,
- 	sg_init_table(sg, 1);
- 	sg_set_page(sg, page, size, 0);
- 
--	zstrm = zcomp_dstrm_get(zram->comps[prio]);
-+	zstrm = zcomp_dstrm_get(zram->comps[prio], ZCOMP_DECOMP_BOUNCE);
- 	ret = zcomp_decompress(zram->comps[prio], zstrm, sg, size,
- 			       zstrm->local_copy);
- 	if (!ret) {
-@@ -2115,6 +2115,7 @@ static int read_incompressible_page(struct zram *zram, struct page *page,
- static int read_compressed_page(struct zram *zram, struct page *page,
- 				unsigned long index)
- {
-+	enum zcomp_decomp_mode mode = ZCOMP_DECOMP_BOUNCE;
- 	struct zcomp_dstrm *zstrm;
- 	struct scatterlist sg[2];
- 	unsigned long handle;
-@@ -2126,13 +2127,16 @@ static int read_compressed_page(struct zram *zram, struct page *page,
- 	size = get_slot_size(zram, index);
- 	prio = get_slot_comp_priority(zram, index);
- 
--	zstrm = zcomp_dstrm_get(zram->comps[prio]);
- 	zs_obj_read_sg_begin(zram->mem_pool, handle, sg, size);
-+	if (sg_is_last(sg))
-+		mode = ZCOMP_DECOMP_INPLACE;
-+
-+	zstrm = zcomp_dstrm_get(zram->comps[prio], mode);
- 	dst = kmap_local_page(page);
- 	ret = zcomp_decompress(zram->comps[prio], zstrm, sg, size, dst);
- 	kunmap_local(dst);
--	zs_obj_read_sg_end(zram->mem_pool, handle);
- 	zcomp_dstrm_put(zstrm);
-+	zs_obj_read_sg_end(zram->mem_pool, handle);
- 
- 	return ret;
- }
--- 
-2.56.0.385.gd3acb90ef8-goog
+Youhong's patch could fix the problem, please take it, his solution is 
+better.
+> 
+>>
+>> The detailed triggering process is as follows:
+>>    mdadm --create /dev/md0 --level=1 --raid-devices=2 /dev/sda /dev/sdb
+>>    --force --assume-clean # create raid1, mddev->thread is raid1d
+>>    echo 5 > /sys/block/md0/md/level
+>>     level_store
+>>      raid5_takeover_raid1
+>>        setup_conf
+>>         grow_stripes
+>>          grow_one_stripe
+>>           sh = alloc_stripe
+>>           raid5_release_stripe
+>>             md_wakeup_thread(conf->mddev->thread) // wakeup raid1d
+>>        raid5_run
+>>         ENOMEM = raid5_create_ctx_pool
+>>         free_conf
+>>          shrink_stripes
+>>           drop_one_stripe // no strips found from the conf->inactive_list
+>>           kmem_cache_destroy(conf->slab_cache)
+>> 	 __kmem_cache_shutdown
+>> 	  free_partial
+>> 	   list_slab_objects // some entries are not released !
+>>
+>> Fix it by hiding the origin mddev->thread before takeover, so that
+>> new allocating strip heads can be put into 'conf->inactive_list',
+>> which can be found by drop_one_stripe().
+>>
+>> Fixes: 773ca82fa1ee ("raid5: make release_stripe lockless")
+>> Signed-off-by: Zhihao Cheng <chengzhihao1@huawei.com>
+>> ---
+>>    drivers/md/raid5.c | 37 ++++++++++++++++++++++++++++---------
+>>    1 file changed, 28 insertions(+), 9 deletions(-)
+>>
+>> diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
+>> index c091bba95c31..7e87e8a60f5f 100644
+>> --- a/drivers/md/raid5.c
+>> +++ b/drivers/md/raid5.c
+>> @@ -9039,19 +9039,38 @@ static void *raid5_takeover(struct mddev *mddev)
+>>    	 *  raid4 - trivial - just use a raid4 layout.
+>>    	 *  raid6 - Providing it is a *_6 layout
+>>    	 */
+>> -	if (mddev->level == 0)
+>> -		return raid45_takeover_raid0(mddev, 5);
+>> -	if (mddev->level == 1)
+>> -		return raid5_takeover_raid1(mddev);
+>> -	if (mddev->level == 4) {
+>> +	void *ret = ERR_PTR(-EINVAL);
+>> +	struct md_thread *thread;
+>> +
+>> +	thread = rcu_dereference_protected(mddev->thread,
+>> +				lockdep_is_held(&mddev->reconfig_mutex));
+>> +	/*
+>> +	 * Set mddev->thread to NULL before setup_conf() to avoid waking up
+>> +	 * wrong thread(eg. raid1), which can prevent the strips from being
+>> +	 * left unreleased in the error handling path(free_conf) of raid5_run.
+>> +	 */
+>> +	rcu_assign_pointer(mddev->thread, NULL);
+>> +
+>> +	switch (mddev->level) {
+>> +	case 0:
+>> +		ret = raid45_takeover_raid0(mddev, 5);
+>> +		break;
+>> +	case 1:
+>> +		ret = raid5_takeover_raid1(mddev);
+>> +		break;
+>> +	case 4:
+>>    		mddev->new_layout = ALGORITHM_PARITY_N;
+>>    		mddev->new_level = 5;
+>> -		return setup_conf(mddev);
+>> +		ret = setup_conf(mddev);
+>> +		break;
+>> +	case 6:
+>> +		ret = raid5_takeover_raid6(mddev);
+>> +		break;
+>>    	}
+>> -	if (mddev->level == 6)
+>> -		return raid5_takeover_raid6(mddev);
+>>    
+>> -	return ERR_PTR(-EINVAL);
+>> +	rcu_assign_pointer(mddev->thread, thread);
+>> +
+>> +	return ret;
+>>    }
+>>    
+>>    static void *raid4_takeover(struct mddev *mddev)
+> 
 
