@@ -1,90 +1,72 @@
-Received: from relay.hostedemail.com (smtprelay0017.hostedemail.com [216.40.44.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28F704EF141
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 16:25:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEF5A4EE855;
+	Fri,  9 Oct 2026 16:26:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791563148; cv=none; b=eUSLHdamKeOxAwtykL/bVl8mjPV37Zq1sY1QQbPz0x9iAXnVsKA8UwZRv2V9akkXp/IRv6K+SonRWyQnmplDiDgUdBPM0I6ywN1Dhk5eJlZ4PeNbrCpB1xvMeMzTe9NuMT0Vhkl8JkDs73TkwJAqHIV6UxqOixFTaYxuMxFM/uw=
+	t=1791563178; cv=none; b=hS6HQoeaay83RJOyS5kPKFIjRPD4WHzKjF3eR1XOAVdYxLDagKOsmGL/6KNvDUq7OkAK36IRpjhxlhZMPtzdqcyovQB7FzPQ7d1/TmqSon2NdQWgyXq04NaAdtpkvADoSyTSrV2/wB7T2oMh8pC577qDrhbAzpaK7j/PdWjQKE0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791563148; c=relaxed/simple;
-	bh=BD4J5Dm8SRaGi1zD7ZI3OiBblxUlXtDGNm599/FrgrE=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=RfRomKVXBy1+JSAN1DpuDNgZ4B7cfAv5brTqkW9zspOgkTfZON26OmDuuFXs+ZVY9/mPJ5QQU0q0bRuEtcgkS0lzzqA8oNP5ZaaeKV66BFJSuKh6+k5EfkxtL7KGkRItsvs9p9cOQxqpWcHiGrT7HgIMKRO/dFF24A1NoWgDpHM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com; spf=pass smtp.mailfrom=perches.com; arc=none smtp.client-ip=216.40.44.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=perches.com
-Received: from omf02.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay06.hostedemail.com (Postfix) with ESMTP id E6957A7F45;
-	Fri,  9 Oct 2026 16:25:37 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by omf02.hostedemail.com (Postfix) with ESMTPA id 2CF1E8000F;
-	Fri,  9 Oct 2026 16:25:36 +0000 (UTC)
-Message-ID: <5f3852d23428273f1399186f0677870a7a17df35.camel@perches.com>
-Subject: Re: [PATCH] get_maintainer: only use THE REST as a fallback
-From: Joe Perches <joe@perches.com>
-To: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-Cc: linux-kernel@vger.kernel.org, users@kernel.org
-Date: Fri, 09 Oct 2026 09:25:35 -0700
-In-Reply-To: <20261008-get-maintainer-the-rest-fallback-v1-1-7d26d0b7aa34@linuxfoundation.org>
-References: 
-	<20261008-get-maintainer-the-rest-fallback-v1-1-7d26d0b7aa34@linuxfoundation.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+	s=arc-20240116; t=1791563178; c=relaxed/simple;
+	bh=ELlZU9yhMKc098kyO9J5uWm0TyAi/xkw+L7t7KrYmiE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pxM4N7H3vd1eWDm+5l4Zuj7qK8GlLcBP/NNCHJ9x4H3BgV9fYk3tgql3fAJy0FO04Wnq9KCe1OcEEx8dmA22ReKtQp3BKKFEWSlw7RTYB5X5Eg2yl/yZcpAjGyZG/LsAmU+nAglK8P6rImvB7wPkERepNbhnsKf93iN6FnAZSNc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PZVo0dbN; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PZVo0dbN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B14A1F000FF;
+	Fri,  9 Oct 2026 16:26:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791563176;
+	bh=78F8N/xB1iVAPP5FIl6Zyl3+ctGuXp1Fs51JCP34W/0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PZVo0dbNtXOkw5TBLtrrbHA4e75HW+Y9fx5h4wD+0Z+HzSA4vdr8egVcy5rRv2FyZ
+	 imoeSPgrFOhnA0sJSBhAjqhRqUqaqTwM6BJuWQ24X2O0bNdAZihjohUGw8wsTzRao3
+	 BAKf/HTfOwROLmjlUacCssibwe4+V9L2X1dZn7Sa8OLVPjiI3zKBqCcoVybIGFGJME
+	 rcyenL8YmF4qivRJ+aBubOWWedlaAaNP6wbjPNMPj3TWa5O7G60lhl21TxE+vS/RWt
+	 EGMkQAvu2I3Oby47zOfPyOGrLDCOi2hLATPn05X7T1lrxXN/R9l9Die57xp7J+h8J/
+	 r98czOrDZEF0w==
+Date: Fri, 9 Oct 2026 18:26:08 +0200
+From: Eric Biggers <ebiggers@kernel.org>
+To: Massimiliano Marretta <massimiliano.marretta@egicon.com>
+Cc: David Howells <dhowells@redhat.com>,
+	David Woodhouse <dwmw2@infradead.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>, keyrings@vger.kernel.org,
+	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] Add bulk signing support for PKCS#11 keys
+Message-ID: <20261009162442.GF321175@quark>
+References: <20261009101915.495734-1-massimiliano.marretta@egicon.com>
+ <20261009135228.GA321175@quark>
+ <hhgoxv37uegtx3memo7spxlesoywbsnavzoezdg7rdrfwog3ml@tx73cw2yhu6n>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Rspamd-Server: rspamout07
-X-Rspamd-Queue-Id: 2CF1E8000F
-X-Stat-Signature: xdfh5xspsz41ybct7dozdape33g3cqmg
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-Session-ID: U2FsdGVkX18SNqPQaX0S4Uf+Q2Xvq0ZdQ+eDt5xLzlc=
-X-HE-Tag: 1791563136-891763
-X-HE-Meta: U2FsdGVkX1+1LTXbl7+WHTo2jBh23btzK1IyF9ZOvuaVZJPgl7IzrdmwvL0GoyqWgQI/Zirx9/kBbbSovX53OI0ul4mHACe1DOjCK1TKm7jz4xSH4JCKKYSu/7rjzVgAqfclSr2SMX7/b5L5umyPN8Te6hyx4YeZZK1rWr+3aJBIJzz0Qz1EZj7KlqQ/Nye8h1cz8v/2X1MnHTxTgOCJKISHB7s3BHbYLd9Qvf0S0qeXHS2y7ONXWtUrZLW2dpBDc6I1xtL3BJbVja/wJIZcOwbqOrH0EZXcNY32sioi9APHRJApbrTqBCPLAyBoGy4iPAe7G2Ki4xCz0wW5poTIOT9L0C7E1X3+pUTpeuT/Dmq1dPjXvuBFGQ+IjrfZdKPgBXJoyHBqzZ4eRpxUXXOBLu+dluUXDhtxUkoFtwnJjpwENSlv/2AuIUKBJbOjT80p4gSb/A4qITDtteyYSuXHPzVpH3TQcRFPXvx/u1O8dqoPhQF+BmA9f5uw33u2AX/JjUU321Jq3VqDWCQufY4GoK+MgId7oYtIqhmP/6OCv9SI816Vg2JPCxB8mFcQ4l+5HkPzeCn3QbWngqNDQRC/Sd+6HpvMGcYGyYQyrEn/wWKLx3WAoxyr1zxxr/Im8C2txre8oHrlTGAaOPwUrVdD1P/dxyZBsv7T
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <hhgoxv37uegtx3memo7spxlesoywbsnavzoezdg7rdrfwog3ml@tx73cw2yhu6n>
 
-On Thu, 2026-10-08 at 08:51 -0400, Konstantin Ryabitsev wrote:
-> THE REST matches every file in the tree via "F: *" and "F: */", so
-> get_maintainer.pl currently adds [linux-kernel@vger.kernel.org] every
-> patch, regardless of whether the touched files already belong to a
-> subsystem with its own mailing list.
+On Fri, Oct 09, 2026 at 06:13:22PM +0200, Massimiliano Marretta wrote:
+> Yes, I have been following that series. It is a useful approach for
+> its stated goal, and I am not arguing against it.
+> 
+> However, in our case it is not applicable. Our product depends on
+> Wi-Fi modules from Ezurio that are built out-of-tree against the
+> Engicam/NXP kernel. In this case the module hash is not known at
+> vmlinux link time, so a Merkle tree computed during the kernel build
+> cannot cover them.
 
-Perhaps it's sensible to use a fallback email address only
-when get_maintainer produces no email address and remove
-the "THE REST" entry altogether.
+But do you actually deploy a kernel (maybe with some in-tree modules),
+and then deploy the out-of-tree modules later at some totally separate
+time?
 
-> Only add THE REST for a file when no other matching section provides a
-> mailing list for it. Files that match no section, or only sections
-> without an L: entry, still fall back to THE REST, so every patch keeps
-> reaching at least one public list.
+Or do you actually just collect both in-tree and out-of-tree artifacts
+into a build and deploy that, and the fact that the in-tree build
+doesn't have visibility into out-of-tree modules built separately is
+just a limitation of the build system?  If so, asymmetric signatures
+seem like a really unnecessarily complicated workaround for that.
 
-Public is an interesting word choice.
-There are subscriber-only mailing lists that may not be public.
-
-$ git grep -i subscribers-only MAINTAINERS
-MAINTAINERS:L:  acrn-dev@lists.projectacrn.org (subscribers-only)
-MAINTAINERS:L:  openwrt-devel@lists.openwrt.org (subscribers-only)
-MAINTAINERS:L:  ltp@lists.linux.it (subscribers-only)
-MAINTAINERS:L:  openvpn-devel@lists.sourceforge.net (subscribers-only)
-MAINTAINERS:L:  linux-parport@lists.infradead.org (subscribers-only)
-MAINTAINERS:L:  linuxpps@ml.enneenne.com (subscribers-only)
-MAINTAINERS:L:  pvrusb2@isely.net       (subscribers-only)
-MAINTAINERS:L:  sdricohcs-devel@lists.sourceforge.net (subscribers-only)
-MAINTAINERS:L:  squashfs-devel@lists.sourceforge.net (subscribers-only)
-MAINTAINERS:L:  tlan-devel@lists.sourceforge.net (subscribers-only)
-MAINTAINERS:L:  tomoyo-users_en@lists.sourceforge.net (subscribers-only, En=
-glish language)
-MAINTAINERS:L:  tomoyo-users_ja@lists.sourceforge.net (subscribers-only, Ja=
-panese language)
-
-If the desire is to provide a [PATCH] only review style list
-where lore does not have to send emails to subscribers perhaps
-perhap use an aggregating / deduplicating mechanism to lore
-for all patches sent to kernel.org.
-
-Though there are what seems to be non-kernel related lists on
-lore and that's likely an issue too.
-
-
+- Eric
