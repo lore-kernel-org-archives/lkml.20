@@ -1,101 +1,166 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C94B84E1C8D
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 17:50:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC4324E06E1
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 17:54:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791568245; cv=none; b=eRUiK8G6Ax5J1f77ZuOc1NDCq9CpMJU+JhpDb/wdGi4/6mD4tJTqelY9g90akipl8fFEP7BKQBK+of3lePnzAQWphOWfBqMgbIV359FZHdk3Seh8kK9qbIvXO3moR6c/O0LrvunGGpuP5OJUq3A+QDefhSPav3UhZAcXgw9LEcA=
+	t=1791568463; cv=none; b=P31DjYhXTGE9CScREMFnAUV1daEzh7S5z1tcWsllX9M7PDc0hZyko+1fwQ+u/dcEa6LwVoHORZitucrSVkGnISk0l1kuRNJushJbccY4SHfJanxEwUnkKraWcgfgIAZxLnUiJQWXXPVk3kbqMUW4huebpswliqRZUnyiAw0Ysyo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791568245; c=relaxed/simple;
-	bh=WamLBlsKicbvMN84nu//E+GEDYaz+ghaJeYJo0L0wF0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Isnipir9Mr73IJtqmOCu+oMjk+DWRrKIYx5C3gd+qJa3aKuYuK5g/5pYQFp4+5hEviDlQL2qQx4KqjH4VXYAw1x8EndbZV7MqZQMVLdpYw96joiWqrkrvwjxjcoPKYavJGnEBwg58q1gWP5Cl1tpfrP+TY3u5mTgQ2s2Nu6yr8E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hEPpS5a0; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hEPpS5a0"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2db80fcdf8bso33244055ad.2
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 10:50:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791568244; x=1792173044; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rJ9XeYQkqhsjchhR0kegBTiZB6XHwagNviFnMzxLQE8=;
-        b=hEPpS5a0HL6SZR2CuA8rnNtR4gs6AOQsoGHc5/kjdWCDE+XOqhYyYMTUH5MC13f6R+
-         kpaBAiNFJ+A44VDf4+EGJOgDz237JnHgORfpY6xWEeUn843ecQTOWCdj4bmn/bAA4szv
-         yXHEUC+IzODdarFT1W/JXpAfOPeLNwazM164RDTqgaQ+SIX8njOB4rPNRrNEO9lEaMGt
-         3Lw8RRdOy2nBMGANG47TrdwsMsYNwINtl8gmQPkDtxRgKxDMSh2Njn0DmtfaSY9Sdo++
-         MYPpsMuzDX8kVV11zTG9o3PSfzertFZDei1GUTyQAAb3egORcALl+3lGUR+pAb0LPPe7
-         9JJA==
+	s=arc-20240116; t=1791568463; c=relaxed/simple;
+	bh=8RnH9GuPagBX6F9GffrrKe3MQ2cVs+r9jdOGWXAEbOg=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:Cc:
+	 Content-Type; b=n8O0cVnTXmsKFcQSYaM1YqNFEzD7JQcg6qEeqXCt5wkS0/76eWtureARNJ/8sXXEKPJcv9PP+WGpwTNRl8SXyaPoJYAy1Vs8zZgilZ6SFeAi3hPrBwjD9TB+SYpRzRezBESNipWcONnb3EekPb/8z0zhWKy+vEafYgEWgZB/aDg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4dc57e2a3f2so103265b6e.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 10:54:21 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791568244; x=1792173044;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rJ9XeYQkqhsjchhR0kegBTiZB6XHwagNviFnMzxLQE8=;
-        b=sPfwVQCFz499ahOH5jSXsMPlSUuCZTcUXcFBmD6rwBmbmiLOvdnC5KwTzBXyA1hxJ6
-         Ozi9zOImlckeZjE1OhDArPhRWzGqguCmOY8aBd3n/E3sqBXIbBypbKfFhFLBz1tnW+f+
-         Q1fMOJu1/IwgkZL+mRqaUki1NV4onZqCY+B/oRlJOgY3aoZIsYQ6uJwQsRbepUzqXlgV
-         5gitr3OrD+HAbqINi89e2mLGniuvlhxWgdlf5lqOAeQF0wmENf2NLLC8zXPuxqlPafvk
-         DX+k27j7mSsffifjvZIev44ku2R1czDtvmxUuAVeuNTuofzyb2pqv2VOfB+DroyYFu08
-         ixRA==
-X-Forwarded-Encrypted: i=1; AKwUvBxwdyxerZKpWrlKnvXHzulKid9UiXooJboWotyyb8pZPCAHVleLoUVqQTKh4rRRIraNFHelhTVyYwslBAA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIE1fONLFRIp4vGINPuEHN3T9nQF+EIMUZDsSQaONhzxD6UJHU5
-	EbpHgEOQYvWsWg3RsdoHNVZrBCvJQoC0ht/v9CYfYPamdt894eCLuVpi
-X-Gm-Gg: AYBFou3nA6dLDO6MwvRMtfMu6IZVdRXG/JAkPT2ZoYArvbM8Xsv7cTAMhxVcGy7WxSl
-	DPM0/cnezO/EzS/xMEtEdOhP0tQL2ETjOcomDBiTaE9O1rVgOp7TRK2orf1rPhwoSwiDYlUWoE0
-	eskR+K+mE48J8FSLU+ZRfUFtL4wi0YBP9IEWfSDYptd75q119xPV1PIa5NaAshlGq3f5b/kCldf
-	o40bI7+VnsVzinUdi/dKiqT9+3jaG5wW0pOf94eohHVf5taBAEWWfvRbuHhWv3fbhX74AM045xV
-	uTNxRFbjYx02+Mro9RSIX/AneLf4NrVXQgKWuZMdnvkV8EOHLh4S/iDiaaLRH+UZPXBSTr9/jnh
-	RVyoCgpMCNW4AXxkDLEo1F3xDTOXyDr55ow6FBFMepHMVGy+pu37ri2pn6pjgwohg3rqAyqs5bp
-	QxqF33XTnIm+1tY5QUvnKWU6PtBVWYJggkn3SO+zjsIlCMXqsCkXCcG8JElfCsSlthy+R5kH6sF
-	tzoFQyzNpYpCvVkVIPjVcKO2XOXdyxSn0kAzSEU0LYioEUk4C6gJ52jVAuTrFx/glSfA8Xb61db
-	KgSd8i4iZ6gKvkOgjNGECQfS3u3ML38gFjm8YPEHvh3ns3bRu8Xc1ur7a/UbysvjnS0e86y3qEB
-	P/TVaYMa7fu9KIajP
-X-Received: by 2002:a17:903:8cc:b0:2e4:b218:f689 with SMTP id d9443c01a7336-2e842abfe6fmr19557115ad.53.1791568243896;
-        Fri, 09 Oct 2026 10:50:43 -0700 (PDT)
-Received: from localhost.localdomain ([2a09:bac5:d58d:323::50:f5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8421b1562sm14512165ad.34.2026.10.09.10.50.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 10:50:43 -0700 (PDT)
-From: Ting-Han Hou <ue081723@gmail.com>
-To: Nathan Chancellor <nathan@kernel.org>,
-	Nicolas Schier <nsc@kernel.org>
-Cc: Simon Glass <sjg@chromium.org>,
-	Chen-Yu Tsai <wenst@chromium.org>,
-	linux-kbuild@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] scripts/make_fit: Ignore schema checks when decomposing DTBs
-Date: Sat, 10 Oct 2026 01:50:23 +0800
-Message-ID: <20261009175024.2212-1-ue081723@gmail.com>
-X-Mailer: git-send-email 2.52.0.windows.1
-In-Reply-To: <CAFLszTjiX+oiDBsm7MccvZqhcMae=4Dh5x6ULHSLDRMQN8NwZQ@mail.gmail.com>
-References: <CA+NtrhQBK8uW32qO3dXxVxO1GSN-0EJfyJ16tnyx0o52T17WtQ@mail.gmail.com> <CAFLszTjiX+oiDBsm7MccvZqhcMae=4Dh5x6ULHSLDRMQN8NwZQ@mail.gmail.com>
+        d=1e100.net; s=20260707; t=1791568461; x=1792173261;
+        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=zPD9BdrlBaG5YPzJzYY3HFzR6feRrXbYDBkB6lUduvY=;
+        b=qgVsaR4Lz+Wb4gWd3nDlYnMVSqFOfvRz7xXHot9CI+krkY27ecwJ/zsZmPDCClsr/l
+         uHa/M2NGpRfeRPQn96JWuQZnmJJw1XYP/OBGx6mfoH6+M1oHV1j8BnyLo4QAQQdOeln2
+         dA1D9+n6XkgMDZX4cvDYcHmtGYlUK6U5m/L7rUyxZ/DYClvOTsyzWebDxc+OlkYy42br
+         B5ZPimDwvM2If30FByWHdbF93LmfFJDmcAprMNkWrhk6Mal1RLU+cHUCrM1VTyzOUhLB
+         pslOWD2vjNhusxubavPrJP1xQUKNOikl6VSPe72Am4wsWvQpUy6l7XFdoU98JMROF77N
+         9HzQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy40LjDqVykDLa9c1TrMoiJ/d863Qjackxq/M5+XOueBpXX48ebISYwGsWCFQNlzwFq3gJ05qAOYcHdwJU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kW5hvITSvxc7baeqJ5UYKghpw9/OOfjjPOcGZaAdL83aJur4TN
+	nPBV7s07IL/7ko42b/xnxvHkYuZwCc7Yy+NpzlhA1nsxsrDom0gqpsgSv1KGX7d/l77kZJNAtAS
+	5POtox7tPeCw+tlk3QtO9LFdjw+3xv8u8UckhUEUOVzQJaTt39YxXYbq9wT4=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:1304:b0:4f4:9314:af39 with SMTP id
+ 5614622812f47-50c54170c5dmr2039521b6e.28.1791568460765; Fri, 09 Oct 2026
+ 10:54:20 -0700 (PDT)
+Date: Fri, 09 Oct 2026 10:54:20 -0700
+In-Reply-To: <20261009103033.2920530-1-yi.zhang@huaweicloud.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ac92a4c.70ed5d86.2ac85.0072.GAE@google.com>
+Subject: [syzbot ci] Re: ext4: use iomap for regular file's buffered I/O path
+From: syzbot ci <syzbot+ci46f64f7b6a2a188e@syzkaller.appspotmail.com>
+To: adilger.kernel@dilger.ca, chengzhihao1@huawei.com, djwong@kernel.org, 
+	hch@infradead.org, jack@suse.cz, libaokun@linux.alibaba.com, 
+	linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, ojaswin@linux.ibm.com, ritesh.list@gmail.com, 
+	tytso@mit.edu, wangkefeng.wang@huawei.com, yangerkun@huawei.com, 
+	yi.zhang@huawei.com, yi.zhang@huaweicloud.com, yizhang089@gmail.com, 
+	yukuai@fnnas.com
+Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, 9 Oct 2026 at 08:13, Simon Glass <sjg@chromium.org> wrote:
-> Reviewed-by: Simon Glass <sjg@chromium.org>
+syzbot ci has tested the following series
 
-Thanks for the review, Simon.
+[v7] ext4: use iomap for regular file's buffered I/O path
+https://lore.kernel.org/all/20261009103033.2920530-1-yi.zhang@huaweicloud.com
+* [PATCH v7 01/31] ext4: simplify size updating in ext4_setattr()
+* [PATCH v7 02/31] ext4: factor out ext4_truncate_[up|down]()
+* [PATCH v7 03/31] ext4: set EXT4_MAP_NEW flag for delayed allocated blocks
+* [PATCH v7 04/31] ext4: recheck extent status tree before block allocation
+* [PATCH v7 05/31] ext4: fix orig_mlen initialization in ext4_map_blocks()
+* [PATCH v7 06/31] ext4: allow ext4_map_blocks() to start its own transaction handle
+* [PATCH v7 07/31] ext4: avoid unnecessary transaction in ext4_map_blocks() for unwritten extents
+* [PATCH v7 08/31] ext4: skip block allocation for holes in the data submission path
+* [PATCH v7 09/31] ext4: add iomap address space operations for buffered I/O
+* [PATCH v7 10/31] ext4: implement buffered read path using iomap
+* [PATCH v7 11/31] ext4: pass out extent seq counter when mapping da blocks
+* [PATCH v7 12/31] ext4: do not use data=ordered mode for inodes using buffered iomap path
+* [PATCH v7 13/31] ext4: implement buffered write path using iomap
+* [PATCH v7 14/31] ext4: rework handle credit accounting for unwritten extent conversion
+* [PATCH v7 15/31] ext4: implement writeback path using iomap
+* [PATCH v7 16/31] ext4: implement mmap path using iomap
+* [PATCH v7 17/31] ext4: implement partial block zero range path using iomap
+* [PATCH v7 18/31] ext4: drain writeback before removing extents on the iomap path
+* [PATCH v7 19/31] ext4: add block mapping tracepoints for iomap buffered I/O path
+* [PATCH v7 20/31] ext4: disable online defrag when inode using iomap buffered I/O path
+* [PATCH v7 21/31] ext4: add EXT4_STATE_DISKSIZE_GROW_PENDING state bit and helpers
+* [PATCH v7 22/31] ext4: submit and wait for pending disksize-grow I/O on writeback
+* [PATCH v7 23/31] ext4: advance i_disksize to i_size upon disksize-grow I/O completion
+* [PATCH v7 24/31] ext4: defer i_disksize update while DISKSIZE_GROW_PENDING is set
+* [PATCH v7 25/31] ext4: submit and wait for disksize-grow I/O in fallocate paths
+* [PATCH v7 26/31] ext4: clear DISKSIZE_GROW_PENDING on truncate or error
+* [PATCH v7 27/31] ext4: set DISKSIZE_GROW_PENDING after zeroing unaligned EOF block
+* [PATCH v7 28/31] ext4: add tracepoints for DISKSIZE_GROW_PENDING set, clear, and wait
+* [PATCH v7 29/31] ext4: add tracepoints for EOF block zeroing and disksize-grow I/O
+* [PATCH v7 30/31] ext4: partially enable iomap for the buffered I/O path of regular files
+* [PATCH v7 31/31] ext4: introduce a mount option for iomap buffered I/O path
 
-Nathan, Nicolas: recent scripts/make_fit.py changes have gone through
-the kbuild tree, but I did not Cc you or linux-kbuild on the original
-posting, sorry about that. Would you be able to pick this up, or would
-you prefer that I resend it with linux-kbuild on Cc?
+and found the following issue:
+WARNING in ext4_do_writepages
 
-The patch is here:
+Full report is available here:
+https://ci.syzbot.org/series/3711c951-acf4-4ebe-a920-9cc89b6be2ff
 
-  https://lore.kernel.org/all/CA+NtrhQBK8uW32qO3dXxVxO1GSN-0EJfyJ16tnyx0o52T17WtQ@mail.gmail.com/
+***
 
-Thanks,
-Ting-Han
+WARNING in ext4_do_writepages
+
+tree:      vfs
+URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/vfs/vfs.git
+base:      3d399224425573875b6f6f1181bd8cf9a28cc7d1
+arch:      amd64
+compiler:  Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+config:    https://ci.syzbot.org/builds/c3c01f8c-846d-4c7a-955a-fd7427af6b0d/config
+
+------------[ cut here ]------------
+!err
+WARNING: fs/ext4/inode.c:2512 at ext4_do_writepages+0x33b3/0x44a0, CPU#0: kworker/u9:3/147
+Modules linked in:
+CPU: 0 UID: 0 PID: 147 Comm: kworker/u9:3 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
+Workqueue: writeback wb_workfn (flush-7:1)
+RIP: 0010:ext4_do_writepages+0x33b3/0x44a0
+Code: 0f 0b 90 e9 b6 d9 ff ff e8 6a e2 36 ff 90 0f 0b 90 e9 e6 dc ff ff e8 5c e2 36 ff 90 0f 0b 90 e9 94 df ff ff e8 4e e2 36 ff 90 <0f> 0b 90 bb ea ff ff ff e9 ae f8 ff ff e8 3b e2 36 ff 48 8d 3d 64
+RSP: 0018:ffffc90003106ce0 EFLAGS: 00010293
+RAX: ffffffff8290e912 RBX: 0000000000000000 RCX: ffff8881053f9e00
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: ffffc900031070f0 R08: ffff888025da4a37 R09: 1ffff11004bb4946
+R10: dffffc0000000000 R11: ffffed1004bb4947 R12: ffffc900031071a0
+R13: dffffc0000000000 R14: 0000000000000000 R15: 1ffff11004bb495d
+FS:  0000000000000000(0000) GS:ffff88818d6c9000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00005555565a5a28 CR3: 0000000031f66000 CR4: 00000000000006f0
+Call Trace:
+ <TASK>
+ ext4_writepages+0x241/0x3b0
+ do_writepages+0x338/0x560
+ __writeback_single_inode+0x136/0x1220
+ writeback_sb_inodes+0x9de/0x1b00
+ wb_writeback+0x41c/0xad0
+ wb_workfn+0x431/0x10f0
+ process_scheduled_works+0xc3d/0x1630
+ worker_thread+0xa47/0xfb0
+ kthread+0x38b/0x480
+ ret_from_fork+0x514/0xb70
+ ret_from_fork_asm+0x1a/0x30
+ </TASK>
+
+
+***
+
+If these findings have caused you to resend the series or submit a
+separate fix, please add the following tag to your commit message:
+  Tested-by: syzbot@syzkaller.appspotmail.com
+
+---
+This report is generated by a bot. It may contain errors.
+syzbot ci engineers can be reached at syzkaller@googlegroups.com.
+
+To test a fix for this bug, please reply with `#syz test`
+(on a separate line) and attach the patch to the email.
+
+Notes:
+- The patch will be applied on top of the tested series (as an
+  incremental fix).
+- To test a new version of the whole series, please send it directly
+  to syzbot@lists.linux.dev.
+- Arguments like custom git repos and branches are not supported.
