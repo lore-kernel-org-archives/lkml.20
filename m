@@ -1,202 +1,181 @@
-Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011048.outbound.protection.outlook.com [52.101.52.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA7494BD11B
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 14:24:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791555845; cv=none; b=fE1HzsMfd6e2z19DBuc5KfEB3e9UhEnTeKvjMt1g3EjPKQu7USRn5SF2nOKv2zUf88XqYiwL6Jrz9qLd0pj6M6VjuzjGyBsbQGx+SlTXcmVByx5hKB8k0gfZrRMFOdyTp6Yai8EAUZfhFj3uXEHzoLhcibM9mXZ3WIZlt1CgdSQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791555845; c=relaxed/simple;
-	bh=5afvs8MvB8g8cyiV0dvhk0wts/9RLtB6TmHb87Dw3Ug=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=H7nCN9gjtutBYKYrzv3xo71yD8EV8oBewELMNd8ZV6qiKJZuhs6hI87dSssWenrrZOvxMNWp+rJrtAStcuzllMmDQ4pA9ejv1CqlJdsujyBOMXTPfsiAtlqCdKH+VVwhQdfP5/pAupnDmkyEoEIloS8RLVPCOAwpDU6DI+lbQ0A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=P+umFAKd; arc=none smtp.client-ip=209.85.219.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79D972D8DC4;
+	Fri,  9 Oct 2026 14:24:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791555886; cv=fail; b=dz2OpjlCdjIZf9qSuiXCadLOCxmAmfauJUmkOSbjsgkEiN1Jy1duQZpkCWRYGegK12/QfOhLB5Ow2BZYGN/lXNg43/xru3qY/Md2s+dNWHaKoOJEUzrC5LUy11l4PFnctH/DKmYgj5+m2BEHHB7a8PR+ne6ozyd4jlUD2nNEt4g=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791555886; c=relaxed/simple;
+	bh=0TRMIxSwychNOXQof+znV1CTNX5Gkn6BEL78rpBMbsA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=dTTluNrPIHkzsIqOpu7iygpTKUsb9b4NhZd9JRSuWIXLM0SnN86+m5tRO+XNqYXypy7sJq+uKkqzHqX20qlppH7c9m734CvCzs9HnTNZiH22U5A0uCzn/16pdOFHdhdlD58TB+MKM7iArAiNKlxgE7g/qOBmR6ELt9CiHsyVBMg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=EIKFDnP4; arc=fail smtp.client-ip=52.101.52.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="P+umFAKd"
-Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-91b64fb6010so591706d6.1
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 07:24:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1791555843; x=1792160643; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aHhnSl5etYVacPAAIx+gDocb5CfPyv6BoCMmkWUozsk=;
-        b=P+umFAKdn9MfAbB62Bqe6Jys+RsjWl2LwVRDDG/uz13/lPDJFGEa5ORtAmA2EcWk/S
-         TGVt1/Aj7+lGEpUHa3LUj1CqdcnNGVsMXqM5Id773/N5CH938hcD/V6gyLLLVqIlCEk6
-         vEiKKlI1OKH/MdpZiN/FhMVtBOthkHEEdzNcyevspMAVlUdMLhyA3HZZFEwXcoSKZiEh
-         a5TWsewDZZbyZx4LqZQGPm07zkq+0kf6ghk+3ihhmNHcwe6b+8fm7uzJ3V+7w/HTTLdh
-         l1J9/zvS0/nGNnJvUjVWoKAC4EGeJFm/wzr0mIQTRiHnvotZrADu/oR754e3Ey405Bra
-         Z0EQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791555843; x=1792160643;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aHhnSl5etYVacPAAIx+gDocb5CfPyv6BoCMmkWUozsk=;
-        b=wrfDe8PmXTVlHnheDhcD/PVcuZ54Pox52vnkcxdeaAodxSizDG06M2T+1QSnVYU+Eu
-         UGrJTBLdyngxX+cdvorvo+YXB4zesTgfZgxXH5QE+wCwVtwCJmSaHg/6kerDYoh9wARQ
-         VSMBw5dgZkZg/fNHUnCybqmdRwDiA5cxZIT2pXH7Yayk7pxGKRBTWjk5ENcMP8Egf1RA
-         IDBA5EZ8YS2nr47Sqc4mbcIuD43rL8n6fPRCNcbaOxtAqbPIIkyJSQ84dc1aYKTarvEh
-         rVBcaYSKIbfeMorKg2ikPxZPLJooU9lA2y24UKTpKjmLSw5d//obbwdK25GA18vuHqtV
-         qADg==
-X-Forwarded-Encrypted: i=1; AKwUvBwqMIXxjz9lm/XWG2+wjThfHqQEtabMKjCDBMsykVFGfgPD06NCqOFz4R2Pz2gZOvdeIjRqOlNHiCS6Fq8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIb2LwFLl0ID2DPgI/RnYouJTxnyY4TLRZY2ciZ9BXXXWr8DWXA
-	oDJuiw8LIm+Gexj9qDYGKf7oHqFFNtaio/RA3ir2LMywECstEMQi9q4ogZILfGKAJCU=
-X-Gm-Gg: AYBFou0twBb4gl9LT3nJav/SxWUidbKTy+bZIfFQfPcpUjMkPvbOSXw4Weto9ZCGrMh
-	z0bs1L4GlYX5pbYY7IZJSoj18o31mMqYbbq6c3QhfrKulyMEXxCmqDCPGy+IpSdkt2dG5Eu+88h
-	SECAQ1cvA+U7QPltfRm/k8EjG/35h3bQS+3lQQvmGAwAgp94eJjFQVyEg9TPeQvGbnicQXsw8oT
-	YG0Z+xRBGxGKn5Qd+xtt0qlH0FRinXfIyxTrIbrpdezKrwxITNC4fVmUoacc8C/88rix4JaJzp7
-	auJigTux2RWpwybVut3vUmRb6CVqT7lxMokP7uGD1VXEo5W0YdWPXIz7+ZxbDbDRLgdxiDZyzC4
-	duLBOOkcKSPvjpVBhDthUntTc6LBGqXwwSqYhu0bbJvcIhU+LfUqAev+nk/rJ+JIeeuUcboNerO
-	p0gOQvTiJDw3V0a7QOvA6dXq6hii+i+IcZzRBhR/vdFGdR0BiRZkPkK/U+L8yQyaPs3Vshd7M=
-X-Received: by 2002:a05:6214:410c:b0:91b:5d85:6521 with SMTP id 6a1803df08f44-91b5d8571e7mr20208846d6.24.1791555842704;
-        Fri, 09 Oct 2026 07:24:02 -0700 (PDT)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b54e832edsm19562406d6.4.2026.10.09.07.23.59
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 09 Oct 2026 07:24:01 -0700 (PDT)
-Message-ID: <77dacc46-7294-47c8-899a-fd56b6a2af55@riscstar.com>
-Date: Fri, 9 Oct 2026 09:23:59 -0500
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="EIKFDnP4"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wcDM862P/jjvN3R7nW1Zvt9q1v5tX/E4sNEE56rNrn1ZwVbgq6Wt0MZom0cRnOuGB7FB5mh5OgvMIZXczuqDDO7LuVooQqb+j6k8snZUPMk+or2mGlObqUKOSYhOheUEWS7AtwcWllfWCOCS6uJS59BN5Ys36KYerDdkN4q+bMRtz2/uSOISOgtewj7Vi4GP0CEwCpvmG63ywp7tGRxwi/Mxx/SmNzEPdJnAIuCA1WRqzmzRJMs/Kj62oyP1QjE924vBMjcMXFTggFUPunRbLGgJQ4oG/KSsNgPujlJVAJ5+rig+XeO22TTbvl8arIcSEZr2/id6lN2Of2L8SLxoUw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rmFH5aasguRf7nvWPjzZYqBZc7VMhhWgnZHTn3qHuEo=;
+ b=T2pD5NG2cZz8cingK0CBYb2ckHtO9OjtvMSiNIDWixbJhl0oLkCcx93ZRpttcKiXD9MTen+WfdcWfmNEmqlIYS13uaaZuAKfRoqzU65HCrdFOqu1OWHD0/j91sIdCcnnV6qiK06h9FFFGr7PeCe/KXUYK3Mt4Hxg6K2ewuIY7sLe7bfuXrOkPix818CUYUju/CNDMKKTQrAK5u4A7UAa/NSo9NH+3AvhZB9ajAawvt15rf58/SCvZuEfgGrfEoCSUbTBU3RrYvOBMIBKYkDRMbwQEMDjabX0bjO+PPnJv1wltLuHsLjFu0V7/OT8IfwkOXjvhZshhA+DmK16SEkPeg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rmFH5aasguRf7nvWPjzZYqBZc7VMhhWgnZHTn3qHuEo=;
+ b=EIKFDnP41v6WeoZWbFhgDc4Ca4b4jmrnLmAmYpPAavatfFOUXlIHIhZ1QW+2Ct4CXLWtHzNBQ5ThFBTaBiidcCHle1FwBTpSVM9guX4SdWAWEtETV4hKuYEpOroNIm8I4OwrPT1rEKrTKO/h2PV0KMAuLkPNvroWVRWP9GmSaM84B7HSfkKVWZDy3sHHWtN5r5DJtRZua4JA5fBSyFajzyTnbG+czv+zV0QYknF1rPGWPB5HOC1naN2kwhoQ1TA7cl1HIOt0XTfreUbD5JgQCL8hz0G7Cz/bL0U8Rzq+a/9VhdwJTcllSNvXwubR0pEjxkUGHOfMO7SUNSDVBzVVdA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12) by DSVPR12MB213845.namprd12.prod.outlook.com
+ (2603:10b6:8:4ff::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
+ 2026 14:24:39 +0000
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
+ 14:24:39 +0000
+Date: Fri, 9 Oct 2026 11:24:38 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: Diederik de Haas <diederik@cknow-tech.com>,
+	Karl Mehltretter <kmehltretter@gmail.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Rob Clark <rob.clark@oss.qualcomm.com>,
+	Jianfeng Liu <liujianfeng1994@gmail.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	linux-kernel@vger.kernel.org, Alistair Popple <apopple@nvidia.com>,
+	Leon Romanovsky <leonro@nvidia.com>
+Subject: Re: [RFC PATCH 2/3] dma-buf: add a warn-only mode to DMABUF_DEBUG
+Message-ID: <20261009142438.GD13920@nvidia.com>
+References: <20261005064133.7305-1-kmehltretter@gmail.com>
+ <20261005064133.7305-3-kmehltretter@gmail.com>
+ <DLYLA3WQNN3X.3FB9MO8ZWBQ5@cknow-tech.com>
+ <20261009125338.GB13920@nvidia.com>
+ <50f74418-a1b9-4d93-a9a9-02bb7cbf4544@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <50f74418-a1b9-4d93-a9a9-02bb7cbf4544@amd.com>
+X-ClientProxiedBy: YT4P288CA0037.CANP288.PROD.OUTLOOK.COM
+ (2603:10b6:b01:d3::19) To CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] dt-bindings: clock: introduce
- toshiba,tc9564-clock.yaml
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org,
- kees@kernel.org, gustavoars@kernel.org, mohd.anwar@oss.qualcomm.com,
- lorenzo.bianconi@oss.qualcomm.com, danielt@kernel.org,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
- linux-kernel@vger.kernel.org, Daniel Thompson <daniel@riscstar.com>
-References: <20261005230927.2000398-1-elder@riscstar.com>
- <20261005230927.2000398-2-elder@riscstar.com>
- <20261009-gifted-stylish-tortoise-95b14d@quoll>
- <b190fe58-364b-4b94-9cab-c5f81f874289@riscstar.com>
- <aafe2703-bfb8-43da-8472-b1dfa36fa8f9@kernel.org>
-Content-Language: en-US
-From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <aafe2703-bfb8-43da-8472-b1dfa36fa8f9@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|DSVPR12MB213845:EE_
+X-MS-Office365-Filtering-Correlation-Id: 92498108-6d14-45eb-599b-08df26110dba
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|7416014|23010399003|366016|6133799003|18002099003|10067099003|22082099003|11063799006|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	7Iv0CdW8UdCsEks1EdJ9Q0DOvGyPR6DGoh9hzmBi/MigqAuTVv6GKq9rGmxNH5AHegBLeoYULHKtgnCmUT4wbA88BY3HZ3Z5+1zBaANCefLBcuhErXN4AuJ6pSY1OpBER5VD7cSPTH2RZjnz5kaEKBHhqspJmcn7DAVUODH59ffWNk8INrbbFWQMeWjGJJfHCWL8slGFgh+kyLIMLkvl83L08p03amhewjF4VyCu/0x6eRNvgx8qYzWwYbeRJJtrArz0eqpSgfRrAGWc/XUeO1OoMkAcel6XI817dYjdqtq0q0j5gvHkxhXUa16Be+IPIHisomhUJTKQGNLMblGUmA5blLORqkjVoyq1kAg+86vTr1bn6Z4fVFwYJGlIJykjRnN83gvyUckuKOHgnYypugrkHD25wHonxu9KGJBWkupXwGHa4KBW3BeERsyJMfvsL64M4YwZfJiz/BfyxzyeBhjNZQwJP/0dvHppms1GbGjGBxhw4lxdBJe/BCe4F1mIL3KOAK90QnoHgM6Ck0oXJjpivaSkwRDgNrw7KyIPubyCH9HOgu+6KOGb6auJ4ZT+9yI4WEFqWe0CNfPv8YU4Gj3IQSV26TGI/f83dQhxgKw50CZTIcp2aXXq3AY72EZWa5Y3gtkWeyOj7LmHwGOvMboUF0FzGMtMy/gaJzt1mbU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(7416014)(23010399003)(366016)(6133799003)(18002099003)(10067099003)(22082099003)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RWcwazlHRm0rQUIwZ3dDK2VKcnlDUFdCMEVZaUVYMDNLc09Xb0xtMmQrbC9r?=
+ =?utf-8?B?L1hybm1hNStIMlpRZTVSdHJWSzRkWEl2RjNnYmhWbm04aElNbTZmcUxlZUhN?=
+ =?utf-8?B?Q203R2Z1eEQwa0tEZnhmRFVPRkZ4V2ZlSXJrQUo1c2xZNGVhZEswVmxrbS9t?=
+ =?utf-8?B?L1A0eUNnb29NYTdsVXVqMVpFa1lhbnNXcEtISkJManpDVVlRdCt5V0xvNU1H?=
+ =?utf-8?B?dk9qdmZ3RW1EY0NWY0tKNCsxcTdkTGN4bFVmdUFJREtMajZLK0pRZlo0ZVN5?=
+ =?utf-8?B?VkUyamVPZExEbjZFZmZqSmp0cTBmRmU3Yk5wN2RxN29tRXJkRnYzNVdRV282?=
+ =?utf-8?B?ejJNWUVpQlM1c2hDSksxeDl4Y1pZT2MwUVB5ak1VcU1hNXBDTzI0VldVUEZJ?=
+ =?utf-8?B?WkhQNXdHMkNZZzlNNjZPcWU5Y0pVY3pNUlZkUTFDaDVQUW9HOHNLZURvTWNP?=
+ =?utf-8?B?WTFnYmlhKy82eTF0a2YrRHJ6eGJqSTh4b0NFbmRKYUoybkFLT3dGemVZVjFX?=
+ =?utf-8?B?YnU0ZzhGZCtxNk1sZ2IxRVVDY1BVZEM2NTFoUlYyL285VVY5d0t6Tnk5NXFt?=
+ =?utf-8?B?VHRBalUxbzF2ZVl5dUtQRzBYTG5XZDJoRVNQaFFlWHJpVFZod0dUSW80bytX?=
+ =?utf-8?B?bkVaNG9DWWFSSjNKSFNSeUIvUlh2MFd2aUtFaHBsM05xamkrSENwQmRXdWMw?=
+ =?utf-8?B?ZVRKL2t5WlZ5emtFMjduL3UrQ1R5QjRxZU5xZkxIRWlBSlBvdVFtanRKenNo?=
+ =?utf-8?B?b1o2bkh6UExRY2g2ejB4SCtXR2F1V2pBMEFRQ2RCcE1JRE1KbU95anpoMmZB?=
+ =?utf-8?B?VG1HNXZFR2hhZGNIb2FiTGk0Tm8xanFNS0hRUHBkTkdOY0JNVzhqTzJoRnRx?=
+ =?utf-8?B?RksyOUNiYlFIbkVJS0k4Nk0vWmRCNHE2a1JXSzBybnJkS2FpL21ycXUrR01l?=
+ =?utf-8?B?cHFlSVdwenYrMm5LdTdYRlE5TDB3SjJ6UDhGNWFKTGJWbGo0alVyTzlWRDJO?=
+ =?utf-8?B?OVBzSmFqZmNwbXRvbDd2cXgyRktzSkVjYTA4QUJuY3BxMlJPN25CL3lhSWZM?=
+ =?utf-8?B?YXJYQWhERmtTU1p6WHoyWklaVm5vd1JLYVV3bjJORDlqRHRMZUFodXhDTHJ2?=
+ =?utf-8?B?Qy90eEI0c1B6SFpPc29EMXVZdUhzNTVFL2wwd1ZWbWloQ2Z5eEh5K0hiVGZt?=
+ =?utf-8?B?bnBwT2FFY21rYmtnNmlUcjJndWNlVjNhVlFURnJDd1JzY21TVlVRcndZV3lN?=
+ =?utf-8?B?dkpuMDJLeURsWEZiVzg3QjZWaUpoQmRqVHpoVTRXbk96U1NHLzIzbG54SkFH?=
+ =?utf-8?B?TnliaVhMcm1ORlFJbTZ3UXZLK3BDYzBPVXd6MCtIZ0pYdHplbzJpU0pIWjNZ?=
+ =?utf-8?B?V245UVY2Y2ZyZVdoRVFpV05YekZ5Y0ZWbVN2ajFMZmx0QkJ5d001MS9YRlly?=
+ =?utf-8?B?T1lpUzZvaU0wQzR2MmNiYm40NGdhZUVYWFlRV0FUS0YzNGZBZzBORXRSZHhu?=
+ =?utf-8?B?VzRtVWJrNG9LVEthQlFma3AzQU0vdnhHNWNqM0haTDQ0VXBUWVpTbTcrNVdp?=
+ =?utf-8?B?Y0ZDT0xQeXh0UUp1bU45QVExRExFRVFNZTRNSXhtc1k3U0daMkI5MWZGckwz?=
+ =?utf-8?B?dTdLVjc3ejlNVHlmQjFhaldGWDhKajJoUW9ORDVNRERmVDVyVU03elVycld4?=
+ =?utf-8?B?ZC8zKy85K1dKbnZUTmRQdkR2MkhSQXBiRTZKeHRLRVFoMGdQcS9TcW1xR0JP?=
+ =?utf-8?B?Z0VpMXpUM0NoQ2I2eHU3TTZTckZMY0hNVXZieUtyZWVNSkYvMFNPbTFjMUVj?=
+ =?utf-8?B?Mk5qelM2bEw5MTA0WXNaNlZjbEZ2bUVtbG9QZkI5UmxqWW5rTEJtSVZMM0lh?=
+ =?utf-8?B?M0tRVk5ETkNnU2ttRWljc2ZSckJJZmpLcmhnK3NnQThFSk5wY1hpa3VQOXU0?=
+ =?utf-8?B?Mmp4eVhRL1RIK1Q4Ny80TE1HL0hTV0hkOTVHRW5DeHNUeU9CVlRZSWxqZU84?=
+ =?utf-8?B?MDRUK0Q2VStKQTNkMGpZNzhkZmxJV203alVjaFNOVkRoR0F2bmZZRFJFR3Ux?=
+ =?utf-8?B?YlRyMDFLK2Z0YjhORnhOYWRMM0R6cVBzb2pkaWNTSEVrQ1VvT2hzMHhNTUVH?=
+ =?utf-8?B?WmN6WFBCUGZRK2p0bW00UEVkT0U3eHBLL0c2MGRxMXRNK3l6NVdnTWJXalI1?=
+ =?utf-8?B?YTBFVGo3cXdhdHVXMEtEMytrbkRvUDFZazZ4VTRqNXkvTTRFVUF5alpVcjFu?=
+ =?utf-8?B?UHhwU0pnSWRzV25WclZHTENuR1JtbHBnRlEwQWptYUcyM2lWKzVCT0VLQjdF?=
+ =?utf-8?Q?6w+Eu/PavwkaiACuRX?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 92498108-6d14-45eb-599b-08df26110dba
+X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 14:24:39.7890
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 53k9rrDwLdhE3WhxBI/3bK3qmhf/mfDfa6DMj3OMJ6rxWZ+BcUJgb3/+ebbiDegx
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR12MB213845
 
-On 10/9/26 8:56 AM, Krzysztof Kozlowski wrote:
-> On 09/10/2026 15:44, Alex Elder wrote:
->> On 10/9/26 4:31 AM, Krzysztof Kozlowski wrote:
->>> On Mon, Oct 05, 2026 at 06:09:24PM -0500, Alex Elder wrote:
->>>> Define the binding for the clock controller functionality present in
->>>> the Toshiba TC9564 SoC.
->>>>
->>>> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
->>>> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
->>>> Signed-off-by: Alex Elder <elder@riscstar.com>
+On Fri, Oct 09, 2026 at 03:21:47PM +0200, Christian König wrote:
 
-. . .
-
->>>> +properties:
->>>> +  compatible:
->>>> +    const: toshiba,tc9564-clock
->>>> +
->>>> +  toshiba,config-syscon:
->>>> +    $ref: /schemas/types.yaml#/definitions/phandle
->>>> +    description:
->>>> +      Phandle for the configuration space system controller.
->>>
->>> I do not see my previous comment addressed - you have no resources here,
->>> so this belongs to the parent. You responded something about pci-ep, but
->>> the parent is not pci-ep. Open your code:
->>> https://lore.kernel.org/lkml/20260918165234.687224-5-elder@riscstar.com/
->>>
->>> I clearly see code like:
->>>     syscon {
->>>       clock@ {
->>>       };
->>>     };
->>>
->>> so I do not understand what pci-ep has anything to do here.
->>
->> What I have now (about to send) looks like this:
->>
->>       syscon@0 {
->>           compatible = "syscon", "simple-mfd";
->>           reg = <0x0 0x2000>;
->>
->>           clock {
->>               compatible = "toshiba,tc9564-clock";
->>               #clock-cells = <1>;
->>           };
->>       };
->>
->> A reset node will also go inside the syscon, so there is another
->> function for that MFD.
->>
->> The regmap belongs to the parent, and is looked up this way:
->>
->>       regmap = syscon_node_to_regmap(dev_of_node(dev->parent));
+> >> [ 1268.968710] CPU: 6 UID: 1000 PID: 29025 Comm: sway Not tainted 7.3-rc6+unreleased-arm64-cknow #1 PREEMPTLAZY  Debian 7.3~rc6-3
+> >> [ 1268.968715] Hardware name: FriendlyElec NanoPC-T6 Plus (DT)
+> >> [ 1268.968717] Call trace:
+> >> [ 1268.968719]  show_stack+0x20/0x38 (C)
+> >> [ 1268.968726]  dump_stack_lvl+0x60/0x80
+> >> [ 1268.968730]  sg_dmabuf_cpu_access_warn.part.0+0x24/0x30
+> >> [ 1268.968734]  sg_dmabuf_cpu_access_warn+0x34/0x38
+> >> [ 1268.968739]  iommu_map_sg+0xc8/0x1e0
+> >> [ 1268.968745]  rockchip_gem_iommu_map+0x8c/0x128 [rockchipdrm]
+> >> [ 1268.968757]  rockchip_gem_prime_import_sg_table+0x58/0x160 [rockchipdrm]
+> >> [ 1268.968761]  drm_gem_prime_import_dev+0xa8/0x1d0 [drm]
+> >> [ 1268.968776]  drm_gem_prime_fd_to_handle+0x1a4/0x280 [drm]
+> > 
+> > So.. This is the exact same thing I need for iommufd.
+> > 
+> > rockchip is managing its own iommu domain and you cannot map to an
+> > iommu domain without using a physical address.
+> > 
+> > Of course it is *completely* illegal to call iommu_map_sgtable() in the
+> > importer side of a dmabuf.
 > 
-> That's driver code, so irrelevant. So how does this solve my comment
-> from v1?
-
-I'm trying Krzysztof.
-
-The clock controller uses two registers, 0x1004 and 0x100c,
-to manage whether a set of clock signals are enabled or not.
-(The reset controller uses two adjacent registers, 0x1008
-and 0x1010, to manage whether a set of reset signals are
-asserted or not.)
-
-You said "no resources except a small address space" and I
-guess it's not clear to me what size is "big enough" to
-warrant representing something as a separate device.
-
-*One* of the managed clocks is a 25 MHz clock, exposed
-through a pin on the SoC.  That one clock signal is
-therefore usable by the platform (although on the RB3gen2
-it's not used).
-
-Rather than expose the register addresses in the clock
-node, a syscon is defined, covering 8 KB, and the actual
-offsets used are just defined in the clock and reset
-driver source code.
-
-If that's not the right thing to do, please say that.
-
->>> What's more, I still do not see any usage of these clocks outside. And I
->>> still did not receive actual answers (or I missed them) how these clocks
->>> are routed OUTSIDE of the connector. You said for example:
->>> "Ultimately the TC9564 SoC has a single 25 MHz input clock,"
-. . .
-
->> The single exposed clock *might* justify presenting the
->> clock controller device in devicetree.  There are also
->> resets exposed externally via GPIOs, and these control
->> external entities (PHYs).
+> Yeah we are deprecating this for the last ~5 years now. This bubbled
+> up because I change to DMA-buf debug code to be enabled by default
+> on DEBUG_KERNEL.
 > 
-> I cannot find any of these exposed. Please point me to DTS code showing
-> this.
+> Rob is now working on a solution right now for MSM which should be
+> used for rockchip as well.
 
-It is not used by this platform, but is available for other
-platforms to use.  Its name is "REFCLKO" and is exposed on
-ball C17 of the SoC, if a platform designer decided to use it.
+So is Rob's plan is to remove the iommu_domains, somehow? Lately we've
+been NAK'ing alot of the DT hacking that people have been doing in
+other devices along those lines, so I wonder what that will look like.
 
-I only mention its existence as a reason to justify defining
-the clock as a separate device, but I realize you are arguing
-that I should do it somehow differently.
+It is probably easier to just fix things so the importer can get
+things into an iommu_domain..
 
-					-Alex
-
-> 
-> Best regards,
-> Krzysztof
-
+Jason
