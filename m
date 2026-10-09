@@ -1,54 +1,34 @@
-Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A98E399377;
-	Fri,  9 Oct 2026 03:32:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98ECC399CE9
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 03:35:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791516784; cv=none; b=HaTp/hEqhxvRE7/aQHvkv1Rj9kzmPvh2vFLOr4MayU708/Vha4SwbO33zwZGtzVkRINvJABXzjMiFpwj/Tuezec1Z3bIFsO0eeMwcVm2ZIuKVDqs8Nw7PjcXENL+lU6BgQfeLjoQpLNTtxg5nxdHu7WLM+PbMyW3VohgRIgWcog=
+	t=1791516947; cv=none; b=lasHRefKp//WqptnIE66yCZFl50yrCMZfhW4u9JCGqPPmVjnJPORfXZ3PEMxtRXDfSoxU/HdiAPWOFtscnF9dIT38YtuPQxoLc8z0HR6tfZx5hsiIPKllCPMhA/OSDlQNKVzcDcjPno+HZvLrt1SFGAGTw6UGIcHjSjp6oCf938=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791516784; c=relaxed/simple;
-	bh=ar6LCuGMlJyeug6Mz0Uo8jBG93Z4sWFJv2H98essfy4=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Dql4EBRTT7lqbRVtTKf2T5Rf69j+TXcyal1f69DpA6oYBYeeSa6DVSbZha+mcdy/TYdc4zbLKA46vT1n3KYL4GGnjgNko4q1FkRY2dTY44ekYqAPpAg66gilDV2dztZ0XwkJMD14NQqTJ4WbUKEcldLuxXGgGJ/51DlNivwOVbU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=h-partners.com; dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b=XGB/lry0; arc=none smtp.client-ip=113.46.200.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=h-partners.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b="XGB/lry0"
-dkim-signature: v=1; a=rsa-sha256; d=h-partners.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=acxlm9lMiji4kTwJQg5tQSY03/227aOYVrKZVmKZqjk=;
-	b=XGB/lry0Xdvswtl4E4SEJZNjYj+dU0FctBjTC4/eQFUG9HUqakPAilCQD1t7PS1d6Faa9uVPc
-	Deg/ReD651uLjBHF1RpY4erylLKxH/eDdL0RlSa/3jThoavCuKaqXIy2qu7i+TldOuY9h84c1T3
-	MQ64Ea8PlUu7E/My6LmbC10=
-Received: from mail.maildlp.com (unknown [172.19.163.104])
-	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4j1BvK0RpYz1T4Lb;
-	Fri,  9 Oct 2026 11:20:29 +0800 (CST)
-Received: from kwepemp500008.china.huawei.com (unknown [7.202.194.242])
-	by mail.maildlp.com (Postfix) with ESMTPS id 0128F4058C;
-	Fri,  9 Oct 2026 11:32:43 +0800 (CST)
-Received: from kwepemp500015.china.huawei.com (7.202.195.9) by
- kwepemp500008.china.huawei.com (7.202.194.242) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Fri, 9 Oct 2026 11:32:42 +0800
-Received: from localhost.localdomain (10.50.163.32) by
- kwepemp500015.china.huawei.com (7.202.195.9) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Fri, 9 Oct 2026 11:32:42 +0800
-From: Xingui Yang <yangxingui@huawei.com>
-To: <mkp@kernel.org>, <jejb@linux.ibm.com>, <john.garry@linux.dev>,
-	<yanaijie@huawei.com>
-CC: <linux-scsi@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linuxarm@huawei.com>, <yangxingui@huawei.com>, <liuyonglong@huawei.com>,
-	<kangfenglong@huawei.com>
-Subject: [PATCH v3 2/4] scsi: hisi_sas: Fix incorrect delay values from magic-number cleanup
-Date: Fri, 9 Oct 2026 11:32:36 +0800
-Message-ID: <20261009033238.1076098-3-yangxingui@huawei.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261009033238.1076098-1-yangxingui@huawei.com>
-References: <20261009033238.1076098-1-yangxingui@huawei.com>
+	s=arc-20240116; t=1791516947; c=relaxed/simple;
+	bh=K6q4MF3KQVdFM11TrkIgJqKHb0XoGqPxlhPB3Xblsu0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Q7iQ6HQ30XxJB6SNtyJQT72H+Qnp4vP1XS5eeU9spJOXFeIBSmw0tGO3A/0UYb+L5UER/byRJkmnjn62xxNQ9qyMZ2V1vsmLLQoL8a2swsnB4pYVtvBSF8kIEhH2CBZIKvjB9AByCeTZ9AnH9b1XctzELcL94UYQcjIddcfv31Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from fc87d0ffb700.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowABXVzUGYchqJ9MaCg--.1960S2;
+	Fri, 09 Oct 2026 11:35:35 +0800 (CST)
+From: Haotian Zhang <vulab@iscas.ac.cn>
+To: Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Linus Walleij <linusw@kernel.org>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/kmb: fix bridge reference leak on probe error and remove
+Date: Fri,  9 Oct 2026 11:35:37 +0800
+Message-Id: <20261009033537.3065836-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -56,71 +36,56 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- kwepemp500015.china.huawei.com (7.202.195.9)
+X-CM-TRANSID:rQCowABXVzUGYchqJ9MaCg--.1960S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7WrWUKrW3GF1UKFWUuF1kAFb_yoW8Jw4Upr
+	W2gw4IkF40qr47ta17Aa18Ja4rAanrtFWrWrZ7K395Zw4rXa43WrykAFy29ryUCF4xWFZr
+	tFs8tFyF9FykAFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkmb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwV
+	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Cr0_Gr
+	1UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUAVWU
+	twCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r
+	1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij
+	64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr
+	0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF
+	0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjxUqqNKUUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRUPA2rIHibzcwAAsK
 
-Commit 4ca7fe99fc84 ("scsi: hisi_sas: Use macro instead of magic
-number") replaced several delay constants with a single macro of
-value 100. However, three sites originally used different values:
+kmb_dsi_host_bridge_init() looks up the ADV7535 bridge with
+of_drm_find_and_get_bridge(), which takes a reference on the bridge, and
+stores it in the global adv_bridge. That reference is never released, so
+unbinding the driver leaves the bridge refcount permanently elevated and
+prevents the bridge driver from ever being removed. The same happens
+when probe fails after the bridge has been found.
 
-  - reset_hw_v3_hw:     udelay(50) -> udelay(100) [doubled]
-  - disable_phy_v3_hw:  mdelay(50) -> mdelay(100) [doubled]
-  - disable_host_v3_hw: mdelay(10) -> mdelay(100) [10x longer]
+Release the reference in kmb_dsi_host_unregister(), which is called both
+from the probe error path and from kmb_remove().
 
-The overly long delays on the PHY disable and host shutdown paths
-increase boot and shutdown time for all local PHYs.
-
-Add separate macros for each delay to restore the original values
-while still avoiding magic numbers.
-
-Fixes: 4ca7fe99fc84 ("scsi: hisi_sas: Use macro instead of magic number")
-Signed-off-by: Xingui Yang <yangxingui@huawei.com>
+Fixes: abbe7f8144d5 ("drm/kmb/dsi: convert to of_drm_find_and_get_bridge()")
+Assisted-by: DeepSeek-V4.1-Flash
+Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
 ---
- drivers/scsi/hisi_sas/hisi_sas_v3_hw.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/kmb/kmb_dsi.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/scsi/hisi_sas/hisi_sas_v3_hw.c b/drivers/scsi/hisi_sas/hisi_sas_v3_hw.c
-index 8a2500993e19..9c363e237353 100644
---- a/drivers/scsi/hisi_sas/hisi_sas_v3_hw.c
-+++ b/drivers/scsi/hisi_sas/hisi_sas_v3_hw.c
-@@ -547,6 +547,9 @@ struct hisi_sas_err_record_v3 {
- #define IRQ_AXI_INDEX 11
+diff --git a/drivers/gpu/drm/kmb/kmb_dsi.c b/drivers/gpu/drm/kmb/kmb_dsi.c
+index 59d0e856392f..483f4afe6317 100644
+--- a/drivers/gpu/drm/kmb/kmb_dsi.c
++++ b/drivers/gpu/drm/kmb/kmb_dsi.c
+@@ -184,6 +184,10 @@ void kmb_dsi_host_unregister(struct kmb_dsi *kmb_dsi)
+ {
+ 	kmb_dsi_clk_disable(kmb_dsi);
+ 	mipi_dsi_host_unregister(kmb_dsi->host);
++
++	/* Release the bridge reference taken in kmb_dsi_host_bridge_init() */
++	drm_bridge_put(adv_bridge);
++	adv_bridge = NULL;
+ }
  
- #define DELAY_FOR_RESET_HW 100
-+#define STOP_PHY_DELAY_US 50
-+#define DISABLE_PHY_DELAY_MS 50
-+#define DISABLE_HOST_PHY_DELAY_MS 10
- #define HDR_SG_MOD 0x2
- #define LUN_SIZE 8
- #define ATTR_PRIO_REGION 9
-@@ -983,7 +986,7 @@ static int reset_hw_v3_hw(struct hisi_hba *hisi_hba)
- 
- 	/* Disable all of the PHYs */
- 	hisi_sas_stop_phys(hisi_hba);
--	udelay(HISI_SAS_DELAY_FOR_PHY_DISABLE);
-+	udelay(STOP_PHY_DELAY_US);
- 
- 	/* Ensure axi bus idle */
- 	ret = hisi_sas_read32_poll_timeout(AXI_CFG, val, !val,
-@@ -1072,7 +1075,7 @@ static void disable_phy_v3_hw(struct hisi_hba *hisi_hba, int phy_no)
- 	cfg &= ~PHY_CFG_ENA_MSK;
- 	hisi_sas_phy_write32(hisi_hba, phy_no, PHY_CFG, cfg);
- 
--	mdelay(HISI_SAS_DELAY_FOR_PHY_DISABLE);
-+	mdelay(DISABLE_PHY_DELAY_MS);
- 
- 	state = hisi_sas_read32(hisi_hba, PHY_STATE);
- 	if (state & BIT(phy_no)) {
-@@ -2755,7 +2758,7 @@ static int disable_host_v3_hw(struct hisi_hba *hisi_hba)
- 
- 	hisi_sas_stop_phys(hisi_hba);
- 
--	mdelay(HISI_SAS_DELAY_FOR_PHY_DISABLE);
-+	mdelay(DISABLE_HOST_PHY_DELAY_MS);
- 
- 	reg_val = hisi_sas_read32(hisi_hba, AXI_MASTER_CFG_BASE +
- 				  AM_CTRL_GLOBAL);
+ /*
 -- 
-2.43.0
+2.25.1
 
