@@ -1,193 +1,133 @@
-Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
+Received: from pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.35.192.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EB3246EF71
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 16:50:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 586533B38B5;
+	Fri,  9 Oct 2026 16:50:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.35.192.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791564633; cv=none; b=StmrMDtD2bZl0ipHaekytGEZPwBF8pmhsL42mK683WxFopMCUJt5ouaxkd1F2IBtsd/ZSAZ1X64gepX9v8lqgLw3e9C6OkvUKzgVm4a+byuPVpapBbuvgCE/JxTBYXUjABitNXiNgJNkIdIhVQuLXtBnwvvwqLFnpptlJDdSZfs=
+	t=1791564641; cv=none; b=SLRrPWUkmlX4mlw67vcfCm6Iwt86Ze+OWrROyJu3STvXrLLtETlh6BqI4/dLalHEBsLK717fKiYDo/s/O7kjAZeBEw23LOUkyGYOhryZIJpPpw4w+S9fMStV8WXiOhpMlEe3WXdlfJsZ9F1mcQKH0kmUrcxQlBXLRCaTLjTILtM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791564633; c=relaxed/simple;
-	bh=TjEmrIwoDfGD/tJl+VVnQl6XHOIQk68grd/DlzMzZsM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=JeQobDUPk5gaiNkzFk/CNa8f7hYW88+glvrRMNejQbQzlP/Y6cm6aaHCaPq5QqfUZFsovwVoOAZIYr/ub/WE0rj1FooIucsu3a7TZNp/4hhL3AgCVJXpFflwyAxYEQOro2jVvtE3zLziiMdaNLFvG4N5lpIGa8PKr8nGfg5+yHY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=KjFOJMlh; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=CGM4Tlkx; arc=none smtp.client-ip=148.163.135.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
+	s=arc-20240116; t=1791564641; c=relaxed/simple;
+	bh=LIFsaO3fsvEhD6wKg9EfgPe8fhHtTQ9Cyr4ksp9R8xo=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Gp8DjzfzlgiI03eoSvrN2LgnSqZ7JTBGFQMAFHwtEhVjkKVdIsyQ2FuLQrkzVRTFTOKsPvh/JII2jI8H4lBaXu1CS/U8FAxF05qt7uOg9cSC8Czqe007goAD1oojq8E+K51Q3SISoYOQrcndEh/+BTeOkwMHxBzVRsw86OnASRw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=fKiuW4Nm; arc=none smtp.client-ip=52.35.192.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="KjFOJMlh";
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="CGM4Tlkx"
-Received: from pps.filterd (m0499199.ppops.net [127.0.0.1])
-	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 699GZiLZ4092268
-	for <linux-kernel@vger.kernel.org>; Fri, 9 Oct 2026 12:50:31 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=YGcz
-	I1vSHasliXD66Zjo2T9yKyc6ElYvYCgnRIuVKQY=; b=KjFOJMlhN1+3lGbf0LpR
-	No0/4aMtdq6WbA9PKdTRS6CMrn4lWqPrvC1gWTjcPwgDef0/tKi+mSIaD2u6FKBk
-	T77LqQcgz4L4VAoTaN+/A5QzTj9LiSAhoPFNAqfc20Rl17rRJKt/UzSkJOkpCBCx
-	EMza0toduGjnEt+5u2FLIf8zuRmUgBaziKPWyIKnb9uuFmV0UavqGGtwnnqJyrOm
-	DVyAzCGblDPduVqjQNzmnyhIIo+t/F33HJtPdv9ifFMzW+tLcEiJJQvMUsK4XQXw
-	vIRGcd9Ka/4v+2JBYuc7nEOS68OxSRaQ/B3XzVOE0Vfo82ov9jp7HmcNOYpnDXoF
-	4w==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4h6qgavh8g-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 12:50:31 -0400 (EDT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-532dc3793easo45272551cf.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 09:50:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="fKiuW4Nm"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1791564630; x=1792169430; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YGczI1vSHasliXD66Zjo2T9yKyc6ElYvYCgnRIuVKQY=;
-        b=CGM4Tlkx2j9os9joEuyGTQXgvVrYq+mU6PiOkIAOWt/YTk4w9amjaoUHmFj6TC2zlP
-         ohYem+p7w1Ju3WJoAUPjZAcijzgRAQiLez0//kOwBFKd8gISJAfons9PWlt8o+qPYFYa
-         Fi+5UyW30YQZi0qMEEaQeoaMyG/eZ+pBAT6JZL1LP646c7rmNSAu+VOOZ4/8TbUvX9VL
-         l4ByKCTO5JFbwglm0eqgsXfpa3FWYhMPdQE3AgnHyIp7A0/tt5n+Qt475Es9MLgUfTHD
-         F/tHpIIWotmK+/UteUhL8qw9UmPfkNt9CiXye0+kjaZt06zYmLVHlQDs9yNni0ghjK2g
-         m4Bw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791564630; x=1792169430;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YGczI1vSHasliXD66Zjo2T9yKyc6ElYvYCgnRIuVKQY=;
-        b=TDHaE8ir7uFqksBp1/xTCPyGUEraLDgworFkaA7KncvbdjWcblX34Rn0IGtr9T80dh
-         YR274AS0mAzNtycfdxQqA3ECqvZ07wnhBTbRG5ssUs3+C+Nj/U8JCcCljt86T0tswv6r
-         awagk43V72xDecx171+z4SNWuyt7m4hv5c5/jkSBrZMvs+2JA6TdsG1jD1sRaYyVujNB
-         NCr2Cggvv0FUud3IOWPMqWQoWQfPnzpyXhnGhFMtILNYdQ6YDxQXHMTzy8bJH2h3bzyz
-         mYE/+cgdkMcuyJMm7QL0KPZwTWD/k3KW9qtBfca2eP16FbZFjBorArGZtfhSEjBw5yyt
-         PozQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzbSL5Ek/DkHvf2cw1nRV3T/iP/9blYzKTSNRx7yPVcNlvuSnKdVK9JA1l8thinev+/Y3xvTmIolVCfRKs=@vger.kernel.org
-X-Gm-Message-State: AFuF++lt9m77eU0c9ASrF/EQoAbcHzQiyto+63sstNOBwQZylVVkQUsu
-	h3K7zZobn7/IHAHihRIY+NV8ZL23fbBavkzA2CAeGjjO7GeK05aV6/MfwbnWAVy/auYiowrECVE
-	pjWU8x5ElDnaU/V5udW95QfTS/S6iTWW8FdypeJTpy4HrHkQvu4Djlh7mLaOVcQ==
-X-Gm-Gg: AYBFou28u1rfIev1kzWuGt5CgQZZNjeELaDT8IMT1g9WbDX3L6ioU/uMl4SZ4iXS6hi
-	SYM6ExtG9XuhhArl0J81MJ5BJODkY5Kaacrf0Xyagms0C0BxzmjW1SJpT6KJbpOpg7I7vKiB1IC
-	iaUcxnZTPmFYTUthOg25mivC0Yd+hBvZktvAHD2++ZJ81MOGMuipt7KZkwFLM1dXx1skW/JQhnY
-	UA99+gATbDA9sQekTYKm0KL9FH2RpEqn3py8sb6RDIkgqqbxCHUpRYZ+OTstippKcOmYpKQ1q/I
-	LmLc1mtpGSP6p106yUECtMd9EjgpjCUXsJQo7VGtk4QFsFKNod6RGtF2onpSf+xAy8+hZuLwsFE
-	mk3pEFNnvuFcf9V//siAqdSwfzwo5jSjDDutC+YrvtWPTtIA=
-X-Received: by 2002:a05:622a:1b03:b0:533:3274:60c with SMTP id d75a77b69052e-5359dd26620mr40806001cf.29.1791564630456;
-        Fri, 09 Oct 2026 09:50:30 -0700 (PDT)
-X-Received: by 2002:a05:622a:1b03:b0:533:3274:60c with SMTP id d75a77b69052e-5359dd26620mr40805501cf.29.1791564629868;
-        Fri, 09 Oct 2026 09:50:29 -0700 (PDT)
-Received: from [127.0.1.1] (nat-128-59-178-194.net.columbia.edu. [128.59.178.194])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5359b77d0eesm22234701cf.19.2026.10.09.09.50.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 09:50:29 -0700 (PDT)
-From: Tal Zussman <tz2294@columbia.edu>
-Date: Fri, 09 Oct 2026 12:50:17 -0400
-Subject: [PATCH v6 9/9] block: remove dead metadata handling from the async
- direct I/O path
+  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
+  t=1791564640; x=1823100640;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=0kAPpWGj1DC84kxfJatA2C4pxii/3PkUflvl6jcTUWU=;
+  b=fKiuW4Nm58rJxOUYPRZ+PwjouBuQAzXpuzOt2wJkSrSY5b3n/XQJCacQ
+   /IM0aWVWJzKtjYlYzPdxF9d3wrRQAO5idMO2l18kamYTFcbPnUzz22+31
+   7oJMqoPrDuAKMysTpd3fRE2AaxQVdo2plktYhUYHDT+o5NfR48bJoef7o
+   OC1DZmEKdvgbp7tPeXmPiJWdhBiXdC7sO0RRaxl4GDBikUr025ZvtHUip
+   wR52RIg1XwhqQhbHBKVhYuNyrcpUKocyax+W2/JhOWiEhELbDgaNZFxgF
+   5HpytFVEbiysislftvsJ2gr8Ny+YuCoeUdWoKrdjgvARdokF5ZmObmS3q
+   w==;
+X-CSE-ConnectionGUID: f2UJQ553Tn23QdDbD8h91Q==
+X-CSE-MsgGUID: ATqxIQTtRLSTP+W/nH5mfA==
+X-IronPort-AV: E=Sophos;i="6.27,148,1787011200"; 
+   d="scan'208";a="30616529"
+Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
+  by internal-pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 16:50:37 +0000
+Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:25422]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.7.115:2525] with esmtp (Farcaster)
+ id 744db98d-fcae-4ba0-bbf3-9974e881881a; Fri, 9 Oct 2026 16:50:37 +0000 (UTC)
+X-Farcaster-Flow-ID: 744db98d-fcae-4ba0-bbf3-9974e881881a
+Received: from EX19D001UWA002.ant.amazon.com (10.13.138.236) by
+ EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Fri, 9 Oct 2026 16:50:36 +0000
+Received: from localhost (10.106.82.18) by EX19D001UWA002.ant.amazon.com
+ (10.13.138.236) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49; Fri, 9 Oct 2026
+ 16:50:36 +0000
+Date: Fri, 9 Oct 2026 18:50:33 +0200
+From: Roman Kagan <rkagan@amazon.de>
+To: Christian Loehle <christian.loehle@arm.com>
+CC: "Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano
+	<daniel.lezcano@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+	<skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
+	<linux-pm@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <nh-open-source@amazon.com>
+Subject: Re: [PATCH] cpuidle: Add the shallow governors
+Message-ID: <askbWVeX1pDtYC60@ub9ea591b72db54.ant.amazon.com>
+Mail-Followup-To: Roman Kagan <rkagan@amazon.de>,
+	Christian Loehle <christian.loehle@arm.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, linux-pm@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	nh-open-source@amazon.com
+References: <20261008-b4-cpuidle-shallow-v1-1-c19e71127b14@amazon.de>
+ <e18bd763-0d6d-4bfd-b59e-78f952c94aa2@arm.com>
+ <faf34e6e-ecd9-471a-b30e-3aa79e3ee063@arm.com>
+ <asjaR_aPwevvBw_O@ub9ea591b72db54.ant.amazon.com>
+ <2e635fc7-3d5c-4555-b92b-9e6e405f1b23@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-blkdev-fixes-v6-9-307939c387df@columbia.edu>
-References: <20261009-blkdev-fixes-v6-0-307939c387df@columbia.edu>
-In-Reply-To: <20261009-blkdev-fixes-v6-0-307939c387df@columbia.edu>
-To: Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>,
-        Johannes Thumshirn <johannes.thumshirn@wdc.com>,
-        Luis Chamberlain <mcgrof@kernel.org>,
-        Hannes Reinecke <hare@kernel.org>,
-        "Matthew Wilcox (Oracle)" <willy@infradead.org>,
-        John Garry <john.garry@linux.dev>,
-        Christian Brauner <brauner@kernel.org>,
-        "Darrick J. Wong" <djwong@kernel.org>, Keith Busch <kbusch@kernel.org>,
-        "Martin K. Petersen" <mkp@kernel.org>
-Cc: Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>,
-        linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-        Tal Zussman <tz2294@columbia.edu>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791564615; l=1396;
- i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
- bh=TjEmrIwoDfGD/tJl+VVnQl6XHOIQk68grd/DlzMzZsM=;
- b=kyR/6+0uUpySOm5+kLC7PnMLFfMvdbxJB3gn4ywQjE3A653IQAONvgDLa5uwCFOb8cb81Gxki
- mgjkL5Zh7XwBFha5mPhJAYuM10mgmerANhTN+Si/GE2JLVdD1jnvnyH
-X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
- pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDA2NyBTYWx0ZWRfX8PhvyvP/tHpW
- FaTzXYFfT9gEhlwtaS68E1oFDuL1tkcp+juBpP1gZndDyZt4AKq9uWgfncIpqTXreKY6ancBQl6
- u9+FYPYudkIVazXP3fjTszadQ9igS+s2okZiEOMPi9SyBpp73d5U
-X-Authority-Analysis: v=2.4 cv=WLHqzXsR c=1 sm=1 tr=0 ts=6ac91b57 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=u0MKzLA9JmpizDwXU9Rxjg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=G--0XuH5328wxK7v7Suf:22
- a=VwQbUJbxAAAA:8 a=-GSYpVTsbc7fiOcD5ogA:9 a=QEXdDO2ut3YA:10
- a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-GUID: DQ61RbbZeZAuOiPHQ4HwvWw0ox82HmVx
-X-Proofpoint-ORIG-GUID: DQ61RbbZeZAuOiPHQ4HwvWw0ox82HmVx
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDA2NyBTYWx0ZWRfX42gkpgcddGE3
- MfLCQMmkkYAfsbUcsOpIp1x92fd2NBcfl23SZORV1GZR4B745R7Lc+8kXqkkkYdtaFe5ZWrPFJn
- iIZFm1aoQ3QaN7Z73dp5iei0upZTBLnWRnkh/Oo0Tb/F8/NnJYkuQb6QJCQ95Jc2CS+nNCpBx3B
- ShoI4kVgfHsmDjs1y5tiFOG4X4zkWcrpKxRJiT59QHycKIHDQlRO9E1IATCUel8P4kBJSNW6ZR+
- BaE0R53sX7+DIHQEwbzQjs5vMgrSQoWJhLunjGkoAyojtmPiefKuR+UsmMLJiEbe95Qh/SQ6e76
- pK37ckHkwDJbUdbmYueyq7chOMutRkEh4v6it9md5T06255jUVy1F88/noif/dmDrcfL3TkViL9
- hd8BRoUmJRqgTtLG3eMFsTyipuWs1GBBVfsXbkB16KfNiiOC6kA4T/TSH2OsHZm+DmfMH2kF7MD
- p0/NDDzsSexHw5IuIeA==
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11930
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 clxscore=1015 malwarescore=0 spamscore=0 bulkscore=10
- lowpriorityscore=10 priorityscore=1501 impostorscore=10 phishscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610020000
- definitions=main-2610090067
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <2e635fc7-3d5c-4555-b92b-9e6e405f1b23@arm.com>
+X-ClientProxiedBy: EX19D031UWA004.ant.amazon.com (10.13.139.19) To
+ EX19D001UWA002.ant.amazon.com (10.13.138.236)
 
-Since commit 2729a60bbfb9 ("block: don't silently ignore metadata for
-sync read/write"), blkdev_direct_IO() sends every IOCB_HAS_METADATA
-request to __blkdev_direct_IO(). Remove the now unreachable metadata
-mapping in __blkdev_direct_IO_async() and the unmap in its completion
-handler.
+On Fri, Oct 09, 2026 at 01:45:40PM +0100, Christian Loehle wrote:
+> On 10/9/26 13:12, Roman Kagan wrote:
+> > On Thu, Oct 08, 2026 at 07:29:43PM +0100, Christian Loehle wrote:
+> >> On 10/8/26 19:17, Christian Loehle wrote:
+> >>> On 10/8/26 19:06, Roman Kagan wrote:
+> >>>> The idle states offered by a platform trade wakeup latency for energy
+> >>>> savings, and there are situations where the trade is not worth making:
+> >>>> while a latency-sensitive workload is running, or during a live update
+> >>>> via kexec, where everything from the outgoing kernel stopping the
+> >>>> workload to the incoming kernel resuming it is downtime, and deep idle
+> >>>> states may lengthen it.
+> >>>>
+> >>>> The mechanisms currently available for that are all one-way.
+> >>>> cpuidle.off=1, idle=poll and idle=halt can only be requested in the
+> >>>> kernel command line and cannot be undone, and the PM QoS interfaces
+> >>>> (/dev/cpu_dma_latency and the per-CPU pm_qos_resume_latency_us
+> >>>> attribute) can only be used once user space is up, so they cannot cover
+> >>>> the boot of the incoming kernel.
+> >>>
+> >>> You can also disable all but the shallowest idle state in sysfs:
+> >>> echo 1 > /sys/devices/system/cpu/cpuX/cpuidle/stateX/disable
+> >>>
+> >>
+> >> And I'd probably prefer having that exposed via the cmdline rather than
+> >> two separate governors...
+> > 
+> > Doing this cmdline configuration per-cpu per-state is non-realistic.  I
+> > guess you mean a single option that would express a policy, like "for
+> > all cpus in the system, disable all but the shallowest state" or "...
+> > all but the shallowest non-polling".  But policy is exactly what
+> > governors are for.
+> 
+> Yes, I had something like
+> cpuidle.max_exit_latency_us=<N>
+> in mind that then sets the disable attribute for the applicable states.
+> 
+> > 
+> > Why exactly does having two more separate simple, narrow-purpose
+> > governors sound wrong to you?
+> 
+> Because it's a lot of duplicate code we have to maintain (and the
+> documentation).
 
-No functional change.
+Fair.  But then PM QoS model appears to fit better.  I'll see to
+reconcile it with the need to be able to set at boot and clear later.
 
-Assisted-by: Claude:claude-fable-5
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
-Signed-off-by: Tal Zussman <tz2294@columbia.edu>
----
- block/fops.c | 10 ----------
- 1 file changed, 10 deletions(-)
-
-diff --git a/block/fops.c b/block/fops.c
-index 41fa0c663f77..f3ff4e62413b 100644
---- a/block/fops.c
-+++ b/block/fops.c
-@@ -321,9 +321,6 @@ static void blkdev_bio_end_io_async(struct bio *bio)
- 		ret = blk_status_to_errno(bio->bi_status);
- 	}
- 
--	if (bio_integrity(bio))
--		bio_integrity_unmap_user(bio);
--
- 	iocb->ki_complete(iocb, ret);
- 
- 	if (dio->flags & DIO_SHOULD_DIRTY) {
-@@ -385,13 +382,6 @@ static ssize_t __blkdev_direct_IO_async(struct kiocb *iocb,
- 		task_io_account_write(bio->bi_iter.bi_size);
- 	}
- 
--	if (iocb->ki_flags & IOCB_HAS_METADATA) {
--		ret = bio_integrity_map_iter(bio, iocb->private);
--		WRITE_ONCE(iocb->private, NULL);
--		if (unlikely(ret))
--			goto out_bio_put;
--	}
--
- 	if (iocb->ki_flags & IOCB_HIPRI) {
- 		bio->bi_opf |= REQ_POLLED;
- 		submit_bio(bio);
-
--- 
-2.39.5
-
+Thanks,
+Roman.
