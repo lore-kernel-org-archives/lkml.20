@@ -1,98 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 943223BB12C;
-	Fri,  9 Oct 2026 17:02:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B913331EB3;
+	Fri,  9 Oct 2026 17:03:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791565375; cv=none; b=OjednVEtZqsPPRTG1OmidPGmD5SvxIQa5gotj9G7VXJHgkqB6V2XkPRxkfZbXUzodSM4monxW17uYKYOONpGKWFrfwQfQNFyBPMF5WnHNT9cOllXey62alEsZRuOQXcBHtioHqSmVpkb1KOkVa6V8by91ScZx9yX+pqY3CTBQg4=
+	t=1791565402; cv=none; b=tNAyZvX092dTQLOgB+9MczmpKQLe3izC80DW9PfP6iUyihPIA9DbbgWVHunCHHbVmrnjTzxWvnKTFXQmmOgOexgyCtoOQVJJoXKpmvP+uMdKk1rrttkD58Wl/bTRCW4B6+lAGmK1wEd7LeVC2LFz0o4fJ6hQvE2NWyEYNYOZn28=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791565375; c=relaxed/simple;
-	bh=uyHsi96tpPzqM21e64F/D77H0VckKgQCdvx4z3wrEoQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=J3vE/6qYUVSSi6OOOz3cu1I9gvPUBTvU/YHhHJOF3v8A2GXt2h/vcfbGwvBmDTC9ZdaWx4Q7zpHHaPzyR6TeIAhbD2KfjqQKU/VHdDyWffzENizj6HmdVX9bzc65BGI2EE0ryvGqABzZs+0G1pqc4MtqTTUUzFHDQGlVMH4axsY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Myx2bn74; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791565402; c=relaxed/simple;
+	bh=0BZYLrNFBwg45qvb6sXGySgXpuTKSUmXxmurAKjoavM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=OkLFWv2Up5o+mjYgPCVjtwOFsKovky3kqXemEQNCWiF3yBIQb7ksFMFiztAm9aEZPrTpa/SDOXrH7MppJKXxUOLFZOaTCM3X9ot4aTs8FqZ+QjDigTo+4JCvSBjCZGX0OiKNUQBX2Sa/2lzBdvFI2QDgjRkvHQIOgepLlPqm0Y0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TH9a9046; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Myx2bn74"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFB371F000FF;
-	Fri,  9 Oct 2026 17:02:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791565368;
-	bh=iltjMudktSKE0S1aNS7P4FmpXghrJyhu3qRFPuHuB7w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Myx2bn74+CsGe4sqlIoDeAr2FIBxitw6YYY5cf1fOeSsoLVf0DMU868xrHnLdckDk
-	 SEwaCRhAhlp91jqlvRxC0o8GY2X6i7SoQ7V2a85+BfDoNSHsiYNFc/mAc8ZkbQ8m0q
-	 RcT/VJ85hP450jqxyz8+DJJPbsyilif4e1uIapHpH15EIxIM92Y/clfpnnvBJQe7ZH
-	 BkC0Ao7TWzPrXciX/52QH6HsmsKnsaoF3R+sFr4U1R7VxY9A/2JU6Y/P9fOAgQFREL
-	 7OSyoMEbjKV+/WC42yi+AT1fv/wXaQePKHtNzOuIvbhpNOFwVtPTfuZXo3hEcqw7H1
-	 4WZITcxY8fzkw==
-Date: Fri, 9 Oct 2026 19:02:38 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: Yeoreum Yun <yeoreum.yun@arm.com>
-Cc: Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
-	Peter Xu <peterx@redhat.com>, linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>, Shuah Khan <shuah@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
-	Sarthak Sharma <sarthak.sharma@arm.com>
-Subject: Re: [PATCH v5 1/3] kselftest: mm: rename read_pmd_pagesize() to
- pmd_psize()
-Message-ID: <askeLm-15RSm6zE2@kernel.org>
-References: <20261009-fix_hpage_macro-v5-0-54378ae45add@arm.com>
- <20261009-fix_hpage_macro-v5-1-54378ae45add@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TH9a9046"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 089BFC2BCF7;
+	Fri,  9 Oct 2026 17:03:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791565402;
+	bh=0BZYLrNFBwg45qvb6sXGySgXpuTKSUmXxmurAKjoavM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=TH9a90465SSzTXFqKlzcIB2TOrxYnVXPSspMST479H1/bcN/bcgtTgFzPkguN/m+C
+	 LiQJ683jSqAjaGvsTawyXsQjRw6rNhE/PJynd6U8pPyTJBkNW4H45T0Xav0gLaVb96
+	 NqwDRc9g8O05ed1VeE6OKQ7JBeXLmVj+RdXBjmcX3X+rU9wmT0le/JbXrcHoMkLUc6
+	 Bh7sGrb+t34p7vIh5CC4Ynep2AQWnk3XTmyrb4j7ptN5sRUz5oDlUDGUt83xG6pu1k
+	 xXqsGwTGrLSkvsrUwydXmwT1QZDzWkJZ9oHAUOSKojJCxKrYgNoONRHPqKMsAGr16J
+	 dZEKPddTZMikQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DB890CA601E;
+	Fri,  9 Oct 2026 17:03:21 +0000 (UTC)
+From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
+Date: Fri, 09 Oct 2026 17:02:57 +0000
+Subject: [PATCH v3 1/4] mmc: meson-gx: name the limit of the CMD_CFG
+ timeout field
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261009-fix_hpage_macro-v5-1-54378ae45add@arm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261009-meson-gx-busy-timeout-v3-1-67d0db3a8328@iav.lv>
+References: <20261009-meson-gx-busy-timeout-v3-0-67d0db3a8328@iav.lv>
+In-Reply-To: <20261009-meson-gx-busy-timeout-v3-0-67d0db3a8328@iav.lv>
+To: Ulf Hansson <ulfh@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ linux-mmc@vger.kernel.org, linux-amlogic@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Igor Velkov <iav@iav.lv>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1222; i=iav@iav.lv;
+ h=from:subject:message-id;
+ bh=8VC1yXn3jZKERenMCKphBxv2rNREe/7oQ7Z39r7TC8Y=;
+ b=owGbwMvMwCVmNH1q96v4SmbG02pJDFkn5cIE+th8OC4vD0jr2XH3csP+2S+e8f/YqXWho4xjs
+ +HBSk/PjlIWBjEuBlkxRZYJhzRuZSy5+tffw/wBzBxWJpAhDFycAjCRKzKMDJcWHfBJNFlknH/q
+ XWbdjXdr2O84NmdaX+Upz/S8em9zXxDDXznhmeI7k580L9P/sVD8o9G3eXunzJUUeTOp7v/ZKRd
+ vHOcHAA==
+X-Developer-Key: i=iav@iav.lv; a=openpgp;
+ fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
+X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
+X-Original-From: Igor Velkov <iav@iav.lv>
+Reply-To: iav@iav.lv
 
-On Fri, Oct 09, 2026 at 02:27:32AM +0100, Yeoreum Yun wrote:
-> For consistency with psize(), rename read_pmd_pagesize() to
-> pmd_psize(). There is no functional change.
-> 
-> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-> Reviewed-by: Zi Yan <ziy@nvidia.com>
-> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+From: Igor Velkov <iav@iav.lv>
 
-Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+The data timeout is capped at a literal 32768 ms with a comment next to
+it. Give the limit a name beside the other timeout constants.
 
-> ---
->  tools/testing/selftests/mm/cow.c                   |  2 +-
->  tools/testing/selftests/mm/folio_split_race_test.c |  2 +-
->  tools/testing/selftests/mm/hmm-tests.c             | 22 +++++++++++-----------
->  tools/testing/selftests/mm/khugepaged.c            |  2 +-
->  tools/testing/selftests/mm/khugepaged_race.c       |  2 +-
->  tools/testing/selftests/mm/khugepaged_sync_check.c |  2 +-
->  tools/testing/selftests/mm/migration.c             |  4 ++--
->  tools/testing/selftests/mm/mkdirty.c               |  2 +-
->  tools/testing/selftests/mm/pagemap_ioctl.c         |  2 +-
->  tools/testing/selftests/mm/prctl_thp_disable.c     |  4 ++--
->  tools/testing/selftests/mm/process_madv.c          |  2 +-
->  tools/testing/selftests/mm/soft-dirty.c            |  2 +-
->  tools/testing/selftests/mm/split_huge_page_test.c  |  2 +-
->  tools/testing/selftests/mm/uffd-common.c           |  6 +++---
->  tools/testing/selftests/mm/uffd-unit-tests.c       |  8 ++++----
->  tools/testing/selftests/mm/uffd-wp-mremap.c        |  2 +-
->  tools/testing/selftests/mm/vm_util.c               |  4 ++--
->  tools/testing/selftests/mm/vm_util.h               |  2 +-
->  18 files changed, 36 insertions(+), 36 deletions(-)
+Assisted-by: LLM
+Signed-off-by: Igor Velkov <iav@iav.lv>
+---
+ drivers/mmc/host/meson-gx-mmc.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/mmc/host/meson-gx-mmc.c b/drivers/mmc/host/meson-gx-mmc.c
+index 7ef16d7c03cb..06479ba38525 100644
+--- a/drivers/mmc/host/meson-gx-mmc.c
++++ b/drivers/mmc/host/meson-gx-mmc.c
+@@ -125,6 +125,7 @@
+ #define SD_EMMC_CFG_RESP_TIMEOUT 256 /* in clock cycles */
+ #define SD_EMMC_CMD_TIMEOUT 1024 /* in ms */
+ #define SD_EMMC_CMD_TIMEOUT_DATA 4096 /* in ms */
++#define SD_EMMC_CMD_TIMEOUT_MAX 32768 /* in ms, 2^15: limit of CMD_CFG_TIMEOUT_MASK */
+ #define SD_EMMC_CFG_CMD_GAP 16 /* in clock cycles */
+ #define SD_EMMC_DESC_BUF_LEN PAGE_SIZE
+ 
+@@ -212,7 +213,7 @@ static unsigned int meson_mmc_get_timeout_msecs(struct mmc_data *data)
+ 
+ 	timeout = roundup_pow_of_two(timeout);
+ 
+-	return min(timeout, 32768U); /* max. 2^15 ms */
++	return min_t(unsigned int, timeout, SD_EMMC_CMD_TIMEOUT_MAX);
+ }
+ 
+ static struct mmc_command *meson_mmc_get_next_command(struct mmc_command *cmd)
 
 -- 
-Sincerely yours,
-Mike.
+2.43.0
+
+
