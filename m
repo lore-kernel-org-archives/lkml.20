@@ -1,130 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43B8039DBD0;
-	Fri,  9 Oct 2026 14:16:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAC8133064D;
+	Fri,  9 Oct 2026 14:17:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791555373; cv=none; b=u5AtN6pl/0eLoeowrsstmTzAY20MkY6tcbqDQMWupc2zMXZDnFU7KmqQSP3E6w1VqySdLBkTvgws3/4cK05edDgBjh/3gJoM7ULyhti57BG4kLNz3jV6rqye9x21D87AhIgb/2LxfK3XPkFiu59UkLHtWMjp8Lz8h+e2MCzQpg0=
+	t=1791555425; cv=none; b=RD6fOIQMhbuq2qazbT2yGss9+PZBmiarb7CeIiMmD/OCVFT/NA6GylPdjmhxcZy6BPNMoou0Y1QbpwWGQf1DdB5bPmGDafI1mgIGGlSs5Kp97pro2RGbAw2pHOVr4BL7Pqsy25Nn6U7H1BO8He/R3X7s3HHcwzqsa3YSJ/BGAyw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791555373; c=relaxed/simple;
-	bh=HTto4x29Ky4tDdeScCouFY7b2C9/lvm82cKNmIN/yoY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=i3iFRg7IxJ99UKYXJlQ2u0xn3xuHtUX4ppcVuUjNgGyprUhsdpMFOIdWCf7dpACZLJ49ZHsyraOU3NBkx2MZ+PTSfBZoPG2oVtthtFjmRxXo4FlANqeBpkaF1/fMsNyd4C9QThdqSISHFAC8n3P5sB8CFfErFep4Ciz2cGtajDU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NhUolgjd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791555425; c=relaxed/simple;
+	bh=2GftN3Em5sqmcePRRo24BS7O5sMYGNlo/eJ1GnYoSrA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=HNnUK12v5ShpQk2F7jOeCtAo947NEHBrcKBr3VslMnl1dUES/cBK6uwUrBVtz9uHSi/Ymm6Xa5imPWoblp4y03VC+buLH+fVW3AR7a2RQLMVdwpYEyC6YUhiVPCfWdorfhRkBOhTZIBQlDWDg6UAdu+y4p8mc5klzE5rOMOy9RE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=m7AX7is2; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NhUolgjd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F4051F00899;
-	Fri,  9 Oct 2026 14:16:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791555367;
-	bh=5mp4RnMe0TQZxUQ96A2OqhWXQwIeoTHhlaxX50LfJic=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NhUolgjdT4xFpIJaLDiSOW9Fx/3UcRQiVWOExlWtRlCM+JExiGowDMCEGSwHEtnfG
-	 ph4wqLPlHYk3yHyFYgdaKKtAyhZlxIg5rePCMSle3N1m4N5jiRI0F+rgc0gximz4gE
-	 HGwESaoEV9h/0JQAZUI08YZSUbHyZ9sFXY+BChVjyCiyX6qDSXiKnPPVk/kEPsgUkK
-	 r7ufkRbdRpisjOQFOJjrKaEfoBU9kyzf3L/GYQ6wamC0qP+2zHNBbCo6JhBEByZiy2
-	 X8dhIJURzCuVSDrzN8zUtJzynOeqbp1KMhhSh7ZxwHKdzTKNBeMKGugL3GqLWPcaHp
-	 WL8H+/u39/mpA==
-Date: Fri, 9 Oct 2026 09:16:06 -0500
-From: Rob Herring <robh@kernel.org>
-To: joakim.zhang@cixtech.com
-Cc: lgirdwood@gmail.com, broonie@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, perex@perex.cz, tiwai@suse.com,
-	p.zabel@pengutronix.de, cix-kernel-upstream@cixtech.com,
-	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v3 1/4] ASoC: dt-bindings: Add Cadence I2S-SC controller
-Message-ID: <20261009141606.GB1631855-robh@kernel.org>
-References: <20261009092552.2377960-1-joakim.zhang@cixtech.com>
- <20261009092552.2377960-2-joakim.zhang@cixtech.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="m7AX7is2"
+Received: from pb-laptop.local (185.221.142.67.nat.pool.zt.hu [185.221.142.67])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id CB73D346;
+	Fri,  9 Oct 2026 16:15:00 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1791555301;
+	bh=2GftN3Em5sqmcePRRo24BS7O5sMYGNlo/eJ1GnYoSrA=;
+	h=From:To:Cc:Subject:Date:From;
+	b=m7AX7is2d4M6der+mnXBIaXyltT/57PvqYfV3Gceyzvl7CTubyhpnDPB+fpVUAmqQ
+	 gnHaYtWhOpmXs40D1fVYFuqDe616ZJn+Ifr1JtJE6CRDPN/f5Lx5ZPUNCY8aUxq3J6
+	 Iv1r/m6BbpIE7tLeDPv+2GsCauFb7cFQpdLZ+BeQ=
+From: =?UTF-8?q?Barnab=C3=A1s=20P=C5=91cze?= <barnabas.pocze+renesas@ideasonboard.com>
+To: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
+	Jai Luthra <jai.luthra+renesas@ideasonboard.com>,
+	=?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Barnab=C3=A1s=20P=C5=91cze?= <barnabas.pocze+renesas@ideasonboard.com>
+Subject: [PATCH v2] media: rppx1: lsc: Fix and use LSC_SIZE_VALUE()
+Date: Fri,  9 Oct 2026 16:16:52 +0200
+Message-ID: <20261009141652.252872-1-barnabas.pocze+renesas@ideasonboard.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261009092552.2377960-2-joakim.zhang@cixtech.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 09, 2026 at 05:25:49PM +0800, joakim.zhang@cixtech.com wrote:
-> From: Joakim Zhang <joakim.zhang@cixtech.com>
-> 
-> Add the DT binding for the Cadence I2S-SC controller integrated in
-> the CIX SKY1 audio subsystem. I2S-SC is a full-duplex stereo
-> controller supporting standard I2S, left/right-justified and DSP
-> formats, plus TDM operation with up to 16 slots.
-> 
-> Signed-off-by: Joakim Zhang <joakim.zhang@cixtech.com>
-> ---
->  .../bindings/sound/cix,sky1-i2s-sc.yaml       | 93 +++++++++++++++++++
->  1 file changed, 93 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/cix,sky1-i2s-sc.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/cix,sky1-i2s-sc.yaml b/Documentation/devicetree/bindings/sound/cix,sky1-i2s-sc.yaml
-> new file mode 100644
-> index 000000000000..3fdf2334c492
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/cix,sky1-i2s-sc.yaml
-> @@ -0,0 +1,93 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/cix,sky1-i2s-sc.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Cadence I2S-SC controller
-> +
-> +maintainers:
-> +  - Joakim Zhang <joakim.zhang@cixtech.com>
-> +
-> +description: |
-> +  The Cadence I2S-SC controller integrated in the CIX SKY1 audio subsystem.
-> +  It supports full-duplex stereo playback and capture in standard I2S,
-> +  left/right-justified and DSP modes, as well as TDM operation with up to
-> +  16 slots. The transmitter and receiver are started and stopped together
-> +  by the controller.
-> +
-> +allOf:
-> +  - $ref: dai-common.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: cix,sky1-i2s-sc
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 4
-> +
-> +  clock-names:
-> +    items:
-> +      - const: hst
-> +      - const: i2s
-> +      - const: audio-clk0
-> +      - const: audio-clk2
-> +
-> +  resets:
-> +    maxItems: 1
-> +
-> +  dmas:
-> +    minItems: 1
-> +    maxItems: 2
-> +    description:
-> +      One DMA channel for instances wired for a single direction, either
-> +      "tx" or "rx", or two channels for both transmit and receive.
-> +
-> +  dma-names:
-> +    minItems: 1
-> +    maxItems: 2
-> +    items:
-> +      enum: [ tx, rx ]
+Firstly, the size values are defined as 10-bit unsigned integers, and there
+doesn't appear to be an additional upper limit in the hardware documentation,
+so the upper limit should be 1023. Testing also shows that a value of 1023
+is accepted and works as expected. So the correct mask to use is 0x3ff (1023),
+not 0x1ff (511).
 
-Address the sashiko comment.
+Secondly, actually use `LSC_SIZE_VALUE()` when populating the size registers
+instead of using the `LSC_GRAD_VALUE()` macro.
 
-Rob
+Fixes: b39656efb71a ("media: rppx1: lsc: Add support for lens shade correction")
+Signed-off-by: Barnabás Pőcze <barnabas.pocze+renesas@ideasonboard.com>
+Reviewed-by: Jai Luthra <jai.luthra+renesas@ideasonboard.com>
+Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+---
+ .../platform/dreamchip/rppx1/rppx1_lsc.c      | 34 +++++++++----------
+ 1 file changed, 17 insertions(+), 17 deletions(-)
+
+diff --git a/drivers/media/platform/dreamchip/rppx1/rppx1_lsc.c b/drivers/media/platform/dreamchip/rppx1/rppx1_lsc.c
+index 8badeca23e249..ffc52ca23dd99 100644
+--- a/drivers/media/platform/dreamchip/rppx1/rppx1_lsc.c
++++ b/drivers/media/platform/dreamchip/rppx1/rppx1_lsc.c
+@@ -57,7 +57,7 @@
+ 
+ #define LSC_R_TABLE_DATA_VALUE(v1, v2) (((v1) & 0xfff) | (((v2) & 0xfff) << 12))
+ #define LSC_GRAD_VALUE(v1, v2) (((v1) & 0xfff) | (((v2) & 0xfff) << 16))
+-#define LSC_SIZE_VALUE(v1, v2) (((v1) & 0x1ff) | (((v2) & 0x1ff) << 16))
++#define LSC_SIZE_VALUE(v1, v2) (((v1) & 0x3ff) | (((v2) & 0x3ff) << 16))
+ 
+ static int rppx1_lsc_probe(struct rpp_module *mod)
+ {
+@@ -157,24 +157,24 @@ rppx1_lsc_fill_params(struct rpp_module *mod,
+ 	write(priv, mod->base + LSC_YGRAD_1415_REG, LSC_GRAD_VALUE(v[14], v[15]));
+ 
+ 	v = cfg->x_sect_size;
+-	write(priv, mod->base + LSC_XSIZE_01_REG, LSC_GRAD_VALUE(v[0], v[1]));
+-	write(priv, mod->base + LSC_XSIZE_23_REG, LSC_GRAD_VALUE(v[2], v[3]));
+-	write(priv, mod->base + LSC_XSIZE_45_REG, LSC_GRAD_VALUE(v[4], v[5]));
+-	write(priv, mod->base + LSC_XSIZE_67_REG, LSC_GRAD_VALUE(v[6], v[7]));
+-	write(priv, mod->base + LSC_XSIZE_89_REG, LSC_GRAD_VALUE(v[8], v[9]));
+-	write(priv, mod->base + LSC_XSIZE_1011_REG, LSC_GRAD_VALUE(v[10], v[11]));
+-	write(priv, mod->base + LSC_XSIZE_1213_REG, LSC_GRAD_VALUE(v[12], v[13]));
+-	write(priv, mod->base + LSC_XSIZE_1415_REG, LSC_GRAD_VALUE(v[14], v[15]));
++	write(priv, mod->base + LSC_XSIZE_01_REG, LSC_SIZE_VALUE(v[0], v[1]));
++	write(priv, mod->base + LSC_XSIZE_23_REG, LSC_SIZE_VALUE(v[2], v[3]));
++	write(priv, mod->base + LSC_XSIZE_45_REG, LSC_SIZE_VALUE(v[4], v[5]));
++	write(priv, mod->base + LSC_XSIZE_67_REG, LSC_SIZE_VALUE(v[6], v[7]));
++	write(priv, mod->base + LSC_XSIZE_89_REG, LSC_SIZE_VALUE(v[8], v[9]));
++	write(priv, mod->base + LSC_XSIZE_1011_REG, LSC_SIZE_VALUE(v[10], v[11]));
++	write(priv, mod->base + LSC_XSIZE_1213_REG, LSC_SIZE_VALUE(v[12], v[13]));
++	write(priv, mod->base + LSC_XSIZE_1415_REG, LSC_SIZE_VALUE(v[14], v[15]));
+ 
+ 	v = cfg->y_sect_size;
+-	write(priv, mod->base + LSC_YSIZE_01_REG, LSC_GRAD_VALUE(v[0], v[1]));
+-	write(priv, mod->base + LSC_YSIZE_23_REG, LSC_GRAD_VALUE(v[2], v[3]));
+-	write(priv, mod->base + LSC_YSIZE_45_REG, LSC_GRAD_VALUE(v[4], v[5]));
+-	write(priv, mod->base + LSC_YSIZE_67_REG, LSC_GRAD_VALUE(v[6], v[7]));
+-	write(priv, mod->base + LSC_YSIZE_89_REG, LSC_GRAD_VALUE(v[8], v[9]));
+-	write(priv, mod->base + LSC_YSIZE_1011_REG, LSC_GRAD_VALUE(v[10], v[11]));
+-	write(priv, mod->base + LSC_YSIZE_1213_REG, LSC_GRAD_VALUE(v[12], v[13]));
+-	write(priv, mod->base + LSC_YSIZE_1415_REG, LSC_GRAD_VALUE(v[14], v[15]));
++	write(priv, mod->base + LSC_YSIZE_01_REG, LSC_SIZE_VALUE(v[0], v[1]));
++	write(priv, mod->base + LSC_YSIZE_23_REG, LSC_SIZE_VALUE(v[2], v[3]));
++	write(priv, mod->base + LSC_YSIZE_45_REG, LSC_SIZE_VALUE(v[4], v[5]));
++	write(priv, mod->base + LSC_YSIZE_67_REG, LSC_SIZE_VALUE(v[6], v[7]));
++	write(priv, mod->base + LSC_YSIZE_89_REG, LSC_SIZE_VALUE(v[8], v[9]));
++	write(priv, mod->base + LSC_YSIZE_1011_REG, LSC_SIZE_VALUE(v[10], v[11]));
++	write(priv, mod->base + LSC_YSIZE_1213_REG, LSC_SIZE_VALUE(v[12], v[13]));
++	write(priv, mod->base + LSC_YSIZE_1415_REG, LSC_SIZE_VALUE(v[14], v[15]));
+ 
+ 	/* Enable module. */
+ 	write(priv, mod->base + LSC_CTRL_REG, LSC_CTRL_LSC_EN);
+-- 
+2.56.0
+
