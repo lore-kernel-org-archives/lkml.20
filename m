@@ -1,298 +1,195 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C1A5443C07;
-	Fri,  9 Oct 2026 06:27:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84440443C07;
+	Fri,  9 Oct 2026 06:28:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791527255; cv=none; b=cpSdxfcLj3BEarVYCNG+ggPVNwxWN62Vv18EGCtuA+oZFPkza//1ddTG/RSq4haSNN+roOBz82ARMknrgr5BdWPEvM8Fii5yTLIFJcgPbp07CLx2xcpIq1g8JUFgRGKH8XbyuvOjCl+YXBKDAdA0Tr1qM4IAjRc6F9VWfyOR890=
+	t=1791527280; cv=none; b=TeIIvU0m1/xMBkTM3tg8WCMxChG2Te/9sA7JKZ6tXj9ktAhSufQD4LvqQdf/nnhrIXkrXD0OoFcTZbkxq+9dMG7wgkeFIerzw6t2TXc8O/U1Z60V31fwirxa6lxZAjVnVv5Y612y8gyJW0Oc755CEOkhb0n+8JmO5ttwSKFcfF0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791527255; c=relaxed/simple;
-	bh=HFYNoI75ejn3ULC9CF4dIchBJz/l6inSXjxhNaqvbVs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=INhqcdJthtPdHbTDlr9wqlH1q3v11fLOxBMHR4sG7UWlqviNhDLvthxK4HTQ8gxjEBc6nBeH8IpStpyPVW6Zb/BLjyU2CSe1XpyeFY4KO7mk8j2IYDsfvgi8JyrUf2SL71DESo8OS/9Q2wIEi93I8Hj32YOdN1AmJ+wRJoSZ0sI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hicdw4w7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791527280; c=relaxed/simple;
+	bh=XNLd1vcL6wwc+SbqMZ7RnBacqhTEzwNv63BGEqZEVO4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=eoK4a+nCRAkxo2L7gRsCC6puDUVsH6iZ9wP45Fo6bP7cA9ejKQy4sSTX/QymMSI/CEKqXA7Y5hO3pRGqmOtnyL2yJjXJnYVUTQIzSeR/uP50Z0S9gpPdMF7LgVL2Cv/5IiMn1ZzaQRXASUb9jfTSRW208Czp7MGwCwq9vOvRv2Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CL58kaCB; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hicdw4w7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E5981F000FF;
-	Fri,  9 Oct 2026 06:27:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791527254;
-	bh=LyuQDFtxByLVbYfIr0hnWyDrP2HT3IIBlxCUwZ0K/tg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Hicdw4w7WWXUFIFy/RexsvzG2V1FUl2WtRTv9qHJ6DmmbLSJeab2p2HF/9TXo3g5y
-	 x6+CZKtpuCMCJnL97r930K4ngqKYwIAABeK/GN620finO9JOJRlBPuEWkh5DDqWinM
-	 zmS8r6WY5ye6F2Xg8fN7q4YtwMH1fehe0QGCEc8lo1qpSlriqpKDsy5FNVlGV/KM+j
-	 nF4JJ2XOXjCZzw771sX2WmxtRA77X8QxY7aX/7b8446MoaZJ6cW3N7nBIwYm2LMkom
-	 47k2/AOqGkh2EjKKJopTdJt362evMZMWmTZQJOKPe5wmlUDWvTQH2gM23n9zYrs8F6
-	 0IHpZr/0X9/Uw==
-From: Kees Cook <kees@kernel.org>
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Kees Cook <kees@kernel.org>,
-	Nicolas Schier <nsc@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Manuel Ebner <manuelebnerli@mailbox.org>,
-	linux-kbuild@vger.kernel.org,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org
-Subject: [PATCH v1 1/2] kbuild: Mark the kernel image gzip recipes as recursive
-Date: Thu,  8 Oct 2026 23:27:30 -0700
-Message-ID: <20261009062733.3119731-1-kees@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261009062722.i.253-kees@kernel.org>
-References: <20261009062722.i.253-kees@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CL58kaCB"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 288F6C2BCFC;
+	Fri,  9 Oct 2026 06:28:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791527280;
+	bh=XNLd1vcL6wwc+SbqMZ7RnBacqhTEzwNv63BGEqZEVO4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=CL58kaCBD9sLLzn4VZuuc3o6Zb0nrDsrx2GSog7/bJQB5HUVF0GwBf08ouYQB2LBr
+	 a1eu7nrzkB4V8zJITeEf9P+5BXBwpUJwaJDbY7kfIrr1vrCB5WrKHKNdzo7AXEPfJs
+	 GVZzD+yRNhKNh3xJDympW2HzwTqINROdq8LPm/idfuMItd9rPza4WLBaBDZHdgKNFp
+	 XMNR88xVzDhiB80N6reyszAo85+qnwe8LvoTjVN0EM2auMSFgYdEagGMwKbuMcSGRV
+	 vAKkMRWlRA1B+2WR7jwfPX/LuAuUdlK8IleMrscC4N4qw5AcAQ+msPuQ/TizHPj1KG
+	 MeQkF6C9M3jow==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0CAF9CA601A;
+	Fri,  9 Oct 2026 06:28:00 +0000 (UTC)
+From: Pawel Laszczak via B4 Relay <devnull+pawell.cadence.com@kernel.org>
+Date: Fri, 09 Oct 2026 08:49:12 +0200
+Subject: [PATCH v4 2/3] usb: gadget: composite: Support eUSB2v2 bulk MPS
+ update
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9198; i=kees@kernel.org; h=from:subject; bh=HFYNoI75ejn3ULC9CF4dIchBJz/l6inSXjxhNaqvbVs=; b=owGbwMvMwCVmps19z/KJym7G02pJDFknOoM2rduw1pZXO0xRjHWd6RuLWSFqElHTP91cl/5vk 9vtE/f8O0pZGMS4GGTFFFmC7NzjXDzetoe7z1WEmcPKBDKEgYtTACayJoyRYX3znaOqjdN0pmtc L/bn2pBbZvX86wRFrgLbs1FaDle2Hmb4zbpL/suL7Bq7+QKFrSrr+/rdnD8kqfP/OKE20e3rp4o YfgA=
-X-Developer-Key: i=kees@kernel.org; a=openpgp; fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261009-eusb2v2-packet-size-v4-2-a505ee17b460@cadence.com>
+References: <20261009-eusb2v2-packet-size-v4-0-a505ee17b460@cadence.com>
+In-Reply-To: <20261009-eusb2v2-packet-size-v4-0-a505ee17b460@cadence.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Mathias Nyman <mathias.nyman@intel.com>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Pawel Laszczak <pawell@cadence.com>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791528555; l=4883;
+ i=pawell@cadence.com; h=from:subject:message-id;
+ bh=54cj7P6eptXeBoLGqTGuJw6KSL4sbxsCE9t2Xo8Db4g=;
+ b=F/srVaYib37iB43oeIbCzjak/KX76JpiAsOa5sTswh1HbVMbRQ2wBj4bgUXXItzD7oxaixyCn
+ ER4wuA1tgFcAIDWT1ILaod0w6yVnuiQMOsszvUPg6IC9di/49Lqrn/A
+X-Developer-Key: i=pawell@cadence.com; a=ed25519;
+ pk=EUPBvLO9CDg7j6defeDl2iqi+z5Ivqu4Z46aiqe7dYc=
+X-Endpoint-Received: by B4 Relay for pawell@cadence.com/default with
+ auth_id=707
+X-Original-From: Pawel Laszczak <pawell@cadence.com>
+Reply-To: pawell@cadence.com
 
-Since commit 48ebe1cbbeb51 ("kbuild: compress the kernel with pigz if
-available"), cmd_gzip runs pigz through scripts/jobserver-exec, which
-takes the job slots make has free. GNU Make passes the jobserver pipe
-only to recipes it treats as recursive, but leaves --jobserver-auth in
-MAKEFLAGS for all of them. The make 4.3 in CentOS Stream 9 also hides
-the pipe in sub-makes (a backport of the fix for GNU Make bug 58232), so
-jobserver-exec cannot open it, runs pigz on one thread, and prints:
+From: Pawel Laszczak <pawell@cadence.com>
 
-  WARNING: Unable to reopen jobserver read-side pipe: FileNotFoundError(2, 'No such file or directory')
+Add support for eUSB2v2 1024-byte Bulk MPS negotiation to the Gadget
+Composite framework.
 
-Mark the gzip recipes as recursive with "+", as commit ecab4115c44cc
-("kbuild: mark `rustc` (and others) invocations as recursive") did for
-rustc. As with those, "make -n" now runs them.
+If 'gadget->is_eusb2v2' is set, force bcdUSB to 0x0230 and bMaxPacketSize0
+to 64 bytes. Handle the USB_DEVICE_BULK_MAX_PACKET_UPDATE Feature Selector
+request by activating the new 'eusb2v2_mps_active' gadget flag.
 
-Tested ARCH=x86_64 and ARCH=arm64 defconfig with GNU Make 4.3 plus
-CentOS Stream 9's make-4.3-cloexec.patch, GCC 16.2.0, and -j64: without
-this change the warning appears and pigz runs with "-p 1"; with it there
-is no warning, and pigz runs with "-p 54" and "-p 64".
+This flag allows the UDC (USB Device Controller) driver to dynamically
+configure its hardware endpoints for 1024-byte packet mode, while the
+Composite framework continues to report 512 bytes in the Configuration
+Descriptor, ensuring strict compliance with eUSB2v2 specification
+section 5.2. The flag is cleared upon device reset or disconnect.
 
-Reported-by: Paul E. McKenney <paulmck@kernel.org>
-Closes: https://lore.kernel.org/all/0ddb5e5e-f801-444c-aa98-0cfe814a3026@paulmck-laptop/
-Fixes: 48ebe1cbbeb51 ("kbuild: compress the kernel with pigz if available")
-Assisted-by: LLM
-Signed-off-by: Kees Cook <kees@kernel.org>
+Signed-off-by: Pawel Laszczak <pawell@cadence.com>
 ---
- arch/alpha/boot/Makefile             | 4 ++--
- arch/arc/boot/Makefile               | 2 +-
- arch/arm64/boot/Makefile             | 2 +-
- arch/microblaze/boot/Makefile        | 2 +-
- arch/mips/boot/Makefile              | 2 +-
- arch/nios2/boot/Makefile             | 2 +-
- arch/parisc/boot/compressed/Makefile | 2 +-
- arch/riscv/boot/Makefile             | 2 +-
- arch/s390/boot/Makefile              | 2 +-
- arch/sh/boot/Makefile                | 2 +-
- arch/sh/boot/compressed/Makefile     | 2 +-
- arch/sparc/boot/Makefile             | 4 ++--
- arch/x86/boot/compressed/Makefile    | 2 +-
- arch/xtensa/boot/Makefile            | 2 +-
- 14 files changed, 16 insertions(+), 16 deletions(-)
+Changes in v4:
+- No changes.
 
-diff --git a/arch/alpha/boot/Makefile b/arch/alpha/boot/Makefile
-index d8dba85e606c..b050753e9015 100644
---- a/arch/alpha/boot/Makefile
-+++ b/arch/alpha/boot/Makefile
-@@ -40,7 +40,7 @@ endif
+Changes in v3:
+- composite.c: Do not overwrite ep->desc.wMaxPacketSize to 1024, as the eUSB2v2
+  spec section 5.2 mandates that the endpoint descriptor always reports 512 bytes
+  to the host. Instead, introduce gadget->eusb2v2_mps_active flag.
+- gadget.h: Add eusb2v2_mps_active to struct usb_gadget.
+
+Changes in v2:
+- composite.c: CLEAR_FEATURE(BULK_MAX_PACKET_UPDATE) is not defined in the
+  eUSB2v2 spec; stall it instead of incorrectly setting 1024-byte mode.
+- restore MPS in __composite_disconnect
+---
+ drivers/usb/gadget/composite.c | 28 +++++++++++++++++++++-------
+ include/linux/usb/gadget.h     |  4 ++++
+ 2 files changed, 25 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/usb/gadget/composite.c b/drivers/usb/gadget/composite.c
+index dc3664374596..9678ed4e4aee 100644
+--- a/drivers/usb/gadget/composite.c
++++ b/drivers/usb/gadget/composite.c
+@@ -924,7 +924,6 @@ static void device_qual(struct usb_composite_dev *cdev)
+ }
  
- # Compressed kernel image
- $(obj)/vmlinux.gz: $(obj)/vmlinux FORCE
--	$(call if_changed,gzip)
-+	+$(call if_changed,gzip)
- 	@echo '  Kernel $@ is ready'
+ /*-------------------------------------------------------------------------*/
+-
+ static void reset_config(struct usb_composite_dev *cdev)
+ {
+ 	struct usb_function		*f;
+@@ -971,8 +970,10 @@ static int set_config(struct usb_composite_dev *cdev,
+ 		if (result < 0)
+ 			goto done;
+ 	} else { /* Zero configuration value - need to reset the config */
+-		if (cdev->config)
++		if (cdev->config) {
+ 			reset_config(cdev);
++			cdev->gadget->eusb2v2_mps_active = 0;
++		}
+ 		result = 0;
+ 	}
  
- $(obj)/main.o: $(obj)/ksize.h
-@@ -85,7 +85,7 @@ $(obj)/vmlinux.nh: vmlinux $(OBJSTRIP) FORCE
- 	$(call if_changed,objstrip)
- 
- $(obj)/vmlinux.nh.gz: $(obj)/vmlinux.nh FORCE
--	$(call if_changed,gzip)
-+	+$(call if_changed,gzip)
- 
- $(obj)/tools/lxboot: $(obj)/bootloader $(OBJSTRIP) FORCE
- 	$(call if_changed,objstrip)
-diff --git a/arch/arc/boot/Makefile b/arch/arc/boot/Makefile
-index 5a8550124b73..8a44c3e7ff3e 100644
---- a/arch/arc/boot/Makefile
-+++ b/arch/arc/boot/Makefile
-@@ -23,7 +23,7 @@ $(obj)/vmlinux.bin: vmlinux FORCE
- 	$(call if_changed,objcopy)
- 
- $(obj)/vmlinux.bin.gz: $(obj)/vmlinux.bin FORCE
--	$(call if_changed,gzip)
-+	+$(call if_changed,gzip)
- 
- $(obj)/vmlinux.bin.lzma: $(obj)/vmlinux.bin FORCE
- 	$(call if_changed,lzma)
-diff --git a/arch/arm64/boot/Makefile b/arch/arm64/boot/Makefile
-index b5a08333bc57..d42d07667822 100644
---- a/arch/arm64/boot/Makefile
-+++ b/arch/arm64/boot/Makefile
-@@ -26,7 +26,7 @@ $(obj)/Image.bz2: $(obj)/Image FORCE
- 	$(call if_changed,bzip2)
- 
- $(obj)/Image.gz: $(obj)/Image FORCE
--	$(call if_changed,gzip)
-+	+$(call if_changed,gzip)
- 
- $(obj)/Image.lz4: $(obj)/Image FORCE
- 	$(call if_changed,lz4)
-diff --git a/arch/microblaze/boot/Makefile b/arch/microblaze/boot/Makefile
-index 2b42c370d574..e3df3a64808a 100644
---- a/arch/microblaze/boot/Makefile
-+++ b/arch/microblaze/boot/Makefile
-@@ -14,7 +14,7 @@ $(obj)/linux.bin.ub: $(obj)/linux.bin FORCE
- 	$(call if_changed,uimage)
- 
- $(obj)/linux.bin.gz: $(obj)/linux.bin FORCE
--	$(call if_changed,gzip)
-+	+$(call if_changed,gzip)
- 
- quiet_cmd_strip = STRIP   $< $@$2
- 	cmd_strip = $(STRIP) -K microblaze_start -K _end -K __log_buf \
-diff --git a/arch/mips/boot/Makefile b/arch/mips/boot/Makefile
-index 8473c4671702..996bf41b78de 100644
---- a/arch/mips/boot/Makefile
-+++ b/arch/mips/boot/Makefile
-@@ -63,7 +63,7 @@ $(obj)/vmlinux.bin.bz2: $(obj)/vmlinux.bin FORCE
- 	$(call if_changed,bzip2)
- 
- $(obj)/vmlinux.bin.gz: $(obj)/vmlinux.bin FORCE
--	$(call if_changed,gzip)
-+	+$(call if_changed,gzip)
- 
- $(obj)/vmlinux.bin.lzma: $(obj)/vmlinux.bin FORCE
- 	$(call if_changed,lzma)
-diff --git a/arch/nios2/boot/Makefile b/arch/nios2/boot/Makefile
-index 29c11a06b750..1381e6e428a8 100644
---- a/arch/nios2/boot/Makefile
-+++ b/arch/nios2/boot/Makefile
-@@ -18,7 +18,7 @@ $(obj)/vmlinux.bin: vmlinux FORCE
- 	$(call if_changed,objcopy)
- 
- $(obj)/vmlinux.gz: $(obj)/vmlinux.bin FORCE
--	$(call if_changed,gzip)
-+	+$(call if_changed,gzip)
- 
- $(obj)/vmImage: $(obj)/vmlinux.gz FORCE
- 	$(call if_changed,uimage)
-diff --git a/arch/parisc/boot/compressed/Makefile b/arch/parisc/boot/compressed/Makefile
-index 14eefb5ed5d1..a7fc7d424c00 100644
---- a/arch/parisc/boot/compressed/Makefile
-+++ b/arch/parisc/boot/compressed/Makefile
-@@ -55,7 +55,7 @@ suffix-$(CONFIG_KERNEL_LZO)  := lzo
- suffix-$(CONFIG_KERNEL_XZ)  := xz
- 
- $(obj)/vmlinux.bin.gz: $(obj)/vmlinux.bin FORCE
--	$(call if_changed,gzip)
-+	+$(call if_changed,gzip)
- $(obj)/vmlinux.bin.bz2: $(obj)/vmlinux.bin FORCE
- 	$(call if_changed,bzip2_with_size)
- $(obj)/vmlinux.bin.lz4: $(obj)/vmlinux.bin FORCE
-diff --git a/arch/riscv/boot/Makefile b/arch/riscv/boot/Makefile
-index 4a2d75b7e42d..b80a077a8e8f 100644
---- a/arch/riscv/boot/Makefile
-+++ b/arch/riscv/boot/Makefile
-@@ -23,7 +23,7 @@ $(obj)/Image: vmlinux FORCE
- 	$(call if_changed,objcopy)
- 
- $(obj)/Image.gz: $(obj)/Image FORCE
--	$(call if_changed,gzip)
-+	+$(call if_changed,gzip)
- 
- $(obj)/loader.o: $(src)/loader.S $(obj)/Image
- 
-diff --git a/arch/s390/boot/Makefile b/arch/s390/boot/Makefile
-index 10b75e053a6f..e8e43ae80dd5 100644
---- a/arch/s390/boot/Makefile
-+++ b/arch/s390/boot/Makefile
-@@ -117,7 +117,7 @@ suffix-$(CONFIG_KERNEL_XZ)  := .xz
- suffix-$(CONFIG_KERNEL_ZSTD)  := .zst
- 
- $(obj)/vmlinux.bin.gz: $(obj)/vmlinux.bin FORCE
--	$(call if_changed,gzip)
-+	+$(call if_changed,gzip)
- $(obj)/vmlinux.bin.bz2: $(obj)/vmlinux.bin FORCE
- 	$(call if_changed,bzip2_with_size)
- $(obj)/vmlinux.bin.lz4: $(obj)/vmlinux.bin FORCE
-diff --git a/arch/sh/boot/Makefile b/arch/sh/boot/Makefile
-index 1f5d2df3c7e0..cf63e319b786 100644
---- a/arch/sh/boot/Makefile
-+++ b/arch/sh/boot/Makefile
-@@ -66,7 +66,7 @@ $(obj)/vmlinux.bin: vmlinux FORCE
- 	$(call if_changed,objcopy)
- 
- $(obj)/vmlinux.bin.gz: $(obj)/vmlinux.bin FORCE
--	$(call if_changed,gzip)
-+	+$(call if_changed,gzip)
- 
- $(obj)/vmlinux.bin.bz2: $(obj)/vmlinux.bin FORCE
- 	$(call if_changed,bzip2)
-diff --git a/arch/sh/boot/compressed/Makefile b/arch/sh/boot/compressed/Makefile
-index 58df491778b2..b85aa5f0d616 100644
---- a/arch/sh/boot/compressed/Makefile
-+++ b/arch/sh/boot/compressed/Makefile
-@@ -39,7 +39,7 @@ $(obj)/vmlinux.bin: vmlinux FORCE
- 	$(call if_changed,objcopy)
- 
- $(obj)/vmlinux.bin.gz: $(obj)/vmlinux.bin FORCE
--	$(call if_changed,gzip)
-+	+$(call if_changed,gzip)
- $(obj)/vmlinux.bin.bz2: $(obj)/vmlinux.bin FORCE
- 	$(call if_changed,bzip2_with_size)
- $(obj)/vmlinux.bin.lzma: $(obj)/vmlinux.bin FORCE
-diff --git a/arch/sparc/boot/Makefile b/arch/sparc/boot/Makefile
-index 339c42d35089..b53cf596611e 100644
---- a/arch/sparc/boot/Makefile
-+++ b/arch/sparc/boot/Makefile
-@@ -23,7 +23,7 @@ ifeq ($(CONFIG_SPARC64),y)
- # Actual linking
- 
- $(obj)/zImage: $(obj)/image FORCE
--	$(call if_changed,gzip)
-+	+$(call if_changed,gzip)
- 	@$(kecho) 'Kernel: $@ is ready' '(#'$(or $(KBUILD_BUILD_VERSION),`cat .version`)')'
- 
- $(obj)/vmlinux.aout: vmlinux FORCE
-@@ -45,7 +45,7 @@ $(obj)/image.bin: $(obj)/image FORCE
- 	$(call if_changed,objcopy)
- 
- $(obj)/image.gz: $(obj)/image.bin FORCE
--	$(call if_changed,gzip)
-+	+$(call if_changed,gzip)
- 
- UIMAGE_LOADADDR = $(CONFIG_UBOOT_LOAD_ADDR)
- UIMAGE_ENTRYADDR = $(CONFIG_UBOOT_ENTRY_ADDR)
-diff --git a/arch/x86/boot/compressed/Makefile b/arch/x86/boot/compressed/Makefile
-index 6ec5e031db1d..680ad803cba7 100644
---- a/arch/x86/boot/compressed/Makefile
-+++ b/arch/x86/boot/compressed/Makefile
-@@ -133,7 +133,7 @@ vmlinux.bin.all-y := $(obj)/vmlinux.bin
- vmlinux.bin.all-$(CONFIG_X86_NEED_RELOCS) += $(obj)/vmlinux.relocs
- 
- $(obj)/vmlinux.bin.gz: $(vmlinux.bin.all-y) FORCE
--	$(call if_changed,gzip)
-+	+$(call if_changed,gzip)
- $(obj)/vmlinux.bin.bz2: $(vmlinux.bin.all-y) FORCE
- 	$(call if_changed,bzip2_with_size)
- $(obj)/vmlinux.bin.lzma: $(vmlinux.bin.all-y) FORCE
-diff --git a/arch/xtensa/boot/Makefile b/arch/xtensa/boot/Makefile
-index d8b0fadf429a..934f9015b15f 100644
---- a/arch/xtensa/boot/Makefile
-+++ b/arch/xtensa/boot/Makefile
-@@ -36,7 +36,7 @@ $(obj)/vmlinux.bin: vmlinux FORCE
- 	$(call if_changed,objcopy)
- 
- $(obj)/vmlinux.bin.gz: $(obj)/vmlinux.bin FORCE
--	$(call if_changed,gzip)
-+	+$(call if_changed,gzip)
- 
- boot-elf: $(obj)/vmlinux.bin
- boot-redboot: $(obj)/vmlinux.bin.gz
+@@ -1807,7 +1808,11 @@ composite_setup(struct usb_gadget *gadget, const struct usb_ctrlrequest *ctrl)
+ 				count_configs(cdev, USB_DT_DEVICE);
+ 			cdev->desc.bMaxPacketSize0 =
+ 				cdev->gadget->ep0->maxpacket;
+-			if (gadget_is_superspeed(gadget)) {
++
++			if (gadget->is_eusb2v2) {
++				cdev->desc.bcdUSB = cpu_to_le16(0x0230);
++				cdev->desc.bMaxPacketSize0 = 64;
++			} else if (gadget_is_superspeed(gadget)) {
+ 				if (gadget->speed >= USB_SPEED_SUPER) {
+ 					cdev->desc.bcdUSB = cpu_to_le16(0x0320);
+ 					cdev->desc.bMaxPacketSize0 = 9;
+@@ -2005,12 +2010,20 @@ composite_setup(struct usb_gadget *gadget, const struct usb_ctrlrequest *ctrl)
+ 	 */
+ 	case USB_REQ_CLEAR_FEATURE:
+ 	case USB_REQ_SET_FEATURE:
+-		if (!gadget_is_superspeed(gadget))
+-			goto unknown;
+-		if (ctrl->bRequestType != (USB_DIR_OUT | USB_RECIP_INTERFACE))
+-			goto unknown;
+ 		switch (w_value) {
++		case USB_DEVICE_BULK_MAX_PACKET_UPDATE:
++			if (ctrl->bRequestType != (USB_DIR_OUT | USB_RECIP_DEVICE))
++				goto unknown;
++			if (ctrl->bRequest != USB_REQ_SET_FEATURE)
++				goto unknown;
++			gadget->eusb2v2_mps_active = 1;
++			value = 0;
++			break;
+ 		case USB_INTRF_FUNC_SUSPEND:
++			if (!gadget_is_superspeed(gadget))
++				goto unknown;
++			if (ctrl->bRequestType != (USB_DIR_OUT | USB_RECIP_INTERFACE))
++				goto unknown;
+ 			if (!cdev->config || intf >= MAX_CONFIG_INTERFACES)
+ 				break;
+ 			f = cdev->config->interface[intf];
+@@ -2293,6 +2306,7 @@ static void __composite_disconnect(struct usb_gadget *gadget)
+ 	 * disconnect callbacks?
+ 	 */
+ 	spin_lock_irqsave(&cdev->lock, flags);
++	cdev->gadget->eusb2v2_mps_active = 0;
+ 	cdev->suspended = 0;
+ 	if (cdev->config)
+ 		reset_config(cdev);
+diff --git a/include/linux/usb/gadget.h b/include/linux/usb/gadget.h
+index 8285b19a25e0..5f691f80fd68 100644
+--- a/include/linux/usb/gadget.h
++++ b/include/linux/usb/gadget.h
+@@ -420,6 +420,8 @@ struct usb_gadget_ops {
+  * @wakeup_armed: True if gadget is armed by the host for remote wakeup.
+  * @irq: the interrupt number for device controller.
+  * @id_number: a unique ID number for ensuring that gadget names are distinct
++ * @is_eusb2v2: True if controller is Embedded usb2.
++ * @eusb2v2_mps_active: 1024-byte bulk mode is active.
+  *
+  * Gadgets have a mostly-portable "gadget driver" implementing device
+  * functions, handling all usb configurations and interfaces.  Gadget
+@@ -483,6 +485,8 @@ struct usb_gadget {
+ 	unsigned			lpm_capable:1;
+ 	unsigned			wakeup_capable:1;
+ 	unsigned			wakeup_armed:1;
++	unsigned			is_eusb2v2:1;
++	unsigned			eusb2v2_mps_active:1;
+ 	int				irq;
+ 	int				id_number;
+ };
+
 -- 
-2.55.0
+2.43.0
+
 
