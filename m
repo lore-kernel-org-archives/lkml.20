@@ -1,145 +1,187 @@
-Received: from mail-pg1-f226.google.com (mail-pg1-f226.google.com [209.85.215.226])
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33C3239A079
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 16:00:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.226
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08EAD4C10C2
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 16:00:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791561630; cv=none; b=LiAM3/P6WvUXRr4EdE9aiRZOPeoNEPQmoB/Pmkx3cvshJHqUFVUq2cLQmIc8AvEhNKSoODMFMZYaGElNXj9gPGmo5c3jNN7z1r3CfQBIb/HCj6lEYpNHoSaLtRyWZSsPEdkGrJTxHGDqaLI6ZI6XI6EZmLkh/9PELt3jlFNM/38=
+	t=1791561637; cv=none; b=CzmGXLciBxCyvFkbC4EbjSzQqFSApy9jSpszjGPcakgs8Hf+3oQpU6pcceXn0x1lWOt6EXvOT6geKE47rITPyeEIWnOpTgtrycgc5MzDK0GJ0HhFUMDLh7bbnh8f2SzHR4L3oEgOxruqf0wYBDwf5UaeyQDnKc7M6jkBNcpyjA4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791561630; c=relaxed/simple;
-	bh=mCvqn+45/nJ5qgb2Jt/wzfxjbB7pAwP4uEqUPkzcJ4M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JrCY80k2P9wIpKLbEA9YNAL1v7s4spdyzogzz8eKKxathTBnm50NCcHGxtWg6GaQSOdIl2m7OeXaJr4VzhXgusRniIGzY5J7+H+JDFubDX7zjnyOUWiWiZQy2gzwym30BpLOSgwG3H190UQ7GOcIfXQW3rJKoA9GXfzZMrXl+zk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=df8rMgSu; arc=none smtp.client-ip=209.85.215.226
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1791561637; c=relaxed/simple;
+	bh=prfqxOhc9/KEoCJbfH19gTOOaJtyx7cKCyhJIMnt3H4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=s7w5hqygj/zHoPArXIOIdH7788KxRn42SiukD6RyjaYmdPc8r6d3vSUpoqFgc5lzuNR0bKUwcsWOOYWuIatfwTClKb6wq1NLvHuTg7C57cwkf1B3NdL+d/3SBZ3H3BoWglM1sv/ad5Oqa3NledER0I6a1TPn0CnX78TZkXCfke0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KdojuEWO; arc=none smtp.client-ip=209.85.214.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="df8rMgSu"
-Received: by mail-pg1-f226.google.com with SMTP id 41be03b00d2f7-cd3310348d2so696928a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 09:00:28 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791561628; x=1792166428;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=BoAcjmTGDMQ7W4hCyrQKpaXZFHre/1+/rFWZj/Zjma0=;
-        b=NA0cFgYljJYAeFRbmUlceBcyh1CS9i9Myk9vsSJGxMbvKqSZgEmv9u3l9qzLkMXuxz
-         cwJKlb0gAZOxA8+iPy7qPfm4OYu4Aa2IeVhHHVAeKjaAeXwyEc0B/eviGyOz4pigedVq
-         6is+tWXrI//sup6RBgGP7ZXZ4Xych+K1xkJ57J3+rJFUGHqC1PaA9KPouVoPTtVL/mIS
-         T3GYFUAOjCIakACVpXoXFwxafq6909WQKk4RDLQAnP+1ctx0GVin7grm/s/lEeZ9w/fy
-         I0NLuBorwLKtWPZDgDHrbxUjwL/Vm/d/YXmJ7vWMF/7EF2vOL2kbUAq5Cnjfx0wcwOkZ
-         qGxw==
-X-Forwarded-Encrypted: i=1; AKwUvBxrTUvSIEpzftPnbJzbU+1Eu/nagDb0M92cCCTO67lRbBut/C42IwBU/C315o1j4CSIbKhZNZzHza5ItLU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLGGCt94xCzSepexiDaFIw7dU98SOTO9ck/+1Jp9ic29MKJqe3H
-	SwEM6kI0eDiYsXkkDBnzBI6utjh69EXjt5acj8FPvNQnt9w/QbsyHv1/mDSu5AMwnVfEEGRzNwH
-	G6QTk6PmehFffdgPxIo4ak29hx3IVwWMPMf1vJ/q/Vmr3WPpwlYerZ8kgWS0HSSva8UjkwroYhP
-	8kMidHonEwUyUb8QsLuNWC7L+9kuuFS88X7f+D9jsAypOoRg0hnaETM64VBT7eFzIHdTupUIKYc
-	+hfwmi75nSsI9qUBjnwXJeA
-X-Gm-Gg: AYBFou3dseITkgvi/lTokFX4RX77KjkxUvr+3qu7JXH6Mr4FSI1vbMHICbqe6Iv2ES2
-	s1/Vf7xi8TyAgljg9wE7ZQ+boT1tBH/dsyLVYPttdi78s+DfjuKbQT09iwoqfWUOvNv7qQiyI9k
-	J9X1WtSjPNFpUNlHqAaqFpuKjNMSMdz7FNcDl3CbWRGz/6xPMSLNavxuKRWtTkoRSuOuelmUS/R
-	eeBUoy6JyRiS+RXjXlWg7xvoziTqZCBPzFYhLI5ojn+H6GIh2HxtFyasCandtf09+weRm61iNK6
-	TsYIt+Gu8CNtcmF4v/BZd7M6wSB+EIUssl7xxcocn0myRy26TxomlHmSiNu01ZS59jrLFEFJ1no
-	O1fXOXV9YMJx0N4fM9r56r3nnqw1/70gRp3oC1puWR5rObdVNwywIrqyWENFknkdZ7IqB4TFfZi
-	KJ2qaPi4OKo0WtzrOjUxbkQbvBptLuXTIS608c4RKP
-X-Received: by 2002:a17:90a:5185:b0:3a0:bf71:eccf with SMTP id 98e67ed59e1d1-3ab3a9533ecmr943013a91.14.1791561628109;
-        Fri, 09 Oct 2026 09:00:28 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-24.dlp.protect.broadcom.com. [144.49.247.24])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ab36def2dasm1381155a91.6.2026.10.09.09.00.27
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 09 Oct 2026 09:00:28 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3a6d30f66c9so2552755a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 09:00:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KdojuEWO"
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2d032846c95so35746205ad.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 09:00:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1791561626; x=1792166426; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BoAcjmTGDMQ7W4hCyrQKpaXZFHre/1+/rFWZj/Zjma0=;
-        b=df8rMgSuBirEHv5B7zamZOUrGtC91VS1OaGuN1NwrhehxMOv4nRYA8lRNw/XXdQGX8
-         7/kVlk6+AJRShB0G5gVEF0EhQoWtkIvi5/UcsrR4ewMM+N45Aw/hfmqc4sSg1S8oj21j
-         yVKDo7WebTiV1vUZmTW+qZUysO5FZUuQxwkb4=
-X-Forwarded-Encrypted: i=1; AKwUvBwWmFCEsq9fZ+hYOv0a83DD1a2EACaXGa0TRbRcr8uOFRGE2dJ8e70qseuc3FkwkqOqKxf2K80OCi8f2FM=@vger.kernel.org
-X-Received: by 2002:a17:90a:d44d:b0:39b:5622:d645 with SMTP id 98e67ed59e1d1-3ab3a09d2e0mr1568080a91.0.1791561625678;
-        Fri, 09 Oct 2026 09:00:25 -0700 (PDT)
-X-Received: by 2002:a17:90a:d44d:b0:39b:5622:d645 with SMTP id 98e67ed59e1d1-3ab3a09d2e0mr1568053a91.0.1791561624978;
-        Fri, 09 Oct 2026 09:00:24 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab32d3b4f7sm2008141a91.0.2026.10.09.09.00.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 09 Oct 2026 09:00:24 -0700 (PDT)
-Message-ID: <688738af-100b-48af-bee1-4bcbe4422f94@broadcom.com>
-Date: Fri, 9 Oct 2026 09:00:21 -0700
+        d=gmail.com; s=20251104; t=1791561634; x=1792166434; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sYMwquPepbBZtWu4fIneDCAF+onJ2y2Mb34SckVYi9s=;
+        b=KdojuEWO+eMRfYf859UhmDlNR27LQW5za+WNR8LIJ2s9XEUnuqSddXnLvAktQT45sU
+         0R5GSbEsMyfhqHGtTojydhsgLr3PiHPNtz+2P6mKRU6RtNE0LpAv3kOEtAhz0bijj/NH
+         uc5GYDF3W5aKneraqT1svC59XKuvxdvNqtJ9ZE95pHUN734vij5B8ki14xtiAtkWh5S9
+         QREL3Zw5zLQSlz+NcjimkYTFba+djGYexL9FUczTb3MUkrHuRFrvjE/wIvy7GEaPnGYs
+         /UUjPh81r55tF0p/KZq/e0sq88jz4Z8ar52jlXLClz5LkN5ueqnGzrRSyCpqGAjY4iZF
+         27ZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791561634; x=1792166434;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sYMwquPepbBZtWu4fIneDCAF+onJ2y2Mb34SckVYi9s=;
+        b=B9AKXHanjbQh8CFrdhqSixu4Qub6N5EC/mpfu0XR5nNkYtVgGuaQFeF0NWCwnMwTej
+         P53i5OX5S1K/QXG636OQhE9D3I1AkS+tPSIgJS16wsOqgLq6Rc32bxIEmGoXv4UIu/qp
+         MHL+G8/lGhouDlDRAGkgSvF7Jckus7zw/to8gMX69FXGdYAsFGiaj/Kq1eHASE+nqubj
+         ZaQGaEjcOKzBnkx0qJtwuQ8+2ZMOXidRE5KnVfBTWGp879tUrffUimpV+GPzCn1UTRgF
+         +HJQeS0jJsIhtQu+CgLHHgEbImweeEx+fHd0OndARt5Vro0IBCATGcEcvIavbmTZE4w6
+         6nNw==
+X-Forwarded-Encrypted: i=1; AKwUvByhZ+Jy0Fl3nWC/QsUE81dzsTnANKkb2yw5tk7Xw7dzMwQI/3y+AYb5KXlUkcXFX+4bLKM50/+nh8jaMmg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI1U8ZOpBd9jSRYr5COC4sqiieKH2dVaVZxd3546jmDQmkr94X4
+	PADqryO+DLDJMu/58k+beioGAlwWehBXNUzUiRditG2YkdyVJV7ICmVi
+X-Gm-Gg: AYBFou1dxUB+QYGoj7mo0sJf9wOMjLraCx4/S5UZAPLWWbuW4HGX2ZAXR9vD4ONEw95
+	F++69qtmCRXXbz+ts56/xk33WAzudxWv1MNfMImwKMHCqxj1VxfSyphA9fBmFTe2VphIXcUzD0F
+	eyor3u5uwYJsRIrzcEHxY4qFZT3uKIZuGA4QQPkgNWu+fouChfP1sqHnd9zXXyFj9MCL6EpJxe3
+	NTSw90DDdAS4l5a80qOj3avUAcyZrd8O9YLLkoIVG4/YU4J2coJ/+B8v7IgtP89/q7uAOktyLjq
+	PZRgGu6hIQhYFSpdxDHEvznfvXLFks6rCtcFcRSDmzSHYRjQr0xrowjstjlITj6MR4RnWHu+3YN
+	9/nca+orvqJG31eRYxMFddvIdd48jekiSQMlfVYn7bWylGSmIDn5DdV2/q8J3IHCpGAWPcTTX9m
+	fSmbAEld+cRZLEeh+c+yVJegP8cca+DAzQQobQOul5HHGum8jf024Ri9b27wS8Rwa1Jr9p63oFb
+	YXmZaYy2FrtZtbNaDdLA97uzAG2F5GrOzzHd6Fi
+X-Received: by 2002:a17:902:f541:b0:2dd:ad73:c938 with SMTP id d9443c01a7336-2e842abebd7mr21168645ad.25.1791561634324;
+        Fri, 09 Oct 2026 09:00:34 -0700 (PDT)
+Received: from kernel.tail6741c6.ts.net ([216.195.201.24])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422b8cb6sm12333235ad.60.2026.10.09.09.00.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 09:00:33 -0700 (PDT)
+From: Kunwu Chan <kunwu.chan@gmail.com>
+To: peterz@infradead.org,
+	mingo@redhat.com,
+	acme@kernel.org,
+	namhyung@kernel.org
+Cc: sj@kernel.org,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	mark.rutland@arm.com,
+	alexander.shishkin@linux.intel.com,
+	jolsa@kernel.org,
+	irogers@google.com,
+	adrian.hunter@intel.com,
+	james.clark@linaro.org,
+	akpm@linux-foundation.org,
+	lianux.mm@gmail.com,
+	kunwu.chan@gmail.com,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH v2 0/5] perf/core: add AUX buffer kernel-consumer API
+Date: Fri,  9 Oct 2026 23:59:47 +0800
+Message-ID: <20261009160010.1829642-1-kunwu.chan@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] MAINTAINERS: remove {sbranden,rjui}@broadcom.com
-To: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>, linux-kernel@vger.kernel.org
-Cc: bcm-kernel-feedback-list@broadcom.com,
- linux-arm-kernel@lists.infradead.org,
- Scott Branden <scott.branden@broadcom.com>
-References: <20261009060035.544789-1-jirislaby@kernel.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <20261009060035.544789-1-jirislaby@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Transfer-Encoding: 8bit
 
-On 10/8/26 23:00, Jiri Slaby (SUSE) wrote:
-> Both are bouncing:
->    Final-Recipient: rfc822; rjui@broadcom.com
->    Action: failed
->    Status: 5.1.3
->    Diagnostic-Code: smtp; The email account that you tried to reach does
->      not exist. Please try double-checking the recipient's email address
->      for typos or unnecessary spaces.
-> 
-> Anyone knows if they care about the entries/what's their new e-mail
-> address?
+ARM SPE and other tracing PMUs write records directly to perf AUX
+buffers.  Unlike ordinary sampling PMUs, they do not necessarily
+generate a perf_event_overflow() callback for each record.  A kernel
+consumer therefore needs to drain the AUX buffer directly.
 
-It's first.lastname@broadcom.com, can you resubmit with that fixed? Thanks!
+Userspace allocates AUX buffers through perf_event_open() and mmap().
+Kernel consumers created through perf_event_create_kernel_counter()
+currently lack an equivalent interface.
+
+This series adds perf-core APIs for kernel consumers to allocate and
+release AUX buffers, read the producer head, copy trace data, and
+advance the consumer tail.  The APIs keep perf's internal page layout
+private and follow the existing non-overwrite AUX ring-buffer
+protocol.  Setup and release serialize buffer attachment and
+detachment through event->mmap_mutex; consumers must quiesce before
+releasing the buffer.
+
+Patches 1-2 add the ownership, lifecycle, and access APIs.  Patches
+3-5 add KUnit tests, a userspace AUX regression test, and a selftest
+script.  The first consumer is a DAMON ARM SPE backend, but this
+series is independent of DAMON and adds no consumer-specific policy
+to perf.
+
+Testing
+=======
+
+The series builds cleanly at each step.
+
+arm64 (Kunpeng 920, 256 CPUs, SPEv1.1): built and booted the Image
+from this series.  KUnit: pass:39 fail:0 skip:0.  The arm_spe_0
+userspace regression test passed, and the AUX head advanced under
+live SPE traffic.  Selftest script: 92 passed, 0 failed, 2 skipped.
+perf record with arm_spe_0 captured data; dmesg showed no warnings.
+
+x86_64 (vmlinux build, qemu/kvm): KUnit pass:39 fail:0 skip:0,
+including KASAN and lockdep (PROVE_LOCKING); 15 repeated boots
+produced no splats.  The Intel PT userspace regression test passed.
+
+Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+
+Changes since v1 [2]:
+
+- Fix double-release in KUnit error cleanup and make the coexistence
+  test cleanup failure-safe.
+- Make failure-sensitive userspace test outcomes report SKIP rather
+  than PASS, read the AUX head after event disable to observe flushed
+  trace data, and pass the PMU name from the script to the C test.
+- Fix the selftest script exit-status handling, remove the
+  /usr/src/linux fallback, and handle Intel PT event modifiers.
+- Remove an unnecessary smp_rmb() from the tail update path.
+
+Changes since RFC [1]:
+
+- Serialize AUX teardown under event->mmap_mutex and fix lifetime
+  handling around ring_buffer_attach().
+- Improve KUnit cleanup and concurrent-release coverage.
+- Extend userspace and selftest coverage.
+- Document AUX lifecycle, ordering, and cursor validation.
+
+[1] https://lore.kernel.org/linux-perf-users/20260814144927.489172-1-kunwu.chan@linux.dev/
+[2] https://lore.kernel.org/all/20261004173458.837842-1-kunwu.chan@gmail.com/
+
+
+Kunwu Chan (3):
+  perf/core: add AUX buffer ownership for kernel events
+  perf/core: add AUX ring accessors for kernel consumers
+  selftests/perf_events: add AUX kernel API selftest script
+
+Lian Wang (2):
+  perf/core: add KUnit tests for AUX kernel-consumer API
+  selftests/perf_events: add userspace AUX regression test
+
+ .../userspace-api/perf_ring_buffer.rst        |   62 +-
+ include/linux/perf_event.h                    |   18 +
+ kernel/events/Makefile                        |    1 +
+ kernel/events/aux_kernel_test.c               | 1172 +++++++++++++++++
+ kernel/events/core.c                          |  164 +++
+ kernel/events/internal.h                      |    6 +
+ kernel/events/ring_buffer.c                   |  212 ++-
+ lib/Kconfig.debug                             |   14 +
+ tools/testing/selftests/perf_events/Makefile  |    2 +
+ .../selftests/perf_events/aux_kernel.sh       |  635 +++++++++
+ .../perf_events/aux_kernel_usermode.c         |  645 +++++++++
+ tools/testing/selftests/perf_events/config    |    2 +
+ 12 files changed, 2928 insertions(+), 5 deletions(-)
+ create mode 100644 kernel/events/aux_kernel_test.c
+ create mode 100755 tools/testing/selftests/perf_events/aux_kernel.sh
+ create mode 100644 tools/testing/selftests/perf_events/aux_kernel_usermode.c
+
+
+base-commit: 6350de8671b94afb7691d110f63bcda42f658a69
 -- 
-Florian
+2.43.0
+
