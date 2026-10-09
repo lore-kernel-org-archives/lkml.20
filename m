@@ -1,78 +1,94 @@
-Received: from mta1.migadu.com (out-39.mta1.migadu.com [95.215.58.39])
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B32244E0B83
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 14:40:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04BF9470450
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 14:40:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791556828; cv=none; b=nSHawP7Ov00U7Vy7PBAc7J8117hLltyjT6kp+KDoVNTjQkTaXGWvA1W1NFhATQi0g09ltIAknLb4Fili3/lYFF5KF9EQUKMecdPhofhzrgufQsVG96b+w+ztDkSR7rpQRVkfLT6oh/QYu10MhL+vgBnllVBTC6Dd97NQDJUvNys=
+	t=1791556855; cv=none; b=t1uXdex8l4jTttGTU6vE2nYyJmgBGlPdZ1QtYs8AcDoXDBJttNaCwPhoIeS6qPDGXT23an3qXGWydOQVSCuzOFRzdgKscTREj5BIanSpajXnUdnPgKl53qhNeFfX5FXIHA2visG9Fy27jkqFiVMckFNjwm13uE36n0s/XxSNwcY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791556828; c=relaxed/simple;
-	bh=kRkhnKHKooIPtvjGsD6RS420FhxGLmWSJJncnjDWyh0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=G54nR9VkWzpoF1qIjkmkOwtPpW22yBrvzjZX2daXDON3OoRMSymyoa/GaTwYAK29lz7iWqX4VbXit2uZQ9IwQqZLL3xLScRgk0BmQ7/3qr1kxeT5isiq4jXo2sfJ5+2gKbD4dl/xWAN7FBpx7p49UrN9bxLzw5ogtmpKgjYoHPY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=K/PkFUFO; arc=none smtp.client-ip=95.215.58.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791556855; c=relaxed/simple;
+	bh=iQapXPqyzCyW0yh+hLQEmt32QweFEdb0Dwc5kwmIrgA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=oeoJ1uFuGmFlNORDltob8X4GHd13iiZ6sgw/V7rrX9usjryEpTfmmk/TYE3rMbM7Q9AXbjEbUo6Zmi+2Fi3h4K3edgN7KlBSpCnOUTBmNPFIkPoNZ7+ZNY0op6IDOL2rqq0PI/JHuuk9c3oeyiIRC0lLYEWLKwZDylRZgoKeSCg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=Hk6VkITb; arc=none smtp.client-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="K/PkFUFO"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=kRkhnKHKooIPtvjGsD6RS420FhxGLmWSJJncnjDWyh0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791556823; v=1; x=1792161623;
- b=K/PkFUFOUukOIWdwo4hyW9yeT4SuLoRiC90M1/EDJjoPDz4Ofd3gMZDSqntCnwXvZR99BbRk
- XV5kMDGO2fRdykAw2wrPRIJYoHLmZ12YBSpghNuwpwbTNdaWSwVIk8vcfr+VxiufssjlK5rZ73N
- JIz+/5WS7oimPpAJNUtQ5j3w=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d1e1669455691106;
-	Fri, 09 Oct 2026 14:40:23 +0000
-X-Mizu-Trace-ID: d1e1669455691106
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5ba40832934so7317e87.1
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 07:40:19 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxDQor+mkOVVDvxkipIh2hPoOinYJzHydjRNq1d+De4X/EAu7xya5diKeki5ZeeXwLMuHCP+d9yJYSMiL0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLv5xfqSESaPcsZXOxdJ5ZQHl7qz4+MwgNZ11/vdEeWroIdw9D4
-	md28rMECZ6PkT/t1RSic2GnkuePoZxUHh5w2AKBEF33dHYoYBOsg1dYfc08vYX/ZzlYqCF1ZNox
-	DunkW1wyHJYQJQ1GTmdP8MGx5lLOPTUzFfOYGMqn2
-X-Received: by 2002:a05:6512:ad3:b0:5ba:3602:4343 with SMTP id
- 2adb3069b0e04-5bcdf94d4a0mr81856e87.16.1791556818070; Fri, 09 Oct 2026
- 07:40:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="Hk6VkITb"
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-351775aa1c0so2893023eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 07:40:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1791556853; x=1792161653; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=E8pCZ9jzEXeu3V91z7yTFHUowpIkdOUOpn2JEuBADS4=;
+        b=Hk6VkITbP++OIKKGM96V5JWIPH2alq8yYq+kvdhRa627RHSFbdlVAfDETgZLVhsk1V
+         /+1mFiSiWczDfcdg1Hoo8Qr9vTt7XcBBqD8tgw62N5mwYIx+gSHcpIOGd9OvLn2oMidV
+         gTaAWkjK6RE7eNvieLP+xzwd19d+lQV2gDcQvXIGI8MpVS7LRu/CxoZJhq5AeyajaLM1
+         LRjXR7AvPuApZ4kuq6iMvC6dwPgZexvkZNOP1Tuz61hYYXt7t8mSmkyJM0MQrLjn2SfO
+         8svGStNVGSR0/BPgIPpFya4P17AHN9+jcoTXEa2IMWvFg8KOIO9SnC/u2cLi8t940JNx
+         pVVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791556853; x=1792161653;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=E8pCZ9jzEXeu3V91z7yTFHUowpIkdOUOpn2JEuBADS4=;
+        b=p2HR8LK7WGqVloKmcF0rKiSZzSz1yXhcOm8MjaosGib2u6wdgW/P2IvRwBmY93eCzV
+         DtyDPfL6b7Gp/qItOm3n/sgjxxNMhXgfvgvg3stnYaFIpSG9O70eSsU+wV8K6GUXjKqO
+         9z9gDA+LjVVXyH6SoUxQX4sL0xdJfRfyXrFAh2ocAnuS1Tjjjkp1vQaFHW7+Ty0sz143
+         Vl9hNZ2gy3BC/3otCx8QJmCDOSO0iZ0iXn6dGQIKtlwTclMefdpteue1MOUo3J9O/T5U
+         +6H4+PtPNI7rZt0GXHY0fEBRif507gBhnhGJOj60QWX+mrvPcyL2LDLECs2I/eZ1H/+F
+         O6yw==
+X-Forwarded-Encrypted: i=1; AKwUvBwiEd0vF1gQukjmmMn5UYU3yuKkl5ec9R8qNAQDQXkxItu3B2nn/PpNQQdNbMEBmwOokfRHVibVsOJdtWw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIr2FGaElKMNdwyeL6xdDEStQzsNhMdUito666A3hmyjmqtM9sQ
+	U3ausLGs0bIQ+VbUZ9Xda1FfNHVO4G6IhWJxCgblY0bN5O3QNPiuScW0pb2iByTNNxY=
+X-Gm-Gg: AYBFou2LTx1ROVtbEeLdswWBEDhNFnAed//Nf2O6NssFBh9phiT5QYKIGni9qkKr1HV
+	BHcSFV3eyXhtFbca8Ks4JzbP+wy/PBWV0NePb2pqjj3gySue5N+yj6WiMAyMkEqyG2+g2DllLCD
+	Cg9vbW97LOtAXGjFHqcHLjqEKF1A348tHqyBRUQCmfNkg4BedxtBn6jS9N1Fytrte9waAtdv4oD
+	b0OSatZhP12y/ki0MK+Vcwu2dl/ATl2OxG31UiizQHAT4fR+FX8hhF1V4Pl6RAr0Uia8oapeIfG
+	3tQMngydrQpfb1coqOVjzXpeAdfs3NTiepjawgWdagB0uhVrwa2zrSYOEV6cqirjEo01d11s5PT
+	Q/zbPtCPhsiugRW33OlqugA2IEWlx/HSAz0UkXUY42+tRy5xUYfb1B4OXmZ07o/LqC9dQJMvPEE
+	ERir6JKeNZYpRMK2FV2dpNyecCOVEgInQFmvMhhMKg6nBSsEWKaegcxUY+DuJ0lCr2pk4Dy3cT0
+	i3D6NJ742+FxN2oskdZrhFeMORgjeMyXxDrsNf5Z2c6eq8+sMpfdhMnq3F66FBjmAxa7/IMToPj
+X-Received: by 2002:a05:7301:fc18:b0:341:2466:2d68 with SMTP id 5a478bee46e88-3537e0cf2a1mr2938047eec.38.1791556852849;
+        Fri, 09 Oct 2026 07:40:52 -0700 (PDT)
+Received: from [10.61.8.29] ([155.98.132.5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca0e64csm7578272eec.10.2026.10.09.07.40.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 09 Oct 2026 07:40:51 -0700 (PDT)
+Message-ID: <3b0edaa8-75e4-4282-8310-0dfb878484be@kernel.dk>
+Date: Fri, 9 Oct 2026 08:40:50 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261009132848.709379-1-vdonnefort@google.com>
-In-Reply-To: <20261009132848.709379-1-vdonnefort@google.com>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Fri, 9 Oct 2026 15:39:41 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTzaDY=tcekBeR-QQwep-WGFjpT5pGczddFFBqCeupe9Gg@mail.gmail.com>
-X-Gm-Features: AclHuK8GIOxUHp6icwuslMOwolFoLyUhJLGzQM0c0cvOf4PeuIievjOYVDcfRLQ
-Message-ID: <CA+EHjTzaDY=tcekBeR-QQwep-WGFjpT5pGczddFFBqCeupe9Gg@mail.gmail.com>
-Subject: Re: [PATCH v1] tracing/remotes: Align field offset in remote_event_format_show()
-To: Vincent Donnefort <vdonnefort@google.com>
-Cc: rostedt@goodmis.org, mhiramat@kernel.org, 
-	linux-trace-kernel@vger.kernel.org, mathieu.desnoyers@efficios.com, 
-	kernel-team@android.com, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] aoe: pull in the headers each received packet type reads
+To: Christoph Hellwig <hch@infradead.org>, Josef Bacik <josef@toxicpanda.com>
+Cc: Justin Sanders <justin@coraid.com>, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261007-b4-aoe-short-packets-v1-1-db5155f7bb9c@toxicpanda.com>
+ <asdpwPEpGFxfLDNz@infradead.org>
+Content-Language: en-US
+From: Jens Axboe <axboe@kernel.dk>
+In-Reply-To: <asdpwPEpGFxfLDNz@infradead.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Vincent,
+On 10/8/26 4:00 AM, Christoph Hellwig wrote:
+> Can we plus just kill the aoe driver given how buggy both the driver
+> and the protocol is instead of playing whack-a-mole?
 
-On Fri, 09 Oct 2026 14:28:48 +0100, Vincent Donnefort
-<vdonnefort@google.com> wrote:
+I'd love to, but not sure it's feasible. I'll have to go search emails
+for details, but I know there are people using this driver still,
+unfortunately.
 
-> remote_event_format_show() doesn't take into account each field's
-> alignment leading to an incorrect reporting of the actual field offset.
-> Use the existing field->align.
-
-Tested in pKVM: the format files under remotes/hypervisor now report
-hyp_enter's vcpu at offset 4 and selftest's id at 8, matching the
-structs, and the hypervisor ftracetest still passes.
-
-Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
-Tested-by: Fuad Tabba <fuad.tabba@linux.dev>
-
-Cheers,
-/fuad
+-- 
+Jens Axboe
