@@ -1,204 +1,378 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013064.outbound.protection.outlook.com [52.101.83.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2601149C4CF;
-	Fri,  9 Oct 2026 18:51:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCC8B4F85C0
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 18:51:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.45
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791571880; cv=fail; b=FPsm9MAqkvBWljue1YYS7qGdLr0M1WoY/JcXGx1cM+jsyO67d8YiNIt/b68J7bmZJmd3V4XOw1Qv1C0eJh63vj74vYrAcRkgrmbM16REk8BIO5zYayRVeioL4HLQj/CGDRlnR+AIeXiOVje8HSpZllfoA5+2fxVag7Wsnidpkb8=
+	t=1791571890; cv=pass; b=ZnIJo0wy8R4ZS60aytEzY8uKmu1VIYpono0DO+jWzfaNws5v9IIGGw4FgrRbiF3JjIf7LUEKCtRkIblMySwOBSSTp8ARv1UU/Oq31NQYm+I3JQ6p4JkHxdJSEP91AvJ22o6mm1axekGmvLhuTe1OjbSU0JvAad1lhSObSJKGK10=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791571880; c=relaxed/simple;
-	bh=qszXzDrOxYsUsnriQc5CBPSzsZe1ZSM+hH1pymZnZ0k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=JMemVcr8CLRZPOzFWP/CuXPSWe1IB/5VGqTBSxxFE+g86ETQSbetCFb6StxFhuKha3NETuvXHbEndIfIMrwvaY7WS7myx5+86swBzYBkkhrWgx6W88eOanE19W4XaJzyD12hv7lCaFzHrau3MqHvkyprGyQ1k8CATs16RuZ/3Qk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=b6Q4pio5; arc=fail smtp.client-ip=52.101.83.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1791571890; c=relaxed/simple;
+	bh=SaEwHTBxhGvxRikjH8R5QK6X6O0lBouPFtjb7tjhfUk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=OXRrC5G4GDbRBmdAJwCNUxFrRkygL6xxdgOkMs4q2i2uzJs2OUO4tWXg441sqIXCDLQKWOTx8Zq+P+4zyWHWZ75o20mio9Ssx23ypsoiXUM2uZDJ8MhZeIBhEwGI24jl07aAum5yvZk8f5iZk509HT9GjO31MA3kAfvuHh2blXA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org; spf=none smtp.mailfrom=brainfault.org; dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b=loiAJyQ6; arc=pass smtp.client-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="b6Q4pio5"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=J9rR2wBbiM1u34ojyNxi5XfOFhUraJwePG++mMh71GKjd9K6+POXcwq4W8x6XpDJKYz0Gv+00q21UqoI0c53ogBmJRDnq+tjGYgYdZ3Loy77USwt/KEyCKN+VIWRV06bx9fmjxCPAS1Cu6ahcx1x9nIab5YjZ0E2dByASq8e2wN4KlU+cHPmBIZhgzie6Ds06Las0SXRGTbX6tj1bT9/zj89514E1dmpBkk+QuiJModoN6fv7cC9hMcQToHb9ugLIkL/Pct9a7rVwz9ncorZnEWy43nfbyroK8QPVagfSvZpbSF+yiXYWp+7GPEZPstvWcOx/9ZkHulZoCt/Mq8G/g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NU35L6QaxHmb4dioxD1i2PKFsVl6iuc7VGbFn0m+3m0=;
- b=a7Ow5OgAaolGpE+wVIJ0nhXmriNfLyn2icS/Xzf9Ndqaj/bSvxcTmKK8TQtFAnQtRvk/NwMJyxWw8eOKTEBiPzsWQwFachGTtVFU3ba8xv94t5T/t8FWYlPdCx4n1VSMn+lPhegXWL5tfPvjwkhLvs1uemSo6YPPm5Z5YzBtMT9Q1cNuop0f4oUMx9VEFjNNZ3JP2LakG4HRlHYPl2EYdI1lZ6FBnhrgBUTdZV2VrNhPdEcXCBWGMkgIADeN665jarJcugo8EQuKYFjEtDwN3QWij6GUGbagh1Nnn+iFHFffIxyZWKZ/03Z0czK1YmLOi0IKhpdhgdqM4WH3ynG9Wg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NU35L6QaxHmb4dioxD1i2PKFsVl6iuc7VGbFn0m+3m0=;
- b=b6Q4pio5DmrwE0KpxoV3MuGhuUvAR9gcLEYzv3QeRLBwruns9jShiRK/ffhwFTqg8zco3K3xztLbhGdE0ZgAcTZgJViSpf3P6NXaUmDznDv5zBSTHV4IyM494VLcasHyfbZJY846Lo17P/8Iwlo/sy1EnVerYakQiKmONWo/LdopzK/Anp7Cn4kHEyijZGeF+lMcpV4soxF79YTSgVz5czTAA0zknMfyFCr+Ky9WMBRCbwOmVtHat163+z3DnQx/PrhATpxCOu8/dFQ3FOlZFW1sNcf/mEFe/YIfMKTsy7FzWKUvntFdm+prIroz07rIruPN2Zx4bWON2U4Og8JBMA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AM9PR04MB9014.eurprd04.prod.outlook.com (2603:10a6:20b:430::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
- 2026 18:51:16 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
- 18:51:16 +0000
-Date: Fri, 9 Oct 2026 13:51:11 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Shenwei Wang <shenwei.wang@nxp.com>,
-	Andy Shevchenko <andy.shevchenko@gmail.com>,
-	linux-gpio@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH v5 09/13] gpio: mxc: use cleanup guard for
- pm_runtime_get_noresume() balance
-Message-ID: <ask3n3aMR9Un-e6p@SMW015318>
-References: <20261010-gpio-mxc-cleanup-v5-0-1e59e6ddfa00@nxp.com>
- <20261010-gpio-mxc-cleanup-v5-9-1e59e6ddfa00@nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261010-gpio-mxc-cleanup-v5-9-1e59e6ddfa00@nxp.com>
-X-ClientProxiedBy: FR5P281CA0046.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f0::9) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b="loiAJyQ6"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48b042c0759so72837f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 11:51:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791571887; cv=none;
+        d=google.com; s=arc-20260327;
+        b=aadUeW11NUIRTbFY8y81/Izu5nieiUIdDdclng20fuOeDBsGFANPluunUSXZEwV2aW
+         xtlEmR44HmTVCxhIOKthfpRr3S/+bbknRcjmUAnniksybElzQ+4PVm06V/WY+Y0G4KJx
+         dyj3QTrmiBEOuid1bruTWCTAYiHiqm10VPHyv01G0+W40XWV7qPlCAin+jTrPJr0ND1o
+         NYpr7E7sFnb54bMQdCrU0QUuI0A8j0UV7TYhMsoWK8MqCDHfRiRDZEqhStUTXCQrosGK
+         Mg+nvEgMqZStLIK9fgWyfzCn+buTA8Vvah1uJ1awrF6tpSxQii+LLwwe7dLMGuNCmR9z
+         u1lw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=pTwMuIojjnToAANiKhe/g+cf/Y5TPrRL6sZUxpSOQdY=;
+        fh=QlkBV/tSudy5uTcqUZKB63NV7uPPRnLP9lCBa4BMBP8=;
+        b=fR9A7eqd1+5zV/E7Fq/DZ5ivfdJ4+78AK8jgOK7Z5BKWtnQxOme5Vbcj8r1xEtB5V5
+         UYXZ+kkYNhdW+UZCaT/EC70L5EZDBs/AZTxTBJDxBsl2YxKpqXShQbSrIeJqr/ea1Rre
+         tVdt+Dq/uTKh/2940oFIdbAeW6m3+mGiC1KYRnpa9p5+N86nCESb1ctUKYwSeKujW3V0
+         WNEbtdyj5CgtzCXz/sZeQDZYWRcEuic9Pa4TuQ5OI18jOvVv3n93SBjXt2x+W6ho7GIW
+         5BAYQoO1Sdvf3RTNwQ1+xZiME7SFUg7OwzFvnopbBD4HFi20Z2RdJMWJYz1YBVV/E/eM
+         o4VQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=brainfault.org; s=google; t=1791571887; x=1792176687; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pTwMuIojjnToAANiKhe/g+cf/Y5TPrRL6sZUxpSOQdY=;
+        b=loiAJyQ6kyVgTBlHgifKV+O3164kKhiaPY+Cii46O3zqPUyk8S7aMGAZV5wrVV60st
+         R5YT8R66l8o0bejxg4HwfQ/eNQCycsz5X7XsddC0P1e4gBEO8lbd5LoLD12dlbJh2m3q
+         TYaeCVwY8LBxz+YckKXM9Mwo9q3Z5eslAVIY6Bx9AOqF3NW8iT+kHS1kkglDIP2haQVj
+         PSJvD2PkjCIP0DcDQvvOAi6OMT/0WRAcGQMz2ytAM+XflV3k5BSg2BMlVztruXA6190u
+         kqVolpbMlwXE/FuGoJrZ0C8lNCz4vYnZE1ulpV8laa+DTiJjIHpUwRMF3sOnxw/hGiVJ
+         vBrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791571887; x=1792176687;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pTwMuIojjnToAANiKhe/g+cf/Y5TPrRL6sZUxpSOQdY=;
+        b=qeekjuD06ddgj7ayINruOQIuBETxmD2DPu0hDi36MVF2VltMlLhkMcXyKABbGXJNAp
+         zdonvX1zvyqHtBTol9SgfrggSY3j1UW4Wo72NXG7ll/KYZCjZonsCcYLJ4n2+gm+GD2Z
+         syzfVEVr1d+NdzFr+zc9FLoxOM/Lkd4gAfSDGabzpcFBOK870MfonxH2KHnRc5r8Hg2z
+         OmQVBkAwIfdUfKxc/mjlJXpgFV5dqkI24Tu4HSeW3I+DI8LkQ1ySgGsNFxwWr0S+NwHz
+         7P8AhO0mzo57KvFe3GqLw1GkJ4VUOoc7Re9ixHGId+XkE/js7VcW+UpiL+h4Z4k5DbLH
+         jp1w==
+X-Forwarded-Encrypted: i=1; AKwUvBxpU5M9sz/JTdPHS2M8e0gzNoEgvx+XnZQYkjYnajygJ0hpO+dJzfIVQP9TWy6BvDV2nwCr4pWg7TN5+Co=@vger.kernel.org
+X-Gm-Message-State: AFuF++kNdH8TFgXcLPOMlUOdjmx52OqUl5G5ftGvgmc7aHKoMyP9PWE0
+	Ke5CFdS6yXHKS5p1pUu/Vm6UxrWE9kicHox4os2SgXruylERYdT8eshKPezeFaReStzxFzENxM0
+	FOE9/v3HlLO+oMu0vTsve0Vum2O2mQ/teSfa6Eny4Lw==
+X-Gm-Gg: AYBFou01NOqtbdDr9bAj1Jz5VrZl/VRR16HN1d7HVrG2wiZysiYuydzWKW+8dLTwYUk
+	703zqc31OFXq782x9khHQP3KR0xcXf/fkXALYnWAsCyBeZQtMpybBXMqup87zTsiV3BfpANC+tu
+	ez4x+JuOn9z1j6Ud4tTRVwHc+nkUNSi21b87ZSprS2PSztsSQz0Uwjym0dyTh3/mxArGMCvW34l
+	oC5N0wbbib4eKxCzaC+Yh6dpAuKTCnBxPw+SJJR+jbx3AICkyUqDbzpaSQyt4KG/AAReQHSQlSb
+	EfOMM6moWEdvTfSRr+mjMbrjIhXdCmZxWXQYLXoqefMDhHAaMoeoNCD5TsJS0GYZhxro5/RO9Vu
+	noaUiwnF05p3vwxEWCl0hH27gwUWH9MNzxij4sZ7vCJdjeowH45PsYwBa5r/rSoM/mp1e+U4pDg
+	==
+X-Received: by 2002:a05:600c:1909:b0:4a0:159b:d283 with SMTP id
+ 5b1f17b1804b1-4a18e4d5412mr52437895e9.30.1791571886366; Fri, 09 Oct 2026
+ 11:51:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM9PR04MB9014:EE_
-X-MS-Office365-Filtering-Correlation-Id: 204b82c7-a360-4da3-9079-08df26364c1c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|19092799006|1800799024|366016|23010399003|22082099003|18002099003|10067099003|11063799006|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	vNFja0AklbXMktST5pEoAzt1hKEg19ZsSTGreqi7358/2TMFe9LqqNKexGiQHM3R2G1k9xgslE6y3dtTxlfhdfEcOLO3Cy/EVXD5bLdUMMekCDlQnAseNL10IdTDoHHiKR9wOFfj7KRF4DIQwDANm5laJVhnXD9A4AUZyht9ckqw4MkVnAqEtHopHZ7ojIuceN2Fe2sD2ToRlcFUPgVnW961tAav+cktRy43iNPZWAg3MvqyzUffQ+S+30PPWZvxUig/U2Gz756v2VQHWsCmG2+RgJhw30JR/yDRluPHHY2mxuSHu/Pzp6kIiqO9vq6i9VKqXPh7vwSSI2NUQ9k64SQR091kWbmkhFYFhCyIvYM2i5LYxBBIsV8xTJ5ha8T87CWatXj7UX80+dVRD3Up/Fs9DlBLSei/IdzfGrsIrju5S+pjOQ3Ou4k1NUls2+SazjkfB+RFznk16oSuzYu1DR/HvvRjwDVfTF4lZbG/MAyHrdERgO7nQvyJjImiMkUudxXYBikPxYDo5yjIS+UXNsYKba1bx2ZVyK6FAvQ/XgtvwqYuyLShqPdq+34BcKXlE6rCGcnuck5525xXXUxHhTHUhiIL9LNcxcLilwUcNREHHMVU2+ZgNVxoAHyTT4pgO9icworPgk1ubJzUBl07NWEDt2DV5BpG/CqcAChw2us=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(19092799006)(1800799024)(366016)(23010399003)(22082099003)(18002099003)(10067099003)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?dRb3X8pMLFqlVq04J5cYTNoSzUdcej15BnwgLNuVIJ6E+wBg+wajSF5gfhH1?=
- =?us-ascii?Q?tfYjr9l+XVq1eY2AXy5eqUYrnCkyBG0ou7q6o9P01Fx2Ntp+csk9xcKhvmmQ?=
- =?us-ascii?Q?j+x6WUh2zX/Id0fwf+knOWRNZPSYWgMpsJDHCDknbARncc74kmjIQDeKGuMh?=
- =?us-ascii?Q?pzdSERa2fUlpvLtQ2xIj6sTJubgXweF6iOqIFPPiDutIwfidAEKnyYDnSFQT?=
- =?us-ascii?Q?nuQ6nnzXPvpCAu+Uizlecvo+auwmkQJfFzjVIWAYlvzzg5EzBWkemFlVv+et?=
- =?us-ascii?Q?lSOYFrMVNiBve2vUdqJukrAvA1U0+lunwSiRJICWr4mvbMo84uI9bQML1ko2?=
- =?us-ascii?Q?58km6Tp0Q3RHPE6BT2X2LKEjNHThrIkNwD5sgY3c/KXVPxV6jqkjD0Hlt1f+?=
- =?us-ascii?Q?eNIFyqYIeHSRjdMu9UYewRylEYPafNs4kyBnKrAx83Z9HywPh/d1kfVU/HnH?=
- =?us-ascii?Q?4/dGs6Co30nsiHHKp2oic7RqF92BaYsgN+oOYHcFa3PeMrItQolZgfi1ysKj?=
- =?us-ascii?Q?gcBRkipm665yTIuU2gGKqfYdVL5nDLD62+QXQYxv7ZfbhwC2PWF9LYFKBFqB?=
- =?us-ascii?Q?0fRVe7Ze+bf2VeIHfH/5mmTMvBWHplsEOjZxx3MW1wSorW8szsUHZJ8lu/kf?=
- =?us-ascii?Q?Zl4fdZep/FGvI7pifepXrq9ETaO1t4hbM00PvngDE1GaZBi3gMgSHfYazObl?=
- =?us-ascii?Q?IKtCC35AHTtPFQsvXEmJHNueha+78jp1Ybf5UiWJQTozqbU+ZyIWdaT6/5P5?=
- =?us-ascii?Q?Qrqp5fJrWUz4fguIaQDPJx+3qDuOCTN6TZqdkn3TDIj7O704EaAa94Zc2hj9?=
- =?us-ascii?Q?v5pISwJ4onRC4nHYFWBtLp+741PAgJZ8qaQyJ31N0FcosmUNrlQNkW+/z0S2?=
- =?us-ascii?Q?gTgcElnbjoqfY3+tv/74dA4gGF0netOaYOp5U2FiZuVTs0qF7ChOW4y7/Jyu?=
- =?us-ascii?Q?fEbNgtzg3HSLdTV/RNbua+E1njgB7LDGQaPSJZmMMbQv/hvAQrCTpQenVI5z?=
- =?us-ascii?Q?+QCu9mfFP+7tC5jcJjmHT3lozQwO1Oop6KEPy35OYFs/C/2S7GbLIgStFZiz?=
- =?us-ascii?Q?tfA7QOHcR8Vwvhtb50hCPCyG3WcxJGKzOcTQxtP6BfL9BFW2P9pLUqKhfGza?=
- =?us-ascii?Q?pJ6JGbLv/akXhsn7qpg2SmsG9FK3CH/dUqux+1bnJFcBwneX8/XamQOdWzTH?=
- =?us-ascii?Q?aHaWsAtZ40sW6sZ1sd5/t11uJVd5wxHBDYewTzoaKnGG+COU0oJLpZ0qtWAY?=
- =?us-ascii?Q?oJPEB/gvNcf+2pAGwEYE3kYAswaFUD76WSooS37wSFvuGnQLi/xYmDRyU+cv?=
- =?us-ascii?Q?qGyDvB2AGrmkUOacd8fsAWQh7Z2GPw6+r4EeHm4FBoNSxyNIQsw9fxlGpEeM?=
- =?us-ascii?Q?AROs8KhJMYzDN5kZJ2ZihVh4Zg34w9ZhwwIA1AFdb26sxPPdMsInXAJvShy8?=
- =?us-ascii?Q?HA6vMMjzJ2WvKlO+ghE7KZolbDCNiOz8bHFnHu408z/6rt2WRnzDJvat84lR?=
- =?us-ascii?Q?yw5wfgSdwgNo03d3vJ0P3crWrIlwo6sTNFLH0hqF9EdvrKjSTjxugwx8aFl4?=
- =?us-ascii?Q?w7bYwxIOESSO+zylusIRplXMFGGpAT9aMGBHhVG+/VcVsNQdJorZ/EOOY2Mr?=
- =?us-ascii?Q?4UR0Zr08IhWyF2bmGF9dk4bZXHFApcfh+N0M68PhUwO64lBwFymojM6KGMqC?=
- =?us-ascii?Q?Nla2hh8Gs+6olsyRQWbIw0Lw7pRPQmqm/1SVlPgqlCKZWlnbxyi+m0KHw3Iy?=
- =?us-ascii?Q?lpYNgVrX2MFjQ6bLHf8XBRMTZ1RehzvK30HlRwCyrIFdiJLcLGQc?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 204b82c7-a360-4da3-9079-08df26364c1c
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 18:51:15.9395
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: orrpjK7kir5SgTLwMkeQtzZYY4g2TUxjSCfaVQ9ZA9ed/cxfBTuCBA8lM0oivHOnwTZRZhI6MKAs3xOuOLfvzUTd9UOmpIY3RQI+gmSwKM8JG9HbXO4vyNSKTWcVkUYl
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB9014
+References: <20260817102447.40259-1-guoyaxing@bosc.ac.cn>
+In-Reply-To: <20260817102447.40259-1-guoyaxing@bosc.ac.cn>
+From: Anup Patel <anup@brainfault.org>
+Date: Fri, 9 Oct 2026 20:51:13 +0200
+X-Gm-Features: AclHuK-R8aeNbEa0DRQqSNimuLjIFPfg4YE0zWymfuyfO_mPCIzLXp3g4GDDc8A
+Message-ID: <CAAhSdy2qwdHE7SB2gRK3_PQ6m_bMSfWpvcuSG-31W2yd3-UTKg@mail.gmail.com>
+Subject: Re: [PATCH] RISC-V: KVM: Flush VS-stage TLB before reusing a host CPU
+To: Yaxing Guo <guoyaxing@bosc.ac.cn>
+Cc: Atish Patra <atish.patra@linux.dev>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, kvm@vger.kernel.org, kvm-riscv@lists.infradead.org, 
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	majiuyue@bosc.ac.cn, anzoso@outlook.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, Oct 10, 2026 at 02:05:30AM +0800, Peng Fan (OSS) wrote:
-> From: Peng Fan <peng.fan@nxp.com>
+On Mon, Aug 17, 2026 at 12:25=E2=80=AFPM Yaxing Guo <guoyaxing@bosc.ac.cn> =
+wrote:
 >
-> pm_runtime_get_noresume() in probe must be balanced by
-> pm_runtime_put_noidle() on error paths, or pm_runtime_put_autosuspend()
-> on success. devm_pm_runtime_get_noresume() cannot be used here because
-> its devres action (pm_runtime_put_noidle()) would fire on unbind in
-> addition to the success-path pm_runtime_put_autosuspend(), causing a
-> usage counter underflow.
+> Guest Linux uses mm_cpumask to decide whether an sfence.vma needs to be
+> local or remote. Under KVM that mask tracks guest CPUs, not the host CPUs
+> that previously backed a vCPU.
 >
-> Use a __free guard to automatically call pm_runtime_put_noidle() on
-> error paths, and disarm it with no_free_ptr() before the success-path
-> pm_runtime_put_autosuspend().
+> This can miss stale VS-stage TLB entries when a vCPU migrates across host
+> CPUs. For example:
 >
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+>   - vcpu0 runs on host CPU1 and fills a VS-stage TLB entry.
+>   - vcpu0 migrates to host CPU0.
+>   - the guest updates the mapping on vcpu0 and issues a local sfence.vma.
+>   - later, the guest task runs on vcpu1 while vcpu1 is backed by host CPU=
+1.
+
+When the vcpu0 is brought back to host CPU1, the kvm_riscv_local_tlb_saniti=
+ze()
+will ensure TLB entries associated with Guest/VM are nuked.
+
+By default, kvm_riscv_local_hfence_gvma_vmid_all() will only do HFENCE.GVMA
+for the associated VMID because most RISC-V H-extension implemenation will
+tag VS-stage TLB entries with VMID and HFENCE.GVMA must remove both
+G-stage and VS-stage TLB entries for given VMID.
+
+If your HW does not tag VS-stage TLB enteries with VMID then it buggy
+/ inefficient
+so you have to set kvm_riscv_vsstage_tlb_no_gpa in
+kvm_riscv_setup_vendor_features()
+as work-around.
+
+NACK to this patch from myside.
+
+Regards,
+Anup
+
+>
+> Host CPU1 did not observe the guest-local sfence.vma, and KVM can enter
+> vcpu1 with a stale VS-stage translation left behind by vcpu0.
+>
+> The reported failure was seen on a XiangShan RISC-V system. A bash task
+> ran on vcpu0 while vcpu0 was backed by host CPU1, and a read-only page wa=
+s
+> prefetched into CPU1's VS-stage TLB. vcpu0 later migrated to host CPU0,
+> where the guest triggered COW, updated the mapping, and issued only a loc=
+al
+> sfence.vma. The stale VS-stage entry on CPU1 survived. When the same gues=
+t
+> task later ran on another vCPU backed by host CPU1, it hit the stale
+> translation. The page contained a GOT pointer, and using the stale data l=
+ed
+> to a NULL dereference and a userspace segmentation fault.
+>
+> The existing local TLB sanitize path flushes G-stage entries when a vCPU
+> migrates, and flushes VS-stage entries only for implementations selected =
+by
+> the Andes-specific kvm_riscv_vsstage_tlb_no_gpa static key. That handles =
+a
+> split two-stage TLB implementation where HFENCE.GVMA does not invalidate
+> VS-stage entries, but it does not cover the generic guest-local sfence.vm=
+a
+> case above.
+>
+> Track, per VM and per host CPU, the last vCPU that entered the guest on
+> that CPU. Before guest entry, flush the current CPU's VS-stage context fo=
+r
+> the VM if either the current vCPU migrated since its last exit, or this
+> host CPU is switching from another vCPU of the same VM. Keep the existing
+> HFENCE.GVMA behavior tied to vCPU migration.
+>
+> This also subsumes the Andes split-TLB workaround. That workaround was
+> needed because the migration sanitize path previously relied on
+> HFENCE.GVMA alone for most implementations, and only issued HFENCE.VVMA
+> when kvm_riscv_vsstage_tlb_no_gpa was set. The new sanitize path always
+> issues HFENCE.VVMA when reusing a host CPU for a VM context that may have
+> missed a guest-local sfence.vma, so it no longer depends on HFENCE.GVMA
+> invalidating VS-stage entries. The implementation-specific static key and
+> setup hook are therefore no longer needed.
+>
+> Reported-by: Zhizun Wang <anzoso@outlook.com>
+> Reviewed-by: Jiuyue Ma <majiuyue@bosc.ac.cn>
+> Signed-off-by: Yaxing Guo <guoyaxing@bosc.ac.cn>
 > ---
->  drivers/gpio/gpio-mxc.c | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
+>  arch/riscv/include/asm/kvm_host.h |  6 +++---
+>  arch/riscv/kvm/main.c             | 15 ---------------
+>  arch/riscv/kvm/tlb.c              | 31 +++++++++++++++++++++++--------
+>  arch/riscv/kvm/vm.c               | 16 ++++++++++++++++
+>  4 files changed, 42 insertions(+), 26 deletions(-)
 >
-> diff --git a/drivers/gpio/gpio-mxc.c b/drivers/gpio/gpio-mxc.c
-> index 5ae9cdee6424..3d5a6566d3f4 100644
-> --- a/drivers/gpio/gpio-mxc.c
-> +++ b/drivers/gpio/gpio-mxc.c
-> @@ -445,6 +445,8 @@ static void mxc_update_irq_chained_handler(struct mxc_gpio_port *port, bool enab
->  	}
->  }
+> diff --git a/arch/riscv/include/asm/kvm_host.h b/arch/riscv/include/asm/k=
+vm_host.h
+> index 24585304c..396ac6209 100644
+> --- a/arch/riscv/include/asm/kvm_host.h
+> +++ b/arch/riscv/include/asm/kvm_host.h
+> @@ -91,6 +91,9 @@ struct kvm_arch {
+>         /* G-stage vmid */
+>         struct kvm_vmid vmid;
 >
-> +DEFINE_FREE(pm_runtime_put_noidle, struct device *, if (_T) pm_runtime_put_noidle(_T))
+> +       /* Last VCPU that ran on each physical CPU */
+> +       int __percpu *last_vcpu_ran;
 > +
-
-This change need put into common runtime_pm.h and like pm maintainer to
-review it. Other system may use it, like DMA engine, CSI, ...
-
-And if someone add to common file later, it will cause build error.
-
->  static int mxc_gpio_probe(struct platform_device *pdev)
+>         /* G-stage page table */
+>         pgd_t *pgd;
+>         phys_addr_t pgd_phys;
+> @@ -330,7 +333,4 @@ bool kvm_riscv_vcpu_stopped(struct kvm_vcpu *vcpu);
+>
+>  void kvm_riscv_vcpu_record_steal_time(struct kvm_vcpu *vcpu);
+>
+> -/* Flags representing implementation specific details */
+> -DECLARE_STATIC_KEY_FALSE(kvm_riscv_vsstage_tlb_no_gpa);
+> -
+>  #endif /* __RISCV_KVM_HOST_H__ */
+> diff --git a/arch/riscv/kvm/main.c b/arch/riscv/kvm/main.c
+> index 0f3fe3986..b1bbc0835 100644
+> --- a/arch/riscv/kvm/main.c
+> +++ b/arch/riscv/kvm/main.c
+> @@ -10,23 +10,10 @@
+>  #include <linux/err.h>
+>  #include <linux/module.h>
+>  #include <linux/kvm_host.h>
+> -#include <asm/cpufeature.h>
+>  #include <asm/kvm_mmu.h>
+>  #include <asm/kvm_nacl.h>
+>  #include <asm/sbi.h>
+>
+> -DEFINE_STATIC_KEY_FALSE(kvm_riscv_vsstage_tlb_no_gpa);
+> -
+> -static void kvm_riscv_setup_vendor_features(void)
+> -{
+> -       /* Andes AX66: split two-stage TLBs */
+> -       if (riscv_cached_mvendorid(0) =3D=3D ANDES_VENDOR_ID &&
+> -           (riscv_cached_marchid(0) & 0xFFFF) =3D=3D 0x8A66) {
+> -               static_branch_enable(&kvm_riscv_vsstage_tlb_no_gpa);
+> -               kvm_info("VS-stage TLB does not cache guest physical addr=
+ess and VMID\n");
+> -       }
+> -}
+> -
+>  long kvm_arch_dev_ioctl(struct file *filp,
+>                         unsigned int ioctl, unsigned long arg)
 >  {
->  	struct gpio_generic_chip_config config = { };
-> @@ -486,6 +488,9 @@ static int mxc_gpio_probe(struct platform_device *pdev)
->  		return PTR_ERR(port->clk);
+> @@ -172,8 +159,6 @@ static int __init riscv_kvm_init(void)
+>                 kvm_info("AIA available with %d guest external interrupts=
+\n",
+>                          kvm_riscv_aia_nr_hgei);
 >
->  	pm_runtime_get_noresume(dev);
+> -       kvm_riscv_setup_vendor_features();
+> -
+>         kvm_register_perf_callbacks();
+>
+>         rc =3D kvm_init(sizeof(struct kvm_vcpu), 0, THIS_MODULE);
+> diff --git a/arch/riscv/kvm/tlb.c b/arch/riscv/kvm/tlb.c
+> index ff1aeac4e..1541d059a 100644
+> --- a/arch/riscv/kvm/tlb.c
+> +++ b/arch/riscv/kvm/tlb.c
+> @@ -8,6 +8,7 @@
+>  #include <linux/errno.h>
+>  #include <linux/err.h>
+>  #include <linux/module.h>
+> +#include <linux/percpu.h>
+>  #include <linux/smp.h>
+>  #include <linux/kvm_host.h>
+>  #include <asm/cacheflush.h>
+> @@ -160,12 +161,19 @@ void kvm_riscv_local_hfence_vvma_all(unsigned long =
+vmid)
+>
+>  void kvm_riscv_local_tlb_sanitize(struct kvm_vcpu *vcpu)
+>  {
+> +       bool vcpu_migrated;
+> +       bool vcpu_switched;
+>         unsigned long vmid;
+> +       int *last_ran;
+>
+> -       if (!kvm_riscv_gstage_vmid_bits() ||
+> -           vcpu->arch.last_exit_cpu =3D=3D vcpu->cpu)
+> +       last_ran =3D this_cpu_ptr(vcpu->kvm->arch.last_vcpu_ran);
+> +       vcpu_migrated =3D (vcpu->arch.last_exit_cpu !=3D vcpu->cpu);
+> +       vcpu_switched =3D (*last_ran !=3D vcpu->vcpu_idx);
+> +       if (!vcpu_migrated && !vcpu_switched)
+>                 return;
+>
+> +       vmid =3D READ_ONCE(vcpu->kvm->arch.vmid.vmid);
 > +
-> +	struct device *pm_guard __free(pm_runtime_put_noidle) = dev;
+>         /*
+>          * On RISC-V platforms with hardware VMID support, we share same
+>          * VMID for all VCPUs of a particular Guest/VM. This means we mig=
+ht
+> @@ -176,16 +184,23 @@ void kvm_riscv_local_tlb_sanitize(struct kvm_vcpu *=
+vcpu)
+>          * To cleanup stale TLB entries, we simply flush all G-stage TLB
+>          * entries by VMID whenever underlying Host CPU changes for a VCP=
+U.
+>          */
+> -
+> -       vmid =3D READ_ONCE(vcpu->kvm->arch.vmid.vmid);
+> -       kvm_riscv_local_hfence_gvma_vmid_all(vmid);
+> +       if (vcpu_migrated && kvm_riscv_gstage_vmid_bits())
+> +               kvm_riscv_local_hfence_gvma_vmid_all(vmid);
+>
+>         /*
+> -        * Flush VS-stage TLB entries for implementation where VS-stage
+> -        * TLB does not cahce guest physical address and VMID.
+> +        * Guest-local sfence.vma only invalidates VS-stage translations =
+on
+> +        * the Host CPU currently backing the VCPU. If a VCPU migrates, o=
+r
+> +        * if this Host CPU switches between VCPUs of the same VM, stale
+> +        * VS-stage entries can be left behind on a Host CPU that missed =
+a
+> +        * guest-local flush. Flush the current CPU's VS-stage context be=
+fore
+> +        * entering the guest.
+>          */
+> -       if (static_branch_unlikely(&kvm_riscv_vsstage_tlb_no_gpa))
+> +       if (kvm_riscv_nacl_available())
+> +               nacl_hfence_vvma_all(nacl_shmem(), vmid);
+> +       else
+>                 kvm_riscv_local_hfence_vvma_all(vmid);
 > +
->  	pm_runtime_set_active(dev);
->  	pm_runtime_enable(dev);
->
-> @@ -556,6 +561,8 @@ static int mxc_gpio_probe(struct platform_device *pdev)
->  	mxc_update_irq_chained_handler(port, true);
->
->  	platform_set_drvdata(pdev, port);
-> +
-> +	pm_guard = no_free_ptr(pm_guard);
-
-use retain_and_null_ptr();
-
-Frank
-
->  	pm_runtime_put_autosuspend(dev);
->
->  	return 0;
-> @@ -564,7 +571,6 @@ static int mxc_gpio_probe(struct platform_device *pdev)
->  	irq_domain_remove(port->domain);
->  out_bgio:
->  	pm_runtime_disable(dev);
-> -	pm_runtime_put_noidle(dev);
->  	dev_info(dev, "%s failed with errno %d\n", __func__, err);
->  	return err;
+> +       *last_ran =3D vcpu->vcpu_idx;
 >  }
 >
-> --
-> 2.51.0
+>  void kvm_riscv_fence_i_process(struct kvm_vcpu *vcpu)
+> diff --git a/arch/riscv/kvm/vm.c b/arch/riscv/kvm/vm.c
+> index 13c63ae1a..2907218a1 100644
+> --- a/arch/riscv/kvm/vm.c
+> +++ b/arch/riscv/kvm/vm.c
+> @@ -9,6 +9,7 @@
+>  #include <linux/errno.h>
+>  #include <linux/err.h>
+>  #include <linux/module.h>
+> +#include <linux/percpu.h>
+>  #include <linux/uaccess.h>
+>  #include <linux/kvm_host.h>
+>  #include <asm/kvm_mmu.h>
+> @@ -30,7 +31,9 @@ const struct kvm_stats_header kvm_vm_stats_header =3D {
 >
+>  int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
+>  {
+> +       int *last_ran;
+>         int r;
+> +       int cpu;
+>
+>         r =3D kvm_riscv_mmu_alloc_pgd(kvm);
+>         if (r)
+> @@ -42,6 +45,17 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long ty=
+pe)
+>                 return r;
+>         }
+>
+> +       kvm->arch.last_vcpu_ran =3D alloc_percpu(int);
+> +       if (!kvm->arch.last_vcpu_ran) {
+> +               kvm_riscv_mmu_free_pgd(kvm);
+> +               return -ENOMEM;
+> +       }
+> +
+> +       for_each_possible_cpu(cpu) {
+> +               last_ran =3D per_cpu_ptr(kvm->arch.last_vcpu_ran, cpu);
+> +               *last_ran =3D -1;
+> +       }
+> +
+>         kvm_riscv_aia_init_vm(kvm);
+>
+>         kvm_riscv_guest_timer_init(kvm);
+> @@ -54,6 +68,8 @@ void kvm_arch_destroy_vm(struct kvm *kvm)
+>         kvm_destroy_vcpus(kvm);
+>
+>         kvm_riscv_aia_destroy_vm(kvm);
+> +
+> +       free_percpu(kvm->arch.last_vcpu_ran);
+>  }
+>
+>  int kvm_vm_ioctl_irq_line(struct kvm *kvm, struct kvm_irq_level *irql,
+> --
+> 2.43.0
 >
