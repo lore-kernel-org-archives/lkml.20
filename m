@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A63339768D
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 10:08:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3996B4582D3
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 10:08:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791540529; cv=none; b=rmQ3mOiAR3gqDWP8Xta9lwpRB76K5huZau8/P+kVx88iKHrMjRKOE4pbdWc6rzhoi4Ku6hJnM95poN9yuIc4UI3eghrTXN9w0Y3TZh/Bd++1Oh2EsRhGLhVv617TUvW4QU710et/tAkFNMrHsODKnrALEquNUYp/OUKwWYdzdoI=
+	t=1791540533; cv=none; b=QfrmehMvCNhk4OQ7OH7Z/duCXk1pGkn7AiSmYmTFgs5F6mrPhyid9WGLTnu9TAnRA7GgFuEsj6BnguM83qOVOdyHNWkdfu98JJmnY+l/YEcaPVHl9tfh/RCgXa+2qeJRnEfQC4BOuhYqaQcquuJOfKH09ultaWxYEPWu3wjidG0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791540529; c=relaxed/simple;
-	bh=/RFzRXT1i274yWP12KOobAOHREkprwzLEI+WV66y1rw=;
+	s=arc-20240116; t=1791540533; c=relaxed/simple;
+	bh=OyUih27sFMvuK4J/ju0pEaDLVI/NOY1vwR/SYNFvfJw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Fl83anbZ5raDG+9PlypXblAdM88Nt9dHxC1cyYPfkyQXDQECRi9Z14iSwzCFZxnHIa9HU1+BxTAznk4BV/2wKEK4U2flXx7myWMSGlLXcoGlSYbic5I5Ew+p6umd3CyJy8Aa3zaQZ2QbuW5XFDBCZuQHxniXWvHMC1C2RPTopd8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h2BAUAlc; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=kkSxRiQ3q1fwhLMnjdUUcEUV/72Qr1YiqoiUoVTRFPycUMWQ0ATM/1FlZzFp8OzRvPOK9mbnwjE3H/ldDaGus25Q5Ddrqtw8ptwOE1ZX3FybRT63YRq9PVV54wI9yvMUlDRSVnuBhj5sj8M68gE3BVzy0f5/1Sq6ldnmkvY9keg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VV2WNtAS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h2BAUAlc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE7871F00893;
-	Fri,  9 Oct 2026 10:08:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VV2WNtAS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A927A1F000FF;
+	Fri,  9 Oct 2026 10:08:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791540528;
-	bh=8SAwb2KHxo/EKB1KjZuIDXXR8cPoheuP4WaqUgC+rpY=;
+	s=k20260515; t=1791540531;
+	bh=Gf3FKiGtI6KQvcd0GShYu0Q8rw5bxQGuG60R9wMsHvs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=h2BAUAlc9dhrjzb9Kj+S8uacULkrsYjJqHOJwpA26NUNrajQyu2cmnKHB6ydVjrvg
-	 SMwQJenvFNe48h0xkoXYeOphMziUZoU1btAEX+qVGj5bl4gJ4ehtnmoBXJUWb3FhTD
-	 B4ArRhAs/vyuchF299ODxJ8t0Ug0a+/Bp6iP4yVTTK//xSg3/7zTzFxmfdMbPuxdX8
-	 1pw56K2K5jzEFiM4UhHPzJ0nTP3OqNcpF8KW13JSS3bwSM3HrinbXzSmujxHvzV7cO
-	 42e22FEhTimh8eAXS6+NADN6EqqjsNT7NL7Irv87qpA4QvjMYFP40v6GSTFz7vRr3I
-	 UC9271Q1+H2Wg==
+	b=VV2WNtASTb2ywGrU+P4MagqzQJqSlcybnay65ivhhNFbICQvC4wYZdl74iX5p9Rfd
+	 jIkMWR4TpDIzC1NUJmuPT8uxCapov3UFXt+32M6W/cMc02/mrDyGy/gZzCiagy2Wg5
+	 bkBbYrcfYeFQGi6UARjSzRcKaDeAPf1FLLKfjwMxXWDbDJfibt2WqE2RILQpyd+E6b
+	 /NKzj8/lnEYGX4NoqKalXw+d+jcWUlqvxhb6aVAxApBurH1n9YKkYB1Dqtfrr8vhe1
+	 F8W0L7+03vjR3nj0F5hSVnurbAY3F8hm0RzQxqjctKtcRjQNF9SsDEW+L6eWP/FAuF
+	 tN+pSm7bBspvQ==
 From: Will Deacon <will@kernel.org>
 To: linux-arm-kernel@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org,
@@ -44,9 +44,9 @@ Cc: linux-kernel@vger.kernel.org,
 	David Woodhouse <dwmw@amazon.co.uk>,
 	Peter Zijlstra <peterz@infradead.org>,
 	Marc Zyngier <maz@kernel.org>
-Subject: [PATCH v2 16/23] arm64: cpu_ops: Make 'cpu_operations' pointer global instead of per-cpu
-Date: Fri,  9 Oct 2026 11:07:27 +0100
-Message-ID: <20261009100738.31288-17-will@kernel.org>
+Subject: [PATCH v2 17/23] arm64: cpu_ops: Introduce get_secondary_cpu_ops()
+Date: Fri,  9 Oct 2026 11:07:28 +0100
+Message-ID: <20261009100738.31288-18-will@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261009100738.31288-1-will@kernel.org>
 References: <20261009100738.31288-1-will@kernel.org>
@@ -58,94 +58,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-'cpu_ops' is an NR_CPUS-length array of 'cpu_operations' pointers, which
-theoretically allows for different CPUs to have different bringup and
-hotplug backends.
+Introduce get_secondary_cpu_ops() to retrieve a pointer to the
+'cpu_operations' structure for the non-boot CPUs and use it instead of
+get_cpu_ops() where we are dealing with secondary CPUs.
 
-In reality, this complexity exists only to deal with the case where CPU0
-is not hotpluggable, so replace the array with a single, global pointer
-and record separately whether or not they apply to the boot CPU. Update
-the logic in init_cpu_ops() to enforce that only a single set of
-'cpu_ops' is required.
+This is a pre-requisite for enabling parallel CPU bring-up.
 
 Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
 Signed-off-by: Will Deacon <will@kernel.org>
 ---
- arch/arm64/kernel/cpu_ops.c | 29 ++++++++++++++++++++---------
- 1 file changed, 20 insertions(+), 9 deletions(-)
+ arch/arm64/include/asm/cpu_ops.h |  1 +
+ arch/arm64/kernel/cpu_ops.c      |  5 +++++
+ arch/arm64/kernel/smp.c          | 19 +++++++------------
+ 3 files changed, 13 insertions(+), 12 deletions(-)
 
+diff --git a/arch/arm64/include/asm/cpu_ops.h b/arch/arm64/include/asm/cpu_ops.h
+index a444c8915e88..cd298a8710d8 100644
+--- a/arch/arm64/include/asm/cpu_ops.h
++++ b/arch/arm64/include/asm/cpu_ops.h
+@@ -48,6 +48,7 @@ struct cpu_operations {
+ 
+ int __init init_cpu_ops(int cpu);
+ extern const struct cpu_operations *get_cpu_ops(int cpu);
++extern const struct cpu_operations *get_secondary_cpu_ops(void);
+ 
+ static inline void __init init_bootcpu_ops(void)
+ {
 diff --git a/arch/arm64/kernel/cpu_ops.c b/arch/arm64/kernel/cpu_ops.c
-index e133011f64b5..eacfb88a0c0c 100644
+index eacfb88a0c0c..7d183ca31dc8 100644
 --- a/arch/arm64/kernel/cpu_ops.c
 +++ b/arch/arm64/kernel/cpu_ops.c
-@@ -20,7 +20,8 @@ extern const struct cpu_operations acpi_parking_protocol_ops;
- #endif
- extern const struct cpu_operations cpu_psci_ops;
+@@ -127,3 +127,8 @@ const struct cpu_operations *get_cpu_ops(int cpu)
  
--static const struct cpu_operations *cpu_ops[NR_CPUS] __ro_after_init;
-+static const struct cpu_operations *cpu_ops __ro_after_init;
-+static bool boot_cpu_has_enable_method __ro_after_init;
- 
- static const struct cpu_operations *const dt_supported_cpu_ops[] __initconst = {
- 	&smp_spin_table_ops,
-@@ -40,6 +41,9 @@ static const struct cpu_operations * __init cpu_get_ops(const char *name)
- {
- 	const struct cpu_operations *const *ops;
- 
-+	if (!name)
-+		return NULL;
-+
- 	ops = acpi_disabled ? dt_supported_cpu_ops : acpi_supported_cpu_ops;
- 
- 	while (*ops) {
-@@ -49,6 +53,7 @@ static const struct cpu_operations * __init cpu_get_ops(const char *name)
- 		ops++;
- 	}
- 
-+	pr_warn("Unsupported enable-method: %s\n", name);
  	return NULL;
  }
- 
-@@ -94,25 +99,31 @@ static const char *__init cpu_read_enable_method(int cpu)
- 	return enable_method;
- }
- /*
-- * Read a cpu's enable method and record it in cpu_ops.
-+ * Read a cpu's enable method and update/check cpu_ops.
++
++const struct cpu_operations *get_secondary_cpu_ops(void)
++{
++	return cpu_ops;
++}
+diff --git a/arch/arm64/kernel/smp.c b/arch/arm64/kernel/smp.c
+index 918b54d1c301..f7141ec18029 100644
+--- a/arch/arm64/kernel/smp.c
++++ b/arch/arm64/kernel/smp.c
+@@ -100,7 +100,7 @@ static inline int op_cpu_kill(unsigned int cpu)
   */
- int __init init_cpu_ops(int cpu)
+ static int boot_secondary(unsigned int cpu, struct task_struct *idle)
  {
- 	const char *enable_method = cpu_read_enable_method(cpu);
-+	const struct cpu_operations *ops = cpu_get_ops(enable_method);
+-	const struct cpu_operations *ops = get_cpu_ops(cpu);
++	const struct cpu_operations *ops = get_secondary_cpu_ops();
  
--	if (!enable_method)
-+	if (!ops)
+ 	if (ops->cpu_boot)
+ 		return ops->cpu_boot(cpu);
+@@ -221,7 +221,7 @@ asmlinkage notrace void secondary_start_kernel(void)
+ 	 */
+ 	check_local_cpu_capabilities();
+ 
+-	ops = get_cpu_ops(cpu);
++	ops = get_secondary_cpu_ops();
+ 	if (ops->cpu_postboot)
+ 		ops->cpu_postboot();
+ 
+@@ -329,7 +329,7 @@ int __cpu_disable(void)
+ 
+ static int op_cpu_kill(unsigned int cpu)
+ {
+-	const struct cpu_operations *ops = get_cpu_ops(cpu);
++	const struct cpu_operations *ops = get_secondary_cpu_ops();
+ 
+ 	/*
+ 	 * If we have no means of synchronising with the dying CPU, then assume
+@@ -370,7 +370,7 @@ void arch_cpuhp_cleanup_dead_cpu(unsigned int cpu)
+ void __noreturn cpu_die(void)
+ {
+ 	unsigned int cpu = smp_processor_id();
+-	const struct cpu_operations *ops = get_cpu_ops(cpu);
++	const struct cpu_operations *ops = get_secondary_cpu_ops();
+ 
+ 	idle_task_exit();
+ 
+@@ -496,7 +496,7 @@ static int __init smp_cpu_setup(int cpu)
+ 	if (init_cpu_ops(cpu))
  		return -ENODEV;
  
--	cpu_ops[cpu] = cpu_get_ops(enable_method);
--	if (!cpu_ops[cpu]) {
--		pr_warn("Unsupported enable-method: %s\n", enable_method);
--		return -EOPNOTSUPP;
--	}
-+	if (!cpu_ops)
-+		cpu_ops = ops;
-+	else if (cpu_ops != ops)
-+		return -EBUSY;
-+
-+	if (cpu == 0)
-+		boot_cpu_has_enable_method = true;
+-	ops = get_cpu_ops(cpu);
++	ops = get_secondary_cpu_ops();
+ 	if (ops->cpu_init(cpu))
+ 		return -ENODEV;
  
- 	return 0;
- }
+@@ -780,7 +780,7 @@ void __init smp_init_cpus(void)
  
- const struct cpu_operations *get_cpu_ops(int cpu)
+ void __init smp_prepare_cpus(unsigned int max_cpus)
  {
--	return cpu_ops[cpu];
-+	if (cpu || boot_cpu_has_enable_method)
-+		return cpu_ops;
-+
-+	return NULL;
- }
+-	const struct cpu_operations *ops;
++	const struct cpu_operations *ops = get_secondary_cpu_ops();
+ 	unsigned int cpu;
+ 	int err;
+ 
+@@ -806,10 +806,6 @@ void __init smp_prepare_cpus(unsigned int max_cpus)
+ 		if (cpu == 0)
+ 			continue;
+ 
+-		ops = get_cpu_ops(cpu);
+-		if (!ops)
+-			continue;
+-
+ 		err = ops->cpu_prepare(cpu);
+ 		if (err)
+ 			continue;
+@@ -1345,8 +1341,7 @@ bool smp_crash_stop_failed(void)
+ static bool have_cpu_die(void)
+ {
+ #ifdef CONFIG_HOTPLUG_CPU
+-	int any_cpu = raw_smp_processor_id();
+-	const struct cpu_operations *ops = get_cpu_ops(any_cpu);
++	const struct cpu_operations *ops = get_secondary_cpu_ops();
+ 
+ 	if (ops && ops->cpu_die)
+ 		return true;
 -- 
 2.56.0.385.gd3acb90ef8-goog
 
