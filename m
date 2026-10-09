@@ -1,159 +1,68 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0256449A3D2;
-	Fri,  9 Oct 2026 09:31:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B1C749B5DC
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 09:32:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791538312; cv=none; b=ATwJykR4paCfBmow9aqvwVWz6mCNPxdqHHHwBkbX96DtZvNTHfclpnUbR51Tzt9zSG9ONkE+4bfwxOBolVnxY3YJBOmXlavzmZDg+axHa7dbp+vO1GJ9BGRuwlaMrORu3zmBCdHdyP9cqxrDzL9QdrdpGdv23z75zC1VgYcu5co=
+	t=1791538336; cv=none; b=g2Rtha7QIXq3Z8mZJnvm7HvrTk/7hfbvVxsugvWy4d96KjAHSmiVV33X8THTezLGrds+w0MspNSVZ2EhW0lHJCnP3SzC3UUlegO7gBeTtxePZ6z9694OBEEpFJ3yguzxMUggMMDRr2vav1MD8n1SxcYnRH7Dl1ly2R85qQRa2yg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791538312; c=relaxed/simple;
-	bh=j3BjLAvA3Bq5JnSG/zolAG4cMSh78NzeXeYs2MYU6P0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=apBPDQJ9NlL9INYbACJzl4s97ME71OX6goN4Fa1x7qhI1NGjjE2z4TfWmJpT5CmXOO20gRV83nS0p6EC3vwz4RI4HfxDGfdueNkmO7bQZuwSWC+nRg9JCZiMT3F6OJ3LpkHGaj6ycPQj0Mwy74w2WPOx3oBgsMq1ule4P4n/tOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YwB1Q/iZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791538336; c=relaxed/simple;
+	bh=Z/FLiYR8qfF6FfAeFUqRE3m0pH9vpxLOJqGiHvo41PY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UHdWoljL2m44G6iwT8vbh9vE1ecx2YoHLwm4+NhwyqTbF8owdAeF5HSgsfFW02Kd8+aBSmCFwuu4eJAY/UmToFJ0iDWsVwG7gT2chMFM6tVXHOdHWU1zQUzwRhJBkmEHhg6JNfofkodWbJi8sC4pz7erGAgd4Na0dKg9hDpxgjE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jH6ZxjVd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YwB1Q/iZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C58601F000FF;
-	Fri,  9 Oct 2026 09:31:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jH6ZxjVd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D25F1F000FF;
+	Fri,  9 Oct 2026 09:32:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791538310;
-	bh=s8xH1F/JaR1AxQIsxpZSOc+O+rct9Lu7coFrpOF8Daw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YwB1Q/iZ3QJTtD9mlHQtZiKNCTC5E1HewCNOMKPP3epLLGfgCdzvPo0gJQ8zTehw5
-	 0WcwYH4tZryXGVIeCfYPZhTA5aa+6UPwOs4DQbPLiiQeTw9uCQpY+KnHf2y3VDWmrw
-	 2j9cCxe1xNbiPipGXaEZI5oOYtNw2NU+ioV40lRQU5o90TF2PP+bLTRE4CDBWyORT+
-	 5j45IGKhLjaSA0wKIpsY7MPMLloxxmkXCl3QPac1GfRI2M7IH4EN5FVnTSrZhIboXZ
-	 +Wgj5Zdq9upDxBwEf87SDwYQ1+J7ijGuwxtSAiMxGTGWer0EYjRmyl6Kn0AIB2XRJX
-	 IVNjkaue4cJHg==
-Date: Fri, 9 Oct 2026 11:31:47 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Alex Elder <elder@riscstar.com>
-Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, andersson@kernel.org, 
-	konradybcio@kernel.org, abelvesa@kernel.org, kees@kernel.org, gustavoars@kernel.org, 
-	mohd.anwar@oss.qualcomm.com, lorenzo.bianconi@oss.qualcomm.com, danielt@kernel.org, 
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Daniel Thompson <daniel@riscstar.com>
-Subject: Re: [PATCH v2 1/3] dt-bindings: clock: introduce
- toshiba,tc9564-clock.yaml
-Message-ID: <20261009-gifted-stylish-tortoise-95b14d@quoll>
-References: <20261005230927.2000398-1-elder@riscstar.com>
- <20261005230927.2000398-2-elder@riscstar.com>
+	s=k20260515; t=1791538332;
+	bh=ENBRNg6BexirER+Jc3kf6eKiCZvAltZIqY6YqCZtb5I=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=jH6ZxjVdMPwpZg2LrocpBm5BCxRQ9f1tq/koBd4LaSF0U6NRDnw9NfORdwhQp/i4C
+	 /2fix8o1OwdIzj9G2RtMnLREs8/gKDwJVL8OSpBkUE3ot1i8gffY0jTLV71P0lkvKC
+	 Y11Dvtf7ScABY3CUliSw1xaFJ95GuRr/tfXIYh3+XhAD+U4+6OTMd1e2x33QBkngOb
+	 ziEYcQTmjWskGoCgBSGi5QGHTBEBxdvvUgoznKLvcj1dkNKbAZy0gfRcKrxQjkYJ+q
+	 7uKm7yY9b4VbdlirJ0oIavdU7g1xJqcKGrK9rioBbz12IhwNvHckUQwaU8uU1TWtW5
+	 flJOcErGmY/pQ==
+Message-ID: <8d0fd503-4f4f-4cd1-9ae8-08ecd478b8cb@kernel.org>
+Date: Fri, 9 Oct 2026 11:32:08 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261005230927.2000398-2-elder@riscstar.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: RISCV: canaan: Deprecated (oficially) the K210
+To: Conor Dooley <conor@kernel.org>, linux-riscv@lists.infradead.org
+Cc: arnd@arndb.de, linux-kernel@vger.kernel.org,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Alexandre Ghiti <alex@ghiti.fr>, Geert Uytterhoeven <geert@linux-m68k.org>
+References: <20261009-ee797bb64a30cf907f583aca@squawk>
+From: Damien Le Moal <dlemoal@kernel.org>
+Content-Language: en-US
+Organization: Western Digital Research
+In-Reply-To: <20261009-ee797bb64a30cf907f583aca@squawk>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 05, 2026 at 06:09:24PM -0500, Alex Elder wrote:
-> Define the binding for the clock controller functionality present in
-> the Toshiba TC9564 SoC.
+On 2026/10/09 11:29, Conor Dooley wrote:
+> From: Conor Dooley <conor.dooley@microchip.com>
 > 
-> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
-> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
-> Signed-off-by: Alex Elder <elder@riscstar.com>
-> ---
-> v2: - Only define clock information, not reset information
->     - Reworded description to avoid talking about software
->     - Clock IDs are now consecutive (no more commented-out values)
+> Two years ago, at LPC, the only known user of the k210, Damien, gave his
+> okay to delete the platform from the kernel but this never actually took
+> place. Deprecate the platform now, marking it as broken so that users
+> will have to explicitly re-enable it on updating their kernels.
 > 
->  .../bindings/clock/toshiba,tc9564-clock.yaml  | 54 +++++++++++++++++++
->  MAINTAINERS                                   |  7 +++
->  include/dt-bindings/clock/toshiba,tc9564.h    | 34 ++++++++++++
->  3 files changed, 95 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/clock/toshiba,tc9564-clock.yaml
->  create mode 100644 include/dt-bindings/clock/toshiba,tc9564.h
-> 
-> diff --git a/Documentation/devicetree/bindings/clock/toshiba,tc9564-clock.yaml b/Documentation/devicetree/bindings/clock/toshiba,tc9564-clock.yaml
-> new file mode 100644
-> index 0000000000000..329b8f002cf2d
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/clock/toshiba,tc9564-clock.yaml
-> @@ -0,0 +1,54 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/clock/toshiba,tc9564-clock.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Toshiba TC9564 Clock Controller
-> +
-> +maintainers:
-> +  - Alex Elder <elder@riscstar.com>
-> +  - Daniel Thompson <daniel@riscstar.com>
-> +
-> +description:
-> +  The Toshiba TC9564 is an SoC accessed by a host system through the
-> +  upstream PCIe port on the PCIe switch it implements.  The switch
-> +  includes an embedded PCIe endpoint that provides access to various
-> +  SoC peripherals (including a clock controller) via its BARs.
-> +
-> +  A total of 21 clocks are implemented, though two of these are not
-> +  controllable.  Access to the clock controller relies on PCIe being
-> +  functional, so the PCIe clock is assumed to be always on.  Similarly,
-> +  the PCIe controller relies on I2C, so the I2C clock is also assumed
-> +  to be always on.
-> +
-> +  Clock ids are defined in <dt-bindings/clock/toshiba,tc9564.h>.
-> +
-> +properties:
-> +  compatible:
-> +    const: toshiba,tc9564-clock
-> +
-> +  toshiba,config-syscon:
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +    description:
-> +      Phandle for the configuration space system controller.
+> Signed-off-by: Conor Dooley <conor.dooley@microchip.com>
 
-I do not see my previous comment addressed - you have no resources here,
-so this belongs to the parent. You responded something about pci-ep, but
-the parent is not pci-ep. Open your code:
-https://lore.kernel.org/lkml/20260918165234.687224-5-elder@riscstar.com/
+Sad... But yeah, this platform never was really super useful in itself, beside
+the code cleanups it generated.
 
-I clearly see code like:
-  syscon {
-    clock@ {
-    };
-  };
+Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
 
-so I do not understand what pci-ep has anything to do here.
-
-What's more, I still do not see any usage of these clocks outside. And I
-still did not receive actual answers (or I missed them) how these clocks
-are routed OUTSIDE of the connector. You said for example:
-"Ultimately the TC9564 SoC has a single 25 MHz input clock,"
-
-but that is input. I did not ask how this device receives clocks. I
-asked how the host receives the clocks from this device.
-
-> +
-> +  "#clock-cells":
-> +    const: 1
-> +
-> +required:
-> +  - compatible
-> +  - toshiba,config-syscon
-> +  - "#clock-cells"
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/toshiba,tc9564.h>
-
-Looks unused.
-
-> +
-> +    clock {
-
-Anyway, if this stays, that's a clock-controller.
-
-Best regards,
-Krzysztof
-
+-- 
+Damien Le Moal
+Western Digital Research
