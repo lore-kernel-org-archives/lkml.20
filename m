@@ -1,64 +1,63 @@
-Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AF564E36DF
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 14:35:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05B524E36C6
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 14:35:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791556529; cv=none; b=sZhMsrJo5E+CAJyguPFlejn7JNlXtQlNTibczAXo0tHVdQIGwdcfaY21SuSSuViQoYKjzAfBo6Qo14df4KwXeQ3039NHWM9H/ea+UCNRLf7tQfReTHeKIZgjbbAsFpFTrbdEZOkyn8c4rjUNPvbDTBPGYavOi82WTn6EQzqOymA=
+	t=1791556536; cv=none; b=RKzB9mAoJViO9y4BbR0Sd7eD5GsGM/rNbvxzPnkmBUtcTldA70fkBt07Y00SiDWaRMXHf6pnyInOBN7KYLRWcLI9ZFMUipkFCvpR66k88C7sgC+XEi56HwLKbC794IYSMvzWfi0xefkqrtAS28gWXXWCekq2xQ98VrTla6fEXP8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791556529; c=relaxed/simple;
-	bh=kYOWTtcRSnBg2+a4cGHVZyquREY6r0DKghYsyPc9Il0=;
+	s=arc-20240116; t=1791556536; c=relaxed/simple;
+	bh=J2f0V/EClIlA2WPD8b6oppOrlSzeIDKH7aeM7FWVeOA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NlJsvN1XAGV7ZArzczlI+Ie2Wuuhy1nx9GQb8DD2KABTQ1AJLIvZVxHDdX7uOcnhfAfcFJkn5JbOv24NhNniqi/wUHq+MWmez7uqG2qDxY8Xoz5hDS0jUZ2nPkfYZdVKk//dlcOfmQS21twW1v9mX6rX7PIvUwaXo3S33p3EHU4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com; spf=pass smtp.mailfrom=jclark.com; dkim=pass (2048-bit key) header.d=jclark-com.20251104.gappssmtp.com header.i=@jclark-com.20251104.gappssmtp.com header.b=JLnJn6Gx; arc=none smtp.client-ip=209.85.222.182
+	 MIME-Version; b=OIFomIcSNJkhiK9BAwKdP1Q+sav6rh2/MXxPxvpN1b0Efmcu9vXIoJd/5CAOKVmKvChL8rslCnWbe61TvaRyWuxzC4xYXdb/q5cszmfMiIy2ROljXXfqvq4Oq/K7wNBnVmbJXSz3SOdozCf1/0LnGQkWGHBVn0pbrSlO/665pe4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com; spf=pass smtp.mailfrom=jclark.com; dkim=pass (2048-bit key) header.d=jclark-com.20251104.gappssmtp.com header.i=@jclark-com.20251104.gappssmtp.com header.b=IN/6/uqB; arc=none smtp.client-ip=209.85.160.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jclark.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jclark-com.20251104.gappssmtp.com header.i=@jclark-com.20251104.gappssmtp.com header.b="JLnJn6Gx"
-Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-93e503815adso338678985a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 07:35:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=jclark-com.20251104.gappssmtp.com header.i=@jclark-com.20251104.gappssmtp.com header.b="IN/6/uqB"
+Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-5352a876d5aso48359621cf.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 07:35:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=jclark-com.20251104.gappssmtp.com; s=20251104; t=1791556526; x=1792161326; darn=vger.kernel.org;
+        d=jclark-com.20251104.gappssmtp.com; s=20251104; t=1791556533; x=1792161333; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=39M6cKiwSBQh698eXKEbMm/aXVe8zrZhERHGjPGBWrE=;
-        b=JLnJn6Gx9ndL/iovvnjMBVuZsdyW+ORKJttqy+wArXAwr6aHgJpsBMjFdsjenrKLz6
-         mMOYc4kcSVtrUZG5/W+1REd9p2NgDVi20V5Pl4weCmoeC4yvA7zxl5qqGA9E8Bi9Km82
-         /3LbkTnXSeAfXQUIY7Dmrrzg95od11RwLEiJBqjX/dtWEa+0aDhPwgvDVqika1fCCCOY
-         DcB73ueb9zn2LhM20ECVK5SAxIjnGLJkWpJDFyhZqtjdW0I8kOssDTUe42aAgKH3WWW+
-         ankGc8wGQtrqLYJzUs7bFWC3CvHLjfucodFFkTEMD7zFOTcFWabu5dDgYfXMjlVYbYwx
-         /Org==
+        bh=rGO0sAofaphg39YrktW71GdT2lnvXlH+hJNivXpF8AA=;
+        b=IN/6/uqBDZ21rPSNcC0Ix2/4Lm+ee94Y2m/BSeeZnGiAi3YptWzJyrRPuROpBMaMkm
+         QED1KBe+I9I1ub6foKtxtr3XHXM9NqBfQfulfsxXNUX2x8qw90bo9s9YfW81JVMPHwvd
+         joI0PTAwdA2O9KZ0hgCY1bDSm5Tl2hLEajuP6p0lswavgjJwfqSvs9jbCuOvZYSVBTfe
+         YgL5eg4STzYmZvCCj3BEg520VI+qlFTaMYsRSBC8eVSjk7o0Xsj1rqQGjTud+dmLUFk4
+         KOJvAnc5Cl2dYPP7XzSMUU1kjj6LU5HGRalLTtpFpzBa+Dpaao5+4tOkcagL1da9KOrb
+         5u9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791556526; x=1792161326;
+        d=1e100.net; s=20260707; t=1791556533; x=1792161333;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=39M6cKiwSBQh698eXKEbMm/aXVe8zrZhERHGjPGBWrE=;
-        b=aCYYNbe0L6x2yJ7tfktRXixp7kyNyH18ZsgfYo7m/AB5kFnvHQAb8gYppg+mY3XJWL
-         ZZ1WQppy2A5JU/9Q70ywSYygtiYixPzPeeKodd7j3AhcI86uX94FvdN2nLAVqEMCcEAH
-         ihBhHi312+TDHDz9z9xVmR0I/T0sZTO/qGt5XA5pHzBKVAU9S6lZFribqZlIg7hy97Pt
-         YDOnRt7dwY26U6iFXA6SNyDUMyB/hphjzeBAY45L5EHl52a6QCj2gh3vTzw7pf4UM7Lo
-         2pw5hRPhBAkvhxbID6K0a+I984reTu4VR18ZLSgaEpF+eIhT4anP2AJkLFuB01h7J6vH
-         ewpA==
-X-Forwarded-Encrypted: i=1; AKwUvBxs4gPtrOTY/5/fKA78XjoxlI/kGjZq4w7AEigLUUkcCGAGYGgVX7B8c198aTupH4Tyyygh9AWzFdep2mE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nn6b/dzK31kC617QfPp6091GyVNM6tlldLp/D4fKoFpCOZ6E2D
-	mjX7erXlfvhqx82xDxB0cZRV4jAKTcYjWOdx5SBp8iLJjTERHu2u5zmnLkoi3AfDEZbCZBinKLN
-	1hoE7ZdnFLXI=
-X-Gm-Gg: AYBFou3BDtGg/UxqPDd2zce9ifNxfQfN2QPhgBs9ADDcedBzo1ZIDRk5OHIaCgoc7Y/
-	YwhS4bqfZ/80p1nCN9KOBAXJS66gWXFAqrg7tsHAjb5mTFpvf7ykDzJ51eXT5MKxpqIjXclV3mt
-	74Hfla6UkADp7BbogwUIAGBywCtNM81rRZtg088BOOfMWmF8nXA3lR3eygMUdqciji4EyoX7CvJ
-	nU9i8oSGAJ989U+mWnvGy951mtxrE94+JH/uQZRYVcET5VM5+WP590C5eqS33XdpGaOFICpmu9K
-	byKc2qrBWQBi2nIASqhXfaAgXNt7bueTf+s936lU5R9zFuWwDXGpAaLPU6TkYJd78sSiCpcbj4S
-	dWhLWBh8auoLqaBzcrbPIzRcuM/76ComOxwLv3CwgPaNo/Bwig300k1AJVIm7fyiGzGg/Ggvg9M
-	uzTJDf5FO+6sMz5DU1KUjXRTBZ5asVyMAmGixlWojEgP3g6bPKPmxZMASS8ttM
-X-Received: by 2002:a05:620a:4503:b0:93b:d7a0:d9dc with SMTP id af79cd13be357-93ebd23ca0emr314762985a.54.1791556526173;
-        Fri, 09 Oct 2026 07:35:26 -0700 (PDT)
+        bh=rGO0sAofaphg39YrktW71GdT2lnvXlH+hJNivXpF8AA=;
+        b=RVeF+F7I/2N/oy7hJfVVmbPNlhHGvNqP2sNceHAT37Qtyoa6A2/Qn2xFwUIf+ayu4G
+         hHX0thEGmzq+oHL/k9swPyrn3IjBt+kBfavp/GBJjafQK26tRE6CWyjM4TkuHOUTxiNG
+         IKI2PW6Di8tq/grxPLcFXhqWThN3qy7qD6jZlOZno1idvMfu03zae2nE2/yi31li37XF
+         xu8b+CcilRDQXDkidFg6KGN5mNKwl1HR+IMCktqMH0vXgfLoKygrPXFpxiYh2/6Hlt8k
+         eog4+iOHFMoSuU6krnjYVmkSxT6vFyr2zNK9lgxbzA6IbQJkQdkWV6+qYzgX8s6QmMAs
+         6G+A==
+X-Forwarded-Encrypted: i=1; AKwUvBwvJAn0C597X2uu1WzN+OfR4vvPVyui46BPwI7BlRZm06HCUbukxDPnve8goiXZ4soFggjhOe07xPynZtY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJhCzTWr4s8jWJY1mq9bpKJhHsKz8jjDpYJKUAV1F/4ChfMPxCo
+	8OJ1TwOrgS7jT0aLMw/ZIWEEgryOVL/OXsIRwe4mhmApfe7sJfcHvRmZ2uvDQT/SGA==
+X-Gm-Gg: AYBFou16DIT9m2MZ/zVE5fVmDzY6/+wp9BBaDaT0QfFVFHS/ckfevZF1GxqZL+o6cIO
+	WMOSiQ9aHtybs+7SsBASIW3o1fINrN4wo1l/xAXy9dkGPsb2bOfxPBZ8EwtKrUN5x/ecWUFgYhS
+	ivj/yI9tfE/IVO1CTicS08vTBKk5pKMokmP5LujNXT87W54XEJhyhGkrnQZSRoV0uqEBOc67g7K
+	ut9tlGkPUbro5kD0Ea6RmaPutUNG5OrTHn7wJe5/6J+CBi0+RdDLgoXT8SQbQDf/Zg6DHMJjhfE
+	n8DHIaOQt0MVtxfaH8yJ1bJTcJfw8uowBldixYPIj/onCOoOuP925XdD51iCgU4p5whW65Lh1rf
+	pfSKJ8dGi+7UqXxSIdVX3KTrqiY4ql80nWs038rozTKaPDKd6k3Du9ifstbWdRmoon5yfQZCmPC
+	Tk29EOJ6mPQuKh3R9n7cZzrVz168QYhr9U+inTCQlV4dkGuy7JNr26mHGk8tPL
+X-Received: by 2002:ac8:5f85:0:b0:535:80b:9900 with SMTP id d75a77b69052e-5359fb8687emr27949971cf.44.1791556532778;
+        Fri, 09 Oct 2026 07:35:32 -0700 (PDT)
 Received: from cantal.lan ([58.136.72.162])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b5501751dsm19769456d6.17.2026.10.09.07.35.20
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b5501751dsm19769456d6.17.2026.10.09.07.35.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 07:35:25 -0700 (PDT)
+        Fri, 09 Oct 2026 07:35:32 -0700 (PDT)
 From: James Clark <jjc@jclark.com>
 To: "David S. Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@kernel.org>,
@@ -78,9 +77,9 @@ Cc: Russell King <linux@armlinux.org.uk>,
 	Miroslav Lichvar <mlichvar@redhat.com>,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next 2/5] net: phy: broadcom: use timestamped MDIO writes in gettimex64
-Date: Fri,  9 Oct 2026 21:35:03 +0700
-Message-ID: <20261009143506.2507607-3-jjc@jclark.com>
+Subject: [PATCH net-next 3/5] ptp: add functions to adjust system timestamps
+Date: Fri,  9 Oct 2026 21:35:04 +0700
+Message-ID: <20261009143506.2507607-4-jjc@jclark.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261009143506.2507607-1-jjc@jclark.com>
 References: <20261009143506.2507607-1-jjc@jclark.com>
@@ -92,145 +91,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Use __phy_write_sts() to obtain tighter system timestamp bounds in
-gettimex64 by timestamping completion of the write that triggers
-capture of the PHC time.
+Add ptp_adjust_system_prets() and ptp_adjust_system_postts(), which
+shift the pre or post system timestamp by a given duration.
 
-The PHY captures its time a short delay after the end of the write.
-End-to-end measurements show that the delay is small, within the
-measurement accuracy of a few tenths of a microsecond.
-
-This patch does not try to fix the error handling in the existing
-framesync code, which ignores MDIO write errors.
+An MDIO bus driver can take system timestamps around the command that
+starts a write, and knows how long after that command the write
+completes, so it can shift the timestamps to bound the completion of
+the write.
 
 Signed-off-by: James Clark <jjc@jclark.com>
 Assisted-by: LLM
 ---
-Does Broadcom know the delay from the end of the MDIO write to the
-framesync capture in the BCM54210PE? If so, I can add compensation
-for it.
+The time of the selected clock is moved by the CLOCK_MONOTONIC_RAW
+duration without scaling it for that clock's frequency correction,
+because timekeeping has no interface for that. While the clock is
+synchronized the error is negligible: under 2 ns for a 50 ppm
+correction over the 30 us MDIO write time in this series. It is larger
+only while the clock is being slewed. An interface along these lines
+would allow it to be done properly:
 
- drivers/net/phy/bcm-phy-lib.c | 25 +++++++++++++++++++++++++
- drivers/net/phy/bcm-phy-lib.h |  7 +++++++
- drivers/net/phy/bcm-phy-ptp.c | 27 +++++++++++++++++++++------
- 3 files changed, 53 insertions(+), 6 deletions(-)
+	/* Scale a CLOCK_MONOTONIC_RAW duration to the rate of @clock_id */
+	u64 ktime_scale_raw_ns(clockid_t clock_id, u64 ns);
 
-diff --git a/drivers/net/phy/bcm-phy-lib.c b/drivers/net/phy/bcm-phy-lib.c
-index b64beade8dd..022f5e5e6ce 100644
---- a/drivers/net/phy/bcm-phy-lib.c
-+++ b/drivers/net/phy/bcm-phy-lib.c
-@@ -42,6 +42,31 @@ int bcm_phy_write_exp(struct phy_device *phydev, u16 reg, u16 val)
- }
- EXPORT_SYMBOL_GPL(bcm_phy_write_exp);
- 
-+static int __bcm_phy_write_exp_sts(struct phy_device *phydev, u16 reg, u16 val,
-+				   struct ptp_system_timestamp *sts)
-+{
-+	int rc;
-+
-+	rc = __phy_write(phydev, MII_BCM54XX_EXP_SEL, reg);
-+	if (rc < 0)
-+		return rc;
-+
-+	return __phy_write_sts(phydev, MII_BCM54XX_EXP_DATA, val, sts);
-+}
-+
-+int bcm_phy_write_exp_sts(struct phy_device *phydev, u16 reg, u16 val,
-+			  struct ptp_system_timestamp *sts)
-+{
-+	int rc;
-+
-+	phy_lock_mdio_bus(phydev);
-+	rc = __bcm_phy_write_exp_sts(phydev, reg, val, sts);
-+	phy_unlock_mdio_bus(phydev);
-+
-+	return rc;
-+}
-+EXPORT_SYMBOL_GPL(bcm_phy_write_exp_sts);
-+
- int __bcm_phy_read_exp(struct phy_device *phydev, u16 reg)
- {
- 	int val;
-diff --git a/drivers/net/phy/bcm-phy-lib.h b/drivers/net/phy/bcm-phy-lib.h
-index bba94ce9619..365cb3d1c32 100644
---- a/drivers/net/phy/bcm-phy-lib.h
-+++ b/drivers/net/phy/bcm-phy-lib.h
-@@ -34,6 +34,8 @@ int __bcm_phy_write_exp(struct phy_device *phydev, u16 reg, u16 val);
- int __bcm_phy_read_exp(struct phy_device *phydev, u16 reg);
- int __bcm_phy_modify_exp(struct phy_device *phydev, u16 reg, u16 mask, u16 set);
- int bcm_phy_write_exp(struct phy_device *phydev, u16 reg, u16 val);
-+int bcm_phy_write_exp_sts(struct phy_device *phydev, u16 reg, u16 val,
-+			  struct ptp_system_timestamp *sts);
- int bcm_phy_read_exp(struct phy_device *phydev, u16 reg);
- int bcm_phy_modify_exp(struct phy_device *phydev, u16 reg, u16 mask, u16 set);
- 
-@@ -48,6 +50,11 @@ static inline int bcm_phy_read_exp_sel(struct phy_device *phydev, u16 reg)
- 	return bcm_phy_read_exp(phydev, reg | MII_BCM54XX_EXP_SEL_ER);
+ include/linux/ptp_clock_kernel.h | 48 ++++++++++++++++++++++++++++++++
+ 1 file changed, 48 insertions(+)
+
+diff --git a/include/linux/ptp_clock_kernel.h b/include/linux/ptp_clock_kernel.h
+index 36a27a91059..b4ac64228f1 100644
+--- a/include/linux/ptp_clock_kernel.h
++++ b/include/linux/ptp_clock_kernel.h
+@@ -520,4 +520,52 @@ static inline void ptp_read_system_postts(struct ptp_system_timestamp *sts)
+ 		ktime_get_snapshot_id(sts->clockid, &sts->post_sts);
  }
  
-+static inline bool bcm_phy_supports_write_exp_sts(struct phy_device *phydev)
++static inline void __ptp_adjust_snapshot(struct system_time_snapshot *snap,
++					 s64 ns)
 +{
-+	return phy_supports_write_sts(phydev);
++	if (!snap->valid)
++		return;
++	snap->systime = ktime_add_ns(snap->systime, ns);
++	snap->monoraw = ktime_add_ns(snap->monoraw, ns);
++	/* No counter value corresponds to the adjusted times. */
++	snap->cycles = 0;
++	snap->cs_id = CSID_GENERIC;
++	snap->hw_cycles = 0;
++	snap->hw_csid = CSID_GENERIC;
 +}
 +
- int bcm54xx_auxctl_write(struct phy_device *phydev, u16 regnum, u16 val);
- int bcm54xx_auxctl_read(struct phy_device *phydev, u16 regnum);
- 
-diff --git a/drivers/net/phy/bcm-phy-ptp.c b/drivers/net/phy/bcm-phy-ptp.c
-index 65d609ed69f..2d8b377010b 100644
---- a/drivers/net/phy/bcm-phy-ptp.c
-+++ b/drivers/net/phy/bcm-phy-ptp.c
-@@ -214,22 +214,34 @@ static void bcm_ptp_framesync(struct phy_device *phydev, u16 ctrl)
- 	bcm_phy_write_exp(phydev, NSE_CTRL, ctrl | NSE_CPU_FRAMESYNC);
- }
- 
-+static int bcm_ptp_framesync_sts(struct phy_device *phydev, u16 ctrl,
-+				 struct ptp_system_timestamp *sts)
++/**
++ * ptp_adjust_system_prets - Shift the lower system timestamp bound
++ * @sts: system timestamps, or NULL
++ * @ns: CLOCK_MONOTONIC_RAW nanoseconds to add
++ *
++ * Add @ns to the selected clock's time and to the CLOCK_MONOTONIC_RAW
++ * time of the lower bound, and clear its clocksource counter values.
++ * @ns is not scaled for the selected clock's frequency correction, so
++ * the bound is off by @ns times that correction.
++ */
++static inline void ptp_adjust_system_prets(struct ptp_system_timestamp *sts,
++					   s64 ns)
 +{
-+	return bcm_phy_write_exp_sts(phydev, NSE_CTRL,
-+				     ctrl | NSE_CPU_FRAMESYNC, sts);
++	if (sts)
++		__ptp_adjust_snapshot(&sts->pre_sts, ns);
 +}
 +
- static int bcm_ptp_framesync_ts(struct phy_device *phydev,
- 				struct ptp_system_timestamp *sts,
- 				struct timespec64 *ts,
- 				u16 orig_ctrl)
- {
- 	u16 ctrl, reg;
--	int i;
-+	int i, err = 0;
- 
- 	ctrl = bcm_ptp_framesync_disable(phydev, orig_ctrl);
- 
--	ptp_read_system_prets(sts);
--
- 	/* trigger framesync + capture */
--	bcm_ptp_framesync(phydev, ctrl | NSE_CAPTURE_EN);
--
--	ptp_read_system_postts(sts);
-+	if (sts && bcm_phy_supports_write_exp_sts(phydev)) {
-+		/* cannot ignore error since sts may be uninitialized,
-+		 * but still poll for any triggered capture
-+		 */
-+		err = bcm_ptp_framesync_sts(phydev, ctrl | NSE_CAPTURE_EN, sts);
-+	} else {
-+		ptp_read_system_prets(sts);
-+		bcm_ptp_framesync(phydev, ctrl | NSE_CAPTURE_EN);
-+		ptp_read_system_postts(sts);
-+	}
- 
- 	/* poll for FSYNC interrupt from TS capture */
- 	for (i = 0; i < 10; i++) {
-@@ -242,6 +254,9 @@ static int bcm_ptp_framesync_ts(struct phy_device *phydev,
- 
- 	bcm_ptp_framesync_restore(phydev, orig_ctrl);
- 
-+	if (err)
-+		return err;
++/**
++ * ptp_adjust_system_postts - Shift the upper system timestamp bound
++ * @sts: system timestamps, or NULL
++ * @ns: CLOCK_MONOTONIC_RAW nanoseconds to add
++ *
++ * Add @ns to the selected clock's time and to the CLOCK_MONOTONIC_RAW
++ * time of the upper bound, and clear its clocksource counter values.
++ * @ns is not scaled for the selected clock's frequency correction, so
++ * the bound is off by @ns times that correction.
++ */
++static inline void ptp_adjust_system_postts(struct ptp_system_timestamp *sts,
++					    s64 ns)
++{
++	if (sts)
++		__ptp_adjust_snapshot(&sts->post_sts, ns);
++}
 +
- 	return reg & INTC_FSYNC ? 0 : -ETIMEDOUT;
- }
- 
+ #endif
 -- 
 2.56.0
 
