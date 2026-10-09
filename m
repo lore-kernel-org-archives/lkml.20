@@ -1,109 +1,82 @@
-Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEB363CB576
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 21:23:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.177
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791581038; cv=pass; b=QASiYiNOeYNVzxcqihD1n4bovMM5bN60FgyBSKIBZrZ+ZsX/ShcRaa+IDF8aH2tlIaG7LxxNeQis2x1zhWgST7AIJ5Z2RhMcRTdvIvJ413rRGINeXQhxfibUzHP1tE6PVdJTcI2rXv1hlddutUtIZdpWRC3n43YX5WUliIMqk3Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791581038; c=relaxed/simple;
-	bh=QJQ4NjCwE66XT02iioTKX32pf9F/+INr+LqpJhuBU4Y=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=p2ORh4S2J0Mjj0yP/XIBZ2TMcfuiHXoc2yS6lqkSUKoxiKm3WmljVQ2toPvsc/EOdG25CI6xszssVLYEw/vKyOtSGeqpRfu3u/o6/gV4aGDJyFpfArAfSNrhInyfTVuUD7JJgpvGqLS0TmXtJ3ZjFasegdwgCDYtykMm3wit2PU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r+34F8Vv; arc=pass smtp.client-ip=209.85.208.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6DE63CB576
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 21:24:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791581049; cv=none; b=qLy7UXLS5+HK539hRDHdoMMtYzec2zU1FCDa5V0tFjftSNVmPquw/Cxk/AG1ZaF9HgWfoTUwOH1qqHy1a2yBZ0jIMRhp61/Lx7O5XGMdq1LsyMIx4st5Pl7lI8ZWIv3FprGRgBTCfE9G+REzwD8TvSpGMjAqZwDcsLnlOEjpqYU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791581049; c=relaxed/simple;
+	bh=V+WcjE84F9DEyLX+ydzFWzzz7j2O1j5XOdxYSwS4IAs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Io1LhsRjSFu7X17NdxBtC3QW7VFIWB9LogZhOFBI5VRuePp1zREvK9ZTxm6tjeARn4fN9AIIZdBecvT0Bu78Y8f/32kUiBiYiZoj6DQyiIdfZ6rlI0PG9/2qjPMkaMtl8Uby8SeKt9lireGDPgjdmJOoh8oFtQZcoLJge9J1tuw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=szuW3fR5; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r+34F8Vv"
-Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-3a60cb94b80so2972141fa.2
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 14:23:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791581034; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ZrelRTXw0SKXWpAyrmdixaSw96dbkV+0XWsA01M/2AdHhIjCpWjhh4o201oc7+JWZ/
-         suPGE9zqg3o3/DxuGNJpd6X9CLETUT/uR/8RBt9juAx77PzFcnYnXKYXt9Bo2HtmClBm
-         hAJRS80vrpBhAPUrpD6QShFUEiaYSgKzfi5P1acWgvjqiRcoVGlZyMOXRct+FNCHm0UO
-         1EdLRgTCzPZFEPoipiC0CvCZpHwfKShfptuV/pBA5d7bdp8Dp6k0/TuopI51Xp/7Bpex
-         A2wOiiONB1MPczRJiggfR//azBm1A1Y29aL2X/7JaBg4+j5+f/kNpBdZJrGmqyjI3y2x
-         dJgQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=0WSRCUE49PDYeX1lwnIRvdxVfyb7jQkBCqEh4RPFRb8=;
-        fh=unA/4u2qTK8+dWs0h8SITNbpzjwaV1IYj/GxFPStV7Y=;
-        b=jWmzUZzioxcC6jkrH2WPdSL4HztYaHmTgbD9DSapm6+WwD3t6ZNso7ZQifwjA7JpOe
-         /8M2VI6ECrdv5KcrydEO3qnUGGXg9h1pDwRSYKikKWoDWta/QZX0IwsTOpuVHJ6Wfo6O
-         /5xN6usPfBVkpKRJONAveiL/26j0NqA1EhSdfLYcDyMC5G0eePWC4AVDeQFVK7bBgSfs
-         ZaAKe/FWOO+fCrcNOQYwDXB6JJplIGo7ZacHVLY/Je+ZL9BFzq949X26ES3aZ/nLdzKf
-         m6167vINfnqZ4FeSnbXntEzf8zbhJlcPbKxU4hIqErHolymdOwcrDSqMqUv+Iv1Tvmiy
-         i4YQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791581034; x=1792185834; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0WSRCUE49PDYeX1lwnIRvdxVfyb7jQkBCqEh4RPFRb8=;
-        b=r+34F8VvigRXQh2KB16ngQx2oQhmF1RTz1OyuX5X6c68cWdzzrolW/H/mMCUQXlj2z
-         oBUz6hURy3qTX7Jm2MUjzpNoWD7q0kba270s4MPZushLkd1kuRLgH7VFOBqvvFImPS4j
-         +6Jsb6Z4lx/Sn6yChRVwhmAO3DeBBZLm+iZqctn4L7LT8KhvJKvgK4BgztAEVSCv+XFb
-         4yptLdRUaQJGwbyn6KIE9iactb81TFGqhMsLmgQJV2HzpD/wmViu0CsQ5+bic9mP3pYy
-         KMqvBwVa53u9wHRZIDPEaLxzU6iYoI/rTNgu4vGJ1XGAud2ebm37Tb0HZu9jFL/hiHom
-         ZbnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791581034; x=1792185834;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=0WSRCUE49PDYeX1lwnIRvdxVfyb7jQkBCqEh4RPFRb8=;
-        b=H3RO1X8H3+OgqrLfMBG9muWVAZLCMzbH17wKDEo3RETvQDlyO7DtTXj7DkIeKZfXNS
-         6DgyXh69nzsFjvvoFyZicCud9L24bxZa2JKmkdNGRSOAY3hg7QC8kemnOB0dF5Pb+uBW
-         Ml3vQ8ZzUzmjlbH1jnFmfqp59I1pJzqJeE5CEWoD3RBEeRqS/P+rlfhbfX3kS5XuJFUb
-         jIRBbkU/XHDO9GPc5hTQpEjIOnwneUhZr2GguaF2ZB8NDNXTpgysKRCazT+IR/9Pih4g
-         WlNTmJp8V71OHDZ8KpPOdu4daAG6V6psGniO9vfSR43NCcXVv0ytUIfXKSOL4qpk0M3i
-         UrYA==
-X-Forwarded-Encrypted: i=1; AKwUvBy1PzVUcawytRW2hHZlpMTYMJjdz01lV0jM3OcdMlPAK7ICmfhAgvEwqEFMbmxaA7o9lp17ljwVGwPR7sY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKShSVoNV/lv3KrUcGcI8yFliHIRJZmkZUWtnyMyaKXoTOzj6Di
-	MLLUaZL+FZvUkl4g3+GBjR8Fbt1Io5OPi0yxfPg5N83TJ8jS0QmgOgQKhicKTgdNkIwUxvwFnk2
-	QNdncHh09m8k5T+VX4fLFOxETeNy/fQo=
-X-Gm-Gg: AYBFou1T/ZrLUcU/kBNbb0cI3ExKsuAhhot+esPRDPRk1FVlGzDS29eJ7t06W47txCR
-	HZN+Uzq7vhkvxM2hiv/UuFDoZtbR+PF/Qbl8wNQXS8Datzik7Wvl/l+Qw6xCFO6XkRuVse3qb3Z
-	u4aT3sxp3mFfuCx8DpO9FsRgks4aWILxcZ/BfRMW0WfrSf7oOkeCYEK72G7vrc36TBcX9icWPO/
-	5qG1edHXbDkMI4M+7h24zZIybJakNuVqK+MJhPx/+9z61A5+JIwYqfCJk2b6XdMBmB34aKHEgFv
-	ArQvDWNdm5MB3X5mZrJasQ+V+GYwhnHhDo/sDv14FE+3KKWIDIJb65CZyKjTVfGb
-X-Received: by 2002:a05:651c:b0d:b0:3a9:9856:aa8f with SMTP id
- 38308e7fff4ca-3a9c55db18fmr9884551fa.7.1791581034241; Fri, 09 Oct 2026
- 14:23:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="szuW3fR5"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 30C8A1A11A2
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 21:24:04 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id A35F360754;
+	Fri,  9 Oct 2026 21:24:03 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2A0F411D70BDC;
+	Fri,  9 Oct 2026 23:23:55 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791581038; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=PBSnCLWmvp9UMzVMQQAPa0zEQYkleCTI/JN2+z+kCSo=;
+	b=szuW3fR5HF6jwAewlf6TqfoJnVMsL2YBctQX6y3tGQ+5yRFdiDiAEsSpgGHbz9p8kQjx+y
+	NB4GEM8/nbEa1c0pTP4RDwQPgwEsO5kgpHE/8jS4pTFPIQxkeFOuOAdiBjBdPX6pbetCQO
+	Bhg0TJ+hbfv8HhvdXWMcMctwgWg5TOM5f0Cyw8snzAm3HnMy17R0Y4XU1TKtQIZMMl2Y2Y
+	pksfZsHaEpfTkP6Z722qs/HGMJ09uccmOgaX439E5s/pn+1D4Q6ISOWpTjAAQeyP2uLDbP
+	kkJ5DQoEJo01eHhHoIqXK+KyzBcp+KstePyAickVBHTWCn/653bU1q6zhBYZkg==
+From: alexandre.belloni@bootlin.com
+To: Shubhi Garg <shgarg@nvidia.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: linux-tegra@vger.kernel.org,
+	linux-rtc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] rtc: nvidia-vrs10: remove locking in IRQ handler
+Date: Fri,  9 Oct 2026 23:23:47 +0200
+Message-ID: <20261009212347.490403-1-alexandre.belloni@bootlin.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260926041943.1124650-1-oss.patchbox@gmail.com> <askjD1DxFvrV5ND3@p14s>
-In-Reply-To: <askjD1DxFvrV5ND3@p14s>
-From: Yuho Choi <oss.patchbox@gmail.com>
-Date: Fri, 9 Oct 2026 17:23:42 -0400
-X-Gm-Features: AclHuK9Oo9BEgQkUPo5pIErQItBppE_Ru1rb7SmpvCfvBKSwmVbbZBnq9jbCxTw
-Message-ID: <CAGG=RgA04aBS1QkTWoW-yjMZ0MxB0x3bTM47_MZr-yK04DPDVg@mail.gmail.com>
-Subject: Re: [PATCH v2] remoteproc: virtio: Synchronize virtqueue teardown
- with rproc_vq_interrupt()
-To: Mathieu Poirier <mathieu.poirier@linaro.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, linux-remoteproc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, 9 Oct 2026 at 13:23, Mathieu Poirier <mathieu.poirier@linaro.org> wrote:
->
-> > -     list_for_each_entry_safe(vq, n, &vdev->vqs, list) {
-> > +     list_for_each_entry(vq, &vdev->vqs, list) {
->
-> How is list_for_each_entry_safe() no longer needed?
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
 
-The first loop only clears the pointers with RCU_INIT_POINTER(). It does not
-modify the list, so the 'safe' variant is not needed there.
-synchronize_srcu() is
-then called once, after that loop, to wait for in-flight readers. The
-actual removal
-still happens in the second loop, which keeps list_for_each_entry_safe().
+Remove locking in the interrupt handler as it is not necessary to be locked
+while calling rtc_update_irq().
+
+Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+---
+ drivers/rtc/rtc-nvidia-vrs10.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
+
+diff --git a/drivers/rtc/rtc-nvidia-vrs10.c b/drivers/rtc/rtc-nvidia-vrs10.c
+index b15796698558..caac63f4e0fc 100644
+--- a/drivers/rtc/rtc-nvidia-vrs10.c
++++ b/drivers/rtc/rtc-nvidia-vrs10.c
+@@ -358,11 +358,8 @@ static irqreturn_t nvvrs_rtc_irq_handler(int irq, void *data)
+ 	if (ret < 0)
+ 		return IRQ_NONE;
+ 
+-	if (ret & NVVRS_INT_SRC1_RTC_MASK) {
+-		rtc_lock(info->rtc);
++	if (ret & NVVRS_INT_SRC1_RTC_MASK)
+ 		rtc_update_irq(info->rtc, 1, RTC_IRQF | RTC_AF);
+-		rtc_unlock(info->rtc);
+-	}
+ 
+ 	/* Clear all interrupts */
+ 	if (nvvrs_pseq_irq_clear(info) < 0)
+-- 
+2.55.0
+
