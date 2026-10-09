@@ -1,107 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-52.mta1.migadu.com [95.215.58.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 306E13E1688;
-	Fri,  9 Oct 2026 11:50:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFAC34E0B62
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 11:51:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791546652; cv=none; b=qkG9MPa0jA1bu3gwldHXvWpAmK9P6/9Yf5C4q+Cz58H2IW0hkJNgq2K2FJM2Oxd7lyC4aDIX8m8HRDZ5jWZdkRJ5OgCdX6OUHnvSnoaxtiuTnkDl6WL7KRlf8Dm9Yi66OGRtjSZy7fCfgqJTEYrgEv7opA7eSVMpe7/GUc2cEMo=
+	t=1791546680; cv=none; b=Bxmdbayc6bZbj/jlYiJIXTRTrBoNSz2IAumAPl6x9afZwUHKMYzQ3N5MPR+pDDoFNFa1W3KbzHdLQJU/2ifg+J0/bRECp6MZzrEJJ9VvBV9DKwSRHWQWi2YiZ9EB0m4+OhjRlZHT5Js6YVpSOIEzcRcJSlfba/BnJKDn0Q1rFLo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791546652; c=relaxed/simple;
-	bh=4hxpwKBfM4bxO7Zrm/pi0mrVvM/qDi7zZAbQnxPCNIM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Q68ajKdvRn4B1kBSmVthCIyTEzwNWTNGYh4u2LXHfUpTOUo6+EptZk+tDonn98NouCJCxlOiruNFwFV3zLrlgNHgTZjeLScVGeJGphbacLREUYqmwW97EFjyTLjLpq4d8uAzLE2VhTGz5N61le7zW5KobzXO2t4dTLDos7q854o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LW1Aa+jc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791546680; c=relaxed/simple;
+	bh=+9VzHvUO+JK+X+9EZspf1HzY5BaMn/HduNK7JOTMGiM=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
+	 References:In-Reply-To; b=ASEqAOJqdZtCnrwkCmugwwVC4OdQBOE3jpCT/Re24EoXTRI51HrRjNUyvG0OtTT8umjnDA5Ln7cjpmBJG8uE2OQMwF18vlNtoRJnDXrpImTTU3+KSVCi2qwGk8lPNkn4d+iI4mmNkZmW1WqsWnzLFTNE5ndPWKviIfJUkhW0mVI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=thNEf7kX; arc=none smtp.client-ip=95.215.58.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LW1Aa+jc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B42111F000FF;
-	Fri,  9 Oct 2026 11:50:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791546643;
-	bh=4hxpwKBfM4bxO7Zrm/pi0mrVvM/qDi7zZAbQnxPCNIM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=LW1Aa+jc5dnyrIEVQIruIInboVOIqiRM+IqgDjHuaoxpv3Pt/L/ba0zXt9eWlESdV
-	 BsGFGeeHhsPUccsLUgWc+NfLZ1CHauZ03UGsAQlNN9+81vzyn/iKqcELATTzYfxHGr
-	 8+mzdV6L5QNkVfsMzD26Nac3MY3R3W2Z6NDCxXBswwPsTZi06F5H2uJxaufxxzWIJm
-	 f7c1N69l3FqnBeW5Er3VJbZncok82sjvxWyZ2Dl4FTlgbK0RswlPWb6CW0hqMgLzl6
-	 bfqS2P5LzcPeop9qRCkG+uyYuDO3FbJJ5yJjyMzwWNxzLuMO3324SAfpILGUwRc9JH
-	 5HoqGR5lGnHgg==
-Message-ID: <701e5e45-f607-452d-8223-c987427fb34f@kernel.org>
-Date: Fri, 9 Oct 2026 13:50:39 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="thNEf7kX"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=+9VzHvUO+JK+X+9EZspf1HzY5BaMn/HduNK7JOTMGiM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791546659; v=1; x=1792151459;
+ b=thNEf7kX3HJ1BvL0ELc3vdPL743dqD0O6vbegFIvPDHOha2tn8+Z7JAfXw3/rVY1Yg8r9mK8
+ zfZUizxsZKIzDbX21I4dYNA2ijEAGv6ADDt48j+zwe/OlN/xQ8j8Tzp4V+xp93OE3sj+Q1OtJcM
+ IGNpbtSGS7FKiYMpNABKjzzQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ab5c969723dbd39a;
+	Fri, 09 Oct 2026 11:50:41 +0000
+X-Mizu-Trace-ID: ab5c969723dbd39a
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/2] arm64: defconfig: Enable LT9611C bridge driver
-To: Mohit Dsor <mohit.dsor@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, venkata.valluru@oss.qualcomm.com,
- Jessica Zhang <jesszhan0024@gmail.com>
-References: <20261007-master_lt9611uxd-v4-0-9986704e2a7b@oss.qualcomm.com>
- <20261007-master_lt9611uxd-v4-2-9986704e2a7b@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261007-master_lt9611uxd-v4-2-9986704e2a7b@oss.qualcomm.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Date: Fri, 09 Oct 2026 13:50:36 +0200
+Message-Id: <DM0AA2YBXFI2.HD7B6PLDQ8FU@linux.dev>
+To: "Hungyu Lin" <dennylin0707@gmail.com>, <pkshih@realtek.com>
+Cc: <linux-wireless@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <pchelkin@ispras.ru>, <mihaildimoski@gmail.com>,
+ <tristan@talencesecurity.com>, <rtl8821cerfe2@gmail.com>,
+ <dawei.feng@seu.edu.cn>, <learn.rahul.rai@gmail.com>,
+ <branislav.klocok@orava.sk>, <timlee@realtek.com>, <kvalo@kernel.org>,
+ <briannorris@chromium.org>, <yhchuang@realtek.com>, <sgruszka@redhat.com>
+Subject: Re: [PATCH] wifi: rtw88: pci: preserve the RX ring DMA address on
+ cleanup
+From: "Luka Gejak" <luka.gejak@linux.dev>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20261009032339.31786-1-dennylin0707@gmail.com>
+In-Reply-To: <20261009032339.31786-1-dennylin0707@gmail.com>
 
-On 07/10/2026 14:51, Mohit Dsor wrote:
-> Enable the Lontium LT9611C DSI-to-HDMI bridge driver as a module.
-> This driver supports the LT9611UXD chip used on the Shikra IQS EVK
-> board to provide HDMI output via the MDSS DSI interface.
+On Fri Oct 9, 2026 at 5:23 AM CEST, Hungyu Lin wrote:
+> rtw_pci_init_rx_ring() stores the coherent ring DMA address in dma, but
+> reuses it for RX buffer DMA addresses during error cleanup. If
+> initialization fails after at least one buffer has been mapped,
+> dma_free_coherent() receives the last buffer's DMA address instead of
+> the ring's.
+>
+> Use a separate variable for the buffer DMA addresses so the ring is
+> freed with the address returned by dma_alloc_coherent().
+>
+> Fixes: e3037485c68e ("rtw88: new Realtek 802.11ac driver")
+> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+> ---
+>  drivers/net/wireless/realtek/rtw88/pci.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/net/wireless/realtek/rtw88/pci.c b/drivers/net/wirel=
+ess/realtek/rtw88/pci.c
+> index 66d2e5f51444..10147375f3b2 100644
+> --- a/drivers/net/wireless/realtek/rtw88/pci.c
+> +++ b/drivers/net/wireless/realtek/rtw88/pci.c
+> @@ -298,11 +298,13 @@ static int rtw_pci_init_rx_ring(struct rtw_dev *rtw=
+dev,
+> =20
+>  err_out:
+>  	for (i =3D 0; i < allocated; i++) {
+> +		dma_addr_t buf_dma;
+> +
+>  		skb =3D rx_ring->buf[i];
+>  		if (!skb)
+>  			continue;
+> -		dma =3D *((dma_addr_t *)skb->cb);
+> -		dma_unmap_single(&pdev->dev, dma, buf_sz, DMA_FROM_DEVICE);
+> +		buf_dma =3D *((dma_addr_t *)skb->cb);
+> +		dma_unmap_single(&pdev->dev, buf_dma, buf_sz, DMA_FROM_DEVICE);
+>  		dev_kfree_skb_any(skb);
+>  		rx_ring->buf[i] =3D NULL;
+>  	}
 
-Same feedback as v1. Why every second defconfig patch from Qualcomm
-completely ignores the fact that this is not a Qualcomm-only or
-Qualcomm-specific defconfig?
+This patch should cc stable so it gets backported. Besides that it
+looks good to me. Ping-Ke maybe you can add Cc: stable@vger.kernel.org
+when applying to your tree?
+
+Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
 
 Best regards,
-Krzysztof
+Luka Gejak
