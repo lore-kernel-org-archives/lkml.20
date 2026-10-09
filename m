@@ -1,38 +1,63 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D46FE4CB8B8;
-	Fri,  9 Oct 2026 11:32:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7AA24D0CED;
+	Fri,  9 Oct 2026 11:33:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791545587; cv=none; b=GGVK9+6UvF8UDy4h5QrXNSWDIvIi4F9eDUALoOrNjbSEHPr+v02P3B1V8y77Kb5jgB7yTQ8uWRsmnaPjad3yBiKhpIeai0uDdOhnfsflMy1sIhFolDyRDkgoclFlNuLFrXJto81NNV25/yO8ObcOf9F02db108ztGBaiYspI8QE=
+	t=1791545595; cv=none; b=c4GCv+nqs9ncb1WpdXXQwW8gzgSbG5UrGdKlsXECOaQyiFfzIF++WlEyLbvsRr/YE8BlBg41GreIERrB/620lb8juTiY7w7PVQR4H+gGnFEesCLZPTfIZUg7dXd3Y0V3231GRM2F49HN6vdte0rLiomRrZr/21rK1An/TB9PuWI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791545587; c=relaxed/simple;
-	bh=z5aEDYn46/Rah5/v3ES417Z60fjjD21TcnkEvWmnJ0U=;
+	s=arc-20240116; t=1791545595; c=relaxed/simple;
+	bh=TUfHdGa8/sZdEYwjjcHynpuXt8blul/cREq1riEroyQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bHYkLqnKkHus7fpMgEeBuwFfwFpiYVW0nPYsmSaVKhmQGHF1XFD6L6xCAOlE9SqLJAnlgf2UUzQ7tFSz8Mzj+bBWCs45Q+pIdUbQmiag8+DAjTK1INQuIMZjlbrwZ5HWjvd1gS5g4ufLcLDL32mt2TH2xu9vsYOBmY9LyDXnh5o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=aeIdbDZ6; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=HGuvi+lcKmF6u4WPkCPEJYwUJL0AC+LhUAaCxRfmBfEL1QQK+vUWLGG4D4fWuCpCiNTg72b+Qguteka+CgX7i/0sVhVWyhb767i1s3L0oPFvIU8oDtQWGApYNpn0aUCyh6mKMI83aEVPZ7x/TsuGH4SnxE8HNFDZw2naN/u2PgQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=e5K8HBr7; arc=none smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="aeIdbDZ6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD2061F000FF;
-	Fri,  9 Oct 2026 11:32:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791545575;
-	bh=1TATMZV82HPA+UYPELErnG3JuDM2v3RmbEJ3bvUFlwM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aeIdbDZ6tV5Cgc6h5ww0qAomP8LWTdS8U4emwByw7Yi/HuH/13rRQvUBOocV3AuZW
-	 EJ04Qkim+A59/RpufsRQUYsHGq89Hod1EQvRYlnhCYYMApDbx03gSJn1ryQc+W0l3+
-	 IJRiXtIq57ltgftZggMBuq3y6z5aCMEsTITp0LqE=
-Date: Fri, 9 Oct 2026 13:32:52 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Alan Stern <stern@rowland.harvard.edu>
-Cc: Zuo An <zuoan.penguin@gmail.com>, linux-doc@vger.kernel.org,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] docs: ABI: sysfs-bus-usb: fix typo in path to interface
- file
-Message-ID: <2026100906-wildfire-mountable-6aca@gregkh>
-References: <aseApS_MWoP3Jtp0@gmail.com>
- <45fffbff-1653-45c5-8e24-d5a580faf5aa@rowland.harvard.edu>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="e5K8HBr7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791545584; x=1823081584;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=TUfHdGa8/sZdEYwjjcHynpuXt8blul/cREq1riEroyQ=;
+  b=e5K8HBr7Z/KbA+oioRpK7S/p2ASu3tpft1I/BVwU+ki9lYEnxlxHk894
+   WYalllq9ciwWcBuagzTxSFxwtWPJTy/o/WJqZ9+w538DUQuXsFiLn5R8N
+   Z/IxT4+5SmfI8vQGI39s6YTxWSqmrFBpiRlsksuvUdtzFPVhCtXtIQEmn
+   rZyfIWhExLGlFSwaqUJxBHQFad9m/KsniITeUnHI79SuYe89/BByOzMl+
+   Zr1+wtc7Wo2ySG4dNo/i8TqSA1Xw2B2T8o5btcGD7AMJZRVBicrymlzyC
+   sIgdUNfeTt9PsbkWgNBfeOF9RUrS0LEeYkOVJLrJndfLarMHLnaoUONfc
+   A==;
+X-CSE-ConnectionGUID: tZb7hOT7TreUQibke7YyLw==
+X-CSE-MsgGUID: Mx0wvkSyTUKBd7qgWKC/xQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11929"; a="229775"
+X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
+   d="scan'208";a="229775"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 04:33:04 -0700
+X-CSE-ConnectionGUID: /ifEVjkoSBu2rl67NeRHmA==
+X-CSE-MsgGUID: enFB2cQTSDmQMU2yhQAhXg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
+   d="scan'208";a="259893"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by orviesa001.jf.intel.com with ESMTP; 09 Oct 2026 04:33:02 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 0EEDE99; Fri, 09 Oct 2026 13:33:01 +0200 (CEST)
+Date: Fri, 9 Oct 2026 13:33:01 +0200
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: amitsd@google.com
+Cc: Badhri Jagan Sridharan <badhri@google.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
+	RD Babiera <rdbabiera@google.com>, Kyle Tso <kyletso@google.com>
+Subject: Re: [PATCH v2 1/3] usb: typec: tcpm: only call get_current_limit()
+ for cc=Rp-def
+Message-ID: <asjQ7d0rjEX9B4-z@black.igk.intel.com>
+References: <20261004-max77759-icl-typec-v2-0-866caf9e7d9a@google.com>
+ <20261004-max77759-icl-typec-v2-1-866caf9e7d9a@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,40 +66,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <45fffbff-1653-45c5-8e24-d5a580faf5aa@rowland.harvard.edu>
+In-Reply-To: <20261004-max77759-icl-typec-v2-1-866caf9e7d9a@google.com>
 
-On Thu, Oct 08, 2026 at 10:22:42AM -0400, Alan Stern wrote:
-> On Thu, Oct 08, 2026 at 11:38:13AM +0000, Zuo An wrote:
-> > A path was misspelt with the delimiter between the USB <config num> and
-> > <interface num> as "-", when it should be ".".
-> > 
-> > Signed-off-by: Zuo An <zuoan.penguin@gmail.com>
-> > ---
-> >  Documentation/ABI/stable/sysfs-bus-usb | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > 
-> > diff --git a/Documentation/ABI/stable/sysfs-bus-usb b/Documentation/ABI/stable/sysfs-bus-usb
-> > index cad4bc232520..400237db166d 100644
-> > --- a/Documentation/ABI/stable/sysfs-bus-usb
-> > +++ b/Documentation/ABI/stable/sysfs-bus-usb
-> > @@ -60,7 +60,7 @@ Users:
-> >  		PowerTOP <powertop@lists.01.org>
-> >  		https://01.org/powertop/
-> >  
-> > -What:		/sys/bus/usb/devices/<busnum>-<port[.port]>...:<config num>-<interface num>/supports_autosuspend
-> > +What:		/sys/bus/usb/devices/<busnum>-<port[.port]>...:<config num>.<interface num>/supports_autosuspend
-> >  Date:		January 2008
-> >  KernelVersion:	2.6.27
-> >  Contact:	Sarah Sharp <sarah.a.sharp@intel.com>
+On Sun, Oct 04, 2026 at 03:40:59AM +0000, Amit Sunil Dhamne via B4 Relay wrote:
+> From: Amit Sunil Dhamne <amitsd@google.com>
 > 
-> In addition, Sarah has not been the appropriate contact for ages.  Greg, 
-> would you like to remove that line?
+> tcpm_get_current_limit() folds the default label into the
+> TYPEC_CC_RP_DEF case, so tcpc_dev::get_current_limit() is also called
+> for CC states that do not advertise Rp, such as TYPEC_CC_OPEN,
+> TYPEC_CC_RA and TYPEC_CC_RD. Its kerneldoc has always scoped it to
+> cc=Rp-def:
+> 
+>   @get_current_limit:
+>           Optional; called by the tcpm core when configured as a snk
+>           and cc=Rp-def. This allows the tcpm to provide a fallback
+>           current-limit detection method for the cc=Rp-def case.
+> 
+> A chip driver has nothing to interpret in the other states. Therefore,
+> split the cases and report 0 when CC is not an Rp.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Amit Sunil Dhamne <amitsd@google.com>
+> Reviewed-by: Badhri Jagan Sridharan <badhri@google.com>
 
-Yeah, that's a good idea probably for all usb sysfs files, the
-"contact:" field isn't needed anymore now that we have get_maintainer.pl
-which should always handle the right people/lists for figuring this out
-properly.
+Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 
-thanks,
+> ---
+>  drivers/usb/typec/tcpm/tcpm.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
+> index 2d6b14aa2085..cb69d6a7ce5a 100644
+> --- a/drivers/usb/typec/tcpm/tcpm.c
+> +++ b/drivers/usb/typec/tcpm/tcpm.c
+> @@ -1279,12 +1279,14 @@ static u32 tcpm_get_current_limit(struct tcpm_port *port)
+>  		limit = 3000;
+>  		break;
+>  	case TYPEC_CC_RP_DEF:
+> -	default:
+>  		if (port->tcpc->get_current_limit)
+>  			limit = port->tcpc->get_current_limit(port->tcpc);
+>  		else
+>  			limit = 0;
+>  		break;
+> +	default:
+> +		limit = 0;
+> +		break;
+>  	}
+>  
+>  	return limit;
+> 
+> -- 
+> 2.56.0.rc1.315.gc6ed9934b7-goog
+> 
 
-greg k-h
+-- 
+heikki
