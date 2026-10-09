@@ -1,179 +1,126 @@
-Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37CFE440622
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 13:07:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9004738DC57;
+	Fri,  9 Oct 2026 13:08:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791551250; cv=none; b=WYyW0Zu319J/Shethyaz7Yh+zl07dbm7fcnkHilixxTeSR6NU01AP8Uxv8YBBYpaIvZA2r6JTroUbZQiesFTUotvEJf7nl6XqcnvuZIxn3qhKQTsljpJ2ODsw4OLU0coKivO4ay/Aye8gpBuEkugOXjo/LaknnsYkdCEdr9gEW8=
+	t=1791551304; cv=none; b=HEUkdlwsLj6XM40mkHubS2Ev1DyDm5Iegx00O8nlhCs4UIgpxb5XNdn3dg+faMndBHgTZ9rJfmF5ZF/r4Mvh86FDiB7LVpsLWDJTK1IRWU1as9lMwaFuq22ft92aq+FFJipkGEzRMzz/1nktptZh9QrAlm460wc+0j8TCArds0M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791551250; c=relaxed/simple;
-	bh=iXFR9ZDroPC8hYwDTlPabrPWPRrxx7mtix5YVkBAALU=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=bLVXP128iTO81RuIlU9NCJFOCxjByO1zAxYEYXVETc//5/4EPUivro666PJmaX0wdXESXzdSkyz8YplTdEWhSRr5PYrYuvcQvMoniDn+eJz/7J0CzfUImqYeJawPYx4OIDnj946lIDy7iZVG+vpoIFZduHSMi6uEEa08cJEZy60=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--wusamuel.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=uqzp0dsL; arc=none smtp.client-ip=74.125.82.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--wusamuel.bounces.google.com
+	s=arc-20240116; t=1791551304; c=relaxed/simple;
+	bh=yhTc7H+0IqN4frsO9baGH1rCR17Pji1FxlEXnUH5cBg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JS3UlEe1SK+DVBqD9RHNTOWIofCMnPpwgVi8Y1kKGEeAc9CROl8t8ZUtDBVW4IlRN6gLUCx4OOgnvOE7PUORYyrnevgPe4ocLZn94uDu1PCalRj89Ei/lFpKAQ5B+K8VMb9ra/MV002bk3xZZ1RGmW+2TnNFU0ueNQUJsfL3las=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c2qqCgv0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="uqzp0dsL"
-Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-147be78cd56so22973229c88.1
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 06:07:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791551248; x=1792156048; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qyTZpLrCNrdls8dQU2/vvTYjILyrcRuksigXYBXy3Ak=;
-        b=uqzp0dsL95TQ61xPAOo11b5TmrIgjVM80FTVYaXNUrRUUIOUmPjSI5SzrkSn9W6s8V
-         7XRAI5e/ycxTd/0HGt2yn1JUJ/0+2JQsHszS9hYMfnGOY6rlh/SdIkrIyX16I+znP+xg
-         5dFZGy9aVq2BlHZtE5pJvopNDZyu6uWoxcsCO+ofLCiYyA7x8DQEl3MpyhdxAmBtW96H
-         LI+cEKc4L4rzKKyAck60A2z2s//MdCZDzbQl4mcVcUA22fV4236uaw0jx6M3sf7/8wbs
-         Rd4gC4Q1GTBusSbn3F+qGppTKqykPhr00JaBeHMJaAH4DaDr84rjmVou8UKWoNtO7qSK
-         lUrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791551248; x=1792156048;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qyTZpLrCNrdls8dQU2/vvTYjILyrcRuksigXYBXy3Ak=;
-        b=qLi/u5TVSJCS/cxmg2aWkHElPhibl1ulJQZjG9WSAy0NrDF3EV1JPNpgBrU0NboFV3
-         XayXAo0SZqG9w+EaceiTPt5jzFnOS0DDRUB+YlPRkkxRPqJDvLk3NHjKJSyPFHFQrlXI
-         NMN5f5xcm/TTkCz7ah1sV03t3LidDBSXoV0rPo19htUs5FhEg7GXA1v6xN6Viv+VlDtP
-         RXHZHAXBjN3wgCtsVFNBdrHoMLfh++QStVBgh6HTS+UXDT5XPt12q71GkiGxDBW8AnKZ
-         JMswGucEHf6imwozamMuZlgddmyyuFPAkQKpmGL6DsVJgseE9oWnBRRMmEnqaS7307kT
-         m9SA==
-X-Forwarded-Encrypted: i=1; AKwUvBwVGGjQ/iSVeiYb5VnIs5b9hvWHLoxVrlWkmifpUyQNPEVdpg7upFihbOArEz7TyNF253BVPy7e1ffyZ7s=@vger.kernel.org
-X-Gm-Message-State: AFuF++mXFyAomE0bLm1wo5wjLme3jhVACiBC16rrgjCJiHfdCi98Tm6s
-	IT4r/W3gShxYdXfE/ibAaCTDoHZNzGMCNW07hZyangnvolAXH/MStBMd9IWgAU2eCEKSZbimwrF
-	RwQQNHR7n0lvK+w==
-X-Received: from dlec7-n2.prod.google.com ([2002:a05:701b:4287:20b0:162:60dc:8d82])
- (user=wusamuel job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:701b:2910:b0:143:6080:668f with SMTP id a92af1059eb24-16a61789c7cmr1870158c88.7.1791551247889;
- Fri, 09 Oct 2026 06:07:27 -0700 (PDT)
-Date: Fri,  9 Oct 2026 06:07:08 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c2qqCgv0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F98C1F00893;
+	Fri,  9 Oct 2026 13:08:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791551303;
+	bh=FpUIQG2ildfJUJXlKIPJfIgmZEi5bWUOemoR8HcahF4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=c2qqCgv0D58/0e+k9zxI9o6dg3GYpDAHOtqCZbpcGXac3qwbIvxYpa3bQHSmqrAyV
+	 VsbnWIASJih0kFuAw4OTbBagMheW9GxPXdx7eadF0QUvCJ7NM2xmMlSZ0qprbBTc/K
+	 n20YP9NzuQfludLWwDvLQjdb6QoK3liPhRuyryMZHAyPbZs9AAR4Px0k1NL88KQp9u
+	 UxYSlHPSPJvYXRhzh37T9CMKT8VZVA9w3hFuCqZVVCu9jX6FPCT7ecTe605nzua1sr
+	 biOTq+gYuahC7BnenqIHkldbrWfR2yghlxyKT0NuYKmSdqfectrWBgw2AirTZ9L/f5
+	 k1njNHyfO800Q==
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 92507198003A;
+	Fri,  9 Oct 2026 09:08:16 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-04.internal (MEProxy); Fri, 09 Oct 2026 09:08:19 -0400
+X-ME-Sender: <xms:P-fIajBkki790Caehe3DTmvhDY-2WDVcOvDkZdaUGk9ejDcosdz3Dg>
+    <xme:P-fIagwvaFs17JgJc6_4-W7UbnqQzsF00tXRD44Ft0Mpp3sF00kmWh0Z59Kxq7Hnd
+    rmJaBJp73yKvYu3vIy-zqeVTfQMwnZm1yehbW3roBzX6WbUpYs9YlXq>
+X-ME-Received: <xmr:P-fIanIyPDsDm4HxWS_Ml4co6ihgNtYzg3RKCqcIjKXd1hLONamUEkACkww>
+X-ME-Proxy-Cause: dmFkZTFj6c6YPtf1RuC5ge2DhrVWepaKzhdu396taV7DKjafJHPQen98eiWB0+ajyHRDBo
+    V9e4R6BapcDruKkFzt7wbLaUPtObKYs7i9noBdPNd/Q6HdaKBiK7wc4jCqMfUhvS89D9zD
+    6H8Qa2Lh150MpeNHzv+CKjV1NHARmiVAuljI7sPclv0uj2VaIlohhugxZpGz+KzF2cLXXD
+    aw9miqNb9hjy9GUg6ZWhHJkCKHUPOnumFVmQYAyIbqyiR9vu2DTsyIAAhfPUlXZgZ4aiFu
+    QOaOGft0y6E/laBs0cB6CcqW5Ibby+5XmFvevcK3EPGURVWQnT6jrlijFDsdGYcPZOA3gT
+    mvvTl13TDo8h6/vmkHXJs1G7Ql6NxAv+Ch5hGDhY70m3VIQ9uhGLUoy9F7cLI/eJu4b/nH
+    lZHFRwYYsu8dWgU8q3poX6OpVnmzbYLjMIAvFBb07hNoBj1OAiC7+LOJNVo0Wlqf709ua/
+    unpiNAskSwxOrVmfClu4Wi6a5hNXGTwKeZao5bkjWPxcs5imNSE0IINWKBTC4avlAQQbZ3
+    AMAI7l/Pat2dhWY2egMZFwwCy61AKkUl32pYmptN5sGsIrbFue5WT2TB2Y5QPmTWSaFT7q
+    dOeSzIVEOjElCH6Rc9LqzfHAEcPBk6BUIy5wGHyo0tpH6H2v3Ux0jgPpbRAQ
+X-ME-Proxy: <xmx:P-fIajKGf4zhBmdyhwypcQ3169QKNwWnxMm41auc61SakHcDgCHoRw>
+    <xmx:QOfIagXlsaiZSwUyCDE55Ioe3vzwaWNk2BaouJcaTtI-Kf8uBsnZXQ>
+    <xmx:QOfIav8zCruYSxG2TPYpmSt9_vRXpdghozhNXpAW4iJ7KTnDHAg_bA>
+    <xmx:QOfIaiJAi-7lJkBSB5Hj-ngVS49AhBqCuLjBaj271j_CoRja9LoXSQ>
+    <xmx:QOfIal0RcBbcM0t8osyWDiAAsLKGGpsCc6xY5E_m7UlM0spMTe9MHwpK>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 9 Oct 2026 09:08:14 -0400 (EDT)
+Date: Fri, 9 Oct 2026 14:08:13 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Xu Yilun <yilun.xu@linux.intel.com>
+Cc: x86@kernel.org, linux-coco@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, Rick Edgecombe <rick.p.edgecombe@intel.com>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, dave.hansen@intel.com, kvm@vger.kernel.org, yilun.xu@intel.com, 
+	xiaoyao.li@intel.com, sohil.mehta@intel.com, adrian.hunter@intel.com, 
+	kishen.maloor@intel.com, tony.lindgren@linux.intel.com, peter.fang@intel.com, 
+	baolu.lu@linux.intel.com, zhenzhong.duan@intel.com, chao.gao@intel.com, 
+	artem.bityutskiy@linux.intel.com, nik.borisov@suse.com
+Subject: Re: [PATCH v3 1/6] x86/virt/tdx: Move TDH.SYS.CONFIG operations into
+ a wrapper
+Message-ID: <asjnNXbMfro4k2t8@thinkstation>
+References: <20261006-tdx-module-ext-v3-0-db52cb05b918@linux.intel.com>
+ <20261006-tdx-module-ext-v3-1-db52cb05b918@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-Message-ID: <20261009130708.1370675-1-wusamuel@google.com>
-Subject: [PATCH bpf-next] libbpf: Resolve typeless ksyms in the kernel
-From: Samuel Wu <wusamuel@google.com>
-To: Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Ihor Solodrai <ihor.solodrai@linux.dev>, Alexei Starovoitov <ast@kernel.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
-	Emil Tsalapatis <emil@etsalapatis.com>, Nathan Chancellor <nathan@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>
-Cc: Samuel Wu <wusamuel@google.com>, kernel-team@android.com, bpf@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, llvm@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261006-tdx-module-ext-v3-1-db52cb05b918@linux.intel.com>
 
-libbpf resolves typeless symbols by parsing /proc/kallsyms, which
-dominates load time for BPF programs with typeless symbols. This mostly
-comes from needing to do thousands of syscalls and a linear scan of
-kallsyms.
+On Tue, Oct 06, 2026 at 01:41:45AM +0800, Xu Yilun wrote:
+> In Linux, SEAMCALL wrappers are introduced to avoid broad SEAMCALL
+> access by exposing only a selection of SEAMCALL leafs, but also to
+> abstract the SEAMCALL register ABIs. The abstraction improves
+> readability and reuse for SEAMCALL leafs that are called multiple times.
+> 
+> Some SEAMCALL leafs are not explicitly wrapped because the level of TDX
+> ABI details needed to perform the call is low enough to flow well with
+> the calling code.
+> 
+> For some of the currently unwrapped SEAMCALL leafs, the TDX architecture
+> has evolved the ABI to introduce new leaf versions. The host can select
+> the version to call based on what is supported by the loaded TDX module.
+> When future kernel implements this version selection, more ABI details
+> will leak into the surrounding caller code, which decreases the
+> readability of the caller logic. To keep the ABI details contained, move
+> the SEAMCALL leaf that will need version selection into a wrapper.
+> 
+> When defining the wrapper, the cleanest separation would be to have
+> kernel data types for the SEAMCALL wrapper arguments, and have them
+> marshaled into SEAMCALL leaf ABI types (often u64s) inside the wrapper.
+> This works for many SEAMCALL leafs but becomes cumbersome when the
+> register ABI type is a physical address which points to a buffer for an
+> in-memory ABI. If the SEAMCALL wrapper only accepts kernel data types,
+> it may need duplicate buffer allocation and copies to match the
+> in-memory ABI. Another solution is to define a named helper structure
+> that mirrors the in-memory ABI, populate it in a separate flow, then
+> pass it to the SEAMCALL wrapper. struct seamldr_params is an existing
+> example of this pattern.
+> 
+> TDH.SYS.CONFIG requires a list of TDMR information in the form of a PA
+> array. The PA array is the in-memory ABI. Create a structure for the PA
+> array, use it as the argument when creating the wrapper for
+> TDH.SYS.CONFIG.
+> 
+> For readability, adjust a bit of the existing PA array size calculation:
+> use the new PA array structure's element type instead of hardcoding u64.
+> 
+> Signed-off-by: Xu Yilun <yilun.xu@linux.intel.com>
+> Reviewed-by: Nikolay Borisov <nik.borisov@suse.com>
+> Reviewed-by: Tony Lindgren <tony.lindgren@linux.intel.com>
 
-Call bpf_kallsyms_lookup_name() from BPF_PROG_TYPE_SYSCALL, such that
-the resolution can be done with a couple of syscalls and a binary
-search. This is a similar approach to what the light skeleton does. The
-fast path passes the name and result through ctx, which requires commit
-ae5ef001aa98 ("bpf: Support variable offsets for syscall PTR_TO_CTX").
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
-Any fast path error (e.g. kernels without ae5ef001aa98) falls back to
-the legacy /proc/kallsyms scan, including strong misses, since the
-kernel doesn't match LTO "<name>.llvm.<hash>" symbols. Weak misses
-default to zero.
-
-Depending on the device, I see ~9-11x loading speedup when resolving a
-BPF program with 11 typeless lock externs.
-  - x86_64 VM, 6.18 + ae5ef001aa98: 147ms -> 17ms
-  - ARM64 phone, 7.1: 626ms -> 55ms
-
-Signed-off-by: Samuel Wu <wusamuel@google.com>
----
- tools/lib/bpf/libbpf.c | 59 +++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 58 insertions(+), 1 deletion(-)
-
-diff --git a/tools/lib/bpf/libbpf.c b/tools/lib/bpf/libbpf.c
-index cb09ded90773..7564ec6bde64 100644
---- a/tools/lib/bpf/libbpf.c
-+++ b/tools/lib/bpf/libbpf.c
-@@ -9590,6 +9590,58 @@ static int bpf_object__read_kallsyms_file(struct bpf_object *obj)
- 	return libbpf_kallsyms_parse(kallsyms_cb, obj);
- }
- 
-+static int bpf_object__resolve_ksyms_in_kernel(struct bpf_object *obj)
-+{
-+	struct extern_desc *ext;
-+	int i, prog_fd, err = 0;
-+	struct {
-+		__u64 addr;
-+		char name[512];
-+	} ctx = {};
-+	LIBBPF_OPTS(bpf_prog_load_opts, opts, .prog_flags = BPF_F_SLEEPABLE);
-+	LIBBPF_OPTS(bpf_test_run_opts, topts, .ctx_in = &ctx, .ctx_size_in = sizeof(ctx));
-+	/* bpf_kallsyms_lookup_name(ctx.name, sizeof(ctx.name), 0, &ctx.addr) */
-+	static const struct bpf_insn insns[] = {
-+		BPF_MOV64_REG(BPF_REG_4, BPF_REG_1),
-+		BPF_ALU64_IMM(BPF_ADD, BPF_REG_1, 8),
-+		BPF_MOV64_IMM(BPF_REG_2, sizeof(ctx.name)),
-+		BPF_MOV64_IMM(BPF_REG_3, 0),
-+		BPF_EMIT_CALL(BPF_FUNC_kallsyms_lookup_name),
-+		BPF_EXIT_INSN(),
-+	};
-+
-+	if (obj->gen_loader || obj->token_fd)
-+		return -EOPNOTSUPP;
-+
-+	prog_fd = bpf_prog_load(BPF_PROG_TYPE_SYSCALL, NULL, "GPL",
-+				insns, ARRAY_SIZE(insns), &opts);
-+	if (prog_fd < 0)
-+		return prog_fd;
-+
-+	for (i = 0; i < obj->nr_extern; i++) {
-+		ext = &obj->externs[i];
-+		if (ext->type != EXT_KSYM || ext->ksym.type_id)
-+			continue;
-+		if (snprintf(ctx.name, sizeof(ctx.name), "%s", ext->name) >= sizeof(ctx.name)) {
-+			err = -ENAMETOOLONG;
-+			break;
-+		}
-+		err = bpf_prog_test_run_opts(prog_fd, &topts) ?: (int)topts.retval;
-+		if (err == -ENOENT && ext->is_weak) {
-+			err = 0;
-+			continue;
-+		}
-+		if (err)
-+			break;
-+		ext->is_set = true;
-+		ext->ksym.addr = ctx.addr;
-+		pr_debug("extern (ksym) '%s': resolved in kernel to 0x%llx\n",
-+			 ext->name, ext->ksym.addr);
-+	}
-+	close(prog_fd);
-+	return err;
-+}
-+
- static int find_ksym_btf_id(struct bpf_object *obj, const char *ksym_name,
- 			    __u16 kind, struct btf **res_btf,
- 			    struct module_btf **res_mod_btf)
-@@ -9863,7 +9915,12 @@ static int bpf_object__resolve_externs(struct bpf_object *obj,
- 			return -EINVAL;
- 	}
- 	if (need_kallsyms) {
--		err = bpf_object__read_kallsyms_file(obj);
-+		err = bpf_object__resolve_ksyms_in_kernel(obj);
-+		if (err) {
-+			pr_debug("failed to resolve ksyms in kernel: %s, falling back to /proc/kallsyms\n",
-+				 errstr(err));
-+			err = bpf_object__read_kallsyms_file(obj);
-+		}
- 		if (err)
- 			return -EINVAL;
- 	}
 -- 
-2.56.0.385.gd3acb90ef8-goog
-
+  Kiryl Shutsemau / Kirill A. Shutemov
