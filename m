@@ -1,1131 +1,164 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2537A476046
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 07:27:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB0C729A309;
+	Fri,  9 Oct 2026 07:29:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791530880; cv=none; b=mZcvI1EwUg2Ed5g04RiFWAk8l/oFxqR0UOlhGoHY2XNMkdmd1+NnzkufjJRcIRFv+rO9qM/LA3gLAhjkiz6bJTLz2lx0EDYW1c1O6OoVlmCi/1bNC3/V02mN2KEuXwpr4h1VhmffjsNaOTcurObPhvjxqMyWtZd1GKgzajuCv5U=
+	t=1791530989; cv=none; b=cMV8g/Ngdk081hyfTzrYvGLYjMEK/cUquv7Y4H28T5DCk8+muwcd0JNA9y2oN/lUKSX0fFFzcDJBxs2h8BxezRdB4QH0D8llM/fu9GyZkKDbRCdUexfuLnFMpEddEZDidgSKk3PL9Lo/KAY1rcrWQRIxBNLxtqUOcV0Lp1YfHVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791530880; c=relaxed/simple;
-	bh=yC+WX6W7dPLN9ICDaCxyX+oa/1iS6IPVmxXQ3Q0DMJw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RbJph+sOEgTUOO9ou7ck13tXmU7jEe9EGshV29CS7KTaXEHK+Gjw2o8IJsPpqTiA8Xoyen9PQPYU0V/u076GdkeZMPqCN5f4M3cCv4tV+uYbLmhNQa35/Iw8efPF0uHeNUck/Gjaxu0EkvhKi8CponvNsxd+g4ghFJEi/YNr5bY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=athKvafm; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791530989; c=relaxed/simple;
+	bh=gIdGvVerVBjlAY5FJTnRGxSGodZbvv30G71GWfeeVgc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YlUMtY6QKH5ZLMS0Whj5nTgpSaQrX8R+16u0YMqf/aSczdxD5xyYgOTmRrmgt7U2UifSB7Uh7eRWJ3UZUXELrwNrS+uQcfUcHCJZozj+9wysM6qY6egLAgxP5QeZgktKOlQ32h366x3UKW8XpA+jK8U7QcvwL86cA5SBTd1CI5Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ASsMTGOC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="athKvafm"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a02667ccebso29466645e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 00:27:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791530875; x=1792135675; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PBlm9BxjRDT+5ucwrrpILH0Oob/zAyJM+87J37EuG5E=;
-        b=athKvafmqX8snGAPWVxw7f9I8U3rszICieyM3kxcRelRQO2INy4yEwiYPa8PdIX0yc
-         HkPJWa7jN4ZPx036tViE9HnBew/IkZm87K3dUtxqLe90I7QzkvdfOedWBEifkEfjdOA1
-         fARLkYUWS7iRxrIvYUjiQHkrLUcxqqmSoXlSPa3L3tFQqbrE1Ra6oFC02LV80savhj1b
-         H1QVgbulIgw6tkm9RT54AH3TdcjzTjS3sw+FMy0lLcAGn6ThSY7iFtHJEZMgiGJZGCiT
-         Nr+0vtc/WrhFoqUHgMz208oYHQBvDcYvHdMIp/T/9D1F/SRPsDfYs13o9wn9FJcYTvu4
-         tHHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791530875; x=1792135675;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PBlm9BxjRDT+5ucwrrpILH0Oob/zAyJM+87J37EuG5E=;
-        b=PmrSzxmnGx0lvDibLQ99F8cT+l9H/N51/0JOx206XHqwbuqLoQGxD1HtNQcWDFR6NO
-         oqBPVxjilQfjhYQYZxfRFqPkT9ceUPWR+cggDcsGtAE7MyCgV3J4MnqIsQOiYYBmv/0e
-         CWTHPGHdEVQeD8W90ert5NuhRWJniDBJc3PuUf6DDX7OVZKFAS3DMw6D6RWG1RIB3ol+
-         ZdwTPiozXdgEv7w8fjwDHOIdcJS1XVpTFwA0EuQcOhS4vhCClE9R9mSpPAuGyoJnPjy0
-         gpS/PHoRV8fEL5StpdsjrUTG2hwpluW3bT+bDZeBe48CDqEQNPhXr/8iqcOTOB4TJU1J
-         SZ2w==
-X-Forwarded-Encrypted: i=1; AKwUvBwYb2X1LKIkOif/jn+caw6+5CBH0tBXt9X77zBDVKXjqG9dFctqsSts6HQlwYWPIsrPc0L/b3wNUQ9mCpU=@vger.kernel.org
-X-Gm-Message-State: AFuF++l7WFOl04LqZU9U1paTWP1gXZBk8loyO+ex6zmYmZe5NI2eEU3k
-	obmQAzFCCueu5jxGGWA7InxC6NPcHGbF4RPyuZnfSR+sNay3YbtjQpBX
-X-Gm-Gg: AYBFou2etaFn4RElb+B1Gm3dJYYhVX12LbUS4Y96xN/7vFLgBn/1dtUvamBGEOKS461
-	T7jT/R+9drdwUUyEEbfIeIHTkWD8FVQI4ZlmqktRvfnU3BDWUO0hvqcl830ZmXLmSlSqQDRrPxy
-	XTuI3iv50nYElufN/H1lyiThEOJXC/Xt3tr7S62FeuwsaJDHQG6WmGcLrpNUX0jbVVcXOnTlJf/
-	i7arPUGQxCWwAA0ADHhqDbXrxlSmho6jbb7JdjYTWTK0+VxrumG3FXaDpS59RS4RltPVvI9xcYT
-	avIAsdlnWWOTXsvVL3AYfNuvNknK1yYvIu6/UQ1+YnPXZfptPdV9MRAjniJqN2bAhWjpK+n0+ta
-	uFSXwz7IJ1MFkrvsTNj6LJZnWVURqDGHPqVHmwbSv+3nroqajPTTXrF/0zF+orcU+1OgwBRSRh2
-	a/+XN4iUcPTPhER/nwiH+vSOORveSwrZ2qN1ZMnvXWTlONjzpDA12QeAceYj4ogi6mtIyqvJgBY
-	zEcI+jnlp0iSWxwaSoKarFECwNn8qJOE83xg06+P/0POpBMoDpV6ERku7jb4tp1H0yNorGS9SuI
-	IKopM1rfYwsaB8lQpuBYRMVV6bTjDI7+mE0phkskGNsuHh1j3NoYOB68QPbCcWe7aKWHGInPDbi
-	J2CWpA7z/cm6gkro9svxVjpsOr8Hctww+4cbnYRu3BhKTMOqYGQg/F0PMPCAGE/yL
-X-Received: by 2002:a05:600c:1911:b0:49f:faa3:3ca2 with SMTP id 5b1f17b1804b1-4a18e4aae7emr19007075e9.13.1791530874861;
-        Fri, 09 Oct 2026 00:27:54 -0700 (PDT)
-Received: from localhost.localdomain (host-95-239-230-248.retail.telecomitalia.it. [95.239.230.248])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bbbdd75sm32598895e9.1.2026.10.09.00.27.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 00:27:54 -0700 (PDT)
-From: Nicola Fiorillo <nicfio@gmail.com>
-To: linux-media@vger.kernel.org
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Dan Scally <dan.scally@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Nicola Fiorillo <nicfio@gmail.com>
-Subject: [PATCH 2/3] media: i2c: Add GC8034 image sensor driver
-Date: Fri,  9 Oct 2026 09:27:32 +0200
-Message-ID: <20261009072733.39877-3-nicfio@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261009072733.39877-1-nicfio@gmail.com>
-References: <20261009072733.39877-1-nicfio@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ASsMTGOC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F6661F00893;
+	Fri,  9 Oct 2026 07:29:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791530988;
+	bh=/s3Lbiloemf0P5lVKd7CO+NXtdjl9lXaZ6C19RxmqW0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ASsMTGOC32s6aRYigVMmUQeV7zp1Hf6b3fNWY7FBM2nbBfgHAMV0hvTq1FOMmt3uC
+	 AlDWrO9PdjPggh+EZRE0M0wnwCzlSwqWv6A1q3KAVnoVM9FXOzO+uIb4CQ6RL5QEd4
+	 XrMbkj9im5A5QvpbPvmNIvS4k84VdKLgVUU1zFHHhmngSXIS1uTz3nhM0dJlBPyHNr
+	 /oc97sd/SgVvE4L0LanE9bTeqVoBtrjgKWLhLHhYtgkttzsXUaZN38FtC23D2PeSyX
+	 oNrmADhUd8uxUReUGYyfjaLgQSq76RI4e+S4vkslAAqopjnFFKOxCtxHm4ZLt+RZ9L
+	 FX0q6iUolIGmg==
+Message-ID: <2d7acd00-0cb5-4002-9663-a39dc4e55ad3@kernel.org>
+Date: Fri, 9 Oct 2026 09:29:38 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 05/21] ASoC: dt-bindings: Add binding for Apple Silicon
+ Mac audio
+To: James Calligeros <jcalligeros99@gmail.com>
+Cc: David Rhodes <david.rhodes@cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ =?UTF-8?Q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+ Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
+ Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
+ Neal Gompa <neal@gompa.dev>, asahi@lists.linux.dev,
+ linux-sound@vger.kernel.org, patches@opensource.cirrus.com,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+References: <20261004-macaudio-v2-0-7b47ed6335a8@gmail.com>
+ <20261004-macaudio-v2-5-7b47ed6335a8@gmail.com>
+ <20261009-daring-objective-flounder-c0b66d@quoll>
+ <rT1KWd0SSiuQLd7MLQWREA@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <rT1KWd0SSiuQLd7MLQWREA@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Add a driver for the GalaxyCore GC8034, an 8 Mpixel raw Bayer sensor with
-a four lane MIPI CSI-2 interface. The driver supports a single 3264x2448
-mode, and the exposure, analogue gain and vertical blanking controls.
+On 09/10/2026 09:21, James Calligeros wrote:
+> On Friday, 9 October 2026 5:17:53 pm Australian Eastern Standard Time 
+> Krzysztof Kozlowski wrote:
+>> On Sun, Oct 04, 2026 at 04:03:32PM +1000, James Calligeros wrote:
+>>> +examples:
+>>> +  - |
+>>> +    sound {
+>>> +      compatible = "apple,j416-macaudio", "apple,j316-macaudio";
+>>> +      model = "MacBook Pro J416";
+>>> +
+>>> +      #address-cells = <1>;
+>>> +      #size-cells = <0>;
+>>> +
+>>> +      dai-link@0 {
+>>> +        reg = <0>;
+>>> +        link-name = "Speakers";
+>>> +
+>>> +        dai-tdm-idle-mode-0 = "zero";
+>>> +        dai-tdm-idle-mode-3 = "zero";
+>>> +        dai-tdm-slot-tx-idle-mask-0 = <0xf0f0f0>;
+>>> +        dai-tdm-slot-tx-idle-mask-3 = <0x0f0f0f>;
+>>> +
+>>> +        codec {
+>>> +          sound-dai = <&speaker_left_woof1>,
+>>> +                      <&speaker_left_tweet>,
+>>> +                      <&speaker_left_woof2>,
+>>> +                      <&speaker_right_woof1>,
+>>> +                      <&speaker_right_tweet>,
+>>> +                      <&speaker_right_woof2>;
+>>> +        };
+>>> +
+>>> +        cpu {
+>>> +          sound-dai = <&mca 0>, <&mca 1>;
+>>> +        };
+>>> +      };
+>>> +
+>>> +      dai-link@1 {
+>>> +        reg = <1>;
+>>> +        link-name = "Headphone Jack";
+>>> +
+>>> +        codec {
+>>> +          sound-dai = <&jack_codec>;
+>>> +        };
+>>> +
+>>> +        cpu {
+>>> +          sound-dai = <&mca 2>;
+>>
+>> Example looks incomplete, you miss TDM slot properties.
+> 
+> The machine driver generates the TDM slot assignments for the DAIs
+> and sets them at runtime.
 
-The register tables come from the Rockchip BSP driver.
+Ah, I found them in dai-link node, one level up.
 
-Assisted-by: claude-opus-5-5 coccinelle sparse smatch
-Signed-off-by: Nicola Fiorillo <nicfio@gmail.com>
----
- MAINTAINERS                |   6 +
- drivers/media/i2c/Kconfig  |  10 +
- drivers/media/i2c/Makefile |   1 +
- drivers/media/i2c/gc8034.c | 969 +++++++++++++++++++++++++++++++++++++
- 4 files changed, 986 insertions(+)
- create mode 100644 drivers/media/i2c/gc8034.c
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index c4d5f81f4..ba60329a2 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -10881,6 +10881,12 @@ L:	linux-media@vger.kernel.org
- S:	Maintained
- F:	drivers/media/i2c/gc5035.c
- 
-+GALAXYCORE GC8034 CAMERA SENSOR DRIVER
-+M:	Nicola Fiorillo <nicfio@gmail.com>
-+L:	linux-media@vger.kernel.org
-+S:	Maintained
-+F:	drivers/media/i2c/gc8034.c
-+
- GATEWORKS SYSTEM CONTROLLER (GSC) DRIVER
- M:	Tim Harvey <tharvey@gateworks.com>
- S:	Maintained
-diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-index bde998fca..80e0d1428 100644
---- a/drivers/media/i2c/Kconfig
-+++ b/drivers/media/i2c/Kconfig
-@@ -120,6 +120,16 @@ config VIDEO_GC5035
- 	  To compile this driver as a module, choose M here: the
- 	  module will be called gc5035.
- 
-+config VIDEO_GC8034
-+	tristate "GalaxyCore GC8034 sensor support"
-+	select V4L2_CCI_I2C
-+	help
-+	  This is a Video4Linux2 sensor driver for the GalaxyCore GC8034
-+	  8 Mpixel camera.
-+
-+	  To compile this driver as a module, choose M here: the
-+	  module will be called gc8034.
-+
- config VIDEO_HI556
- 	tristate "Hynix Hi-556 sensor support"
- 	help
-diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
-index c3a7f39bd..2c00dc96d 100644
---- a/drivers/media/i2c/Makefile
-+++ b/drivers/media/i2c/Makefile
-@@ -43,6 +43,7 @@ obj-$(CONFIG_VIDEO_GC05A2) += gc05a2.o
- obj-$(CONFIG_VIDEO_GC08A3) += gc08a3.o
- obj-$(CONFIG_VIDEO_GC2145) += gc2145.o
- obj-$(CONFIG_VIDEO_GC5035) += gc5035.o
-+obj-$(CONFIG_VIDEO_GC8034) += gc8034.o
- obj-$(CONFIG_VIDEO_HI556) += hi556.o
- obj-$(CONFIG_VIDEO_HI846) += hi846.o
- obj-$(CONFIG_VIDEO_HI847) += hi847.o
-diff --git a/drivers/media/i2c/gc8034.c b/drivers/media/i2c/gc8034.c
-new file mode 100644
-index 000000000..a74c190d2
---- /dev/null
-+++ b/drivers/media/i2c/gc8034.c
-@@ -0,0 +1,969 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Driver for GalaxyCore GC8034 image sensor
-+ *
-+ * Copyright (C) 2017 Fuzhou Rockchip Electronics Co., Ltd.
-+ * Copyright (C) 2026 Nicola Fiorillo <nicfio@gmail.com>
-+ *
-+ * The registers and sequences come from the Rockchip BSP driver,
-+ * rockchip-linux/kernel, branch develop-5.10.
-+ */
-+#include <linux/array_size.h>
-+#include <linux/clk.h>
-+#include <linux/container_of.h>
-+#include <linux/delay.h>
-+#include <linux/device.h>
-+#include <linux/err.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/i2c.h>
-+#include <linux/math.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/module.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/property.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/time64.h>
-+#include <linux/types.h>
-+#include <linux/units.h>
-+
-+#include <media/mipi-csi2.h>
-+#include <media/v4l2-cci.h>
-+#include <media/v4l2-common.h>
-+#include <media/v4l2-ctrls.h>
-+#include <media/v4l2-fwnode.h>
-+#include <media/v4l2-subdev.h>
-+
-+/*
-+ * 8 bit register addresses, with the page selected by register 0xfe. The
-+ * vendor sequence also writes 0x10 to register 0xfe, which is not a page
-+ * number and is not documented, so the pages are not handled with regmap
-+ * ranges.
-+ */
-+#define GC8034_REG_PAGE_SELECT		CCI_REG8(0xfe)
-+#define GC8034_PAGE_0			0x00
-+
-+/* readable on any page */
-+#define GC8034_REG_CHIP_ID		CCI_REG16(0xf0)
-+#define GC8034_CHIP_ID			0x8044	/* not 0x8034 */
-+
-+#define GC8034_REG_EXPOSURE		CCI_REG16(0x03)
-+#define GC8034_REG_LINE_LENGTH		CCI_REG16(0x05)
-+#define GC8034_REG_BLANKING		CCI_REG16(0x07)
-+#define GC8034_REG_WIN_TOP		CCI_REG8(0x0a)
-+#define GC8034_REG_WIN_LEFT		CCI_REG16(0x0b)
-+#define GC8034_REG_WIN_HEIGHT		CCI_REG16(0x0d)
-+#define GC8034_REG_WIN_WIDTH		CCI_REG16(0x0f)
-+#define GC8034_REG_MIRROR		CCI_REG8(0x17)
-+#define GC8034_MIRROR_NONE		0xc0
-+#define GC8034_REG_STREAM		CCI_REG8(0x3f)
-+#define GC8034_STREAM_ON		0xd0
-+#define GC8034_STREAM_OFF		0x00
-+#define GC8034_REG_CROP_TOP		CCI_REG8(0x92)
-+#define GC8034_REG_CROP_LEFT		CCI_REG8(0x94)
-+#define GC8034_REG_OUT_HEIGHT		CCI_REG16(0x95)
-+#define GC8034_REG_OUT_WIDTH		CCI_REG16(0x97)
-+#define GC8034_REG_DIGITAL_GAIN	CCI_REG16(0xb1)
-+#define GC8034_DIGITAL_GAIN_1X	0x100
-+#define GC8034_REG_ANALOGUE_GAIN	CCI_REG8(0xb6)
-+
-+/*
-+ * The sensor reads out a 3284x2464 window starting at (4, 58) and crops
-+ * 3264x2448 from it at (9, 8). The odd crop column gives the RGGB order; the
-+ * vendor code moves it by one column when mirroring. The size of the full
-+ * pixel array is not documented, so the readout window is reported as the
-+ * native size.
-+ */
-+#define GC8034_WIN_LEFT			4
-+#define GC8034_WIN_TOP			58
-+#define GC8034_NATIVE_WIDTH		3284
-+#define GC8034_NATIVE_HEIGHT		2464
-+#define GC8034_CROP_LEFT		9
-+#define GC8034_CROP_TOP			8
-+#define GC8034_WIDTH			3264
-+#define GC8034_HEIGHT			2448
-+
-+/*
-+ * The blanking register holds the frame length minus the active height and
-+ * 36 lines, as computed by the vendor code.
-+ */
-+#define GC8034_VTS_OFFSET		(GC8034_HEIGHT + 36)
-+#define GC8034_VTS_MAX			0x1fff
-+
-+/* The sensor only takes even exposure values. */
-+#define GC8034_EXP_MIN			4
-+#define GC8034_EXP_STEP			2
-+#define GC8034_EXP_MARGIN		4
-+#define GC8034_EXP_DEF			2246
-+
-+/*
-+ * The register table has only been tested with a 19.2 MHz external clock. The
-+ * vendor code declares 336 MHz and 30 fps for a 24 MHz clock; at 19.2 MHz
-+ * everything runs at 0.8 times that: 268.8 MHz and 24 fps, as measured. The
-+ * PLL settings are not documented, so the pixel rate is not computed from
-+ * them: it is the one that gives the measured 24 fps with the line and frame
-+ * lengths below. The line length register counts units of 8 pixels.
-+ */
-+#define GC8034_XCLK_FREQ		(19200 * HZ_PER_KHZ)
-+#define GC8034_LINK_FREQ		(268800 * HZ_PER_KHZ)
-+#define GC8034_DATA_LANES		4
-+#define GC8034_HTS			4272
-+#define GC8034_VTS_DEF			2496
-+#define GC8034_PIXEL_RATE		(GC8034_HTS * GC8034_VTS_DEF * 24)
-+
-+/*
-+ * No datasheet is available. The power sequence and delays follow the vendor
-+ * driver: supplies in the order of gc8034_supply_name, 100 us, clock, 1 ms,
-+ * powerdown released, 500 us, reset released, then 6 ms and 8192 clock cycles
-+ * before the first I2C access.
-+ */
-+#define GC8034_SUPPLY_DELAY_US		100
-+#define GC8034_CLK_DELAY_US		1000
-+#define GC8034_PWDN_DELAY_US		500
-+#define GC8034_RESET_DELAY_US		(6000 + \
-+					 DIV_ROUND_UP(8192 * USEC_PER_MSEC, \
-+						      GC8034_XCLK_FREQ / \
-+						      MSEC_PER_SEC))
-+
-+#define GC8034_MBUS_CODE		MEDIA_BUS_FMT_SRGGB10_1X10
-+
-+static const s64 gc8034_link_freq_menu[] = {
-+	GC8034_LINK_FREQ,
-+};
-+
-+static const char * const gc8034_supply_name[] = {
-+	"dovdd",
-+	"dvdd",
-+	"avdd",
-+};
-+
-+/*
-+ * V4L2_CID_ANALOGUE_GAIN is the value of register 0xb6, the index of the
-+ * analogue gain step. Only the seven steps the vendor code uses are exposed.
-+ * Each step also needs a set of analogue bias registers to be rewritten; the
-+ * sequence selects its own pages through register 0xfe. The digital gain is
-+ * left at the 1.0x the register table programs.
-+ */
-+static const u8 gc8034_agc_bias_reg[] = {
-+	0xfe, 0x20, 0x33, 0xfe, 0xdf, 0xe7, 0xe8,
-+	0xe9, 0xea, 0xeb, 0xec, 0xed, 0xee, 0xfe,
-+};
-+
-+static const u8 gc8034_agc_bias[][ARRAY_SIZE(gc8034_agc_bias_reg)] = {
-+	/* 1.000x */
-+	{ 0x00, 0x55, 0x83, 0x01, 0x06, 0x18, 0x20,
-+	  0x16, 0x17, 0x50, 0x6c, 0x9b, 0xd8, 0x00 },
-+	/* 1.375x */
-+	{ 0x00, 0x55, 0x83, 0x01, 0x06, 0x18, 0x20,
-+	  0x16, 0x17, 0x50, 0x6c, 0x9b, 0xd8, 0x00 },
-+	/* 1.950x */
-+	{ 0x00, 0x4e, 0x84, 0x01, 0x0c, 0x2e, 0x2d,
-+	  0x15, 0x19, 0x47, 0x70, 0x9f, 0xd8, 0x00 },
-+	/* 2.700x */
-+	{ 0x00, 0x51, 0x80, 0x01, 0x07, 0x28, 0x32,
-+	  0x22, 0x20, 0x49, 0x70, 0x91, 0xd9, 0x00 },
-+	/* 3.800x */
-+	{ 0x00, 0x4d, 0x83, 0x01, 0x0f, 0x3b, 0x3b,
-+	  0x1c, 0x1f, 0x47, 0x6f, 0x9b, 0xd3, 0x00 },
-+	/* 5.400x */
-+	{ 0x00, 0x50, 0x83, 0x01, 0x08, 0x35, 0x46,
-+	  0x1e, 0x22, 0x4c, 0x70, 0x9a, 0xd2, 0x00 },
-+	/* 7.660x */
-+	{ 0x00, 0x52, 0x80, 0x01, 0x0c, 0x35, 0x3a,
-+	  0x2b, 0x2d, 0x4c, 0x67, 0x8d, 0xc0, 0x00 },
-+};
-+
-+struct gc8034 {
-+	struct device *dev;
-+	struct v4l2_subdev sd;
-+	struct media_pad pad;
-+
-+	struct clk *xclk;
-+	struct regulator_bulk_data supplies[ARRAY_SIZE(gc8034_supply_name)];
-+	struct gpio_desc *reset_gpio;
-+	struct gpio_desc *powerdown_gpio;
-+
-+	struct v4l2_ctrl_handler ctrls;
-+	struct v4l2_ctrl *exposure;
-+
-+	struct regmap *regmap;
-+};
-+
-+/*
-+ * The register sequence is the vendor one for the 3264x2448 mode, without the
-+ * registers written by the controls and without the settings of a binned mode
-+ * that it programs first and then overwrites. No register documentation is
-+ * available: the names of the geometry registers are inferred from their
-+ * values.
-+ */
-+static const struct cci_reg_sequence gc8034_regs[] = {
-+	/* SYS */
-+	{ CCI_REG8(0xf2), 0x00 },
-+	{ CCI_REG8(0xf4), 0x80 },
-+	{ CCI_REG8(0xf5), 0x19 },
-+	{ CCI_REG8(0xf6), 0x44 },
-+	{ CCI_REG8(0xf8), 0x63 },
-+	{ CCI_REG8(0xfa), 0x45 },
-+	{ CCI_REG8(0xf9), 0x00 },
-+	{ CCI_REG8(0xf7), 0x9d },
-+	{ CCI_REG8(0xfc), 0x00 },
-+	{ CCI_REG8(0xfc), 0x00 },
-+	{ CCI_REG8(0xfc), 0xea },
-+	{ GC8034_REG_PAGE_SELECT, 0x03 },
-+	{ CCI_REG8(0x03), 0x9a },
-+	{ CCI_REG8(0x18), 0x07 },
-+	{ CCI_REG8(0x01), 0x07 },
-+	{ CCI_REG8(0xfc), 0xee },
-+	/* Cisctl&Analog */
-+	{ GC8034_REG_PAGE_SELECT, 0x00 },
-+	{ GC8034_REG_LINE_LENGTH, GC8034_HTS / 8 },
-+	{ GC8034_REG_WIN_TOP, GC8034_WIN_TOP },
-+	{ GC8034_REG_WIN_LEFT, GC8034_WIN_LEFT },
-+	{ GC8034_REG_WIN_HEIGHT, GC8034_NATIVE_HEIGHT },
-+	{ GC8034_REG_WIN_WIDTH, GC8034_NATIVE_WIDTH },
-+	{ GC8034_REG_MIRROR, GC8034_MIRROR_NONE },
-+	{ CCI_REG8(0x18), 0x02 },
-+	{ CCI_REG8(0x19), 0x17 },
-+	{ CCI_REG8(0x1e), 0x50 },
-+	{ CCI_REG8(0x1f), 0x80 },
-+	{ CCI_REG8(0x21), 0x4c },
-+	{ CCI_REG8(0x25), 0x00 },
-+	{ CCI_REG8(0x28), 0x4a },
-+	{ CCI_REG8(0x2d), 0x89 },
-+	{ CCI_REG8(0xca), 0x02 },
-+	{ CCI_REG8(0xcb), 0x00 },
-+	{ CCI_REG8(0xcc), 0x39 },
-+	{ CCI_REG8(0xce), 0xd0 },
-+	{ CCI_REG8(0xcf), 0x93 },
-+	{ CCI_REG8(0xd0), 0x19 },
-+	{ CCI_REG8(0xd1), 0xaa },
-+	{ CCI_REG8(0xd2), 0xcb },
-+	{ CCI_REG8(0xd8), 0x40 },
-+	{ CCI_REG8(0xd9), 0xff },
-+	{ CCI_REG8(0xda), 0x0e },
-+	{ CCI_REG8(0xdb), 0xb0 },
-+	{ CCI_REG8(0xdc), 0x0e },
-+	{ CCI_REG8(0xde), 0x08 },
-+	{ CCI_REG8(0xe4), 0xc6 },
-+	{ CCI_REG8(0xe5), 0x08 },
-+	{ CCI_REG8(0xe6), 0x10 },
-+	{ CCI_REG8(0xed), 0x2a },
-+	{ GC8034_REG_PAGE_SELECT, 0x02 },
-+	{ CCI_REG8(0x59), 0x02 },
-+	{ CCI_REG8(0x5a), 0x04 },
-+	{ CCI_REG8(0x5b), 0x08 },
-+	{ CCI_REG8(0x5c), 0x20 },
-+	{ GC8034_REG_PAGE_SELECT, 0x00 },
-+	{ CCI_REG8(0x1a), 0x09 },
-+	{ CCI_REG8(0x1d), 0x13 },
-+	{ GC8034_REG_PAGE_SELECT, 0x10 },	/* not a page */
-+	{ GC8034_REG_PAGE_SELECT, 0x00 },
-+	{ GC8034_REG_PAGE_SELECT, 0x10 },	/* not a page */
-+	/* ISP */
-+	{ GC8034_REG_PAGE_SELECT, 0x00 },
-+	{ CCI_REG8(0x84), 0x01 },
-+	{ CCI_REG8(0x88), 0x03 },
-+	{ CCI_REG8(0x89), 0x03 },
-+	{ CCI_REG8(0x8d), 0x03 },
-+	{ CCI_REG8(0x8f), 0x14 },
-+	{ CCI_REG8(0x66), 0x2c },
-+	{ CCI_REG8(0xbc), 0x49 },
-+	{ CCI_REG8(0xc2), 0x7f },
-+	{ CCI_REG8(0xc3), 0xff },
-+	/* Gain */
-+	{ CCI_REG8(0xb0), 0x90 },
-+	{ GC8034_REG_DIGITAL_GAIN, GC8034_DIGITAL_GAIN_1X },
-+	/* BLK */
-+	{ GC8034_REG_PAGE_SELECT, 0x00 },
-+	{ CCI_REG8(0x40), 0x22 },
-+	{ CCI_REG8(0x41), 0x20 },
-+	{ CCI_REG8(0x42), 0x02 },
-+	{ CCI_REG8(0x43), 0x08 },
-+	{ CCI_REG8(0x4e), 0x0f },
-+	{ CCI_REG8(0x4f), 0xf0 },
-+	{ CCI_REG8(0x58), 0x80 },
-+	{ CCI_REG8(0x59), 0x80 },
-+	{ CCI_REG8(0x5a), 0x80 },
-+	{ CCI_REG8(0x5b), 0x80 },
-+	{ CCI_REG8(0x5c), 0x00 },
-+	{ CCI_REG8(0x5d), 0x00 },
-+	{ CCI_REG8(0x5e), 0x00 },
-+	{ CCI_REG8(0x5f), 0x00 },
-+	{ CCI_REG8(0x6b), 0x01 },
-+	{ CCI_REG8(0x6c), 0x00 },
-+	{ CCI_REG8(0x6d), 0x0c },
-+	/* WB offset */
-+	{ GC8034_REG_PAGE_SELECT, 0x01 },
-+	{ CCI_REG8(0xbf), 0x40 },
-+	/* Dark Sun */
-+	{ GC8034_REG_PAGE_SELECT, 0x01 },
-+	{ CCI_REG8(0x68), 0x77 },
-+	/* DPC */
-+	{ GC8034_REG_PAGE_SELECT, 0x01 },
-+	{ CCI_REG8(0x60), 0x00 },
-+	{ CCI_REG8(0x61), 0x10 },
-+	{ CCI_REG8(0x64), 0x02 },
-+	/* LSC */
-+	{ GC8034_REG_PAGE_SELECT, 0x01 },
-+	{ CCI_REG8(0xa8), 0x60 },
-+	{ CCI_REG8(0xa2), 0xd1 },
-+	{ CCI_REG8(0xc8), 0x57 },
-+	{ CCI_REG8(0xa1), 0xb8 },
-+	{ CCI_REG8(0xa3), 0x91 },
-+	{ CCI_REG8(0xc0), 0x50 },
-+	{ CCI_REG8(0xd0), 0x05 },
-+	{ CCI_REG8(0xd1), 0xb2 },
-+	{ CCI_REG8(0xd2), 0x1f },
-+	{ CCI_REG8(0xd3), 0x00 },
-+	{ CCI_REG8(0xd4), 0x00 },
-+	{ CCI_REG8(0xd5), 0x00 },
-+	{ CCI_REG8(0xd6), 0x00 },
-+	{ CCI_REG8(0xd7), 0x00 },
-+	{ CCI_REG8(0xd8), 0x00 },
-+	{ CCI_REG8(0xd9), 0x00 },
-+	{ CCI_REG8(0xa4), 0x10 },
-+	{ CCI_REG8(0xa5), 0x20 },
-+	{ CCI_REG8(0xa6), 0x60 },
-+	{ CCI_REG8(0xa7), 0x80 },
-+	{ CCI_REG8(0xab), 0x18 },
-+	{ CCI_REG8(0xc7), 0xc0 },
-+	/* ABB */
-+	{ GC8034_REG_PAGE_SELECT, 0x01 },
-+	{ CCI_REG8(0x20), 0x02 },
-+	{ CCI_REG8(0x21), 0x02 },
-+	{ CCI_REG8(0x23), 0x42 },
-+	{ GC8034_REG_PAGE_SELECT, 0x00 },
-+	/* SYS */
-+	{ CCI_REG8(0xf2), 0x00 },
-+	{ CCI_REG8(0xf4), 0x80 },
-+	{ CCI_REG8(0xf5), 0x19 },
-+	{ CCI_REG8(0xf6), 0x44 },
-+	{ CCI_REG8(0xf8), 0x63 },
-+	{ CCI_REG8(0xfa), 0x45 },
-+	{ CCI_REG8(0xf9), 0x00 },
-+	{ CCI_REG8(0xf7), 0x95 },
-+	{ CCI_REG8(0xfc), 0x00 },
-+	{ CCI_REG8(0xfc), 0x00 },
-+	{ CCI_REG8(0xfc), 0xea },
-+	{ GC8034_REG_PAGE_SELECT, 0x03 },
-+	{ CCI_REG8(0x03), 0x9a },
-+	{ CCI_REG8(0x18), 0x07 },
-+	{ CCI_REG8(0x01), 0x07 },
-+	{ CCI_REG8(0xfc), 0xee },
-+	/* ISP */
-+	{ GC8034_REG_PAGE_SELECT, 0x00 },
-+	{ CCI_REG8(0x80), 0x13 },
-+	{ CCI_REG8(0xad), 0x00 },
-+	/* Crop window */
-+	{ CCI_REG8(0x90), 0x01 },
-+	{ GC8034_REG_CROP_TOP, GC8034_CROP_TOP },
-+	{ GC8034_REG_CROP_LEFT, GC8034_CROP_LEFT },
-+	{ GC8034_REG_OUT_HEIGHT, GC8034_HEIGHT },
-+	{ GC8034_REG_OUT_WIDTH, GC8034_WIDTH },
-+	/* DPC */
-+	{ GC8034_REG_PAGE_SELECT, 0x01 },
-+	{ CCI_REG8(0x62), 0x60 },
-+	{ CCI_REG8(0x63), 0x48 },
-+	/* MIPI */
-+	{ GC8034_REG_PAGE_SELECT, 0x03 },
-+	{ CCI_REG8(0x02), 0x03 },
-+	{ CCI_REG8(0x04), 0x80 },
-+	{ CCI_REG8(0x11), 0x2b },
-+	{ CCI_REG8(0x12), 0xf0 },
-+	{ CCI_REG8(0x13), 0x0f },
-+	{ CCI_REG8(0x15), 0x10 },
-+	{ CCI_REG8(0x16), 0x29 },
-+	{ CCI_REG8(0x17), 0xff },
-+	{ CCI_REG8(0x19), 0xaa },
-+	{ CCI_REG8(0x1a), 0x02 },
-+	{ CCI_REG8(0x21), 0x05 },
-+	{ CCI_REG8(0x22), 0x06 },
-+	{ CCI_REG8(0x23), 0x2b },
-+	{ CCI_REG8(0x24), 0x00 },
-+	{ CCI_REG8(0x25), 0x12 },
-+	{ CCI_REG8(0x26), 0x07 },
-+	{ CCI_REG8(0x29), 0x07 },
-+	{ CCI_REG8(0x2a), 0x12 },
-+	{ CCI_REG8(0x2b), 0x07 },
-+	{ GC8034_REG_PAGE_SELECT, 0x00 },
-+	{ GC8034_REG_STREAM, GC8034_STREAM_OFF },
-+};
-+
-+static inline struct gc8034 *to_gc8034(struct v4l2_subdev *sd)
-+{
-+	return container_of(sd, struct gc8034, sd);
-+}
-+
-+static void gc8034_disable_supplies(struct gc8034 *gc8034, unsigned int num)
-+{
-+	while (num--)
-+		regulator_disable(gc8034->supplies[num].consumer);
-+}
-+
-+static int gc8034_power_on(struct device *dev)
-+{
-+	struct v4l2_subdev *sd = dev_get_drvdata(dev);
-+	struct gc8034 *gc8034 = to_gc8034(sd);
-+	unsigned int i;
-+	int ret;
-+
-+	/* One by one: regulator_bulk_enable() works in parallel. */
-+	for (i = 0; i < ARRAY_SIZE(gc8034_supply_name); i++) {
-+		ret = regulator_enable(gc8034->supplies[i].consumer);
-+		if (ret) {
-+			dev_err(dev, "failed to enable %s: %d\n",
-+				gc8034_supply_name[i], ret);
-+			gc8034_disable_supplies(gc8034, i);
-+			return ret;
-+		}
-+	}
-+
-+	fsleep(GC8034_SUPPLY_DELAY_US);
-+
-+	ret = clk_prepare_enable(gc8034->xclk);
-+	if (ret) {
-+		dev_err(dev, "failed to enable clock: %d\n", ret);
-+		gc8034_disable_supplies(gc8034, ARRAY_SIZE(gc8034_supply_name));
-+		return ret;
-+	}
-+
-+	fsleep(GC8034_CLK_DELAY_US);
-+	gpiod_set_value_cansleep(gc8034->powerdown_gpio, 0);
-+	fsleep(GC8034_PWDN_DELAY_US);
-+	gpiod_set_value_cansleep(gc8034->reset_gpio, 0);
-+	fsleep(GC8034_RESET_DELAY_US);
-+
-+	return 0;
-+}
-+
-+static int gc8034_power_off(struct device *dev)
-+{
-+	struct v4l2_subdev *sd = dev_get_drvdata(dev);
-+	struct gc8034 *gc8034 = to_gc8034(sd);
-+
-+	gpiod_set_value_cansleep(gc8034->powerdown_gpio, 1);
-+	gpiod_set_value_cansleep(gc8034->reset_gpio, 1);
-+	clk_disable_unprepare(gc8034->xclk);
-+	gc8034_disable_supplies(gc8034, ARRAY_SIZE(gc8034_supply_name));
-+
-+	return 0;
-+}
-+
-+static int gc8034_enum_mbus_code(struct v4l2_subdev *sd,
-+				 struct v4l2_subdev_state *sd_state,
-+				 struct v4l2_subdev_mbus_code_enum *code)
-+{
-+	if (code->index > 0)
-+		return -EINVAL;
-+
-+	code->code = GC8034_MBUS_CODE;
-+
-+	return 0;
-+}
-+
-+static int gc8034_enum_frame_size(struct v4l2_subdev *sd,
-+				  struct v4l2_subdev_state *sd_state,
-+				  struct v4l2_subdev_frame_size_enum *fse)
-+{
-+	if (fse->code != GC8034_MBUS_CODE)
-+		return -EINVAL;
-+
-+	if (fse->index > 0)
-+		return -EINVAL;
-+
-+	fse->min_width = GC8034_WIDTH;
-+	fse->max_width = GC8034_WIDTH;
-+	fse->min_height = GC8034_HEIGHT;
-+	fse->max_height = GC8034_HEIGHT;
-+
-+	return 0;
-+}
-+
-+static void gc8034_fill_state(struct v4l2_subdev_state *state)
-+{
-+	struct v4l2_mbus_framefmt *fmt;
-+	struct v4l2_rect *crop;
-+
-+	crop = v4l2_subdev_state_get_crop(state, 0);
-+	crop->left = GC8034_CROP_LEFT;
-+	crop->top = GC8034_CROP_TOP;
-+	crop->width = GC8034_WIDTH;
-+	crop->height = GC8034_HEIGHT;
-+
-+	fmt = v4l2_subdev_state_get_format(state, 0);
-+	fmt->width = GC8034_WIDTH;
-+	fmt->height = GC8034_HEIGHT;
-+	fmt->code = GC8034_MBUS_CODE;
-+	fmt->field = V4L2_FIELD_NONE;
-+	fmt->colorspace = V4L2_COLORSPACE_RAW;
-+	fmt->ycbcr_enc = V4L2_MAP_YCBCR_ENC_DEFAULT(fmt->colorspace);
-+	fmt->quantization = V4L2_QUANTIZATION_FULL_RANGE;
-+	fmt->xfer_func = V4L2_XFER_FUNC_NONE;
-+}
-+
-+static int gc8034_get_selection(struct v4l2_subdev *sd,
-+				const struct v4l2_subdev_client_info *ci,
-+				struct v4l2_subdev_state *state,
-+				struct v4l2_subdev_selection *sel)
-+{
-+	switch (sel->target) {
-+	case V4L2_SEL_TGT_CROP:
-+		sel->r = *v4l2_subdev_state_get_crop(state, 0);
-+		break;
-+	case V4L2_SEL_TGT_CROP_DEFAULT:
-+		sel->r.top = GC8034_CROP_TOP;
-+		sel->r.left = GC8034_CROP_LEFT;
-+		sel->r.width = GC8034_WIDTH;
-+		sel->r.height = GC8034_HEIGHT;
-+		break;
-+	case V4L2_SEL_TGT_CROP_BOUNDS:
-+	case V4L2_SEL_TGT_NATIVE_SIZE:
-+		sel->r.top = 0;
-+		sel->r.left = 0;
-+		sel->r.width = GC8034_NATIVE_WIDTH;
-+		sel->r.height = GC8034_NATIVE_HEIGHT;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+static int gc8034_init_state(struct v4l2_subdev *sd,
-+			     struct v4l2_subdev_state *state)
-+{
-+	gc8034_fill_state(state);
-+
-+	return 0;
-+}
-+
-+static int gc8034_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
-+				 struct v4l2_mbus_frame_desc *fd)
-+{
-+	fd->type = V4L2_MBUS_FRAME_DESC_TYPE_CSI2;
-+	fd->num_entries = 1;
-+	fd->entry[0].pixelcode = GC8034_MBUS_CODE;
-+	fd->entry[0].stream = 0;
-+	fd->entry[0].bus.csi2.vc = 0;
-+	fd->entry[0].bus.csi2.dt = MIPI_CSI2_DT_RAW10;
-+
-+	return 0;
-+}
-+
-+static int gc8034_set_analogue_gain(struct gc8034 *gc8034, u32 idx)
-+{
-+	unsigned int i;
-+	int ret = 0;
-+
-+	cci_write(gc8034->regmap, GC8034_REG_ANALOGUE_GAIN, idx, &ret);
-+
-+	for (i = 0; i < ARRAY_SIZE(gc8034_agc_bias_reg); i++)
-+		cci_write(gc8034->regmap, CCI_REG8(gc8034_agc_bias_reg[i]),
-+			  gc8034_agc_bias[idx][i], &ret);
-+
-+	return ret;
-+}
-+
-+static int gc8034_set_ctrl(struct v4l2_ctrl *ctrl)
-+{
-+	struct gc8034 *gc8034 =
-+		container_of(ctrl->handler, struct gc8034, ctrls);
-+	const struct v4l2_mbus_framefmt *format;
-+	struct v4l2_subdev_state *state;
-+	s64 exposure_max;
-+	int ret;
-+
-+	state = v4l2_subdev_get_locked_active_state(&gc8034->sd);
-+	format = v4l2_subdev_state_get_format(state, 0);
-+
-+	if (ctrl->id == V4L2_CID_VBLANK) {
-+		exposure_max = round_down(format->height + ctrl->val -
-+					  GC8034_EXP_MARGIN, GC8034_EXP_STEP);
-+		ret = __v4l2_ctrl_modify_range(gc8034->exposure,
-+					       GC8034_EXP_MIN, exposure_max,
-+					       GC8034_EXP_STEP, GC8034_EXP_DEF);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	if (!pm_runtime_get_if_active(gc8034->dev))
-+		return 0;
-+
-+	ret = cci_write(gc8034->regmap, GC8034_REG_PAGE_SELECT, GC8034_PAGE_0,
-+			NULL);
-+	if (ret)
-+		goto out;
-+
-+	switch (ctrl->id) {
-+	case V4L2_CID_EXPOSURE:
-+		ret = cci_write(gc8034->regmap, GC8034_REG_EXPOSURE,
-+				ctrl->val, NULL);
-+		break;
-+	case V4L2_CID_ANALOGUE_GAIN:
-+		ret = gc8034_set_analogue_gain(gc8034, ctrl->val);
-+		break;
-+	case V4L2_CID_VBLANK:
-+		/* The register holds an offset, not the VTS. */
-+		ret = cci_write(gc8034->regmap, GC8034_REG_BLANKING,
-+				format->height + ctrl->val -
-+				GC8034_VTS_OFFSET, NULL);
-+		break;
-+	default:
-+		ret = -EINVAL;
-+		break;
-+	}
-+
-+out:
-+	pm_runtime_put_autosuspend(gc8034->dev);
-+
-+	return ret;
-+}
-+
-+static const struct v4l2_ctrl_ops gc8034_ctrl_ops = {
-+	.s_ctrl = gc8034_set_ctrl,
-+};
-+
-+/* Only ever called from probe, with the sensor powered up. */
-+static int gc8034_identify_module(struct gc8034 *gc8034)
-+{
-+	u64 val;
-+	int ret;
-+
-+	ret = cci_read(gc8034->regmap, GC8034_REG_CHIP_ID, &val, NULL);
-+	if (ret)
-+		return ret;
-+
-+	if (val != GC8034_CHIP_ID)
-+		return dev_err_probe(gc8034->dev, -ENXIO,
-+				     "chip id mismatch: %x != %llx\n",
-+				     GC8034_CHIP_ID, val);
-+
-+	return 0;
-+}
-+
-+static int gc8034_enable_streams(struct v4l2_subdev *sd,
-+				 struct v4l2_subdev_state *state,
-+				 u32 pad, u64 streams_mask)
-+{
-+	struct gc8034 *gc8034 = to_gc8034(sd);
-+	int ret;
-+
-+	ret = pm_runtime_resume_and_get(gc8034->dev);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = cci_multi_reg_write(gc8034->regmap, gc8034_regs,
-+				  ARRAY_SIZE(gc8034_regs), NULL);
-+	if (ret)
-+		goto err_rpm_put;
-+
-+	ret = __v4l2_ctrl_handler_setup(&gc8034->ctrls);
-+	if (ret)
-+		goto err_rpm_put;
-+
-+	ret = cci_write(gc8034->regmap, GC8034_REG_STREAM, GC8034_STREAM_ON,
-+			NULL);
-+	if (ret)
-+		goto err_rpm_put;
-+
-+	return 0;
-+
-+err_rpm_put:
-+	pm_runtime_put_autosuspend(gc8034->dev);
-+
-+	return ret;
-+}
-+
-+static int gc8034_disable_streams(struct v4l2_subdev *sd,
-+				  struct v4l2_subdev_state *state,
-+				  u32 pad, u64 streams_mask)
-+{
-+	struct gc8034 *gc8034 = to_gc8034(sd);
-+	int ret = 0;
-+
-+	/* cci_write() logs errors, nothing else can be done about them. */
-+	cci_write(gc8034->regmap, GC8034_REG_PAGE_SELECT, GC8034_PAGE_0, &ret);
-+	cci_write(gc8034->regmap, GC8034_REG_STREAM, GC8034_STREAM_OFF, &ret);
-+
-+	pm_runtime_put_autosuspend(gc8034->dev);
-+
-+	return 0;
-+}
-+
-+static const struct v4l2_subdev_video_ops gc8034_video_ops = {
-+	.s_stream = v4l2_subdev_s_stream_helper,
-+};
-+
-+static const struct v4l2_subdev_pad_ops gc8034_pad_ops = {
-+	.enum_mbus_code = gc8034_enum_mbus_code,
-+	.enum_frame_size = gc8034_enum_frame_size,
-+	.get_fmt = v4l2_subdev_get_fmt,
-+	.get_selection = gc8034_get_selection,
-+	.get_frame_desc = gc8034_get_frame_desc,
-+	.enable_streams = gc8034_enable_streams,
-+	.disable_streams = gc8034_disable_streams,
-+};
-+
-+static const struct v4l2_subdev_ops gc8034_subdev_ops = {
-+	.video = &gc8034_video_ops,
-+	.pad = &gc8034_pad_ops,
-+};
-+
-+static const struct v4l2_subdev_internal_ops gc8034_internal_ops = {
-+	.init_state = gc8034_init_state,
-+};
-+
-+static int gc8034_parse_fwnode(struct gc8034 *gc8034)
-+{
-+	struct v4l2_fwnode_endpoint bus_cfg = {
-+		.bus_type = V4L2_MBUS_CSI2_DPHY,
-+	};
-+	struct device *dev = gc8034->dev;
-+	struct fwnode_handle *endpoint;
-+	unsigned long link_freq_bitmap;
-+	int ret;
-+
-+	endpoint = fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 0, 0,
-+						   FWNODE_GRAPH_ENDPOINT_NEXT);
-+	ret = v4l2_fwnode_endpoint_alloc_parse(endpoint, &bus_cfg);
-+	fwnode_handle_put(endpoint);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to parse endpoint\n");
-+
-+	/* The register table configures the CSI-2 transmitter for 4 lanes. */
-+	if (bus_cfg.bus.mipi_csi2.num_data_lanes != GC8034_DATA_LANES) {
-+		ret = dev_err_probe(dev, -EINVAL,
-+				    "unsupported number of data lanes %u\n",
-+				    bus_cfg.bus.mipi_csi2.num_data_lanes);
-+		goto done;
-+	}
-+
-+	ret = v4l2_link_freq_to_bitmap(dev, bus_cfg.link_frequencies,
-+				       bus_cfg.nr_of_link_frequencies,
-+				       gc8034_link_freq_menu,
-+				       ARRAY_SIZE(gc8034_link_freq_menu),
-+				       &link_freq_bitmap);
-+
-+done:
-+	v4l2_fwnode_endpoint_free(&bus_cfg);
-+
-+	return ret;
-+}
-+
-+static int gc8034_init_controls(struct gc8034 *gc8034)
-+{
-+	struct v4l2_fwnode_device_properties props;
-+	struct v4l2_ctrl_handler *ctrl_hdlr;
-+	struct v4l2_ctrl *link_freq, *hblank;
-+	s64 exposure_max;
-+	int ret;
-+
-+	ret = v4l2_fwnode_device_parse(gc8034->dev, &props);
-+	if (ret)
-+		return ret;
-+
-+	ctrl_hdlr = &gc8034->ctrls;
-+	v4l2_ctrl_handler_init(ctrl_hdlr, 8);
-+
-+	link_freq = v4l2_ctrl_new_int_menu(ctrl_hdlr, NULL, V4L2_CID_LINK_FREQ,
-+					   ARRAY_SIZE(gc8034_link_freq_menu) -
-+					   1, 0, gc8034_link_freq_menu);
-+
-+	v4l2_ctrl_new_std(ctrl_hdlr, NULL, V4L2_CID_PIXEL_RATE,
-+			  GC8034_PIXEL_RATE, GC8034_PIXEL_RATE, 1,
-+			  GC8034_PIXEL_RATE);
-+
-+	v4l2_ctrl_new_std(ctrl_hdlr, &gc8034_ctrl_ops, V4L2_CID_VBLANK,
-+			  GC8034_VTS_DEF - GC8034_HEIGHT,
-+			  GC8034_VTS_MAX - GC8034_HEIGHT, 1,
-+			  GC8034_VTS_DEF - GC8034_HEIGHT);
-+
-+	hblank = v4l2_ctrl_new_std(ctrl_hdlr, NULL, V4L2_CID_HBLANK,
-+				   GC8034_HTS - GC8034_WIDTH,
-+				   GC8034_HTS - GC8034_WIDTH, 1,
-+				   GC8034_HTS - GC8034_WIDTH);
-+
-+	exposure_max = GC8034_VTS_DEF - GC8034_EXP_MARGIN;
-+	gc8034->exposure = v4l2_ctrl_new_std(ctrl_hdlr, &gc8034_ctrl_ops,
-+					     V4L2_CID_EXPOSURE, GC8034_EXP_MIN,
-+					     exposure_max, GC8034_EXP_STEP,
-+					     GC8034_EXP_DEF);
-+
-+	v4l2_ctrl_new_std(ctrl_hdlr, &gc8034_ctrl_ops, V4L2_CID_ANALOGUE_GAIN,
-+			  0, ARRAY_SIZE(gc8034_agc_bias) - 1, 1, 0);
-+
-+	v4l2_ctrl_new_fwnode_properties(ctrl_hdlr, &gc8034_ctrl_ops, &props);
-+
-+	if (ctrl_hdlr->error)
-+		return v4l2_ctrl_handler_free(ctrl_hdlr);
-+
-+	link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-+	hblank->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-+
-+	gc8034->sd.ctrl_handler = ctrl_hdlr;
-+
-+	return 0;
-+}
-+
-+static int gc8034_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct gc8034 *gc8034;
-+	unsigned long freq;
-+	int ret;
-+
-+	gc8034 = devm_kzalloc(dev, sizeof(*gc8034), GFP_KERNEL);
-+	if (!gc8034)
-+		return -ENOMEM;
-+
-+	gc8034->dev = dev;
-+
-+	v4l2_i2c_subdev_init(&gc8034->sd, client, &gc8034_subdev_ops);
-+	gc8034->sd.internal_ops = &gc8034_internal_ops;
-+
-+	ret = gc8034_parse_fwnode(gc8034);
-+	if (ret)
-+		return ret;
-+
-+	gc8034->xclk = devm_v4l2_sensor_clk_get(dev, NULL);
-+	if (IS_ERR(gc8034->xclk))
-+		return dev_err_probe(dev, PTR_ERR(gc8034->xclk),
-+				     "failed to get clock\n");
-+
-+	freq = clk_get_rate(gc8034->xclk);
-+	if (freq != GC8034_XCLK_FREQ)
-+		return dev_err_probe(dev, -EINVAL,
-+				     "external clock %lu Hz not supported\n",
-+				     freq);
-+
-+	gc8034->regmap = devm_cci_regmap_init_i2c(client, 8);
-+	if (IS_ERR(gc8034->regmap))
-+		return dev_err_probe(dev, PTR_ERR(gc8034->regmap),
-+				     "failed to init CCI\n");
-+
-+	gc8034->reset_gpio = devm_gpiod_get_optional(dev, "reset",
-+						     GPIOD_OUT_HIGH);
-+	if (IS_ERR(gc8034->reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(gc8034->reset_gpio),
-+				     "failed to get reset GPIO\n");
-+
-+	gc8034->powerdown_gpio = devm_gpiod_get_optional(dev, "powerdown",
-+							 GPIOD_OUT_HIGH);
-+	if (IS_ERR(gc8034->powerdown_gpio))
-+		return dev_err_probe(dev, PTR_ERR(gc8034->powerdown_gpio),
-+				     "failed to get powerdown GPIO\n");
-+
-+	for (unsigned int i = 0; i < ARRAY_SIZE(gc8034_supply_name); i++)
-+		gc8034->supplies[i].supply = gc8034_supply_name[i];
-+
-+	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(gc8034_supply_name),
-+				      gc8034->supplies);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to get regulators\n");
-+
-+	ret = gc8034_power_on(dev);
-+	if (ret)
-+		return ret;
-+
-+	ret = gc8034_identify_module(gc8034);
-+	if (ret)
-+		goto err_power_off;
-+
-+	ret = gc8034_init_controls(gc8034);
-+	if (ret) {
-+		dev_err_probe(dev, ret, "failed to init controls\n");
-+		goto err_power_off;
-+	}
-+
-+	gc8034->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
-+	gc8034->pad.flags = MEDIA_PAD_FL_SOURCE;
-+	gc8034->sd.entity.function = MEDIA_ENT_F_CAM_SENSOR;
-+
-+	ret = media_entity_pads_init(&gc8034->sd.entity, 1, &gc8034->pad);
-+	if (ret < 0) {
-+		dev_err_probe(dev, ret, "failed to init media entity\n");
-+		goto err_ctrl_handler_free;
-+	}
-+
-+	gc8034->sd.state_lock = gc8034->ctrls.lock;
-+	ret = v4l2_subdev_init_finalize(&gc8034->sd);
-+	if (ret < 0) {
-+		dev_err_probe(dev, ret, "failed to finalize subdev\n");
-+		goto err_media_entity_cleanup;
-+	}
-+
-+	pm_runtime_set_active(dev);
-+	pm_runtime_enable(dev);
-+	pm_runtime_set_autosuspend_delay(dev, 1000);
-+	pm_runtime_use_autosuspend(dev);
-+
-+	ret = v4l2_async_register_subdev_sensor(&gc8034->sd);
-+	if (ret < 0) {
-+		dev_err_probe(dev, ret, "failed to register subdev\n");
-+		goto err_rpm;
-+	}
-+
-+	pm_runtime_idle(dev);
-+
-+	return 0;
-+
-+err_rpm:
-+	pm_runtime_disable(dev);
-+	pm_runtime_dont_use_autosuspend(dev);
-+	pm_runtime_set_suspended(dev);
-+	v4l2_subdev_cleanup(&gc8034->sd);
-+
-+err_media_entity_cleanup:
-+	media_entity_cleanup(&gc8034->sd.entity);
-+
-+err_ctrl_handler_free:
-+	v4l2_ctrl_handler_free(&gc8034->ctrls);
-+
-+err_power_off:
-+	gc8034_power_off(dev);
-+
-+	return ret;
-+}
-+
-+static void gc8034_remove(struct i2c_client *client)
-+{
-+	struct v4l2_subdev *sd = i2c_get_clientdata(client);
-+	struct gc8034 *gc8034 = to_gc8034(sd);
-+
-+	v4l2_async_unregister_subdev(sd);
-+	v4l2_subdev_cleanup(sd);
-+	media_entity_cleanup(&sd->entity);
-+	v4l2_ctrl_handler_free(&gc8034->ctrls);
-+
-+	pm_runtime_disable(&client->dev);
-+	if (!pm_runtime_status_suspended(&client->dev)) {
-+		gc8034_power_off(&client->dev);
-+		pm_runtime_set_suspended(&client->dev);
-+	}
-+	pm_runtime_dont_use_autosuspend(&client->dev);
-+}
-+
-+static const struct dev_pm_ops gc8034_pm_ops = {
-+	RUNTIME_PM_OPS(gc8034_power_off, gc8034_power_on, NULL)
-+};
-+
-+static const struct acpi_device_id gc8034_acpi_ids[] = {
-+	{ "GCTI8034" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(acpi, gc8034_acpi_ids);
-+
-+static struct i2c_driver gc8034_i2c_driver = {
-+	.driver = {
-+		.name = "gc8034",
-+		.acpi_match_table = gc8034_acpi_ids,
-+		.pm = pm_ptr(&gc8034_pm_ops),
-+	},
-+	.probe = gc8034_probe,
-+	.remove = gc8034_remove,
-+};
-+module_i2c_driver(gc8034_i2c_driver);
-+
-+MODULE_AUTHOR("Nicola Fiorillo <nicfio@gmail.com>");
-+MODULE_DESCRIPTION("GalaxyCore GC8034 sensor driver");
-+MODULE_LICENSE("GPL");
--- 
-2.47.3
-
+Best regards,
+Krzysztof
