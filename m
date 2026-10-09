@@ -1,108 +1,103 @@
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BC9B3C3787
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 17:38:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.44
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791567531; cv=none; b=d5BXpDRtd6w+MrjYdIdrflbByPDtPzoafG4xXnDU+PAC/+4J53hwdxDTnSbZ/ij3iTgrvgPbtSmPCQ36Q+lBEdHtm0gNaq6P5fAj6QvMH4fItSs/uDW7CzwJn12ZUdZ3ZZhXtAlcxGPGXOtY+jmCK+4zhEQsqoGXXWEVBsYQH00=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791567531; c=relaxed/simple;
-	bh=rcocceJzvdxseW7oSVOuLeEh+pzPMgoaU0tzjFa8pvE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HlmvdHjjZW0WJgjLfGk/edr+v1JB1H4S9lUfqUsEiLR59Svr41FDbkAwkaaTbyAnZa36bl1nKU5/KJxbWYzoMHkSD2HYYH6VylaUySBKEdeetgvqQcmegRNFXjWd0TZuNhXvHR72cimNyFaOXgXNxzbrg8ExYL9Fzy/V+0zhwxA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q1Dpve/B; arc=none smtp.client-ip=209.85.218.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95B2C2F619D
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 17:40:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791567616; cv=pass; b=XRbkOFRSYw9tAJPzQRRBSg1J7GrWna/FiVj91jTmoVEQP24A7CMk+KVwR/Pc1FAiY/lzi6popnc00hu1lmPaEDax6F385W2EWpyGwObi5+65SfHnQe0iDsE4Avg+hFu9KKKuXkVk876bXbc2PpYuVRP7bgZzeuoGR9tCAzKYynQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791567616; c=relaxed/simple;
+	bh=tTdETWehUdf3mm92X+P34MK2XxnJziK39cJr67gku28=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nn+/UxZ8ShVILRUIeGJHIUDA8aEdiULU2OaXaEQNPT9zw1LOMN3c5h5uMRGvlkfvuSMkvD2qTeCR/IkU+8RkHBf1j0lHsQSVKk6T2cOArH+zncsIxTZTF49R7/xPdMQMgr00KTC0aaEHn3zt8yqk4ldy1Qq10av03FtTUL7kBVE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=HADyDoHe; arc=pass smtp.client-ip=165.173.182.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q1Dpve/B"
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c247f6687dcso16232266b.2
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 10:38:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791567528; x=1792172328; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vQtBsY6p+LlKSNXN5m5Dgc3FzmVkyBn0CPq52gBNyq8=;
-        b=q1Dpve/BJqevJLwPZrHt/Z1nF1gmRDX2Gbm0eds6H+DRl5ZIamgjIAWU/ALr+qSQMP
-         s3slCmjd7mU//7AzhVC/sZwiq/D5xpsSRh7vDpwPZe9kmtr8LNrw4wwh+U5V7ZNJsQSJ
-         c1c6DWlgDDpLDRlBxfNTmC5Ds2roCPNnZrTwO9j2ONIZnKL1CxNQBMyjz6nnd5ycgSwy
-         S0Fz5sSBmLBW0bSTmCSEua2chud0dSQPtakOsrJ+YzWk/w48bugzKzLN+sldPOuUu2wn
-         IBAfb1eHzETMp27IKJ1gEMnBIrOqRD92Crlq9QNMyPEQqkULlbXPn21kpJgBMosnoB9+
-         bBtw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791567528; x=1792172328;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vQtBsY6p+LlKSNXN5m5Dgc3FzmVkyBn0CPq52gBNyq8=;
-        b=JAoCJgcMKy2kaPKdHQZM+h15QsuG623AqYvQg9+mxskAk2cwQGmqvXXeAY2lERraTD
-         tlv+o0vKWqG8xU+lYxdum3/jja+BWcKAOxnz26Ptlw8InpRFqm08msorlq96JaCEmEcz
-         GmriipX13cOJXm2aV6rNa6DOvQ5BowcVunCUewALLIcpNsmLD47rBXT3jfx+SOTE5P1u
-         16JUWroegZR5ntHUtWiQR1gax9xRYgYiZd7bxok9yHXphg1VGrLS940rLBRcyZIn1BLX
-         GnVKRkIvBuYA9zF2GVbq4GPhezdTmXx8BIbQlQ860oYK73t7zQqEqeYOKj3e7X+tpmiv
-         7fDA==
-X-Forwarded-Encrypted: i=1; AKwUvBxIYzFswZeda3SIUtm+Mtq++IyP+ETmEnPmURhwzAANIIEFG0rFZoGvsN6SzOHz9Ilf6/eqy0Q/N+F0S9I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIejs/qq7TZsdpLA2OMX8ucQKL+yw25M8tfWAAqTAWf3uBfPB7f
-	Rt3DQW1L7RJVFq7T2JJFjag+k1ZY3JiX+Wev0r69Eqlbnd9wfnZsuU2RshG5jg==
-X-Gm-Gg: AYBFou02twXMmPmg6jhxPWeeWDKH1xFFfKNVzAdhdhMIj+Z1HA+FNS7kIHuNCAbqAZS
-	nBstAI9EoyPS1pUsxDZvbD+kADX5Qs7wgwQWmemxG3+dQYXdC0SyakTz4vYrtRrH5Dl/aM8ejbx
-	W77SsTB+uzwkGoujtN+iw5cO74HahamEMypsLf8d2JDt7J1ca7ce3PQoGxUrPIfMfnuYiYZB69B
-	wuuFR0P+HtG8UohHHYf9LJE7/8GPArOH46cJEamFYMTMOzJzYVx2C9isDZPgFBumAFnsLBpGKyt
-	k/R5cj5KNO6aO5+L8OnWj+yCmxJUYT61FAGTG4re2zw56ynFgvxrIfPV+6MQoLeoHJB0/JnFudy
-	7PccfMM0CofdubrIhzgvRAi6W8iM4xNtivpc1iWVkUqfAIgZup5B277CC5NpkTTsRLdf+zQUQ/5
-	DEwjkn5j1Z6nkBTFQzwSTfyDZDiLOoAqXdXKH1MdbBLjlgoJfeys2omh18+FnGwjTm2idFKqAUk
-	4VzqtzV
-X-Received: by 2002:a17:907:e98c:b0:c2e:8eb7:53dd with SMTP id a640c23a62f3a-c31aa0c19a7mr316091466b.42.1791567528253;
-        Fri, 09 Oct 2026 10:38:48 -0700 (PDT)
-Received: from avt74j0.fritz.box ([2a02:8109:8617:d700:23fa:b7ab:755c:df7c])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9a74bcbsm124698966b.38.2026.10.09.10.38.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 10:38:47 -0700 (PDT)
-From: Martin Hecht <mhecht73@gmail.com>
-To: linux-media@vger.kernel.org
-Cc: sakari.ailus@linux.intel.com,
-	michael.roeder@avnet.eu,
-	martin.hecht@avnet.eu,
-	Martin Hecht <mhecht73@gmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] add V4L2_CID_USER_ALVIUM_BASE and request space for up to 128 controls
-Date: Fri,  9 Oct 2026 19:38:24 +0200
-Message-ID: <20261009173826.968402-1-mhecht73@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="HADyDoHe"
+ARC-Seal: i=1; a=rsa-sha256; t=1791567601; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=YbFIjIUzpXDBuujkYUL/AOBDcvYaNW1Qtaai/qPI7+V9PeG6h9pNLsD6tQAuOAzbLm/ew8qXRJ/azqOdcHXjMBHTEoe/VsTYP5GCkwZJJUyvoeiKIE+OhvPZ5d6TAV7qrRtPLyOvJ5f/CMHP+9ZCMVjD0BLeRtJ+Ze5zfETblaw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1791567601; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=q37dDx8QDacAUOm7BGUBoeF+NDXNcQ2RJoiSumQlbLA=; 
+	b=O27cpX7ILmp95fpdRZP9Q1TR9TNYdj6q7HILAQ6yWJgx9TfukpCCQWcT6GKrwDNSH1MP2JWsJiacGvBIIyS95660kgFPSGjS0JRkFLMMFfYa7kXBLC7NG+9MQZUZtGGv2IBpMFANumbfieoMzH0wfaX59DwZe3kgCMzxvZXUUUU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791567601;
+	s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=q37dDx8QDacAUOm7BGUBoeF+NDXNcQ2RJoiSumQlbLA=;
+	b=HADyDoHeyFYtYzS4Tz3GeY07DcOmmK7qp4VekX0o60zbeKI/4uGQccayH8vbdY16
+	XGisKIQBgzADLuElgCNbFA4sNwcshok2rN6oWH3xJo2E8IoPmJ1QP0ayUA9jATMkwmE
+	ywgOJs/iAibNLOkcODni7AgWO5K5xqbGTwEZYneo=
+Received: by smtp.zohomail.com with SMTPS id 1791567599341604.3808848113907;
+	Fri, 9 Oct 2026 10:39:59 -0700 (PDT)
+Message-ID: <bf25fc38-95d7-4cb5-b0ee-6afe1488e5e7@collabora.com>
+Date: Fri, 9 Oct 2026 20:39:54 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/virtio: share one vbuf cache across all devices
+To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
+ Hillf Danton <hdanton@sina.com>
+Cc: David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, linux-kernel@vger.kernel.org,
+ syzbot+1b129b44597a126d2d79@syzkaller.appspotmail.com,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev
+References: <20260927000323.299-1-hdanton@sina.com>
+ <20260927040911.15181-1-ngocthang2710.1999@gmail.com>
+Content-Language: en-US
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <20260927040911.15181-1-ngocthang2710.1999@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-That patch requests a continoous block of controls to enable various
-features of the Alvium camera family. There are many features like
-triggers, ROI for auto functions like AWB, auto gain and so on.
+27.09.2026 07:09, Nguyen Ngoc Thang пишет:
+> On Sun, 27 Sep 2026, Hillf Danton wrote:
+>> What is unclear -- why is kmalloc failing to work in 2026?
+> 
+> kmalloc isn't failing. The failure is in kmem_cache_create(): the driver
+> creates a dedicated cache with a fixed global name for each device, so a
+> second probe while the first drm_device is still alive (release is
+> deferred by an open /dev/fbN) trips the duplicate-name check.
+> 
+> Your question made me look at whether the dedicated cache is needed at all.
+> A vbuf is sizeof(struct virtio_gpu_vbuffer) + 96 + 24 = 216 bytes, which
+> lands in kmalloc-256 anyway, so the cache buys nothing over kzalloc()/kfree().
+> Dropping it also removes the lifetime problem entirely and needs no
+> module-level state.
+> 
+> I'll send a v2 that switches the kmem_cache_zalloc() calls and
+> kmem_cache_free() to kzalloc()/kfree() and deletes the cache setup and
+> teardown.
+> 
+> Thanks,
+> Nguyen Ngoc Thang
 
-Signed-off-by: Martin Hecht <mhecht73@gmail.com>
----
- include/uapi/linux/v4l2-controls.h | 6 ++++++
- 1 file changed, 6 insertions(+)
+kmem_cache is used by GPU drivers to avoid kmalloc stalls in a
+latency-sensitive job-submission code path.
 
-diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2-controls.h
-index d17e41d51d2e..5ed91c053617 100644
---- a/include/uapi/linux/v4l2-controls.h
-+++ b/include/uapi/linux/v4l2-controls.h
-@@ -255,6 +255,12 @@ enum v4l2_colorfx {
-  */
- #define V4L2_CID_USER_IT6625_BASE		(V4L2_CID_USER_BASE + 0x1250)
- 
-+/*
-+ * The base for Alvium CSI2 driver controls.
-+ * We reserve 128 controls for this driver.
-+ */
-+#define V4L2_CID_USER_ALVIUM_BASE		(V4L2_CID_USER_BASE + 0x1260)
-+
- /* MPEG-class control IDs */
- /* The MPEG controls are applicable to all codec controls
-  * and the 'MPEG' part of the define is historical */
+The /dev/fb reference doesn't sound right as normally removal of
+framebuffers is required before GPU driver can be unbound. Such bug
+reports should be treated as invalid, BTW [1].
+
+Assume the similar "duplicated" kmemcache problem should exists if there
+is more than one virtio-gpu device in a system. I suggest you to
+validate this case and if it has the problem, might be better to make
+kmemcache's static instead of creating dynamically.
+
+[1] https://www.phoronix.com/news/Linux-Taint-Forced-Bind
+
 -- 
-2.43.0
-
+Best regards,
+Dmitry
