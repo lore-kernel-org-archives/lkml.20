@@ -1,261 +1,367 @@
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazolkn19012075.outbound.protection.outlook.com [52.103.11.75])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDDB23F1073
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 05:53:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.70
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791525206; cv=none; b=gEq2Fjk55aBZdFzCecE2g5LcTHt0MvX0LF3H9/VSuYAWu5VlsTfEA2XqIDseAm3LKX6RmXCBw++HZOC6fODsp8RRvI+labyDG4VP4YQ22nrWJczQ2QiCLLDBwVrAZICiCWVRb7RATqjqTm9HTkX6B0ZgeAL0DcLRSBJjGMxRWSk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791525206; c=relaxed/simple;
-	bh=io/4IKNtEDA2/qvWB2ZPzzWfvdGJiZfVEQAOr1a159c=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=qQSienTr3I622a5xvisROlLId9lvExfPT7UoS7y23o2ZSKGfHxBFSF4A2NVlJF9eXOKO75RleuntdFJXvRdP7WvjCIpExdaapv+tK2g+5MZ/giBY8lGXPWkafKitVF9u/i40rZYvMgGFRaBgS3/4awF5OVbqoUBeQxr0rshDsnE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-80a79b0de9eso12226518a34.2
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 22:53:24 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791525204; x=1792130004;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kKKvmFfZwsqrfM3PYHPrEGRSmIXlY77Q19PAO1JkExw=;
-        b=EQ5JGCoUSYxWcqyCU5gQjo0xA9tzvaAoGEBT3O7XN86SivVbLLvV/2SRtZHnldL5c/
-         b54LTcPYvV72p8OhiALf+etaEhkTkvwi+B1uPiYoBoNxApasmCDPx9mTOw9iJbtJ+3O0
-         9cXp4u0GF3CfU1kZ3XQvT6jLa5Hl2qr3jaDCRMqXLMAPd7CFPSKqq6/W6k4qlbRJgGCh
-         CUOJW1nA32O4kXOfB8+kkCNnpGeds82qMw5mxrn2XXb+T9ADFnoeDNvejbgniRCwugLH
-         lHCGmoXXYq/sDcm5wc5AnD4AsIITSq2Ah0gpKmiAlR5orVFjQCHgGNnbvDIIH7fLcGlO
-         dPMg==
-X-Forwarded-Encrypted: i=1; AKwUvBx5u5riTARCjBCrSdy4muC5ibJErgMLIobExOZA3mkocJSBdSH15ma9RglTATlK7syN3Ru1kxzxXirtbX4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lUnwpjKJtBcVM3bmS6ZtgMYrgqMyPfvTB+BpUObt198EnmtRiE
-	Q0O6faW1OwbfANblbrrHzQ0lKNfdsGlBgSFnm1uBZhyamdvaE9nJrs2minuiwLrd57mqCRJFMY5
-	+KYLeWoubQjrqO0QqvwW7VSugy2bJzmG2ELj5QiMoQIuALs/TSE2tjYeEp/I=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E0343A1A29;
+	Fri,  9 Oct 2026 05:54:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.11.75
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791525277; cv=fail; b=dCQrbzbYKAtQtQ8nVHvGh0vc2V78p5z78uTMaOM0QVSve5A2KBPl2Vf+pjGR7QJGtNVYK7k/DqmhUZMgZ1ss1GnWlj/4JD3yNe7v0YR/BfprP4/qDSRnUFhjUvc6VRYoI0ifPRQbvIkHsYS8Mm1KH3xSuZSmRbgoGwapW/X5rW8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791525277; c=relaxed/simple;
+	bh=OV26oKARCkp7+G8IV2fbgSWRKiJmCeFxh9KYcvyixdY=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=jT8a8MaBtCmvRQ6q2nByCrQXhxvd+DSElZgHMr6o4GOMf6ikdPE6I5bOjM8GAjtavBD5ksmLJ4lCeVdmWfFg16vk4b/XbJdmj4TCi61ztxZEmfxM5AFq70PMcYE+CRfCrgtnyP770B2lX2LGeq4VZmcuFJ8AkLJOLzIWF1ZLFqI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=gcr+Rs/F; arc=fail smtp.client-ip=52.103.11.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="gcr+Rs/F"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xRAF2aToHlMPeQnob/oCa8S6BK2k6OIfeSEG47H59wctswrUaqVnIxr+ZbB0aA4WtzAPovrL4ffBKeY3E7ZlA6R6Lj9RemOBNUFjMPnnWi4XYk8JVgq88eE4zSRxWJiIWSewU6FDj91xmfwYpYfeAvj+UkvJSQnQHUZ3Mx2H6+piaEs5tEN4PAghdkTvbgXfcLwEFhRSDlbPsATN8uF1SOkzaLbjTx5Ba38v1vdYpg+BlCmXQhzpFOF4aPPtQCADUlX6cyPBptu5nJMapvF6a69gdHwXbhMo5L1N4JYEmbz8cJjBrQmM+nemd+J6uU8X/AJ+StR7o444JvBPfWBZJQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=H7RkjNMOHclL6v8DVbFJYlK/NZTQ4neWIxb9nHibeuo=;
+ b=iEwXmBQ8ZMw/hZ3XdVFU0F06ML4y0PacmDQpFDpGo1qGvaAoDI6SPXm3g9t5aSc2YISVRhANencXezB242s1Kx8ym99NX+F2tlBljFbKyXrdZEdFjc/G7uMoYDSM4mku/9mY2BXhgLFOKmB4Ho/kIQvf+9lwdAp8q9ve7pVMJUeKvp3mosUTGJ5t37y7PHqgjF6TkxlUdBPH+I3xbqd3G5+Tdmy2nM/FWcB3h4J3jEMCkXCZyxw0k4hnr8Fyl0MOLMlivRR73O8ExkVALvnyL3Ztatp6zps7vMQ4UpZgBHPll7VKzJiPsWUTMNHuLVLVJKY2xBf3LLytImq5ZF0ZTQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=H7RkjNMOHclL6v8DVbFJYlK/NZTQ4neWIxb9nHibeuo=;
+ b=gcr+Rs/F+LFgiaHu/HRIsCMJ29/c0F0HKDqI0zURX3B+OkCP8P0YQQ2aobP4Lu5EcWkuq6OgLnUWjpvLJHIl3M7297weX+hrOi1iWW4UeMxpuK50XjJVLiKfBqruOsYKMlMkXvhihiCLUzkj7+FwxDnQfc8m2AX5mqbkdP99yz/GacE1mLUQMTTu7I+6JBGiH5GZuQ5EIeHHuE5GehAxbWQOfOchB8GgsSb9tyAgj4Yjy/C8McY9G8g1V8i8639z11W209w8CMDkZK9JLLXoOMKLsohwuQTjxCw9brbg2fUfEAex5tZNrIlJYxcnT9+7OFlxveNSC26cN/cd2uGJkA==
+Received: from MN2PR02MB6863.namprd02.prod.outlook.com (2603:10b6:208:1d7::20)
+ by MN2PR02MB7040.namprd02.prod.outlook.com (2603:10b6:208:1f7::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Fri, 9 Oct
+ 2026 05:54:31 +0000
+Received: from MN2PR02MB6863.namprd02.prod.outlook.com
+ ([fe80::da67:fd0f:d96d:ac53]) by MN2PR02MB6863.namprd02.prod.outlook.com
+ ([fe80::da67:fd0f:d96d:ac53%4]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
+ 05:54:31 +0000
+From: Michael Kelley <mhklinux@outlook.com>
+To: Naman Jain <namjain@linux.microsoft.com>, "linux-nvme@lists.infradead.org"
+	<linux-nvme@lists.infradead.org>
+CC: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, Christoph
+ Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [RFC PATCH 0/3] nvme-pci: yield completions under scheduler
+ pressure
+Thread-Topic: [RFC PATCH 0/3] nvme-pci: yield completions under scheduler
+ pressure
+Thread-Index: AQHdV6vpnDgVRbGlK0OQcDVR5VR04rb0syPQ
+Date: Fri, 9 Oct 2026 05:54:31 +0000
+Message-ID:
+ <MN2PR02MB6863FBC36CE4F1D6419F0E8BD4922@MN2PR02MB6863.namprd02.prod.outlook.com>
+References: <20261009050556.2817978-1-namjain@linux.microsoft.com>
+In-Reply-To: <20261009050556.2817978-1-namjain@linux.microsoft.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MN2PR02MB6863:EE_|MN2PR02MB7040:EE_
+x-ms-office365-filtering-correlation-id: bb707d46-50d6-4254-1f23-08df25c9c9b8
+x-microsoft-antispam:
+ BCL:0;ARA:14566002|15080799012|37011999003|24021099003|41001999006|13031999006|12121999013|55001999006|8062599012|19110799012|13091999003|31061999003|25010399006|8060799015|4140399003|52005399003|1602099012|12091999003|10035399007|2607281247196008|102099032|40105399003|4302099013|3412199025|440099028;
+x-microsoft-antispam-message-info:
+ =?us-ascii?Q?kzYKQakpe33aR2d4km61WkONDbXxYyJbIXSCLCq8hZM+cRBsUzMeSKTEqdne?=
+ =?us-ascii?Q?LyYJXiepUu+DhB2rzB9glBGuxoJAaoplHov87WdaI9B6FfY5rWyzmkQAuS4n?=
+ =?us-ascii?Q?0lPV2PDFs3MOblukfKQ0Z7/Cr8QDozh+fCfDcXcngzF8kcs6x7mZzyY4CQFc?=
+ =?us-ascii?Q?eWwb/F9dbwUnC3+li0cc7JiIsvgbqvD/TTV/t9urps5jE3n0PfM3aC6lHQxZ?=
+ =?us-ascii?Q?kHMiUHBF4+cXJqxDex1B2Nd4xJ/GbDqlOuhzk7pt0sJNhY+CO0mH0KZLzY9B?=
+ =?us-ascii?Q?0E40wBi/lZLyUyT39VLhJK0iulPvD9kknf8Lqr7G1HEvO9VRNVZ0y8+cUH+1?=
+ =?us-ascii?Q?v3Hx0blU7I+eV+AvfBkZW+NS1hOz05Yceurm/Cjg7b52iknKxG1p/2znTtNX?=
+ =?us-ascii?Q?o1QP7s71byQEO4W3zSZOmFuyUt3iMhDHT1xRLPv3UBCrYuoCACroMUEzTkRu?=
+ =?us-ascii?Q?0XHhvqGmPZz+k+aMPh+2DBWrJ1kVuQgC1qvXzEZjhrlQ2gmVtyb2Edo8ZdCq?=
+ =?us-ascii?Q?PpaaNHdmElj1YSDZFEUgZqKxIwuHvKZbNV/ZgnZuMokRqtiByuR69js0WkCO?=
+ =?us-ascii?Q?hF82HOA7LtoF2ZemnUIck1csRsA/QPOGDUsFTh4Waretip0RC7QC6k1pPhvs?=
+ =?us-ascii?Q?V84hkfDczAw5KPsC8pIe0OTZBUa0oCZfrcRzW2G5My86j4e8peRDxARJ5EUo?=
+ =?us-ascii?Q?GzfQiCy2TeYRI/UnFLQ5nH6/87KIBjm5JqXPqo8lxpVEljOSdei/Lz6GjpA7?=
+ =?us-ascii?Q?50pCh1z5rlv7vU0ihpvjicAp1OuHLrA0DGPiftbB5xdlb9nkDQH/uLESro97?=
+ =?us-ascii?Q?DdsFddrB86wBuWwluESQXAGB14fS0dKZoR00a4HkUwPqNtOVxN035Mx6GduK?=
+ =?us-ascii?Q?MwQO7TLPDFoDmvyslBF3ueyBLiYP+JrkdJxOlUYW26cQFc4NkhkrxxFhbYeG?=
+ =?us-ascii?Q?ionuftA6Wr7rfdkBQDuCAalbYGU3JktBiQdWWoVav54s6+Biziaemu223w9y?=
+ =?us-ascii?Q?iO22qGPWVpFj0APFIaO8BSoQSJji4RWCkTtI4AeKJzzyGXy9UAxzumFnXeSP?=
+ =?us-ascii?Q?0rpUSzzC3FHaODh7t8YySc0fc1v28MCb0WCxHrB+ngYw+5yMZUL44jdzkhKQ?=
+ =?us-ascii?Q?0PnHOxgKqHz+hv+IZgpgb3nghFMuVsV7ZGxV2X2s5W8ui4XTLY2bWUUqbV7G?=
+ =?us-ascii?Q?avx3snjZTD4O0h9C?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?w4NelLR38a33MIGBJ1KamR2FyiZTyf4BnNCpFlwFIvTphrBn00n/nYoYfJMo?=
+ =?us-ascii?Q?cdeWkRFK6HUi1sJGko+gUirbmz39W7c6o5vIszETKDJ3IcRia7FCBYKZ05Gf?=
+ =?us-ascii?Q?3irHWzuIaIZ7XaMrK1vi0bMxjIx0R/SFyLXOVXPco6EXLoNCLQkZJ8CJba/7?=
+ =?us-ascii?Q?NFmZ7kPiM7ldEdOx13CVRSLRkmv37DgIVXPIK8aEbnrQACIHGu5LxgfnTPD0?=
+ =?us-ascii?Q?xc4Fw527VyI/KIlaL762LO/m0lR4ARkxOqoW4dx2lSSeCd7zrg5/LUhjbs0J?=
+ =?us-ascii?Q?wNCbGbQgzirdaLImJElrbeEB1DiPCed4iMigYplh8/u6ffCCZGunCsqHEdO7?=
+ =?us-ascii?Q?048qR65UrzD0x8lHUPE9EsFjrPrLbt7U0K4EYDg13DIrNojD8r1aN1+Oaf3U?=
+ =?us-ascii?Q?JIKFDp4DKijdNQcmTjOsqiernxisPaoCf2GZFkHeV6ns31jolnTEQFvqcUC9?=
+ =?us-ascii?Q?Rr8SWfqyMP87Cg3CGy9+jVXJkiS/u1i46whRFFNY8AxgutUv6bep/Vty3sy8?=
+ =?us-ascii?Q?pAPViDJA+AJjvqFfi126ueFExzuAsJvzisDFiW2qCOgeafuTM3SOIGks5FrL?=
+ =?us-ascii?Q?pXZHWBuoqJsjcxUYXIfiv1n3AMHgf1nZ/mJx9g5ENUrcqygQMP3CMy0jPZQy?=
+ =?us-ascii?Q?h4IVl+v9phaTKp/JyS1datEeT/EixZFvIBmQuq434BT+2ePtLKUuvx3STax9?=
+ =?us-ascii?Q?ZEz8aPrbtxtC1O0BL+P2utbCxoJqQNf6/XEz3HQ44EKmUiQ2v8GjY2U1FgGO?=
+ =?us-ascii?Q?jJ4CA6R9NMMD6cRcogcE4OW7qhXYEGpSFtw5aJR3R2SLB7gDjBsgzMc+M9Ls?=
+ =?us-ascii?Q?AYdxH53bmOfQ+kfZhwud58cNPJjFJvj0VZYidV6qGg6UabBsmjMhriitZjgx?=
+ =?us-ascii?Q?1ZI6TCtOG51HyMBZSMrMPi2C1t0gR+8ewrzG5JhNlV4buRkdbJQ84ThFeyei?=
+ =?us-ascii?Q?LzsGyFPEigdZBxCmOnItDZ4qqMSmeaavWJzV/VlacmV55+k6ueqCDaqowRBZ?=
+ =?us-ascii?Q?C7DPOXtgJKry1czmowxAyK8At0cYBJ1hQ2ienvVcA5GyCPdRBq5cgwh+/nqw?=
+ =?us-ascii?Q?htonvfF9nM+yyP0GemQo1YIBma32RxfQSAbkjvZ1De2azsJ1hDi7TaSNSc9k?=
+ =?us-ascii?Q?imiltel7gi9ISG5ALIRoKwe9zFEb/+nNCTUuxAgqvB1OLo3ovYb9oYIonmJN?=
+ =?us-ascii?Q?vAVsYRau6I/RB3KWO/vQei+KXk1+YQMfqmzcFN25EbrKqdBbg7gZs0RgcBWv?=
+ =?us-ascii?Q?IhLm/2O+aDgarYo9L9Gpob1UPS7P7LHyYDqJ1dwQCs4kxZvkPgUmeyMt6SE7?=
+ =?us-ascii?Q?bkTzo7V0bnwT03N83l3Gdup1//kO7uiKoofW5AJiCGm6cfTm6KcVnnGrC9CL?=
+ =?us-ascii?Q?wWUMDqM=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:50a2:b0:4e8:bce4:9924 with SMTP id
- 5614622812f47-50c53c99978mr811082b6e.25.1791525203840; Thu, 08 Oct 2026
- 22:53:23 -0700 (PDT)
-Date: Thu, 08 Oct 2026 22:53:23 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ac88153.bbc4c7f9.15faa7.000d.GAE@google.com>
-Subject: [syzbot] [nfs?] KASAN: slab-use-after-free Read in add_to_unconfirmed
-From: syzbot <syzbot+9c7b9c5f6dd1d470b605@syzkaller.appspotmail.com>
-To: Dai.Ngo@oracle.com, cel@kernel.org, jlayton@kernel.org, 
-	linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, neil@brown.name, 
-	okorniev@redhat.com, syzkaller-bugs@googlegroups.com, tom@talpey.com
-Content-Type: text/plain; charset="UTF-8"
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR02MB6863.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: bb707d46-50d6-4254-1f23-08df25c9c9b8
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Oct 2026 05:54:31.2718
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR02MB7040
 
-Hello,
+From: Naman Jain <namjain@linux.microsoft.com> Sent: Thursday, October 8, 2=
+026 10:06 PM
+>
+> On systems with several fast NVMe controllers, completion interrupts can
+> keep returning to the same CPUs faster than scheduled work can run. Each
+> handler may drain only a small number of completions, but the combined
+> interrupt stream can still prevent scheduler and watchdog progress.
 
-syzbot found the following issue on:
+See this recent proposal [1] that sounds like it is addressing the same or =
+a
+similar issue. And there is this [2] more global approach. It's worthwhile =
+to read
+through the discussion on both threads. I haven't done a detailed compariso=
+n
+of either vs. your proposal.
 
-HEAD commit:    6addb4f38557 Merge tag 'edac_urgent_for_v7.3_rc6' of git:/..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=113b17f5580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=23e5acac5c98285f
-dashboard link: https://syzkaller.appspot.com/bug?extid=9c7b9c5f6dd1d470b605
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+Michael
 
-Unfortunately, I don't have any reproducer for this issue yet.
+[1] https://lore.kernel.org/linux-nvme/20260818033846.53790-1-changfengnan@=
+bytedance.com/
+[2] https://lore.kernel.org/lkml/20260819124341.4185621-1-lrizzo@google.com=
+/
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/484fafd2304b/disk-6addb4f3.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/3a897e82997f/vmlinux-6addb4f3.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/57fc9f6de4c3/bzImage-6addb4f3.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+9c7b9c5f6dd1d470b605@syzkaller.appspotmail.com
-
-==================================================================
-BUG: KASAN: slab-use-after-free in list_add include/linux/list.h:192 [inline]
-BUG: KASAN: slab-use-after-free in add_to_unconfirmed+0x367/0x8c0 fs/nfsd/nfs4state.c:3993
-Read of size 8 at addr ffff888076b91860 by task nfsd/7883
-
-CPU: 0 UID: 0 PID: 7883 Comm: nfsd Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/26/2026
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_address_description+0x55/0x1e0 mm/kasan/report.c:378
- print_report+0x58/0x70 mm/kasan/report.c:482
- kasan_report+0x117/0x150 mm/kasan/report.c:595
- list_add include/linux/list.h:192 [inline]
- add_to_unconfirmed+0x367/0x8c0 fs/nfsd/nfs4state.c:3993
- nfsd4_exchange_id+0xc21/0x1350 fs/nfsd/nfs4state.c:4407
- nfsd4_proc_compound+0x145a/0x25b0 fs/nfsd/nfs4proc.c:3313
- nfsd_dispatch+0x33d/0x9b0 fs/nfsd/nfssvc.c:1038
- svc_process_common+0x1173/0x18c0 net/sunrpc/svc.c:1527
- svc_process+0x290/0x710 net/sunrpc/svc.c:1682
- svc_handle_xprt net/sunrpc/svc_xprt.c:886 [inline]
- svc_recv+0x2525/0x3280 net/sunrpc/svc_xprt.c:968
- nfsd+0x3a5/0xbb0 fs/nfsd/nfssvc.c:919
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-
-Allocated by task 7644:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:409 [inline]
- __kasan_kmalloc+0x93/0xb0 mm/kasan/common.c:426
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __kmalloc_cache_noprof+0x321/0x600 mm/slub.c:5563
- _kmalloc_noprof include/linux/slab.h:991 [inline]
- nfs4_state_create_net fs/nfsd/nfs4state.c:9736 [inline]
- nfs4_state_start_net+0x10c/0x1180 fs/nfsd/nfs4state.c:9834
- nfsd_startup_net fs/nfsd/nfssvc.c:391 [inline]
- nfsd_svc+0x481/0x710 fs/nfsd/nfssvc.c:775
- write_threads+0x434/0x610 fs/nfsd/nfsctl.c:438
- nfsctl_transaction_write+0x10f/0x160 fs/nfsd/nfsctl.c:114
- vfs_write+0x296/0xba0 fs/read_write.c:685
- ksys_write+0x150/0x270 fs/read_write.c:739
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Freed by task 6123:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
- kasan_save_free_info+0x40/0x50 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:264 [inline]
- __kasan_slab_free+0x5c/0x80 mm/kasan/common.c:296
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2748 [inline]
- slab_free mm/slub.c:6509 [inline]
- kfree+0x1c5/0x650 mm/slub.c:6802
- nfs4_state_destroy_net fs/nfsd/nfs4state.c:9823 [inline]
- nfs4_state_shutdown_net+0x774/0xa00 fs/nfsd/nfs4state.c:9908
- nfsd_shutdown_net fs/nfsd/nfssvc.c:421 [inline]
- nfsd_destroy_serv+0x25d/0x450 fs/nfsd/nfssvc.c:534
- nfsd_shutdown_threads+0x8c/0xd0 fs/nfsd/nfssvc.c:591
- nfsd_umount+0x41/0x60 fs/nfsd/nfsctl.c:1372
- deactivate_locked_super+0xbe/0x110 fs/super.c:586
- cleanup_mnt+0x3d3/0x460 fs/namespace.c:1317
- task_work_run+0x1d9/0x270 kernel/task_work.c:233
- resume_user_mode_work include/linux/resume_user_mode.h:50 [inline]
- __exit_to_user_mode_loop kernel/entry/common.c:70 [inline]
- exit_to_user_mode_loop+0x204/0x770 kernel/entry/common.c:101
- __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
- syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
- syscall_exit_to_user_mode include/linux/entry-common.h:343 [inline]
- do_syscall_64+0x328/0x520 arch/x86/entry/syscall_64.c:89
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-The buggy address belongs to the object at ffff888076b91800
- which belongs to the cache kmalloc-256 of size 256
-The buggy address is located 96 bytes inside of
- freed 256-byte region [ffff888076b91800, ffff888076b91900)
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xffff888076b90000 pfn:0x76b90
-head: order:1 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-flags: 0xfff00000000240(workingset|head|node=0|zone=1|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 00fff00000000240 ffff88801b041b40 ffffea0001e86410 ffffea00014c3b90
-raw: ffff888076b90000 000000000010000a 00000000f5000000 0000000000000000
-head: 00fff00000000240 ffff88801b041b40 ffffea0001e86410 ffffea00014c3b90
-head: ffff888076b90000 000000000010000a 00000000f5000000 0000000000000000
-head: 00fff00000000001 ffffffffffffff81 00000000ffffffff 00000000ffffffff
-head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000002
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 1, migratetype Unmovable, gfp_mask 0xd20c0(__GFP_IO|__GFP_FS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 5615, tgid 5615 (syz-executor), ts 88616580147
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0x1f9/0x250 mm/page_alloc.c:1871
- prep_new_page mm/page_alloc.c:1879 [inline]
- get_page_from_freelist+0x2209/0x2280 mm/page_alloc.c:3943
- __alloc_frozen_pages_noprof+0x217/0x5a0 mm/page_alloc.c:5436
- alloc_slab_page mm/slub.c:3347 [inline]
- allocate_slab+0x7d/0x620 mm/slub.c:3462
- new_slab mm/slub.c:3513 [inline]
- refill_objects+0x2d5/0x350 mm/slub.c:7418
- refill_sheaf mm/slub.c:2885 [inline]
- __pcs_replace_empty_main+0x2c8/0x6c0 mm/slub.c:4774
- alloc_from_pcs mm/slub.c:4850 [inline]
- slab_alloc_node mm/slub.c:4984 [inline]
- __do_kmalloc_node mm/slub.c:5413 [inline]
- __kmalloc_noprof+0x47b/0x720 mm/slub.c:5439
- _kmalloc_noprof include/linux/slab.h:995 [inline]
- _kzalloc_noprof include/linux/slab.h:1312 [inline]
- new_dir fs/proc/proc_sysctl.c:965 [inline]
- get_subdir fs/proc/proc_sysctl.c:1009 [inline]
- sysctl_mkdir_p fs/proc/proc_sysctl.c:1319 [inline]
- __register_sysctl_table+0xc02/0x1370 fs/proc/proc_sysctl.c:1394
- neigh_sysctl_register+0x9b1/0xa90 net/core/neighbour.c:3932
- devinet_sysctl_register+0xad/0x200 net/ipv4/devinet.c:2782
- inetdev_init+0x29e/0x4d0 net/ipv4/devinet.c:291
- inetdev_event+0x307/0x15e0 net/ipv4/devinet.c:1590
- notifier_call_chain+0x1a5/0x3d0 kernel/notifier.c:85
- call_netdevice_notifiers_extack net/core/dev.c:2313 [inline]
- call_netdevice_notifiers net/core/dev.c:2327 [inline]
- register_netdevice+0x18a4/0x1eb0 net/core/dev.c:11584
- macvlan_common_newlink+0x12e5/0x1a50 drivers/net/macvlan.c:1575
- rtnl_newlink_create+0x305/0x7b0 net/core/rtnetlink.c:3974
-page last free pid 5615 tgid 5615 ts 88569600911 stack trace:
- reset_page_owner include/linux/page_owner.h:26 [inline]
- __free_pages_prepare mm/page_alloc.c:1418 [inline]
- __free_frozen_pages+0xc93/0xd90 mm/page_alloc.c:2962
- __slab_free+0x274/0x2c0 mm/slub.c:5823
- qlink_free mm/kasan/quarantine.c:163 [inline]
- qlist_free_all+0x99/0x100 mm/kasan/quarantine.c:179
- kasan_quarantine_reduce+0x148/0x160 mm/kasan/quarantine.c:286
- __kasan_slab_alloc+0x22/0x80 mm/kasan/common.c:361
- kasan_slab_alloc include/linux/kasan.h:253 [inline]
- slab_post_alloc_hook mm/slub.c:4683 [inline]
- slab_alloc_node mm/slub.c:4996 [inline]
- kmem_cache_alloc_node_noprof+0x354/0x610 mm/slub.c:5068
- __alloc_skb+0x1db/0x7a0 net/core/skbuff.c:704
- alloc_skb include/linux/skbuff.h:1384 [inline]
- nlmsg_new include/net/netlink.h:1055 [inline]
- netlink_ack+0x136/0xb30 net/netlink/af_netlink.c:2512
- netlink_rcv_skb+0x2a4/0x4a0 net/netlink/af_netlink.c:2581
- netlink_unicast_kernel net/netlink/af_netlink.c:1338 [inline]
- netlink_unicast+0x7bd/0x940 net/netlink/af_netlink.c:1364
- netlink_sendmsg+0x813/0xb40 net/netlink/af_netlink.c:1919
- sock_sendmsg_nosec+0x13a/0x180 net/socket.c:800
- __sock_sendmsg net/socket.c:815 [inline]
- __sys_sendto+0x408/0x5a0 net/socket.c:2281
- __do_sys_sendto net/socket.c:2288 [inline]
- __se_sys_sendto net/socket.c:2284 [inline]
- __x64_sys_sendto+0xde/0x100 net/socket.c:2284
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Memory state around the buggy address:
- ffff888076b91700: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
- ffff888076b91780: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
->ffff888076b91800: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                                                       ^
- ffff888076b91880: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
- ffff888076b91900: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-==================================================================
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+>
+> This series keeps the existing hardirq completion path for normal I/O.
+> For an I/O queue with a dedicated MSI-X vector, if an interrupt arrives
+> with a completion pending while need_resched() is set, mask that vector
+> and hand the queue to irq_poll. The poller drains bounded batches and
+> returns the queue to interrupt mode as soon as it catches up.
+>
+> The completion-path transitions are:
+>
+>                          +-----------------+
+>                          | normal IRQ mode |
+>                          +-----------------+
+>                                   |
+>                    CQE pending and need_resched()
+>                                   |
+>                                   v
+>                      mask vector, schedule irq_poll
+>                                   |
+>                                   v
+>                 +--------------------------------+
+>           +---->| drain up to one poll budget    |
+>           |     +--------------------------------+
+>           |              |                 |
+>           |         full budget        short batch
+>           |              |                 |
+>           |              v                 v
+>           |     remain on poll list   irq_poll_complete()
+>           |              |           mark handoff allowance
+>           |     generic irq_poll      clear poll ownership
+>           |     invokes next pass     enable vector
+>           |              |                 |
+>           +--------------+                 v
+>                                   +-----------------+
+>                                   | normal IRQ mode |
+>                                   +-----------------+
+>
+> A full-budget return deliberately stays on the irq_poll list. The generic
+> irq_poll core invokes another bounded pass. Eventually a pass consumes
+> less than its budget, takes the short-batch path, and restores interrupt
+> mode.
+>
+> An MSI-X message may have been latched while the vector was masked, but
+> not every MSI-X hierarchy can report pending state. The handoff allowance
+> therefore does not claim that an interrupt is known to be stale. It lets
+> exactly one empty interrupt after unmasking return IRQ_HANDLED. If a new
+> completion is present, the normal completion path handles it.
+>
+> The core idea is simple: when a hardirq sees need_resched(), it masks the
+> interrupt and offloads completion processing to irq_poll. The interrupt i=
+s
+> unmasked once the CQ catches up. Everything else handles queue and
+> controller state changes while irq_poll is active, because its asynchrono=
+us
+> callback can outlive the hardirq that scheduled it.
+>
+> The lifecycle transitions are:
+>
+>   normal IRQ mode / irq_poll
+>               |
+>               | set PAUSED, join IRQ and irq_poll, mask vector
+>               v
+>           +--------+
+>           | paused |---- temporary ----> resume after controller is ready
+>           +--------+                      clear PAUSED, restore IRQ mode
+>               |
+>               | permanent stop
+>               | clear INIT, balance owned mask, synchronize replay
+>               v
+>         free registered IRQ
+>
+> INIT means the queue has an initialized irq_poll instance and a dedicated
+> MSI-X vector. IRQ_POLL owns completion processing, while MASKED records t=
+he
+> matching disable_irq_nosync(). PAUSED blocks IRQ handling and new admissi=
+on.
+> HANDOFF allows one empty interrupt after unmasking. A temporary pause kee=
+ps
+> MASKED set for resume; permanent stop keeps PAUSED set through IRQ remova=
+l.
+>
+> Admin, shared, legacy, and threaded interrupt paths are unchanged. Explic=
+it
+> polling never enters irq_poll; it only disables bottom halves while holdi=
+ng
+> the shared CQ polling lock. The series adds no timer, rate sampler,
+> workqueue, sysfs knob, module parameter, or IRQ thread.
+>
+> Why not use nvme.use_threaded_interrupts=3D1 instead?
+>
+> Threaded mode installs nvme_irq_check() as the primary handler and
+> nvme_irq() as the IRQ thread. When the primary handler finds a pending
+> completion, it returns IRQ_WAKE_THREAD, so completion queue draining runs
+> through a schedulable task rather than the normal hardirq fast path.
+>
+> That remains a useful opt-in mode and this series does not change it. On
+> the affected VM it prevented the lockup, but it also reduced peak
+> throughput. This series has a narrower goal: retain direct hardirq
+> completion while the CPU is keeping up, and use bounded irq_poll work
+> only after the scheduler has already asserted need_resched().
+>
+> The distinction is not that irq_poll is always faster than an IRQ thread.
+> It is that the normal path is left alone, while the fallback creates a
+> scheduling boundary only after a reschedule request is observed.
+>
+> need_resched() is used here as a best-effort pressure signal, not as an
+> interrupt-flood detector or an elapsed-time guarantee. It is transient,
+> and irq_poll may execute one bounded callback before the scheduler runs.
+> The narrower claim is that, once an NVMe hardirq observes an already
+> pending reschedule request, it stops unbounded CQ draining in hardirq.
+>
+> Previous NVMe attempts made the fallback the normal high-load path. An
+> all-irq_poll RFC in 2016 reported an 8-10% single-core IOPS loss and a
+> measurable low-queue-depth latency cost. A hardirq-first, threaded
+> overflow series in 2019 fixed the Azure lockup, but Azure testing
+> reported a substantial throughput loss.
+>
+> Relevant discussions from the past around this problem:
+>
+>
+> https://lore.kernel.org/
+> %2Flinux-nvme%2F1475660534-16681-1-git-send-email-
+> sagi%40grimberg.me%2F&data=3D05%7C02%7C%7Cbbdfaf4318614114c57808df25c30
+> 4c3%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639271191764118549
+> %7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwM
+> CIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=3D=
+1
+> mVDHNgaLqX48N6F4S5ny1KC76E4Yv6CM4k%2BOI7V3ks%3D&reserved=3D0
+>
+> https://lore.kernel.org/
+> %2Flkml%2F1566281669-48212-1-git-send-email-
+> longli%40linuxonhyperv.com%2F&data=3D05%7C02%7C%7Cbbdfaf4318614114c57808
+> df25c304c3%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639271191764
+> 147973%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAu
+> MDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C
+> &sdata=3D8LgU81UBs5FTTkkc7zbQo7Gx828IjfJO6Un9aebcdkM%3D&reserved=3D0
+>
+> https://lore.kernel.org/
+> %2Flinux-nvme%2F20191209175622.1964-1-
+> kbusch%40kernel.org%2F&data=3D05%7C02%7C%7Cbbdfaf4318614114c57808df25c3
+> 04c3%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639271191764169164
+> %7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwM
+> CIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=3D=
+N
+> IMpebg%2B3xIyJvnIk7FbUJANUxhUSFmljodgIAqswTY%3D&reserved=3D0
+>
+> The first patch selects IRQ_POLL. The second makes existing task-context
+> CQ polling safe against the new softirq user. The third adds the NVMe
+> queue handoff and lifecycle handling.
+>
+> The RFC starts with a per-queue weight of 256, matching the existing
+> global irq_poll budget. This is a starting point, not a claim that 256 is
+> the optimal NVMe value.
+>
+> Testing included:
+>
+>   - full x86_64 kernel build and strict checkpatch
+>   - four-controller QEMU fio, full-disable S3, controller reset, and
+>     post-reset I/O
+>   - QEMU lockdep, prove-locking, and atomic-context validation
+>   - ARM64 Hyper-V VM with four 14-queue NVMe data controllers
+>   - natural irq_poll activation with threaded interrupts disabled
+>   - matching default-hardirq, IRQ-poll fallback, and threaded-IRQ compari=
+son
+>   - four controller resets followed by successful reads
+>
+> Read-only 4 KiB random-read results follow. "Default hardirq" uses the
+> unpatched base. The other modes use the same kernel built from this serie=
+s:
+> "IRQ-poll fallback" uses the default nvme.use_threaded_interrupts=3D0, wh=
+ile
+> "threaded IRQs" uses nvme.use_threaded_interrupts=3D1. Low-load values ar=
+e
+> medians of two 30-second runs. High-load fallback and threaded values are
+> medians of two and three 90-second runs respectively; the default-hardirq
+> run locked up before it could complete.
+>
+>                               default       IRQ-poll      threaded
+>                               hardirq       fallback      IRQs
+>   1 disk, QD1
+>     IOPS                      24.42K        24.96K        21.24K
+>     mean completion latency  38.94 us      38.17 us      44.60 us
+>     p99 completion latency   90.6 us       90.1 us       94.2 us
+>     p99.9 completion latency 94.7 us       94.7 us      103.9 us
+>
+>   4 disks, 128 jobs, QD256
+>     status                    lockup (26s)  pass           pass
+>     IOPS                      N/A           4.986M         3.165M
+>     bandwidth                 N/A          19.0 GiB/s     12.1 GiB/s
+>     mean completion latency   N/A           6.544 ms      10.332 ms
+>     p99 completion latency    N/A          14.483 ms      22.151 ms
+>     p99.9 completion latency  N/A          22.544 ms      24.773 ms
+>
+> IRQ-poll fallback prevents hardirq starvation while avoiding the 15-37%
+> IOPS loss and higher latency observed with threaded interrupts, by
+> activating only under scheduler pressure.
+>
+> Naman Jain (3):
+>   nvme-pci: select IRQ_POLL
+>   nvme-pci: make completion queue polling softirq-safe
+>   nvme-pci: defer completions when rescheduling is needed
+>
+>  drivers/nvme/host/Kconfig |   1 +
+>  drivers/nvme/host/pci.c   | 295
+> ++++++++++++++++++++++++++++++++++++++++++++--
+>  2 files changed, 283 insertions(+), 13 deletions(-)
+>
+> base-commit: eea3fef32a9cf36abcb5975a5a594e4135a6b026
+> --
+> 2.43.0
