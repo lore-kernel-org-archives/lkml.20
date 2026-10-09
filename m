@@ -1,88 +1,116 @@
-Received: from sg-3-112.ptr.tlmpb.com (sg-3-112.ptr.tlmpb.com [101.45.255.112])
+Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8474C4594E
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 02:06:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.45.255.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 415D7341068
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 02:06:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791511590; cv=none; b=C5V0YPE8c2brS0zzqSozsedzOH7Ai1nZpvXVVHU1NgsHRS8MVNFH46EtsbU1SMmo/2+Q31OVrQUL5zSxlLUOtKr7ufymVPPP+yjtqBkC5jgqkHpoajV5/xLF5JypdxtJEMXaXlBr/D0ey9adgvVVRwHfaEXzgisU2zaClRFp2/c=
+	t=1791511593; cv=none; b=TBv4TPG3cb5wxvnEf0n4Y90qwC5QSh2GhhvOXdGBioZluQOKo8z8XE/y64Zk2+D9ljznCZMWtJj5nCAGWV+VOHDWZs94C+xLXgu5qgJ+bme5Gtzd3duuP4apcarRW8/HWPd5VFPmTdkZFJauLNKR4WaAWfW44eYcGVGq6C+dFq4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791511590; c=relaxed/simple;
-	bh=vM/219kW0GUnhl+QaWvYEue3Yn1LeK6T8AsxRcL6/H8=;
-	h=Cc:Message-Id:Content-Type:To:Subject:From:Date:Mime-Version; b=NzjZBprIYhSOc1QNR+HqhX4XXAEq0PUfvrLsXuHxP6rPnzO/cdUJ0riP2FkYWVb23SsEFDO2RrTUTgLYW9gTl2EYtn40APSOQmH2bqNmdOHMbjfufEmf1OgopoMe8HQD/BX23xdlO+5XypZj+kMn7tDCJfVVpNeWvNz3VBKT9vQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=fCgwPLxC; arc=none smtp.client-ip=101.45.255.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1791511593; c=relaxed/simple;
+	bh=nvMP/H0VCC9ksHrNS4KZHP17Fdd9SPbn0GfDW5pvWR4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ur22fIAWQ6EqbNviaInWJ3FSzNziGlE656Q8jI69D8MMwPzLbPY1dHDZxsQCQFnDqxxcGUhZmOOHXGmHNJUQuE3xOcZM/3r8ArKfAtzlLbJSSjNCjD4N8ReLX+ELOmpSpAsWJG/2fTSm8AW45oGXirQn9NfHtYE+4pE9LoSGLP8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=COkUT/vB; arc=none smtp.client-ip=74.125.82.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="fCgwPLxC"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1791511547; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=LKiQnCGHUZ2nk19TVt8SnmnQqa0mKzZoQnMjcrji8Q4=;
- b=fCgwPLxCmANMov3JTysU9v07ayzZ2KDbxtOCGFUwn3Luvy6tmaItMuyhBsGZ/ozo7nVYjc
- S8f5focrl6amlvkOGynSxmPo8Wz7N63/BaXutDkmQOYacmb9eY7n8mqKIdpW/IcI8TBPGe
- ntRGrhNSGMts2DQpfG8DES+tNUYHwGk+LOAwznW+4xH01c1gIWi5/J7ZLD0HjhA055KMeJ
- Stz6r+T4I5DNJJZ4kjMzeU4KAggRWFrJdmwZHvEoleLJEo0k4rLn0qXXTeRg6a5x7MVDQN
- 0DOU0nzOJ0BJCgsJFXFQzUmoowGc1nl/wVZ5EMWSvWmFd4ngHZUwannvjKx9Zw==
-Cc: "Guixiong Wei" <weiguixiong@bytedance.com>, 
-	"Borislav Petkov" <bp@alien8.de>, "Tony Luck" <tony.luck@intel.com>, 
-	"Muralidhara M K" <muralidhara.mk@amd.com>, <linux-edac@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-X-Mailer: git-send-email 2.55.0
-Message-Id: <20261009020447.90758-2-weiguixiong@bytedance.com>
-X-Original-From: Guixiong Wei <weiguixiong@bytedance.com>
-Content-Transfer-Encoding: 7bit
-X-Lms-Return-Path: <lba+26ac84bf9+ef8a6d+vger.kernel.org+weiguixiong@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
-To: "Yazen Ghannam" <yazen.ghannam@amd.com>
-Subject: [PATCH] EDAC/mce_amd: Add missing long names for SMCA bank types
-From: "Guixiong Wei" <weiguixiong@bytedance.com>
-Date: Fri,  9 Oct 2026 10:04:24 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="COkUT/vB"
+Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-15354aa70e8so12584c88.1
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 19:06:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791511591; x=1792116391; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nvMP/H0VCC9ksHrNS4KZHP17Fdd9SPbn0GfDW5pvWR4=;
+        b=COkUT/vBaIMZ2BM4yNdKQpphz0q3kT1aEy02Z751bBzbwleUBW3Vzj8uzuhX0WQPUQ
+         wXoKwkGZh+G3DZbsB8V8CoxRal5lHMfiGvAU6zDot8mrZm4bF+VusSXq+VU3+NZ2YhKL
+         pitgSDll6kBb/XNpdSKpZq2iB2mTyCi8MYAUtMYn03Cp8MWC95F23wCr9Sx8lAmFMmh2
+         PgS9FubnQqi4r0F0upWGXVYdSHeYAjse21MqWxyTYc1S7xEVVtNPQVD4UUIgMaZyp5Tk
+         Z3wABW7kN8+YBp5ng6W0F5DCJj/T2BOwlNpX0/SwXNh5YNVOfMiz0faZXIZ5oN6gt0/1
+         CVlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791511591; x=1792116391;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nvMP/H0VCC9ksHrNS4KZHP17Fdd9SPbn0GfDW5pvWR4=;
+        b=cauBcKJJAp1hR7jqBWBSpDZp1soQ2/rF+6Vy3riK9s4oc2Ei+vxZNw9MAH1vbAxGdz
+         igM9RAslrINvPRgnTxCE9uplDeKJFMapqaPHEUmVydW6+yQfKKfEX3skyTiEGlpZAd7A
+         DZQIR0UwBcmrYEfyoVd1An4gqk5dmILMqTzDTyXy3f+Jv2by8ji7K067Cq/nYpUEvKVN
+         HcscTMR9C5fTpbLXZp8D31Z0NG6fSugJDBY6s/zRzOzgXMf4M1oUKavNN5qbN2CVM4or
+         QqvDv5nEPclHZEmb6mOpLnaZOmcs3lSLt0qzN7oOKSnumo/b4jJOHFN1UYqUA+zOt1g1
+         dZgQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxyIbvyHm9voeDNF+E0lXyKZ/yQXsfEt3jc0ukhkkxQ/JchjkIRPqJBfRBx3VC4+vsZ603mmK8loFYZe+s=@vger.kernel.org
+X-Gm-Message-State: AFuF++n+A8otbWRqGlwan6UiyhSyPxqmzLRwx8rxLS9vayyNWxy3QmJc
+	XvPudi1S2d9p+8+ws7YI8f6Kn/FL5gG/h1DelBrQ90qL2khHk1EfejQc
+X-Gm-Gg: AYBFou39pvHgY351SoQWhTJbij3MFIPRe4cNI6CSNl2ODMxFvobteNh3DETUyWIo1VZ
+	uu9bv9PPcC+QyY3XS55lZ2R/W8bOBz7kjdRHhl3TjBUpY8SZ85SAYNWSyNZz3+jG6ptubKdn9IQ
+	c2hWD8bXiu3ViA8SzuHX0KL2qT9QVqVvzZfqf7Psmqvk7AWc2RTHgAaW3IqoOdZ9NtAnuPvup5B
+	2oYV9zbVTu2jpDBc34BN8mna7magY911KcxXVtY6DHXXCTv6JbNlLDqO0vkktPms84k0HoAF4Ox
+	Hmnu3lJwJK6zVi1Fnl4gbc5ckk0Oe/iRj2OiZ2/JKnd7R/MWX53Jxtkmh/amnd4eMGcetQOhE3p
+	ojeDnC5cuSPR6UogoNe77qpch9xbSUdycgqqJu2I3M02q2COlhCfdb//PORPo7/yHvhKFjGZ4nj
+	j711/z73b5RjR1tn2QkqUJ729Y4sTn2U4N93INNKX8RRECT2rJh8HS37UrHKPzQg==
+X-Received: by 2002:a05:701b:42c2:10b0:143:2984:6517 with SMTP id a92af1059eb24-16a60fd3678mr661504c88.38.1791511591127;
+        Thu, 08 Oct 2026 19:06:31 -0700 (PDT)
+Received: from ubuntu.. ([23.254.208.9])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a2d2db98sm1964610c88.10.2026.10.08.19.06.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 19:06:30 -0700 (PDT)
+From: Qiliang Yuan <odys.yuan@gmail.com>
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Hao Luo <haoluo@google.com>,
+	bpf@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH bpf-next 2/2] selftests/bpf: Don't stack a bpffs in cgroup_hierarchical_stats
+Date: Fri,  9 Oct 2026 10:06:25 +0800
+Message-ID: <20261009020625.886508-1-odys.yuan@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <CAO9r8zORCY-3W1eLmc7ZmEjTujuHRMNxsP1=i4gg6y4Pe-WedA@mail.gmail.com>
+References: <20261008-selftests-bpf-cgroup-stats-bpffs-v1-0-76b9a6d1be34@gmail.com> <20261008-selftests-bpf-cgroup-stats-bpffs-v1-2-76b9a6d1be34@gmail.com> <CAO9r8zORCY-3W1eLmc7ZmEjTujuHRMNxsP1=i4gg6y4Pe-WedA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Commit 47b744ea5e3c ("x86/MCE/AMD: Add new MA_LLC, USR_DP,
-and USR_CP bank types") added three SMCA bank types after the bank long
-names had been moved to the MCE decoder.
+On Thu, Oct 8, 2026 at 7:11 AM Yosry Ahmed <yosry@kernel.org> wrote:
+> Seems like both of these tests do not mount bpffs, but rely on its
+> existence. If it's generally expected that bpffs is mounted when the
+> tests are run, should we drop the mounting code here instead?
+>
+> Alternatively, should we have a common helper for creating directories
+> in bpffs that mounts it if it isn't already there?
 
-The new types were added to the enum, short-name table, and HWID/McaType
-mapping, but not to smca_long_names[]. As a result, an error from any of
-these banks is logged with "(null)" in place of the bank name.
+Thanks for the review. Looking further, the bpffs is mounted in the
+wrong place: setup_bpffs() runs before setup_cgroups() moves the test
+into a private mount namespace, so the bpffs lands in the namespace
+shared with the other tests, and cleanup_bpffs() can't unmount it from
+the private one. The BPF CI bot pointed that out as well.
 
-Add the missing long names.
+v2 sets up the cgroups first, so that the bpffs is mounted in the
+private mount namespace. The test keeps working where no bpffs is
+mounted, and it no longer affects any other test, so neither dropping
+the mount nor a common helper is needed for this. I kept your
+Reviewed-by on the unmount fix, whose code didn't change.
 
-Fixes: 47b744ea5e3c ("x86/MCE/AMD: Add new MA_LLC, USR_DP, and USR_CP bank types")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guixiong Wei <weiguixiong@bytedance.com>
----
- drivers/edac/mce_amd.c | 3 +++
- 1 file changed, 3 insertions(+)
+v2: https://lore.kernel.org/r/20261009-selftests-bpf-cgroup-stats-bpffs-v2-0-f93a111da992@gmail.com
 
-diff --git a/drivers/edac/mce_amd.c b/drivers/edac/mce_amd.c
-index 7aee57a25b689..34a44769d1d0f 100644
---- a/drivers/edac/mce_amd.c
-+++ b/drivers/edac/mce_amd.c
-@@ -702,6 +702,7 @@ static const char * const smca_long_names[] = {
- 	[SMCA_L2_CACHE]			= "L2 Cache",
- 	[SMCA_L3_CACHE]			= "L3 Cache",
- 	[SMCA_LS ... SMCA_LS_V2]	= "Load Store Unit",
-+	[SMCA_MA_LLC]			= "Memory Attached Last Level Cache",
- 	[SMCA_MP5]			= "Microprocessor 5 Unit",
- 	[SMCA_MPART]			= "MPART Unit",
- 	[SMCA_MPASP ... SMCA_MPASP_V2]	= "MPASP Unit",
-@@ -726,6 +727,8 @@ static const char * const smca_long_names[] = {
- 	[SMCA_UMC]			= "Unified Memory Controller",
- 	[SMCA_UMC_V2]			= "Unified Memory Controller v2",
- 	[SMCA_USB]			= "USB Unit",
-+	[SMCA_USR_CP]			= "Ultra Short Reach Control Plane Controller",
-+	[SMCA_USR_DP]			= "Ultra Short Reach Data Plane Controller",
- 	[SMCA_WAFL_PHY]			= "WAFL PHY Unit",
- 	[SMCA_XGMI_PCS]			= "Ext Global Memory Interconnect PCS Unit",
- 	[SMCA_XGMI_PHY]			= "Ext Global Memory Interconnect PHY Unit",
--- 
-2.50.1 (Apple Git-155)
+Thanks,
+Qiliang
