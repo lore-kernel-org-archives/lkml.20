@@ -1,229 +1,157 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CA714BD36A;
-	Fri,  9 Oct 2026 10:56:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 643574CDDCF;
+	Fri,  9 Oct 2026 10:57:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791543391; cv=none; b=MAzNpPmgB2EbogPfc1TpJJl5Hdgf5fxzX8H+Bk7e9KRkWEIyBlrABZdiZn5FgHiColDsO8hBbkbdjtN3LeXLjpv+e4+4IezVg7CJ7SMaIeiuNxTcUybuFE1yMpJrDqHk7xxYF7UCNsRWeh2Wg6gb35/xExHUqQ0muHEELDBgXmQ=
+	t=1791543442; cv=none; b=pFH97X4aeODXe6Qf7xdE7i1V1N0iqMd/DiUBfAf+uGJNaCV3140VZv2R+Z8gnyR+4PEc//Vu8zVJvjkeQAqRNSu0yrvQMdBpftMDVGI2n2W7qUgU3LHgGJUcqtC3wGim5zUxxEd8PDIHw/wBtOriYxIY8/J64dmMMwMb4ho4HP4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791543391; c=relaxed/simple;
-	bh=w/txRNxnmPrNw4TG7aUycpIsCYyczBIRXTmWOLGgVeI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=T4TjkN3ZzPYbIjGb8ccvvns0EPNAe0N3BBsFDNOhZTghFGjL5hdwASdiTSmXn8++hq3DkvnESXEqh7uc/HYuWF3G788iZLahywGVgJN7Pcao8Tmw8koC4kY8XoH1PgRNWTNNFIh37O4P91YfMC9ufGKYw9FDketfcGfhH4llMIA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=qDWAmlue; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791543442; c=relaxed/simple;
+	bh=rk2zM2i3KXECaXrcHOnzQ6DwsIKfL9kWloopwlSYjeM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Q0eANgaNi4KY8VgwHZ1afhG85D/c8TV+qBoAFjwvE7kjxzs9asJP5UQpTLSbATt9pnepSPnf1HOAYUx7jbl8Oe5V5uy3eF+q0+QwZeExAaqF6QUvQvBQOhCznjFSKb/MxUFRyeqeUSoyUEBk2sH8NlCkPTBafScTiMhJWi8gk8o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HlzW8dFH; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="qDWAmlue"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=N0
-	UHDUvgrExzuUIvmY5lEGVvWVWCcps+KEQmmx2+7ZE=; b=qDWAmlue9saooLvaNv
-	5uSpjXu0wTWDmB607qxLybLBTxNKlg0PctoW+IODmy/beJfoE1u++K7f/AY9JOX8
-	EVMMHS3EqvEXNYcaPTVxfXmHQXnBE2lZljxMb4tLvEhniVeXes1HUhbQg2EN0INs
-	520PF+MualUtwK1p2RkjxnELE=
-Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PygvCgCH_z1ByMhqBHGWDg--.46097S3;
-	Fri, 09 Oct 2026 18:56:02 +0800 (CST)
-From: Quchaosheng <quchaosheng000406@163.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-omap@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Chaosheng Qu <quchaosheng000406@163.com>
-Subject: [PATCH 1/3] dt-bindings: display: ti,tpd12s015: Convert to DT schema
-Date: Fri,  9 Oct 2026 18:55:59 +0800
-Message-ID: <20261009105601.301891-2-quchaosheng000406@163.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261009105601.301891-1-quchaosheng000406@163.com>
-References: <20261009105601.301891-1-quchaosheng000406@163.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HlzW8dFH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791543436; x=1823079436;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=rk2zM2i3KXECaXrcHOnzQ6DwsIKfL9kWloopwlSYjeM=;
+  b=HlzW8dFHRFKooZoGGk/6e0VwcEoR1D+oLXGIn0t52U2DV7VLOUo2HofG
+   /QGrgQd9BJew8Z3op+az6V7JnUN0P3rlQu1hWWe3gyUhKGoUgb82nqKqW
+   jeGgCj71xe2IoBzYby5YGlu0iiTVm3LSTbwJR3Hj/nE4kFc0EzHSaHtih
+   Eerd08mR05qhnFpeDRJKkSAVwYb7yr4jtl4GEoEKdBf/Jrk6XxMrzvdx9
+   0NZEMUFz9FOvKRZlsNZ/j3jbhz/7MOzvZ5b9htoOqnZzR1ygGV/8Q49iT
+   biiJ39xjz6R2WC2anwAfn+WcWAjloHphL242yXbzU1VdVm75KKDvSWrT/
+   w==;
+X-CSE-ConnectionGUID: 0wogo7V9TBq/JpjiYRPx2Q==
+X-CSE-MsgGUID: oC/9XWWXSRWFY5lrqAvI7g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11929"; a="234248"
+X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
+   d="scan'208";a="234248"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 03:57:15 -0700
+X-CSE-ConnectionGUID: jdbUKkceTiquOxwKLtBGSw==
+X-CSE-MsgGUID: WncFnrASSnW5CDXR7FZxQw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
+   d="scan'208";a="2029731"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa013.fm.intel.com with ESMTP; 09 Oct 2026 03:57:14 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xF8Hm-000000005eq-2hom;
+	Fri, 09 Oct 2026 10:57:10 +0000
+Date: Fri, 9 Oct 2026 18:56:19 +0800
+From: kernel test robot <lkp@intel.com>
+To: Takashi Iwai <tiwai@suse.de>, linux-sound@vger.kernel.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 03/11] ALSA: hda: Add lock around codec->registered flag
+ manipulations
+Message-ID: <202610092046.7N0li03i-lkp@intel.com>
+References: <20261008192553.300025-4-tiwai@suse.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PygvCgCH_z1ByMhqBHGWDg--.46097S3
-X-Coremail-Antispam: 1Uf129KBjvJXoWxCFyDtr1xCr1UZF1rCr45Wrg_yoWruryxpF
-	n5Gas7uFy8WFyaqw40yr1kCa1rAFykAF40kF1xJFy5Ja10qF48tF13Krn8XFy5Ga4xZay2
-	qF47Ww17Kwn7C3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pi-6pkUUUUU=
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC4wIPhGrIyELcTwAA3R
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261008192553.300025-4-tiwai@suse.de>
 
-From: Chaosheng Qu <quchaosheng000406@163.com>
+Hi Takashi,
 
-Convert the TPD12S015 HDMI level shifter binding to DT schema.
+kernel test robot noticed the following build errors:
 
-The TI TPD12S015 is an HDMI companion chip that combines a level shifter
-and ESD protection circuitry. Document the two ports it exposes between
-the HDMI transmitter and the connector.
+[auto build test ERROR on tiwai-sound/for-next]
+[also build test ERROR on next-20261008]
+[cannot apply to tiwai-sound/for-linus broonie-sound/for-next linus/master v7.3-rc6]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-The tpd12s016 is software compatible with the tpd12s015 and is listed as
-a fallback compatible by am57xx-idk-common.dtsi, so accept it as a
-fallback of "ti,tpd12s015". The driver matches on "ti,tpd12s015" only, so
-a board using the tpd12s016 must list both compatibles.
+url:    https://github.com/intel-lab-lkp/linux/commits/Takashi-Iwai/ALSA-hda-intel-Cancel-delayed-work-at-shutdown-too/20261008-212541
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
+patch link:    https://lore.kernel.org/r/20261008192553.300025-4-tiwai%40suse.de
+patch subject: [PATCH 03/11] ALSA: hda: Add lock around codec->registered flag manipulations
+config: i386-defconfig (https://download.01.org/0day-ci/archive/20261009/202610092046.7N0li03i-lkp@intel.com/config)
+compiler: clang version 22.1.3 (https://github.com/llvm/llvm-project e9846648fd6183ee6d8cbdb4502213fcf902a211)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261009/202610092046.7N0li03i-lkp@intel.com/reproduce)
 
-Assisted-by: LLM
-Signed-off-by: Chaosheng Qu <quchaosheng000406@163.com>
----
- .../bindings/display/ti/ti,tpd12s015.txt      | 44 ---------
- .../bindings/display/ti/ti,tpd12s015.yaml     | 90 +++++++++++++++++++
- 2 files changed, 90 insertions(+), 44 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
- create mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610092046.7N0li03i-lkp@intel.com/
 
-diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
-deleted file mode 100644
-index 26e6d32e3f20..000000000000
---- a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
-+++ /dev/null
-@@ -1,44 +0,0 @@
--TPD12S015 HDMI level shifter and ESD protection chip
--====================================================
--
--Required properties:
--- compatible: "ti,tpd12s015"
--
--Optional properties:
--- gpios: CT CP HPD, LS OE and HPD gpios
--
--Required nodes:
--- Video port 0 for HDMI input
--- Video port 1 for HDMI output
--
--Example
---------
--
--tpd12s015: encoder@1 {
--	compatible = "ti,tpd12s015";
--
--	gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>,	/* 60, CT CP HPD */
--		<&gpio2 9 GPIO_ACTIVE_HIGH>,	/* 41, LS OE */
--		<&gpio2 31 GPIO_ACTIVE_HIGH>;	/* 63, HPD */
--
--	ports {
--		#address-cells = <1>;
--		#size-cells = <0>;
--
--		port@0 {
--			reg = <0>;
--
--			tpd12s015_in: endpoint@0 {
--				remote-endpoint = <&hdmi_out>;
--			};
--		};
--
--		port@1 {
--			reg = <1>;
--
--			tpd12s015_out: endpoint@0 {
--				remote-endpoint = <&hdmi_connector_in>;
--			};
--		};
--	};
--};
-diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
-new file mode 100644
-index 000000000000..1927da3bd736
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
-@@ -0,0 +1,90 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/ti/ti,tpd12s015.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: TI TPD12S015 HDMI level shifter and ESD protection chip
-+
-+maintainers:
-+  - Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-+
-+description: |
-+  The TPD12S015 is an HDMI companion chip that combines a level shifter and
-+  ESD protection circuitry. It sits between an HDMI transmitter and the HDMI
-+  connector, and provides control over the level shifter enable and the
-+  hot-plug detect signals.
-+
-+properties:
-+  compatible:
-+    oneOf:
-+      - const: ti,tpd12s015
-+      - items:
-+          - const: ti,tpd12s016
-+          - const: ti,tpd12s015
-+
-+  gpios:
-+    description:
-+      The CT CP HPD, LS OE and HPD GPIOs, in that order. The first controls
-+      the level shifter, the second enables the level shifter outputs and
-+      the third reads the hot-plug detect line.
-+    maxItems: 3
-+
-+  ports:
-+    $ref: /schemas/graph.yaml#/properties/ports
-+
-+    properties:
-+      port@0:
-+        $ref: /schemas/graph.yaml#/$defs/port-base
-+        unevaluatedProperties: false
-+        description: HDMI input from the transmitter.
-+
-+      port@1:
-+        $ref: /schemas/graph.yaml#/$defs/port-base
-+        unevaluatedProperties: false
-+        description: HDMI output to the connector.
-+
-+    required:
-+      - port@0
-+      - port@1
-+
-+required:
-+  - compatible
-+  - ports
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    encoder1 {
-+        compatible = "ti,tpd12s015";
-+
-+        gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>,    /* 60, CT CP HPD */
-+                <&gpio2 9 GPIO_ACTIVE_HIGH>,    /* 41, LS OE */
-+                <&gpio2 31 GPIO_ACTIVE_HIGH>;    /* 63, HPD */
-+
-+        ports {
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            port@0 {
-+                reg = <0>;
-+
-+                tpd12s015_in: endpoint {
-+                    remote-endpoint = <&hdmi_out>;
-+                };
-+            };
-+
-+            port@1 {
-+                reg = <1>;
-+
-+                tpd12s015_out: endpoint {
-+                    remote-endpoint = <&hdmi_connector_in>;
-+                };
-+            };
-+        };
-+    };
-+
-+...
--- 
-2.43.0
+All errors (new ones prefixed by >>):
 
+>> sound/hda/common/codec.c:764:18: error: use of undeclared identifier 'bus'
+     764 |                 spin_lock_irq(&bus->reg_lock);
+         |                                ^~~
+   sound/hda/common/codec.c:766:20: error: use of undeclared identifier 'bus'
+     766 |                 spin_unlock_irq(&bus->reg_lock);
+         |                                  ^~~
+   sound/hda/common/codec.c:820:18: error: use of undeclared identifier 'bus'
+     820 |                 spin_lock_irq(&bus->reg_lock);
+         |                                ^~~
+   sound/hda/common/codec.c:822:20: error: use of undeclared identifier 'bus'
+     822 |                 spin_unlock_irq(&bus->reg_lock);
+         |                                  ^~~
+   4 errors generated.
+
+
+vim +/bus +764 sound/hda/common/codec.c
+
+   753	
+   754	/**
+   755	 * snd_hda_codec_cleanup_for_unbind - Prepare codec for removal
+   756	 * @codec: codec device to cleanup
+   757	 */
+   758	void snd_hda_codec_cleanup_for_unbind(struct hda_codec *codec)
+   759	{
+   760		if (codec->core.registered) {
+   761			/* pm_runtime_put() is called in snd_hdac_device_exit() */
+   762			pm_runtime_get_noresume(hda_codec_dev(codec));
+   763			pm_runtime_disable(hda_codec_dev(codec));
+ > 764			spin_lock_irq(&bus->reg_lock);
+   765			codec->core.registered = false;
+   766			spin_unlock_irq(&bus->reg_lock);
+   767		}
+   768	
+   769		snd_hda_codec_disconnect_pcms(codec);
+   770		cancel_delayed_work_sync(&codec->jackpoll_work);
+   771		if (!codec->in_freeing)
+   772			snd_hda_ctls_clear(codec);
+   773		codec_release_pcms(codec);
+   774		snd_hda_detach_beep_device(codec);
+   775		snd_hda_jack_tbl_clear(codec);
+   776		codec->proc_widget_hook = NULL;
+   777		codec->spec = NULL;
+   778	
+   779		/* free only driver_pins so that init_pins + user_pins are restored */
+   780		snd_array_free(&codec->driver_pins);
+   781		snd_array_free(&codec->cvt_setups);
+   782		snd_array_free(&codec->spdif_out);
+   783		snd_array_free(&codec->verbs);
+   784		codec->follower_dig_outs = NULL;
+   785		codec->spdif_status_reset = 0;
+   786		snd_array_free(&codec->mixers);
+   787		snd_array_free(&codec->nids);
+   788		remove_conn_list(codec);
+   789		snd_hdac_regmap_exit(&codec->core);
+   790		codec->configured = 0;
+   791		snd_refcount_init(&codec->pcm_ref); /* reset refcount */
+   792	}
+   793	EXPORT_SYMBOL_GPL(snd_hda_codec_cleanup_for_unbind);
+   794	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
