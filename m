@@ -1,287 +1,135 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 695694E50D6;
-	Fri,  9 Oct 2026 19:34:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E1EE4F5DEF
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 19:37:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791574502; cv=none; b=hqIBKSDXwo2yyZ7FP6uK0xc5RrKMSLVPjdim7fK4C7wpthvyC3+YuO/YGrK+qQJ6fwJaXOKsFeau0jrJih2kb2EEhzbpAASOWipskLpcWxoEIKQlZkqvLZCSpiQiev8lJqx4BXZ0WK3BH4f+ZbmBrLkc84/M0W/MvPNgT1HXaVw=
+	t=1791574668; cv=none; b=tXxROmdWctYarqf0Qi/C3LJmR9s8tJ0rGEiKFLZSxaUToixS7zCB/V43UOGG8UNLuVQfR7yOL97n8zgUj+woYZn3X5p99S3jZpfJUWHcvz8m2XZlreDxJSUy1epo5uFGL7aSLhSS7C74RLJbyoloRAFw+h65tSA9dv0uxm6mz7A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791574502; c=relaxed/simple;
-	bh=VI67kK0yf3LLqcqxgJkq+ni7vRqezpZPfa26e3J77hI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=M2KuFwo4hgzXHbY0P7HlWDqLQUYQtSH+V+Fz7MX87GZQbdIH0iS/UfVmi1WfRN3sWD5iKlgFj8ybN+g6CmyfRPrsQ4jowo+EX8w4vUzV1gr2X7JZxdbyzj9CazD7qzzl1ykNAgN0pskwnsvv6of+E7M2i+x0LLX+6Z4pawuxZuU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mz0CS9xD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791574668; c=relaxed/simple;
+	bh=2vzC5G85WBo1venNMaQZoCZ2FhcSm38JjrxzMjDDMWQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=q2AaEhaqkQCHaQ3Oa7AmfezbCMJ50nMtxIhzzF9hddZ41kKKbu/Cm7/N//vwh3fFxrPHEAxUmbdDHxGKKZ2uuBtQYPayNlaSOafYExLvR6Q91bTbltqeupu5DpNnJwt8RKbY+jyi0choi7ROFOsfhYSOrDXoHPy/4tNYARPWAmc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bf9kUCL4; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mz0CS9xD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3297D1F000FF;
-	Fri,  9 Oct 2026 19:34:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791574497;
-	bh=Zh1QKdnuPHz8qrqKdl99AYPMQl59mLYKBE3KN+d4/c8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mz0CS9xDJlv9xl5y5cgaAJ6V8Nu5W2ImkPCpFHmKGmsANZ/9sWYjBTP4Jduw7HGYQ
-	 MYAGEw1l74uVa0gGC95DbearabsDO0cjeT+L91e+lxp68Rr6mDPnzzj65mkAF7KYEO
-	 GvFuRKwxYMdOMA+Z5YcxmIWB7Kh2wN8G1q65rvSxjT9BEg/EZVM2D1ziuysqpe0y8V
-	 wH4RVVK1Fu8hNHJAHKl/dFiliRbudmtiKHYOozUusAkntp4wrVkN9l3RqYDzvFplbA
-	 92Dggn9EZfufFdUsxEfhPgr8sxXu3AVjaYnGOnsgCseCKg3SZ9VbvD2N3SS7XLR8eZ
-	 xLUxVMFng/poA==
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 7934FF40066;
-	Fri,  9 Oct 2026 15:34:56 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Fri, 09 Oct 2026 15:34:56 -0400
-X-ME-Sender: <xms:4EHJapYw46TDCmYavX_Zlku59rvB3NWbYr2wZRQbW0gyhnYEXyQk4A>
-    <xme:4EHJan7LoejMRpC0vnXTx-rZO3klfW5ymPfdDiNow83SyAjQvudkQnrTpSvUEl_Wl
-    YMBIHVWNSQ9awn5-8nQvw6Qo6D-HU8yh2zYEUuLMrRii39_AiwwZjE>
-X-ME-Received: <xmr:4EHJaiDvgs_AspjaosMMrtCTnZFeN2CxwSfNIskTyJJ7Z3oai2of62z-Uqr-_fOU_7kOMutXKq4rDgh3ScDZpK88IDBmpQT->
-X-ME-Proxy-Cause: dmFkZTEUyPkdXvrjVoBWG6LvMw+yaT3TjlLks69aGJmrjp2hjhjtZcPed+gE0Z5IOa2Csk
-    P234AvHh51zOOqwAN/maMbbAxoBOJsAVPiTB4p7pLUwOcXn1VrMrf/PUstxr1rFQEThLPZ
-    7ZTCwwlLpivaiuf2zNOCeM4WaLY0r6Kkxk1LLb6YQGaazHX37K6jpg0NBX450XwFwAMCps
-    wvpeMLpOEggq42s9ZrPoFH8Mv9M20evVb5HbnZDKQjrcBPufkNyDW2Vhw8BGz0xirS0f5H
-    VRZhmPpT+5dbKrdwNuR6pbLEiOJG/qGk28n51DiXtVmU/4YbIBpPDJPsPe6LkKHBsgrJme
-    R+LBTlg+jQKscQbzSbtCIIi4vsK6SQZSbv19eZ7TF5qP69BDu36eEb899QSBJzui3glfap
-    cluBItNzudmoohF62w+OBdou/HKkxkvmr1v14tFVHtSHIqI9IuDj5f1+Rxl3UJMeFChNot
-    OddAO/fuuC9hPOSAG6B2sNosQ1oZRu5ocCOMZqxIUQd55p0HkYrLhxcNLntE6qzblVXXRd
-    0JSUu8DV0xURIJDH2j+1lrFWtwS1anmfTN+qlbxCbax6Q9vaMpgW/lFv+I+9avuQb5gbJS
-    hFX2x4WsEnbGlJjV8BRzAC6sEGLo0sEr+CoeFgG+mLEkj/MCMW4weX7Uhahw
-X-ME-Proxy: <xmx:4EHJaluax36GZksC_XyQW41YZDGbj4emMi1CpFS3GJZyDy4BJYplQQ>
-    <xmx:4EHJavtbPINhkQQ611QdTLN-tR_SotG3jf5xYAa0qrvb9cJtOkB8qQ>
-    <xmx:4EHJahr_3c1oACNTSu3RZ0C_TAfBdrlvIwIUvHWBTlLShsX-cTo5-g>
-    <xmx:4EHJajPkabcyG6vyNLUGXC3rJaAW4uZamitMEVvJdoEsBXTZHUfH7A>
-    <xmx:4EHJanl_a1Al7ScvTryBEJ8Y0pqrIKa0xeEErrXLPN2Ux4fpcHvHn9mN>
-Feedback-ID: i8dbe485b:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 9 Oct 2026 15:34:55 -0400 (EDT)
-Date: Fri, 9 Oct 2026 12:34:54 -0700
-From: Boqun Feng <boqun@kernel.org>
-To: Markus Probst <markus.probst@posteo.de>
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Dave Ertman <david.m.ertman@intel.com>,
-	Leon Romanovsky <leon@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
-	Alex Gaynor <alex.gaynor@gmail.com>, Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Krzysztof =?iso-8859-1?Q?Wilczy=B4nski?= <kwilczynski@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	Ira Weiny <iweiny@kernel.org>, rust-for-linux@vger.kernel.org,
-	linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-pci@vger.kernel.org
-Subject: Re: [PATCH v26 3/4] rust: leds: Add multicolor classdev abstractions
-Message-ID: <aslB3lFUKpMEWOiM@tardis.local>
-References: <20260930-rust_leds-v26-0-83837331020e@posteo.de>
- <20260930-rust_leds-v26-3-83837331020e@posteo.de>
- <ask31EX01lSL9QJ9@tardis.local>
- <81e1aa92ebc389468eb6f493393a1c58a79373e7.camel@posteo.de>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bf9kUCL4"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a1880e1bf1so1828705e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 12:37:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791574659; x=1792179459; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aFY2YO2cb3qpWj8CQZTY+PYX53TlszA01EImDQNtvOc=;
+        b=Bf9kUCL4IHWHdjs/Nv3jSybcEFpqUR7IaJhxTKEPHbDKKMFwSjs0AppPNLoG7uU5d9
+         ARnJuECAPp9Ob96HqZXWgQSIzpelMK+crsscu+T87kJQv15bWc/j8tPvuY6WH2MJBS2T
+         ChVNrLVrsyyw9DJYvv1ZXA8ioDU3fJy5TRxOMPvkiwdhPVJLiPqnl3iPyAD2zlVklijW
+         260z+9or9q4vTkYUUvvbyQqlpB203klCwq1F5fZLYIAetS1OYcTNOSZQDTeiLgUYOTTH
+         R0kQU5TaXhBnvZIJxNlXwp5FAsCnYjCTwivLqXV/6q1lHdgcCXx8h4WU3ymMaNzb+pwL
+         BuuQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791574659; x=1792179459;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aFY2YO2cb3qpWj8CQZTY+PYX53TlszA01EImDQNtvOc=;
+        b=XTQsr0i8jLrKKK/aRfx2z5q6tL+Xl0PyYcnicRNbuc9nCB4lYNEfqHrYqn8G7cU7Mj
+         xjyYCVW0ElC/bSykZoPwJVABZmmHqopbYFREV1bOJgAV2HAS/vrccJtQ7er4Shh+zOb2
+         M1aNyc8QBmDPzgZzf/aHhC3tdu8GXwbFakHrGE6oIzDVjCl0IeGg49gaWETBx8A+CCmy
+         reyRhGK8yGMy+/7v0fR+YykHvdBFpQj7C87sSiGBbFUp1424U673CAf86t9LU581gzTw
+         jL4tPhrVehonTO92D6i+nKE3SED9UkQ6g9lQyMNwerCLA1OJL1z10UF9V6hOrpPD70ZD
+         wrzw==
+X-Forwarded-Encrypted: i=1; AKwUvBwi7rARSl+fBKhPeFqpIqu4cycAR4SLt/DSfGKRBVeEW1F15Kpqa27++ZjQNrstpWmNbNACqdwEYhMowK0=@vger.kernel.org
+X-Gm-Message-State: AFuF++n+glq/ryjeiLjY56hNDK/LTSTWwRuFKMkEuaj5nSNac9+/jGd3
+	gkYcUDFV8DDUb15ly5/WuAgLJC4wJEj89QpazR1XI98cvDFy8PCVL87o
+X-Gm-Gg: AYBFou2ppMeRPg69+awq6fLZbTydML1R66xrhdzAlE6SjSuS8S4P26fnAMqYjmFwUDl
+	FzzRO6ekZ7AcafkyJvbLcETmGYqtAmGEodJKGrXPzYB2N7aC+yn3lSvZCGDi1o1jhAUzJtoLtqa
+	Fv6hT5kFMXmfdzF5Xn1V6fpSEajNcchutAjTn5vgOWB2y+TKi/sF4UXEKraG6f0oMyNSGCIhMxX
+	JLNSHIZM+d0MUgv4x2q3oaL4JckzrLTDPVWF5CljHjE6F2U6f24FcqlldTMgwwQTyOyACY4Pdzz
+	URpbtUPf+szZ3IUzaG4K7q3Cj5PNZqIQ+JFmg9n3yNdl6Zkkn7G6aX2HvBfff/+dR0SE9FlV28P
+	uxRngxd3F0xRuPIKqO+Cb/lfrodrtkSMqprTZH0jIvYBQyaPMfKOX6cCCHIcefwWA2hVNqL5Wov
+	pO1X9/ZXbYvqjBJrOyA34/NAFF+c82kyOoe05ZKUrntqJvV+U8cUcJpOZvwX17FdNcOrtx1X6ek
+	jom3RZwFPTydCytvhV+3c3Ws1tq3lhB41eTIUXBRUMlHOd1nsDWREt0cMqvdH95jp6aoPDSU/e1
+	1Q==
+X-Received: by 2002:a05:600c:8209:b0:4a0:2375:dc1a with SMTP id 5b1f17b1804b1-4a18e4cb771mr58738485e9.21.1791574658789;
+        Fri, 09 Oct 2026 12:37:38 -0700 (PDT)
+Received: from shift.daheim (p200300d5ff07190050f496fffe46beef.dip0.t-ipconnect.de. [2003:d5:ff07:1900:50f4:96ff:fe46:beef])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18ee9bd19sm52018135e9.1.2026.10.09.12.37.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 12:37:37 -0700 (PDT)
+Received: from localhost ([127.0.0.1])
+	by shift.daheim with esmtp (Exim 4.100.1)
+	(envelope-from <chunkeey@gmail.com>)
+	id 1xFGNH-00000001q0Z-2qwe;
+	Fri, 09 Oct 2026 21:37:37 +0200
+Message-ID: <5771235e-fa91-402a-b5d2-ebb153872c26@gmail.com>
+Date: Fri, 9 Oct 2026 21:37:36 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <81e1aa92ebc389468eb6f493393a1c58a79373e7.camel@posteo.de>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/2] wifi: carl9170: revert broken devres conversions
+ for input and hwrng
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Christian Lamparter <chunkeey@googlemail.com>, Kalle Valo <kvalo@kernel.org>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261008-carl9170-reverts-v2-0-3ecb12089797@gmail.com>
+Content-Language: de-DE
+From: Christian Lamparter <chunkeey@gmail.com>
+In-Reply-To: <20261008-carl9170-reverts-v2-0-3ecb12089797@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 09, 2026 at 07:18:16PM +0000, Markus Probst wrote:
-> On Fri, 2026-10-09 at 11:52 -0700, Boqun Feng wrote:
-> > On Wed, Sep 30, 2026 at 01:05:32PM +0000, Markus Probst wrote:
-> > > Implement the abstractions needed for multicolor led class devices,
-> > > including:
-> > > 
-> > > * `led::MultiColor` - the led mode implementation
-> > > 
-> > > * `MultiColorSubLed` - a safe wrapper arround `mc_subled`
-> > > 
-> > > * `led::MultiColorDevice` - a safe wrapper around `led_classdev_mc`
-> > > 
-> > > * `led::DeviceBuilder::build_multicolor` - a function to register a new
-> > >   multicolor led class device
-> > > 
-> > > Signed-off-by: Markus Probst <markus.probst@posteo.de>
-> > > ---
-> > >  rust/bindings/bindings_helper.h |   1 +
-> > >  rust/kernel/led.rs              |  34 ++-
-> > >  rust/kernel/led/multicolor.rs   | 445 ++++++++++++++++++++++++++++++++++++++++
-> > >  3 files changed, 479 insertions(+), 1 deletion(-)
-> > > 
-> > > diff --git a/rust/bindings/bindings_helper.h b/rust/bindings/bindings_helper.h
-> > > index 4b31aa7f432f..81a03985322a 100644
-> > > --- a/rust/bindings/bindings_helper.h
-> > > +++ b/rust/bindings/bindings_helper.h
-> > > @@ -69,6 +69,7 @@
-> > >  #include <linux/iosys-map.h>
-> > >  #include <linux/jiffies.h>
-> > >  #include <linux/jump_label.h>
-> > > +#include <linux/led-class-multicolor.h>
-> > >  #include <linux/mdio.h>
-> > >  #include <linux/mm.h>
-> > >  #include <linux/miscdevice.h>
-> > > diff --git a/rust/kernel/led.rs b/rust/kernel/led.rs
-> > > index c17f8ef75006..4b66fe41a80c 100644
-> > > --- a/rust/kernel/led.rs
-> > > +++ b/rust/kernel/led.rs
-> > > @@ -30,8 +30,16 @@
-> > >      types::Opaque, //
-> > >  };
-> > >  
-> > > +#[cfg(CONFIG_LEDS_CLASS_MULTICOLOR)]
-> > > +mod multicolor;
-> > >  mod normal;
-> > >  
-> > > +#[cfg(CONFIG_LEDS_CLASS_MULTICOLOR)]
-> > > +pub use multicolor::{
-> > > +    MultiColor,
-> > > +    MultiColorDevice,
-> > > +    MultiColorSubLed, //
-> > > +};
-> > >  pub use normal::{
-> > >      Device,
-> > >      Normal, //
-> > > @@ -233,7 +241,24 @@ pub enum Color {
-> > >      Violet = bindings::LED_COLOR_ID_VIOLET,
-> > >      Yellow = bindings::LED_COLOR_ID_YELLOW,
-> > >      Ir = bindings::LED_COLOR_ID_IR,
-> > > +    #[cfg_attr(
-> > > +        CONFIG_LEDS_CLASS_MULTICOLOR,
-> > > +        doc = "Use this color for a [`MultiColor`] led."
-> > > +    )]
-> > > +    #[cfg_attr(
-> > > +        not(CONFIG_LEDS_CLASS_MULTICOLOR),
-> > > +        doc = "Use this color for a `MultiColor` led."
-> > > +    )]
-> > > +    /// If the led supports RGB, use [`Color::Rgb`] instead.
-> > >      Multi = bindings::LED_COLOR_ID_MULTI,
-> > > +    #[cfg_attr(
-> > > +        CONFIG_LEDS_CLASS_MULTICOLOR,
-> > > +        doc = "Use this color for a [`MultiColor`] led with rgb support."
-> > > +    )]
-> > > +    #[cfg_attr(
-> > > +        not(CONFIG_LEDS_CLASS_MULTICOLOR),
-> > > +        doc = "Use this color for a `MultiColor` led with rgb support."
-> > > +    )]
-> > >      Rgb = bindings::LED_COLOR_ID_RGB,
-> > >      Purple = bindings::LED_COLOR_ID_PURPLE,
-> > >      Orange = bindings::LED_COLOR_ID_ORANGE,
-> > > @@ -274,7 +299,14 @@ fn try_from(value: u32) -> core::result::Result<Self, Self::Error> {
-> > >  ///
-> > >  /// Each led mode has its own led class device type with different capabilities.
-> > >  ///
-> > > -/// See [`Normal`].
-> > > +#[cfg_attr(
-> > > +    CONFIG_LEDS_CLASS_MULTICOLOR,
-> > > +    doc = "See [`Normal`] and [`MultiColor`]."
-> > > +)]
-> > > +#[cfg_attr(
-> > > +    not(CONFIG_LEDS_CLASS_MULTICOLOR),
-> > > +    doc = "See [`Normal`] and `MultiColor`."
-> > > +)]
-> > >  pub trait Mode: private::Sealed {
-> > >      /// The class device for the led mode.
-> > >      type Device<'bound, T: LedOps<Mode = Self> + 'bound>: Deref<Target = T>;
-> > > diff --git a/rust/kernel/led/multicolor.rs b/rust/kernel/led/multicolor.rs
-> > > new file mode 100644
-> > > index 000000000000..309487bdf38a
-> > > --- /dev/null
-> > > +++ b/rust/kernel/led/multicolor.rs
-> > > @@ -0,0 +1,445 @@
-> > > +// SPDX-License-Identifier: GPL-2.0
-> > > +
-> > > +//! Led mode for the `struct led_classdev_mc`.
-> > > +//!
-> > > +//! C header: [`include/linux/led-class-multicolor.h`](srctree/include/linux/led-class-multicolor.h)
-> > > +
-> > > +use core::{
-> > > +    cell::UnsafeCell,
-> > > +    num::NonZero,
-> > > +    ptr, //
-> > > +};
-> > > +
-> > > +use crate::types::ScopeGuard;
-> > > +
-> > > +use super::*;
-> > > +
-> > > +/// The led mode for the `struct led_classdev_mc`. Leds with this mode can have multiple colors.
-> > > +pub enum MultiColor {}
-> > > +impl Mode for MultiColor {
-> > > +    type Device<'bound, T: LedOps<Mode = Self> + 'bound> = MultiColorDevice<'bound, T>;
-> > > +}
-> > > +impl private::Sealed for MultiColor {}
-> > > +
-> > > +/// The multicolor sub led info representation.
-> > > +///
-> > > +/// This structure represents the Rust abstraction for a C `struct mc_subled`.
-> > > +#[repr(C)]
-> > > +#[derive(Debug)]
-> > > +#[non_exhaustive]
-> > > +pub struct MultiColorSubLed {
-> > > +    /// The color of the sub led
-> > > +    pub color: Color,
-> > > +    brightness: UnsafeCell<u32>,
-> > > +    intensity: UnsafeCell<u32>,
-> > 
-> > These should be `Atomic<u32>`, or am I missing something here? Using
-> > `Atomic<u32>` should resolve sashiko's comment on this patch.
-> Snippet of the `Atomic::from_ptr` rustdoc:
+On 10/8/26 11:39 AM, Dmitry Torokhov wrote:
+> Commits 23de0fa0d2a0 ("carl9170: devres-ing hwrng_register usage") and
+> 87ddb2fc29f1 ("carl9170: devres-ing input_allocate_device") converted
+> the HWRNG and WPS button input device registrations in carl9170 to
+> devres attached to the parent struct usb_device (&ar->udev->dev) and
+> removed explicit unregistration from carl9170_unregister().
 > 
-> "
-> For the duration of 'a, other accesses to *ptr must not cause data
-> races (defined by LKMM) against atomic operations on the returned
-> reference. Note that if all other accesses are atomic, then this safety
-> requirement is trivially fulfilled.
-> "
-> 
-> This safety requirement is likely not met if I see this correctly,
-> because the led subsystem does not use atomic accesses.
-> 
+> In carl9170_usb_disconnect(), the driver calls carl9170_unregister()
+> followed immediately by carl9170_free(), which frees struct ar9170
+> inside the interface .disconnect() callback before devres_release_all()
+> runs. Furthermore, devres on &ar->udev->dev is not released on
+> interface unbind or registration failure in carl9170_register().
+> As a result, both the WPS input device (whose input->name and
+> input->phys point into freed memory) and the embedded struct hwrng
+> remain registered after struct ar9170 has been freed, leading to
+> use-after-free bugs.
 
-Then the C side has a data race that needs some fix (or they use
-READ_ONCE() or WRITE_ONCE() which are *atomic* to avoid the data race).
+Ok, so you just reworded your patch? Sight...
 
-The general rule is: if C side has a data race, they should fix it, if C
-side doesn't care ("the compiler should not data race on this code"),
-then the Rust side treat it as atomic operations. This is the only way
-to better code regarding data races.
-
-> Ofc, this function won't be used, but I think given that the same
-> struct is also accessed by the C-side, it should also apply here.
-> 
-> Like Sashiko suggests, "core::ptr::read_volatile()" might be a better
-> option to prevent certain compiler optimizations.
-> 
-
-No, please don't over-use read_volatile(). The reason that READ_ONCE()
-and WRITE_ONCE() are safe to use for synchronization is because
-semantics-wise they are atomic on certain types (if aligned), and the
-them being volatile is just an implementation detail.
-
-Regards,
-Boqun
-
-> Thanks
-> - Markus Probst
-> 
-> > 
-> > Regards,
-> > Boqun
-> > 
-> > > +    /// The maximum supported intensity value.
-> > > +    ///
-> > > +    /// If None the maximum intensity equals to [`LedOps::MAX_BRIGHTNESS`].
-> > > +    pub max_intensity: Option<NonZero<u32>>,
-> > > +    /// Arbitrary data for the driver to store.
-> > > +    pub channel: u32,
-> > > +}
-> > > +
-> > [...]
+looking at the WPS input
 
 
+|        snprintf(ar->wps.name, sizeof(ar->wps.name), "%s WPS Button",
+|                 wiphy_name(ar->hw->wiphy));
+|
+|        snprintf(ar->wps.phys, sizeof(ar->wps.phys),
+|                 "ieee80211/%s/input0", wiphy_name(ar->hw->wiphy));
+|
+|        input->name = ar->wps.name;
+|        input->phys = ar->wps.phys;
+|        input->id.bustype = BUS_USB;
+|        input->dev.parent = &ar->hw->wiphy->dev;
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+the input's dev.parent is set to ar->hw->wiphy->dev and not ar->udev->dev, right?
+Does this do anything at all? If not, why? The wiphy gets shutdown by
+ieee80211_unregister() and having the "freeing" stick around after the USB device
+is gone should not hurt, right?
+
+As for the hwrng, wouldn't it make sense to use the wiphy dev there as well?
+So the whole reverting can be sidestepped by simply going with wiphy dev.
+
+Cheers,
+Christian
