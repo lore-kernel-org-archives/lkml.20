@@ -1,121 +1,129 @@
-Received: from out30-99.freemail.mail.aliyun.com (out30-99.freemail.mail.aliyun.com [115.124.30.99])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5104C489889
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 08:04:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E33AB48381A
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 08:04:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791533050; cv=none; b=RdGmwyFr7kbytTwEhrIhePcDTj3dhsxHUxeyNI/0Mz4WTeu8bLkJJRBmlgluZ8MO/uV7djXVrx+OW52QEXMaYxY3wW0m66IBeq+GlNx4LpGwEibvTzoADu/v0ioMg8/4RGFkYwgSVnyPO+g1vSUo//5HcH/FdVa3LrLnPyQCaEs=
+	t=1791533058; cv=none; b=pKnQ9ax3xsJ4tQ+Issb7pRhXEaIbrIU8d8e+VnZXetjXI8BB1rGCLj6u8S7ejWUQSr8xILYJrALIYE6nDg+DVkNNTeCnGBcQ40nMq80HMOuc35dln7dox8IQFD8PimFYeYSnw+6Ke6yD8OXhgxrjpEC0B2N6xk2XKA7KnLr8WAk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791533050; c=relaxed/simple;
-	bh=+0kXAjOjg/9WUc5d0eFE41rzMQPlmPari+A2rE+8uyg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TPRgOm/9V3XRXpLwIMCWd8wCWQj/KekpbE5kB659CW8v+XWqCPbgZUwfVkNaMQgMnxSF3ohnT+cweGKRz4gR44lcDwUTfLoNeRARbCokk5+tOWG15px0GxaoPwUf3MtltGExjT5nONVNw0czDPFHYvwbczpPYuTURtDzU0+fU1k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=LVu7Bfqk; arc=none smtp.client-ip=115.124.30.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1791533058; c=relaxed/simple;
+	bh=0y74i2STDjmKr4lBePoInGDutw/6C+poWpHkbdAVK1I=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZMw1vkCpllpJCK1P7z28hty54II6NY0xnZFGZGUFKSnt7u9CQy/JbRrvQrXcTGtmfGeSdrpUmVEoQp3qlxIBV3DfQ+HPbJ/VoUdTXqC7pIRFe5FWDHBLGp3IiEFBo84a/58bJGd1O4naWGIUXsReea0fu4GYdK34vzfSHAKpEtI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hd2yY7Bf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="LVu7Bfqk"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1791533039; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=/ZWpKMi0mJSFdhpu7QKy0xfJr15BOhxJqinnt5xIn9U=;
-	b=LVu7Bfqk7futSUA+BZ14xwNEyD5vKMrqJuGUtk0BWoKZ3nRxZcRt/xWVJk533eKGBo+JzDQ+c48VsC5L3qDa6Jv8HJ0ppBN0ffBAgHb85YR9s+jcf0WoK4dsWmDP7LbYh2uqOZG18h2/yFma0NMCb4bXH+chZh90CqJbHVONamU=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R141e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=11;SR=0;TI=SMTPD_---0XCSlded_1791533037;
-Received: from 30.221.148.47(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XCSlded_1791533037 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Fri, 09 Oct 2026 16:03:58 +0800
-Message-ID: <368a2c31-d365-4e38-8e61-69319cd0bdd7@linux.alibaba.com>
-Date: Fri, 9 Oct 2026 16:03:57 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hd2yY7Bf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AFF81F00898
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 08:04:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791533055;
+	bh=s/5A+ZClw8uFOpyIi+IWKMRcAZDloocaw/uDqLtwjvM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Hd2yY7Bf/6HQv2JT31eHw4xxh6qv2pVK2+TKA8ZZGIN+Fepttoygqwu8OGSD6E3JT
+	 WVW5BGva4e8Mp5TXySE3UdShEOmo7j3JK7BcR8aWYW3hEJ3UNo+973//1z9xefJJa1
+	 E6dytF5qet5tUAjrmBLU38VdIuerB97XgCwIzJz+JX2sgrLXbJHEjgPKVAambKGcuJ
+	 R//Qczr4xpAX5vpu8sjsHRcTlorJmH99LH/GBKvT/I+q33GJEZOmJ6gFLD+7cage1e
+	 9gUAde6xeQa1VaZt5kRBE94YLVgAmuEH6krMMIFliCM3Y0/O4oeBNttM1V1LNgi1CV
+	 o9+kr/XnqTqlA==
+Received: by mail-oa1-f54.google.com with SMTP id 586e51a60fabf-49e5f85ce89so1592770fac.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 01:04:15 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxspbejAI7SxVPoeFXcD16+QaCc2FUAW+L6fJJyj/ntXzCtTsJdpaB+9drKa8i9DAMe1qE+ih81HHEE5rM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIUf0cnBqLiQcVCIJoBYD5vl4gT4v/60qyVE5SDPpa5JbveHu5+
+	BbH6HZCODDIbrEw0hU1bwRhBAJ6RIr2iXr2HjTyvAyN/7sa2WpjE8frsd16VQ+y0D22pUSNNYez
+	1N7KkV5bVDeTmEKszX+jNQViCYI6HwMc=
+X-Received: by 2002:a05:6870:6493:b0:4a2:4d77:866d with SMTP id
+ 586e51a60fabf-4a2a87ff162mr990737fac.11.1791533054730; Fri, 09 Oct 2026
+ 01:04:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ocfs2: Initialize status waiters before publishing them
-To: Cen Zhang <zzzccc427@gmail.com>, akpm@linux-foundation.org
-Cc: mark@fasheh.com, jlbec@evilplan.org, kees@kernel.org, kuba@kernel.org,
- kurt.hackel@oracle.com, ocfs2-devel@lists.linux.dev,
- linux-kernel@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
-References: <pm-ocfs2-objects-candidate-0066-v1-437a0422801b292a2879@gmail.com>
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-In-Reply-To: <pm-ocfs2-objects-candidate-0066-v1-437a0422801b292a2879@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261009074523.2747168-1-bsdhenrymartin@gmail.com>
+In-Reply-To: <20261009074523.2747168-1-bsdhenrymartin@gmail.com>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Fri, 9 Oct 2026 10:04:03 +0200
+X-Gmail-Original-Message-ID: <CAL4WiipX3uc6FD1=saqEthm+PTCKkoY=J7cXRf9R9FTqd68raw@mail.gmail.com>
+X-Gm-Features: AclHuK8ltwaJAIjTWP05-fE44s7cCMnjL8O00smo3LgS1FtFj3W92as-vTo_gZ4
+Message-ID: <CAL4WiipX3uc6FD1=saqEthm+PTCKkoY=J7cXRf9R9FTqd68raw@mail.gmail.com>
+Subject: Re: [PATCH] ipconfig: fix use-after-free of device list after ic_close_devs()
+To: Henry Martin <bsdhenrymartin@gmail.com>
+Cc: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
+	"David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Le ven. 9 oct. 2026 =C3=A0 09:45, Henry Martin <bsdhenrymartin@gmail.com> a=
+ =C3=A9crit :
+>
+> ic_close_devs() kfree()s every ic_device node but leaves the static
+> ic_first_dev and ic_dev pointers dangling behind.  When a DHCP reply
+> consists of an OFFER that is never followed by an ACK (a misbehaving
+> or lossy DHCP server, or a network that drops the ACK), the boot-time
+> autoconfiguration loop becomes vulnerable:
+>
+>   1. ic_bootp_recv() accepts the OFFER and records ic_dev =3D <list
+>      node> ("We have a winner!" state);
+>   2. the retransmit round times out in ic_dynamic(), so
+>      ic_close_devs() frees the whole list =E2=80=94 node included;
+>   3. the dynamic retry path (try_try_again) runs ic_open_devs() and
+>      ic_dynamic() again; on failure it falls through ic_close_devs()
+>      once more, where the entry point evaluates
+>
+>          struct net_device *selected_dev =3D ic_dev ? ic_dev->dev : NULL;
+>
+>      =E2=80=94 an 8-byte use-after-free read against the freed ic_device.
+>
+>
+> NULL both pointers after the free loop so subsequent retry rounds
+> take the clean empty-list path instead of acting on freed entries.
+>
+> This vulnerability was discovered by Tencent CodeBuddy Security.
 
+This is __init code, on a boot that already failed to get a lease.
+I would not call it a vulnerability.
 
-On 10/9/26 9:43 AM, Cen Zhang wrote:
-> o2net_prep_nsw() publishes its stack waiter in nn_status_idr and
-> nn_status_list under nn_lock, then initializes the wait queue and
-> completion status after releasing the lock. A concurrent disconnect
-> can find that waiter through o2net_complete_nodes_nsw() and call
-> wake_up() before the wait queue has a valid lock and list head. The
-> sender can also overwrite a completion status with its initial value.
-> 
-> Initialize the wait queue and status before publishing the waiter.
-> nn_lock then orders publication against completion, and no reader can
-> observe a partially initialized object. Leave the IDR allocation and
-> its failure handling unchanged.
-> 
-> A controlled case-modified test kernel used a synthetic connection to
-> enter the real send path and overlap publication with disconnect. The
-> candidate completion and wake-up code were unchanged. Its Oops includes:
-> 
->   KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
->   RIP: 0010:__wake_up_common+0xa0/0x1f0
->   Call Trace:
->    <TASK>
->    __wake_up+0x36/0x60
->    o2net_complete_nsw_locked+0x222/0x370
->    o2net_set_nn_state+0x917/0xea0
->    o2net_disconnect_node+0xd0/0x190
->    o2net_validate_control_write+0x454/0x500
->    full_proxy_write+0x11f/0x180
->    vfs_write+0x25a/0x1010
->    ksys_write+0x111/0x200
->    do_syscall_64+0x114/0x620
->    entry_SYSCALL_64_after_hwframe+0x77/0x7f
->    </TASK>
->   Modules linked in:
-> 
-> Fixes: 98211489d414 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
-> Assisted-by: LLM
-> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+>
+> Cc: stable@vger.kernel.org
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 
-Looks fine.
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Wrong tag. In 2.6.12 ic_dev was a 'struct net_device *' that was only
+compared, never dereferenced. The dereference came in v5.12 with:
 
+Fixes: 46acf7bdbc72 ("Revert "net: ipv4: handle DSA enabled master
+network devices"")
+
+> Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
 > ---
->  fs/ocfs2/cluster/tcp.c | 8 +++++---
->  1 file changed, 5 insertions(+), 3 deletions(-)
-> 
-> diff --git a/fs/ocfs2/cluster/tcp.c b/fs/ocfs2/cluster/tcp.c
-> index 474fe1414cee8609d7976b983332c6e120f06fb5..8b3830b601ba6e5fe964bec970581b8e4ddbb5dd 100644
-> --- a/fs/ocfs2/cluster/tcp.c
-> +++ b/fs/ocfs2/cluster/tcp.c
-> @@ -301,6 +301,11 @@ static int o2net_prep_nsw(struct o2net_node *nn, struct o2net_status_wait *nsw)
->  {
->  	int ret;
->  
-> +	/* Initialize all completion-visible state before publishing the waiter. */
-> +	init_waitqueue_head(&nsw->ns_wq);
-> +	nsw->ns_sys_status = O2NET_ERR_NONE;
-> +	nsw->ns_status = 0;
+>  net/ipv4/ipconfig.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+>
+> diff --git a/net/ipv4/ipconfig.c b/net/ipv4/ipconfig.c
+> index 1b8585404a41..ac4851e59c3b 100644
+> --- a/net/ipv4/ipconfig.c
+> +++ b/net/ipv4/ipconfig.c
+> @@ -346,6 +346,13 @@ static void __init ic_close_devs(void)
+>                 kfree(d);
+>         }
+>         rtnl_unlock();
 > +
->  	spin_lock(&nn->nn_lock);
->  	ret = idr_alloc(&nn->nn_status_idr, nsw, 0, 0, GFP_ATOMIC);
->  	if (ret >= 0) {
-> @@ -311,9 +316,6 @@ static int o2net_prep_nsw(struct o2net_node *nn, struct o2net_status_wait *nsw)
->  	if (ret < 0)
->  		return ret;
->  
-> -	init_waitqueue_head(&nsw->ns_wq);
-> -	nsw->ns_sys_status = O2NET_ERR_NONE;
-> -	nsw->ns_status = 0;
->  	return 0;
+> +       /* The whole ic_device list was just kfree()'d above; clear the
+> +        * static pointers so retry rounds (e.g. dynamic retry after an
+> +        * OFFER without ACK) don't dereference them (use-after-free).
+> +        */
+> +       ic_first_dev =3D NULL;
+> +       ic_dev =3D NULL;
 >  }
->  
 
+The change looks correct, but the comment is not needed.
+
+Please send a V2 (in more than 24 hours) targeting the net tree
+([PATCH net v2]).
+
+Thanks.
+
+pw-bot: cr
