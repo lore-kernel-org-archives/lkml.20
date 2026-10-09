@@ -1,54 +1,78 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C280331EB3;
-	Fri,  9 Oct 2026 17:09:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27E7B3AE6F7
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 17:10:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791565786; cv=none; b=nIo1sITI0ZOkKF00BRpkVwN0DN+ePUSm9LZNxh03HWvBnMc+5YMIC34+ttVsJL69qHyyrwEF1Xiep/rnPzY8VvmuTbXQ1C9AwQ5kJ/fSkN9qPp/PjGzrF/mMxi1P8avwFUshPsfUTw40ejxqxHw3h0BsGSYfp8fWZcGXLM4OS8Q=
+	t=1791565820; cv=none; b=SiVyV7qd0RbXlo3ikctJ3udJ0o58lxKJChitWxJd+5E/bEGvjnzygdDHs/qhxFrXFHiDO/CATgU/QXsC6vzdwZFFeDBxG4zko8ECXx937K2xa65SkFwNO/qrnhAAqiRzUJfCJXQnXFyTRqDtZO6ji1qEaZo/3VEUIDqh9xsiVPI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791565786; c=relaxed/simple;
-	bh=L39BGipx8T/Si3gig56Sb6NQaW0bdVeLyT7Ys8WoqsA=;
+	s=arc-20240116; t=1791565820; c=relaxed/simple;
+	bh=VXRz2PDWk6oOBFGq5vOTwINeX0a4QQnNEUao9lnM22A=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uFesBfJ8DzqpSUgCEypTIjumx1JRacVBiL7Isef1cR7lxUL1z/vX5FaAib9URnoNLvW3jDTLqA0nsMlzqNrhBJlMUBIj+tnTzdVVf1ZsFXnix1G6IbfLAed1iYv5DmvNGOQ5dCpxI1Ue1srW6pnTbD7Vy/2NzPtJBhZGR3m8ujY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XYIr18xk; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=kVq14Im3SHkqmCFWLQGOnwE5FTFZPvO2tgolInySu+iIB1/6pq+XODQKYhaa5TNWzuu67m4FPqyJFywPrdpLQ97WlWaPZo4wRBN8QEKLIvUb5s77EKqE//4WbcqQvqQ2c5HIWSanvO72DbeBHup50R6+Agl+v44MQ1cszFJUHR0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=egicon.com; spf=pass smtp.mailfrom=egicon.com; dkim=pass (2048-bit key) header.d=egicon.com header.i=@egicon.com header.b=BMjdJ5V7; arc=none smtp.client-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=egicon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=egicon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XYIr18xk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 765921F000FF;
-	Fri,  9 Oct 2026 17:09:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791565785;
-	bh=ZCni05apCN4AGczMKeaXj5fPa7qrOY0NPOadW6AQ6ss=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XYIr18xk/PfHlCiJ9uVydxG+LXkusM11uyVcteF+bHxB9w/ilw6rPRDbCeyVjbPx0
-	 BvmfcTfqOVz+ZaWe5ws3WvvsV5Mqn3A/WZVrsCudMK4Knvvy9oAnK9e+6vWVo7p8gC
-	 Fnrt+bw2Rwfbc1GFoYiGclga1LYr1uotDrB3j1JpFeBdwVpr1UTjii086tPjt/MON2
-	 pfrmUrlNq75UDN19OUlB1Z5OLWsTvdpYrnlpEvEqS3kni+e4aBOVEG4Jyspy1Qk2/j
-	 xgZJHSPYncdERMClrK1e1V6qSIb2PiBDDOcfdKBIUmDSxEEvawt14muDNX922jcbC6
-	 vV103NQsAgrdw==
-Date: Fri, 9 Oct 2026 19:09:35 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: Yeoreum Yun <yeoreum.yun@arm.com>
-Cc: Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
-	Peter Xu <peterx@redhat.com>, linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>, Shuah Khan <shuah@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
-	Sarthak Sharma <sarthak.sharma@arm.com>
-Subject: Re: [PATCH v5 3/3] kselftest: mm: introduce size_to_shift() helper
-Message-ID: <askfz-q4KLY7QMKW@kernel.org>
-References: <20261009-fix_hpage_macro-v5-0-54378ae45add@arm.com>
- <20261009-fix_hpage_macro-v5-3-54378ae45add@arm.com>
+	dkim=pass (2048-bit key) header.d=egicon.com header.i=@egicon.com header.b="BMjdJ5V7"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48b0d19cf7eso1541380f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 10:10:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=egicon.com; s=google; t=1791565816; x=1792170616; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QlbHscdz8tXNxFSWL/RXlFVB12NdLIol4JG45a+qrVo=;
+        b=BMjdJ5V77hv1yeF3mCsenxZI0nKQX92oFJi+db4z0lO2A+eL6x2PzDbcluZRnspU0z
+         yGH275i0TZY7Z/0f/evUo6vQXkoqKAYIRQfsATx6duX/Zt/tx0mEeI759L2eIKbjJlYo
+         l/YcKhX+1mZS8i7eyADx52wxksIq6jvhL9Ko4csrOG/IpocSsJVuuatUaN1ba4+7Ydgg
+         gBZsrevvq4IaxvyMQXSdc7RH9lk4Rx9wFRMegYl6XmWLHBE9GzvlVtqmqMhXJX3OrIk3
+         AwsTzcfllzuXOgvHfYhd1f+JwELSTyBfbp9ok/lnh019Plm+SvxF7XvJ1DYuy4hRvtoK
+         ZQWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791565816; x=1792170616;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QlbHscdz8tXNxFSWL/RXlFVB12NdLIol4JG45a+qrVo=;
+        b=LKyiauxyZqIol3VpACuQDnUWqP8vKk+yBjQecI7yOsvKZKbuB8NY3N5CcbfXB3UseS
+         yvGLNHajPhZ/354wZu6r7w20dkgUVzehHzW8cNBtBejvIjKtBy3V4MV/XwpGU+WqoGNP
+         mN2qWiCb+IQndWVK6bddBV/VWxPYXKWNg/hUK38CvGXcA7hhlqcQYWRyd9UXR/kkUWFE
+         nCGGpImuue0JLD03pYhhf9nouK2J3JFEi70LXVFtCCa9Uc8AP5UMUUBueSBQAaQY8wau
+         +Ug7J1Q+zlyR1aeqw3at9XfW6w+RoSAHh3bDNySYiomWQQMCFmdxOh9ALc7eqWhiK3eP
+         DuzA==
+X-Forwarded-Encrypted: i=1; AKwUvBwuR8oL1B945yQT6CSzRmuaEcoYljd/xmsukyq+KbMUuKjpF0sY8oUjrKvPPdqT+WXenB+PtKI54OaE9zs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLZgInjVVqJrgu+4Z6ySW1UJtvVPPPp8nj0dmyc7RKC2VqhpLXL
+	JdQvv8oFEMj2I6GiI+LEahsbvJ5jEMpfkCiou35DoGdYAp5TVzbMYO1aQslETtavgw==
+X-Gm-Gg: AYBFou1JqbXO2f1IXuxYYaOM/+VpZLRoi51j6vVeVphMWwkrUtqNeJz+NSkxuUt5rZz
+	LMyYW1/Qekbp5Cnl8mdbTati+rK+64Lz7iV5zV2CqmBPgo7oG4G/SoQ+5qXJ3oKsrTR8TGDvy/H
+	FjDsQxVofGC07Ku3OxUMPeBATj3ARYm1IKFuIWcZpAWDdeQS0ziyiw7Ln1ZCo92jgC6G7jw/jNU
+	zHqgvMFjIysCvnLpoqRhn4ZbWEuNZrelaM5++jDVQW5/LmqhIv8c5rBhc9dAsqcrLR3nwdMe+hU
+	S1x2mpOb4clldWk2hwD5qf4PYUjzUkwfwGWpRV4pH7GLV2EfEZigkO2VExBofdmHVbb5wkYiKC6
+	U64hyOaVCqmAPtUNoGfgBPPLbebru3y+s/BOS0QvzERk0ECjmc4TpO2kbfYGes/w1ItVjHmMm+y
+	s/yQTyUaZbSHSksGQkdMYGgwfAJKED/9jr9KfRHAleFSdgaYFobxcOEnPRv+TwALQFKU4ofoCYa
+	rn+nx3wUzOXKr7/K9Y2Au6djfGOJZGLLrvpcOPGdXIc08wcJkBM+JrH
+X-Received: by 2002:a05:6000:2002:b0:48b:f1f:8b12 with SMTP id ffacd0b85a97d-48db9465e7dmr5874958f8f.9.1791565814136;
+        Fri, 09 Oct 2026 10:10:14 -0700 (PDT)
+Received: from egicon.com ([37.179.95.159])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db98c2800sm4858910f8f.26.2026.10.09.10.10.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 10:10:13 -0700 (PDT)
+Date: Fri, 9 Oct 2026 19:10:12 +0200
+From: Massimiliano Marretta <massimiliano.marretta@egicon.com>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: David Howells <dhowells@redhat.com>, 
+	David Woodhouse <dwmw2@infradead.org>, Nathan Chancellor <nathan@kernel.org>, 
+	Nicolas Schier <nsc@kernel.org>, keyrings@vger.kernel.org, linux-kbuild@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] Add bulk signing support for PKCS#11 keys
+Message-ID: <fdygyv5nwbgdasmqivbdy23khis7t3bypholrpbk2gflpywtb3@jieynyyox5nj>
+References: <20261009101915.495734-1-massimiliano.marretta@egicon.com>
+ <20261009135228.GA321175@quark>
+ <hhgoxv37uegtx3memo7spxlesoywbsnavzoezdg7rdrfwog3ml@tx73cw2yhu6n>
+ <20261009162442.GF321175@quark>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -57,23 +81,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261009-fix_hpage_macro-v5-3-54378ae45add@arm.com>
+In-Reply-To: <20261009162442.GF321175@quark>
 
-On Fri, Oct 09, 2026 at 02:27:34AM +0100, Yeoreum Yun wrote:
-> Introduce size_to_shift() for future users that need to
-> obtain shift of a huge-page which is other than pmd_psize().
+On Fri, Oct 09, 2026 at 06:26:08PM +0200, Eric Biggers wrote:
+> On Fri, Oct 09, 2026 at 06:13:22PM +0200, Massimiliano Marretta wrote:
+> > Yes, I have been following that series. It is a useful approach for
+> > its stated goal, and I am not arguing against it.
+> > 
+> > However, in our case it is not applicable. Our product depends on
+> > Wi-Fi modules from Ezurio that are built out-of-tree against the
+> > Engicam/NXP kernel. In this case the module hash is not known at
+> > vmlinux link time, so a Merkle tree computed during the kernel build
+> > cannot cover them.
 > 
-> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+> But do you actually deploy a kernel (maybe with some in-tree modules),
+> and then deploy the out-of-tree modules later at some totally separate
+> time?
+> 
+> Or do you actually just collect both in-tree and out-of-tree artifacts
+> into a build and deploy that, and the fact that the in-tree build
+> doesn't have visibility into out-of-tree modules built separately is
+> just a limitation of the build system?  If so, asymmetric signatures
+> seem like a really unnecessarily complicated workaround for that.
+> 
+> - Eric
 
-Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Both the build and the deployment are separate, and we need to be
+able to update the out-of-tree modules independently.
 
-> ---
->  tools/testing/selftests/mm/vm_util.c |  2 +-
->  tools/testing/selftests/mm/vm_util.h | 12 ++++++++++++
->  2 files changed, 13 insertions(+), 1 deletion(-)
+Concretely, the build is two stages:
 
--- 
-Sincerely yours,
-Mike.
+  1. the base kernel is built from the Engicam/NXP BSP and its in-tree
+     modules are installed into the rootfs;
+  2. the Ezurio Wi-Fi backport is built afterwards, in a separate source
+     tree, pointing at the kernel build directory:
+
+        export KLIB_BUILD=/.../linux-imx-engicam
+        make defconfig-lwb
+        make
+        make modules_install INSTALL_MOD_PATH=/.../rootfs
+
+     and its modules are installed into the same rootfs.
+
+So even at build time the two trees do not share a link step, and the
+kernel has no visibility into the Ezurio modules when vmlinux is
+linked. That alone rules out a Merkle-root mechanism computed at
+vmlinux link time.
+
+But the more important point is deployment. The Wi-Fi stack is
+delivered and updated on Ezurio's cadence, independently of the base
+firmware, and we must be able to ship a new set of Ezurio modules to
+a device in the field without rebuilding and reflashing the kernel.
+This is a product requirement, not a build-system limitation. A
+hash-based scheme tied to the vmlinux build could not cover such an
+update: the kernel has already been deployed, and the new module
+hashes are not in it.
+
+Asymmetric signatures are what allow the two halves to be produced
+and updated independently, and still be verified by the running
+kernel using the public key it already carries.
+
+There is also a compliance requirement that is independent of the
+build system. We are implementing EN 18031 under the EU RED, which
+requires secure update mechanisms and integrity protection based on
+digital signatures. The compliance approach we have adopted for our
+hardware is a hardware-rooted chain of trust based on asymmetric
+signatures for both Secure Boot and module loading. Even if the build
+were fully unified, the signing path would still be asymmetric, and
+the HSM constraint would still apply.
+
+So the question you raise is fair, but the answer is not "unify the
+build" -- it is "the two halves are genuinely independent, in both
+build and deployment". This patch only makes the asymmetric signing
+path that already exists practical under that constraint.
+
+Thanks,
+Massimiliano
