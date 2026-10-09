@@ -1,196 +1,201 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011046.outbound.protection.outlook.com [52.101.70.46])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F0EB4F4725;
-	Fri,  9 Oct 2026 18:09:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791569389; cv=fail; b=VL3XS24VepVmn/x/XAk8hdF/uBmGzBHJZTWFD+uFF3y98wPnhhGVuf/Hz6wOewxQH30ij7L+mnRR4Zfc8wPx/iq0YW5S+VFD9oA5zpWqTIfZcEJxWAEqHtY6RqYlzkPXs0thK79uKm0ZKJryuLUAH2Fsbg9nqKQp/zDqrKYMeMM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791569389; c=relaxed/simple;
-	bh=h6kpP3e3/+DrGqyppeBTrstNzYDJV5n4Rdy2JCoK7xA=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=k9FfN9H9eJcUY8yEVs/YqE3gJzjnNwjBlbYAE8FuK0sFS7zZEZ71Dts3KE1BrzsJbBWDIGFpt5K5CbGpmsYUdXwLYALv8k4orGiwRQ07RQuT5zl32H8h09rhchoYEczT4WciJ21D6gvK7iOKvTfwOYc4aEBOnhsP3RavLq+fX78=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=fLf+0Qr3; arc=fail smtp.client-ip=52.101.70.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 506D44FDE74;
+	Fri,  9 Oct 2026 18:09:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791569392; cv=none; b=rJbmc/De+WpbW5ULPmyNav1QYzsjzCvWpBQ9hasyZ8q9NeKqchrgezAMpTsaFVUIR7cLwON3cEZu+U3511DhVRiC56TSm5jWR01TNmkvQiURLSV7x2ADrczjiwES3UM7G0sQu0mXRM2v94lDhSKh+0d048rHh7id55fJaLrzrzM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791569392; c=relaxed/simple;
+	bh=yyTb6qa70UHuQDT2/p92dj6MAkJAoB6SoUmZKZd8e30=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=YKRgMCmaqmsvKm7RgyacjzE33UR4HQAgY1UveSyv8W1najRkknDV6E/N2ocxtizIDvs/RD34F1Tx3DqhiSQ8XrC/XjiKHrY6ybNT+EnAE0H6WIgoNv/eouB3Y1/R17qCqUpFHYTi9OaxaQh/aOOotQFL/25L/G/O4uQT9SueMjs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eMJIih1Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="fLf+0Qr3"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JQEKjSBf4PUpF4ClgCQgs3LLCFRfQUn/y9SdUnNfNxLNZSfI5ucE27zS4v1Pmr2poMVlXmT7tn7oC6Q69EQiiSITEjPf8zOb6SQJSBOpPblXnP3Km+ONUZt3D3J/mT8neGcLrFeKnRVNlOAZRwNz9s9Xy1Mn9WJ8XqpJMTHk+DpLrWE0bz9evpZqHGDed0CWB5d3bIYL8YMnY3LJaqxyy0h5o+PGD4gdp/j3gjKJTQv9NYNhCE+OAQvD3w9tjLybf3/IATwM05CnzXnuVVF5NEBoIAGS0n8TFMhbSb09OjrnRv0sy9OQhXnju66AzVpNCaaOpscuTmSnu8kTKK0OXA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IeDiy3pUVl/PV8AoXW4pMOaP6D6p5ePFvjTi14Xzqc4=;
- b=f1LsXuyCKsxY7n/9pVZaDwsubI4Umk6IDMK+nN7Nhgczqg9cVTSiPALPlCe9UTHQTEPoKrzWhSE+aIWbd/YB4oqkUDUGlE5WzBxzJzTtzGajuw178IkuoG94Z7gED3J518SA1F8/xnnczosev0SqH8tJN3yBBjQBQ6nk9r8JjhnCfHIkt8Mlgc127mkeeILeDS+Tc6BVLjtM+Df4nVVhMN+WFmXbOyW6aqxQ6BJvZTbNYDjb58vCTCMKBMrsBTrNLtiVy3f6WvS5DNWrAfhcik+CVpROEED4yzoV5SaZpRHNmlctVKNLAD3QvZUi40nonFjrMLjt/IycH83B4iHXag==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IeDiy3pUVl/PV8AoXW4pMOaP6D6p5ePFvjTi14Xzqc4=;
- b=fLf+0Qr3Ppig53IZixXQDWl2kYnHTMKuQXCMB0gOZO9/zlOaedgV7bSyZq+wqOxILWa3aS4+rzNxdmAiIno+ktR25Nn+vLbrJJU7oJXj+lYVoIKUtLLGH+nNTvIvGJxKoEOvENUfh1FEPNhUAS6h+CVGGcBfQGD3/mEKD1lF/KlDVZsLeW451dpUL56qgj8q2kCxUZNF7MBb2XE7wy+iW+H0376O0E6D6ucTh41tApPA8a7KAgeL+2vuRoPFdjfnXnarMrPhURxd4OjxEw1XDOEaRRBr8z5qEmMl1Y89QmiluDoYT85T8vNETpMYoq8yvIe4HieCzVMa0cCcP4Uekw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
- by DB9PR04MB8282.eurprd04.prod.outlook.com (2603:10a6:10:24a::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
- 2026 18:09:45 +0000
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0496.010; Fri, 9 Oct 2026
- 18:09:45 +0000
-From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Date: Sat, 10 Oct 2026 02:05:32 +0800
-Subject: [PATCH v5 11/13] gpio: mxc: switch probe error paths to
- dev_err_probe()
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261010-gpio-mxc-cleanup-v5-11-1e59e6ddfa00@nxp.com>
-References: <20261010-gpio-mxc-cleanup-v5-0-1e59e6ddfa00@nxp.com>
-In-Reply-To: <20261010-gpio-mxc-cleanup-v5-0-1e59e6ddfa00@nxp.com>
-To: Linus Walleij <linusw@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Shenwei Wang <shenwei.wang@nxp.com>, 
- Andy Shevchenko <andy.shevchenko@gmail.com>
-Cc: linux-gpio@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Peng Fan <peng.fan@nxp.com>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: SI2P153CA0015.APCP153.PROD.OUTLOOK.COM
- (2603:1096:4:140::21) To AM8PR04MB7874.eurprd04.prod.outlook.com
- (2603:10a6:20b:24d::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eMJIih1Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D0351F00893;
+	Fri,  9 Oct 2026 18:09:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791569391;
+	bh=dJvW4vwNwue9hYXHoVVoy2mw1y7LjTNGlUYGA8Z9YPI=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=eMJIih1YEN8CYVlMRY/ORVHZGGxLbjE063LoOLQLQinW2xtLSHaQ+vhVFZxWG0hw/
+	 3N3GLT2mXl9hM7Jy3IdpWPYrstwohZ+wWAWehVqWRcwl5Hg7uSOb2DEGhsTMNL8oid
+	 ESX/xx1VXRVhaYHQu8G/8VJASAOTybkXofYde316mj7Qr2m2O2dT7fIW71XyEg+9+Y
+	 s5LkmVtQjaPn3506bBx2LTl7J2gcBmreElyALmWou/T50jsqaOkd/M7GNlHAzMzsvy
+	 e7gUtPmOJRB03xHkGNzOjdEO9pNR9Aa7TIfAipvo6k4Q2A0KOC1q1C2/Skh4BQ/Mbe
+	 9557MZhvD9G2A==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Fri, 09 Oct 2026 19:04:09 +0100
+Subject: [PATCH v5 15/38] mm/vma: only allow mmap to clear VMA_MAYWRITE_BIT
+ if not mm-managed
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|DB9PR04MB8282:EE_
-X-MS-Office365-Filtering-Correlation-Id: de01f3fd-3014-4974-e4c7-08df26307fd8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|19092799006|376014|23010399003|7416014|11063799006|56012099006|18002099003|22082099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	+/5+lOmsmIWx4h2cY94yOoP1pBpqPzOrpxdWwoIRR38+5gSluwDEUdq4A18RPkGrREp5SETmICuhI4Hx+wRpC+GodTKbZtKgmEZk44eEsKsbiYXZ9ElRVcP0xdS18pfo/380tmL24SWTzImboSEnBHyAfrmw5RDIAFe6hdCpjKizA9HRkwHCxGECM34yiq2fbXZgz7v9jazr7TISaibSsO6Uixe2TTHxce6Ql3EmVIDkgz2RAhoG5Vu66YREL0f7qR7VAl1QORE9kpd3yObQ/2dm6Uf3G4AL3mr5m7LqqHwc8qcTnsnv/u5pb8v0lnuaNXxp7Tavgc8iUu2czvwTc7CLaAKMCteQV81QD8Q9CYLuDVEiGfvC6LbC4N0HdffpInqx/WZFCj6kRkTkp0SEcbrI5jT+QXYa7WK9CHjpgQvrxI8Wg1v7n3UgGL4T5NDIu37118hVoRTjj6wBDEF3Ea41sJiqkLdKMY3qrPK6JV6fCc9EVxFGiQb2g7FCAPtHxxmEjqmegwJWj6kRy9JD6GmZkTTSqD6uCWsRtUrCqNmiSniU+SLTZLw5JHfb33rfKxNTBjQwjOjsCfuX77zWfGJzIxVN6s1NssEYsQTQSaEx/DFwEdgNlVHbP3o32CRUHRAFjE/OUTo8v3M2mR3EX5I5Th79b0dBzi/pX2dCdQc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(19092799006)(376014)(23010399003)(7416014)(11063799006)(56012099006)(18002099003)(22082099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?S0lDcFpwMGROWlRRazVPcngrOGt0ZmV3a1dpemU2R0xMRFVpVC8rQ05mS0o0?=
- =?utf-8?B?TmlxVm9LSVF6OHA5eUhRZzMxWmp3M1NkR284Qmh1REE2VHF2cGR2Y1VYWGlD?=
- =?utf-8?B?SVdDekZoU3Bldk9tLzVxTmdwR28vYVQxWmFQZWtsb1dwNU5wVy9SZ1JPNWx5?=
- =?utf-8?B?dkc2MFJwbnJBeHdSbnNuSDY1VUdZYkFtRmRZVTIxOFlvRzVkZlZLOVk1M1Zi?=
- =?utf-8?B?MU9YcElIU0o3K3hsZUx6c3FtVHZxR2RUdmtvRExkQnlzU2RWcGtVTFNDZDlL?=
- =?utf-8?B?TFl0YXY4ZTBsaTV1aDZMMVdxR2YwUWhtSk5NYnJDMkl2azJGTGNLYUsrZXB3?=
- =?utf-8?B?SkhYdEpxbTFDOGNpcXAwOWtuK1BWa2IzNWZGbHVJVnZJQWNFM0Rabm4rODhQ?=
- =?utf-8?B?emJXdlU0a0ZwNlIzb3NyTk8yUkFrMko4angwak1FYkFTRUVEUnYxREl4K2lt?=
- =?utf-8?B?MlZOQnpvRmxrSDNXVXJuOGJaUi91NGl3eHl2dURwZFp2d29OOG1wTi9hZ2tN?=
- =?utf-8?B?Njk1Z2xJOWxIWFRjMkp3VnBMU3VyeEQwQ2NWdVNybFA1QVJXenA1NGk0dXZ4?=
- =?utf-8?B?cFZscDhFVDdKNWE0dUhKZVhuMk13a05sbkIxa3BCRGMvemFPNkVzK1M0YzBp?=
- =?utf-8?B?dWVYQy9DTFVtN1BxUFVmUGs2MlBtZ2J2cndLbmlhU2M3elduUEZTY09DeTc0?=
- =?utf-8?B?YllTa2svUzUvd2tBdTVqaDVucUNXaUxiVm9vVGY1VWxXSTVFUFdiQnJ3MzJP?=
- =?utf-8?B?YjhKeVlNZzkxajF0UzFUN3UycUlzcmN2Q3Q5d3lYQzExbEhML3lubkVaK01x?=
- =?utf-8?B?a3dDVHZ6d0s0Z2lDV2xzVGVVb01LbVVpY3E4RmhqNkEyWjFMSGNOTVdNcTcy?=
- =?utf-8?B?ai9yYjJrTlRGM1NiOXVEc2dKSkxPcGc3bExXb2J0U0xXbThUQjd2TmErbHdv?=
- =?utf-8?B?WjloZTJORDI0ZTAvbEpFdEYwWXFLVXUrSDVyWDBJMjg1Y2pNZENQR2d1K3lm?=
- =?utf-8?B?UnZiYXB0U0tFUE5PMTkwNkQxWjRtVnVEZlkvT1BsS2t1NXh3elQrZzhoYk9q?=
- =?utf-8?B?bUdQV0lBcmxVbEZPUlloNEkwWHpmb2RHelJ5U08vY2ltY1pSdDk0NmtnL3hM?=
- =?utf-8?B?blJxbDBlZXhZVENBenZsMzFwVmtVejNQU1VyNzk2bEpuMk9JWFg0SGc3cWYy?=
- =?utf-8?B?SEM5Y29JT2VPck9JMG1WS3hYTTYzQmQxUnFOWEsvM1phdXA0cUI1VkZwNzhv?=
- =?utf-8?B?dXhaZk44TFBsdDNOOGs0bnIzTlBpU0pJTlVEelpZamdiVkhaZmk1ZTU3TU5N?=
- =?utf-8?B?YU9CYkdlOUdmUWJBZEdzTXlYR0drM2tBdUhOOHJyQ0NaeFdGT3ZkZmhhb2xy?=
- =?utf-8?B?MUE4azF6Mm1ySVFad1AvR0Y5Y1R4eGowYUZnMGY0cjA1UWFDWldIV3FHUDYw?=
- =?utf-8?B?cGtPbGxNMjFXcFFyOWpJb3BNYVNxSTkzM0pIcHo1NlNVOUlMUkdaaG1UeDRR?=
- =?utf-8?B?dUI4M1ViTzBoR3YyYitRaEFBaktQb2UrT29qVGNoREJtRDhsSnB2YVJXYUZx?=
- =?utf-8?B?djVtc3NTRWVMN0JXVitSR0V2cmEzSCtucWV2VVkxRGFicUgrcDMwbld4enhh?=
- =?utf-8?B?RWdxVGlaVnc4YXIzVVRvdE5mcXNLc1FmV1JJNzNYN2twSGdVQlkzOC8xemg4?=
- =?utf-8?B?dlNFVzJYbVhFeXZ2VnkycmFaMDJ5UXA5UWtzVTJjVmlEcDhrVVVuTlVvVWsw?=
- =?utf-8?B?dGNMMzNEdEM2a1B0QUxpYjhkQkZQU3FOTDhBM0NsTjRNTm1KSU95WFpIa0ZC?=
- =?utf-8?B?Zk1tLzVnZ2tRb2h3Z1FKZS9jMHQrVGRXM3MrN25EVHU5eSs4Y01XSUREREg5?=
- =?utf-8?B?VjE4TGM2cktkbmtKNFdEZUozRmhkREIvZDJMV3VKNWZUYWJuZHlVckNRN0Yr?=
- =?utf-8?B?cFFRdDl5L1hpS2JkS3oxc2RPSlV2WjR3alhWWWdsVkR5czg0VGxEYnpXNmFO?=
- =?utf-8?B?ZmphaHJ4cHJqVUJ5dGh2TlJmVDJpTGtwV05Eckx6UGxEellXVzVDRzMvVUND?=
- =?utf-8?B?ZWZheHhPdHpJT3FIUU91S1dUNVVpR2ZZRytoM1RmNGlxbVJ6cmZsT2xLWnp2?=
- =?utf-8?B?bkRWRE9KTGhvYUhTVHlFUG1uRWxpVlhWOFprbzlaeGxTblRmOE9UaWR0cHRu?=
- =?utf-8?B?aVlJTjBYZE1rOWdJSE5lM1FMMXNiUjEzOHprL0NSeTBYNTNoaG02SXdGQ1FC?=
- =?utf-8?B?MUp0dHV5V3R1Vy95UkRXY3I3bHhvTFYzODRmTnpnRzV4eEtEZVlCYkZHeUM3?=
- =?utf-8?B?bUN3bWNoZU1ISDlScm1BSHNnQ0JGOGV3SGhHRitJN1ArRWNTWXBoMW5lUE9s?=
- =?utf-8?Q?j4+YrwUgOD7MX7a1hCj1co5nv0OvRbLZaqSY7?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: de01f3fd-3014-4974-e4c7-08df26307fd8
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 18:09:45.6015
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RtRAvZ6RnQXDgwVKslwMWhgVM8pzu5DEiQ5IK0G46eKz0vUvSMp4XQnPTrN6PO3DMsFTO5WbRsY4Mr2g5GFksz+Ke9LZX9nywhPLgH0arJ1/na9YnBi+k/8fo5U2cLzK
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8282
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-15-923b70125b1e@kernel.org>
+References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
+In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
+ Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>, 
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
+ Xu Xin <xu.xin@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+ fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
+ Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2298; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=yyTb6qa70UHuQDT2/p92dj6MAkJAoB6SoUmZKZd8e30=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJO6sz+kXTw3r5Wr9bHK6N631gZ39/xaLW9/Tc3rmlq5
+ 1bzxb/37yhlYRDjYpAVU2R5/kV8f5BI2LzOC/5uMHNYmUCGMHBxCsBEPvQxMsxccyqoIbdbnt3K
+ UGo390wbxhViC94l/vh/t9S3wah35gFGhnYzKw8v2Ysb3EWOPbkk/uHE3W4tq6PJkSxF6n0zJ0n
+ ncgIA
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-From: Peng Fan <peng.fan@nxp.com>
+For ordinary files the only way the VMA_MAYWRITE_BIT flag is cleared is if
+the underlying file is itself read-only.
 
-Replace bare return statements with dev_err_probe() across all probe
-error paths for consistent diagnostics and deferred-probe support.
+This means that mprotect() cannot mark a shared mapping of a read-only file
+as read/write, as doing so would violate the read only attribute, and
+permit writes.
 
-Signed-off-by: Peng Fan <peng.fan@nxp.com>
+In general, we do not want file systems to be able to do this for
+read/write files.
+
+Doing so would violate fundamental user expectation of file attributes and
+likely break userspace.
+
+However, drivers pose a tricky problem here - the /dev/xxx file may be
+read/write but provide access to a resource which is fundamentally
+read-only.
+
+Therefore we must allow drivers to be able to clear VMA_MAYWRITE_BIT.
+
+To achieve both of these things, forbid this for mm-managed mappings as
+identified by vma_flags_is_mm_managed().
+
+This constrains this ability to drivers which own the mapping's contents,
+whether memory-mapped I/O, kernel-allocated pages, or ordinary pages they
+map themselves, and so define its semantics.
+
+Every in-tree mmap hook which clears VMA_MAYWRITE_BIT, some twenty sites
+across drivers, filesystems and bpf, establishes a mapping which is not
+mm-managed,
+with usbmon and the ALSA PCM status page converted earlier in this series
+to do so.
+
+Note that drivers may, if they do not gate on VMA_SHARED_BIT, be able to
+disable MAP_PRIVATE-file-backed mapping CoW semantics.
+
+This is perhaps not always intended, but we retain this capacity to
+maintain existing behaviour.
+
+As no driver which clears VMA_MAYWRITE_BIT establishes an mm-managed
+mapping, no functional change is intended.
+
+Acked-by: Zi Yan <ziy@nvidia.com>
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- drivers/gpio/gpio-mxc.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ mm/vma.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/gpio/gpio-mxc.c b/drivers/gpio/gpio-mxc.c
-index 6074b1e3d683..1eb5cd148c28 100644
---- a/drivers/gpio/gpio-mxc.c
-+++ b/drivers/gpio/gpio-mxc.c
-@@ -520,7 +520,7 @@ static int mxc_gpio_probe(struct platform_device *pdev)
+diff --git a/mm/vma.c b/mm/vma.c
+index c067d6a4c826..39ceb03023e2 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -2801,6 +2801,11 @@ static int mmap_validate(unsigned long orig_start, unsigned long orig_end,
+ 	if (WARN_ON_ONCE(!was_maywrite && is_maywrite))
+ 		return -EINVAL;
  
- 	err = gpio_generic_chip_init(&port->gen_gc, &config);
- 	if (err)
--		return err;
-+		return dev_err_probe(dev, err, "Failed to init gpio chip\n");
- 
- 	port->gen_gc.gc.request = mxc_gpio_request;
- 	port->gen_gc.gc.free = mxc_gpio_free;
-@@ -536,11 +536,11 @@ static int mxc_gpio_probe(struct platform_device *pdev)
- 
- 	err = devm_gpiochip_add_data(dev, &port->gen_gc.gc, port);
- 	if (err)
--		return err;
-+		return dev_err_probe(dev, err, "Failed to add gpiochip data\n");
- 
- 	irq_base = devm_irq_alloc_descs(dev, -1, 0, 32, numa_node_id());
- 	if (irq_base < 0)
--		return irq_base;
-+		return dev_err_probe(dev, irq_base, "Failed to alloc irq desc\n");
- 
- 	d_info = (struct irq_domain_info) {
- 		.fwnode		= dev_fwnode(dev),
-@@ -553,14 +553,15 @@ static int mxc_gpio_probe(struct platform_device *pdev)
- 
- 	port->domain = devm_irq_domain_instantiate(dev, &d_info);
- 	if (IS_ERR(port->domain))
--		return PTR_ERR(port->domain);
-+		return dev_err_probe(dev, PTR_ERR(port->domain),
-+				     "Failed to create irq domain\n");
- 
- 	irq_domain_set_pm_device(port->domain, dev);
- 
- 	/* gpio-mxc can be a generic irq chip */
- 	err = mxc_gpio_init_gc(port, irq_base);
- 	if (err < 0)
--		return err;
-+		return dev_err_probe(dev, err, "Failed to init generic irq chip\n");
- 
- 	list_add_tail(&port->node, &mxc_gpio_ports);
++	/* mm-managed mappings may not clear VMA_MAYWRITE_BIT. */
++	if (vma_flags_is_mm_managed(curr_flags) &&
++	    WARN_ON_ONCE(was_maywrite && !is_maywrite))
++		return -EINVAL;
++
+ 	return mmap_validate_vma_flags(curr_flags);
+ }
  
 
 -- 
-2.51.0
+2.55.0
 
