@@ -1,67 +1,129 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f99.google.com (mail-yx1-f99.google.com [74.125.224.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A83A52844A;
-	Fri,  9 Oct 2026 18:35:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 167C14FC8CF
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 18:36:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791570905; cv=none; b=ZFmH011q1e3qWOgIR+oSvFF14NatS6yoeoLEEqAl3co2X1U4bMJXh12wGUcH/Y0aeTc+lmuq0DzrPrZswG30Xr+rC4XW7ELnsFG0JmqTUQgrr7hBVgpz2YvF72UalsZCD9CQ3hcVGiC6aGRQDRPUa5KFYeI6VAnNMsmtel63q18=
+	t=1791570965; cv=none; b=FtPPVCDuqdtlnB1/sx6qh6jR95OLMV38YtoVjSoVd6hHnJuX81ViHU2L52/d6s+FBO9T1yFpi8dWbR2AikbEXBWXmDI4dc87q/VGapKqev1t57utomdoxp6ejhGXibaOsy5AB9U9GwM43s53xXDCO5M6TRQ/TyMxi7FN6E77m34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791570905; c=relaxed/simple;
-	bh=Frc+ADQTxRwKDWaoqMQMlUJQ/gCXB8qyIs31/48aD70=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=fNn6+mNiYWFQCWYaUDQM8VKgO9CdIaOkSsUQSi97rhwSvB2ewzDeeD61sCvO+TS8T52m7MTTbx8XsDTnTmRQNMdDeLZuvBbxM9wCy+6TjjdXj3EysioZr/Gy9oTFfj+3QdMFMDd/1qlzRHYVdBht0VcunLMC0aAL0RyJVEtosqk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LVtF0iaU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791570965; c=relaxed/simple;
+	bh=I1z4aPNe1j0jS1fSnM13X27jRNV74YpakQKyGVVJaEU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uts2F5X0qgWCCVykvNb+wioBLsNSkiX/dA6NrNr+r4U2QCG/iUP8ArUw6lMzTAofqEDdt3DkZ4aNredFRSqDdk4QF0ofeNmwN0q3clwi8RHpPzgvQfNGYXzVmq8ag6tZxkvWNGd2qD8ZbIqn+tLTsaAmkxut8hxuDUDIgNxwDsk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=Uwv6hlyp; arc=none smtp.client-ip=74.125.224.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LVtF0iaU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 351701F000FF;
-	Fri,  9 Oct 2026 18:35:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791570904;
-	bh=80POjU5WP6ctS0DqN7hA/63JAQ8Agh1hTny2C1kJcvk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LVtF0iaUGbJeLL6sa5KmlYFN89cPfafiOQ4M9hDJixTlsERD2G8Qid3DmAS8aAEKK
-	 nxx3B5Oq+QhUR1nBYKBO0Z10EFXXkhpWfT6Cka6pMJsxN6erGv2DE600yzE9QPhTX1
-	 dZw6sT/qezIyXdYMzgnw7hj31M1ZQ0M/z8LvdndI3S+OKx28N8aoLbw3iJDf5U28jc
-	 si5ghP+RWZl4lahWN1BLJll3W1aj5lrtC0GAiv595jqDPqfJF4D1uyDn58gnf3XnKO
-	 qQhgfnssSwBXUkXC+sbUhmTJExs6dj4I+lY3m3Igp2CAx8KJhh2lSeUZgyAUVfotzK
-	 3wxEI7mxDnX6A==
-From: netdev-bot+sinfo@kernel.org
-To: Alex Austin <alex.austin@amd.com>
-Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, bhutchings@solarflare.com,
- davem@davemloft.net, ecree.xilinx@gmail.com, edumazet@kernel.org,
- kuba@kernel.org, linux-kernel@vger.kernel.org, linux-net-drivers@amd.com,
- pabeni@redhat.com, richardcochran@gmail.com, smhodgson@solarflare.com,
- alucero@amd.com, pieter.jansen-van-vuuren@amd.com
-Subject: Re: [PATCH net 0/2] sfc: fix PTP synchronization races
-Date: Fri, 09 Oct 2026 18:35:02 +0000
-Message-ID: <179157090265.2527009.9318454675537519622@kernel.org>
-In-Reply-To: <20261009183240.1898762-1-alex.austin@amd.com>
-References: <20261009183240.1898762-1-alex.austin@amd.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="Uwv6hlyp"
+Received: by mail-yx1-f99.google.com with SMTP id 956f58d0204a3-677bc4704cbso4632734d50.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 11:36:02 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791570962; x=1792175762;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=zgxSyNtrJXDQubY2aMyQqoQIxuV+Slem4S799JPhD9I=;
+        b=0YNcv94oCzWeOWOCrfG3teEHrniXDq8f4VoG0FK4AjxOFYZRgHw73kSGZM46eCnt53
+         doMsgR/n7fnd5HXUyeYRi7XjgmXLCPXpOAPMhzaBvzDNhDgdXwLA4B0d/i4qt/vKop/v
+         Yqyg1MW898MVG4O2tpbhU+Qc8+QKEjNTHCKT57QUvgMYlTUv3VMnBDjUTnLlf0bS+xni
+         ywKitOZNFDdXxCIR4oENapH5/7OSSFDgQKhboJvSsuLxFCF8Zb6Qoh1eo/Khwu8IV3vw
+         5mgXgQPCTrugVmhlw3GGJLiUIOiDRgwt2Qt1DTxyVUAhozYzkR5c+BafGjk0B0eySSLP
+         m3Pg==
+X-Forwarded-Encrypted: i=1; AKwUvBxnGfKFVQVuZDRyXr7aDzTFwitDZbq79gXMV9bB4NrUfpmo73GAlzqD5R7VvtRnlwTlAnqSgdurx4h/CIw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLa631GoPHLA7fpqoNMYok7EfbvOJi4s0MpDwltDCLnwoabmBde
+	9vEbNMS4dBukKoPSnpDMBlDq3naZc/EfX3udAKbIOvOKlmxG1drCMgcgPtPbmj/FhLCzB7EAuQV
+	s7P7pbCLKFgg/JFG7Mq8GMJNZi3/XtsNenGAPLob2pwma8EYLPIAXNqECvW2EBbTBIxjcviVbVN
+	KzO5LLBfaLuplwl/wDVvb3htd/+goKULF7msk40vi8cQdwhFc98SDAEwuxkPCrVGKetH2yvyGf1
+	AIaSXR9gPCy67egeQ==
+X-Gm-Gg: AYBFou0uUHhBJHiagYrJPzyVF/lf2ppXEqjSsQcrQCR8GMbGdTNbqS+MBOc9p4S1rcJ
+	etN//QZNBtIRQTREZsnqLPyJrPOeML5LBJLWYIjcqfJH8vNd0Ye/bKAQGr0USTcCzKCf4Mn70ub
+	kJ3XPL4fAJkUPOYZ8QH/y/B13+lKhznT9tdU6cJw6n/saiN8bTJVMUkUGle1nU7RjIbpQuobe2U
+	BTpLLKOrA+5W5VpE/3rZlQKNjcbOivsFsktxfDAK1Nhma6FR5gaQ23YVFDBKgsXG7yHsPR+8v35
+	F2l8mq0ziRM8V2EtXs0vIzF8xhULn1exHLlxHey32yPIJTwsILkI+bkpaWbBACAM0AKU0fuznmU
+	gxCRc0m6VpDYh/auadQi9rqoq5unpvRcSvi1JqVNWeNzRfhn8Zlc00o609DXa/c3P/9xOqZSgb1
+	q+SS2WS2+vyS1bRuoTd8i4NSvon5vwpDM8nmXv
+X-Received: by 2002:a05:690e:190c:b0:677:db69:cc04 with SMTP id 956f58d0204a3-679362bd657mr954801d50.83.1791570961718;
+        Fri, 09 Oct 2026 11:36:01 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
+        by smtp-relay.gmail.com with ESMTPS id 956f58d0204a3-679356878e9sm131118d50.27.2026.10.09.11.36.01
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 09 Oct 2026 11:36:01 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3ab7f1efe5dso38838a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 11:36:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1791570960; x=1792175760; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zgxSyNtrJXDQubY2aMyQqoQIxuV+Slem4S799JPhD9I=;
+        b=Uwv6hlype2h447m9gJUtfgDQ+tFsS16rL2T4nApljToRddvluwF+G3z/bO8u8ygI1K
+         ZJF4EdHj2PlykmZMIEPW6P/dLpBnCtHWfCY+E48pcXXJi+pq91dD0SEtItnRnLxVF27/
+         nfJas9etmlxg+GEIOqXbjMpWWkDqa1WN1TIDE=
+X-Forwarded-Encrypted: i=1; AKwUvBwgdtpEpA/GaM8JgY4r43+QceV6plMNi2z9NxffurOXpA6Bpu4ym/jMLV6KQPa6vTcf+Xszs7mZJ9F7HaQ=@vger.kernel.org
+X-Received: by 2002:a17:90b:48c5:b0:3a4:b418:94cf with SMTP id 98e67ed59e1d1-3ab3a7366bfmr2791683a91.14.1791570960406;
+        Fri, 09 Oct 2026 11:36:00 -0700 (PDT)
+X-Received: by 2002:a17:90b:48c5:b0:3a4:b418:94cf with SMTP id 98e67ed59e1d1-3ab3a7366bfmr2791661a91.14.1791570959864;
+        Fri, 09 Oct 2026 11:35:59 -0700 (PDT)
+Received: from [10.14.5.199] ([192.19.161.248])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab396620e2sm2960086a91.3.2026.10.09.11.35.58
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 09 Oct 2026 11:35:59 -0700 (PDT)
+Message-ID: <2b7d0487-dfb7-47ca-b740-178bd3391d2d@broadcom.com>
+Date: Fri, 9 Oct 2026 11:35:57 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v2 1/6] net: bcmasp: fix mib counters struct alignment
+ with ethtool stats
+To: Florian Fainelli <florian.fainelli@broadcom.com>, netdev@vger.kernel.org
+Cc: Doug Berger <opendmb@gmail.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Zak Kemble <zakkemble@gmail.com>,
+ Simon Horman <horms@kernel.org>, Ryo Takakura <ryotkkr98@gmail.com>,
+ open list <linux-kernel@vger.kernel.org>, Nicolai Buchwitz <nb@tipi-net.de>
+References: <20261008210621.1374785-1-florian.fainelli@broadcom.com>
+ <20261008210621.1374785-2-florian.fainelli@broadcom.com>
+Content-Language: en-US
+From: Justin Chen <justin.chen@broadcom.com>
+In-Reply-To: <20261008210621.1374785-2-florian.fainelli@broadcom.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-Hi!
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
 
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
-
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+On 10/8/26 2:06 PM, Florian Fainelli wrote:
+> When EDPKT stats were removed in commit e9f31435ee7d ("net: bcmasp: Add
+> support for asp-v3.0"), the corresponding entries were removed from
+> bcmasp_gstrings_stats in bcmasp_ethtool.c, but the edpkt_* fields were
+> left at the beginning of struct bcmasp_mib_counters in bcmasp.h.
+> 
+> Because bcmasp_update_mib_counters() and bcmasp_get_ethtool_stats() index
+> into struct bcmasp_mib_counters sequentially based on the order of
+> bcmasp_gstrings_stats, this 16-byte offset caused ethtool to read from
+> shifted offsets: the first four software counters read unused fields and
+> reported 0, the next four software counters reported the values of
+> alloc_rx_skb_failed, tx_dma_failed, mc_filters_full_cnt, and
+> uc_filters_full_cnt, while filters_combine_cnt, promisc_filters_cnt,
+> tx_realloc_offload_failed, and tx_timeout_cnt were never reported.
+> 
+> Remove the obsolete edpkt_* fields from struct bcmasp_mib_counters so
+> that it aligns with bcmasp_gstrings_stats.
+> 
+> Fixes: e9f31435ee7d ("net: bcmasp: Add support for asp-v3.0")
+> Assisted-by: LLM
+> Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
+Reviewed-by: Justin Chen <justin.chen@broadcom.com>
