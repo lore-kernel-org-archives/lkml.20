@@ -1,170 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3061B2D7D47;
-	Fri,  9 Oct 2026 20:45:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2D752D7D47;
+	Fri,  9 Oct 2026 20:45:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791578746; cv=none; b=FhpI0GSeQLkpyrAeiedwblIsuO7upbd+G+7RT7Y+Mt+Wkwr9JQkttI5bk4vB71h6kiPhxr6cldyme3Ogcvu0O/CnIwZZImRzg1wJSF9I6YbHaIIDJkkTDFb4FhMukDEdxvzKxvlTIJOL6Qx4kmocXxE6plVzPhGsk8g/k80hLNE=
+	t=1791578760; cv=none; b=N0jbfCf89+wGKPCNT72cztdPQS0vGXiLD6SHQoTIMH8g7vCvF5BVDKXBG9WLcx9BX1wtxL03UckXqT8YwUy6/9NShqmgiUHsLSYsi0uLVNlACMgYSewSUux8PIViTlJzq17m73N+6q97tM/KufzPmZYNt1pxLGlKo9jdgPeSnlg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791578746; c=relaxed/simple;
-	bh=RNeNBFzs9EeyQn3a7mFZBMc+LN7ETfRdtSMC0HY9+wI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=PPQhbynx8MEB1VuukJNM90pBthb7HWI/lnX0JfXenagFFjuV6/1z7CgR7H4iwUM6Hyb22MC+O0TZfqUXEiDXYTs163tXd/m6AML3BhQNMQa9zZ0ucLxyRjZQweQGgA2i9b27A+KedLOG/kJR0+hZCGLy5A3t4VGUINECCZkN/RM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RY+tujRX; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791578760; c=relaxed/simple;
+	bh=J0laJjpqen+ifpy4EjM6q6SNU8g2F7nubNLvor0f12Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=td01/3uhnOLuja6j9NrQYb6/M90/X1GtCiMNui1vzYNKKv7C41RTnyc2vtKoVMkEQzIkxUXWLm96XSVMkY7LgXfAbQ1L975nKY4a78JGvfkpcBkjsvvNb85bY9c9M5ChMMI1G7lfg9z0kxT63nBqJRgEyjJeIYpKkU99BwvtU9Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AnwqMlhO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RY+tujRX"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id E5676C2BCF4;
-	Fri,  9 Oct 2026 20:45:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791578746;
-	bh=RNeNBFzs9EeyQn3a7mFZBMc+LN7ETfRdtSMC0HY9+wI=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=RY+tujRXS+mJKSNYobHAj3uJa0MUWExmrecMcuMYArH8lrpB0cfgBfNLGXrs5uRiV
-	 CXy/dzgKcpHAH7aUsx+HPg6x/gDhIjv78TYBI4nKjfVWPJOgGzIi8ToI4hqEPBvc+/
-	 M4bUUFKJFb68JuZEYvMRUbRirPHYcf9YDFd8vYRY3XWfGhHThbe5YkgczPl8IhRYOP
-	 CZSEDnu75VPbB0H8wuFsEoKdQfy8s4MRWBPOyZwFzy62ap6v4anBhYQKmrqUIC2C7k
-	 ZZ8Bsm98E7vOWA/+xY5FLLPTe8BAefGj3xaMUiN0syLSpVIKxNU74zI/Pe78xwiB5/
-	 Ng78sUZ+pAlzA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D02F9CA9EBB;
-	Fri,  9 Oct 2026 20:45:45 +0000 (UTC)
-From: Fabricio Akio via B4 Relay <devnull+fabricioakio.gmail.com@kernel.org>
-Date: Fri, 09 Oct 2026 17:45:41 -0300
-Subject: [PATCH] interconnect: qcom: sdm660: Enable keep_alive and
- sync_state
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AnwqMlhO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 986761F000FF;
+	Fri,  9 Oct 2026 20:45:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791578759;
+	bh=yLnE4quCu/z+s+7eheiMwsbmvExqd3PbO4hxQlwTZ0g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AnwqMlhO1+U0iH2nYD0P8E9jgTwc0bThkMVWMhSuQ4dc5nn7kuzVWodZ/vpkPeKhd
+	 KGqv2IBOoNHJ89isb3SJqAJkls6+QhLHKnot36/3GeFEHQbFrBTsVlDod9lDUti6tH
+	 l2uzH6GuRxH+46QKOY8MLJqbOwSUFbIhKG8flE7S6a40PbK8IW/Wb6n7JxfXkOehAd
+	 E3DIDQpRzzRehTT8CbLmTnAmSJkvys+WMrdwviWAya09FPkC71tcwuEHsg1jAX9NbS
+	 4mr0CC1XrMiD7bFDH/4F12MUPllQ53VyKdr+9Alkql71maWaZfmV5hBBxzz4/Duerb
+	 0nxskP23yb/+A==
+Date: Fri, 9 Oct 2026 22:45:54 +0200
+From: Nathan Chancellor <nathan@kernel.org>
+To: Nick Desaulniers <ndesaulniers@google.com>
+Cc: Abel Vesa <abel.vesa@oss.qualcomm.com>,
+	Bill Wendling <morbo@google.com>, Kees Cook <kees@kernel.org>,
+	Tingmao Wang <m@maowtm.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	Justin Stitt <justinstitt@google.com>,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org, llvm@lists.linux.dev,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	michael.bommarito@gmail.com
+Subject: Re: [PATCH] landlock: Move the domain layer counter out of the
+ anonymous union
+Message-ID: <20261009204554.GA778522@ax162>
+References: <20261007-b4-landlock-fix-domain-fortify-panic-v1-1-042e9108f5f8@oss.qualcomm.com>
+ <CAKwvOd=nPgEm=AZbEu12Eb90GtRUThY6YAjSiHHuNVHP8TZHwg@mail.gmail.com>
+ <66usntltyie7ii2rrqajy3izxrvwubwf2vqnery552v3akhwo2@xwb4t76d37wx>
+ <CAKwvOd=E7wgGPf+kgOY8sGi0xO-cFMAJK4PMBFknoEupJi1CXw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-sdm660-icc-sync-state-v1-1-77b8d2501cb2@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQrCMBCF4auUWTswCRoaryIu6mRqp9AomShK6
- d2NunnwLd6/gklRMTh2KxR5quktN7hdBzwN+SqoqRk8+eCIIlpaQiBUZrR3blOHKkgh9ikevBv
- 3DO17LzLq69c9nf+2x2UWrt8YbNsH7Hl9cnkAAAA=
-X-Change-ID: 20261009-sdm660-icc-sync-state-0698d9521f4c
-To: Georgi Djakov <djakov@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>
-Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Alexey Minnekhanov <alexeymin@postmarketos.org>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Martin Botka <martin.botka@somainline.org>, linux-arm-msm@vger.kernel.org, 
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Fabricio Akio <fabricioakio@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791578744; l=3835;
- i=fabricioakio@gmail.com; s=20260928; h=from:subject:message-id;
- bh=I6FZICF6sWxIWjC/karjpr0hJtPbBkE7vMKoHoT2/KI=;
- b=Qjski/AvzPL+FBrKuw+xgtHZ9lyEj98SObL44VXbgHIGZciAb+MzmGuz6LgXNy58DYjBVwq7W
- hntLr2Qx8BvBZYBrpBnDlM2LVPklydy+RwiJW7XmJIGxB7cw8252Cfi
-X-Developer-Key: i=fabricioakio@gmail.com; a=ed25519;
- pk=TlMUT8bPI/ZQzp2q24BIQTb2qSx/jdUTBlGEXIRCm54=
-X-Endpoint-Received: by B4 Relay for fabricioakio@gmail.com/20260928 with
- auth_id=1076
-X-Original-From: Fabricio Akio <fabricioakio@gmail.com>
-Reply-To: fabricioakio@gmail.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAKwvOd=E7wgGPf+kgOY8sGi0xO-cFMAJK4PMBFknoEupJi1CXw@mail.gmail.com>
 
-From: Fabricio Akio <fabricioakio@gmail.com>
+On Fri, Oct 09, 2026 at 10:23:14AM -0700, Nick Desaulniers wrote:
+> On Thu, Oct 8, 2026 at 4:49 AM Abel Vesa <abel.vesa@oss.qualcomm.com> wrote:
+> >
+> > On 26-10-07 14:49:28, Nick Desaulniers wrote:
+> > > Would you consider this a bug in clang, or an error in how the
+> > > __counted_by attribute is applied?
+> > >
+> > It turns out Amaan Qureshi has already reported exactly this Landlock
+> > issue and proposed an LLVM fix:
+> >
+> >   https://github.com/llvm/llvm-project/pull/228309
+> 
+> In that case, I would _not_ work around the compiler bug like this and
+> instead wait for that fix to land in clang, then bump the required
+> version of clang for counted-by.
+> 
+> Kees and Nathan are traveling for LPC, so I don't expect quick
+> feedback from them, but they should confirm whether they agree with my
+> proposal.
 
-The interconnect core starts every node at INT_MAX and only lowers it in
-icc_sync_state(), which this driver never hooks up. Every bus therefore
-stays at its maximum rate, in the active and the sleep set.
+Bill/Kees/Justin should review that patch upstream but bumping the
+required version for __counted_by to clang-24 (or maybe 23.1.x if it can
+land in release/23.x) kind of sucks :/ but if this is a big enough
+footgun that we don't want to continuously workaround, I guess we have
+no choice.
 
-Hook up icc_sync_state(). Releasing those votes also drops buses that no
-driver votes for, so enable keep_alive on the providers with a bus clock,
-as QCM2290 does: it keeps a minimum active-set vote and leaves the sleep
-set free.
-
-On a Motorola Moto X4 (SDM630) with the screen off, this takes the
-battery current from 117 mA to 68 mA.
-
-Fixes: f80a1d414328 ("interconnect: qcom: Add SDM660 interconnect provider driver")
-Signed-off-by: Fabricio Akio <fabricioakio@gmail.com>
----
-Konrad Dybcio included the sync_state hook-up for this driver in a 2021
-fix of its paths [1], Marijn Suijten posted it alone the same year [2],
-and Krzysztof Kozlowski for eight Qualcomm drivers in 2022 [3]. Georgi's
-concern then was that buses with no bandwidth user would be turned off
-at sync state. keep_alive, added since for that case, keeps a minimum
-active-set vote on them; QCM2290 and SM6115 use it on all their buses.
-
-Tested on a Motorola Moto X4 (SDM630), whose board file is not in
-mainline yet, on the sdm660-mainline tree, with sdm630.dtsi's
-interconnect paths as they are in mainline: all six providers synced;
-the eMMC, the SD card and the USB gadget worked, and the phone
-suspended and resumed.
-
-[1] https://lore.kernel.org/r/20210728222033.52500-1-konrad.dybcio@somainline.org
-[2] https://lore.kernel.org/r/20210904111452.248804-1-marijn.suijten@somainline.org
-[3] https://lore.kernel.org/r/20220427145616.523557-1-krzysztof.kozlowski@linaro.org
----
- drivers/interconnect/qcom/sdm660.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/interconnect/qcom/sdm660.c b/drivers/interconnect/qcom/sdm660.c
-index d8c979a12235..82dd0b916e1f 100644
---- a/drivers/interconnect/qcom/sdm660.c
-+++ b/drivers/interconnect/qcom/sdm660.c
-@@ -1514,6 +1514,7 @@ static const struct qcom_icc_desc sdm660_a2noc = {
- 	.intf_clocks = a2noc_intf_clocks,
- 	.num_intf_clocks = ARRAY_SIZE(a2noc_intf_clocks),
- 	.regmap_cfg = &sdm660_a2noc_regmap_config,
-+	.keep_alive = true,
- };
- 
- static struct qcom_icc_node * const sdm660_bimc_nodes[] = {
-@@ -1542,6 +1543,7 @@ static const struct qcom_icc_desc sdm660_bimc = {
- 	.bus_clk_desc = &bimc_clk,
- 	.regmap_cfg = &sdm660_bimc_regmap_config,
- 	.ab_coeff = 153,
-+	.keep_alive = true,
- };
- 
- static struct qcom_icc_node * const sdm660_cnoc_nodes[] = {
-@@ -1597,6 +1599,7 @@ static const struct qcom_icc_desc sdm660_cnoc = {
- 	.num_nodes = ARRAY_SIZE(sdm660_cnoc_nodes),
- 	.bus_clk_desc = &bus_2_clk,
- 	.regmap_cfg = &sdm660_cnoc_regmap_config,
-+	.keep_alive = true,
- };
- 
- static struct qcom_icc_node * const sdm660_gnoc_nodes[] = {
-@@ -1662,6 +1665,7 @@ static const struct qcom_icc_desc sdm660_mnoc = {
- 	.num_intf_clocks = ARRAY_SIZE(mm_intf_clocks),
- 	.regmap_cfg = &sdm660_mnoc_regmap_config,
- 	.ab_coeff = 153,
-+	.keep_alive = true,
- };
- 
- static struct qcom_icc_node * const sdm660_snoc_nodes[] = {
-@@ -1698,6 +1702,7 @@ static const struct qcom_icc_desc sdm660_snoc = {
- 	.num_nodes = ARRAY_SIZE(sdm660_snoc_nodes),
- 	.bus_clk_desc = &bus_1_clk,
- 	.regmap_cfg = &sdm660_snoc_regmap_config,
-+	.keep_alive = true,
- };
- 
- static const struct of_device_id sdm660_noc_of_match[] = {
-@@ -1717,6 +1722,7 @@ static struct platform_driver sdm660_noc_driver = {
- 	.driver = {
- 		.name = "qnoc-sdm660",
- 		.of_match_table = sdm660_noc_of_match,
-+		.sync_state = icc_sync_state,
- 	},
- };
- module_platform_driver(sdm660_noc_driver);
-
----
-base-commit: aac26bee2287c88af5be5a5ff96d783b19a28790
-change-id: 20261009-sdm660-icc-sync-state-0698d9521f4c
-
-Best regards,
---  
-Fabricio Akio <fabricioakio@gmail.com>
-
-
+-- 
+Cheers,
+Nathan
