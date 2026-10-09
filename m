@@ -1,140 +1,218 @@
-Received: from va-2-16.ptr.blmpb.com (va-2-16.ptr.blmpb.com [209.127.231.16])
+Received: from sonic317-33.consmr.mail.ne1.yahoo.com (sonic317-33.consmr.mail.ne1.yahoo.com [66.163.184.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 965E32D8DC4
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 04:54:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD6663D9DD2
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 04:54:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.163.184.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791521692; cv=none; b=aiQMVg80eUd5qphTVp6Rnmm8K1CWYrzbG43EdoHLxSzjPhAP40C74C/CaItqQ6F4jBbLf3/zXj05SYYar1oXGRqU87fZX5fVML14ly26e66M1BzyS9gwCDHmqyclMCA38/v/uwP5EdqnRXna1bj1daxN1Uj6tsDXDmrdIdqch7Y=
+	t=1791521696; cv=none; b=npTcKiX/vcYGxYnci8pqX/stitcLdvcjdk313Z9i7GoivtLT9kTCYDQqvJRTPObZEgBzEPbiUv7/7mjwL/YZ+gOQZx0Z216ckE8qJxCIAQ8kpHqSAOj9NGFuRoILUlWwYFX0Wpah+TbHA4XquEmQ2tS3bZnePvuAsVnJoi1nl6I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791521692; c=relaxed/simple;
-	bh=DIRk21HokdTSAgRLFnpl2MTrUjmorc2ECQiIsB258+k=;
-	h=Date:Message-Id:Content-Type:To:Cc:Subject:Mime-Version:From:
-	 In-Reply-To:References; b=Kp5xOKUuIp93XqXM6DmGtQdMxMsu3tAmJSz3YoOWtDF8c+Dt9gRuUdN6rVmHLPrTbQBCKC9n0ruwWJrP3fVXtl/EgVf9LQpwEDcy5qY1dQgAgwHWVqbYHvGKEi73hSOKnHNXT9+E3KDkaH1Gvbuw9yV5+ugBAsoWMwxVhL/OXao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=LQ22D4rA; arc=none smtp.client-ip=209.127.231.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
+	s=arc-20240116; t=1791521696; c=relaxed/simple;
+	bh=RY8rNNfrEPhnkuSSX5xYFVhvD6cKhpk02uzo03PraYk=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
+	 In-Reply-To:Content-Type; b=qEGEEEOtAQ8W56V7FGyXHV+FmV6Kmba+ywb5Uwhx0ddMTz+4IMXw1LGao1qO6U25tkD4qa8hYtE45x+dL+Wgjw7MTwj6xCZW9fNxJbiQOQs25GLEGkVbyLa6H7dbgWo3LCbYbzWRaTKwHLfiI1EtVTDqH4eMtq6YpesNJw+6fsQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=GjFXATvC; arc=none smtp.client-ip=66.163.184.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="LQ22D4rA"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1791521683;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=lMxLojdbWEodOf0rB6+VR3CT5U8sc69zm9YL1rBCKX8=;
- b=LQ22D4rAOsTeY95Y92I1UP0WIIV1TUzgrbGHSWNc/4BqQeae+x+2vzdM6PtNBVsPGLQ7hw
- UlEokgHYYcyszwnHM5LuvXTdR0KZam4FTaI45JxnbRf0neupWs+35TylZHVvb2xNqdoi1U
- x+9eeAnl75YceaAJ1SXU5PX7jGNlfev9wUSHEv5udvpcTASVn56O5wDwJpT5dMVWCED1GA
- PCyHOcbJVLNo0cN/ffEjtkhTgnYndSzgyOcqzkBg6xd1Fd2xqc8umZpsEB0XCX8cTleawl
- WobvGa6Vv9L3R/vXgzzoYcw9v8PTLkRWQp7lWC8l8wtqocQUueY6pe+FA3LXuA==
-X-Original-From: Coly Li <colyli@fygo.io>
-Date: Fri, 9 Oct 2026 12:54:29 +0800
-Message-Id: <2051AAAB-4FC9-4093-825A-ADFEE5438EB7@fygo.io>
-X-Mailer: Apple Mail (2.3864.700.51.1.1)
-Content-Type: text/plain; charset=UTF-8
-To: "Rosen Penev" <rosenp@gmail.com>
-Cc: <linux-bcache@vger.kernel.org>, 
-	"Kent Overstreet" <kent.overstreet@linux.dev>, 
-	"open list" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] bcache: fix kernel-doc warning on CLOSURE_CALLBACK
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="GjFXATvC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791521675; bh=z0mDT0OtU18Xu3UUEubG38Qo9iIYioWGeN5Qn4w2zO8=; h=Date:Subject:From:To:References:In-Reply-To:From:Subject:Reply-To; b=GjFXATvCjOaz8G3BvdDq1mj4B4dipFO6b6OQfeZ5lUN8s3mzBSCoaS5K1m3u+JOkNHxTl+EHyQC+Hoq8mxtOlI1S4Uud3TX3sm9EId5y1ZLdXbJQQBLhsjadrakTiFlto9TyWnz3Nnk3Dw1oKRTkEvvk8Jg33KvsTjGFR1zEcKopYh0/RZcTukH6oph1plImzHZez1Cg6FHV+Yuuxi3/CJNX4F6X4EjnkqKKULhXaayVHakHlmAd2Qk3tdEy970aQ82mGbdndK+g7mTAcNF1kSw5y69f18KXi/5ep8y3xNvxS/w+2di3X/oRE1nGHacDzPTdFzERZ3qRbIBjVgFfQA==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791521675; bh=8xva2A5YbFzxMZiSIrGrkn5hjR5FJ19aIA4CaK85so6=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=DoMYqpJ8lzkdr5Xv5JzuKsEaetrjKm/WSGtkJ3CyxrkLdCxcaPVHRgbTM4Tzr4NO4RaU0Lu3nDfcol2vgZSBou2AD4dJPuC4L2n9flxPSKXqlHyUMblaHYKFk2eWclX3wpKOZrhLh6WQg1kVHAiT/Yyq1CLXuawYeqauOSR9iH2vOE/wslxfKe0VWxjWHJ947K88fTT2oJwNViaRZiYz1mLlPy0cUrimkD8ICPKJO0yv3XlySivZSI3hCihpUEGVJDPSmAcXaSSd1BdU8KVbhWMgSnufITdWQ2iehBwTqQSBQkZCXlbqCBrKymZ3MFAGTUuCQam9hLYcy31qvII/cg==
+X-YMail-OSG: DxJeIJcVM1mTomCpp8hAgvZMyHLyHCtVx18u1ILWENhs6dsWAq6do0LN_VBEa9A
+ MjovF4wyTSDcfJHkwtwS_XfWjDSjWrNLpBYBpv_IT0GDz71WvTtUKfYdOG9w8vuiROhqwS41x0M3
+ JSrQWJJUX7j4XoB1zmO5qn0AzKlFOkCq5fb8VRGs0U.qI3E5qqzr8uYsNmy.8XuWdPsFUI9ouOgm
+ _WuI08az6_iaVVKKKx814yl0VDNxJ0puQxbcsIN19A0D51f_xXIRuBhUv.pMT2BX.GrxMkT5lQQH
+ wIo4H3r7CvOWCjTWLmuqnltUnpWTEGfx.zYtkWszMGneVxqsY53.TUbABXJvk9u6uwmuVQbnQ6mv
+ v4sV8h6gP.EMjg.W8gVq9IBl8vG2c_qWVPcmDHWKfps3HhJepMCapWt1Wrn5rQ_EQganaDH.Nn6f
+ 8IZQARxjgSo3yhnIPqX.P5DO270U1gq.S2RnFNO3y0GrXV.yka7FvIK9pn2zHrtGIItxoSwqAL.Y
+ DLTxV.m6PyGX.BWbabnt9qtnGKnmnTWtjaDuRiv5yX3ndarroizvcd1pIzWDITcw8X3BwmET7J.0
+ ._D8_WuQTUNNRVNSGl5uPSahTKzDqWmsan2KjGaCiTSmtMyjk_uqCQ3iKtAN4MvQzOiO.Ldn.ToZ
+ NmUZsCeZVArWbA3nBzvABQm0fMzIkZkabX6qfd636J0FJRNEYbCFD5sV0vpGp.d_Nb3lQl37OfqO
+ gdYmHAG0R_ZdyPzoiC5bXkZzgmwVcswNi4atlMw1UN3RDfZ5e0k5LTPJtDcBmU3tPho0YeAclBKc
+ SGJ14tR9avA1tLVcdqZEETyP0qKtSR7i3qGYIgNBqzyYm_MJelQ1KJ9E0.Sa5ZHd73NWcc.tUaAg
+ jwlEjAZSpDj67aMyycaLl53zUS8w_dydjSZ1SNPXRihh_XSfQ85Bz1T_Y0TD1Tlk3yq4Wvu2JDlV
+ JFvscK2L03NrOBpJioJ5JB9gGml19ELw_UVZF2qzWltp0tiBybhrd0IeLut9L620HUmN8aGLplBe
+ qMSH_J3mgCTrVuKaqp1DcsZ2lntIRga5y0TGNPKQ_ck4o98C2ZdF1X5sfZ_yk7f6B8a.wtPtv49l
+ MDuj556CZYDkHNv9Zx8zOeyqj913a64XnhJW2zjCkl9XJ0.AYcwdXT74y1QTxiZTd4_YVdfsiorR
+ h.jW3lSpDcqbfKZhhEaNo5.6rkmoOucUKZS9bR2v6q43urPkl8HPABP2FvC2gO5jC3id07EIW11F
+ 1BP7Lw18UaPb7ubIH09AacI16hfgIpG9mOBiDq47m.srTC12s.ptE8r4AFx5iCFd76XYxNXMCCVo
+ rJMquVwQwB4OPNL7BwiFDAlGW8miDcUQ9tkSb6MWH6Xq51_9CB6ad2FTiw5SRNV2Wk3w9vJv2bQ3
+ 6QvtQ2FndvmUnnoxAx5nASnbctVIzjzwoixM15o9gX9IFLe4fy8w3kcQEv_DAbnY3QR9eZr82Yfe
+ oNh59hmdWSHDjcOvodxdcOaKdpVX8RMoXDLdAT3HOKfCQj.igFuQRYA4wXg6IYaaORg5nrg2cgoK
+ PHyl1f17TJ0PSHtzvjytu9H5CvtvcEezt9kJ7fD3ioMGOKfoW_0HN7944.7_78tiBePawLdqvIjh
+ Fz1ZdNvuUGxm2oVcHH01cN.Kq8D_sy8w5eTHGBoqXhSadKMngd4QYgLCpctjMC8ENSIqSbqN9KC5
+ TqbQaJT28de3JfsCXnaXxt_CT44kunwGs92oMtxzZCGShSVooIftniTUYA1R2tWikPatNAOQIJLZ
+ 4DcKonW225y40spj_aPmbYRb2ufovR1iKCvYUHHfvhTvU0BvDnCdesSIJs3VcK_PgmCywmx16P2M
+ AngvLJJnKmF6Nku9857w_jQNqAnEx0VTovb0E1DO834yd4qhKDKFbLPmVW6QbN.MNuG7iUYmd1nv
+ D_GG3cMobPrHT1m.qIOvbGMCXTTkNlaYN207Q1CGYe5Xhsg7RHPNv73mgYsgCq_tel_OJsGCs6ze
+ U64D3G6LS5QbF8zn6c6BsL9puhWpFGfASQ3YAgr_N5hWo1COyK_eIug8N5.3q..NUs7cKb4mmJXL
+ jbx2prTwEmVIJoC4CkjzvUumSsheIgbWJd81pqt6Xn4.drufwuWLCDorbiq7xsNftChHQxP0qBuv
+ MNUMzsGYSo8MThVTZd4bxZyFgxFwmSaOjzTPMf7XTZY8myLEgaWv4xEuROJubGk6_MaCLmFCJli4
+ c1e_FnLPSZfGVpme58gcF7jUpMtc.eWZYi8u2D.rqaD90PXKyZs5a6B1c4zbHeksB7nRnwS8yXs1
+ EUS12ZNkWuQSiQZrkeqHUUpDr2pbz7ZQQ4oj9CIo-
+X-Sonic-MF: <namiltd@yahoo.com>
+X-Sonic-ID: 4eec4103-950a-44c9-9cfd-cef3a3692279
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic317.consmr.mail.ne1.yahoo.com with HTTP; Fri, 9 Oct 2026 04:54:35 +0000
+Received: by hermes--production-ir2-5dd9bf4598-p4sz7 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID cb481cd8cd3059680bb95e6a6193ce7d;
+          Fri, 09 Oct 2026 04:54:29 +0000 (UTC)
+Message-ID: <05f792d4-ed17-47b5-abb5-70813ce628cc@yahoo.com>
+Date: Fri, 9 Oct 2026 06:54:22 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Lms-Return-Path: <lba+26ac87392+b8c202+vger.kernel.org+colyli@fygo.io>
-Content-Transfer-Encoding: quoted-printable
-From: "Coly Li" <colyli@fygo.io>
-Received: from smtpclient.apple ([120.245.64.82]) by smtp.larksuite.com with ESMTPS; Fri, 09 Oct 2026 04:54:41 +0000
-In-Reply-To: <CAKxU2N8WtY+=dhSTfyu=8ujEwnkcfV9PEkXxuTLHthwksDhTxw@mail.gmail.com>
-References: <20261004233523.516891-1-rosenp@gmail.com> <ashiQ98Qmie63mB2@studio.local> <CAKxU2N8WtY+=dhSTfyu=8ujEwnkcfV9PEkXxuTLHthwksDhTxw@mail.gmail.com>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: [PATCH net-next v2 2/8] net: dsa: realtek: rtl8365mb: set speed for
+ family D
+From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+To: linusw@kernel.org, alsi@bang-olufsen.dk, andrew@lunn.ch,
+ olteanv@gmail.com, kuba@kernel.org, davem@davemloft.net,
+ edumazet@google.com, pabeni@redhat.com, linux@armlinux.org.uk,
+ luizluca@gmail.com, maxime.chevallier@bootlin.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <28382f3f-03c1-4606-9b11-86f118abeafe@yahoo.com>
+Content-Language: pl
+In-Reply-To: <28382f3f-03c1-4606-9b11-86f118abeafe@yahoo.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailer: WebService/1.1.26668 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
 
-> 2026=E5=B9=B410=E6=9C=889=E6=97=A5 12:09=EF=BC=8CRosen Penev <rosenp@gmai=
-l.com> =E5=86=99=E9=81=93=EF=BC=9A
->=20
-> On Thu, Oct 8, 2026 at 8:41=E2=80=AFPM Coly Li <colyli@fygo.io> wrote:
->>=20
->> Hi Rosen,
->>=20
->> On Sun, Oct 04, 2026 at 04:35:23PM +0800, Rosen Penev wrote:
->>> bch_data_insert() is defined through the CLOSURE_CALLBACK() macro, whic=
-h
->>> kernel-doc cannot see through, so the kernel-doc comment above it
->>> produces:
->>>=20
->>>  request.c:308 function parameter 'bch_data_insert' not described in 'C=
-LOSURE_CALLBACK'
->>>  request.c:308 expecting prototype for bch_data_insert(). Prototype was=
- for CLOSURE_CALLBACK() instead
->>>=20
->>> Turn it into a regular block comment, and drop the @cl line along
->>> with the kernel-doc markup.
->>>=20
->>> Assisted-by: LLM
->>=20
->> The patch is fine to me. Can you provide the detailed LLM name here?
-> It was Opencode's Big Pickle IIRC. Current documentation says to just say=
- LLM.
+On family C hardware, forcing a 2.5 Gbps link speed requires relying
+strictly on the HSGMII SerDes configuration block, while forcing a dummy
+1 Gbps value inside the standard digital interface register. Family D
+introduces a dedicated hardware link speed value (5) for 2500M. The speed
+bitfield width has been expanded to 3 bits, splitting the most significant
+bit into a new separate register field (FORCE_SPEED2), which maps directly
+to a distinct per-port digital interface force layout.
 
-Documentation file coding-assistants.rst suggests,
+Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+---
+ drivers/net/dsa/realtek/rtl8365mb_main.c | 71 +++++++++++++++++++-----
+ 1 file changed, 58 insertions(+), 13 deletions(-)
 
- 43 Attribution
- 44 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
- 45
- 46 When AI tools contribute to kernel development, proper attribution
- 47 helps track the evolving role of AI in the development process.
- 48 Contributions should include an Assisted-by tag in the following format=
-::
- 49
- 50   Assisted-by: LLM [TOOL1] [TOOL2]
- 51
- 52 * ``[TOOL1] [TOOL2]`` are optional specialized analysis tools used
- 53   (e.g., coccinelle, sparse, smatch, clang-tidy)
- 54
- 55 Basic development tools (git, gcc, make, editors) should not be listed.
- 56
- 57 Example::
- 58
- 59   Assisted-by: LLM coccinelle sparse
+diff --git a/drivers/net/dsa/realtek/rtl8365mb_main.c b/drivers/net/dsa/realtek/rtl8365mb_main.c
+index 80fc551..b1ea8b0 100644
+--- a/drivers/net/dsa/realtek/rtl8365mb_main.c
++++ b/drivers/net/dsa/realtek/rtl8365mb_main.c
+@@ -346,6 +346,7 @@
+ #define RTL8365MB_PORT_SPEED_10M	0
+ #define RTL8365MB_PORT_SPEED_100M	1
+ #define RTL8365MB_PORT_SPEED_1000M	2
++#define RTL8365MB_D_PORT_SPEED_2500M	5
+ 
+ /* External interface force configuration registers 0~2 */
+ #define RTL8365MB_DIGITAL_INTERFACE_FORCE_REG0		0x1310 /* EXT0 */
+@@ -363,6 +364,20 @@
+ #define   RTL8365MB_DIGITAL_INTERFACE_FORCE_LINK_MASK		BIT(4)
+ #define   RTL8365MB_DIGITAL_INTERFACE_FORCE_DUPLEX_MASK		BIT(2)
+ #define   RTL8365MB_DIGITAL_INTERFACE_FORCE_SPEED_MASK		GENMASK(1, 0)
++#define   RTL8365MB_DIGITAL_INTERFACE_FORCE_SPEED_WIDTH		2 /* bits[1:0] */
++
++/* bits[13:12]; bit 13 reserved, no defined speed value uses it yet */
++#define   RTL8365MB_D_DIGITAL_INTERFACE_FORCE_SPEED2_MASK	GENMASK(13, 12)
++
++#define RTL8365MB_D_DIGITAL_INTERFACE_FORCE_REG_BASE		0x12c0
++#define RTL8365MB_D_DIGITAL_INTERFACE_FORCE_REG(_port) \
++		(RTL8365MB_D_DIGITAL_INTERFACE_FORCE_REG_BASE + (_port))
++
++#define RTL8365MB_D_DIGITAL_INTERFACE_FORCE_EN_BASE		0x12c8
++#define RTL8365MB_D_DIGITAL_INTERFACE_FORCE_REG_EN(_port) \
++		(RTL8365MB_D_DIGITAL_INTERFACE_FORCE_EN_BASE + (_port))
++
++#define RTL8365MB_D_DIGITAL_INTERFACE_FORCE_EN_ALL_MASK	GENMASK(15, 0)
+ 
+ /* CPU port mask register - controls which ports are treated as CPU ports */
+ #define RTL8365MB_CPU_PORT_MASK_REG	0x1219
+@@ -1661,23 +1676,31 @@ static int rtl8365mb_ext_config_forcemode(struct realtek_priv *priv, int port,
+ 	u32 r_duplex;
+ 	u32 r_speed;
+ 	u32 r_link;
++	bool is_d;
+ 	int val;
+ 	int ret;
+ 
+ 	if (!extint)
+ 		return -ENODEV;
+ 
++	is_d = rtl8365mb_get_family(priv) == RTL8365MB_FAMILY_D;
+ 	if (link) {
+ 		/* Force the link up with the desired configuration */
+ 		r_link = 1;
+ 		r_rx_pause = rx_pause ? 1 : 0;
+ 		r_tx_pause = tx_pause ? 1 : 0;
+ 
+-		/* The speed field has no value for 2.5 Gbps: the rate is
+-		 * determined by the HSGMII SerDes configuration, and the
+-		 * vendor driver programs the 1 Gbps value here.
+-		 */
+-		if (speed == SPEED_2500 || speed == SPEED_1000) {
++		if (speed == SPEED_2500) {
++			if (is_d) {
++				r_speed = RTL8365MB_D_PORT_SPEED_2500M;
++			} else {
++				/* The speed field has no value for 2.5 Gbps: the rate is
++				 * determined by the HSGMII SerDes configuration, and the
++				 * vendor driver programs the 1 Gbps value here.
++				 */
++				r_speed = RTL8365MB_PORT_SPEED_1000M;
++			}
++		} else if (speed == SPEED_1000) {
+ 			r_speed = RTL8365MB_PORT_SPEED_1000M;
+ 		} else if (speed == SPEED_100) {
+ 			r_speed = RTL8365MB_PORT_SPEED_100M;
+@@ -1707,20 +1730,42 @@ static int rtl8365mb_ext_config_forcemode(struct realtek_priv *priv, int port,
+ 		r_duplex = 0;
+ 	}
+ 
+-	val = FIELD_PREP(RTL8365MB_DIGITAL_INTERFACE_FORCE_EN_MASK, 1) |
+-	      FIELD_PREP(RTL8365MB_DIGITAL_INTERFACE_FORCE_TXPAUSE_MASK,
++	val = FIELD_PREP(RTL8365MB_DIGITAL_INTERFACE_FORCE_TXPAUSE_MASK,
+ 			 r_tx_pause) |
+ 	      FIELD_PREP(RTL8365MB_DIGITAL_INTERFACE_FORCE_RXPAUSE_MASK,
+ 			 r_rx_pause) |
+ 	      FIELD_PREP(RTL8365MB_DIGITAL_INTERFACE_FORCE_LINK_MASK, r_link) |
+ 	      FIELD_PREP(RTL8365MB_DIGITAL_INTERFACE_FORCE_DUPLEX_MASK,
+ 			 r_duplex) |
+-	      FIELD_PREP(RTL8365MB_DIGITAL_INTERFACE_FORCE_SPEED_MASK, r_speed);
+-	ret = regmap_write(priv->map,
+-			   RTL8365MB_DIGITAL_INTERFACE_FORCE_REG(extint->id),
+-			   val);
+-	if (ret)
+-		return ret;
++	      FIELD_PREP(RTL8365MB_DIGITAL_INTERFACE_FORCE_SPEED_MASK,
++			 r_speed & RTL8365MB_DIGITAL_INTERFACE_FORCE_SPEED_MASK);
++
++	if (is_d) {
++		/* Speed is 3 bits on family D: bits[1:0] go into FORCE_SPEED,
++		 * bit[2] goes into FORCE_SPEED2 (bit 12); only 2500M sets it,
++		 * bit 13 of the field is unused.
++		 */
++		val |= FIELD_PREP(RTL8365MB_D_DIGITAL_INTERFACE_FORCE_SPEED2_MASK,
++				  r_speed >> RTL8365MB_DIGITAL_INTERFACE_FORCE_SPEED_WIDTH);
++		ret = regmap_write(priv->map,
++				   RTL8365MB_D_DIGITAL_INTERFACE_FORCE_REG(port),
++				   val);
++		if (ret)
++			return ret;
++
++		ret = regmap_write(priv->map,
++				   RTL8365MB_D_DIGITAL_INTERFACE_FORCE_REG_EN(port),
++				   RTL8365MB_D_DIGITAL_INTERFACE_FORCE_EN_ALL_MASK);
++		if (ret)
++			return ret;
++	} else {
++		val |= FIELD_PREP(RTL8365MB_DIGITAL_INTERFACE_FORCE_EN_MASK, 1);
++		ret = regmap_write(priv->map,
++				   RTL8365MB_DIGITAL_INTERFACE_FORCE_REG(extint->id),
++				   val);
++		if (ret)
++			return ret;
++	}
+ 
+ 	return 0;
+ }
+-- 
+2.53.0
 
-Yes,  only listing LLM is the bottom line, and list the detailed model name=
- is better.
-
-If you don=E2=80=99t want to post v2 patch, you can give me a line of Assis=
-ted-by: , I can replace it in the patch.
-
-Thanks.
-
-Coly Li
-
-
->>=20
->>> Signed-off-by: Rosen Penev <rosenp@gmail.com>
->>=20
->> Thanks.
->>=20
->> Coly Li
->>=20
->>> ---
->>> drivers/md/bcache/request.c | 3 +--
->>> 1 file changed, 1 insertion(+), 2 deletions(-)
->>>=20
->>> diff --git a/drivers/md/bcache/request.c b/drivers/md/bcache/request.c
->>> index 3fa3b13a410f..e7f097346d64 100644
->>> --- a/drivers/md/bcache/request.c
->>> +++ b/drivers/md/bcache/request.c
->>> @@ -285,9 +285,8 @@ static CLOSURE_CALLBACK(bch_data_insert_start)
->>>      }
->>> }
->>>=20
->>> -/**
->>> +/*
->>>  * bch_data_insert - stick some data in the cache
->>> - * @cl: closure pointer.
->>>  *
->>>  * This is the starting point for any data to end up in a cache device;=
- it could
->>>  * be from a normal write, or a writeback write, or a write to a flash =
-only
->>> --
->>> 2.56.0
