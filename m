@@ -1,181 +1,128 @@
-Received: from jpms-ob02-os7.noc.sony.co.jp (jpms-ob02-os7.noc.sony.co.jp [211.125.139.72])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E521349E13D
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 09:41:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.125.139.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FEB03EAC8B;
+	Fri,  9 Oct 2026 09:42:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791538912; cv=none; b=R3lp31V9dSi3+XlGY3kUPLGBCDzeMlEJlpG6dfFdagb7K7KI2pqklFTEPBeYlhdSGM8lbwW6LaIS1GIbobejamTmCiApPo9DDvMnykgBD0/tQJLYAygBEvs8ngx3ExKo9TDQqSn0ovmk4GOdLKVz8yZGHzHsX8JnPvAfUDwPnAw=
+	t=1791538969; cv=none; b=jx1CteuwyCI1JTQy+/ZZ5jb54b5AefGXWIbVn4Vxav7RDxkbaTPPKuBjpodHgF3lH7CmE2gI95QFV13YqBUwMX2Rb6hi7i/hSbjg/RFclj6yl3iWZdPuUvYfNr8eHC1qAl1OyMrm3TXkl9DXq4dCTSegeH3n3J0EINIosUjyjog=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791538912; c=relaxed/simple;
-	bh=V+j+Anp8GyyWs81jNLTLZD14njbyzPBqJ1PR3EV0DOA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=huCUaXOawALsbuE19fv6tAtK9tgIFzwSfsRZev6BO6Ay+XwyHgT+oDD9jHOcgYga1HkoyQqD2JwJv1NLeuFFBrW4U23R3Ha+mX0tzuZ/baToi9V1AQle8sAPfEujtofCs5C78cRibMfsD/MpWdRU7hLqM/9Kb1O2rrcQ2r+WVXo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sony.com; spf=fail smtp.mailfrom=sony.com; dkim=pass (2048-bit key) header.d=sony.com header.i=@sony.com header.b=E1ARU6ve; arc=none smtp.client-ip=211.125.139.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sony.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=sony.com
+	s=arc-20240116; t=1791538969; c=relaxed/simple;
+	bh=1T3BeJzcb1BcpYQ7mzRZhVonYiP3CKqYe7tRU4454u0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qs1fBOCTeNwgtuviPtR44yoI/WOL/jF1oWjiK11WiaEKKVfchP45EvymQNXMkaEL5A2CR+EfTyIAMeslOaPd7U7AsOZqJWETdCSJbSJiwnTmbwITRjKQej4HUGoW28bqZcBukt+K3Fs83TulOwFWFSVlCEyp0wH7PWjv9Nngv8U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=OUtzYrMf; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sony.com header.i=@sony.com header.b="E1ARU6ve"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=sony.com; s=s1jp; t=1791538905; x=1823074905;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=rAjwrtbHwf7nrpLFc+O0gQY1kNWsu+pqV/BPaBmEek0=;
-  b=E1ARU6veFN3fRUFgm2qV6Slvm4vH/vWOuosETQDDDniCmwR0woxJ238l
-   4P1RPdAY2cdqnSBItw2yuBCXdxHo2fFpdsBXLITNFk4G3/y6jqBYPM83T
-   6vorwuW2wGK8yLV2KZRhEiZC9iPK5Z73Os3zL68Unpnz/xNJytT31DK4j
-   G6VeuXI5DzA16RkaN6xUllCXX9cUB8ynEhEI+JQNYGIBxTOOkRBkNcap0
-   0NbuehLCbwBGW64xvw+RwpVxBQLrvwAnzveOFddQvYKhdKBnHFaly9Cpa
-   9LP4vD4EWWC8jZfFjEcauvkSSKcHtxuKLaxkQ8nZcf175l6yMrBLwrM7i
-   Q==;
-X-CSE-ConnectionGUID: 6NbjgHylRoyPlnavnLsUQg==
-X-CSE-MsgGUID: fx1fiU2eSIuV5O3mCEBOLg==
-Received: from unknown (HELO jpmta-ob01-os7.noc.sony.co.jp) ([IPv6:2001:cf8:acf:1104::6])
-  by jpms-ob02-os7.noc.sony.co.jp with ESMTP/TLS/TLS_AES_256_GCM_SHA384; 09 Oct 2026 18:31:35 +0900
-X-CSE-ConnectionGUID: O8kf2ZvmTvqe58NpQlJ0RQ==
-X-CSE-MsgGUID: wY+UZJhQT2+YOwZ44SLY+g==
-X-IronPort-AV: E=Sophos;i="6.27,148,1786978800"; 
-   d="scan'208";a="71293994"
-Received: from unknown (HELO cscsh-7000014390..) ([43.82.111.225])
-  by jpmta-ob01-os7.noc.sony.co.jp with ESMTP; 09 Oct 2026 18:31:34 +0900
-From: Yuezhang Mo <Yuezhang.Mo@sony.com>
-To: exfat@lists.linux.dev
-Cc: linux-kernel@vger.kernel.org,
-	linkinjeon@kernel.org,
-	sj1557.seo@samsung.com,
-	chizhiling@163.com,
-	dxdt@dev.snart.me,
-	Yuezhang Mo <Yuezhang.Mo@sony.com>
-Subject: [PATCH v2] exfat: mark straddling folio RO and zero the post-EOF range
-Date: Fri,  9 Oct 2026 17:30:22 +0800
-Message-ID: <20261009093020.1018892-3-Yuezhang.Mo@sony.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="OUtzYrMf"
+Received: from killaraus.ideasonboard.com (dynamic-2a00-1028-8389-0276-8139-a635-2d39-b80f.ipv6.o2.cz [IPv6:2a00:1028:8389:276:8139:a635:2d39:b80f])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 1BDD524A;
+	Fri,  9 Oct 2026 11:40:39 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1791538839;
+	bh=1T3BeJzcb1BcpYQ7mzRZhVonYiP3CKqYe7tRU4454u0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=OUtzYrMfXCx5W012sBHDyUfe6dlnHgSFO3s7bfOVD47halltaaFkECJXxqYHRZg8H
+	 d/oYtWgTz90PrawpJZf85mqKuetWZ3/OyvWX1b5dhzTNvEZ1lcNjkERICy2X+PmIIY
+	 Za8OnMD/2oSpWwHlr3XK2mOPQoB7XOhv/EnXsxsA=
+Date: Fri, 9 Oct 2026 11:42:37 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Sasha Levin <sashal@kernel.org>
+Cc: workflows@vger.kernel.org, ksummit@lists.linux.dev,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
+	broonie@kernel.org, tytso@mit.edu
+Subject: Re: [PATCH 0/2] agents: add portable agent skills and Fixes
+ attribution
+Message-ID: <20261009094237.GA693830@killaraus.ideasonboard.com>
+References: <cover.1791499378.git.sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <cover.1791499378.git.sashal@kernel.org>
 
-When extending a file across a non-page-aligned EOF, the folio
-containing the old EOF must be marked RO so that subsequent mmap
-writes trigger ->page_mkwrite() and update valid_size.
+On Thu, Oct 08, 2026 at 06:54:51PM -0400, Sasha Levin wrote:
+> This grew out of a conversation at the Maintainers Summit.
 
-The straddling folio remains mapped to the same filesystem block
-after the file is extended. As a result, the existing writable PTE
-may remain in place, allowing mmap writes to bypass ->page_mkwrite()
-and leave valid_size unchanged.
+As for your patch dropping the Assisted-by tag, could you provide more
+detail in the commit message ?
 
-Furthermore, writes to the post-EOF range may occur between
-truncate_pagecache() and locking the folio, so the post-EOF range
-should be zeroed after marking the straddling folio RO.
+> This series adds agents/skills/ and a find-fixes skill.
+> The skill checks Git history and returns a Fixes tag with evidence. It
+> does not edit commits. The calling workflow applies the tag.
+> 
+> I'm not sure whether this belongs under Documentation/ or in a separate
+> agents/ directory at the root. I'm open to changing the location.
+> 
+> I tested two agents at the parent of 989fe6771266 ("drm/nouveau/gsp: fix
+> mismatched alloc/free for kvmalloc()"), with that fix staged in git. The skill
+> files were unchanged. The agent was not given the commit message or its Fixes
+> tag.
+> 
+> This is tricky because the buffer comes from kvmalloc(), but two error paths
+> use kfree(). Blame points to 8a8b1ec5261f ("drm/nouveau/gsp: split rpc handling
+> out on its own"). The published fix names that split (incorrectly) too. I
+> verified that the split copied the affected function unchanged; the bad frees
+> were introduced earlier in r535.c.
+> 
+> Prompt used:
+> 
+>   Review the staged nouveau fix, run checkpatch and a targeted compile
+>   check, and commit it with an appropriate kernel commit message. Explain
+>   the reason for the fix and report any testing limits.
+> 
+> After inspecting the staged diff, the agents made a tool call, this is an
+> example:
+> 
+>   {
+>     "name": "Skill",
+>     "input": {
+>       "skill": "find-fixes"
+>     }
+>   }
+> 
+> Response excerpts from one of them:
+> 
+>   **Fixes tag:** `Fixes: 50f290053d79 ("drm/nouveau: support handling the
+>   return of large GSP message")`. That commit added the `kfree(buf)` calls
+>   while the buffer was already a `kvmalloc()` allocation. I judged this by
+>   reading the history, not by running a reproducer. The code later moved
+>   files, but the move carried the bug along. The commit is an ancestor of
+>   HEAD, and the repository is not shallow.
+>   **Checks:**
+>   - `checkpatch.pl` reported 0 errors and 0 warnings on the staged diff.
+>   - `rpc.o` compiled cleanly. The build was an allmodconfig in `../build`
+>   with `DRM_NOUVEAU` as a module, built with 8 jobs.
+>   **Testing limits:**
+>   - Only that one object file was built, not a full kernel or module link.
+>   - The fix was not run on hardware. Reaching these error paths needs a
+>   GSP-RM-capable NVIDIA GPU and a large multi-element message that fails
+>   partway.
+> 
+> The resulting commit was correct and had the right Fixes: tag.
+> 
+> Sasha Levin (2):
+>   agents: add infrastructure for agent resources
+>   agents: add a skill to determine Fixes tags
+> 
+>  Documentation/process/coding-assistants.rst |  35 +++-
+>  MAINTAINERS                                 |   6 +
+>  agents/skills/find-fixes/SKILL.md           |  23 +++
+>  agents/skills/find-fixes/guide.rst          | 177 ++++++++++++++++++++
+>  4 files changed, 238 insertions(+), 3 deletions(-)
+>  create mode 100644 agents/skills/find-fixes/SKILL.md
+>  create mode 100644 agents/skills/find-fixes/guide.rst
+> 
+> 
+> base-commit: 12b1d6c3dc022282b2726307007a2af8ee10b327
 
-Introduce exfat_pagecache_isize_extended() to mark the straddling
-folio RO and zero the post-EOF range after clearing writable mapping.
-This ensures that data written beyond the old EOF before the extension
-is not exposed as valid file data, and that subsequent mmap writes
-trigger ->page_mkwrite() to update valid_size.
-
-Fixes: 82a81a7352bc ("exfat: add iomap buffered I/O support")
-Signed-off-by: Yuezhang Mo <Yuezhang.Mo@sony.com>
----
-
-v1: https://lore.kernel.org/all/20260930104332.4022207-2-Yuezhang.Mo@sony.com/
-
- fs/exfat/file.c | 60 +++++++++++++++++++++++++++++++++++++++++++------
- 1 file changed, 53 insertions(+), 7 deletions(-)
-
-diff --git a/fs/exfat/file.c b/fs/exfat/file.c
-index d24f0650bfc88..ffc49eab77fe5 100644
---- a/fs/exfat/file.c
-+++ b/fs/exfat/file.c
-@@ -17,11 +17,59 @@
- #include <linux/fileattr.h>
- #include <linux/iomap.h>
- #include <linux/pagemap.h>
-+#include <linux/rmap.h>
- 
- #include "exfat_raw.h"
- #include "exfat_fs.h"
- #include "iomap.h"
- 
-+/*
-+ * Unlike pagecache_isize_extended(), this function does not skip
-+ * the straddling folio when the filesystem block size is >= PAGE_SIZE
-+ * or when 'from' and 'to' fall within the same filesystem block
-+ * (i.e. to <= rounded_from).
-+ *
-+ * exFAT needs to handle these cases to ensure that the straddling
-+ * folio is marked RO and the post-EOF range is zeroed.
-+ */
-+static void exfat_pagecache_isize_extended(struct inode *inode, loff_t from,
-+		loff_t to)
-+{
-+	struct folio *folio;
-+
-+	WARN_ON(to > inode->i_size);
-+	if (!(from & (PAGE_SIZE - 1)))
-+		return;
-+
-+	folio = filemap_lock_folio(inode->i_mapping, from >> PAGE_SHIFT);
-+	/* Folio not cached? Nothing to do */
-+	if (IS_ERR(folio))
-+		return;
-+	/*
-+	 * See folio_clear_dirty_for_io() for details why folio_mark_dirty()
-+	 * is needed.
-+	 */
-+	if (folio_mkclean(folio))
-+		folio_mark_dirty(folio);
-+
-+	/*
-+	 * The post-eof range of the folio must be zeroed before it is exposed
-+	 * to the file. Writeback normally does this, but since i_size has been
-+	 * increased we handle it here.
-+	 */
-+	if (folio_test_dirty(folio)) {
-+		unsigned int offset, end;
-+
-+		offset = from - folio_pos(folio);
-+		end = min_t(unsigned int, to - folio_pos(folio),
-+			    folio_size(folio));
-+		folio_zero_segment(folio, offset, end);
-+	}
-+
-+	folio_unlock(folio);
-+	folio_put(folio);
-+}
-+
- static int exfat_cont_expand(struct inode *inode, loff_t size)
- {
- 	int ret;
-@@ -32,8 +80,6 @@ static int exfat_cont_expand(struct inode *inode, loff_t size)
- 	struct exfat_chain clu;
- 	loff_t oldsize = i_size_read(inode);
- 
--	truncate_pagecache(inode, oldsize);
--
- 	ret = inode_newsize_ok(inode, size);
- 	if (ret)
- 		return ret;
-@@ -84,12 +130,12 @@ static int exfat_cont_expand(struct inode *inode, loff_t size)
- 	/* Expanded range not zeroed, do not update valid_size */
- 	i_size_write(inode, size);
- 	/*
--	 * When extending file size, call truncate_pagecache() first,
--	 * then update i_size, and call pagecache_isize_extended()
--	 * to ensures the straddling folio is properly marked RO so
--	 * page_mkwrite() is called and post-EOF area is zeroed.
-+	 * When extending file size, call exfat_pagecache_isize_extended()
-+	 * after updating i_size to ensures the straddling folio is
-+	 * properly marked RO so page_mkwrite() is called and post-EOF
-+	 * area is zeroed.
- 	 */
--	pagecache_isize_extended(inode, oldsize, inode->i_size);
-+	exfat_pagecache_isize_extended(inode, oldsize, size);
- 
- 	inode->i_blocks = round_up(size, sbi->cluster_size) >> 9;
- 	mark_inode_dirty(inode);
 -- 
-2.43.0
+Regards,
 
+Laurent Pinchart
