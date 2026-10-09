@@ -1,602 +1,402 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 583924EDCD8;
-	Fri,  9 Oct 2026 14:42:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791556922; cv=none; b=RJYAL1h0y1g3x/lW1bNO6AssradnotxAoGbPYIOnDxGM46UWPn8DwccwwqH8XYqFMy9dG1j3UVPJFL2cx+WaRmP2UWnJm52odRE5kqxZfzxMpBZZyunij64uU6vPpUsyLON1tX/eO8/DCXU/QdG7DJ8ykEvTgumP4/vJhY5oLDY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791556922; c=relaxed/simple;
-	bh=mlRnTGrxCtR+7T4lmk41OPh2WW3NTcE3nhLpfNsmfQA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cC/xzRgqesY3b5MrIVgGRQHONxaa+Od2k06V8fIgp+aOxVdVr0krLJTn+JKkWKGjyCU20YwWDLAtCOVVV02wdJansXb+VGvUNWUZMNykL9J6hY5Ciq+SLAgwwQtNylO4rUk4kqaBbz+G3wG1pAjTkGQEco+SpH+FJVXYWYEWGG4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=Ed+BUcT2; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+Received: from sender5-pp-o94.zoho.com (sender5-pp-o94.zoho.com [165.173.182.94])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BA854EF12B;
+	Fri,  9 Oct 2026 14:42:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.94
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791556929; cv=pass; b=TRrbpl8VIBW7gZD45ITR96duJqNFmpM0+vTwOZJ8ZGYZ2nxRWN8bRWzTZgVNW9n6sfyUxPZGZCLcFsrrVQLThllnnK3bXoL7NKfoVIN1ZgoO6+7/i9+DOsuklDpUXjKz6sYCuyJ/DDqJM6Io9K9ri26gW3tLtJIzy+nrpUkXLQc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791556929; c=relaxed/simple;
+	bh=mYcjK8jdNquyn3c9F7hmZXqlaGCNSUvqi4l3YYKSkmM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=USOusjl/HOZhLWFiTCkgejCSSpRGMdqOIhgS8dd/pF2g966Rk+98XeHZEAnUmc88DhoNObR1SkItZVpSIC4AXuGfi+viR1Hevazrl4SaLh1jtMWvvYNLVFYkCxEGY9d2sLLY2Gno3YErDVkdG7dOF/1bV5/w8nBWN3wLFWxUIMk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com; spf=pass smtp.mailfrom=zohomail.com; dkim=pass (1024-bit key) header.d=zohomail.com header.i=ming.li@zohomail.com header.b=SSFhCZXl; arc=pass smtp.client-ip=165.173.182.94
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="Ed+BUcT2"
-Received: from weh-cvm-dev-vm.y50bckvjo0hefgfnzfztsfttff.phxx.internal.cloudapp.net (unknown [20.169.55.37])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 4AF7F20B717A;
-	Fri,  9 Oct 2026 07:41:57 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 4AF7F20B717A
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1791556918;
-	bh=RyTfBSSc1V8eyMXfvpu3tv4hT7SofScxxwVaYUTug3I=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=Ed+BUcT2GyEV0PnvrOEStmXMo54OGnOiESObBdmiogPshNwXjBBrzS2sF4pt5YFcp
-	 ZvgOwTcjyTR11CvimJ3ANCd100PH1VaQEKbJyibx6wWO1P5TE8+l+IOzhPRoNdp7IC
-	 vu+ooSBrY3w2le4C1oQIk04CXT8w9tCrXS+tI+QM=
-From: Wei Hu <weh@linux.microsoft.com>
-To: longli@kernel.org,
-	kotaranov@microsoft.com,
-	kuba@kernel.org,
-	davem@davemloft.net,
-	pabeni@redhat.com,
-	edumazet@google.com,
-	andrew+netdev@lunn.ch,
-	jgg@ziepe.ca,
-	leon@kernel.org,
-	haiyangz@microsoft.com,
-	wei.liu@kernel.org,
-	decui@microsoft.com,
-	shradhagupta@linux.microsoft.com,
-	horms@kernel.org,
-	ernis@linux.microsoft.com,
-	stephen@networkplumber.org
-Cc: netdev@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	dipayanroy@linux.microsoft.com,
-	bpf@vger.kernel.org,
-	sdf@fomichev.me,
-	daniel@iogearbox.net,
-	hawk@kernel.org,
-	ast@kernel.org,
-	john.fastabend@gmail.com,
-	weh@microsoft.com
-Subject: [PATCH net-next v6 13/13] net: mana: keep the existing queues when the channel count is raised
-Date: Fri,  9 Oct 2026 14:41:24 +0000
-Message-ID: <6243b02cc7140a9ff340dbdb8b770d22b19ddb9b.1790795005.git.weh@linux.microsoft.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1790795005.git.weh@linux.microsoft.com>
-References: <cover.1790795005.git.weh@linux.microsoft.com>
+	dkim=pass (1024-bit key) header.d=zohomail.com header.i=ming.li@zohomail.com header.b="SSFhCZXl"
+ARC-Seal: i=1; a=rsa-sha256; t=1791556910; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Y0h0RXda5FoVKNnqBzy3RMEZyhyvE3VKof3yZ0LYWMCZOeMTM7RySBFplfwSjQkRpo4u1a35oPAzeujo/yxdWhH/0NySCexELMRDawLyM+UvX43Ek5XSeo5yhTW2U7JvWF3DsDDAQnXXzdQTmbHC3lwt4mk3aOQWQXqSHIhQNv0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1791556910; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Vc4shJ7JTOZtXqrInqhmldF9QJjIS9vSgJN7sr8S+0E=; 
+	b=Msh/Nsj+QAvfujJ3S+YSQ9kIEuHxfDwFg6MzKCrGb8jqiNa/R2Ed6KtmHzDf0gGUTQPdtHc9WcfKeTb6qfm2IalFR9InIeQkAyV00mcfUBD3XtyMuqSbJHSsjKFDacJrIF69S93plrzAYt+8T186jRB0uh2E2QLAHtMQ0oWVKG0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=zohomail.com;
+	spf=pass  smtp.mailfrom=ming.li@zohomail.com;
+	dmarc=pass header.from=<ming.li@zohomail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791556910;
+	s=zm2022; d=zohomail.com; i=ming.li@zohomail.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Feedback-ID:Message-Id:Reply-To;
+	bh=Vc4shJ7JTOZtXqrInqhmldF9QJjIS9vSgJN7sr8S+0E=;
+	b=SSFhCZXlpjxpCqZ9MJqji1u4CUiqyE+jRYuV29NP3Y1RFOV5FdU6i7PGeJsRQxyN
+	s84R05vl/vvwhI+0jhQfiqGMaUZyrSL5Aw6xmMWGNRx3D58JoMuirXXx7bjw+L3GqJ3
+	FN1e0+hvfU5diM3ta1VOT2vfATvA2ews+Flh7puY=
+Received: by smtp.zohomail.com with SMTPS id 1791556909356350.57764764958677;
+	Fri, 9 Oct 2026 07:41:49 -0700 (PDT)
+Message-ID: <3c6f75c5-f559-4b73-a835-70ea3a680fe1@zohomail.com>
+Date: Fri, 9 Oct 2026 22:41:33 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v14 05/16] cxl: Introduce reusable HDM decoder settings
+To: Dave Jiang <dave.jiang@intel.com>,
+ Srirangan Madhavan <smadhavan@nvidia.com>,
+ Alison Schofield <alison.schofield@intel.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Davidlohr Bueso <dave@stgolabs.net>,
+ Ira Weiny <ira.weiny@intel.com>, Jonathan Cameron <jic23@kernel.org>,
+ Vishal Verma <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Alex Williamson <alex.williamson@redhat.com>, vsethi@nvidia.com,
+ alwilliamson@nvidia.com,
+ Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
+ Vishal Aslot <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>,
+ Jiandi An <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
+ linux-tegra@vger.kernel.org
+References: <20261001092227.3004747-1-smadhavan@nvidia.com>
+ <20261001092227.3004747-6-smadhavan@nvidia.com>
+ <60dbd245-0b16-4c4b-8350-26570916ede0@intel.com>
+ <12dff52f-61fb-4796-afa9-0e7a8f74452d@zohomail.com>
+ <e8ee0949-90b9-4572-869d-61b4073c568d@intel.com>
+ <f3c0fd73-c9e0-4b65-9f83-2b1fd9579dca@zohomail.com>
+ <60653fdc-2b9c-4f9d-841c-6d7d68d51ed3@intel.com>
+From: Li Ming <ming.li@zohomail.com>
+In-Reply-To: <60653fdc-2b9c-4f9d-841c-6d7d68d51ed3@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Feedback-ID: zu080112271575eab0932f54156237566700003da1a77b021e8211d00f34ef2d19d6c8cc498a068694a168af:ZohoMail
+X-Zoho-CM-AccountID: abd763e7b9fa23acf4f42a44f9876d2d993e05abdb9290f9ccb1008c977bf7f0
+X-ZohoMailClient: External
 
-From: Long Li <longli@microsoft.com>
 
-Keep existing queues and allocate only the added tail. Growing N to M
-now needs M SQ/RQ pairs at peak, rather than N + M.
+在 2026/10/8 23:19, Dave Jiang 写道:
+>
+> On 10/8/26 6:18 AM, Li Ming wrote:
+>> 在 2026/10/8 00:23, Dave Jiang 写道:
+>>> On 10/7/26 6:12 AM, Li Ming wrote:
+>>>> 在 2026/10/3 03:59, Dave Jiang 写道:
+>>>>> On 10/1/26 2:22 AM, Srirangan Madhavan wrote:
+>>>>>> Represent HDM programming state with struct cxl_decoder_settings and pass
+>>>>>> it to the commit helpers. Keep endpoint skip and switch targets with their
+>>>>>> owning types and flatten them only into transient programming settings.
+>>>>>> Place flags with the programming state and leave runtime region ownership
+>>>>>> outside the snapshot.
+>>>>>>
+>>>>>> Separate commit initiation from completion waiting so reset restoration
+>>>>>> can reuse register programming without changing normal DPA-lock policy.
+>>>>>>
+>>>>>> Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
+>>>>>> ---
+>>>>>>     drivers/cxl/core/core.h |  3 ++
+>>>>>>     drivers/cxl/core/hdm.c  | 82 ++++++++++++++++++++++++++---------------
+>>>>>>     include/cxl/cxl.h       | 10 +++++
+>>>>>>     3 files changed, 66 insertions(+), 29 deletions(-)
+>>>>>>
+>>>>>> diff --git a/drivers/cxl/core/core.h b/drivers/cxl/core/core.h
+>>>>>> index 983d7690c3a5..a3fddb2bed63 100644
+>>>>>> --- a/drivers/cxl/core/core.h
+>>>>>> +++ b/drivers/cxl/core/core.h
+>>>>>> @@ -139,6 +139,9 @@ struct cxl_rwsem {
+>>>>>>       extern struct cxl_rwsem cxl_rwsem;
+>>>>>>     +void cxl_commit_start(void __iomem *hdm, struct cxl_decoder_settings *settings);
+>>>>>> +int cxld_await_commit(void __iomem *hdm, int id);
+>>>>>> +
+>>>>>>     int cxl_memdev_init(void);
+>>>>>>     void cxl_memdev_exit(void);
+>>>>>>     void cxl_mbox_init(void);
+>>>>>> diff --git a/drivers/cxl/core/hdm.c b/drivers/cxl/core/hdm.c
+>>>>>> index 9e05032a5426..d3f21dfda146 100644
+>>>>>> --- a/drivers/cxl/core/hdm.c
+>>>>>> +++ b/drivers/cxl/core/hdm.c
+>>>>>> @@ -707,7 +707,7 @@ int cxl_dpa_alloc(struct cxl_endpoint_decoder *cxled, u64 size)
+>>>>>>         return devm_add_action_or_reset(&port->dev, cxl_dpa_release, cxled);
+>>>>>>     }
+>>>>>>     -static void cxld_set_interleave(struct cxl_decoder *cxld, u32 *ctrl)
+>>>>>> +static void cxld_set_interleave(struct cxl_decoder_config *config, u32 *ctrl)
+>>>>>>     {
+>>>>>>         u16 eig;
+>>>>>>         u8 eiw;
+>>>>>> @@ -716,12 +716,12 @@ static void cxld_set_interleave(struct cxl_decoder *cxld, u32 *ctrl)
+>>>>>>          * Input validation ensures these warns never fire, but otherwise
+>>>>>>          * suppress unititalized variable usage warnings.
+>>>>>>          */
+>>>>>> -    if (WARN_ONCE(ways_to_eiw(cxld->config.interleave_ways, &eiw),
+>>>>>> -              "invalid interleave_ways: %d\n", cxld->config.interleave_ways))
+>>>>>> +    if (WARN_ONCE(ways_to_eiw(config->interleave_ways, &eiw),
+>>>>>> +              "invalid interleave_ways: %d\n", config->interleave_ways))
+>>>>>>             return;
+>>>>>> -    if (WARN_ONCE(granularity_to_eig(cxld->config.interleave_granularity, &eig),
+>>>>>> +    if (WARN_ONCE(granularity_to_eig(config->interleave_granularity, &eig),
+>>>>>>                   "invalid interleave_granularity: %d\n",
+>>>>>> -              cxld->config.interleave_granularity))
+>>>>>> +              config->interleave_granularity))
+>>>>>>             return;
+>>>>>>           u32p_replace_bits(ctrl, eig, CXL_HDM_DECODER0_CTRL_IG_MASK);
+>>>>>> @@ -729,10 +729,10 @@ static void cxld_set_interleave(struct cxl_decoder *cxld, u32 *ctrl)
+>>>>>>         *ctrl |= CXL_HDM_DECODER0_CTRL_COMMIT;
+>>>>>>     }
+>>>>>>     -static void cxld_set_type(struct cxl_decoder *cxld, u32 *ctrl)
+>>>>>> +static void cxld_set_type(struct cxl_decoder_config *config, u32 *ctrl)
+>>>>>>     {
+>>>>>>         u32p_replace_bits(ctrl,
+>>>>>> -              !!(cxld->config.target_type == CXL_DECODER_HOSTONLYMEM),
+>>>>>> +              !!(config->target_type == CXL_DECODER_HOSTONLYMEM),
+>>>>>>                   CXL_HDM_DECODER0_CTRL_HOSTONLY);
+>>>>>>     }
+>>>>>>     @@ -764,7 +764,7 @@ static void cxlsd_set_targets(struct cxl_switch_decoder *cxlsd, u64 *tgt)
+>>>>>>      * clock skew and other marginal behavior
+>>>>>>      */
+>>>>>>     #define COMMIT_TIMEOUT_MS 20
+>>>>>> -static int cxld_await_commit(void __iomem *hdm, int id)
+>>>>>> +int cxld_await_commit(void __iomem *hdm, int id)
+>>>>>>     {
+>>>>>>         u32 ctrl;
+>>>>>>         int i;
+>>>>>> @@ -784,45 +784,66 @@ static int cxld_await_commit(void __iomem *hdm, int id)
+>>>>>>         return -ETIMEDOUT;
+>>>>>>     }
+>>>>>>     -static void setup_hw_decoder(struct cxl_decoder *cxld, void __iomem *hdm)
+>>>>>> +static void setup_hw_decoder(void __iomem *hdm,
+>>>>>> +                 struct cxl_decoder_settings *settings)
+>>>>> settings is replacing cxld, I would prefer that as the first parameter
+>>>>>
+>>>>>>     {
+>>>>>> -    int id = cxld->config.id;
+>>>>>> +    struct cxl_decoder_config *config = &settings->config;
+>>>>>> +    int id = config->id;
+>>>>>> +    u64 target_or_skip_reg_val;
+>>>>>>         u64 base, size;
+>>>>>>         u32 ctrl;
+>>>>>>     -    /* common decoder settings */
+>>>>>> -    ctrl = readl(hdm + CXL_HDM_DECODER0_CTRL_OFFSET(cxld->config.id));
+>>>>>> -    cxld_set_interleave(cxld, &ctrl);
+>>>>>> -    cxld_set_type(cxld, &ctrl);
+>>>>>> -    base = cxld->config.hpa_range.start;
+>>>>>> -    size = range_len(&cxld->config.hpa_range);
+>>>>>> +    ctrl = readl(hdm + CXL_HDM_DECODER0_CTRL_OFFSET(id));
+>>>>>> +    cxld_set_interleave(config, &ctrl);
+>>>>>> +    cxld_set_type(config, &ctrl);
+>>>>>> +    base = config->hpa_range.start;
+>>>>>> +    size = range_len(&config->hpa_range);
+>>>>>> +    target_or_skip_reg_val = settings->target_or_skip_reg_val;
+>>>>>>           writel(upper_32_bits(base), hdm + CXL_HDM_DECODER0_BASE_HIGH_OFFSET(id));
+>>>>>>         writel(lower_32_bits(base), hdm + CXL_HDM_DECODER0_BASE_LOW_OFFSET(id));
+>>>>>>         writel(upper_32_bits(size), hdm + CXL_HDM_DECODER0_SIZE_HIGH_OFFSET(id));
+>>>>>>         writel(lower_32_bits(size), hdm + CXL_HDM_DECODER0_SIZE_LOW_OFFSET(id));
+>>>>>> +    /* Target-list and endpoint-skip registers alias the same slot. */
+>>>>>> +    writel(upper_32_bits(target_or_skip_reg_val), hdm + CXL_HDM_DECODER0_TL_HIGH(id));
+>>>>>> +    writel(lower_32_bits(target_or_skip_reg_val), hdm + CXL_HDM_DECODER0_TL_LOW(id));
+>>>>>> +
+>>>>>> +    writel(ctrl, hdm + CXL_HDM_DECODER0_CTRL_OFFSET(id));
+>>>>>> +}
+>>>>>> +
+>>>>>> +void cxl_commit_start(void __iomem *hdm, struct cxl_decoder_settings *settings)
+>>>>>> +{
+>>>>>> +    lockdep_assert_held(&cxl_rwsem.dpa);
+>>>>>> +    setup_hw_decoder(hdm, settings);
+>>>>>> +}
+>>>>>> +
+>>>>>> +/*
+>>>>>> + * Endpoint skip and switch targets have different owners. Keep that state with
+>>>>>> + * its owning type and flatten it only into a transient register-programming
+>>>>>> + * snapshot.
+>>>>>> + */
+>>>>>> +static void cxl_decoder_snapshot(struct cxl_decoder *cxld,
+>>>>>> +                 struct cxl_decoder_settings *settings)
+>>>>>> +{
+>>>>>> +    lockdep_assert_held(&cxl_rwsem.dpa);
+>>>>>> +
+>>>>>> +    *settings = (struct cxl_decoder_settings) {
+>>>>>> +        .config = cxld->config,
+>>>>>> +    };
+>>>>>>           if (is_switch_decoder(&cxld->dev)) {
+>>>>>>             struct cxl_switch_decoder *cxlsd =
+>>>>>>                 to_cxl_switch_decoder(&cxld->dev);
+>>>>>> -        void __iomem *tl_hi = hdm + CXL_HDM_DECODER0_TL_HIGH(id);
+>>>>>> -        void __iomem *tl_lo = hdm + CXL_HDM_DECODER0_TL_LOW(id);
+>>>>>>             u64 targets;
+>>>>>>               cxlsd_set_targets(cxlsd, &targets);
+>>>>>> -        writel(upper_32_bits(targets), tl_hi);
+>>>>>> -        writel(lower_32_bits(targets), tl_lo);
+>>>>>> +        settings->target_or_skip_reg_val = targets;
+>>>>>>         } else {
+>>>>>>             struct cxl_endpoint_decoder *cxled =
+>>>>>>                 to_cxl_endpoint_decoder(&cxld->dev);
+>>>>>> -        void __iomem *sk_hi = hdm + CXL_HDM_DECODER0_SKIP_HIGH(id);
+>>>>>> -        void __iomem *sk_lo = hdm + CXL_HDM_DECODER0_SKIP_LOW(id);
+>>>>>>     -        writel(upper_32_bits(cxled->skip), sk_hi);
+>>>>>> -        writel(lower_32_bits(cxled->skip), sk_lo);
+>>>>>> +        settings->target_or_skip_reg_val = cxled->skip;
+>>>>>>         }
+>>>>>> -
+>>>>>> -    writel(ctrl, hdm + CXL_HDM_DECODER0_CTRL_OFFSET(id));
+>>>>>>     }
+>>>>>>       static int cxl_decoder_commit(struct cxl_decoder *cxld)
+>>>>>> @@ -830,6 +851,7 @@ static int cxl_decoder_commit(struct cxl_decoder *cxld)
+>>>>>>         struct cxl_port *port = to_cxl_port(cxld->dev.parent);
+>>>>>>         struct cxl_hdm *cxlhdm = dev_get_drvdata(&port->dev);
+>>>>>>         void __iomem *hdm = cxlhdm->regs.hdm_decoder;
+>>>>>> +    struct cxl_decoder_settings settings;
+>>>>>>         int id = cxld->config.id, rc;
+>>>>>>           if (cxld->config.flags & CXL_DECODER_F_ENABLE)
+>>>>>> @@ -862,10 +884,12 @@ static int cxl_decoder_commit(struct cxl_decoder *cxld)
+>>>>>>             }
+>>>>>>         }
+>>>>>>     -    scoped_guard(rwsem_read, &cxl_rwsem.dpa)
+>>>>>> -        setup_hw_decoder(cxld, hdm);
+>>>>>> +    scoped_guard(rwsem_read, &cxl_rwsem.dpa) {
+>>>>>> +        cxl_decoder_snapshot(cxld, &settings);
+>>>>>> +        cxl_commit_start(hdm, &settings);
+>>>>>> +    }
+>>>>>>     -    rc = cxld_await_commit(hdm, cxld->config.id);
+>>>>>> +    rc = cxld_await_commit(hdm, settings.config.id);
+>>>>>>         if (rc) {
+>>>>>>             dev_dbg(&port->dev, "%s: error %d committing decoder\n",
+>>>>>>                 dev_name(&cxld->dev), rc);
+>>>>>> diff --git a/include/cxl/cxl.h b/include/cxl/cxl.h
+>>>>>> index 237b31d54249..67c81be47fbb 100644
+>>>>>> --- a/include/cxl/cxl.h
+>>>>>> +++ b/include/cxl/cxl.h
+>>>>>> @@ -72,6 +72,16 @@ struct cxl_decoder {
+>>>>>>         void (*reset)(struct cxl_decoder *cxld);
+>>>>>>     };
+>>>>>>     +/**
+>>>>>> + * struct cxl_decoder_settings - CXL HDM decoder programming snapshot
+>>>>>> + * @config: common decoder configuration
+>>>>>> + * @target_or_skip_reg_val: switch target list or endpoint skip register value
+>>>>>> + */
+>>>>>> +struct cxl_decoder_settings {
+>>>>>> +    struct cxl_decoder_config config;
+>>>>>> +    u64 target_or_skip_reg_val;
+>>>>> Single variable contains multiple meanings gets confusing and messy when they are different values depending on context.
+>>>>>
+>>>>> How about something like:
+>>>>>
+>>>>> struct cxl_endpoint_decoder_settings {
+>>>>>       struct cxl_decoder_config config;
+>>>>>       u64 skips;
+>>>>> };
+>>>>>
+>>>>> /* resource.c: common to both decoder types */
+>>>>> static u32 cxl_hdm_write_range(void __iomem *hdm,
+>>>>>                                 const struct cxl_decoder_config *config)
+>>>>> {
+>>>>>          int id = config->id;
+>>>>>          u64 base = config->hpa_range.start;
+>>>>>          u64 size = range_len(&config->hpa_range);
+>>>>>          u32 ctrl = readl(hdm + CXL_HDM_DECODER0_CTRL_OFFSET(id));
+>>>>>
+>>>>>          cxld_set_interleave(config, &ctrl);
+>>>>>          cxld_set_type(config, &ctrl);
+>>>>>          writel(upper_32_bits(base), hdm + CXL_HDM_DECODER0_BASE_HIGH_OFFSET(id))
+>>>>>          writel(lower_32_bits(base), hdm + CXL_HDM_DECODER0_BASE_LOW_OFFSET(id));
+>>>>>          writel(upper_32_bits(size), hdm + CXL_HDM_DECODER0_SIZE_HIGH_OFFSET(id))
+>>>>>          writel(lower_32_bits(size), hdm + CXL_HDM_DECODER0_SIZE_LOW_OFFSET(id));
+>>>>>          return ctrl;
+>>>>> }
+>>>>>
+>>>>> void cxl_commit_start_endpoint(void __iomem *hdm,
+>>>>>                                 const struct cxl_endpoint_decoder_settings *s)
+>>>>> {
+>>>>>          int id = s->config.id;
+>>>>>          u32 ctrl;
+>>>>>
+>>>>>          lockdep_assert_held(&cxl_rwsem.dpa);
+>>>>>          ctrl = cxl_hdm_write_range(hdm, &s->config);
+>>>>>          writel(upper_32_bits(s->skip), hdm + CXL_HDM_DECODER0_SKIP_HIGH(id));
+>>>>>          writel(lower_32_bits(s->skip), hdm + CXL_HDM_DECODER0_SKIP_LOW(id));
+>>>>>          writel(ctrl, hdm + CXL_HDM_DECODER0_CTRL_OFFSET(id));
+>>>>> }
+>>>>>
+>>>>> void cxl_commit_start_switch(void __iomem *hdm,
+>>>>>                               const struct cxl_decoder_config *config,
+>>>>>                               u64 targets)
+>>>>> {
+>>>>>          int id = config->id;
+>>>>>          u32 ctrl;
+>>>>>
+>>>>>          lockdep_assert_held(&cxl_rwsem.dpa);
+>>>>>          ctrl = cxl_hdm_write_range(hdm, config);
+>>>>>          writel(upper_32_bits(targets), hdm + CXL_HDM_DECODER0_TL_HIGH(id));
+>>>>>          writel(lower_32_bits(targets), hdm + CXL_HDM_DECODER0_TL_LOW(id));
+>>>>>          writel(ctrl, hdm + CXL_HDM_DECODER0_CTRL_OFFSET(id));
+>>>>> }
+>>>>>
+>>>>> /* hdm.c: cxl_decoder_commit() */
+>>>>> scoped_guard(rwsem_read, &cxl_rwsem.dpa) {
+>>>>>          if (is_switch_decoder(&cxld->dev)) {
+>>>>>                  struct cxl_switch_decoder *cxlsd =
+>>>>>                          to_cxl_switch_decoder(&cxld->dev);
+>>>>>                  u64 targets;
+>>>>>
+>>>>>                  cxlsd_set_targets(cxlsd, &targets);
+>>>>>                  cxl_commit_start_switch(hdm, &cxld->config, targets);
+>>>>>          } else {
+>>>>>                  struct cxl_endpoint_decoder *cxled =
+>>>>>                          to_cxl_endpoint_decoder(&cxld->dev);
+>>>>>                  struct cxl_endpoint_decoder_settings s = {
+>>>>>                          .config = cxld->config,
+>>>>>                          .skip = cxled->skip,
+>>>>>                  };
+>>>>>
+>>>>>                  cxl_commit_start_endpoint(hdm, &s);
+>>>>>          }
+>>>>> }
+>>>> Hi Dave,
+>>>>
+>>>>
+>>>> I think cxl_decoder_snapshot() also needs this struct cxl_decoder_settings to store current value of switch/endpoint decoder registers.
+>>>>
+>>>> But your implementation only defines a struct cxl_endpoint_decoder_settings, I suppose that we also need a struct cxl_switch_decoder_settings?
+>>>>
+>>>>
+>>>> How about using a union in struct cxl_decoder_settings, I think it can resolve the "Single variable with multiple meanings" issue you mentioned. like that
+>>>>
+>>>> struct cxl_decoder_settings {
+>>>>
+>>>>       struct cxl_decoder_config config;
+>>>>
+>>>>       union {
+>>>>
+>>>>           u64 targets;    // used for switch decoders
+>>>>
+>>>>           u64 skips;        // used for endpoint decoders
+>>>>
+>>>>       };
+>>>>
+>>>> };
+>>>>
+>>> That was my first thought, but it does not look like the switch decoders need it at the moment. I had LLM do a refactor and this [1] is what it looks like. See if you agree.
+>>>
+>>> [1]: https://git.kernel.org/pub/scm/linux/kernel/git/djiang/linux.git/log/?h=cxl-type2-reset
+>>>
+>>> DJ
+>> That looks good to me, I was thinking that the struct cxl_decoder_settings was also needed to cache HDM decoders registers of switch USPs during PCI enumeration, but I realize that this patchset is only for type2 device reset support, not need to consider switch ports reset.
+>>
+>> Seems like if a switch USP reset will destroy the HDM routing in type2 device under switch case, if we want to support it, we will need another patchset to cache decoders registers on switch USP?
+> You are correct. I guess we cross that bridge when we get there?
 
-Track the fresh queues separately for failure cleanup and XDP references.
-Wait for TX-selection readers before freeing old containers, and clear
-slots during partial teardown. Full rebuilds now keep the current count.
+Yes, I agree.
 
-Advertise in-driver resize recovery after converting the live resize
-paths. Failed rollback still requires recovery.
 
-Signed-off-by: Long Li <longli@microsoft.com>
-Signed-off-by: Wei Hu <weh@microsoft.com>
----
- .../net/ethernet/microsoft/mana/mana_bpf.c    |   2 +-
- drivers/net/ethernet/microsoft/mana/mana_en.c | 209 +++++++++++++++---
- .../ethernet/microsoft/mana/mana_ethtool.c    |  31 ++-
- include/net/mana/gdma.h                       |   8 +-
- include/net/mana/mana.h                       |   7 +-
- 5 files changed, 217 insertions(+), 40 deletions(-)
+Ming
 
-diff --git a/drivers/net/ethernet/microsoft/mana/mana_bpf.c b/drivers/net/ethernet/microsoft/mana/mana_bpf.c
-index 0ad3a0fa6747..798f0dc485f8 100644
---- a/drivers/net/ethernet/microsoft/mana/mana_bpf.c
-+++ b/drivers/net/ethernet/microsoft/mana/mana_bpf.c
-@@ -216,7 +216,7 @@ static int mana_xdp_set(struct net_device *ndev, struct bpf_prog *prog,
- 			goto clear_flag;
- 		}
- 
--		err = mana_alloc_qset(apc, scratch, apc->num_queues,
-+		err = mana_alloc_qset(apc, scratch,
- 				      apc->rx_queue_size, apc->tx_queue_size,
- 				      apc->priv_flags, apc->configured_mtu,
- 				      prog, &newq);
-diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
-index 2fe53adda119..5fbadc4dccbc 100644
---- a/drivers/net/ethernet/microsoft/mana/mana_en.c
-+++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
-@@ -952,7 +952,7 @@ static int mana_change_mtu(struct net_device *ndev, int new_mtu)
- 		goto clear_flag;
- 	}
- 
--	err = mana_alloc_qset(mpc, scratch, mpc->num_queues, mpc->rx_queue_size,
-+	err = mana_alloc_qset(mpc, scratch, mpc->rx_queue_size,
- 			      mpc->tx_queue_size, mpc->priv_flags, new_mtu,
- 			      mpc->bpf_prog, &newq);
- 	if (err)
-@@ -2920,7 +2920,9 @@ static void mana_deinit_txq(struct mana_port_context *apc, struct mana_txq *txq)
- 	mana_gd_destroy_queue(gd->gdma_context, txq->gdma_sq);
- }
- 
--static void mana_destroy_txq(struct mana_port_context *apc)
-+/* Keep the array and queues below @first; clear freed slots. */
-+static void mana_destroy_txq_from(struct mana_port_context *apc,
-+				  unsigned int first)
- {
- 	struct napi_struct *napi;
- 	int i;
-@@ -2928,7 +2930,7 @@ static void mana_destroy_txq(struct mana_port_context *apc)
- 	if (!apc->tx_qp)
- 		return;
- 
--	for (i = 0; i < apc->num_queues; i++) {
-+	for (i = first; i < apc->num_queues; i++) {
- 		if (!apc->tx_qp[i])
- 			continue;
- 
-@@ -2952,7 +2954,16 @@ static void mana_destroy_txq(struct mana_port_context *apc)
- 		mana_deinit_txq(apc, &apc->tx_qp[i]->txq);
- 
- 		kvfree(apc->tx_qp[i]);
-+		apc->tx_qp[i] = NULL;
- 	}
-+}
-+
-+static void mana_destroy_txq(struct mana_port_context *apc)
-+{
-+	if (!apc->tx_qp)
-+		return;
-+
-+	mana_destroy_txq_from(apc, 0);
- 
- 	kfree(apc->tx_qp);
- 	apc->tx_qp = NULL;
-@@ -2983,8 +2994,11 @@ static void mana_create_txq_debugfs(struct mana_port_context *apc, int idx)
- 			    tx_qp->tx_cq.gdma_cq, &mana_dbg_q_fops);
- }
- 
-+/* With @first nonzero, use the existing array and unwind only new queues on
-+ * failure.
-+ */
- static int mana_create_txq(struct mana_port_context *apc,
--			   struct net_device *net)
-+			   struct net_device *net, unsigned int first)
- {
- 	struct mana_context *ac = apc->ac;
- 	struct gdma_dev *gd = ac->gdma_dev;
-@@ -2999,9 +3013,14 @@ static int mana_create_txq(struct mana_port_context *apc,
- 	int err;
- 	int i;
- 
--	apc->tx_qp = kzalloc_objs(struct mana_tx_qp *, apc->num_queues);
--	if (!apc->tx_qp)
--		return -ENOMEM;
-+	if (first) {
-+		if (WARN_ON(!apc->tx_qp))
-+			return -EINVAL;
-+	} else {
-+		apc->tx_qp = kzalloc_objs(struct mana_tx_qp *, apc->num_queues);
-+		if (!apc->tx_qp)
-+			return -ENOMEM;
-+	}
- 
- 	/*  The minimum size of the WQE is 32 bytes, hence
- 	 *  apc->tx_queue_size represents the maximum number of WQEs
-@@ -3018,7 +3037,7 @@ static int mana_create_txq(struct mana_port_context *apc,
- 
- 	gc = gd->gdma_context;
- 
--	for (i = 0; i < apc->num_queues; i++) {
-+	for (i = first; i < apc->num_queues; i++) {
- 		apc->tx_qp[i] = kvzalloc_obj(*apc->tx_qp[i]);
- 		if (!apc->tx_qp[i]) {
- 			err = -ENOMEM;
-@@ -3126,7 +3145,10 @@ static int mana_create_txq(struct mana_port_context *apc,
- out:
- 	netdev_err(net, "Failed to create %d TX queues, %d\n",
- 		   apc->num_queues, err);
--	mana_destroy_txq(apc);
-+	if (first)
-+		mana_destroy_txq_from(apc, first);
-+	else
-+		mana_destroy_txq(apc);
- 	return err;
- }
- 
-@@ -3487,14 +3509,15 @@ static void mana_create_rxq_debugfs(struct mana_port_context *apc, int idx)
- 			    &mana_dbg_q_fops);
- }
- 
-+/* The caller must destroy queues added before a failure. */
- static int mana_add_rx_queues(struct mana_port_context *apc,
--			      struct net_device *ndev)
-+			      struct net_device *ndev, unsigned int first)
- {
- 	struct mana_rxq *rxq;
- 	int err = 0;
- 	int i;
- 
--	for (i = 0; i < apc->num_queues; i++) {
-+	for (i = first; i < apc->num_queues; i++) {
- 		rxq = mana_create_rxq(apc, i, &apc->eqs[i], ndev);
- 		if (IS_ERR(rxq)) {
- 			err = PTR_ERR(rxq);
-@@ -3512,14 +3535,15 @@ static int mana_add_rx_queues(struct mana_port_context *apc,
- 	return err;
- }
- 
--static void mana_destroy_rxqs(struct mana_port_context *apc)
-+static void mana_destroy_rxqs_from(struct mana_port_context *apc,
-+				   unsigned int first)
- {
- 	struct mana_rxq *rxq;
- 	u32 rxq_idx;
- 
- 	if (apc->rxqs) {
- 
--		for (rxq_idx = 0; rxq_idx < apc->num_queues; rxq_idx++) {
-+		for (rxq_idx = first; rxq_idx < apc->num_queues; rxq_idx++) {
- 			rxq = apc->rxqs[rxq_idx];
- 			if (!rxq)
- 				continue;
-@@ -3530,6 +3554,11 @@ static void mana_destroy_rxqs(struct mana_port_context *apc)
- 	}
- }
- 
-+static void mana_destroy_rxqs(struct mana_port_context *apc)
-+{
-+	mana_destroy_rxqs_from(apc, 0);
-+}
-+
- static void mana_destroy_vport(struct mana_port_context *apc)
- {
- 	struct gdma_dev *gd = apc->ac->gdma_dev;
-@@ -3903,7 +3932,7 @@ int mana_alloc_queues(struct net_device *ndev)
- 		goto destroy_vport;
- 	}
- 
--	err = mana_create_txq(apc, ndev);
-+	err = mana_create_txq(apc, ndev, 0);
- 	if (err) {
- 		netdev_err(ndev, "Failed to create TXQ on vPort %u: %d\n",
- 			   apc->port_idx, err);
-@@ -3918,7 +3947,7 @@ int mana_alloc_queues(struct net_device *ndev)
- 		goto destroy_txq;
- 	}
- 
--	err = mana_add_rx_queues(apc, ndev);
-+	err = mana_add_rx_queues(apc, ndev, 0);
- 	if (err)
- 		goto destroy_rxq;
- 
-@@ -4257,8 +4286,137 @@ void mana_discard_split(struct mana_qset *newq, struct mana_qset *tailq)
- 	memset(tailq, 0, sizeof(*tailq));
- }
- 
-+/* Carry existing queues into @out_new; allocate only the tail. @out_fresh
-+ * isolates new queues for cleanup after a failed publish.
-+ */
-+int mana_grow_qset(struct mana_port_context *apc,
-+		   struct mana_port_context *scratch, unsigned int new_count,
-+		   struct mana_qset *out_new, struct mana_qset *out_fresh)
-+{
-+	unsigned int old_count = apc->num_queues;
-+	struct mana_tx_qp **new_tx, **fresh_tx;
-+	struct mana_rxq **new_rx, **fresh_rx;
-+	struct net_device *ndev = apc->ndev;
-+	unsigned int fresh_count;
-+	bool indir_lost;
-+	unsigned int i;
-+	int err;
-+
-+	ASSERT_RTNL();
-+
-+	if (WARN_ON(new_count <= old_count))
-+		return -EINVAL;
-+	if (WARN_ON(!apc->tx_qp || !apc->rxqs))
-+		return -EINVAL;
-+
-+	fresh_count = new_count - old_count;
-+
-+	new_tx = kzalloc_objs(struct mana_tx_qp *, new_count);
-+	new_rx = kzalloc_objs(struct mana_rxq *, new_count);
-+	fresh_tx = kzalloc_objs(struct mana_tx_qp *, fresh_count);
-+	fresh_rx = kzalloc_objs(struct mana_rxq *, fresh_count);
-+	if (!new_tx || !new_rx || !fresh_tx || !fresh_rx) {
-+		err = -ENOMEM;
-+		goto free_arrays;
-+	}
-+
-+	for (i = 0; i < old_count; i++) {
-+		new_tx[i] = apc->tx_qp[i];
-+		new_rx[i] = apc->rxqs[i];
-+	}
-+
-+	scratch->num_queues = new_count;
-+	scratch->tx_qp = new_tx;
-+	scratch->rxqs = new_rx;
-+
-+	err = mana_rss_table_alloc(scratch);
-+	if (err)
-+		goto free_arrays;
-+
-+	err = mana_grow_eqs(apc, new_count);
-+	if (err)
-+		goto cleanup_rss;
-+
-+	scratch->eqs = apc->eqs;
-+	scratch->num_eqs = apc->num_eqs;
-+
-+	err = mana_create_txq(scratch, ndev, old_count);
-+	if (err)
-+		goto cleanup_rss;
-+
-+	err = mana_add_rx_queues(scratch, ndev, old_count);
-+	if (err)
-+		goto cleanup_rxq;
-+
-+	if (mana_rss_table_keep(apc, new_count, &indir_lost))
-+		memcpy(scratch->indir_table, apc->indir_table,
-+		       apc->indir_table_sz * sizeof(*apc->indir_table));
-+	else
-+		mana_rss_table_init(scratch);
-+
-+	mana_qset_snapshot(scratch, out_new);
-+	out_new->rxfh_indir_lost = indir_lost;
-+
-+	for (i = 0; i < fresh_count; i++) {
-+		fresh_tx[i] = new_tx[old_count + i];
-+		fresh_rx[i] = new_rx[old_count + i];
-+	}
-+
-+	memset(out_fresh, 0, sizeof(*out_fresh));
-+	out_fresh->tx_qp	= fresh_tx;
-+	out_fresh->rxqs		= fresh_rx;
-+	out_fresh->default_rxobj = INVALID_MANA_HANDLE;
-+	out_fresh->num_queues	= fresh_count;
-+	out_fresh->rx_queue_size = apc->rx_queue_size;
-+	out_fresh->tx_queue_size = apc->tx_queue_size;
-+	out_fresh->priv_flags	= apc->priv_flags;
-+	out_fresh->mtu		= apc->configured_mtu;
-+	out_fresh->bpf_prog	= apc->bpf_prog;
-+
-+	/* Take XDP refs on fresh RXQs only. On the merged set,
-+	 * mana_chn_setxdp() returns early on the carried rxqs[0].
-+	 */
-+	mana_qset_install(scratch, out_fresh);
-+	mana_chn_setxdp(scratch, mana_xdp_get(apc));
-+
-+	return 0;
-+
-+cleanup_rxq:
-+	mana_destroy_rxqs_from(scratch, old_count);
-+	mana_destroy_txq_from(scratch, old_count);
-+cleanup_rss:
-+	mana_cleanup_indir_table(scratch);
-+free_arrays:
-+	/* Free containers only; carried queues remain live. */
-+	scratch->tx_qp = NULL;
-+	scratch->rxqs = NULL;
-+	kfree(new_tx);
-+	kfree(new_rx);
-+	kfree(fresh_tx);
-+	kfree(fresh_rx);
-+
-+	mana_shrink_eqs(apc, apc->num_queues);
-+
-+	netdev_err(ndev, "%s(num_queues=%u) failed: %d\n", __func__,
-+		   new_count, err);
-+	return err;
-+}
-+
-+/* Free merged containers only, not carried queues. The caller must retire fresh
-+ * queues separately.
-+ */
-+void mana_discard_grow(struct mana_qset *newq)
-+{
-+	kfree(newq->tx_qp);
-+	kfree(newq->rxqs);
-+	kfree(newq->indir_table);
-+	kfree(newq->rxobj_table);
-+	memset(newq, 0, sizeof(*newq));
-+}
-+
-+/* Rebuild at the current count; resize uses split/grow. */
- int mana_alloc_qset(struct mana_port_context *apc,
--		    struct mana_port_context *scratch, unsigned int num_queues,
-+		    struct mana_port_context *scratch,
- 		    unsigned int rx_queue_size, unsigned int tx_queue_size,
- 		    u32 priv_flags, int mtu, struct bpf_prog *bpf_prog,
- 		    struct mana_qset *out)
-@@ -4269,7 +4427,7 @@ int mana_alloc_qset(struct mana_port_context *apc,
- 
- 	ASSERT_RTNL();
- 
--	scratch->num_queues	= num_queues;
-+	scratch->num_queues	= apc->num_queues;
- 	scratch->rx_queue_size	= rx_queue_size;
- 	scratch->tx_queue_size	= tx_queue_size;
- 	scratch->priv_flags	= priv_flags;
-@@ -4285,22 +4443,19 @@ int mana_alloc_qset(struct mana_port_context *apc,
- 	if (err)
- 		goto cleanup_rxq_array;
- 
--	err = mana_grow_eqs(apc, num_queues);
--	if (err)
--		goto cleanup_rss;
--
-+	/* Reuse the existing EQ pool; the queue count is unchanged. */
- 	scratch->eqs = apc->eqs;
- 	scratch->num_eqs = apc->num_eqs;
- 
--	err = mana_create_txq(scratch, ndev);
-+	err = mana_create_txq(scratch, ndev, 0);
- 	if (err)
- 		goto cleanup_rss;
- 
--	err = mana_add_rx_queues(scratch, ndev);
-+	err = mana_add_rx_queues(scratch, ndev, 0);
- 	if (err)
- 		goto cleanup_rxq;
- 
--	if (mana_rss_table_keep(apc, num_queues, &indir_lost))
-+	if (mana_rss_table_keep(apc, scratch->num_queues, &indir_lost))
- 		memcpy(scratch->indir_table, apc->indir_table,
- 		       apc->indir_table_sz * sizeof(*apc->indir_table));
- 	else
-@@ -4319,10 +4474,8 @@ int mana_alloc_qset(struct mana_port_context *apc,
- 	kfree(scratch->rxqs);
- 	scratch->rxqs = NULL;
- out_err:
--	mana_shrink_eqs(apc, apc->num_queues);
--
- 	netdev_err(ndev, "%s(num_queues=%u) failed: %d\n", __func__,
--		   num_queues, err);
-+		   apc->num_queues, err);
- 	return err;
- }
- 
-@@ -4607,7 +4760,7 @@ int mana_publish_qset(struct mana_port_context *apc, struct mana_qset *newq,
- }
- 
- /* Create missing debugfs nodes once retiring names are gone. */
--static void mana_qset_debugfs_publish(struct mana_port_context *apc)
-+void mana_qset_debugfs_publish(struct mana_port_context *apc)
- {
- 	unsigned int i;
- 
-diff --git a/drivers/net/ethernet/microsoft/mana/mana_ethtool.c b/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
-index d3e465ea9428..ec76a75268ac 100644
---- a/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
-+++ b/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
-@@ -684,7 +684,7 @@ static int mana_set_channels(struct net_device *ndev,
- 	struct mana_port_context *apc = netdev_priv(ndev);
- 	unsigned int new_count = channels->combined_count;
- 	struct mana_port_context *scratch;
--	struct mana_qset newq, oldq;
-+	struct mana_qset newq, oldq, freshq;
- 	int err;
- 
- 	if (new_count < 1 || new_count > apc->max_queues) {
-@@ -767,19 +767,33 @@ static int mana_set_channels(struct net_device *ndev,
- 		goto free_scratch;
- 	}
- 
--	err = mana_alloc_qset(apc, scratch, new_count, apc->rx_queue_size,
--			      apc->tx_queue_size, apc->priv_flags,
--			      apc->configured_mtu, apc->bpf_prog, &newq);
-+	err = mana_grow_qset(apc, scratch, new_count, &newq, &freshq);
- 	if (err)
- 		goto free_scratch;
- 
- 	err = mana_publish_qset(apc, &newq, &oldq);
- 	if (err) {
--		mana_free_qset(scratch, &newq);
-+		/* Free only the new queues, then discard the merged containers.
-+		 */
-+		mana_free_qset(scratch, &freshq);
-+		mana_discard_grow(&newq);
- 		goto free_scratch;
- 	}
- 
--	mana_free_qset(scratch, &oldq);
-+	/* Wait for ndo_select_queue() readers of oldq.indir_table. All queues
-+	 * are now live in newq; free only the old and fresh containers.
-+	 */
-+	synchronize_net();
-+
-+	kfree(oldq.tx_qp);
-+	kfree(oldq.rxqs);
-+	kfree(oldq.indir_table);
-+	kfree(oldq.rxobj_table);
-+	kfree(freshq.tx_qp);
-+	kfree(freshq.rxqs);
-+
-+	/* No retirement runs to publish the new queues' debugfs nodes. */
-+	mana_qset_debugfs_publish(apc);
- 
- free_scratch:
- 	mana_publish_close_if_needed(apc);
-@@ -856,7 +870,7 @@ static int mana_set_ringparam(struct net_device *ndev,
- 		goto clear_flag;
- 	}
- 
--	err = mana_alloc_qset(apc, scratch, apc->num_queues, new_rx, new_tx,
-+	err = mana_alloc_qset(apc, scratch, new_rx, new_tx,
- 			      apc->priv_flags, apc->configured_mtu,
- 			      apc->bpf_prog, &newq);
- 	if (err) {
-@@ -876,7 +890,6 @@ static int mana_set_ringparam(struct net_device *ndev,
- 	mana_free_qset(scratch, &oldq);
- 
- free_scratch:
--	/* Release unpublished queues before closing their shared EQ pool. */
- 	mana_publish_close_if_needed(apc);
- 	mana_qset_scratch_free(scratch);
- clear_flag:
-@@ -948,7 +961,7 @@ static int mana_set_priv_flags(struct net_device *ndev, u32 priv_flags)
- 		goto clear_flag;
- 	}
- 
--	err = mana_alloc_qset(apc, scratch, apc->num_queues, apc->rx_queue_size,
-+	err = mana_alloc_qset(apc, scratch, apc->rx_queue_size,
- 			      apc->tx_queue_size, priv_flags,
- 			      apc->configured_mtu, apc->bpf_prog, &newq);
- 	if (err)
-diff --git a/include/net/mana/gdma.h b/include/net/mana/gdma.h
-index 308950f9b54b..666565ffb26a 100644
---- a/include/net/mana/gdma.h
-+++ b/include/net/mana/gdma.h
-@@ -686,6 +686,11 @@ enum {
- /* Driver supports non-contiguous queue buffers */
- #define GDMA_DRV_CAP_FLAG_1_NON_CONTIGUOUS_BUFFERS BIT(30)
- 
-+/* Resize failures are handled in-driver; a failed rollback still needs
-+ * recovery.
-+ */
-+#define GDMA_DRV_CAP_FLAG_1_SELF_RECOVERY_ON_QUEUE_RESIZE_FAILURE BIT(31)
-+
- #define GDMA_DRV_CAP_FLAGS1 \
- 	(GDMA_DRV_CAP_FLAG_1_EQ_SHARING_MULTI_VPORT | \
- 	 GDMA_DRV_CAP_FLAG_1_NAPI_WKDONE_FIX | \
-@@ -703,7 +708,8 @@ enum {
- 	 GDMA_DRV_CAP_FLAG_1_HWC_TIMEOUT_RECOVERY | \
- 	 GDMA_DRV_CAP_FLAG_1_EQ_MSI_UNSHARE_MULTI_VPORT | \
- 	 GDMA_DRV_CAP_FLAG_1_DYN_INTERRUPT_MODERATION | \
--	 GDMA_DRV_CAP_FLAG_1_NON_CONTIGUOUS_BUFFERS)
-+	 GDMA_DRV_CAP_FLAG_1_NON_CONTIGUOUS_BUFFERS | \
-+	 GDMA_DRV_CAP_FLAG_1_SELF_RECOVERY_ON_QUEUE_RESIZE_FAILURE)
- 
- #define GDMA_DRV_CAP_FLAGS2 0
- 
-diff --git a/include/net/mana/mana.h b/include/net/mana/mana.h
-index fef800bea2c0..2e101730e40c 100644
---- a/include/net/mana/mana.h
-+++ b/include/net/mana/mana.h
-@@ -731,7 +731,7 @@ static inline struct mana_stats_rx *mana_rxq_stats(struct mana_rxq *rxq)
- }
- 
- int mana_alloc_qset(struct mana_port_context *apc,
--		    struct mana_port_context *scratch, unsigned int num_queues,
-+		    struct mana_port_context *scratch,
- 		    unsigned int rx_queue_size, unsigned int tx_queue_size,
- 		    u32 priv_flags, int mtu, struct bpf_prog *bpf_prog,
- 		    struct mana_qset *out);
-@@ -739,10 +739,15 @@ int mana_split_qset(struct mana_port_context *apc,
- 		    struct mana_port_context *scratch, unsigned int new_count,
- 		    struct mana_qset *out_new, struct mana_qset *out_tail);
- void mana_discard_split(struct mana_qset *newq, struct mana_qset *tailq);
-+int mana_grow_qset(struct mana_port_context *apc,
-+		   struct mana_port_context *scratch, unsigned int new_count,
-+		   struct mana_qset *out_new, struct mana_qset *out_fresh);
-+void mana_discard_grow(struct mana_qset *newq);
- int mana_publish_qset(struct mana_port_context *apc, struct mana_qset *newq,
- 		      struct mana_qset *out_old);
- void mana_publish_close_if_needed(struct mana_port_context *apc);
- void mana_free_qset(struct mana_port_context *scratch, struct mana_qset *qset);
-+void mana_qset_debugfs_publish(struct mana_port_context *apc);
- 
- void mana_dim_change(struct mana_cq *cq, bool enable);
- 
+>
+> DJ
+>
+>>
+>> Ming
+>>
+>>>> Ming
+>>>>
+>>>>>> +};
+>>>>>> +
+>>>>>>     /*
+>>>>>>      * Using struct_group() allows for per register-block-type helper routines,
+>>>>>>      * without requiring block-type agnostic code to include the prefix.
