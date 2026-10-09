@@ -1,62 +1,64 @@
-Received: from mail-dy2-f7.google.com (mail-dy2-f7.google.com [74.125.229.7])
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E74FB4F402E
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 20:14:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA3E94EF15A
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 20:15:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791576901; cv=none; b=Y9G98aacgZOQtBjNfEvrmuWVu5/olh/04AwcNZ21kJm/OeKp9dao9eLvj3vMLUccxqKZ3ayZAee/584lja+viRvwPDxPquFXJDcz9QbtCsy32amIxBnL49R7a1TPttiBsqUNwpe3XpulwS6tnKT0WWZjWUeKAltXIdCCNabYmVk=
+	t=1791576902; cv=none; b=ho796Axj7Pd4terGtgjt22lY9bSd8jV8AtvcHBPeVBttc5sXx1+lUJ3yOXB+Y+nVe219tjI8boY2PFe21Wpzu1XWZcZSBItwnudbLWVIhpFG5HBD/eQtQcYFnfzCPKV4Gzl3NHmbtY6wpCkWUopSFw94gYYqcPU9s40xuw2S/XA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791576901; c=relaxed/simple;
-	bh=vpSF9E5Y5ggCXdC7ttEalv4ViwRw4eLOK1WsVdCM0zA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XyaHOSHmGKJFcmguL6lLpDtbqlXguJ3FjpBcFXm3nJ79E4xORRdTRxDFGqZa3CZ4pRgcbH/dxvl8GYuM1Xl5pOsomxyAzlC7QhrB971crllhTb3+mVrj8ZqVjaKMs0v1M5gZCrx646vEJw/Eppxm0QSXv23jakElW5jwxVmD3a4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net; spf=pass smtp.mailfrom=blockcast.net; dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b=a1Cz1glg; arc=none smtp.client-ip=74.125.229.7
+	s=arc-20240116; t=1791576902; c=relaxed/simple;
+	bh=VY0TAGdJv85A2ijXW89CHS1kiI1orXTG/LqRzg+kjXU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=mTWPwbSi2GbXPvsCjEJh04bONK1qAyLdzDsPVpSGLa1dSJHFGYFKdf2bDEzOGsCG/JMwQAFvw/Nu5T18il613Gd5mp/YH7os3JSwOp9Q3mwtzctTEwL3cRAA8vi3tlXSPOZT8J8+v/z2Sc4E9865cpY5pKzNays4e1nnXY1uGHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net; spf=pass smtp.mailfrom=blockcast.net; dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b=jzGtbcgr; arc=none smtp.client-ip=74.125.82.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=blockcast.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b="a1Cz1glg"
-Received: by mail-dy2-f7.google.com with SMTP id 5a478bee46e88-33e5ae86ff2so25040eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 13:14:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b="jzGtbcgr"
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-351767ef18cso203196eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 13:15:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=blockcast.net; s=google; t=1791576898; x=1792181698; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KuoCU3FLzxs/pxFBGf8JxfZ2rnZfcXeJRrZEEpqh2s8=;
-        b=a1Cz1glglQv8QVzt/iZmiN2PIa2CgLjBfceB6vszaePmSc1UQqg29TCvtDKzjzvgrl
-         YoVFVBYiz3Mo3QVF88n1sKCVg2wDoeidKlPVWhGbQ7y1ualcwRqNgRRqcWYLEmYPgV3f
-         9Uk9xE/OQHU+2c3ppYIJCt1GuSQpyYVXSArtHG8TzYzpV91y1J1tV2qHPS7XeetnJzI9
-         PutZ/244e0O7b6ukm89Jdv0lAaANLtNhhlFenWFBWJyNhH0uOtcy7HgTfKIQfJ/lB6/V
-         YAaDNv92zIEtLdiCY1YS+Yb1ZS8kT3phGrlcqyUe5vU1pyS/vtWuInbp5k4pO67XGHeK
-         fPPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791576898; x=1792181698;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=blockcast.net; s=google; t=1791576900; x=1792181700; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=KuoCU3FLzxs/pxFBGf8JxfZ2rnZfcXeJRrZEEpqh2s8=;
-        b=kU9DLUhvXmgL7LDt5LCipyfQrFIndVh+oEBI2wf/KKferJbL3IXlWee2w6nNeR5dD2
-         l6rXm3lCd0pLeHs2Y32meUHR5pdsilZkddNVqpVv1L3vvV2UGX2ewQUVG/PzKzvUMdC4
-         TWlTkGyEvivL5eNQACLUyTypTlWBU7Mobo66dKb+kHDzjyqJ7x5RcYCcgQdf3iUYvr62
-         kiYlNyRi3IEemz1L08FkiiLsy2xfJE/uAreHgyWkM4mJ4EKo0bAvLzR13km0QO+6T3Yx
-         yaILX+9jIvTfUhBhy6wsG1s/Yk85rQd2iotfQz5tmgQN6brd/0eH6hxJQN1xSA3mJte1
-         FZ+Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzPdL6iZ+lmKctIOXSXnn8Po+ViInUe09aPl4FdiEZPcF5qAjNrLvc4DMmCupB4Ib76OouN3VXzoKmXpwo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mFToE3c5ry9IBWFsgAYvGgsPYHSyYiD2adt51BIW2QDN70WT1Y
-	QhI0cHcmKslQp6uzDi3a6Ec8B04ME5nKkoAbQzcE4KWP1sYtADVut2aAvkdTYjUfYrM=
-X-Gm-Gg: AYBFou34laud58a46VLiF2y0Hc8D82N5nD7nG0CzKwlXDiw14rSXcNEh9VeNjE6ZjdZ
-	yI41KtVDhJ+7m93YcbXQpnAPq8reyC26TwYzPMmEBwn2w4SYGR4zaXFHt5asuTUUvpKXUPhsfdH
-	FmF5nQ5+VxXsGYuln6GefsXUIU4OXhaorhaxzhl/NeGfFcIFgRbNxNdHxVR0vIphDL+3Ox/8/lV
-	SWJoPQKgCjQMmfISXaMUdQTxQi3McX8g1hc1tm2yYKw0Upbwa3Nm6l+dSs3Wv6tFkK/FaHdkE0h
-	VdEZFtnWtQ4r1SBbyL7B9+ubXDmjGR58SW9TvIJdGN1dCgcRltJSJmjk4z7oq5iQ94F/AZCJDEU
-	2cRT7SLHpI8K7lc6Xsaah0UyAjOxqwMXyW3eosvpkBz21RL4R5hSYxKo5NMdHP4vr0DAUcAp0dt
-	S5CvGyajQkUUy5tfX3itUPa6G/BvjSyIw/yYk6frkJtcnmjvoba0omKR+LiXb0dBWYccekc7BNv
-	cdCa7p60d40Wqg4b5dqdSLA90C8F5ASwSkIaS5B
-X-Received: by 2002:a05:7301:408b:b0:351:31c7:ab1d with SMTP id 5a478bee46e88-3537df95584mr5251326eec.16.1791576897822;
-        Fri, 09 Oct 2026 13:14:57 -0700 (PDT)
+        bh=uLAm1Mcy+oY7OHbF734SMCtUPAhjxFAoK6CtyMhqiYk=;
+        b=jzGtbcgrq5KCCtTv2/muacSlLajLorQc7gfIozMNNkQiV3zUNEfuXTegygqpLeCF7Y
+         aCznDDIccWQj99RCfagqWtTR8RV9sHYb30fGcoBkvWbTtowbwixwQnx3yeqAF923t+qN
+         0faQ7haWD8TS7QW5s8wjLvAupnNniScuIXAwAu3TZM92oIc+BVVu2aBdo+c0XKlPCzdc
+         4xJ8NwwKiLeSjtbNqexbfBjXfG27yvOw8lRTafYvDgSw7ThZ/kyz+84S5kWUNsCxnygH
+         F/0sU2lcQAZNuULzE+l5GuWpREoWbpKiXu3gzpOYK80I6psDFdUQzloX6dTTeBq2sfR1
+         7Z1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791576900; x=1792181700;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uLAm1Mcy+oY7OHbF734SMCtUPAhjxFAoK6CtyMhqiYk=;
+        b=y+XuYetFaAyf6lF3qqBvyBNBC5U5EC6A0k6vlburu3VLUKy6yRR9aQut/vnDlbygsa
+         Ff6WnYUX6TBUuSJE/ce3cMdRmUeWdYOazQHKycVsordZiTym0KXtuu1ZPMoRB/+RVdcT
+         kHX6JsHo5ElbZ02U/YjGYElfl+yNpDmICJgYmeqP4oGZ6C74ybdSDSs33n11LOHGO37R
+         avK4Srb3p2rrAk4giK+vB3JTKSVrJbdSj5coFq0BYyecGbXlWjhetk25tRdj2nq4mReE
+         h/kbzLLxgwi1GMIMCw2OkfB3gBPpMOF1Rr3hC+HsGK3p4YbEZnehgFWMS0KidyX0peXx
+         UEsw==
+X-Forwarded-Encrypted: i=1; AKwUvBybuAHQK2JlAu2suKoAmphLWGtCD2FoSVjfZQD/MHqSUX8qg7kQZWzVvjncTIAhQH2V4Nvy8hs3wfr7pko=@vger.kernel.org
+X-Gm-Message-State: AFuF++kDkomB3BrhNjxQZ+z+rHuvpMhKWsMmoXM1bgBL5dXoy7+E4ZKs
+	1wDnO/A4My0Tw6ve9yse1NmA8ERMUE/KHjujDWJlRk8Lkzxrt2IMDaNJwROHy04ZAj0=
+X-Gm-Gg: AYBFou3D4IUAhAWTsoA9OtOJMOdvmL5fkC6sRab9xCBR78K2EXgAPuEXXevT2bs1Q1l
+	dxafwvsMa/nUJPJAacRHIr755+8fQqL8puFgx0k5RTXfFbDEXrpqUvz77qOByh/PsO8C+OHhPd0
+	upSyER7t9O8e24xuCbx+3sRt3u4F7f6j5/ObUrJUEnft7GtyxBLPMjX3rFOi6Tzn9CSZmgvV8bB
+	lZ3iW5ofSxlhRLqxIKPwQJoWVMLQJ+5OC7pXbKb7/bsZlbnc4Rs617UGwq0NIvKHyd1k8gEMg7W
+	ih7SyncrmnXlKdofvgVLBMVfR3p6jTwsK3DcR3hmPviCj3zrFU/q4Tz/te+yQ0GuQdKiWlmQvhn
+	YGaMXCEHOL/jFQumTjputJanrwZRWDq0BA+xvXnyPtgvLooX6QTRZl2OKL+9TT2B7TFVpAqvqUK
+	1OSrSUh9lZ0lLrYnwHGzP/Nrd78PrRbu5M7qqJfhHrbOOpYxWtkqO3dFi5Y2B0dZHFlyhrXcTyT
+	9oRzgIV6CLlcbA+WKbjZ4NQPCvYZRfJ6V8pn0ki
+X-Received: by 2002:a05:7300:7fa3:b0:352:2e10:10c3 with SMTP id 5a478bee46e88-3537e0858edmr5760942eec.36.1791576899760;
+        Fri, 09 Oct 2026 13:14:59 -0700 (PDT)
 Received: from devbox.ts.blockcast.net ([2602:f74d:1::32])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca329d9sm8994643eec.5.2026.10.09.13.14.56
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca329d9sm8994643eec.5.2026.10.09.13.14.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 13:14:57 -0700 (PDT)
+        Fri, 09 Oct 2026 13:14:59 -0700 (PDT)
 From: Omar Ramadan <omar@blockcast.net>
 To: Taehee Yoo <ap420073@gmail.com>,
 	Andrew Lunn <andrew+netdev@lunn.ch>,
@@ -67,10 +69,12 @@ To: Taehee Yoo <ap420073@gmail.com>,
 Cc: netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Simon Horman <horms@kernel.org>
-Subject: [PATCH net v2 0/3] amt: fix relay tunnel keying and unauthenticated-Request DoS
-Date: Fri,  9 Oct 2026 20:14:51 +0000
-Message-ID: <20261009201455.1904698-1-omar@blockcast.net>
+Subject: [PATCH net v2 1/3] amt: key relay tunnel state on the (address, port) endpoint, not the address
+Date: Fri,  9 Oct 2026 20:14:52 +0000
+Message-ID: <20261009201455.1904698-2-omar@blockcast.net>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261009201455.1904698-1-omar@blockcast.net>
+References: <20261009201455.1904698-1-omar@blockcast.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,71 +83,136 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series fixes related problems in the AMT relay in
-drivers/net/amt.c. The relay creates and mutates per-tunnel state in
-response to AMT Request messages whose source is never validated, so a
-spoofed-source flood exhausts the tunnel table and reflects Membership
-Queries at arbitrary addresses. The same code keys tunnels on the source
-address alone, so two gateways behind one NAT collide.
+amt_request_handler and amt_update_handler both look a tunnel up by the
+outer source address alone:
 
-Reported privately to security@kernel.org first. The security team
-determined there is no memory-safety exposure and no embargo is needed,
-and asked that the fix be posted here in the open with Taehee Yoo in Cc.
+	list_for_each_entry_rcu(tunnel, &amt->tunnel_list, list)
+		if (tunnel->ip4 == iph->saddr)
+			goto send;
 
-Patches 1 and 3 carry Fixes: cbc21dc1cfe9. Patch 3 is the core fix: the
-relay now answers a Request statelessly (it computes the response MAC
-and emits the Query without allocating a tunnel) and only commits tunnel
-state once the gateway echoes the nonce+MAC in an Update. A spoofed
-source cannot complete that exchange, so it allocates nothing.
+RFC 7450 s4.2.2 defines the unit of relay tunnel state differently: "an
+AMT 'tunnel' is identified by the IP address and UDP port pair used as
+the destination address for sending encapsulated multicast IP datagrams
+to a gateway", and "each unique combination represents a unique tunnel
+endpoint".
 
-Testing: booted net at commit 6d25ffca055a ("cipso: adjust cached
-option offsets when removing CIPSO") plus this series (arm64, QEMU via
-virtme-ng) with CONFIG_KASAN=y, CONFIG_PROVE_LOCKING=y,
-CONFIG_PROVE_RCU=y and CONFIG_DEBUG_LIST=y on top of
-tools/testing/selftests/net/config. amt.sh passes all six tests,
-including both forwarding-torture cases, with no KASAN, lockdep or RCU
-reports, and debug_locks stays 1. Every case completes a real gateway
-handshake, so this exercises the stateless Request path and the MAC
-check on Update. drivers/net/amt.c and include/net/amt.h are unchanged
-between that commit and the base-commit below.
+Because the port term is missing, two distinct endpoints that share a
+source address alias onto one tunnel. The second Request to arrive
+reaches `send:`, overwrites tunnel->nonce and re-derives tunnel->mac, so
+the first gateway's subsequent Membership Updates no longer match and
+are dropped at the "Invalid MAC" arm. That arm returns rather than
+continuing the walk, so there is no recovery path: the first gateway has
+had its Request answered and its membership accepted, and simply never
+receives data again. The failure is silent on both sides.
 
-A companion change bounds the number of verified tunnels admitted per
-source address. It adds a new netlink attribute and so targets net-next
-as a separate posting, not part of this series. One note on its default:
-a per-source cap closes the non-spoofing exhaustion path (one host, many
-real handshakes) that this series does not, but a low fixed default is
-wrong behind carrier-grade NAT, where many independent subscribers share
-one public address and would be refused past the cap. The net-next
-posting sets the default accordingly and documents the CGNAT case; this
-series does not depend on that cap and closes the spoofing primitive on
-its own.
+Two deployments reach this, and the same RFC section names both:
 
-Changes in v2:
-- Drop v1 patch 2/4 ("amt: send the relay General Query directly
-  instead of via dev_queue_xmit"). The same fix is already in net as
-  commit afae89de73dd ("amt: send the relay's General Query directly
-  from the receive path"). v1 was generated against v7.1 and did not
-  apply to net.
-- Rebase onto net. In patch 1, the port check uses the header fields
-  that amt_update_handler() now snapshots before the pull. In patch 3,
-  the Query senders keep that commit's tx_dropped accounting and take
-  the destination by value.
-- Redo the testing on net. The forwarding-torture subtests now run to
-  completion.
-v1: https://lore.kernel.org/netdev/20261008003606.3666617-1-omar@blockcast.net/
+ - NAT, which s4.2.2 calls out explicitly ("this address may differ from
+   that carried by the message when it exited the gateway as a result of
+   network address translation"). CGNAT, a single-WAN site with a
+   redundant gateway pair, or two subscriber devices behind one
+   residential NAT all present as one source address.
+ - A single gateway host, with no NAT anywhere, which s4.2.2 says "may
+   use separate ports for the IPv4/IGMP and IPv6/MLD protocols".
 
-Omar Ramadan (3):
-  amt: key relay tunnel state on the (address, port) endpoint, not the
-    address
-  amt: make pre-query report drops visible
-  amt: do not create tunnel state for unauthenticated Requests
+Add the port term to both lookups. amt_update_handler snapshots the
+source port before iptunnel_pull_header() strips the encap, alongside
+the existing pre-pull reads.
 
- drivers/net/amt.c | 266 +++++++++++++++++++++++++++++++---------------
- include/net/amt.h |  11 +-
- 2 files changed, 185 insertions(+), 92 deletions(-)
+With the endpoint keyed correctly, a gateway that re-Requests from a new
+ephemeral port no longer aliases onto its own previous tunnel: it gets a
+new one addressed to the port it is listening on, and the old one ages
+out on gc_wq. That is the same stale-Membership-Query symptom addressed
+by refreshing tunnel->source_port at `send:`, fixed at the cause instead
+-- so this change supersedes that approach rather than stacking on it.
 
+Also count the "Invalid MAC" drop in rx_dropped. It is currently a
+netdev_dbg only, and an Update dropped for failing validation is the one
+delivery failure a gateway cannot observe from its own side.
 
-base-commit: 37f12441f557468a56c1e27790413aa78c82afa2
+Note this removes an accidental bound: while tunnels were keyed on the
+address alone, one source address could never hold more than one tunnel,
+whatever it did. RFC 7450 s5.3.3 asks for that bound explicitly, and it
+is restored in a companion net-next patch ("amt: bound relay tunnels
+admitted per source address") rather than here, since it adds UAPI and
+this is a fix.
+
+Fixes: cbc21dc1cfe9 ("amt: add data plane of amt interface")
+Signed-off-by: Omar Ramadan <omar@blockcast.net>
+---
+ drivers/net/amt.c | 23 +++++++++++++++++++++--
+ 1 file changed, 21 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/amt.c b/drivers/net/amt.c
+index b53f8ec5566..ed82f8fac3f 100644
+--- a/drivers/net/amt.c
++++ b/drivers/net/amt.c
+@@ -2471,6 +2471,7 @@ static bool amt_update_handler(struct amt_dev *amt, struct sk_buff *skb)
+ 	u64 response_mac;
+ 	__be32 saddr;
+ 	__be32 nonce;
++	__be16 sport;
+ 
+ 	saddr = ip_hdr(skb)->saddr;
+ 
+@@ -2484,6 +2485,8 @@ static bool amt_update_handler(struct amt_dev *amt, struct sk_buff *skb)
+ 
+ 	nonce = amtmu->nonce;
+ 	response_mac = amtmu->response_mac;
++	/* Snapshot the tunnel endpoint port before the encap is stripped. */
++	sport = udp_hdr(skb)->source;
+ 
+ 	if (iptunnel_pull_header(skb, hdr_size, skb->protocol, false))
+ 		return true;
+@@ -2491,7 +2494,8 @@ static bool amt_update_handler(struct amt_dev *amt, struct sk_buff *skb)
+ 	skb_reset_network_header(skb);
+ 
+ 	list_for_each_entry_rcu(tunnel, &amt->tunnel_list, list) {
+-		if (tunnel->ip4 == saddr) {
++		if (tunnel->ip4 == saddr &&
++		    tunnel->source_port == sport) {
+ 			if ((nonce == tunnel->nonce &&
+ 			     response_mac == tunnel->mac)) {
+ 				mod_delayed_work(amt_wq, &tunnel->gc_wq,
+@@ -2499,7 +2503,13 @@ static bool amt_update_handler(struct amt_dev *amt, struct sk_buff *skb)
+ 								  * 3);
+ 				goto report;
+ 			} else {
++				/* The endpoint match is unique, so no other
++				 * tunnel can validate this Update. Count the
++				 * drop: an unauthenticated Update is not
++				 * observable from the gateway's own side.
++				 */
+ 				netdev_dbg(amt->dev, "Invalid MAC\n");
++				amt->dev->stats.rx_dropped++;
+ 				return true;
+ 			}
+ 		}
+@@ -2705,7 +2715,8 @@ static bool amt_request_handler(struct amt_dev *amt, struct sk_buff *skb)
+ 		return true;
+ 
+ 	list_for_each_entry_rcu(tunnel, &amt->tunnel_list, list)
+-		if (tunnel->ip4 == iph->saddr)
++		if (tunnel->ip4 == iph->saddr &&
++		    tunnel->source_port == udph->source)
+ 			goto send;
+ 
+ 	spin_lock_bh(&amt->lock);
+@@ -2743,6 +2754,14 @@ static bool amt_request_handler(struct amt_dev *amt, struct sk_buff *skb)
+ 	spin_unlock_bh(&amt->lock);
+ 
+ send:
++	/* source_port is part of the tunnel's identity and is set once, in
++	 * the allocation path above; the lookup only reaches here on an
++	 * exact (address, port) match, so it is already udph->source. A
++	 * gateway that re-Requests from a new ephemeral port no longer
++	 * aliases onto this tunnel -- it gets its own, and this one ages
++	 * out on gc_wq. Do not "refresh" the port here: that is what made
++	 * a colliding Request steal an established tunnel outright.
++	 */
+ 	tunnel->nonce = amtrh->nonce;
+ 	mac = siphash_3u32((__force u32)tunnel->ip4,
+ 			   (__force u32)tunnel->source_port,
 -- 
 2.47.3
 
