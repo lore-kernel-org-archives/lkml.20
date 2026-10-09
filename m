@@ -1,147 +1,142 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62B683A784A;
-	Fri,  9 Oct 2026 03:40:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E75139FCCA
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 03:41:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791517260; cv=none; b=edLLBEpONwrN6loWG1G5/HwxYkYmF30CTUCizNiawPd9sQRnMNUxefsp/Ow6KE4+lAq5mB67ViV7rw+sBZ/JlHP2SBciSF28FjmPTSOfVVGiVXeBlo1YiEuahpzMo3bsDXZWW8gGdY6hQyKhqkyCDPqUR8tDz/DZbv7fG5msNx4=
+	t=1791517316; cv=none; b=lquuWdBmNAaYN4dOG2gQ9Ekw1acn5+PILWdYjlR/5Bb4wiOWVEbtI1g+MgPRkvWvRv56ULTC9NBffqEgN4Pj/5xSUoOn1Bblz6XiVMCt2Hd1r/wRCdd5tdIX6gO8RPrtGG+YrFaV+ncShrU23XN3l73IvIdgH8bGHMhrhs/1m/A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791517260; c=relaxed/simple;
-	bh=vBg4IJ0ANSVfTx952HtfRlSrYRG8dQ15VMHN8QIx5pY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=anhRyfvWwLkZuOtTNgicIa5wUaX77smOCkPEto5O8NOuBLoV7pgMpSiRdzEoPJMNxeGYG2I/oOxwTU0Dlo6CaKERgzs7nY+SxIcg9ZNVo0CCbbb+obZ26MkJUyR8iUK24CnwBbkrWeJ5TUIig0Qi6mKkNQq0b3cohFCd0O69DL0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 34fbfb8ec39311f19a56ed5b684f684d-20261009
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:482f0e14-3d5e-4ffb-b8a1-38ad8a1b2d2a,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:8a3e05b673b29173b2e36d3eb571cb83,BulkI
-	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50|99,EDM:
-	-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,O
-	SA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 34fbfb8ec39311f19a56ed5b684f684d-20261009
-X-User: songxiebing@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <songxiebing@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1459016241; Fri, 09 Oct 2026 11:40:44 +0800
-From: songxiebing <songxiebing@kylinos.cn>
-To: tiwai@suse.com,
-	perex@perex.cz
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	songxiebing@kylinos.cn
-Subject: [PATCH] ALSA: hda: Reset pending verb count on response timeout
-Date: Fri,  9 Oct 2026 11:40:40 +0800
-Message-Id: <20261009034040.379171-1-songxiebing@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1791517316; c=relaxed/simple;
+	bh=qzxKZDjyZzvzXI+CL7uByZKbJsIkTUlyIT+tokoP7xs=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=YHht0AZxh1ypXweM6k+qgbyqnWVh8mAUfifHHhjruJvCy1dDcE9KaCOHZj5ExXWtoXOjZerP7erMuCzOrUqnVxSjyGpBWjV0n6hH8+HThjtYZoZhR6jCRlqDeKf8dt6OpIj+TMPiAtWTNYg8Jbc260BR04u03zvDhfxwvt4vyf0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CRQVa1kJ; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CRQVa1kJ"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-381b831d535so5991341a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 20:41:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791517309; x=1792122109; darn=vger.kernel.org;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=qzxKZDjyZzvzXI+CL7uByZKbJsIkTUlyIT+tokoP7xs=;
+        b=CRQVa1kJIgv38GiKcwbV5KsnpG122h2DuA3VVtl8JqiTeYdfRZcsTuE9XZDLE4jQ3m
+         7aRGMED1liJibgWt3vjLTtGJAb9AAOhmBNKoigWcZsvXyHMIDICx8VnpxdDWqnUs8E8l
+         Y0MzK2e4jpYk7GH+ri6wiMoQT/5m61MvHOoYZ8ZN6Kl6u4nvTFSCjtCEfS5Nl0yLVvR+
+         rxJeF0T6oNMKFaoId2dSrhzgXuTacDcbvNzVSjcFY2u8ee4aBP7W4iEJgEK9QdqOAgVC
+         80lU6RHPEyQ6IWmz03MwmabhK/Q+Sn5Yjmk9nDeKUolUM6oFGczNLa3vrDne/TpdiCzf
+         TOpA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791517309; x=1792122109;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qzxKZDjyZzvzXI+CL7uByZKbJsIkTUlyIT+tokoP7xs=;
+        b=C0gQ3JUa7SDshX2EoDirY2mzHQvfTUHxD0qRcMaOHoQOELl7B9lMrqjbUyB+2CwWEH
+         Hbism74L5LXLQfgXIXNUHCam7I8WqYi7bsx41jIIZxNM/ZVoY8WUbasDnekMLAFUyZtV
+         dkjH0W+Q+GyLCdBMD6lm1dZwioOxNzS5whT18WZvnapoNm85t8gSAa50V2h/5ZBu1uHu
+         jpV9bRAMrORltYPxeRPZTWmJyFCoQRwbIlVx+JnEQN3h8aA4b83I/VZnCx1MUc9eQcPy
+         F+/j+uKa8TehUs7V+BrbkRCIkTwjEpUbhaLavEHD9h9MYoX/X4ukVXge64BpVZmiJUq4
+         H+KA==
+X-Forwarded-Encrypted: i=1; AKwUvBxTD+Ns+T+AANosx2xTJzk9h1sNryMqXkQ1G8vr7FWNYEeg+9hkvHJd3U6eA/qYU3i14q3GaOeJo8NA4No=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJH3brnCSe+19rZPhicDc79uoZAHQmabGtUV9YBlh7DPm7J0pa4
+	JR69HWaTwRx3uV8DpQZM1TJtxsdIU/zUJU+MNV29Bek9DpOonQa3Kfks
+X-Gm-Gg: AYBFou2FSRGu4lrVEJDc5K8sKQrqtJlxEMtsBuvreAd6zzJ0Ykw//VKqFNqyiQ2xiQI
+	5/H/a0IDideH1+Wwygdsv2M79bMzSBsateUAw7TJpo8FLsXEk1gMkwRQjYLl4p7FT+GtQieFdbf
+	TVHgeyyTA4/S+1XUWSSqtp8Ns5dYVlK16I0LzLxgFlwDDZl5fispJAPex5OMrYTcPXF9rHl1o92
+	v0Sx3T/zPmHfw5TepQSOEZntsh4gQDoGSACyCTw5BbLOVgz/wf57NRyTM866JjX1yNpB9zmk5Qq
+	WcBLEpsbdWsxAWzQMU8p1H/K37yxsXsiJmxHD+WMuWf+TxdbjSVuXWOJVTYm+4oIxOKnUz32pcA
+	944mbGEe3QqswBn6NJmf4sUFNfJDpBDttq9Ln5uQxFJlyggi+94xd54BTLp00oLNa4YWyRuCEpY
+	5Gmv527acJ6Ys7oDtTTsUDPPxGKP0fuDmPe1ucSRAGGEnvKUo1V/gpKYMP6cCjC6cd
+X-Received: by 2002:a17:90a:e7ce:b0:3ab:9cb:b5a4 with SMTP id 98e67ed59e1d1-3ab3ac7eecemr828552a91.40.1791517309526;
+        Thu, 08 Oct 2026 20:41:49 -0700 (PDT)
+Received: from smtpclient.apple ([2a05:dfc1:8bc4:feda::11])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab39234b62sm1464887a91.16.2026.10.08.20.41.43
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 08 Oct 2026 20:41:49 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.66.1.3\))
+Subject: Re: [PATCH 0/3] sched: Fix proxy-exec use of curr and donor
+From: Jemmy Wong <jemmywong512@gmail.com>
+In-Reply-To: <20261008153348.92684-1-kayracizmeci@gmail.com>
+Date: Fri, 9 Oct 2026 11:41:20 +0800
+Cc: Jemmy Wong <jemmywong512@gmail.com>,
+ sh_def@163.com,
+ jstultz@google.com,
+ bsegall@google.com,
+ dietmar.eggemann@arm.com,
+ juri.lelli@redhat.com,
+ kprateek.nayak@amd.com,
+ linux-kernel@vger.kernel.org,
+ mgorman@suse.de,
+ mingo@redhat.com,
+ peterz@infradead.org,
+ rostedt@goodmis.org,
+ tim.c.chen@linux.intel.com,
+ vincent.guittot@linaro.org,
+ vschneid@redhat.com
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <309FAB10-ACB0-4EFF-81B2-5E7906A00ECE@gmail.com>
+References: <20261008132604.98242-1-jemmywong512@gmail.com>
+ <20261008153348.92684-1-kayracizmeci@gmail.com>
+To: Kayra Cizmeci <kayracizmeci@gmail.com>
+X-Mailer: Apple Mail (2.3901.200.66.1.3)
 
-From: Bob Song <songxiebing@kylinos.cn>
 
-On some controllers the HDA link reports a verb timeout and the driver
-falls back to polling mode.  After that, every subsequent verb sent to
-that codec address keeps timing out (roughly one second per verb), while
-the hardware itself looks perfectly healthy: the RIRB write pointer keeps
-advancing, interrupts are still delivered, and verbs that carry no reply
-payload -- notably writes -- still take effect on the codec.
+Hi Kayra,
 
-The reason is that snd_hdac_bus_send_cmd() increments
-bus->rirb.cmds[addr] for every verb, but the counter is only decremented
-by snd_hdac_bus_update_rirb() when a matching RIRB response is read, with
-no rollback if the response never arrives.
+Yes. My first patch and Hui's v5 2/4 and 3/4 move the NUMA and cache
+ticks onto rq->curr when that task is fair. Hui's 1/4 is the right
+shape: task_tick() runs the donor class and, when a proxy crosses
+classes, the execution class as well. A fair lock holder whose donor
+is RT or deadline still gets those hooks. My patch only changes
+task_tick_fair(), so that case stays missing. I'll drop it.
 
-When a controller cannot fall back to single-command mode, i.e.
-chip->fallback_to_single_cmd is zero, azx_rirb_get_response() bails out
-with -EIO immediately and never reaches the bus-reset / single_cmd
-recovery that reinitializes CORB/RIRB and clears the counters (that path
-is guarded by the same flag).  The ACPI platform, Tegra and CIX
-controllers never set that flag, so they are all exposed to this.
+The other two are not in that series.
 
-A single lost response therefore poisons bus->rirb.cmds[addr]
-permanently: each later verb still gets one response that only brings the
-count back down to the stale baseline of 1, so
-snd_hdac_bus_get_response() keeps timing out even though the codec
-answers normally.
+task_sched_runtime() still flushes only when @p is the donor, through
+@p->sched_class->update_curr(). update_se() adds the delta to rq->curr,
+so a runtime read of the lock holder drops the open interval. The fix
+flushes when @p is rq->curr, through the donor class's update_curr().
 
-Fix this by dropping the pending count for the codec address once the
-verb is known to be dead.  A late response is then handled as a spurious
-response exactly as before, and the following verbs recover.
+sched_can_stop_tick() still passes rq->curr to
+cfs_task_bw_constrained(). sched_fair_update_stop_tick() already
+passes the donor. The third patch makes those callers match. It does
+not change the tick while a proxy is active, because both checks
+return unless nr_running =3D=3D 1.
 
-Signed-off-by: Bob Song <songxiebing@kylinos.cn>
----
- sound/hda/common/controller.c | 20 ++++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
+Thanks,
+Jemmy
 
-diff --git a/sound/hda/common/controller.c b/sound/hda/common/controller.c
-index afec5c5546ec..7a0b641fba14 100644
---- a/sound/hda/common/controller.c
-+++ b/sound/hda/common/controller.c
-@@ -773,7 +773,7 @@ static int azx_rirb_get_response(struct hdac_bus *bus, unsigned int addr,
- 		return 0;
- 
- 	if (hbus->no_response_fallback)
--		return -EIO;
-+		goto error;
- 
- 	if (!bus->polling_mode) {
- 		dev_warn(chip->card->dev,
-@@ -789,7 +789,7 @@ static int azx_rirb_get_response(struct hdac_bus *bus, unsigned int addr,
- 			 bus->last_cmd[addr]);
- 		if (chip->ops->disable_msi_reset_irq &&
- 		    chip->ops->disable_msi_reset_irq(chip) < 0)
--			return -EIO;
-+			goto error;
- 		goto again;
- 	}
- 
-@@ -798,12 +798,12 @@ static int azx_rirb_get_response(struct hdac_bus *bus, unsigned int addr,
- 		 * phase, this is likely an access to a non-existing codec
- 		 * slot.  Better to return an error and reset the system.
- 		 */
--		return -EIO;
-+		goto error;
- 	}
- 
- 	/* no fallback mechanism? */
- 	if (!chip->fallback_to_single_cmd)
--		return -EIO;
-+		goto error;
- 
- 	/* a fatal communication error; need either to reset or to fallback
- 	 * to the single_cmd mode
-@@ -823,6 +823,18 @@ static int azx_rirb_get_response(struct hdac_bus *bus, unsigned int addr,
- 	hbus->response_reset = 0;
- 	snd_hdac_bus_stop_cmd_io(bus);
- 	return -EIO;
-+
-+ error:
-+	/*
-+	 * The command will not get any response.  Drop its pending count,
-+	 * otherwise bus->rirb.cmds[addr] stays non-zero forever and every
-+	 * later verb to this codec address keeps timing out, even though its
-+	 * own response is delivered normally.
-+	 */
-+	scoped_guard(spinlock_irq, &bus->reg_lock) {
-+		bus->rirb.cmds[addr] = 0;
-+	}
-+	return -EIO;
- }
- 
- /*
--- 
-2.25.1
+
+> On Oct 8, 2026, at 11:33=E2=80=AFPM, Kayra Cizmeci =
+<kayracizmeci@gmail.com> wrote:
+>=20
+>> After the split between scheduling and execution context, update_se()
+>> charges the open run interval to rq->curr. The tick and the runtime
+>> sample still treated the donor as the task on CPU. Under proxy
+>> execution the donor is blocked on a kernel mutex and the lock holder
+>> is the task that runs.
+>=20
+> Please look at here: =
+https://lore.kernel.org/lkml/20260913064722.1534766-1-sh_def@163.com/
+>=20
+> I think y'all are trying to fix the same thing, no? (Or atleast =
+similar in most ways.)
+>=20
+> Adding Hui and John to CC.
+>=20
+> Thanks,
+> Kayra
 
