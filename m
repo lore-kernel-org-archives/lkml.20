@@ -1,97 +1,79 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0564F3DAAB8;
-	Fri,  9 Oct 2026 05:11:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E85C33BA24F;
+	Fri,  9 Oct 2026 05:11:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791522676; cv=none; b=Z8G9uI7v6L8yJSYkq5Kn3flLt1uCiW1Qw0RZ5UP6Y8uQPFIUosDmVolvIDSneXRDkDFZpD1K9gZKYsMpco/KyI3fFkThX5SWApHqkhcsD/fichp/NwyAdRDzYMdiYlPOJm/Xd/vfIzDuiSFEcYkJx8vbLo/uE/mUop7+4qPP1WU=
+	t=1791522680; cv=none; b=M3wMl4SwmQBHFB4nVcvA7BJ8IR9iY/XzyaVPSZD7jzcTuA6X5Lz2hbqlr1GRzQ2l1/CnNFltELPymjSeP6c+1X316R71SaABYF+rJVthU5xrWUI7nsoQ3vQyQcsgvjkzh/5KFv6UuKWrZqvrIvqKbKPI2iwYfD4NHMV+vTi0OeQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791522676; c=relaxed/simple;
-	bh=RzkyiB51qcBMO9M9pe/skL3kPgqjbkSNBulhFPoDd80=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bwo6Oi2m5DTnsVjcokZhEoydNOKIJaHB8YJ2EbM8WweOvs+YRnMjL21K5gG0VaEYm5hx0UDJXTqZVUQgj6Cku37d8oM6YOfbVSOyhfrxR5ehleOwM0H0e8jM9D92u8XnmWllFUIY1+TDzqZ5AiYGl/igGk06VRj6AFSxQngarZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B8uiIdEZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791522680; c=relaxed/simple;
+	bh=lBjaAdFxpfy7crc8RE8VGmgtFxkCYa7iM970O1toESg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Ek30TyD/mRRFNzUvCBcVMX6CkUBwnQBcXJdME0LlpnQ0aPzmTX5uM5oqYqk+5SZ5zErGMhIkTQJxR0XdE5Ul1wMyaP39BRNinDlA2o+PL5qXZdU9j3NCw+A1RPi4T2i76V7jUZjo99km/F5af+HgtX4z3MriwfHT+JPyowmudLo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=H710X+lM; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B8uiIdEZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D0FD1F000FF;
-	Fri,  9 Oct 2026 05:11:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791522674;
-	bh=iIl2Cg3RK/sSQdjUu8PWtqQJorCmflCcV7loVaKT08s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=B8uiIdEZtT5l8fJqbwJZ3epIk/LuQCZNjgx7+XWz+f6NcDedzqismbSB7oS7ckwL2
-	 4UiFs+6GvlLCUujipOaktLe7HMTk8Qaka7QiaqDeQdnJbfWinFd9Er+6ScUCYkJ2R8
-	 6B2h+MSKe8q+ZtKlXP2lfEMRzSdrllKQd/vCUjPusP/NSh7J/O1TTtOmF9ug6Rey1C
-	 JtzAkZ/fdL5wny0HDue3cvJyTy3miIy2nStVtQVt3Vua7MKGFcExldGDBrC3UJNK+S
-	 is3anucNfefxptlwbf4uOyHcTktwmjp9PVANNOOPKx0BpJPOVruq9Vc+fLmMy4gvOl
-	 D464FsKUEDE4Q==
-Date: Thu, 8 Oct 2026 22:11:14 -0700
-From: Kees Cook <kees@kernel.org>
-To: "Paul E. McKenney" <paulmck@kernel.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, Nicolas Schier <nsc@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Manuel Ebner <manuelebnerli@mailbox.org>,
-	Nathan Chancellor <nathan@kernel.org>, linux-kbuild@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	workflows@vger.kernel.org, Mark Brown <broonie@kernel.org>,
-	linux-next@vger.kernel.org
-Subject: Re: [BUG] Build failure in next-20261007 and next-20261008
-Message-ID: <202610082200.752C6C08A5@keescook>
-References: <0ddb5e5e-f801-444c-aa98-0cfe814a3026@paulmck-laptop>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="H710X+lM"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 56CCA1570;
+	Thu,  8 Oct 2026 22:11:13 -0700 (PDT)
+Received: from [10.164.19.84] (a081061.arm.com [10.164.19.84])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 74E963F8C6;
+	Thu,  8 Oct 2026 22:11:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791522676; bh=lBjaAdFxpfy7crc8RE8VGmgtFxkCYa7iM970O1toESg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=H710X+lMdqIZiMuj3NWGtOeCHDSwUDjMIKLflt5xeio4nbnyKjJvBjo2pgFFtI5g4
+	 uzGiWDykHvTVAhVDt3vH2us8pXrJ+Jt8/hywbgd1E/5VzbrZHEzuw/bTBJJPM/OVc1
+	 nMPDLnx5D3EwBHs9gv8/0SbaJdlRWGJwLgUezDkI=
+Message-ID: <4ff35e20-9bdf-47d3-a96f-8269224cb826@arm.com>
+Date: Fri, 9 Oct 2026 10:41:07 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <0ddb5e5e-f801-444c-aa98-0cfe814a3026@paulmck-laptop>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/3] kselftest: mm: rename read_pmd_pagesize() to
+ pmd_psize()
+To: Yeoreum Yun <yeoreum.yun@arm.com>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Peter Xu <peterx@redhat.com>,
+ linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Shuah Khan <shuah@kernel.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>
+References: <20261009-fix_hpage_macro-v5-0-54378ae45add@arm.com>
+ <20261009-fix_hpage_macro-v5-1-54378ae45add@arm.com>
+Content-Language: en-US
+From: Sarthak Sharma <sarthak.sharma@arm.com>
+In-Reply-To: <20261009-fix_hpage_macro-v5-1-54378ae45add@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 08, 2026 at 05:56:21PM -0700, Paul E. McKenney wrote:
-> Building a kernel on CentOS Stream 9 from next-20261007 and next-20261008
-> (and maybe others?)  on an x86 or arm64 system results in a strange
-> build failure featuring:
+
+
+On 10/9/26 6:57 AM, Yeoreum Yun wrote:
+> For consistency with psize(), rename read_pmd_pagesize() to
+> pmd_psize(). There is no functional change.
 > 
-> WARNING: Unable to reopen jobserver read-side pipe: FileNotFoundError(2, 'No such file or directory')
+> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+> Reviewed-by: Zi Yan <ziy@nvidia.com>
+> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+> ---
 
-What are your make and python versions? (Oh, the answer is going to be
-"CentOS-patched make 4.3")
+LGTM.
 
-> The failing systems have a pigz command (which complains bitterly when
-> run without arguments), and the immune system does not.  On the failing
-> systems, "pigz --version" gives me "pigz 2.5".
-> 
-> Do I need a specific version of pigz?  Does this commit need a
-> version-number check?  Are my systems pigz-intolerant?  ;-)
-> 
-> Less flippantly, is this a known problem?  If not, what debugging
-> information can I provide?
+Reviewed-by: Sarthak Sharma <sarthak.sharma@arm.com>
+Tested-by: Sarthak Sharma <sarthak.sharma@arm.com>
 
-Having pigz just means the parallelism logic kicks in, so I'm suspecting
-something in scripts/jobserver-exec. That would point to something
-specific to python or make.
-
-I haven't seen this reported before, no.
-
-Ah, and before I could even finish writing this email, my ever helpful
-LLM has reported: "pre-4.4 make (like CentOS's 4.3) closes jobserver
-pipe descriptors in non-recursive recipes but still exports
---jobserver-auth=R,W via MAKEFLAGS, whereas 4.4+ uses a named FIFO
-instead, explaining why it doesn't appear here." And has further found
-that this is CentOS-specific, since they appear to have incorrectly
-backported a patch ("make-4.3-cloexec.patch"), as stock make 4.3 doesn't
-have this problem.
-
-I'll go figure out if there is some proper way to work around CentOS's
-broken make...
-
-(And given this, I would suspect you can't do a '-j...' build of the
-"htmldocs" target either?)
-
--Kees
-
--- 
-Kees Cook
