@@ -1,153 +1,148 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 114FD382F1A;
-	Fri,  9 Oct 2026 17:08:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 286B73B42C3;
+	Fri,  9 Oct 2026 17:08:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791565705; cv=none; b=DRZKHSyd5phLCP33eGXJKCb+TgQM6K1UeKrS3iS2BRi/a2unzj+8AxEapFCg2aV8lvU+CtfV1f5jMWpFl9Ckijcis1HQo0xnDVpERUHlFcqqR6J89Z63BvIXP3fUISm5LcSKc7d+MKeeJFLbn1cX8JatbneJCfWApSFofsYsRfk=
+	t=1791565728; cv=none; b=tASKP4u1oOlsGvumf2+IJEeWA9WmaYImfrneC3xBfWkKZxSiOtq6HNE4YnYW7orEcIfcSZ9sxWzs92MsCzOEV7VnySvl2E1N0qSnl5aTY/2fRvTOnFcy493UWdWfZf/dp9URLZ2iz5afmDRuRZHphV4Q/u4/kg/4C4VPTRWzVqk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791565705; c=relaxed/simple;
-	bh=6YzTNOLTT1Te9JhJDtNggsuthcxl1b3q6N63kjISzg4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NdYNXTIpfHmn2oP9Gc7RmQkung+by11yK4ozVL06HOPVj+GIz9lgfA/wkzXYfoTGi02ntplb8Nsu3G7oAXekOIFj4IGfC97yt6Q01JZ5eksUqm6rXLWsH7uxGyF8BH9zy3aqPHV7RHnPadBpa+VSMKnn0/Sz65Ml7z1W4J7HYBA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=obtGyV1j; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1791565728; c=relaxed/simple;
+	bh=hIzwz5GJka7Vr4G8xdbXflBVKEL5p58o+XKeq21v91g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=m3NXAMELXVE3r4qDWO57xswM1SHm7gXvNx0TBB7jKn4tYYdgO/JQxrkTZ+9pzhFCRKD6MWsyvFwdsfXWya5YKLRHinj0qrnumTf3xGI13n2OxRKg2jMma5beEgXaoWhpPLJxvd/FNmWeTFMavAGY1lB3Vf+pNZL0V9SfdCb8DuU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nlgyT+Ou; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="obtGyV1j"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 699H6xiv636456;
-	Fri, 9 Oct 2026 17:08:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=wXIsN+
-	s46Yidwn8rxJkjnKxRl2Vxbvm8hA0IJ2zcWRQ=; b=obtGyV1j76gcby9omZ9iv9
-	dBIYr4z+Yq91nzkFJpa3KnHQOD4hZOUJlBly0uggh/dZoQF0dkGzhdmwae6cMcIS
-	PAAFQVbe7yFLJ/c5ow+G8NTvR022CQCiqKdbvW+JoWeBbjuZsh236o09OS+uVrD8
-	xQYKNvqRFRDpoF/FJoG8M/k1BY18p/9nWgP2A4/YxbjwlcqMSfq47Loh642vmnLV
-	Y4tiwDyLiPbdP8cOZfvfrWiWEpmlJzA8y8601WH9FXOnhbPmpQIRq1+PZl9I5Tqp
-	S6VCsx+7xOdQSnDThORaTQnQZSQwq1ybokt2BsCgl0QzWNg5pvREYIeyRxMm6e2A
-	==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h5xjvm0up-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 09 Oct 2026 17:08:19 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 699H8Fst1204260;
-	Fri, 9 Oct 2026 17:08:19 GMT
-Received: from smtprelay02.wdc07v.mail.ibm.com ([172.16.1.69])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h6x1y9egx-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 09 Oct 2026 17:08:19 +0000 (GMT)
-Received: from smtpav05.wdc07v.mail.ibm.com (smtpav05.wdc07v.mail.ibm.com [10.39.53.232])
-	by smtprelay02.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 699H8IT824904234
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 9 Oct 2026 17:08:18 GMT
-Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 47CF35805D;
-	Fri,  9 Oct 2026 17:08:18 +0000 (GMT)
-Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 1B61158043;
-	Fri,  9 Oct 2026 17:08:17 +0000 (GMT)
-Received: from [9.61.241.153] (unknown [9.61.241.153])
-	by smtpav05.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Fri,  9 Oct 2026 17:08:16 +0000 (GMT)
-Message-ID: <7ed02ff5-d7f8-42e4-bca9-b3d3ce7b6795@linux.ibm.com>
-Date: Fri, 9 Oct 2026 10:08:15 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nlgyT+Ou"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1B641F000FF;
+	Fri,  9 Oct 2026 17:08:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791565726;
+	bh=DtGNY1fSd+1FM203BediPzZx2Q5T/jzjuYk7fPMMKVg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nlgyT+OuH0n2SnUzOoQoANQ76aDmMK9db9coj+XsZW1CIaVq5mo7tDnppMPtFktZo
+	 HBe3fu2xtpK8Yv5YmB3Of8SsIXcPNehZdpr8z94C3Ds/ep/nuV27DVZSmoya5nZjwQ
+	 YpyEDHiDZ2yZ937hl+OTNc8rQhelpstJUB5Cewomx11k8jLiY38px9jLLfwzkCuVsV
+	 mnv/GQGIHwG4H2bfv4pq2kzCkJA+cTEIyKpxF+7ZKsl3ga4vcTqwaVlS2BFmjmi+6R
+	 C27l0rvIOQn7qRi8zDMMEQciukih54jU+x21zhdJfu2V8P4cASFCL5sbbPgA2Im+fg
+	 09ra79P/5QM2A==
+Date: Fri, 9 Oct 2026 19:08:35 +0200
+From: Mike Rapoport <rppt@kernel.org>
+To: Yeoreum Yun <yeoreum.yun@arm.com>
+Cc: Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+	Peter Xu <peterx@redhat.com>, linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>, Shuah Khan <shuah@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+	Sarthak Sharma <sarthak.sharma@arm.com>
+Subject: Re: [PATCH v5 2/3] kselftest: mm: remove HPAGE_SIZE and HPAGE_SHIFT
+ macro
+Message-ID: <askfkwPaItOw30-r@kernel.org>
+References: <20261009-fix_hpage_macro-v5-0-54378ae45add@arm.com>
+ <20261009-fix_hpage_macro-v5-2-54378ae45add@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] PCI/PM: Do not save the config space of an
- inaccessible device
-To: Bjorn Helgaas <helgaas@kernel.org>,
-        =?UTF-8?Q?Francisco_Beltr=C3=A1n_Millal=C3=A9n?= <fbeltranmillalen@gmail.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
-        Alan Stern <stern@rowland.harvard.edu>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Lukas Wunner <lukas@wunner.de>,
-        Andreas Noever <andreas.noever@gmail.com>,
-        Mika Westerberg <westeri@kernel.org>,
-        Yehezkel Bernat <YehezkelShB@gmail.com>
-References: <20261008225825.GA936610@bhelgaas>
-Content-Language: en-US
-From: Farhan Ali <alifm@linux.ibm.com>
-In-Reply-To: <20261008225825.GA936610@bhelgaas>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: 4ZH1ueigKIh6mBxxAAiJQcABL3lcmDGH
-X-Proofpoint-ORIG-GUID: U-Ctq-YPjyfDCPUwRMooOgyuISM7Qvli
-X-Authority-Analysis: v=2.4 cv=H8NOUOYi c=1 sm=1 tr=0 ts=6ac91f84 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=522apck9F_D-Mxne:21 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22
- a=VwQbUJbxAAAA:8 a=K2jGQ8kdn3RRRsgUj50A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDA2OCBTYWx0ZWRfX+zU5PmotcETz
- z52aRkY5DLV5YppuNg6KpH9GpeZFH2wh29oMmHpRlRWH3jdl30aQQW1X+n4sSLzDvxaJs8Hd/q3
- w5GiEcK+RRGAZcl9QLDgGOv1GXMOl7XRSNvHZGX3jSnyGHrhds6Gg5w7rgd1OyPMWodvb8Locr4
- sGLJ4XLpMYw72Z8KdKKTnJ5gyNn9835ZLo6AUkX5p3sgXC6kjOFaG0SL1uN7Nc9IvXe2euujppy
- ZiVC0BjbhgcDgsPM7XOljXOEEKK5tmWceg+7uKvGOkX6G6Mik0AIzXPbkjctTNK8VBeucOR0JTC
- x4K79P3M/QIGXcuNgCNl6vxUMoVJ8e9I1xpQGDeGAsY2BJMjRbOhjah9JdObNfKKVkHtu+ysaHR
- aq3VoEla3Zras3BqFXLeFJQj7XqF8T5mpHv2Pgdg2YD5O5XF6ZF+dNdX7GpEi+dhE7UmCsLSJv0
- CnEz69s1Ff9QYGNBGRA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDA2OCBTYWx0ZWRfXysn1JeKRxtgv
- 7b1m6IBE5yqSjuuT+hICG6HDN25qvDx1Y0X/R9H0yAEvflwZqODjcs5WAcoxK8oCpADMbQZosSI
- KyNli6v9xIUWeXHrbDCBae3XbnwS64A=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-09_05,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0 phishscore=0 lowpriorityscore=0 impostorscore=0
- clxscore=1011 spamscore=0 priorityscore=1501 malwarescore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610090068
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261009-fix_hpage_macro-v5-2-54378ae45add@arm.com>
 
-Hi Bjorn,
+Hi Yeoreum,
 
-Thanks for cc'ing me.
+On Fri, Oct 09, 2026 at 02:27:33AM +0100, Yeoreum Yun wrote:
+> HPAGE_SIZE and HPAGE_SHIFT macro is written based on the 4KB PAGE_SIZE.
+> When this macro is used in some test, test result would be strange in
+> the system where PAGE_SIZE is more then 4KB.
+> 
+> Here is the example with transhuge-stress test with 16KB PAGE_SIZE:
+> 
+>   transhuge-stress: allocate 61073 transhuge pages, using 122146 MiB virtual memory and 1908 MiB of ram
+>     3.292 s/loop, 0.054 ms/page,  37106.002 MiB/s	2566 succeed, 58507 failed, 2566 different pages
+>     0.591 s/loop, 0.010 ms/page, 206850.792 MiB/s	   0 succeed, 61073 failed,    0 different pages
+>     0.527 s/loop, 0.009 ms/page, 231895.107 MiB/s	   0 succeed, 61073 failed,    0 different pages
+>     0.527 s/loop, 0.009 ms/page, 231839.704 MiB/s	   0 succeed, 61073 failed,    0 different pages
+>     0.528 s/loop, 0.009 ms/page, 231544.782 MiB/s	   0 succeed, 61073 failed,    0 different pages
+>     0.528 s/loop, 0.009 ms/page, 231462.074 MiB/s	   0 succeed, 61073 failed,    0 different pages
+>     0.527 s/loop, 0.009 ms/page, 231770.300 MiB/s	   0 succeed, 61073 failed,    0 different pages
+>     ...
+>   ok 1 Completed
+> 
+> Remove the HPAGE_SIZE and HPAGE_SHIFT macro and introduce pmd_pshift()
+> helper to get the HPAGE_SHIFT properly. For HPAGE_SIZE, use pre-existing
+> helper, pmd_psize().
+> 
+> Also, run the KSM_MERGE_TIME_HUGE_PAGES test with a size of 512 MiB,
+> which is the least common multiple of the PMD sizes for 4 KiB, 16 KiB,
+> and 64 KiB base pages. Since allocate_transhuge() allocates mappings in
+> PMD-sized units, the test may fail with the previous size of 100 MiB,
+> which is not a multiple of the PMD size when the base page size is
+> 16 KiB or 64 KiB.
+> 
+> After this patch, output of transhuge-stress:
+> 
+>   transhuge-stress: allocate 3817 transhuge pages, using 122146 MiB virtual memory and 119 MiB of ram
+>     2.558 s/loop, 0.670 ms/page,  47755.759 MiB/s	2585 succeed, 1232 failed, 2585 different pages
+>     2.640 s/loop, 0.692 ms/page,  46268.432 MiB/s	2585 succeed, 1232 failed, 2585 different pages
+>     2.635 s/loop, 0.690 ms/page,  46360.298 MiB/s	2585 succeed, 1232 failed, 2585 different pages
+>     2.782 s/loop, 0.729 ms/page,  43899.795 MiB/s	2616 succeed, 1201 failed, 2616 different pages
+>     2.692 s/loop, 0.705 ms/page,  45380.876 MiB/s	2627 succeed, 1190 failed, 2627 different pages
+>     2.612 s/loop, 0.684 ms/page,  46765.812 MiB/s	2628 succeed, 1189 failed, 2628 different pages
+>     2.683 s/loop, 0.703 ms/page,  45520.990 MiB/s	2630 succeed, 1187 failed, 2630 different pages
+>     2.727 s/loop, 0.714 ms/page,  44789.321 MiB/s	2631 succeed, 1186 failed, 2631 different pages
+>     ...
+>   ok 1 Completed
+> 
+> Suggested-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Reviewed-by: Zi Yan <ziy@nvidia.com>
+> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+> ---
+>  tools/testing/selftests/mm/guard-regions.c    | 11 ++++++--
+>  tools/testing/selftests/mm/ksm_tests.c        | 16 ++++++-----
+>  tools/testing/selftests/mm/run_vmtests.sh     |  4 +--
+>  tools/testing/selftests/mm/transhuge-stress.c | 25 +++++++++++-------
+>  tools/testing/selftests/mm/vm_util.c          | 38 +++++++++++++++++++++++----
+>  tools/testing/selftests/mm/vm_util.h          |  9 +++----
+>  6 files changed, 72 insertions(+), 31 deletions(-)
+> 
+> diff --git a/tools/testing/selftests/mm/guard-regions.c b/tools/testing/selftests/mm/guard-regions.c
+> index f7d53ea3c2527..3052823b0eff6 100644
+> --- a/tools/testing/selftests/mm/guard-regions.c
+> +++ b/tools/testing/selftests/mm/guard-regions.c
+> @@ -2194,14 +2194,21 @@ TEST_F(guard_regions, pagemap_scan)
+>  TEST_F(guard_regions, collapse)
+>  {
+>  	const unsigned long page_size = self->page_size;
+> -	const unsigned long size = 2 * HPAGE_SIZE;
+> -	const unsigned long num_pages = size / page_size;
+> +	const uint64_t hpage_size = pmd_psize();
+> +	unsigned long size;
+> +	unsigned long num_pages;
 
-On 10/8/2026 3:58 PM, Bjorn Helgaas wrote:
-> [+cc Lukas, Farhan, Andreas, Mika, Yehezkel]
->
-> On Wed, Sep 30, 2026 at 11:19:13AM -0300, Francisco Beltrán Millalén wrote:
->> pci_save_state() reads the standard header into dev->saved_config_space
->> and marks it valid without checking that the device answered.  If the
->> device is not accessible, every read returns all ones, the previous
->> snapshot is overwritten, and pci_restore_state() writes the all-ones
->> values back once the device answers again.  On a bridge that sets every
->> writable bit of the Bridge Control register, Secondary Bus Reset
->> included, and sets the primary, secondary and subordinate bus numbers
->> to 0xff, which cuts off everything below it.
->>
->> On a MacBookPro14,3 this happens to the upstream bridge of a
->> Thunderbolt controller that drops off the bus while the system is
->> suspending: after resume the bridge answers again, but with bus numbers
->> ff/ff/ff and Secondary Bus Reset asserted, and the xHCI controllers
->> behind it are removed.
-> Apparently this is a reproducible issue on MacBookPro14,3.  That makes
-> me a little hesitant because we're not actually dealing with the fact
-> that the Thunderbolt controller isn't responsive during suspend.
->
-> It seems worthwhile to me to skip pci_save_state() if the device isn't
-> accessible, but I don't think it's a real solution to whatever is
-> going on with Thunderbolt, and I don't think we should mention it here
-> as though it is.
+These can be declared in the same line, or at least follow reverse xmas
+tree convention.
+The xmas tree comment applies to other declarations you are changing where
+it makes sense without additional changes.
 
-When I had initially looked into this, I had proposed adding the 
-accessibility check in pci_save_state() as well [1]. Though Lukas had 
-some valid concerns around the additional overhead from adding it in 
-pci_save_state(). But maybe its worth re-visiting again?
+>  	char *ptr;
+>  	int i;
+>  
+>  	if (!thp_available())
+>  		SKIP(return, "Transparent Hugepages not available\n");
+>  
 
-Thanks
-
-Farhan
-
-[1] https://lore.kernel.org/all/aOQX6ZTMvekd6gWy@wunner.de/
-
+-- 
+Sincerely yours,
+Mike.
