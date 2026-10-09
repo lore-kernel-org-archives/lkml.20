@@ -1,71 +1,103 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C9612D592D;
-	Fri,  9 Oct 2026 14:22:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B17C63C416A
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 14:23:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791555768; cv=none; b=CRgL83RAUybyueEDvPU85aQcpowNgDA25DegUr8h3N3gFs5OZhujGhHXRo16P0OuPz3Ws1Ew8sxo8kvk4lCk5Fa4mGfs9srcRzAZNiBAPw1nDxBLOXlRz2l8s3zic2oOXv+WIqWU6W4y/CTJEncgPWkalJPrybrBFVfTtQmch9o=
+	t=1791555815; cv=none; b=oOLtxE765uITPEgv85pT8LxRcqug63T6Sm6CaK7UuSL3aRGdwj97gbjLpt7+csetMjjFSv+KYXwETUQbY5APSqFO+bwsvE7efI1qyK9xzBImOpPxTN+7DL97MVRmL/rA0NCFSuZSVT1iQ3g2kNumGv+jx34CVplguNJdSsEboOA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791555768; c=relaxed/simple;
-	bh=fQbqETrk+6hHLAWxiWRSbCCRBONqw5Hry4DTx6uTvk0=;
+	s=arc-20240116; t=1791555815; c=relaxed/simple;
+	bh=/1UEOuZ+Ll6lf+9/1SsGFJnZKpP/B6Tg0ZL9vkY0f+k=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MS1wSMAD90vsBx8yqxoIylyLQ9Gmf05PxzXzvNs1Pz8gehfUi5SkqnE6e0Rrg6DqIlkB2u3eTOItcw/nWtC8okyppWomI4lyrlnjwwnupDt7CIdEWPkdMa4JF4aOF0NOJz9oKzdDo11TwUG9Cc07Ua9FCMGpum9b/HLVra1aE6Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Qs50c1fv; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=N4YWSc6/tA8+usEhrfFrdG7bDX8krwivCtD+4K9zXhuWGsYLZ2W7qjdWdKR6veJFRwfbxKWiHzCWGHuZr5qDYh6cl6qkPkw/gDGXnpRNe/YMSwoOnSTfVr73uJIiTR0DMAxLvcuML1hwwJ2txsnwPGqNMuduLorJGA3oGaVqKho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RTMGPW6R; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Qs50c1fv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5C951F00893;
-	Fri,  9 Oct 2026 14:22:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791555766;
-	bh=k5u0nEAirOWqi1VCaxdmJQ4JqrSlci3pWXWjeAqH/8A=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RTMGPW6R"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F27091F00893;
+	Fri,  9 Oct 2026 14:23:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791555814;
+	bh=zPximgPYOjlnCBCEig1+vZE6bEGZG5a82BOf6YtVY4o=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Qs50c1fvAAJGbUqZVjnk06seG8+SFM7f/mLMzFePbxQmD6so/orpPKgaMhTjrPUEH
-	 ZqYjQ5CMSb0UNsAg+RnaPsTwAyUxN4a5/zUchKuQkk11K7zsamNpDZj/2E7aD5St/3
-	 FVZXsiqqNzVWF8vzv0sSt3dXwvOvR8C9sUJJhUiU=
-Date: Fri, 9 Oct 2026 10:22:44 -0400
-From: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-To: Sasha Levin <sashal@kernel.org>
-Cc: Leon Romanovsky <leon@kernel.org>, workflows@vger.kernel.org, 
-	ksummit@lists.linux.dev, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org, 
-	broonie@kernel.org, tytso@mit.edu
-Subject: Re: [PATCH 1/2] agents: add infrastructure for agent resources
-Message-ID: <20261009-nebulous-prophetic-caiman-c7842c@lemur>
-References: <cover.1791499378.git.sashal@kernel.org>
- <5dfafd6f79165526fe17774c55b553b7dfe4b3fe.1791499378.git.sashal@kernel.org>
- <20261009134025.GA11438@unreal>
- <asj4FCbBoca8TUK6@laps>
+	b=RTMGPW6Rf6jdy8aKKQGd83rIgqGX9ybuYlrgS+P/krAulZaM/2lpkjFFP2wToYlIe
+	 dGerEFluEqbmRf6AT4D8AzffOq/ct5j7B5d8a8Rsz1SNrdGIyccEfyxVa4bVwaQXC9
+	 F6QpnOYnz9rNWD537Xt+jKrNzaBnqtG+/Iqpf8WuyI515i9qLpWKCBbFpMLeDImyZu
+	 RuO4UQWVA7rwVykMRdxArVjt4GCilkbKpU7HWGRqUPoHsX4oDSjyP2S/tUIRFbNyuG
+	 IjAr9yvfN5QeubvXCvPfBkmNtqjEsIIkvgnogJnXIYfUpMD2y2DZ8TWzEq4huTpPR7
+	 rZI/KCsULASew==
+Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
+	by mailfauth.ams.internal (Postfix) with ESMTP id E84CB198003A;
+	Fri,  9 Oct 2026 10:23:26 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-12.internal (MEProxy); Fri, 09 Oct 2026 10:23:31 -0400
+X-ME-Sender: <xms:3vjIak5OfMatuMjarmix0UGXN9ymKCh7KNBSxpIeGyRvRDbxPYUFaQ>
+    <xme:3vjIajlLi65LZnGk3miWEo-WjVfhYvQPK5SxsxT1FTkhW6pZHoYYtuHKhgoTQYG24
+    Eqcm9vDXImwPiVjahIUJQjDleP4Ph8Hhdy0-Qog36u-4kLdnxACrRg>
+X-ME-Received: <xmr:3vjIargk_6s28Rg8sHa_MatlAM745MGgF8lHvjBk9D429RWzwS2XtQEEJXk>
+X-ME-Proxy-Cause: dmFkZTGO+g2zX1FiOhy8heZwWXTAz6Uw5TzxGJTmOuPIKGRaFAZhdrZAa5U7NDL1Brz9IB
+    qzfwrM+86at4iyZba1Y1MmLORr8YwJmYmkQg/zLXkc0jHlVc8E9gxrnVvqLlQ7pOzrtq07
+    Q18eInU1fNpsV0pno0Nn2WfvNFjpIc0H/FmNRVToRXNau5ypP/DrC04ygf07Al3LlsNzqP
+    rYUg4t+AJ14euEZAud0Eqbty+KzUsFTLCCYsBe19xXI3axeQGkFauh20UKs0+0DYBXXfvc
+    UUc0Ld2G8pWFta2rG3CBnvSHOxJwb7DC5URbyyyAQgUPdjnon9NEu31HqU4S0/g4U1sBh7
+    4b6fAmlbDW0OF2ApsFt7nmRBK4DudgGVCTYx8WCa9Qthu0WDZGlcRb0PFp/pjGnlpEVddG
+    3hS2xcsa+RSzRvaGsths2eiHzNr/ULe2y5+CQVGRC9RJamEJ448EE8TKOvMJRL9mGbjyLd
+    XiV/u3Ha10+NkI0m+PxmCutsZ2tjzAsCxOlUQ3VKAd6aBbM2lJz/7UF6TZlAX8pLOO3vgd
+    10jgXY0epXeynoieydnUPC6PtH7FV3/b9mL/2IE6HHHTlqSILETiYoJYQC9kD/8EWV9FZb
+    xtOEnu1G+eMtCGPu161eqRouSKMyyb04lmLLuybaDHmEjl0hShtDiIDWIkNg
+X-ME-Proxy: <xmx:3vjIahjVsBtyc936QCJzoCo7GG3N8WYZea2VQim_Bq9sfVojVVwqgw>
+    <xmx:3vjIavV3kR7ZYZBaFT6UKjVJq1KDzi7goKo7pmS0iRFcMqMIKCpLqg>
+    <xmx:3vjIav17DzBbrYPRTwErbq6gHDEkMjcvQqQtENqeQacN8CwVB8LcOA>
+    <xmx:3vjIahRpFhGjxziaVH8O-4n2ZWNYv_9RcNNWpINFxGPRjAL-C-KWGA>
+    <xmx:3vjIasDRvBq0p7trqMof6sH5LYJwF8dj_zIxSyPSo6cqmtjjcIDHHsM2>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 9 Oct 2026 10:23:25 -0400 (EDT)
+Date: Fri, 9 Oct 2026 15:23:24 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Yeoreum Yun <yeoreum.yun@arm.com>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, Peter Xu <peterx@redhat.com>, 
+	linux-mm@kvack.org, linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Shuah Khan <shuah@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	Leon Romanovsky <leon@kernel.org>, Sarthak Sharma <sarthak.sharma@arm.com>
+Subject: Re: [PATCH v5 2/3] kselftest: mm: remove HPAGE_SIZE and HPAGE_SHIFT
+ macro
+Message-ID: <asj4dT2Q__SlKhgr@thinkstation>
+References: <20261009-fix_hpage_macro-v5-0-54378ae45add@arm.com>
+ <20261009-fix_hpage_macro-v5-2-54378ae45add@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <asj4FCbBoca8TUK6@laps>
+In-Reply-To: <20261009-fix_hpage_macro-v5-2-54378ae45add@arm.com>
 
-On Fri, Oct 09, 2026 at 10:20:04AM -0400, Sasha Levin wrote:
-> > > +AGENT RESOURCES
-> > > +M:	Sasha Levin <sashal@kernel.org>
-> > > +L:	linux-kernel@vger.kernel.org
-> > > +S:	Maintained
-> > > +F:	agents/
-> > 
-> > If you choose a separate entry instead of adding this to the existing
-> > "Documentation Process" entry, let's update the mailing list to
-> > workflows@vger.kernel.org. This is where all process changes are announced.
-> 
-> Hm... What do you think Konstantin?
-> 
-> I remember the workflows@ list was originally created to share our
-> secret/magical workflows, and I'm not sure that this one qualifies. We can
-> start a new list too if it's easier.
+On Fri, Oct 09, 2026 at 02:27:33AM +0100, Yeoreum Yun wrote:
+> +uint64_t pmd_pshift(void)
+> +{
+> +	if (__pmd_pshift != -1ull)
+> +		return __pmd_pshift;
+> +
+> +	if (__pmd_psize != -1ull)
+> +		__pmd_psize = pmd_psize();
 
-Eh. At this point I'm trying to shove everyone towards "just use dfn: queries
-for your stuff, stop relying on actual 'lists'". I'd just leave it as
-linux-kernel@vger, honestly, since the automated patch churn may annoy those
-people on the workflows list that we actually want to keep there.
+Sashiko pointed that this check is inverted.
 
--K
+> +
+> +	__pmd_pshift = (__pmd_psize > 0) ? ffsl(__pmd_psize) - 1 : 0;
+> +
+> +	return __pmd_pshift;
+>  }
+
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
