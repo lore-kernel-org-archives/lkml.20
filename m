@@ -1,165 +1,207 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012065.outbound.protection.outlook.com [52.101.53.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65FCE3D9DCE
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 14:38:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791556700; cv=none; b=ZN3e5tadC7p+/WvsXsqzh9pOrlZxmsHM0ueb11YHRRqcQycXfFzOFhfAh/KHRBvZ1/V1DaCD7vFg0+hDOW5jVkP75abPnaAYTOWiYSh88oUCQQM14ShMqE9nOKGmVKK53hwp3pJEHhzEtbFnX8wf2AYJQYnHZed/MpKvJ6q5ARs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791556700; c=relaxed/simple;
-	bh=WVChwmzOJXlx/K3vTVPxtUdHIg/2GuvU3lzTNBEWicI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tcvloS2JrBIHCzRxpBJYRk3ZWbGMC5iG5ayYWt4xLVi4E+ErdgNGpNOntVtE0xfxbWjYKeU5LNjBnKdmwyFnvxi484QgIb5wvCjvXcsOqvHZSUAldXmClOYm0zhtQDX9DbtRZd+1PRCIUBHaDpbgjuartdJWbli1Z4er9i29a84=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=DNYGoQ3H; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 343183BB112
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 14:38:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.65
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791556709; cv=fail; b=YJmEqNz3BpEqQK32A46SdEJ2xMCLbf/7RrxeA++uxkvP7jZsC8ly5cTHEQnz0NIjWBQuEM3NQUvl8MHBhchm1z6Tn08U/E8cFc8+7LGcgM2Vw/Xcpy6N1WKWdMhXfkghTIadjL6j/+JOfa1xLOMGjNubERtku5iQaTFFCgYQrrg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791556709; c=relaxed/simple;
+	bh=0R38DPWTW7XnjmJk8oJesdKMjyKrWi3skwDNdG1+NgE=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=BTqR833dwionxO3Nb7EmjTwIYvCPP22lZO54X3FntiNHCXvE1+HvsY33bJGyEn8Cg3nPT4yGa4IVufFX8TUdUA4+ws5CdROgwiYZOA3w5ZNKqwRzaCe930VyDcPW/2f++ye/uGlC+U8TgSPBiolBgrOjoWpfJzbJ3Srm8DkZ0QE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=OsuM/vi2; arc=fail smtp.client-ip=52.101.53.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="DNYGoQ3H"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a018792ab3so37462815e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 07:38:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791556697; x=1792161497; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ADsYu9bd8YELZpguZOm7XXP0fQTzNLazolnLueW7QDs=;
-        b=DNYGoQ3HwemgVjPZ1pV85u9okaoHl6GT3EsHfdc+REIfB8KII5U74w8h0FwTnrGkDh
-         DM9uCC5p4UcKVqxbN4OuLa1dwl5oYDTmJ7lW826RYTTqnM4ydsv+2EyYNVCOzTqDxKMR
-         xDvxeGJ/CRFgSkNqQrz0lrssx/of2WLn1TU3RSkUU3Q8p7T2KIVMBrXE6QgzDpMs9yYv
-         LQ5UQVgGeEYB0zqShHaXLU1yMOsjcGPAQOvjmeMHsfWMmxGRtBpjh0B6+dLhmT+cbJnV
-         gsAiDXn5C1ncnbO5P+8iAkAL4UEW4U2pDg4p50XJtp8EDAh59J+4AmBupVdCXaDXdVli
-         JkZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791556697; x=1792161497;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ADsYu9bd8YELZpguZOm7XXP0fQTzNLazolnLueW7QDs=;
-        b=Saao+zaQyRPn2NdghhFdfSJg5hK0dDQmzMVt51ZwVRLcbv25QE0PwZogAU2Fm6wxBg
-         1iLtOJuZ8zwp1EUrroHFiFMOLlM7LlF8H+GJHzOXI1pDjebZB2s/Inf4N9g6VkVua+Ne
-         sDJ+fC/h2UDfXgV77krNQUq7hXwBKkK6LcNosWIMnp6PKPOG/mI86Ft+rt3bmp12hkuW
-         euz2Y/yiHGJUmwcWLla+627dd/BnPEvmuWf7sBuVhn490jqwP3thmS8VWQdA4yP8L41H
-         ImVbTZH7Ht2FLGhFXtKlPTJGJGnAmhr2WAE8f2cFeGSzJYIruVyoGgJa5xkSDYo+8lpQ
-         sl/w==
-X-Forwarded-Encrypted: i=1; AKwUvBx2vFn4IhdRp4s8Mkrvq/j3t8wq3MRLoFjfoKC47MfsCCtBFhpINAa5e2jWeXRglK7OTaFb/dOvAAwXLxY=@vger.kernel.org
-X-Gm-Message-State: AFuF++m8eI2zIOqVBABqYJGAH0xHt72p4nk275ZYSC7BcjJcxJLpXtzY
-	JjrdpuSg2b3nuas/ZWhCosNSRdhmhbrx/Lz5+AVd1dN/J5H8bRPqnjqcs5/IiIGqwtg=
-X-Gm-Gg: AYBFou1kjH7X7pfEX5iVPzA1MdDi1Z02mFIESawTFALCI4dwJebUQSwvhNlj4sGyree
-	fd5y10XczVWxo7A+D0Vn3Mw4oJ70LLNRIp63JlF3QUMj5CjQHuOOO4CJXo8T1XH9rY2aMkHExc3
-	riKADO1dJdD7uxgzqT0aZWm9BIjiyVmIu7Lkzt6xCtVv87zovvkICN8DXfgdIHmCVPqZmMt2WTZ
-	FjXry7R5lXSNe6g2iHJ0dYjOz8EIGY/LlJpu0sa8waBy3pX4ourWUBszNE7MzVJeeMmFZnMRPXu
-	OKDSn0Y73FmcuFE0aLO4EsvcHQ+RI/HloStQKxL8ivdZNfbfJOlLBBnmk+R2fkJ+le/544UBAyj
-	E62eX0+mFXWuqnFzdeeTQtuutuvzxrYICdFsDNykmIgdtCZmuS+tpgb6+KVmsLDxT6prmkdgWLM
-	JyG0MSY+BV2XE7ukM7cjwdHQKLxMO6pVFBEZMafchO4vPTd+/j92FgPr6GNdMtR5+vnhSmN96dt
-	G7cyADNoAQ=
-X-Received: by 2002:a05:600c:c176:b0:4a0:c2a:485e with SMTP id 5b1f17b1804b1-4a18e4dce0cmr41026305e9.33.1791556696563;
-        Fri, 09 Oct 2026 07:38:16 -0700 (PDT)
-Received: from linaro.org ([2a02:2454:ff25:4f41:8f61:e8db:b29a:c15a])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18e4225f4sm72506615e9.0.2026.10.09.07.38.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 07:38:16 -0700 (PDT)
-Date: Fri, 9 Oct 2026 16:38:14 +0200
-From: Stephan Gerhold <stephan.gerhold@linaro.org>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] remoteproc: qcom: pas: Don't fail attach if the
- remote has crashed
-Message-ID: <asj8VnSmKBF3nA79@linaro.org>
-References: <20261006033550.2726451-1-shengchao.guo@oss.qualcomm.com>
- <20261006033550.2726451-3-shengchao.guo@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="OsuM/vi2"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mfMKnPq7ZH9/lNyrbR+Y1dUOVmoNYadlll4i80xB3mIBMTnmxaRvDqpq9c54XLdUmrCdB5V6Ng8fLRHha1928GjXOcvuxVhgWuA0KKLSlW8KZaT0MJpTS4MzgOYFEfop/kGkUkT30kbkXPFoxwCmnl8feWhzWl6Ci6cu7xAuUzf+YaS8+Pz+tXsglA9bJUigwthIOy0n9iS2q3m22lDlyD5iftQn1txlqfLHa3Kgs9u04UhPYpIC77QyWdxOeDhgXFuGiaLOq48ZBrxwvfrxHK0+pbz7oFKsK7G/PDMhAcT89Qac1ec1gvIrt9FDVdp/B7YIHVHMphVJOgQauQauQw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=l1xaJLkPGSsW7BKJHlmD/jxgy6pwgI/LFkYtZx7XmhI=;
+ b=pDrstW94p99AppiSoy/ARGtImDUVOp5VjcgPhP1yAVtHoPgZXSUCWDEaqXhKiAuWzKQSd7H3eIPdGgm33JhEWubVve4kR0gkvn2M7tGV6Qfwf3CW+cl/lN0bBWb5pzjd/nLFbEm7GiwIuG3ZKoIJkrTrwlcJ49csH97grkOq0pyWqpdqDJFnWez+qnaouq6Rkoy8felw3fcZZzyZReyAFvDbMH0gV2YVUdInA3A1rQ+qFqzO/HSHxPhGm9cq1KvbuhIi3IkwxvSLzDFbBDkaw3IHJhg8AFxM5hOIWzNO54tYVJF+GT2g/VnvTHADAZm7bD8vOlTETalx9SahISN/CQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=l1xaJLkPGSsW7BKJHlmD/jxgy6pwgI/LFkYtZx7XmhI=;
+ b=OsuM/vi270BFlcNiq52xkASFrjv45OsmHZ0G5IEcsbNO97paz+eu2l/7IoOP0OwE2nhbOw3ZFTIdET6Z8k+EotDv77nDhuFa8sLw7cr5nkYB0bLjEalqcx2ZBSIw/bykzh25UslRe4g7Dpmy3lcBJtfXPU/U9Tpo7/mX9RlKODY=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::607) by IA0PR12MB7604.namprd12.prod.outlook.com
+ (2603:10b6:208:438::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Fri, 9 Oct
+ 2026 14:38:24 +0000
+Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ ([fe80::3f44:4881:3c5a:943]) by BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ ([fe80::3f44:4881:3c5a:943%3]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
+ 14:38:24 +0000
+Message-ID: <91cb8302-350b-43b8-bcd7-73637deb207d@amd.com>
+Date: Fri, 9 Oct 2026 10:38:17 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] drm/amdkfd: Fix use-after-free in the process creation
+ error path
+To: Binbin Deng <18983559317@163.com>, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20261009132619.40151-1-18983559317@163.com>
+Content-Language: en-US
+From: "Kuehling, Felix" <felix.kuehling@amd.com>
+In-Reply-To: <20261009132619.40151-1-18983559317@163.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT4PR01CA0336.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:10a::20) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::607)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261006033550.2726451-3-shengchao.guo@oss.qualcomm.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN7PPF5F16C5C9C:EE_|IA0PR12MB7604:EE_
+X-MS-Office365-Filtering-Correlation-Id: 59e05e3c-4f16-4161-9576-08df2612f906
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|6133799003|22082099003|10067099003|18002099003|11063799006|260925021311599003|260925021911599003|260925022911599003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	VW1c29mNK+wFQ4/JkYkQLZ8lhtYXsY0ylNZYEsOQgPUMCEd74E3oNG9QBFO7tg2mSwwN36BjTEIZFCioHEiJ/aSJWcGTiXX4L2k1QLSEwPXA4PKIWtroui9p3svxCeQ1pjlKOEWCQ+ep4UJP/kmKQjTWFfMhNC93pFJPfMPcz0UcxNr9xJR4Yks1gLRZMkgUjWesEB2cu9e7GNAGW1Nv4qIdRmtU5tQwe5rivJo650Da2FlmvY+GF6lyvMJs4W05bK9sisrpf+KjxwR30SNnX9Bup4r11F/a3fjdVJ9j2eHNKQXqhRCLKgH2iGbwtKJcVpIOOfXS+GY5WVJSJw9H+fGikPUqZYkv61vldzIK/biPnWk274WaFEVP9i1/7/kXMEsspDhSUZ3RftTRjHpUiTHsBa5DwnIJeCA3zxWXcRlA1+Ejc/pZAFRLLTAvOoLgPk7g77r5RZ+nSpr+X7CfAoacsmk+Nwo1Do+hYT/ooNb9f3+8WVKqgOOCdFg98gr8ULr85h0I1dOLHEQhOLtSdwFjgatyRztJcqcVAlxHOI+AUs6U81jt/cWAusj/xJ/J6XEuuWZUUswIy86qS2eQ6Rh3e/vo2yuOu6w07wf8kXJ6Wy6NL+qI4PBX6bYdtZVzoQbXUP0a9x0E+FsI15ZDNMviCyJUwGLmoQyRguUA1Mo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN7PPF5F16C5C9C.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(6133799003)(22082099003)(10067099003)(18002099003)(11063799006)(260925021311599003)(260925021911599003)(260925022911599003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?QVJsY3BlQXU1Vzk2RStiZ3hDOEpVbGs4eUVpMHBKcjJLczBIa0dtcTh5aTlJ?=
+ =?utf-8?B?VUJEdlhsYWFLQm5pTWZnNlhlUW53bVIrSGw1UnduZUZ6alJDQmFWNCtpWHVT?=
+ =?utf-8?B?a3lXV0djVjBPRXRwRGxSV1BpVnAyNVRJUnZmN0JUcnRHZFhRVk5COUlYTlZW?=
+ =?utf-8?B?ZkltNThnT3MxT01aVDJ1a0F3ZzI3RURUZ3o1NlpEK2dnRVAzOHEweUhFbzRX?=
+ =?utf-8?B?M0pENW1FYVc0NFhZL0FWanZISlIzUy9KRzd2YkhVMXQrSHJFcEVLZkE2T1Vy?=
+ =?utf-8?B?ZlNUM3BDOWFKaDErMkRIalVIQjJLRk50MGxhUWRaTDVlc0pDRjRmay82Wmg4?=
+ =?utf-8?B?azdXVnM2TVArTlJsdk9JZ1I0K1hUR0haOFFxNFBSS0szUjViWFA5RmpNUk5C?=
+ =?utf-8?B?VHcrMzFhY1BPNmlHTFRRaVp4K2Z1b2tKRHNPdHN5cDRuMFEwc0tHMHFBZFpo?=
+ =?utf-8?B?RDJBK0t1akQvTEp6SVN6MVpSNlJua1d4Y20reWE1VlMrMmN4cTg1UFdtZm1U?=
+ =?utf-8?B?cjQ3Mlk5bGlhOHBCSmdEZ2R6RGpUMDRJM1FoOHI1cVBpWWFXL0pEWHNRODAw?=
+ =?utf-8?B?a01JVHRzalozUTJyZ1lsallnL3RJdCtIQTFNb0JsdEZEVENIbXJnUVBmRFdD?=
+ =?utf-8?B?UkQrYitlVXR1RitzVTE4ZVJZZUFEVkdYN1NNU1FXZHMwYllpbmJWajBJQ2RW?=
+ =?utf-8?B?dmVzT29aSVBxaUlUZ2FVYWpCeXM2dkRWbzAwWXprczR2SEtnU0htTnJmZVZr?=
+ =?utf-8?B?cnVNUDZuQUlvV3d1dFRYQXM5dDFPemoyN21NL2lXT3RKYXJuUlIzeEEyNnlF?=
+ =?utf-8?B?WlcvUTQrZkVlRTJwekFXcEVzQTJ2aHo1TktLcHo3amVaM2JGQ0FRU0c2MVM1?=
+ =?utf-8?B?TXF6SDhoRWFWS2ttaWRaME1ZSmxvRWovY0xtM2dhekd6NFBremFZRy9tNXVl?=
+ =?utf-8?B?Nm01M3JDbk1aekJqTGpQaHl3YktCZFRiN0tBNytnWmlKMWxKQkZtUDhWZkN2?=
+ =?utf-8?B?NzYxYW9JQ2FuR0FsSzlWR1IxSVlvMUVYblRMWUc3TmN4Uk5JdmFKYTZESUFC?=
+ =?utf-8?B?OEdFblA0Y0hTUGV1ZWRkVW5qZCtibWJSZ1l4SVJUUjQrTUVXUUV3MnhTaG5T?=
+ =?utf-8?B?Z3ZPcHc2RDh0ekZXNUNlZjRjWUxldWg4b0FiWUc3VXJ6dWZWbVV4b2thdTcy?=
+ =?utf-8?B?VzdJRm5tT3ZOWG5ZU0NEMzhEQXg0NnhPc1lGTjRQN0kyTXduV0hMdVhQT2dr?=
+ =?utf-8?B?eHNGUmxFRUxDa2d6UmtQbEtYT1JJNDFEV2JhdmtaS3g4RGt2TDEvWmdwaWNr?=
+ =?utf-8?B?QzhWQmtUcWR6YjkrdWQwcmRTVmZKQTJyNkdDcGt3ZDRZbGZ5YkRudW9WMkYx?=
+ =?utf-8?B?ZnYyc05Bd3pDbThIMVJPbTJncGpTWVFVWnVOdmcyMUtlODhmU1RGemdTcWhx?=
+ =?utf-8?B?VE9MNzFFN1ZvSWxMNTBLK0xUREQ0T3o0QzM4QS9Jbld5cng5K3ArZTF6MmNw?=
+ =?utf-8?B?Q1RwT3FNUUVwa2g5L3BBdDU1YlQ2bEkyZlcxZzlseTZIQlRGSE9FbVp3Zzdi?=
+ =?utf-8?B?ZWtaUlY0aExIZ2IyV21hZ0tQNkcxcXkwdFhlb2VNVmlGK0ZuNmtFWUd6VWYy?=
+ =?utf-8?B?RUVnRGdFQ3Q0U1dZL1JIamYyKzZ0U29uSEVuN2duem9KdXEybXZEQzhGZFpE?=
+ =?utf-8?B?N2ZGNFgrdmcvR3haUXkrOGZwUG9ZYmlEKy9JUGZhbWRVckprL3Noa1ZxT1JU?=
+ =?utf-8?B?VWNkWGluMXdlaENUZndRdFkxZVVoK1Vja0xHSUFiNEhieFNtMmlmQ0ZFZk5v?=
+ =?utf-8?B?QmlvUmNVTkhFamMvMVd2cTNGdWxaMGdkcE5nZTBtRXVlZDRQTnMzT2tqTE5G?=
+ =?utf-8?B?SXFYTG5nR3UzeVBDbHJOOWNweFdkNStDL0lmcTgyUk1lNGVxMVpFT2QxK1ZY?=
+ =?utf-8?B?aXJZMW52NTBKaE9qZnBSZm51eUtlbnQvM1I4V1hTSEVkcis5c0t2L0xLeU9O?=
+ =?utf-8?B?NUllM2FPeGR3TjVXNDhZUzBjend5RHA4U0R2eEVzUU5WdmMwYlJHZ3dscjhS?=
+ =?utf-8?B?RlFFSFRyeUkzYzJXdkUyeHNZT21IMTQxUGRFcGR4VVRCYWNZS2dOc2RETE1T?=
+ =?utf-8?B?ZmdlVElLZU1XN2ZZMVRaakpZemdTOEFjbjhVVWVQYjlLNUJQc2tEMEZORTRS?=
+ =?utf-8?B?bWVXMjFsRkhPRkcxeVNoMDU3OXhCcUpaaVpqQnlmSmlMTkdnRW82YWRlaFhK?=
+ =?utf-8?B?Vml3bE9FZmhPcWNMdGhpM3pJNTc1V1pyTWQ4OHRaQzExbG1DM2h5V1N3K3Q0?=
+ =?utf-8?B?bVE0ajdNOXNrY3hqMXp2UWN3cmdWc0RFdmRoOUYwV2ZwVklYUFFwZz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 59e05e3c-4f16-4161-9576-08df2612f906
+X-MS-Exchange-CrossTenant-AuthSource: BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 14:38:24.0196
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kPytnsi9NrywMrrpWlOhTbrBPfvZ6fgY4VmMnMhFNCIGMH8ODHoUM+PViuqjESYkiqqhFRVLI64KBniW9eVHlg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7604
 
-On Tue, Oct 06, 2026 at 11:35:50AM +0800, Shawn Guo wrote:
-> When qcom_pas_attach() finds the fatal SMP2P bit already set, it reports
-> a crash and then fails the attach. The core unwinds the attach while the
-> crash work is queued: rproc_boot() drops the power refcount back to 0,
-> and __rproc_attach()/rproc_attach() unprepare the subdevices, clean up
-> the resource table and disable the IOMMU. Once rproc_boot() releases
-> rproc->lock, the crash handler finds the rproc still RPROC_DETACHED,
-> marks it RPROC_CRASHED and runs rproc_boot_recovery() on top of that
-> torn-down state:
-> 
->  - the subdevices are unprepared a second time by rproc_stop(), so SSR
->    and sysmon notifiers see a duplicate shutdown;
->  - qcom_pas_stop() and the subsequent rproc_start() operate on resources
->    that rproc_attach() already released, e.g. iommu_unmap() on a
->    disabled domain for rproc->has_iommu;
->  - recovery leaves the rproc RPROC_RUNNING with power == 0. A later
->    "stop" via sysfs takes power to -1 and returns success without
->    stopping anything, so the remote stays running. A following "start"
->    then boots the firmware again on the running remote and fails to
->    re-add the still registered subdevices:
-> 
->   sysfs: cannot create duplicate filename '.../qcom_common.pd-mapper.0'
->   remoteproc remoteproc0: failed to prepare subdevices for adsp: -17
->   remoteproc remoteproc0: Boot failed: -17
-> 
-> A crash found at attach time is no different from one reported by the
-> fatal interrupt right after attaching. Treat it the same way as
-> q6v5_fatal_interrupt() does: clear q6v5.running, report the crash and
-> let the attach succeed. The core completes the attach with balanced
-> bookkeeping, and the crash handler then recovers the subsystem through
-> the regular RPROC_ATTACHED -> RPROC_CRASHED path.  With running cleared,
-> qcom_q6v5_request_stop() does not wait for a stop ack the dead remote
-> cannot send, and handover_issued already prevents a spurious handover
-> on stop.
-> 
+On 2026-10-09 09:26, Binbin Deng wrote:
+> [Some people who received this message don't often get email from 18983559317@163.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+>
+> create_process() publishes the new process in the global hash table
+> before the steps that can still fail:
+>
+>          /* alloc_notifier needs to find the process in the hash table */
+>          hash_add_rcu(kfd_processes_table, &process->kfd_processes,
+>                          (uintptr_t)process->mm);
+>
+> If a later step fails (mmu_notifier_get() with a pending signal, or
+> kfd_process_alloc_id()), the error path removes and frees it:
+>
+> err_register_notifier:
+>          hash_del_rcu(&process->kfd_processes);
+>          svm_range_list_fini(process);
+>          ...
+>          kfree(process);
+>
+> hash_del_rcu() only unlinks the node; readers that entered an SRCU
+> read-side critical section before the deletion can still be walking
+> the hash bucket and using the node.  The unconditional kfree() that
+> follows is not covered by any SRCU grace period, so such a reader can
+> obtain and dereference freed memory.
+>
+> The readers are the GPU interrupt and ioctl lookup helpers, which run
+> under srcu_read_lock(&kfd_processes_srcu) only:
+> kfd_lookup_process_by_pasid() iterates the whole table with
+> hash_for_each_rcu and dereferences p->pdds[] of every entry;
+> kfd_lookup_process_by_id() and kfd_lookup_process_by_mm() match and
+> return the process for further use.
+>
+> The normal removal path (kfd_process_table_remove()) already executes
+> synchronize_srcu(&kfd_processes_srcu) after hash_del_rcu(); only the
+> error rollback path misses it.  The race is reachable by an unprivileged
+> GPU compute user: a thread whose process creation fails (e.g. ioctl
+> interrupted by SIGKILL at mmu_notifier_get) while another thread is
+> servicing a GPU interrupt that walks the process table.
+>
+> Fix this by waiting for an SRCU grace period in the error path after
+> unlinking the process, before the object is freed.
 
-Hmmmm okay, I have never thought of this option, but reusing the
-existing crash path as-is by making the attach succeed feels actually
-quite clever! I suppose starting all the subdevs is really redundant in
-this case, but the crash case is also nothing worth optimizing for.
+I don't think that's sufficient. Typically the lookup functions get a 
+refcount of the kfd_process under the srcu read lock. Even after 
+srcu_synchronize returns, other threads can be holding a reference. I 
+think we need to use kfd_unref_process to free the process after it has 
+been added to the hash table, instead of doing the cleanup manually.
 
-> Assisted-by: LLM
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+I see another problem: kfd_process_alloc_id can fail after registering 
+the MMU notifier. That should be moved before the registration.
+
+Regards,
+   Felix
+
+
+>
+> Fixes: 0029cab3146a ("drm/amdkfd: fix a use after free race with mmu_notifer unregister")
+> Signed-off-by: Binbin Deng <18983559317@163.com>
 > ---
->  drivers/remoteproc/qcom_q6v5_pas.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
-> index 8f3d45c604c9..0ecd7688a54d 100644
-> --- a/drivers/remoteproc/qcom_q6v5_pas.c
-> +++ b/drivers/remoteproc/qcom_q6v5_pas.c
-> @@ -562,10 +562,14 @@ static int qcom_pas_attach(struct rproc *rproc)
->  		goto disable_running;
->  
->  	if (crash_state) {
-> +		/*
-> +		 * Complete the attach and let the crash handler recover the
-> +		 * subsystem from the attached state, as for a crash reported
-> +		 * by the fatal interrupt.
-> +		 */
->  		dev_err(pas->dev, "Subsystem has crashed before driver probe\n");
-> +		pas->q6v5.running = false;
->  		rproc_report_crash(rproc, RPROC_FATAL_ERROR);
-> -		ret = -EINVAL;
-> -		goto disable_running;
->  	}
-
-My only nitpick is that it would be nice to fully reuse the normal crash
-handling in this case, in particular the crash_reason logging inside
-q6v5_fatal_interrupt(). Can you extract that part into a common function
-and call it from here?
-
-(I guess you could also call the existing q6v5_fatal_interrupt()
-function since it should work as-is, but externally calling an interrupt
-handler might be a bit weird...)
-
-Thanks,
-Stephan
+>   drivers/gpu/drm/amd/amdkfd/kfd_process.c | 1 +
+>   1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> index 0a7c1900da95..8d0e70a256f7 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> @@ -1747,6 +1747,7 @@ struct kfd_process *create_process(const struct task_struct *thread, bool primar
+>          kfd_process_free_id(process);
+>   err_register_notifier:
+>          hash_del_rcu(&process->kfd_processes);
+> +       synchronize_srcu(&kfd_processes_srcu);
+>          svm_range_list_fini(process);
+>   err_init_svm_range_list:
+>          kfd_process_free_outstanding_kfd_bos(process);
+> --
+> 2.43.0
