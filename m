@@ -1,103 +1,123 @@
-Received: from out30-111.freemail.mail.aliyun.com (out30-111.freemail.mail.aliyun.com [115.124.30.111])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6394238A733
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 03:28:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C0573A1695
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 03:31:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791516517; cv=none; b=jPLIXgr4VWGLP0jKckJD4MtJTefFAaoHATKjCGnl93Td+YvVAOK5iVXvI2Yh2EBcQEq7A/ufLCSfrVUMCU9pw8+D5MDmxTHDvVuPrg6+NdK+sbktge9jl3tjOGfn9xaRX8jBYyXNwAGpUbd32blzv3MAP7DCgPCwT6bDFMM5dhI=
+	t=1791516695; cv=none; b=kTYgE1LlOcIRjAKF2VN+SqD0u3kZXzTT/tgsTeie4lGwlKEXecIv0rApppUrdf3XC8kIviFtNgRJIaGqBORsinguWsGkck3FMyQThdsYgmrFSEoxrP4h8RP6+K2afOk+Pz/7b0reoePnRXsyZ/B5tCRX8pT0KztUSf94lcSsOuo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791516517; c=relaxed/simple;
-	bh=Fhf89OxtAjPYUu2KgbUnqM6rwY+Pss1vn61vMZFRnUU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PuS2W4GcxfZueS7Xm/UlCYFhl8jsbzAwRWSOqMq2AnZIWIHJm6FAObUhJJCVbXdzVYHupJTbTNjwPdw3pPZXD+RdQ+DVBzcC/fZvkq9GhYRvoy00ymDi7nTiGOCvetIsBfbfRmB57zSxcteDW3PF2smdmeVib1PyMwt4CjaVXD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=edH5l26e; arc=none smtp.client-ip=115.124.30.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1791516695; c=relaxed/simple;
+	bh=bLCjJ2qDKu+48tLpSPvLn/9TDbJUSjqorra8kXtkbTQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=YRWTRH4jp2ebGH1TlF//Aoj5zzHLinm3arx1oa2z3EcyNqBQT8b7VaQDrmJtB6jVAVUDaORcOFOBXncURcNa3fTn/G2L5vXXZJ5WKfnBeXBBQcBurSnZ3Fn+jWoFTrsBetcJTa6/dTNQBtxXDua0/gKUBMlE5xYBLhpFSAbXcQ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ml79/aVK; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="edH5l26e"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1791516499; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=s3kRDoAF/vjBPX0XYIPxqBqn90ZUIyzKkTuvhvO7wgQ=;
-	b=edH5l26exbSk6Mc1Y/3IwfIrKx87jv+uEE5L/Tn9ucJovkw4hPD01w2jKJdwvX+kCNoiGe/GXS8lltzaIrpRUuCeIPid8cZiJEvm7cJT/CAftHZ+UUIuCAusa+wjX6lgMdLoPd5kNBAcw127B9PSZcVbdzS6a4s5oPns3FiicRQ=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0XCS-sfJ_1791516498;
-Received: from 30.221.148.47(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XCS-sfJ_1791516498 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Fri, 09 Oct 2026 11:28:18 +0800
-Message-ID: <131f9866-3ac2-4de2-9589-3e35eacce8d5@linux.alibaba.com>
-Date: Fri, 9 Oct 2026 11:28:17 +0800
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ml79/aVK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791516678; x=1823052678;
+  h=date:from:to:cc:subject:message-id:mime-version:
+   content-transfer-encoding;
+  bh=bLCjJ2qDKu+48tLpSPvLn/9TDbJUSjqorra8kXtkbTQ=;
+  b=ml79/aVKfO0q7Hr50Z1Wc1uFLhb2E8Z2SDvKB3Jv/NXeZIigJgtyOLlp
+   rnMVs26ScvJ0oUh8uIdPvSdq2et2TNdhkXhogXQ1h33ufXOwUHpUM1+0V
+   nz2VDHivV68isGRlQzDqiyzTBMvKmWi8JP4Whct3QDK36pNCsPPpbB2sf
+   S0T6Dum00HLCSNBApaPlkfSJNTDKrtUlRlA8E4/Un634Y4Pe5kRzkIAQh
+   6fETpfghkuHA4pRG2am9iST4PQa9rooDsD+E4OJ9S7UB0M8QpH9pdXlAM
+   00kVF6jYD4/6XJDdrf2ayaFYBNhW35p9S5P25tyIAtREY6fkk2znAabl6
+   Q==;
+X-CSE-ConnectionGUID: WcnY8vh5QS2bXkXhI+h/jQ==
+X-CSE-MsgGUID: cgAi3CI3T3Ovp1lw4fQXcg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11929"; a="215489"
+X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
+   d="scan'208";a="215489"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 20:30:39 -0700
+X-CSE-ConnectionGUID: gKEfUMn3QGSKSWQrk9hvsw==
+X-CSE-MsgGUID: v4Hf0qCsQx+mHt6yBcX4VA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
+   d="scan'208";a="654599"
+Received: from ly-workstation.sh.intel.com (HELO ly-workstation) ([10.239.182.64])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 20:30:36 -0700
+Date: Fri, 9 Oct 2026 11:30:33 +0800
+From: kernel test robot <yi1.lai@intel.com>
+To: Tim Chen <tim.c.chen@linux.intel.com>
+Cc: oe-lkp@lists.linux.dev, lkp@intel.com, linux-kernel@vger.kernel.org,
+	Ingo Molnar <mingo@kernel.org>, Hyunwoo Kim <imv4bel@gmail.com>,
+	Zenghui Yu <zenghui.yu@linux.dev>, Chen Yu <yu.c.chen@intel.com>,
+	Peter Zijlstra <peterz@infradead.org>, linux-mm@kvack.org,
+	aubrey.li@linux.intel.com, yi1.lai@intel.com
+Subject: [linus:master] [sched/cache]  28f9c0e0a0:
+ stress-ng.fd-race.ops_per_sec 5.2% improvement
+Message-ID: <202610091149.c00cf9f2-lkp@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] ocfs2: deal with legacy signed xattr name hash values
-To: Heming Zhao <heming.zhao@suse.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Anderson Ferneda <anderson.ferneda@braza.com.br>,
- Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>,
- ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20261008122743.616779-1-joseph.qi@linux.alibaba.com>
- <20261008122743.616779-2-joseph.qi@linux.alibaba.com> <ashc5y5FgsvxvX0F@p15>
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-In-Reply-To: <ashc5y5FgsvxvX0F@p15>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
 
 
-On 10/9/26 11:18 AM, Heming Zhao wrote:
-> On Thu, Oct 08, 2026 at 08:27:43PM +0800, Joseph Qi wrote:
->> Commit 3bc753c06dd0 ("kbuild: treat char as always unsigned") set
->> -funsigned-char globally, which changed the result of the naked 'char'
->> load in ocfs2_xattr_name_hash():
->>
->> 	hash = (hash << OCFS2_HASH_SHIFT) ^
->> 	       (hash >> (8*sizeof(hash) - OCFS2_HASH_SHIFT)) ^
->> 	       *name++;
->>
->> A name byte >= 0x80 used to sign-extend and now zero-extends, so the
->> hash no longer matches the xe_name_hash an older kernel stored.  An
->> indexed xattr tree is searched by that hash alone, and both the bucket
->> binary search and the entry scan within it stop as soon as the wanted
->> hash falls below an entry's, so the entry is never reached: getxattr,
->> setxattr and removexattr return -ENODATA for a name that listxattr
->> still lists.
->>
->> Search with the current unsigned hash and, on a miss, retry with the
->> legacy signed one, as ext4 does in commit f3bbac32475b2 ("ext4: deal
->> with legacy signed xattr name hash values").  New entries are always
->> stored under the unsigned hash.  Skip the retry when the two hashes are
->> equal, so that a miss on an ASCII name does not walk the tree twice.
->>
->> A miss is not empty handed: ocfs2_xattr_bucket_find() leaves xs->bucket
->> holding the bucket a new entry would go into.  So after a double miss
->> drop it and search once more with the unsigned hash, otherwise a new
->> entry would be placed by its legacy hash and stored under its unsigned
->> one, breaking the ordering the search relies on.
->>
->> Only indexed trees are affected; inline xattrs and non-indexed xattr
->> blocks compare names with memcmp and never look at the hash.
->>
->> Also spell out the signedness instead of leaving the current hash to
->> -funsigned-char, as commit 854f0912f813 ("ext4: make xattr char
->> unsignedness in hash explicit") did, so that both variants stay correct
->> if this is backported to a kernel without the flag.
->>
->> Exposed-by: 3bc753c06dd0 ("kbuild: treat char as always unsigned")
->> Cc: stable@vger.kernel.org # 6.2+
->> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-> 
-> I agree with Sashiko review comment, the ocfs2_check_xattr_bucket_collision()
-> also requires the same fix.
-> 
+Hello,
 
-I am looking into it.
-It seems we have to use the stored hash for an entry that already exists.
-I'll send v2 with a third patch to address this comments.
+kernel test robot noticed a 5.2% improvement of stress-ng.fd-race.ops_per_sec on:
 
-Thanks,
-Joseph
+commit: 28f9c0e0a0b94c5d3e1b634db545f6e1f94858c5 ("sched/cache: Decouple sched_cache_group from mm to fix UAF") https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
+
+testcase: stress-ng
+config: x86_64-rhel-9.4
+compiler: gcc-14
+test machine: 256 threads 2 sockets GENUINE INTEL(R) XEON(R) (Sierra Forest) with 128G memory
+parameters:
+
+	nr_threads: 100%
+	testtime: 60s
+	test: fd-race
+	cpufreq_governor: performance
+
+Details are as below:
+-------------------------------------------------------------------------------------------------->
+
+The kernel config and materials to reproduce are available at:
+https://download.01.org/0day-ci/archive/20261009/202610091149.c00cf9f2-lkp@intel.com
+
+=========================================================================================
+compiler/cpufreq_governor/kconfig/nr_threads/rootfs/tbox_group/test/testcase/testtime:
+  gcc-14/performance/x86_64-rhel-9.4/100%/debian-13-x86_64-20250902.cgz/lkp-srf-2sp1/fd-race/stress-ng/60s
+
+commit: 
+  d6013e2465 ("sched/cache: Honor migrate_llc_task semantics in active load balance, to fix LLC mis-scheduling bug")
+  28f9c0e0a0 ("sched/cache: Decouple sched_cache_group from mm to fix UAF")
+
+d6013e2465d98d52 28f9c0e0a0b94c5d3e1b634db54
+---------------- --------------------------- 
+         %stddev     %change         %stddev
+             \          |                \  
+  28370042            +5.2%   29834431        stress-ng.fd-race.ops
+    473267            +5.2%     497702        stress-ng.fd-race.ops_per_sec
+    843367           +27.1%    1072325        stress-ng.time.voluntary_context_switches
+     62132            +7.1%      66565 ±  4%  meminfo.PageTables
+  48712422 ±  4%      +8.4%   52824690 ±  2%  cpuidle.C1E.time
+  62293414 ±  2%      +9.0%   67917882 ±  3%  cpuidle.C6S.time
+     68069 ±  2%      +9.6%      74599 ±  3%  cpuidle.C6S.usage
+
+
+Disclaimer:
+Results have been estimated based on internal Intel analysis and are provided
+for informational purposes only. Any difference in system hardware or software
+design or configuration may affect actual performance.
+
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
+
+
