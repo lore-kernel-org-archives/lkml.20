@@ -1,118 +1,155 @@
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FD983CCFD2
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 06:48:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 746363AEF50;
+	Fri,  9 Oct 2026 06:49:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791528497; cv=none; b=enMv9udXhdsNN+fEzx/NSJNmFTCMEOXBKeiFwOi/oPusv/IXTwz03lFPK3rj1ybzLM+LH7Z+jZCpb/vrOuVMLY8/4wZojhRs0gWJ0pS+6MrVKcLLPbu3oirHAtYd7leoQ5RtXo2dlGKnG5zLbS4oFPm73ZIabqKQWJPExpMVAYE=
+	t=1791528558; cv=none; b=UMetTizweKxlRJ1kB7TtKuPBRXNF+wTT7c1tuSt8Q2AmF6bCbK0GXVg1cRE9Nv3pzAiUOkusRtMga8San48WYwVADw1sruNb300EXhEbGGgfAMAEZTSizWS/tcN3djl7F39DyfonuTYLSV1qcyn//+5yNR5uaDR2UgBdAeb3gjM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791528497; c=relaxed/simple;
-	bh=ZnCPh4/0FJuckhJnJxycUHypXVPRY3ZAxmuTYheAm10=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CwOgs8gCe7GanDma7aUv9kBtNYN3IqFjEYW4ni6ROTpuV7mKOHT0z7QNkzrHmFWmr9Voe9qDMXRqsM5EVm/6Rdi2qwC1aTMhMfUmu51lzJlqpYQ7sLZvVgUXmBm9HfAkINdhUU+Jz4Rl5x0ZV73b59ChdIvjk7YWWkKlQEmyhbo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NccN5LWc; arc=none smtp.client-ip=74.125.82.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791528558; c=relaxed/simple;
+	bh=7w6WtgOAooBhMLzwKrrQuDQCvTsa7DPrL70+gYLvitY=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=ctUnP2Q+4oENu0TX/DuHh11qzozRC5b4mcF/NgY2Lp2m3/reXn6QRszxfCdhrV9BIX0kcEmqe6ncMDzHOcCTQmB5/oAX2xLFyI6KVrZ0j4teNNHBvFwQ9ZPRYw4TZPBT/C7B1yofDwyF+c1jkLTKnXq4lGz55PM5L62RAG+o9o4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=kZFuYIPz; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NccN5LWc"
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-33e6279a1d7so4454477eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 23:48:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791528493; x=1792133293; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=i7vfJVKQYXGckl88W+Qa0MtiHsPF7eaM9DEgF9n+yQs=;
-        b=NccN5LWceye1AIpzjDg/3ZXORM6UPlBVi2FSdLfGSXlP6lbhoeMbE1vvGtqlqa5e9g
-         IEhwgahBRi7WSaI42N01skI5rYjVp2oo3qNn0q0vHroTngpQXb/Q+AGSeRnpdTh783fb
-         5qHdwdJS0ESEa2yTXZHAV3JYpeqIpjFnit8UPiFRQQL+wTqRtGL7Sic13WI2n5VLNted
-         LlQ8i0FOmz8Zt/AF1nQXgX331edxsJ783qW10YC2JGHNe70pzfmO4TJWg5T6r8qWL+cb
-         +GaD82KT35YD8xHkr22P3STkzEmtQ7Ll+CkI+iV3SXSAj1Nn7y7n/iKlAAsVasuXQLwk
-         wVBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791528493; x=1792133293;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=i7vfJVKQYXGckl88W+Qa0MtiHsPF7eaM9DEgF9n+yQs=;
-        b=R26wWc74uQmAEXZgQLFzN3FnXfWZ7ywhjThCeqPIrtbUPFS+7dyD1MiohHu5ZlSmFH
-         V39CRHtaUUhOhGjgqxTOWnrojsdHfh1KuuV4L72ElgAaD/7vZmYnOUGOitlrTlPH/Ex+
-         38dc1nxKqlc3SIMUxcjtlOrJXnoE8dFeqfEYBpNXCAksYpcRExwXPUNqp0OyHWbyNpI9
-         GiP7H02xs4m9xu/K4SUNIm5yvxkhfRO8M3X9yCEqeo4z9QNJkgPQ0YgIgudxcNukoIuu
-         E8EPBzSKWHdj4bq9ZxbLA26vMVIm75/iPokryyrTGe28t6+oq7TfQ4Ws1qLbidBHEJPC
-         JZJw==
-X-Forwarded-Encrypted: i=1; AKwUvByhEVR537ST64Vu/15QMwP4hC3IKpZh13KvQQNHPfQgwF/qqHvi+YZviEeMty89TEXocnuaZ7ofIBX8EQM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIKcl1v9/rGDVbOzyuTHfwilCZXGtciNniMtQKh8SH25bcczXjj
-	AcrUdSkha509l9RMhEmOPt6Yu/SXNFEOnZ2e8GgrTchgok63xVzzG7jnzuE7eLNe
-X-Gm-Gg: AYBFou1C6a8kM4bqCISlh9isrFyxqcAJLJtfsLoRvFV09abRO14J7V4x47DYSENLD5o
-	pc5Un/ucB5tC4Xv+UFlk77DmJzkNXpIfpRFkvJH47z+0hCXIumN/8DIvujBv2ZYUOpYwQz6vvyY
-	ENMBqFVh7j+MxCSz98vsIX0RZs4JqeblnH5Om7d4NDY3CwoQivCo8fzSBflnQnGOB4yy6lEX9u/
-	WhtKtGdrQEXjKe64eFmk1tnb4158Pq8AhM5Yy7FKtP+IMFoh9M2c551r9yabgDsz+SwaglpXgyz
-	+sq1Q/6ckEVae1s58zr8yfaRcWEknQXAwejv1EWt34AiDexEAxNe/Blredsmrhins7hlkXt+iur
-	9zyuIHrG6SR8DHV6EkAZ9lwjaz9Cu4Dd0j0crQMVRf1XnRFdpch06+n8AQh3C8Q2B2/uBI0kKlE
-	OfGM3vTLH79XgXnXsEf4wAuTpsBTR0QotIhhttdpUpPmnEh5YA2CU+1IcSBoQnZi6pITkmt84ZE
-	YqXwLmiknY8HLp/lS05OwDr
-X-Received: by 2002:a05:7300:2321:b0:347:8d01:164f with SMTP id 5a478bee46e88-3537e05ff52mr2353844eec.19.1791528493163;
-        Thu, 08 Oct 2026 23:48:13 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb1e05esm4649477eec.25.2026.10.08.23.48.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 23:48:11 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: Radu Rendec <radu@rendec.net>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] genirq: fix typos in comments
-Date: Fri,  9 Oct 2026 12:18:07 +0530
-Message-ID: <20261009064807.70345-1-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="kZFuYIPz"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 125E7A1545;
+	Fri,  9 Oct 2026 08:49:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1791528548; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=lcrb/n6yq9rUogTadFHg4X4Vn+bgruUv47sFAGOzlDo=;
+	b=kZFuYIPzYEsMBF16NbUxECIKID0eVOFlNivAcf8B7RmcGRTJnFUDgWTEb+PS7FvFSjwj/1
+	8+3+RMYjhVY4RsK8ZFeGRt88EUqXpQX1f5hENOyPHDC6aZFjaaaehf9TN5n6SYUyaG3x77
+	KJSehPNwPCnZhU1gduLne/X3t2a7kO/6c+P3cGRlM1A+pqLGgoMo5hPQXAfSEqH1vhTLjT
+	QNFwKsC70h3bUNtvjheIQUAhgbvbuYODR8QVA7qpq28ir4W9rRxRx7EJauo3ZzdfoGSfxg
+	dNPId/Wbkx0rEzev4bTN5gFtwIvFv2Dj9hLpZOCSkBTeD2STbqzDgLd4JHwmgQ==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Fri, 09 Oct 2026 08:49:02 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: netdev-bot+sashiko@kernel.org
+Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, o.rempel@pengutronix.de,
+ maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ Jose.Abreu@synopsys.com, saeedm@nvidia.com, tariqt@nvidia.com,
+ mbloch@nvidia.com, leon@kernel.org, dtatulea@nvidia.com, alazar@nvidia.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-rdma@vger.kernel.org
+Subject: Re: [PATCH net-next 1/3] net: selftests: use skb_share_check() in the
+ loopback receive hook
+In-Reply-To: <179149509090.434549.9918598206439291164@kernel.org>
+References: <20261007-nb-net-selftest-shared-net-v1-1-458369bfa1ba@tipi-net.de>
+ <179149509090.434549.9918598206439291164@kernel.org>
+Message-ID: <533b88ce917b59f4f59f52145d2f035f@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Correct the spelling of "descriptor" and "preceded" in the kernel-doc
-for msi_insert_desc() and msi_next_desc().
+Hi Clashiko
 
-Reviewed-by: Radu Rendec <radu@rendec.net>
-Link: https://lore.kernel.org/all/20260907065303.18034-1-hemanth.selam@gmail.com/
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
----
-Resend of a patch that has been reviewed but not picked up.
+On 8.10.2026 23:31, netdev-bot+sashiko@kernel.org wrote:
 
-It went out on 7 September as patch 01/14 of a batch sent as fourteen
-separate mails rather than one threaded series, which Radu rightly
-pointed out made it hard to see what the series contained.  It is on
-its own here, with his Reviewed-by collected.  Both typos are still
-present in tip and linux-next as of today.
+> [...]
 
- kernel/irq/msi.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+> [Severity: High]
+> This change looks correct for net_test_loopback_validate(). The same
+> pattern still seems to be present in stmmac_test_vlan_validate() in
+> drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c, though.
+> 
+> A later commit in this series, "net: stmmac: selftests: use
+> skb_share_check() in the loopback receive hook", converts
+> stmmac_test_loopback_validate(). The second copy of this handler in the
+> same file is left as:
+> 
+> stmmac_test_vlan_validate() {
+>     ...
+> 	skb = skb_unshare(skb, GFP_ATOMIC);
+> 	if (!skb)
+> 		goto out;
+> 
+> 	if (skb_linearize(skb))
+> 		goto out;
+>     ...
+> }
+> 
+> __stmmac_test_vlanfilt() and the other VLAN tests register this handler 
+> as
+> a device-bound packet_type. The type is ETH_P_IP, ETH_P_8021Q, or 
+> either
+> one depending on svlan:
+> 
+> 	tpriv->pt.type = htons(ETH_P_IP);
+> 	tpriv->pt.func = stmmac_test_vlan_validate;
+> 	tpriv->pt.dev = priv->dev;
+> 
+> Suppose another handler for the same type sits later in the device's
+> ptype list, for example an AF_PACKET socket bound to ETH_P_IP on that
+> interface. deliver_skb() then increments skb->users, so the hook gets 
+> an
+> skb that is shared but not cloned. skb_unshare() only checks
+> skb_cloned(), so it returns that skb unchanged.
+> 
+> For a non-linear frame with less tailroom than data_len, this path
+> follows:
+> 
+> skb_linearize()
+>   __pskb_pull_tail()
+>     pskb_expand_head()
+>       BUG_ON(skb_shared(skb));
+> 
+> Should stmmac_test_vlan_validate() get the same skb_share_check()
+> conversion, so the series covers every copy of this hook?
 
-diff --git a/kernel/irq/msi.c b/kernel/irq/msi.c
-index fb5f372215bf..b22d74496af1 100644
---- a/kernel/irq/msi.c
-+++ b/kernel/irq/msi.c
-@@ -142,7 +142,7 @@ static int msi_insert_desc(struct device *dev, struct msi_desc *desc,
-  *				insert it at @init_desc->msi_index
-  *
-  * @dev:	Pointer to the device for which the descriptor is allocated
-- * @domid:	The id of the interrupt domain to which the desriptor is added
-+ * @domid:	The id of the interrupt domain to which the descriptor is added
-  * @init_desc:	Pointer to an MSI descriptor to initialize the new descriptor
-  *
-  * Return: 0 on success or an appropriate failure code.
-@@ -416,7 +416,7 @@ EXPORT_SYMBOL_GPL(msi_domain_first_desc);
-  * @domid:	The id of the interrupt domain which should be walked.
-  * @filter:	Descriptor state filter
-  *
-- * The first invocation of msi_next_desc() has to be preceeded by a
-+ * The first invocation of msi_next_desc() has to be preceded by a
-  * successful invocation of __msi_first_desc(). Consecutive invocations are
-  * only valid if the previous one was successful. All these operations have
-  * to be done within the same MSI mutex held region.
--- 
-2.47.3
+No, AFAIU the VLAN tests can't get a shared skb here. They set
+capture_all, so stmmac_sft_add_pack() registers stmmac_sft_filter()
+instead, which passes stmmac_test_vlan_validate() its own clone.
 
+> 
+> The xgbe sibling, xgbe_test_loopback_validate(), does not seem to be
+> affected. It already calls skb_share_check() before it expands a shared
+> skb.
+> 
+> [Severity: Low]
+> This is a pre-existing issue that this patch did not introduce. The
+> length check further down in net_test_loopback_validate() looks too
+> short for what the function parses afterwards:
+> 
+> 	if (skb_headlen(skb) < (NET_TEST_PKT_SIZE - ETH_HLEN))
+> 		goto out;
+> 
+> NET_TEST_PKT_SIZE in include/net/selftests.h covers only ethhdr, iphdr
+> and netsfhdr. That guarantees 33 bytes past the network header and does
+> not include the TCP/UDP header.
+> 
+> The function then reads:
+> 
+> 	thdr = (struct tcphdr *)((u8 *)ihdr + 4 * ihdr->ihl);
+> 	...
+> 	if (shdr->magic != cpu_to_be64(NET_TEST_PKT_MAGIC))
+> 
+> It never checks ihl >= 5, the IP version, tot_len or the L4 header
+> length, and double_vlan adds another 4 bytes.
+> 
+> Could an IPv4 frame that arrives during ethtool -t make the hook read 
+> up
+> to about 64 bytes past skb->tail? Examples would be a minimum-size TCP
+> segment or a frame with ihl=15.
+> 
+> The over-read seems to stay inside the skb head allocation, because
+> skb_shared_info follows skb->end. If so, the only effect is a possibly
+> wrong selftest result.
+
+The length check is pre-existing, will address that in a follow-up 
+patch.
