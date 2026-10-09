@@ -1,198 +1,165 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012020.outbound.protection.outlook.com [52.101.43.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D88D4EE876;
-	Fri,  9 Oct 2026 14:42:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791556932; cv=none; b=vGvLxTun3VYft6wOuSllMYUqcw4gz5Us93joBg2fXOAe4UGio8AyXPxte5DbHH6RXsPzRlc0K3YlPcQodmPY+e7gz0qz8Lhr3hwJigNe/iugutkOz0D29qLdOfnH6uNxLbbTd1mLkDCr2vSTZqL/Gz0lO5cz3FIgDKuXGwtJGik=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791556932; c=relaxed/simple;
-	bh=L0ZY1yQv5GNt88TQoZPHqYzEbRRQTSkYQMEBVi/3ppk=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=FMEECsJmvq+/HiPV4GvcFTBBqzAvmluYSGLzJYoTvMGYcx2KCJp25n82uc8V3/lyx2vdca+9clkQM1jhfG+RQ2kp16fsQdQTVLPtJTBo+Pdqrkr5SpURsjuUuWzN7XuR8/kvxl2ssRiYAQTJSSPLpCilJOSeCjraJ1XxlRBYOI8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 608591F7CB;
-	Fri,  9 Oct 2026 14:42:09 +0000 (UTC)
-Authentication-Results: smtp-out2.suse.de;
-	none
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 42B9E1368B;
-	Fri,  9 Oct 2026 14:42:08 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id YSBwBUD9yGoQMgAAD6G6ig
-	(envelope-from <fmancera@suse.de>); Fri, 09 Oct 2026 14:42:08 +0000
-Message-ID: <027f7f3a-1b33-40f9-bc39-ed9ef4986ed8@suse.de>
-Date: Fri, 9 Oct 2026 16:41:10 +0200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D46804E73C3;
+	Fri,  9 Oct 2026 14:43:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.20
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791557008; cv=fail; b=isAhjZhLLM4Fv+1S8CL1tpeHMkul7u2hAs+2M8v4HQ1O+pf1A6fYBQ0amqcmGQ24QWZyZbLaHeW/qqDyP/XFtIAHjgpSJ7q2Vfsq2605P/cIIZsay0EEq5GlubFjNptef38cBI/7Kcw1HLxyAZFX3T2zVBA1uUx9Wn1qe3khu5c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791557008; c=relaxed/simple;
+	bh=34+VJIm0IJxV8PYQszE/GNNN7IRbW4eQhHjh15g+G/Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=KnmF1cLQ9tiRn/77gFR24bsaXxYvrXIXOCD2paYyl/1fCOGCC+1MUnw5xtHkS2fzU2VOtBwg1J7JkQT37ctyQgsM55YwHCGrFG5vE77ExF6P0N2RVfjgQwHrrOjsrrnUCQ2Fz3r6fesbJ8NfYH6RMq9PwGzMPbOSjOWay8Q0/Hg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=MPdRqLmn; arc=fail smtp.client-ip=52.101.43.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="MPdRqLmn"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WMXBW8OrP+OXkDBF2gTJPHqP6lllVDNfoESgP/Qfw/lRHLLA8+7AsUJ9BvGpfmxVy6E5EEs/s0Mc+/VFTlhfbFGus7S8gl/S1aI2zoFhELiZJDS8a9kA3f4UGO/WLpgVb4II2OKM2on4i5v27DAMnaNOQt1QwGOwJZ0tUgSUKSbkcVnvIEkHDOsEwRIXA5d/wMyWPG1fhzYRVpoOpqoXJ2LLDsy+ksxf14svR3mE3lhAj8obf4pW1RZRdRGRqX42pp3KdK5duknm31ImllekCYFQ0qiYcEfn0PLVM/HhXAECYn7qHcynuJPstrzW4CpvFF0HRAi+Z6wK5DapI8/5bA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Lzj0/FMthPmD+zy8ocYz7qr/nwxApU7bjPa3TkzroPc=;
+ b=tSPDse3dL1sEtnU/MOK7b1m33wpJtBjoeQyuCrWrUM6dVzobp2vMwFI/XfUDXxiSlan7W0rtPdP+g1p8TLeTUnKfODrW7xPSv5juL0umKB5MbVj9n0pa7f/TGthR/GFpmROjYt8LKBpr+jKiaRMn/rtLwBIPC/xPn8OQm+aAR7SX7kQIB5cJKNSbFk/yHhwGCHjINtjTZJ4UhpZ1oleuyliqZ1ZbfHrfmQaqN5z73Elkg1ivNNEHEAZjy85D01+vbMvF6V8LAH8DOij/N9oPlA1rDYTaHOBj7aFbs76ZviAPXVCg39kAb2CtXPKtpil45x2C6SzakSMwUg6k2aX+PQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Lzj0/FMthPmD+zy8ocYz7qr/nwxApU7bjPa3TkzroPc=;
+ b=MPdRqLmnHsIYs+6FZXShhvJQgFFHB3WUo4d7i5jowa2ioNP4cQR+PrPnN4vwBd8FXxoCCveVunr6Z9EAg9Z28wFzl0yLa3sotKOzWD2DHrfqMchpkEp2o0lXbd8xlIRuVPLRy1mmvG4BQCqFyznCYBLQNHyrt32LwuqhElR/jyBN/wmFgcWCnHK0OwoEV2zr8ValgBqcgHJl7BhFzbeyamkgCeQEdnYcfuko24BhLLBXxHopaMf/RWrTZwpvo0gsc5pYwJr2omRlmFyzRpz+FtrW819Kk8Z39xdbgPjx78HaOCv/eY9NpvdKcIcTiFXwiUqiIsuMFPTMPqxfSOpslg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12) by IA0PR12MB8207.namprd12.prod.outlook.com
+ (2603:10b6:208:401::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Fri, 9 Oct
+ 2026 14:43:20 +0000
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
+ 14:43:20 +0000
+Date: Fri, 9 Oct 2026 11:43:19 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Karl Mehltretter <kmehltretter@gmail.com>,
+	Alistair Popple <apopple@nvidia.com>
+Cc: iommu@lists.linux.dev, dri-devel@lists.freedesktop.org,
+	Diederik de Haas <diederik@cknow-tech.com>,
+	Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Sandy Huang <hjc@rock-chips.com>,
+	Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+	Andy Yan <andyshrk@163.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+	Rob Clark <robin.clark@oss.qualcomm.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Jianfeng Liu <liujianfeng1994@gmail.com>,
+	linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 1/2] iommu: Add iommu_map_sgtable_dma()
+Message-ID: <20261009144319.GA58900@nvidia.com>
+References: <20261009002114.67851-1-kmehltretter@gmail.com>
+ <20261009002114.67851-2-kmehltretter@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261009002114.67851-2-kmehltretter@gmail.com>
+X-ClientProxiedBy: YT4PR01CA0035.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:fe::21) To CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH nf] netfilter: ip6t_SYNPROXY: check TCP header before
- verifying checksum
-From: Fernando Fernandez Mancera <fmancera@suse.de>
-To: Palla Raghunath <raghunathpalla.0209@gmail.com>,
- Pablo Neira Ayuso <pablo@netfilter.org>, Florian Westphal <fw@strlen.de>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Jesper Dangaard Brouer <hawk@kernel.org>, Patrick McHardy <kaber@trash.net>
-Cc: Shuah Khan <shuah@kernel.org>, Brigham Campbell <me@brighamcampbell.com>,
- linux-kernel-mentees@lists.linux.dev, linux-kernel@vger.kernel.org,
- syzbot+5a8667f002726fc59f88@syzkaller.appspotmail.com,
- Phil Sutter <phil@nwl.cc>, Simon Horman <horms@kernel.org>,
- netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
- netdev@vger.kernel.org
-References: <20260926204519.43402-1-raghunathpalla.0209@gmail.com>
- <e2beb9bc-7b92-4ae4-8190-c99bee8de1ca@suse.de>
-Content-Language: en-US
-In-Reply-To: <e2beb9bc-7b92-4ae4-8190-c99bee8de1ca@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Pre-Result: action=no action;
-	module=Unknown lua;
-	unknown reason
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Rspamd-Pre-Result: action=no action;
-	module=Unknown lua;
-	unknown reason
-X-Spamd-Result: default: False [0.00 / 50.00];
-	TAGGED_RCPT(0.00)[5a8667f002726fc59f88]
-X-Spam-Score: 0.00
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|IA0PR12MB8207:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5c1ff189-dbec-443b-9628-08df2613a9b2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|7416014|18002099003|22082099003|4143699003|56012099006|10067099003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	l1SKlmN7a5cmPfSoAOiOcHkmYwgnQPag5BK4t68BmMxHgEvn8pLf9uN/3EIJb3wvZcG0k8D6b99yvIK3q2sc4Knnzbapo+BAt7uhTVE7nGUlETM1CQqd+Wvu2km7CLMYhNVA9OHoc1d7bVFFMc8Vu5v1Ju0arAx6NtcMUg2zZn0ehEAv6LispeEiMphD37MCUUt4GLt1cbNiZRnKH57aTVuijVrCxCpVLCyzp6LCnxMvtXkIoT+t31taIKLU32ICkS6g/0TYoP7jLqSCRva7OJivNzROracYYTOnSzCY4kQu/jv3/7jM+oTQCmL95Ycz/k4sOmQv0G2gYZa2HCBRAio/rocnMbvEVuJkCEtNi1L4XzNUDhp7ib7lvjMKE3cEh0hqQOyKY7/g73pyqPW6B8WtT+ctxVjwmJ2a4sXP8d3RZbouA6BbCb393KGvbcZtm+l2iIqxZOPLPudQpkbQTpV9X9qbFpMog0Kw/D3+tC9HK3X5oBnYH36/RreiqDlkhrYBksKDLX0i3SwwJOxwvQ9ht0mH+pYV6W8wS985kinyAJY860WWbZCzk8FyEdQC+aCeFa4BFp+SJTpMzTbyry/xu3lzF6ILgsE2/1md+8qAZ2q5PHrGkmI8yb9p6/eCADQ9ZT0fPZRMPC6S3bWDo+/k0sDQlPFkXOl8GitG1HM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(7416014)(18002099003)(22082099003)(4143699003)(56012099006)(10067099003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?wvH+h9sEGxVzQEnUy9PMqtWLSATdT2bltIY1F4wxk77ddwR2hNm3YqIqWKyJ?=
+ =?us-ascii?Q?0kiT5CSfisUxHz0he3Ls0FNd4gsvy1vYAGMR7wv9XAHeFfEhmA1Hy8xBpgfc?=
+ =?us-ascii?Q?CeVQp3MJSXujY6S/6KjxsxNN8FrszCmWUSyg+HN4+tmbOS+pVO4gCmfgPeRp?=
+ =?us-ascii?Q?R3oLX33LU4l4xqitz4eQ9qyAyhC7ed/ybXIzDlxg3ZEqBxiHJA3MrONirZnG?=
+ =?us-ascii?Q?fD37etUy09OAZRAltCjVKSwKWTaE6H0jQcYsQ+5F1dqbwxsYPpTLa56Uyhay?=
+ =?us-ascii?Q?6HJLGJ3nRBQI4Wyly7o0mmlIVpdXOOOO4tqpl5bgEpanXWQ0jogbCtnd1bl6?=
+ =?us-ascii?Q?Wf8wEFkUSqk3jH78YAeJ+sz6PIFpwdGtV49ljXpczrYS4aybuman/MaJ5GCu?=
+ =?us-ascii?Q?xDQ6P16MAkWtLTl0BLd9CgRBSoKYAjWIm/sjRIxHGaPGLu/Ny1xZssx3qRW8?=
+ =?us-ascii?Q?1UsemdXhqCi4EJSSNY/c+owRbCNYoJXcw5YITM+9Nmwe1fieB92yRqFQlPV1?=
+ =?us-ascii?Q?xOYF7i1c3yDNS4NBVOpZliWhFl7+vdaeKEa8dgMiV91M1wK8Ua9iaX1aP5iB?=
+ =?us-ascii?Q?0JrmMD5kSGHssr2P0ww73kEEqAuMh5212+RjxK5g8Vx0K/usKFt06aLUiHzx?=
+ =?us-ascii?Q?2AxLAtr4x2SBOJHuzEaJFB+RxyFCHMpCo9aPlOxmKm49T8d3jya3SflNpxR3?=
+ =?us-ascii?Q?Hzc8c4dqJuMeZObCXwA2yxRAWiLr5k3NHITvQI4WW9b31fpS04A7NY6Kd6PD?=
+ =?us-ascii?Q?UpofJoOF3xMwlul0Ef7KL/li0NCcFpI88Dejwp3kV705nugUnfljxtmyQrGi?=
+ =?us-ascii?Q?qHQvhGyOhX/S9AflTnx8BuxT97VWChuzl81DvefiAJt6EB4E/3Hpj3VEFx23?=
+ =?us-ascii?Q?WgQliMVT0hfzOTndcB8rQ+X0xCIg5c4XL+tSvZCIL1LwQjjvJF9/0E5FG94V?=
+ =?us-ascii?Q?hqxMjp/hhw20y+dQdDkke0jDnDZfH0tJUWYubwgBI4XM+Y+YN9HBgHnQx5Nj?=
+ =?us-ascii?Q?IRqc7RFXaCiuUkT9dM+1ETT1mHF2MK3/Pr5yeNbVs3GLn3olp7bSSlhpOVrc?=
+ =?us-ascii?Q?A/AGvYtRhAGCQnGBZGrgLy7tqNgPIzXCXD3IlmAFeBH5PBUU4kIfo9m4vwdW?=
+ =?us-ascii?Q?fBKCQmMtFza2GCltsV7XSFqpL92ukqAEZcAaE+S/fKYm9YI3rCGrLR28SEG1?=
+ =?us-ascii?Q?I0/Cfm0UVlMHUo2oqdxZ6c6yWA6FTYAasmde8R/9AeB/17v6qSPU6ljSFgqc?=
+ =?us-ascii?Q?azgs7gWy+PmFlBYNMKMM8nLdV0sVVUlyNhIfoZYZVr3JhTK78UqBn2mZTiNx?=
+ =?us-ascii?Q?nsBhMNXKaei69iB0p+lXpwnRgUGJzolEq8Ff/rSLCR668A1Ia1uKlmVZwzGo?=
+ =?us-ascii?Q?3miEQqNwXzDBqGjAZ/3desJsJDbmc91gO1K0aqBMoUt6GKGWQgzebcoTVZw0?=
+ =?us-ascii?Q?pVsl/Emf8W4tShIdo146xKZLYbRIkOqL5QAezBUquRswv41/suLqaL4Gw3As?=
+ =?us-ascii?Q?hbEbPUWlXzK7bTjZUY2onnMPaFpxD2ZbvmBjnBlk8s/85glTTcZ+V5stiibk?=
+ =?us-ascii?Q?3H12B1+NT2FeJOyg6LjP/TwgajA92WPxNmfVK5OjehLDEw2j7hfc3dJmLNDv?=
+ =?us-ascii?Q?xY7/FDMZI/3nG8/pEAp1YpR6gwsKKfucUJCWWxN4ZJ2MNxW/VCszX+Koe9xc?=
+ =?us-ascii?Q?NlwzNTit9HetBJPQkLO2YFQgm71Dkmijic1wc7nfwQRDLiYQ?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5c1ff189-dbec-443b-9628-08df2613a9b2
+X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 14:43:20.3977
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: qzXEd/gUoEsZUvqa7XwV8tugZN2Bt6Reo9yjYPaCXa8IdvlCUBp//hoqG4EFVYXY
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8207
 
-On 10/9/26 4:28 PM, Fernando Fernandez Mancera wrote:
-> On 9/26/26 10:45 PM, Palla Raghunath wrote:
->> synproxy_tg6() passes par->thoff to nf_ip6_checksum() before it has
->> checked that a TCP header is actually present at that offset.
->>
->> par->thoff comes from ipv6_find_hdr(), called by ip6_packet_match()
->> with target -1. ipv6_find_hdr() only checks that each extension header's
->> first two bytes are in the skb. It then adds that header's declared
->> length to the offset and stops at the first non-extension header, so it
->> can return an offset past the end of the packet. With
->> CHECKSUM_NONE, nf_ip6_checksum() calls skb_checksum(skb, 0, thoff, 0).
->> When thoff is larger than skb->len, the BUG_ON(len) in skb_checksum()
->> fires:
->>
->>    kernel BUG at net/core/skbuff.c:3606!
->>    RIP: 0010:skb_checksum+0x8b2/0x8c0
->>    Call Trace:
->>     nf_ip6_checksum+0x1bd/0x320 net/netfilter/utils.c:89
->>     synproxy_tg6+0x1a4/0x6e0 net/ipv6/netfilter/ip6t_SYNPROXY.c:21
->>     ip6t_do_table+0xd37/0x15b0 net/ipv6/netfilter/ip6_tables.c:366
->>     ...
->>
->> In the syzbot reproducer, a 60-byte packet carries an AH header, then two
->> hop-by-hop headers. The last hop-by-hop header has nexthdr TCP and
->> hdrlen 167, so thoff is 1400.
->>
->> Fetch the TCP header with skb_header_pointer() first, as
->> nf_reject_ip6_tcphdr_get() already does. This drops packets that do not
->> contain a full TCP header at thoff before the checksum is computed.
->>
->> Fixes: 4ad362282cb4 ("netfilter: add IPv6 SYNPROXY target")
->> Reported-by: syzbot+5a8667f002726fc59f88@syzkaller.appspotmail.com
->> Closes: https://syzkaller.appspot.com/bug?extid=5a8667f002726fc59f88
->> Signed-off-by: Palla Raghunath <raghunathpalla.0209@gmail.com>
->> ---
+On Fri, Oct 09, 2026 at 02:21:13AM +0200, Karl Mehltretter wrote:
+> DMA-BUF attachments provide DMA addresses, not CPU-side pages.
+> iommu_map_sgtable() needs those pages, so private-domain importers such
+> as Rockchip cannot use it with strict DMABUF_DEBUG.
 > 
-> Reviewed-by: Fernando Fernandez Mancera <fmancera@suse.de>
-> 
-> The nftables synproxy eval path is also affected but I think it would be 
-> better to keep it in a separate patch in order to facilitate 
-> backporting. The issue were introduced at different times and nftables 
-> synproxy expression is "recent" compared to the iptables target.
-> 
-> I am sending a patch for the nftables expression and will CC you in case 
-> you can test it too.
-> 
-> Thanks!
+> Add an iommu-dma helper to map a live attachment into another domain by
+> translating through the device's default DMA domain. Roll back target
+> mappings on error. This still recovers physical addresses
+> internally.
 
-Actually, I thought twice about this. Could you please include the 
-following diff in a v2? In addition, I think the comment is a bit 
-redundant/not necessary. Could you just strip it?
+Absolutely not. You cannot recover the phys_addr's from a DMABUF
+expoter by using iommu_iova_to_phys(). Christian is adamant that
+drivers must not use physical addresses, and I will not agree to any
+hacks like this to try to end-run around his prohibition by abusing
+iommu subsystem.
 
-Please use also the following fixes tag too.
+NAKed-by: Jason Gunthorpe <jgg@nvidia.com>
 
-Fixes: a311a8981727 ("netfilter: nft_synproxy: use the family-aware 
-checksum helper")
+If you want to keep the domain in the rockchip driver you have to fix
+DMABUF to allow an importer to use an iommu domain safely.
 
-Thanks,
-Fernando.
+It *must not* be done with a scatterlist interface, sorry, I know that
+is alot of work but Alistair is going to take a serious stab at it.
 
-diff --git a/net/netfilter/nft_synproxy.c b/net/netfilter/nft_synproxy.c
-index 554a96a000f4..6b290a89886d 100644
---- a/net/netfilter/nft_synproxy.c
-+++ b/net/netfilter/nft_synproxy.c
-@@ -118,12 +118,6 @@ static void nft_synproxy_do_eval(const struct 
-nft_synproxy *priv,
-  		return;
-  	}
+Many users want this, not just rockchip. So help with the work to
+allow iommufd to do this and you will get it for free.
 
--	if (nf_checksum(skb, nft_hook(pkt), thoff, IPPROTO_TCP,
--			nft_pf(pkt))) {
--		regs->verdict.code = NF_DROP;
--		return;
--	}
--
-  	tcp = skb_header_pointer(skb, thoff,
-  				 sizeof(struct tcphdr),
-  				 &_tcph);
-@@ -132,6 +126,12 @@ static void nft_synproxy_do_eval(const struct 
-nft_synproxy *priv,
-  		return;
-  	}
-
-+	if (nf_checksum(skb, nft_hook(pkt), thoff, IPPROTO_TCP,
-+			nft_pf(pkt))) {
-+		regs->verdict.code = NF_DROP;
-+		return;
-+	}
-+
-  	if (!synproxy_parse_options(skb, thoff, tcp, &opts)) {
-  		regs->verdict.code = NF_DROP;
-  		return;
-
-
-> 
->>   net/ipv6/netfilter/ip6t_SYNPROXY.c | 9 ++++++---
->>   1 file changed, 6 insertions(+), 3 deletions(-)
->>
->> diff --git a/net/ipv6/netfilter/ip6t_SYNPROXY.c b/net/ipv6/netfilter/ 
->> ip6t_SYNPROXY.c
->> index d51d0c3e5fe9..04db1f82420b 100644
->> --- a/net/ipv6/netfilter/ip6t_SYNPROXY.c
->> +++ b/net/ipv6/netfilter/ip6t_SYNPROXY.c
->> @@ -18,13 +18,16 @@ synproxy_tg6(struct sk_buff *skb, const struct 
->> xt_action_param *par)
->>       struct synproxy_options opts = {};
->>       struct tcphdr *th, _th;
->> -    if (nf_ip6_checksum(skb, xt_hooknum(par), par->thoff, IPPROTO_TCP))
->> -        return NF_DROP;
->> -
->> +    /* par->thoff may point past the end of the packet; make sure a
->> +     * full TCP header is present before checksumming up to it.
->> +     */
->>       th = skb_header_pointer(skb, par->thoff, sizeof(_th), &_th);
->>       if (th == NULL)
->>           return NF_DROP;
->> +    if (nf_ip6_checksum(skb, xt_hooknum(par), par->thoff, IPPROTO_TCP))
->> +        return NF_DROP;
->> +
->>       if (!synproxy_parse_options(skb, par->thoff, th, &opts))
->>           return NF_DROP;
-> 
-
+Jason
