@@ -1,232 +1,133 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mta0.migadu.com (out-65.mta0.migadu.com [91.218.175.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79E681E7C2E
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 02:22:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CA682F361B
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 02:24:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791512563; cv=none; b=gEQ/hif25Oj5CjTyz4cOunFn+y2YCKCXO9N0TzlAT636DdNAygudooAr/PRgT94F69h12WA+QQnB8FvTt2YsM51uXd/YsZDEfx4ZDRkQb/OXDWUs8Zb6ZGpiofCOF03Wn7R+IkkSO1ZFv580MK6x4sAaYtjKR4u89Y4NoZRBUoQ=
+	t=1791512643; cv=none; b=Q+tk+wzbzOgU4cNo83yb/ilAwMVfTISUFfaU6lt0F3VPhzjdHG2JI6LAKESrEt68Z67S8PJJJa+xiPKkZcupzNIyQKuHl4o6MqxBNThSD0oaiAljLbd14lmg0AkqsoxXCfxmTEcCfexu6S/lftpko7SI4KhWM3EwJRx2gL7O5s0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791512563; c=relaxed/simple;
-	bh=rZnfs9jlSy7nC72mCIFsVJ0m5TXQkQiypYbpWhi7fg4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nxRftuA6Xmo2QRUC5ae+J7i4dIwT6MngVZitdjbONSjh6Ovp663t/zs8UYVyUCDxIuS40EDL8fOjXXOlH2GGY/KHsmHuL1JCmdTQstxqep3tRED3/g9A5pmbWWPVOy11nAd/Fn0qiMjb/adoSx6qirBJpGCQKu+QMh6aE/558J0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E+B7Xs8m; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791512643; c=relaxed/simple;
+	bh=2WXVJwmklAa4u7ERRVuvBgEqH+ocivdiloH46r0DQqc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=B8MVoNBBdaJSKEWbUk0CfYo0MgCcq5sMP2gxlhs9p97BqYXHNEME9N/2TKQDe6rK7J6dnIXigCDRptRGse3v0TCkHUYRTI4+uHpa+Q9CzpRb//slHdchprZi2Y2PYy2ySu2p2yjIiM8hUFGAsjqs44AHCP7o1RgLvyLAJ69/+2Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Qe2P+Yf2; arc=none smtp.client-ip=91.218.175.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E+B7Xs8m"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a171b677d2so25994385e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 19:22:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791512560; x=1792117360; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pJgi0wCSIv3Jg52XE1Hkh6T6+QnvPZ+aw5SFZUSnXYQ=;
-        b=E+B7Xs8mJ39DnYfuvLafpSsMI9xQdyC9cNyzu6GBEUCvuM3p1vOeJ2SNxU1U9hWeoP
-         llX8QFlTR0Y5xDfwlyyDIPAqnOdYyjAciROlGiyI4bZ9N3CK4cON0y3nDM11ZpmX258H
-         Z/0+IYbQvbiyfeK/koGYbkMc4rqKLTuIckSKIJzRDdjKlpPMyQHY5XLeK28OLxkQJU0c
-         6tFGLG31y3SIiI8SKKdzyAdBAnHPPrRPl9PeUDMZPzYFfHlxRSz6tK8dsaYPqtpwxia5
-         gIC38HiAjlqyQLhOl9EJ9TkyafBJFKcDO43qLbqUlS955crQtSMoeVC+DztPfHKefkWx
-         7FHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791512560; x=1792117360;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pJgi0wCSIv3Jg52XE1Hkh6T6+QnvPZ+aw5SFZUSnXYQ=;
-        b=Y3CVM6Rs2dl891UC9Hxrn6KGv36AzyFS5Mw/SoR2l3FcvkN23FrtBTJxEcA1Xrg/3k
-         4PSdvhegWjCDDrJRjsz2ovlDlHWe9xuEZxRfF2lKyqHHKhajTko5Mc019mLkIlOr62cJ
-         1ITFSjHdwiZ2dAGdUHoVsYKsyP0sTiaAwZqiH8pmn+wM35679ynd2lf+tQl8v4O0FLoF
-         CuSMGuJjv4NQM2OOm2kMsabbz2ceM4A5bw8aHxbAnGgEe1kyoK0AJwDfUSWq8HM3nVhk
-         9M3Nlcir7qTPANpR9KYClaETGJOsdprR18puhASyig0XGDNJBBKYrFnb0K4RK3/Z0SCo
-         ssLw==
-X-Forwarded-Encrypted: i=1; AKwUvBxf79Z5yxCudeYbv10LsyhJ5nyOG3dDfru/qqpCE6JdLjP7xo2NAdxma/tYYx+Wpot5sVJhOrqR0pkoM3w=@vger.kernel.org
-X-Gm-Message-State: AFuF++nKo2Cy82dSQ+VqO8t8wCXpwmtCt+fCNFNEspL8hZ5h9/fuxaFw
-	OQgDm0KisUYNTGrgHJzzKY/fwMmrTGn1BDrSg1ZLMhpXejSrO6NG/dYD
-X-Gm-Gg: AYBFou0pq9NZjukD68adfwdVp1Rdd0GCRyak1Ix3YyTg5vdNo3pj9GSx2U6X8UZsZsL
-	tU+uqlea74TwGOWrho17h+wosBZS4xvkdKWanetENpOYt4xMsa7LpdvL+b14HM+JrDDDig11r3G
-	iA/HmxaHydjkJevfm/V008h3PX7jc2bIS4+KSscud/SJ18Ccy45LWjr2KDhwlaUAD4M24XfMDlp
-	iQsLMyTgXqcPTeVS1/vMfUc7VGKXU1tZqb/VITUctDo7WilWLHR8tXUe7G/cBwhLNK/GxAPF8jI
-	ceHVtFWVAf6Nl/inaR1vhYm9e3EsGEH3z7VczdLe2pQNh9qtnBr9uyN0c9WuZn8Q2tWkgHeRaTS
-	Gh7ntm8KNwMxck2Q9fkJnBPgp8pVXRMZ2HX90LV2vxzfP0J3QK+ShwyvoE9ZTJ18nmr921GJY7E
-	ndotj9hJyI+6PzfKzdZg05eg14HQBmu0BfJ8LvhcKLvoMTs6O1V0e2OUn7Tf90mYmykuqyfo+g/
-	STdMG6au7mSq0AZI9lB2kLuahHLQ1PjB3tfhhT8WzPsTdPuxIe5x9ySUDgorKcdEFjh7wxA11Al
-	ucNm54NLfPXbameoMhirX6nIOyToxDkll33xSyu8ymj9ilFHCnA=
-X-Received: by 2002:a05:600c:524d:b0:4a1:80d8:aeb3 with SMTP id 5b1f17b1804b1-4a18e4a95c2mr5608385e9.12.1791512559401;
-        Thu, 08 Oct 2026 19:22:39 -0700 (PDT)
-Received: from mikebook.tail5724d6.ts.net (83-244-142-114.cust-83.exponential-e.net. [83.244.142.114])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf3e044sm21438765e9.14.2026.10.08.19.22.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 19:22:38 -0700 (PDT)
-From: Michal Pluta <michalpl2003@gmail.com>
-To: Ian Rogers <irogers@google.com>
-Cc: Namhyung Kim <namhyung@kernel.org>,
-	acme@kernel.org,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/5] perf symbol: Grow the Rust demangle buffer geometrically
-Date: Fri,  9 Oct 2026 03:22:34 +0100
-Message-ID: <20261009022236.992515-1-michalpl2003@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <asVUvfhz4wG5CnZC@google.com>
-References: <20260928010227.1903673-4-michalpl2003@gmail.com> <CAP-5=fVe=VxnxypQYNt1h-s+3=Me8D_fpBL3LD1Eeb1cGvUc3g@mail.gmail.com> <asVUvfhz4wG5CnZC@google.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Qe2P+Yf2"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=2WXVJwmklAa4u7ERRVuvBgEqH+ocivdiloH46r0DQqc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791512639; v=1; x=1792117439;
+ b=Qe2P+Yf2icGy4aZ9s+Lpnh3vY+SOEpZsJZGR3LC0pankUuRGfiiypdKtsoMx1t2aZjCzNcQb
+ 3l7xcm3C9YJTJO/Z8cqmyc+P2wGHztSeOMGtukRxQaTJXGqxZAfKUtuHRD0oajFGf4ShlG4PQff
+ JJtI7IYgcLhA65HXnhgd1wB4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 8a2f425c20a86b80;
+	Fri, 09 Oct 2026 02:23:59 +0000
+X-Mizu-Trace-ID: 8a2f425c20a86b80
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <9bed4cb1-7b56-4580-89ad-d8a5b427aae8@linux.dev>
+Date: Fri, 9 Oct 2026 10:23:53 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v2] tcp: do not send a SYNACK to a broadcast or
+ multicast address
+To: Theodor Arsenij Larionov Trichkine <theodorlarionov@gmail.com>,
+ edumazet@kernel.org, ncardwell@google.com, kuniyu@google.com,
+ davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com
+Cc: horms@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261008114942.1376889-1-theodorlarionov@gmail.com>
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+In-Reply-To: <20261008114942.1376889-1-theodorlarionov@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 28, 2026 at 2:43 PM Ian Rogers <irogers@google.com> wrote:
+
+On 10/8/26 7:49 PM, Theodor Arsenij Larionov Trichkine wrote:
+> tcp_v4_conn_request() drops a SYN sent to a broadcast or multicast
+> address. The SYNACK route has no such check. A SYN with a multicast
+> source address can reach a listener when it is looped back with its
+> dst attached: ip_rcv_finish_core() then skips ip_route_input_noref()
+> and its martian source check. A raw IP_HDRINCL socket sending to a
+> local address does this, as does re-injection by nft dup or the
+> iptables TEE target.
 >
-> It seems changing the scope of this variable is unnecessary.
+> If the SYN destination is an address on a non-loopback device and the
+> source is a group joined there (such as 224.0.0.1), the SYNACK route
+> has RTCF_MULTICAST and RTCF_LOCAL set, and ip_build_and_send_pkt()
+> sends it through ip_mc_output(). skb->sk of a SYNACK is the request
+> socket, so sk_mc_loop() reads inet_flags past the end of it:
 >
-> Thanks for digging into this problem and exploring a fix! Previously,
-> we guessed the demangled length was twice the mangled length, then
-> added 32 bytes for each retry. These were numbers I pulled out of thin
-> air, so I'm glad you've found them to be wrong :-). Could we estimate
-> the initial demangled size better? Could you get data from Bevy and
-> Typst? I'm a little concerned that a demangled symbol of say just over
-> 2KB might require 4KB with this change, instead of 2KB + 32bytes.
+> BUG: KASAN: slab-out-of-bounds in sk_mc_loop+0x111/0x170
+> Read of size 8 at addr ffff88800f2b7f10 by task repro-raw/470
+> Call Trace:
+>   <IRQ>
+>   sk_mc_loop+0x111/0x170
+>   ip_mc_output+0x355/0x930
+>   ip_build_and_send_pkt+0xb87/0xc50
+>   tcp_v4_send_synack+0x500/0x6f0
+>   tcp_conn_request+0x2135/0x2d90
+>   tcp_v4_conn_request+0xa5/0x210
+>   tcp_rcv_state_process+0x136e/0x6920
+>   tcp_v4_do_rcv+0x339/0xb10
+>   tcp_v4_rcv+0x34ab/0x3ab0
+>   ip_protocol_deliver_rcu+0x6e/0x3e0
+>   ip_local_deliver_finish+0x34d/0x510
+>   ip_local_deliver+0x1bc/0x310
+>   ip_rcv+0x390/0x410
+>   __netif_receive_skb_one_core+0x199/0x1e0
+>   process_backlog+0x239/0x680
+>   __napi_poll+0xb5/0x650
+>   net_rx_action+0x980/0xd60
+>   handle_softirqs+0x17f/0x590
+>   do_softirq+0x3f/0x60
+>   </IRQ>
+>   <TASK>
+>   __local_bh_enable_ip+0x66/0x80
+>   __dev_queue_xmit+0xa65/0x3520
+>   ip_finish_output2+0xb00/0x16f0
+>   ip_output+0x2ad/0x4a0
+>   raw_sendmsg+0x245b/0x28e0
+>   inet_sendmsg+0x121/0x150
+>   __sys_sendto+0x450/0x4e0
+>   do_syscall_64+0xf6/0x500
+>   </TASK>
+>
+> Allocated by task 470:
+>   inet_reqsk_alloc+0x97/0x6f0
+>   tcp_conn_request+0x4c6/0x2d90
+>   tcp_v4_conn_request+0xa5/0x210
+>
+> The buggy address belongs to the object at ffff88800f2b7d60
+>   which belongs to the cache request_sock_TCP of size 312
+> The buggy address is located 120 bytes to the right of
+>   allocated 312-byte region [ffff88800f2b7d60, ffff88800f2b7e98)
+>
+> Apply the same check to the SYNACK route in inet_csk_route_req().
+>
+> Fixes: ca6fb0651883 ("tcp: attach SYNACK messages to request sockets instead of listener")
+> Suggested-by: Eric Dumazet <edumazet@kernel.org>
+> Signed-off-by: Theodor Arsenij Larionov Trichkine <theodorlarionov@gmail.com>
 
-Thank you for the reviews. I'll move the buf_len declaration back to
-where it was before.
 
-For context, the other demanglers in perf don't size their buffer by
-retrying. The OCaml one allocates len + 1, as the output is never longer
-than the input. The Java one allocates strlen * 3 + 1 and truncates. The
-C++ demangler (libiberty) starts with an empty buffer and doubles it,
-but it writes through a callback so growing doesn't restart the
-formatting. The Rust one writes into a caller provided buffer and has to
-start over each time it is too small.
+Reviewed-by: Jiayuan Chen <jiayuan.chen@linux.dev>
 
-I collected some data from release builds of Bevy and Typst and a few
-other large(r) Rust projects. For each binary I took the defined symbols
-and counted the number of attempts that the buffer loop in
-dso__demangle_sym() makes for them. I ran both the current +32 loop and
-the doubling one from this series in a small test program. No symbol
-went over the 1 MiB limit.
 
-Builds (mostly v0 symbols, plus up to 148 C++ ones per binary from
-linked libraries):
+> ---
+> v2:
+> - Reject broadcast/multicast SYNACK routes in inet_csk_route_req() (Eric Dumazet).
+> - Describe how the SYN reaches the listener; add KASAN splat and repro.
+> v1: https://lore.kernel.org/netdev/20261008100423.1256884-1-theodorlarionov@gmail.com/
 
-  bevy         0f38358f573a  cargo +1.98.1 build --example 3d_scene
-                             --release --config profile.release.strip=false
-  datafusion   acf5c89e6454  cargo +1.98.1 build --locked -p datafusion-cli
-                             --profile release-nonlto
-  materialize  54a6aca7b5f1  bin/environmentd +1.98.1 --build-only --optimized
-                             (clusterd and environmentd)
-  polars       750bbaa9054c  cargo +nightly-2026-09-01 build --locked
-                             -p polars-dylib --profile fast-release
-                             --config profile.fast-release.debug=0
-                             --config profile.fast-release.strip=false
-  risingwave   be77a6149e97  cargo +nightly-2026-06-21 build --locked
-                             -p risingwave_cmd_all --bin risingwave --release
-                             --config profile.release.debug=0
-                             --config profile.release.strip=false
-  typst        9dfd3a08500b  cargo +1.98.1 build --locked -p typst-cli --release
-               (v0.15.1)     --config profile.release.package.typst-cli.strip=false
 
-Firstly some data on how often initial guesses are too small and how
-many retries they cause. "retried symbols" is the share of symbols whose
-output did not fit in the initial buffer. The other columns count the
-extra attempts after the first one ("total"), and the most any single
-symbol needed ("max"):
-                              symbols   retried      +32 loop       doubling
-                                        symbols    total     max    total  max
-  materialize clusterd        295,365    5.66%  3,500,913  17,844   27,960    8
-  risingwave                1,051,376    0.87%    297,151   1,561   10,180    5
-  polars libpolars_dylib      276,797    5.61%    247,424     236   16,149    3
-  bevy 3d_scene               218,042    1.09%    205,030   1,135    3,493    5
-  materialize environmentd    377,085    0.51%    117,485   1,539    2,302    5
-  datafusion-cli              175,020    1.10%     24,304     125    1,957    3
-  typst                        36,504    0.12%        907      66       50    2
+I think SYN with 192.x.x.255 as source can also tirgger this warning 
+when rp_filter is disabled.
 
-Only 0.1% to 5.7% don't fit in the initial buffer, but with +32 this is
-very costly. In clusterd it adds up to 3.5 million extra attempts with
-one symbol needing 17,844 retries. Doubling does the same job in 27,960
-total retries and no symbol needs more than 8 retries.
-
-You asked whether a better initial guess would help, so here I keep the
-+32 loop and change only the initial buffer. Its size is the mangled
-length multiplied by a factor N and rounded up to a power of two. The
-code uses 2x today, so 1x is a smaller guess than today and 4x and 8x
-are larger ones. Each value is the total extra attempts for that binary:
-
-             N                  1x         2x         4x         8x
-  materialize clusterd      4,507,480  3,500,913  2,460,193  1,528,046
-  risingwave                1,306,091    297,151     71,074     25,133
-  polars libpolars_dylib    1,254,174    247,424     14,214        305
-  bevy 3d_scene               357,175    205,030     94,936     29,978
-  materialize environmentd    271,354    117,485     59,697     22,265
-  datafusion-cli              179,241     24,304      1,003         29
-  typst                         7,066        907         15          0
-
-A bigger guess reduces the retries for every binary, but the symbols
-that still miss are the ones with many backrefs. In every binary, all
-the symbols that missed the initial buffer have backrefs, with a median
-of 53-138 expansions compared to 1-4 for the symbols that fit.
-
-Running the same experiment with the doubling loop from this series:
-
-                                 1x         2x         4x         8x
-  materialize clusterd         70,399     27,960     11,231      4,073
-  risingwave                  106,878     10,180      1,016        128
-  polars libpolars_dylib       84,502     16,149        634          9
-  bevy 3d_scene                15,742      3,493      1,115        192
-  materialize environmentd     22,668      2,302        365         73
-  datafusion-cli               15,366      1,957         38          1
-  typst                         2,310         50          5          0
-
-On the 2KB example you mentioned, a symbol that barely misses a power of
-two could get a buffer up to twice what it needs, but the next patch
-shrinks it to the exact string length before returning, so the extra
-memory is only held during the call. I'll move the realloc patch ahead
-of this one.
-
-One other way I tried to avoid retries is a minimum size for the initial
-buffer. Here the initial buffer is the larger of this minimum and the
-current 2x guess, and each cell is the total extra attempts.
-
-First with the +32 loop:
-                             current      1KiB      4KiB     16KiB     64KiB
-  materialize clusterd     3,500,913 3,500,867 3,181,650 1,425,379   216,505
-  risingwave                 297,151   296,929   151,909    14,567         0
-  polars libpolars_dylib     247,424   246,715    15,413         0         0
-  bevy 3d_scene              205,030   204,818   132,911    17,038         0
-  materialize environmentd   117,485   117,455    79,073    37,531         0
-  datafusion-cli              24,304    24,277       866         0         0
-  typst                          907       898         2         0         0
-
-And with doubling:
-                             current      1KiB      4KiB     16KiB     64KiB
-  materialize clusterd        27,960    27,945    18,824     3,260       183
-  risingwave                  10,180    10,117     1,887        63         0
-  polars libpolars_dylib      16,149    16,043       686         0         0
-  bevy 3d_scene                3,493     3,472     1,574        64         0
-  materialize environmentd     2,302     2,282       419        88         0
-  datafusion-cli               1,957     1,939        27         0         0
-  typst                           50        47         1         0         0
-
-As we can see, a minimum does help but it depends a lot on the size
-chosen and would mean we incur a large allocation per-symbol albeit only
-during the call.
-
-Sorry for the long reply, just wanted to get all the data and rationale
-across.
-
-Fun fact: the largest symbol I encountered was in materialize's
-clusterd. It is 1,091 bytes mangled and demangles to 575,074 bytes.
-
-Thanks,
-Michal
