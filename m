@@ -1,144 +1,267 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com [209.85.222.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D65F4F7CCB
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 18:22:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 788954C9E1C
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 18:22:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791570148; cv=none; b=GummddoueddX/d5A7xwELPXaWfNM+7uNRjg2ofHwnRZDNxRxQhSSRITXh96NM7vLMjqsLKJt5EhsJs3ScGKQ7Si9DcbjJrldMugdpLTIEShwFucHkEIJk4bJu3EOVxwRuN5aTPI18vVObqh1zjQrwEgy5bgE7etmooMIFEQYeZ0=
+	t=1791570180; cv=none; b=fT56VyNyo4qZSGiCzGC3nv1AlFzxrBZf7Un/bUEmvzx+5VuxRTCgg534/NbfHD586kfUvY1RNlgoyalACJV2YYaPxfzBfilYe5RxLtmIdRiX840L6F2Hqbr7yCK1SP6h4bmTy0Npub2tfSgn0yPFdMO4661qseECT+aUX3ahYNw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791570148; c=relaxed/simple;
-	bh=0ziXDbyWvbD5wLwFS0JgJKaNn+1KJ3RxY6KY1Lnt8Ys=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FUp8b077M4GWbTfK2xsVwSYmKjqNoLAqGCjnl9GHazs8oXLS9DuKQ751/61Kk5bYwl40XKWyGb66XAe5aJ8tLdMplooQqqXLBJ46muYkL1KQ10SCxhO/LFRzD8cKWEMnjnEtHaW5Y+fCfhsBJLYL0aRRozcvb/1igWvLT1hvVGM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JveUUjv+; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IrkQugnj; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791570180; c=relaxed/simple;
+	bh=9vAeSVMgChu8sFTGFbATOHJawdCKY56GlNC/6/iSWKQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=UJXSXPRk20y4lNqGKOewDkjy+XJlsTy4fpPI9iBJf4SOhaYyITOSj0qJ/edhd+eqLvRiiSo6IQw2R8i7p8xZZMrhj/I10Mlu2dG2NiEBEfrCnMjWZEPCmNx6kAFqnN9r/ose5UXQv5IiPfpTmZpjobTj57ONMf6S5hPO3zw1+84=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OmkJYlAq; arc=none smtp.client-ip=209.85.222.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JveUUjv+";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IrkQugnj"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 699HZt9L1446359
-	for <linux-kernel@vger.kernel.org>; Fri, 9 Oct 2026 18:22:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=rOadhsIj/jKyh1WnNgo5Rfno
-	LJnhvQqsGhUpPnfFs9Y=; b=JveUUjv+NuNdQxui9WRh6V4LURKtmXbrSE9xTn8N
-	cwYbUWss4JodSRQ2yzl2ByGE43+ekqwqgydRtlu6BlVKIjKQLMSUBAocrlHH1Yum
-	TWrQE12jkV46OAeIEGhxZwbqaKLKOIzrcm5IpLfjSfkx2vEVDNLRWM3OUJZ4mbyq
-	Sg40gYQ8ezOGM3XyfeNOYlzdLDLJcZZlXKV3OOpilcjATBHjpeBFgpNJ2IeDWke1
-	uvHuk+1beIgThZs303D0xqSBjOHjClduKxCgd5Br/57Wv7NCHlIJbKNEBTdYi6Hc
-	1md3nUl3/tT3/UDNYo7W2jD/0P5MfdPzrd0A4D/zkYmL0A==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h74tbg7hh-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 18:22:26 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-917b7dd3f1dso1917726d6.3
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 11:22:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OmkJYlAq"
+Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-93e762768f3so450566385a.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 11:22:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791570146; x=1792174946; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rOadhsIj/jKyh1WnNgo5RfnoLJnhvQqsGhUpPnfFs9Y=;
-        b=IrkQugnj4EnakbIIHoVM1h/9pL2SHw6Hwa5QsJF7ibhNqDrpEznOUPfScXiNtrNHsg
-         3EoHV9tiNMX2ULiIfLAjfodIXLNiJpnj4avrtFcMXBlQNLjRtHVCUjcBaXZYZvuaDKpR
-         hKXN2u4Fj096oHpk+UpLsUPFE61BeFIIIIJGs1jVyLGJHGf8a8bYdRl0UUv0/4pR+VNV
-         fkBJrwSKhKV6rAQ95RUlFgkxGpbuOn7fXg6VWswaRE1uuiGv3UFkX22CXh/Ffd7v/Ldu
-         ybbKZ9W0f+BeKbc/jozrmGGGKpidFd1jXTvjvECjNP9Lx1envgHyZ2fynShJwTvnEdXi
-         wlhg==
+        d=gmail.com; s=20251104; t=1791570177; x=1792174977; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=a5DZyu/rgS+ubvoCBVhk1B0P03cm+osmdOmBLE1t3Jk=;
+        b=OmkJYlAq3bV0AxUnYf4O1rDYClb5B3/Inv4F4kv5L8R7z+UpAtYiD38Qy+Ngt9bDzu
+         lD6AYAZIIx6wRw3AmEVc1ydy5okCbKlIRH4+GwMtgkEjerPbtkVd9b7w7czLvMFXN4mG
+         wmp6nMweEXhqRXl7lqSarkG7qwqlrXDSb2QmogITSrHD4utNykNBVRYPlK1LIKPamWBb
+         RFz4RcmGiFtarkyNmJwfnGuM5CQ7qx8ifCoKQTG2duMQTR9etKa/njYSodEgwCsLxd/u
+         5JVA4O8DQU3/tdHfIfr2NvMkiYMoXTPNxN8ub5O6WYNmFKjcXfb0J3MUJILUEAhSjc5W
+         OAdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791570146; x=1792174946;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rOadhsIj/jKyh1WnNgo5RfnoLJnhvQqsGhUpPnfFs9Y=;
-        b=IId6JKJMz17d/E51xR2RE1NYQyNwQ3Q5q9Ziy5s/MfoDNns2LEaEAEpc46yxLeOTi3
-         4PQXwmxLQReGK058snCgPdoWSWnP0QS1CC914SppOw0uAoMz9d+Xe3Tb6jFvQIGXubvu
-         YEJsOTjpTc7Nt1yY5hnaKmhu1eikrl+iAuWcQfKyVUwmqFX60WiL1PEs/xr5LRAf5M1m
-         b2GtJefOEvvB2fie+Di6qYxq31p8TUGSlNmf4ZduCynKqWEBgwsQwBf6RTPN85hoOcPA
-         4UQjx5CPYbPLczODfRzTOErsSMRV9l1KgMaXbAqCs9o7f+uHeMcHDPZHRBwY8piGnsa2
-         XoZw==
-X-Forwarded-Encrypted: i=1; AKwUvBy7ogoEJeLAEEwJCH1s9LVyr2WKVpChsQ/rnFf8a/Wxm/NyGE7kRv84pUrwKcy8GMvt5qe8qrEtx8hFjDg=@vger.kernel.org
-X-Gm-Message-State: AFuF++l2mpojdNS3ELhyVtHiBqXsJqW20mLW4QZuTTDA9mVZf7IMW4Vk
-	3uyIQTNi26pzCLPGMvR3szBxn398R5wiS0uy7s2LZMNYUGBr/n0dxw4uAczEVZMuuXA47kFlHO3
-	E/I2ldcnWitcHErwozkWgRWksJktJKmdruXSQioPqZl5Ict67EZN0fKuoqH5Gz0LjeJE=
-X-Gm-Gg: AYBFou2rHJf2mHa+CcC3Uy7CA1LGJCCaHkpZgqEHRY5SPr+5qVhA0n7gpHrDIcGwM6x
-	RG+7F1yaRsxZfgig55gGkaKUIDylZqYSUapkDGY4f+QgpcEWftkB/qd/s+MKyg1QglX1xop8oBY
-	edaIoC1ZWdnmD5YZfKPnl9n06S+A+CmAOX6IZGbJKZUkYE/lfm0CGPy1vmuxekXPH6x2fvnvg/z
-	gibFpxARu2dwbArbbPJGdXqO9kP76Lwizl6lEll+eVJ4/VBnGSbX9MTWysCrJkpJzin91hPv1XC
-	6LfSRuXyU6Db4MmPyGaaQlh86tXd4lgQvmRkEdtYnG1Sx3QjjydKIXbPa/kO3Axcv4SmOZIodsT
-	jHKLw1+aB7FNzRxE=
-X-Received: by 2002:a05:620a:1a0e:b0:93a:2611:270f with SMTP id af79cd13be357-93ebd20ecaemr446231285a.13.1791570145447;
-        Fri, 09 Oct 2026 11:22:25 -0700 (PDT)
-X-Received: by 2002:a05:620a:1a0e:b0:93a:2611:270f with SMTP id af79cd13be357-93ebd20ecaemr446224985a.13.1791570144763;
-        Fri, 09 Oct 2026 11:22:24 -0700 (PDT)
-Received: from oss.qualcomm.com ([188.27.161.193])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db94e530esm4982802f8f.13.2026.10.09.11.22.22
+        d=1e100.net; s=20260707; t=1791570177; x=1792174977;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=a5DZyu/rgS+ubvoCBVhk1B0P03cm+osmdOmBLE1t3Jk=;
+        b=peyN7XGq6JRoDsIlDTBu1r+lar3axgRlT0gzaBMwb8rquHt7fVJMtc3gPeekEXvNJF
+         ujwXY0IQuhKOb/YEaedjmZsXtwPFA5De4ghHhmCIqbCtsB/9hQraq4HzRTEdVRnKMKKC
+         0ftqIGYivTLwV2mhrLFykbqC1aT4/XasN7Xy6F34br8a1jU+jiyKK5R76wKYnGPfXrOd
+         Kv9PUfHJp2Fu43nX95YeulgzHra1VrTxKHnubEZPm2nrdDQFI+KA1X3kYMp9hMV4cXhm
+         XcKwo/zkzkgEyg8rm0zqEVIUwR9BPBHh/YE1rob4fDIwhWAmUSNLw2JFqs29FZOZMJCA
+         J8kw==
+X-Forwarded-Encrypted: i=1; AKwUvBw5s4O7Bo3B5KWAFxqP9O7drZr9ITHD0ND96yXQVmfvqfWw8cZQj0DYgx32ztP74IMqLOz6jzRoAauwhZ4=@vger.kernel.org
+X-Gm-Message-State: AFuF++ltYT7a9mWthYFfpB6HuuD9J+lfL5E+4vs3FBygS3ZWi5/pf3Y0
+	mzYCLxikltOvHdwz+4SkgPswZ29O31++RWB1FL81QNrIKtHfpvqAX1Et
+X-Gm-Gg: AYBFou0fvj35GAZ8nD0dMA5EM6SpNuWVnv34mM7PE+RyPpseg5CyyQiSppu13IArjIf
+	RVtDqbjxzGyRqXaWeT6y806Rcfm/9rvJtrStVV3PmrXh3PkQN0C/tmtYF/1dgsu2JYFItL5UhRN
+	CaIt8hqZGPBW+Fqey8kLbo5x4/9QSmngnP/yng6IYgUQiRm1jjK3qCy9MBciAAlcuPxZDbRTahk
+	GzwaNxk5sc45giBDjhO19bpLRkIMnwKc3BvGXaP93a5kU1ZMXapS5pcz0wMnOUlMpmtWk9ZGl7O
+	jSm8fGYCtgDn14VAktZvdZzflxa8iMmcCunPJsNOUXc4N5qDzwZM7pqK/QsyqAQsll9mIKPOFzM
+	C3e/vXCoGYqrOtEpydfeHhFFKRguCi+YiZdTbNagTnoLSAR3yCzLvWnJrozYRIhj4NnAX+Zq7QS
+	vNl8Yn1oqKuG4NtKhUBmhFSCY0ouwmKksSYnJgtMN8Lw04Bcbit5kFZu9jmAxmn14MquJ9tFKR2
+	IZNzR1n6okJ0xT7m7SOSEeg5B5JI82rOFFZVi7hGOk2pUbar1FxZo6R0couWiLV8Es39deoKiCW
+	BLa3ovr878Hiv4y61qNfhFQCLiiQ+tuZsseyVd0gYv3q+NUGB50ws9sLY+Q/HKvF+zlPXqTIcwh
+	K4SEL5GSRlK998Y7KE0JPxCJTelJZyaGgMfXxjSq1cXtvUemPNuQUb9SYVjJedzonxzOE/rgfJt
+	BD4t9MEFo1v0uK5KU48Vd0B/creqNA
+X-Received: by 2002:a05:620a:660a:b0:93c:7955:afd9 with SMTP id af79cd13be357-93ebd27ab42mr401270885a.52.1791570177349;
+        Fri, 09 Oct 2026 11:22:57 -0700 (PDT)
+Received: from node0.quickhttpnode15.cloudfaas-pg0.wisc.cloudlab.us ([128.105.144.50])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb986c0c4sm247937685a.18.2026.10.09.11.22.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 11:22:23 -0700 (PDT)
-Date: Fri, 9 Oct 2026 21:22:22 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Joonhoe Kim <26rote@gmail.com>
-Cc: andersson@kernel.org, sboyd@kernel.org, mturquette@baylibre.com,
-        taniya.das@oss.qualcomm.com, dmitry.baryshkov@oss.qualcomm.com,
-        konrad.dybcio@oss.qualcomm.com, abelvesa@kernel.org,
-        bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
-        nitin.rawat@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
-        linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] clk: qcom: gcc-kaanapali: Enable FORCE_MEM_CORE_ON for
- UFS AXI PHY clock
-Message-ID: <npxwalwxeqa7ebesvux6simtuemwx4jg6iqiltbm62hiuh74zt@qjvhinctficf>
-References: <20261007143716.2161-1-26rote@gmail.com>
+        Fri, 09 Oct 2026 11:22:56 -0700 (PDT)
+From: mosafer <mohsafer@gmail.com>
+X-Google-Original-From: mosafer <mosafer@node0.quickhttpnode15.cloudfaas-pg0.wisc.cloudlab.us>
+To: dakr@kernel.org
+Cc: driver-core@lists.linux.dev,
+	gregkh@linuxfoundation.org,
+	linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	mohsafer@gmail.com,
+	rafael@kernel.org,
+	stable@vger.kernel.org,
+	syzbot+863936f50214e843ae0c@syzkaller.appspotmail.com,
+	khiemtranzo532001@gmail.com
+Subject: [PATCH v2] driver core: complete deferred binds when drivers_autoprobe is off
+Date: Fri,  9 Oct 2026 13:22:39 -0500
+Message-Id: <20261009182239.283329-1-mosafer@node0.quickhttpnode15.cloudfaas-pg0.wisc.cloudlab.us>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <DM06HWVAFSOW.2F050J0BT27TK@kernel.org>
+References: <DM06HWVAFSOW.2F050J0BT27TK@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261007143716.2161-1-26rote@gmail.com>
-X-Authority-Analysis: v=2.4 cv=RcEFmFtv c=1 sm=1 tr=0 ts=6ac930e2 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=EiYrS7xXfcF7w+nkr41hpQ==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=aXoM4fymnmh6U8e-DTIA:9 a=CjuIK1q_8ugA:10
- a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDA3MyBTYWx0ZWRfXyLR/p+LuDeL7
- jIeDwpBqsOBnkUpIFe6YmJ2H/VTJp3HARIaQ31tr2vp1ufYEuiivgaYfkPH3G1Ru2+uO3kW1OCn
- 8tbyOb45vX4JLjMY2WDDkBStmzmdpSk5YowLjQjT2A3ZD3XD5zjdjMzmMjAaPWv/XK+fkF36BXv
- tY3zItbQ9d/RIRuhVBacbvBp0emobmS9ZXsG0QQZERsUOEiBMA2aqdYAEbfbVPA3EMgjnWhlGCe
- tgEpnJKFhIzQuJ+CC4n1ojG+PTtbW0Fk+F44NA+pYGCUaSAa5NQrh76gNogrihdRdwN9vtEW2tY
- B31cn18j2exQEaziiO+13yKs4SMkaYWcSnhX1QoIxkCtNPfN0TNS/tzKC1oYOs+6yJoaCQK8kIm
- W9eJgxlruKdyCQJMPr0NWUfVhxjBtMWHEPO2DXiHM8ns8yMdggBnFyQbaIw8MUlYQmeXeErWFvG
- TbEo0f6hbgX88UpBqEg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDA3MyBTYWx0ZWRfX4LFbETosqFa/
- X8W8rSSYWSVYQE6GtWy1lEH7ZaCX/HxqXD3LjTznTVRzhUy8fywWT2zwbWu2llNbBsMERxALRYK
- A5VIJA8YXxHDQ9ToYCO4OWvMK7gKOB0=
-X-Proofpoint-GUID: mPSZTXhQ-fxeoS3IDbKoYweLm3FGyH0i
-X-Proofpoint-ORIG-GUID: mPSZTXhQ-fxeoS3IDbKoYweLm3FGyH0i
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-09_05,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 impostorscore=0 priorityscore=1501 suspectscore=0 spamscore=0
- phishscore=0 clxscore=1015 lowpriorityscore=0 bulkscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610090073
+Content-Transfer-Encoding: 8bit
 
-On 26-10-07 23:37:16, Joonhoe Kim wrote:
-> As on SM8650, SM8750 and Eliza, the UFS AXI PHY clock needs
-> FORCE_MEM_CORE_ON for the UFS controller in MCQ mode. Without it the MCQ
-> configuration is lost over system suspend, and with MCQ enabled every
-> resume from s2idle ends in an SMMU fault and a host reset.
-> 
-> The UFS PHY ICE core clock already has the bit set; set it for the UFS
-> PHY AXI clock as well.
-> 
-> Fixes: d1919c375f21 ("clk: qcom: Add support for Global clock controller on Kaanapali")
-> Assisted-by: LLM
-> Signed-off-by: Joonhoe Kim <26rote@gmail.com>
+From: Mohammad Mosafer <mohsafer@gmail.com>
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+device_add() registers a device and then runs the bus's initial probe
+via bus_probe_device() -> device_initial_probe().  With
+drivers_autoprobe disabled for the bus, device_initial_probe() skipped
+__device_attach() entirely.
+
+That is correct for automatic *matching* against the bus's driver list,
+but __device_attach() also doubles as "complete a bind that a driver
+already initiated": when dev->driver has been pre-assigned outside the
+normal match/probe path, it finishes the bind by calling
+device_bind_driver() under the device lock, bypassing probe().
+
+With autoprobe off, that second duty was skipped too.  USB depends on
+it: usb_driver_claim_interface() pre-sets dev->driver on an interface
+that is not yet registered, documenting "let the future device_add()
+bind it, bypassing probe()".  Composite drivers (cdc-acm, cdc_ncm,
+cdc_mbim, ...) rely on it to bind their sibling data interfaces.  If
+drivers_autoprobe is written with 0 while such an interface is between
+the claim and its device_add(), the interface ends up registered, with
+dev->driver set and iface->condition == USB_INTERFACE_BOUND, but never
+bound: its knode_driver is never attached to the driver's
+klist_devices.
+
+Teardown then trusts those flags: usb_driver_release_interface() ->
+device_release_driver() -> __device_release_driver() runs a full
+release and calls klist_remove(&dev->p->knode_driver) on a
+never-attached node whose knode_klist() is NULL, which klist_put()
+dereferences:
+
+  Oops: general protection fault
+  KASAN: null-ptr-deref in range [0x0000000000000058-0x000000000000005f]
+  klist_put <- klist_remove <- device_release_driver_internal <-
+  usb_driver_release_interface <- acm_disconnect / cdc_ncm_unbind
+
+Keep device_initial_probe() always calling __device_attach(), but pass
+whether automatic matching is allowed (sp->drivers_autoprobe) down to
+it, and evaluate that flag inside __device_attach() under the device
+lock, where dev->driver is read anyway:  a device with a pre-assigned
+driver completes its bind regardless of autoprobe, and only a device
+without one is subject to the matching policy.  Evaluating the two
+conditions inside the locked branch (rather than as
+"autoprobe || dev->driver" in the caller) also closes a TOCTOU: a
+concurrent detach can no longer turn the completion of a pre-assigned
+bind into bus-wide matching behind an "autoprobe off" policy.
+
+Other subsystems that preset dev->driver before device_add() (w1,
+tegra xusb, zynqmp-ipi-mailbox) get the same correctness back; for
+devices with no pre-assigned driver and autoprobe off, behavior is
+unchanged.
+
+Reproduced with syzkaller's C reproducer on a 7.3.0-rc6 tree:
+instrumentation shows the doomed interface's device_add() racing an
+autoprobe=0 write; the bind-completion branch never runs for it; later
+teardown hits klist_remove() with a pristine node.  With this patch the
+same instrumented race completes the bind inside the window (3 VMs,
+5 min per run: window hit 3 times, bind completed 3 times, and 802
+devices with no pre-assigned driver correctly skipped matching despite
+__device_attach() now always running): zero KLIST-REMOVE-BAD, zero
+Oops.
+
+Reported-by: syzbot+863936f50214e843ae0c@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=863936f50214e843ae0c
+Fixes: b8c5cec23d5c ("Driver core: udev triggered device-<>driver binding")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mohammad Mosafer <mohsafer@gmail.com>
+---
+On Fri Oct 9, Danilo Krummrich wrote:
+> We've recently had another patch to fix up cases where dev->driver is
+> pre-assigned. Please see [1] and the corresponding thread.
+>
+> IIRC, there was no reasons the remaining users can't just use a proper
+> match() callback instead, so we don't have to worry about those edge
+> cases in the future.
+
+Thanks for the pointer.
+
+I had not seen Kien's series; looking at it now, we are attacking the
+same half-claimed state from opposite ends: his patch makes the release
+path tolerant of it (skip klist_remove() when the device is not bound),
+while mine makes the deferred bind that usb_driver_claim_interface()
+promises actually complete when drivers_autoprobe is off, so the
+half-claimed state never arises.  If the direction is to remove the
+pre-assigned dev->driver users entirely via proper match() callbacks,
+I'm happy for that to supersede this fix -- I'd be glad to help with
+the USB side of that conversion, as I now know the claim/bind/teardown
+paths in detail.
+
+Until such a conversion lands, though, the window is still open in
+current releases (syzbot hits it, and any userspace writing
+drivers_autoprobe races it), and pre-assignment is not only USB:
+drivers/w1/, drivers/phy/tegra/xusb.c and
+drivers/mailbox/zynqmp-ipi-mailbox.c pre-assign dev->driver the same
+way today.
+
+So please treat this as: whichever of Kien's guard, this bind-side
+fix, or the match() conversion you want as the canonical answer, this
+patch is yours to drop or pick -- but happy to have your steer before
+it evolves further.
+
+While the v1 was on the list the review bot found a real defect (the
+dev->driver test was open-coded in device_initial_probe() lockless, a
+TOCTOU against a concurrent detach).  v2 below fixes it the way the
+bot suggested: __device_attach() takes an allow_match flag and the
+decision is evaluated under device_lock.  Evidence unchanged in kind:
+same reproducer, instrumented patched boots show the deferred bind
+completing in the previously-crashing window, 0 crashes (v1: 6/9 on
+the unpatched control), plus a clean bare soak.
+
+ drivers/base/dd.c | 30 ++++++++++++++++++++++++++----
+ 1 file changed, 26 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/base/dd.c b/drivers/base/dd.c
+index f6525a7ee8c5..4c1bb1979519 100644
+--- a/drivers/base/dd.c
++++ b/drivers/base/dd.c
+@@ -1065,7 +1065,8 @@ static void __device_attach_async_helper(void *_dev, async_cookie_t cookie)
+ 	put_device(dev);
+ }
+ 
+-static int __device_attach(struct device *dev, bool allow_async)
++static int __device_attach(struct device *dev, bool allow_async,
++			   bool allow_match)
+ {
+ 	int ret = 0;
+ 	bool async = false;
+@@ -1085,6 +1086,17 @@ static int __device_attach(struct device *dev, bool allow_async)
+ 			device_set_driver(dev, NULL);
+ 			ret = 0;
+ 		}
++	} else if (!allow_match) {
++		/*
++		 * Automatic driver matching is suppressed for this device
++		 * (drivers_autoprobe is off), and no driver has been
++		 * assigned to it: do not run bus_for_each_drv() matching
++		 * for it.  Deciding this here, under device_lock, means a
++		 * concurrent driver detach between the caller picking
++		 * allow_match=false and reaching here cannot turn the
++		 * completion of a pre-assigned bind into bus-wide matching.
++		 */
++		goto out_unlock;
+ 	} else {
+ 		struct device_attach_data data = {
+ 			.dev = dev,
+@@ -1138,7 +1150,7 @@ static int __device_attach(struct device *dev, bool allow_async)
+  */
+ int device_attach(struct device *dev)
+ {
+-	return __device_attach(dev, false);
++	return __device_attach(dev, false, true);
+ }
+ EXPORT_SYMBOL_GPL(device_attach);
+ 
+@@ -1149,8 +1161,18 @@ void device_initial_probe(struct device *dev)
+ 	if (!sp)
+ 		return;
+ 
+-	if (sp->drivers_autoprobe)
+-		__device_attach(dev, true);
++	/*
++	 * Always run the attach, but tell it whether automatic matching is
++	 * allowed.  Completing a bind that a driver already initiated (e.g.
++	 * usb_driver_claim_interface() pre-setting dev->driver for an
++	 * unregistered interface, expecting device_add() to bind it) is not
++	 * automatic matching and must happen even with drivers_autoprobe
++	 * off; matching is evaluated in __device_attach() under the device
++	 * lock.  Skipping the call entirely used to leave such devices
++	 * registered-but-unbound, and teardown then oopsed klist_removing
++	 * the never-attached knode_driver.
++	 */
++	__device_attach(dev, true, sp->drivers_autoprobe);
+ 
+ 	subsys_put(sp);
+ }
+-- 
+2.34.1
+
