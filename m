@@ -1,239 +1,264 @@
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11011023.outbound.protection.outlook.com [52.101.125.23])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D75CA367B8F
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 14:59:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04DA4435502;
+	Fri,  9 Oct 2026 14:59:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.125.23
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791557951; cv=pass; b=p3VxqJsQYecuDdxIa5Bwk5D6JMWlk6upnSzdD6ykxPnD47sxlZMjSHu7hn1HAs0ilDRTM+Kz7A3mluqkeRykcD4sLJE3O6H90eI6Mff47DoGFiOD+k/QHDJjNjkU7zbdPjEhqVuwSiwWZcv9JLDOhyAJAhb1ERdMglDiN6JPKcg=
+	t=1791557984; cv=fail; b=DTHFqNI3syvl7tw9eSicT6LZ1X5ufV5JYUWUEhRF91T/NotYOelDx8keaPf9BeU65/gpij9yDIP1bSsyzny9Uw7Jg5Yb7iMIvpDDagTq+yS+ogbk0rC+co5k1zOeRZSUl5eJLd9sKKKGCDvNsw/bKK8XoGOE+zC+5FccKvdy/fA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791557951; c=relaxed/simple;
-	bh=hjyMjRDUj3huXfMRsPcqgEYwlBdJI0RxsrzOfxC0wbo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=pMilm5nxLYYm9/v7dJnXgUobmHQrpr1LnHc/dr4C8KmIu36Og2jdebLFza243mPEQUKfaxl1hRt8l6Wx3m400ZR/iJDRogaEH0PDni+NiDS+u9yuz3V/O37gy4mVv9U6kh3BgWzeE+BoWqLuKbKrQufdzsE+XThssOpL52ekAY8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=E7s8kTZF; arc=pass smtp.client-ip=74.125.82.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1791557984; c=relaxed/simple;
+	bh=Jku+yUPzy5ZQc8JaAJiziaQV4zivWDuRkAxuKoRr6Rc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=QeT/UJ694AehzJ/U7PYu8StwZ9Kig8+EgvFWLLA2Y6pPloXV0zZCY2aj71uEYyQHKbFqajdPwM3QhNN2NK7oq2aSWnheRdvhjRkby0jKwpXijjFwu26nV0sRak9FOybrPpxt6RE0WI0rdZRaNPsETtxL5BmJQ3jZXv1/ZzKxb/A=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=hexDpARP; arc=fail smtp.client-ip=52.101.125.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="E7s8kTZF"
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-169be2dfbacso5137c88.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 07:59:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791557949; cv=none;
-        d=google.com; s=arc-20260327;
-        b=PFGHzcD5LnQLb33svLLNX6DMKpYi449fJWZIPLoWwrxBMe31vR6v7Jl37a0dlxPQrh
-         afw3cmdcqaLBk8hnGdeCoS/C9k82zBrw77COjqI6XIylpGoYh3FH1+1zVEmo9uirVIBT
-         DJwfmkbbBX7yEUbKWjt5NkL69880fHFO4MVKlSehq8lWSiISLNWNl5Y7jDFelY+j5Rri
-         3zlVanwJJK3zE8pv8Mf62qFqJIEvaWMg4Y0K9D3VW4UR+deqm16AuSKH8oRTtLvGWXZ5
-         Y4ok38LYl0Pa0NrLcOyeAwMUrNJ4/2VeeKY8TTiUufjGW4yUU8yN7HmtucBCfv0f6ZoH
-         4L3w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=/deJepVSy1q46FcuWbk27eGOV5yZN7U0qk5r5k6TxfI=;
-        fh=yF86UNm5pBhAsIn0ZjJaGWmpGcGLVRQmVdXxFKJWURk=;
-        b=ogKfVTHJIyL8WFaMYkAqRXYR96yCtgsk4ubUmEMk4gdUa1VmzfrWKhcVZitF0OSWC3
-         rLv1z5IBYyy6vw7L90y2T2z4au3SUXuHKYIAu0XPH5/5IfBuSW/scXd9la/b9eNvPrAd
-         KotuCLs7nh4TyikV/aKGo07OcA+Uq33+drHF6cbBbStq+r79KIt2Fs63wCEcCBokILjN
-         jEJibAs1WTK2H8UI8nUK2tJj3zgOOUEEBIfWzPdroEjVeQjtaEF25qR+FYuUYiCpCenv
-         Lh6UN/+kfHYpkG3OgurEq/LQrjWW3hOc8mkSFWo+UR8HMGjxVUctH0NMVWXY9zhuXSj8
-         uYkw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791557949; x=1792162749; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/deJepVSy1q46FcuWbk27eGOV5yZN7U0qk5r5k6TxfI=;
-        b=E7s8kTZFCzCn0nwPfaFHDDPfj6OAn8lDdKgvL1MAC3/0+y0PKZGTBDTyZqZadSeQXP
-         RxnXPYZjp95+W7cYIw2RAC/j1VEBA9Tdx8ONYhwpc94jGkDXZZEFxcC15lWbzFDSViBt
-         Nyj+qO4eKMlwy2tDTTxa/8YUJPYASGyGAfkquh6rHt9xLkXOA/wMmwcwTpG1b/xhwBQc
-         oNj8kTUWLIRR31ycA1jvD/PZ6ZDHK0BD9h8R0QLFsfk7kdJe5E8v4J5nESNjzTiRdmor
-         BL8N2HBnnduyS37cgnw8NK2bJx2pJxS+aIjnTAzMkvZiKn9i8XgF01xZ4eMoWoKSHzc9
-         SHew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791557949; x=1792162749;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/deJepVSy1q46FcuWbk27eGOV5yZN7U0qk5r5k6TxfI=;
-        b=hwjX3996RScURLNJ82qX1MPSnojl6uTAWhtFRf0PwrIrl37dUiFeJBV6lxcESUBhvb
-         MRjGjUszPlsYLY8jRlh2+YKTehoTJL6X/UmcqMKXZaHjDfdgGX1w7ucm2x1fU5OscnuH
-         j+iGjHaM2uH+yDwJpsNmPEqMNwfs/w75jviHUoIKdZwOnMzxVoLz+9R3r0udwI416lQw
-         sbP9v3fK4ClgUQkH57XYQSdGNiAq60Ldh2kDmJu5cwYrpoga2oyKAqWcSY5FArSJNBN3
-         ffuGDRdMFzM8FmGBred8KdAfFqO9HKu3hiC56z9Lyo7GYcAN2u5h7TwiVc2l6ohC6uKf
-         I0mw==
-X-Forwarded-Encrypted: i=1; AKwUvBwlm4L/to4FVPcF5U98IatXHeBf6eJ1gSXmBszK5EhcEBRZ/hZ4lnVOtMMq0Y5AXT18Gk2aHRKNK7uJKFc=@vger.kernel.org
-X-Gm-Message-State: AFuF++lAfWflNjHx1rich7c8M6eAOWQAafYI0cP33isg8e/UEzBg7a9t
-	KIbjcYx2HfGVRR/KaRKhus9NSC4mHLTHQC9AHQiQfDu0/dWq53xVM5+2zpwoBBHOOeLpogxDpcB
-	Pr8dd03M3spXM1wxJQnZbtOamipvxcMENksPEOYBK
-X-Gm-Gg: AYBFou3isgW22z3gHDQI+he9bTUjpcs2Up2rjGoZ9vW4sXJfAJi2yQzLheyMd/wNFLk
-	PrT+Q4VWOrrdUlrrM3z62NwDHd7QNJBtVaKfW5MCApKHCbA9eLSkROY2dwNsnGru4VumAFddlnO
-	LIPD76y5O/rKEtcYlF99My92lutp0jMXcsgue2DIp07fUEVKd4EX9rmf61Omw5VHSVV4Akyr6hk
-	BTLdK2xSkcU6LcTEMRHgw9aKeX1MWmlALwZa/m46bNy8CUuslXxyfivw56MQz4f0zlVHBcmJfij
-	nqoiaXglxYpvUUKX3/gfX3rozlzQQydisUx3geamy9CKwKfMSGvM2TMe
-X-Received: by 2002:a05:7022:40c:b0:151:f5f7:b423 with SMTP id
- a92af1059eb24-16a4cec574emr313527c88.10.1791557947600; Fri, 09 Oct 2026
- 07:59:07 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="hexDpARP"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kntDntTUdyCTagg92OwT58RebASuIPqMTSV9wqpDNr3AyJH3Shaxgxn1huy3sZS8k8Uh63h/uuWE8P9f8z7S7/wgOPgV3SFn7XmExJQDbNXgrsItMi/L0coNQ9UbjLArv9tZJ8fkgCg1gX1ENGQyI7xklrhRsuZifxwEYADHNtYL16+rcb+LDBnZ1JSUWBNqjXFgk/vKEaK+yTKFS08Rqa0acX6jCUbmkCxq7eY+H9+li65l//itWCs+Siur27v5QeTvm/HNmeqyO1d8+YcKserMUqvO+pV9Qnzr/enaWlQdBWp0df7un7nDF07AnKIYyrDUtXnad5JfMqt19G9mYg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=icEMLBHysAbcAW7nlu4dufUZug+GwG2TFD5B4bM+jNc=;
+ b=BEsvKEY6tzfIGz56YwaL1Pye3HBTSZRMux0l8j6HmuhusN6bm3dUeCRpcsnXfx8kM+q7M8daAWSD72eAiniw31tur+SqUJBvpwW8PQOEHJWJMnwCctqP7Az4z5hZQ4jYy/7t+jKQAG6Gxb9J3TjDg0ocCTN9yUqtvsqTzekGM6hJKj2QOUruF+y2KzhaONwx8zs7Jg2aS3iHy7Uv6HfpIx7Qm9XbJHzp0LSREvrcjaM2roskQjIC1yALCLw8wGlCLMi4cNvNm6AkcAnZd7Q+6+AfxlHNBTAIWbcL/8WSA9VnUu80hqIGlj19IZIUE8QjPdUKvKWQGSTNCgZMbHwN0Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=icEMLBHysAbcAW7nlu4dufUZug+GwG2TFD5B4bM+jNc=;
+ b=hexDpARPLXFQbnvkEOvwJMfWCFBnaXZ1zA7/kBkihK4+E7o0PfyXfOet5LVfTlXXm4x6PZMNX5DEknu4qkz5RKIFb2NWTR88imfBENHRuaClB58Swf+oZQuuzqzCFx1GsEvxivTNCG8sT1iPdCYDgBLOmERJUBS/v5R2LFVWmDI=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com (2603:1096:405:18d::7)
+ by TYRPR01MB12608.jpnprd01.prod.outlook.com (2603:1096:405:1b3::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
+ 2026 14:59:38 +0000
+Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com
+ ([fe80::2f5b:8560:48ed:3828]) by TYRPR01MB13588.jpnprd01.prod.outlook.com
+ ([fe80::2f5b:8560:48ed:3828%4]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
+ 14:59:38 +0000
+Date: Fri, 9 Oct 2026 16:59:15 +0200
+From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	linux-renesas-soc@vger.kernel.org, linux-phy@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH v2] phy: renesas: rcar-gen3-usb2: Keep OTG VBUS disabled
+ until role is known
+Message-ID: <askBQzpjiQX0CY0e@tom-desktop>
+References: <20261007190654.452376-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261007190654.452376-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-ClientProxiedBy: FR3P281CA0153.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a2::11) To TYRPR01MB13588.jpnprd01.prod.outlook.com
+ (2603:1096:405:18d::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261009050556.2817978-1-namjain@linux.microsoft.com>
- <MN2PR02MB6863FBC36CE4F1D6419F0E8BD4922@MN2PR02MB6863.namprd02.prod.outlook.com>
- <04d88297-1732-4761-ae82-d68c441a7156@linux.microsoft.com>
- <3f4a11ea-bbc0-4dc5-9720-3447346739cf@linux.microsoft.com> <CAMOZA0Ljw-DueDP3WvmtYe4x9Y_fNaptAo+3Hv8xzYHOZi9vbQ@mail.gmail.com>
-In-Reply-To: <CAMOZA0Ljw-DueDP3WvmtYe4x9Y_fNaptAo+3Hv8xzYHOZi9vbQ@mail.gmail.com>
-From: Luigi Rizzo <lrizzo@google.com>
-Date: Fri, 9 Oct 2026 16:58:29 +0200
-X-Gm-Features: AclHuK-m9limdcYUcwxZk2GykJcipkv6UowoA2Ws1KR0RewlWyRADdHddO4VXeo
-Message-ID: <CAMOZA0KJoS4GFrKmaGa7+qMCNktTUg-YpkzX_EoA2KfAW3iN_g@mail.gmail.com>
-Subject: Re: [RFC PATCH 0/3] nvme-pci: yield completions under scheduler pressure
-To: Naman Jain <namjain@linux.microsoft.com>
-Cc: Michael Kelley <mhklinux@outlook.com>, 
-	"linux-nvme@lists.infradead.org" <linux-nvme@lists.infradead.org>, Keith Busch <kbusch@kernel.org>, 
-	Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
-	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, changfengnan@bytedance.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYRPR01MB13588:EE_|TYRPR01MB12608:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9448e9aa-e5e2-40a5-d562-08df2615f03b
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|52116014|366016|3023799007|6133799003|22082099003|18002099003|10067099003|11063799006|56012099006|38350700014;
+X-Microsoft-Antispam-Message-Info:
+	q/ef5NJi4eu3xuqtsiUzvrvlpsscNZAB3MEJtEEgAm7WnF2+1TetcaSFC1mzT5DNCdcQ1ZQS0u8PaanCX/vYe5Dnl0fFbsTDlr8HnCqkhOWeb+XVfVT6XDOt9MrJ4zXgWaK7XKXNaLD2MOHn5NWXPUF96+Dk/DkHpwyvqiZMgPeUwyMoQ6jgI9bNENynaWBcKoedFjfIQ9CjDvfw1aGX8sJ50F5Sf3bzeOyfMBZ4M7DuMdBwSn8mNHqY0gEEC8XjIM+n0a05fGhIiV2viILsVi98bdz0EGbu6gIHHQAs26mtvbjgKOV7YQ+fbwu1v0yVrXsQTSxwZZOAr8Ojpnp6qGeIetStTPnCAXpWM2eoLimYQsFrWvwXAChXHohsT1OWIePQ6rDv0Wy16Fi40ThQSrAB85EZvnQpck7/UfXf7o+9Z2eUtlWM0uflT5JkeCzOSeVVAov82aFnzaL2myjca+ti2cq5WteqKgvQUgbm2s59Vq6j1TS1uXNg4EZ17eg9TeSIdK/K69YpfoiaBX0sbIHaHGKJn7ZN8b+wPg2raWShzmsrACyK0X+LxSlfPvRMtna+Q0oCNBt7hy+1+rcovi7xXVhSjhEg0iT9rYOTgfeGqtJZ8yTXB15w6RHp5mRBmIRxjpcWRRkacV9MdfPqnxzeBGOJPu2RfaYhLMNUXCAUTfYOMXAiDHlBIb7/EwWnhB/msRlONV3OM96VoBTZfJdZP+HaA05T7BlGNYWkv28=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYRPR01MB13588.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(52116014)(366016)(3023799007)(6133799003)(22082099003)(18002099003)(10067099003)(11063799006)(56012099006)(38350700014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?r/IXCLDOwIZ9574471S6hcLkJHH0F9O/C4l9jtbR1aJWf4KSws5FN0ReoFhZ?=
+ =?us-ascii?Q?eKrz+FTujq7XacqZq3oFV5ksKxF8CyZ3rDebzCzkIQLXyE9q16HlaQtVCPTU?=
+ =?us-ascii?Q?NVrs9jiDMp0K5XK6h9Iw3QwAMlllo0jiodlfOcRd05jwy/mNNjPF9qrPwSOY?=
+ =?us-ascii?Q?5ynZkKAYMxjNIQX50Hkc33At87Fzf4yR/G9LWq8ZntUHLGWPtBhTH9oOxe1u?=
+ =?us-ascii?Q?87d8itJ5sfzyaRVKfiqYzuaxPQzFygsOV9vW2lDxJhlCE1j0Zk83DSdChaL9?=
+ =?us-ascii?Q?qiCltv9+8NCe7U9Iwwpf9EWcan0roWrLYo0vu/vygUhtFE7/Nd8p08eBckhv?=
+ =?us-ascii?Q?FKPwxyrs4GeT+Zj4NfXR+ZYd7Vy3doMTNNnpxFl6xS07ZwBAy6LIhOt3wGqq?=
+ =?us-ascii?Q?p1Sb/SkN32Jr+RUqS5cabZAfckdWRGiggT56rhNZCxMUCouA5I4oVajJHmTY?=
+ =?us-ascii?Q?wkpIqPGUybeZwrQUJgiewmNt5fzN5A0D05oEvmKzBqUu6XAtyetXQ7A5uLBV?=
+ =?us-ascii?Q?HHNAdEDNmab3f1cwuKZ4/RPSZbniuBgdUz9KExrLZ5i5mg/h5KEQU5lIcnEI?=
+ =?us-ascii?Q?hXx0BgG7+eTQJ1HKuWe3ggvKCJrCKXBawT6eib0ZIFa2QtOlr1+Z5a4L+wnh?=
+ =?us-ascii?Q?m2tkiuUjO9ZiNXYbb8EPYOFD1E2w6FaDxwq1fWtjvP6nc8s75+K+iWfKK6C2?=
+ =?us-ascii?Q?+54F6r2ZhMYpLuIy38eUd6bUlr3H1tpmlAfYDovuOxDYvoHV0HyG29LsNndL?=
+ =?us-ascii?Q?zx2z6sp5O3DnowLmNVehkYNSMbrct5udZvf0cUWtPDDNy7G3egIbFMvu9592?=
+ =?us-ascii?Q?NAPlJcYOJmEZyqulmhXjexR1sCTH2JE9seq/AM0NNWTbVeLcVDA9U871iHRL?=
+ =?us-ascii?Q?6BPgrE2XqWTfoCUdDtj7uKfW9nenhibUnLKEq81XlU0lPuFFglFVTV+pALZB?=
+ =?us-ascii?Q?/MMDQ3JZOE4qdrLQy7IFv+xHTUelpzDn0uUtPFgC21Q/Pf7H34jnDHtTNbN/?=
+ =?us-ascii?Q?tgxe+fWNWozJRBvMsHBtAePgeQi4pNT/z0oJBUfTPCT6clZsFib6eEXd39Vv?=
+ =?us-ascii?Q?A/ciKzhSdiTrOES8ICzwy9v9Wh6MY3LoCBVS4MdZC3PZN0V9+7S2CafDEenH?=
+ =?us-ascii?Q?0lCgbi3OUisLZXUlRH23ruhyNcrj13TS1AMxwwHzbeRKS6FfVLD97wfdY5YD?=
+ =?us-ascii?Q?Ti/FP4w6cY1jH+3vFCRmEGXU/lsuftVDTewBdqmwzbymYOVofiYrtRNYhkzc?=
+ =?us-ascii?Q?+YttpYYr4axi2WK5YPIkpUOMTv22Emq8ia3z+r9yXrTRnIVtGTiJnZ8i5wrJ?=
+ =?us-ascii?Q?zP9QTimpz+ajZhS71gMA7yY88iWNM6mo2DPLMJOLsXZv+i4V9Hq6DFKhMhKR?=
+ =?us-ascii?Q?I2GsSqOpORsiwyUh4tl5zJUGjxyYCENHNWPUo+Hn7ZhG0PN8ffNukjXR4To6?=
+ =?us-ascii?Q?p1cEhpY10KDyzToI84DRnWw0L+owoeo9I4Cwm1Yxk0IZR2CIOd7mFc4HhlWS?=
+ =?us-ascii?Q?V5WT5sYKyribeX1dvfd0ay8wHGfTHVSoTbXCysOXjqP+hLH5xlS/q84skOoE?=
+ =?us-ascii?Q?sRrYP9li2pdJg/JeI5cLZ1laOwoe53tpOiaYZBaBOIZHEIG4UHtZEgQd9pBW?=
+ =?us-ascii?Q?0kLk/OxXaJHEOzhHAezjJcdyt/VIl8vat2JGiu7WWvG9/7m2fUTWde9h5HeF?=
+ =?us-ascii?Q?JgNHzPYSsvbneFYGp61dCBSXrBRw8tpUIeehrwqJdfxjwjD1W1uas+OWqSTJ?=
+ =?us-ascii?Q?7zYtH7IiiIH/bJmzfb9ga5UDBx9PuVFp5U0OrVd5c7xhMHlEXjtj?=
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9448e9aa-e5e2-40a5-d562-08df2615f03b
+X-MS-Exchange-CrossTenant-AuthSource: TYRPR01MB13588.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 14:59:38.2505
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TezWnUlzxmPNgF/PPzaM52sC+FhnNtSJARgF5txd3/nhi2HF5vwJ2N6fwPi3oWKXr2O9WTYydlO2xKi+CIyg6qmLfWgROQ5eA3w1F0PduYk0ZhsjATMQU193YhbmYWrm
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYRPR01MB12608
 
-On Fri, Oct 9, 2026 at 1:27=E2=80=AFPM Luigi Rizzo <lrizzo@google.com> wrot=
-e:
->
-> On Fri, Oct 9, 2026 at 12:17=E2=80=AFPM Naman Jain <namjain@linux.microso=
-ft.com> wrote:
-> >
-> >
-> >
-> > On 10/9/2026 12:21 PM, Naman Jain wrote:
-> > >
-> > >
-> > > On 10/9/2026 11:24 AM, Michael Kelley wrote:
-> > >> From: Naman Jain <namjain@linux.microsoft.com> Sent: Thursday, Octob=
-er
-> > >> 8, 2026 10:06 PM
-> > >>>
-> > >>> On systems with several fast NVMe controllers, completion interrupt=
-s can
-> > >>> keep returning to the same CPUs faster than scheduled work can run.=
- Each
-> > >>> handler may drain only a small number of completions, but the combi=
-ned
-> > >>> interrupt stream can still prevent scheduler and watchdog progress.
-> > >>
-> > >> See this recent proposal [1] that sounds like it is addressing the
-> > >> same or a
-> > >> similar issue. And there is this [2] more global approach. It's
-> > >> worthwhile to read
-> > >> through the discussion on both threads. I haven't done a detailed
-> > >> comparison
-> > >> of either vs. your proposal.
-> > >>
-> > >> Michael
-> > >>
-> > >> [1] https://lore.kernel.org/linux-nvme/20260818033846.53790-1-
-> > >> changfengnan@bytedance.com/
-> > >> [2] https://lore.kernel.org/lkml/20260819124341.4185621-1-
-> > >> lrizzo@google.com/
-> > >>
-> > >
-> > >
-> > > Thanks for sharing these Michael. I'll check more on these, and try i=
-t out.
-> > >
-> > > Regards,
-> > > Naman
-> >
-> > ++ authors of these two series, for awareness and if there is some
-> > configuration in their patches I should be trying to fix these lockup
-> > issues.
->
-> I see your thorough analysis below, thanks for the details.
-> Is there any reason why you used nvme.use_threaded_interrupts=3D0 ?
->
-> Setting to 1 moves the work to a kernel thread and seems to be the
-> best way to prevent too much work in the hardirq and the soft lockup.
->
-> I am surprised that GSIM fails to prevent the soft lockup, though:
-> under high load the sequence of events (starting from unmoderated)
-> should be the following:
->
-> 1. HW sends MSIx interrupt, not blocked by anything
-> 2. SW calls handle_fasteoi_irq() --> handle_irq_event() --> ... -->
-> action->handler() which starts processing
-> 3. HW possibly sends another MSIx interrupt
-> 4. SW handle_irq_event() completes
-> 5. SW irq_start_moderation() starts the timer, __disable_irq() and
-> sets IRQD_IRQ_INPROGRESS | IRQD_MODERATED
-> 6. if #3 happened, or another HW interrupt comes before the timer expires=
-:
->   SW handle_fasteoi_irq() finds IRQD_IRQ_INPROGRESS | IRQD_MODERATED both=
- set,
->   and does not call handle_irq_event(), postponing the call
-> 7. when the timer expires, the pending interrupt is reinjected.
->
-> The above suggests that we should see some pauses between runs of
-> action->handler(),
-> at least for a single queue per CPU.
->
-> Do you have any way to look with perf and bpftrace at the CPU
-> processing interrupts,
-> to see what keeps it busy (the pause between 6 and 7 should keep it
-> well below 100%)
-> and try to verify whether the calls to hndle_irq_event() are actually spa=
-ced
-> as the sequence above describes?
->
-> Having multiple interrupts on the same CPU mean that the gap
-> between interrupts for one can be used by others, and that may
-> definitely make the CPU 100% busy in hardirq.
+Hi Prabhakar,
+Thanks for your patch.
 
-Following up on the multiple interrupt sources on one CPU, you could
-try something like this:
-every time an interrupt source comes while the timer is active,
-increment a counter.
-When the timer expires and the counter is > 0, add as many "gaps" as
-there were sources.
-This should restore the invariant that every interrupt source gets one
-run per moderation interval,
-and the adaptive control loop should adjust the value to hit the target
+On Wed, Oct 07, 2026 at 08:06:54PM +0100, Prabhakar wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> 
+> On OTG channels of SoCs without ADP control, the VBUS regulator is
+> acquired with devm_regulator_get_exclusive() and its output is switched
+> by rcar_gen3_enable_vbus_ctrl() using regulator_hardware_enable() once
+> the port role is known.
+> 
+> The helper acquiring the regulator has the following problems:
+> 
+> - The internal regulator is unconditionally enabled at probe, so VBUS
+>   is driven before the port role is known. If the port is connected to
+>   an external host this can back-power it.
+> 
+> - regulator_get_exclusive() hands the consumer an enable reference if
+>   the regulator is already enabled, for example by the bootloader. The
+>   unconditional regulator_enable() then takes a second reference while
+>   only one is released on unbind, leaving the regulator enabled and
+>   triggering the WARN_ON() in _regulator_put().
+> 
+> Fix this by making sure the driver always holds exactly one reference
+> to the regulator: reuse the reference handed over by the exclusive get
+> if the regulator is already enabled, and call regulator_enable()
+> otherwise. Register the disable action in both cases, then turn off the
+> physical VBUS output with regulator_hardware_enable() until the port
+> role is established. Enabling a disabled regulator to take the
+> reference may briefly drive VBUS during probe; this cannot be avoided
+> with the regulator API.
+> 
+> Rename the regulator helper to reflect that it acquires the regulator
+> without directly enabling its physical VBUS output.
+> 
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
---- a/kernel/irq/irq_moderation.h
-    +++ b/kernel/irq/irq_moderation.h
+Tested on RZ/G3E.
+Tested-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
 
-    @@  struct irq_mod_state {
-    +    unsigned int        kicked;
-         unsigned int        sleep_ns;
-    --- a/kernel/irq/irq_moderation.c
-    +++ b/kernel/irq/irq_moderation.c
-    @@ bool irq_moderation_do_start(struct irq_desc *desc, struct
-irq_mod_state *m)
-             /* We need moderation, start the timer. */
-             m->timer_set++;
-    +        m->kicked =3D 0;
-             hrtimer_start_range_ns(&m->timer, ns_to_ktime(m->sleep_ns),
-                            slack_ns, HRTIMER_MODE_REL_PINNED_HARD);
-    +    } else if (READ_ONCE(irq_mod_params.timer_push)) {
-    +        /* Timer armed: record the kick, timer_callback() will
-push it forward. */
-    +        m->kicked++;
-         }
-    @@ static enum hrtimer_restart timer_callback(struct hrtimer *timer)
-         lockdep_assert_irqs_disabled();
+Kind regards,
+Tommaso
 
-    +    /* Push the timer forward by sleep_ns for each kick received
-while armed. */
-    +    if (m->kicked) {
-    +        hrtimer_forward_now(timer, ns_to_ktime((u64)m->kicked *
-m->sleep_ns));
-    +        m->kicked =3D 0;
-    +        return HRTIMER_RESTART;
-    +    }
-    +
-
-cheers
-luigi
+> ---
+> v1->v2:
+> - regulator_enable() is only called if the regulator is not already enabled,
+>   ensuring exactly one reference is held.
+> - Dropped enable parameter from the function
+> - Renamed function rcar_gen3_phy_usb2_vbus_regulator_get_exclusive_enable()
+>   to rcar_gen3_phy_usb2_vbus_regulator_get_exclusive()
+> - Updated commit message
+> ---
+>  drivers/phy/renesas/phy-rcar-gen3-usb2.c | 35 +++++++++++++++++-------
+>  1 file changed, 25 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/phy/renesas/phy-rcar-gen3-usb2.c b/drivers/phy/renesas/phy-rcar-gen3-usb2.c
+> index b5ba751805aa..3481505dea2e 100644
+> --- a/drivers/phy/renesas/phy-rcar-gen3-usb2.c
+> +++ b/drivers/phy/renesas/phy-rcar-gen3-usb2.c
+> @@ -1114,8 +1114,7 @@ static void rcar_gen3_phy_usb2_vbus_disable_action(void *data)
+>  	regulator_disable(vbus);
+>  }
+>  
+> -static int rcar_gen3_phy_usb2_vbus_regulator_get_exclusive_enable(struct rcar_gen3_chan *channel,
+> -								  bool enable)
+> +static int rcar_gen3_phy_usb2_vbus_regulator_get_exclusive(struct rcar_gen3_chan *channel)
+>  {
+>  	struct device *dev = channel->dev;
+>  	int ret;
+> @@ -1133,17 +1132,35 @@ static int rcar_gen3_phy_usb2_vbus_regulator_get_exclusive_enable(struct rcar_ge
+>  		return 0;
+>  	}
+>  
+> -	if (enable) {
+> +	ret = regulator_is_enabled(channel->vbus);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	if (!ret) {
+>  		ret = regulator_enable(channel->vbus);
+>  		if (ret)
+>  			return ret;
+>  	}
+>  
+> -	if (regulator_is_enabled(channel->vbus))
+> -		return devm_add_action_or_reset(dev, rcar_gen3_phy_usb2_vbus_disable_action,
+> -						channel->vbus);
+> +	/*
+> +	 * An exclusive get of an enabled regulator already holds a reference, so
+> +	 * add a cleanup action to disable it when the device is released.
+> +	 */
+> +	ret = devm_add_action_or_reset(dev, rcar_gen3_phy_usb2_vbus_disable_action,
+> +				       channel->vbus);
+> +	if (ret)
+> +		return ret;
+>  
+> -	return 0;
+> +	/*
+> +	 * The regulator is enabled only so that the regulator core holds a
+> +	 * reference to it. Do not drive VBUS until the port's role is known;
+> +	 * rcar_gen3_enable_vbus_ctrl() switches it from then on.
+> +	 *
+> +	 * The VBUS regulator used on these SoCs implement the .enable/.disable
+> +	 * ops, so regulator_hardware_enable() cannot fail with -EOPNOTSUPP here
+> +	 * and no special handling for it is needed.
+> +	 */
+> +	return regulator_hardware_enable(channel->vbus, false);
+>  }
+>  
+>  static int rcar_gen3_phy_usb2_vbus_regulator_register(struct rcar_gen3_chan *channel)
+> @@ -1151,7 +1168,6 @@ static int rcar_gen3_phy_usb2_vbus_regulator_register(struct rcar_gen3_chan *cha
+>  	struct device *dev = channel->dev;
+>  	struct regulator_config rcfg = { .dev = dev, };
+>  	struct regulator_dev *rdev;
+> -	bool enable = false;
+>  
+>  	rcfg.of_node = of_get_available_child_by_name(dev->of_node,
+>  						      "vbus-regulator");
+> @@ -1165,10 +1181,9 @@ static int rcar_gen3_phy_usb2_vbus_regulator_register(struct rcar_gen3_chan *cha
+>  					     "Failed to create vbus-regulator\n");
+>  
+>  		channel->otg_internal_reg = true;
+> -		enable = true;
+>  	}
+>  
+> -	return rcar_gen3_phy_usb2_vbus_regulator_get_exclusive_enable(channel, enable);
+> +	return rcar_gen3_phy_usb2_vbus_regulator_get_exclusive(channel);
+>  }
+>  
+>  static int rcar_gen3_phy_usb2_probe(struct platform_device *pdev)
+> -- 
+> 2.55.0
+> 
