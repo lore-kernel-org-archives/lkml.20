@@ -1,107 +1,130 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AB822DA76C
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 07:16:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5814F3B058F;
+	Fri,  9 Oct 2026 07:16:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791530173; cv=none; b=SCSvsCgcQIzH2+UgwFNCnk0ZXHchIkvG167II1LufbiHgBF9rjkeC+hIUxryUv3TkdGEpro1HE+Wvcuxo/Giv0wB1PBhPcvionobMdAqzhsytTuPT9RcQFuFDJnrLTWG///BDCJ2aJve4wL8xFxk9K2cWCd5m9+liqId2l49SHY=
+	t=1791530190; cv=none; b=PdsZj4MEhZSYwTW8WX0HGUtMLjeIvdJCnWI3b8aJhytnRAb8xfLd9SLZCeUt7vxvbKoj+MP7ST5b0e+B3jjtXbarNkfOurorrykGOXX02HtDo2kMKIBS14WlX6KSIU0+NNfWOtrYXW+9KNEi9vtZxOBtk2qe7DtSr3nKMEYnAP4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791530173; c=relaxed/simple;
-	bh=fPH0wVEGimhaW13WJVTQikvyNpiUaeWQCEIDwUN/7GU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qsMX07kYj+S/MJFDiHXklnz3xDMJHTB01+XeIiUuAIaH+1RvZBUQ4NL0rPR4GLEVhcZyPuQo+Bffdtqg6dhB1NujmAAxw1cwMIOp8ClW92GxaDTuvxNqbmpgsDdy9FNUZAz7PjZgbLQZ06YOdQ0gfQ8ymVO2EbwnSpj53xY4uSk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=KKk/oq+J; arc=none smtp.client-ip=209.85.216.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="KKk/oq+J"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3a4b9732d5aso3389269a91.3
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 00:16:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1791530172; x=1792134972; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Z2Zp0tbPzypU+Xc8XKZGNu3Y99smdHR6a9gLWnL8e+E=;
-        b=KKk/oq+Jau1pyzzWOxCp52QObFTqL59/Qk2dQ4YSFbJgIkMa26UNdZpw2aZ+BcAjvk
-         C7gFnopiZk5JxGOON2aehCtyKYt/AbGtrwEZ6zUOy6HYtCI668/w8gEdqPrC/G1TwyWf
-         aTex9iPvj4Yy4CD6TtodWKVj03k1o4SJt/lxk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791530172; x=1792134972;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Z2Zp0tbPzypU+Xc8XKZGNu3Y99smdHR6a9gLWnL8e+E=;
-        b=q+2A8RJOTO+7XEBQ6CBACUJsX9HPJXezrJrL6JUabijHcYjdCnyMNaxUiLVaFQXSeQ
-         5itIao+dCBep/zteQJD6bSWFjA68JMUOSr9u7yZWEYhE/z2Jy1UQZuFypXIWuFwGbJj3
-         S7aGk0YerCO6x3V5wpfl02CcIpWC4YO0KnHkT9tmvHn/oRNLyH9wzsK7Tl1Whi007NuA
-         oB4B073UHVoROB3rb15VBqYoNg0WRsk+S4IxYX1TaIn5uwaVE/jT+rL/OmFMeohrB0Og
-         8Hm/r+qMuNJtSyap++k5qGUfcpHfunOkUBuGzefrvHxwRXdQa9ZXhiTCaGhVRdUbYVIx
-         OI/g==
-X-Forwarded-Encrypted: i=1; AKwUvBx7OrWz9ge1aNOuCJFletn+QZWOsc6AXirc6hbc2oBg9zRJqMRteMEJy3jyIVCo20Nd4u8M/oHDgya32nA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJYKcbmKwT/bIQPbyfEaKcY4C6yD/mzYbk1pAQMBs69suoKShLd
-	eEyrgCmjgQ6u3ZSUysSFUvvFsXg6Dmi2cvfQ5OxY4jDZA7+XxaRA5uQ5aP+MM+O+Zw==
-X-Gm-Gg: AYBFou3LAQ/pS7UQ7NA+1Z6YHDZGZZJ43csGQU5G8YmxQZhcZrPccMi4x8qYD86aJIX
-	kPtDqEegAL40Qwo22slOIJZ4qbTyTPM7xJ+9wCdPlFMXf7/JyUFx59cNPA08ZCm9OULSleGgRiv
-	wM5PY1ZrSXIFEsbx/+HG8uq8mZ5n0KG6umkxG1+HSZXHLVX1lJ7OacJ4LEt8K/xrK3mKZYNy8JX
-	YhSqnZPdwl/1idmp/CHoQV88EXgZo9YvrIC0duh7AeB2GqXWXP2fwAZS2OOcTo/j8bW1WCQMgtR
-	73WYptsSeXM9Fpi7zLyzPAWvvuWPW56tZoTEaRHM7gemBllgwpnmkY+07d3rajBVDcF1IetsenU
-	oudrherIeVuovB2tYiD1RpWyrKhZGY6qSL4uMjPCG/8XGAM1IjGKItrHv5o7moa4omjaaXPL98Y
-	fjglxLAUVzOPg1/FimbhKGG1AiOlwMfduoOT4ECQVPU4MfejXESdBZoKf04kdAdTcyFTnzTFFmf
-	UdbYlzp8Fq9xmRaH+DFYbJqtglK5wqNjX2lcVwj
-X-Received: by 2002:a17:90b:4b92:b0:3ab:2d17:51c4 with SMTP id 98e67ed59e1d1-3ab3ac9bc91mr1089309a91.56.1791530171629;
-        Fri, 09 Oct 2026 00:16:11 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2031:6:383b:5817:8167:5051])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3d9e557b1sm471687a12.27.2026.10.09.00.16.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 00:16:10 -0700 (PDT)
-Date: Fri, 9 Oct 2026 16:16:04 +0900
-From: Sergey Senozhatsky <senozhatsky@chromium.org>
-To: Usama Arif <usama.arif@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, chengming.zhou@linux.dev, 
-	dsterba@suse.com, hannes@cmpxchg.org, linux-kernel@vger.kernel.org, 
-	linux-mm@kvack.org, nphamcs@gmail.com, terrelln@fb.com, yosry@kernel.org, 
-	riel@surriel.com, shakeel.butt@linux.dev, alex@ghiti.fr, senozhatsky@chromium.org, 
-	kernel-team@meta.com
-Subject: Re: [PATCH 1/2] mm: zswap: use separate compression and
- decompression requests
-Message-ID: <asiUXpjrE61TLMxQ@google.com>
-References: <20261006002307.2669023-1-usama.arif@linux.dev>
- <20261006002307.2669023-2-usama.arif@linux.dev>
+	s=arc-20240116; t=1791530190; c=relaxed/simple;
+	bh=yFIcK03YR1EPWOWpZUiTJf6yYh14EZJ8rlFVV/wG7Ys=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=czYdFdpHHAnL0czstmDeEDBCmXlMjYX0OiJo2t4KdvL+VhX7GNQoyNF3OT77k4mNPIHdOlXDIqN4hjNZ/5pLmbGj83i5A2KRRYyG3++3fzKvN6WLsdB/rjl9uBfMpDCvnZ2A7SgjfUArg9rPUL5IkFaJUhDKkNW+swipiDFyoI8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 5225f02ac3b111f19a56ed5b684f684d-20261009
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:d97d8542-796d-4be6-a727-cafe12b21010,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:6ead2c12ab8a5df136f25aa15dcb250b,BulkI
+	D:nil,BulkQuantity:0,SF:80|81|82|83|102|865|898|915,TC:nil,Content:0|15|52
+	|99,EDM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:
+	0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 5225f02ac3b111f19a56ed5b684f684d-20261009
+X-User: lilinmao@kylinos.cn
+Received: from [192.168.1.101] [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <lilinmao@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
+	with ESMTP id 835964222; Fri, 09 Oct 2026 15:16:18 +0800
+Message-ID: <2bd3886a-da6e-4703-bd7a-9baa32bfd2f4@kylinos.cn>
+Date: Fri, 9 Oct 2026 15:16:14 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261006002307.2669023-2-usama.arif@linux.dev>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v2] r8152: Use BMSR to detect the link state
+To: Andrew Lunn <andrew@lunn.ch>, Hayes Wang <hayeswang@realtek.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Chih Kai Hsu <hsu.chih.kai@realtek.com>,
+ nic_swsd <nic_swsd@realtek.com>, Birger Koblitz <mail@birger-koblitz.de>,
+ Xiangqian Zhang <zhangxiangqian@kylinos.cn>,
+ "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>
+References: <20261005105249.1281648-1-lilinmao@kylinos.cn>
+ <fd3bff0e63304681b9e5f35f2f57e50e@realtek.com>
+ <7a8d21bd-3484-4120-abd6-f7290f919b7d@lunn.ch>
+From: Linmao Li <lilinmao@kylinos.cn>
+In-Reply-To: <7a8d21bd-3484-4120-abd6-f7290f919b7d@lunn.ch>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On (26/10/05 17:22), Usama Arif wrote:
-> Stores and loads serialize on the same per-CPU acomp request and mutex.
-> A low-priority store can be preempted as soon as the compressor drops
-> its stream lock, while it still holds the mutex. A higher-priority load
-> on that CPU then waits until the store runs again, which can take a
-> long time when other tasks are runnable.
-> 
-> Give compression and decompression their own request, completion wait
-> and mutex. Since commit e2c3b6b21c77f ("mm: zswap: use SG list
-> decompression APIs from zsmalloc"), the per-CPU buffer is only used for
-> compression. The two requests can share the per-CPU transform: no
-> in-tree implementation modifies transform state while (de)compressing,
-> and shared codec state has its own locking. Loads can still wait for
-> each other on the decompression mutex, and stores still serialize on
-> the compression mutex.
-> 
-> This follows the proposal from Sergey Senozhatsky for the same split
-> for zram [1].
 
-Greetings zswap peeps,
-We pushed things a little further for even more gains [1]
+在 2026/10/7 0:10, Andrew Lunn 写道:
+> On Tue, Oct 06, 2026 at 08:28:21AM +0000, Hayes Wang wrote:
+>> Linmao Li <lilinmao@kylinos.cn>
+>>> Sent: Monday, October 5, 2026 6:53 PM
+>> [...]
+>>> r8152 detects carrier from PLA_PHYSTATUS without reading BMSR, so
+>>> BMSR_LSTATUS can still be latched low when the carrier comes up.
+>>> Since commit f6f2e946aa4d ("net: mii: Fix the Speed display when the network
+>>> cable is not connected"), the first speed query after link up can then report
+>>> SPEED_UNKNOWN, leaving NetworkManager at 0 Mb/s until the next carrier
+>>> change.
+>>>
+>>> Use BMSR_LSTATUS in set_carrier() and rtl8152_runtime_resume(), so the
+>>> driver consumes the latched link down itself. If the first read still reports link
+>>> down, the next link-up notification triggers another read and brings the carrier
+>>> up.
+>>>
+>>> Tested on an RTL8153B with a 6.6-based kernel. In 5 rebinds and 6 cable
+>>> replugs, the first read returned LSTATUS=0, a second link-up notification came
+>>> about 32 ms later, the second read returned
+>>> LSTATUS=1 and the carrier went up; NetworkManager reported 1000 Mb/s.
+>>> Runtime suspend/resume with the link up did not change the carrier.
+>> I think this patch may introduce a new issue.
+>>
+>> Our newer ICs do not generate periodic link-status notifications. They generate a
+>> notification only when the link status changes. Therefore, with your patch, BMSR
+>> will not be read a second time until the next link-status change.
+> But the link status in BMSR does change.
+>
+> You read it once and get the latched value. That clears the latch, so
+> the link status changes to the current version.
+>
+> Now, 802.3 C22 has no support for interrupts, that is a vendor
+> extension. But if you are not generating an interrupt when BMSR
+> changes, i would say that is broken.
+>
+> 	 Andrew
+Hi Hayes, Andrew,
 
-Catch me if you can ;P
+Thanks. Since the newer ICs notify only when the link status changes,
+the driver cannot rely on another link up notification after the link
+has settled, so v2 can leave the carrier off when the first read
+returns the latched link down.
 
-[1] https://lore.kernel.org/all/20261009071157.3730698-12-senozhatsky@chromium.org
+Before sending v3, which approach would you prefer? Both fixed the
+problem in my tests on an RTL8153B with v7.3-rc6:
+
+a) Keep carrier detection on PLA_PHYSTATUS and read BMSR once before
+    carrier on, only to clear the latch. This is the option I asked
+    about on v1.
+
+b) Detect carrier from BMSR and read it again when the first read
+    returns link down, as genphy_update_link() does in interrupt mode.
+
+Neither depends on another notification. Neither reports a short link
+drop that recovers before the link work runs: with a) a later speed
+query still sees the latched link down, with b) the latch is cleared.
+
+Hayes, for b): is BMSR_LSTATUS reliable as the carrier source on all
+chips supported by r8152?
+
+Thanks,
+Linmao
+
+pw-bot: cr
