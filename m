@@ -1,66 +1,89 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48F6B2C032C;
-	Fri,  9 Oct 2026 08:51:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FC32393DEE;
+	Fri,  9 Oct 2026 08:52:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791535891; cv=none; b=X0kt4azkwd+8hVhZHxgmSsQfAShTRCXIvQXhILJqwAkCHyFN4vfwOFAPTRob1qfykbC/rMcLnfF/XtSf2ft+vdMXg4p5vPNwTFRNX2pZstsXE1UYGPZNPCgjCxc3L8ERbWwuwH92zMqUOtPwgo9pIao2JjMi27H2gGGan7bKCAY=
+	t=1791535951; cv=none; b=uQsUJkTTd2vGFoETt1UTtJ+VUCYUwiGCsWIbm7go3LJIsZYVlgfF0iwE5GqrrW61FlXvPWJInXNNhxmCT56zak6NPkWctL4OF+AXe+Ps8GeuSuAOyvp2tpBAu32402K2LTDQw+KljXO4oFPVmqqIuh12lV+El/+BzoQAlEEoDVs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791535891; c=relaxed/simple;
-	bh=94JrVuKkBJr33RhjQvPLqnKslgAjbN/wnLf644v78dY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MMXNRowRti1rI1Iz7VTRQEJGHIPnN9yycJ68Bmcns5HfIyyGV1VChatY+ZYiaPLWNr2xk6KrA287IQbGvwwUCu5eLmtm19egpMQHCLPjIGwNMqnPDcI9udWL8GR4VLWuxuJFSOmKQGOHk0VeCqcrrP/g+i91Nl37R8B4W0SAN/Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vyg2b5yy; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vyg2b5yy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1280B1F000FF;
-	Fri,  9 Oct 2026 08:51:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791535889;
-	bh=dR6b3FKrLnTe9BIBL56tDFVWDhHRPUS9hCRaTGfzQzQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Vyg2b5yyo6nPDAJk1P4CTXySufwY1s6u/BSSut7P/sJ96gpgV57bUHVPymJRafxyN
-	 lUAngA3By/b+1XBDWiE7PFpe3GlsIog7cqEHFlWzGlj7K2lrBJuuFTuZXWLc5lUCfA
-	 AxWbR8H6KAh3G9eCO/pQyNgdUKIMZMSda+j98pCxrSja0y75REdbISZ3CnVM+lVP4+
-	 Kuk8+I4l26tNcKxbHwxH//AGwa62R6Uz1C6sFmApswosNoAPR7Xzyt5gjhBedFFo3O
-	 c7afxk2kq699aLj2z26N9BuALMemM8ASV23oQEswqWZkxfLJ4wvKx7M3235ASdcoxv
-	 jzJzjsfKi3gwg==
-Date: Fri, 9 Oct 2026 10:51:25 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Nizat Mikayilli <nacht@dxdmail.cc>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: arm: qcom: Add Samsung Galaxy Tab S9
- Wi-Fi
-Message-ID: <20261009-audacious-doberman-of-satiation-ba4f3c@quoll>
-References: <20261005-gts9wifi-dts-v2-0-c3ac9b0f9ceb@dxdmail.cc>
- <20261005-gts9wifi-dts-v2-1-c3ac9b0f9ceb@dxdmail.cc>
+	s=arc-20240116; t=1791535951; c=relaxed/simple;
+	bh=9bvrIimgWhp5pYeq94nWisZrIs4cws1jr17dyxylOaQ=;
+	h=Message-ID:Date:MIME-Version:To:Cc:References:Subject:From:
+	 In-Reply-To:Content-Type; b=Ws0pS0DsLQ8BV/jkwv8flojdlRrJr2M3RXMapyBVaY3YQ/6LnEPl9dPH69oMOWAithI4yjkexsdi4l/ck+0MEdaH4/aD55h/vTLn6fZfBbUfrut/OrhSaHxCQ1EvAHuBAu3uVio0p73RSHaUVpOVGeyXpXpTAwE31hqNzPgt9yY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.170])
+	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4j1LFJ11sSzKHMbd;
+	Fri,  9 Oct 2026 16:51:32 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.128])
+	by mail.maildlp.com (Postfix) with ESMTP id F050D40561;
+	Fri,  9 Oct 2026 16:52:23 +0800 (CST)
+Received: from [10.67.109.234] (unknown [10.67.109.234])
+	by APP4 (Coremail) with UTF8SMTPA id gCh0CgDntypGq8hqsy9VDQ--.41903S2;
+	Fri, 09 Oct 2026 16:52:23 +0800 (CST)
+Message-ID: <7cbd5c40-55e4-4db3-8175-aec9516f9ba6@huaweicloud.com>
+Date: Fri, 9 Oct 2026 16:52:22 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261005-gts9wifi-dts-v2-1-c3ac9b0f9ceb@dxdmail.cc>
+User-Agent: Mozilla Thunderbird
+To: gregkh@linuxfoundation.org
+Cc: cve@kernel.org, gregkh@kernel.org, linux-cve-announce@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <2026092412-CVE-2026-93275-76ec@gregkh>
+Subject: Re: CVE-2026-93275: perf/x86/intel/pt: Fix stop/start with no update
+Content-Language: en-US
+From: huaweicloud <luogengkun@huaweicloud.com>
+In-Reply-To: <2026092412-CVE-2026-93275-76ec@gregkh>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:gCh0CgDntypGq8hqsy9VDQ--.41903S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7Jw1kGr4DXr4rGF13WF17KFg_yoWDGwb_C3
+	W5urs8KryYya13Za1xKr1F9ryrKa4jqr9xZF15Wry3uFykGrWS9ay7XF9xtr1UG3yDtF15
+	Aa47X39rZFnxWjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbwAYFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20E
+	Y4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwV
+	A0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWUCVW8JwA2z4x0Y4vE2Ix0cI8IcVCY1x02
+	67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxV
+	AFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2
+	j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7x
+	kEbVWUJVW8JwACjcxG0xvEwIxGrwCY1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0EwIxG
+	rwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4
+	vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IY
+	x2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26c
+	xKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAF
+	wI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jjVbkUUUUU=
+X-CM-SenderInfo: 5oxrwvpqjn3046kxt4xhlfz01xgou0bp/
 
-On Mon, Oct 05, 2026 at 09:47:36PM +0200, Nizat Mikayilli wrote:
-> Document the Samsung Galaxy Tab S9 Wi-Fi (SM-X710), a tablet based on
-> the SM8550 SoC.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Nizat Mikayilli <nacht@dxdmail.cc>
-> ---
->  Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
->  1 file changed, 1 insertion(+)
+Dear Linux Kernel CVE Team,
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+I would like to request an update to the affected version for
+CVE-2026-93275.
+
+Although the patch carries a "Fixes:" tag pointing to commit
+52ca9ced3f707 ("perf/x86/intel/pt: Add Intel PT PMU driver"), which was
+introduced in v4.1, the commit message itself explicitly notes that
+this buggy code path is only exposed after commit 9734e25fbf5ae ("perf:
+Fix the throttle logic for a group") was merged in v6.16.
+
+Therefore, kernel versions prior to v6.16 that do not include commit
+9734e25fbf5ae should be considered safe and unaffected by this CVE.
+Please consider updating the CVE record to avoid widespread false
+positives in older LTS branches.
+
+Proposed Data Amendment:
+• Vulnerability ID: CVE-2026-93275
+• Current Affected Range: From v4.1 (commit 52ca9ced3f707) up to fixed version
+• Corrected Affected Range: From v6.16 (commit 9734e25fbf5ae) up to fixed version
+
+Thank you for your time and verification.
 
 Best regards,
-Krzysztof
+
+Gengkun
 
