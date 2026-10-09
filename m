@@ -1,168 +1,111 @@
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+Received: from mail-108-mta245.mxroute.com (mail-108-mta245.mxroute.com [136.175.108.245])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 073913D7D74
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 09:28:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F9F23546F2
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 09:28:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=136.175.108.245
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791538098; cv=none; b=NEZjIDVIVZSyjNi7Oz15qxoPzIhlWn/F7xuB+Up3gqCyjLtM6/Cmj1USlrtDNWRih7Ryxx+NStrN7r/p6UFCviN1x0sAKbuEp/uHF4PTCM59iIADNxYRaUWs5bTBLBPgyrnOyRQxQRTzPuVxb9bKPJBoSAi30qyYHCIxsziD2XM=
+	t=1791538124; cv=none; b=QSo1Gka4qI4Ddtfmb5uQLGoI+DZ3AAwAshsYH6WFbiZlgzcnAwJW6hLf0J06em3xKjuCaOrh8NRRDXQ1DJjhfclP6nrZZHLgzCpujM7WCL0LRfAwqlhv5Sjz3LsTs7Yeqls0AoTpGi7u3utIIESJZteZcTbw2O0ezmcjzvj6hDk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791538098; c=relaxed/simple;
-	bh=C0YppfDJJ+x8kMmqVn9KuMn1DV8bXTY/luVZqkTUfpE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZAPtToXRe5czrP4bsTqNR1WSvkyOnjJR9hCvZqihd+K+H8Xy+O0AhmQ+CuBkW9Qpls11OpdKAqM9O0vngwlp+/K1Mr4y6SUnW6+Li22Un+aQn9LKPhJpH7WpUCvN9oo/mAF3UbxIYLn6WTpuJXtMlFOmHvjCQC59kS6qYla8uxs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jg7RdqDM; arc=none smtp.client-ip=209.85.208.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791538124; c=relaxed/simple;
+	bh=P5UlGdrAwY9YuOCfx6ku8W2zSM50a/kY1oksk1kuQ9M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AryvANqvlf7lVlpTGxu6lwXkNfe5rFv0LlVO2Ds9zSg+91Qio+zdJaFwUxYwhlmVQ4cjkmYkHDqv7CLldW6fdKXmG04NUX7nTZRr8+DtZl/R/O1WWxdDydmE89CRb7TjGJ6gxEXXbMBxTf6zaMjCLekSmDvmrZnD7C6PxpUeZuM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=wii.dev; spf=pass smtp.mailfrom=wii.dev; dkim=pass (2048-bit key) header.d=wii.dev header.i=@wii.dev header.b=PSVAf9Qw; arc=none smtp.client-ip=136.175.108.245
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=wii.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wii.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jg7RdqDM"
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6af9cc73235so2963360a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 02:28:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791538094; x=1792142894; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uoHrS9ZtPCy6LWxuJaA2Izau9PUZ68iNYzz+yH7AHt8=;
-        b=Jg7RdqDMR92cI/mO8vYSvITnLTR9uttC2GU2fbATLKtP59GkdXeOMektR6u2GbiKiL
-         HxNhstTMA0rmyPbZ5vTy1us9tP9doHxgOK0wjNrwI7+n7qK7r1Sb0TnZCkscTSgqdQKb
-         j0dRv/x8eNzQM6yk74fZDo7jJLoRva3y9XRtT3chkCn9VILSf7oLYPiMfOC4oufreO//
-         mjAEGoP4e9e9AAMO1aTmlieuA+n23D41+lRpHlbZlY19lq6nY09hSWrTvO2M9AdDzPnJ
-         JcPV+3qNuc+XiVDBpCNJArh0Ku8eXbOv2PTZZr1z66oHxE2DzcxR1qzn2OJe0okbmsDF
-         Xl4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791538094; x=1792142894;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uoHrS9ZtPCy6LWxuJaA2Izau9PUZ68iNYzz+yH7AHt8=;
-        b=cB51Y663L0cFKFDnxpT1t1g77Hg3+4KdkzoLRpPHFwLOqxcq7tHbH1hf3J92s34Iaa
-         ILncNY8ZwJmpvLTZ1v9CPleamDvtWOWBaESjEAHK2V1oOHdhhxvqrw3pxxHUgF4FCwci
-         sF7xvWjDCKLwQwOm4DZj6Im5s4hKFqaDNWSjtlNz4PnktCC+V+rfxirThoGtPy9a5qRy
-         02NiQW+NqhhYy9NAVdNzmpzrHm9qvOzrQDFD2yD+l2eMBd8oDwwK6wQkdn9giPLRcz+0
-         Frgkj0VTLqrr8c4b/VjQRm90Q2SXBpbYPXVeD6yH8xuy48gfoGjnB7tDCuytbWHh/QF6
-         V+Ow==
-X-Forwarded-Encrypted: i=1; AKwUvBwzvOxa2LfcnQWThT6Dmjm77TUN3l7vNc9WxZZb4n3H2PbMhfKMmZieLNmdjsPL8dy3Nu6Z9/9NWGtXJw8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIkZTrhOlyk5A7vlq/Pj/r+4bILjeP/OQHQpZESzSBRr5ffgfBC
-	oP5mwYTdzLBxmHNKtdstfbMl4uAqbCDWxfrAJdw7e4R7rUFs9+i7cSFG
-X-Gm-Gg: AYBFou3hDoMp33Q5vZ1j16neRA2GEyNBbYcSWruvXxb8gKNdA9wj5+8y30Tw8RQQlQW
-	umRIbbgMuK5ZIXHw4yPGwHRyLmAIhw/S4tEl4Lr3mRtS3M1xhJIp15Wjt7mvje8gKgcmuv7mX3k
-	YMkL6u42KMyqDvmmCcF22PHi642u9LcjWXJa6pjks8QE2kPgVCTjjrGm7NvB9oIzI71J8qU/mne
-	3cFwBTweQfVN+3yqqcLlPKtYwWcTynKKVDC7OhjiVwZYAPxdurcdY2bxLRplja8l6MPB7po89mN
-	dVHu3FfF5u87PBOAKkBgz4fzvsbBu3HSAUKuIwR1Gxjr2W3VhdCPElFe56zG9m8FZrnSnmw+jIS
-	zts74Z6TkXRb4PBor/HSK08PEAUZ1ZT1CZ9XacNi6p8lczhsSpKuQ2izJ5l1dzGl1npUImDIFNm
-	+IU9m+Im3M/zoYh0AlFvntQYG6PcTr9lsz46Fh7emEWTZVCnMSr9Rj1cwJrh+hfWVYl2w8BmQoc
-	NCzouzYL/HjrO+sZulASN/X6SC5Wx63Xb8xOjNOL8NKGAZwCUM=
-X-Received: by 2002:a17:907:97c8:b0:c2e:902e:5208 with SMTP id a640c23a62f3a-c31a9d0eb2cmr140259366b.5.1791538093918;
-        Fri, 09 Oct 2026 02:28:13 -0700 (PDT)
-Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9767227sm67427366b.11.2026.10.09.02.28.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 02:28:13 -0700 (PDT)
-From: Magnus Lindholm <linmag7@gmail.com>
-To: kees@kernel.org,
-	shuah@kernel.org,
-	wad@chromium.org,
-	richard.henderson@linaro.org,
-	mattst88@gmail.com,
-	linux-kernel@vger.kernel.org,
-	linux-alpha@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Cc: linmag7@gmail.com
-Subject: [PATCH v2] selftests/seccomp: add Alpha support to seccomp_bpf
-Date: Fri,  9 Oct 2026 11:27:27 +0200
-Message-ID: <20261009092759.968521-1-linmag7@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=wii.dev header.i=@wii.dev header.b="PSVAf9Qw"
+Received: from filter006.mxroute.com ([136.175.111.3] filter006.mxroute.com)
+ (Authenticated sender: mN4UYu2MZsgR)
+ by mail-108-mta245.mxroute.com (ZoneMTA) with ESMTPSA id 1a11ff98d8700028b2.007
+ for <linux-kernel@vger.kernel.org>
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+ Fri, 09 Oct 2026 09:23:30 +0000
+X-Zone-Loop: 87e772de0cd6c09c354179ebc4b2f048221d38005715
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=wii.dev;
+	s=x; h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:Subject:Cc
+	:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=lrct6l2zelWZPIk1Dq8p/8fOx4mnemJf0V7B4RjY2EY=; b=PSVAf9Qw3/ohfDyztSzwT8dob3
+	Qeb9UAEyo/3nvhQtsS26J4el+BvXhBTAAcXVF2njhxS3HGtuGZ4Cux7r7+Xa0g9mAY4KFNXCcVwe2
+	Qu/YAUQMkffsDmAeKHdTlFFmx85SxncKXgKOVoldV+L2FBjc79Qg6q1s0/wmrFOsgdDrvbDU2lCU1
+	nEDLZ/Rx6AGEcsz7zQtnU1GgVSgn2LsDSyJVN0eW3+jSvDzK5a7nlj9ZkihLDzxwK1KwEfORffuuT
+	wr+4OG11vglJ6wxwoZKKD8WLBY70K/OFgKwfmstcPfT2hbffi2wFC9657t7jgefWgazTaLRi1HzEV
+	yCaK1H+g==;
+Date: Fri, 9 Oct 2026 09:23:17 +0000
+From: Richard Patel <ripatel@wii.dev>
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Cc: vkoul@kernel.org, yung-chuan.liao@linux.intel.com,
+	pierre-louis.bossart@linux.dev, peter.ujfalusi@linux.intel.com,
+	linux-sound@vger.kernel.org, patches@opensource.cirrus.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 3/3] soundwire: intel_auxdevice: Don't disable IRQs
+ before removing children
+Message-ID: <asiygFiibqjVL1AD@wii.dev>
+References: <20260925154216.3520136-1-ckeepax@opensource.cirrus.com>
+ <20260925154216.3520136-4-ckeepax@opensource.cirrus.com>
+ <asJGxhij4OzWNYn9@wii.dev>
+ <asN8pXcsRRRrwp58@opensource.cirrus.com>
+ <asOiEwRp77ETKznr@opensource.cirrus.com>
+ <asePYrXFHxHNssgK@opensource.cirrus.com>
+ <asgjJLeH12OAlYai@wii.dev>
+ <asit3WWNt0/iRnyc@opensource.cirrus.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <asit3WWNt0/iRnyc@opensource.cirrus.com>
+X-Authenticated-Id: ripatel@wii.dev
 
-Enable the seccomp BPF selftests on Alpha with a fallback seccomp syscall
-number and architecture-specific syscall register accessors.
+On Fri, Oct 09, 2026 at 10:03:25AM +0100, Charles Keepax wrote:
+> On Thu, Oct 08, 2026 at 11:11:32PM +0000, Richard Patel wrote:
+> > On Thu, Oct 08, 2026 at 01:41:06PM +0100, Charles Keepax wrote:
+> > > On Mon, Oct 05, 2026 at 02:11:47PM +0100, Charles Keepax wrote:
+> > > > On Mon, Oct 05, 2026 at 11:32:05AM +0100, Charles Keepax wrote:
+> > > > > On Sun, Oct 04, 2026 at 12:29:58PM +0000, Richard Patel wrote:
+> > > > > > On Fri, Sep 25, 2026 at 04:42:16PM +0100, Charles Keepax wrote:
+> > > Ok found some time to look at this properly I think this is all
+> > > fine. sdw_intel_exit() first calls sdw_intel_cleanup() which will
+> > > eventually call sdw_cdns_enable_interrupt(..., false), which
+> > > should disable the SoundWire IRQs. Then sdw_intel_exit() frees
+> > > the ctx, whilst at that point whilst the IRQ is still registered
+> > > one should no longer be able to see soundwire IRQs, so you shouldn't
+> > > get a dereferencing of ctx.
+> >
+> > On my Galaxy Book6, I was able to get a ctx UAF with your v2 patch set
+> > by adding a sleep.
+> Hmm... yeah, I guess the masking ensures a new IRQ can't come in
+> but nothing ensures a currently running IRQ is synchronised in.
+> Well assuming the masking does actually prevent an IRQ coming in.
+> 
+> That is a little awkward, normally freeing the IRQ would
+> synchronise it but as the "IRQ" here is done as a pile of
+> callbacks that doesn't happen. We could do a manual sync on the
+> IRQ but that feels like a bit of a layering violation, since
+> the actually IRQ is several layers away in another part of the
+> code. We could add some flags/completions such that we can wait
+> for the current IRQ to finish but feels a bit like adding code
+> that shouldn't exist. I think the correct solution is probably
+> to switch the handling over to the IRQ framework.
+> 
+> I am going to go for the theory this is not directly a problem
+> with this series since the problem exists unchanged before and
+> after the series. So lets not block this stuff on it, but I will
 
-Use the NT_PRSTATUS register layout rather than struct pt_regs. The
-register set contains r0-r30 followed by pc and unique. Read and update
-the syscall number in r1, and set both r0 and the r19/a3 error flag when
-synthesizing syscall results.
+Yep, sounds good :-) Thanks again for the fixes. 
 
-Skip the pre-notification signal test when /proc/self/syscall is absent,
-rather than unconditionally skipping it on Alpha.
+> try to find time to start porting more of the handling over to
+> the IRQ framework, or happy to help review if you would rather
+> take a run at it.
 
-Kernel support for seccomp is already upstream for alpha so this is
-for the tools selftests only.
+I was going to defer kfree(ctx) via RCU, what do you think?
 
-Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
----
-Changes in v2:
-- Use the NT_PRSTATUS layout for PTRACE_GETREGSET/PTRACE_SETREGSET.
-- Set the Alpha return value and error flag together.
-- Check for /proc/self/syscall at runtime before creating child processes.
-
-Link to v1:
-https://lore.kernel.org/linux-alpha/20260203063357.14320-1-linmag7@gmail.com/
-
-Tested on an AlphaServer ES40 (EV67 Tsunami), running
-7.3.0-rc1-00010-g19a47cb46b82, built with GCC 15.2.1:
-  PASSED: 111 / 111 tests passed.
-  Totals: pass:99 fail:0 xfail:0 xpass:0 skip:12 error:0
-
-Applied and built on my alpha/for-next at
-29289afbc513df29f0f981d45676980ed8eb13d2.
-
- tools/testing/selftests/seccomp/seccomp_bpf.c | 24 +++++++++++++++++++
- 1 file changed, 24 insertions(+)
-
-diff --git a/tools/testing/selftests/seccomp/seccomp_bpf.c b/tools/testing/selftests/seccomp/seccomp_bpf.c
-index 0622bc2..92d3713 100644
---- a/tools/testing/selftests/seccomp/seccomp_bpf.c
-+++ b/tools/testing/selftests/seccomp/seccomp_bpf.c
-@@ -136,6 +136,8 @@ struct seccomp_data {
- #  define __NR_seccomp 354
- # elif defined(__x86_64__)
- #  define __NR_seccomp 317
-+# elif defined(__alpha__)
-+#  define __NR_seccomp 514
- # elif defined(__arm__)
- #  define __NR_seccomp 383
- # elif defined(__aarch64__)
-@@ -1754,6 +1756,25 @@ TEST_F(TRACE_poke, getpid_runs_normally)
- # define ARCH_REGS		struct user_regs_struct
- # define SYSCALL_NUM(_regs)	(_regs).orig_eax
- # define SYSCALL_RET(_regs)	(_regs).eax
-+#elif defined(__alpha__)
-+/* NT_PRSTATUS contains r0-r30, pc and unique, not struct pt_regs. */
-+struct alpha_regs {
-+	unsigned long regs[33];
-+};
-+
-+# define ARCH_REGS		struct alpha_regs
-+/* The kernel keeps the mutable syscall number in r1. */
-+# define SYSCALL_NUM(_regs)	((_regs).regs[1])
-+# define SYSCALL_RET(_regs)	((_regs).regs[0])
-+/* Alpha returns positive errno in r0 with the r19/a3 error flag set. */
-+# define SYSCALL_RET_SET(_regs, _val)				\
-+	do {							\
-+		struct alpha_regs *__regs = &(_regs);		\
-+		long __ret = (_val);				\
-+								\
-+		__regs->regs[0] = __ret < 0 ? -__ret : __ret;	\
-+		__regs->regs[19] = __ret < 0;			\
-+	} while (0)
- #elif defined(__arm__)
- # define ARCH_REGS		struct pt_regs
- # define SYSCALL_NUM(_regs)	(_regs).ARM_r7
-@@ -4652,6 +4673,9 @@ TEST(user_notification_wait_killable_pre_notification)
- 	/* 100 ms */
- 	struct timespec delay = { .tv_nsec = 100000000 };
- 
-+	if (access("/proc/self/syscall", R_OK) != 0 && errno == ENOENT)
-+		SKIP(return, "/proc/<pid>/syscall not available on this kernel");
-+
- 	ASSERT_EQ(sigemptyset(&new_action.sa_mask), 0);
- 
- 	ret = prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0);
--- 
-2.43.0
-
+Cheers,
+-- Richard
