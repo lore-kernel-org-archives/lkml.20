@@ -1,219 +1,169 @@
-Received: from mx08-001d1705.pphosted.com (mx08-001d1705.pphosted.com [185.183.30.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f6.google.com (mail-oo2-f6.google.com [74.125.231.134])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC8891E1A3D
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 02:47:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=185.183.30.70
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791514033; cv=fail; b=qwQ3wHf0eMyImnye6B5y57Uh+mS7ADMZnPntjW5BLmmFaMXEbpKcQYYlD2oC7zCWqS9LtVPHlm/48ZZ+PXUDZcoKBrE0UlseF11LTeATHE4T+SnFWqtp+Qt8nVUgLNvBxwy4vZiES4pQOm/3eaeSJ7bdDz3OXjeYA0D5i7AtfHE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791514033; c=relaxed/simple;
-	bh=7j/5RKQVqSuwtLDO4BWzPODB7HSpBYWNwUvT4l110UQ=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=WiyTOwH1TbXfzqOpS569BeqHekAajqEotNpvCtNgwZjxIsmLeW0OjBISpRNPD2kSumWNVRwKAyX2UlLIFo9U3cVo0ZqPYwW59GuJImTWLpjPiMBJBOcau+SMP3OaMub8D6gHLBDBqSGxcwFKtXpqVIvEw0F2p+jT8BcB/ZgCCGo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sony.com; spf=pass smtp.mailfrom=sony.com; dkim=pass (2048-bit key) header.d=sony.com header.i=@sony.com header.b=P63N3R/O; arc=fail smtp.client-ip=185.183.30.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sony.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sony.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62110328B5E
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 02:49:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.134
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791514175; cv=none; b=lRxBht3usaTQ1I90qf5k5OuqxEaqy3VuhnLDbLO2nIusvyvbEqwIxex/LGMdFQ8wnFXKdAsErv/7U1sJVo5TwXC7PLWt7KPHhs5vh+ipsAgoNqejRk3cbc8gGAU49Q5MpoTBzjcRayA4uzRDSj0F99xlRlhzOwtjl6WKdI9hxss=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791514175; c=relaxed/simple;
+	bh=BOXWbgKt5oTWBj9dZM9FXvwRdMUZyFUaZrOkQbeOxJM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=jxOMO5ruBgYvJEq9fhz4qTy8lFaWUV+u3JEQbodamb6Y+AuerQSc/V6qWn76fjVwCgJ4sj6Gx0I8yJxni397aQybYQM87ELe1DxliLM0auZqTiQLCcCXrF6U2J+jEdV3iLyIEJC7WYj/5xN6K4Mn+8fpATfBeFB5iEo82V28MHI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a5HNdPSt; arc=none smtp.client-ip=74.125.231.134
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sony.com header.i=@sony.com header.b="P63N3R/O"
-Received: from pps.filterd (m0209322.ppops.net [127.0.0.1])
-	by mx08-001d1705.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6990PBbI743899;
-	Fri, 9 Oct 2026 02:46:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sony.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=p1; bh=4J/fAWn
-	/6h976P/K7ZxckVK2tgrjHZ+bPBYMn2WcYek=; b=P63N3R/O8+E+OK1snIOa1ko
-	Xw1Li+yKLPax5IxgFNIrY+4G0NqGq0gvWq3zsHAQ9nWh5y1ZhlnJ8E8Vb+aheZxJ
-	0FZ9UTtss/+18MuMOVov6HafTfVfTL2MpuZ/l7mTBEyomaqd4KblEvhhUBHDCGKo
-	rxEwCi+ibtHG+TLupZ5mYRRsXXTCDIT66MRj5gdfIo4uwpwLsCuTyFVDFcydKBdZ
-	Wh3VWU0OVXWaJFlIWJEH+c8H58/ObE5DrVp01P0HUjWkgvNQLFDpkVLaHdG4Ybx3
-	Mp6Q4tfxC4006h3wub6zPpqfJIFRsmasMlM62yUZyiroaaXBzpb65eOr/D6WEXQ=
-	=
-Received: from seypr02cu001.outbound.protection.outlook.com (mail-koreacentralazon11013055.outbound.protection.outlook.com [40.107.44.55])
-	by mx08-001d1705.pphosted.com (PPS) with ESMTPS id 4h5xdgherr-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
-	Fri, 09 Oct 2026 02:46:29 +0000 (GMT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QLMBcdCoxbO8BVHGtTRhAkP1uB+uOJN4x3LhVhfV+aXR7L+ZoIwcR5VELzX/y+InmuXTCsPyZCTkB/PMN0aaTJ09WBiqsgswlJUZ14rTuWYLQgojlf/QQGCjIhGMzhoa574O0nVOVjANvV9dx2kVr4wVo09d7SHsisISBt6uIuCqXd9FPZZbxPFCp9vLTvGS0mAXtEhcT94qk7E7ubaRO2wdw5mr8RSxa//L+CoiJGp2gA8wo8dv314q5u+hStKSN/pdcrEJ7Wf3e7uRFhryGMuYH0LhuYa33lF/zUUJnBlXBsgOW7wO4U9YznEAKZ/cMgowTA5wzlmhJB5BdSXbgQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4J/fAWn/6h976P/K7ZxckVK2tgrjHZ+bPBYMn2WcYek=;
- b=ST2If/owM/63I6p/1770qR4GwxrWItsXvE6+bZuRqKoFl23/l1QaKM1kgpx5MDcWh2DvljB7ZjDSi9aUHCxFB/5inpb79Clh/iwjkCh5+9sqN0Vh33/b60XHRd/iyhIDCNjKQgyhDi6XjJ9BE7vkKyyqLvAlLRNBiOEkQHx5Hrqlv98NSAeHwYCIQyAFo51cVsQ9KMUoM9xCmkbCtHPGbvxc2TTc/7tdJIoRjuKLnNzAL+PR8dtfoKBaUr3+iTwcLi9zxsZayBjsVdWfygefZqjdeP5fqDEY0H4H/7miwSQLE0AFyNUgybaVAj72PWXPfzxK0TRcuzu8v8M2SItQwg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=sony.com; dmarc=pass action=none header.from=sony.com;
- dkim=pass header.d=sony.com; arc=none
-Received: from PUZPR04MB6316.apcprd04.prod.outlook.com (2603:1096:301:fc::7)
- by KL1PR0401MB6211.apcprd04.prod.outlook.com (2603:1096:820:9b::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
- 2026 02:46:21 +0000
-Received: from PUZPR04MB6316.apcprd04.prod.outlook.com
- ([fe80::a631:6b1a:332c:831c]) by PUZPR04MB6316.apcprd04.prod.outlook.com
- ([fe80::a631:6b1a:332c:831c%6]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
- 02:46:21 +0000
-From: "Yuezhang.Mo@sony.com" <Yuezhang.Mo@sony.com>
-To: Chi Zhiling <chizhiling@163.com>,
-        "exfat@lists.linux.dev"
-	<exfat@lists.linux.dev>
-CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-        "linkinjeon@kernel.org" <linkinjeon@kernel.org>,
-        "sj1557.seo@samsung.com"
-	<sj1557.seo@samsung.com>,
-        "dxdt@dev.snart.me" <dxdt@dev.snart.me>
-Subject: Re: [PATCH v1] exfat: mark straddling folio RO for 4K block size
-Thread-Topic: [PATCH v1] exfat: mark straddling folio RO for 4K block size
-Thread-Index: AQHdUMi6PIMYj26g8UGMn//t2iEhgbboI26AgAxgUz4=
-Date: Fri, 9 Oct 2026 02:46:21 +0000
-Message-ID:
- <PUZPR04MB6316DF5C2179DCD7B4200A6A81922@PUZPR04MB6316.apcprd04.prod.outlook.com>
-References: <20260930104332.4022207-2-Yuezhang.Mo@sony.com>
- <ff3a2271-542a-44a0-b5a0-700990119630@163.com>
-In-Reply-To: <ff3a2271-542a-44a0-b5a0-700990119630@163.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=sony.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PUZPR04MB6316:EE_|KL1PR0401MB6211:EE_
-x-ms-office365-filtering-correlation-id: da8a4de2-4720-4986-ddb4-08df25af8054
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|10070799003|23010399003|366016|1800799024|38070700021|56012099006|11063799006|4143699003|10067099003|18002099003|22082099003|3023799007;
-x-microsoft-antispam-message-info:
- xg2qTKUVXT2MxL98NN6xGdqb0eshvpNES7ZKT0tHWg4yKyDXnlaVz/EdtBkFzwy6d7auPLwDOaChHTy1iY24nXit+WKzgX4yv/5LS5gskJPoIdwjMCPmM1jKbgy/RyJCwC8+rII1mPCKE6UHyN1YL4KhQYlOEZX0e0jXHBbsD3X7JHXJHDx8EvFnjgEkyPyqQhraHf/WuQp1vWThpfUkRZKi0RwG8DHfMfiyZw27LswtxVsuNTR+nvk3IwMfYW+Twvyj1Ta+8NAftJaL6x30TslbReKv70YnCpGY8lA2NGD6iUKI+cFk0+OKxMnw4Gf17b7I5aSxHJNnRvUuc4h22qKzmnAcdwRQjiBLgy/Fs7ExZFwJFG2w9OApw6suqdZ+5vvtOzTBpnlJX/5PQRa6Se7CMdKDhcH3K+EJARHZtzAzuKuiCHPQgxN/Ypaa3Mh6HPfxePfBxX+bg2N7ZpC4qjbtM6Pdvbl3INFRCNMktgW+Zc7MH1lvTalPs0IyR3ncxzDH6mcdSNKEwFENdfiEpAj2BIXLuVPPk5dChSmJxmmklOK+u+nnh9Q8n08a7hnNurl3e8JcAdPBm0EuS0H08xFqojtpTMNobh+Kjo1kUrrsM6i0/vD2k0ZGt+6Oi3v1zXnMllgxieqH76Cc/fzP2ZKS2sGYWfyNnGDfV8GAGUhr4bHyEnEeCEPSXLfaOeOT9HnkAc27I0ei4XhBKN79JsgRW0PXsAPjCUlhNb0l51U=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PUZPR04MB6316.apcprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(10070799003)(23010399003)(366016)(1800799024)(38070700021)(56012099006)(11063799006)(4143699003)(10067099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?Sw10ySij6DTPG/D+aeETngdLFsKHndhcFA/UufGp1T/LUW+rOlHiHDYAe2?=
- =?iso-8859-1?Q?IHRWVKKJfX0ki8yiaLighOaPI55fN7LVH3s/UdfaIrnumHxHSDlZ6wcA4D?=
- =?iso-8859-1?Q?p0gBs8SQyWTDlsCCa9SNx3NGFaONc5OVfkWvs0lC1ic/+psGLHSlXbxzGm?=
- =?iso-8859-1?Q?9FQFk/j0Oa4iyfhX4VSte7iZHezfF8vYojclQ1RvLOqx6m5xb3urzqcrc2?=
- =?iso-8859-1?Q?ShtMGKG7BfToAEBNt+QBqjptm2AWzJB1d3mwudIm6yRnDwinchb4dqa0X0?=
- =?iso-8859-1?Q?SA+iTBNoDtoTuzo0gE5593ETnaJrAQQ0iB2IYwyFEuMD2AwHszE7N69U4x?=
- =?iso-8859-1?Q?SuPEA+eWygREH+eLBMlGyLw9MzKuyoDh2+5XMDRyzccXhK2EraKl52YYaV?=
- =?iso-8859-1?Q?VrvhUKA4i62a8bJa5fdNHbiH20TVTK+6IPeqGWvLBnvExxVH9nUVOSkX1v?=
- =?iso-8859-1?Q?H5Xf6bkqIv8LTLO2gywEhTngahKrq46jJqO2MMMjpyPZMWp+Mj/zjjpsZD?=
- =?iso-8859-1?Q?oU5CZtEa4xpbUoPPT/j6Rzt4t8pgbihovD/dlj1XXrQvtA5PD1vHwbXwxC?=
- =?iso-8859-1?Q?bFvNqQdE6YVupX+2Tro+8ztuzJ1gLoC9KuS2xt8YJ52+zdSgXdpepENbZA?=
- =?iso-8859-1?Q?2Iy/akPGiyghboYqDZD+mb872VyRn380ieJanFO1wGtaztz/EcXrqNYj3J?=
- =?iso-8859-1?Q?mjq+uJWNT68i3QTJP92v9SccZ56LTRL+0Tvgpg4FC7RF+eOADePDqpPUD0?=
- =?iso-8859-1?Q?Mr7mGD2I4+wuA1PPEt5fNz4JSqHeSLm3mSuT++lRlfro5YBJeuIIkLr96C?=
- =?iso-8859-1?Q?5EH0xhmmm8xjQVvVNiwWQGHeGP/ijYhE3Wi//VoXgPfBwTVjILnWGemJT2?=
- =?iso-8859-1?Q?y8oNbzJYGv5BYg+04nQgf6oxrnot5sCtG7jCYgR2FiuIolvtzcWe/GuGFZ?=
- =?iso-8859-1?Q?7q6DeTZtWeyy7blsj6Ix4XZSGDVGGRJbGIEk0Ffo5zyFbXQEbb9G80GqgH?=
- =?iso-8859-1?Q?goka2tWRb7NK6V2opTDbSMfoCaPXp6MkLXbI9jGdemq5DKg5zRLetQfVvP?=
- =?iso-8859-1?Q?GqOhtgyGWGTNnb8/HpRtC+G+9LDJqnyYKunn/iFJI8K9FwfvbByCdKjTPd?=
- =?iso-8859-1?Q?m6gZaTj/bYt4AYnEl8varfZCHgwuC7aP27A+svgPr391VOqlIF39ghnkdE?=
- =?iso-8859-1?Q?6sKg+UjfGyv6FY9aED4iXupSz+kfb56/shzCtS/xw+eLx2q9qSQ4BsF1Q2?=
- =?iso-8859-1?Q?iLVmkqbxuzL6iIIiVjtY4fRRg6RsdCB0cyZprQDQlaEMkBAaP/oDY/Wggd?=
- =?iso-8859-1?Q?KlaUjZgjJCi9ytJaAbweToRwV0S4unr3e3DdpR6E6nrRiXKWJHJb/Rsiuc?=
- =?iso-8859-1?Q?RAB8NG5nXSFXlqRImuOsCa6lpB4OfTMrpnX7BMdBhGikx4iJpvKlUbtAAn?=
- =?iso-8859-1?Q?w2z7G/MP+KatgZ0Be5sKMsUbCf34RR9igtHaPwY4NixETqIqeltBOkrPL9?=
- =?iso-8859-1?Q?b7CtO6fFm4EJMPEWTDIlv0XRwbG9zJ/LY4MyWjwfN3gz303yhGaWgtx6Ym?=
- =?iso-8859-1?Q?Jef1fDKB0X1ZMW1kJPSSS4J1sfeHnqjCScC5+VxaNJXQUa9/B1jL0TPIqk?=
- =?iso-8859-1?Q?FGQ2mi09Tdppf7LQL8krQm39KiW9LzUwyzCf2Ml6LICSio490i7cvncmBe?=
- =?iso-8859-1?Q?vyAEiyXhpHPj/KLnzN7/ulmPeHG3DH8NyLyDkG0UqQLn86ZQydvURsY3Mq?=
- =?iso-8859-1?Q?yoSSMljUrqQ66ueGlM/3VV7qcyhQNcV2GpisiSXl4jxpb/D7ZUJ0ROqiCa?=
- =?iso-8859-1?Q?wBOfGK+3rpT2tYL9a7LsNgwDw5Ns3+M=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a5HNdPSt"
+Received: by mail-oo2-f6.google.com with SMTP id 006d021491bc7-6dde2bf34afso1189740eaf.1
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 19:49:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791514172; x=1792118972; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BkB+18irm/PXSeWD4xBchhhHgHVo7kRSvYTUNV9M/S4=;
+        b=a5HNdPStODsnw5LkGOcR3d3vp0OZ3YfS/xJA4pmifig18xuoNzSV/lhcyL3HYrh+Yt
+         nWD8z+K3Tqet4Twzc5zWRdRqy0oRXfOrtKZvvrfTMi8XUsi1TFxRh4PhY9+LWRxwlc3g
+         QwnT4Z/jD9iGOeabjL0qoVcnbydVeEuNVk/rTWwTzKy3LMVMwbU16UpG/8doZ3+M1J42
+         kjfJNZW7FkkWRCaAjtwwrZF7ZWYksUbPeAi3+9q2RnYrZbLLFHtq3BDS3hNgB4dqVriM
+         khWErA18PAZnUHTMkgs2GrnLlnBiuXpMGqy8qbJCLeqTpvx02bUZt1lq8ltsF0X+o5g7
+         y9+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791514172; x=1792118972;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BkB+18irm/PXSeWD4xBchhhHgHVo7kRSvYTUNV9M/S4=;
+        b=nWuTiUXUkGXy+jUf4eDOzpMzxBcPOcO1eXQvT2CetHh4PUBDNbwFzv4+Id2VmpcYqQ
+         qBN/o2WM8ElCyGMoNhoCkQ4OaRT9uohiyW8DLuSKNZx46bYJE4CQZhC06Ub7QVUyoX+U
+         M/fkOBwGjnWcWr4yR63mE2w/vBpxL+PAl71qJOeW8qglWn2izPzl7hGJg3dC9M98QRqV
+         /dAxW+vgggIpB7BqYaxvpj6P2uXl+OCnjaaVNEgWZzvTac3iKjXOCAd82pgSydU0vDxX
+         Emy3lpLsme5QSetN1i+Mgp9JzFl4XRIpDV1BsbmQLWqKXG4sJkak8Zf1rb0bFmKaUcEY
+         fOLA==
+X-Forwarded-Encrypted: i=1; AKwUvByg6dPlI/6OQqW55NeZodopW3AIHHZqBaYTqAyc2iF57zWhauNY+cT1Ps+Eau0uyzdDlLC2zBdo0P3D2EA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mFaCt7tanoDWGWGb6IGZ4/whF8XPgh1htcdKJJ0kP7RgoJ1Ji2
+	6rw3WybufFAga0Sh0Ucch41/kur6y3jt8bd87eoPyLZ8EK7T1e5BpPHTV+Y+x/zQij4=
+X-Gm-Gg: AYBFou3e6B0vext3Tjc9OYjxj8OdKopvkF3edClxdfiI7lFFyaJlPK3NGhGquB/K/6w
+	sAGBwOkBESS7U8jx5gl+s9oh+cNncO1a2K+ll1vO7XKzrOPmf+U5q2W8XpJCH8H7f4NfPQdgxIi
+	DDekVqYINhGD5/izMXVeDdLCUKm5XgNrtRRpKKJraiBH8+8ZnHCwW4iri0CL6p8xlpZVajCAqwa
+	1CDlFf8Xq5JwKc3ZYgCzPGliP8gsextwoQpB17ovURA+uF7lTClp80V4YTMzwB9lLnRt6NRLtIZ
+	ezwJW9IGZB0Q45nZvwvKDJ6qA32E3xanJ8tYvcZBNh6mjKG2NyY3Ufbf0PtJR0pBwVnqkN8ydqE
+	YClArEDuP79cF0zfsVSPcko3Q9SusFBR4eU//AuK/YpXcKXQthW+3DYnRoYFOcx1NI8nvtazzFg
+	D8fiKiIBYn9dzJz/JEpU5z88tQEuSvhHYur8WdLB5Td5HEsomKWHX9K62YG2JFNRJZX5JDoxArf
+	polYEb16LmWaZ0JC1m0/2CcA0dENAMQPwrMSJkdg4oHjfqy9reptzP3HXDuAD/ETIxFECdrSi0+
+	+ijz
+X-Received: by 2002:a05:6820:c8f:b0:6c9:80d8:a1f3 with SMTP id 006d021491bc7-6ef0eec6e3amr490870eaf.48.1791514172242;
+        Thu, 08 Oct 2026 19:49:32 -0700 (PDT)
+Received: from localhost ([2a03:2880:10ff:2::])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a2a865a441sm678374fac.18.2026.10.08.19.49.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 19:49:30 -0700 (PDT)
+From: Kumar Kartikeya Dwivedi <memxor@gmail.com>
+To: bpf@vger.kernel.org
+Cc: Puranjay Mohan <puranjay@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	kkd@meta.com,
+	kernel-team@meta.com,
+	x86@kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH bpf-next v1 1/3] x86/mm: Resolve BPF exception fixups for user address faults under SMAP
+Date: Fri,  9 Oct 2026 04:49:21 +0200
+Message-ID: <20261009024925.3169077-2-memxor@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261009024925.3169077-1-memxor@gmail.com>
+References: <20261009024925.3169077-1-memxor@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
-	K5ETp1uJBlbe8WnCtHkEaw5cbXg5LCuoon2KmzSZZSV1Xio1UFg5GMs0q3Wa38AZtvqQ8Qh3VpM3nWLrhzO7b4+/ayNhiND8QHxVNe65GS1R9BxSo5lwxePaAIsqW5JZY0KPxvQFIi87Hd/48VSdkXKFRUgZc1pHLWQNB055wtOmjQDM3ikpBcRRcBOeCMJDP4AuYDzOQsAa1tNA6iwnqctyMCn6hhmrwmX9Ez3CYdE6WzcyTUyu8x7qyL0uLR5PJ1Ddiv6HCq+138EySE4GsMtXTJjbafcRVinOWbCi0dkSOdzGmOhhFskfL2nSZ+zlaP9wAJh94lc4IDZlXtaX1A==
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	h6D9ovPRLpLHrxjhmeojZ3gqDyFwaWxi0BGAB2A8gjGWmmVlxV86mSwCHTVHbSVFBNL0eFgigCAZhIa3KDXltp54VT8q/bj094hGS5GLL19h9IuUXgMR3wk0Sdksi4wg57xR8By2vQHr0uvMDSKIWf49JomoVyOPVPPFCUNdf3ZheXYr4IwkJ424HU5wp0ua2UF/a7c4jxUs4K1E5EQrel+GCs1XWY+9/UTQHSQbQyHbeuRIV3b3b5CYyjJt6T2jNeXySA0LxFKtj7ZS/E0qsRg5bxFoDFpgVKPZifCJyFH5Q9kvTjUZ//8N7+lalOkBn02OKDQK6y5T+G+uRNKpLn7+O23WLfjw0V5/Q26GBaTIpjY4QT+qgEUbVvo9dflEkAP+/QRP39H0iWwARI+aFEaL22ovrgJAm3eb1ea7h17iYDWX6vMKKO/NqJ90MHDelSuFZuU1fLLatT9WMSeo73jZg03os6bOEmbLyMfdlrQALljwNqdQA/u1TkqGMvlnnWhuIF0wlUOlsubP6SbPbQWDGTd/PSHzkfrvXCIfXd8Qc8UncfJpCj7dhXhwAZviU4GAU6c5Q4Hq1trEJNYDfPhOUbezFP2W+QFCuzKCK8WSt9/16zqYbFm/nl/oWo1b
-X-OriginatorOrg: sony.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PUZPR04MB6316.apcprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: da8a4de2-4720-4986-ddb4-08df25af8054
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Oct 2026 02:46:21.2035
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 66c65d8a-9158-4521-a2d8-664963db48e4
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: io2FG6bm5NAk4JtlhpzNRtd2yKD2URjBQMhMQG5PELOjfkm4RvH34tlqZvIVdvV+23Y6OhwAu0QQP1VoTixKFQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: KL1PR0401MB6211
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDAxMCBTYWx0ZWRfX07A+SRwJd+kH
- baYk075HItZE/PMa4OuPjVz2LsgtzPPt17h8ODFurSD38YpIm9q+CTs9Mysz10J6ahAklFj6+20
- T2hWB4kdqkq/k4JfnjeZWsJdhgT2rGGLCO64/7PK3DEEQ0NMDrvO
-X-Proofpoint-ORIG-GUID: kGMMzGww79DzcqTDg-K1u5UpbTFoKqjN
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDAxMCBTYWx0ZWRfXwddkfUIU4GAo
- VZpLT2Kwdbo+J/2x6AWm/UtnuN93Cv3SoekRALqb6yVAOXg4xl7fnlzQoCOQTRxsho0vvSl1ow8
- a6lvsaJtDwleYsxW+0pCVe8OM1hL7TPJJrk8zPl+ssa2E344mW52siOdZSrai3Y8Hrm94mRkrCd
- QP+ABalgIYoKUXl0sAstbqF7pObVqwTI9PxxYnrp/ST5ulq4V50lQVHNi6j50LvYzOJmoD4JDQj
- GnGXzQUx6yWrI9ftlUabXTKhpXrLc1X7sYPiDmKYaMzPiRIPEIT7qDvKY5F4XSFk+1J2hIX1A5z
- vW8EZ1gHutj3T9roDOu6cnSc45NeZlITL+K8rY/oSmFaT92al/LLPnlaGKRGj9N/rTOqY51XSzi
- P+hpCaEHlsojJ4Z5H7n7w0ZmQ5UC8wIkX83Z5wz7Ap08YS1Nhf/JyPR8G15Xcc/d7vaJ8UW5gm/
- s0zzS82M07rwqZ3YdSQ==
-X-Authority-Analysis: v=2.4 cv=YsCa1IYX c=1 sm=1 tr=0 ts=6ac85585 cx=c_pps
- a=9sSFmBz/HBx1ZOhNuxQbag==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=8nJEP1OIZ-IA:10
- a=660iZSQnnn4A:10 a=7j0FZ4iXMVMA:10 a=xR56lInIT_wA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=KAb5x4SsHD3PzxGk7EmX:22 a=cIyGuqrkuvkXWOl_fzuj:22
- a=hL5X9aV1IJL_vOGeEhwA:9 a=wPNLvfGTeEIA:10
-X-Proofpoint-GUID: kGMMzGww79DzcqTDg-K1u5UpbTFoKqjN
-X-Sony-Outbound-GUID: kGMMzGww79DzcqTDg-K1u5UpbTFoKqjN
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-09_01,2026-10-08_01,2025-10-01_01
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3490; h=from:subject; bh=BOXWbgKt5oTWBj9dZM9FXvwRdMUZyFUaZrOkQbeOxJM=; b=owGbwMvMwCXmrmtenRyi38x4Wi2JIetEmEiWQORJs3Ofr0dEdR3bNZ+9P+E/j5FgnLTDNCEW/j0x Tzs6SlkYxLgYZMUUWUr+72MyPlH5O9B2GTfMHFYmkCEMXJwCMJG224wMPwQ6Xm7oOne+xzFwr7mU55 QtBee3r3d9+OORcn+J0h73n4wM/SsM9/ucyF19nv3USrE40ZC3p+Ol7ZQ9Zj/QuPnXMNaLBQA=
+X-Developer-Key: i=memxor@gmail.com; a=openpgp; fpr=B34BD741DE8494B76E2F717880EF20021D46C59B
+Content-Transfer-Encoding: 8bit
 
-> >   #include "exfat_raw.h"=0A=
-> >   #include "exfat_fs.h"=0A=
-> > @@ -91,6 +92,20 @@ static int exfat_cont_expand(struct inode *inode, lo=
-ff_t size)=0A=
-> >        */=0A=
-> >       pagecache_isize_extended(inode, oldsize, inode->i_size);=0A=
-> >=0A=
-> > +     if (i_blocksize(inode) >=3D PAGE_SIZE && (oldsize & (PAGE_SIZE - =
-1))) {=0A=
-> > +             struct folio *folio;=0A=
-> > +=0A=
-> > +             folio =3D filemap_lock_folio(inode->i_mapping,=0A=
-> > +                             oldsize >> PAGE_SHIFT);=0A=
-> > +             if (!IS_ERR(folio)) {=0A=
-> > +                     if (folio_mkclean(folio))=0A=
-> > +                             folio_mark_dirty(folio);=0A=
-> > +=0A=
-> > +                     folio_unlock(folio);=0A=
-> > +                     folio_put(folio);=0A=
-> > +             }=0A=
-> > +     }=0A=
->=0A=
-> I think fixing this issue specifically for the block size =3D 4K case may=
-=0A=
-> not be thorough enough, because pagecache_isize_extended() may also fail=
-=0A=
-> to work when the block size is smaller than 4K.=0A=
-=0A=
-What condition might pagecache_isize_extended() fail to work when the block=
-=0A=
-size is smaller than 4K?=0A=
-=0A=
->=0A=
-> We should set the folio containing valid_size to RO whenever valid_size=
-=0A=
-> !=3D i_size and valid_size is not page-aligned, regardless of the block s=
-ize.=0A=
-=0A=
-We should set the folio containing oldsize to RO, rather than valid_size.=
-=0A=
-This is because, when the folio containing oldsize was first set to RW, old=
-size=0A=
-constrained valid_size, after the file size is subsequently expanded, that =
-=0A=
-constraint changes, necessitating a re-setting of valid_size.=0A=
-=0A=
-=0A=
-=0A=
+With SMAP enabled, do_user_addr_fault() treats a kernel-mode fault on a
+user address with EFLAGS.AC clear as a kernel bug: it does not consult the
+exception table and oopses right away. That is correct for ordinary kernel
+code, where get_kernel_nofault() and the other nofault accessors never let
+a user address reach a faulting instruction.
+
+JITed BPF programs are different. A privileged program may dereference a
+pointer the verifier cannot prove valid, and the verifier marks such loads
+PROBE_MEM. The JIT attaches an exception table entry to each PROBE_MEM
+load, so that a fault on an unmapped kernel address zeroes the destination
+register and the program continues. Since a user address would oops
+instead, the x86 JIT also emits an address range check in front of every
+PROBE_MEM load, which keeps user addresses, the guard page above
+TASK_SIZE_MAX and the vsyscall page away from the load. The check
+duplicates the fault handler's knowledge of the address space layout, got
+the vsyscall page wrong until commit b599d7d26d6a ("bpf, x86: Fix PROBE_MEM
+runtime load check"), and costs nine instructions and 32 to 39 bytes of
+code per load.
+
+When the faulting instruction belongs to a BPF program, resolve its
+exception table entry instead of oopsing, exactly as is done for faults on
+kernel addresses. The is_bpf_text_address() lookup sits inside the
+unlikely() SMAP branch that currently ends in page_fault_oops(), so no path
+that does not oops today executes any additional code, and the oops itself
+is unchanged when no entry matches. Non-BPF code keeps the existing
+behaviour: a kernel-mode user access without STAC still oopses, extable
+entry or not.
+
+The next patch uses this to drop the range check from the JIT when SMAP is
+enabled. Nothing changes about which addresses a BPF program may read: a
+user address never becomes readable, since SMAP forbids the access, and a
+PROBE_MEM load of a kernel address is handled as before. Without SMAP the
+JIT keeps its range check and this path is never reached.
+
+Acked-by: Puranjay Mohan <puranjay@kernel.org>
+Signed-off-by: Kumar Kartikeya Dwivedi <memxor@gmail.com>
+---
+ arch/x86/mm/fault.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/arch/x86/mm/fault.c b/arch/x86/mm/fault.c
+index aa88370ce739..2060e5f35d77 100644
+--- a/arch/x86/mm/fault.c
++++ b/arch/x86/mm/fault.c
+@@ -20,6 +20,7 @@
+ #include <linux/mm_types.h>
+ #include <linux/mm.h>			/* find_and_lock_vma() */
+ #include <linux/vmalloc.h>
++#include <linux/filter.h>		/* is_bpf_text_address()	*/
+ 
+ #include <asm/cpufeature.h>		/* boot_cpu_has, ...		*/
+ #include <asm/traps.h>			/* dotraplinkage, ...		*/
+@@ -1262,6 +1263,16 @@ void do_user_addr_fault(struct pt_regs *regs,
+ 	if (unlikely(cpu_feature_enabled(X86_FEATURE_SMAP) &&
+ 		     !(error_code & X86_PF_USER) &&
+ 		     !(regs->flags & X86_EFLAGS_AC))) {
++		/*
++		 * JITed BPF programs dereference untrusted pointers with loads
++		 * that carry an exception table entry (PROBE_MEM). SMAP makes
++		 * sure such a load cannot read user memory, so resolve the
++		 * fault through the exception table, as for an unmapped kernel
++		 * address, instead of oopsing.
++		 */
++		if (is_bpf_text_address(regs->ip) &&
++		    fixup_exception(regs, X86_TRAP_PF, error_code, address))
++			return;
+ 		/*
+ 		 * No extable entry here.  This was a kernel access to an
+ 		 * invalid pointer.  get_kernel_nofault() will not get here.
+-- 
+2.53.0-Meta
+
