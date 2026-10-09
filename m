@@ -1,85 +1,80 @@
-Received: from mx4.wp.pl (mx4.wp.pl [212.77.101.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D4F24F647B
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 20:40:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.77.101.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 038C83D3CE6
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 20:41:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791578420; cv=none; b=EGAaMKhoGlU47GrncjDTV+7WzWksv2+XzMuiYf/zDTfxskJfDMQzqYf3kZeeiWiIoxaqo7koRZMkyhmQ/eiboQyc5eyp2be9yJaBhgatHbB/EyXgv/rc1y4LL/sVbVjniN97kv9K6cIcrDwCJiuoo+tKgYOwvtphQ+kTSkR1Q44=
+	t=1791578473; cv=none; b=fLgLX2LjjhJHliucKdCgVFgz3hN4LUp6RRhQk5QZFEiOl3BziMWMjpymHA75unTLeS+tOsFUOLvwgukzotQkxsR8QoYGzgtjD1TYF+t+aP4TMyUGw93m4Rp21GOew8OIaZ7Ah1Na1oU7uIKpDw9tbuhg9jYNRCEFz6MhueBshbU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791578420; c=relaxed/simple;
-	bh=zKUwciwhQ83G4tAeptftzEwAkMXN+6+XBxt889N0S2M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ceimh4Rf2A9dhFqp1sGuy4PiI/z4h6/GjmtJa29nrvK50HqecoAjJ3wy65VBH5d9mCObTCTYGtLgHsKTxtFmw5Ct85p8PBlWvt0+v8kSzkNDEzt7vyPMmNHZ5Dc+M0Z5YfH9/QpxIDueNEVBDR4562q9i43WG1ZAe2V0S0b0HTI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl; spf=pass smtp.mailfrom=wp.pl; dkim=pass (2048-bit key) header.d=wp.pl header.i=@wp.pl header.b=inr3Uboq; arc=none smtp.client-ip=212.77.101.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wp.pl
+	s=arc-20240116; t=1791578473; c=relaxed/simple;
+	bh=kdjyHRSIuo6AaP3CxoJy2I2uitv1KnUbvJMCb1u7VXU=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=j3ZPUCLiANSj96rL2pgjYAqAniLwPzCujbo6WRw5cKaW08XdeHXBN7EXlFIJ6F9g3vp2Q29vGPZKhm9GVZJKiLN7xQa17aqHYoao5McCpgW5K6O1FN6cY5QXwaLw0ycZtD/ujOVMr8bOfFiY9ZqDfEgJxbFBJS869i0O4NIrTGE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R9ividgi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wp.pl header.i=@wp.pl header.b="inr3Uboq"
-Received: (wp-smtpd smtp.wp.pl 32686 invoked from network); 9 Oct 2026 22:40:08 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wp.pl; s=20241105;
-          t=1791578408; bh=zKUwciwhQ83G4tAeptftzEwAkMXN+6+XBxt889N0S2M=;
-          h=Subject:To:Cc:From;
-          b=inr3Uboq1a5sDG5PtFrP9qLUH8h6zug0tMKSJnHNHDPwn7Fjg58lf3RDA8W6uc5+4
-           SVeX3Q2genPHC9ktJz03hP3sCe3hKBzuJuvZWK/uAh6tqshRslcMrAPMEs4MjG5unP
-           embykIzWhkJqY6MAvYl+h6qKNllxRAO3iohnaN+HhIgCXy6UamfTYUlCPs35lp19QD
-           VuOKgN0FGUCUhAdxLvgRkN2kKu+MUAn5ezwlTByKyzA+E4QkihfW3tdJlPCwBaeQ2i
-           /XKgKRiMlLsHZ13d1AfU+T1tp0h+R43tm9EQIA/n1Now2Sw013aic++gXJBFPk10HX
-           M5J+MATC8f4Pw==
-Received: from [192.168.3.224] (83.5.180.159.ipv4.supernova.orange.pl [83.5.180.159])
-          (envelope-sender <olek2@wp.pl>)
-          by smtp.wp.pl (WP-SMTPD) with TLS_AES_256_GCM_SHA384 encrypted SMTP
-          for <andrew@lunn.ch>; 9 Oct 2026 22:40:08 +0200
-Message-ID: <f3d2f5e0-f9a8-42a5-ad83-07be215ca690@wp.pl>
-Date: Fri, 9 Oct 2026 22:40:12 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R9ividgi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BDB11F000FF;
+	Fri,  9 Oct 2026 20:41:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791578472;
+	bh=dtwC9CXJly+CcF9ksjU2Oxl/SgqlNJdHppwI7tS0WQc=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=R9ividgij+OVceiV18k/xtyYOEOd6A1oD+fojTAerK0S3Alk9CPACSugq58brvf6l
+	 7jdzlGZKGL6DKbnFTHc0W8Q4SoXCEH+ADF+5/kThENlJ5jMr6djZnKF9A0Mqta2BaA
+	 /t0D/7xGCHnUERa3Q4NFEFp1VET6nV/HrG+XEq3hMw/RKCx9CbhWHt6CuMAYCUH3nZ
+	 Jpx7CGEV6XikbsYZtMf+tXg7t8RNWxjbsAnSd/1fTRH9xXyKfPXuaaTmmIoIqqclhk
+	 yd3z6mNUiOUm9UaSByTHMM6ODTjJan0aI3oAwtcYIBTI3nue8W7dL4ZauILirnus4w
+	 i0UEscWYNwbug==
+From: Nathan Chancellor <nathan@kernel.org>
+To: Simon Glass <sjg@chromium.org>, Ting-Han Hou <ue081723@gmail.com>
+Cc: Chen-Yu Tsai <wenst@chromium.org>, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <CA+NtrhQBK8uW32qO3dXxVxO1GSN-0EJfyJ16tnyx0o52T17WtQ@mail.gmail.com>
+References: <CA+NtrhQBK8uW32qO3dXxVxO1GSN-0EJfyJ16tnyx0o52T17WtQ@mail.gmail.com>
+Subject: Re: [PATCH] scripts/make_fit: Ignore schema checks when
+ decomposing DTBs
+Message-Id: <179157846311.778396.11816417974301350236.b4-ty@b4>
+Date: Fri, 09 Oct 2026 22:41:03 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next] net: phy: marvell: add LED support for 88E1116R
- PHY
-To: Andrew Lunn <andrew@lunn.ch>, Konstantin Meshkov <skyline@mail.ru>
-Cc: netdev@vger.kernel.org, Heiner Kallweit <hkallweit1@gmail.com>,
- Russell King <linux@armlinux.org.uk>,
- Christian Marangi <ansuelsmth@gmail.com>, linux-kernel@vger.kernel.org
-References: <179152610952.2918676.6625057760354797023@mail.ru>
- <1bef1633-8213-476f-a019-f29a71553e09@lunn.ch>
-Content-Language: pl
-From: Aleksander Jan Bajkowski <olek2@wp.pl>
-In-Reply-To: <1bef1633-8213-476f-a019-f29a71553e09@lunn.ch>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-WP-MailID: f1432442553b9cbb8beb52948a4aeb53
-X-WP-AV: skaner antywirusowy Poczty Wirtualnej Polski
-X-WP-SPAM: NO 0000000 [keNc]                               
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=745; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=kdjyHRSIuo6AaP3CxoJy2I2uitv1KnUbvJMCb1u7VXU=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDFknA5NbphZNmLvhZaqk9CUT9trjFQdfnfl0nifauJn7B
+ k/Pna6KjlIWBjEuBlkxRZbqx6rHDQ3nnGW8cWoSzBxWJpAhDFycAjCRLU8YGdb6yid0Jt046xNv
+ 83HeVPlVCjMFYu/W+78/+uqLfZOlhCkjwxR9r/lvuV1U1xnvztf1Wt2U5Ff0bfPGNu80M2eh9sl
+ CjAA=
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-Hi Andrew,
+On Tue, 06 Oct 2026 08:19:54 -0700, Ting-Han Hou wrote:
+> scripts/make_fit: Ignore schema checks when decomposing DTBs
 
-On 09/10/2026 14:15, Andrew Lunn wrote:
-> On Fri, Oct 09, 2026 at 09:08:29AM +0300, Konstantin Meshkov wrote:
->> The Marvell 88E1116R PHY (used on the D-Link DNS-325) exposes its LEDs
->> through the same page 3 register 0x10 LED control layout as the 88E1318S.
->> Wire up the existing 88E1318S LED handlers in the 88E1116R driver entry
->> so the PHY LEDs can be described in the device tree and driven through
->> the LED trigger API with hardware offload.
->>
->> The LED polarity is configured through the led_polarity_set() callback
->> shared with the 88E1318S family.
->>
->> Signed-off-by: Konstantin Meshkov <skyline@mail.ru>
->> ---
->> This patch depends on:
->> [PATCH net-next v2] net: phy: marvell: add support for PHY LEDs polarity modes
-> I've not be tracking. Is this merged already? If not, please resubmit
-> once it has been.
+Applied to
 
-I was expecting that Konstantin will send a patch that only adds support
-for LED triggers. This patch should be simple and I expect it to be quickly
-merged. Then I'm planning to include LED polarity settings for the 88e1116r
-in the next iteration of my patch.
+  https://git.kernel.org/pub/scm/linux/kernel/git/kbuild/linux.git kbuild-next-unstable
+
+Thanks!
+
+[1/1] scripts/make_fit: Ignore schema checks when decomposing DTBs
+      https://git.kernel.org/kbuild/c/3bf2237f59af8
+
+Please look out for regression or issue reports or other follow up
+comments, as they may result in the patch/series getting dropped or
+reverted. Patches applied to an "unstable" branch are accepted pending
+wider testing in -next and any post-commit review; they will generally
+be moved to the main branch in a week if no issues are found.
 
 Best regards,
-Aleksander
+-- 
+Cheers,
+Nathan
+
+
