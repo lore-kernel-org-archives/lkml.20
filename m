@@ -1,142 +1,87 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A36E547055
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 06:43:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D268B34DCF3;
+	Fri,  9 Oct 2026 06:44:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791528218; cv=none; b=RCdIWeGVXbmGUvcCvv9FBNbD+9IA1Xzx+mjarnP5dPXHCimuGxQRpyycMkLhzCpp0b/i9FViX7bEMri/cj0akJ/r7yZIm8JiIIqWCsdJiPTGsNdM9jtGuBHE9jYerjPSXH0Fy+m0LKRC6ekRbSLY/thKtCaB74sEr7Bnt7lxNm0=
+	t=1791528277; cv=none; b=ZDe0bzutNQQpizz9VgHnBFSnmv/j7HfeTuuL0iP68SKiJ7fYgyK2fQcP24Tu3B1K256pdzKxsc31q8gD9ae1jRb6sN+GaTIimlMayQdBQ5nhf4KQJPe05onI0OLbXfhM5b701kqq6NwhhaZp7nXAE99XYOM5NSYWDpfJoZdNWsg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791528218; c=relaxed/simple;
-	bh=yyn6D6bfKGOTe3fsah1GxOz9P5nLVgArvK/aI+vZ/3Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Uq9FfnbqLIx5l7+qJG//Zu8Mo+IwOTTeRp1HDhNBFAPrQ5suSh+kyGiqDMuXR0AUtPC8H4iIdUKcSzcBJrn9UJIMuUruLl/ZQj4pUrXf+BGBj3j5aZspg6emv9ygbNfHtfZEFrKkXj3xoILNGll42F/43M5X9w3aRU+I5cXEsfg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=KFEovT9L; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791528277; c=relaxed/simple;
+	bh=JDqfwe9oKTRBzv0i9bsRfzdbjdQTUkGlvfDEJZbyWjQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HPIfELgfwQfGyzXoNbzZP340WAKOqA3K+ghCxbhp+aqOzLaQSLb4g9PfvHKO+If2+GTnT+y2Bz+DjRXnT3fqTZch+rWCvwxYxZpZb/X81ByAaoi5dnK1/mbOewKq8Ff5dovyfPtmrTNjHKLS6dZCtZwYYUmWFlzkD74a7rHeCvw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gLJaRrYB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="KFEovT9L"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791528215;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yyn6D6bfKGOTe3fsah1GxOz9P5nLVgArvK/aI+vZ/3Y=;
-	b=KFEovT9LJCHUf04ed91xh21WS/1YgBxH6BoipBIBf2GULCsg77BezGLRgk+06ONnpTJutc
-	Y+kBc4UavaizklOApmGFG3W+aTWtCa5D3I1EGR/M8D44jKKPCKTvq4+FZKopjKUepvsDa4
-	VSU5KvVrlFRug286ESbFziBF8rVXHSM=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-690-T48WVRNDM12Nt61gUSa81w-1; Fri,
- 09 Oct 2026 02:43:34 -0400
-X-MC-Unique: T48WVRNDM12Nt61gUSa81w-1
-X-Mimecast-MFC-AGG-ID: T48WVRNDM12Nt61gUSa81w_1791528212
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 612831954B08;
-	Fri,  9 Oct 2026 06:43:31 +0000 (UTC)
-Received: from jtornosm-thinkpadp1gen7.rmtes.csb (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 8121C1800446;
-	Fri,  9 Oct 2026 06:43:28 +0000 (UTC)
-From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
-To: johannes@sipsolutions.net
-Cc: davem@davemloft.net,
-	emmanuel.grumbach@intel.com,
-	herbert@gondor.apana.org.au,
-	ilan.peer@intel.com,
-	jtornosm@redhat.com,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-wireless@vger.kernel.org,
-	miriam.rachel.korenblit@intel.com
-Subject: Re: [PATCH v2 0/5] wifi: add opt-in FIPS exception for iwlwifi
-Date: Fri,  9 Oct 2026 08:43:26 +0200
-Message-ID: <20261009064326.43891-1-jtornosm@redhat.com>
-In-Reply-To: <289161e6ddaf18fa63a55623c75d700850fd57b6.camel@sipsolutions.net>
-References: <289161e6ddaf18fa63a55623c75d700850fd57b6.camel@sipsolutions.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gLJaRrYB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBB011F000FF;
+	Fri,  9 Oct 2026 06:44:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791528276;
+	bh=0Um36Bmls59wwIHRJ0FX6eqoGiQdL5ajLwlxHe/J5vs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gLJaRrYBsgbS3cgcpCHV2bSajDEmMCgWMFM4iI9mozcu8iPbXmiMakcLJba5VgxQN
+	 5TAttX01Qd6DPF3sOPoOjRi0trTjaGmFnAZGxjSooJ2g7ljvM/5xZLb47E5XJXlf9Q
+	 yC3mIqkKcTVXRW6ixQNB2CL3NN1mkmdi4psKBqflINO6+XrVfSZZ8UcghDK64ESfQY
+	 G0dfXYSOPI8zH9pFvHfd9kYMSpVSkcLNN58aznF7g2nhgXWRgvgu2Dd3fEZrQkGGUF
+	 wEXa2tGYoTpqZvJIprV/jIEPtfyzGb/HnD7HhHBTlmTly+Rx6T2MfPyGvBL5wRVkSe
+	 RhxVXQG9TmwNw==
+Date: Fri, 9 Oct 2026 08:44:32 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Otavio Salvador <otavio@ossystems.com.br>
+Cc: Chen-Yu Tsai <wens@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Maxime Ripard <mripard@kernel.org>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: nvmem: SID: Add binding for R40 SID
+ controller
+Message-ID: <20261009-juicy-wolverine-of-atheism-3b0d8b@quoll>
+References: <20261003012534.418820-3-otavio@ossystems.com.br>
+ <20261003012534.418820-4-otavio@ossystems.com.br>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261003012534.418820-4-otavio@ossystems.com.br>
 
-Hi Johannes,
+On Fri, Oct 02, 2026 at 10:25:35PM -0300, Otavio Salvador wrote:
+> The Allwinner R40 SID exposes its 2Kbit eFuse at offset 0x200 of the
+> controller, readable directly from MMIO like on the A64. Add the R40
+> compatible with the A64 one as fallback, as done for the A100, H616 and
+> A523.
+> 
+> On an A40i, all 64 eFuse words read through the MMIO window match the
+> words read through the SID_PRCTL/SID_RDKEY registers, so the R40 does
+> not need the register-based readout of the H3.
+> 
+> Signed-off-by: Otavio Salvador <otavio@ossystems.com.br>
+> ---
+>  .../devicetree/bindings/nvmem/allwinner,sun4i-a10-sid.yaml       | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/nvmem/allwinner,sun4i-a10-sid.yaml b/Documentation/devicetree/bindings/nvmem/allwinner,sun4i-a10-sid.yaml
+> index f67470b8a2ed2..a4960b0ef8cbe 100644
+> --- a/Documentation/devicetree/bindings/nvmem/allwinner,sun4i-a10-sid.yaml
+> +++ b/Documentation/devicetree/bindings/nvmem/allwinner,sun4i-a10-sid.yaml
+> @@ -25,6 +25,7 @@ properties:
+>        - const: allwinner,sun50i-a64-sid
+>        - items:
+>            - enum:
+> +              - allwinner,sun8i-r40-sid
 
-Sorry for the delay. I wanted to have concrete results
-before continuing the conversation.
+Assumming this enum is kept in natural sort order:
 
-> No keys at all, but yeah.
+>                - allwinner,sun50i-a100-sid
 
-Right, no keys at all in firmware.
 
-> What are you testing with now? Still MFP?
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Yes, MFP enabled. WPA2-PSK with ieee80211w=2 on the AP,
-AX211 as STA, channel 52 80MHz HE.
-
-> That doesn't really make sense. How can TX A-MPDU work
-> when you have MFP, this was the bit you disabled earlier
-> even with all the other work? And the firmware has to
-> send the AddBA request, so that can't make it through??
-
-You are right, it does not work. I was wrong in my
-previous mail, sorry about that. Monitoring the frames
-with a separate station in monitor mode (mt76) I can
-see that firmware sends ADDBA Request unprotected, AP
-drops it (MFP), firmware retries every ~2 seconds
-followed by DELBA, all dropped. TX throughput is ~26
-Mbps (individual MPDUs, no aggregation).
-
-Following the pattern of mt76, I tested triggering
-ieee80211_start_tx_ba_session() from the driver so
-mac80211 sends an encrypted ADDBA through the normal
-TX path. The AP accepts, the BA session is fully
-established and persists, no DELBA is sent by the AP.
-But TLC does not know about this host-established
-session so it still does not aggregate.
-
-Is there a way to allow TX aggregation from mac80211
-in this scenario, similar to how the RX path can be
-managed from the host? Or any other mechanism to let
-TLC know that a BA session has been established for a
-TID so it can aggregate? I could not find a TX
-equivalent of STA_MODIFY_ADD_BA_TID in the firmware
-API, but maybe there is another way I am missing.
-
-> That almost seems low (11g maxed out at ~24 Mbps with
-> 54 Mbps PHY rate), but depends on the channel width
-> and MCS.
-
-The same setup without fips=1 gives ~500 Mbps, so
-the individual MPDU overhead explains the gap.
-
-> I'd have said it should already work that way.
-
-You were right. After debugging I found the places in
-the RX path where frames were being dropped without
-keys and fixed them (see v3 3/4).
-
-I am sending a v3 (4 patches) with the current working
-state as a provisional version to show you the status
-and continue with your guidance. The series covers:
-fips_allows_exception() infrastructure, MFP re-enabled,
-RX AMPDU and A-MSDU fixes, and debug message reduction.
-RX throughput is back to ~450 Mbps with these fixes.
-TX throughput is the remaining limitation.
-
-I plan to address IGTK/BIGTK offload and 6 GHz
-dependencies in later versions of this series once we
-settle the aggregation question.
-
-Thank you for the guidance
-
-Best regards
-Jose Ignacio
+Best regards,
+Krzysztof
 
