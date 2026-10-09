@@ -1,177 +1,76 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 341B44248CE;
-	Fri,  9 Oct 2026 08:55:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E58F3F39F1
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 08:56:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791536158; cv=none; b=qRgY8H0UbjInggww+9VV2WkpiSQy5lDwMx6nWKLayIvBbFJ4bcRoq0bHJebwGEouqt8FYhpNDjSWBI8ko2kSI1npmsmeu3hkcuAaDDdIkp8vchbIr35ryN/8kMHyvl1iDbuZqsRXRJ3CFiYLsn1TWOPHk/94r3HPwKNgFDjPnTk=
+	t=1791536205; cv=none; b=rh8xJZToJYswVx+BJuYF9240LgpD0Rk6tAFucaqQz5IT5JyN6OypN30c8vQ1sR/IcHFDpstL44F/c9GaeZ8AsLc4CreJeFJn0aZb9d2Fn2hN4DwfskDB6UHy6yHbjX7aQdeoSfMcQcjKWBiVn7OI1n5xmYmzuHbef0MMYvTq9GI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791536158; c=relaxed/simple;
-	bh=k5CsmijKQl/rAcDEA0cbJQKgTfQD/JM0gZZ4pXklOqo=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=T+KdtYkAeLI0JDmAbZ93qaPAQuHG/5dbL4VQdNnGvr2tgEAY0QvgOpbntdvYEGs+3+qygBi+KDGbouqdU12C2rLyOY/2VUe1LqYxCk0b+pbB6F5knWl+g32C+s5kr0UQeeLRKGPXgDNkewMkWOUhpSpTsp+A3ZoIh9uYc1dM7iE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eD98WeCo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791536205; c=relaxed/simple;
+	bh=eBvDkdxMdHtvNtZ9slRT16ZqOjnFraq6yNEwxbXJC/Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=rwpKMHbH5eerpVPvJH9IAASJFuMu1JzJelWvdqWS0TYxcVpWWrKXauDIRIlZ/Zl706O4CSm58GR+JZAP0MUvKq3h+fbXKzXPjhRTBpf2LmOs5mInI6SZN08kYStRcjBiWPobM20QfpKnHtbF1TSFrnDda2ZYs6A2UUPFFmnVPYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b=NguWjxuB; arc=none smtp.client-ip=18.9.28.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eD98WeCo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 679B21F000FF;
-	Fri,  9 Oct 2026 08:55:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791536155;
-	bh=RUTuEHoA6y1ZBd7WiFp1nW0Ji2GbuE6iesB+SQXale4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=eD98WeCoGtEZI2OmM43W4l2cL8MMXqic+6xM6OAdSmr7OqFyF6511ri3twgHI2l0Z
-	 +6yeHmG7W+iL3UYmmMN7vWGD7dG74xmv0/FIRrelgITei+s9X0rrAcz2HHn3KY0a7T
-	 1pxMFA5OtxjtotzUOFr289jnBw8wu34sIbsEan3GFLR0rEq0Q8pIWC1IQNhskW/X++
-	 6dyoy3FefGrw8zinzf3Mfns/E2/ZLbxx+hpgiCwr4+pCRAVG/Eb2BQG9mMWIQ8Lkhc
-	 9qWM5Z/ch4NjxDkxsWek6e0lpstgu5oKc/wlBPiH/G97NDWcCS2K0VMlsxQCJ7q6pn
-	 XB7qJaGHMCkFw==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xF6OP-00000000v22-0Ezj;
-	Fri, 09 Oct 2026 08:55:53 +0000
-Date: Fri, 09 Oct 2026 09:55:52 +0100
-Message-ID: <86a4on2qxz.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Fuad Tabba <tabba@google.com>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
-	kvm@vger.kernel.org,
-	kvmarm@lists.linux.dev,
-	will@kernel.org,
-	catalin.marinas@arm.com,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	steven.price@arm.com,
-	aneesh.kumar@kernel.org,
-	oupton@kernel.org,
-	gshan@redhat.com,
-	joey.gouly@arm.com,
-	yuzenghui@huawei.com,
-	linux-coco@lists.linux.dev,
-	gankulkarni@os.amperecomputing.com,
-	sdonthineni@nvidia.com,
-	alpergun@google.com,
-	fj0570is@fujitsu.com,
-	WeiLin.Chang@arm.com,
-	lpieralisi@kernel.org,
-	enju.kohei@fujitsu.com,
-	sudeep.holla@arm.com,
-	jonathan.cameron@oss.qualcomm.com
-Subject: Re: [PATCH v23 14/14] KVM: arm64: Prevent unsupported vcpu features for VM types
-In-Reply-To: <CA+EHjTx-niYPnnRDvAAiY3MXLpSYau_PhiBTCiE9mOYUChASPQ@mail.gmail.com>
-References: <20261007073537.2454351-1-suzuki.poulose@arm.com>
-	<20261007073537.2454351-15-suzuki.poulose@arm.com>
-	<CA+EHjTx-niYPnnRDvAAiY3MXLpSYau_PhiBTCiE9mOYUChASPQ@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b="NguWjxuB"
+Received: from trampoline.thunk.org (pool-173-48-119-87.bstnma.fios.verizon.net [173.48.119.87])
+	(authenticated bits=0)
+        (User authenticated as tytso@ATHENA.MIT.EDU)
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 6998uXRc014183
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 9 Oct 2026 04:56:34 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+	t=1791536196; bh=nrZE4Hh5kui1Tt7uuyinZgrtOab8QOFpFfgZl29YvkE=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type;
+	b=NguWjxuB08FHYedtK98+CY8I0lMK1OT4BsNmVSmz9r74WPzL4MAA7TTPpK6mRbcbT
+	 zh+d3ZRbzOiHuoqeGru4pcGO2E6kyoascKLtyyg3aMZw/DNPMkvB6D8cgqZN4dU996
+	 hBQhxMFGHs3d20JDBELqHrJPb2YLEAccA7eO+BA/9LTAvI8SIxVsaDHttDSZCqic+V
+	 LNYkTBEToe2yiidH7iRsgb9YppxYQnTHJQ2MTtwxEUTjLY4/8nNYnd/WV1wZCz0KPt
+	 MqyQEF6YIB5t/lq+bpsARc9JtrcXBaBh4bGz9vKBA9+R30TBB17II5/ZSiH3Xb4GsL
+	 e2FXFvh2DDB3Q==
+Received: by trampoline.thunk.org (Postfix, from userid 15806)
+	id 5AD6A2E0146; Fri, 09 Oct 2026 04:56:31 -0400 (EDT)
+From: "Theodore Ts'o" <tytso@mit.edu>
+To: jack@suse.com, JonasZhou-oc <jonaszhou-oc@zhaoxin.com>
+Cc: "Theodore Ts'o" <tytso@mit.edu>, linux-ext4@vger.kernel.org,
+        linux-kernel@vger.kernel.org, jianhuizzzzz@gmail.com
+Subject: Re: [PATCH] jbd2: avoid false sharing with j_state_lock
+Date: Fri,  9 Oct 2026 04:56:21 -0400
+Message-ID: <179153611739.860602.9394723567844076744.b4-ty@b4>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260902070331.820322-1-jonaszhou-oc@zhaoxin.com>
+References: <20260902070331.820322-1-jonaszhou-oc@zhaoxin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: tabba@google.com, suzuki.poulose@arm.com, kvm@vger.kernel.org, kvmarm@lists.linux.dev, will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com, joey.gouly@arm.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com, sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Wed, 07 Oct 2026 15:19:53 +0100,
-Fuad Tabba <tabba@google.com> wrote:
+
+On Wed, 02 Sep 2026 15:03:31 +0800, JonasZhou-oc wrote:
+> is_journal_aborted() reads journal->j_flags from ext4 and JBD2 hot
+> paths. At the same time, transaction start and stop paths repeatedly
+> acquire and release j_state_lock. read_lock() and read_unlock() update
+> the lock word, so this traffic invalidates the cache line containing
+> j_flags.
 > 
-> Hi Suzuki,
+> On the tested x86-64 build, j_flags, j_errno, and j_state_lock occupy
+> the same 64-byte cache line. j_flags starts at offset 0, j_errno at
+> offset 8, and j_state_lock at offset 56.
 > 
-> On Wed, 07 Oct 2026 08:35:37 +0100, Suzuki K Poulose
-> <suzuki.poulose@arm.com> wrote:
 > [...]
-> > diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-> > index 4d0e6bd2009ac..97089c81d6428 100644
-> > --- a/arch/arm64/include/asm/kvm_host.h
-> > +++ b/arch/arm64/include/asm/kvm_host.h
-> > @@ -42,6 +42,13 @@
-> >  #define KVM_VCPU_MAX_FEATURES 10
-> >  #define KVM_VCPU_VALID_FEATURES        (BIT(KVM_VCPU_MAX_FEATURES) - 1)
-> >
-> > +/* As dictated by kvm_pkvm_ext_allowed() */
-> > +#define KVM_PROTECTED_VCPU_VALID_FEATURES              \
-> > +       (BIT(KVM_ARM_VCPU_POWER_OFF)            |       \
-> > +        BIT(KVM_ARM_VCPU_PSCI_0_2)             |       \
-> > +        BIT(KVM_ARM_VCPU_PTRAUTH_ADDRESS)      |       \
-> > +        BIT(KVM_ARM_VCPU_PTRAUTH_GENERIC))
-> 
-> kvmarm/next already restricts protected VM features through
-> kvm_pkvm_vcpu_allowed_features(), shared with EL2 (0b7d843ef3bf).
-> Could you rebase on that and drop the protected half of this patch,
-> rather than add a second list?
 
-A rebase would be a terrible idea. This thing *must* go on its own
-branch, and not depend on anything else.
+Applied, thanks!
 
-I can however fix things at merge time. is something like this what
-you had in mind? It compiles, and is therefore perfect...
+[1/1] jbd2: avoid false sharing with j_state_lock
+      commit: b5501f970dbc039df1f7c720b7a481b62de125cd
 
-	M.
-
-diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-index 300ffc2e31c7d..1c6632216e327 100644
---- a/arch/arm64/include/asm/kvm_host.h
-+++ b/arch/arm64/include/asm/kvm_host.h
-@@ -45,13 +45,6 @@
- #define KVM_VCPU_MAX_FEATURES 10
- #define KVM_VCPU_VALID_FEATURES	(BIT(KVM_VCPU_MAX_FEATURES) - 1)
- 
--/* As dictated by kvm_pkvm_ext_allowed() */
--#define KVM_PROTECTED_VCPU_VALID_FEATURES		\
--	(BIT(KVM_ARM_VCPU_POWER_OFF)		|	\
--	 BIT(KVM_ARM_VCPU_PSCI_0_2)		|	\
--	 BIT(KVM_ARM_VCPU_PTRAUTH_ADDRESS)	|	\
--	 BIT(KVM_ARM_VCPU_PTRAUTH_GENERIC))
--
- #define KVM_REQ_SLEEP \
- 	KVM_ARCH_REQ_FLAGS(0, KVM_REQUEST_WAIT | KVM_REQUEST_NO_WAKEUP)
- #define KVM_REQ_IRQ_PENDING		KVM_ARCH_REQ(1)
-diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-index 3ae8f51ce948a..a0e7f1d2d1575 100644
---- a/arch/arm64/kvm/arm.c
-+++ b/arch/arm64/kvm/arm.c
-@@ -1706,12 +1706,10 @@ int kvm_vm_ioctl_irq_line(struct kvm *kvm, struct kvm_irq_level *irq_level,
- 
- static unsigned long system_supported_vcpu_features(struct kvm_vcpu *vcpu)
- {
--	unsigned long features;
-+	unsigned long features = KVM_VCPU_VALID_FEATURES;
- 
- 	if (vcpu->kvm->arch.vm_flavor == VM_PROTECTED_PKVM)
--		features = KVM_PROTECTED_VCPU_VALID_FEATURES;
--	else
--		features = KVM_VCPU_VALID_FEATURES;
-+		kvm_pkvm_vcpu_allowed_features(vcpu->kvm, &features);
- 
- 	if (!cpus_have_final_cap(ARM64_HAS_32BIT_EL1))
- 		clear_bit(KVM_ARM_VCPU_EL1_32BIT, &features);
-@@ -1753,19 +1751,6 @@ static int kvm_vcpu_init_check_features(struct kvm_vcpu *vcpu,
- 	if (features & ~system_supported_vcpu_features(vcpu))
- 		return -EINVAL;
- 
--	/* Reject features EL2 would drop when it creates the hyp VM. */
--	if (vcpu_is_protected(vcpu)) {
--		DECLARE_BITMAP(allowed, KVM_VCPU_MAX_FEATURES);
--
--		kvm_pkvm_vcpu_allowed_features(vcpu->kvm, allowed);
--		if (!bitmap_subset(&features, allowed, KVM_VCPU_MAX_FEATURES))
--			return -EINVAL;
--
--		/* EL2 implements PSCI 1.1; the host must not dispatch as 0.1. */
--		if (!test_bit(KVM_ARM_VCPU_PSCI_0_2, &features))
--			return -EINVAL;
--	}
--
- 	/*
- 	 * For now make sure that both address/generic pointer authentication
- 	 * features are requested by the userspace together.
-
+Best regards,
 -- 
-Without deviation from the norm, progress is not possible.
+Theodore Ts'o <tytso@mit.edu>
