@@ -1,199 +1,176 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18E5E18FDBD;
-	Fri,  9 Oct 2026 01:30:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.18
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791509418; cv=fail; b=JBd41evB6JXO/34l4N9ihkO6pmBkj1iJG+KQ3ufjEK1toovIEzzW7C4KQRjnNsglQoqvNp3iIsDCc+DmmbLR1f2obIrq1QZTCZm8XEhmOV7SsiCgUWaV1Su++kL9OrK1DPPAQjmkJFS5k6T4GSy6iDNhljIKvQFj6LwY5GuqqpI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791509418; c=relaxed/simple;
-	bh=ldjn+DURjilVbbRgkStQy/gRhWG3oepfqq6n0HNhk4o=;
-	h=From:To:CC:Subject:Date:Message-ID:References:Content-Type:
-	 MIME-Version; b=kxDpyglcrR49iEc5JNRQxEGDPrhvxaJfNKGrwRCiVT1QOonkd9kcp2xSesFYTcc9AV/gb6pP3LZo70G2qNH5YJolNSH6fM2HOGf+yXqHcMSP6Cs09Xlwv2gZWK1jq+M6n5yc2dOAg/xeJfYMyJsCnON/atwrnTGNfnfH3drgUSs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WWcsfrM1; arc=fail smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF48027B35F
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 01:36:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791509805; cv=none; b=Aw1k23epBnBYZ6441j/NmRZXJosiI/VDbJLoZUHWSGFIFomq0ekE3FVnSF4xhVb4PjYZzBBJYgmKKcyy26y9IG2Pd3AQDo9LwVH8r/E9H0t+8mQLQ+ITtoiAZ89M4wcop/IY8/Hg7wx6DL7wPDkupXvjSLNdG236LbLvH2xDClw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791509805; c=relaxed/simple;
+	bh=NI8OFL2J7qAMszDxg74xt5ZHtNJOxFxoplsZH9cq/kc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BToH36laV31Gq8R0/h7rw2cQZc9pHWptJnTJ/gfwIDNO1muVstxcf8lCaoh4P/WeY2BeckgVN/p5iXf4hegUV/q8xMeogZHtTuyrYUS3vkuEBpPj4nosE/JwWqG0cv7d3MJ3LF4Jurj6QFjHlxEEqpGfy1PV9/fy0UvJuVtnyx4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hd1KPG1N; arc=none smtp.client-ip=209.85.215.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WWcsfrM1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791509416; x=1823045416;
-  h=from:to:cc:subject:date:message-id:references:
-   content-transfer-encoding:mime-version;
-  bh=ldjn+DURjilVbbRgkStQy/gRhWG3oepfqq6n0HNhk4o=;
-  b=WWcsfrM11SlZLSIMiMOsWlnFcJDAb7inZDBnXBp9q+HdubhNQaBF5Hq5
-   2JJiCRdDwFDAPdo21p4U42ZUi7akkLmwS9FnLcu2AJb8SiTq0lG08+dgQ
-   fqnB1D2LWOaHh0J2fidZdYOmsBR7QHqAvyMdViEnUQwVIUFIpYzzJG1QO
-   qGAZkbTecZ7JS+qYf06BgXJvFjC5WJdCLYnD81d/MadklxQEvRp+YF1Qu
-   nwTZrCo0ChdKtaJmuZ/ADvQJ1XPqhnxhujfdYsbS/iKD/36joaGbUE7FP
-   El3OyxZJotOShQCw8g60gvt3x065ktJpPF+T37ypEOfjCzTndG7vV2jiD
-   A==;
-X-CSE-ConnectionGUID: EA41sfLGSxSJDRs6uLsElw==
-X-CSE-MsgGUID: NQThSN97T6WNonzbXV260Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11929"; a="313042"
-X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
-   d="scan'208";a="313042"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 18:30:15 -0700
-X-CSE-ConnectionGUID: m6zFqgAiSZiTXQpAo/xl8g==
-X-CSE-MsgGUID: FvwVrIyLRQyh2/urs3F2Nw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
-   d="scan'208";a="513795"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
-  by fmviesa009.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 18:30:15 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 8 Oct 2026 18:30:14 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Thu, 8 Oct 2026 18:30:14 -0700
-Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.28) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 8 Oct 2026 18:30:14 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=A3kDOqdv3ALY1nIt2rLtW30CvmBWDY9+6upgn9uk2EQbP8azVAMHw+Q/JX/n+Au3+diG2Jqh4u3GmpGcPvfVvvzlQ6ySbqdSpXYF+PFDRT4MGIbWdBthcFN3m7WliaOqrFZAt3HU2gj/Xayl7KQeOxBeNyW9A45/pO7Jg5yAoFR3Zhwv+ZLjig+8DOCwI9Rf79pKCBYOmYWHcnZoCeIF/HvzrFCclplpY6Kx+vaZWwY54LqTMyXomG7PVh3jHtmo4vSiMHGMZnobYJC8TUtYoKiSV4qSd4v+f8OQVj5VVH2+8bk9BwU6Akd4t/3NA3J7d7w2I0FxkgkwKDePdI6GSg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ldjn+DURjilVbbRgkStQy/gRhWG3oepfqq6n0HNhk4o=;
- b=eEOZaKSB7DWkBVE07ju+EjDx/LM8+GS8v4U5suB1Z4/rHcSSA4SdcFqZYv6VzpxyFDjEGL/EKbnyf1wpC9ualhnoS8MhHbKssck+sMrRiW2Qg64rqXxjix7+JqEPR8CfIM4o9W8g8ygvgmSjBuL8NQ4oz0AO+8blAV1ZRnG/NZcxsXQtzuNs6dvTqs+XRsBjWub6qN9KIRE5LvMUS+6cdnzdInwkuebF2CaIoRpIQ8Sq61vG5e+NT8uyZ839Y82XjzgNTtjQe3DudlBD51fd2QdwmJrP6/8LGZN9UoKyFwV+ueIPDaVAbozPn1SCViSS+Mj8jEo7jPwkqLz/lTDzng==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from SJ0PR11MB5613.namprd11.prod.outlook.com (2603:10b6:a03:3ab::12)
- by MW3PR11MB4619.namprd11.prod.outlook.com (2603:10b6:303:5b::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
- 2026 01:30:12 +0000
-Received: from SJ0PR11MB5613.namprd11.prod.outlook.com
- ([fe80::a7ca:db6b:7913:d6ae]) by SJ0PR11MB5613.namprd11.prod.outlook.com
- ([fe80::a7ca:db6b:7913:d6ae%6]) with mapi id 15.21.0451.014; Fri, 9 Oct 2026
- 01:30:12 +0000
-From: "Zhang, Lixu" <lixu.zhang@intel.com>
-To: Jonathan Cameron <jic23@kernel.org>, Sanjay Chitroda via B4 Relay
-	<devnull+sanjayembeddedse.gmail.com@kernel.org>
-CC: "sanjayembeddedse@gmail.com" <sanjayembeddedse@gmail.com>, David Lechner
-	<dlechner@baylibre.com>, =?iso-8859-1?Q?Nuno_S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Jiri Kosina <jikos@kernel.org>, "Srinivas
- Pandruvada" <srinivas.pandruvada@linux.intel.com>, Benjamin Tissoires
-	<bentiss@kernel.org>, "linux-iio@vger.kernel.org"
-	<linux-iio@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-input@vger.kernel.org"
-	<linux-input@vger.kernel.org>
-Subject: RE: [PATCH v6 00/14] HID: iio: Introduce devm_ APIs for HID sensors
-Thread-Topic: [PATCH v6 00/14] HID: iio: Introduce devm_ APIs for HID sensors
-Thread-Index: AQHdSCLIz7+mn3GAhk62JH/qThPYhrbi9VqAgAIQmmCAD4Q2sA==
-Date: Fri, 9 Oct 2026 01:30:12 +0000
-Message-ID: <SJ0PR11MB5613120BAEB873A53A845EA593922@SJ0PR11MB5613.namprd11.prod.outlook.com>
-References: <20260919-28-apr-iio-redundant-argument-v5-temp-v6-0-d577b2371b3c@gmail.com>
- <20260927215731.59fdb69b@jic23-hlaptop> 
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SJ0PR11MB5613:EE_|MW3PR11MB4619:EE_
-x-ms-office365-filtering-correlation-id: 3f94a831-f753-4da7-5745-08df25a4dd04
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|23010399003|1800799024|366016|7416014|376014|6133799003|18002099003|10067099003|11063799006|56012099006|38070700021|4143699003;
-x-microsoft-antispam-message-info: F5JUnMFFC4wFjIYsCVTsnlDEmIXp7fTdV1ZbmlCBWesh4bCpNLJnCVWuRot39+mRRMOgx8PTVQmpmwUuKC+X5Ha4cV12g12tMeL3wFxJUZEdWsf5M8VZU/H2NIBt5osBeNr/i4AXbww12ys7q7Or0PiSGMCRjbhVviWHSfAgdXswQUJ6VkP8Oya6FxW9U8ysFoeWqSqy8fX0MsgL80YTf3UNLIzGIwLDXnE/OYiWskNJF4ZX9LtxV+SElu1PIR7aFTw1T2C+hfplXyIPvGGZS1oe6YPw06AURHj8IVHkGK7ikzSGMpsLnI8kjMVX3Dus+BBQyHOhVooVc0dbTtHj6RF/AWWIQxlHSlERSD6NJ6Tm4wVhobYbUHwHnqMXxKv7YevTdXvjDDg4rwxMQW8aGcXKKrSKTkz2U+rwXyUo7QZo07SHvvM4VnO9yOSJIckms2ppwcoxkK7IQBnMOuO1JRSdZmU76n4Qn1nSgv0LU/B29SVke8O1bY+W4QUOT9mZRvLGW9XuYfAb9VodHqD7IbBg2OvC/k3ErONBHK+FeCWFujnwQBYML5nu9UJitQTvnZ051m9ciY/95n7pW8LzLnpfx9yBIpoRvX59mZBi5h6lTpl6kF2hxIHBveRT2ZEACgLaeukQ+t5JY/8zvbdw8AhUxlAqd0upuEVUU/pcHliNzhpXu0Hd6NpaZsYtUHTeHlShT7JfVMKsQLuISW0Ejwdz/8oQ2dFT4Sosnla6dDQ=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR11MB5613.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(7416014)(376014)(6133799003)(18002099003)(10067099003)(11063799006)(56012099006)(38070700021)(4143699003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?hJ4E9uRkRzCavyIY85CoheATgw1KFmQFLRbKNu7XnZBSLcBP5ihtkKgqMs?=
- =?iso-8859-1?Q?5GfTUmGCyIZVFYdqOReT4UD9OrpLP/HVaSLqBq2xOCcZ/uTToREyZt9i5n?=
- =?iso-8859-1?Q?HhdYAjw5G/fX24tzKMPsAY9yxokKCGhM985qRj5w9FD+Cup3miRmFJQJtR?=
- =?iso-8859-1?Q?rYnJCBIFjyz9VewrijXTyyBdADCaQQLUaRLX/i3SoaDeJl0X+3hNBdU1iY?=
- =?iso-8859-1?Q?/EG+WGbmqIC4/nO3PQKBnntihukppg4yY664r9ZxpwWQHMdAntH0UN3iow?=
- =?iso-8859-1?Q?z3Wc/u5cRGoBjpQFOMd8K+NOOruI1cL8+1hR75gGm7VXn0ze0W/Eob6cjT?=
- =?iso-8859-1?Q?rNKc9qcAxz1I/+DT+Z6IcIyMXqr0hx7xEJrOvnSOHE7w3MAs9ETsoeAdk5?=
- =?iso-8859-1?Q?r9ZqeqUOTTH4XkM99rvqz1xyrZPgKBLLNaz5sZ0c8vt+ZrNc3Vbf5kYO9K?=
- =?iso-8859-1?Q?7V+dVi15Kdntp6C3srHlC7aMSCAOzXZuVnQq4C3lM7Nu4DP5qKAI1gbow6?=
- =?iso-8859-1?Q?kpYHn+0FPYwOceIi0bQsX7OyBMG6sJQLMpn62yxs8lAxp7TbZXIVKz1lng?=
- =?iso-8859-1?Q?KgnY0vsdYhnYR6+QX2gzSN0U45To3fq/r24yG1ZOkhkNoh3nIwKUZnuQCH?=
- =?iso-8859-1?Q?ffHxnlTPZsqHHN9+R3jtex554Ic1Y/8aOSxJ3Bx9o6oswKHB3RvcYmJCGZ?=
- =?iso-8859-1?Q?37NAEZ1kW+JSyM3WQyXObEwqvPNkjHD5cDLYVPj9Rw5+XV+PUfYSvpCnWB?=
- =?iso-8859-1?Q?krrMsxO90A3zVSgQu3iiUHHqhXhfEYAeqAlIUK38+ppT+nQAJk0i4vF9vS?=
- =?iso-8859-1?Q?Z9MeEWsstB+AmriEglO4+i0ksFGrnB97EARbnNJE1WHnsIpqw01mpa3PYb?=
- =?iso-8859-1?Q?CL7SAwgAd61ZYfkyIkEGOnJM49BH9sXVypaREcS5F70kpQ83PgQFGI6Mja?=
- =?iso-8859-1?Q?zAGTuxg19gkmGCwGqLj0zLz1yv7WCSQ4n9lTKBqWLZWxHQ8EHdY+CSBbcP?=
- =?iso-8859-1?Q?/GOAYkHtZEx1dHEpiCg9oOlXmCJe1C1vdOlaxr75MBRYGdNc9/ppdUd57r?=
- =?iso-8859-1?Q?2h4UBFSkkQLk4VKyVy4y/xP9IM06Hdb+N8v4lOMWcpJVVb1uwkVT+yhU00?=
- =?iso-8859-1?Q?gBEfuACeMOFWOzCsOKHa/voqluRMvO5o+rJISA58NlNbeHCRml/UAaTadI?=
- =?iso-8859-1?Q?xqgBkRkWpOz5ekt4sdEe7wZ4fAEeYK6uKAgmta/leH8g1oi3mu/5MnHAkH?=
- =?iso-8859-1?Q?AYGKnHA0dfVjr1kZiilEUShrCHxQXySEg35Sj4GVMByLwUEEZql19/oJPO?=
- =?iso-8859-1?Q?8+q+0AWHaXoiS2+rxzEtTs4BH0k3UgRoT/asT4BtcCKbgfPG3jcNJXEdft?=
- =?iso-8859-1?Q?OmADnky8gFj/kSE3c3c9TuT7fVSsXcfZsSz7Gj17XPIriDY2Tvg1bqgWp1?=
- =?iso-8859-1?Q?IH8r9VHps9uX7wFvsbm5R4GAxDeTlcjCvxgAlxI9HGFkrme2Dx2V6xMuQc?=
- =?iso-8859-1?Q?x2+xhM1VpP+pU3fLvrXMBSur7fxsIJJatvCI7KghCLW8gRHsBYK8tAzzjv?=
- =?iso-8859-1?Q?VvrbG+WFtnj0xLLFPsCkMnvnHhsMHd30hIeQNB5CIOQ7pjUaW3/1pPo9r5?=
- =?iso-8859-1?Q?tSDw1bUQKqzlM+Sba9Oma7ztH8tcEIidv7WgTmEcjYGKkwZAgXd4znVX/V?=
- =?iso-8859-1?Q?HYPjxVNvxapfSExVwoHdjpIi9Hqgd9xxMNWNSchyuM5R3Pk3RkJ64uVSuw?=
- =?iso-8859-1?Q?EJbPWQPmSYKnjDGqvHxCUEJ2l096nP/+Rapspwuw7YWN8S?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hd1KPG1N"
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-ccc6b11a19aso2064470a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 18:36:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791509804; x=1792114604; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0Bnewlcc3wxUQK8ZF4pr/LclN0rmZn+IbM4m62WaKNI=;
+        b=hd1KPG1NVkEhJIzPlE2asZVgL58Eb+uFWByJBQv8bx2Er++HN6ZMq0P7AOLpV2DdEb
+         aH35/FyGO6W0UIy4SGgcXDYwKSEGDSTAGUe/y6JGFiAUeP1HvWNwSziij2anUskOugos
+         mR/K4VQ2hcLIe/C/8+YuAEEOMmjTvUsexQWziqiPpJCWFx5kYEtRrBpCwZQ7RFfvdgGg
+         6VijZdcgtyyCiHG1PsupsJSuKhvs61CS6/xkm3kpvIWCtE60VeFrLvrSCCOHP1XLaQZS
+         ssY9TCayjv+TfjlXi0MHxUIgKWtiv9B45pugNxwSke7YemBrzuiVVeaQSpkUlhUbaFv/
+         1xsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791509804; x=1792114604;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0Bnewlcc3wxUQK8ZF4pr/LclN0rmZn+IbM4m62WaKNI=;
+        b=NdFBmZbBQEyfOEfmM/m/2Kg+deIbyPKoayDLbg3cOSJCM/VA9sSsVve/e0K/WzIlo/
+         6mLADjTSttrrCUVxUyEpkK/C/vEO1OQZbX7eXo2ZC+3jEKTysbhVJbVn6qnh7pzDrHYy
+         7bC0uLUUxwExCj4Agcr4k1JyYfWMEtLeid+bfMDcpa7Q6c7yYa6n4hc/cASPQgDzETpl
+         oGDhJaWsNNSWSgETwld9CMUN+iFIF7NgZD4seVSsMSxJMfcxAwk5+ftNczFG2zHx6QWy
+         7dqpzHoX7Cr2OhwE9cf9+ssW/xfzjFbtUsFfkDNpCoZK77sdYXeJgm8ATSSY4JaVKd5+
+         Ul0A==
+X-Forwarded-Encrypted: i=1; AKwUvBxfupU5Gx2i80bVFe4p8VmZDLGPLwWrg6zjJ65cvC1I+BTGf4yYuQ4lMGFlR8L8OLzYjYzBSc3RJIR3XaI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJQKIW743gWoPlKqrVUJqvBef93A6QcMyBvS9k3y49u9FUAAyH5
+	KVhtb7u5g2J7vSyGJM5Ti1uVuCYHbzBEDezJVvdf9ToBFulPk06OzAF2
+X-Gm-Gg: AYBFou2nNKDcRQQO1QgP5soDo5FpFq4LoRFVU+KGWtLJNb5RpHBtFOJo9rSgdZ9MF2K
+	crRXC/LWo8R2FRQguF8FpGqoXanDs9Ge9zuMCnLlBqapaeEUopWLHbhXV9eQT6de9NLGvMc4oVT
+	k9KW+s2lnShe2g7yDIKckPWjkAOKSNMcXegvI2FknWbx0V+6jmqO6K9DqLGCz8pmCUVPf2kKX8/
+	86WcPRQqt1YVDmmItJ7lUEXn7iKZu9wIbAKkaF09j9QELCjjSL1bn6L25lZx8k9o0iMgyLoQAVk
+	+brXg1i71syJyuVVvkbjZulJhGxqx7/5YJ14xITKYF9LDnuihpdhOWaZdqlRJ6C0tFvIr1nsxk6
+	sSUXfafKWQVetpW7dp1QWJN4eQrlCzxFydRAEy/xkmAi176fA81aNF8DgbRbxk5ov9NljZiidqT
+	HWFkrVZ++WLDhfbgRUOgEbh06mx7r9dTFe1mCXWURQvkCxiGiGBZzkdmH7tu+VR33tEQ8JOTX9E
+	8WeX1iJiCU=
+X-Received: by 2002:a17:90b:4b92:b0:3a8:6b84:234d with SMTP id 98e67ed59e1d1-3ab3a366814mr527166a91.6.1791509804000;
+        Thu, 08 Oct 2026 18:36:44 -0700 (PDT)
+Received: from osman.mioffice.cn ([43.224.245.178])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38f5509fsm1052576a91.12.2026.10.08.18.36.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 18:36:42 -0700 (PDT)
+From: Zhan Xusheng <zhanxusheng1024@gmail.com>
+X-Google-Original-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Cc: ntfs3@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Zhan Xusheng <zhanxusheng@xiaomi.com>
+Subject: [PATCH] fs/ntfs3: widen wnd_bitmap::free_bits to u32
+Date: Fri,  9 Oct 2026 09:36:36 +0800
+Message-ID: <20261009013636.2920704-1-zhanxusheng@xiaomi.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: eNXFyJr4VHCSL99tU0kdKWWGFy2I+YD1vIASwaXybkAbD7OT7ajGc64MA76prIoMYJsWzwnEu0ud9wCxMth0/GLVvte+yD7vf8LpapUz41sYGwCjXcf/6x6E1RP74FFi6a9ootW74ia2uX23UTclaCxcFXaRhiqYxOrVNf+XZF/Ka9eIllK5ivl4sYo0dy3Nfi9rWK7UwO5wnaeFcQcatXsJE6iuQqnzcQUL7M6m6ew4yiR1WwCxZs2nbTaGF0BDE9jtiNb/dIZbzIpLftS445CD9KzXyfbXc69qZ557dCz8NyJ7S/1eMli8o1FBlIhylod78SPQrzqRLyhRAGrncQ==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR11MB5613.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3f94a831-f753-4da7-5745-08df25a4dd04
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Oct 2026 01:30:12.2291
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: kMOyGfWR1tTRagEswqkLYzzHNbbCJ+LXPyHULGGDUME09q+aeTrCu4Du3zCm6Ym74bnesTOb6yXwVM82twK/rA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR11MB4619
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 
->-----Original Message-----
->From: Zhang, Lixu
->Sent: Tuesday, September 29, 2026 12:31 PM
->To: Jonathan Cameron <jic23@kernel.org>; Sanjay Chitroda via B4 Relay
-><devnull+sanjayembeddedse.gmail.com@kernel.org>
->Cc: sanjayembeddedse@gmail.com; David Lechner <dlechner@baylibre.com>;
->Nuno S=E1 <nuno.sa@analog.com>; Andy Shevchenko <andy@kernel.org>; Jiri
->Kosina <jikos@kernel.org>; Srinivas Pandruvada
-><srinivas.pandruvada@linux.intel.com>; Benjamin Tissoires
-><bentiss@kernel.org>; linux-iio@vger.kernel.org; linux-kernel@vger.kernel.=
-org;
->linux-input@vger.kernel.org
->Subject: RE: [PATCH v6 00/14] HID: iio: Introduce devm_ APIs for HID senso=
-rs
->
-...
->>> checkpatch reports a "suspect code indent" warning on the
->>> DEFINE_FREE() declaration, but this appears to be a false positive
->>> caused by the macro expansion. The code builds cleanly.
->>If possible, Zhang Lixu, would you mind retesting this full set?
->Hi Jonathan,
->
->I'm currently on vacation and will be off for the upcoming China National =
-Day
->holiday. I'll retest the full set once I'm back!
+free_bits[] holds, per bitmap window, the number of free bits in that
+window.  A window is one block, so the value ranges over
+[0, 8 * sb->s_blocksize], but the array element type is u16.
 
-Tested-by: Zhang Lixu <lixu.zhang@intel.com>
+ntfs_init_from_boot() picks the block size as
 
-I did a basic function test and didn't find any regression issues.
+	sb_set_blocksize(sb, min_t(u32, sbi->cluster_size, PAGE_SIZE));
 
-Thanks,
-Lixu
+and ntfs3 accepts cluster sizes up to 2 MB, as true_sectors_per_clst()
+and the comment above it describe.  Nothing rejects a block size above
+4096.  So on a kernel with PAGE_SIZE >= 8192 (arm64 with 16K or 64K
+pages, powerpc with 64K pages) mounting a volume whose cluster size is
+at least 8192, the block size is at least 8192 and a window holds at
+least 65536 bits, one more than u16 can represent.
 
->Thanks for your patience.
->
->Thanks,
->Lixu
->
->>
+A completely free window therefore stores 0, and five sites read 0 as
+"this window has no free bits":
+
+  bitmap.c:533   wnd_rescan()    treats it as all ones and skips it
+  bitmap.c:950   wnd_is_used()   skips the on-disk check, returns true
+  bitmap.c:1155  wnd_find()      skips the window when looking for space
+  bitmap.c:1243  wnd_find()      the "window is empty" path never fires
+  bitmap.c:1450  ntfs_trim_fs()  skips the window when discarding
+
+The free space in such a window is then never allocated and never
+trimmed, while total_zeroes, which is size_t, still counts it, so statfs
+advertises space that cannot be used.  wnd_is_used() reporting a free
+range as used also costs mark_as_free_ex() its per-cluster check and
+ntfs_mark_rec_free() its already-free detection.
+
+bits_last, declared two lines below free_bits, is u32 and holds a value
+from the same domain.  Make free_bits u32 as well.  The array grows from
+2 to 4 bytes per block of bitmap; for a 1 TB volume with 4K clusters
+that is 32 KB instead of 16 KB.
+
+Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+Fixes: 4534a70b7056 ("fs/ntfs3: Add headers and misc files")
+---
+ fs/ntfs3/bitmap.c  | 10 +++++-----
+ fs/ntfs3/ntfs_fs.h |  2 +-
+ 2 files changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/fs/ntfs3/bitmap.c b/fs/ntfs3/bitmap.c
+index 60b362f388d96..41ea3fad99af0 100644
+--- a/fs/ntfs3/bitmap.c
++++ b/fs/ntfs3/bitmap.c
+@@ -677,7 +677,7 @@ int wnd_init(struct wnd_bitmap *wnd, struct super_block *sb, size_t nbits)
+ 		wnd->bits_last = wbits;
+ 
+ 	wnd->free_bits =
+-		kvmalloc_array(wnd->nwnd, sizeof(u16), GFP_KERNEL | __GFP_ZERO);
++		kvmalloc_array(wnd->nwnd, sizeof(u32), GFP_KERNEL | __GFP_ZERO);
+ 
+ 	if (!wnd->free_bits)
+ 		return -ENOMEM;
+@@ -1330,7 +1330,7 @@ int wnd_extend(struct wnd_bitmap *wnd, size_t new_bits)
+ 	u32 b0, new_last;
+ 	size_t bits, iw, new_wnd;
+ 	size_t old_bits = wnd->nbits;
+-	u16 *new_free;
++	u32 *new_free;
+ 
+ 	if (new_bits <= old_bits)
+ 		return -EINVAL;
+@@ -1342,13 +1342,13 @@ int wnd_extend(struct wnd_bitmap *wnd, size_t new_bits)
+ 		new_last = wbits;
+ 
+ 	if (new_wnd != wnd->nwnd) {
+-		new_free = kmalloc_array(new_wnd, sizeof(u16), GFP_NOFS);
++		new_free = kmalloc_array(new_wnd, sizeof(u32), GFP_NOFS);
+ 		if (!new_free)
+ 			return -ENOMEM;
+ 
+-		memcpy(new_free, wnd->free_bits, wnd->nwnd * sizeof(short));
++		memcpy(new_free, wnd->free_bits, wnd->nwnd * sizeof(u32));
+ 		memset(new_free + wnd->nwnd, 0,
+-		       (new_wnd - wnd->nwnd) * sizeof(short));
++		       (new_wnd - wnd->nwnd) * sizeof(u32));
+ 		kvfree(wnd->free_bits);
+ 		wnd->free_bits = new_free;
+ 	}
+diff --git a/fs/ntfs3/ntfs_fs.h b/fs/ntfs3/ntfs_fs.h
+index 5811d89d67b39..6f05b1bbb565a 100644
+--- a/fs/ntfs3/ntfs_fs.h
++++ b/fs/ntfs3/ntfs_fs.h
+@@ -152,7 +152,7 @@ struct wnd_bitmap {
+ 	size_t nbits;
+ 
+ 	size_t total_zeroes; // Total number of free bits.
+-	u16 *free_bits; // Free bits in each window.
++	u32 *free_bits; // Free bits in each window.
+ 	size_t nwnd;
+ 	u32 bits_last; // Bits in last window.
+ 
+
+base-commit: 22430ae5d90ab288b0ee2ad99ae941f4a666b694
+-- 
+2.43.0
+
