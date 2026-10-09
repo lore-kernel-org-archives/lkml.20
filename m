@@ -1,118 +1,142 @@
-Received: from mail-m118211.qiye.163.com (mail-m118211.qiye.163.com [115.236.118.211])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC7AF3DB333;
-	Fri,  9 Oct 2026 11:38:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.236.118.211
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D5C54C4F6C;
+	Fri,  9 Oct 2026 11:39:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791545952; cv=none; b=ob/V/7cm3xr52vx3bGpxPsq0EJG0IbzhwLQp8Ha8K/5iX9tdyMuH6Egugj8V+ftsmU89e/IdYcCZmwMiFX1aZgKP6yYfvosT/XYD3tERRzknx8lqtEFA4kRC7B60P2R9N+zcKVMbx5KCQowss3qeMDxCoBaEvjw9m6mp7/Qk+ec=
+	t=1791545967; cv=none; b=o7blJc4DrrKeD87tTa3Dq2E97/f2xIpQw2/5rdloAQz7bFqid9f3npa9ocsLDTLXZbm69e1aVBzsDcws4dbBEc3LykFk4/bltqG/DQ22pyHKF5elsYfRCMIgg5Esba2RXeR2Atzu0rjrTMdXLb7zVSMfiogxoH4Efoxq1gygbJc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791545952; c=relaxed/simple;
-	bh=cOvv2AQaQEiOSaVHJ5X0j5TdSvyQhjN5cDZ17xIYu0k=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=aRcKYLK9LKJx9iese+a+4fQsFTt4qXjaScX872UZ4Ogwa5uFQ6P+atcF007mxuUyT3ToT3aKxVFchTUeSbPYVHL1HW4AvCByxxbacvJd0KbEJxeHhuSAlEjnmA+Kf/8+02J7KuNUBmKj+IpcAvQKwUoKcPHvXodha0MIbQs7HdY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn; spf=pass smtp.mailfrom=easystack.cn; arc=none smtp.client-ip=115.236.118.211
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=easystack.cn
-Received: from localhost.localdomain (unknown [218.94.118.90])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 1fe29019d;
-	Fri, 9 Oct 2026 19:23:24 +0800 (GMT+08:00)
-From: Zhen Ni <zhen.ni@easystack.cn>
-To: ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com,
-	martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	akpm@linux-foundation.org,
-	vbabka@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	brendan.jackman@linux.dev,
-	hannes@cmpxchg.org,
-	ziy@nvidia.com,
-	shuah@kernel.org
-Cc: bpf@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Zhen Ni <zhen.ni@easystack.cn>
-Subject: [PATCH 0/6] mm/page_owner: add bpf_iter and kfuncs
-Date: Fri,  9 Oct 2026 19:23:02 +0800
-Message-Id: <20261009112308.240769-1-zhen.ni@easystack.cn>
-X-Mailer: git-send-email 2.20.1
+	s=arc-20240116; t=1791545967; c=relaxed/simple;
+	bh=XyQqzU+8QNIzammOFbpxePpG8apNsTjBiyIoesrfVXk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jDqLHiEAaeMW9up3cBylYjaZEQ5Qyun5aTA0mceHwoLCVLQTszHuN6myKcRFOW25orSTvkh5FrO9gAW7e5C0BfkJipGa4gOkVLa4mrouY6UQgAJEKhjSG5N/il6ZX4PknvkVFxKG64pTFhh+SfiqXPbxzkjajYaHA7XtJf5dqnI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FbNRdt0T; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FbNRdt0T"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791545959; x=1823081959;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=XyQqzU+8QNIzammOFbpxePpG8apNsTjBiyIoesrfVXk=;
+  b=FbNRdt0TNIF6MObGf+mbFHUJ2IXKIp4XegVIhi3MJ+GMBRjv4eB6XBgX
+   +lIXQoPPoq7CNJZXG1RLtpptlulRTYOAj4TLObohj32ylj9nARy/RzRpk
+   V0HnUaBHPGrd9OdT/Sorlzcr11xJ86Mg8RtaH0HltzVorhqwnMHXyU8bP
+   QrBi+2ZD5g+ZkS/Ey0evKzpVj9ZzTK1CzCgZYjFdUuQ7ZRQ6ZzMZWnPgq
+   Yr34V8vJODV/cABMDDiIilez40ugu2PDXynzpNQ18El3Uo0z4pWJwBRuF
+   A5fG4JVLsnKMcoPYIPvXVSdwddlKZm0y7lab6bleXLClX/6y3k//Phz6f
+   w==;
+X-CSE-ConnectionGUID: WNpAb+W3RVGEZsd4wCOXkw==
+X-CSE-MsgGUID: 3mFTu6w4SI+hNOH4oIwFvA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11929"; a="248516"
+X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
+   d="scan'208";a="248516"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 04:39:19 -0700
+X-CSE-ConnectionGUID: b3P3XatKScOT2h+7qSLvEw==
+X-CSE-MsgGUID: g+aG3UHTSXuM8KDdDgwQnw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
+   d="scan'208";a="306851"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by orviesa006.jf.intel.com with ESMTP; 09 Oct 2026 04:39:18 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 04D0699; Fri, 09 Oct 2026 13:39:16 +0200 (CEST)
+Date: Fri, 9 Oct 2026 13:39:15 +0200
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Jean-Francois Bobier <jean-francois.bobier@laposte.net>
+Cc: linux-usb@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] usb: typec: displayport: defer instead of failing
+ when the port is not DFP
+Message-ID: <asjSY8kEVlo1biOa@black.igk.intel.com>
+References: <20261005125645.17899-1-jean-francois.bobier@laposte.net>
+ <e416c2c7-4a10-4061-bbb9-cb1aa5958798@laposte.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1206750320229kunmd33b3e054cb272
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFJQjdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCTE5OVh1NSBgaTh0eQhhOQ1YVFA
-	kWGhdVGRETFhoSFyQUDg9ZV1kYEgtZQVlJSkNVQk9VSkpDVUJLWVdZFhoPEhUdFFlBWU9LSFVKS0
-	lPT09IVUpLS1VKQktLWQY+
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e416c2c7-4a10-4061-bbb9-cb1aa5958798@laposte.net>
 
-Hi all,
+On Mon, Oct 05, 2026 at 03:20:31PM +0200, Jean-Francois Bobier wrote:
+> dp_altmode_probe() rejects a port that is not yet TYPEC_HOST with
+> -EPROTO. That is a permanent failure: the altmode device stays bound to
+> nothing and the driver core never retries it.
+> 
+> The role is not stable at that point. With a dock, the partner's
+> alternate modes are registered while the port is still UFP and the
+> data-role swap happens afterwards, so whether DisplayPort comes up at
+> all depends on the altmode happening to be registered a second time
+> after the swap. On the OnePlus 8T this made DP-over-USB-C work on some
+> attaches and not others, with "dp_altmode: probe ... failed with error
+> -71" as the only clue.
+> 
+> Return -EPROBE_DEFER so the core retries once the role settles, and
+> release the plug altmode reference obtained earlier in the function
+> before doing so -- the very next check in this same function already
+> follows that convention on its own early-return path. The leak existed
+> on the original -EPROTO path too, but turning a one-shot terminal
+> failure into a retried EPROBE_DEFER means it would otherwise repeat on
+> every deferred probe attempt instead of happening once.
+> 
+> Signed-off-by: Jean-Francois Bobier <jean-francois.bobier@laposte.net>
 
-Introduction
-============
+Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 
-page_owner records who allocated every page and is a core memory-debug
-facility, but it currently reaches userspace as the debugfs flat dump:
-slicing allocations by pid, comm, NUMA node, cgroup or stack, etc.,
-means streaming and parsing the entire file in userspace, which is
-expensive on large hosts and hard to query live.
-
-Exposing the same walk to eBPF lets a program filter and aggregate in
-the kernel and surface only the records it cares about. This series
-adds that access as a seq_file bpf_iter target and an open-coded
-iterator.
-
-Implementation
-==============
-
-The page walk is factored into page_owner_next_eligible(), shared by
-the read path and the iterators so eligibility stays identical. Three
-kfuncs expose information that a BPF program cannot decode from the
-snapshot alone: the NUMA node, per-page memcg info including the full
-cgroup path, and the stack trace behind a stack_depot handle. Each
-record is snapshotted under the page_ext RCU lock, so consumers read
-a consistent copy.
-
-Testing
-=======
-
-The selftest exercises the seq_file and open-coded iterators, and
-validates the get_nid, stack_snprint and get_memcg_info kfuncs.
-
-Zhen Ni (6):
-  mm/page_owner: extract page_owner_next_eligible() from read loop
-  mm/page_owner: add bpf_iter target "page_owner"
-  mm/page_owner: add open-coded page_owner iterator
-  mm/page_owner: add bpf_page_owner_get_nid() kfunc
-  mm/page_owner: add bpf_page_owner_get_memcg_info() kfunc
-  selftests/bpf: add tests for the page_owner bpf_iter target
-
- kernel/bpf/helpers.c                          |   8 +
- mm/Makefile                                   |   3 +
- mm/page_owner.c                               | 219 +++++++++++-------
- mm/page_owner.h                               |  58 +++++
- mm/page_owner_iter.c                          | 180 ++++++++++++++
- .../bpf/prog_tests/page_owner_iter.c          | 173 ++++++++++++++
- .../selftests/bpf/progs/bpf_iter_page_owner.c | 161 +++++++++++++
- 7 files changed, 722 insertions(+), 80 deletions(-)
- create mode 100644 mm/page_owner.h
- create mode 100644 mm/page_owner_iter.c
- create mode 100644 tools/testing/selftests/bpf/prog_tests/page_owner_iter.c
- create mode 100644 tools/testing/selftests/bpf/progs/bpf_iter_page_owner.c
+> ---
+> Changes in v2:
+> - Release the plug altmode reference before the new -EPROBE_DEFER
+>   return, matching the convention the next check in the same function
+>   already follows. Not present in v1; found while re-checking usb-next
+>   for related in-flight work after v1 was sent, which turned up a
+>   since-stalled June 2026 patch proposing the same cleanup on the
+>   original -EPROTO path (https://ratatoskr.run/lkml/2026/06/17182803/t).
+>   That patch hasn't landed, so this isn't a duplicate, but credit for
+>   spotting the leak belongs there, not here.
+> 
+>  drivers/usb/typec/altmodes/displayport.c | 18 +++++++++++++++---
+>  1 file changed, 15 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/usb/typec/altmodes/displayport.c
+> b/drivers/usb/typec/altmodes/displayport.c
+> index 51c92dd88..91d72789e 100644
+> --- a/drivers/usb/typec/altmodes/displayport.c
+> +++ b/drivers/usb/typec/altmodes/displayport.c
+> @@ -766,9 +766,21 @@ int dp_altmode_probe(struct typec_altmode *alt)
+>  	struct dp_altmode *dp;
+>  	u32 cap = DP_CAP_CAPABILITY(alt->vdo);
+> 
+> -	/* Port can only be DFP_U. */
+> -	if (typec_altmode_get_data_role(alt) != TYPEC_HOST)
+> -		return -EPROTO;
+> +	/*
+> +	 * Port can only be DFP_U.
+> +	 *
+> +	 * Defer rather than reject: on a dock the partner registers its
+> +	 * altmodes while the port is still UFP, so a hard -EPROTO here drops
+> +	 * the DisplayPort altmode permanently and nothing retries it --
+> +	 * binding then depends on the altmode happening to be re-registered
+> +	 * after the data-role swap. -EPROBE_DEFER makes the driver core retry
+> +	 * once the role settles, which is deterministic and stops logging a
+> +	 * failure for an ordinary ordering race.
+> +	 */
+> +	if (typec_altmode_get_data_role(alt) != TYPEC_HOST) {
+> +		typec_altmode_put_plug(plug);
+> +		return -EPROBE_DEFER;
+> +	}
+> 
+>  	/* Make sure we have compatible pin configurations */
+>  	if (!(DP_CAP_PIN_ASSIGN_DFP_D(port->vdo) &
+> -- 
+> 2.55.0
 
 -- 
-2.20.1
-
+heikki
