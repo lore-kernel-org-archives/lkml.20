@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 091E24078E5
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 06:10:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 667FF427FBF;
+	Fri,  9 Oct 2026 06:10:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791526240; cv=none; b=iUiBnLkcwpTifoLiGo8mIqsbzyW6njlD3m6QCh1zq70JfWiMn0wPbRRjqWhDn8d0ga94932ejwIj52RuZZXdQWTSqLQ9GBHluKbHoj+RTRpDIJikXSkELHP6iSkCRWLy1exKgktr2yoGRAGJaMEaZlbQq7dDiUlsJnh3YgQwMCU=
+	t=1791526244; cv=none; b=C3B0Ol2rwqeNhjg7QdJiav/QClH88FODaJcMxLrkVRLbSNBByx4x8VbQjSQYQKmHi0I/yl8U9iuZvY97EwLgtobnHoa5iE2IaJfBC/BUlYaXk/83J5AQaMSlYytu2Ywiahl8wEypmvGkH3d2VLFHTwel6UQYTOs2sIdlmbTnXK0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791526240; c=relaxed/simple;
-	bh=xcZrFMRxyivjhnUKIbVy0g7EcVK4pKTeo8ZJaHotOEE=;
+	s=arc-20240116; t=1791526244; c=relaxed/simple;
+	bh=qWVCUMv+05dbMHEs9hy+pYj8kfk37TJfd0nuNcp0x8w=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uQxNmAIJDmaG6c+Zvbxm2+3gsL3U6wcQOsTEkL0hueRsrhFxPXpi95T0Q9+ULWs0wocNce8qdGgUWDeAzpbhzpxJR0EboOzH61E5YtDdDlYvDAzBpgjnZ238njgDzsFx7pyzmAz4rNWR31YNFFT/iRLbpDR0xfC2ECuZ4mqzJww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YYI0RK2f; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=VtR3xUOkdFZ8j5BOXdOVRhnEz9WJaAAp2g2DVUTz4m17syLZg098De6vU6yLu6Y+NgivX2jsiEpKmX9xjmw3jYatZd2ed/LOnCkWgM1XE/+vXv7mZgML1WcmCtviFbpQYoAGFtXF/LDlALOkUP0VH4cc8FDcZOfAlTgnIPDNpS8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IG8AWHmx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YYI0RK2f"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE73E1F00898;
-	Fri,  9 Oct 2026 06:10:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IG8AWHmx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A91F1F00893;
+	Fri,  9 Oct 2026 06:10:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791526238;
-	bh=Bnt9ePZGN5hBqrnLAmtnR+vNRgS1zeRKnODE66mwB2k=;
+	s=k20260515; t=1791526242;
+	bh=QwHFVPuXBquPEGMyUZnxzJnxgW+4GMWcshWyvzeLTeA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YYI0RK2fKOWNLtf06iFFTM/c2Swa7r6ktaEWLBX37GtHtm+y8br8hoXW8SfoxMD6X
-	 p9wwdbmSNnqM2lgVvUavLWls7JV8YBJnzcTAObR2B6/3NGPzfKRZlggneb/4qyzH/0
-	 CoxZ6wIcuBTRLLWoKx6C7uL1/xm5WloPiQJaFIfcdO7BFq1wxH/Ct4E75Uiyt1NsGj
-	 bbeJ0vC1Zjbg2mKFXXQ4mQgI1vsLFusKoul+oAph61wmotwXv4atCQF3uK4cJB1jZ2
-	 GvypOvn8fWj2Dj8X/CjV6Or2ldbcBTQV9snCTrkkecd925NqZoZjp11i6AKUoOH5qf
-	 L+0alVP96hUeA==
-Date: Fri, 9 Oct 2026 08:10:35 +0200
+	b=IG8AWHmxgcgfeQJDzx8TznUhmmfIR9iQsxELHM1DJ9iLm+tG0Qx5Ft2AeeShvR7rG
+	 +MhwNOWOC6otnzznLRXqQa8de9w92/vGkLmpPIh4gTZgCUa6+aa46rZeOfm4GeW8yt
+	 5YXSJ8hYmmCGKYX7tzG5pbeDX1x9niwjsJ81aKtkQnxoVn1EyE7AwoUxGgPqmvzdR5
+	 jAugDxKHTq8/476p43ZNzwL5Qqquu29UMneLEzxgaLrA+lW03HDWQYIFrwRQn0cSb3
+	 wZH+6OiYtyxMlbtJJO3grVRzqOcwL94XqIqXNhxuQZLwZTzxdgVR6lyAIwrBzpY3tq
+	 XeAV88PEwIBSg==
+Date: Fri, 9 Oct 2026 08:10:39 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Haotian Zhang <vulab@iscas.ac.cn>
-Cc: Michael Ellerman <mpe@ellerman.id.au>, 
-	Hari Bathini <hbathini@linux.vnet.ibm.com>, linux-kernel@vger.kernel.org, 
-	Shrikanth Hegde <sshegde@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org, 
-	Madhavan Srinivasan <maddy@linux.ibm.com>, Nicholas Piggin <npiggin@gmail.com>
-Subject: Re: [PATCH] powerpc/opalcore: fix device node leak on incompatible
- dump node
-Message-ID: <20261009-lurking-curvy-piculet-ba68dc@quoll>
-References: <20261008190549.2800467-1-vulab@iscas.ac.cn>
+Cc: James Smart <jsmart2021@gmail.com>, 
+	"Martin K. Petersen" <mkp@kernel.org>, linux-scsi@vger.kernel.org, target-devel@vger.kernel.org, 
+	Daniel Wagner <dwagner@suse.de>, Ram Vegesna <ram.vegesna@broadcom.com>, 
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] scsi: elx: libefc: fix resources leak in efcport_init()
+ error path
+Message-ID: <20261009-muscular-dazzling-bullfinch-fdb28c@quoll>
+References: <20261008185403.2791781-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,24 +45,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261008190549.2800467-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261008185403.2791781-1-vulab@iscas.ac.cn>
 
 
-On Fri, 09 Oct 2026 03:05:49 +0800, Haotian Zhang wrote:
-> opalcore_config_init() gets a reference on the "/ibm,opal/dump" device
-> node with of_find_node_by_path(), but when the node is not compatible
-> with "ibm,opal-dump" it warns and returns without dropping that
-> reference, leaking the node. Every other exit path, including the
-> adjacent of_get_property() failure, releases it.
+On Fri, 09 Oct 2026 02:54:03 +0800, Haotian Zhang wrote:
+> efcport_init() creates efc->node_pool and efc->node_dma_pool before
+> allocating efc->els_io_pool. When the latter allocation fails it returns
+> -ENOMEM without releasing the node dma pool or the node pool, leaking
+> both. The caller efct_efclib_config() only logs the error and
+> efct_device_attach() failure path never calls efcport_destroy(), so the
+> resources are never freed.
 > 
-> Release the device node reference before returning from that error path.
+> Destroy node_dma_pool and node_pool before returning from the
+> els_io_pool allocation failure path.
 > 
-> Fixes: 6f713d18144c ("powerpc/opalcore: export /sys/firmware/opal/core for analysing opal crashes")
+> Fixes: d7b71fd2195e ("scsi: elx: libefc: Emulex FC discovery library APIs and definitions")
 > Assisted-by: DeepSeek-V4.1-Flash
 > Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
 > ---
->  arch/powerpc/platforms/powernv/opal-core.c | 1 +
->  1 file changed, 1 insertion(+)
+>  drivers/scsi/elx/libefc/efclib.c | 2 ++
+>  1 file changed, 2 insertions(+)
 > 
 
 
