@@ -1,64 +1,62 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB4753128DF;
-	Fri,  9 Oct 2026 04:07:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58CD83955CD
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 04:07:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791518851; cv=none; b=hFSP1HrzJfihHel+0UWndlJik/2j1KkxXSHXlDnA8Tn7GiYnSMawgrtt0G5b25wTGw283hvDNn0SbsWDUFooFaLQaDM1n6txyX3Poa1Izz9ziyoZ56lTgt+kLeKe9M7JEiPoMAi/6PjNt/24r3kMK8GGvKgfef5/ojBND8AkYN8=
+	t=1791518855; cv=none; b=Ag4LFo/cju1R2t4fKqTqgNKAeIZTBs8gQGY5KBJiuMBUdXGjjM2ZfQgcz1d2gL19Ofm2KtO34IGR265DoO6yvYYzX+O/IUb5z2jCw/xOC1ndoM0Xub3FWKznyav7pmo8pJxJfvR/p8KbkqZkiE9qxUZHXEQ1385LOTzmPXoz/rk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791518851; c=relaxed/simple;
-	bh=yiRYsPt6ex94Wh/ZXrOWcPq5aRU4Q16tccWf8j2Y3Lo=;
+	s=arc-20240116; t=1791518855; c=relaxed/simple;
+	bh=KNNMfOfVsnDaclgG5s2TFg+2tuPZm5iOCzucHJxLHbM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KewQeWXwnUXjceyt1Ab7e8ZDiDLIOhYcHC+e+pO/IZhT5vTFxdO5W3e/nwMn2mXNS39Oy35jsCOIUsthPU77szw1bjZ7txj5RXMn/1PA69UT1DQmPK+E8eXpq05YWHB9OQ9SX3+AvNHcQ1/pMYOvTZFQwpttG4livgBUKzjK+04=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=d6tOSzEW; arc=none smtp.client-ip=198.175.65.10
+	 Content-Type:Content-Disposition:In-Reply-To; b=FuNoKpuQKfG2PSnP9OzeU32TSLU8XESSLDVvSyHp5s0pf7OKcxuTEKSJ7BvlLu2X4f3D8ilgEMmZm7zSk2u/24QxhKg/Ac7FOdxWAkGbFq37pmggfomT3nnCOGzfKYsxJj9Ud0XTuGUNMLZCYEOIq2XTeIrNXbf65X/TYInxkA8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cj2zbom3; arc=none smtp.client-ip=198.175.65.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="d6tOSzEW"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cj2zbom3"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791518847; x=1823054847;
+  t=1791518846; x=1823054846;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=yiRYsPt6ex94Wh/ZXrOWcPq5aRU4Q16tccWf8j2Y3Lo=;
-  b=d6tOSzEWqnutP1rLKAKG2smOZTfY34InFEN8fV4tQC8Y64tHFCxPmIn0
-   u92Ktqca+WzAW/mf6mnMNhWIAebw8D7d9137y/rhVvWpsNDabs/RfOcw1
-   B4ZBcXDpFjxqpSIe6ISodByzcCq8bfpGchvD7o/z/wQ5JBvc8OydKjB6R
-   B0ukNowyesx3wExWyfaUijERvYEzNWSoXOBHrEFrEV/aafhzP86BkVLlQ
-   9WPibqf/XDQW1647fVEL+pZZJj79rx7zLRvVj1rZsLEPBKAlumPY+Rcdz
-   lNg7QmULbz4B4VTjr3iFfIVd/E4DLpUAPNai0gihtMeVsatrkNr3dQ2ng
+  bh=KNNMfOfVsnDaclgG5s2TFg+2tuPZm5iOCzucHJxLHbM=;
+  b=cj2zbom3utWNakaMXZJQQKDFg0nwnVyB7fTU7pdsZgxNnRoZAxTJkIh9
+   gwz89rJj/cKcpWoBxd+7DZthga/OVMaXGuNrKasDMGGCeUerV9MNzwEiy
+   s4LFtlJ94J1cpqABe1VcLPuPkntYxD6KHgEly8qoYMEUfmFcplP4btJ5Z
+   rO2eZn3uYFLODMa0rh3rPA+EqMLkWr3t3yqEMIHG/rkbJioF57hZQvdtX
+   XGSsoBMSb0YYiKqJGFWrrVrsG3NM1LnLH3doGtOg9UBwIFyHHxjOoDaqi
+   qJrmwtztzy70SRGAGlJLqNJ0GRmIXUb4X64ABvRLYMbrIH3jWhh28N6yu
    Q==;
-X-CSE-ConnectionGUID: o8zs06MUR2+1mPcmB9QWHA==
-X-CSE-MsgGUID: Qd9FTCpnTTSugVUGOHeWCw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11929"; a="200679"
+X-CSE-ConnectionGUID: wupmG+J1QsS59jdCY6QHyQ==
+X-CSE-MsgGUID: N/jRNaIRSXqMrykAkgiBCg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11929"; a="200672"
 X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
-   d="scan'208";a="200679"
+   d="scan'208";a="200672"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 21:07:25 -0700
-X-CSE-ConnectionGUID: jyAuyDsuTVS1P5uXcAccbQ==
-X-CSE-MsgGUID: IMskUT41RLehVC1pfbtzeQ==
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 21:07:24 -0700
+X-CSE-ConnectionGUID: cxo1EygpTRm9NADGPwp6FA==
+X-CSE-MsgGUID: 2tTWJiAjRY+qp0jFQq+hTA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
-   d="scan'208";a="538168"
+   d="scan'208";a="538169"
 Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
   by fmviesa006.fm.intel.com with ESMTP; 08 Oct 2026 21:07:21 -0700
 Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
 	(envelope-from <lkp@intel.com>)
-	id 1xF1t8-000000005Hc-3osz;
+	id 1xF1t8-000000005He-3wPS;
 	Fri, 09 Oct 2026 04:07:18 +0000
-Date: Fri, 9 Oct 2026 12:06:20 +0800
+Date: Fri, 9 Oct 2026 12:06:23 +0800
 From: kernel test robot <lkp@intel.com>
-To: "Jason A. Donenfeld" <Jason@zx2c4.com>, rafael@kernel.org,
-	lenb@kernel.org, pavel@kernel.org, willemdebruijn.kernel@gmail.com,
-	kuba@kernel.org, pabeni@redhat.com, linux-pm@vger.kernel.org,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	"Jason A. Donenfeld" <Jason@zx2c4.com>, stable@vger.kernel.org,
-	=?iso-8859-1?B?Suly6W15?= Jean <jeremy.jean@oss.cyber.gouv.fr>
-Subject: Re: [PATCH net] udp_tunnel: drop packets when hibernating
-Message-ID: <202610091149.zThf8fez-lkp@intel.com>
-References: <20261008124106.665014-1-Jason@zx2c4.com>
+To: Suhaas Joshi <suhaas@s-joshi.in>, sj@kernel.org,
+	akpm@linux-foundation.org, aethernet65535@gmail.com
+Cc: oe-kbuild-all@lists.linux.dev, damon@lists.linux.dev,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] mm/damon/core: Copy only installed probe in
+ damon_split_region_at()
+Message-ID: <202610091227.PIPVB0PW-lkp@intel.com>
+References: <20261008151944.113714-3-suhaas@s-joshi.in>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -67,198 +65,115 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261008124106.665014-1-Jason@zx2c4.com>
+In-Reply-To: <20261008151944.113714-3-suhaas@s-joshi.in>
 
-Hi Jason,
+Hi Suhaas,
 
 kernel test robot noticed the following build errors:
 
-[auto build test ERROR on net/main]
+[auto build test ERROR on akpm-mm/mm-everything]
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Jason-A-Donenfeld/udp_tunnel-drop-packets-when-hibernating/20261008-144021
-base:   net/main
-patch link:    https://lore.kernel.org/r/20261008124106.665014-1-Jason%40zx2c4.com
-patch subject: [PATCH net] udp_tunnel: drop packets when hibernating
-config: s390-randconfig-1000-20261009 (https://download.01.org/0day-ci/archive/20261009/202610091149.zThf8fez-lkp@intel.com/config)
-compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261009/202610091149.zThf8fez-lkp@intel.com/reproduce)
+url:    https://github.com/intel-lab-lkp/linux/commits/Suhaas-Joshi/mm-damon-core-Copy-only-installed-probe-in-damon_split_region_at/20261008-204926
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git mm-everything
+patch link:    https://lore.kernel.org/r/20261008151944.113714-3-suhaas%40s-joshi.in
+patch subject: [PATCH v2 2/2] mm/damon/core: Copy only installed probe in damon_split_region_at()
+config: x86_64-randconfig-1000-20261009 (https://download.01.org/0day-ci/archive/20261009/202610091227.PIPVB0PW-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261009/202610091227.PIPVB0PW-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610091149.zThf8fez-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610091227.PIPVB0PW-lkp@intel.com/
 
 All errors (new ones prefixed by >>):
 
->> drivers/char/virtio_console.c:636:33: error: expected identifier
-     636 |         if (smp_load_acquire(&portdev->pm_freezing)) /* pairs with freeze/restore */
-         |                                        ^
-   include/linux/freezer.h:79:21: note: expanded from macro 'pm_freezing'
-      79 | #define pm_freezing (false)
-         |                     ^
->> drivers/char/virtio_console.c:636:33: error: expected identifier
-   include/linux/freezer.h:79:21: note: expanded from macro 'pm_freezing'
-      79 | #define pm_freezing (false)
-         |                     ^
->> drivers/char/virtio_console.c:636:33: error: expected identifier
-   include/linux/freezer.h:79:21: note: expanded from macro 'pm_freezing'
-      79 | #define pm_freezing (false)
-         |                     ^
->> drivers/char/virtio_console.c:636:33: error: expected identifier
-   include/linux/freezer.h:79:21: note: expanded from macro 'pm_freezing'
-      79 | #define pm_freezing (false)
-         |                     ^
->> drivers/char/virtio_console.c:636:33: error: expected identifier
-   include/linux/freezer.h:79:21: note: expanded from macro 'pm_freezing'
-      79 | #define pm_freezing (false)
-         |                     ^
->> drivers/char/virtio_console.c:636:33: error: expected identifier
-   include/linux/freezer.h:79:21: note: expanded from macro 'pm_freezing'
-      79 | #define pm_freezing (false)
-         |                     ^
->> drivers/char/virtio_console.c:636:33: error: expected identifier
-   include/linux/freezer.h:79:21: note: expanded from macro 'pm_freezing'
-      79 | #define pm_freezing (false)
-         |                     ^
->> drivers/char/virtio_console.c:636:33: error: expected identifier
-   include/linux/freezer.h:79:21: note: expanded from macro 'pm_freezing'
-      79 | #define pm_freezing (false)
-         |                     ^
->> drivers/char/virtio_console.c:636:33: error: expected identifier
-   include/linux/freezer.h:79:21: note: expanded from macro 'pm_freezing'
-      79 | #define pm_freezing (false)
-         |                     ^
->> drivers/char/virtio_console.c:636:33: error: expected identifier
-   include/linux/freezer.h:79:21: note: expanded from macro 'pm_freezing'
-      79 | #define pm_freezing (false)
-         |                     ^
->> drivers/char/virtio_console.c:636:33: error: expected identifier
-   include/linux/freezer.h:79:21: note: expanded from macro 'pm_freezing'
-      79 | #define pm_freezing (false)
-         |                     ^
->> drivers/char/virtio_console.c:636:33: error: expected identifier
-   include/linux/freezer.h:79:21: note: expanded from macro 'pm_freezing'
-      79 | #define pm_freezing (false)
-         |                     ^
-   drivers/char/virtio_console.c:1173:33: error: expected identifier
-    1173 |             smp_load_acquire(&portdev->pm_freezing)) /* pairs with freeze/restore */
-         |                                        ^
-   include/linux/freezer.h:79:21: note: expanded from macro 'pm_freezing'
-      79 | #define pm_freezing (false)
-         |                     ^
-   drivers/char/virtio_console.c:1173:33: error: expected identifier
-   include/linux/freezer.h:79:21: note: expanded from macro 'pm_freezing'
-      79 | #define pm_freezing (false)
-         |                     ^
-   drivers/char/virtio_console.c:1173:33: error: expected identifier
-   include/linux/freezer.h:79:21: note: expanded from macro 'pm_freezing'
-      79 | #define pm_freezing (false)
-         |                     ^
-   drivers/char/virtio_console.c:1173:33: error: expected identifier
-   include/linux/freezer.h:79:21: note: expanded from macro 'pm_freezing'
-      79 | #define pm_freezing (false)
-         |                     ^
-   drivers/char/virtio_console.c:1173:33: error: expected identifier
-   include/linux/freezer.h:79:21: note: expanded from macro 'pm_freezing'
-      79 | #define pm_freezing (false)
-         |                     ^
-   drivers/char/virtio_console.c:1173:33: error: expected identifier
-   include/linux/freezer.h:79:21: note: expanded from macro 'pm_freezing'
-      79 | #define pm_freezing (false)
-         |                     ^
-   drivers/char/virtio_console.c:1173:33: error: expected identifier
-   include/linux/freezer.h:79:21: note: expanded from macro 'pm_freezing'
-      79 | #define pm_freezing (false)
-         |                     ^
-   fatal error: too many errors emitted, stopping now [-ferror-limit=]
-   20 errors generated.
+   In file included from mm/damon/core.c:4295:
+   mm/damon/tests/core-kunit.h: In function 'damon_test_last_region_quota_reset':
+   mm/damon/tests/core-kunit.h:2519:45: error: passing argument 1 of 'damos_skip_charged_region' from incompatible pointer type [-Wincompatible-pointer-types]
+    2519 |         skipped = damos_skip_charged_region(t, r2, &s, min_region_sz);
+         |                                             ^
+         |                                             |
+         |                                             struct damon_target *
+   mm/damon/core.c:2500:57: note: expected 'struct damon_ctx *' but argument is of type 'struct damon_target *'
+    2500 | static bool damos_skip_charged_region(struct damon_ctx *ctx,
+         |                                       ~~~~~~~~~~~~~~~~~~^~~
+   mm/damon/tests/core-kunit.h:2519:48: error: passing argument 2 of 'damos_skip_charged_region' from incompatible pointer type [-Wincompatible-pointer-types]
+    2519 |         skipped = damos_skip_charged_region(t, r2, &s, min_region_sz);
+         |                                                ^~
+         |                                                |
+         |                                                struct damon_region *
+   mm/damon/core.c:2501:60: note: expected 'struct damon_target *' but argument is of type 'struct damon_region *'
+    2501 |                                       struct damon_target *t,
+         |                                       ~~~~~~~~~~~~~~~~~~~~~^
+   mm/damon/tests/core-kunit.h:2519:52: error: passing argument 3 of 'damos_skip_charged_region' from incompatible pointer type [-Wincompatible-pointer-types]
+    2519 |         skipped = damos_skip_charged_region(t, r2, &s, min_region_sz);
+         |                                                    ^~
+         |                                                    |
+         |                                                    struct damos *
+   mm/damon/core.c:2502:60: note: expected 'struct damon_region *' but argument is of type 'struct damos *'
+    2502 |                                       struct damon_region *r, struct damos *s,
+         |                                       ~~~~~~~~~~~~~~~~~~~~~^
+>> mm/damon/tests/core-kunit.h:2519:56: error: passing argument 4 of 'damos_skip_charged_region' makes pointer from integer without a cast [-Wint-conversion]
+    2519 |         skipped = damos_skip_charged_region(t, r2, &s, min_region_sz);
+         |                                                        ^~~~~~~~~~~~~
+         |                                                        |
+         |                                                        long unsigned int
+   mm/damon/core.c:2502:77: note: expected 'struct damos *' but argument is of type 'long unsigned int'
+    2502 |                                       struct damon_region *r, struct damos *s,
+         |                                                               ~~~~~~~~~~~~~~^
+   mm/damon/tests/core-kunit.h:2519:19: error: too few arguments to function 'damos_skip_charged_region'
+    2519 |         skipped = damos_skip_charged_region(t, r2, &s, min_region_sz);
+         |                   ^~~~~~~~~~~~~~~~~~~~~~~~~
+   mm/damon/core.c:2500:13: note: declared here
+    2500 | static bool damos_skip_charged_region(struct damon_ctx *ctx,
+         |             ^~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-vim +636 drivers/char/virtio_console.c
+vim +/damos_skip_charged_region +2519 mm/damon/tests/core-kunit.h
 
-cdfadfc1adb87fc Amit Shah          2010-05-19  608  
-eb5e89fc70bb3f1 Masami Hiramatsu   2012-08-09  609  static ssize_t __send_to_port(struct port *port, struct scatterlist *sg,
-eb5e89fc70bb3f1 Masami Hiramatsu   2012-08-09  610  			      int nents, size_t in_count,
-fc220d6be3c7e48 Sungho Bae         2026-06-04  611  			      struct port_buffer *buf, bool nonblock)
-f997f00bf8c3ddf Amit Shah          2009-12-21  612  {
-f997f00bf8c3ddf Amit Shah          2009-12-21  613  	struct virtqueue *out_vq;
-589575a23562b58 Rusty Russell      2012-10-16  614  	int err;
-cdfadfc1adb87fc Amit Shah          2010-05-19  615  	unsigned long flags;
-f997f00bf8c3ddf Amit Shah          2009-12-21  616  	unsigned int len;
-a616ad344d9f7fe Sungho Bae         2026-06-04  617  	struct ports_device *portdev;
-f997f00bf8c3ddf Amit Shah          2009-12-21  618  
-cdfadfc1adb87fc Amit Shah          2010-05-19  619  	spin_lock_irqsave(&port->outvq_lock, flags);
-cdfadfc1adb87fc Amit Shah          2010-05-19  620  
-a616ad344d9f7fe Sungho Bae         2026-06-04  621  	portdev = READ_ONCE(port->portdev);
-a616ad344d9f7fe Sungho Bae         2026-06-04  622  
-a616ad344d9f7fe Sungho Bae         2026-06-04  623  	if (!portdev) {
-a616ad344d9f7fe Sungho Bae         2026-06-04  624  		in_count = 0;
-a616ad344d9f7fe Sungho Bae         2026-06-04  625  		goto free_and_done;
-a616ad344d9f7fe Sungho Bae         2026-06-04  626  	}
-a616ad344d9f7fe Sungho Bae         2026-06-04  627  
-b187532ac6dba56 Sungho Bae         2026-06-04  628  	/*
-b187532ac6dba56 Sungho Bae         2026-06-04  629  	 * Check freeze flag under the lock so that the flag check and
-b187532ac6dba56 Sungho Bae         2026-06-04  630  	 * virtqueue_add_outbuf() are atomic with respect to
-b187532ac6dba56 Sungho Bae         2026-06-04  631  	 * remove_port_data() which also takes outvq_lock.  This
-b187532ac6dba56 Sungho Bae         2026-06-04  632  	 * guarantees that once remove_port_data() returns, no new
-b187532ac6dba56 Sungho Bae         2026-06-04  633  	 * buffers can be added before remove_vqs() tears down the vq.
-b187532ac6dba56 Sungho Bae         2026-06-04  634  	 * Pairs with smp_store_release() in virtcons_freeze/restore.
-b187532ac6dba56 Sungho Bae         2026-06-04  635  	 */
-b187532ac6dba56 Sungho Bae         2026-06-04 @636  	if (smp_load_acquire(&portdev->pm_freezing)) /* pairs with freeze/restore */
-b187532ac6dba56 Sungho Bae         2026-06-04  637  		goto free_and_done;
-b187532ac6dba56 Sungho Bae         2026-06-04  638  
-a616ad344d9f7fe Sungho Bae         2026-06-04  639  	out_vq = port->out_vq;
-a616ad344d9f7fe Sungho Bae         2026-06-04  640  
-cdfadfc1adb87fc Amit Shah          2010-05-19  641  	reclaim_consumed_buffers(port);
-cdfadfc1adb87fc Amit Shah          2010-05-19  642  
-fc220d6be3c7e48 Sungho Bae         2026-06-04  643  	err = virtqueue_add_outbuf(out_vq, sg, nents, buf, GFP_ATOMIC);
-f997f00bf8c3ddf Amit Shah          2009-12-21  644  
-f997f00bf8c3ddf Amit Shah          2009-12-21  645  	/* Tell Host to go! */
-505b0451c47699c Michael S. Tsirkin 2010-04-12  646  	virtqueue_kick(out_vq);
-f997f00bf8c3ddf Amit Shah          2009-12-21  647  
-589575a23562b58 Rusty Russell      2012-10-16  648  	if (err) {
-9ff4cfab82d27e9 Rusty Russell      2010-04-08  649  		in_count = 0;
-fc220d6be3c7e48 Sungho Bae         2026-06-04  650  		goto free_and_done;
-f997f00bf8c3ddf Amit Shah          2009-12-21  651  	}
-f997f00bf8c3ddf Amit Shah          2009-12-21  652  
-589575a23562b58 Rusty Russell      2012-10-16  653  	if (out_vq->num_free == 0)
-cdfadfc1adb87fc Amit Shah          2010-05-19  654  		port->outvq_full = true;
-cdfadfc1adb87fc Amit Shah          2010-05-19  655  
-cdfadfc1adb87fc Amit Shah          2010-05-19  656  	if (nonblock)
-cdfadfc1adb87fc Amit Shah          2010-05-19  657  		goto done;
-cdfadfc1adb87fc Amit Shah          2010-05-19  658  
-cdfadfc1adb87fc Amit Shah          2010-05-19  659  	/*
-cdfadfc1adb87fc Amit Shah          2010-05-19  660  	 * Wait till the host acknowledges it pushed out the data we
-531295e63be8c2b Amit Shah          2010-10-20  661  	 * sent.  This is done for data from the hvc_console; the tty
-531295e63be8c2b Amit Shah          2010-10-20  662  	 * operations are performed with spinlocks held so we can't
-531295e63be8c2b Amit Shah          2010-10-20  663  	 * sleep here.  An alternative would be to copy the data to a
-531295e63be8c2b Amit Shah          2010-10-20  664  	 * buffer and relax the spinning requirement.  The downside is
-531295e63be8c2b Amit Shah          2010-10-20  665  	 * we need to kmalloc a GFP_ATOMIC buffer each time the
-531295e63be8c2b Amit Shah          2010-10-20  666  	 * console driver writes something out.
-fc220d6be3c7e48 Sungho Bae         2026-06-04  667  	 *
-fc220d6be3c7e48 Sungho Bae         2026-06-04  668  	 * Spin until host returns the buffer.
-fc220d6be3c7e48 Sungho Bae         2026-06-04  669  	 * Capture the returned buf so we can free it.
-fc220d6be3c7e48 Sungho Bae         2026-06-04  670  	 * If broken, buf == NULL and buf stays in the vq;
-fc220d6be3c7e48 Sungho Bae         2026-06-04  671  	 * remove_vqs() will call virtqueue_detach_unused_buf() -> free_buf().
-cdfadfc1adb87fc Amit Shah          2010-05-19  672  	 */
-fc220d6be3c7e48 Sungho Bae         2026-06-04  673  	while (!(buf = virtqueue_get_buf(out_vq, &len))
-40e4dc530118dbb Heinz Graalfs      2013-10-29  674  		&& !virtqueue_is_broken(out_vq))
-f997f00bf8c3ddf Amit Shah          2009-12-21  675  		cpu_relax();
-fc220d6be3c7e48 Sungho Bae         2026-06-04  676  
-fc220d6be3c7e48 Sungho Bae         2026-06-04  677  free_and_done:
-fc220d6be3c7e48 Sungho Bae         2026-06-04  678  	if (buf)
-fc220d6be3c7e48 Sungho Bae         2026-06-04  679  		free_buf(buf, false);
-cdfadfc1adb87fc Amit Shah          2010-05-19  680  done:
-cdfadfc1adb87fc Amit Shah          2010-05-19  681  	spin_unlock_irqrestore(&port->outvq_lock, flags);
-17e5b4f20adbe28 Amit Shah          2011-09-14  682  
-17e5b4f20adbe28 Amit Shah          2011-09-14  683  	port->stats.bytes_sent += in_count;
-cdfadfc1adb87fc Amit Shah          2010-05-19  684  	/*
-cdfadfc1adb87fc Amit Shah          2010-05-19  685  	 * We're expected to return the amount of data we wrote -- all
-cdfadfc1adb87fc Amit Shah          2010-05-19  686  	 * of it
-cdfadfc1adb87fc Amit Shah          2010-05-19  687  	 */
-9ff4cfab82d27e9 Rusty Russell      2010-04-08  688  	return in_count;
-f997f00bf8c3ddf Amit Shah          2009-12-21  689  }
-f997f00bf8c3ddf Amit Shah          2009-12-21  690  
+79500f5843f453 Donggeun Yoo 2026-09-28  2489  
+18793c04abe665 Liew Rui Yan 2026-10-05  2490  static void damon_test_last_region_quota_reset(struct kunit *test)
+18793c04abe665 Liew Rui Yan 2026-10-05  2491  {
+18793c04abe665 Liew Rui Yan 2026-10-05  2492  	struct damos s = {0};
+18793c04abe665 Liew Rui Yan 2026-10-05  2493  	struct damon_target *t;
+18793c04abe665 Liew Rui Yan 2026-10-05  2494  	struct damon_region *r1, *r2;
+18793c04abe665 Liew Rui Yan 2026-10-05  2495  	unsigned long min_region_sz = 1;
+18793c04abe665 Liew Rui Yan 2026-10-05  2496  	bool skipped;
+18793c04abe665 Liew Rui Yan 2026-10-05  2497  
+18793c04abe665 Liew Rui Yan 2026-10-05  2498  	t = damon_new_target();
+18793c04abe665 Liew Rui Yan 2026-10-05  2499  	if (!t)
+18793c04abe665 Liew Rui Yan 2026-10-05  2500  		kunit_skip(test, "target alloc fail");
+18793c04abe665 Liew Rui Yan 2026-10-05  2501  
+18793c04abe665 Liew Rui Yan 2026-10-05  2502  	r1 = damon_new_region(0, 100);
+18793c04abe665 Liew Rui Yan 2026-10-05  2503  	if (!r1) {
+18793c04abe665 Liew Rui Yan 2026-10-05  2504  		damon_free_target(t);
+18793c04abe665 Liew Rui Yan 2026-10-05  2505  		kunit_skip(test, "region 1 alloc fail");
+18793c04abe665 Liew Rui Yan 2026-10-05  2506  	}
+18793c04abe665 Liew Rui Yan 2026-10-05  2507  	damon_add_region(r1, t);
+18793c04abe665 Liew Rui Yan 2026-10-05  2508  
+18793c04abe665 Liew Rui Yan 2026-10-05  2509  	r2 = damon_new_region(100, 200);
+18793c04abe665 Liew Rui Yan 2026-10-05  2510  	if (!r2) {
+18793c04abe665 Liew Rui Yan 2026-10-05  2511  		damon_free_target(t);
+18793c04abe665 Liew Rui Yan 2026-10-05  2512  		kunit_skip(test, "region 2 alloc fail");
+18793c04abe665 Liew Rui Yan 2026-10-05  2513  	}
+18793c04abe665 Liew Rui Yan 2026-10-05  2514  	damon_add_region(r2, t);
+18793c04abe665 Liew Rui Yan 2026-10-05  2515  
+18793c04abe665 Liew Rui Yan 2026-10-05  2516  	s.quota.charge_target_from = t;
+18793c04abe665 Liew Rui Yan 2026-10-05  2517  	s.quota.charge_addr_from = r1->ar.end;
+18793c04abe665 Liew Rui Yan 2026-10-05  2518  
+18793c04abe665 Liew Rui Yan 2026-10-05 @2519  	skipped = damos_skip_charged_region(t, r2, &s, min_region_sz);
+18793c04abe665 Liew Rui Yan 2026-10-05  2520  
+18793c04abe665 Liew Rui Yan 2026-10-05  2521  	/* 'r2' is not processed, it should not skip */
+18793c04abe665 Liew Rui Yan 2026-10-05  2522  	KUNIT_EXPECT_EQ(test, skipped, false);
+18793c04abe665 Liew Rui Yan 2026-10-05  2523  
+18793c04abe665 Liew Rui Yan 2026-10-05  2524  	/* 'r2' is last region, it should reset charge_{target,addr}_from */
+18793c04abe665 Liew Rui Yan 2026-10-05  2525  	KUNIT_EXPECT_PTR_EQ(test, s.quota.charge_target_from, NULL);
+18793c04abe665 Liew Rui Yan 2026-10-05  2526  	KUNIT_EXPECT_EQ(test, s.quota.charge_addr_from, 0);
+18793c04abe665 Liew Rui Yan 2026-10-05  2527  
+18793c04abe665 Liew Rui Yan 2026-10-05  2528  	damon_free_target(t);
+18793c04abe665 Liew Rui Yan 2026-10-05  2529  }
+18793c04abe665 Liew Rui Yan 2026-10-05  2530  
 
 --
 0-DAY CI Kernel Test Service
