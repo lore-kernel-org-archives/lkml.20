@@ -1,82 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A17CE4C6515
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 10:59:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 647864CA771;
+	Fri,  9 Oct 2026 10:59:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791543565; cv=none; b=kprIGQk5ViWzZ35woLB6sfvpKBlcX1U+a+c5hcG9rIqsAcIaEZfbwS/ut9Bamvyfw3cflbQS0UkG2O9k1jQRDlNQ1Hk/jttdstkITTC7QHeBlRb7zrWd/xir2plf5qL+AQ9VUU35OwKpNfJaimGywN7aSJ+k0jz8Q4H4kGtcubE=
+	t=1791543580; cv=none; b=Lnz7M4WI9DHP1/7uikbSsTA86L3zCvdINvfE5xeoFd2E2FAyOVJMMIbFrnwy5tcfwSOKvc1jqABXsPsU6joZd3PlvhL6Gf+GAl96MyucFKeKnkAAMvTsr5MsYrD9m1pDFj+dQ2vw7M4FiLcVQIU9S33oAOitATxxnRvkGTXWkuw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791543565; c=relaxed/simple;
-	bh=BXGkEZuWz6PIaWyhn3drqwPYaoL5CeBKsRvBIJ9Izno=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=d4491Fzu5p6lEtaU3PAFIEy7DeJwlYnf/KBrzsJ8hjr2Q7hF/kd24ozwC10bY2gUjop66xjuJikPelJtUCiaGZFYo0gimIAT8JZHAy+VQshRajPBotHTrUVJ41m3xwvW4KLFu9Ayl7ePK4jyfYbYJRmYkrHgoQ4HYDe2/w3kyhc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QXt4+sYL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791543580; c=relaxed/simple;
+	bh=8CB8ZyXD/Vb/AwDXMmJ595exFikO+h44yXR7JjtTn44=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=RGpcuVu+x7dt42L5ydAceMa/mYAd2S5gLKieEr2GJGaAhn+qJLFz95ngnfV1Yq4C6X4z1PBEsYmNl6ADEQ/An0j/thVjHNM1g8zgCdWWS4ySpTJSktllxYA532FojoPTXBaWcTFYN2AvqX/gHoySJnFsrWrAibm8IUzWxv1dv+k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JQ8CaRik; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QXt4+sYL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFD901F00893;
-	Fri,  9 Oct 2026 10:59:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791543555;
-	bh=O7Xi6h1I5Mb6FlicJ0w7Ua9QyL0wb103FvJh6JPXnG0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QXt4+sYLNeO8lwuHdgchBnBOQlnll7Do8nta0N+/PO54Y1EnlOE2c9gy+P5Wz9nqi
-	 29wzZpF3rAp7h0AdSKTuqz4BZeoaSdXZoiqMkDvu1xtyRbg5Mg3jCvzgaCDuPDeGhK
-	 IOaszuUpAXazVXb0pafiWISAstGub6PQ+euczbOfuGZdbsVtRSmJi4xb8jmErEhaYO
-	 bPCApAumjOTy+yjHelHFKVRNxIKUj/JAk751WoEr16eoosynMvQnHTo66kc29tTDoy
-	 MNl3bk4+pslocBtAfosNf1dn2nqPR4GAlI82/jHUnq5JBtXFHbQz+IC+D5z4MWQ7rD
-	 ZgoFx4JTgIG/A==
-From: Chao Yu <chao@kernel.org>
-To: jaegeuk@kernel.org
-Cc: linux-f2fs-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	Chao Yu <chao@kernel.org>,
-	stable@kernel.org,
-	Daeho Jeong <daehojeong@google.com>
-Subject: [PATCH 6.12.y 3/3] f2fs: fix to reset all pinned status during fggc
-Date: Fri,  9 Oct 2026 10:59:06 +0000
-Message-ID: <20261009105906.1861478-3-chao@kernel.org>
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-In-Reply-To: <20261009105906.1861478-1-chao@kernel.org>
-References: <20261009105906.1861478-1-chao@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JQ8CaRik"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E67FFC4AF0D;
+	Fri,  9 Oct 2026 10:59:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791543580;
+	bh=8CB8ZyXD/Vb/AwDXMmJ595exFikO+h44yXR7JjtTn44=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=JQ8CaRikyvlHOBrtgkOAYIOO00vogVwBElG5zlm2MZqrQKC9PFEWkvZjizWevRWMF
+	 vrPfCD281UgCR5zAg9pnwSzJEidEgW4yVTj8/nfSC09zNgaG+YUkt2GpYKBJCMYW7X
+	 2id3gc2SPbqKuR+tJ2x7H+lTY8CyI5VMwz5Z2IggFCmT2/9EgSj/FiRhNKFPReeJY+
+	 njJdylavL4DF6pBbRrce8Wz3a4c0yFJZ/K+yLMHLEvibQaLuLOHdN0xr0qgm9Tv8OZ
+	 ugFMYaYZlARhG8FUnP+HLDcgjRvhvDg2vZIKo6rXGmp9Kl4IX85lFMc1APVkGzQrYo
+	 8YcMZ6tZLrTVg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D0A11CA601F;
+	Fri,  9 Oct 2026 10:59:39 +0000 (UTC)
+From: Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>
+Date: Fri, 09 Oct 2026 18:57:57 +0800
+Subject: [PATCH 4/7] gpio: pl061: use IRQ_TYPE_LEVEL_MASK and
+ IRQ_TYPE_EDGE_BOTH
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261009-cv75-gpio-v1-4-5836bd438423@ambarella.com>
+References: <20261009-cv75-gpio-v1-0-5836bd438423@ambarella.com>
+In-Reply-To: <20261009-cv75-gpio-v1-0-5836bd438423@ambarella.com>
+To: Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org
+Cc: Linus Walleij <linusw@kernel.org>, Michael Walle <mwalle@kernel.org>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+ Long Zhao <longzhao@ambarella.com>, Long Zhao <zl020895@163.com>, 
+ linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791543577; l=1433;
+ i=longzhao@ambarella.com; s=20260730; h=from:subject:message-id;
+ bh=DGgaMzAx2L1d5OYoX90rBebPhEibhah8EcuBwlPbh5Q=;
+ b=JcFNByyQh1EF4Da6bcIKHVRIEaUJU8bZT+soiVMp90c5sZITAWxkyPaS+8WwFwPT9Scq62CVY
+ DDKFkX8lobRCCPe4JQbbcWG6dlL2t1ehO6ufXicFW29VFlemWI1Dp4f
+X-Developer-Key: i=longzhao@ambarella.com; a=ed25519;
+ pk=/xGhPTOX0/eYsyTWzyjjgAIW1Z/YD+IlnOnvcdRozow=
+X-Endpoint-Received: by B4 Relay for longzhao@ambarella.com/20260730 with
+ auth_id=903
+X-Original-From: Long Zhao <longzhao@ambarella.com>
+Reply-To: longzhao@ambarella.com
 
-From: Chao Yu <chao@kernel.org>
+From: Long Zhao <longzhao@ambarella.com>
 
-[ Upstream commit 2b8704b6a8b2896ccad1f5941d9a3e2c5031a470 ]
+Use the standard IRQ_TYPE_LEVEL_MASK and IRQ_TYPE_EDGE_BOTH helpers
+instead of open-coded edge and level comparisons.
 
-Otherwise, the pinned status may affect latter flow of fggc.
-
-Cc: stable@kernel.org
-Fixes: 9703d69d9d15 ("f2fs: support file pinning for zoned devices")
-Cc: Daeho Jeong <daehojeong@google.com>
-Signed-off-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-Signed-off-by: Chao Yu <chao@kernel.org>
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Signed-off-by: Long Zhao <longzhao@ambarella.com>
 ---
- fs/f2fs/gc.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpio/gpio-pl061.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
-index 664260807072..6c831276d81d 100644
---- a/fs/f2fs/gc.c
-+++ b/fs/f2fs/gc.c
-@@ -2132,6 +2132,9 @@ int f2fs_gc_range(struct f2fs_sb_info *sbi,
- 		do_garbage_collect(sbi, segno, &gc_list, FG_GC, true, false);
- 		put_gc_inode(&gc_list);
+diff --git a/drivers/gpio/gpio-pl061.c b/drivers/gpio/gpio-pl061.c
+index 2b1e23fdb7d7..35aabe4beff6 100644
+--- a/drivers/gpio/gpio-pl061.c
++++ b/drivers/gpio/gpio-pl061.c
+@@ -168,9 +168,7 @@ static int pl061_irq_type(struct irq_data *d, unsigned trigger)
+ 	if (offset < 0 || offset >= PL061_GPIO_NR)
+ 		return -EINVAL;
  
-+		/* reset all pinned status during fggc */
-+		f2fs_unpin_all_sections(sbi, true);
-+
- 		if (!dry_run && get_valid_blocks(sbi, segno, true)) {
- 			err = -EAGAIN;
- 			goto next;
+-	if ((trigger & (IRQ_TYPE_LEVEL_HIGH | IRQ_TYPE_LEVEL_LOW)) &&
+-	    (trigger & (IRQ_TYPE_EDGE_RISING | IRQ_TYPE_EDGE_FALLING)))
+-	{
++	if ((trigger & IRQ_TYPE_LEVEL_MASK) && (trigger & IRQ_TYPE_EDGE_BOTH)) {
+ 		dev_err(gc->parent,
+ 			"trying to configure line %d for both level and edge "
+ 			"detection, choose one!\n",
+@@ -185,7 +183,7 @@ static int pl061_irq_type(struct irq_data *d, unsigned trigger)
+ 	regmap_read(pl061->regmap, GPIOIS, &gpiois);
+ 	regmap_read(pl061->regmap, GPIOIBE, &gpioibe);
+ 
+-	if (trigger & (IRQ_TYPE_LEVEL_HIGH | IRQ_TYPE_LEVEL_LOW)) {
++	if (trigger & IRQ_TYPE_LEVEL_MASK) {
+ 		bool polarity = trigger & IRQ_TYPE_LEVEL_HIGH;
+ 
+ 		/* Disable edge detection */
+
 -- 
-2.49.0
+2.34.1
+
 
