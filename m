@@ -1,87 +1,205 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f45.google.com (mail-oo1-f45.google.com [209.85.161.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2D752D7D47;
-	Fri,  9 Oct 2026 20:45:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CAD63DCDBB
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 20:46:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791578760; cv=none; b=N0jbfCf89+wGKPCNT72cztdPQS0vGXiLD6SHQoTIMH8g7vCvF5BVDKXBG9WLcx9BX1wtxL03UckXqT8YwUy6/9NShqmgiUHsLSYsi0uLVNlACMgYSewSUux8PIViTlJzq17m73N+6q97tM/KufzPmZYNt1pxLGlKo9jdgPeSnlg=
+	t=1791578817; cv=none; b=INXPO+58fA4UwwQ+R59E08m2j4f6vnRypa7tw+Jjf0h1Rc7ySXZCs46vk0ncaxCaZi004PVOv0hlUIXPjWL0HM4uDx9QvQmWF2BuMUDui7MzVRJ7igjwd7rbBtaTUKa4PS3ZwAUNO5PTkb8W76DwtH3bPOyPHxsH60lA01LpI/M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791578760; c=relaxed/simple;
-	bh=J0laJjpqen+ifpy4EjM6q6SNU8g2F7nubNLvor0f12Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=td01/3uhnOLuja6j9NrQYb6/M90/X1GtCiMNui1vzYNKKv7C41RTnyc2vtKoVMkEQzIkxUXWLm96XSVMkY7LgXfAbQ1L975nKY4a78JGvfkpcBkjsvvNb85bY9c9M5ChMMI1G7lfg9z0kxT63nBqJRgEyjJeIYpKkU99BwvtU9Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AnwqMlhO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791578817; c=relaxed/simple;
+	bh=OEoYXf594kXH/PufCoCOA5IH4kEFLBjOLJOrYOSsGHU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=SL8Ts21HP9ATrotyYFqXQ9esoU3P4Vs0RwnnCMkS+U0whFQFCyX+Dg+37JrtOTrnmPe28IWyqZzjZz4BwFJNw27/2Ml3+W+s1OWm9uLaA+j4mOjA+XukmKxqn7/g/Isotw010PDe6YTBIYwAMKygscX8wjcnopnXJ/o5jqXmxxQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VnXI9u1t; arc=none smtp.client-ip=209.85.161.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AnwqMlhO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 986761F000FF;
-	Fri,  9 Oct 2026 20:45:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791578759;
-	bh=yLnE4quCu/z+s+7eheiMwsbmvExqd3PbO4hxQlwTZ0g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AnwqMlhO1+U0iH2nYD0P8E9jgTwc0bThkMVWMhSuQ4dc5nn7kuzVWodZ/vpkPeKhd
-	 KGqv2IBOoNHJ89isb3SJqAJkls6+QhLHKnot36/3GeFEHQbFrBTsVlDod9lDUti6tH
-	 l2uzH6GuRxH+46QKOY8MLJqbOwSUFbIhKG8flE7S6a40PbK8IW/Wb6n7JxfXkOehAd
-	 E3DIDQpRzzRehTT8CbLmTnAmSJkvys+WMrdwviWAya09FPkC71tcwuEHsg1jAX9NbS
-	 4mr0CC1XrMiD7bFDH/4F12MUPllQ53VyKdr+9Alkql71maWaZfmV5hBBxzz4/Duerb
-	 0nxskP23yb/+A==
-Date: Fri, 9 Oct 2026 22:45:54 +0200
-From: Nathan Chancellor <nathan@kernel.org>
-To: Nick Desaulniers <ndesaulniers@google.com>
-Cc: Abel Vesa <abel.vesa@oss.qualcomm.com>,
-	Bill Wendling <morbo@google.com>, Kees Cook <kees@kernel.org>,
-	Tingmao Wang <m@maowtm.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Justin Stitt <justinstitt@google.com>,
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org, llvm@lists.linux.dev,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	michael.bommarito@gmail.com
-Subject: Re: [PATCH] landlock: Move the domain layer counter out of the
- anonymous union
-Message-ID: <20261009204554.GA778522@ax162>
-References: <20261007-b4-landlock-fix-domain-fortify-panic-v1-1-042e9108f5f8@oss.qualcomm.com>
- <CAKwvOd=nPgEm=AZbEu12Eb90GtRUThY6YAjSiHHuNVHP8TZHwg@mail.gmail.com>
- <66usntltyie7ii2rrqajy3izxrvwubwf2vqnery552v3akhwo2@xwb4t76d37wx>
- <CAKwvOd=E7wgGPf+kgOY8sGi0xO-cFMAJK4PMBFknoEupJi1CXw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VnXI9u1t"
+Received: by mail-oo1-f45.google.com with SMTP id 006d021491bc7-6dd059478dcso208721eaf.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 13:46:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791578814; x=1792183614; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=L/WzjD2Sk1tXen1jf+f9JhxxyIkDVMdpUa25GlOoTn4=;
+        b=VnXI9u1tbTeOP3zVJU1NwI9bMqSzyUJ3UJmuQsknpvzDpk5RVaDxVlbp9wAlNAeEb6
+         yDV9RuayRVoGtNNqphfJtIyNMhqPeZXbZIIn6bdRyyEJMRIaAHvbiLmpcOVqgCmHK+HC
+         Tg45gAg7GgLByY7Z7exDwYal3S/VD1Sx0xfCANxBKvs7UP8UGEXVcX/OpJGr8WLSpSX0
+         miEeZISIAdFWi4EfMUB5bPrV8NISAb8Wb4TtrWDHa2rTQrKBfhpCNs2jA7rXNtvC7Q+q
+         ZaCSZ0wduvCASlcRkAJN/9A/Y/jpw4fMkRsTjWhdDMM49726+WhL3LsjX0olp5F/gdx+
+         cOxw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791578814; x=1792183614;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=L/WzjD2Sk1tXen1jf+f9JhxxyIkDVMdpUa25GlOoTn4=;
+        b=1rG+Di8byTUMReerflg4XhUTDHVttXLObXD1geAEpvZhVVqP+nDSU7ASPfMR8ut12G
+         i898PrN8YI/S0fJ1hapQISuihAwFH8PP4O+AktfjYcq8Gw4Xl6A9GC+olzeRqTgnS4Fy
+         s52vYdqFv0jS71EkNQrFvtZ6UrznuIH42uCFrxdY/mFdcCX54pXRAdsK1CmHOGn1WhC6
+         Fz2TXpEwOsEzPOxB0L28qicp3+rSB0nSRW9SZOl3+Nc/aRlwArhC8rEojsbAMzp2ZITr
+         y7bgTspQ+LIWk7cZHh8XoTONrRosh2vNvotDBCD7i3yW0N424bKZLfH6WDfcQ7C0t7z7
+         Os9w==
+X-Forwarded-Encrypted: i=1; AKwUvBwtnI6B0xbc09SHQWFOzTFBK1qlFB2VVqGQSqn4NCap+CtU48OQsYJFdSa5Lrq/epwWqKCq/D02u7wI3K4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mZ0QOiK7pKkQeB8XZRJlBgswJ3/pBFA3yKAGi0aGj/vYJShm7L
+	SJw7S6G9iVhLe43F3e/LQYyiEOtkfMKqsruogZcvzrZ5hpzxmc7VUtQQ
+X-Gm-Gg: AYBFou2j/OpuQhKuLBKE4LJOZwpM9zXAKx765cxUrYV37kuG0AnLsnsGBb3deLN+xiX
+	d+6+8CncvW7fCE9otNIHUlMdH5o9dO+iR4NqaSXj3ziplpAier3F68u48IJ2yeYJzBgLpWajQR3
+	7Qp/Sonh0pmW45iMbXKbHtA6uBeZ5VFGbWndeU5+9Re1vmNNvrt2zfYrI3IDba8SsTzkSpeb1Jt
+	ucROWIXbwOFDf0F8ikjCD2W7qSC5eLRFktJ1RCJjazKFXWktvvYYfQwl2xfQTBp902EcfP/1SOJ
+	VAe0+kcN/2MUEfWaTWegMyvZ2p9GCWXT0pRSCGRg9BX1cbZQKoVhcom0IMdfziT41O2wm9b+pa0
+	/vCdyBu4tIBAOlDfW/MIZUmwHHmjjl/fcpLpIqhoYxnGMcy8eNclZ3lEOwd1vBN4IiGlNbPZFoH
+	gjWUS7YnIGl1op6CQAhusnmLopLHIDArqTLUm3AkxyFmRhmSwYyMJkuPoQNN20V+EFV6U=
+X-Received: by 2002:a05:6820:1907:b0:6d8:6b04:cf2c with SMTP id 006d021491bc7-6ef08c7a69emr2385271eaf.12.1791578814263;
+        Fri, 09 Oct 2026 13:46:54 -0700 (PDT)
+Received: from localhost ([2a03:2880:30ff:2::])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6ef00ff3b83sm3117493eaf.6.2026.10.09.13.46.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 13:46:53 -0700 (PDT)
+From: Daniel Zahka <daniel.zahka@gmail.com>
+Subject: [PATCH net-next v2 0/7] psp: support rekeying psp protected tcp
+ connections
+Date: Fri, 09 Oct 2026 13:46:40 -0700
+Message-Id: <20261009-psp-v2-0-5596ab50f677@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAKwvOd=E7wgGPf+kgOY8sGi0xO-cFMAJK4PMBFknoEupJi1CXw@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALFSyWoC/y2MywrDIBBFfyXMuhbji9JV/6NkIWZMBhoVDSEl+
+ O8V6ebC4VzOBQUzYYHncEHGgwrF0EDcBnCrDQsymhuD4MLwNiyVxKR7oPBGO+0UtGfK6OnslTc
+ E3FnAc4epmZXKHvO354+x+39J9dIxMs6051KhmL2V5rVslj53FzeYaq0/5F6qbqAAAAA=
+To: Jakub Kicinski <kuba@kernel.org>, 
+ Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, 
+ Donald Hunter <donald.hunter@gmail.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, Shuah Khan <shuah@kernel.org>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org
+X-Mailer: b4 0.13.0
 
-On Fri, Oct 09, 2026 at 10:23:14AM -0700, Nick Desaulniers wrote:
-> On Thu, Oct 8, 2026 at 4:49 AM Abel Vesa <abel.vesa@oss.qualcomm.com> wrote:
-> >
-> > On 26-10-07 14:49:28, Nick Desaulniers wrote:
-> > > Would you consider this a bug in clang, or an error in how the
-> > > __counted_by attribute is applied?
-> > >
-> > It turns out Amaan Qureshi has already reported exactly this Landlock
-> > issue and proposed an LLVM fix:
-> >
-> >   https://github.com/llvm/llvm-project/pull/228309
-> 
-> In that case, I would _not_ work around the compiler bug like this and
-> instead wait for that fix to land in clang, then bump the required
-> version of clang for counted-by.
-> 
-> Kees and Nathan are traveling for LPC, so I don't expect quick
-> feedback from them, but they should confirm whether they agree with my
-> proposal.
+The PSP architecture spec states the need for rekeying connections in
+the event of a device key rotation. After a device key rotation has
+occurred, a new rx derived key needs to be generated and sent out to the
+other end of the connection sometime before the next device key rotation
+occurs.
 
-Bill/Kees/Justin should review that patch upstream but bumping the
-required version for __counted_by to clang-24 (or maybe 23.1.x if it can
-land in release/23.x) kind of sucks :/ but if this is a big enough
-footgun that we don't want to continuously workaround, I guess we have
-no choice.
+Because PSP connections involve two different keys at each endpoint,
+one for decrypting ingress traffic, and one for encrypting egress
+traffic, there are two types of rekeying events that need to be
+supported. From the perspective of one endpoint of the connection:
 
+1. rx rekey: we need to allocate a new spi + decryption key pair to
+   provide to our peer.
+
+2. tx rekey: our peer has provided us with a new spi + encryption key
+   pair which we should use for encrypting traffic immediately.
+
+In the case of rx rekeying, there is a period where it makes sense to
+accept packets authenticated from either the previous or current spi. To
+deal with that, we allow a psp_assoc to remember the last spi that was
+valid on a socket due to a rekey. If authentication state does not match
+the most recent assoc, the stored state from the previous assoc will be
+tried.
+
+In the case of tx rekeying, as soon as we install the new tx key, we
+have no use for the previous one, and it can be disposed of immediately.
+The only catch is in the case where hw uses a key handle in tx
+descriptor state, as opposed to inlining the key directly. In this
+case, psp core needs to be sure that any of these unaccounted for
+references to key state are gone by the time it tries to sync a deleted
+key to hw.
+
+To deal with this race condition, we introduce a different path to key
+deletion for psp_assocs removed from the socket during a tx rekey. psp
+core will use bql byte counters filled out by the driver to determine a
+conservative grace period where key handles can be disposed of.
+
+Lastly, some test cases for rekeying are included that go through key
+rotations and rekeying.
+
+There are some packetdrill tests that are queued for upstreaming [1].
+
+[1]: https://github.com/danieldzahka/packetdrill/commits/psp-rekey/
+
+Signed-off-by: Daniel Zahka <daniel.zahka@gmail.com>
+
+Changes in v2:
+- psp: support rx rekey operation
+  - copy old rx state by value instead of pointer to prev
+  - place non-datapath fields at end of struct psp_assoc
+  - disallow rx rekey when socket is not in full psp state, or
+    dev/version doesn't match
+  - require the new rx spi to have the opposite phase bit from the
+    previous one
+- psp: support tx rekey operation
+  - place new assoc on pas->assocs list instead of psd->active_assocs
+  - disallow tx rekey when socket is not in full psp state
+  - document rekeying in psp.rst
+  - reject tx rekey on SADB devices until deferred tx key deletion
+    lands
+- psp: defer tx key deletions for SADB drivers
+  - replaces "psp: add driver api for deferred tx key deletion"
+  - use bql byte counters instead of driver callback for grace periods
+  - only defer tx key deletion when socket outlives psp_assoc
+  - document driver requirements in psp.rst
+  - allow tx rekey on SADB devices
+- psp: add core tracked stat for outstanding tx keys
+  - replaces "psp: add core tracked stats for deferred key deletion"
+  - drop grace-periods stat
+  - rename tx-key-cnt to tx-key-count, only report it for SADB drivers
+  - warn about outstanding tx keys in psp_dev_unregister()
+- selftests: drv-net: psp: factor out psp connection setup
+  - split psp_responder conn_setup_psp() into rx_assoc() and tx_assoc()
+  - drop Reviewed-by from Willem due to psp_responder changes
+- selftests: drv-net: psp: add rekey tests
+  - add tests for rekeys rejected due to psp state and version
+    mismatch
+  - add test for rx rekey rejected without a device key rotation
+  - add rx-assoc, tx-assoc, and key-rotate rpcs to psp_responder
+- selftests: drv-net: psp: add a tx rekey drain test for SADB drivers
+  - new patch
+- mlx5: psp: implement deferred tx key deletion
+  - dropped, bql based grace periods need no driver callback
+- Link to v1: https://lore.kernel.org/r/20260204-psp-v1-0-5f034e2dfa36@gmail.com
+
+---
+Daniel Zahka (7):
+      psp: support rx rekey operation
+      psp: support tx rekey operation
+      psp: defer tx key deletions for SADB drivers
+      psp: add core tracked stat for outstanding tx keys
+      selftests: drv-net: psp: factor out psp connection setup
+      selftests: drv-net: psp: add rekey tests
+      selftests: drv-net: psp: add a tx rekey drain test for SADB drivers
+
+ Documentation/netlink/specs/psp.yaml               |   8 +
+ Documentation/networking/psp.rst                   |  64 +++-
+ include/net/psp/functions.h                        |  10 +-
+ include/net/psp/types.h                            |  34 +++
+ include/uapi/linux/psp.h                           |   1 +
+ net/psp/Kconfig                                    |   1 +
+ net/psp/Makefile                                   |   2 +-
+ net/psp/psp.h                                      |   8 +-
+ net/psp/psp_deferred_del.c                         | 231 +++++++++++++++
+ net/psp/psp_main.c                                 |  25 +-
+ net/psp/psp_nl.c                                   |   4 +
+ net/psp/psp_sock.c                                 | 113 ++++++-
+ tools/testing/selftests/drivers/net/psp.py         | 325 ++++++++++++++++++++-
+ .../testing/selftests/drivers/net/psp_responder.c  | 198 +++++++++++--
+ 14 files changed, 970 insertions(+), 54 deletions(-)
+---
+base-commit: d8674294aefef02266c4d47ad10131f1bffbe534
+change-id: 20260202-psp-3c8e2f65c5c4
+
+Best regards,
 -- 
-Cheers,
-Nathan
+Daniel Zahka <daniel.zahka@gmail.com>
+
