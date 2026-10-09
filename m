@@ -1,37 +1,77 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 351F83AC0E7;
-	Fri,  9 Oct 2026 04:14:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFEA03128DF
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 04:15:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791519288; cv=none; b=OYXg/ensoHnpG2JVXnm15DhvEnFn73YshAc0Nam15/kbBrQMSW7fR5ohO/Dee/xIjukc6dpravAkR2OGyRmWA3j+PCEje6Dln6zt1HwiJaZZWbE/MHOX/3e8C22FI4fQmx/LB58fapV/W2jQXz3Rw0iGY9NZ7i4hO8LZSEYbHGQ=
+	t=1791519330; cv=none; b=fo8p9Xnde17JClJlbRROV6NvhuMoz2YtSSEY2dsEJPcstME97kiTnZXYGm3eNxzQxmFpCGXx7HlQ8r/nReHqxL3ZjRC5bjfTguukNongQ7K2g0VdqJYabhcMypyn5huWUu4JZDQYP+mGzxb+dranEO5G5OaPVl/BvdjIzO8e7mY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791519288; c=relaxed/simple;
-	bh=Zn9YiIWM4CoWiDqy1p3+QNTaaPoQYnG3Cr0qF3WpYIE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=YL18NpELSp2KtxJwzUQimy79iG1V/tLmLJIFB5vF1lIEBFxz0Ba0v6EW8slp6QcZa3WZH6nhDX1zi7zTIZm5VKAtiOlpHa1GGMM/b2kTuXN6pJ1rnp6wU+sOl7v3KOGK5JNw+bA9Y9bFhoyNB+cd1ePCRlwLd3tpUSaSYOZCjmo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from fc87d0ffb700.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowACXljQoashqx4wbCg--.48197S2;
-	Fri, 09 Oct 2026 12:14:32 +0800 (CST)
-From: Haotian Zhang <vulab@iscas.ac.cn>
-To: Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Linus Walleij <linusw@kernel.org>,
-	Joel Stanley <joel@jms.id.au>,
-	Ryan Chen <ryan_chen@aspeedtech.com>,
-	Billy Tsai <billy_tsai@aspeedtech.com>,
-	"Chia-Wei, Wang" <chiawei_wang@aspeedtech.com>
-Cc: linux-aspeed@lists.ozlabs.org,
-	openbmc@lists.ozlabs.org,
-	linux-gpio@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] pinctrl: aspeed-g5: fix device node leak on LPC compatible mismatch
-Date: Fri,  9 Oct 2026 12:14:35 +0800
-Message-Id: <20261009041435.3096107-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1791519330; c=relaxed/simple;
+	bh=obDhGb5RLj9PYZ2eyCinsmiE9t59PJFY5sRh7w8PNpU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cp/XYZ30HDcwB6wWgsTvQ8cI1mAXsHpqe3QIt0eHqP8PAxfVBihiPEYSVWrjobJqdBYTHvCzoSMlmyXm9JrfOu2ibqfpV8N+WQkUaiFMvdqZunLZ1ISkw5NPPrQQbVSawDT2v61k4uR7kp/TCXIKAOjVrS/5NCTCxM1JQtPvdc4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu; spf=pass smtp.mailfrom=cs.unc.edu; dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b=kZpnoeZP; arc=none smtp.client-ip=209.85.160.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b="kZpnoeZP"
+Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-5339733feb9so33192131cf.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 21:15:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cs.unc.edu; s=google; t=1791519319; x=1792124119; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GnWq/2eDeNny1MK29b1wAOjSKjT1sD+08M0tNeVnBUM=;
+        b=kZpnoeZPlcvKM0n9ji/eQOOihiVhLVb5lnDDkenAEGA2XoYdXbHy9WCxh5xn7CHsgu
+         FoVXGD0WEgKcg8pT5pQwBYqyGT25XPl/ejMgHN9mIp/2UGkumZUz5woaEWJR4Y5vi7WQ
+         U8QUwch5VMisthQTiBIGfnsSfzgpHVuhdDGas09I+JGCyg4aWI7jLhoeGQeLez0kdCOw
+         rxBF775qHoZoj3yTp9SvgCRZFdLuZUSMy8KmeR50pHOdpZWKnM7/Imp3mD2Z674WoZkW
+         sxCzQt6RzRLEr8bfJ5XcSxV3upYwloV81lExbTX9FnzavZDS7/5+y+K+co8FAPTht86J
+         BKig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791519319; x=1792124119;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GnWq/2eDeNny1MK29b1wAOjSKjT1sD+08M0tNeVnBUM=;
+        b=N1Mt3p4W+2xGyLvhTNY3CoqLSZgmLX3Lv1V8Xs/ZHa201Qh6rG5jM1WWNZwwITHtTU
+         znrQO4Y4aZWIOH+551wSoxDPRNmql1/J4owEBdLnIA4osPTymW7smWi/uMUIXvJqXqMF
+         640gdHJsLADbct0gzv2hu51jTAMYNkg4OPbKXJaHHkzXxx/90FW4+8sUpQkbM1dgcSJ9
+         /eYAdvquQLBY5xjhrRYjxFYAFBiUeuuv6Uw7JlEc9yCJg92nloas9kKE9DOfHAvSawwb
+         4P9h14DC29MOZDbsU441hmsraRzv8o+m5uliw5ofr5H6xV4z98bAOFs4MJb/t4Rm0Mt5
+         fvcg==
+X-Forwarded-Encrypted: i=1; AKwUvByw7x0apKldyYWq421DJYlG34zdloQgX20lBCEGfHGwIHErAT11vL+/6c0dTaZwR+1kTTzZDIW8R9i9HAw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lBT7erzVHMqXCnokrL82VZxuOMoIW8ZSJ/dzAgVraOmEkhT3CE
+	xGEmWH8N2fY/ifAJI4nPfduwLn/I2oQA6B9D/0/dCtLNaygLPkewcG+AiTGkUl1Xmg==
+X-Gm-Gg: AYBFou1RNuBGWOq4SXelvZQZSfu6eQav6bhYuOabjbP+VWJf92T1egMmtYjK1IkrxPh
+	Jsr8iJ/8nFkL1XctEKplqUnJjHSf6tBP5hyUNUxsSf9+KUsqJoI9Vq09ISKQtJjpIR2uQi+QEyk
+	JgMvR2VWSZSukHIr/ZUHqpyvEapgaTZ6DKFzRfTeJOHQWVDWnO5ODmkGnPb2Vj9iFNSEJQzFVsj
+	+INaTFeBbtUTdqXkQZnRRSzqTMAYJa8iJxWZoESb+aVOO4e+0QHPM40gBZt8oLFczEYLxMT4WqH
+	iXss6DJIRm1bptscog7Xyrty6lNvJoXmmvayaXrEIif7c/j7/taCnFz7iDrE47pr4nyOC+viQKI
+	fp3kVnODGc5zY6nXM68Lhbee0qYp6iiIMs3As3jqurE4yj8DK7ieXsDjXPC12TnAGKWHPvsEoJ7
+	1Uqgh4eMlaa/yd2zkXnxZ6k3eA721Dp63pdq864HsuwBmAc6Gsd9lsuclOjC4FEUWSfAeVVML+y
+	uu0e5WtVJWcj1b391AHPw==
+X-Received: by 2002:a05:620a:17a3:b0:93e:84e5:3c66 with SMTP id af79cd13be357-93ebd21ffd0mr104850285a.40.1791519319093;
+        Thu, 08 Oct 2026 21:15:19 -0700 (PDT)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb98906c3sm96184185a.26.2026.10.08.21.15.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 21:15:18 -0700 (PDT)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: Jens Axboe <axboe@kernel.dk>
+Cc: Pavel Begunkov <asml.silence@gmail.com>,
+	David Wei <dw@davidwei.uk>,
+	io-uring@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org
+Subject: Re: [PATCH] io_uring: do not charge user provided SQ/CQ rings to RLIMIT_MEMLOCK
+Date: Fri,  9 Oct 2026 00:14:55 -0400
+Message-ID: <20261009041455.1974346-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <3b9d9c06-c6e8-4166-87d9-c7c220ad0b58@kernel.dk>
+References: <3b9d9c06-c6e8-4166-87d9-c7c220ad0b58@kernel.dk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -39,57 +79,38 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowACXljQoashqx4wbCg--.48197S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7ur1fKw4xAFWUGFyDZr18Zrb_yoW8Xr4kpa
-	y3WFWYvr13Jr4Y9rW8XFy0gayaka1fXrW5Ca97K3srZFnxtryftw13KFWjqrs09rWkA3WY
-	qF1Uta4Durn5Ar7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvKb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
-	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
-	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVWxJVW8Jr
-	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4IIrI8v6xkF7I0E8cxan2IY
-	04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r
-	1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CE
-	b7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0x
-	vE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAI
-	cVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxh
-	VjvjDU0xZFpf9x07b8kskUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAQPA2rIJHz+tgABs3
 
-aspeed_g5_acquire_regmap() takes a reference to the LPC device node with
-of_parse_phandle() and then returns -ENODEV if the node's parent is not
-compatible with "aspeed,ast2500-lpc-v2", without dropping that
-reference. The function is called for every pin configuration, so the
-leaked device_node reference accumulates on such systems.
+On 10/8/26 1:11 PM, Jens Axboe wrote:
+> Honestly, after taking a closer look at this, I think we're better off
+> with your original patch and one on top for pbuf rings. Please check:
+>
+> https://git.kernel.org/pub/scm/linux/kernel/git/axboe/linux.git/log/?h=io_uring-7.3
+>
+> for the top 2 commits. If you can re-test one more time, that'd be
+> great...
 
-Release the node with of_node_put() before returning from the error path.
+That works for me, and the two commits look good.
 
-Fixes: eaffd32bea0c ("pinctrl: aspeed-g5: Adapt to new LPC device tree layout")
-Assisted-by: DeepSeek-V4.1-Flash
-Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
----
- drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+I tested io_uring-7.3 at 9f0c88b7f884 as a user without CAP_IPC_LOCK and
+the default 8 MiB limit. Number of objects created out of 64, with 4096
+entries per ring and 32768 entries per buffer ring:
 
-diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c b/drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c
-index b0cba0f3e17e..6ab3ba89bd54 100644
---- a/drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c
-+++ b/drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c
-@@ -2652,8 +2652,11 @@ static struct regmap *aspeed_g5_acquire_regmap(struct aspeed_pinmux_data *ctx,
- 		np = of_parse_phandle(ctx->dev->of_node,
- 					"aspeed,external-nodes", 1);
- 		if (np) {
--			if (!of_device_is_compatible(np->parent, "aspeed,ast2500-lpc-v2"))
-+			if (!of_device_is_compatible(np->parent,
-+						     "aspeed,ast2500-lpc-v2")) {
-+				of_node_put(np);
- 				return ERR_PTR(-ENODEV);
-+			}
- 
- 			map = syscon_node_to_regmap(np->parent);
- 			of_node_put(np);
--- 
-2.25.1
+                                        v6.13  v7.3-rc4  9f0c88b7f884
+  rings, io_uring_queue_init()             64        16            64
+  rings, io_uring_queue_init_mem()         64        21            64
+  buffer rings, IOU_PBUF_RING_MMAP         64        15            64
+  buffer rings, user memory                64        15            64
 
+30 processes with 142 NO_MMAP rings of 64 entries each, which is what 30
+PostgreSQL 18 clusters with default settings create, all get their rings.
+On v7.3-rc4 7 of them do.
+
+The per-user locked_vm count stays balanced over ring create, close and
+resize and over buffer ring register and unregister. Registered buffers
+and IORING_REGISTER_MEM_REGION regions are charged and refused past the
+limit as before. Every liburing test gives the same result as on the
+previous tip of the branch (c746673517c6).
+
+For the buffer ring patch:
+
+Tested-by: Hengyu Liang <hengyul@cs.unc.edu>
