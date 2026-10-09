@@ -1,108 +1,291 @@
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-99.freemail.mail.aliyun.com (out30-99.freemail.mail.aliyun.com [115.124.30.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9950348A8C1
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 10:13:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F9F02737F9;
+	Fri,  9 Oct 2026 10:14:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791540830; cv=none; b=jfq0wLo0tp4xnKaTmP+QCV+nNilmB4CRcFazyWS7m/A/aeianolkNs4CZuoxluMsaGDB+UJyWLid95iI2mSO/eHYgLAVkH7XHkjcojA9ljp8md1Wo0ANKbKDHZE7ycZhvIBzj6xaDt+G72QS/dnkIHrLqVHkVRuJoTolkZ8AQEc=
+	t=1791540850; cv=none; b=nVKzkuVE/mRBH3SfLJIV2vFBoUv04FPmKNW58c2C2QS2x/4Axu+XG46Tl2eiK1zqK8x6XnJCV0hJ9p12GNJ5SlteH7GXYM54PiAtTlEbrLYLQLzRoN2hbqMnw7yLhl9MK7Wob174Q8tXvyoXQ7ypfSOUVtAqU9bDHpg3FL5/Iro=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791540830; c=relaxed/simple;
-	bh=0U4xIOg20BKcARrBmZvGznsOfRn9b7AZafGK+kezRBo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jH4+uBH5B4zTeAn9mRu+xej/hMsYxc+HMBhqcPr2SS8q8Phbs/GPZjlilLx+wPmzRlK6LJSv1hvN4wuRPrgI/a4cHrWM3v4bWwvHBRadnk+127nmXWgLuMWu7gewfyJfC99aUa6edwAvyAIHqVTDlLyRZ8N4dyyPJaZ/jJsjl9g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g3SHfbU9; arc=none smtp.client-ip=209.85.210.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791540850; c=relaxed/simple;
+	bh=/KxgX8F4YwpJXd5C12Xkck3LwZuZJq41LVY+9W+7P2w=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=d7Q0nBc3BhQNDad/8CwKvmdh1N3ufGE0Ik9SVy3zrJjJqNiB8Bm62qQilFjjTKrlO3mwTKp//wbF3ySaRf3/fttItMV6nydI5D5DB1HtUj3pd1LynupvWTbWiDCSWgoesBKx/pAvSPj8bV9h+RrTUM2Y1jLkFOlCpotF8aPByeE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=byaqqJyX; arc=none smtp.client-ip=115.124.30.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g3SHfbU9"
-Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-88b8f0a1bcdso3124793b3a.3
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 03:13:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791540828; x=1792145628; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vYXNKmY4LQUdBMbioRIMCa/Hf9fKGkwJzJMs+UpAab8=;
-        b=g3SHfbU9lk0LrjqoHD5FTenUEi9XHThlw+ag+eBxkXXJSl+zRTd9eWExniDdf2CkLb
-         xEiMj0tNHCv9Zr3j7kPztSp+HoedKukwET4fuxKFL1bI7ueBmFcRtH/Kn+fGoGSNmgvW
-         KK/0i/Tt9aEr3IiprCBsCeWg0xuv5bYjvcVlU5yiaNrjTCJwsKd3bCHISgsgqDdiYfFc
-         1qwRIm3a5R1ThlnISLKjAojMrcWQnsgBgyJRgaLJDP5KYZcz/BzlOwxUYJi94Z09PB0A
-         LS9Nasnr6JKe4Bu6VmpuqsFFlqcY6Rz/JZSedVRg0WExukIhMFw/DNGXFGwqZ7yxc2A5
-         yAAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791540828; x=1792145628;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vYXNKmY4LQUdBMbioRIMCa/Hf9fKGkwJzJMs+UpAab8=;
-        b=k6WdJkUgq9zm1PnVQUadO6lJ6EDb4vTcNSwYAkDJMPtxFPod2knBCffIJHPxSF5Vur
-         Yflo5wI2O6B86o16PGlQBudNZCmet77mtNHIx2kY5jvAaAF/MmVtNfAimazrbWNrw1ls
-         ENil1QGv7A9YyKNQU2DG2PyfP++H+9O02onqa8IkcV+hNKUGxtV0fYFHkIoZNQJp3ILd
-         t3QL7zXK+7Whf4bTmBdw0F/kKA2GrZKb554RNhsRPI1IidPd0QrmYJ3SY1QI+oj/A5uC
-         7+ZemarAXklgd9K7bNBmQGtE1aaawSI4PxEPBstgecCZT59hN9jocBW0aUCM2J1JrOQz
-         jg1g==
-X-Forwarded-Encrypted: i=1; AKwUvByKqlAETHLE+ox87Euht93KYblzxKq5PMXWPLEJlVZrUb6z1hJPIaAMmmJTmEaK33yyM3tqvUHxEYZ4bmQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI34D4Hauc4FvtQOPnd/WpqvnMQMHgCzddkg3hYF0AjC0fXfvZD
-	LsMLAXJI0gs0O46JqJz/gbsQlJq2EGe/zzLgPgQNOquourVE3DNN5bR3Y8PqcVojhGw=
-X-Gm-Gg: AYBFou0UM6umqqF3vvlNJW5bkp0INvyMj5y0gmikwdvZu8yMDtv6A1Lvv7qkuIb6k9F
-	rWKv4hHuSM8XvigPgH9OwbimQVYw6gXWdbKPLkSKNKHG5Xy3LCiA6g/7tcbn8I6BvQB66A19Fwp
-	qz7nu2WqGrxZfJWgvSXEeO640VUurTCIBZbtdlJ8dwHFgvlLDRSS+YrXU2rGrnJyoaZWtTpJP1B
-	6rGimbrtMmHZtWeO0UCBC9VG3GxPlbi5vOQGx28BaxA2T3IJI2I5BfMEvzrWetAT/CpY/M1kVuK
-	FSs21Z8heU6glpIm/OhxTpoJNoMbF/yF7hR/dmOshN6E2D+xRNbRLX12AYGo28wTpvNpciv1wZS
-	J1xV/DZKzClxKFuKLc1qCvUcF/Ad7tIfjouC9zctis5Z5+MpRkXaqEw3neEDMKqTXojTZYyRxDu
-	fVkfRMe3vQyoKMRV2xEcUbM/V/RTQqfuKXTC9zYTh42ctnsSTtH3Gw6kHXPQb5259iEDvrsW8EY
-	kSgq+cbToHeGp8eLmFqHcvxCjJaTF4VA6o=
-X-Received: by 2002:a05:6a00:4295:b0:874:706d:856a with SMTP id d2e1a72fcca58-897c79daa3bmr1137358b3a.27.1791540827847;
-        Fri, 09 Oct 2026 03:13:47 -0700 (PDT)
-Received: from qiwenjie-ThinkCentre-M760t.mioffice.cn ([43.224.245.241])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c37e2238sm683707b3a.22.2026.10.09.03.13.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 03:13:47 -0700 (PDT)
-From: Wenjie Qi <qwjhust@gmail.com>
-X-Google-Original-From: Wenjie Qi <qiwenjie@xiaomi.com>
-To: chao@kernel.org
-Cc: jaegeuk@kernel.org,
-	linux-f2fs-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	qiwenjie@xiaomi.com,
-	qwjhust@gmail.com
-Subject: Re: [PATCH v2 3/5] f2fs: cache: wake up f2fs_writeback when exceeding threshold
-Date: Fri,  9 Oct 2026 18:13:40 +0800
-Message-ID: <20261009101340.3525944-1-qiwenjie@xiaomi.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261009091857.1326197-1-chao@kernel.org>
-References: <20261009091857.1326197-1-chao@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="byaqqJyX"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1791540845; h=Message-ID:Date:MIME-Version:Subject:From:To:Content-Type;
+	bh=Mu/ZQABM8qhqcMl44qsHwngC77x8JwfLP3WIFCwDal8=;
+	b=byaqqJyX2qUr863wX7TDc5QUNiBw1GRY3Yw26kLEldx6Js/Srvq+nnJPG/qKTLXGfEyYur+NN3wkD+3C1FycmjhRx8sApLt4PXYXPLHEO7DmedfQoiRqW3JHP/BEPTUBuctrBjdo4tE+bXoj7d3n5kIABXTtgTsL5LYZLxhN0kg=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R381e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=11;SR=0;TI=SMTPD_---0XCT5rY._1791540843;
+Received: from 30.74.144.136(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XCT5rY._1791540843 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Fri, 09 Oct 2026 18:14:04 +0800
+Message-ID: <639389d5-5048-4145-bcbf-c4b2d57e86e8@linux.alibaba.com>
+Date: Fri, 9 Oct 2026 18:14:03 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [BUG] shmem: FALLOC_FL_PUNCH_HOLE vs fault-around race corrupts
+ page cache / rss counters
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+To: Pedro Falcato <pfalcato@suse.de>
+Cc: Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>,
+ Ayush Ranjan <ayushr@modal.com>, Hugh Dickins <hughd@google.com>,
+ Matthew Wilcox <willy@infradead.org>, David Hildenbrand <david@kernel.org>,
+ Gregory Price <gourry@gourry.net>, linux-mm@kvack.org,
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260924061708.1645968-1-ayushr@modal.com>
+ <arTdLsBENhrpOyk-@pedro-suse.tail5790ac.ts.net>
+ <20260925053027.1998394-1-ayushr@modal.com>
+ <20260925065013.3682431-1-ayushr@modal.com>
+ <20261003033107.1488699-1-ayushr@modal.com>
+ <20261004222831.bdd648a2b406f02747dd9e40@linux-foundation.org>
+ <fyswoh7wpxzlbnjjanggjd2jz6yispmeirhwjl3wzi57nacddb@bjkb6kxyfcal>
+ <fbb046b9-be48-42d8-96b3-7e554484b625@linux.alibaba.com>
+ <asigKktcrSY80A_2@pedro-suse.tail5790ac.ts.net>
+ <5ebaba53-b2de-490e-a14c-c49bbb4337ad@linux.alibaba.com>
+In-Reply-To: <5ebaba53-b2de-490e-a14c-c49bbb4337ad@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi Chao,
 
-> +	if (dirty_threshold && nr_dirty < dirty_threshold)
-> +		return false;
-> +
-> +	/* don't wake up f2fs_writeback if both thresholds are zero */
-> +	return total_threshold || dirty_threshold;
 
-There is a related case with only the total threshold enabled. With
-cache_wb_dirty_threshold=0 and cache_wb_total_threshold=1, clean cached
-entries keep the predicate true even when there are no dirty meta/node
-caches. Writeback does not necessarily evict those entries, so the
-thread can keep looping without sleeping.
+On 10/9/26 5:20 PM, Baolin Wang wrote:
+> 
+> 
+> On 10/9/26 4:41 PM, Pedro Falcato wrote:
+>> On Fri, Oct 09, 2026 at 02:46:18PM +0800, Baolin Wang wrote:
+>>>
+>>>
+>>> On 10/8/26 5:24 PM, Jan Kara wrote:
+>>>> On Sun 04-10-26 22:28:31, Andrew Morton wrote:
+>>>>> On Sat,  3 Oct 2026 03:31:03 +0000 Ayush Ranjan <ayushr@modal.com> 
+>>>>> wrote:
+>>>>>> Gentle ping on this. The reproducer in my previous mail [1] triggers
+>>>>>> "Bad page cache ... still mapped when deleted" on 6.18.46 within a
+>>>>>> couple of minutes on a 128-CPU bare-metal box, with no fork() and no
+>>>>>> gVisor involved.
+>>>>>>
+>>>>>> We continue to hit this in production at low frequency, so I am happy
+>>>>>> to test patches or collect more data if that would help.
+>>>>>>
+>>>>>
+>>>>> fwiw I made gpt and gemini argue about this for a while and ended up
+>>>>> with the below.
+>>>>
+>>>> Worth a try I guess. Let's see :)
+>>>>
+>>>>> From: Andrew Morton <akpm@linux-foundation.org>
+>>>>> Subject: mm: shmem: serialize fault-around against hole punching
+>>>>> Date: Sun Oct 4 09:05:31 PM PDT 2026
+>>>>>
+>>>>> shmem uses filemap_map_pages() for fault-around.  Unlike 
+>>>>> shmem_fault(),
+>>>>> filemap_map_pages() does not participate in shmem's fallocate 
+>>>>> exclusion
+>>>>> protocol.
+>>>>>
+>>>>> During a partial hole punch of a large shmem folio, the folio can 
+>>>>> be split
+>>>>> and the resulting smaller folios can remain temporarily visible in 
+>>>>> the page
+>>>>> cache while shmem_undo_range() restarts its walk.  Fault-around can 
+>>>>> then map
+>>>>> one of those folios again before the hole-punch path removes it.
+>>>>>
+>>>>> shmem_undo_range() may subsequently delete that folio from the page 
+>>>>> cache
+>>>>> despite the new userspace mapping.  This can trigger "still mapped 
+>>>>> when
+>>>>> deleted" warnings and leave stale mappings or inconsistent RSS/ 
+>>>>> page-table
+>>>>> accounting behind.
+>>>>
+>>>> So this part of explanation is either incomplete or wrong in my 
+>>>> opinion.
+>>>> Yes, shmem_undo_range() calls truncate_inode_partial_folio() which can
+>>>> split a large folio. Yes, filemap_map_pages() can map those pages 
+>>>> back into
+>>>> page tables. But how "shmem_undo_range() may subsequently delete 
+>>>> that folio
+>>>> from the page cache despite the new userspace mapping" happens is 
+>>>> unclear
+>>>> to me. After splitting a folio, shmem_undo_range() will restart and 
+>>>> find the
+>>>> newly split (and mapped) folios and calls truncate_inode_folio() to 
+>>>> get rid
+>>>> of them. Now truncate_inode_folio() calls truncate_cleanup_folio() 
+>>>> which
+>>>> does:
+>>>>
+>>>>           if (folio_mapped(folio))
+>>>>                   unmap_mapping_folio(folio);
+>>>>
+>>>> so the mapping is reliably removed under folio lock. Can you perhaps 
+>>>> push
+>>>> your agents further to explain in more detail how this "still mapped 
+>>>> when
+>>>> deleted" happens in their opinion?
+>>>
+>>> Good point and I think you are right.
+>>>
+>>> Yesterday I quickly reproduced the issue with Ayush's reproducer, and 
+>>> I got
+>>> the following crash info. From the dump message, we can see that
+>>> truncate_inode_folio() is really trying to remove mapped folios, 
+>>> which is
+>>> incorrect.
+>>>
+>>> I also quickly tried Andrew's patch, and the issue no longer 
+>>> reproduces, so
+>>> I initially thought that was the root cause. But after your reminder, 
+>>> I now
+>>> believe Andrew's patch merely workaround the issue rather than fixing 
+>>> the
+>>> actual root cause.
+>>>
+>>> Today I'm going to re-analyze the race with the reproducer (thanks 
+>>> Ayush).
+>>>
+>>> After analysis, I believe the race exists between truncation and
+>>> MADV_DONTNEED, and shmem's fault_around() merely makes the issue 
+>>> easier to
+>>> reproduce. Since MADV_DONTNEED synchronously releases the pagetable page
+>>> before calling tlb_flush_rmaps(), this could cause another thread's
+>>> truncation to skip zap_pte_range() but still observe the folio's 
+>>> mapcount as
+>>> non-zero. A possible race scenario is as follows:
+>>>
+>>> CPU 0                CPU 1
+>>>                 madvise_dontneed_single_vma
+>>> shmem_fallocate            ......
+>>>    ......              zap_pte_range
+>>>    truncate_inode_folio            zap_empty_pte_table(pmd clear)
+>>>      unmap_mapping_folio
+>>>      ......
+>>>        zap_pmd_range(saw pmd none)
+>>>      filemap_remove_folio
+>>>         BUG_ON(folio_mapped)
+>>>                     tlb_flush_rmaps
+>>
+>> Thanks for the investigation!
+>>
+>> So, I think I understand the problem (rmap walks race PTE zapping, 
+>> which no
+>> longer serializes on the PTE lock), but I don't understand your 
+>> solution at
+>> all.
+>>>
+>>> Based on the above race analysis, I made the following fix that uses 
+>>> the PMD
+>>> lock synchronously to prevent this race, and the issue no longer 
+>>> reproduces.
+>>> I will clean it up and send out a formal patch.
+>>>
+>>> diff --git a/mm/memory.c b/mm/memory.c
+>>> index 6a8e7772b8d6..2039ada99b64 100644
+>>> --- a/mm/memory.c
+>>> +++ b/mm/memory.c
+>>> @@ -2036,6 +2036,15 @@ static unsigned long zap_pte_range(struct 
+>>> mmu_gather
+>>> *tlb,
+>>>                  }
+>>>          } while (pte += nr, addr += PAGE_SIZE * nr, addr != end);
+>>>
+>>> +       add_mm_rss_vec(mm, rss);
+>>> +       lazy_mmu_mode_disable();
+>>> +
+>>> +       /* Do the actual TLB flush before dropping ptl */
+>>> +       if (force_flush) {
+>>> +               tlb_flush_mmu_tlbonly(tlb);
+>>> +               tlb_flush_rmaps(tlb, vma);
+>>> +       }
+>>> +
+>>>          /*
+>>>           * Fast path: try to hold the pmd lock and unmap the PTE page.
+>>>           *
+>>> @@ -2046,15 +2055,6 @@ static unsigned long zap_pte_range(struct 
+>>> mmu_gather
+>>> *tlb,
+>>>           */
+>>>          if (can_reclaim_pt && direct_reclaim && addr == end)
+>>>                  direct_reclaim = zap_empty_pte_table(mm, pmd, ptl, 
+>>> &pmdval);
+>>> -
+>>> -       add_mm_rss_vec(mm, rss);
+>>> -       lazy_mmu_mode_disable();
+>>> -
+>>> -       /* Do the actual TLB flush before dropping ptl */
+>>> -       if (force_flush) {
+>>> -               tlb_flush_mmu_tlbonly(tlb);
+>>> -               tlb_flush_rmaps(tlb, vma);
+>>> -       }
+>>>          pte_unmap_unlock(start_pte, ptl);
+>>
+>> Namely, why moving this hunk of code up there makes any difference.
+>> I suppose it's subtly changing memory order, but it's not immediate
+>> in any way why this is correct.
+>>
+>> What you really need (I think) is a happens-before relationship between
+>> the rmap changes and the PMD zapping. Something like:
+>>
+>> diff --git a/mm/memory.c b/mm/memory.c
+>> index 330cde31bf8b..17cdd48fff27 100644
+>> --- a/mm/memory.c
+>> +++ b/mm/memory.c
+>> @@ -2108,6 +2108,13 @@ static inline unsigned long 
+>> zap_pmd_range(struct mmu_gather *tlb,
+>>                          sync_with_folio_pmd_zap(tlb->mm, pmd);
+>>                  }
+>>                  if (pmd_none(*pmd)) {
+>> +                       /*
+>> +                        * Pairs with tlb_flush_rmaps() in PTE zapping.
+>> +                        * Possibly skipping a page table (due to PTE 
+>> zapping)
+>> +                        * needs to enforce ordering between the rmap 
+>> changes
+>> +                        * and the PMD getting cleared.
+>> +                        */
+>> +                       smp_rmb();
+>>                          addr = next;
+>>                          continue;
+>>                  }
+>> diff --git a/mm/mmu_gather.c b/mm/mmu_gather.c
+>> index 9f353f0e2ef4..47b25c42bf77 100644
+>> --- a/mm/mmu_gather.c
+>> +++ b/mm/mmu_gather.c
+>> @@ -89,6 +89,10 @@ void tlb_flush_rmaps(struct mmu_gather *tlb, struct 
+>> vm_area_struct *vma)
+>>          tlb_flush_rmap_batch(&tlb->local, vma);
+>>          if (tlb->active != &tlb->local)
+>>                  tlb_flush_rmap_batch(tlb->active, vma);
+>> +       /*
+>> +        * rmap changes need to be observed before e.g PTEs get zapped.
+>> +        */
+>> +       smp_wmb();
+>>          tlb->delayed_rmap = 0;
+>>   }
+>>   #endif
+>>
+>> On top of your diff. Where the smp_wmb() is perhaps not required: I 
+>> suppose TLB flushing
+>> works as a sort of memory barrier itself on most/all architectures.
+>> Either way, we have to document and fix expectations around this code.
+> 
+> Agree, I don't think we need smp_wmb() here. Moreover, 
+> zap_empty_pte_table() will call the pmd lock/unlock, which already 
+> indicates a memory barrier.
 
-I checked this in QEMU using dev-test plus my both-zero fix, which has
-the same predicate for these fixed threshold values. In a three-second
-idle interval, the writeback thread used about three CPU seconds;
-the total cache count was 22 and the dirty count was zero at both
-sample points.
+After more thinking, I think we still need an smp_wmb(). Please review 
+my new fix patch. Thanks.
 
-Should the thread wait when no dirty caches remain, even if the total
-threshold is still met, or is different behavior intended for this mode?
-
-Best regards,
-Wenjie
+https://lore.kernel.org/all/0d2a1809fa1cfc22ad3df26ec28b2d30e5cdf3bd.1791540483.git.baolin.wang@linux.alibaba.com/
