@@ -1,115 +1,80 @@
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC8CE3E6392
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 11:32:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D46FE4CB8B8;
+	Fri,  9 Oct 2026 11:32:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791545550; cv=none; b=ANND4khCAExbLFg9lfGg7yfbJ2edEQMjP8ft3O7YzxC1NZj0d9V0hrBoIiSG0oO1uXfzuQHgvH/VRa9uJHC5tlf5smgEKdnBcUWE2AWp4LktKJQXuvOGegmBdskXHmxIOV4rHx2Lr+9KiS23c18qMlySOv4z2d4i8DZBr7xoqPI=
+	t=1791545587; cv=none; b=GGVK9+6UvF8UDy4h5QrXNSWDIvIi4F9eDUALoOrNjbSEHPr+v02P3B1V8y77Kb5jgB7yTQ8uWRsmnaPjad3yBiKhpIeai0uDdOhnfsflMy1sIhFolDyRDkgoclFlNuLFrXJto81NNV25/yO8ObcOf9F02db108ztGBaiYspI8QE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791545550; c=relaxed/simple;
-	bh=JOfTL5sJbEeKUPqnV8GkeCHd+99LXw7TYpKTV4o3L18=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oLQr4hAOqalHymnm7CQmKpQ4bJW46cNqYVW0JXxGAc3bIQeJA3m+irlXFGAWewnQ6HIbrA3ZZlcGVsun1g00i6hbBC+jqTsq8p8vAjPniSpTKIdFGOdv21vhUJNsbDdMGWAFMTdzcpXN5LYQU2Cch2vkE6rxEoOK5ACnOEHmI/I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k/eXhsNR; arc=none smtp.client-ip=74.125.82.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791545587; c=relaxed/simple;
+	bh=z5aEDYn46/Rah5/v3ES417Z60fjjD21TcnkEvWmnJ0U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bHYkLqnKkHus7fpMgEeBuwFfwFpiYVW0nPYsmSaVKhmQGHF1XFD6L6xCAOlE9SqLJAnlgf2UUzQ7tFSz8Mzj+bBWCs45Q+pIdUbQmiag8+DAjTK1INQuIMZjlbrwZ5HWjvd1gS5g4ufLcLDL32mt2TH2xu9vsYOBmY9LyDXnh5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=aeIdbDZ6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k/eXhsNR"
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-34c4a0868b6so5778084eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 04:32:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791545540; x=1792150340; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5bMlxewub9p/T2xvh3MjzZ66gKld4I4neePTrZHO9Yw=;
-        b=k/eXhsNR+usBjAXoyI5R3hSe/Tls1hLcb1FDLXE8BloAjRwR9NnUoowy4K0J4VaY+2
-         IPRF1OHh048i2B2/zHyy39954hSnu+A3kkF0or0OgBdkM0uKwI55NE7bMBEpMKcfXhe7
-         cmGrnX/2bKOTt1aSnJN8WvB9dFrf1iamKPwQyExe8oY3q+7kwg4ZpGSwj6sdsoASO7DT
-         EmHK4dQTchqXroWSTorMQEm2sjx/tYbC2lvvBmNVIbUMhpLWhaSmKt6/w2vaCtwfiDoL
-         wBcKmliggW4a54Ia3Fvbxj2fd/vhNmAWgk2yWuzwd+w/ybh/qjx7wEX1z8k9MmJQlLh1
-         inSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791545540; x=1792150340;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5bMlxewub9p/T2xvh3MjzZ66gKld4I4neePTrZHO9Yw=;
-        b=yeq16a8I/q2rp1rKZ1B/LQjOm95ptgKXrYZzXFslHgDzVthYBuG9ci41KUnxLPsKAq
-         ymJID+NQl7uA+/gWxv4dWau+Vs8zu1mk49bQnKci9AyWI9mWx8QFyfyg1BMdqFG+xzLT
-         ywqy8573iYNKc2CY9Swy6O9ZNCSKrXE7LQVYVMwtPg72W1n5Mn4vJN5q2bYB9kNBSdXe
-         SIHv3exL8F0RvphzUrcN0qx7rE9FvHpkBGde9UzVDCQI5Gf04b2AcImOV4VCPBOrjAZW
-         g0agkJSwVRz7cWAoWi7VHLHCpZtmRlLI3jqh5Rrp5vCGjXJ8Qr//QxPSppsLyod0u6kj
-         Kq4Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzLiBAsti3+fIAgZoMpByNC5GClwihDLyAMmgaHYhISJiLeTeRz5jKeWFksNedMoGHaJjqr8GaktjZFw+g=@vger.kernel.org
-X-Gm-Message-State: AFuF++ljXnCSMIz2fJB8l6GUX6l+Vrcdfph35DDAZ0uFllFQjBm24uEK
-	tQCyc8geHPzpEQSC+HciAKdl+di5/d5W9tf8lUbnoesDbnQr57NtQ9/NIc0RbEqn
-X-Gm-Gg: AYBFou1l99QSl+7rfX4oVvr1Qg8PjTE71XDWwhMGkTVSiNcdz0zmJEdfGpYNvFszBal
-	Z8nSFdWCbAUv+MSt9eDoiRN0jZJWasXyjExXbcDShCumLhoCDoJQhqw+MUlf2KNjqTvJ8g8Af0q
-	/sSelk30ORrZBnyKX0AEl3x/0JwvsT1arUtlfrxL3zBqGDEnuRzvZc5FOuLQLy6QyoPtBOeFKcO
-	DI1VnCYiYHGtDdUr7i/yEfGZCBskT9b63mYcIYXQ035TddBnmZCD5caXMfTBie7ypNYJ7lUPzPR
-	7eRq1mFDf/TgKT5BydotZ3dfTzRv5AFpStgqoeur9Qa+1MRWGETQySPMzOl2axhJgyw58YGuKSa
-	uLnJ6Po9V4tqsf0QvQ/3OdN0gL6iUaX4QtJ47pe8RGIwnDix4toNSAHfZdAQfydL/hFFFDlnwtV
-	Zr0SCZzGisj64sTTJf8yp1zj16vDqVwtlnFu9pvrx+1E8GwlJ7szqdNkPjf8VK7lTG7R299gnFo
-	b2514y8
-X-Received: by 2002:a05:7301:dd95:b0:353:58b7:b5fa with SMTP id 5a478bee46e88-3535f48136amr3132590eec.1.1791545539457;
-        Fri, 09 Oct 2026 04:32:19 -0700 (PDT)
-Received: from amd.ban-spse ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cab27d5sm7529934eec.17.2026.10.09.04.32.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 04:32:19 -0700 (PDT)
-From: Priyanka Mani <priyankamani2100@gmail.com>
-To: Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>
-Cc: Shuah Khan <shuah@kernel.org>,
-	Ivan Orlov <iorlov@amazon.com>,
-	kvm@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] KVM: selftests: Fix ndata size check in test_mmio_during_vectoring
-Date: Fri,  9 Oct 2026 11:30:17 +0000
-Message-ID: <eef6bc34bdf7391c5d3eb4b1ba5e97819e22ae8f.1791542392.git.priyankamani2100@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="aeIdbDZ6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD2061F000FF;
+	Fri,  9 Oct 2026 11:32:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791545575;
+	bh=1TATMZV82HPA+UYPELErnG3JuDM2v3RmbEJ3bvUFlwM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aeIdbDZ6tV5Cgc6h5ww0qAomP8LWTdS8U4emwByw7Yi/HuH/13rRQvUBOocV3AuZW
+	 EJ04Qkim+A59/RpufsRQUYsHGq89Hod1EQvRYlnhCYYMApDbx03gSJn1ryQc+W0l3+
+	 IJRiXtIq57ltgftZggMBuq3y6z5aCMEsTITp0LqE=
+Date: Fri, 9 Oct 2026 13:32:52 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Alan Stern <stern@rowland.harvard.edu>
+Cc: Zuo An <zuoan.penguin@gmail.com>, linux-doc@vger.kernel.org,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] docs: ABI: sysfs-bus-usb: fix typo in path to interface
+ file
+Message-ID: <2026100906-wildfire-mountable-6aca@gregkh>
+References: <aseApS_MWoP3Jtp0@gmail.com>
+ <45fffbff-1653-45c5-8e24-d5a580faf5aa@rowland.harvard.edu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <45fffbff-1653-45c5-8e24-d5a580faf5aa@rowland.harvard.edu>
 
-test_mmio_during_vectoring() verifies that KVM reports the faulting GPA in
-run->internal.data[3] when an emulated MMIO access occurs during event
-vectoring.  kvm_prepare_event_vectoring_exit() always fills five entries
-(info2, reason, info1, gpa, last_vmentry_cpu), i.e. internal.ndata is 5.
+On Thu, Oct 08, 2026 at 10:22:42AM -0400, Alan Stern wrote:
+> On Thu, Oct 08, 2026 at 11:38:13AM +0000, Zuo An wrote:
+> > A path was misspelt with the delimiter between the USB <config num> and
+> > <interface num> as "-", when it should be ".".
+> > 
+> > Signed-off-by: Zuo An <zuoan.penguin@gmail.com>
+> > ---
+> >  Documentation/ABI/stable/sysfs-bus-usb | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > 
+> > diff --git a/Documentation/ABI/stable/sysfs-bus-usb b/Documentation/ABI/stable/sysfs-bus-usb
+> > index cad4bc232520..400237db166d 100644
+> > --- a/Documentation/ABI/stable/sysfs-bus-usb
+> > +++ b/Documentation/ABI/stable/sysfs-bus-usb
+> > @@ -60,7 +60,7 @@ Users:
+> >  		PowerTOP <powertop@lists.01.org>
+> >  		https://01.org/powertop/
+> >  
+> > -What:		/sys/bus/usb/devices/<busnum>-<port[.port]>...:<config num>-<interface num>/supports_autosuspend
+> > +What:		/sys/bus/usb/devices/<busnum>-<port[.port]>...:<config num>.<interface num>/supports_autosuspend
+> >  Date:		January 2008
+> >  KernelVersion:	2.6.27
+> >  Contact:	Sarah Sharp <sarah.a.sharp@intel.com>
+> 
+> In addition, Sarah has not been the appropriate contact for ages.  Greg, 
+> would you like to remove that line?
 
-The test, however, checks "ndata != 4" before dereferencing data[3].  That
-predicate does not actually validate the array size: it passes for ndata ==
-3, where data[3] is out of bounds yet is read just below, and it spuriously
-fails if ndata were ever exactly 4.  It only happens to work today because
-KVM returns 5.
+Yeah, that's a good idea probably for all usb sysfs files, the
+"contact:" field isn't needed anymore now that we have get_maintainer.pl
+which should always handle the right people/lists for figuring this out
+properly.
 
-Assert the real expected size, ndata == 5, so that the subsequent data[3]
-access is properly guarded and the test enforces the exit's contract.
+thanks,
 
-Fixes: 62e41f6b4f36 ("KVM: selftests: Add test case for MMIO during vectoring on x86")
-Signed-off-by: Priyanka Mani <priyankamani2100@gmail.com>
----
- tools/testing/selftests/kvm/set_memory_region_test.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/tools/testing/selftests/kvm/set_memory_region_test.c b/tools/testing/selftests/kvm/set_memory_region_test.c
-index dffe9654f45b..627ebc2ba024 100644
---- a/tools/testing/selftests/kvm/set_memory_region_test.c
-+++ b/tools/testing/selftests/kvm/set_memory_region_test.c
-@@ -606,7 +606,7 @@ static void test_mmio_during_vectoring(void)
- 	TEST_ASSERT_KVM_EXIT_REASON(vcpu, KVM_EXIT_INTERNAL_ERROR);
- 	TEST_ASSERT(run->internal.suberror == KVM_INTERNAL_ERROR_DELIVERY_EV,
- 		    "Unexpected suberror = %d", vcpu->run->internal.suberror);
--	TEST_ASSERT(run->internal.ndata != 4, "Unexpected internal error data array size = %d",
-+	TEST_ASSERT(run->internal.ndata == 5, "Unexpected internal error data array size = %d",
- 		    run->internal.ndata);
- 
- 	/* The reported GPA should be IDT base + offset of the GP vector */
--- 
-2.43.0
-
+greg k-h
