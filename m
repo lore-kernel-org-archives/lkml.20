@@ -1,199 +1,129 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA3363C3F51
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 06:54:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE77E3BB689
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 06:54:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791528873; cv=none; b=k+iLY8OcsfqPZtOeEhsITB4PVwlhVDfVDBPvEbyGIET4o+pJFSEvUPKRdb3u6Di14BeFiw+7Bh/jjfCOXHlEN2wDF3y7ssVo5r71H6797BR9Du97BUV05vM9rQQDz1NnvmB4G+DisnmHwZFM4+Hd77zZg00WGz7O5hbCR2toPLo=
+	t=1791528875; cv=none; b=KGxPztkanp5vnu1qC1h+Q90g9PkLemLlhfJ/9SlCrVBtf/+F6Mg+3+DoUTTpsfX6AlZDbX1HoQM81PU2l5vewpKBKWLf3BYLgSZIULpQ3PsZJ3Qz+aU8sWNZXkQqqQZb1onjuAg9bG7iQjp4XRNJyC2eQ6EQYTIYayw6W9mWRzE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791528873; c=relaxed/simple;
-	bh=n7TuFPqgtRxjCRGFyy+0Rdz7rjIvV+ajIcqXa5LF3yU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kO6RFlb5LgCZ0FKRnoQ2drQum7jqUxz7+NbTZmIUXyocMAuXe1IkFtivKvIiCkiMP8IRRt6+nX9xwEVk51JRCG5X+rF9TeorV+hL3EtE7SCtaGFjDrQNOiE+tBCEGt49RdESsjXvQRR/XqFGaYX0FWLwP1sFb888BPpy7KYpOFw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Naw2yRK2; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791528875; c=relaxed/simple;
+	bh=T6CW6eIIjDRuMCeNkO+47KQJAuDB8lChFB7dh7ew3tc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=nT5Dl/pQWgF1Yt7cQL2d7xcArzGbxnaIEMoxkvDWtJ3uoQ9R63ChHZ68ED08cgfmPACC+3zaSJvAUEf5QAwqRoCkeq/gDbXTICISirdnBSfRcTHy6lU2SimwGcauLt4FiVhwkZaevdSoufMjZSkTNW+ZBne1qwICEAZ7Eb69qZU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YiE6B6Je; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Naw2yRK2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791528870;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vcePdjvF8DWO+rsrHllskedZqHh+JrGfqqP/14EOl+o=;
-	b=Naw2yRK2SpNlWVaonkvLAIJZDLGOs+2vRUapHUH6jTOYpLW1K4Lw8vw64Wz4IfaytRNLZm
-	zcw5F7ETV5cUKS6Q862DBhKA1jPXAsyR+J7/HlKx0bx2cM7q/I49trWP0UeFW1E3m3sNks
-	hY72wpDDbIWp54S8OCp20RwcesHC0aY=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-599-CgNFcyNiNbGWNS8jzJ5UJA-1; Fri,
- 09 Oct 2026 02:54:27 -0400
-X-MC-Unique: CgNFcyNiNbGWNS8jzJ5UJA-1
-X-Mimecast-MFC-AGG-ID: CgNFcyNiNbGWNS8jzJ5UJA_1791528866
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C90E41802173;
-	Fri,  9 Oct 2026 06:54:25 +0000 (UTC)
-Received: from jtornosm-thinkpadp1gen7.rmtes.csb (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 0D9C11956095;
-	Fri,  9 Oct 2026 06:54:22 +0000 (UTC)
-From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
-To: herbert@gondor.apana.org.au,
-	davem@davemloft.net,
-	johannes@sipsolutions.net,
-	miriam.rachel.korenblit@intel.com
-Cc: ilan.peer@intel.com,
-	emmanuel.grumbach@intel.com,
-	linux-crypto@vger.kernel.org,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
-Subject: [PATCH v3 1/4] crypto: fips: add fips_exception kernel boot parameter and fips_allows_exception() helper
-Date: Fri,  9 Oct 2026 08:54:10 +0200
-Message-ID: <20261009065413.53403-2-jtornosm@redhat.com>
-In-Reply-To: <20261009065413.53403-1-jtornosm@redhat.com>
-References: <20261009065413.53403-1-jtornosm@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YiE6B6Je"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 933EE1F008A2
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 06:54:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791528874;
+	bh=06QBzCXNVWA52XqK4TOlg6a6r68c0bAK18RCVlbai3E=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=YiE6B6Je3umtVXzq3Mr+gELqjv3GxQE7GXN7wwK0TExP/3MbmJsoDIRnju8Nz8+ps
+	 e0edxCcemk8F7VGCZ5lyC5nc1jtcwu+vZjO9+pWzWJUW+xYRztYGmu7mFOd9umi+bH
+	 cTaQ0P0cAqp+0dNQXtUe83kWmV8Os5YN9BmbScbQ2dJ2Oph+3F9Shzim5sMRS383Tv
+	 0kzs6j4BoH+YKOvnzd7Z/0zHdC2zCSiNMBIGFQOmKtV3UiRWEfyRpUSa4BQN0bJcJ+
+	 3yH/ZIuFI1S5V+Ebr4ZnTs4PkRXNN7zAwyttTCYSrlhI0bJ8LCSvUXlI5RC2sUPA6U
+	 NkvF4Lf+i5Cyg==
+Received: by mail-oo1-f44.google.com with SMTP id 006d021491bc7-6c8f6a53fabso1327436eaf.1
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 23:54:34 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwhymrOvz9jD66gbVadW7wzy4vL/xaXtWMwFoAmG6I1Rd1hHQ1m/qVJysFXMaC6ATflfaLW1cCGCyMxETk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lxHYceczuWbyN521TeQnH8U2QBKKASOhcey2Rp/q/H287Z/Xkd
+	df/xD9OPe/2ciDYd5dYjy7G/pSmO7YnWtNShndsWYUfRvATWATF5THwFUMhDdLIxb9gV1Fae5hs
+	LfEhcYsP7k3xnEzR9q0haV/xbyO2XXOk=
+X-Received: by 2002:a05:6820:c98:b0:6d7:294:ef93 with SMTP id
+ 006d021491bc7-6eee58f58cbmr865984eaf.68.1791528873851; Thu, 08 Oct 2026
+ 23:54:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+References: <pm-ip-core-objects-candidate-0002-v9-1404514d79dd4560c571@gmail.com>
+In-Reply-To: <pm-ip-core-objects-candidate-0002-v9-1404514d79dd4560c571@gmail.com>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Fri, 9 Oct 2026 08:54:21 +0200
+X-Gmail-Original-Message-ID: <CAL4WiirhPWmWCnPLHJVp8vXUvPGo6CQ6HC0ZmaEzYXmP8uZtzA@mail.gmail.com>
+X-Gm-Features: AclHuK_4rc-K38AyJ0dtzz7KoSpe9qNAcpD0zjCYRCssCVISK54w2IqH9Ba6080
+Message-ID: <CAL4WiirhPWmWCnPLHJVp8vXUvPGo6CQ6HC0ZmaEzYXmP8uZtzA@mail.gmail.com>
+Subject: Re: [PATCH net v2] ipv4: prevent in_dev_get() from returning a dead in_device
+To: Cen Zhang <zzzccc427@gmail.com>
+Cc: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net, 
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, jiri@resnulli.us, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, baul.lee@xbow.com, 
+	baijiaju1990@gmail.com, jjzuming@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add a new kernel boot parameter fips_exception=<bitmap> to allow
-documented exceptions to strict FIPS compliance when full compliance
-is not achievable due to hardware/firmware limitations but
-functionality is required.
+Le ven. 9 oct. 2026 =C3=A0 08:21, Cen Zhang <zzzccc427@gmail.com> a =C3=A9c=
+rit :
+>
+> in_dev_get() samples dev->ip_ptr under RCU and unconditionally
+> increments the in_device reference count. Device teardown can clear
+> the pointer and drop the last reference after the sample but before
+> the increment. RCU keeps the allocation accessible during the lookup,
+> but does not guarantee that a reference can still be acquired.
+>
+> Commit 9d40c84cf5bc ("net: devinet: Reduce refcount before grace period")
+> moved the final put before the grace period. A zero-count increment now
+> warns and saturates the count, but cannot cancel the RCU free that has
+> already been queued. Returning that pointer lets callers access the
+> allocation after leaving RCU, when it can have been freed.
+>
+> Use refcount_inc_not_zero() and return NULL if the reference cannot be
+> acquired, following the in6_dev_get() fix in commit 0e243671bc7b ("ipv6:
+> prevent in6_dev_get() from resurrecting inet6_dev"). A successful
+> increment retains the object for the caller. Under RTNL, a published
+> in_device still has a live reference, so reference acquisition is
+> unchanged. Callers already account for a NULL dev->ip_ptr result.
+>
+> The RTM_GETNETCONF handler already checks for NULL and can keep
+> RTNL_FLAG_DOIT_UNLOCKED. This fixes reference acquisition in the helper
+> rather than serializing that one reader with teardown.
+>
+> KASAN report as below:
+>
+>   BUG: KASAN: slab-use-after-free in inet_netconf_fill_devconf+0x748/0x79=
+0
+>   Read of size 4 at addr ffff88811d70b958 by task ip_core_fixture/498
+>
+>   Call Trace:
+>     [...]
+>     inet_netconf_fill_devconf+0x748/0x790
+>     inet_netconf_get_devconf+0x41c/0xe40
+>     rtnetlink_rcv_msg+0x7b9/0xce0
+>     netlink_rcv_skb+0x133/0x390
+>     [...]
+>
+>   Allocated by task 496:
+>     [...]
+>     inetdev_init+0x60/0x550
+>     inetdev_event+0x71e/0x1780
+>     [...]
+>
+>   Freed by task 0:
+>     [...]
+>     kfree+0x12b/0x530
+>     in_dev_free_rcu+0x51/0x90
+>     rcu_core+0x661/0x1d10
+>     [...]
+>
+>   Last potentially related work creation:
+>     [...]
+>     __call_rcu_common.constprop.0+0x76/0xbd0
+>     in_dev_finish_destroy+0x12e/0x190
+>     inetdev_event+0xa37/0x1780
+>     [...]
 
-The parameter is stored in a static variable and accessed through the
-exported fips_allows_exception() helper function, which returns true
-when FIPS is enabled and the requested exception bit is set. This
-makes fips_allows_exception() an explicit "is this FIPS exception
-active?" check, only meaningful when FIPS mode is on.
+This is very confusing.
+The changelog shows only the KASAN splat, which is really not that
+interesting here.
+The refcount_t: addition on 0 warning that must precede it would be
+stronger evidence, as in the IPv6 commit.
 
-For !CONFIG_CRYPTO_FIPS, fips_allows_exception() is a trivial static
-inline returning false (no FIPS means no FIPS exceptions).
+So this looks like a modified kernel or something like AI hallucination ?
+Please elaborate
 
-The parameter is exposed as a read-only sysctl at
-/proc/sys/crypto/fips_exception for runtime inspection. As with
-fips_enabled, it is intentionally not writable at runtime so that
-enabling exceptions requires a deliberate boot-time decision,
-visible in /proc/cmdline.
-
-The bitmap design allows individual subsystem exceptions to be
-defined independently. Currently defined bits:
-  - Bit 0 (FIPS_EXCEPTION_WIFI_MFP): Allow WiFi MFP (802.11w)
-    in FIPS mode despite firmware sending some unprotected
-    management frames on TX
-
-Without this parameter (or with fips_exception=0), all existing
-FIPS restrictions remain in effect.
-
-Signed-off-by: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
----
-v3: rename fips_allows() to fips_allows_exception(), change semantics
-    to fips_enabled && exception (was !fips_enabled || exception)
-v2: https://lore.kernel.org/all/20260930120829.383408-2-jtornosm@redhat.com/
-
- crypto/fips.c        | 27 +++++++++++++++++++++++++++
- include/linux/fips.h | 14 ++++++++++++++
- 2 files changed, 41 insertions(+)
-
-diff --git a/crypto/fips.c b/crypto/fips.c
-index c59711248d95..0f075e61a657 100644
---- a/crypto/fips.c
-+++ b/crypto/fips.c
-@@ -21,6 +21,15 @@ EXPORT_SYMBOL_GPL(fips_enabled);
- ATOMIC_NOTIFIER_HEAD(fips_fail_notif_chain);
- EXPORT_SYMBOL_GPL(fips_fail_notif_chain);
- 
-+static unsigned long fips_exception;
-+
-+int fips_allows_exception(unsigned long feature)
-+{
-+	return fips_enabled &&
-+	       (fips_exception & feature);
-+}
-+EXPORT_SYMBOL_GPL(fips_allows_exception);
-+
- /* Process kernel command-line parameter at boot time. fips=0 or fips=1 */
- static int __init fips_enable(char *str)
- {
-@@ -34,6 +43,17 @@ static int __init fips_enable(char *str)
- 
- __setup("fips=", fips_enable);
- 
-+static int __init fips_exception_setup(char *str)
-+{
-+	if (kstrtoul(str, 0, &fips_exception))
-+		return 0;
-+
-+	pr_info("fips exceptions: 0x%lx\n", fips_exception);
-+	return 1;
-+}
-+
-+__setup("fips_exception=", fips_exception_setup);
-+
- #define FIPS_MODULE_NAME CONFIG_CRYPTO_FIPS_NAME
- #ifdef CONFIG_CRYPTO_FIPS_CUSTOM_VERSION
- #define FIPS_MODULE_VERSION CONFIG_CRYPTO_FIPS_VERSION
-@@ -52,6 +72,13 @@ static const struct ctl_table crypto_sysctl_table[] = {
- 		.mode		= 0444,
- 		.proc_handler	= proc_dointvec
- 	},
-+	{
-+		.procname	= "fips_exception",
-+		.data		= &fips_exception,
-+		.maxlen		= sizeof(unsigned long),
-+		.mode		= 0444,
-+		.proc_handler	= proc_doulongvec_minmax
-+	},
- 	{
- 		.procname	= "fips_name",
- 		.data		= &fips_name,
-diff --git a/include/linux/fips.h b/include/linux/fips.h
-index c6961e932fef..61fe58b0762c 100644
---- a/include/linux/fips.h
-+++ b/include/linux/fips.h
-@@ -2,17 +2,31 @@
- #ifndef _FIPS_H
- #define _FIPS_H
- 
-+#include <linux/bits.h>
-+
- #ifdef CONFIG_CRYPTO_FIPS
- extern int fips_enabled;
- extern struct atomic_notifier_head fips_fail_notif_chain;
- 
- void fips_fail_notify(void);
-+/*
-+ * fips_allows_exception - check if a FIPS exception is active
-+ * Returns true when FIPS is enabled and the requested exception
-+ * bit is set via the fips_exception= boot parameter.
-+ */
-+int fips_allows_exception(unsigned long feature);
- 
- #else
- #define fips_enabled 0
- 
- static inline void fips_fail_notify(void) {}
-+static inline int fips_allows_exception(unsigned long feature)
-+{
-+	return 0;
-+}
- 
- #endif
- 
-+#define FIPS_EXCEPTION_WIFI_MFP	BIT(0)
-+
- #endif
--- 
-2.55.0
-
+pw-bot: cr
