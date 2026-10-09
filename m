@@ -1,349 +1,134 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 682384D7965;
-	Fri,  9 Oct 2026 11:43:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E9244DA9AC;
+	Fri,  9 Oct 2026 11:43:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791546208; cv=none; b=KLKJNqubD5kJDAdCjJn5+jR8WbO8hNnz52xFhrwYnMt7b12+hljDu3ZZ6bQed5txnWbambwtJj0uFPvgECkQ2uQRpkqaCPtjxL6ZUUpueh11Y7pZDlM31aA4eKyzxNfqFM0QQ3uOliIJn35zy40ZX2vyBl0QfUKxNkZeWdYFYOk=
+	t=1791546211; cv=none; b=gTjfsniEraOlNkb0Tw9sKYBUO8dtFz4uiQCtwuKVhEDY4fnxqFOcRez5PS5bee/va4ULc7t0raOAesHRGa82qgTUGPtI7VbowkDMlxfT1N12KwYX2+xth5hUx6HsNX0gsYFnPTjszcTfuYOZ/8Pto0vy3UxfxphgnmlkSOUms0E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791546208; c=relaxed/simple;
-	bh=rUNQIsj75qmOBUfILezDEdZQiTQabD7S35DjS0eVppw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Qgf2hHIQyvoY0UnYIuZ6T46AtleVTOXA8PTXUX3Gz2PZR7DfJRnIbGTUg2v8QY8U50+8DNEzVNHyNbQVE28UDX/CtHBShx7SJkO51o9kor1T9giRq3oqB3K89/VDnXIcBxMfs203L0N3V/1A7s7pKr7RDQ09HoNkaWrrfW7Sz8I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=bbgm2GwU; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1791546211; c=relaxed/simple;
+	bh=pJTK58zAmjDfhwIbFJdxlYqFa8gxhsBGASxcrE44yLE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MAmEd2pYWD+m5yCEqRKf3BspTS7J+4+bIBefApYoAKEXaWUvXJklPScLiYK8mhFr8YB+AiGMy/p2+a1yn9tqSfO/4T5IHjug17t9dSzcAwkNPLqkLzVDrjNJnnvjwlzREY1+0OKZ1frUtwv/Wz6LWGUgvgtuijjQW+wcvp9nAB8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D1eL6w6E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="bbgm2GwU"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6998ZYR62596557;
-	Fri, 9 Oct 2026 11:43:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=gMNNMYzZRAO9a/Ul1
-	WY+jc219fozkZ5vsuGwUpH/GcM=; b=bbgm2GwUjB/2taul9IWGtLEzoD2DzB71q
-	EJVVHWgdDF5LDJNZiu3hplNVU+mEYHsE5vBh340h7CDTwPwIQs3Wo+VOWOKy9L9Q
-	bgFLpqRwVrGkPPF20GvpLPQIPFm+AnYI0rz1fXfAZXYgJMEgqr2o4R9kK6Hv21Hp
-	oUQDmQwQCSo66iYICr0R6me16dMKQXeAQCfP+oEU+y39m/7KqDQ+GszoZE/AfrUn
-	wGmS0ESg7Dp9aLX0TMiU1H8NXlRIGEiqiKIk0UxGNoIN9j4QzTZ5YGncCQSpJ1j+
-	Nvxr+T2AsEtKs2grTeL8Y3NLxCEx++FMu8D0Wui1kJ15RyH6FJqag==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h5xk1hn6n-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 09 Oct 2026 11:43:07 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6998I35M621418;
-	Fri, 9 Oct 2026 11:43:07 GMT
-Received: from smtprelay04.dal12v.mail.ibm.com ([172.16.1.6])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h6hsnjtp0-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 09 Oct 2026 11:43:07 +0000 (GMT)
-Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com [10.39.53.231])
-	by smtprelay04.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 699Bh57R51315104
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 9 Oct 2026 11:43:06 GMT
-Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 97CAE58050;
-	Fri,  9 Oct 2026 11:43:05 +0000 (GMT)
-Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id D83FE58054;
-	Fri,  9 Oct 2026 11:43:03 +0000 (GMT)
-Received: from li-4c4c4544-004d-4810-8043-b7c04f423534.ibm.com.com (unknown [9.61.159.45])
-	by smtpav04.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Fri,  9 Oct 2026 11:43:03 +0000 (GMT)
-From: Anthony Krowiak <akrowiak@linux.ibm.com>
-To: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
-        kvm@vger.kernel.org
-Cc: jjherne@linux.ibm.com, borntraeger@de.ibm.com, mjrosato@linux.ibm.com,
-        pasic@linux.ibm.com, alex@shazbot.org, kwankhede@nvidia.com,
-        fiuczy@linux.ibm.com, pbonzini@redhat.com, frankja@linux.ibm.com,
-        imbrenda@linux.ibm.com, agordeev@linux.ibm.com, hca@linux.ibm.com,
-        gor@linux.ibm.com
-Subject: [PATCH v8 10/15] s390/vfio-ap: Add method to set a new guest AP configuration
-Date: Fri,  9 Oct 2026 07:42:39 -0400
-Message-ID: <20261009114244.1213173-11-akrowiak@linux.ibm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261009114244.1213173-1-akrowiak@linux.ibm.com>
-References: <20261009114244.1213173-1-akrowiak@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D1eL6w6E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 990401F000FF;
+	Fri,  9 Oct 2026 11:43:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791546200;
+	bh=CpEZlDsRDuWenxcVgqGImJd26hAtuDMO57pjc3sZvDA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=D1eL6w6Ewdr6llyTH4fAbb8hCyFLsOSKaLbrXG209Y1k/pmbDbwi6+HhvQZEnddfv
+	 ozhgqIAZPEJiYixReahW0E5j5paGGbV175wO5N0/2qMKx3icHiuOPsyYXPPJS/PDGD
+	 7O3rKXjf8R3Fb2Zj3IDfyYyEvaVylAPPRdpibqcld4DiywBWyC3NeCk8iJ98EZvdH8
+	 pxwSahZW5Y7TUwRoT0kSnbHmwd5EgIGvkWb7Uiz6jn5t3n8Dv2hYfwx1QEEU0vOBoW
+	 A8KAHkqPFemwxUmaYpBpwCxyJN72FWr7gCMN/SwHyFcMD6oeN0X/No8SJAzwbx6W2E
+	 Ve2mqwlmxiPEQ==
+Message-ID: <b8cc8683-d114-48c8-af60-ecd8e16bdf46@kernel.org>
+Date: Fri, 9 Oct 2026 13:43:09 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=YtCa1IYX c=1 sm=1 tr=0 ts=6ac8d34b cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=7yNgoilTr2P9NN8D:21 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8
- a=yveY4INecE8b9H3w9zAA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDA0NiBTYWx0ZWRfX7BNau7D66h2F
- sIyjVVA6APwsutHY4rrxrnbDGYPQjrsAtpYHJJWuz+7/67QTCP/qDvgx5dwiBq/662WZRNP4BNL
- d4VIO+ExV7SCAL57DagzuYFnnqQUvZiaIdoXgPAfvIa0D6uPK/gcq3/FyRrPbml1HQdpE+QIbc1
- NPxlkXNrX+3I2sQb6bkoh77HdG2KTWfDu/7oG45uAvupeiG6ndo6/1EL6sKeQ7aRdJo4MLDrcw3
- gDxALIUtVPsYS9SCzfvA8u1sHHgdQYrI7x9C+gROlO6l4PMz8Kl23q26yoBFaCyJPO0csfk9CM3
- RLNCnt967O51cgS4TNJp59Ufb50LYpmz5D2Xdjom9yHF+ngycZQ7XOVnyGiJHwuRc+ZbX4Lb5nY
- Ibg5oM4O5tVPpE7B1k6PkXizxrDcNvMw7eIKCKBoa87IWL1Ep437v7m0nWgFQbLzNcetj5rLh54
- PPn6McU7vVun8kgEPmQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDA0NiBTYWx0ZWRfX9PMmWdBOZrrk
- Lki7bIsbDf0aE5pcfEK43i0cxqCfBtR+tgaPRxWf3/IzwNFBRFQ9JcEBz55ia0SIg5FVGm+iO3k
- stzt5WKYY2bcMegOmAOz/yoZ1Cb52cI=
-X-Proofpoint-GUID: kuhm_aqjhBuvzYSMZTlsA2_FpKUDuCop
-X-Proofpoint-ORIG-GUID: kuhm_aqjhBuvzYSMZTlsA2_FpKUDuCop
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-09_03,2026-10-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 bulkscore=0 clxscore=1015 priorityscore=1501
- lowpriorityscore=0 suspectscore=0 malwarescore=0 adultscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610090046
+User-Agent: Mozilla Thunderbird
+Subject: Re: (subset) [PATCH v2 0/4] arm64: dts: qcom: Add support for Radxa
+ Dragon Q8B
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Andrzej Hajda
+ <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Bartosz Golaszewski
+ <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Xilin Wu <sophon@radxa.com>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
+ Stephen Chen <stephen@radxa.com>, Junhao Xie <bigfoot@radxa.com>,
+ dragon@radxa.com, Krzysztof Kozlowski
+ <krzysztof.kozlowski@oss.qualcomm.com>,
+ Daniele Briguglio <hello@superkali.me>
+References: <20261009-q8b-dts-v2-0-eda11e5dea8b@radxa.com>
+ <179153455955.2970577.14103639336377928226.b4-ty@b4>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <179153455955.2970577.14103639336377928226.b4-ty@b4>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Adds a new vfio_ap_set_new_config function to set a guest's AP
-configuration. This is needed in order to set the state of the mdev when
-it is migrated from a remote host system during the RESUMING phase.
+On 09/10/2026 10:29, Dmitry Baryshkov wrote:
+> On Fri, 09 Oct 2026 15:55:05 +0800, Xilin Wu wrote:
+>> The Radxa Dragon Q8B is a single-board computer based on the Qualcomm
+>> Snapdragon 8cx Gen 3 (SC8280XP) platform.
+>>
+>> The board provides UFS and microSD storage, two M.2 M-key slots, an M.2
+>> E-key slot, a QPS615/TC9563 PCIe switch, USB Type-C ports with DisplayPort
+>> alternate mode, USB Type-A ports, HDMI 2.1 output, headset audio and
+>> a 40-pin expansion header.
+>>
+>> [...]
+> 
+> Applied to drm-misc-next, thanks!
+> 
+> [1/4] dt-bindings: display: bridge: simple: document Chrontel CH7218A
+>       commit: 377682cf917027396211426c509cae5785305ba8
 
-Key changes:
-* Refactored code from the ap_config_store function - handles changes to
-  the sysfs ap_config attribute - into a new, non-static function which
-  is callable from the ap_config_store function as well as the live guest
-  migration code.
+So the fake tag gets applied. Having 12 minutes to respond to this
+posting is NOT enough.
 
-Signed-off-by: Anthony Krowiak <akrowiak@linux.ibm.com>
----
- drivers/s390/crypto/vfio_ap_ops.c     | 159 +++++++++++++++++++-------
- drivers/s390/crypto/vfio_ap_private.h |   5 +
- 2 files changed, 120 insertions(+), 44 deletions(-)
-
-diff --git a/drivers/s390/crypto/vfio_ap_ops.c b/drivers/s390/crypto/vfio_ap_ops.c
-index c951f289f305..5803207e9846 100644
---- a/drivers/s390/crypto/vfio_ap_ops.c
-+++ b/drivers/s390/crypto/vfio_ap_ops.c
-@@ -981,8 +981,7 @@ static void vfio_ap_mdev_link_adapter(struct ap_matrix_mdev *matrix_mdev,
- 	unsigned long apqi;
- 
- 	for_each_set_bit_inv(apqi, matrix_mdev->matrix.aqm, AP_DOMAINS)
--		vfio_ap_mdev_link_apqn(matrix_mdev,
--				       AP_MKQID(apid, apqi));
-+		vfio_ap_mdev_link_apqn(matrix_mdev, AP_MKQID(apid, apqi));
- }
- 
- static void collect_queues_to_reset(struct ap_matrix_mdev *matrix_mdev,
-@@ -1692,54 +1691,98 @@ static void ap_matrix_copy(struct ap_matrix *dst, struct ap_matrix *src)
- 	bitmap_copy(dst->adm, src->adm, AP_DOMAINS);
- }
- 
--static ssize_t ap_config_store(struct device *dev, struct device_attribute *attr,
--			       const char *buf, size_t count)
-+static void get_removed_matrixes(struct ap_matrix *m_removed,
-+				 struct ap_matrix *m_old,
-+				 struct ap_matrix *m_new)
- {
--	struct ap_matrix_mdev *matrix_mdev = dev_get_drvdata(dev);
--	struct ap_matrix m_new, m_old, m_added, m_removed;
-+	bitmap_andnot(m_removed->apm, m_old->apm, m_new->apm, AP_DEVICES);
-+	bitmap_andnot(m_removed->aqm, m_old->aqm, m_new->aqm, AP_DOMAINS);
-+	bitmap_andnot(m_removed->adm, m_old->adm, m_new->adm, AP_DOMAINS);
-+}
-+
-+static void get_added_matrixes(struct ap_matrix *m_added,
-+			       struct ap_matrix *m_old,
-+			       struct ap_matrix *m_new)
-+{
-+	bitmap_andnot(m_added->apm, m_new->apm, m_old->apm, AP_DEVICES);
-+	bitmap_andnot(m_added->aqm, m_new->aqm, m_old->aqm, AP_DOMAINS);
-+	bitmap_andnot(m_added->adm, m_new->adm, m_old->adm, AP_DOMAINS);
-+}
-+
-+static int validate_new_state(struct ap_matrix_mdev *matrix_mdev)
-+{
-+	int rc;
-+
-+	/* Ensure new state is valid, else undo new state */
-+	rc = vfio_ap_mdev_validate_masks(matrix_mdev);
-+	if (rc)
-+		return rc;
-+
-+	rc = ap_matrix_overflow_check(matrix_mdev);
-+	if (rc)
-+		return rc;
-+
-+	return 0;
-+}
-+
-+static void link_new_queues(struct ap_matrix_mdev *matrix_mdev,
-+			    struct ap_matrix *m_added)
-+{
-+	unsigned long apid, apqi;
-+
-+	for_each_set_bit_inv(apid, m_added->apm, AP_DEVICES)
-+		vfio_ap_mdev_link_adapter(matrix_mdev, apid);
-+
-+	for_each_set_bit_inv(apqi, m_added->aqm, AP_DOMAINS)
-+		vfio_ap_mdev_link_domain(matrix_mdev, apqi);
-+}
-+
-+/**
-+ * vfio_ap_set_new_guest_config:
-+ *
-+ * Set a new AP configuration for a guest.
-+ *
-+ * @matrix_mdev: Object used to maintain the AP configuration for a guest
-+ * @m_new:		 Object used to set the new AP configuration
-+ *
-+ * Returns: zero (0) if the new AP configuration is successfully set; otherwise,
-+ *	    returns an error:
-+ *
-+ *	    ~ EADDRNOTAVAIL One or more APQNs are reserved for host use
-+ *	    ~ EADDRINUSE    One or more APQNs are assigned to another mdev
-+ *	    ~ ENODEV	    An adapter, domain or control domain in the new
-+ *			    AP configuration exceeds the max architected value
-+ */
-+int vfio_ap_set_new_guest_config(struct ap_matrix_mdev *matrix_mdev,
-+				 struct ap_matrix *m_new)
-+{
-+	struct ap_matrix m_old, m_added, m_removed;
- 	DECLARE_BITMAP(apm_filtered, AP_DEVICES);
--	unsigned long newbit;
--	char *newbuf, *rest;
--	int rc = count;
- 	bool do_update;
-+	int rc;
- 
--	newbuf = kstrndup(buf, AP_CONFIG_STRLEN, GFP_KERNEL);
--	if (!newbuf)
--		return -ENOMEM;
--	rest = newbuf;
--
--	mutex_lock(&ap_attr_mutex);
--	get_update_locks_for_mdev(matrix_mdev);
-+	lockdep_assert_held(&ap_attr_mutex);
-+	assert_has_update_locks_for_mdev(matrix_mdev);
- 
--	/* Save old state */
-+	/* Save the old matrix to restore it if validation fails */
- 	ap_matrix_copy(&m_old, &matrix_mdev->matrix);
--	if (parse_bitmap(&rest, m_new.apm, AP_DEVICES) ||
--	    parse_bitmap(&rest, m_new.aqm, AP_DOMAINS) ||
--	    parse_bitmap(&rest, m_new.adm, AP_DOMAINS)) {
--		rc = -EINVAL;
--		goto out;
--	}
- 
--	bitmap_andnot(m_removed.apm, m_old.apm, m_new.apm, AP_DEVICES);
--	bitmap_andnot(m_removed.aqm, m_old.aqm, m_new.aqm, AP_DOMAINS);
--	bitmap_andnot(m_added.apm, m_new.apm, m_old.apm, AP_DEVICES);
--	bitmap_andnot(m_added.aqm, m_new.aqm, m_old.aqm, AP_DOMAINS);
-+	/*
-+	 * Get the adapters, domains and control domains added and/or removed
-+	 * from the existing configuration
-+	 */
-+	get_removed_matrixes(&m_removed, &m_old, m_new);
-+	get_added_matrixes(&m_added, &m_old, m_new);
- 
- 	/* Need new bitmaps in matrix_mdev for validation */
--	ap_matrix_copy(&matrix_mdev->matrix, &m_new);
-+	ap_matrix_copy(&matrix_mdev->matrix, m_new);
- 
- 	/* Ensure new state is valid, else undo new state */
--	rc = vfio_ap_mdev_validate_masks(matrix_mdev);
--	if (rc) {
--		ap_matrix_copy(&matrix_mdev->matrix, &m_old);
--		goto out;
--	}
--	rc = ap_matrix_overflow_check(matrix_mdev);
-+	rc = validate_new_state(matrix_mdev);
- 	if (rc) {
- 		ap_matrix_copy(&matrix_mdev->matrix, &m_old);
--		goto out;
-+		return rc;
- 	}
--	rc = count;
- 
- 	/* Need old bitmaps in matrix_mdev for unplug/unlink */
- 	ap_matrix_copy(&matrix_mdev->matrix, &m_old);
-@@ -1749,14 +1792,10 @@ static ssize_t ap_config_store(struct device *dev, struct device_attribute *attr
- 	vfio_ap_mdev_hot_unplug_domains(matrix_mdev, m_removed.aqm);
- 
- 	/* Need new bitmaps in matrix_mdev for linking new adapters/domains */
--	ap_matrix_copy(&matrix_mdev->matrix, &m_new);
-+	ap_matrix_copy(&matrix_mdev->matrix, m_new);
- 
--	/* Link newly added adapters */
--	for_each_set_bit_inv(newbit, m_added.apm, AP_DEVICES)
--		vfio_ap_mdev_link_adapter(matrix_mdev, newbit);
--
--	for_each_set_bit_inv(newbit, m_added.aqm, AP_DOMAINS)
--		vfio_ap_mdev_link_domain(matrix_mdev, newbit);
-+	/* Link queues associated with the newly added adapters and domains */
-+	link_new_queues(matrix_mdev, &m_added);
- 
- 	/* filter resources not bound to vfio-ap */
- 	do_update = vfio_ap_mdev_filter_matrix(matrix_mdev, apm_filtered);
-@@ -1767,7 +1806,39 @@ static ssize_t ap_config_store(struct device *dev, struct device_attribute *attr
- 		vfio_ap_mdev_update_guest_apcb(matrix_mdev);
- 		reset_queues_for_apids(matrix_mdev, apm_filtered);
- 	}
--out:
-+
-+	return 0;
-+}
-+
-+static ssize_t ap_config_store(struct device *dev, struct device_attribute *attr,
-+			       const char *buf, size_t count)
-+{
-+	struct ap_matrix_mdev *matrix_mdev = dev_get_drvdata(dev);
-+	struct ap_matrix m_new;
-+	char *newbuf, *rest;
-+	ssize_t rc;
-+
-+	newbuf = kstrndup(buf, AP_CONFIG_STRLEN, GFP_KERNEL);
-+	if (!newbuf)
-+		return -ENOMEM;
-+	rest = newbuf;
-+
-+	mutex_lock(&ap_attr_mutex);
-+	get_update_locks_for_mdev(matrix_mdev);
-+
-+	if (parse_bitmap(&rest, m_new.apm, AP_DEVICES) ||
-+	    parse_bitmap(&rest, m_new.aqm, AP_DOMAINS) ||
-+	    parse_bitmap(&rest, m_new.adm, AP_DOMAINS)) {
-+		kfree(newbuf);
-+		release_update_locks_for_mdev(matrix_mdev);
-+		mutex_unlock(&ap_attr_mutex);
-+		return -EINVAL;
-+	}
-+
-+	rc = vfio_ap_set_new_guest_config(matrix_mdev, &m_new);
-+	if (!rc)
-+		rc = count;
-+
- 	release_update_locks_for_mdev(matrix_mdev);
- 	mutex_unlock(&ap_attr_mutex);
- 	kfree(newbuf);
-diff --git a/drivers/s390/crypto/vfio_ap_private.h b/drivers/s390/crypto/vfio_ap_private.h
-index 9044ef4408c8..3910b5c023c9 100644
---- a/drivers/s390/crypto/vfio_ap_private.h
-+++ b/drivers/s390/crypto/vfio_ap_private.h
-@@ -172,6 +172,8 @@ void vfio_ap_on_cfg_changed(struct ap_config_info *new_config_info,
- void vfio_ap_on_scan_complete(struct ap_config_info *new_config_info,
- 			      struct ap_config_info *old_config_info);
- 
-+void vfio_ap_matrix_init(struct ap_config_info *info, struct ap_matrix *matrix);
-+
- void vfio_ap_init_migration_capabilities(struct ap_matrix_mdev *matrix_mdev);
- int vfio_ap_init_migration_data(struct ap_matrix_mdev *matrix_mdev);
- void vfio_ap_release_migration_data(struct ap_matrix_mdev *matrix_mdev);
-@@ -235,4 +237,7 @@ assert_has_update_locks_for_mdev(struct ap_matrix_mdev *matrix_mdev)
- 
- void vfio_ap_matrix_init(struct ap_config_info *info, struct ap_matrix *matrix);
- 
-+int vfio_ap_set_new_guest_config(struct ap_matrix_mdev *matrix_mdev,
-+				 struct ap_matrix *m_new);
-+
- #endif /* _VFIO_AP_PRIVATE_H_ */
--- 
-2.53.0
-
+Best regards,
+Krzysztof
