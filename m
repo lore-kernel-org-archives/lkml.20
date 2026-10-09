@@ -1,156 +1,146 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010015.outbound.protection.outlook.com [40.93.198.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F0DE35AC0E;
-	Fri,  9 Oct 2026 15:59:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791561551; cv=none; b=ZXSUxqYGb7+EF/5s5whOKdsmonuc/NHftQwadEo+5HFSkVv/pM8rpEkfNpAX5Ld9tPpjoOaIIJ44njBF2s/MyVR98+GtxGSIeOJsfSXEH5PJbdu/eyFC0SUwbBjjSlWZsK/Iv3eKnzmYVw+ITO8kX1fpLtaroXqyvncf2aLBioM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791561551; c=relaxed/simple;
-	bh=xAv3WXdTWpUbIh1hTQCZXRJgClOt1KE9NC7oJ8dIKzE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BfZeXeXyCCMziR9I9BBo8rLtmiIRllPtbri8OwPc5r1VWgg2GeXEvJ2xik96TtN1wdJ6veBUDpul0Li+miXN7X+ZyP+fE2/Sh9UmVWuJc8Yi2deagAqoaX0pXNKTtKb3lc0ELeFQeN42p6OhhmjgwS/cgyL66VG5yja3T+5lV1I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=iw4UpGNi; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F77A395D8C
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 16:00:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791561603; cv=fail; b=jYLSIzoKey2fJ/atqM007T3NqXuAQA12vrxSONABS/PGA0rxYIW5pql9MS/5+fGnQr7sVc7E5Bw0nMyeD6tOAPDxavOt2pdj+fZVY8szge4kqpAjlK5n62teWr/LJSWekMrp6f2RMWYTQs3R8UN5fjO4YgfdHJWWP6kzRo2rVJU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791561603; c=relaxed/simple;
+	bh=jhDbuiefNrSu3r+3NuPCHeC88H3bKmdxl+KEeTdMs/Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=DHRDAqStsupLHmWdRvg7zXAQ3NOpGXgoSgY4G2KeJLpVnYyZ3onYOhwoWMM3j2uAyOWBPpWu5+rNEDNI39rfC0f/PTX67w1rtedADMUAuvdblSZQ9qpdo/zXDf6fsk9+PbYzIx4SNTgmVKbGhpmA7zoFzslyOpMB7Emb7MrMBao=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=VAhZtlLN; arc=fail smtp.client-ip=40.93.198.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="iw4UpGNi"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 699DaXLm3215154;
-	Fri, 9 Oct 2026 15:58:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=S500zq
-	SvZHCzcxNpN162xsalG0hh5JMHIOUVFVDGkIM=; b=iw4UpGNibeM3GKyeg/qZnm
-	NAZLPghX6zqBkiQukG6LkK9XEJCXslZp3dXQZpy7eH+kr/FEy8Atzh+Ci8l34Tln
-	oaDIm0LemzqPJ9wl/oKg2fFAeJTj7I0UevcKfPEzGBKZtNNxMZaXIPpeDw2pYk0D
-	AGcZ5X98vjdbkWG8wtL9lwHCvQNGX4gQVMzCm8w54Tj79IzZ0h2/nrMYh4zWzeVN
-	xNHZPtTjhad3V+Jf/irG35KeJzSu9szpEYmcaV01PZ+93neoANWHNlOPauwiQwER
-	IjHAKWbxv+CnPl9hjISD4SzUqmsPq9I1Vq74/r/9Vl5FaYbXiK0hMA1c1v7X72Lw
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h5xk1ju5t-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 09 Oct 2026 15:58:55 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 699DWWnM3886526;
-	Fri, 9 Oct 2026 15:58:55 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h5f3u3jgw-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 09 Oct 2026 15:58:54 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 699Fwpow47383014
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 9 Oct 2026 15:58:51 GMT
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 0BEC02004D;
-	Fri,  9 Oct 2026 15:58:51 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 3697320040;
-	Fri,  9 Oct 2026 15:58:50 +0000 (GMT)
-Received: from [9.111.137.247] (unknown [9.111.137.247])
-	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Fri,  9 Oct 2026 15:58:50 +0000 (GMT)
-Message-ID: <99fd2571-7fc5-4e4f-993a-b858f83581fd@linux.ibm.com>
-Date: Fri, 9 Oct 2026 17:58:49 +0200
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="VAhZtlLN"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZO5Q9Vq/FfBHhavZoFYOavFrnm2Tjj+qzE7BkLDxjbmRmffgUh+bn/ODUS3vZpR2UhKUA3G/Hk4pbXSSUHGa44RWs0sxcLyu+0ZBPzjPKyS2qs3UzYPk6vGnVnyOSTeOMtRPxMSXbQdy/dSRUT5K30cUU8DaLPXdQFdWmX29YRfmrtqGGeXNZF/PgaXGq72jPtYvilHfi5zsgBCs7Foyo8ly4Y6vbDomsTllyqOgGzdQIn6hG0tQfQCNBvHNVHgMGHtnfErjGO6aJyeKtrx/vWx0dFRaTfHM5T3NWBKInUJRewMiYTtI8z6nJVzSHEiYUHoHhH444KyR5KQBFNXh0w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ECWA6iXMYwaHBnsvZRZyDvstqer4qfN2f2yCql7O9RQ=;
+ b=LRVanpNNE023DjyOvhS204BNWBZ9pw6BQQqpuXHO69eauF9QrfZ0wnZBtBeH5wAu/BrKWO8XY9VGvJLNrTy+WV/CcdBt6PuU12UgqnO+Yt4fk4E+Gg3DOT1PPsIcjS0VrDvHB6O/sQjhEnzw5IA0tXt4XWbFkAqO30gaJWsttRR1nNrb3MYYFv36iqduGL9iJa70shLQslzf5ncUnQYvT2DE9Wb8H9II6E+GRRFrlAcFFBFlxRrEs+L8p6X+oKxurlz0w1dT40z0HGPkV7/Pw1vr2VUBsyMpi03mkAEeTdstyfxohqs/lAC3xZfebes+CZZ+rjHTVHR79wk/7JCZ/g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=infradead.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ECWA6iXMYwaHBnsvZRZyDvstqer4qfN2f2yCql7O9RQ=;
+ b=VAhZtlLNXQ7gwsw/EOfDBaF+umEFqib4xtxHUD7Udlm9v8Klz8TIGk6pjJ8WZ0Va1zNB/tfNfybp/KdRG1rQkoJZfuDad4xB7heVVDW1/7rgLjgYpDDQHzPTTQ/oF2a1xLianBr0gJIfJsUOG08YD8ApTSHvjbib5FeP7gxUj80=
+Received: from BN9PR03CA0760.namprd03.prod.outlook.com (2603:10b6:408:13a::15)
+ by CH2PR12MB4183.namprd12.prod.outlook.com (2603:10b6:610:7a::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
+ 2026 15:59:56 +0000
+Received: from BN1PEPF00018546.namprd05.prod.outlook.com
+ (2603:10b6:408:13a:cafe::4a) by BN9PR03CA0760.outlook.office365.com
+ (2603:10b6:408:13a::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Fri, 9
+ Oct 2026 15:59:56 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN1PEPF00018546.mail.protection.outlook.com (10.167.248.5) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Fri, 9 Oct 2026 15:59:56 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 9 Oct
+ 2026 10:59:51 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 9 Oct
+ 2026 10:59:51 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Fri, 9 Oct 2026 10:59:50 -0500
+Message-ID: <694d6976-4b2b-650b-ffe1-77f5f3cdd65d@amd.com>
+Date: Fri, 9 Oct 2026 08:59:55 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2] s390/ism: Zerorize dmb at allocation
-To: patchwork-bot+netdevbpf@kernel.org
-Cc: aswin@linux.ibm.com, gbayer@linux.ibm.com, davem@davemloft.net,
-        kuba@kernel.org, pabeni@redhat.com, edumazet@google.com,
-        andrew+netdev@lunn.ch, julianr@linux.ibm.com, netdev@vger.kernel.org,
-        linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
-        hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com,
-        borntraeger@linux.ibm.com, svens@linux.ibm.com, horms@kernel.org,
-        stable@vger.kernel.org
-References: <20260928151420.383105-1-wintera@linux.ibm.com>
- <179081520578.2192623.15327890080313694045.git-patchwork-notify@kernel.org>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] accel/amdxdna: Fix Kconfig invalid configuration
 Content-Language: en-US
-From: Alexandra Winter <wintera@linux.ibm.com>
-In-Reply-To: <179081520578.2192623.15327890080313694045.git-patchwork-notify@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+To: "Liam R. Howlett" <liam@infradead.org>, Mario Limonciello
+	<superm1@kernel.org>
+CC: Min Ma <mamin506@gmail.com>, Oded Gabbay <ogabbay@kernel.org>,
+	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+References: <20261009011010.3521631-1-liam@infradead.org>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <20261009011010.3521631-1-liam@infradead.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=YtCa1IYX c=1 sm=1 tr=0 ts=6ac90f40 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
- a=RRy98KAXZkVnLKidrVgA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDA2MiBTYWx0ZWRfX/mKE/U2/sAsu
- UHDkZ7vk9k9jl/vcBRDNoR5S+uCj0BxfPG5Z/2lW9tK72n/PyrdMx3Zrv2RJ3GrLMHihWHBmqb7
- zbyQUowP5Y6OVzcsADafMqIc2KOY3Z++Acr2/ANGTUcAb/HgnAD+L1xhg8aU0jKutBRHEHLBdmp
- OYjVt4bUfUxNhLLtGzy/3Mxza5y78+jXMDgGDOmRs526HRmDxbqLcM2136oWCa+rzy3mly+bWDT
- DYtoel1+o/AHTlwVpg3KyaxcDmRm0cxdRvfAHAnHiZoVSrgkRrsefMN1kjiDQKVO2eKN2XlzAU1
- +qKmBIGyfPkPElYT5uloKAGu58z2UNZK1II4We2xW/sXiskoYgtEeTMkO9uk6n+aAukoOoCdsdL
- B+7aVvL5bc7llYm28cmm7ZYv9n318h+QJuIjbkelGNaxhlctoxTB5M9TMqPSfZ/qR3nrOAhSZjD
- 7fIJuyS2t0KtVSoRpUA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDA2MiBTYWx0ZWRfX3kjuE83vHekH
- QgVg7aIbMpRn+GSC+KcqJwWXDLEVjeVQi1oP4V6kVWe+6NRR/RLrr/51DwZkfyM4vK3CtDL6iU+
- BJoBMfWUEhIOsqbhFGxJc8FHJx9wquU=
-X-Proofpoint-GUID: 4CEeOTIjURUfFzdDAhIvAibcLMktJaml
-X-Proofpoint-ORIG-GUID: 3XkSa6XkJL3OotMZwVzE5uPhIobymqJS
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-09_04,2026-10-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 bulkscore=0 clxscore=1015 priorityscore=1501
- lowpriorityscore=0 suspectscore=0 malwarescore=0 adultscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610090062
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00018546:EE_|CH2PR12MB4183:EE_
+X-MS-Office365-Filtering-Correlation-Id: 54fcaf28-8b76-4b90-e63b-08df261e5d12
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|36860700016|376014|1800799024|82310400026|56012099006|11063799006|22082099003|10067099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	iwQzBCr9j3SukchOdMiZS6vNsFtgvm8tlIsBOHzvATL4NY0liS/oUNorqfb8vebYKebJ+x1dVS7Job0fUjm6JSGOo0cAiBIKMt0BCKp5krEB8CaZITTwfvvHk9RxCz03YRpRNby5wQlT/UpJ6d9fWEf7V3xqsinXhSfhXQnNdAK+gK5LyGgrL5AnAr9bJTl3xqkbSjKikoTLWY7wVsHlEuR+NMRX7BwrUZr8bTYAnm26CwuRB3AEZitEpIslKOMXNZRy/26iBhDFaZxd/Lyv7OSqZOaZW3/meb7upwsk7+rvBTXfj/dzRQrvvPR2Nq/wKlBqeG25rkLW37hAtMijc5Ad+efEVP04J6oCnO+RJwIkrN+oWmlyNUok+ct+55sDPp+Lwcyr2ciWpRt0RWQGR5lCu52/6bDIosPhy0q2wtsQ4wgNGnus1QraSAYh0yjW0cPFOpSg1BzLePQ9n17cF0OgOzYypokGXBdRfE4DtXZLExXm+rgTNuZbacfhbo//j7nbCZDWYDunKZX4HD/lFa29XGGrwoSeX9ATDXe5iTv8DaCMawDGsMSa0ilmCTEDP5UfY3NWz2MsADbQbK9g1MAHrZrR8JjRlxSYmj4PvJU9gQn74wgzJ2sfT09awGrsius/fXgHWOf4liRYMnNFSni4rZmN3l0s0uilIOxRnQCdoN9K80IZwmUQphSuphcgYBxtu6KmKdDR41/L9fBdQg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(376014)(1800799024)(82310400026)(56012099006)(11063799006)(22082099003)(10067099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	iYql8LhCwolAoVuxg0Y6+T5hOBnTjYsTBI2xen7uaRdiL+WitWmjtc5kcSvPe3e0j0fFwsIov+ZWpfMBsOeF0Tl5KVaTxRU2MlRH1UyPdiPX8kWjvoRofOuKYJzRYabhluG4YjNqPWX1Vn3Qp/D6uAWycEIvjB6tdZneZURk19kYVZ96g1ec6hiaW1eQszuhHXm/HHz3W4xyjBrEbOcDqKDD6cPBY8kgjMYZgbQXOTtgVERdkAgz0oECUng6xfjKm4eAuVd6KoKmYzdYHyNzQII5N4KSER+kUqWD0jrWbs6Ip1a7wJ/RmcKtsH9R5jItk8PTxGGpAu+s8C12NpmXoSsHFxVJzLdkeO3j5AAZx90AFqHMyT1Y9hbPx96CvJwLndbOca8LELzDqHgxS6tKJvPv6uhcmIJX8XbPbRhC/XEKwd/C3Y4GjJf7EGa1mdjW
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 15:59:56.1759
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 54fcaf28-8b76-4b90-e63b-08df261e5d12
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN1PEPF00018546.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4183
 
 
-
-On 01.10.26 02:40, patchwork-bot+netdevbpf@kernel.org wrote:
-> Hello:
-> 
-> This patch was applied to netdev/net-next.git (main)
-> by Jakub Kicinski <kuba@kernel.org>:
-> 
-> On Mon, 28 Sep 2026 17:14:20 +0200 you wrote:
->> Sashiko reported [1] that 'Missing __GFP_ZERO in folio_alloc() causes
->> uninitialized kernel memory to be exposed in the receive message buffer'.
->> An ism dmb is receive-only, so the data is not leaked to a remote peer. In
->> general the smc kernel module (dibs client) will only push newly received
->> data to userspace. We still should not have uninitialized data in a receive
->> buffer.
->>
->> [...]
-> 
-> Here is the summary with links:
->   - [net,v2] s390/ism: Zerorize dmb at allocation
->     https://git.kernel.org/netdev/net-next/c/a0227fa24e8a
-> 
-> You are awesome, thank you!
-
-On 29.09.26 09:59, Alexandra Winter wrote:
+On 10/8/26 18:10, Liam R. Howlett wrote:
+> The amdxdna has a soft dependency on the amd_pmf module.  It will use an
+> exported function if it is available and fall back to another function
+> if it is not enabled.
 >
-> As mentioned in the commit message this issue was reported by Sashiko and found
-> valid by me. I do not see a simple reproducer.
-
-Hello Jakub and Greg,
-
-I did some more thinking and now I have a reproducer, where a modified remote
-smc peer causes a local kernel memory leak.
-Reproducer and logs can be sent upon request.
-
-Kindly consider this for net and stable and CVE.
-
-There is nothing wrong with the statements in the commit message,
-but I should have thought more about the worst case and written
-a reproducer, I guess.
-Sorry about that.
-
-Alexandra
-
-
-
-
+> amdxdna and amd_pmf are tridstate modules supporting both built [y] and
+> modularized [m] in the .config file.  Since the amdxdna decides to use
+> the amd_pmf if it is either a module or built in (see
+> drivers/accel/amdxdna/aie2_pci.h), then there is an issue if they are
+> not compiled either both as modules or both as built-in.
+>
+> Adding the optional dependency to Kconfig does not allow the
+> configuration from being selected.
+>
+> Fixes: f66d6cc6891e4 ("accel/amdxdna: Support sensors for column utilization")
+> Signed-off-by: Liam R. Howlett <liam@infradead.org>
+> ---
+>   drivers/accel/amdxdna/Kconfig | 1 +
+>   1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/accel/amdxdna/Kconfig b/drivers/accel/amdxdna/Kconfig
+> index f39d7a87296cd..eddff490b4f75 100644
+> --- a/drivers/accel/amdxdna/Kconfig
+> +++ b/drivers/accel/amdxdna/Kconfig
+> @@ -6,6 +6,7 @@ config DRM_ACCEL_AMDXDNA
+>   	depends on DRM_ACCEL
+>   	depends on PCI && HAS_IOMEM
+>   	depends on X86_64
+> +	depends on AMD_PMF || !AMD_PMF
+Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
+>   	select DRM_SCHED
+>   	select DRM_GEM_SHMEM_HELPER
+>   	select FW_LOADER
