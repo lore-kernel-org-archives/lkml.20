@@ -1,165 +1,137 @@
-Received: from mail-m3272.qiye.163.com (mail-m3272.qiye.163.com [220.197.32.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 002CD4E50BB;
-	Fri,  9 Oct 2026 13:46:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1AEB4BD344;
+	Fri,  9 Oct 2026 13:46:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791553567; cv=none; b=bD867z1CDwlfpbc4agldAKL8Th7adNgYoyzRMeVJjtA4hzDVs2MxxRZF0tW1WfBXusanr/LSaBvn/BcI18p8rNDxPP1yiU3URWyuDYz7djy25mgAjftVFElsoeVR/oRGr8vKOBNF0E1EI87p3fI5zFWpiCT06RuVv753uGeA1S8=
+	t=1791553588; cv=none; b=pJZgDaO5PDM1aoCGJe3ijqSx0DJQuOL2XX5aNdhihoXxW2U+5GP+f0R+vduiWhMf7KykPvMii8wf/33/YLXQfFvYrD0CznTLK0zFuVPwsJ3CufnNB56uLMoLAPCZB1ntQMtvpv07bY7iXDiKhB/qcT5zlgWhO8uIDyfAm4b2BAQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791553567; c=relaxed/simple;
-	bh=2MBQJPHhAwvTI0/6SuzIGdNe/4Na6UB7rkA3+fuVzZA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=R/YK0apBQ4LecmpDldZqkn3qR68zr1d+lmFDLrmepAlns88ZJnvAM4akOlr6eyeszolUPXkXe+tkw48NXKdLVmCY7JUSMNDWQgZuRZuyN4cUKbBv7u7+XRykrbn02MdBoem2nkeWgFN1bHhOg5quXookFKlI3N8dptibqHtQp6c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn; spf=pass smtp.mailfrom=easystack.cn; arc=none smtp.client-ip=220.197.32.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=easystack.cn
-Received: from localhost.localdomain (unknown [218.94.118.90])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 1fe2901a2;
-	Fri, 9 Oct 2026 19:23:29 +0800 (GMT+08:00)
-From: Zhen Ni <zhen.ni@easystack.cn>
-To: ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com,
-	martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	akpm@linux-foundation.org,
-	vbabka@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	brendan.jackman@linux.dev,
-	hannes@cmpxchg.org,
-	ziy@nvidia.com,
-	shuah@kernel.org
-Cc: bpf@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Zhen Ni <zhen.ni@easystack.cn>
-Subject: [PATCH 4/6] mm/page_owner: add bpf_page_owner_get_nid() kfunc
-Date: Fri,  9 Oct 2026 19:23:06 +0800
-Message-Id: <20261009112308.240769-5-zhen.ni@easystack.cn>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20261009112308.240769-1-zhen.ni@easystack.cn>
-References: <20261009112308.240769-1-zhen.ni@easystack.cn>
+	s=arc-20240116; t=1791553588; c=relaxed/simple;
+	bh=oqwiNlE73+2R8mZkGhjJkLSFM1d/DxGA2hLLdpVH0Cc=;
+	h=Date:Message-ID:From:To:Cc:Subject:MIME-Version:Content-Type; b=VoKPy8uOBRLZplnyeaMYSURe0dfRpK6wtgAqb17rEyJ5B5qRWUNCqXw/cQlMsw+AKadRPoZrB9kwK0va+OXErvk1uLb+p9r9r6RlHUw57y5E8i2ywa6wavR1+VXGblODtxN0yX090UsbhZlTiM9O97cVQWGLFbEKfQ8JaXK3Dns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id E096C21A34;
+	Fri,  9 Oct 2026 13:46:24 +0000 (UTC)
+Authentication-Results: smtp-out1.suse.de;
+	none
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 99BBC1368B;
+	Fri,  9 Oct 2026 13:46:24 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id sVwpHDDwyGo2dAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Fri, 09 Oct 2026 13:46:24 +0000
+Date: Fri, 09 Oct 2026 15:46:24 +0200
+Message-ID: <87h5iv3s27.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Linux Sound Mailing List <linux-sound@vger.kernel.org>, Linux Kernel
+ Mailing List <linux-kernel@vger.kernel.org>
+Subject: [GIT PULL] sound fixes for 7.3-rc7
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=ISO-8859-2
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1206765f80229kunmd33b3e054cb287
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFJQjdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCTxkdVk5KS09OSkpKTBpCGlYVFA
-	kWGhdVGRETFhoSFyQUDg9ZV1kYEgtZQVlJSkNVQk9VSkpDVUJLWVdZFhoPEhUdFFlBWU9LSFVKS0
-	lPT09IVUpLS1VKQktLWQY+
+X-Rspamd-Pre-Result: action=no action;
+	module=Unknown lua;
+	unknown reason
+X-Spamd-Bar: /
+X-Rspamd-Queue-Id: E096C21A34
+X-Rspamd-Pre-Result: action=no action;
+	module=Unknown lua;
+	unknown reason
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: 0.00
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [0.00 / 50.00]
 
-Extract the NUMA node lookup from read_page_owner() into a shared
-page_owner_get_nid() helper, and expose it to BPF programs as
-bpf_page_owner_get_nid().
+Linus,
 
-The nid bitfield layout is build-time configuration, so BPF programs
-cannot accurately derive it from page->flags.
+please pull sound fixes for v7.3-rc7 from:
 
-Signed-off-by: Zhen Ni <zhen.ni@easystack.cn>
+  git://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git tags/sound-7.3-rc7
+
+The topmost commit is 07c75552f7fe636a0695baae506a7d72fabd3be4
+
+----------------------------------------------------------------
+
+sound fixes for 7.3-rc7
+
+A dozen of small fixes.  All device-specific quirks or fixes, and
+nothing exciting is expected.
+
+- USB-audio and HD-audio quirks
+- HD-audio TAS2781 codec fix
+- ctxfi driver memory leak fix
+- ASoC AMD quirks
+- ASoC cs35l56 and adau1372 codec fixes
+
+----------------------------------------------------------------
+
+Alvin ©ipraga (2):
+      ASoC: adau1372: allow sleepy powerdown GPIOs
+      ASoC: adau1372: fix invalid default state of output ASRC and DAC muxes
+
+Eckhart Mohr (1):
+      ALSA: hda/realtek: Add quirk for ASRock NUC BOX-358H
+
+Harin Lee (1):
+      ALSA: ctxfi: Fix memory leakage when clearing DAO input mappers
+
+Jaidheer Sirigineedi (1):
+      ALSA: hda/realtek: Add mute LED quirk for HP Pavilion 15-eg3xxx (103c:8bfd)
+
+Marek Szyprowski (1):
+      ASoC: samsung: i2s: enable op_clk in probe to balance runtime PM
+
+Matus Gajdos (1):
+      ALSA: usb-audio: Add native DSD support for Cambridge Audio streamers
+
+Michael Garland (1):
+      ASoC: amd: yc: Add DMI quirk for Acer Aspire Go 15 (AG15-21P)
+
+Mohamed Yassine Jebabli (1):
+      ALSA: hda/tas2781: Accept V1 calibration data without CRC
+
+Richard Fitzgerald (2):
+      ASoC: cs35l56: Add DAI for SDCA OT25 stream
+      ASoC: sdw_utils: Switch CS35L56/57/62/63 to use OT25 DAI
+
+Simon Trimmer (2):
+      ASoC: amd: acp: Add DMI override for ASUS EXPERTBOOK AM7406CKA
+      ASoC: amd: acp: Add more ACP7.0 match entries for Cirrus Logic parts
+
 ---
- kernel/bpf/helpers.c |  1 +
- mm/page_owner.c      | 26 +++++++++++++++-----------
- mm/page_owner.h      |  1 +
- mm/page_owner_iter.c |  5 +++++
- 4 files changed, 22 insertions(+), 11 deletions(-)
-
-diff --git a/kernel/bpf/helpers.c b/kernel/bpf/helpers.c
-index 23a2d2d71f4d..3e8afd19a1f4 100644
---- a/kernel/bpf/helpers.c
-+++ b/kernel/bpf/helpers.c
-@@ -4951,6 +4951,7 @@ BTF_ID_FLAGS(func, bpf_iter_page_owner_new, KF_ITER_NEW | KF_SLEEPABLE)
- BTF_ID_FLAGS(func, bpf_iter_page_owner_next, KF_ITER_NEXT | KF_RET_NULL | KF_SLEEPABLE)
- BTF_ID_FLAGS(func, bpf_iter_page_owner_destroy, KF_ITER_DESTROY | KF_SLEEPABLE)
- BTF_ID_FLAGS(func, bpf_page_owner_stack_snprint, KF_SLEEPABLE)
-+BTF_ID_FLAGS(func, bpf_page_owner_get_nid, KF_SLEEPABLE)
- #endif
- BTF_ID_FLAGS(func, __bpf_trap)
- BTF_ID_FLAGS(func, bpf_strcmp, KF_PERFMON);
-diff --git a/mm/page_owner.c b/mm/page_owner.c
-index eb420803a434..43a722678acc 100644
---- a/mm/page_owner.c
-+++ b/mm/page_owner.c
-@@ -711,6 +711,19 @@ void __dump_page_owner(const struct page *page)
- 	page_ext_put(page_ext);
- }
- 
-+/*
-+ * NUMA node of @page, bypassing PF_POISONED_CHECK() in page_to_nid() to
-+ * avoid VM_BUG_ON on poisoned pages; -1 for poisoned pages.
-+ */
-+int page_owner_get_nid(struct page *page)
-+{
-+	memdesc_flags_t page_flags = READ_ONCE(page->flags);
-+
-+	if (page_flags.f == PAGE_POISON_PATTERN)
-+		return -1;
-+	return memdesc_nid(&page_flags);
-+}
-+
- /*
-  * Advance @scan to the next page eligible for page_owner output.
-  * On a hit, fill scan->pfn/page/po_snap and return true; the caller
-@@ -810,18 +823,9 @@ read_page_owner(struct file *file, char __user *buf, size_t count, loff_t *ppos)
- 	/* Find an allocated page */
- 	while (page_owner_next_eligible(&scan)) {
- 		if (state->nid_filter_enabled) {
--			int nid;
--			memdesc_flags_t page_flags =
--				READ_ONCE(scan.page->flags);
-+			int nid = page_owner_get_nid(scan.page);
- 
--			/*
--			 * Bypass PF_POISONED_CHECK() in page_to_nid() to avoid
--			 * VM_BUG_ON when accessing poisoned pages.
--			 */
--			if (page_flags.f == PAGE_POISON_PATTERN)
--				goto skip_continue;
--			nid = memdesc_nid(&page_flags);
--			if (!node_isset(nid, state->nid_filter))
-+			if (nid < 0 || !node_isset(nid, state->nid_filter))
- 				goto skip_continue;
- 		}
- 
-diff --git a/mm/page_owner.h b/mm/page_owner.h
-index fda83be69275..c57859d18dc3 100644
---- a/mm/page_owner.h
-+++ b/mm/page_owner.h
-@@ -39,6 +39,7 @@ struct page_owner_scan {
- };
- 
- bool page_owner_next_eligible(struct page_owner_scan *scan);
-+int page_owner_get_nid(struct page *page);
- 
- /*
-  * mm/page_owner_iter.c
-diff --git a/mm/page_owner_iter.c b/mm/page_owner_iter.c
-index 80693d417407..907517a29144 100644
---- a/mm/page_owner_iter.c
-+++ b/mm/page_owner_iter.c
-@@ -165,4 +165,9 @@ __bpf_kfunc int bpf_page_owner_stack_snprint(depot_stack_handle_t handle,
- 	return stack_depot_snprint(handle, buf, buf_size, 0);
- }
- 
-+__bpf_kfunc int bpf_page_owner_get_nid(struct page_owner_scan *scan)
-+{
-+	return page_owner_get_nid(scan->page);
-+}
-+
- __bpf_kfunc_end_defs();
--- 
-2.20.1
+ include/sound/cs35l56.h                    |  1 +
+ sound/hda/codecs/realtek/alc269.c          |  2 ++
+ sound/hda/codecs/side-codecs/tas2781_hda.c | 18 ++++++++--
+ sound/pci/ctxfi/ctdaio.c                   |  6 +++-
+ sound/soc/amd/acp-config.c                 |  7 ++++
+ sound/soc/amd/acp/amd-acp70-acpi-match.c   | 35 +++++++++++++++++++
+ sound/soc/amd/yc/acp6x-mach.c              |  7 ++++
+ sound/soc/codecs/adau1372.c                | 18 +++++++---
+ sound/soc/codecs/cs35l56-sdw.c             |  9 +++--
+ sound/soc/codecs/cs35l56.c                 | 54 ++++++++++++++++++++++++++++++
+ sound/soc/samsung/i2s.c                    |  8 +++++
+ sound/soc/sdw_utils/soc_sdw_utils.c        |  8 ++---
+ sound/usb/quirks.c                         |  2 ++
+ 13 files changed, 161 insertions(+), 14 deletions(-)
 
