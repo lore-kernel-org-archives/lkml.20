@@ -1,161 +1,194 @@
-Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B37536894D;
-	Fri,  9 Oct 2026 22:20:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791584407; cv=none; b=a9tR0bv5SqF7JY57AAREEboSKEmObOdIHzCYWRgWbLFdZ0jMmS/BnkNBzL86risAODF+QIx4uLXIzdfxCYKhzH6ArHRMOZfBUtVsTvVE6DBqt755HV051v2dH1y85jCj4CwYmFW223iLstfjOxyyL6BDu4alGHCnbNXtANU0Wdo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791584407; c=relaxed/simple;
-	bh=oNXrreZBveeKDBL/UvLU2TmMs2wzwUyCUb05h0d9L24=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=V8VXLhusjnBcJrAEkSclwhGZjW6zWn20eGtkZh3YOJi9M/0kA/DVloDnY6783WnDv6ST5wq9q3bLt9F6TX8FnuZy2AFgpiutjqvzQuFfq+9DfvyLSO8+zzXqZIQD8tYgDGqSH6zQ9WsL7N1WgxuawsAf2FWi5Ksupy+E/wy0yaA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; arc=none smtp.client-ip=128.30.2.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
-Received: from escalante.csail.mit.edu ([128.52.128.198])
-	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
-	(envelope-from <nickolai@csail.mit.edu>)
-	id 1xFIwX-003EyK-L5;
-	Fri, 09 Oct 2026 18:19:57 -0400
-From: Nickolai Zeldovich <nickolai@csail.mit.edu>
-To: linux-riscv@lists.infradead.org
-Cc: pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Nickolai Zeldovich <nickolai@csail.mit.edu>
-Subject: [PATCH] riscv: Fix icache flush being skipped for a second mm mapping an exec folio
-Date: Fri,  9 Oct 2026 18:19:57 -0400
-Message-ID: <20261009221957.760606-1-nickolai@csail.mit.edu>
-X-Mailer: git-send-email 2.53.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D9983822BE
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 22:20:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791584419; cv=pass; b=IZpb//0N5Sb73D3qptx2FFm/AsT/b/G9X4W2AC1UxIqFSAKbwy2udP+/QqXuDP3TzYG1TWY1+idFZbDZVMiw8eQxLKWa2bBD3yFm8UD/kc1CX1kuleUp3bawF9wsx1agxo45okmB1loNfRWe+PR95u9Qe/ZE1C4xYBNwwEhHW9Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791584419; c=relaxed/simple;
+	bh=PgwmGuw1zNCeYJ4qMywnr2UJb9ioZir99Vs8zzDOKz0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=tmk3muwstJ4sQVPU0zEpq01IdmMKNHirBdB8JBbAQXk+XNwowDC+uqu6/+keAYRnSFT4Sjza+bS6vcMr/RRIpaJbXNOCc3gKiSdWhD7c1P80XLqsvZIMfIw0aRWlSGfd3fMzP+2T5585uIbsfkU1q2TXUxf3IjcDn+CZ7ZJ0ZOs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iwzPeGL3; arc=pass smtp.client-ip=209.85.208.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iwzPeGL3"
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6a601ba6870so334614a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 15:20:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791584416; cv=none;
+        d=google.com; s=arc-20260327;
+        b=hw5jnqZw0mQfkVMxiGzsxnDKcJ4swgmFet2Yo4m2K8BO+9vC6IstKd0KR1nDyMTdmo
+         X9LyTEi5+T3JZ+BI951K/n0fR5gMfMz6Z+EYiax9+HSQWY7S2T4ppVhPwTn3/RtRves2
+         yow38CmarBE1ioH3i8LONEQUQG78Cu/sKKEWJSbws4li0IAkMlPKYy3r58e63ioxY89Z
+         n5tCT51SMxAMpODxbv+9wk1OXUzdDokP+qtSCEdIbqyjRCvNkHjWirwf0Nkedq+6uYoq
+         FZwKgt/9l1aH/PKIumZaMR+ldFzLTyBu0ABf5++2uonwoWzmu/I56MAP8hSgCx24aLnt
+         rYGw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=+GW4IS6o1LJAcPN9SYF127puFlWBP/gNfh8ql8XeLT0=;
+        fh=7OYbNP5/mZ7JX9CoapYQZr+Zh8sZmBgKKcbet1YeNc8=;
+        b=sCePhYhIBKM4Wf+zLPufAqJbXR1wgJ3BarvX+vznLxjWMDY8oRdm40A0nSHYrPupK6
+         mf7DZ6FoL9vuUyaHASj5x6gsCLNGo0HCkSKElAODFiEFja0y27aCYR3raTtTN0M4kYSU
+         VDg+pRiCCaqu/H15eK4KMbDa4fb/aPJfj58egD3kLXvO3MasVbuKSi5gziE5FHSuJFAD
+         d8P3yD8nMY1mJE2n5+tmeqU2WMsoChHyAutgeI9+4q3Nbmluyjnj0WMlHYA2EihiSAuv
+         vwEi/wPNaL2TYu005F6BStHbmoTJP1R3itte8eUycjMc24cvPs0+O17vuloLUH/WFGJX
+         Pi5w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791584416; x=1792189216; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+GW4IS6o1LJAcPN9SYF127puFlWBP/gNfh8ql8XeLT0=;
+        b=iwzPeGL3dz6wPlwAXU2ZCiPac9s6uXZZGfuPFZAD7zQ5PKrXb3uPmX8kFgNwz3zFL2
+         w+qSYyT0bi0Jy6lcnJSM9TCMa0Y7EQKygEx+K5PF9TIHcy+mTQ3Vdb5D+2d1KMWWUmje
+         tsSjk/+InLgALaF6LVeAi0rOTjuSii58R7CPslgkH0n2aVTAY9YdtJJ0DWoECsF/X+aL
+         yGgb0yx/X/orLHNexXregO3BzvHfobIeMRRk8/W32e4pEZolz6RQ8/KiZF5Wm3j8Qx7t
+         1Rjqu+/ApPgMyyQTjZfkVcnWzk/JmQEZUOX30pikj14ihc9p4Imjc6FmmQU7zsTBLdoJ
+         T8XQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791584416; x=1792189216;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+GW4IS6o1LJAcPN9SYF127puFlWBP/gNfh8ql8XeLT0=;
+        b=vK9LBVFxmxYwWE3fNLeUa+ahW6gypQHeOA9we3PQ8LBV+4Syg0nOhbuKK/r5HCs2O9
+         Yw7nETuzxbmwyruw4pkNLPxsnaPvSnh712Q3AfHFodgxyDI+f4mkK7kUZi03zbblKq3m
+         OcThNJBcksZHvY5qMGtO9Ds7AcuWSAnrcYzmps3astRT9DoZwN0zJCE5nL+H67hW01jL
+         /SyD0OI8y5+eeZnB0lXXh/CqZ5hSEZmYIRcFHkB7A3YhX/KfIBuRk+okS0ezwz9oQ11H
+         bg7QZ0GP7ff3MW4xemAMTNSVIbKXvH67BhdurF5nkkoAA9+LWq/w1wY6K1Bm2X9A7OOd
+         kKnw==
+X-Forwarded-Encrypted: i=1; AKwUvByKaI7sbRWIdgnb+8lqlIk70bCTgEYTYluqaLpvEf8kjYzbazDZ/Cc9gubj2DF+euBgCT5n3HPFeovnvN0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIW013GR/nYb+kE+Hq/L2x/gePzrosgqCcluupdCyhyr9788YK+
+	MxOEz8aAHxIlH0x0JKAXnn7mal6k5cfbOLQfJrJEE09dC0kNCudOKu8clE7n8F61jnOWfT+9w1B
+	TGbsxZwRuUpBLapy8RZJ+BnVYIwzJ+ds=
+X-Gm-Gg: AYBFou2qdeag+8VdrQI58Spp1HMtUiMYT8xV0DiF3iOeV76M4MhzyVUNYWmjSpw9+WD
+	AdOCHPu5HptXZMQLZL3D6U1c5i003sk+WJ5vorf6QQxkGs6Vhojg2licHq3QFqSEwvfeLpkC/bs
+	lpviXVZMCtsssuvasHtbB/9L/U1M1xhev8MOdmVpFLIYhmxWjfW0EcUx/vPqjpJoKJ86p16EBRd
+	/dTgkoInygfg94OUURGI5cjnMHb6NPoZVz64lG2kCDk6i6Grw1HKo1yEywryKxLUVAVPZ3wFyd4
+	GhlTJayxsXa4PXTBDJxzHb+EPDHle5h1oJGU0ElxnZnQsg8Dp/PXZdZrPFX2BbekrO4kUKweJlX
+	TSmSDlryNbaKsCG9sIu3hA/sm+zYESNoJ7rrJ5B17o+ibKnuPkdTX6SbzrBF4rOtdDtcg7tpeEf
+	UblqFxC3kVbd8nCvJYCA40B30u4NJSqetGY7ITZOrHIT7ka7bhXidwlNxI1ZhJF5HV0Q==
+X-Received: by 2002:a05:6402:4005:b0:6aa:f02c:dd96 with SMTP id
+ 4fb4d7f45d1cf-6b17c25d31fmr2914886a12.11.1791584416248; Fri, 09 Oct 2026
+ 15:20:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261004233523.516891-1-rosenp@gmail.com> <ashiQ98Qmie63mB2@studio.local>
+ <CAKxU2N8WtY+=dhSTfyu=8ujEwnkcfV9PEkXxuTLHthwksDhTxw@mail.gmail.com> <2051AAAB-4FC9-4093-825A-ADFEE5438EB7@fygo.io>
+In-Reply-To: <2051AAAB-4FC9-4093-825A-ADFEE5438EB7@fygo.io>
+From: Rosen Penev <rosenp@gmail.com>
+Date: Fri, 9 Oct 2026 15:20:04 -0700
+X-Gm-Features: AclHuK91qLOuh_bhI7HYZ-oxSWH1gL9kepMuJvhWwdn_2yB_YhubWH2ATVmFMIY
+Message-ID: <CAKxU2N_nub+OcvZ_ROBMMHpkH=up+OJzmahW-9J5xN29nFRCHQ@mail.gmail.com>
+Subject: Re: [PATCH] bcache: fix kernel-doc warning on CLOSURE_CALLBACK
+To: Coly Li <colyli@fygo.io>
+Cc: linux-bcache@vger.kernel.org, Kent Overstreet <kent.overstreet@linux.dev>, 
+	open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Since commit 01261e24cfab ("riscv: Only flush the mm icache when
-setting an exec pte"), flush_icache_pte() flushes only the icache of
-the harts that run the faulting mm (with a deferred fence.i for the
-harts it migrates to later), but it still sets the folio-wide
-PG_dcache_clean bit. The bit is then read as "no hart holds stale
-instructions for this folio", which a per-mm flush does not establish.
-
-So when a folio that was written through the page cache is mapped
-executable first by mm A on hart X and then by a different mm B on a
-hart Y outside A's cpumask, B gets no flush on Y and executes whatever
-Y's icache still holds for those physical lines, e.g. the page's
-previous contents. Before that commit, flush_icache_all() covered this
-case.
-
-Reproducer: a parent pinned to hart 0 and a child pinned to hart 3
-share a file. The parent writes text "T1" with write(2), the child
-mmap()s it PROT_EXEC and runs it (priming hart 3's icache with T1),
-then unmaps it. The parent writes text "T2", maps it executable and
-runs it (per-mm flush of hart 0 only, bit set). The child maps the
-file executable again and runs it: no flush on hart 3, and the child
-executes T1. On a StarFive JH7110 (VisionFive 2, non-coherent icache)
-running v7.3-rc6, 149 of 150 iterations over three hart pairs execute
-stale instructions. A control run that executes fence.i in the child
-before the last mapping gets 0 of 50.
-
-Keep the per-mm flush and make the skip decision per mm instead:
-count the flushes that set the bit in a global generation, and let
-every mm remember the generation of its own last flush taken in
-flush_icache_pte(). An mm whose generation lags cannot trust any bit
-set since, so it flushes its own harts once (local fence.i, IPIs only
-to the harts currently running it, deferred fence.i for the rest) and
-catches up. No global flush is issued, nothing happens while no new
-executable folio is written, and the cost is bounded by one
-flush_icache_mm() per mm per generation bump.
-
-With the fix the reproducer executes 0 of 150 stale iterations on the
-same board. The function-call IPI counters stay at a few hundred per
-hart for the whole boot plus 200 iterations, i.e. the IPI savings of
-the per-mm flush are kept.
-
-Tested on the JH7110 with v7.3-rc6 and this patch; not tested on
-32-bit. The bug does not reproduce under QEMU TCG, which invalidates
-translated code on page writes.
-
-Fixes: 01261e24cfab ("riscv: Only flush the mm icache when setting an exec pte")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
----
- arch/riscv/include/asm/mmu.h         |  2 ++
- arch/riscv/include/asm/mmu_context.h |  1 +
- arch/riscv/mm/cacheflush.c           | 20 ++++++++++++++++++++
- 3 files changed, 23 insertions(+)
-
-diff --git a/arch/riscv/include/asm/mmu.h b/arch/riscv/include/asm/mmu.h
-index cf8e6eac77d5..e0e7a310151c 100644
---- a/arch/riscv/include/asm/mmu.h
-+++ b/arch/riscv/include/asm/mmu.h
-@@ -21,6 +21,8 @@ typedef struct {
- 	cpumask_t icache_stale_mask;
- 	/* Force local icache flush on all migrations. */
- 	bool force_icache_flush;
-+	/* icache_folio_gen at this mm's last flush in flush_icache_pte(). */
-+	u64 icache_gen;
- #endif
- #ifdef CONFIG_BINFMT_ELF_FDPIC
- 	unsigned long exec_fdpic_loadmap;
-diff --git a/arch/riscv/include/asm/mmu_context.h b/arch/riscv/include/asm/mmu_context.h
-index dbf27a78df6c..cc0f7f65ec8b 100644
---- a/arch/riscv/include/asm/mmu_context.h
-+++ b/arch/riscv/include/asm/mmu_context.h
-@@ -32,6 +32,7 @@ static inline int init_new_context(struct task_struct *tsk,
- {
- #ifdef CONFIG_MMU
- 	atomic_long_set(&mm->context.id, 0);
-+	mm->context.icache_gen = 0;
- #endif
- 	if (IS_ENABLED(CONFIG_RISCV_ISA_SUPM))
- 		clear_bit(MM_CONTEXT_LOCK_PMLEN, &mm->context.flags);
-diff --git a/arch/riscv/mm/cacheflush.c b/arch/riscv/mm/cacheflush.c
-index f8ead7cb7c7d..880c210dbfec 100644
---- a/arch/riscv/mm/cacheflush.c
-+++ b/arch/riscv/mm/cacheflush.c
-@@ -97,13 +97,33 @@ void flush_icache_mm(struct mm_struct *mm, bool local)
- #endif /* CONFIG_SMP */
- 
- #ifdef CONFIG_MMU
-+/*
-+ * PG_dcache_clean is folio-wide, but flush_icache_mm() only reaches the
-+ * harts of one mm.  Count the flushes that set the bit; an mm whose
-+ * generation lags cannot trust a bit set since its own last flush, so it
-+ * flushes its harts once before relying on it.
-+ */
-+static atomic64_t icache_folio_gen = ATOMIC64_INIT(0);
-+
- void flush_icache_pte(struct mm_struct *mm, pte_t pte)
- {
- 	struct folio *folio = page_folio(pte_page(pte));
-+	u64 gen;
- 
- 	if (!test_bit(PG_dcache_clean, &folio->flags.f)) {
-+		gen = atomic64_inc_return(&icache_folio_gen);
- 		flush_icache_mm(mm, false);
-+		WRITE_ONCE(mm->context.icache_gen, gen);
- 		set_bit(PG_dcache_clean, &folio->flags.f);
-+		return;
-+	}
-+
-+	/* Pairs with the fully ordered atomic64_inc_return() above. */
-+	smp_rmb();
-+	gen = atomic64_read(&icache_folio_gen);
-+	if (unlikely(READ_ONCE(mm->context.icache_gen) != gen)) {
-+		flush_icache_mm(mm, false);
-+		WRITE_ONCE(mm->context.icache_gen, gen);
- 	}
- }
- #endif /* CONFIG_MMU */
--- 
-2.56.0
-
+On Thu, Oct 8, 2026 at 9:54=E2=80=AFPM Coly Li <colyli@fygo.io> wrote:
+>
+> > 2026=E5=B9=B410=E6=9C=889=E6=97=A5 12:09=EF=BC=8CRosen Penev <rosenp@gm=
+ail.com> =E5=86=99=E9=81=93=EF=BC=9A
+> >
+> > On Thu, Oct 8, 2026 at 8:41=E2=80=AFPM Coly Li <colyli@fygo.io> wrote:
+> >>
+> >> Hi Rosen,
+> >>
+> >> On Sun, Oct 04, 2026 at 04:35:23PM +0800, Rosen Penev wrote:
+> >>> bch_data_insert() is defined through the CLOSURE_CALLBACK() macro, wh=
+ich
+> >>> kernel-doc cannot see through, so the kernel-doc comment above it
+> >>> produces:
+> >>>
+> >>>  request.c:308 function parameter 'bch_data_insert' not described in =
+'CLOSURE_CALLBACK'
+> >>>  request.c:308 expecting prototype for bch_data_insert(). Prototype w=
+as for CLOSURE_CALLBACK() instead
+> >>>
+> >>> Turn it into a regular block comment, and drop the @cl line along
+> >>> with the kernel-doc markup.
+> >>>
+> >>> Assisted-by: LLM
+> >>
+> >> The patch is fine to me. Can you provide the detailed LLM name here?
+> > It was Opencode's Big Pickle IIRC. Current documentation says to just s=
+ay LLM.
+>
+> Documentation file coding-assistants.rst suggests,
+>
+>  43 Attribution
+>  44 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>  45
+>  46 When AI tools contribute to kernel development, proper attribution
+>  47 helps track the evolving role of AI in the development process.
+>  48 Contributions should include an Assisted-by tag in the following form=
+at::
+>  49
+>  50   Assisted-by: LLM [TOOL1] [TOOL2]
+>  51
+>  52 * ``[TOOL1] [TOOL2]`` are optional specialized analysis tools used
+>  53   (e.g., coccinelle, sparse, smatch, clang-tidy)
+>  54
+>  55 Basic development tools (git, gcc, make, editors) should not be liste=
+d.
+>  56
+>  57 Example::
+>  58
+>  59   Assisted-by: LLM coccinelle sparse
+>
+> Yes,  only listing LLM is the bottom line, and list the detailed model na=
+me is better.
+>
+> If you don=E2=80=99t want to post v2 patch, you can give me a line of Ass=
+isted-by: , I can replace it in the patch.
+Assisted-by: Opencode:Big-Pickle
+>
+> Thanks.
+>
+> Coly Li
+>
+>
+> >>
+> >>> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> >>
+> >> Thanks.
+> >>
+> >> Coly Li
+> >>
+> >>> ---
+> >>> drivers/md/bcache/request.c | 3 +--
+> >>> 1 file changed, 1 insertion(+), 2 deletions(-)
+> >>>
+> >>> diff --git a/drivers/md/bcache/request.c b/drivers/md/bcache/request.=
+c
+> >>> index 3fa3b13a410f..e7f097346d64 100644
+> >>> --- a/drivers/md/bcache/request.c
+> >>> +++ b/drivers/md/bcache/request.c
+> >>> @@ -285,9 +285,8 @@ static CLOSURE_CALLBACK(bch_data_insert_start)
+> >>>      }
+> >>> }
+> >>>
+> >>> -/**
+> >>> +/*
+> >>>  * bch_data_insert - stick some data in the cache
+> >>> - * @cl: closure pointer.
+> >>>  *
+> >>>  * This is the starting point for any data to end up in a cache devic=
+e; it could
+> >>>  * be from a normal write, or a writeback write, or a write to a flas=
+h only
+> >>> --
+> >>> 2.56.0
