@@ -1,159 +1,86 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F69B5B206
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 17:04:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77DCE392C46;
+	Fri,  9 Oct 2026 17:04:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791565467; cv=none; b=ZKBkmH8ir3OeQLgcp70cWufwYYnlu07tUw3y3k4B+vGadpEWGiH2gon2RwyZVo5+YwODE5iUcY6RTx1YLlqVSSe+YHflP8tLoGFd+T5RVurukycunN8uqm0oRfbilkLGKbIeCm8hicFU1Kn7aTp32MUtPZDp9J2JqkEWSV572YQ=
+	t=1791565470; cv=none; b=Hu9blS9K7u02rn19wfZ3aV5tCsjWaWnifNUj3sEtVsVLK6stQMtWP2SzI8DfTOAbtj5ro+tK7WDprj/SKYbjYftQ6DFWsmD5mBWuaGVDFFG8dkFGySGXmQeo+CSZJFvumY2BYdxfejbUXe0iwgkl9YKr22dBdIzDAwYwsWWVGFo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791565467; c=relaxed/simple;
-	bh=f3K6zxl+cZmb13QxyE8Na+fRXT2tB2FQ1hM17VnzNc0=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=ZF8WagQp/bjPaG+4Bcd6c2bV+7evcWapSq0pkjtMiYHzxHELVVllg5iWbhmlADtzmU1hh32wizgl14XTJ4nIEIcnt9DRxOrcYCrVZoIg12SMKf/z7tN68qFY2CM5uH3SLd+0WTQhCG30JKTBS6x2Qex8uDA/w/Rl1dlr7MAzGqU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4b2d1eb484aso10092472b6e.2
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 10:04:25 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791565464; x=1792170264;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ECKSX4VGb4hDmujnpvcN4dRf7mpNZH/ocfAWB20+LVI=;
-        b=Yq2rAYkXPDww0tY19HxSCKPHp8Dy6BI6jJ8ePMb8WdrbI08viI1/Ev+NxAFt9dKJAn
-         1S7B7Y8Odwb0rk123FDXt8+s1EY5wO+ScA4fnDxr+ZNYXMXZ0nTJan6hGwijAThr4Sw1
-         qBArR4B+BX6jzxmsZyPhIukZKlLPZtjylprE0tR4sANPQI+kHdpXXx57tjUCy0IXTqBS
-         ihY3C5DKFLwyhcmJ5rfF4/c5EXToHE1yzzbpiIvqkqMNCk0pv76dOIGOHDvkjKKXrTOA
-         B29NEm0sY8kW/jR4lLKkilsQZ2D4hokyWJ48qFSPk84aKvpGnkOussey5MbAtZ/Zs8Fd
-         TGkQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxIYs0GZGzHbOl+hieHkPVcOc0B0U7Zk8J3NPpsLQonVOmnPIXo+ukaVSzKEez1VMHZJa6XiO6z8Mhlk1s=@vger.kernel.org
-X-Gm-Message-State: AFuF++mHIOiuh8svqr2s52RisJ/Qg8y1Pl4hWBePEiR4MvgMsjfHp3Nz
-	5EpdVSPmMu/1JE6IK3RUEd9M8/Uiieiafg9ElJ7nwEG97rH/vYFEde501Odwzzkn902CEtM9plO
-	XNjVaZYexRjt0RW3m1pW+4CL2Vya3O3VV9Q9iXeNZtE0CnAhsoEeSHY5qHOk=
+	s=arc-20240116; t=1791565470; c=relaxed/simple;
+	bh=pRBwxZ/pTxp7drinmbnO6WjD0YWUO9pajIRsaCkGJRY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VExBAqFGXoUPRPqDK0di2OXPAIwB1pqn7TiwHVZfW5SnfzFqae2EMokJlvEJPVPbfNNu0i7t6Nn1aDo5FWq+b5LVUMsHPKeP90pm4Cn0NBfm9hyHwCMyX4Skh438oDLLKQ93OFtSLrGnmlWN8muhe/9lniEPFhZXwWlhG+GAV3U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IjXcxo5s; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IjXcxo5s"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 439AD1F000FF;
+	Fri,  9 Oct 2026 17:04:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791565469;
+	bh=pRBwxZ/pTxp7drinmbnO6WjD0YWUO9pajIRsaCkGJRY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IjXcxo5sLrTtBSJR7EkoJWJY77e88/FBq0xaObIkJ8gytFU4tpsY9YddZpjtiCGsd
+	 Yv8M15lrCBIrHMaI2fHrUx/MTCbn9RQSd+EyRFZBscjksdk+j08F1zjcIzxZwi8XEX
+	 1u+bMyBVUYF8xZLnHLuBWOhtUQ6gcltcfnPFaBFZHrUMA29WW9OLeD7kA9nJ18LluF
+	 LQpQpcea6IU0UlyakE/wazbfHT9e+xq4ueFy7q8OcrHkwJbD194frgQQN2+uHH1rhx
+	 iPEuGPyeVBHFEVlu5Tz4J1GYor8Qb5ysDSQuQNPlAubMgFFo5EC8mMYSvX4v58SYnm
+	 sWKyZYzFSEH0A==
+Date: Fri, 9 Oct 2026 18:04:24 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Ihor Solodrai <ihor.solodrai@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, bpf <bpf@vger.kernel.org>
+Subject: Re: [PATCH v2] mm/vma: keep the unlinked VMA off the file across
+ unmap on mmap hook failure
+Message-ID: <askcyeoKgKb6771N@gremlin>
+References: <20261007101800.58d50b1b20a10738e630bfd5@linux-foundation.org>
+ <20261007194708.2009-1-okerixx@gmail.com>
+ <e139339c-1e55-438b-86bf-0960ad4029f1@linux.dev>
+ <asjQQF_Ok1TZPm1M@gremlin>
+ <271f7ba8-df38-4c8f-b59d-68b52ee998e9@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:15a6:b0:4c5:b120:9833 with SMTP id
- 5614622812f47-50c45c69989mr2316907b6e.6.1791565464345; Fri, 09 Oct 2026
- 10:04:24 -0700 (PDT)
-Date: Fri, 09 Oct 2026 10:04:24 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ac91e98.bbc4c7f9.15faa7.0023.GAE@google.com>
-Subject: [syzbot] [lsm?] WARNING in landlock_merge_ruleset
-From: syzbot <syzbot+a0eecb22de4d821a9e5d@syzkaller.appspotmail.com>
-To: gnoack@google.com, jmorris@namei.org, linux-kernel@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, mic@digikod.net, paul@paul-moore.com, 
-	serge@hallyn.com, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <271f7ba8-df38-4c8f-b59d-68b52ee998e9@linux.dev>
 
-Hello,
+On Fri, Oct 09, 2026 at 09:38:56AM -0700, Ihor Solodrai wrote:
+> On 2026-10-09 4:31 a.m., Lorenzo Stoakes (ARM) wrote:
+> > -cc slopper
+> >
+> > On Thu, Oct 08, 2026 at 02:48:07PM -0700, Ihor Solodrai wrote:
+> > > BPF CI caught this bug on linux-next as well:
+> > > https://github.com/kernel-patches/bpf/actions/runs/37736351874
+> >
+> > Nice that it caught it!
+> >
+> > Is there a way to automatically notify patch author that when it happens? Does
+> > it bisect, etc. or just green/red?
+>
+> For linux-next it's just green/red now.
 
-syzbot found the following issue on:
+That's still nice! We have something similar in mm. I think possibly
+inspired by you guys :)
 
-HEAD commit:    aac26bee2287 Add linux-next specific files for 20261008
-git tree:       linux-next
-console+strace: https://syzkaller.appspot.com/x/log.txt?x=1772f715580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=814b0d31d59c294
-dashboard link: https://syzkaller.appspot.com/bug?extid=a0eecb22de4d821a9e5d
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1305c8e1580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=15497c3e580000
+>
+> We've added it to have an "upstream merge will break bpf" signal,
+> because it happened regularly.
+>
+> For bpf list we run on every incoming patch, so regressions are detected
+> quickly. Not feasible to do that for *every* upstream patch, we'd need
+> much more compute.
+>
+> An auto-bisection is something I thought about, but never got to it.
+> These days with LLMs this may be easier to set up though.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/92e867ba9905/disk-aac26bee.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/c4cc176072c1/vmlinux-aac26bee.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/c603638afe28/bzImage-aac26bee.xz
+yeah that'd be awesome, but obviously a nice-to-have!
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+a0eecb22de4d821a9e5d@syzkaller.appspotmail.com
-
-------------[ cut here ]------------
-memcpy: detected buffer overflow: 16 byte read of buffer size 0
-WARNING: lib/string_helpers.c:1037 at __fortify_report+0x6b/0xa0 lib/string_helpers.c:1036, CPU#0: syz-executor347/5624
-Modules linked in:
-CPU: 0 UID: 0 PID: 5624 Comm: syz-executor347 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/16/2026
-RIP: 0010:__fortify_report+0x89/0xa0 lib/string_helpers.c:1036
-Code: e8 ec f1 4b fd 48 8d 3d c5 7e d7 0c 45 84 e4 49 8b 37 48 c7 c0 40 8d 8d 8c 48 c7 c1 60 8d 8d 8c 48 0f 44 c8 4c 89 f2 49 89 d8 <67> 48 0f b9 3a 5b 41 5c 41 5e 41 5f 5d e9 45 84 14 07 cc cc cc cc
-RSP: 0018:ffffc90003bb7dc8 EFLAGS: 00010246
-RAX: ffffffff8c8d8d40 RBX: 0000000000000000 RCX: ffffffff8c8d8d40
-RDX: 0000000000000010 RSI: ffffffff8c8d8c20 RDI: ffffffff91c743f0
-RBP: 000000000000000e R08: 0000000000000000 R09: 1ffff11006d9ed01
-R10: dffffc0000000000 R11: ffffed1006d9ed02 R12: 0000000000000000
-R13: 0000000000000000 R14: 0000000000000010 R15: ffffffff8c8d8a78
-FS:  000055558b41f400(0000) GS:ffff888123429000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000055c55f793000 CR3: 00000000359c2000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- __fortify_panic+0x9/0x10 lib/string_helpers.c:1043
- fortify_memcpy_chk include/linux/fortify-string.h:547 [inline]
- inherit_ruleset security/landlock/domain.c:407 [inline]
- landlock_merge_ruleset+0xc46/0xc90 security/landlock/domain.c:468
- __do_sys_landlock_restrict_self security/landlock/syscalls.c:809 [inline]
- __se_sys_landlock_restrict_self+0x2bc/0xd40 security/landlock/syscalls.c:732
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fc0d85c8c39
-Code: c0 79 93 eb d5 48 8d 7c 1d 00 eb 99 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 d8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fff6fcb7858 EFLAGS: 00000246 ORIG_RAX: 00000000000001be
-RAX: ffffffffffffffda RBX: 00007fff6fcb7988 RCX: 00007fc0d85c8c39
-RDX: 00007fc0d85c8c39 RSI: 0000000000000000 RDI: 0000000000000004
-RBP: 0000000000000001 R08: 00007fff6fcb7988 R09: 00007fff6fcb7988
-R10: 00007fff6fcb7988 R11: 0000000000000246 R12: 00007fff6fcb7978
-R13: 0000000000000002 R14: 00007fc0d8659ca0 R15: 0000000000000002
- </TASK>
-----------------
-Code disassembly (best guess):
-   0:	e8 ec f1 4b fd       	call   0xfd4bf1f1
-   5:	48 8d 3d c5 7e d7 0c 	lea    0xcd77ec5(%rip),%rdi        # 0xcd77ed1
-   c:	45 84 e4             	test   %r12b,%r12b
-   f:	49 8b 37             	mov    (%r15),%rsi
-  12:	48 c7 c0 40 8d 8d 8c 	mov    $0xffffffff8c8d8d40,%rax
-  19:	48 c7 c1 60 8d 8d 8c 	mov    $0xffffffff8c8d8d60,%rcx
-  20:	48 0f 44 c8          	cmove  %rax,%rcx
-  24:	4c 89 f2             	mov    %r14,%rdx
-  27:	49 89 d8             	mov    %rbx,%r8
-* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
-  2f:	5b                   	pop    %rbx
-  30:	41 5c                	pop    %r12
-  32:	41 5e                	pop    %r14
-  34:	41 5f                	pop    %r15
-  36:	5d                   	pop    %rbp
-  37:	e9 45 84 14 07       	jmp    0x7148481
-  3c:	cc                   	int3
-  3d:	cc                   	int3
-  3e:	cc                   	int3
-  3f:	cc                   	int3
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+--
+Cheers, Lorenzo
