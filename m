@@ -1,203 +1,143 @@
-Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com [209.85.210.41])
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A73C3C0A19
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 20:19:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791577186; cv=pass; b=q7SXv+YLdrDqo14LBHSvqko47MTjyFDJZG5XfUUgh3Ji+aW2YveOkay+MUyPmCmp6E+0K8kbqcr49my5uTqrHXuyyDRxhtFqTSEfGoFf/WwKO7swKJmKgV8NGXNPV2stkjDkLnbBNwxhbQu+Kh2ku6yHOfshqR/FY5dth0WvxU8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791577186; c=relaxed/simple;
-	bh=LHuM++ypPRN/csYCm9wgjToWu2NKVwtNFtTg8nsZAHY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DiuLSN+aVntlNSCAwW5tCCHJzSXr2eS1kd/kDrfyqcDzAo04nJGWVZp0Lhu6LGnzZLvuiAlvaQy0KNKkSn1GQrjT/93lvd58J6YiqHAZ2fX9zmerDjP/wg3W7mAqVSZ/mI6WnQrgvU4Y9sFpiVTh0LFdjUc+rxiauoQMFv++xg0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kiYR0zZ+; arc=pass smtp.client-ip=209.85.210.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FDB54E06C1
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 20:23:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791577399; cv=none; b=URmQot8/8hCfV5S3fP2bQg9/xhj14zoyIjn5GCShf2D7bx0DzX67XyxRbmd9e7URHmYguhPQUYhf1O12y480mwerCZwdh/G58RxKbJDUVRHeqACtFMsPaL3u6Z3H1zw9OoV9nKUfmnEQFPLpOG6QKEYVmwUB/WK1lwRQR83w0uI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791577399; c=relaxed/simple;
+	bh=9N9zFjDUxZrk4uykJ3LeSVBg8jAHHAq3PWq8u7a4uBs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fI+st8vHp7zw/j7ybiml7t5tcp9b09Q9v0C+5TFw7cpm33vv0UmvvYCTC8wrMCbHqI4E89fshSOZV+8RhWFGKYI9KeFXJ4jhNsz6vTOvLh2K5G2ui0/+sVH3h2UEpBrEz3UJVYbe4eQ6chQ78FH6hjhvaRPELApb9Tl93Q+ycCE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=GBb69ut/; arc=none smtp.client-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kiYR0zZ+"
-Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-8231ccb04a0so27235a34.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 13:19:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791577184; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TS5EGZjFgAKeRu6j46pWz1lqdYC1DHYL8ZujqW+t8oSLZNelotePCy0dasR2KWE7ei
-         4JJSKM6R4Kbgpta7yDUC7kL8/WkzPgYjUq28NmvxGIdr5rd9V9EjSNsZZkRxXF5hlv0A
-         +30hh3MmLE8FgX3O6K3WOQ7GfMfQBtXXtvfEROetxlQ8+AMy0eA6DyBVljG/VoJVg9pN
-         DnbaygrVbSBfFHGxpPUHGZdL/OM7cBEsdOhagB1MA+kFQztlxjocyKfq4kEGCkKG1W1M
-         7C/uVs6EkTzvElnYPcIR12fzNeI+WbxwjQfjMY2aqs+MquEOR2Qr9SqKUWhjoRVlNSq4
-         lF6Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=DZTn6/Lz8nRVlXVjhpKVoP1fGQxBATGcsrbeLxvH18U=;
-        fh=JNbwJQt5J0emtjXBlhFbdO6uxU+tbjBP0bTF4gKx8Fs=;
-        b=LzUr+k1tPAMbogykp0idO1qPMv8gBt36DeiQyPoibLJDvbHhk5tLCp3rg/y1MEL9PN
-         sROTOC3JwhzchYSziEat6iwodVgFIAs9Qxomqj0n97v+ioPds13GneB+EhZYz3TV9b0e
-         ecH9SNFSlKehUtxpmRUSwOtm61pux93Q2oNf55b/l38VGnk1PusggkGeBgqVe+48iO1Q
-         x7TmXj0hYpFZzxQmKJeI34WH99RQGnht0XspInjyZlzU63x1I9+NMS4dcKYK9WCuLi3W
-         0TQ+HArlDarPasF+amdoEc0QpBU4Zq4Kg9HP0dyHwuHVkjCFvGXpuZfffS8BsHetchVq
-         cFVw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="GBb69ut/"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-38e42560ebcso17912a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 13:23:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791577184; x=1792181984; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DZTn6/Lz8nRVlXVjhpKVoP1fGQxBATGcsrbeLxvH18U=;
-        b=kiYR0zZ+PTk+IzW0qMwg6RwQzbSXSqpPY+c5oD+mGrn2Ea6eEqIPB3zTafK5tJo0Cz
-         a/y9bK6uoZY1t0trc/sV4e1E7bC3Ymk7t/ibPK2MoyrnS6CqF9DwXPEjs0lIZu/1dtn8
-         dPHfz8rkuvt1SAw9FvORGfhM/6DmztEAmfdKdx7RuDsGArUqivC9DvOcXOazIR/m4xJw
-         ykSXpIuRlDlgTmmVSeywNYSw0OhCVHPlDw/lMLh0B0L3wxrXZ4HymXY3zduAo8StcEtM
-         yE8/6ga0n0JM9BoEak+EPrvK+v6+bQkpX+XpVN8dOkM+bBzmI/z7WRhP65KlsXM/63PO
-         Tw9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791577184; x=1792181984;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1791577397; x=1792182197; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:mail-followup-to:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=DZTn6/Lz8nRVlXVjhpKVoP1fGQxBATGcsrbeLxvH18U=;
-        b=tXmJB/bFMa8MsKBcK3IOUsSU7phiCc5RYdkh2zZRbf6MVHTMyHaq7kll8FSdqkhNvp
-         U3IDEFjSTZDsP+ckXUt+KkbKc5M7X1dzqZfGnP27SPcZcBi7LEd20MggU16L3pRnBKdQ
-         zz0sGYl1ZTtaBS1kuNOPyhgRKrIytzqQahmy5NeXzFWzWT5q5S1SMGUzX+CUlVMa70ty
-         Ka/QPwfI0DYBNjO9bIcX/jv6iqb3JcrhWPe5ANZxeVRg453ZdIczWnfasme471jPtX4C
-         yLJEog3cc9lAnM+4IwMj6xVsuuwAhvmvDL8yAt4gHZY4xpit/cgrxKIcplXGSZF6WC3a
-         8H9A==
-X-Forwarded-Encrypted: i=1; AKwUvBwo90UznZegnlUqPyJXxzD8NIeu3X0zLj+e2RR5kO2ybb/7nEiuzpbLsmf4wfPJnhkWuxK4+sIXRfpLOY8=@vger.kernel.org
-X-Gm-Message-State: AFuF++l5DKc2IVooI2jRtdiWg+/a/o9oZx58njeVdqRp13vQTZ+68Xnn
-	nfX1QP6jaYNOhb/blKQsfICPpZCp9vom6YKOKtJ7sy+zPOMXW3uYlP4MF1Wwvo4Tf2qT6zQcvkq
-	O7HYWQ73ZrKoiA9AuN8QgueAPSTg4qqU4dp6yDSo72Q==
-X-Gm-Gg: AYBFou16Gu4MldIPBA1RQOjnt60RcF2eDinhyXIXKBWgdk1L+N9vl23g17wC5E4d8s/
-	FfHuLmsY+8EYfDXsOc+lvujz/xV/+or0H76HPlBS9lk3RAxNpKfhccouSdQGVr5X8fb7P2snkR7
-	F+9WrJHtGgiUWKlWrepiLD5pH6iUv4Yn4c9pgOpiSey3FSTQqbVMx0FQLiMEWetQ/sVKWxIm/e3
-	kduf4lbjD18184AOaG9IV43DX5dwGYLsAMFF6NiFkQKLvrVA1yB5775hNKxjOMMNE/9OI9IcyGq
-	geZe/sP0Cm2SLuaf+OrKvFJP6W61kNvx053GoePn1fzivg6Wb1eIvz3Q0qF66y2KOlL4mlQ=
-X-Received: by 2002:a05:6808:1825:b0:4c5:90f1:b9c3 with SMTP id
- 5614622812f47-50c438a90cdmr3433845b6e.2.1791577183759; Fri, 09 Oct 2026
- 13:19:43 -0700 (PDT)
+        bh=P5TCWATT4rCU7DEWZvcvh8GLxiFiVd9cWWdUAWSZxmQ=;
+        b=GBb69ut/NFNFdxi9PBR4vCMAqX/aZE4LMV0UYKD/fMEr8ILDkItB+SoA6KNungBoIG
+         rgLQmyn09w/Jd0a3xlNhY2mT9uF156bXEkO/b1Xrt9IYKjo8i3CiFLoHkbCeNrSsI2tS
+         fCHafnQD3dKxUv2NvIGlMrV+73DqI1PggKYb+vKpmukhc+NhRyWpMxWA4P+61VwSPcKQ
+         DnryurXfvJ+I+Fg07mqwMLGJ45KTu1kKJtYQeNqzjh/IpBLkJy7pMJg7J2b65a2eCues
+         IcpZK72nmePd/mi0st7qUQeaK0dxn4gPYpWCpgzX4xa6nu3DxxYDWCtWLMgiqMw32YsB
+         ioeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791577397; x=1792182197;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:mail-followup-to:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=P5TCWATT4rCU7DEWZvcvh8GLxiFiVd9cWWdUAWSZxmQ=;
+        b=kKCrDXowiJ/QiA6J9rvePK49e7jCxQufrf52eS3tMQxIEvGJAdWKx05Ak57PilebDT
+         Cue4BE6Nrkzldh6Pj2Y7ESumBXgxOmGPbSIc+iVObKyVpZMOx7pP0LjZUzMy243PLRtB
+         CCyvf7HOhWKtxt/qvx5NYgHhkGuN70Jz7BNhFo5kAiLmOlTQ66QVOIanhjV0BoWVn+9X
+         9GPsx2jS7rfcrGasi5YumTXsuth8F0MmPMauMa9Z8qqGWy1kcucynfdL2IO6ZWpmCC8S
+         BLCRPuNp9epi635S0Amp8zK5xLImdLb+P7d1p/y3YFu/OvKClDi2XsHpf7nNOj/enkF9
+         Fuig==
+X-Forwarded-Encrypted: i=1; AKwUvBz0zA8URL6yAyZxmoCifXb7g13S7cRDWvxFBdKviuUmKDLXe2GXLli2dK0BDm0VlLWUghll3TifxEUPwww=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL06uZqT0fQi0lG0rOgCxOpAwKT06LDr31Bvmq5GGNYsYHpADIZ
+	RkFLi6sdwCzXwLcgpMBLd/w99jyzKreQLyJjJgJfDoZZIpmxFgq4vYDlusK2Pmv6tNk=
+X-Gm-Gg: AYBFou3C4wR8WdCsEd9SohkoYC4Mt+9+vNYRC3IlGYZl4otyChFxmVJlY/FeS5HzkxA
+	NpNf9ojDjPT1ovflC01yfW8RY7VMpd7fg/6RuOZMS/0mZ8kmFKkzoJdDxtgWEgEjTpcBwtsHxW6
+	ArOTF3nFASsUlRcTzXd/XCxPHFL6qEPnm05PECM5nB0xbLZ9DgC20Wq4+UYO5GniiNY/kITHPoT
+	Zk8EXLouSoi0dzyE46ZP48l22ZeBlKY2yYBxsILPKnztyHsYtEg6Ehvv2w3xLoWWSeAfZeA25e4
+	eFOOoDHhFKZ9vRh/2FMQQF7UnrGgXEbZ5gCOfoJycPq8S7ZBPMlpnahSX5sZzr6RjnPYDpH+Wox
+	tdH5ccK2hXvVSQrTGSg40kzNulJ0lORM5bocaL9npV1IsYa/VKifH2C9Ux8OxvOa5742lX+z4yV
+	l4KUme4OUkhoRjfn3okwOxGvkZEv0ZmUyWpr9iZ3Rjd7wLAnajMLabp4nq2giKEE/hDVRLWfu4E
+	h5JZPUFHxHF9ugpVNvbbA==
+X-Received: by 2002:a17:90b:4b:b0:3ab:2c2b:1030 with SMTP id 98e67ed59e1d1-3ab3a747cfcmr2434340a91.22.1791577396727;
+        Fri, 09 Oct 2026 13:23:16 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:4::])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab36f46dfesm5009374a91.8.2026.10.09.13.23.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 13:23:16 -0700 (PDT)
+Date: Fri, 9 Oct 2026 13:23:15 -0700
+From: Joe Damato <joe@dama.to>
+To: Michael Chan <michael.chan@broadcom.com>
+Cc: netdev@vger.kernel.org, Pavan Chebbi <pavan.chebbi@broadcom.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	edumazet@google.com, horms@kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net 2/2] bnxt_en: Pad short SW USO segments to
+ BNXT_MIN_PKT_SIZE
+Message-ID: <aslNM7TjcZ/17/MS@devvm20253.cco0.facebook.com>
+Mail-Followup-To: Joe Damato <joe@dama.to>,
+	Michael Chan <michael.chan@broadcom.com>, netdev@vger.kernel.org,
+	Pavan Chebbi <pavan.chebbi@broadcom.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	edumazet@google.com, horms@kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+References: <20261008191114.3736826-1-joe@dama.to>
+ <20261008191114.3736826-3-joe@dama.to>
+ <CACKFLikWkH6QaOG=EO_zu8cqCFRxGqtA2-+R-btp0TwUbJjVBg@mail.gmail.com>
+ <asklVFvUJx8P/k1d@devvm20253.cco0.facebook.com>
+ <CACKFLiksRwZm+Zy74G_u59yEpY5BK+xRv=r6f9Wpo6WgT_TwDQ@mail.gmail.com>
+ <aslESokQPvYCWarH@devvm20253.cco0.facebook.com>
+ <CACKFLi=0uuY36A+pnHVDqRYACfC5WVXx357cgD5BDMiTfW9sRA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261006-netcons-fixes-next-v1-0-231cd26f8c51@gmail.com>
- <20261006-netcons-fixes-next-v1-1-231cd26f8c51@gmail.com> <afc14b81-32b3-4f91-8b0c-0152889f80f6@kernel.org>
- <CAGSyskUE2CM_i_+o2Dtf+_OriRyad+UzG4S-rzOeTL18LnZheQ@mail.gmail.com> <asjfY79OetvGy4an@gmail.com>
-In-Reply-To: <asjfY79OetvGy4an@gmail.com>
-From: Gustavo Luiz Duarte <gustavold@gmail.com>
-Date: Fri, 9 Oct 2026 21:19:32 +0100
-X-Gm-Features: AclHuK_SmouqZ8gGRicUCLxC1nVPC-Rfbwhq_vDqzm_DMop0yNSTGIcelyt7RXc
-Message-ID: <CAGSyskWLdTJ-QSeys=_42wuOYbPJz-=0ySHW6hqmPdvHcmuqag@mail.gmail.com>
-Subject: Re: [PATCH net-next 1/2] netconsole: avoid printing partially updated
- target attributes
-To: Breno Leitao <leitao@debian.org>
-Cc: Eric Dumazet <edumazet@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Sashiko <netdev-bot+sashiko@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CACKFLi=0uuY36A+pnHVDqRYACfC5WVXx357cgD5BDMiTfW9sRA@mail.gmail.com>
 
-On Fri, Oct 9, 2026 at 1:35=E2=80=AFPM Breno Leitao <leitao@debian.org> wro=
-te:
->
-> On Thu, Oct 08, 2026 at 08:55:40PM +0100, Gustavo Luiz Duarte wrote:
-> > Hi Eric, thanks for the review!
+On Fri, Oct 09, 2026 at 01:07:59PM -0700, Michael Chan wrote:
+> On Fri, Oct 9, 2026 at 12:45 PM Joe Damato <joe@dama.to> wrote:
 > >
-> > On Tue, Oct 6, 2026 at 9:35=E2=80=AFPM Eric Dumazet <edumazet@kernel.or=
-g> wrote:
-> > >
-> > >
-> > >
-> > > On 10/6/26 20:58, Gustavo Luiz Duarte wrote:
-> > > > The configfs store callbacks all serialize on dynamic_netconsole_mu=
-tex
-> > > > but not on the read side, so reading an attribute while it is being
-> > > > written returns a partially updated value.
-> > > >
-> > > > Hold dynamic_netconsole_mutex on *_show() callbacks to avoid racing=
- with
-> > > > writers.
-> > > >
-> > > > The dev_name_show() callback can also race with
-> > > > netconsole_netdev_event() writing to np.dev_name due to
-> > > > NETDEV_CHANGENAME. So it needs to hold RTNL in addition to
-> > > > dynamic_netconsole_mutex.
-> > > >
-> > > > Reported-by: Sashiko <netdev-bot+sashiko@kernel.org>
-> > > > Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/2026081=
-4-netcons_ipv6-v3-7-bc0915e8c75f@gmail.com
-> > > > Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/2026092=
-8-netcons-fixes-v1-0-bb5ffe5e698a%40gmail.com
-> > > > Signed-off-by: Gustavo Luiz Duarte <gustavold@gmail.com>
-> > > > ---
-> > > >   drivers/net/netconsole.c | 62 +++++++++++++++++++++++++++++++++++=
-++++---------
-> > > >   1 file changed, 51 insertions(+), 11 deletions(-)
-> > > >
-> > > > diff --git a/drivers/net/netconsole.c b/drivers/net/netconsole.c
-> > > > index 267254f046de..188beacb308d 100644
-> > > > --- a/drivers/net/netconsole.c
-> > > > +++ b/drivers/net/netconsole.c
-> > > > @@ -859,7 +859,19 @@ static ssize_t release_show(struct config_item=
- *item, char *buf)
-> > > >
-> > > >   static ssize_t dev_name_show(struct config_item *item, char *buf)
-> > > >   {
-> > > > -     return sysfs_emit(buf, "%s\n", to_target(item)->np.dev_name);
-> > > > +     struct netconsole_target *nt =3D to_target(item);
-> > > > +     int ret;
-> > > > +
-> > > > +     dynamic_netconsole_mutex_lock();
-> > > > +     /* Hold RTNL to prevent racing against netconsole_netdev_even=
-t()
-> > > > +      * changing np.dev_name.
-> > > > +      */
-> > > > +     rtnl_lock();
-> > > > +     ret =3D sysfs_emit(buf, "%s\n", nt->np.dev_name);
-> > > > +     rtnl_unlock();
-> > > > +     dynamic_netconsole_mutex_unlock();
-> > > > +
-> > > > +     return ret;
-> > > >   }
-> > >
-> > > Please do not add rtnl_lock() in a _show() sysfs handler unless there=
- is
-> > > no other way?
-> > >
-> > > Something like:
-> > >
-> > >      dynamic_netconsole_mutex_lock();
-> > >      strscpy(name, nt->np.dev_name, sizeof(name));
-> > >      if (nt->state =3D=3D STATE_ENABLED) {
-> > >          struct net_device *dev =3D nt->np.dev;
-> > >
-> > >          if (dev)
-> > >              netdev_copy_name(dev, name);
+> > On Fri, Oct 09, 2026 at 11:33:07AM -0700, Michael Chan wrote:
+> > > Did you mean generic XDP turning around incoming packets with XDP_TX
+> > > actions and transmitting them through the software stack?  This path
+> > > cannot generate USO packets, right?
 > >
-> > This could lead to a use-after-free if we race with NETDEV_UNREGISTER
-> > and 'dev' gets freed.
->
-> Any chance you can get the lock (either dynamic_netconsole_mutex or
-> target_list_lock) in netdev notifiers, so, it doens't conflict with this
-> one?
+> > Hm, I'm probably missing something, but the case I'm describing is generic XDP
+> > bouncing received packets back out with XDP_TX.
+> >
+> > I could be wrong (and if so I am happy to drop this if statement from the
+> > code), but IIUC generic XDP runs from __netif_receive_skb_core() after
+> > software GRO, so the packet it sees can be a GRO'd UDP packet with
+> > SKB_GSO_UDP_L4 set (because maybe the socket had UDP_GRO set?).
+> >
+> > The generic XDP path seems to keep all of the gso fields. Later generic
+> > XDP TX calls netdev_start_xmit without validate_xmit_skb being called
+> > and so gso_size could potentially be some tiny value.
+> 
+> I don't know.  You may be right, but this is a highly unusual code
+> path.  Other features checked in bnxt_features_check() do not get
+> rechecked again.
+> 
+> If you decide to keep the check, please add a comment.  Thanks.
 
-We can sidestep the device teardown entirely if we just stick to
-np->dev_name and protect it with target_list_lock which is held in
-netconsole_netdev_event() while handling NETDEV_CHANGENAME:
+OK, I'll submit a v2 with the following comment. Let me know if this OK
+with you before I respin:
 
-  dynamic_netconsole_mutex_lock();
-  spin_lock_irqsave(&target_list_lock, flags);
-  ret =3D sysfs_emit(buf, "%s\n", nt->np.dev_name);
-  spin_unlock_irqrestore(&target_list_lock, flags);
-  dynamic_netconsole_mutex_unlock();
+  /* bnxt_features_check() makes the stack segment these, but paths
+   * that skip validate_xmit_skb() (e.g. generic XDP_TX of a GRO'd
+   * skb) can still get here. Padding every segment would need more
+   * BDs than bds_needed reserves below, so drop instead.
+   */
+  if (unlikely(bnxt_sw_gso_pad_len(hdr_len, mss)))
+          goto drop;
 
-The local_mac_show() case is not as simple because we don't keep a
-copy of dev_addr, but we can couple target_list_lock with nt->state =3D=3D
-STATE_ENABLED, which ensures the target is not queued for cleanup so
-the device won't be freed from under us.
-
-I will send a new revision for this and for local_mac_show() using
-target_list_lock.
+Also, since I haven't seen this issue in production myself and according
+to my math it is not possible to hit this with QUIC on ipv4, Jakub asked
+me to submit this to net-next instead of net.
