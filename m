@@ -1,39 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 546A8357D12;
-	Fri,  9 Oct 2026 15:30:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB8EE357D12;
+	Fri,  9 Oct 2026 15:30:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791559832; cv=none; b=jLe+hx6aJRTWA/TTQZFDP92J9/vF/zZ28ofuy+pUQttKVutg5rheC/Hw3yQBEjeefRJr6UZmVyShQSk/0SAMXLe77sfyfp3TO0O9+UXgI5fOat9jWBr4F2YU6dzrBhNaXRcvQPwkNeMAxjaF/1TN5zShlSp15ogcHAWPWnv8dM8=
+	t=1791559844; cv=none; b=Ju+kFsdvc5J0+Nqgutrrq7GV0IT6xi9zysYfliY1B949pvEv6bKVXYlftllwfeuIbZzv3rw87Qyl65gjVwCzJeX9ao1iki+akx6l1fW2am6oLhceKwqkidy1WMB8qDMhjjsjXq15djAAdsdIA3BJIzOk3pZlKe5E/Wkgsf26Brk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791559832; c=relaxed/simple;
-	bh=kJYp86t3XD5Y/WycqZT8+N9YJNJK5fpZc31PNQj4kzA=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=AeB2BUiU0NTQunPeD+7znmNYywGiCWptyEPnVBXm4rcad5FVpP2a2h/FnLuvs0Dav2z6uTy/HRvOOcOYane+kPoObBJC9+HfrNLUtroKk9um/AmTDmNirFXC/8qSxO8wn4cyaFENnVrHNPVJEspD+MYX/CVVP6xL57VZlZGz1bU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Biy9CZ9j; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791559844; c=relaxed/simple;
+	bh=eEJy9KhChJUFb+ZeUcA6hHLSY/lviOE0NI4PduGWKoM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FY0cX4+J0pRupN4njup/hTmWF2AZ1wittRXldGylgmDDgSRkcI+GV4mdXYh9b8MZdxgMBpY3LfBFk4yrrL4/2M8Niww/R6mx4J6zHw7Xh8HX1eXVw78/H/5PbfwGfX4bOFW5ew9sjbIMIBgaUw+prRGH4fLLFAfcCe57dJgFQh8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ICFtK/An; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Biy9CZ9j"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D787B1F00893;
-	Fri,  9 Oct 2026 15:30:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ICFtK/An"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A8421F000FF;
+	Fri,  9 Oct 2026 15:30:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791559830;
-	bh=xW4BiiVxHX+na2fdTITtMf2MnenCzpd+Yk0eYGZGJpw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=Biy9CZ9jF2ThfnXS+ffDzhE9qcB4aEpeOzjXbia1eiLsOPzDKmQx29jHdE6pQukLL
-	 DRuf1NC7eRpUUqkuwEJAVAaUVmFALESxcnUanN5eG8+fiv5UoRvFCEaMBa2ZHMOoaM
-	 I2mVRIj06+SYZfgX9rQ8+PDcP+DRhq4yV7Y9+EQ0rYYfy0hNHV4tKeytTReaVVAUfG
-	 UonDnii3kl29BIj9AX9acdj3jZRXgH7pJf2HnaiATx/hB1uFkwkQ7UsZXh8YDXnQg/
-	 Yui1kELvC8pFq0xefEcD6FOuS7sOL4NE6JNZZFQ+cyn3oMopvUJAlRaG7yfja1zoM2
-	 Ml+U1QmlIfr/A==
-Date: Fri, 9 Oct 2026 10:30:28 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Fabio Estevam <festevam@gmail.com>
-Cc: mathias.nyman@intel.com, gregkh@linuxfoundation.org,
-	bhelgaas@google.com, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org
-Subject: Re: [PATCH v3] usb: xhci-pci: Add TUSB73x0 definitions
-Message-ID: <20261009153028.GA976394@bhelgaas>
+	s=k20260515; t=1791559842;
+	bh=SgWsZz5AlYvBRDKN8E6Dsq0TdSgrfowLNWfm0ObfdeI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ICFtK/An9+/0RXqBL51h3xD9xi/ggpTy+N2hPYKSQEHgCDT8e358TlEMxUm3dl7YB
+	 Dx/1IzD49YKJdl/ZM0VgzHPaAqtGxsNIH41ETB/FJ2MW7wCNMJRPx7dnhF0CibrC8U
+	 LdoOcjvjA+W14eIk/owf1JcHDVeF3uNT/1CUUV6Gvu7BZbNEgWVaU2AG02cSKa1DIi
+	 XML3DCwhlGINBV2mhfe0tOPs38Ab6wbnd4AADl5H/gwW0RFksCA+97yowAyP1vw335
+	 /fZM1uDXA5ElHwj/hkax4nuxuMZ9302/jbZgJqw6FV5/WOVMjkeXCWoNLbD0uU8Ieg
+	 hCRAYE83+/jiw==
+Date: Fri, 9 Oct 2026 09:30:40 -0600
+From: Keith Busch <kbusch@kernel.org>
+To: Naman Jain <namjain@linux.microsoft.com>
+Cc: linux-nvme@lists.infradead.org, Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+	Michael Kelley <mhklinux@outlook.com>, linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 3/3] nvme-pci: defer completions when rescheduling is
+ needed
+Message-ID: <askIoNon8UVyNJiJ@kbusch-mbp>
+References: <20261009050556.2817978-1-namjain@linux.microsoft.com>
+ <20261009050556.2817978-4-namjain@linux.microsoft.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,93 +46,220 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261009125154.266435-1-festevam@gmail.com>
+In-Reply-To: <20261009050556.2817978-4-namjain@linux.microsoft.com>
 
-On Fri, Oct 09, 2026 at 09:51:54AM -0300, Fabio Estevam wrote:
-> Instead of hard-coding the TUSB73X0 PCI ID, USB_CTRL register address
-> and the PWRON_POLARITY, introduce definitions for them to make the code
-> easier to read.
-> 
-> No functional change.
-> 
-> Signed-off-by: Fabio Estevam <festevam@gmail.com>
-
-Acked-by: Bjorn Helgaas <bhelgaas@google.com>	# pci_ids.h
-
-> ---
-> Changes since v2:
-> - Move the TUSB73x0 PCI device ID to the shared PCI ID header and use it
->   in pci-quirks.c too, as suggested by Sashiko.
-> 
-> Changes since v1:
-> - None. Only sent it as a standalone patch instead of part
->   of a series.
-> 
->  drivers/usb/host/pci-quirks.c | 3 ++-
->  drivers/usb/host/xhci-pci.c   | 9 +++++++--
->  include/linux/pci_ids.h       | 1 +
->  3 files changed, 10 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/usb/host/pci-quirks.c b/drivers/usb/host/pci-quirks.c
-> index ba158d63bb8b..f670e7aab984 100644
-> --- a/drivers/usb/host/pci-quirks.c
-> +++ b/drivers/usb/host/pci-quirks.c
-> @@ -1189,7 +1189,8 @@ static void quirk_usb_handoff_xhci(struct pci_dev *pdev)
->  	val = readl(base + ext_cap_offset);
+On Fri, Oct 09, 2026 at 05:05:56AM +0000, Naman Jain wrote:
+>  static irqreturn_t nvme_irq(int irq, void *data)
+>  {
+>  	struct nvme_queue *nvmeq = data;
+>  	DEFINE_IO_COMP_BATCH(iob);
 >  
->  	/* Auto handoff never worked for these devices. Force it and continue */
-> -	if ((pdev->vendor == PCI_VENDOR_ID_TI && pdev->device == 0x8241) ||
-> +	if ((pdev->vendor == PCI_VENDOR_ID_TI &&
-> +	     pdev->device == PCI_DEVICE_ID_TI_TUSB73X0) ||
->  			(pdev->vendor == PCI_VENDOR_ID_RENESAS
->  			 && pdev->device == 0x0014)) {
->  		val = (val | XHCI_HC_OS_OWNED) & ~XHCI_HC_BIOS_OWNED;
-> diff --git a/drivers/usb/host/xhci-pci.c b/drivers/usb/host/xhci-pci.c
-> index a8889081ae82..54b76e2bddd2 100644
-> --- a/drivers/usb/host/xhci-pci.c
-> +++ b/drivers/usb/host/xhci-pci.c
-> @@ -28,6 +28,9 @@
->  #define SPARSE_DISABLE_BIT	17
->  #define SPARSE_CNTL_ENABLE	0xC12C
->  
-> +#define TUSB73X0_USB_CTRL			0xe0
-> +#define TUSB73X0_PWRON_POLARITY			BIT(22)
+> +	if (unlikely(test_and_clear_bit(NVMEQ_IRQ_POLL_HANDOFF,
+> +					&nvmeq->flags))) {
+> +		if (!nvme_cqe_pending(nvmeq))
+> +			return IRQ_HANDLED;
+> +	}
+> +	if (unlikely(test_bit(NVMEQ_IRQ_POLL_PAUSED, &nvmeq->flags) &&
+> +		     (!test_bit(NVMEQ_IRQ_POLL_INIT, &nvmeq->flags) ||
+> +		      test_bit(NVMEQ_IRQ_POLL_MASKED, &nvmeq->flags) ||
+> +		      READ_ONCE(to_pci_dev(nvmeq->dev->dev)->error_state) !=
+> +				pci_channel_io_normal)))
+> +		return IRQ_HANDLED;
 > +
->  /* Device for a quirk */
->  #define PCI_VENDOR_ID_FRESCO_LOGIC		0x1b73
->  #define PCI_DEVICE_ID_FRESCO_LOGIC_PDK		0x1000
-> @@ -479,7 +482,8 @@ static void xhci_pci_quirks(struct device *dev, struct xhci_hcd *xhci)
->  	    pdev->device == PCI_DEVICE_ID_ASMEDIA_3042_XHCI)
->  		xhci->quirks |= XHCI_RESET_ON_RESUME;
->  
-> -	if (pdev->vendor == PCI_VENDOR_ID_TI && pdev->device == 0x8241)
-> +	if (pdev->vendor == PCI_VENDOR_ID_TI &&
-> +	    pdev->device == PCI_DEVICE_ID_TI_TUSB73X0)
->  		xhci->quirks |= XHCI_LIMIT_ENDPOINT_INTERVAL_7;
->  
->  	if ((pdev->vendor == PCI_VENDOR_ID_BROADCOM ||
-> @@ -678,7 +682,8 @@ int xhci_pci_common_probe(struct pci_dev *dev, const struct pci_device_id *id)
->  	dma_set_max_seg_size(&dev->dev, UINT_MAX);
->  
->  	if (device_property_read_bool(&dev->dev, "ti,pwron-active-high"))
-> -		pci_clear_and_set_config_dword(dev, 0xE0, 0, 1 << 22);
-> +		pci_clear_and_set_config_dword(dev, TUSB73X0_USB_CTRL, 0,
-> +					       TUSB73X0_PWRON_POLARITY);
->  
->  	return 0;
->  
-> diff --git a/include/linux/pci_ids.h b/include/linux/pci_ids.h
-> index 0693e4532a68..030c86dd6d67 100644
-> --- a/include/linux/pci_ids.h
-> +++ b/include/linux/pci_ids.h
-> @@ -889,6 +889,7 @@
->  #define PCI_DEVICE_ID_TI_XX12		0x8039
->  #define PCI_DEVICE_ID_TI_XX12_FM	0x803b
->  #define PCI_DEVICE_ID_TI_XIO2000A	0x8231
-> +#define PCI_DEVICE_ID_TI_TUSB73X0	0x8241
->  #define PCI_DEVICE_ID_TI_1130		0xac12
->  #define PCI_DEVICE_ID_TI_1031		0xac13
->  #define PCI_DEVICE_ID_TI_1131		0xac15
-> -- 
-> 2.43.0
-> 
+> +	if (unlikely(in_hardirq() &&
+> +		     test_bit(NVMEQ_IRQ_POLL_INIT, &nvmeq->flags) &&
+> +		     !test_bit(NVMEQ_IRQ_POLL_PAUSED, &nvmeq->flags) &&
+> +		     need_resched() && nvme_cqe_pending(nvmeq) &&
+> +		     !test_and_set_bit_lock(NVMEQ_IRQ_POLL, &nvmeq->flags))) {
+> +		set_bit(NVMEQ_IRQ_POLL_MASKED, &nvmeq->flags);
+> +		disable_irq_nosync(irq);
+> +		irq_poll_sched(&nvmeq->iopoll);
+> +		return IRQ_HANDLED;
+> +	}
+
+The disable_irq_nosync still does non-posted transactions for msi and
+msi-x. NVMe has a shortcut for msi, but there's currently nothing for
+msi-x. For that case, I have a prep patch I consulted with Thomas, and
+the result is below. I'm delayed sending it out while catching up from
+travel, but I think this will be even more efficient.
+
+---
+diff --git a/drivers/irqchip/irq-msi-lib.c b/drivers/irqchip/irq-msi-lib.c
+index 45e0ed3134ce1..bff622b4839aa 100644
+--- a/drivers/irqchip/irq-msi-lib.c
++++ b/drivers/irqchip/irq-msi-lib.c
+@@ -126,6 +126,7 @@ bool msi_lib_init_dev_msi_info(struct device *dev, struct irq_domain *domain,
+ 	 */
+ 	if (info->flags & MSI_FLAG_PCI_MSI_MASK_PARENT) {
+ 		chip->irq_mask		= irq_chip_mask_parent;
++		chip->irq_mask_nowait	= NULL;
+ 		chip->irq_unmask	= irq_chip_unmask_parent;
+ 	}
+ 
+diff --git a/drivers/pci/msi/irqdomain.c b/drivers/pci/msi/irqdomain.c
+index 6e65f0f44112e..92a53c2772659 100644
+--- a/drivers/pci/msi/irqdomain.c
++++ b/drivers/pci/msi/irqdomain.c
+@@ -162,6 +162,11 @@ static void pci_irq_mask_msix(struct irq_data *data)
+ 	pci_msix_mask(irq_data_get_msi_desc(data));
+ }
+ 
++static void pci_irq_mask_nowait_msix(struct irq_data *data)
++{
++	pci_msix_mask_nowait(irq_data_get_msi_desc(data));
++}
++
+ static void pci_irq_unmask_msix(struct irq_data *data)
+ {
+ 	pci_msix_unmask(irq_data_get_msi_desc(data));
+@@ -182,6 +187,7 @@ static const struct msi_domain_template pci_msix_template = {
+ 		.irq_startup		= pci_irq_startup_msix,
+ 		.irq_shutdown		= pci_irq_shutdown_msix,
+ 		.irq_mask		= pci_irq_mask_msix,
++		.irq_mask_nowait	= pci_irq_mask_nowait_msix,
+ 		.irq_unmask		= pci_irq_unmask_msix,
+ 		.irq_write_msi_msg	= pci_msi_domain_write_msg,
+ 		.flags			= IRQCHIP_ONESHOT_SAFE,
+diff --git a/drivers/pci/msi/msi.h b/drivers/pci/msi/msi.h
+index 0b420b319f50f..337ff9d9da0ed 100644
+--- a/drivers/pci/msi/msi.h
++++ b/drivers/pci/msi/msi.h
+@@ -40,10 +40,16 @@ static inline void pci_msix_write_vector_ctrl(struct msi_desc *desc, u32 ctrl)
+ 		writel(ctrl, desc_addr + PCI_MSIX_ENTRY_VECTOR_CTRL);
+ }
+ 
+-static inline void pci_msix_mask(struct msi_desc *desc)
++/* Posted write only: the device may still send an interrupt after return */
++static inline void pci_msix_mask_nowait(struct msi_desc *desc)
+ {
+ 	desc->pci.msix_ctrl |= PCI_MSIX_ENTRY_CTRL_MASKBIT;
+ 	pci_msix_write_vector_ctrl(desc, desc->pci.msix_ctrl);
++}
++
++static inline void pci_msix_mask(struct msi_desc *desc)
++{
++	pci_msix_mask_nowait(desc);
+ 	/* Flush write to device */
+ 	readl(desc->pci.mask_base);
+ }
+diff --git a/include/linux/interrupt.h b/include/linux/interrupt.h
+index 3bf969ad8fe07..d40c992ddb8a1 100644
+--- a/include/linux/interrupt.h
++++ b/include/linux/interrupt.h
+@@ -231,6 +231,7 @@ extern void devm_free_irq(struct device *dev, unsigned int irq, void *dev_id);
+ 
+ bool irq_has_action(unsigned int irq);
+ extern void disable_irq_nosync(unsigned int irq);
++extern void disable_irq_nowait(unsigned int irq);
+ extern bool disable_hardirq(unsigned int irq);
+ extern void disable_irq(unsigned int irq);
+ extern void disable_percpu_irq(unsigned int irq);
+diff --git a/include/linux/irq.h b/include/linux/irq.h
+index f485369b1b4f7..de095299f20ed 100644
+--- a/include/linux/irq.h
++++ b/include/linux/irq.h
+@@ -455,6 +455,9 @@ static inline irq_hw_number_t irqd_to_hwirq(struct irq_data *d)
+  * @irq_disable:	disable the interrupt
+  * @irq_ack:		start of a new interrupt
+  * @irq_mask:		mask an interrupt source
++ * @irq_mask_nowait:	mask an interrupt source without waiting for the
++ *			hardware to acknowledge it (optional, falls back to
++ *			@irq_mask)
+  * @irq_mask_ack:	ack and mask an interrupt source
+  * @irq_unmask:		unmask an interrupt source
+  * @irq_eoi:		end of interrupt
+@@ -505,6 +508,7 @@ struct irq_chip {
+ 
+ 	void		(*irq_ack)(struct irq_data *data);
+ 	void		(*irq_mask)(struct irq_data *data);
++	void		(*irq_mask_nowait)(struct irq_data *data);
+ 	void		(*irq_mask_ack)(struct irq_data *data);
+ 	void		(*irq_unmask)(struct irq_data *data);
+ 	void		(*irq_eoi)(struct irq_data *data);
+diff --git a/kernel/irq/chip.c b/kernel/irq/chip.c
+index de754db414d1d..4e76f025b5f68 100644
+--- a/kernel/irq/chip.c
++++ b/kernel/irq/chip.c
+@@ -399,6 +399,37 @@ void irq_disable(struct irq_desc *desc)
+ 	__irq_disable(desc, irq_settings_disable_unlazy(desc));
+ }
+ 
++static void mask_irq_nowait(struct irq_desc *desc)
++{
++	if (irqd_irq_masked(&desc->irq_data))
++		return;
++
++	if (desc->irq_data.chip->irq_mask_nowait) {
++		desc->irq_data.chip->irq_mask_nowait(&desc->irq_data);
++		irq_state_set_masked(desc);
++	} else {
++		mask_irq(desc);
++	}
++}
++
++/**
++ * irq_disable_nowait - Mark interrupt disabled and mask it without waiting
++ * @desc:	irq descriptor which should be disabled
++ *
++ * Like irq_disable() with lazy disable turned off, but the hardware may
++ * still deliver an interrupt after this returns. The flow handler deals
++ * with that the same way it does for a lazily disabled interrupt.
++ */
++void irq_disable_nowait(struct irq_desc *desc)
++{
++	if (desc->irq_data.chip->irq_disable) {
++		__irq_disable(desc, true);
++		return;
++	}
++	irq_state_set_disabled(desc);
++	mask_irq_nowait(desc);
++}
++
+ void irq_percpu_enable(struct irq_desc *desc, unsigned int cpu)
+ {
+ 	if (desc->irq_data.chip->irq_enable)
+diff --git a/kernel/irq/internals.h b/kernel/irq/internals.h
+index 0ce21dd454047..3ba13932ba831 100644
+--- a/kernel/irq/internals.h
++++ b/kernel/irq/internals.h
+@@ -98,6 +98,7 @@ extern void irq_startup_managed(struct irq_desc *desc);
+ extern void irq_shutdown(struct irq_desc *desc);
+ extern void irq_shutdown_and_deactivate(struct irq_desc *desc);
+ extern void irq_disable(struct irq_desc *desc);
++extern void irq_disable_nowait(struct irq_desc *desc);
+ extern void irq_percpu_enable(struct irq_desc *desc, unsigned int cpu);
+ extern void irq_percpu_disable(struct irq_desc *desc, unsigned int cpu);
+ extern void mask_irq(struct irq_desc *desc);
+diff --git a/kernel/irq/manage.c b/kernel/irq/manage.c
+index 2fbff2618a1e2..ecb4d2144b9d5 100644
+--- a/kernel/irq/manage.c
++++ b/kernel/irq/manage.c
+@@ -705,6 +705,27 @@ void disable_irq_nosync(unsigned int irq)
+ }
+ EXPORT_SYMBOL(disable_irq_nosync);
+ 
++/**
++ * disable_irq_nowait - mask an irq without waiting for the hardware
++ * @irq: Interrupt to disable
++ *
++ * Like disable_irq_nosync(), but masks the interrupt at the chip right away
++ * instead of lazily, and does not wait for the hardware to acknowledge the
++ * mask. An interrupt that still arrives is held pending and replayed by
++ * enable_irq(). Use this when an extra interrupt is cheaper than flushing
++ * the mask, e.g. switching from interrupts to polling.
++ *
++ * This function may be called from IRQ context.
++ */
++void disable_irq_nowait(unsigned int irq)
++{
++	scoped_irqdesc_get_and_buslock(irq, IRQ_GET_DESC_CHECK_GLOBAL) {
++		if (!scoped_irqdesc->depth++)
++			irq_disable_nowait(scoped_irqdesc);
++	}
++}
++EXPORT_SYMBOL_GPL(disable_irq_nowait);
++
+ /**
+  * disable_irq - disable an irq and wait for completion
+  * @irq: Interrupt to disable
+--
