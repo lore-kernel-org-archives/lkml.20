@@ -1,29 +1,30 @@
 Received: from out30-97.freemail.mail.aliyun.com (out30-97.freemail.mail.aliyun.com [115.124.30.97])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90F0A3DAC13
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 08:30:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E76D37CD37
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 08:30:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791534609; cv=none; b=mBnZsPUal0Zejbp/hkVJ00aKN0FQsQVPGvhIAAiaW61YMMaC15sbujWYepyGret2NE4L9aGpqb077cESoFsD89Px+XeOZuM0DkfKjJa1FFF+rsiaGSBrv5aETT16lvqNKagQgY1fFBG0e6ahJG0mctwxgiW5ZoJXzM6mhctY6AI=
+	t=1791534610; cv=none; b=A8ZKoj6MO4hqZNt1337UncUgnWHpBz4jiCgwMHsfICqb3rwo/Logx7E/vG6BkioaTfxN7P7VLDHC3ASGAv0ARsehndvRNJlqeCMArEJI6p8fF+HUx3NUwbeswivPEZjXGkHc/zCtQkwPKsmDA6c/Z2L1Ul7gX1yDOOcSqVAc87Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791534609; c=relaxed/simple;
-	bh=SWOuCd2e4IslNGB7zPLCpuPkBeAy/Wy1kReOgiXhMAU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=UmQnQwTm87sg5xjGqv63rMbQ85FT5DgeHGWonymCW2k7Zw4WY7/hoEYDys92SmxuQk+P+gVQlYHyjJXQpb9l0yz7bELvoYX7hTxgL+BMWOHTotrFiC6Wz0pB7YsKgAfiZFTush3mi85MFRUrmlU1FN5xk+raUZ0YTuGy4+YzvyI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=V9UlH1ud; arc=none smtp.client-ip=115.124.30.97
+	s=arc-20240116; t=1791534610; c=relaxed/simple;
+	bh=5zwacK/Gc38nadTZUH2vPiMUbvwYpKVI9nA4dwUMIMY=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=nbiD3YIcGeC+AiyFhzYqsvOg7Ou6ZvMuANVxPwtoJ5uO2BOs+14898XJjVLpZ0S61sACNeZIYKNBANWlB7RZjJ/8+5uPgr4CCTqhcfV5C7g032TT/LCQrjj1SUiphaoXZLR479VUeQKsOlH2+3WJMA4aeZvw0BM/hxsSslUswMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=vpolw7Ta; arc=none smtp.client-ip=115.124.30.97
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="V9UlH1ud"
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="vpolw7Ta"
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=linux.alibaba.com; s=default;
-	t=1791534603; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=e5+/Em9NoxIEsaJGqIz6QNqsapFlEznoc9x7pU4evMs=;
-	b=V9UlH1udCK/hry36rYEzDKLpZI7wXJhu7geyryP29NqRDU9JE9eBsMOCjs367m8QY9MQh6iOb592Or+l9NrEHwXed9tSggH4Ciq6mF2wkm+riTTvxo/7qWdYrsiC2R4pKSc7aW5/zTNn/naKZYbkDF/3tU84wRVIEiCOO38C/rw=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R231e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0XCSo.Sa_1791534602;
-Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XCSo.Sa_1791534602 cluster:ay36)
+	t=1791534605; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=YQKBa1gzvgKM0qZwKOWAKXlUR8SKlxgpXGAwB/IqbXs=;
+	b=vpolw7TaLAAJ7SC7F2fyCa190zMyojFI+yQ5sopTsKs/uYQj+c3n1J1Jra5UH+RjM5LhYi968MaJj4wUAsRFTUqNnny+jlktlA56CJd5He4wLfLNiSjqozSEVf0Dewu5rMEYnXtzVqvdXhZZ3nVn3ovOXG1/sVtyRS9MCESqqzQ=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R851e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0XCSo.Tz_1791534604;
+Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XCSo.Tz_1791534604 cluster:ay36)
           by smtp.aliyun-inc.com;
-          Fri, 09 Oct 2026 16:30:03 +0800
+          Fri, 09 Oct 2026 16:30:05 +0800
 From: Joseph Qi <joseph.qi@linux.alibaba.com>
 To: Andrew Morton <akpm@linux-foundation.org>,
 	Heming Zhao <heming.zhao@suse.com>,
@@ -32,10 +33,12 @@ Cc: Mark Fasheh <mark@fasheh.com>,
 	Joel Becker <jlbec@evilplan.org>,
 	ocfs2-devel@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/3] ocfs2: deal with legacy signed name hash values
-Date: Fri,  9 Oct 2026 16:29:59 +0800
-Message-Id: <20261009083002.2621201-1-joseph.qi@linux.alibaba.com>
+Subject: [PATCH v2 2/3] ocfs2: use the stored hash when checking xattr bucket collision
+Date: Fri,  9 Oct 2026 16:30:01 +0800
+Message-Id: <20261009083002.2621201-3-joseph.qi@linux.alibaba.com>
 X-Mailer: git-send-email 2.39.3
+In-Reply-To: <20261009083002.2621201-1-joseph.qi@linux.alibaba.com>
+References: <20261009083002.2621201-1-joseph.qi@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,70 +47,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Commit 3bc753c06dd0 ("kbuild: treat char as always unsigned") turned on
--funsigned-char globally, which changed the result of two naked 'char'
-loads in ocfs2 hashing code:
+ocfs2_check_xattr_bucket_collision() decides whether splitting a full
+bucket can make room for the entry being set by recomputing the hash of
+the name:
 
-	str2hashbuf()            val = msg[i] + (val << 8);
-	ocfs2_xattr_name_hash()  hash = (hash << 5) ^ (hash >> 27) ^ *name++;
+	u32 name_hash = ocfs2_xattr_name_hash(inode, name, strlen(name));
 
-A name byte >= 0x80 used to sign-extend and now zero-extends.  Both
-results are written to disk, the first into the dx leaf when a directory
-entry is indexed and the second into xe_name_hash when an xattr is
-stored, so anything written by a pre-6.2 kernel is looked up under a
-different hash and is no longer found.  readdir and listxattr still list
-those names because neither of them hashes, which makes this look like
-the filesystem losing entries rather than like a lookup bug.  Anderson
-Ferneda reported it that way for directories with non-ASCII names [1].
+	if (name_hash != le32_to_cpu(xh->xh_entries[0].xe_name_hash))
+		return 0;
 
-Patches 1 and 3 do what ext4 did in commit f3bbac32475b2 ("ext4: deal
-with legacy signed xattr name hash values"): look up with the current
-unsigned hash, retry with the legacy signed one on a miss, and always
-store new entries under the unsigned hash.  The retry is skipped when the
-two hashes come out equal, so an ASCII name does not walk the index
-twice.  Both hash functions now spell out the signedness instead of
-leaving it to -funsigned-char, as commit 854f0912f813 ("ext4: make xattr
-char unsignedness in hash explicit") did, so a backport to a kernel
-without the flag still computes both variants correctly.
+For a new entry that is the hash it will be stored under, so comparing it
+is correct.  An existing entry keeps the hash it already has: an update
+never rewrites xe_name_hash, since ocfs2_xa_add_entry() is the only
+writer of that field for a real entry and ocfs2_xa_prepare_entry() calls
+it only when loc->xl_entry is NULL.
 
-Patch 2 is a separate fix, placed before patch 3 so that every commit in
-the series is correct on its own.  ocfs2_check_xattr_bucket_collision()
-recomputes the hash of the name to decide whether splitting a full bucket
-can make room for the entry being set.  That is right for a new entry and
-wrong for one that already exists, since an update leaves xe_name_hash
-alone.  Against a bucket holding legacy hashes the comparison does not
-match, so the split goes ahead and cannot help: a bucket whose entries
-all share one hash has no divide position.  How that ends depends on
-where the unsigned hash sorts.  Below the legacy ones, the set fails with
--ENOSPC after growing the tree for nothing.  Above them, it lands in the
-empty bucket the split just appended and stores a second copy of the
-entry there while the original stays behind, so listxattr reports the
-name twice.  Using the stored hash closes both.
+An entry stored by a kernel that sign-extended the name bytes when
+hashing can still be updated, because ocfs2_xattr_find_entry() searches
+a non-indexed xattr block by memcmp on the name and never looks at
+xe_name_hash.  Growing it past the space left in the block converts the
+block into a tree, ocfs2_cp_xattr_block_to_bucket() fills the bucket in
+stored hash order, and the update runs out of room in the bucket too.
+The collision check then compares the unsigned hash against the legacy
+hashes in the bucket and reports no collision.
 
-Nothing retires a legacy hash at runtime.  Deleting or updating an entry
-does not rewrite it, and the only code that rehashes existing dirents is
-ocfs2_expand_inline_dir() on the inline to extent conversion, so the
-retry stays for as long as the legacy entries do.  Rebuilding the index
-offline is what removes it for good.
+ocfs2_xattr_set_entry_index_block() goes on to allocate a bucket that
+ocfs2_divide_xattr_bucket() cannot fill: a bucket whose entries all share
+one hash has no divide position, so all it does is append an empty bucket
+with a sentinel hash one above the last entry's.
 
-Changes since v1:
-  - add patch 2, so that ocfs2_check_xattr_bucket_collision() uses the
-    stored hash of an existing entry rather than recomputing it, to
-    address Sashiko's comments on v1 patch 2/2;
-  - v1 patch 2/2 is now patch 3, with no code change;
-  - patch 1 is unchanged and picks up Heming's Reviewed-by.
+The re-search that follows depends on where the unsigned hash sorts.
+Below the legacy ones, it comes back to the full bucket and the set fails
+with -ENOSPC, having grown the tree for nothing.  Above them, it lands on
+the new empty bucket, which ocfs2_xattr_bucket_find() handles explicitly
+and ocfs2_find_xe_in_bucket() scans zero times, so the set stores a second
+copy of the entry under the unsigned hash and returns success.  The
+original stays in the full bucket, listxattr reports the name twice and
+getxattr returns the new copy.
 
-[1] https://lore.kernel.org/ocfs2-devel/CP5P284MB2780AC2C3C2AB2CF2B6CB7AFBE942@CP5P284MB2780.BRAP284.PROD.OUTLOOK.COM/
+Pass the hash the entry is stored under instead: the stored one for an
+existing entry, the unsigned one for a new entry.  A tree whose entries
+are all stored under the unsigned hash sees no change, since there the
+two are the same value.
 
-Joseph Qi (3):
-  ocfs2: deal with legacy signed dir index name hash values
-  ocfs2: use the stored hash when checking xattr bucket collision
-  ocfs2: deal with legacy signed xattr name hash values
+Exposed-by: 3bc753c06dd0 ("kbuild: treat char as always unsigned")
+Cc: <stable@vger.kernel.org> # 6.2+
+Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+---
+ fs/ocfs2/xattr.c | 27 +++++++++++++++++----------
+ 1 file changed, 17 insertions(+), 10 deletions(-)
 
- fs/ocfs2/dir.c   |  76 +++++++++++++++++++++++++-----
- fs/ocfs2/xattr.c | 120 ++++++++++++++++++++++++++++++++++++++---------
- 2 files changed, 164 insertions(+), 32 deletions(-)
-
+diff --git a/fs/ocfs2/xattr.c b/fs/ocfs2/xattr.c
+index a428fe908116..c5a39a7d43d0 100644
+--- a/fs/ocfs2/xattr.c
++++ b/fs/ocfs2/xattr.c
+@@ -5896,16 +5896,14 @@ static int ocfs2_rm_xattr_cluster(struct inode *inode,
+ 
+ /*
+  * check whether the xattr bucket is filled up with the same hash value.
+- * If we want to insert the xattr with the same hash, return -ENOSPC.
+- * If we want to insert a xattr with different hash value, go ahead
+- * and ocfs2_divide_xattr_bucket will handle this.
++ * If the entry being set carries that same hash, return -ENOSPC, since
++ * ocfs2_divide_xattr_bucket() has no divide position to work with.
++ * Otherwise go ahead and ocfs2_divide_xattr_bucket() will handle this.
+  */
+-static int ocfs2_check_xattr_bucket_collision(struct inode *inode,
+-					      struct ocfs2_xattr_bucket *bucket,
+-					      const char *name)
++static int ocfs2_check_xattr_bucket_collision(struct ocfs2_xattr_bucket *bucket,
++					      u32 name_hash)
+ {
+ 	struct ocfs2_xattr_header *xh = bucket_xh(bucket);
+-	u32 name_hash = ocfs2_xattr_name_hash(inode, name, strlen(name));
+ 
+ 	if (name_hash != le32_to_cpu(xh->xh_entries[0].xe_name_hash))
+ 		return 0;
+@@ -5974,6 +5972,7 @@ static int ocfs2_xattr_set_entry_index_block(struct inode *inode,
+ 					     struct ocfs2_xattr_search *xs,
+ 					     struct ocfs2_xattr_set_ctxt *ctxt)
+ {
++	u32 name_hash;
+ 	int ret;
+ 
+ 	trace_ocfs2_xattr_set_entry_index_block(xi->xi_name);
+@@ -5993,10 +5992,18 @@ static int ocfs2_xattr_set_entry_index_block(struct inode *inode,
+ 	 * the maximum number of collisions we will allow for then is
+ 	 * one bucket's worth, so check it here whether we need to
+ 	 * add a new bucket for the insert.
++	 *
++	 * An existing entry keeps the hash it was stored under, and that is
++	 * the hash a split has to work with.  A new entry is stored under the
++	 * unsigned one, which is what ocfs2_xa_add_entry() will write.
+ 	 */
+-	ret = ocfs2_check_xattr_bucket_collision(inode,
+-						 xs->bucket,
+-						 xi->xi_name);
++	if (xs->not_found)
++		name_hash = ocfs2_xattr_name_hash(inode, xi->xi_name,
++						  xi->xi_name_len);
++	else
++		name_hash = le32_to_cpu(xs->here->xe_name_hash);
++
++	ret = ocfs2_check_xattr_bucket_collision(xs->bucket, name_hash);
+ 	if (ret) {
+ 		mlog_errno(ret);
+ 		goto out;
 -- 
 2.39.3
 
