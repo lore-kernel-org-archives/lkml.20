@@ -1,136 +1,121 @@
-Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com [209.85.161.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m118113.qiye.163.com (mail-m118113.qiye.163.com [115.236.118.113])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 194663C1D7A
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 07:04:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791529457; cv=pass; b=JbNFUblgZquM1D+Fk6hMJ/C6mYWDdk+4n49QNlmYAVGRyF8L5dpAkr0Vv3gZLEsFOqcJiukm9ofPOoGopUmM1pzWFuXB5vELUEBVG4clGAbfluWMFjptEIfxSpEJ7+cAbPjyH79NEbhMaS7GozpchlpojGxrfaovOirV4Axb0+M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791529457; c=relaxed/simple;
-	bh=Kvzcb/uO/lUt85F1J+DlqpO0vT6ehTwyBqMNoP6aUIo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=G3nVibyRfNn+hC/VnPAwxPmkWyThUi1FtPZ08nH5OiaWPbBUjhGZrWUQ8Pog2iXhjOT1MQ4uPVe8uKDKAghtngGUkBcvTuM5bJ3VSib5yCgKEMU4yTehNJ7QSa/YYf9iW54KrcdQ2vn/9sIKZoVl2N+XqUS2ASB8O/txaybiZhQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n4RaGTtI; arc=pass smtp.client-ip=209.85.161.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03E0317B418;
+	Fri,  9 Oct 2026 07:04:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.236.118.113
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791529468; cv=none; b=YyskU9yXHgMJ8ycJ84ADIyZWhKTusJK9rekrQOZoFX64U6Lraf9k/DK5LQNI/7C45ixRSbhscZpxPyKa8FC4WDCQY/z7uoG5aCt4BXkQChLXOJVUNurDpjViHWQWP9dOk9BCZzWwEMvnicfId5qH2nQ5lTwKcwf38kpz6oTOIt8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791529468; c=relaxed/simple;
+	bh=YcwNrrY6M6KbcCLhKkfiVImmTdwP6VlcYA49Gn17QJE=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=GDxNREEudR9L08LyMO0156Ism03vT7V2NL/bdI3uSn1l4tpE9mzCu9W5TSqgvG9uM8Gg1ID6+UNtp6dhuTe257SymA7igoUba02u1Krwm7/D53/59qbMiJhGeTI5cR9Z8+uKDN3sTa+wReR2k1AesAqwD+BsfiP/qG7Z5vi/mbA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=cDLPDS8A; arc=none smtp.client-ip=115.236.118.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n4RaGTtI"
-Received: by mail-oo1-f47.google.com with SMTP id 006d021491bc7-6b1afdf5196so1388239eaf.2
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 00:04:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791529455; cv=none;
-        d=google.com; s=arc-20260327;
-        b=JNoTt2rzsKOKLcX66kxUjbvkBmFyWhx1BBYSb1GXFQ4ixLHwu3O32924gU/we6Arpf
-         jDeOcnrg3HAWErNI/WfLMQXy8p/CSJPVbcYF8UlSV/0uiE0Q5q4jYovYm3G5LKBY9axU
-         pgoGXrPlvg2eahvEvz4mmyBd+LYmdH26RdJoa2b3N46q7xIou4LgFMcO/pGcoBJAORKS
-         2ZOfGR1icEbFKECk1wHk71SAQbssWAWgajmQ7i75ZCxLlAFYLiKYqjxKnHCHL654O/YG
-         /+IxmuhoXvv1bLcqZdhflLwYe0aP/+45pSnJ+HuQuxTKIEW2L6aSdJlHxldn6bJFYqRz
-         KrKQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=EwBvxaKSezPcmRHXV7EoTDUsrgLVXKX7pSoghw0IZJM=;
-        fh=ys1A4Tb/22nkbutvN8Mg7Kd99o1n/WQEH0aNQk44wRM=;
-        b=SdWR7aeLPZfh2pbxfINANCM3cW4Tcvv/aFmgPmRFCjEIGSHrEONcY1wnHrqEQ2d2XX
-         BSt9bFfPCXcMbopgrF8DMNL49kFoHYo9+LK5JVwCZ8Aaj3XdhgT1+7GjnYkBzBw0+5bI
-         AneVIF3YFdJcRGgJW3TFDAQknxkigpdNsg86TZP404OTCggDZzhN+Uh8O5yOoO0as7lw
-         u6CB1taQEPIdn/kYzMIuQWElsX0skuzglBFr3ds/H+lcz68Rq/wRjO37GOeDTp1Y8fQL
-         Jjyi2NAKLK5JGncUuZytp6TsCrw8pupKymx8nPBek5bbLVnzNVUILifrCFXNjDafW8Z5
-         HrJw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791529455; x=1792134255; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=EwBvxaKSezPcmRHXV7EoTDUsrgLVXKX7pSoghw0IZJM=;
-        b=n4RaGTtI334DWwsAC1ibc0bpkwcftTewB8tB/qPcBJZ9h9PXr8i/7oll3NnO/MBPhE
-         p6WklmDG9tI5KvlA9sQ3uA4g2StTnU9C3qGCPpnRbd/J00zjfjQWc4lrRy//U/moYwoz
-         FcxYfic/rwQ8wepDhOnttUJl3I49/9vQPI0qyLwfm0/bLGsc2MD7osGl4Qu+hjRiwRRk
-         EQSu9uyEtYqngm3zhiomRV3TkBcdkIVMBmLMsd8TZjnRJkT7BVIL2Pm4b6x+CKKf2ign
-         Uvd3p2EuKGCini/F3VfFhIFjMFqPg32ryBxHYxmak8ODiHre85jLd2rc6MsCUbDdejNY
-         gdXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791529455; x=1792134255;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EwBvxaKSezPcmRHXV7EoTDUsrgLVXKX7pSoghw0IZJM=;
-        b=lGnuZfTLHZ4pkeWEbwTPbmyVuPaR+FU5HD+uk3WIS84UdBU8OushsiD92N8z1utcvS
-         dvH1sVJHCTTyeVJSg+cYZWQiZn2Tjsry0Ui3/u4jtdbPYwFU3V9ujQ6xq4V4geisUEFr
-         rL5/okpmTf/1VROZBdv1cJ+XAXosjNATZN8pUC8MMWjtnNQ8p6ey0Q8BOLkozFpk0v3I
-         Vo1y9FPYbm1zWlRawOZtQ6gmnC881LOIxaaZSvzfS82r4sVDIH6vA/nSvOLE/8L4p+gy
-         Q6Nf0w1V0fV98eYpi0SGVtKJHbuX4gFwN5chwkdcRKE04kwrCkcAe0/mG93Ld2GaWy1g
-         ryww==
-X-Forwarded-Encrypted: i=1; AKwUvBxx/4YYAi1vf82x82CdI27WxJkYlTSQ+MMlzNQyUGy3sEmDht/w2ZRJGwUL+3Bgi2YTQffGdyRL12mPaHM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lSryYusfTDQ3enDc3IoMfXrnQWZQWE/k1T37vyZwrPlG1/DuxR
-	VYxvGiE7EXSn95W2IG8gvXOHizX1SA2OiT8npLlfekAZmvu27UQMQBCcqt1GB8Ex3eMwKIFiJc1
-	Dhax2DmdOpjrYU0djdZAOCt78OOZNb9M=
-X-Gm-Gg: AYBFou0ztQmt0lUXN9KnQbHzr+Ok/W3r3a3DJ0ZnPAbUC6TcakmXfFEzbNfwmZuB19r
-	1nZw5YSqsk+Um7V95ot7RiLnfQhS8R5a0oJzCIrc7+MjbE3YenpKVM+vKHTAuWg3WLCq+aGgTMq
-	zSR8+jTll7+syaGNcozj2fybm1ws4GK/F1rb3A6RxEk/5vEa2WcejcRXmrbJ7mRKzpE3M8B2zSY
-	psAy47/uBiAiG2YdotZmMxmR/HHU4e1qP8qExdp0KmjRDysxS+CB5EdPdDbPLzDcsDI3XGBuXOB
-	EcFXfQtsHTF1WjdQeVwqfKUPdYe7lyRfanoOATlgMeXQhnUfNnwLLEzU
-X-Received: by 2002:a05:6820:618:b0:6e1:817e:e348 with SMTP id
- 006d021491bc7-6ef0ead8a70mr755983eaf.36.1791529454847; Fri, 09 Oct 2026
- 00:04:14 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="cDLPDS8A"
+Received: from [172.16.12.48] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 5069e789a;
+	Fri, 9 Oct 2026 14:59:05 +0800 (GMT+08:00)
+Message-ID: <3bd9f6e1-c670-42f5-b2ea-2b4848e37468@rock-chips.com>
+Date: Fri, 9 Oct 2026 14:59:04 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261003093837.545278-1-yaojiale02@163.com>
-In-Reply-To: <20261003093837.545278-1-yaojiale02@163.com>
-From: Qiang Yu <yuq825@gmail.com>
-Date: Fri, 9 Oct 2026 15:04:03 +0800
-X-Gm-Features: AclHuK89n94QP4eXCNQI20RI3FhQZ5iF1cD68FNJB3GcRZKG4SgaqZ70DtaTsAM
-Message-ID: <CAKGbVbsK-mxJskJGYG5b2B7NOcAw3fRyJqAjX6Zf+AdH__1f5g@mail.gmail.com>
-Subject: Re: [PATCH] drm/lima: Drain fence callbacks before destroying slab
-To: Jiale Yao <yaojiale02@163.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Eric Anholt <eric@anholt.net>, Heiko Stuebner <heiko@sntech.de>, Andreas Baierl <ichgeh@imkreisrum.de>, 
-	Simon Shields <simon@lineageos.org>, Erico Nunes <nunes.erico@gmail.com>, 
-	dri-devel@lists.freedesktop.org, lima@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Cc: shawn.lin@rock-chips.com, linux-rockchip@lists.infradead.org,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 0/3] PCI: rockchip: 5.0 GT/s speed discouraged by
+ Rockchip
+To: Geraldo Nascimento <geraldogabriel@gmail.com>,
+ Dragan Simic <dsimic@manjaro.org>
+References: <cover.1781622998.git.geraldogabriel@gmail.com>
+From: Shawn Lin <shawn.lin@rock-chips.com>
+In-Reply-To: <cover.1781622998.git.geraldogabriel@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa11f75548d03a4kunm5c17223adff550
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDSRoZVhlOTx5KTxoZHUsdGFYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQkxVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=cDLPDS8AfQJiV6enNljTDbaVs83pRqqyPjzVSyPDn0THv9O+K0X69w04Y6ECaYO9MGQ6Dn1RSvFwIjN1Ls1H3KCbz6HHT6NoaSI+8cSso45CIxF/uzDASquN9AJHY2Ja50uAj9Bp/vWNLysrNFLhAVhLvtzMFEoHcxGxEFD4MzI=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=C7hpZuYgfofdrhjchTCVySwUHHelguJs02x7Rdk3AgE=;
+	h=date:mime-version:subject:message-id:from;
 
-Reviewed-by: Qiang Yu <yuq825@gmail.com>
+Hi Geraldo
 
-On Sat, Oct 3, 2026 at 5:39=E2=80=AFPM Jiale Yao <yaojiale02@163.com> wrote=
-:
->
-> lima_fence_release() defers freeing fences from lima_fence_slab to an
-> RCU callback. The last lima_sched_slab_fini() can destroy the slab and
-> clear its pointer while a release callback is still queued. Module remova=
-l
-> can also free lima_fence_release_rcu() before that callback runs.
->
-> Drain outstanding callbacks before destroying the last fence slab.
->
-> Fixes: a1d2a6339961 ("drm/lima: driver for ARM Mali4xx GPUs")
-> Signed-off-by: Jiale Yao <yaojiale02@163.com>
-> ---
->  drivers/gpu/drm/lima/lima_sched.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/gpu/drm/lima/lima_sched.c b/drivers/gpu/drm/lima/lim=
-a_sched.c
-> index 9a1e6b9ecbe5..9c5ff1929d3e 100644
-> --- a/drivers/gpu/drm/lima/lima_sched.c
-> +++ b/drivers/gpu/drm/lima/lima_sched.c
-> @@ -44,6 +44,7 @@ int lima_sched_slab_init(void)
->  void lima_sched_slab_fini(void)
->  {
->         if (!--lima_fence_slab_refcnt) {
-> +               rcu_barrier();
->                 kmem_cache_destroy(lima_fence_slab);
->                 lima_fence_slab =3D NULL;
->         }
-> --
-> 2.34.1
->
+在 2026/06/16 星期二 23:24, Geraldo Nascimento 写道:
+> Dragan Simic already had warned me of potential issues with 5.0 GT/s
+> speed operation in Rockchip PCIe. However, in recent interactions
+> with Shawn Lin from Rockchip it came to my attention there's grave
+> danger in the unknown errata regarding 5.0 GT/s operational speed
+> of their PCIe core, including data loss.
+> 
+> Drop all code related to 5.0 GT/s operational speed from this driver.
+> 
+
+Apologies for the very late notice that this series is still pending.
+FWIW,
+Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
+
+> Endpoint Mode driver was not tested.
+> 
+> Changes in v7:
+> - In pcie-rockchip.c (PATCH 3) drop unreachable code
+> - Link to v6: https://lore.kernel.org/all/cover.1781207474.git.geraldogabriel@gmail.com/T/
+> 
+> Changes in v6:
+> - Squashed patches 3 & 4 together as suggested by Mani
+> - More formal warning message as suggested by Dragan
+> - Set the 2.5 GT/s bit regardless of if link-speed is set to 2
+> - Link to v5: https://lore.kernel.org/all/cover.1772239598.git.geraldogabriel@gmail.com/T/
+> 
+> Changes in v5:
+> - Changed commit order to not break builds and adjusted copy pasted
+>    commit message. (thanks Charalampos!)
+> - Reintroduced behavior to force 2.5 GT/s in case there's something
+>    non-default in the DT. (thanks Dragan!)
+> - Link to v4: https://lore.kernel.org/linux-rockchip/cover.1772169998.git.geraldogabriel@gmail.com/T/
+> 
+> Changes in v4:
+> - Incorporate suggestion by Bjorn and refined by Dragan to drop the
+>    "catastrophic" code
+> - Link to v3: https://lore.kernel.org/linux-rockchip/cover.1772057799.git.geraldogabriel@gmail.com/T/
+> 
+> Changes in v3:
+> - Clarify warning message even though Rockchip won't disclose details
+> - Drop DT changes as they were applied as subset by Heiko
+> - Link to v2: https://lore.kernel.org/all/cover.1763415705.git.geraldogabriel@gmail.com/T/
+> 
+> Changes in v2:
+> - hard limit to 2.5 GT/s, not just warn
+> - add Reported-by: and Reviewed-by: Dragan Simic
+> - remove redundant declaration of max-link-speed from helios64 dts
+> - fix Link: of helios64 patch
+> - simplify RC mode comment
+> - Link to v1: https://lore.kernel.org/all/aRhR79u5BPtRRFw3@geday/T/
+> 
+> Geraldo Nascimento (3):
+>    PCI: rockchip-ep: do not attempt 5.0 GT/s retraining
+>    PCI: rockchip-host: do not attempt 5.0 GT/s retraining
+>    PCI: rockchip: drive at 2.5 GT/s, error other speeds
+> 
+>   drivers/pci/controller/pcie-rockchip-ep.c   | 13 -------------
+>   drivers/pci/controller/pcie-rockchip-host.c | 20 --------------------
+>   drivers/pci/controller/pcie-rockchip.c      | 14 ++++++--------
+>   drivers/pci/controller/pcie-rockchip.h      |  3 ---
+>   4 files changed, 6 insertions(+), 44 deletions(-)
+> 
+
