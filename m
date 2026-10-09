@@ -1,247 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out198-14.us.a.mail.aliyun.com (out198-14.us.a.mail.aliyun.com [47.90.198.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 187CD47D952;
-	Fri,  9 Oct 2026 09:06:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 827B549B5A9;
+	Fri,  9 Oct 2026 09:07:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=47.90.198.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791536826; cv=none; b=fb/ApRGVxMVkh0rALSafbYOoxR1F83Fg4ZgQ5WEM+bAofPsa4iV3KHFfy6oepxvY7E4T2k1TcWJe0iHHNi2dIw4JFPJVgjEXrJLQ0UTyogNIpjsTKBQYrr0OaVma/TFej6xtCWBmUcViJ5F0jszK412Tjk7GvbakOWIpg1YznG4=
+	t=1791536832; cv=none; b=FaLL0e1pfq1ttKrqWXcTnqYc/25xHEWnSVdn9ePbSooH86PibwR+B+Px5S92vnDHw5JeTZik5Czyu5ftmNQpH9KTDNEmIo7GaoP8siqKthvxoWdpza0QLXjtVyYATG4UOQ8fNTZneFe6NyhFrcI0uCcl8G1Iv/p3faw2m9Q/GcY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791536826; c=relaxed/simple;
-	bh=D9aQCZgEOpiW/UOeN9XbBpogFsbO+a4F7OXJPZiLQCM=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=oCZ/e5DblMOM4WAYeEkVmi+2IrerHhm6gOI6MPuwrwPP3F1D29Bn8ZQ8gaVnPBGiXGexH7ClnLgCsFJbPTuNiGbVj0J8EFj/HxMExO9N50Ae9ejDiTrVgQw3N2215998cp/YgsPbikJAtMmnRjoRFmazfTxYxGZoeY9x20LNkXk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LgSMSL35; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LgSMSL35"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE11F1F000FF;
-	Fri,  9 Oct 2026 09:06:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791536819;
-	bh=KQw+BtnJtB9yAcbepjBm3Yio0Ta84nBHRmiXSxpySu4=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=LgSMSL35H8O+//mWLmp7qTVNuIbTqaogw3Pf2SZBaUEch5dnqaCa0yA6KRejsVZpO
-	 IlgIcP+/dZINdvlR03YmcdGTozPW2Thn/mZLIVRMeC+u/VKwwtG6hFD2Z34P4wz9ei
-	 qjQMPJKgI0uvJwQ+oJDOVtqNgur9iKIFoVCifgJ2RkStR+BZ3QSBIGn9jsmxeGYP5j
-	 Yqxqiym90pH2M6xZrU5ViQFBcwyTotWn2OAVFy+m8v0KF6t0yhHRMmmBkFB3cE2ZiS
-	 SY5/3KbpD2yEELles+WzCEFD3JQaGa5hUVeiexAoaOueqIAIUyfRcwwF7qAnjdpXlU
-	 zu+gGgkNcf7Ow==
-Subject: Re: [PATCH net-next v4 2/6] tools: ynl: convert enum selector to
- string for sub-message parsing
-From: netdev-bot+sashiko@kernel.org
-To: hangbin.liu@linux.dev
-Cc: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, donald.hunter@gmail.com,
- edumazet@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- bpf@vger.kernel.org, liuhangbin@kylinos.cn
-Date: Fri, 09 Oct 2026 09:06:58 +0000
-Message-ID: <179153681840.434549.374414508868008982@kernel.org>
-In-Reply-To: <20261008-ynl_rt_encap-v4-2-4ed2ccf7f949@kylinos.cn>
-References: <20261008-ynl_rt_encap-v4-2-4ed2ccf7f949@kylinos.cn>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=arc-20240116; t=1791536832; c=relaxed/simple;
+	bh=Y19hvtuGGIPWGRHUaLnout1jeLW6wcOtdMLMoTiH57s=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=nOYBWomjsC7vLIl1heGWeXoRfywlJmvnSbSo8XTXeAwUGc5+5zZzbKvKHDXoxK2GOt5KvEUR1XBd16BdZc/YeYG12Q/3+A0lZzO9bLByhbrRRmA7InmqKpOHc1+BxbjYDn55ro/xA2M7m/07GfwzqCkDuhVknPcCYMAtFzzmC0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net; spf=pass smtp.mailfrom=open-hieco.net; arc=none smtp.client-ip=47.90.198.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1068492|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.00706148-0.0109065-0.982032;FP=5300217843762597343|1|1|1|0|-1|-1|-1;HT=maildocker-contentspam033032053168;MF=wanglin@open-hieco.net;NM=1;PH=DS;RN=12;RT=12;SR=0;TI=SMTPD_---.jXYKwEm_1791536490;
+Received: from localhost.localdomain(mailfrom:wanglin@open-hieco.net fp:SMTPD_---.jXYKwEm_1791536490 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Fri, 09 Oct 2026 17:01:30 +0800
+From: Lin Wang <wanglin@open-hieco.net>
+To: Borislav Petkov <bp@alien8.de>,
+	Yazen Ghannam <yazen.ghannam@amd.com>,
+	Mario Limonciello <mario.limonciello@amd.com>
+Cc: Pu Wen <puwen@hygon.cn>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Tony Luck <tony.luck@intel.com>,
+	x86@kernel.org,
+	linux-edac@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v7 5/7] x86/amd_nb: Restrict the northbridge framework to AMD CPUs
+Date: Fri,  9 Oct 2026 17:01:09 +0800
+Message-ID: <20261009090111.151878-6-wanglin@open-hieco.net>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261009090111.151878-1-wanglin@open-hieco.net>
+References: <20261009090111.151878-1-wanglin@open-hieco.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
+The AMD northbridge cache previously discovered Hygon F3 devices by PCI
+ID. It now derives the node count from CPU topology and locates node
+functions at fixed PCI slots. Hygon DF devices do not follow that
+layout, so the Hygon branch no longer builds a usable cache.
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 2
+amd64_edac and ATL no longer use this cache on Hygon. Restrict
+northbridge initialization and the early northbridge check to AMD CPUs.
+Keep amd_get_mmconfig_range() available on Hygon because it reads the
+MMCONFIG MSR without using the northbridge cache.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Signed-off-by: Lin Wang <wanglin@open-hieco.net>
+Reviewed-by: Yazen Ghannam <yazen.ghannam@amd.com>
+---
+ arch/x86/kernel/amd_nb.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-- [Medium] An unknown enum selector value now aborts the whole message or
-  dump.
-- [Medium] The new enum-to-string conversion ignores byte order.
-- [Low] When the enum lookup fails, the error message is misleading.
-- [Low] The generator now produces working response parsing for enum-
-  keyed sub-messages.
-
---
-
-tools: ynl: convert enum selector to string for sub-message parsing
-
-This patch changes the YNL C code generator for sub-messages keyed by a
-non-external enum selector. The integer selector value is converted to a
-string with the family's {enum}_str() helper before the sub-message parse
-function is called. A missing selector or a failed enum lookup is
-reported through ynl_submsg_failed().
-
-> diff --git a/tools/net/ynl/pyynl/ynl_gen_c.py b/tools/net/ynl/pyynl/ynl_gen_c.py
-> index 15c79849c6096..4aca51396a9e2 100755
-> --- a/tools/net/ynl/pyynl/ynl_gen_c.py
-> +++ b/tools/net/ynl/pyynl/ynl_gen_c.py
-> @@ -951,13 +951,31 @@ class TypeSubMessage(TypeNest):
-
-[ ... ]
-
-> +        if self.selector.is_enum_val() and not self.selector.is_external():
-> +            enum = self.family.consts[self.selector.get_enum_name()]
-> +            pres_var = f"{var}->_present.{sel}"
-> +            parse_sel = f"{sel}_str"
-> +            local_vars = [f'const char *{parse_sel};']
-> +
-> +            get_lines = [
-> +                f'if (!{pres_var})',
-> +                f'return ynl_submsg_failed(yarg, "{self.name}", "{selector}");',
-> +                f'{parse_sel} = {enum.render_name}_str({sel_var});',
-
-[Severity: Medium]
-Does this handle selectors declared with byte-order: big-endian?
-
-TypeScalar._attr_get() loads the value in {sel_var} with a plain
-ynl_attr_get_u32() or ynl_attr_get_u16(), which is a native load. In
-TypeScalar.__init__(), byte-order only becomes a C comment through
-byte_order_comment. The struct member therefore holds the value in wire
-order.
-
-On a little-endian host, a big-endian selector value of 1 arrives as
-0x01000000. That fails the range check in the generated {enum}_str():
-
-    if (value < 0 || value >= (int)YNL_ARRAY_SIZE(map))
-        return NULL;
-
-So every sub-message would fail with "enum-lookup-failed".
-
-This combination already exists in-tree. obj-attrs in
-Documentation/netlink/specs/nftables.yaml has:
-
-    name: type
-    type: u32
-    enum: object-type
-    byte-order: big-endian
-    ...
-    name: data
-    type: sub-message
-    sub-message: obj-data
-    selector: type
-
-nftables is listed in GENS_UNSUP in tools/net/ynl/generated/Makefile, so
-the default build does not generate it.
-
-Before this patch, though, the generator passed the u32 as the
-const char *sel argument, which failed at compile time. Now it silently
-emits code that cannot decode these sub-messages.
-
-Should the conversion normalize the byte order first, or should the
-generator reject such specs?
-
-Because of obj-attrs, the note below the commit message saying rt-route
-encap is "the first enum-keyed sub-message in the YNL specs" also does
-not seem accurate.
-
-> +                f'if (!{parse_sel})',
-> +                f'return ynl_submsg_failed(yarg, "{self.name}", "enum-lookup-failed");']
-
-[Severity: Medium]
-Is it intended that an unknown enum value aborts the whole message or
-dump?
-
-ynl_submsg_failed() always returns YNL_PARSE_CB_ERROR.
-ynl_dump_trampoline() passes that up, and __ynl_sock_read_msgs() stops
-processing.
-
-The string selector path behaves differently. parse_rsp_submsg() emits a
-strcmp() chain that ends in return 0. An unknown string key, such as a
-new rt-link kind, is skipped and parsing continues.
-
-The enum path is also inconsistent within itself. A value that is in the
-enum but has no formats entry falls through the strcmp() chain and
-returns 0. A value outside the enum is a hard error.
-
-Take the rt-route spec from this series. If a future kernel adds a new
-LWTUNNEL_ENCAP_* type, wouldn't the generated client fail the entire
-route dump as soon as one route uses that encap? Leaving the encap
-undecoded would match the rest of YNL.
-
-The commit message says:
-
-    or a new encap_type is missing from the spec file in future kernel,
-    the code will report "Sub-message key not set", the same with string
-    lookup fails.
-
-This doesn't match the string path, which skips unknown keys silently.
-
-Could this skip the sub-message instead, leaving it unset and returning
-success, when the enum lookup misses?
-
-[Severity: Low]
-Is "enum-lookup-failed" the right value for the selector name argument?
-ynl_submsg_failed() always uses this format with YNL_ERROR_SUBMSG_KEY:
-
-    "Parsing error: Sub-message key not set (msg %s, key %s)"
-
-The user would see "Sub-message key not set (msg encap, key
-enum-lookup-failed)". In this case the key was present but held an
-unknown value.
-
-The message also loses the real selector name (encap-type) and does not
-report the numeric value that failed. To the caller, this looks the same
-as a missing selector.
-
-> +        else:
-> +            parse_sel = sel_var
-
-[ ... ]
-
-> @@ -979,6 +997,12 @@ class Selector:
->      def is_external(self):
->          return self._external
->  
-> +    def is_enum_val(self):
-> +        return self.get_enum_name() is not None
-> +
-> +    def get_enum_name(self):
-> +        return self.attr and self.attr.attr.get("enum")
-> +
-
-[Severity: Low]
-Response parsing now supports enum selectors. Should the policy side be
-addressed, or at least documented? TypeSubMessage._attr_typol() still
-says:
-
-    # Reverse-parsing of the policy (ynl_err_walk() in ynl.c) does not
-    # support external selectors. No family uses sub-messages with external
-    # selector for requests so this is fine for now.
-
-Only TypeString._attr_typol() emits .is_selector = 1.
-TypeScalar._attr_typol() emits only .type = YNL_PT_U<N>, so the u16
-encap-type selector never gets the flag.
-
-As a result, ynl_err_walk_is_sel() never records the selector. For any
-extack offset inside RTA_ENCAP, ynl_err_walk_report_one() then reaches
-this code and the attribute path is cut off at .encap:
-
-    if (!selector) {
-        if (*n < str_sz)
-            *n += snprintf(str, str_sz, "(!selector)");
-        return 1;
-    }
-
-For NLMSGERR_ATTR_MISS_NEST inside the encap nest, ynl_ext_ack_check()
-leaves nest_pol at the outer route-attrs policy. The missing attribute
-would then be named from the wrong policy.
-
-newroute and delroute requests carry encap. The kernel does return
-extack offsets inside RTA_ENCAP, for example NL_SET_ERR_MSG_ATTR on
-tb[IOAM6_IPTUNNEL_*] in net/ipv6/ioam6_iptunnel.c.
-
-ynl_err_walk_sel_policy() also assumes a string selector
-(ynl_attr_get_str() plus strcmp()). It would need enum-to-string support
-before is_selector could be set for scalar selectors.
-
-The note below the commit message says this will be a follow-up. Could
-the comment in _attr_typol() be updated to mention the enum/integer
-selector limitation too?
-
+diff --git a/arch/x86/kernel/amd_nb.c b/arch/x86/kernel/amd_nb.c
+index 5d364540673d..848ed2ca17c3 100644
+--- a/arch/x86/kernel/amd_nb.c
++++ b/arch/x86/kernel/amd_nb.c
+@@ -125,8 +125,7 @@ bool __init early_is_amd_nb(u32 device)
+ 	const struct pci_device_id *id;
+ 	u32 vendor = device & 0xffff;
+ 
+-	if (boot_cpu_data.x86_vendor != X86_VENDOR_AMD &&
+-	    boot_cpu_data.x86_vendor != X86_VENDOR_HYGON)
++	if (boot_cpu_data.x86_vendor != X86_VENDOR_AMD)
+ 		return false;
+ 
+ 	if (cpu_feature_enabled(X86_FEATURE_ZEN))
+@@ -315,8 +314,7 @@ static __init void fix_erratum_688(void)
+ 
+ static __init int init_amd_nbs(void)
+ {
+-	if (boot_cpu_data.x86_vendor != X86_VENDOR_AMD &&
+-	    boot_cpu_data.x86_vendor != X86_VENDOR_HYGON)
++	if (boot_cpu_data.x86_vendor != X86_VENDOR_AMD)
+ 		return 0;
+ 
+ 	amd_cache_northbridges();
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261008-ynl_rt_encap-v4-0-4ed2ccf7f949%40kylinos.cn
+2.43.0
+
