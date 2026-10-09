@@ -1,100 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E55AE33F8BC
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 02:24:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3C548349CEF;
+	Fri,  9 Oct 2026 02:24:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791512658; cv=none; b=mwngym6VVhtrlrE6Cj3Tq1r3znaZOEnUNFpAQKTkM4n6faEYC8fHsv68pjC2uduvwj2G9oYPoP4BRuowFFc46cY7gCv/9B1DfWcBR7qhhCx0lsR3S5LfuwyYsOD8XHQZ+Ltw7H9J9RdMekOwIEE2+1aVG193vXFAgb0FvqdFTw0=
+	t=1791512662; cv=none; b=QWavyFjZPI5VF509Ww6CT6zD++Dtg7EZ3vI5laLN3UL6adH1cTKUuhStpflV/MO50aXbCMXNdCY7EeDmziH7c+LgcUPXotlnqTvQR0H+52dJD6lnFYm+oBfeLTRwJkuowiVpcgEnXW77Z0eF7U0YKvEzRcS7Y0rJMfGTP+QPzw8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791512658; c=relaxed/simple;
-	bh=vGAV29szzckW/hyg0o2BDffmBQtu0HvENqyxwpnY7II=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jIW2qcwyBDTQo5HrOCJ/df79Jqrc7NDmjj76WinmWnOwso4chZkMGvKz6lT0AeIEPm+2L0rsIpr2IfdIRKYqsZ8Cru+3TE+w6WVuYjXEterpIO0iame7q2cN0fOuCLWkPpNpJY3flZt8emU5lfw3BmmQal34B9UREEb1KJBNypA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ax5aOx9e; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791512662; c=relaxed/simple;
+	bh=2QLRKUYyFp8S6i+UXZO3Wxnz517D73K9DyPKeDJE9KQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lJrrqlOhMHeiMUd8Y7okO2NFy/IbCeHxNi7yQDdj0axq9khJ2nKZi60JhB6K890Z5Il5OtsjwuEYO1I3mln1khDC/RGvpLG50JU4hA3nCkLmbt1XxrpKEKKmPGSNE0ucNjsl5+Lut1BM3M2S2V6xNM6uo59WrguUOr/k53nDRM8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=cdimGt4B; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ax5aOx9e"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D1041F00893
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 02:24:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791512657;
-	bh=XfuBNTwXruuIHKUhXBz1GWV2bxPNXXHvv7tD1L3oZPs=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Ax5aOx9eg3H3M9MRO3/5+HgPfJZtkExjY0N6TTLc86DTQbQO+0UDbX2vcwTuXz4Qe
-	 DGjrVQPlZjqqIN6a/7+xTvPy5Vi8qx4ZB1Nr4P36hEFsdBFPLunuucL91RUgnoucyY
-	 HF6evotXoWVHPGsPDUYQnnnypekQ3xFh/efXF116gSSu3Gg8NwKO0rkgQ5Q1uMCL19
-	 oTWP/Q6cwJDU+oPrQuliPNPDPPASANbPpgIOpfKOnDHNNg/E7kM6ds7WEjUBYkHE8H
-	 SMc50aCYhB2qdNeNC2NZo/JhHTv/j8Nzm8QSQt/suZSRqIckuPn8uTJhZLcd8fXOgX
-	 35aqdaTZ6YQlg==
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c2e62319cfaso607883666b.2
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 19:24:17 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzSwo6PIV/5wgWdDNMYM7VKahys23ot2usidjyPFUZTCm9lD+hy4fQ6Q2C4lC2lrrfG840+0BMA2c67f7s=@vger.kernel.org
-X-Gm-Message-State: AFuF++kwVOTOzYaDexdPHINHGf0ocy0bDeC86GqhhjjWwLWHmmd1yZJY
-	NRjPvc9mo3fnXk23CLHqImHPYU4YgqajK/7HT9qf3kvTqU0Tk3DFmAuQGUNoqhM2LNPtSxEDqoN
-	o8+nIsL1oW67HWBsEuKoeI+seqPPxeX8=
-X-Received: by 2002:a17:907:c07:b0:c2e:3d17:5259 with SMTP id
- a640c23a62f3a-c31aa0bf51amr41841966b.41.1791512656108; Thu, 08 Oct 2026
- 19:24:16 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="cdimGt4B"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0010F1692;
+	Thu,  8 Oct 2026 19:24:14 -0700 (PDT)
+Received: from localhost (a085714.arm.com [10.164.19.28])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 99E593F66F;
+	Thu,  8 Oct 2026 19:24:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791512658; bh=2QLRKUYyFp8S6i+UXZO3Wxnz517D73K9DyPKeDJE9KQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=cdimGt4BwBkbC2kvqJXbpnU8+qL/O0F0HZ2Z0H4CpSxUOxCh+EcoJtLXctAWoTzrV
+	 OtcAfxF5iREGuxkwM6scrG4vYN4mDhOT5dXuCp6y3UYQNkA+QiuO7WX1/GccVSzj2V
+	 OoaC3kiLUtydOmdP9bIBEODXTrrr6BODQU57YXnw=
+Date: Fri, 9 Oct 2026 07:54:15 +0530
+From: Anshuman Khandual <anshuman.khandual@arm.com>
+To: Andreas Larsson <andreas@gaisler.com>
+Cc: linux-mm@kvack.org, samuel.holland@sifive.com, 
+	David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+	Helge Deller <deller@gmx.de>, Huacai Chen <chenhuacai@kernel.org>, 
+	WANG Xuerui <kernel@xen0n.name>, linux-alpha@vger.kernel.org, linux-snps-arc@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, 
+	loongarch@lists.linux.dev, linux-m68k@lists.linux-m68k.org, linux-mips@vger.kernel.org, 
+	linux-openrisc@vger.kernel.org, linux-parisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org, linux-sh@vger.kernel.org, 
+	sparclinux@vger.kernel.org, linux-um@lists.infradead.org, linux-arch@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Geert Uytterhoeven <geert@linux-m68k.org>
+Subject: Re: [PATCH 8/8] mm: Drop pxd_ERROR()
+Message-ID: <y4zwpwqqxnjtwzm2j5xrdnnmdle5eiih7tsn7quywur7w2beh4@z3lk5ztxdz35>
+References: <20260831054331.625505-1-anshuman.khandual@arm.com>
+ <20260831054331.625505-9-anshuman.khandual@arm.com>
+ <c24fc419-7bee-4fe4-be12-9aa378d49af1@gaisler.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261008152537.4147299-1-charsyam@gmail.com>
-In-Reply-To: <20261008152537.4147299-1-charsyam@gmail.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Fri, 9 Oct 2026 11:24:03 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd-ky26A0hyHgYVu7KoF4Ri1FVd2neiNPbFKMP7fY7neMw@mail.gmail.com>
-X-Gm-Features: AclHuK85t5TTELxqqXVT-v7Ayqf4Dr8wg7uTfwmQVmjxxPDockNBvPPPVCGKLOY
-Message-ID: <CAKYAXd-ky26A0hyHgYVu7KoF4Ri1FVd2neiNPbFKMP7fY7neMw@mail.gmail.com>
-Subject: Re: [PATCH 0/3] ksmbd: fix three named stream bugs
-To: DaeMyung Kang <charsyam@gmail.com>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Tom Talpey <tom@talpey.com>, 
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>, linux-cifs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c24fc419-7bee-4fe4-be12-9aa378d49af1@gaisler.com>
 
-On Fri, Oct 9, 2026 at 12:25=E2=80=AFAM DaeMyung Kang <charsyam@gmail.com> =
-wrote:
->
-> Hi Namjae,
->
-> This series fixes three independent named stream bugs:
->
->   1. A read at or beyond the end of a non-empty stream returns
->      STATUS_INVALID_PARAMETER instead of STATUS_END_OF_FILE.
->   2. Opening an existing stream with different letter case keeps the
->      client's spelling in the handle. Later writes and removal can
->      target a different xattr from the one that was opened.
->   3. A write-only FILE_OPEN_IF on an existing stream can replace its
->      value with an empty xattr when the value-length lookup fails with
->      -EACCES.
->
-> The series applies to ksmbd-for-next at 5d2b1ab54e9a ("ksmbd: fix
-> named stream write and EOF handling"). Each fix is in a separate
-> patch, with its own Fixes tag and stable Cc.
->
-> I built the resulting kernel with CONFIG_SMB_SERVER=3Dy and tested it
-> through SMB2.1 in a QEMU guest. Reads at and past stream EOF returned
-> STATUS_END_OF_FILE. A stream created as Foo was read, modified and
-> removed through foo, with one named stream in the listing. On a 0222
-> file, a write-only user opening an existing stream with FILE_OPEN_IF
-> received STATUS_ACCESS_DENIED and the original value remained intact;
-> without patch 3, the same sequence emptied the stream. The same user
-> could still create a new stream.
->
-> Patch 2 has a minor textual conflict in linux-next with the VFS tree's
-> const mnt_idmap conversion. The resolution keeps both the const
-> qualifier and the new actual_name argument.
->
-> Concurrent creation of case-variant stream names remains a separate
-> issue.
->
-> DaeMyung Kang (3):
->   ksmbd: return end of file for reads past a named stream's data
->   ksmbd: use the existing xattr name for a named stream
->   ksmbd: preserve unreadable named streams on open
-Applied them to #ksmbd-for-next.
-Thanks!
+On Thu, Oct 08, 2026 at 11:20:14AM +0200, Andreas Larsson wrote:
+> On 2026-08-31 07:43, Anshuman Khandual wrote:
+> > There are no more users left for any pxd_ERROR() either in generic MM or in
+> > the platform MM. Hence all these platform macros along with their generic
+> > fallback could be dropped across the tree.
+> > 
+> > Cc: linux-alpha@vger.kernel.org
+> > Cc: linux-snps-arc@lists.infradead.org
+> > Cc: linux-arm-kernel@lists.infradead.org
+> > Cc: linux-csky@vger.kernel.org
+> > Cc: linux-hexagon@vger.kernel.org
+> > Cc: loongarch@lists.linux.dev
+> > Cc: linux-m68k@lists.linux-m68k.org
+> > Cc: linux-mips@vger.kernel.org
+> > Cc: linux-openrisc@vger.kernel.org
+> > Cc: linux-parisc@vger.kernel.org
+> > Cc: linuxppc-dev@lists.ozlabs.org
+> > Cc: linux-riscv@lists.infradead.org
+> > Cc: linux-s390@vger.kernel.org
+> > Cc: linux-sh@vger.kernel.org
+> > Cc: sparclinux@vger.kernel.org
+> > Cc: linux-um@lists.infradead.org
+> > Cc: linux-arch@vger.kernel.org
+> > Cc: linux-mm@kvack.org
+> > Cc: linux-kernel@vger.kernel.org
+> > Acked-by: Geert Uytterhoeven <geert@linux-m68k.org> # m68k
+> > Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> > Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> > Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
+> ...>  /*
+> >   * Encode/decode swap entries and swap PTEs. Swap PTEs are all PTEs that
+> >   * are !pte_none() && !pte_present().
+> > diff --git a/arch/sparc/include/asm/pgtable_32.h b/arch/sparc/include/asm/pgtable_32.h
+> > index f89b1250661d..5a5f54a090f5 100644
+> > --- a/arch/sparc/include/asm/pgtable_32.h
+> > +++ b/arch/sparc/include/asm/pgtable_32.h
+> > @@ -40,9 +40,6 @@ void load_mmu(void);
+> >  unsigned long calc_highpages(void);
+> >  unsigned long __init bootmem_init(unsigned long *pages_avail);
+> >  
+> > -#define pte_ERROR(e)   __builtin_trap()
+> > -#define pmd_ERROR(e)   __builtin_trap()
+> > -#define pgd_ERROR(e)   __builtin_trap()
+> >  
+> >  #define PTRS_PER_PTE    	64
+> >  #define PTRS_PER_PMD    	64
+> > diff --git a/arch/sparc/include/asm/pgtable_64.h b/arch/sparc/include/asm/pgtable_64.h
+> > index 0837ebbc5dce..44d1333065a6 100644
+> > --- a/arch/sparc/include/asm/pgtable_64.h
+> > +++ b/arch/sparc/include/asm/pgtable_64.h
+> > @@ -96,16 +96,6 @@ bool kern_addr_valid(unsigned long addr);
+> >  #define PTRS_PER_PUD	(1UL << PUD_BITS)
+> >  #define PTRS_PER_PGD	(1UL << PGDIR_BITS)
+> >  
+> > -#define pmd_ERROR(e)							\
+> > -	pr_err("%s:%d: bad pmd %p(%016lx) seen at (%pS)\n",		\
+> > -	       __FILE__, __LINE__, &(e), pmd_val(e), __builtin_return_address(0))
+> > -#define pud_ERROR(e)							\
+> > -	pr_err("%s:%d: bad pud %p(%016lx) seen at (%pS)\n",		\
+> > -	       __FILE__, __LINE__, &(e), pud_val(e), __builtin_return_address(0))
+> > -#define pgd_ERROR(e)							\
+> > -	pr_err("%s:%d: bad pgd %p(%016lx) seen at (%pS)\n",		\
+> > -	       __FILE__, __LINE__, &(e), pgd_val(e), __builtin_return_address(0))
+> > -
+> >  #endif /* !(__ASSEMBLER__) */
+> 
+> Perhaps a bit of a pity to lose the printing of the address of the pxd
+> that a number of architectures did before this series, but i have no
+> strong opinion.
+> 
+> Acked-by: Andreas Larsson <andreas@gaisler.com> # sparc
+
+Thanks Andreas.
