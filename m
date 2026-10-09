@@ -1,222 +1,94 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFC1B38A733;
-	Fri,  9 Oct 2026 15:52:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA6AB246783;
+	Fri,  9 Oct 2026 15:52:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791561150; cv=none; b=RNWZuJOq2qSM4qj/xIEd+9IRzYOLzbuoXRp1yrvFko1U/aD0Jrf9cO1zlYsEHUjNPORW+fPVqFQgAQlsC49yEzcz6O40BZYj24weINASKOZVVGprrN41xzq6at2IA/H2pQhceON71FBRvixziTE9G/37nc1xCjza8A5db8e5spo=
+	t=1791561165; cv=none; b=n8HsYHEkaZovRap78g6MrkUxY93zqRjkJSEbKVZOw3SQ9/Qk+Z2/tthjhk3RKNrtDbquWApgOKPzNGEoQcoDqAw8vcsfp/nYXuZ9aR2PhtoyDc4tXLXnuWQdJw4FnsNmZv38gnoODsU3ntjcNe/keCKBY1dkXwA40Vvltzj5qMU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791561150; c=relaxed/simple;
-	bh=Bp8Y3B+4k1arBEAPTQHV+Jezm+XIuoVKGwAJXnjuv9c=;
+	s=arc-20240116; t=1791561165; c=relaxed/simple;
+	bh=+632BxfAIPKPTC4nLf/PZ9on1zah9Og/rWyomBJqmRI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gsQoG7DNXVGRstNKiDgMd9MARgV25IZqm3SV1/WSee8uhsfrhvqqPILkmwrrEOeIDhI0Jbbm23zvIIIfyjyYLQuNFZWejCB5f8iWnTlWXxfQtwOh/GErArDb+hp7uzW/N3qzOvaNKKJUq1rxjceH3EmHDwJ/R2WuyNywcrMGxDg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=0hK3+yrw; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=yMZxadU1; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	 Content-Type:Content-Disposition:In-Reply-To; b=ML7OOUv1aHLiReic4wWdeaClQU2lUoHBtwF/R29ffZ4y/A361HZbJUFAmWPYadbjM2adapQ4i1+gsZz1YtIyBt3ybH1W0mtaItR2bEGqiUKdj/0MEyS49AQd2zU9JH36eW2o3Vsd/GwnM7R/gq0exBf5u7D5mVXGbAUZg+WEJTU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KHDMwhBw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="0hK3+yrw";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="yMZxadU1"
-Date: Fri, 9 Oct 2026 17:52:25 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1791561146;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=80QEXrpzD+kFda3/t4OvfmIyHa2usi5G2SbXsA7Iaek=;
-	b=0hK3+yrwjLIuBKWsevUjEqlQwGjIc1bngq037sYMRJadfTM6pWehYVHiL8wQoE/dW6w9xt
-	bYVDKnraYa7sB0xO/OuinBr3i1iI3hJHi2G1940ynLPs3ELBknW5L2+RyWzoA8bt28r7yJ
-	dvjm4IEuMhU9Qqyn8zvEYm34M5l44Tn4nVHV5U7znEJzsbNl3/2GY9qd3jHU8vL/m6lPhY
-	yBOJDdtxPQFUCECQuToR2gFFlH6a/+QRGMg8H5f8RvlP0kZEl3D/eW6V/Kfh3/lj1i4SwX
-	kFXCu0NxeVjJpFgIwTLRaKhx/2zCZ5GPKTQpQxrBWoGCL8O33Va+V0yKW7ww5w==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1791561146;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=80QEXrpzD+kFda3/t4OvfmIyHa2usi5G2SbXsA7Iaek=;
-	b=yMZxadU1OrZtchHsqw7H5PtHO4vxKtc1FDCeI9sB+ECH0vjq7LRfJOxAlO5nsNJyAabYlJ
-	hzUHf1pkzHfvsKDg==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: netdev@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Stephen Hemminger <stephen@networkplumber.org>,
-	Arend van Spriel <arend.vanspriel@broadcom.com>,
-	linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
-	Breno Leitao <leitao@debian.org>
-Subject: Re: [PATCH net v2 1/2] netpoll: use a raw lock for the deferred
- transmit queue
-Message-ID: <20261009155225.6Uy7b0wd@linutronix.de>
-References: <20260928064239.32456-1-kmehltretter@gmail.com>
- <20260930192103.62973-2-kmehltretter@gmail.com>
- <20261001074819.gQ3w8q6P@linutronix.de>
- <ar7sTVun7mF-4nl6@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KHDMwhBw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 848AD1F00893;
+	Fri,  9 Oct 2026 15:52:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791561164;
+	bh=0DXjYMvRmEg6F57An+CASAoisofDrEv/t1VR5wLbgNM=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=KHDMwhBwPbggKTF8TXjDAZxIfe8YpIevivj37SAKBd5qpesQeolLpZOtNZfk8rcLB
+	 1RA14HatE9GfBdKrFzYqi73t3N6QSY+kudDXEado/f8LqDqKTBktISyWU+RkXJk6F5
+	 o4DCpcNVdtpc3Vczmb70fmBkMXdYH7ITJ54yVsLSgqjMMvRTaMfA2dWtL3tW7dEz78
+	 QAPVZKzNGYE1w/jkyzuqmGXRyU5Dyl50CT3LjCADdr43NygFUUdUYR3iPs2t+59tLR
+	 i/WXvDUORW0aNok2clYBGybCtx+RNxJLI2mjaE2Q+5hHS+e9m94QJVaSDwJv+l60rw
+	 RO9k/xL1i5HXQ==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 5C2F0CE0B28; Fri,  9 Oct 2026 08:52:44 -0700 (PDT)
+Date: Fri, 9 Oct 2026 08:52:44 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Kees Cook <kees@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	Manuel Ebner <manuelebnerli@mailbox.org>,
+	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v1 1/2] kbuild: Mark the kernel image gzip recipes as
+ recursive
+Message-ID: <c160b8c3-7bbf-46f3-bd3f-e0fcf0fcf673@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20261009062722.i.253-kees@kernel.org>
+ <20261009062733.3119731-1-kees@kernel.org>
+ <asjYDiBaS1V5CymE@gremlin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ar7sTVun7mF-4nl6@gmail.com>
+In-Reply-To: <asjYDiBaS1V5CymE@gremlin>
 
-On 2026-10-02 01:30:45 [+0200], Karl Mehltretter wrote:
-> > >   BUG: sleeping function called from invalid context
-> > >   in_atomic(): 0, irqs_disabled(): 1, non_block: 0
-> > >   rt_spin_lock
-> > >   skb_queue_tail
-> > >   netpoll_send_skb
-> > 
-> > How is this possible? netpoll is only used by netconsole right? And this
-> > is CON_NBCON so it only prints threaded. What is the missing piece?
-> > 
+On Fri, Oct 09, 2026 at 01:05:00PM +0100, Lorenzo Stoakes (ARM) wrote:
+> On Thu, Oct 08, 2026 at 11:27:30PM -0700, Kees Cook wrote:
+> > Since commit 48ebe1cbbeb51 ("kbuild: compress the kernel with pigz if
+> > available"), cmd_gzip runs pigz through scripts/jobserver-exec, which
+> > takes the job slots make has free. GNU Make passes the jobserver pipe
+> > only to recipes it treats as recursive, but leaves --jobserver-auth in
+> > MAKEFLAGS for all of them. The make 4.3 in CentOS Stream 9 also hides
+> > the pipe in sub-makes (a backport of the fix for GNU Make bug 58232), so
+> > jobserver-exec cannot open it, runs pigz on one thread, and prints:
+> >
+> >   WARNING: Unable to reopen jobserver read-side pipe: FileNotFoundError(2, 'No such file or directory')
+> >
+> > Mark the gzip recipes as recursive with "+", as commit ecab4115c44cc
+> > ("kbuild: mark `rustc` (and others) invocations as recursive") did for
+> > rustc. As with those, "make -n" now runs them.
+> >
+> > Tested ARCH=x86_64 and ARCH=arm64 defconfig with GNU Make 4.3 plus
+> > CentOS Stream 9's make-4.3-cloexec.patch, GCC 16.2.0, and -j64: without
+> > this change the warning appears and pigz runs with "-p 1"; with it there
+> > is no warning, and pigz runs with "-p 54" and "-p 64".
+> >
+> > Reported-by: Paul E. McKenney <paulmck@kernel.org>
+> > Closes: https://lore.kernel.org/all/0ddb5e5e-f801-444c-aa98-0cfe814a3026@paulmck-laptop/
+> > Fixes: 48ebe1cbbeb51 ("kbuild: compress the kernel with pigz if available")
+> > Assisted-by: LLM
+> > Signed-off-by: Kees Cook <kees@kernel.org>
 > 
-> The call is from the NBCON printer thread, but netpoll_send_skb()
-> explicitly disables hard interrupts around __netpoll_send_skb():
+> Nice find!
 > 
->         local_irq_save(flags);
->         ret = __netpoll_send_skb(np, skb);
->         local_irq_restore(flags);
+> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 > 
-> When direct transmission cannot complete, __netpoll_send_skb() calls
-> skb_queue_tail() before interrupts are restored. Its spinlock can sleep
-> on PREEMPT_RT despite the caller being a thread.
+> Sorry for breaking your build Paul ;)
 
-We have netconsole as a user of netpoll. The netconsole user is nbcon.
-There are users such as macvlan and dsa and this looks like not a real
-user but just forwarding the netpoll packet. According to the history
-for macvlan, it is just there to forward the netconsole packets so it
-appears to check out.
+Hey, this was the fastest bisection that I have ever done by far!
 
-So it is just netconsole which is NBCON but has CON_NBCON_ATOMIC_UNSAFE.
+Normally it takes hours per step, but this was about 40 seconds per
+step.  ;-)
 
-In the ::write_thread() case the interrupts are disabled due invoking
-::device_lock(). In the ::write_atomic() the lock function might not be
-invoked but due to the nature of the situation the interrupts will be
-disabled anyway. So disabling interrupts looks like a lazy way of
-letting everyone know that ::ndo_start_xmit() will be invoked from
-netpoll/ netconsole.
-I don't see anything that would mandate disabling interrupts in
-__netpoll_send_skb() except BH need to be disabled before
-HARD_TX_TRYLOCK(). 
-
-I would suggest to untangle that local-irq-disable assumption. Then we
-end up with the ::write_atomic callback on PREEMPT_RT which will raise
-warnings. But those will appear only on panic() and as the last console
-due to CON_NBCON_ATOMIC_UNSAFE so everything will go according to the
-plan.
-On !RT the whole __netpoll_send_skb() will be with disabled interrupts
-due to the console lock. On RT it won't and I don't know if anything
-down the call chain assumes that.
-
-To illustrate my idea a bit
-
-diff --git a/include/linux/netpoll.h b/include/linux/netpoll.h
-index 1c6b1eec5efd6..3853611f672be 100644
---- a/include/linux/netpoll.h
-+++ b/include/linux/netpoll.h
-@@ -71,6 +71,9 @@ void netpoll_zap_completion_queue(void);
- unsigned int netpoll_get_carrier_timeout(void);
- 
- #ifdef CONFIG_NETPOLL
-+
-+DECLARE_PER_CPU(atomic_t, netpoll_active);
-+
- static inline void *netpoll_poll_lock(struct napi_struct *napi)
- {
- 	struct net_device *dev = napi->dev;
-@@ -96,7 +99,7 @@ static inline void netpoll_poll_unlock(void *have)
- 
- static inline bool netpoll_tx_running(struct net_device *dev)
- {
--	return irqs_disabled();
-+	return atomic_read(this_cpu_ptr(&netpoll_active)) > 0;
- }
- 
- #else
-diff --git a/net/core/netpoll.c b/net/core/netpoll.c
-index fe1e0cda5d6bf..8ecdac601ca13 100644
---- a/net/core/netpoll.c
-+++ b/net/core/netpoll.c
-@@ -73,7 +73,9 @@ static netdev_tx_t netpoll_start_xmit(struct sk_buff *skb,
- 		}
- 	}
- 
-+	/* local_irq_save() ? */
- 	status = netdev_start_xmit(skb, dev, txq, false);
-+	/* local_irq_restore() ? */
- 
- out:
- 	return status;
-@@ -258,7 +260,8 @@ static int netpoll_owner_active(struct net_device *dev)
- 	return 0;
- }
- 
--/* call with IRQ disabled */
-+DEFINE_PER_CPU(atomic_t, netpoll_active) = ATOMIC_INIT(0);
-+
- static netdev_tx_t __netpoll_send_skb(struct netpoll *np, struct sk_buff *skb)
- {
- 	netdev_tx_t status = NETDEV_TX_BUSY;
-@@ -268,12 +271,11 @@ static netdev_tx_t __netpoll_send_skb(struct netpoll *np, struct sk_buff *skb)
- 	/* It is up to the caller to keep npinfo alive. */
- 	struct netpoll_info *npinfo;
- 
--	lockdep_assert_irqs_disabled();
--
- 	dev = np->dev;
- 	/* npinfo->txq belongs to np->dev, so retries must stay bound to it. */
- 	skb->dev = dev;
--	rcu_read_lock();
-+	rcu_read_lock_bh();
-+	atomic_inc(this_cpu_ptr(&netpoll_active));
- 	npinfo = rcu_dereference_bh(dev->npinfo);
- 
- 	if (!npinfo || !netif_running(dev) || !netif_device_present(dev)) {
-@@ -306,11 +308,6 @@ static netdev_tx_t __netpoll_send_skb(struct netpoll *np, struct sk_buff *skb)
- 
- 			udelay(USEC_PER_POLL);
- 		}
--
--		WARN_ONCE(!irqs_disabled(),
--			"netpoll_send_skb_on_dev(): %s enabled interrupts in poll (%pS)\n",
--			dev->name, dev->netdev_ops->ndo_start_xmit);
--
- 	}
- 
- 	if (!dev_xmit_complete(status)) {
-@@ -319,7 +316,8 @@ static netdev_tx_t __netpoll_send_skb(struct netpoll *np, struct sk_buff *skb)
- 	}
- 	ret = NETDEV_TX_OK;
- out:
--	rcu_read_unlock();
-+	atomic_dec(this_cpu_ptr(&netpoll_active));
-+	rcu_read_unlock_bh();
- 	return ret;
- }
- 
-@@ -332,9 +330,7 @@ netdev_tx_t netpoll_send_skb(struct netpoll *np, struct sk_buff *skb)
- 		dev_kfree_skb_irq(skb);
- 		ret = NET_XMIT_DROP;
- 	} else {
--		local_irq_save(flags);
- 		ret = __netpoll_send_skb(np, skb);
--		local_irq_restore(flags);
- 	}
- 	return ret;
- }
-
-
-and this did not even see the compiler. Plus queue_process() has been
-ignored.
-
-> Thanks,
-> Karl
-
-Sebastian
+							Thanx, Paul
