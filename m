@@ -1,74 +1,33 @@
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C629B3546EE
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 03:54:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5A9639E194
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 03:54:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791518049; cv=none; b=WWs3Xx5WUvn2z6tmYcjaKTkhsv70Z+VO2dkUntIoUtpCo5ErQPsAORZOvlsLl8pzxh4+SsuBUsx+eouDsZiqnk8WJQ0YpsvIbUIl00qezIlwIwifQH01FClrM2qk4dMHIgYXmhJJKipWKQShPVNfRSae+JoYtPd+WZqHq6Eqo6k=
+	t=1791518095; cv=none; b=WPHV09+tpG5zlyXd0+nIx/3EuSYNSrLkTmKLDY0ADZsSkmJmiUaB/E1MKM0N7JMB7LwSzfHnSfSU3JvFs1A7fbBvNVIuGobDtDnrsgCA1vmK+4L3KWSDXgGr+TWncFEyT1KhLczEGTGaAabQNQy09afSDnb++Q7DevSGUiSure4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791518049; c=relaxed/simple;
-	bh=r7mMgsME8BFvsUaVgt5OCIHtgxiY0A20wt5V5Cag1B4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QwYH7ayrZGhANZNQP4FqYUGwszrEyi+xq3eX3rd7ecm9zp9GaDhdDD6aI6T9dfJ+MFDWV9KF9t5SVcgeqq3KqxBZNT+IfyQSit+4KGRHKSPObIvc1Djj1xVTybp6S8YXZF5JvqQjftNkCQhN7FjfozvyOPlbp8Z7HzeV7rt6zjY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m8gm7VOr; arc=none smtp.client-ip=209.85.210.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m8gm7VOr"
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8874539bccbso3038311b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 20:54:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791518042; x=1792122842; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iTv62O+i0V/5mafMWrJRbaNT9UDYAejB8Uyj1t+bCdE=;
-        b=m8gm7VOrTBOC49+lDcRYdBaKCbeT5nlC4Y5OlwRFqHAddOQrb++aqClejOu4ISsJ2O
-         VtO/VitKEJ0/A2tSA3oCsu6+6b/wSBGbZX6/rC9rbJBGYIfPFv31FisvpF63eDTLG6BS
-         JL/RvjqLS3s4qakj2UDIBqNdSZub4Ej/wCfISZ8GucIL9ooi0eEso8CHCrfpmQeMMpIe
-         W2Sxv9mQuUzUpbp1dCyOh9y82FRyHRiOZIjtS52aNI8rQBdvybTgam/mDyYbHpbH6+KT
-         wIvSGvLJyt6hFqG7zyAgN6qHr3TL0bS7K9ciDnY4TF7HSAPQBR69SAw7NZUcBZ1HI3OG
-         VPxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791518042; x=1792122842;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iTv62O+i0V/5mafMWrJRbaNT9UDYAejB8Uyj1t+bCdE=;
-        b=xY/chTbRnqicUA977DaXpvUwo0ZGa6H8ky+KhbMQDnyUhcOGrazfETfbsWcaJw4OxW
-         V0Q5HwNscLMuf//nfOmsAGFRcu5hAKfHGBvvmpbq7CJn56MPBwfS9odwxq40UjIGiPlp
-         aDWiSLyXia5QleLYh92uwdm8rR4cmhRy1NhnzCVpYip7VDatEo/RKP9+YaOWNB54TfGo
-         bTYz5hytNDIhsfJAJN36QhANoG2Z0tNEU3ql/QLoRcTJ7hn7V74cVni+QSbzsTwPdbsK
-         UdKbYIpXEflFaTOhy04Qh1x3lU4yLl7iksTdKefcB6CxboU7z/IvHS1Kh6/hse+8Nf9a
-         K5Vg==
-X-Forwarded-Encrypted: i=1; AKwUvBwFJtvFBRhBKqERHCrVu3TIgvfxTdlNQgTA2GVhbVlaVW9tx2vAkuiUzLpiz7t1Rtm5zvvmfgw2VWaXXwg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL6En+9gH1Kxz4SOCfSsFI26/OvLZDyImnKHF5rChmkYwr5lv+z
-	u46VNfYcBfHi22s+GSYfWNUj4IimZaY0S+9HkF0POhGRLbuNwkIuZRt5
-X-Gm-Gg: AYBFou326VkAqwRFSWL3cuburYH4BFEBzDxWhV1pgKVkNGwjPFUcdMx5QDVodmv4oI3
-	6zkWw3F7RBI6ZbRS4Jq97HSJ2lYTbw+baS1klFTYMnYhPMFVv6YBs+MQD/Wbi+s9IKTqVG1qSkq
-	xFyzMSJThLhJlxbQaPdE0nSOGfRrevp2FV8EYGSnNFPVshZ+TE8wZRlRzMebZ5M11YHUBwj5IvX
-	Kca+pxPGSqn6Z++20+eaqf2tn4JzaLxofkqdrH7q5axqtDdTVm+J+3y6k6r1YymqueoJcI6oolj
-	lPugUAltC1Oy2ImJk+pRMH/5gyxeLcuOQlfiHSxMir3NNm+1VH5bIU/O6dDQJSG7UHy5uC/gPEL
-	G3+H5oZh4t8UgkBPO+Cvioi9cProlVgdnSANx5AmfNpYrinwHb0v4EeLiJnHc08W7RERTfY2ddH
-	En/HjrvyWv6wGVVzJJzFnVYAFaHUMBlqcf8Svlw7sYlKBuspGKyIxAHHcLqGp1gVdYJ3+MDSvZs
-	IgMHQ42iLDPD9PsMbjnPCQStkhpguhMvcA=
-X-Received: by 2002:a05:6a00:9508:b0:881:a5b6:7954 with SMTP id d2e1a72fcca58-897c7cd4565mr540962b3a.39.1791518042044;
-        Thu, 08 Oct 2026 20:54:02 -0700 (PDT)
-Received: from qiwenjie-ThinkCentre-M760t.mioffice.cn ([43.224.245.241])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-897ffffd763sm33882b3a.1.2026.10.08.20.53.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 20:54:01 -0700 (PDT)
-From: Wenjie Qi <qwjhust@gmail.com>
-X-Google-Original-From: Wenjie Qi <qiwenjie@xiaomi.com>
-To: jaegeuk@kernel.org,
-	chao@kernel.org
-Cc: linux-f2fs-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	qiwenjie@xiaomi.com,
-	qwjhust@gmail.com
-Subject: [PATCH] f2fs: avoid cache writeback busy loop with zero thresholds
-Date: Fri,  9 Oct 2026 11:53:54 +0800
-Message-ID: <20261009035354.3330915-1-qiwenjie@xiaomi.com>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1791518095; c=relaxed/simple;
+	bh=KKrme1KbwAc9HgANB2bdaOlETURROw+EW3N8h3NTCVs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=YjK1gw25z/8Z8rbt3X/yZxw16cNlrt946z3iLh37Nojrgh31C2HPAj+T6Rm1VM+H40yoJL297WhU5/WuSmoibkTqaVVul6hY+6RYI13P35LyLzRNyhRVCBOH026YH0ItO8qGnUzdzJvQb0vYycswn36lmw1pd1Ga++tGMFtytgI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from fc87d0ffb700.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowAD3AUCCZchqZDgbCg--.2182S2;
+	Fri, 09 Oct 2026 11:54:42 +0800 (CST)
+From: Haotian Zhang <vulab@iscas.ac.cn>
+To: Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Michael Bringmann <mwb@linux.vnet.ibm.com>
+Cc: linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] powerpc/pseries: fix device_node leak in drc-info lookup error paths
+Date: Fri,  9 Oct 2026 11:54:45 +0800
+Message-Id: <20261009035445.3079660-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,37 +35,64 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowAD3AUCCZchqZDgbCg--.2182S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Zw18Cw43Jw15ArWDtr17Awb_yoW8Wr17pF
+	4fGFZ7tF10kryIyryFyF1Uur429w43KrWFyw4jya4Skr45XryDXryqqr1Yqr18CrWfCas0
+	qF4qga4vvanruaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUklb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4
+	vEx4A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xv
+	F2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26F4j6r
+	4UJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_JF0_
+	Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxV
+	WUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI
+	7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r
+	4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI
+	42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7IU5VxRPUUUU
+	U==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgQPA2rIYxAH6AAAsw
 
-When both cache writeback thresholds are zero,
-f2fs_should_wake_up_cache_wb() returns true even with no dirty caches.
-This makes wait_event_freezable_timeout() return immediately and the
-writeback thread busy-loop instead of waiting for its periodic timeout.
+cpu_to_drc_index() and drc_index_to_cpu() acquire the /cpus device_node
+with of_find_node_by_path() and then walk the ibm,drc-info property. When
+an entry whose drc_type is not "CPU" is encountered, the code jumps to the
+err label, which is *after* the err_of_node_put label, so of_node_put() is
+skipped and the reference taken on the /cpus node is leaked on every such
+exit.
 
-Return false when both thresholds are disabled so periodic writeback
-can proceed without busy-looping.
+Jump to err_of_node_put instead so the device_node reference is always
+released.
 
-Fixes: d7f084b1ad93 ("f2fs: cache: wake up f2fs_writeback when exceeding threshold")
-Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
+Fixes: e83636ac3334 ("pseries/drc-info: Search DRC properties for CPU indexes")
+Assisted-by: DeepSeek-V4.1-Flash
+Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
 ---
-Based on f2fs/dev-test at ce439a2b0690.
+ arch/powerpc/platforms/pseries/pseries_energy.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
- fs/f2fs/cache.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/fs/f2fs/cache.c b/fs/f2fs/cache.c
-index c76c4660606c5..88d4e479c8469 100644
---- a/fs/f2fs/cache.c
-+++ b/fs/f2fs/cache.c
-@@ -740,7 +740,8 @@ static inline bool f2fs_should_wake_up_cache_wb(struct f2fs_sb_info *sbi)
- 	    nr_dirty < cache_thread->cache_wb_dirty_threshold)
- 		return false;
+diff --git a/arch/powerpc/platforms/pseries/pseries_energy.c b/arch/powerpc/platforms/pseries/pseries_energy.c
+index fdaf85ecd39b..b3a1c34b3323 100644
+--- a/arch/powerpc/platforms/pseries/pseries_energy.c
++++ b/arch/powerpc/platforms/pseries/pseries_energy.c
+@@ -66,7 +66,7 @@ static u32 cpu_to_drc_index(int cpu)
  
--	return true;
-+	return cache_thread->cache_wb_total_threshold ||
-+		cache_thread->cache_wb_dirty_threshold;
- }
+ 			of_read_drc_info_cell(&info, &value, &drc);
+ 			if (strncmp(drc.drc_type, "CPU", 3))
+-				goto err;
++				goto err_of_node_put;
  
- static int f2fs_cache_writeback_kthread(void *data)
+ 			if (thread_index < drc.last_drc_index)
+ 				break;
+@@ -135,7 +135,7 @@ static int drc_index_to_cpu(u32 drc_index)
+ 
+ 			of_read_drc_info_cell(&info, &value, &drc);
+ 			if (strncmp(drc.drc_type, "CPU", 3))
+-				goto err;
++				goto err_of_node_put;
+ 
+ 			if (drc_index > drc.last_drc_index) {
+ 				cpu += drc.num_sequential_elems;
 -- 
-2.43.0
+2.25.1
 
