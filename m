@@ -1,41 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 038C83D3CE6
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 20:41:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D81D4908CC;
+	Fri,  9 Oct 2026 20:41:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791578473; cv=none; b=fLgLX2LjjhJHliucKdCgVFgz3hN4LUp6RRhQk5QZFEiOl3BziMWMjpymHA75unTLeS+tOsFUOLvwgukzotQkxsR8QoYGzgtjD1TYF+t+aP4TMyUGw93m4Rp21GOew8OIaZ7Ah1Na1oU7uIKpDw9tbuhg9jYNRCEFz6MhueBshbU=
+	t=1791578485; cv=none; b=Z8ANJ6tLVObFSulBncwViw75dTWxnO5sTYu6jDQ6Q3ztWp6trkfT/3c7ajpy3sV0DFADTXV1m6LTzX/c3lZQr88izSpxc72c9EFXmZqwpq8+MiTyXi0FY+JbQKIgiLdKgGnYOiARnhNAyv/NiMmCVku4jiJ4GxcWniyWBTeDpAQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791578473; c=relaxed/simple;
-	bh=kdjyHRSIuo6AaP3CxoJy2I2uitv1KnUbvJMCb1u7VXU=;
+	s=arc-20240116; t=1791578485; c=relaxed/simple;
+	bh=8g8XTeR78rkUDyJRUdnO7tHkrhiFCZn3L+C1guYzEZI=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=j3ZPUCLiANSj96rL2pgjYAqAniLwPzCujbo6WRw5cKaW08XdeHXBN7EXlFIJ6F9g3vp2Q29vGPZKhm9GVZJKiLN7xQa17aqHYoao5McCpgW5K6O1FN6cY5QXwaLw0ycZtD/ujOVMr8bOfFiY9ZqDfEgJxbFBJS869i0O4NIrTGE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R9ividgi; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=tu8ATkEcfxeg+ni3wwdnE2j16Jq1IpNfiUpb1Yn1PgTy7/nrFDrkg8awZmJuMzXc6pdBzy5JApWnoV/cCvq+1IaJ0VjWMDmHyMvCRmeRVmB3U9avlTQOacyTOCHUt6sgHgAwdkrvzo7iSm1h6xyfhrOVI4E0Array/r6CtJwneA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OTtKC8bF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R9ividgi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BDB11F000FF;
-	Fri,  9 Oct 2026 20:41:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OTtKC8bF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F5A41F00893;
+	Fri,  9 Oct 2026 20:41:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791578472;
-	bh=dtwC9CXJly+CcF9ksjU2Oxl/SgqlNJdHppwI7tS0WQc=;
+	s=k20260515; t=1791578484;
+	bh=8HIydR5MFFOLtdtn6opDtsslp75u5f+evgDMZffmqMA=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=R9ividgij+OVceiV18k/xtyYOEOd6A1oD+fojTAerK0S3Alk9CPACSugq58brvf6l
-	 7jdzlGZKGL6DKbnFTHc0W8Q4SoXCEH+ADF+5/kThENlJ5jMr6djZnKF9A0Mqta2BaA
-	 /t0D/7xGCHnUERa3Q4NFEFp1VET6nV/HrG+XEq3hMw/RKCx9CbhWHt6CuMAYCUH3nZ
-	 Jpx7CGEV6XikbsYZtMf+tXg7t8RNWxjbsAnSd/1fTRH9xXyKfPXuaaTmmIoIqqclhk
-	 yd3z6mNUiOUm9UaSByTHMM6ODTjJan0aI3oAwtcYIBTI3nue8W7dL4ZauILirnus4w
-	 i0UEscWYNwbug==
+	b=OTtKC8bFE/n4A9G8ZLATl5STfIc5BP+K5zAqhfxV/o+mals/+uUjPxRdQ2C5Sv0b6
+	 15JVJnEeaeyKrmXEZydybvSvTdj1w99+tYLSQaEYWRMOVdrwNA9gQJKq3BNU2DuMjw
+	 CCC4KHu5ql98M9vm/SRmTBtYkRB9BAd2jAkRrCuKb7xWKz/BtmFcL2r6G/8iV9MODg
+	 a0kmPJQcQKfIeFIeOwXFmFa/Xm/nfpBV2f7kL+ELR1Jyc+1fEKSaM1ymXuRhkc9rEv
+	 7l9bajCC7vaC2AwKW8ogMaRXv3b8uHBPu5IesGb0qNKQQwznlJ0C+wMwsJ96F6EduO
+	 D8NWz+DCBT6Sg==
 From: Nathan Chancellor <nathan@kernel.org>
-To: Simon Glass <sjg@chromium.org>, Ting-Han Hou <ue081723@gmail.com>
-Cc: Chen-Yu Tsai <wenst@chromium.org>, linux-arm-kernel@lists.infradead.org, 
+To: Nicolas Schier <nsc@kernel.org>, Ting-Han Hou <ue081723@gmail.com>
+Cc: Nick Desaulniers <ndesaulniers@google.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+ llvm@lists.linux.dev, linux-kbuild@vger.kernel.org, 
  linux-kernel@vger.kernel.org
-In-Reply-To: <CA+NtrhQBK8uW32qO3dXxVxO1GSN-0EJfyJ16tnyx0o52T17WtQ@mail.gmail.com>
-References: <CA+NtrhQBK8uW32qO3dXxVxO1GSN-0EJfyJ16tnyx0o52T17WtQ@mail.gmail.com>
-Subject: Re: [PATCH] scripts/make_fit: Ignore schema checks when
- decomposing DTBs
-Message-Id: <179157846311.778396.11816417974301350236.b4-ty@b4>
-Date: Fri, 09 Oct 2026 22:41:03 +0200
+In-Reply-To: <20261009175836.2277-1-ue081723@gmail.com>
+References: <20261009175836.2277-1-ue081723@gmail.com>
+Subject: Re: [PATCH v2] clang-tools: Import os for broken pipe handling
+Message-Id: <179157847654.778396.2514393103937606279.b4-ty@b4>
+Date: Fri, 09 Oct 2026 22:41:16 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,17 +46,17 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=745; i=nathan@kernel.org;
- h=from:subject:message-id; bh=kdjyHRSIuo6AaP3CxoJy2I2uitv1KnUbvJMCb1u7VXU=;
- b=owGbwMvMwCUmm602sfCA1DTG02pJDFknA5NbphZNmLvhZaqk9CUT9trjFQdfnfl0nifauJn7B
- k/Pna6KjlIWBjEuBlkxRZbqx6rHDQ3nnGW8cWoSzBxWJpAhDFycAjCRLU8YGdb6yid0Jt046xNv
- 83HeVPlVCjMFYu/W+78/+uqLfZOlhCkjwxR9r/lvuV1U1xnvztf1Wt2U5Ff0bfPGNu80M2eh9sl
- CjAA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=719; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=8g8XTeR78rkUDyJRUdnO7tHkrhiFCZn3L+C1guYzEZI=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDFknAwucXl6fdlpCuYjPTiFZVnzSFa26bWU7FqUdOsXAY
+ 5D06vLijlIWBjEuBlkxRZbqx6rHDQ3nnGW8cWoSzBxWJpAhDFycAjCRzkBGhkeq3hss9x6wkp7k
+ eyLf8X5pxYrVQQFvTwp4/2FhvcZzXpqRYcHCL5907Ne3MU5ffu35AwsdWcOLSy+5K53UP7u8/OC
+ GBZwA
 X-Developer-Key: i=nathan@kernel.org; a=openpgp;
  fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-On Tue, 06 Oct 2026 08:19:54 -0700, Ting-Han Hou wrote:
-> scripts/make_fit: Ignore schema checks when decomposing DTBs
+On Sat, 10 Oct 2026 01:58:32 +0800, Ting-Han Hou wrote:
+> clang-tools: Import os for broken pipe handling
 
 Applied to
 
@@ -63,8 +64,8 @@ Applied to
 
 Thanks!
 
-[1/1] scripts/make_fit: Ignore schema checks when decomposing DTBs
-      https://git.kernel.org/kbuild/c/3bf2237f59af8
+[1/1] clang-tools: Import os for broken pipe handling
+      https://git.kernel.org/kbuild/c/d26ab84593e63
 
 Please look out for regression or issue reports or other follow up
 comments, as they may result in the patch/series getting dropped or
