@@ -1,73 +1,82 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA263175A74;
-	Fri,  9 Oct 2026 15:41:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12A9F4E8DF6;
+	Fri,  9 Oct 2026 15:41:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791560510; cv=none; b=oR0Vw4JVWMw+5GBgi6tJavJuS3sLGpJp1zvX7HuwOPBrX+Y8slIpMqbo1ZnnqADjb1mQ1lceuc2IN5eeyYLhZOb9ARXUV356+Ckp7Xc38SX7AL3jAPSftBTEO/ASs069PRz6eTvtQMThIGhM8tkc/v63OrIqhUrVq9U+Jn79Wek=
+	t=1791560512; cv=none; b=mhq77ng66v62dlfRwiXhX7GNTl8Bag4ud8R9gDYZVcMcZGQlvexI2Gqy8gsI3SqaQ69pOpJBrzEESBTV3P3KDxXDCNO7isuhXdfXi8qDEQ0A8mNiyU7uflwdBiXGGGejDdhNFkymuz8QYfuuX6LRX43CAoZv8ydgOxp7RDEqP98=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791560510; c=relaxed/simple;
-	bh=dUWZmZOch5Qb4AzmbYv9GLjnStjLEJtXiqFclZadx5M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XkhRAF+MZUw+uUYgfBOsfkAM/80iCwA2pZrRj1a8XUI/ms5u3pACvS1Xyl2xIXa4dBxdWoKP+5aqGUdwrynFxjN/bSOT0IJR2J6H+bU4/DBrRTkeM0nPIv1L6Pxnj6A7KtxMAP1FgM27iosYehQtbwPlrskCJJBP9gMexMSlmNw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HDsIToSK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791560512; c=relaxed/simple;
+	bh=3PqI61lXSFj7U42aErp7pEoVX2a08D1j7KVAxV8kBkE=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=qNDoPhNMqGmrWWWcjL2TjsRs7GQ5mFYhI2+f11Sb4BTbEp7UdO2jegtqffLH4AZJSVn1NF9jjz52/Z4hGMO+c+j6EpVmTZqPU4WQxMnSYZqtgx+jH0dtdI8/RW7yLitor5FxbspM3zR/lInh4QnFH9ZmAAYVDNDJ/vueu3ezPuE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D8uJrmHo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HDsIToSK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 021F51F000FF;
-	Fri,  9 Oct 2026 15:41:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D8uJrmHo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 975A41F00893;
+	Fri,  9 Oct 2026 15:41:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791560509;
-	bh=m7+KzHXqKWMyDE/8urLgeEGgBfz4aMSR0uxlEDv1yNs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HDsIToSKhlKo1OKsP5MwpHPGh84Kvc1vLzR6nGW7O8qXWJpXHoDSLMw0IuYjsUMc/
-	 fYtdZ3u6P1zcTjGs0IiM3FJauq/x/+6jJr7veGtiyOjNhgA1W2XDvXqJ6Nu8YyT5mM
-	 BbzH6VWCwycy0pJiqpt3+K6/FmIo2Wt80f4voy3h7hU9H3UMDNwBAfj2MGfZTyYDq8
-	 JUwxcTONqgf2btIozJnkFRwPEobSd396Am6c2zfnU2boR/cRVVsM9r4ogtzOzf6j5Z
-	 eXW76I+F94BFSiuwyFLNGKbjj+K7rwTqMQQLMkxEX1KNjYgGT14aDUEkdu9o7vAO/i
-	 yr8fp8Z4mUuWg==
-Date: Fri, 9 Oct 2026 10:41:48 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-sound@vger.kernel.org,
-	Conor Dooley <conor+dt@kernel.org>
-Subject: Re: [PATCH v3 1/2] ASoC: dt-bindings: airoha: Add AN7581 PCM
- controller
-Message-ID: <179156050784.2261655.11183119560977756251.robh@kernel.org>
-References: <20261009111334.23522-1-ansuelsmth@gmail.com>
- <20261009111334.23522-2-ansuelsmth@gmail.com>
+	s=k20260515; t=1791560510;
+	bh=JTxW/7DmtMbmzkDS0tj1F+fvllgDR7ZhOFWZejm8N8c=;
+	h=Date:From:To:Cc:Subject;
+	b=D8uJrmHo9iGi9qH4Qe8SIb2DsE6v/+JL+s+CPbExcgHNuPJhlnd3ude7MvUakO+Lc
+	 Bz1XIzG5N6vuxoiuhJBHqyidGFjadGkyc2Tgiz13uEcMK7l9IUplhTZJ/3Hu6rn8Kv
+	 TzqARTC+/rzBaWJ617Bka7aHvOT6cnHIW3V9wcbYK06ZIauIg18M6+zhdqp3aX/zwK
+	 UKve1ojukO8wcK8Dv5LvVyM3jWS/5+UeI8JucXmCUDy7EmDa4T/dtWasi0xk/TMTZT
+	 1ylyStIPYkd/ibHQ9fe2nFPoKSjpMVec9f/0W/lPA6vl+JdSDSVjylLVKtOqe772w3
+	 b+SXIBIKkHIeg==
+Date: Fri, 9 Oct 2026 17:41:46 +0200
+From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Andrew Morton
+ <akpm@linux-foundation.org>, Linux Media Mailing List
+ <linux-media@vger.kernel.org>, Linux Kernel Mailing List
+ <linux-kernel@vger.kernel.org>
+Subject: [GIT PULL for v7.3-rc7] media fixes
+Message-ID: <20261009174146.0d324c14@foz.lan>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261009111334.23522-2-ansuelsmth@gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+Hi Linus,
 
-On Fri, 09 Oct 2026 13:13:31 +0200, Christian Marangi wrote:
-> The Airoha AN7581 SoC provides a PCM interface for VoIP applications,
-> supporting playback and capture at sample rates of 8 kHz and 16 kHz.
-> The driver configures the PCM bit clock to 2.048 MHz and supports
-> 8-bit and 16-bit samples, with up to 32 channels.
-> 
-> Document the related compatible and required interrupt/reset and provide an
-> example for it.
-> 
-> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
-> ---
->  .../bindings/sound/airoha,an7581-pcm.yaml     | 52 +++++++++++++++++++
->  1 file changed, 52 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/airoha,an7581-pcm.yaml
-> 
+Please pull from:
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+	git://git.kernel.org/pub/scm/linux/kernel/git/mchehab/linux-media.git media/v7.3-3
 
+For:
+
+a fix at em28xx unregister code affecting devices with FM radio support.
+
+Regards,
+Mauro
+
+---
+
+The following changes since commit 37bef2170d4c88fc3d708eecf3ef0f4032bc1372:
+
+  media: mediatek: vcodec: bound AV1 tile-start copy to the array capacity (2026-09-07 09:01:05 +0200)
+
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/mchehab/linux-media.git tags/media/v7.3-3
+
+for you to fetch changes up to 2579cbe68005f46fc7f8f95364f6b101b07b9d1c:
+
+  media: em28xx: use video_unregister_device for radio_dev (2026-09-23 14:13:47 +0200)
+
+----------------------------------------------------------------
+[GIT PULL for v7.3-rc7] media fixes
+
+----------------------------------------------------------------
+Rohinthan P (1):
+      media: em28xx: use video_unregister_device for radio_dev
+
+ drivers/media/usb/em28xx/em28xx-video.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
