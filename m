@@ -1,74 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AA6F37AA96;
-	Fri,  9 Oct 2026 08:52:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97CF837F00D;
+	Fri,  9 Oct 2026 08:55:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791535971; cv=none; b=IqUweQc/x7tGIioVGNgm444U7+ZS02mf7m8lmNmqsAuGNCQGH/TOCkYLFKIOs8sJtNmTO85DiGt7CyvZDk+PiqQVfYdaPvPb8eTRW+r0bxweY8B40Be02Gk7wUjv4+OF7GexfcKrtllZw5kzlVbaXbZjX141k60aZbYbOZSHSX8=
+	t=1791536113; cv=none; b=DkTi8yvGczVageUQlqD50BFwEU60sB9zpL1uUAfABLwByMcsJQwmzptgzjQZV3gplk7LRNZBRtHkJMIdhtDH62ybMBmjWXavvprJIXU+D2R67+BMs9PAYJzP7MOGF6Xhxqov8hYXkMRxf2X6Z2kG+Od1GLooTfO7EKer+uQHfmk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791535971; c=relaxed/simple;
-	bh=PbWDDnbDKJpKo1noXbsSv8bgvB8g+XBoEOQayiNpSbg=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=eDITr1XP6C51kbU24e+6ZcIqB3QplbGszvNoje45mfXRWJTr4CqwGO7UZb9wnLUGpdWr9k7sZrTLhV6p6ZFOw5Akwz93yDEw9eW5mlZxK9ymReZ0wtynVVdw/4jYdL9RYWg0xZ+0DJMkWoScInbU+Kc0i2t2TTpAzkCc3fM1vY0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TWKv+0NH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791536113; c=relaxed/simple;
+	bh=M/772MkfjZxcZxdMFw08GIOdq6kwRPrIVPBEqXSBW6Q=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=pvT7NxWP3dCuXqJNCjZGjzuqQ/kJqRkRvBzGQTZnG+c6wn4+UWiWqbV9NVErBdXPb3dwTRx00DDfVgaOnXDwowayh0gSMjlbdsNWO9MaCGXgKJDvpsW1gnEVev95EjP4DulHRgAcFsagVNjfUqtgJKEkRCO1qC98nW3bPIHk08c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=FR36wPfz; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TWKv+0NH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8672D1F000FF;
-	Fri,  9 Oct 2026 08:52:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791535970;
-	bh=P9UyNsLxuXi7pGaCCF2/c2YgYrk5hHCKdSdcZrUS7tM=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=TWKv+0NHNCi9W6psEE3NSZHQvCOoPiq5v6egPATfdg30K8KJX2+3JCk67q3yiKupA
-	 cCfeRkrBPswn3KLNIcWj7Vt+booiVMMDk5A9fym8SBoSBx7x7N0bHNp5MNC7AptDXm
-	 lnMLEuHvGKK4N6J6qTj74txe5oX8qLL5/qco379G8izG7QihNBr7sgdNqUInXLpocn
-	 C7oZNw2EuPoxVNoEU/5Ii7ncSRlgIuZX7Bi6NKzve5Fn7zwOnU8F3EitwMDKfD4OOo
-	 zuUY1uYgKlrjWTAkVFP51ebAjZtt/u3M5dXDX5hb67iLLn07j/+Z3ZPwOx1+GkiyOw
-	 /mt4uHt5sLbPg==
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="FR36wPfz"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 91533A1546;
+	Fri,  9 Oct 2026 10:55:05 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1791536106; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=IjYswT14LA0G5bCkxr3uocVn1ohEeOrTPJe/VBLRec4=;
+	b=FR36wPfzdJIXMnFWr4kFm5yec1kmgM2TrnWrw91tT8Fx1I5cc8iEKPEzyhR7XSG5hyRyRO
+	TLa89Xd8iSVSBCGP5gF0AB5Ism1NozLiHH3uzS9V+IC7iXCH+0406JVlLx59AeJl2VJ6Um
+	eb5Cly3pu4OzbC9VX0liVopXRHCgEc4HSSorhIuPUCzwI/RgKBvURRwUYWFnQ4Vz+wlQxy
+	O8EC5pM2lRyEBAVpVF7dTc/MEtZj/gps2jb3Tz02agkS2BLBYDj4ngGfLtmC8bwetx6WuG
+	RoLp5Fzn4y0aoy8sk5suMerHxvCJgqk3x25qjEZm0irBFERhcmiJk/CKfEZ8hQ==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 09 Oct 2026 10:52:46 +0200
-Message-Id: <DM06HWVAFSOW.2F050J0BT27TK@kernel.org>
-Subject: Re: [PATCH] driver core: complete deferred binds when
- drivers_autoprobe is off
-Cc: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
- <rafael@kernel.org>, <driver-core@lists.linux.dev>,
- <linux-usb@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <syzbot+863936f50214e843ae0c@syzkaller.appspotmail.com>,
- <stable@vger.kernel.org>
-To: "mosafer" <mohsafer@gmail.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20261008154105.256340-1-mosafer@node0.quickhttpnode15.cloudfaas-pg0.wisc.cloudlab.us>
-In-Reply-To: <20261008154105.256340-1-mosafer@node0.quickhttpnode15.cloudfaas-pg0.wisc.cloudlab.us>
+MIME-Version: 1.0
+Date: Fri, 09 Oct 2026 10:55:05 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: netdev@vger.kernel.org, Doug Berger <opendmb@gmail.com>, Broadcom
+ internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Andrew
+ Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Zak Kemble <zakkemble@gmail.com>, Simon Horman
+ <horms@kernel.org>, Ryo Takakura <ryotkkr98@gmail.com>,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v2 6/6] net: bcmasp: fix network filter lookup and
+ wake filter pair allocation
+In-Reply-To: <20261008210621.1374785-7-florian.fainelli@broadcom.com>
+References: <20261008210621.1374785-1-florian.fainelli@broadcom.com>
+ <20261008210621.1374785-7-florian.fainelli@broadcom.com>
+Message-ID: <eab2af85055e2096fb5d28db18860b0f@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu Oct 8, 2026 at 5:41 PM CEST, mosafer wrote:
-> From: Mohammad Mosafer <mohsafer@gmail.com>
->
-> device_add() registers a device and then runs the bus's initial probe
-> via bus_probe_device() -> device_initial_probe().  With
-> drivers_autoprobe disabled for the bus, device_initial_probe() skips
-> __device_attach() entirely.
->
-> That is correct for automatic *matching* against the bus's driver list,
-> but __device_attach() also doubles as "complete a bind that a driver
-> already initiated": when dev->driver has been pre-assigned outside the
-> normal match/probe path, its else-if branch finishes the bind by
-> calling device_bind_driver().
+Hi Florian
 
-We've recently had another patch to fix up cases where dev->driver is
-pre-assigned. Please see [1] and the corresponding thread.
+On 8.10.2026 23:06, Florian Fainelli wrote:
+> In bcmasp_netfilt_get_init(), when looking up an existing filter 
+> (!init)
+> for a specified location, if the filter at loc was not claimed, the
+> previous loop continued searching higher indices and could return an
+> arbitrary unrelated filter belonging to the port. This caused flow get 
+> or
+> delete operations on an empty rule location to return or delete an
+> unintended filter.
+> 
+> Fix this by checking only the requested location on lookup and 
+> rejecting
+> RX_CLS_LOC_ANY when !init. In addition, harden wake filter allocation
+> and release by ensuring wake filter pair searches stay on even 
+> boundaries
+> where both entries are free, checking that loc + 1 is free for 
+> positioned
+> wake filters, and validating parity and bounds on release.
+> 
+> Fixes: c5d511c49587 ("net: bcmasp: Add support for wake on net 
+> filters")
+> Assisted-by: LLM
+> Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
+> ---
+>  drivers/net/ethernet/broadcom/asp2/bcmasp.c | 121 +++++++++++---------
+>  1 file changed, 70 insertions(+), 51 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/broadcom/asp2/bcmasp.c 
+> b/drivers/net/ethernet/broadcom/asp2/bcmasp.c
+> index 972474893a6b..b6a201982080 100644
+> --- a/drivers/net/ethernet/broadcom/asp2/bcmasp.c
+> +++ b/drivers/net/ethernet/broadcom/asp2/bcmasp.c
+> @@ -511,6 +511,13 @@ static int bcmasp_netfilt_wr_to_hw(struct 
+> bcmasp_priv *priv,
+>  	return 0;
+>  }
+> 
+> +static inline bool bcmasp_netfilt_is_companion(struct bcmasp_priv 
+> *priv, int i)
 
-IIRC, there was no reasons the remaining users can't just use a proper matc=
-h()
-callback instead, so we don't have to worry about those edge cases in the
-future.
+nit: Does it need to be inline? Usually the compiler takes care of this 
+automatically.
 
-[1] https://lore.kernel.org/driver-core/20260820084557.129908-1-khiemtranzo=
-532001@gmail.com/
+> +{
+> +	return i > 0 && (i % 2) &&
+> +	       priv->net_filters[i].wake_filter &&
+> +	       priv->net_filters[i - 1].wake_filter;
+> +}
+
+> [...]
+
+Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
+
+Thanks,
+Nicolai
