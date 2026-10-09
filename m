@@ -1,273 +1,130 @@
-Received: from mail-pj2-f8.google.com (mail-pj2-f8.google.com [74.125.227.136])
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 635882DB7BE
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 03:05:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1CCF1FFC59
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 03:06:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791515109; cv=none; b=l8FREVYHwoNirjIi9pInTdPXHf27jcrYYPlNlF0J0XsZxT31iGRRQOMeOH9zrrmUI1igudhVyA2o1dzP5b/eZz2URBVEnQcdDfnUieV+QxtJ5vxoT7OpsrD3LWiGcWQ3Jwp7VgHCFF7l2BAPAexBLiSUuzDrV172aJYHVgZAYoY=
+	t=1791515206; cv=none; b=kHjq6AnxBvrinPVKysqv098+cZZGbH/+TOqm36duZ5NyirMSuHi8cVOsnKPoVNSUEuPZRcMcDwU2hn5kFLPZI8/7HWAukYn8duMVDfzA8HTygSUm2E3IsX9sx7lt7Y2j93amKNq1nuss4A9L2hFtdLfhAxeWDy8iYTvnYGhDFyQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791515109; c=relaxed/simple;
-	bh=2CBQKgx82cWynOCmi7Aef2VtATV6JiH2VphXL1cfpYU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lUOCyF1n1qOuUw2gv4F/v4rpDFVnhJiQUhpdPgrsbgZDCicwTUDQNiUj5knld/xxXw7UTFEf6zIEaPpQG4eJwH9dUwli2sJLDh7CCY/h1kocA/lb5CJKXYjuvAAS5HYtLPeJNTuSQk3WduFPxfiFjM6Iz7njDaPNfL4ZjODJmqc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Yz+kSU+b; arc=none smtp.client-ip=74.125.227.136
+	s=arc-20240116; t=1791515206; c=relaxed/simple;
+	bh=5Uz2zi/HaHZ9scqnUVj7yk+2fytGfDAxOLNXAwt2vw4=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version; b=gG9y63IEzg0U4RDTVlHowCWq+eDwmKM1d4OnWRY+iiblvdsQ0rVcygFJbrKDrGGtS49G43Sva2sdqh9uIRyiG5Vs/Vp7okQyDTtEchckd/ZQacy7Nuwkz2YQ6BMovEevPUxlFECoYxHp6A3JU4/KTBDM0xYjfYRxGJYNybV+Zu8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gmiwYATY; arc=none smtp.client-ip=209.85.210.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Yz+kSU+b"
-Received: by mail-pj2-f8.google.com with SMTP id d9443c01a7336-2e609985789so9595655ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 20:05:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gmiwYATY"
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-88bda150550so2218457b3a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 20:06:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791515108; x=1792119908; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1791515204; x=1792120004; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:reply-to:message-id:date
+         :subject:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=qQfYvkNkqoOJCA+/6hCONW4bFzc6fazsqzcsWi6a4VE=;
-        b=Yz+kSU+bWsEcpAbSdngu0qOibZVig9/C9vHtCRaIncV8+19J/p5Klh4WuL67GVJuzy
-         bBvK0yRK10V9V1WV+zjsGxra5rn98cYy/AzcvYZO3A44BrvSbrOYTPnWdHnXf5/m7r/H
-         +7s5BukFiP+fQidI/gs3bjU+eUTbuIhoFUqeyyaadvAU3lLrgD6AuG07V+9B/hVzv6JZ
-         vpVrSnilwRzH4aO254kozDR3R9GEJvit0jY0/CEsF3UJ4wkcSujN5lVyaNA03EQj8g2H
-         IsHPkLnBF0/nbfWraB/2hoWqdONE5AciWrDVbMEbnHFka97JA7cdbnISMU3eLa8XRSAU
-         W6hg==
+        bh=KrdVnUhtPNK/Av17PhvpBtm9fsARY9axkUcpxdE9xCo=;
+        b=gmiwYATYJDVsrjbDD631PuI+E1Bodn447DUDkztIwobHVVaY6Tl9cwqDDtalGnjCCh
+         d2IFLrQEBmM9JlR96GifgEEyp8Fj2tgUSMeQr/u4XPyIO/+RcgYdOg1OnWYwTft1ktzh
+         gA0eNgrOcmxsdQNazDWxwCTV1kT9aP/8m0sHi+JYY40vp5K8dwI9KN4eZ1JxvnwOTOIX
+         IBI5fwfLpMruw3GT1CwWfkZHTyVyRqDFr9JIU4cxYOy0fe6hbQrN36k8cPMUSsL54+PL
+         /nR1sFvJJuYj4Hd3WDjucQtPhlWFbMXHy7j3bd1Dwg7y2BoX2TIBqkMwqohbL5kNju3R
+         jKOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791515108; x=1792119908;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1791515204; x=1792120004;
+        h=content-transfer-encoding:mime-version:reply-to:message-id:date
+         :subject:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qQfYvkNkqoOJCA+/6hCONW4bFzc6fazsqzcsWi6a4VE=;
-        b=Ch4gr9Ih9wg4eVG/hqF9VSlWU5+ppkKaHGNYyC8A+NYvGzv41nNbpzX6R5ZyL4+PTI
-         dj1qSG3jNQQJwYRQkJnLxSlp7r1n44Q13JCCZluTa2YlCXoqBsPYj288aVQET/zChv87
-         LwhUCum/2HVNQl+xGMTGEMxDd+0H+4QP9ZTVs5P1vJqPj9bEAf3WgZPZ1CRzJU1pvCt+
-         T4YPlyIICiR/pgJNk1AaCJMy/iQauqaeC34XyBvqBttaVDsbGZhyXzGikxGgnvFVyh17
-         Z94OqIgfQxIwQ3f/ZpTfy8oDev+2HtedLCKQ8VM18b4YmasgJb5iadwL4Osy8/AbG6hj
-         PIQg==
-X-Forwarded-Encrypted: i=1; AKwUvBzE0PZDzBdt1NoGiSP/mGLJ7pcvmY53Mmlc9XNf6iJNDjgDX/kUkBrWkMnMlxapDW0KPfUVXJlhMBZz5ks=@vger.kernel.org
-X-Gm-Message-State: AFuF++kePLHCjpnTK8SNiDwGg3gGZ42tQ98ilVbmQ/fpIMG3645ykaSx
-	NSm6xCC5SV8BHVahqy3knincOxpNUhTXrorQHr+/lUzNnQ7fKVdHWGLA
-X-Gm-Gg: AYBFou3h8XhnuA0vyzMgBeB2A5Hr8KplQYgeJAD8xxfsFpfAq0kUJHsF8bgQSZPtOZt
-	Qdi/DanzozUNVjE3w5QHCxaI13Ahub20ga5c0tDfkdAZ7mxDY/X/l7tFgNMC6SGOpn7iClv8lup
-	HyirumwadsriaIuxZt+emL2Ec3wKXxCp4Ut5f7OQJyzu6Jk1lD7GSBA+u8OW8BsAEkeq23CPB7y
-	/Aws7i6hPyxyh081u3+LbZiYBUX/Ago6XGqBYfdxerzg8OlCibj8PRbe55uGG3bG+UnpzK4+g/a
-	ixRQSOQhTA6NrrVaswWr8ecYI/4H3PFm6MoXicqZM4++p4BR+IZGyItdV5tl5+OQ2P5ibBFsGvH
-	HmCYYcRT7DJVM54gFuYXcPIOzT0Op4wWUghn+vdj8ga9z12lQxa+KndCK0KwTILrPZY0ISXAC7C
-	nzP4ccF5gnBDWi9uFc5xpNHxR902BNX16i5cXoEz9/olWNM4ZPREkjLRNVl5zwUiBIqvrIRThOb
-	mdTAQ==
-X-Received: by 2002:a05:6a21:e08c:b0:3e0:da23:8746 with SMTP id adf61e73a8af0-3e16bdae93emr416704637.18.1791515107689;
-        Thu, 08 Oct 2026 20:05:07 -0700 (PDT)
-Received: from [10.125.112.22] ([122.11.210.25])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3d9e08c89sm296018a12.8.2026.10.08.20.04.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 08 Oct 2026 20:05:07 -0700 (PDT)
-Message-ID: <80af60db-8c39-461c-a488-3dfee990bce8@gmail.com>
-Date: Fri, 9 Oct 2026 11:04:47 +0800
+        bh=KrdVnUhtPNK/Av17PhvpBtm9fsARY9axkUcpxdE9xCo=;
+        b=mjvAZ3EKU4cXf9DQtah1jBJvASVTW0xdNJUAKS60VII8/Jvv3+QOp+FlWjsPge5fgc
+         Efb6+mTQXFVKSaaUJMWZkU2VkcrPt2ZwdS32YAVeiSa8gp0JvFTRRfzpz2r5cwUZX2B3
+         zRyncfhMT3oJbtay4v4Y7eP2aOVvEH36COTe3d+4lxYoYWya6a2gViF+gEhpR3RHKNaw
+         TrmYVTk7JgLnG6ovaKa9ZnS7iWUeGnSqMy/Axkgf+7LKEvk6EieEpkUs4kQPkrN1AT1p
+         08Cvgi6Pr0hXJZGUQWUVgVPxtg9AnS61hgQF3dpLI7A4lVrmLP6xXsX+3TOzdQizLqHE
+         bs3Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzceHK2QohVaf0M+drbj3TLot+0Hjtxn4rLKANdeiZTpjmyIQYhbdLH+Qoxm5TwjFCog4f6s93WzcQ4EzI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK5iqXnIHZO4RAPu6xSrgpg3tBtJlMKcZgQYmMqQoyZ5C+bdJLb
+	7PbSLszCb2GFM68U4fJ4CEWEP7R5zxDb3kzMaPJcpZNc4MH7onmjMsAG
+X-Gm-Gg: AYBFou2OwnCmSEvI8eXB8Qc/51TvZ2NA/tSbZvUMUqmF/upK/Sk7cr1IQp8GmhfzeVj
+	VzskvjEviFOt7ZjBwTzY9mYpPwZ4Pua6I2yICwDzxrF9c5dkfzvdLOEZAsg/ysh7OvfZHmevjmF
+	zS58XxNZYWAqFIkPjpuJczNKm8mIlE4flcZ1zjYZeaI9vGxy5DTsUPIW23HHwZhN0S/IlNGWXyU
+	hvTQ15Hjdw4gLzktUZ56Goy5A4gNPdWHrjnCdxF1jy3w3eaYPTPlkNq16JWA6hzbLbuchbvJuTt
+	SVpTr6jsrHB9VrDAF+gYQov5AiqxN6tjfexmbTYNIZhDEEWHpPAWfSqVh6HQMmQe1FpNe/I8YJH
+	TknrQEq+1/yrw9KB2ebcoJe4AdwDHwGVzagE/a4/tvR+KyMrX3/N/DU8isa9TWA06RmbBescHne
+	PlHs76zT06Xmna4wzXpLKEoyVnSrRF5z5RUk5lObZmgMvHmFTvNtgoyJ1QFAcqE9noNoKiU4eBd
+	7nJtxwnjEdnDySOpOQur64zswmItt2leKGJP/Rlqw4a/6dKX3WJjIhmbbNrgMXcxuM=
+X-Received: by 2002:a05:6a00:1254:b0:882:bba:8791 with SMTP id d2e1a72fcca58-897c73f9603mr484203b3a.34.1791515204273;
+        Thu, 08 Oct 2026 20:06:44 -0700 (PDT)
+Received: from localhost.localdomain (c-174-165-208-10.hsd1.wa.comcast.net. [174.165.208.10])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c3ecb01dsm320656b3a.36.2026.10.08.20.06.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 20:06:43 -0700 (PDT)
+From: Michael Kelley <mhkelley58@gmail.com>
+X-Google-Original-From: Michael Kelley <mhklinux@outlook.com>
+To: haiyangz@microsoft.com,
+	wei.liu@kernel.org,
+	decui@microsoft.com,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-hyperv@vger.kernel.org,
+	linux-doc@vger.kernel.org
+Subject: [PATCH 1/1] Documentation: hyperv: Update documentation for sending VMBus packets
+Date: Thu,  8 Oct 2026 20:06:37 -0700
+Message-Id: <20261009030637.3869-1-mhklinux@outlook.com>
+X-Mailer: git-send-email 2.25.1
+Reply-To: mhklinux@outlook.com
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 0/9] kdump: reduce vmcore size and capture time
-To: Mike Rapoport <rppt@kernel.org>
-Cc: robh@kernel.org, baoquan.he@linux.dev, m.szyprowski@samsung.com,
- catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com,
- chenhuacai@kernel.org, kernel@xen0n.name, pjw@kernel.org,
- palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, tglx@kernel.org,
- mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org,
- hpa@zytor.com, saravanak@kernel.org, akpm@linux-foundation.org,
- pasha.tatashin@soleen.com, pratyush@kernel.org, ruirui.yang@linux.dev,
- robin.murphy@arm.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, loongarch@lists.linux.dev,
- linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
- kexec@lists.infradead.org, linux-mm@kvack.org, iommu@lists.linux.dev
-References: <20260922084256.1515554-1-chenwandun1@gmail.com>
- <ar9ogXc12cLjziHS@kernel.org>
-Content-Language: en-US
-From: Wandun <chenwandun1@gmail.com>
-In-Reply-To: <ar9ogXc12cLjziHS@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+The functions for sending VMBus packets have been simplified.
+vmbus_sendpacket_mpb_desc() can target multiple ranges, and
+vmbus_sendpacket_pagebuffer() has been removed. Update the
+documentation accordingly.
 
+Fixes: 45a442fe369e ("Drivers: hv: vmbus: Remove vmbus_sendpacket_pagebuffer()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Michael Kelley <mhklinux@outlook.com>
+---
+The Fixes: tag reflects the code change that was made. The
+documentation update should have been included with the
+original code change.
 
-On 10/2/26 16:17, Mike Rapoport wrote:
-> Hi Wandun,
-> 
-> On Tue, Sep 22, 2026 at 04:42:47PM +0800, Wandun Chen wrote:
->> From: Wandun Chen <chenwandun@lixiang.com>
->>
->> On SoCs that carve out large firmware-owned reserved memory (GPU,
->> camera ISP, ...), kdump currently dumps those carveouts as part of
->> system RAM even though their contents are firmware state that is not
->> useful for kernel crash analysis.
->>
->> This series introduces a MEMBLOCK_NODUMP flag in memblock to filter
->> reserved memory on DT-based architectures (arm64, riscv, loongarch).
->> Reserved regions are marked MEMBLOCK_NODUMP by default so kdump omits
->> them; reusable CMA regions are different because their pages are handed
->> back to the buddy allocator and may carry crash-relevant data.
->>
->> ACPI systems already filter reserved memory out of the vmcore through
->> their existing path; only DT-based systems currently fail to filter these
->> regions, which is what this series addresses. The flag lives in memblock
->> itself rather than in a DT-only structure, so both ACPI and DT systems
->> can benefit from it (suggested by Rob, thanks).
-> 
-Hi Mike,
+ Documentation/virt/hyperv/vmbus.rst | 13 ++++---------
+ 1 file changed, 4 insertions(+), 9 deletions(-)
 
-Thanks for the review.
-
-> Can you elaborate how ACPI systems filter their reserved memory?
-
-In the EFI memory map, firmware carveouts are reported with the type
-EFI_RESERVED_TYPE. This type of memory gets the nomap flag set in
-memblock.memory (is_usable_memory() returns false in reserve_regions()
-and mark these regions with nomap flag), during prepare_elf_headers(),
-for_each_mem_range() filters out these nomap regions. Therefore, the
-memory reserved on ACPI based systems will not be dumped into the vmcore.
-
-I will add these description in next version.
-
-> With your patches, the memblock flag becomes a part of DT-only
-> infrastructure, so that claim that both ACPI and DT benefit from it does
-> not hold, doesn't it?
-
-You are right, the wording was misleading. Let me clarify what I meant.
-
-In this series only DT marks regions as MEMBLOCK_NODUMP:
-/reserved-memory and /memreserve/ entries are tagged in the OF
-paths (of_reserved_mem.c, fdt.c). ACPI does not set the flag and
-keeps filtering its reserved memory through the existing path, as
-described above.
-
-
-What I intended to convey is that the flag itself lives in memblock
-rather than on the DT-only struct reserved_mem, so it is available
-for reuse. If an ACPI system ever needed to exclude a firmware-owned
-region from the vmcore, it could mark that region with MEMBLOCK_NODUMP
-the same way DT does, instead of having to invent a parallel mechanism.
-That is a future option, not something this series enables for ACPI
-today.
-
-Also will update these description in next verison.
-
-Best regards,
-Wandun
-
->  
->> Since the reserved memory regions are filtered out, the vmcore is
->> smaller in size and faster to produce.
->>
->> The series is based on linux-next and is organized as follows:
->>
->> Patches 1-3: Preparation and bugfixes: switch riscv crash_mem to memblock,
->> 	     fold the duplicated per-arch memblock walks into the weak
->>              defaults, and serialize crash header preparation against
->>              memory hotplug.
->> Patches 4-8: NODUMP infrastructure: switch crash_core to
->>              for_each_mem_region(), introduce the MEMBLOCK_NODUMP flag,
->> 	     add a dumpable flag to struct reserved_mem, and mark
->> 	     /reserved-memory and /memreserve/ entries with MEMBLOCK_NODUMP
->> 	     flag.
->> Patch 9:     Exclude MEMBLOCK_NODUMP regions from the vmcore ELF
->>              header.
->>
->> v6 --> v7:
->> 1. Fix a stale MEMBLOCK_NODUMP flag issue [1]. Memory reserved and
->>    marked as NODUMP may later be freed (the initrd, for example),
->>    so the NODUMP flag must be cleared accordingly. Since the fix is
->>    part of the NODUMP infrastructure introduced by patch 5, it has
->>    been folded into that patch.
->>
->> 2. Drop the "generic" related description in the cover letter.
->>
->> 3. Collect the Acked-by and Reviewed-by tags received during the v6
->>    review (thanks to Baoquan, Mike, Rob and Marek). Patch 5 is the
->>    only one without a tag, as its Reviewed-by was dropped when the
->>    fix was folded in.
->>
->> 4. Drop patch 1 of v6, which has been merged separately.
->>
->>
->> v5 --> v6:
->> 1. Serialize crash header preparation against memory hotplug to avoid
->>    out-of-bounds or use-after-free issues.
->> 2. MEMBLOCK_NODUMP marking is now done after memblock allows resizing,
->>    avoiding a panic from too few regions before resize is permitted.
->> 3. Reordered the patches, put pre-existing bugfixes earlier in the series.
->>
->>
->> v4 --> v5:
->> 1. Rework the mechanism around a memblock-level MEMBLOCK_NODUMP flag
->>    (suggested by Rob) instead of the v4 opt-in 'dumpable' flag on
->>    DT-only struct reserved_mem [2].
->> 2. Switch the riscv vmcore elf header preparation to use memblock
->>    instead of the resource tree, aligning it with arm64 and loongarch,
->>    so riscv also can exclude reserved memory from vmcore.
->> 3. Deduplicate the vmcore elf header preparation: arm64, riscv and
->>    loongarch open-coded the same logic, so fold it into shared
->>     __weak defaults in crash_core.
->> 4.  Drop the v4 patch that saved /memreserve/ entries into the
->>     reserved_mem array; /memreserve/ is now marked MEMBLOCK_NODUMP
->>     directly.
->>
->> v3 --> v4:
->> 1. Rebase this series on v7.2-rc1.
->> 2. Add two cleanup patches (patch 02/03).
->> 3. Simplify patch 03 to avoid checking whether initial_boot_params is
->>    NULL multiple times, suggested by Rob.
->>
->> v2 --> v3:
->> 1. Fix out-of-bounds issue if device tree lacks /reserved-memory node.
->> 2. Fix UAF issue when alloc_reserved_mem_array() fails.
->> 3. Add some prepare patches.
->>
->> v1 --> v2:
->> 1. v1 added an opt-out DT property ('linux,no-dump'). Per Rob's
->>    feedback [3], v2 drop that property and exclude reserve memory
->>    by default.
->> 2. Split some prepared patches from the original patches.
->> 3. Address coding-style comments on patch 5 from Rob.
->>
->> [1] https://sashiko.dev/#/message/20260917220750.GA4013814-robh%40kernel.org
->> [2] https://lore.kernel.org/lkml/20260723234126.GA3253409-robh@kernel.org/
->> [3] https://lore.kernel.org/lkml/20260506144542.GA2072596-robh@kernel.org/
->>
->>
->>
->> Wandun Chen (9):
->>   riscv: build crash_mem ranges from memblock instead of resource tree
->>   crash_core: fold duplicated memblock arch hooks into the weak default
->>   crash_core: serialize crash header preparation against hotplug
->>   crash_core: replace for_each_mem_range() with for_each_mem_region()
->>   memblock: introduce MEMBLOCK_NODUMP flag
->>   of: reserved_mem: add dumpable flag to opt-in vmcore
->>   of: reserved_mem: mark /reserved-memory entries with MEMBLOCK_NODUMP
->>   of: reserved_mem: mark /memreserve/ entries as MEMBLOCK_NODUMP
->>   crash_core: skip MEMBLOCK_NODUMP regions when building vmcore ELF
->>     header
->>
->>  arch/arm64/kernel/machine_kexec_file.c     | 29 ------------
->>  arch/loongarch/kernel/machine_kexec_file.c | 27 ------------
->>  arch/riscv/Kconfig                         |  2 +-
->>  arch/riscv/kernel/machine_kexec_file.c     | 33 --------------
->>  arch/x86/kernel/crash.c                    |  2 +-
->>  drivers/of/fdt.c                           |  2 +
->>  drivers/of/of_private.h                    |  2 +
->>  drivers/of/of_reserved_mem.c               | 48 ++++++++++++++++++++
->>  include/linux/crash_core.h                 |  2 +
->>  include/linux/memblock.h                   |  9 ++++
->>  include/linux/of_reserved_mem.h            |  1 +
->>  kernel/crash_core.c                        | 51 ++++++++++++++++++++--
->>  kernel/dma/contiguous.c                    |  1 +
->>  mm/memblock.c                              | 43 +++++++++++++++++-
->>  14 files changed, 155 insertions(+), 97 deletions(-)
->>
->> -- 
->> 2.43.0
->>
-> 
+diff --git a/Documentation/virt/hyperv/vmbus.rst b/Documentation/virt/hyperv/vmbus.rst
+index 654bb4849972..77a437969b49 100644
+--- a/Documentation/virt/hyperv/vmbus.rst
++++ b/Documentation/virt/hyperv/vmbus.rst
+@@ -137,18 +137,13 @@ control message contains a list of GPAs that describe the data
+ buffer.  For example, the storvsc driver uses this approach to
+ specify the data buffers to/from which disk I/O is done.
+ 
+-Three functions exist to send VMBus channel messages:
++Two functions exist to send VMBus channel messages:
+ 
+ 1. vmbus_sendpacket():  Control-only messages and messages with
+    embedded data -- no GPAs
+-2. vmbus_sendpacket_pagebuffer(): Message with list of GPAs
+-   identifying data to transfer.  An offset and length is
+-   associated with each GPA so that multiple discontinuous areas
+-   of guest memory can be targeted.
+-3. vmbus_sendpacket_mpb_desc(): Message with list of GPAs
+-   identifying data to transfer.  A single offset and length is
+-   associated with a list of GPAs.  The GPAs must describe a
+-   single logical area of guest memory to be targeted.
++2. vmbus_sendpacket_mpb_desc(): Message with one or more data ranges
++   to target. Each range consists of a single offset and length plus
++   a list of GPAs that describe a logical area of guest memory.
+ 
+ Historically, Linux guests have trusted Hyper-V to send well-formed
+ and valid messages, and Linux drivers for synthetic devices did not
+-- 
+2.25.1
 
