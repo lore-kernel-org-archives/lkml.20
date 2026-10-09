@@ -1,283 +1,161 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B74944D4897
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 14:45:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76C79367B8F;
+	Fri,  9 Oct 2026 14:45:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791557139; cv=none; b=ItylvWkhby4Dj9yTZj8GZh95CJQiHPSNVWluR8eI/qo/oHGcIW7iJCBQBTjfspqa22SxF19MkDOTKXzKdI0qyMlN5HpHgUOyzKH24pKmq1PxN2ivCDG2EAxrvtv4XCn9Fs/roOiSzvAE5hE6pjnk/WPQoBuoa4XstxzD/6PqCMk=
+	t=1791557156; cv=none; b=N6zta6Gwsp+6MuUpTI2wcoO0nKU67lyc8OOgkgqNZ/4J8XbpqbQAXhAdMVXibxlJsI4qPK0vkSsviG32SoG8AoRSGnZ28JDJIHwNKOZJEAAjsSAvpVk1IMCq9vSKl2qKhsuS+wpmyZFVSvrNwM6fcPIAuddmrKYUxPrd47cdbcE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791557139; c=relaxed/simple;
-	bh=6NoH5ngXlboK+4ycuUT1H4GT+20zyFS5Vw8rwawIAd8=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=m3EAZPWB5EohBYJvDXlkRirzlCHiP5mUzSGZJAa7ML7/MbJSc7EW7k0Msr5HEXgp17t8l5uWAMT5BmqSFk4DBiEvnERn2LCkN+BKpxfhKcERzHBRzPyliKS7iHdKAym+Y6FFh4nTo7t6wHkCe8pUIrHvUeeX75RmX3z88EtNPkI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=AGZuqFUq; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
+	s=arc-20240116; t=1791557156; c=relaxed/simple;
+	bh=rZ5ywZaCEw6+1RM/+8VAilaE7Y/LV1fZVknlMB9PGFg=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=bTRh8PxxdYNPVOevHKN78JNeSon3DWb/GkpaE7kZSePtw2J4JUz9gwLA1TPSuanvPSlKHvyZU41LcnZrGINqLmmvkp0s99WB5Fo6ZroW545DcLQnkO4zSas7WXEXQyZgsvHjiRQnUWR6n/lW3m3hTuM+cqi1UP8jRvmzcjZbZ+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=BuVvntKJ; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="AGZuqFUq"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=6NoH5ngXlboK+4ycuUT1H4GT+20zyFS5Vw8rwawIAd8=; b=AGZuqFUqUY3ucm+mZxhBynIqW9
-	Dhtwp+YxZEaBaRK7MARWfcNbp2lZcZXYGIdsEcZc3ElptOLHbPKYfNSgFCGavzyGT9455qERCJFyo
-	9rRqzN8lcJanyAeMOTCTEpBspv35VrB4S+FHuNo5fUvacDxnzP1jTk124qRrmHuvhYcSp9Em4lN71
-	DLhy8UEnM57XIOAxsCwM+vOHZAjf7U8vmhsIMwYbk+vsdigoOiys0GOGTo4M2HJ8agipO04KETW0U
-	bdNVYBxPKOrySKXqbw2FcT1pCkx4hSJ9eplKQB57FGtdBm4GhCS1Imovr848vmWvpabn6Gvx1bSjv
-	qVQZGPYQ==;
-Received: from [54.239.6.187] (helo=u09cd745991455d.ant.amazon.com)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1xFBqj-0000000FQnr-2W43;
-	Fri, 09 Oct 2026 14:45:29 +0000
-Message-ID: <b5c72d9c3812d3b4988353e842d736694fc9258d.camel@infradead.org>
-Subject: Re: [PATCH 00/19] arm64: Implement parallel CPU onlining with PSCI
- v0.2+
-From: David Woodhouse <dwmw2@infradead.org>
-To: Will Deacon <will@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, Pasha Tatashin	
- <pasha.tatashin@soleen.com>, Luka Absandze <absandze@amazon.de>, 
-	linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@kernel.org>, Catalin
- Marinas	 <catalin.marinas@arm.com>, Borislav Petkov <bp@alien8.de>, Lorenzo
- Pieralisi	 <lpieralisi@kernel.org>, Jinjie Ruan <ruanjinjie@huawei.com>,
- Mark Rutland	 <mark.rutland@arm.com>, Peter Zijlstra
- <peterz@infradead.org>, Marc Zyngier	 <maz@kernel.org>
-Date: Fri, 09 Oct 2026 15:45:28 +0100
-In-Reply-To: <asjLE0VkeVJKA554@willie-the-truck>
-References: <20260907164024.17164-1-will@kernel.org>
-	 <f1ab0c03257d5055ada02877ac92a06f370c72b9.camel@infradead.org>
-	 <asjLE0VkeVJKA554@willie-the-truck>
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-gSzyXEnfOVhoIAEWfRS4"
-User-Agent: Evolution 3.62.0-0ubuntu1~ppa1~24.04 
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="BuVvntKJ"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 699DZtsN3214290;
+	Fri, 9 Oct 2026 14:45:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=ZJ2P/ehtfYR76otRuiUkFjUlIWNYpL
+	z4lj6YtBrjrkw=; b=BuVvntKJVZl/2049mEym7N/04BXIsgOfmLyS24ttCdERm6
+	c3XeV/gTZ3i4ua7+ivf1N0lHsf7YsPS8jeMilBpkIVd99LVAjQKRLMEl7p0fDnnR
+	J8Jg0sHo7i+a+JpsyNWNuDWu/VnvTlZV4iRTggWwuXRVKQrBPQy58ZWWkrPEfLGL
+	eHOEt8hsLZdsaTE++nMnKQkR0LkNJgMvSTFxSFXsQC9JJ5x7NhFzD3r8om7fXYwX
+	Vym4cTf9jspNL6Y6ci0yvIffMvjqW6BpHO99LP3mcyZ+sTNd8jrcthJTblLUrb4l
+	tUrqKOQllcDD8ZAf7N6jHSOBoEokMpXVWCd/LO7Q==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h5xk1jh0d-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 09 Oct 2026 14:45:36 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 699DWVQD965690;
+	Fri, 9 Oct 2026 14:45:35 GMT
+Received: from smtprelay01.wdc07v.mail.ibm.com ([172.16.1.68])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h6x1y8xtj-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 09 Oct 2026 14:45:35 +0000 (GMT)
+Received: from smtpav03.dal12v.mail.ibm.com (smtpav03.dal12v.mail.ibm.com [10.241.53.102])
+	by smtprelay01.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 699EjX8v61473268
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 9 Oct 2026 14:45:34 GMT
+Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D12AB5805A;
+	Fri,  9 Oct 2026 14:45:33 +0000 (GMT)
+Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 8F47D58056;
+	Fri,  9 Oct 2026 14:45:33 +0000 (GMT)
+Received: from d (unknown [9.61.186.115])
+	by smtpav03.dal12v.mail.ibm.com (Postfix) with ESMTPS;
+	Fri,  9 Oct 2026 14:45:33 +0000 (GMT)
+From: Dave Marquardt <davemarq@linux.ibm.com>
+To: kernel test robot <lkp@intel.com>
+Cc: Dave Marquardt via B4 Relay <devnull+davemarq.linux.ibm.com@kernel.org>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        Michael Ellerman
+ <mpe@ellerman.id.au>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        "Christophe
+ Leroy (CS GROUP)" <chleroy@kernel.org>,
+        "James E.J. Bottomley"
+ <James.Bottomley@hansenpartnership.com>,
+        "Martin K. Petersen"
+ <mkp@kernel.org>,
+        Tyrel Datwyler <tyreld@linux.ibm.com>, oe-kbuild-all@lists.linux.dev,
+        linux-scsi@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v13 04/11] scsi: ibmvfc: add basic FPIN support
+In-Reply-To: <202610091350.pfimX8kZ-lkp@intel.com> (kernel test robot's
+	message of "Fri, 9 Oct 2026 13:20:05 +0800")
+References: <20261007-ibmvfc-fpin-support-v13-4-b816abfa4fcc@linux.ibm.com>
+	<202610091350.pfimX8kZ-lkp@intel.com>
+Date: Fri, 09 Oct 2026 09:45:33 -0500
+Message-ID: <87a4onlype.fsf@linux.ibm.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+Content-Type: text/plain
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=YtCa1IYX c=1 sm=1 tr=0 ts=6ac8fe10 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=V8glGbnc2Ofi9Qvn3v5h:22 a=NEAV23lmAAAA:8 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=i3X5FwGiAAAA:8 a=QyXUC8HyAAAA:8 a=DpkWlw5QTZI3BuQtO8gA:9
+ a=mmqRlSCDY2ywfjPLJ4af:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDA1OCBTYWx0ZWRfX1DMBQvZ1oV9B
+ 7K4kf2thLqLcsmX+xF+cju3DKnw+pPMd6SzJR/c6iHHvV/Kwozu0vx328Lnljp2Pg5MLc7eCNmk
+ 7oV24YBYVA+qGuSYnkFKy0C+tgI9kjM3alEsNefBQlaD3nsSEMjzfGuSwegDBjCgddZGTMTEd06
+ E9/QOO+nr4HZz8d8neudpyfZ+x4chUNn2UKDdojI0ayqz8XWrFhE0qkbhWZpvGbAsGCjv1ku+oH
+ +JDrxVv91VIiO3vvLzN7O1SC94zi08PAVcgN5KTGhrSSfGr5JhobT7xNkmYE1fSOdap6f6KzxmJ
+ IMqW1jiQS2Aap5AKtDcPEZv76LkK/ad3GzHpNyk8UxqKYNXJ6TKUKj2+6ld3U9AXZ2Zv/fAp62t
+ My+MfXVoAmsBHvshu7+tXQ8SwoGL1WbSfGs10RW0aXIy4qUa7CRcb2ehR/fL/A0/1Cjc3rJnRf5
+ cFrijtfoc7dFQcbNRng==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDA1OCBTYWx0ZWRfXyaK1dWi2ofc9
+ k1X8YhHuZbTXhbAlWTqAvWSp0tWPHIG3af7B8ObMZp6gQXNqGDV0yhJcP8KNug+6zBTopO+monS
+ DhxGCp+FWomo7oilnatHeaW2q7BOxnY=
+X-Proofpoint-GUID: 4fX-i6NOi1__0d4TrwOlYkjldxZcFa75
+X-Proofpoint-ORIG-GUID: OT9yZWI9hT2Xar28hNGoK32M5rS05EoP
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-09_04,2026-10-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 bulkscore=0 clxscore=1011 priorityscore=1501
+ lowpriorityscore=0 suspectscore=0 malwarescore=0 adultscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610090058
 
+kernel test robot <lkp@intel.com> writes:
 
---=-gSzyXEnfOVhoIAEWfRS4
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+> kernel test robot noticed the following build warnings:
+>
+> [auto build test WARNING on c3cff7fac01638ab58e85fe7df41a04fa25c5bae]
+>
+> url:    https://github.com/intel-lab-lkp/linux/commits/Dave-Marquardt-via-B4-Relay/scsi-ibmvfc-fix-IRQ-leak-and-guard-deregister-on-channel-reg-failure/20261007-142545
+> base:   c3cff7fac01638ab58e85fe7df41a04fa25c5bae
+> patch link:    https://lore.kernel.org/r/20261007-ibmvfc-fpin-support-v13-4-b816abfa4fcc%40linux.ibm.com
+> patch subject: [PATCH v13 04/11] scsi: ibmvfc: add basic FPIN support
+> config: powerpc-allmodconfig (https://download.01.org/0day-ci/archive/20261009/202610091350.pfimX8kZ-lkp@intel.com/config)
+> compiler: powerpc64-linux-gcc (GCC) 16.1.0
+> reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261009/202610091350.pfimX8kZ-lkp@intel.com/reproduce)
+>
+> If you fix the issue in a separate patch/commit (i.e. not just a new version of
+> the same patch/commit), kindly add following tags
+> | Reported-by: kernel test robot <lkp@intel.com>
+> | Closes: https://lore.kernel.org/oe-kbuild-all/202610091350.pfimX8kZ-lkp@intel.com/
+>
+> All warnings (new ones prefixed by >>):
+>
+>    Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:1905 expecting prototype for ibmvfc_relogin(). Prototype was for ibmvfc_scsi_relogin() instead
+>>> Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:3319 function parameter 'fpin_status' not described in 'ibmvfc_common_fpin_to_desc'
+>>> Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:3319 function parameter 'wwpn' not described in 'ibmvfc_common_fpin_to_desc'
+>>> Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:3319 function parameter 'type' not described in 'ibmvfc_common_fpin_to_desc'
+>>> Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:3319 function parameter 'modifier' not described in 'ibmvfc_common_fpin_to_desc'
+>>> Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:3319 function parameter 'threshold' not described in 'ibmvfc_common_fpin_to_desc'
+>>> Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:3319 function parameter 'event_count' not described in 'ibmvfc_common_fpin_to_desc'
+>>> Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:3401 function parameter 'crq' not described in 'ibmvfc_basic_fpin_to_desc'
+>>> Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:3401 function parameter 'wwpn' not described in 'ibmvfc_basic_fpin_to_desc'
+>>> Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:3401 Excess function parameter 'ibmvfc_fpin' description in 'ibmvfc_basic_fpin_to_desc'
+>    Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:5258 function parameter 'protocol' not described in 'ibmvfc_alloc_target'
+>>> Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:3319 function parameter 'fpin_status' not described in 'ibmvfc_common_fpin_to_desc'
+>>> Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:3319 function parameter 'wwpn' not described in 'ibmvfc_common_fpin_to_desc'
+>>> Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:3319 function parameter 'type' not described in 'ibmvfc_common_fpin_to_desc'
+>>> Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:3319 function parameter 'modifier' not described in 'ibmvfc_common_fpin_to_desc'
+>>> Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:3319 function parameter 'threshold' not described in 'ibmvfc_common_fpin_to_desc'
+>>> Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:3319 function parameter 'event_count' not described in 'ibmvfc_common_fpin_to_desc'
+>>> Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:3401 function parameter 'crq' not described in 'ibmvfc_basic_fpin_to_desc'
+>>> Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:3401 function parameter 'wwpn' not described in 'ibmvfc_basic_fpin_to_desc'
+>>> Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:3401 Excess function parameter 'ibmvfc_fpin' description in 'ibmvfc_basic_fpin_to_desc'
+>    Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:5258 function parameter 'protocol' not described in 'ibmvfc_alloc_target'
 
-On Fri, 2026-10-09 at 12:08 +0100, Will Deacon wrote:
-> Hi David,
->=20
-> Thanks for replying with so much data! It looks like I sent my v2 out
-> at the same time.
+Thanks. I will fix in the next patch series revision.
 
-Yeah. I'm redoing the full set of tests on that, along with the
-spinwait variant.
-
-> On Fri, Oct 09, 2026 at 11:00:08AM +0100, David Woodhouse wrote:
-> > Thanks both of you for working on this. It was always on my list to
-> > come back and do it for arm64, but that list is long. Also on my list
-> > FWIW is parallelising the *later* stages of CPU hotplug=C2=B9, not just=
- the
-> > early path into start_secondary()/secondary_start_kernel(). IIRC there
-> > was more win to be had, but we had to prove that a lot of once-
-> > serialized code could safely run concurrently. Ideally without just
-> > na=C3=AFvely adding locking and serializing it all again.
->=20
-> That gets _really_ hard because you need RCU up and running pretty early.
-
-RCU should be OK, as long as a CPU which is registered doesn't *then*
-block in a spin-wait, like the traditional CPU hotplug machinery does.
-
-> > I gave your series a quick spin across a range of EC2 systems, and it
-> > gives a ~40% win on systems with 192 cores =E2=80=94 at least, as a
-> > microbenchmark of the CPU onlining. For these systems, PSCI is fairly
-> > fast to bring the CPUs online and it isn't a huge proportion of the
-> > *overall* kexec time.
-> >=20
-> > However, your code in serial mode (cpuhp.parallel=3D0) is up to 40%
-> > *slower* than before. A/B testing results, all values in milliseconds:
->=20
-> Oh, that's unexpected.
-> ...
-
-> Would it be possible for you to pick one of these platforms and bisect
-> the serial regression, please? I'm not really sure where to look, but
-> serial boot should work all the way through the series so if you can
-> identify the point at which it regresses (and presumably doesn't recover)
-> then that would hopefully point me in the right direction. One possibilit=
-y
-> is that the extra atomics in the new state machine logic are slowing thin=
-gs
-> down. Another possibility is the timeout logic in
-> cpuhp_wait_for_sync_state() ends up sleeping in your tests.
-
-Looks like the latter, falling back to usleep_range(1000, 2000). Goes
-away if you make it atomic_cond_read_relaxed():
-https://git.infradead.org/?p=3Dusers/dwmw2/linux.git;a=3Dcommitdiff;h=3Dcba=
-8bdecff74
-
-Of course, if we weren't synchronously *waiting* for the APs and they
-just turned up later, the world would be a better place. And the ones
-with slow firmware wouldn't matter either.
-
-Unless we're actually doing parallel initcalls, we don't even *need*
-the secondary CPUs until much later, do we?
-
-> Probably worth using my v2 just in case one of the fixes there helps,
-> but I'm not hopeful.
->=20
-> > We also tried it on another system where the firmware takes about 9ms
-> > to bring each CPU up (after CPU_ON returns fairly quickly). Fanning out
-> > the CPU_ON calls didn't make any difference either; the CPUs came
-> > online, one at a time, about 9ms apart.=C2=A0The parallel onlining save=
-d
-> > only about 20ms out of 820ms (=E2=86=92800ms) here.
->=20
-> Damn, I guess the firmware has some serialisation in that case?
-
-$DEITY knows, but I guess so. We don't get to write the firmware for
-those ones, AIUI.
-
-> > The real answer for such platforms (at least for kexec) is *not* to do
-> > the CPU_OFF/CPU_ON thing at all. Pasha's Caretaker work=C2=B2 still doe=
-s so
-> > for the reclaim at hotplug time in the next kernel; I'm experimenting
-> > with eliding that, which should give the biggest improvement on such
-> > platforms. So during kexec the APs just spin and wait to be asked to
-> > come back, instead of going completely offline.
->=20
-> I was talking to Tarun about that at LPC. I was envisaging a form of
-> CPU_OFF that would leave the MMU enabled so we could make use of the
-> existing EFI boot logic, but I hadn't thought about it beyond that.
-
-I think it ties closely into the caretaker thing. We don't take the CPU
-offline at all (no firmware, no CPU_OFF of any kind). Instead, we just
-leave it parked somewhere.
-
-The first stage is leaving it parked and just spinning waiting to come
-back. Which is all we care about here.
-
-The next stages involve making it do useful *work* instead of just
-spinning. Like Pasha's KVM vCPU caretaker, and the thing I'm working on
-which runs a minimal C runtime driving an e1000 through VFIO,
-transitioning onto bare metal on the "offline" CPUs across kexec, then
-back to running in a Linux thread after kexec. All in QEMU while being
-flood-pinged from the host across the kexec.
-
-
---=-gSzyXEnfOVhoIAEWfRS4
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCE8Ew
-ggWvMIIEl6ADAgECAhANkOKMSmGXhF5eMl0rsRhvMA0GCSqGSIb3DQEBDAUAMGUxCzAJBgNVBAYT
-AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
-BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBHMjAeFw0yNDAzMTMwMDAwMDBaFw0zNDAz
-MTIyMzU5NTlaMGIxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UE
-AxMxRGlnaUNlcnQgQXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTCCAiIw
-DQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAOfSIeC0vv1xPQ+dgSxbIIrkaru6skAWJYaGFzmv
-q4Kq+2wU2jxhcWlJg/JeP5jEkq/LM3pn5aaLao79j+XRmS7J1ZpJKUODJVoM4s9MQJhTMvo4qS5Z
-S64g6QR7Obkz3I1Lr3aWeSBmDDEyzue+NKtuWZ1Cxy3RdXo/w5HgRc3l2AercOM3Gt1XonTzEtTb
-Z/Hwc0Sn9Gz8RmGRK6Ka4hVDl8q/2l110KaV233Kh5etP0csXS8MIMdVRfRu3sc5hp13DG7lCKzK
-72a2GEpI8Wpl26G6I1/LMzz/98T+FqjTqxsdquk7Cj7m2vKGLW1BorpQH7WFGPdJQXJe1hfbfiZA
-CcVdCtl4nAacFacmsiArZBfX7AQGL7isvHUwwYFEtcApyGW4p2Lt+t8nvU0CANA6BHOpOz1xOP8W
-mAESbUriIjyuTUf3fJ9oDNCurVqhASMJCDaWI3lYX/QAoiAzt6akqbbZxo2ujW7mGGqc0KxqE2cs
-h2T79v7pC8aUtHBfwNrTR19GnZVxE0eQ7ViIQhR6mpSaUQFA9sG+cmD2G8TnCgYsLa0q8De6F61a
-CBevQGHNzrbZ3JAMneveYg/Jy1XxQHDRcvrMfWKe0jjcWbdKYlaGVPm5V1ILwYz7Yv5ewo3NUrxI
-GJiywe9qPhuJSDZs7VehTuI0FxGIsgKzVjgbAgMBAAGjggFcMIIBWDASBgNVHRMBAf8ECDAGAQH/
-AgEAMB0GA1UdDgQWBBT3m6JO05fF9DQPQw6Bhc6RkzKv+TAfBgNVHSMEGDAWgBTOw0q5mVXyuNtg
-v6l+vVa1lzan1jAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
-MHkGCCsGAQUFBwEBBG0wazAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMEMG
-CCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURS
-b290RzIuY3J0MEUGA1UdHwQ+MDwwOqA4oDaGNGh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdp
-Q2VydEFzc3VyZWRJRFJvb3RHMi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUA
-A4IBAQA+b8Uw53sDspdZgukU+qzLyyHkcjlxGGhHlP+zrmDLKm1wEFvCRS2pili3Hy67i8N4N5NU
-vw5Rg6kv3lxb9S9Rktxk43k+tvm68pl7OxQE55ZjVY87P0lUPGwEqOOwLLyH02ZQcsfq5p5LrOH9
-0JvmvZ1yy73HS+VpDAqOlytE0NSvTIRqFFkKQGQwfjvtql9YflujuNNvJztjBaHKYZsnNSg+J38o
-jYq4TP3pSg3UdVH0PncVjPQyqxC9xef5Xae92Kbkzol3x7Nel3A1bwAkalrDMspvTHvey6LfiBks
-FIqviTnoy7fgjaRAJgHS+RXx/cmuRd3rUAclSVVrYu8RMIIHAzCCBOugAwIBAgIQAzUotrsybJHx
-HTjKOIVdIDANBgkqhkiG9w0BAQsFADBiMQswCQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQs
-IEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFzc3VyZWQgRzIgU01JTUUgUlNBNDA5NiBTSEEzODQg
-MjAyNCBDQTEwHhcNMjYwNzE4MDAwMDAwWhcNMjgwMTA0MjM1OTU5WjAeMRwwGgYDVQQDDBNkd213
-MkBpbmZyYWRlYWQub3JnMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA2pYux73kdbYX
-sWF8f1u6DJP91qcqaZetsyfPkZk0B+MmXmAEv0kVes5n15V2mbDThOnpoPFly0UugQO9JYqLfrtD
-tKD5yL58fgrDB9Dw+LQikgrHafl6YSCds5AvUu/8hw2J6noKrcOLJpKlKn9Fl/4IB9Q3JIdLx5aa
-EtTqMalIPqHFOlgrJ7s+aua8xbB8YQ9ahqYBXWRJNv3P/2b1DYtdrz1oqZPE3CcB8Pc6Gf2a1Tcm
-6TAgtEx7Cf1BFcrsrMz7TWHmGQITieNb2r9UYWSc2Gp+GtYFNJCgT0JJXKUBIauPMKBLteYrL8Fo
-ff/uY44dC/mDWjdCP/5x0qelPQjlBvWdHL5zvBTOj06rJ0m3HNI/hnIcDh0Qu2j9reb9rLVcdym6
-bWmBM4uDEB8Zv9Ph0KTBFSy1IosyakuD1j1Os30EzjGfbi0EUXIvnOcYbTBAbM5UAzrxEHMhBvoX
-Pvnx+OyvjJmc9tWxTX6AcSz+m40esbT17URBeZS18afgieiikm5TynlUYP1LciR3hSgGVzvGXnKO
-02VDFR5itGWdRKZ2W5wIShNfWfhSa0D0K5UdIDt5Qc7sjzwK1Yb1sY5Tu0uA5mhIS82q1ov83uxB
-sFkriNnhGv/M1NCDVLBiOMsHu73qUM+yKmgKLwF9Hfn9WI25glbAMI4S5r3hYzcCAwEAAaOCAfcw
-ggHzMB8GA1UdIwQYMBaAFPebok7Tl8X0NA9DDoGFzpGTMq/5MB0GA1UdDgQWBBRcYhqbcGzn1jrT
-JOZaB8O7qllDpzAwBgNVHREEKTAngRNkd213MkBpbmZyYWRlYWQub3JngRBkYXZpZEB3b29kaG91
-LnNlMBQGA1UdIAQNMAswCQYHZ4EMAQUBAjAOBgNVHQ8BAf8EBAMCBeAwHQYDVR0lBBYwFAYIKwYB
-BQUHAwIGCCsGAQUFBwMEMIGpBgNVHR8EgaEwgZ4wTaBLoEmGR2h0dHA6Ly9jcmwzLmRpZ2ljZXJ0
-LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsME2gS6BJ
-hkdodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZT
-SEEzODQyMDI0Q0ExLmNybDCBjQYIKwYBBQUHAQEEgYAwfjAkBggrBgEFBQcwAYYYaHR0cDovL29j
-c3AuZGlnaWNlcnQuY29tMFYGCCsGAQUFBzAChkpodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20v
-RGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZTSEEzODQyMDI0Q0ExLmNydDANBgkqhkiG9w0B
-AQsFAAOCAgEAocabrh1cPd5s3vY5rnlBVQSTc7zs2ZWs67dAIltR+05WELrYClVzzUhMs/LOJPlr
-EUo45UDDomXq38DxFepaPd9+iNLjXfn33EX/IG44j04lU/oF/Rg9VeQILkYLbCZ/x9wOjNHZc4SN
-ydY7Dhvf/sT5aBz88u7D5+azZJ7Qf1U57wYseCH1Mt0nDrtr5y19IJ8D9xJJ33RFL6vfpHZBBAQ8
-+3RqkKNxLoV2aFvQhxdhjNLDqTv3LjUIdicwPraN7JkxEu7CV2Lka7eRqJgkWL7SK0YmBjGpRafs
-+icP/ON5RCCKTTb6VlX8eTG2sJJfsFhvJNCCt6xexbWzWtIrfP7NvPBvwBB737AyEGBZkS5aNizT
-McURJGTv9UKvBh1LF/+tNhYtLvPCN7oecGzhCHht9jcwSkygTo3Y6YlK3QgOu+ncmiBbfeuwlLZ1
-LxbYvG6hgNqXv7u6YyADbYajAQJXJ2OQen39pm3Q/AQSyLYG+B8lDglWsM8tYXPlEdrYJcksGK6F
-nqIX6Bumn43rBooLJdiZp4WmfWdL2pxe+LxRDjprmqu1WprixDxULSTOKJZoqTlugs6y3Bc+if+s
-gHnBBtz9WQ6MtPHkh7zONDAFIKcBmv8OqPQCx0F3Wv3OEybwMpXx0OsKgK8wLldaX1pXcMuyDgTL
-Sqs0AV0OHUgwggcDMIIE66ADAgECAhADNSi2uzJskfEdOMo4hV0gMA0GCSqGSIb3DQEBCwUAMGIx
-CzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UEAxMxRGlnaUNlcnQg
-QXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTAeFw0yNjA3MTgwMDAwMDBa
-Fw0yODAxMDQyMzU5NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqG
-SIb3DQEBAQUAA4ICDwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZe
-YAS/SRV6zmfXlXaZsNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2z
-kC9S7/yHDYnqegqtw4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qG
-pgFdZEk2/c//ZvUNi12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41va
-v1RhZJzYan4a1gU0kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0c
-vnO8FM6PTqsnSbcc0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PW
-PU6zfQTOMZ9uLQRRci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXt
-REF5lLXxp+CJ6KKSblPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQr
-lR0gO3lBzuyPPArVhvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7Iq
-aAovAX0d+f1YjbmCVsAwjhLmveFjNwIDAQABo4IB9zCCAfMwHwYDVR0jBBgwFoAU95uiTtOXxfQ0
-D0MOgYXOkZMyr/kwHQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3
-bXcyQGluZnJhZGVhZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEC
-MA4GA1UdDwEB/wQEAwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwgakGA1UdHwSB
-oTCBnjBNoEugSYZHaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZEcyU01J
-TUVSU0E0MDk2U0hBMzg0MjAyNENBMS5jcmwwTaBLoEmGR2h0dHA6Ly9jcmw0LmRpZ2ljZXJ0LmNv
-bS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsMIGNBggrBgEF
-BQcBAQSBgDB+MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wVgYIKwYBBQUH
-MAKGSmh0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNB
-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
-Ln0hu5HyOG98bRzoOX8R8XkAAAAAAAA=
-
-
---=-gSzyXEnfOVhoIAEWfRS4--
+-Dave
