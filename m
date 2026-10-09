@@ -1,36 +1,57 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from out30-97.freemail.mail.aliyun.com (out30-97.freemail.mail.aliyun.com [115.124.30.97])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50F3B38D6A8;
-	Fri,  9 Oct 2026 03:26:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BD2A38736F;
+	Fri,  9 Oct 2026 03:27:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791516417; cv=none; b=uGWYtjNK7s6mU7TU5qjPPPESOrhRsKdkAoomI5ZKhx3NxdBlKCzWLWJwdmm7bNn0SEdMGkwgQ7b9jF6v5e48R1M1+HEfF3SflwLl0UpURGgdGFFnScWJo3yJpXF2ePIcErQMwR0ps+Pyf/ihYniFo+mZAutxH1B/GqanToGkrLM=
+	t=1791516462; cv=none; b=U4zwfg3k4lu8jCOslT6X8csUiIgR6cdNJtg5/Ba3w/IGmMa0IQqp6QQx3CrH3n44mptL/ux5sJd7nOzeQovcbQzmaK2gxSLhRqEDLBmTMw0y1O0xySQbG7Chkhip0l81xUNFsbaZ4YxqDXi29VMOYCUSZ7SOAHzy/Qatevkr3pw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791516417; c=relaxed/simple;
-	bh=9KbUaRvxBC9ojQfsY+RGhkGd9t2c9q0ipCLDcxdt0wU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=DAK6IP0oiZIMyp49RnkCNH65SWGhqcBNUhx9nT5o1YyEBWZJMJuhieqrBqHrEId0sDFmUkBV9tb8eBSr3MlsZKWA5s/lPWlg4eb7qcFJAiK2S+IQrsiXgjLPuasxFfPz9ZJZNz+gx28CIgNF8k3pqK4bXvFw0xOEEvqIIyFmxdI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from fc87d0ffb700.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowABHTz3pXshq46QaCg--.1824S2;
-	Fri, 09 Oct 2026 11:26:33 +0800 (CST)
-From: Haotian Zhang <vulab@iscas.ac.cn>
-To: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>,
-	=?UTF-8?q?Beno=C3=83=C2=AEt=20Monin?= <benoit.monin@bootlin.com>,
-	Gregory CLEMENT <gregory.clement@bootlin.com>,
-	=?UTF-8?q?Th=C3=83=C2=A9o=20Lebrun?= <theo.lebrun@bootlin.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>
-Cc: linux-mips@vger.kernel.org,
-	linux-clk@vger.kernel.org,
+	s=arc-20240116; t=1791516462; c=relaxed/simple;
+	bh=F0R042ImaTk4A50eVJ5n1fMfRcnascuHs0g0yudcPy4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=go7CX1+Fn1kHdS0lcyn+PYdx6x3d46PKTnXA5IVpmlyNwSR5clvGY1iijP/ikBMD/RAC6SWFRYjGBhaUIVF8idFAOo1xQFdLpjwyAGsgbfpDUicJE+Kw0/fbX78IXu+pEu/SahAovixXAxJpF02KVQOH+TOlX34WFhftjmGQ3zE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=RavHdLXO; arc=none smtp.client-ip=115.124.30.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="RavHdLXO"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1791516442; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=yEryO6q/rSnNf7cAisuB4DggIjqAxg4m34Zq90Y4CtY=;
+	b=RavHdLXOAPA40FYTIiclSUABwfIn0k6bwKgufVJZwchocNPs8tnMIltXOGucgPuYP/v3W560gLoq5HUL8s7jMkExXwka/0eFc6E/zR0NlKgxdifjGxTC2UgS2Lg3XZ59LaVMH949EiwqJ//7oNV7ywBi5sHsq3ZuJMfVy1pjVbs=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R371e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=cp0613@linux.alibaba.com;NM=1;PH=DS;RN=23;SR=0;TI=SMTPD_---0XCS-sIR_1791516435;
+Received: from DESKTOP-S9E58SO.localdomain(mailfrom:cp0613@linux.alibaba.com fp:SMTPD_---0XCS-sIR_1791516435 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Fri, 09 Oct 2026 11:27:20 +0800
+From: Chen Pei <cp0613@linux.alibaba.com>
+To: acme@kernel.org,
+	peterz@infradead.org,
+	mingo@redhat.com,
+	namhyung@kernel.org
+Cc: mark.rutland@arm.com,
+	alexander.shishkin@linux.intel.com,
+	jolsa@kernel.org,
+	irogers@google.com,
+	adrian.hunter@intel.com,
+	james.clark@linaro.org,
+	leo.yan@linux.dev,
+	john.g.garry@oracle.com,
+	will@kernel.org,
+	mike.leach@arm.com,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	guoren@kernel.org,
+	anup@brainfault.org,
+	david.laight.linux@gmail.com,
+	linux-perf-users@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-riscv@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] clk: eyeq: release OLB mapping in eqc_early_init() error and success paths
-Date: Fri,  9 Oct 2026 11:26:36 +0800
-Message-Id: <20261009032636.3059201-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.25.1
+Subject: [PATCH v3 0/2] perf riscv: Implement rdtsc()
+Date: Fri,  9 Oct 2026 11:27:13 +0800
+Message-ID: <20261009032715.2841-1-cp0613@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,77 +59,79 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowABHTz3pXshq46QaCg--.1824S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7ZF15Xry5AF1ftw4ruw1DGFg_yoW8AFWfpr
-	WDWFW5Jrs8XanrZr1rXry7ZFnxK3WI9FW2kFy5Cwn3ZwnIkFyFga1UJa4UuFyDGr4rJa1Y
-	vr4F9a1UCF1UAFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9jb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4
-	vEx4A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xv
-	F2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26F4j6r
-	4UJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka
-	0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7
-	v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF
-	1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIx
-	AIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI
-	42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvf
-	C2KfnxnUUI43ZEXa7IU54T5tUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAQPA2rIJHzgoAAAs+
 
-eqc_early_init() calls of_iomap() to read the early PLL registers, then
-returns to the caller without ever calling iounmap(). The mapping is not
-stored in any structure, is not devm-managed and is not carried over to
-the platform device, so it is leaked on both the success path and every
-goto err path (early clock probe failure and of_clk_add_hw_provider()
-failure). The early clocks registered here are all fixed factors, so they
-do not keep the mapping alive.
+tools/perf falls back to the __weak rdtsc() stub in tools/perf/util/tsc.c
+on every architecture that does not override it, riscv included.  The
+stub returns a constant 0, so anything that reaches for the counter gets
+a value that means nothing and cannot tell it apart from a counter that
+happens to be at 0.
 
-Release the mapping with iounmap() before returning on success and in the
-error path, initializing base to NULL so that the allocation failure path
-taken before of_iomap() does not unmap an uninitialized pointer.
+The time CSR is a natural TSC equivalent on riscv: readable from user
+mode, constant frequency, and the same counter that riscv's
+arch_perf_update_userpage() feeds the user page conversion fields from,
+ever since commit 83c5e13b8cbb ("riscv: Prepare for user-space perf
+event mmap support").  This series registers that on the tools side.
 
-Fixes: 25d904946a0b ("clk: eyeq: add driver")
-Assisted-by: DeepSeek-V4.1-Flash
-Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
----
- drivers/clk/clk-eyeq.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+The two patches are split so that the first stands on its own:
 
-diff --git a/drivers/clk/clk-eyeq.c b/drivers/clk/clk-eyeq.c
-index cf37feccc734..257e1094aa27 100644
---- a/drivers/clk/clk-eyeq.c
-+++ b/drivers/clk/clk-eyeq.c
-@@ -1240,7 +1240,7 @@ static void __init eqc_early_init(struct device_node *np,
- {
- 	struct clk_hw_onecell_data *cells;
- 	unsigned int i, clk_count;
--	void __iomem *base;
-+	void __iomem *base = NULL;
- 	int ret;
- 
- 	clk_count = early_data->early_clk_count + early_data->late_clk_count;
-@@ -1288,6 +1288,9 @@ static void __init eqc_early_init(struct device_node *np,
- 		goto err;
- 	}
- 
-+	/* base was only needed to read the early PLL registers. */
-+	iounmap(base);
-+
- 	return;
- 
- err:
-@@ -1313,6 +1316,9 @@ static void __init eqc_early_init(struct device_node *np,
- 
- 		kfree(cells);
- 	}
-+
-+	if (base)
-+		iounmap(base);
- }
- 
- static void __init eqc_eyeq5_early_init(struct device_node *np)
+1. Implement rdtsc() over the time CSR for riscv64.
+
+2. Have the build system say which architectures have a usable counter,
+   instead of a list of compiler macros inside the test.
+
+What this is worth beyond the subtest result:
+
+1. The subtest is the only reader of those conversion fields riscv
+   can run, so it guards arithmetic that has shipped unexercised;
+   registering the counter at the same time leaves a future riscv
+   auxtrace driver the reading and the conversion already in place.
+
+2. The flag lets a caller ask whether the architecture has a counter
+   before it uses the value, without keeping its own copy of a list
+   that has to be edited every time an architecture grows an
+   implementation.
+
+Changes since v2:
+- Key off IS_BUILTIN(HAVE_RDTSC), with <tools/config.h> included, instead
+  of an #ifndef block, as Adrian Hunter suggested.
+- Collected the tags received on v2.
+
+Changes since v1:
+- Define rdtsc() for RV64 only. RV32 now keeps the weak stub.
+- Declare the capability through the build system rather than through a
+  weak arch__rdtsc_supported() hook, following the PERF_HAVE_JITDUMP
+  pattern, as Leo Yan suggested.
+
+Tests:
+======
+- Build side, this version: the compile command of
+  tests/perf-time-to-tsc.o carries -DHAVE_RDTSC on riscv64, arm64 and the
+  x86_64 host, and does not on riscv32, so RV32 stays on the weak stub.
+- Same object built on the host with and without the flag: with it the
+  "TSC support" subtest returns TEST_OK with the skip branch folded out,
+  without it the pr_debug and the TEST_SKIP branch are still there.  That
+  is the branch the #ifndef used to pick, so the change is behaviour
+  preserving.
+- riscv64 QEMU virt guest with sscofpmf, as reported on v2: before the
+  series the "TSC support" subtest skips and the conversion subtest fails
+  while comparing against the stub's constant 0; after, both report Ok.
+  Patch 1 is unchanged here and the subtest decision is behaviour
+  preserving, so v3 was verified on the build side only.
+
+Chen Pei (2):
+  perf riscv: Implement rdtsc()
+  perf tsc: Declare TSC support from the build system
+
+ tools/perf/Makefile.config          |  4 ++++
+ tools/perf/arch/arm64/Makefile      |  1 +
+ tools/perf/arch/riscv/Makefile      |  1 +
+ tools/perf/arch/riscv/util/Build    |  1 +
+ tools/perf/arch/riscv/util/tsc.c    | 27 +++++++++++++++++++++++++++
+ tools/perf/arch/x86/Makefile        |  1 +
+ tools/perf/tests/perf-time-to-tsc.c | 14 ++------------
+ 7 files changed, 37 insertions(+), 12 deletions(-)
+ create mode 100644 tools/perf/arch/riscv/util/tsc.c
+
 -- 
-2.25.1
+2.50.1
 
