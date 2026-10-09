@@ -1,154 +1,136 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazolkn19011028.outbound.protection.outlook.com [52.103.33.28])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 006A64C4F79;
-	Fri,  9 Oct 2026 11:21:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.33.28
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791544901; cv=fail; b=h0amR1XlCPH1ob9GENt2gFLDoDSSqKJfbhFJWokVGBhGlGFhh3KQb9b7wcmVG/Btvut/SUNBtUaKsriK4fPDxoVwHQw4kAVIwgSdSwhdkbJjWl+iIxr7v34479jjxBZ9jQNSA1bI4t+C77gxWJDO+0km8qum4mqUFYzvhVHh8wU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791544901; c=relaxed/simple;
-	bh=f9Kjohq4hNaSaUDvoi9jMVGVqKPb7CugVicjjPQujTs=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=V8zg6Gr/MuRvmvTyhhc9vRHIutsSrF2ensFyU8Y+9NazZ2ytzesk6Jm7lGr8Pq+woXaqWY7lwMvNJRnfprACfKAatojOXplAhMAcSTzu7KH/yh3s0KcYWGdfsn5iFro3GR8CPkSL2swg7ioYCLz7uldwk++xOk+I2YLaDjJXUlg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=UImEE1kQ; arc=fail smtp.client-ip=52.103.33.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2855E4C2241
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 11:22:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.52
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791544954; cv=none; b=khsnMk3ojC1mP3Ss64h43XYrju9QaqT02D3WWeruXu1LTUI35/Nw3/Gg3Xmvj6FlN9qCUI9dhTjtIA0culg4BqphkXO6lvcT1kGj/U7d0m/EpEsVPT+aico5xzQA4nPPxGrbrq70X9jXq7bDc1xa7kfmH5mLE0Ay8PEGxDbrpEI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791544954; c=relaxed/simple;
+	bh=Nrfy526swql1ij9G4gq9I/Gzn0+eqeTqdguk8EGDC4Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Yu4gwnOAOwlIvFJmjiBSb7Emm5gdGV+EtEKlUneAI9H5LFGN8ERcLWY4Lt4Z+1Q3SAD4qSRV5EKkWvggfo0INc/gJxa/pWVjJb1KHhfSaDvL6xgg777FMmrHkQmveNolOq7wuhTlBWQxve5ak6x1Zc4IRVdonosGgbJXty0SVUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G+BA40Ir; arc=none smtp.client-ip=74.125.82.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="UImEE1kQ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yaxczAjcuwJlFQHp55vG+5BNeVFDwDYyUQ8VjwJBoSER0C50O2K/o33Z/gcVRPxHH+GGZfjvPXKWHVBHFmTCWvKWlUIui01mHGrO4kJdIRBrsg3P1V+goeAFgrSdiuN8SeWNKfqDCsLuxh5YA6pDMAbx2gx02YeXtlIkLhxXzfuX7yf9PYm42Vo5ejnimaRRiqJe16ZZBHSFavoRQLFDWOP3a50Wa3RftnIPjzet+ZfRrQMhTAofHXWvAGEgrNVVU5xNnziftxv/jFTo9qMZsg2Y/Fhsmi0cafceQGL/rzYWDnSib0bQC48YYjKRqp7n0H2HFVuOTs53y9G8I4ZVuQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=f9Kjohq4hNaSaUDvoi9jMVGVqKPb7CugVicjjPQujTs=;
- b=R9BFrJwMVbmnBmq0EfhbD01oGqW2wg4jRtcWE3SB7GU8oHvkc5bi+bXy4ixC78lnUo1xy8U+tzd8rnB45JpXV5+y1dUHscS0b4zCAvXfM4v8e5WhD9tgdSWRJlVJ1mipsu13Ostoj/ikFAwP0b6wPi5mwWjD1QzTmVAkOGy5h8/Oh8cmrUX9SKpxtK8iNXc0QH4jPyfs6qU8USoepkvUAwptRP0ysi2CBwhgeiqioOqxDNRBaegpGcaBoC1+BW+wTKgrn2AfDAfP6hMOfxhsxeqDnpyhJAarScowwfbgfiubsSHG6OHH9IP933S+Amfh/2EbCY/877IRmeljaDgH+A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f9Kjohq4hNaSaUDvoi9jMVGVqKPb7CugVicjjPQujTs=;
- b=UImEE1kQaUhrUWt9VtimCpB40bWbxudzCM7XzlyyTlsuoLrCZV1cKxVBl2t1zjnzC1gX7TDVLQ1Wp7D9ksICUMJST/V9e1lbgGHkjY2lNH5E8PVkmK3h3uJIFeZNj7nhW87jJrd/xxwmqkCmWnhk6TDRbN8+lUTi8LTLsv4jxPWm9vGPGgMT8I3H0jqAIE03J74vGRd1rhf26iL3QAckY5udbzIuFP+Rb3ikGET1lZjDySoRlupQIJc8/g+W+zelXxvQSyW3hlKIIvMOdho31SM1TjU9HVzETQe1g8dZu8yekdhxckWeTH1P5C65U9+b73TQgF/9mCjBXUBGgytXKA==
-Received: from DU2PPFBE35756D1.EURP189.PROD.OUTLOOK.COM (2603:10a6:18:3::aa2)
- by PAXP189MB1950.EURP189.PROD.OUTLOOK.COM (2603:10a6:102:281::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Fri, 9 Oct
- 2026 11:21:29 +0000
-Received: from DU2PPFBE35756D1.EURP189.PROD.OUTLOOK.COM
- ([fe80::edfc:2b73:2e6b:c893]) by DU2PPFBE35756D1.EURP189.PROD.OUTLOOK.COM
- ([fe80::edfc:2b73:2e6b:c893%3]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
- 11:21:28 +0000
-From: M M <restafvalendergelijke@outlook.com>
-To: "CACKGD6t4Bz1M_-9cNJ8vuNAYnXg5abb_UxmDAoFpW36yP4DnhQ@mail.gmail.com"
-	<CACKGD6t4Bz1M_-9cNJ8vuNAYnXg5abb_UxmDAoFpW36yP4DnhQ@mail.gmail.com>
-CC: Andreas Wild <andiwild@gmail.com>, "blaaaat@hotmail.com"
-	<blaaaat@hotmail.com>, Bjorn Helgaas <bhelgaas@google.com>,
-	"helgaas@kernel.org" <helgaas@kernel.org>, "edwardmalik95@icloud.com"
-	<edwardmalik95@icloud.com>, "linux-pci@vger.kernel.org"
-	<linux-pci@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "regressions@leemhuis.info"
-	<regressions@leemhuis.info>, "regressions@lists.linux.dev"
-	<regressions@lists.linux.dev>, "Maciej W. Rozycki" <macro@orcam.me.uk>,
-	"d.csapak@proxmox.com" <d.csapak@proxmox.com>, "f.ebner@proxmox.com"
-	<f.ebner@proxmox.com>, "f.gruenbichler@proxmox.com"
-	<f.gruenbichler@proxmox.com>, "s.ivanov@proxmox.com" <s.ivanov@proxmox.com>,
-	"t.lamprecht@proxmox.com" <t.lamprecht@proxmox.com>,
-	"f.gruenbichler@proxmox.com" <f.gruenbichler@proxmox.com>,
-	"m.maurer@proxmox.com" <m.maurer@proxmox.com>
-Subject: Re: [PATCH v3] PCI: Skip Target Speed quirk on clamped ports with no
- link
-Thread-Topic: [PATCH v3] PCI: Skip Target Speed quirk on clamped ports with no
- link
-Thread-Index: AQHdV9vC8awG/tAuK0CulBv+L5Ruprb1EHmb
-Date: Fri, 9 Oct 2026 11:21:28 +0000
-Message-ID:
- <DU2PPFBE35756D1154B16C7170AEC95EB56AB922@DU2PPFBE35756D1.EURP189.PROD.OUTLOOK.COM>
-References:
- <DU2PPFBE35756D171CD64356C8D8DF3C2F8AB922@DU2PPFBE35756D1.EURP189.PROD.OUTLOOK.COM>
-In-Reply-To:
- <DU2PPFBE35756D171CD64356C8D8DF3C2F8AB922@DU2PPFBE35756D1.EURP189.PROD.OUTLOOK.COM>
-Accept-Language: nl-NL, en-US
-Content-Language: nl-NL
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DU2PPFBE35756D1:EE_|PAXP189MB1950:EE_
-x-ms-office365-filtering-correlation-id: dbe7111f-37ca-4a72-61dd-08df25f7768e
-x-microsoft-antispam:
- BCL:0;ARA:14566002|24021099003|25010399006|4140399003|8062599012|19110799012|31061999003|15030799006|37011999003|15080799012|51005399006|8060799015|2607281247196008|440099028|102099032|40105399003|3412199025;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?gv6fjBCHM1NLBG6JQS4m5QxYHwVEfozeumG0OyQq8kXSgGivMZRWsC5swy?=
- =?iso-8859-1?Q?Oa2APL9cDFrj9gMzQQ8ETBebP2H+Ry5QL6WMIlNUJRLGlYjmYBlekQI08a?=
- =?iso-8859-1?Q?QCfgQ1dd+UDIXdAncTzphHpOoGukpR00vELmc/IJ8LRjIGj0mCjbToljDL?=
- =?iso-8859-1?Q?7V0hXOiczbZpg5iFGKZsHBrHF5sPWuirmIpLyM/owkA5KBylgRSx8Jliao?=
- =?iso-8859-1?Q?5FkOeI5QX6Cok5ZyhCd4EocgMWELvl0YsiZ9ZgVAnhnjBA7yerH1uTEGxB?=
- =?iso-8859-1?Q?GAmJLmo+vNIrgMwr/XZCmpCkq6AXMzb8c0AnUdl76/3JRbDcWDII7SZx07?=
- =?iso-8859-1?Q?GM0eb/oEDtb39VGR5hS8GNky0O5qZjIhTH9aQk4QVIUDRWQGT+RIF1vw8/?=
- =?iso-8859-1?Q?8ccPZ2AOYBbS79Wlgqhj3+8U1J4wchHpcXqzRy/DupfvRtBr0CsBFcTFru?=
- =?iso-8859-1?Q?PHfbUruNaD0xQjCaeoOpDZWqIgsCBRutV8gbUhzDfqFGvi+1B3v/sWzqnS?=
- =?iso-8859-1?Q?JzX3VimU5YNk8ZrXDDw0zTf41Epi4cSKqgmg8TkFKj6gSaXp1azGpLTuWO?=
- =?iso-8859-1?Q?VGzx+PDnAgSWP8lIjpSILgTF7V7cEMaGfKhynkPJZMhIa3qCcXLbbkPpkg?=
- =?iso-8859-1?Q?OEbgchHMLDOwOMsS5y3Qj6hv9jPMI9tmHoVc603KaBSODUEL+Rt/pfTaQo?=
- =?iso-8859-1?Q?ilE+lJtXvVNSk0nDVfCZWJ8d+7H1ALJaMfW7ENFsRlqqjXg3m7jFC55D4c?=
- =?iso-8859-1?Q?0WfiDcQMqAC7mBxDWi9tbMsG3a6txsiIzpU5lxJghHNJbVplAa0G4CA9yj?=
- =?iso-8859-1?Q?XUO63fhFXt2xCZJLBZUnxebhuGCSuB+Iz1A7sm4ND/Zn34euNSiOseptaI?=
- =?iso-8859-1?Q?cWeZUoEx55G35eKoFps3tWZpIUmObIY649EA2QDrOFCtEEGLvXPf5A1LcR?=
- =?iso-8859-1?Q?4YgO2JzPj/HyMdhjC1GmlfJA/8R/v9BfE3efEj7lhFN7iuowhbFZMGWKlT?=
- =?iso-8859-1?Q?RsnYba1vmJtbrX2U65rPZGsfjgLLsWDAfpCU1s?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?oI0OkRPEgRY5KnjhBbIShTnMGkZYM+FZM0x9/Xp53MJwNeIhUYufMUCi4Q?=
- =?iso-8859-1?Q?j3vYyoziP8ubfQ4q9twQI1+NN3dLuBwcCeYm21W8s6NX4F7M1IzcCW4ce8?=
- =?iso-8859-1?Q?fzKQ5AtlqqplgdGr4BN5ft+4EM+PRK0NUXFfijpGeVdytODO8w9yLVHrrj?=
- =?iso-8859-1?Q?7HffpOd58wM7nT4PwMNShlsq0ENJUybQ1a/J+fniMcVA392kZ5pe21b0Y5?=
- =?iso-8859-1?Q?dT4KCm4D9KynENL+sTSYIQ1Oi8qquM+xlTZlfQJXyPCo0NZ3r/3um5D336?=
- =?iso-8859-1?Q?T7GwP0pe7q5z08N3vxCddaiEnqf93QR04Xxl5OUf9hc9yW2BiXDVZtg8m/?=
- =?iso-8859-1?Q?Vv3FJ+VCP2gFUUytYKPXaKvZ2jX5J30ly4Cw/vIR36zFMBnG2VZEff1nNd?=
- =?iso-8859-1?Q?zKK462SkoUgV2fivyULipgerKbsbL/igmpJOn3G5ECgXvQKYQjYxyDn6VI?=
- =?iso-8859-1?Q?OW1xurFFvMLahl+GcPoI4V/HXXeONUsEYbAsmcQKxuPZEITbDUuw6oSilg?=
- =?iso-8859-1?Q?6y0Ijllh/2g9gx0gEvB6otTPlVGpLqkssPfMuo6xIW8L6xyXgxhwLDkNKq?=
- =?iso-8859-1?Q?HAL3HDy7KosHJHUxmJ8VTeWhcIWmlsCx09lZUnpvpvXGsbeWpzxOUqyfl8?=
- =?iso-8859-1?Q?SWwpzgd/MWRwL+2Aqgm0NjtGqANZQdaO+Ik4qP6fEcZeZoJ2Op+erhxic2?=
- =?iso-8859-1?Q?rvqxS4DJoaEddAq/p7KRqohPazKoS8LoRxFSQB/AAw0tLEgOjm3YTH8+hi?=
- =?iso-8859-1?Q?KlvUYwgKua1n3Mh063lA6aQH//ja1wTH+bgVFKc989tx0Bv/8mnbI1aofM?=
- =?iso-8859-1?Q?XWwHNYFG6CWLr9IfdgUMHc4z6croz70TAw07cB6j6TFJ0bCHaWS2ngz3MG?=
- =?iso-8859-1?Q?/5cIArzJpXhvjNj+Q04xCPMcOacKNn425tivzjtIHn7fTpevandd19tq3a?=
- =?iso-8859-1?Q?8D1LQDKr4y4LUyx23tA12H2wNdH9DokSzvH7Z0QnmpTPsqgXolAqfHgSFK?=
- =?iso-8859-1?Q?7cfvDn3lwWSz67Akv4dy/1rHJNq63IQKeUFNQViXHExpsBqZDKrwn4m4rR?=
- =?iso-8859-1?Q?+4YCWX24oft0dtZ45djEbcSlt/CdPyoRwFZD8iOxUm6U8pfoGfcyh3Wyrs?=
- =?iso-8859-1?Q?RLOiFQYRUGDzZn1Nwx571K7hxYMeZpwM/xI2uSaDVAn/jkw/bTgGX/55Cc?=
- =?iso-8859-1?Q?Qu7O6fkqLf/6VkHGRRxXmyOou/QhnPZhttOJg4tOSpfFIQPFweJwe7o2Rn?=
- =?iso-8859-1?Q?i5mYQ+ihVBsU4iPPIHLsn74icjhiUQMwCbvU0pIhbxvIkIKpkSTgIXw67r?=
- =?iso-8859-1?Q?1nVUwyxPJQbvE5chozkmOl8q19cUkkaMAnqWXOfAPcPl1u+V2FeOqknU92?=
- =?iso-8859-1?Q?udhqJwyZYtB/Gpz1IGmOJYNqAkg6SYS8AlSEchNl2a6brXaPtFBptBfl4C?=
- =?iso-8859-1?Q?UAUUo8X+dshw0i/9myhxw9AEyYa7s/T/3W+NsoEA2plzpUcuBS2S+SzYYa?=
- =?iso-8859-1?Q?fepXiUBll8YjIBz2s1I81f?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G+BA40Ir"
+Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1433e7b057fso4702535c88.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 04:22:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791544945; x=1792149745; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PkE/mtXxhD7ywmyvlYSqjpdIiOm8dtPe5CfShZ2eazQ=;
+        b=G+BA40IrAZihdwBjzA1ZFDFE4NUaBbgzr8PMGEEcFj7jOpZxYLcYPkIF02mo5QAwWe
+         XpfJ6vDOBzD0M6BqrJ+sDKImcsO8243B4lH2c+QfxggPUt3ELj2qPzIL4C5iHPrMvDQS
+         9ZZvklRO8cl03eKydG0DATaPjlPqsJTIPib/MbkXwMq2jfNBPJQTzsWgZq365PE17VLz
+         ro6p+PZYSd4pw4WN2sKFCfK6MS/TQW+23LaHfLhBBl4UXB3qBIMqDK+TyJfpe6HxK+9a
+         OY4zwHxzpyLOVe7+igYAOEBaAdZWM9KO3Hm6DB610oI2YSKkNDT8qW6zWu89+o2UaZ86
+         flTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791544945; x=1792149745;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PkE/mtXxhD7ywmyvlYSqjpdIiOm8dtPe5CfShZ2eazQ=;
+        b=J1/Eh6307rjdwus0pLk14o4uGshZL9v5rBloD+LjAg8ROBBFSCjNEeCP+7HxJCI0FE
+         mljdQnvOX+XahWRYeu11yYCg4UnwGyl0ooDDDOg5cfa+sGSnBo+JIThGMAcUc7Q3xZ0X
+         FAlgFedH+GrtvqVp215k3cwgNNHvH/2wtA8aVOq1tHsi6UgB67DBNu8Y5TI5LWtJjdYe
+         ovtBZiDZHDOlvwkTQdZXoxPf0NHaJ23pf9/FUGq3j3fX+2VZUsXz49LiUcV5L9OG75ue
+         bfZyW/KxhKyCFTStO6sRJ5Ny1kRH3Aenu8qGnGWFBzSMfAJ5FNA0RSP1YgpWnw9vxlpG
+         3IOQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxK9AkjQc3HH1trmt9W/9mjnWVvtLoK9dw8D8JdpkM/aOhlltxANS2vJQBobkgjqBWxO09kY4NX5f3LryY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nP3dd7VI/m6QcfbjxoQYRSObKmH4vkkoZ2FfXqeMNM3ZNhj/yM
+	mAeLbT4fmMh2wpq2ri6/Nn1EAjbsnMJ9Y2trElrxoiQaMShhLHZRzUAY
+X-Gm-Gg: AYBFou0xOCRKhcnIwv92Vi9/Q6x6p1S8qI04ysxrBUdGP4+tQR6AxUWNYU57UHZT8I5
+	5VCbIr5aZEDeY4FJ91nCxrhaK2Lq1mSsok/oajvsyTejs0Am5pS1p9VV0+LNw3A/KW2CR8E90i3
+	TKZenIRyaqx3y5BR0TKw0fpSdNSRAEwI46WW6MPhyqut6qBMm7IhMXyV9zr9qqe46vkSJ9wyizh
+	BAKheHC0UwibFtBVB5BJwnh8xXDwarosN8Gnj5Cazv59jjwkEEJwvHVqEN74l6URKWDgqFRlU79
+	2ZHJE1GaPN0lhjzKLciCNH3llErtXYMitJ/1OWmLUwd7my5g/CTEy/8tQX0dFIbVTgh7Kjlhvj2
+	p4nqGAP3ujCRmFWT3+/rhaXks8S1Gujp4EPBrRQWSKfujaYIOde6gUqoSL9BKKOPPA7dzm875PG
+	w9Fd9hX5N84KLQxhzHrGB5kNlLoLXrdTL7KOZ85EfIHeIU4BlUOcGZ4Umv2auUNGAQvm+RBliYV
+	CIs2kpQwG9zNh1uQB/MGt8pSTuKfnh4I07vtk8ocaocepfKyISoQbfVulP6ixXkSUw9WSVvW34W
+	3sX/fx/SZ/nWTg==
+X-Received: by 2002:a05:7022:699a:b0:16b:1a1f:ed8a with SMTP id a92af1059eb24-16b1a1fede2mr1744976c88.39.1791544944883;
+        Fri, 09 Oct 2026 04:22:24 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cacb5e9sm7258752eec.20.2026.10.09.04.22.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 04:22:24 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: Mark Brown <broonie@kernel.org>,
+	Oder Chiou <oder_chiou@realtek.com>,
+	Bard Liao <bardliao@realtek.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH 1/2] ASoC: codecs: rt5645: Simplify optional GPIO error handling
+Date: Fri,  9 Oct 2026 18:22:03 +0700
+Message-ID: <20261009112204.33199-1-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DU2PPFBE35756D1.EURP189.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: dbe7111f-37ca-4a72-61dd-08df25f7768e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Oct 2026 11:21:28.5652
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXP189MB1950
+Content-Transfer-Encoding: 8bit
 
-Thank you Armando for the detailed follow-up. It's "good" to see this probl=
-em is still active, though Proxmox is really slow with this. In the meantim=
-e we are 1,5 month ahead and without the much needed security updates relat=
-ed to the kernel.=0A=
-I can only hope there will be some progress soon on their behalf, but it's =
-pretty much quiet at Proxmox in general.=
+From: bui duc phuc <phucduc.bui@gmail.com>
+
+gpiod_not_found() converts -ENOENT to NULL before
+devm_gpiod_get_optional() returns, so there is no need to handle
+-ENOENT explicitly.
+
+Use dev_err_probe() to simplify error reporting and handle
+-EPROBE_DEFER.
+
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+---
+ sound/soc/codecs/rt5645.c | 22 ++++++----------------
+ 1 file changed, 6 insertions(+), 16 deletions(-)
+
+diff --git a/sound/soc/codecs/rt5645.c b/sound/soc/codecs/rt5645.c
+index 7313ea71c958..ea58512a55b0 100644
+--- a/sound/soc/codecs/rt5645.c
++++ b/sound/soc/codecs/rt5645.c
+@@ -4032,26 +4032,16 @@ static int rt5645_i2c_probe(struct i2c_client *i2c)
+ 	rt5645->gpiod_hp_det = devm_gpiod_get_optional(&i2c->dev, "hp-detect",
+ 						       GPIOD_IN);
+ 
+-	if (IS_ERR(rt5645->gpiod_hp_det)) {
+-		dev_info(&i2c->dev, "failed to initialize gpiod\n");
+-		ret = PTR_ERR(rt5645->gpiod_hp_det);
+-		/*
+-		 * Continue if optional gpiod is missing, bail for all other
+-		 * errors, including -EPROBE_DEFER
+-		 */
+-		if (ret != -ENOENT)
+-			return ret;
+-	}
++	if (IS_ERR(rt5645->gpiod_hp_det))
++		return dev_err_probe(&i2c->dev, PTR_ERR(rt5645->gpiod_hp_det),
++				     "failed to get hp-detect gpio\n");
+ 
+ 	rt5645->gpiod_cbj_sleeve = devm_gpiod_get_optional(&i2c->dev, "cbj-sleeve",
+ 							   GPIOD_OUT_LOW);
+ 
+-	if (IS_ERR(rt5645->gpiod_cbj_sleeve)) {
+-		ret = PTR_ERR(rt5645->gpiod_cbj_sleeve);
+-		dev_info(&i2c->dev, "failed to initialize gpiod, ret=%d\n", ret);
+-		if (ret != -ENOENT)
+-			return ret;
+-	}
++	if (IS_ERR(rt5645->gpiod_cbj_sleeve))
++		return dev_err_probe(&i2c->dev, PTR_ERR(rt5645->gpiod_cbj_sleeve),
++				     "failed to get cbj-sleeve gpio\n");
+ 
+ 	for (i = 0; i < ARRAY_SIZE(rt5645->supplies); i++)
+ 		rt5645->supplies[i].supply = rt5645_supply_names[i];
+-- 
+2.43.0
+
