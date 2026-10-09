@@ -1,39 +1,40 @@
-Received: from smtp6-g21.free.fr (smtp6-g21.free.fr [212.27.42.6])
+Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 058E940E8D7;
-	Fri,  9 Oct 2026 07:31:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22B76476CE0;
+	Fri,  9 Oct 2026 07:31:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791531100; cv=none; b=d3X5UGDaMf6b73DiXDmclHEjPp3prWshlzCLUGjJRfvzT5wTFSj1ZrCLb7r0DCYvnAunT5hZ1s6TQSaZpitUa60QyzTS6LZbkf7EAMwbF8S87X7sHJk9wX0BFOk65/7id5ufhPFOIrCNc6NVSqgb3WFlLNx1wjtc2nPbPfjG14Q=
+	t=1791531101; cv=none; b=VHtysf4P+qXiE5rqS71JzPeBMWfMzEEQiwxbH7sFQizw2CiReAqDJXV8eViihOHV71Dmir9vrMn7UpIuzE4RTVPP5GDgqg49tpkgIpCpV4MiMYXjXMcf8FdQwU/iUfYVIVSjin/Bkwez1VweHkF9VmbfLg2M9CxYQkbs70uJY8A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791531100; c=relaxed/simple;
-	bh=GPGOdaWdplu01K3aIn+73Fq/nmgtxNm+riSMwWIit4k=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=MuiJBQz6kQ2IbPDAKgy0BvfgXl8FkuvC9gD1WXSCBc9rkpQ7Vgm5onsw2YGqv9Rtm8UmsibJyd1fXUNcE3Xk9H+9MEvs+86HwGQ9kaweFDWuyLv9DWfeaivjYDaFdTMuwBWb9Pf77SiK9WRHbdAaTqk7O9WIKMVwXu/6fM0UmNs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr; spf=pass smtp.mailfrom=free.fr; dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b=SvyNHl5P; arc=none smtp.client-ip=212.27.42.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
+	s=arc-20240116; t=1791531101; c=relaxed/simple;
+	bh=6Jfr91p36XEdudosY8V8RV6TeMPpMSLgpDV5nkQ7yKc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=c5ST9AKkJ/lPyO8mPD+uLG2gv+P6w9dANVyjuFEI45/fkTfLkBcXYqHm+RJniR/EIeCn9wpOkGB+4eWvCRooqKlDEWSs3rmopq86XSouirsxi7Y0PIbOXLPjDxSsInsswiwnawaSwQpzFMbGeNyPwBM+3MYVNnDJXd/dgxAKl3I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=r2FFGgv7; arc=none smtp.client-ip=54.206.34.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b="SvyNHl5P"
-Received: from localhost.localdomain (unknown [82.96.140.143])
-	(Authenticated sender: stephane.grosjean@free.fr)
-	by smtp6-g21.free.fr (Postfix) with ESMTPSA id 72D9878035B;
-	Fri,  9 Oct 2026 09:31:25 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
-	s=smtp-20201208; t=1791531095;
-	bh=GPGOdaWdplu01K3aIn+73Fq/nmgtxNm+riSMwWIit4k=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=SvyNHl5PBj9fQwuiXnFKI4SXKRMqMPawuwxBFkS+uZ1jR3fOqS0+DX6sEkN2Y9cRy
-	 +xnKuW8xCjXVWUpNSDncRqtnrecv6jTe9V0n9dZ8lfkySydW83KSMQ9h7R3OzzIsuG
-	 4Ni810NWTlZEy0efbqTjrcZ8uRA12piTzXhflS2TXeWDL5th0hWBDrShvCXrPFTOK1
-	 dHAJqrpAIReYGZ6MfpSwn2xxRPHhIC2URU5LS/WqZmmyRja17we+5nqcgageDVkGv1
-	 aoSflnwE93QKfcpaxf+4ixpIogc29SxQGDLv4bI9LRT6XeS9/1sAnrLQ8/V++JnHUB
-	 NMLZg5jLO+mwQ==
-From: =?utf-8?q?St=C3=A9phane_Grosjean?= <stephane.grosjean@free.fr>
-Date: Fri, 09 Oct 2026 09:30:28 +0200
-Subject: [PATCH v2 1/5] can: peak_usb: fix missing CAN_ERR_FLAG when
- reporting error counters
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="r2FFGgv7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1791531029;
+	bh=4HQPXe9IGKWY9C9j03f5HIPh0/Eu6f8vVKG/6YBzIeY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:To;
+	b=r2FFGgv7dyT4APeRbiPdybevyalPXL2mC7A71YRelQ9z9zpu4Mq0KTxfYHSX5ukq5
+	 mBuwWkFTc4mXPqQkf7XMZBMUNDilUHkX4SPg9OtJnBD8yWn6Ne2aRfim7nOMTK+xst
+	 RnR1L8ukO5G9Cmk4pMQ/jeS1plRydI/RR8wo5CV8=
+X-QQ-mid: esmtpgz13t1791531027t120ad431
+X-QQ-Originating-IP: A9iDTD7SnyzPn9VV9x4LQxY5lUpdgHEm+4aV+1vG1EU=
+Received: from LT-PANJUNZHONG.dc.com ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 09 Oct 2026 15:30:24 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 17512283885974107760
+EX-QQ-RecipientCnt: 22
+From: Junzhong Pan <panjunzhong@linux.spacemit.com>
+Subject: [PATCH v4 0/8] Add SpacemiT K1 USB2.0 controllers support
+Date: Fri, 09 Oct 2026 15:30:23 +0800
+Message-Id: <20261009-b4-spacemit-k1-usb2-v4-0-2d98e5324d9a@linux.spacemit.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,49 +42,107 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261009-canfd_check_channel_idx-v2-1-f7b772929791@peak-system.fr>
-References: <20261009-canfd_check_channel_idx-v2-0-f7b772929791@peak-system.fr>
-In-Reply-To: <20261009-canfd_check_channel_idx-v2-0-f7b772929791@peak-system.fr>
-To: Marc Kleine-Budde <mkl@pengutronix.de>, 
- Vincent Mailhol <mailhol@kernel.org>, Dan Carpenter <error27@gmail.com>, 
- Wolfgang Grandegger <wg@grandegger.com>
-Cc: =?utf-8?q?St=C3=A9phane_Grosjean?= <s.grosjean@peak-system.fr>, 
- linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
- =?utf-8?q?Stefan_G=C3=BCnther?= <stefangun@pm.me>, stable@vger.kernel.org
-X-Mailer: b4 0.16.0
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAA+YyGoC/33N0Q6CIBSA4VdxXIeDgwp01Xu0LhAhWaUO1Nmc7
+ x66tbqwLv+zc74zo2C8MwEdkxl5M7rg2iZGdkiQrlVzNdhVsREQKIiggMsMh05p83A9vlE8hBK
+ w5KqyGgSrcoHiZeeNddOmni+xaxf61j+3JyNdp/+9kWKCLQhtQZocoDzdXTNM6Xsx1e0DrfAIH
+ 0wSsY/BihHOMrBWkZz+xNgXBnwfYxHThhOZC1kQJnexZVle8rWyU1kBAAA=
+X-Change-ID: 20260812-b4-spacemit-k1-usb2-97adfc283d58
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
+ Xu Yang <xu.yang_2@nxp.com>, Peng Fan <peng.fan@nxp.com>, 
+ Peter Chen <peter.chen@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ spacemit@lists.linux.dev, Junzhong Pan <panjunzhong@linux.spacemit.com>, 
+ Conor Dooley <conor.dooley@microchip.com>, Ze Huang <huang.ze@linux.dev>, 
+ Troy Mitchell <troy.mitchell@linux.spacemit.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791531025; l=2392;
+ i=panjunzhong@linux.spacemit.com; s=20260306; h=from:subject:message-id;
+ bh=6Jfr91p36XEdudosY8V8RV6TeMPpMSLgpDV5nkQ7yKc=;
+ b=T96vuZbqaxkR/jBJqRD0Ps+F80k8+BiEYu7mT9tbyUDMUVQzO2K/s+nUj/3VeuCJ9TWcHL6M0
+ kXokql/4KHpApdVAjo93eV1Itsip0a9sH+WgIGkbg61T4czGBCgFZz6
+X-Developer-Key: i=panjunzhong@linux.spacemit.com; a=ed25519;
+ pk=bY08BOg2T9H93/jG8fEE/tVmdXoQQMp9M2rtzPFoyJg=
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz5b-2
+X-QQ-XMAILINFO: ON8Om7ykNadU8oJ2XoaYZKYNvDRwmmbEwuAJuLn004ODG1cVPtu+L2vm
+	z9PuYm+nKgT+vme3aorrljE6Fwwv4kgyItUgaJLK414KJMnH3Q7rmBG9PX2EDjp7nPgTTWU
+	S8CW+viFARxDCrthtJAs9Fv0a51QaZP2sqg0Wpzv3IvgNO71RLk33y0GLxEu/W+H/jqiufg
+	oqcLT+rHdtYx1viTUeXNF78TVc7RgPCCXai66z93Hu9B7CXIoCc+fsTF3BWrcmswkjW1KZ0
+	0YfTGPok/bzbWHfPm1R8a8TPCr+yBxLgaZvcak/Pv63zWqkDUsFisMeJWtNO7MJsUQplsr4
+	axhaZvZd2OaH72mphYD048Vk4wSIs9rxdhmVd8pfL22enUpwYBREff7IaMv48B3tg3sIW36
+	RhUpqklXvVl+JWNea0HKjRi2vA18ncn3oDDFPaktaFYSzDKA/EajA6RTjMkl/CObdOJwNHd
+	AEUUVbDsgRkCsX6o0Nh/tkY/yVDA+9cKp+ch3iI7l0ekaVHH5Xg5CC7E5MwP0jRLBxBQSl6
+	ajkipAy0FUbnfI8rHTl3a7QgL2/ItGGXnQtMndtJBQn1iFcEvlqpEnPKQaXGv/QE+yciPz0
+	PeP/ifp/yixYuyUsZuuAMGyh3gkC4WQiQdQ3Y6J51hNvQ4E2fissy/uhGJp6PMVxF7es8jZ
+	RK/LpNfpNcdmMzM7Nyub6gzWJ+9TAXsfjVpV4F0Tpq32objDe3iAgNRSe2wEXzT2X07+Ys7
+	QjJsp/AQJCyYjQ5i5+ItJcXsgGQQaHxqtfMuv345+NEPWr5SH5oZTIKIxPfzA2uTeIGprLC
+	bEQel5zSef3qGxi0ufR41/Kp5hHUXN5PtSrVK0NtqCXvNaXtyg/gha6WtO8D1+z49bW2M4c
+	1qPj36FDgC42gEPhCnficdNbisrPF9IRHc63o3xo8Gdicv66hNTwKj4soUZ8PL2lh2BQqsE
+	hQwLQeipIf7aJrFp8S78TTYXzfUZ8b7haUhqLhfMp3zwldzbF6Zyt2KqHSWd9AWDa1GxMRv
+	BBBsZmm1cHUmSJBf6saRWf5J7Mg3Cm1XgixsoPopW0AYTZjaXht9egWM9+koKPNwT/VB74t
+	iwhHQiLB4cyp9eVUppQGbpbXRAjy7APz06ifImTQ3Z3RVjBBvmG8RcKnvsjd7s0LJ9njXMi
+	Pcb99RXM9MKU+WS4GRTvRRaSW5QwDTTQ0ddJ/lzyN8Cca/q3JYL7yhazOSvQ6LOvKRIGmuS
+	UMdBPgWqxnvnttMSrQA==
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+X-QQ-RECHKSPAM: 0
 
-From: Stefan Günther <stefangun@pm.me>
+The SpacemiT K1 SoC has two USB2.0 controllers, one has Dual-Role
+support, but the hardware has no internal OTG registers, the other is
+Host only. These controllers are compatible with Chipidea USB2 driver
+with some flags set and reset control support.
 
-When the device reports error counters, the driver incorrectly uses an
-assignment (=) instead of a bitwise OR (|=) for CAN_ERR_CNT. This wipes
-out the CAN_ERR_FLAG and CAN_ERR_CRTL flags, causing the error frame to
-be sent to userspace as a regular CAN frame with ID 0x200.
+This series is based on 7.3-rc1 and has been tested on Banana Pi F3
+development board.
 
-Fix this by using a bitwise OR to preserve the flags.
+A self-powered USB device/hub is needed to test the host function of the
+dual-role controller on Banana Pi F3, a MINI-PCIe USB2.0 module (a
+cellular module e.g.) is needed to test the host only controller.
 
-Signed-off-by: Stefan Günther <stefangun@pm.me>
-Cc: stable@vger.kernel.org
-Fixes: 3e5c291c7942 ("can: add CAN_ERR_CNT flag to notify availability of error counter")
-Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- drivers/net/can/usb/peak_usb/pcan_usb.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Changes in v4:
+- drop irrelevant Tested-by tags collected by b4
+- collect Reviewd-by from Yixun
+- Link to v3: https://lore.kernel.org/r/20260927-b4-spacemit-k1-usb2-v3-0-ce7095896039@linux.spacemit.com
 
-diff --git a/drivers/net/can/usb/peak_usb/pcan_usb.c b/drivers/net/can/usb/peak_usb/pcan_usb.c
-index 8fd058c32856..785224e00c4e 100644
---- a/drivers/net/can/usb/peak_usb/pcan_usb.c
-+++ b/drivers/net/can/usb/peak_usb/pcan_usb.c
-@@ -526,7 +526,7 @@ static int pcan_usb_decode_error(struct pcan_usb_msg_context *mc, u8 n,
- 			/* Supply TX/RX error counters in case of
- 			 * controller error.
- 			 */
--			cf->can_id = CAN_ERR_CNT;
-+			cf->can_id |= CAN_ERR_CNT;
- 			cf->data[6] = mc->pdev->bec.txerr;
- 			cf->data[7] = mc->pdev->bec.rxerr;
- 		}
+Changes in v3:
+- collect tags
+- merge the two dt-binding commits
+- use local variables when acquiring devm managed clock/reset
+- drop manual clk_disable_unprepare() from the remove path
+- enable related drivers as modules in defconfig
+- Link to v2: https://lore.kernel.org/r/20260908-b4-spacemit-k1-usb2-v2-0-f07342ffa051@linux.spacemit.com
 
+Signed-off-by: Junzhong Pan <panjunzhong@linux.spacemit.com>
+
+---
+Junzhong Pan (8):
+      dt-bindings: usb: ci-hdrc-usb2: add spacemit,k1-usb2 compatible
+      usb: chipidea: usb2: use devm_clk_get_optional_enabled()
+      usb: chipidea: usb2: add optional reset support
+      usb: chipidea: usb2: add SpacemiT K1 support
+      riscv: dts: spacemit: add USB2.0 controller nodes for K1
+      riscv: dts: spacemit: enable USB2.0 controllers on BananaPi F3
+      riscv: dts: spacemit: enable USB2.0 controllers on OrangePi RV2
+      riscv: defconfig: enable ChipIdea USB controller support
+
+ .../devicetree/bindings/usb/ci-hdrc-usb2.yaml      | 15 ++++++++
+ arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts    | 16 +++++++++
+ arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts   | 28 +++++++++++++++
+ arch/riscv/boot/dts/spacemit/k1.dtsi               | 40 ++++++++++++++++++++++
+ arch/riscv/configs/defconfig                       |  4 +++
+ drivers/usb/chipidea/ci_hdrc_usb2.c                | 35 +++++++++++--------
+ 6 files changed, 123 insertions(+), 15 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260812-b4-spacemit-k1-usb2-97adfc283d58
+
+Best regards,
 -- 
-2.43.0
+Junzhong Pan <panjunzhong@linux.spacemit.com>
 
