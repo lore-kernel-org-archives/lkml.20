@@ -1,203 +1,262 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89432339B41;
-	Fri,  9 Oct 2026 22:14:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.9
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791584056; cv=fail; b=MR7pf+attRudDUvLDUe2hMHb9HfVHjceIKIQ67DSCdeHtoUpKxHtFPY5ndjNt7gOwXHCBebgK949ROIp+2wuDrVSJuWDndRjrXqtxTL+9qbaC9iCpigHW6TsyH5lvP8X+PWjb+Zy9vpbkeYeyypa6haj+3aRDpuKH5ZG/b2a/U0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791584056; c=relaxed/simple;
-	bh=YrR6uGEErEII+QT3RHarEyFyLW8PBs8wtIh8WoEo4yg=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=W3MJxfFhkPe44dEcaOgeoCVjhnQbmFIewt4gglCGhGz172BbCbkxY/PDm/3ukdEl19XjYxk2pWIw+gpimCsozA6EU9HeVc03GVSAYrL2gxhI+jTz7QnmKR8qh4sMYrZjYtsu5Zrp4yAsV/PNbIkLIaw9dO2jv0nCNboSt5u6ilk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=fail smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MDzLGZKH; arc=fail smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EB3826738D
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 22:19:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791584370; cv=none; b=jCR9janWtTDmmtG1iZRFAiLWWEq8xd8GOBQAfHvh42xNtXgkuujZkGImhgTNsreX4CIX0DhAmd6uQgzC/pGnM8zB6GsS70yVb97NuMiQM1Qr5NemiyL5nuZSziEZFJuaOeLX0+O2ExAuLAbUjzv/adnnBzQeBZO4xm3G0pNckkU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791584370; c=relaxed/simple;
+	bh=AZ8yP9jeAkcUd8M1q6vyg8krIqglNkqX1892a3fHtO0=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=h9HIa2Xi13lRtyCY4x9q5MYDg54J8/XOMl0HY5cGoE2x6+HBko7b6fw/bG00PAiogg6rWzApwu9/15LEopNSGwriDz1DpFcKyh4TrCehFc3M3956vLN+/X0xXgexdecci1lxD7HvioAhFMYHMkHdW2L/iWo20/+QzeXrgPdI48o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=PlKF4sT5; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=CSCWoiT1; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MDzLGZKH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791584051; x=1823120051;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-id:content-transfer-encoding:
-   mime-version;
-  bh=YrR6uGEErEII+QT3RHarEyFyLW8PBs8wtIh8WoEo4yg=;
-  b=MDzLGZKHHCcIH13rtPmQrG7rF/zmFeipo5y6pIwcuYJ/W5j9bxNTeuRg
-   NuqHxEoFOb1KDekzno/nmHmo8ZjrpPjzRr7LMok9rqXoYv/kC6VnRXhcQ
-   iMqkxlrKw0htP8xXmekS1tL49sCwXIw95n7ue+N2CdcyGln+BgqEfJk2F
-   T4rwBM+zVTZ/MWnefHVEG2FKenj8ZT0qd/i8fNMrbGBjTprZnJsRUocsZ
-   zIEV/GWjBOPkm0G0nxrMdZf+dhzNO3jWFTE22ktkgL1wxy4JjDcjA6SMI
-   3s0/xNnQp846GNXulVBD8eCwFmYn6ed8Ud3EMpbqInVWG5t5iUwnpHW47
-   A==;
-X-CSE-ConnectionGUID: NdqNlSI7Qr2OTaQM3YC3eA==
-X-CSE-MsgGUID: KLDXfL4ZRuah+S8i16m9dA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11930"; a="290637"
-X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
-   d="scan'208";a="290637"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 15:14:11 -0700
-X-CSE-ConnectionGUID: KisxnExXQZyJFMc0vCz7dw==
-X-CSE-MsgGUID: /Z+qgC+xTO6+iAHjsKfj2A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
-   d="scan'208";a="373533"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by orviesa001.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 15:14:10 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Fri, 9 Oct 2026 15:14:10 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Fri, 9 Oct 2026 15:14:10 -0700
-Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.45) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Fri, 9 Oct 2026 15:14:10 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=k2p88VckhsJmIoXq2XvCxFgr8j9EyA35NwcrPX+i0ykXf081BI1E3XPTRov8H1k1h4FbhxYcBc6Be8oShOFTzP22MyfhqoT0IsnrVjpEeP9dqKZiPK8uWexuUjYJaswErU510Kq04i+eTgw82E0p8MDH/FRWh/8GsBJqJiqEuCyH9jc9yNG+LZ4NjleK23yeSoAxwvcNRQe0OFLCgutOyxov6uoEMWwgbZXkRFfz5M9ebb4P/hPqTgfDIPjquxk1Id56NkHWTKLw71MlD7ifVHSa4smifwA+c9PCCBGVW6IV8Rk4a71ASRUU+bia1nIpAO1tOJnPfrpTV3eFPON3Vw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YrR6uGEErEII+QT3RHarEyFyLW8PBs8wtIh8WoEo4yg=;
- b=DAWJHvNrS7E/xbFQhKLGVsLyWHztf3HM43sI3cOfBxamCjpeCP3nPdVc1kSgvcb8TYMCh5NKn/qqlw5CaThKUBVuAPfNMBenA37I0iaAraur0Stf5pkKDoysuzNH0sGJ5XiqdoCpt4eVQaDtxEFwmOihoswYihoQ2FTD7xFLkq/FxI8OTcKxgNaVZJZZ5xea+Z0Px8ZDXwE2HNYFRbwBAmqnZS9+eGhHoMFQNJz31EfgjxaqaCn9Qaqvq2UH91uk/SgwP7h7fWdULgqJipn5diKTnpPbiLksdLotaLy/KtZaFuL7ke5jVg8fKa+6LiYb/xfx1k+IBIXpY+vHgtVTHw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from PH7PR11MB6771.namprd11.prod.outlook.com (2603:10b6:510:1b5::20)
- by DM3PPF3E6742BA8.namprd11.prod.outlook.com (2603:10b6:f:fc00::f1a) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Fri, 9 Oct
- 2026 22:14:03 +0000
-Received: from PH7PR11MB6771.namprd11.prod.outlook.com
- ([fe80::effa:162e:c9c9:a1b4]) by PH7PR11MB6771.namprd11.prod.outlook.com
- ([fe80::effa:162e:c9c9:a1b4%4]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
- 22:14:02 +0000
-From: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-To: "ripatel@wii.dev" <ripatel@wii.dev>
-CC: "kees@kernel.org" <kees@kernel.org>, "x86@kernel.org" <x86@kernel.org>,
-	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>, "hpa@zytor.com"
-	<hpa@zytor.com>, "shuah@kernel.org" <shuah@kernel.org>, "mingo@redhat.com"
-	<mingo@redhat.com>, "bp@alien8.de" <bp@alien8.de>, "tglx@kernel.org"
-	<tglx@kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-kselftest@vger.kernel.org"
-	<linux-kselftest@vger.kernel.org>
-Subject: Re: [PATCH 1/3] x86/shstk: ban ia32 sigreturn when shadow stack is
- enabled
-Thread-Topic: [PATCH 1/3] x86/shstk: ban ia32 sigreturn when shadow stack is
- enabled
-Thread-Index: AQHdV2H/JX9B3LcQ60+tcfWPj/4EOLb0IS6AgAAOAwCAAAxGgIAAA9uAgAAGqgCAANASgIAAsigA
-Date: Fri, 9 Oct 2026 22:14:02 +0000
-Message-ID: <bb352ccd1939c6e01f1e71a12fc457b8051bc04a.camel@intel.com>
-References: <20261008201610.1003569-1-ripatel@wii.dev>
-	 <20261008201610.1003569-2-ripatel@wii.dev>
-	 <e1a26ac75c39673d043b2860f848827fecbcb843.camel@intel.com>
-	 <asgQDlpnDwu04oZc@wii.dev>
-	 <6deab6fec99c65408a19b9036d67ce7f1fab54b5.camel@intel.com>
-	 <asgdlclj3MgtGrSp@wii.dev>
-	 <f78ade122593ecdd686ec1b29340b0124b925c48.camel@intel.com>
-	 <asjRt49FfzdP4pxk@wii.dev>
-In-Reply-To: <asjRt49FfzdP4pxk@wii.dev>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-user-agent: Evolution 3.44.4-0ubuntu2.1 
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR11MB6771:EE_|DM3PPF3E6742BA8:EE_
-x-ms-office365-filtering-correlation-id: a638eca9-0f26-47d4-aceb-08df2652a04d
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|38070700021|11063799006|56012099006|4143699003|18002099003|10067099003|22082099003;
-x-microsoft-antispam-message-info: BxadXYhigfBNNVx8X3QAhAmeBb8Or+o1KugsiCdfGzlnCdDoqt3GlsEZXroKUllsNSqDpMNo7cWu40jbWkY2xYDUe779ieKSCygC9JUzk4BUNG19EoRy2qDtm/c6yrVnyxkR6kZ5MylrgCIaAfRUWCLedeIckWG2WYh5i7El8PXEjFhcw7VUlmisnUZDApekUFZQqRoe2mowF4mnMg2N9k71ZpKfwh5cD8aWV50QX79xUYlR9P7/T73G7RlvCnu+j1ZWxBPQ/CPuNvBfGmHFgrHLV9UOPvGLUFPkQBqxoUeoPrD5qhK5KHF0ww+nubEeHwqFtOIyONXQlQSTR6Q+RMK+rFGX3TiWBb8LdY8yjvGF//yFRfezW66fo4NZYFTxnWPib5GW49MdDVdu1ibZwx+IIr3vbYfodTz1I7xi5dIVyEnrHfVKWaX1OhVjfsr6bPDa5R4HJzM0oxgjUoHV9bgXo2u3422k812xRBrrfdYsJEI3liqzya/hsgJn4Msnuk+Oh0o/iSkpmgzxxLnsifmDehH2IQZRiEljhgH9ptp3C5vLY9Cin5H1gJMSnMpkk9zJAAZajgl7DDYAxRLNm9wYWk9IRS+KCxFG1cn9LJlFbt23M1e36ACEpZcLrDS5EPXqAFjkvu4H9ELmnhW0mzeK4u633btntiwus9kYaCFpR8KWJuRuKdD6n8sfGrvHTXYqwJDMa6AD8JKZhb/nwYT6DBKPdg/WSUmru79W8iA=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR11MB6771.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(38070700021)(11063799006)(56012099006)(4143699003)(18002099003)(10067099003)(22082099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?VjlCQUhTNFNhNGxlM1phQWhMUmRDWTBjdGNqYWRVZVpFYVRWczcxQ290WUIy?=
- =?utf-8?B?c2svcmxDSDVpem9ZQ2Q1VjM1NjR4eFV4SDAvME02ejdOblhnaGZjaE1WOVJZ?=
- =?utf-8?B?czQ2S29ZaVNubStWU21PRGhiNjFsNndIVUZhSi9QeExOcjRyTW9PNTFFcXlF?=
- =?utf-8?B?MFFLNUltdUwrVWZRNndaek5vdzBEWG0xUHBNbW81T0VJNWtEWDdKS1hYRHRo?=
- =?utf-8?B?M1dRbWR6ZWo0S0RxaklnTnVOYVhBWWxYV0lCZlQyVVk3N0VhYW9oOTJDL0g0?=
- =?utf-8?B?SktQV1poVm5VS2dGWlZsNXh2c0VuN2dYZzB4RWVuaW1DSm8vNUpEU2hHNU13?=
- =?utf-8?B?bjdHdStvQ3hzcGpMbDdGT1pPY2lyeWdjM2IwZlpTbm5oczFQVzY2bEE1QXVv?=
- =?utf-8?B?STdMY1VrOWxCQXN6UG1zcVhQenQ3b0hDLy9oS2d5RTA2aXNJTCtwUzlUVyty?=
- =?utf-8?B?N3pXMXJPM2k5eHZwWk4yMVJZVWN2c0VPd2dLNVFlVlZNK1NoYWU2VFpYOU9U?=
- =?utf-8?B?ck1OL1RpV3h1cFF6RUQ0b09zeXR0b2NTYUlSMmNYaFFuL1NzbytNb3VCa3Vp?=
- =?utf-8?B?bVEzaXEwUyt6djRNOHBDcDJvMVBrTWdMQy9WcVRTdTBnc01pRHF5Vnp3dGxY?=
- =?utf-8?B?d2JCelZ0dEdocjdiZTdaWHlGM05GUER3dmd5YVRva0xya1I5NXNqTkZtbmsy?=
- =?utf-8?B?SUZCd1RSdnNnb2M3MXJkbTExZmdkd0Q3cnMvSW5wZnY1SWVXcHU5U3BSa3NS?=
- =?utf-8?B?VVNRVjNxc3FvcldXaG81K3dSRUtuVDkzbFhUQVVXS25ueUFDMUU2V0s0WXVE?=
- =?utf-8?B?Q2FUTGpObGErREVrZGtRYTU4TW85a2x4NmhqVy9ldzM0azJhMjZBMHRPek9r?=
- =?utf-8?B?eG1mcWZ2a3pMNDJ5cS9qVnpDT2dHdENNTkFURGVQMWNFQnErbExhYlFSUW8r?=
- =?utf-8?B?czZTMXhCN0hhMWUvTHFNeE9QSzlrS09QME1oWld5SWFoWkZld0g2K2MwK0tr?=
- =?utf-8?B?WnRnckxMZkdteXlyNzVvemNwRDViSDczWEphNDFHVE43Z1JFM3F4TUgwT3Yz?=
- =?utf-8?B?dHA3VDZNTjBhTDV4VzhGTElkZmhlYU5NYU15T0RodUErL01BbitIVm1VaEtu?=
- =?utf-8?B?T293THBjQVVoUUpBSk04b0NqdE4rWStvY0dac2NWMnVocGhramlabDA5bDRW?=
- =?utf-8?B?TlR0cEVnQzVuL0tlcUpqYyszSWJLZHhTL1FnbE1NSDNndXRlZ2F4MDQwQVdX?=
- =?utf-8?B?eEVwdTFhYUY3WVpHT0VrQzNZdUxwQVBVU0oxdTVKVGd3OFVkaVFpQ2FycG4x?=
- =?utf-8?B?UkpWK1NrZ0ZtaEs4QUE4Z2xmSG5FZklKSC9VVmptZVlDa242QW9JRGcyRmNp?=
- =?utf-8?B?NWR0SHhTbHMzakliMlVPV2lWMW8xaDFMVEJ1ZmFxR3ZmeEpXTHdhQ1dYdllQ?=
- =?utf-8?B?NUo0ZEYvUkdaMkkzMlJQNGw0OWd6TkJhQVgxNXJZNGFZQ3ZXZHJJMExwLzk4?=
- =?utf-8?B?Q29rTDVCUEZKQnNWTWJ6NC9qMTIwWWp1WFFNZFYwbURSSW4vaDIvb0poMVZ3?=
- =?utf-8?B?WGtiNkc2bHVNY2tjWnp5dzlQYW5qZHR6cHZaandTeUVOYWhhUjVmSHFxMFJk?=
- =?utf-8?B?dXg0RjJqWGVYUnRtaXJVc1BqRW9XMkRsY2RNUlRVN1ZONDNxWXRCSk93eldi?=
- =?utf-8?B?K1NZQzBxbTIxOFVSWVBQeUIweDZ1TkUyWDVpV1JzdnZibDJlKytuVFp5VW9C?=
- =?utf-8?B?Z0VyekVSWERDMUFXc3pmaisrdlY4TmpDaW9zN2kyNVprbEJuTC9QRzRnWWlT?=
- =?utf-8?B?bVNGUlFkYWlNVVdKR0hRRkhYWSt3d2pMUUJaQ0RySHhHdjdFTE1SYi9CcGZE?=
- =?utf-8?B?RTVJeGVISHVJUURlZCtRODZ1TjZldkF5R1ZMS3Nrb2NnVXF6M2x6WXVtWlUw?=
- =?utf-8?B?L0tkWE1QMzJtTWJsNjlmc2dDMGZZcWtBU0N3RjBwV2tPWjVxY3FOZlBEaEEv?=
- =?utf-8?B?Mzk4VHVPbFMrOFpWSkRKdnozaWljTXh5Y1BDbjBCcmFPeGUyUTUyZkN5eHQw?=
- =?utf-8?B?WjJQMk1VRnFNNmVUU2piSXBVazFFLzFVb0d6R21tSDJSQ0orVE5SckhXVlRP?=
- =?utf-8?B?b0tnUzZ4UmRYMEtuS1dQWFVqY3V3ZlR3VlY4OWRaTW11UXIrRWExMTV2dXVF?=
- =?utf-8?B?VFBtR1c4Ym85NCtPdmVhYmRuZk10dTZNSWszOGxtM3BqcTRMZGNJRWxLUDZC?=
- =?utf-8?B?VmFGV2JUbnkyNHhpU1NNRnU4RmZtcGE3ckswNTRHa2tJazdDZFZhTzlwZDMw?=
- =?utf-8?B?OTJQNHJ0MDlmcHRIUmJwbHhueVljM05YN3dEWnZQQjE3R3ptSHlUcnRZeStq?=
- =?utf-8?Q?NGbmGYTyBAtABSSE=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <05189F3CDE512E49A0A9477F46EE40CB@namprd11.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="PlKF4sT5";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="CSCWoiT1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791584368;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/9KqQUhlnxO9tnxirSVybe3jxd+G2c4sf1QFVpuAgNA=;
+	b=PlKF4sT5h2LioANb+jiyA6bSQKB/22qkKdwYj6qfAilQvTC4a2Ou3dhiounCgbwW2ugO2B
+	zS+kL5m0aNKRU3CLXJ8yy0sONVtSxtaAaZZqaPBQ8KWUlWr1n9Ri+BD8sFkhj/26xs95GS
+	0W3yd53ocZblnNBnn4bQ4E4iPCz7d/0=
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
+ [209.85.219.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-611-vuHLtFDHM9isqWfubrqH6g-1; Fri, 9 Oct 2026 22:19:25 +0000
+X-MC-Unique: vuHLtFDHM9isqWfubrqH6g-1
+X-Mimecast-MFC-AGG-ID: vuHLtFDHM9isqWfubrqH6g_1791584365
+Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-917a109c937so4527106d6.2
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 15:19:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1791584364; x=1792189164; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=/9KqQUhlnxO9tnxirSVybe3jxd+G2c4sf1QFVpuAgNA=;
+        b=CSCWoiT1Vg+p6JnYhE40gQE/r1qaGZVeAYiNGcEXBrOzTfu7j3DBQjOXGdz/IfuvDd
+         LGPv/4iWqWaASdIZwPWLf2NJ6Tu5jiyEImT4RCgNtObDSUPmLurgAsmmqtzvTNzBeLnZ
+         0SRk6XWXo0MDDG8tyaG5vVwc6EDS/kst/F4YYToZYU3zfECutWreKO6jv1d4LtwAh5SR
+         gOyEallx6hf95gAc5hpyylYMAs+5R3LTmU7fkVzw2IuacFt3PgOGcWPwzy9Gd7D6b4fg
+         ZWie+G62w6YkhhXk7Frbo4I4F5yF2T4xq9hZItonoNehrzv8XH3EzxWmw62n/wlF1Cpy
+         jQDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791584364; x=1792189164;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/9KqQUhlnxO9tnxirSVybe3jxd+G2c4sf1QFVpuAgNA=;
+        b=dJQNI9mFGFYMKpI4q6cFxYRs62QlzOfWOkZbvNu4X0Oa5RyJ9aj3ro1I2OtpLiS3OX
+         +N0ZMyQI5+0bRolgHxMwHY6tSWLKfSd6Fcs5h53dAXF8AxJAoRRxNTVgqpK/18QG88MN
+         +xdkXJYgFqUoE1G7LH8tyXIBHcxG/1HgM5fbetWuJAsMwuPD4NhwAmIUGuxKGhP7/hNW
+         qCtVwZpVlWt5zzLJd6p4aOj5OuV/RARLoOxQ6375Xts2TiR0Rhz8JdQLNQYjBJJ7qPP9
+         4qkzNlAwV1ALP4VL+XoDb5VdJbNGRq3/QiPD5vTT37AOu7JJLxAQjgWnFopObFjRJgVO
+         vGZA==
+X-Forwarded-Encrypted: i=1; AKwUvBytCEoQIFkYIzsuhh6IS0lIJcnNxTFJUY3UIsAoiBFCq8g8SjKRKaqjqd+qDzace6ujyeQrZ3Tx2+ld1xE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKwCzE1EEse5d67tqAlyEqMLo9VOX1Zx1eFqmI1/hztYingnJsD
+	gNsvn/W96gRlyB+AOvQ4xszZCV+N3IgqTmpH8UBgm9+vmViuvwr4eI4e4w7XWZAqCpDoTuEjuV8
+	Ir0vTlh+2RQdv4bVruh0IDBecuHrhpYk06GsHDxisLHWG3wzRQ02WRjgi6GQjz9ccuA==
+X-Gm-Gg: AYBFou0JjB9yUS6m2BiP6AKP6obOJv1r/MeVRdvznzEZH4PaQknqeDjUrxjbPlnr8XY
+	ojcmEjCGU4unk+Eb/2/RLnOgtNWHwyRNHOfDgA9iORuVmXX9fAC5Q4X2kHgZ9Mo6tEjIQopghpr
+	gk9Fa1ReB2KkbVD/sZ2BjVoSvBELgNDhKiGQygweGBa6+00ESq/3xC3fdIixyzx06O6eAIy8kTt
+	dj9lUXAEDsgEpWyBaRrbmSfZGuGx6I+ixeH0mgny9F25BIK4Kmh9TJedAWw8hRpjYwUx/gDO+4s
+	g+jwlrQLhAxf42Qyj8wWXSIYyM/76cLxTo8Xtk9XvQTGQ/3QGbgnO4VZVuUpSm4WBKSH/ZI=
+X-Received: by 2002:ad4:5aa6:0:b0:914:4c57:5108 with SMTP id 6a1803df08f44-91b554ea694mr60160476d6.16.1791584364496;
+        Fri, 09 Oct 2026 15:19:24 -0700 (PDT)
+X-Received: by 2002:ad4:5aa6:0:b0:914:4c57:5108 with SMTP id 6a1803df08f44-91b554ea694mr60159926d6.16.1791584363944;
+        Fri, 09 Oct 2026 15:19:23 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b5504e3d1sm29155796d6.23.2026.10.09.15.19.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 15:19:23 -0700 (PDT)
+Message-ID: <9041ce7f5d6ae30213aa1ab895a4225fb33246ed.camel@redhat.com>
+Subject: Re: [PATCH v2] drm/nouveau/uvmm: reject replace across page sizes
+From: lyude@redhat.com
+To: moonafterrain@outlook.com, Danilo Krummrich <dakr@kernel.org>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
+ Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>, Andrew Morton
+ <akpm@linux-foundation.org>, Balbir Singh	 <balbirs@nvidia.com>, Mary
+ Guillemard <mary@mary.zone>, Mohamed Ahmed	
+ <mohamedahmedegypt2001@gmail.com>, James Jones <jajones@nvidia.com>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>, 
+	stable@vger.kernel.org
+Date: Fri, 09 Oct 2026 18:19:22 -0400
+In-Reply-To: <20261009-nouveau-fixes-v2-1-a0b71bf8df1b@outlook.com>
+References: <20261009-nouveau-fixes-v2-1-a0b71bf8df1b@outlook.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: XRoFMp+EpHnoCwiYua6ccxzl7GvsDCyuqQK8QSCybxwBndaIlxluNLqr4TUSdok3qLEHgpKS4Si60aNw037Q/BBmP3RahK0nSSgY0iD8pqOvq+/pS4YMBpVhGXODt/W5ojRwMIyB8gp0J6kew3EZ+yvbUrlp8Ddg8n68YZt2KQCuFT2MTIbSds7Lzr4IWXoxKG8pDWjkNy8gx0wgXjLvwYJZcoxbTwyyJVpLQoyzdeMYWrlyJnuG93fM+xZELXx6sKQ7k+ViWi2dE/XLNeU0dBMLuSOcoxobFU7ZP7uP1qli/eDGk3Mg56rvBvM1SxJQanFMabbBRAAcJ2DX/9//oQ==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6771.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a638eca9-0f26-47d4-aceb-08df2652a04d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Oct 2026 22:14:02.8429
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: nIwIJYmzlPIUGBYVOI6aSOZWQLIg59kZz6blvD8MLU8nm76HlEuUlxnctZIfG60LS+GSwrahvxkyWsBVrF9l715hkaHCo35pgoFT4JWs1Fw=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PPF3E6742BA8
-X-OriginatorOrg: intel.com
 
-T24gRnJpLCAyMDI2LTEwLTA5IGF0IDExOjM2ICswMDAwLCBSaWNoYXJkIFBhdGVsIHdyb3RlOg0K
-PiBPbiBUaHUsIE9jdCAwOCwgMjAyNiBhdCAxMToxMTo0MVBNICswMDAwLCBFZGdlY29tYmUsIFJp
-Y2sgUCB3cm90ZToNCj4gPiBPbiBUaHUsIDIwMjYtMTAtMDggYXQgMjI6NDcgKzAwMDAsIFJpY2hh
-cmQgUGF0ZWwgd3JvdGU6DQo+ID4gPiA+IEJ1dCB0b2RheSBzZXR0aW5nIEVJUCB0byBhbiBhcmJp
-dHJhcnkgcG9pbnQgaXMgZmFpcmx5IGVhc3kuIEJ1dCBldmVuIGluIGENCj4gPiA+ID4gZnV0dXJl
-DQo+ID4gPiA+IGNhc2Ugb2YgSUJUIGVuYWJsZWQsIHNoYWRvdyBzdGFjayB3b3VsZCBzdGlsbCBu
-ZWVkIGVuaGFuY2VtZW50cyBmb3IgdGhlDQo+ID4gPiA+IG5vcm1hbA0KPiA+ID4gPiA2NCBiaXQg
-cnVudGltZSB0byBwcmV2ZW50IHRoaXMuIA0KPiA+ID4gDQo+ID4gPiBXaGF0IGRvIHlvdSB0aGlu
-ayBvZiBjcmVhdGluZyBhIHNoYWRvdyBzdGFjayBmcmFtZSBvbiBzaWduYWwgZGVsaXZlcnkNCj4g
-PiA+IGFuZCBwb3BwaW5nIHRoYXQgb24gc2lncmV0dXJuPyBJIHN1cHBvc2UgdGhhdCB3b3VsZCBu
-ZWVkIHNpZ2xvbmdqbXANCj4gPiA+IG1vZGlmaWNhdGlvbnMgYW5kIHByb2JhYmx5IGJyZWFrIENS
-SVUuIDooDQo+ID4gDQo+ID4gWWVzIEkgZGlkbid0IGtub3cgdGhleSBkaWQgbm90IHBhcnNlIHRo
-ZSBzaGFkb3cgc3RhY2sgc2lnbmFsIGZyYW1lDQo+ID4gYXBwcm9wcmlhdGVseS4gVGhhdCBpcyB1
-bmZvcnR1bmF0ZS4gQnV0IHdlIGNhbiBzdGlsbCBldm9sdmUgdGhlIHNoYWRvdyBzdGFjayBBQkkN
-Cj4gPiBieSBhZGRpbmcgbmV3IG1vZGVzIHRvIHRoZSBlbmFibGUgcHJjdGwgaWYgd2Ugd2FudC4N
-Cj4gDQo+IEluIHRoZSBjYXNlIG9mIENSSVUsIHRoZXkgYXJlIG5vdCBvbmx5IHBhcnNpbmcNCj4g
-DQoNCkFoIHNvIHRoZSBwYXJzaW5nIGlzIHJpZ2h0LCBidXQgdGhleSBkb24ndCBhZGQgdGhlIGV4
-dHJhIGZyYW1lcz8NCg0KPiAsIGJ1dCBjcmFmdGluZyB0aGVpciBvd24NCj4gZnJhbWVzIG9uIHRo
-ZSBzaGFkb3cgc3RhY2suIEkgc3VwcG9zZSB3ZSBjYW4ga2VlcCB0aGUga2VybmVsJ3MgcGFyc2Vy
-DQo+IGxlbmllbnQgc28gaXQgd29ya3Mgd2l0aCBvbGRlciBDUklVIGZyYW1lcyBldmVuIGFmdGVy
-IElCVCBlbmFibGVtZW50Lg0KDQpZZWEgd2Ugd291bGQgbmVlZCBhIGJhY2t3YXJkcyBjb21wYXRp
-YmxlIGZyYW1lLiBUaGUgcmVhbCBzaWdmcmFtZXMgaGF2ZSB0aGUgc2FtZQ0KcHJvYmxlbXMgdG8g
-c29sdmUuDQo=
+Looks good to me, will push to drm-misc-fixes in a moment.
+
+On Fri, 2026-10-09 at 16:52 +0800, Junrui Luo via B4 Relay wrote:
+> From: Junrui Luo <moonafterrain@outlook.com>
+>=20
+> A new mapping takes over the page tables of the mappings it replaces.
+> nouveau_uvmm_sm_prepare() only acquires page tables for the range no
+> existing mapping covers, and the map path frees the replaced mappings
+> without putting their references. That is only valid while all of
+> them
+> use the same page size, which select_page_shift() no longer
+> guarantees.
+>=20
+> Rebinding a GART BO over a 2MiB VRAM BO therefore leaves the new
+> mapping
+> owning page tables built for a different page size, and it then maps
+> at a
+> size that was never referenced over that range. Since raw map does
+> not
+> allocate, nvkm_vmm_iter() can walk down to a NULL leaf and
+> dereference
+> it. The remainders of a split have the same problem: op_map_prepare()
+> recomputes a page size with select_page_shift() while the remainder
+> keeps
+> the parent's page tables, so a parent that was itself downgraded can
+> leave
+> a remainder that re-aligns to a larger size. This happens on the
+> unmap
+> path too.
+>=20
+> Reject the bind, and make split remainders inherit the page size of
+> the
+> mapping they are split from.
+>=20
+> Fixes: c488a94e7e14 ("drm/nouveau/uvmm: Allow larger pages")
+> Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+> Assisted-by: LLM
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
+> Reviewed-by: Lyude Paul <lyude@redhat.com>
+> ---
+> Changes in v2:
+> - Drop patch 1, which has been merged.
+> - Use the abbreviated conditional operator for page_shift (Lyude
+> Paul).
+> - Compare against remap_args.page_shift (Lyude Paul).
+> - Use Assisted-by: LLM (Balbir Singh).
+> - Add Lyude's Reviewed-by.
+> - Link to v1:
+> https://lore.kernel.org/r/20260817-nouveau-fixes-v1-0-f518d0c735f3@outloo=
+k.com
+> ---
+> =C2=A0drivers/gpu/drm/nouveau/nouveau_uvmm.c | 32
+> +++++++++++++++++++++++++++++++-
+> =C2=A01 file changed, 31 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_uvmm.c
+> b/drivers/gpu/drm/nouveau/nouveau_uvmm.c
+> index f5e4756b4de4..aa5b93808f41 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_uvmm.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_uvmm.c
+> @@ -85,6 +85,8 @@ struct uvmm_map_args {
+> =C2=A0	u64 addr;
+> =C2=A0	u64 range;
+> =C2=A0	u8 kind;
+> +	/* Page size to give the new mapping, or 0 to derive it from
+> the op. */
+> +	u8 page_shift;
+> =C2=A0};
+> =C2=A0
+> =C2=A0static int
+> @@ -655,7 +657,7 @@ op_map_prepare(struct nouveau_uvmm *uvmm,
+> =C2=A0
+> =C2=A0	uvma->region =3D args->region;
+> =C2=A0	uvma->kind =3D args->kind;
+> -	uvma->page_shift =3D select_page_shift(uvmm, op);
+> +	uvma->page_shift =3D args->page_shift ?:
+> select_page_shift(uvmm, op);
+> =C2=A0
+> =C2=A0	drm_gpuva_map(&uvmm->base, &uvma->va, op);
+> =C2=A0
+> @@ -684,8 +686,20 @@ nouveau_uvmm_sm_prepare(struct nouveau_uvmm
+> *uvmm,
+> =C2=A0	struct drm_gpuva_op *op;
+> =C2=A0	u64 vmm_get_start =3D args ? args->addr : 0;
+> =C2=A0	u64 vmm_get_end =3D args ? args->addr + args->range : 0;
+> +	u8 map_page_shift =3D 0;
+> =C2=A0	int ret;
+> =C2=A0
+> +	/* A new mapping takes over the page tables of the mappings
+> it replaces,
+> +	 * so every one of them has to be using its page size. The
+> new mapping
+> +	 * is the last op drm_gpuvm_sm_map_ops_create() emits.
+> +	 */
+> +	if (args) {
+> +		struct drm_gpuva_op *last =3D drm_gpuva_last_op(ops);
+> +
+> +		if (last->op =3D=3D DRM_GPUVA_OP_MAP)
+> +			map_page_shift =3D select_page_shift(uvmm,
+> &last->map);
+> +	}
+> +
+> =C2=A0	drm_gpuva_for_each_op(op, ops) {
+> =C2=A0		switch (op->op) {
+> =C2=A0		case DRM_GPUVA_OP_MAP: {
+> @@ -713,11 +727,22 @@ nouveau_uvmm_sm_prepare(struct nouveau_uvmm
+> *uvmm,
+> =C2=A0			struct uvmm_map_args remap_args =3D {
+> =C2=A0				.kind =3D uvma_from_va(va)->kind,
+> =C2=A0				.region =3D uvma_from_va(va)->region,
+> +				/* The remainders of the split keep
+> the page
+> +				 * tables of the mapping they are
+> split from,
+> +				 * so they must keep its page size
+> too.
+> +				 */
+> +				.page_shift =3D uvma_from_va(va)-
+> >page_shift,
+> =C2=A0			};
+> =C2=A0			u64 ustart =3D va->va.addr;
+> =C2=A0			u64 urange =3D va->va.range;
+> =C2=A0			u64 uend =3D ustart + urange;
+> =C2=A0
+> +			if (map_page_shift &&
+> +			=C2=A0=C2=A0=C2=A0 remap_args.page_shift !=3D map_page_shift)
+> {
+> +				ret =3D -EINVAL;
+> +				goto unwind;
+> +			}
+> +
+> =C2=A0			op_unmap_prepare(r->unmap);
+> =C2=A0
+> =C2=A0			if (r->prev) {
+> @@ -756,6 +781,11 @@ nouveau_uvmm_sm_prepare(struct nouveau_uvmm
+> *uvmm,
+> =C2=A0			u64 uend =3D ustart + urange;
+> =C2=A0			u8 page_shift =3D uvma_from_va(va)-
+> >page_shift;
+> =C2=A0
+> +			if (map_page_shift && page_shift !=3D
+> map_page_shift) {
+> +				ret =3D -EINVAL;
+> +				goto unwind;
+> +			}
+> +
+> =C2=A0			op_unmap_prepare(u);
+> =C2=A0
+> =C2=A0			if (!args)
+>=20
+> ---
+> base-commit: f5bbbfec59b4e2fb7520a91de3df8a6174325d6a
+> change-id: 20260817-nouveau-fixes-23877845c3ab
+>=20
+> Best regards,
+
