@@ -1,75 +1,515 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D347B374197;
-	Fri,  9 Oct 2026 17:05:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6FDF33438F
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 17:06:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791565534; cv=none; b=p2yJbs5xynIj4DsRYFw8rrTRUz2OfqnLYV+e7+oDfvq+YHFABNZrAfwkUz7FISxGi88bvqTIm6OgXQqNlKmIcqtFTh5n6bK5aoDJZaRL1VOxqiWUNw8mjMhBwGEox8Odg/8jj1qkeOWRe6bp3lafBSoDuUod7HQ0SUcAcoOql7E=
+	t=1791565616; cv=none; b=h5GX2N7U/CsB0wEB0ouqNYwxrmrixUWEff7e8txey//oUvE8OtM0kRcB3irlkzPZuxcOjt3CLUcwQPJfvgx0T7trcMZ5TfLuEgpfKfZtFNJdLB6bp2EgsBGRWvLouR0GGXOGWS/ZuIyF22pFTYIA3ayoxKpqO/8aOusvj4JnhNY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791565534; c=relaxed/simple;
-	bh=1EXblDtmTUDbjN5dv9pX1vjQkxgsuBgOMzVuw6oes8k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fkbPfL3veOqOHxXwANImC1XDsS5qdReQiYv2Fl9IuoBvDToOJaJtAaaw461EgaEjSpyKB8QXIcOtTFkUlAxAs/Jkjgk64sfnUyVNfAzE9kE1a4v9SXJJ3RtA9u0Zp/S134bcjxPg9euZEhR4Y28Y/0HbrCjG77cslQKsa2QPmGE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GRgc/zr2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791565616; c=relaxed/simple;
+	bh=iNLOmu2LmpKZwgdfiGlxqSDAP4fbyBaHVZy6CJ3/fSA=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=CniwA1qzv4upuFbYpMqV6sfwULynbGDTo5G6EpwHtUD0N9577BVkd5cvfFiV0aixTp8XrgN7EL3jDLxXu0QYb/A0gg81k6ivw6uQCDPDJ92vWHq5vffp7q/72ZzjTG7IO6BKFrab9L8aiFMsIsNO5tJyCu9LiJG2dQyPzdzFsHw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--cmllamas.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=wnX85CP8; arc=none smtp.client-ip=74.125.82.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--cmllamas.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GRgc/zr2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8B561F000FF;
-	Fri,  9 Oct 2026 17:05:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791565533;
-	bh=isi1S/78aXjX4j7WkQK2y24jEt12fU3sBihyO/l2c7U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GRgc/zr2YV73TaC0geho75UC9CRhhO12LepjspC8iEO5Nbf11nommcqbDoacIXfV5
-	 kT8ISMern0b5nl7DS3bhQO9Bb/JYHwO76TYZfE3Se+NSsbm0CBJxZ+OOUFNpdoWRO8
-	 qHzRFHNp8DhMoP5onwPeYztSLrWFSxlq0ES+laCPaeqnlQFSHL+0Gq2oRRP9+XElaq
-	 1lUF7tkYsGDpYDXDyAeLmWqcCDbjTHA+/fE1KNWcEt93IFki64Wzdh1DG8mvRBpfQg
-	 eWMYfdqsXxfkalHpGKrq5oSOlguKHEna87fp2s5UNKBdFSmr69TlxSJj0eo5olffQO
-	 gH5/190MbSovA==
-Date: Fri, 9 Oct 2026 18:05:29 +0100
-From: Simon Horman <horms@kernel.org>
-To: Omar Ramadan <omar@blockcast.net>
-Cc: Taehee Yoo <ap420073@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net 0/4] amt: fix relay tunnel keying and
- unauthenticated-Request DoS
-Message-ID: <20261009170529.GL83879@horms.kernel.org>
-References: <20261008003606.3666617-1-omar@blockcast.net>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="wnX85CP8"
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-3510d0baf63so14429879eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 10:06:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791565614; x=1792170414; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=k5KasiH5+KHZYBmSfRWkuCJtGiHL9IQdSlo5h/9ywTs=;
+        b=wnX85CP8H/pMPaOsNoXP0GTEvTN6hnMfpxYyYc1d9FtZZjT6qhnjJqUWSARyO835v3
+         IqT8whmo98BcdlAQby2PPACiAPXTv5asdr/l7fhWiJazc1LJgSq2yCz4FYHZZTv37nr7
+         /X5kU+m9GKAtbe1SYSj2KXl7l91zpneP9kQUZ4GFP3b8zP41KVR7OtL1bF+x5m+znyp/
+         ZoRR+k/9VBrWtXhpPZIT9zSGx6+2VeivgdK0860+/nfeRZKh9msyKStSwDcs8Uq0RKi/
+         SyjBvOtyA98AtTjhvNF5pI3shSiXaLqwuNtjqSGrgy+urBPo5kizfuKcvWViM5DfP6zF
+         n9mg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791565614; x=1792170414;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=k5KasiH5+KHZYBmSfRWkuCJtGiHL9IQdSlo5h/9ywTs=;
+        b=Ohy7o/KpIg4LQcAE3zAGkm3jPhWdMCb9vprZNC7RJlXv/hQgwC0ct+9hn4+K0R6XLQ
+         ZvlKdARSxq6j7TRky0/trma39+38Vk5+qDMOljCx9MSaWfq8vfXXywKflE+lZAPyjDlP
+         ziuZhBw4WcjA6PTu4b4Gj5PcP2J7nzan27UksWvGTgzn0B5gzeYKWUwCViwSuNLxHAoI
+         H7abkjGD2sg5Mj+Kolx6ufQZI7inPg7odjNZkzUYHnZacDSiIIK3P51+NN5ZGUGqyJNx
+         LI1SP+DzhJ6JEfbu0H5EWTy8tNbTTwZOF+UA2ASJK3o1p7Ppi9xwOp2pKtJJoQOdKrv7
+         iGRw==
+X-Forwarded-Encrypted: i=1; AKwUvBxBSoPhNos7rl7FiGUb0UL4gLIZV/i2Ix6lXlgD8r6ve07V6kFU5XphMCPwam6IEd6Esn3eU2NE9vi3a/4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLRHdzhJNt2gPg9j2QbeH/ae6CzQLpWtB4I6EX7n/r/hXXrG9OU
+	pbeHbOixhfYrgF+pF1L5qZbrIL1ZrkTwp6V9g7gZ18QoFtyeSLOMQSf7/yH4SDGfookpsnFffrr
+	4iTKgRTVhCXhtZw==
+X-Received: from dybmt5.prod.google.com ([2002:a05:7300:d585:b0:351:4806:4ae4])
+ (user=cmllamas job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7301:4b0f:b0:350:4fc1:f22a with SMTP id 5a478bee46e88-3537e0ba5bfmr3349219eec.21.1791565613330;
+ Fri, 09 Oct 2026 10:06:53 -0700 (PDT)
+Date: Fri,  9 Oct 2026 17:06:27 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261008003606.3666617-1-omar@blockcast.net>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+Message-ID: <20261009170627.3075594-1-cmllamas@google.com>
+Subject: [PATCH] rust_binder: add state_hashed and transactions_hashed files
+From: Carlos Llamas <cmllamas@google.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Alice Ryhl <aliceryhl@google.com>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	"=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	"=?UTF-8?q?Onur=20=C3=96zkan?=" <work@onurozkan.dev>, kernel-team@android.com, linux-kernel@vger.kernel.org, 
+	rust-for-linux@vger.kernel.org, Carlos Llamas <cmllamas@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Oct 08, 2026 at 12:36:01AM +0000, Omar Ramadan wrote:
+The 'state' and 'transactions' binderfs files print the userspace ptr
+and cookie of each node as raw values, which leaks the userspace memory
+layout and forces access to these files to be heavily restricted. Add
+hashed versions of these files, as done for the C driver in commit
+57483a362741 ("binder: Create safe versions of binder log files"), so
+that access to them can be granted more broadly.
 
-...
+Pass a 'hashed' flag down the debug_print() chain and print the ptr and
+cookie through a new MaybeHashed helper, which either prints the raw
+value or hashes it like {:p} does. Everything else in the files remains
+unchanged:
 
-> Omar Ramadan (4):
->   amt: key relay tunnel state on the (address, port) endpoint, not the
->     address
->   amt: send the relay General Query directly instead of via
->     dev_queue_xmit
->   amt: make pre-query report drops visible
->   amt: do not create tunnel state for unauthenticated Requests
-> 
->  drivers/net/amt.c | 315 +++++++++++++++++++++++++++++-----------------
->  include/net/amt.h |  15 +--
->  2 files changed, 206 insertions(+), 124 deletions(-)
+  $ grep "node 2:" /dev/binderfs/binder_logs/state*
+  state:        node 2: u000000003cf2c740 c0000000000000000 hs true ...
+  state_hashed: node 2: u00000000abab9b6d c0000000000000000 hs true ...
 
-Hi Omar,
+Assisted-by: LLM
+Signed-off-by: Carlos Llamas <cmllamas@google.com>
+---
 
-Unfortunately this patch-set did not apply cleanly to net-next at
-the time it was submitted so our CI did not run.
+Notes:
+  The output of the hashed values depends on this {:p} fix:
+  https://lore.kernel.org/all/20261006183857.396710-1-cmllamas@google.com/  
+  Without it, the patch still builds and works, but an odd "0x" prefix
+  is added to the hashed values, e.g. "u0x00000000abab9b6d".
 
-Please rebase and repost.
+ drivers/android/binder/freeze.rs              |  2 +-
+ drivers/android/binder/node.rs                | 39 ++++++++++----
+ drivers/android/binder/node/wrapper.rs        | 14 +++--
+ drivers/android/binder/process.rs             | 14 +++--
+ drivers/android/binder/rust_binder_internal.h |  2 +
+ drivers/android/binder/rust_binder_main.rs    | 52 +++++++++++++++----
+ drivers/android/binder/rust_binderfs.c        | 18 +++++++
+ drivers/android/binder/thread.rs              | 11 ++--
+ drivers/android/binder/transaction.rs         |  2 +-
+ 9 files changed, 122 insertions(+), 32 deletions(-)
 
+diff --git a/drivers/android/binder/freeze.rs b/drivers/android/binder/freeze.rs
+index 38faa8c63af9..1d225c5c6a0b 100644
+--- a/drivers/android/binder/freeze.rs
++++ b/drivers/android/binder/freeze.rs
+@@ -153,7 +153,7 @@ fn should_sync_wakeup(&self) -> bool {
+     }
+ 
+     #[inline(never)]
+-    fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
++    fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str, _hashed: bool) -> Result {
+         seq_print!(m, "{}has frozen binder\n", prefix);
+         Ok(())
+     }
+diff --git a/drivers/android/binder/node.rs b/drivers/android/binder/node.rs
+index b16ea0ff9ed9..1784d73dedc7 100644
+--- a/drivers/android/binder/node.rs
++++ b/drivers/android/binder/node.rs
+@@ -3,6 +3,7 @@
+ // Copyright (C) 2025 Google LLC.
+ 
+ use kernel::{
++    fmt,
+     list::{AtomicTracker, List, ListArc, ListLinks, TryNewListArc},
+     prelude::*,
+     seq_file::SeqFile,
+@@ -213,6 +214,21 @@ impl ListItem<0> for DTRWrap<Transaction> {
+     }
+ }
+ 
++/// Formats the userspace `ptr` or `cookie` of a [`Node`] in full, or hashed like `%p` if the
++/// flag is set, as done for the `*_hashed` binder_logs files.
++struct MaybeHashed(u64, bool);
++
++impl fmt::Display for MaybeHashed {
++    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
++        let Self(value, hashed) = *self;
++        if hashed {
++            fmt::Pointer::fmt(&ptr::without_provenance::<()>(value as usize), f)
++        } else {
++            write!(f, "{value:016x}")
++        }
++    }
++}
++
+ impl Node {
+     pub(crate) fn new(
+         ptr: u64,
+@@ -255,14 +271,19 @@ pub(crate) fn has_oneway_transaction(&self, owner_inner: &mut ProcessInner) -> b
+     }
+ 
+     #[inline(never)]
+-    pub(crate) fn full_debug_print(&self, m: &SeqFile, owner_inner: &mut ProcessInner) -> Result {
++    pub(crate) fn full_debug_print(
++        &self,
++        m: &SeqFile,
++        owner_inner: &mut ProcessInner,
++        hashed: bool,
++    ) -> Result {
+         let inner = self.inner.access_mut(owner_inner);
+         seq_print!(
+             m,
+-            "  node {}: u{:016x} c{:016x} hs {} hw {} cs {} cw {}",
++            "  node {}: u{} c{} hs {} hw {} cs {} cw {}",
+             self.debug_id,
+-            self.ptr,
+-            self.cookie,
++            MaybeHashed(self.ptr, hashed),
++            MaybeHashed(self.cookie, hashed),
+             inner.strong.has_count,
+             inner.weak.has_count,
+             inner.strong.count,
+@@ -755,14 +776,14 @@ fn should_sync_wakeup(&self) -> bool {
+     }
+ 
+     #[inline(never)]
+-    fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
++    fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str, hashed: bool) -> Result {
+         seq_print!(
+             m,
+-            "{}node work {}: u{:016x} c{:016x}\n",
++            "{}node work {}: u{} c{}\n",
+             prefix,
+             self.debug_id,
+-            self.ptr,
+-            self.cookie,
++            MaybeHashed(self.ptr, hashed),
++            MaybeHashed(self.cookie, hashed),
+         );
+         Ok(())
+     }
+@@ -1150,7 +1171,7 @@ fn should_sync_wakeup(&self) -> bool {
+     }
+ 
+     #[inline(never)]
+-    fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
++    fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str, _hashed: bool) -> Result {
+         let inner = self.inner.lock();
+ 
+         let dead_binder = inner.dead && !inner.notification_done;
+diff --git a/drivers/android/binder/node/wrapper.rs b/drivers/android/binder/node/wrapper.rs
+index edfbccf6e6da..c861ac0e7660 100644
+--- a/drivers/android/binder/node/wrapper.rs
++++ b/drivers/android/binder/node/wrapper.rs
+@@ -4,7 +4,11 @@
+ 
+ use kernel::{list::ListArc, prelude::*, seq_file::SeqFile, seq_print, sync::UniqueArc};
+ 
+-use crate::{node::Node, thread::Thread, BinderReturnWriter, DArc, DLArc, DTRWrap, DeliverToRead};
++use crate::{
++    node::{MaybeHashed, Node},
++    thread::Thread,
++    BinderReturnWriter, DArc, DLArc, DTRWrap, DeliverToRead,
++};
+ 
+ use core::mem::MaybeUninit;
+ 
+@@ -94,14 +98,14 @@ fn should_sync_wakeup(&self) -> bool {
+     }
+ 
+     #[inline(never)]
+-    fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
++    fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str, hashed: bool) -> Result {
+         seq_print!(
+             m,
+-            "{}node work {}: u{:016x} c{:016x}\n",
++            "{}node work {}: u{} c{}\n",
+             prefix,
+             self.node.debug_id,
+-            self.node.ptr,
+-            self.node.cookie,
++            MaybeHashed(self.node.ptr, hashed),
++            MaybeHashed(self.node.cookie, hashed),
+         );
+         Ok(())
+     }
+diff --git a/drivers/android/binder/process.rs b/drivers/android/binder/process.rs
+index 64960857bcdc..b19280d224e8 100644
+--- a/drivers/android/binder/process.rs
++++ b/drivers/android/binder/process.rs
+@@ -596,7 +596,13 @@ pub(crate) fn debug_print_stats(&self, m: &SeqFile, ctx: &Context) -> Result {
+     }
+ 
+     #[inline(never)]
+-    pub(crate) fn debug_print(&self, m: &SeqFile, ctx: &Context, print_all: bool) -> Result {
++    pub(crate) fn debug_print(
++        &self,
++        m: &SeqFile,
++        ctx: &Context,
++        print_all: bool,
++        hashed: bool,
++    ) -> Result {
+         seq_print!(m, "proc {}\n", self.pid_in_current_ns());
+         seq_print!(m, "context {}\n", &*ctx.name);
+ 
+@@ -628,13 +634,13 @@ pub(crate) fn debug_print(&self, m: &SeqFile, ctx: &Context, print_all: bool) ->
+         }
+ 
+         for thread in all_threads {
+-            thread.debug_print(m, print_all)?;
++            thread.debug_print(m, print_all, hashed)?;
+         }
+ 
+         let mut inner = self.inner.lock();
+         for node in all_nodes {
+             if print_all || node.has_oneway_transaction(&mut inner) {
+-                node.full_debug_print(m, &mut inner)?;
++                node.full_debug_print(m, &mut inner, hashed)?;
+             }
+         }
+         drop(inner);
+@@ -659,7 +665,7 @@ pub(crate) fn debug_print(&self, m: &SeqFile, ctx: &Context, print_all: bool) ->
+ 
+         let inner = self.inner.lock();
+         for work in &inner.work {
+-            work.debug_print(m, "  ", "  pending transaction ")?;
++            work.debug_print(m, "  ", "  pending transaction ", hashed)?;
+         }
+         for _death in &inner.delivered_deaths {
+             seq_print!(m, "  has delivered dead binder\n");
+diff --git a/drivers/android/binder/rust_binder_internal.h b/drivers/android/binder/rust_binder_internal.h
+index 50a50df14c77..3c4f9a8330bf 100644
+--- a/drivers/android/binder/rust_binder_internal.h
++++ b/drivers/android/binder/rust_binder_internal.h
+@@ -43,7 +43,9 @@ struct binder_device {
+ 
+ int rust_binder_stats_show(struct seq_file *m, void *unused);
+ int rust_binder_state_show(struct seq_file *m, void *unused);
++int rust_binder_state_hashed_show(struct seq_file *m, void *unused);
+ int rust_binder_transactions_show(struct seq_file *m, void *unused);
++int rust_binder_transactions_hashed_show(struct seq_file *m, void *unused);
+ int rust_binder_transaction_log_show(struct seq_file *m, void *unused);
+ int rust_binder_proc_show(struct seq_file *m, void *pid);
+ 
+diff --git a/drivers/android/binder/rust_binder_main.rs b/drivers/android/binder/rust_binder_main.rs
+index 56c786475237..9070c1c46a5f 100644
+--- a/drivers/android/binder/rust_binder_main.rs
++++ b/drivers/android/binder/rust_binder_main.rs
+@@ -163,7 +163,9 @@ fn do_work(
+     /// Generally only set to true for non-oneway transactions.
+     fn should_sync_wakeup(&self) -> bool;
+ 
+-    fn debug_print(&self, m: &SeqFile, prefix: &str, transaction_prefix: &str) -> Result;
++    /// Prints this work item for the binder_logs files, hashing userspace pointers like `%p` when
++    /// `hashed` is set.
++    fn debug_print(&self, m: &SeqFile, prefix: &str, tprefix: &str, hashed: bool) -> Result;
+ }
+ 
+ // Wrapper around a `DeliverToRead` with linked list links.
+@@ -279,7 +281,7 @@ fn should_sync_wakeup(&self) -> bool {
+         false
+     }
+ 
+-    fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
++    fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str, _hashed: bool) -> Result {
+         seq_print!(m, "{}", prefix);
+         if self.skip.load(Relaxed) {
+             seq_print!(m, "(skipped) ");
+@@ -513,7 +515,23 @@ unsafe impl<T> Sync for AssertSync<T> {}
+     // SAFETY: The caller ensures that the pointer is valid and exclusive for the duration in which
+     // this method is called.
+     let m = unsafe { SeqFile::from_raw(ptr) };
+-    if let Err(err) = rust_binder_state_show_impl(m) {
++    if let Err(err) = rust_binder_state_show_impl(m, false) {
++        seq_print!(m, "failed to generate state: {:?}\n", err);
++    }
++    0
++}
++
++/// # Safety
++/// Only called by binderfs.
++#[no_mangle]
++unsafe extern "C" fn rust_binder_state_hashed_show(
++    ptr: *mut seq_file,
++    _: *mut kernel::ffi::c_void,
++) -> kernel::ffi::c_int {
++    // SAFETY: The caller ensures that the pointer is valid and exclusive for the duration in which
++    // this method is called.
++    let m = unsafe { SeqFile::from_raw(ptr) };
++    if let Err(err) = rust_binder_state_show_impl(m, true) {
+         seq_print!(m, "failed to generate state: {:?}\n", err);
+     }
+     0
+@@ -547,7 +565,23 @@ unsafe impl<T> Sync for AssertSync<T> {}
+     // SAFETY: The caller ensures that the pointer is valid and exclusive for the duration in which
+     // this method is called.
+     let m = unsafe { SeqFile::from_raw(ptr) };
+-    if let Err(err) = rust_binder_transactions_show_impl(m) {
++    if let Err(err) = rust_binder_transactions_show_impl(m, false) {
++        seq_print!(m, "failed to generate state: {:?}\n", err);
++    }
++    0
++}
++
++/// # Safety
++/// Only called by binderfs.
++#[no_mangle]
++unsafe extern "C" fn rust_binder_transactions_hashed_show(
++    ptr: *mut seq_file,
++    _: *mut kernel::ffi::c_void,
++) -> kernel::ffi::c_int {
++    // SAFETY: The caller ensures that the pointer is valid and exclusive for the duration in which
++    // this method is called.
++    let m = unsafe { SeqFile::from_raw(ptr) };
++    if let Err(err) = rust_binder_transactions_show_impl(m, true) {
+         seq_print!(m, "failed to generate state: {:?}\n", err);
+     }
+     0
+@@ -574,13 +608,13 @@ unsafe impl<T> Sync for AssertSync<T> {}
+     0
+ }
+ 
+-fn rust_binder_transactions_show_impl(m: &SeqFile) -> Result {
++fn rust_binder_transactions_show_impl(m: &SeqFile, hashed: bool) -> Result {
+     seq_print!(m, "binder transactions:\n");
+     let contexts = context::get_all_contexts()?;
+     for ctx in contexts {
+         let procs = ctx.get_all_procs()?;
+         for proc in procs {
+-            proc.debug_print(m, &ctx, false)?;
++            proc.debug_print(m, &ctx, false, hashed)?;
+             seq_print!(m, "\n");
+         }
+     }
+@@ -601,13 +635,13 @@ fn rust_binder_stats_show_impl(m: &SeqFile) -> Result {
+     Ok(())
+ }
+ 
+-fn rust_binder_state_show_impl(m: &SeqFile) -> Result {
++fn rust_binder_state_show_impl(m: &SeqFile, hashed: bool) -> Result {
+     seq_print!(m, "binder state:\n");
+     let contexts = context::get_all_contexts()?;
+     for ctx in contexts {
+         let procs = ctx.get_all_procs()?;
+         for proc in procs {
+-            proc.debug_print(m, &ctx, true)?;
++            proc.debug_print(m, &ctx, true, hashed)?;
+             seq_print!(m, "\n");
+         }
+     }
+@@ -620,7 +654,7 @@ fn rust_binder_proc_show_impl(m: &SeqFile, pid: Pid) -> Result {
+     for ctx in contexts {
+         let procs = ctx.get_procs_with_pid(pid)?;
+         for proc in procs {
+-            proc.debug_print(m, &ctx, true)?;
++            proc.debug_print(m, &ctx, true, false)?;
+             seq_print!(m, "\n");
+         }
+     }
+diff --git a/drivers/android/binder/rust_binderfs.c b/drivers/android/binder/rust_binderfs.c
+index 25dc54ab45e9..4defc8fa51ee 100644
+--- a/drivers/android/binder/rust_binderfs.c
++++ b/drivers/android/binder/rust_binderfs.c
+@@ -45,7 +45,9 @@
+ 
+ DEFINE_SHOW_ATTRIBUTE(rust_binder_stats);
+ DEFINE_SHOW_ATTRIBUTE(rust_binder_state);
++DEFINE_SHOW_ATTRIBUTE(rust_binder_state_hashed);
+ DEFINE_SHOW_ATTRIBUTE(rust_binder_transactions);
++DEFINE_SHOW_ATTRIBUTE(rust_binder_transactions_hashed);
+ DEFINE_SHOW_ATTRIBUTE(rust_binder_transaction_log);
+ DEFINE_SHOW_ATTRIBUTE(rust_binder_proc);
+ 
+@@ -605,6 +607,13 @@ static int init_binder_logs(struct super_block *sb)
+ 		goto out;
+ 	}
+ 
++	dentry = rust_binderfs_create_file(binder_logs_root_dir, "state_hashed",
++				      &rust_binder_state_hashed_fops, NULL);
++	if (IS_ERR(dentry)) {
++		ret = PTR_ERR(dentry);
++		goto out;
++	}
++
+ 	dentry = rust_binderfs_create_file(binder_logs_root_dir, "transactions",
+ 				      &rust_binder_transactions_fops, NULL);
+ 	if (IS_ERR(dentry)) {
+@@ -612,6 +621,15 @@ static int init_binder_logs(struct super_block *sb)
+ 		goto out;
+ 	}
+ 
++	dentry = rust_binderfs_create_file(binder_logs_root_dir,
++				      "transactions_hashed",
++				      &rust_binder_transactions_hashed_fops,
++				      NULL);
++	if (IS_ERR(dentry)) {
++		ret = PTR_ERR(dentry);
++		goto out;
++	}
++
+ 	dentry = rust_binderfs_create_file(binder_logs_root_dir,
+ 				      "transaction_log",
+ 				      &rust_binder_transaction_log_fops,
+diff --git a/drivers/android/binder/thread.rs b/drivers/android/binder/thread.rs
+index e5ae3b0e56c5..5da1c4513fc7 100644
+--- a/drivers/android/binder/thread.rs
++++ b/drivers/android/binder/thread.rs
+@@ -482,7 +482,12 @@ pub(crate) fn new(id: i32, process: Arc<Process>) -> Result<Arc<Self>> {
+     }
+ 
+     #[inline(never)]
+-    pub(crate) fn debug_print(self: &Arc<Self>, m: &SeqFile, print_all: bool) -> Result {
++    pub(crate) fn debug_print(
++        self: &Arc<Self>,
++        m: &SeqFile,
++        print_all: bool,
++        hashed: bool,
++    ) -> Result {
+         let inner = self.inner.lock();
+ 
+         if print_all || inner.current_transaction.is_some() || !inner.work_list.is_empty() {
+@@ -510,7 +515,7 @@ pub(crate) fn debug_print(self: &Arc<Self>, m: &SeqFile, print_all: bool) -> Res
+         }
+ 
+         for work in &inner.work_list {
+-            work.debug_print(m, "    ", "    pending transaction ")?;
++            work.debug_print(m, "    ", "    pending transaction ", hashed)?;
+         }
+         Ok(())
+     }
+@@ -1788,7 +1793,7 @@ fn should_sync_wakeup(&self) -> bool {
+         false
+     }
+ 
+-    fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
++    fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str, _hashed: bool) -> Result {
+         seq_print!(
+             m,
+             "{}transaction error: {}\n",
+diff --git a/drivers/android/binder/transaction.rs b/drivers/android/binder/transaction.rs
+index e627522141b8..e5ad49c9e180 100644
+--- a/drivers/android/binder/transaction.rs
++++ b/drivers/android/binder/transaction.rs
+@@ -772,7 +772,7 @@ fn should_sync_wakeup(&self) -> bool {
+         !self.flags.is_oneway()
+     }
+ 
+-    fn debug_print(&self, m: &SeqFile, _prefix: &str, tprefix: &str) -> Result {
++    fn debug_print(&self, m: &SeqFile, _prefix: &str, tprefix: &str, _hashed: bool) -> Result {
+         self.debug_print_inner(m, tprefix);
+         Ok(())
+     }
+
+base-commit: c26cc979e28f5193310e4379e14aa6417375c565
+prerequisite-patch-id: 4aaa9c816eb12666d45b37e79fd4eb54d68399f8
 -- 
-pw-bot: changes-requested
+2.56.0.385.gd3acb90ef8-goog
+
