@@ -1,69 +1,68 @@
-Received: from mail-qk2-f6.google.com (mail-qk2-f6.google.com [74.125.230.198])
+Received: from mail-qk2-f8.google.com (mail-qk2-f8.google.com [74.125.230.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 943084EFFD4
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 19:44:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2C7A4FB9C5
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 19:44:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791575100; cv=none; b=XkZnRWpsikbYArZCvuzDt+w3mbsUFGrOvQXCfpwHiAARNBH1K/hxiqPi8bj/0Q1iiDfmg86+bNOPhEvtsNdWA0zpNqG+9UDJaFU8VHOb/TdAt0DWLEGVd1NpV3cGpQ0UBOFZoZUZVakmaP+ymsGJv5FyU4yhUIi4JsDOQAjVz+8=
+	t=1791575101; cv=none; b=qKtz6GSAoBP0h6N40oZh3jl2UV/4g+1ilrpCg+DCDL4XxEVOgJSLsCWcATvckqMLumU6EUJ+jk/VO+KUoCe01TWcyNI4U6SgpQJXUq0lEBMkG2dNAn2n5cSiR3AIS3jkqSC1QLt1BRETl0NZ+uqRAZgwZCJLlXtLV18Gn2yT7HI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791575100; c=relaxed/simple;
-	bh=6mQzJb6HQwk/MiupaE++x+vH8v5ByWD2TN9pKFcfIxw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=a/O6LCY5+WlQjghUNuZxNPoOPHZ1VCmRJxXv2jKqPx8Hu0UFz2PeV8EkLYO57Lu8axG7CflgDF7aLHiz9QOzQYa8lKP1gz+Voy+SQyhTmFKam5Ab4YIaHvN1ZvWaIEbfCYIymqv5FnwF84sy7eNCfzyfjconpdyufjspxfKw7/U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ic1GyZJQ; arc=none smtp.client-ip=74.125.230.198
+	s=arc-20240116; t=1791575101; c=relaxed/simple;
+	bh=L3vc6anihw9NuQdcLcZ4gFYI/0/LOL9Q755uzReuYQk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=cDmxJ0XaGd2JZFDuMaNNZkL94DnlOMT3Yrwq4ouZTa0PNeEor9ooom7AIgkH4k5/fctGzATfSNtMo3IJ+cfzcDnMrdy1THL7audP567gehAJpCXVHVDoiFwAXUP+qvKJJizZf0W6AmOEOjEmSrKxsg+nca4KVRiYkLbYNqLbnQs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gd2T0oDK; arc=none smtp.client-ip=74.125.230.200
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ic1GyZJQ"
-Received: by mail-qk2-f6.google.com with SMTP id d75a77b69052e-52e3a588bbcso114451cf.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 12:44:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gd2T0oDK"
+Received: by mail-qk2-f8.google.com with SMTP id af79cd13be357-9367f27ddcbso3871485a.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 12:44:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791575090; x=1792179890; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=euHLhhJIoJOkj7GaOyOYBfCDgPoUg6f5MHX5Oe6p4Tw=;
-        b=ic1GyZJQ7vPj7sQ4ZlHdVRRNLG+u0PfXoSGCWDjz3CrzXEf9dlrjyXBq/1LYJX+/zb
-         zzLviggvjYuYJf+s0BQOz9em9YdAPLpouHjCLgWbGv1Tsb2dXsAW3ylUWhQWP0d6Zfc4
-         p8Q0J4Iz0txmZoqetn4Aqdm175sr1zJz0rQcWXImZwvX92AIe0dv2RmRKM+Ks+Cad0b7
-         z/BocPvOtDImHC/c/v6N2mJ++7B6VjdmQbbb57Vq8qynNepJ1wWp5PaWwlSTm+dFRay5
-         bHW3jwVhv/SLIqJ/bngXWvVtQz9YWKVzJ24kCpfcn8nLz5Gir2pfJOh9BFihY8mLBNnb
-         DS7Q==
+        d=gmail.com; s=20251104; t=1791575087; x=1792179887; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=n5sVI1GUHdT0XZZxczYNHjQkkrtpSuPJARpcgHnshWU=;
+        b=gd2T0oDKeX7OtKr+ppX3C9jOOA7V7S/djhYo4Xg4ODK1qDdTRTWub1UJlvZicbA7H9
+         +CrpNnkHnohBSTpv8zcvSLu+OS7zPsVn3ziaGw2g5ITK3gLfVxTqcxMTMuTdnCXmgaSX
+         z9F12Z13hCNvlVDviczutAPJP/MUluWeN1ai/ZE1CAYIBC5J58hs3oumMn+d0L8/W82S
+         bm4bC/Y0XOQX5Pwl0IzLb+6Ov14IW1iUeOOFCnMi8/6n13ccycPGZUeoCWb37wzKXVtS
+         qonUE0E9XHmBTVyKn3mBCNHTSytHbFIuOX7CkBcVzflIXZRPtsenzuZQ+pWCcdEuyF2P
+         flSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791575090; x=1792179890;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=euHLhhJIoJOkj7GaOyOYBfCDgPoUg6f5MHX5Oe6p4Tw=;
-        b=VbDEl8YGnmpfWMjTyDMvBnzU8YoZOCv1qCin5waQgQE13wRMnuF/k9eoKgQjkYs6Ph
-         jjuvoPGMmADQ3zJB1Z2VHP9QgJTdrBEu75e2PaYpsxQL3Nrv+LAF184X3z3Aa/aQPMWA
-         FbeeUC3NLmXxGxRLyM/h0MBMcL1DyzFVRqnu9C1tP5G7x4fwGDQ9J/bx2mIpEqT3xz5F
-         fap83f1pzwzH6WEaXUsEhgtLAa5HrwaaLOlMMo1Cpo3r9xAK4caTSUS4mU0XHhRncxux
-         X+y0+FE95AZy9m5+/05YohiVRmJFloaa2eB1FtEfRNsBzjpqMkLuk+eUsA7hIj/t0uUK
-         1aqA==
-X-Forwarded-Encrypted: i=1; AKwUvBwVXdFvMrEBKaoqYavmzw6KI2di8JmTadiITQN8AiIyTcD49EsrXyrZ4OmJPlzuxmqIARoOM27MdpGqz24=@vger.kernel.org
-X-Gm-Message-State: AFuF++mmaiazg7rhLxJqglZHWTSfBvK4Lb+F8Xl3xA72u3bdszsOOHI0
-	Qsq6NPYSP6643hYtzFFi5BD+asUhquJY/XZJH/Q4YGZIStQxaTBTbrDu
-X-Gm-Gg: AYBFou2K5F1vtGpgyeHYzqHpSZM2Og//dHA+C1j8qA/yHgUkBNvj1hRBuiDCzM7IV/V
-	ypPcabVp+RRIhwP0wIfcxaX7kDcFtzhtTZ6qZsL8YUqIsIqxNRCfa45f6etJRULIrUbG5ntJ8JV
-	Md0a0Z06m+Eq+JCCYfHepkjhBFOhYmPnBPM72nDlElBGQPcSgYmCx0J/tgVP0LiaXypZB/IvX3l
-	OwBLaSVKn7mqATrPPDuhPSpaAazC5xIxeWC2CdYn6yK4Dt7p/IxdGH70Vt48MholfkXmEhwPVdr
-	hvV+QmBElETO8oZXXYF9ZQOvrAEk5LnKwv4+jJ6IaqO/7Gad39WvVHC3otCn82x26jdE9FI/9E3
-	df924rlmSRICDjmck3A94s7yYC9JP8hWa2kdO0qvG3BxZFThZ5OeXK1rDLm2IXAO/Z11ztYNUfQ
-	c1b5Q6wr6kxyXGS3seIxD7Y50WMxMa5NZiIK728KK1jgDjWGeWP6xQWT648bHrWCqtsuNdKYOLl
-	7fqVclS6Ls2UNIc4TowIEYvqQSP7Ocwdk0/uH99hrR9rpih6Ky8Xmh8mDlrwUxNxBCPOJTqxTI=
-X-Received: by 2002:a05:620a:4114:b0:93e:c173:f692 with SMTP id af79cd13be357-93ec1740673mr344729485a.38.1791575090195;
-        Fri, 09 Oct 2026 12:44:50 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791575087; x=1792179887;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=n5sVI1GUHdT0XZZxczYNHjQkkrtpSuPJARpcgHnshWU=;
+        b=AgalDSj3+T+ec0zijcvtvMggvX9W7iQ9wmFbdjn9dE0x7qazS4qDbN7WhKT8Jk4Lw1
+         ty8Ys7Hnyf5lD9UFLJd+eydz6jF2CN3VVM8+A0kTBxoBbaz+kKhiXB9wjJjAsQ+7y345
+         a1dzSy+A73mobGMW7gP8czLUJ2TS46sRA5o4MrpQ5ubjjy097A3ZRr6Qeyu4o1E6Ih9y
+         67Tb/gDv6xWWfgymLWkA+7eBVZ9RPNeGCE+N5iRe8cKHW+Va5gSRLmGrt/8zIS3EORvA
+         5ko+xXA+nSMqOL2ydJaZ1OGs1Ly54IWbtGsPA2mJF2ej/uehOhcze5x+nuZ0N7irtq7n
+         TUGQ==
+X-Forwarded-Encrypted: i=1; AKwUvByCNjczGOP7HL8Go7oGzh/t/oXOBhvaGOINckVOmeE7pGYruOW2OQWkHzckDEDL+N3I9K4NeXxqJxoQ7YQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lS/shQszA/LGvH81P7PlUEGovKXUwu1uKH1VyvXQBQ/U+QqyzK
+	ssQ56OhRecYtgpF8UzyGJu3HDWGOUH81BleUcL1vk9q555/OruyhSVFO
+X-Gm-Gg: AYBFou3MHt56FW0IdYNah4Qm/UDmkeWLf6x+LPUCam8yRDTQdaETWm/E+acy+UTQ31U
+	qi2hiK11CTXQjwns4dlzgHpjXYZ3t4+rMpBLkKYt6UinRpQTAxWfSw9PUhGwXhK91qwrobAu0iB
+	FtJXVOQLzuMnpLnDkh/D5I3SThh0sLyGv1C3d2+hUIYqN5o1YC54147BQWsuZi8lnHo2hnGxTZd
+	z/820rGlrF6TEx6uANWYX07B92pPT/gKSDVroQ85pStgj9PjwHMhv3b/IKG8g3CqN6VZMo5HWJ3
+	bKPMff4b677ELa/51VQKLsNghFBGnEWuqLr5nL0lGpPniYc4W4Eszgh11AlADGpZpov/ZzCv+Nw
+	a7KOLdmPTXr9PLbD0Lpk/gWYGFbECKSqs3zd4UoOPiBbj7sok2Vlr3vrW1VnWagbMJpH64NqVWU
+	y7n+fZWrIEjdLVwFZbcMe1MPNS2cIZPGTxvd+Vyg1uVKrpt7RnoEOcmFm/9DFW2Y9uCN+GOMIK4
+	Xof+nt84IQ5qLmrZhwzMkyqGoGVvvaB1cTlTQqaXSu4unGT+rVcJgGlDyFbAzhM6Q==
+X-Received: by 2002:a05:620a:3186:b0:939:b057:daf2 with SMTP id af79cd13be357-93ebd26c06amr503914585a.45.1791575087187;
+        Fri, 09 Oct 2026 12:44:47 -0700 (PDT)
 Received: from [10.10.18.223] (wsip-64-207-253-118.tu.ok.cox.net. [64.207.253.118])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb98c5633sm259293485a.35.2026.10.09.12.44.48
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb98c5633sm259293485a.35.2026.10.09.12.44.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 12:44:49 -0700 (PDT)
+        Fri, 09 Oct 2026 12:44:46 -0700 (PDT)
 From: Ryan Brue <ryanbrue.dev@gmail.com>
-Date: Fri, 09 Oct 2026 14:44:44 -0500
-Subject: [PATCH v2 2/2] arm64: dts: mediatek: mt8173: Mark the lowest CPU
- OPPs for suspend
+Subject: [PATCH v2 0/2] cpufreq: mediatek: Suspend at the opp-suspend OPP,
+ and mark one on MT8173
+Date: Fri, 09 Oct 2026 14:44:42 -0500
+Message-Id: <20261009-rbrue-suez-upstreaming-mtk-cpufreq-suspend-opp-v2-0-ba13f826eae1@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,9 +71,11 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-rbrue-suez-upstreaming-mtk-cpufreq-suspend-opp-v2-2-ba13f826eae1@gmail.com>
-References: <20261009-rbrue-suez-upstreaming-mtk-cpufreq-suspend-opp-v2-0-ba13f826eae1@gmail.com>
-In-Reply-To: <20261009-rbrue-suez-upstreaming-mtk-cpufreq-suspend-opp-v2-0-ba13f826eae1@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5WNQQ6CMBBFr2K6dsy0MUBdeQ/DAugAE22pLSUq4
+ e5WbuDy/Z//3yoiBaYoLodVBFo48uQyqONBdGPjBgI2mYVCVaBWGkIbEkFM9IHk4xyosewGsPM
+ dOp/6QM9cRk/OwOQ9VNJIZQosStmKfOoD9fzahbc688hxnsJ79y/yl+4qifi3apGAoPOyL3V7x
+ gqvg234ceomK+pt275iZ9WU7AAAAA==
+X-Change-ID: 20260929-rbrue-suez-upstreaming-mtk-cpufreq-suspend-opp-81d12d60671b
 To: "Rafael J. Wysocki" <rafael@kernel.org>, 
  Viresh Kumar <viresh.kumar@linaro.org>, 
  Matthias Brugger <matthias.bgg@gmail.com>, 
@@ -86,48 +87,74 @@ Cc: Roman Vivchar <rva333@protonmail.com>, linux-pm@vger.kernel.org,
  linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
  Ryan Brue <ryanbrue.dev@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791575085; l=1277;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791575085; l=2772;
  i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=6mQzJb6HQwk/MiupaE++x+vH8v5ByWD2TN9pKFcfIxw=;
- b=gj/o9tBfq/u6ETFIfGltk7J8BWOdbJWMwl2Y6rCdaGMSFsSW0ix2W8xJy55yWtCQ3zXD6INIY
- 13nPrTKxq5nAiEXuBKEl34WBlW0aJ9qkX1kzvEvLJvSkxByDdA/pOB5
+ bh=L3vc6anihw9NuQdcLcZ4gFYI/0/LOL9Q755uzReuYQk=;
+ b=hRi+Wn9i8/fos9oTP6rkL2wurMq9Zk3718GB4hzvsxAUVc5U5D9CmncK/Q5GUIoL8THYrgpiG
+ pGp5tGoInymCtt/2+7TOUdLSu6ggVJojj74K4eEy/FIuaTSyF+cQksX
 X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
  pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 
-Both clusters otherwise enter system sleep at whatever OPP the governor
-last chose. On the Amazon Fire HD 10 (2017), entering suspend-to-RAM with
-both clusters at their highest OPP measured 63.5 mA, against 52.0 mA
-when they suspend at 507 MHz. Mark the 507 MHz OPP of each cluster, the
-lowest in both tables, as the one to suspend at. mediatek-cpufreq uses
-it for system sleep, and a kernel without that support ignores it.
+mediatek-cpufreq has no .suspend callback, so each cluster enters system
+sleep at whatever OPP the governor last chose. On the Amazon Fire HD 10
+(2017), an MT8173 tablet that is not upstream yet, entering
+suspend-to-RAM with both clusters at their highest OPP (2106 and
+1703 MHz) measured 63.5 and 63.6 mA, against 52.0 and 52.0 mA with this
+series. Those are 15-minute windows of the PMIC's coulomb counter,
+alternating with and without the change; one count is about 2.9 mA.
+Earlier, on the board's previous firmware path, s2idle drew 210-232 mA
+against 158 mA.
 
-Assisted-by: LLM
+Patch 1 takes the suspend frequency from the OPP table's opp-suspend
+entry, as cpufreq-dt does, rather than always using the lowest OPP. That
+keeps it opt-in per SoC: this driver also runs mt2701, mt7622, mt8183,
+mt8186 and others I cannot test, and no MediaTek table has opp-suspend
+today, so they are unchanged. Patch 2 marks the lowest OPP of both MT8173
+clusters.
+
+Patch 2 also reaches elm, hana and the EVB, which I cannot test either.
+What they get is a switch to 507 MHz in cpufreq_suspend(), which runs
+before any device is suspended, so the regulators it needs should still
+be up. cpufreq_suspend() also runs from device_shutdown(), so reboot and
+power-off switch first as well; on the tablet, reboot -f still resets in
+1.4 s.
+
+Patch 2 does nothing without patch 1 and is harmless on its own, so the
+two can go through the cpufreq and MediaTek trees independently.
+
+To: Rafael J. Wysocki <rafael@kernel.org>
+To: Viresh Kumar <viresh.kumar@linaro.org>
+To: Matthias Brugger <matthias.bgg@gmail.com>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: Roman Vivchar <rva333@protonmail.com>
+Cc: linux-pm@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-mediatek@lists.infradead.org
+Cc: devicetree@vger.kernel.org
+
 Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
 ---
+Changes in v2:
+- Add the Signed-off-by missing from v1. No other change.
+- Link to v1: https://patch.msgid.link/20261009-rbrue-suez-upstreaming-mtk-cpufreq-suspend-opp-v1-0-9100f79b4080@gmail.com
+
+---
+Ryan Brue (2):
+      cpufreq: mediatek: Enter system sleep at the suspend OPP
+      arm64: dts: mediatek: mt8173: Mark the lowest CPU OPPs for suspend
+
  arch/arm64/boot/dts/mediatek/mt8173.dtsi | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/cpufreq/mediatek-cpufreq.c       | 2 ++
+ 2 files changed, 4 insertions(+)
+---
+base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
+change-id: 20260929-rbrue-suez-upstreaming-mtk-cpufreq-suspend-opp-81d12d60671b
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt8173.dtsi b/arch/arm64/boot/dts/mediatek/mt8173.dtsi
-index 78c2ccd5be13..7f1af15cb934 100644
---- a/arch/arm64/boot/dts/mediatek/mt8173.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8173.dtsi
-@@ -56,6 +56,7 @@ cluster0_opp: opp-table-0 {
- 		opp-507000000 {
- 			opp-hz = /bits/ 64 <507000000>;
- 			opp-microvolt = <859000>;
-+			opp-suspend;
- 		};
- 		opp-702000000 {
- 			opp-hz = /bits/ 64 <702000000>;
-@@ -93,6 +94,7 @@ cluster1_opp: opp-table-1 {
- 		opp-507000000 {
- 			opp-hz = /bits/ 64 <507000000>;
- 			opp-microvolt = <828000>;
-+			opp-suspend;
- 		};
- 		opp-702000000 {
- 			opp-hz = /bits/ 64 <702000000>;
-
--- 
-2.55.0
+Best regards,
+--  
+Ryan Brue <ryanbrue.dev@gmail.com>
 
