@@ -1,84 +1,127 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FB173DA5A9;
-	Fri,  9 Oct 2026 10:38:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0365E4A3D45;
+	Fri,  9 Oct 2026 10:38:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791542304; cv=none; b=cU9S2Bedf/aTB99zP8s0nwUOVgW5ZaTbjYhGkbw1pwIwnCd/iP4XmPsx2IAzB1DDmebNnWP1C2/C14Z0nCx/FxVmxXcYCYBGXjKJCyilGWXOtshBFc5LMm23F/tJv28dMzGaN5PT7KdPSw0PTW3KoeGo/6pVOTd+uaAkCqAXrTo=
+	t=1791542306; cv=none; b=aC8gGOK7dUVlG5et8wXtKd4fgXxMM1LvTCgtjukJIxrEVszwe3luSD0HV5mhlQuhDwglE57lRCrj3Yfl/NnG1FLxyUXY/NEBFrTATnlA63A0SpYmen13iE4h/Y341euGVDGEla8STHEoXgJ3mwN2BsWvkd71xMWhiK2KUl9hhgc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791542304; c=relaxed/simple;
-	bh=r3bmrxV+t3fPSMRAU/WJh+2ymAD55jqvxklsd7ARlac=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=qNXU2Y4BIFhyXEFeqXGu98ZAMMrSngR5bRr2qrgVrY08qlf5uUVvqnMSH3mbQc6Cpn16HBOy1xDP+huQuz2ut7vup3nFIbgscPi0+AiUJhQ6l4MxjXxtgQnqeACGlFTHkrA+J8543XxZkyobbyqBXgm7zZ51DVcj6GTDEheIyVY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YlW+4jUD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791542306; c=relaxed/simple;
+	bh=htENU+WFv6b7WEProazmWjD+smGKS7hwdNNZFKYqrJY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=t1FnLVARTVFf37t7WZvSDtmQmnZ3Qr5aFUuGJPFZbrfbokaSmOSxurue9giShamaOjdPYDqDTwnlyJuET4klYQiU+YXDQri6VLLs11ZapYEcCRFqTK/NufIiEaAsm6BQs/06qoHckKE+iHvlDWWgDqnKdly7D44S/SoNjhggi6Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ukif069b; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YlW+4jUD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 944041F000FF;
-	Fri,  9 Oct 2026 10:38:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ukif069b"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4C0D1F00893;
+	Fri,  9 Oct 2026 10:38:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791542303;
-	bh=r3bmrxV+t3fPSMRAU/WJh+2ymAD55jqvxklsd7ARlac=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=YlW+4jUDLiex4nL+P4RAOpxGR6Dod1U7kBIPCeYPqGluAcRfccw7qBl6o8mmCGGXP
-	 p8Qgk+dTHggYIbeTCZSEWmLRjtVtvfN5T+Rr26hkf9mmoUnIKKQNV2ENhiz+v2oRdD
-	 oVbKyZfOHw/QaUw9jZAAXiOetChEhWh6slfZJ9u/1XPBQ5oqUwgnLfIS8kzSx236VX
-	 vIo3QBvO/orMMsVm+WhBEKAEYYpNFmibO2SOpSquyMIaH46xMFxClxTxgEaLK9ewhy
-	 0onpnFuNEXmz4E68P89210wvyx/ArbFvi4+W/YopRFMy/xXcxC8s/twtjmv6Uz2x6F
-	 vM2Uxql6ODdmg==
-Message-ID: <sashiko-outbox-165245@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/2] Drivers: hv: Run VMBus kexec cleanup from
- syscore shutdown
-Reply-To: sashiko-reviews@lists.linux.dev
-To: catalin.marinas@arm.com, wei.liu@kernel.org, "Shradha Gupta" <shradhagupta@linux.microsoft.com>, mhklinux@outlook.com, baoquan.he@linux.dev
-Cc: will@kernel.org, broonie@kernel.org, rppt@kernel.org, linux-hyperv@vger.kernel.org, kexec@lists.infradead.org, haiyangz@microsoft.com, pasha.tatashin@soleen.com, tglx@kernel.org, linux-kernel@vger.kernel.org, kees@kernel.org, kys@microsoft.com, hpa@zytor.com, brads@mainlining.org, akpm@linux-foundation.org, mark.rutland@arm.com, bp@alien8.de, namjain@linux.microsoft.com, longli@microsoft.com, mingo@redhat.com, pratyush@kernel.org, x86@kernel.org, maz@kernel.org, linux-arch@vger.kernel.org, dave.hansen@linux.intel.com, decui@microsoft.com, arnd@arndb.de, linux-arm-kernel@lists.infradead.org
-In-Reply-To: <20261009102250.3361076-1-shradhagupta@linux.microsoft.com>
-References: <20261009102215.3360863-1-shradhagupta@linux.microsoft.com>
- <20261009102250.3361076-1-shradhagupta@linux.microsoft.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 10:38:21 +0000
+	s=k20260515; t=1791542304;
+	bh=w5904W0t0ZnvcUfCq5bhPXcTL7BLZj4BKiiOXdO29Xc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ukif069bsCLtQOooviYuWtvgl9fw2ZX8IPNm34pI0LflzZOKQaKHMZ1PZGy/6vrg/
+	 MABARoWjyTQIPt50Y+6gGWkTv+/nKeKcoCiU9lwYe7GZaabvVBg3Ibi33+3fefgaMc
+	 35RtQnn2gyFIm4mETr9StcYYzBXtxJVRdBVpAPQo3hJwYoTGJLvG5LFpA8j5kYn7sl
+	 pqSddMM7LzYlq1AG5OqbtyUcyoFbOl4uIgVIVWqkYAZxHes/ys54S5nEWXaiPrE7eG
+	 6n/KIIFZOvK4NT1wmtGSyl4LztVrSsEUwzTktiQyVfey2LBOMpdXhdr4CQRc2UaMrI
+	 hnyts23gYx7Cw==
+Date: Fri, 9 Oct 2026 12:38:20 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: media: i2c: Add OmniVision OV3660 image
+ sensor
+Message-ID: <20261009-merry-idealistic-hornet-0ee3e9@quoll>
+References: <20261008160650.73927-1-tien.nguyenminh@embeddedlinux.blog>
+ <20261008160650.73927-2-tien.nguyenminh@embeddedlinux.blog>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261008160650.73927-2-tien.nguyenminh@embeddedlinux.blog>
 
-> ARM64 Hyper-V guests do not run the VMBus kexec cleanup before
-> secondary CPUs are stopped. Consequently, the old VMBus connection
-> and SynIC state remain active when the kexec kernel starts.
->=20
-> Run the VMBus kexec handler from the existing VMBus syscore shutdown
-> callback. syscore_shutdown() runs after device shutdown and before
-> machine shutdown, while all CPUs needed by the SynIC CPU hotplug
-> teardown are still available. Guard the callback with
-> kexec_is_in_progress() so normal restart, halt, and poweroff paths are
-> unchanged.
->=20
-> Use the same path on x86 and remove the architecture-specific handler
-> pointer and the weak setup/remove interfaces. VMBus teardown now
-> precedes hv_stimer_global_cleanup() on x86.
->=20
-> The new x86 ordering relies on commit be0cfab740e5 ("clocksource:
-> hyper-v: Remove support for stimer interrupts in message mode"), which
-> removed the synthetic timer's dependency on VMBus message delivery.
-> Older kernels that retain message-mode stimer interrupts must preserve
-> the existing x86 ordering and therefore require an ARM64-specific
-> backport.
->=20
-> Document the VMBus cleanup path and its position in shutdown ordering.
->=20
-> Fixes: 9bbb888824e3 ("arm64: hyperv: Initialize hypervisor on boot")
-> Link: https://lore.kernel.org/all/20260814093133.3191250-1-shradhagupta@l=
-inux.microsoft.com/
-> Suggested-by: Catalin Marinas <catalin.marinas@arm.com>
-> Suggested-by: Michael Kelley <mhklinux@outlook.com>
-> Signed-off-by: Shradha Gupta <shradhagupta@linux.microsoft.com>
+On Thu, Oct 08, 2026 at 11:06:49PM +0700, Nguyen Minh Tien wrote:
+> Add a binding for the OmniVision OV3660, a 1/5" 3 megapixel CMOS image
+> sensor with an image signal processor and a parallel (DVP) output.
+> 
+> Its 1.5 V core can come from an internal regulator, so the DVDD supply
+> is optional. The endpoint gives the bus width, the sync and pixel clock
+> polarities, and the pixel clock frequencies the board can take.
+> 
+> Assisted-by: Claude:claude-opus-5-5
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+: LLM
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009102215.3360=
-863-1-shradhagupta@linux.microsoft.com?part=3D2
+(see current docs)
+
+> Signed-off-by: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
+
+...
+
+> +  avdd-supply:
+> +    description: Analog voltage supply, 2.8 volts
+> +
+> +  dovdd-supply:
+> +    description: Digital I/O voltage supply, 1.8 or 2.8 volts
+> +
+> +  dvdd-supply:
+> +    description:
+> +      Digital core voltage supply, 1.5 volts. Not needed when the internal
+> +      regulator is used.
+> +
+> +  powerdown-gpios:
+> +    maxItems: 1
+> +    description: Reference to the GPIO connected to the PWDN pin, if any.
+> +
+> +  reset-gpios:
+> +    maxItems: 1
+> +    description: Reference to the GPIO connected to the RESETB pin, if any.
+> +
+
+All this looks the same as ovti,ov2732, so are you sure bindings should
+be different?
+
+> +  port:
+> +    description: Parallel output port
+> +    $ref: /schemas/graph.yaml#/$defs/port-base
+> +    additionalProperties: false
+> +
+> +    properties:
+> +      endpoint:
+> +        $ref: /schemas/media/video-interfaces.yaml#
+> +        unevaluatedProperties: false
+> +
+> +        properties:
+> +          bus-width:
+> +            enum: [8, 10]
+> +
+> +          data-shift:
+> +            enum: [0, 2]
+> +
+> +          pclk-sample:
+> +            enum: [0, 1]
+
+I guess these constraints are different than other ov-sensors...
+
+> +
+> +        required:
+> +          - bus-width
+> +          - hsync-active
+> +          - vsync-active
+> +          - pclk-sample
+> +          - link-frequencies
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+Best regards,
+Krzysztof
 
