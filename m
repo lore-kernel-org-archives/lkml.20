@@ -1,97 +1,311 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE4A149D587;
-	Fri,  9 Oct 2026 10:44:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A1CA4B95BB;
+	Fri,  9 Oct 2026 10:45:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791542666; cv=none; b=eDcnc6jI/35O2y8vQe+TWCJ6jRNxNLY1oSQu9Soh8M16BMQpUeEtuhPpgx6kqphP9F8yETXhKHrBio4KubtLBIB2BvfjNe+IojgaB4d6hsTf4nt5KIBQoQbGL69grShn8r6YDfsEr6UlqW42fekvH3/RsxChOEl2XiY3d8KZ/Pw=
+	t=1791542729; cv=none; b=c6ChL1jo4vvnockJXWKKA6GaSnMh8i9jcydUNX+gjZQ6m6949azweO+okhlkuYoHpU7zLjWMzaLQt8u+pchaacUW6O3WWNjpRr29ok8mLGpyIxuU7FyUSvpLuNMuH3BNDCZ+yy8FIuZl1dKQsBG3a3JK/kybEBhgkpP2Tfm7ByM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791542666; c=relaxed/simple;
-	bh=GGB8iFEr3Rwu/Rbhkl/QSnxRbt+s/12V3Y/+M0s3zkc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pzIuM4to9PRPb11lbpox1YW8TmhZfj5f6bDxXoOJTQLC+AGEsppUYeJM8aHJNLlABt1RFpnjRDgkqGMqQwaAFqfIlM+kb9Z6Z1mU9LdT5pbZydhPVrnDV2SSZkGlE14U5ymYyv+oPT1cuxXhjDMzry5gQZumYTvntsZnwQT00mY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 022FD21BF5;
-	Fri,  9 Oct 2026 10:44:16 +0000 (UTC)
-Authentication-Results: smtp-out1.suse.de;
-	none
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 778F7136D9;
-	Fri,  9 Oct 2026 10:44:15 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id RNfADn/FyGoYLAAAD6G6ig
-	(envelope-from <ggherdovich@suse.cz>); Fri, 09 Oct 2026 10:44:15 +0000
-Message-ID: <f15bb2b4-f11e-4e44-959d-11055720d99b@suse.cz>
-Date: Fri, 9 Oct 2026 12:44:10 +0200
+	s=arc-20240116; t=1791542729; c=relaxed/simple;
+	bh=iECYlr3bMuNBBbuvYrJ55uDpgKBGiWYTc71+OIOFe3c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Omx2dbS5wQaWHm/IuBRMViYjoo3CibNotGSqfYgqpp+5eae80s1//zZPJ0w8y6SEQbWqPySvnXRyiADGoFXQZDKD38m5VVorlLJGrnDdbzXX+0JZJ3hqHKgKFyxP1XhCPmX0+c6wXyQTVXORwZFZ2t09P5IYU/2nRwNda8X7/Gs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.177])
+	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4j1Nll5n3mzYQv3g;
+	Fri,  9 Oct 2026 18:44:35 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.128])
+	by mail.maildlp.com (Postfix) with ESMTP id 043E440917;
+	Fri,  9 Oct 2026 18:45:20 +0800 (CST)
+Received: from huaweicloud.com (unknown [10.50.85.155])
+	by APP4 (Coremail) with UTF8SMTPSA id gCh0CgD3xim0xchqcxdfDQ--.55186S4;
+	Fri, 09 Oct 2026 18:45:19 +0800 (CST)
+From: Zhang Yi <yi.zhang@huaweicloud.com>
+To: linux-ext4@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	tytso@mit.edu,
+	adilger.kernel@dilger.ca,
+	libaokun@linux.alibaba.com,
+	jack@suse.cz,
+	ojaswin@linux.ibm.com,
+	ritesh.list@gmail.com,
+	djwong@kernel.org,
+	hch@infradead.org,
+	yi.zhang@huawei.com,
+	yi.zhang@huaweicloud.com,
+	yizhang089@gmail.com,
+	chengzhihao1@huawei.com,
+	yangerkun@huawei.com,
+	wangkefeng.wang@huawei.com,
+	yukuai@fnnas.com
+Subject: [PATCH v7 29/31] ext4: add tracepoints for EOF block zeroing and disksize-grow I/O
+Date: Fri,  9 Oct 2026 18:38:29 +0800
+Message-ID: <20261009103831.2978767-1-yi.zhang@huaweicloud.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20261009103033.2920530-1-yi.zhang@huaweicloud.com>
+References: <20261009103033.2920530-1-yi.zhang@huaweicloud.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] cpufreq: Don't track pressure if policy->max equals top
- of freq_table
-To: Christian Loehle <christian.loehle@arm.com>,
- "Rafael J . Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>
-Cc: Huang Rui <ray.huang@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Pierre Gondois <pierre.gondois@arm.com>, linux-pm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261009082928.21847-1-ggherdovich@suse.cz>
- <32a250e5-0c56-43ce-ab80-8c4375542b59@arm.com>
-Content-Language: en-US
-From: Giovanni Gherdovich <ggherdovich@suse.cz>
-In-Reply-To: <32a250e5-0c56-43ce-ab80-8c4375542b59@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Pre-Result: action=no action;
-	module=Unknown lua;
-	unknown reason
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Rspamd-Pre-Result: action=no action;
-	module=Unknown lua;
-	unknown reason
-X-Spamd-Result: default: False [0.00 / 50.00]
-X-Spam-Score: 0.00
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:gCh0CgD3xim0xchqcxdfDQ--.55186S4
+X-Coremail-Antispam: 1UD129KBjvJXoW3Gw4rZF4xXFyDGr4rCFW7Arb_yoWfGw1Upw
+	1DCr98Gw1kJr1Y9r4IqryIqr4FvayruF4UJF9ruFWjv3y0vFn7tF47KFyDuFyvyrsFywsF
+	gF4vkrZ5G3W8Xr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9F14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4U
+	JVW0owA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
+	0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
+	zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Xr0_Ar
+	1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4UJVW0owCI42IY6xAIw20EY4v20xvaj40_Jr0_
+	JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVWxJr0_GcJvcS
+	sGvfC2KfnxnUUI43ZEXa7sRRbyCPUUUUU==
+X-CM-SenderInfo: d1lo6xhdqjqx5xdzvxpfor3voofrz/
 
-On Fri Oct 9, 2026 11:40, Christian Loehle wrote:
-> On 10/9/26 09:29, Giovanni Gherdovich wrote:
->> The acpi-cpufreq driver stores non-boost frequencies in
->> policy->freq_table, but policy->cpuinfo.max_freq contains the max
->> boost frequency.
->>
->> policy->max is constrained to be, at most, the largest value in
->> freq_table. This means that under nominal conditions, policy->max is
->> substantially lower than policy->cpuinfo.max_freq, resulting in large
->> values of cpufreq_pressure, on all CPUs, for no reason.
-> 
-> 
-> I'm assuming this isn't on top of
-> f341dc4d934a ("cpufreq: intel_pstate: Fix max_freq fallback in cpufreq_update_pressure()")
-> Care to retry?
+From: Zhang Yi <yi.zhang@huawei.com>
 
-Ah! Yes that fixes it.
+Add tracepoints to track the disksize-grow-pending lifecycle in the
+writeback path and the block-zero-EOF entry point:
 
-Pressure is zero on all CPUs under nominal conditions with acpi-cpufreq;
-not tracked, as the commit makes it conditional to the driver implementing
-.scale_freq.
+- ext4_iomap_wb_disksize_pending_submit: ioend is marked as
+  DISKSIZE_GROW_IO in ext4_iomap_writeback_submit().
+- ext4_iomap_wb_disksize_pending_complete: ioend of type
+  DISKSIZE_GROW_IO completes in ext4_iomap_finish_ioend().
+- ext4_iomap_wb_disksize_pending_wait: ioend worker waits for the
+  pending zeroed EOF block to complete.
+- ext4_iomap_wb_update_disksize: i_disksize is advanced in
+  ext4_iomap_wb_update_disksize, including the new value and
+  whether the update is a disksize-grow completion.
+- ext4_block_zero_eof: ext4_block_zero_eof is called with the range
+  and zeroing outcome, capturing the producer-side entry point.
 
-Thanks Christian for pointing that out.
+Together with the previous mark/clear/wait tracepoints, these cover the
+full lifetime of the disksize-grow-pending state.
 
+Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
+---
+ fs/ext4/inode.c             |   3 +
+ fs/ext4/page-io.c           |  11 ++-
+ include/trace/events/ext4.h | 129 ++++++++++++++++++++++++++++++++++++
+ 3 files changed, 142 insertions(+), 1 deletion(-)
 
-Giovanni
+diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+index 920760ab6ea7b..c3a6f3dce3d86 100644
+--- a/fs/ext4/inode.c
++++ b/fs/ext4/inode.c
+@@ -4417,6 +4417,8 @@ static int ext4_iomap_writeback_submit(struct iomap_writepage_ctx *wpc,
+ 	    round_down(ioend->io_offset, blocksize) <= pstart &&
+ 	    round_up(ioend->io_offset + ioend->io_size, blocksize) >=
+ 			pstart + plen) {
++		trace_ext4_iomap_wb_disksize_pending_submit(inode,
++				ioend->io_offset, ioend->io_size);
+ 		ioend->io_bio.bi_end_io = ext4_iomap_end_bio;
+ 		ioend->io_private = (void *)EXT4_IOMAP_IOEND_DISKSIZE_GROW_IO;
+ 	}
+@@ -5033,6 +5035,7 @@ int ext4_block_zero_eof(struct inode *inode, loff_t from, loff_t end)
+ 			return err;
+ 	}
+ 
++	trace_ext4_block_zero_eof(inode, from, length, did_zero, zero_written);
+ 	return 0;
+ }
+ 
+diff --git a/fs/ext4/page-io.c b/fs/ext4/page-io.c
+index 4f1176b9332f2..734d856a6d478 100644
+--- a/fs/ext4/page-io.c
++++ b/fs/ext4/page-io.c
+@@ -31,6 +31,8 @@
+ #include "xattr.h"
+ #include "acl.h"
+ 
++#include <trace/events/ext4.h>
++
+ static struct kmem_cache *io_end_cachep;
+ static struct kmem_cache *io_end_vec_cachep;
+ 
+@@ -574,6 +576,7 @@ static void ext4_iomap_wb_disksize_pending_wait(struct inode *inode,
+ 	if (!plen || pos < pstart + plen)
+ 		return;
+ 
++	trace_ext4_iomap_wb_disksize_pending_wait(inode, pos, size);
+ 	ext4_iomap_wait_disksize_pending(inode);
+ }
+ 
+@@ -617,8 +620,11 @@ static int ext4_iomap_wb_update_disksize(handle_t *handle, struct inode *inode,
+ 	 * after the data has been persisted.
+ 	 */
+ 	new_disksize = is_disksize_grow ? i_size : min(end, i_size);
+-	if (new_disksize > ei->i_disksize)
++	if (new_disksize > ei->i_disksize) {
++		trace_ext4_iomap_wb_update_disksize(inode, end, i_size,
++				ei->i_disksize, new_disksize, is_disksize_grow);
+ 		WRITE_ONCE(ei->i_disksize, new_disksize);
++	}
+ 	up_write(&ei->i_data_sem);
+ 	ret = ext4_mark_inode_dirty(handle, inode);
+ 	if (ret)
+@@ -641,6 +647,9 @@ static void ext4_iomap_finish_ioend(struct iomap_ioend *ioend)
+ 	int ret, err;
+ 
+ 	ret = blk_status_to_errno(ioend->io_bio.bi_status);
++	if (is_disksize_grow)
++		trace_ext4_iomap_wb_disksize_pending_complete(ioend->io_inode,
++				ioend->io_offset, ioend->io_size, ret);
+ 	if (unlikely(ret)) {
+ 		if (test_opt(sb, DATA_ERR_ABORT) && !ext4_emergency_state(sb))
+ 			jbd2_journal_abort(EXT4_SB(sb)->s_journal, ret);
+diff --git a/include/trace/events/ext4.h b/include/trace/events/ext4.h
+index d33456d06b001..92048da9dae43 100644
+--- a/include/trace/events/ext4.h
++++ b/include/trace/events/ext4.h
+@@ -3237,6 +3237,135 @@ DEFINE_EVENT(ext4_iomap_disksize_pending, ext4_iomap_wait_disksize_pending,
+ 	TP_ARGS(inode)
+ );
+ 
++/* disksize pending I/O tracepoints for iomap Buffered I/O path */
++DECLARE_EVENT_CLASS(ext4_iomap_wb_disksize_pending,
++	TP_PROTO(struct inode *inode, loff_t io_offset, size_t io_size),
++	TP_ARGS(inode, io_offset, io_size),
++	TP_STRUCT__entry(
++		__field(dev_t, dev)
++		__field(u64, ino)
++		__field(loff_t, io_offset)
++		__field(size_t, io_size)
++		__field(loff_t, i_size)
++		__field(loff_t, i_disksize)
++	),
++	TP_fast_assign(
++		__entry->dev = inode->i_sb->s_dev;
++		__entry->ino = inode->i_ino;
++		__entry->io_offset = io_offset;
++		__entry->io_size = io_size;
++		__entry->i_size = i_size_read(inode);
++		__entry->i_disksize = READ_ONCE(EXT4_I(inode)->i_disksize);
++	),
++	TP_printk("dev %d:%d ino %llu io_offset %lld io_size %zu i_size %lld i_disksize %lld",
++		  MAJOR(__entry->dev), MINOR(__entry->dev),
++		  __entry->ino, __entry->io_offset, __entry->io_size,
++		  __entry->i_size, __entry->i_disksize)
++);
++
++DEFINE_EVENT(ext4_iomap_wb_disksize_pending,
++	ext4_iomap_wb_disksize_pending_submit,
++	TP_PROTO(struct inode *inode, loff_t io_offset, size_t io_size),
++	TP_ARGS(inode, io_offset, io_size)
++);
++
++DEFINE_EVENT(ext4_iomap_wb_disksize_pending,
++	ext4_iomap_wb_disksize_pending_wait,
++	TP_PROTO(struct inode *inode, loff_t io_offset, size_t io_size),
++	TP_ARGS(inode, io_offset, io_size)
++);
++
++TRACE_EVENT(ext4_iomap_wb_disksize_pending_complete,
++	TP_PROTO(struct inode *inode, loff_t io_offset, size_t io_size,
++		 int ret),
++	TP_ARGS(inode, io_offset, io_size, ret),
++	TP_STRUCT__entry(
++		__field(dev_t, dev)
++		__field(u64, ino)
++		__field(loff_t, io_offset)
++		__field(size_t, io_size)
++		__field(loff_t, i_size)
++		__field(loff_t, i_disksize)
++		__field(int, ret)
++	),
++	TP_fast_assign(
++		__entry->dev = inode->i_sb->s_dev;
++		__entry->ino = inode->i_ino;
++		__entry->io_offset = io_offset;
++		__entry->io_size = io_size;
++		__entry->i_size = i_size_read(inode);
++		__entry->i_disksize = READ_ONCE(EXT4_I(inode)->i_disksize);
++		__entry->ret = ret;
++	),
++	TP_printk("dev %d:%d ino %llu io_offset %lld io_size %zu ret %d i_size %lld i_disksize %lld",
++		  MAJOR(__entry->dev), MINOR(__entry->dev),
++		  __entry->ino, __entry->io_offset, __entry->io_size,
++		  __entry->ret, __entry->i_size, __entry->i_disksize)
++);
++
++/* i_disksize update tracepoint */
++TRACE_EVENT(ext4_iomap_wb_update_disksize,
++	TP_PROTO(struct inode *inode, loff_t end, loff_t i_size,
++		 loff_t i_disksize, loff_t new_disksize,
++		 bool is_disksize_grow),
++	TP_ARGS(inode, end, i_size, i_disksize, new_disksize,
++		is_disksize_grow),
++	TP_STRUCT__entry(
++		__field(dev_t, dev)
++		__field(u64, ino)
++		__field(loff_t, end)
++		__field(loff_t, i_size)
++		__field(loff_t, i_disksize)
++		__field(loff_t, new_disksize)
++		__field(bool, is_disksize_grow)
++	),
++	TP_fast_assign(
++		__entry->dev = inode->i_sb->s_dev;
++		__entry->ino = inode->i_ino;
++		__entry->end = end;
++		__entry->i_size = i_size;
++		__entry->i_disksize = i_disksize;
++		__entry->new_disksize = new_disksize;
++		__entry->is_disksize_grow = is_disksize_grow;
++	),
++	TP_printk("dev %d:%d ino %llu end %lld i_size %lld i_disksize %lld new_disksize %lld is_disksize_grow %d",
++		  MAJOR(__entry->dev), MINOR(__entry->dev),
++		  __entry->ino, __entry->end, __entry->i_size,
++		  __entry->i_disksize, __entry->new_disksize,
++		  __entry->is_disksize_grow)
++);
++
++/* Block zero EOF tracepoint */
++TRACE_EVENT(ext4_block_zero_eof,
++	TP_PROTO(struct inode *inode, loff_t from, loff_t length,
++		 bool did_zero, bool zero_written),
++	TP_ARGS(inode, from, length, did_zero, zero_written),
++	TP_STRUCT__entry(
++		__field(dev_t, dev)
++		__field(u64, ino)
++		__field(loff_t, from)
++		__field(loff_t, length)
++		__field(loff_t, i_size)
++		__field(loff_t, i_disksize)
++		__field(bool, did_zero)
++		__field(bool, zero_written)
++	),
++	TP_fast_assign(
++		__entry->dev = inode->i_sb->s_dev;
++		__entry->ino = inode->i_ino;
++		__entry->from = from;
++		__entry->length = length;
++		__entry->i_size = inode->i_size;
++		__entry->i_disksize = READ_ONCE(EXT4_I(inode)->i_disksize);
++		__entry->did_zero = did_zero;
++		__entry->zero_written = zero_written;
++	),
++	TP_printk("dev %d:%d ino %llu zero EOF from %lld length %lld i_size %lld i_disksize %lld did_zero %d zero_written %d",
++		  MAJOR(__entry->dev), MINOR(__entry->dev), __entry->ino,
++		  __entry->from, __entry->length, __entry->i_size,
++		  __entry->i_disksize, __entry->did_zero, __entry->zero_written)
++);
++
+ #endif /* _TRACE_EXT4_H */
+ 
+ /* This part must be outside protection */
+-- 
+2.52.0
+
