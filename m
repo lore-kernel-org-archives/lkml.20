@@ -1,150 +1,92 @@
-Received: from fhigh-a5-smtp.messagingengine.com (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 583183911AF
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 20:27:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.156
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11D284FDA60;
+	Fri,  9 Oct 2026 20:27:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791577626; cv=none; b=h61CpLl3QrC6fUi/yd4jfpLUnGZrLRXoONSZIrIxLIfoLmGSQq7A0GlHkns6BOs7byzat7yuhVKMMbuiu+wPmKvRboZquS+7eQ0ZGGQRK2IZeTOSZUQhJ4X7WyBvG9smgwm+rpZMeQQkj/+H4OFQurM98pNxV1AFDc4ghxDiDEg=
+	t=1791577634; cv=none; b=iKm0ZDCmyFBXlU1K/vfaZaN3yB3T+aJeRs49TIDmmIVhkPWIjmyWxVwctMTgoS2cbhlDBnO9zNMT7DWCWNE0KnyyoJxGI/mijwQA+hf52hiFkHKRVvQfrZAjzPLCwfiA/dZTFThTLUw95PN5UnBZmWaSPKFk4o6cG6uYM5GTQ84=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791577626; c=relaxed/simple;
-	bh=Ir79PCQmZFkIrjPdYWuVCGOxkxn5WC61zq1nNu/Mzpw=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=DwG3dYDcT/aJMZfWKcLhYefrMR5HqbIdfDJiR2JK9dO+j1AsdDVucA25baAI0R6pzNUnvLUFantfwVFk4qrmOHM7wMgXcmEjIgbqjSkCjviJKH7kriMwgxQYP0wcuKlc6+0i3zgY4PN4wCx+pm+2xaN0kGz7kpM4MmP0m6jxjg8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca; spf=pass smtp.mailfrom=squebb.ca; dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b=gUXX2jEB; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=E+J0ZNW1; arc=none smtp.client-ip=103.168.172.156
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squebb.ca
+	s=arc-20240116; t=1791577634; c=relaxed/simple;
+	bh=gl3BoHbabYB73phCiRs2xUGs44/d0Bt9GSYlWT3fXIo=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=YVhiZ3B8yVzd0MlN7ymLcSP6XKC3UsciwAFPnxrYFIHHJ6AGsqI8dARc+IXZkK9rc5Ws2oQvxS8NlMkOsx2FEST6iGt/mPhQgJVyDsilMPIyIR/Twakbc0Dg4HBwPuG5z4EwWGkXxWP8TncmwAhcw2mHMa5/vx0gdYCMrNHHxv8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Npur2j63; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b="gUXX2jEB";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="E+J0ZNW1"
-Received: from stl-compute-04.internal (stl-compute-04.internal [10.204.2.64])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 6E2511400168
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 16:27:03 -0400 (EDT)
-Received: from stl-imap-02 ([10.204.2.93])
-  by stl-compute-04.internal (MEProxy); Fri, 09 Oct 2026 16:27:03 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squebb.ca; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1791577622;
-	 x=1791664022; bh=dEtbHgfOwpFMHZP5AJ71Nyd/XYZeP8EfohungrCahtA=; b=
-	gUXX2jEBa27uHL0omF+X2uDb06lNjWiebzg1cSX/g+z9yr50JTSZO0IrG25NK4fN
-	Fq6md+lhHbe4eHAywY5vYx35207dHxxzn8DO4GCFK74AJcseOJTAx9n6prb2y6e+
-	O6sJuJjKJrF/8Fs/4dKfzowhOYe6bvON3Dp++sfAPUPGMVxqZ5pzdYoqlrP65Gnt
-	VTUNsfUDMnPsfUW/B2IHqLycaPQzngSyquwRbUU74B7VyqSqCHf9WPID3xrRvDgo
-	tnDoCWAZis63IHNJX6WA3XHIRbtgZzNhnELEEJ8N/25d91tgUAtWPuoR9+p8LM1k
-	wqN04Naaf3vrnLCyd9laRA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791577622; x=
-	1791664022; bh=dEtbHgfOwpFMHZP5AJ71Nyd/XYZeP8EfohungrCahtA=; b=E
-	+J0ZNW1d7+Fr9A++9cpH7K/yPcYTRc62dyNnkarrFgI6hrTQhb06BKs/tGXgB0BO
-	Lza6khQi4Hwe01i5ZEyiGcZWA6QrWQmgsohlrbx+tn6aCo/PPuTX6qXiBXaL8u/j
-	yGG++zlbMI0hfYquXswCAjvQMvMAgxBmY4QchCW8ErkCZbEcBsPAD1t4p6syIeDd
-	6aFJ4CIqB+Qxj+/fnhwxNyn5N7Go2oziTcdTkx2QizWTmLm6da0GW8RzduMA+5TB
-	0qsK3/Ag0FaN8xWj65gf4i5svUOkha81G+U4lXhCYjbaT1tcZg4qWOtY49P140uk
-	TSN7xaBAVO+kjCfqWRDRA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=squebb.ca a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791577622; d=squebb.ca;
-	mf=PG1wZWFyc29uLWxlbm92b0BzcXVlYmIuY2E+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:Yq04+B0tJ8Ov7eMbvtrl7oq3NAButVv8oi9ZzTe01FPg4hC
-	Y5lHo4X/e3zTWnO9hJBB94g2nle+i/N6NwvfSpb5e6DFdqstYwxUsv0fWV5B7rcu
-	OwGOqr+UreE8U1ySvaAanFonxSalc7SWejYH5MTy7mnD4nr4rcDAEI4jf13Ho06w
-	3pEYIPuZNq3mPYQ3uEUU5vIwDm42alpcu7ywdiesYSLIgzd16lMo+O+4bvjH8E8m
-	Q8NVhXrphsiJloKZT927pvbfgvhrM7Syuh63NeYmknybVPxG661ZzBFqBlJDx4DQ
-	yIsbOEPyU40OL1iBVkGUWyYNZTKd59zpGAW92kw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:oWKh99HoBR4tNxlO3YuxUEZfMe0K6blkmptBPf4yoCE=:Ir79PCQmZFkIrjPdYWuVCGOxkxn5WC61zq1nNu/Mzpw=;
-X-ME-Sender: <xms:Fk7JatjH1uA-pyujPbFy3frWzJn0XOWbXM22YRUFYXvYLDvz9_bcPg>
-    <xme:Fk7Jas36rRlxgK4kifrrx3eU0O0x6i1QlP_JuIfD4t508eQTSIZy3VMmcWazU1XeB
-    _qQOp1XWbJprqee0XTzSRAABHbOCeB0XmYwa5JquCBK4osTK3q9RTaY>
-X-ME-Proxy-Cause: dmFkZTE78mPxJOrD85wk9mHUAJdhrHXRf6cJoQtlhzUgUZ+tzxwkYmmZOC6/ovWwxRX/hA
-    ZtHSzWj/on8K46ctfhNGTLhewIvk2CZKiRNT/XAUiGa1q2vjZmC6YF0GUZVn/fW8wcFzeh
-    9R2G8Ef2c2z9uPC+2I+MsMgxxI0pIsNKxfPMEfk4tBz6gGAbFjZAwZczTZ1N5CIctEeVy+
-    tgJIHoWkMVDNLpKJNKzCeGYd9987SeM/kl9nxOMBvFutO1qgHVzru7UWlZ/rfN7mq/uB8t
-    JH+MwwK4eaxuvbr/wQ+hEJwFMuNz1MAdRb0nlumx+v51DrqthIItdFdrtQh68a4/AQtogc
-    Mjxgj6tmJqQIa6Gy3pY5mWbAN15I5GUnNhutGhMxo9I+NyDyPR7dKyXLrVjyEnZKYMTprn
-    MpNkQ/J/7drTach7xBBS8G2BEHBLfE9ytJkrdxSf2/UyjhAFCICWhoNiR/ppHgMZYjCMzO
-    okIsfynmTYeoOGv0gaBbLPgn7hGw8uijy5vMwih+hzsbWjUgJnR62H9X46dujyx1nvzekO
-    7zIqHj+4nJ07ryKYzIrMnqMpGm2P11f8HtMGffL94qnQgoDRcQHwSahUBP0k1vHDXm4/e6
-    ropedH0pjeMVQYowXIg6qA0crkjDXAz1L7TzvOZkrfdtWHS320GWTN2t32fw
-X-ME-Proxy: <xmx:Fk7JapBNtUqzGJPrNgbkcxx2njRz3y5Uz5SDChwEb4yj4mJxWs56Yw>
-    <xmx:Fk7JakFNbYsUKcWh_wA0W9mJ7EAVG3yv1thmwSErTTwrmp2Qxje0dg>
-    <xmx:Fk7JapCDhJrp0mMLVyw_Hx42aQLvwt_OXUdFrVqZ3hUZeoHTXI1kKg>
-    <xmx:Fk7Jaqll1DEiIxsZVgmTRh5Chug25o_iZuIb2LJZUY7U3y5w4S69UA>
-    <xmx:Fk7JajuJ2p4GwlBI1XlxmaqsDjBe2wFSNsf9BdumkfYX_Z-pkDlEGkxU>
-Feedback-ID: ibe194615:Fastmail
-Received: by mailuser.stl.internal (Postfix, from userid 501)
-	id 09AA52C00076; Fri,  9 Oct 2026 16:27:02 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Npur2j63"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 211E91F000FF;
+	Fri,  9 Oct 2026 20:27:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791577632;
+	bh=12mjNF9n0R8cCzNOOrubBApcGk1pCG7If7+j3H0jr6A=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=Npur2j63AFgtL5sn4ZUAOoTJuuaeq1/1l3w09diGZ0lX1K+6lfqNWmlrCwid6UIrt
+	 i5EA/iqHcZgTn6n/eMXXNzCTqL0whfFyGEMP8l6jz96sUfE4EQxhT+tY4SJzAppJ4i
+	 saxjsYmHbcR3wJGWVt/L079zD1+41DmHPmCIMICbqTbGG0+usnySqmFx8gYTGIM90U
+	 6biejNpV0WhRZVZAjfQxMGaxMzFYWfnpNk0IddrnLWAaUI1wN0oWes9yvLG0CbdPD1
+	 2bF49ggxsFn+aH0dcOBq9GXtQD8NRpxnVyOg3oFOjH1j1eV7e9dJS+8Hfk8F6fYRUN
+	 WzqsCow9AgCwg==
+From: Nathan Chancellor <nathan@kernel.org>
+To: Nicolas Schier <nsc@kernel.org>, Julian Braha <julianbraha@gmail.com>, 
+ Nathan Chancellor <nathan@kernel.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, Kees Cook <kees@kernel.org>, 
+ linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261007-scripts-kconfig-toolchain-improvements-v1-0-1e524178da11@kernel.org>
+References: <20261007-scripts-kconfig-toolchain-improvements-v1-0-1e524178da11@kernel.org>
+Subject: Re: [PATCH 0/2] Initial ergonomic improvements to
+ scripts/Kconfig.toolchain
+Message-Id: <179157762044.770731.11190028488014391920.b4-ty@b4>
+Date: Fri, 09 Oct 2026 22:27:00 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AcJjLO23Rn-3
-Date: Fri, 09 Oct 2026 16:26:41 -0400
-From: "Mark Pearson" <mpearson-lenovo@squebb.ca>
-To: "Rong Zhang" <i@rong.moe>, "Derek J . Clark" <derekjohn.clark@gmail.com>,
- "Hans de Goede" <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- "Armin Wolf" <W_Armin@gmx.de>
-Cc: Charles <hanker007@gmail.com>,
- "Navon John Lukose" <navonjohnlukose@gmail.com>,
- "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
- linux-kernel@vger.kernel.org
-Message-Id: <7c50bc30-34c5-454c-89bb-1ec0b1c8a6bc@app.fastmail.com>
-In-Reply-To: <20261009-lwmi-wmi-new-api-v2-12-402828382679@rong.moe>
-References: <20261009-lwmi-wmi-new-api-v2-0-402828382679@rong.moe>
- <20261009-lwmi-wmi-new-api-v2-12-402828382679@rong.moe>
-Subject: Re: [PATCH v2 12/12] MAINTAINERS: Add myself as a LENOVO drivers co-maintainer
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1200; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=gl3BoHbabYB73phCiRs2xUGs44/d0Bt9GSYlWT3fXIo=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDFkn/aS/Lql6sa/53g/7+F3azjsa32ycrdvY9Lvef3l9x
+ fObx5+/6ShlYRDjYpAVU2Spfqx63NBwzlnGG6cmwcxhZQIZwsDFKQATMY1kZFi4wXF9bqHuz9jC
+ 9IaE4OO6YprL/WbxdRR7LI+we/XuxxlGhsakS7NOCoYdVM+6971w5Rm7zvQ3Tj+PbgrhqnC6fJO
+ 9iQsA
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
+
+On Wed, 07 Oct 2026 17:22:20 +0200, Nathan Chancellor wrote:
+> Initial ergonomic improvements to scripts/Kconfig.toolchain
+> 
+> Hi all,
+> 
+> This series includes a cleanup to scripts/Kconfig.toolchain around
+> dependencies (the first patch) and improves the ergonomics of using
+> cc-option and cc-option-str in Kconfig to disable warnings, making
+> Kconfig and Kbuild more unified in their behavior (the second patch).
+> 
+> [...]
+
+Applied to
+
+  https://git.kernel.org/pub/scm/linux/kernel/git/kbuild/linux.git kbuild-next-speedups
+
+Thanks!
+
+[1/2] scripts/Kconfig.toolchain: Drop compiler symbols from dependencies
+      https://git.kernel.org/kbuild/c/c4c24fd63a8d5
+[2/2] kconfig: Improve ergonomics around disabling warnings with cc-option
+      https://git.kernel.org/kbuild/c/7202c08793a24
+
+Please look out for regression or issue reports or other follow up
+comments, as they may result in the patch/series getting dropped or
+reverted. Patches applied to an "unstable" branch are accepted pending
+wider testing in -next and any post-commit review; they will generally
+be moved to the main branch in a week if no issues are found.
+
+Best regards,
+-- 
+Cheers,
+Nathan
 
 
-On Fri, Oct 9, 2026, at 8:53 AM, Rong Zhang wrote:
-> I regularly review patches and resolve bug reports posted on the pdx86
-> mailing list or the kernel Bugzilla to improve LENOVO drivers (including
-> lenovo-wmi-* and ideapad-laptop) along with Derek J. Clark and Mark
-> Pearson. I've been submitting patches to add new features and fix issues
-> on my devices, too.
->
-> Add myself as a LENOVO drivers co-maintainer to reflect this.
->
-> Suggested-by: Derek J. Clark <derekjohn.clark@gmail.com>
-> Link: https://msgid.link/782FE636-A06A-4E12-9563-786374805947@gmail.com
-> Signed-off-by: Rong Zhang <i@rong.moe>
-> ---
->  MAINTAINERS | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index f53047aa8d3c..fa576b4b5919 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -14808,6 +14808,7 @@ F:	drivers/usb/misc/legousbtower.c
->  LENOVO drivers
->  M:	Mark Pearson <mpearson-lenovo@squebb.ca>
->  M:	Derek J. Clark <derekjohn.clark@gmail.com>
-> +M:	Rong Zhang <i@rong.moe>
->  L:	platform-driver-x86@vger.kernel.org
->  S:	Maintained
->  F:	Documentation/wmi/devices/lenovo-wmi-gamezone.rst
->
-> -- 
-> 2.55.0
-
-Sounds good to me. Thanks for all the work you do on these platforms.
-
-Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
-Mark
