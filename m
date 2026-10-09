@@ -1,98 +1,81 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F2173C5523;
-	Fri,  9 Oct 2026 07:23:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40B6C470EA1
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 07:23:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791530608; cv=none; b=iuEgzNhrtkZ0XTpHS6ZklIupqKeP0R3inEgM+9R2H1v5oRnv8lbpEHtHhb+oQS9Rw4pPcD5+3LO+49WXPGNeN/OiN5fSqKJxwNEfzI1D79N5WucXw6++g/8glurZfaRinEux78AbRgGZnkHuI9qO6N+e2/8JUu5n2m03351UaTs=
+	t=1791530609; cv=none; b=HI+TaMoqPoUcTWsGKffkHiDvrn+NGqI6Y878iX+mNfrd2u3zsTfQeUBqmgFl055Osd/lgbVPOB0DsGIYchDU4HizrDoQ+wwkRk8LLjd0QXYUnwaFcz2fONx5VbLE5FQ0Gq3IOx7/2jenTn+tZ5wrumQc/5A5C9yvRP0UfDSeL10=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791530608; c=relaxed/simple;
-	bh=AMFp/Ebr159vLz/n0Yb3+LfWedR4hlt4rlDlqUnbufk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JpL3GVFpoa87vKJ4eD3YT/6yU1C7dS176332P/C7fxOQxgy6ZY065RIz7/UFQbZijxUAXEoOwcYBvrYAvFKbTDBk7afs/UVX8LlVssyzgEVCNHdFYmRa1mX5NO6HZfRpl8DW/txjIArJ5w+hMYDmU1ZcAts0WtTvpFBxB7yv/Bk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=VrkQVqDx; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791530609; c=relaxed/simple;
+	bh=ufj8Y2p1ocOHc1po6Wa3kmTRP9jaECo7NTDNTmL+ZJc=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=I33WcgnF6X1iji8JC/Slpm+PL6apjMB1OpkbhSdpHm6nJIQpauJv+uqD7CQhES4E+qUrOt7VoJ0rb1wZZLSwLVG5ijwGLtFNH67jSfOQKeizAOIxMyiy3AIJJlSBeHftihqyCLjCqsyHKlQWm0/Ft86+oKFP4WddRtonMp4nqxM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QIufdaMz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="VrkQVqDx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=zM
-	/zoDgiq86hQBEum2co31KfW0tzv70MXIWrE2UrOKk=; b=VrkQVqDx4ImuP4ba+s
-	Gws1qQJx9h+laURQV4W1sWgjNCv5urOS7qRYMkjqvYsesK9BKLCs+ppUToKpn5Ys
-	fKW85o3AJbjAnvG5SDpQMOSKJTKbhbfnY2XADCH2MIhFE+33TBmx0Hb4n/hOJK8s
-	h/QUZv9RXkMN15uNGsLGIPqRw=
-Received: from WIN-TOG0NDEIICD.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wDX_zk4lshqdCt9DQ--.25180S2;
-	Fri, 09 Oct 2026 15:22:33 +0800 (CST)
-From: Shirong Zhao <shxzhaosr@163.com>
-To: Arend van Spriel <arend.vanspriel@broadcom.com>
-Cc: linux-wireless@vger.kernel.org,
-	brcm80211@lists.linux.dev,
-	brcm80211-dev-list.pdl@broadcom.com,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] wifi: brcmfmac: drop glom superframe on header parse failure
-Date: Fri,  9 Oct 2026 15:22:32 +0800
-Message-ID: <20261009072232.18-1-shxzhaosr@163.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261008103312.20-1-shxzhaosr@163.com>
-References: <20261008103312.20-1-shxzhaosr@163.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QIufdaMz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA4C11F000FF;
+	Fri,  9 Oct 2026 07:23:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791530607;
+	bh=k5xr3lKilJrL0OQxQ9rOoAvwtUG141XK3q72654Keoo=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=QIufdaMzeAzhyxlIk8JdZCVjZZmdSERIKV6YeNN8tjL1+qLUEXXIqSJWwrDfsBYld
+	 x+i96azDNwt4dnKnRjG/ZuGxraox0TDMR/Z4rk4s8RvntsH4dMdeZKCQnMsXfs6KW+
+	 d77R7V8ZNv+NEeifxTL0NJRsAkwPcHFVXPFnONlIKJJWU8+c1u08TrYG3F25uger70
+	 BQCNYHlEibf6m7fk/lQcxxksSRABMh8h3ZJNEoDyVd2fIDeI9ToQXdiTgizZxU4K18
+	 r9Xk+zebgAzq7N6tqxNnea21690kj/SNGiKPYslnji+5Bw4/l1XE5Wdu6W7uX3cf6d
+	 DOC/AQ+zylM+A==
+Message-ID: <b55e3d43-589f-4d04-a7d3-4cc52aa66fc9@kernel.org>
+Date: Fri, 9 Oct 2026 15:23:25 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDX_zk4lshqdCt9DQ--.25180S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7tF43ur4ftw17uryUurWfXwb_yoW8Zr47pr
-	WIgFyj9r4DJrZYkrZ7AF1xAF1Fqa1Uta4UKay8u3WfuF4rAr1ftr4v9Fyjgr1YyrsYk3sF
-	qFWFvrsxJr9FgFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j4c_-UUUUU=
-X-CM-SenderInfo: hvk06xhdrv2qqrwthudrp/xtbCxRmAvmrIljmKUwAA32
+User-Agent: Mozilla Thunderbird
+Cc: chao@kernel.org, Daeho Jeong <daehojeong@google.com>
+Subject: Re: [f2fs-dev] [PATCH] f2fs: cache: count the temporary pins apart
+ from the regular references
+To: Daeho Jeong <daeho43@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net, kernel-team@android.com
+References: <20261005192114.1511660-1-daeho43@gmail.com>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <20261005192114.1511660-1-daeho43@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-brcmf_sdio_rxglom() uses rd_new.len_nxtfrm and rd_new.dat_offset
-right after the superframe brcmf_sdio_hdparse() without checking
-errcode.  On parse failure those fields are either uninitialized
-(the early -ENODATA/-EIO/-EPROTO returns) or hold a rejected value
-(the -ENXIO bad-offset return), so bus->cur_read.len gets garbage
-and skb_pull() runs with a garbage length.
+On 10/6/26 03:21, Daeho Jeong wrote:
+> From: Daeho Jeong <daehojeong@google.com>
+> 
+> f2fs_unlock_cache() and f2fs_end_cache_writeback() take a temporary
+> reference on the entry around clear_and_wake_up_bit(), so that the entry
+> is not freed before wake_up_bit() returns. f2fs_destroy_cache() waits
+> for the LOCKED and WRITEBACK bits and then expects the refcount to be 1,
+> but the bit waits can return as soon as the bit is cleared, before the
+> I/O completion drops the temporary reference. When the completion runs
+> in process context and is preempted there (e.g. dm-flakey in
+> generic/311), umount hits:
+> 
+>   kernel BUG at fs/f2fs/cache.c:567!
+>   f2fs_destroy_cache+0x260/0x268
+>   f2fs_put_super+0x1fc/0x428
+> 
+> Count the temporary references in units of F2FS_CACHE_PIN_BIAS, like
+> GUP_PIN_COUNTING_BIAS for folios, and check only the regular references
+> in f2fs_destroy_cache(). A leaked regular reference is still caught
+> there, without waiting for the completion.
+> 
+> The pinned entry is freed by whichever of f2fs_cache_put() and
+> f2fs_cache_unpin() drops the refcount to zero, as before. The shrinker
+> still skips an entry while it is pinned, since the refcount is then
+> neither 1 nor below 3.
+> 
+> Fixes: 6e392158cf54 ("f2fs: cache: pin cached block in f2fs_end_cache_writeback()")
+> Fixes: 61ba87b33e87 ("f2fs: cache: pin cached block in f2fs_unlock_cache()")
+> Signed-off-by: Daeho Jeong <daehojeong@google.com>
+Reviewed-by: Chao Yu <chao@kernel.org>
 
-Check errcode first and drop the superframe with the same cleanup
-used for a bad subframe below.
-
-Verified against wireless.git main (fd4e7f1137291), the current
-wireless fixes tree.
-
-Signed-off-by: Shirong Zhao <shxzhaosr@163.com>
----
-Changes in v2: check errcode before sdio_release_host() so the
-cleanup runs under the already-claimed host, avoiding the extra
-release/claim cycle (suggested by Arend van Spriel).
- drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
-
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
-index 381801af3..abe8d44ec 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
-@@ -1648,6 +1648,17 @@ static u8 brcmf_sdio_rxglom(struct brcmf_sdio *bus, u8 rxseq)
- 		sdio_claim_host(bus->sdiodev->func1);
- 		errcode = brcmf_sdio_hdparse(bus, pfirst->data, &rd_new,
- 					     BRCMF_SDIO_FT_SUPER);
-+		if (errcode) {
-+			/* Superframe header is bad; rd_new fields are not
-+			 * valid here. Drop it like a bad subframe below.
-+			 */
-+			brcmf_sdio_rxfail(bus, true, false);
-+			bus->sdcnt.rxglomfail++;
-+			brcmf_sdio_free_glom(bus);
-+			sdio_release_host(bus->sdiodev->func1);
-+			bus->cur_read.len = 0;
-+			return 0;
-+		}
- 		sdio_release_host(bus->sdiodev->func1);
- 		bus->cur_read.len = rd_new.len_nxtfrm << 4;
- 
- 		/* Remove superframe header, remember offset */
-
+Thanks,
