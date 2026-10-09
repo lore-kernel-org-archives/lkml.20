@@ -1,143 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FD3144F54F
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 13:28:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6204B415B74
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 13:29:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791552523; cv=none; b=VEL9I/7MxCEfMGma2M9wqdOVUTFTzAKIu47d9ihaxLO9wUB5zmYzWvT5m8KIOWbN2h7vCbebeCixJMXW55JOP2FIGHjX83k3H18shttNlEEHeH58zD6zPnNfBp6CynICzWVhNkouameVEWvpoIgMKUkHtMZBhODzZ2A7xlK8XXA=
+	t=1791552545; cv=none; b=L07w3z16u3LAI1yfjRFmg2zIo4ivXuPTDNlrv+11Ky+2G1uRXMLBMARK4ObqUqiuTaGwIA0dgtMiW+v9ZPTevVC8CJqbSwwX5+FH3mQktG6iviZ9wY2RWBCUrFiDho2TyFS9SYUPPMqZAng87PFjuYLUECJcpwPxnNgYSNYXcCk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791552523; c=relaxed/simple;
-	bh=nFagq8SAxhFeVPQ+a/Dken7XtSH6HdcAIuPGy04wX48=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RR7Odtg9dBKc8M4yX1XSskqaaA5f8B4BO6C/evPlIEHyQVwcmza130zkLqXJzBPSZt6iiNEhgAzWsjxZxbUSlMVsrd+X8N37wnz10up7bE4oibln3pIjOgnctdCk/gZ2/1pDhGXGiC7xVPs6eMi7A90MilvE7e8+qQ9h//icKZU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n8UOYTJh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791552545; c=relaxed/simple;
+	bh=zd77oAJSN5ZuLQMCEq5iNjH0bvfFx6ptqLP1yQUV+fM=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=htvX4PRsAmDKpKDj/XjF7aFLlhkDxlppckrlFb5SRMB7Idy7MRgNJw6Gj6znZOwk7V4eezoZ7wbLtbyu1LjnTcd7rNWS+iWMBUoDUHN+y/Di1Zoogj/trbUzyPwUYoIojF6FvgYftCOuMxHC4gJ/bq54hH+TSACRY/90a1+Tzzw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=QfJmd4e0; arc=none smtp.client-ip=209.85.128.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n8UOYTJh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C68D81F00893;
-	Fri,  9 Oct 2026 13:28:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791552522;
-	bh=2Awqpq3nza0mPpSxtv3YawYPpCCA42MMuB6ycshbWXA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=n8UOYTJhuOBnv/NoHk4ARnzxdHahhI9YMzsumKj8ob61ZauEGAc/8jAI2UxGPF83y
-	 I3d2vRvPv7+UwAccUBX8+5KXxzKtUVqNnsp1bw0NLH3VL2eGFNevIETsA2NbmIdvLq
-	 rIee6R1bZKNMGoxPHLtLceObA2sph1PAP80917uqsvH3G/cAY9hknW+1E0cnVNvklT
-	 06JNCz5QEPQZkc+AbeyPgAyrTmx3tktmbDScpV8RTNn+AKITURO3wj8rlIEelSeGll
-	 qvjJNPi07jBeBY3WJtLBuMzryGSUMeaL/EEIst/g1l/eKBMDCu2n7SrhgraPUos8Se
-	 2n0sUeSndLNxg==
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 4362F198003A;
-	Fri,  9 Oct 2026 09:28:36 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-02.internal (MEProxy); Fri, 09 Oct 2026 09:28:39 -0400
-X-ME-Sender: <xms:A-zIaloAquqgaEV9DGSPMC28JlRsvPqpF5xevfO9ThnzIwjyOJAIQg>
-    <xme:A-zIau5oewqj3dRFSuZXbGk5y6HTs_raF86as2_lWdyEMEqWHG6XY03m2aUOKqFl_
-    e8coNWBfQ8LHjKhsXmcK7dJBRG5dT7GfSvah4btRgXWg_tKYOJAUdk>
-X-ME-Received: <xmr:A-zIaqzjxGTK4iov-TyMNUIhndOG9Zc1DATHxdGQzgz79HD2HiYRQywFa3s>
-X-ME-Proxy-Cause: dmFkZTEuUvj6Inoo5pi09jIgvyYC5EbCo50r5PIZpUkjioFQDK56vzDnmK4uRNTTU7rkX7
-    QzUPN2k5FTEhNcRhrPNZsLKykfud2CBCliL9dR7y9ZHv1HFx1pjYnV3vbiIL5GFy0v0xSR
-    7ZSijw8UrcTarWqKRR6DzmT/mjMn8xFMkJsAs+0+3OWXDKMZARkFNAzI4grtVvvS1orAjr
-    PRQSSzenvfPcRvrtO9nJO6uJRoedwogCQHxGEELv3O9MrP6HxgxjbqSBzHNUmPtnjeycGe
-    i539Uv7cO9MXR65ajga+gDX3k/BZ4sURi3MIPMAxAHwWNxGHm83ud6TmR4laYNu+xAvdTk
-    HwSzOg1M5jNvSdwIhibJ4PPFC1H2cS48WG54vWxsdZyQQuZFKfqShEsvHf+BJmOmqBacQl
-    KZd5r8sQ/gSFHVefkpL/OWpMJTa0m7kor4UVDs4Z4a5WB5aurXhb8BCkOMUUdarIInv8rL
-    fJdVzsxBHO5RgbgfYf2kgMdqRDgaHGqYBjjFZTZ6Y9k8+umd170YhF2HkZayN1+dUQDdu8
-    DQW2jW8p4RHFT9Ql0K5OB3S/cd/JPoAmIqbazRJAc4MqYqSEXNO5P7p4inF958COK0ac5G
-    AJ5eQaVZLCiH32LAm4Vo/YTZzB9f4QHIiR/rrfIoexv28xx06+O6tXcKgWvQ
-X-ME-Proxy: <xmx:A-zIauQXZbgW0UI19H_S4ArbDF28CwzN5zfWQ3QXycjevrF0VE4xPg>
-    <xmx:A-zIas_ZbkZugJ2ZIM7g8v2VRsiy9woApzLhm4pjlPNh8CGo2z4zbg>
-    <xmx:A-zIagHqo35ptK-aY8IREaIFJh2fePp_Odqbcy4fmwwBha2x_yxhaA>
-    <xmx:A-zIavyKW9b0_98map0g0PKiK_G0wCp-rYxBPDpYrRvWwcrC2gEpeA>
-    <xmx:A-zIai_MV_pJjBtydHIH_8L1iQ76JhTRIiPGlr-_P8-ezJICGu4l_bCQ>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 9 Oct 2026 09:28:35 -0400 (EDT)
-Date: Fri, 9 Oct 2026 14:28:34 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: Xu Yilun <yilun.xu@linux.intel.com>
-Cc: Tony Lindgren <tony.lindgren@linux.intel.com>, x86@kernel.org, 
-	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	Rick Edgecombe <rick.p.edgecombe@intel.com>, Dave Hansen <dave.hansen@linux.intel.com>, dave.hansen@intel.com, 
-	kvm@vger.kernel.org, yilun.xu@intel.com, xiaoyao.li@intel.com, sohil.mehta@intel.com, 
-	adrian.hunter@intel.com, kishen.maloor@intel.com, peter.fang@intel.com, 
-	baolu.lu@linux.intel.com, zhenzhong.duan@intel.com, chao.gao@intel.com, 
-	artem.bityutskiy@linux.intel.com, nik.borisov@suse.com
-Subject: Re: [PATCH v3 6/6] x86/virt/tdx: Support DPAMT when adding memory
- for the extensions
-Message-ID: <asjrTLfebkjDzB9F@thinkstation>
-References: <20261006-tdx-module-ext-v3-0-db52cb05b918@linux.intel.com>
- <20261006-tdx-module-ext-v3-6-db52cb05b918@linux.intel.com>
- <asR64ovVXEmTVgg6@tlindgre-MOBL1>
- <asceeI8LD5ltEOje@yilunxu-OptiPlex-7050>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="QfJmd4e0"
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a168a8209fso16168395e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 06:29:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791552541; x=1792157341; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/rPvKIus9N9aL5wDPskeHMQIXHdNdQtdKHL3wD9tCZs=;
+        b=QfJmd4e051tDagjk6oKHymahLVMXpwRmhT6VNTgzUYC42MSiIgkOdF6s11OGtXPN+p
+         xpndnLj8xYrgtp6vBbU67j6S9mTF11xj+536AlJFiC8HwQWpsi5mxyS6ncFb8wYEneqk
+         jMA7nU8FBAf10Niq4O8uMRz31fUTLbTljDSR66Wk65z2a94iVfHohH5oqx0KL4a3vD8r
+         J1bYOGlt0qKwmjsoY98x89qvPkajjakyEB3gVy4EbpwmUKSouWYzjQX5Kf5XASaYeN1J
+         jG4TngT5RtW7OIHtQYCKqbYCZE4KZecU6Uz9LUI4H5nFDIZUzv7fDIG03PAng+HrYcfU
+         0etg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791552541; x=1792157341;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/rPvKIus9N9aL5wDPskeHMQIXHdNdQtdKHL3wD9tCZs=;
+        b=S/TwsvoVKnHqfJ5+SjmViRyferQyd1T0zIfc66JztGgQIwCrvPLekxdk00iga/LVut
+         f7pyg+OpHLyGZ5pjin5Yyu0WmGsVIYW+xvlhPmXLLgPKxegaSR4msZnacObv020VHiQi
+         Z52cw9Sn2s8OFrF/WUqHwtwwEmcrazmboIc7w0Cu3H3f8vndvIEKoNB83WHVQeB2/VIc
+         o7M279y1enwqqNngrAJy/O2DME6QrhbDwGJizJA8NjeeskKfzwOBSWP35Jtg0z2rxLu2
+         ffru2WPmgw5d8TyQktkpgf6t2gYxbPdU2GyJXyvcwE/4Xo3p3xHGERFGcr1LgDxFiPm0
+         mnLw==
+X-Forwarded-Encrypted: i=1; AKwUvBxEeTfK1WZsw++ktKL3W5rNo5SRK0ezt5dGlXolVpY3ZFOuCZkcjvJv8ACnh10KAsh/q/b2nprcEG2wqnw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lLQVkgCcUuZPTO9kUS52MiLCRuwWIfpbHT56CEhogWuPAG+N8T
+	Rzs2YHNGv9kTg4TaSG1gucg7ETKOY/HL4OCjr/yZLNEb4Tmcgime4DJZrDwFWtsv3+WbJ3lpsFP
+	i7kXsUYiCE+YVox/XCnI5Uw==
+X-Received: from wmol15.prod.google.com ([2002:a05:600c:47cf:b0:4a0:cf4:71d8])
+ (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:a011:b0:49e:6581:7baf with SMTP id 5b1f17b1804b1-4a18e447d8bmr35219285e9.2.1791552541416;
+ Fri, 09 Oct 2026 06:29:01 -0700 (PDT)
+Date: Fri,  9 Oct 2026 14:28:48 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <asceeI8LD5ltEOje@yilunxu-OptiPlex-7050>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+Message-ID: <20261009132848.709379-1-vdonnefort@google.com>
+Subject: [PATCH v1] tracing/remotes: Align field offset in remote_event_format_show()
+From: Vincent Donnefort <vdonnefort@google.com>
+To: rostedt@goodmis.org, mhiramat@kernel.org, 
+	linux-trace-kernel@vger.kernel.org
+Cc: mathieu.desnoyers@efficios.com, kernel-team@android.com, 
+	linux-kernel@vger.kernel.org, Vincent Donnefort <vdonnefort@google.com>, 
+	Fuad Tabba <fuad.tabba@linux.dev>
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Oct 08, 2026 at 12:39:20PM +0800, Xu Yilun wrote:
-> On Tue, Oct 06, 2026 at 07:36:50AM +0300, Tony Lindgren wrote:
-> > On Tue, Oct 06, 2026 at 01:41:50AM +0800, Xu Yilun wrote:
-> > > The TDX module uses Physical Address Metadata Table (PAMT) to track some
-> > > state for each page of physical memory that it might use. 3 levels of
-> > > PAMTs are used to track pages of different sizes - 1GB, 2MB and 4KB.
-> > > Dynamic PAMT (DPAMT) allows saving memory by allocating 4KB PAMT
-> > > dynamically, while the 1GB and 2MB levels remain allocated on TDX module
-> > > initialization. The kernel has helpers to install 4K DPAMT.
-> > > 
-> > > Although the memory for the extensions is tens of megabytes and the host
-> > > allocates it in a large chunk, the TDX module accepts it at 4K
-> > > granularity. Thus the host has to install 4K DPAMT for each page of it.
-> > > 
-> > > Call tdx_pamt_get() for each page before adding it to TDX module.
-> > > Normally, these operations should not fail, and if they do,
-> > > intentionally keep the error handling as simple as before - leak all
-> > > pages, including the installed 4K DPAMT metadata.
-> > > 
-> > > Signed-off-by: Xu Yilun <yilun.xu@linux.intel.com>
-> > > ---
-> > > v3:
-> > >  - New patch
-> > > ---
-> > >  arch/x86/virt/vmx/tdx/tdx.c | 9 ++++++++-
-> > >  1 file changed, 8 insertions(+), 1 deletion(-)
-> > > 
-> > > diff --git a/arch/x86/virt/vmx/tdx/tdx.c b/arch/x86/virt/vmx/tdx/tdx.c
-> > > index 5d5f9da1ab02..27a7039ee443 100644
-> > > --- a/arch/x86/virt/vmx/tdx/tdx.c
-> > > +++ b/arch/x86/virt/vmx/tdx/tdx.c
-> > > @@ -1330,8 +1330,15 @@ static __init int tdx_ext_mem_setup(void)
-> > >  		struct page *chunk = page + added_pages;
-> > >  		unsigned int i;
-> > >  
-> > > -		for (i = 0; i < chunk_pages; i++)
-> > > +		for (i = 0; i < chunk_pages; i++) {
-> > > +			ret = tdx_pamt_get(page_to_pfn(chunk + i), NULL);
-> > > +			if (ret) {
-> > > +				WARN(1, "DPAMT setup error for extensions, stranded all pages\n");
-> > > +				goto out_free_hpa_list;
-> > > +			}
-> > > +
-> > >  			hpa_list->phys[i] = page_to_phys(chunk + i);
-> > > +		}
-> > >  
-> > >  		ret = tdx_ext_mem_add(hpa_list, chunk_pages);
-> > >  		if (ret) {
-> > > 
-> > 
-> > How about just fold this change in into patch 3/6?
-> 
-> I think patch 3/6 is already quite heavy. Is it good that I put this
-> patch right after patch 3/6?
+remote_event_format_show() doesn't take into account each field's
+alignment leading to an incorrect reporting of the actual field offset.
+Use the existing field->align.
 
-But that breaks bisectability, no? Even placed right after 3/6, that
-commit fails TDX module init on a machine with DPAMT and extensions
-whenever the module asks for a non-zero pool.
+Fixes: 072529158e60 ("tracing: Add events to trace remotes")
+Reported-by: Fuad Tabba <fuad.tabba@linux.dev>
+Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
+---
+ kernel/trace/trace_remote.c | 1 +
+ 1 file changed, 1 insertion(+)
 
+diff --git a/kernel/trace/trace_remote.c b/kernel/trace/trace_remote.c
+index 2d5bc423efca..7e35f48ae467 100644
+--- a/kernel/trace/trace_remote.c
++++ b/kernel/trace/trace_remote.c
+@@ -1098,6 +1098,7 @@ static int remote_event_format_show(struct seq_file *s, void *unused)
+ 
+ 	field = &evt->fields[0];
+ 	while (field->name) {
++		offset = ALIGN(offset, field->align);
+ 		seq_printf(s, "\tfield:%s %s;\toffset:%zu;\tsize:%u;\tsigned:%d;\n",
+ 			   field->type, field->name, offset, field->size,
+ 			   field->is_signed);
+
+base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
 -- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+2.56.0.385.gd3acb90ef8-goog
+
