@@ -1,104 +1,98 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 168B836494B
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 08:35:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F10273655C7;
+	Fri,  9 Oct 2026 08:36:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791534948; cv=none; b=syXTUvt255jSN93ddNcaeNH4ZV1thJchamgw1bLENrkPDHiZ5S1kRWlA+B78HAKvIjzUA11/JZeUG5d0FyN9/3JwFyf+edq5/esdPT1lC06xG2r03X9UabSPLXE4Mgft8nJ2yQgQZWaNB4zC+96MaFfAyy3Qqz3Ys9q49a8/Ljw=
+	t=1791534976; cv=none; b=p2DyTgnKoCC8nwOi/IenQcQcOt+jnusxhJm0CaztDhLHeo2BzlF+yd+xD1W2VkhPk5DEvbM5QLju5HdIfWKM1ie6+GDpoUx104wwly3fgnYxBmbgH5AG4sqD2FLUxb0K/INDfpjB6TuvJ5rrr3Tw5phmI8qMlG6uu87B8o019wQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791534948; c=relaxed/simple;
-	bh=DcIG2shn3T0xcPy26ZYooPqk+CSxU0JY/AS9GXVd1rw=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=XO/hU33aF2PBqh8lIT8YPU9HMB2HklmUUPXdYE0ojstUmmTmgnx2GRjlDV7QsILWH6AO5mgrqI7TGYlWvCweKzBPRS3p6eZ/f0IIlUNzykrARy8TxM4Pl2upT7KGIsIquio+higE7cGl+AKuqPqV0HoBC8IeZLoRTGc4vDGBkTw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZrrGn15x; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791534976; c=relaxed/simple;
+	bh=1SqIwN6JU8buHKv38WL4LisHd0/TXPfSwZ3bIQLWeYY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BXG4qrp6O8ZIbxIx99xzozfqn4L7MIVyl0TIGn61gnpeoa1BJwK3GKB5UAJxUdsqVXcLce6nEROkA35EzLABq5y5loJrOQzZmB2BGb02iYp+/QLUoEurKFG+dLPV8JyYqAL6CEokFghYhagl5NciLG3NaAiPKQ9osPJ0SaS+9x8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nja6rhOw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZrrGn15x"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7F301F000FF;
-	Fri,  9 Oct 2026 08:35:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nja6rhOw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C546F1F000FF;
+	Fri,  9 Oct 2026 08:36:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791534947;
-	bh=LJp1ABo9XG9ZF+W5UNjHtd6WdeHvlA8w8SgIAeqqbUA=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=ZrrGn15xHDm0VBgW6cpZpvLBFU48SqjH9iXbyqj1D1FjB9srg4CbU5KN8mODXGbRs
-	 LAJPTXHifupnXvMnMuB37aOfvA2ATmG6MQdISYboACKENt8IhC5i7FFhj/yE9XyjIm
-	 YG3SeW6COSUtuv1TQpM4AEIj5hAU0kTxEehtvHvDw71pyUM2JGBjRSJEL6MSQIEgrr
-	 PrJMGBftKH9kgo+P/Te/wRwyXeJAEoiWFLVX4gH/2vLkUaazpkmEzcbMWoI3ixmXoS
-	 jWles1FkEFLrmUObz4BJJbMru066TuSZQkj9EV447jKM+AY51OCuyO7kg5uFzjYPT2
-	 BKvZdBLvvuBpw==
-Message-ID: <63812000-4677-4af6-a3e1-4e87e39f0d88@kernel.org>
-Date: Fri, 9 Oct 2026 16:35:44 +0800
+	s=k20260515; t=1791534974;
+	bh=4WlGPZ54svZCU+yv4o/S7va6SD9ZRUbV9dZirPNS7H0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Nja6rhOwRtngSNzSsyeys9Yd+p+RazzEke4KP+S3a/h6htMCqVc5Z8zUe9sTqWZZj
+	 +84nXC0t1qwaXXMcUtGcRv1AGS2VTeFPVwhIkx4FcZrYBJSFKxIkNJrb9VLTcx/+qn
+	 1MpMSBrfLzj8uC8blj2VF7NYTHNOM+Y5dstHbytswbnX8VDPSZtDjCItT/5117Tkxy
+	 xyy/Fd36dsOlQ4q+Nuf5cwDX4rpG434X0DR7Xgs+WMnZguIVnLn5gVrGIFzFhEmPpa
+	 S2KuKEr41WYpIQJ22/6jNAs863WBh2j5VMnP0MBWVv4su/J+QpBoWDzYotAehKAoQi
+	 YXalqsbBjiJXg==
+Date: Fri, 9 Oct 2026 10:36:10 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Til Kaiser <mail@tk154.de>
+Cc: netdev@vger.kernel.org, Luo Jie <jie.luo@oss.qualcomm.com>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Lei Wei <quic_leiwei@quicinc.com>, Suruchi Agarwal <quic_suruchia@quicinc.com>, 
+	Pavithra R <quic_pavir@quicinc.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
+Subject: Re: [PATCH net-next 2/4] dt-bindings: net: qcom,ipq9574-ppe: Tighten
+ ethernet port node constraints
+Message-ID: <20261009-glittering-fresh-squid-e2fcc8@quoll>
+References: <20261005152915.101780-1-mail@tk154.de>
+ <20261005152915.101780-3-mail@tk154.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, Daeho Jeong <daehojeong@google.com>
-Subject: Re: [f2fs-dev] [PATCH] f2fs: disallow mmap write and data-modifying
- fallocate on atomic files
-To: Daeho Jeong <daeho43@gmail.com>, linux-kernel@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net, kernel-team@android.com
-References: <20261002171704.3652570-1-daeho43@gmail.com>
-Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <20261002171704.3652570-1-daeho43@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261005152915.101780-3-mail@tk154.de>
 
-On 10/3/26 01:17, Daeho Jeong wrote:
-> From: Daeho Jeong <daehojeong@google.com>
+On Mon, Oct 05, 2026 at 05:29:13PM +0200, Til Kaiser wrote:
+> The port node pattern "^ethernet-port@[1-6]+$" also matches multi-digit
+> unit addresses such as ethernet-port@11, which the reg property does not
+> allow. Drop the stray '+'.
 > 
-> Stores through a shared writable mapping and fallocate with
-> FALLOC_FL_PUNCH_HOLE, FALLOC_FL_ZERO_RANGE, FALLOC_FL_COLLAPSE_RANGE or
-> FALLOC_FL_INSERT_RANGE do not go through ->write_begin, so they bypass
-> the COW inode and modify the original inode directly. Reject them while
-> the file is in atomic write mode, as fallocate already does for pinned
-> and compressed files. A write fault gets SIGBUS and fallocate gets
-> -EOPNOTSUPP.
+> Also restrict the ethernet-ports object to its declared properties.
+> Without this, nodes outside the port pattern are accepted through the
+> generic ethernet-switch schema.
+
+Simple test shows that it is not true, so I do not get how you
+reproduced it.
+
+Are you sending some LLM output?
+
 > 
-> fallocate without these flags only preallocates blocks and stays
-> allowed.
-> 
-> Fixes: 3db1de0e582c ("f2fs: change the current atomic write way")
-> Signed-off-by: Daeho Jeong <daehojeong@google.com>
+> Signed-off-by: Til Kaiser <mail@tk154.de>
 > ---
->  fs/f2fs/file.c | 10 ++++++++--
->  1 file changed, 8 insertions(+), 2 deletions(-)
+>  .../devicetree/bindings/net/qcom,ipq9574-ppe.yaml     | 11 ++++++++++-
+>  1 file changed, 10 insertions(+), 1 deletion(-)
 > 
-> diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-> index ef4d218e694..56c686b8580 100644
-> --- a/fs/f2fs/file.c
-> +++ b/fs/f2fs/file.c
-> @@ -140,6 +140,10 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
->  		return VM_FAULT_SIGBUS;
->  	}
+> diff --git a/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml b/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml
+> index 6d0b21a10732..1a78e2c82b90 100644
+> --- a/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml
+> +++ b/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml
+> @@ -174,8 +174,17 @@ properties:
+>        - interrupt-names
 >  
-> +	/* mmap stores bypass the COW inode and would break atomicity */
-> +	if (f2fs_is_atomic_file(inode))
-> +		return VM_FAULT_SIGBUS;
-
-Will we suffer race issue due to the check w/o lock?
-
-Thanks,
-
+>    ethernet-ports:
+> +    type: object
+> +    additionalProperties: false
 > +
->  	if (is_inode_flag_set(inode, FI_COMPRESS_RELEASED)) {
->  		err = -EIO;
->  		goto out;
-> @@ -2113,9 +2117,11 @@ static long f2fs_fallocate(struct file *file, int mode,
->  
->  	/*
->  	 * Pinned file should not support partial truncation since the block
-> -	 * can be used by applications.
-> +	 * can be used by applications. Atomic files should not either, since
-> +	 * these modify the original inode directly and break atomicity.
->  	 */
-> -	if ((f2fs_compressed_file(inode) || f2fs_is_pinned_file(inode)) &&
-> +	if ((f2fs_compressed_file(inode) || f2fs_is_pinned_file(inode) ||
-> +	     f2fs_is_atomic_file(inode)) &&
->  		(mode & (FALLOC_FL_PUNCH_HOLE | FALLOC_FL_COLLAPSE_RANGE |
->  			FALLOC_FL_ZERO_RANGE | FALLOC_FL_INSERT_RANGE))) {
->  		ret = -EOPNOTSUPP;
+> +    properties:
+> +      '#address-cells':
+> +        const: 1
+> +      '#size-cells':
+> +        const: 0
+
+No need for any of these.
+
+Best regards,
+Krzysztof
 
