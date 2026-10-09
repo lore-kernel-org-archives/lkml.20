@@ -1,109 +1,105 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D13103DAADC
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 07:30:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B37113BB10D
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 07:31:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791531042; cv=none; b=RVpfkpke3LRDDm6+sqXNSs7e4TuuqnMFLyYKWbS0xbv9RicFgjwNCGMwjFb+tv5Vw4/ZB49RzQCiGo9u+3ellYs81vdvj1nP6wN5+Lvae+iOnCA47JSTN/TwKtKrW9URLHIEa9TJcGv2VnaT6OYau6GKbDpF5m8JMB907hdKtpc=
+	t=1791531082; cv=none; b=iZBTt+0+nxSeVzBIcnHpXG1/DIO0slHyntqEzARKhbFYlCg/gTPNEUYOZ7lW9eZWVv4tIlTw5rREJ2RBaCEWyK+ZRAWtuT6w+VKE6H6cMlFxCuY9E9DqIL235s6qgAc2+bbtXtzbgQzjQwtwfQd9WeMTNqCk+k/BT4F+bzB8rNQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791531042; c=relaxed/simple;
-	bh=m2sbDzTVz80zNixXWIi0WDat1SU37qeKuIL9ZzrWE0s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=n8p32DxRoHY2hh6sZNi4lxkWx/4ZopRc94uddYZLVyrK9dJ1m+OcbHvHn6pnGWh+XTfFX4yPuf6JJg0eL9Gt215C07lJOGC6fhExq+UMWmICxSay9J2NHSZuaIDx8nUjmX8AEw86383+uo7OGTO6i7El33PFixlLTg9bIZFg6Sw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TisiumbA; arc=none smtp.client-ip=209.85.128.41
+	s=arc-20240116; t=1791531082; c=relaxed/simple;
+	bh=BcmW3b91oM72Iku0groZz6A77z1jqK6pvYSJRHrTcLo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rM+AIgWgr3zUhaFvEIF/q/GzhM1tPtYcx4SOgPDeRHQzInEXSTDQBDU1Ntiabd8DhCnC0LuwZY55jZWWU3WNNYo9JKAdLdfDRcp16OciaapUDjsAB6IFbA6eKreacBS4Iw4HUZ9MTaPM29AVtZpck3zOdBAMO37AUHu4DqxuZy8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YDGPd5Wj; arc=none smtp.client-ip=209.85.216.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TisiumbA"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a16aaf2067so69106645e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 00:30:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YDGPd5Wj"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-381b831d535so6116066a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 00:31:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791531039; x=1792135839; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=QhfdgCnusoug/g1d4W12Bzr39jd94gg5/ulsL7PdlMY=;
-        b=TisiumbAcAGgBzjagMugUD4vnd5QOPbyuCPbgGXc2bY11YasM0iNwBx90vl1OnQhBW
-         0lIUXSaGBcnnkD3lTHRIZN1F6t7n9FchBO+t5uHEJdUAM+H6nI1jMlnD0eZpm/ymMSUT
-         oPdnbxWZmMT/YSC+wiRo2R7q5jVgeUwQcJj/L/54jTi/pvv2YdaQvODC8QbNgHuE6PWQ
-         cYBAvtdXW8KG591U4nJWV3r8usAFp3pXPL95DgUB2lSTxTUPDsC8QU/wwr2YTQhJpIT3
-         EW153KTI7R8y1OV7WeMZ4MD0uw+IUvjXzxZ2+AtyrweGBGERMBx0lx/mYx+gJaFTjL8w
-         dlVQ==
+        d=gmail.com; s=20251104; t=1791531081; x=1792135881; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=X2kzGm0pzKQj59Ju5/ds69Z4jxb5t44uQPLNR0z8/S8=;
+        b=YDGPd5Wj1a8PBGCk58z1K51JqtVRj3d0jJGZiBQ/eo2KEga9YJNEPIUVrpxE7BWCzm
+         fjlhuPLdGQ2K2ZkcBUg+61NMNkl27oCx0GMUB2GBIIbKAlvW+U03eOs9AVPHxfcUgr+y
+         T6oeIiC4NfBb3fH4dYobpgE+bJzHPo5iSx/G6b/Gs+Ca/NR9wab7HptrwDzr5HMA0r/P
+         IGCxoDq6Ey42OHi7SI96uPNfSxghLxSNJnHjRpmLozzlIb63V1JxQMiwzJxyfcTrqySP
+         +aUKjN9ei7eafYQ1YBsNBpQh/GWrRcXWiYZqnNVuM4Xpum7Nz9CEd+dvpMPRwir6kdqh
+         aJ5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791531039; x=1792135839;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QhfdgCnusoug/g1d4W12Bzr39jd94gg5/ulsL7PdlMY=;
-        b=YiRwZdzb72ntOledmdhISkWjsol0wqPtWod3N+1m6xVo+1FZJYZvOYj+ZEfAlu278i
-         iA/qGIz4OG8qLwlgSVH7/LXzI3qpF1UXme2LieeRZBjBic1yOt/n9x2HHX9fFcMpFn04
-         HG/frFWJWQRAFTFH44ioDggU0Ey7xYJRlA4JfXtWVGw59K4kAJFgmcPQvX6ukc6D7TAE
-         ecrF+9GI9Hd/CeZVIguELukmRZPN4oWfzmH3Iyygk78Lp7irQLrs2I/ofhPnL5uiw2/W
-         +CcOVlnKbpfscGBEjET7LiAGthRpChYTHdscmPXSXv1eDFKNsgy5vtQ5WkG3ghwQF+3p
-         Rrfg==
-X-Forwarded-Encrypted: i=1; AKwUvBytCYLVD/M+/aKOE4ZvgC49iN+LGCClz2sEzjHXKr+4V3anCcDUUYoJTbDDaeVp2aYrMG5Sx50v3jWwonc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nWsiUXDzUZnXe/ASF9fwEb0Phgr6MU4WUugT94gdUVKVv/6YcO
-	GlZiYgt2sUBErsbAUlDPAZsrS8fm3RZAhqHVvsbNLK0S/KkETRDnNXwX
-X-Gm-Gg: AYBFou0vWd/8T7vnxwJR/7ItbvN77xwZ+dNzorzU0wFe0t2uuea2yCqgPZgrZ1WdM+W
-	AAp/uFeu69S0vcnfRTmKZa9MNxfvUxAJJqs8EPYOBgVwwsgLrjhyGNvjje5FhVx7qeENA0P0ygs
-	/uJa02Zvha5qynUSml9BqFOTdQIsuTvOzt2rFZfPcW4ZchHwFK1hb1c2q+iO87BMNBV1hg5ZALc
-	aN5pCLMiH+hW4W8MnFTqJzvfooWHk3k6nws4VFwW90c3VUOXV9m8Cweh4tmNMqEeSQkUB6wTi+U
-	hZJYxquv/QiNNVY/4HYMc5hfhVXltjou6Deb+GT18AG2sjfVUO5r+FugFS1CtUyk1egPjp7pzgP
-	1PtRZFuYYG8ZMD0vcyIeXOqFT/nm4LCKXr3bdUWmLmHAGEUi0MP9BJMDFHMANPX6A5m/MeIDEES
-	kZP5+ks7bN5+SG/aRtQ8wPhn4zsfliVh8phMcfqp94oEPJX77Pe6bMlRX7a6JKl11bgT4emcPit
-	hAwzZGTokm2k91t0aNb5GmUHTm+dAvoPXYhJJHZ9BBfUxG/KD1rJaSAg788YF6kxliZtnNZUw6h
-	4b4HarKLec5LfKHu9Uj5KBO3hVFbU61IMZmboPwU7OGJj8I5DR6X3ybNJzY8e4y3GmIK+FemB1y
-	T
-X-Received: by 2002:a05:600d:82c6:b0:4a0:1fe2:d4c8 with SMTP id 5b1f17b1804b1-4a18e4a4c3emr19524635e9.5.1791531038809;
-        Fri, 09 Oct 2026 00:30:38 -0700 (PDT)
-Received: from unknown748F3CBA5068 (dynamic-2a02-3100-a128-aa01-297a-7094-853e-a20c.310.pool.telefonica.de. [2a02:3100:a128:aa01:297a:7094:853e:a20c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf31b83sm38426495e9.12.2026.10.09.00.30.37
+        d=1e100.net; s=20260707; t=1791531081; x=1792135881;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=X2kzGm0pzKQj59Ju5/ds69Z4jxb5t44uQPLNR0z8/S8=;
+        b=L5OEMd9hTqFhlKCA0DEUY8RkS5ZycEa2bToQiDnFqEn0cpT19yEFVcNmd30xPJ+JNV
+         JB6CG7PIgDFLK5i3o3gAOkJdgTwHpiK5zhGbTIQCUbnIIdWxs+Cd1ChEyWwA+NyPcFHf
+         26I/sNyvA/UYd5wii/mHZ/lOlpnvfwvlIUzaU9i3wJq37+N8xs/86LHZLrComEh23gdG
+         GAHNysO2x+e3IBTHxNwi7yeU3MMJoX59yGCxLBRf3zbng93sz0atdYH9q3K607Vd3wv7
+         qBeH3sDDk8iF2iyPYjwvpD56vknAlmsA71MoK9fNdkwKZzduT5aq/rSJX8OYf1JHff2f
+         hTgA==
+X-Gm-Message-State: AFq9FYKw0bokeUqGrg0b032E3zbjxraOUoXBTK8maxp4W9ak/QMPlihY
+	eWOXy96Ar9G97axnvica6MA1qHzlogI2w790l+uBTjL3iqYGhhmuXZ6I
+X-Gm-Gg: AYBFou3bP/lM7PGn7P5cQZZl99+lS0TejkDUcJsnACQwDiROWfEM8ADC/maRInez+M3
+	AsvohmGyB2Jkb1w9qGB4LOgB8H40JDzOD5L6RBoHA9A65dEmXKKvWNSR6jz7NJgPCaK2eXa+zMo
+	vwP9yVhUQEWLvoZj6HebeF4dWz+FKuEeakRXjzp4qdmKDwANySirISx5GATVDbMrBDYajq4pV8q
+	Bsb/fTc2ms5FeECq+ebxMIcDzj80lq6qJptScIkVsEyI64VKY/p2ceBX+B47aEIJFLdd6on2/jc
+	gemt3yKLiywaAI0z9eFMjFaba66/JMbj5saXpgZgnT1SWnP5ok5yqK1F60+Gm7CJHLngy+oTFCC
+	BRfEzOz09Uq6C8zPCd9/z8nU/yrfsVB6w3UPF3xPsU+fdhqS+8/EtxJ2xjDkTopcNvpAxQLq/NX
+	Y7/nmekr+REZSzjg2hV+pXumznIn98N05mkH/T3Ki80oHewvzWZwdU5D36Hf/dy0/PYFPHJ+U=
+X-Received: by 2002:a17:90b:2d08:b0:3a4:7730:33dd with SMTP id 98e67ed59e1d1-3ab3ae36b1emr1096672a91.58.1791531081056;
+        Fri, 09 Oct 2026 00:31:21 -0700 (PDT)
+Received: from oslab.. ([101.6.42.129])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab32c0f59bsm1433458a91.0.2026.10.09.00.31.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 00:30:38 -0700 (PDT)
-Date: Fri, 9 Oct 2026 09:30:37 +0200
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Arend van Spriel <arend.vanspriel@broadcom.com>
-Cc: linux-wireless@vger.kernel.org, 
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, brcm80211@lists.linux.dev, brcm80211-dev-list.pdl@broadcom.com, 
-	linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev, stable@vger.kernel.org
-Subject: Re: [PATCH] wifi: brcmfmac: avoid sleeping tx locks in netpoll
- context
-Message-ID: <asiX75kRueyFqWuO@gmail.com>
-References: <20260930185417.61865-1-kmehltretter@gmail.com>
- <20261004122910.1392318-1-arend.vanspriel@broadcom.com>
- <asR1TaKQJlPFqEvR@gmail.com>
- <802a092a-314a-4f77-aa1d-134b3d020069@broadcom.com>
+        Fri, 09 Oct 2026 00:31:20 -0700 (PDT)
+From: Tuo Li <islituo@gmail.com>
+To: akpm@linux-foundation.org
+Cc: linux-kernel@vger.kernel.org,
+	Tuo Li <islituo@gmail.com>
+Subject: [PATCH] lib/test_meminit: handle kmem_cache_alloc() failure
+Date: Fri,  9 Oct 2026 15:30:40 +0800
+Message-ID: <20261009073040.2995938-1-islituo@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <802a092a-314a-4f77-aa1d-134b3d020069@broadcom.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 06, 2026 at 10:27:27AM +0100, Arend van Spriel wrote:
-> > 
-> > Lockdep instrumentation in fcmode=1 and 2 confirmed that cleanup enters
-> > without txq_lock.
-> 
-> This is an observation unrelated to the patch, right? You mentioned in the
-> patch it only covers fcmode=0, right?
-> 
+In do_kmem_cache_size(), kmem_cache_alloc() may fail and return NULL.
+The returned pointer is subsequently passed to check_buf() and
+fill_with_garbage_skip() without being checked, which may result in a
+NULL pointer dereference.
 
-Yes, the cleanup observation is unrelated to the fcmode=0 fix. I
-mentioned it to explain why I kept brcmu_pktq_penq() for normal calls.
+Handle the allocation failure by marking the test as failed and
+continuing with the next iteration.
 
-I'm looking at a separate brcmfmac FWS-path RT/netpoll fix for modes
-1 and 2. The prototype defers IRQ-disabled transmit to the FWS worker.
+Fixes: 5015a300a522 ("lib: introduce test_meminit module")
+Signed-off-by: Tuo Li <islituo@gmail.com>
+---
+ lib/test_meminit.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Are modes 1 and 2 used or recommended on SDIO devices? That would
-help me prioritise the follow-up.
+diff --git a/lib/test_meminit.c b/lib/test_meminit.c
+index 68c3b9da090e..db4b4398e1c1 100644
+--- a/lib/test_meminit.c
++++ b/lib/test_meminit.c
+@@ -241,6 +241,10 @@ static int __init do_kmem_cache_size(size_t size, bool want_ctor,
+ 		}
+ 
+ 		buf = kmem_cache_alloc(c, alloc_mask);
++		if (!buf) {
++			fail = true;
++			continue;
++		}
+ 		/* Check that buf is zeroed, if it must be. */
+ 		fail |= check_buf(buf, size, want_ctor, want_rcu, want_zero);
+ 		fill_with_garbage_skip(buf, size, want_ctor ? CTOR_BYTES : 0);
+-- 
+2.43.0
 
-Thanks,
-Karl
