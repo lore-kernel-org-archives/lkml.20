@@ -1,171 +1,118 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+Received: from smtpbgsg1.qq.com (smtpbgsg1.qq.com [54.254.200.92])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83AA23D0C07;
-	Fri,  9 Oct 2026 07:56:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F6503D0C07;
+	Fri,  9 Oct 2026 07:56:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791532588; cv=none; b=uMFgKxbaOkUOwKZPfFjilERSKZl8m/Izn5sBdf6I9Zkboalzbm9qGFU8rVwTut+fVlO/iVnoUD6fYH3uoj2Ztuy9G3UxlUSMED0vEe7GU3tXV/yd6i6xJ/2qeluEtKRH01XZ8x1MGmtNumj+TksfWNtZT5Nivmc9EZQUAsQdJzw=
+	t=1791532610; cv=none; b=OOfZSr/C3J24CMEiKIuUNMlDpcwQ2YhNvfT5L26Dd6CbV6v+PoJO5B6fKMciWIbZ1G6Iq+e9ZwOyDvh+dZYgNQEkT8Yj38W3D5oUE42A8giQxKZvxyo1qF2W0l7s75abTQ0LwBeH2b/jRQ0hj4dXUg1ELH/JYlmHHXQc0mwmWNU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791532588; c=relaxed/simple;
-	bh=sPWIgIslsKPQhJmnIZvKwIQh5gs4LqMjsZ/nweAkSI8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oAV7YGgZRmiJM0F772OWZCxd8MQmMnSB+rMkqQqZkT/TPhJiWSiuFKq1/SEfsCvHxqwiY0/wB2jY/NIbunggxSntl/apGu4Kry3MZ49uXZ6GF5hIhpPGkXPH+udfqf78VKahtTHL/t+jSVZxTS4XfQg/CkoaI+BKI3dp6evDKtI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Po20U1ay; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Po20U1ay"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791532586; x=1823068586;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=sPWIgIslsKPQhJmnIZvKwIQh5gs4LqMjsZ/nweAkSI8=;
-  b=Po20U1ayB/9RrHHp84JRzVRjFhC2wn82nATMQmkYLBTcqFv1XprLC5vI
-   OofIsq2ZnmjAf3aOVnxQxxxMqhOBF9n7BHrAvfakhOaLbYsegwNqVmAwO
-   l5yMtpxjdKHaOqyVtygfM2NIraOcgC6ixubTHhdBqdWwVKXKAKnf7zIbP
-   fobtDhkOMKJ+IhgbBOpkWtt9gWTjjVzbtQ87bFJLYWNKFeF9HxeUtA1pS
-   /unoSvltFlw48e5V/+fjqfnZUSEGnz/D+eYSq+XOLD8ssnojuBgWcqnPb
-   SK/x0k9g0lvKwGneJtWhVgcLYyAOTALBTWFp2+1q/sdVjC66aOenX37qv
-   A==;
-X-CSE-ConnectionGUID: xG1CTexaTN2ylXeKnp9MWQ==
-X-CSE-MsgGUID: zH/VmiA3TrWPqe1FgVasXA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11929"; a="223679"
-X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
-   d="scan'208";a="223679"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 00:56:25 -0700
-X-CSE-ConnectionGUID: fChR7mKfSvemT8ZXZsNggA==
-X-CSE-MsgGUID: +/MVYvWARc+nBmlm4c251w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
-   d="scan'208";a="199840"
-Received: from yizheliu-ivm.ccr.corp.intel.com (HELO [10.238.208.114]) ([10.238.208.114])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 00:56:18 -0700
-Message-ID: <b2143700-da36-418c-af63-0b50b33f080e@intel.com>
-Date: Fri, 9 Oct 2026 15:56:15 +0800
+	s=arc-20240116; t=1791532610; c=relaxed/simple;
+	bh=+V4J4jb5Aj7TY9xO/xX782sZxUDJGWTEX8LeDQ4fkho=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=RblevmYNLuH10/+6NFodVxnl+SMzE5FGNOypjaPvtb5Q7uOaoxSHx3S+fw8ahyZeVBWC31kHoVNZdNldzbRMWxf4AzM8q45Hy8YL8+tkFYR2sYQpMNkvv5maDRTCtM//bvysp33t2JVlU1VaI0fKmjSB7hsp49BGA/Y1cr+KtfE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.254.200.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
+X-QQ-mid: zesmtpip2t1791532534t173164c0
+X-QQ-Originating-IP: BuEVl1c8H95NpE4oXHOC/UUST0zQ5tlQaJLw7XoHYz8=
+Received: from [192.168.30.32] ( [localhost])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 09 Oct 2026 15:55:31 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 5870349108209219683
+EX-QQ-RecipientCnt: 32
+From: Xilin Wu <sophon@radxa.com>
+Date: Fri, 09 Oct 2026 15:55:08 +0800
+Subject: [PATCH v2 3/4] dt-bindings: arm: qcom: document Radxa Dragon Q8B
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v15 14/23] KVM: selftests: Expose function to allocate
- vCPU stack
-To: Lisa Wang <wyihan@google.com>, Andrew Jones <ajones@ventanamicro.com>,
- Ackerley Tng <ackerleytng@google.com>, Binbin Wu
- <binbin.wu@linux.intel.com>, Chao Gao <chao.gao@intel.com>,
- Chenyi Qiang <chenyi.qiang@intel.com>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- Erdem Aktas <erdemaktas@google.com>, Ira Weiny <iweiny@kernel.org>,
- Isaku Yamahata <isaku.yamahata@intel.com>, Kiryl Shutsemau <kas@kernel.org>,
- linux-kselftest@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>,
- "Pratik R. Sampat" <pratikrajesh.sampat@amd.com>,
- Reinette Chatre <reinette.chatre@intel.com>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>,
- Roger Wang <runanwang@google.com>, Ryan Afranji <afranji@google.com>,
- Sagi Shahar <sagis@google.com>, Sean Christopherson <seanjc@google.com>,
- Shuah Khan <shuah@kernel.org>, Oliver Upton <oupton@kernel.org>
-Cc: Jeremiah McReynolds <jmcrey@google.com>, kvm@vger.kernel.org,
- linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org, x86@kernel.org
-References: <20261001-tdx-selftests-v15-0-7c62a5d8a992@google.com>
- <20261001-tdx-selftests-v15-14-7c62a5d8a992@google.com>
-Content-Language: en-US
-From: Xiaoyao Li <xiaoyao.li@intel.com>
-In-Reply-To: <20261001-tdx-selftests-v15-14-7c62a5d8a992@google.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261009-q8b-dts-v2-3-eda11e5dea8b@radxa.com>
+References: <20261009-q8b-dts-v2-0-eda11e5dea8b@radxa.com>
+In-Reply-To: <20261009-q8b-dts-v2-0-eda11e5dea8b@radxa.com>
+To: Bjorn Helgaas <bhelgaas@google.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
+ Stephen Chen <stephen@radxa.com>, Junhao Xie <bigfoot@radxa.com>, 
+ dragon@radxa.com, Xilin Wu <sophon@radxa.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Daniele Briguglio <hello@superkali.me>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=910; i=sophon@radxa.com;
+ h=from:subject:message-id; bh=+V4J4jb5Aj7TY9xO/xX782sZxUDJGWTEX8LeDQ4fkho=;
+ b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFkn5j678tLO/c7n2Lsx+oaL5/RW9WpUalzP1nHiVMqpn
+ el+V1S9o5SFQYyLQVZMkUUhnmEue2XutadipXowc1iZQIYwcHEKwERsHjH89/m89f5x/yg/3i0x
+ hjvMLr5bvOD0G/MXy3iPqL7/s8xi9QGGv3LLfKy/brJkmvvkpT5jsu7fgwc33THc09py2uTqOdV
+ Pa/gB
+X-Developer-Key: i=sophon@radxa.com; a=openpgp;
+ fpr=205F009D07796DD6E516752E32C31567AD9E324E
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: M472cMQbILHLcyXJxjtfAmjsXD5/IDODG+gUL2dbesiHgasEEhuhcVFE
+	uxl/tGxQ4AXz2Hi7YKE8XU20hKlvZdQzpbfax5Miem1/cPbJt3OAYH03ejTqk8ZqAytlZVr
+	XUBWdVDCNiXUdlDhYGra3ssKme6hSCq2HU8mlpU7GEmwyNIikl78hibvTLtXEpBFqpqgNUy
+	7gGydc9kI6zLxGnC3oB5LUwcGMNivYw1WZEp8Leq5A0MH22t3cvuh72iMOoMD59c/jO3tdn
+	TU9LG78gxOqX6q+/c7Q39TzFVN+0VVzZ7CZP9/NZ6o9XU2KjGwvgrZol6E6kbTnrPN26FHo
+	qhwrqe4ehDoxQLYFb4w3ij2yhPcfn11HrqQO+9FOQF3dSq/MThJ0KU5CA4T17SoQ4MHZyks
+	CtlT6LRH656+nxhkUxnAML4z10BcCdLrkzvRRmJSUMSo7GHKfkX5fhoy5hgMuD8bLCCSPkg
+	FRZcnJouEttkN9JnQVFoX3xQei3RU+AajrbuO9jcm+LsfLhawK5sMJ5c0sozkm3RJ6mjo14
+	CBn8AzTOyySvaKX5b71ZOhtNn6ojyv0/wM85sxvzVvQLCnP00M5wJwGlrJIlLVbKm73x0Pd
+	eMz4kZKi7x+cAiTLZ53lu+74YUr6CzXfVuYavc6OYmMHt7rSfkQrTJ1rtn6ztgJvdCk0jUT
+	gDBYtII/cXvSy/7ef7RCAOFvkqyFl9T7WDdVSPG7qvVYBYooQWhe+xyKbtb5vrexE6Tqtyr
+	7ZFWbtPPZCQMc1QJIrRc2iUB4HIyKVmmdpShCFrHZmXvMx2weSWlkg+yT/XaG8MFg4BZXpW
+	81uo4HMPYAjKIGH+rI0xT0T7V45zXzE4MNUhAdNAmUvyWgV2b/5GDTwwzINEVAW0VMpL/QM
+	5Hg6zetQHYxPJdwAdaVIOb3nyG8xBLfOseYheM6mNOtS0OIKtB2glWXL5+BXKvCY/sPg9YB
+	y4zLXbtdCPnW4G6LVoY+3UmuC5xFdbKlVU4C2Juv10WvVXfhYaK6Dnt6L8UDx1wrxMnR1ln
+	y8Wbpj8xX+lYKLfwQJLX2eoob2MrKAZgEVQVy+YIq3ZmcV+8lXo9kXCmnlis0At4iVOqt6h
+	8JiUbmgPE5OVKdT12ZO6jPn2wfRJgDqpQ==
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+X-QQ-RECHKSPAM: 0
 
-On 10/2/2026 3:37 AM, Lisa Wang wrote:
-> From: Sagi Shahar <sagis@google.com>
-> 
-> Introduce kvm_allocate_vcpu_stack() to allocate a vCPU's stack
-> in preparation for TDX to allocate a vCPU's stack and initialize
-> its stack pointer.
-> 
-> TDX VMs' registers are protected state and cannot be initialized
-> using the KVM_SET_REGS ioctl() that is used for normal VMs. A TDX
-> vCPU's stack address will be a property of the TDX specific boot code
-> that initializes the vCPUs' stack pointers at boot.
-> 
-> Signed-off-by: Sagi Shahar <sagis@google.com>
-> Signed-off-by: Lisa Wang <wyihan@google.com>
-> Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
-> Reviewed-by: Ira Weiny <ira.weiny@intel.com>
-> Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
-> ---
->  .../testing/selftests/kvm/include/x86/processor.h  |  2 ++
->  tools/testing/selftests/kvm/lib/x86/processor.c    | 25 +++++++++++++++++++---
->  2 files changed, 24 insertions(+), 3 deletions(-)
-> 
-> diff --git a/tools/testing/selftests/kvm/include/x86/processor.h b/tools/testing/selftests/kvm/include/x86/processor.h
-> index 8854ee052d29..1eb380dd216c 100644
-> --- a/tools/testing/selftests/kvm/include/x86/processor.h
-> +++ b/tools/testing/selftests/kvm/include/x86/processor.h
-> @@ -1212,6 +1212,8 @@ static inline void vcpu_clear_cpuid_feature(struct kvm_vcpu *vcpu,
->  	vcpu_set_or_clear_cpuid_feature(vcpu, feature, false);
->  }
->  
-> +gva_t kvm_allocate_vcpu_stack(struct kvm_vm *vm);
-> +
->  u64 vcpu_get_msr(struct kvm_vcpu *vcpu, u64 msr_index);
->  int _vcpu_set_msr(struct kvm_vcpu *vcpu, u64 msr_index, u64 msr_value);
->  
-> diff --git a/tools/testing/selftests/kvm/lib/x86/processor.c b/tools/testing/selftests/kvm/lib/x86/processor.c
-> index da430d4e7765..4a753fb43007 100644
-> --- a/tools/testing/selftests/kvm/lib/x86/processor.c
-> +++ b/tools/testing/selftests/kvm/lib/x86/processor.c
-> @@ -851,12 +851,31 @@ void vcpu_arch_set_entry_point(struct kvm_vcpu *vcpu, void *guest_code)
->  	vcpu_regs_set(vcpu, &regs);
->  }
->  
-> -struct kvm_vcpu *vm_arch_vcpu_add(struct kvm_vm *vm, u32 vcpu_id)
-> +gva_t kvm_allocate_vcpu_stack(struct kvm_vm *vm)
+The Radxa Dragon Q8B is a single-board computer based on the Qualcomm
+SC8280XP platform.
 
-Besides what Sashiko pointed out[1], this patch was just messed up during the
-rebase and it even doesn't compile.
+Document its radxa,dragon-q8b compatible.
 
-[1] https://lore.kernel.org/all/20261002091331.BA23F1F00893@smtp.kernel.org/
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Tested-by: Daniele Briguglio <hello@superkali.me>
+Signed-off-by: Xilin Wu <sophon@radxa.com>
+---
+ Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
->  {
->  	struct kvm_mp_state mp_state;
->  	struct kvm_regs regs;
-> +	gva_t stack_gva;
->  	struct kvm_vcpu *vcpu;
->  
-> +	stack_gva = __vm_alloc(vm, DEFAULT_STACK_PGS * getpagesize(),
-> +			       DEFAULT_GUEST_STACK_VADDR_MIN, MEM_REGION_DATA);
-> +
-> +	stack_gva += DEFAULT_STACK_PGS * getpagesize();
-> +
-> +	/*
-> +	 * Align stack to match calling sequence requirements in section "The
-> +	 * Stack Frame" of the System V ABI AMD64 Architecture Processor
-> +	 * Supplement, which requires the value (%rsp + 8) to be a multiple of
-> +	 * 16 when control is transferred to the function entry point.
-> +	 *
-> +	 * If this code is ever used to launch a vCPU with 32-bit entry point it
-> +	 * may need to subtract 4 bytes instead of 8 bytes.
-> +	 */
-> +	TEST_ASSERT(IS_ALIGNED(stack_gva, PAGE_SIZE),
-> +		    "__vm_alloc() did not provide a page-aligned address");
-> +	stack_gva -= 8;
-> +
->  	vcpu = __vm_vcpu_add(vm, vcpu_id);
->  	vcpu_init_cpuid(vcpu, kvm_get_supported_cpuid());
->  	vcpu_init_sregs(vm, vcpu);
-> @@ -864,8 +883,8 @@ struct kvm_vcpu *vm_arch_vcpu_add(struct kvm_vm *vm, u32 vcpu_id)
->  
->  	/* Setup guest general purpose registers */
->  	vcpu_regs_get(vcpu, &regs);
-> -	regs.rflags = regs.rflags | X86_EFLAGS_FIXED;
-> -	regs.rsp = vm_alloc_stack(vm, DEFAULT_STACK_PGS);
-> +	regs.rflags = regs.rflags | 0x2;
-> +	regs.rsp = kvm_allocate_vcpu_stack(vm);
->  	vcpu_regs_set(vcpu, &regs);
->  
->  	/* Setup the MP state */
-> 
+diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+index ff8a35df7862..4341bb04f912 100644
+--- a/Documentation/devicetree/bindings/arm/qcom.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+@@ -902,6 +902,7 @@ properties:
+               - microsoft,blackrock
+               - qcom,sc8280xp-crd
+               - qcom,sc8280xp-qrd
++              - radxa,dragon-q8b
+           - const: qcom,sc8280xp
+ 
+       - items:
+
+-- 
+2.56.0
 
