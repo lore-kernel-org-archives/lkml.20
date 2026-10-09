@@ -1,115 +1,120 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cp2.siel.si (cp2.siel.si [46.19.12.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5AD247605A
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 10:28:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99C5149B446;
+	Fri,  9 Oct 2026 10:28:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.19.12.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791541711; cv=none; b=auwkYbbA9wg4yMmImrnjSIDeV3CpU1+kiGLCzPyV+h5PCQnEyOTlyC2njwwRVNBXDzxQecY+t6Y6U1GZNA0f+4U9fUgNUFIZGcdhk9mA+jMrcArgb9m8+skGs3nTxsemWrfQjpeDyKI3fu7SI0vdQYUTd+c8+4crrVlPH533bpA=
+	t=1791541710; cv=none; b=KNDD4K2E0xdvnVMgyL91BbeO/2Sj1HSSBquZE9ihc/XdFPkFrZkxgi6VQZI4RAv4B1UcvJa3s7SOmKlVJzM4JRRfo7SDQTeexpvUXfgb7LdH5Rq4Z3XiZ5ixtSDnk2D6oRrxxPgPOwfccF+cxTbZ4u+6bsM5cQAFmqNR4eCVxa8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791541711; c=relaxed/simple;
-	bh=yOVTPJp9qxA5lLF364+JvUXV98S76nBEFr0WnEBHdac=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=CC58L7UuwkOm2YDJ/IkLP78VDTx3KGecmT2jrM9qPAdlvxvLHdFN8X8AMncMHyne11/IWrXdviolVQ047UUWHKX6OHhYx4p85TEZzJF9NcK6nxxyWuc9R3gOtkpzLGPylVuKF6Bjb38/28OWEh0/+QKeMtoz+dk67h+o4zTlT7o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4f4612a1a5cso2201996b6e.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 03:28:29 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791541708; x=1792146508;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=xxN8WxZVMdmLmuCAhmZTJH8qZd7vgJyAa6Dc6LhPvBs=;
-        b=jY8ByJJupRREnl4P/cdLqqLu5GCMMIvNaNsSltzVg5RLGlBhZGdQUFEfgVlRLo5vw1
-         kTt5qhfhgB/5QdL9X/2pEI2xfeFwkvi15WzPANTTUMqxOV9oWDHW0UJyfAgIQgNuDWzE
-         QwLp+dRYPgJ6dtmti/1Zjcf7pKoq4JnAzAdb+Bz6FT3CKiR5TUUw9pzQbaIfr4eQjIlu
-         hsIXoBRudkX3rZAUCQW97MEnnpuE7xRNLiNwtuGL2xDBKjxa9gM9K944XWmnDnCvUk+8
-         FXOYnuHswj/5pfuL9qIGtazjuOH2Q7aEbFN6SCtO8zcP6U4OmwVVbemjHeBkKZnFQzAk
-         r6XQ==
-X-Gm-Message-State: AFuF++m7b2F1uIggJ885c+n06bEEtJ+9FQT0zn8zXMa4V1DXqigXfzua
-	FPfyaPI8uIIIrombInA2ik3S+igq3GIyx1v94dsEvB1RUcMaSfcYkkCvdz38a9n5er5TcVRC/NA
-	OchXwwxzj+H5GIynL555aiLJ9ouDIUhNK97a1CDbOqv8tl8j5m3ZqfXtTT1g=
+	s=arc-20240116; t=1791541710; c=relaxed/simple;
+	bh=s5o8hjnMeqhFQOvtWpc3KUG8e/sBVlSSnhzX3QmrNNg=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dZH+YywYZB8AX3rKnFVxlOheSEw3AP+sZmKDr6C/uiEeZZmb24h7Oqk6bUyp1+YZF1xRsxsLj0RpInUJ4GUmxQNEAT2kBUN0m7NsRs5w8wvzMx4S9eLrE8wO0EFXLLxXg9j3nWxWWafVnvCzqdQWcqhovSTTA1XkuGOrn6nWw5c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com; spf=pass smtp.mailfrom=norik.com; dkim=pass (2048-bit key) header.d=norik.com header.i=@norik.com header.b=Ow110x60; arc=none smtp.client-ip=46.19.12.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=norik.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=norik.com header.i=@norik.com header.b="Ow110x60"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=norik.com;
+	s=default; h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
+	In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Unsubscribe-Post:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=XnsR0KETvrIrxr8TgcJoYUlVXVij5jqGsWpWykcaXPA=; b=Ow110x60qiVKzU4QFvQQ7zZZMP
+	21ySDo5I/3Vfo5Rx4eCcOK+KzAOgMdNVzWXsNsPxFWEy6mnkrs9GtBDFy0X27Cyuzo4MnesVbTveJ
+	tcV3u1ntsINCEdBLjDrXANGUqK6B54aFY3S4XKnASwzB+ioeiJvjnq4rgewdnfoHBVR4NJ2K+Hv7O
+	JqeHi1Ioy2rbgUpw0I/bXxoWtA6tvRtcOeqi8En1Liedz4+hB/bS33NHACYK6DQlhEqwtO3230kfB
+	JHwytneVehJRXwMmKihRiyc6mfGZ0Ig3kkPAybMuXK/ztMAyPMxs+XNIrSiEKXbffT8KTdX599ZQU
+	kn61WS7g==;
+Received: from 89-212-21-243.static.t-2.net ([89.212.21.243]:58316 helo=localhost.localdomain)
+	by cp2.siel.si with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <primoz.fiser@norik.com>)
+	id 1xF7pu-0000000BsVC-2DZG;
+	Fri, 09 Oct 2026 12:28:18 +0200
+From: Primoz Fiser <primoz.fiser@norik.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	upstream@lists.phytec.de
+Subject: [PATCH 3/3] media: mt9v032: Add get_mbus_config subdev_pad_ops callback
+Date: Fri,  9 Oct 2026 12:28:17 +0200
+Message-Id: <20261009102817.2421388-4-primoz.fiser@norik.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261009102817.2421388-1-primoz.fiser@norik.com>
+References: <20261009102817.2421388-1-primoz.fiser@norik.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:6c8b:b0:4d6:9133:cfea with SMTP id
- 5614622812f47-50b68b3682bmr1320016b6e.47.1791541708690; Fri, 09 Oct 2026
- 03:28:28 -0700 (PDT)
-Date: Fri, 09 Oct 2026 03:28:28 -0700
-In-Reply-To: <683199ed.a70a0220.29d4a0.07f6.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ac8c1cc.a150a118.27e199.0023.GAE@google.com>
-Subject: Forwarded: [PATCH] HID: core: serialize report_descriptor_read()
- against probe and remove
-From: syzbot <syzbot+bc537ca7a0efe33988eb@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - cp2.siel.si
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - norik.com
+X-Get-Message-Sender-Via: cp2.siel.si: authenticated_id: primoz.fiser@norik.com
+X-Authenticated-Sender: cp2.siel.si: primoz.fiser@norik.com
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+From: Stefan Riedmüller <s.riedmueller@phytec.de>
 
-***
+Some drivers like the i.MX6 IPU driver require the get_mbus_config
+callback to be implemented, thus implement it.
 
-Subject: [PATCH] HID: core: serialize report_descriptor_read() against probe and remove
-Author: krishgulati7@gmail.com
-
-#syz test: https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git bdab5605259b
-
-Since commit 54f32fd5dff9 ("HID: Make report_descriptor available for
-all devices"), the "report_descriptor" sysfs attribute is part of the
-device's attribute group, so it exists from device_add() until
-device_del(). It reads hdev->rdesc, but that buffer only lives from
-hid_open_report() until hid_close_report(), that is, for the duration
-of a driver binding. For a driver with a report_fixup() callback,
-rdesc is a private copy that hid_close_report() frees, so a read that
-races with the driver being unbound accesses freed memory. syzbot
-reports this as:
-
-  BUG: KASAN: slab-use-after-free in report_descriptor_read+0xb5/0x100
-  Read of size 24 at addr ffff888078d61f00 by task fido_id/7281
-  ...
-  Allocated by task 10:
-   kmemdup_noprof+0x2b/0x70
-   hid_open_report+0x1fa/0xf00
-   lg_probe+0x29c/0x890
-   hid_device_probe+0x46a/0x870
-   ...
-
-Because hid_close_report() also clears rdesc and rsize, the same missing
-serialization can make the reader see a NULL rdesc with a non-zero
-rsize.
-
-Hold the device lock in report_descriptor_read(). The driver core
-already holds it across probe and remove, so a read can no longer
-overlap with them.
-
-Reported-by: syzbot+bc537ca7a0efe33988eb@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=bc537ca7a0efe33988eb
-Fixes: 54f32fd5dff9 ("HID: Make report_descriptor available for all devices")
-Signed-off-by: Krish Gulati <krishgulati7@gmail.com>
+Signed-off-by: Stefan Riedmüller <s.riedmueller@phytec.de>
+Signed-off-by: Primoz Fiser <primoz.fiser@norik.com>
 ---
- drivers/hid/hid-core.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/media/i2c/mt9v032.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-diff --git a/drivers/hid/hid-core.c b/drivers/hid/hid-core.c
-index a3ff0514f9cd..824557a02544 100644
---- a/drivers/hid/hid-core.c
-+++ b/drivers/hid/hid-core.c
-@@ -2270,6 +2270,8 @@ report_descriptor_read(struct file *filp, struct kobject *kobj,
- 	struct device *dev = kobj_to_dev(kobj);
- 	struct hid_device *hdev = to_hid_device(dev);
+diff --git a/drivers/media/i2c/mt9v032.c b/drivers/media/i2c/mt9v032.c
+index d8e34e128d77..7cf0421355b5 100644
+--- a/drivers/media/i2c/mt9v032.c
++++ b/drivers/media/i2c/mt9v032.c
+@@ -1003,6 +1003,25 @@ static int mt9v032_close(struct v4l2_subdev *subdev, struct v4l2_subdev_fh *fh)
+ 	return mt9v032_set_power(subdev, 0);
+ }
  
-+	guard(device)(dev);
++static int mt9v032_get_mbus_config(struct v4l2_subdev *sd, unsigned int pad,
++				   struct v4l2_mbus_config *cfg)
++{
++	struct mt9v032 *mt9v032 = to_mt9v032(sd);
 +
- 	if (off >= hdev->rsize)
- 		return 0;
++	cfg->type = V4L2_MBUS_PARALLEL;
++
++	cfg->bus.parallel.flags = V4L2_MBUS_MASTER |
++				  V4L2_MBUS_HSYNC_ACTIVE_HIGH |
++				  V4L2_MBUS_VSYNC_ACTIVE_HIGH |
++				  V4L2_MBUS_DATA_ACTIVE_HIGH;
++
++	cfg->bus.parallel.flags |= mt9v032->pdata.clk_pol ?
++				   V4L2_MBUS_PCLK_SAMPLE_RISING :
++				   V4L2_MBUS_PCLK_SAMPLE_FALLING;
++
++	return 0;
++}
++
+ static const struct v4l2_subdev_core_ops mt9v032_subdev_core_ops = {
+ 	.s_power	= mt9v032_set_power,
+ };
+@@ -1018,6 +1037,7 @@ static const struct v4l2_subdev_pad_ops mt9v032_subdev_pad_ops = {
+ 	.set_fmt = mt9v032_set_format,
+ 	.get_selection = mt9v032_get_selection,
+ 	.set_selection = mt9v032_set_selection,
++	.get_mbus_config = mt9v032_get_mbus_config,
+ };
  
+ static const struct v4l2_subdev_ops mt9v032_subdev_ops = {
 -- 
-2.56.0
+2.34.1
 
