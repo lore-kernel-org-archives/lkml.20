@@ -1,200 +1,177 @@
-Received: from mail-10629.protonmail.ch (mail-10629.protonmail.ch [79.135.106.29])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90EB63DD525
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 21:28:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.29
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C68AF3E49EF
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 21:28:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791581288; cv=none; b=vCKg64mJSyGYqzJEVEBRFmdTytYqVYXftxn9/zvY7SazP6zAKcD1QsMV5ExLUnaD8ouM0FzGqqGbNhK56wUbcm2gDPVev+YqD15d2omzOKPGjR5UPRgF91JBorDrQ1K+FBYKlnnC+Tnyk3RAndoAquw2V5649O0UwJIvC6VI6oY=
+	t=1791581293; cv=none; b=MWCIPFZsdVnO/zgXsVlowqxlhc9hJLiXE4PXnYChMhiaJ83bnD9MZ9uEdpM1WvxifNdSOUTHCxX7irIM+3I5C/6LBHkqdt/e8yP6SpXfJKrI61ABNK6VcoL2mqCuVNYMezpB80V0fKLHXR14f2wOJ0TWpGSXlFbZ+AUbG42QBgQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791581288; c=relaxed/simple;
-	bh=TACQqvV+ua0Ane64B0qJzthFbEE3k5JIyMZs9Zy+/eA=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=D03QR2BnW1JFu4ZbcykWI3jyzbf9gjo2tP0PX128U6Xfch3ae7qGC/Dl6cCYm1JMa2lIBcTFO86oLg9hz/X2suix/63/OvnmxSL6utJ4cF7sbrj+/4mdmd0SYW5Jop5AqCGXkL1hOrid3pE1f0We575QOXgO7RopakrURqpGrvg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=UoCNIA21; arc=none smtp.client-ip=79.135.106.29
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1791581293; c=relaxed/simple;
+	bh=c7dVmUOHRRQdq+y8uJdt5ZzUgLmvGysOTMR8sQ17MDY=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=CZmwsndU6T0GTphnL7N80lbz1i6j8xaIlRCdYEU5iFWEldy0sD/BwFHLNe1Ugc12KkiSIiT/jAaJ0cfOZOkLr4ICaHTYx3MyuVTAPawtsQzpDgkqM5VqDUVIQjdLWixro5Xi8Y+VczS6vi8d1oHg8SdEBvQoc9Td+9J26lCrdxg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=eAl5Miki; arc=none smtp.client-ip=74.125.224.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="UoCNIA21"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1791581278; x=1791840478;
-	bh=QXf4hTjVvhY++R7+vZFN3cZjPxa0QWrUt5Tsecb70U8=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=UoCNIA217633Q8zxxTQNQThjgyxxAtGSn29CAP+rTJf6hoWjQW/mHznQ8EANqGhhu
-	 dFTOkeVfQjB1o0PeXvc9y5wJkbHlDMd6BjGp/hMBJMBjHBHYSpqu2zcHtR3IPHdmGQ
-	 0HyiYrFTmdrIv6+4WK9uA1CPOjK+AUSueY87g3qF7L1QKVY/rdNDJQRutSa8hW3QWr
-	 FcBlBpVBPKC7c3NSh1NZ4/739hZq5VvsDEaYCgOK/7iZVGfi4RGJGeLAsjqoYuXTmW
-	 C9NTozV5Av/cexVnDIdKc7q3NlPJ4kBaA+8FWSZS5sOuv277HAqfI2ahaRmwiEYvIP
-	 JnMrZxMFAArPQ==
-Date: Fri, 09 Oct 2026 21:27:54 +0000
-To: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>
-From: Birk Skyum <birk.skyum@pm.me>
-Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] soc: qcom: smp2p: Start over after a restore from hibernation
-Message-ID: <179158127177.70185.5691100900886332545@pm.me>
-Feedback-ID: 21326998:user:proton
-X-Pm-Message-ID: 356a7d20711be57c357883af5010b18ee31e6f11
+	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="eAl5Miki"
+Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-6711f05fb14so102311d50.2
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 14:28:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1791581290; x=1792186090; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qJXewPYw8pbo3C9s2Rsn0kEPlBvxG+xIjSSh1bPBSYY=;
+        b=eAl5Miki/iTl6VIy0VbhjrdxELmCu36Qnkx0xwjP53pgnauwPA8LNg1Gz2+myztouG
+         BmElT8u1A3UdfAqJjvFSs6mwxX2ZqWtSvkr7bLNI2gNW68cJs+iLmraaOPSPBBE3CIl5
+         B2R3KlG5GgKDhQHb4wJAUzJi1Knhwo6Wob46Z69NF9JcGESWF3W7umN/TR+pxNGzbc/S
+         L5tq08V5gzgm9xqgUkJw31MNi/hwg0oRgAkt+If7CVCKJNTHwnKNG1cZw+ZeUY8a2QRs
+         qulct73Lvqb8OI3+eBcyZB9o8yn7SZMyVOdWZxAxsDE+gcHRlbvq4EMNoAks1JxI1YK9
+         xC5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791581290; x=1792186090;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=qJXewPYw8pbo3C9s2Rsn0kEPlBvxG+xIjSSh1bPBSYY=;
+        b=lKxm+d1ZgPnCG4ZCq2zUMdfQRHxuwEg2yX+RAQUTMCTdCf06TwLgplWN7tUPsha/Sh
+         H40ge4AIHPpsNHJeJwv+ec41bHc1XKhM5xwepe/X9FeL0R/Hhk9YA70g0iMIVF5xYwqn
+         LZ8YIko3ixRafv6UFArhdoT+tnCV9ZHPJCwG/ek/SVbIOdwtIsv6f8MG4yIKUpcAwIP3
+         sz5i3NblygO2BFRBlPRE8yEY15qi0z4sxtKa9sD3HPFS4CUR+VxVKx6cDnTmv1OskSxP
+         8WxCFlysJt6ty1zpeUjdaWucJ8SrRw7GIqsQUJHMMTGvZTc8Z62jSncbUwP5JKFQAMbD
+         S4Bg==
+X-Forwarded-Encrypted: i=1; AKwUvByh+BujZMby1T5dSiqNdT2nKh62cQD0udDRWrrxPM5sE2B5KuR4iCMZY+dT9CrzwgOksdu5HarDFbuS7WY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL3vyXesEd18b7jJsTAEaJ6WXQMwEodIsQ3SQA/XV5O5MjOS8ig
+	U1n4mJX5rETWK8BVJj9hvyrQsjTDrtSgvraL2RKY4yhrN+M7UU3woUwse+9JBtlCIIQ=
+X-Gm-Gg: AYBFou39lSPXnwhudKKn7sEKmbwYZ6mYf+ydrK+YjiIT9l9FeiuZZnEBrIiN7u0IxRb
+	jgW5ec40sxJTA1t2nXEWqdrsx5MKqZN2+B/PRPp5WIWNJzaZuR17OMbNWre1vQeEt9qkiGxwpT7
+	H4pERXDlNohwriZ5DmFkTA/7c+czMaFX6XN2jerPwe2xcV7lPbBYbF5F52vuvEHTw/uUAju92K4
+	5eAlMujkzFvjwyvfAnTV2L2kz/04JEvemms87gBa3q9Reiz1xdgW0tkNEqziLom41xCnqb2jaa8
+	BbPfJbVj1qP0F3Vz838KiXjQ6pqpy8IqhowAA0XKNY0Z4NKQc9QEHTRc2Z9xeoJwolE3gcGEVav
+	On3KPwtQ7aXqdrZIdSbXhAddQt5MsuQBcePPCkK6witW+97gjR6I6x28tn6cFXKDyfs7y4VbWlJ
+	QbBqUSkpUr9TImKPKtT3FOntsiloxLn1TVA8mBUNodBSbNs12cOld/fs1Fu78G42TpkVTzy6VJ2
+	kIcF3rhezbFsN1ko+0KekTRMmz9/qa6GHa7GtER5LbzXEc6hfYzzDNjQwGb3nNDZlsTpkrn9r9O
+	D2HsRpp6+sdC1zWhcsIzEQ==
+X-Received: by 2002:a53:ac9a:0:b0:677:ac2d:8aec with SMTP id 956f58d0204a3-6793606668dmr1132001d50.68.1791581290544;
+        Fri, 09 Oct 2026 14:28:10 -0700 (PDT)
+Received: from ?IPv6:2600:1700:6476:1430::48? ([2600:1700:6476:1430::48])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b07f1b7483sm12271467b3.11.2026.10.09.14.28.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 14:28:08 -0700 (PDT)
+Message-ID: <c6805683f4ceeca80f3129043c4359a45cbe41c6.camel@dubeyko.com>
+Subject: Re: [PATCH] MAINTAINERS: update ceph and libceph maintainers
+From: Viacheslav Dubeyko <slava@dubeyko.com>
+To: xiubo.li@clyso.com, Ilya Dryomov <idryomov@gmail.com>, Alex Markuze
+	 <amarkuze@redhat.com>
+Cc: ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Fri, 09 Oct 2026 14:28:06 -0700
+In-Reply-To: <20261009-ceph-maintainers-v1-1-298e8158087f@clyso.com>
+References: <20261009-ceph-maintainers-v1-1-298e8158087f@clyso.com>
+Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
+ keydata=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
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.1 (by Flathub.org) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-smp2p remembers what it has negotiated with the remote processor: where
-the remote's item is, which of its entries are matched, that version
-and features are agreed, and whether the remote's last restart has been
-acknowledged.
+On Fri, 2026-10-09 at 04:04 +0200, Xiubo Li via B4 Relay wrote:
+> From: Xiubo Li <xiubo.li@clyso.com>
+>=20
+> Add myself as a maintainer for the CephFS kernel client and the
+> libceph common code, and move Viacheslav Dubeyko from maintainer to
+> reviewer for both.
+>=20
+> Signed-off-by: Xiubo Li <xiubo.li@clyso.com>
+> ---
+> =C2=A0MAINTAINERS | 6 ++++--
+> =C2=A01 file changed, 4 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index c8d4b913f26c..d197c6928b08 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -5892,7 +5892,8 @@
+> F:	drivers/power/supply/cw2015_battery.c
+> =C2=A0CEPH COMMON CODE (LIBCEPH)
+> =C2=A0M:	Ilya Dryomov <idryomov@gmail.com>
+> =C2=A0M:	Alex Markuze <amarkuze@redhat.com>
+> -M:	Viacheslav Dubeyko <slava@dubeyko.com>
+> +M:	Xiubo Li <xiubo.li@clyso.com>
+> +R:	Viacheslav Dubeyko <slava@dubeyko.com>
+> =C2=A0L:	ceph-devel@vger.kernel.org
+> =C2=A0S:	Supported
+> =C2=A0W:	http://ceph.com/
+> @@ -5905,7 +5906,8 @@ F:	net/ceph/
+> =C2=A0CEPH DISTRIBUTED FILE SYSTEM CLIENT (CEPH)
+> =C2=A0M:	Ilya Dryomov <idryomov@gmail.com>
+> =C2=A0M:	Alex Markuze <amarkuze@redhat.com>
+> -M:	Viacheslav Dubeyko <slava@dubeyko.com>
+> +M:	Xiubo Li <xiubo.li@clyso.com>
+> +R:	Viacheslav Dubeyko <slava@dubeyko.com>
+> =C2=A0L:	ceph-devel@vger.kernel.org
+> =C2=A0S:	Supported
+> =C2=A0W:	http://ceph.com/
+>=20
+> ---
+> base-commit: b5650e70565c380d52c36f6bd0e1a4b1bdb385cd
+> change-id: 20261008-ceph-maintainers-058bf128d126
+>=20
+> Best regards,
+> --=C2=A0=20
+> Xiubo Li <xiubo.li@clyso.com>
+>=20
 
-None of that holds when a hibernation image is restored. The machine
-has been through a power cycle, shared memory has been set up again,
-the kernel that loaded the image has created a fresh item for us, and
-the remote starts from nothing.
+Acked-by: Viacheslav Dubeyko <slava@dubeyko.com>
 
-On a Lenovo Yoga Slim 7x (X1E80100) a remote processor that is started
-after a resume from hibernation never comes up:
-
-  remoteproc remoteproc0: Booting fw image qcom/x1e80100/LENOVO/83ED/qcadsp=
-8380.mbn, size 21592504
-  qcom_q6v5_pas 6800000.remoteproc: start timed out
-  remoteproc remoteproc0: can't start rproc adsp: -110
-
-For the ADSP the driver still has ssr_ack set while the fresh item has
-RESTART_ACK clear. When the remote sets RESTART_DONE,
-qcom_smp2p_check_ssr() sees no restart, and the acknowledgement the
-remote waits for is never written. For the CDSP the driver believes the
-negotiation is done, so the fresh item is left at version 2 while the
-remote uses version 1.
-
-Forget all of it in restore_noirq and build our item again, the way
-probe does. If the remote is still running, as after test_resume,
-qcom_smp2p_start_in() finds its item again and the next interrupt
-redoes the negotiation.
-
-Signed-off-by: Birk Skyum <birk.skyum@pm.me>
----
-Tested on a Lenovo Yoga Slim 7x with Arch Linux ARM's v7.2 kernel, where
-this file differs from qcom/for-next only in the __iomem annotations and
-two small cleanups.
-
-- After a hibernation with a real power-off both the ADSP and the CDSP
-  start again, in under half a second each, and the battery manager
-  answers. Without the patch both starts time out.
-- test_resume with both remote processors running passes, and they keep
-  running.
-
-Two things to know about the test:
-
-- Resuming at all on this machine needs the PCI change in [1], and I
-  closed the Bluetooth UART and unloaded ath12k for the hibernation.
-- I stopped the remote processors before the hibernation and started
-  them after it by hand. remoteproc does not do that itself, so a
-  remote that was running when the image was taken is still shown as
-  running after the resume and cannot be stopped ("failed to shutdown:
-  -22"). That is a separate problem and still open.
-
-[1] https://lore.kernel.org/r/179157746908.73485.2343672865542690797@pm.me
-
- drivers/soc/qcom/smp2p.c | 53 +++++++++++++++++++++++++++++++++++++---
- 1 file changed, 50 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/soc/qcom/smp2p.c b/drivers/soc/qcom/smp2p.c
-index 01b8580c9..64fc1ce3c 100644
---- a/drivers/soc/qcom/smp2p.c
-+++ b/drivers/soc/qcom/smp2p.c
-@@ -510,9 +510,8 @@ static const struct qcom_smem_state_ops smp2p_state_ops=
- =3D {
- =09.update_bits =3D smp2p_update_bits,
- };
-=20
--static int qcom_smp2p_outbound_entry(struct qcom_smp2p *smp2p,
--=09=09=09=09     struct smp2p_entry *entry,
--=09=09=09=09     struct device_node *node)
-+static void qcom_smp2p_claim_outbound_entry(struct qcom_smp2p *smp2p,
-+=09=09=09=09=09    struct smp2p_entry *entry)
- {
- =09struct smp2p_smem_item *out =3D smp2p->out;
- =09char buf[SMP2P_MAX_ENTRY_NAME] =3D {};
-@@ -525,6 +524,13 @@ static int qcom_smp2p_outbound_entry(struct qcom_smp2p=
- *smp2p,
- =09entry->value =3D (u32 __iomem *)&out->entries[out->valid_entries].value=
-;
-=20
- =09out->valid_entries++;
-+}
-+
-+static int qcom_smp2p_outbound_entry(struct qcom_smp2p *smp2p,
-+=09=09=09=09     struct smp2p_entry *entry,
-+=09=09=09=09     struct device_node *node)
-+{
-+=09qcom_smp2p_claim_outbound_entry(smp2p, entry);
-=20
- =09entry->state =3D qcom_smem_state_register(node, &smp2p_state_ops, entry=
-);
- =09if (IS_ERR(entry->state)) {
-@@ -774,6 +780,46 @@ static void qcom_smp2p_remove(struct platform_device *=
-pdev)
- =09smp2p->out->valid_entries =3D 0;
- }
-=20
-+/*
-+ * A hibernation image is restored after a power cycle. Shared memory has =
-been
-+ * set up anew since and the remote starts from nothing, so forget what wa=
-s
-+ * negotiated with it and build our item again.
-+ */
-+static int qcom_smp2p_restore_noirq(struct device *dev)
-+{
-+=09struct qcom_smp2p *smp2p =3D dev_get_drvdata(dev);
-+=09struct smp2p_entry *entry;
-+=09int ret;
-+
-+=09smp2p->in =3D NULL;
-+=09smp2p->valid_entries =3D 0;
-+=09smp2p->negotiation_done =3D false;
-+=09smp2p->ssr_ack_enabled =3D false;
-+=09smp2p->ssr_ack =3D false;
-+
-+=09list_for_each_entry(entry, &smp2p->inbound, node) {
-+=09=09entry->value =3D NULL;
-+=09=09entry->last_value =3D 0;
-+=09}
-+
-+=09ret =3D qcom_smp2p_alloc_outbound_item(smp2p);
-+=09if (ret < 0)
-+=09=09return ret;
-+
-+=09/* Entries were added at the head of the list, so walk it backwards. */
-+=09list_for_each_entry_reverse(entry, &smp2p->outbound, node)
-+=09=09qcom_smp2p_claim_outbound_entry(smp2p, entry);
-+
-+=09qcom_smp2p_start_in(smp2p);
-+=09qcom_smp2p_kick(smp2p);
-+
-+=09return 0;
-+}
-+
-+static const struct dev_pm_ops qcom_smp2p_pm_ops =3D {
-+=09.restore_noirq =3D pm_sleep_ptr(qcom_smp2p_restore_noirq),
-+};
-+
- static const struct of_device_id qcom_smp2p_of_match[] =3D {
- =09{ .compatible =3D "qcom,smp2p" },
- =09{}
-@@ -786,6 +832,7 @@ static struct platform_driver qcom_smp2p_driver =3D {
- =09.driver  =3D {
- =09=09.name  =3D "qcom_smp2p",
- =09=09.of_match_table =3D qcom_smp2p_of_match,
-+=09=09.pm =3D &qcom_smp2p_pm_ops,
- =09},
- };
- module_platform_driver(qcom_smp2p_driver);
-
-base-commit: 705529dab1fa872d8b53b09c95e1b03a95573376
---=20
-2.53.0
-
-
+Thanks,
+Slava.
