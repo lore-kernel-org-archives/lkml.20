@@ -1,196 +1,207 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azolkn19010021.outbound.protection.outlook.com [52.103.23.21])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7A443655C2;
-	Fri,  9 Oct 2026 15:58:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.23.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF3FD3939D0
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 15:58:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.133.124
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791561505; cv=fail; b=DdETPSbiSz7OmU1pc3K9+6w6pUChMpAkSWqAGQubqo98r/JUJiWjvcKL5vr8xlCiVDGCCInFSsAis8xmPngruBQ72dnTov8IBmGuipc3Pr+UxkiLC4rBU6GP89hxMgKKwjea+xlvq1LS+fJNgJEqzO47YxDN8Hn1b+2F7kT0vo4=
+	t=1791561508; cv=pass; b=vGn78gy74BjSiVBVsdWTrjwnxG3a+G3rm0eYFuHK7xc3eB0koTwvdciTe7p4d1/PnHaoLVYTUrQcjEGbKNHss6IE7rvgKxIuMZ0vQXipLhe8DM6lEAc1Ct5TtyfCOIcNXsMbh0Uc6nSI4LVQFlAyxHvZ/TKWVPIy5xMKa9wOGUs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791561505; c=relaxed/simple;
-	bh=fF10l5DwhTmwxeGZ8icOG/5lHsBBhbvFBnbAGOpE8jA=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=LfoB6kipEOtsG7l88Hn6l+ZKRRQGisLZpqmxDfqegpmXe0hJfQgRMa51aQVXXZL8To80XUgoj1seYpWzfk7K/MEbaG/qyIAXjrbi1YQLp+Ko9B8TZyx2Tw7uz40NdnBf5/w9Hr7fPW1MIiCby7oyHOrlT7aiMTaLK9/QjBXAlo8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.it; spf=pass smtp.mailfrom=outlook.it; dkim=pass (2048-bit key) header.d=OUTLOOK.IT header.i=@OUTLOOK.IT header.b=UhZ+G/EZ; arc=fail smtp.client-ip=52.103.23.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.it
+	s=arc-20240116; t=1791561508; c=relaxed/simple;
+	bh=H5HgyIlsw0FH+q0vPjCvMUxollTUJgEt/Obula8tczI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=MDtSSFvWZ0GqphjXmlCrPUcOmKd7Vz8mQ+ZlIGWuHklj65lIO5rFghfECC3zN1wzp4Ed7ejIapM2+Gr3UlIhlKlrjNcbpg377VB5MFvND34ybprlIQgM1L2jrH+y+4bFSN7Tq/Y5ulzwy/BAwu34v84UFYtUqurDsZfOoY+41p0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=MwLyjvBC; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=H8HNpl9k; arc=pass smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=OUTLOOK.IT header.i=@OUTLOOK.IT header.b="UhZ+G/EZ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=C0VozLNlGXfFvFHGC5Pc1BDiMjSRilMSz+hWRNQL8RZdR02vOkJ+bj8M/UezS4eoZkRGMvj4oQrDhbFMOITPH6vCA94aQ98YMELk/8hKf5KSZhQcm3D/FVsmpf64DVpohY0ouVAmcJ/F7rbHaQNRgVY2vTKyV/zrd7QO4GucaXuXzb0QNOMgh3Qc1JOVULBURgOBy75WDHGeSLBYrBAWMve+vlmP+F7OeJLXAb/C6OBbJzhVO/wAy8qfNLCvi+Fu/6XZL6Tjwwct4G3GJ0QBaBN6WCSkXfS2O876tuVyvEjC3NekXgEhITicGa9QGwElxSIDkyBLMiWhMhpitjQGjg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QiSgbuXglW46q8J12br05gwj1J28o8eZwpbskdT6jio=;
- b=lSUvXvDFWuD1qzGeIzDzWGF3LwaLRYJp8mYAAkhI7f+/VFMLuWd9sq48gtRwYlvKl42Gvf3VzU6+0p1QxWl70XoOHRFLXO7v9TNFazGZd8tuCKz4ujw78IavP2OOdFa/D0ZxcayLbTpyroi7LWRxoGX7yH0bq9PRVVPZHYTcplu2Jcxnuq+2CgfzqF7vBqyTlbnzjzDWh9ay7W7VgDSvDzUZd98djTNSP7/3gGIEDM9g5Bp1ZKrlrgSLTNosjlk3r8k9wagMCNL68428wBag4npFiBqA+TwIk0FBFnmX9TXprMyQBszBAG5rZ98K9+qaEQB3vh1Pt7yL0ayxQkQQmg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=OUTLOOK.IT;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QiSgbuXglW46q8J12br05gwj1J28o8eZwpbskdT6jio=;
- b=UhZ+G/EZPZxxLHiOj3M6nq5HIFl6gHD9RMEAf2bqp2fCQ/DBLTzpUF4GXCT2gfwtxsGJV2L4Jk0BZsLdSG+gzzBCSkOX85N2Iplu3agJGI+RKX1XDPLhQo2qeentAnV8sIXTsrdmc0nrDCogG7b9C/RINnTh7gJJhFd0vBbpzqaIMSikMtzE5XUFHAXR0sYsDf5RI67FMKqBM9UQN0/ijYIvrOEz1Zm4O8lAg7sAcxzy+bSdPwS/o5YDvUsEaYX/hAQVcpS7pGyyBFybXgK6A/AkPak3AwBWlIsxN+EUaj2h76TwGBQI1f7OpDm84u/dv7isAPZi8V7qVXghJMXoEA==
-Received: from SN6PR19MB2303.namprd19.prod.outlook.com (2603:10b6:805:56::19)
- by LV3PR19MB8777.namprd19.prod.outlook.com (2603:10b6:408:285::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Fri, 9 Oct
- 2026 15:58:21 +0000
-Received: from SN6PR19MB2303.namprd19.prod.outlook.com
- ([fe80::805c:7f80:c69f:876a]) by SN6PR19MB2303.namprd19.prod.outlook.com
- ([fe80::805c:7f80:c69f:876a%6]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
- 15:58:21 +0000
-From: Marco Giunta <marco_giunta@outlook.it>
-To: Takashi Iwai <tiwai@suse.com>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Marco Giunta <marco_giunta@outlook.it>
-Subject: [PATCH] ALSA: hda/realtek: enable AW88399 on Lenovo Legion R9000P AFR10
-Date: Fri,  9 Oct 2026 17:58:10 +0200
-Message-ID:
- <SN6PR19MB2303D726352EEE508A70D6D4FC922@SN6PR19MB2303.namprd19.prod.outlook.com>
-X-Mailer: git-send-email 2.56.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: ZR0P278CA0131.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:40::10) To SN6PR19MB2303.namprd19.prod.outlook.com
- (2603:10b6:805:56::19)
-X-Microsoft-Original-Message-ID:
- <20261009155810.45279-1-marco_giunta@outlook.it>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="MwLyjvBC";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="H8HNpl9k"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791561505;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=bsWl+jQaevR81Yppcc5u0OX8FaKpUFiecTztMLcffMY=;
+	b=MwLyjvBCJKn462rweoAgpGtpLAdOCdcC4H2TvifZYV598wtHdbqIW1pmpbAd+IXj7LPMTy
+	6c8SA+7CsHdOYdfn5T+8MJGSbdfo0SajGb4627Ry1ACEdu2pORMgSiICnKotYtndHbT+NB
+	GZIC5oCC+A9jy8E7dV7sjh90Dl/Gg1Y=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-132-Tp89qvscNVuImqqu4k_-Pw-1; Fri, 9 Oct 2026 15:58:18 +0000
+X-MC-Unique: Tp89qvscNVuImqqu4k_-Pw-1
+X-Mimecast-MFC-AGG-ID: Tp89qvscNVuImqqu4k_-Pw_1791561497
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-4887e5afd67so5103706f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 08:58:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791561497; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PWL/76ry/8GOKqLqCbqbGSgOUr6ixOlPg+uxmNWJ5mKOmUp71sMRVKjPu1U+oS//JW
+         OJaMcFYKWAb0U40GyJVoVoIq+yJxYzQ6tNNitkt3mTbb41XGRlxEvM9YWAV+2uEeFjp5
+         GpIJEMnp+NhyDXyQOiqTgqnuRRV0L1RNRYC4PARN2mA1/vl0awHK/vjsExzwr+C+ElAS
+         LCLu6HUXhVJJTdNrlsKLxHNR3fuBKYTubiMZvl8ncqPD2T5/5dRF8lLkRoSaPjnR/Yt1
+         h7yA3+2WwuUw97GcbznuFilnYzdxWaUd8GZRLgdxYgQnVrYLTcANLaBCQZRsa5BozxAz
+         mlPw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=bsWl+jQaevR81Yppcc5u0OX8FaKpUFiecTztMLcffMY=;
+        fh=wM2+yjpu38dVcyYtFSEo3WvN9IRzijZLyxAOZUAI4Co=;
+        b=G5wTlcMvSlW2iQTfKe4sNx1oQjgry1AuG8gKWSR2ZREDhTNtoX0cwvjt5CQKSo7hb/
+         5QkbJcxrPGccCzVbdtVO8DBd7+i4lZATDAGmrieKVw1LATEk+HVD6TNC8JlDW+fa+fLK
+         14OsV0QxvVPW/+vFa3L8Ef6A/XBYCPBb7euNSqDFTvGiIkMZu+pSqPNBnP7aD29nxbH/
+         a+73/duhQOR+D1eLrtHhgRAVAvw6+3LM6Abd4wMzMx8DeExbssJ7rQGkOgFkAZadWf6y
+         e6/LRWLbTGgneClG6ezMj0sGUG/djSi0/fzoRXqZxJ2wuUOQdXHMh8Dsyg2KvdeZnAB6
+         r5Nw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1791561497; x=1792166297; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bsWl+jQaevR81Yppcc5u0OX8FaKpUFiecTztMLcffMY=;
+        b=H8HNpl9kT6dSCTuLtkIZAJ/p/jdnaZmEXDmkSIUAFs5fj0C6nwtUKRLIp+5aIUtP4L
+         HXzuCSNcsrtveMsK1/vdZ0z4mb8P4t1VZaIP3tP80CrldiG3iKtSATOi+daqExrLFbhn
+         XzW9tbkrHYcykC/S3J5NJVd8vWJvcSjbxcUZIZwPi21E39X45fHC+HdMQA9cKDtf6sP+
+         HG5jslWGpxhiRvkjrjDoAbPcFnt9za9/xixpPBD0geeOI8xOm7WHmcHyNnfhEycBB2dN
+         N5VcDKkvjXcgcS7r6xI3AyHjxQx8987XGiugOrUwYoySRBDhJAco1mP2cVBzDy6U82xx
+         P/lg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791561497; x=1792166297;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bsWl+jQaevR81Yppcc5u0OX8FaKpUFiecTztMLcffMY=;
+        b=no06c2gvnfoMKq7fqc5OvhYZLecrDYSGN3XhA8wtjH0b1GMMSdk7Q59pgcsukt+K4L
+         sM9uZ3tFcajKrSZgJNBs7lsJo+jIUftM+1rmaCwxqchG0ndlRx9H68E/h+BxVXf/jOSy
+         2cvyEp91MYoO5BmaeDsfzO4So00drVm1tVYlqGw9xkt4PN6WyoayVNAHNERhNcsep18z
+         KfvE39BxSUQjAw5xdfhq5JFPsjgdcqO7dgvy7jUcqX+LYt7UXaBdAz1l21+p+W3FYkMt
+         WR7AMSo2fP40Y4yo34HMMzI/azBLdZuS59UPa8ws8n7JXOMAKEuJGkH7JM86LISN3Ie7
+         sYqg==
+X-Forwarded-Encrypted: i=1; AKwUvBzPoqSndyTmu1TPhoD6O7X4MvnlaIkkE7N8KvKhVBFKwUXsbHY5pPIaUxF0ydS50RE/E/KveT/63uFKQY4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJQOyLQwJYwwyZvAEr793VIOg0K9jBttuBtJpiN7ywW4Wy7lP3S
+	jPq8xKCHkG++MNv+7nrDYsdzPQ5LtQv+wAGfP5H+rtYFiScECAWoaHnss0P7rlt3jpTu45mTz6R
+	7kdyyF17gMA8TYtcDtdD6gxXFBW/omzAh2fNMhyE/QFpvvH3bfOY8FYvMDFmec/JTVPU1R1731m
+	qob79Kj/gLTodIXB5vrHS1UmErrRFkrUucEpeMGSi6
+X-Gm-Gg: AYBFou1x+SyThoT1vrF6zbFVz6WtO4816GwzVyfrvS70ImK7o8PdZT6Mog6BLIveV5h
+	O6D5WZHUyNMqwyypEGfqG277Vf7x3x6Q+SfrB+tPTfLTeX5J49+E1gfiqsVxrO9nKmoCfe1rXk0
+	f0s5O+czMUbLa7hFKYgYHKd08vKn7JrR0dwij8d10N7H4cAqjoAkHgnLxFKD3KGWG+mlJOppXCX
+	pJzS0vyPCaDb588lkGRMzft485pu5fCwkWaVDwz7BD+Uf5TLpreNKiZWF6bGA==
+X-Received: by 2002:adf:f88d:0:b0:48b:6bb:6d37 with SMTP id ffacd0b85a97d-48dbaade236mr3490753f8f.25.1791561496608;
+        Fri, 09 Oct 2026 08:58:16 -0700 (PDT)
+X-Received: by 2002:adf:f88d:0:b0:48b:6bb:6d37 with SMTP id
+ ffacd0b85a97d-48dbaade236mr3490726f8f.25.1791561496196; Fri, 09 Oct 2026
+ 08:58:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN6PR19MB2303:EE_|LV3PR19MB8777:EE_
-X-MS-Office365-Filtering-Correlation-Id: a415b427-a0c9-440b-9c29-08df261e2440
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|24021099003|12121999013|19110799012|8060799015|15080799012|25010399006|5062599005|51005399006|260925184616899003|5072599009|23021999003|40105399003|2607281247196008|3412199025|440099028|1710799026;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?jLHfH+YTnyl2F8AdfKc0artIhOZJW5haS/PiCPTK1J47ZDTbPjcPgcny3zjO?=
- =?us-ascii?Q?RXrM02bQhYLymYoOOtAwehnGFiQzbOKGVkbuwIF3uitEyBkIlMHy5mH5Mt4/?=
- =?us-ascii?Q?yRVXkHF5LlhztwPHZGH8lEaW6j8ReUCB3I48U6d6zSJ2CBin6bTi37JxJXa7?=
- =?us-ascii?Q?lMlivuOvhZhJl1xsGwM+ao9WV3o0E6r2x2J60oj0eCw6/Ubr3yyvAOT02wxd?=
- =?us-ascii?Q?jRD3heyXbqQo7gGiVLbFaWo48TVoVdbk7c4+Rp+9hpolCtw/4yPMKc0PfgS7?=
- =?us-ascii?Q?JOxLwKXYEzeGN6/VtffTFl3cU9N/XrC34C6QpLR9DGdbPy0nimgWBuGn9OtH?=
- =?us-ascii?Q?m2UWQ0J8F6HEy4FPSBxvHoe9QUNr8oTSo6egV2nUfmxb5ABbUEtCSOv/Qvc7?=
- =?us-ascii?Q?sQWAaxSlC3bwmKQ2L6PuFZuhzZ59SSyzzSsPDENohr7yUYfEq7chWN1E/qwL?=
- =?us-ascii?Q?YrJV4x/6Dm5yMiIpMrfM8HKmteY0/xdbVKmcX2zZ6REyNT1qjMt6vIDu/iB8?=
- =?us-ascii?Q?3pgk5f+n2BVvw11ojfUq9tDwn5MUkxWTsQ5+b3VqrV/GcSxHPmjPWzeNzjO2?=
- =?us-ascii?Q?+Uv0GCIgcBxTWABnkQVCHp7BTOQN2WmRcVHwANKs03OB4SEhdXZO4+93+QDa?=
- =?us-ascii?Q?udT7H7cFUQ6ZuzgcWDGkRyGuHcJqx8EBJdR0TrefvLyD20o7taTUof6mCdJu?=
- =?us-ascii?Q?8ICTW+lpUdTXnUubimui3+zOdyYZ7Khkc5v3F88Lmg4mkwNKcoDjpDeJBJDN?=
- =?us-ascii?Q?77ybF7/mkPikCSq2v7vxPQFWxgj/T3NN9Osl62ngSYXHmyR3Zuy3OwLhwgVv?=
- =?us-ascii?Q?UvoeA8SAQatROdDGiM6OE8gYubteCPWx1/creJbJ57kbCc0t4Yhkx29kPAdU?=
- =?us-ascii?Q?3QHxGUrcJYopTEMq1DwB46ZNmumWixDQLFZCsrwSzCB0xuDonbph9EPr9JbT?=
- =?us-ascii?Q?Nivz4AqlSYRyqE54CcX0ktx93hQ3jvBZurnBav1BsbbidgHcUybdvmWqg4if?=
- =?us-ascii?Q?k0bHtdXfBlEg1Jupinoi4+kgtg=3D=3D?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?g2MkA20BKSPIEeIZvObONQiJeyiHhSelb/snNQoQSCxd6B7/04dxzO0G3tjG?=
- =?us-ascii?Q?FC+69t6WKcg6jrRZsjxaS2iyxKC2YICuknoPDAf7eg46sbtO9TSoKjLU5nYZ?=
- =?us-ascii?Q?EVOS9/uSfmS6yS7wGe0lefWI9p/x0MgN3xwb2WF8L8O0hXWLGAEc+kPRGctb?=
- =?us-ascii?Q?4aL0DcIqXrrKBRLAhNEtMMwzevpNKLi9JXriG1dDu8mZAnoKgoFbAIh/r6Dr?=
- =?us-ascii?Q?QFqtxLR47zGIlwagHoA//1SU9nA90uD33yEnt/9lA2PO49/l1wV77pmcTocs?=
- =?us-ascii?Q?Rzft1+/y57doV7lhDyfVaX8uomrHaR64X8gXN5iBjqgWnIquQ9dytKsm3XgZ?=
- =?us-ascii?Q?wXXXYOMxCDpr77qV741W6lub9Ru8Lpahdwzir4MjewqA6zhRpfiZ2f1PKSa2?=
- =?us-ascii?Q?yLr5+VQwXYIM7R5gPD+nWxUztEQp7738RvUYUl9qsbmyZx3Xfah1f54bq8HH?=
- =?us-ascii?Q?ocNzJwWmod4RyQ5XGTUGgnBGohIXHw5D4ht1HTLwbX2+tL+RZn4x+4Wwx5O5?=
- =?us-ascii?Q?0q5rZvtzkrIa9hNIvmOUzBNZ6nPMU8HR3fndqZlP/uHFtD44w0ns/2mhsti8?=
- =?us-ascii?Q?G2/4+omPKJqUnCG39uVsY8DqNST0szx7F/0s2njoU9UKTKCP4zahJFfI4KBi?=
- =?us-ascii?Q?9t+tSAPRfRNoJhy/M1vtMXDkCYQzE07MCo1wqGmip1CtyOmfSsmHTJsV3oL9?=
- =?us-ascii?Q?29hwyAm/r9LEuq0k4F4iwdJzvt9SABNAwqlTGgveeR248JZy0y1UI+RunlZO?=
- =?us-ascii?Q?JuJmmVxkRBpXRIlj0K+l759NtDWgG1FNrKZ8VN7rwH7LKpcGTwizjtxRCjfC?=
- =?us-ascii?Q?Y/brY82f4escCM9khdTzA0mkh7y+x8vXTjMjffWWf0ajHrlvHTBQg3PLvsOe?=
- =?us-ascii?Q?9vkmCQKHJYt4BvzCf5RfmQawqx7K6EDr0KodOd4zw0WxDzeomQ//TEFjQtql?=
- =?us-ascii?Q?KiCKISVp6QLX/E2NE9EKWZ8EIuKaZSFUzcGA4SBUcJA66hbq1JqbK5VkJzy7?=
- =?us-ascii?Q?448BCkcZwLe8K0dkCvbvXT6dkXD8ypxz7S3DlBRbWEwnmg0Dx0ON1x+jG4OT?=
- =?us-ascii?Q?6a7gbXZ4StZgc078VJPLLqaQQ04dlxNt0NN8AUVbvMzgod7eZSPiZro21ac7?=
- =?us-ascii?Q?D1TmCJ0AeAal1v66LbGd1oYkMxTGtBCcviFh1WIxahRgeJxqU3IB0uXAn4Xp?=
- =?us-ascii?Q?qVVK6WRPQOgXVPSC4iEttIg4kwnSXS1tUFDaw1IJjFRJfV0M9VVqPKj4xUiS?=
- =?us-ascii?Q?UrAUx++1eR6zgJG1GTQDnnjqILVnU4m4pr3D9tOTrtR7bptvcjCGm+kg6KiB?=
- =?us-ascii?Q?jEaSzwQoUu4k2VJZpv7FKYUrFn0jXJUWMaYo4xElyuXrtJiSXl5NqCvTsZgo?=
- =?us-ascii?Q?osbRSlmkKauN4Ts6DdQyIiNNuEnd?=
-X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-990eb.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: a415b427-a0c9-440b-9c29-08df261e2440
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR19MB2303.namprd19.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 15:58:21.4521
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR19MB8777
+References: <20261002164750.3981742-1-seanjc@google.com>
+In-Reply-To: <20261002164750.3981742-1-seanjc@google.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Date: Fri, 9 Oct 2026 17:58:02 +0200
+X-Gm-Features: AclHuK-7M2P1s3vmGyha3Gb1Dl0I5jX9wU2nbwFTblAHJjssh915xjEcJupkhJ8
+Message-ID: <CABgObfbVST40ndfetLvBfj3m7PACQOcA3BC8j6zYnJvGjTUB-Q@mail.gmail.com>
+Subject: Re: [GIT PULL] KVM: x86: Fixes for 7.3-rc6+
+To: Sean Christopherson <seanjc@google.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add codec SSID entries for the Lenovo Legion R9000P AFR10 (83F6),
-which uses the same ALC287 + AW88399 smart amplifier configuration
-as the existing supported Legion models.
+On Fri, Oct 2, 2026 at 6:48=E2=80=AFPM Sean Christopherson <seanjc@google.c=
+om> wrote:
+>
+> Please pull a few more fixes.  These aren't _that_ urgent, so feel free t=
+o
+> punt these to 7.4 if you think we're throwing too much into late RCs.
+>
+> That said, I'd really like to get the AVIC fix into 7.3 as I very deliber=
+ately
+> didn't tag it for stable@.  The fix depends on what ended up being the ch=
+anges
+> to hold kvm->lock for all of vCPU creation, which I don't really want to
+> encourage folks to backport to LTS kernels.  So, if we squeak the AVIC fi=
+x
+> into 7.3, which is presumably the next LTS, we'll save a one-off backport=
+.
+>
+> Thanks!
+>
+> The following changes since commit 973ea70393e885e540f714904e51bc6cac80e3=
+d7:
+>
+>   KVM: SEV: Do cache maintenance on the source VM *before* clearing SEV s=
+tate (2026-09-28 17:11:49 -0400)
+>
+> are available in the Git repository at:
+>
+>   https://github.com/kvm-x86/linux.git tags/kvm-x86-fixes-7.3-rc6
+>
+> for you to fetch changes up to b3e6212dea2e4328a841ceb37f377583176dc735:
+>
+>   KVM: x86: Use active memslots for the per-vCPU MMIO cache (2026-09-30 0=
+6:40:49 -0700)
 
-DSDT inspection confirms identical AWDZ8399 ACPI device layout
-with reversed I2C addresses. The channel swap quirk applies.
+Pulled, thanks.
 
-Codec SSIDs (Lenovo vendor ID 0x17aa):
+Paolo
 
-* 0x3934: Legion R9000P AFR10 (AMD)
-* 0x3935: Legion R9000P AFR10 (AMD)
-
-Signed-off-by: Marco Giunta <marco_giunta@outlook.it>
----
-Note: this patch depends on the following commits, which are currently in
-linux-next but not yet in tiwai/sound:
-
-* commit 664824782df6 ("ASoC: aw88399: skip BSTS check when boost
-  converter is bypassed")
-* commit c5f615536405 ("ASoC: aw88399: remove bsts_unreliable
-  workaround")
-* commit 7df0f9ee9c5a ("ALSA: hda: aw88399: Switch to use
-  acpi_bus_get_primary_device()")
-  
-The first two change the property table in aw88399_hda.c, simplifying
-aw88399_apply_legion_quirks() to just aw88399_swap_channels(); the third
-shifts by one the line count in aw88399_hda_acpi_probe().
-Without these commits, this patch will not apply cleanly. Hence, for
-simplicity, I based it on linux-next. I am happy to rebase on tiwai/sound
-if preferred (after these changes are merged).
-
-Best regards,
-Marco
-
- sound/hda/codecs/realtek/alc269.c          | 2 ++
- sound/hda/codecs/side-codecs/aw88399_hda.c | 2 ++
- 2 files changed, 4 insertions(+)
-
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index fde109cf9163..3f3491ce7c5b 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -8483,6 +8483,8 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x17aa, 0x3920, "Yoga S990-16 pro Quad VECO Quad", ALC287_FIXUP_YOGA9_SPEAKER2_TO_DAC1),
- 	SND_PCI_QUIRK(0x17aa, 0x3929, "Thinkbook 13x Gen 5", ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_THINKPAD),
- 	SND_PCI_QUIRK(0x17aa, 0x392b, "Thinkbook 13x Gen 5", ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_THINKPAD),
-+	HDA_CODEC_QUIRK(0x17aa, 0x3934, "Legion R9000P AFR10", ALC287_FIXUP_LENOVO_LEGION_AW88399),
-+	HDA_CODEC_QUIRK(0x17aa, 0x3935, "Legion R9000P AFR10", ALC287_FIXUP_LENOVO_LEGION_AW88399),
- 	HDA_CODEC_QUIRK(0x17aa, 0x3936, "Legion R9000P ADR10H", ALC287_FIXUP_LENOVO_LEGION_AW88399),
- 	HDA_CODEC_QUIRK(0x17aa, 0x3937, "Legion R9000P ADR10H", ALC287_FIXUP_LENOVO_LEGION_AW88399),
- 	HDA_CODEC_QUIRK(0x17aa, 0x3938, "Legion Pro 7 16AFR10H", ALC287_FIXUP_LENOVO_LEGION_AW88399),
-diff --git a/sound/hda/codecs/side-codecs/aw88399_hda.c b/sound/hda/codecs/side-codecs/aw88399_hda.c
-index 9c6e01c29651..9ada8dfd51ce 100644
---- a/sound/hda/codecs/side-codecs/aw88399_hda.c
-+++ b/sound/hda/codecs/side-codecs/aw88399_hda.c
-@@ -164,6 +164,8 @@ static const struct aw88399_prop_model aw88399_prop_model_table[] = {
- 	{ "17AA3907", aw88399_swap_channels },
- 	{ "17AA3927", aw88399_swap_channels },
- 	{ "17AA3928", aw88399_swap_channels },
-+	{ "17AA3934", aw88399_swap_channels },
-+	{ "17AA3935", aw88399_swap_channels },
- 	{ "17AA3936", aw88399_swap_channels },
- 	{ "17AA3937", aw88399_swap_channels },
- 	{ "17AA3938", aw88399_swap_channels },
-
-base-commit: aac26bee2287c88af5be5a5ff96d783b19a28790
--- 
-2.56.0
+> ----------------------------------------------------------------
+> KVM x86 fixed for 7.3-rcN
+>
+>  - If creating a vCPU ultimately fails, clear its entry in the AVIC Physi=
+cal ID
+>    table used by hardware to perform IPI Virtualization and delivered pos=
+ted
+>    IRQs.  I.e. plug the same use-after-free hole related to IPI virtualiz=
+ation
+>    and posted IRQs that was fixed for APICv by commit b41f2ca6c0601 ("KVM=
+: VMX:
+>    Fix stale PID-pointer table entry left after vCPU free").
+>
+>  - Use set_page_dirty_lock() instead of set_page_dirty() when marking a p=
+age
+>    dirty after writing back SNP firmware's desired CPUID state to userspa=
+ce.
+>    Using set_page_dirty() is unsafe if the page/folio isn't locked (as po=
+inted
+>    out by its function comment's big DANGER warning, which no one reads g=
+iven
+>    the number of bugs of this exact nature).
+>
+>  - When checking for an MMIO generation match, use the memslots for the c=
+urrent
+>    vCPU context (non-SMM vs. SMM), as a misbehaving guest can coerce KVM =
+into
+>    incorrectly identifying a write as MMIO in order to bypass KVM's
+>    write-tracking.
+>
+> ----------------------------------------------------------------
+> Jann Horn (1):
+>       KVM: SEV: Fix page dirtying in sev_gmem_post_populate()
+>
+> Jinu Kim (1):
+>       KVM: x86: Use active memslots for the per-vCPU MMIO cache
+>
+> Naveen N Rao (AMD) (1):
+>       KVM: SVM: Clear AVIC Physical ID table entry if vCPU creation fails
+>
+> Sean Christopherson (2):
+>       KVM: SVM: Add paranoid helper for checking if vCPU is AVIC-addressa=
+ble
+>       KVM: SVM: Use "is AVIC-addressable" helper to sanity check load()/p=
+ut()
+>
+>  arch/x86/kvm/svm/avic.c | 22 ++++++++++++++++------
+>  arch/x86/kvm/svm/sev.c  |  2 +-
+>  arch/x86/kvm/svm/svm.c  |  6 +++++-
+>  arch/x86/kvm/svm/svm.h  |  1 +
+>  arch/x86/kvm/x86.h      |  4 ++--
+>  5 files changed, 25 insertions(+), 10 deletions(-)
+>
 
