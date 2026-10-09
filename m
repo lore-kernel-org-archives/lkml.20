@@ -1,93 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sm24.hosting.reg.ru (sm24.hosting.reg.ru [31.31.198.150])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25C5C17A2E8;
-	Fri,  9 Oct 2026 02:17:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF1191E1A3D;
+	Fri,  9 Oct 2026 02:17:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=31.31.198.150
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791512234; cv=none; b=c3XU71IDppsDSk4/8gETzrcyYvxjDYHydr8Hru/6425GZjjYAP/x00lcrbY6DqVGlIyIOe1uWpVGTSFx6I7lWysatjVWzboPYEB9+PW64L0L5PTqQRBK+MBqI2F5U+gqgyHc1knFTPf43gQBQLABekwVureUZiMRjokZmJ9fHzc=
+	t=1791512234; cv=none; b=mb2naHSyfxlSl4MQGjtdWi3hXHw8ZPArwtrjjcSEjZ9Q3ibc3P0UKJ9z76MMdVbHPOiMPhyL3iVzaST+fV25rkn+Bgt7GxVlOxbErTSBia34kiP4xq2lIMP4T+3zhdENrKnbxvL32hgelsKh8O0w/FHQgrmVbd87AgH43UnzD0g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791512234; c=relaxed/simple;
-	bh=jfsbdW7/pTOvhkKRZ6rmQMqtnSuojdpoKiXoAOqJTc0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TWyv14GLt9WMqmrpyv9RpJNQU97V+yxME/vH98xbvfAuRXbCrmr4804+DjXyEeELF+SjSIIWfQA85yjUdKqXYwcb3D3Uoa24iMOI3x91fDFjCMFkEzG20v6E4zyAjjtazwnVvvCbXdgONiwOQ25PNOZFskzWWDNt0/AZjdX5bbg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UC4aXYb9; arc=none smtp.client-ip=100.103.45.18
+	bh=Bu2Lgys5jNS+9UyAJtu3Q3ovtxDVAMP8wHCnbhA8Gm0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tuQYc+yUpM8wjYJF1GyLHmNsfEWAZiq3y+iMoAJBHbGwTIsO4uRyjNXjgyoqkZRrUqYANdYPhe/7Op9mGAKP4APgo4iE01L9WUK3OXWPRI1dsx4g6jPswWtvEOUJeczeJmAlMM7NEj7lc7MFGmO77XHHTpkqR+GP+aVFypLxuF0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=minlexx.ru; spf=none smtp.mailfrom=minlexx.ru; dkim=pass (1024-bit key) header.d=minlexx.ru header.i=@minlexx.ru header.b=X9l/zzV5; arc=none smtp.client-ip=31.31.198.150
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=minlexx.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=minlexx.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UC4aXYb9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75F641F00898;
-	Fri,  9 Oct 2026 02:17:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791512232;
-	bh=zGiPqQSb8vENMlB+2sJF4qgl6aNktUhyvgbWBRokrjI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UC4aXYb9mAzllJl2Dpu2wdAKPfsWBvhZI0OGl5aexY7iO2gS3qjj9znqIuWbSBrqJ
-	 n7aFrjhCX27+XsjzuG/GAPj95bfSI5/GVldi78HbAb2j9W/aE7qWwGyttgA+Pno2vp
-	 NucvCmjZqbnaeZtSN7g2sh8fJ4gHwc3eTDs9/P6l5mJirAYWEtUq5fJt+bJhjKLDH9
-	 rkBkTDwCjk/pmijoK1zpBlHugJYqT7mGmmFfKvm8GjvFCLfS/p8UEs27aVOpRBOlz3
-	 6DXZZhlh0eg7t1WWDzEXUXizvLOWycoS7Rog+jmVlIxiWOz9i56FVbNLzwMOMdC8Ct
-	 0MYeSruZrdFDg==
-Date: Thu, 8 Oct 2026 19:17:11 -0700
-From: "Peter Chen (Qualcomm)" <peter.chen@kernel.org>
-To: Jiale Yao <yaojiale02@163.com>
-Cc: Pawel Laszczak <pawell@cadence.com>, Roger Quadros <rogerq@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Felipe Balbi <felipe.balbi@linux.intel.com>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] usb: cdns3: report endpoint reset timeout
-Message-ID: <ashOp1L9Jq-tcdTN@hu-petche-lv.qualcomm.com>
-References: <20261003081152.433499-1-yaojiale02@163.com>
+	dkim=pass (1024-bit key) header.d=minlexx.ru header.i=@minlexx.ru header.b="X9l/zzV5"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=minlexx.ru;
+	s=dkim; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:References:
+	Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=y9hVD3xvBEObWSy6ytyspWoTRQCrAHvmo/KoI3ARlD4=; b=X9l/zzV5ooVX/hm3juP8UxtH4Y
+	HEuAnj5GQlpO7uRu2NwFUGJqyl7xy4rCaAzDRn6TeWjF+yHu9BRdOac1W1m3J0V2OcWnR5tOisV11
+	eHMKJwVAhhYUXPfbq3PHbzyzHC6cZAwIO6eOZv18tf2YCPE43m+KNFI0ONptDL6kYR7c=;
+Received: 
+	by sm24.hosting.reg.ru with esmtpsa (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(envelope-from <alexeymin@minlexx.ru>)
+	id 1xF09T-00000009cH9-478w;
+	Fri, 09 Oct 2026 05:16:05 +0300
+Message-ID: <ad0e1019-9080-46e5-9a1a-92d976e8a50f@minlexx.ru>
+Date: Fri, 9 Oct 2026 05:16:02 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261003081152.433499-1-yaojiale02@163.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] drm/msm: don't tear down shared VM mappings on handle
+ close
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Antonino Maniscalco <antomani103@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
+References: <20260822-msm-fix-export-v1-0-917b3cbedd43@oss.qualcomm.com>
+ <20260822-msm-fix-export-v1-2-917b3cbedd43@oss.qualcomm.com>
+Content-Language: en-US
+From: Alexey Minnekhanov <alexeymin@minlexx.ru>
+In-Reply-To: <20260822-msm-fix-export-v1-2-917b3cbedd43@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 26-10-03 16:11:52, Jiale Yao wrote:
-> cdns3_gadget_ep_disable() discards the endpoint reset poll result and
-> then tests ret, which is still zero. A reset timeout is therefore
-> neither reported nor returned to the caller.
+On 22.08.2026 11:48, Dmitry Baryshkov wrote:
+> On targets (like A530 / MSM8996) without per-process pgtables
+> msm_gpu_create_private_vm() uses the global VM, so all DRM files share
+> one GPU address space.  msm_gem_close() unmaps the object from ctx->vm,
+> which on those targets pulls the buffer out from under every other file
+> that still has it open, and frees the iova for immediate reuse.
 > 
-> Store the poll result in ret so the existing diagnostic and return path
-> expose the timeout.
+> A dma-buf imported into a second file hits this as soon as the exporter
+> closes its handle: the importer's texture keeps sampling the old
+> address, which the next allocation has taken over.  On a530 this is
+> every ext_image_dma_buf_import sampling test, reading back all zeros.
 > 
-> Fixes: 7733f6c32e36 ("usb: cdns3: Add Cadence USB3 DRD Driver")
-> Signed-off-by: Jiale Yao <yaojiale02@163.com>
-
-Add: Cc: stable@vger.kernel.org, otherwise:
-
-Acked-by: Peter Chen <peter.chen@kernel.org>
-
-Peter
+> The VMA teardown a shared VM needs is the one already used for kms->vm
+> -- defer it to the @vma_ref drop, when the last handle and dma_buf
+> reference are gone.  That restores the pre-drm_gpuvm lifetime without
+> reintroducing the reference loop, since a BO with a live vma_ref is held
+> by userspace anyway.
+> 
+> Fixes: 111fdd2198e6 ("drm/msm: drm_gpuvm conversion")
+> Assisted-by: LLM
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 > ---
->  drivers/usb/cdns3/cdns3-gadget.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/usb/cdns3/cdns3-gadget.c b/drivers/usb/cdns3/cdns3-gadget.c
-> index 42311c1bfada..53cc535309c5 100644
-> --- a/drivers/usb/cdns3/cdns3-gadget.c
-> +++ b/drivers/usb/cdns3/cdns3-gadget.c
-> @@ -2530,9 +2530,9 @@ static int cdns3_gadget_ep_disable(struct usb_ep *ep)
->  				  !(val & EP_STS_DBUSY), 1, 10);
->  	writel(EP_CMD_EPRST, &priv_dev->regs->ep_cmd);
->  
-> -	readl_poll_timeout_atomic(&priv_dev->regs->ep_cmd, val,
-> -				  !(val & (EP_CMD_CSTALL | EP_CMD_EPRST)),
-> -				  1, 1000);
-> +	ret = readl_poll_timeout_atomic(&priv_dev->regs->ep_cmd, val,
-> +					!(val & (EP_CMD_CSTALL | EP_CMD_EPRST)),
-> +					1, 1000);
->  	if (unlikely(ret))
->  		dev_err(priv_dev->dev, "Timeout: %s resetting failed.\n",
->  			priv_ep->name);
-> -- 
-> 2.34.1
-> 
+>   drivers/gpu/drm/msm/msm_gem.c | 13 ++++++++++++-
+>   drivers/gpu/drm/msm/msm_gpu.c |  4 +++-
+>   drivers/gpu/drm/msm/msm_gpu.h |  3 +++
+>   3 files changed, 18 insertions(+), 2 deletions(-)
+>
 
--- 
+Tested on device with a512, previously faults were easily reproducible,
+like almost on every window/popup close.
+They looked like
 
-Thanks,
-Peter Chen
+  gpu fault: ttbr0=0000000046fdf000 iova=0000000004635f00 dir=READ 
+type=TRANSLATION source=1030001 (0,0,0,0)
+  gpu fault: ttbr0=0000000046fdf000 iova=000000000462d700 dir=READ 
+type=TRANSLATION source=2030001 (0,0,0,0)
+  gpu fault: ttbr0=0000000046fdf000 iova=0000000004c6e380 dir=READ 
+type=TRANSLATION source=4030001 (0,0,0,0)
+  gpu fault: ttbr0=0000000046fdf000 iova=000000000497eb00 dir=READ 
+type=TRANSLATION source=2030001 (0,0,0,0)
+
+and now cannot be seen anymore with these series applied.
+
+Tested-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
+
+--
+Regards,
+Alexey Minnekhanov
