@@ -1,249 +1,186 @@
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012059.outbound.protection.outlook.com [52.101.48.59])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 068182F619D
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 17:40:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.59
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791567627; cv=fail; b=rd2DAmX2jv0HZXlYoOhDcE+Fd8JCtSAA/ArQzrAQd2kemEIPLn+nGAz3xVwYpiT7XqdlzxEQrtGk6TvNkguHSWSwvKvbzRPSBsqx5ErSv/2YNSd6aPfdn1HpFae+7iMyFjNG/wZPtMuF7ATaV2s4eT3V9GfCUGfJJIq5bCmn+cQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791567627; c=relaxed/simple;
-	bh=AkHmywcqF/XWlLRn0NWctfCfat4qPDOpcC8pLE4nChI=;
-	h=Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
-	 In-Reply-To:MIME-Version; b=tYpBzPouuyWczbpdkIbg+9SFUxBzZ9SPO5M64WGHlsqF9NsjdgDcArSqVNhMnVkaxHg0ydZRmkFhVRF/W/0lLimBlTXBDd4NQhC+7duIS8kR1n3wLkOK37fnpyBQXnIsmtjsMzpz9mM3Tswouji+0Bp9msVBnOdYkkyHo+A1nsI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=lUg5T4cH; arc=fail smtp.client-ip=52.101.48.59
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 190334E77EA
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 17:40:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791567636; cv=none; b=Pus/SalgjBzGHnt4jS1JLxPjAUUV05M72Js2le4pg6ekGRjuaxUvOPwup6YZPCe8oTbQFF30gsFcXs4zNccXEkwIl+1ysgRWkl8W8MFFC77aiNwQOqdewMQYKf6FNJzGMTijDYtZTPJJdOmC6pqvMYOmeFfe1zDPPT/KC6ZeqGc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791567636; c=relaxed/simple;
+	bh=k8aejIH4girCnHlnsmhW0AOY4LYP8I4Mq1RNU11YCWM=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version; b=kvQXbDy9BBFf4Scur4B7rKQa0gL5REU9mdPcD1x6CEdTcEZh74mVwhL54ed5sRUclwdGN0PP33ms8So1cCHAfZ78FMqGjgnXakPeAMPfPKmU5Pt90IoKXHEwjR/m9M/gz1+RSe2UFpHCf95T74qtlodURMXGVx9K9FC2M7bqEfA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m9zSOP7C; arc=none smtp.client-ip=209.85.215.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="lUg5T4cH"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kC0Dye9C3wZhvTB02X7OibAEiDExq++F1HGXUhYzqP8xQTVBQWfW+gIm3+djlQaa8prUQYBjnwAZh36EhtnkSZ3F4LjdVSKjUUk1HkbyXHXhu9Vd3W75rq8qs5nX1u9JO/sBmPNvp7DrB4mXRxmnEV6W3jKm92c+ojNzQpu0xDVfP3Lv9ESMilVbW5Q7KgncCxIksWVboLe0m1KHpE9CnnXCm6IJpsTohSpgjp63nv5kh+pJ9CMNW4Wcw3D8Mj2vDO+p7y4w0XOBEnSt6bcVco1vbGiYtVvKN/tN/+xoDIfe4gJdq/J1HM2ZIvdjjxM7lN1i7r+88FSDsr3uJHMzkQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OcATiHbn3ycAGlktWFurD8VuO2DXbq0gcF/7+TfYiwc=;
- b=gqk0yCTO5hztQbWKtfytbxgrnlQAijVSLsO5X4gP95sYL1B4At6bazlZ2yduMnt5jVq2Kl1/LMb5PRjIKBp1Paew+yUgdEylDMXaTdF1KJiZ+U9s9cPFc4FmEqv2rVYm5AzXzCa67oa4Z5HBaszWVT+x9u0FTEDK9427ButUgJVGqL+wmSKGp/vqsqD3FuajQ3IbIWiv7tg4fU/Jc7l94eW8gpkh3R1/B8xSp6R7iWLPVZOz7vTQ6eTKQ3gl9yzuVd0YO9tKq94lHJW4o66pqOFGl0y4Hw+rvYt1JHj8jNgYpzoE5Z35+ik0R9nIODaZVZ/dRDxi4Priq3AiaFbCxg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OcATiHbn3ycAGlktWFurD8VuO2DXbq0gcF/7+TfYiwc=;
- b=lUg5T4cHktsPqcngWJb04PJ58KqEcx5XzLtxUxGI2AS3t2Ryv0FrMXFAao3eXmyvpeWtHv/k1rVD2JU4ubQ2rAeUUMwAst48OPgqr6bDfGCX8fSzr/WM3ueKDPegsB2oDqkRuwcmTg7BQha1Oylb9eVfPzhiFYzT13WrC22kheRUP/YHS9mbUWQWCqdQMle9dx8VoakBcRjAUXKVi8nXqA/syXbqcEVtRqygkrvtCIed4E9MCsh9krqGcm/I5FWWBq2WYe7W/kJxSPyvQl0gdEouh6Da2+4+/L2Sb73oi46eH320Pcufn52WUW98nVrXeymxHQtdBPuyAnynoZMHmg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by SN7PR12MB8058.namprd12.prod.outlook.com (2603:10b6:806:348::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Fri, 9 Oct
- 2026 17:40:19 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0472.016; Fri, 9 Oct 2026
- 17:40:19 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 09 Oct 2026 13:40:17 -0400
-Message-Id: <DM0HPT9WBHEM.1XEFJ6BZ7PPWL@nvidia.com>
-Subject: Re: [PATCH v8 13/30] mm: handle PMD swap entries in fork path
-Cc: <ying.huang@linux.alibaba.com>, "Baoquan He" <baoquan.he@linux.dev>,
- <willy@infradead.org>, <youngjun.park@lge.com>, <hannes@cmpxchg.org>,
- <riel@surriel.com>, <shakeel.butt@linux.dev>, <alex@ghiti.fr>,
- <kas@kernel.org>, <baohua@kernel.org>, <dev.jain@arm.com>,
- <baolin.wang@linux.alibaba.com>, "Nico Pache" <nico.pache@linux.dev>, "Liam
- R.Howlett" <liam@infradead.org>, <ryan.roberts@arm.com>, "Vlastimil Babka"
- <vbabka@kernel.org>, <lance.yang@linux.dev>,
- <linux-kernel@vger.kernel.org>, <nphamcs@gmail.com>,
- <shikemeng@huaweicloud.com>, <yosry@kernel.org>, <qi.zheng@linux.dev>,
- <luizcap@redhat.com>, <kernel-team@meta.com>
-To: "Usama Arif" <usama.arif@linux.dev>, "Andrew Morton"
- <akpm@linux-foundation.org>, <david@kernel.org>, <chrisl@kernel.org>,
- <kasong@tencent.com>, <ljs@kernel.org>, <linux-mm@kvack.org>
-From: "Zi Yan" <ziy@nvidia.com>
-X-Mailer: aerc 0.22.0
-References: <20261002095503.3585565-1-usama.arif@linux.dev>
- <20261002095503.3585565-14-usama.arif@linux.dev>
-In-Reply-To: <20261002095503.3585565-14-usama.arif@linux.dev>
-X-ClientProxiedBy: BN9PR03CA0485.namprd03.prod.outlook.com
- (2603:10b6:408:130::10) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m9zSOP7C"
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-ccce967aa8dso3102973a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 10:40:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791567634; x=1792172434; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:reply-to:message-id:date
+         :subject:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lxguw1uDTuEJffZkA0RjIlXZRSyCjRzPKT3u+yYZHzQ=;
+        b=m9zSOP7CMCUmZNzkXqoKyJQSj4cgqFc+K9oLqhVhIKCpUKHbfOpaiVIVZU03Ek7z2c
+         jLJBGmvZzX9kx2YXQKAonZhFNlLmXecOA6xfxJarHDvdn7Y9a+A+jpLwdynMME6Ig9jd
+         CKWQF9hnaTYzEQE51THglUpxluX897guBh1wRfkDUy2FFTBM/dLRPeogGwjPSluNoozm
+         V4wIgDO3WEnEa1dveaZynoahNmHWYSujlUaGkpPczuC08kphQOWbcBZxVzc0OmBnC6qt
+         v7Bq0yPUCUM3JnZeBInv2WN4/sJ7x/OzHvL9n36YrkgEcNhU0Bm+ioZxzY8D3sFI6uau
+         /lHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791567634; x=1792172434;
+        h=content-transfer-encoding:mime-version:reply-to:message-id:date
+         :subject:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lxguw1uDTuEJffZkA0RjIlXZRSyCjRzPKT3u+yYZHzQ=;
+        b=KBUpQuS6LPEY55KGJZgXzWiR/EM0a8X4JFOHZdBQrhu8AOw81vide2ey2LWNfShTNH
+         +USSNOrUm44plOs5Tzqcz62YkV5RCRnJyeBeM56pWHWTN11nLYwvydlbegHSdmZvn/QY
+         MMqHFKDD38HKaJYQYVWuf+a6Dk8Wb+j3CPBj8BgjIOWXCtCHYgJNL3PkDfg0mZ/oaGgs
+         VldlnupkJL1TY4HGnenVmuMBh/4UZpJKkvrORplvsii4d8ItI6tlmSsBdPSuVFV3rK9g
+         KaY1FQd30omoaA8abSbs3s+8IX8ZXw+i2OBFbFDaC0S9FZ4GqL+rs0aCa2MSYgUmVHyq
+         MSgA==
+X-Forwarded-Encrypted: i=1; AKwUvBwOI1OxNGv0hjzcj72txAsLcy7CgbHzdCDlgokwP6t5jm9LwWoy4GSXbAdGFDcjaVb9JRFDoOtvV1WxwAA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ70aH/mj3tKVrtfTS6Zdy5hHj8IdSCI5ehpiA+QvrmGr/oWmeh
+	2C5VQDzjkS9qDRfHFBzuwp5mfXQ+ClwB7DI5TJgtEYdfbNP4ywPRt1xz
+X-Gm-Gg: AYBFou2ijs7IUwcnrgX56DFGMJb2T/iFmTqJAhW6GYClidRr9nL/2mAI/pZYyBmInaq
+	t457+IWpw0SOK16cu+M3GkGPshg87Lq0LDGsxkTxpiV2PnWK1yZlTsK9X7kg+UguOptq4/M6cCr
+	JCXUoFklmtYHHmohCgySGzQGMDo7qT826r6yPyxVFbWyM5iVFa25hCjSzmpoH4FDBxSoI64GP+U
+	a9eY6+X0v8SLgdqgeN6e9MRhwmRpBu8D5HhycIZYcx+gMZ5+Uv81yKSo5w0LrNU+iRpAOgUtnGO
+	CHv9t2dHBc6S4AVsBC9cCxUPhSTWpiTKkRtCLFRXj5Iqcu6DYbrgdfV3+dHQ9C5pZ2sfKBhX3jv
+	ppx3ilymFZBg/gco7IhYxKeQ2W0nGtjYdZ+x7LJSQc6rJK6ZjU/ypt2bTRgIfvueizMyaOmt+ps
+	H24FuAxBca/XnBREWMfrjeyoTLNTZ5LfeeBf84VuLS/d7xPc086XECaGXI+wC+w+jYgoU995KoQ
+	QovaVPAJn8+rLcT+Hm2cvhfP1PI2YAEkKnTstGsrYGboMHfMEFcrJSjiqP+HloA
+X-Received: by 2002:a17:90b:224e:b0:3ab:1323:1012 with SMTP id 98e67ed59e1d1-3ab3a32ff26mr2282751a91.1.1791567634272;
+        Fri, 09 Oct 2026 10:40:34 -0700 (PDT)
+Received: from localhost.localdomain (c-174-165-208-10.hsd1.wa.comcast.net. [174.165.208.10])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab338676besm2726448a91.1.2026.10.09.10.40.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 10:40:33 -0700 (PDT)
+From: Michael Kelley <mhkelley58@gmail.com>
+X-Google-Original-From: Michael Kelley <mhklinux@outlook.com>
+To: haiyangz@microsoft.com,
+	wei.liu@kernel.org,
+	decui@microsoft.com,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-hyperv@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-doc@vger.kernel.org
+Subject: [PATCH v2 1/1] Documentation: hyperv: Remove support for guests on Hyper-V 2012/2012R2
+Date: Fri,  9 Oct 2026 10:40:07 -0700
+Message-Id: <20261009174007.6745-1-mhklinux@outlook.com>
+X-Mailer: git-send-email 2.25.1
+Reply-To: mhklinux@outlook.com
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|SN7PR12MB8058:EE_
-X-MS-Office365-Filtering-Correlation-Id: a019b054-508f-4dec-e22b-08df262c62e9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|1800799024|366016|376014|10067099003|56012099006|4143699003|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	m0wmP/pnA6TooFeo53F0pThzlal+J8rumCnlKzM/3HYe2wl3NZNtlreHBAMI5aYOCx73YHgnA4VyMttqH47eI5xWFb0gdmY6jG1KUu4XcTwJR7uFK3gZNiV6GOAJ651ZK2mS6WTid4JG9GgGcWxCLtReuQZsNwzHsUo5QQE3okwUFhCCeCmiVI361WosSVcCXLhxjMJGh63cG23yZt/lHRCaY1+hgc5FsjRbfP1jY+b7PX2ya2LmPy6brZiQOev+ESCGGBSj5bI4Szn/0ZF/J0Gk9R0/AQmbEoyypIYrJcSd/hnumIczGVMGjJMMreKtbBZlrZ9WlBnU+fof+h1kRgtZic5HZddc0LyFCwS+ay7GoWkNOyv+zQlsrxl4kJvsDSbgDWt/GhkAEgTkcAEGVqqcJW38j8/ZIlS8VmYxETSuEitpiKVIDfTDj9LHG0MFiZ3Gt5wsBLRXssvjdPn8qI0Uz272BybUiee6QSMt6tKWGgjwYPp4lTjmkM9ZaMICcpodVTO3GqR/YH+dgwW6pi3LWEer5CwOSD+/X4+UP/E1eRT35CAiigVQ01EdIkwabVhF7rQram39MxsTa9fj0AzleIQGf2jR2uj3oggXvnz5IT1plrw1blvtNVA+D1ZjmuagQj1Ke9QzzxxzYaUDj0gp+k3BTaBn3UAM68r/lps=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(1800799024)(366016)(376014)(10067099003)(56012099006)(4143699003)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?YWVDdHowcCtrV0VQWVVYdjFWbEthWTFVY3BNNnRlSWF4WUdwUTkvU2cvWVBV?=
- =?utf-8?B?cHFDa25jY2RCL1hMekc2WWNnRndUK1RWdHEwSGFrRVU4MDU1SHd4SlBQNDBI?=
- =?utf-8?B?eTU0RUJVUWRJUlZnZC83UndzaFJUY0kyV2RURFFpbzRoZ2YzQTF6SW8yUzdn?=
- =?utf-8?B?TVhOT0E2bTBsQUFyY2UyZmwwMkhwdzFzcmxqdG5PYTJUN0ZzOXBISWZXN3dr?=
- =?utf-8?B?OGd5TjBwd2dmcnowMnNZWFBNUTF0THFqQVZCd1hiWDQ0bzZZVGJXakdQUzJ6?=
- =?utf-8?B?bWZrSnFTVCtKR3hXUmQ0ZklHUkJQeGhPRllnNUJ3OVhRTXJYb0pkQjdZSS9E?=
- =?utf-8?B?SzcyWFJlSnp0TSs2czduK3Z6MkxSeWdmcHJrSktuSGFVOGZEM1JQNkZtRUox?=
- =?utf-8?B?V1gzaDAxOTQvUXBheEVXaEJ4UkxLZ3B0MGIzeHNLakhpSk5wVnNRN0k3aHZW?=
- =?utf-8?B?Vy9VMVFzSFpMZlNhSGVuTzJ1R2hPaGJ2T0VQdURTUDA2eXF6Rnhma3FBU0J5?=
- =?utf-8?B?SWxPcStua2t0TmRRMXJiVWQyWTNiMFdWN2FQa3NUN21ZZURSdnkrZnVQaHA2?=
- =?utf-8?B?YTdTTlhjK2VKWDJKMjAzdWlDa2pxVm44K1FrZDZ1OEtkWHpOTU9LWkJOL2Nl?=
- =?utf-8?B?RHNHdk9GOFV5NzVzS2ViR2JhY01vbVdVRFZ5Tk8zU2xHVnNRNXZpWEdqODNI?=
- =?utf-8?B?U3Q0dlI5SFdsdzRpak0zQ2J3dmdOb3Z0R0twNzluMFpNSnhMdTNKYmhZNUgr?=
- =?utf-8?B?bG1yeUs2dktnV3dxcHVGcGtDYlE2dEp3U1VVdU9DcTJtYW1DSUNGdVFNL28v?=
- =?utf-8?B?OGFtQlFJWm5rdnNCMWlTOUNKWStjS0IrcUpaMWEvZUJ1dEtCV0tObHd6bits?=
- =?utf-8?B?OFFCWkZKdVplc0xNVjdZbnZVMU4reVpBZ1pWUEg0RmFLZTFDRmlCSjFSREJZ?=
- =?utf-8?B?aXpsZ2o4SVB1N0N5QUNuN0t2NVNvUUU2amxkazNLS2w5RThjN2hjNDBmQ3Br?=
- =?utf-8?B?clZBeEtsSmN1UFI1aHRpVEIvSDVKQlUxajBBRjgvcys5VHVrYnlGdjFNN0Ix?=
- =?utf-8?B?aXlXTXg4RmVodGUyd2FPNXJnZ0lCekhJTlNTOUIva2RidVM1ZnRhT0ZtbUQ3?=
- =?utf-8?B?TTIyMllCSnB5L1ZlMUI4SzlWRFcva0paRlFkMUlQV3FZL2pLeDR0YVVCTGJQ?=
- =?utf-8?B?MFZQeVMxMHlFODlhaXVxL2d2THVHc3VCdVpDVjNLbWdneDBzQkx0bDNQQ04r?=
- =?utf-8?B?T2s2K3YyL25tdzRTT1FGZzd0QUhmbS9Hcm92azByWG0xc04wT2hDR1BwR3ZR?=
- =?utf-8?B?eS9pVkdYY2Rxd1oxTXRvU09ZNlZTaHVmZllHdVZ1UGNTTlE1NU9JNmJQUG40?=
- =?utf-8?B?Zmh2R3V3YlZhYTB1YndEdmJ6bXFRU0pWZzJ3eG9qd1N0a0dtaTZPUnRsM1VD?=
- =?utf-8?B?ZjJud2hrVGRRVEl3VFFEUzBIWkhxaGZPN3B4dDJSTXpiWklGUHN6dFVyMnBI?=
- =?utf-8?B?QmVDYm9OMGhTdWtrYzNmZmgrVVpXZTZlbk9tam5VdStNOUcrbk0xY3dFYkFu?=
- =?utf-8?B?ZjN0aVJmbE1CaE5LVi9SUTJBbjRjalVRV1N4UitGMEE4QW91QUg0a1M0MnFT?=
- =?utf-8?B?M0FCa0Y1RFRqbWhNaWlYQnhRWENjdlNqMXE2U3RnNXZJNGVtODVmY1N0enRQ?=
- =?utf-8?B?UThHT0ppcGFqUDIzdFhkcUpRS3VTQ0R4YXNHMWVBa2RXNDJoYmJ2Qnd5eDB6?=
- =?utf-8?B?M2dudE9WRWRGSC9ldmgzam5OUU9qMFo3WWIvekZSc1I3T3pLSkVJbGZ2V1pP?=
- =?utf-8?B?VE1yM1BEWDJBZFpqNzJzdHFaT2pxaklQRDBlVURUTzVvaXBjdkxLY2lyT2xO?=
- =?utf-8?B?anlTOXNUa1RTV2JVVEFBZ3crb3Yrd1FKZVIwd29tNjlVNXh0MVFEcFdPeTdN?=
- =?utf-8?B?ditJbGF5SnpLQ203WHBKN2p4WEVDV3h3NEtta3RaRVhoVUpWRWpFb3pZTWdE?=
- =?utf-8?B?U1BJVXRKbzJkdFBycWtHNlVRUFlVUFpuNVFqR3E4NUlOaEtHUzY5TlFTSnVN?=
- =?utf-8?B?MEt1Nm1VbmtYazQwMm1YTktVV0lrTFIyd2duU1RJK3pjZXM2RDBhaWZIbUls?=
- =?utf-8?B?em41OWdTOHQ3ejArUHo5WUZWVTB6aW5hOVczZHE1L3JscDNJUmpjZlcvTUtE?=
- =?utf-8?B?LzZCVnVlWmxQSTNrYi9zU3EyZkNKYjJxRnZ4b0xSOXkvRUdDS1g4VWhTTlRi?=
- =?utf-8?B?VDFFMEpsTEI2Sm04SVBjTzlHYkJwOEQ0VDg0OWZXeEJMbVJTVWlOeUVwWGtK?=
- =?utf-8?Q?U9TNvmt4JOWTU3lIEh?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a019b054-508f-4dec-e22b-08df262c62e9
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 17:40:19.1206
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Mh1NPu17GVnHNOpR3pxuT0rk3DYPOp482uPOj85Z0Q+hk0S46iycclMsWPKEwraL
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8058
+Content-Transfer-Encoding: 8bit
 
-On Fri Oct 2, 2026 at 5:52 AM EDT, Usama Arif wrote:
-> copy_huge_pmd() only knows about migration and device-private PMDs, so a
-> PMD swap entry would fall through to the present-PMD path and fork() woul=
-d
-> duplicate it without taking a reference on the slots it points at.
->
-> Copy it the way copy_nonpresent_pte() copies a PTE swap entry: duplicate
-> the swap references, clear the exclusive marker on the source, put the
-> destination mm on mmlist, and account the child's slots to MM_SWAPENTS.
->
-> The GFP_ATOMIC extend-table allocation inside the dup can fail. Report th=
-at
-> as -EIO and let copy_pmd_range() retry with GFP_KERNEL, as
-> copy_nonpresent_pte() and copy_pte_range() already do for a PTE swap entr=
-y.
-> copy_huge_pmd() hands the entry back so the caller knows which range to
-> allocate for.
->
-> Only -ENOMEM is reported that way. The other failures mean the entry itse=
-lf
-> is bad, and swap_retry_table_alloc_nr() returns 0 for those, so collapsin=
-g
-> them into -EIO as the PTE path does would spin in the caller's retry rath=
-er
-> than failing the fork.
->
-> While here, move the mm counter update into each entry-type arm, as the P=
-TE
-> version does, so the swap arm can account MM_SWAPENTS instead of
-> MM_ANONPAGES.
->
-> Signed-off-by: Usama Arif <usama.arif@linux.dev>
-> ---
->  include/linux/huge_mm.h |  3 +-
->  mm/huge_memory.c        | 62 ++++++++++++++++++++++++++++++-----------
->  mm/memory.c             | 12 +++++++-
->  3 files changed, 58 insertions(+), 19 deletions(-)
->
-> diff --git a/include/linux/huge_mm.h b/include/linux/huge_mm.h
-> index 8205e83f27771..7aa63d982af07 100644
-> --- a/include/linux/huge_mm.h
-> +++ b/include/linux/huge_mm.h
-> @@ -10,7 +10,8 @@
->  vm_fault_t do_huge_pmd_anonymous_page(struct vm_fault *vmf);
->  int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
->  		  pmd_t *dst_pmd, pmd_t *src_pmd, unsigned long addr,
-> -		  struct vm_area_struct *dst_vma, struct vm_area_struct *src_vma);
-> +		  struct vm_area_struct *dst_vma, struct vm_area_struct *src_vma,
-> +		  softleaf_t *entryp);
->  bool huge_pmd_set_accessed(struct vm_fault *vmf);
->  int copy_huge_pud(struct mm_struct *dst_mm, struct mm_struct *src_mm,
->  		  pud_t *dst_pud, pud_t *src_pud, unsigned long addr,
-> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> index 24d116ae1fc30..80d18ca972ecf 100644
-> --- a/mm/huge_memory.c
-> +++ b/mm/huge_memory.c
-> @@ -1894,7 +1894,7 @@ bool touch_pmd(struct vm_area_struct *vma, unsigned=
- long addr,
->  	return false;
->  }
-> =20
-> -static void copy_huge_non_present_pmd(
-> +static int copy_huge_non_present_pmd(
->  		struct mm_struct *dst_mm, struct mm_struct *src_mm,
->  		pmd_t *dst_pmd, pmd_t *src_pmd, unsigned long addr,
->  		struct vm_area_struct *dst_vma, struct vm_area_struct *src_vma,
-> @@ -1902,18 +1902,41 @@ static void copy_huge_non_present_pmd(
->  {
->  	softleaf_t entry =3D softleaf_from_pmd(pmd);
->  	struct folio *src_folio;
-> +	int err;
-> =20
->  	VM_WARN_ON_ONCE(!pmd_is_valid_softleaf(pmd));
-> =20
-> -	if (softleaf_is_migration_write(entry) ||
-> -	    softleaf_is_migration_read_exclusive(entry)) {
-> -		entry =3D make_readable_migration_entry(swp_offset(entry));
-> -		pmd =3D softleaf_to_pmd(entry);
-> -		if (pmd_swp_soft_dirty(*src_pmd))
-> -			pmd =3D pmd_swp_mksoft_dirty(pmd);
-> -		if (pmd_swp_uffd(*src_pmd))
-> -			pmd =3D pmd_swp_mkuffd(pmd);
-> -		set_pmd_at(src_mm, addr, src_pmd, pmd);
-> +	if (softleaf_is_swap(entry)) {
-> +		/*
-> +		 * A PMD swap entry only exists under CONFIG_THP_SWAP, where
-> +		 * SWAPFILE_CLUSTER =3D=3D HPAGE_PMD_NR, and it is cluster aligned,
-> +		 * so these HPAGE_PMD_NR slots are exactly one cluster - which
-> +		 * is what swap_dup_entries_direct() requires.
-> +		 */
-> +		err =3D swap_dup_entries_direct(entry, HPAGE_PMD_NR);
-> +		if (err)
-> +			/* Only -ENOMEM is worth a GFP_KERNEL retry. */
+Support for running Linux guests on Windows Server 2012/2012 R2 Hyper-V
+hosts and Windows 8/8.1 hosts has been removed, which includes removing
+support for operating Hyper-V synthetic timers in other than Direct Mode.
+Update the documentation to reflect these removals.
 
-Is it better to say "if swap_dup_entries_direct() cannot allocate
-memory, return -EIO so that the caller can retry with GFP_KERNEL. Fail
-the fork on any other error"? It clarifies why EIO is needed.
+Signed-off-by: Michael Kelley <mhklinux@outlook.com>
+---
+Changes since v1:
+* Updated the netvsc.rst network driver documentation [Naman Jain]
+* My "below the line" comment in v1 wrong. It said that removal of WS2012
+  support was going into 7.4. But it is actually already in 7.3. So
+  ideally these doc changes would go into 7.3 as well.
 
-> +			return err =3D=3D -ENOMEM ? -EIO : -ENOMEM;
-> +
+ .../device_drivers/ethernet/microsoft/netvsc.rst   | 14 +++++++-------
+ Documentation/virt/hyperv/clocks.rst               |  8 ++------
+ Documentation/virt/hyperv/overview.rst             |  6 +++---
+ 3 files changed, 12 insertions(+), 16 deletions(-)
 
-Otherwise, LGTM.
-
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-
---=20
-Best Regards,
-Yan, Zi
+diff --git a/Documentation/networking/device_drivers/ethernet/microsoft/netvsc.rst b/Documentation/networking/device_drivers/ethernet/microsoft/netvsc.rst
+index 616f808e885b..0d464706a59a 100644
+--- a/Documentation/networking/device_drivers/ethernet/microsoft/netvsc.rst
++++ b/Documentation/networking/device_drivers/ethernet/microsoft/netvsc.rst
+@@ -7,8 +7,9 @@ Hyper-V network driver
+ Compatibility
+ =============
+ 
+-This driver is compatible with Windows Server 2012 R2, 2016 and
+-Windows 10.
++This driver supports Linux guests running on Windows Server 2016 Hyper-V
++and later, and Windows 10 and later. Support for running as a guest on
++earlier versions of Hyper-V has been removed from Linux.
+ 
+ Features
+ ========
+@@ -16,9 +17,8 @@ Features
+ Checksum offload
+ ----------------
+   The netvsc driver supports checksum offload as long as the
+-  Hyper-V host version does. Windows Server 2016 and Azure
+-  support checksum offload for TCP and UDP for both IPv4 and
+-  IPv6. Windows Server 2012 only supports checksum offload for TCP.
++  Hyper-V host version does. Windows Server 2016 Hyper-V and later, and
++  Azure, support checksum offload for TCP and UDP for both IPv4 and IPv6.
+ 
+ Receive Side Scaling
+ --------------------
+@@ -58,8 +58,8 @@ Large Receive Offload (LRO), or Receive Side Coalescing (RSC)
+ -------------------------------------------------------------
+   The driver supports LRO/RSC in the vSwitch feature. It reduces the per packet
+   processing overhead by coalescing multiple TCP segments when possible. The
+-  feature is enabled by default on VMs running on Windows Server 2019 and
+-  later. It may be changed by ethtool command::
++  feature is enabled by default on VMs running on Windows Server 2019 Hyper-V
++  and later. It may be changed by ethtool command::
+ 
+ 	ethtool -K eth0 lro on
+ 	ethtool -K eth0 lro off
+diff --git a/Documentation/virt/hyperv/clocks.rst b/Documentation/virt/hyperv/clocks.rst
+index 176043265803..9527e6073654 100644
+--- a/Documentation/virt/hyperv/clocks.rst
++++ b/Documentation/virt/hyperv/clocks.rst
+@@ -64,12 +64,8 @@ applying the scale and offset to get the constant 10 MHz clock.
+ 
+ Linux clockevents are based on Hyper-V synthetic timer 0 (stimer0).
+ While Hyper-V offers 4 synthetic timers for each CPU, Linux only uses
+-timer 0. In older versions of Hyper-V, an interrupt from stimer0
+-results in a VMBus control message that is demultiplexed by
+-vmbus_isr() as described in the Documentation/virt/hyperv/vmbus.rst
+-documentation. In newer versions of Hyper-V, stimer0 interrupts can
+-be mapped to an architectural interrupt, which is referred to as
+-"Direct Mode". Linux prefers to use Direct Mode when available. Since
++timer 0. stimer0 is operated in what Hyper-V calls "Direct Mode"
++where timer interrupts are mapped to an architectural interrupt. Since
+ x86/x64 doesn't support per-CPU interrupts, Direct Mode statically
+ allocates an x86 interrupt vector (HYPERV_STIMER0_VECTOR) across all CPUs
+ and explicitly codes it to call the stimer0 interrupt handler. Hence
+diff --git a/Documentation/virt/hyperv/overview.rst b/Documentation/virt/hyperv/overview.rst
+index 77408a89d1a4..c4c262b77aa3 100644
+--- a/Documentation/virt/hyperv/overview.rst
++++ b/Documentation/virt/hyperv/overview.rst
+@@ -157,9 +157,9 @@ when accessing data shared with Hyper-V.
+ Versioning
+ ----------
+ Current Linux kernels operate correctly with older versions of
+-Hyper-V back to Windows Server 2012 Hyper-V. Support for running
+-on the original Hyper-V release in Windows Server 2008/2008 R2
+-has been removed.
++Hyper-V back to Windows Server 2016 Hyper-V and Windows 10. Support for
++running on Windows Server 2012/2012 R2, Windows Server 2008/2008 R2,
++and Windows 8.1 and earlier has been removed.
+ 
+ A Linux guest on Hyper-V outputs in dmesg the version of Hyper-V
+ it is running on.  This version is in the form of a Windows build
+-- 
+2.25.1
 
