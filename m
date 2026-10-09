@@ -1,89 +1,115 @@
-Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FC32393DEE;
-	Fri,  9 Oct 2026 08:52:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B5CC37AA96
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 08:52:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791535951; cv=none; b=uQsUJkTTd2vGFoETt1UTtJ+VUCYUwiGCsWIbm7go3LJIsZYVlgfF0iwE5GqrrW61FlXvPWJInXNNhxmCT56zak6NPkWctL4OF+AXe+Ps8GeuSuAOyvp2tpBAu32402K2LTDQw+KljXO4oFPVmqqIuh12lV+El/+BzoQAlEEoDVs=
+	t=1791535961; cv=none; b=OB4KCpMweZvcF/wZR0akHaN5cFbrp723oyQMfmP/TYf2Yg0aAg0qYLVvOBUHyTGeFpCQAloir0GpvWHIvHHVFkLyif6AHpORIvujVAP+hG3wTCRcXaNVXxoVKA6r6lNrTYoWY61o3xCK5UsEkFliGWV9APxk444guMFXlwtDCfs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791535951; c=relaxed/simple;
-	bh=9bvrIimgWhp5pYeq94nWisZrIs4cws1jr17dyxylOaQ=;
-	h=Message-ID:Date:MIME-Version:To:Cc:References:Subject:From:
-	 In-Reply-To:Content-Type; b=Ws0pS0DsLQ8BV/jkwv8flojdlRrJr2M3RXMapyBVaY3YQ/6LnEPl9dPH69oMOWAithI4yjkexsdi4l/ck+0MEdaH4/aD55h/vTLn6fZfBbUfrut/OrhSaHxCQ1EvAHuBAu3uVio0p73RSHaUVpOVGeyXpXpTAwE31hqNzPgt9yY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.170])
-	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4j1LFJ11sSzKHMbd;
-	Fri,  9 Oct 2026 16:51:32 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.128])
-	by mail.maildlp.com (Postfix) with ESMTP id F050D40561;
-	Fri,  9 Oct 2026 16:52:23 +0800 (CST)
-Received: from [10.67.109.234] (unknown [10.67.109.234])
-	by APP4 (Coremail) with UTF8SMTPA id gCh0CgDntypGq8hqsy9VDQ--.41903S2;
-	Fri, 09 Oct 2026 16:52:23 +0800 (CST)
-Message-ID: <7cbd5c40-55e4-4db3-8175-aec9516f9ba6@huaweicloud.com>
-Date: Fri, 9 Oct 2026 16:52:22 +0800
+	s=arc-20240116; t=1791535961; c=relaxed/simple;
+	bh=V/Ql69VGnfzIVESBUI6mXdFmWLuUvbDYYyjwzIKNw+A=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=uEGkS+hV6QqbByx7BlM7PPi5LnD+GVlTzC5lQQJbw5xgsq70tMq0UhLoKVh7iT/9T0WMZwrDaExL1y35QqPkKc5ipQgaZ61uNZeTyTDLI9f7xsgBcGoYq7MQSijXsaT7qwKGyoBqqElRD5/Sne8W5/Yzv0sEqIeQ1w7DbKIgWss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4fb73e868aaso5834894b6e.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 01:52:40 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791535959; x=1792140759;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=C6ZqRlPw6luZA9CZj6npWaM6J27E2GLTOqdvKYVlgA0=;
+        b=ytkSu9D4bgzHQstNL105W8kk5IDGcH+XYSO01qmeQwE95kMVmGHCzd27JhweB2B4hH
+         zmgG4ieLQStUV8539cm4b0k+gVGl/RtZRiKIbwGCss608VAG8kwdh8oMSji1PVLb/9Lt
+         aZDlsNaeg6lCZRqxu8pYG/BdGxXJuUvTuionZfb/hi+UnE4bETzftmMayFKUjS6M4wwm
+         YePHp1uD716jrJsqY5+uFmomnyPGViDL+yxAGbJx09/6Jto7AmrFJbQm9ETxvV4zW5QX
+         781iojs1l/ianKCFAJCgpXVmBOhi92Gw3wX0G+xJ96W+COyDq0SApVmZ+osYZeJjh977
+         VpWQ==
+X-Gm-Message-State: AFuF++kk2eQji0x5hAlHCKD126umX0ASr5XP033/sHH2Y9BZoDvwnwwu
+	vNatuVJHy9eSMEdq48AfKXWM3BX3r8bDvSOZFE1svWmFdSwrui1vut0iJ3JJxobfSSI+eOKJ+4g
+	TvJJVHETidHIRVybegtf5pyxeAr0RchDnIZCe055p8N9mSCT+Q0Nt7UaSTEY=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: gregkh@linuxfoundation.org
-Cc: cve@kernel.org, gregkh@kernel.org, linux-cve-announce@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <2026092412-CVE-2026-93275-76ec@gregkh>
-Subject: Re: CVE-2026-93275: perf/x86/intel/pt: Fix stop/start with no update
-Content-Language: en-US
-From: huaweicloud <luogengkun@huaweicloud.com>
-In-Reply-To: <2026092412-CVE-2026-93275-76ec@gregkh>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:gCh0CgDntypGq8hqsy9VDQ--.41903S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7Jw1kGr4DXr4rGF13WF17KFg_yoWDGwb_C3
-	W5urs8KryYya13Za1xKr1F9ryrKa4jqr9xZF15Wry3uFykGrWS9ay7XF9xtr1UG3yDtF15
-	Aa47X39rZFnxWjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbwAYFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20E
-	Y4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwV
-	A0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWUCVW8JwA2z4x0Y4vE2Ix0cI8IcVCY1x02
-	67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxV
-	AFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2
-	j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7x
-	kEbVWUJVW8JwACjcxG0xvEwIxGrwCY1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0EwIxG
-	rwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4
-	vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IY
-	x2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26c
-	xKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAF
-	wI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jjVbkUUUUU=
-X-CM-SenderInfo: 5oxrwvpqjn3046kxt4xhlfz01xgou0bp/
+X-Received: by 2002:a05:6808:1918:b0:4f4:3f10:830d with SMTP id
+ 5614622812f47-50c5b27c152mr1227786b6e.53.1791535959234; Fri, 09 Oct 2026
+ 01:52:39 -0700 (PDT)
+Date: Fri, 09 Oct 2026 01:52:39 -0700
+In-Reply-To: <683199ed.a70a0220.29d4a0.07f6.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ac8ab57.8cdf6287.1eb53.0041.GAE@google.com>
+Subject: Forwarded: [PATCH] HID: core: serialize report_descriptor_read()
+ against probe and remove
+From: syzbot <syzbot+bc537ca7a0efe33988eb@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Dear Linux Kernel CVE Team,
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-I would like to request an update to the affected version for
-CVE-2026-93275.
+***
 
-Although the patch carries a "Fixes:" tag pointing to commit
-52ca9ced3f707 ("perf/x86/intel/pt: Add Intel PT PMU driver"), which was
-introduced in v4.1, the commit message itself explicitly notes that
-this buggy code path is only exposed after commit 9734e25fbf5ae ("perf:
-Fix the throttle logic for a group") was merged in v6.16.
+Subject: [PATCH] HID: core: serialize report_descriptor_read() against probe and remove
+Author: krishgulati7@gmail.com
 
-Therefore, kernel versions prior to v6.16 that do not include commit
-9734e25fbf5ae should be considered safe and unaffected by this CVE.
-Please consider updating the CVE record to avoid widespread false
-positives in older LTS branches.
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master 
 
-Proposed Data Amendment:
-• Vulnerability ID: CVE-2026-93275
-• Current Affected Range: From v4.1 (commit 52ca9ced3f707) up to fixed version
-• Corrected Affected Range: From v6.16 (commit 9734e25fbf5ae) up to fixed version
+Since commit 54f32fd5dff9 ("HID: Make report_descriptor available for
+all devices"), the "report_descriptor" sysfs attribute is part of the
+device's attribute group, so it exists from device_add() until
+device_del(). It reads hdev->rdesc, but that buffer only lives from
+hid_open_report() until hid_close_report(), that is, for the duration
+of a driver binding. For a driver with a report_fixup() callback,
+rdesc is a private copy that hid_close_report() frees, so a read that
+races with the driver being unbound accesses freed memory. syzbot
+reports this as:
 
-Thank you for your time and verification.
+  BUG: KASAN: slab-use-after-free in report_descriptor_read+0xb5/0x100
+  Read of size 24 at addr ffff888078d61f00 by task fido_id/7281
+  ...
+  Allocated by task 10:
+   kmemdup_noprof+0x2b/0x70
+   hid_open_report+0x1fa/0xf00
+   lg_probe+0x29c/0x890
+   hid_device_probe+0x46a/0x870
+   ...
 
-Best regards,
+Because hid_close_report() also clears rdesc and rsize, the same missing
+serialization can make the reader see a NULL rdesc with a non-zero
+rsize.
 
-Gengkun
+Hold the device lock in report_descriptor_read(). The driver core
+already holds it across probe and remove, so a read can no longer
+overlap with them.
+
+Reported-by: syzbot+bc537ca7a0efe33988eb@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=bc537ca7a0efe33988eb
+Fixes: 54f32fd5dff9 ("HID: Make report_descriptor available for all devices")
+Signed-off-by: Krish Gulati <krishgulati7@gmail.com>
+---
+ drivers/hid/hid-core.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/hid/hid-core.c b/drivers/hid/hid-core.c
+index a3ff0514f9cd..824557a02544 100644
+--- a/drivers/hid/hid-core.c
++++ b/drivers/hid/hid-core.c
+@@ -2270,6 +2270,8 @@ report_descriptor_read(struct file *filp, struct kobject *kobj,
+ 	struct device *dev = kobj_to_dev(kobj);
+ 	struct hid_device *hdev = to_hid_device(dev);
+ 
++	guard(device)(dev);
++
+ 	if (off >= hdev->rsize)
+ 		return 0;
+ 
+-- 
+2.56.0
 
