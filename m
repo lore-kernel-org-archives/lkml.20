@@ -1,124 +1,63 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC7D43F1ABF
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 23:29:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF5373EA967;
+	Fri,  9 Oct 2026 23:29:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791588567; cv=none; b=HYtQl7cyjfH6CSDFGjrhrYh25n696DlZOXRQzYitH1OljL8cEh1k29HOHrRzMa46mOu20WdRYXvwhXBNajRWLu8BlZDJyWpQ/aUAfSDmG9y7SqGE9TpcJ06B1gk/oSUct5h1K6fQpzrR+NcIQUKayo14uW0ouqUEW+qQzwJmJ6I=
+	t=1791588574; cv=none; b=XzhJLJq46QtlqPzsDNmxVj1wVGeL9mNGFue16pgYU5T9vjzoyEi1hwbgCBN2waNkRTkoHIUwFCqHyD0Z1174qrk6WQWErpAllDcwYoszt3uOcgHOZLY7hjfB3UrSxfuVxDHBqNzVhaP4yP/GbXXbiV40wZM4K4d3nFjAlasDSsM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791588567; c=relaxed/simple;
-	bh=kMMHsn2tqRp2ZEQ99J7niLvGSpZcEMfzZzrLSnYsy5M=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lsUCWpUDJUWS3IKDpObRbZHV656mRUWexG8Rp25/Mezw7tL55GzLHvRSGLuulJWajkoYpR4g5ZGRb/5UuzLQ4S43iqNn0N7f2QPu6E3bNfkCfExoOm6LZJRja2pQYm2uEzxDQA4juH0b4jupQdQaQeEHH3H5St5h0eOG5R/GC3E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HMI7XJOO; arc=none smtp.client-ip=209.85.216.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791588574; c=relaxed/simple;
+	bh=JA8R4511pG14tHOQ+6cpbbP2WHqbjvMm5DKR5RwWoDA=;
+	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=cazd5UeJWsObHbcIv2SsEATycL7oDFM+v1jyMGhyyvUPojIY1k+dcttFf/ySCj2VnkxDbOuf+QSN0DMIosmvsBSB25jFL2x/W0jRL9r3u3NoUlQmzPu/T3UPmw+b2gieSOKvjEt+cHCZaScy3+n6dfvHZx0YSMhhXz5LP/wzlMM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=arCmmnXp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HMI7XJOO"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3ab67ff8f16so94604a91.3
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 16:29:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791588565; x=1792193365; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UvHiLUfan8B1R8Q9EX6DNQFDDmfCS3njUEGk4UoDUoQ=;
-        b=HMI7XJOORKE1MiklM4HC6FjaF9gsceE4KBpl3bVL0wsSm8D2T1vbAiYKUO9XC4rKbc
-         jTiwMtAZNd6L/qksIlzzKIUDdn9WwqqCZ/ugBOAqX8z8cFx4b/CvFAj9p7SBXffgIVsY
-         7QEsjGZ+deFDSu8LP/PNk9xL1ml7LBgHi4mNAlBHnjoXp8dSc791AfsG6nD5eXM3WlS2
-         K5RHitQ8D9ojkZcqvoz3hTApXpfgCoOclo0YEjVgIB/yVsRwi8Z7yuCXPz2mclvq2w6b
-         E5DuEuzQpkAhnQldt8teWVIyLXuWj0rREAgmhlcrHYtwT686cH+urE2jGdHrwD43w6YU
-         ckMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791588565; x=1792193365;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UvHiLUfan8B1R8Q9EX6DNQFDDmfCS3njUEGk4UoDUoQ=;
-        b=U3Uug1znWK0E18Wdy0+DDG0dn8mwmVppJVyVLLASptKu0KiyxxeSrXcr6UZSaQvOlt
-         YF2UULYhIqYur0BzDxFg9ENM8wc8duXSNDcXKXBDc9EReAPCaAvR4oKPx/hONxB0WZ9n
-         72jnBzqH/2TquOsaz2Fc3+8n1aJSscorf6qGrgsWjSlD+zMZC2BySjdJZB8YMLwfhEmh
-         PG84Jcn31ENHDTz3dCZSU2eRew+pqAwPPcolOcyJtI1xuPwM+XA4J4Z3md+56CVWZ/tE
-         lq6pRzfU5N0QiDT2v74fOy3df+IkAxlli2p/zEdR1lldN2kjux6Si1VEsS05g3l93PZ/
-         PXVg==
-X-Forwarded-Encrypted: i=1; AKwUvBw+9NGO/6qI0+5v02IJLkPXFnaWowQ6gSdr1Vi56EiFkfV+hpIt3THLeQ2Uw3/1wcsAhKd/ySJrBC4tjdg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKqsx5rTpWpg3BJecLIwr1Nwim/l14UJzm9QL9S2OgVNOZzv4qU
-	KC1es00qkNPB6rxMDs/k88OWv7yHrV189X+jUS0Is5JDkD15VTorsR8O
-X-Gm-Gg: AYBFou3Y21ycbi2BjIa7wWaBA1K4ZIVEVMk86Gtx4GX7A/9rxtjTZiLQvYqmwGzFiwB
-	UIkI9yk4Gib+0524v7/xtVoZmLCQLqdolmFT3PXWOwR1YRzyq7W+5tIiFe1migYkTWyMRu0RMPP
-	WeR3bBmzIvhbaimMRyRbDryQpuDEu9ylY+iPz4/PoqcNshXBcIXI3dorpBoxdatd4HJqZ3Di6bE
-	P/n8rmHgt0e5kDazSNdeWKBNDX1eT1BXJVOaD/uSNc63N05rP5XSPmSbzCYElcWt6H5Yc4oKu/l
-	cwOmJjHIk/ia708phbd7KyavWEY9D3oXtuPBpZo3b9SmsJG30tSBH6v1xBFTGehvSKIrT0d3Jdi
-	bg/XV6utgsBOw0qcizktWlT4BPk4vjpdJ+Z/72ty0o4/hPEX78eWUVyLuLYW/T2tADtVpF49iKs
-	Ng/F0XC4qkvkAD3MABAyAo3h5ToHNAMF/69jO9MMOOh5cdsNJ7PIkVjSS/IqMEFcJ5WFkYLsQAW
-	OfK2j74hjD/eFa++RK6908n9ZtA49LtQWbqbqNBTEF+CbylV49H7sBF/7YYHujbjf6sSMApwBb3
-	lY//Rcrli6OZfM5PFChGuGNLXqkNZGQxOFYEXRFdH4hdYpqjsg==
-X-Received: by 2002:a17:90b:3c8e:b0:3a6:fc30:ce16 with SMTP id 98e67ed59e1d1-3ab3ae696c8mr2375695a91.51.1791588564913;
-        Fri, 09 Oct 2026 16:29:24 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e34])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38f2f866sm7121939a91.10.2026.10.09.16.29.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 16:29:24 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: linux-mips@vger.kernel.org
-Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] MIPS: boot: compressed: fix the vmlinuz link with ld.lld
-Date: Fri,  9 Oct 2026 16:29:23 -0700
-Message-ID: <20261009232923.655907-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="arCmmnXp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46B351F000FF;
+	Fri,  9 Oct 2026 23:29:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791588573;
+	bh=sO2fwigL/f2ycVP6Vkeu1XiE3wHOpoSNt4FxzIlbgL8=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc;
+	b=arCmmnXpSRTJcfrAvPez2VLuK7bCgbHhcECvQG4ky4/u5ve9RBpR3Ij7MPKQU537F
+	 3Irs4wyEy1y3l1eKYLTlCaiQEjzopDkDdY5x2qXwJ6ugd/pe9kXzgeYaUOyCZmmPOC
+	 TRRBmN1KZvcz7nyR8VI/mZzQi5+YoDN5UE0+Ow+Ivq9lMsl7S3B5aGz7JdBmsyx6fj
+	 0FiXpbOAf5VgFGZojDbJ6TmmBvHs5vQb72E7arD8h8KY+6gvZbDTutrBVUqnGLWxaJ
+	 yQ+XuTrQbPi59ORtypdMYeYEIGdIpuBP/VLa5BYFgyhrYi4bDXSefg3Fnw7R5q/3C1
+	 t2oy+sN2mnmOw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A5FF39263A7;
+	Fri,  9 Oct 2026 23:29:33 +0000 (UTC)
+Subject: Re: [GIT PULL] sound fixes for 7.3-rc7
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <87h5iv3s27.wl-tiwai@suse.de>
+References: <87h5iv3s27.wl-tiwai@suse.de>
+X-PR-Tracked-List-Id: <linux-sound.vger.kernel.org>
+X-PR-Tracked-Message-Id: <87h5iv3s27.wl-tiwai@suse.de>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git tags/sound-7.3-rc7
+X-PR-Tracked-Commit-Id: 07c75552f7fe636a0695baae506a7d72fabd3be4
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 5f6ee187fa3a7b3cee4b9dae6c3dda6d1d3237db
+Message-Id: <179158857169.1045673.12914213662812480320.pr-tracker-bot@kernel.org>
+Date: Fri, 09 Oct 2026 23:29:31 +0000
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, Linux Sound Mailing List <linux-sound@vger.kernel.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-ld.lld cannot link a 32-bit executable at a sign-extended address. With
-a sign-extended ZBOOT_LOAD_ADDRESS, such as the BCM47XX default of
-0xffffffff80400000, the vmlinuz link fails:
+The pull request you sent on Fri, 09 Oct 2026 15:46:24 +0200:
 
-  ld.lld: error: section .text at 0xffffffff80400000 of size 0x35a4
-  exceeds available address space
+> git://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git tags/sound-7.3-rc7
 
-arch/mips/Makefile already avoids this for vmlinux by linking at
-LINKER_LOAD_ADDRESS, which drops the upper 32 bits on 32-bit kernels.
-Do the same for vmlinuz. The address computed by calc_vmlinuz_load_addr
-is already derived from LINKER_LOAD_ADDRESS, which is why only an
-explicit ZBOOT_LOAD_ADDRESS is affected.
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/5f6ee187fa3a7b3cee4b9dae6c3dda6d1d3237db
 
-Assisted-by: LLM
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- arch/mips/boot/compressed/Makefile | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+Thank you!
 
-diff --git a/arch/mips/boot/compressed/Makefile b/arch/mips/boot/compressed/Makefile
-index e0b8ec9a9516..ee554eaaa18f 100644
---- a/arch/mips/boot/compressed/Makefile
-+++ b/arch/mips/boot/compressed/Makefile
-@@ -96,12 +96,20 @@ VMLINUZ_LOAD_ADDRESS = $(shell $(obj)/calc_vmlinuz_load_addr \
- endif
- UIMAGE_LOADADDR = $(VMLINUZ_LOAD_ADDRESS)
- 
-+# Like LINKER_LOAD_ADDRESS in arch/mips/Makefile: ld.lld cannot link a
-+# 32-bit executable at a sign-extended address, so drop the upper 32 bits.
-+ifdef CONFIG_64BIT
-+VMLINUZ_LINK_ADDRESS = $(VMLINUZ_LOAD_ADDRESS)
-+else
-+VMLINUZ_LINK_ADDRESS = $(subst 0xffffffff,0x,$(VMLINUZ_LOAD_ADDRESS))
-+endif
-+
- vmlinuzobjs-y += $(obj)/piggy.o
- 
- targets += ../../../../vmlinuz
- 
- quiet_cmd_zld = LD      $@
--      cmd_zld = $(LD) $(KBUILD_LDFLAGS) -Ttext $(VMLINUZ_LOAD_ADDRESS) -T $< $(vmlinuzobjs-y) -o $@
-+      cmd_zld = $(LD) $(KBUILD_LDFLAGS) -Ttext $(VMLINUZ_LINK_ADDRESS) -T $< $(vmlinuzobjs-y) -o $@
- quiet_cmd_strip = STRIP   $@
-       cmd_strip = $(STRIP) -s $@
- 
 -- 
-2.56.0
-
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
