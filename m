@@ -1,446 +1,342 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E364A3A5443
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 04:05:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29FBE3655CE
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 04:06:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791518753; cv=none; b=MsgQvVU+MVp6WO1qfotnSHxnNmNilbee6zcHBVnF7qlX3+vBCc0gRdfpHOPDXpizOrhL5fKZJyJN1oGmnSikHXIvhO+LDMUMhNjd51MlYKN+JGEiW7qpuzc43za1XQknp/TQViKTkFLOh4Em+qxJHnwPhUxpNnqHaACq7mEekD8=
+	t=1791518806; cv=none; b=F1eSKA3MJ3DS4xvzrgxU1oJdkejKacdTf1xoBHNMcIrfFW3CjBv4aNDEvyNuyaRz7q4L4CJBemqLpWZSS4RVrZ4pJ8WokrQUW/NAcwrqIdiAg9CEnoDry4QbI67MRxhNtGs7Ocqo+KiMwk74OZQ8Z49RRoN1eHmy06pJciNxafo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791518753; c=relaxed/simple;
-	bh=I1BXP/Tpqp4ETqFVmqrX8cQ8bLthe9xiOaA+MQbaqSo=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=BW1iZQKkoMGXIJGbgaztIfwAW96hzgNDlAywsdsstN2LuRZutC60aS7/eIVUcYL/amksNtvERmKeOXaJXSaS7Yv5YM42V4Qrp6yL/a+uNl5gQGCgnl9hyZqtXn3gBSCfPCynwrv3o4moDVYk0gw/++ykEa3zlmjxagrH6/5U56U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kXXFVjcY; arc=none smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791518806; c=relaxed/simple;
+	bh=XYtARoZqnpRp6pWQ0mD1w7dfGhDCmU8MYzR08TpKVbE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AJvda6L51X/N6Vddqufv0mVCIWxFW0R+Ci/PLVIa8rZVBR0PV8H4HusOU9XAI6S7QCQZCx8PzkRO9SdDQ3UypXsHGL8AbgeTQdNEwlm7GLx3L4DAZanZ+09eTsUME1oIzI1qg7KPXmnE0H2WVMOwGRf0yVw4J7HqaI0SbXIs4Pg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=EeyisCkw; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fawYiSfO; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kXXFVjcY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791518747; x=1823054747;
-  h=date:from:to:cc:subject:message-id:mime-version:
-   content-transfer-encoding:in-reply-to;
-  bh=I1BXP/Tpqp4ETqFVmqrX8cQ8bLthe9xiOaA+MQbaqSo=;
-  b=kXXFVjcYkkV7zXyWdrMKUg0K6nC7zkOIu6L0SdsZbc+eEVombD7VoXJC
-   BbbZ0kVmDmqirI784ZTNgWNYjquI0fm2BuuU9/bl/xf3HBjaFc+MMkzpe
-   qBuu5OIDrzdhvlVmiu57pcvVtP12MbXrVdkKQifKVv2R0UIKqQWM/BD3t
-   IhvEVebZho2prre6Y0YxiGonTnttfQ+u2yNY9Xygd8bKltyVJ/3lfR33A
-   o0LyZ6BfsEsaf6KumI0UuuquklafuocNq66rkKKKNi81PCFjgT77LB9B0
-   zmXrRv1wMDqdFuTa8fb4Kv6eheEWnO3pTZ/wRoIC/aC+VcJJ+5WXSZRsE
-   g==;
-X-CSE-ConnectionGUID: q6f+a1IaQ4KDsIuuU4tkkQ==
-X-CSE-MsgGUID: j/BRyLSXREe4XqgRa5Yw5g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11929"; a="192697"
-X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
-   d="scan'208";a="192697"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 21:05:46 -0700
-X-CSE-ConnectionGUID: cQkUjz9aRPio1SLvh9m57g==
-X-CSE-MsgGUID: /mylW4+xR8632V+dILFP4Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
-   d="scan'208";a="204660"
-Received: from ly-workstation.sh.intel.com (HELO ly-workstation) ([10.239.182.64])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 21:05:43 -0700
-Date: Fri, 9 Oct 2026 12:05:39 +0800
-From: kernel test robot <yi1.lai@intel.com>
-To: Park Tae-sun <ts930@dgu.ac.kr>
-Cc: oe-lkp@lists.linux.dev, lkp@intel.com, linux-mm@kvack.org,
-	ltp@lists.linux.it, Andrew Morton <akpm@linux-foundation.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
-	Pedro Falcato <pfalcato@suse.de>, Michal Hocko <mhocko@suse.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	linux-kernel@vger.kernel.org, Park Tae-sun <ts930@dgu.ac.kr>,
-	yi1.lai@intel.com
-Subject: Re: [PATCH] mm/mlock: fix zero-length request normalization and
- integer overflows
-Message-ID: <202610091104.927c0472-lkp@intel.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="EeyisCkw";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fawYiSfO"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6993HIcL564672
+	for <linux-kernel@vger.kernel.org>; Fri, 9 Oct 2026 04:06:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	L0LWV9Ad6BmiCjtUVa4F5rZTvC987knzXRnL2tmi8kc=; b=EeyisCkwjoTDBjeR
+	Cy/Fv43vFxWHfYx/BO5fBnjabBJ8IYLWTqnhKJEfBJRZYV1+DHZz1U7ctUxJ2nNq
+	aV8A0HhvqpQq9L7vijg8S7kKX32s72dG7Sgj0YitoFtD7Jik/gZDbymPU7bQtMK6
+	1cPEuRCyY8KAIkB/td8vrtB3Z91Zq+v/bh+mpB9K71isE+uByJcPbxLfkA+0y0OA
+	iCHPMvDPqtBvDTZ8E7F3l6je5N+pUp+j3Vjqm1/LPy3ISkziZ6PzN1Sky3Xah518
+	OyGgQDWU6Xw/QecxjFLcv2LA6SyOcY0+iG9NxGQNLF19Y6PRuRdMa8zCPJWoxiqz
+	9lNsig==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h6fxk9qc4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 04:06:39 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3ab27eb38d6so865464a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 21:06:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791518799; x=1792123599; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=L0LWV9Ad6BmiCjtUVa4F5rZTvC987knzXRnL2tmi8kc=;
+        b=fawYiSfO9UJRRoV/8Lttyt9jCPq1FJwy+I1LW5B4FUXDh4Fjty8xBBG9g3oWwfYLoW
+         L+LTMJ6ixzYEsKrWupbeq82omo1HF2NNIdMhnWOoe9qthV1kUCZjeD2zwBtMtiKiTGDn
+         M2iUtUYakxEU1FvGlSsYB/WuthMQRfeRAeiKf+NYJMKbe/2/Wx+TcAh4JCUpjPHCwuzS
+         3ne8RQvNYEfq5j5T/ZHQaG8cc/R9lwRbFF3ukuT+ShM6pchPlUyaa/KvDadc/+zwd1lJ
+         EOeEI+2YYQdcv/G+JVqa9+xRyiGF1vRUe1Qr4Oq6My+VVtVKVAogr+eBWvKcAyFagqLZ
+         HKQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791518799; x=1792123599;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=L0LWV9Ad6BmiCjtUVa4F5rZTvC987knzXRnL2tmi8kc=;
+        b=hWZi2AZ5E95o3l3mNSct7g6mdCkAJ5OWas7ECoRvPsyd42XSQIxbk7/UPK77bWJDay
+         LE1BwKabjn1pMX66qqwuFA+5WYD2/aqbXzssp2nrwEmaNX6eHr2VXGpu9+4YuayqT7Qn
+         ZE17XLzs+REPt+OFpQmBiygQwMkjFioMhf+WLlFqensdFL8ZVU0EdViKp63chiSLAYgq
+         b/UtmBFrmHE/1jCgruIPdzv/qgczhtV7bW4gFdkTPr825oO+9q+XuxjN6PlVxZAvnSbA
+         RmHlF601DAUWOUUUwQlWLdw2/af8Qg6ALIj+3LqdogDGaqzJE/nOnHvV4eu9Y+XufU+f
+         UEkA==
+X-Forwarded-Encrypted: i=1; AKwUvBy8XC6GuR7ai7X8AF2Z/oKIW37yjjuTuZkDzrKh9sc1tH3AA/vKfQXo1JeXi/MW8xPciyEekXzovKgQjMQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLom8NXtqQb4T+lVkHFUYKYc5yHWRcJ1ZLZvrxhxuLxU1dMwgw/
+	ufSa51nqDcCJDV1yeMzT6J6jj5/gIrGc4szXkSZY9VM2R7+pgI4RdjQ03dMh5GpqZyVCU5qnzvF
+	FDRcLEB0pJyjUikDzo9MqfMIGr/g+4AK9hm56isL/a2OhjSxe9460n5CQ10xG8VwrL34=
+X-Gm-Gg: AYBFou3SKZNfRn1nvaNyDVUr+GiODz5ZtlVhW2N7Cr7M95o1i8p90VuTUA6oIVQi7p5
+	6jgOUr5Vbdmv+vOSFjHTXLQJiysXq/0TY6PR4geqTdcljqNzN6jIbRNbFwD4uNA3Wmu5wc6jQWe
+	JIkhdPHPRoL/auh/tGjGf7EOTACNyMIp3iBKXJ9KRpAvESzrMlezj7g7FRG30cvlnhi3hXtldaQ
+	vXIWN3VMy8DaRFXqrfAM74q/I5BgS6agx/OUSklygjsP3WtJ2SBhyUYdiHG/rMNdO1bD/KraDar
+	YL4SHWfBLvCm7/oLmk8jE5YbznvuE1RzFiMhW1COQIvYIBvf6Zasz86Pui8WLxAQuLUuRT2t3bY
+	4aPXBOoQOJeDkBDAS+0Zuu/ylaQZi/FGu6Uf/aq498jugz31eewHxIGEMVrs5WNA=
+X-Received: by 2002:a17:90a:d006:b0:3a8:6a04:80ef with SMTP id 98e67ed59e1d1-3ab3a2901c2mr662424a91.6.1791518798870;
+        Thu, 08 Oct 2026 21:06:38 -0700 (PDT)
+X-Received: by 2002:a17:90a:d006:b0:3a8:6a04:80ef with SMTP id 98e67ed59e1d1-3ab3a2901c2mr662396a91.6.1791518798366;
+        Thu, 08 Oct 2026 21:06:38 -0700 (PDT)
+Received: from [192.168.1.6] ([117.143.161.217])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab37139b59sm1611384a91.13.2026.10.08.21.06.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 08 Oct 2026 21:06:37 -0700 (PDT)
+Message-ID: <d30d2b5b-0034-47f0-8e93-9abde4dad118@oss.qualcomm.com>
+Date: Fri, 9 Oct 2026 12:06:29 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v19 11/12] arm64: dts: qcom: kaanapali: Add CCI controller
+ nodes
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, linux-phy@lists.infradead.org,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        jeyaprakash.soundrapandian@oss.qualcomm.com,
+        Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>
+References: <20261008-kaanapali-camss-v19-0-b2c583ef50e0@oss.qualcomm.com>
+ <20261008-kaanapali-camss-v19-11-b2c583ef50e0@oss.qualcomm.com>
+ <CAFEp6-1Voqn3yFse5t82UOX7MVafkhL466BkEDSLVRH8OK132g@mail.gmail.com>
+Content-Language: en-US
+From: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+In-Reply-To: <CAFEp6-1Voqn3yFse5t82UOX7MVafkhL466BkEDSLVRH8OK132g@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <179066531783.50175.13377521828379196177@dgu.ac.kr>
+X-Proofpoint-GUID: JzW7tWVYrsG4jgNBuAlibq05jsqt_Adm
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDAxNiBTYWx0ZWRfX23llfh8ToniQ
+ WAKoSuq8Rut9TbbUSjFU8CsTue2wpheDwHmMO7iDfwzP2yD7bb8G+mLLjzxTSq+DKHu0T8cnLbD
+ boi6AgNqXukTt52jYR8+5nl1jShorgE=
+X-Authority-Analysis: v=2.4 cv=Cs0q4X4D c=1 sm=1 tr=0 ts=6ac86850 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=K/RrOd38U9TixX+j9hIN8g==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8 a=GUC6nXMZ9ruFzsaAOnwA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=iS9zxrgQBfv6-_F4QbHw:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDAxNiBTYWx0ZWRfXxaq5pSZQ4dFx
+ Lkf0qMCE/4JTW6HCNFehwaJ2vkK7bXXeCLfVdL/kwmDgt4NzyBS0yDB3oglJMTsuIQfJkYdxcAY
+ 1R3sM9m5bbx9QOHNTyONEkE56Iz/+dizTgQv3hsYpu5P0ScVrpZ3kckecSiglgRCAW4aDfq9Son
+ VXKsVNfrUNSwWmcapDNP5hZpgdTB9a8aYyWpPssIAy8hc37I5yACpVpIgekbSR1uk5VAQXCd/Q4
+ 0q/DKFbNc3kvhLXVwRb+us2p97EtwEHplFgMKVHzTOE9pzfcS0XTaLJKeB+vKSE/pOlOnd6h1yO
+ niU7p7JSJaJPPo9GIRAzMEgL0AEfCq5Us7piEsDTWhsg6ZiHerlY3nAzD4OJ9ppCVlznZw62CDM
+ c7rqPlriF64+VCxrtSwKKJojG9BSRCZFs2p2eMcRs3+1xKpBon3Eg4brMvWvDOmGwIUrHp42sgP
+ ANgxJ3CcNG4jQbWgtlg==
+X-Proofpoint-ORIG-GUID: JzW7tWVYrsG4jgNBuAlibq05jsqt_Adm
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-09_02,2026-10-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 bulkscore=0 clxscore=1015 adultscore=0
+ priorityscore=1501 lowpriorityscore=0 impostorscore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610020000
+ definitions=main-2610090016
 
+On 10/9/2026 12:16 AM, Loic Poulain wrote:
+> On Thu, Oct 8, 2026 at 9:14 AM Hangxiang Ma
+> <hangxiang.ma@oss.qualcomm.com> wrote:
+>>
+>> Add the three Camera Control Interface (CCI) controllers present on the
+>> Kaanapali SoC. Each controller provides two I2C hosts used for camera
+>> sensor control, so define the controller nodes and their pinctrl states.
+>>
+>> The first bus has two CCI bus master pinouts:
+>> cci_i2c_sda0 = gpio109
+>> cci_i2c_scl0 = gpio110
+>>
+>> cci_i2c_sda1 = gpio111
+>> cci_i2c_scl1 = gpio112
+>>
+>> The second bus has two CCI bus master pinouts:
+>> cci_i2c_sda3 = gpio113
+>> cci_i2c_scl3 = gpio114
+>>
+>> cci_i2c_sda4 = gpio107
+>> cci_i2c_scl4 = gpio160
+>>
+>> The third bus has two CCI bus master pinouts:
+>> cci_i2c_sda5 = gpio108
+>> cci_i2c_scl5 = gpio149
+>>
+>> cci_i2c_sda6 = gpio115
+>> cci_i2c_scl6 = gpio116
+>>
+>> Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+>> Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+>> ---
+>>   arch/arm64/boot/dts/qcom/kaanapali.dtsi | 303 ++++++++++++++++++++++++++++++++
+>>   1 file changed, 303 insertions(+)
+>>
+>> diff --git a/arch/arm64/boot/dts/qcom/kaanapali.dtsi b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+>> index 7e5106865e7e..710af0597aaa 100644
+>> --- a/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+>> +++ b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+>> @@ -3749,6 +3749,117 @@ port@5 {
+>>                          };
+>>                  };
+>>
+>> +               cci0: cci@941b000 {
+>> +                       compatible = "qcom,kaanapali-cci", "qcom,msm8996-cci";
+>> +                       reg = <0x0 0x0941b000 0x0 0x1000>;
+>> +
+>> +                       interrupts = <GIC_SPI 426 IRQ_TYPE_EDGE_RISING>;
+>> +
+>> +                       clocks = <&camcc CAM_CC_CAM_TOP_AHB_CLK>,
+>> +                                <&camcc CAM_CC_CCI_0_CLK>;
+>> +                       clock-names = "ahb",
+>> +                                     "cci";
+>> +
+>> +                       power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>;
+>> +
+>> +                       pinctrl-0 = <&cci0_i2c0_default &cci0_i2c1_default>;
+>> +                       pinctrl-1 = <&cci0_i2c0_sleep &cci0_i2c1_sleep>;
+>> +                       pinctrl-names = "default", "sleep";
+>> +
+>> +                       #address-cells = <1>;
+>> +                       #size-cells = <0>;
+>> +
+>> +                       status = "disabled";
+>> +
+>> +                       cci0_i2c0: i2c-bus@0 {
+>> +                               reg = <0>;
+>> +                               clock-frequency = <1000000>;
+>> +                               #address-cells = <1>;
+>> +                               #size-cells = <0>;
+>> +                       };
+>> +
+>> +                       cci0_i2c1: i2c-bus@1 {
+>> +                               reg = <1>;
+>> +                               clock-frequency = <1000000>;
+>> +                               #address-cells = <1>;
+>> +                               #size-cells = <0>;
+>> +                       };
+>> +               };
+>> +
+>> +               cci1: cci@941c000 {
+>> +                       compatible = "qcom,kaanapali-cci", "qcom,msm8996-cci";
+>> +                       reg = <0x0 0x0941c000 0x0 0x1000>;
+>> +
+>> +                       interrupts = <GIC_SPI 427 IRQ_TYPE_EDGE_RISING>;
+>> +
+>> +                       clocks = <&camcc CAM_CC_CAM_TOP_AHB_CLK>,
+>> +                                <&camcc CAM_CC_CCI_1_CLK>;
+>> +                       clock-names = "ahb",
+>> +                                     "cci";
+>> +
+>> +                       power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>;
+>> +
+>> +                       pinctrl-0 = <&cci1_i2c0_default &cci1_i2c1_default>;
+>> +                       pinctrl-1 = <&cci1_i2c0_sleep &cci1_i2c1_sleep>;
+>> +                       pinctrl-names = "default", "sleep";
+>> +
+>> +                       #address-cells = <1>;
+>> +                       #size-cells = <0>;
+>> +
+>> +                       status = "disabled";
+>> +
+>> +                       cci1_i2c0: i2c-bus@0 {
+>> +                               reg = <0>;
+>> +                               clock-frequency = <1000000>;
+>> +                               #address-cells = <1>;
+>> +                               #size-cells = <0>;
+>> +                       };
+>> +
+>> +                       cci1_i2c1: i2c-bus@1 {
+>> +                               reg = <1>;
+>> +                               clock-frequency = <1000000>;
+>> +                               #address-cells = <1>;
+>> +                               #size-cells = <0>;
+>> +                       };
+>> +               };
+>> +
+>> +               cci2: cci@941d000 {
+>> +                       compatible = "qcom,kaanapali-cci", "qcom,msm8996-cci";
+>> +                       reg = <0x0 0x0941d000 0x0 0x1000>;
+>> +
+>> +                       interrupts = <GIC_SPI 428 IRQ_TYPE_EDGE_RISING>;
+>> +
+>> +                       clocks = <&camcc CAM_CC_CAM_TOP_AHB_CLK>,
+>> +                                <&camcc CAM_CC_CCI_2_CLK>;
+>> +                       clock-names = "ahb",
+>> +                                     "cci";
+>> +
+>> +                       power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>;
+>> +
+>> +                       pinctrl-0 = <&cci2_i2c0_default &cci2_i2c1_default>;
+>> +                       pinctrl-1 = <&cci2_i2c0_sleep &cci2_i2c1_sleep>;
+>> +                       pinctrl-names = "default", "sleep";
+>> +
+>> +                       #address-cells = <1>;
+>> +                       #size-cells = <0>;
+>> +
+>> +                       status = "disabled";
+>> +
+>> +                       cci2_i2c0: i2c-bus@0 {
+>> +                               reg = <0>;
+>> +                               clock-frequency = <1000000>;
+>> +                               #address-cells = <1>;
+>> +                               #size-cells = <0>;
+>> +                       };
+>> +
+>> +                       cci2_i2c1: i2c-bus@1 {
+>> +                               reg = <1>;
+>> +                               clock-frequency = <1000000>;
+>> +                               #address-cells = <1>;
+>> +                               #size-cells = <0>;
+>> +                       };
+>> +               };
+>> +
+>>                  csiphy0: phy@9523000 {
+>>                          compatible = "qcom,kaanapali-csi2-phy";
+>>                          reg = <0x0 0x09523000 0x0 0x2000>;
+>> @@ -4459,6 +4570,198 @@ tlmm: pinctrl@f100000 {
+>>                          #interrupt-cells = <2>;
+>>                          wakeup-parent = <&pdc>;
+>>
+>> +                       cci0_i2c0_default: cci0-i2c0-default-state {
+>> +                               scl-pins {
+>> +                                       pins = "gpio110";
+>> +                                       function = "cci_i2c_scl";
+>> +                                       drive-strength = <2>;
+>> +                                       bias-pull-up;
+> 
+> A general comment on the CCI DTS patches: why are the pull-ups enabled
+> here (for SCL/SDA)? Do we expect boards to lack the external pull-ups
+> required by I²C? If not, enabling the internal pull-ups seems
+> unnecessary. Also, what is their effective resistance on these
+> platforms? Aren't they typically too weak to meet the rise-time
+> requirements of most I²C modes anyway?
+> 
 
-Hello,
+Thanks for pointing this out. The CCI buses are expected to have the
+required external pull-up resistors on the board. In fact, the above 
+properties follow the established Qualcomm CCI pinctrl configuration 
+used by other chipsets and platforms, as well as the downstream 
+Kaanapali DTS.
 
-kernel test robot noticed "ltp.mlock02.fail" on:
+I checked the Kaanapali pinctrl driver. Its CCI GPIO groups do not 
+define an i2c_pull_bit, so bias-pull-up would silently fall back to the
+normal weak pull-up.
 
-commit: 04f914e0ef30c5119e204bdea0db05ec16d5778b ("[PATCH] mm/mlock: fix zero-length request normalization and integer overflows")
-url: https://github.com/intel-lab-lkp/linux/commits/Park-Tae-sun/mm-mlock-fix-zero-length-request-normalization-and-integer-overflows/20260929-145634
-base: https://git.kernel.org/cgit/linux/kernel/git/akpm/mm.git mm-everything patch link: https://lore.kernel.org/all/179066531783.50175.13377521828379196177@dgu.ac.kr/
-patch subject: [PATCH] mm/mlock: fix zero-length request normalization and integer overflows
+I will therefore change the CCI default states to bias-disable instead 
+of relying on the internal pull-up. The required I2C pull-ups should be 
+provided at board level; the existing sleep-state pull-down 
+configuration will remain unchanged.
 
-in testcase: ltp
-version: ltp-x86_64-0596b09f2-1_20260926 with following parameters:
-
-	disk: 1HDD
-	fs: btrfs
-	test: syscalls-03
-
-
-config: x86_64-rhel-9.4-ltp
-compiler: gcc-14
-test machine: 4 threads 1 sockets Intel(R) Core(TM) i3-3220 CPU @ 3.30GHz (Ivy Bridge) with 8G memory
-
-(please refer to attached dmesg/kmsg for entire log/backtrace)
-
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <yi1.lai@intel.com>
-| Closes: https://lore.kernel.org/oe-lkp/202610091104.927c0472-lkp@intel.com
-
-
-PATH=/lkp/benchmarks/ltp:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/lkp/lkp/src/bin
-2026-10-02 22:24:50 cd /lkp/benchmarks/ltp '/lib/modules/7.3.0-rc4+/build' -> '/usr/src/linux-modbuild-x86_64-rhel-9.4-ltp-04f914e0ef30c5119e204bdea0db05ec16d5778b'
-2026-10-02 22:24:51 make -j4 -C /lib/modules/7.3.0-rc4+/build M=/lkp/benchmarks/ltp/testcases/kernel/syscalls/delete_module KCFLAGS=-Wno-implicit-function-declaration -Wno-int-conversion
-make: Entering directory '/usr/src/perf_selftests-x86_64-rhel-9.4-ltp-04f914e0ef30c5119e204bdea0db05ec16d5778b'
-make[1]: Entering directory '/opt/rootfs/tmp/keep-initrd/lkp/benchmarks/ltp/testcases/kernel/syscalls/delete_module'
-warning: the compiler differs from the one used to build the kernel
-  The kernel was built by: gcc-14 (Debian 14.2.0-19) 14.2.0
-  You are using:           gcc (Debian 14.2.0-19) 14.2.0
-warning: pahole version differs from the one used to build the kernel
-  The kernel was built with: 132
-  You are using:             130
-  CC [M]  dummy_del_mod.o
-  CC [M]  dummy_del_mod_dep.o
-dummy_del_mod.c:20:5: warning: no previous prototype for ‘dummy_func_test’ [-Wmissing-prototypes]
-   20 | int dummy_func_test(void)
-      |     ^~~~~~~~~~~~~~~
-  MODPOST Module.symvers
-WARNING: modpost: dummy_del_mod.ko: missing MODULE_DESCRIPTION()
-WARNING: modpost: dummy_del_mod_dep.ko: missing MODULE_DESCRIPTION()
-  CC [M]  dummy_del_mod.mod.o
-  CC [M]  .module-common.o
-  CC [M]  dummy_del_mod_dep.mod.o
-  LD [M]  dummy_del_mod.ko
-  LD [M]  dummy_del_mod_dep.ko
-make[1]: Leaving directory '/opt/rootfs/tmp/keep-initrd/lkp/benchmarks/ltp/testcases/kernel/syscalls/delete_module'
-make: Leaving directory '/usr/src/perf_selftests-x86_64-rhel-9.4-ltp-04f914e0ef30c5119e204bdea0db05ec16d5778b'
-2026-10-02 22:24:54 make -j4 -C /lib/modules/7.3.0-rc4+/build M=/lkp/benchmarks/ltp/testcases/kernel/syscalls/finit_module KCFLAGS=-Wno-implicit-function-declaration -Wno-int-conversion
-make: Entering directory '/usr/src/perf_selftests-x86_64-rhel-9.4-ltp-04f914e0ef30c5119e204bdea0db05ec16d5778b'
-make[1]: Entering directory '/opt/rootfs/tmp/keep-initrd/lkp/benchmarks/ltp/testcases/kernel/syscalls/finit_module'
-warning: the compiler differs from the one used to build the kernel
-  The kernel was built by: gcc-14 (Debian 14.2.0-19) 14.2.0
-  You are using:           gcc (Debian 14.2.0-19) 14.2.0
-warning: pahole version differs from the one used to build the kernel
-  The kernel was built with: 132
-  You are using:             130
-  CC [M]  finit_module.o
-  MODPOST Module.symvers
-WARNING: modpost: finit_module.ko: missing MODULE_DESCRIPTION()
-  CC [M]  finit_module.mod.o
-  CC [M]  .module-common.o
-  LD [M]  finit_module.ko
-make[1]: Leaving directory '/opt/rootfs/tmp/keep-initrd/lkp/benchmarks/ltp/testcases/kernel/syscalls/finit_module'
-make: Leaving directory '/usr/src/perf_selftests-x86_64-rhel-9.4-ltp-04f914e0ef30c5119e204bdea0db05ec16d5778b'
-2026-10-02 22:24:56 make -j4 -C /lib/modules/7.3.0-rc4+/build M=/lkp/benchmarks/ltp/testcases/kernel/syscalls/init_module KCFLAGS=-Wno-implicit-function-declaration -Wno-int-conversion
-make: Entering directory '/usr/src/perf_selftests-x86_64-rhel-9.4-ltp-04f914e0ef30c5119e204bdea0db05ec16d5778b'
-make[1]: Entering directory '/opt/rootfs/tmp/keep-initrd/lkp/benchmarks/ltp/testcases/kernel/syscalls/init_module'
-warning: the compiler differs from the one used to build the kernel
-  The kernel was built by: gcc-14 (Debian 14.2.0-19) 14.2.0
-  You are using:           gcc (Debian 14.2.0-19) 14.2.0
-warning: pahole version differs from the one used to build the kernel
-  The kernel was built with: 132
-  You are using:             130
-  CC [M]  init_module.o
-  MODPOST Module.symvers
-WARNING: modpost: init_module.ko: missing MODULE_DESCRIPTION()
-  CC [M]  init_module.mod.o
-  CC [M]  .module-common.o
-  LD [M]  init_module.ko
-make[1]: Leaving directory '/opt/rootfs/tmp/keep-initrd/lkp/benchmarks/ltp/testcases/kernel/syscalls/init_module'
-make: Leaving directory '/usr/src/perf_selftests-x86_64-rhel-9.4-ltp-04f914e0ef30c5119e204bdea0db05ec16d5778b'
-2026-10-02 22:24:59 export LTP_RUNTIME_MUL=2
-2026-10-02 22:24:59 export LTPROOT=/lkp/benchmarks/ltp
-2026-10-02 22:24:59 kirk -f syscalls-03 --tmp-dir /fs/sda2/tmpdir Host information
-	Hostname:   lkp-ivb-d04
-	Python:     3.13.5 (main, Jun 13 2026, 14:18:01) [GCC 14.2.0]
-	Directory:  /fs/sda2/tmpdir/kirk.root/tmprsp5n38n
-
-Connecting to SUT: default
-
-Suite: syscalls-03
-──────────────────
- [1;37maccept03:  [0m [1;32mpass [0m  (0.056s)
- [1;37madd_key01:  [0m [1;32mpass [0m  (0.032s)
- [1;37malarm07:  [0m [1;32mpass [0m  (3.021s)
- [1;37march_prctl01:  [0m [1;32mpass [0m  (0.038s)
- [1;37mbpf_map01:  [0m [1;32mpass [0m  (0.031s)
- [1;37mbpf_prog02:  [0m [1;32mpass [0m  (0.026s)
- [1;37mbrk02:  [0m [1;32mpass [0m  (0.032s)
- [1;37mcapget02:  [0m [1;32mpass [0m  (0.023s)
- [1;37mcapset03:  [0m [1;32mpass [0m  (0.026s)
- [1;37mchmod08:  [0m [1;32mpass [0m  (0.025s)
- [1;37mchown02:  [0m [1;32mpass [0m  (0.033s)
- [1;37mchown04:  [0m [1;32mpass [0m  (0.035s)
- [1;37mclock_nanosleep04:  [0m [1;32mpass [0m  (0.071s)
- [1;37mclone304:  [0m [1;32mpass [0m  (0.043s)
- [1;37mclose02:  [0m [1;32mpass [0m  (0.033s)
- [1;37mcreat03:  [0m [1;32mpass [0m  (0.034s)
- [1;37mcreat05:  [0m [1;32mpass [0m  (0.104s)
- [1;37mcreat09:  [0m [1;32mpass [0m  (2.213s)
- [1;37mepoll_ctl03:  [0m [1;32mpass [0m  (0.038s)
- [1;37mepoll_ctl05:  [0m [1;32mpass [0m  (0.031s)
- [1;37mepoll_ctl06:  [0m [1;32mpass [0m  (0.031s)
- [1;37mepoll_wait04:  [0m [1;32mpass [0m  (0.028s)
- [1;37mepoll_wait16:  [0m [1;32mpass [0m  (0.038s)
- [1;37meventfd01:  [0m [1;32mpass [0m  (0.032s)
- [1;37meventfd06:  [0m [1;32mpass [0m  (0.062s)
- [1;37mexecve02:  [0m [1;32mpass [0m  (0.052s)
- [1;37mexecveat03:  [0m [1;32mpass [0m  (0.514s)
- [1;37mexit_group01:  [0m [1;32mpass [0m  (0.134s)
- [1;37mfaccessat202:  [0m [1;32mpass [0m  (0.026s)
- [1;37mfallocate01:  [0m [1;36mskip [0m  (12.628s)
- [1;37mfallocate02:  [0m [1;32mpass [0m  (0.029s)
- [1;37mfallocate04:  [0m [1;36mskip [0m  (13.159s)
- [1;37mposix_fadvise03_64:  [0m [1;32mpass [0m  (0.020s)
- [1;37mposix_fadvise04:  [0m [1;32mpass [0m  (0.042s)
- [1;37mfchmodat02:  [0m [1;32mpass [0m  (0.029s)
- [1;37mfchmodat2_02:  [0m [1;32mpass [0m  (0.024s)
- [1;37mfchown01_16:  [0m [1;36mskip [0m  (0.032s)
- [1;37mfchown02_16:  [0m [1;36mskip [0m  (0.029s)
- [1;37mfcntl02:  [0m [1;32mpass [0m  (0.029s)
- [1;37mfcntl03_64:  [0m [1;32mpass [0m  (0.026s)
- [1;37mfcntl04:  [0m [1;32mpass [0m  (0.030s)
- [1;37mfcntl08:  [0m [1;32mpass [0m  (0.029s)
- [1;37mfcntl13:  [0m [1;32mpass [0m  (0.030s)
- [1;37mfcntl15:  [0m [1;32mpass [0m  (0.032s)
- [1;37mfcntl17_64:  [0m [1;32mpass [0m  (0.021s)
- [1;37mfcntl19:  [0m [1;32mpass [0m  (0.024s)
- [1;37mfcntl20:  [0m [1;32mpass [0m  (0.015s)
- [1;37mfcntl20_64:  [0m [1;32mpass [0m  (0.025s)
- [1;37mfcntl26:  [0m [1;36mskip [0m  (0.017s)
- [1;37mfcntl31:  [0m [1;32mpass [0m  (0.025s)
- [1;37mfcntl34_64:  [0m [1;32mpass [0m  (0.077s)
- [1;37mfcntl37:  [0m [1;32mpass [0m  (0.028s)
- [1;37mfcntl40:  [0m [1;32mpass [0m  (0.029s)
- [1;37mfgetxattr01:  [0m [1;36mskip [0m  (13.250s)
- [1;37mfgetxattr02:  [0m [1;32mpass [0m  (0.049s)
- [1;37mfork03:  [0m [1;32mpass [0m  (0.034s)
- [1;37mfork14:  [0m [1;32mpass [0m  (6.133s)
- [1;37mfpathconf01:  [0m [1;32mpass [0m  (0.035s)
- [1;37mgetegid02:  [0m [1;32mpass [0m  (0.024s)
- [1;37mgethostbyname_r01:  [0m [1;32mpass [0m  (0.027s)
- [1;37mgetpgid01:  [0m [1;32mpass [0m  (0.027s)
- [1;37mgetppid01:  [0m [1;32mpass [0m  (0.032s)
- [1;37mgetpriority01:  [0m [1;32mpass [0m  (0.026s)
- [1;37mgetresgid01:  [0m [1;32mpass [0m  (0.013s)
- [1;37mgetresgid01_16:  [0m [1;36mskip [0m  (0.019s)
- [1;37mgetresgid02:  [0m [1;32mpass [0m  (0.009s)
- [1;37mgetresuid01_16:  [0m [1;36mskip [0m  (0.018s)
- [1;37mgetrusage03:  [0m [1;32mpass [0m  (0.562s)
- [1;37mgetsockopt01:  [0m [1;32mpass [0m  (0.033s)
- [1;37mgetuid03:  [0m [1;32mpass [0m  (0.031s)
- [1;37mioctl03:  [0m [1;32mpass [0m  (0.040s)
- [1;37mioctl05:  [0m [1;32mpass [0m  (0.412s)
- [1;37mioctl09:  [0m [1;32mpass [0m  (0.426s)
- [1;37mioctl_loop04:  [0m [1;32mpass [0m  (0.160s)
- [1;37mioctl_ns07:  [0m [1;32mpass [0m  (0.025s)
- [1;37minotify02:  [0m [1;32mpass [0m  (0.030s)
- [1;37minotify05:  [0m [1;32mpass [0m  (0.264s)
- [1;37mfanotify04:  [0m [1;32mpass [0m  (0.028s)
- [1;37mfanotify13:  [0m [1;36mskip [0m  (1m 2s)
- [1;37mio_getevents02:  [0m [1;32mpass [0m  (0.043s)
- [1;37mkeyctl01:  [0m [1;32mpass [0m  (0.031s)
- [1;37mkeyctl09:  [0m [1;32mpass [0m  (0.042s)
- [1;37mkeyctl13:  [0m [1;32mpass [0m  (0.020s)
- [1;37mkeyctl25:  [0m [1;32mpass [0m  (0.042s)
- [1;37mkcmp02:  [0m [1;32mpass [0m  (0.019s)
- [1;37mkcmp03:  [0m [1;32mpass [0m  (0.037s)
- [1;37mlandlock09:  [0m [1;36mskip [0m  (0.029s)
- [1;37mlistmount03:  [0m [1;32mpass [0m  (0.035s)
- [1;37mllistxattr03:  [0m [1;32mpass [0m  (0.025s)
- [1;37mlremovexattr01:  [0m [1;36mskip [0m  (12.707s)
- [1;37mlseek01:  [0m [1;32mpass [0m  (0.637s)
- [1;37mlseek07:  [0m [1;32mpass [0m  (0.031s)
- [1;37mlsm_get_self_attr03:  [0m [1;36mskip [0m  (0.031s)
- [1;37mlstat03_64:  [0m [1;32mpass [0m  (1.919s)
- [1;37mmallinfo02:  [0m [1;32mpass [0m  (0.029s)
- [1;37mmallopt01:  [0m [1;32mpass [0m  (0.029s)
- [1;37mmlockall02:  [0m [1;32mpass [0m  (0.015s)
- [1;37mmkdir02:  [0m [1;32mpass [0m  (0.026s)
- [1;37mmkdir04:  [0m [1;32mpass [0m  (0.032s)
- [1;37mmknodat01:  [0m [1;32mpass [0m  (0.021s)
- [1;37mmlock02:  [0m [1;31mfail [0m  (0.025s)
- [1;37mmlock04:  [0m [1;32mpass [0m  (0.034s)
- [1;37mmmap04:  [0m [1;32mpass [0m  (0.031s)
- [1;37mmmap05:  [0m [1;32mpass [0m  (0.028s)
- [1;37mmmap12:  [0m [1;32mpass [0m  (0.030s)
- [1;37mmmap13:  [0m [1;32mpass [0m  (0.024s)
- [1;37mmmap21_01:  [0m [1;32mpass [0m  (0.027s)
- [1;37mmprotect04:  [0m [1;32mpass [0m  (0.017s)
- [1;37mmremap05:  [0m [1;32mpass [0m  (0.032s)
- [1;37mmsgctl03:  [0m [1;32mpass [0m  (0.029s)
- [1;37mmsgrcv06:  [0m [1;32mpass [0m  (0.032s)
- [1;37mmsync02:  [0m [1;32mpass [0m  (0.019s)
- [1;37mmsync04:  [0m [1;32mpass [0m  (12.563s)
- [1;37mmunmap04:  [0m [1;32mpass [0m  (2.483s)
- [1;37mnice01:  [0m [1;32mpass [0m  (0.031s)
- [1;37mmadvise10:  [0m [1;32mpass [0m  (0.027s)
- [1;37mpause01:  [0m [1;32mpass [0m  (0.038s)
- [1;37mpersonality01:  [0m [1;32mpass [0m  (0.053s)
- [1;37mpipe01:  [0m [1;32mpass [0m  (0.025s)
- [1;37mpoll01:  [0m [1;32mpass [0m  (0.030s)
- [1;37mpreadv202_64:  [0m [1;32mpass [0m  (0.033s)
- [1;37mprocess_vm_writev02:  [0m [1;32mpass [0m  (0.037s)
- [1;37mpselect03:  [0m [1;32mpass [0m  (0.034s)
- [1;37mptrace07:  [0m [1;32mpass [0m  (1.565s)
- [1;37mquotactl07:  [0m [1;32mpass [0m  (0.536s)
- [1;37mrealpath01:  [0m [1;32mpass [0m  (0.025s)
- [1;37mrecvmsg03:  [0m [1;36mskip [0m  (0.032s)
- [1;37mrename03:  [0m [1;32mpass [0m  (13.382s)
- [1;37mrename11:  [0m [1;32mpass [0m  (0.427s)
- [1;37mrequest_key04:  [0m [1;32mpass [0m  (0.029s)
- [1;37msched_get_priority_min02:  [0m [1;32mpass [0m  (0.024s)
- [1;37msched_getparam03:  [0m [1;32mpass [0m  (0.024s)
- [1;37msched_setparam05:  [0m [1;32mpass [0m  (0.030s)
- [1;37msched_setscheduler01:  [0m [1;32mpass [0m  (0.026s)
- [1;37mselect04:  [0m [1;36mskip [0m  (0.094s)
- [1;37msemctl02:  [0m [1;32mpass [0m  (0.032s)
- [1;37msemop01:  [0m [1;32mpass [0m  (0.031s)
- [1;37msendfile05_64:  [0m [1;32mpass [0m  (0.021s)
- [1;37msendfile06:  [0m [1;32mpass [0m  (0.036s)
- [1;37msendmmsg02:  [0m [1;32mpass [0m  (0.028s)
- [1;37msendto01:  [0m [1;32mpass [0m  (0.019s)
- [1;37msetdomainname03:  [0m [1;32mpass [0m  (0.034s)
- [1;37msetfsuid03:  [0m [1;32mpass [0m  (0.032s)
- [1;37msetgid01:  [0m [1;32mpass [0m  (0.024s)
- [1;37msetegid01:  [0m [1;32mpass [0m  (0.034s)
- [1;37msetgroups01:  [0m [1;32mpass [0m  (0.027s)
- [1;37msetgroups02:  [0m [1;32mpass [0m  (0.030s)
- [1;37msethostname02:  [0m [1;32mpass [0m  (0.026s)
- [1;37msetpgid02:  [0m [1;32mpass [0m  (0.029s)
- [1;37msetregid03:  [0m [1;32mpass [0m  (0.028s)
- [1;37msetresgid01_16:  [0m [1;36mskip [0m  (0.024s)
- [1;37msetresuid01_16:  [0m [1;36mskip [0m  (0.027s)
- [1;37msetreuid05:  [0m [1;32mpass [0m  (0.028s)
- [1;37msetrlimit03:  [0m [1;32mpass [0m  (0.023s)
- [1;37msetrlimit05:  [0m [1;32mpass [0m  (0.024s)
- [1;37msetrlimit06:  [0m [1;32mpass [0m  (4.033s)
- [1;37msetsockopt04:  [0m [1;32mpass [0m  (0.039s)
- [1;37msetuid03_16:  [0m [1;36mskip [0m  (0.023s)
- [1;37mshmctl03:  [0m [1;32mpass [0m  (0.029s)
- [1;37mshmget06:  [0m [1;32mpass [0m  (0.037s)
- [1;37msignal06:  [0m [1;32mpass [0m  (2.763s)
- [1;37msigtimedwait01:  [0m [1;32mpass [0m  (1.351s)
- [1;37msigwait01:  [0m [1;32mpass [0m  (0.133s)
- [1;37msocket01:  [0m [1;32mpass [0m  (0.075s)
- [1;37msplice07:  [0m [1;32mpass [0m  (0.102s)
- [1;37mstat01:  [0m [1;32mpass [0m  (0.029s)
- [1;37mstatfs03_64:  [0m [1;32mpass [0m  (0.029s)
- [1;37mswapon04:  [0m [1;36mskip [0m  (6.522s)
- [1;37mtgkill03:  [0m [1;32mpass [0m  (0.037s)
- [1;37mtimerfd02:  [0m [1;32mpass [0m  (0.029s)
- [1;37mtimer_create02:  [0m [1;32mpass [0m  (0.039s)
- [1;37mtruncate02_64:  [0m [1;32mpass [0m  (0.023s)
- [1;37munlink10:  [0m [1;32mpass [0m  (0.033s)
- [1;37munshare01:  [0m [1;32mpass [0m  (0.029s)
- [1;37mumount02:  [0m [1;32mpass [0m  (0.457s)
- [1;37muserfaultfd02:  [0m [1;32mpass [0m  (0.035s)
- [1;37muserfaultfd06:  [0m [1;32mpass [0m  (0.037s)
- [1;37mutime06:  [0m [1;32mpass [0m  (0.034s)
- [1;37mwait401:  [0m [1;32mpass [0m  (0.026s)
- [1;37mwaitpid10:  [0m [1;32mpass [0m  (2.036s)
- [1;37mwaitid05:  [0m [1;32mpass [0m  (0.015s)
- [1;37mwritev06:  [0m [1;32mpass [0m  (0.036s)
- [1;37mperf_event_open01:  [0m [1;32mpass [0m  (0.227s)
- [1;37mfutex_cmp_requeue03:  [0m [1;32mpass [0m  (0.025s)
- [1;37mfutex_wait05:  [0m [1;32mpass [0m  (8.378s)
- [1;37mfutex_waitv02:  [0m [1;32mpass [0m  (0.667s)
- [1;37mfutex_wake03:  [0m [1;32mpass [0m  (0.086s)
- [1;37mmemfd_create03:  [0m [1;32mpass [0m  (4.430s)
- [1;37mcopy_file_range01:  [0m [1;36mskip [0m  (25.754s)
-
-Execution time: 3m 53s
-
-Disconnecting from SUT: default
-
-Target information
-──────────────────
-Kernel:   Linux 7.3.0-rc4+ #1 SMP PREEMPT_DYNAMIC Sat Oct  3 05:36:16 CST 2026
-Cmdline:  ip=::::lkp-ivb-d04::dhcp
-          root=/dev/ram0
-          RESULT_ROOT=/result/ltp/1HDD-btrfs-syscalls-03/lkp-ivb-d04/debian-13-x86_64-20250902.cgz/x86_64-rhel-9.4-ltp/gcc-14/04f914e0ef30c5119e204bdea0db05ec16d5778b/0
-          BOOT_IMAGE=/pkg/linux/x86_64-rhel-9.4-ltp/gcc-14/04f914e0ef30c5119e204bdea0db05ec16d5778b/vmlinuz-7.3.0-rc4+
-          branch=internal-devel/devel-hourly-20260930-212937
-          job=/lkp/jobs/scheduled/lkp-ivb-d04/ltp-1HDD-btrfs-syscalls-03-debian-13-x86_64-20250902.cgz-04f914e0ef30-20261003-53256-bvcqf0-1.yaml
-          user=lkp
-          ARCH=x86_64
-          kconfig=x86_64-rhel-9.4-ltp
-          commit=04f914e0ef30c5119e204bdea0db05ec16d5778b
-          intremap=posted_msi
-          max_uptime=7200
-          LKP_SERVER=internal-lkp-server
-          nokaslr
-          selinux=0
-          debug
-          apic=debug
-          sysrq_always_enabled
-          rcupdate.rcu_cpu_stall_timeout=100
-          net.ifnames=0
-          printk.devkmsg=on
-          panic=-1
-          softlockup_panic=1
-          nmi_watchdog=panic
-          oops=panic
-          load_ramdisk=2
-          prompt_ramdisk=0
-          drbd.minor_count=8
-          systemd.log_level=err
-          ignore_loglevel
-          console=tty0
-          earlyprintk=ttyS0,115200
-          console=ttyS0,115200
-          vga=normal
-          rw
-          keep_initrds=/osimage/pkg/debian-13-x86_64-20250902.cgz/ltp-x86_64-0596b09f2-1_20260926.cgz
-          acpi_rsdp=0x000f0490
-Machine:  unknown
-Arch:     x86_64
-RAM:      6894444 kB
-Swap:     0 kB
-Distro:   debian 13
-
-────────────────────────
-      TEST SUMMARY
-────────────────────────
-Suite:   syscalls-03
-Runtime: 3m 43s
-Runs:    189
-
-Results:
-    Passed:   2283
-    Failed:   1
-    Broken:   0
-    Skipped:  230
-    Warnings: 0
-
- [1;31mFailures: [0m
-    • mlock02
-
-Session stopped
-/tmp/kirk.root/latest is not found
-
-
-
-The kernel config and materials to reproduce are available at:
-https://download.01.org/0day-ci/archive/20261009/202610091104.927c0472-lkp@intel.com
-
-
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
-
+---
+Best Regards,
+Hangxiang
 
