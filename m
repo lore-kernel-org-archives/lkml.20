@@ -1,860 +1,187 @@
-Received: from out198-18.us.a.mail.aliyun.com (out198-18.us.a.mail.aliyun.com [47.90.198.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A67C3497B7E;
-	Fri,  9 Oct 2026 09:06:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=47.90.198.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76A44499F12;
+	Fri,  9 Oct 2026 09:07:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791536824; cv=none; b=pKPewtenCRXcTMjJEsVTGhoKTYuILphGtJWmJpzyRleLwWHuFyuxWFysQUB1Z8CpVBvuhQAG4WbnGQDoKiVDzLsltHxbQ9oxVyZ8H6HZ31LPQJgeWPS36pPt1C11TApvqA76RFOW/2WynJQqm9GB3hN0WTtsIaeQFavkPUJlsLc=
+	t=1791536825; cv=none; b=kXd29feHv88LNGt4pZ6XQNoPW3I3lG1PDBqflWt4bc9KliRR78tK6DhOrQWPgbD5AEBCE2P5XooO4pQyRJ4oqpjOQ2PgqlTJWykDul4zA8APhNGTcl4DPB32svWMVq3eC9zwDGvLOFwChrWbj8O486StTurqzw+N3vtpkYbIbxY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791536824; c=relaxed/simple;
-	bh=NDzaqQa6XKkA4VR7+HT1bIAalXoGRcCMQqKF/fhWPSU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sHZj3wVXRo2LsYpvIrXSAqTGG8bWgGoRa0mcXh2NrEUduPF04oa2cSxDwDpkjATCgcNBda4AeNJyct27TrAF1USVdam1Jx8Mth0Da3ffa81hFkWWVZTUv+PZn2w6zWtYTX4OxoWpV829Rx6Ve3m5cRk2INzuh4+oiJ9pjO+TyPs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net; spf=pass smtp.mailfrom=open-hieco.net; arc=none smtp.client-ip=47.90.198.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436259|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.0113333-0.000675211-0.987992;FP=14369152973146965243|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037006180;MF=wanglin@open-hieco.net;NM=1;PH=DS;RN=12;RT=12;SR=0;TI=SMTPD_---.jXYKwAc_1791536486;
-Received: from localhost.localdomain(mailfrom:wanglin@open-hieco.net fp:SMTPD_---.jXYKwAc_1791536486 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Fri, 09 Oct 2026 17:01:27 +0800
-From: Lin Wang <wanglin@open-hieco.net>
-To: Borislav Petkov <bp@alien8.de>,
-	Yazen Ghannam <yazen.ghannam@amd.com>,
-	Mario Limonciello <mario.limonciello@amd.com>
-Cc: Pu Wen <puwen@hygon.cn>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Tony Luck <tony.luck@intel.com>,
-	x86@kernel.org,
-	linux-edac@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v7 1/7] x86/hygon: Add Family 0x18 DF node enumeration
-Date: Fri,  9 Oct 2026 17:01:05 +0800
-Message-ID: <20261009090111.151878-2-wanglin@open-hieco.net>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261009090111.151878-1-wanglin@open-hieco.net>
-References: <20261009090111.151878-1-wanglin@open-hieco.net>
+	s=arc-20240116; t=1791536825; c=relaxed/simple;
+	bh=qVJTSCmnvwP0xl3HpgRFX86avfXk/dJkVX+ou6etAL0=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=XWPZUfRta3Qs3o0AdXWO5lKdbQVwkSTYKuj/8bYqopvYAaNbZqEZ43dbdxE30Ilbt3pjx+9rNDBFOCLjKCtFSSUB/L0e0vANT39TSHRrU48UZvG0CMsUBXkf2lOd6Z4KsYPCSXLo45V+0M/iEgygXjwkaXUyUnQJPunXiDz0MPg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DjKZ5In2; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DjKZ5In2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F7A21F00893;
+	Fri,  9 Oct 2026 09:07:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791536821;
+	bh=9fyQ498Nae3a4HPivKpgSD6ynmH4JbNHaYkzxCeBQcE=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=DjKZ5In24zUcmS4YSwGsJeRrJEM2TemxXqQWAAMw5olC4URwBLCJP5EQKCjWggWlG
+	 O+gBlSJquVEmH77kqKcLpvaWl1cI4JJuI6/Ysi9lmvw0INxtAHAU9dz33S6ADjW4kx
+	 tcbEHGal3pwPyOiAU6HmvNojCEUhsES8CHNRD4Ufld19R7B+Q4HDHJ03wheovpR93G
+	 N8DCXbyGxofD+u04qvMCevSM11W0pjo1YCdNFQHSRvhGfUOGSvnlOTaeVQDdtQhL8G
+	 0XekC5mdiKGS5gFTGjwnyNdoH/mtGFsE0JmGWgz6yCiQ8PI700CUGDYfMW9MCDhNga
+	 Fu4LqbCz8LMBA==
+Subject: Re: [PATCH net-next v4 3/6] netlink: specs: rt-route: add lwtunnel
+ encap sub-message support
+From: netdev-bot+sashiko@kernel.org
+To: hangbin.liu@linux.dev
+Cc: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, donald.hunter@gmail.com,
+ edumazet@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ bpf@vger.kernel.org, liuhangbin@kylinos.cn
+Date: Fri, 09 Oct 2026 09:06:59 +0000
+Message-ID: <179153681978.434549.5170231095959857964@kernel.org>
+In-Reply-To: <20261008-ynl_rt_encap-v4-3-4ed2ccf7f949@kylinos.cn>
+References: <20261008-ynl_rt_encap-v4-3-4ed2ccf7f949@kylinos.cn>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The AMD node code locates function 3 for node N at PCI slot 0x18 + N.
-Hygon has no equivalent node-index-to-slot mapping: DF F3 devices are
-discovered by PCI ID and the PCI BDF is only an access point.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Add a Hygon node cache that enumerates DF devices by PCI ID and obtains
-the socket ID and DFID for each node from DF configuration registers.
-Validate the enumerated socket set against the hardware-reported socket
-mask before making the cache available.
+Low priority / nit picks for your consideration:
 
-Place Core and DDR Dies (CDDs) before I/O Dies (IODs) and order each
-group by socket and DFID to provide dense node indices. Export
-interfaces for node counts and identity, F3/F4 lookup, and PCI
-device-to-node lookup.
+- [Low] rt-route is the first C-generated family whose sub-message
+  selector is an integer enum (`encap-type`, u16) rather than a string;…
+- [Low] Generated C parsing of route messages fails hard when
+  RTA_ENCAP_TYPE carries a value outside the spec's `encap-type` enum…
 
-Signed-off-by: Lin Wang <wanglin@open-hieco.net>
----
- MAINTAINERS                       |   3 +
- arch/x86/Kconfig                  |   4 +
- arch/x86/include/asm/hygon/node.h | 128 +++++++
- arch/x86/kernel/Makefile          |   1 +
- arch/x86/kernel/hygon_node.c      | 601 ++++++++++++++++++++++++++++++
- 5 files changed, 737 insertions(+)
- create mode 100644 arch/x86/include/asm/hygon/node.h
- create mode 100644 arch/x86/kernel/hygon_node.c
+--
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index f53047aa8d3c..1c5be275a28a 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -12137,9 +12137,12 @@ F:	drivers/input/touchscreen/hycon-hy46xx.c
- 
- HYGON PROCESSOR SUPPORT
- M:	Pu Wen <puwen@hygon.cn>
-+M:	Lin Wang <wanglin@open-hieco.net>
- L:	linux-kernel@vger.kernel.org
- S:	Maintained
-+F:	arch/x86/include/asm/hygon/
- F:	arch/x86/kernel/cpu/hygon.c
-+F:	arch/x86/kernel/hygon_node.c
- 
- HYNIX HI556 SENSOR DRIVER
- M:	Sakari Ailus <sakari.ailus@linux.intel.com>
-diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
-index 15fd9ec5ecac..6d72e62d87f7 100644
---- a/arch/x86/Kconfig
-+++ b/arch/x86/Kconfig
-@@ -3078,6 +3078,10 @@ config AMD_NODE
- 	def_bool y
- 	depends on CPU_SUP_AMD && PCI
- 
-+config HYGON_NODE
-+	def_bool y
-+	depends on CPU_SUP_HYGON && PCI
-+
- endmenu
- 
- menu "Binary Emulations"
-diff --git a/arch/x86/include/asm/hygon/node.h b/arch/x86/include/asm/hygon/node.h
-new file mode 100644
-index 000000000000..5a0a86e90ea2
---- /dev/null
-+++ b/arch/x86/include/asm/hygon/node.h
-@@ -0,0 +1,128 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/* Hygon Family 0x18 Data Fabric (DF) node interfaces */
-+#ifndef _ASM_X86_HYGON_NODE_H
-+#define _ASM_X86_HYGON_NODE_H
-+
-+#include <linux/errno.h>
-+#include <linux/types.h>
-+
-+struct pci_dev;
-+
-+/* DF function indices supported by hygon_node_get_func(). */
-+#define HYGON_DF_F3	3
-+#define HYGON_DF_F4	4
-+
-+/*
-+ * Hygon Core and DDR Dies (CDDs) start at DFID 4. Each CDD contains
-+ * CPU cores and UMCs. I/O Dies (IODs) occupy DFIDs 0-3.
-+ */
-+#define HYGON_CDD_DFID_BASE	4
-+
-+/**
-+ * enum hygon_node_type - DF node type, derived from DFID
-+ * @HYGON_NODE_IOD: I/O die (DFID < HYGON_CDD_DFID_BASE); no UMC.
-+ * @HYGON_NODE_CDD: Core and DDR Die (DFID >= HYGON_CDD_DFID_BASE);
-+ *                  contains CPU cores and UMC controllers.
-+ */
-+enum hygon_node_type {
-+	HYGON_NODE_IOD = 0,
-+	HYGON_NODE_CDD = 1,
-+};
-+
-+/**
-+ * struct hygon_node_info - DF node information
-+ * @socket_id: Physical socket ID, F1x200[30:28]
-+ * @dfid:      Data Fabric ID, model-dependent source
-+ * @type:      HYGON_NODE_CDD or HYGON_NODE_IOD
-+ */
-+struct hygon_node_info {
-+	u8			socket_id;
-+	u8			dfid;
-+	enum hygon_node_type	type;
-+};
-+
-+#ifdef CONFIG_HYGON_NODE
-+
-+/**
-+ * hygon_node_num() - Total number of DF nodes (CDD + IOD)
-+ *
-+ * This is the upper bound for every node index in this API.
-+ *
-+ * Return: total node count, or 0 if the cache is not ready.
-+ */
-+u16 hygon_node_num(void);
-+
-+/**
-+ * hygon_cdd_num() - Number of Core and DDR Dies (CDD)
-+ *
-+ * A CDD (DFID >= 4) has CPU cores and UMC controllers; an IOD
-+ * (DFID < 4) has neither. CDDs occupy nodes [0, hygon_cdd_num()).
-+ *
-+ * Return: CDD count, or 0 if the cache is not ready.
-+ */
-+u16 hygon_cdd_num(void);
-+
-+/**
-+ * hygon_node_get_info() - Get information for a DF node
-+ * @node: DF node index in [0, hygon_node_num())
-+ * @info: Output structure (socket_id, dfid, type)
-+ *
-+ * Return: 0 on success, -EINVAL if @node is out of range or @info is
-+ * NULL, -ENODEV if the cache is not ready.
-+ */
-+int hygon_node_get_info(u16 node, struct hygon_node_info *info);
-+
-+/**
-+ * hygon_node_get_func() - Get DF function PCI device for a node
-+ * @node: DF node index in [0, hygon_node_num())
-+ * @func: HYGON_DF_F3 or HYGON_DF_F4
-+ *
-+ * Return: referenced pci_dev on success. NULL if @node is out of
-+ * range, @func is unsupported, or the cache is not ready. The
-+ * caller must release the reference with pci_dev_put().
-+ */
-+struct pci_dev *hygon_node_get_func(u16 node, u8 func);
-+
-+/**
-+ * hygon_pci_dev_to_df_node() - Find DF node owning the given PCI device
-+ * @pdev: PCI function on the same domain, bus and slot as a cached DF node
-+ *
-+ * Looks up the DF node whose misc (F3) device shares the same PCI
-+ * domain, bus and slot as @pdev.
-+ *
-+ * Return: DF node index in [0, hygon_node_num()) on success, -EINVAL
-+ * if @pdev is NULL, or -ENODEV if no matching node is found or the
-+ * cache is not ready.
-+ */
-+int hygon_pci_dev_to_df_node(struct pci_dev *pdev);
-+
-+#else /* !CONFIG_HYGON_NODE */
-+
-+static inline u16 hygon_node_num(void)
-+{
-+	return 0;
-+}
-+
-+static inline u16 hygon_cdd_num(void)
-+{
-+	return 0;
-+}
-+
-+static inline int hygon_node_get_info(u16 node, struct hygon_node_info *info)
-+{
-+	return -ENODEV;
-+}
-+
-+static inline struct pci_dev *hygon_node_get_func(u16 node, u8 func)
-+{
-+	return NULL;
-+}
-+
-+static inline int hygon_pci_dev_to_df_node(struct pci_dev *pdev)
-+{
-+	return -ENODEV;
-+}
-+
-+#endif /* CONFIG_HYGON_NODE */
-+
-+#endif /* _ASM_X86_HYGON_NODE_H */
-diff --git a/arch/x86/kernel/Makefile b/arch/x86/kernel/Makefile
-index 31f46fd00527..b8430e5e53fb 100644
---- a/arch/x86/kernel/Makefile
-+++ b/arch/x86/kernel/Makefile
-@@ -136,6 +136,7 @@ obj-$(CONFIG_HPET_TIMER) 	+= hpet.o
- 
- obj-$(CONFIG_AMD_NB)		+= amd_nb.o
- obj-$(CONFIG_AMD_NODE)		+= amd_node.o
-+obj-$(CONFIG_HYGON_NODE)	+= hygon_node.o
- obj-$(CONFIG_DEBUG_NMI_SELFTEST) += nmi_selftest.o
- 
- obj-$(CONFIG_KVM_GUEST)		+= kvm.o kvmclock.o
-diff --git a/arch/x86/kernel/hygon_node.c b/arch/x86/kernel/hygon_node.c
-new file mode 100644
-index 000000000000..b83b1c8c40ea
---- /dev/null
-+++ b/arch/x86/kernel/hygon_node.c
-@@ -0,0 +1,601 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Hygon Family 0x18 Data Fabric node enumeration
-+ *
-+ * A DF instance exposes sibling PCI functions in one slot. Function 3
-+ * is the misc device used for enumeration, function 4 is the link
-+ * device, and functions 1 and 5 provide the socket and DF identity.
-+ *
-+ * Enumerate F3 devices by PCI ID, validate their F4 siblings, read each
-+ * node's socket ID and DFID, and validate the enumerated socket set
-+ * against SocketPresent. Sort the nodes into a dense cache with Core
-+ * and DDR Dies (CDDs) before I/O Dies (IODs), then by socket ID and
-+ * DFID.
-+ */
-+
-+#define pr_fmt(fmt) "hygon_node: " fmt
-+
-+#include <linux/bitfield.h>
-+#include <linux/bitops.h>
-+#include <linux/export.h>
-+#include <linux/init.h>
-+#include <linux/pci.h>
-+#include <linux/pci_ids.h>
-+#include <linux/processor.h>
-+#include <linux/slab.h>
-+#include <linux/sort.h>
-+
-+#include <asm/cpu_device_id.h>
-+#include <asm/hygon/node.h>
-+
-+/*
-+ * DF register offsets used for node identity discovery.
-+ *
-+ * F1x200 (SystemCfg) -- present on all supported models:
-+ *   [30:28]  MySocketId    - hardware socket ID
-+ *   [23:20]  MyDieId       - die ID (equals DFID on some models, see below)
-+ *
-+ * F5x180 (FabricBlockInstanceInformation3_CS) -- used on Model 06h-08h:
-+ *   [19:16]  DFID          - Data Fabric ID for UMC/SMN addressing
-+ *
-+ * DFID source by model:
-+ *   Model 04h/05h:  F1x200[23:20] (MyDieId == DFID)
-+ *   Model 06h-08h:  F5x180[19:16] (MyDieId != DFID, different numbering)
-+ */
-+#define DF_F1_SYSTEM_CFG	0x200
-+#define DF_F5_FABRIC_ID		0x180
-+
-+#define DF_F1_SOCKET_ID		GENMASK(30, 28)
-+#define DF_F1_DIE_ID		GENMASK(23, 20)
-+#define DF_F1_SOCKET_PRESENT	GENMASK(7, 0)
-+#define DF_F5_DFID		GENMASK(19, 16)
-+
-+/* DF function numbers for sibling device access (internal use). */
-+#define DF_F1	1
-+#define DF_F5	5
-+
-+/* PCI device IDs used only by Hygon DF node discovery. */
-+#define PCI_DEVICE_ID_HYGON_18H_DF_F3		0x1463
-+#define PCI_DEVICE_ID_HYGON_18H_DF_F4		0x1464
-+#define PCI_DEVICE_ID_HYGON_18H_M04H_DF_F1	0x1491
-+#define PCI_DEVICE_ID_HYGON_18H_M04H_DF_F3	0x1493
-+#define PCI_DEVICE_ID_HYGON_18H_M04H_DF_F4	0x1494
-+#define PCI_DEVICE_ID_HYGON_18H_M05H_DF_F1	0x14b1
-+#define PCI_DEVICE_ID_HYGON_18H_M05H_DF_F3	0x14b3
-+#define PCI_DEVICE_ID_HYGON_18H_M05H_DF_F4	0x14b4
-+#define PCI_DEVICE_ID_HYGON_18H_M06H_DF_F5	0x14b5
-+
-+/*
-+ * Cached identity for one DF instance. After sorting, CDDs occupy
-+ * nodes[0..num_cdd-1].
-+ *
-+ * The PCI BDF is the access point for a DF node, not its identity.
-+ * The socket ID and DFID, read from DF registers, together identify
-+ * the node in hardware.
-+ */
-+struct df_node {
-+	struct pci_dev	*misc;
-+	struct pci_dev	*link;
-+	u8		socket_id;
-+	u8		dfid;
-+	bool		is_cdd;
-+};
-+
-+struct df_node_cache {
-+	struct df_node	*nodes;
-+	u16		num_nodes;
-+	u16		num_cdd;
-+	u16		num_sockets;
-+};
-+
-+struct df_id {
-+	u8	socket_id;
-+	u8	dfid;
-+};
-+
-+/* DF sibling device IDs used to read node identity. */
-+struct df_cfg {
-+	u16	f1_id;
-+	u16	f5_id;
-+};
-+
-+/* DF misc (F3) device IDs for all supported Hygon Family 0x18 models. */
-+static const struct pci_device_id df_misc_ids[] = {
-+	{ PCI_DEVICE(PCI_VENDOR_ID_HYGON, PCI_DEVICE_ID_HYGON_18H_DF_F3) },
-+	{ PCI_DEVICE(PCI_VENDOR_ID_HYGON, PCI_DEVICE_ID_HYGON_18H_M04H_DF_F3) },
-+	{ PCI_DEVICE(PCI_VENDOR_ID_HYGON, PCI_DEVICE_ID_HYGON_18H_M05H_DF_F3) },
-+	{}
-+};
-+
-+/* DF link (F4) device IDs for supported models. */
-+static const struct pci_device_id df_link_ids[] = {
-+	{ PCI_DEVICE(PCI_VENDOR_ID_HYGON, PCI_DEVICE_ID_HYGON_18H_DF_F4) },
-+	{ PCI_DEVICE(PCI_VENDOR_ID_HYGON, PCI_DEVICE_ID_HYGON_18H_M04H_DF_F4) },
-+	{ PCI_DEVICE(PCI_VENDOR_ID_HYGON, PCI_DEVICE_ID_HYGON_18H_M05H_DF_F4) },
-+	{}
-+};
-+
-+static const struct df_cfg m04_df_cfg __initconst = {
-+	.f1_id	= PCI_DEVICE_ID_HYGON_18H_M04H_DF_F1,
-+};
-+
-+static const struct df_cfg m05_df_cfg __initconst = {
-+	.f1_id	= PCI_DEVICE_ID_HYGON_18H_M05H_DF_F1,
-+};
-+
-+static const struct df_cfg m06_m08_df_cfg __initconst = {
-+	.f1_id	= PCI_DEVICE_ID_HYGON_18H_M05H_DF_F1,
-+	.f5_id	= PCI_DEVICE_ID_HYGON_18H_M06H_DF_F5,
-+};
-+
-+static const struct x86_cpu_id df_cpuids[] __initconst = {
-+	X86_MATCH_VENDOR_FAM_MODEL(HYGON, 0x18, 0x04, &m04_df_cfg),
-+	X86_MATCH_VENDOR_FAM_MODEL(HYGON, 0x18, 0x05, &m05_df_cfg),
-+	X86_MATCH_VENDOR_FAM_MODEL(HYGON, 0x18, 0x06, &m06_m08_df_cfg),
-+	X86_MATCH_VENDOR_FAM_MODEL(HYGON, 0x18, 0x07, &m06_m08_df_cfg),
-+	X86_MATCH_VENDOR_FAM_MODEL(HYGON, 0x18, 0x08, &m06_m08_df_cfg),
-+	{}
-+};
-+
-+static struct df_node_cache df_cache;
-+
-+/*
-+ * Iterate Hygon PCI devices, returning the next one that matches @ids.
-+ * Follows the pci_get_device() convention: @from is consumed (its
-+ * reference is dropped) and the returned device has an elevated
-+ * reference count.
-+ */
-+static struct pci_dev * __init next_df_dev(struct pci_dev *from, const struct pci_device_id *ids)
-+{
-+	while ((from = pci_get_device(PCI_VENDOR_ID_HYGON, PCI_ANY_ID, from))) {
-+		if (pci_match_id(ids, from))
-+			return from;
-+	}
-+
-+	return NULL;
-+}
-+
-+/*
-+ * Find the DF link (function 4) sibling of a DF misc (function 3)
-+ * device. Both functions share the same PCI bus and slot.
-+ */
-+static struct pci_dev * __init get_link(struct pci_dev *misc)
-+{
-+	struct pci_dev *link;
-+
-+	link = pci_get_domain_bus_and_slot(pci_domain_nr(misc->bus),
-+					   misc->bus->number,
-+					   PCI_DEVFN(PCI_SLOT(misc->devfn),
-+						     HYGON_DF_F4));
-+	if (!link)
-+		return NULL;
-+
-+	if (!pci_match_id(df_link_ids, link)) {
-+		pci_dev_put(link);
-+		return NULL;
-+	}
-+
-+	return link;
-+}
-+
-+static const struct df_cfg * __init get_df_cfg(void)
-+{
-+	const struct x86_cpu_id *id = x86_match_cpu(df_cpuids);
-+
-+	return id ? (const void *)id->driver_data : NULL;
-+}
-+
-+/*
-+ * Read a config register from a DF sibling function on the same PCI
-+ * slot as @misc. Only functions 1 (F1, SystemCfg) and 5 (F5,
-+ * FabricId) are supported.
-+ */
-+static int __init read_df_reg(struct pci_dev *misc, u8 func, int offset, u32 *value)
-+{
-+	const struct df_cfg *cfg;
-+	struct pci_dev *sibling;
-+	u16 expected_device;
-+	int err;
-+
-+	cfg = get_df_cfg();
-+	if (!cfg)
-+		return -ENODEV;
-+
-+	if (func == DF_F1) {
-+		expected_device = cfg->f1_id;
-+
-+		/*
-+		 * Model 05h uses the M04H F1 device ID when F3 does not use
-+		 * the M05H device ID.
-+		 */
-+		if (boot_cpu_data.x86_model == 0x5 &&
-+		    misc->device != PCI_DEVICE_ID_HYGON_18H_M05H_DF_F3)
-+			expected_device = PCI_DEVICE_ID_HYGON_18H_M04H_DF_F1;
-+	} else if (func == DF_F5) {
-+		expected_device = cfg->f5_id;
-+	} else {
-+		return -EINVAL;
-+	}
-+
-+	if (!expected_device)
-+		return -ENODEV;
-+
-+	sibling = pci_get_domain_bus_and_slot(pci_domain_nr(misc->bus),
-+					      misc->bus->number,
-+					      PCI_DEVFN(PCI_SLOT(misc->devfn),
-+							func));
-+	if (!sibling)
-+		return -ENODEV;
-+
-+	if (sibling->vendor != PCI_VENDOR_ID_HYGON ||
-+	    sibling->device != expected_device) {
-+		pci_dev_put(sibling);
-+		return -ENODEV;
-+	}
-+
-+	err = pci_read_config_dword(sibling, offset, value);
-+	pci_dev_put(sibling);
-+
-+	if (err) {
-+		pr_warn("error reading %04x:%02x:%02x.%u offset 0x%x\n",
-+			pci_domain_nr(misc->bus), misc->bus->number,
-+			PCI_SLOT(misc->devfn), func, offset);
-+		return pcibios_err_to_errno(err);
-+	}
-+
-+	/* Do not parse a PCI error response as DF identity. */
-+	if (PCI_POSSIBLE_ERROR(*value)) {
-+		pr_warn("error response reading %04x:%02x:%02x.%u offset 0x%x\n",
-+			pci_domain_nr(misc->bus), misc->bus->number,
-+			PCI_SLOT(misc->devfn), func, offset);
-+		return -ENODEV;
-+	}
-+
-+	return 0;
-+}
-+
-+/*
-+ * Read the hardware identity for one DF misc device from its sibling
-+ * functions.
-+ *
-+ * Supported models expose F1x200 (SystemCfg): socket_id from [30:28] and a
-+ * die identifier (MyDieId) from [23:20].
-+ * On Model 06h-08h MyDieId differs from the DFID used by UMC and SMN
-+ * addressing, so an additional F5x180 (FabricId) read obtains the DFID
-+ * from [19:16].
-+ *
-+ * The boot CPU model selects the DF register layout for all instances.
-+ */
-+static int __init read_df_id(struct pci_dev *misc, struct df_id *id)
-+{
-+	const struct df_cfg *cfg = get_df_cfg();
-+	u32 reg;
-+	int ret;
-+
-+	if (!cfg)
-+		return -ENODEV;
-+
-+	ret = read_df_reg(misc, DF_F1, DF_F1_SYSTEM_CFG, &reg);
-+	if (ret)
-+		return ret;
-+
-+	id->socket_id = FIELD_GET(DF_F1_SOCKET_ID, reg);
-+	id->dfid = FIELD_GET(DF_F1_DIE_ID, reg);
-+
-+	/* Read DFID from F5x180 on models that provide an F5 sibling. */
-+	if (cfg->f5_id) {
-+		ret = read_df_reg(misc, DF_F5, DF_F5_FABRIC_ID, &reg);
-+		if (ret)
-+			return ret;
-+		id->dfid = FIELD_GET(DF_F5_DFID, reg);
-+	}
-+
-+	return 0;
-+}
-+
-+/*
-+ * Read the system-wide SocketPresent mask from F1x200[7:0].
-+ *
-+ * SocketPresent is system-wide rather than per-node. Read it once from
-+ * the first DF misc device. A zero mask is invalid on supported models.
-+ */
-+static int __init read_socket_present(struct pci_dev *misc, u8 *socket_present)
-+{
-+	u32 reg;
-+	int ret;
-+
-+	ret = read_df_reg(misc, DF_F1, DF_F1_SYSTEM_CFG, &reg);
-+	if (ret)
-+		return ret;
-+
-+	*socket_present = FIELD_GET(DF_F1_SOCKET_PRESENT, reg);
-+	if (!*socket_present) {
-+		pr_warn("SocketPresent is zero\n");
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+static void __init release_nodes(struct df_node *nodes, u16 count)
-+{
-+	u16 i;
-+
-+	for (i = 0; i < count; i++) {
-+		pci_dev_put(nodes[i].misc);
-+		pci_dev_put(nodes[i].link);
-+	}
-+
-+	kfree(nodes);
-+}
-+
-+/*
-+ * Walk all DF misc (F3) devices and read per-node identity (socket_id,
-+ * dfid) from each, collecting them into a flat array. The system-wide
-+ * SocketPresent mask is sampled once, and the enumerated socket set is
-+ * validated against it; socket IDs must also be dense (0..N-1).
-+ */
-+static int __init collect_nodes(struct df_node_cache *cache)
-+{
-+	u8 observed_socket_mask = 0, socket_present_mask = 0;
-+	struct pci_dev *misc = NULL, *link = NULL;
-+	u16 capacity = 0, count = 0;
-+	struct df_node *nodes;
-+	int ret;
-+
-+	while ((misc = next_df_dev(misc, df_misc_ids)))
-+		capacity++;
-+
-+	if (!capacity)
-+		return -ENODEV;
-+
-+	nodes = kzalloc_objs(*nodes, capacity);
-+	if (!nodes)
-+		return -ENOMEM;
-+
-+	while ((misc = next_df_dev(misc, df_misc_ids))) {
-+		struct df_id id;
-+
-+		link = get_link(misc);
-+		if (!link) {
-+			ret = -ENODEV;
-+			goto fail_put_devs;
-+		}
-+
-+		ret = read_df_id(misc, &id);
-+		if (ret)
-+			goto fail_put_devs;
-+
-+		/* SocketPresent is system-wide, so sample it once. */
-+		if (!count) {
-+			ret = read_socket_present(misc, &socket_present_mask);
-+			if (ret)
-+				goto fail_put_devs;
-+		}
-+
-+		if (count >= capacity) {
-+			ret = -ENODEV;
-+			goto fail_put_devs;
-+		}
-+
-+		nodes[count].misc = pci_dev_get(misc);
-+		nodes[count].link = link;
-+		link = NULL;
-+		nodes[count].socket_id = id.socket_id;
-+		nodes[count].dfid = id.dfid;
-+		nodes[count].is_cdd = (id.dfid >= HYGON_CDD_DFID_BASE);
-+		count++;
-+
-+		observed_socket_mask |= BIT(id.socket_id);
-+	}
-+
-+	if (count != capacity) {
-+		pr_warn("DF enumeration changed: expected %u nodes, got %u\n",
-+			capacity, count);
-+		ret = -ENODEV;
-+		goto fail;
-+	}
-+
-+	/*
-+	 * Every populated socket must contribute at least one enumerated DF
-+	 * misc device. SocketPresent is guaranteed to be non-zero.
-+	 */
-+	if (observed_socket_mask != socket_present_mask) {
-+		pr_warn("SocketPresent mismatch: observed=0x%x present=0x%x\n",
-+			observed_socket_mask, socket_present_mask);
-+		ret = -EINVAL;
-+		goto fail;
-+	}
-+
-+	cache->nodes = nodes;
-+	cache->num_nodes = count;
-+	cache->num_sockets = hweight8(socket_present_mask);
-+
-+	if (socket_present_mask != GENMASK(cache->num_sockets - 1, 0)) {
-+		pr_warn("sparse socket IDs not supported (SocketPresent=0x%x)\n",
-+			socket_present_mask);
-+		ret = -EINVAL;
-+		goto fail;
-+	}
-+
-+	return 0;
-+
-+fail_put_devs:
-+	pci_dev_put(link);
-+	pci_dev_put(misc);
-+fail:
-+	release_nodes(nodes, count);
-+	cache->nodes = NULL;
-+	cache->num_nodes = 0;
-+	cache->num_sockets = 0;
-+	return ret;
-+}
-+
-+/*
-+ * Sort CDD nodes before IOD nodes, then order by hardware
-+ * (socket_id, dfid).
-+ */
-+static int __init node_cmp(const void *a, const void *b)
-+{
-+	const struct df_node *left = a, *right = b;
-+
-+	if (left->is_cdd != right->is_cdd)
-+		return right->is_cdd - left->is_cdd;
-+
-+	if (left->socket_id != right->socket_id)
-+		return (int)left->socket_id - right->socket_id;
-+
-+	return (int)left->dfid - (int)right->dfid;
-+}
-+
-+static int __init sort_and_classify(struct df_node_cache *cache)
-+{
-+	u16 i;
-+
-+	sort(cache->nodes, cache->num_nodes, sizeof(*cache->nodes),
-+	     node_cmp, NULL);
-+
-+	cache->num_cdd = 0;
-+
-+	for (i = 0; i < cache->num_nodes; i++) {
-+		const struct df_node *node = &cache->nodes[i];
-+
-+		if (i) {
-+			const struct df_node *prev = &cache->nodes[i - 1];
-+
-+			if (node->socket_id == prev->socket_id &&
-+			    node->dfid == prev->dfid) {
-+				pr_warn("duplicate DF node: socket=%u dfid=%u\n",
-+					node->socket_id, node->dfid);
-+				return -EINVAL;
-+			}
-+		}
-+
-+		if (node->is_cdd)
-+			cache->num_cdd++;
-+	}
-+
-+	if (!cache->num_cdd)
-+		return -ENODEV;
-+
-+	return 0;
-+}
-+
-+static int __init build_cache(void)
-+{
-+	struct df_node_cache cache = { };
-+	int err;
-+
-+	err = collect_nodes(&cache);
-+	if (err)
-+		return err;
-+
-+	err = sort_and_classify(&cache);
-+	if (err)
-+		goto fail;
-+
-+	df_cache = cache;
-+
-+	return 0;
-+
-+fail:
-+	release_nodes(cache.nodes, cache.num_nodes);
-+	return err;
-+}
-+
-+u16 hygon_node_num(void)
-+{
-+	return df_cache.num_nodes;
-+}
-+EXPORT_SYMBOL_GPL(hygon_node_num);
-+
-+u16 hygon_cdd_num(void)
-+{
-+	return df_cache.num_cdd;
-+}
-+EXPORT_SYMBOL_GPL(hygon_cdd_num);
-+
-+int hygon_node_get_info(u16 node, struct hygon_node_info *info)
-+{
-+	const struct df_node *n;
-+
-+	if (!info)
-+		return -EINVAL;
-+
-+	if (!df_cache.nodes)
-+		return -ENODEV;
-+
-+	if (node >= df_cache.num_nodes)
-+		return -EINVAL;
-+
-+	n = &df_cache.nodes[node];
-+	info->socket_id = n->socket_id;
-+	info->dfid = n->dfid;
-+	info->type = n->is_cdd ? HYGON_NODE_CDD : HYGON_NODE_IOD;
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(hygon_node_get_info);
-+
-+struct pci_dev *hygon_node_get_func(u16 node, u8 func)
-+{
-+	if (!df_cache.nodes)
-+		return NULL;
-+
-+	if (node >= df_cache.num_nodes)
-+		return NULL;
-+
-+	switch (func) {
-+	case HYGON_DF_F3:
-+		return pci_dev_get(df_cache.nodes[node].misc);
-+	case HYGON_DF_F4:
-+		return pci_dev_get(df_cache.nodes[node].link);
-+	default:
-+		return NULL;
-+	}
-+}
-+EXPORT_SYMBOL_GPL(hygon_node_get_func);
-+
-+int hygon_pci_dev_to_df_node(struct pci_dev *pdev)
-+{
-+	u16 i;
-+
-+	if (!pdev)
-+		return -EINVAL;
-+
-+	if (!df_cache.nodes)
-+		return -ENODEV;
-+
-+	for (i = 0; i < df_cache.num_nodes; i++) {
-+		struct pci_dev *misc = df_cache.nodes[i].misc;
-+
-+		if (pci_domain_nr(misc->bus) == pci_domain_nr(pdev->bus) &&
-+		    misc->bus->number == pdev->bus->number &&
-+		    PCI_SLOT(misc->devfn) == PCI_SLOT(pdev->devfn))
-+			return i;
-+	}
-+
-+	return -ENODEV;
-+}
-+EXPORT_SYMBOL_GPL(hygon_pci_dev_to_df_node);
-+
-+static int __init df_node_init(void)
-+{
-+	int ret;
-+
-+	if (!get_df_cfg())
-+		return 0;
-+
-+	ret = build_cache();
-+	if (ret) {
-+		pr_warn("DF node cache build failed: %d\n", ret);
-+		return ret;
-+	}
-+
-+	pr_info("%u DF nodes (%u CDDs, %u IODs) across %u sockets\n",
-+		df_cache.num_nodes, df_cache.num_cdd,
-+		df_cache.num_nodes - df_cache.num_cdd,
-+		df_cache.num_sockets);
-+
-+	return 0;
-+}
-+fs_initcall(df_node_init);
+netlink: specs: rt-route: add lwtunnel encap sub-message support
+
+This commit adds an encap-type enum for the LWTUNNEL_ENCAP_* values. It
+turns the rt-route encap attribute into a sub-message keyed on encap-type
+and adds attribute sets for each lwtunnel type. It also updates
+Makefile.deps to pull in the matching uapi headers.
+
+> diff --git a/Documentation/netlink/specs/rt-route.yaml b/Documentation/netlink/specs/rt-route.yaml
+> index 253037ea5176a..dc842a786794a 100644
+> --- a/Documentation/netlink/specs/rt-route.yaml
+> +++ b/Documentation/netlink/specs/rt-route.yaml
+> @@ -99,6 +99,58 @@ definitions:
+>          name: ra-withdrawn
+>          doc: A Router Advertisement withdrew the route with a zero
+>            lifetime.
+> +  -
+> +    name: encap-type
+> +    type: enum
+> +    name-prefix: lwtunnel-encap-
+> +    enum-name:
+> +    entries:
+> +      - none
+> +      - mpls
+> +      - ip
+> +      - ila
+> +      - ip6
+> +      - seg6
+> +      - bpf
+> +      - seg6-local
+> +      - rpl
+> +      - ioam6
+> +      - xfrm
+
+[Severity: Low]
+What happens in generated C clients when the kernel reports an encap type
+that is not in this list?
+
+For an enum selector, TypeSubMessage._attr_get() in ynl_gen_c.py (added
+earlier in this series) generates:
+
+    encap_type_str = rt_route_encap_type_str(dst->encap_type);
+    if (!encap_type_str)
+        return ynl_submsg_failed(yarg, "encap", "enum-lookup-failed");
+
+The generated _str() helper returns NULL for any value past the end of its
+string map. lwtunnel_fill_encap() emits RTA_ENCAP_TYPE and then RTA_ENCAP
+for any type up to LWTUNNEL_ENCAP_MAX.
+
+Suppose a future kernel adds a new LWTUNNEL_ENCAP_* value. Would a single
+route using that type make a C client built from this spec fail the whole
+getroute dump, or fail to parse the notification?
+
+String selectors behave differently. parse_rsp_submsg() ends its strcmp()
+chain with return 0, so an unknown format is skipped. The generated parsers
+also ignore unknown attribute types.
+
+The earlier commit message in the series says this case behaves "the same
+with string lookup fails". Is that accurate? Unknown string selector values
+are skipped, not reported as errors.
+
+[ ... ]
+
+> @@ -174,9 +226,12 @@ attribute-sets:
+>        -
+>          name: encap-type
+>          type: u16
+> +        enum: encap-type
+>        -
+>          name: encap
+> -        type: binary  # tunnel specific nest
+> +        type: sub-message
+> +        sub-message: encap-data
+> +        selector: encap-type
+
+[Severity: Low]
+Can the C library's extack walker resolve error offsets inside RTA_ENCAP
+when the selector is a u16?
+
+rt-route looks like the first C-generated family whose sub-message selector
+is an integer enum instead of a string. nftables also uses an enum
+selector, but it is in GENS_UNSUP.
+
+Selector.__init__ in ynl_gen_c.py sets attr.is_selector = True on
+encap-type. However, only TypeString._attr_typol() turns that into the
+policy flag:
+
+    def _attr_typol(self):
+        typol = '.type = YNL_PT_NUL_STR, '
+        if self.is_selector:
+            typol += '.is_selector = 1, '
+        return typol
+
+TypeScalar._attr_typol() only emits .type = YNL_PT_U16, so ynl_err_walk()
+never records a selector for RTA_ENCAP.
+
+Both newroute and delroute requests list encap-type and encap. If the
+kernel returns NLMSGERR_ATTR_OFFS pointing at or inside RTA_ENCAP,
+ynl_err_walk_report_one() stops here:
+
+    if (policy->table[type].is_submsg) {
+        if (!selector) {
+            if (*n < str_sz)
+                *n += snprintf(str, str_sz, "(!selector)");
+            return 1;
+        }
+
+The user would see something like ".encap(!selector)" instead of
+".encap(mpls).dst".
+
+Setting .is_selector for scalars would not be enough by itself, because
+ynl_err_walk_sel_policy() reads the selector as a string:
+
+    sel = ynl_attr_get_str(selector);
+    for (i = 0; i <= policy->max_attr; i++) {
+        if (!strcmp(sel, policy->table[i].name))
+
+That cannot match a 2-byte u16 payload.
+
+The series patch "tools: ynl: convert enum selector to string for
+sub-message parsing" updated the parse path but not this error-walk path.
+Should the error walker also convert enum selectors to strings?
+
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261008-ynl_rt_encap-v4-0-4ed2ccf7f949%40kylinos.cn
