@@ -1,98 +1,164 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from va-2-45.ptr.blmpb.com (va-2-45.ptr.blmpb.com [209.127.231.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5A9639E194
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 03:54:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0337B2FD7D3
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 03:59:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791518095; cv=none; b=WPHV09+tpG5zlyXd0+nIx/3EuSYNSrLkTmKLDY0ADZsSkmJmiUaB/E1MKM0N7JMB7LwSzfHnSfSU3JvFs1A7fbBvNVIuGobDtDnrsgCA1vmK+4L3KWSDXgGr+TWncFEyT1KhLczEGTGaAabQNQy09afSDnb++Q7DevSGUiSure4=
+	t=1791518365; cv=none; b=C2VlwbxatNPm60LDLcBECQVjnYBwrQFtejkAkk3m8C+Q8FWL91ffMsE+iiihH/eKQDpWe0783Dcy+WsQHZrT3NHfd+dmu3hKardwF6hDK+oRlOpVnmUmn+91xLSpGwMytos8l/wgmXTMm/FdEgJQe8NHBmHnTfzqHNoX3USn3yU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791518095; c=relaxed/simple;
-	bh=KKrme1KbwAc9HgANB2bdaOlETURROw+EW3N8h3NTCVs=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=YjK1gw25z/8Z8rbt3X/yZxw16cNlrt946z3iLh37Nojrgh31C2HPAj+T6Rm1VM+H40yoJL297WhU5/WuSmoibkTqaVVul6hY+6RYI13P35LyLzRNyhRVCBOH026YH0ItO8qGnUzdzJvQb0vYycswn36lmw1pd1Ga++tGMFtytgI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from fc87d0ffb700.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAD3AUCCZchqZDgbCg--.2182S2;
-	Fri, 09 Oct 2026 11:54:42 +0800 (CST)
-From: Haotian Zhang <vulab@iscas.ac.cn>
-To: Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Michael Bringmann <mwb@linux.vnet.ibm.com>
-Cc: linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] powerpc/pseries: fix device_node leak in drc-info lookup error paths
-Date: Fri,  9 Oct 2026 11:54:45 +0800
-Message-Id: <20261009035445.3079660-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1791518365; c=relaxed/simple;
+	bh=S3YX/IofUpGzMaHVjbZ3i/7v3orPrOdkbg+atX82QFM=;
+	h=To:From:Subject:Message-Id:Cc:Date:Mime-Version:In-Reply-To:
+	 References:Content-Type; b=jeKJHentVic8UWyRT2GKam+tRyJumsqTnVCZ3rkknH8iWCd+9ONRYbjbiNqPSz8uHzy3dSoZ9phFUipfpDEE8tPdTW16BJOH7wvpgWIJW5V7jm5BkmNMuH6PIIyBbfjT9QSB1rwbrEiXEqli8cAFnTDIuc7bjw4LGxzH2YOtuyc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=JiMSmTTs; arc=none smtp.client-ip=209.127.231.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="JiMSmTTs"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1791518337;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=9ioF2CxfmybnWpl7CBEF+vseKEEUSR0omAyejznNhFM=;
+ b=JiMSmTTsiLz4bKcLryrud0k5yHd0SBd6BN5HdJLAVuu1J1YGfJt3UwtP9LuCc3T1rsUM6n
+ RDWw/VutWjmTb84UJHGEcXLQthsC6deD68S0A/6S+0b6LKiMcS1xlqzShTf/4YCGVGnh1B
+ g4D2rCQ/tYRFb5PnFceJBzFmFdeRmyoUgtQh0CO2TMKuPThoA0r+MvR9pshD8IpwqIRJmD
+ EZGCq/gr8pdrfyet7wXZFEVjFn0FXDJNDHYOwIjwViUeyXMYd3hXhYCSyhEf5ergGncLDL
+ a18+wMBEF1A2C7LBqNqgM6oAy0/DBsMIS0N5N2GlfEFF5XYQaPE0s+yAcM/SmQ==
+To: "Yogesh Gaur" <yogeshgaur.83@gmail.com>, "Song Liu" <song@kernel.org>, 
+	"yu kuai" <yukuai@fygo.io>
+From: "yu kuai" <yukuai@fygo.io>
+Subject: Re: [PATCH v2] md: don't hand out the array before md_alloc() has added mddev->kobj
+Message-Id: <ef73044f-592d-4bcb-9f0a-f1b45fd8b3cf@fygo.io>
+X-Lms-Return-Path: <lba+26ac86680+8e4a9c+vger.kernel.org+yukuai@fygo.io>
+Cc: <linux-raid@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	"Li Nan" <magiclinan@didiglobal.com>, "Xiao Ni" <xiao@kernel.org>, 
+	"Christoph Hellwig" <hch@lst.de>, "Hannes Reinecke" <hare@suse.de>, 
+	"Logan Gunthorpe" <logang@deltatee.com>, 
+	<syzbot+95eeb4ada2349a2170ea@syzkaller.appspotmail.com>, 
+	<stable@vger.kernel.org>
+Date: Fri, 9 Oct 2026 11:58:52 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAD3AUCCZchqZDgbCg--.2182S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Zw18Cw43Jw15ArWDtr17Awb_yoW8Wr17pF
-	4fGFZ7tF10kryIyryFyF1Uur429w43KrWFyw4jya4Skr45XryDXryqqr1Yqr18CrWfCas0
-	qF4qga4vvanruaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUklb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4
-	vEx4A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xv
-	F2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26F4j6r
-	4UJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_JF0_
-	Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxV
-	WUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI
-	7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r
-	4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI
-	42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7IU5VxRPUUUU
-	U==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgQPA2rIYxAH6AAAsw
+Mime-Version: 1.0
+X-Original-From: yu kuai <yukuai@fygo.io>
+In-Reply-To: <20261006122904.1538-1-yogeshgaur.83@gmail.com>
+Received: from [192.168.1.104] ([39.182.0.35]) by smtp.larksuite.com with ESMTPS; Fri, 09 Oct 2026 03:58:56 +0000
+Content-Transfer-Encoding: quoted-printable
+References: <20261004055712.1293-1-yogeshgaur.83@gmail.com/> <20261006122904.1538-1-yogeshgaur.83@gmail.com>
+Reply-To: yukuai@fygo.io
+User-Agent: Mozilla Thunderbird
+Content-Type: text/plain; charset=UTF-8
 
-cpu_to_drc_index() and drc_index_to_cpu() acquire the /cpus device_node
-with of_find_node_by_path() and then walk the ibm,drc-info property. When
-an entry whose drc_type is not "CPU" is encountered, the code jumps to the
-err label, which is *after* the err_of_node_put label, so of_node_put() is
-skipped and the reference taken on the /cpus node is leaked on every such
-exit.
+Hi,
 
-Jump to err_of_node_put instead so the device_node reference is always
-released.
+=E5=9C=A8 2026/10/6 20:29, Yogesh Gaur =E5=86=99=E9=81=93:
+> md_alloc() publishes the gendisk before it is done setting the mddev up:
+>
+> 	disk->private_data =3D mddev;
+> 	...
+> 	error =3D add_disk(disk);
+> 	if (error)
+> 		goto out_put_disk;
+>
+> 	kobject_init(&mddev->kobj, &md_ktype);
+> 	error =3D kobject_add(&mddev->kobj, &disk_to_dev(disk)->kobj, "%s", "md"=
+);
+>
+> add_disk() makes /dev/mdN openable.  mddev comes from mddev_alloc() and
+> is zeroed, so anything that gets in between add_disk() and kobject_add()
+> sees an mddev->kobj that has never been through kobject_init() - no
+> ktype, no kref, state_initialized clear.
+>
+> syzbot opens the array in that window and issues ADD_NEW_DISK:
+>
+>    kobject: '(null)' (ffff8880120640f0): is not initialized, yet kobject_=
+get() is being called.
+>    WARNING: lib/kobject.c:642 at kobject_add_internal+0xea/0xcd0 lib/kobj=
+ect.c:225
+>     kobject_add_varg lib/kobject.c:374 [inline]
+>     kobject_add+0x163/0x240 lib/kobject.c:426
+>     bind_rdev_to_array+0x80c/0xdd0 drivers/md/md.c:2621
+>     md_add_new_disk+0xe3b/0x1850 drivers/md/md.c:7684
+>     md_ioctl+0x200a/0x2610 drivers/md/md.c:8499
+>
+> bind_rdev_to_array() is not the only way in.  md_run() calls
+> sysfs_create_group(&mddev->kobj, &md_redundancy_group), and
+> internal_create_group() has its own WARN_ON(!kobj->sd), so RUN_ARRAY in
+> the same window warns too.
+>
+> Every ioctl that can reach mddev->kobj runs under reconfig_mutex, so
+> hold it across add_disk() and kobject_add().  An ioctl issued in the
+> window now waits for md_alloc() to finish instead of seeing a
+> half-built mddev, and opening the array still succeeds.  The ioctls
+> md_ioctl() serves without the mutex only read array state and return
+> -ENODEV on an array with no disks.
+>
+> Hoisting kobject_init() above add_disk() is not an option: commit
+> ca39f7502425 ("md: fix mddev->kobj lifetime") moved it below add_disk()
+> so that md_alloc()'s error paths, which free the mddev directly, never
+> see an initialised kobject.
+>
+> Fixes: ca39f7502425 ("md: fix mddev->kobj lifetime")
+> Reported-by: syzbot+95eeb4ada2349a2170ea@syzkaller.appspotmail.com
 
-Fixes: e83636ac3334 ("pseries/drc-info: Search DRC properties for CPU indexes")
-Assisted-by: DeepSeek-V4.1-Flash
-Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
----
- arch/powerpc/platforms/pseries/pseries_energy.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Reported-by should always follow with a link to the report, and the followi=
+ng
+tag and applied:
 
-diff --git a/arch/powerpc/platforms/pseries/pseries_energy.c b/arch/powerpc/platforms/pseries/pseries_energy.c
-index fdaf85ecd39b..b3a1c34b3323 100644
---- a/arch/powerpc/platforms/pseries/pseries_energy.c
-+++ b/arch/powerpc/platforms/pseries/pseries_energy.c
-@@ -66,7 +66,7 @@ static u32 cpu_to_drc_index(int cpu)
- 
- 			of_read_drc_info_cell(&info, &value, &drc);
- 			if (strncmp(drc.drc_type, "CPU", 3))
--				goto err;
-+				goto err_of_node_put;
- 
- 			if (thread_index < drc.last_drc_index)
- 				break;
-@@ -135,7 +135,7 @@ static int drc_index_to_cpu(u32 drc_index)
- 
- 			of_read_drc_info_cell(&info, &value, &drc);
- 			if (strncmp(drc.drc_type, "CPU", 3))
--				goto err;
-+				goto err_of_node_put;
- 
- 			if (drc_index > drc.last_drc_index) {
- 				cpu += drc.num_sequential_elems;
--- 
-2.25.1
+Closes: https://lore.kernel.org/all/6aaf3284.514bccd6.255447.0003.GAE@googl=
+e.com/
 
+> Suggested-by: Yu Kuai <yukuai@fygo.io>
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Yogesh Gaur <yogeshgaur.83@gmail.com>
+> ---
+> v2: Hold reconfig_mutex across add_disk() and kobject_add() instead of
+>      refusing the open in md_open(), per Yu Kuai's review: v1 made an
+>      open that raced with md_alloc() fail.
+> v1: https://lore.kernel.org/all/20261004055712.1293-1-yogeshgaur.83@gmail=
+.com/
+>
+> Built with W=3D1 only, fix has not been runtime-tested.
+>
+>   drivers/md/md.c | 12 +++++++++++-
+>   1 file changed, 11 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/md/md.c b/drivers/md/md.c
+> index 67108c397c5a..85439f27d943 100644
+> --- a/drivers/md/md.c
+> +++ b/drivers/md/md.c
+> @@ -5906,12 +5906,22 @@ struct mddev *md_alloc(dev_t dev, char *name)
+>  =20
+>   	disk->events |=3D DISK_EVENT_MEDIA_CHANGE;
+>   	mddev->gendisk =3D disk;
+> +
+> +	/*
+> +	 * add_disk() makes the array openable before mddev->kobj exists.
+> +	 * Hold reconfig_mutex until kobject_add() is done so that ioctls
+> +	 * issued in between wait instead of using an uninitialised kobj.
+> +	 */
+> +	mddev_lock_nointr(mddev);
+>   	error =3D add_disk(disk);
+> -	if (error)
+> +	if (error) {
+> +		mddev_unlock(mddev);
+>   		goto out_put_disk;
+> +	}
+>  =20
+>   	kobject_init(&mddev->kobj, &md_ktype);
+>   	error =3D kobject_add(&mddev->kobj, &disk_to_dev(disk)->kobj, "%s", "m=
+d");
+> +	mddev_unlock(mddev);
+>   	if (error) {
+>   		/*
+>   		 * The disk is already live at this point.  Clear the hold flag
+
+--=20
+Thanks,
+Kuai
