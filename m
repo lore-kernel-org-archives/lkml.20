@@ -1,189 +1,109 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3E363D75D3
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 10:15:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA1374156C6;
+	Fri,  9 Oct 2026 10:15:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791540928; cv=none; b=g+D4XZNW3q6vlKUak5eGsKD10EwKB0hBao0WgaGM3mAVzdTcFZDQcLrqdAzc0QaB9mgcwLLPc9YSBd5FvTXO3Q9k6VmhDcfkP4eGn7v1mgtP7EsQdfW7RszN9FrUZGN5IzQPZSjVGZjNtMobBJBm8NwXbxfjEitB/xRQBQicocY=
+	t=1791540947; cv=none; b=Ao0/BbMtoVyIYdXQIsGj+yhRJWvY2hn/ijnpPuBnM48k4A8xcQKvUas5GOXEwu0MCCtvNMISQxVbIqqsK9wH+7b0ezMdSYMXWm7joVrAM2aluoBRhSY4cufc8KywGk32pQSCiUeNxo0c/9DmxQUW58OvUizPmgCBDOQSOXDE9Jk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791540928; c=relaxed/simple;
-	bh=jyDEhNWEktcDeVA66O0x0HheikRt8+3NMW3l44bD31Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=G90VKOuhQQGu3ZuidjFwDGV97QQErfKHyPegpeRTI4RMOEs3e4M/WQOz20Eeao70IelrlsCcHXTjzJO5NkRggjRAYc7Q/Qj1RTgqrSH3pR8zvuC1qJCyHiJJV/X8qoOjeBmLEuSX+lWQnoiybqxmvxUPsw8XzK3nrcMssusq+0M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=YR9lUCsA; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=L1AHSraY; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791540947; c=relaxed/simple;
+	bh=W9YNJO3eljMQBQL7ue5+YRNPjGzFYVCg2stqGwzF9Yw=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=bnoLyBedA1IX1qfXA+IMIgZVZ8sixv72DOdgYNuTFYPTp2hm8qYwTGDrNFb2BpFyK034KiX9CDPChH1/8yc7UF5aDekvs7rZvZIB45miFzZ1vhyVlauP7r0xbWZhtztqxY6hH8qHHpigkYF3YFA1GZmNBukO3a7ajvbdmIZN84w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ERhJyKGR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="YR9lUCsA";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="L1AHSraY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791540923;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8qjpcfD3LG1eZs8VSpA9jEQmEOMfOU2B/T9s4mzaz2E=;
-	b=YR9lUCsAExcPNjoNYfo2P79M1+v6Q6fA40V3z5ir7T6I5ynYnrKTqloRtWlyy6HosSqV1n
-	syvhZ8qCNUpv9ObcG3YMd2xYxzjq8MOwpvPXYPgsiuMlaYCgzaKdF2GaOJ3maDwAuQthb5
-	ey5W3LjJ5MAp9g80RxGm5U+pKF/v8nQ=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-692-ZkQT6n_ZPL60ac63rHzfMA-1; Fri, 09 Oct 2026 06:15:22 -0400
-X-MC-Unique: ZkQT6n_ZPL60ac63rHzfMA-1
-X-Mimecast-MFC-AGG-ID: ZkQT6n_ZPL60ac63rHzfMA_1791540921
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a166a9ea21so50084805e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 03:15:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1791540921; x=1792145721; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8qjpcfD3LG1eZs8VSpA9jEQmEOMfOU2B/T9s4mzaz2E=;
-        b=L1AHSraYh9niilCYyPHgdz+agimXgXdkuvF+nfeJvFTY9Vwc+LkRnH//WkHPbN3Rfc
-         8XRLW4ifCjHzYObphmzK9dbpTstUmIa6qD/MktdetcLknEYgcqrYXRvdN3ccPPmzRtVE
-         0fV8omREyNef3RBHyuzupt6kbl1/Z234uQVST7OXva2uAKWJe7V8u6v8mSzyLFe6ouBy
-         RiooAEswAN6o44N/j/9a8yhvk01D/Jg0Lpsp8GR7h7b8bXaZaq2J3zPDLwdVZHqPmX+e
-         XhcdkXAYaIiyqSMSdG3Dc5gklxFRdbw1ApPMg9OKLj/7nGhygi4D/JZLJGJsfKz+QUN4
-         IBkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791540921; x=1792145721;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8qjpcfD3LG1eZs8VSpA9jEQmEOMfOU2B/T9s4mzaz2E=;
-        b=gmaz55DHpcjcjogmQ2NhHcDeWOqq03gOJvuLAGtS+naXfh1BRd2SLlmru2fzg0brFl
-         IwztzAENaoLdbq5nGXusb0mqnXjp5HHdqiqpwjADZONN0p9yFbwsuhRLYGsoN7rP+7Fn
-         wSK4Vkh+Jt7CMK4xRq7qXa8tha7UY+ldDuyf5THPkHZ3Aa6JRURVJFAR/T2kfzcyGaF+
-         UBZbrnqOpOKZiN3a8lkY9KZ9amOYd3rtIOZiL2Mpf7ZSxSvt3qHaU7ZyGZfOQqmMaBb8
-         l1ZshHzOMXPvGCNxZFdlYZSabW65fjbmplOvjh9N3b+aBmB28G1/nrsw2Ls83d/hGE8s
-         x3BA==
-X-Forwarded-Encrypted: i=1; AKwUvBz9bMp8Bc9Jx5dWQy/1vhxMUZBTFGIe/66W/2e4c2XdiMxyDVW3ZQmlIon4xbACbs0Rw0XrXEZ3pbke12k=@vger.kernel.org
-X-Gm-Message-State: AFuF++nJYa65HruQ+RKIDCL4O04L4VKfy950++eBuHElnLVrV0RBvDxI
-	Mu9WkfWPBwMqMM+bIuOGrOTu8M8Fl7dAVNLIPfaCdwMT4B5cPoibXd6cIB4S2/iyKqhxG8V7eqX
-	lmdaW27x3Yb52yBIKFLQYgR8RR7gxtT1ff2flUlYEO3kGxb8I8RlRSDDiOonAYYObdA==
-X-Gm-Gg: AYBFou2qM5uN681zH4RiXkyfWo7ma4P8Sdgl5gWmj0DSeEkbKIzsg0i8s5zGD2cTICI
-	iRe3H5wxWd/oVfx+e87FdeZgbAF3rEZbqS0i5xQbGbzxdwDRrWotgggxD5dTVaAX9zsu95BThY5
-	UOKkw+Xm2qqGdLZBniSnxfx/8R0xsUPw5AQyTz1e37/bKNimmzHJO2iHDR2/6PZS+3EONBp7geu
-	Ej8p+cEYYHmWixO8RcYloInkJuZNEJTMaSkjSReCIeRDe64nDTxwE0RkkEz0+ijw5vJLzomb5td
-	eb3N3EZv8fBsVaq4GtarE8hh0BOGXjkKBZYUwiPp3IZ4Nr83TKXKQl/BBiOHUjmcgO21xBnly/L
-	I
-X-Received: by 2002:a05:600c:6989:b0:4a0:1f9e:5f7d with SMTP id 5b1f17b1804b1-4a18e4a0030mr24138505e9.7.1791540921041;
-        Fri, 09 Oct 2026 03:15:21 -0700 (PDT)
-X-Received: by 2002:a05:600c:6989:b0:4a0:1f9e:5f7d with SMTP id 5b1f17b1804b1-4a18e4a0030mr24137885e9.7.1791540920563;
-        Fri, 09 Oct 2026 03:15:20 -0700 (PDT)
-Received: from sgarzare-redhat ([5.11.115.77])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bea0f1csm80901885e9.9.2026.10.09.03.15.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 03:15:19 -0700 (PDT)
-Date: Fri, 9 Oct 2026 12:15:16 +0200
-From: Stefano Garzarella <sgarzare@redhat.com>
-To: Michal Luczaj <mhal@rbox.co>
-Cc: Stefan Hajnoczi <stefanha@redhat.com>, 
-	"Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>, 
-	Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>, "David S. Miller" <davem@davemloft.net>, 
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Eric Dumazet <edumazet@kernel.org>, kvm@vger.kernel.org, virtualization@lists.linux.dev, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, Hyunwoo Kim <imv4bel@gmail.com>
-Subject: Re: [PATCH net v4] vsock: treat TCP_CLOSING as once-established
-Message-ID: <asi-oV3fF1erjxVs@sgarzare-redhat>
-References: <20261005-vsock-connect-reset-closing-v4-0-15d41cfda3ed@rbox.co>
- <20261005-vsock-connect-reset-closing-v4-1-15d41cfda3ed@rbox.co>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ERhJyKGR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76D011F000FF;
+	Fri,  9 Oct 2026 10:15:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791540945;
+	bh=8W9qCexqUVmaVinPYhv9VyvBOcprigHB/jfrVeAlC08=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=ERhJyKGRuMNw9sZJnfpafppp799szSml1Fwgv4JtilN7OQEKquC79zDWu1cy7QO2B
+	 aMpn9omCpcMb1Yl3mQfKFGT1WglkG6YDiKNfFPke5Ci/bDDlDCWK7iPUnpRpBIPh0O
+	 /lbfBvo1dPd/HC7oOqLwItEBx0NqXZvI4O53pB6PjvsBcsa4Cj5uwqeZuWfrC/WlAV
+	 8xp6+FTbLG5fXRFdL1ULU2rIhLo/lAClm2uf+Z6dhXGqFMr9jhdANUU5WOv3QLNpJP
+	 1Gakb8v+uTRhSAMbDkFH7BuXt3KQHavHOke9w05hE+szaKU0sGTZY40SvEq2c/L7dT
+	 m0X6+8bdje/HA==
+Message-ID: <ca27b076-1814-4780-80f1-d022183736cf@kernel.org>
+Date: Fri, 9 Oct 2026 12:15:42 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20261005-vsock-connect-reset-closing-v4-1-15d41cfda3ed@rbox.co>
+User-Agent: Mozilla Thunderbird
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH 3/3] arm64: dts: qcom: ipq5018-tplink-archer-ax55-v1: use
+ 'ipq0518' prefix for dts
+To: Gabor Juhos <j4g8y7@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261007-tplink-ax55-v1-ipq0518-v1-0-0ef058756596@gmail.com>
+ <20261007-tplink-ax55-v1-ipq0518-v1-3-0ef058756596@gmail.com>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261007-tplink-ax55-v1-ipq0518-v1-3-0ef058756596@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 05, 2026 at 02:26:22AM +0200, Michal Luczaj wrote:
->Handle the TCP_ESTABLISHED -> TCP_CLOSING transition on OP_RST, which can
->race with the connect loop. Immediately break and return 0 on
->ESTABLISHED/CLOSING. The return value of connect() should reflect what
->happened up to the point the connection was established or failed. Events
->that occur afterwards must not affect it. E.g. even if OP_RW has already
->set sk_err, connect() should still return 0, not ENOBUFS because of it.
->Adapt the inaccurate comment above signal_pending().
->
->Resetting a socket that is still present in connected_table can lead to
->memory corruption. The reporter noted lost transports for in-flight skbs,
->and I have reproduced crashes caused by re-insertion into connected_table.
->
->  list_add double add: new=, prev=, next=.
->  kernel BUG at lib/list_debug.c:35!
->  Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
->  Workqueue: vsock-loopback vsock_loopback_work
->  RIP: 0010:__list_add_valid_or_report+0x11f/0x130
->  Call Trace:
->   vsock_insert_connected.cold+0xe/0x13
->   virtio_transport_recv_pkt+0x10e9/0x1460
->   vsock_loopback_work+0x305/0x480
->   process_one_work+0xe4c/0x1560
->   worker_thread+0x4f1/0xd60
->   kthread+0x36e/0x470
->   ret_from_fork+0x47b/0x6b0
->   ret_from_fork_asm+0x1a/0x30
->
->This fix is supplementary to commit 002541ef650b ("vsock: Ignore
->signal/timeout on connect() if already established"). Details under Link.
->
->Fixes: d021c344051a ("VSOCK: Introduce VM Sockets")
->Reported-by: Hyunwoo Kim <imv4bel@gmail.com>
->Link: https://lore.kernel.org/netdev/anzT1fREOSyHT99k@v4bel/
->Signed-off-by: Michal Luczaj <mhal@rbox.co>
->---
-> net/vmw_vsock/af_vsock.c | 17 ++++++++---------
-> 1 file changed, 8 insertions(+), 9 deletions(-)
+On 07/10/2026 18:59, Gabor Juhos wrote:
+> The TP-Link Archer AX55 v1 board is based on the IPQ0518 SoC.
+> Change the prefix of the board dts to reflect that.
+> 
+> Signed-off-by: Gabor Juhos <j4g8y7@gmail.com>
+> ---
+>  arch/arm64/boot/dts/qcom/Makefile                                       | 2 +-
+>  ...5018-tplink-archer-ax55-v1.dts => ipq0518-tplink-archer-ax55-v1.dts} | 0
 
+No, this just breaks whatever scripts people have for no real gain.
+Assuming 0518 exists, then still 5018 is as good prefix.
 
-LGTM! Thanks!
-
-Reviewed-by: Stefano Garzarella <sgarzare@redhat.com>
-
->
->diff --git a/net/vmw_vsock/af_vsock.c b/net/vmw_vsock/af_vsock.c
->index 9b71479a2b29..14fe24b05f9c 100644
->--- a/net/vmw_vsock/af_vsock.c
->+++ b/net/vmw_vsock/af_vsock.c
->@@ -1834,23 +1834,22 @@ static int vsock_connect(struct socket *sock, struct sockaddr_unsized *addr,
-> 		timeout = schedule_timeout(timeout);
-> 		lock_sock(sk);
->
->-		/* Connection established. Whatever happens to socket once we
->-		 * release it, that's not connect()'s concern. No need to go
->+		/* Connection was established. Whatever happens to socket once
->+		 * we release it, that's not connect()'s concern. No need to go
-> 		 * into signal and timeout handling. Call it a day.
-> 		 *
-> 		 * Note that allowing to "reset" an already established socket
-> 		 * here is racy and insecure.
-> 		 */
->-		if (sk->sk_state == TCP_ESTABLISHED)
->-			break;
->+		if (sk->sk_state == TCP_ESTABLISHED ||
->+		    sk->sk_state == TCP_CLOSING) {
->+			err = 0;
->+			goto out_wait;
->+		}
->
-> 		/* If connection was _not_ established and a signal/timeout came
-> 		 * to be, we want the socket's state reset. User space may want
->-		 * to retry.
->-		 *
->-		 * sk_state != TCP_ESTABLISHED implies that socket is not on
->-		 * vsock_connected_table. We keep the binding and the transport
->-		 * assigned.
->+		 * to retry, so we keep the binding and the transport assigned.
-> 		 */
-> 		if (signal_pending(current) || timeout == 0) {
-> 			err = timeout == 0 ? -ETIMEDOUT : sock_intr_errno(timeout);
->
->-- 
->2.56.0
->
-
+Best regards,
+Krzysztof
