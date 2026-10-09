@@ -1,207 +1,133 @@
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+Received: from mta1.migadu.com (out-136.mta1.migadu.com [95.215.58.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C115498930
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 12:12:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ABDF41D629
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 12:12:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791547935; cv=none; b=TVpMBq4uvx+rKxGFR3VOtwjSLyMjevPXJ8pSv+7Kjyu9mNpTZ5pR2N/Vv+mSOEKGBNn+jNubmFE2d/Vaa8N3EUHeehmn9jmE9mTdmQrD3SlMbstjgsc1or8xjeiEVbzEy+xisn2ZhbXrOslmyX8fZbySrTD2YHFGN4ZC2eFDn3c=
+	t=1791547952; cv=none; b=uu2Xql53Tmw0D8Bk0FtruEUWjbQibnNuL+PlatWqT6+nJVhj0tstK9usm+ccva+SnXR/3aSIhr+dI30Qklqjqp7DbKrjpqmr/QAlg+eDG1NCmfbucRI1+IHHcFbM24MkXr6ARZ7v3WnRZfJX1VdsVZtr5fL+FrIJbS7gn+2AHAU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791547935; c=relaxed/simple;
-	bh=DxUv0mvssxN3iJhOpegrRee7xWpW2o1yHuPk8Cu2DW0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LrWapE3m9MHxa5Xfdq8nF9XfeSWSmZu2oeMK1t9EEbiaNrOP4dcc1TZio7zqPzqh10sbSJRkEcmmoD8t+euoUnZ+jElE8ozUlFgIi4Mkyy+AJ8xKwvxTY58H1iTqaEbHTcRk8iHgxsuwd/eLW/cepIVzlU5/dpNz6wi3XpAtPeA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q7eftOCQ; arc=none smtp.client-ip=209.85.210.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791547952; c=relaxed/simple;
+	bh=z2Xci7ePKeBsSgRXq4c9o8tM/YEe7t8RHCiIjm8LIBs=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=E06FruVo6QF2cqHsVSNmKPSmDQR4dWbkXc7J0e/8wAKrUR+qWheS56skRQqf3XKzMTP4kU03Ys8VCX1nucRKROfgfIJgHgR/OGf7EIC/KJfQTZ/Dpmn7v5IKpXYWQ2utodbbgrHJHdxmpvdYO0AXcIs1XuiGjuoxd/CU161sH98=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Y2PaYntD; arc=none smtp.client-ip=95.215.58.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q7eftOCQ"
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-868b3248b2cso3357209b3a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 05:12:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791547928; x=1792152728; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gs2kW6mPfU0JJJVaVDYl+M+hweObzydf3vfAXZLYSp8=;
-        b=q7eftOCQFL/ND2nrKQhri/Ob2QMezalXYZi2D8cUEmp4yBewe8DzaC2XNFmSFxDi+F
-         DlHGJR2oo+ryPD6MyvyR6Dbpfk9WfjdOS1CobbO+w3mCZCKFg5E9GM+EtNhNrqmXvlRQ
-         O/WHuqcMP6gotbStQJlOKYlloLhmeUkpUSWNlgK/vBexnsiI+GIQ+qXsT0H7UpUbVLnQ
-         kL0fB429qIlcojp9+XkMPI83I6xhmib8EwXDf3YG0HMqMRtMpEuxRje/9HIEE7fxFbaW
-         QD/72nXYz3n+7V1RdnQyiHFOm8p8O9eTd6C2PQClEtJZJJ/utNxonz2zLxP9jjUHFeRs
-         Dhyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791547928; x=1792152728;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gs2kW6mPfU0JJJVaVDYl+M+hweObzydf3vfAXZLYSp8=;
-        b=uKTbynWdvKtA7YbWdcJO4LMiGF8YatTMdCO8iy+n2Hwpk5q9dpdeLFBcczlTvjNyfi
-         4UN6hVuQLS1mW6Ta6arbagCTBHIA5lSKUSPcC/E9BPBvVwKe9mGKg26tZP1Jb3W8M+pZ
-         fmiTIl4Bg0lRvX1AKapIUSnJFV/eNFjljy0jilTiJnKuTVZkNXYW3drc7cEt5A3V6vii
-         6QcaB0gvJ4ggSVnvQ3b1cnrADTd1CKRVm20pi4Pt2dcLzd2G1Po7rrzKFjc2tkocDdSE
-         hjLTBFnRSYq/6N5yH3OHNxKVvT+Nr06qhWitgPkpykYzp3BgRHpgzPkYa+2wEGcHK0qh
-         c0Jg==
-X-Forwarded-Encrypted: i=1; AKwUvBxVSZbrbVCJtX+lecCNXnfC31vA2NXBKBgjzN9tAt078Lyi9EcF3LOdI/J4kuAQUyogdHWPxASFGUP5d0k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIb+YUQtmjbBLi9LF86bUBUHSV8P2X3OFjBfZroWQdAidK4cBXZ
-	PeykhFXHqmnY7F3XtOyWOcVN+h4kTANAhtoob4XVfPR2ChhdIKosriX9
-X-Gm-Gg: AYBFou1VcXeokw1TpXgKaqzm/sIdVVgsNOrVN5a1zqD5zZaImwVCUMKomid5mKH4jpI
-	AQzvYFIXXDul20wg/C3aIBF/vDjAp+hixG3Y63aNxo/PnpymmpLOIUIThIAVcAqWCI3mFjcMvwx
-	Pp/pkFR32ymy+4nkX6SN46nFqnOr/mZAbPQvHURPbz2khpAcf8y821jKUAJ/2Nu4zLEG9/hrmIi
-	twAVDXr/uSg2TaIDXGiJicAl4DDKGlNjh4e0lPMngsCajnGKg5Do1Zp4O8gsLgNjpGYG/9YEOFW
-	XZZHzLz7lGPO/hQVXvqJ6BSCjisE1iBHPpx3STLwsVIjoqgU3O3d1z0CWiRh+GTaX7KC8r/q+gP
-	D4t7o/Jkl3JvYXf62jDthQn5PRJUqxl20r/FVBInJc9v7NGLIWTF0J+b2NJ2zNXD94/Q0ePTxHe
-	pNzXF0Fk/STyu+D2E4vk1+nft/5L3ERoudLQYDuUjo3GwxYOR6C/dBkISbTkkv7rv63clV+GCHL
-	z8=
-X-Received: by 2002:a05:6a00:f94:b0:880:74b9:dd07 with SMTP id d2e1a72fcca58-897c8d80f39mr1466367b3a.57.1791547928207;
-        Fri, 09 Oct 2026 05:12:08 -0700 (PDT)
-Received: from wyb-ms7e59 ([38.55.195.146])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c3eca287sm786243b3a.37.2026.10.09.05.12.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 05:12:07 -0700 (PDT)
-From: Yibo Wang <wyibo6109@gmail.com>
-X-Google-Original-From: Yibo Wang <2024312277@stu.hit.edu.cn>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	linux-input@vger.kernel.org
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yibo Wang <wyibo6109@gmail.com>
-Subject: [PATCH 1/2] dt-bindings: input: add OnePlus pogo-pin keyboard binding
-Date: Fri,  9 Oct 2026 07:11:42 -0500
-Message-ID: <20261009121143.550498-2-2024312277@stu.hit.edu.cn>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261009121143.550498-1-2024312277@stu.hit.edu.cn>
-References: <20261009121143.550498-1-2024312277@stu.hit.edu.cn>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Y2PaYntD"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=z2Xci7ePKeBsSgRXq4c9o8tM/YEe7t8RHCiIjm8LIBs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791547941; v=1; x=1792152741;
+ b=Y2PaYntDO9wdyA2teVqmP9hd4+DR5WsoTQj8spK0PnAA0GvClZd4aKU5dx8SqXY2YEUcPstH
+ yxK+Ru3yDB4BFOfEvydAqvfZPwpcTRvN8pXfAYxHsaO4dYQ69Oy82F7tiLxH1ZGjt8hoEUe1jYH
+ xCvg0TArUs98NAVQOwJJgNS4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 58b9d102c4600c1e;
+	Fri, 09 Oct 2026 12:12:21 +0000
+X-Mizu-Trace-ID: 58b9d102c4600c1e
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 09 Oct 2026 14:12:20 +0200
+Message-Id: <DM0AQQ0P3D7K.1SIDA6SAMC3L2@linux.dev>
+Cc: <linux-wireless@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Kalle
+ Valo" <kvalo@kernel.org>, "Brian Norris" <briannorris@chromium.org>
+Subject: Re: [PATCH wireless 1/2] wifi: rtw88: program the channel when the
+ device is started
+From: "Luka Gejak" <luka.gejak@linux.dev>
+To: "Jeremy Fareau" <jeremy.fareau@gmail.com>, "Ping-Ke Shih"
+ <pkshih@realtek.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20261007091225.413-1-jeremy.fareau@gmail.com>
+ <20261007091225.413-2-jeremy.fareau@gmail.com>
+In-Reply-To: <20261007091225.413-2-jeremy.fareau@gmail.com>
 
-From: Yibo Wang <wyibo6109@gmail.com>
+On Wed Oct 7, 2026 at 11:12 AM CEST, Jeremy Fareau wrote:
+> The chip is reset by power_off()/power_on(), but mac80211 only calls
+> ieee80211_ops::config() when its own channel state changes.  After a
+> stop/start cycle, such as
+>
+>     ip link set <dev> down
+>     ip link set <dev> up
+>
 
-Binding for the Tinno keyboard MCU used by the OnePlus Pad 3 Pro /
-Pad 4 and OPPO Pad 5 Pro smart keyboards, attached to a tablet UART.
-Describes the supply, TX-gate and wake GPIOs and the touchpad
-geometry properties, with a MAINTAINERS entry.
+I don't think there is need to say what stop/start cycle is in commit
+message.
 
-Signed-off-by: Yibo Wang <wyibo6109@gmail.com>
----
- .../bindings/input/oneplus,pogo-keyboard.yaml | 81 +++++++++++++++++++
- MAINTAINERS                                   |  7 ++
- 2 files changed, 88 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml
+> the channel is unchanged from mac80211's point of view, so the radio is
+> never reprogrammed.  The device then listens on whatever channel the
+> hardware came up on while iw reports the configured one, and receives
+> almost nothing.
+>
+> Observed with an RTL8814AU (ALFA AWUS1900) in monitor mode on an
+> aarch64 host.  A 25 s capture on channel 6 after a down/up cycle yields
+> 3 frames, and 431 frames as soon as any real channel change is
+> requested.  An RTL8812AU (Linksys WUSB6300) on the same host, the same
+> channel and the same second yields 2438 frames.
+>
+> Program the channel in rtw_ops_start(), like rtw_ips_pwr_up() already
+> does when leaving IPS.
+>
+> Fixes: e3037485c68e ("rtw88: new Realtek 802.11ac driver")
+> Assisted-by: LLM
+> Signed-off-by: Jeremy Fareau <jeremy.fareau@gmail.com>
+> ---
+>  drivers/net/wireless/realtek/rtw88/mac80211.c | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
+>
+> diff --git a/drivers/net/wireless/realtek/rtw88/mac80211.c b/drivers/net/=
+wireless/realtek/rtw88/mac80211.c
+> index b01b98d24b0a..827f38390969 100644
+> --- a/drivers/net/wireless/realtek/rtw88/mac80211.c
+> +++ b/drivers/net/wireless/realtek/rtw88/mac80211.c
+> @@ -57,6 +57,17 @@ static int rtw_ops_start(struct ieee80211_hw *hw)
+> =20
+>  	mutex_lock(&rtwdev->mutex);
+>  	ret =3D rtw_core_start(rtwdev);
+> +
+> +	/* The chip is reset by power_off()/power_on(), but mac80211 only calls
+> +	 * ieee80211_ops::config() when its own channel state changes. After a
+> +	 * stop/start cycle the channel is unchanged from mac80211's point of
+> +	 * view, so the radio would never be reprogrammed and the device would
+> +	 * receive nothing. Program it here, like rtw_ips_pwr_up() already does
+> +	 * when leaving IPS.
+> +	 */
 
-diff --git a/Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml b/Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml
-new file mode 100644
-index 000000000..849558458
---- /dev/null
-+++ b/Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml
-@@ -0,0 +1,81 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+# Copyright (c) 2026 Yibo Wang <wyibo6109@gmail.com>
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/input/oneplus,pogo-keyboard.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: OnePlus / OPPO Pad pogo-pin smart keyboard
-+
-+maintainers:
-+  - Yibo Wang <wyibo6109@gmail.com>
-+
-+description: |
-+  The Tinno keyboard MCU used by the OnePlus Pad 3 Pro / Pad 4 and OPPO
-+  Pad 5 Pro smart keyboards.  It is attached to a tablet UART and speaks
-+  a framed half-duplex protocol over a shared single wire; host
-+  transmission is gated onto the wire by a PMIC GPIO for the duration of
-+  a frame.  The device provides a keyboard matrix, a touchpad and a
-+  keyboard backlight.
-+
-+allOf:
-+  - $ref: /schemas/serial/serial-peripheral-props.yaml#
-+
-+properties:
-+  compatible:
-+    const: oneplus,pogo-keyboard
-+
-+  power-gpios:
-+    description: GPIO enabling the keyboard supply, held high while attached.
-+    maxItems: 1
-+
-+  tx-enable-gpios:
-+    description: GPIO gating host TX onto the shared one-wire bus.
-+    maxItems: 1
-+
-+  wake-gpios:
-+    description: GPIO signalling attach/detach, also used as the wake line.
-+    maxItems: 1
-+
-+  touchpad-xy-max:
-+    description: Touchpad maximum X and Y coordinates in units.
-+    items:
-+      - description: maximum X
-+      - description: maximum Y
-+    minItems: 2
-+    maxItems: 2
-+
-+  touchpad-xy-resolution:
-+    description: Touchpad X and Y resolution in units per millimetre.
-+    items:
-+      - description: X resolution
-+      - description: Y resolution
-+    minItems: 2
-+    maxItems: 2
-+
-+required:
-+  - compatible
-+  - power-gpios
-+  - tx-enable-gpios
-+  - wake-gpios
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    serial {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        keyboard {
-+            compatible = "oneplus,pogo-keyboard";
-+            power-gpios = <&pmic_gpios 12 GPIO_ACTIVE_HIGH>;
-+            tx-enable-gpios = <&pmic2_gpios 6 GPIO_ACTIVE_HIGH>;
-+            wake-gpios = <&tlmm 151 GPIO_ACTIVE_LOW>;
-+            touchpad-xy-max = <2560 1440>;
-+            touchpad-xy-resolution = <24 25>;
-+        };
-+    };
-+...
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 8014b9f82..e978a26c1 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -20149,6 +20149,13 @@ S:	Maintained
- T:	git git://linuxtv.org/media.git
- F:	drivers/media/i2c/ov9734.c
- 
-+ONEPLUS POGO-PIN KEYBOARD DRIVER
-+M:	Yibo Wang <wyibo6109@gmail.com>
-+L:	linux-input@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml
-+F:	drivers/input/keyboard/oneplus-pogo-kbd.c
-+
- ONBOARD USB HUB DRIVER
- M:	Matthias Kaehlcke <mka@chromium.org>
- L:	linux-usb@vger.kernel.org
--- 
-2.53.0
+We don't use that comment style anymore. Change it to:
 
+/*
+ * text
+ * text
+ */
+
+Also that comment is rather extensive, maybe shorten it to something
+like:
+
+/*
+ * The chip is reset by power_off() and power_on(), but mac80211 won't
+ * call config() after stop/start since its channel state is unchanged.
+ * Reprogram the channel here, as rtw_ips_pwr_up() does.
+ */
+
+> +	if (!ret && hw->conf.chandef.chan)
+> +		rtw_set_channel(rtwdev);
+> +
+>  	mutex_unlock(&rtwdev->mutex);
+> =20
+>  	return ret;
+
+Besides that I noticed that there are many double spaces after
+punctuation in commit message, so please fix that too. And
+should this cc stable?
+
+Best regards,
+Luka Gejak
