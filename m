@@ -1,192 +1,448 @@
-Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79E4D36B910;
-	Fri,  9 Oct 2026 07:27:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.92.39.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72BA23B42D3
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 07:27:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791530826; cv=none; b=C0UweUTCmgETTbPKhcIIIKtU825RpiRZuPbhhWXS6xoE4K3kRSa+nBnkRD4Ss6M7p6XZkvDVbLvgJrQKEwAApo8pv0VMAQGHi/ikO2jt1WjiDXcaagpWhLRD5wc5kMHcHA9dyKvYHvMEXqrCSNcaocNVH4gb2n9xHmqJJFfj/sU=
+	t=1791530875; cv=none; b=Iqe0SE/FT/0FIadDR4A96T25wlkeS9OwTM6Fz5iQgE68xnSuFRhDH+5PtcGDLnX9PQR5yOZ7nvybNsIsNw7pItXlHoqAHfCQ9h9j91Nrs03T/C3bGvoKltewN8P3GkuIxoIy2xxtHn1FitQGQaIRnwJO+CpjH4sKrY4Ks56bS9k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791530826; c=relaxed/simple;
-	bh=3cwJrYCKtB1FyTSVMsTUSjzuHfx8gNgHBHAkIR/ohAg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=cIFjwZ1KoPA0Fafqx70UkcixLzhsWBCpl6tAYTU7dxl07fUBMWEpwG1IIHEkLxwfyKIgzp+s7b0ZnJvaLJYF9Uy9HlHaZpyuyaHD20AFpY6eNvw2GbPACmNE8NcLV/++uWp6HjO9q69D7YYyq4lX2EXM/Uuho2wcHYeJQlxjDeA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.92.39.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
-X-QQ-mid: zesmtpip3t1791530731t51b12762
-X-QQ-Originating-IP: PRUY8Mjn7j4rupNIkykYInQoN7G/vnDUwEYhaQJZQDo=
-Received: from [192.168.30.32] ( [localhost])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 09 Oct 2026 15:25:29 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 17474764714757559024
-EX-QQ-RecipientCnt: 13
-From: Xilin Wu <sophon@radxa.com>
-Date: Fri, 09 Oct 2026 15:25:18 +0800
-Subject: [PATCH 2/2] PCI: of: Avoid config reads for disabled bridge nodes
+	s=arc-20240116; t=1791530875; c=relaxed/simple;
+	bh=hAbUZwuj3Le1qOhcA4KwdsAZIxEY2ntll6qIGO2qBFs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JizWWD8jYVGkGN3AlGN7+kkGXchG4pr/Ed/iGLFgtR3oD086cGw4ajCqAfUjPadv0pxyt4CQV28iIgk9cycjthp1Pewws6Nd5gM7FvZc6mfGh9T4FQOd6N+DSSfAq9G0nGFkuQKk14AMmeRcr1DEjliS3Chv3wv3ImlvNNdXraw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FuqNwq7u; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FuqNwq7u"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49d0da752ffso55278995e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 00:27:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791530872; x=1792135672; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IfvBkAbgi6hNYJ2Pfy9m5gY/SS7LE/POyUTc/Wa2L5U=;
+        b=FuqNwq7uPB/jS1TEFnpPkWPg+KpK1jhXpnQwWNESMkLbU4di5uMo9MRt6dp3P3lid/
+         ZfgD2z1sWePMGyefM78YaT60RnONi1Kw7W5oxcG8zOeQPgGBucjNgcCFGWHfNyz6CjC7
+         ujSEnPqiE0Tug/TXFD+DoG91Do8x+Ysev9LPN3xFpriTI3zy7a8rbB2uMbkPZ10UCHtM
+         u8Ob/K6GL+MOkMdjjVAT9AkkRgvz2JNyf9wOblNZ/iIDH71aGqPTXnLk1AMWPV0qIjCr
+         7qQg0wC0eUMkGwDUzC5SVaMJewVSrLcoFnF55Jfurro3A3s2T/TqZ3CsnQC3w0yI+CAs
+         V7SQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791530872; x=1792135672;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IfvBkAbgi6hNYJ2Pfy9m5gY/SS7LE/POyUTc/Wa2L5U=;
+        b=SJGl6mxweCxvtGNL/7eotg0rajA9IW8WEAqS08HypligN3YvAn8+jiRqBbZz6ugU8/
+         iSAR4STC9rOqArvvGVZLI66De770YyuHLlPDe/ulBrTy4Ziek9tpK5Q3D2K11Dh9cDZr
+         V4YApVgNGGyA41rB93fXErIdWuYFL0kICYgwmdPMcLQV06pMm3k9GylDm6Z468zkQT0h
+         kW8XvSy5Qecod9JYQSSyjd8haO8P0x31NqCj/7cx4LeADOjguNhE4y9pz/jFvkt5KE8x
+         7C6A0HPuCo2/gDV+JcCxD8U5xs9OyblX0Izq8xnJ6o+8H0YMvxh3sOW7IRjE0zaNWvMi
+         fKUg==
+X-Forwarded-Encrypted: i=1; AKwUvBxmHYyiRAUQQ4/0wb6zvA7NYZFPcPkCGZf3BbO3sJVUemPlBEyQXcWesgZaA8XVorRosqAC5dKJIL/4+cQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kq4EK+RTzjLvwbZxJN13dw+eoCUCeFSTv38WBns51r0vJNMsu6
+	N/dHrv5wO5Apd5NxSrEdaz1g011qUMMdcLqaUJi2tjCMOrVMEOyh2c53Qg0I4xxLMn8=
+X-Gm-Gg: AYBFou2lS94aySxWIBLYtvkbdkcH9i+MnhuMXSy69JxD1o1r0x/mckQh55G1Wcv9/Hp
+	8nSTFk6bVEtuRStDBsKpSsT7sMLTeD9wPyEkA6Rdj0EiDnV7ZSrYEX49hYVO8boVGlTQw3BprFT
+	p+DCdC7dWeILyxg0hqnGCtW506ub/HRfyQxV6tltPQD9DOsxYdSBUAbt9Ipo3EWNbRiNDeufDLr
+	IjlT6Qgu9JKV9HRKSKFIeyOaQ7JFqgOfMF+fuiieKmOuGYtB1rUD1KtE/aBKNjSFJr9snfsFf8h
+	1IZXC3Yrrtcjr1K+PXkFdgHEHmGs2mrteqSxk+LY1xdnKFa8703JIjqi/M9NcLukU/O/7AYLyZv
+	jkBXpp23JbO49/7AM0Z3O6Va+d2c90FaL32iKVEhHPRSl/cqBM6Z/f95/MMOBW7QGW566DaURDZ
+	wL2ryjmdZBg5d1lbA4etZYoY5NODLFVWbVOxY6qKa97rXgk7tn0UIvi3SYJuYWPW1MFkmz06/OQ
+	Jd0x0HXTGkUC8RWT5xH2wTOU699OLnqADQ1aNJ0sjpFfOZCtwGovBcEZOWeVmZoaDZ4ePAl6YK2
+	dp1bFD26lqZPDAXC1lBE8wY2sY6JbWVsYyRZCjqC6V7H2JlHxQLFT9ISBajDO75WgLui45W9Iqj
+	QrKehbeyhpUXxRHUyG+L8PkW0sLRwEyTR0rENIy3o6E7uLoXNM0fPIg==
+X-Received: by 2002:a05:600c:3b2a:b0:4a0:2540:b46 with SMTP id 5b1f17b1804b1-4a18e4aca94mr16192385e9.12.1791530871388;
+        Fri, 09 Oct 2026 00:27:51 -0700 (PDT)
+Received: from localhost.localdomain (host-95-239-230-248.retail.telecomitalia.it. [95.239.230.248])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bbbdd75sm32598895e9.1.2026.10.09.00.27.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 00:27:50 -0700 (PDT)
+From: Nicola Fiorillo <nicfio@gmail.com>
+To: linux-media@vger.kernel.org
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Dan Scally <dan.scally@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Nicola Fiorillo <nicfio@gmail.com>
+Subject: [PATCH 0/3] media: Add GalaxyCore GC5035 and GC8034 sensor drivers
+Date: Fri,  9 Oct 2026 09:27:30 +0200
+Message-ID: <20261009072733.39877-1-nicfio@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-pci-of-disabled-bridges-v1-2-08708f9e1802@radxa.com>
-References: <20261009-pci-of-disabled-bridges-v1-0-08708f9e1802@radxa.com>
-In-Reply-To: <20261009-pci-of-disabled-bridges-v1-0-08708f9e1802@radxa.com>
-To: Bjorn Helgaas <bhelgaas@google.com>
-Cc: Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
- linux-pci@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Stephen Chen <stephen@radxa.com>, Junhao Xie <bigfoot@radxa.com>, 
- Daniele Briguglio <hello@superkali.me>, dragon@radxa.com, 
- Xilin Wu <sophon@radxa.com>, 
- Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4664; i=sophon@radxa.com;
- h=from:subject:message-id; bh=3cwJrYCKtB1FyTSVMsTUSjzuHfx8gNgHBHAkIR/ohAg=;
- b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFknpj1Rtcxu+Nw64fvM8NrA6LQJkz9MfT/3iZfnzc9LF
- OuL41pFO0pZGMS4GGTFFFkU4hnmslfmXnsqVqoHM4eVCWQIAxenAEzkZRvD/xL+5WqP6zvOL+Wu
- 2dho2Bbx0ktbkX3WIdE8tfKPZr9cvjIy9Fg5rE3M8wh/+XpelHPz86e978oUNpf82adQ53EhceY
- 9HgA=
-X-Developer-Key: i=sophon@radxa.com; a=openpgp;
- fpr=205F009D07796DD6E516752E32C31567AD9E324E
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: MtBwujL0y0TRGwywjLaw3qbi/KxW5NO84HTiwqa4vQ8mQVuAFqWEuR/c
-	0SURrtX8qvOqZGuT5Uwzk26Nttr82mM0ieURRjvjQz7wbvJDxTGd7BgKvdlM0j6RDhlf8Tk
-	s4DtHSPGaiUJB+BERi6/LDfwh0qMv2ag9nZiNJlS/TJZeyXgJRbvLHLTbdhO10NIhNPkbSg
-	MBIB2yWhf3xW8oMhfMUFnbRRJF2KObDqmOa27XQM03WOQDzVkRD1wBXyGkv75Da8FB3Yx0O
-	uykxf9xvJfZh617wujM7PDKLOBrMhPj0JD4/bLhqEkA0Ha8LgWEVAho9DEBeGpvJuQoENE/
-	J7lni0c0GLOl3MhlWqyIIm2AkFlaH2SRAc1CFkvZFe8VSNnzeyH9zPYkhdDhhiIKBJGOlR/
-	beSZdGBrSwOtgIP0rShFEfFh+2qVntwjbO5ZhnC3LpWRb55Vj8wg2jheeY828KGPYUECQ2k
-	kbxJUPvnIAD62C+Acl962Hr1rSB5zIfr9tpBCjV1SfUdRsmBB1WEt3T8fY2DYTjGNhlsvh1
-	JBdvd3g7LfEBOyCMfcvd7ul4qN3dqOwxZqERfIyxIqfrX6CiLXMx/3sNSmQx8nkewh/IhaN
-	3LgAoP5O/mLaImbh1ouySX4AZsAqg93dssZxsGHT3UoJ/9cXsLCsgRL25o4JUn2Q+1LE2HR
-	jM0oHWif5idcALlVMlhrfw3Zh1Q9/GLvhByvFJ0LmJHFeUWW1Lh8xmewN7WQi+DUw5xHk4g
-	OibrBMcFopdEwgs7aH4aX5GeBNNT8BbcUX9ncOEj/wzgJAbzmpDkrE+h8S9Dz8EBgSF05Nq
-	BPQKF1QxHQJQvTVMJtJn3H58zwZb9CwugSSJOBUePi61bk7xxo3dgy0bS5hLsGAWjwXBBDS
-	BMPESrDYb4XRfY7FjWnNiIc/naqquVej1q9o9BI0pNWnCyQYQRy2HEwcdVFiFBzbx4X/W1B
-	1YAp38lnzUUwIC0ceXKs1rbh0K0cngPeUiP7jbaGl7pDlQqABlCWGsJESaMoNzFBehSDInT
-	LQ4sn6K2nJ7+4zZUEC5Xa0lieBNx6CcLmUVncRCDs0gngyMiNrc6RZ3H7GrVU0QLqKFE2N4
-	srs0iE/pHD3eRVoFHZF5fzlAEzsJIgYfUI44r9e3GdobBEnYJfB9HlHkfZmE2C0BA==
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-X-QQ-RECHKSPAM: 0
+Content-Transfer-Encoding: 8bit
 
-The TC9563 PCI power-control driver powers off external downstream ports
-whose device tree nodes have status = "disabled". On the Radxa Dragon Q8B,
-reading the Vendor ID of one of these powered-off port functions during
-PCI enumeration raises an Arm SError and prevents the board from booting.
+This series adds drivers for the GalaxyCore GC5035 and GC8034 raw Bayer
+sensors, and the ipu-bridge entries needed to use them on Intel IPU6. Both
+are found on the CHUWI Hi10 X1, an Intel N100 (Alder Lake-N) tablet:
 
-A Configuration Read request to an unavailable port receives no
-completion and results in a Completion Timeout. The PCIe Root Complex
-reports that timeout as an AXI bus error, which triggers an SError on the
-CPU. The link between the Root Port and the switch upstream port remains
-up, so blocking config accesses only when the Root Port link is down
-does not prevent these accesses.
+  GC5035, 5 Mpixel, front, 2 CSI-2 lanes, ACPI HID GCTI5035
+  GC8034, 8 Mpixel, rear,  4 CSI-2 lanes, ACPI HID GCTI8034
 
-Commit 1a8c251cff20 ("PCI: move OF status = "disabled" detection to
-dev->match_driver") kept disabled PCI functions discoverable so that PCI
-fixups could still run, while suppressing driver binding later. Preserve
-that behavior for endpoint functions.
+The drivers are ACPI only. I have no device tree system with either sensor,
+so I have not added bindings I cannot test.
 
-For an unavailable device tree node with device_type = "pci", skip the
-Vendor ID read and return a PCI error response without accessing config
-space. This prevents enumeration of the disabled bridge and its
-subordinate bus. Perform the check in the generic PCI enumeration path
-because probing unavailable bridges is not specific to Qualcomm hosts.
+Link frequencies
+----------------
 
-Functions without a device tree node and disabled endpoint functions
-remain discoverable.
+Both drivers accept only the 19.2 MHz external clock they have been tested
+with. The link frequencies in the vendor code are for a 24 MHz clock:
 
-Link: https://lore.kernel.org/all/fsrr5xg4plfknfcvv5co4ciklz5pywa5bbfxbthwsnjevysr5v@myghuxblnend/
-Link: https://lore.kernel.org/all/r22to3joold7ugzwolni4qahyumcekbyugrl2bms3xmiysqtgo@hu5s3dnyqwsj/
-Acked-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Tested-by: Daniele Briguglio <hello@superkali.me>
-Signed-off-by: Xilin Wu <sophon@radxa.com>
----
- drivers/pci/of.c    | 23 +++++++++++++++++++++++
- drivers/pci/pci.h   |  5 +++++
- drivers/pci/probe.c |  5 +++++
- 3 files changed, 33 insertions(+)
+  - GC5035: Intel's 438 MHz is correct with a 24 MHz clock. For 19.2 MHz
+    Intel changed the PLL but not the constant. With the new PLL the link
+    frequency is 422.4 MHz, which matches the measurement.
+  - GC8034: the vendor code declares 336 MHz for a 24 MHz clock. At
+    19.2 MHz everything scales by 0.8: 268.8 MHz, and 24 fps instead of
+    30.
 
-diff --git a/drivers/pci/of.c b/drivers/pci/of.c
-index 9e82c79be3d8..37e9062065d7 100644
---- a/drivers/pci/of.c
-+++ b/drivers/pci/of.c
-@@ -46,6 +46,29 @@ int pci_set_of_node(struct pci_dev *dev)
- 	return 0;
- }
- 
-+/**
-+ * pci_of_device_skip_config_read - check whether to skip probing a PCI device
-+ * @bus: PCI bus to scan
-+ * @devfn: device/function number to check
-+ *
-+ * Return: true only when firmware explicitly describes an unavailable PCI
-+ * bridge/port node. Disabled endpoints remain discoverable so fixups still run,
-+ * while driver binding is suppressed later in pci_bus_add_device().
-+ */
-+bool pci_of_device_skip_config_read(struct pci_bus *bus, unsigned int devfn)
-+{
-+	if (!bus->dev.of_node)
-+		return false;
-+
-+	struct device_node *node __free(device_node) =
-+		of_pci_find_child_device(bus->dev.of_node, devfn);
-+
-+	if (!node || of_device_is_available(node))
-+		return false;
-+
-+	return of_node_is_type(node, "pci");
-+}
-+
- void pci_release_of_node(struct pci_dev *dev)
- {
- 	of_node_put(dev->dev.of_node);
-diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
-index ba3c3fddddc2..7cb1d04d947d 100644
---- a/drivers/pci/pci.h
-+++ b/drivers/pci/pci.h
-@@ -1244,6 +1244,7 @@ u32 of_pci_get_slot_power_limit(struct device_node *node,
- 				u8 *slot_power_limit_scale);
- bool of_pci_preserve_config(struct device_node *node);
- int pci_set_of_node(struct pci_dev *dev);
-+bool pci_of_device_skip_config_read(struct pci_bus *bus, unsigned int devfn);
- void pci_release_of_node(struct pci_dev *dev);
- void pci_set_bus_of_node(struct pci_bus *bus);
- void pci_release_bus_of_node(struct pci_bus *bus);
-@@ -1284,6 +1285,10 @@ static inline bool of_pci_preserve_config(struct device_node *node)
- }
- 
- static inline int pci_set_of_node(struct pci_dev *dev) { return 0; }
-+static inline bool pci_of_device_skip_config_read(struct pci_bus *bus, unsigned int devfn)
-+{
-+	return false;
-+}
- static inline void pci_release_of_node(struct pci_dev *dev) { }
- static inline void pci_set_bus_of_node(struct pci_bus *bus) { }
- static inline void pci_release_bus_of_node(struct pci_bus *bus) { }
-diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
-index 27008e2ea5af..ce29bf78a6f7 100644
---- a/drivers/pci/probe.c
-+++ b/drivers/pci/probe.c
-@@ -2586,6 +2586,11 @@ bool pci_bus_generic_read_dev_vendor_id(struct pci_bus *bus, int devfn, u32 *l,
- bool pci_bus_read_dev_vendor_id(struct pci_bus *bus, int devfn, u32 *l,
- 				int timeout)
- {
-+	if (pci_of_device_skip_config_read(bus, devfn)) {
-+		PCI_SET_ERROR_RESPONSE(l);
-+		return false;
-+	}
-+
- 	return pci_bus_generic_read_dev_vendor_id(bus, devfn, l, timeout);
- }
- EXPORT_SYMBOL(pci_bus_read_dev_vendor_id);
+The same values are used in the ipu-bridge entries in patch 3.
 
+Gain, power sequencing and geometry
+-----------------------------------
+
+V4L2_CID_ANALOGUE_GAIN is the index of the analogue gain step, 17 steps
+on the GC5035 and 7 on the GC8034, and the digital gain is left at the
+1.0x the register tables program. The vendor drivers fill the gap between
+two steps with digital gain; that is left to userspace.
+
+No datasheet is available for either sensor. The GC5035 power sequence
+follows the one Tomasz Figa described in the 2020 series (IOVDD first,
+MCLK cycles before the first I2C transaction and after streaming stops),
+the GC8034 one follows the Rockchip driver. On this machine only AVDD is
+a real, GPIO switched regulator: DVDD and DOVDD are dummies, and the
+GC8034 has no reset or powerdown GPIO.
+
+The register tables read out a window slightly larger than the output
+size and crop it: 2608x1960 cropped at (8, 8) on the GC5035, 3284x2464
+cropped at (9, 8) on the GC8034. The size of the full pixel arrays is not
+documented, so the readout windows are reported as the native sizes.
+
+The GC8034 blanking register holds the frame length minus the height
+and 36 lines. The 36 lines value comes from the Rockchip driver, and is
+confirmed by the measurement with VBLANK set to 2000: the difference is
+less than one line.
+
+Provenance
+----------
+
+The GC5035 register tables come from the Alder Lake-M driver in
+intel/ipu6-drivers, which derives from the ChromeOS driver posted in 2020
+by Tomasz Figa [1]. That series got as far as v4 and was not merged. The
+GC8034 register tables come from the Rockchip BSP driver (rockchip-linux
+kernel, develop-5.10). The copyright lines of the original authors are
+kept in both files. The register tables have been shortened: the GC5035
+one from 323 to 160 writes, the GC8034 one from 233 to 182. Registers
+written twice and those already written by the controls have been
+removed. The final register state is identical to the one of the original
+tables. There is no public documentation for the PLL and CSI-2 settings.
+
+The driver code follows gc05a2.c and gc08a3.c: CCI helpers, subdev active
+state, enable_streams/disable_streams and runtime PM with autosuspend.
+
+Use of an LLM
+-------------
+
+I speak Italian and I use Claude to translate.
+
+I used an LLM (Claude Opus 5.5) to collect the main points of the sensor
+driver reviews posted to this list recently. Claude wrote the driver code
+and updated it based on those points, and wrote the test scripts. I ran
+the tests on the tablet with the hardware, and the results are listed
+below. The code, the measurements and the notes (in Italian) are at
+https://github.com/nic-fio/chuwi-hi10x1-cameras
+
+The use of LLMs follows Documentation/process/coding-assistants.rst and
+generated-content.rst.
+
+Not covered
+-----------
+
+  - One mode per sensor: 2592x1944 on the GC5035, 3264x2448 on the GC8034.
+    The binned modes of the vendor drivers have not been tested and were
+    left out.
+  - The sensor OTP is not read. On the GC5035 it holds factory register
+    settings and defect pixel tables, which the 2020 series applied.
+  - The GC8034 module has a dw9714 VCM, instantiated by ipu-bridge; focus
+    has not been tested.
+  - Tested on one machine, with one sample of each sensor.
+
+Testing
+-------
+
+Based on media-committers next, commit 8e26d4c20ed2 ("media: hantro:
+disable runtime PM before hardware teardown"), and tested on the CHUWI
+Hi10 X1 with that kernel and these patches:
+
+  - both sensors stream at full resolution
+  - frame rate: the frame rates expected from the driver match the
+    measured ones: 28.82 fps on the GC5035, 24.01 fps against 24.00 on
+    the GC8034. They also match with VBLANK set to 2000: 14.67 fps on
+    the GC5035 and 13.47 fps on the GC8034.
+  - analogue gain, from the first to the last step: 15.6x requested and
+    15.35x measured on the GC5035, 7.66x requested and 7.74x measured on
+    the GC8034.
+  - GC5035 test pattern: two consecutive frames are 100% identical.
+  - v4l2-compliance from git (1616bf9e3c81), run with -z on the media
+    device: 54 out of 54 tests pass on both sensors, with 2 warnings on
+    S_SELECTION. The warnings are there because the crop is fixed;
+    imx219, gc05a2 and gc08a3 do the same. Output below.
+
+[1] https://lore.kernel.org/linux-media/20200902224813.14283-1-tfiga@chromium.org/
+
+GC5035:
+
+v4l2-compliance 1.33.0-5515, 64 bits, 64-bit time_t
+v4l2-compliance SHA: 1616bf9e3c81 2026-10-06 07:30:20
+
+Compliance test for intel-ipu6 device /dev/v4l-subdev4:
+
+Driver Info:
+	Driver version   : 7.3.0
+	Capabilities     : 0x00000000
+	Client Capabilities: 0x0000000000000002
+interval-uses-which Media Driver Info:
+	Driver name      : intel-ipu6
+	Model            : ipu6
+	Serial           :
+	Bus info         : PCI:0000:00:05.0
+	Media version    : 7.3.0
+	Hardware revision: 0x00000000 (0)
+	Driver version   : 7.3.0
+Interface Info:
+	ID               : 0x030000f5
+	Type             : V4L Sub-Device
+Entity Info:
+	ID               : 0x000000e9 (233)
+	Name             : gc5035 2-003f
+	Function         : Camera Sensor
+	Pad 0x010000ea   : 0: Source
+	  Link 0x020000eb: to remote pad 0x1000096 of entity 'Intel IPU6 CSI2 2' (Video Interface Bridge): Data, Enabled, Immutable
+
+Required ioctls:
+	test MC information (see 'Media Driver Info' above): OK
+	test VIDIOC_SUDBEV_QUERYCAP: OK
+	test invalid ioctls: OK
+
+Allow for multiple opens:
+	test second /dev/v4l-subdev4 open: OK
+	test VIDIOC_SUBDEV_QUERYCAP: OK
+	test for unlimited opens: OK
+
+Debug ioctls:
+	test VIDIOC_LOG_STATUS: OK (Not Supported)
+
+Input ioctls:
+	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+	test VIDIOC_ENUMAUDIO: OK (Not Supported)
+	test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDIO: OK (Not Supported)
+	Inputs: 0 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+	Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+	test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Sub-Device ioctls (Source Pad 0):
+	Try Stream 0
+	test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+	test Try VIDIOC_SUBDEV_G/S_FMT: OK
+		warn: v4l2-test-subdevs.cpp(566): VIDIOC_SUBDEV_G_SELECTION is supported for target 0 but not VIDIOC_SUBDEV_S_SELECTION
+	test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK
+	Active Stream 0
+	test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+	test Active VIDIOC_SUBDEV_G/S_FMT: OK
+		warn: v4l2-test-subdevs.cpp(566): VIDIOC_SUBDEV_G_SELECTION is supported for target 0 but not VIDIOC_SUBDEV_S_SELECTION
+	test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK
+	test Active VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: OK (Not Supported)
+
+Control ioctls:
+	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+	test VIDIOC_QUERYCTRL: OK
+	test VIDIOC_G/S_CTRL: OK
+	test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+	Standard Controls: 13 Private Controls: 0
+
+Format ioctls:
+	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
+	test VIDIOC_G/S_PARM: OK (Not Supported)
+	test VIDIOC_G_FBUF: OK (Not Supported)
+	test VIDIOC_G_FMT: OK (Not Supported)
+	test VIDIOC_TRY_FMT: OK (Not Supported)
+	test VIDIOC_S_FMT: OK (Not Supported)
+	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+	test Cropping: OK (Not Supported)
+	test Composing: OK (Not Supported)
+	test Scaling: OK (Not Supported)
+
+Codec ioctls:
+	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls:
+	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
+	test CREATE_BUFS maximum buffers: OK
+	test VIDIOC_REMOVE_BUFS: OK
+	test VIDIOC_EXPBUF: OK (Not Supported)
+	test Requests: OK (Not Supported)
+	test blocking wait: OK (Not Supported)
+
+Total for intel-ipu6 device /dev/v4l-subdev4: 54, Succeeded: 54, Failed: 0, Warnings: 2
+
+GC8034:
+
+v4l2-compliance 1.33.0-5515, 64 bits, 64-bit time_t
+v4l2-compliance SHA: 1616bf9e3c81 2026-10-06 07:30:20
+
+Compliance test for intel-ipu6 device /dev/v4l-subdev5:
+
+Driver Info:
+	Driver version   : 7.3.0
+	Capabilities     : 0x00000000
+	Client Capabilities: 0x0000000000000002
+interval-uses-which Media Driver Info:
+	Driver name      : intel-ipu6
+	Model            : ipu6
+	Serial           :
+	Bus info         : PCI:0000:00:05.0
+	Media version    : 7.3.0
+	Hardware revision: 0x00000000 (0)
+	Driver version   : 7.3.0
+Interface Info:
+	ID               : 0x030000fb
+	Type             : V4L Sub-Device
+Entity Info:
+	ID               : 0x000000f7 (247)
+	Name             : gc8034 1-0037
+	Function         : Camera Sensor
+	Pad 0x010000f8   : 0: Source
+	  Link 0x020000f9: to remote pad 0x100008c of entity 'Intel IPU6 CSI2 1' (Video Interface Bridge): Data, Enabled, Immutable
+
+Required ioctls:
+	test MC information (see 'Media Driver Info' above): OK
+	test VIDIOC_SUDBEV_QUERYCAP: OK
+	test invalid ioctls: OK
+
+Allow for multiple opens:
+	test second /dev/v4l-subdev5 open: OK
+	test VIDIOC_SUBDEV_QUERYCAP: OK
+	test for unlimited opens: OK
+
+Debug ioctls:
+	test VIDIOC_LOG_STATUS: OK (Not Supported)
+
+Input ioctls:
+	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+	test VIDIOC_ENUMAUDIO: OK (Not Supported)
+	test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDIO: OK (Not Supported)
+	Inputs: 0 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+	Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+	test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Sub-Device ioctls (Source Pad 0):
+	Try Stream 0
+	test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+	test Try VIDIOC_SUBDEV_G/S_FMT: OK
+		warn: v4l2-test-subdevs.cpp(566): VIDIOC_SUBDEV_G_SELECTION is supported for target 0 but not VIDIOC_SUBDEV_S_SELECTION
+	test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK
+	Active Stream 0
+	test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+	test Active VIDIOC_SUBDEV_G/S_FMT: OK
+		warn: v4l2-test-subdevs.cpp(566): VIDIOC_SUBDEV_G_SELECTION is supported for target 0 but not VIDIOC_SUBDEV_S_SELECTION
+	test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK
+	test Active VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: OK (Not Supported)
+
+Control ioctls:
+	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+	test VIDIOC_QUERYCTRL: OK
+	test VIDIOC_G/S_CTRL: OK
+	test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+	Standard Controls: 12 Private Controls: 0
+
+Format ioctls:
+	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
+	test VIDIOC_G/S_PARM: OK (Not Supported)
+	test VIDIOC_G_FBUF: OK (Not Supported)
+	test VIDIOC_G_FMT: OK (Not Supported)
+	test VIDIOC_TRY_FMT: OK (Not Supported)
+	test VIDIOC_S_FMT: OK (Not Supported)
+	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+	test Cropping: OK (Not Supported)
+	test Composing: OK (Not Supported)
+	test Scaling: OK (Not Supported)
+
+Codec ioctls:
+	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls:
+	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
+	test CREATE_BUFS maximum buffers: OK
+	test VIDIOC_REMOVE_BUFS: OK
+	test VIDIOC_EXPBUF: OK (Not Supported)
+	test Requests: OK (Not Supported)
+	test blocking wait: OK (Not Supported)
+
+Total for intel-ipu6 device /dev/v4l-subdev5: 54, Succeeded: 54, Failed: 0, Warnings: 2
+
+Nicola Fiorillo (3):
+  media: i2c: Add GC5035 image sensor driver
+  media: i2c: Add GC8034 image sensor driver
+  media: ipu-bridge: Add GalaxyCore GC5035 and GC8034
+
+ MAINTAINERS                          |  12 +
+ drivers/media/i2c/Kconfig            |  20 +
+ drivers/media/i2c/Makefile           |   2 +
+ drivers/media/i2c/gc5035.c           | 953 ++++++++++++++++++++++++++
+ drivers/media/i2c/gc8034.c           | 969 +++++++++++++++++++++++++++
+ drivers/media/pci/intel/ipu-bridge.c |   4 +
+ 6 files changed, 1960 insertions(+)
+ create mode 100644 drivers/media/i2c/gc5035.c
+ create mode 100644 drivers/media/i2c/gc8034.c
+
+
+base-commit: 8e26d4c20ed218db6c3123480a4a4e2545680566
 -- 
-2.56.0
+2.47.3
 
