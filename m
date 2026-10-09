@@ -1,214 +1,207 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com [209.85.219.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D8964F402B;
-	Fri,  9 Oct 2026 18:14:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2046E50EC17
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 18:14:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791569664; cv=none; b=UgxG0FLQ2In+QUonNVYPXPNG44F5e7ZujFPyM/vHeKvov6CbnTUeX4e+ltk/K4NH3kgQHqJP0HSAUjuaC/NjTo4pOlmeyesLXzRQIi6EcnMF8ucJeU66EiqivWHh338CX1n4om+aM5YnO9y8PuyexyYLwCcXT71JtEXGPWuV69Y=
+	t=1791569671; cv=none; b=SqHMkN8TRiL/agF7vjUHAtsDqJxywFBf2S4rQKpe1nco/PkEFB43J/gQBRkFDnHnNlqKwWioWt9A/afjGt/e8DBmPKD63M0V6661KIcqAlQ8vq1Vg/YgMBDeeTDpiX/C+WsxCsMZArjjLz0tvZK1oL+lnWgbxCodQnLA60SNIA0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791569664; c=relaxed/simple;
-	bh=ULLCLMudbM+nA5DIlUO12EUl7FbXJrpgl/45EV2ltd8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=oYhpbsX4Rjr6Ko5ND3iPQvuGCxAsctjhKU0xoqLZpTDoMArbDgtAgaM4GPamTZFJxeXCHOvccZ9pCSZttvi9uD69ZT4YB91VFcygiPdhmk0K3AKrgQUQ/Mayo2h4hhNNZ20UY1awwlupGWWPpGroQUHkBWkXfPcPCPfoLfU+klw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=itAYN0mR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791569671; c=relaxed/simple;
+	bh=hmhp5aCfAowc1RH1ZLE5xg09F/tgIyMjcgJPa/87Xxg=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=hSViSWZx0bcmu8gauGVkJcwAI/HS/T+AuAqQpthSE6s2P/c3iN6QW6261vqri2Qy7mEIZEfv8PIqm67SJktTEniOdaaqRIaQHfINn2NkQyy3EfPdr+JLOdyjGTMPEPerkHADnaw+8QHD6my1eT8vVf2RRArKi9YtesKA669wo5Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RXilsdNz; arc=none smtp.client-ip=209.85.219.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="itAYN0mR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86F871F00899;
-	Fri,  9 Oct 2026 18:14:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791569663;
-	bh=5upPOtDABwwVpDceVPyuSA83QzDcrZ56JA1+Hc43xbI=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=itAYN0mRby3loFr3kB3erznCYLyJWSv7y9EdE4a4SdBxzAp5q9gGykK29Cemo1B6n
-	 xUIbU6fwrjcABEJj0iAu2KbcnlrUKjdpTgGMauBAph4NqMhPbKfYOkEzZ7Zvgyaehb
-	 T21cEITGvOur1SbYWACxHxHKQ1DccEHNV4AJ3e/rShDKhT6LHsp0Ex5xX1XPtKVIOk
-	 GPC/H3skaPetLTfRKnWecsjavs/Z0T711H8dQMj5SbT/UyGlsv8YAl8fiEiy7R69Em
-	 rN+CScbilpeAbrAjSYkjfRgZDK3SDt7CMJcVqsKijMA/xdq3sIu8832Eshzeb08S77
-	 AiSCv6n5JHppA==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Fri, 09 Oct 2026 19:04:22 +0100
-Subject: [PATCH v5 28/38] mm: drop some redundant checks around hugetlb
- VMAs
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RXilsdNz"
+Received: by mail-qv1-f46.google.com with SMTP id 6a1803df08f44-917a20e9efeso1259576d6.2
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 11:14:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791569669; x=1792174469; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=BmUaHEAjDqs57lG3N//XR/fYj5yl74K4ovqeCbA5msc=;
+        b=RXilsdNzfJ72M8bImGfAbIxRYb5qr3aYOwHWmPo9m6vGwG8yWMfimC92Cz6Zy9Z+Dp
+         v6kSmDuftmyOAtvZdtVyL+Odbyg9np5MyEoZ88H/VUJOkuiDmCi5yobSB4FgHO7JmOc7
+         aAk9uWOSY3eVB+0L+DqJyU/EXWXgnpbrhGg83fldr2DII0c6ot/uF9FJjic5H3kbDCrI
+         3nKp53CEULM7K9qsmeWQc/aRuhGL1y2kwuaJiq0JpMJv0C2purZTqB3Sx6ZO0IY4NUNl
+         YG+90gs+T4kCrVKA3KFi798rl2yfjwNb9X3imKAwJRDLj2a22cl9oo05351kL9gbE858
+         N1aA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791569669; x=1792174469;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BmUaHEAjDqs57lG3N//XR/fYj5yl74K4ovqeCbA5msc=;
+        b=AsDkTgptHzEjsybD+f0L05KbeMFfFtcFTO+pJRyDz2Qc1sTB0AdpquK2sjaJYo3mC8
+         LxefSIq8I1ZJM+UgCG4hBCvse1ZWWpKk52EdyEuA2Lb6w9+6pmQPB9FyTmfxW6IaBznQ
+         dE+B2xpLHCvmWs6znhZRT/7t13QddDbyDhVwoSJm/YI68+Q1pCBK3z6g64e7G20Jx0+L
+         9dxzzYi+UTLIjH7hJoCVQEosfZy9FgrW3jIrCSfCvhcFTnsZeFyXzFvjAW3l7yZnarZR
+         RmNHMM0G0OWgUOTOm35TzZR29yiClL1dSqw9+FoUwwnjKdXCpFWcgh+r0wDiE3jFIf46
+         xe/A==
+X-Forwarded-Encrypted: i=1; AKwUvBxw1XyV09fvyAezwCWAWjGKz1vifma2gp+Cs4yucfNqxvCO603IEMDPlgGbTvZ5OmL6JH3x10mAxHsuYJ8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLkzmYy8IsPqDM/wZafuyOZ/6OvSmukq9v1+pcj8lF1cWHn7UWR
+	6ZHfOOHcAbtjQAZhQi7Hn/xkIhktCOsnI0myAGcR9XxHLuExxEfoqrpd
+X-Gm-Gg: AYBFou3K4NoKBA+7/+h6dTPgqjE09Z3C2Hua5IK1RSj77YGxk5USTUHy08og9aIiJQ/
+	A0JQwYmCdVOB220FmlIxTNCLM9HniNtwlRDAd0FjtysWJS1lYA/muEOh6TrD1d2VXYAF/hl8g0+
+	GxWQ/ueWO4L2T2C0XB/Ly4TzJblvUIV4B0uT8SUXjRdy4MPxia+T/QoH/ts93AiQTr6tyEg/05I
+	D6UodwiJC1e+APiMgS3lWTRv0P6aaNAk/m3Z4qBKs9vT+I8qmY6ani8PyKxtFFeYwRnpgXjrWp5
+	YAMpOkx/Lf2k741sS2rym3L4OpXcow9DemBEccfKMweTyBr3Fjwzd6XPTindd3k9bDdBiRLkc/p
+	C/8nyX2D1Fvtspel7wswrJFjFH0NYEFoa9cR81gSIcdoCg2hz2E4vZe3f/4JibH1WcSk6z6E42T
+	FU+gd7eOyjhNQPx3LzKurh1ULjX954eqkqhcV6qQsadBFvxGYtAHcoa5sgfGYOY5RN4SwC2mO7x
+	L8=
+X-Received: by 2002:a05:620a:19a2:b0:934:ab73:ac53 with SMTP id af79cd13be357-93ebcc1186emr416023685a.0.1791569668976;
+        Fri, 09 Oct 2026 11:14:28 -0700 (PDT)
+Received: from localhost ([2600:4040:9399:4000:e553:72e5:7d37:c7ef])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb986c0cfsm248923385a.19.2026.10.09.11.14.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 09 Oct 2026 11:14:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-28-923b70125b1e@kernel.org>
-References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
-In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
- Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>, 
- John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
- Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
- Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2822; i=ljs@kernel.org;
- h=from:subject:message-id; bh=ULLCLMudbM+nA5DIlUO12EUl7FbXJrpgl/45EV2ltd8=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJO6sydarL6faDM1u3ZZfdn2yeZbvy5T1m47nOX5xo2w
- +oXTFOEO0pZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCRx+wM/1TuxklMuhhxXiG/
- a4aAGltEa0NF0YptPTMKTRXfc59Wa2L473R/2uuHOzJWnZfmY3Pv+5LyeJpj3bxlovOPqaUWsi8
- X5AUA
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 09 Oct 2026 14:14:27 -0400
+Message-Id: <DM0IFYXERNG1.2ZNS2EYUGGPOF@gmail.com>
+Cc: <kernel-team@meta.com>, "Andrew Lunn" <andrew+netdev@lunn.ch>, "David S
+ . Miller" <davem@davemloft.net>, "Eric Dumazet" <edumazet@kernel.org>,
+ "Paolo Abeni" <pabeni@redhat.com>, "Simon Horman" <horms@kernel.org>,
+ "Dimitri Daskalakis" <daskald@meta.com>, "Mohsin Bashir"
+ <mohsin.bashr@gmail.com>, "Bobby Eshleman" <bobbyeshleman@meta.com>,
+ <stable@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net] eth: fbnic: validate the Rx completion buffer index
+From: "Daniel Zahka" <daniel.zahka@gmail.com>
+To: "Yehyeong Lee" <yhlee@isslab.korea.ac.kr>, "Alexander Duyck"
+ <alexanderduyck@fb.com>, "Jakub Kicinski" <kuba@kernel.org>,
+ <netdev@vger.kernel.org>
+X-Mailer: aerc 0.21.0-threadmapfix
+References: <20261009175358.1598001-1-yhlee@isslab.korea.ac.kr>
+In-Reply-To: <20261009175358.1598001-1-yhlee@isslab.korea.ac.kr>
 
-Adjust code which inadvertently perform redundant checks on hugetlb VMAs
-and clean them up:
+On Fri Oct 9, 2026 at 1:53 PM EDT, Yehyeong Lee wrote:
+> The buffer ID in an address/length Rx completion descriptor is a 16 bit
+> field, FBNIC_RCD_AL_BUFF_PAGE_MASK being DESC_GENMASK(15, 0) once the
+> fragment bits are removed, so the device can name any index from 0 to
+> 65535.  fbnic_pkt_prepare() and fbnic_add_rx_frag() feed that value
+> straight into fbnic_page_pool_get_head() and fbnic_page_pool_get_data(),
+> which use it to subscript qt->sub0.rx_buf[] and qt->sub1.rx_buf[].
+>
+> Those arrays only cover the buffers the driver posted.  They are
+> allocated with size_mask + 1 entries, and size_mask comes from
+> hpq_size / FBNIC_BD_FRAG_COUNT, so at the default FBNIC_HPQ_SIZE_DEFAULT
+> of 256 each array holds 256 entries of 16 bytes, that is 4096 bytes.  A
+> buffer ID of 65535 reaches 1048560 bytes past the start of the
+> allocation.
+>
+> The fill side already masks every index it computes against
+> bdq->size_mask, and so does all of the ring head and tail arithmetic.
+> The completion side does not.  A descriptor naming a buffer that was
+> never posted makes fbnic_page_pool_get_head() decrement pagecnt_bias
+> through a pointer outside the array and hand the out-of-bounds
+> netmem_ref back as a struct page; page_pool_get_dma_addr() and
+> page_address() then dereference it and the skb is built on whatever it
+> points at.
+>
+> Injecting an out-of-range header completion reports under KASAN:
 
-* hugetlb VMAs have VMA_DONTEXPAND_BIT set so a VMA_SPECIAL_FLAGS check
-  suffices. (migrate_vma_setup() regains an explicit hugetlb test later in
-  the series, once VMA_SPECIAL_FLAGS is removed.)
+How exactly are you injecting the completion? Just overwriting the id
+field in the Rx completion with an arbitrary value from the driver?
 
-* hugetlb VMAs unconditionally set vma->vm_ops, so they are never
-  anonymous.
+The buffer id is chosen by SW when the BD is submitted to the device,
+and the device just echoes it back like a cookie when that buffer is
+used.
 
-* hugetlb VMAs do not set VMA_PFNMAP_BIT so checking for this is redundant.
-
-While we're here also drop a VM_BUG_ON() which the simplified check above
-makes unreachable, and use the new VMA flag API.
-
-No functional change intended.
-
-Acked-by: Marc Zyngier <maz@kernel.org>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
- arch/arm64/kvm/mmu.c         | 4 +---
- drivers/gpu/drm/drm_gpusvm.c | 3 +--
- mm/migrate_device.c          | 4 ++--
- 3 files changed, 4 insertions(+), 7 deletions(-)
-
-diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-index a7968f8d24bf..3c1240ffc38d 100644
---- a/arch/arm64/kvm/mmu.c
-+++ b/arch/arm64/kvm/mmu.c
-@@ -1463,14 +1463,12 @@ static int get_vma_page_shift(struct vm_area_struct *vma, unsigned long hva)
- {
- 	unsigned long pa;
- 
--	if (vma_is_hugetlb(vma) && !(vma->vm_flags & VM_PFNMAP))
-+	if (vma_is_hugetlb(vma))
- 		return huge_page_shift(hstate_vma(vma));
- 
- 	if (!(vma->vm_flags & VM_PFNMAP))
- 		return PAGE_SHIFT;
- 
--	VM_BUG_ON(vma_is_hugetlb(vma));
--
- 	pa = (vma->vm_pgoff << PAGE_SHIFT) + (hva - vma->vm_start);
- 
- #ifndef __PAGETABLE_PMD_FOLDED
-diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
-index a1d4989b0b61..fab34fea99c2 100644
---- a/drivers/gpu/drm/drm_gpusvm.c
-+++ b/drivers/gpu/drm/drm_gpusvm.c
-@@ -1141,8 +1141,7 @@ drm_gpusvm_range_find_or_insert(struct drm_gpusvm *gpusvm,
- 	 * limitations. If/when migrate_vma_* add more support, this logic will
- 	 * have to change.
- 	 */
--	migrate_devmem = ctx->devmem_possible &&
--		vma_is_anonymous(vas) && !vma_is_hugetlb(vas);
-+	migrate_devmem = ctx->devmem_possible && vma_is_anonymous(vas);
- 
- 	chunk_size = drm_gpusvm_range_chunk_size(gpusvm, notifier, vas,
- 						 fault_addr, gpuva_start,
-diff --git a/mm/migrate_device.c b/mm/migrate_device.c
-index c38cbaaef5a4..b9c453c28795 100644
---- a/mm/migrate_device.c
-+++ b/mm/migrate_device.c
-@@ -743,8 +743,8 @@ int migrate_vma_setup(struct migrate_vma *args)
- 
- 	args->start &= PAGE_MASK;
- 	args->end &= PAGE_MASK;
--	if (!args->vma || vma_is_hugetlb(args->vma) ||
--	    (args->vma->vm_flags & VM_SPECIAL) || vma_is_dax(args->vma))
-+	if (!args->vma || vma_test_any_mask(args->vma, VMA_SPECIAL_FLAGS) ||
-+	    vma_is_dax(args->vma))
- 		return -EINVAL;
- 	if (nr_pages <= 0)
- 		return -EINVAL;
-
--- 
-2.55.0
+>
+>   BUG: KASAN: slab-out-of-bounds in fbnic_page_pool_get_head
+>   Read of size 8 at addr ffff88800c719008
+>   The buggy address is located 8 bytes to the right of
+>    allocated 4096-byte region [ffff88800c718000, ffff88800c719000)
+>
+> Check the ID against size_mask before it is used and drop the packet if
+> it is out of range.  Masking it instead would keep the access in bounds
+> but would silently attribute the completion to an unrelated buffer that
+> the driver does own, which is worse than a drop.  Set add_frag_failed so
+> the frame takes the existing error path.
+>
+> Rejecting the header completion leaves pkt->buff uninitialized, and the
+> payload completions that follow are handled before the metadata
+> descriptor that looks at add_frag_failed, so fbnic_add_rx_frag() has to
+> bail out as well or xdp_buff_add_frag() writes through a shared info
+> pointer derived from a NULL data_hard_start.  Key that on
+> data_hard_start, the way fbnic_put_pkt_buff() already does, so the
+> buffer accounting on the normal path is untouched.
+>
+> Fixes: a29b8eb6e533 ("eth: fbnic: Add basic Rx handling")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+> ---
+>  drivers/net/ethernet/meta/fbnic/fbnic_txrx.c | 27 ++++++++++++++++++--
+>  1 file changed, 25 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c b/drivers/net/e=
+thernet/meta/fbnic/fbnic_txrx.c
+> index 10caacffee0f0..d85daab06c99c 100644
+> --- a/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c
+> +++ b/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c
+> @@ -985,14 +985,24 @@ static void fbnic_pkt_prepare(struct fbnic_napi_vec=
+tor *nv, u64 rcd,
+>  {
+>  	unsigned int hdr_pg_idx =3D FIELD_GET(FBNIC_RCD_AL_BUFF_PAGE_MASK, rcd)=
+;
+>  	unsigned int hdr_pg_off =3D FIELD_GET(FBNIC_RCD_AL_BUFF_OFF_MASK, rcd);
+> -	struct page *page =3D fbnic_page_pool_get_head(qt, hdr_pg_idx);
+>  	unsigned int len =3D FIELD_GET(FBNIC_RCD_AL_BUFF_LEN_MASK, rcd);
+>  	unsigned int frame_sz, hdr_pg_start, hdr_pg_end, headroom;
+>  	unsigned char *hdr_start;
+> +	struct page *page;
+> =20
+>  	/* data_hard_start should always be NULL when this is called */
+>  	WARN_ON_ONCE(pkt->buff.data_hard_start);
+> =20
+> +	/* A buffer ID the device never got from us cannot name a buffer we
+> +	 * own, so drop the packet instead of running off the end of rx_buf[].
+> +	 */
+> +	if (unlikely(hdr_pg_idx > qt->sub0.size_mask)) {
+> +		pkt->add_frag_failed =3D true;
+> +		return;
+> +	}
+> +
+> +	page =3D fbnic_page_pool_get_head(qt, hdr_pg_idx);
+> +
+>  	/* Short-cut the end calculation if we know page is fully consumed */
+>  	hdr_pg_end =3D FIELD_GET(FBNIC_RCD_AL_PAGE_FIN, rcd) ?
+>  		     FBNIC_BD_FRAG_SIZE : fbnic_hdr_pg_end(hdr_pg_off, len);
+> @@ -1026,10 +1036,23 @@ static void fbnic_add_rx_frag(struct fbnic_napi_v=
+ector *nv, u64 rcd,
+>  	unsigned int pg_idx =3D FIELD_GET(FBNIC_RCD_AL_BUFF_PAGE_MASK, rcd);
+>  	unsigned int pg_off =3D FIELD_GET(FBNIC_RCD_AL_BUFF_OFF_MASK, rcd);
+>  	unsigned int len =3D FIELD_GET(FBNIC_RCD_AL_BUFF_LEN_MASK, rcd);
+> -	netmem_ref netmem =3D fbnic_page_pool_get_data(qt, pg_idx);
+>  	unsigned int truesize;
+> +	netmem_ref netmem;
+>  	bool added;
+> =20
+> +	/* The header completion was rejected, so buff was never initialized
+> +	 * and add_frag_failed is already set.  There is nothing to add to.
+> +	 */
+> +	if (unlikely(!pkt->buff.data_hard_start))
+> +		return;
+> +
+> +	if (unlikely(pg_idx > qt->sub1.size_mask)) {
+> +		pkt->add_frag_failed =3D true;
+> +		return;
+> +	}
+> +
+> +	netmem =3D fbnic_page_pool_get_data(qt, pg_idx);
+> +
+>  	truesize =3D FIELD_GET(FBNIC_RCD_AL_PAGE_FIN, rcd) ?
+>  		   FBNIC_BD_FRAG_SIZE - pg_off : ALIGN(len, 128);
+> =20
 
