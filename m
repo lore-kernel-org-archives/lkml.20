@@ -1,125 +1,157 @@
-Received: from mail-oi2-f9.google.com (mail-oi2-f9.google.com [74.125.231.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19C7E477E2E
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 11:45:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 424714D8D8F;
+	Fri,  9 Oct 2026 11:45:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791546321; cv=none; b=LZfOYp+xZ0cnaSTvBdKadVfHnH1JvoYgi7nBrx5clE3BB+qKyCh9gw6NQh99Qi5sIc6bU88Na2+w4CYbInPDU5VWtqY/fNkBQTY8gK75Xh1SbqTBdLk/YXnlBHt/2FJdFBqJOg2WYtXOTlyLXV9PAnYDuTGqCET1uV0iEZXjLFk=
+	t=1791546330; cv=none; b=j8171LCX1tVShVfHdrZwdjIWUPoDpi0vFMsCFhmKrr4rrpybfMFIIW6c/X1ePc+/k2LBW13u2n+4HhxIPMJ2TpsbiTYsvE7OAvPlnJG6dl8UCENedKya4wxsCyKbcncJjgVPyWwY4NKWKHGi9JWLwVCqswNrO7v+g01rTIeoYmw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791546321; c=relaxed/simple;
-	bh=E1XMyad7VnkVzB7/p/Kp/l/hcMQbzp3Rdwh357Rvu5A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ESqg7HH/z+tY28UGxjC2q+sV87qphhQm+0zOU9q1smAnFui0htMH7YsRQlCFYkXtm+VQRVAQwyFpBAbSLP9lllghteIpwSOtKUx8T+/VJzM7dt49HYf/hOrK6IENkhYOu1nLyMc1CaR0aknKy0qv8/IuihV+Wyl4melMXTOanDc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dzEDyHU2; arc=none smtp.client-ip=74.125.231.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791546330; c=relaxed/simple;
+	bh=sIzdR0t9y2qlqVpEweAz4cnHZdRw3nzerekhqmlZbB0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=EuU3pOymKcAAL7muYGttUQxJgKM64YoeoxFJ3xV83UiSzEwQAYQ/6P2zdVcZBJGtpI5/0/VYS+ZgLTF6tD0hwcC0eCRNeS5yijCQidXvnuKibNs8a4OYhbTZEVJ3/MJ/KSO87BuLfcZa7AtKCjtlNgjSBUYH70vUb76uv7dQ/TY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=s4+a30qz; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dzEDyHU2"
-Received: by mail-oi2-f9.google.com with SMTP id 5614622812f47-4f2a0576df3so480204b6e.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 04:45:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791546313; x=1792151113; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aQv3jnCfnGYGyZdLu9hITrZVCdW0zrEfT+n6BY05h+8=;
-        b=dzEDyHU2wxFXFDt6Me4PEeRfJQtoK8Ay4yAywJ+GG3mHldb40IqHL9e9Xeqci+WqOZ
-         9OrSo3kvRB5s290L6damegaOlBHav0N2mBxyCJD9W7F7kxE1IrlebyAYkdGEfdT3ahUD
-         dhXTvsJg6PJY7INY+mi9QVxXPYrUKiRRQD0887OcU9Kwx3/QTKYEwRpCeuDlK/RovHd2
-         M2N4/KQvyIEDTCsjA7hdpejlcH3kGS2zqbli5IokLOI7bPNl4NaDV6QI5apjTH3jgC1a
-         v5Htt7iRmyE7+1C0gA+fgrGw/Qo0LXamSlDCZOHgqavnmwNFoyPWVMdM7diisDRSHv0x
-         18kA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791546313; x=1792151113;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aQv3jnCfnGYGyZdLu9hITrZVCdW0zrEfT+n6BY05h+8=;
-        b=1l0fB2lFIcHWkvxsRfxVPM0d7QvgdfJE3ccGvn5NDC+zXm9PqxXT3tzkLr3kcsNdSr
-         OViWtSEgD3LGOLBvLRfvAeAeRk00semaT1Ogp8IIyNugYLbQCTtWkuUwuAHMLGJEQIar
-         /eLQD1ZRvhhh9grD7ZAkiAR7k+9a1k8j6bEpKZ+fEW9n5XwAXsGP5oMOxsWUfCqtDaFt
-         y6rDqNpuPkcEuDz6XbYATDN54FSEGh7YkrGvGLKvqIm5km0EmnqjfK6TpXtSu8Lq0jRK
-         TPn3JPJIN3iWXB/IAYmNi7EKqr5Cg4XRQnta0D4mv/IzHTht+QZbnhLMZw1iQXKv+xRn
-         Wlkw==
-X-Forwarded-Encrypted: i=1; AKwUvBwYg5gevRtXuHRFJCfjyuRb0zngvflrcTGNEjnqu2xBZQZntYdBUbFSd27hOB4Z4Lmwi/8GWkdXQtwnWo4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mDF29taWyNq1hFyylGVS0nhWP6Xr2viOWo+dsTF/W8CdUkIDA5
-	LIDtBnscjUeDJ4Mk6ZVkfVq3WuiemXYZLXGZF6z/gAVyHt3kvufMlO54
-X-Gm-Gg: AYBFou2Dgvy9jYYpJcug85e0OiD8p59QXhF7ZzptNKNKHGTKGCy9sWBu3dzaDyDbVlm
-	9odTKZRKPUIpIzrci7YoshzC2U7MMYeTZ8OfyEyzRuuL9YqSD42iw+E3yZYE7TJXwTSziTLcVK6
-	470I6uQNN9QW7p5RcJSj05cDSbJjxvOMHhtQkKa6AdctirfyDjPnLNUVTobgSwFDBo6U86t43Sw
-	UZHj8w51JmijrzD/Af7us7Gj6cNFWNOlqUB9+driROmDs+btE2h/lZULcXlkMIS1IgwKBy/EvIs
-	KMJ+yGo/FDzKaty9wi0k/gQJI0t3T27j8yipmkAUjBSRgBpsv5bgvSzFVctBT8gcFXj+CmF+wD2
-	s4BZEaOxlr856vuFmatr/uu8+wLBJK50A8Xd+7LY2pTI3HXrr8W2WR9LY1rhJENo0xF0JWwbFYw
-	rNMToNm2YjRTDTitqccjAgfw4Y1mzE4E9fXeUt7m41sqm+WQPxt3EFckntRZELA5uwkERxh3zRX
-	IVsMpdpjL8FMD9gVhVbyd24S+X/e5J35PSI
-X-Received: by 2002:a05:6808:1907:b0:4c3:cec9:fd18 with SMTP id 5614622812f47-50c4e681ad4mr1048459b6e.11.1791546312802;
-        Fri, 09 Oct 2026 04:45:12 -0700 (PDT)
-Received: from localhost.localdomain ([14.22.11.165])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-50c1a325a38sm1682405b6e.12.2026.10.09.04.45.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 04:45:11 -0700 (PDT)
-From: Henry Martin <bsdhenrymartin@gmail.com>
-To: "Darrick J . Wong" <djwong@kernel.org>,
-	Carlos Maiolino <cem@kernel.org>
-Cc: linux-xfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Henry Martin <bsdhenrymartin@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] xfs: fix out-of-bounds cursor access from rtrmap level off-by-one
-Date: Fri,  9 Oct 2026 19:45:03 +0800
-Message-ID: <20261009114503.3669142-1-bsdhenrymartin@gmail.com>
-X-Mailer: git-send-email 2.43.7
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="s4+a30qz"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id ADFEDC2BCF5;
+	Fri,  9 Oct 2026 11:45:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791546329;
+	bh=sIzdR0t9y2qlqVpEweAz4cnHZdRw3nzerekhqmlZbB0=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=s4+a30qzqYI34uigxBZtDtmK4mUtbsG6L340rgPDBAJEGiFALeBrZaN1UJF2WuOA3
+	 rosYBH9uHbfL33W1DW8KOjjIXKdx+6g9xLfz2TaT8YoEvLfsiqC9Cfh8S6KqjAKiGo
+	 FfdcW6VOncXlUfX8QNz6bD0KyxVsSATvCBhuy4UGSqTnHhpZYmr/DIbw0lQbusiSjv
+	 v17IgOnsA5oi+gRWImBnscw6sH8xebhvf7J/vScCh8jjK390Td5c5JZk37IC/cBv3N
+	 VzYpB7TPNslgrrCvWjf2dqON5dxjHbStyXyr5JefW3qsvGfgAlOIMnQ20Uin/mDlxs
+	 Z0gDO3iqJCs5w==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9A32CCA601E;
+	Fri,  9 Oct 2026 11:45:29 +0000 (UTC)
+From: Dimitri Wegner via B4 Relay <devnull+d.zerovolt.org@kernel.org>
+Date: Fri, 09 Oct 2026 13:44:53 +0200
+Subject: [PATCH] ALSA: usb-audio: Add feedback snap quirk for Mayflower ARC
+ AMP
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261009-mayflower-fb-v1-1-a84e82e05ac9@zerovolt.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDAwNL3dzEyrSc/PLUIt20JN1EU0tj48RUS8NUC2MloJaCotS0zAqwcdG
+ xtbUAm7JbC14AAAA=
+X-Change-ID: 20261009-mayflower-fb-a5933ae91e83
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Dimitri Wegner <d@zerovolt.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791546328; l=3572;
+ i=d@zerovolt.org; s=20261009; h=from:subject:message-id;
+ bh=CXyZ3NBP8s2rl6b2wgACCQszHWo9Z1js6VRgKjg/Rak=;
+ b=AERUawIR4ry5e2wJ0eQNl58+jXIqDwcHd6XiY56WtLxqTSvCv2Roab1Dqv+0jgWcivEUrMlMq
+ wMk07YKjcPnCk+n8y97AP5qn/yF96oGX18VHgaeaSRRSQ7uvFE/NxhU
+X-Developer-Key: i=d@zerovolt.org; a=ed25519;
+ pk=LvZetug4Pi01dwobr2q7O7RRa6xhnjAzWYqm6yuQZDI=
+X-Endpoint-Received: by B4 Relay for d@zerovolt.org/20261009 with
+ auth_id=1141
+X-Original-From: Dimitri Wegner <d@zerovolt.org>
+Reply-To: d@zerovolt.org
 
-m_rtrmap_maxlevels includes the inode root level, so a valid on-disk
-bb_level is strictly less than m_rtrmap_maxlevels.  Both
-xfs_rtrmapbt_verify() and xfs_iformat_rtrmap() compare with ">"
-instead of ">=", letting a forged block with level == maxlevels pass
-validation.  The cursor is then sized for maxlevels entries while
-bc_nlevels is set to level + 1, so the generic btree code indexes one
-element past bc_levels[] - an out-of-bounds read/write on the cursor
-allocation.
+From: Dimitri Wegner <d@zerovolt.org>
 
-xfs_rtrmapbt_mem_verify() in the same file (from commit
-4a61f12eb1195 "xfs: create a shadow rmap btree during realtime rmap
-repair") already uses ">=".
+The Mayflower ARC AMP DAC (USB ID 0493:4170, MAG Technology front-end)
+at times gets stuck reporting feedback of nominal+1 sample/frame (97
+instead of 96 at 96 kHz) and does not recover. The driver follows this
+feedback, and audible pops occur every 1-2s until the stream is
+restarted.
 
-This vulnerability was discovered by Tencent CodeBuddy Security.
+Add a quirk for this device that ignores feedback values more than
+1/128 (~0.8%) away from nominal and uses the nominal rate instead.
+Normal feedback corrections are far smaller than that and pass
+through unchanged. Other devices are not affected.
 
-Cc: stable@vger.kernel.org
-Fixes: fc6856c6ff086 ("xfs: introduce realtime rmap btree ondisk definitions")
-Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+Signed-off-by: Dimitri Wegner <d@zerovolt.org>
 ---
- fs/xfs/libxfs/xfs_rtrmap_btree.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Tested on this DAC at 96 kHz for ~10 weeks on kernels 7.1 and 7.2.
+The pops no longer occur. The quirk triggered ~680 times over that
+period, always with feedback 0x61.0000 against nominal 0x60.0000.
+---
+ sound/usb/card.h     |  1 +
+ sound/usb/endpoint.c | 16 ++++++++++++++++
+ sound/usb/quirks.c   | 10 ++++++++++
+ 3 files changed, 27 insertions(+)
 
-diff --git a/fs/xfs/libxfs/xfs_rtrmap_btree.c b/fs/xfs/libxfs/xfs_rtrmap_btree.c
-index a15e460a1ec7..6833c924a383 100644
---- a/fs/xfs/libxfs/xfs_rtrmap_btree.c
-+++ b/fs/xfs/libxfs/xfs_rtrmap_btree.c
-@@ -256,7 +256,7 @@ xfs_rtrmapbt_verify(
- 	if (fa)
- 		return fa;
- 	level = be16_to_cpu(block->bb_level);
--	if (level > mp->m_rtrmap_maxlevels)
-+	if (level >= mp->m_rtrmap_maxlevels)
- 		return __this_address;
+diff --git a/sound/usb/card.h b/sound/usb/card.h
+index 8299ac241c60..f956bcf00f77 100644
+--- a/sound/usb/card.h
++++ b/sound/usb/card.h
+@@ -123,6 +123,7 @@ struct snd_usb_endpoint {
+ 	unsigned int syncmaxsize;	/* sync endpoint packet size */
+ 	unsigned int fill_max:1;	/* fill max packet size always */
+ 	unsigned int tenor_fb_quirk:1;	/* corrupted feedback data */
++	unsigned int snap_fb_quirk:1;	/* ignore implausible feedback */
+ 	unsigned int datainterval;      /* log_2 of data packet interval */
+ 	unsigned int syncinterval;	/* P for adaptive mode, 0 otherwise */
+ 	unsigned char silence_value;
+diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
+index 879d0451536e..9c844c55ad3f 100644
+--- a/sound/usb/endpoint.c
++++ b/sound/usb/endpoint.c
+@@ -1908,6 +1908,22 @@ static void snd_usb_handle_sync_urb(struct snd_usb_endpoint *ep,
+ 	else
+ 		f >>= -ep->freqshift;
+ 
++	if (unlikely(sender->snap_fb_quirk) &&
++	    (f < ep->freqn - ep->freqn / 128 ||
++	     f > ep->freqn + ep->freqn / 128)) {
++		/*
++		 * Feedback deviates from nominal far beyond what real
++		 * clock differences can explain.  This firmware can get
++		 * stuck at nominal+1 sample per frame, causing audible
++		 * pops.  Trust the nominal rate instead.
++		 */
++		dev_warn_ratelimited(&ep->chip->dev->dev,
++				     "EP 0x%x: ignoring implausible feedback 0x%x.%04x (nominal 0x%x.%04x)\n",
++				     ep->ep_num, f >> 16, f & 0xffff,
++				     ep->freqn >> 16, ep->freqn & 0xffff);
++		f = ep->freqn;
++	}
++
+ 	if (likely(f >= ep->freqn - ep->freqn / 8 && f <= ep->freqmax)) {
+ 		/*
+ 		 * If the frequency looks valid, set it.
+diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
+index 170f68db74fa..fc377b7306f2 100644
+--- a/sound/usb/quirks.c
++++ b/sound/usb/quirks.c
+@@ -2198,6 +2198,16 @@ void snd_usb_endpoint_start_quirk(struct snd_usb_endpoint *ep)
+ 	     ep->chip->usb_id == USB_ID(0x1852, 0x5034)) && /* T+A Dac8 */
+ 	    ep->syncmaxsize == 4)
+ 		ep->tenor_fb_quirk = 1;
++
++	/*
++	 * Mayflower ARC AMP DAC (MAG Technology USB front-end): the
++	 * feedback can get stuck at nominal+1 sample per frame, causing
++	 * pops every 1-2 sec until stream restart.  Snap implausible
++	 * feedback to nominal.
++	 */
++	if (ep->chip->usb_id == USB_ID(0x0493, 0x4170) &&
++	    ep->type == SND_USB_ENDPOINT_TYPE_SYNC)
++		ep->snap_fb_quirk = 1;
+ }
+ 
+ /* quirk applied after snd_usb_ctl_msg(); not applied during boot quirks */
 
- 	return xfs_btree_fsblock_verify(bp, mp->m_rtrmap_mxr[level != 0]);
-@@ -888,7 +888,7 @@ xfs_iformat_rtrmap(
- 	numrecs = be16_to_cpu(dfp->bb_numrecs);
- 	level = be16_to_cpu(dfp->bb_level);
+---
+base-commit: f5e1a9a3fddab8421416b68bb132ae9626d07156
+change-id: 20261009-mayflower-fb-a5933ae91e83
 
--	if (level > mp->m_rtrmap_maxlevels ||
-+	if (level >= mp->m_rtrmap_maxlevels ||
- 	    xfs_rtrmap_droot_space_calc(level, numrecs) > dsize) {
- 		xfs_inode_mark_sick(ip, XFS_SICK_INO_CORE);
- 		return -EFSCORRUPTED;
---
-2.43.7
+Best regards,
+-- 
+Dimitri Wegner <d@zerovolt.org>
+
 
