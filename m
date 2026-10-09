@@ -1,286 +1,422 @@
-Received: from mx0b-00128a01.pphosted.com (mx0b-00128a01.pphosted.com [148.163.139.77])
+Received: from sender5-op-o15.zoho.com (sender5-op-o15.zoho.com [165.173.182.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F4183939BD;
-	Fri,  9 Oct 2026 15:54:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.139.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 654D339BFEC;
+	Fri,  9 Oct 2026 15:54:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.15
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791561250; cv=fail; b=r7mR0OuE04X7IqmwG5nZ+fV3QoRo8t8/3bLJW0TBjQvurw3aEzy1XOwYeTFg9NRG51mFwGq5Z7Yptf8Qh7VAh/e4cbajr09hspXHHRbtdZuHMv0njw2jt1QeDNuav36AjOXkN4pGjJxUlHtkKrEVLK+SsolPxRKRTf1g6VmhPI8=
+	t=1791561253; cv=pass; b=lmCWTI74Luuo9sTl6yNzzj5An6kOOlo8XqhgwuLVhYNy8TBCELOM6nmTHrWy/7tQEpbLC6qMpXSt6LuMPJXaUCejk0omiGbI2CZMErKy+7+7RhTOr5jYJv7pxOLI2tOSmofgnLRUCyny08jRf2i/eLgxrwRQJDM+XOB50wiQdCo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791561250; c=relaxed/simple;
-	bh=7ycJ6r2G3VIIbbrxEMM+PagZXwqXqVpqj0M6WltyCPA=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=f/OTXxqa6auV+0zsmqa1U3oQtCLVoQZuAcfe+dgLaBfXpBk8ehdxwQ3aWyKgkreD2LPrY7tCoUTSsm6LdIIWE87QQzCREu7kVIh+FEl5Hoj5t6AA2/ZXBCSISQq4TBmkEgHUexZ1Jmhw9yeaMaEmONQztWvey2pm8tH7fbIXHlc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=vtelectron.com header.i=@vtelectron.com header.b=Hz1t6023; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=GMUmQ4+/; arc=fail smtp.client-ip=148.163.139.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	s=arc-20240116; t=1791561253; c=relaxed/simple;
+	bh=AHidVi2xY6vV/upUBfoiEnQg1nkDDrj27MAGYuHxyg0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=B4i3jfRQOolqBNlMJL8CHOSYLBchkFA5/aNNUnxw7+fDVGpomFu+cu31dVA+DnmunEZKkZ/Ba/kRKY09+aH0lpSBO3Dw2pCDMTLBR5P7l6R1I1V5yC/HuIOLUjxrDzBDROIF9cFMHRl/WMAZJkTW56jetNj9l4ounqJVV6iju8w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech; spf=pass smtp.mailfrom=pigmoral.tech; dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b=ct3uYDng; arc=pass smtp.client-ip=165.173.182.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=vtelectron.com header.i=@vtelectron.com header.b="Hz1t6023";
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="GMUmQ4+/"
-Received: from pps.filterd (m0167090.ppops.net [127.0.0.1])
-	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 699DfUwc2367337;
-	Fri, 9 Oct 2026 11:52:36 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
-	 h=cc:content-transfer-encoding:content-type:date:from
-	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	DKIM; bh=CNtHXeK+vfPA0BneMXmCQokk2yIfZCjhj9G3jLByZuA=; b=Hz1t602
-	3oLRfw5nBFPAqBGjfugQL23Hu9T7lgSba6zcGABjwwHuV6Hk90ByK4/dQmguoIcM
-	l+RP4gEtvr6Lbk3V1zDXmV1NwVepgp9D3z7WazrGd9A57LWeeDdLzKxzgvv2H+oh
-	entxci+H55k6u/qDLMgIpfy+AGacY3oBb40aEjIGXmaDm+fi8noA1XZS+8lcY4UU
-	QsjQfiBdrHDaLXaKSblOHBKgPNfNbwgrOBb7g+sghq0g+omWhoMyjsADKcPRZ4Dn
-	YICUl0jCufZyxw++jwZBb/Hd0yFNCu3Mj3xYZyzGxMQUboTply+YHcBlBpzOPQ7P
-	gwhBzCilk7aptNg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=CNtHX
-	eK+vfPA0BneMXmCQokk2yIfZCjhj9G3jLByZuA=; b=GMUmQ4+/Scnv0iFvBHzjJ
-	QmdouhM0YQNuXwI5ycRUp45PdBg7rFiy1/4HN4X9lm5rrxMwi0cSN2I0fklh4rFb
-	eR3szctfhjr5YdO0wpo5x22H1zIgW6yCThWFpEHHCbgtUHjueLVZaqnWKKRqO7hn
-	zowLfWyzE33nwAx2ky3bYF+HGI1j9CBv4ixkH4JFR5CWDLN0BMvWf9n99QFPvLa3
-	+8X0znDaws+B1fW4lr089S4BGBj5lqF9+603gpjjly0GAXO7NucxdbHOPvT9wUm+
-	8urwCcALwtzW3yihbTmL/cKBZdCZyv1Pq1sgkARkM6bG0YuceyRQf1LD87Q6IHNy
-	A==
-Received: from ph8pr06cu001.outbound.protection.outlook.com (mail-westus3azon11012011.outbound.protection.outlook.com [40.107.209.11])
-	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4h71chrp2a-4
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 09 Oct 2026 11:52:36 -0400 (EDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FNhL/CPkuksXryD7jTqRC4DDE/80QjcSzI1Jkf/4D/tWeUkkKHDzz/Qj31EQXlBFe2NfvUU0fADAuiJjng5gvYW5Ozy6+j4DTnTYfMHLtVgU/iGq/Dxzintg2y9VwyjkXSzpKF7mOKaRP98S5IMih3mF+VSDi1uupjgq6T6oscZKKi9DRapv7PHWwVo8oiFhiJY0iwcyYiCuiHOGwktES5dCAD27/bYUrlm0TQdjVj9BHJDYAa3GexbMugt8Pi5mfL0FQE8LrfNxwjWMuGwCFi2236niHIeYf/4IjuP0TzgvOAQXfKL4IhxeLQbLiYgQXKCr/iQ7TUgzsb91RsjvBw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CNtHXeK+vfPA0BneMXmCQokk2yIfZCjhj9G3jLByZuA=;
- b=fr01UGC283AUeYp+WCXSz1bYG4WIoZa3eJ+maFOyiPanixCOqFfZTPBz2k5VsjS/EDRR41fYZcomepCoWRj++RLI3F3l/+Oq3DEmRdoug9O82kW0B18wmaaSTpFW2k6p18lErV9E6yFMdbc2fSqo3baCh4KRDTL+W8lMidZG3yo1MRcz5EMOEEkWS2KyNAHXR3fNhMYNTac0mHe8de/u1NJ+iyQlCdnaODgOAuNHoDeQtMWBrds1IHIe05yI696uarWj8Ktd3GjIWdRIeMyFaOQugs1MK2Syy7VLN5olZa02k8RrLJhzgvkyMbdt+k1h8LNWckrMujh38GSABygUJQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=analog.com; dmarc=pass action=none header.from=analog.com;
- dkim=pass header.d=analog.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=analog.com;
-Received: from SJ0PR03MB5469.namprd03.prod.outlook.com (2603:10b6:a03:28a::17)
- by DM6PR03MB5051.namprd03.prod.outlook.com (2603:10b6:5:1ea::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
- 2026 15:52:01 +0000
-Received: from SJ0PR03MB5469.namprd03.prod.outlook.com
- ([fe80::2a19:76b2:e731:8c5a]) by SJ0PR03MB5469.namprd03.prod.outlook.com
- ([fe80::2a19:76b2:e731:8c5a%6]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
- 15:52:01 +0000
-From: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>
-Date: Fri, 09 Oct 2026 16:52:59 +0100
-Subject: [PATCH v5 7/9] ALSA: pcm_dmaengine: Use dma_slave_caps bus width
- helpers
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261009-dmaengine-support-wider-dma-masks-v5-7-4c4e63a7a1af@analog.com>
-References: <20261009-dmaengine-support-wider-dma-masks-v5-0-4c4e63a7a1af@analog.com>
-In-Reply-To: <20261009-dmaengine-support-wider-dma-masks-v5-0-4c4e63a7a1af@analog.com>
-To: linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org,
-        linux-stm32@st-md-mailman.stormreply.com,
-        linux-arm-kernel@lists.infradead.org, linux-iio@vger.kernel.org,
-        linux-sound@vger.kernel.org, linux-spi@vger.kernel.org
-Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-        Lars-Peter Clausen <lars@metafoo.de>,
-        Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
-        =?utf-8?q?Am=C3=A9lie_Delaunay?= <amelie.delaunay@foss.st.com>,
-        Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-        Alexandre Torgue <alexandre.torgue@foss.st.com>,
-        Jonathan Cameron <jic23@kernel.org>,
-        David Lechner <dlechner@baylibre.com>,
-        Andy Shevchenko <andy@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
-        Frank Li <Frank.Li@nxp.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791561175; l=2723;
- i=nuno.sa@analog.com; s=20231116; h=from:subject:message-id;
- bh=7ycJ6r2G3VIIbbrxEMM+PagZXwqXqVpqj0M6WltyCPA=;
- b=lmXZ4h8Ssm16EvggBGuWIvD77ATKDV1dyjg0wqcetrDxRpiGfd15PVGvX/IkbYRYVs62MyUJ7
- sS1c0xIcod/D+0Skzj5Uc3SoEUBnJDLtP4K4uEihOJtZHSKRj+cXzYK
-X-Developer-Key: i=nuno.sa@analog.com; a=ed25519;
- pk=3NQwYA013OUYZsmDFBf8rmyyr5iQlxV/9H4/Df83o1E=
-X-ClientProxiedBy: MA3P292CA0010.ESPP292.PROD.OUTLOOK.COM
- (2603:10a6:250:2c::12) To SJ0PR03MB5469.namprd03.prod.outlook.com
- (2603:10b6:a03:28a::17)
+	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b="ct3uYDng"
+ARC-Seal: i=1; a=rsa-sha256; t=1791561214; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=AOTFhAJ+w5zvz1W1/zh/RiarVy3LRWP7gUwGhY9pBnGn2owtch6DFSkvZBdrJdHdzv5uAjrPeIA0S3p2EetIMq4Cro6Mw2f1OsXYshZu4PsR4qWMh/NAA4ZCGOVGM30FGCExnkUOFY6VvQLkcfedOx+u3tpshcatzKlt+DQebls=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1791561214; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=FKMfoMRxXcyUT/XRcsjJP2U2hfYfBLzVjmtCZOmHZg0=; 
+	b=KezygIpXDYwsAjV9NKrahreg49VSEEww2RC3pjgXINq5ZCKPreQe8yLLqoqQ0XQR6xfIFtkDJZgC897SPmdOFutF1mERQ4oOm7ymgQvG8i+B9rD3VxHLHro8Q8GYVmbLg+85GEXhYoqWsE3zbOGNg512pf/p+qQIUm13aiz2ynU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=pigmoral.tech;
+	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
+	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791561214;
+	s=zmail; d=pigmoral.tech; i=junhui.liu@pigmoral.tech;
+	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
+	bh=FKMfoMRxXcyUT/XRcsjJP2U2hfYfBLzVjmtCZOmHZg0=;
+	b=ct3uYDngO3E8ya0t5VWI/VvNa6MxAG8FuWX16oqy6glXm0zaVK8VQhfbXPGdp863
+	bM64U0N2zmVkwlQGALp7ScTuQxZoU8eWpm81uSnsvsDX4iL8AscGQmjOZROi4U17+Hd
+	sjWi1dDGzeXFdJy53lGDxjMr0ljuW76nTNbvUXTs=
+Received: by smtp.zohomail.com with SMTPS id 1791561212401749.6332922678557;
+	Fri, 9 Oct 2026 08:53:32 -0700 (PDT)
+From: Junhui Liu <junhui.liu@pigmoral.tech>
+Date: Fri, 09 Oct 2026 23:52:08 +0800
+Subject: [PATCH v6 3/8] clk: sunxi-ng: a733: Add PRCM CCU
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB5469:EE_|DM6PR03MB5051:EE_
-X-MS-Office365-Filtering-Correlation-Id: ed1c4819-2b0d-4501-37c4-08df261d4207
-X-LD-Processed: eaa689b4-8f87-40e0-9c6f-7228de4d754a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|366016|6133799003|18002099003|22082099003|10067099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
- Y+Bpkjuj29nEQuCtguUY9xKWsRK0KQsJWYQvAr9fO1b+Lf2Jbe2pLy5wJRgDH0cAbJQ41qdq5Km0xS0pKnbWEgZphm+6JMHN0swSyX2pFap39MTuoWNmzsZwS/nUAXZC70PkbMXOk9NW0/JQA4j/AJCVmzbfi1TW96JnJkZzLd1LJIBttYUtgPyuq1phBimhB1aL32wlwZoaejnQEUtoqRprJ01VVjoYlBNUiviG2rw6/MWosKJihngQkpXZVYAg7JUXzz/sz1cNgr9DHDlZVjTAXhZgInqCtwzEmkp+EbBS2cbSDEn/YR/3itW+Nr39Pe0ZWwRit8/YAAW+9zE3GrrSceDG9Tq4DuF6ozaeAsnIl4r68YFZc7AWgcUTd+dxfAB7A8Y7ayJz3K2+89Dmm7qE9dLZn/g05wr7oLBoYfKkN6/F3bbXrAu1McMAL2P962+VyCP+QhLsvNAjvcknA/WUqprjGJNQru914nMtN86EokoCFhrjjtx2cNfUejMtGpvPDRmXWKqpeHDi9s1teUPe7aohxIBehANyzZifRuGQzGiZLoZMg0tfk/XSusQuG4n5YTxFvEStp/x8oSIDJrSWnnoYjBlQkWmJ6IXbtkU+3ln7y9dpCipciUAErgDmmzsT6JAfjTO6khbiSva3lkFFGIfDO5HfY/jyLu6ki9I=
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB5469.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(6133799003)(18002099003)(22082099003)(10067099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?utf-8?B?aVRxWEJkVjkxc3lUTnNzVXFwKzdOWXZ1Y0xIOGYyNCtRaDc0SDdyM2NLQkQ3?=
- =?utf-8?B?aG45d3dHUlc1ODdPTGs5K2xkT0VRK0hSb3AzWXllWkpFZkRiZlhqL0c0VU5G?=
- =?utf-8?B?S0NVQ2gwSlpEUExkNk5ZaFU1bXlIUmNrSjh4Y3diUlRTRFhVTkttYnZHVjdk?=
- =?utf-8?B?RDhsYkNuM0FxTS94L1dWdGR6N3Q0OXFEWjNhYnlUUkViRTFjUGRyT2JQbmx1?=
- =?utf-8?B?dHZjNVRETk1RMGt1L2ZYVlVFTXlkaXI2ZnBJYnNjSm5pNnBuN0hIK1pKNFYz?=
- =?utf-8?B?SzIwQ3BHTkV3eU9oSjh1MEVvbTNqOUppSG9sV1BYckI1cHc5R0p1bzkyVXdq?=
- =?utf-8?B?TW9hM3lnVWtqbWV2NmRXVnpyV1V1aThLSjArN1I4OGRiQkhFQmx1eStocDY1?=
- =?utf-8?B?TVdERzNkQjl2ZktMN3VwbFFSaVhiNUZaWUxHRE56aUNMd2ZHRjRPTHpmOWZJ?=
- =?utf-8?B?Vjl1a1JUUVA2ejRHNUpGak9Sb3lDUERMY2JaS3VqRUV0NWQrMXk0bGZRT09H?=
- =?utf-8?B?Smd6a3huSU8zaWY0QnViY1p6NjB1VnpSMkZHcUhzaEtHbDRlOU16U0piY0w1?=
- =?utf-8?B?SWRKaGRHcTFPZGNFZkx5cndYU1ZCeExOSVBYMUZkdE1yMGlNSGNJV2dWcFQv?=
- =?utf-8?B?LzVYRTZGRjc4aEJPTnhqZFlFbXpvMTNyamZQWmdkczFxN0hmd2FsL1FBVnZE?=
- =?utf-8?B?MzhJWVVmT3VTUjh3Z0NabmU3M24vVFVtd0pzcFNTTCtuY29WVi9NSC9za2Y0?=
- =?utf-8?B?NXRESWFhbmgya0VLWWJ5K2tzNHV5WEdJOWJCaU04bHdqM2J3YkZFcDUyUmVs?=
- =?utf-8?B?SlVCQ0NEL0twL2doTG1PcEprS1k1cEFncUJEYWVSbVcySFNURDhld3pXZHpq?=
- =?utf-8?B?c242ckwvUFdSYW81TzRucWhzY0xQV1lyT05wazVRclVVWGkvYjhoeWJFSXNU?=
- =?utf-8?B?QVdkeUlWNkhETk1IV3dHdFFFY1lUVVEzZzM2OXkvV1hEMzFHdlFWb0QxYlRs?=
- =?utf-8?B?bDQvbmxhVDV0RFpXcElJUGdmYWZBVldiOCtVb3ZsUmJMWEFiN2h0NnNvT2g1?=
- =?utf-8?B?YjJlTnF1MUtuV3BFOTVyQ3NuZ0ljTXlpUnhwYWx1SWF2eHBwYXJXVG52SHBI?=
- =?utf-8?B?UGx6TkVodC81bGtjZUdOU29velluMnJpRVdiaEdiR2I3VlJsNllFMHdUdDRQ?=
- =?utf-8?B?WDdRSGM5aXFxOHduNnZqTWVIRnd2YTBqeHJmcUJnOFN1eWtiZHVQNCtnZGtk?=
- =?utf-8?B?cTlSL0QwRlBzTVlZQ2RaL1ZGcldXTW14Z3M0NXByRnZuZmlsQXIrV1VjYjl5?=
- =?utf-8?B?a1ZISVMwVkxVNUh4Zm1wZzBicCtaRHlHNG1qdEdZZlpNTkNMRFBhWHdJdjl3?=
- =?utf-8?B?a2FaK1Z1Qm9UdzFxdnZxb0ZFS2h6NFVSQW9MdU96RnlqclBVYjFsVHhrVWJR?=
- =?utf-8?B?a1lScFZQOW5ET0lLa3ozUmVIYkgxQmhkcTlBdFhCa3dIR2FwTER4WmI4YkVt?=
- =?utf-8?B?d2FMWC8xQ3U5N2w5Skt2RklGS1kzbmxpeUZMSmNGZ0pDalhibEZBMGRSNXpE?=
- =?utf-8?B?UWlrKzhBWFE3UEd6Tk9xTzljR3RYVWJSUjFXcTVSaEI1VDBJVlJTVUEweERt?=
- =?utf-8?B?YXFLQ0lHN3VPY2pCbmUybHVpVlQvRUpQSTcvbDI5LzJhZlJMZEloVzJZb1JR?=
- =?utf-8?B?UWJ0UTNhbWdQRHlkWGZNWkJ2NkRqT3F3bSttTHZSTW0xQzB2cjR1bGl2MVpm?=
- =?utf-8?B?dkNRSUNOT0Fxak11U1F3NWw2bk5TZUVURGM0TXdiRldKdytOK3hUaVpZZVFX?=
- =?utf-8?B?VytCSDlvQlVNNjlMOEhwSzNyZFVvcUNoUmZuK2pjekRmT0FWZXpsYVV4QTVW?=
- =?utf-8?B?TzRXK1pOajFOY01uQlN2TDMvQWdtMzhXU1pVMjBycmZIcDk0Mys1MEVhOXBQ?=
- =?utf-8?B?RUlTdUxnNnBFTzhoRU5VQm5vWGd6amNqY21CdGhhMEtnUEUxZlRsdWZueGN6?=
- =?utf-8?B?eUE2bk5WbCt6NGI4MGVNUDh4SUQ3Q1VCbnRnOEVzOHVLTlppNGk4MW5QRnZs?=
- =?utf-8?B?TE5kM2RNUzY0czJWMlozRDJDa05QVXJqSlIxaEt0K25aWjlvVlV0NVR6TThh?=
- =?utf-8?B?Qkp6NC8wRXNrUFhKUWZIQ2NwcVZFa3M4OXFWTTJmWmJsVUhERFlOUGVXTnIx?=
- =?utf-8?B?UEtoYVdkRXBHT0lsRzhYSmFqOHRUcjdyQm41S2E5MHM3WlBxME9YdERPdXZ2?=
- =?utf-8?B?VGt2YnBkc1BSWU81cTJzS2FwajlUaEF5NUIzbGhKOVd0OE93YjdBZXBESlQ0?=
- =?utf-8?B?U2NtL1A5T1FCRHZVcTQ1WFpTRklXY0p6dEQyaVhJVkcwcTVlRG96UT09?=
-X-Exchange-RoutingPolicyChecked:
-	rhm6qS6nnZp9EvHcu7WizQPgb7XfOEASmEYzHYNGlP2DX/VaU5yxizULo0oW2X5QfpzSiMcLVY8bPl6NB1BIYboxUFMav2jXfaBzdllEgkw7qUwERp4G0U+fJUy+HtmrovS04S8a75VWI6kj6hJEeGiluwlRV9pxe6UVjJoDVMATJitcGa3Ia80TENW0l0/UKH0l0hRg7ISxEK93joDBkO//QM5hYs7hyTIcDPvAmL4nu3RHsHV+jQ7e0V5pKc115JHpeFHeMz0KnHZYbID9v9YfsD2KbK/J2SbF3TEWWuaw1oadA1+0Cf/n8ahIBWanVW67LTep/L9WAlX4XcWfJw==
-X-OriginatorOrg: analog.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ed1c4819-2b0d-4501-37c4-08df261d4207
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB5469.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 15:52:01.5553
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hsabiA+5tKWvK6HHhyWXvlqGxxLVZA74iZRx8vU7tvCE3Nn/7vOuKtnAXoiIuYfh7xINQfrSZpTmcVh3V/62lg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB5051
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDA2MyBTYWx0ZWRfX9UobPVkJBo2d
- O653PO9QEAlRnJ68J7f1O20HXRWtmrroCs0xUlywzo4Ylr3Ihcxd4warhzX1ZXX61CZar4T2mCb
- yOCXbA+ZYtEFuU+4Zwm0phFQO5X7vPWDxCq9zHLq41CTeIv+zfOT
-X-Proofpoint-GUID: QKOafewiPK-oU5SitADYYY0XS18zlCst
-X-Authority-Analysis: v=2.4 cv=cpgOAF4i c=1 sm=1 tr=0 ts=6ac90dc4 cx=c_pps
- a=q3M5bEXgJc9IxHNyMLvWsA==:117 a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19
- a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
- a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=M51BFTxLslgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22 a=_jAD5XSDOtq9-5Nde2OG:22
- a=8AirrxEcAAAA:8 a=gAnH3GRIAAAA:8 a=RbNyKOt0vjK77hBBhwsA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=ST-jHhOKWsTCqRlWije3:22
-X-Proofpoint-ORIG-GUID: QKOafewiPK-oU5SitADYYY0XS18zlCst
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDA2MyBTYWx0ZWRfXx+xfXZs2Wa7J
- TH6tzDips++onXCrKhkbqPnE2UqlsDr0gVtXQuPgDs3mfoHam5RutzIkRNxfnh70Mo6zENk7NzY
- wc4TOmq5UTjkoGxHhETWTmyiKQvA6yBf30mtRiWcvoz7RwuaYkkPveMwsyhiDswyQyirLU+dfkg
- 62OYukyo/wLQFxCa+46fIdwCIQeMKOZMJ3DG9DjLSH2vy36+9FevDwQJF7IqVV7p6tmV+G9dq8X
- 6PgA5wv8DXRm6Z1UOIRWe3LCj+a9OFjQO6MVN+gGpMOeQeTpcUWxrOVHjTwkwK1bq49Fvv8knzr
- 3TGBKRWHihsELsGyPJE1QG88bLZ+8zH9nee8cOhu45CA+HwZ5EjRH7oW/6p2xPOfA44HB5ytsrs
- ZvcEsMJ60lUk2wm0OTMWJj4Fo6ICj2Nsumci7qZRkrkAEsDbCxNb9SaeCwMgZ/yrUr1g8C8Yt+J
- nMBHdL+57Zl9gKIfbDg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-09_04,2026-10-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 impostorscore=0 bulkscore=0 adultscore=0
- malwarescore=0 lowpriorityscore=0 spamscore=0 clxscore=1015 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610090063
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261009-a733-clk-v6-3-ae8178fce7e8@pigmoral.tech>
+References: <20261009-a733-clk-v6-0-ae8178fce7e8@pigmoral.tech>
+In-Reply-To: <20261009-a733-clk-v6-0-ae8178fce7e8@pigmoral.tech>
+To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Junhui Liu <junhui.liu@pigmoral.tech>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Richard Cochran <richardcochran@gmail.com>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ netdev@vger.kernel.org, Jerome Brunet <jbrunet@baylibre.com>, 
+ Enzo Adriano <enzo.adriano.code@gmail.com>, 
+ Andre Przywara <andre.przywara@arm.com>, Norman Herms <dockseed@proton.me>, 
+ Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=12417;
+ i=junhui.liu@pigmoral.tech; h=from:subject:message-id;
+ bh=AHidVi2xY6vV/upUBfoiEnQg1nkDDrj27MAGYuHxyg0=;
+ b=owGbwMvMwCWWvDb1VEXc8j+Mp9WSGLJO8u772BL+nHn3kd7HZaYZK4/b7vgw/YekvJbk4YOT7
+ mqzfvDq6ShlYRDjYpAVU2Th8hf/Z63D8+2IQOt9mDmsTCBDGLg4BWAik5oZGW78WsYXtZd1WXTU
+ KtF4Nd3uVdEPz7uEzy9P1vzHx+ywsIqR4V6RvMiC4t/bd7PFZM2cz2p7O/JQLd/Tado1zZJnnwm
+ 8ZQMA
+X-Developer-Key: i=junhui.liu@pigmoral.tech; a=openpgp;
+ fpr=15B30CC69C4BF0CC3C08F85A2A90CDC122DF37BF
+X-ZohoMailClient: External
 
-Use the dma_slave_caps bus width helpers instead of reading the legacy
-src_addr_widths and dst_addr_widths masks directly.
+Add support for the Power Reset Clock Management (PRCM) module found in
+the Allwinner A733 SoC. This clock controller manages the clock control
+and reset functions for device modules within the CPUS domain.
 
-Keep the existing default assumption of 1, 2 and 4 byte widths when the
-DMA channel does not report slave capabilities.
+The PRCM module includes the management of three primary buses: r-ahb,
+r-apb0, and r-apb1. It also provides clocking for several key
+peripherals, such as R-UART, R-I2C, R-SPI, and the R-RISCV subsystem.
+Additionally, the reset lines for these modules are integrated.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Signed-off-by: Nuno Sá <nuno.sa@analog.com>
-
+Tested-by: Jerome Brunet <jbrunet@baylibre.com>
+Reviewed-by: Enzo Adriano <enzo.adriano.code@gmail.com>
+Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
 ---
+ drivers/clk/sunxi-ng/Kconfig             |   5 +
+ drivers/clk/sunxi-ng/Makefile            |   2 +
+ drivers/clk/sunxi-ng/ccu-sun60i-a733-r.c | 277 +++++++++++++++++++++++++++++++
+ 3 files changed, 284 insertions(+)
 
-Andy, I decided to not go with the implicit call to bitmap_zero() in
-_set() and _set_many(). The reason is that almost all the users are dma
-controllers where the bitmap is initialized (given it's part of the
-dma_device struct) so it seems unnecessary churn just to make one caller
-"happy". These APIs also follow bitmap (set_bit() included) semantics so
-it makes sense to me to leave as-is. Added a note on the kernel doc
-though.
-
-And it's easier to add the implicit call in the future (if it proves
-necessary). Removing it, not so easy...
----
- sound/core/pcm_dmaengine.c | 20 ++++++++++++++------
- 1 file changed, 14 insertions(+), 6 deletions(-)
-
-diff --git a/sound/core/pcm_dmaengine.c b/sound/core/pcm_dmaengine.c
-index 1306b04be171..f7a061f07e95 100644
---- a/sound/core/pcm_dmaengine.c
-+++ b/sound/core/pcm_dmaengine.c
-@@ -408,16 +408,24 @@ int snd_dmaengine_pcm_refine_runtime_hwparams(
- 	struct snd_pcm_hardware *hw,
- 	struct dma_chan *chan)
- {
-+	enum dma_slave_buswidth default_widths[] = {
-+		DMA_SLAVE_BUSWIDTH_1_BYTE,
-+		DMA_SLAVE_BUSWIDTH_2_BYTES,
-+		DMA_SLAVE_BUSWIDTH_4_BYTES,
-+	};
- 	struct dma_slave_caps dma_caps;
--	u32 addr_widths = BIT(DMA_SLAVE_BUSWIDTH_1_BYTE) |
--			  BIT(DMA_SLAVE_BUSWIDTH_2_BYTES) |
--			  BIT(DMA_SLAVE_BUSWIDTH_4_BYTES);
-+	dma_buswidth_mask_t bus_widths = {};
- 	snd_pcm_format_t i;
- 	int ret = 0;
+diff --git a/drivers/clk/sunxi-ng/Kconfig b/drivers/clk/sunxi-ng/Kconfig
+index 6af2d020e03e..202e793dc754 100644
+--- a/drivers/clk/sunxi-ng/Kconfig
++++ b/drivers/clk/sunxi-ng/Kconfig
+@@ -67,6 +67,11 @@ config SUN55I_A523_R_CCU
+ 	default ARCH_SUNXI
+ 	depends on ARM64 || COMPILE_TEST
  
- 	if (!hw || !chan || !dma_data)
- 		return -EINVAL;
- 
-+	ret = dma_bus_width_set_many(bus_widths, default_widths,
-+				     ARRAY_SIZE(default_widths));
-+	if (ret)
-+		return ret;
++config SUN60I_A733_R_CCU
++	tristate "Support for the Allwinner A733 PRCM CCU"
++	default ARCH_SUNXI
++	depends on ARM64 || COMPILE_TEST
 +
- 	ret = dma_get_slave_caps(chan, &dma_caps);
- 	if (ret == 0) {
- 		if (dma_caps.cmd_pause && dma_caps.cmd_resume)
-@@ -426,9 +434,9 @@ int snd_dmaengine_pcm_refine_runtime_hwparams(
- 			hw->info |= SNDRV_PCM_INFO_BATCH;
- 
- 		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
--			addr_widths = dma_caps.dst_addr_widths;
-+			dma_bus_width_copy(bus_widths, dma_caps.dst_bus_widths);
- 		else
--			addr_widths = dma_caps.src_addr_widths;
-+			dma_bus_width_copy(bus_widths, dma_caps.src_bus_widths);
- 	}
- 
- 	/*
-@@ -460,7 +468,7 @@ int snd_dmaengine_pcm_refine_runtime_hwparams(
- 			case 24:
- 			case 32:
- 			case 64:
--				if (addr_widths & (1 << (bits / 8)))
-+				if (dma_bus_width_test(bus_widths, bits / 8))
- 					hw->formats |= pcm_format_to_bits(i);
- 				break;
- 			default:
+ config SUN4I_A10_CCU
+ 	tristate "Support for the Allwinner A10/A20 CCU"
+ 	default ARCH_SUNXI
+diff --git a/drivers/clk/sunxi-ng/Makefile b/drivers/clk/sunxi-ng/Makefile
+index a1c4087d7241..d3702bdb7a23 100644
+--- a/drivers/clk/sunxi-ng/Makefile
++++ b/drivers/clk/sunxi-ng/Makefile
+@@ -36,6 +36,7 @@ obj-$(CONFIG_SUN50I_H616_CCU)	+= sun50i-h616-ccu.o
+ obj-$(CONFIG_SUN55I_A523_CCU)	+= sun55i-a523-ccu.o
+ obj-$(CONFIG_SUN55I_A523_MCU_CCU)	+= sun55i-a523-mcu-ccu.o
+ obj-$(CONFIG_SUN55I_A523_R_CCU)	+= sun55i-a523-r-ccu.o
++obj-$(CONFIG_SUN60I_A733_R_CCU)	+= sun60i-a733-r-ccu.o
+ obj-$(CONFIG_SUN4I_A10_CCU)	+= sun4i-a10-ccu.o
+ obj-$(CONFIG_SUN5I_CCU)		+= sun5i-ccu.o
+ obj-$(CONFIG_SUN6I_A31_CCU)	+= sun6i-a31-ccu.o
+@@ -64,6 +65,7 @@ sun50i-h616-ccu-y		+= ccu-sun50i-h616.o
+ sun55i-a523-ccu-y		+= ccu-sun55i-a523.o
+ sun55i-a523-mcu-ccu-y		+= ccu-sun55i-a523-mcu.o
+ sun55i-a523-r-ccu-y		+= ccu-sun55i-a523-r.o
++sun60i-a733-r-ccu-y		+= ccu-sun60i-a733-r.o
+ sun4i-a10-ccu-y			+= ccu-sun4i-a10.o
+ sun5i-ccu-y			+= ccu-sun5i.o
+ sun6i-a31-ccu-y			+= ccu-sun6i-a31.o
+diff --git a/drivers/clk/sunxi-ng/ccu-sun60i-a733-r.c b/drivers/clk/sunxi-ng/ccu-sun60i-a733-r.c
+new file mode 100644
+index 000000000000..b8f6e8c6e507
+--- /dev/null
++++ b/drivers/clk/sunxi-ng/ccu-sun60i-a733-r.c
+@@ -0,0 +1,277 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (C) 2023 rengaomin@allwinnertech.com
++ * Copyright (C) 2026 Junhui Liu <junhui.liu@pigmoral.tech>
++ * Based on the A523 CCU driver:
++ *   Copyright (C) 2024 Arm Ltd.
++ *
++ * When secure boot is enabled, firmware must configure PRCM_SEC_SWITCH_REG
++ * to make the AHBS, APBS0 and APBS1 clock registers accessible to the
++ * non-secure world.
++ *
++ * S_TWD_BGR_REG is fixed to be a secure register regardless of whether
++ * secure boot is enabled, so it is not described here.
++ */
++
++#include <linux/clk-provider.h>
++#include <linux/module.h>
++#include <linux/platform_device.h>
++
++#include <dt-bindings/clock/allwinner,sun60i-a733-r-ccu.h>
++#include <dt-bindings/reset/allwinner,sun60i-a733-r-ccu.h>
++
++#include "ccu_common.h"
++#include "ccu_reset.h"
++
++#include "ccu_div.h"
++#include "ccu_gate.h"
++#include "ccu_mp.h"
++
++static const struct clk_parent_data r_ahb_parents[] = {
++	{ .fw_name = "hosc" },
++	{ .fw_name = "losc" },
++	{ .fw_name = "iosc" },
++	{ .fw_name = "pll-periph0-200m" },
++	{ .fw_name = "pll-periph0-300m" },
++};
++static SUNXI_CCU_M_DATA_WITH_MUX(r_ahb_clk, "r-ahb", r_ahb_parents, 0x000,
++				 0, 5,	/* M */
++				 24, 3,	/* mux */
++				 0);
++
++static const struct clk_parent_data r_apb_parents[] = {
++	{ .fw_name = "hosc" },
++	{ .fw_name = "losc" },
++	{ .fw_name = "iosc" },
++	{ .fw_name = "pll-periph0-200m" },
++	{ .fw_name = "sys-24m" },
++};
++
++static SUNXI_CCU_M_DATA_WITH_MUX(r_apb0_clk, "r-apb0", r_apb_parents, 0x00c,
++				 0, 5,	/* M */
++				 24, 3,	/* mux */
++				 0);
++
++static SUNXI_CCU_M_DATA_WITH_MUX(r_apb1_clk, "r-apb1", r_apb_parents, 0x010,
++				 0, 5,	/* M */
++				 24, 3,	/* mux */
++				 0);
++
++static SUNXI_CCU_P_DATA_WITH_MUX_GATE(r_cpu_timer0, "r-timer0", r_apb_parents, 0x100,
++				      1, 3,	/* P */
++				      4, 3,	/* mux */
++				      BIT(0),	/* gate */
++				      0);
++static SUNXI_CCU_P_DATA_WITH_MUX_GATE(r_cpu_timer1, "r-timer1", r_apb_parents, 0x104,
++				      1, 3,	/* P */
++				      4, 3,	/* mux */
++				      BIT(0),	/* gate */
++				      0);
++static SUNXI_CCU_P_DATA_WITH_MUX_GATE(r_cpu_timer2, "r-timer2", r_apb_parents, 0x108,
++				      1, 3,	/* P */
++				      4, 3,	/* mux */
++				      BIT(0),	/* gate */
++				      0);
++static SUNXI_CCU_P_DATA_WITH_MUX_GATE(r_cpu_timer3, "r-timer3", r_apb_parents, 0x10c,
++				      1, 3,	/* P */
++				      4, 3,	/* mux */
++				      BIT(0),	/* gate */
++				      0);
++
++static SUNXI_CCU_GATE_HW(bus_r_timer_clk, "bus-r-timer", &r_ahb_clk.common.hw, 0x11c, BIT(0), 0);
++
++static const struct clk_parent_data r_pwm_parents[] = {
++	{ .fw_name = "hosc" },
++	{ .fw_name = "losc" },
++	{ .fw_name = "iosc" },
++	{ .fw_name = "sys-24m" },
++};
++static SUNXI_CCU_MUX_DATA_WITH_GATE(r_pwm_clk, "r-pwm", r_pwm_parents, 0x130,
++				    24, 2,	/* mux */
++				    BIT(31),	/* gate */
++				    0);
++static SUNXI_CCU_GATE_HW(bus_r_pwm_clk, "bus-r-pwm",
++			 &r_apb0_clk.common.hw, 0x13c, BIT(0), 0);
++
++static const struct clk_parent_data r_spi_parents[] = {
++	{ .fw_name = "hosc" },
++	{ .fw_name = "pll-periph0-200m" },
++	{ .fw_name = "pll-periph0-300m" },
++	{ .fw_name = "pll-periph1-300m" },
++	{ .fw_name = "sys-24m" },
++};
++static SUNXI_CCU_DUALDIV_MUX_GATE(r_spi_clk, "r-spi", r_spi_parents, 0x150,
++				  0, 5,		/* M */
++				  8, 5,		/* N */
++				  24, 3,	/* mux */
++				  BIT(31),	/* gate */
++				  0);
++static SUNXI_CCU_GATE_HW(bus_r_spi_clk, "bus-r-spi", &r_ahb_clk.common.hw, 0x15c, BIT(0), 0);
++
++static SUNXI_CCU_GATE_HW(bus_r_msgbox_clk, "bus-r-msgbox", &r_ahb_clk.common.hw, 0x17c, BIT(0), 0);
++
++static SUNXI_CCU_GATE_HW(bus_r_uart0_clk, "bus-r-uart0", &r_apb1_clk.common.hw, 0x18c, BIT(0), 0);
++static SUNXI_CCU_GATE_HW(bus_r_uart1_clk, "bus-r-uart1", &r_apb1_clk.common.hw, 0x18c, BIT(1), 0);
++
++static SUNXI_CCU_GATE_HW(bus_r_i2c0_clk, "bus-r-i2c0", &r_apb1_clk.common.hw, 0x19c, BIT(0), 0);
++static SUNXI_CCU_GATE_HW(bus_r_i2c1_clk, "bus-r-i2c1", &r_apb1_clk.common.hw, 0x19c, BIT(1), 0);
++static SUNXI_CCU_GATE_HW(bus_r_i2c2_clk, "bus-r-i2c2", &r_apb1_clk.common.hw, 0x19c, BIT(2), 0);
++
++static SUNXI_CCU_GATE_HW(bus_r_ppu_clk, "bus-r-ppu", &r_apb0_clk.common.hw, 0x1ac, BIT(0), 0);
++
++static SUNXI_CCU_GATE_HW(bus_r_tzma_clk, "bus-r-tzma", &r_apb0_clk.common.hw, 0x1b0, BIT(0), 0);
++static SUNXI_CCU_GATE_HW(bus_r_cpu_bist_clk, "bus-r-cpu-bist", &r_apb0_clk.common.hw,
++			 0x1bc, BIT(0), 0);
++
++static const struct clk_parent_data r_ir_rx_parents[] = {
++	{ .fw_name = "losc" },
++	{ .fw_name = "hosc" },
++	{ .fw_name = "sys-24m" },
++};
++static SUNXI_CCU_M_DATA_WITH_MUX_GATE(r_ir_rx_clk, "r-ir-rx", r_ir_rx_parents, 0x1c0,
++				      0, 5,	/* M */
++				      24, 2,	/* mux */
++				      BIT(31),	/* gate */
++				      0);
++static SUNXI_CCU_GATE_HW(bus_r_ir_rx_clk, "bus-r-ir-rx", &r_apb0_clk.common.hw, 0x1cc, BIT(0), 0);
++
++static SUNXI_CCU_GATE_HW(bus_r_rtc_clk, "bus-r-rtc", &r_ahb_clk.common.hw, 0x20c, BIT(0), 0);
++
++static const struct clk_parent_data r_riscv_parents[] = {
++	{ .fw_name = "hosc" },
++	{ .fw_name = "losc" },
++	{ .fw_name = "iosc" },
++};
++static SUNXI_CCU_MUX_DATA_WITH_GATE(r_riscv_clk, "r-riscv", r_riscv_parents, 0x210,
++				  24, 2,	/* mux */
++				  BIT(31),	/* gate */
++				  0);
++static SUNXI_CCU_GATE_HW(bus_r_riscv_clk, "bus-r-riscv", &r_apb0_clk.common.hw,
++			 0x21c, BIT(0), 0);
++static SUNXI_CCU_GATE_HW(bus_r_riscv_cfg_clk, "bus-r-riscv-cfg", &r_apb0_clk.common.hw,
++			 0x21c, BIT(1), 0);
++
++static SUNXI_CCU_GATE_HW(bus_r_cpucfg_clk, "bus-r-cpucfg", &r_apb0_clk.common.hw,
++			 0x22c, BIT(0), CLK_IS_CRITICAL);
++
++static struct ccu_common *sun60i_a733_r_ccu_clks[] = {
++	&r_ahb_clk.common,
++	&r_apb0_clk.common,
++	&r_apb1_clk.common,
++	&r_cpu_timer0.common,
++	&r_cpu_timer1.common,
++	&r_cpu_timer2.common,
++	&r_cpu_timer3.common,
++	&bus_r_timer_clk.common,
++	&r_pwm_clk.common,
++	&bus_r_pwm_clk.common,
++	&r_spi_clk.common,
++	&bus_r_spi_clk.common,
++	&bus_r_msgbox_clk.common,
++	&bus_r_uart0_clk.common,
++	&bus_r_uart1_clk.common,
++	&bus_r_i2c0_clk.common,
++	&bus_r_i2c1_clk.common,
++	&bus_r_i2c2_clk.common,
++	&bus_r_ppu_clk.common,
++	&bus_r_tzma_clk.common,
++	&bus_r_cpu_bist_clk.common,
++	&r_ir_rx_clk.common,
++	&bus_r_ir_rx_clk.common,
++	&bus_r_rtc_clk.common,
++	&r_riscv_clk.common,
++	&bus_r_riscv_clk.common,
++	&bus_r_riscv_cfg_clk.common,
++	&bus_r_cpucfg_clk.common,
++};
++
++static struct clk_hw_onecell_data sun60i_a733_r_hw_clks = {
++	.hws = {
++		[CLK_R_AHB]		= &r_ahb_clk.common.hw,
++		[CLK_R_APB0]		= &r_apb0_clk.common.hw,
++		[CLK_R_APB1]		= &r_apb1_clk.common.hw,
++		[CLK_R_TIMER0]		= &r_cpu_timer0.common.hw,
++		[CLK_R_TIMER1]		= &r_cpu_timer1.common.hw,
++		[CLK_R_TIMER2]		= &r_cpu_timer2.common.hw,
++		[CLK_R_TIMER3]		= &r_cpu_timer3.common.hw,
++		[CLK_BUS_R_TIMER]	= &bus_r_timer_clk.common.hw,
++		[CLK_R_PWM]		= &r_pwm_clk.common.hw,
++		[CLK_BUS_R_PWM]		= &bus_r_pwm_clk.common.hw,
++		[CLK_R_SPI]		= &r_spi_clk.common.hw,
++		[CLK_BUS_R_SPI]		= &bus_r_spi_clk.common.hw,
++		[CLK_BUS_R_MSGBOX]	= &bus_r_msgbox_clk.common.hw,
++		[CLK_BUS_R_UART0]	= &bus_r_uart0_clk.common.hw,
++		[CLK_BUS_R_UART1]	= &bus_r_uart1_clk.common.hw,
++		[CLK_BUS_R_I2C0]	= &bus_r_i2c0_clk.common.hw,
++		[CLK_BUS_R_I2C1]	= &bus_r_i2c1_clk.common.hw,
++		[CLK_BUS_R_I2C2]	= &bus_r_i2c2_clk.common.hw,
++		[CLK_BUS_R_PPU]		= &bus_r_ppu_clk.common.hw,
++		[CLK_BUS_R_TZMA]	= &bus_r_tzma_clk.common.hw,
++		[CLK_BUS_R_CPU_BIST]	= &bus_r_cpu_bist_clk.common.hw,
++		[CLK_R_IR_RX]		= &r_ir_rx_clk.common.hw,
++		[CLK_BUS_R_IR_RX]	= &bus_r_ir_rx_clk.common.hw,
++		[CLK_BUS_R_RTC]		= &bus_r_rtc_clk.common.hw,
++		[CLK_R_RISCV]		= &r_riscv_clk.common.hw,
++		[CLK_BUS_R_RISCV]	= &bus_r_riscv_clk.common.hw,
++		[CLK_BUS_R_RISCV_CFG]	= &bus_r_riscv_cfg_clk.common.hw,
++		[CLK_BUS_R_CPUCFG]	= &bus_r_cpucfg_clk.common.hw,
++	},
++	.num = CLK_BUS_R_CPUCFG + 1,
++};
++
++static const struct ccu_reset_map sun60i_a733_r_ccu_resets[] = {
++	[RST_BUS_R_TIMER]	= { 0x11c, BIT(16) },
++	[RST_BUS_R_PWM]		= { 0x13c, BIT(16) },
++	[RST_BUS_R_SPI]		= { 0x15c, BIT(16) },
++	[RST_BUS_R_MSGBOX]	= { 0x17c, BIT(16) },
++	[RST_BUS_R_UART0]	= { 0x18c, BIT(16) },
++	[RST_BUS_R_UART1]	= { 0x18c, BIT(17) },
++	[RST_BUS_R_I2C0]	= { 0x19c, BIT(16) },
++	[RST_BUS_R_I2C1]	= { 0x19c, BIT(17) },
++	[RST_BUS_R_I2C2]	= { 0x19c, BIT(18) },
++	[RST_BUS_R_IR_RX]	= { 0x1cc, BIT(16) },
++	[RST_BUS_R_RTC]		= { 0x20c, BIT(16) },
++	[RST_BUS_R_RISCV_CFG]	= { 0x21c, BIT(16) },
++	[RST_BUS_R_CPUCFG]	= { 0x22c, BIT(16) },
++};
++
++static const struct sunxi_ccu_desc sun60i_a733_r_ccu_desc = {
++	.ccu_clks	= sun60i_a733_r_ccu_clks,
++	.num_ccu_clks	= ARRAY_SIZE(sun60i_a733_r_ccu_clks),
++
++	.hw_clks	= &sun60i_a733_r_hw_clks,
++
++	.resets		= sun60i_a733_r_ccu_resets,
++	.num_resets	= ARRAY_SIZE(sun60i_a733_r_ccu_resets),
++};
++
++static int sun60i_a733_r_ccu_probe(struct platform_device *pdev)
++{
++	void __iomem *reg;
++
++	reg = devm_platform_ioremap_resource(pdev, 0);
++	if (IS_ERR(reg))
++		return PTR_ERR(reg);
++
++	return devm_sunxi_ccu_probe(&pdev->dev, reg, &sun60i_a733_r_ccu_desc);
++}
++
++static const struct of_device_id sun60i_a733_r_ccu_ids[] = {
++	{ .compatible = "allwinner,sun60i-a733-r-ccu" },
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, sun60i_a733_r_ccu_ids);
++
++static struct platform_driver sun60i_a733_r_ccu_driver = {
++	.probe	= sun60i_a733_r_ccu_probe,
++	.driver	= {
++		.name			= "sun60i-a733-r-ccu",
++		.suppress_bind_attrs	= true,
++		.of_match_table		= sun60i_a733_r_ccu_ids,
++	},
++};
++module_platform_driver(sun60i_a733_r_ccu_driver);
++
++MODULE_IMPORT_NS("SUNXI_CCU");
++MODULE_DESCRIPTION("Support for the Allwinner A733 PRCM CCU");
++MODULE_LICENSE("GPL");
 
 -- 
-2.56.0
+2.55.0
 
