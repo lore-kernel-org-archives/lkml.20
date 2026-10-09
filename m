@@ -1,167 +1,127 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1352635C68E
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 23:05:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 356D73F20F9;
+	Fri,  9 Oct 2026 23:06:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791587127; cv=none; b=r6SRqsdzKHsT/NH/EOHoSj7TZ3IKL1YYU1XhuOZZydX2lVW4Zdd09iG+zdaiK2eK1bjh5GQ0c+zxxxtE4OKNtx+MDYOa+MKjHjoiJz41T7pKACRibY9cg1NN5+s+mLIxWf2cXzKTunsw1nc2hXZAvpyn5fGIhv8dgU+g8zw4PxE=
+	t=1791587202; cv=none; b=o0WU9n22YNhB4Lw6K+lxkWEg8GKMQUzXS/2qnz5XLgkC0JDIYZPjOkD9MoGSNiVXdEC9llAn+CqJLGP6q3eLLwMFdyFjxIxp4Rltf0Us3U1Yr0sabMuDN94t24HnKiLp4NpNzssWHRcUE57TKPALNYrRrchKmeC7IGmb9aq/E6s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791587127; c=relaxed/simple;
-	bh=cuml1WRoVPo5CU/+noegueeRxjpqh8+p6J/SZJnA1Js=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WfiVoe1YMAaMQaVQ4JBvmDiFt6KXR9XscRwh8nhQwJ61wJWbTV7S6JT78/tgH/ZmIPx8ZQ9HfoCdHlTZnUlq2F6JTnq13YwFtceSuhWxE2AJHO/I0MIpYIOZRcz0AgKhzZaUAveIb0xwa48whctwnLaKcG4SuSTE7xMhra+5Okc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=A825mXVh; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jnDuoouI; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791587202; c=relaxed/simple;
+	bh=uTKaAhre+h+714f57a5ptCMXQK1uVjxd7BGGrgoLev8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sOap8yyeiP1dMT7N1D5PPZxUW+KH0ECGJAA78lBuzD0//Str4F7MzWDe6bd7Acj2cZx/PWz+lhigQPi7I7ntO5f8JEPyGcr+5GqYfkcbC8JF1FDQxsg2++0T5cet+NnP0DpUc/X58gEyqU5B1lGeIhPqF7Ikggf5Te3W5I0Znd4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=aAic0nc6; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="A825mXVh";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jnDuoouI"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 699Ki0uF2858473
-	for <linux-kernel@vger.kernel.org>; Fri, 9 Oct 2026 23:05:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=92iPLLNWa6TK/xvUvTOqX3t1
-	epK+uEt96Kr0e/HgmSs=; b=A825mXVhs+KZwUrOLshBD8MYP9LLoFjL+Yzw3ys6
-	dtB5xLCIer94OMkdcIa3QJJKsjuzxMkafDAmzCDvDRkbTxS9ubh0+WCCjENVhJWU
-	gDhweaud8dn0TW7ARsHFTOjF1H10S3n3jTDeyn6mJizHguPz8ziI35vTSTE16xOg
-	J1kLYlLWQ2UqwOT6DGAcCj/dpzBGVTFWMegWR9qNvf0iSacKFdB9ajhzKC3vue7i
-	cqhlKLASmdGk0rFfJRHB0s6OxR+4SqBmih9YfjYEgnPcr/5BfHXvQVuT30kCgc2W
-	P0KsLXRh0tcHyEW7qi8QF2Fa9HyrVs76IdBtlsrAeMYaIQ==
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h74t890pq-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 23:05:24 +0000 (GMT)
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-917a510b22fso7747316d6.1
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 16:05:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791587124; x=1792191924; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=92iPLLNWa6TK/xvUvTOqX3t1epK+uEt96Kr0e/HgmSs=;
-        b=jnDuoouIQvmXvA9LrB14GrvwcEsgw7GrhO+ZFcxV1c6EVXdHbYqDilYd+wKqNLu4xI
-         w//qxIVgyNY6ABXXhHJYOaicdnSxDQZoaIugIcXuqpLQXvcwNw2B9jM3RcrxLbahDcpX
-         ZBL7JWShiL0wIcC5N/F/IdoV3F/GrwBjp3jcq14tABqWEse2B1OF2aa3wazduN85T6V2
-         52G0Nurp7JU8q1X+ZyS/2A4up4ey3cok7F5FliKhjAl3LP1EnwIPByP8HxCq0ZoWgIvR
-         t+D1ZAOKRI6bg2SzEH6gXainB7CMnW/qKCCM+HttMURFCnGN7Texvmc3S9Tqq3l+enp/
-         Z2aQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791587124; x=1792191924;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=92iPLLNWa6TK/xvUvTOqX3t1epK+uEt96Kr0e/HgmSs=;
-        b=hpsDMcu1wkGFEzNI9ljSS9MhDWsUpm+WhPj/EBsrZiZ2RhELfWUTEPh9xBiM7712v5
-         gSDiEeyfp0rihIsSGPy+jle/kq0pIW5HKLLIpa44cN88mSu4BccOwhl5c8d0AieDg2k1
-         cAwBpLvUR55X1yYdKrROQGMtlNKpDbnzR/9cjxhayoxAiDV+Y3ezsfxmRYY8KR8GC9CP
-         Ewxd3t75AcztvGfeJHi8f0M2waHp0I/9Q1r6UztWF9j5I2MGGigO5O0bN9T1Mmon3Ooa
-         X5wCXW/ExhedR6TmduPyUr0sijvnyhcPowHMTC5qwCsxaK9R0kZ2yveu9Gzs1WGTCyC9
-         kzBg==
-X-Forwarded-Encrypted: i=1; AKwUvBxyqNV6lh3PH8A9h3CEPjx4rhfAje5oTg8ZAFCw8WV0YFUlPzniiO766B6McmRe/xCTYh2b33PFszx5Blg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJhi5aLxm69w2CU9YK2AT8cyFgTz5sWBO4CvGbf0hm5Q66NUwt3
-	tnkCFvw5xVaEahY84w9YxfRVCGcuPK+73emF18Lg+7IsIbxq/xbu8JWJW0pFXchCnHXtgTecZBW
-	+4+jAtpCfpC2UM2Tb9hUWGSEQKkHDRCa3BhgxwzBsr8qU1w/MVruIZ3IDvHiTNGnN5Po=
-X-Gm-Gg: AYBFou1jY/oI8v9WRKyzDb76vcNLoKW6DYVQF1AkhKHNb550RqObMcX2PGSXbR4RtmU
-	Ef//bTQOxsN2Y0TMuLCw+PbbiQPzHdzLahK6lDqDA4ktOoBxNJOgY5M8LmOBLkeXZ4exHlwvuZc
-	1jM9+uIyiEqrjQrpT0+p0CZJQ+ym97JaU24x26KS7tO3BKzLtpVYa6GQ5uxDjX8jIpeqGfOTiYg
-	prhni4tmMxNmq1LvwlXMyCGGVBhR4C+MaceSZ1YIWMP5AQlwueJTnvVKo60aNJq5M+3GFJL1clz
-	PloPSjY+/Kil1T8EBb4nJq2EgdHqGTEHGuqI6kuQLRj8PK+ceDOOcl3prZKW4r+Uor/MRZDTAFG
-	k+sQ4SdkhCuQLeT//qeQP25ZJIa1iSbpfBVEn+tYK44cU8daiMQO6fi+KBAEXjmcfFzb4Ij0j78
-	lYvXtHVIxyROG1
-X-Received: by 2002:a05:620a:46a1:b0:93e:95ce:53b5 with SMTP id af79cd13be357-93ebd28b9b7mr596919185a.52.1791587124234;
-        Fri, 09 Oct 2026 16:05:24 -0700 (PDT)
-X-Received: by 2002:a05:620a:46a1:b0:93e:95ce:53b5 with SMTP id af79cd13be357-93ebd28b9b7mr596913385a.52.1791587123677;
-        Fri, 09 Oct 2026 16:05:23 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bcdde9bae2sm1004191e87.35.2026.10.09.16.05.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 16:05:21 -0700 (PDT)
-Date: Sat, 10 Oct 2026 02:05:18 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: fabricioakio@gmail.com
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Alexey Minnekhanov <alexeymin@postmarketos.org>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Martin Botka <martin.botka@somainline.org>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: sdm630: Add interconnect paths to the
- BLSP I2C and SPI controllers
-Message-ID: <k4yulw6hzkiw37ju7tp2bdxbh3kxrffkemyfb2zlxeuk6sul24@j6obth36alho>
-References: <20261009-sdm630-blsp-paths-v1-1-6a86ba193e8e@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="aAic0nc6"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791587201; x=1823123201;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=uTKaAhre+h+714f57a5ptCMXQK1uVjxd7BGGrgoLev8=;
+  b=aAic0nc6rzg/cIa8jUt+ZqkwQ0X6bW/ibP0/4KUyDMTQNePWjNtbzsV8
+   e9tF44LYtjbhJY60V5w2aIvdHC4pjGwUSmlUqFHE+CrZFiM7bmgOtsytF
+   fbsklqJpnVIwsKTm0Hvb00XMRvOGnsRtOnXxbC7MlRvNZ29fY4aex00Wk
+   TGjX3CdfHzg46kc8swFvI+VEg4fgFc6EsYTxxzaXWaxCSrBu/tCMQte7q
+   2cBnvYDhmHZNqAqHGC0FbOJpMNeDWiDqHo2g0DDgNM26W2Y4dEBlbMxgv
+   FWvJEhALfcJoi59bSQMKfYq4ePnb/DG6Zjnv10X8oJyeE3C353fb7HhVe
+   g==;
+X-CSE-ConnectionGUID: hVzfl2/dTwGkS+5a2x4QDA==
+X-CSE-MsgGUID: /YYRbg7CSgaGRx73rpguZA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11930"; a="488598"
+X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
+   d="scan'208";a="488598"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 16:06:40 -0700
+X-CSE-ConnectionGUID: n4P8RrsxR6aa5kfwEkAmww==
+X-CSE-MsgGUID: LYrnRV7hRty7C3yaBeE6rw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
+   d="scan'208";a="355088"
+Received: from ssimmeri-mobl2.amr.corp.intel.com (HELO [10.125.109.123]) ([10.125.109.123])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 16:06:39 -0700
+Message-ID: <1c913faa-06da-4b02-bd47-c74da54df0de@intel.com>
+Date: Fri, 9 Oct 2026 16:06:37 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261009-sdm630-blsp-paths-v1-1-6a86ba193e8e@gmail.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDA5MiBTYWx0ZWRfXwmQ+ZoUdh2BB
- AqqiQ35P36RQteBpFnxcfNyIZPdDvhZzsg+igzWgeUY/2fG3tw6ki9R917lMib6SXWOkHqMGwGp
- LQyKw36Lp++Dumw+xiVPy++/GbOXua8=
-X-Proofpoint-ORIG-GUID: pUAQ-O4QoSlYr3_Sc8yE53yCnSV4PyZp
-X-Authority-Analysis: v=2.4 cv=D9jSufRj c=1 sm=1 tr=0 ts=6ac97334 cx=c_pps
- a=wEM5vcRIz55oU/E2lInRtA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=pGLkceISAAAA:8
- a=EUspDBNiAAAA:8 a=OGs46NaP8JcU_4BjHI8A:9 a=CjuIK1q_8ugA:10
- a=OIgjcC2v60KrkQgK7BGD:22
-X-Proofpoint-GUID: pUAQ-O4QoSlYr3_Sc8yE53yCnSV4PyZp
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDA5MiBTYWx0ZWRfXxroFOOgyB7Wv
- ZCaj/LJ1GIo8Iv3Rujotv91gmJazYx4vzsA65mqvCf2RUiku6yCqq4le08imFa+Ae641U5J1QTQ
- aOkrCTzhwYqx3RwyXn4FpWmouXmzjGDoFgoUkUJgK06tYgGGsVSoWcvBZq8uoTGx9ptoj0EhPhs
- vv9VJSRDjTGomnFu4qyDPH9Vxs+uf2e+OGxN5pz3B/k+WobxmHg95Hyudqc/3zvjxamXqfvogkb
- 1kFjS3TIxKnf1Chqzm+R6l4zkH92tQe6EGfwioUOl7WZVH8KOrEa6NZmKXbxQ+/VLhsjxGGWp14
- XmB6LIAZ4IyWFI2IRZ6A5o0SR3hSZ0hkoUH+rwfLIo8E8M5njlykTkewX8rLrn7mTQqejluyB0L
- 9eKDepKCESZqxoSV2bG4NGzp5E0ibeY8/ikW1z8lRzzZMnT3dCpTqidoFpVdEg3Hd3jazq2XxvF
- NoWaL4FH+bh1OYaUXQA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-09_06,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 malwarescore=0 phishscore=0 impostorscore=0 bulkscore=0
- suspectscore=0 clxscore=1015 priorityscore=1501 adultscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610090092
-
-On Fri, Oct 09, 2026 at 05:49:30PM -0300, Fabricio Akio via B4 Relay wrote:
-> From: Fabricio Akio <fabricioakio@gmail.com>
-> 
-> The QUP I2C and SPI controllers move their data through the BLSP BAM
-> DMA engines, which reach DDR as the aggregation NoC masters BLSP_1 and
-> BLSP_2. No path is described for them, so nothing requests bandwidth for
-> those masters while a transfer runs.
-> 
-> Describe the path from each controller's BLSP master to DDR, as the
-> vendor kernel votes it. On a Motorola Moto X4 (SDM630), with the
-> boot-time interconnect votes released and system-level sleep enabled,
-> an I2C transfer running as the SoC entered that sleep hung the SoC
-> without these paths; with them, 5,000 transfers ran through about 3,000
-> sleep entries.
-> 
-> Signed-off-by: Fabricio Akio <fabricioakio@gmail.com>
-> ---
-> Tested on a Motorola Moto X4 (SDM630), whose board file is not in
-> mainline yet, on the sdm660-mainline tree. System-level sleep there
-> comes from changes not yet posted. The UART nodes get no path: their
-> driver requests no bandwidth.
-> ---
->  arch/arm64/boot/dts/qcom/sdm630.dtsi | 18 ++++++++++++++++++
->  1 file changed, 18 insertions(+)
-> 
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/1] dmaengine: change dmaengine_get_unmap_data() first
+ arg to dma_chan
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Dan Williams <djbw@kernel.org>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ "David S. Miller" <davem@davemloft.net>, Frank Li <Frank.Li@kernel.org>,
+ Jon Mason <jdmason@kudzu.us>, Allen Hubbe <allenbh@gmail.com>,
+ Ard Biesheuvel <ardb@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
+ Eric Biggers <ebiggers@kernel.org>,
+ "open list:CRYPTO API" <linux-crypto@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ "open list:DMA GENERIC OFFLOAD ENGINE SUBSYSTEM"
+ <dmaengine@vger.kernel.org>, "open list:NTB DRIVER CORE"
+ <ntb@lists.linux.dev>, imx@lists.linux.dev, Frank Li <Frank.Li@nxp.com>
+References: <20260922184527.2414043-1-Frank.Li@oss.nxp.com>
+ <b40fa0d7-fbd0-4ee8-b99c-781d08c18838@intel.com> <asi3R24SY-Y2wJQx@parshuram>
+ <67081b4f-56a8-4ead-a912-645d5f742fd8@intel.com> <ask6Ud7ps9A1Gkc1@SMW015318>
+From: Dave Jiang <dave.jiang@intel.com>
+Content-Language: en-US
+In-Reply-To: <ask6Ud7ps9A1Gkc1@SMW015318>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
 
--- 
-With best wishes
-Dmitry
+
+On 10/9/26 12:02 PM, Frank Li wrote:
+> On Fri, Oct 09, 2026 at 09:19:43AM -0700, Dave Jiang wrote:
+>>
+>>
+>> On 10/9/26 2:43 AM, Vinod Koul wrote:
+>>> On 22-09-26, 16:09, Dave Jiang wrote:
+>>>>
+>>>>
+>>>> On 9/22/26 11:45 AM, Frank.Li@oss.nxp.com wrote:
+>>>>> From: Frank Li <Frank.Li@nxp.com>
+>>>>>
+>>>>> Replace the struct device *dev argument with struct dma_chan *chan so
+>>>>> callers do not need to reach into the dma_device internals to obtain
+>>>>> the device pointer.  The implementation now derives the device via
+>>>>> dmaengine_get_dma_device(chan), which correctly handles the per-channel
+>>>>> IOMMU mapping case.
+>>>>>
+>>>>> Prepare to make dma_device private and make dmaengine API consistent.
+>>>>>
+>>>>> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+>>>>
+>>>> For the NTB bits:
+>>>> Acked-by: Dave Jiang <dave.jiang@intel.com>
+>>>>
+>>>>
+>>>>> ---
+>>>>>  crypto/async_tx/async_memcpy.c      | 4 ++--
+>>>>>  crypto/async_tx/async_pq.c          | 4 ++--
+>>>>>  crypto/async_tx/async_raid6_recov.c | 4 ++--
+>>>>>  crypto/async_tx/async_xor.c         | 8 ++++----
+>>>>
+>>>> Maybe one day Dan's wishes will become true and someone will finally deprecate async_tx....
+>>>
+>>> Does Intel still have use it. I am looking at fixing the names and we
+>>> can drop async_tx completely...?
+>>>
+>> I don't think so. Not since ioatdma days. Dan has talked about wanting to remove async_tx for quite a few years now. No idea if there are ARM dma devices that still use that or not.
+> 
+> Maybe we can create patch to skip build it firstly, let's see if there are
+> really user.
+
+There is a way to mark something going towards deprecation in KCONFIG right?
+
+DJ
+
+> 
+> Frank
+
