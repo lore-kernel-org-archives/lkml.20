@@ -1,152 +1,165 @@
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71A3D3655CE
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 04:09:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791519003; cv=pass; b=mgz49XhKRDYsO/th3nPYz+ZN7BC1XoykuAVebOeXFXCYc2fSTsVWkVEl2zzPsTMKFQaDb47gBGJ3BLNgMcWnajK3xeC1OGJvtizKkDMi8UH1AUg4AEuer300pyhUoolgEjrYm8aEHviqz0kdMoOyzwee9Hx49Y1FmucCC9rjhnw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791519003; c=relaxed/simple;
-	bh=NPttGRQsFZMlYlWq7ACnEyxHFvnrxryCdv97VywA4yU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PPbwr4wSmK7bc5GXC3rVpCKxMgpy7AhxLzG3VbJXdTHaitiIgZe4tKnWwQsuOGUFF2oaWpBCF3NjOe9c4bSigVbUxNjlLR043m7u5U4ryiQZxgCBuNEmhpoizKhlXSCUGH6Z2lhTeY/pPUUJBXqLyrcOdhOoF6EYoBQNTvBx3Ak=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p6d+iwRm; arc=pass smtp.client-ip=209.85.218.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A15839E9D6;
+	Fri,  9 Oct 2026 04:14:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791519280; cv=none; b=BOJmEWIsqE8JjfqXng3RngU06yJ2Gv14icHUSEg1GWQNwx2DeoXMt/N6SWBxd77wLkIDjaMfWg/oz2HJrP48zfdRntC5kA02QVTxowLwL9tv3O7sODwIHBIpCnNuVKtfjDFRZ0OZ1lI+BaJx0q79CyAwizFgmQAfqYfOlC0/47g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791519280; c=relaxed/simple;
+	bh=CfJLNAjGDthMVhq0Ijs4RyzWCSnHXxmQ05t5I13X7jY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NCA8mU/wt82Z6/67L+rkkqBdYwU6tJmBraT6dWqW1sMzaNYfYWeXbwHv8NyPXo9SArZ7EldXJqmOB/2Y93s6CzL/m4sip3VYGTil6r5ChTQzEY4/oJQnUbLPDaJUAepZw3Q9TcEakaC9MkNMqXnJh6IG2k926wWPdvw6bUIk7ao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=TofXUxlO; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p6d+iwRm"
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c2e5f8fe879so589627266b.3
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 21:09:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791518996; cv=none;
-        d=google.com; s=arc-20260327;
-        b=WE+r09yW+fzuV3zcTuTi7R5F6/4M0Wl3ZqERT8/oU9YRJlTvuIF68EPlYJspvmXebM
-         vRGZcycr0FW38TUB/pJ63gmGQIS1t5dSegMXlVfpnKO81eOX/33E8tfC8uVUaLm2VfLc
-         NY3xMcr0QMMD1Iogmnw5XHpUxbx2pGn+X8zjSl6Rlr+hmFpWxk5AHxDWt7UfTr/KNukC
-         1ZtLUxN0ki/50NBvgIaZt7VjocanigVSiySco4nocprPcOebBGZMgBSPGO/aLEnUiWub
-         FBQPoHJwK5L6rzbvA+ND39XKCFvCbAFfEX8nvTRVGkKN/chRQ3MDfFJ6FTM0arzooYJo
-         CoQg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=s0w22iAxwWX3zCufP/m+FoKgPyaiXV2DxPNqJeKo2Y8=;
-        fh=mi1bNm3R2YtxJDaFnYY2rqNDj+5FKYRzjF+Y9mucGoY=;
-        b=sAYyh6fhKInToSIlry0Iv97ZSRTHunqwfjHZzQN7mKcjoes62tE5Lxw3t164C3vh1F
-         M/4ZTmWIlbcVz7jbOXvA1ZfNX8oxKsYTjK0DT5Bq83p38hfAxez9/e4v7mHzO/XJbEYx
-         gIJDT0Xfiz9nksHEg+2e8AE2XO4berQcFJj4PjUi68sswsYHAoMd/JXiqsy5/L3Mp+0K
-         PGY+w99PiNsv9Zi6dvS1WPq78rCh8qH8zzRkCSiZTTiYNlFpSz/+5+eP49/gvN0WiKLJ
-         CSA0j+6v+RePCJOw5Qkq01ztDvo/YZTlVztasNZhcfyAoA3WXW8TzV+dt6HfynaqijZJ
-         YyyQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791518996; x=1792123796; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=s0w22iAxwWX3zCufP/m+FoKgPyaiXV2DxPNqJeKo2Y8=;
-        b=p6d+iwRm2x7LWaIkCMasRyU2yPdVda2HJWuUN8G/H3h7LwLkWevqmmbL7R8P3BGKZ2
-         GV4Gq0gzVR6d728XeL5QV0nfse+EQfJOdOEt78o7kslfz7C/9NgZrZT1PZ74km4OCvCi
-         noNV08SqDMdCNM3l1HrBbhJhQtY7ukO6GzMIDExpHDSIuhCJm9SoYjcpg0aUzo9hxn7S
-         /t0wP+rX2hT022VHOVHpV+q0LGRwwED4585VIcCZnJP6IT0zdqMKm3Xcz12aIY4TSh2U
-         PkVdNj7+diullU+IB1OEyQ1wS/m5r2k332sxNNP1FHTFAZiO7/R+Czp0e/1TYqZzEdrV
-         5yiQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791518996; x=1792123796;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=s0w22iAxwWX3zCufP/m+FoKgPyaiXV2DxPNqJeKo2Y8=;
-        b=k0MCaIWqhLyrHg7BhX0CCE5YzlPuEOHZGOy2HRapnu4GxlW52+HLUi+VNaulQnOrmN
-         wFO8JSk8mj5C+MrvHCcLTaOLIHcrq9udCvMysSWjtu4tNzV7A42XN/B1hi4pbrcacBVm
-         KwRv/ErI4JZyvVjC/bKvuMgSWXcWzJSRHGHQvoNlaSVV+doR1hufLgj9MBMd5OsqFQNZ
-         TzLY4n1Dl67OrUePnpEfFEczerBpI6iIObu8AVh3ZikVcKR/fLpTldAs0wbqbw+QgbnU
-         AbrPiPoqhfqIAhheT39zy6u51kqg5XeE7AjsNCD99SRN0qWx5g9W6am9U0yCx0nxHIYY
-         CEeg==
-X-Forwarded-Encrypted: i=1; AKwUvBxW60ihOrJKFvArhwrpuWo8di5ZkgwyDyIf+QLDB60nRmi7rwxs/zC0UM36LBMM3pO8Djx0+KCZv/hQE4E=@vger.kernel.org
-X-Gm-Message-State: AFuF++lZuWE6lS8LDpU3Kc2cWwRZw0ExykPJb7NluhFSIbi5zuln74B9
-	GWM8y+cxmSlmYiXg97PV/HiWzc3zT7E6dwD3NkJwB3evqdPHTn9GXs/4938May7R8NWhDRDFEan
-	EpjHSwPfKBzOHDEvZInKwX35vqF6S7Do=
-X-Gm-Gg: AYBFou0yo4QqI5Lgn4q+xk2UMJ9W+JcKFbFEjb4aeM2PdPEXyKoZ6IPuZiSVp9JMFfB
-	Nevl2P37IKBl9cA/bcbqK8si/nq2AxLDhPrrQiUgk1nA+X/1IdvCw0uBNC0bNCWNOzWmcBnZtUG
-	EbLygbN4Mv+Wf5HKyRHn2gGZjcnr33TWYqNM40nhoUL7nqsbLW+FITNVJPDVuUi/l9KAktxOiuy
-	N0bih6fL0rSY4SaKfXJj1tFzzV5m3rgvRg2f14BWxaoGML0PMR0BNM+/6tKR6acOLAUpkHZ9q4K
-	lLluh9yQEBhB9JBpEQ+3cAWtVCYLoOs5I7G1jFw4+a5LaFOTiEGAI7UQT9M0kukWIoKvIYviQ8i
-	aq88JyoPZ8Ll+nfb1VIUKCbL3vQIiQS7sdvfzG7/dc8LEeNodh/2LGQxfeqOrj7lSTeS/TrWdBC
-	qDWdo8AAxoDEey4LDggre4+8v5ztGsTCUBiR5JwJDqRmPDS0KGFfF8uTa6cJ5zuJDjPH4=
-X-Received: by 2002:a17:906:dc8c:b0:c31:8984:7fad with SMTP id
- a640c23a62f3a-c31a9feb114mr51812266b.15.1791518996327; Thu, 08 Oct 2026
- 21:09:56 -0700 (PDT)
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="TofXUxlO"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 0C4B440E0484;
+	Fri,  9 Oct 2026 04:14:25 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id C2ucuVuy8K4q; Fri,  9 Oct 2026 04:14:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1791519247; bh=a/kvWz5vc+K8CURkg+Ghq4OksOZeQYTNt2jO2pxw1w4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=TofXUxlOd3+1p69mP0hGXsklMoEP/qFHjUjfypvkrlurUqzmh3g+XPTvjfIWnaP1c
+	 XlR3BFS3phelZPi1MpakeK/iPMkf8YpkrDRR5iqCDYc61r7dInmhyvQpFPjka7J1kp
+	 6Rbc2wU9BPi90EX4nE13JheWfyAM0qJwu+vj+pt0FuKEYULL3hLyqLB2VCEvFuxk8n
+	 S3edApzJOtueBYJsLdRQcoTAC9V7AGm+9+zi4LL/KO6D4co/gbXG+3PjhIRZfsBDLY
+	 QSj1iUU9TnFKfiLIso6VPHvwAwVxuSL6jYMocuAmk83gqjFq3n5jot0QA7lmrjYJfx
+	 3QyNp8hkGANGruQOF9CnRMZ3FpKVs5IX2htkq8CehI1fhWLKpVQfx5QFGaefNVeung
+	 Nol9HkU0MUcCTCiZM3ExC3qE8M1fu+KpCZBBpnqfFOQYOQKCOShST5+L4ycguQrxqY
+	 8EpA2Pma7BuUw/PQMmxEWSVVkUgMzl+a1d5hJ2+cB/wUtJJsILhC268X/U2Iq2K94L
+	 Zx252oo5TxKuOMrnwtpXlLUiIzFvO00W+/5DlDFyVZhxOh3Ab4asBFFqtYkWMU94/o
+	 w0sw1HISsDzdZjjWPrtDHSanYlBzhhdNwtRrozhBF1+6LbhR4ORIGsUDqMgGoRYwal
+	 N4uON0fKC45ld0XIG7QV/01g=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 39A3440E00B9;
+	Fri,  9 Oct 2026 04:13:49 +0000 (UTC)
+Date: Thu, 8 Oct 2026 21:13:46 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Cc: bpf@vger.kernel.org, Puranjay Mohan <puranjay@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	kkd@meta.com, kernel-team@meta.com, x86@kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH bpf-next v1 1/3] x86/mm: Resolve BPF exception fixups for
+ user address faults under SMAP
+Message-ID: <20261009041346.GHashp-hYpLl-o-l3M@fat_crate.local>
+References: <20261009024925.3169077-1-memxor@gmail.com>
+ <20261009024925.3169077-2-memxor@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261004233523.516891-1-rosenp@gmail.com> <ashiQ98Qmie63mB2@studio.local>
-In-Reply-To: <ashiQ98Qmie63mB2@studio.local>
-From: Rosen Penev <rosenp@gmail.com>
-Date: Thu, 8 Oct 2026 21:09:45 -0700
-X-Gm-Features: AclHuK_UrczYSgWiELM86QENzwDdfuoi_HLVyZFd-zZES-cUZQQiE5vhNbu5RWc
-Message-ID: <CAKxU2N8WtY+=dhSTfyu=8ujEwnkcfV9PEkXxuTLHthwksDhTxw@mail.gmail.com>
-Subject: Re: [PATCH] bcache: fix kernel-doc warning on CLOSURE_CALLBACK
-To: Coly Li <colyli@fygo.io>
-Cc: linux-bcache@vger.kernel.org, Kent Overstreet <kent.overstreet@linux.dev>, 
-	open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261009024925.3169077-2-memxor@gmail.com>
 
-On Thu, Oct 8, 2026 at 8:41=E2=80=AFPM Coly Li <colyli@fygo.io> wrote:
->
-> Hi Rosen,
->
-> On Sun, Oct 04, 2026 at 04:35:23PM +0800, Rosen Penev wrote:
-> > bch_data_insert() is defined through the CLOSURE_CALLBACK() macro, whic=
-h
-> > kernel-doc cannot see through, so the kernel-doc comment above it
-> > produces:
-> >
-> >   request.c:308 function parameter 'bch_data_insert' not described in '=
-CLOSURE_CALLBACK'
-> >   request.c:308 expecting prototype for bch_data_insert(). Prototype wa=
-s for CLOSURE_CALLBACK() instead
-> >
-> > Turn it into a regular block comment, and drop the @cl line along
-> > with the kernel-doc markup.
-> >
-> > Assisted-by: LLM
->
-> The patch is fine to me. Can you provide the detailed LLM name here?
-It was Opencode's Big Pickle IIRC. Current documentation says to just say L=
-LM.
->
-> > Signed-off-by: Rosen Penev <rosenp@gmail.com>
->
-> Thanks.
->
-> Coly Li
->
-> > ---
-> >  drivers/md/bcache/request.c | 3 +--
-> >  1 file changed, 1 insertion(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/md/bcache/request.c b/drivers/md/bcache/request.c
-> > index 3fa3b13a410f..e7f097346d64 100644
-> > --- a/drivers/md/bcache/request.c
-> > +++ b/drivers/md/bcache/request.c
-> > @@ -285,9 +285,8 @@ static CLOSURE_CALLBACK(bch_data_insert_start)
-> >       }
-> >  }
-> >
-> > -/**
-> > +/*
-> >   * bch_data_insert - stick some data in the cache
-> > - * @cl: closure pointer.
-> >   *
-> >   * This is the starting point for any data to end up in a cache device=
-; it could
-> >   * be from a normal write, or a writeback write, or a write to a flash=
- only
-> > --
-> > 2.56.0
+On Fri, Oct 09, 2026 at 04:49:21AM +0200, Kumar Kartikeya Dwivedi wrote:
+> With SMAP enabled, do_user_addr_fault() treats a kernel-mode fault on a
+> user address with EFLAGS.AC clear as a kernel bug: it does not consult the
+> exception table and oopses right away. That is correct for ordinary kernel
+> code, where get_kernel_nofault() and the other nofault accessors never let
+> a user address reach a faulting instruction.
+> 
+> JITed BPF programs are different. A privileged program may dereference a
+> pointer the verifier cannot prove valid, and the verifier marks such loads
+> PROBE_MEM. The JIT attaches an exception table entry to each PROBE_MEM
+> load, so that a fault on an unmapped kernel address zeroes the destination
+> register and the program continues. Since a user address would oops
+> instead, the x86 JIT also emits an address range check in front of every
+> PROBE_MEM load, which keeps user addresses, the guard page above
+> TASK_SIZE_MAX and the vsyscall page away from the load. The check
+> duplicates the fault handler's knowledge of the address space layout, got
+> the vsyscall page wrong until commit b599d7d26d6a ("bpf, x86: Fix PROBE_MEM
+> runtime load check"), and costs nine instructions and 32 to 39 bytes of
+> code per load.
+
+I can't parse that. Why do bpf memory accesses need to be handled differently
+than any other memory accesses when SMAP is enabled?
+
+Perhaps you should give a concrete example.
+
+And why can't all that gunk be resolved at program load instead of going all
+the way in the #PF handler?
+
+> When the faulting instruction belongs to a BPF program, resolve its
+> exception table entry instead of oopsing, exactly as is done for faults on
+> kernel addresses. The is_bpf_text_address() lookup sits inside the
+> unlikely() SMAP branch that currently ends in page_fault_oops(), so no path
+> that does not oops today executes any additional code, and the oops itself
+> is unchanged when no entry matches. Non-BPF code keeps the existing
+> behaviour: a kernel-mode user access without STAC still oopses, extable
+> entry or not.
+> 
+> The next patch uses this to drop the range check from the JIT when SMAP is
+
+There's no next patch and previous patch in git history.
+
+> enabled. Nothing changes about which addresses a BPF program may read: a
+> user address never becomes readable, since SMAP forbids the access, and a
+> PROBE_MEM load of a kernel address is handled as before. Without SMAP the
+> JIT keeps its range check and this path is never reached.
+> 
+> Acked-by: Puranjay Mohan <puranjay@kernel.org>
+> Signed-off-by: Kumar Kartikeya Dwivedi <memxor@gmail.com>
+> ---
+>  arch/x86/mm/fault.c | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
+> 
+> diff --git a/arch/x86/mm/fault.c b/arch/x86/mm/fault.c
+> index aa88370ce739..2060e5f35d77 100644
+> --- a/arch/x86/mm/fault.c
+> +++ b/arch/x86/mm/fault.c
+> @@ -20,6 +20,7 @@
+>  #include <linux/mm_types.h>
+>  #include <linux/mm.h>			/* find_and_lock_vma() */
+>  #include <linux/vmalloc.h>
+> +#include <linux/filter.h>		/* is_bpf_text_address()	*/
+>  
+>  #include <asm/cpufeature.h>		/* boot_cpu_has, ...		*/
+>  #include <asm/traps.h>			/* dotraplinkage, ...		*/
+> @@ -1262,6 +1263,16 @@ void do_user_addr_fault(struct pt_regs *regs,
+>  	if (unlikely(cpu_feature_enabled(X86_FEATURE_SMAP) &&
+>  		     !(error_code & X86_PF_USER) &&
+>  		     !(regs->flags & X86_EFLAGS_AC))) {
+> +		/*
+> +		 * JITed BPF programs dereference untrusted pointers with loads
+> +		 * that carry an exception table entry (PROBE_MEM). SMAP makes
+> +		 * sure such a load cannot read user memory, so resolve the
+> +		 * fault through the exception table, as for an unmapped kernel
+> +		 * address, instead of oopsing.
+> +		 */
+> +		if (is_bpf_text_address(regs->ip) &&
+> +		    fixup_exception(regs, X86_TRAP_PF, error_code, address))
+> +			return;
+
+I'm not at all amused from this adding bpf-specific handling to the #PF
+handler, TBH...
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
