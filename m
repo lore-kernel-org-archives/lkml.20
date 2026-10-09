@@ -1,159 +1,118 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F72931E844
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 22:01:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 244DB31E844;
+	Fri,  9 Oct 2026 22:01:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791583298; cv=none; b=eQaBmju47ztMDTlY8eMsxpt/5H7Sl4w9scOLwPqqYWIXY12RMlj5zG9WMC+iwmaNbvR3zRKqQpw3b8PSyCyBxOBu6ycqtC1bqKG4TeeLlOt+yTWsFVk4MxTqCPAbqO9GRD93b1UawKa0ErQnuAQwirs3bEsUmr8bGSHEfLXdzjI=
+	t=1791583307; cv=none; b=gl9vX9kwjrCyq5CDHwy3HE2k4mLqW47TjzZclEqSojfYuaXOVJhPV3O7us0bLWuiYSLBHRrs1jiV+5RikDKyHoWqa/xXCf4U5HwqON4ajFX5w2nfVBmWz7v8e3oig7ElhwGUUbdBfpztomOEYmuS61oW0CPtJUI6SSxtMV5m2Gw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791583298; c=relaxed/simple;
-	bh=T7imtYyWMwIHvOB2ZFxNOfZ9OLtnlcEZ/kjK2JkgTcA=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=QQTFXl/dfvAU8bVMDvqzqcfSPo1kUhc1GTXYO+K5P0mRZ3Glo7Wng5DZ9nMCEoWqyvSkd9x0LdJZC4glFo1J3fN9LkBSBymYepjZpmjvvSRgIip5rB7vkRLJiqMLO2pdIZ8nQbi2sExam5uwTHplnAoeLK82e1otp1kobasBpQk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=d4A6d+lp; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Krt0uX1h; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791583307; c=relaxed/simple;
+	bh=Slwqbmadkcoo574iR+kAVkJQ+P6a5VRxQg3DfEccmkU=;
+	h=Date:From:To:Cc:Message-ID:Subject; b=UzDii85kQBfSlG2oOpKRb0jdLDE1aBxjnuK/lH1Oup/mjRn2MPvH54N7pNaQpoUYixEonFbGEeS6U6kpgQVA1nvwUMg+7iQ4YZmm3KfronjAuxaoizFUsu6KfESJqXwpLe65vL6ySphcKgjOQ4eO1HK+wZ0uhWwa0fk+KLaPQ9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V9hLVX7p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="d4A6d+lp";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Krt0uX1h"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791583296;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=T7imtYyWMwIHvOB2ZFxNOfZ9OLtnlcEZ/kjK2JkgTcA=;
-	b=d4A6d+lp5Rlhq/tvyxLmOswXfNTsx9HOlaYS+c6uYPZv+nPCACP2/aq47C0D9zTiaJN5MX
-	iOGiNGowSGwxXmrFLBtEUw74JCfzagIs+UuBe0P4ZhQQEh2yWNhU94Vtjo2YsQl/VOePaT
-	B/CVd0zyQ+sUw8hSZzbv+/QM0hevoYg=
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-444-pyfZXea7O0S6FIgy7qBaPw-1; Fri, 9 Oct 2026 22:01:28 +0000
-X-MC-Unique: pyfZXea7O0S6FIgy7qBaPw-1
-X-Mimecast-MFC-AGG-ID: pyfZXea7O0S6FIgy7qBaPw_1791583288
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-5351f1b26e6so2704101cf.2
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 15:01:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1791583288; x=1792188088; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=T7imtYyWMwIHvOB2ZFxNOfZ9OLtnlcEZ/kjK2JkgTcA=;
-        b=Krt0uX1hhjS/6ZaLz/dWz7t8tH2XN5NOrVz1siLy+FohXk8ceticQm0aAyoRercZyX
-         +vStiVyhPxGVih2v0ch95/TKX+LEcgmIIC0VGarxP4MczlQdajpwTFJhLdn003Dt+/FO
-         IMTVwXdxkea03sqYp8i3u5m8t9Oaluf7YzFGqKYB+ABSSF0/vS+VY6OpztDedJyUbB2E
-         RIB4ccGdVjiCaoSEijeu1Rv71Irzs905Plu7zaLSLA/mubHVbvTK+7/Hfa8bkzsYKQYm
-         RupjWnXR/uuwUlcb0sx2E88t0zsR48kMVM24S8aifziDYWxPo6WL91NoA7/3++/YHLEp
-         yfIA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791583288; x=1792188088;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=T7imtYyWMwIHvOB2ZFxNOfZ9OLtnlcEZ/kjK2JkgTcA=;
-        b=vf4532Gfo0HJAobF08BCIGQLZSvIe4Tkll26iDZtE7TRSz7FqBuaxu1Gv36gk3mq23
-         Y+WW3F+gsMfD91053lMstpWJ8CN5B2cDeF6v6zC6DQdiaA1imT+udJPdn2DQ2Ydx4+Bj
-         MHVeP9UcZqItEqBZ/c/5qoKuaOhLz7/cdoET/kPjlbU+BAmN3Yp7ld9SwAV4Aun6Broy
-         QKPqoOnZpaKDvuqTF32Rx5oMC5CqEy4RJUSZKoycjW2/d1Y8GXBGDEwukSXNwnvDpssa
-         HDVNe5ndEZvW9iQQbb9m9OglYk5Dj2Rb4XC5ANvaCIcryDMPzMKyOVqj7Ul8w/eicHWd
-         GaOA==
-X-Forwarded-Encrypted: i=1; AKwUvBztbkRV+uP7CEyMaW3XapmmIIZjCUix4p5VHK7yDsGFLwCNJOKiIXRVXIM1UYzaLHcqy9J6mVCrNt0QR3I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJNvUWw3kBj/IVsGg7xhf1WH0JI+azltz1rxIFCPO08RaPhh/0x
-	Y88/tUJlNp2iR87MQZlTef/QWDRakivOEgppqtbYN26mWuI/6pVzcgGW4TIdmNTcY3puWc5OZK3
-	rSiwKaSXaM/VNRCyQpbZBnYEo85OrY3cSqo1fxh3bH+uCNCkBya+nzQrhp9zrqenkHg==
-X-Gm-Gg: AYBFou3PKIi+QhHt3tezupsle8T7H1pJvyGCKzXpN88AxqfIwKhGv7Jl4KnrCKUpzt+
-	cgMwRLXf6jCB9+AP/gSGqEF4d1sKKuNwbYGgGDOq2ziB61h4UVcdHe1ta0mpvPAdArURTHKse+W
-	1skn8cmMlx3zTxXA/bo5c+7Ltrn+KYkfiBr59BGoKo6t4s145kbouUyabseQBI8uRi+py7QVWnv
-	BY5bhCAfIE9OaKcpOu/VX7EXC66//1GS5YjRAXDMDwHeHXVA60cjHxK+DQlIuLg35fDjfLJClvv
-	pQ+sTo7lbGQV2VlVMqcdn19Mby4UWvXKCpF+iLpnrw/9D3IYiWHsfwfXlmASKJC8PYTUUHU=
-X-Received: by 2002:a05:622a:1a9e:b0:533:972d:ff91 with SMTP id d75a77b69052e-5359fae1644mr56984121cf.26.1791583287945;
-        Fri, 09 Oct 2026 15:01:27 -0700 (PDT)
-X-Received: by 2002:a05:622a:1a9e:b0:533:972d:ff91 with SMTP id d75a77b69052e-5359fae1644mr56983381cf.26.1791583287345;
-        Fri, 09 Oct 2026 15:01:27 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b5504de42sm29021296d6.24.2026.10.09.15.01.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 15:01:25 -0700 (PDT)
-Message-ID: <77926aa23a920ed00c5b1a13d98e768e11d6446e.camel@redhat.com>
-Subject: Re: [PATCH v2 3/3] nouveau: Fix NULL dereference in
- nvkm_gsp_gcx_ready()
-From: lyude@redhat.com
-To: Danilo Krummrich <dakr@kernel.org>, Jim Cromie via B4 Relay
-	 <devnull+jim.cromie.gmail.com@kernel.org>
-Cc: jim.cromie@gmail.com, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Dave Airlie <airlied@redhat.com>,
- dri-devel@lists.freedesktop.org, 	nouveau@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Daniel Campos Ramos	 <Capitain_Jack@yahoo.com>
-Date: Fri, 09 Oct 2026 18:01:25 -0400
-In-Reply-To: <DM0N3VIIXERD.PZBNSZJPSEL7@kernel.org>
-References: <20261009-my-fixups-v2-0-839e2bbe514d@gmail.com>
-	 <20261009-my-fixups-v2-3-839e2bbe514d@gmail.com>
-	 <DM0N3VIIXERD.PZBNSZJPSEL7@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V9hLVX7p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6BF01F000FF;
+	Fri,  9 Oct 2026 22:01:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791583306;
+	bh=IBG5j/dZ2hTNDKhmiuQZc0JwV/nWQkgBL0WOmT/X3KA=;
+	h=Date:From:To:Cc:Subject;
+	b=V9hLVX7pXhtArprnvnTdBZ60z7lpl51Pe/aJzHcltz+JVeN8JcxIfxskY0oEb4aS3
+	 /DOMcvirRnxX3AuoLLM1/LEtxFG2vsW3WuH/inUHNUnj/27naShIxc4u2uTaItZwLa
+	 EnR0OIKvW4QPq9MZO0rsFrbLlUFk4U7h/cDxNoTp7xX4Q070s70BBPZuiNsxbKt8dv
+	 0a0+cv1sKbdZp8+1x3Ky2tBqWtyybTpn1o9LvctJva4+heAe7n8+CobRrJeBbUETLx
+	 SlIU/A0bsdbJ12gA68qSoxBgn6f1XDpd1MZprmpP5Q46BWwYk3QAWlExM1T1S+qRs9
+	 dyY8YIp6Jtcdw==
+Date: Fri, 09 Oct 2026 12:01:45 -1000
+From: Tejun Heo <tj@kernel.org>
+To: David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>,
+ Changwoo Min <changwoo@igalia.com>
+Cc: Hui Su <sh_def@163.com>, Emil Tsalapatis <emil@etsalapatis.com>,
+ David Dai <david.dai@linux.dev>, Cheng-Yang Chou <yphbchou0911@gmail.com>,
+ sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
+Message-ID: <20261009220001.196762128-1-tj@kernel.org>
+Subject: [PATCH sched_ext/for-7.3-fixes] sched_ext: Fix use-after-free of a destroyed user DSQ by a deferred reenqueue
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
 
-On Fri, 2026-10-09 at 23:53 +0200, Danilo Krummrich wrote:
-> On Fri Oct 9, 2026 at 7:44 PM CEST, Jim Cromie via B4 Relay wrote:
-> > From: Jim Cromie <jim.cromie@gmail.com>
-> >=20
-> > Commit cb4c7603678c ("drm/nouveau/gsp/r570: Add support for
-> > INTERNAL_GCX_ENTRY_PREREQUISITE") hooked nvif_device_gcx_ready()
-> > into
-> > nouveau_pmops_runtime_suspend() to consult GSP before runtime
-> > suspend.
-> >=20
-> > On GPUs running without GSP-RM (e.g. Volta GV100, NvGspRm=3D0, or
-> > missing
-> > GSP firmware blobs), device->gsp is instantiated but gsp->rm
-> > remains
-> > NULL. nvkm_udevice_gcx_ready() checked "!gsp" instead of verifying
-> > nvkm_gsp_rm(gsp), allowing non-RM instances to invoke
-> > nvkm_gsp_gcx_ready(). nvkm_gsp_gcx_ready() then unconditionally
-> > dereferenced gsp->rm->api, causing a kernel oops:
-> >=20
-> > =C2=A0 RIP: 0010:nvkm_gsp_gcx_ready+0x10/0x30 [nouveau]
-> > =C2=A0 Code: ... 48 8b 87 70 0e 00 00 <48> 8b 40 18 ...
-> > =C2=A0 RAX: 0000000000000000 RDI: ffff8c9555fca000
-> > =C2=A0 Call Trace:
-> > =C2=A0=C2=A0 nvkm_udevice_mthd+0xa5/0x150 [nouveau]
-> > =C2=A0=C2=A0 nvkm_ioctl+0xcc/0x1d0 [nouveau]
-> > =C2=A0=C2=A0 nvif_object_mthd+0x110/0x1e0 [nouveau]
-> > =C2=A0=C2=A0 nvif_device_gcx_ready+0x36/0x60 [nouveau]
-> > =C2=A0=C2=A0 nouveau_pmops_runtime_suspend+0x39/0x140 [nouveau]
-> >=20
-> > Instruction decode shows `mov rax, [rdi+0xe70]` loads gsp->rm
-> > (0x0),
-> > and `<48> 8b 40 18` (`mov rax, [rax+0x18]`) faults accessing rm-
-> > >api.
-> >=20
-> > Fix by:
-> > 0. Checking !nvkm_gsp_rm(gsp) in nvkm_udevice_gcx_ready() so non-RM
-> > =C2=A0=C2=A0 devices report GC6/GcOff ready and bypass the GSP call ent=
-irely.
-> > 1. Guarding gsp and gsp->rm in nvkm_gsp_gcx_ready() before
-> > inspecting
-> > =C2=A0=C2=A0 gsp->rm->api->gsp->gcx_ready.
-> >=20
-> > Fixes: cb4c7603678c ("drm/nouveau/gsp/r570: Add support for
-> > INTERNAL_GCX_ENTRY_PREREQUISITE")
-> > Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
->=20
-> Isn't this fixed in commit 4d0e27041185 ("nouveau: check gsp->rm as
-> well as gsp
-> pointer before gcx ready") already?
+A deferred reenqueue can read a freed user DSQ. The request stays on its
+CPU's deferred list until run_deferred() takes it, and the RCU callback that
+frees the DSQ assumes that the grace period has flushed it, so exit_dsq()
+checks the per-CPU node without the deferred list lock. A grace period waits
+for readers in flight, not for a pending run_deferred(). A run_deferred()
+which starts after the grace period began can detach the request right
+before the callback looks and then read the freed DSQ's id.
 
-(gonna hold off on pushing all 3 of these patches, you're right - I
-completely forgot that we had already pushed a commit for this)
+Cancel the pending requests before the grace period instead. The irq work
+that frees the DSQ unlinks every CPU's request under the per-CPU deferred
+list lock, and schedule_dsq_reenq() ignores a new request under the same
+lock once the id is invalid. Only a run_deferred() that started before the
+grace period can hold a request, and it runs with IRQs disabled, so the
+grace period waits for it and nothing touches the DSQ after the callback.
 
+Fixes: 84b1a0ea0b7c ("sched_ext: Implement scx_bpf_dsq_reenq() for user DSQs")
+Cc: stable@vger.kernel.org # v7.1+
+Reported-by: Hui Su <sh_def@163.com>
+Link: https://lore.kernel.org/all/20261008024753.4096008-1-sh_def@163.com/
+Signed-off-by: Tejun Heo <tj@kernel.org>
+---
+ kernel/sched/ext/ext.c |   28 +++++++++++++++++++++++++---
+ 1 file changed, 25 insertions(+), 3 deletions(-)
+
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -1149,6 +1149,10 @@ void schedule_dsq_reenq(struct scx_sched
+ 
+ 			guard(raw_spinlock_irqsave)(&rq->scx.deferred_reenq_lock);
+ 
++			/* @dsq is being destroyed, see free_dsq_irq_workfn() */
++			if (unlikely(READ_ONCE(dsq->id) == SCX_DSQ_INVALID))
++				return;
++
+ 			if (list_empty(&dru->node))
+ 				list_move_tail(&dru->node, &rq->scx.deferred_reenq_users);
+ 			WRITE_ONCE(dru->flags, dru->flags | reenq_flags);
+@@ -5171,8 +5175,8 @@ static void exit_dsq(struct scx_dispatch
+ 		struct rq *rq = cpu_rq(cpu);
+ 
+ 		/*
+-		 * There must have been a RCU grace period since the last
+-		 * insertion and @dsq should be off the deferred list by now.
++		 * free_dsq_irq_workfn() cancelled the reenqs before the grace
++		 * period and schedule_dsq_reenq() queues nothing after that.
+ 		 */
+ 		if (WARN_ON_ONCE(!list_empty(&dru->node))) {
+ 			guard(raw_spinlock_irqsave)(&rq->scx.deferred_reenq_lock);
+@@ -5196,8 +5200,26 @@ static void free_dsq_irq_workfn(struct i
+ 	struct llist_node *to_free = llist_del_all(&dsqs_to_free);
+ 	struct scx_dispatch_q *dsq, *tmp_dsq;
+ 
+-	llist_for_each_entry_safe(dsq, tmp_dsq, to_free, free_node)
++	llist_for_each_entry_safe(dsq, tmp_dsq, to_free, free_node) {
++		s32 cpu;
++
++		/*
++		 * Cancel pending reenqs. Only a run_deferred() that started
++		 * before the grace period can hold one, and it keeps IRQs off,
++		 * so the grace period waits for it. After this sweep,
++		 * schedule_dsq_reenq() sees the invalid id under the same lock
++		 * and queues nothing.
++		 */
++		for_each_possible_cpu(cpu) {
++			struct scx_dsq_pcpu *pcpu = per_cpu_ptr(dsq->pcpu, cpu);
++			struct rq *rq = cpu_rq(cpu);
++
++			guard(raw_spinlock_irqsave)(&rq->scx.deferred_reenq_lock);
++			list_del_init(&pcpu->deferred_reenq_user.node);
++		}
++
+ 		call_rcu(&dsq->rcu, free_dsq_rcufn);
++	}
+ }
+ 
+ static DEFINE_IRQ_WORK(free_dsq_irq_work, free_dsq_irq_workfn);
