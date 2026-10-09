@@ -1,270 +1,207 @@
-Received: from sonic317-34.consmr.mail.ne1.yahoo.com (sonic317-34.consmr.mail.ne1.yahoo.com [66.163.184.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11020072.outbound.protection.outlook.com [52.101.229.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 687A629AAEA
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 05:09:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.163.184.45
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791522581; cv=none; b=I/fFo/w2+KeOVy3cVJHHGkDpBxu0viU2WiMs9l2roY6fCXuIm7rYY7fDzLuXsQJWDMX21oMws6/RijoC4F0HwLTG/8rQuDuM7cmsdqgBN4pqNXZ5Z8VbHUho8gEJL/ZSQvHlUtlUb/AWkJbKv6Hb8aYlhIV1YcLft3TDuQIqlis=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791522581; c=relaxed/simple;
-	bh=6T96oYT7zGa2dhkVb+D4GJAntXs3vXLAL0gIr2plLeg=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
-	 In-Reply-To:Content-Type; b=IhxrBgUuSauchdUzEYD+hWyJd1jaLEqPPzYbqC+OToCSCQB+9MumDeD9yJtOKJ/TTL/UXh9cj7p2DG5UpxbpXvNml0ZoZEjcIJCzg2dI6K4sF8zUYpph//Af7bRr0haku3zG9XaVxFTOoViCFO8VhyLl0vJHOyqdRI7+JIZfSGc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=f/gfI5HC; arc=none smtp.client-ip=66.163.184.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36DC23A9014;
+	Fri,  9 Oct 2026 05:10:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.72
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791522651; cv=fail; b=FWo95rx3Tqprw0MVakqDW4TehVYXRQQT8lIpJgnugOgSRk0BAl3ZGvY5ovjoKwX5Mfm2Zg6XXUj+jm5Of3UzzeeagQcinqSFORXrUJkb3y+iRATRYcyNZZnJPZvZQudJs2LmEjILfljsH01nmSZ3VhkUOldCMjtg2HsMyMwPRII=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791522651; c=relaxed/simple;
+	bh=I/3vB9hG4N0/tDJrNnhSOFkuX2L4u6EFEc66CUJdKoo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=qasF2uG6/PDApT1HziSFiSUF2y1MjjsRgB+rfF3fIw7NwbcQJXQg6gn7T9W3Wydc9nPup3yMFTVyjn78wp1D4WSh788v5BGxCjo5RdgNfSrL3HLBJw9hJNOU3k8g8DJPu8n597y8jVSvYoRaTxSIDTUS5fDsgR7T2tMbS7K2mTg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp; spf=pass smtp.mailfrom=valinux.co.jp; dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b=EPRpQ4xs; arc=fail smtp.client-ip=52.101.229.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="f/gfI5HC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791522579; bh=qFpiFw6MgSdv37Ns6VH+LneeKQYBHkufBN/Uv0eIRlc=; h=Date:Subject:From:To:References:In-Reply-To:From:Subject:Reply-To; b=f/gfI5HCDRhq5blROutgPpRk1fPnB1uqMpRnZxK2wb+tCOUN5VPzwYViRN43MtthjaYdQ01IPXWBcxYp6jb7I0Mmo61UfS9w11417LeZ/vR8/ZpwH7tkiHO4EkJaIlByhLOYo4EY3yvXOh1V6zGKmsX2C5DfDVZQhxSjRqRC9Lkpt5NzbG8/ym0vLZZkzFrfQVcwNpLh/DPd8XJm978OsEm8olUJ8PIqBV48N9dS6D38mbetyFG8iH9P32iu4Aere8OgK3S+dKyrBgNujao5W21ZD/j9kHtKE5wjmr2TfZ8HyqVW0AD3gmV/jDbIeMBHksFzTOQDq+Mn9DV9iJyS/g==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791522579; bh=DcOnhZNbgJUNiJbSAc5fFWoSBh8Zc72ueHcf3Cv4SkK=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=Gg9E9JZDNhdlvQ7aaktWlNMW+2ONoa5i9WKuz1xMzfMo5hHaXN+35Ng/lvb6KybiTtvhD9SnxB4NV/iqwSIxPSqUnWfAMV7CtOCWdvxYvK/x7NDITBZJJjDSL6rly7SxyuyJR2+cQ6ut+XOIKLDYBQM/zVJ7wTPiEo7GC00WKTTHMM9IwdzcwSlEKmHhecmxtZdKYRG2ewgndHVm7mHuWZ4yn1ISFkzlqWPakz5vYhEE8cKxwH9jQOiOHO2ibuH/ZFQJ8He6JqRo/D2hS9gBmi+vrS8woQmYhEKio78nuPcIqsT5T5XoLz5C9YwpzC2FgfoB/Pu65ugrHr/lTfrz4w==
-X-YMail-OSG: AN3bIUYVM1mJYGNDbXCdl85u5LqxlHWpZGwlzEAgyMYj52xmDBZW4Qq_goT2Dlp
- zU2Iq8BfjdCuYVbf9ThSghot_pQ14wYXJoNxjPjtzxJjq4h7q.86tL.Wqr9ylx_aOW4gNPFGPU2e
- 6DLcl7sewkZf4cyxmv7UdoVc3aYzsYpsAi8K4nbCLg8w7aSjR98wnMCZQwyPO41PQwFsGcEweUcd
- TKm_e8n2pxKQ9ZOo.TThqxOSZvr8EjpZ7yc6FxbLUNGdhpwSrveqTeCXoPqk8TYHS52HEsjz4t1D
- msItvtUyatspHlLJWXYXkEyoXiHaAs0flZMtmzHmMfJte3oZwg4.jcm0DpXkCSkW4CfY.yZQ1l0I
- .nT2RentgNVeR.bg7raIEzQfDbS6X6XoE8NCOb2OSb48H5WVP94KOAmLELX9__iQrHI7dYP4HasF
- VwSEbKg0i70Ca7EqwpEICpyAM7BQ63jXWvjkOI8fOX55cwlTUtyolPIYdKtJNaI3550nzjdB6aGl
- SGBs7RtS1Wwpe8bNJrfrB4tTm0nTCWe0CQCzfiYHX3953f2hu5bIri03L_32Y5aErrfAEen2vFWA
- 1bqPGivm3RQMhYnxij4fBrV7zgQxYx_fuG9OHAlsBOHVlozbciPLhe3XG0U8KfP69MoyfUE0b9Ts
- ZLMuSbutkuQQMJ4_I4zw7xTsCNEMn2mfeqSL3CNj3Y2Zep1PgpqdF9EX80v_pG09CMA18AYB5T7z
- 0dJ8ais1tt4eJkpdSJ1Wcy3y_C8WQmkAG5skgSCk9g0tE66m3cCeuxMN_.nCHXIoEjRfHGozKFRl
- whuTA6ZeIMFnOqElaar_KPiLGL3Fa4kJjB_Bjo8Kyu.FXMjLrUY7OeK0hich3LwxroBLYJcjV6Ce
- t6Dc0Oj3R.aIxUncbF9PPEPAYR.AaPU7gGuYMsGSLlKZvOP1oYidl7pVLZ7evS43dFOKlmsVj7q4
- WbCAcn.h4kig9NPM8nB8FpxR2yrJRKYZmrdTABqeflVUPbXWeidr0GKsjE16F3tK7rnB_0pV6Kpy
- gVupVIW1yWpMtSNeyfp0XDgqGFvFOZr6CyvCpjPBODzOYhGSXBkDld0teOtRmrLEb2v5phBkUwJ5
- Kng_yHcOFyN7476rAw9Lkg7SFFrDTYwD1e__R_EIpNwkMCmEDDHns60DAhjrDgw9ZRU4_fqsY4Nt
- KPjEKSOvRlBYA5K.Hak3DxhepTSwIKlIkmPzicEQx7i6rz.VixWeWemVWJ_cx8tx4_edB8w_ohtN
- mJatmTdMAh5oagrSjvmkA8gybA2YYpIq4_SxOnjdfRqAoy.saa0ac8HAd6.LrTkRRr0TIxxrAk6e
- KQS2hZVm.BZfky.VNzPoZnyhtIK3jFT8GGuF1TPiwvm_hSgguE7kVedBlS1eo3ZHPBxFsYwyc35y
- DkTpIwakhKuxeeVAT0QZFMEIPKddr0hXvxhwh_IB0T6WI6QfiWn_51pXQOIDhmzrfwz4OuO7wSsO
- Ud7s4cRavTFhNKW.KnWFaG7s4pCj0yH8vMJnrqrbNqXXuDQX7Tl4QzOQeYBhhl2Um16RFBPaoiL1
- 6_1O64APR.quYkzD8qmv7BtUW_BIECfgRwS25TVs5Zk9_7nnJvwKgc7kfiYPp1XQ3XMVPp2haBwf
- _gPdVgHH.8RMOsNGkfmoeg54YHEiM32jz7Qey7yC.JeDpTEr1dT2L2ubpGhPwhReS0_ehvCBLBks
- K8Hiaz1m1BfGGQ62CNOJnG2kaZZvRJ5d7wvpJ6Bm4gFbRu.GxHwVPzDeTNAANgatp2MudaPIeq7c
- O1Pde96vQ6Ly8nKeDb6Vd7P1FvweEDtZ5JdessOrwGvzBU_Jk6RBZ10LlYfYKDYvQzlBOSDsvrqy
- U9.U0BZf6B7Z_zurUKKMD6M4_PjRYsMe.5gGRuDfymwo1ZX8_vUiM4r88GKCNIMf3FjgAlVEsr1_
- tg22E6KC1YeeE1j.P_YNIFDz_v2pj3IjH19xmrdJBj9NFNxSJx0vVK932jo_BKN2DKV8gZ2JbYTA
- 2mF7uv4VYKrXMn2kmVSdS8cRtPY_R9wd4Xj9qO7tRHJGEMlUPWEvOQoVn8yyMYgAOAbKMWhwRuay
- 96PzGvXwSsT2mHqYPodGvOeZncLdOn4pxs5uCFvh_TdKG3JvVRnE7yCeBBWVHCxYIZuaETjBYB8o
- vudAa5YW_5cWayqM03fAzCLTvUNCRCS.VqPd9vojYbvFrX4HH7IzyGphUPlBeTjEXiMBwvjjkAsR
- nICYihB2gLbWFSSCHif50Zc.h_w8wGrzpEmHHeQJ25GvDjqh5sEKm90mTAxXzYQol1QibtLASglE
- FsOmf56Lm2D8creIxOUKRlXq6ZW1bewHrMERILw--
-X-Sonic-MF: <namiltd@yahoo.com>
-X-Sonic-ID: b438b0e4-be9f-4a8a-b9b8-1cca6c13a4e9
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic317.consmr.mail.ne1.yahoo.com with HTTP; Fri, 9 Oct 2026 05:09:39 +0000
-Received: by hermes--production-ir2-5dd9bf4598-98szj (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 7a0d58f9a9f5fd4a029b596fa8d6d895;
-          Fri, 09 Oct 2026 04:59:23 +0000 (UTC)
-Message-ID: <b65ed622-c511-4acb-9661-89ed0615e0b8@yahoo.com>
-Date: Fri, 9 Oct 2026 06:59:14 +0200
+	dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b="EPRpQ4xs"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KkUfU8yFlA+UKRPyIxAA9djtOSrk0x1pkRI3gVtA6BwrjRQdpGiriALOtRkvRScbuwGnUEAwzGHpt1RUr2BM5lIBAU1UW7M4uxN7OcsUnC6xHwmHnzo/ItUVWXuz7uxgVV5z5tYVaUT3HS+fFuDKv0EgSjqGpJF2u1+iJJGJFycWS8vb4gaywE4x1UVMJCg3FIaaz0FMLmx71+UHME5CmWvzYy1vwEHQY9P3SqwgBcU4PQNYcHw5t0LVHXNE5v8hZzN2EzPU4pX0N1x54zU298m5L4NpXJ3nyQd5GUzqvqu7BMkz8cO2RsdsX7igRwNKC7oHIW5tHhZHluhVPAz9Nw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0KAeD4nSxpxsIIXzgu5FcSInM1QBAhyB2jkDMjz2aWk=;
+ b=SxCX1pS3FW+peSMw0zP2c8SvJ2z2LNBt0Wz49hqOiFFUP8kLSaqwq3w6plRbh7a9mY2A50QCMP8VNiWdPwqPb9+5NtIrBai4ARaat954icbc9d6nriCf6thH0UH4zO8xyDoXPimTkD2gI0KYHXIqL2K6mYfCkuBlFFZsMbEYomu6hlk0Pu79GzYrNyolPDI3jCBL+J43ddp1PORWUPPW41AQGKyx7WwFh6U7xAhXx2787fxJfWACvZqjvLdKZwu8QOl+HDKnVzY2uiy0HREY3dlnZ75r7uMMc6BTIq2qevqGkS5ru+RyeDIPLLF+0ZYv8zST/IWjv2BUQZ0dtfpeog==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0KAeD4nSxpxsIIXzgu5FcSInM1QBAhyB2jkDMjz2aWk=;
+ b=EPRpQ4xs1KZCiLQ5cMLpb38RNy9oLSB+mk6lMIsz4srf6M1tj/GBnFZ8Z1MzAEXN7dNLfXEGML85+rDJp+naVxSFnE/8EUMWtffYwgBVWJjr+RrqwpPT0/bGPBOHrEsaoMj3vq7WE17PH9AqIlLH32czmlsYf+tc9TFZ4vuK1+o=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:325::11)
+ by OS7P286MB6603.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:42c::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
+ 2026 05:10:45 +0000
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9]) by TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9%5]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
+ 05:10:45 +0000
+Date: Fri, 9 Oct 2026 14:10:44 +0900
+From: Koichiro Den <den@valinux.co.jp>
+To: Jon Mason <jdmason@kudzu.us>, Dave Jiang <dave.jiang@intel.com>, 
+	Allen Hubbe <allenbh@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: ntb@lists.linux.dev, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v4 00/10] net: ntb_netdev: Preserve checksum
+ offload across NTB
+Message-ID: <uqnpraei5manox6ceeytwt6asphqipjc3cpt4f2hf25kxnwqal@6wyk4bbpaboe>
+References: <20260914084838.2158249-1-den@valinux.co.jp>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260914084838.2158249-1-den@valinux.co.jp>
+X-ClientProxiedBy: TY4P301CA0029.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:2be::12) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:325::11)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: [PATCH net-next v2 6/8] net: dsa: realtek: rtl8365mb: set/clear pvid
- for family D
-From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-To: linusw@kernel.org, alsi@bang-olufsen.dk, andrew@lunn.ch,
- olteanv@gmail.com, kuba@kernel.org, davem@davemloft.net,
- edumazet@google.com, pabeni@redhat.com, linux@armlinux.org.uk,
- luizluca@gmail.com, maxime.chevallier@bootlin.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <28382f3f-03c1-4606-9b11-86f118abeafe@yahoo.com>
-Content-Language: pl
-In-Reply-To: <28382f3f-03c1-4606-9b11-86f118abeafe@yahoo.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.26668 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY7P286MB6866:EE_|OS7P286MB6603:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1e0c62f9-f161-4fe0-1fbe-08df25c3ac85
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|7416014|1800799024|23010399003|376014|10070799003|6133799003|22082099003|18002099003|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	p0M2cqpr4TVw/mlJCDnwre+oRTc2siYaAd0vMoL3N/k8VqbeXxfrj9EqaUcrtdPdxMCqNmJj+5TGdOIpv3J6gWomjQqicb3BRFTDvWKK1y4EGcW2vU1rWAWNUAjcURdDEF5UTFsuCpX3RZYkn2SHWuOb8GATdS4GrF9JmXBX7Q/0I/prCDeGeoM7TYw0xJ1dsmdO+1IXYQWHVo52Yn0/hmDiWIMOD7OV4xeihsrH4qkisiM5eeTNM6syCvW+xsr1Es7q46oC6ofdXamTjLms3CttaRh4fUesHOOvTBkCnUo4vefY+Bc0t5ZP4UZLAXGrpYS4NMqsbS1O76cmBDcLomsJE96kL50Cz9I5jKY9Q5dnq0U7gQ46RVqojKUgsa0XApXpMr8UlrNdHBNIU59V8yMGGtjIy486YZkr+AGDkOsrNlgDe7xKjQJkhDuua+1rJM3b+qV54mgNA3vJhI3qww79tONT+f50Lqif+kK+A6LHVuBbJVoZOi6i8uMbthacMO+cGYFL1EdrQQIpWYXWp3pE414ukO4erFTC2kYbgOjiZue6uoY+0WtxOXYZDH6t84A+2hRAwvAT4Z8KyUUySCee28MHXrjddsaoJQxscrNeNjNBoAF9hjnE0uXsUz0g
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(1800799024)(23010399003)(376014)(10070799003)(6133799003)(22082099003)(18002099003)(10067099003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?EsOPQzDzqhYfhu8iwgl7Zp+WMRJE93aOGVX1pReYb+AN/74odSa7nJwoPwuV?=
+ =?us-ascii?Q?xTmlCgmYQUwP0LSfC3AQY4m+Ptht0maEaxiSGjx6vwe4iJiuMHSGKIu7Jj/W?=
+ =?us-ascii?Q?V/L9elVBaSi7CnIwMc+4zCKNru5T61I7be5fVh22KJHH0F/kEalYcJlnpACg?=
+ =?us-ascii?Q?b7ckQZ9X3WSH99trJyoYbY+7BOd0XjZ4c0QTzE2p1mw8/Qh8OkQ3QprauEcV?=
+ =?us-ascii?Q?G5vPwktEMoXdwRSQiqHB6NFw4EGFlOdEMfSBZ2s6z8//hUhqwoahzkFdJQH8?=
+ =?us-ascii?Q?6OP5ZGAGhOE6u6jyiOn6lIZbBgfhnKARTKecYb6GKDe8P9N7JwC5Qd3c2U8x?=
+ =?us-ascii?Q?bFc0UWw/ky06cjQQqAs1m/ZoDEg+5L61gT1mO4bI4zrvNxIto+ElsL4jwOg/?=
+ =?us-ascii?Q?AlomkBNAUJ+7SgE7XL2424HWQXM5S94sOSaDWyv6UVUGG2gAlNMz+Cn79spx?=
+ =?us-ascii?Q?HaUEpsJHzoAvemohoBa5O9UjlqEzafi+nmRaaAD4cs9LrrYrLOo/Ez2/clWx?=
+ =?us-ascii?Q?qTj2grmaCG2Rjdn3XMTUGDaIhSg+/jdvXMFCz/+FlI8+nWkuJTJbsZSDqwqi?=
+ =?us-ascii?Q?LvzfstHUM3uPzeqNRu6EsH89flLKz3yat8mLe6ABsOoPrR8cIzce0x4ULNZW?=
+ =?us-ascii?Q?uTiXpvfbBKBup8iTrxt1azkbd6GVQAIUGcPXszKlSeG/iOeoX6doZuVItIzZ?=
+ =?us-ascii?Q?P46TYo1qnIrEISGtkLt57zOKdK0xWev3ffQ9m8sAMmG4cjCbuvtdbwLSC66T?=
+ =?us-ascii?Q?jmscXK2kk642vwS0Jnnzg6SuF5W4lMU4Pw+MiMyqpj8JTzvV4Tf4pQW9erto?=
+ =?us-ascii?Q?7IIzWVLvjvLeNdAHIvQlT2hMhFcp0Yn677Zi83EZh86AmiImUKO3RwUqD5rh?=
+ =?us-ascii?Q?/Q8SCcjpco2SRGVs/33fReTL9lYroxU56mkGFC4xSAdGzZtMHymxx0n55evI?=
+ =?us-ascii?Q?0zkx8K2vpVM3rjpdjDjsivAsPTQ1MbkYdir5hVJgm80rj+j0Lfan1e0I3Y6d?=
+ =?us-ascii?Q?Zb769rYpHMxSGBB6aw+VSC4aJMR27m5w1UvH9LtIjNg0gj719s1q4C7MhYDB?=
+ =?us-ascii?Q?bHQPu2Nx7NtIj0RwdfWiQrmXbQkxQigX5OcnDRJvqHNN19kXsOprzdrVjbX8?=
+ =?us-ascii?Q?T+n/DvM9wVr77VNKgdw99W7Qbi4axQr6OAcrQTUrEVKVLIbdcOrkF83Co3FR?=
+ =?us-ascii?Q?I4w54kwasLjZXQkyI6KFO1SNUXKq0/pyL23EPkt2PhMvUCst9w23vfAZuIfc?=
+ =?us-ascii?Q?5SqDt+dReFAteNu4M/5inINL04iJvPVI3vbI9koEnSa30MZ2tuKR/t8ZuCWb?=
+ =?us-ascii?Q?i2jlkw6XMaM5nFPlryjoNUh7du00+tHmfOIQy+8jCM7U/4BKa6D5r515UPCs?=
+ =?us-ascii?Q?Zzwgs7vRFZTudIW7J/E4AQnIqUfGFqll1LuiPfSGcnjsLQ5ZaUozMlzzXvcA?=
+ =?us-ascii?Q?4omp0fGe9MaAaqjVjEyUn3xZT8FfgvMGGbLEIl8dIUV9jZVmosDt+/DI178w?=
+ =?us-ascii?Q?/JxtT3nL0Vale8fOmHkjXmMeSElcFnTM9yMmDoU9RmifGj7l2W6U5uavjmKX?=
+ =?us-ascii?Q?yVKHXxm+EoNmNLTIelNYLVQJuu6CVh8xX6pnFyQUHYA1yfBsKiRTEezKj9QQ?=
+ =?us-ascii?Q?N8aI4K971PEkZjXk2fVznqdqSvnRCBt3QviAj6rJ67qAYGhBVxSYZYWNUvNu?=
+ =?us-ascii?Q?1b9dVoEYdDbQeF/7L7t+AxOyjWVMBFr+afo0CY8yKEl98SiqrQYqNJS7soZi?=
+ =?us-ascii?Q?kRwBY2mvQaospbSGch2c7+YhFgTLJyv1d1ZwZOKcviH9WoYko5fT?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1e0c62f9-f161-4fe0-1fbe-08df25c3ac85
+X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 05:10:45.4330
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HlAYvpzrhCNXQFzCWxaH1SooktE5K6zi0FjprFDD1qB8VhGbq6vO3XsU/IoU9pCamOEtyhsrFO08h18jiUBOWQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS7P286MB6603
 
-The RTL8367S-VB (family D) has no working VLAN member-config (MC)
-table in hardware. rtl8365mb_vlan_port_get_pvid() was already fixed
-to read PVID directly from its dedicated per-port register, but
-rtl8365mb_vlan_pvid_port_set() and rtl8365mb_vlan_pvid_port_clear()
-still went through the MC-index allocation path meant for family C,
-which on family D hardware writes into the wrong register/field
-(colliding with the neighbouring port's real PVID register) and reads
-back a VLAN MC table that does not exist on this silicon.
+On Mon, Sep 14, 2026 at 05:48:28PM +0900, Koichiro Den wrote:
+> Hi,
+> 
+> ntb_netdev may be used on embedded systems, where CPU resources are
+> often limited. L4 checksum calculation can therefore become a bottleneck
+> even when traffic stays within a trusted PCIe fabric.
+> 
+> This series carries CHECKSUM_PARTIAL across NTB in an ntb_netdev header.
+> A per-payload metadata bit in ntb_transport marks its presence. Receive
+> support is exchanged at QP link-up through scratchpads. Peers without
+> capability exchange continue to use software checksumming. The feature
+> remains disabled by default and must be enabled explicitly on trusted
+> links. RX checksum offload settings stay unchanged while the interface
+> is up.
 
-Add a direct-VID fast path for both functions, mirroring what was
-already done for the getter, and skip the MC table entirely for
-family D.
+Thanks to Joe (and Sashiko) for reviewing v4.
 
-Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
----
- drivers/net/dsa/realtek/rtl8365mb_vlan.c | 136 +++++++++++++++++++++++
- 1 file changed, 136 insertions(+)
+It's been a few weeks (almost one month) since v4, so just just a quick update:
+I plan to send v5 once the NTB transport fixes below reach net-next.
 
-diff --git a/drivers/net/dsa/realtek/rtl8365mb_vlan.c b/drivers/net/dsa/realtek/rtl8365mb_vlan.c
-index 0466e8c..da517b1 100644
---- a/drivers/net/dsa/realtek/rtl8365mb_vlan.c
-+++ b/drivers/net/dsa/realtek/rtl8365mb_vlan.c
-@@ -810,6 +810,64 @@ rtl8365mb_vlan_port_set_framefilter(struct realtek_priv *priv,
- 				  val);
- }
- 
-+/*
-+ * rtl8365mb_vlan_pvid_port_set_direct() - Configure a port's PVID as a raw
-+ * VID written to its dedicated register, for chip families without a
-+ * working VLAN MC table (RTL8365MB_FAMILY_D)
-+ *
-+ * Reads back the previous PVID and frame filter first so both can be
-+ * restored if enabling the new PVID fails partway through, matching
-+ * the rollback behavior of the family-C implementation above.
-+ *
-+ * Context: Can sleep. Must be called with &priv->vlan_lock held.
-+ * Return: 0 on success, or a negative error code on failure.
-+ */
-+static int rtl8365mb_vlan_pvid_port_set_direct(struct realtek_priv *priv,
-+					       int port, u16 vid)
-+{
-+	enum rtl8365mb_frame_ingress prev_accepted_frame;
-+	u32 prev_pvid;
-+	int ret;
-+
-+	ret = regmap_read(priv->map, RTL8365MB_D_VLAN_PVID_CTRL_REG(port),
-+			  &prev_pvid);
-+	if (ret) {
-+		dev_err(priv->dev, "Failed to read current PVID\n");
-+		return ret;
-+	}
-+	prev_pvid &= RTL8365MB_D_VLAN_PVID_CTRL_MASK;
-+
-+	ret = rtl8365mb_vlan_port_get_framefilter(priv, port, &prev_accepted_frame);
-+	if (ret) {
-+		dev_err(priv->dev, "Failed to get current framefilter\n");
-+		return ret;
-+	}
-+
-+	ret = regmap_update_bits(priv->map, RTL8365MB_D_VLAN_PVID_CTRL_REG(port),
-+				 RTL8365MB_D_VLAN_PVID_CTRL_MASK,
-+				 vid & RTL8365MB_D_VLAN_PVID_CTRL_MASK);
-+	if (ret) {
-+		dev_err(priv->dev, "Failed to set port PVID\n");
-+		return ret;
-+	}
-+
-+	/* Changing accept frame is what enables PVID (if not enabled before) */
-+	ret = rtl8365mb_vlan_port_set_framefilter(priv, port,
-+						  RTL8365MB_FRAME_TYPE_ANY_FRAME);
-+	if (ret) {
-+		dev_err(priv->dev, "Failed to set port frame filter\n");
-+		goto undo_pvid_write;
-+	}
-+
-+	return 0;
-+
-+undo_pvid_write:
-+	(void)regmap_update_bits(priv->map, RTL8365MB_D_VLAN_PVID_CTRL_REG(port),
-+				 RTL8365MB_D_VLAN_PVID_CTRL_MASK, prev_pvid);
-+	(void)rtl8365mb_vlan_port_set_framefilter(priv, port, prev_accepted_frame);
-+	return ret;
-+}
-+
- /*
-  * rtl8365mb_vlan_pvid_port_set() - Configure a port's PVID and associated
-  * VLANMC entry
-@@ -839,6 +897,13 @@ int rtl8365mb_vlan_pvid_port_set(struct dsa_switch *ds, int port, u16 vid,
- 
- 	lockdep_assert_held(&priv->vlan_lock);
- 
-+	/* This chip family has no VLAN MC table - PVID is a raw VID in a
-+	 * dedicated per-port register, and there is no separate membership
-+	 * table entry to allocate/track.
-+	 */
-+	if (rtl8365mb_get_family(priv) == RTL8365MB_FAMILY_D)
-+		return rtl8365mb_vlan_pvid_port_set_direct(priv, port, vid);
-+
- 	/* Read the old PVID exclusively to undo in case of error */
- 	ret = rtl8365mb_vlan_get_pvid_mc(priv, port, &prev_vlanmc_idx,
- 					 &prev_vlanmc);
-@@ -918,6 +983,74 @@ undo_vlan_mc_port_set:
- 	return ret;
- }
- 
-+/*
-+ * rtl8365mb_vlan_pvid_port_clear_direct() - Remove a port's raw-VID PVID
-+ * configuration, for chip families without a working VLAN MC table
-+ * (RTL8365MB_FAMILY_D)
-+ *
-+ * Reads back the previous frame filter first so it can be restored if
-+ * clearing the PVID register fails.
-+ *
-+ * Context: Can sleep. Must be called with &priv->vlan_lock held.
-+ * Return: 0 on success, or a negative error code on failure.
-+ */
-+static int rtl8365mb_vlan_pvid_port_clear_direct(struct dsa_switch *ds,
-+						 int port, u16 vid)
-+{
-+	enum rtl8365mb_frame_ingress prev_accepted_frame;
-+	struct realtek_priv *priv = ds->priv;
-+	bool filtering;
-+	u32 cur_pvid;
-+	int ret;
-+
-+	ret = regmap_read(priv->map, RTL8365MB_D_VLAN_PVID_CTRL_REG(port),
-+			  &cur_pvid);
-+	if (ret) {
-+		dev_err(priv->dev, "Failed to read current PVID\n");
-+		return ret;
-+	}
-+
-+	/* Port is not using this VID as PVID. Nothing to remove. */
-+	if ((cur_pvid & RTL8365MB_D_VLAN_PVID_CTRL_MASK) != vid)
-+		return 0;
-+
-+	filtering = dsa_port_is_vlan_filtering(dsa_to_port(ds, port));
-+
-+	/* Changing accept frame is what really removes PVID. But only do
-+	 * that if VLAN filtering is enabled.
-+	 */
-+	if (filtering) {
-+		ret = rtl8365mb_vlan_port_get_framefilter(priv, port,
-+							  &prev_accepted_frame);
-+		if (ret) {
-+			dev_err(priv->dev, "Failed to get current framefilter\n");
-+			return ret;
-+		}
-+
-+		ret = rtl8365mb_vlan_port_set_framefilter(
-+			priv, port, RTL8365MB_FRAME_TYPE_TAGGED_ONLY);
-+		if (ret) {
-+			dev_err(priv->dev, "Failed to set port frame filter\n");
-+			return ret;
-+		}
-+	}
-+
-+	ret = regmap_update_bits(priv->map, RTL8365MB_D_VLAN_PVID_CTRL_REG(port),
-+				 RTL8365MB_D_VLAN_PVID_CTRL_MASK, 0);
-+	if (ret) {
-+		dev_err(priv->dev, "Failed to set port PVID to 0\n");
-+		goto undo_set_framefilter;
-+	}
-+
-+	return 0;
-+
-+undo_set_framefilter:
-+	if (filtering)
-+		(void)rtl8365mb_vlan_port_set_framefilter(priv, port,
-+							  prev_accepted_frame);
-+	return ret;
-+}
-+
- /*
-  * rtl8365mb_vlan_pvid_port_clear() - Remove a port's PVID configuration
-  * @ds: dsa switch instance
-@@ -941,6 +1074,9 @@ int rtl8365mb_vlan_pvid_port_clear(struct dsa_switch *ds, int port, u16 vid)
- 
- 	lockdep_assert_held(&priv->vlan_lock);
- 
-+	if (rtl8365mb_get_family(priv) == RTL8365MB_FAMILY_D)
-+		return rtl8365mb_vlan_pvid_port_clear_direct(ds, port, vid);
-+
- 	ret = rtl8365mb_vlan_get_pvid_mc(priv, port, &vlanmc_idx,
- 					 &vlanmc);
- 	if (ret) {
--- 
-2.53.0
+  [PATCH v3 00/15] NTB: ntb_transport: Miscellaneous fixes
+  https://lore.kernel.org/r/20260928152550.3354675-1-den@valinux.co.jp/
 
+Best regards,
+Koichiro Den
+
+> 
+> Best regards,
+> Koichiro
+> ---
+> Changes in v4:
+>   - Move offload metadata into an ntb_netdev header (Jakub)
+>   - Add an RX entry completion ordering fix (Sashiko)
+>   - Learn checksum support from link events, not RX callbacks, and keep
+>     it per QP (Sashiko)
+>     https://lore.kernel.org/r/xsaocp32a6siggahziu4jqbwgmdasmp6v64pd5aujfkoxhiqws@n5luestlntzc/
+>   - Advertise receive support only with RXCSUM enabled. Drop
+>     partial-checksum frames when it is disabled (Sashiko)
+>   - Keep local QP link requests separate from peer readiness
+>   - Reject short RX frames before parsing them
+>   - Factor out RX packet and byte accounting
+>   - Add a transport API to exchange client capabilities at QP link-up
+>   - Keep NETIF_F_RXCSUM unchanged while the interface is up
+> 
+> Changes in v3:
+>   - Rebase after the related ntb_netdev fixes landed in net-next
+>   - Avoid counting RX checksum failures as both errors and drops (Jakub)
+>   - Reject csum_start below ETH_HLEN on RX and fall back to software on
+>     TX (Jakub)
+>   - Use READ_ONCE() for hdr->ver and hdr->len (Sashiko)
+> 
+> Changes in v2:
+>   - Reset peer checksum capability on every link event (Sashiko)
+>   - Add prerequisite fixes for RX ordering and shared field endianness
+>     (Sashiko)
+> 
+> v3: https://lore.kernel.org/r/20260904052134.2970111-1-den@valinux.co.jp/
+> v2: https://lore.kernel.org/r/20260817064916.13278-1-den@valinux.co.jp/
+> v1: https://lore.kernel.org/r/20260814032913.3558500-1-den@valinux.co.jp/
+> 
+> 
+> Koichiro Den (10):
+>   NTB: ntb_transport: Order RX descriptor reads after completion
+>   NTB: ntb_transport: Use little-endian shared fields
+>   NTB: ntb_transport: Order RX entry completion
+>   NTB: ntb_transport: Keep local QP link requests separate
+>   NTB: ntb_transport: Exchange client capabilities at link-up
+>   NTB: ntb_transport: Add per-payload client metadata
+>   net: ntb_netdev: Reject short RX frames
+>   net: ntb_netdev: Factor out RX statistics update
+>   net: ntb_netdev: Introduce an optional packet header, ntb_netdev_hdr
+>   net: ntb_netdev: Preserve CHECKSUM_PARTIAL across NTB
+> 
+>  drivers/net/ntb_netdev.c      | 191 ++++++++++++++++++++++++++++------
+>  drivers/ntb/ntb_transport.c   | 177 +++++++++++++++++++++++--------
+>  include/linux/ntb_transport.h |  12 ++-
+>  3 files changed, 303 insertions(+), 77 deletions(-)
+> 
+> 
+> base-commit: 879e280b8486d4612ad1aa050d6fada2dd80cf1c
+> prerequisite-patch-id: 0000000000000000000000000000000000000000
+> -- 
+> 2.51.0
+> 
