@@ -1,126 +1,130 @@
-Received: from sonic310-14.consmr.mail.bf2.yahoo.com (sonic310-14.consmr.mail.bf2.yahoo.com [74.6.135.124])
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB1953D34BC
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 21:05:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.6.135.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 134753D3D10
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 21:05:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791579907; cv=none; b=SthZzofARdUURQ1yvreDF8efo48X3s0i8omG7BrfaX1yKhKpLK2AoKrv1NVlHE7FSZzhzx7t7649X8EpC921v580K4+QrSRSTOe8zkGWeZfDg53j5lFzVxsfKV4KEnAV4a7VdPDHJ3aFw8a70Nf7Cpm0p9XTxHXqeHoxzPpExT8=
+	t=1791579918; cv=none; b=g+K8wFJNSfFoKnqYR8myieBbRaqFKFeYXao2dtzNyc+RwnLaEctP/n8Rak4JpTp36u4CngaDbzszWCr2Rh2rFtuz2UeI/MU0n+ne7RO94XelJ486E5KsHx7XXabKEvDUA2kGIEn3TFsWvq8u8h10UESnJ32rejswqoOfhk/lQuc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791579907; c=relaxed/simple;
-	bh=xgW/sq4VgvN19Yxx29jLBfotVMhiJArYkAUzEYUolMc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=p0xAXOitxXSt++9NNha/nnof5dTwjZq5zGy5TNh98y44OrXBkora78lSk3869dKfVeM7/jl9j6V1pc8Itvy5teVd3cZnkCz6JHfEigdev0vzLs9fFc95ymgxLiYtYyAAolP97G9PAITI/ipxeGVYC3Rip84+84V7lzUhJ4Ri+Ng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=gw0eCi5A; arc=none smtp.client-ip=74.6.135.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	s=arc-20240116; t=1791579918; c=relaxed/simple;
+	bh=bhQCTZ59FiryGzv3D1sOSpNJHyq8P/Yq23VYtggOCzM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=HOWDFVcg4ccj+3YQ5tiV8ggI47XCBsERU9HF9lgOmHtxM2Bnpe76igSuf1oSrcf+o+vNaRAtTwDAqTh/N2Mxv9lANEY0To+Sch8JKPqrbk+ki5HiDi2S+lxBQvofwxFgljrFR3Bl6cGyg/EYrV0yMjk3H9d8OaUxWfYu25ydMxo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LHv7gey1; arc=none smtp.client-ip=209.85.218.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="gw0eCi5A"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791579899; bh=xJMjPlMDF/2cqri75QONHmYR6SI/lZUTP25M0BwhfVE=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=gw0eCi5AVrBMq4tSXhrCuhDMAVkiXQOKrDsC/z2VAKCEei0fIO117raJ+b8Vg4YGiL99qIh5ezYFBMmdYqjqRzLNbP70Emda8MQ2udGB3QsIBOcV0Z2MBmZ0qfMpqBeYG/1uycDczBghWD4LejfmDSPnpc+bVXNbISjQOskUoCICs1cPfgRqkHFiR9Ax5MPqKR1dGqaiDyjQ9puOndTM5ZXR2Vcn82sAJHEnOhXiFWdtsmVyMhDI6KMh3tlsMwpN0j3rcV4XbD8LfNuQq3bHSLPJEiex+HqzhlDqrg6485YXkfpk9j3jWptUXVCxEKOEteeEiZrISVeYSkB5uabXdA==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791579899; bh=LcBCK7KjWHKUF/GZb/k7w5DqmGjPpQMxIQQ9r0R4J+K=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=k7Wby1ncwuHW9Pk3zgRa+Vt8ImWbaMQi7/OqIFjXR1Y6n415pO5U0g+xl65SxQA237RBfYRHATXdoVDHxMa6vDn8wsZOmHRffz3CWjUqmN9IpINDUFxJ+36XmyuCZTuNvIFZT/xgAtuzQtkutqo/lSU+6RVK2y6N5DARog8SYQVwv5l/+NwwZBO4ItVFMZ4eN27OGjcoHsu4/YrrbaW/a+He2cNsYE/xmxpFdo14TrgsyaQkfhjFEuiYWyoY3E8CzOc1MWalLX+YG5hJxU4YuKSddWas1MZUdHnTh89flTxj9IaoseXoqIIBxORd79EauK482j7Cc02L7+qi5BOlFQ==
-X-YMail-OSG: Dfb6YYMVM1l9ix.W9rjf62ZW7aMx0whnx_R8hKZo0OaGWWpr_RPyWrnHMKecQu.
- EHKjnBwxnACD3LdCKup9dU8rm4Kj1npZun6Lko5yKy0bSLvQ04MkgJUKQrtDZT4CiCZeODp4qWfW
- 2_yun2qPCpDxb7LaOM0UROQMoDEtO90Q_pF3E8V4UPbrZK_N6Csgz2Jnuwsk5M7VX9IO89jsYprS
- VfBN0verg4qfpucCd5XgLjGrLzO4eDC0Tmc5MiPirLxvfwBJxSevAgF2U2k25hAGo956VkEnECbJ
- exsMOd5ZoCgBAunBgSusxkoJu2_tg7Q0.2OCpqH5VLDS_QAu_rYmlp5KW59JjA6YoS7ful_3RbbO
- rD5HJWlgVZxUykGxFwj78tdOtwPefGWfdjdaskKzLT0ek0A2DE3VKr3G9dZXdnGzKldQDsdFHAEV
- FP.z0TGjwXEyQqOAJ16J67qBciAJJERIs7BhgPJnXy4s2lsqLcGDEKlEm3kNgwFJS09Jv4IJqrip
- OxEhknVjY7K0Fyy_7tIRFpp7K6KjrO9Vfbb22KkXnbT2YGL96bN9Aa808yt1c4G88dKMRYnKfJdv
- FR9pbiP0ZABt56tdf.6oJpAeZekwuIInSRvzOV4zJf7QsQ1z26rRYeQB7vqx1Uad9ykaDc8P4.rF
- 98uECscABmxyZwpzBx6bUh9PFfQWfQK9AJbJgbanxqWMPlEvuBVqQrALl24Q3_Ct0BfmQ0So4vP0
- 4bmSUzoor0c8_dBbOe_hv1ahR4laI2uGaKHTc_wBRKcMIjiBIc7dHUgFmdvLe.dQgvRGlmqgwjNM
- 4d4kXbC8XDlAQRiPa6MNxzBVJoEwctWI1dT3H_xbTCUutK9VjZefRYKA1RliNzh7b9xs0lzZmfvp
- RyG45rwVALiU3QRxbhSK4JievFXGsaKtufCnE1WlSNHa72mt_I8L4uuHP0J5uz5eM0LmodpNFBEH
- Yx4M6LNPr2UoVbk.CmmUwgW0FLhK.o2S2iNkB.pU1mMn44xEciXFKaTZJqemOuMm8bNNrMxsHxJz
- d9YTb3FsLmnYTlrohNlAITAxHMnII1nnxbuBs7uaZQ0Elgd2k2zMSFV62XI5oyS_T9d443Jto9xb
- SgZQypZi6Qv0W_lBPIJ6FQrG7ZhJLXzuOO5miJenzKvSZq3ddzlqf14duxfBp9rT1w.UixVwc.WM
- hmkuUQI3ogH61niKanX0vb0LSUnOsnw6v1oYQvOYn0.xvuNH.jOOKX86m1rt3mgHuudfnIhPtiHq
- JVxCjtMftpFghVJa0DAtlLjMzpJhBb617BBKdwDuUaEDfvSOCSB.rc4Dvy2lUnjQiyx7DT2j4f5Z
- fJhl0_G2txYMuFcH4WI4k49M.lbYcQk4npV9KafoqCs0sykXbMOdv2eizZdGbUG9R8B4KCB9cvpA
- yObsreCvNiBjumQhIeOfVwgBoElWvfmcABKOFoP_ARFqIlPdMHbz5uUNFqryRiQhW8e_nwmcU9lr
- 6kUAUlOFpnpm29h4DsrE3CzFVDWFlkcxgcNQhHK1zUQUsf1YtPQgeDZHisFw5GbOhGqFq3U7CrnT
- vRWHfiDVstpmIgQYMxcaa27jUwlrC0cqcmY1GbSY.Mzakrrl4gl5hE9IV5QGhr3rtozvb37xoO.w
- xwEodvhWLWwPybJzrLLQktJ_vHP4Z6eYAyR.WFUxN6rAuUCrjq4Gdq33.hG3O8z4i.Eknx0FylOD
- e973e3kgSQgQ5SuLlWP4czyh9AFGN6uEWJb9L0czYKvM.DXbTxTQhBzAB5_oIieVYuWsWuYp3evm
- BvhAavXKBffFM1MuB3YoSwdEABzYvex94qdle.6WG6d7SB.lARnM8Q0tmsZa6BY3MRfFjBLErcn3
- uE4Np3nfr.Q.g_x4YYeEiOCCNG2.CFf1q1zul_qUeh_bjF8Tjg2G9Ybb55lmYSnRnJVJpMEBLySC
- dw3AoM8Or9HvN5CRapiPBVPz18_BnQP80TdD2PnfKVaUzacg5UOqFrzYkyPG5qniIVwOYCWk9K9m
- iTiCwc.bmj_gOfwD9kLQ_KguactMEnhdG5av8XdrA2oG6NtMemy..P6fgRVqq4vv6wSuSV0QeY8w
- 5Mb10UAW8yKN9LAkp4aH.dDWLEbNOFVNduij6KTdAhyECNGiNEy5ohDQ.wDfktkaDVB2j2HEPwpv
- kf0rLIkNyegMcsjRghhNvNeTO1WSVouxdL4SDLZI3UQtPx_aROrWCCV9wpH6kph8ZEKUMFADD_bQ
- xQkJsPezW3y7evEW7_zSAjbhdQjU2J8jsEQBA
-X-Sonic-MF: <deaner92@yahoo.com>
-X-Sonic-ID: 30ceb3c1-270f-4259-ad2b-51a28a814d92
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic310.consmr.mail.bf2.yahoo.com with HTTP; Fri, 9 Oct 2026 21:04:59 +0000
-Received: by hermes--production-bf1-6d6877594b-qtt2c (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 44b417ed8011f4c08f6a2ea9bf8fcbd8;
-          Fri, 09 Oct 2026 21:04:55 +0000 (UTC)
-Message-ID: <0aabb9f2-a144-4267-b67e-a0972d228f2a@yahoo.com>
-Date: Fri, 9 Oct 2026 17:04:49 -0400
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LHv7gey1"
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c29c6a3930bso34216666b.3
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 14:05:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791579910; x=1792184710; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wz0G6EIJ9jHYf1DY2TM/zttSc2Bnn/rBBqINkszU/6M=;
+        b=LHv7gey1K7d6dcBiEVBwPaJb/IInzcQqGE6LZ/Iyb9urVy9FAsgUr2SP09qeIEczrV
+         c6TsmyBe/qTp62sDWB4F0pcSADsegZ7rsLdqRz725kApesSgt2GB0SahbPvgxZ7BSHHA
+         LP3GvkOU/Zpvhl+579ojxLFU/GYwnehpC5tKiIy+YIdNb/NlB7Pg0Y1r/hbwL0XVVFIw
+         AOloDh4ldlFvUAGlidIWANnx1w5FzIR4nWeETncZJsu7K+kePq9Yxwhc4Aj+sgsIGnZ2
+         TuAMvTKrcwIIXeIOz8TWFaoohszeUGgvpxc/G8IFOr/wKWga1ScKAxrK/fKq3h4ljCIS
+         qp+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791579910; x=1792184710;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wz0G6EIJ9jHYf1DY2TM/zttSc2Bnn/rBBqINkszU/6M=;
+        b=e4Azq946PYEzNqvxXE4X4Otue//N/2lvfw0vDnK9tp3+zMqSvMTXya6TzUyIaBra+H
+         HVbr3wFaLgWVya96oT+AUufGCCgYHLTWbgbmULfJmkX23XICvFOIvEuz8qjUeLLcxIRO
+         Y1q2h0cFqcNFZm1Z/9MzPVKe/xTvPC61UixaPybpTm4142lovwJNfhMzBPl8Xbgjuo/q
+         75mDe6i+881/tvSEupUoLBL4vWsI//z+yVdVsYA+j5bsqRXhgWjsf9ToBOBdivfMTl4Y
+         /oOEmuXawHOiVQPqo9dSk43oxTxe1Nyie0v2gsyWqIWDChYyA1jVeuarkJfU20sELI3K
+         exmA==
+X-Forwarded-Encrypted: i=1; AKwUvBwbcasNxCv6gc0plUKx2ZLpgOVoXHxVXh1IjZvKSy0tf7/V2kHE9zjNK9iEjdHBElOF7KspSMCLV4ycT4M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLrNsfgu2N1njdn3EOQOIkX3zNQL7LC03FYHYgPHmVsBSuLp5wi
+	XiwPa1hASPvOCjIB0Fg6qATg1X3A5AOQ5cUJzzn9RBaOQF+nUEyLWJidlEwrmtP+
+X-Gm-Gg: AYBFou3YW+ePl/B0pSqKyhDVlvkklcJn6f/9OUQEPCDQvFno7FQf6JZZIgDbrvTRPWx
+	rfGmk55VXbs1wHMoKbUiMJ3uuOoVTsZ66++PE4JqR6eKh2dGaw8pr9bt/NP1wzi4TiGt+axM2gS
+	I9ZC/a4cUaH0Ie/axohak09CwkY8DmWXZSRVZUPoVncDVRTxBlkE9uDxirue0q2dyJSNS40KBP/
+	zUchlfcnnibOxiCMg2S9dpD41BJ2gIFKtEovRYUx4qlpvfRJN7c/5D6/vpVAnJG2uD0V7BbSVo9
+	JcKsMrtjLrig/sTO6YSmLlwM5J6B8X78kQZec97BRqw8yF44iSPKU+P7H1bWLIiDhOrem9PxJjz
+	dQFg5VbiU3wAOIvnwswc575a+ICUE149Ki7kJKsZHMLHg3Fv4TQYjJssHFFkOx4JGWmDu2/dFjC
+	l+SYQ0SYP2CQTIHpTaH1HaOSfX6DLIbngqBNHKDaTT6Q2WshlBpSJFSBQSUw+lMlZj03hx2Rc/E
+	zE9doc1C+209ppRRLOXR0JvoByINsZO6CWWyClq
+X-Received: by 2002:a17:907:1ca0:b0:c26:22ec:db92 with SMTP id a640c23a62f3a-c31aa02c51amr323343466b.47.1791579910016;
+        Fri, 09 Oct 2026 14:05:10 -0700 (PDT)
+Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9765d1asm142141266b.8.2026.10.09.14.05.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 14:05:09 -0700 (PDT)
+From: Magnus Lindholm <linmag7@gmail.com>
+To: richard.henderson@linaro.org,
+	mattst88@gmail.com,
+	linux-kernel@vger.kernel.org,
+	linux-alpha@vger.kernel.org
+Cc: linmag7@gmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH v4 8/8] alpha: invalidate the local context in flush_icache_user_page()
+Date: Fri,  9 Oct 2026 23:03:53 +0200
+Message-ID: <20261009210449.971057-9-linmag7@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261009210449.971057-1-linmag7@gmail.com>
+References: <20261009210449.971057-1-linmag7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: pwm: Convert NXP PCA9685 PWM controller to
- DT schema
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-pwm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261006033518.34332-1-deaner92.ref@yahoo.com>
- <20261006033518.34332-1-deaner92@yahoo.com>
- <20261009-industrious-scrupulous-lyrebird-c4fa46@quoll>
-Content-Language: en-US
-From: Jeremy Clifton <deaner92@yahoo.com>
-In-Reply-To: <20261009-industrious-scrupulous-lyrebird-c4fa46@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.26668 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+Content-Transfer-Encoding: 8bit
 
-Hello Krzysztof + all,
+flush_icache_user_page() has the same caller-CPU omission that the
+previous patch fixed in flush_tlb_mm(): when the target mm is not the
+calling CPU's active_mm nothing happens locally, and smp_call_function()
+handles only the other CPUs, so this CPU may later reuse the old ASN
+together with the translations it still holds.
 
-Dean is a middle name I use in place of my surname, Clifton, so both
-names are mine. I should have used the same one in both places; that
-mismatch is my mistake.
+This matters here in particular because the function exists for
+operating on another process's mappings: the comment above it describes
+setting breakpoints through ptrace, and access_remote_vm() reaches it
+through copy_to_user_page(). The calling CPU is therefore often running
+something other than the target mm.
 
-The goal was to bring this binding up to par with the rest of the PWM
-bindings, so that device trees and overlays using the PCA9685 can be
-validated with dtbs_check. It's a common chip in beginner robotics
-projects, and the schema means the beginners who run dtbs_check can be
-sure their DTS has no mismatches.
+As in flush_tlb_mm(), the uniprocessor implementation in
+asm/cacheflush.h already has the missing case.
 
-For reference, I put together a template for DT schemas:
-https://drive.google.com/file/d/183T6W73x45-0WRpo372I1OMeQZop-XzQ/view?usp=drive_link
+No imb() is needed, here or in ipi_flush_icache_page(). Alpha's
+user-space I-cache flush works by allocating a new ASN rather than by
+invalidating the I-cache: the entries stay, but they are tagged with the
+old ASN and can no longer match. An imb() is only required when the ASN
+space wraps and numbers are reused, and __get_new_mm_context() already
+does one in that case.
 
-and a requirements document which could be a starter guide for someone 
-putting
-together such a schema:
-https://drive.google.com/file/d/1K_pfVIZ6u9GjD5tL4TJ40qOHM-_eWe4O/view?usp=sharing
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Reviewed-by: Matt Turner <mattst88@gmail.com>
+Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
+Message-ID: <20260923074903.862898-8-linmag7@gmail.com>
+---
+ arch/alpha/kernel/smp.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Look out for a v2 with zero hallucination sashiko flags (My middle name 
-is Dean).
-
-Jeremy
-
-On 10/9/26 5:36 AM, Krzysztof Kozlowski wrote:
-> On Tue, Oct 06, 2026 at 03:35:18AM +0000, Jeremy Dean wrote:
->>
->> Assisted-by: LLM
->> Signed-off-by: Jeremy Dean <deaner92@yahoo.com>
-> 
-> ...
-> 
->> +maintainers:
->> +  - Jeremy Clifton <deaner92@yahoo.com>
-> 
-> I think we are done on these hallucinations.
-> 
-> There is little point for beginner contributors to send us DT binding
-> conversions generated by LLM.
-> 
-> Best regards,
-> Krzysztof
+diff --git a/arch/alpha/kernel/smp.c b/arch/alpha/kernel/smp.c
+index 988e397b0b8a..e21bc3920bec 100644
+--- a/arch/alpha/kernel/smp.c
++++ b/arch/alpha/kernel/smp.c
+@@ -758,6 +758,9 @@ flush_icache_user_page(struct vm_area_struct *vma, struct page *page,
+ 			preempt_enable();
+ 			return;
+ 		}
++	} else {
++		/* smp_call_function() does not call back into this CPU.  */
++		flush_tlb_other(mm);
+ 	}
+ 
+ 	smp_call_function(ipi_flush_icache_page, mm, 1);
+-- 
+2.43.0
 
