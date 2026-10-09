@@ -1,362 +1,197 @@
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35F78511E92
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 18:14:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791569684; cv=pass; b=DfuaETx/NTrubdYlGIcrPrzDkme5PA5IUMVGPDw/B3BfGCeiV0R6E7eTTfu62zxumgq0qSOqLl0vGb9nlQ32OvLl3Hr1WUOqAb/CP9QZw9E4SxbGwTKFbkLAKQFIFqVXhk6xmwVYPmrFhviDOgRo5tuqdSEMLDeISH/RywkeNcE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791569684; c=relaxed/simple;
-	bh=Iku5PWYF6vmjl/fBl0R/HTppe1MkACYLP/SsSCGjRgo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Bn+7WaBHprPmgwFA1P/O6nPn5skYcc5S3wqia5q1qhNruImcZDfR/J3mWpF4bfDyirpxMhPi/fG2VWk69ZsUZSOFeVK8/0qcvgPmTD/7kx4UPX/nwXe/gjga1JHl8fTnf8TEWpgWaGwnSDk7aH+wxoe2Cm9G6CIvtk6f0LkPWqI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X8wxTQTh; arc=pass smtp.client-ip=209.85.167.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 778915013A4;
+	Fri,  9 Oct 2026 18:14:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791569685; cv=none; b=MQYuMH1k+W/TKqBXQsFje8jJBvIG603YP9Rt1nKXM9228Co8zvErKbf8lR1qsdR51nOIUKTLPuRoFZlJwFDxv+6plR6HiRoDMrZOvO+T17eD4vht+RFeF7hTUwnm4PdQ9YQzpzFX2/YzDQoThk1dbAKqcM0CN3DOQnovEUS7Gmg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791569685; c=relaxed/simple;
+	bh=lESe6gCmDf4+F4pdn3o7bqurkD1VaVSfNfkAaTS9RAY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=iTL4I+UWQv3Kr3TJ1nN8EtkJi1703v+A9i2WaZwPg4kd4B2RsP6+B2NYhiXmoRLatdCG3wj1PozcI/kWQQvha3VrhTo/2T5Wx3O/Zgeuo1xnAgL5Z8LUJJP6yJan/rcr8/cOGANdx8SWPj1Cj88WxiXd4QOIouOHEsKnwTz7jKA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Js3B2P5g; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X8wxTQTh"
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5ba37877490so3895825e87.3
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 11:14:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791569680; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gaITt1z/Y3ka2AI8264WfQ2ctyJncvykdVmgHBC7sPJIWIpkr5NVRraQ8OIWXS9yJm
-         M+1fqOyOCp2n72GO0RNUSIqs0lJrL5sVDZx2lsp5uXFTRcgSjNu+gV96gWitxa3nc8yA
-         wLDbW2pmHFVOiDYVNSU5XuOnZqgMdx+Ddifl3+oPB5kRTYlXKq7PpOpnpkPGWIcUqm+C
-         Vgkle6zlJBp8+6GA9vIL5NmOxJwhjWmVYlm1NBbUZXug+8zIYZauapRMF4Lwc6mUqhPU
-         lQYK88gbcoApd13285KBMQAEeThAzIpEARCdW2SCMLiWtko3J/oGM+S54AQ079LnY8KK
-         WIQg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=GzFxJ9vgUSa5vFAHmyHoNK3c8Rn5+2DWr/0WZ9L7B3c=;
-        fh=0qoxAz1vwKVQOHMEQmMk0Gz3urdZk7nBO9L2r42gimY=;
-        b=UMsYZjedQLG2DwrmYJ0SESf8SelGE+9qfk/kvw7aZmUTGovfWlxmpgBuXOI4jl3CeJ
-         /yuAiwJGcjHh+m37Zcmc7XalzORApRoJFAoz/3hZM8Fod5RpHmchWFN8kAINYapH79GJ
-         KOhCVo7a3sejO4fhk0qTz2Lc10tjug5M4XvPSF46yE+Xdlp8pH1B+Cf9L5w3Uw9NWaWJ
-         NxCwb6wZjuLZCKx/OzkfNPc8sGiiWRjNJe8yBQB3eTVic7qkuhgdJN0SLGGz58+zpX8B
-         AGAFi/+T32p8c93ZQu8AbBPBHQpNKgCQcnO+XQhDtaHCxEMhCaTVB/v8Zt7pkX9ABhRB
-         o6Iw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791569680; x=1792174480; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GzFxJ9vgUSa5vFAHmyHoNK3c8Rn5+2DWr/0WZ9L7B3c=;
-        b=X8wxTQThfxX22uFDFosUqkj8iuCNUqpkfEZ9C/vHXx53Z4Eg+QXESxj2klggT7ptlh
-         Lf8AR6bCU0MTwKLNb+qz0AKvVtcaKcLjTLa3KQjD/rVJ6El4u3YePtb3W1jEkma8o0q+
-         zulwLtJpU1JEP3ucPJwtVkW6erEmVeIy4HzAWP4HYmwa1fWO1BPBsOwr6m42NCbcT/xl
-         zpNOZULWXHAoOE60Y/HYpP8qSSW9cryFENmEPoPWN3NnBTn5q8tj5R1euRpdsN1pT3im
-         FPoyee3peo0LQAeaLMYjahJyCG1hiklK9N+E2tkKMYh2rurzpIyQVpGsTemoDbXZi9nC
-         MH8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791569680; x=1792174480;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GzFxJ9vgUSa5vFAHmyHoNK3c8Rn5+2DWr/0WZ9L7B3c=;
-        b=unK9iaYZ5NVTFTAw1AOh92qCPx1GH0Fy+3aS4OlOzVPaixgEmnWYXxD78s07U8p1Wb
-         A2DrE4vQCFYJDhnwBFvKNnb/VeBVc8BxOD0o1nNu1V09ddhbCfbWYV+3FEXN0DA35+Mi
-         YsGf499+N3wSNbWhRx9yp20b6FXYTCdvcU9EFbCyud5KXd0tWsa/J3IbN/CyH3myh8fx
-         tzLXdWN8tbFf9Xq5LKmg3Mmg3D4rV/rNkD05cudsEXPsBlpoKpbrljqAewxYKyds0+M0
-         XUAByPdMBVnLDnjFb/FnhpL3k1d0lBROt3ETDUhczeMRtdhFppPSDi5ETdnwAx7vr5+l
-         zSfA==
-X-Forwarded-Encrypted: i=1; AKwUvByJqLedT1OXYfBFqTRfmVcXPf6GNxnemh0uZQKkb1hOVfkmNoQMNfsZUIxf654uFHWMvqo6lG+fBP3lt1I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLwNZ8xb22Y7rma4dnNjpqgEakvfYhxIjELxdu/deVIa0icL2zo
-	pucGDbezKxY1kL6A8YGlUVj0g28KcZGUtdo9dL8SI+f0i9KJUrWlmOx8siRzKsBaeItQC16AS8B
-	RaV+VxPVLw6sXCk63izQesFsKXcBFy+A=
-X-Gm-Gg: AYBFou2Wt98vqiIS1b9jmH5Mn07NFwSrC0ttrJnAFgQkeWdD5+97EPuDbOMcEtvTdU2
-	8JM4xguK/ytYVXFje6PJKaNb3qLYeu+gOuj4Qy6m1NQniYBlMW1Cn1js1OVRr5OGs9Au0fdFRPv
-	QdAhc6u28RhPKCcAg3EnYsncivb0HZR8AYMS3Mmw29RdJx6hgQY3fhCpIpzVPaudA3z2g4cUsX4
-	SgHV/dhqZymxyftesWQ+x1PnFuR3iKoYQBKAtosAooM7EpIk4T6l8EvSDTAxgkPYSFTcLlc1ruw
-	MDcpbMebiqi4dLpPVzVIT1ipKCPOo7A6i+ihDI3/Y+f3GqMRCjAiED5AekjzBWBTzfvChXyZhSZ
-	yKgSI9DieBzpP84gZZiwYpuCE9dfltaCuNG8XAdQx4hZJm87axZ3K2A==
-X-Received: by 2002:a05:6512:3d1f:b0:5b8:b331:19b8 with SMTP id
- 2adb3069b0e04-5bcde8bea3amr981665e87.38.1791569679857; Fri, 09 Oct 2026
- 11:14:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Js3B2P5g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 731CF1F0092B;
+	Fri,  9 Oct 2026 18:14:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791569684;
+	bh=2WAPq/01IfLjO2S8vhrYpwSzi1RQ9xk+b3YXsmkfaS4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=Js3B2P5gbPAKU65Dg3m8YeIQgo/m6GL4gZ12B0utWLjBrrqVOPuvx00f2ZeLryxql
+	 D/mbhI6bTWdbA0voWMSy8G1U9oc6vBfjynTItHS/GQGAgCc9desa0OvJfzFRe/IbxU
+	 xXXqyZJPioQFUuYDBeDq+ZrxAWN2OOiZWdFdWi0TKG0Q/bSrkaPYdsM6Py+1Wm83ET
+	 /fk7G29sUrFBQuK7NzNyfaubbutdekeLd+bsu84F0AQDwb3pZJAFOiq4sWcy4s7V+e
+	 kTR6BeZ7AY4jsSWDLiNbgo/RrPtGeyqsFfJ+hR0v6OjM5nG2j/QAhIkTnJk0ECa++c
+	 pxlqTSQDA71PQ==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Fri, 09 Oct 2026 19:04:23 +0100
+Subject: [PATCH v5 29/38] mm/madvise: update is_valid_guard_vma() to use
+ vma_can_merge()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261009161224.4163796-1-zhaonanzhe@xiaomi.com> <20261009162828.4188050-2-zhaonanzhe@xiaomi.com>
-In-Reply-To: <20261009162828.4188050-2-zhaonanzhe@xiaomi.com>
-From: Daeho Jeong <daeho43@gmail.com>
-Date: Fri, 9 Oct 2026 11:14:28 -0700
-X-Gm-Features: AclHuK-jbGK0B74BZBo0nkrt6cbQDaiXm-Dt7i2O3z1qYyedzFTZ58d_Vz6ep0Y
-Message-ID: <CACOAw_y+X-d0mmPxdKyFrzFOEMgswV3+_EW6WAp--vS_HwFg9A@mail.gmail.com>
-Subject: Re: [f2fs-dev] [PATCH v3 12/17] f2fs: handle partial truncate of
- large folio dirty subpages
-To: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
-Cc: linux-f2fs-devel@lists.sourceforge.net, Jaegeuk Kim <jaegeuk@kernel.org>, 
-	Chao Yu <chao@kernel.org>, Barry Song <baohua@kernel.org>, Juan Yescas <jyescas@google.com>, 
-	Daeho Jeong <daehojeong@google.com>, Dev Jain <Dev.Jain@arm.com>, 
-	David Hildenbrand <David.Hildenbrand@arm.com>, linux-kernel@vger.kernel.org, 
-	Bo Zhang <zhangbo56@xiaomi.com>, Kalesh Singh <kaleshsingh@google.com>, 
-	Nanzhe Zhao <nzzhao@126.com>, Pengfei Li <lipengfei28@xiaomi.com>, 
-	Ryan Roberts <Ryan.Roberts@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-29-923b70125b1e@kernel.org>
+References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
+In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
+ Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>, 
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
+ Xu Xin <xu.xin@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+ fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
+ Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2028; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=lESe6gCmDf4+F4pdn3o7bqurkD1VaVSfNfkAaTS9RAY=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJO6szN4chcMokh7SGzyaaNWwQ/3X9/6lBV7omdU95/4
+ vv9b51sT0cpC4MYF4OsmCLL8y/i+4NEwuZ1XvB3g5nDygQyhIGLUwAm8imS4Z/t6YjFMxbrewo8
+ zP/jYRMmGZPYv6Mw42vohWv1j5avvnSJkeEfz+a974R/vMzxEY/7qqcsJlsmmHrktuuMHSXnHCX
+ fBDMCAA==
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-On Fri, Oct 9, 2026 at 9:31=E2=80=AFAM Nanzhe Zhao via Linux-f2fs-devel
-<linux-f2fs-devel@lists.sourceforge.net> wrote:
->
-> A large folio can be partial truncated and stays in folio mapping, we
-> need to clear the subrange dirty bits and uptodate bits that the partial
-> truncate covers. If this partial truncate happens to clear the last
-> subrange dirty bits, then cancel the whole folio dirty state.
->
-> Also add a guard in f2fs_write_single_data_folio() so a large folio
-> subpage whose disk block was already truncated (NULL_ADDR) is skipped
->
-> Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
-> ---
->  fs/f2fs/data.c | 115 ++++++++++++++++++++++++++++++++++++++++++++++---
->  1 file changed, 109 insertions(+), 6 deletions(-)
->
-> diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-> index 21c43019167a..138a77044e95 100644
-> --- a/fs/f2fs/data.c
-> +++ b/fs/f2fs/data.c
-> @@ -329,6 +329,27 @@ static void f2fs_read_end_io(struct bio *bio)
->         f2fs_verify_and_finish_bio(bio, intask);
->  }
->
-> +static bool f2fs_ffs_has_dirty_subpage(struct folio *folio)
-> +{
-> +       struct f2fs_folio_state *ffs;
-> +       unsigned long flags;
-> +       unsigned int nr_subpages;
-> +       bool dirty;
-> +
-> +       if (!f2fs_folio_has_ffs(folio))
-> +               return false;
-> +
-> +       ffs =3D (struct f2fs_folio_state *)folio->private;
-> +       nr_subpages =3D folio_nr_pages(folio);
-> +
-> +       spin_lock_irqsave(&ffs->state_lock, flags);
-> +       dirty =3D find_next_bit(ffs->state, 2 * nr_subpages,
-> +                               nr_subpages) < 2 * nr_subpages;
-> +       spin_unlock_irqrestore(&ffs->state_lock, flags);
-> +
-> +       return dirty;
-> +}
-> +
->  static void f2fs_write_end_bio(struct bio *bio)
->  {
->         struct f2fs_sb_info *sbi =3D bio->bi_private;
-> @@ -380,7 +401,8 @@ static void f2fs_write_end_bio(struct bio *bio)
->                         wake_up(&sbi->cp_wait);
->
->                 if (finished) {
-> -                       folio_clear_f2fs_gcing(folio);
-> +                       if (!f2fs_ffs_has_dirty_subpage(folio))
-> +                               folio_clear_f2fs_gcing(folio);
->                         folio_end_writeback(folio);
->                 }
->         }
-> @@ -2893,6 +2915,29 @@ static void f2fs_ffs_mark_subrange_uptodate(struct=
- folio *folio, size_t offset,
->                 folio_mark_uptodate(folio);
->  }
->
-> +static void ffs_clear_subrange_uptodate(struct folio *folio,
-> +                                       size_t offset, size_t len)
-> +{
-> +       struct f2fs_folio_state *ffs;
-> +       unsigned int nr_subpages, start, end;
-> +       unsigned long flags;
-> +
-> +       f2fs_bug_on(F2FS_F_SB(folio), offset + len > folio_size(folio));
-> +
-> +       if (!f2fs_folio_has_ffs(folio))
-> +               return;
-> +
-> +       ffs =3D (struct f2fs_folio_state *)folio->private;
-> +       nr_subpages =3D folio_nr_pages(folio);
-> +       start =3D offset >> PAGE_SHIFT;
-> +       end =3D (offset + len + PAGE_SIZE - 1) >> PAGE_SHIFT;
-> +       end =3D min(end, nr_subpages);
-> +
-> +       spin_lock_irqsave(&ffs->state_lock, flags);
-> +       bitmap_clear(ffs->state, start, end - start);
-> +       spin_unlock_irqrestore(&ffs->state_lock, flags);
-> +}
-> +
->  bool f2fs_ffs_test_blk_dirty(const struct folio *folio, pgoff_t index)
->  {
->         struct f2fs_folio_state *ffs;
-> @@ -3771,12 +3816,35 @@ static int f2fs_write_folio_dirty_range(struct fo=
-lio *folio, int *submitted,
->
->                 err =3D f2fs_get_dnode_of_data(&dn, data_idx, LOOKUP_NODE=
-);
->
-> +               /*
-> +                * If a subpage of folio for a cow file is dirtied but no=
-t
-> +                * reserve a cow block, fallback to original inode to loo=
-kup
-> +                * block address
-> +                */
-> +               if (atomic_commit && (err =3D=3D -ENOENT ||
-> +                   (!err && dn.data_blkaddr =3D=3D NULL_ADDR))) {
-> +                       f2fs_put_dnode(&dn);
-> +                       set_new_dnode(&dn, inode, NULL, NULL, 0);
-> +                       err =3D f2fs_get_dnode_of_data(&dn, data_idx,
-> +                                                    LOOKUP_NODE);
-> +                       /* Original inode has no block, handled as trunca=
-ted below */
-> +                       if (err =3D=3D -ENOENT)
-> +                               err =3D 0;
-> +               }
->                 if (err)
->                         goto block_done;
+We currently disallow the installation of lightweight guard regions in VMAs
+whose flags intersect VMA_SPECIAL_FLAGS or VMA_HUGETLB_BIT, or
+VMA_LOCKED_BIT unless allow_locked is set.
 
-Hi Nanzhe,
+hugetlb VMAs set VMA_DONTEXPAND_BIT so this was already redundant,
+VMA_SPECIAL_FLAGS already sufficed.
 
-For non-atomic files, -ENOENT from the first f2fs_get_dnode_of_data()
-still comes here as an error, so f2fs_write_cache_folios() redirties
-the rest of the folio and returns the error.
-f2fs_write_single_data_page() does not fail the writeback on -ENOENT.
+However, now that VMA_IO_BIT is only set if VMA_PFNMAP or VMA_MIXEDMAP_BIT
+is set, this check collapses to being the equivalent of
+!vma_can_merge().
 
-I asked the same on v2 05/14. Could non-atomic files also handle it
-like NULL_ADDR (already truncated)? Something like:
+Update is_valid_guard_vma() to reflect this.
 
-if (err =3D=3D -ENOENT) {
-    ffs_clear_subrange_uptodate(folio,
-        (unsigned long long)i << PAGE_SHIFT,
-        PAGE_SIZE);
-    err =3D 0;
-    goto block_done;
-}
-if (err)
-    goto block_done;
+No functional change intended.
 
-Thanks,
-Daeho
+Acked-by: Zi Yan <ziy@nvidia.com>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+ mm/madvise.c | 20 +++++++++++++-------
+ 1 file changed, 13 insertions(+), 7 deletions(-)
 
->                 dn_held =3D true;
->
->                 fio.old_blkaddr =3D dn.data_blkaddr;
->
-> +               /* This page is already truncated */
-> +               if (fio.old_blkaddr =3D=3D NULL_ADDR) {
-> +                       ffs_clear_subrange_uptodate(folio,
-> +                                       (unsigned long long)i << PAGE_SHI=
-FT,
-> +                                       PAGE_SIZE);
-> +                       goto block_done;
-> +               }
-> +
->  got_it:
->                 if (__is_valid_data_blkaddr(fio.old_blkaddr) &&
->                     !f2fs_is_valid_blkaddr(sbi, fio.old_blkaddr,
-> @@ -4325,6 +4393,7 @@ static int f2fs_write_cache_folios(struct address_s=
-pace *mapping,
->                 bool verity_in_progress;
->                 int folio_submitted =3D 0;
->                 bool bias_added =3D false;
-> +               bool dirty;
->
->                 submitted =3D 0;
->                 next =3D true;
-> @@ -4432,15 +4501,19 @@ static int f2fs_write_cache_folios(struct address=
-_space *mapping,
->                  * partially written back), the folio must stay dirty so =
-that
->                  * the remaining subranges are written back later.
->                  */
-> -               if (f2fs_ffs_clear_subrange_dirty_and_test(folio, 0,
-> -                                       (err ? pos : end_pos) - folio_pos=
-(folio)))
-> +               dirty =3D f2fs_ffs_clear_subrange_dirty_and_test(folio, 0=
-,
-> +                                       (err ? pos : end_pos) - folio_pos=
-(folio));
-> +               if (dirty)
->                         folio_redirty_for_writepage(wbc, folio);
->                 else if (!f2fs_folio_has_ffs(folio))
->                         inode_dec_dirty_pages(inode);
->
->                 if (bias_added) {
-> -                       if (atomic_dec_and_test(&ffs->write_pages_pending=
-))
-> +                       if (atomic_dec_and_test(&ffs->write_pages_pending=
-)) {
-> +                               if (!dirty)
-> +                                       folio_clear_f2fs_gcing(folio);
->                                 folio_end_writeback(folio);
-> +                       }
->                 } else if (!folio_submitted && folio_test_writeback(folio=
-)) {
->                         folio_end_writeback(folio);
->                 }
-> @@ -5243,10 +5316,40 @@ void f2fs_invalidate_folio(struct folio *folio, s=
-ize_t offset, size_t length)
->         struct f2fs_sb_info *sbi =3D F2FS_I_SB(inode);
->
->         if (inode->i_ino >=3D F2FS_ROOT_INO(sbi) &&
-> -                               (offset || length !=3D folio_size(folio))=
-)
-> +                               (offset || length !=3D folio_size(folio))=
-) {
-> +               size_t clear_start =3D round_up(offset, PAGE_SIZE);
-> +               size_t clear_end =3D round_down(offset + length, PAGE_SIZ=
-E);
-> +               size_t clear_length;
-> +               bool dirty;
-> +
-> +               /*
-> +                * If the truncated range falls within a single subpage, =
-no
-> +                * subpage state needs to be cleared.
-> +                */
-> +               if (clear_start >=3D clear_end || !f2fs_folio_has_ffs(fol=
-io))
-> +                       return;
-> +
-> +               clear_length =3D clear_end - clear_start;
-> +               dirty =3D f2fs_ffs_clear_subrange_dirty_and_test(folio,
-> +                                               clear_start, clear_length=
-);
-> +               ffs_clear_subrange_uptodate(folio, clear_start, clear_len=
-gth);
-> +
-> +               /*
-> +                * If the truncated subrange happens to clear the remaini=
-ng
-> +                * dirty bitmap of the whole folio, cancel the folio-leve=
-l
-> +                * dirty state.
-> +                */
-> +               if (!dirty && folio_test_dirty(folio))
-> +                       folio_cancel_dirty(folio);
-> +               if (!dirty && !folio_test_writeback(folio))
-> +                       folio_clear_f2fs_gcing(folio);
->                 return;
-> +       }
->
-> -       if (folio_test_dirty(folio)) {
-> +       if (f2fs_folio_has_ffs(folio)) {
-> +               f2fs_ffs_clear_subrange_dirty_and_test(folio, 0,
-> +                                                       folio_size(folio)=
-);
-> +       } else if (folio_test_dirty(folio)) {
->                 inode_dec_dirty_pages(inode);
->                 f2fs_remove_dirty_inode(inode);
->         }
-> --
-> 2.43.0
->
->
->
-> _______________________________________________
-> Linux-f2fs-devel mailing list
-> Linux-f2fs-devel@lists.sourceforge.net
-> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
+diff --git a/mm/madvise.c b/mm/madvise.c
+index 467601a8525b..0922d5f07a12 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -1221,19 +1221,25 @@ static long madvise_remove(struct madvise_behavior *madv_behavior)
+ 	return error;
+ }
+ 
+-static bool is_valid_guard_vma(struct vm_area_struct *vma, bool allow_locked)
++static bool is_valid_guard_vma(const struct vm_area_struct *vma,
++			       bool allow_locked)
+ {
+-	vm_flags_t disallowed = VM_SPECIAL | VM_HUGETLB;
+-
+ 	/*
+-	 * A user could lock after setting a guard range but that's fine, as
++	 * A user could lock after setting a guard range but that's fine as
+ 	 * they'd not be able to fault in. The issue arises when we try to zap
+ 	 * existing locked VMAs. We don't want to do that.
+ 	 */
+-	if (!allow_locked)
+-		disallowed |= VM_LOCKED;
++	if (!allow_locked && vma_test(vma, VMA_LOCKED_BIT))
++		return false;
++	/*
++	 * Guard regions require a VMA whose page tables are managed solely by
++	 * the core, which is also what merging requires, so disallow any flags
++	 * that would prevent a merge.
++	 */
++	if (!vma_can_merge(vma))
++		return false;
+ 
+-	return !(vma->vm_flags & disallowed);
++	return true;
+ }
+ 
+ static bool is_guard_pte_marker(pte_t ptent)
+
+-- 
+2.55.0
+
