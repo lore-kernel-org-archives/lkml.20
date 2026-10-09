@@ -1,178 +1,133 @@
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B24C51AEDD
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 18:48:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.173
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791571726; cv=pass; b=DtMx6hU2t3jg5SVjXh15FC/j7cfxzlqFKi2VJ9u8s2YR0PlTSOITQiuKuUEAkNfwwIZsqCUU//RQrHDWP7/m6XXpUhrvIp0iPEeDnsanRC4V8cPxChxQAUxfpGU1y9c3AC0NC0O7ZWWrHfzMj1cf+YdUwseimrQWg+ZXHWOYNvA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791571726; c=relaxed/simple;
-	bh=0l4CaaLZ9zgaLsOego2cb1kl3aoONQoA1AOZZaKe/2Y=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nHy6KR/PDUAlNM+Z8gnIhDw9+HU7zRCOS5NXanQMet+P77l+XKViD+Uyurs2SGADnWDJRpPAl6IPJCANjGwiyDt3C7ehYNTj/4C7Vb1i3WKpnlnZNlEUeWXK3ydjoOBx80ekBgUNVcX8koBSKtq7uL/SyWG8SqQUuzsn1ccwM34=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VYIyd12E; arc=pass smtp.client-ip=74.125.82.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 481BB51588F;
+	Fri,  9 Oct 2026 18:49:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791571768; cv=none; b=FKHqtmRROuqeGbW7Fyc9BHtaLqIqdouAWOvD1lPmpVZKC7+8yPgSAUgOXlxqaq4jjOPCOsEwLtRV8f6l46osYs8HIPURmyz52JgJuiiCu5j0ixUvUREoMD69kMFW2wkKzNdCD2L+v7wE7Dh0zP3FpKwxWw0kdmyLSO3FeFcJuPg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791571768; c=relaxed/simple;
+	bh=uOY7u33qZImZWfII90Eh3x9t61Gwy2+XVoqcFMQeYDs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GLlLdw7zCunGnMys7TKST5ISnHZ+4/PQMnHDOFNkZ4LGdDs5KoqzIuQlQYFuWUBLeyci8lrUBKw9SKJ82qyRU5k2H5S5h4bu952eZAabWIGJ3PxtOgEg+2cOVqXGqtioStgKMLPPcleXY5ahkoUKeGlW6k6ctfaKOQ8A7sjWILc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HS2jN6UP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VYIyd12E"
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-3515f9a5d25so30477eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 11:48:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791571724; cv=none;
-        d=google.com; s=arc-20260327;
-        b=op6FtXuYfzGMKPY7PymQskqapydK1TQIVCRAM7/mjHYRe9p67dvwVs70tYESGiEzyj
-         ayPvG6ltRpdjIJ+YiK0BUCLTn7Q2P7g0MUH3sn6abgFomyvLcYSLA71MlcmWECFMfQK7
-         gqydT7hNy9tysYbW0d0JrBsHYYg3Hn/2u/MrnrnQ/3H9CUuMKnKTRU6borz18Ux2SwlT
-         +FxFCCoq6KMdo+3ZE8UGIVKXO7riENUOwRiPAPwiel2EU3b6b0ZSFO8JwcdkyvwaNKed
-         EXnfOBIw5ILOpAZuTdsffIXzVbN5RjXAuscZvPDHewlnfur9diJ44Yv5BW16Qm396WQc
-         0lsA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=0l4CaaLZ9zgaLsOego2cb1kl3aoONQoA1AOZZaKe/2Y=;
-        fh=pjuhx4QxBo5fS5GvDkinwRt46168ZjpvgG+HNqqOiqg=;
-        b=Z5AQHUYg0AO+JkB2F/XSA10ZgdCqm/amHeAZkb83lUa2+tfGAb2lmBbFFVL3mpVBlY
-         JfWhX65Kid2dy7Z0VCZ1hOW80OjLgWZ3YEnqwBVic7TvHZ6Cr7r15wpxFaV2aaTuYPpG
-         blsbTFVhJwJKGjv+omMsIdPgyAAND0V1XRw2t6Dpo0CLyGe283okHE9PW0YZERc1+Xep
-         y2YCOuxGMERuk0p3b8Omh7ce0DonVRBeKYAhWfrnngT/QceLhfqgQxbTOMPDEdWZZX5h
-         VXdR0t6CHOBWiXNQxL/mfjDKjnGcDx+1guLTfcMWwfGe/HrGDeA3EoMrxcphg8OmmkJA
-         xrYw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791571724; x=1792176524; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0l4CaaLZ9zgaLsOego2cb1kl3aoONQoA1AOZZaKe/2Y=;
-        b=VYIyd12EnUDdnT8Z1l/1WPnqE7Yb+8klPqGIIwI4kuh6EPw3QcIIJRFvazsgALnMkd
-         yJvbatXkT3wu7SUFr7gYQRqB7fbeRl2tYDuTGVWCG+NyDA65AX4GVx0GTMLO1RCvjPzh
-         Rw5l1kfI8QnOdHFVmlQEF1a0bsSltITJdOQ90G1Cv+sKhDaGPbj7H0a3UAqTqYTfdTYE
-         nB5sMaXOU0BIkT+z4+hYzboyHnBRV4Vv4UgiJewaNqKcTNG1hTNuG2XxrkShNwYNsaDr
-         hQBOP5k3ZkZj4S0WADuxQTGqcppmki6jcqdDy0E552ja1K4Ei87e8+Yhx0+g7o6kZmkh
-         +R/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791571724; x=1792176524;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0l4CaaLZ9zgaLsOego2cb1kl3aoONQoA1AOZZaKe/2Y=;
-        b=Wtg7rXrTVLD1jRqHeE2Ob4nKtYDQxZ1tda7t0fdIdtHDHsT/hLsJS8DZKWCXk+JwI/
-         ZJ3YfoA0TuVo2zTkB9+CAt/ZIPMo0dOZ8HjhxQkDEHqfHYRjaU6kNdPO2j6J68+5ScBi
-         kzC+meYk4Ujm/AN+08ZrEXNAiYLsHCij7+KkfPIztLM4xi+/6qcbDRRZ0NyzMbKgEe7Z
-         qR97nOXn3xjr7EPrwFF1KaA+EXYJN/FU+kYrppZkmBD9wBqp5CsHXW9PLAGBUsKr9mOJ
-         oe0XSxDURjJZsAiXQGW66IlwE2DSxiL5+1NJyZCxmvA9guq3S6BvEJjAsNg4Shi6KkBB
-         T77Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxeUa+0b8Ai4/dt498LEOGKUJhNLqUVvPJzWTCZrGxE76wmbNvYX1yDP14jjz0ptba0//ETrHRvR8cLsHI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKo/HPs7KeTLmAYD/dHGnLX/j70+R9n20VIRnDtt/EcyiMf9wBo
-	57OCWwC9POshyvL2tlZK8e8DmqFMmNknf12xFeNepcIIiqIcP3Kz3IkVNGW1qU+xm32Dk2kjq4z
-	43fCRhkji3Vsy2h2he/gP2BDjKwrj6mc=
-X-Gm-Gg: AYBFou00IPaFGL+xDBUmgXgySGblWfdp82JU6oTm1Px88iqKoBxSSUxjwDTMx9GZa16
-	3SrJ21mHVKJv+2dklFEFTAWZoh5YuTkPaXN516ElvB1sX9BkB4ltdIJ4q84LghosyIe00a1njWb
-	oRxKJN9bQ6ob/3vwwSv5/a+bujpUGY3Cu+e32DmyQbd7XzHqYU1p4i/UlgV52yeZEt8HvOM5YDO
-	sJ5L40LSryVMTYUpB9TxiehSTy7VHSg5UGNrBujD6y3YgolR5jKfpQgce+V7HTP3DVAada71nHy
-	vPOWCqdHkuAZx8eq27pz5IYoRK/DkWTLWd3kt4tzgNLEWqFnwrn1cvEcA59Fh8Uld9YKO7/Y4nn
-	/iosOL+742D2k3SxxA+aQZkOrBa9xXVs4t3sv3tfl7Q==
-X-Received: by 2002:a05:7301:77cb:b0:356:b370:a0ee with SMTP id
- 5a478bee46e88-356b370a395mr1072744eec.20.1791571724058; Fri, 09 Oct 2026
- 11:48:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HS2jN6UP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B70A1F000FF;
+	Fri,  9 Oct 2026 18:49:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791571767;
+	bh=nI+4ZhJ3OabRWz0RuPm/3tIbNca4hC4lhUSNvlGkfWM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HS2jN6UPPAIeptzf38HH1aHQooE+M0r9XVBnh9M2fzNJ1I2ff9fgFgql5ybytogPz
+	 CPCVfdCgqtbK+fi0U9MpXZrvC2Zin79VW+aQ3cxa6Bj0jbFKyWXXG7kuGU3glYR3mw
+	 l7f+HvPym5z7gjAl2DFc/UN2iZ0hxWa5TWDVYJ8XnRKfWSWEwARFx45qiKKQ6YN+sk
+	 HYovVG/dHw9xEebLABQ7zHFEBctAYcCLfnQsVFU9n5S+bKk+xIvbI+91YS46Th+nYD
+	 9dryDPyKvn5cVlpa5Q32Jofu6pbZonJxd0aOwnvM5CvI+p6wArb24Z9QVosGRDlno5
+	 ZAOeR9Vd3Fuqw==
+Date: Fri, 9 Oct 2026 21:49:23 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: "Popov, Pavel E" <pavel.e.popov@intel.com>
+Cc: Bjorn Helgaas <helgaas@kernel.org>, Jim Chow <jim.chow@broadcom.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Radu Rugina <radu.rugina@broadcom.com>,
+	Alexey Makhalov <alexey.makhalov@broadcom.com>,
+	Wei Liu <wei.liu@kernel.org>, Michael Kelley <mhklinux@outlook.com>,
+	Lukas Wunner <lukas@wunner.de>,
+	Nathan Ciobanu <nathan.d.ciobanu@linux.intel.com>,
+	"bcm-kernel-feedback-list@broadcom.com" <bcm-kernel-feedback-list@broadcom.com>,
+	"virtualization@lists.linux.dev" <virtualization@lists.linux.dev>,
+	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 0/2] PCI/P2PDMA: Allow P2PDMA in VMware and Hyper-V
+ guests on Intel hosts
+Message-ID: <20261009184923.GE11438@unreal>
+References: <20261009154034.82321-1-pavel.e.popov@intel.com>
+ <20261009165833.GA991924@bhelgaas>
+ <20261009180847.GD11438@unreal>
+ <LV2PR11MB6070D3FCBC3EAED4FA0191EFB2922@LV2PR11MB6070.namprd11.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930-chid-v9-0-0d6cca376cff@nvidia.com> <20260930-chid-v9-8-0d6cca376cff@nvidia.com>
- <aryYkkB9j14xnWo3@yury> <DLTA93JE6VF2.37UGB3SWU6ID6@nvidia.com>
- <ase7IBtZjQsPVWSN@yury> <DM0D75ZTTQXJ.2XADVI38UGH7C@nvidia.com>
-In-Reply-To: <DM0D75ZTTQXJ.2XADVI38UGH7C@nvidia.com>
-From: Burak Emir <burak.emir@gmail.com>
-Date: Fri, 9 Oct 2026 20:48:30 +0200
-X-Gm-Features: AclHuK8Xj8QHFk5-TbzyPwVsH20KRa9KXwlVq0lwopsd7qnglTdkhqow-XI0c1A
-Message-ID: <CABwQupMVzUOsqP_fTZQdwUU+xEO1k2Q4=RQQuq2qd5HCYY0ZUg@mail.gmail.com>
-Subject: Re: [PATCH v9 8/9] rust: id_pool: do not round capacity up to BitmapVec::MAX_INLINE_LEN
-To: Alexandre Courbot <acourbot@nvidia.com>
-Cc: Yury Norov <ynorov@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>, 
-	Alice Ryhl <aliceryhl@google.com>, Yury Norov <yury.norov@gmail.com>, 
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, John Hubbard <jhubbard@nvidia.com>, 
-	Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <LV2PR11MB6070D3FCBC3EAED4FA0191EFB2922@LV2PR11MB6070.namprd11.prod.outlook.com>
 
-On Fri, Oct 9, 2026 at 4:07=E2=80=AFPM Alexandre Courbot <acourbot@nvidia.c=
-om> wrote:
->
-> On Fri Oct 9, 2026 at 12:47 AM JST, Yury Norov wrote:
+On Fri, Oct 09, 2026 at 06:21:49PM +0000, Popov, Pavel E wrote:
+> > 1. Note where `hypervisor_supports_p2pdma()` is called: before
+> >    `host_bridge_whitelist()`. This means the code ignores the hypervisor
+> >    topology. The claim that the VM has a virtual bridge, causing
+> >    `pci_p2pdma_whitelist()` to fail, describes exactly how P2P is expected
+> >    to work today.
+> 
+> It does not ignore the topology. The check is reached only after the
+> common-upstream-bridge walk and the ACS checks have failed, at the point
+> where the host bridge allowlist is consulted.
 
-> > If you still think that you need 0-length bitmaps in Rust, can you plea=
-se
-> > give the clear and thorough explanation why rust needs those 0-length
-> > bitmaps. Are there any in-kernel examples? Any language concepts requir=
-ing
-> > it? If not, it's still a NAK.
->
-> I don't know of an in-kernel example, but please look at the
-> `bitmap_vec_new` test which has been here since the API was initially
-> merged last year: the first thing it does is create a zero-sized bitmap.
+Since the request comes from a VM, we always take the "skip" path,
+regardless of the topology.
 
-Well, yeah: I wanted the behavior that the implementation rounds up
-documented so it can be recognized as intentional.
-Later, the `new_inline` method was added, which is a clearer way to
-get the largest non-allocating BitmapVec.
+<...>
 
-I think the problem in this discussion is that we want to treat
-capacity like length, which is maybe suggested by the BitmapVec name
-and its len method.
+> 
+> > 2. We are not developing an alternative solution. This is the right
+> >    solution, and there is broad agreement that it is the only reliable
+> >    way to enable P2P in VMs, for ALL emulation software stacks.
+> 
+> Agreed, and the cover letter says so. Our understanding is that HMAT
+> becomes the primary source of P2PDMA information and the allowlist
+> remains as a fallback; the hypervisor check is part of that fallback,
+> not a competing path. When the HMAT lookup lands it takes precedence in
+> the same decision path, and this check only matters where no HMAT is
+> exposed. The adoption timeline of HMAT in hypervisors is uncertain, and
+> guests on existing hypervisor releases will not get it at all, so the
+> fallback is needed for both new and existing deployments.
 
-With the minimum capacity behavior documented, it is as if we have a
-specification right now that no IdPool instances can ever have less
-capacity than BitmapVec::MAX_INLINE_LEN bits. This patch here proposes
-to change that.
+I won't worry for hypervisors, they have enough brilliant developers to
+take the upstream code to their codebase.
 
-It is not clear though why client code would be happy about *less capacity*=
-?
+> 
+> 
+> > 3. This problem has existed and been known for at least the past eight
+> >    years, since Logan upstreamed P2P support. The claim "we need it now
+> >    and ASAP" is not valid at all.
+> 
+> The problem is old, the demand is not. Passing several accelerators
+> through to one guest and expecting them to talk to each other is a
+> recent requirement
 
-In other words, why should the client of the IdPool have the right to
-control the *exact* initial capacity, even if it is below documented,
-free-of-charge minimum capacity?
+This is not correct, at least for mlx5 devices. The need was already recognized
+in 2020 in commit 90da7dc8206a ("RDMA/mlx5: Support dma-buf based userspace
+memory region").
 
-The IdPool, despite being backed by a BitmapVec, is not meant to be
-used like a vector: it does not grow by itself but client code calls
-grow and shrink explicitly, and client code has no control over how
-much that growing and shrinking happens.
+> and today P2PDMA does not work at all for
+> passthrough devices in VMware or Hyper-V guests on Intel hosts. The
+> series does not claim urgency beyond that: a working path exists now,
+> HMAT does not yet, and the two do not conflict.
+> 
+> 
+> > 4. The proposed hack does not solve the P2P-in-VM problem; it only makes it work
+> >    in some random cases. An HMAT-based solution will still be needed, even on systems
+> >    that use this hack.
+> 
+> It makes it work on Xeon Scalable hosts under VMware and Hyper-V, which
+> is where passthrough accelerators are deployed today.
 
-Like, you cannot grow to 65 and expect to get a capacity 65. So why
-insist on exact small sizes?
+This is a very Intel-centric view. The vast majority of systems probably run on ARM
+and use QEMU.
 
-> It is also easy to imagine a user starting with an empty pool and
-> growing it on-demand. Having the ability to create a zero-sized pool is
-> convenient to avoid special-casing user code, and in this case I'd say
-> expected, just like you can create a zero-sized vector. Again a size of
-> zero does not trigger anything that a larger capacity cannot trigger, so
-> I don't see a reason to forbid it.
+> Nothing more is claimed. I agree HMAT is still needed on top for latency, bandwidth and
+> ordering attributes.
+> 
 
-With an initial capacity of minimum MAX_INLINE_LEN capacity, it is not
-about forbidding, it is that the added capacity already comes for
-free.
-You could say "not enabling" instead of "forbidding", but pretending
-that the capacity is somehow not there does not seem to buy us
-anything.
+The primary goal of HMAT is to eliminate the need for whitelists and to
+simulate a P2P route for the VM that accounts for the hypervisor topology.
+Latency and bandwidth are secondary considerations.
 
-Do the other patches in this series need this, or can we just drop this pat=
-ch?
-If they do, maybe a demonstration of how significant the special-case
-handling is that can be avoided with the exact small capacity could be
-part of the commit message?
-
-Cheers,
-Burak
+Thanks
