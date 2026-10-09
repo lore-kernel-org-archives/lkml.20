@@ -1,108 +1,144 @@
-Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AB8C1CAA6C
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 00:30:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A0461CAA6C
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 00:32:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791505849; cv=none; b=oRNg/RiIz+x06sH87MreaSkGFC5aQj5C3ATh+E6W0gOBhtbHWPRyB2hLAPefrUgSUAWS+DRlp2+q6rKJiPX2HNLNkny7esVO4oI6q/B9IS8x0doNRONuL4TJRbfsGz4+oURs0u2kn7x8+tSn58IMOjQ7XN821kjptCGUeGVZTiU=
+	t=1791505938; cv=none; b=EAzOi6Pj0qFj3S6zr3FWXWxpFagIFx41GPTkVEEEY0BTmSiRuPpIf3Ok/uMeuZH4qUu/G5IzybPSDy+82B2VoUKk9DMvD2gZ/7/0puJgHPCtkO2UxpTIW+OpTs9p+AfKhPa+ATgIICi0NANaiB4VKLvUgDivsjplqjC+wb0yrwY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791505849; c=relaxed/simple;
-	bh=5doB1BE1XPWENnR7lFHz2tgV1MGaGm+wbaE1Da8t4cI=;
-	h=Message-ID:Subject:From:To:Cc:Date:Content-Type:MIME-Version; b=V1Zsn8+WUkzG9ReK1RjeeBsitnvh1UoIgFU3+diWt9n8S/Lt7LCHt5WovIkfdqdpCeb05bt2s0iCfQjRalzFcjQp8YUV0ABV16r0vlB3qnXVQKg+ugujWFkFr4R+nsn4VegbAVSGGqI5vxt27l5Ep2JXElt0KETYVfe/JI2np10=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=Q3YhmVQw; arc=none smtp.client-ip=203.29.241.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
+	s=arc-20240116; t=1791505938; c=relaxed/simple;
+	bh=gNLg6Qgamg7mjc3UkG6SuB4YvLH7gMzwvVuIS70oNsE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=HOTT/LVUSzsDmswBomR82rF+vEgGfoi0pEokKYUGDfffH3BmNdktjTGIcpLlweA9l5vIk0zPa4w/Da3ENC9UHstmv3+SAYvLYlk9uA/3QZ6AOGmtArU5m34GDo/b5nGAe1y4my/EbmG2qQgpAXTjVmO0BiCS1NKeOQVybJdodyk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g187p4h6; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="Q3YhmVQw"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g187p4h6"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a168355946so32558395e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 17:32:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1791505837;
-	bh=waRfuVZmS/2NjhSFY0tBe8TyRqDp7UrLfXWJQxU09HU=;
-	h=Subject:From:To:Cc:Date;
-	b=Q3YhmVQwB9+RIreU54jWKPRuoPrE6/uvQFVIUI651pGL/jGOMTXh9GG3IErHcAyBH
-	 7Y9/RhA49V7KdzAVyk6rotpaLUqyUeZdGZCQkzg8pnz5wkJSnVOHY/sy5nabTCX63r
-	 A+/4bOC9Pn+WaqW/f77hOCnbT4H15d7WvwuPTa4x5oBCHzHifMZoDr4H+Gk+fgfqF1
-	 6LVHodLQGEbw3EPxT7oydKAq66+LwK5C2KxtEV5ltFnw7RAPY0mvbWuosvIoojvF6M
-	 wtfZejvKe8e4qjIxB+mdp22nNpclx/tuaNAfwx4r6OvvSg5rLL8MxrBmEOfleGY6zk
-	 baaDhldkLzkVw==
-Received: from [192.168.68.117] (unknown [180.150.113.112])
-	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 7CA046F499;
-	Fri,  9 Oct 2026 08:30:36 +0800 (AWST)
-Message-ID: <1a070f5c87b1e4e765a7e481b53f66242a9753ec.camel@codeconstruct.com.au>
-Subject: [GIT PULL] nuvoton: First batch of arm64 devicetree changes for v7.4
-From: Andrew Jeffery <andrew@codeconstruct.com.au>
-To: soc <soc@lists.linux.dev>
-Cc: linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org, 
-	linux-kernel@vger.kernel.org, Joel Stanley <joel@jms.id.au>, Tomer Maimon
-	 <tmaimon77@gmail.com>
-Date: Fri, 09 Oct 2026 11:00:35 +1030
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+        d=gmail.com; s=20251104; t=1791505936; x=1792110736; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kd9f6IzxLdOe+YXs15sHvBb+DnWpHr6FxR7UwEMv3EU=;
+        b=g187p4h6vRTvEAN9SN1eHqKnvSL3K8myML0YpfTVkjnPaRau9gUL5cFxuxJTE7G+sp
+         zniXPOfAcg2iSrYVj4lcoUjqwarsoe7zfY2AWeZelcsEDHBDVWNXkkypVtF/p6jK4Q5j
+         3JmgAX0jwrEfbiuMUEANIi0118cETltnC80faHbUJSfV3FKVQYGU1qYux5Jt+DkfzgwT
+         0a5W2h66tpXwUQa1txV13DzAf5tyNQ6veG4o84aepwG9DpaVLlTBAT9XEVXN0wYW+4j0
+         GNG99KIWDld+MLpShvhzdBhXdr+miGHsb8ug8hz9VLNoCXUuc31qxRlPIX9FDf6E0dfq
+         3hCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791505936; x=1792110736;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kd9f6IzxLdOe+YXs15sHvBb+DnWpHr6FxR7UwEMv3EU=;
+        b=p811ujLR4lpuGUZ4cmp4IwgAoMuWJjCEVo14AlI7zGAXIww4ucPPt9UtBxwa0hds1h
+         zX9xYMM1o/9kVcnAczUvnryxMoBl85VBcawbMUA71YcuWg/xhpviPQOF/HfMsyJVK3o/
+         3AVIgusOXjPdIlEmiczDE5HFxhQPc59Jd890Qmc98f2Tdnvb2ulJ17VUl5+VVrq9YF5I
+         7lWb50inpPIa7tlT0p+AJ51vPa4lOsQL4QIfUiDdKkRlzsPb8jTwCxEy2QLGig5rKE+S
+         T0pyCjU9jcLe5BYFoOQTLmA/xsrUK9KK6pZafh/T1mCDL6PdSeJdQpfkW+j0fkEitz6O
+         +d9A==
+X-Forwarded-Encrypted: i=1; AKwUvByMMQXY4Epcc6kLyNhba4FR+H4dlTleb+WrmR5F6sVNIyJFNAGZT3jkaKCPj1rsQVKCPjm4eM58lQvqehg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mfPqq3WMOfIfd/u5xJPqnQ3lHVqJQLI7+KLQyt49l6eR7DOXpU
+	kDsWdi2dYXK9Jp6RVLrqAYv7ehxraIyLh5RE81pA8y5PPoiwirr6JX5m
+X-Gm-Gg: AYBFou3Sf5pl4J5R6vy0krDX9OoYobP75DyT5AAQmoyqGwBdVpEmYrr3Dc2fbUigBPR
+	YPtZhmCBEWrWIGqLOTbgwOXegz8yqQJh/3tIz0HiJsT6ScCHe0uFGzX5OEM3d8okm7yxLKFcmdx
+	+qaGyQkcHdLTozYOT5bc3bCa1n+2U3Mp2PE82lZTkKpZUun/sJT4UyVIz6+yzZ7I2yEtx+x/1MY
+	4i66RrG8lfo607+t+JDxpfEYxMgddTeu7Q8TQilAaQcBtQzsmS6/Tyi2G3lsfuOqg+utVm2tjWu
+	xrBmR+37QbNvQ4OPGzdltQQrStafDR1LDZUIAlw6lMHuAR5+gfeEolIz9bcfoC9Rx5ftNn4Dw0/
+	2BwuGAF3aJOxoXmmLumWyy4MHBbA3A0rqz6YqacD85G2hPHXRMuiaxvslKLFAE9DUnFMGMFAD1u
+	5jpV39B7D+nTetUMa6vG7rT8RW7WcV8K0m+4EMRJhPPLsDFttuEoCzOmCMu2X48wq6pQ0RoOxyB
+	8KaSys+F04B1IQWlEQhJMrhOXzwERiupmIL2eBHQ7Y/Sj7cEhjfNp7n+XRtRXNkspEH54DBc9L8
+	Crm/7v7yygz+OBppXqPBsw4FvN1qtyNWLMdeMF9Mts3l16jb8A38CaYh3b1X4TF8T2Zbx/LddlK
+	r4lm+DNc=
+X-Received: by 2002:a05:600c:3510:b0:4a1:7033:5b55 with SMTP id 5b1f17b1804b1-4a18e4cc437mr2753135e9.21.1791505935518;
+        Thu, 08 Oct 2026 17:32:15 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-ad61-5a01-743c-891f-b33c-cae7.310.pool.telefonica.de. [2a02:3100:ad61:5a01:743c:891f:b33c:cae7])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db94e33d2sm1133434f8f.9.2026.10.08.17.32.14
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 08 Oct 2026 17:32:14 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Kamal Dasu <kamal.dasu@broadcom.com>,
+	Al Cooper <alcooperx@gmail.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Ulf Hansson <ulfh@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	linux-mmc@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] mmc: sdhci-brcmstb: don't log an error for missing BOOT registers
+Date: Fri,  9 Oct 2026 02:32:01 +0200
+Message-Id: <20261009003201.68288-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hello SoC maintainers,
+The BOOT register range is optional: the probe function ignores a
+failure to map it and the suspend/resume code checks for NULL. It is
+mapped with devm_platform_get_and_ioremap_resource(), though, which
+calls dev_err_probe() when the resource does not exist. Every
+non-removable host without a third reg entry therefore logs an error
+at probe time and then works normally.
 
-I've been absorbed with efforts outside of the kernel recently so
-there's not much activity in the BMC tree this time around. This is the
-only PR I plan to send for v7.4. That said, there are are many patches
-on the list that need attention. I will get to them.
+The binding only describes the "host" and "cfg" ranges, so this is the
+case for the in-tree users. On the Raspberry Pi 5 family (BCM2712),
+where the SDIO host of the Wi-Fi module is non-removable, each boot
+prints:
 
-Various revisions of series I've applied from Tomer have been on the
-lists for a while. I've worked through some tidying with him in recent
-days so we can get them applied. There are still some process
-improvements necessary on his part with regard to sending patches for
-the BMC tree, which I've discussed with him. I've had to lightly rework
-v10 of his series in order to get it applied as noted in the relevant
-commit messages.
+  sdhci-brcmstb 1001100000.mmc: error -EINVAL: invalid resource (null)
 
-The work in the tag is currently in linux-next and I am yet to receive
-any negative automated feedback on it.
+Look the resource up with platform_get_resource() first and map it only
+when it is present. Hosts that do have the range are mapped by the same
+two calls as before.
 
-I'll be travelling for the next week for the OCP Global conference but
-will keep watch for any concerns that arise.
+Fixes: b7e614802e3f ("mmc: sdhci-brcmstb: save and restore registers during PM")
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+Tested on a Raspberry Pi 500+ with v7.3-rc4: the message is gone, the
+SDIO card is detected as before and Wi-Fi works. Suspend/resume, the
+only user of these registers, was not tested.
 
-Please merge.
+ drivers/mmc/host/sdhci-brcmstb.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
-Thanks,
+diff --git a/drivers/mmc/host/sdhci-brcmstb.c b/drivers/mmc/host/sdhci-brcmstb.c
+index 1de2f05..7c17a3c 100644
+--- a/drivers/mmc/host/sdhci-brcmstb.c
++++ b/drivers/mmc/host/sdhci-brcmstb.c
+@@ -491,6 +491,7 @@ static int sdhci_brcmstb_probe(struct platform_device *pdev)
+ 	struct sdhci_brcmstb_priv *priv;
+ 	u32 actual_clock_mhz;
+ 	struct sdhci_host *host;
++	struct resource *boot_res;
+ 	struct clk *clk;
+ 	struct clk *base_clk = NULL;
+ 	int res;
+@@ -534,9 +535,13 @@ static int sdhci_brcmstb_probe(struct platform_device *pdev)
+ 
+ 	/* map non-standard BOOT registers if present */
+ 	if (host->mmc->caps & MMC_CAP_NONREMOVABLE) {
+-		priv->boot_regs = devm_platform_get_and_ioremap_resource(pdev, 2, NULL);
+-		if (IS_ERR(priv->boot_regs))
+-			priv->boot_regs = NULL;
++		boot_res = platform_get_resource(pdev, IORESOURCE_MEM, 2);
++		if (boot_res) {
++			priv->boot_regs = devm_ioremap_resource(&pdev->dev,
++								boot_res);
++			if (IS_ERR(priv->boot_regs))
++				priv->boot_regs = NULL;
++		}
+ 	}
+ 
+ 	/*
 
-Andrew
-
-The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935=
-:
-
-  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
-
-are available in the Git repository at:
-
-  https://git.kernel.org/pub/scm/linux/kernel/git/bmc/linux.git tags/nuvoto=
-n-arm64-7.4-devicetree-0
-
-for you to fetch changes up to c895734d0ec6c3e94f1fb3a0575b9a7076201d9e:
-
-  arm64: dts: nuvoton: npcm845-evb: Add peripheral nodes (2026-10-08 10:23:=
-24 +1030)
-
-----------------------------------------------------------------
-nuvoton: First batch of arm64 devicetree changes for v7.4
-
-A short series of enhancements for the NPCM845 SoC and its evaluation board=
-.
-
-----------------------------------------------------------------
-Tomer Maimon (4):
-      arm64: dts: nuvoton: npcm845: Split APB address ranges
-      arm64: dts: nuvoton: npcm845: Add peripheral nodes
-      arm64: dts: nuvoton: npcm845-evb: Fix DTS coding style
-      arm64: dts: nuvoton: npcm845-evb: Add peripheral nodes
-
- .../boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi   | 700 +++++++++++++++++=
-+++-
- .../arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts | 439 ++++++++++++-
- arch/arm64/boot/dts/nuvoton/nuvoton-npcm845.dtsi   |   7 +
- 3 files changed, 1141 insertions(+), 5 deletions(-)
+base-commit: 6c377d19d4a5116d9bec5203aa3c6c11523e7898
