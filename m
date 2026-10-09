@@ -1,64 +1,66 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0564E2E7366
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 22:26:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C787502798
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 22:26:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791584801; cv=none; b=jN2GSphUcGYCEf/0tWLR0O6l2hFiS4l4q6nSZygNmxLkn4gZWjvEGHhqf9JD3Tw1BGqwe5KNreEyYpqD2axwKnvu2wlCSyl6CjgeV8A2i428kbJsjN+/OmL4RDNio8dnwhl3CigC3JdVXcZO7WYxZUBVToIbmp+wYba1ub1YeU0=
+	t=1791584804; cv=none; b=u//jpt8sJVSnOjPoJNU3JGhdqQyXw6bJrmgUGDyPoaC5TAPubfuDnneloQ8xp3GK8yd3fVStRKkrR9L0R4uSA+8l/VN+qOQPmZtiSdfBd5DrGaRlfA8bVoAM2eaTqvjRZiYR0uyTIngsnypvJHg23evY1+0XwhZHk3g2tyvuHbI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791584801; c=relaxed/simple;
-	bh=Nj1qlIpON3VaMJM8UbfjiD8khDpWPWvFN1Ci3Mk1V50=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=AMviCZqVeHyzoo/YceevwsQRl/eEw5JzqUuGX2O11OiOddiIo1NwvQ2zbvGMOjZh2bM4sqo9vLEzeXjSMQnJ/fpxLMT2DqUXu162aDD0NGhcBpfe9cotaVfgk3W7Sqh7C+E/ruSJ1sNFmszSrtpflb1fj9MuU76o6qSWvpJkcjE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=LAyaa34E; arc=none smtp.client-ip=209.85.214.170
+	s=arc-20240116; t=1791584804; c=relaxed/simple;
+	bh=BBmH1dFN43VQNclnRV4atNEYfVS6kiBBHpOCUrnmyBo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=ja5MEPiavN4vpJnjkJ0+cuhUk11MRkHOGhynj1AvyoIpQWZMCSQC/J9OC2ZtNPjQF3mUVFk02EjEoilakNwTcLAyOTXWA2/QHHU0Q/Q94bbzN1ktDV8CWI5b0mOhyT0BXKW6PFTMyn5k/XfzHmisQaIY/mB9brPRzyaCldcGRHY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Nt05rODR; arc=none smtp.client-ip=209.85.215.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="LAyaa34E"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2e836252e1dso1472045ad.3
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 15:26:38 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Nt05rODR"
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cd3310348d2so898914a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 15:26:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1791584798; x=1792189598; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=FUz1DD2WLXF8FMCF65KzWxeNZSEe/yJbWO0PR68AnX4=;
-        b=LAyaa34EJdvWYlMTFjxZMKlgEtHOeBEsJfmGT7npnHodGoSWTmK/XYZVa7CXL+qIs3
-         DlogidZogBIdrAR9Q8ofeigrh0zJLaT3IBGSouQcLLrm+stEKfNb6cQTWD8naTe5O9LD
-         mF/unoJvj/AU1mRHJZnvhpMc03BQWOSeX4iX0=
+        d=chromium.org; s=google; t=1791584800; x=1792189600; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=K+ZPVMPFed6TnJLqsJLeTtZ3eJcyECaIc2VEw+ZL8W0=;
+        b=Nt05rODRao1KCUof8z3hhFotyIGza6VQmj9FxEsazuSKfcBA9cj19XmX5ge69T+5MI
+         LdTKo8nb3tOjw1wUuhRt0+5DaVuLf6pICxYsTfEVo9WAppo1S7vIObBVGeuavXHXOafY
+         zX3E6JhxO09t/KtQ6mhBeg+kD/dr38YHjXvkk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791584798; x=1792189598;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=FUz1DD2WLXF8FMCF65KzWxeNZSEe/yJbWO0PR68AnX4=;
-        b=D/4SXUx2AWzwDO3KRTtHguMcxHnrrHOKXkPjGFzzL/dtK03MmQJE185MZClEHKbIqg
-         rd1A/XqPnMW/Btcbj2ApiSo8QGuESLYPCokFHDBf2A5Ik60KUQbvDhEQA3GTsXrlsZWO
-         z68afnSkaeuNij0WJ8GAvnWvI9kgIYoklda9rBDG4/BNHf/mFrm2mHBCWqRERN0g6DI9
-         cbUlPdQb2Kik22ZYbgA/1RbYFtX+BmnNUTsZaZupfbJ+whQfe8SUDLL7MttCx6z6v8XM
-         LJMTDah23J2Qa6dJISCU12JtUND/3r9t6E1Zr2WHqtvwf0dV72zpTnALOsn1dW765O4o
-         3o9w==
-X-Forwarded-Encrypted: i=1; AKwUvBzXU2fMgbiYo7ZTKIWJQgDHYNn2a/h9eCemuRcmOTNw3JEbK/4tlxWUeLyECphMR5OqPdvIxBtVf5UQBlU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIBfnpP+A1CK1GLWfJF0740bhDYDyUdqhETMvlU0231IP+ZgNHh
-	X3+RLWemBxhZNJnQDfhtzK/ANRLZdNhsaU5XcKoEwSnhkCdTxVoHvfTXa0cg+SvP8A==
-X-Gm-Gg: AYBFou3sUKXO3eCwnbiadutOiXv91IeIFmSnHHClklDuy3y1IB/psDOd3CvRcdv++qK
-	DnMBjI80Ug7+jLW8WFRA3lfC1P15JOpZyrfEckjAyJMo65+4V/tGAsegS4X87hHHa8+r5hojAlr
-	3rBtwV9wY6mqMaAGAOErS6o2sevfs+IrgSY57nchQhfszZY69orkETGfe+4VikPK7dhpeUBJGvu
-	YXnoYvZIQ0aaFCYAXxd7lG2SbZ8lsydVOS75IcG370jATbWMnITIEea2vGPuce7e+Eq9zGChl+X
-	BQMX+Ql/RttTSPZbjyaxmXlAKn2h4RaDU/8hNMaL7DAqABnYmEwxcMnfU02XfLrVrbTcnjBoYEd
-	dpn8x0MC16R/n+wDj+W9SCggvBHrIfiDFCyF7cfAzBfQlCVMWDAvY5KosBvtO4QVYN5QEWgRndR
-	2dV3QeRgCdohG4wfWD0vA/SZtufuEkGig+PnU8r9VvMa7mRS9y+qyabJlsJcBs2Z1MXcjb1cDU9
-	QvXqTfDGPCovAelLqavMVARatPk5Y5WsB5Vu1wlvBcPt3m3FQ6LeGnArM5MDIcR4rQByG01S+tw
-X-Received: by 2002:a17:903:22d2:b0:2e2:c283:354f with SMTP id d9443c01a7336-2e842abfe53mr30774615ad.28.1791584798347;
-        Fri, 09 Oct 2026 15:26:38 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791584800; x=1792189600;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=K+ZPVMPFed6TnJLqsJLeTtZ3eJcyECaIc2VEw+ZL8W0=;
+        b=NFm7MPWeEorrdDeCR5hO+y9/dA9Fmq93/yoIczWahOQRpISFsfHIc40f2nKs3ggS9w
+         N1yd6fomBSQSwKsKtxxZTuuitFqPTp20Or4g4wB21FlC5Gbh3vDmG3pPmwzGIfL2ptHz
+         HGhhPv7dpBxxme/6FavaWE9AwpKNbwe+yrHVmYbsy2QW7hAnzvZ+9ZtqU4Ax+k3P6UDw
+         WhKcQ7nUIKLQo354mdTkXw+lH8WHBdZAcw1mEXNRETflD6eEwSeeBYXbpc3MoRJBCbyw
+         MhAOfyXeKP1blanHNoC6kVGPKzPSpAslsTyd8Zv+702x8zvKXbe+AnkJhDOSKVAtM+sG
+         BUNg==
+X-Forwarded-Encrypted: i=1; AKwUvByPIHZvGHaQKFqNHnigZ5NnwLBKDXYJL+70Obu9Q1HLgXDc6mlOCy1CmmkpmsfkbuXWZRwza6RomWku1Bk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLMpGg/a1D2ZdFwlVDLgYjSnUesnWawoPtyqRsfeWupUvjPcppz
+	jfT6D4vy4avEiVYfTDFsHlr34yLHtaqbgtsSgd5rjIdB/CAKcjyWBwo5hV/JOOvjvg==
+X-Gm-Gg: AYBFou0TTzqZFNv+qhwPvoypBbAR9a2A2twfyacPQY2E7T4ErZE/ySkenVP3ujESKnd
+	qy80nsPpy47LUl3QlXfxmKSYQoUCaXi+mJ7YZyXaneoEtaWvg6CLHcdxlSYbejlQZOpvQ9PaTsN
+	EITB7ramhyKzGFOPczi7bblhqZDXjXg1Lo7XFuL27HoEBMDGpvA5EbA9kbG7GYwZOcBUjuHV9No
+	eDk9N0ehuqFissUjgTNGH/D6HwBslHYEmXqaE/jsditcns8zLcCX/O5kSDjgKZ3UpeZ0OfBx+IZ
+	yV8QzJJmYh0OoWUp/bBgl7qUY2acg31N6pWFDT1OoGAuLuH/rSJKT9tWucMS5zlSI2ohphCvZWU
+	S8PYGacg5VOQ0af6z4MP5zzG0vQgAjj0UPLuJGjKYsEwOc1zpLwsTPiZs/RMBvLC+BfuakzrU8R
+	ZMejjMNkTcX4OfPMQcPciFPqg7iPIpTxZUSUL5ygt8OtaVmpihdZF1DVVA/+q9DtxgAgbccKi8B
+	Xbz/Xx3Rata7Xefja6sitX+a8T4wx85pU5OxssKFUgr2vBosNfrK+qURsGsc5YO+i4Amwpvl2Yq
+X-Received: by 2002:a17:902:c40f:b0:2e8:6540:11b6 with SMTP id d9443c01a7336-2e86540122fmr9526845ad.37.1791584800315;
+        Fri, 09 Oct 2026 15:26:40 -0700 (PDT)
 Received: from jingyliang-input-linux.c.googlers.com (35.152.82.34.bc.googleusercontent.com. [34.82.152.35])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e84219e503sm16660725ad.17.2026.10.09.15.26.37
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e84219e503sm16660725ad.17.2026.10.09.15.26.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 15:26:37 -0700 (PDT)
+        Fri, 09 Oct 2026 15:26:39 -0700 (PDT)
 From: Jingyuan Liang <jingyliang@chromium.org>
-Subject: [PATCH v5 00/11] Add spi-hid transport driver
-Date: Fri, 09 Oct 2026 22:25:25 +0000
-Message-Id: <20261009-send-upstream-v5-0-384af01da3ee@chromium.org>
+Date: Fri, 09 Oct 2026 22:25:28 +0000
+Subject: [PATCH v5 03/11] HID: spi-hid: add transport driver skeleton for
+ HID over SPI bus
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -67,12 +69,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIANZpyWoC/23PSw7CIBCA4asY1mJgeEhdeQ/josJgWfQRUKIxv
- buoixrS5T+Z+ZJ5kYQxYCKHzYtEzCGFcSihthtiu3a4Ig2uNAEGmgEHmnBw9D6lW8S2p3vltXc
- NugaQlJspog+Pr3c6l+5Cuo3x+eUz/0x/kmCikjKnjHLF1aUFbrxwR9vFsQ/3fjfGK/lgGf4Ak
- DUABVDALZrWe2/0CiAWQLL6lywKoFnDrVTGCbVfAeQClM0akAW4GCmcQm3RiQqY5/kNc2Ls0nA
- BAAA=
-X-Change-ID: 20260212-send-upstream-75f6fd9ed92e
+Message-Id: <20261009-send-upstream-v5-3-384af01da3ee@chromium.org>
+References: <20261009-send-upstream-v5-0-384af01da3ee@chromium.org>
+In-Reply-To: <20261009-send-upstream-v5-0-384af01da3ee@chromium.org>
 To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
  Jonathan Corbet <corbet@lwn.net>, Mark Brown <broonie@kernel.org>, 
  Steven Rostedt <rostedt@goodmis.org>, 
@@ -85,126 +84,316 @@ Cc: linux-input@vger.kernel.org, linux-doc@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org, 
  linux-trace-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
  hbarnor@chromium.org, tfiga@chromium.org, fqwqf@fqwqf.xyz, daleyo@gmail.com, 
- Jingyuan Liang <jingyliang@chromium.org>, 
- Jarrett Schultz <jaschultz@microsoft.com>, 
- Dmitry Antipov <dmanti@microsoft.com>, Angela Czubak <acz@semihalf.com>
+ Jingyuan Liang <jingyliang@chromium.org>, Angela Czubak <acz@semihalf.com>, 
+ Dmitry Antipov <dmanti@microsoft.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791584797; l=5428;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791584797; l=8559;
  i=jingyliang@chromium.org; s=20260213; h=from:subject:message-id;
- bh=Nj1qlIpON3VaMJM8UbfjiD8khDpWPWvFN1Ci3Mk1V50=;
- b=etJd3b3UVqagUxqvjiTG6zOPQhMZq5oZ2SbYUYzjkoeHHWcPQb1WlCN+9PEKh/Wi8HCO2T+1x
- O6h+agGpXM0BUSCGRCXk1lARzHY3remF5IYc9vlS0ExrdTDgSttfctW
+ bh=sQ82RdRNkd9xlM5jA9poGrrVf/4vhCRbRR43J1aCl94=;
+ b=yqCsqFlmcm2KNOmhDjnCu7TLFnkZVXcp59E2fD117tDo4JMXpRXAKducZDvn6fMhTS7n/ze/P
+ /xU1eF1IECZBzs6HciQeAiwdCtzl4KrhVphOTxn8g2bmTjP/oJXVLT9
 X-Developer-Key: i=jingyliang@chromium.org; a=ed25519;
  pk=VTYSdqslTtYOjWWoIGgYoWupGWqNSidrggReKMgfPo4=
 
-This series picks up the spi-hid driver work originally started by
-Microsoft. The patch breakdown has been modified and the implementation
-has been refactored to address upstream feedback and testing issues. We
-are submitting this as a new series while keeping the original sign-off
-chain to reflect the history.
+From: Angela Czubak <acz@semihalf.com>
 
-Same as the original series, there is a change to HID documentation, some
-HID core changes to support a SPI device, the SPI HID transport driver,
-and HID over SPI Device Tree binding. We have added the HID over SPI ACPI
-support, power management, panel follower, and quirks for Ilitek touch
-controllers.
+Create spi-hid folder and add Kconfig and Makefile for spi-hid driver.
+Add basic device structure, definitions, and probe/remove functions.
 
-Original authors: Jarrett Schultz <jaschultz@microsoft.com>,
-		  Dmitry Antipov <dmanti@microsoft.com>
-Link: https://lore.kernel.org/r/86b63b7b-afda-d7f4-7bfa-175085d5a8ef@gmail.com
-
+Signed-off-by: Dmitry Antipov <dmanti@microsoft.com>
+Signed-off-by: Angela Czubak <acz@semihalf.com>
+Tested-by: Dale Whinham <daleyo@gmail.com>
 Signed-off-by: Jingyuan Liang <jingyliang@chromium.org>
 ---
-Changes in v5:
-- Fix request/response races; match GET_FEATURE responses by report ID
-- Reset the device on response timeout; wait uninterruptibly
-- Validate device descriptor and report lengths; fix buffer sizing
-- Honor rtype in raw_request(); fix GET_REPORT off-by-one
-- Use hid_safe_input_report(); forward input reports only while open
-- Disable IRQ around hid_device teardown; fix a sparse warning
-- Use disable_work_sync() for reset_work in remove()
-- Cap trace copies at 64 bytes; cacheline-align read approval buffers
-- ACPI: select RESET_CONTROLLER, use device_reset_optional()
-- OF & DT: read opcodes as u8, use dev_err_probe(), require reg
-- PM: cancel reset_work on suspend, wait for reset before
-  reset_resume(), fix IRQ imbalance on resume failure
-- Panel follower: fix regulator/IRQ imbalance; depend on DRM || !DRM
-- Link to v4: https://lore.kernel.org/r/20260609-send-upstream-v4-0-b843d5e6ced3@chromium.org
+ drivers/hid/Kconfig                |   2 +
+ drivers/hid/Makefile               |   2 +
+ drivers/hid/spi-hid/Kconfig        |  15 +++
+ drivers/hid/spi-hid/Makefile       |   9 ++
+ drivers/hid/spi-hid/spi-hid-core.c | 213 +++++++++++++++++++++++++++++++++++++
+ 5 files changed, 241 insertions(+)
 
-Changes in v4:
-- Extended io_lock scope to protect the shid->hid pointer lifecycle
-  against races with the IRQ handler
-- Cacheline-aligned DMA buffers, enforced 4-byte alignment
-- Added error rollback for failed suspend/resume transitions
-- Moved IRQ request to probe with IRQF_NO_AUTOEN (disabled by default)
-- DT Bindings & OF Driver:
-  - Required a device-specific compatible string in the schema.
-  - Added description to explain why opcodes and addresses properties
-    need to be defined in the schema
-  - Added `spi-peripheral-props.yaml` reference and switched to
-    `unevaluatedProperties: false`.
-  - Added fallback to default timing parameters in OF driver if match
-    data is missing.
-- Link to v3: https://lore.kernel.org/r/20260402-send-upstream-v3-0-6091c458d357@chromium.org
+diff --git a/drivers/hid/Kconfig b/drivers/hid/Kconfig
+index c43e824428f0..17a42301875c 100644
+--- a/drivers/hid/Kconfig
++++ b/drivers/hid/Kconfig
+@@ -1527,6 +1527,8 @@ source "drivers/hid/bpf/Kconfig"
+ 
+ source "drivers/hid/i2c-hid/Kconfig"
+ 
++source "drivers/hid/spi-hid/Kconfig"
++
+ source "drivers/hid/intel-ish-hid/Kconfig"
+ 
+ source "drivers/hid/amd-sfh-hid/Kconfig"
+diff --git a/drivers/hid/Makefile b/drivers/hid/Makefile
+index 48a863b245ee..b5a7ef7f208f 100644
+--- a/drivers/hid/Makefile
++++ b/drivers/hid/Makefile
+@@ -177,6 +177,8 @@ obj-$(CONFIG_USB_KBD)		+= usbhid/
+ 
+ obj-$(CONFIG_I2C_HID_CORE)	+= i2c-hid/
+ 
++obj-$(CONFIG_SPI_HID_CORE)	+= spi-hid/
++
+ obj-$(CONFIG_INTEL_ISH_HID)	+= intel-ish-hid/
+ 
+ obj-$(CONFIG_AMD_SFH_HID)       += amd-sfh-hid/
+diff --git a/drivers/hid/spi-hid/Kconfig b/drivers/hid/spi-hid/Kconfig
+new file mode 100644
+index 000000000000..836fdefe8345
+--- /dev/null
++++ b/drivers/hid/spi-hid/Kconfig
+@@ -0,0 +1,15 @@
++# SPDX-License-Identifier: GPL-2.0-only
++#
++# Copyright (c) 2021 Microsoft Corporation
++#
++
++menuconfig SPI_HID
++	tristate "SPI HID support"
++	default y
++	depends on SPI
++
++if SPI_HID
++
++config SPI_HID_CORE
++	tristate
++endif
+diff --git a/drivers/hid/spi-hid/Makefile b/drivers/hid/spi-hid/Makefile
+new file mode 100644
+index 000000000000..92e24cddbfc2
+--- /dev/null
++++ b/drivers/hid/spi-hid/Makefile
+@@ -0,0 +1,9 @@
++# SPDX-License-Identifier: GPL-2.0-only
++#
++# Makefile for the SPI HID input drivers
++#
++# Copyright (c) 2021 Microsoft Corporation
++#
++
++obj-$(CONFIG_SPI_HID_CORE)	+= spi-hid.o
++spi-hid-objs 			= spi-hid-core.o
+diff --git a/drivers/hid/spi-hid/spi-hid-core.c b/drivers/hid/spi-hid/spi-hid-core.c
+new file mode 100644
+index 000000000000..02a7608c4b88
+--- /dev/null
++++ b/drivers/hid/spi-hid/spi-hid-core.c
+@@ -0,0 +1,213 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * HID over SPI protocol implementation
++ *
++ * Copyright (c) 2021 Microsoft Corporation
++ * Copyright (c) 2026 Google LLC
++ *
++ * This code is partly based on "HID over I2C protocol implementation:
++ *
++ *  Copyright (c) 2012 Benjamin Tissoires <benjamin.tissoires@gmail.com>
++ *  Copyright (c) 2012 Ecole Nationale de l'Aviation Civile, France
++ *  Copyright (c) 2012 Red Hat, Inc
++ *
++ *  which in turn is partly based on "USB HID support for Linux":
++ *
++ *  Copyright (c) 1999 Andreas Gal
++ *  Copyright (c) 2000-2005 Vojtech Pavlik <vojtech@suse.cz>
++ *  Copyright (c) 2005 Michael Haboustak <mike-@cinci.rr.com> for Concept2, Inc
++ *  Copyright (c) 2007-2008 Oliver Neukum
++ *  Copyright (c) 2006-2010 Jiri Kosina
++ */
++
++#include <linux/device.h>
++#include <linux/hid.h>
++#include <linux/hid-over-spi.h>
++#include <linux/interrupt.h>
++#include <linux/module.h>
++#include <linux/slab.h>
++#include <linux/spi/spi.h>
++
++/* struct spi_hid_conf - Conf provided to the core */
++struct spi_hid_conf {
++	u32 input_report_header_address;
++	u32 input_report_body_address;
++	u32 output_report_address;
++	u8 read_opcode;
++	u8 write_opcode;
++};
++
++/**
++ * struct spihid_ops - Ops provided to the core
++ * @power_up: do sequencing to power up the device
++ * @power_down: do sequencing to power down the device
++ * @assert_reset: do sequencing to assert the reset line
++ * @deassert_reset: do sequencing to deassert the reset line
++ * @sleep_minimal_reset_delay: minimal sleep delay during reset
++ */
++struct spihid_ops {
++	int (*power_up)(struct spihid_ops *ops);
++	int (*power_down)(struct spihid_ops *ops);
++	int (*assert_reset)(struct spihid_ops *ops);
++	int (*deassert_reset)(struct spihid_ops *ops);
++	void (*sleep_minimal_reset_delay)(struct spihid_ops *ops);
++};
++
++/* Driver context */
++struct spi_hid {
++	struct spi_device	*spi;	/* spi device. */
++	struct hid_device	*hid;	/* pointer to corresponding HID dev. */
++
++	struct spihid_ops	*ops;
++	struct spi_hid_conf	*conf;
++
++	enum hidspi_power_state power_state;
++
++	u32 regulator_error_count;
++	int regulator_last_error;
++	u32 bus_error_count;
++	int bus_last_error;
++	u32 dir_count;	/* device initiated reset count. */
++};
++
++static const char *spi_hid_power_mode_string(enum hidspi_power_state power_state)
++{
++	switch (power_state) {
++	case HIDSPI_ON:
++		return "d0";
++	case HIDSPI_SLEEP:
++		return "d2";
++	case HIDSPI_OFF:
++		return "d3";
++	default:
++		return "unknown";
++	}
++}
++
++static irqreturn_t spi_hid_dev_irq(int irq, void *_shid)
++{
++	return IRQ_HANDLED;
++}
++
++static ssize_t bus_error_count_show(struct device *dev,
++				    struct device_attribute *attr, char *buf)
++{
++	struct spi_hid *shid = dev_get_drvdata(dev);
++
++	return sysfs_emit(buf, "%u (%d)\n",
++			  shid->bus_error_count, shid->bus_last_error);
++}
++static DEVICE_ATTR_RO(bus_error_count);
++
++static ssize_t regulator_error_count_show(struct device *dev,
++					  struct device_attribute *attr,
++					  char *buf)
++{
++	struct spi_hid *shid = dev_get_drvdata(dev);
++
++	return sysfs_emit(buf, "%u (%d)\n",
++			  shid->regulator_error_count,
++			  shid->regulator_last_error);
++}
++static DEVICE_ATTR_RO(regulator_error_count);
++
++static ssize_t device_initiated_reset_count_show(struct device *dev,
++						 struct device_attribute *attr,
++						 char *buf)
++{
++	struct spi_hid *shid = dev_get_drvdata(dev);
++
++	return sysfs_emit(buf, "%u\n", shid->dir_count);
++}
++static DEVICE_ATTR_RO(device_initiated_reset_count);
++
++static struct attribute *spi_hid_attrs[] = {
++	&dev_attr_bus_error_count.attr,
++	&dev_attr_regulator_error_count.attr,
++	&dev_attr_device_initiated_reset_count.attr,
++	NULL	/* Terminator */
++};
++
++static const struct attribute_group spi_hid_group = {
++	.attrs = spi_hid_attrs,
++};
++
++const struct attribute_group *spi_hid_groups[] = {
++	&spi_hid_group,
++	NULL
++};
++EXPORT_SYMBOL_GPL(spi_hid_groups);
++
++int spi_hid_core_probe(struct spi_device *spi, struct spihid_ops *ops,
++		       struct spi_hid_conf *conf)
++{
++	struct device *dev = &spi->dev;
++	struct spi_hid *shid;
++	int error;
++
++	if (spi->irq <= 0)
++		return dev_err_probe(dev, spi->irq ?: -EINVAL, "Missing IRQ\n");
++
++	shid = devm_kzalloc(dev, sizeof(*shid), GFP_KERNEL);
++	if (!shid)
++		return -ENOMEM;
++
++	shid->spi = spi;
++	shid->power_state = HIDSPI_ON;
++	shid->ops = ops;
++	shid->conf = conf;
++
++	spi_set_drvdata(spi, shid);
++
++	/*
++	 * At the end of probe we initialize the device:
++	 *   0) assert reset, bias the interrupt line
++	 *   1) sleep minimal reset delay
++	 *   2) request IRQ
++	 *   3) power up the device
++	 *   4) deassert reset (high)
++	 * After this we expect an IRQ with a reset response.
++	 */
++
++	shid->ops->assert_reset(shid->ops);
++
++	shid->ops->sleep_minimal_reset_delay(shid->ops);
++
++	error = devm_request_threaded_irq(dev, spi->irq, NULL, spi_hid_dev_irq,
++					  IRQF_ONESHOT, dev_name(&spi->dev), shid);
++	if (error) {
++		dev_err(dev, "%s: unable to request threaded IRQ\n", __func__);
++		return error;
++	}
++
++	error = shid->ops->power_up(shid->ops);
++	if (error) {
++		dev_err(dev, "%s: could not power up\n", __func__);
++		return error;
++	}
++
++	shid->ops->deassert_reset(shid->ops);
++
++	dev_dbg(dev, "%s: d3 -> %s\n", __func__,
++		spi_hid_power_mode_string(shid->power_state));
++
++	return 0;
++}
++EXPORT_SYMBOL_GPL(spi_hid_core_probe);
++
++void spi_hid_core_remove(struct spi_device *spi)
++{
++	struct spi_hid *shid = spi_get_drvdata(spi);
++	struct device *dev = &spi->dev;
++	int error;
++
++	shid->ops->assert_reset(shid->ops);
++	error = shid->ops->power_down(shid->ops);
++	if (error)
++		dev_err(dev, "failed to disable regulator\n");
++}
++EXPORT_SYMBOL_GPL(spi_hid_core_remove);
++
++MODULE_DESCRIPTION("HID over SPI transport driver");
++MODULE_AUTHOR("Dmitry Antipov <dmanti@microsoft.com>");
++MODULE_LICENSE("GPL");
 
-Changes in v3:
-- Add io_lock init
-- Relocate tracepoints to drivers/hid/spi-hid/ and fix tracepoint macros
-- Add tracepoints for sync, error handling, reset, and report processing
-- Clean up internal includes and fix Makefile CFLAGS
-- Add more details in v2 changelog
-- Link to v2: https://lore.kernel.org/r/20260324-send-upstream-v2-0-521ce8afff86@chromium.org
-
-Changes in v2:
-- Clean up DT bindings: fix formatting and remove timing and flags properties
-- Update DT binding example: use a device-specific compatible and drop
-  reset_assert
-- Simplify ACPI/OF match tables by removing ACPI_PTR/of_match_ptr
-- Refactor OF driver to use match data for timing parameters instead
-  of DT properties
-- Switch to fsleep() for delays in ACPI and OF drivers
-- Drop patch 12 as it is vendor specific
-- Add a lock to fix input/output concurrency race
-- Link to v1: https://lore.kernel.org/r/20260303-send-upstream-v1-0-1515ba218f3d@chromium.org
-
----
-Angela Czubak (2):
-      HID: spi-hid: add transport driver skeleton for HID over SPI bus
-      HID: spi-hid: add ACPI support for HID over SPI
-
-Jarrett Schultz (3):
-      Documentation: Correction in HID output_report callback description.
-      HID: Add BUS_SPI support and define HID_SPI_DEVICE macro
-      HID: spi-hid: add device tree support for HID over SPI
-
-Jingyuan Liang (6):
-      HID: spi-hid: add spi-hid driver HID layer
-      HID: spi-hid: add HID SPI protocol implementation
-      HID: spi-hid: add spi_hid traces
-      dt-bindings: input: Document hid-over-spi DT schema
-      HID: spi-hid: add power management implementation
-      HID: spi-hid: add panel follower support
-
- .../devicetree/bindings/input/hid-over-spi.yaml    |  130 ++
- Documentation/hid/hid-transport.rst                |    4 +-
- drivers/hid/Kconfig                                |    2 +
- drivers/hid/Makefile                               |    2 +
- drivers/hid/hid-core.c                             |    3 +
- drivers/hid/spi-hid/Kconfig                        |   50 +
- drivers/hid/spi-hid/Makefile                       |   12 +
- drivers/hid/spi-hid/spi-hid-acpi.c                 |  262 +++
- drivers/hid/spi-hid/spi-hid-core.c                 | 1754 ++++++++++++++++++++
- drivers/hid/spi-hid/spi-hid-core.h                 |  118 ++
- drivers/hid/spi-hid/spi-hid-of.c                   |  243 +++
- drivers/hid/spi-hid/spi-hid-trace.h                |  184 ++
- drivers/hid/spi-hid/spi-hid.h                      |   46 +
- include/linux/hid.h                                |    2 +
- 14 files changed, 2810 insertions(+), 2 deletions(-)
----
-base-commit: ee9c669f9bf5fd2c24206746ded9382fe810df89
-change-id: 20260212-send-upstream-75f6fd9ed92e
-
-Best regards,
 -- 
-Jingyuan Liang <jingyliang@chromium.org>
+2.56.0.385.gd3acb90ef8-goog
 
