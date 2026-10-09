@@ -1,358 +1,152 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from fout-b5-smtp.messagingengine.com (fout-b5-smtp.messagingengine.com [202.12.124.148])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 409F14CA766;
-	Fri,  9 Oct 2026 11:00:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2AD14D9576
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 11:00:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.148
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791543626; cv=none; b=WJgBm+6q4JwGg3+lL0Gruwz29yj63gMcU8aeo+1QRSSNm2WRjGTjEpcNN5JGrVRWudMAatFRMzmrRBAcnddvJm1g2jbJM8snx2SdAq2aRU/1M9WQl83yJnNzsQ+aQh66NdMtRnCbM4+6fs5wXY0FfIwuUffx0Md1TvlERcfzQXU=
+	t=1791543630; cv=none; b=C9pIMt2bTcXDKyNbyvAlPBSZRkzMXUBIiVugavyYfFbt9Ozhi6WoQerRFsua6c+fPHN/8hUgl0So6PeNSfJRvHw3S77JeL68sOUJeSlFhQMa0kkDDGrqilDWFlLokikty3LbJA20C1fWnlO44y+i1cef7M4niUWpSUgfDlvLoUE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791543626; c=relaxed/simple;
-	bh=+gPK4YaQ6wkQB/Gz2SEXT2tTE6dm0Abvvb1HwTdmHE8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Qjknns7AjNY4733GXF1MPjQOC44Jpz5DGeBzrYg070aFsWSjYlIKCsSXYAydFW2Op+nosBiSAQ7Srz7yE0pwYrq7kRAUodQMKbOWoWUmDm+02WyQNGVSoBzH3XKGJxeiGf8wFP9Gq7GXpEzaoIfH4r1lbMsadhHyxNgFsoW7DGU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hm8CcWpp; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791543630; c=relaxed/simple;
+	bh=BzTR+eW3wr+Q5y1uCczUoND6CTvbG2LHZM1vzpnFyMQ=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=O232Ye7yortfcIxz/41T0HD4VHLNv6evCXVCMaui2DW83gVOq5mL/KRtMX4fH9eh4WnsPTSNxOGx5HeHiV8lybyQS43ZQxlv4aDhvffVzYt/rNbRL4ezOl2Ges7gdZdoJ3AlvQIG5+vYu+0T+sulkeIYPgUluMRlFlYL2TJaa5c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.im; spf=pass smtp.mailfrom=fastmail.im; dkim=pass (2048-bit key) header.d=fastmail.im header.i=@fastmail.im header.b=CjLJttJm; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=dC7i3GMM; arc=none smtp.client-ip=202.12.124.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.im
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.im
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hm8CcWpp"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id A8D12C2BD01;
-	Fri,  9 Oct 2026 11:00:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791543625;
-	bh=+gPK4YaQ6wkQB/Gz2SEXT2tTE6dm0Abvvb1HwTdmHE8=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Hm8CcWppepz9eJK8U7hXcnFhqRxgdTvYfWoz57hTVJpePxkrD+V605S7eTeE7S0a/
-	 5RZB0otAr9tYOi6p35EVGXc4Ipn+mBqyEPWiRW+8C7ReQwi8xj+YPjxjLDNhBSJ0nx
-	 qH/Oc7uyvGIahA7LYOefv0EBWT3Tf/lmCZV+1ttuQDL7pVTm/6FPOLPAVzA5duYa6y
-	 L8ssJjY0rR/HnA5Uu7GzBdV1JHAfFAHz5F5HZAqoXFBCpBebHUWaxqirbPDAoKk7DY
-	 Htc3WrjgLLhH36EvPltgLGdIBH7QkCGsUOgPetjZOFTbzeT5tPcHuQQLvKU2zhRQ59
-	 LXzzy9EA9yN9w==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 97423CA601D;
-	Fri,  9 Oct 2026 11:00:25 +0000 (UTC)
-From: Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>
-Date: Fri, 09 Oct 2026 19:00:24 +0800
-Subject: [PATCH 3/4] arm64: ambarella: add ARCH_AMBARELLA and CV75 EVK DT
+	dkim=pass (2048-bit key) header.d=fastmail.im header.i=@fastmail.im header.b="CjLJttJm";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="dC7i3GMM"
+Received: from ams-compute-01.internal (ams-compute-01.internal [10.64.2.61])
+	by mailfout.stl.internal (Postfix) with ESMTP id 064C41D000C8
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 07:00:15 -0400 (EDT)
+Received: from ams-imap-19 ([10.64.2.39])
+  by ams-compute-01.internal (MEProxy); Fri, 09 Oct 2026 07:00:16 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.im; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1791543609;
+	 x=1791630009; bh=HRdD7XbZXfyzgNKs4mc5etqpgg+xB3vrcZQ8CfVm7gc=; b=
+	CjLJttJmjx3XadfMokRx9zb5US/ORFjESN64jW+QB8DM8wExJObwGrJpy7jwgwwm
+	+ga+J/sIWudj+LXVqY/rI4IR/gwdIHSWeMnZMNyj+vsUCbHN2u5zt6Ig83rCgVgV
+	7lgTcXtLvOQ6LhHm5YUSO5zqGt6Qinziif9WwDY6CPsjO231+PDalxqLfzlvdHxR
+	lIkhVoeShf8OX7fq/yw38DBg4sTJPi/dW7bJtHiF/EzzenPOMYbjeze1ZXtrjTT6
+	smmNNqDyrJ5DXqFSO9B7rM3ZHBDm1+G95fq57rHzdSoFdB6ViBSwJKubu7o1etIw
+	LzSBmAyCikUgfRYqc0jaPg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791543609; x=
+	1791630009; bh=HRdD7XbZXfyzgNKs4mc5etqpgg+xB3vrcZQ8CfVm7gc=; b=d
+	C7i3GMM7HhJRN+1T+7EBZmPOoYzlPnW3rMSHfs5urfxUR0n3YSzYF3pFOWYXZp5E
+	J7tKOnGV+LJ+uR2KZsoF9Kjm8b0/NzaQLqE/Fd8JWppvk3/NLqIbd/O2PWJ/QOiF
+	VPuukP7igAAhsgDW0uu0fI/0w7Bh4wjJEh1/7r75e7NQO5KfgAaWs17dbB3W+rnk
+	JcYe9D/qiX3HbRLtkmoNoxRoGhQmF37HWCVbd0aFoUFX8ePnMVKCx2U5KoTtV7ta
+	cHZO59AcWMZ3QneiU4qbq1BbsHtmfDIYIxljxqMga24ecQbptR8BKhPX6zlOwkCi
+	WUBd5bqhSrIV7hsVXIS9g==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=fastmail.im a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791543609; d=fastmail.im;
+	mf=PGFsaWNlLmtlcm5lbEBmYXN0bWFpbC5pbT4=;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:fLyHpmRfZdNSkdSMVVr3RA+zFqXf93qUB6L3kXC3nneg3jc
+	aly5/tVsErNgnA0GvPXAjn/spBySlUI/2t1SDZYJggJPLfagOTZcMbrjRUPK20zY
+	QLU0PKkhM8p2LH+vF5eFWxIk2dsGc+fl9o5mrjayv9h72hHb5iVRUe7I2RqyrwKZ
+	Qia2i4h4HbSebe8H9ikQdMwYFkWGUwBrJkt3ibc46EGDqSEn0T4M0nLTwKT54Bwt
+	pLzew6lbXqTfAV+hDleOtBWgTEKk35tNDT7XkNvKV0bpFL2iFMFZc82DSASsP9Hn
+	sY25kkdvDohMErz9CAxXxrcxSTGanLjoWlSR9Mg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:cqRdEF7vO4dqzT6dpUZoD2031PsWjeHqBGUfWzYnXCQ=:BzTR+eW3wr+Q5y1uCczUoND6CTvbG2LHZM1vzpnFyMQ=;
+X-ME-Sender: <xms:NMnIanT_oa-UGuY0gfsUMaz-qIxMOfoCBA_yWHa4v9wndCvsmb_aAQ>
+    <xme:NMnIajnQ-kUNy3CapMgiEWi2clOfwa7d3B_LlY-lEwMy6FmXM6BAJ3BbYxcb8lwXi
+    B-lN9NyXE3QVz_-SrBmhTIMvANgVCC0WNoNpjTZaToD2Bj-iGB3LLza>
+X-ME-Proxy-Cause: dmFkZTGbB7RwK4ypT1uHKC2/+ph+7+jcr4ZMRMlp7fXeuD3uWp4EYF7LWsyYq9zHwHNTEN
+    k3IJQPb9bjw4BStTNk6RSUiaWikop7jTY/d2J8xv0G0tKcgzXFkUvRLj+as9vmc8AkBtpT
+    8S/KiiVMTpjJbGUM6jgjmbjemqaKq9h0UHqqLk3RiqlItkHOZY1lcktcIchZ3AlzHgaNIW
+    Tc3D04DAGmQKEut5QUlot1SdewWFLtxPBlvVaKTZUBcJABM58IkmPSdX/FSBq0qqXEglme
+    mmNPQrSIoWPfCFlnhZn15Yd7bx3LJqjKYnX636c2SbfkwgH2JDt5MJGPjFm/y5ykMjemEL
+    g21+N38EtqlzdPeDruhcs8brdwmBvP2xTzA2nlPM/R1k7j2XZpE+1wqnFWVOxgvARrUjsl
+    Qa/mT0thdy4Ga28yqijywE8zYbI5GsenoUnEeh3Jfsh2Ng6d0EKwak9NCl6w6/oBaDGCmV
+    26oj9QWAaYI1drg2sgvlOX2+++qce1vaugKYq3P1MsksHjiLO2t8kdvkzUJzy2MFn432aN
+    x47mEyphBgUUGwnx2xuQbK21aOqz0IXBu8mrUDDtaAmJ85EFBB1nKiaKTJhg0awldA0KlW
+    0vBGTx5RzPOYWW4eh+jCxrppA3wu8S7xn9M9wfcUn9sW869Qvad1YZAgMIbg
+X-ME-Proxy: <xmx:NsnIaj1m2CpLMi1ESMQpjdTsQBaKN8MOPlxOcB4-siAf5pnNLy-SvA>
+    <xmx:NsnIajqT6AJGKeT5EydclvNiQMcD4B649qoEb7-A2rrLBGQWD0bYdA>
+    <xmx:NsnIajJiT32hKKJmhZ7UHZn1XYZvfjvM8mUURnY1CTOU-W_goWUjrA>
+    <xmx:NsnIavSMHLqzqmkz1qSFAPMCGE3ioew4F-0M5_RNn3gsHnDQmiQGnA>
+    <xmx:OcnIannhju_zvyOEktgLshhr98im-EPeRF1bktUzMOF35N6KQZfDnQ-->
+Feedback-ID: i559e4809:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 478222F8005D; Fri,  9 Oct 2026 07:00:04 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Date: Fri, 09 Oct 2026 13:59:43 +0300
+From: "Alice Mikityanska" <alice.kernel@fastmail.im>
+To: "Haishuang Yan" <yanhaishuang@cmss.chinamobile.com>,
+ netdev@vger.kernel.org
+Cc: "Matthieu Baerts" <matttbe@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>,
+ "Eric Dumazet" <edumazet@kernel.org>, "Jakub Kicinski" <kuba@kernel.org>,
+ "Paolo Abeni" <pabeni@redhat.com>, "Simon Horman" <horms@kernel.org>,
+ "Shuah Khan" <shuah@kernel.org>, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Message-Id: <a300a06d-89d0-4977-95aa-a0b3d375a8b4@app.fastmail.com>
+In-Reply-To: <20261007014731.1277055-1-yanhaishuang@cmss.chinamobile.com>
+References: <20261007014731.1277055-1-yanhaishuang@cmss.chinamobile.com>
+Subject: Re: [PATCH net] selftests: net: big_tcp_tunnels: Fix the IPv6 route change
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-cv75-soc-v1-3-808330e93ff1@ambarella.com>
-References: <20261009-cv75-soc-v1-0-808330e93ff1@ambarella.com>
-In-Reply-To: <20261009-cv75-soc-v1-0-808330e93ff1@ambarella.com>
-To: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
- Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, devicetree@vger.kernel.org, 
- Long Zhao <longzhao@ambarella.com>, Long Zhao <zl020895@163.com>, 
- linux-kernel@vger.kernel.org, Linus Walleij <linusw@kernel.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791543624; l=8107;
- i=longzhao@ambarella.com; s=20260730; h=from:subject:message-id;
- bh=DEAMc2vofaBUV896UxD87q9HiCotMrVdpC7L4SePgqQ=;
- b=cFigYYSlwic5I4w4hAk7lcLpzljuiu/YFLpVoViURcfGSR3krhaqlzeUL+C0ZRkLqJh/zJ4s0
- 10D29IBd9r+DnrAIYIPmKPXWiRGDn0ILAd047PkAoN/1nD7st0r9kne
-X-Developer-Key: i=longzhao@ambarella.com; a=ed25519;
- pk=/xGhPTOX0/eYsyTWzyjjgAIW1Z/YD+IlnOnvcdRozow=
-X-Endpoint-Received: by B4 Relay for longzhao@ambarella.com/20260730 with
- auth_id=903
-X-Original-From: Long Zhao <longzhao@ambarella.com>
-Reply-To: longzhao@ambarella.com
 
-From: Long Zhao <longzhao@ambarella.com>
+On Wed, Oct 7, 2026, at 04:47, Haishuang Yan wrote:
+> On slow machines, do_test() raises initcwnd on the route into the tunnel
+> with "ip route change". For IPv6 traffic this fails with:
+>
+>   RTNETLINK answers: No such file or directory
 
-Enable ARCH_AMBARELLA and add a minimal CV75 SoC / EVK device tree for
-console bring-up with the RCT clocks, UART, pinctrl and GPIO banks.
+Thanks for the fix! It's already merged, but anyway:
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-Signed-off-by: Long Zhao <longzhao@ambarella.com>
----
- arch/arm64/Kconfig.platforms               |   6 +
- arch/arm64/boot/dts/Makefile               |   1 +
- arch/arm64/boot/dts/ambarella/Makefile     |   3 +
- arch/arm64/boot/dts/ambarella/cv75-evk.dts |  30 +++++
- arch/arm64/boot/dts/ambarella/cv75.dtsi    | 177 +++++++++++++++++++++++++++++
- arch/arm64/configs/defconfig               |   1 +
- 6 files changed, 218 insertions(+)
+Tested-by: Alice Mikityanska <alice.kernel@fastmail.im>
 
-diff --git a/arch/arm64/Kconfig.platforms b/arch/arm64/Kconfig.platforms
-index d2acfac73003..16d7e3a4c2d6 100644
---- a/arch/arm64/Kconfig.platforms
-+++ b/arch/arm64/Kconfig.platforms
-@@ -26,6 +26,12 @@ config ARCH_SUNXI
- 	help
- 	  This enables support for Allwinner sunxi based SoCs like the A64.
- 
-+config ARCH_AMBARELLA
-+	bool "Ambarella SoC family"
-+	select PINCTRL
-+	help
-+	  This enables support for the ARM64 based Ambarella SoCs like CV75.
-+
- config ARCH_ALPINE
- 	bool "Annapurna Labs Alpine platform"
- 	select ALPINE_MSI if PCI
-diff --git a/arch/arm64/boot/dts/Makefile b/arch/arm64/boot/dts/Makefile
-index fc726b215f12..f1709eb5d915 100644
---- a/arch/arm64/boot/dts/Makefile
-+++ b/arch/arm64/boot/dts/Makefile
-@@ -4,6 +4,7 @@ subdir-y += airoha
- subdir-y += allwinner
- subdir-y += altera
- subdir-y += amazon
-+subdir-y += ambarella
- subdir-y += amd
- subdir-y += amlogic
- subdir-y += apm
-diff --git a/arch/arm64/boot/dts/ambarella/Makefile b/arch/arm64/boot/dts/ambarella/Makefile
-new file mode 100644
-index 000000000000..ddca3d7b18cc
---- /dev/null
-+++ b/arch/arm64/boot/dts/ambarella/Makefile
-@@ -0,0 +1,3 @@
-+# SPDX-License-Identifier: GPL-2.0
-+
-+dtb-$(CONFIG_ARCH_AMBARELLA) += cv75-evk.dtb
-diff --git a/arch/arm64/boot/dts/ambarella/cv75-evk.dts b/arch/arm64/boot/dts/ambarella/cv75-evk.dts
-new file mode 100644
-index 000000000000..42a0fe24b83b
---- /dev/null
-+++ b/arch/arm64/boot/dts/ambarella/cv75-evk.dts
-@@ -0,0 +1,30 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Ambarella CV75 EVK board
-+ */
-+
-+/dts-v1/;
-+
-+#include "cv75.dtsi"
-+
-+/ {
-+	model = "Ambarella CV75 EVK Board";
-+	compatible = "ambarella,cv75-evk", "ambarella,cv75";
-+
-+	aliases {
-+		serial0 = &uart0;
-+	};
-+
-+	chosen {
-+		stdout-path = &uart0;
-+	};
-+
-+	memory@200000 {
-+		device_type = "memory";
-+		reg = <0x0 0x00200000 0x0 0x07e00000>;
-+	};
-+};
-+
-+&uart0 {
-+	status = "okay";
-+};
-diff --git a/arch/arm64/boot/dts/ambarella/cv75.dtsi b/arch/arm64/boot/dts/ambarella/cv75.dtsi
-new file mode 100644
-index 000000000000..c36b6af48237
---- /dev/null
-+++ b/arch/arm64/boot/dts/ambarella/cv75.dtsi
-@@ -0,0 +1,177 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Ambarella CV75 SoC
-+ *
-+ * Boot peripheral: UART0 console.
-+ * Clocks: a single ambarella,cv75-rct provider.
-+ */
-+
-+#include <dt-bindings/clock/ambarella,cv75-rct.h>
-+#include <dt-bindings/interrupt-controller/arm-gic.h>
-+
-+/ {
-+	compatible = "ambarella,cv75";
-+	interrupt-parent = <&gic>;
-+	#address-cells = <2>;
-+	#size-cells = <2>;
-+
-+	cpus {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		cpu@0 {
-+			compatible = "arm,cortex-a76";
-+			device_type = "cpu";
-+			reg = <0x000>;
-+			enable-method = "psci";
-+		};
-+
-+		cpu@1 {
-+			compatible = "arm,cortex-a76";
-+			device_type = "cpu";
-+			reg = <0x100>;
-+			enable-method = "psci";
-+		};
-+	};
-+
-+	osc: oscillator {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <24000000>;
-+		clock-output-names = "osc";
-+	};
-+
-+	psci {
-+		compatible = "arm,psci-0.2";
-+		method = "smc";
-+	};
-+
-+	soc {
-+		compatible = "simple-bus";
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+		ranges;
-+
-+		ahb@ffe0000000 {
-+			compatible = "simple-bus";
-+			reg = <0xff 0xe0000000 0x0 0x01000000>;
-+			ranges = <0xe0000000 0xff 0xe0000000 0x01000000>;
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			s_scratchpad_syscon: scratchpad@e002e000 {
-+				compatible = "ambarella,cv75-sec-scratchpad", "syscon";
-+				reg = <0xe002e000 0x1000>;
-+			};
-+		};
-+
-+		apb@ffe4000000 {
-+			compatible = "simple-bus";
-+			reg = <0xff 0xe4000000 0x0 0x01000000>;
-+			ranges = <0xe4000000 0xff 0xe4000000 0x01000000>;
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			uart0: serial@e4000000 {
-+				compatible = "ambarella,cv75-uart", "snps,dw-apb-uart";
-+				reg = <0xe4000000 0x1000>;
-+				clocks = <&rct CV75_GCLK_UART0>;
-+				interrupts = <GIC_SPI 170 IRQ_TYPE_LEVEL_HIGH>;
-+				reg-shift = <2>;
-+				reg-io-width = <4>;
-+				pinctrl-names = "default";
-+				pinctrl-0 = <&uart0_pins>;
-+
-+				status = "disabled";
-+			};
-+
-+			pinctrl: pinctrl@e4010000 {
-+				compatible = "ambarella,cv75-pinctrl";
-+				reg = <0xe4010000 0x1000>;
-+				ambarella,drive-strength-syscon = <&rct>;
-+				ambarella,pull-syscon = <&s_scratchpad_syscon>;
-+
-+				uart0_pins: uart0-pins {
-+					function = "uart0";
-+					groups = "uart0";
-+				};
-+			};
-+
-+			gpio0: gpio@e4013000 {
-+				compatible = "ambarella,cv75-gpio", "arm,primecell";
-+				reg = <0xe4013000 0x1000>;
-+				clocks = <&rct CV75_GCLK_APB>;
-+				clock-names = "apb_pclk";
-+				interrupts = <GIC_SPI 163 IRQ_TYPE_LEVEL_HIGH>;
-+				gpio-controller;
-+				#gpio-cells = <2>;
-+				gpio-ranges = <&pinctrl 0 0 32>;
-+				interrupt-controller;
-+				#interrupt-cells = <2>;
-+				arm,primecell-periphid = <0x000e8061>;
-+			};
-+
-+			gpio1: gpio@e4014000 {
-+				compatible = "ambarella,cv75-gpio", "arm,primecell";
-+				reg = <0xe4014000 0x1000>;
-+				clocks = <&rct CV75_GCLK_APB>;
-+				clock-names = "apb_pclk";
-+				interrupts = <GIC_SPI 164 IRQ_TYPE_LEVEL_HIGH>;
-+				gpio-controller;
-+				#gpio-cells = <2>;
-+				gpio-ranges = <&pinctrl 0 32 32>;
-+				interrupt-controller;
-+				#interrupt-cells = <2>;
-+				arm,primecell-periphid = <0x000e8061>;
-+			};
-+
-+			gpio2: gpio@e4015000 {
-+				compatible = "ambarella,cv75-gpio", "arm,primecell";
-+				reg = <0xe4015000 0x1000>;
-+				clocks = <&rct CV75_GCLK_APB>;
-+				clock-names = "apb_pclk";
-+				interrupts = <GIC_SPI 165 IRQ_TYPE_LEVEL_HIGH>;
-+				gpio-controller;
-+				#gpio-cells = <2>;
-+				gpio-ranges = <&pinctrl 0 64 32>;
-+				interrupt-controller;
-+				#interrupt-cells = <2>;
-+				arm,primecell-periphid = <0x000e8061>;
-+			};
-+		};
-+
-+		rct: clock-controller@ffed080000 {
-+			compatible = "ambarella,cv75-rct", "syscon";
-+			reg = <0xff 0xed080000 0x0 0x1000>;
-+			clocks = <&osc>;
-+			clock-names = "osc";
-+			#clock-cells = <1>;
-+			#reset-cells = <1>;
-+			assigned-clocks = <&rct CV75_GCLK_UART0>;
-+			assigned-clock-parents = <&osc>;
-+			assigned-clock-rates = <24000000>;
-+		};
-+
-+		gic: interrupt-controller@fff0101000 {
-+			compatible = "arm,gic-400";
-+			reg = <0xff 0xf0101000 0x0 0x1000>,
-+			      <0xff 0xf0102000 0x0 0x2000>,
-+			      <0xff 0xf0104000 0x0 0x2000>,
-+			      <0xff 0xf0106000 0x0 0x2000>;
-+			interrupt-controller;
-+			#interrupt-cells = <3>;
-+			#address-cells = <0>;
-+			interrupts = <GIC_PPI 9
-+				      (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_HIGH)>;
-+		};
-+	};
-+
-+	timer {
-+		compatible = "arm,armv8-timer";
-+		interrupts = <GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>,
-+			     <GIC_PPI 14 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>,
-+			     <GIC_PPI 11 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>,
-+			     <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>,
-+			     <GIC_PPI 12 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>;
-+	};
-+};
-diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
-index ad3bd3d9507b..454f07a6a6a6 100644
---- a/arch/arm64/configs/defconfig
-+++ b/arch/arm64/configs/defconfig
-@@ -36,6 +36,7 @@ CONFIG_CRASH_DUMP=y
- CONFIG_ARCH_ACTIONS=y
- CONFIG_ARCH_AIROHA=y
- CONFIG_ARCH_SUNXI=y
-+CONFIG_ARCH_AMBARELLA=y
- CONFIG_ARCH_ALPINE=y
- CONFIG_ARCH_APPLE=y
- CONFIG_ARCH_ARTPEC=y
-
--- 
-2.34.1
-
-
+> The IPv6 prefix route of the tunnel address has metric 256, while
+> "ip -6 route change" without a metric looks for a route with the default
+> metric 1024, so nothing is changed. The test still passes, but without
+> the larger initcwnd it is meant to use.
+>
+> Pass the metric of the prefix route.
+>
+> Fixes: 1d62b83fb751 ("selftests: net: Fix slow configurations in 
+> big_tcp_tunnels.sh")
+> Signed-off-by: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
+> ---
+>  tools/testing/selftests/net/big_tcp_tunnels.sh | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/tools/testing/selftests/net/big_tcp_tunnels.sh 
+> b/tools/testing/selftests/net/big_tcp_tunnels.sh
+> index cc0875e52fb9..fb43fed824e3 100755
+> --- a/tools/testing/selftests/net/big_tcp_tunnels.sh
+> +++ b/tools/testing/selftests/net/big_tcp_tunnels.sh
+> @@ -145,7 +145,8 @@ do_test() {
+>  			    route change 192.168.2.0/24 dev tun0 initcwnd 100
+>  		else
+>  			ip -netns "$CLIENT_NS" -6 \
+> -			    route change 2001:db8::2:0/112 dev tun0 initcwnd 100
+> +			    route change 2001:db8::2:0/112 dev tun0 initcwnd 100 \
+> +			    metric 256
+>  		fi
+>  	else
+>  		ip netns exec "$CLIENT_NS" \
+> -- 
+> 2.43.0
