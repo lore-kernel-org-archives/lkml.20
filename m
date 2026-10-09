@@ -1,385 +1,136 @@
-Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
+Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20BC248CD55
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 23:26:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7594A3DE452
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 23:28:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791588385; cv=none; b=hNtWvUV9kjzVrELS7r6gZVdenhHGOozIXbWiNtGfGgHt9/lU9ADX+34pDPch42iWGvxoGIcUWaad7i9j9TFlOX7jBwKAshpWnWVyDbcM/Ww9ujJbHFqbuow9qizV+R0mMyUXnHtZ3QZylKxyO8dkKa8pRJCp3C+K2XiMVBCHCRU=
+	t=1791588537; cv=none; b=EwJsvVcXWTxiyZTKiwsNcFp8kIKKwdSm+7b8JN7dEnoCoZrGrO4EqL0+sbEtv9rx2//4F+b+Jr/Zt2yduZ0gkgCuGrKM8tO5D3NWnphaxnGFowN+eJ1g2hxr5YaXLGqkppvaOIZzhhGYLJXVyJzkUFdqVITI/lFRCAnCRzWQgl0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791588385; c=relaxed/simple;
-	bh=aSCk7vR7RCc/E1Vdt5vktFWYGrnms6k1gSa+I2W+kyM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Q51oVL/A19Q6AlTlPQ5S/TVfVh9aGXPnreEKZqmf4tzG7RsgYaY1k8JfCyTVvGJjkUWBGcwvHC5Ge35kP3/gQ4WwTBH7A8BTFGx6uAVRM/mgiOt95hGqA8a47hXwihb9Utag4lLCJJsvmgNlTSfNijmSRx6V7oBYxiveXs2mYuw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=UVxRWwFb; arc=none smtp.client-ip=209.85.210.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1791588537; c=relaxed/simple;
+	bh=3p5XqxeYR4CnRWjEkfitWmRDeFwIoCUnBHgm/AzDALk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iU7Uv7Wq4Goypl3RCR7zrgCeYy9qjiaGS5Rz8lXTKMegoFPFfSQQRu7kkvhyz+CybzxabAckmkpICekvHjbAf/lweXcMshzTzKTD+1AGreucHstbfU5mfoarDWTM2RUkpEenOkflZXeUgFg+UyHOG/XVDrVPRv75iifLsHAJAdQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=ih4qwODr; arc=none smtp.client-ip=209.85.219.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="UVxRWwFb"
-Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-8245021651dso243435a34.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 16:26:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="ih4qwODr"
+Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-917866225aaso4575606d6.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 16:28:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1791588382; x=1792193182; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kqJrYP7Xtsbw30SMQRn1hKDSp3oWJh6uZpJoxaHfYgQ=;
-        b=UVxRWwFbyFizweJCophojEEfb/ohMPV6NdGpVOlYz1h5AFy/tFl/xiujeLOFhqibwr
-         YN+lBAztqMvJbekrhT0RsLaTb8pgX5p1lLILuqKn5x6SC0DvdcAhZc3z1gcO+1yIVH8E
-         9VwEDje9xjyxYwdYRWyc4DQfFGG7aW8sC2w8X7l+fi6zpbp+iVyCBKH5M1SkZzhXNgrE
-         wgyS8u8sYPZcnEKjmON1w2FZagUyGe2eZnx0iU3wtP5PP0EtEUeAicgaUOo67qYKfML+
-         SlrLS2E23QZZvgGqKo3TOC9RQH0HrbWz9hRfG4WoV5HUzu9c65cHSTXDVAMpOFfs92+g
-         XbDw==
+        d=gourry.net; s=google; t=1791588535; x=1792193335; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=i8fGiA3xoaDWPU6XKjh9IcWOAynrlR15W4KHQ08CPA0=;
+        b=ih4qwODrnvCH2f+Gc10APFAT/TSdW1gD3TOiiyrYhoxJIyC0o+X+be7weMOMGX6Lye
+         dgQzaI+GcB8/xQPR+8OPYqWZz7BcYHOMPdF44dFY/tIA0mmw0c50NHdG2i/Ev82MlvYg
+         DH9zdRGUwi5r7V1tvIAFkluekYD7yPAWQlE6MRO9dz0WKVzPVE8LramMzIhGxekL1/cw
+         EdjjMDD2jYotwjTfL9LszMZJDqfqPd1Qq9aqj+6IG77NWpAPWXLu1ympjbrJB5NiZ9Wb
+         smZeHXua4b5Lb77QwGo1adsWY81qMcsN0PeDyLbMItvCz1JrMG1SviMVpuyuk2WRNb4R
+         qAOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791588382; x=1792193182;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1791588535; x=1792193335;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=kqJrYP7Xtsbw30SMQRn1hKDSp3oWJh6uZpJoxaHfYgQ=;
-        b=sTb8gpukgrLSdh1zEb630SufeS6hpz2p4TDXTO79BaaQfXXBXpcK/zYmqg/X+fvTbR
-         3ZNVh5k4i+WHLFOUttom7t+mhcajyQ0BSKtuU7MnZ4A5sDMRq2s+zZyif63w0LpGqtF6
-         VCWsmUACBJGuynJGue4idv4dx5s4A9rbdA7rXMsL8fHwvj2aNjVsrumQ5Z980V0vdYzL
-         cZVGZnORBMmNVVi5A3+V7mEOAHPdqg39DM4A3gv7KJl9jv30Dyn+22xQgP2YndsQBG8B
-         qZySBDUyhVmrRkzTje4BDXCAbkWFhQSzoc5ESJgu8odRFzCknkiBQWnoucFaabl/Sfmb
-         NMDA==
-X-Forwarded-Encrypted: i=1; AKwUvBwyrU77SmZAjqWFu8lR6+IzikWw+l/wPKV/y5ZXm5iUT3bpGlk7ucSkms08y6NoCiY3xpZHFrTJkxHHbJo=@vger.kernel.org
-X-Gm-Message-State: AFuF++ldLH78S9DGDF7Wj0ipCK37MiOqEy3YJXvJsC+Nx6OdUF4IJzPW
-	+PyVC7y+7bVPTxThJKTdGXtukLd6oTwSZzpQje5kAgflJax3nEQRdBT3lnVqNFtiMxk5zLlH5sV
-	/S+cs
-X-Gm-Gg: AYBFou0yOx4Lc/iAsqpwyt4XabtHBnTvW/v4pctb34/lfrfo+MI2DcaKZBYZoDksCp2
-	cuJuLit9EbgrIO7ZxDRWpd67Zye7yn0Df73Ljw9HFuUFgpT3b+n+jRG3IrErndFspECXqpjyo8j
-	vKFPC9iIRbUCQyv56FSVnz5ub46Y/0ZCBxziBCOYMJgAYm+9ToFsbjjYT2f4httYbBKceuwiJsZ
-	Wu7A0UD07CjzCSXXrNraKliiuGgVLdurIlZ5iVwmr4mhnaKn7EvTrPUe97lqK4i9JDUnWIvVeM5
-	w+/RusUYXHh+a49hbogLhy+lCFTTE/C/Veere8T0ICK/LOUH+ixjVsqHMUD7ACKCZ03/822AQC5
-	nDPOinOX6hcSSNhX+aMqpJtvKkOgT7r/FvteFF60Bas1KWBkN6nVblUhRDTwzt4h07k3ksDNCbk
-	XWJK6pQOANx4ObLoqZMj+OHBhAZmnPadbofXGdsaTIe47x5XIujd1OKDxzg32qFnH422sxh/xku
-	fc=
-X-Received: by 2002:a05:6830:349e:b0:822:a76e:9595 with SMTP id 46e09a7af769-830966ee42emr3475463a34.18.1791588381787;
-        Fri, 09 Oct 2026 16:26:21 -0700 (PDT)
-Received: from [127.0.1.1] ([2600:8803:e7e4:500:29bd:56f6:5ae7:35d2])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-83038f82468sm3293817a34.11.2026.10.09.16.26.20
+        bh=i8fGiA3xoaDWPU6XKjh9IcWOAynrlR15W4KHQ08CPA0=;
+        b=rFYI+y5vmrzwNKWLxmqX1l7u9rYOQjOWs7ZI3+YsK0CTHM3jC0ScD25LpucLwArvnm
+         grlsNWc/DULw+3rM36r5EtHzbYqcqRLzG0L7pSuoDSQwcNdKzPMsdyj40j2L/+HeDb/S
+         qoZjWSf02o4aMvhm8L84gWJnG2a5m+pxlAR6JhCxSN5/2Roi5vdmPs5HK9cqUUcrbT52
+         ZLZbuhRtOE+Gxs1Hn0dqOSZyC+P+JWf0chAQpLACyFftudgbBTXUvDMyfws/2Eaz+uGe
+         94Chdk/nTwLCPy2qCn3G15jdWLrTvMFrufHgqUcupwc4ZcT/dF7EOHeRva60/t12nWw0
+         8caQ==
+X-Forwarded-Encrypted: i=1; AKwUvByKk81nWZbefkJLbopMmIS6cQoYWtP8G6psMzYN0H/bc8zgRLGafhzmIZ5Mq+gc1hirjKSvtcG73z/KJlA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI3qwAa2+LraNRX4nr+9Owok4gPx7SVnF3plSTXEXSeHbLH7Ktc
+	bq+hxF1Sdgiw3Q33nvB+QP704lkIrAwDxNvhBJQp0k97NVId9DiKGZcuyCWqJQEfU5s=
+X-Gm-Gg: AYBFou1AzFqeuD4grF5sKYmzw2WGdh9ZeeuwXn6beNw21AzOhBrVDBG6qFtGh3B5PDI
+	TtGPd1MF59aqmOtfkSSxlcBloYHYychra4PnvyDsHECVDqwK6jbXCPGeOoRbMNZ8HQOijogEfxb
+	vVVTNGAz69169Tzt1eXMEN10NfdnKmoqr7kUA/cDvoaMldrSxGh30axX81ma4gcMmcY9E4NFXKd
+	3qpg0Dkux+uCB6/Adc3uMyhJpomWiCj1Grp9Wovo8gUGkrjutuW+6j5jQa3O6rqXGvdCPBI4U6e
+	7KBCS/SKD0i7Nbov51y2NpHiDHED8PBLQ+hHSflS0S39lFiCpQ7FlUYcTcFSGP7ayG0yioT98hC
+	A55Nmd/JA53ZOuYUkCQMNTqPRbAWuBCrfLrx7yzfyHMilg9y7BMQ6RYpvctJFNsq3m1dz2J1XF0
+	i1famEZbvSvgZRbcwpkO/UlY8MjQTlEXC/wkZnFoQ7Xne08tCptdQ4/4/w+FSCLXw6z22o/FnH9
+	VYd4rp4afzRmDJk7SuLht7RtejoXbmtVf4D4GGKTLWtMcuKcSHxoHY=
+X-Received: by 2002:a05:620a:1a1c:b0:93b:d7a0:d9e4 with SMTP id af79cd13be357-93ebd263d45mr580212785a.62.1791588535148;
+        Fri, 09 Oct 2026 16:28:55 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb984889fsm301000185a.13.2026.10.09.16.28.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 16:26:20 -0700 (PDT)
-From: "David Lechner (TI)" <dlechner@baylibre.com>
-Date: Fri, 09 Oct 2026 18:25:52 -0500
-Subject: [PATCH v2 2/2] iio: adc: ti-ads112c14: add gpio support
+        Fri, 09 Oct 2026 16:28:54 -0700 (PDT)
+Date: Fri, 9 Oct 2026 19:28:52 -0400
+From: Gregory Price <gourry@gourry.net>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: linux-mm@kvack.org, willy@infradead.org, vbabka@kernel.org, 
+	brendan.jackman@linux.dev, linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	kernel-team@meta.com, jack@suse.cz, akpm@linux-foundation.org, ziy@nvidia.com, 
+	joshua.hahnjy@gmail.com, rakie.kim@sk.com, ying.huang@linux.alibaba.com, 
+	surenb@google.com, mhocko@suse.com, hannes@cmpxchg.org
+Subject: Re: [RFC PATCH 0/6] mm: pass alloc_flags through folio, filemap, and
+ bulk allocators
+Message-ID: <asloWFM96BATH8SB@gourry-fedora-PF4VCD3F>
+References: <20260923211041.3127588-1-gourry@gourry.net>
+ <asdTptfeLkuypU8t@gourry-fedora-PF4VCD3F>
+ <df588805-6f97-4ef6-a64f-39222669bf3a@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-iio-adc-ti-ads112c14-gpio-v2-2-3231a795fa63@baylibre.com>
-References: <20261009-iio-adc-ti-ads112c14-gpio-v2-0-3231a795fa63@baylibre.com>
-In-Reply-To: <20261009-iio-adc-ti-ads112c14-gpio-v2-0-3231a795fa63@baylibre.com>
-To: Jonathan Cameron <jic23@kernel.org>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Linus Walleij <linusw@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-gpio@vger.kernel.org, Chris Hall <c-hall@ti.com>, 
- Patrick Edwards <pedwards@ti.com>, Kurt Borja <kuurtb@gmail.com>, 
- "David Lechner (TI)" <dlechner@baylibre.com>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9894; i=dlechner@baylibre.com;
- h=from:subject:message-id; bh=aSCk7vR7RCc/E1Vdt5vktFWYGrnms6k1gSa+I2W+kyM=;
- b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBqyXgQIhI0AwTxQ0IKOmHaWuzhL2x0NEMM6iIQy
- FRyR6A9eJyJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCasl4EAAKCRDCzCAB/wGP
- wGFWB/0ZhDj6oIXwKpnq83W9oI3ZH/vM6c9sA30YyNTXqpTGjXMdCoFZU5JANPAXtcGAb/AWIMu
- drKdToBDwCkqpNMOgiB114ilPwy9RfCtqDOeJAcfiYk3mg1CTPYQgHHr1v2LgpjHX3h08J7JEXN
- dmfAQYdCLlQrw+Uo2B6yHUSaT7QwsA2WM8v/BiubP3iuru4+2CeiimUfjvp2607YCnYZQMoHK5Y
- gnv5F78t0qaQT1PE54V0KuaOmTwJTDfZVTR1yu5cT5K+tB9qnSAMeFuCBnhVxtxJS1KdLnFKpra
- g9VUK5N7RC/NV5oloNVQBLo/dtjiEqMvQvZRAo3y6ghyU4Fq
-X-Developer-Key: i=dlechner@baylibre.com; a=openpgp;
- fpr=8A73D82A6A1F509907F373881F8AF88C82F77C03
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <df588805-6f97-4ef6-a64f-39222669bf3a@kernel.org>
 
-Add support for using the AIN4/GPIO0 to AIN7/GPIO3 pins as GPIOs when
-the gpio-controller property is present.
+On Fri, Oct 09, 2026 at 10:55:05PM +0200, David Hildenbrand (Arm) wrote:
+> I do agree that two sets of flags is suboptimal, but likely more flexible. I
+> guess an alloc_flags only interface is not easily possible ...
+> 
+> I do wonder whether it should be:
+> 
+> 	typedef int __bitwise alloc_flags_t;
+> 
+> instead of "unsigned int alloc_flags".
+> 
+> ... while at it
 
-Pins that are already used for something else according to the
-devicetree are excluded from the valid GPIO mask. This includes analog
-inputs and excitation current outputs used by channels, REFP/REFN when
-an external reference is used, the /FAULT and /DRDY interrupts and the
-external clock input.
+Does it make sense to leave alloc_flags to internal-only state
+and just implement a new flag field?
 
-Signed-off-by: David Lechner (TI) <dlechner@baylibre.com>
----
- drivers/iio/adc/Kconfig        |   2 +-
- drivers/iio/adc/ti-ads112c14.c | 168 +++++++++++++++++++++++++++++++++++++++--
- 2 files changed, 164 insertions(+), 6 deletions(-)
+gfp_t       -> describe the page (fully public)
+req_t       -> describe the allocator behavior (mm-internal only)
+alloc_flags -> internal allocator state only
 
-diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
-index a802d8ee4dd9..b0242b2fdb2d 100644
---- a/drivers/iio/adc/Kconfig
-+++ b/drivers/iio/adc/Kconfig
-@@ -1878,7 +1878,7 @@ config TI_ADS112C04
- 
- config TI_ADS112C14
- 	tristate "Texas Instruments ADS112C14/ADS122C14"
--	depends on I2C
-+	depends on I2C && GPIOLIB
- 	select CRC8
- 	select REGMAP
- 	help
-diff --git a/drivers/iio/adc/ti-ads112c14.c b/drivers/iio/adc/ti-ads112c14.c
-index cbd82de03127..e0cadc445a44 100644
---- a/drivers/iio/adc/ti-ads112c14.c
-+++ b/drivers/iio/adc/ti-ads112c14.c
-@@ -17,6 +17,7 @@
- #include <linux/delay.h>
- #include <linux/dev_printk.h>
- #include <linux/device/devres.h>
-+#include <linux/gpio/driver.h>
- #include <linux/i2c.h>
- #include <linux/iio/buffer.h>
- #include <linux/iio/iio.h>
-@@ -157,6 +158,8 @@
- #define ADS112C14_INT_REF0_mV				1250
- #define ADS112C14_INT_REF1_mV				2500
- 
-+#define ADS112C14_NUM_GPIO				4
-+
- enum {
- 	ADS112C14_VREF_SOURCE_INTERNAL_2_5V,
- 	ADS112C14_VREF_SOURCE_INTERNAL_1_25V,
-@@ -357,6 +360,9 @@ struct ads112c14_channel_state {
- struct ads112c14_data {
- 	const struct ads112c14_chip_info *chip_info;
- 	struct regmap *regmap;
-+	struct gpio_chip gc;
-+	const char *gpio_names[ADS112C14_NUM_GPIO];
-+	DECLARE_BITMAP(gpio_reserved, ADS112C14_NUM_GPIO);
- 	struct iio_trigger *drdy_trig;
- 	/* Synchronizes access to register value fields. */
- 	struct mutex lock;
-@@ -384,6 +390,135 @@ struct ads112c14_data {
- 						 ARRAY_SIZE(ads112c14_sys_mon_channels));
- };
- 
-+static u32 ads112c14_reserve_ain_pin(unsigned long *reserved, u32 ain)
-+{
-+	if (ain >= 4 && ain <= 7)
-+		bitmap_set(reserved, ain - 4, 1);
-+
-+	return ain;
-+}
-+
-+static int ads112c14_gpio_get_direction(struct gpio_chip *gc, unsigned int offset)
-+{
-+	struct iio_dev *indio_dev = gpiochip_get_data(gc);
-+	struct ads112c14_data *data = iio_priv(indio_dev);
-+	unsigned int reg_val;
-+	int ret;
-+
-+	ret = regmap_read(data->regmap, ADS112C14_REG_GPIO_CFG, &reg_val);
-+	if (ret)
-+		return ret;
-+
-+	switch (field_get(ADS112C14_GPIO_CFG_GPIO_CFG(offset), reg_val)) {
-+	case ADS112C14_GPIO_CFG_GPIO_CFG_INPUT:
-+		return GPIO_LINE_DIRECTION_IN;
-+	case ADS112C14_GPIO_CFG_GPIO_CFG_OUTPUT_PUSH_PULL:
-+	case ADS112C14_GPIO_CFG_GPIO_CFG_OUTPUT_OPEN_DRAIN:
-+		return GPIO_LINE_DIRECTION_OUT;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int ads112c14_gpio_direction_input(struct gpio_chip *gc,
-+					  unsigned int offset)
-+{
-+	struct iio_dev *indio_dev = gpiochip_get_data(gc);
-+	struct ads112c14_data *data = iio_priv(indio_dev);
-+
-+	return regmap_update_bits(data->regmap, ADS112C14_REG_GPIO_CFG,
-+				  ADS112C14_GPIO_CFG_GPIO_CFG(offset),
-+				  field_prep(ADS112C14_GPIO_CFG_GPIO_CFG(offset),
-+					     ADS112C14_GPIO_CFG_GPIO_CFG_INPUT));
-+}
-+
-+static int ads112c14_gpio_direction_output(struct gpio_chip *gc,
-+					   unsigned int offset, int value)
-+{
-+	struct iio_dev *indio_dev = gpiochip_get_data(gc);
-+	struct ads112c14_data *data = iio_priv(indio_dev);
-+	int ret;
-+
-+	ret = regmap_assign_bits(data->regmap, ADS112C14_REG_GPIO_DATA_OUTPUT,
-+				 ADS112C14_GPIO_DATA_OUTPUT_GPIO_DAT_OUT(offset),
-+				 value);
-+	if (ret)
-+		return ret;
-+
-+	return regmap_update_bits(data->regmap, ADS112C14_REG_GPIO_CFG,
-+				  ADS112C14_GPIO_CFG_GPIO_CFG(offset),
-+				  field_prep(ADS112C14_GPIO_CFG_GPIO_CFG(offset),
-+					     ADS112C14_GPIO_CFG_GPIO_CFG_OUTPUT_PUSH_PULL));
-+}
-+
-+static int ads112c14_gpio_get(struct gpio_chip *gc, unsigned int offset)
-+{
-+	struct iio_dev *indio_dev = gpiochip_get_data(gc);
-+	struct ads112c14_data *data = iio_priv(indio_dev);
-+	unsigned int reg_val;
-+	int ret;
-+
-+	ret = regmap_read(data->regmap, ADS112C14_REG_STATUS_LSB, &reg_val);
-+	if (ret)
-+		return ret;
-+
-+	return field_get(ADS112C14_STATUS_LSB_GPIO_DAT_IN(offset), reg_val);
-+}
-+
-+static int ads112c14_gpio_set(struct gpio_chip *gc, unsigned int offset,
-+			      int value)
-+{
-+	struct iio_dev *indio_dev = gpiochip_get_data(gc);
-+	struct ads112c14_data *data = iio_priv(indio_dev);
-+
-+	return regmap_assign_bits(data->regmap, ADS112C14_REG_GPIO_DATA_OUTPUT,
-+				  ADS112C14_GPIO_DATA_OUTPUT_GPIO_DAT_OUT(offset),
-+				  value);
-+}
-+
-+static int ads112c14_gpio_init_valid_mask(struct gpio_chip *gc,
-+					  unsigned long *valid_mask,
-+					  unsigned int ngpios)
-+{
-+	struct iio_dev *indio_dev = gpiochip_get_data(gc);
-+	struct ads112c14_data *data = iio_priv(indio_dev);
-+
-+	bitmap_andnot(valid_mask, valid_mask, data->gpio_reserved, ngpios);
-+
-+	return 0;
-+}
-+
-+static int ads112c14_gpio_init(struct iio_dev *indio_dev)
-+{
-+	struct ads112c14_data *data = iio_priv(indio_dev);
-+	struct device *dev = indio_dev->dev.parent;
-+
-+	for (unsigned int i = 0; i < ADS112C14_NUM_GPIO; i++) {
-+		data->gpio_names[i] = devm_kasprintf(dev, GFP_KERNEL, "%s:GPIO%u",
-+						     dev_name(&indio_dev->dev), i);
-+		if (!data->gpio_names[i])
-+			return -ENOMEM;
-+	}
-+
-+	data->gc = (struct gpio_chip) {
-+		.owner = THIS_MODULE,
-+		.label = dev_name(dev),
-+		.parent = dev,
-+		.base = -1,
-+		.ngpio = ADS112C14_NUM_GPIO,
-+		.names = data->gpio_names,
-+		.can_sleep = true,
-+		.init_valid_mask = ads112c14_gpio_init_valid_mask,
-+		.get_direction = ads112c14_gpio_get_direction,
-+		.direction_input = ads112c14_gpio_direction_input,
-+		.direction_output = ads112c14_gpio_direction_output,
-+		.get = ads112c14_gpio_get,
-+		.set = ads112c14_gpio_set,
-+	};
-+
-+	return devm_gpiochip_add_data(dev, &data->gc, indio_dev);
-+}
-+
- static irqreturn_t ads112c14_drdy_irq_handler(int irq, void *private)
- {
- 	struct iio_dev *indio_dev = private;
-@@ -1965,7 +2100,7 @@ static int ads112c14_parse_channels(struct iio_dev *indio_dev,
- 				return dev_err_probe(dev, -EINVAL,
- 						     "single-channel value must be between 0 and 7\n");
- 
--			spec->channel = pair[0];
-+			spec->channel = ads112c14_reserve_ain_pin(data->gpio_reserved, pair[0]);
- 			/*
- 			 * NB: channel2 is unused by iio core code in this case.
- 			 * Let's us avoid special case for negative input mux
-@@ -1984,8 +2119,8 @@ static int ads112c14_parse_channels(struct iio_dev *indio_dev,
- 						     "diff-channels values must be between 0 and 7\n");
- 
- 			spec->differential = 1;
--			spec->channel = pair[0];
--			spec->channel2 = pair[1];
-+			spec->channel = ads112c14_reserve_ain_pin(data->gpio_reserved, pair[0]);
-+			spec->channel2 = ads112c14_reserve_ain_pin(data->gpio_reserved, pair[1]);
- 		} else {
- 			return dev_err_probe(dev, -EINVAL,
- 					     "channel node missing channel type property\n");
-@@ -2014,8 +2149,11 @@ static int ads112c14_parse_channels(struct iio_dev *indio_dev,
- 				return dev_err_probe(dev, -EINVAL,
- 						     "excitation-channels values must be between 0 and 7\n");
- 
--			measurement->idac1_mux = pair[0];
--			measurement->idac2_mux = measurement->iadc_count > 1 ? pair[1] : 0;
-+			measurement->idac1_mux =
-+				ads112c14_reserve_ain_pin(data->gpio_reserved, pair[0]);
-+			if (measurement->iadc_count > 1)
-+				measurement->idac2_mux =
-+					ads112c14_reserve_ain_pin(data->gpio_reserved, pair[1]);
- 
- 			ret = fwnode_property_read_u32_array(child, "excitation-current-nanoamp",
- 							     pair, measurement->iadc_count);
-@@ -2420,6 +2558,10 @@ static int ads112c14_probe(struct i2c_client *client)
- 		return dev_err_probe(dev, -EINVAL,
- 				     "external reference measurements require either refp-supply or ti,refp-refn-resistor-ohms property\n");
- 
-+	/* REFP and REFN share pins with GPIO0 and GPIO1. */
-+	if (data->ext_ref_uV || data->ext_ref_ohms)
-+		bitmap_set(data->gpio_reserved, 0, 2);
-+
- 	clk = devm_clk_get_optional_enabled(dev, NULL);
- 	if (IS_ERR(clk))
- 		return dev_err_probe(dev, PTR_ERR(clk), "failed to get clk\n");
-@@ -2496,12 +2638,19 @@ static int ads112c14_probe(struct i2c_client *client)
- 	if (ret)
- 		return ret;
- 
-+	/* FAULT shares a pin with GPIO2. */
-+	if (fwnode_property_match_string(dev_fwnode(dev), "interrupt-names", "fault") >= 0)
-+		bitmap_set(data->gpio_reserved, 2, 1);
-+
- 	if (fwnode_property_match_string(dev_fwnode(dev), "interrupt-names", "drdy") >= 0) {
- 		data->drdy_irq = fwnode_irq_get_byname(dev_fwnode(dev), "drdy");
- 		if (data->drdy_irq < 0)
- 			return dev_err_probe(dev, data->drdy_irq,
- 					     "failed to get drdy interrupt\n");
- 
-+		/* DRDY shares a pin with GPIO3. */
-+		bitmap_set(data->gpio_reserved, 3, 1);
-+
- 		if (clk)
- 			return dev_err_probe(dev, -EINVAL,
- 					     "cannot use both DRDY and CLK - they share the same pin\n");
-@@ -2546,6 +2695,9 @@ static int ads112c14_probe(struct i2c_client *client)
- 	}
- 
- 	if (clk) {
-+		/* CLK shares a pin with GPIO3. */
-+		bitmap_set(data->gpio_reserved, 3, 1);
-+
- 		ret = regmap_update_bits(data->regmap, ADS112C14_REG_GPIO_CFG,
- 					 ADS112C14_GPIO_CFG_GPIO_CFG(3),
- 					 FIELD_PREP(ADS112C14_GPIO_CFG_GPIO_CFG(3),
-@@ -2574,6 +2726,12 @@ static int ads112c14_probe(struct i2c_client *client)
- 	if (ret)
- 		return ret;
- 
-+	if (device_property_read_bool(dev, "gpio-controller")) {
-+		ret = ads112c14_gpio_init(indio_dev);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	return devm_iio_device_register(dev, indio_dev);
- }
- 
+typedef int __bitwise pa_req_t; /* Page Allocator Request Flags */
 
--- 
-2.53.0
+#define PA_REQ_DEFAULT        0
+#define PA_REQ_NOLOCK         BIT(0) /* from ALLOC_NOLOCK */
+#define PA_REQ_NO_CODETAG     BIT(1) /* from ALLOC_NO_CODETAG */
+#define PA_REQ_SPREAD_DIRTY   BIT(2) /* from __GFP_WRITE */
+#define PA_REQ_DEFER_INIT     BIT(3) /* from __GFP_SKIP_ZERO */
+#define PA_REQ_ZERO_TAGS      BIT(4) /* from __GFP_ZERO_TAGS */
+#define PA_REQ_NO_FALLBACK    BIT(5) /* select no fallback list */
+#define PA_REQ_NO_OOM         BIT(6) /* do not oom */
 
+Off the bat we recover 2 ALLOC flags and 3 GFP flags. Possibly more with
+a bit more work.
+
+Then we get:
+
+#define PA_REQ_PRIVATE        BIT(7) /* allow private node allocation */
+#define PA_REQ_UNMAPPED       BIT(8) /* page must be unmapped */
+
+And we might not even need a new zonelist for private nodes in this case
+as long as we require internal users to pass PA_REQ_PRIVATE and add a
+function like
+
+folio_alloc_private(void *owner, ...) {
+   /* validate (pgdat->owner == owner) before allowing allocation */
+   __folio_alloc(..., req | PA_REQ_PRIVATE | PA_REQ_NOFALLBACK, ...);
+}
+
+User still has the option to request NO_OOM via __GFP_THISNODE :]
+
+~Gregory
