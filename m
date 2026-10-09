@@ -1,161 +1,110 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0A8D4CC63C
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 11:23:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 366634CDDC9
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 11:24:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791545048; cv=none; b=ZZT6rxgcVxwDMShWkL1iVUYe2JgWbBfhlxw16bUxpU0sT4vEdnsebh5xSzwuloxzHuyTBzcPtRFcxo9FaGAnR6h/XmiYtX6OFvtZESAR+wqEgVMgTZWAn/ZASxvCwGnp0YqNWDTMHkEO/dk1u2vQUJ3+ry2xf0Q3r8vXO0z5+Z4=
+	t=1791545089; cv=none; b=sTjd0u7I3c6Lc2EcBQTnnoSqaGT6iAviQaZ6Yck9zb7031NXohtB67/X9mw6iQCuOCrURLJwgTmLM3EOTo+l5FEBHCKbYSqiON6B2LzHxb6KpZNguLwIhYIO1Z1NBa24hIBzZqSWUrdYqi30sjssd4IsMu+pQKOXK6nXutP5Uz4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791545048; c=relaxed/simple;
-	bh=V38vhjeTzp3k5ITMNDV6z39rmdMCvkYnm7NSfqrDfZc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cFDCId5g6fvA0C9zjBi5xJ4w6+ZRcv1nVDVtZOs6idcLQgHHdmgbjylXoD4DOl5vnoIPjEr2e9cHlA3Oxb4PJ7sBIFnTf+giUqzKtK+bgHBETiTr3p0P+vGn+4ZVyX4hb02xMlhQ8n/mWiIXd6Ra9eT2FOI355OA8GkXm62AHPo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GwTlLord; arc=none smtp.client-ip=209.85.128.45
+	s=arc-20240116; t=1791545089; c=relaxed/simple;
+	bh=lzV/JOwZceG3YxOPL82K2UBdcZS5W230ZAh1fveVVcM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hv7yC5WtE3/kufMt++25N9a76Zhvla9hjvGHwjbdYweQovRX8dEdMjLYwJps3nK6lRYOZvwjHF8R9etEhyjT/dd6W/NC7ofT2a5K0FrQLTtrj3Gbx3hI2/0YHYa4Bl+iEltDTVA8hpDNPWYjrNCy9X1skurGcfYQ7oJ6igIjeh4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K9aL5ot1; arc=none smtp.client-ip=74.125.82.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GwTlLord"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49d05d51553so44639715e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 04:23:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K9aL5ot1"
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-30b6dad2382so9187929eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 04:24:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791545038; x=1792149838; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=l0FDlo5X9NOcg3UrYdd8gMV7/2rytUnITD56A6AkawM=;
-        b=GwTlLorduSK1NpYlzvs3WNkPYiWfIiRvgHsi6RKgfw6N9HA+hJJBE1rF4Dk7HeksZY
-         vNh6Q3qzFbq9PDY/dS+CaPLTC36BMQhidW3ULEY9WfVvgood/8r1rBbE1wmk+mRWlZfm
-         1qRE/IWyzcEzjlm001veLq3ldAC7aHGqTEU6yQ1PRDfWJDzC1+EcTInuwyo/K3dbfQjx
-         mrn6OMJPVdZOi9BCOOCt2k9wfRrdQWyrnL+FHVq8TiFM3imY7IQo2Sf9bzuflkjPXjQe
-         foHChqp/Ps3XZA1DXyr1dXZUB4T4H6IwS7qa1a7xHg8ANHPiuArSDsTW8G1hPs89J5hT
-         J1Gw==
+        d=gmail.com; s=20251104; t=1791545082; x=1792149882; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=je2Q3HHMwOmDG5bekFREQfFaKgEfAjyCYUmGYt2rUu0=;
+        b=K9aL5ot1AVomxF4MmjhtFiX4L5DWlQr1g/wmvMuOdSzTLg1quU2zmro2CDX4cUIYgu
+         YMWhuJ87k7RusHDoCQ+Nh2SKvOWynLBisA00Ec/ZhzirRLemu1UDrmvxaLEqWVz4tpPb
+         Z+AvQA6Lf4RGwrlCRBhrxu+gyv5kh8Yv3LZxaoTHA05Llbb9u0i6UHTlhWXcFfGFLK+J
+         b8Mly2zCms7m1+8ZYys4w/wqL3VunMM/JJlNho/hk0DXlv/Y438I50QrDBsV1UGl+zxJ
+         LDMOxB89VeW4nDNXHAXTCIjgmLMOGf/+DVXC5OCO7XKCAfhcMO/EYCAqGnBmri8jRYfg
+         mwHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791545038; x=1792149838;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1791545082; x=1792149882;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=l0FDlo5X9NOcg3UrYdd8gMV7/2rytUnITD56A6AkawM=;
-        b=wHSWpGNnMLzoAX6DnQnYvBGgXf1sdO6b5N5d+ZHXDAT1e5JapdTH8AsOB+oRFW4SQB
-         hKxRSv++o7IVJ5kxT0SXaHhR4g4yY02bHgCmyxDsv92ROuRiUG5bvkjCTQ1feITgZcLm
-         zKL59uRtFym7SFHXZpqYPBKeL0bD+7Gf/jss+Y4e4rvKH9RM/9Nn5I3cNpyV840+VIwC
-         JDGldV6O64/pkQos13uQhmxs8YsRxwW3ZnLezlNKpCvrPdBbquot3fT+vecUyJyVGkQ3
-         OeUNpMrF/QsH2rBpptkSWKwqbJO1ULeF69spLskTIocS7yRDgr3RW6al1eJEUjlYEhng
-         FAsA==
-X-Forwarded-Encrypted: i=1; AKwUvBwGJLU6zQlnCgUL3+GFN1EXTDwg3LUrTRekXUd8dsU0t0jvU/ElhOV+NymvAeuRjQlzbhwJEyrfdhWWEms=@vger.kernel.org
-X-Gm-Message-State: AFuF++le9hxgSHuKi6xg67chdvtjyBjrB0YXwV9eSGU8Xcq6ko1GS7Rg
-	pOaEHlqLRN7ITn81duVQ14UuwOlHtz+wD/jkwz2pXNopIpjQtlBGrwBv
-X-Gm-Gg: AYBFou0I4SR+MUiDh5tHRi3+HdHFnU5nSZxn2JQ1AnjlAa9T0Ld1OPZ/dgw90jsc5uq
-	Pk4HPHrEpLU2V+DlpppKififHN6EE7YKWOHHqXizGVrWjRnFRaxREgfCKsom/pg2/CJlzX0w3ID
-	3glNZOPkJp/GWS3DBbIAr5oXa6LkveijvCkZIyjNOxb5fGTp3PgUB2UBMkvDPHwh9Q7GYL9cWdb
-	MV9TtO2e2iBwdO7VzeQYy3MCEy4do4GQ87qjzklJt64WQ1FlcdNhqMdStJFc5vwHW/FquLl28JS
-	LlnL7tKob+0DmluvKx+wO3MtYW/lrVJYIw0C5jz1Rf2uGsT4x3piJFldpt+ZuQnd2jwdgK/jgpf
-	wQk2oL7i/ikS7BQ5abSwuPIUECWr3yVkqKaHgU6s8Msw40ogQHU/E3gx4aiBG0GfbEGuJVeJRXV
-	VDdGi/yG1zcslJCAUOoX0KsisMlO1HGe9pvOfCSyDbg8317G+ZeFvqJER8BIsT05q7BLcrAQl4C
-	n0/BLdl7FfcSqwwel5wsvRDJWD42WITBF+XVr1hyf4ggJM8gGkcjrstrVLFcBU5hwxRMQnT2f32
-	VkvgbAp5/0Nwof96/VRNInL4O2YQ8tt39qYJbaqkPY89l3nS
-X-Received: by 2002:a05:600c:524c:b0:4a1:825a:5726 with SMTP id 5b1f17b1804b1-4a18e4aeaffmr31536085e9.31.1791545037794;
-        Fri, 09 Oct 2026 04:23:57 -0700 (PDT)
-Received: from ?IPV6:2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c? ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18be8c669sm58317575e9.5.2026.10.09.04.23.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 09 Oct 2026 04:23:56 -0700 (PDT)
-Message-ID: <bed0a0c0-1706-441b-926a-fe568dea313f@gmail.com>
-Date: Fri, 9 Oct 2026 12:23:54 +0100
+        bh=je2Q3HHMwOmDG5bekFREQfFaKgEfAjyCYUmGYt2rUu0=;
+        b=wg82fe4ilSDx095FrAgKeR3y0fdSC5Mi8Zn2f639QFkp1Pr9OWdN03o7lby1+FV0pP
+         tPBm24eT6UKUPwAM52STO4B+6myI5AimP69PSEpgZBMv+EOzplqa2YocEOaqIZokUzjV
+         2tZxnJ42MERok1IutsS9g2T1gMhXw3nSq0UceR0Ap/Oc+KYzTaqEYI7P7KVx4xP/0oiN
+         KtceZcnGCI8JsNC/AO+nzBaEHW/IbSC/FtBJbwLpQAUBv22POd51jFm7k/uP4YVB4m1t
+         ORt4294pX1WXR0f0fwlnfrX4VDqzZZIjlGvaQxXZSAqd28aXpGXBI1buUGpSEKWHwa5a
+         vKWg==
+X-Forwarded-Encrypted: i=1; AKwUvBxmNCKUXDu3f4yxpfQHEbnbYeWJ3fco0ldG1IrbnK6OTxPTuIU7KgIVFtElscP0OW+M2LIyT+QVFTZRc78=@vger.kernel.org
+X-Gm-Message-State: AFuF++nL/8IoxIqMOfzyQt6vnk+2deflkfLBQDJSAkYo61KscT1LcwZZ
+	dRLv5ACk1AJB31wl0CNTbhB3bO+nsOitHlIxrOO2Z9xoHDio56w7im+J
+X-Gm-Gg: AYBFou0qLMWS+kiTxsNsx7J+nSa89ot9P9fOKf6gCzXXFY2tyGeR+usFfTZ9qiP7Gnt
+	cveFtjcJFkqWXfXJ2Y3DXqqj5wzo8ywhjsd3kJ79n6tSdB9Wi2qiyYL+7oZjG8aR0jIzJDY+uQh
+	MYcxdXyTsPsWFYJgx2pbyB56icGKSKcBp7PpE4oo9Z6d0zul74tFwuuzNgIrBDeLfP06v9GjlU7
+	VX19UqGlYc0jEvErz2YI0yBHeMwhe5Jh5ieLmMYktN0H7b8PL3PtGl+r10vpJJhUxNG/sZbLxs1
+	wboPyiOYDctUopPQBFyYPbGU/l2JY0x2XHPEK/I6XaRZpUztmYzxjXexEF6jSNZCW6xGeo/a2fp
+	YEo48dQ3ztBwp00MiPd84VuLlrzYajLVt5O9kiZ97SWWcikOn/FjJQ8eKqaY2Gf/64NC62K3qyv
+	4FUoALGhbmaVKWo8ft18WSFsHuw0EF3TZKoLI71oMajp8r1I5tx0SwcVUYmoNux4g4c8Ope/rHp
+	IZ2y5HQ2L6fbYOKFgE9crDP9WhxR5vL9siCLSFqbJGrr3fYOa9/2GAY3U8xKzwk3kPml5//w40B
+	0z3yrO4Lr2bkrA==
+X-Received: by 2002:a05:701b:2309:b0:153:7a27:b89 with SMTP id a92af1059eb24-16a5ed4008cmr2359046c88.21.1791545081842;
+        Fri, 09 Oct 2026 04:24:41 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-16996eac537sm6304632c88.1.2026.10.09.04.24.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 04:24:41 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: Sebastian Reichel <sre@kernel.org>,
+	Linus Walleij <linusw@kernel.org>
+Cc: linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH] power: supply: generic-adc-battery: Propagate charged GPIO errors
+Date: Fri,  9 Oct 2026 18:24:29 +0700
+Message-ID: <20261009112429.33318-1-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] io_uring: do not charge user provided SQ/CQ rings to
- RLIMIT_MEMLOCK
-To: Hengyu Liang <hengyul@cs.unc.edu>, Jens Axboe <axboe@kernel.dk>
-Cc: David Wei <dw@davidwei.uk>, io-uring@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-References: <b5a33433-b0b9-4231-9998-23e2a2202091@kernel.dk>
- <20261008170611.1285778-1-hengyul@cs.unc.edu>
-Content-Language: en-US
-From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <20261008170611.1285778-1-hengyul@cs.unc.edu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/8/26 18:06, Hengyu Liang wrote:
-> Commit 8078486e1d53 ("io_uring: use region api for SQ") and commit
-> 81a4058e0cd0 ("io_uring: use region api for CQ") made io_uring_setup()
-> create the rings with io_create_region().
-> 
-> However, io_create_region() charges user provided memory to
-> RLIMIT_MEMLOCK, and the rings of an IORING_SETUP_NO_MMAP ring were not
-> charged before those commits. As of now, a user without CAP_IPC_LOCK
-> gets ENOMEM from io_uring_queue_init_mem() when their rings exceed the
-> limit, which is 8 MiB by default. PostgreSQL 18 creates its rings with
-> this function [1].
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-That patch you mentioned 26bfa89e25f4 ("io_uring: place ring SQ/CQ
-arrays under memcg memory limits") has always been a delayed time bomb,
-though memlock is quite a nasty limit. Makes me wonder if there is a
-way to migrate it to cgroups completely.
+devm_gpiod_get_optional() may return an error pointer such as
+-EPROBE_DEFER, but gab_probe() only checks for NULL. The error
+pointer is then passed to gpiod_to_irq() and the original error,
+including -EPROBE_DEFER, is lost.
 
+Check the return value and propagate errors from the charged GPIO lookup.
 
-...> The issue can be reproduced with a simple liburing program, run as an
-> unprivileged user:
-> 
-> [2] https://lore.kernel.org/io-uring/b5a33433-b0b9-4231-9998-23e2a2202091@kernel.dk/
-> 
->   io_uring/io_uring.c |  8 ++++----
->   io_uring/kbuf.c     |  2 +-
->   io_uring/memmap.c   |  7 ++++---
->   io_uring/memmap.h   |  2 +-
->   io_uring/register.c | 10 +++++-----
->   io_uring/zcrx.c     |  2 +-
->   6 files changed, 16 insertions(+), 15 deletions(-)
-> 
-> diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
-> index c2ce83c7c1f1..2a16369894d4 100644
-> --- a/io_uring/io_uring.c
-> +++ b/io_uring/io_uring.c
-> @@ -2070,8 +2070,8 @@ int io_submit_sqes(struct io_ring_ctx *ctx, unsigned int nr)
->   
->   static void io_rings_free(struct io_ring_ctx *ctx)
->   {
-> -	io_free_region(ctx->user, &ctx->sq_region);
-> -	io_free_region(ctx->user, &ctx->ring_region);
+Fixes: b0327ffb133f ("power: supply: generic-adc-battery: Use GPIO descriptors")
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+---
+ drivers/power/supply/generic-adc-battery.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-1. It's not perfect to make all these changes for a fix because of
-backporting. Let's simplify it, add a wrapper and use the "__" version
-only where needed.
-
-__io_create_region(ctx, bool account, ...) {
-	if (!ctx->user)
-		account = false;
-	...
-}
-io_create_region(ctx, ...) {
-	return __io_create_region(ctx, true, ...);
-}
-
-2. The need to match alloc and free arguments has a high chance to
-eventually blow up. It'd be better to turn it into a flag.
-
-__io_create_region() {
-	if (account) {
-		...
-		mr->flags |= IO_REGION_F_ACCOUNTED;
-	}
-}
-
-io_free_region() {
-	if ((mr->flags & IO_REGION_F_ACCOUNTED)) {
-		WARN_ON_ONCE(!user);
-		unaccount(user);
-	}
-}
-
+diff --git a/drivers/power/supply/generic-adc-battery.c b/drivers/power/supply/generic-adc-battery.c
+index 185f55d2fd70..f3ca3ebb2533 100644
+--- a/drivers/power/supply/generic-adc-battery.c
++++ b/drivers/power/supply/generic-adc-battery.c
+@@ -238,6 +238,9 @@ static int gab_probe(struct platform_device *pdev)
+ 		return dev_err_probe(&pdev->dev, ret, "Failed to register delayed work\n");
+ 
+ 	adc_bat->charge_finished = devm_gpiod_get_optional(&pdev->dev, "charged", GPIOD_IN);
++	if (IS_ERR(adc_bat->charge_finished))
++		return dev_err_probe(&pdev->dev, PTR_ERR(adc_bat->charge_finished),
++				     "failed to get charged GPIO\n");
+ 	if (adc_bat->charge_finished) {
+ 		int irq;
+ 
 -- 
-Pavel Begunkov
+2.43.0
 
