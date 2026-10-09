@@ -1,70 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5D2C42252A;
-	Fri,  9 Oct 2026 06:00:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5052B3D9DD4
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 06:00:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791525612; cv=none; b=WtmRcB4aeZNteCF7H1Jo0tHeguwQbS/liK+Omm/5EXqLIOfjTAq0o0zknkh/luyk+WCakHCjAQLj0WJrsQfdjsBf0Gba9Mb4pO/sSSaur01C/H24hi/TBTPbk1XIHYpnHsVa98bVUhbmds8dmoAzrWSZUGva6om7Z2TRQkjh/a0=
+	t=1791525640; cv=none; b=j0UO3xVDQb7N3C4udHTyuFWZp0X7DOBOxac0qhDwlegTAH+BH0/m34Y4GPtV0OJb06ZiQ6286UkW5X/bXACBNpwJqElnifCLlOOcXhCdRTB5DmNttxXc9yEmpdPLTeGEk0NyT5PD8p8gPyUOL3L4i7CuiKZ9a1H19e9gmjxL60U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791525612; c=relaxed/simple;
-	bh=T80pmibn7aSi6N9hDzJvCBDoLXDCN4HDH9fhrQVJ60g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=f0yOpA/nsUiwplAafTMVqFwGjQbx1VokATtag5wvjZL06eyADAlThvRnSINiUMha7GSBrTrE5wY+ArehEVTdUutCdoWyGhgGiqQsAiOG4UZWVGeMXpzRMI3+6QhPWAp7EKjZivq2PvzGu8RwooABV1TQTKagjf+CAmTBnwxsdr8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VCc4jOKF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791525640; c=relaxed/simple;
+	bh=8gjORCUNGj6RMlZVZV30Q5fAOsiQ7M7FBCqKfr5cIB4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=h04LeA6UHDLB8ieH7O72RcnEzUovTelI5UVr4qhpZxSeVaAUlugc7hMTgTFukWpXW2v/wkX8huRqfTQKP5R+KIv443csVv/zU6Qc/3M7gfbe7DsLl1vjFPf2v/mDD+MQLzhT441NaBHJJKtS+K05xoBsTcvOBAHz5NUvyHOKM1Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fuibOJiZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VCc4jOKF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15AA51F000FF;
-	Fri,  9 Oct 2026 06:00:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fuibOJiZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78D181F000FF;
+	Fri,  9 Oct 2026 06:00:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791525611;
-	bh=ZCAoLYZlSrLohEk+mBrzJi43HvKosm2TxiN/tMhp9/s=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VCc4jOKFM0tjFb7zyEvaGLZRrVF/Q8eQOz8bV+bo6tme50c7RT4gheThxkxLemutG
-	 pad0LX1fvhCPn7JHsf3WaVR3b8Fd9+eUpZ35oNabknXDQRSC8QJqbRUd7FK/SWmM2d
-	 dp4hN6ejNpis7dUgNH0EoyF7sUU1REK1w8GmzhrEMPrDKdUMwmSEt5dFYUH6Gw3sBA
-	 0oI3yujtJTsl0lilURwCp2KN9R79CG1I+Sn09kPP1tsGIHGr4bJkS1XDzS455nkPK7
-	 143VK0ywYSN26YH+mFOfyUhFtuoyEdM0AdTlerZJqjmnOGzAmQ4iDWM4DLWE0P+IS3
-	 mPxA4W+8WZhUg==
-From: netdev-bot+sinfo@kernel.org
-To: Henry Martin <bsdhenrymartin@gmail.com>
-Cc: Jon Maloy <jmaloy@redhat.com>,
- Tung Quang Nguyen <tung.quang.nguyen@est.tech>,
- Ying Xue <ying.xue@windriver.com>, "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- netdev@vger.kernel.org, tipc-discussion@lists.sourceforge.net,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: 
- Re: [PATCH] tipc: fix broadcast sender hang and leak on last acker departure
-Date: Fri, 09 Oct 2026 06:00:10 +0000
-Message-ID: <179152561066.2527009.6131469500831214961@kernel.org>
-In-Reply-To: <20261009055601.2304158-1-bsdhenrymartin@gmail.com>
-References: <20261009055601.2304158-1-bsdhenrymartin@gmail.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	s=k20260515; t=1791525638;
+	bh=Uetyr08EbPxb1/vTxBz/oHKvTpwSsGRtAmxHx+DBRGk=;
+	h=From:To:Cc:Subject:Date;
+	b=fuibOJiZponbSA6UcUYzC37umoqq9FWCLbdQ9pKce5+bgxjG0z1mKlHwaCoCdLeRc
+	 MQsxZMxHhJeiAhlhPawV1bc3aY5gaG5ZRv+doc/ru0MN3pegiYaj1mGyuKiygCkRGd
+	 YEo6GMY7ohJObQOUlju3yteSWUrCKNCH9wxBZfmPWGUMbaQ6H/ROt4Ea6DQBCaYjMO
+	 vCO1v6C5xnp0n5vw9Ur7t+ST2PSUDWS9G9v7FWMP6zmGOqrcV1nOEMZs9zCiBRDABH
+	 FF77WnQ9MZLDVTFKgq90oRED6NvBJUw3CVeocPZPght8Fc/qB9aC/rVWGFS5kXOYQ3
+	 EI2keko7HnIeg==
+From: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
+To: linux-kernel@vger.kernel.org
+Cc: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
+	bcm-kernel-feedback-list@broadcom.com,
+	linux-arm-kernel@lists.infradead.org,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Scott Branden <scott.branden@broadcom.com>
+Subject: [PATCH] MAINTAINERS: remove {sbranden,rjui}@broadcom.com
+Date: Fri,  9 Oct 2026 08:00:35 +0200
+Message-ID: <20261009060035.544789-1-jirislaby@kernel.org>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi!
+Both are bouncing:
+  Final-Recipient: rfc822; rjui@broadcom.com
+  Action: failed
+  Status: 5.1.3
+  Diagnostic-Code: smtp; The email account that you tried to reach does
+    not exist. Please try double-checking the recipient's email address
+    for typos or unnecessary spaces.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Anyone knows if they care about the entries/what's their new e-mail
+address?
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
+Ccing scott.branden@broadcom.com in a hope that one works. If not, v2
+will follow to remove that too.
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
+Cc: bcm-kernel-feedback-list@broadcom.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: Scott Branden <scott.branden@broadcom.com>
+---
+ MAINTAINERS | 5 -----
+ 1 file changed, 5 deletions(-)
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+diff --git a/MAINTAINERS b/MAINTAINERS
+index ff3bfd42d3f3..d3b4271ca722 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -5240,8 +5240,6 @@ F:	drivers/iommu/generic_pt/fmt/*bcm2712*
+ 
+ BROADCOM BCM281XX/BCM11XXX/BCM216XX ARM ARCHITECTURE
+ M:	Florian Fainelli <florian.fainelli@broadcom.com>
+-M:	Ray Jui <rjui@broadcom.com>
+-M:	Scott Branden <sbranden@broadcom.com>
+ R:	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+ S:	Maintained
+ T:	git https://github.com/broadcom/mach-bcm
+@@ -5538,8 +5536,6 @@ F:	drivers/net/mdio/mdio-bcm-unimac.c
+ F:	include/linux/platform_data/mdio-bcm-unimac.h
+ 
+ BROADCOM IPROC ARM ARCHITECTURE
+-M:	Ray Jui <rjui@broadcom.com>
+-M:	Scott Branden <sbranden@broadcom.com>
+ R:	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+ L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
+ S:	Maintained
+@@ -5576,7 +5572,6 @@ F:	drivers/net/ethernet/broadcom/bgmac*
+ F:	drivers/net/ethernet/broadcom/unimac.h
+ 
+ BROADCOM KONA GPIO DRIVER
+-M:	Ray Jui <rjui@broadcom.com>
+ R:	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+ S:	Supported
+ F:	Documentation/devicetree/bindings/gpio/brcm,kona-gpio.yaml
+-- 
+2.56.0
+
