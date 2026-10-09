@@ -1,220 +1,106 @@
-Received: from mta1.migadu.com (out-229.mta1.migadu.com [95.215.58.229])
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4694139F190
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 09:45:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.229
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD50349738E
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 09:46:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791539116; cv=none; b=ll0l+FZdjxqww8FOX2hIXLEL2uGPSHdRH8+l0ikUE9G8wxoSDql9iA8iczo76g5AMmmYAFneJmx1nvWRttk6Y01TBcaIxoBESWtgB6q8SK2xNDcTlrVZ9XSJ7B6IVIkr/R4hLjIwFU/vWBk9YlZ9+dBsZOcbInl/EX0Cj77Rqtk=
+	t=1791539188; cv=none; b=DrO2v7ztEnCKJq55X8/aiLMtOH4UChumkwKQpdp4YieyxXvrPpFKAoMsIWgBerznUaWErwFUVDgTYYnGOnRYU63DcHKWdMWZ0Tfx6XfnOBKTGXtK4L7Nj3t7leKjhHkmvzWodpPvsW3GxsxSBIHHYcR0Zny552F9rd/OVgR+Kgc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791539116; c=relaxed/simple;
-	bh=Ya+lCXbP1pgn175bZ6iGNPPZUQBznlWGEZ6lafUQ9JM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qFJb/z7n9MnhFaBIBTQ91cUTy3OVs+9KX1iowkCkVy+qpXzl+iBA0+aDCs1udCXf/XOTgG5QWUKXwXoXFgzYrIxR2dVnQWTvJ/Sckgp8/p1yD4/PYiT/7E+zOBpc3ujNqIZom8/Ph7/n/Lkvc6jQwFEgn2AR1vbZV3mYdpsO3DU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=C+JFyTjl; arc=none smtp.client-ip=95.215.58.229
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791539188; c=relaxed/simple;
+	bh=RAJQnKkDBXdd5vQ/P+np194z6Ot3PXYd2Bw3RnHlVSU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=W17365Iv1XuH/8Ld3Auyc7/NGis9vBueUPf0GF+fyKjLxj1v1LDW2yLN8kzc+JHOXCK2ovW3KH5JTbXwFik1elrOLYLHupLjNDzSMWCZUl0SBjqMN8fTbV6ATW3kh3rFgBsMmBhAqouHEM93XZ1ye0hxCLv5YxzljTFP9GKkJ+M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OfpnW1d1; arc=none smtp.client-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="C+JFyTjl"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Ya+lCXbP1pgn175bZ6iGNPPZUQBznlWGEZ6lafUQ9JM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791539104; v=1; x=1792143904;
- b=C+JFyTjlJqirIcrKHhCJjnR0jkVWC+BkmuG29Qj1gqYXq4cbEiHMRwxTV03LBa13G6QNKSww
- Z6RTOgTAIryUpO6MA8LIwmhiddVGhVg460WLqS1rtAmcEzGbyVcZ8gGwEujvuiFKoGIGA9xUAlb
- o5Hs97USH3L7RmeERN0MJALk=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 3618e950e467ceb9;
-	Fri, 09 Oct 2026 09:45:03 +0000
-X-Mizu-Trace-ID: 3618e950e467ceb9
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 9 Oct 2026 17:44:56 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: netdev-bot+sashiko@kernel.org
-Cc: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net,
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
-	donald.hunter@gmail.com, edumazet@kernel.org,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org, liuhangbin@kylinos.cn
-Subject: Re: [PATCH net-next v4 4/6] netlink: specs: rt-route: describe
- lwtunnel IP options
-Message-ID: <asi3mNcz1H6wJPOB@fedora>
-References: <20261008-ynl_rt_encap-v4-4-4ed2ccf7f949@kylinos.cn>
- <179153682125.434549.6402494415316907824@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OfpnW1d1"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-487048857f6so3460841f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 02:46:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791539181; x=1792143981; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sdjcKesxfT3Y1JRnD0eSSSUTshq47A90dMPNUITOibc=;
+        b=OfpnW1d1makdUJB4XeJQfm7B+XJknyWmFqynfa6dtaiH1xURMxMxWXENP8548ANVdm
+         7kkdBhqHRqOTkmPtKTUbixXEQkMGZ6fjxaZO3exJiF9JHOPJPMeeHJIXxwRjcG06Erkh
+         wYKibK54hN1kbJCqx1xTFDRf/o3BbstNERrJYUMs9dM9lfw3LzXrbjd2YkXeqR4AnMOf
+         7XBMPx7XAONsTTnCWaZ/Bmz90yzKNRb4GBuLighXt+YdB3PW3fv0N6NzqlT/RMim00fD
+         Kvqca1xtXhVHVpjlXAeP1Gbxp9TfrA0/5MCCBhCX4Bh3rqhPPXv8UsrauM7+WXeBQRCs
+         6ijQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791539181; x=1792143981;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sdjcKesxfT3Y1JRnD0eSSSUTshq47A90dMPNUITOibc=;
+        b=uabnip20MTyp3Eri2mVhnHFUz7BdbkTqjYueD204si6cfAzHzmuo7zjHwi/FaG8xHU
+         OnDyLgT4z/jPMMQBqN+nNQhUz6QbTCzsVCojerLeZ6sDF3JmdNUS4bxgDa+bJu6l+K00
+         Z4i0NPPn46BvexpEn/jA28mJDQJnIVh6QKzCwgDdRihm8+E7oGHjQay2lRs9CfQyko+v
+         dDY5ZmWFuixbftAw2w6HgafypXrlgV3Ler611zKxEd2XQzxQMaOaWXQc+UhWNsaP1aW9
+         UHEh8WyAZNCoPpJbgLeyQw5AeEp8jZSKR7BPYgr40qruZZ2k/IQohjSlZhQpJabpsPTw
+         yxKw==
+X-Forwarded-Encrypted: i=1; AKwUvBysIAJU239yQPw1Kc8QSJ2srPnWyh7Dgpe9B+KhV5y8KkbZstmhyDB6RY76AJiqfPzScLvtJrtedCh0e9w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLYy4vMvGbaSVWV4e5xGRugcNLLorCpwA0FpQJQeyefDFj2fgC+
+	vWTY9wCocYuEd8QmCZ7HdnbdMwnchz70uMXs21EspX9PBdr07D1nUfPBkt9pBHBN
+X-Gm-Gg: AYBFou2h1ZM1tcBo7/EmF+ipOT3yXHGvRmauA3DYsSxuylCZJsSEO+OpoTf4ZG+MaVE
+	+f6A97j+hMc6dmee7yjj3BbDZF79N93F5DggD1NSzF8GiT99BUujg0gmFxkGzz4RCd/7xNU9Rha
+	fChDUfJoAfLMcvZOb+7YembY1/6SD891TU6j9lNHiCKCw4N6KLdsODAih9yQzteNcfwNfoz22M+
+	Bbqu7qVUYNGVIzLsNX4EjgGqLAaADggwXu/4Ks4M1sqoahrKM8z21SxBLpMj6mIB9NOaOozztx5
+	J7+SREvEXZuXoxpUjbc0DUgK0Jezz9nnNgBxPrqfFElyJ+xCU2eivLIp4dQjxZ8EuwaqRzDzvGH
+	AYQPZ1zEC6fWjhAt3ECPpA/sSmZ9AGTyW2VnRNEDuBc3kJmg7l3w+B0EZXLbE6e3ziUcNMh613S
+	MRcXtPWk95gT8PKQlnLdz0lRw1TvO30e5zgGQvsjDWFGtExufpp5w5o88srsj36CgK8V+ztUi+i
+	ZfX0b/DNYuJEVdExQpviURm2b+iTIi4xDs25OoyD+1+xABqP0V+hQ==
+X-Received: by 2002:a05:6000:1ace:b0:48c:571a:a1aa with SMTP id ffacd0b85a97d-48dba9dacf6mr2801939f8f.19.1791539180541;
+        Fri, 09 Oct 2026 02:46:20 -0700 (PDT)
+Received: from nixos-office (90-182-211-1.rcp.o2.cz. [90.182.211.1])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9adeacdsm3051833f8f.55.2026.10.09.02.46.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 02:46:20 -0700 (PDT)
+Sender: Julian Braha <julian.braha@gmail.com>
+From: Julian Braha <julianbraha@gmail.com>
+To: nathan@kernel.org,
+	nsc@kernel.org
+Cc: linux-kbuild@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Julian Braha <julianbraha@gmail.com>
+Subject: kconfig: cleanup stale comment about 'keys' array
+Date: Fri,  9 Oct 2026 10:46:17 +0100
+Message-ID: <20261009094617.17322-1-julianbraha@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <179153682125.434549.6402494415316907824@kernel.org>
 
-On Fri, Oct 09, 2026 at 09:07:01AM +0000, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential
-> issue(s) to consider.
-> 
-> Critical: 0 � High: 0 � Medium: 1 � Low: 2
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [Medium] Under this spec, YNL cannot send a request that sets Geneve
->   tunnel options; the kernel rejects it.
-> - [Low] The new `lwtunnel-ip-opts` set declares `geneve` as one `binary`
->   attribute without `multi-attr: true`.
-> - [Low] The commit message contradicts itself.
-> 
-> --
-> 
-> netlink: specs: rt-route: describe lwtunnel IP options
-> 
-> This commit changes the binary opts attribute in lwtunnel-ip and
-> lwtunnel-ip6 into a nest of a new lwtunnel-ip-opts set. It adds vxlan and
-> erspan option sets. Geneve options stay binary because the kernel uses a
-> different layout for requests and for dumps.
-> 
-> > Replace binary opts in lwtunnel-ip and lwtunnel-ip6 with a nested
-> > lwtunnel-ip-opts set. Add attribute sets for geneve, vxlan, and erspan
-> > IP options to match linux/lwtunnel.h.
-> 
-> [Severity: Low]
-> The first paragraph says attribute sets are added for geneve, vxlan and
-> erspan. The diff adds lwtunnel-ip-opts, lwtunnel-ip-opt-vxlan and
-> lwtunnel-ip-opt-erspan, but no lwtunnel-ip-opt-geneve set, and the
-> second paragraph says geneve is omitted.
+'keys' was removed from 'dialog_textbox' in:
+commit e14f1242a8be ("kconfig: menuconfig: simplify global jump key assignment")
+but the comment referencing it was never removed.
 
-I mean add geneve attr. I didn't add lwtunnel-ip-opt-geneve.
+Let's cleanup this stale comment.
 
-> 
-> Could the first paragraph say something like "Add attribute sets for
-> vxlan and erspan IP options; keep geneve as binary (see below)"?
-> 
-> > diff --git a/Documentation/netlink/specs/rt-route.yaml b/Documentation/netlink/specs/rt-route.yaml
-> > index dc842a786794a..ea6711292c9b6 100644
-> > --- a/Documentation/netlink/specs/rt-route.yaml
-> > +++ b/Documentation/netlink/specs/rt-route.yaml
-> > @@ -377,7 +377,8 @@ attribute-sets:
-> >          type: pad
-> >        -
-> >          name: opts
-> > -        type: binary  # lwtunnel ip nest options
-> > +        type: nest
-> > +        nested-attributes: lwtunnel-ip-opts
-> >    -
-> >      name: ila-attrs
-> >      name-prefix: ila-attr-
-> 
-> [ ... ]
-> 
-> > @@ -562,6 +564,45 @@ attribute-sets:
-> >        -
-> >          name: link
-> >          type: u32
-> > +  -
-> > +    name: lwtunnel-ip-opts
-> > +    name-prefix: lwtunnel-ip-opts-
-> > +    attributes:
-> > +      -
-> > +        name: geneve
-> > +        type: binary
-> 
-> [Severity: Medium]
-> With geneve declared as binary, can YNL still send a route request that
-> carries Geneve options?
+Signed-off-by: Julian Braha <julianbraha@gmail.com>
+---
+ scripts/kconfig/lxdialog/textbox.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-No, before this patch, the whole encap data is binary. We now support
-all the encap types other than geneve, which encodes LWTUNNEL_IP_OPTS_GENEVE
-differently for requests and dumps.
+diff --git a/scripts/kconfig/lxdialog/textbox.c b/scripts/kconfig/lxdialog/textbox.c
+index 0abaf635978f..3fe7682fc8a8 100644
+--- a/scripts/kconfig/lxdialog/textbox.c
++++ b/scripts/kconfig/lxdialog/textbox.c
+@@ -145,8 +145,6 @@ static void refresh_text_box(WINDOW *dialog, WINDOW *box, int boxh, int boxw,
+ 
+ /*
+  * Display text from a file in a dialog box.
+- *
+- * keys is a null-terminated array
+  */
+ int dialog_textbox(const char *title, const char *tbuf, int initial_height,
+ 		   int initial_width, int *_vscroll, int *_hscroll,
+-- 
+2.55.0
 
-Thanks
-Hangbin
-> 
-> In tools/net/ynl/pyynl/lib/ynl.py, YnlFamily._add_attr() sets
-> NLA_F_NESTED only in the nest branch. The binary branch copies the payload
-> and leaves the flag out of the header:
-> 
->     if attr["type"] == 'nest':
->         nl_type |= Netlink.NLA_F_NESTED
->     ...
->     elif attr["type"] == 'binary':
->         ...
->             attr_payload = value
-> 
-> In the kernel, ip_opts_policy types GENEVE as nested:
-> 
-> net/ipv4/ip_tunnel_core.c:
->     [LWTUNNEL_IP_OPTS_GENEVE]	= { .type = NLA_NESTED },
-> 
-> ip_tun_parse_opts() validates the payload in strict mode:
-> 
->     err = nla_validate(nla_data(attr), nla_len(attr), LWTUNNEL_IP_OPTS_MAX,
->                        ip_opts_policy, extack);
-> 
-> NL_VALIDATE_STRICT includes NL_VALIDATE_NESTED, so validate_nla() in
-> lib/nlattr.c rejects the attribute:
-> 
->     if (validate & NL_VALIDATE_NESTED) {
->         if ((pt->type == NLA_NESTED || pt->type == NLA_NESTED_ARRAY) &&
->             !(nla->nla_type & NLA_F_NESTED)) {
-> 
-> ip_tun_parse_opts_geneve() then calls nla_parse_nested(), which does the
-> same check. So a newroute with encap type ip or ip6 and encap.opts.geneve
-> set to bytes fails with -EINVAL, even if the bytes hold a well-formed
-> CLASS/TYPE/DATA triplet.
-> 
-> Before this patch the whole opts attribute was binary. A caller could
-> pass the raw LWTUNNEL_IP_OPTS payload with NLA_F_NESTED already set on the
-> inner GENEVE header. The outer attribute is parsed with
-> nla_parse_nested_deprecated(), so the missing flag there was not checked.
-> 
-> Is this a regression for YNL users who configure Geneve options? Dumps
-> still decode, because ip_tun_fill_encap_opts_geneve() uses
-> nla_nest_start_noflag(). Later patches in the series do not change this,
-> and the final rt-route.yaml still has geneve as binary.
-> 
-> [Severity: Low]
-> Can this spec describe a request with more than one Geneve option?
-> 
-> On the request path, ip_tun_parse_opts() walks every attribute in the
-> opts nest. It passes each LWTUNNEL_IP_OPTS_GENEVE to
-> ip_tun_parse_opts_geneve(), which reads exactly one CLASS/TYPE/DATA
-> option:
-> 
->     nla_for_each_attr(nla, nla_data(attr), nla_len(attr), rem) {
->         switch (nla_type(nla)) {
->         case LWTUNNEL_IP_OPTS_GENEVE:
->             ...
->             opts_len += opt_len;
->             if (opts_len > IP_TUNNEL_OPTS_MAX)
-> 
-> So a request sends several Geneve options by repeating the GENEVE
-> attribute. The uAPI also defines a structured inner set for it, which
-> geneve_opt_policy enforces:
-> 
->     [LWTUNNEL_IP_OPT_GENEVE_CLASS]	= { .type = NLA_U16 },
->     [LWTUNNEL_IP_OPT_GENEVE_TYPE]	= { .type = NLA_U8 },
->     [LWTUNNEL_IP_OPT_GENEVE_DATA]	= { .type = NLA_BINARY, .len = 127 },
-> 
-> The geneve entry here has no multi-attr. YnlFamily._add_attr() only turns
-> a list value into repeated attributes when attr.is_multi is set, so two
-> Geneve options on one route cannot be expressed.
-> 
-> Adding multi-attr alone would not make requests work, because of the
-> NLA_F_NESTED problem above. Nothing later in the series changes this.
-> 
-> > +      -
-> > +        name: vxlan
-> > +        type: nest
-> > +        nested-attributes: lwtunnel-ip-opt-vxlan
-> 
-> [ ... ]
-> 
-> -- 
-> Sashiko AI review � https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261008-ynl_rt_encap-v4-0-4ed2ccf7f949%40kylinos.cn
