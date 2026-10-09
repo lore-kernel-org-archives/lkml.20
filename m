@@ -1,98 +1,105 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C17864A5ED4
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 10:05:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECB5D4A5EA6;
+	Fri,  9 Oct 2026 10:05:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791540317; cv=none; b=A81oKpxnCO8usWIP0vabqvOKDTdlV7Xh6hfQQ30XPXto1WdFCM4Qco9p6y6E6vxgn+u/o+E1Bjm26pu98cMuTpezVpXsGpozIDmhbEWc69olF+huB8t1BOLJRGsnCBVv8VI4UT2OfRmpOs0gpvF9qxEiRkp5MEzMPvvow9nGXkc=
+	t=1791540317; cv=none; b=POlG3fZACj/xou9D+mWzH21/FpxZbcatjh7f1fVyxe9Nxdz23sFWdgo3tWlPKK0XmydpfR39XtqAx9L3FgnWz4JxeQYaay3j1joPA6k5uY5tL36WbmMslhqWvE7ugOuNqbnTkiXwziypoksh3r1CO48g/gkCvb+VpP8yz6fCjFs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791540317; c=relaxed/simple;
-	bh=t/qn5EWP3h5HmfwGsBu8vBM5AbNGN6sobF5KvlGA+SU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XSDajwR1K9j21h1GZM6Px2uefMtyfXyyYT1DapfmtZl8jY7a4KH2fpZY/wrW/EmGwc0h9u+BctsKfodGb9h1OnMo4dkABFEo1b/JDWbeZRGnKF7CmghtNCyc4xwy3bPbOeqCfz9w72EPfWbad+9fGj8iFJeyHUx/8mmf/OouAuw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=ZNaaP6qm; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	bh=1g72e3oJbynv52GnLK2TBAvi/lTI8cqYDsCf/wl1yt8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=amBcWXLDoqPsFVC9ALLnInE6zsgjudAV6i52q3+86IXgxa7Ij8r7E9I0bHZSMwinVhLvjmKmOdu71lfEtmKbJD1gmM69MAXhpmePCJT6PyDatPKQ3taZ0Zdiez4orS3oZhsv2qsOS6dBTXoUYG/JHIh0mdHcsLkk+vTF9KzV8Ic=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S3FuLIv4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="ZNaaP6qm"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a16aaf1f90so1412355e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 03:05:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1791540306; x=1792145106; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sJVeo/rp6gNIVvvbzU9iPq1p9QXhq47cINvC1fs/rt0=;
-        b=ZNaaP6qmdcTB/bansBnKJS4bUWHSBmEej6oF8ui/NtdhXnP0sh9mWaLPASwNu+XW6z
-         AWA/UT+9uXAu1e7M9iHmvDcZSxU+HwFQV3ybTB3UsC3Zu4sSMAs77Ff9x5CqawOkYOea
-         jUGRmd9Z9u1bJ6aL/FfT0q1pjjlWPDs6o30F3hIkGXr5mKR4y0tpqHd0ujzF86IKyoNL
-         7mOy+dCgRThL00KutMY5dak6CEBEb/hvwvybmNLi2qwZCSW539I5ikPM1TX9oImk87yi
-         m1KsC6roNcyh3liOILdYNWfQ6ejgca+E03Td2AQ4IS1V1/wvSgjT6hLvzlM7sorEBxpA
-         XWzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791540306; x=1792145106;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sJVeo/rp6gNIVvvbzU9iPq1p9QXhq47cINvC1fs/rt0=;
-        b=CZ0aXXUaFjZXdqpLQH2fT/FY3D0f0nf1b4MGaEeoCkwGeY4NuYp/TkS4FTnKg7kXTz
-         AAn+nCcyFqQVGOAjUOVoprbIX+FglnJtg4kIpgaKY1kB1ZZaHqrVx1wlSbgfhpe7jQmm
-         xMhW1aQNIhP97DMZaiTrwgCg0jZk/ieM5REgX8d+lvRnc1o6nC/69DQTGXre8dslM5z6
-         4SbBTWHrcikb+2va6Smd25+dSoQC7Hckn2rNY2QIb9tHAP/hWaZ98sAeY1LtnTKmb2lO
-         1z+M7h6Sy8L0q/VuC8kFQiLYjxHzVHrqVyJ7gwx9bYEc7zlAkSd60+Pd31zkTJSEvvMy
-         A0LA==
-X-Gm-Message-State: AFq9FYLH/JKYXMk79p2x8OxOKZTgLfcuu5spKYoeuMXFD04WdavxIZzt
-	U2DVZSFTrJ6IOYV31VJtoHv009UKtz0ui3l2NzOs1iuYv80OSv03eHNBi8RRZrnCtJc=
-X-Gm-Gg: AYBFou2Q3u9Fm0VsmlMqE2TL6GmtwUb1Mwta4ffyiv4xA6H73gB72JsG+PsN07ZZOza
-	9HOKIOQ62EveWH36hMa49H88p84Y/lBs9+5ShMdzp+Ig7HR9mAIkPHMDECj/x5L7YalPy08rMN/
-	7K2fU40IyedkuKpXqS1T84cAbD8CskOsJwZC2gjgBCejZjsuybOoSMHTDfYK2uWQrZSWszjUlHA
-	8GhPFdTHmS3k99Dou6cw4v73dHGyrpxNUr/h6IUVG1xa/1alRke4FWDMoSGbYZPXdOIVzG77BV/
-	GROaQ7zxievz17M2dXSlZRCyCgku6FuY/tFyliWXG9svLlT2l+ahpYPcQ+fpngfy7zhIJpL5ohr
-	kk2wqLUeZYqybVtT6D+h3LyxbM56BIF84W5tAfDHpwQ2heVGpBSorJE9VdnzvV9LHJs5UIGjf7n
-	+1W1R4TwBtd7g6E8ttNg8VzqR39o9wbflqynogCkDHYB2rBNhP3osBAKp7W3zCm6gCPMc=
-X-Received: by 2002:a05:6000:178b:b0:48a:f5c5:d077 with SMTP id ffacd0b85a97d-48dba7a9f96mr2403203f8f.2.1791540304283;
-        Fri, 09 Oct 2026 03:05:04 -0700 (PDT)
-Received: from localhost ([2001:1ae9:6037:1b01:4005:7ef3:2241:3a83])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9ac025esm3020176f8f.38.2026.10.09.03.05.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 03:05:03 -0700 (PDT)
-From: Petr Tesarik <ptesarik@suse.com>
-To: Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Hans Peter Anvin <hpa@zytor.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juergen Gross <jgross@suse.com>
-Cc: linux-kernel@vger.kernel.org,
-	x86@kernel.org,
-	Petr Tesarik <ptesarik@suse.com>
-Subject: [PATCH 0/3] x86/tsc: Remove some magic constants
-Date: Fri,  9 Oct 2026 12:04:33 +0200
-Message-ID: <20261009100436.1133518-1-ptesarik@suse.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S3FuLIv4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7E301F000FF;
+	Fri,  9 Oct 2026 10:05:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791540312;
+	bh=1g72e3oJbynv52GnLK2TBAvi/lTI8cqYDsCf/wl1yt8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=S3FuLIv4dOTUXFquy144nazRLOuRwDut9V8fZLQh1T9TlGiayslg/40Yrbt7OJdVL
+	 H3VR6XLl31QtsOQJHmXp7KUk6IKg9x+ZSsVbHoZBGEwMKJmEN0qGHHWPJvmilVqCMX
+	 xJJcjZYj8LgLg5vBhw2Ljb1xGaFyN18ae9CfikANclNtPdGZNkyhObZUwHpiYx1ynG
+	 Hz7NtBaMIlaYYREzvV+JgfsjtibQapjlM3mG3yZwD6dJdiqq1LXbHnn6+z3aTZ2uL9
+	 JvE+uFFxOIqrDXG9gTC/xa2MMwXMkk3v/a3RzP01IuXQWpxtiQE3NBUgqeUW1bwEyK
+	 TlY0N4A4z3oOA==
+Message-ID: <0914a106-bacf-4d95-854a-bfeefbff62a4@kernel.org>
+Date: Fri, 9 Oct 2026 12:05:06 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] docs: remove Assisted-by references
+To: Sasha Levin <sashal@kernel.org>, corbet@lwn.net
+Cc: skhan@linuxfoundation.org, rdunlap@infradead.org,
+ federico.vaga@vaga.pv.it, apw@canonical.com, joe@perches.com,
+ workflows@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261009083137.3-1-sashal@kernel.org>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261009083137.3-1-sashal@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The TSC code is full of various magic constants, making it difficult to
-understand the calculations. This patch series tries to document their
-actual meaning.
+On 09/10/2026 10:31, Sasha Levin wrote:
+> The Maintainers Summit reached consensus to deprecate the Assisted-by
+> tag. Remove the documentation requiring it.
 
-No functional change intended. In fact, the generated binary is
-bit-for-bit identical after applying the series.
+Please provide here some sort of arguments used in that summit
+consensus/discussion. This basically reverts/changes previous consensus
+[1], which is fine itself, but it lacks reasoning.
 
-Petr Tesarik (3):
-  x86/tsc: Replace magic constants with xxx_PER_SEC
-  x86/tsc: Define and use HZ_PER_KHZ and KHZ_PER_MHZ
-  x86/tsc: Use TSC_CALIBRATE_MULT for the TSC multiplier
+[1] https://lore.kernel.org/workflows/2026070224-unholy-commode-cf45@gregkh/
 
- arch/x86/kernel/tsc.c | 54 ++++++++++++++++++++++---------------------
- 1 file changed, 28 insertions(+), 26 deletions(-)
-
--- 
-2.55.0
-
+Best regards,
+Krzysztof
