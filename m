@@ -1,375 +1,88 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out28-195.mail.aliyun.com (out28-195.mail.aliyun.com [115.124.28.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB53346D2B3
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 09:00:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D53E366DD3;
+	Fri,  9 Oct 2026 09:01:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791536433; cv=none; b=lBQfZztn9a8JTCVtGaRMj18X7DecaMLHVjNjEdpnLm7KnXTE2VOAq35Du+qBknogycQcIy7DpCh5vDt1EiM+1O/5U5thZ/gBo8htPW7Q+Bgcr+/ds+Dyiu7W3KNTYeztQ3xocf2TH4kd5wkv4pJyWo9wHBUxozdMMJScPMHioLI=
+	t=1791536501; cv=none; b=O+zup89M6ujujTeO+54DEcDGfwDjqNQjFYhr8JhpT3JNlnREfQPoBBahNkHKnpNgkn61D6xRmVxteITUKMeLw5WZcOaM28wJFuBtP5STIk/1u7lUJfV7cGUNHiabduq1tCsUQdWhMb+hEOGBLw87eWYvINS+O73Dq8AfF4O76fE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791536433; c=relaxed/simple;
-	bh=dVqIXO/9c7iSDHVJkYbnjKppuyWuIM2GIVXBblovHYo=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=OnuziP9McWly4gtyNBWNyGlPkZaDEoGy39fnmo6isNg7//+WApe0hb+qIM5TRA9UFvBqZWm5yaZZOBkgtQqIYLqtHy283a/goNWkQcMuqPUuM5wYeJMROc6Q7ayU5uPrLSyY+njYAl2w3lJeDj7sSuAh3rnJwDlFgMEfWo7sG08=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=aaKatAm+; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="aaKatAm+"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a0286c981dso55416815e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 02:00:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1791536425; x=1792141225; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9cU6FQ2Ny19xqbH7FtIbST4Npto/KKrlVjyPkUdH56U=;
-        b=aaKatAm+kbhwsK3GTz320Grqqtco+pb/A6sxu3n9kAfzNk61nySQEBEAfoF+eJwFqk
-         iMXVs4sCHi2YgFjLZtLaxOpya6Y3rolCoatJGrYzAFRwsE0YZHFt3UgFejMUWwPkd9yh
-         mXRvedspeE0x3W6+4qjmBMOGWGp2cFIw5DDo+7RoniWDUl2qqK89w1oFiqz752j7SfEV
-         7w3v/lxEcMLtFjVKAX7/CgU5+MdNv6P6zz9YHdXifkzaKlv7XOFxE+gn6Ei5floaXB2B
-         EGeHJadoH26Z8JtiV7AvN78Ke4C+j5G7hJTKJu/mSO8dBf23PLJwsXtCQ3q9ANOLKfda
-         9q8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791536425; x=1792141225;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :references:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9cU6FQ2Ny19xqbH7FtIbST4Npto/KKrlVjyPkUdH56U=;
-        b=ohs7mInC9Rdi3qoohRyAyAqqLOipVFwIcBfUq1SDcPefzl4wODbBPngDnYNo6KoG21
-         Y4K1VB9ynvdnD9SuTNZXYF982o4Y5AhsXfh4fpUVX3PHcY2EIQcqQ2QbMNUuVaebFsio
-         otwrHKQSJrs3HZoXcfdaPb/MEBn33wXsVxkMp8ifKaQU8IkDFJXLdZyxgodd+mYkfw7o
-         rcGQtDzTxIJVlSxfX+OIvdF1Pzs8L4HJE+OF0RTF8B/qmBAhPJRfhZaEuAyVYbBsTV3w
-         QwmhrHSVOxAMzsNre0lHeK74V9xFOJMyTJ1o/nsuaKRehsvXqSz11AST1jKH1FGcLXfG
-         SOZg==
-X-Forwarded-Encrypted: i=1; AKwUvBz4vF/cqI9XZezA0n7aur59VAfTeNt3jBWicuCWOIPvbI5NmxoOG+PJhpWogHL7DMKd3bsTOGNSAca0xPg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kml9X/S+tPPZWzNfzcihRd8XWxFsWie3pnuahR4kaQstO9Ndw2
-	hcxUDzuuG08gVZEVgBOwsiW7WCQJLqH6XjUqr610vFGf5gC4bQ1uPbITU41HdMxwnag=
-X-Gm-Gg: AYBFou02W13bU6Mn7feu1sciRJeeO/SsbktH59My1IWUCE8mAlg5E9yKAAiQnW8P89+
-	1zptJzAvIANLdaDPz+mEOQgFNbSU7Nl0epfOjR/cBeFgDR4QnC6gmprlRbXq113ZJXFtq8cEVUx
-	IqcykUTe4cj+MV0TG0DwuwwviTuR7l8bihxXahTC+eebVW1HGTKEj3rzr/4Ij88Cekr987DW+B0
-	ZGFqf+A8s/S0oI4seoaWyiTgccscdD/9tnxgqwYOq8EPheQUn1DZIBejCg6q5jysu04PD6+cJSz
-	m1SJBQLL6HLnEJHIhUvBQnolvcuvxWSip7Yhv7uxhJAdXA1tbSCGxXRrGPO8hQe/RH+AngvzV+S
-	ARvj58m3fz9gFVsiiatVi87yBtoKNqlyHJOmo6ggzNtOanQZdEx3w0zVswUnmxoBxKe+Vc84Njq
-	U3BGs4Mxr5GzMbog4xLdvPUaoWn/ow7ctN6xxX1AjM5x3ax7XttgUEl12itxkQPt4/xGMrhInHl
-	VvRhfTDJrqa92Z9AQ==
-X-Received: by 2002:a05:600c:620b:b0:49c:fc6c:be19 with SMTP id 5b1f17b1804b1-4a18e4d12e7mr19730845e9.31.1791536423436;
-        Fri, 09 Oct 2026 02:00:23 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf2caf4sm49180425e9.10.2026.10.09.02.00.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 02:00:22 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Jian Hu <jian.hu@amlogic.com>, Jian Hu via B4 Relay
- <devnull+jian.hu.amlogic.com@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>, Stephen Boyd <sboyd@kernel.org>, Brian Masney
- <bmasney+clk@redhat.com>, Kevin Hilman <khilman@baylibre.com>, Martin
- Blumenstingl <martin.blumenstingl@googlemail.com>, Jerome Brunet
- <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org
-Subject: Re: [PATCH RFC 0/3] clk: meson: Refactor PLL pre-divider as a
- divider clock
-In-Reply-To: <7bd6015c-3b93-4ce9-bde9-506a727525d8@amlogic.com>
-References: <20260923-meson_refactor_n-v1-0-3a8ce27121a2@amlogic.com>
- <1j1paj9elx.fsf@starbuckisacylon.baylibre.com>
- <7bd6015c-3b93-4ce9-bde9-506a727525d8@amlogic.com>
-Date: Fri, 09 Oct 2026 11:00:21 +0200
-Message-ID: <1jik3bp7tm.fsf@starbuckisacylon.baylibre.com>
+	s=arc-20240116; t=1791536501; c=relaxed/simple;
+	bh=sTJQttWIt5QNV913jz2FjMxnjyeQG89dqlE13rgovFE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=o6/sVfwbBZp7pYsSMeQHpREnvV+xP09dFXg7V0L6PodoW/mOn0U8c6FnSZJYlk5xrmUxpN4sC8CYpvNShTteDYSUvd2arzfF9vWzHP3jVeZYXbaeH4NYyPArcYQ9JnduAQW7Uv5ecxLfq87Jz+KnsIgXZkNs3lGlSmwiN/p1IqI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net; spf=pass smtp.mailfrom=open-hieco.net; arc=none smtp.client-ip=115.124.28.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.2229122|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0154444-0.0477482-0.936807;FP=3168411775932122835|1|1|1|0|-1|-1|-1;HT=maildocker-contentspam033037022039;MF=wanglin@open-hieco.net;NM=1;PH=DS;RN=12;RT=12;SR=0;TI=SMTPD_---.jXYKwCl_1791536488;
+Received: from localhost.localdomain(mailfrom:wanglin@open-hieco.net fp:SMTPD_---.jXYKwCl_1791536488 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Fri, 09 Oct 2026 17:01:29 +0800
+From: Lin Wang <wanglin@open-hieco.net>
+To: Borislav Petkov <bp@alien8.de>,
+	Yazen Ghannam <yazen.ghannam@amd.com>,
+	Mario Limonciello <mario.limonciello@amd.com>
+Cc: Pu Wen <puwen@hygon.cn>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Tony Luck <tony.luck@intel.com>,
+	x86@kernel.org,
+	linux-edac@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v7 3/7] EDAC/amd64: Stop matching Hygon CPUs
+Date: Fri,  9 Oct 2026 17:01:07 +0800
+Message-ID: <20261009090111.151878-4-wanglin@open-hieco.net>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261009090111.151878-1-wanglin@open-hieco.net>
+References: <20261009090111.151878-1-wanglin@open-hieco.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On ven. 09 oct. 2026 at 14:35, Jian Hu <jian.hu@amlogic.com> wrote:
+amd64_edac gets its node count and DF devices from the AMD northbridge
+cache. Since commit 49b96fc0dddc ("x86/amd_nb: Simplify function 3
+search"), the cache finds function 3 only at the fixed PCI slots
+0x18 + N. Hygon DF devices are not at those slots, so the cache is
+discarded on Hygon and amd64_edac_init() returns -ENODEV at its
+amd_nb_num() check.
 
-> Hi Jerome,
->
->
-> Thanks for your review.
->
->
-> On 9/24/2026 5:35 PM, Jerome Brunet wrote:
->> [ EXTERNAL EMAIL ]
->>
->> On mer. 23 sept. 2026 at 19:14, Jian Hu via B4 Relay <devnull+jian.hu.am=
-logic.com@kernel.org> wrote:
->>
->>> This series refactors the Meson PLL framework to remove the dedicated
->>> PLL pre-divider (N) parameter from the PLL implementation and model it
->>> as a separate divider clock.
->>>
->>> Currently, the Meson PLL framework models the PLL pre-divider using a
->>> dedicated n field in struct meson_clk_pll_data. This makes the
->>> pre-divider part of the PLL-specific implementation, although the
->>> Common Clock Framework already provides a generic divider clock.
->>>
->>> This series separates the pre-divider from the PLL and makes the PLL
->>> DCO take the pre-divider clock as its parent. This allows the
->>> pre-divider to be modeled using the standard CCF divider implementation
->>> and simplifies the PLL framework.
->>>
->>> The series currently covers T7 as an RFC to get feedback on the
->>> framework design before applying the same approach to other SoCs.
->>>
->>> Series:
->>> clk: meson: pll: Remove the dedicated n parameter
->>> dt-bindings: clock: amlogic: Add T7 pre-divider clock IDs
->>> clk: meson: t7: Model PLL pre-divider as a divider clock
->>>
->>> The other Meson SoCs will be converted separately after the T7 PLL
->>> framework refactoring has been reviewed and the overall approach is
->>> agreed upon.
->>>
->>> Any feedback on the proposed clock hierarchy and the separation of the
->>> PLL pre-divider from the PLL itself would be appreciated.
->> So if I summarize this RFC, you have simply taken the divider out of the
->> PLL, no futher addaptation. right ?
->>
->> I'm happy with it on the general principle and fine with the change as
->> long as you test it on as much platform as you can, clearly flagging
->> those you have just compiled tested.
->>
->> A change like this would likely need to land early in the cycle give as
->> much time as possible for testing.
->>
->> However there a couple of thing I'm concerned about:
->>
->> * You've drop the table support: are you sure this is not needed anymore
->>    ? don't you want to be able to restrict mutlipliers to specific values
->>    sometimes ? If not, then OK.
->>
->> * the determine_rate() make no call to round the parent rate: Since the
->>    parent will be the divier, how do you progate the rate change so N
->>    moves and the best parent rate is found ? For sure this fractional
->>    multiplier clock will need CLK_SET_RATE_PARENT to adjust the
->>    pre-divider.
->>
->> * Goes with the point above, but I'm not seeing anything that favors
->>    lower N for lower jitter, Or mention of a minimum input rate (which
->>    could be a property) ?
->>    Those are constraints I think I have understood from your explanation
->>    here [1] but maybe you've got new information to share ?
->>
->> This is overall going in the right direction but determine_rate() and
->> constraints need work.
->>
->> Note: you are more likely to get test feedback if you add g12 (sm1) as an
->> example. Those are still the most widely used amlogic platforms with
->> mainline.
->>
->> [1]: https://lore.kernel.org/linux-clk/c9c4945f-cdfc-4382-b8ca-71b69d91d=
-eb4@amlogic.com/
->
->
-> Yes, your summary is correct: the RFC simply takes the pre-divider out=20
-> of the PLL.
->
->
-> 1) Keeping the table support
->
-> Agreed, removing it was premature. Some tables cannot be expressed as
-> a multiplier range:
->
-> - pinned (m, n) pairs, e.g. axg PCIe GP0 (m=3D200, n=3D3) and meson8m2
->  =C2=A0 GP0 (m=3D182, n=3D3)
-> - a pinned m, e.g. g12a PCIe PLL (m=3D150)
-> - sparse tables, e.g. meson8b HDMI PLL
->
-> The per-platform conversions will turn the tables with contiguous m
-> and n =3D 1 into range, and keep the tables for the rest, so
-> the framework will support both.
->
->
-> 2) N is fixed per PLL
->
-> The main new information: the pre-divider is not meant to be selected
-> dynamically. Per the hardware design, each PLL has a single fixed N
-> value, defined together with the rest of the PLL: N =3D 1 for most PLLs,
-> and N =3D 3 for a few special cases on older SoCs (the axg PCIe PLL and
-> the meson8m2 GP0 PLL). The PLL input frequency constraints are
-> respected by this fixed value.
+Remove the Hygon match and the empty Family 0x18 case. MCE decoding
+in mce_amd.c is separate and unchanged. Hygon memory controller support
+will use the Hygon node interfaces in a separate series.
 
-Ok, but this is not we have done so far. I don't think fixing the
-predivier would break any use case, but if it does we may have to
-re-visit this.
+Signed-off-by: Lin Wang <wanglin@open-hieco.net>
+---
+ drivers/edac/amd64_edac.c | 4 ----
+ 1 file changed, 4 deletions(-)
 
->
-> Keeping N at 1 minimizes PLL jitter and yields the best performance.
->
-> So this is less about dropping the constraints than about the fact
-> that there is nothing to choose at runtime: no N search in
-> determine_rate(), and no PFD input frequency constraint to enforce,
-> since the PLL input frequency is a constant for each PLL.
->
-> 3) No CLK_SET_RATE_PARENT on the DCO
->
-> With N fixed, the pre-divider rate never changes, so the DCO does not
-> set CLK_SET_RATE_PARENT on purpose: the flag would claim that the
-> parent rate may change to satisfy the child, which is not the case
-> here. determine_rate() never touches best_parent_rate so the flag
-> would be a no operation today.
->
->
-> 4) Implementation methods for pre-divider clock
->
-> While testing the RFC I found that with the single-entry pre-divider
-> table ({val =3D 1, div =3D 1}), the pre-divider register can never actual=
-ly
-> be programmed.
->
-> The pre-divider field resets to 0, which is not a valid setting.
->
-> During registration, recalc_rate() reports the parent rate for the
-> zero register value. With N =3D 1 the reported rate is the parent rate,
-> and the single-entry table also rounds every rate request back to the
-> parent rate, so clk_set_rate() always bails out early (rounded rate =3D=3D
-> current rate) and clk_regmap_div_set_rate() is never called. The
-> register keeps its invalid reset value.
+diff --git a/drivers/edac/amd64_edac.c b/drivers/edac/amd64_edac.c
+index 475235c402e8..9e35098d3dd2 100644
+--- a/drivers/edac/amd64_edac.c
++++ b/drivers/edac/amd64_edac.c
+@@ -3840,9 +3840,6 @@ static int per_family_init(struct amd64_pvt *pvt)
+ 		}
+ 		break;
+ 
+-	case 0x18:
+-		break;
+-
+ 	case 0x19:
+ 		switch (pvt->model) {
+ 		case 0x00 ... 0x0f:
+@@ -4120,7 +4117,6 @@ static const struct x86_cpu_id amd64_cpuids[] = {
+ 	X86_MATCH_VENDOR_FAM(AMD,	0x15, NULL),
+ 	X86_MATCH_VENDOR_FAM(AMD,	0x16, NULL),
+ 	X86_MATCH_VENDOR_FAM(AMD,	0x17, NULL),
+-	X86_MATCH_VENDOR_FAM(HYGON,	0x18, NULL),
+ 	X86_MATCH_VENDOR_FAM(AMD,	0x19, NULL),
+ 	X86_MATCH_VENDOR_FAM(AMD,	0x1A, NULL),
+ 	{ }
+-- 
+2.43.0
 
-I see, you should have had a warning like that then ?
-
-''' Zero divisor and CLK_DIVIDER_ALLOW_ZERO not set  '''
-
-But from what I understand, your divider may have zero written in its
-register but it will not output the parent rate unmodified, correct ?
-In such case CLK_DIVIDER_ALLOW_ZERO is not correct.
-
-Can you clarify the meaning of invalid ? If the just no oscillation I
-guess we could add a 'CLK_DIVIDER_INVALID_ZERO' that returns 0 from
-recalc_rate().
-
-If your multiplier you'll probably have to handle this is
-determine_rate() with something like
-
-if (req->best_parend_rate =3D=3D 0 ||
-    (req->rate / req->best_parent_rate) > YOUR_MAX_MULT) {
-    clk_hw_round_rate(parent, req->rate / YOUR_MAX_MULT)
-}
-
-Then you update req->best_parent_rate with the value you get and CCF
-will update the divider when the rate is applied.
-
-If you then add your single entry table and CLK_SET_RATE_PARENT, it
-should work as you expect AFAIU.
-
->
-> v2 programs the fixed N at registration time, with a new
-> init_val field in clk_regmap_div_data, applied from .init() once the
-> regmap is available.
-
-I don't like driver setting regs without a clear instruction from the
-consumer or the framework, it is a splipery slope where people just tend
-shove their use cases..
-
->
-> Or do you have any other good ideas?
->
-> The patch is available[1], Please help to review it.
->
->
-> 5) Testing and rollout
->
-> So far this has been boot tested on T7. For v2 I will
-> convert the SoCs one by one, starting with g12a and sm1 which
-> have the most mainline users, then the remaining platforms.
->
-
-Please add the RFT tag. Please test GXL as well, you should have no
-problem getting your hands on one, those are still easily available.
-
-For Meson8, maybe Martin will be able to help us out ?
-
->
-> [1]
->
-> --- a/drivers/clk/meson/clk-regmap.c
-> +++ b/drivers/clk/meson/clk-regmap.c
-> @@ -163,10 +163,28 @@ static int clk_regmap_div_set_rate(struct clk_hw=20
-> *hw, unsigned long rate,
->  =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 clk_div_mask(div->width) <=
-<=20
-> div->shift, val);
->  =C2=A0};
->
-> +static int clk_regmap_div_init(struct clk_hw *hw)
-> +{
-> +=C2=A0 =C2=A0 =C2=A0 =C2=A0int ret;
-> +=C2=A0 =C2=A0 =C2=A0 =C2=A0struct clk_regmap *clk =3D to_clk_regmap(hw);
-> +=C2=A0 =C2=A0 =C2=A0 =C2=A0struct clk_regmap_div_data *div =3D clk_get_r=
-egmap_div_data(clk);
-> +
-> +=C2=A0 =C2=A0 =C2=A0 =C2=A0ret =3D clk_regmap_init(hw);
-> +=C2=A0 =C2=A0 =C2=A0 =C2=A0if (ret)
-> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return ret;
-> +
-> +=C2=A0 =C2=A0 =C2=A0 =C2=A0if (div->init_val)
-> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0regmap_update_bit=
-s(clk->map, div->offset,
-> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 clk_div_mask(div->width) <=
-< div->shift,
-> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 div->init_val << div->shif=
-t);
-> +
-> +=C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;
-> +}
-> +
->  =C2=A0/* Would prefer clk_regmap_div_ro_ops but clashes with qcom */
->
->  =C2=A0const struct clk_ops clk_regmap_divider_ops =3D {
-> -=C2=A0 =C2=A0 =C2=A0 =C2=A0.init =3D clk_regmap_init,
-> +=C2=A0 =C2=A0 =C2=A0 =C2=A0.init =3D clk_regmap_div_init,
->
->>> Signed-off-by: Jian Hu <jian.hu@amlogic.com>
->>> ---
->>> Jian Hu (3):
->>>        clk: meson: pll: Remove the dedicated n parameter
->>>        dt-bindings: clock: amlogic: Add T7 pre-divider clock IDs
->>>        clk: meson: t7: Model PLL pre-divider as a divider clock
->>>
->>>   drivers/clk/meson/clk-pll.c                     | 178 +++++----------=
---------
->>>   drivers/clk/meson/clk-pll.h                     |  13 --
->>>   drivers/clk/meson/t7-pll.c                      | 183 +++++++++++++++=
-+++------
->>>   include/dt-bindings/clock/amlogic,t7-pll-clkc.h |   6 +
->>>   4 files changed, 181 insertions(+), 199 deletions(-)
->>> ---
->>> base-commit: 43e1705ecab981c66baee89041e6f728c0436f19
->>> change-id: 20260923-meson_refactor_n-e7f25904e536
->>>
->>> Best regards,
->>> --
->>> Jian Hu <jian.hu@amlogic.com>
->>>
->>>
->>>
->>> _______________________________________________
->>> linux-amlogic mailing list
->>> linux-amlogic@lists.infradead.org
->>> http://lists.infradead.org/mailman/listinfo/linux-amlogic
->> --
->> Jerome
->
-> --
->
-> Jian
->
->
-> _______________________________________________
-> linux-amlogic mailing list
-> linux-amlogic@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-amlogic
-
---=20
-Jerome
