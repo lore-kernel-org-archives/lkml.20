@@ -1,43 +1,39 @@
-Received: from sender5-pp-o94.zoho.com (sender5-pp-o94.zoho.com [165.173.182.94])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BA854EF12B;
-	Fri,  9 Oct 2026 14:42:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.94
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791556929; cv=pass; b=TRrbpl8VIBW7gZD45ITR96duJqNFmpM0+vTwOZJ8ZGYZ2nxRWN8bRWzTZgVNW9n6sfyUxPZGZCLcFsrrVQLThllnnK3bXoL7NKfoVIN1ZgoO6+7/i9+DOsuklDpUXjKz6sYCuyJ/DDqJM6Io9K9ri26gW3tLtJIzy+nrpUkXLQc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791556929; c=relaxed/simple;
-	bh=mYcjK8jdNquyn3c9F7hmZXqlaGCNSUvqi4l3YYKSkmM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=USOusjl/HOZhLWFiTCkgejCSSpRGMdqOIhgS8dd/pF2g966Rk+98XeHZEAnUmc88DhoNObR1SkItZVpSIC4AXuGfi+viR1Hevazrl4SaLh1jtMWvvYNLVFYkCxEGY9d2sLLY2Gno3YErDVkdG7dOF/1bV5/w8nBWN3wLFWxUIMk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com; spf=pass smtp.mailfrom=zohomail.com; dkim=pass (1024-bit key) header.d=zohomail.com header.i=ming.li@zohomail.com header.b=SSFhCZXl; arc=pass smtp.client-ip=165.173.182.94
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=zohomail.com header.i=ming.li@zohomail.com header.b="SSFhCZXl"
-ARC-Seal: i=1; a=rsa-sha256; t=1791556910; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Y0h0RXda5FoVKNnqBzy3RMEZyhyvE3VKof3yZ0LYWMCZOeMTM7RySBFplfwSjQkRpo4u1a35oPAzeujo/yxdWhH/0NySCexELMRDawLyM+UvX43Ek5XSeo5yhTW2U7JvWF3DsDDAQnXXzdQTmbHC3lwt4mk3aOQWQXqSHIhQNv0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1791556910; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Vc4shJ7JTOZtXqrInqhmldF9QJjIS9vSgJN7sr8S+0E=; 
-	b=Msh/Nsj+QAvfujJ3S+YSQ9kIEuHxfDwFg6MzKCrGb8jqiNa/R2Ed6KtmHzDf0gGUTQPdtHc9WcfKeTb6qfm2IalFR9InIeQkAyV00mcfUBD3XtyMuqSbJHSsjKFDacJrIF69S93plrzAYt+8T186jRB0uh2E2QLAHtMQ0oWVKG0=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=zohomail.com;
-	spf=pass  smtp.mailfrom=ming.li@zohomail.com;
-	dmarc=pass header.from=<ming.li@zohomail.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791556910;
-	s=zm2022; d=zohomail.com; i=ming.li@zohomail.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Feedback-ID:Message-Id:Reply-To;
-	bh=Vc4shJ7JTOZtXqrInqhmldF9QJjIS9vSgJN7sr8S+0E=;
-	b=SSFhCZXlpjxpCqZ9MJqji1u4CUiqyE+jRYuV29NP3Y1RFOV5FdU6i7PGeJsRQxyN
-	s84R05vl/vvwhI+0jhQfiqGMaUZyrSL5Aw6xmMWGNRx3D58JoMuirXXx7bjw+L3GqJ3
-	FN1e0+hvfU5diM3ta1VOT2vfATvA2ews+Flh7puY=
-Received: by smtp.zohomail.com with SMTPS id 1791556909356350.57764764958677;
-	Fri, 9 Oct 2026 07:41:49 -0700 (PDT)
-Message-ID: <3c6f75c5-f559-4b73-a835-70ea3a680fe1@zohomail.com>
-Date: Fri, 9 Oct 2026 22:41:33 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D88D4EE876;
+	Fri,  9 Oct 2026 14:42:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791556932; cv=none; b=vGvLxTun3VYft6wOuSllMYUqcw4gz5Us93joBg2fXOAe4UGio8AyXPxte5DbHH6RXsPzRlc0K3YlPcQodmPY+e7gz0qz8Lhr3hwJigNe/iugutkOz0D29qLdOfnH6uNxLbbTd1mLkDCr2vSTZqL/Gz0lO5cz3FIgDKuXGwtJGik=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791556932; c=relaxed/simple;
+	bh=L0ZY1yQv5GNt88TQoZPHqYzEbRRQTSkYQMEBVi/3ppk=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=FMEECsJmvq+/HiPV4GvcFTBBqzAvmluYSGLzJYoTvMGYcx2KCJp25n82uc8V3/lyx2vdca+9clkQM1jhfG+RQ2kp16fsQdQTVLPtJTBo+Pdqrkr5SpURsjuUuWzN7XuR8/kvxl2ssRiYAQTJSSPLpCilJOSeCjraJ1XxlRBYOI8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 608591F7CB;
+	Fri,  9 Oct 2026 14:42:09 +0000 (UTC)
+Authentication-Results: smtp-out2.suse.de;
+	none
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 42B9E1368B;
+	Fri,  9 Oct 2026 14:42:08 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id YSBwBUD9yGoQMgAAD6G6ig
+	(envelope-from <fmancera@suse.de>); Fri, 09 Oct 2026 14:42:08 +0000
+Message-ID: <027f7f3a-1b33-40f9-bc39-ed9ef4986ed8@suse.de>
+Date: Fri, 9 Oct 2026 16:41:10 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,358 +41,158 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v14 05/16] cxl: Introduce reusable HDM decoder settings
-To: Dave Jiang <dave.jiang@intel.com>,
- Srirangan Madhavan <smadhavan@nvidia.com>,
- Alison Schofield <alison.schofield@intel.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Davidlohr Bueso <dave@stgolabs.net>,
- Ira Weiny <ira.weiny@intel.com>, Jonathan Cameron <jic23@kernel.org>,
- Vishal Verma <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Alex Williamson <alex.williamson@redhat.com>, vsethi@nvidia.com,
- alwilliamson@nvidia.com,
- Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
- Vishal Aslot <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>,
- Jiandi An <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
- linux-tegra@vger.kernel.org
-References: <20261001092227.3004747-1-smadhavan@nvidia.com>
- <20261001092227.3004747-6-smadhavan@nvidia.com>
- <60dbd245-0b16-4c4b-8350-26570916ede0@intel.com>
- <12dff52f-61fb-4796-afa9-0e7a8f74452d@zohomail.com>
- <e8ee0949-90b9-4572-869d-61b4073c568d@intel.com>
- <f3c0fd73-c9e0-4b65-9f83-2b1fd9579dca@zohomail.com>
- <60653fdc-2b9c-4f9d-841c-6d7d68d51ed3@intel.com>
-From: Li Ming <ming.li@zohomail.com>
-In-Reply-To: <60653fdc-2b9c-4f9d-841c-6d7d68d51ed3@intel.com>
+Subject: Re: [PATCH nf] netfilter: ip6t_SYNPROXY: check TCP header before
+ verifying checksum
+From: Fernando Fernandez Mancera <fmancera@suse.de>
+To: Palla Raghunath <raghunathpalla.0209@gmail.com>,
+ Pablo Neira Ayuso <pablo@netfilter.org>, Florian Westphal <fw@strlen.de>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Jesper Dangaard Brouer <hawk@kernel.org>, Patrick McHardy <kaber@trash.net>
+Cc: Shuah Khan <shuah@kernel.org>, Brigham Campbell <me@brighamcampbell.com>,
+ linux-kernel-mentees@lists.linux.dev, linux-kernel@vger.kernel.org,
+ syzbot+5a8667f002726fc59f88@syzkaller.appspotmail.com,
+ Phil Sutter <phil@nwl.cc>, Simon Horman <horms@kernel.org>,
+ netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
+ netdev@vger.kernel.org
+References: <20260926204519.43402-1-raghunathpalla.0209@gmail.com>
+ <e2beb9bc-7b92-4ae4-8190-c99bee8de1ca@suse.de>
+Content-Language: en-US
+In-Reply-To: <e2beb9bc-7b92-4ae4-8190-c99bee8de1ca@suse.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Feedback-ID: zu080112271575eab0932f54156237566700003da1a77b021e8211d00f34ef2d19d6c8cc498a068694a168af:ZohoMail
-X-Zoho-CM-AccountID: abd763e7b9fa23acf4f42a44f9876d2d993e05abdb9290f9ccb1008c977bf7f0
-X-ZohoMailClient: External
+X-Rspamd-Pre-Result: action=no action;
+	module=Unknown lua;
+	unknown reason
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Rspamd-Pre-Result: action=no action;
+	module=Unknown lua;
+	unknown reason
+X-Spamd-Result: default: False [0.00 / 50.00];
+	TAGGED_RCPT(0.00)[5a8667f002726fc59f88]
+X-Spam-Score: 0.00
 
-
-在 2026/10/8 23:19, Dave Jiang 写道:
->
-> On 10/8/26 6:18 AM, Li Ming wrote:
->> 在 2026/10/8 00:23, Dave Jiang 写道:
->>> On 10/7/26 6:12 AM, Li Ming wrote:
->>>> 在 2026/10/3 03:59, Dave Jiang 写道:
->>>>> On 10/1/26 2:22 AM, Srirangan Madhavan wrote:
->>>>>> Represent HDM programming state with struct cxl_decoder_settings and pass
->>>>>> it to the commit helpers. Keep endpoint skip and switch targets with their
->>>>>> owning types and flatten them only into transient programming settings.
->>>>>> Place flags with the programming state and leave runtime region ownership
->>>>>> outside the snapshot.
->>>>>>
->>>>>> Separate commit initiation from completion waiting so reset restoration
->>>>>> can reuse register programming without changing normal DPA-lock policy.
->>>>>>
->>>>>> Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
->>>>>> ---
->>>>>>     drivers/cxl/core/core.h |  3 ++
->>>>>>     drivers/cxl/core/hdm.c  | 82 ++++++++++++++++++++++++++---------------
->>>>>>     include/cxl/cxl.h       | 10 +++++
->>>>>>     3 files changed, 66 insertions(+), 29 deletions(-)
->>>>>>
->>>>>> diff --git a/drivers/cxl/core/core.h b/drivers/cxl/core/core.h
->>>>>> index 983d7690c3a5..a3fddb2bed63 100644
->>>>>> --- a/drivers/cxl/core/core.h
->>>>>> +++ b/drivers/cxl/core/core.h
->>>>>> @@ -139,6 +139,9 @@ struct cxl_rwsem {
->>>>>>       extern struct cxl_rwsem cxl_rwsem;
->>>>>>     +void cxl_commit_start(void __iomem *hdm, struct cxl_decoder_settings *settings);
->>>>>> +int cxld_await_commit(void __iomem *hdm, int id);
->>>>>> +
->>>>>>     int cxl_memdev_init(void);
->>>>>>     void cxl_memdev_exit(void);
->>>>>>     void cxl_mbox_init(void);
->>>>>> diff --git a/drivers/cxl/core/hdm.c b/drivers/cxl/core/hdm.c
->>>>>> index 9e05032a5426..d3f21dfda146 100644
->>>>>> --- a/drivers/cxl/core/hdm.c
->>>>>> +++ b/drivers/cxl/core/hdm.c
->>>>>> @@ -707,7 +707,7 @@ int cxl_dpa_alloc(struct cxl_endpoint_decoder *cxled, u64 size)
->>>>>>         return devm_add_action_or_reset(&port->dev, cxl_dpa_release, cxled);
->>>>>>     }
->>>>>>     -static void cxld_set_interleave(struct cxl_decoder *cxld, u32 *ctrl)
->>>>>> +static void cxld_set_interleave(struct cxl_decoder_config *config, u32 *ctrl)
->>>>>>     {
->>>>>>         u16 eig;
->>>>>>         u8 eiw;
->>>>>> @@ -716,12 +716,12 @@ static void cxld_set_interleave(struct cxl_decoder *cxld, u32 *ctrl)
->>>>>>          * Input validation ensures these warns never fire, but otherwise
->>>>>>          * suppress unititalized variable usage warnings.
->>>>>>          */
->>>>>> -    if (WARN_ONCE(ways_to_eiw(cxld->config.interleave_ways, &eiw),
->>>>>> -              "invalid interleave_ways: %d\n", cxld->config.interleave_ways))
->>>>>> +    if (WARN_ONCE(ways_to_eiw(config->interleave_ways, &eiw),
->>>>>> +              "invalid interleave_ways: %d\n", config->interleave_ways))
->>>>>>             return;
->>>>>> -    if (WARN_ONCE(granularity_to_eig(cxld->config.interleave_granularity, &eig),
->>>>>> +    if (WARN_ONCE(granularity_to_eig(config->interleave_granularity, &eig),
->>>>>>                   "invalid interleave_granularity: %d\n",
->>>>>> -              cxld->config.interleave_granularity))
->>>>>> +              config->interleave_granularity))
->>>>>>             return;
->>>>>>           u32p_replace_bits(ctrl, eig, CXL_HDM_DECODER0_CTRL_IG_MASK);
->>>>>> @@ -729,10 +729,10 @@ static void cxld_set_interleave(struct cxl_decoder *cxld, u32 *ctrl)
->>>>>>         *ctrl |= CXL_HDM_DECODER0_CTRL_COMMIT;
->>>>>>     }
->>>>>>     -static void cxld_set_type(struct cxl_decoder *cxld, u32 *ctrl)
->>>>>> +static void cxld_set_type(struct cxl_decoder_config *config, u32 *ctrl)
->>>>>>     {
->>>>>>         u32p_replace_bits(ctrl,
->>>>>> -              !!(cxld->config.target_type == CXL_DECODER_HOSTONLYMEM),
->>>>>> +              !!(config->target_type == CXL_DECODER_HOSTONLYMEM),
->>>>>>                   CXL_HDM_DECODER0_CTRL_HOSTONLY);
->>>>>>     }
->>>>>>     @@ -764,7 +764,7 @@ static void cxlsd_set_targets(struct cxl_switch_decoder *cxlsd, u64 *tgt)
->>>>>>      * clock skew and other marginal behavior
->>>>>>      */
->>>>>>     #define COMMIT_TIMEOUT_MS 20
->>>>>> -static int cxld_await_commit(void __iomem *hdm, int id)
->>>>>> +int cxld_await_commit(void __iomem *hdm, int id)
->>>>>>     {
->>>>>>         u32 ctrl;
->>>>>>         int i;
->>>>>> @@ -784,45 +784,66 @@ static int cxld_await_commit(void __iomem *hdm, int id)
->>>>>>         return -ETIMEDOUT;
->>>>>>     }
->>>>>>     -static void setup_hw_decoder(struct cxl_decoder *cxld, void __iomem *hdm)
->>>>>> +static void setup_hw_decoder(void __iomem *hdm,
->>>>>> +                 struct cxl_decoder_settings *settings)
->>>>> settings is replacing cxld, I would prefer that as the first parameter
->>>>>
->>>>>>     {
->>>>>> -    int id = cxld->config.id;
->>>>>> +    struct cxl_decoder_config *config = &settings->config;
->>>>>> +    int id = config->id;
->>>>>> +    u64 target_or_skip_reg_val;
->>>>>>         u64 base, size;
->>>>>>         u32 ctrl;
->>>>>>     -    /* common decoder settings */
->>>>>> -    ctrl = readl(hdm + CXL_HDM_DECODER0_CTRL_OFFSET(cxld->config.id));
->>>>>> -    cxld_set_interleave(cxld, &ctrl);
->>>>>> -    cxld_set_type(cxld, &ctrl);
->>>>>> -    base = cxld->config.hpa_range.start;
->>>>>> -    size = range_len(&cxld->config.hpa_range);
->>>>>> +    ctrl = readl(hdm + CXL_HDM_DECODER0_CTRL_OFFSET(id));
->>>>>> +    cxld_set_interleave(config, &ctrl);
->>>>>> +    cxld_set_type(config, &ctrl);
->>>>>> +    base = config->hpa_range.start;
->>>>>> +    size = range_len(&config->hpa_range);
->>>>>> +    target_or_skip_reg_val = settings->target_or_skip_reg_val;
->>>>>>           writel(upper_32_bits(base), hdm + CXL_HDM_DECODER0_BASE_HIGH_OFFSET(id));
->>>>>>         writel(lower_32_bits(base), hdm + CXL_HDM_DECODER0_BASE_LOW_OFFSET(id));
->>>>>>         writel(upper_32_bits(size), hdm + CXL_HDM_DECODER0_SIZE_HIGH_OFFSET(id));
->>>>>>         writel(lower_32_bits(size), hdm + CXL_HDM_DECODER0_SIZE_LOW_OFFSET(id));
->>>>>> +    /* Target-list and endpoint-skip registers alias the same slot. */
->>>>>> +    writel(upper_32_bits(target_or_skip_reg_val), hdm + CXL_HDM_DECODER0_TL_HIGH(id));
->>>>>> +    writel(lower_32_bits(target_or_skip_reg_val), hdm + CXL_HDM_DECODER0_TL_LOW(id));
->>>>>> +
->>>>>> +    writel(ctrl, hdm + CXL_HDM_DECODER0_CTRL_OFFSET(id));
->>>>>> +}
->>>>>> +
->>>>>> +void cxl_commit_start(void __iomem *hdm, struct cxl_decoder_settings *settings)
->>>>>> +{
->>>>>> +    lockdep_assert_held(&cxl_rwsem.dpa);
->>>>>> +    setup_hw_decoder(hdm, settings);
->>>>>> +}
->>>>>> +
->>>>>> +/*
->>>>>> + * Endpoint skip and switch targets have different owners. Keep that state with
->>>>>> + * its owning type and flatten it only into a transient register-programming
->>>>>> + * snapshot.
->>>>>> + */
->>>>>> +static void cxl_decoder_snapshot(struct cxl_decoder *cxld,
->>>>>> +                 struct cxl_decoder_settings *settings)
->>>>>> +{
->>>>>> +    lockdep_assert_held(&cxl_rwsem.dpa);
->>>>>> +
->>>>>> +    *settings = (struct cxl_decoder_settings) {
->>>>>> +        .config = cxld->config,
->>>>>> +    };
->>>>>>           if (is_switch_decoder(&cxld->dev)) {
->>>>>>             struct cxl_switch_decoder *cxlsd =
->>>>>>                 to_cxl_switch_decoder(&cxld->dev);
->>>>>> -        void __iomem *tl_hi = hdm + CXL_HDM_DECODER0_TL_HIGH(id);
->>>>>> -        void __iomem *tl_lo = hdm + CXL_HDM_DECODER0_TL_LOW(id);
->>>>>>             u64 targets;
->>>>>>               cxlsd_set_targets(cxlsd, &targets);
->>>>>> -        writel(upper_32_bits(targets), tl_hi);
->>>>>> -        writel(lower_32_bits(targets), tl_lo);
->>>>>> +        settings->target_or_skip_reg_val = targets;
->>>>>>         } else {
->>>>>>             struct cxl_endpoint_decoder *cxled =
->>>>>>                 to_cxl_endpoint_decoder(&cxld->dev);
->>>>>> -        void __iomem *sk_hi = hdm + CXL_HDM_DECODER0_SKIP_HIGH(id);
->>>>>> -        void __iomem *sk_lo = hdm + CXL_HDM_DECODER0_SKIP_LOW(id);
->>>>>>     -        writel(upper_32_bits(cxled->skip), sk_hi);
->>>>>> -        writel(lower_32_bits(cxled->skip), sk_lo);
->>>>>> +        settings->target_or_skip_reg_val = cxled->skip;
->>>>>>         }
->>>>>> -
->>>>>> -    writel(ctrl, hdm + CXL_HDM_DECODER0_CTRL_OFFSET(id));
->>>>>>     }
->>>>>>       static int cxl_decoder_commit(struct cxl_decoder *cxld)
->>>>>> @@ -830,6 +851,7 @@ static int cxl_decoder_commit(struct cxl_decoder *cxld)
->>>>>>         struct cxl_port *port = to_cxl_port(cxld->dev.parent);
->>>>>>         struct cxl_hdm *cxlhdm = dev_get_drvdata(&port->dev);
->>>>>>         void __iomem *hdm = cxlhdm->regs.hdm_decoder;
->>>>>> +    struct cxl_decoder_settings settings;
->>>>>>         int id = cxld->config.id, rc;
->>>>>>           if (cxld->config.flags & CXL_DECODER_F_ENABLE)
->>>>>> @@ -862,10 +884,12 @@ static int cxl_decoder_commit(struct cxl_decoder *cxld)
->>>>>>             }
->>>>>>         }
->>>>>>     -    scoped_guard(rwsem_read, &cxl_rwsem.dpa)
->>>>>> -        setup_hw_decoder(cxld, hdm);
->>>>>> +    scoped_guard(rwsem_read, &cxl_rwsem.dpa) {
->>>>>> +        cxl_decoder_snapshot(cxld, &settings);
->>>>>> +        cxl_commit_start(hdm, &settings);
->>>>>> +    }
->>>>>>     -    rc = cxld_await_commit(hdm, cxld->config.id);
->>>>>> +    rc = cxld_await_commit(hdm, settings.config.id);
->>>>>>         if (rc) {
->>>>>>             dev_dbg(&port->dev, "%s: error %d committing decoder\n",
->>>>>>                 dev_name(&cxld->dev), rc);
->>>>>> diff --git a/include/cxl/cxl.h b/include/cxl/cxl.h
->>>>>> index 237b31d54249..67c81be47fbb 100644
->>>>>> --- a/include/cxl/cxl.h
->>>>>> +++ b/include/cxl/cxl.h
->>>>>> @@ -72,6 +72,16 @@ struct cxl_decoder {
->>>>>>         void (*reset)(struct cxl_decoder *cxld);
->>>>>>     };
->>>>>>     +/**
->>>>>> + * struct cxl_decoder_settings - CXL HDM decoder programming snapshot
->>>>>> + * @config: common decoder configuration
->>>>>> + * @target_or_skip_reg_val: switch target list or endpoint skip register value
->>>>>> + */
->>>>>> +struct cxl_decoder_settings {
->>>>>> +    struct cxl_decoder_config config;
->>>>>> +    u64 target_or_skip_reg_val;
->>>>> Single variable contains multiple meanings gets confusing and messy when they are different values depending on context.
->>>>>
->>>>> How about something like:
->>>>>
->>>>> struct cxl_endpoint_decoder_settings {
->>>>>       struct cxl_decoder_config config;
->>>>>       u64 skips;
->>>>> };
->>>>>
->>>>> /* resource.c: common to both decoder types */
->>>>> static u32 cxl_hdm_write_range(void __iomem *hdm,
->>>>>                                 const struct cxl_decoder_config *config)
->>>>> {
->>>>>          int id = config->id;
->>>>>          u64 base = config->hpa_range.start;
->>>>>          u64 size = range_len(&config->hpa_range);
->>>>>          u32 ctrl = readl(hdm + CXL_HDM_DECODER0_CTRL_OFFSET(id));
->>>>>
->>>>>          cxld_set_interleave(config, &ctrl);
->>>>>          cxld_set_type(config, &ctrl);
->>>>>          writel(upper_32_bits(base), hdm + CXL_HDM_DECODER0_BASE_HIGH_OFFSET(id))
->>>>>          writel(lower_32_bits(base), hdm + CXL_HDM_DECODER0_BASE_LOW_OFFSET(id));
->>>>>          writel(upper_32_bits(size), hdm + CXL_HDM_DECODER0_SIZE_HIGH_OFFSET(id))
->>>>>          writel(lower_32_bits(size), hdm + CXL_HDM_DECODER0_SIZE_LOW_OFFSET(id));
->>>>>          return ctrl;
->>>>> }
->>>>>
->>>>> void cxl_commit_start_endpoint(void __iomem *hdm,
->>>>>                                 const struct cxl_endpoint_decoder_settings *s)
->>>>> {
->>>>>          int id = s->config.id;
->>>>>          u32 ctrl;
->>>>>
->>>>>          lockdep_assert_held(&cxl_rwsem.dpa);
->>>>>          ctrl = cxl_hdm_write_range(hdm, &s->config);
->>>>>          writel(upper_32_bits(s->skip), hdm + CXL_HDM_DECODER0_SKIP_HIGH(id));
->>>>>          writel(lower_32_bits(s->skip), hdm + CXL_HDM_DECODER0_SKIP_LOW(id));
->>>>>          writel(ctrl, hdm + CXL_HDM_DECODER0_CTRL_OFFSET(id));
->>>>> }
->>>>>
->>>>> void cxl_commit_start_switch(void __iomem *hdm,
->>>>>                               const struct cxl_decoder_config *config,
->>>>>                               u64 targets)
->>>>> {
->>>>>          int id = config->id;
->>>>>          u32 ctrl;
->>>>>
->>>>>          lockdep_assert_held(&cxl_rwsem.dpa);
->>>>>          ctrl = cxl_hdm_write_range(hdm, config);
->>>>>          writel(upper_32_bits(targets), hdm + CXL_HDM_DECODER0_TL_HIGH(id));
->>>>>          writel(lower_32_bits(targets), hdm + CXL_HDM_DECODER0_TL_LOW(id));
->>>>>          writel(ctrl, hdm + CXL_HDM_DECODER0_CTRL_OFFSET(id));
->>>>> }
->>>>>
->>>>> /* hdm.c: cxl_decoder_commit() */
->>>>> scoped_guard(rwsem_read, &cxl_rwsem.dpa) {
->>>>>          if (is_switch_decoder(&cxld->dev)) {
->>>>>                  struct cxl_switch_decoder *cxlsd =
->>>>>                          to_cxl_switch_decoder(&cxld->dev);
->>>>>                  u64 targets;
->>>>>
->>>>>                  cxlsd_set_targets(cxlsd, &targets);
->>>>>                  cxl_commit_start_switch(hdm, &cxld->config, targets);
->>>>>          } else {
->>>>>                  struct cxl_endpoint_decoder *cxled =
->>>>>                          to_cxl_endpoint_decoder(&cxld->dev);
->>>>>                  struct cxl_endpoint_decoder_settings s = {
->>>>>                          .config = cxld->config,
->>>>>                          .skip = cxled->skip,
->>>>>                  };
->>>>>
->>>>>                  cxl_commit_start_endpoint(hdm, &s);
->>>>>          }
->>>>> }
->>>> Hi Dave,
->>>>
->>>>
->>>> I think cxl_decoder_snapshot() also needs this struct cxl_decoder_settings to store current value of switch/endpoint decoder registers.
->>>>
->>>> But your implementation only defines a struct cxl_endpoint_decoder_settings, I suppose that we also need a struct cxl_switch_decoder_settings?
->>>>
->>>>
->>>> How about using a union in struct cxl_decoder_settings, I think it can resolve the "Single variable with multiple meanings" issue you mentioned. like that
->>>>
->>>> struct cxl_decoder_settings {
->>>>
->>>>       struct cxl_decoder_config config;
->>>>
->>>>       union {
->>>>
->>>>           u64 targets;    // used for switch decoders
->>>>
->>>>           u64 skips;        // used for endpoint decoders
->>>>
->>>>       };
->>>>
->>>> };
->>>>
->>> That was my first thought, but it does not look like the switch decoders need it at the moment. I had LLM do a refactor and this [1] is what it looks like. See if you agree.
->>>
->>> [1]: https://git.kernel.org/pub/scm/linux/kernel/git/djiang/linux.git/log/?h=cxl-type2-reset
->>>
->>> DJ
->> That looks good to me, I was thinking that the struct cxl_decoder_settings was also needed to cache HDM decoders registers of switch USPs during PCI enumeration, but I realize that this patchset is only for type2 device reset support, not need to consider switch ports reset.
+On 10/9/26 4:28 PM, Fernando Fernandez Mancera wrote:
+> On 9/26/26 10:45 PM, Palla Raghunath wrote:
+>> synproxy_tg6() passes par->thoff to nf_ip6_checksum() before it has
+>> checked that a TCP header is actually present at that offset.
 >>
->> Seems like if a switch USP reset will destroy the HDM routing in type2 device under switch case, if we want to support it, we will need another patchset to cache decoders registers on switch USP?
-> You are correct. I guess we cross that bridge when we get there?
-
-Yes, I agree.
-
-
-Ming
-
->
-> DJ
->
+>> par->thoff comes from ipv6_find_hdr(), called by ip6_packet_match()
+>> with target -1. ipv6_find_hdr() only checks that each extension header's
+>> first two bytes are in the skb. It then adds that header's declared
+>> length to the offset and stops at the first non-extension header, so it
+>> can return an offset past the end of the packet. With
+>> CHECKSUM_NONE, nf_ip6_checksum() calls skb_checksum(skb, 0, thoff, 0).
+>> When thoff is larger than skb->len, the BUG_ON(len) in skb_checksum()
+>> fires:
 >>
->> Ming
+>>    kernel BUG at net/core/skbuff.c:3606!
+>>    RIP: 0010:skb_checksum+0x8b2/0x8c0
+>>    Call Trace:
+>>     nf_ip6_checksum+0x1bd/0x320 net/netfilter/utils.c:89
+>>     synproxy_tg6+0x1a4/0x6e0 net/ipv6/netfilter/ip6t_SYNPROXY.c:21
+>>     ip6t_do_table+0xd37/0x15b0 net/ipv6/netfilter/ip6_tables.c:366
+>>     ...
 >>
->>>> Ming
->>>>
->>>>>> +};
->>>>>> +
->>>>>>     /*
->>>>>>      * Using struct_group() allows for per register-block-type helper routines,
->>>>>>      * without requiring block-type agnostic code to include the prefix.
+>> In the syzbot reproducer, a 60-byte packet carries an AH header, then two
+>> hop-by-hop headers. The last hop-by-hop header has nexthdr TCP and
+>> hdrlen 167, so thoff is 1400.
+>>
+>> Fetch the TCP header with skb_header_pointer() first, as
+>> nf_reject_ip6_tcphdr_get() already does. This drops packets that do not
+>> contain a full TCP header at thoff before the checksum is computed.
+>>
+>> Fixes: 4ad362282cb4 ("netfilter: add IPv6 SYNPROXY target")
+>> Reported-by: syzbot+5a8667f002726fc59f88@syzkaller.appspotmail.com
+>> Closes: https://syzkaller.appspot.com/bug?extid=5a8667f002726fc59f88
+>> Signed-off-by: Palla Raghunath <raghunathpalla.0209@gmail.com>
+>> ---
+> 
+> Reviewed-by: Fernando Fernandez Mancera <fmancera@suse.de>
+> 
+> The nftables synproxy eval path is also affected but I think it would be 
+> better to keep it in a separate patch in order to facilitate 
+> backporting. The issue were introduced at different times and nftables 
+> synproxy expression is "recent" compared to the iptables target.
+> 
+> I am sending a patch for the nftables expression and will CC you in case 
+> you can test it too.
+> 
+> Thanks!
+
+Actually, I thought twice about this. Could you please include the 
+following diff in a v2? In addition, I think the comment is a bit 
+redundant/not necessary. Could you just strip it?
+
+Please use also the following fixes tag too.
+
+Fixes: a311a8981727 ("netfilter: nft_synproxy: use the family-aware 
+checksum helper")
+
+Thanks,
+Fernando.
+
+diff --git a/net/netfilter/nft_synproxy.c b/net/netfilter/nft_synproxy.c
+index 554a96a000f4..6b290a89886d 100644
+--- a/net/netfilter/nft_synproxy.c
++++ b/net/netfilter/nft_synproxy.c
+@@ -118,12 +118,6 @@ static void nft_synproxy_do_eval(const struct 
+nft_synproxy *priv,
+  		return;
+  	}
+
+-	if (nf_checksum(skb, nft_hook(pkt), thoff, IPPROTO_TCP,
+-			nft_pf(pkt))) {
+-		regs->verdict.code = NF_DROP;
+-		return;
+-	}
+-
+  	tcp = skb_header_pointer(skb, thoff,
+  				 sizeof(struct tcphdr),
+  				 &_tcph);
+@@ -132,6 +126,12 @@ static void nft_synproxy_do_eval(const struct 
+nft_synproxy *priv,
+  		return;
+  	}
+
++	if (nf_checksum(skb, nft_hook(pkt), thoff, IPPROTO_TCP,
++			nft_pf(pkt))) {
++		regs->verdict.code = NF_DROP;
++		return;
++	}
++
+  	if (!synproxy_parse_options(skb, thoff, tcp, &opts)) {
+  		regs->verdict.code = NF_DROP;
+  		return;
+
+
+> 
+>>   net/ipv6/netfilter/ip6t_SYNPROXY.c | 9 ++++++---
+>>   1 file changed, 6 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/net/ipv6/netfilter/ip6t_SYNPROXY.c b/net/ipv6/netfilter/ 
+>> ip6t_SYNPROXY.c
+>> index d51d0c3e5fe9..04db1f82420b 100644
+>> --- a/net/ipv6/netfilter/ip6t_SYNPROXY.c
+>> +++ b/net/ipv6/netfilter/ip6t_SYNPROXY.c
+>> @@ -18,13 +18,16 @@ synproxy_tg6(struct sk_buff *skb, const struct 
+>> xt_action_param *par)
+>>       struct synproxy_options opts = {};
+>>       struct tcphdr *th, _th;
+>> -    if (nf_ip6_checksum(skb, xt_hooknum(par), par->thoff, IPPROTO_TCP))
+>> -        return NF_DROP;
+>> -
+>> +    /* par->thoff may point past the end of the packet; make sure a
+>> +     * full TCP header is present before checksumming up to it.
+>> +     */
+>>       th = skb_header_pointer(skb, par->thoff, sizeof(_th), &_th);
+>>       if (th == NULL)
+>>           return NF_DROP;
+>> +    if (nf_ip6_checksum(skb, xt_hooknum(par), par->thoff, IPPROTO_TCP))
+>> +        return NF_DROP;
+>> +
+>>       if (!synproxy_parse_options(skb, par->thoff, th, &opts))
+>>           return NF_DROP;
+> 
+
