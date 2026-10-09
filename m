@@ -1,182 +1,193 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C9B04F3EB4;
-	Fri,  9 Oct 2026 18:06:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C5724F3EBF
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 18:06:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791569162; cv=none; b=UU0I+qPGoUXuensDXzHIcqfgydrVODz98CuPf9/FSPsrGONWB2Ju6RNpbVn7X49ycNjFil8LkW/a3VVQhcVTY88kSExZJksBwD1weYACuj3aqaEMPQaiJCmlU0TJttiQEo11CNr1/znCPcOA/Q+XP671NRsMhnFfWkAWhlrWleg=
+	t=1791569164; cv=none; b=qhwJfCCH2HGubmTIDPlTmilPfYQbcZYNu3fkfWEPWwsLsqeMPN9Vtgi/ULweYIKFD8OkgcRW0I7GQVLaK860qfNT8oN3uJmuCnkrhH6buOQglblRiGnaObuFuH9I/ejKsZaq8wWqgXwZGB7685iCx0gsZBqo2k/H/fGvvsvFM7M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791569162; c=relaxed/simple;
-	bh=c0okmVqdd7ip0u4PvV3oDEa2CETwat0gzMSLDhHRBRg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=b670iGGjQfEoVH3k6QzqktqxQdl4UMIhsaX+c40O+JIcuH8dqoEzPbiA/sG4svGgIzP8O5lqhiWOq8Od4knCzRS3YB3O0XKhtI3tjYAIUevQJYk/qHCdgHnnygu7NyOLDDV6MATw++GWRvu7fcADhFtQdLaGSrOdc5BrQ6SLnRE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EhnsIePt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791569164; c=relaxed/simple;
+	bh=Lc316qFGUW8/HqzEomGqw4fI97ObQskjDRWcXxlWakg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=RWRUe3PRpI7rLrfscKXwe0R334MAOeyc+cP3vVQtCbeHjPXng/oiWrAwQWzdC785vVanPz3GfzDJvrdM9CB6LCUAQBvi6DZsrONhoxmgrwyKG13Ex8k8ZuOLVQOAdfeYlVEhzLOkb3KurdfbMzLRdHG/lnjlLRWSg3EiW8NiN2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=H1Pw1dhV; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EhnsIePt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A5FB1F00898;
-	Fri,  9 Oct 2026 18:05:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791569160;
-	bh=rm+C7Ys434hUmEU+Xa4zb6DLDJf/YI3CeF+AWIPMT3w=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=EhnsIePt+Hx9RwCLEubnbCyplaU59qTlVhfTxop7P+3uhk2Ily/naSbIUssmH0Cca
-	 7DmV8MPocOQNZC7aB7K19/9JdYrzIp8ajWDDWbMznyo2q7eMiZ0hcQwSgqeZwbTYgZ
-	 HrOdA3n2KzoHzF9YOdfMzvnO1d/+vHmCsDvm2suwU1/ooiOjuSuWR1oVwGsPSuPNo1
-	 47Jh/vb3+DZ5BX672L2nR4MfSAIgsqKVFxcowACYf8gzuuYiRVwrE4VOi8PIKg2Fch
-	 3pe7hAuK3FbQofrwD1HE3M0/FoaKD4+y7bcPegA4ufqeFRV2GFPqQMiNv4Zs4IySRc
-	 9pIYc7rhGtiow==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Fri, 09 Oct 2026 19:03:58 +0100
-Subject: [PATCH v5 04/38] mm/vma: ensure mmap_prepare doesn't set actions
- on a mergeable vma
+	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="H1Pw1dhV"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a1923f15afso1112265e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 11:06:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=lex.la; s=google; t=1791569160; x=1792173960; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+uN4SzsXGoz881YVEUDcFr/xufMBW/3mKMr+K+qX04E=;
+        b=H1Pw1dhVUsTWN8sVf6CrdwtMf7vO1vypYVzRkh0sM5QnA7Sw6HkigNCmvOJLgqYvIT
+         e1iMu+S7D7krP3XP3P9xwThQrFMBQn/WCry1gB8A9n6UqryheAhGpAoEQidGHpIOHYzZ
+         qccTu4L2mMsdX2kj/9YHem7MXk5Hh29pg7V0gk6QpTvrDLCYU+GqqnhNMR8q0bh9Vysh
+         oP/kJVOh3b/lu3lsmyuBVXYZ+hB2Yc7+ZKArMOeOJV8A4DKnFSKuQPBGDtsCMNJi79pO
+         NoLRGk+fYRrMputt2Jem43Q2yH2vDl6z4V4X57OWizqZ1+HvU6R3YDiVBLG9kpsUopid
+         HGvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791569160; x=1792173960;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+uN4SzsXGoz881YVEUDcFr/xufMBW/3mKMr+K+qX04E=;
+        b=LmSQMXuxWcipTODcbMqX7/BFvmztWWfAvasmJAwWgxYILkwwMk6eQLYUrfcEpJy7QC
+         i9oZn/nu+RqiMdRumcnm59e0LwOeEe3TUbvgqEvkli2CvYNKNKgzF41dMbOPlFRxW+zP
+         RdAbHIvIizo1AMC3Gd2y7Yef4mRwcOkKooXisDjHR3oNjeKc/QTMOdzzuuBKlNnfHTJB
+         Tv9ANS1tOkrrMctGXWaFKFiOOxrLDb9NFvURf9LlnF+Fe5lwrCorbtR7x8xgHL2il/k6
+         netG9IDXeIxINf8fnQGVY/UGbH3Cx1NZN4H6Lve8lfV3WsUFzvyUdhEpben6xAQfAtyx
+         Fyww==
+X-Forwarded-Encrypted: i=1; AKwUvBxVy/H42RrclQF3KgQClyZ9eNvs2hUK+J7CVlZ+IKuf8apHzz9SYhXaJZTX309yi1CCcwpRjR0nYNVo0gI=@vger.kernel.org
+X-Gm-Message-State: AFuF++modrhWFeZfWgj+9JiO5XbB9M2D2sUChoCMEFpdlvmz4tVbNGYo
+	3HUxD4j8UmLqZHdyEVVHoJqhuPkmpv64QXRNasmtiyaxfXJhtGDWlarzYkjmGZ22McE=
+X-Gm-Gg: AYBFou27mfcIBZyivHBXJ56GdIoPCPd6BOACxPsqMZVXU9sizFMb8mm8g0/WDdaq4Pv
+	gAIrBJha3GcFNl1I7fW4aCB0It53uQE7rEhvzwVq7VPmPfqDzc8roxrd6ENmv1zJCV1den6pplv
+	6uiYwmNDwfht/9mIfudzjUF31J079a3C5lmLv5w5y5Y29TgG0x/5zA5LZUxu5jNhFl+bgNXXdYN
+	QJdVrhDN0xnoZGFUSXTH5YMPGzdeGFiTFBBbWc3UUsbWygW+TUVeT1mp0mQLiFYTFjYN1lOaDKC
+	tY85EezgvQnfY1VvJTMs6rJsiArVqSdUEvmirCHA/8x2ZFtFKZYto2m6dWovqjWUFMIkcT6qCwi
+	ZwwU1nrNWMVwMgcHE7yCgz4CYSNkApN6U84tgyspRl7kCl4AIY59cj9XbhmUz760kqk4eTzgaTF
+	SpkeuNx4VdHD27jXbeVEPVOl1yluDY1UaexauQ2zRMqP4V/D2oTg==
+X-Received: by 2002:a05:600c:6297:b0:4a0:62d:4424 with SMTP id 5b1f17b1804b1-4a18e4a1756mr50175605e9.8.1791569160480;
+        Fri, 09 Oct 2026 11:06:00 -0700 (PDT)
+Received: from remote-01 ([84.17.55.225])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf21276sm118184915e9.8.2026.10.09.11.05.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 11:06:00 -0700 (PDT)
+From: Aleksei Sviridkin <f@lex.la>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	netdev@vger.kernel.org
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org,
+	Florian Fainelli <f.fainelli@gmail.com>,
+	Woojung Huh <woojung.huh@microchip.com>,
+	Vladimir Oltean <vladimir.oltean@nxp.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>
+Subject: [PATCH net-next v5 2/4] net: phy: put the driver module the attach took
+Date: Fri,  9 Oct 2026 21:05:48 +0300
+Message-ID: <20261009180551.1234107-3-f@lex.la>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261009180551.1234107-1-f@lex.la>
+References: <20261009180551.1234107-1-f@lex.la>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-4-923b70125b1e@kernel.org>
-References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
-In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
- Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>, 
- John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
- Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
- Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1712; i=ljs@kernel.org;
- h=from:subject:message-id; bh=c0okmVqdd7ip0u4PvV3oDEa2CETwat0gzMSLDhHRBRg=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJO6sycxlPQcn4Vf+LXDYs6c9Zlr3Bv5cyMVdz9VPZWW
- nP8g9BVHaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZjInueMDKs4LjZzLwhba3dX
- +0f96XXROeELb9ZoKhzljgxuqS/YJcHwV+BPea98cvJ6vQg3Fc4li17wcyybbc+XfJz1QPga3ql
- cXAA=
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Transfer-Encoding: 8bit
 
-When a user requests an mmap_action be performed in mmap_prepare, this
-involves populating the VMA range with data.
+phy_attach_direct() pins the PHY driver module through d->driver, and
+phy_detach() releases it by reading d->driver again. Unbinding the PHY
+driver while the PHY is attached clears that pointer, so a detach that
+runs while the driver is still unbound skips the put and the module can
+no longer be unloaded; if a different driver binds in between, the put
+lands on a module that was never pinned. The NULL test added by
+commit c2b727df7caa ("net: phy: Avoid NPD upon phy_detach() when driver
+is unbound") avoids the oops but skips the put.
 
-However, if the VMA is mergeable, it might then mistakenly be merged with
-another VMA without having populated the range.
+Found by reading phy_detach() while chasing a PHY driver unbind race on
+a Keenetic KN-1012 (MT7981, air_en8811h built as a module). The leak
+itself was not observed there: unbinding air_en8811h under the attached
+lan4 DSA port and then unbinding the switch faults earlier on that
+board, in phy_free_interrupt() or under phy_stop(), before
+phy_detach() gets to the put.
 
-Every mmap action currently available sets VMA flags such that the VMA
-cannot be merged.
+Remember which module was pinned and release that one.
 
-However, to ensure that no future mmap action falls foul of this, assert
-that this is the case upon mmap_prepare validation.
-
-Reviewed-by: Suren Baghdasaryan <surenb@google.com>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Fixes: cafe8df8b9bc ("net: phy: Fix lack of reference count on PHY driver")
+Assisted-by: LLM
+Signed-off-by: Aleksei Sviridkin <f@lex.la>
 ---
- mm/vma.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+Changes in v5:
+- The driver module is read once, so the module pinned and the module
+  recorded cannot differ.
+- Rebased on net-next: the failed generic bind unwind keeps the
+  interrupt restore it got there.
+- On its own, this patch can still leak a reference when one consumer
+  attaches while another detaches the same PHY. Patch 3 closes that.
 
-diff --git a/mm/vma.c b/mm/vma.c
-index cedc24dcdf3c..c067d6a4c826 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -2815,6 +2815,18 @@ static int mmap_validate(unsigned long orig_start, unsigned long orig_end,
- int mmap_prepare_validate(const struct vm_area_desc *orig_desc,
- 			  const struct vm_area_desc *desc)
- {
-+	/*
-+	 * It is not valid to execute mmap actions for VMAs which can be merged,
-+	 * as any such merge would leave portions of the mapping incorrectly
-+	 * unmapped.
-+	 *
-+	 * This is checked after mmap_action_prepare(), as it may update the VMA
-+	 * flags and therefore whether the VMA can be merged.
-+	 */
-+	if (vma_flags_can_merge(&desc->vma_flags) &&
-+	    WARN_ON_ONCE(desc->action.type != MMAP_NOTHING))
-+		return -EINVAL;
-+
- 	return mmap_validate(orig_desc->start, orig_desc->end,
- 			     desc->start, desc->end,
- 			     &orig_desc->vma_flags, &desc->vma_flags);
+ drivers/net/phy/phy_device.c | 12 ++++++++----
+ include/linux/phy.h          |  2 ++
+ 2 files changed, 10 insertions(+), 4 deletions(-)
 
+diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
+index 6bc9cdb7fa69..68691c487eee 100644
+--- a/drivers/net/phy/phy_device.c
++++ b/drivers/net/phy/phy_device.c
+@@ -1728,8 +1728,8 @@ static void phy_detach_internal(struct phy_device *phydev, bool notify_bus)
+ 	phydev->phy_link_change = NULL;
+ 	phydev->phylink = NULL;
+ 
+-	if (phydev->mdio.dev.driver)
+-		module_put(phydev->mdio.dev.driver->owner);
++	module_put(phydev->drv_owner);
++	phydev->drv_owner = NULL;
+ 
+ 	/* If the device had no specific driver before (i.e. - it
+ 	 * was using the generic driver), we unbind the device
+@@ -1794,6 +1794,7 @@ int phy_attach_direct(struct net_device *dev, struct phy_device *phydev,
+ 	struct mii_bus *bus = phydev->mdio.bus;
+ 	struct device *d = &phydev->mdio.dev;
+ 	struct module *ndev_owner = NULL;
++	struct module *drv_owner;
+ 	int irq = phydev->irq;
+ 	int err;
+ 
+@@ -1830,11 +1831,13 @@ int phy_attach_direct(struct net_device *dev, struct phy_device *phydev,
+ 		phydev->is_genphy_driven = 1;
+ 	}
+ 
+-	if (!try_module_get(d->driver->owner)) {
++	drv_owner = d->driver->owner;
++	if (!try_module_get(drv_owner)) {
+ 		phydev_err(phydev, "failed to get the device driver module\n");
+ 		err = -EIO;
+ 		goto error_put_device;
+ 	}
++	phydev->drv_owner = drv_owner;
+ 
+ 	if (phydev->is_genphy_driven) {
+ 		err = d->driver->probe(d);
+@@ -1942,7 +1945,8 @@ int phy_attach_direct(struct net_device *dev, struct phy_device *phydev,
+ 	return err;
+ 
+ error_module_put:
+-	module_put(d->driver->owner);
++	module_put(phydev->drv_owner);
++	phydev->drv_owner = NULL;
+ 	phydev->irq = irq;
+ 	phydev->is_genphy_driven = 0;
+ 	d->driver = NULL;
+diff --git a/include/linux/phy.h b/include/linux/phy.h
+index 7c5098a0dd6c..a5a419bc400e 100644
+--- a/include/linux/phy.h
++++ b/include/linux/phy.h
+@@ -578,6 +578,7 @@ struct phy_oatc14_sqi_capability {
+  *
+  * @mdio: MDIO bus this PHY is on
+  * @drv: Pointer to the driver for this PHY instance
++ * @drv_owner: Driver module phy_attach_direct() took a reference on
+  * @devlink: Create a link between phy dev and mac dev, if the external phy
+  *           used by current mac interface is managed by another mac interface.
+  * @phyindex: Unique id across the phy's parent tree of phys to address the PHY
+@@ -689,6 +690,7 @@ struct phy_device {
+ 	/* Information about the PHY type */
+ 	/* And management functions */
+ 	const struct phy_driver *drv;
++	struct module *drv_owner;
+ 
+ 	struct device_link *devlink;
+ 
 -- 
-2.55.0
+2.53.0
 
