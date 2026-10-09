@@ -1,232 +1,147 @@
-Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE7EF1A9B46
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 21:31:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B86FE36B911
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 21:32:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791581514; cv=none; b=Dg+we4bY9X4rfAnznXiZyr+eFgXHwLKJIYh/RLMTBQa4k4znMnh4OcuscitYI4MtUhHgUt2IvBqgq3jSbLep/MVEKpO3gfDKurwLo6ucgT8gRm5XeU+1wxoR9gPKhaUOs2eOJwy+zFL06/WuT0qFiyktDQaPv9IXfUtijSCt9Gw=
+	t=1791581523; cv=none; b=fFNb/ezYhAD+IZqbcq91J5HphOX/d2AeBJSLhXWRti9naRcfS+IH2h5ItLOjd2vvkAJtCNoCFC4sQzxMcLWUdPKbX2BdMgdwWX9b9vUAzyQwVtFdmcZoXnjy5vlJtV43XGW7uWjI6rsW3V2ukIOTtLAk8jTZuDnAkfoFvJ5f4ac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791581514; c=relaxed/simple;
-	bh=IF6xi800bQg70p/YOaEzX7lIbgZssVLNkfMtxS1VX2w=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uxO12Ex1RiiuTqnr8FSV75Kvzip0E451yl4g1KhOuo8Z9XuTuP7jRogHBDOjg9X+H7ED2uxlz/HqHaruSIxl2Af6NZTKmBzz8fHd0HkTbloj8h1k6qCWevxuJUbabjS7GYi1hqD3uPMmyxd7c/pRwY51HewwrggfiBscIcbL090=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=sqlySgyM; arc=none smtp.client-ip=74.125.224.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	s=arc-20240116; t=1791581523; c=relaxed/simple;
+	bh=U7CHoprC3QQbDmNB8jOMv1v+21yCj4nz+/4HUgBxpEY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=QOYByESei716LTEMJf8o6wQqblyB7h1/z9bXdaLjqlgVJ1TUgGxiKDGuEMDYGF1LbvCYj45TWiLdCcsxguF9bK/Uf3TTPItTUMXafaE7Dtb3f9GrJRhLuIEIkJ4puM2djMaA2N3goBxRPz69jjP8s3+DSMBYKcLKWtHbQ0K8cYc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Wn3mDYdi; arc=none smtp.client-ip=209.85.210.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="sqlySgyM"
-Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-6740e7ae219so114408d50.1
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 14:31:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Wn3mDYdi"
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-85377c8bc96so62243b3a.3
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 14:32:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1791581512; x=1792186312; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fonBvjZO/D/GM9L+MsZkX1d2b3mKIY2/WZMtCJsJfEU=;
-        b=sqlySgyMcy2MXgoeRZIZeJi+TKtp0IvBohr47W1UbKFK1m/+d3a8+W8U+WkVW5mR1D
-         ZXSjNh2XjpjvNqHmmUudAXeTEXV+L9rt7TPuAXjCgtjHtWt61OZem3l+hSjOuW6phUHY
-         IgKqz+BprwHOJPMfXjK/WzChB2G9oN+Ujbrn6dj8dRa5Rt3e/DdauzM47dheKQDWknb6
-         Z0DGomy1BMeJl6jISV0+/TidRJAIV2EmgCaSMAeBJBh0R4yB0c08p1E5HkIBq0ohuJKU
-         sTcvW0eUFaWgLc9X5zPQIedFXb8ZPXFtqVevw9bt7yjfBmbwlNFi1wbRCR2aFz2ruIe1
-         MTNQ==
+        d=gmail.com; s=20251104; t=1791581520; x=1792186320; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vUayDUdYs1sE6mgk+Qs00q/sRaaDnD8utq+2SxLgtEM=;
+        b=Wn3mDYdilqhLRacIPOx0sdnNxs3Goytu+XEH5kIHayYkx+s2rZnmVZPqsY2SjcQpaU
+         zMyPWfn7xicOOD5Tihe3nnuMVuvrU/exqnbBOHK7f9B8tkier+VuxuSyQf3K0onHDEla
+         fRIAtCucXPT1pUFrB2VKPn3U7rrL5FwWFkDcJ4ujAii+yKdpyu5EYNJG+ti/MX+DIbIj
+         AYvNN92rADyzTthBIgIfZuLFfhR1jcAspZoMZxuzqCIPobO5UmnWSmH+LDAETlFYUoVg
+         qdQlZd/q0XATj+vUhS2y1ldp1DJolJU3bQrm8cq3BVt4Xu+CxaUmwoFdngYm3FfNgeOI
+         uxmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791581512; x=1792186312;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fonBvjZO/D/GM9L+MsZkX1d2b3mKIY2/WZMtCJsJfEU=;
-        b=Cjc/jHUlPVaVTBIHoRS+EqO5OI2lUD4p09LypXd+3HcS7c1nFDJTA9SvxV5wBbsqBu
-         odIbwD+9HAFCKh6iDX/br+d8uJnEVF7GrJ0hBIz3DeMdQdPV0BLc337KxlcGX8pnLDx3
-         Y34qSPQtu3TN30N65AgP+g2rsQlQzfoef03Scs7RCCz034jk8BNj0+g2U1taAxdv6bf8
-         9y9iorPoD11FZfi/RXHOcv7mG2HVjseyy7FK3MmlFqfxktkPSPy0o1N5akCCHgrHH/p9
-         gDIsRHoCBSjTmcKZjbRaYbDJw2iOHEBRUzhfgkjzgzB0zaZ+p+uCcnu+psQBHrdHwVfu
-         3DXA==
-X-Forwarded-Encrypted: i=1; AKwUvBwhLXoNWke3jlwfnbRoifLl00R8k5F7pC0uxWxeLKdZ6XtLvYAn68EULyOLFFeRtWLklRSCkaRw8NaWJc8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIGs9nJNn2TSZE1kispXbK6q4QYrq/5PNK0+X9GM5cmthrTi7ba
-	V7gyNQmIT9i/9inuAtxfpM7SbGJUTjmYqa3ZwBUrw7M33uTmBxZKIZ3jj4gm9OdH7ZV/f3rONhG
-	XL8OdnB0=
-X-Gm-Gg: AYBFou1QJNLbvQ8BJUruj0H42qx7Vm86uCgmAuMUQUZCkYsGVHbYsWyFBnjkZatYedX
-	0MhWQ9u9wRSZ5vw/0PN7EJ9QhSXeMAzslyNK/7F/MultdorbjqAVNQCom95l2eIUScIhyiM/end
-	FGvm7a7xgKHvc/0yzezwH3Y1yql0lJBFNoe/q6/Kb16QcF/ZOSoTyhcFbshzbGqY88uK+YK46sj
-	aHnErxPakSyMEX9BbXLX33yCzrf6yRdjVtxZK6DdhgebSaNE6RDfxtCK1KM+PSzHPdpNyd/3uur
-	dLr2oJK203fcyzBMqD5HUb3B5QkHxC4u1bJt4lQCmV/ZehDyJtxBtrjoduFLBqTw6TKrbFaisNs
-	HvZxSP6zPscdESA2CirklIPdiTe7OWtBT/cUIXLzn73OrvSapx4Fd5JN1COuxLme2TwpumCvF0/
-	WuCVtEA/cGC6gy47aBRoO/4IBGvM1qlkGgrnRHC1kQzzM6yZXd1oRRclZvZ/MN5BvQIdb1r5jWt
-	DPVCbKbdOIEbLONacxc0QVXGWjQMSof8g0xNq1DGikU9J8Sl80rmIBfz6IM1RddJ8xpTnbmu8Wd
-	SCoMDstTAJp1u8m3iw==
-X-Received: by 2002:a05:690e:144e:b0:677:bb4d:9419 with SMTP id 956f58d0204a3-679362b7b87mr1015362d50.130.1791581511726;
-        Fri, 09 Oct 2026 14:31:51 -0700 (PDT)
-Received: from pop-os.attlocal.net ([2600:1700:6476:1430::48])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b07f1b7483sm12296467b3.11.2026.10.09.14.31.46
+        d=1e100.net; s=20260707; t=1791581520; x=1792186320;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vUayDUdYs1sE6mgk+Qs00q/sRaaDnD8utq+2SxLgtEM=;
+        b=xFJ+Iy+y+7IMYP82TUIbbxnZ/7Jocrv4siH1lPSEkzJMG7Vne/h3rBu3REpRH2ri+G
+         Cd8KHc6IQPzgByDdSkh7BypSyh6GXgJ9zKDjuP6O3Bk/iPTMCgifbpJp0WRaFcc/Gj66
+         4ZAkgCe2hcJGUH0FJNw/+60OyAYo7DI/QcfOXGNBi8biCSdv9lZO5HYN7Wxm/y9f4Izq
+         fhoGRe/W/NzReZ4jBjVxptZMuNl0v5q8FLy6yl27DN/KjdXmi9yO+FL/3gxRTzHhI5vE
+         HvjpVX/Ppba91ZjDKQiSFj25EVn+fMeJqT3CYQs3f6/jSxoAASwbj6LORJzYIa+7qK5U
+         GmEA==
+X-Gm-Message-State: AFq9FYIayILrKyESVscllYKu0W+9QtrR6+LgdCgWYH3dVE7yCxlWyEAy
+	YgPgNKbtJ5wA7jOWTXdYz+2RTwRrimgXF0BgXSlAwDDcMJBPgp2wOE8dCIdGqA6g
+X-Gm-Gg: AYBFou3krfkniIoLMq6rX6efXYaegUoN/d+7CtZmKs//AjkNIMRADbDi5aeJLNCE9LZ
+	Nzsf+JLIiWyC6dpKZTcksx/7dTNib7Q8Ro7N4Nz3yWKCsg+1dFS24PKpJJV4/M2jcIDAwKoCwKr
+	2bNn8/gPb/GU7vTo1P4TRCGdwfTKYIGV/dywKVkuvi1ORw8oqXfMfB7dTcGWRN5w/RCQNBwkp8W
+	DeA/XgfczPmhOnKWiwFzDcj6AVeAkBb0QRA31RhseF9g6hUwDrqWKz29fy1aZNReVKFWESsJXGG
+	oXiDBjSIB+Gt1w26zkPmOopmOSUBLjijAsg1sFgSQNMRvR9j85wbJAv3rJNpjXtkadHcyKywGow
+	poPTpjJH9rKCbZoTp1vEanU0H235l+7baRkD4E7j7LznkjnpLk0yOH01E4Xv6D7PCXrqmW2QXyH
+	DNZaEKh8pUH0MGBsMCkwK80AT6sGK+pKNH4I7GnpBdIzAYNSOim6cWHKbYK5Vw+JMgbUZ3P3sOA
+	nwghauqRLB6+oH89in27W/81peHw/y4c4oZadOD0JLofK1mIFlq8EZLCToaL8x9eaTnqAzZ0wwN
+	XAhra5vLSofXT8NxAbhu32TxbReWsREnZnZzyPw4mgxIMBMR0AJuHN7S/8U=
+X-Received: by 2002:a05:6a00:228d:b0:892:1396:6a85 with SMTP id d2e1a72fcca58-897c79ddc12mr2742507b3a.47.1791581519858;
+        Fri, 09 Oct 2026 14:31:59 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e34])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c3eca287sm1612478b3a.37.2026.10.09.14.31.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 14:31:48 -0700 (PDT)
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: glaubitz@physik.fu-berlin.de,
-	frank.li@vivo.com
-Cc: linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	vdubeyko@coreweave.com,
-	Viacheslav Dubeyko <slava@dubeyko.com>
-Subject: [PATCH v2 1/3] hfsplus: fix timestamp wrapped issue
-Date: Fri,  9 Oct 2026 14:31:30 -0700
-Message-ID: <20261009213132.997851-2-slava@dubeyko.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261009213132.997851-1-slava@dubeyko.com>
-References: <20261009213132.997851-1-slava@dubeyko.com>
+        Fri, 09 Oct 2026 14:31:58 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-kernel@vger.kernel.org,
+	f.fainelli@gmail.com,
+	Christoph Hellwig <hch@lst.de>,
+	Linus Walleij <linusw@kernel.org>
+Cc: =?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <zajec5@gmail.com>,
+	Paul Burton <paulburton@kernel.org>,
+	linux-wireless@vger.kernel.org (open list:BROADCOM SPECIFIC AMBA DRIVER (BCMA))
+Subject: [PATCH] bcma: use the SoC device for DMA on MIPS
+Date: Fri,  9 Oct 2026 14:31:56 -0700
+Message-ID: <20261009213156.109965-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The xfstests' test-case generic/258 fails to execute
-correctly:
+The MIPS BCM47xx code allocates a struct device for the SoC, sets a
+32-bit DMA mask on it and passes it to bcma in struct bcma_soc. bcma
+never uses it: bus->dev stays NULL for the MIPS SoC host, so cores fall
+back to doing DMA through their own struct device, whose
+coherent_dma_mask is 0. Since
+commit f8c55dc6e828 ("MIPS: use generic dma noncoherent ops for simple noncoherent platforms")
+coherent allocations then fail:
 
-FSTYP -- hfsplus
-PLATFORM -- Linux/x86_64 hfsplus-testing-0001 6.15.0-rc4+ #8 SMP PREEMPT_DYNAMIC Thu May 1 16:43:22 PDT 2025
-MKFS_OPTIONS -- /dev/loop51
-MOUNT_OPTIONS -- /dev/loop51 /mnt/scratch
+  bgmac_bcma bcma0:2: Allocation of TX ring 0x200 failed
+  bgmac_bcma bcma0:2: Unable to alloc memory for DMA
+  bgmac_bcma: probe of bcma0:2 failed with error -12
 
-generic/258 [failed, exit status 1]- output mismatch (see xfstests-dev/results//generic/258.out.bad)
+Set bus->dev from the SoC device and do DMA through it, as the ARM SoC
+host already does. Every SoC host now has a bus device, so drop the
+fallback that pointed a core's dma_mask at its coherent_dma_mask.
 
-The main reason of the issue is the logic:
+This addresses the review of the earlier postings: the cores' DMA masks
+are no longer touched at all.
 
-cpu_to_be32(lower_32_bits(ut) + HFSPLUS_UTC_OFFSET)
+Tested on an ASUS RT-N16 (BCM4718): bgmac probes and passes traffic.
 
-At first, we take the lower 32 bits of the value and, then,
-we add the time offset. However, if we have negative value
-(timestamp before January 1, 1970), then we make completely
-wrong calculation. The reverse conversion has the same issue
-because it treats any on-disk timestamp under HFSPLUS_UTC_OFFSET
-(January 1, 1970) as a time between 2040 and 2106.
-
-This patch corrects the logic of __hfsp_mt2ut() and
-__hfsp_ut2mt(). Now, the on-disk timestamp is interpreted
-as unsigned number of seconds since January 1, 1904. As a result,
-the supported time range is from January 1, 1904 till
-February 6, 2040.
-
-The HFS_UTC_OFFSET constant has been moved into
-include/linux/hfs_common.h and HFSPLUS_UTC_OFFSET has been
-removed. The HFS_MIN_TIMESTAMP_SECS and HFS_MAX_TIMESTAMP_SECS
-constants have been introduced in include/linux/hfs_common.h.
-The hfsplus_fill_super() logic defines sb->s_time_min,
-sb->s_time_max, and sb->s_time_gran. It means that VFS clamps
-the timestamps that are out of the supported range.
-
-[1] https://github.com/hfs-linux-kernel/hfs-linux-kernel/issues/133
-
-Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
-cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-cc: Yangtao Li <frank.li@vivo.com>
-cc: linux-fsdevel@vger.kernel.org
+Fixes: f8c55dc6e828 ("MIPS: use generic dma noncoherent ops for simple noncoherent platforms")
+Link: https://patchwork.kernel.org/project/linux-wireless/patch/20190121101121.24555-1-zajec5@gmail.com/
+Link: https://lore.kernel.org/linux-mips/20220107041744.2388470-1-f.fainelli@gmail.com/
+Suggested-by: Rafał Miłecki <rafal@milecki.pl>
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- fs/hfs/hfs_fs.h            | 13 -------------
- fs/hfsplus/hfsplus_fs.h    | 17 +++++------------
- fs/hfsplus/super.c         |  4 ++++
- include/linux/hfs_common.h | 13 +++++++++++++
- 4 files changed, 22 insertions(+), 25 deletions(-)
+ drivers/bcma/host_soc.c | 2 ++
+ drivers/bcma/main.c     | 7 +------
+ 2 files changed, 3 insertions(+), 6 deletions(-)
 
-diff --git a/fs/hfs/hfs_fs.h b/fs/hfs/hfs_fs.h
-index e250f87a5e33..659b0ba733d4 100644
---- a/fs/hfs/hfs_fs.h
-+++ b/fs/hfs/hfs_fs.h
-@@ -255,19 +255,6 @@ extern int hfs_mac2asc(struct super_block *sb,
- /* super.c */
- extern void hfs_mark_mdb_dirty(struct super_block *sb);
+diff --git a/drivers/bcma/host_soc.c b/drivers/bcma/host_soc.c
+index 411cfbf53f7b..6150e1588af5 100644
+--- a/drivers/bcma/host_soc.c
++++ b/drivers/bcma/host_soc.c
+@@ -188,6 +188,8 @@ int __init bcma_host_soc_register(struct bcma_soc *soc)
  
--/*
-- * There are two time systems.  Both are based on seconds since
-- * a particular time/date.
-- *	Unix:	signed little-endian since 00:00 GMT, Jan. 1, 1970
-- *	mac:	unsigned big-endian since 00:00 GMT, Jan. 1, 1904
-- *
-- * HFS implementations are highly inconsistent, this one matches the
-- * traditional behavior of 64-bit Linux, giving the most useful
-- * time range between 1970 and 2106, by treating any on-disk timestamp
-- * under HFS_UTC_OFFSET (Jan 1 1970) as a time between 2040 and 2106.
-- */
--#define HFS_UTC_OFFSET 2082844800U
--
- static inline time64_t __hfs_m_to_utime(__be32 mt)
+ int __init bcma_host_soc_init(struct bcma_soc *soc)
  {
- 	time64_t ut = (u32)(be32_to_cpu(mt) - HFS_UTC_OFFSET);
-diff --git a/fs/hfsplus/hfsplus_fs.h b/fs/hfsplus/hfsplus_fs.h
-index 916e6552e3f0..cd51afa22ece 100644
---- a/fs/hfsplus/hfsplus_fs.h
-+++ b/fs/hfsplus/hfsplus_fs.h
-@@ -525,26 +525,19 @@ bool is_hfs_thread_record_type(u16 type)
- 
- int hfsplus_brec_read_cat(struct hfs_find_data *fd, hfsplus_cat_entry *entry);
- 
--/*
-- * time helpers: convert between 1904-base and 1970-base timestamps
-- *
-- * HFS+ implementations are highly inconsistent, this one matches the
-- * traditional behavior of 64-bit Linux, giving the most useful
-- * time range between 1970 and 2106, by treating any on-disk timestamp
-- * under HFSPLUS_UTC_OFFSET (Jan 1 1970) as a time between 2040 and 2106.
-- */
--#define HFSPLUS_UTC_OFFSET 2082844800U
--
- static inline time64_t __hfsp_mt2ut(__be32 mt)
- {
--	time64_t ut = (u32)(be32_to_cpu(mt) - HFSPLUS_UTC_OFFSET);
-+	time64_t ut = (time64_t)be32_to_cpu(mt) - HFS_UTC_OFFSET;
- 
- 	return ut;
++	soc->bus.dev = soc->dev;
++
+ 	return bcma_bus_early_register(&soc->bus);
  }
  
- static inline __be32 __hfsp_ut2mt(time64_t ut)
- {
--	return cpu_to_be32(lower_32_bits(ut) + HFSPLUS_UTC_OFFSET);
-+	ut += HFS_UTC_OFFSET;
-+
-+	return cpu_to_be32(lower_32_bits(ut));
-+
- }
- 
- static inline enum hfsplus_btree_mutex_classes
-diff --git a/fs/hfsplus/super.c b/fs/hfsplus/super.c
-index ff7d6b3336a6..657dfa40bdf3 100644
---- a/fs/hfsplus/super.c
-+++ b/fs/hfsplus/super.c
-@@ -511,6 +511,10 @@ static int hfsplus_fill_super(struct super_block *sb, struct fs_context *fc)
- 	if (!sbi->rsrc_clump_blocks)
- 		sbi->rsrc_clump_blocks = 1;
- 
-+	sb->s_time_gran = NSEC_PER_SEC;
-+	sb->s_time_min = HFS_MIN_TIMESTAMP_SECS;
-+	sb->s_time_max = HFS_MAX_TIMESTAMP_SECS;
-+
- 	err = -EFBIG;
- 	last_fs_block = sbi->total_blocks - 1;
- 	last_fs_page = (last_fs_block << sbi->alloc_blksz_shift) >>
-diff --git a/include/linux/hfs_common.h b/include/linux/hfs_common.h
-index d6a615e74b26..d4e91dea2362 100644
---- a/include/linux/hfs_common.h
-+++ b/include/linux/hfs_common.h
-@@ -667,4 +667,17 @@ typedef union {
- 	struct hfsplus_attr_key attr;
- } __packed hfsplus_btree_key;
- 
-+/*
-+ * There are two time systems.  Both are based on seconds since
-+ * a particular time/date.
-+ *	Unix:	signed little-endian since 00:00 GMT, Jan. 1, 1970
-+ *	mac:	unsigned big-endian since 00:00 GMT, Jan. 1, 1904
-+ */
-+#define HFS_UTC_OFFSET 2082844800U
-+
-+/* January 1, 1904, 00:00:00 UTC */
-+#define HFS_MIN_TIMESTAMP_SECS		-2082844800LL
-+/* February 6, 2040, 06:28:15 UTC */
-+#define HFS_MAX_TIMESTAMP_SECS		2212122495LL
-+
- #endif /* _HFS_COMMON_H_ */
+diff --git a/drivers/bcma/main.c b/drivers/bcma/main.c
+index 72f045e6ed51..3498d5419c19 100644
+--- a/drivers/bcma/main.c
++++ b/drivers/bcma/main.c
+@@ -251,12 +251,7 @@ void bcma_prepare_core(struct bcma_bus *bus, struct bcma_device *core)
+ 		core->irq = bus->host_pci->irq;
+ 		break;
+ 	case BCMA_HOSTTYPE_SOC:
+-		if (IS_ENABLED(CONFIG_OF) && bus->dev) {
+-			core->dma_dev = bus->dev;
+-		} else {
+-			core->dev.dma_mask = &core->dev.coherent_dma_mask;
+-			core->dma_dev = &core->dev;
+-		}
++		core->dma_dev = bus->dev;
+ 		break;
+ 	case BCMA_HOSTTYPE_SDIO:
+ 		break;
 -- 
-2.43.0
+2.56.0
 
