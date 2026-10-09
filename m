@@ -1,522 +1,261 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B31EF37A822;
-	Fri,  9 Oct 2026 18:57:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791572280; cv=none; b=jDXnGHk4jX4YbPoA6GCfB5tkiFGRPgnH5XpFhVHw0w4SopricS2VGeBjfkqCHPAkIFj1o8cmvv3btteo7o/DuEB8Rjd++iy54TvIUUtVbH/pNYm+/oGZl/qEM5zLLiM3xJ5oWEI/JGI7CNiSfh+AiAZCBL+6AvKK/LLWXeYOJfY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791572280; c=relaxed/simple;
-	bh=Ua5EHL6b+gTOqBRYadB8BrVHkYJG9ZhK4okG7rSjkHs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=s0Q0qERwyc6b5R/en7ORb0MyPTBIcTETsyqAcnXbTIf6wbzsM8AJy3V6iwWrhwHY8musbLy/NNzwKyc0WFknwnwXDtokaAOhu2rpohwPyBbh4i9DNM0Xh78jQO5hYA5PXyH0c8XaWD0pLxhCSbSAHnDrnwjoytkx9PiQs0DUyI4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=gbLbLZjp; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011038.outbound.protection.outlook.com [40.107.130.38])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B251396B70;
+	Fri,  9 Oct 2026 18:58:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.38
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791572307; cv=fail; b=EHvosm9NOl7cmtS3+oFIsV5PP9r65PQbZYN+AkmuAAHjdScjiQ4K2T1FouZ1HK11Csj9aUf4wk/W1ZW1Vqd/iVKSRnT558H1lvpiGpoZAcqMnYL+fH2Rkl8mLF2ChO4h8SLUeJaCvgnWMD0IK1imBMtbnqnXdlyvzFD/l3csRqM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791572307; c=relaxed/simple;
+	bh=ywjIpMAtFzNXu7mbIwLEhrEkJVHVJ2/s6z+z0i6/9gs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=oIERBm4Qi8fEjFK/DnB02fLs8MyEqAsp9IbWtuLH0Gt50ItIMA79Lber0ujL1zgRsugNpuTN55AFDKGohO1XRc8GktUCknnYJP6JOJyDmz5SUixbxYN2kOyfZWZWHebpHp/X/clnRVe4HCt/9nzZiOG349nA9jmI5QCqet3/wyM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=apmigrZV; arc=fail smtp.client-ip=40.107.130.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="gbLbLZjp"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9FB1C1D14;
-	Fri,  9 Oct 2026 11:57:51 -0700 (PDT)
-Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D65403F66F;
-	Fri,  9 Oct 2026 11:57:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791572275; bh=Ua5EHL6b+gTOqBRYadB8BrVHkYJG9ZhK4okG7rSjkHs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=gbLbLZjpRFqwozxVNXaVrq3ItXD4LZnc/Fi5Wnx/aryvye/DtUXnbwPiLb/OHO8OZ
-	 yO+BnXbu/fXJWeWysUmHDMkcGbNb9Akl/Z+bBJEGEPfl5FXLzw1NVcYMZZbKzt8TUo
-	 GXmSxtU1b1v9uPrBBEsscz2h6nzKw3pKUmgVjJ4M=
-Message-ID: <2a2a81fc-5402-4f07-aaf2-a0dc853f1bad@arm.com>
-Date: Fri, 9 Oct 2026 19:57:52 +0100
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="apmigrZV"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=F6y9SjnGTfOZ3Sn0C5P+SWXEyuig8YJxekwO2CAQUSyUC3Y/APHhrxPXwD3avH1aTqLk40DFeV/Hk9+ZSqYw/7dqYr/Ze9miyYtA9tTIP7rXIhSIdnmRl8ZJzvAr/2EA30kyS+Tw2Hnc2ZEQ6iezMJfuHJoYVUMkthltoB3L3sTFv1UuHtsOCrK1M29+RndE6eMA0i02Nnutt0U1u0nz0JLP2OFbOTw0ScBX5yk7PadnwP3SJEVUJF0H+8ZV77Tt08R+Kcs1HDY+FjIZowigW3X1AqJFXXNi7ut3vsoS+gGvaomVdi8bNFQK9lXkITwZ27f+3SP8OqHs8gUp7pqHIA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aKSU3Um0rzXT6xTEyC3hHrpcrAGHXqyPehafR5EfjUE=;
+ b=PiGOcxo1SN1JcKqeyNgRTWFdUTBcOE3gNFZKAXXSOiFKXJ7WnZmUs6BXxbomUIUyFZ/m8FRdZeXFkZNhAIvfu+02nrZIlB3DZ0tzkTSlTwSsbIQzBaCmDFGPHUpySLi1SvfmRQidOBbfov6/KJudgvlKyUZUhm8CSTHiHI16P1zkp/IE0ifdBsHnnMfSW124NXwSSkU1q29vBLCk4miFNaQ7E96Hg8zOQgdh+zb6SE6R8NzML696wI9FNvrgbCZli2IHz1lpKPsNkcnH637xFDgpqXLfTEoe4skiITmpS9Tz5JsJ1pOCnN4agL9TpCw08nWiedjtOugwxHSKGIUZuQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aKSU3Um0rzXT6xTEyC3hHrpcrAGHXqyPehafR5EfjUE=;
+ b=apmigrZVR5eQJQpiIHZcksJFTANCNJgXc2VQyhneC/vFVKCR3SgJWCY4bJAMp7CMRPdryiKt2s5UiSFBGF6jeue+XdBFfDA4U16DKlTQQr0z3CO3ZYdDj2SMWWm/UI72jKlsFZv8zZouW3RC6ts1DKpgy6uo36+kpXy/Ii3Rj89JEn5/Q+yPWXqajLriQFNtMkBwZNHliMrKtAe+fZDcg0rgVsvfSkPoxxs2ocLpQrsv8N8YJw4hUeKL1e37MTtIOXItU6cNR/ypqL7XREI5M5M3XhC2Hz2kE7z9s9Gdyl+CEhRf2D+yfLFypQZp6UsVqdl4bN4KslZaGVURig1KcQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by GVXPR04MB9734.eurprd04.prod.outlook.com (2603:10a6:150:112::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Fri, 9 Oct
+ 2026 18:58:19 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
+ 18:58:19 +0000
+Date: Fri, 9 Oct 2026 13:58:14 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Shenwei Wang <shenwei.wang@nxp.com>,
+	Andy Shevchenko <andy.shevchenko@gmail.com>,
+	linux-gpio@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Peng Fan <peng.fan@nxp.com>
+Subject: Re: [PATCH v5 12/13] gpio: mxc: introduce MXC_ICR macros and use
+ field_prep/field_get
+Message-ID: <ask5RqP5FOv2thwb@SMW015318>
+References: <20261010-gpio-mxc-cleanup-v5-0-1e59e6ddfa00@nxp.com>
+ <20261010-gpio-mxc-cleanup-v5-12-1e59e6ddfa00@nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261010-gpio-mxc-cleanup-v5-12-1e59e6ddfa00@nxp.com>
+X-ClientProxiedBy: AM0PR02CA0117.eurprd02.prod.outlook.com
+ (2603:10a6:20b:28c::14) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5] iommu/io-pgtable-arm: Add support for contiguous hint
- bit
-To: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>,
- Will Deacon <will@kernel.org>, "Joerg Roedel (AMD)" <joro@8bytes.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
- Prakash Gupta <prakash.gupta@oss.qualcomm.com>
-References: <20260921-iommu_contig_hint-v5-1-e7fbd1c3774d@oss.qualcomm.com>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260921-iommu_contig_hint-v5-1-e7fbd1c3774d@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GVXPR04MB9734:EE_
+X-MS-Office365-Filtering-Correlation-Id: 77fe2ece-0c8a-49a8-6da5-08df26374877
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|19092799006|23010399003|7416014|1800799024|366016|6133799003|18002099003|22082099003|11063799006|4143699003|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	gnANScUtyTCXlou7/Ijut7h7EXx9da2u1zXe2k3Bp2+g/06NVgelDx65QXoTVGUKsTtB9RQYdTVW/66Eqrke980NkXxMO3mOQz2BXWa5LIMMqPlRnGKnsKfM99dPcMh+1XNjfY7WLs83Ob6wV0K7cXdEGF19dBbauku7m+9OvqBS90Sh3/jnkdqmrTmtfzb+JTQYI2mnzc6dKxse+q4duBA8E3IZJXW47/k//xGmGYxHM6vvCpsCOYuhEdYsSgIGw5iw7suKazCgCAWrqxglt8V3kd4ZL6ASog2LnO0JDCDM3Aq55FhETT2e1vgiDbezW9UiNHbw7wB/978LmdHPbANmAe2llqYo2flNkGyGuARF5eaPhKLZ1bkJ39t398ZGeCsYQCjJ+HHnE8bvyELL3RIDtJNDpAIjO4l2frT8VbZQmk3k9Gy1Sdd/uikjD7lMQjxNyU/HcLwMyI7CNw3M7JSbFQdXS3yzCuEyn2wfOEZzd6wZPik2UR44UdQJhSMKJpddq9QeGeh0IK1HBXpstLTvrFW/oi9DJsp/02Uwry1eWNM7WskyZ51Ck8TwUy6AYUnWTptohi7B38Vh3c7Qn4d8UuuE8hbC5NrPOSfszbc8cmgyBv6/rPMpDVfYJFSFz7rQ2I6aapk44O3WUO79kVesqy+KhIofgNhLgIDGXPM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(19092799006)(23010399003)(7416014)(1800799024)(366016)(6133799003)(18002099003)(22082099003)(11063799006)(4143699003)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?VX+YWQxsc9+h2vS6ntugK9dg43MkHeRlR3f8s6Y8MOvOGcA6u6CouAtSQ8SH?=
+ =?us-ascii?Q?dkPv4iUVbI3X/fvWTKO9FqsreP+X2cZQA9ChJNJyJJO35BnRdaF926Z1VkMg?=
+ =?us-ascii?Q?iv8EaGiahqaBc7rGbJslj4gT+BWyVb/JrshoBK8ydUGPrLkK/jydKb+/hwhm?=
+ =?us-ascii?Q?/6E06DmDoB2ZRTptrN1qK+pc9TQTxlsHGvyRj+1EPz4fpvNgz9Gn7kbtr0su?=
+ =?us-ascii?Q?wqBbyhDqfF+uIprA47jZa8hDiPBczPyG2ah36PC3kDpA5noOI41BAfBD0hsG?=
+ =?us-ascii?Q?VTTO0j5sj08K3LXwhZzqiU2znSlvFst/HMei8l9f1ofTZ+6EaTlwYygsKrvl?=
+ =?us-ascii?Q?rwWbXdH8RLgkcQpcPpMdfxdCQksWAMB3knPHsjZpikS9nDw58eUJUNSMDDyZ?=
+ =?us-ascii?Q?Ptfn/1bcFOqVELImukHIZtUfS+d+bIltARjOsbfY22kVOnNqGf0ZXgK5v8nS?=
+ =?us-ascii?Q?Es6pRscKHoh3372Qy0+R8+NSxaspn4UK2rqjkRjb4LDuF9Y122MYttlz2x/t?=
+ =?us-ascii?Q?vy/Msw2K6TVmnuCbe9vz1QxAWQN0Up4GE2CmoZfPi8SxW1TkF15LF7srsskj?=
+ =?us-ascii?Q?oiyyeIkdUorP7GTDgBbtxtQRrWL64brBjfUZzvGbhBqbMPoIyvN5pOmehC0l?=
+ =?us-ascii?Q?gc2hLyzO7EBma4SCeI4+keHBWKV12kntRPRkFnKyHo4xo6SIba2+d0/M+5so?=
+ =?us-ascii?Q?G25WgRm92JQxFmSWNDSuxD4Z4+ZURyKOey7ia+KTm0VTCE+pprwkCm6LaYmN?=
+ =?us-ascii?Q?cAl/Dg0JjaAhsBOSwgioM1bN0coFPSWEBnE6QYiR2VXQ1qcFKXmdFOENA/m5?=
+ =?us-ascii?Q?vA/790SCBEdF+cZjmOtuBTULAdIQECceSaPp5lzXlRPV39jmvi74SiQt+SnC?=
+ =?us-ascii?Q?/Igeh4dq26V5mrswtFUDvVFX3u7/8Wqh47R82QkzuMXaO7a2pgDI+EhTcry/?=
+ =?us-ascii?Q?D1HhIKQiTLGRAnjnMVAb2TOw4U57Swa2u6nGRXfYODVi/ao90wVHg5r/cj+N?=
+ =?us-ascii?Q?myLuEw/A6Nd1UqnX7G4s7j5J+S0PbREnNJS04KMAKDj/3hYQdJpDrvsn3MsS?=
+ =?us-ascii?Q?22EWV5gImwF9sVVsMMcl4X9Lz7eUwbLI3KOO+SHv9qboEeHoFFxecnUpu+6D?=
+ =?us-ascii?Q?D1eetD6H/6DCMaLi1fLRjP2DO6cJasN0ZLwOAU3VPgnUr+d0r4TaerIDkNjM?=
+ =?us-ascii?Q?tlkOxi7i1M60ifQcABjhEQAb0N5fnzxCht4YJDdGuA3GHKpUaxZFioVBa61E?=
+ =?us-ascii?Q?lX/2a2POy4WUEaWPEylqIy24SY+t+KwtwE+A6I5McU5nUS4tv00+gIDTr2Bi?=
+ =?us-ascii?Q?U05Xi+/gXyFImUooGcXfERZm0fuKCSdCPkrECWa4eorHLDpLMOM+v11bgb+0?=
+ =?us-ascii?Q?9JLd6lE0uVm0Jk2PF+R9YGMrC4/Dq+L1Z5VnrjOll1c3Rz2z08sJQmrOtMp3?=
+ =?us-ascii?Q?jT6vur6bN19GBbdOk7V1Lj1R1jNB3S6XUuQRl8ZTr681JFi8k5lR/Uh+VXOf?=
+ =?us-ascii?Q?gQO2WsVV5BAhtD8qzvBBZkktHJhhKWXVMcfrTJuOadct7X8HJQ+9fZvRWAOt?=
+ =?us-ascii?Q?zi+ZAbhWs4BCtQgIECo5G0t7RB24uz20x2Gz4CnnUxjF59PFlJLMeMlxUgV5?=
+ =?us-ascii?Q?onfXZGbRGahCQvlEFAuoQFSPjUp4i7wJiyAvRwyY7tq3NqBh8c0Ck2mJ6GEv?=
+ =?us-ascii?Q?6j0wgthP/PucPJY/7L+yNQIrG5M0zF4ahvlL5SWIYoN7/5qOokZEF740MOVe?=
+ =?us-ascii?Q?YO2+/VLIXmurMkrlN6PD12MhDxAfgv/u6v6tb+2HErPs/mtJVSMm?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 77fe2ece-0c8a-49a8-6da5-08df26374877
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 18:58:19.2618
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: BwZZp+mvf9KFZcu30V6mCeTI9wZcPrlsmsUJLw/X8JMch8yMrrdBkaBZoqaGnXS85I7NFPJSHSvjBpf8Xu0D71Cqi8/5aakRdSvS0aWLIKodNM+MMPR+kWLcZDvmUx5N
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB9734
 
-On 21/09/2026 12:14 pm, Vijayanand Jitta wrote:
-> From: Prakash Gupta <prakash.gupta@oss.qualcomm.com>
-> 
-> Add support for the contiguous hint (CONT) bit in ARM LPAE page tables.
-> When a set of consecutive PTEs map a naturally aligned contiguous block of
-> memory, set CONT on every descriptor in that group so the hardware can
-> combine translations and improve TLB reach.
-> 
-> Advertise the supported CONT group sizes in pgsize_bitmap. Callers select
-> those sizes through the normal page-size selection path; io-pgtable-arm
-> then installs the corresponding tagged descriptors directly. A partial
-> unmap of a tagged CONT group is rejected before modifying any descriptor,
-> so a rejected request cannot leave the group partly unmapped.
-> 
-> The IO_PGTABLE_QUIRK_ARM_NO_CONT_HINT quirk allows SMMU drivers to disable
-> CONT support for hardware with implementation-specific errata.
-> 
-> Suggested-by: Robin Murphy <robin.murphy@arm.com>
-> Signed-off-by: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
-> Signed-off-by: Prakash Gupta <prakash.gupta@oss.qualcomm.com>
+On Sat, Oct 10, 2026 at 02:05:33AM +0800, Peng Fan (OSS) wrote:
+> From: Peng Fan <peng.fan@nxp.com>
+>
+> Both gpio_set_irq_type() and mxc_flip_edge() open-code the same ICR
+> register selection and 2-bit field shift/mask arithmetic with magic
+> numbers (0x10, 0xf, 0x3).
+>
+> Introduce two macros:
+>   - MXC_ICR_REG(gpio):  selects ICR1 (pins 0-15) or ICR2 (pins 16-31)
+>   - MXC_ICR_MASK(gpio): 2-bit mask at the correct position
+>
+> Use 0x3U in MXC_ICR_MASK() to avoid implementation-defined behavior
+> when shifting by 30 bits (pin 15 or 31).
+>
+> Extract the read-modify-write pattern into icr_update_edge()
+> and the edge readback into icr_get_edge(), using field_prep() and
+> field_get() from linux/bitfield.h for the shift/extract operations.
+
+Nit: remove "from linux/bitfield.h", which is reduntant information.
+
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+
+>
+> No functional change.
+>
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
 > ---
-> Changes in v5:
-> - Keep CONT sizes that exactly span the configured IAS or OAS, allowing a
->    valid mapping at address zero.
-> - Derive CONT sizes from the architecture-valid base page-size bitmap and
->    constrain the final result by IAS and OAS, replacing the bespoke
->    arm_lpae_get_cont_sizes() helpers.
-> - Guard CONT-size expansion against 32-bit overflow.
-> - Let callers select exact CONT sizes through pgsize_bitmap, and remove the
->    internal prefix/group/suffix promotion path.
-> - Reject a partial CONT-group unmap before any PTE is cleared, making the
->    rejection a complete no-op.
-> - Link to v4: https://lore.kernel.org/all/20260804-iommu_contig_hint-v4-1-d7a47ed5db98@oss.qualcomm.com/
-> 
-> Changes in v4:
-> - Merge each run of consecutive aligned (or consecutive non-aligned)
->    num_cont windows within arm_lpae_install_leaf() into a single
->    arm_lpae_init_pte() call instead of one call per window. idx and
->    paddr both advance by block_size per entry, so once a window
->    qualifies (or fails to qualify) for the CONT hint, every later whole
->    window in the same call does too - collapsing the common fully-
->    aligned or fully-unaligned case back down to one call, matching v2's
->    call count without reintroducing v2's alignment gaps.
-> - Fix min_t(int, pgcount, max_entries) truncating pgcount (size_t) to a
->    signed int in both __arm_lpae_map() and __arm_lpae_unmap(), which
->    could go negative and spin the caller's while (pgcount) loop forever
->    for a large enough single request - especially reachable now that
->    pgcount is scaled by num_cont (up to 128) for whole-CONT-group
->    requests. Compare in size_t via min_t(size_t, ...) instead; the
->    result remains bounded by max_entries before being stored back into
->    the int num_entries. Reported by the Sashiko AI review bot on v3.
-> - Stop short of the offending entry instead of returning 0 outright
->    when __arm_lpae_unmap() detects a misaligned CONT group mid-loop.
->    Earlier entries in the same call may already have had non-leaf
->    sub-tables torn down and freed, so returning 0 both under-reports
->    the actual unmap progress to the caller and skips the bulk
->    clear/gather for those already-freed entries. Breaking out of the
->    loop at the current index lets the existing post-loop clear/gather
->    path handle entries [0, i) correctly and report i * size unmapped.
->    Reported by the Sashiko AI review bot on v3.
-> - Link to v3: https://lore.kernel.org/all/20260722-iommu_contig_hint-v3-1-10923a683441@oss.qualcomm.com/
-> 
-> Changes in v3:
-> - Collapse arm_lpae_cont_ptes()/arm_lpae_cont_blks()/
->    arm_lpae_cont_pte_size()/arm_lpae_cont_blk_size()/
->    arm_lpae_find_num_cont() into a single arm_lpae_num_cont(size_t size)
->    helper, since leaf/block/L1-block sizes never overlap across granules.
-> - Fix arm_lpae_pte_is_contiguous_range() never checking that iova/paddr
->    are aligned to the contiguous group size, by removing it entirely -
->    __arm_lpae_map()'s new arm_lpae_install_leaf() helper scans for
->    aligned sub-chunks and independently verifies paddr alignment for
->    each one before applying the CONT hint.
-> - Fold the CONT case into __arm_lpae_map()'s existing size == block_size
->    leaf path instead of duplicating arm_lpae_init_pte() in a separate
->    branch. A request whose size exactly matches a whole CONT group is
->    normalized down to block_size/scaled pgcount so it reaches that path;
->    arm_lpae_install_leaf() then walks the resulting range in chunks,
->    tagging only the sub-chunks that are both index-aligned and
->    paddr-aligned to the group size, since a single map_pages() call at
->    the plain block_size can still contain such an aligned group midway
->    through a larger, otherwise ungrouped range.
-> - Replace the unmap-side WARN_ON_ONCE(!IS_ALIGNED(iova, size)) with a
->    check on the actual ARM_LPAE_PTE_CONT bit of the PTEs being cleared.
->    The previous check incorrectly warned on any unmap whose size
->    happened to numerically match a CONT group size, even when the
->    underlying PTEs were never CONT-tagged (e.g. because the original
->    iommu_map() wasn't group-aligned), and even though iommu_unmap() can
->    legitimately assemble such a size from multiple independent prior
->    iommu_map() calls.
-> - Close a leak where ARM_MALI_LPAE would gain CONT-sized entries in its
->    pgsize_bitmap despite the format having no CONT bit, by having
->    arm_mali_lpae_alloc_pgtable() set IO_PGTABLE_QUIRK_ARM_NO_CONT_HINT
->    internally rather than special-casing the format in the shared
->    arm_lpae_restrict_pgsizes()/arm_lpae_get_cont_sizes() path.
-> - Gate each contiguous-hint size in arm_lpae_get_cont_sizes() on whether
->    a single group actually fits within the configured IAS/OAS, so e.g. a
->    16G level-1 CONT group is never advertised for an IAS too small to
->    address it.
-> - Link to v2: https://patch.msgid.link/20260721-iommu_contig_hint-v2-1-90c731a41163@oss.qualcomm.com
-> 
-> Changes in v2:
-> - Extend contiguous hint support to level-1 (1G) blocks for the 4K granule,
->    adding a CONT L1 (16G) grouping alongside the existing CONT PTE/CONT Block
->    sizes.
-> - Replace the compile-time CONFIG_IOMMU_IO_PGTABLE_CONTIG_HINT Kconfig option
->    with a runtime quirk, IO_PGTABLE_QUIRK_ARM_NO_CONT_HINT, so SMMU drivers
->    can opt out per page table instance instead of at build time.
-> - Simplify __arm_lpae_map() to program the CONT-sized block directly via
->    arm_lpae_init_pte() instead of recursing into the next level with an
->    adjusted pgcount.
-> - Reject unmaps that are not aligned to the contiguous group size with
->    WARN_ON_ONCE(), instead of clearing the CONT bit on a partial group before
->    invalidation.
-> - Link to v1: https://patch.msgid.link/20260618-iommu_contig_hint-v1-1-4502a59e6388@oss.qualcomm.com
-> 
-> Changes in v1:
-> - Initial version.
-> 
-> To: Will Deacon <will@kernel.org>
-> To: Robin Murphy <robin.murphy@arm.com>
-> To: "Joerg Roedel (AMD)" <joro@8bytes.org>
-> Cc: linux-arm-msm@vger.kernel.org
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: iommu@lists.linux.dev
-> Cc: linux-kernel@vger.kernel.org
-> ---
->   drivers/iommu/io-pgtable-arm.c | 125 ++++++++++++++++++++++++++++++++++++-----
->   include/linux/io-pgtable.h     |   3 +
->   2 files changed, 115 insertions(+), 13 deletions(-)
-> 
-> diff --git a/drivers/iommu/io-pgtable-arm.c b/drivers/iommu/io-pgtable-arm.c
-> index 476c0e25631af..01d98959c514f 100644
-> --- a/drivers/iommu/io-pgtable-arm.c
-> +++ b/drivers/iommu/io-pgtable-arm.c
-> @@ -86,6 +86,21 @@
->   /* Software bit for solving coherency races */
->   #define ARM_LPAE_PTE_SW_SYNC		(((arm_lpae_iopte)1) << 55)
->   
-> +/* PTE Contiguous Bit */
-> +#define ARM_LPAE_PTE_CONT		(((arm_lpae_iopte)1) << 52)
+>  drivers/gpio/gpio-mxc.c | 42 +++++++++++++++++++++++++-----------------
+>  1 file changed, 25 insertions(+), 17 deletions(-)
+>
+> diff --git a/drivers/gpio/gpio-mxc.c b/drivers/gpio/gpio-mxc.c
+> index 1eb5cd148c28..97147a5d747b 100644
+> --- a/drivers/gpio/gpio-mxc.c
+> +++ b/drivers/gpio/gpio-mxc.c
+> @@ -7,6 +7,7 @@
+>  // Authors: Daniel Mack, Juergen Beisert.
+>  // Copyright (C) 2004-2010 Freescale Semiconductor, Inc. All Rights Reserved.
+>
+> +#include <linux/bitfield.h>
+>  #include <linux/cleanup.h>
+>  #include <linux/clk.h>
+>  #include <linux/err.h>
+> @@ -174,6 +175,9 @@ static inline bool mxc_gpio_has_power_off(struct mxc_gpio_port *port)
+>  #define GPIO_INT_FALL_EDGE	(port->hwdata->fall_edge)
+>  #define GPIO_INT_BOTH_EDGES	0x4
+>
+> +#define MXC_ICR_REG(gpio)	(GPIO_ICR1 + (((gpio) & 0x10) >> 2))
+> +#define MXC_ICR_MASK(gpio)	(0x3U << (((gpio) & 0xf) << 1))
 > +
-> +/*
-> + * Contiguous hint group sizes per granule:
-> + *
-> + *------------------------------------------------------------------
-> + *| Page Size | CONT PTE |  Block  | CONT Block | L1 Block | CONT L1 |
-> + *------------------------------------------------------------------
-> + *|     4K    |   64K    |   2M    |    32M     |    1G    |   16G   |
-> + *|    16K    |    2M    |  32M    |     1G     |          |         |
-> + *|    64K    |    2M    | 512M    |    16G     |          |         |
-> + *------------------------------------------------------------------
-> + */
-> +
->   /* Stage-1 PTE */
->   #define ARM_LPAE_PTE_AP_UNPRIV		(((arm_lpae_iopte)1) << 6)
->   #define ARM_LPAE_PTE_AP_RDONLY_BIT	7
-> @@ -453,6 +468,24 @@ static arm_lpae_iopte arm_lpae_install_table(arm_lpae_iopte *table,
->   	return old;
->   }
->   
-> +static int arm_lpae_num_cont(size_t size)
+>  static const struct of_device_id mxc_gpio_dt_ids[] = {
+>  	{ .compatible = "fsl,imx1-gpio", .data =  &imx1_imx21_gpio_hwdata },
+>  	{ .compatible = "fsl,imx21-gpio", .data = &imx1_imx21_gpio_hwdata },
+> @@ -196,14 +200,28 @@ static LIST_HEAD(mxc_gpio_ports);
+>
+>  /* Note: This driver assumes 32 GPIOs are handled in one register */
+>
+> +static void icr_update_edge(struct mxc_gpio_port *port, u32 gpio, u32 edge)
 > +{
-> +	switch (size) {
-> +	case SZ_4K:
-> +	case SZ_2M:
-> +	case SZ_1G:
-> +		return 16;
-> +	case SZ_64K:
-> +	case SZ_32M:
-> +	case SZ_512M:
-> +		return 32;
-> +	case SZ_16K:
-> +		return 128;
-> +	default:
-> +		return 1;
-> +	}
+> +	void __iomem *reg = port->base;
+> +	u32 val;
+> +
+> +	reg += MXC_ICR_REG(gpio);
+> +	val = readl(reg) & ~MXC_ICR_MASK(gpio);
+> +	writel(val | field_prep(MXC_ICR_MASK(gpio), edge), reg);
 > +}
 > +
->   static int __arm_lpae_map(struct arm_lpae_io_pgtable *data, unsigned long iova,
->   			  phys_addr_t paddr, size_t size, size_t pgcount,
->   			  arm_lpae_iopte prot, int lvl, arm_lpae_iopte *ptep,
-> @@ -462,20 +495,41 @@ static int __arm_lpae_map(struct arm_lpae_io_pgtable *data, unsigned long iova,
->   	size_t block_size = ARM_LPAE_BLOCK_SIZE(lvl, data);
->   	size_t tblsz = ARM_LPAE_GRANULE(data);
->   	struct io_pgtable_cfg *cfg = &data->iop.cfg;
-> -	int ret = 0, num_entries, max_entries, map_idx_start;
-> +	int num_cont = arm_lpae_num_cont(block_size);
-> +	size_t cont_size = 0, entries_per_map;
-> +	int num_entries, max_entries, map_idx_start;
-> +	bool cont = false;
+> +static u32 icr_get_edge(struct mxc_gpio_port *port, u32 gpio)
+> +{
+> +	return field_get(MXC_ICR_MASK(gpio), readl(port->base + MXC_ICR_REG(gpio)));
+> +}
 > +
-> +	if (num_cont > 1 && block_size <= SIZE_MAX / num_cont)
-> +		cont_size = num_cont * block_size;
-
-Again, why can't this just be:
-
-	if (num_cont > 1 && size / num_cont == block_size) {
-		size = block_size;
-		pgcount *= num_cont;
-		prot |= ARM_LPAE_PTE_CONT;
-	}
-
-Although TBH even just one non-constant division is still more than 
-necessary, as "block_size * num_cont == size" will actually work 
-correctly for 32-bit anyway (since unsigned overflow in C is 
-well-defined and "size" cannot be 0).
-
-(I guess if you really really wanted to then you could put an "#ifdef 
-CONFIG_64BIT" around the "case SZ_1G:" in arm_lpae_num_cont(), but I'd 
-hope it's sufficiently obvious already why it could never realistically 
-matter.)
-
->   	/* Find our entry at the current level */
->   	map_idx_start = ARM_LPAE_LVL_IDX(iova, lvl, data);
->   	ptep += map_idx_start;
->   
->   	/* If we can install a leaf entry at this level, then do so */
-> -	if (size == block_size) {
-> +	if (size == block_size ||
-> +	    (!(cfg->quirks & IO_PGTABLE_QUIRK_ARM_NO_CONT_HINT) &&
-> +	     size == cont_size)) {
-> +		int ret;
-> +
-> +		cont = size == cont_size;
-> +		if (cont && (!IS_ALIGNED(iova, size) || !IS_ALIGNED(paddr, size)))
-> +			return -EINVAL;
-
-We don't validate that the addresses are aligned to "size" in any other 
-case, so why complicate this one? Either we trust callers to interpret 
-pgsize_bitmap correctly, or we don't.
-
-> +
-> +		entries_per_map = size / block_size;
-
-Why are we recalculating something we know already (cont ? num_cont : 
-1), in about the most expensive way possible!?
-
->   		max_entries = arm_lpae_max_entries(map_idx_start, data);
-> -		num_entries = min_t(int, pgcount, max_entries);
-> -		ret = arm_lpae_init_pte(data, iova, paddr, prot, lvl, num_entries, ptep);
-> +		num_entries = min_t(size_t, pgcount,
-> +				    max_entries / entries_per_map) * entries_per_map;
-
-This is so confusing - what does "per_map" mean, and what does the whole 
-thing even achieve? Is it once again just conditionally multiplying by 
-num_cont in about the most expensive way possible?
-
-> +		if (!num_entries)
-> +			return -EINVAL;
-
-How could that ever happen at all!?
-
-> +		if (cont)
-> +			prot |= ARM_LPAE_PTE_CONT;
-> +
-> +		ret = arm_lpae_init_pte(data, iova, paddr, prot, lvl,
-> +					num_entries, ptep);
->   		if (!ret)
-> -			*mapped += num_entries * size;
-> -
-> +			*mapped += num_entries * block_size;
->   		return ret;
->   	}
->   
-> @@ -660,12 +714,18 @@ static size_t __arm_lpae_unmap(struct arm_lpae_io_pgtable *data,
->   {
->   	arm_lpae_iopte pte;
->   	struct io_pgtable *iop = &data->iop;
-> +	size_t block_size = ARM_LPAE_BLOCK_SIZE(lvl, data);
-> +	int num_cont = arm_lpae_num_cont(block_size);
-> +	size_t cont_size = 0, entries_per_map;
->   	int i = 0, num_entries, max_entries, unmap_idx_start;
->   
->   	/* Something went horribly wrong and we ran out of page table */
->   	if (WARN_ON(lvl == ARM_LPAE_MAX_LEVELS))
->   		return 0;
->   
-> +	if (num_cont > 1 && block_size <= SIZE_MAX / num_cont)
-> +		cont_size = num_cont * block_size;
-> +
->   	unmap_idx_start = ARM_LPAE_LVL_IDX(iova, lvl, data);
->   	ptep += unmap_idx_start;
->   	pte = READ_ONCE(*ptep);
-> @@ -675,9 +735,27 @@ static size_t __arm_lpae_unmap(struct arm_lpae_io_pgtable *data,
->   	}
->   
->   	/* If the size matches this level, we're in the right place */
-> -	if (size == ARM_LPAE_BLOCK_SIZE(lvl, data)) {
-> +	if (size == block_size ||
-> +	    (!(data->iop.cfg.quirks & IO_PGTABLE_QUIRK_ARM_NO_CONT_HINT) &&
-> +	     size == cont_size)) {
-> +		entries_per_map = size / block_size;
->   		max_entries = arm_lpae_max_entries(unmap_idx_start, data);
-> -		num_entries = min_t(int, pgcount, max_entries);
-> +		num_entries = min_t(size_t, pgcount,
-> +				    max_entries / entries_per_map) * entries_per_map;
-> +		if (!num_entries)
-> +			return 0;
-
-All the same comments as before for all this lot, although in this case 
-we could actually do with the "bool cont" for the sake of the validation 
-below.
-
-> +
-> +		/*
-> +		 * A CONT group must be invalidated as a unit. Reject a request that
-> +		 * starts or ends inside a tagged group before changing any PTEs.
-> +		 */
-> +		if ((READ_ONCE(*ptep) & ARM_LPAE_PTE_CONT &&
-
-We already have the first entry read into "pte", we don't need to read 
-it again.
-
-> +		     !IS_ALIGNED(iova, cont_size)) ||
-> +		    (READ_ONCE(ptep[num_entries - 1]) & ARM_LPAE_PTE_CONT &&
-> +		     !IS_ALIGNED(iova + num_entries * block_size, cont_size))) {
-
-How's that ever going to do anything if we've already rounded 
-"num_entries" down to to a multiple of "num_cont" (i.e. the confusingly 
-quasi-redundant "entries_per_map") above?
-
-That said, I think this could be even simpler anyway - for any _valid_ 
-unmap of a cont range the original "size" will be the cont size, so it 
-should simply be the case that if we ever see PTE_CONT set when the 
-original size was _not_ the cont size (i.e. just the base block_size) 
-then it must be an erroneous partial unmap, so that can just be an extra 
-condition in the loop below where we're checking every PTE already.
-
-Again as for the IOVA alignment, we should either factor the cont size 
-into the ARM_LPAE_LEVEL_IDX() calculations to be consistent with the 
-existing behaviour (perhaps another argument for having it as a 
-cont_shift rather than a num_cont), or if we did want to change and 
-start checking for bogus usage which should never exist anyway then we 
-should just test "iova & (pgsize - 1)" right after we validate "pgsize" 
-itself at the very beginning. What we should not have is inconsistently 
-different behaviour depending on the request size.
-
-> +			WARN_ONCE(true, "Unmap of a partial CONT IOPTE group is not allowed");
-> +			return 0;
-> +		}
->   
->   		/* Find and handle non-leaf entries */
->   		for (i = 0; i < num_entries; i++) {
-> @@ -691,7 +769,8 @@ static size_t __arm_lpae_unmap(struct arm_lpae_io_pgtable *data,
->   				__arm_lpae_clear_pte(&ptep[i], &iop->cfg, 1);
->   
->   				/* Also flush any partial walks */
-> -				io_pgtable_tlb_flush_walk(iop, iova + i * size, size,
-> +				io_pgtable_tlb_flush_walk(iop,
-> +							  iova + i * block_size, block_size,
->   							  ARM_LPAE_GRANULE(data));
->   				__arm_lpae_free_pgtable(data, lvl + 1, iopte_deref(pte, data));
->   			}
-> @@ -702,9 +781,10 @@ static size_t __arm_lpae_unmap(struct arm_lpae_io_pgtable *data,
->   
->   		if (gather && !iommu_iotlb_gather_queued(gather))
->   			for (int j = 0; j < i; j++)
-> -				io_pgtable_tlb_add_page(iop, gather, iova + j * size, size);
-> +				io_pgtable_tlb_add_page(iop, gather,
-> +							iova + j * block_size, block_size);
->   
-> -		return i * size;
-> +		return i * block_size;
->   	} else if (iopte_leaf(pte, lvl, iop->fmt)) {
->   		WARN_ONCE(true, "Unmap of a partial large IOPTE is not allowed");
->   		return 0;
-> @@ -943,8 +1023,23 @@ static void arm_lpae_restrict_pgsizes(struct io_pgtable_cfg *cfg)
->   	}
->   
->   	cfg->pgsize_bitmap &= page_sizes;
-> +	if (!(cfg->quirks & IO_PGTABLE_QUIRK_ARM_NO_CONT_HINT)) {
-> +		unsigned long sizes = cfg->pgsize_bitmap;
-> +
-> +		while (sizes) {
-> +			unsigned long size = BIT(__ffs(sizes));
-> +			int num_cont = arm_lpae_num_cont(size);
-> +
-> +			if (size <= ULONG_MAX / num_cont)
-> +				cfg->pgsize_bitmap |= num_cont * size;
-> +			sizes &= ~size;
-> +		}
-> +	}
-
-Open-coded for_each_set_bit()?
-
-> +
->   	cfg->ias = min(cfg->ias, max_addr_bits);
->   	cfg->oas = min(cfg->oas, max_addr_bits);
-> +	cfg->pgsize_bitmap &= GENMASK_ULL(cfg->ias, 0);
-> +	cfg->pgsize_bitmap &= GENMASK_ULL(cfg->oas, 0);
-
-This is new behaviour for all users irrespective of the new 
-functionality - we never did it before, why start doing it now?
-
->   }
->   
->   static struct arm_lpae_io_pgtable *
-> @@ -1001,7 +1096,8 @@ arm_64_lpae_alloc_pgtable_s1(struct io_pgtable_cfg *cfg, void *cookie)
->   			    IO_PGTABLE_QUIRK_ARM_TTBR1 |
->   			    IO_PGTABLE_QUIRK_ARM_OUTER_WBWA |
->   			    IO_PGTABLE_QUIRK_ARM_HD |
-> -			    IO_PGTABLE_QUIRK_NO_WARN))
-> +			    IO_PGTABLE_QUIRK_NO_WARN |
-> +			    IO_PGTABLE_QUIRK_ARM_NO_CONT_HINT))
->   		return NULL;
->   
->   	data = arm_lpae_alloc_pgtable(cfg);
-> @@ -1103,7 +1199,8 @@ arm_64_lpae_alloc_pgtable_s2(struct io_pgtable_cfg *cfg, void *cookie)
->   	typeof(&cfg->arm_lpae_s2_cfg.vtcr) vtcr = &cfg->arm_lpae_s2_cfg.vtcr;
->   
->   	if (cfg->quirks & ~(IO_PGTABLE_QUIRK_ARM_S2FWB |
-> -			    IO_PGTABLE_QUIRK_NO_WARN))
-> +			    IO_PGTABLE_QUIRK_NO_WARN |
-> +			    IO_PGTABLE_QUIRK_ARM_NO_CONT_HINT))
->   		return NULL;
->   
->   	data = arm_lpae_alloc_pgtable(cfg);
-> @@ -1224,6 +1321,8 @@ arm_mali_lpae_alloc_pgtable(struct io_pgtable_cfg *cfg, void *cookie)
->   		return NULL;
->   
->   	cfg->pgsize_bitmap &= (SZ_4K | SZ_2M | SZ_1G);
-> +	/* Mali LPAE has no CONT bit - never advertise CONT page sizes */
-> +	cfg->quirks |= IO_PGTABLE_QUIRK_ARM_NO_CONT_HINT;
->   
->   	data = arm_lpae_alloc_pgtable(cfg);
->   	if (!data)
-> diff --git a/include/linux/io-pgtable.h b/include/linux/io-pgtable.h
-> index e19872e37e067..7b2097aaffb09 100644
-> --- a/include/linux/io-pgtable.h
-> +++ b/include/linux/io-pgtable.h
-> @@ -86,6 +86,8 @@ struct io_pgtable_cfg {
->   	 *
->   	 * IO_PGTABLE_QUIRK_ARM_HD: Enables dirty tracking in stage 1 pagetable.
->   	 * IO_PGTABLE_QUIRK_ARM_S2FWB: Use the FWB format for the MemAttrs bits
-> +	 * IO_PGTABLE_QUIRK_ARM_NO_CONT_HINT: Disable use of the contiguous
-> +	 *	hint for hardware affected by implementation-specific errata.
->   	 *
->   	 * IO_PGTABLE_QUIRK_NO_WARN: Do not WARN_ON() on conflicting
->   	 *	mappings, but silently return -EEXISTS.  Normally an attempt
-> @@ -103,6 +105,7 @@ struct io_pgtable_cfg {
->   	#define IO_PGTABLE_QUIRK_ARM_HD			BIT(7)
->   	#define IO_PGTABLE_QUIRK_ARM_S2FWB		BIT(8)
->   	#define IO_PGTABLE_QUIRK_NO_WARN		BIT(9)
-> +	#define IO_PGTABLE_QUIRK_ARM_NO_CONT_HINT	BIT(10)
-
-I'm not changing my mind that this chould be a positive opt-in - again, 
-Panfrost and Panthor still don't want it, and while it is architectural 
-for true VMSA users I'd still be a little wary of whether Adreno might 
-get confused by suddenly getting extra sizes in its bitmap (in the case 
-where it doesn't immediately remove them all anyway). Also it's perhaps 
-notable that historically ipmmu-vmsa only supported cont at L3 (64KB), 
-but I don't know if that was for a specific reason or just that it 
-didn't expect to ever be mapping 32MB+ at once (it also didn't support 
-1GB blocks either).
-
-Thanks,
-Robin.
-
->   	unsigned long			quirks;
->   	unsigned long			pgsize_bitmap;
->   	unsigned int			ias;
-> 
-> ---
-> base-commit: 5dd1818b15d98d4a20806cd00b1b40320b06004f
-> change-id: 20260618-iommu_contig_hint-71ae491fbb52
-> 
-> Best regards,
+>  static int gpio_set_irq_type(struct irq_data *d, u32 type)
+>  {
+>  	struct irq_chip_generic *gc = irq_data_get_irq_chip_data(d);
+>  	struct mxc_gpio_port *port = gc->private;
+> -	u32 bit, val;
+> +	u32 val;
+>  	u32 gpio_idx = d->hwirq;
+>  	int edge;
+> -	void __iomem *reg = port->base;
+>
+>  	clear_bit(gpio_idx, &port->both_edges);
+>  	switch (type) {
+> @@ -249,12 +267,8 @@ static int gpio_set_irq_type(struct irq_data *d, u32 type)
+>  				       port->base + GPIO_EDGE_SEL);
+>  		}
+>
+> -		if (edge != GPIO_INT_BOTH_EDGES) {
+> -			reg += GPIO_ICR1 + ((gpio_idx & 0x10) >> 2); /* lower or upper register */
+> -			bit = gpio_idx & 0xf;
+> -			val = readl(reg) & ~(0x3 << (bit << 1));
+> -			writel(val | (edge << (bit << 1)), reg);
+> -		}
+> +		if (edge != GPIO_INT_BOTH_EDGES)
+> +			icr_update_edge(port, gpio_idx, edge);
+>
+>  		writel(1 << gpio_idx, port->base + GPIO_ISR);
+>  		port->pad_type[gpio_idx] = type;
+> @@ -265,17 +279,11 @@ static int gpio_set_irq_type(struct irq_data *d, u32 type)
+>
+>  static void mxc_flip_edge(struct mxc_gpio_port *port, u32 gpio)
+>  {
+> -	void __iomem *reg = port->base;
+> -	u32 bit, val;
+> -	int edge;
+> +	u32 edge;
+>
+>  	guard(gpio_generic_lock_irqsave)(&port->gen_gc);
+>
+> -	reg += GPIO_ICR1 + ((gpio & 0x10) >> 2); /* lower or upper register */
+> -	bit = gpio & 0xf;
+> -	val = readl(reg);
+> -	edge = (val >> (bit << 1)) & 3;
+> -	val &= ~(0x3 << (bit << 1));
+> +	edge = icr_get_edge(port, gpio);
+>  	if (edge == GPIO_INT_HIGH_LEV) {
+>  		edge = GPIO_INT_LOW_LEV;
+>  		pr_debug("mxc: switch GPIO %d to low trigger\n", gpio);
+> @@ -287,7 +295,7 @@ static void mxc_flip_edge(struct mxc_gpio_port *port, u32 gpio)
+>  		       gpio, edge);
+>  		return;
+>  	}
+> -	writel(val | (edge << (bit << 1)), reg);
+> +	icr_update_edge(port, gpio, edge);
+>  }
+>
+>  /* handle 32 interrupts in one status register */
+>
 > --
-> Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
-> 
-
+> 2.51.0
+>
+>
