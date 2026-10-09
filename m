@@ -1,251 +1,215 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012061.outbound.protection.outlook.com [52.101.43.61])
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013012.outbound.protection.outlook.com [40.93.201.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4E1A42E8D6;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B63B42FCAC;
 	Fri,  9 Oct 2026 06:14:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.61
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.12
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791526460; cv=fail; b=TJQ5yoqEuysm1G+l1c5shG0i0FXfqzihieeEDI7Rbe5jC1RaH4eh83h7gdGl6z/m4XWwLqMQq+jY2UsF9v8wKXGdvD1qZBEp5yHRRuX0aPRETuW7Y+KYCjSXp+jNXe6tj5LKsib7np1z4UZb4WAtic+UvFO0AmY4qx7aAmKAxSc=
+	t=1791526460; cv=fail; b=b7ryHwDLt1+epr0IU8NOqPLAPBNbiGvTTENf/P7zKhcIcn27OkB94xM51JfqrkK8beM2cwup+bl/rotQFXatwjUiipSvENcN3C+frmNoGnUYnaZjtLQhRSR/jdFPptN19CsDPrCPqpPwXfkvzSLW0x/agkwIQVyklJqZQUd1a3o=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791526460; c=relaxed/simple;
-	bh=VzBvjeU8F//CHO6OqOmLFdLO6LxzblGZDY+JSYKPG4s=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tpuQ74uOkZ8Z0uqowLZeT4DCmFAmb+6oYmpizvmEMmKnuFUXnLArG4D/C1qEbEN2XEDvqTGfn3gsW4IW1LmVA6BRKm2SCua4OcqgaUYI4u33hkhn3C9TNev30wioroiWPhg0xYbiAVooXY3JOzih8IIEaTvQh9Dhk1h4Y0kz/Yo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=NYEwjHeG; arc=fail smtp.client-ip=52.101.43.61
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	bh=KhVvw92lfTWcu3OIrwPDkw89PCKWhRHE5a/t0G25HUA=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=a6sJBw72YLohxM6J3k4zItqtCj9wYH8KQ4qvZWVIu5JRSqVYIEbQInfVSVE4UXLICgMtHd0MwthwA10O4IRz2LgmB9uu7S3EFOCQZJfMqYmZhHPau+uzOG5trbodG6+jB8jAyENym5K+31BZgAXPSNY7xJ+6K4d/7v8hnABxVpA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=RWzeXlsM; arc=fail smtp.client-ip=40.93.201.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="NYEwjHeG"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="RWzeXlsM"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TCcZCpfdt9lo2nXijJayxXoe8KQ6WFzxZvetOgAOH5TKmTKKqME44Aa5YLKg4CTS+aXF0lHiqB0DnE/+CwRYGGkJ4nnb5iDmfPm/CTvnYu8MsjTFkSrZ23VXNYcsrRnBqbBCIiTW3o7QiljH2fWCBz7zO/uN2FC45/87b9kGWJLXxzYUrSUNOPowJwMumIEm4m4cQHg8rMokSjy6xPPA/quuTnitFAMCLoOVIuPqhgbmShQPRMCpNBoKXc5vCA/LbaC/9RFuN6Lc+hOb9AWeE4BVLaOhgJrH/DjBAiI+bOkORKPImReTrOxM0usV5Hg9RVVV0l/jGPpEBOvGGBSgkg==
+ b=THq4sDDaDSVNCwWxOcqlU2I0R5gNvjAz0PuhvzRQ5IDC7WkOUiOf5OA3NlLw7j79qywh7uBfPCCNH0r/MttPJkgXN1CKlj+z3A5gqkOXUhOHy+uKpPLqYiLK9UU6AZ9WA21S5xeAqbuc/IOk+WcDlU8dLDpYdHxguNEQNnsxpKysKAKhGAQn9oUvoKY7ofTGmT/ovasswHbE/I8lT6Kps9bqFzNQRzs9fc6CY745yqVGkGQ3/ZTRH/f/FVrJa4C8EGjLklp3aaz+23qdz3sVWrqWzFnJPVaDS4lQuw+6To6fmVkYKiQ33rLo2J6v8Sg26ntyaKpG96pCBA2DROOVUQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aidNgNbqguqAZFfioFs7caTkyIZ0QnpYYOv6gSayg28=;
- b=JVfJmzIoLlhH7G48vnA5+9MWnehEhWTpcXyAAn3axB6dvZrunkRzFc/lzyReyIBxUShuFqwI0smc3fL4gC0wFkXJrzJK6Hjb+m/23A2kKDbs6Noud9r5E3XOEcxcertcXNI5wIy1ahTu/Usr1eRHPQBejkRFfSDs88meEXlws49cJeBPzs3AkWz4ILAsOu9ceZvwULQ+yjUHHlKr7f7w+B1LIaTJIEfQDjGzURz4ourhEKnkwKH4p+KcAC5I1fX2LMJ0whvmSrVWPHgirqsMuWLqerrUdIpThPD/YtLOhTaeWRI1SF7hJTxwwj5I6D+srXIN/WEXpiHlgIDNxoCm+w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=linux.intel.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=c/P/zeYDHwa9RTZTYmvEwI4dP12GBGe5TacUhClRbog=;
+ b=nzb4PxzZihkVCf92B9jC8RDoMdmukOT+Zayq/c82E3FP/t56XGqArNZB9WUHUiPNuQuVJ5LEcNhlhBe+pUCxjbLxACDamd5gCNcWErP7TrK9L9i2TTKMTXg2rm2a6ZKkmnN7OUO6piSN4J2W1vDs8Ipp7uH2yaVKT81npFK2ViCV98p2CABRNsVoY8ZNohLs4z4Epbf33BgSyK3T0g7HkvfUNmf/2JM899GCR+bKKuA8d5W9mpxDKle1S5c1bE32Ci8OF2hbptU/YpJhP4dwumPUkAGoy9MM6QpdmXVVVmG1DCodkJ1DiiLAIAGEjYhu+n/QeEFeZbDHSQODIPj8EA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aidNgNbqguqAZFfioFs7caTkyIZ0QnpYYOv6gSayg28=;
- b=NYEwjHeGd0JaEfJa3+R+ttLbMz7MH/WMO0NV5bWPUgqqRUxCxND8W976khbr03CQ28DPIbF4KFdE/9OEYoLpKTjP6owb6FbIBAyYcL59KyGoAFSExv5i0n8rdQFWMu8Pm7e7z0Sjg0LLcTx2vUWk7NnXqQrSrk7NoKXJdp4yRAM=
-Received: from BY3PR04CA0026.namprd04.prod.outlook.com (2603:10b6:a03:217::31)
- by SA1PR12MB7102.namprd12.prod.outlook.com (2603:10b6:806:29f::13) with
+ bh=c/P/zeYDHwa9RTZTYmvEwI4dP12GBGe5TacUhClRbog=;
+ b=RWzeXlsMUlKKjsShSWf5/3NsfIFGweSYpHajMaQhyoUzu03LwN5yNy9AYmj6mWNTMJoKDn+dAbLqAwH4liKe4xgu7/fItpT1KjBR43wHE9FE8TU1oHogH46BxrXZ094wO27HhTPYE0wB66LY40vdDmLlynYBzvGdGujxdLmOKi7mQlUdN1CJ016iu3OOOkcMPbfBenF3IhCSM1NVU19XsiyZbgXOrKgeIW/QsgOxT3j9oaIUCd2SwI0D8c0GWaMWKQgl7E79j0CTPSKcTvnjIHDe9tEXihiXGv3acSqfoGeK8H/fsW2IFmX44OxlYASla4/z0frwirPxVda4rYPawg==
+Received: from IA1PR12MB9030.namprd12.prod.outlook.com (2603:10b6:208:3f2::22)
+ by CH3PR12MB8912.namprd12.prod.outlook.com (2603:10b6:610:169::15) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Fri, 9 Oct
- 2026 06:14:14 +0000
-Received: from SJ1PEPF00002317.namprd03.prod.outlook.com
- (2603:10b6:a03:217:cafe::9d) by BY3PR04CA0026.outlook.office365.com
- (2603:10b6:a03:217::31) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Fri, 9
- Oct 2026 06:14:14 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF00002317.mail.protection.outlook.com (10.167.242.171) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Fri, 9 Oct 2026 06:14:14 +0000
-Received: from dcsm-trdripper1.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 9 Oct
- 2026 01:14:07 -0500
-From: Muralidhara M K <muralidhara.mk@amd.com>
-To: <ilpo.jarvinen@linux.intel.com>
-CC: <platform-driver-x86@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	Muralidhara M K <muralidhara.mk@amd.com>
-Subject: [PATCH v8 1/4] platform/x86/amd/hsmp: Recognize Family 1Ah client platforms and hide server-only paths
-Date: Fri, 9 Oct 2026 11:43:53 +0530
-Message-ID: <20261009061356.3234513-2-muralidhara.mk@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261009061356.3234513-1-muralidhara.mk@amd.com>
-References: <20261009061356.3234513-1-muralidhara.mk@amd.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
+ 2026 06:14:13 +0000
+Received: from IA1PR12MB9030.namprd12.prod.outlook.com
+ ([fe80::2c1d:ed27:b53a:97d2]) by IA1PR12MB9030.namprd12.prod.outlook.com
+ ([fe80::2c1d:ed27:b53a:97d2%7]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
+ 06:14:13 +0000
+From: Manish Honap <mhonap@nvidia.com>
+To: Jonathan Cameron <jic23@kernel.org>
+CC: "alex@shazbot.org" <alex@shazbot.org>, "jgg@ziepe.ca" <jgg@ziepe.ca>,
+	Ankit Agrawal <ankita@nvidia.com>, "dave.jiang@intel.com"
+	<dave.jiang@intel.com>, "alejandro.lucero-palau@amd.com"
+	<alejandro.lucero-palau@amd.com>, Srirangan Madhavan <smadhavan@nvidia.com>,
+	"corbet@lwn.net" <corbet@lwn.net>, "skhan@linuxfoundation.org"
+	<skhan@linuxfoundation.org>, "dave@stgolabs.net" <dave@stgolabs.net>,
+	"alison.schofield@intel.com" <alison.schofield@intel.com>,
+	"vishal.l.verma@intel.com" <vishal.l.verma@intel.com>, "iweiny@kernel.org"
+	<iweiny@kernel.org>, "ming.li@zohomail.com" <ming.li@zohomail.com>, Yishai
+ Hadas <yishaih@nvidia.com>, Shameer Kolothum Thodi <skolothumtho@nvidia.com>,
+	"kevin.tian@intel.com" <kevin.tian@intel.com>, "bhelgaas@google.com"
+	<bhelgaas@google.com>, "dmatlack@google.com" <dmatlack@google.com>,
+	"kees@kernel.org" <kees@kernel.org>, "gustavoars@kernel.org"
+	<gustavoars@kernel.org>, Neo Jia <cjia@nvidia.com>, Krishnakant Jaju
+	<kjaju@nvidia.com>, Vikram Sethi <vsethi@nvidia.com>, Zhi Wang
+	<zhiw@nvidia.com>, "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"kvm@vger.kernel.org" <kvm@vger.kernel.org>, "linux-cxl@vger.kernel.org"
+	<linux-cxl@vger.kernel.org>, "linux-pci@vger.kernel.org"
+	<linux-pci@vger.kernel.org>, "linux-kselftest@vger.kernel.org"
+	<linux-kselftest@vger.kernel.org>, "linux-hardening@vger.kernel.org"
+	<linux-hardening@vger.kernel.org>, Manish Honap <mhonap@nvidia.com>
+Subject: RE: [PATCH v5 04/27] cxl: Add cxl_reset_dvsec_sequence() for vfio-pci
+Thread-Topic: [PATCH v5 04/27] cxl: Add cxl_reset_dvsec_sequence() for
+ vfio-pci
+Thread-Index: AQHdRgpnsSg99gwAk024FSuHR5YUsLbf0E8AgBT5ZTA=
+Date: Fri, 9 Oct 2026 06:14:13 +0000
+Message-ID:
+ <IA1PR12MB903010A1C894291966A38CBBBD922@IA1PR12MB9030.namprd12.prod.outlook.com>
+References: <20260916183540.3813685-1-mhonap@nvidia.com>
+	<20260916183540.3813685-5-mhonap@nvidia.com>
+ <20260925214110.3500b4d9@jic23-hlaptop>
+In-Reply-To: <20260925214110.3500b4d9@jic23-hlaptop>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: IA1PR12MB9030:EE_|CH3PR12MB8912:EE_
+x-ms-office365-filtering-correlation-id: 8aa4cdeb-41eb-4bcf-2cd7-08df25cc8a6b
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|7416014|18002099003|22082099003|10067099003|38070700021|11063799006|4143699003|5023799004|56012099006;
+x-microsoft-antispam-message-info:
+ r6jN2VFYmjyMDKPvJe8nZTDiGTIojTu+0tvZ2wdeAg6kgLEBIw9Pxu6BM3JFtbdK7VinijIw/8uhNV0tHiqTvUKe3Rv69gKVrrpnELkMIjYuRvvb+qIlQe+RpM4HneJlm2WUBqi4erM8FuXJMN01TmrzDaufvZUWKeiFxPQUbQ5RFqdPRiNyUbb9N3/jhiynVz99YsopSMx4NWxbevoIl62ZV2oiVgPLp56O3y10ahvyy7xbhvWy8bF6KSPhyS8cdzU/pcizbldwJdIhPw9EP5l6oz69bYEP+dmToI2TemJdXKAeht8vbLBWYzyKD7mkN0jyAqSZreayNLJji8eAd6/e9mBAl2ghopV97BEWftLsH7wnR9aghgI0bKaN4eh9lwwujlqAzT5wZqsyM7RUa0D7e8a5LF31Fj/GOAs/0TeNPOC8KvR1GokOXYXQMCDlIrukrTc/ouy5EOhfOk70uVvu6Ilj7jRT4lwcw0ci7XkchFAFVoQwRmyGiTNSwgIfKprcJMsbuafcCcsUrPXRbpL08BjKJlRvqo9Y5vBDBooeF26fzR8ek7pvR8twq6fBkD19o8PoN2k28kKNSetSiZqYucFmfrQSEygU1rGYNpEZPKQLpdgLUmfDRMBd9lSNfstyy3oUPwS5j/Fw8+LaZVrytOHJN1edMTFJRVuPdh0NwWNA082uXqXbWJlA4v0E3DFBuTKRH+5I80YqNY5IVJF0U5Q7aJsLS6CtBoIzn6Q=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR12MB9030.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(18002099003)(22082099003)(10067099003)(38070700021)(11063799006)(4143699003)(5023799004)(56012099006);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?vah/gO35Fllk+ihNmYpurfvqsoWBcgZWVuxcbhPkmuisYUw1VLTMN1su7uNr?=
+ =?us-ascii?Q?J7GqCtB0B7Kd1fUhtyIXox5mnAwHv08qio4jxsAoX9FBsLJ6qsuwGzl3+8eZ?=
+ =?us-ascii?Q?5G7woJapJ6jZhcVyi8kff8EGVsEQZ20MRbeymWGyseujqVA/GSNWCnSult5H?=
+ =?us-ascii?Q?p+ruMWp9Su6gSX5QB/uxQNhLydMqgw5IgnnqI8m1vXvhmIR0Jpi8ios793+q?=
+ =?us-ascii?Q?qEG/lCbUQL0miTgyzsPbyvEImKWwJBL0xx/ErLePibRa+8gcRAEIHga379sw?=
+ =?us-ascii?Q?v7uMaecc5gnK8bdjKuJGy+27zFhN7jBj1Fk8LsNi1KpNb8diG4386kJzzPCH?=
+ =?us-ascii?Q?pbCqqJebULs6r8s19NePHdjEkAcnUepzfQ/QJKNlbapzMxiWga/wBnipHbeW?=
+ =?us-ascii?Q?wiTioWnmqo3dC1m6ubdhcLsYoaN7CeFjSiRYRHRypQKNdyj89qbR6AVbZf8E?=
+ =?us-ascii?Q?5Bmb9UE7njMadFy8IsNKRLU/0w6HmlmpJjYAnp6EuJuXMY24JcPCbEBsO1an?=
+ =?us-ascii?Q?ZfWFSdz0Ie3LCsakNrZvOE8o10KTLE4WXnjCpU4TxcC7JiCHAwsLtbSsD6IA?=
+ =?us-ascii?Q?eTrvCkJoqLmn6DBRejzgfXZzbDaR6P19oLsO4oFU4aO2YdwYCNEiLZWltZ4d?=
+ =?us-ascii?Q?G+k1Qz436lIdHwylRBdh4IehSu87Vg4DB/41ls0VKSqd9pSDv+ldIch0cYc2?=
+ =?us-ascii?Q?V8hahwLt/5nsrGTWsVMub+tPuX4IqZFitm2+VQoH77pd09/4ynsBtsft7y+O?=
+ =?us-ascii?Q?rBiFCYxkJezLVLEIBDEUNTH49sS4H2BMONTwlv2WD4O0xQfUl6PtOTNfMBca?=
+ =?us-ascii?Q?ZZG8cbDsJS+/YlBlicU9oVIqg0g3dR7Glc9VC0rsJ8Sc66mqY1/xRw7pzIZJ?=
+ =?us-ascii?Q?c+3NvR5HWhuwB0gjCfAdaobeRb/65cAF0KiyFpPkxA8VfJlu0/LwvBAVhSG0?=
+ =?us-ascii?Q?HedU9msOPHb2SeSpgaT8Wg2nDx5r2SqlIqnCBWhr/iVHP+P4Acy/KxqsUEyC?=
+ =?us-ascii?Q?40dJOWmayBhE3BUkcPmVzV6DDSrQs/SrT0pudefcmH/KnTJ73bBK47gKv95e?=
+ =?us-ascii?Q?8a/3d+o5tZ2l/9NB8HsdCyHcjhDNF5+0Jkud9XDe8L5hwQX1ghznXoFv5gpi?=
+ =?us-ascii?Q?/uJDRr5jrgGb/mkv0bo1NSs+KKckT9zvEhLUlCybDR7gEj0Z9qoRWbZwA88O?=
+ =?us-ascii?Q?n2rxQm3obTeq0/w808rbvdL2ep7mSRx4hOFO5AbUKOFARcrOw2W/VBGvW8Ot?=
+ =?us-ascii?Q?md7fCxt+P+kzapdsGMwIOossFLHn7Ndk1XVallFyfccHFFxWCTpfl6JNRTsg?=
+ =?us-ascii?Q?xLVGDOC8H+yfThvsYeKd4GTWpqQ7W3t2dTdwVe8EtkYhi8R51TMJatONCkrD?=
+ =?us-ascii?Q?ySKL5abHiHvHzsM6zBOVnEEYoGcLSraU1x2sn4FxBp+Uf5+wgG4z3DIbCMTr?=
+ =?us-ascii?Q?t4PeDrYwzoDyhx4Lt5C9/NKWD0qOcVQw1N59bCHR0F72xV4owyJjQ9f+8UHY?=
+ =?us-ascii?Q?wYu2mFGBbd2VeClUJhcnPdxsIGAr7Ly54cPkqwmHDjMc0vRoVnliUrNjBDMx?=
+ =?us-ascii?Q?ZUWVokHBls+tc7dUhg/TqemEefqSH7M5+n7Ggt+gzVg6uV67QUmrREhnhJIT?=
+ =?us-ascii?Q?zvvZNFTcT+aANMIrwuKgd8aI4klKYzHs0BCE6cZUlyrMk4rK/+lgOZ1x1yGa?=
+ =?us-ascii?Q?t7ps3xGw8zZu3bFNvPzEu6rWYV7b6sisRGHNqX+3yo2YI/Qk?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00002317:EE_|SA1PR12MB7102:EE_
-X-MS-Office365-Filtering-Correlation-Id: d458e5dd-7563-4869-b194-08df25cc8b20
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|82310400026|36860700016|23010399003|18002099003|10067099003|11063799006|56012099006|3023799007|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	6zfvwDYFoYeOmzxNHmiBeCMwo6Dz0FxqA7Rjs7bFxye8GjcoQDKOB5TLaGChV3eSMvymPgYM8g7PIuIW4zPq190BwXaYtUfXz18N5qnhEtMLWROKSGpKHD9B6DcKqtEuzwd8tGBtkfWf6UllVgmBbFgIAxRyAtZV0gDmjXS8UBIAFHMANOUxV80TTZODFQDO0kHIm5BUbr8O1O4hdJNQ01H287NNFQIcTIy/mZzAKVM2ldGplQXjkcsayNeBYfRvXczeKzNzQnX4gbTMG36uX9/mvbRlsG8ZeDeGg1wjnuKMiHerZHcyHj2cNWbMvK3cbKogvvdhFaGox1Yh70f/JT4QjGZJauqYkUwXR8y3pDoyEHU0dHET7fbenKlsyolG2GaJMNpNFcutdxIqQ/RQUfkdjTsVC6JjMxGG2wpzW9j1EZlXcK8IP0iKSo110B7ASXLvqY9jeEichFF7GY4rwjJj9An1x0emfvwI9UYY5RzkoRRhuZcGJXce6JZ9ABeOZj8eVYItqVU874j4eJJ7ccOA7hF6bNGYPE9Nf5f43c6NQFNMueAyjy42wKDv4lX12KtEsGCLzr8uPSayqK0h5IZ0cCKXg6ifWZZMvuoAMyrTawb4VPpVbg8J/CY+zvfmlw9AwyB46t4uW1dkQ7j8hICkhQoLquhMNta6UuEsaDw7x7iNUU9IJkFBNLU1hWMAKHLkXn+MdPmgU+Zw5omBJQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(82310400026)(36860700016)(23010399003)(18002099003)(10067099003)(11063799006)(56012099006)(3023799007)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	HfwIiW/0bcg553mfN8c1bLOwosp1g0QJVp6/44OzCNQfseGu6Ot7r+Ub+HjefiUV1nabRB0yj/FOAwJW8jkVfDa3CmTtvOeCbHfHIFuqrebkOBm6zUQbLpx/FizuT3n9EPyPkFTbwzyuvBd6eBiYFx5OBiyYf3Nb9gcCdfqVn6SlMs87CoL2K6cfjiVDaTO7l0Tpk2O+OnHvk1eZLmMzIqMF/4UjJMNV+DVJrN5iInOOYvMPW2HPsUfFSbJgqmRnZcqbxi2IPgLyq0evYuZiIqhAEQYtqf4hbRqP/jmPlwWruorTWS3NrlnghM5XH8B71PtlSkAf0mQ3quYqVtkPcxM7qrOnLGPXxk9uSxN/b7B94YJWUPVa3TIni0u77uwoH9vfAdoDspSbHrS1i4QikHzhFa3LKuNhwiyCqTphUzxatnMUYawSqO2MZe8N7DOw
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 06:14:14.6345
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB9030.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8aa4cdeb-41eb-4bcf-2cd7-08df25cc8a6b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Oct 2026 06:14:13.5555
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d458e5dd-7563-4869-b194-08df25cc8b20
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF00002317.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7102
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: DcQEGwEKxj2Sikf6qy18bCcAB1T8l7teBuRZPRiBprakb+H1aWJWuNGgH0VTHsE20gYPj64fGUM7l1VYrwxoDg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8912
 
-Add is_client_platform(), based on the ACPI-reported PM profile and
-an AMD vendor check, to detect Family 1Ah client platforms, Models
-80h-8Fh and E0h-E3h.
 
-Use is_client_platform() to:
+> -----Original Message-----
+> From: Jonathan Cameron <jic23@kernel.org>
+> Sent: Saturday, September 26, 2026 2:11 AM
+> To: Manish Honap <mhonap@nvidia.com>
+> Cc: alex@shazbot.org; jgg@ziepe.ca; Ankit Agrawal <ankita@nvidia.com>;
+> dave.jiang@intel.com; alejandro.lucero-palau@amd.com; Srirangan
+> Madhavan <smadhavan@nvidia.com>; corbet@lwn.net;
+> skhan@linuxfoundation.org; dave@stgolabs.net; alison.schofield@intel.com;
+> vishal.l.verma@intel.com; iweiny@kernel.org; ming.li@zohomail.com; Yishai
+> Hadas <yishaih@nvidia.com>; Shameer Kolothum Thodi
+> <skolothumtho@nvidia.com>; kevin.tian@intel.com; bhelgaas@google.com;
+> dmatlack@google.com; kees@kernel.org; gustavoars@kernel.org; Neo Jia
+> <cjia@nvidia.com>; Krishnakant Jaju <kjaju@nvidia.com>; Vikram Sethi
+> <vsethi@nvidia.com>; Zhi Wang <zhiw@nvidia.com>; linux-
+> doc@vger.kernel.org; linux-kernel@vger.kernel.org; kvm@vger.kernel.org;
+> linux-cxl@vger.kernel.org; linux-pci@vger.kernel.org; linux-
+> kselftest@vger.kernel.org; linux-hardening@vger.kernel.org
+> Subject: Re: [PATCH v5 04/27] cxl: Add cxl_reset_dvsec_sequence() for vfi=
+o-pci
+>=20
+> External email: Use caution opening links or attachments
+>=20
+>=20
+> On Thu, 17 Sep 2026 00:05:17 +0530
+> <mhonap@nvidia.com> wrote:
+>=20
+> > From: Manish Honap <mhonap@nvidia.com>
+> >
+> > vfio-pci needs to run a CXL reset on a passed-through Type-2 device
+> > without the host-memory handling in cxl_reset_function(): the memory
+> > behind the decoder belongs to the guest, so the HDM range collection
+> > and host CPU cache flush that the host path performs must be skipped.
+>=20
+> Hi Manish,
+>=20
+> This cache flush being skipped bit concerns me.  Who is issuing the neces=
+sary
+> flushes in the vfio case? That is there to ensure we don't end up with ra=
+ndom
+> lines cached by PA (as well as VA if relevant), so they affect a guest ju=
+st as
+> much as the host.
+> I'm not sure why it makes any difference who the memory belongs to.
 
-- Hide every ACPI sysfs device attribute except smu_fw_version and
-  protocol_version on client platforms.
-- Hide the metrics_bin sysfs binary attribute on client platforms.
-- Skip hsmp_create_sensor() in init_acpi() on client platforms.
-- Exclude client platforms from the HSMP_GET_METRIC_TABLE_DRAM_ADDR
-  lookup in init_acpi().
-- Register /dev/hsmp at 0600 on client platforms, 0644 on server.
+Yes, you are right. I feel the reasoning in the commit message is wrong.
+cxl_reset v14 already makes the invalidation mandatory on the host
+path: it invalidates before the reset and again after the restore, and
+refuses the reset when cpu_cache_has_invalidate_memregion() is false.
+For v6, I will run the same sequence in vfio reset entry.
 
-Signed-off-by: Muralidhara M K <muralidhara.mk@amd.com>
----
- drivers/platform/x86/amd/hsmp/acpi.c | 24 +++++++++++++++++++-----
- drivers/platform/x86/amd/hsmp/hsmp.c |  8 +++++++-
- drivers/platform/x86/amd/hsmp/hsmp.h | 23 +++++++++++++++++++++++
- 3 files changed, 49 insertions(+), 6 deletions(-)
+On a host where no cache maintenance driver has registered, invalidate
+memregion check fails and CXL reset can't be run. vfio-cxl checks the same
+condition at bind and continues without CXL support, so it never gives a gu=
+est
+HDM memory it could not clear and invalidate on the next reset.
 
-diff --git a/drivers/platform/x86/amd/hsmp/acpi.c b/drivers/platform/x86/amd/hsmp/acpi.c
-index ddd7a04ee753..1e5028aea54b 100644
---- a/drivers/platform/x86/amd/hsmp/acpi.c
-+++ b/drivers/platform/x86/amd/hsmp/acpi.c
-@@ -300,16 +300,26 @@ static umode_t hsmp_is_sock_attr_visible(struct kobject *kobj,
- 	 * so that userspace which expects the file to exist gets a clear
- 	 * -EOPNOTSUPP from the read handler instead of -ENOENT, and is
- 	 * pointed at HSMP_IOCTL_GET_TELEMETRY_DATA as the supported path.
-+	 * Hide metrics_bin on client platforms.
- 	 */
--	if (hsmp_pdev->proto_ver >= HSMP_PROTO_VER6)
-+	if (!is_client_platform() && hsmp_pdev->proto_ver >= HSMP_PROTO_VER6)
- 		return battr->attr.mode;
- 
- 	return 0;
- }
- 
-+/* Defined below by HSMP_DEV_ATTR() */
-+static struct hsmp_sys_attr hattr_smu_fw_version;
-+static struct hsmp_sys_attr hattr_protocol_version;
-+
- static umode_t hsmp_is_sock_dev_attr_visible(struct kobject *kobj,
- 					     struct attribute *attr, int id)
- {
-+	/* Hide every attribute except smu_fw_version and protocol_version on client platforms */
-+	if (is_client_platform() && attr != &hattr_smu_fw_version.dattr.attr &&
-+	    attr != &hattr_protocol_version.dattr.attr)
-+		return 0;
-+
- 	return attr->mode;
- }
- 
-@@ -557,15 +567,19 @@ static int init_acpi(struct device *dev)
- 		return ret;
- 	}
- 
--	if (hsmp_pdev->proto_ver >= HSMP_PROTO_VER6) {
-+	/* Exclude client platforms from the metric table DRAM base lookup */
-+	if (!is_client_platform() && hsmp_pdev->proto_ver >= HSMP_PROTO_VER6) {
- 		ret = hsmp_get_tbl_dram_base(sock_ind);
- 		if (ret)
- 			dev_info(dev, "Failed to init metric table\n");
- 	}
- 
--	ret = hsmp_create_sensor(dev, sock_ind);
--	if (ret)
--		dev_info(dev, "Failed to register HSMP sensors with hwmon\n");
-+	/* Skip hwmon registration on client platforms */
-+	if (!is_client_platform()) {
-+		ret = hsmp_create_sensor(dev, sock_ind);
-+		if (ret)
-+			dev_info(dev, "Failed to register HSMP sensors with hwmon\n");
-+	}
- 
- 	dev_set_drvdata(dev, &hsmp_pdev->sock[sock_ind]);
- 
-diff --git a/drivers/platform/x86/amd/hsmp/hsmp.c b/drivers/platform/x86/amd/hsmp/hsmp.c
-index 5e123a4ecea9..d32d5a907aae 100644
---- a/drivers/platform/x86/amd/hsmp/hsmp.c
-+++ b/drivers/platform/x86/amd/hsmp/hsmp.c
-@@ -720,7 +720,13 @@ int hsmp_misc_register(struct device *dev)
- 	 */
- 	hsmp_pdev.mdev.parent	= dev;
- 	hsmp_pdev.mdev.nodename	= HSMP_DEVNODE_NAME;
--	hsmp_pdev.mdev.mode	= 0644;
-+	/*
-+	 * hsmp_msg_desc_table[] only describes server messages. On client
-+	 * platforms, msg_id mappings differ, making access checks unreliable.
-+	 * Restrict /dev/hsmp to root until client-specific validation is
-+	 * added.
-+	 */
-+	hsmp_pdev.mdev.mode	= is_client_platform() ? 0600 : 0644;
- 
- 	return misc_register(&hsmp_pdev.mdev);
- }
-diff --git a/drivers/platform/x86/amd/hsmp/hsmp.h b/drivers/platform/x86/amd/hsmp/hsmp.h
-index 8dbff16a87b1..62ba795dc8c5 100644
---- a/drivers/platform/x86/amd/hsmp/hsmp.h
-+++ b/drivers/platform/x86/amd/hsmp/hsmp.h
-@@ -10,6 +10,9 @@
- #ifndef HSMP_H
- #define HSMP_H
- 
-+#include <asm/amd/hsmp.h>
-+
-+#include <linux/acpi.h>
- #include <linux/compiler_types.h>
- #include <linux/device.h>
- #include <linux/hwmon.h>
-@@ -17,6 +20,7 @@
- #include <linux/miscdevice.h>
- #include <linux/mutex.h>
- #include <linux/pci.h>
-+#include <linux/processor.h>
- #include <linux/rwsem.h>
- #include <linux/semaphore.h>
- #include <linux/sysfs.h>
-@@ -32,6 +36,25 @@
- 
- #define DRIVER_VERSION		"2.6"
- 
-+/* True when the ACPI-reported PM profile indicates a client platform */
-+static inline bool is_client_platform(void)
-+{
-+	if (!IS_ENABLED(CONFIG_ACPI))
-+		return false;
-+
-+	if (boot_cpu_data.x86_vendor != X86_VENDOR_AMD)
-+		return false;
-+
-+	switch (acpi_gbl_FADT.preferred_profile) {
-+	case PM_DESKTOP:
-+	case PM_MOBILE:
-+	case PM_TABLET:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
- struct hsmp_mbaddr_info {
- 	u32 base_addr;
- 	u32 msg_id_off;
--- 
-2.34.1
-
+>=20
+> >
+> > Add cxl_reset_dvsec_sequence(), which runs the DVSEC reset under the
+> > device lock and restores HDM state through
+> > cxl_restore_state_after_pci_reset(), and cxl_reset_capable() to gate
+> > it on a function-scoped reset. Both are exported to the vfio-cxl
+> > module so vfio-pci core does not import the CXL namespace.
+> >
+> > CXL Reset always clears memory, so there is no caller Memory Clear choi=
+ce.
+> >
+> > Assisted-by: LLM
+> > Signed-off-by: Manish Honap <mhonap@nvidia.com>
