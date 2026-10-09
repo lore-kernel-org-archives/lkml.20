@@ -1,215 +1,238 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D7C34E4C32
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 14:21:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38E6645A2BC;
+	Fri,  9 Oct 2026 14:21:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791555668; cv=none; b=GkI3YKU2E6TUzz/5gv2ZKK2BprH7VDYO3YhJkFs+D8ugWre7acEa7ZsX2/Mohtv8IvhA5iGdME3Z11vaZ9nT9gUM/7bMUpjl+NCGPCinvkyId2Mo0ep+RPM+VS+p37lsmIPdOTKl7Pt20PC9d9SNqftv+r9U0xHdiGGPjjo4Z18=
+	t=1791555672; cv=none; b=e7IpeE0G1bopVt9L+j6w8CaoxohGZLZR3o8M4tuW5L/K0K6B09/ajTT8xPB/4fj8qYu21KQaVvlyQSZPbDiwqk6o8vberae4Ita0rhhusT+CWvO47vcbD29IWyFFnmE4RLnciI+JKIbGNDAaruV9rum2KTgpgYpMBctBZNxATHs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791555668; c=relaxed/simple;
-	bh=XZGBSjqEv18NCbDscH5T7VJzzYzo/noInSon79888DU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=l72HbjS0YC/EYWRLhMzMrrIEegF5E8+4i3ded6RrMesXaO2Bz/o/lfBxFIZbarg5gHoEhvRZjf4GVbiaHgoow/t1DyqNlOoPpBtfupE6cc1QisqmNrt0hEEOsI+9H6yfAYXLrKbogxhkjOtdPJDXblFaVPVnO2mhGvGWFSlfAe4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=T3NzLMZE; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="T3NzLMZE"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48c02782159so2788163f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 07:21:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791555665; x=1792160465; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZN/KPNY2M7mPJZQUsUziJoEy9hPU2aa6/znszLL6sTY=;
-        b=T3NzLMZElROAsb8bCTj8/FhhqIy2zhR5gwNQ0c/vyZCt9J1knuwe1BTrILzwbbwJRM
-         vf2IqT0O1QZ1JZdn8CtPu8zEfvxwEfWwczk53pTTF65COwF7Nu2PJZPPtmojhHFcqnnS
-         Qfijf4wCNAO86KK6+K4UgPVFEEI1Xa2VupzJk7uT+dm2c5/yTpF3ETAHv4I2Ei/8TNW1
-         z+B8XJX3w/o9lua+ESfU5hsp23yz1N2APuxspSiKoyMD1jIT95qbo9jqFAw/57XpiK0e
-         zBOyUZ8nRR0mWaYGFGctMH7+K/CgtAhyKLD82eo78HmlnsPPUUiviS0typP6AP3VhI+0
-         9m+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791555665; x=1792160465;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZN/KPNY2M7mPJZQUsUziJoEy9hPU2aa6/znszLL6sTY=;
-        b=Y3KqWM0O/RkBhvjO3kc6OirqMv8T7TRL6ye8Zm82lOJzdC5WwSa+6XN3Aot+xYLzVn
-         QJ3haikAoHrzlZRUJfRO7NecnoHePV8vFw1BkOuX7YgkKMuvh+rH7j5aGeT4weQBRhfi
-         kxpchwGbX26X7ITP66AnFIhjzMilgy+ueUaFRjZ6n+NjBM/TsV1cGfsSpGv/XB8Xx6Nd
-         X5nguL121QWvOAGw1nojSObbV6vZ/KAP1B2AMX5AFx/Y+k7E2rBwFkmVOAUlIPt5b1mK
-         J3s9H45wLQJPpQCI8m9DQvnJrMJUdrzBBZMkvf3N5IQwY8jrN1kXI0+2Jx84At/UQUy0
-         ndyw==
-X-Forwarded-Encrypted: i=1; AKwUvBxaUdtHf4O+OK1IouvLyOahD8S+M2TsQAb/E1PZyZ+WlZKXs6YeKzYCT3L8Jbc5/0DjSjOXeIik62tvYBs=@vger.kernel.org
-X-Gm-Message-State: AFuF++mw9oKLMNI/r7mygwWjuuf8s8AW9v5nmQr0/i/fsJ3ub4r6HiIx
-	PQkof6uVZxscSgUzUFR0W9k/GXVIKU3Q8/gJkPseh+rozB1bsusZTlTGB3TBYA/YSJQ=
-X-Gm-Gg: AYBFou3jH7SnOW1rbZ5tRJAiaPULGENqZY9SmC3FSMAnk5O0931mNVflfcoxk+ShzLT
-	zuL6XYJ5bI669a/GjAY8jNl6PEEhJjY/HqvLFaOX/SaY8hHtDiL6K+5lpEz+mlGq9BlunZNrZ/x
-	ti4EOc5hUe0+fDcYzSoMpoLcJ54L/lvkLm6j1x7US+KIUSMpWfilhF55nL6gXjFCScxBfNAoWtg
-	A+X6bAqEsWeO5JgJ8/bA1LQTuZeTDXmbM67czPEa66JFgleS7+h/inYNsguC1NiZ8KyyAaOKd3X
-	my3+x0C9PT1paqDS0yE06SgoUkfzkxoucvubdhHMcsSo8UiS1rorZ9xaIgVeJgZe1yUUVBwX0GR
-	MFJT6r5gFY7HeYGnsiUrfrjhDnggh7Of7UW93Xq1fp7Ffc+C0TzzUMNJeH1t2FeHQrtvkzu9Thn
-	e2nZgXEa1DnZ+7W5tJPBghbVyPBGElf3E/8bW/Df+QDY81mTKWe1JW6LMnXm49KMo+88ZQHutXg
-	TwL2tCWuFNPpyGMglXdgQ==
-X-Received: by 2002:a05:600c:8b6f:b0:4a0:25e9:bc47 with SMTP id 5b1f17b1804b1-4a18e4ba6c2mr39538215e9.19.1791555665208;
-        Fri, 09 Oct 2026 07:21:05 -0700 (PDT)
-Received: from linaro.org ([2a02:2454:ff25:4f41:8f61:e8db:b29a:c15a])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9ac94c6sm4198485f8f.42.2026.10.09.07.21.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 07:21:03 -0700 (PDT)
-Date: Fri, 9 Oct 2026 16:20:58 +0200
-From: Stephan Gerhold <stephan.gerhold@linaro.org>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] remoteproc: qcom: pas: Decide early_boot attach at
- probe time
-Message-ID: <asj4Sgsjw5xNXNLb@linaro.org>
-References: <20261006033550.2726451-1-shengchao.guo@oss.qualcomm.com>
- <20261006033550.2726451-2-shengchao.guo@oss.qualcomm.com>
+	s=arc-20240116; t=1791555672; c=relaxed/simple;
+	bh=IpaHEDOQeCRuwwxOZqwR3Eiq9DxscZux6RqoYjr/snw=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=MknmmApXYu/jJbcZ83m0dCGDRyIHC9lKIxG5In67mKlVrwLp9J4XvTgNEfG3oCH9zz4EkUEpzYowJ89zKbHjUDI0H+JCdET8EPS8zWPnBilx7dk/kNduMy0Ib1r9fua21cBKaVnw7ZLoQVpei29OI+Z5UMNa/K1jE1Am1k/7/b0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.127])
+	by APP-03 (Coremail) with SMTP id rQCowADX4T9G+Mhqz14oCg--.5069S2;
+	Fri, 09 Oct 2026 22:20:54 +0800 (CST)
+Message-ID: <576dcb368d9d8c96226a27474f9427e6da2db1da.camel@iscas.ac.cn>
+Subject: Re: [PATCH 2/2] drm/loongson: Handle buffer mapping failures when
+ clearing a BO
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Evanshenf
+	 <archwse@gmail.com>, dri-devel@lists.freedesktop.org, Natalie Vock
+	 <natalie.vock@gmx.de>, "Paneer Selvam, Arunpravin"
+	 <Arunpravin.PaneerSelvam@amd.com>
+Cc: Jianmin Lv <lvjianmin@loongson.cn>, Qianhai Wu <wuqianhai@loongson.cn>, 
+ Huacai Chen <chenhuacai@kernel.org>, Mingcong Bai <jeffbai@aosc.io>, Xi
+ Ruoyao <xry111@xry111.site>, Sui Jingfeng <suijingfeng@loongson.cn>,
+ stable@vger.kernel.org, linux-kernel@vger.kernel.org, Huang Rui	
+ <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, Matthew Brost	
+ <matthew.brost@intel.com>
+Date: Fri, 09 Oct 2026 22:20:54 +0800
+In-Reply-To: <2b0d0a02-99a5-447a-8e3f-6154b2660425@amd.com>
+References: <20261003093415.e64386de1e64-1-archwse@gmail.com>
+	 <20261003093415.902f89244043-2-archwse@gmail.com>
+	 <f25629d4aa3c0132275b0a798e1491119fa8d502.camel@iscas.ac.cn>
+	 <2b0d0a02-99a5-447a-8e3f-6154b2660425@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261006033550.2726451-2-shengchao.guo@oss.qualcomm.com>
+X-CM-TRANSID:rQCowADX4T9G+Mhqz14oCg--.5069S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3GF45uw1fZrykXrWfJr15XFb_yoW7AFWxpr
+	ZxAFyjkrWDXrnFkrnFqa4kC3WFya4Fgry7WFW5tasYg39Fyr17WF15WFWDCF9rZF17Ar12
+	vrn3G39xu3Wqy37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvvb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
+	w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
+	vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY
+	1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
+	C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
+	wI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
+	v20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
+	jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73Uj
+	IFyTuYvjxUqiFxDUUUU
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-On Tue, Oct 06, 2026 at 11:35:49AM +0800, Shawn Guo wrote:
-> For early_boot subsystems, probe unconditionally marks the rproc
-> RPROC_DETACHED and qcom_pas_attach() discovers from SMP2P whether the
-> bootloader actually started the remote. If it did not, attach sets the
-> state back to RPROC_OFFLINE and fails, expecting the core to boot the
-> firmware instead. The core does not do that: rproc_boot() treats the
-> attach failure as fatal and the remote is never started.
-> 
-> This is hit on Nord with firmware where XBL no longer brings ADSP out
-> of reset. The remote never publishes its inbound SMP2P entries, so the
-> very first state read fails (debug print below) and the ADSP stays down:
-> 
->   qcom_q6v5_pas 4c00000.remoteproc: Failed to get fatal_irq state: -19
->   remoteproc remoteproc0: can't attach to rproc adsp: -19
-> 
-> The ready, stop-ack and sysmon shutdown-ack signals cannot change while
-> Linux has not yet interacted with the remote, so there is no reason to
-> defer the decision to attach time. Check them in probe and only mark
-> the rproc RPROC_DETACHED when the remote is up and has not been asked
-> to stop; otherwise leave it RPROC_OFFLINE so the regular firmware boot
-> path is taken. The ready state is read first so that a missing SMP2P
-> entry -ENODEV is treated as "not running" before sysmon is queried.
-> 
-> qcom_pas_attach() keeps only the fatal check, since that is the one
-> signal that has to be acted upon once the rproc is attached.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> ---
->  drivers/remoteproc/qcom_q6v5_pas.c | 64 +++++++++++++++---------------
->  1 file changed, 33 insertions(+), 31 deletions(-)
-> 
-> diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
-> index 2e1e39826ffa..8f3d45c604c9 100644
-> --- a/drivers/remoteproc/qcom_q6v5_pas.c
-> +++ b/drivers/remoteproc/qcom_q6v5_pas.c
-> @@ -550,9 +550,7 @@ static unsigned long qcom_pas_panic(struct rproc *rproc)
->  static int qcom_pas_attach(struct rproc *rproc)
->  {
->  	struct qcom_pas *pas = rproc->priv;
-> -	bool ready_state;
->  	bool crash_state;
-> -	bool stop_state;
->  	int ret;
->  
->  	pas->q6v5.handover_issued = true;
-> @@ -570,42 +568,46 @@ static int qcom_pas_attach(struct rproc *rproc)
->  		goto disable_running;
->  	}
->  
-> -	ret = irq_get_irqchip_state(pas->q6v5.stop_irq,
-> -				    IRQCHIP_STATE_LINE_LEVEL, &stop_state);
-> -	if (ret)
-> -		goto disable_running;
-> -
-> -	if (stop_state || qcom_sysmon_shutdown_irq_state(pas->sysmon)) {
-> -		dev_info(pas->dev, "Subsystem found stop state set. Falling back to start.\n");
-> -		goto unroll_attach;
-> -	}
-> -
-> -	ret = irq_get_irqchip_state(pas->q6v5.ready_irq,
-> -				    IRQCHIP_STATE_LINE_LEVEL, &ready_state);
-> -	if (ret)
-> -		goto disable_running;
-> -
-> -	if (unlikely(!ready_state)) {
-> -		/*
-> -		 * The bootloader may not support early boot, mark the state as
-> -		 * RPROC_OFFLINE so that the PAS driver can load the firmware and
-> -		 * start the remoteproc.
-> -		 */
-> -		dev_err(pas->dev, "Failed to get subsystem ready interrupt\n");
-> -		goto unroll_attach;
-> -	}
-> -
->  	return 0;
->  
-> -unroll_attach:
-> -	pas->rproc->state = RPROC_OFFLINE;
-> -	ret = -EINVAL;
->  disable_running:
->  	pas->q6v5.running = false;
->  
->  	return ret;
->  }
->  
-> +/*
-> + * The bootloader may or may not have started the subsystem. Inspect the
-> + * SMP2P state, which is static until Linux interacts with the remote, to
-> + * decide whether to attach or to load and start the firmware.
-> + */
-> +static bool qcom_pas_is_running(struct qcom_pas *pas)
-> +{
-> +	bool ready_state;
-> +	bool stop_state;
-> +	int ret;
-> +
-> +	/*
-> +	 * Check ready first: if the remote never published its SMP2P
-> +	 * entries the state read fails with -ENODEV.
-> +	 */
-> +	ret = irq_get_irqchip_state(pas->q6v5.ready_irq,
-> +				    IRQCHIP_STATE_LINE_LEVEL, &ready_state);
-> +	if (ret || !ready_state) {
-> +		dev_info(pas->dev, "Subsystem not running. Falling back to start.\n");
-> +		return false;
-> +	}
-> +
-> +	ret = irq_get_irqchip_state(pas->q6v5.stop_irq,
-> +				    IRQCHIP_STATE_LINE_LEVEL, &stop_state);
-> +	if (ret || stop_state || qcom_sysmon_shutdown_irq_state(pas->sysmon)) {
-> +		dev_info(pas->dev, "Subsystem found stop state set. Falling back to start.\n");
-> +		return false;
-> +	}
+=E5=9C=A8 2026-10-09=E4=BA=94=E7=9A=84 16:14 +0200=EF=BC=8CChristian K=C3=
+=B6nig=E5=86=99=E9=81=93=EF=BC=9A
+> On 10/9/26 15:50, Icenowy Zheng wrote:
+> > =E5=9C=A8 2026-10-03=E5=85=AD=E7=9A=84 09:34 +0000=EF=BC=8CEvanshenf=E5=
+=86=99=E9=81=93=EF=BC=9A
+> > > lsdc_bo_clear() ignores the return value from lsdc_bo_kmap() and
+> > > writes
+> > > to lbo->kptr unconditionally. When the first mapping of a newly
+> > > allocated
+> > > buffer fails, kptr is still NULL and the subsequent memset
+> > > accesses
+> > > it.
+> > >=20
+> > > Return the mapping error without touching the buffer and
+> > > propagate it
+> > > from lsdc_gem_object_create(). Install the GEM object functions
+> > > before
+> > > clearing so that drm_gem_object_put() can release the buffer
+> > > correctly
+> > > on failure. Do not add the failed object to the tracking list or
+> > > return
+> > > an uncleared buffer to the caller.
+> > >=20
+> > > Imported buffers still skip clearing, and successfully mapped
+> > > buffers
+> > > are cleared and unmapped as before.
+> > >=20
+> > > Tested on LS7A2000 with a one-shot range error in ttm_bo_kmap().
+> > > Its
+> > > -EINVAL return reached userspace, the object was destroyed once,
+> > > and
+> > > no GEM handle was published. Normal
+> > > create/map/zero/write/read/close
+> > > cycles passed, with the tracked BO count and VRAM usage
+> > > unchanged.
+> > >=20
+> > > AI assistance was used for the lifetime analysis, fix, fault-
+> > > injection
+> > > tools, build and test execution.
+> > >=20
+> > > Fixes: f39db26c5428 ("drm: Add kms driver for loongson display
+> > > controller")
+> > > Cc: stable@vger.kernel.org
+> > > Assisted-by: LLM
+> > > Signed-off-by: Evanshenf <archwse@gmail.com>
+> > > ---
+> > > =C2=A0drivers/gpu/drm/loongson/lsdc_gem.c | 12 ++++++++----
+> > > =C2=A0drivers/gpu/drm/loongson/lsdc_ttm.c | 10 ++++++++--
+> > > =C2=A0drivers/gpu/drm/loongson/lsdc_ttm.h |=C2=A0 2 +-
+> > > =C2=A03 files changed, 17 insertions(+), 7 deletions(-)
+> > >=20
+> > > diff --git a/drivers/gpu/drm/loongson/lsdc_gem.c
+> > > b/drivers/gpu/drm/loongson/lsdc_gem.c
+> > > index 2fb0348..9eba4e1 100644
+> > > --- a/drivers/gpu/drm/loongson/lsdc_gem.c
+> > > +++ b/drivers/gpu/drm/loongson/lsdc_gem.c
+> > > @@ -157,14 +157,18 @@ struct drm_gem_object
+> > > *lsdc_gem_object_create(struct drm_device *ddev,
+> > > =C2=A0		return ERR_PTR(ret);
+> > > =C2=A0	}
+> > > =C2=A0
+> > > +	gobj =3D &lbo->tbo.base;
+> > > +	gobj->funcs =3D &lsdc_gem_object_funcs;
+> > > +
+> > > =C2=A0	if (!sg) {
+> > > =C2=A0		/* VRAM is filled with random data */
+> > > -		lsdc_bo_clear(lbo);
+> > > +		ret =3D lsdc_bo_clear(lbo);
+> > > +		if (ret) {
+> > > +			drm_gem_object_put(gobj);
+> > > +			return ERR_PTR(ret);
+> > > +		}
+> > > =C2=A0	}
+> > > =C2=A0
+> > > -	gobj =3D &lbo->tbo.base;
+> > > -	gobj->funcs =3D &lsdc_gem_object_funcs;
+> > > -
+> > > =C2=A0	/* tracking the BOs we created */
+> > > =C2=A0	mutex_lock(&ldev->gem.mutex);
+> > > =C2=A0	list_add_tail(&lbo->list, &ldev->gem.objects);
+> > > diff --git a/drivers/gpu/drm/loongson/lsdc_ttm.c
+> > > b/drivers/gpu/drm/loongson/lsdc_ttm.c
+> > > index 88536e2..7b30dea 100644
+> > > --- a/drivers/gpu/drm/loongson/lsdc_ttm.c
+> > > +++ b/drivers/gpu/drm/loongson/lsdc_ttm.c
+> > > @@ -388,9 +388,13 @@ void lsdc_bo_kunmap(struct lsdc_bo *lbo)
+> > > =C2=A0	ttm_bo_kunmap(&lbo->kmap);
+> > > =C2=A0}
+> > > =C2=A0
+> > > -void lsdc_bo_clear(struct lsdc_bo *lbo)
+> > > +int lsdc_bo_clear(struct lsdc_bo *lbo)
+> > > =C2=A0{
+> > > -	lsdc_bo_kmap(lbo);
+> > > +	int ret;
+> > > +
+> > > +	ret =3D lsdc_bo_kmap(lbo);
+> > > +	if (ret)
+> > > +		return ret;
+> > > =C2=A0
+> > > =C2=A0	if (lbo->is_iomem)
+> > > =C2=A0		memset_io((void __iomem *)lbo->kptr, 0, lbo-
+> > > >size);
+> > > @@ -398,6 +402,8 @@ void lsdc_bo_clear(struct lsdc_bo *lbo)
+> > > =C2=A0		memset(lbo->kptr, 0, lbo->size);
+> > > =C2=A0
+> > > =C2=A0	lsdc_bo_kunmap(lbo);
+> > > +
+> > > +	return 0;
+> > > =C2=A0}
+> > > =C2=A0
+> > > =C2=A0int lsdc_bo_evict_vram(struct drm_device *ddev)
+> >=20
+> > Well I currently don't know whether the clearing is meaningful...
+> >=20
+> > It seems that drm_gem_vram_helper doesn't do this.
+> >=20
+> > Cc'ing TTM maintainers for an answer.
+>=20
+> Natalie and Arun are TTM maintainers now, but I will try to answer
+> here as well.
 
-Nitpick: Both of these messages are a bit imprecise. desc->early_boot
-does not necessarily imply desc->auto_boot, so they may just be marked
-as offline and not automatically started.
+Ah I heard about TTM maintenance change, but I used the mailing
+addresses in v7.3-rc6.=20
 
-But you just moved this code and I don't think it's worth resending just
-to polish these messages a bit more. :-)
+>=20
+> OpenGL doesn't necessarily require clearing of VRAM nor isolation of
+> VRAM data between processes.
+>=20
+> So it is up to the driver if they want this or not. Classically a lot
+> of drivers didn't clear VRAM allocations until explicitely asked.
 
-In any case:
+Then in this case I think it's better to just remove the VRAM clearing
+code -- this driver is even not related to render acceleration at all
+now (and getting rendering to work would be so hacky because loongson
+DC's are paired with either Vivante GPUs with dedicated VRAM or
+proprietary GPUs).
 
-Reviewed-by: Stephan Gerhold <stephan.gerhold@linaro.org>
+>=20
+> But if you clear the memory you should have proper error handling and
+> a kmap/vmap can fail at any time for multiple reasons.
+
+Yes, if the other maintainers prefer to keep the memory clearing code,
+I will accept this specific patch.
 
 Thanks,
-Stephan
+Icenowy
+
+>=20
+> Regards,
+> Christian.
+>=20
+> >=20
+> > Thanks,
+> > Icenowy
+> >=20
+> > > diff --git a/drivers/gpu/drm/loongson/lsdc_ttm.h
+> > > b/drivers/gpu/drm/loongson/lsdc_ttm.h
+> > > index 843e147..df47d9b 100644
+> > > --- a/drivers/gpu/drm/loongson/lsdc_ttm.h
+> > > +++ b/drivers/gpu/drm/loongson/lsdc_ttm.h
+> > > @@ -89,7 +89,7 @@ size_t lsdc_bo_size(struct lsdc_bo *lbo);
+> > > =C2=A0
+> > > =C2=A0int lsdc_bo_kmap(struct lsdc_bo *lbo);
+> > > =C2=A0void lsdc_bo_kunmap(struct lsdc_bo *lbo);
+> > > -void lsdc_bo_clear(struct lsdc_bo *lbo);
+> > > +int lsdc_bo_clear(struct lsdc_bo *lbo);
+> > > =C2=A0
+> > > =C2=A0int lsdc_bo_evict_vram(struct drm_device *ddev);
+> > > =C2=A0
+> >=20
+
