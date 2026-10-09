@@ -1,408 +1,209 @@
-Received: from mta1.migadu.com (out-183.mta1.migadu.com [95.215.58.183])
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D678D4D5964
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 14:05:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.183
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791554764; cv=none; b=EqeHfnlseMGqboejtCl4yUd+xEPbJlbQbFFhlaWCSqStjTESQC7WMpq6WWCNXxOfMOUTQSpeaJOWoFBX/IgwfCsDz2uC5XssCJpTGTtovtTzh2Y1WiV9GiehWIxQwl04SirdwkHCcVnX1i3hm2GIyuxFmG2dxo5lESJBOZ+bEXk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791554764; c=relaxed/simple;
-	bh=S/CJoQ6h8dM6bvOekOhXaJ1D4NhgPmP4sTYIwx5h4vw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oaHhE4vvWmOY8sI9okPyyxqbjSeQkGA18Um0EVth5C19SKefr/uuNOeu5FVPH3obKJAPWuFEKgSUmK/K5OyzC8jv88xj92zMyqL+hsC364TQUXD5417sIlURFTXkIKxSCCs45bqfOB2ZA9/QCXLuwI6Iuyo/TB0KzZ5qn8p0i9w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=vc3tnERI; arc=none smtp.client-ip=95.215.58.183
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 758AE3D3D1B
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 14:06:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791554795; cv=pass; b=T/3/E3XnzpWLaBAdcgCX7OjS1VPvLEI3j2DhCgMOsigXSwXZmW9u0VEBH8kwOgF/opCnSPt2CxY8jOn/eUAScnZmhngrqnTb5kgGQ62cuvqUJ5eaQolvvx7/TgEOaZ/xTh2X19ZMFwNsc4+pUcSJnDhKNJFdpCxYrfAHHb4pzPM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791554795; c=relaxed/simple;
+	bh=GyiWe4iERIHzqUToTB83us7UkhnVWZQdkG38gBexcNk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=MAL1eNf+0ac+VTEIWpfXhaerqWUExBs2nBaOeutGHoBA1iTo+TGWEZ8PaytUGtc8pEpGSwwdP5M8XyMzXcvowGfOS7m7IPZdOZbr4QLNbiM1g2lDWFJ6fk5WGR0O+AF6Cy00uw2tJJMUKo3AdxBCqqcmfIOWCxAx4+zaQBQAW+E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=NkKQnaAu; arc=pass smtp.client-ip=209.85.218.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="vc3tnERI"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=S/CJoQ6h8dM6bvOekOhXaJ1D4NhgPmP4sTYIwx5h4vw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791554756; v=1; x=1792159556;
- b=vc3tnERIjqp7uh4ESphNz9ZrEtCr3dUje5+8j7NLo5aG+ElLDbmKfD6vCPnOKQeqc2zM4gCf
- msExhwnRz8fjHpdnmOal2V/xnr2KPi8uKMTrqc8LPnenTO9vvzXKETETlk3sD5wr39gdGh3dKHd
- t6GrCgiQY7siMn6z3Tz7ILBU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id a5ec3c62b9adca70;
-	Fri, 09 Oct 2026 14:05:56 +0000
-X-Mizu-Trace-ID: a5ec3c62b9adca70
-X-Migadu-Flow: FLOW_OUT
-From: Usama Arif <usama.arif@linux.dev>
-To: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-Cc: Usama Arif <usama.arif@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	David Hildenbrand <david@kernel.org>,
-	Harry Yoo <harry@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Zi Yan <ziy@nvidia.com>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	kernel-team@meta.com
-Subject: Re: [PATCH v3] mm: page_alloc: make defrag_mode retries follow the promoted order
-Date: Fri,  9 Oct 2026 07:05:47 -0700
-Message-ID: <20261009140549.541127-1-usama.arif@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261009125503.126202-1-kas@kernel.org>
-References: 
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="NkKQnaAu"
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c31988fc977so247589366b.2
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 07:06:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791554786; cv=none;
+        d=google.com; s=arc-20260327;
+        b=dyYgwrxNbvTYAFOstMEX7ORkCeYiA96L2dk7Bq+TkWPBJgej/YCUE2jSjKauaLYwVP
+         ZqHbYUzKzt3XJlvX0Yu3Ep3yEqaEDzT3Y9OfbFnG/vAnaO6YdRPzwk0xFgTEDauTX13h
+         PgDsp1oUTAcBtn8tRNFsbhRMwAtw47E4q/sSS3bWeh7UOSyg1et72OYGLSu03v0Ls+FB
+         ATGbWFZsORCN/rz4hJBex3wtK7Ol9bBO6965dXj59fdOLa3fNg7TaC5xH0j6iH8fF9Cg
+         B6IetH4EIIjP5J8LEvMn1Qed8BGUwLXJamnF4soVwD7UHuJEzr0WxvHjAx2wLxBGqSmO
+         0KYw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=3FaEcDATObijynFDqDaL/0W94AAQKaPSJm7mGfTHxe4=;
+        fh=KR66HnXIZlI0JdWUF+Ltk8DbTvdYz6qNi/9r/pA6Mms=;
+        b=PPE2fV66B15lLmKZeFbYbT1YXGfjmRD3/B0AT6ie+6j9Kx6s5nYTZdYrS+WGvPhChj
+         EGwyNDb55otqh+/CMRGrc6GSGdkelbhxhkd4ALo0awIC5OyyTmbdB7oyT7WZ79eef7hD
+         bb7Ef3IQYQfEHtShDEM98+WFiCjxgWzbEIrFsm7jo1hdbDC/Xn2QtqbS1lP5erjYFinD
+         AuPrAi8hzNoDRUYSX5NY4ATWLltCU5VUP20y772pqevcegCoYPkZmsbp0ikB8tyWnohh
+         WGhvrwJisT2v0aTGj5TRCBNeKQLf0kDKPYb+e9uajGZWFT51p/CBcgz1b7gxXni3T/dv
+         21Sg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1791554786; x=1792159586; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3FaEcDATObijynFDqDaL/0W94AAQKaPSJm7mGfTHxe4=;
+        b=NkKQnaAu8P/WzFV0i2B9nHpVmPgcZI9q59RuvN8aGozqMxMsTbteuaAibYt3seX4qF
+         QIXYfslWESXklA8PA6hnkxdl2O3ZBGhh56Yc7OzUNgaMgQ1qi6kCndutJ3CIBkirDmfi
+         UcK4FdSJAmCtmJ3BLRpDza9iyZBsLu/jemTgDd6VC4GFssmfFOFNjIECTaNhYLpyyWV2
+         U6XT750QMwsJpuHOpj4+gmnhj3Kew9jmccPcRoOiNNcaFkEirYMb7lpfmfWE4JwFyXfQ
+         1zZvMnBoiyZpX5TdE7XgV8okwb0ubB0475pGEw1nl15nK8HD9ZkkBB7aLUmKKuDplAhL
+         b1QQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791554786; x=1792159586;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=3FaEcDATObijynFDqDaL/0W94AAQKaPSJm7mGfTHxe4=;
+        b=YF5v9jk57aiSPmJHjf9I0CgkYxAlL9+2z6AKx6aIWYQYCR3M8V9JLN/hw42zLZEYNK
+         SlyWXIGC56Als5EWCwuPgpoFII5BIBIYW6JRt5PHwoyHwH7t2orf2jSAKwGDiHGjg7LO
+         QaAuTfg7F3fD1j9MjblJo34IqyJO37MyHBkVzzLHTzljkvJwERamP9l2IcPOxq6gbClp
+         UMJPVbX6gHcG2eKt/Kkmch+FGgd764lfbWfqCcndyeu4YM/ldkdwP2Zb8OZoAJYzTjsr
+         ySnkhBc09O4sMALZ5+5Yg/mkPkvghH49KR+mOE3gv+kA96hxOqsQxBpsiWyUXxkXvdLa
+         K7sw==
+X-Forwarded-Encrypted: i=1; AKwUvBzTBCuOtSWZqsETwicX1CfNFJOoUcBAin5J5MgSm7O15InqI6/R+sYmfm8k9oO5N7nEnx0FWvwYjAuLdLk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIkDD3JH19IxKHy08eb1HceEmKjE2nx7SP7pNVJNM0AIxf6qpvt
+	NB9+WYTVZ6/eRedHpifpKxRLtXx2zhzjPgCg8gS5GF7DnGHgzqUOdD8pA8HCWSVxShkgaBY353S
+	2W4HP7CnvKeV+CUISC21kqMPt5DTXjIZ/3MXjnFKvFQ==
+X-Gm-Gg: AYBFou36nDHfDA+s6bS2qucOGXSt2bj6HoGPWWOZ1JMeN67dNk318C1wuz1RsqDubtv
+	Qae1f63EFU2GF+tz7QxgWlRFq29E2D8/11zfHZtk2byO7pxtOOo/UhkDSA4khoU9YRtVVSnDUMW
+	/WG6oMBWKcZiBXnnAVFVFwephWIQ2+GnDKRPBtel9Xjd3zRs0fGDCfXHO0tWC1v/HwfKNtCfekd
+	XjScBUMUABBadmet/lb5Tc5pm8TFJz1Zr2r//gazRFJOyvetF2u2JUtYjRGYpjM4VQW5AH9oYmu
+	4Jzb6sNqJgIbn6gEbcf2oOlCu47mO2ImdGtUQF0j3DJyPhnkR/UeJgfq310tCn7vctLN/0r/UdK
+	zeYBZMK9nr6c=
+X-Received: by 2002:a17:907:2d24:b0:c2d:bcf7:37f9 with SMTP id
+ a640c23a62f3a-c31aa07a9d9mr224233766b.26.1791554786570; Fri, 09 Oct 2026
+ 07:06:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261002154415.2270586-1-vincent.guittot@linaro.org>
+ <20261002154415.2270586-12-vincent.guittot@linaro.org> <62547ac28298442a246abe0471647e36518a93cb.camel@linux.intel.com>
+In-Reply-To: <62547ac28298442a246abe0471647e36518a93cb.camel@linux.intel.com>
+From: Vincent Guittot <vincent.guittot@linaro.org>
+Date: Fri, 9 Oct 2026 16:06:13 +0200
+X-Gm-Features: AclHuK8OZXoY2HDF-7oweWSjqlOmblYb-OtXlDEjMe9WKYUdoHkKC6piT5Ymiy8
+Message-ID: <CAKfTPtCGK1Rw_gMRjdQ3EJ80RJNe0eu0aK-+arhw6C0_Oe0ofw@mail.gmail.com>
+Subject: Re: [PATCH 11/18 v2] sched/fair: Support not wakeup case in select_idle_sibling
+To: Tim Chen <tim.c.chen@linux.intel.com>
+Cc: mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com, 
+	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, 
+	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com, 
+	linux-kernel@vger.kernel.org, lukasz.luba@arm.com, rafael@kernel.org, 
+	linux-pm@vger.kernel.org, tj@kernel.org, void@manifault.com, 
+	arighi@nvidia.com, changwoo@igalia.com, sched-ext@lists.linux.dev, 
+	qyousef@layalina.io, christian.loehle@arm.com, pierre.gondois@arm.com, 
+	sshegde@linux.ibm.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri,  9 Oct 2026 13:55:02 +0100 "Kiryl Shutsemau (Meta)" <kas@kernel.org> wrote:
+On Wed, 7 Oct 2026 at 19:55, Tim Chen <tim.c.chen@linux.intel.com> wrote:
+>
+> On Fri, 2026-10-02 at 17:44 +0200, Vincent Guittot wrote:
+> > With push callback mecanism, select_task_rq_fair can be called for a task
+> > that is already enqueued. Task into account this case when choosing idle
+> > CPU.
+> >
+> > Signed-off-by: Vincent Guittot <vincent.guittot@linaro.org>
+> > ---
+> >  kernel/sched/fair.c | 5 ++++-
+> >  1 file changed, 4 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> > index 6ed3e5bb7fd6..38eb80dbd1a4 100644
+> > --- a/kernel/sched/fair.c
+> > +++ b/kernel/sched/fair.c
+> > @@ -7974,10 +7974,13 @@ static int choose_sched_idle_rq(struct rq *rq, struct task_struct *p)
+> >       return sched_idle_rq(rq) && !task_has_idle_policy(p);
+> >  }
+> >
+> > +static int idle_cpu_without(int cpu, struct task_struct *p);
+> > +
+> >  static int choose_idle_cpu(int cpu, struct task_struct *p)
+> >  {
+> >       return available_idle_cpu(cpu) ||
+> > -            choose_sched_idle_rq(cpu_rq(cpu), p);
+> > +            choose_sched_idle_rq(cpu_rq(cpu), p) ||
+> > +            idle_cpu_without(cpu, p);
+> >  }
+> >
+> >  static void
+>
+>
+> Hi Vincent,
+>
+> One concern I have is that many CPUs will try to push
+> their tasks onto the same idle CPU and causes over stacking.
+>
+> idle_cpu_without() doesn't check nr_running. Its comment says:
+>
+>          * rq->nr_running can't be used but an updated version without the
+>          * impact of p on cpu must be used instead. The updated nr_running
+>          * be computed and tested before calling idle_cpu_without().
 
-> Since commit 7e8756d7ad22 ("mm: page_alloc: fix non-movable reclaim
-> storm in defrag_mode"), direct reclaim and compaction for non-movable
-> requests under defrag_mode run at pageblock_order, to produce the whole
-> blocks that ALLOC_NOFRAGMENT needs. The retry decisions that follow
-> still use the request order. An order-0 request can therefore retry
-> indefinitely without ever reaching the ALLOC_NOFRAGMENT fallback:
-> 
-> - Reclaim at pageblock_order gives up after one pass as soon as a zone
->   looks compaction_ready(), and do_try_to_free_pages() then returns 1
->   even though nothing was reclaimed. It returns before the retry that
->   would reclaim memory.low-protected cgroups, so when most memory is
->   protected, the pass that did run finds next to nothing.
-> 
-> - Compaction at pageblock_order fails or is deferred.
-> 
-> - should_reclaim_retry() takes the reported progress as progress for
->   the order-0 request and resets no_progress_loops. The request
->   retries.
-> 
-> Order 1-3 requests loop the same way, and should_compact_retry() also
-> checks their pageblock_order compaction result against the request
-> order.
-> 
-> On a production host (64G, defrag_mode, memory.low covering most of the
-> workload), 95% of direct reclaim runs were order-9 runs that returned 1
-> with nothing reclaimed, at up to 60k runs per second. Across ~200M
-> should_reclaim_retry() calls in a day, no_progress_loops never left 0.
-> The spinning allocations were SLUB slab refills for inode and dentry
-> caches. The time spent registers as memory pressure, and pressure-based
-> OOM killing takes down both workloads and system services.
-> 
-> For promoted requests:
-> 
-> - Reclaim progress does not reset no_progress_loops, as for costly
->   orders.
-> 
-> - should_compact_retry() checks the compaction result at the promoted
->   order and does not retry COMPACT_SKIPPED, since the request can fall
->   back. The compaction priority floor and the COMPACT_SUCCESS retry
->   limit stay those of the request order, so a non-costly request still
->   gets its COMPACT_PRIO_SYNC_FULL pass before it falls back.
-> 
-> When a promoted request takes the fallback, reset the retry counters,
-> so that the fallback attempt gets a full retry budget before the OOM
-> killer is considered. A request whose reclaim was not promoted spent
-> its budget on the request itself and keeps its counters, as Usama Arif
-> pointed out.
-> 
-> __alloc_pages_slowpath() computes the promoted order once per iteration
-> and passes it to direct reclaim, direct compaction and the two retry
-> helpers next to the request order, so no callee has to recompute it.
-> Harry Yoo asked for the two orders to be explicit rather than derived
-> in each callee.
-> 
-> In a VM reproducer (32G, defrag_mode, inode churn under memory.low):
-> 
->                                         before    after
->     should_reclaim_retry() calls           63M     293k
->     peak memory pressure (PSI some avg10)  99%      12%
-> 
-> File creation runs 5.7x faster.
-> 
-> Fixes: 7e8756d7ad22 ("mm: page_alloc: fix non-movable reclaim storm in defrag_mode")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
-Acked-by: Usama Arif <usama.arif@linux.dev>
+Yes, I missed this part and will fix it
 
+I'm going to merge the check of check nr_running in idle_cpu_without()
+
+
+
+>
+> and update_sg_wakeup_stats() does this:
+>
+>         if (!nr_running && idle_cpu_without(i, p))
+>
+> choose_idle_cpu() calls it without that test. So a CPU that runs its
+> idle task but already has a queued task is now idle for every caller:
+> the target, prev and recent_used_cpu checks, __select_idle_cpu(),
+> select_idle_smt() and select_idle_capacity(). This affects wakeups
+> too, not only pushes.
+>
+> For a wakeup to an idle CPU, the wakelist usually sets ttwu_pending,
+> which idle_cpu_without() checks. A push enqueues the task directly, so
+> after a push the destination stays idle for everyone until it
+> schedules. If it wakes up from a deep idle state, this can take a
+> while, and other CPUs can push or wake their tasks onto it in the
+> meantime.
+>
+> The fixup below removes p from nr_running when p is queued on the CPU,
+> and calls idle_cpu_without() only when nothing else is queued. The
+> tick case that this patch is for still works: p is the only task, so
+> its CPU is still idle without it.
+>
+> It is build tested only.
+>
+> Thanks,
+> Tim
+>
 > ---
-> v3:
->  - reset the retry counters at the fallback only for requests whose
->    reclaim was promoted; a movable request already spent its budget on
->    itself (Usama Arif)
-> 
-> v2:
->  - keep the compaction priority floor and the COMPACT_SUCCESS retry
->    limit on the request order, so non-costly requests still escalate to
->    SYNC_FULL before falling back (Harry Yoo, Johannes Weiner)
->  - compute the promoted order once in __alloc_pages_slowpath() and pass
->    it to direct reclaim, direct compaction and the retry helpers, instead
->    of each of them deriving it (Harry Yoo)
-> 
->  mm/page_alloc.c | 126 +++++++++++++++++++++++++++++++-----------------
->  1 file changed, 81 insertions(+), 45 deletions(-)
-> 
-> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-> index 12fac9084c48..c0be88d2c3ad 100644
-> --- a/mm/page_alloc.c
-> +++ b/mm/page_alloc.c
-> @@ -4127,6 +4127,32 @@ __alloc_pages_may_oom(gfp_t gfp_mask, unsigned int order,
->  	return page;
+>
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index 3eb8a0170902..cb00f24a58fa 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -7978,9 +7978,16 @@ static int idle_cpu_without(int cpu, struct task_struct *p);
+>
+>  static int choose_idle_cpu(int cpu, struct task_struct *p)
+>  {
+> +       struct rq *rq = cpu_rq(cpu);
+> +       unsigned int nr_running = rq->nr_running;
+> +
+> +       /* idle_cpu_without() needs nr_running without p */
+> +       if (task_cpu(p) == cpu && task_on_rq_queued(p))
+> +               nr_running--;
+> +
+>         return available_idle_cpu(cpu) ||
+> -              choose_sched_idle_rq(cpu_rq(cpu), p) ||
+> -              idle_cpu_without(cpu, p);
+> +              choose_sched_idle_rq(rq, p) ||
+> +              (!nr_running && idle_cpu_without(cpu, p));
 >  }
->  
-> +/*
-> + * If fallbacks are not permitted (defrag_mode), we either need to
-> + * reclaim space in a block of matching type, or clear out an entire
-> + * block to allow __rmqueue_claim() to convert.
-> + *
-> + * Reclaim by itself is primarily freeing space in movable blocks,
-> + * since that's where the LRU pages live. So this works for movable
-> + * requests, but not for others.
-> + *
-> + * For those, promote the order of reclaim and compaction to help make
-> + * blocks, instead of spinning in reclaim alone unproductively. Retry
-> + * decisions based on the outcome of that work - reclaim progress and
-> + * compaction results - must account for the promotion as well, so
-> + * __alloc_pages_slowpath() computes the promoted order once and passes
-> + * it alongside the request order.
-> + */
-> +static inline unsigned int nofrag_promote_order(unsigned int order,
-> +						unsigned int alloc_flags,
-> +						const struct alloc_context *ac)
-> +{
-> +	if ((alloc_flags & ALLOC_NOFRAGMENT) && ac->migratetype != MIGRATE_MOVABLE)
-> +		return max(order, pageblock_order);
-> +
-> +	return order;
-> +}
-> +
->  /*
->   * Maximum number of compaction retries with a progress before OOM
->   * killer is consider as the only way to move forward.
-> @@ -4137,8 +4163,9 @@ __alloc_pages_may_oom(gfp_t gfp_mask, unsigned int order,
->  /* Try memory compaction for high-order allocations before reclaim */
->  static struct page *
->  __alloc_pages_direct_compact(gfp_t gfp_mask, unsigned int order,
-> -		unsigned int alloc_flags, const struct alloc_context *ac,
-> -		enum compact_priority prio, enum compact_result *compact_result)
-> +		unsigned int compact_order, unsigned int alloc_flags,
-> +		const struct alloc_context *ac, enum compact_priority prio,
-> +		enum compact_result *compact_result)
->  {
->  	struct page *page = NULL;
->  	unsigned long pflags;
-> @@ -4149,22 +4176,6 @@ __alloc_pages_direct_compact(gfp_t gfp_mask, unsigned int order,
->  		.order = order,
->  		.page = NULL,
->  	};
-> -	int compact_order = order;
-> -
-> -	/*
-> -	 * If fallbacks are not permitted (defrag_mode), we either
-> -	 * need to reclaim space in a block of matching type, or clear
-> -	 * out an entire block to allow __rmqueue_claim() to convert.
-> -	 *
-> -	 * Reclaim by itself is primarily freeing space in movable
-> -	 * blocks, since that's where the LRU pages live. So this
-> -	 * works for movable requests, but not for others.
-> -	 *
-> -	 * For those, promote the order to help make blocks, instead
-> -	 * of spinning in reclaim alone unproductively.
-> -	 */
-> -	if ((alloc_flags & ALLOC_NOFRAGMENT) && ac->migratetype != MIGRATE_MOVABLE)
-> -		compact_order = max(order, pageblock_order);
->  
->  	if (!compact_order)
->  		return NULL;
-> @@ -4246,7 +4257,7 @@ __alloc_pages_direct_compact(gfp_t gfp_mask, unsigned int order,
->  
->  static inline bool
->  should_compact_retry(gfp_t gfp_mask, struct alloc_context *ac, int order,
-> -		     int alloc_flags,
-> +		     int compact_order, int alloc_flags,
->  		     enum compact_result compact_result,
->  		     enum compact_priority *compact_priority,
->  		     int *compaction_retries)
-> @@ -4257,7 +4268,7 @@ should_compact_retry(gfp_t gfp_mask, struct alloc_context *ac, int order,
->  	int retries = *compaction_retries;
->  	enum compact_priority priority = *compact_priority;
->  
-> -	if (!order)
-> +	if (!compact_order)
->  		return false;
->  
->  	if (fatal_signal_pending(current))
-> @@ -4266,10 +4277,14 @@ should_compact_retry(gfp_t gfp_mask, struct alloc_context *ac, int order,
->  	/*
->  	 * Compaction was skipped due to a lack of free order-0
->  	 * migration targets. Continue if reclaim can help.
-> +	 *
-> +	 * Promoted requests have exhausted their reclaim retries at
-> +	 * this point, and they can fall back instead.
->  	 */
->  	if (compact_result == COMPACT_SKIPPED) {
-> -		ret = compaction_zonelist_suitable(ac, order, alloc_flags,
-> -						   gfp_mask);
-> +		if (compact_order == order)
-> +			ret = compaction_zonelist_suitable(ac, order, alloc_flags,
-> +							   gfp_mask);
->  		goto out;
->  	}
->  
-> @@ -4314,8 +4329,9 @@ should_compact_retry(gfp_t gfp_mask, struct alloc_context *ac, int order,
->  #else
->  static inline struct page *
->  __alloc_pages_direct_compact(gfp_t gfp_mask, unsigned int order,
-> -		unsigned int alloc_flags, const struct alloc_context *ac,
-> -		enum compact_priority prio, enum compact_result *compact_result)
-> +		unsigned int compact_order, unsigned int alloc_flags,
-> +		const struct alloc_context *ac, enum compact_priority prio,
-> +		enum compact_result *compact_result)
->  {
->  	*compact_result = COMPACT_SKIPPED;
->  	return NULL;
-> @@ -4323,7 +4339,7 @@ __alloc_pages_direct_compact(gfp_t gfp_mask, unsigned int order,
->  
->  static inline bool
->  should_compact_retry(gfp_t gfp_mask, struct alloc_context *ac, int order,
-> -		     int alloc_flags,
-> +		     int compact_order, int alloc_flags,
->  		     enum compact_result compact_result,
->  		     enum compact_priority *compact_priority,
->  		     int *compaction_retries)
-> @@ -4462,17 +4478,12 @@ __perform_reclaim(gfp_t gfp_mask, unsigned int order,
->  /* The really slow allocator path where we enter direct reclaim */
->  static inline struct page *
->  __alloc_pages_direct_reclaim(gfp_t gfp_mask, unsigned int order,
-> -		unsigned int alloc_flags, const struct alloc_context *ac,
-> -		unsigned long *did_some_progress)
-> +		unsigned int reclaim_order, unsigned int alloc_flags,
-> +		const struct alloc_context *ac, unsigned long *did_some_progress)
->  {
->  	struct page *page = NULL;
->  	unsigned long pflags;
->  	bool drained = false;
-> -	int reclaim_order = order;
-> -
-> -	/* Match the slowpath compaction promotion in __alloc_pages_direct_compact */
-> -	if ((alloc_flags & ALLOC_NOFRAGMENT) && ac->migratetype != MIGRATE_MOVABLE)
-> -		reclaim_order = max(order, pageblock_order);
->  
->  	psi_memstall_enter(&pflags);
->  	*did_some_progress = __perform_reclaim(gfp_mask, reclaim_order, ac);
-> @@ -4638,8 +4649,9 @@ bool gfp_pfmemalloc_allowed(gfp_t gfp_mask)
->   */
->  static inline bool
->  should_reclaim_retry(gfp_t gfp_mask, unsigned order,
-> -		     struct alloc_context *ac, int alloc_flags,
-> -		     bool did_some_progress, int *no_progress_loops)
-> +		     unsigned int reclaim_order, struct alloc_context *ac,
-> +		     int alloc_flags, bool did_some_progress,
-> +		     int *no_progress_loops)
->  {
->  	struct zone *zone;
->  	struct zoneref *z;
-> @@ -4648,9 +4660,17 @@ should_reclaim_retry(gfp_t gfp_mask, unsigned order,
->  	/*
->  	 * Costly allocations might have made a progress but this doesn't mean
->  	 * their order will become available due to high fragmentation so
-> -	 * always increment the no progress counter for them
-> +	 * always increment the no progress counter for them.
-> +	 *
-> +	 * The same goes for requests whose reclaim is promoted to make whole
-> +	 * blocks. At that order, reclaim also reports progress when it backs
-> +	 * off for compaction without freeing anything.
-> +	 *
-> +	 * The watermark check below stays at the request order: it asks
-> +	 * whether the request itself could succeed after reclaim.
->  	 */
-> -	if (did_some_progress && order <= PAGE_ALLOC_COSTLY_ORDER)
-> +	if (did_some_progress && order <= PAGE_ALLOC_COSTLY_ORDER &&
-> +	    reclaim_order == order)
->  		*no_progress_loops = 0;
->  	else
->  		(*no_progress_loops)++;
-> @@ -4790,6 +4810,7 @@ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
->  	const bool costly_order = order > PAGE_ALLOC_COSTLY_ORDER;
->  	struct page *page = NULL;
->  	unsigned int alloc_flags;
-> +	unsigned int reclaim_order;
->  	unsigned long did_some_progress;
->  	enum compact_priority compact_priority;
->  	enum compact_result compact_result;
-> @@ -4934,17 +4955,22 @@ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
->  	/* If allocation has taken excessively long, warn about it */
->  	check_alloc_stall_warn(gfp_mask, ac->nodemask, order, alloc_start_time);
->  
-> +	/* The order reclaim and compaction work at, see nofrag_promote_order() */
-> +	reclaim_order = nofrag_promote_order(order, alloc_flags, ac);
-> +
->  	/* Try direct reclaim and then allocating */
->  	if (!compact_first) {
-> -		page = __alloc_pages_direct_reclaim(gfp_mask, order, alloc_flags,
-> -							ac, &did_some_progress);
-> +		page = __alloc_pages_direct_reclaim(gfp_mask, order, reclaim_order,
-> +						    alloc_flags, ac,
-> +						    &did_some_progress);
->  		if (page)
->  			goto got_pg;
->  	}
->  
->  	/* Try direct compaction and then allocating */
-> -	page = __alloc_pages_direct_compact(gfp_mask, order, alloc_flags, ac,
-> -					compact_priority, &compact_result);
-> +	page = __alloc_pages_direct_compact(gfp_mask, order, reclaim_order,
-> +					    alloc_flags, ac, compact_priority,
-> +					    &compact_result);
->  	if (page)
->  		goto got_pg;
->  
-> @@ -4996,8 +5022,9 @@ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
->  	    check_retry_zonelist(zonelist_iter_cookie))
->  		goto restart;
->  
-> -	if (should_reclaim_retry(gfp_mask, order, ac, alloc_flags,
-> -				 did_some_progress > 0, &no_progress_loops))
-> +	if (should_reclaim_retry(gfp_mask, order, reclaim_order, ac,
-> +				 alloc_flags, did_some_progress > 0,
-> +				 &no_progress_loops))
->  		goto retry;
->  
->  	/*
-> @@ -5007,14 +5034,23 @@ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
->  	 * of free memory (see __compaction_suitable)
->  	 */
->  	if (did_some_progress > 0 && can_compact &&
-> -	    should_compact_retry(gfp_mask, ac, order, alloc_flags,
-> -				 compact_result, &compact_priority,
-> +	    should_compact_retry(gfp_mask, ac, order, reclaim_order,
-> +				 alloc_flags, compact_result, &compact_priority,
->  				 &compaction_retries))
->  		goto retry;
->  
-> -	/* Reclaim/compaction failed to prevent the fallback */
-> +	/*
-> +	 * Reclaim/compaction failed to prevent the fallback. A promoted
-> +	 * request spent its retry budget on making blocks, not on the
-> +	 * request itself; give its fallback a fresh one before
-> +	 * considering OOM.
-> +	 */
->  	if (defrag_mode && (alloc_flags & ALLOC_NOFRAGMENT)) {
->  		alloc_flags &= ~ALLOC_NOFRAGMENT;
-> +		if (reclaim_order != order) {
-> +			no_progress_loops = 0;
-> +			compaction_retries = 0;
-> +		}
->  		goto retry;
->  	}
->  
-> -- 
-> 2.54.0
-> 
-> 
+>
+>  static void
+>
+>
