@@ -1,132 +1,64 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BE0E4E2F38;
-	Fri,  9 Oct 2026 12:35:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 047514D6C4F;
+	Fri,  9 Oct 2026 12:36:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791549367; cv=none; b=FDDvJ+K/s7cFZtzjnj3yPIcoTJbFI1XQYG4J2FnaEp2k+AzAlu15KqJBLA01lEpGyiYBoZddAucYecP+I1b92nOVKq38oRDIKfo9Hdm1MMegwbcp9a0KJh2+EJkkFN1btJ4j4qtnLcI+k8EWILDj2osj01XCn5XPCmLjDeeWJPc=
+	t=1791549381; cv=none; b=ljDJ5AIqxkQVgFf1J8gDMRNbVKGXUiyZrjnDgilDlKxcWZPEBV7fCJ9B+0J1n1LoLWR/jtFp95dQJfb1aapWR9D5YMZjse9/0v+dLCLzNzfZKXkZ697nE9kFNxhEeyq0hFFSkVdSABkh3Y0kLaES3925wqPLBE1S+NtWr6VE3vk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791549367; c=relaxed/simple;
-	bh=ZoEgLlQXgjvR976vonkPHE/c0NVcyVT+vCdOuPZBLA8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lNkXIQ/1OKQeNzmvD5ZrvkXb1WoEiPJXMZglZ7HGSdfZC005APx9U0B1H0TgZa570PuJzMG+dLGaPGlpFJXCeDz1T0zHai2OtK/LrCuCO87owzPn9l1Bp5zE1U3mGTEM32mK0FCAbldnOwsnRxOMdsD2tFEGw9aNI3r36R6dKl8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=gd7yVdJu; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	s=arc-20240116; t=1791549381; c=relaxed/simple;
+	bh=vPuve5cUAgJg25Ymjks0ybEo8axdVfR+niqyzZu0duk=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=PfTaFdTXX5R+NTGH4PdbhwRC15v8PMgnFgcpLjPZrCi7ITU2S6tobfr96zlHmEICKNQ9UIWL45e9uVtR1gx8FZ2txPWqiEyld6HlgCDr5zjqj98GshdhqVIcAXqRdjjaVCuoxXrTb6h2UfKRATr6n4kgNBdsmrWevfItXyPPw1k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=AKEaPhxS; arc=none smtp.client-ip=113.46.200.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="gd7yVdJu"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
-	Reply-To:Content-ID:Content-Description;
-	bh=OoNr0eJSlC1132OcivsXjvqHboh6Dd/pPa+EV/p82Go=; b=gd7yVdJuWCwG3bKIVeGc8KNrhj
-	i9PqNr2ISCUuDeWNMSdNmiFKIwoHgJU4/W3a2Ma+A5CaXrvVkpMfsnxllcMsHS4MlKI3ijX56XLHd
-	o9tS2/3qlVMQUphqwwyKpoOgFlg2l0RxH9jbq9B8kpILhXLKFKTh7k8w4rVzRrKZ8pxPcuKG2Y7Tu
-	BIgd3B1gpvgbSEx1Z/UCNVfibXZfwIIn5tB4QjVr4aBnwyu1FfmpY2f1jArVEGNyn/fgwXerR/QHJ
-	Xcmq6nb9eM/AzvKjgHgIMdSQiCtceM4aGRsGc9w0APVtWEfDl0hUkvSdXNhPA44WOqAC2amr5uDcU
-	+rkzcQ0w==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xF9pF-000XDD-2o;
-	Fri, 09 Oct 2026 12:35:51 +0000
-Date: Fri, 9 Oct 2026 05:35:45 -0700
-From: Breno Leitao <leitao@debian.org>
-To: Gustavo Luiz Duarte <gustavold@gmail.com>
-Cc: Eric Dumazet <edumazet@kernel.org>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Sashiko <netdev-bot+sashiko@kernel.org>
-Subject: Re: [PATCH net-next 1/2] netconsole: avoid printing partially
- updated target attributes
-Message-ID: <asjfY79OetvGy4an@gmail.com>
-References: <20261006-netcons-fixes-next-v1-0-231cd26f8c51@gmail.com>
- <20261006-netcons-fixes-next-v1-1-231cd26f8c51@gmail.com>
- <afc14b81-32b3-4f91-8b0c-0152889f80f6@kernel.org>
- <CAGSyskUE2CM_i_+o2Dtf+_OriRyad+UzG4S-rzOeTL18LnZheQ@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="AKEaPhxS"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=vPuve5cUAgJg25Ymjks0ybEo8axdVfR+niqyzZu0duk=;
+	b=AKEaPhxSHyx84DiQXDaO37VGX+2KL2PBaqi/7K+hyNiY+AE2Tsxq/XhI6yOeCaZdlskmU65zD
+	Q+X2IejEWe2j6Iw00YwgtwbYTExIw8VDRhmP4xmHER9F4ocIxKmEYzG7C9Py3bw9x0rPifwuqZZ
+	pQ6KbTl/YQgAUav+5YrmdPw=
+Received: from mail.maildlp.com (unknown [172.19.163.0])
+	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4j1Qyb3yfjz12LD9;
+	Fri,  9 Oct 2026 20:24:07 +0800 (CST)
+Received: from dggpemr200001.china.huawei.com (unknown [7.185.36.96])
+	by mail.maildlp.com (Postfix) with ESMTPS id 5EFBF40537;
+	Fri,  9 Oct 2026 20:36:04 +0800 (CST)
+Received: from huawei.com (10.50.85.155) by dggpemr200001.china.huawei.com
+ (7.185.36.96) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 9 Oct
+ 2026 20:36:03 +0800
+From: Ran Hongyun <ranhongyun1@huawei.com>
+To: <bsdhenrymartin@gmail.com>
+CC: <anna@kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-nfs@vger.kernel.org>, <stable@vger.kernel.org>, <trondmy@kernel.org>,
+	<ranhongyun1@huawei.com>, <chengzhihao1@huawei.com>, <yangerkun@huawei.com>,
+	<yi.zhang@huawei.com>
+Subject: Re: [PATCH] NFS: map TCP_TLS to TCP for mountd transport
+Date: Fri, 9 Oct 2026 20:29:26 +0800
+Message-ID: <20261009122926.3924424-1-ranhongyun1@huawei.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260309132253.1393804-1-bsdhenrymartin@gmail.com>
+References: <20260309132253.1393804-1-bsdhenrymartin@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAGSyskUE2CM_i_+o2Dtf+_OriRyad+UzG4S-rzOeTL18LnZheQ@mail.gmail.com>
-X-Debian-User: leitao
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ dggpemr200001.china.huawei.com (7.185.36.96)
 
-On Thu, Oct 08, 2026 at 08:55:40PM +0100, Gustavo Luiz Duarte wrote:
-> Hi Eric, thanks for the review!
-> 
-> On Tue, Oct 6, 2026 at 9:35 PM Eric Dumazet <edumazet@kernel.org> wrote:
-> >
-> >
-> >
-> > On 10/6/26 20:58, Gustavo Luiz Duarte wrote:
-> > > The configfs store callbacks all serialize on dynamic_netconsole_mutex
-> > > but not on the read side, so reading an attribute while it is being
-> > > written returns a partially updated value.
-> > >
-> > > Hold dynamic_netconsole_mutex on *_show() callbacks to avoid racing with
-> > > writers.
-> > >
-> > > The dev_name_show() callback can also race with
-> > > netconsole_netdev_event() writing to np.dev_name due to
-> > > NETDEV_CHANGENAME. So it needs to hold RTNL in addition to
-> > > dynamic_netconsole_mutex.
-> > >
-> > > Reported-by: Sashiko <netdev-bot+sashiko@kernel.org>
-> > > Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260814-netcons_ipv6-v3-7-bc0915e8c75f@gmail.com
-> > > Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260928-netcons-fixes-v1-0-bb5ffe5e698a%40gmail.com
-> > > Signed-off-by: Gustavo Luiz Duarte <gustavold@gmail.com>
-> > > ---
-> > >   drivers/net/netconsole.c | 62 +++++++++++++++++++++++++++++++++++++++---------
-> > >   1 file changed, 51 insertions(+), 11 deletions(-)
-> > >
-> > > diff --git a/drivers/net/netconsole.c b/drivers/net/netconsole.c
-> > > index 267254f046de..188beacb308d 100644
-> > > --- a/drivers/net/netconsole.c
-> > > +++ b/drivers/net/netconsole.c
-> > > @@ -859,7 +859,19 @@ static ssize_t release_show(struct config_item *item, char *buf)
-> > >
-> > >   static ssize_t dev_name_show(struct config_item *item, char *buf)
-> > >   {
-> > > -     return sysfs_emit(buf, "%s\n", to_target(item)->np.dev_name);
-> > > +     struct netconsole_target *nt = to_target(item);
-> > > +     int ret;
-> > > +
-> > > +     dynamic_netconsole_mutex_lock();
-> > > +     /* Hold RTNL to prevent racing against netconsole_netdev_event()
-> > > +      * changing np.dev_name.
-> > > +      */
-> > > +     rtnl_lock();
-> > > +     ret = sysfs_emit(buf, "%s\n", nt->np.dev_name);
-> > > +     rtnl_unlock();
-> > > +     dynamic_netconsole_mutex_unlock();
-> > > +
-> > > +     return ret;
-> > >   }
-> >
-> > Please do not add rtnl_lock() in a _show() sysfs handler unless there is
-> > no other way?
-> >
-> > Something like:
-> >
-> >      dynamic_netconsole_mutex_lock();
-> >      strscpy(name, nt->np.dev_name, sizeof(name));
-> >      if (nt->state == STATE_ENABLED) {
-> >          struct net_device *dev = nt->np.dev;
-> >
-> >          if (dev)
-> >              netdev_copy_name(dev, name);
-> 
-> This could lead to a use-after-free if we race with NETDEV_UNREGISTER
-> and 'dev' gets freed.
+Friendly ping.
 
-Any chance you can get the lock (either dynamic_netconsole_mutex or
-target_list_lock) in netdev notifiers, so, it doens't conflict with this
-one?
+I hit the same issue and was wondering whether this patch is the proper fix.
 
+Thanks
+Ran Hongyun
