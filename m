@@ -1,133 +1,128 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2C7A3F329A;
-	Fri,  9 Oct 2026 11:25:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F31924CE685;
+	Fri,  9 Oct 2026 11:26:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791545159; cv=none; b=j1vaq5+hDpmGlLm90IJDP577qzoJ9PrJsfvNVggCeTbqAkNIAXDJG+re0i4L7m2DzMoHi+NoVdg/SjUxuNwC4zPLKwVnFOZ5xF7+GJCJ1fmCWfYj3VbverGyTvFot6/zXlaU1MYy0j0Bf1QSiJuldAw0TTwYgBTiyayH84xPN5o=
+	t=1791545211; cv=none; b=WdJapZzXW6te6L3tTIZgHc9oKLFAS+dpyz2dOScy8cIIxvmFV7yB8Kh4HULJPnAVQWP9WKbm+CHY5p/JO7wIdPN829lLtYfaKCKRNM2ID4CSz3QG0fnB4XpleZjeKozYNPB6DB9ALnmLPBn3Jc68FAfiGudsRjhDIE/HznLG+ug=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791545159; c=relaxed/simple;
-	bh=JKJIxTyryZxcLfwAq/m3TqMiI88ySXek90Fko7fZZtw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=gJUjoEReAMUmEEvyMnLPKiFrWdtlhxrVMgqDD8B6/DLoZlTpoGL6p5330hQHIq5XfYuqcdRBync17CRyNeKg2Hwu0596XoWUPkzpBRsc8/nLfdRSE+XvECB1Ea2ziAqO3mBR/bphMAZGbU1UmrmA+mOiEsEZxl8mlnc2KxWSCzU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VK+3IeMw; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	s=arc-20240116; t=1791545211; c=relaxed/simple;
+	bh=D8Qm16gkPfaCWXF8TmMukmsvclVCI68/eOVmJaYMe1E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jnRR4iS61G9y5tbmZnVIgT1mj1twmFNeO6lOByb5LqBj5B8H8QnQVUZAM59Q4ohVVaZwsZqdonrBjXvO8sN1QGJYdTkKB/zyVQVQ4/1m3XgumUcIT4NKVgEg1bRo15vnV52nzFr5+F+ZPM7Hac0jQHFpi24bfSfVgW3Mg8SARSc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DdaXsgpL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VK+3IeMw"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6998KNem1223206;
-	Fri, 9 Oct 2026 11:25:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=6FbwaaY3OzfD2u8g/JqvJW9gPG/pdQ6vN2b
-	cOgBjsYU=; b=VK+3IeMwy9/sU2kRNR5hmGEvnczThZJ44JeTOjIXkQRC4HpKRXq
-	y4zYo2cpplhyM556pxnlGManL8iEYzY/qVv3IS3fLIZmw1/mSzk/7o1NW1XdFKoZ
-	/q0ZKIo1JhWGhVzNNSZJ5neTZDDMQzBZJV3aOLZXTYHn6JXPlJikj9ykph7WIcTU
-	xuL+AmN4fR3d7N9rCuOnnzQnNpcEPN1YVGyEmjkXJZVPQlNxy1EmmHWR7m66IJ9d
-	INVKJoHdWu3+Zqiq29JHx6jY+8SoeoYK9ewhFsuTVpbuU6ZSVpIfsi5XnM8aKg5b
-	UlvsqT0bb6eCw9OpnR/na6lrCwRa5d8nmgw==
-Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h6fxkb7y9-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 09 Oct 2026 11:25:41 +0000 (GMT)
-Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 699BHNcr1842464;
-	Fri, 9 Oct 2026 11:17:23 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-pkumpatl-hyd.qualcomm.com [10.147.245.204])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 699BHNWc1842444
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 09 Oct 2026 11:17:23 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 3914174)
-	id 260D0643; Fri,  9 Oct 2026 16:47:22 +0530 (+0530)
-From: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
-Subject: [PATCH v2 0/2] This series resends the self-contained ASoC changes from the earlier Hawi/Maili LPASS audio submission.
-Date: Fri,  9 Oct 2026 16:47:17 +0530
-Message-Id: <20261009111719.2609060-1-prasad.kumpatla@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DdaXsgpL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C09A1F000FF;
+	Fri,  9 Oct 2026 11:26:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791545199;
+	bh=gVFvoh+N93eNVEZd1ChTGR6VE46A6MIAlZYNVvFXQJc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=DdaXsgpLR/fJ4nrkqsRVqxQVnzrVDy4sAVe5pSU1jwi33xMKVXSibpNlVnqdzhh9C
+	 jmd325q20C73dE0Spuhg6P5mejTubme5ll5y0tz5tWw5yvT+2JL2zobz8YZmPmSQ9+
+	 Fxd9MqvpmnNUvtZzcpKJ40un7ExwbKDKcu5JqtsntcpbKuTY/PIueV90GJ0woi3FaG
+	 yPW9zlpQnaHcwAA+Cm4eW9lIKiruxrqVdcDU1tyjjlNxi6trn4I+L0+sunyqZYBlGa
+	 VK5lUqxZ0LQ8dV9CQzD+MopG91kXfUgSYcW+xx401jtzzJYopZdNSwgjPi+vO9AZVG
+	 tcsY3nNJPIBkw==
+Message-ID: <a9e45c44-00ae-4963-b8e5-dbf6ffa18975@kernel.org>
+Date: Fri, 9 Oct 2026 13:26:32 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-GUID: 7-FdOoUlA3lXPT779lG4nV22CP2CGvdA
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDA0NSBTYWx0ZWRfX0i+2vILuxxBl
- +vd9Nr/QxcNLH/P9b1mGJ4kt4az6DstdB6mDuEqRVh/ZsVAyqf2XQQGW8d8RA1bf0qsZbRdqgn8
- iCJ3P4WGJYDLgBwwQPQETijrLvemiLU=
-X-Authority-Analysis: v=2.4 cv=Cs0q4X4D c=1 sm=1 tr=0 ts=6ac8cf35 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=gowsoOTTUOVcmtlkKump:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=VQ4Fj_RYcp3dFWGW_loA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDA0NSBTYWx0ZWRfX/QkcgR2hYrCF
- tXV/vbVs10UzdbG4NZXWSo1ST0XNHVvw30u1eo8SjvTrX6XUVXkK9RI7nWzBswT1v+jrfb5i6EB
- l6REUHfbfSfhmzjcws6FgvYZEtNeSEbkM+rmbSGqZYf1PHUbgU9D3UrpvaXc3X8XldMWUDUvn6Y
- mzF2YQQSWX6Qe2o6m+keZpC7zJdFJg2nGDhWUW4YoLGLeRBTkMpMt3vasGfArtvKlCpVL5xGXHX
- hiEZleKdNXAg1GUDOAJ0ABiqtsWXWqSbmKvAAxxLmG4soIMIyg8iTuzQ2ileOXle5NJs/AeVXHp
- 9p/R4lFHTA9BWUNTXLNZcJz0yK8D2ARKNHOvKnLLh6bjpnfh9mSBK1NhD2sWckq/445xw1f1Zz9
- f4kFxamfoVVvfF7rWqS1dT3q03/xIY1JrRBCQX5ghOlixdpLMpEQLVxP5NXl8a33nxryyJc1ewD
- 0Eak6HZSp9OYSX8QElA==
-X-Proofpoint-ORIG-GUID: 7-FdOoUlA3lXPT779lG4nV22CP2CGvdA
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-09_03,2026-10-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 bulkscore=0 clxscore=1015 adultscore=0
- priorityscore=1501 lowpriorityscore=0 impostorscore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610020000
- definitions=main-2610090045
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: serial: snps-dw-apb-uart: add
+ ambarella,cv75-uart
+To: longzhao@ambarella.com, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, linux-serial@vger.kernel.org
+Cc: Linus Walleij <linusw@kernel.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ Long Zhao <zl020895@163.com>, linux-kernel@vger.kernel.org
+References: <20261009-cv75-uart-v1-0-38c098efaa99@ambarella.com>
+ <20261009-cv75-uart-v1-1-38c098efaa99@ambarella.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261009-cv75-uart-v1-1-38c098efaa99@ambarella.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi,
+On 09/10/2026 12:59, Long Zhao via B4 Relay wrote:
+> From: Long Zhao <longzhao@ambarella.com>
+> 
+> Add the Ambarella CV75 compatible string to the Synopsys DW APB UART
+> binding. The block is Ambarella IP with a DW-like register map, so it
+> is described as a DW APB UART variant.
+> 
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Reviewed-by: Linus Walleij <linusw@kernel.org>
+> Signed-off-by: Long Zhao <longzhao@ambarella.com>
+> ---
+>  Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
+> index 49f51b002879..cec5c679f1a9 100644
+> --- a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
+> +++ b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
+> @@ -51,6 +51,7 @@ properties:
+>            - const: renesas,rzn1-uart
+>        - items:
+>            - enum:
+> +              - ambarella,cv75-uart
 
-The original v1 series included bindings, devicetree and defconfig changes
-which either depend on other LPASS macro/platform updates or need to be
-handled with the corresponding platform enablement. Keep this revision scoped
-to the two ASoC changes which are independent and can be reviewed/applied
-separately.
 
-The October 6 subset was incorrectly posted as v1. This v2 supersedes that
-posting and keeps the revision history tied to the original September 23 v1
-series.
+This depends on vendor prefix patch at least from next point of view.
 
-Previous submissions:
-v1:
-  https://lore.kernel.org/all/20260923084627.748920-1-prasad.kumpatla@oss.qualcomm.com/
-incorrectly-numbered subset:
-  https://lore.kernel.org/all/20261006053717.3455143-1-prasad.kumpatla@oss.qualcomm.com/
-
----
-Changes in v2:
-- Correct the revision number. These patches were previously posted as part
-  of the September 23 v1 Hawi/Maili audio series; the October 6 subset was
-  incorrectly labelled v1.
-- Drop the Maili LPASS macro binding and Hawi/Maili DTS patches from this
-  series because they depend on other platform/audio changes still being
-  reviewed.
-- Drop the arm64 defconfig patch from this series. That patch belongs with
-  the Hawi/Maili platform enablement and needs a separate rationale if it is
-  reposted.
-- Keep only the two independent ASoC patches.
-
-Prasad Kumpatla (2):
-  ASoC: codecs: wsa885x: Reset registers on teardown for B2B playback
-  ASoC: qcom: sc8280xp: add Maili sound card configuration
-
- sound/soc/codecs/wsa885x.c | 11 ++++++++++-
- sound/soc/qcom/sc8280xp.c  | 11 ++++++++++-
- 2 files changed, 20 insertions(+), 2 deletions(-)
-
--- 
-2.34.1
-
+Best regards,
+Krzysztof
