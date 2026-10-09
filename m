@@ -1,184 +1,238 @@
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013034.outbound.protection.outlook.com [40.93.201.34])
+Received: from out30-119.freemail.mail.aliyun.com (out30-119.freemail.mail.aliyun.com [115.124.30.119])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46C1D46AA65;
-	Fri,  9 Oct 2026 06:46:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.34
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791528387; cv=fail; b=HIPo6SLc8MEyJfLHtEiiagO4MNiwo23A3DPQqrbScZkz9zhZDWb+gWokOFhxd4z/jRvuM69XEusdoYa8KCtY9/ciThqS77q/GGSsYxCRxpkzv5gy4at0SQBMUPtfl+dIcO0DjB7/2wv88FyxDD9kc2qnUFQOiGhjLtAKMgViiac=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791528387; c=relaxed/simple;
-	bh=vhzDQAdcJ+c/E18ZLtFOk/kxRr66jDc7WJw9/G6PWCo=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=C5xVOuFrQfqoNqzeXkEB/4slHpMMZIy8OZPEKk68bz4YfRowM3zvbZe1Reufg052apl/7wLQeZnm99/me8y9DvFoqavERyz95DPEGmoVUddjf+jT/+nK28k+jDTo0iBGK1CyZeTZVcKHPg/BNs3wjxAOBv/tWepoT8isMC/wgDU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=PCf/3yop; arc=fail smtp.client-ip=40.93.201.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72F9E46C4BF;
+	Fri,  9 Oct 2026 06:46:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.119
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791528394; cv=none; b=IZz13OAT6vjyx6R+qRxFUMDnA30MsbgecK4+g01TQU/yuvINsEWAK4xNHIoHBOj+tsQ3D1y9Ccr0aYcJ4SZPGQlLn7iUPLnT8uPEx+zIqIqkS3yETeUZ2uQZBOip7TXCaIqtNv5JJN9VWEaMWVrEzNSXuSSC6cdvCd7rzKdJMCs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791528394; c=relaxed/simple;
+	bh=dlY3yFfM2QAMxT65i2r5NnPCMBMFXG5ZIXM8ycYAewY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Bdw/lnq0cfCI/AicQr1lZqJ/dKgqvOOQ7755icZKur5w6bBV+B1jLK1guFLQg1z9E+nENh62z1Whdz9baIDs6+6nmwWlbjozUkLwxDtEmyXfwzPaFjM1qsICI5EGgMZKBUwz4RZfpM3HgMP3YuUgSNILfx3x74cAVKrtYdV6/Xg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=AKKN8lST; arc=none smtp.client-ip=115.124.30.119
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="PCf/3yop"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oIc54TfrY41ON3i/g5XKdFvS1AVBYclnfdQ0mxAtdAZLdYg+j9qnzM8dosSUpRO+L4rR1b3GDCqxPvDzNuSyat2M4R/AZ35U6fRWd3AARFi7DySJTgkrLoRVG38iWqFBc3LbrsFz6J3ACvDVdm8yGZJttmUVIfs6YFDxBmj+VO2N45Kr1qaVOULOKeoyjvvay7/8DS5f/oLY+zgUIVsh13r4/ON8HvU9VPMvtprLrGJpUp9FSb8qsmg7HRAsddArtK7D93B338WlcWuzwBcnjw1Jl2AUmfx0lvrLT64Hu+QLvRbiXftrjRBQEox+qnKOPG7zxhJ6I+XFXjocqJN/1A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=x/RcB4L+iCLocDO6I+wTC/z8jKjKB0p/8Zq753KvvU4=;
- b=tK9v5/Hku1M9LafyXBgiqNImChNjai9Y2AMT/lcXsWQjBie9Ustz7kFvnDGz65EkfJQKlXYvfYTly9shrBDuQv2VoWUMPf0w+ka9IAFw+46/8rQs0S98FG8WtAsUsjsQ+v2HEsfl/4HAfCLpm4wtYleS1zS0yq8nHXrZn8F+QGzkFlihvyXUGAPm/ujjfQtsLGSpRLEreOMswbT+NEbH2eF9tBqnIkBovu1Bezn4dnDUqgpRxkJwNuy6dkILFpI5pECBop/wQRdtxd8E6DmxvvlvcLTA0PfvKJGr7E8HxTotnUIsEvCSIWBMF2xBPynRHiliARm/tdkYvvj0YS0RwA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=x/RcB4L+iCLocDO6I+wTC/z8jKjKB0p/8Zq753KvvU4=;
- b=PCf/3yopIDr8Nvgrg+pqQp77HHHW0hWPDp36PEUTrFSrrrTQ/mV6oVEmPcB3fXbeVdo/1i0qipXveKvmKC3m6MffccmUZNjfLaEqXrBUpR3UmllDICCVOaQL0HrLj6zLQdNAh0FqSSmIGjN8ZeAR9v2WBBU0jpiH4UGJ2axEQV7WY7njx2XBZ77dVEX5pv1ildawYyJzOeA+PtGDAogjymke5mLfMecfcoSloViYsMzB5Hnws1DSynzffc3gIE/otyG8Kcw9HdTi4XlQWvOiPNZpE7FJY0fdFNl7ahwVutEnaQMh9/rpO4vYjiP7uQ22i7y+Fy5Op96HWhWLAMo6Qw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by LV8PR12MB9407.namprd12.prod.outlook.com (2603:10b6:408:1f9::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
- 2026 06:46:22 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0472.016; Fri, 9 Oct 2026
- 06:46:21 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 09 Oct 2026 15:46:18 +0900
-Message-Id: <DM03T324DC0F.2VZT6WIAHM0VI@nvidia.com>
-Cc: "John Hubbard" <jhubbard@nvidia.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Benno Lossin"
- <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Alistair Popple"
- <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Zhi Wang"
- <zhiw@nvidia.com>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, "dri-devel"
- <dri-devel-bounces@lists.freedesktop.org>
-Subject: Re: [PATCH v3 7/9] gpu: nova-core: gsp: cmdq: move the RPC code
- into a sub-module
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Eliot Courtney" <ecourtney@nvidia.com>
-References: <20260930-cmdq-rpc-v3-0-91613f06520b@nvidia.com>
- <20260930-cmdq-rpc-v3-7-91613f06520b@nvidia.com>
- <DLT8T5HQDV6N.30T90TO3IDNKM@nvidia.com>
- <DLZY4W2CTZGL.3K38U20U8KLLF@nvidia.com>
-In-Reply-To: <DLZY4W2CTZGL.3K38U20U8KLLF@nvidia.com>
-X-ClientProxiedBy: TY4PR01CA0088.jpnprd01.prod.outlook.com
- (2603:1096:405:37d::9) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="AKKN8lST"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1791528381; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=LoVx2R5PChUvqrXRet/NFBqBIchEhynSZ3ARypBye7Q=;
+	b=AKKN8lSTU2LpoNaJKW3gPwn6QEjA2sHAc78IlJRong9dhBDrZ3/5Dg4Kl14eac+YYHNFIImkNm1lNQNe9eLFVUV3E3ESTOJlabX+MftnCuZazLLu1AdqAyJ0MES1wG/M1KSW6W9KmJ1FrKW+AoxEuAr0eFTTxYkvH62NQWYXmAA=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R331e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=11;SR=0;TI=SMTPD_---0XCSZjHs_1791528378;
+Received: from 30.74.144.136(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XCSZjHs_1791528378 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Fri, 09 Oct 2026 14:46:19 +0800
+Message-ID: <fbb046b9-be48-42d8-96b3-7e554484b625@linux.alibaba.com>
+Date: Fri, 9 Oct 2026 14:46:18 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|LV8PR12MB9407:EE_
-X-MS-Office365-Filtering-Correlation-Id: f9461ef0-bf0d-4a3d-00a0-08df25d10737
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|23010399003|376014|7416014|366016|1800799024|4143699003|56012099006|11063799006|10067099003|18002099003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	aMXHGYBTlOV1EVSyK+7uhnHNF5JeCmHSpM+VW8IY8eIfdUK1h5wv5mXE8NYCetbhxU6G+ZR/padeVcjHCoXxcJ5nD2IsrcaNPDxAcTj83QOAO8IpCunWxgOlJxgq4MpU0aQRmy1C5MOKp6lZ78D+XlTchli/1bYg/CePV9MeaAf/rxqXrqJqhELoD6dEv7qFe2OQawMZWzlvZ/hlkgZTMAmjdesiA/1s80ncWcW6XWejZqy1PtzlpTg8lFxbjMFe6FIDVKHm7FXqoQlIdO7jXMapJqQuyHXXP78FHxeyzZPSBieGxtnbXib5OKufqY8Qf6qb8z5aGnNd/LQF2UhjvqYQdQ+6zThZZQn2uSm9UpUB6lsaCnRHZfUccEWD8ozdS7hcfsWQx54tjiqb/6I7jCan58F9S2nFn29T9sz/CFFsvoMIpfOffUVxfBeyZq+x968I0s2qYbh7nkCARZ6hrWPC4VORmIq6tmnHw88IzHtqXdWRgvFQ+demSSYHNd9GKymrZdUlUjhPaZyD/s6NHksnKtcN3kf5zhiAYDsogsofDroJVt+VDRQaJV0qwzph2tTNV6f37dJ7aKovj8lbPHx0kdvV6FLMMVZppBweyk4edmA52ydGtQnj4plBU8ObrELTDe4D01SyNylvfZXLDjF6hU57DDAgmjlFNmCswwQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(23010399003)(376014)(7416014)(366016)(1800799024)(4143699003)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QStZUXloTWFqbHhSanArUjFCTXRoNWtkTDNMVDVQZ3hDUkxjTFFKdEJqYTBy?=
- =?utf-8?B?ZXQvRG54cU1qUERUM2NiN3RmYlJ4Y09XREZSTnNXcUR5VkhPdFVZekYwaTNQ?=
- =?utf-8?B?djNBc1Z3SzlaYUZZRGpHRlpnK2FjTUwzVVBWU2JMdTR6MGRwTGhEdldxd253?=
- =?utf-8?B?dEFRYVNxZmsvSkNxa205V2toV2Z0R1VuUjVLODN6SEMwOFJOVEM1aFArbiti?=
- =?utf-8?B?VWRRQklZNEo0U0NqVGYwdkljUE1peE14QTVSWmJOZHF0Y2xxQWdZU3h0TnAy?=
- =?utf-8?B?TjRITG4wTVJwNVJNKzUzaXBYcE1XQTQwOFFIcjJnS3FoSjZvOVF2V3c3WGs2?=
- =?utf-8?B?Q3lQcWIwb1grMFdDSlBmZU0zdGtXYUpiUnF1WkZSa2VyRy8ydVhtNE0xYUR5?=
- =?utf-8?B?U3k2SHZpN1hvMlV4L3NNdWJ5MVB0ZzlVV2xxQVgzTm9FaHRRTUxWZkNvQ0x6?=
- =?utf-8?B?SnoxNUZ3MVQ2ekhWRjVvSkt2a3hyQjZKNnQ3M3cyRVJiYTNENU96WXM0YUdW?=
- =?utf-8?B?dXZtdXR3NDBCNHF1NnVjQUU3TDAvNGNYMFRoNk81UnM2aGEydlRncmpLelc1?=
- =?utf-8?B?b0JMWHA4Q3hqbDlzVFE5TDhmWGx5Q3NibWZTN2VKakVudnlXbmlOTnBKN2po?=
- =?utf-8?B?Vm5RTUlqdFp2dkdoSk56M2tNdmpGa2lUUHF1Vkg1SjhaZ09od0lubVhPMDk0?=
- =?utf-8?B?bkd6cHZIOVlzSFVEQll2d0xlL25kdGZuVG1yL0VSODB4WjhDODhmZ05DemFF?=
- =?utf-8?B?dmI2bHkrUVVhN0s4U3ZsQUJDcjVwT0VqekhVaUo5czNhVWp2ckExcTRJRG5k?=
- =?utf-8?B?RUU4ME5SbW16V2hvVVozbG5YSmttT25saUQ1S1VSampiRWx5SU85WkQxUGFC?=
- =?utf-8?B?NHg4NURFVGVWcHBDeWllVk1FMWU3a2VVWWF3SmUycnhOTjkvOTlkeWZDMjBu?=
- =?utf-8?B?cmVTdUV2K0tKUjhiTGRsdTVyZ1BXaXU2L3RHLzlDNG9FTjY0NmJ1Mm93bDla?=
- =?utf-8?B?RFUrb1lseFRlWjgveE9rcW1rVVpjUUt5SUNSYUd5bldxVmxPY3A3N1JleDRx?=
- =?utf-8?B?cWwvUjJOQ0JCeWcyVk5MOVZPVjlyYVZpR1hDWnBtTGV6S0lLaU5MOVRiVWpn?=
- =?utf-8?B?Zjkwem5VUzhkay9VZ2NtNjdRcWxpd3hQSWlYR0VjVDJLUGpaaHNTak9FRUxZ?=
- =?utf-8?B?V1gvdjMzZGdnWmtxQkJJejROQ25Ja3Y4WW1XdmN1MjdzNnQyamtaRmVZYmp6?=
- =?utf-8?B?cTAwaEg3N0VJaHk5eVF0N3ZnVmxRTS91RHFYeExjTnZMMmRrVVZ3NzZkcVgx?=
- =?utf-8?B?YWExRnBKQjh1Wms3RkJ4QmR0bXVkMllBUGFNQkxKWWplVGd5aXZzd1FBZ1k3?=
- =?utf-8?B?ODFHUU9vbnFqNFJTZTRYTFhLaDk4aHVzcmV1L2Y0d3JtcWlpbmNIRTFUMVhX?=
- =?utf-8?B?bGoxV0FKSElnazgwOTNMeXBoV0lmVkRya3NOUnB5cGZxUWNrUXFwd3JqN2pr?=
- =?utf-8?B?dFBBTWZUYzZpZTNYUk95Z09Wd2RlNjlRN2puVjQrZk4wakg5WjlDZXNadkg0?=
- =?utf-8?B?d0llZkVYSERtQlh2VjlsTzY0QU5WRDNxVDJJSzNKZEZKSmRVeFk5a3M0dEdq?=
- =?utf-8?B?eUFPb1ZtclpxUzNjdzJUeFZFZGg0WG1URHltaTZEdThtL3lBYjBmUjRJcS9r?=
- =?utf-8?B?eG9YeGsxME1rdTFiQllORWVUdEVRNWhVVUNXYjBtU3hSUGw4TllPZVV6VU1H?=
- =?utf-8?B?VGFnalhJVTRISk5Dbkk1bWV1TjBMYW5sNXUvaVh4NjFZWkh1VXZkRDNCa2l1?=
- =?utf-8?B?bk5YandweUFFMnhmTFNmcDhoc1BTVGplWjYzSUtsSlNJZGo3TlNwblQ3OVNK?=
- =?utf-8?B?anVPUVEvbEk2dVVEc09Ddkdya3dsd0FrM09qWXlVL2xGci9kc04xS0J6SVFw?=
- =?utf-8?B?R2tXQkpqNmErMkhIRlNLbVBJbVYxTTFENEQrSkxkUFRNSG9JdUhsT2lhWlh3?=
- =?utf-8?B?VnJWRDlhMGVtdUwxRFpoSm9GMk9Oc0FzM2I2L1pmSzdpN2FoSG9pTkxsT3pi?=
- =?utf-8?B?TktOQjNYTEZncDFhTm82SkJHR2s4NjRxSXMyUGhSWkh4UE9RT0lIM1daSnBi?=
- =?utf-8?B?MExlWVZDOHNGdU1SMU9rL01VUFhnK2crK3lEaEgrKzN3eXlBQmViR3UwWndX?=
- =?utf-8?B?ZitoazNmSmN3YUpuOFk0V1pTenFXb2JkOXlIK3AveEI3c21Cek02b1BnVWp0?=
- =?utf-8?B?RDVDN2NhcUhnQk96UVRneHVOQy8wazJKdFA3NHdLOUpqZWtVL1pzZjVuUzZ6?=
- =?utf-8?B?NmkvbHlIc0d6ZWJicjVJWFBaTlR4aGN3TjRBRmh3Nk5uWkg0anNjOFdUdTk4?=
- =?utf-8?Q?FtVIttvnqzqEJoE3md4heYkuwt8u7M6d8ajkKW8XaApxu?=
-X-MS-Exchange-AntiSpam-MessageData-1: iWV1a95GT+sYSA==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f9461ef0-bf0d-4a3d-00a0-08df25d10737
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 06:46:21.0671
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wY3BER2H9BfbpgHe+AYGBzgak2/jnj5gKUmCdfD3N937SW+yLCsYeHj4ih6shZff8ft3GaAb0Nw21yTUjLncqQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9407
+User-Agent: Mozilla Thunderbird
+Subject: Re: [BUG] shmem: FALLOC_FL_PUNCH_HOLE vs fault-around race corrupts
+ page cache / rss counters
+To: Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>
+Cc: Ayush Ranjan <ayushr@modal.com>, Pedro Falcato <pfalcato@suse.de>,
+ Hugh Dickins <hughd@google.com>, Matthew Wilcox <willy@infradead.org>,
+ David Hildenbrand <david@kernel.org>, Gregory Price <gourry@gourry.net>,
+ linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260924061708.1645968-1-ayushr@modal.com>
+ <arTdLsBENhrpOyk-@pedro-suse.tail5790ac.ts.net>
+ <20260925053027.1998394-1-ayushr@modal.com>
+ <20260925065013.3682431-1-ayushr@modal.com>
+ <20261003033107.1488699-1-ayushr@modal.com>
+ <20261004222831.bdd648a2b406f02747dd9e40@linux-foundation.org>
+ <fyswoh7wpxzlbnjjanggjd2jz6yispmeirhwjl3wzi57nacddb@bjkb6kxyfcal>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <fyswoh7wpxzlbnjjanggjd2jz6yispmeirhwjl3wzi57nacddb@bjkb6kxyfcal>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri Oct 9, 2026 at 11:19 AM JST, Alexandre Courbot wrote:
-> On Thu Oct 1, 2026 at 2:12 PM JST, Eliot Courtney wrote:
->> On Wed Sep 30, 2026 at 11:55 PM JST, Alexandre Courbot wrote:
->>> Move the types and code related to sending and receiving RPC commands
->>> and messages into the `rpc` sub-module. The methods are still declared
->>> as members of `CmdqInner` and `Cmdq`; only they are now in their own
->>> sub-module.
+
+
+On 10/8/26 5:24 PM, Jan Kara wrote:
+> On Sun 04-10-26 22:28:31, Andrew Morton wrote:
+>> On Sat,  3 Oct 2026 03:31:03 +0000 Ayush Ranjan <ayushr@modal.com> wrote:
+>>> Gentle ping on this. The reproducer in my previous mail [1] triggers
+>>> "Bad page cache ... still mapped when deleted" on 6.18.46 within a
+>>> couple of minutes on a 128-CPU bare-metal box, with no fork() and no
+>>> gVisor involved.
 >>>
->>> This is a pure move commit, with no functional change intended.
+>>> We continue to hit this in production at low frequency, so I am happy
+>>> to test patches or collect more data if that would help.
 >>>
->>> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
->>> ---
->>>  drivers/gpu/nova-core/gsp/cmdq.rs                  | 343 +------------=
-------
->>>  drivers/gpu/nova-core/gsp/cmdq/rpc.rs              | 380 +++++++++++++=
-++++++++
->>>  .../nova-core/gsp/cmdq/{ =3D> rpc}/continuation.rs   |   0
->>>  drivers/gpu/nova-core/gsp/commands.rs              |   6 +-
->>>  drivers/gpu/nova-core/gsp/sequencer.rs             |   4 +-
->>>  5 files changed, 388 insertions(+), 345 deletions(-)
->>>
->>> diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/=
-gsp/cmdq.rs
->>> index 07036972dbec..06386d1ab192 100644
->>> --- a/drivers/gpu/nova-core/gsp/cmdq.rs
->>> +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
->>> @@ -1,6 +1,7 @@
->>>  // SPDX-License-Identifier: GPL-2.0
->>> +// SPDX-FileCopyrightText: Copyright (c) 2025-2026 NVIDIA CORPORATION =
-& AFFILIATES. All rights reserved.
->>> =20
->>> -mod continuation;
->>> +pub(crate) mod rpc;
 >>
->> Should this be pub(super)?
->
-> This cannot be unfortunately, as commands (which are in a sibling module
-> of `cmdq`) are protocol-dependent and need to view `CommandToGsp` and
-> `MessageFromGsp`.
+>> fwiw I made gpt and gemini argue about this for a while and ended up
+>> with the below.
+> 
+> Worth a try I guess. Let's see :)
+> 
+>> From: Andrew Morton <akpm@linux-foundation.org>
+>> Subject: mm: shmem: serialize fault-around against hole punching
+>> Date: Sun Oct 4 09:05:31 PM PDT 2026
+>>
+>> shmem uses filemap_map_pages() for fault-around.  Unlike shmem_fault(),
+>> filemap_map_pages() does not participate in shmem's fallocate exclusion
+>> protocol.
+>>
+>> During a partial hole punch of a large shmem folio, the folio can be split
+>> and the resulting smaller folios can remain temporarily visible in the page
+>> cache while shmem_undo_range() restarts its walk.  Fault-around can then map
+>> one of those folios again before the hole-punch path removes it.
+>>
+>> shmem_undo_range() may subsequently delete that folio from the page cache
+>> despite the new userspace mapping.  This can trigger "still mapped when
+>> deleted" warnings and leave stale mappings or inconsistent RSS/page-table
+>> accounting behind.
+> 
+> So this part of explanation is either incomplete or wrong in my opinion.
+> Yes, shmem_undo_range() calls truncate_inode_partial_folio() which can
+> split a large folio. Yes, filemap_map_pages() can map those pages back into
+> page tables. But how "shmem_undo_range() may subsequently delete that folio
+> from the page cache despite the new userspace mapping" happens is unclear
+> to me. After splitting a folio, shmem_undo_range() will restart and find the
+> newly split (and mapped) folios and calls truncate_inode_folio() to get rid
+> of them. Now truncate_inode_folio() calls truncate_cleanup_folio() which
+> does:
+> 
+>          if (folio_mapped(folio))
+>                  unmap_mapping_folio(folio);
+> 
+> so the mapping is reliably removed under folio lock. Can you perhaps push
+> your agents further to explain in more detail how this "still mapped when
+> deleted" happens in their opinion?
 
-Err sorry, my reply was completely wrong - `pub(super)` here means
-visibility in all sub-modules of `gsp`, which is exactly what we need.
-Sorry for the noise, and I'll fix.
+Good point and I think you are right.
+
+Yesterday I quickly reproduced the issue with Ayush's reproducer, and I 
+got the following crash info. From the dump message, we can see that 
+truncate_inode_folio() is really trying to remove mapped folios, which 
+is incorrect.
+
+I also quickly tried Andrew's patch, and the issue no longer reproduces, 
+so I initially thought that was the root cause. But after your reminder, 
+I now believe Andrew's patch merely workaround the issue rather than 
+fixing the actual root cause.
+
+Today I'm going to re-analyze the race with the reproducer (thanks Ayush).
+
+After analysis, I believe the race exists between truncation and 
+MADV_DONTNEED, and shmem's fault_around() merely makes the issue easier 
+to reproduce. Since MADV_DONTNEED synchronously releases the pagetable 
+page before calling tlb_flush_rmaps(), this could cause another thread's 
+truncation to skip zap_pte_range() but still observe the folio's 
+mapcount as non-zero. A possible race scenario is as follows:
+
+CPU 0				CPU 1
+				madvise_dontneed_single_vma
+shmem_fallocate			......
+   ......			  zap_pte_range
+   truncate_inode_folio		    zap_empty_pte_table(pmd clear)		
+     unmap_mapping_folio		
+     ......
+       zap_pmd_range(saw pmd none)
+     filemap_remove_folio
+        BUG_ON(folio_mapped)
+				    tlb_flush_rmaps
+
+Based on the above race analysis, I made the following fix that uses the 
+PMD lock synchronously to prevent this race, and the issue no longer 
+reproduces. I will clean it up and send out a formal patch.
+
+diff --git a/mm/memory.c b/mm/memory.c
+index 6a8e7772b8d6..2039ada99b64 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -2036,6 +2036,15 @@ static unsigned long zap_pte_range(struct 
+mmu_gather *tlb,
+                 }
+         } while (pte += nr, addr += PAGE_SIZE * nr, addr != end);
+
++       add_mm_rss_vec(mm, rss);
++       lazy_mmu_mode_disable();
++
++       /* Do the actual TLB flush before dropping ptl */
++       if (force_flush) {
++               tlb_flush_mmu_tlbonly(tlb);
++               tlb_flush_rmaps(tlb, vma);
++       }
++
+         /*
+          * Fast path: try to hold the pmd lock and unmap the PTE page.
+          *
+@@ -2046,15 +2055,6 @@ static unsigned long zap_pte_range(struct 
+mmu_gather *tlb,
+          */
+         if (can_reclaim_pt && direct_reclaim && addr == end)
+                 direct_reclaim = zap_empty_pte_table(mm, pmd, ptl, 
+&pmdval);
+-
+-       add_mm_rss_vec(mm, rss);
+-       lazy_mmu_mode_disable();
+-
+-       /* Do the actual TLB flush before dropping ptl */
+-       if (force_flush) {
+-               tlb_flush_mmu_tlbonly(tlb);
+-               tlb_flush_rmaps(tlb, vma);
+-       }
+         pte_unmap_unlock(start_pte, ptl);
+
+         /*
+@@ -2103,7 +2103,6 @@ static inline unsigned long zap_pmd_range(struct 
+mmu_gather *tlb,
+                         }
+                         /* fall through */
+                 } else if (details && details->single_folio &&
+-                          folio_test_pmd_mappable(details->single_folio) &&
+                            next - addr == HPAGE_PMD_SIZE && 
+pmd_none(*pmd)) {
+                         sync_with_folio_pmd_zap(tlb->mm, pmd);
+                 }
+
+
+[  189.171977] page: refcount:3 mapcount:1 mapping:00000000fe168ee1 
+index:0x3880 pfn:0x191647
+[  189.171995] memcg:ffff0000cc073d40
+[  189.171997] aops:shmem_aops ino:3c01 dentry name(?):"memfd:runsc-memory"
+[  189.172006] flags: 
+0x17fffef0002022d(locked|referenced|uptodate|lru|workingset|swapbacked|node=0|zone=2|lastcpupid=0x3ffff)
+[  189.172013] raw: 017fffef0002022d fffffdffccec85c8 fffffdffc6b8e508 
+ffff0000cd2ab6c0
+[  189.172015] raw: 0000000000003880 0000000000000000 0000000300000000 
+ffff0000cc073d40
+[  189.172017] page dumped because: VM_BUG_ON_FOLIO(folio_mapped(folio))
+[  189.172026] ------------[ cut here ]------------
+[  189.172027] kernel BUG at mm/filemap.c:155!
+[  189.172057] Internal error: Oops - BUG: 00000000f2000800 [#1]  SMP
+.......
+[  189.177721] CPU: 3 UID: 0 PID: 5521 Comm: repro Kdump: loaded 
+Tainted: G            E       7.3.0-rc4+ #277 PREEMPT(lazy)
+[  189.178320] Tainted: [E]=UNSIGNED_MODULE
+.......
+[  189.179339] pc : filemap_unaccount_folio+0xf0/0x1e8
+[  189.179619] lr : filemap_unaccount_folio+0xf0/0x1e8
+.......
+[  189.183986] Call trace:
+[  189.184124]  filemap_unaccount_folio+0xf0/0x1e8 (P)
+[  189.184391]  __filemap_remove_folio+0x34/0x160
+[  189.184633]  filemap_remove_folio+0x4c/0xb0
+[  189.184859]  truncate_inode_folio+0x34/0x58
+[  189.185087]  shmem_undo_range+0x220/0x658
+[  189.185308]  shmem_fallocate+0x2f0/0x470
+[  189.185527]  vfs_fallocate+0x128/0x328
+[  189.185764]  __arm64_sys_fallocate+0x50/0xa0
+[  189.185999]  invoke_syscall+0x58/0x118
+[  189.186210]  el0_svc_common.constprop.0+0xbc/0xe8
+[  189.186470]  do_el0_svc+0x20/0x30
+[  189.186653]  el0_svc+0x3c/0x198
+[  189.186843]  el0t_64_sync_handler+0x98/0xe0
+[  189.187078]  el0t_64_sync+0x184/0x188
+[  189.187622] SMP: stopping secondary CPUs
+[  189.200152] Starting crashdump kernel...
+[  189.200388] Bye!
