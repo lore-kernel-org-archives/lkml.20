@@ -1,76 +1,356 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C9DB43712C
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 13:38:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791553085; cv=none; b=dhuqvHwjDkVnYSWl/MtZ17vIzSV4YJuNaNJ1uKOG+VTMdJ/z5wHWCCw7tME4JzRCasWbGTLlLW6UsJOOOMwYTdpzj/WkOotc8ZLe7sV5JzYfNwmPjLuV6OMu67FEswfaQDv8+KN5jRtuZOeWfUsXqDnji7RF1pQ3XE4kiSFwTx8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791553085; c=relaxed/simple;
-	bh=D6YCv23vIDOCNfyAf84v3eDVXo5lUxySX5HoBloBXlA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EnZemfoloi08FMAbhZGQDfXuE4tg/2Dm2gidjUjlQEjlk2v7xa7j5N13XqLXTb0BpCu89+Mbot0nKmIUi5gv/Up8H8z0wLn0/E+TRLkKJhhamGhcIYHM/iVsvPYi/fNHbe3ldSdqXcZUFJUQeJZ+IlUiNmVzp+Y0HVpsa3bwtKg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D+KuC8Q1; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE61045562C
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 13:39:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791553147; cv=pass; b=s2Ch4nojc9fOVqdSXAnX8dbdNiYJVwT/YZzBfPt0OpBSp0Ccuv9s573W/FnH+yfpcgbX9pRdY0QHHfpRRU2gRKOpDYhxA1oX/RZRIz180OuWI4Q9jZoz3bXBsVG80EbV0zO5SEqQgiuLMgU4V+heiekCLfPRHeBp5twvRquDYTQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791553147; c=relaxed/simple;
+	bh=eszsKsyKpb9lT+hzleu80ByvkFfGr5QN8UFWzwVlJw4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gw2KiY3WBkA0aYBpu5AII5Fl2xx8FlN5g4ikx19ss2nqeZ0LUmW0n3qrAmp752xiU0Ndi6tlr2KuWEpgGRyQTEs3etIq7Nml6a9rPbdj3ESHi8VkDIm8jGS89nTA7qjprMBII+ANmhO6xtYRRUi4Vg5pfk5rGEO4EQWSZeEbAI8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=wVE/KR97; arc=pass smtp.client-ip=209.85.218.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D+KuC8Q1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D2111F000FF;
-	Fri,  9 Oct 2026 13:38:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791553083;
-	bh=br7/h9CMzB5fuTEO28g1+PfnC3yL5f0JjiAFRvFaz8s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=D+KuC8Q1FvILg8zl3t1LvibyxauqQYSf3VJQxr0bEWCTjFXJHPxrXYLHIPBQfdYG5
-	 nEtG9+b0+1HwuIST5iGvEL88jqBb+UVJZYsukyAlS6y+DyVreO/gQFU2of9B4ZpyAA
-	 RvAEaz0waBN2vjWlkOTTZtQlfXCmYqrkKu3+QA301EHGdp71AhE/ftNszTRc85thvD
-	 s7WYlYrRSeg4waXXHPVEsoo8qvYe9YUtLuqzvqgK/CI3YYzx2ClVMhcx9VWK2tzfvG
-	 zy0dEdDnhg+im/6CC9M5+z7yKIPj/1oDDgLqyE9inMEc83mYiNpvcIXZmU3aKDG+C9
-	 EVShi0KSRd9kA==
-Date: Fri, 9 Oct 2026 15:37:58 +0200
-From: Thorsten Blum <blum@kernel.org>
-To: Petr Tesarik <ptesarik@suse.com>
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Hans Peter Anvin <hpa@zytor.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juergen Gross <jgross@suse.com>, linux-kernel@vger.kernel.org,
-	x86@kernel.org
-Subject: Re: [PATCH 1/3] x86/tsc: Replace magic constants with xxx_PER_SEC
-Message-ID: <asjuNlFdLGsNUJh9@kernel.org>
-References: <20261009100436.1133518-1-ptesarik@suse.com>
- <20261009100436.1133518-2-ptesarik@suse.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="wVE/KR97"
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c2e5e801487so666094766b.3
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 06:39:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791553143; cv=none;
+        d=google.com; s=arc-20260327;
+        b=GXfedBiTzpl6oTVud3t3cXa5h1joXgyrTVECDk2C5AuisY8VSXVLuWaMKTTFmt/Kwq
+         9b34EDitUpVDvPBdNQyn37Gt89rkbMkwYfvsneQhcDTfAQIZGpJie8hmzMMFWOIwsAsc
+         3W5YOoZEHnzC8/fwe9RwGiVKFRFfxPgWPihREqIpRLFdM44s3yHsCP0YIJY0zRq9fx/G
+         ha+RzCfBa9xtM/vgoD9dq+wj4qviFEj4q4vDnnMps2sftkcjCd4PAyCZWMbeyVX5BViu
+         uly6duCEvhNFfrS+gNEuNfDxft49TPZ6Mv8Z1aU39zLJS3Jmy71yB86vR+4anTM5Y5nK
+         6kOQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=uzADCC8NPSRlhSrBRERpfxRJX72nbK8pgUsrCulq8pU=;
+        fh=ZF7kd/VyBSzryIywCfOaLt+f+l/xGzwHoAUCj3agAIM=;
+        b=rwwGOwVcTnqGVqAdnNqlzuoOYqVVlR0lys3dO5QrGJclFIaHbbxJwCwMnVYjgBG7wy
+         cGCTDgZEoLMEyv5uZzP64d4OEk/qfBHa5eYMswaHk5pWCAG4CsMMeA9Qbf6zgzYOqT2e
+         xiXNJvfulOshFfpO2DWQsxjDg2qOZ9/1RS3bSQNbDsreaapyshqyPlHLsml8vVNgP7iv
+         bVQogMvbASkpH+nk8TpdONtCTm/OaEAxdWt7B1T1dmmu80XMPZE/ViWdWkoiIETWgckX
+         RMRHUP10CCA1TSgTd7JjY4yS//RS2UHha0T+Dmmyk+/s3bfGFuij7Rchg4X+20Pttdju
+         qj6Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1791553143; x=1792157943; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uzADCC8NPSRlhSrBRERpfxRJX72nbK8pgUsrCulq8pU=;
+        b=wVE/KR97slL9x/8tCufNujV+raysGKFCqZpbrcb2cMQZXCg+Bt9dpaHm11bhj8C5Gq
+         B/AKlewjFkMgznSUz7rx0EWh2pGUapG4IB3lfHOHcZgV/YdKhcYbsy+O3hCrr4Gp1f2F
+         NLaLxp4ZhkxcBuSeEpe9w+VprBZIEwwNLHPm6yB5EKuZhPF+C8jhKemXZpx/mmop48Zh
+         m248UKoeBGjiBDX5KxDho5AsQYTvnMwWhsufwKVTFZQzt6Vg4pLrUZeG7qzCb6M+7vcL
+         OIEgMnh5Y4OcoG8+je/ST/4cB7qnBIhtlAipclAafjMOPuezBW5G2v+V4cCypyJIhemp
+         kYfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791553143; x=1792157943;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=uzADCC8NPSRlhSrBRERpfxRJX72nbK8pgUsrCulq8pU=;
+        b=tKPXxjIVPK0lnFcDiHmVKeMesXrZZ8OQrRakqHJlpeOBadWRr+BSgcQ8Fyw/jGp3JX
+         +aaZpoCI+AEX8dELNv+v5Hw1hfgkOeEFWEroU0xqx9wXtq4174e/90wz6ZQFsxTWEIo2
+         mqz3DETxYt1c5v+8OTFmtACfWNmbumebR4Lys9Run1Ksy7btKOLzepZeWiZOU+YpbV5T
+         cPiq34m2PPI2geA7g55w8/LsXtBIQecDpMelLcVgdCocmj2STVPtY/6gIOZhYYaDyCXU
+         MaIvCG8hl0Un8THpYrgIAz4GVuG7uSjfnXJFgUX6RW6NSyCPF+O/L52OVIvKPkdLxvdv
+         LQFQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy66rNXCKkWybyPu5yWw9OcrpJmtJBoHuYVBaLoR3NNzmk3cU9hEyZDKSJVzA51wqX8hOfh0asUA0DcLAg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLBPqHHZLi0zgCpRizLHriRxqeEW7H7N+uGK6h3L86NXO7qnxYb
+	1//LEvq+Dk9ijVSgYh3qBsCgPNhvwE0eAltqyzm4utruro1KsWpfG6/HO62dmB3ZGqKqA6/1LC6
+	iTqciMLDy49lrOfCeWhdaLloohM2tg4W/dZ5Z5stGsw==
+X-Gm-Gg: AYBFou30ap3dB3FcobXyVY/dbo6etcl2xqwyrUiZyYWzX65CkjpIKCBGy/uvCx1i/Sf
+	XpY8xCh8qCPwqssuYlEpt2e78Q7rMTLPbwV76qYRzJ1x9dvMpz3pocKTwVJ25cIkR+LpW3N1MXO
+	3v4RB+t9qARmwJZ5vyAo7ZjnDq2PdYpe0GB0j4Ix86u1O4jGui5ydSYC8MYRVmQi6t8vqjKhE8y
+	OhFnr351RSJn+ya6b0gqm3YnnlSKjdvZbbSmQDgMmFFStktnQXRqs2yKOXhZkjNksyBWR/KDvSG
+	jz1kCOgszWvqCWxbjcUk5SbYiQhCrtSWexIotEMfnEU49fWhhxFYwJ6Kqi4wS27fcuKJJoVZuos
+	RsF2A200qh1k=
+X-Received: by 2002:a17:907:9485:b0:c2d:c98f:482d with SMTP id
+ a640c23a62f3a-c31aa05e1d6mr220762466b.31.1791553142780; Fri, 09 Oct 2026
+ 06:39:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261009100436.1133518-2-ptesarik@suse.com>
+References: <20261002154415.2270586-1-vincent.guittot@linaro.org>
+ <20261002154415.2270586-8-vincent.guittot@linaro.org> <asWyZtW7zPVo3k-A@chenyu-dev>
+In-Reply-To: <asWyZtW7zPVo3k-A@chenyu-dev>
+From: Vincent Guittot <vincent.guittot@linaro.org>
+Date: Fri, 9 Oct 2026 15:38:51 +0200
+X-Gm-Features: AclHuK9ZEGHudOxQMUBCGqwsW1_88xYs0fNp7hJNPkNbdurNtelmMUpyv9uGoTw
+Message-ID: <CAKfTPtBv27s+BroNcGV+VDavZD-piYUbFpcQ5WoWsYvo=d+PRw@mail.gmail.com>
+Subject: Re: [PATCH 07/18] sched/fair: Add push task mechanism for fair
+To: Chen Yu <yu.c.chen@intel.com>
+Cc: mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com, 
+	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, 
+	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com, 
+	linux-kernel@vger.kernel.org, lukasz.luba@arm.com, rafael@kernel.org, 
+	linux-pm@vger.kernel.org, tj@kernel.org, void@manifault.com, 
+	arighi@nvidia.com, changwoo@igalia.com, sched-ext@lists.linux.dev, 
+	qyousef@layalina.io, christian.loehle@arm.com, pierre.gondois@arm.com, 
+	sshegde@linux.ibm.com, chen.yu@linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Oct 09, 2026 at 12:04:34PM +0200, Petr Tesarik wrote:
-> Make it clear that these constants refer to the conversion between seconds
-> and milliseconds or nanoseconds.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Petr Tesarik <ptesarik@suse.com>
+On Wed, 7 Oct 2026 at 04:59, Chen Yu <yu.c.chen@intel.com> wrote:
+>
+> On Fri, Oct 02, 2026 at 05:44:04PM +0200, Vincent Guittot wrote:
+> > EAS is based on wakeup events to efficiently place tasks on the system, but
+> > there are cases where a task doesn't have wakeup events anymore or at a far
+> > too low pace. For such situation, we can take advantage of the task being
+> > put back in the enqueued list to check if it should be pushed on another
+> > CPU.
+> >
+> > Add a push task mechanism that enables fair scheduler to push runnable
+> > tasks. EAS will be one user but other feature like filling idle CPUs or
+> > short slice tasks can also take advantage of it.
+> >
+>
+> A hackbench was launched on a Xeon server with 192 cores, using the default
+> settings to see if there was any regression. According to the test results,
+> there is no obvious difference, so I think it is good now. Later, I'll also
+> test with a mix of different time slice workloads:
+>
+> =========================================
+> Hackbench comparison
+> BASE: baseline
+> TEST: push
+> =========================================
+> MODE     G  FD |         BASE(s) |         TEST(s) |   DIFF% | RESULT
+> ------- -- ----+-----------------+-----------------+---------+----------
+> process 16  20 |     76.438/0.2% |     76.310/0.1% |   0.17% | IMPROVED
+> process  1  20 |     52.532/2.3% |     51.217/1.1% |   2.50% | IMPROVED
+> process  4  20 |     61.754/0.6% |     61.758/1.8% |  -0.01% | REGRESSED
+> process  8  20 |     76.817/0.5% |     79.049/0.2% |  -2.91% | REGRESSED
+> threads 16  20 |     66.290/1.5% |     67.120/3.5% |  -1.25% | REGRESSED
+> threads  1  20 |     62.311/2.3% |     61.518/1.7% |   1.27% | IMPROVED
+> threads  4  20 |     56.376/0.8% |     57.455/0.8% |  -1.91% | REGRESSED
+> threads  8  20 |     63.871/3.8% |     68.611/0.3% |  -7.42% | REGRESSED
+>
+> Besides, as suggested by Qais, cache-aware scheduling could also be a user
+> of the push mechanism. This is an evaluation patch that uses task push for
+> cache-aware scheduling by allowing the cache-aware sensitive task to leverage
+> the push path to be pushed to its preferred LLC.
+
+Thanks for testing.
+
+Yes, the short task case is the only one using it right now but the
+goal is to extend its usage, and the cache-aware scheduler is one that
+could also take advantage
+
+
+>
+> In my opinion, task pushing is triggered less frequently than task wakeup,
+> because it has a high bar to be launched(preempted runnable task)
+> This could reduce the risk of contention between the task pushing and the
+> cache-aware load balancer, and achieve faster task aggregation on its
+> preferred LLC.
+>
+> We have launched a simple migration test based on the following change, and
+> will update later to see what the result is.
+>
 > ---
->  arch/x86/kernel/tsc.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/arch/x86/kernel/tsc.c b/arch/x86/kernel/tsc.c
-> index 723347e2cf7f8..bac81d37a90ce 100644
-> --- a/arch/x86/kernel/tsc.c
-> +++ b/arch/x86/kernel/tsc.c
-> @@ -253,7 +253,7 @@ noinstr u64 native_sched_clock(void)
->  	 */
->  
->  	/* No locking but a rare wrong value is not a big deal: */
-> -	return (jiffies_64 - INITIAL_JIFFIES) * (1000000000 / HZ);
-> +	return (jiffies_64 - INITIAL_JIFFIES) * (NSEC_PER_SEC / HZ);
+>  kernel/sched/fair.c  | 88 ++++++++++++++++++++++++++++++++++++++++----
+>  kernel/sched/sched.h |  1 +
+>  2 files changed, 82 insertions(+), 7 deletions(-)
+>
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index 7eea0414fd46..d5c6bbf04b47 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -1391,7 +1391,8 @@ static bool update_deadline(struct cfs_rq *cfs_rq, struct sched_entity *se)
+>
+>  #include "pelt.h"
+>
+> -static int select_idle_sibling(struct task_struct *p, int prev_cpu, int cpu);
+> +static int select_idle_sibling(struct task_struct *p, int prev_cpu, int cpu,
+> +                              int push_cpu);
+>  static unsigned long task_h_load(struct task_struct *p);
+>  static unsigned long capacity_of(int cpu);
+>
+> @@ -9325,7 +9326,8 @@ static inline bool asym_fits_cpu(unsigned long util,
+>  /*
+>   * Try and locate an idle core/thread in the LLC cache domain.
+>   */
+> -static int select_idle_sibling(struct task_struct *p, int prev, int target)
+> +static int select_idle_sibling(struct task_struct *p, int prev, int target,
+> +                              int push_cpu)
+>  {
+>         bool has_idle_core = false;
+>         struct sched_domain *sd;
+> @@ -9348,6 +9350,19 @@ static int select_idle_sibling(struct task_struct *p, int prev, int target)
+>          */
+>         lockdep_assert_irqs_disabled();
+>
+> +       /*
+> +        * push_cpu must be checked before the target: when
+> +        * a task is pushed from the tick, it is rq->curr, so
+> +        * idle_cpu_without() would consider the target as
+> +        * idle and keep the task on its current (non-preferred) LLC.
+> +        */
+> +       if (push_cpu != -1 && push_cpu != target && !cpus_share_cache(push_cpu, target)) {
+> +               target = push_cpu;
+> +               if (choose_idle_cpu(push_cpu, p) &&
+> +                   asym_fits_cpu(task_util, util_min, util_max, push_cpu))
+> +                       goto select_smt_priority;
+> +       }
+> +
+>         if (choose_idle_cpu(target, p) &&
+>             asym_fits_cpu(task_util, util_min, util_max, target))
+>                 goto select_smt_priority;
+> @@ -10156,6 +10171,15 @@ static bool check_pushable_short_task(struct rq *rq, struct task_struct *p)
+>         return false;
 >  }
-
-Maybe use TICK_NSEC here?
+>
+> +#ifdef CONFIG_SCHED_CACHE
+> +static int check_pushable_cache_task(int this_cpu, struct task_struct *p);
+> +#else
+> +static inline int check_pushable_cache_task(int this_cpu, struct task_struct *p)
+> +{
+> +       return -1;
+> +}
+> +#endif
+> +
+>  static bool fair_check_pushable_task(struct rq *rq, struct task_struct *p, struct task_struct *next)
+>  {
+>         if (!__check_pushable_fair_task(rq, p))
+> @@ -10167,6 +10191,9 @@ static bool fair_check_pushable_task(struct rq *rq, struct task_struct *p, struc
+>         if (check_pushable_short_task(rq, p))
+>                 return true;
+>
+> +       if (check_pushable_cache_task(rq->cpu, p) != -1)
+> +               return true;
+> +
+>         return false;
+>  }
+>
+> @@ -10231,7 +10258,7 @@ static bool fair_push_task(struct rq *rq)
+>         if (!raw_spin_trylock(&next_task->pi_lock))
+>                 return true;
+>
+> -       new_cpu = select_task_rq_fair(next_task, prev_cpu, 0);
+> +       new_cpu = select_task_rq_fair(next_task, prev_cpu, WF_RQ_PUSH);
+>
+>         /* Task doesn't need to migrate */
+>         if (new_cpu == prev_cpu)
+> @@ -10335,7 +10362,7 @@ static inline bool tick_pushable_task(struct task_struct *p, struct rq *rq, stru
+>         if (!raw_spin_trylock(&p->pi_lock))
+>                 return false;
+>
+> -       new_cpu = select_task_rq_fair(p, cpu, 0);
+> +       new_cpu = select_task_rq_fair(p, cpu, WF_RQ_PUSH);
+>
+>         raw_spin_unlock(&p->pi_lock);
+>
+> @@ -10382,7 +10409,7 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int select_flags)
+>  {
+>         int sync = (select_flags & WF_SYNC) && !(current->flags & PF_EXITING);
+>         int want_sibling = !(select_flags & (WF_EXEC | WF_FORK));
+> -       int new_cpu, cpu = smp_processor_id();
+> +       int new_cpu, cpu = smp_processor_id(), push_cpu;
+>         struct sched_domain *tmp, *sd = NULL;
+>         /* SD_flags and WF_flags share the first nibble */
+>         int sd_flag = select_flags & 0xF;
+> @@ -10414,6 +10441,15 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int select_flags)
+>         if (select_flags & WF_TTWU)
+>                 want_affine = !wake_wide(p) && cpumask_test_cpu(cpu, p->cpus_ptr);
+>
+> +       /*
+> +        * Only a push triggered by cache aware scheduling will push the
+> +        * task towards its preferred LLC. Pushes for other reasons, like short
+> +        * slice task, uses the default push strategy.
+> +        */
+> +       push_cpu = -1;
+> +       if (select_flags & WF_RQ_PUSH)
+> +               push_cpu = check_pushable_cache_task(prev_cpu, p);
+> +
+>         new_cpu = prev_cpu;
+>
+>         for_each_domain(cpu, tmp) {
+> @@ -10441,7 +10477,7 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int select_flags)
+>                         break;
+>         }
+>
+> -       /* Slow path */
+> +       /* Slow path,  push task will not go inside due to flags = 0 */
+>         if (unlikely(sd)) {
+>                 new_cpu = sched_balance_find_dst_cpu(sd, p, cpu, prev_cpu, sd_flag);
+>                 return select_idle_smt_cpu(p, new_cpu);
+> @@ -10449,7 +10485,7 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int select_flags)
+>
+>         /* Fast path */
+>         if (want_sibling)
+> -               new_cpu = select_idle_sibling(p, prev_cpu, new_cpu);
+> +               new_cpu = select_idle_sibling(p, prev_cpu, new_cpu, push_cpu);
+>
+>         return new_cpu;
+>  }
+> @@ -11572,6 +11608,44 @@ static bool migrate_degrades_llc(struct task_struct *p, struct lb_env *env)
+>         return true;
+>  }
+>
+> +/*
+> + * Return the preferred CPU that task p running on this_cpu should be
+> + * pushed to for better LLC locality, or -1 if no such push is wanted.
+> + */
+> +static int check_pushable_cache_task(int this_cpu, struct task_struct *p)
+> +{
+> +       struct sched_cache_group *grp;
+> +       int pref_cpu;
+> +
+> +       if (!sched_cache_enabled())
+> +               return -1;
+> +
+> +       /* preemption already disabled */
+> +       grp = rcu_dereference_all(p->sched_cache_grp);
+> +       if (!grp)
+> +               return -1;
+> +
+> +       pref_cpu = READ_ONCE(grp->cpu);
+> +       /* If the task's pref_cpu is on the wrong(non-preferred) LLC, move it there */
+> +       if (pref_cpu == -1 || cpus_share_cache(pref_cpu, this_cpu))
+> +               return -1;
+> +
+> +       if (!cpumask_test_cpu(pref_cpu, p->cpus_ptr) ||
+> +           !cpumask_test_cpu(pref_cpu, cpu_active_mask))
+> +               return -1;
+> +
+> +#ifdef CONFIG_NUMA_BALANCING
+> +       if (static_branch_likely(&sched_numa_balancing) &&
+> +           p->numa_preferred_nid != NUMA_NO_NODE &&
+> +           p->numa_preferred_nid != cpu_to_node(pref_cpu))
+> +               return -1;
+> +#endif
+> +       if (can_migrate_llc(this_cpu, pref_cpu, task_util(p), true) == mig_forbid)
+> +               return -1;
+> +
+> +       return pref_cpu;
+> +}
+> +
+>  #else
+>  static inline bool get_llc_stats(int cpu, unsigned long *util,
+>                                  unsigned long *cap)
+> diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+> index 95a18c0d21c6..85527034572d 100644
+> --- a/kernel/sched/sched.h
+> +++ b/kernel/sched/sched.h
+> @@ -2559,6 +2559,7 @@ static inline int task_on_rq_migrating(struct task_struct *p)
+>  #define WF_CURRENT_CPU         0x40 /* Prefer to move the wakee to the current CPU. */
+>  #define WF_RQ_SELECTED         0x80 /* ->select_task_rq() was called */
+>  #define WF_TTWU_RQ             0x100 /* Wakeup completed through ttwu_runnable() */
+> +#define WF_RQ_PUSH             0x200 /* Push the task  */
+>
+>  static_assert(WF_EXEC == SD_BALANCE_EXEC);
+>  static_assert(WF_FORK == SD_BALANCE_FORK);
+> --
+> 2.43.0
+>
