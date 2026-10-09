@@ -1,138 +1,130 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0D4448FF75
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 14:15:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43B8039DBD0;
+	Fri,  9 Oct 2026 14:16:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791555339; cv=none; b=HBgz+ey39OAenkRHUaIXIZcnxCws4XzBIm5bkr6WA0AzZkFMIwtmDI69A+kH2J2SYoIG5D3NZU2LPvVD0tfRQCGhHE/WJ9+IUDB2yqcdB0up+SNgNKSpsp0NW7MAeW7KovToKYDHRlUXpmEC0GUj85pNYDeHKj+HgamYoa3VWTw=
+	t=1791555373; cv=none; b=u5AtN6pl/0eLoeowrsstmTzAY20MkY6tcbqDQMWupc2zMXZDnFU7KmqQSP3E6w1VqySdLBkTvgws3/4cK05edDgBjh/3gJoM7ULyhti57BG4kLNz3jV6rqye9x21D87AhIgb/2LxfK3XPkFiu59UkLHtWMjp8Lz8h+e2MCzQpg0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791555339; c=relaxed/simple;
-	bh=/ksJDGkBgGRnPpFzan2QnOath424b5izg8oVMkwSTPk=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=CeBfb7QI8M5kCWwX4ipkYnPKY4IguRhxIg/yHyK2Isp7KubcUUNvIV2Eq/Oyct+Y6c2JPBmx65bOiYminhd/O+JVi6LylwRTmnbQp7LBaVA7/0eZ0gsS3lL1NSKhaHSMD2LlOMPmSV7sKDSBQlUumJdZMxLQ0TqUX8/Hc1jRD48=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=y97SGxVg; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1791555373; c=relaxed/simple;
+	bh=HTto4x29Ky4tDdeScCouFY7b2C9/lvm82cKNmIN/yoY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=i3iFRg7IxJ99UKYXJlQ2u0xn3xuHtUX4ppcVuUjNgGyprUhsdpMFOIdWCf7dpACZLJ49ZHsyraOU3NBkx2MZ+PTSfBZoPG2oVtthtFjmRxXo4FlANqeBpkaF1/fMsNyd4C9QThdqSISHFAC8n3P5sB8CFfErFep4Ciz2cGtajDU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NhUolgjd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="y97SGxVg"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 1C8F41A11B8;
-	Fri,  9 Oct 2026 14:15:30 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id E4D5A60754;
-	Fri,  9 Oct 2026 14:15:29 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B260D11D70873;
-	Fri,  9 Oct 2026 16:15:23 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791555325; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=euGuxyrd+swQUG5B4OqhIZbljcl8vVDBXPj2QHZGoHg=;
-	b=y97SGxVgz48Flshv7NS7LaztmydxJna2+erRYadw/CoNCG//bHlCTP7h+J8uNd9cOMdFQX
-	jgGWt6bxAQDX11wiSzet3bmqI2Xwhbv3FymcQqmtKxPR+4xKSgbFMtGMqNWgjQLD6cFwFX
-	/e+Mgo/kBoQ6OLrnSOdgMJcNlvknXKw7TabPeW7I9FUKraWPxJGVWHVOdNrRetoNDS43f5
-	5vl3qzJAgFJuSugq73+Czn0ekxx0jeAV3RWix/uuuacUAGmtqgFRXqncDVzqgcUVqz8Qv5
-	OzQfrxpP3EKwCjl/9PiKCveBpNYy4srExoLcHVibOwnM2OJgoKHk9ZuWJeyZZg==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NhUolgjd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F4051F00899;
+	Fri,  9 Oct 2026 14:16:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791555367;
+	bh=5mp4RnMe0TQZxUQ96A2OqhWXQwIeoTHhlaxX50LfJic=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NhUolgjdT4xFpIJaLDiSOW9Fx/3UcRQiVWOExlWtRlCM+JExiGowDMCEGSwHEtnfG
+	 ph4wqLPlHYk3yHyFYgdaKKtAyhZlxIg5rePCMSle3N1m4N5jiRI0F+rgc0gximz4gE
+	 HGwESaoEV9h/0JQAZUI08YZSUbHyZ9sFXY+BChVjyCiyX6qDSXiKnPPVk/kEPsgUkK
+	 r7ufkRbdRpisjOQFOJjrKaEfoBU9kyzf3L/GYQ6wamC0qP+2zHNBbCo6JhBEByZiy2
+	 X8dhIJURzCuVSDrzN8zUtJzynOeqbp1KMhhSh7ZxwHKdzTKNBeMKGugL3GqLWPcaHp
+	 WL8H+/u39/mpA==
+Date: Fri, 9 Oct 2026 09:16:06 -0500
+From: Rob Herring <robh@kernel.org>
+To: joakim.zhang@cixtech.com
+Cc: lgirdwood@gmail.com, broonie@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, perex@perex.cz, tiwai@suse.com,
+	p.zabel@pengutronix.de, cix-kernel-upstream@cixtech.com,
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v3 1/4] ASoC: dt-bindings: Add Cadence I2S-SC controller
+Message-ID: <20261009141606.GB1631855-robh@kernel.org>
+References: <20261009092552.2377960-1-joakim.zhang@cixtech.com>
+ <20261009092552.2377960-2-joakim.zhang@cixtech.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 09 Oct 2026 16:15:22 +0200
-Message-Id: <DM0DCX5F9J1R.14Y6VAGZK7B5I@bootlin.com>
-Cc: "Wim Van Sebroeck" <wim@linux-watchdog.org>, "Guenter Roeck"
- <linux@roeck-us.net>, <linux-watchdog@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, "Thomas Petazzoni"
- <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v3 1/6] watchdog: w83627hf_wdt: Replace magic numbers
- with descriptive macros
-From: "Paul Louvel" <paul.louvel@bootlin.com>
-To: "Tzung-Bi Shih" <tzungbi@kernel.org>, "Paul Louvel"
- <paul.louvel@bootlin.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20261004-w83627hf_wdt-improvements-v3-0-8e27b518595e@bootlin.com> <20261004-w83627hf_wdt-improvements-v3-1-8e27b518595e@bootlin.com> <asUEgunBdF6N9LCA@google.com>
-In-Reply-To: <asUEgunBdF6N9LCA@google.com>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261009092552.2377960-2-joakim.zhang@cixtech.com>
 
-On Tue Oct 6, 2026 at 4:24 PM CEST, Tzung-Bi Shih wrote:
-> On Sun, Oct 04, 2026 at 02:12:49PM +0200, Paul Louvel wrote:
->> @@ -71,6 +72,12 @@ MODULE_PARM_DESC(early_disable, "Disable watchdog at =
-boot time (default=3D0)");
->>   *	Kernel methods.
->>   */
->> =20
->> +#define SIO_REG_LDSEL		0x07	/* Logical device select */
->> +#define SIO_REG_DEVID		0x20	/* Device ID (1 or 2 bytes) */
->> +#define SIO_REG_ENABLE		0x30	/* Logical device enable */
->> +#define SIO_REG_CONF_ADDR0	0x2E
->> +#define SIO_REG_CONF_ADDR1	0x4E
->
-> They are actually I/O ports rather than SIO registers.  SIO_PORT_2E and
-> SIO_PORT_4E (or SIO_CONF_PORT_*) would be better names to distinguish the=
-m
-> from SIO_REG_*.
->
->> @@ -248,16 +258,17 @@ static int w83627hf_init(struct watchdog_device *w=
-dog, enum chips chip)
->>  		}
->>  	}
->> =20
->> -	/* set second mode & disable keyboard turning off watchdog */
->> -	t =3D superio_inb(cr_wdt_control) & ~0x0C;
->> +	/* set second mode & disable keyboard reset turning off watchdog */
->
-> This is confusing.  How about:
->
->     /* set second mode & disable watchdog reload on keyboard reset */
->
->> +	t =3D superio_inb(cr_wdt_control) &
->> +	    ~(WDT_CTRL_MINUTE_MODE | WDT_CTRL_RISING_EDGE_KBD_RESET);
->>  	superio_outb(cr_wdt_control, t);
->> =20
->>  	t =3D superio_inb(cr_wdt_csr);
->>  	if (t & WDT_CSR_STATUS)
->>  		wdog->bootstatus |=3D WDIOF_CARDRESET;
->> =20
->> -	/* reset status, disable keyboard & mouse turning off watchdog */
->> -	t &=3D ~(WDT_CSR_STATUS | WDT_CSR_KBD | WDT_CSR_MOUSE);
->> +	/* reset status, disable keyboard & mouse interrupt turning off watchd=
-og */
->
-> Same here.  How about:
->
->     /* reset status & disable watchdog reload on keyboard/mouse interrupt=
-s */
->
+On Fri, Oct 09, 2026 at 05:25:49PM +0800, joakim.zhang@cixtech.com wrote:
+> From: Joakim Zhang <joakim.zhang@cixtech.com>
+> 
+> Add the DT binding for the Cadence I2S-SC controller integrated in
+> the CIX SKY1 audio subsystem. I2S-SC is a full-duplex stereo
+> controller supporting standard I2S, left/right-justified and DSP
+> formats, plus TDM operation with up to 16 slots.
+> 
+> Signed-off-by: Joakim Zhang <joakim.zhang@cixtech.com>
+> ---
+>  .../bindings/sound/cix,sky1-i2s-sc.yaml       | 93 +++++++++++++++++++
+>  1 file changed, 93 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/cix,sky1-i2s-sc.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/cix,sky1-i2s-sc.yaml b/Documentation/devicetree/bindings/sound/cix,sky1-i2s-sc.yaml
+> new file mode 100644
+> index 000000000000..3fdf2334c492
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/cix,sky1-i2s-sc.yaml
+> @@ -0,0 +1,93 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/cix,sky1-i2s-sc.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Cadence I2S-SC controller
+> +
+> +maintainers:
+> +  - Joakim Zhang <joakim.zhang@cixtech.com>
+> +
+> +description: |
+> +  The Cadence I2S-SC controller integrated in the CIX SKY1 audio subsystem.
+> +  It supports full-duplex stereo playback and capture in standard I2S,
+> +  left/right-justified and DSP modes, as well as TDM operation with up to
+> +  16 slots. The transmitter and receiver are started and stopped together
+> +  by the controller.
+> +
+> +allOf:
+> +  - $ref: dai-common.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: cix,sky1-i2s-sc
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 4
+> +
+> +  clock-names:
+> +    items:
+> +      - const: hst
+> +      - const: i2s
+> +      - const: audio-clk0
+> +      - const: audio-clk2
+> +
+> +  resets:
+> +    maxItems: 1
+> +
+> +  dmas:
+> +    minItems: 1
+> +    maxItems: 2
+> +    description:
+> +      One DMA channel for instances wired for a single direction, either
+> +      "tx" or "rx", or two channels for both transmit and receive.
+> +
+> +  dma-names:
+> +    minItems: 1
+> +    maxItems: 2
+> +    items:
+> +      enum: [ tx, rx ]
 
-Maybe I can just drop these comments, they are not really useful.
+Address the sashiko comment.
 
->> @@ -513,11 +524,11 @@ static int __init wdt_init(void)
->>  	/* Apply system-specific quirks */
->>  	dmi_check_system(wdt_dmi_table);
->> =20
->> -	wdt_io =3D 0x2e;
->> -	chip =3D wdt_find(0x2e);
->> +	wdt_io =3D SIO_REG_CONF_ADDR0;
->> +	chip =3D wdt_find(SIO_REG_CONF_ADDR0);
->>  	if (chip < 0) {
->> -		wdt_io =3D 0x4e;
->> -		chip =3D wdt_find(0x4e);
->> +		wdt_io =3D SIO_REG_CONF_ADDR1;
->> +		chip =3D wdt_find(SIO_REG_CONF_ADDR1);
->
-> I noticed the 'addr' parameter in wdt_find() is unused.  We could conside=
-r
-> removing it in a later cleanup patch.
-
-This is already done in the next patch.
-
-Thanks,
-
---=20
-Paul Louvel, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
+Rob
