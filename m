@@ -1,133 +1,333 @@
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022113.outbound.protection.outlook.com [52.101.96.113])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4DC9370D5E
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 21:55:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791582933; cv=none; b=HYWlQ/9NXZwcdK8PwNCv3wpx5oIZOP3fTV96hfIL7d/UhTyPSDrlGwVnNaPg6Ackg/Zu9UoqFLQ0s7ARhsILNa0+WLzhxmosa3e21txoj/tdW5x72N2ZxmevRZLg+NVNfZF8XtOAJWiCbykqeQBUvCiowxvJIL7cIfMPIaWbHuI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791582933; c=relaxed/simple;
-	bh=VJdPU0ep5JN4HM5tuR7qeQ7pnggt9qcbAeJPRb/RH/U=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=dqjgBuf0L253GX9F1va4uWBBMnl6yABf31GJicUB+m1EZnC2gM3hTDkGl/hXSLbxJJhT7dUMyxRLyYKXpsm52Si+pOVrQvGlU5xdRz6xSgIifP9LGR5a3UjDGTfpDeudQN161T7RuAvQ9y0qdFli4/Pt7rWxghof9KK2yAl9PTQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4c7f887ac6bso352568b6e.3
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 14:55:31 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791582930; x=1792187730;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=EJZ9bPUGIIFLQOn9K1GH3elZiy2JfD5gZkP/Geb2G1U=;
-        b=LNLKa6eZrmSIYzIWcDY36fOFkJqqpqAq9hfY6h6egEfvk62w8Wd5T0iTEa44zPesKy
-         29buVrvIqJ2O802tqLQdTkOG+p+OIcYdqxoVCNPL/PnArtShxsfuipNZYmw+fwpwTdv+
-         R3dc2HP1Dge6eFMMgBCEJ2D7kSOpaZVLnH6hMvdee3JQH+b8Be2Ow6vZRUF0YI73L0CF
-         Win9aLNs1QNMDP62os7F+jofCwa0y9D6R3uMoIvzRc6xNrjuR6ek0XNzO0YUd2r1vcNp
-         qy5zryC6BIJMzvaXRJ/Nl1QdMx/vZfxb96V+JRGeewmC61XPzQ+mheb+tcOGHwwCrz7r
-         eGLw==
-X-Forwarded-Encrypted: i=1; AKwUvBzfyIf0F6XFZQ2Qi49S8HTqE+kUDFOkk3cKEYyxcM6Px2N9mFRq23yugeGGNVW8bj/b1JVW0ynmJjCsTcw=@vger.kernel.org
-X-Gm-Message-State: AFuF++n9StG2pYbQgjwOVnH2KwgJLMd4arIAUsGJk9yjfcMvGGuaJ9gy
-	qwNizeXXtdqUUHjN8GqSDHBZxuwu7i267fHtFyoIa9aWR2QsIo1M9p86N+Q0BYBCUJLiH1YfNw9
-	nbppojRkSlxFNePwzE7aP4EDunBcrBMIVl6ho9w9VsCG6RdQ0Asg/zgaA+nU=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0191C3D5C32;
+	Fri,  9 Oct 2026 21:56:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.96.113
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791582968; cv=fail; b=eitlwzCBWPhTDApfKzcKYprwkRoWkTs51NOqif8ydb3TJDLEhdjQM5cnLNKlBnfaymDCduTYbC+5a4DAd60+Q3t1xGZnIMk7daAY8ubYktsnQv7we3xpo+JxkKK3EsKSQhBN/cSn2k5yrdgTK01uBFWWyk136rjPkHworTEL+zE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791582968; c=relaxed/simple;
+	bh=46eeMNJOr9Oa6r0zsdcjF0nx+83fZvXyugEHOQKZ5gA=;
+	h=Content-Type:Date:Message-Id:To:Cc:Subject:From:References:
+	 In-Reply-To:MIME-Version; b=djboJUoUGV6JnxKAjkYXPVyyrsjD+a+R7T5dg8lRLJJUgveEsN/2I3xfhYX+PyDr7mNEVpcUdnhYPx71kFr94PIPVLicv2ZrRvSEbHcYLw1uIlUchSTzt4rx6Tjplgf2hcCHQCRl+FAzwqZZpj6mo/MqzIQ9ZuWM+gceWddmTms=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=l3QQTq4n; arc=fail smtp.client-ip=52.101.96.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="l3QQTq4n"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=r8r67xD0daZ8TM+DWhGJeiL33ih0z+9yYaMDB0o1WI6tal9xOZ1PuffYoh1VSO4nrYI+9bhlWlpxdbNKSgCt3jmLjHa87o2oQPiTcOy6UE8xR2L5gT5tJt+B448lm308yR8OtoW3zpAV9RrPNd5nRQlHdiMJTfxHhJM4bHoceo2t65dfLadEVG7+s0zrfOaAesW5j+m9VmGaPB0mEOMn9KqZOLiOesyCupASgcETJ0oJwNgSk5r2Ajr9WaGmDRxFj+L6BEmUV1kfO/7BXb9lG2oB99p05LKsGsNs1ne1wn4cTe8K0yarTMUOXNbDhCZIkA/zxOdAmnEcw8UqytKgdA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Dh4YcTw8JbaNUhW/j/fMV1f/mSLIk4EOiM7Jyoi4eX4=;
+ b=sjcFxc6oDathWllHCk3/f+KnNCV63KmB0s8a/HsvLuTVSbE5vpUC93sCLLoQeAfvesqa7i2GchN9CvU7IMSJ77e9qiYvzt6TsgyQC7zkOMMcWyUkJxezgw8lWRqBUi+F4sqNUfe68PpQ1VhDrhY+RMK4OJHwhv43Z3gPuRCCUanH0csFqJa2MbrpY6tskvNlW1k0QHZnWSZ0rBkAOWie65DIS/azhCb1vaRL/+Br8IHvlVzatQpB+djq9WkMRF+k4Kh2FoZl7eAGIgHp1ZXVaaA7jb8UYI84rOqm4GMknk3Yjdln2jNCwGGv3CEWj/7ueRLur2OqkIxAtcCs3tCWjw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Dh4YcTw8JbaNUhW/j/fMV1f/mSLIk4EOiM7Jyoi4eX4=;
+ b=l3QQTq4nvoEmPKX0BYeFNJWQ2l5DkKIm9v1hFZDTm2aFphuhOt8aI/kv7LY96f74P5K5tG9aAdSRZG/CoQblPOP0n/YsFi4XyfErEHouXllj82hzlatDShy3YCvPNelmoSqAsmAIZ7RmzS8qGp2ydV8oXjOrakjN3ZnnMTc8iyA=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by CWLP265MB6184.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:182::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.18; Fri, 9 Oct
+ 2026 21:56:02 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
+ 21:56:02 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 09 Oct 2026 22:55:58 +0100
+Message-Id: <DM0N5L0LG9P0.6IFXMJX60P92@garyguo.net>
+To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>, "Paul E .
+ McKenney" <paulmck@kernel.org>
+Cc: <linux-kernel@vger.kernel.org>, "Linus Torvalds"
+ <torvalds@linux-foundation.org>, "Boqun Feng" <boqun.feng@gmail.com>, "Greg
+ Kroah-Hartman" <gregkh@linuxfoundation.org>, "Sebastian Andrzej Siewior"
+ <bigeasy@linutronix.de>, "Will Deacon" <will@kernel.org>, "Peter Zijlstra"
+ <peterz@infradead.org>, "Alan Stern" <stern@rowland.harvard.edu>, "John
+ Stultz" <jstultz@google.com>, "Frederic Weisbecker" <frederic@kernel.org>,
+ "Joel Fernandes" <joel@joelfernandes.org>, "Josh Triplett"
+ <josh@joshtriplett.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Steven
+ Rostedt" <rostedt@goodmis.org>, "Lai Jiangshan" <jiangshanlai@gmail.com>,
+ "Zqiang" <qiang.zhang1211@gmail.com>, "Ingo Molnar" <mingo@redhat.com>,
+ "Waiman Long" <longman@redhat.com>, "Mark Rutland" <mark.rutland@arm.com>,
+ "Thomas Gleixner" <tglx@linutronix.de>, "Vlastimil Babka" <vbabka@suse.cz>,
+ <maged.michael@gmail.com>, "Mateusz Guzik" <mjguzik@gmail.com>, "Gary Guo"
+ <gary@garyguo.net>, <rcu@vger.kernel.org>, <linux-mm@kvack.org>,
+ <lkmm@lists.linux.dev>, "Nikita Popov" <github@npopov.com>,
+ <llvm@lists.linux.dev>, "Lian Wang" <lianux.mm@gmail.com>, "Kunwu Chan"
+ <kunwu.chan@gmail.com>
+Subject: Re: [PATCH hazptr v2 2/4] ptreq.h: Introduce ptr_eq() to preserve
+ address dependency
+From: "Gary Guo" <gary@garyguo.net>
+X-Mailer: aerc 0.22.0
+References: <20261009182142.6311-1-mathieu.desnoyers@efficios.com>
+ <20261009182142.6311-3-mathieu.desnoyers@efficios.com>
+In-Reply-To: <20261009182142.6311-3-mathieu.desnoyers@efficios.com>
+X-ClientProxiedBy: LO4P123CA0537.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:2c5::17) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:4f65:b0:4e5:c2b4:33b0 with SMTP id
- 5614622812f47-50c59399b92mr2796870b6e.43.1791582930733; Fri, 09 Oct 2026
- 14:55:30 -0700 (PDT)
-Date: Fri, 09 Oct 2026 14:55:30 -0700
-In-Reply-To: <6a778d6e.9c11d2ce.289b96.00ba.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ac962d2.bbc4c7f9.15faa7.003c.GAE@google.com>
-Subject: Re: [syzbot] [dri?] WARNING in drm_fbdev_shmem_helper_fb_dirty
-From: syzbot <syzbot+369ee6a6e9d0bbf14b37@syzkaller.appspotmail.com>
-To: airlied@gmail.com, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com, 
-	mripard@kernel.org, simona@ffwll.ch, syzkaller-bugs@googlegroups.com, 
-	tzimmermann@suse.de
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CWLP265MB6184:EE_
+X-MS-Office365-Filtering-Correlation-Id: 19e20ae1-a5e7-4a6a-233b-08df26501c54
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|23010399003|366016|1800799024|56012099006|4143699003|10067099003|18002099003|22082099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	xwRm4U2dhMOkdXaI1PH9ZFAjLsSJ3Y/kmQk49jKfxIZHut9asaA+uBsDwEoEHZz5uQSXQSkNLKW/JWbBONVxzRvOXP93wNcTeXojRO8h8h1vwn3qGf09Emsqo2vbxFHwgQMhJImNHQ6SE+HCQRNHkyx8IUSq19LmOjmYfVih8YbCzA7W1JAq4xfu+c+SWPYId/wvmUsDlZgGhPhHBNll+R4lwJpDkp/bFK7Cp6A8aMBmDVstnZVjz1h4PWz5KeHem4pE2igNHqHuTf0q8elKI/w+XyFVEN//QiU+eF48ftywP8SSW4bd3dFqzUyrTnI6ijclQ7shwOUQD+3BiPGKQnnmuwO2rhsXPagJFwoptea5kl0RhT5fmaSdsX4QSspqmI/iLKynzA8iBfbCOJ8cm/G0rByZ0g2PIrGvin/KAJmUqJQ//ZP0bjhWFnk7FlGw4Mi6lXWyK+XMzLv88UGxaTDE5p7dYoF68e4UfWqfVncAdDE+MOD56EpDHfgQf9w0p1EFFbAH4vdg7/xezveHUe/G5gZGtI3FEYHnCuG9Z+A9LlsbRAC33SdjVz/FC7aP0ZLyf/0OD5PHR+avCkoQzajCQ7+XTz6TcdMnKGmwpV3HszXop/VJ2s5biGKyCfdF092L2ZL0bR0qtfopECchMqbutBxX0FkP9mTZyVmS8Yg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(366016)(1800799024)(56012099006)(4143699003)(10067099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SGE2V0toT05mL1FRWnY3TlFYTE1UcCswdGV3blhlSE5KSWFELzRmUE8vOGlZ?=
+ =?utf-8?B?L0tBR3p4cWI5ZXd2bnhQV0c4VFlNamRXb0FMWFJVWDFJYUMyWE9rM3BrRjd6?=
+ =?utf-8?B?QW9aclMzUXliaTM3NSt6TEZJazJZSXd4ZjNBcGcydXdKa1hVUnYzKzZBZlJU?=
+ =?utf-8?B?YnVZbDFMVVk3QVlmbzNqT2E3THJNb3FVMTlNUkJoUW1NYkV5R1Z1WXdsNFV2?=
+ =?utf-8?B?OEZDQit0OEhlRGRxRDlVekYvQ1c0bGFwRzFYUEVZK0pnQm5SQnMrVDhYZ2Nq?=
+ =?utf-8?B?ZDJSNUg2MXB6cUxBZytPWVByclpXSVN6WTBHSjM1ZTlEaCs0WUFYVzZ3OVkx?=
+ =?utf-8?B?ck1hVGRtNWxqNVVmZHJiSk16RTY5SERmNGxRMnJ5WGxPSDhCcmZQWDFpTWZt?=
+ =?utf-8?B?Y0lubXMyYWMvSi9BSzdkUCtEL2NqMVpVdzg1YytFemdvdWJFZGJYbVZWN3pD?=
+ =?utf-8?B?NXFDVzg1aXBiTUwwaS9sNUFJa21WSW1TSVVReldrZEhwYzl0R0lFb3JoaExv?=
+ =?utf-8?B?VVVsM3NQYmo5NFo0Tjgwa0daRkc4NEdReFNFcUtFSDVJK253bEk1VkNIZ2lV?=
+ =?utf-8?B?SmgzNFJJTG5ReGdjZithdEQvNnU0blF5cUxibllvS0ZPKzhpazVXeU4rK0xN?=
+ =?utf-8?B?NHdMcS9COTJWcGc0djQrOVBuTWZiOHY5emNDWTc1ei83OU1PbXg5a1UyV1Zo?=
+ =?utf-8?B?cTNjTzVpZTE0Q05UMVIraFFMYXZZNU9tcCs5ZVh5SityL3JJM3R1bFE2dXpY?=
+ =?utf-8?B?VjM1a2g4bzV2NWQwYzdQN0kyVldTVVY5aC9LZ2Y0ZXRNdVF3QUNwVWFCc3Fu?=
+ =?utf-8?B?T1JhOUI5TmdLclR1Yk5LQWdrWG1tTkRYT05QWExVLzAwYTdGTzVEelVjajVF?=
+ =?utf-8?B?alJQMU9XMFhCMmJQOW5ITGdtR1I1dDd0ODVjS3VaZDVjdWdSWUJXdkdvQmJw?=
+ =?utf-8?B?bVZnZjFQTjBZcmdpTnNIYzc4MUJTZmgxYVBURmNrckk1MU0yQmE3TFFOSGJG?=
+ =?utf-8?B?cDdwSU1sUldVK3ZDZFArSW1MOFVXMXVqMFVmaFA0UVJiYzVmcElOSDhFaG52?=
+ =?utf-8?B?clFENFRMYW55NlhRYmNLZWlzQ1NUZStlakg4dEhBYW5ZNFllbWprYkZEaUM4?=
+ =?utf-8?B?NzBKK1J3Vk9kVEhETmxObFRtUHY1TXFuVy9oV1RYUExIVVVpUEdnNDRLKzE4?=
+ =?utf-8?B?NTBybzdyZlNZaFg2bUE3dityVENLNTc1b2xqQUpwSStnSUZCdVpGRHZaZy9C?=
+ =?utf-8?B?emluell4Z2RHSWJzMHA1LzZOclNvZkQ2blBscHl3WHlNVkcyU1RYbHI4KzFU?=
+ =?utf-8?B?cUJDNnJMUnlYQ29ES0x1SGo5cGFRRk1nOGRkOHJYZCtNNXRQZXVvQ2g0R3RI?=
+ =?utf-8?B?WkJOWG9BcjJuUkV4VEVrZVE3QUJybEkrVGQydXhoZnM5SE9KT2xDS3VCMHp0?=
+ =?utf-8?B?Q2FZK1VLdldPQlVJYXBpSGovb1JaOXB4VTNuTjBDSkNUcENQN0hSd05zUkNS?=
+ =?utf-8?B?d2YveEE5QW42Si96Yy9GRTZLQTAzV0hOWlhlNk5GbDRVRFY2aEtCc2huWE9j?=
+ =?utf-8?B?U045aVJWU3Z0dlRNaGowSTFXNjJoVUN5SGJqWXVnejBOZU9QMENzQS96YUVx?=
+ =?utf-8?B?ZXFXMzM4UGdsc3p2cWEzcU1acldhZlRIRmx1b2NseTd2TlMremxvcGxhOE9P?=
+ =?utf-8?B?ZWlzSlBTbFhWVzdCenpnRkM2b25razdEcDRQV05SSnVRd3d6YzNhUStMMllq?=
+ =?utf-8?B?ZWZlZFcwVDNpTDdGU2xaWmNzNFk0THZNUXFYOWF6a3VhTURlazRkUnhtekhh?=
+ =?utf-8?B?aHJlUjk1Q3pURXlKbDJnamFCZEEwNkhZenU5bXAxTTFhUFRydVVHV2NTTC93?=
+ =?utf-8?B?MVRwOXJZMS9McUZUS3o4ZEhRSUJScnphZ09TRkprNWVud0o4T2tUUlUzcGZy?=
+ =?utf-8?B?RXdtdmRtUVBVTzV5dWZoMU43eG9mZlJiaXFyMjR6ZE12ZFhmZnV4N1E5Mmhr?=
+ =?utf-8?B?NUh5RUNxOGt4L1M2V04wNTNDbDNaeGhUWmRLbG1jdkh1aVk1OGRkWmtiWTc0?=
+ =?utf-8?B?S01OakE1Q0ZQMW5ZQ1RzYlowZkloT3BDeG1lS1c5OWRhZTd0SmFXbTZXVFhq?=
+ =?utf-8?B?Lzd3UGRvbWkyZHBwd0J0TENHOGpOaHh6SVV4WGZFS0U4NlNoK01KVkM2K0xn?=
+ =?utf-8?B?VjRLRlF0Tm9GZWVMYkZGZEN4S3J5WThMbVVFWHBtUnlwVkpkb21lM1NzRWtK?=
+ =?utf-8?B?MWtOb0s0Ny96MnQ5S05WL0FYb29ZRVY0MTRlTU5nc1E1UWpTSGovdlZrYVQ2?=
+ =?utf-8?Q?yFXglUqAtC/Fw4k48N?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 19e20ae1-a5e7-4a6a-233b-08df26501c54
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 21:56:02.5485
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HFPUYYWwsv3nCiaJRAowTMwdXGNnG/Z3HxTRRavqlevQcYKyZKE8lzO/CVtPc7vo+FvNXvC9cqo788ERUJHiNg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB6184
 
-syzbot has found a reproducer for the following issue on:
+On Fri Oct 9, 2026 at 7:21 PM BST, Mathieu Desnoyers wrote:
+> Compiler CSE and SSA GVN optimizations can cause the address dependency
+> of addresses returned by rcu_dereference to be lost when comparing those
+> pointers with either constants or previously loaded pointers.
+>
+> Introduce ptr_eq() to compare two addresses while preserving the address
+> dependencies for later use of the address. It should be used when
+> comparing an address returned by rcu_dereference().
+>
+> This is needed to prevent the compiler CSE and SSA GVN optimizations
+> from using @a (or @b) in places where the source refers to @b (or @a)
+> based on the fact that after the comparison, the two are known to be
+> equal, which does not preserve address dependencies and allows the
+> following misordering speculations:
+>
+> - If @b is a constant, the compiler can issue the loads which depend
+>   on @a before loading @a.
+> - If @b is a register populated by a prior load, weakly-ordered
+>   CPUs can speculate loads which depend on @a before loading @a.
+>
+> The same logic applies with @a and @b swapped.
+>
+> The header "linux/ptreq.h" is the expected include target. It
+> contains the documentation of the ptr_eq() API.
+>
+> An architecture specific implementation of the pointer comparison
+> can be implemented by each architecture as asm/ptreq.h. The x86
+> implementation is provided initially. If no implementation header is
+> present for the architecture, an arch-agnostic fallback based on
+> OPTIMIZER_HIDE_VAR is included from asm-generic.
+>
+> Suggested-by: Linus Torvalds <torvalds@linux-foundation.org>
+> Suggested-by: Boqun Feng <boqun.feng@gmail.com>
+> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+> Cc: "Paul E. McKenney" <paulmck@kernel.org>
+> Cc: Will Deacon <will@kernel.org>
+> Cc: Peter Zijlstra <peterz@infradead.org>
+> Cc: Boqun Feng <boqun.feng@gmail.com>
+> Cc: Alan Stern <stern@rowland.harvard.edu>
+> Cc: John Stultz <jstultz@google.com>
+> Cc: Linus Torvalds <torvalds@linux-foundation.org>
+> Cc: Boqun Feng <boqun.feng@gmail.com>
+> Cc: Frederic Weisbecker <frederic@kernel.org>
+> Cc: Joel Fernandes <joel@joelfernandes.org>
+> Cc: Josh Triplett <josh@joshtriplett.org>
+> Cc: Uladzislau Rezki <urezki@gmail.com>
+> Cc: Steven Rostedt <rostedt@goodmis.org>
+> Cc: Lai Jiangshan <jiangshanlai@gmail.com>
+> Cc: Zqiang <qiang.zhang1211@gmail.com>
+> Cc: Ingo Molnar <mingo@redhat.com>
+> Cc: Waiman Long <longman@redhat.com>
+> Cc: Mark Rutland <mark.rutland@arm.com>
+> Cc: Thomas Gleixner <tglx@linutronix.de>
+> Cc: Vlastimil Babka <vbabka@suse.cz>
+> Cc: maged.michael@gmail.com
+> Cc: Mateusz Guzik <mjguzik@gmail.com>
+> Cc: Gary Guo <gary@garyguo.net>
+> Cc: rcu@vger.kernel.org
+> Cc: linux-mm@kvack.org
+> Cc: lkmm@lists.linux.dev
+> Cc: Nikita Popov <github@npopov.com>
+> Cc: llvm@lists.linux.dev
+> Cc: Lian Wang <lianux.mm@gmail.com>
+> Cc: Kunwu Chan <kunwu.chan@gmail.com>
+> ---
+> Changes since v1:
+> - Move to linux/ptreq.h, implement x86-specific comparison
+>   and asm-generic header (fallback).
+>
+> Changes since v0:
+> - Include feedback from Alan Stern.
+> ---
+>  arch/x86/include/asm/ptreq.h | 16 +++++++++
+>  include/asm-generic/Kbuild   |  1 +
+>  include/asm-generic/ptreq.h  | 16 +++++++++
 
-HEAD commit:    af32da41b032 Merge tag 'net-7.3-rc7' of git://git.kernel.o..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=17b540a5580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=7d1b274ca9837366
-dashboard link: https://syzkaller.appspot.com/bug?extid=369ee6a6e9d0bbf14b37
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=10c2fa8e580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1268e0a5580000
+I agree with Boqun that this should be ptr_eq. There is no need to save tha=
+t
+character :)
 
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-af32da41.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/6a43965520a9/vmlinux-af32da41.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/c79ed41c72d4/bzImage-af32da41.xz
+>  include/linux/ptreq.h        | 63 ++++++++++++++++++++++++++++++++++++
+>  4 files changed, 96 insertions(+)
+>  create mode 100644 arch/x86/include/asm/ptreq.h
+>  create mode 100644 include/asm-generic/ptreq.h
+>  create mode 100644 include/linux/ptreq.h
+>
+> diff --git a/arch/x86/include/asm/ptreq.h b/arch/x86/include/asm/ptreq.h
+> new file mode 100644
+> index 000000000000..593b45f80451
+> --- /dev/null
+> +++ b/arch/x86/include/asm/ptreq.h
+> @@ -0,0 +1,16 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +#ifndef _ASM_X86_PTREQ_H
+> +#define _ASM_X86_PTREQ_H
+> +
+> +#include <linux/types.h>
+> +#include <asm/asm.h>
+> +
+> +static __always_inline
+> +bool ptr_eq(const volatile void *a, const volatile void *b)
+> +{
+> +	bool ret;
+> +	asm(__ASM_SIZE(cmp) " %1,%2" : "=3D@ccz" (ret) : "r" (a), "r" (b));
+> +	return ret;
+> +}
+> +
+> +#endif	/* _ASM_X86_PTREQ_H */
+> diff --git a/include/asm-generic/Kbuild b/include/asm-generic/Kbuild
+> index 2bc00c67dc54..e1d95dea09d5 100644
+> --- a/include/asm-generic/Kbuild
+> +++ b/include/asm-generic/Kbuild
+> @@ -47,6 +47,7 @@ mandatory-y +=3D percpu.h
+>  mandatory-y +=3D percpu_types.h
+>  mandatory-y +=3D pgalloc.h
+>  mandatory-y +=3D preempt.h
+> +mandatory-y +=3D ptreq.h
+>  mandatory-y +=3D rqspinlock.h
+>  mandatory-y +=3D runtime-const.h
+>  mandatory-y +=3D rwonce.h
+> diff --git a/include/asm-generic/ptreq.h b/include/asm-generic/ptreq.h
+> new file mode 100644
+> index 000000000000..db5a88628b1e
+> --- /dev/null
+> +++ b/include/asm-generic/ptreq.h
+> @@ -0,0 +1,16 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +#ifndef __ASM_GENERIC_PTREQ_H
+> +#define __ASM_GENERIC_PTREQ_H
+> +
+> +#include <linux/types.h>
+> +#include <linux/compiler.h>
+> +
+> +static __always_inline
+> +bool ptr_eq(const volatile void *a, const volatile void *b)
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+369ee6a6e9d0bbf14b37@syzkaller.appspotmail.com
+I suppose this is `const volatile` to take advantage of implicit conversion=
+ that
+adds cv-qualifiers to be added implicitly. Might worth a mention in somewhe=
+re
+(commit message maybe) because I was confused for a second on why this need=
+s
+to be volatile.
 
-------------[ cut here ]------------
-virtio-pci 0000:00:01.0: [drm] Dirty helper failed: ret=-12
-WARNING: drivers/gpu/drm/drm_fbdev_shmem.c:118 at drm_fbdev_shmem_helper_fb_dirty+0x1e1/0x310 drivers/gpu/drm/drm_fbdev_shmem.c:118, CPU#0: kworker/0:0/9
-Modules linked in:
-CPU: 0 UID: 0 PID: 9 Comm: kworker/0:0 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Workqueue: events drm_fb_helper_damage_work
-RIP: 0010:drm_fbdev_shmem_helper_fb_dirty+0x288/0x310 drivers/gpu/drm/drm_fbdev_shmem.c:118
-Code: 27 fc 4c 89 f8 48 c1 e8 03 42 80 3c 28 00 74 08 4c 89 ff e8 3a 1a 9a fc 4d 8b 27 48 89 df 4c 89 f6 4c 89 e2 8b 5c 24 04 89 d9 <67> 48 0f b9 3a 89 d8 e9 f7 fe ff ff 89 d9 80 e1 07 fe c1 38 c1 0f
-RSP: 0018:ffffc9000022f898 EFLAGS: 00010246
-RAX: 1ffff1100004481a RBX: 00000000fffffff4 RCX: 00000000fffffff4
-RDX: ffff888000b33d00 RSI: ffffffff8c79f2a0 RDI: ffffffff91867840
-RBP: ffff8880322ca008 R08: ffffc9000022f5e7 R09: 1ffff92000045ebc
-R10: dffffc0000000000 R11: fffff52000045ebd R12: ffff888000b33d00
-R13: dffffc0000000000 R14: ffffffff8c79f2a0 R15: ffff8880002240d0
-FS:  0000000000000000(0000) GS:ffff88808b0b4000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f76a6223b50 CR3: 0000000038789000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- drm_fb_helper_fb_dirty drivers/gpu/drm/drm_fb_helper.c:339 [inline]
- drm_fb_helper_damage_work+0x84c/0xf20 drivers/gpu/drm/drm_fb_helper.c:365
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-----------------
-Code disassembly (best guess), 1 bytes skipped:
-   0:	fc                   	cld
-   1:	4c 89 f8             	mov    %r15,%rax
-   4:	48 c1 e8 03          	shr    $0x3,%rax
-   8:	42 80 3c 28 00       	cmpb   $0x0,(%rax,%r13,1)
-   d:	74 08                	je     0x17
-   f:	4c 89 ff             	mov    %r15,%rdi
-  12:	e8 3a 1a 9a fc       	call   0xfc9a1a51
-  17:	4d 8b 27             	mov    (%r15),%r12
-  1a:	48 89 df             	mov    %rbx,%rdi
-  1d:	4c 89 f6             	mov    %r14,%rsi
-  20:	4c 89 e2             	mov    %r12,%rdx
-  23:	8b 5c 24 04          	mov    0x4(%rsp),%ebx
-  27:	89 d9                	mov    %ebx,%ecx
-* 29:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
-  2e:	89 d8                	mov    %ebx,%eax
-  30:	e9 f7 fe ff ff       	jmp    0xffffff2c
-  35:	89 d9                	mov    %ebx,%ecx
-  37:	80 e1 07             	and    $0x7,%cl
-  3a:	fe c1                	inc    %cl
-  3c:	38 c1                	cmp    %al,%cl
-  3e:	0f                   	.byte 0xf
+> +{
+> +	OPTIMIZER_HIDE_VAR(a);
+> +	OPTIMIZER_HIDE_VAR(b);
+> +	return a =3D=3D b;
+> +}
 
+One thought on inline assembly. For RISC-V, branching with comparison is a
+single instruction, but there's no instruction for obtaining the boolean fo=
+r
+a =3D=3D b.
 
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+One option is to do
+
+    static __always_inline
+    bool ptr_eq_likely(const volatile void *a, const volatile void *b) {
+        asm goto ("bne %0, %1, %l2" : : "r" (a), "r" (b) :: not_eq);
+        return true;
+    not_eq:
+        return likely(false);
+    }
+
+and then the optimizer can turn a ptr_eq call + a branch to a single
+instruction. This, however, would require likely + unlikely variants.
+
+Alternatively, we can just not have all the complexity, and just emit one e=
+xtra
+instruction:
+
+    static __always_inline
+    bool ptr_eq(const volatile void *a, const volatile void *b) {
+        unsigned long diff;
+        asm("xor %0, %1, %2" : "=3Dr" (diff) : "r" (a), "r" (b));
+        return diff =3D=3D 0;
+    }
+
+Thoughts?
+
+Best,
+Gary
+
