@@ -1,185 +1,88 @@
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
+Received: from sg-3-112.ptr.tlmpb.com (sg-3-112.ptr.tlmpb.com [101.45.255.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FBE3BA45
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 02:05:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8474C4594E
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 02:06:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.45.255.112
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791511502; cv=none; b=GoNlZKbmGIkWhYMI/pnnY9F6DAG3wLSc6mLivJQ38tm/yvta3cS4+GjPm3yM+0VYX/mJfxnkbdwK7g4ahcoQ88WFWA+BkE+sb3hCWUAY54rRVJiEgqThqIYm58J7k2kf+U88Un7+tC5cazjqCudrhsDFYKZpSrDLIEhzppz2f3M=
+	t=1791511590; cv=none; b=C5V0YPE8c2brS0zzqSozsedzOH7Ai1nZpvXVVHU1NgsHRS8MVNFH46EtsbU1SMmo/2+Q31OVrQUL5zSxlLUOtKr7ufymVPPP+yjtqBkC5jgqkHpoajV5/xLF5JypdxtJEMXaXlBr/D0ey9adgvVVRwHfaEXzgisU2zaClRFp2/c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791511502; c=relaxed/simple;
-	bh=3PzxtR+1mBAdyRx4eV1Dnd14mhtH+QhtatlKw0yvMyw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=UjeyOGMpA5R83GE3KuwlZ8MDSgpc7ZZJEWDE6A19YmJOCWBwGLD+sJcMIDd0If3Zbe43hAfuDPSEsCUkUW/ejMvsTEbvbj5RWbS3KT8JWSRYQTZCcsLdLsiULKVtRVWLAxGrLYJluZTEQZQ5I2+s6teNsC9gFh+kHnKsa5aYaHg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Am25ouR6; arc=none smtp.client-ip=74.125.82.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791511590; c=relaxed/simple;
+	bh=vM/219kW0GUnhl+QaWvYEue3Yn1LeK6T8AsxRcL6/H8=;
+	h=Cc:Message-Id:Content-Type:To:Subject:From:Date:Mime-Version; b=NzjZBprIYhSOc1QNR+HqhX4XXAEq0PUfvrLsXuHxP6rPnzO/cdUJ0riP2FkYWVb23SsEFDO2RrTUTgLYW9gTl2EYtn40APSOQmH2bqNmdOHMbjfufEmf1OgopoMe8HQD/BX23xdlO+5XypZj+kMn7tDCJfVVpNeWvNz3VBKT9vQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=fCgwPLxC; arc=none smtp.client-ip=101.45.255.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Am25ouR6"
-Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-144f79153f5so2615918c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 19:05:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791511500; x=1792116300; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=QVVHBgvK6OKW53OVYnJLSJofdOQSOkfgS/m6Zeijg8o=;
-        b=Am25ouR6zcE01ixQy9ZJkl9jx274CIOw1FwoDqXGvDxoEp3ZVxjyg9A6mdlG+4xtdc
-         JsLef885thzm7oWDKjK991CgsFL5hZxyzqpYW9FiYEEMidyUX3QOXGjHnXicINph7LbX
-         RliNBaFESkzTIjbwY1pbnV2j4H25iUqHghSO6VpHdN96qPb1jlps1Jok+bc2bbnKImw1
-         oKUx+Gg7m+Dw624XsjJGtM93pnqTo8GQu8GFHv00SxLiHEyHD9prdjHNAfarXFwkjvOj
-         fPMp67oO6gsbdSq9pdtt7vwjYInCYuMlHS4fNNQjAn2re3a06v88eA/TSpsJ5w8+VFuI
-         EWxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791511500; x=1792116300;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=QVVHBgvK6OKW53OVYnJLSJofdOQSOkfgS/m6Zeijg8o=;
-        b=vpoU8I8QCDB4Ig92JiZyguuMQzynjtXpb7ncluWKUMjYoO4ZFHR/AuXTEKM0r77SNu
-         eRxUtEzeLPVbqwiElv4U2NKkiCH/+sXBfTeOsTC4xnRocpJoTWfgMaeAK+crZzzhpsnv
-         lpNP2MgpYZmrKM4g27kYRbe2oIrxpjfkTi6NhRco1/+ZS5uFJYHDHtRSeXQJPsZk2ttv
-         /XXVPIKG5/T07jCq9NAcA+SbAECTxz9RAXpTV3Nj6RoAgZ8YIwlMUXANpdSvskNdKif5
-         vbc7l8PfXcmX20cklJZ84D3ol20LXF7AmdfS4nsoorFjYqEgyfSDRhuP8Fc/7b/V5CBX
-         AdDw==
-X-Forwarded-Encrypted: i=1; AKwUvBwU8rgsULFTUK1h7VKcE+b+E17U8zv4kv5Wdv8BF8X+Um6uacOBeKgh2H7heO7k2OQnecixNbY04AKuQtg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kIgosVdFuKFolVh5v0Ky8lp6iBV8Qf2mDH0X4saG3lOvodeV5X
-	DrPj5TCLdBZrVSjxXISOGyiPuitnV8GOvCuNvEc3IZ+HR9gYMbnlCz8Z
-X-Gm-Gg: AYBFou05FVlOuJGogKHDHXSOSQV6XdGF+9gXe/WOblkw9XVss79EBgYRRprTRfxLU0n
-	qrHQfpOHKalbDpTw1fLxqIy9uBVbM8eJUJAdRP+3IReH1/cJNzfZckhKTKY6XJHn0QfxEUQL+6p
-	kX15wJtEtAZhMf/K3qACKanEusjlRxUzS1ON4pyowJI1eitbPcuB5aiS4iDKTrJKGvAauonYw4p
-	IE9s2aZp1AORpr3Q8E+/ri6Smcny2vmUgJW/wkNrWllMuMFr1ZDCjohOCDAxns6pI+fZ2IeS07H
-	IMf9YzfuhjdlM/jnxEfCVS8OJnJhLgmgzFir83PMaS//UCTMyzwmdQ0NsyQ+ml7p06yWrOlyGvp
-	+vbTvQWn1kN6gEluwSLEywbAhlX/Fy4ud0egUxv9VSPnFtx83I8Nch0f646mqVw571uDPEbBNs4
-	Ao0nr3gDuTPfg7jEpyQrn/xRD3EcR6nYOpNchXOLB0nWE3CzUsFuv83g3vzQPVpIjODQ==
-X-Received: by 2002:a05:7022:e881:b0:14b:1ef8:698d with SMTP id a92af1059eb24-16a5d174c3bmr630165c88.15.1791511500470;
-        Thu, 08 Oct 2026 19:05:00 -0700 (PDT)
-Received: from [127.0.1.1] ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a31f6f5csm1979850c88.11.2026.10.08.19.04.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 19:05:00 -0700 (PDT)
-From: Qiliang Yuan <odys.yuan@gmail.com>
-Date: Fri, 09 Oct 2026 10:04:55 +0800
-Subject: [PATCH bpf-next v2] selftests/bpf: Run the enable_stats program
- with BPF_PROG_TEST_RUN
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="fCgwPLxC"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1791511547; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=LKiQnCGHUZ2nk19TVt8SnmnQqa0mKzZoQnMjcrji8Q4=;
+ b=fCgwPLxCmANMov3JTysU9v07ayzZ2KDbxtOCGFUwn3Luvy6tmaItMuyhBsGZ/ozo7nVYjc
+ S8f5focrl6amlvkOGynSxmPo8Wz7N63/BaXutDkmQOYacmb9eY7n8mqKIdpW/IcI8TBPGe
+ ntRGrhNSGMts2DQpfG8DES+tNUYHwGk+LOAwznW+4xH01c1gIWi5/J7ZLD0HjhA055KMeJ
+ Stz6r+T4I5DNJJZ4kjMzeU4KAggRWFrJdmwZHvEoleLJEo0k4rLn0qXXTeRg6a5x7MVDQN
+ 0DOU0nzOJ0BJCgsJFXFQzUmoowGc1nl/wVZ5EMWSvWmFd4ngHZUwannvjKx9Zw==
+Cc: "Guixiong Wei" <weiguixiong@bytedance.com>, 
+	"Borislav Petkov" <bp@alien8.de>, "Tony Luck" <tony.luck@intel.com>, 
+	"Muralidhara M K" <muralidhara.mk@amd.com>, <linux-edac@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+X-Mailer: git-send-email 2.55.0
+Message-Id: <20261009020447.90758-2-weiguixiong@bytedance.com>
+X-Original-From: Guixiong Wei <weiguixiong@bytedance.com>
+Content-Transfer-Encoding: 7bit
+X-Lms-Return-Path: <lba+26ac84bf9+ef8a6d+vger.kernel.org+weiguixiong@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+To: "Yazen Ghannam" <yazen.ghannam@amd.com>
+Subject: [PATCH] EDAC/mce_amd: Add missing long names for SMCA bank types
+From: "Guixiong Wei" <weiguixiong@bytedance.com>
+Date: Fri,  9 Oct 2026 10:04:24 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-selftests-bpf-enable-stats-inflight-v2-1-691ee379e511@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAMZLyGoC/5WNQQqDMBBFryKz7pQkgtiueo/iIokTHYhRnCAW8
- e5NvUGX73/+fwcIrUwCz+qAlTYWnlMBc6vAjzYNhNwXBqNMo5VqUSiGTJIF3RKQknWRULItAac
- QeRgzUh9c3VjTqlBDeVpWCrxfljf8Zon2DF1pRpY8r59Lv+mr/8u0adSovHsYIuObvn4Nk+V49
- /ME3XmeX+9fkt/gAAAA
-To: Andrii Nakryiko <andrii@kernel.org>, 
- Eduard Zingerman <eddyz87@gmail.com>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
- Emil Tsalapatis <emil@etsalapatis.com>, Shuah Khan <shuah@kernel.org>
-Cc: bpf@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>
-X-Mailer: b4 0.13.0
+Mime-Version: 1.0
 
-enable_stats attaches its program to sys_enter, so every syscall of the
-system runs it. Once the program is detached, the test compares its
-run_cnt to the number of runs the program counted itself.
+Commit 47b744ea5e3c ("x86/MCE/AMD: Add new MA_LLC, USR_DP,
+and USR_CP bank types") added three SMCA bank types after the bank long
+names had been moved to the MCE decoder.
 
-Detaching doesn't wait for the runs already started on other CPUs, and
-each of them increments count before run_cnt. With other tests making
-syscalls in parallel, the test reads run_cnt one run behind count now
-and then:
+The new types were added to the enum, short-name table, and HWID/McaType
+mapping, but not to smca_long_names[]. As a result, an error from any of
+these banks is logged with "(null)" in place of the bank name.
 
-  test_enable_stats:FAIL:check_run_cnt_valid invalid run_cnt stats
+Add the missing long names.
 
-Run the program with BPF_PROG_TEST_RUN instead of attaching it, so that
-nothing else runs it and both counts are final when the test reads
-them. As a single run can be shorter than the resolution of the clock,
-run it until its run time shows, unless its runs aren't counted at all.
-
-Fixes: 31a9f7fe9337 ("bpf: Add selftest for BPF_ENABLE_STATS")
-Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+Fixes: 47b744ea5e3c ("x86/MCE/AMD: Add new MA_LLC, USR_DP, and USR_CP bank types")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guixiong Wei <weiguixiong@bytedance.com>
 ---
-V1 -> V2:
-- Run the program until its run time shows, as a single run can be
-  shorter than the resolution of the clock (Sashiko)
+ drivers/edac/mce_amd.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-v1: https://lore.kernel.org/r/20261008-selftests-bpf-enable-stats-inflight-v1-1-0cb92ee2c6d3@gmail.com
----
- .../selftests/bpf/prog_tests/enable_stats.c        | 26 +++++++++++++---------
- .../selftests/bpf/progs/test_enable_stats.c        |  2 +-
- 2 files changed, 17 insertions(+), 11 deletions(-)
-
-diff --git a/tools/testing/selftests/bpf/prog_tests/enable_stats.c b/tools/testing/selftests/bpf/prog_tests/enable_stats.c
-index 75f85d0fe74a4..691a82a4d6d20 100644
---- a/tools/testing/selftests/bpf/prog_tests/enable_stats.c
-+++ b/tools/testing/selftests/bpf/prog_tests/enable_stats.c
-@@ -9,6 +9,7 @@ void test_enable_stats(void)
- 	struct bpf_prog_info info;
- 	__u32 info_len = sizeof(info);
- 	int duration = 0;
-+	LIBBPF_OPTS(bpf_test_run_opts, topts);
- 
- 	skel = test_enable_stats__open_and_load();
- 	if (CHECK(!skel, "skel_open_and_load", "skeleton open/load failed\n"))
-@@ -20,18 +21,23 @@ void test_enable_stats(void)
- 		return;
- 	}
- 
--	err = test_enable_stats__attach(skel);
--	if (CHECK(err, "attach_raw_tp", "err %d\n", err))
--		goto cleanup;
--
--	test_enable_stats__detach(skel);
--
- 	prog_fd = bpf_program__fd(skel->progs.test_enable_stats);
--	memset(&info, 0, info_len);
--	err = bpf_prog_get_info_by_fd(prog_fd, &info, &info_len);
--	if (CHECK(err, "get_prog_info",
--		  "failed to get bpf_prog_info for fd %d\n", prog_fd))
-+
-+	/*
-+	 * A single run can be too short for the clock to tell. Run the program
-+	 * until its run time shows, unless its runs aren't counted at all.
-+	 */
-+	do {
-+		err = bpf_prog_test_run_opts(prog_fd, &topts);
-+		if (err)
-+			break;
-+
-+		memset(&info, 0, info_len);
-+		err = bpf_prog_get_info_by_fd(prog_fd, &info, &info_len);
-+	} while (!err && info.run_cnt && !info.run_time_ns);
-+	if (CHECK(err, "run_and_get_prog_info", "err %d\n", err))
- 		goto cleanup;
-+
- 	if (CHECK(info.run_time_ns == 0, "check_stats_enabled",
- 		  "failed to enable run_time_ns stats\n"))
- 		goto cleanup;
-diff --git a/tools/testing/selftests/bpf/progs/test_enable_stats.c b/tools/testing/selftests/bpf/progs/test_enable_stats.c
-index 1705097d01d7b..e28d674fc77ac 100644
---- a/tools/testing/selftests/bpf/progs/test_enable_stats.c
-+++ b/tools/testing/selftests/bpf/progs/test_enable_stats.c
-@@ -10,7 +10,7 @@ char _license[] SEC("license") = "GPL";
- 
- __u64 count = 0;
- 
--SEC("raw_tracepoint/sys_enter")
-+SEC("raw_tp")
- int test_enable_stats(void *ctx)
- {
- 	__sync_fetch_and_add(&count, 1);
-
----
-base-commit: e1d84a37cba984388988d2f1ddc84561413f0db2
-change-id: 20261008-selftests-bpf-enable-stats-inflight-edfb36a280f3
-
-Best regards,
+diff --git a/drivers/edac/mce_amd.c b/drivers/edac/mce_amd.c
+index 7aee57a25b689..34a44769d1d0f 100644
+--- a/drivers/edac/mce_amd.c
++++ b/drivers/edac/mce_amd.c
+@@ -702,6 +702,7 @@ static const char * const smca_long_names[] = {
+ 	[SMCA_L2_CACHE]			= "L2 Cache",
+ 	[SMCA_L3_CACHE]			= "L3 Cache",
+ 	[SMCA_LS ... SMCA_LS_V2]	= "Load Store Unit",
++	[SMCA_MA_LLC]			= "Memory Attached Last Level Cache",
+ 	[SMCA_MP5]			= "Microprocessor 5 Unit",
+ 	[SMCA_MPART]			= "MPART Unit",
+ 	[SMCA_MPASP ... SMCA_MPASP_V2]	= "MPASP Unit",
+@@ -726,6 +727,8 @@ static const char * const smca_long_names[] = {
+ 	[SMCA_UMC]			= "Unified Memory Controller",
+ 	[SMCA_UMC_V2]			= "Unified Memory Controller v2",
+ 	[SMCA_USB]			= "USB Unit",
++	[SMCA_USR_CP]			= "Ultra Short Reach Control Plane Controller",
++	[SMCA_USR_DP]			= "Ultra Short Reach Data Plane Controller",
+ 	[SMCA_WAFL_PHY]			= "WAFL PHY Unit",
+ 	[SMCA_XGMI_PCS]			= "Ext Global Memory Interconnect PCS Unit",
+ 	[SMCA_XGMI_PHY]			= "Ext Global Memory Interconnect PHY Unit",
 -- 
-Qiliang Yuan <odys.yuan@gmail.com>
-
+2.50.1 (Apple Git-155)
