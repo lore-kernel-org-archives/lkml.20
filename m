@@ -1,32 +1,32 @@
-Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
+Received: from smtpbg150.qq.com (smtpbg150.qq.com [18.132.163.193])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C39137E5F5;
-	Fri,  9 Oct 2026 03:18:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.128
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F174F37F8BD;
+	Fri,  9 Oct 2026 03:18:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.132.163.193
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791515909; cv=none; b=DkfgYw33AxDTyV5BCGi5wUpbmdEJW7ckwp5rNZAU77JE9HMJ6uQYilkMBY4PuBU8E+BtvU5y/pFXKQ4l4muIf7jr0NPruNhAW61qWylgg2SdkcLJ0sPaYo4Dcx+ns5J8mAooYyjMpJPdm70fOYleOwLbFc8cZiVWjNOplQwN7Ow=
+	t=1791515910; cv=none; b=GIR/NKa9A2q+kMxSAH5R3y87Ex6drm1csEfHN/sa/4hxkEAY/cl/KFTpmy7mbrRI3kJq/uvLYdXJrnhcmZ539N0JaF63JE6nRq2y64C5Q0L52iHXed2CTWmfCM4/39WsG8dL2PnMMTXjFbtyok8zsZXzIlnKOaM4ffh7kzNn/58=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791515909; c=relaxed/simple;
-	bh=o0Le8wc2L6kpMkxWzI0bIlS/W7PHaYO3TrOedahZL74=;
+	s=arc-20240116; t=1791515910; c=relaxed/simple;
+	bh=y0Qxe6uEfYyWn21dpm7+XJNy2fWN1WyeLFfBAJmoLMI=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=KNONkdWsN8ixdOxi0eAisbifI5ITiYS++ocYTMxo1Q94Q5f/Gt5i+fB/FM6c36FeJNfrS/e9xjdv4b2Y108cBQvQbk3kNmoVhGAMFj752lq56auN2FRJk2xIGGswcGVv93rCnBoXxviV48DS2F7xTdqT/Rng7kgu1pMGHdEw25Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.254.200.128
+	 In-Reply-To:To:Cc; b=RuDEu2KQCb8QT4m7OeD/khg2Xisv/VRlHhop9yRVdmA9yYrwnLBhiaDL1aLa2NzXB87mFYBuP5Bq0JWKOXqQhUl/CFYlFQPGIYXyUs+6JLaPCetMR+9IypfveHiUbC17l9qIO4KV3teH3keNgwPVXus+jDG5WFD5BjHMzapdUMo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=18.132.163.193
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
-X-QQ-mid: zesmtpip2t1791515830tbb33f0fc
-X-QQ-Originating-IP: 1yXzRkYE3qH1UuMYru7LuPsRRvS2YXzC1KUR3SgFG/c=
+X-QQ-mid: zesmtpip2t1791515850tc30037a9
+X-QQ-Originating-IP: aSGd6OVV+xf3PiTsG/D4LwATaC3JbU9u/HkEDXPIHtY=
 Received: from [192.168.30.32] ( [localhost])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 09 Oct 2026 11:17:07 +0800 (CST)
+	id ; Fri, 09 Oct 2026 11:17:27 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 8012898157940025237
+X-BIZMAIL-ID: 9398557567907882420
 EX-QQ-RecipientCnt: 29
 From: Xilin Wu <sophon@radxa.com>
-Date: Fri, 09 Oct 2026 11:15:54 +0800
-Subject: [PATCH v2 02/20] drm/connector: Drop early state allocation for
- max bpc registration
+Date: Fri, 09 Oct 2026 11:15:59 +0800
+Subject: [PATCH v2 07/20] drm/msm/dp: Serialize stream operations with HPD
+ processing
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,7 +35,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-msm-dp-hdr10-v2-2-1835d4966da3@radxa.com>
+Message-Id: <20261009-msm-dp-hdr10-v2-7-1835d4966da3@radxa.com>
 References: <20261009-msm-dp-hdr10-v2-0-1835d4966da3@radxa.com>
 In-Reply-To: <20261009-msm-dp-hdr10-v2-0-1835d4966da3@radxa.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -58,152 +58,174 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  dragon@radxa.com, Xilin Wu <sophon@radxa.com>, 
  linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4736; i=sophon@radxa.com;
- h=from:subject:message-id; bh=o0Le8wc2L6kpMkxWzI0bIlS/W7PHaYO3TrOedahZL74=;
- b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFknYlYsixe8Y+WokNMp4dagJs8aHzijp/e9a8eDPH/nC
- f/jfs7qKGVhEONikBVTZFGIZ5jLXpl77alYqR7MHFYmkCEMXJwCMBGBNYwME9ZoiBo0c2eWexr8
- m3V7RtAic+bb/Ft+zxTa8Ukk4lnWNob/JdLs53RXbvD1tun/Er28fk0jY7jhpoRN2zfd23XCaeY
- RHgA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4913; i=sophon@radxa.com;
+ h=from:subject:message-id; bh=y0Qxe6uEfYyWn21dpm7+XJNy2fWN1WyeLFfBAJmoLMI=;
+ b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFknYlZWMF5+vqL/zuyM03XtTtOrtp9YIOhhuzd4q+Wze
+ F7m958MOkpZGMS4GGTFFFkU4hnmslfmXnsqVqoHM4eVCWQIAxenAEyko4Phr2jC5hMBzt56KSKe
+ oauZThxVyWG8V7PdwDjcN1HrLoPzL4b/ETN5Cov0tgu5iW4+e9lup72H4dQpFq69qawBds++/Nj
+ NAQA=
 X-Developer-Key: i=sophon@radxa.com; a=openpgp;
  fpr=205F009D07796DD6E516752E32C31567AD9E324E
 X-QQ-SENDSIZE: 520
 Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: NFzQ23lyTybaiK9hZ0WYaq+UKfyls87ehAOP2r+4ljpNYyWzvNGHpD3D
-	kHtxIY1MdEjK/+YFFt7Px+KRlhupznXb7DbsUYphtpAwwVU0lkCe9uk5lgtudT2W2qbVcqu
-	iIFnULX8Zd9sI17oWkGkWUx4fQUX3xgyjWNDUorFe0mRn2NhKisCB1Ql3WfR/LnVB4Z53jC
-	BPi23+3mZ9u7pYlr4pOxQTPpDXiGXrLj3sMUxh1lE1Z/NKgtlMsuhMpToFhux6dq7iz+Eut
-	fhbFbSmwr8SS/0TcLLQV/k5fRNElBnSij4qO2EjK41Dd/20t4ATdGBw2RG8dRHToJqm7zc7
-	WhKQ0/NXVuTXx7m7+5NpdouoTs4Kaa371POZTe/uMHZ76E0xNlW0egfghTkz+N4bSlcg4bM
-	NaxtUc3LX+nMTh79XNRCPKGnmDRXZ8HeP0Mp0/JU5T9wMRAzgAawu2aOwlE8GgJTe8Hom1Q
-	Y6ChziUHPl4rqlwO7G7w9Y0jSUJgtOz9q/j6kjlQQL4gWc4w8YaNTiiHaODrwAF1bn27k4o
-	03jMsCH7y1RQiD3htrRnkv6IMdoyV0KwTMGw6+mbtGkHlbraXwwHChgC6OrIn2YXFiOskZE
-	rbML7/MWs3j7guAgyqhq0fbtpRr5zql+pCL3gTclJG+l5lhk5GpVoi+2dqG1PYYbwlLoSXn
-	ilhZ8lJXRJkiWeKoTuCU3Y8GIZ38aQZEaCjuaaStvkNIC9RfL1iG73UIYePhCdrxtXcuhjN
-	xFuS6Gkl2NkRAqYzTzR0ioOIxLHhgitwX/d1S7c+XqYX9LKxYHp4qY96OSgzgkw7+nCKhck
-	boYWZnE+p6745UT66/NnrR0z6MMhaRDFhJYmMn0OKbdIaButWcIYegTg0ISlibtBFVPvIfw
-	gp8DvwJ1FBMZNMrVAqFE2E/NBHRsDixVBT4QcJL8WQYw0oLEYZImMiYPY7Tk/6/9iexK95B
-	AGcGAW0o2Oz8TGn8YZF5E//7RnTw8QZudhl1KuAaUYRBZo9pAMdsAcTlYLEBYdZO8puubzl
-	1dpBB4IzJAvzbpvRwFJxvUN8UWSq0EoBs+zTK6Fg==
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+X-QQ-XMAILINFO: NPENpt+PdOzTLQiSlp3my5zEMMJUQeOG7TexEguhCUdLCVr3kXmXK5Ot
+	aqF756edWFQ92+RIXISUf/2GfI/D/gjQidBQTbygD4mgAUhlK0H2Qv0UyBQAdxndCbmTpBC
+	SF3n529zMM/omdF3oz0m/g/TtUBYz4eggXhorVXq93CcRDlBJxwZOSA8U8j3GZXM/FDfyby
+	0H0xKMLkHyqsHfa1dcufATApJsBfUAkSRYRhsZ52ZVwKXjFqHEb8eNF4t3bx3pfxbLsG7+U
+	dF9t3seJEP/sUxgN/KtJGxmSMyLizaGb4itkQj07LIIzuUnqxd+asY/7dfOj/6H3NdyrQXV
+	zeJpWEU4Pja1ENwjaca/BQB+5zjf4xv6+9DnHW4gxXV1gtcSUertr938d9xAlpy+sfomumT
+	QZVRWbjPc39Xb7YqmxTUOX6G3K/NTw56gACPq2tAglf0LDZG3bsfJ102pOvbiL6tgIR+Cq2
+	qKl8OTpBUbYjbF53TVTyu+fxShcqeUcQoZ/WQUmG2iS3YPvWAKpabsgPldE5us0e+I0nvIF
+	F64hp5yIJ7mB+IO85qafPrqGhLcEwgKlUJ8xDPlxNS2Q2+Dex56aNeqhfmOPNzIB+ODiOsd
+	frBUJeYeQ0j9WHHHufB3gMZuTCfxTUkgqc0yjWSHtOQYGlfycv9ft+QxGEbvFjsNuhpD7uV
+	iqtpW66wN7eqJhy0i7AfCjc3kbUD9cM87Bve1vTGAhE+eeWdcNmOj4EgoBYqFcUSFLXz5cz
+	riNOZm9BNP3VHZwzb0ZI9IC5e7ohUzOJMLFeMOmvQE5Hc0rzZxIv3786YjMbTU37O7ILZL6
+	U1Khi7Kgo5WqucjShhZXxOsOFNOhA1LldVb81Xu0/hd+A9SqmABZP3KkASvmPzNN8H1Uru4
+	6X0sO8Dl2Ax9Ocm5LvXCoDDsrtBWrQIGtqsxqqR9ZuTVC/SkA3oruA0Ekj87O49Mt8S1Nfa
+	OkHwgJmV9CjU1vG0qlKQA4UajVzyO/sZp7zxoHqp4DHRKrYt0dWWlrN3k+J92Gy7BHmwilC
+	EWkgptoElgqVbMjEqxFlfWN8xgScfPfhfO2bSzkKrLjReXJlwuJaUCDv0E+D8=
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
 X-QQ-RECHKSPAM: 0
 
-The max bpc property can now be attached before connector state exists,
-and the atomic state helper restores its default when creating state.
-Remove the early state allocation that was only needed to satisfy the
-old property attachment requirement in the HDMI connector helper, Meson
-and DW HDMI.
+HPD PHY test requests stop and restart the mainlink under plugged_lock,
+but atomic stream enable and disable do not take that lock. Both paths
+can check a resource flag before either updates it and acquire duplicate
+clock or PHY references. They can also reset a link while the other path
+is training it or enabling video.
 
-Update the HDMI connector tests to check bit-depth defaults after the
-normal mode configuration reset, and check that property registration
-itself no longer allocates state.
+Hold plugged_lock across link preparation, stream enable and post-enable,
+and protect stream disable and PSR transitions with the same lock. Add
+lock assertions to the internal stream helpers. Acquire the runtime PM
+reference and handle the eDP plug event before entering the critical
+section, and leave audio shutdown waits and runtime PM release outside.
+
+This provides the serialization required by PHY ownership tracking and
+the subsequent stream enable rollback paths.
 
 Assisted-by: LLM
 Signed-off-by: Xilin Wu <sophon@radxa.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-hdmi.c  |  6 ------
- drivers/gpu/drm/drm_connector.c            | 16 ----------------
- drivers/gpu/drm/meson/meson_encoder_hdmi.c |  6 ------
- drivers/gpu/drm/tests/drm_connector_test.c |  9 +++++++++
- 4 files changed, 9 insertions(+), 28 deletions(-)
+ drivers/gpu/drm/msm/dp/dp_display.c | 42 ++++++++++++++++++++++++++++++-------
+ 1 file changed, 35 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-index 34c5f583e910..a061a3a23ee5 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-@@ -2601,12 +2601,6 @@ static int dw_hdmi_connector_create(struct dw_hdmi *hdmi)
- 				    DRM_MODE_CONNECTOR_HDMIA,
- 				    hdmi->ddc);
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 32a2ac89d8ed..787efbcb6c12 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -53,6 +53,7 @@ struct msm_dp_display_private {
+ 	bool phy_initialized;
+ 	bool audio_supported;
  
--	/*
--	 * drm_connector_attach_max_bpc_property() requires the
--	 * connector to have a state.
--	 */
--	drm_atomic_helper_connector_reset(connector);
++	/* Serializes HPD, stream and PSR operations while runtime active. */
+ 	struct mutex plugged_lock;
+ 	bool plugged;
+ 
+@@ -623,13 +624,10 @@ static int msm_dp_display_set_mode(struct msm_dp *msm_dp_display,
+ 	return 0;
+ }
+ 
+-static int msm_dp_display_prepare_link(struct msm_dp_display_private *dp)
++static int msm_dp_display_prepare(struct msm_dp_display_private *dp)
+ {
+ 	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
+-	int rc = 0;
+-	bool force_link_train = false;
 -
- 	drm_connector_attach_max_bpc_property(connector, 8, 16);
+-	drm_dbg_dp(dp->drm_dev, "sink_count=%d\n", dp->link->sink_count);
++	int rc;
  
- 	if (hdmi->version >= 0x200a && hdmi->plat_data->use_drm_infoframe)
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index 34c30469f405..2e0dbc58c13b 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -614,22 +614,6 @@ int drmm_connector_hdmi_init(struct drm_device *dev,
- 	strtomem_pad(connector->hdmi.vendor, vendor, 0);
- 	strtomem_pad(connector->hdmi.product, product, 0);
+ 	if (msm_dp_display->is_edp)
+ 		msm_dp_hpd_plug_handle(dp);
+@@ -640,6 +638,19 @@ static int msm_dp_display_prepare_link(struct msm_dp_display_private *dp)
+ 		return rc;
+ 	}
  
--	/*
--	 * drm_connector_attach_max_bpc_property() requires the
--	 * connector to have a state.
--	 */
--	if (connector->funcs->atomic_create_state) {
--		struct drm_connector_state *state;
--
--		state = connector->funcs->atomic_create_state(connector);
--		if (IS_ERR(state))
--			return PTR_ERR(state);
--
--		connector->state = state;
--	} else if (connector->funcs->reset) {
--		connector->funcs->reset(connector);
--	}
--
- 	drm_connector_attach_max_bpc_property(connector, 8, max_bpc);
- 	connector->max_bpc = max_bpc;
++	return 0;
++}
++
++static int msm_dp_display_prepare_link_locked(struct msm_dp_display_private *dp)
++{
++	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
++	int rc = 0;
++	bool force_link_train = false;
++
++	drm_dbg_dp(dp->drm_dev, "sink_count=%d\n", dp->link->sink_count);
++
++	lockdep_assert_held(&dp->plugged_lock);
++
+ 	if (dp->link->sink_count == 0)
+ 		return -ENOTCONN;
  
-diff --git a/drivers/gpu/drm/meson/meson_encoder_hdmi.c b/drivers/gpu/drm/meson/meson_encoder_hdmi.c
-index 0c7a72cb514a..3bfb4f8bec2c 100644
---- a/drivers/gpu/drm/meson/meson_encoder_hdmi.c
-+++ b/drivers/gpu/drm/meson/meson_encoder_hdmi.c
-@@ -439,12 +439,6 @@ int meson_encoder_hdmi_probe(struct meson_drm *priv)
- 	 * encoder->[hdmi encoder bridge]->[dw-hdmi bridge]->[display connector bridge]->[display connector]
- 	 */
+@@ -664,6 +675,8 @@ static int msm_dp_display_enable(struct msm_dp_display_private *dp,
+ 	int rc = 0;
+ 	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
  
--	/*
--	 * drm_connector_attach_max_bpc_property() requires the
--	 * connector to have a state.
--	 */
--	drm_atomic_helper_connector_reset(meson_encoder_hdmi->connector);
--
- 	if (meson_vpu_is_compatible(priv, VPU_COMPATIBLE_GXL) ||
- 	    meson_vpu_is_compatible(priv, VPU_COMPATIBLE_GXM) ||
- 	    meson_vpu_is_compatible(priv, VPU_COMPATIBLE_G12A))
-diff --git a/drivers/gpu/drm/tests/drm_connector_test.c b/drivers/gpu/drm/tests/drm_connector_test.c
-index 1174607441b9..af5dda3701cf 100644
---- a/drivers/gpu/drm/tests/drm_connector_test.c
-+++ b/drivers/gpu/drm/tests/drm_connector_test.c
-@@ -1036,7 +1036,10 @@ static void drm_test_connector_hdmi_init_bpc_8(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, ret, 0);
- 	KUNIT_EXPECT_EQ(test, val, 8);
++	lockdep_assert_held(&dp->plugged_lock);
++
+ 	drm_dbg_dp(dp->drm_dev, "sink_count=%d\n", dp->link->sink_count);
+ 	if (msm_dp_display->power_on) {
+ 		drm_dbg_dp(dp->drm_dev, "Link already setup, return\n");
+@@ -684,6 +697,8 @@ static int msm_dp_display_post_enable(struct msm_dp *msm_dp_display)
  
-+	KUNIT_EXPECT_NULL(test, connector->state);
-+	drm_mode_config_reset(&priv->drm);
- 	state = connector->state;
-+	KUNIT_ASSERT_NOT_NULL(test, state);
- 	KUNIT_EXPECT_EQ(test, state->max_bpc, 8);
- 	KUNIT_EXPECT_EQ(test, state->max_requested_bpc, 8);
+ 	dp = container_of(msm_dp_display, struct msm_dp_display_private, msm_dp_display);
  
-@@ -1077,7 +1080,10 @@ static void drm_test_connector_hdmi_init_bpc_10(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, ret, 0);
- 	KUNIT_EXPECT_EQ(test, val, 10);
++	lockdep_assert_held(&dp->plugged_lock);
++
+ 	rate = dp->link->link_params.rate;
  
-+	KUNIT_EXPECT_NULL(test, connector->state);
-+	drm_mode_config_reset(&priv->drm);
- 	state = connector->state;
-+	KUNIT_ASSERT_NOT_NULL(test, state);
- 	KUNIT_EXPECT_EQ(test, state->max_bpc, 10);
- 	KUNIT_EXPECT_EQ(test, state->max_requested_bpc, 10);
+ 	if (dp->audio_supported) {
+@@ -721,6 +736,8 @@ static int msm_dp_display_disable(struct msm_dp_display_private *dp,
+ {
+ 	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
  
-@@ -1118,7 +1124,10 @@ static void drm_test_connector_hdmi_init_bpc_12(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, ret, 0);
- 	KUNIT_EXPECT_EQ(test, val, 12);
++	lockdep_assert_held(&dp->plugged_lock);
++
+ 	if (!msm_dp_display->power_on)
+ 		return 0;
  
-+	KUNIT_EXPECT_NULL(test, connector->state);
-+	drm_mode_config_reset(&priv->drm);
- 	state = connector->state;
-+	KUNIT_ASSERT_NOT_NULL(test, state);
- 	KUNIT_EXPECT_EQ(test, state->max_bpc, 12);
- 	KUNIT_EXPECT_EQ(test, state->max_requested_bpc, 12);
+@@ -880,6 +897,8 @@ void msm_dp_display_set_psr(struct msm_dp *msm_dp_display, bool enter)
+ 	}
  
+ 	dp = container_of(msm_dp_display, struct msm_dp_display_private, msm_dp_display);
++	guard(mutex)(&dp->plugged_lock);
++
+ 	msm_dp_ctrl_set_psr(dp->ctrl, dp->panel, enter);
+ }
+ 
+@@ -1449,7 +1468,13 @@ void msm_dp_display_atomic_enable(struct msm_dp *msm_dp_display,
+ 
+ 	dp = container_of(msm_dp_display, struct msm_dp_display_private, msm_dp_display);
+ 
+-	rc = msm_dp_display_prepare_link(dp);
++	rc = msm_dp_display_prepare(dp);
++	if (rc)
++		return;
++
++	guard(mutex)(&dp->plugged_lock);
++
++	rc = msm_dp_display_prepare_link_locked(dp);
+ 	if (rc) {
+ 		DRM_ERROR("DP display prepare failed, rc=%d\n", rc);
+ 		return;
+@@ -1474,6 +1499,8 @@ void msm_dp_display_atomic_disable(struct msm_dp *dp)
+ 
+ 	msm_dp_display = container_of(dp, struct msm_dp_display_private, msm_dp_display);
+ 
++	guard(mutex)(&msm_dp_display->plugged_lock);
++
+ 	/*
+ 	 * If .atomic_enable() bailed out - link training failure is the common
+ 	 * case - the mainlink was never brought up and ->power_on stayed false.
+@@ -1511,7 +1538,8 @@ void msm_dp_display_atomic_post_disable(struct msm_dp *dp)
+ 
+ 	msm_dp_display_audio_notify_disable(msm_dp_display);
+ 
+-	msm_dp_display_disable(msm_dp_display, msm_dp_display->panel);
++	scoped_guard(mutex, &msm_dp_display->plugged_lock)
++		msm_dp_display_disable(msm_dp_display, msm_dp_display->panel);
+ 
+ 	msm_dp_display_unprepare(msm_dp_display);
+ }
 
 -- 
 2.56.0
