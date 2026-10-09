@@ -1,136 +1,107 @@
-Received: from mail-oo2-f11.google.com (mail-oo2-f11.google.com [74.125.231.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A498F4E1C6E
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 11:50:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 306E13E1688;
+	Fri,  9 Oct 2026 11:50:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791546626; cv=none; b=FOZtdGHAV9W4m6jrshb/whY45AXrfdUUaQkIcj675FDbef+eJIJqa/bU+c/09zrxQqNV5d6V1WhOrCpbnrTxahZ8jAKg0QsrddWj10CUKSCPk07Q4K2Cqz8K1+BwCAqnouH89Xx6fs/iIocDvHQzkYl+jWU00O/M6nMZVyRNj48=
+	t=1791546652; cv=none; b=qkG9MPa0jA1bu3gwldHXvWpAmK9P6/9Yf5C4q+Cz58H2IW0hkJNgq2K2FJM2Oxd7lyC4aDIX8m8HRDZ5jWZdkRJ5OgCdX6OUHnvSnoaxtiuTnkDl6WL7KRlf8Dm9Yi66OGRtjSZy7fCfgqJTEYrgEv7opA7eSVMpe7/GUc2cEMo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791546626; c=relaxed/simple;
-	bh=eEYk/WUBoJNEYfRAjecrPDziLiZTHm5p6P1tZdTsKko=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TRJafIKgBJd1HIVFKraxBdadOXC478+fixXAiZ+S7ZNS+tjUZiAHiKwsI9/s7VCLzy4UQQCN33NL36iPXPaPXwOKsayyccj/OtKRri4wH+PN7L6wTcLZvdoQYnbI1NoRzAGHAOMJ7cuDan3i2HS6hJqzmRVIId+mWHAId8qrpVY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XodLqo6w; arc=none smtp.client-ip=74.125.231.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791546652; c=relaxed/simple;
+	bh=4hxpwKBfM4bxO7Zrm/pi0mrVvM/qDi7zZAbQnxPCNIM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Q68ajKdvRn4B1kBSmVthCIyTEzwNWTNGYh4u2LXHfUpTOUo6+EptZk+tDonn98NouCJCxlOiruNFwFV3zLrlgNHgTZjeLScVGeJGphbacLREUYqmwW97EFjyTLjLpq4d8uAzLE2VhTGz5N61le7zW5KobzXO2t4dTLDos7q854o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LW1Aa+jc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XodLqo6w"
-Received: by mail-oo2-f11.google.com with SMTP id 46e09a7af769-826f42e479dso3067991a34.1
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 04:50:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791546614; x=1792151414; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QrkQmyqxC53pOYj/1KIRQgog5GJjTm+HpEKGS8SAvH0=;
-        b=XodLqo6wd3q5Ar50Plp/kt8C2fEEeLppk5MpuSIrqgodD4Ie5wvUe/cqrxh0CKuNh+
-         1GMIQyfTuFsRZSj1ESj+Gq+Va51C7YO1Qk8b7Ln0onNMVzGHpR2pP6x9z9sNX8ha1uQu
-         DYZJo8bfKP/EpN8eU+BcLzBx7Aw4yroets7tUMCRdyBwFtqRAPH+zCzgtitnKQh5uIT5
-         pQPO1gwAecV0nyy0BCcogD3XtKMR4tFy7fzlGhll6vGBsIW/LW/CebWh6yYGR3NiWPJJ
-         U1twE3KqZfBql2Cb3eWxnDrk7Cq5Fnwv0TxMXN9JDkRnbnNESGvAE/czwTcUlp21QTPw
-         3pjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791546614; x=1792151414;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QrkQmyqxC53pOYj/1KIRQgog5GJjTm+HpEKGS8SAvH0=;
-        b=mWRabkhA8IdEgI5/hjap/V6XVPT7rhZfP4+s7twb7nGaFoZqAwZwvh03p0INu8nmf3
-         Y2SrNgdlXE8LF7zjNORV2hgGCOA3gaibubTcEQpdC721/ip7yj0O92UayVrDJV6jh8Rh
-         9JZuhWkKPNIqB7sqwgKivbV5bY/vQEi2JjXsAmHKSR0Myvj0cX9e2cvS6S+8uumRHtlB
-         lWHAoXnjXP7LuwqgqZ8jEMxTL8gfuSMUVz5h4CZG/2WGtUaozzh1ZZ2uQh8weWOsCVEu
-         ZEtmsFpRaFn4ql1svLy3owb0w3QxfRX3ju5LcAdEaBsmL/Rk5I8kon7Qdh+HlPSbbQk5
-         NqsQ==
-X-Forwarded-Encrypted: i=1; AKwUvBybnujAwQygIhV1U2FdKJLtJX2ImuH2R2dlNad1fyyay/4Ah80Bh+JNWO20aUQQtZvJLAhF+N4IytsXZfA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kDG2isH+ukBGgWBv3IBsp+Uay/oD8VXAlh3ZUzKoHHeTUQ3Hkh
-	7+cPGr9Fjqs0S5fv1xHqyYNHJMCeYdZtPdmuqCdjzLmDDktgxLH36LBs
-X-Gm-Gg: AYBFou3APMoYAPkJTUit7kcYU71k8SWWbCwYAnFyfVtSSdcqnhj44lRtMz+EPqdsE9B
-	DqQ3znM9sndhOwRfxSCr9wcKKTk2QpyQrQbW5QncwqZOX4NR0BzqfUcQX5KyAlmM7atnjonTdH+
-	ytB94ypCg4ex4iYhavxz0T9o5I0in+NLQsY5yQZvghrVUGTP+QIK6yrgOKzrMgA1z9yLfo46NAw
-	eusbbGuI5WPpf4UBZTDeBUX1Iwp62Bz4yC4wa+PdUJCDwSbpfcJfRiDknFcZng9guyqST70Pgtq
-	EMg8qYEvP7nA/SNeSJilRacT9ddvRHFmNouRWv2gUwiClbBW+9z9adlMnu5enEojwrzYU568CAS
-	Ofnr1MO0ugrk0d+UJuIIF7I0HRD7OI7FFbeYAclFnjPieYRhyBZcAKNmEMmDUeHKQg2pjsF3nyy
-	DGDDauBzconm++pQb7jJhMKEQu3GPW3XfFZ+cOqmOEZWOgT5g9HdAhDSXk/33lsrsf8J/EgwADs
-	Gf+OQS9Y+BGcINiEri/ckarjJFwziN8qFa/
-X-Received: by 2002:a05:6830:2b23:b0:81c:a945:60b7 with SMTP id 46e09a7af769-83090c286e2mr1321835a34.2.1791546614333;
-        Fri, 09 Oct 2026 04:50:14 -0700 (PDT)
-Received: from localhost.localdomain ([14.22.11.163])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-830385b9c4asm1480984a34.9.2026.10.09.04.50.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 04:50:12 -0700 (PDT)
-From: Henry Martin <bsdhenrymartin@gmail.com>
-To: David Howells <dhowells@redhat.com>,
-	Marc Dionne <marc.dionne@auristor.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>
-Cc: linux-afs@lists.infradead.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Henry Martin <bsdhenrymartin@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] rxrpc: fix connection reference leak on aborted CHALLENGE
-Date: Fri,  9 Oct 2026 19:50:03 +0800
-Message-ID: <20261009115003.3696517-1-bsdhenrymartin@gmail.com>
-X-Mailer: git-send-email 2.43.7
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LW1Aa+jc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B42111F000FF;
+	Fri,  9 Oct 2026 11:50:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791546643;
+	bh=4hxpwKBfM4bxO7Zrm/pi0mrVvM/qDi7zZAbQnxPCNIM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=LW1Aa+jc5dnyrIEVQIruIInboVOIqiRM+IqgDjHuaoxpv3Pt/L/ba0zXt9eWlESdV
+	 BsGFGeeHhsPUccsLUgWc+NfLZ1CHauZ03UGsAQlNN9+81vzyn/iKqcELATTzYfxHGr
+	 8+mzdV6L5QNkVfsMzD26Nac3MY3R3W2Z6NDCxXBswwPsTZi06F5H2uJxaufxxzWIJm
+	 f7c1N69l3FqnBeW5Er3VJbZncok82sjvxWyZ2Dl4FTlgbK0RswlPWb6CW0hqMgLzl6
+	 bfqS2P5LzcPeop9qRCkG+uyYuDO3FbJJ5yJjyMzwWNxzLuMO3324SAfpILGUwRc9JH
+	 5HoqGR5lGnHgg==
+Message-ID: <701e5e45-f607-452d-8223-c987427fb34f@kernel.org>
+Date: Fri, 9 Oct 2026 13:50:39 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/2] arm64: defconfig: Enable LT9611C bridge driver
+To: Mohit Dsor <mohit.dsor@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, venkata.valluru@oss.qualcomm.com,
+ Jessica Zhang <jesszhan0024@gmail.com>
+References: <20261007-master_lt9611uxd-v4-0-9986704e2a7b@oss.qualcomm.com>
+ <20261007-master_lt9611uxd-v4-2-9986704e2a7b@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261007-master_lt9611uxd-v4-2-9986704e2a7b@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-rxrpc_process_event() returns -ECONNABORTED before reaching the
-CHALLENGE case, skipping the rxrpc_put_connection() that pairs with
-the reference rxrpc_post_challenge() stored in sp->chall.conn.  The
-skb is then freed by the caller while the connection reference stays
-held, pinning the connection forever; a malicious server repeating
-CHALLENGE-then-ABORT leaks one connection per packet.
+On 07/10/2026 14:51, Mohit Dsor wrote:
+> Enable the Lontium LT9611C DSI-to-HDMI bridge driver as a module.
+> This driver supports the LT9611UXD chip used on the Shikra IQS EVK
+> board to provide HDMI output via the MDSS DSI interface.
 
-Clear sp->chall.conn and put the reference on the aborted path.
+Same feedback as v1. Why every second defconfig patch from Qualcomm
+completely ignores the fact that this is not a Qualcomm-only or
+Qualcomm-specific defconfig?
 
-Commit 092275882aec4 ("rxrpc: Fix oob challenge leak in cleanup after
-notification failure") handled the sibling leak stored by
-rxrpc_post_challenge() when its socket notification fails; the
-early-return on RXRPC_CONN_ABORTED is the remaining, still-open one.
-
-This vulnerability was discovered by Tencent CodeBuddy Security.
-
-Cc: stable@vger.kernel.org
-Fixes: 5800b1cf3fd8c ("rxrpc: Allow CHALLENGEs to the passed to the app for a RESPONSE")
-Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
----
- net/rxrpc/conn_event.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
-
-diff --git a/net/rxrpc/conn_event.c b/net/rxrpc/conn_event.c
-index 611c790bc6d0..56503a05d5d7 100644
---- a/net/rxrpc/conn_event.c
-+++ b/net/rxrpc/conn_event.c
-@@ -272,8 +272,20 @@ static int rxrpc_process_event(struct rxrpc_connection *conn,
- 	bool secured = false;
- 	int ret;
-
--	if (conn->state == RXRPC_CONN_ABORTED)
-+	if (conn->state == RXRPC_CONN_ABORTED) {
-+		/*
-+		 * Drop the ref taken by rxrpc_post_challenge() on this
-+		 * CHALLENGE before bailing out: otherwise the skb is
-+		 * released by the caller with the connection reference
-+		 * still held, pinning the connection forever (leak).
-+		 */
-+		if (sp->chall.conn) {
-+			sp->chall.conn = NULL;
-+			rxrpc_put_connection(conn,
-+					rxrpc_conn_put_challenge_input);
-+		}
- 		return -ECONNABORTED;
-+	}
-
- 	_enter("{%d},{%u,%%%u},", conn->debug_id, sp->hdr.type, sp->hdr.serial);
-
---
-2.43.7
-
+Best regards,
+Krzysztof
