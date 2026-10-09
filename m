@@ -1,319 +1,259 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE166382373;
-	Fri,  9 Oct 2026 15:51:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7E7F03806C9
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 15:51:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791561081; cv=none; b=nWvoeILIKUrAMvx5mJMrxpZSt9APYfQT+9uHg6l6TFNUTCsQXhs16x6QfTni9TucikpJRj13gmy0rwd0ZMCPLUx8D7y7VXkND1Ikt9EGNkTjXWB6tZJGkiqBWMg/i0t9xEB1cAfOUpUZMaRc2sF/O8lt6m6LB6gGpYvYT6TRO80=
+	t=1791561081; cv=none; b=JbN90NDTtwR47yX4YLuICwHYGWyP6ju5wSgh2jZC4LcjQA6LcVv0unHLAer0LYaNQuWl/6WYxyu6sAnmuCMuL0Wgh7tz64U/gP3kFlSxxAWR+YlHNYq4CR3hzOwCg6mGYvuqbJZThwt5MXVSWP8wm2/2LK5p4sCK+o/AvI8EPv4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791561081; c=relaxed/simple;
-	bh=6I/E3ls6R65hg7gXxWt0LfIc1SzseqQ7dHBDy1GDox0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nMv56a0TC5CdmqJuOo1BvyTu3TpI68ms7qTJr2AQblP+p4kvzXtBMXEYqPmPeI86Fy8oZtD/fiCswjVJOvTvCWC+KhPA2dCvtF80Jk+HJVTfb/2Cn9PSibKZZWkF0OlvXDjd3C7xyWbNNnohaIUU2MwjaZN93uNl/xhTcPXB0OI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PD6VrvTA; arc=none smtp.client-ip=100.103.45.18
+	bh=5feYH3+pbVTgr2fGF5M7AvFuJa8U8vWQ+HLCanQrhAA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=vCT8Arqpz0zAD78EJAE+/PoYkODWY8mTBPPuNicpFaQBUtT7oQTr8GBgwg1fD3404SPcJEywisxdN/VCm2YI0ltVlRWkvcs4xBEcc3QwTF6Th6zfgcuG0gJgUk/hFysDoQx6F7a+xom6zgYOdGuwkQX02OLwBWcvzwO9Eiqup8I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=FPTNnYX7; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PD6VrvTA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 495511F000FF;
-	Fri,  9 Oct 2026 15:51:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791561079;
-	bh=1JTJsG9iHy7cnxkMGpPJjEaV21cpLxYzGB1ulrApZoo=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=PD6VrvTAd3jYgu30Iis+oILhqIvALacy7lyzxwIB3ceb/lxkvncsyvcMOsH6BAmS+
-	 v8iWpnVwO/Kx4gAeEVqgsUgtti9EvvqpuPpAIJHIw1aEjUDumbyNWfZekmLlQmntOH
-	 ARSAjIO+XpvP8AbNExXCn52gZOPVV+RJGRwdYtmCMco7uOd/lEImcOjAo7HI7dxi0x
-	 klG+LplHs/9YkVYkmDHzjqdT1Onw9kSpQAKhpzxH1yMP0WUPNyXGdvi0Ol4Y2Y/R1K
-	 9CjfnPLjA6BekC99vLugXBplJr0VBt1uZeDHQPkmnlcQ1790EAE1iAMGmPUrwE2nll
-	 yQLSzFcIG/ciQ==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 056E2CE0B28; Fri,  9 Oct 2026 08:51:19 -0700 (PDT)
-Date: Fri, 9 Oct 2026 08:51:18 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Kees Cook <kees@kernel.org>
-Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Manuel Ebner <manuelebnerli@mailbox.org>,
-	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v1 1/2] kbuild: Mark the kernel image gzip recipes as
- recursive
-Message-ID: <7fa8e996-d015-4f8d-a197-3f8901e0b31a@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20261009062722.i.253-kees@kernel.org>
- <20261009062733.3119731-1-kees@kernel.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="FPTNnYX7"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4EE7C1EA6;
+	Fri,  9 Oct 2026 08:51:15 -0700 (PDT)
+Received: from [10.211.55.3] (unknown [10.57.54.134])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1925C3F763;
+	Fri,  9 Oct 2026 08:51:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791561078; bh=5feYH3+pbVTgr2fGF5M7AvFuJa8U8vWQ+HLCanQrhAA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=FPTNnYX7zZFTTJCyQPGAmjHeQa2rVc1EDVWcM6O+UjiE7YdAMfA8o3nOJ9cdCAKzo
+	 sC5ZYKzeqGVEajDT7sVKkWNc9uanX0/6uJoUxi0ka4Gz8TOsyVCu5+g0vPNT5LYg4G
+	 igIO8qcu7W/QRTkCJgDEw0Zg2dqnR90lhNz+Okok=
+Message-ID: <814a1d78-73df-4b8c-b596-65fb82f7cceb@arm.com>
+Date: Fri, 9 Oct 2026 16:51:14 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261009062733.3119731-1-kees@kernel.org>
+User-Agent: Thunderbird Daily
+Subject: Re: [PATCH v2 08/23] arm64: cpufeature: Store every ID register with
+ its overrides applied
+To: Will Deacon <will@kernel.org>, linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@kernel.org>,
+ =?UTF-8?Q?=C8=98tefania_Ion?= <stefion@google.com>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Pankaj Patil <pankaj.patil@oss.qualcomm.com>, Borislav Petkov
+ <bp@alien8.de>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Jinjie Ruan <ruanjinjie@huawei.com>, Mark Rutland <mark.rutland@arm.com>,
+ Tarun Sahu <tarunsahu@google.com>, Fuad Tabba <fuad.tabba@linux.dev>,
+ David Woodhouse <dwmw@amazon.co.uk>, Peter Zijlstra <peterz@infradead.org>,
+ Marc Zyngier <maz@kernel.org>
+References: <20261009100738.31288-1-will@kernel.org>
+ <20261009100738.31288-9-will@kernel.org>
+Content-Language: en-US
+From: Ben Horgan <ben.horgan@arm.com>
+In-Reply-To: <20261009100738.31288-9-will@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 08, 2026 at 11:27:30PM -0700, Kees Cook wrote:
-> Since commit 48ebe1cbbeb51 ("kbuild: compress the kernel with pigz if
-> available"), cmd_gzip runs pigz through scripts/jobserver-exec, which
-> takes the job slots make has free. GNU Make passes the jobserver pipe
-> only to recipes it treats as recursive, but leaves --jobserver-auth in
-> MAKEFLAGS for all of them. The make 4.3 in CentOS Stream 9 also hides
-> the pipe in sub-makes (a backport of the fix for GNU Make bug 58232), so
-> jobserver-exec cannot open it, runs pigz on one thread, and prints:
+Hi Will,
+
+On 10/9/26 11:07, Will Deacon wrote:
+> From: Fuad Tabba <fuad.tabba@linux.dev>
 > 
->   WARNING: Unable to reopen jobserver read-side pipe: FileNotFoundError(2, 'No such file or directory')
+> __cpuinfo_store_cpu() stores ID_AA64PFR0_EL1 and ID_AA64PFR1_EL1 with
+> their overrides applied and every other register raw. Store the rest
+> the same way. Everything read with read_cpuid() goes through
+> read_cpuid_with_overrides(). CTR_EL0 and CNTFRQ_EL0, which are read
+> otherwise, go through arm64_ftr_reg_override(). It returns a register
+> with no override unchanged, so an override added to one later takes
+> effect without a change here.
 > 
-> Mark the gzip recipes as recursive with "+", as commit ecab4115c44cc
-> ("kbuild: mark `rustc` (and others) invocations as recursive") did for
-> rustc. As with those, "make -n" now runs them.
+> init_cpu_ftr_reg() then gets values that already carry every valid
+> override, so its code to apply one is dead. Remove that code.
+> init_cpu_ftr_reg() still removes an unsafe override, so the same
+> overrides are rejected and sys_val is unchanged. Only its log changes.
+> The raw value is gone, so it logs an override equal to that value as
+> "forced" rather than "already set".
 > 
-> Tested ARCH=x86_64 and ARCH=arm64 defconfig with GNU Make 4.3 plus
-> CentOS Stream 9's make-4.3-cloexec.patch, GCC 16.2.0, and -j64: without
-> this change the warning appears and pigz runs with "-p 1"; with it there
-> is no warning, and pigz runs with "-p 54" and "-p 64".
-
-Thank you, Kees!
-
-My initial test of this patch (using rcutorture) still showed the failure.
-I am running GCC 11.5.0 and without any patches to "make".  I take it
-that I need to find and apply CentOS Stream 9's make-4.3-cloexec.patch?
-
-But if I use "make -j" instead of rcutorture, this patch does work fine.
-Even with "make -j632".
-
-I put rcutorture in the background using nohup and full redirection,
-but "nohup make -j632 > /tmp/Make.out 2>&1 < /dev/null &" works just
-fine.  And running rcutorture in the foreground still fails.
-
-Very strange.
-
-So I guess I could give a Tested-by for builds using straight-up make,
-but not from rcutorture.  ;-)
-
-							Thanx, Paul
-
-> Reported-by: Paul E. McKenney <paulmck@kernel.org>
-> Closes: https://lore.kernel.org/all/0ddb5e5e-f801-444c-aa98-0cfe814a3026@paulmck-laptop/
-> Fixes: 48ebe1cbbeb51 ("kbuild: compress the kernel with pigz if available")
-> Assisted-by: LLM
-> Signed-off-by: Kees Cook <kees@kernel.org>
+> Secondaries are compared with the boot CPU on their stored values, so
+> CPUs that differ only in a field the command line turned off no longer
+> taint the kernel.
+> 
+> Suggested-by: Will Deacon <will@kernel.org>
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+> Signed-off-by: Will Deacon <will@kernel.org>
 > ---
->  arch/alpha/boot/Makefile             | 4 ++--
->  arch/arc/boot/Makefile               | 2 +-
->  arch/arm64/boot/Makefile             | 2 +-
->  arch/microblaze/boot/Makefile        | 2 +-
->  arch/mips/boot/Makefile              | 2 +-
->  arch/nios2/boot/Makefile             | 2 +-
->  arch/parisc/boot/compressed/Makefile | 2 +-
->  arch/riscv/boot/Makefile             | 2 +-
->  arch/s390/boot/Makefile              | 2 +-
->  arch/sh/boot/Makefile                | 2 +-
->  arch/sh/boot/compressed/Makefile     | 2 +-
->  arch/sparc/boot/Makefile             | 4 ++--
->  arch/x86/boot/compressed/Makefile    | 2 +-
->  arch/xtensa/boot/Makefile            | 2 +-
->  14 files changed, 16 insertions(+), 16 deletions(-)
+>  arch/arm64/kernel/cpufeature.c | 17 +++----
+>  arch/arm64/kernel/cpuinfo.c    | 82 +++++++++++++++++-----------------
+>  2 files changed, 46 insertions(+), 53 deletions(-)
 > 
-> diff --git a/arch/alpha/boot/Makefile b/arch/alpha/boot/Makefile
-> index d8dba85e606c..b050753e9015 100644
-> --- a/arch/alpha/boot/Makefile
-> +++ b/arch/alpha/boot/Makefile
-> @@ -40,7 +40,7 @@ endif
+> diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
+> index 9212f10c1d1a..d69a5b8304b6 100644
+> --- a/arch/arm64/kernel/cpufeature.c
+> +++ b/arch/arm64/kernel/cpufeature.c
+> @@ -1043,6 +1043,8 @@ void __init validate_ftr_regs(void)
+>   * Also initialises the strict_mask for the register.
+>   * Any bits that are not covered by an arm64_ftr_bits entry are considered
+>   * RES0 for the system-wide value, and must strictly match.
+> + * @new has been through arm64_ftr_reg_override(), so a valid override is
+> + * already applied to it. Only an unsafe one is left to remove here.
+>   */
+>  static void init_cpu_ftr_reg(u32 sys_reg, u64 new)
+>  {
+> @@ -1063,29 +1065,20 @@ static void init_cpu_ftr_reg(u32 sys_reg, u64 new)
+>  		s64 ftr_ovr = arm64_ftr_value(ftrp, reg->override->val);
 >  
->  # Compressed kernel image
->  $(obj)/vmlinux.gz: $(obj)/vmlinux FORCE
-> -	$(call if_changed,gzip)
-> +	+$(call if_changed,gzip)
->  	@echo '  Kernel $@ is ready'
+>  		if ((ftr_mask & reg->override->mask) == ftr_mask) {
+> -			s64 tmp = arm64_ftr_safe_value(ftrp, ftr_ovr, ftr_new);
+> -			char *str = NULL;
+> +			char *str = "forced";
 >  
->  $(obj)/main.o: $(obj)/ksize.h
-> @@ -85,7 +85,7 @@ $(obj)/vmlinux.nh: vmlinux $(OBJSTRIP) FORCE
->  	$(call if_changed,objstrip)
+> -			if (ftr_ovr != tmp) {
+> +			if (arm64_ftr_safe_value(ftrp, ftr_ovr, ftr_new) != ftr_ovr) {
+>  				/* Unsafe, remove the override */
+>  				reg->override->mask &= ~ftr_mask;
+>  				reg->override->val &= ~ftr_mask;
+> -				tmp = ftr_ovr;
+>  				str = "ignoring override";
+> -			} else if (ftr_new != tmp) {
+> -				/* Override was valid */
+> -				ftr_new = tmp;
+> -				str = "forced";
+> -			} else {
+> -				/* Override was the safe value */
+> -				str = "already set";
+>  			}
 >  
->  $(obj)/vmlinux.nh.gz: $(obj)/vmlinux.nh FORCE
-> -	$(call if_changed,gzip)
-> +	+$(call if_changed,gzip)
+>  			pr_warn("%s[%d:%d]: %s to %llx\n",
+>  				reg->name,
+>  				ftrp->shift + ftrp->width - 1,
+>  				ftrp->shift, str,
+> -				tmp & (BIT(ftrp->width) - 1));
+> +				ftr_ovr & (BIT(ftrp->width) - 1));
+>  		} else if ((ftr_mask & reg->override->val) == ftr_mask) {
+>  			reg->override->val &= ~ftr_mask;
+>  			pr_warn("%s[%d:%d]: impossible override, ignored\n",
+> diff --git a/arch/arm64/kernel/cpuinfo.c b/arch/arm64/kernel/cpuinfo.c
+> index 0ae40b0c7b2f..1b92e52989b1 100644
+> --- a/arch/arm64/kernel/cpuinfo.c
+> +++ b/arch/arm64/kernel/cpuinfo.c
+> @@ -443,33 +443,33 @@ static void cpuinfo_detect_icache_policy(struct cpuinfo_arm64 *info)
 >  
->  $(obj)/tools/lxboot: $(obj)/bootloader $(OBJSTRIP) FORCE
->  	$(call if_changed,objstrip)
-> diff --git a/arch/arc/boot/Makefile b/arch/arc/boot/Makefile
-> index 5a8550124b73..8a44c3e7ff3e 100644
-> --- a/arch/arc/boot/Makefile
-> +++ b/arch/arc/boot/Makefile
-> @@ -23,7 +23,7 @@ $(obj)/vmlinux.bin: vmlinux FORCE
->  	$(call if_changed,objcopy)
+>  static void __cpuinfo_store_cpu_32bit(struct cpuinfo_32bit *info)
+>  {
+> -	info->reg_id_dfr0 = read_cpuid(ID_DFR0_EL1);
+> -	info->reg_id_dfr1 = read_cpuid(ID_DFR1_EL1);
+> -	info->reg_id_isar0 = read_cpuid(ID_ISAR0_EL1);
+> -	info->reg_id_isar1 = read_cpuid(ID_ISAR1_EL1);
+> -	info->reg_id_isar2 = read_cpuid(ID_ISAR2_EL1);
+> -	info->reg_id_isar3 = read_cpuid(ID_ISAR3_EL1);
+> -	info->reg_id_isar4 = read_cpuid(ID_ISAR4_EL1);
+> -	info->reg_id_isar5 = read_cpuid(ID_ISAR5_EL1);
+> -	info->reg_id_isar6 = read_cpuid(ID_ISAR6_EL1);
+> -	info->reg_id_mmfr0 = read_cpuid(ID_MMFR0_EL1);
+> -	info->reg_id_mmfr1 = read_cpuid(ID_MMFR1_EL1);
+> -	info->reg_id_mmfr2 = read_cpuid(ID_MMFR2_EL1);
+> -	info->reg_id_mmfr3 = read_cpuid(ID_MMFR3_EL1);
+> -	info->reg_id_mmfr4 = read_cpuid(ID_MMFR4_EL1);
+> -	info->reg_id_mmfr5 = read_cpuid(ID_MMFR5_EL1);
+> -	info->reg_id_pfr0 = read_cpuid(ID_PFR0_EL1);
+> -	info->reg_id_pfr1 = read_cpuid(ID_PFR1_EL1);
+> -	info->reg_id_pfr2 = read_cpuid(ID_PFR2_EL1);
+> +	info->reg_id_dfr0 = read_cpuid_with_overrides(ID_DFR0_EL1);
+> +	info->reg_id_dfr1 = read_cpuid_with_overrides(ID_DFR1_EL1);
+> +	info->reg_id_isar0 = read_cpuid_with_overrides(ID_ISAR0_EL1);
+> +	info->reg_id_isar1 = read_cpuid_with_overrides(ID_ISAR1_EL1);
+> +	info->reg_id_isar2 = read_cpuid_with_overrides(ID_ISAR2_EL1);
+> +	info->reg_id_isar3 = read_cpuid_with_overrides(ID_ISAR3_EL1);
+> +	info->reg_id_isar4 = read_cpuid_with_overrides(ID_ISAR4_EL1);
+> +	info->reg_id_isar5 = read_cpuid_with_overrides(ID_ISAR5_EL1);
+> +	info->reg_id_isar6 = read_cpuid_with_overrides(ID_ISAR6_EL1);
+> +	info->reg_id_mmfr0 = read_cpuid_with_overrides(ID_MMFR0_EL1);
+> +	info->reg_id_mmfr1 = read_cpuid_with_overrides(ID_MMFR1_EL1);
+> +	info->reg_id_mmfr2 = read_cpuid_with_overrides(ID_MMFR2_EL1);
+> +	info->reg_id_mmfr3 = read_cpuid_with_overrides(ID_MMFR3_EL1);
+> +	info->reg_id_mmfr4 = read_cpuid_with_overrides(ID_MMFR4_EL1);
+> +	info->reg_id_mmfr5 = read_cpuid_with_overrides(ID_MMFR5_EL1);
+> +	info->reg_id_pfr0 = read_cpuid_with_overrides(ID_PFR0_EL1);
+> +	info->reg_id_pfr1 = read_cpuid_with_overrides(ID_PFR1_EL1);
+> +	info->reg_id_pfr2 = read_cpuid_with_overrides(ID_PFR2_EL1);
 >  
->  $(obj)/vmlinux.bin.gz: $(obj)/vmlinux.bin FORCE
-> -	$(call if_changed,gzip)
-> +	+$(call if_changed,gzip)
+> -	info->reg_mvfr0 = read_cpuid(MVFR0_EL1);
+> -	info->reg_mvfr1 = read_cpuid(MVFR1_EL1);
+> -	info->reg_mvfr2 = read_cpuid(MVFR2_EL1);
+> +	info->reg_mvfr0 = read_cpuid_with_overrides(MVFR0_EL1);
+> +	info->reg_mvfr1 = read_cpuid_with_overrides(MVFR1_EL1);
+> +	info->reg_mvfr2 = read_cpuid_with_overrides(MVFR2_EL1);
+>  }
 >  
->  $(obj)/vmlinux.bin.lzma: $(obj)/vmlinux.bin FORCE
->  	$(call if_changed,lzma)
-> diff --git a/arch/arm64/boot/Makefile b/arch/arm64/boot/Makefile
-> index b5a08333bc57..d42d07667822 100644
-> --- a/arch/arm64/boot/Makefile
-> +++ b/arch/arm64/boot/Makefile
-> @@ -26,7 +26,7 @@ $(obj)/Image.bz2: $(obj)/Image FORCE
->  	$(call if_changed,bzip2)
+>  static void __cpuinfo_store_cpu(struct cpuinfo_arm64 *info)
+>  {
+> -	info->reg_cntfrq = arch_timer_get_cntfrq();
+> +	info->reg_cntfrq = arm64_ftr_reg_override(SYS_CNTFRQ_EL0, arch_timer_get_cntfrq());
+>  	/*
+>  	 * Use the effective value of the CTR_EL0 than the raw value
+>  	 * exposed by the CPU. CTR_EL0.IDC field value must be interpreted
+> @@ -478,35 +478,35 @@ static void __cpuinfo_store_cpu(struct cpuinfo_arm64 *info)
+>  	 * effective value of the CTR_EL0 in our internal records for
+>  	 * accurate sanity check and feature enablement.
+>  	 */
+> -	info->reg_ctr = read_cpuid_effective_cachetype();
+> -	info->reg_dczid = read_cpuid(DCZID_EL0);
+> +	info->reg_ctr = arm64_ftr_reg_override(SYS_CTR_EL0, read_cpuid_effective_cachetype());
+> +	info->reg_dczid = read_cpuid_with_overrides(DCZID_EL0);
+>  	info->reg_midr = read_cpuid_id();
+>  	info->reg_revidr = read_cpuid(REVIDR_EL1);
+>  	info->reg_aidr = read_cpuid(AIDR_EL1);
 >  
->  $(obj)/Image.gz: $(obj)/Image FORCE
-> -	$(call if_changed,gzip)
-> +	+$(call if_changed,gzip)
+> -	info->reg_id_aa64dfr0 = read_cpuid(ID_AA64DFR0_EL1);
+> -	info->reg_id_aa64dfr1 = read_cpuid(ID_AA64DFR1_EL1);
+> -	info->reg_id_aa64isar0 = read_cpuid(ID_AA64ISAR0_EL1);
+> -	info->reg_id_aa64isar1 = read_cpuid(ID_AA64ISAR1_EL1);
+> -	info->reg_id_aa64isar2 = read_cpuid(ID_AA64ISAR2_EL1);
+> -	info->reg_id_aa64isar3 = read_cpuid(ID_AA64ISAR3_EL1);
+> -	info->reg_id_aa64mmfr0 = read_cpuid(ID_AA64MMFR0_EL1);
+> -	info->reg_id_aa64mmfr1 = read_cpuid(ID_AA64MMFR1_EL1);
+> -	info->reg_id_aa64mmfr2 = read_cpuid(ID_AA64MMFR2_EL1);
+> -	info->reg_id_aa64mmfr3 = read_cpuid(ID_AA64MMFR3_EL1);
+> -	info->reg_id_aa64mmfr4 = read_cpuid(ID_AA64MMFR4_EL1);
+> +	info->reg_id_aa64dfr0 = read_cpuid_with_overrides(ID_AA64DFR0_EL1);
+> +	info->reg_id_aa64dfr1 = read_cpuid_with_overrides(ID_AA64DFR1_EL1);
+> +	info->reg_id_aa64isar0 = read_cpuid_with_overrides(ID_AA64ISAR0_EL1);
+> +	info->reg_id_aa64isar1 = read_cpuid_with_overrides(ID_AA64ISAR1_EL1);
+> +	info->reg_id_aa64isar2 = read_cpuid_with_overrides(ID_AA64ISAR2_EL1);
+> +	info->reg_id_aa64isar3 = read_cpuid_with_overrides(ID_AA64ISAR3_EL1);
+> +	info->reg_id_aa64mmfr0 = read_cpuid_with_overrides(ID_AA64MMFR0_EL1);
+> +	info->reg_id_aa64mmfr1 = read_cpuid_with_overrides(ID_AA64MMFR1_EL1);
+> +	info->reg_id_aa64mmfr2 = read_cpuid_with_overrides(ID_AA64MMFR2_EL1);
+> +	info->reg_id_aa64mmfr3 = read_cpuid_with_overrides(ID_AA64MMFR3_EL1);
+> +	info->reg_id_aa64mmfr4 = read_cpuid_with_overrides(ID_AA64MMFR4_EL1);
+>  	info->reg_id_aa64pfr0 = read_cpuid_with_overrides(ID_AA64PFR0_EL1);
+>  	info->reg_id_aa64pfr1 = read_cpuid_with_overrides(ID_AA64PFR1_EL1);
+> -	info->reg_id_aa64pfr2 = read_cpuid(ID_AA64PFR2_EL1);
+> -	info->reg_id_aa64zfr0 = read_cpuid(ID_AA64ZFR0_EL1);
+> -	info->reg_id_aa64smfr0 = read_cpuid(ID_AA64SMFR0_EL1);
+> -	info->reg_id_aa64fpfr0 = read_cpuid(ID_AA64FPFR0_EL1);
+> +	info->reg_id_aa64pfr2 = read_cpuid_with_overrides(ID_AA64PFR2_EL1);
+> +	info->reg_id_aa64zfr0 = read_cpuid_with_overrides(ID_AA64ZFR0_EL1);
+> +	info->reg_id_aa64smfr0 = read_cpuid_with_overrides(ID_AA64SMFR0_EL1);
+> +	info->reg_id_aa64fpfr0 = read_cpuid_with_overrides(ID_AA64FPFR0_EL1);
 >  
->  $(obj)/Image.lz4: $(obj)/Image FORCE
->  	$(call if_changed,lz4)
-> diff --git a/arch/microblaze/boot/Makefile b/arch/microblaze/boot/Makefile
-> index 2b42c370d574..e3df3a64808a 100644
-> --- a/arch/microblaze/boot/Makefile
-> +++ b/arch/microblaze/boot/Makefile
-> @@ -14,7 +14,7 @@ $(obj)/linux.bin.ub: $(obj)/linux.bin FORCE
->  	$(call if_changed,uimage)
+>  	if (IS_ENABLED(CONFIG_ARM64_MTE) && id_aa64pfr1_mte(info->reg_id_aa64pfr1))
+> -		info->reg_gmid = read_cpuid(GMID_EL1);
+> +		info->reg_gmid = read_cpuid_with_overrides(GMID_EL1);
 >  
->  $(obj)/linux.bin.gz: $(obj)/linux.bin FORCE
-> -	$(call if_changed,gzip)
-> +	+$(call if_changed,gzip)
+>  	if (id_aa64pfr0_mpam(info->reg_id_aa64pfr0) || id_aa64pfr1_mpamfrac(info->reg_id_aa64pfr1))
+> -		info->reg_mpamidr = read_cpuid(MPAMIDR_EL1);
+> +		info->reg_mpamidr = read_cpuid_with_overrides(MPAMIDR_EL1);
 >  
->  quiet_cmd_strip = STRIP   $< $@$2
->  	cmd_strip = $(STRIP) -K microblaze_start -K _end -K __log_buf \
-> diff --git a/arch/mips/boot/Makefile b/arch/mips/boot/Makefile
-> index 8473c4671702..996bf41b78de 100644
-> --- a/arch/mips/boot/Makefile
-> +++ b/arch/mips/boot/Makefile
-> @@ -63,7 +63,7 @@ $(obj)/vmlinux.bin.bz2: $(obj)/vmlinux.bin FORCE
->  	$(call if_changed,bzip2)
->  
->  $(obj)/vmlinux.bin.gz: $(obj)/vmlinux.bin FORCE
-> -	$(call if_changed,gzip)
-> +	+$(call if_changed,gzip)
->  
->  $(obj)/vmlinux.bin.lzma: $(obj)/vmlinux.bin FORCE
->  	$(call if_changed,lzma)
-> diff --git a/arch/nios2/boot/Makefile b/arch/nios2/boot/Makefile
-> index 29c11a06b750..1381e6e428a8 100644
-> --- a/arch/nios2/boot/Makefile
-> +++ b/arch/nios2/boot/Makefile
-> @@ -18,7 +18,7 @@ $(obj)/vmlinux.bin: vmlinux FORCE
->  	$(call if_changed,objcopy)
->  
->  $(obj)/vmlinux.gz: $(obj)/vmlinux.bin FORCE
-> -	$(call if_changed,gzip)
-> +	+$(call if_changed,gzip)
->  
->  $(obj)/vmImage: $(obj)/vmlinux.gz FORCE
->  	$(call if_changed,uimage)
-> diff --git a/arch/parisc/boot/compressed/Makefile b/arch/parisc/boot/compressed/Makefile
-> index 14eefb5ed5d1..a7fc7d424c00 100644
-> --- a/arch/parisc/boot/compressed/Makefile
-> +++ b/arch/parisc/boot/compressed/Makefile
-> @@ -55,7 +55,7 @@ suffix-$(CONFIG_KERNEL_LZO)  := lzo
->  suffix-$(CONFIG_KERNEL_XZ)  := xz
->  
->  $(obj)/vmlinux.bin.gz: $(obj)/vmlinux.bin FORCE
-> -	$(call if_changed,gzip)
-> +	+$(call if_changed,gzip)
->  $(obj)/vmlinux.bin.bz2: $(obj)/vmlinux.bin FORCE
->  	$(call if_changed,bzip2_with_size)
->  $(obj)/vmlinux.bin.lz4: $(obj)/vmlinux.bin FORCE
-> diff --git a/arch/riscv/boot/Makefile b/arch/riscv/boot/Makefile
-> index 4a2d75b7e42d..b80a077a8e8f 100644
-> --- a/arch/riscv/boot/Makefile
-> +++ b/arch/riscv/boot/Makefile
-> @@ -23,7 +23,7 @@ $(obj)/Image: vmlinux FORCE
->  	$(call if_changed,objcopy)
->  
->  $(obj)/Image.gz: $(obj)/Image FORCE
-> -	$(call if_changed,gzip)
-> +	+$(call if_changed,gzip)
->  
->  $(obj)/loader.o: $(src)/loader.S $(obj)/Image
->  
-> diff --git a/arch/s390/boot/Makefile b/arch/s390/boot/Makefile
-> index 10b75e053a6f..e8e43ae80dd5 100644
-> --- a/arch/s390/boot/Makefile
-> +++ b/arch/s390/boot/Makefile
-> @@ -117,7 +117,7 @@ suffix-$(CONFIG_KERNEL_XZ)  := .xz
->  suffix-$(CONFIG_KERNEL_ZSTD)  := .zst
->  
->  $(obj)/vmlinux.bin.gz: $(obj)/vmlinux.bin FORCE
-> -	$(call if_changed,gzip)
-> +	+$(call if_changed,gzip)
->  $(obj)/vmlinux.bin.bz2: $(obj)/vmlinux.bin FORCE
->  	$(call if_changed,bzip2_with_size)
->  $(obj)/vmlinux.bin.lz4: $(obj)/vmlinux.bin FORCE
-> diff --git a/arch/sh/boot/Makefile b/arch/sh/boot/Makefile
-> index 1f5d2df3c7e0..cf63e319b786 100644
-> --- a/arch/sh/boot/Makefile
-> +++ b/arch/sh/boot/Makefile
-> @@ -66,7 +66,7 @@ $(obj)/vmlinux.bin: vmlinux FORCE
->  	$(call if_changed,objcopy)
->  
->  $(obj)/vmlinux.bin.gz: $(obj)/vmlinux.bin FORCE
-> -	$(call if_changed,gzip)
-> +	+$(call if_changed,gzip)
->  
->  $(obj)/vmlinux.bin.bz2: $(obj)/vmlinux.bin FORCE
->  	$(call if_changed,bzip2)
-> diff --git a/arch/sh/boot/compressed/Makefile b/arch/sh/boot/compressed/Makefile
-> index 58df491778b2..b85aa5f0d616 100644
-> --- a/arch/sh/boot/compressed/Makefile
-> +++ b/arch/sh/boot/compressed/Makefile
-> @@ -39,7 +39,7 @@ $(obj)/vmlinux.bin: vmlinux FORCE
->  	$(call if_changed,objcopy)
->  
->  $(obj)/vmlinux.bin.gz: $(obj)/vmlinux.bin FORCE
-> -	$(call if_changed,gzip)
-> +	+$(call if_changed,gzip)
->  $(obj)/vmlinux.bin.bz2: $(obj)/vmlinux.bin FORCE
->  	$(call if_changed,bzip2_with_size)
->  $(obj)/vmlinux.bin.lzma: $(obj)/vmlinux.bin FORCE
-> diff --git a/arch/sparc/boot/Makefile b/arch/sparc/boot/Makefile
-> index 339c42d35089..b53cf596611e 100644
-> --- a/arch/sparc/boot/Makefile
-> +++ b/arch/sparc/boot/Makefile
-> @@ -23,7 +23,7 @@ ifeq ($(CONFIG_SPARC64),y)
->  # Actual linking
->  
->  $(obj)/zImage: $(obj)/image FORCE
-> -	$(call if_changed,gzip)
-> +	+$(call if_changed,gzip)
->  	@$(kecho) 'Kernel: $@ is ready' '(#'$(or $(KBUILD_BUILD_VERSION),`cat .version`)')'
->  
->  $(obj)/vmlinux.aout: vmlinux FORCE
-> @@ -45,7 +45,7 @@ $(obj)/image.bin: $(obj)/image FORCE
->  	$(call if_changed,objcopy)
->  
->  $(obj)/image.gz: $(obj)/image.bin FORCE
-> -	$(call if_changed,gzip)
-> +	+$(call if_changed,gzip)
->  
->  UIMAGE_LOADADDR = $(CONFIG_UBOOT_LOAD_ADDR)
->  UIMAGE_ENTRYADDR = $(CONFIG_UBOOT_ENTRY_ADDR)
-> diff --git a/arch/x86/boot/compressed/Makefile b/arch/x86/boot/compressed/Makefile
-> index 6ec5e031db1d..680ad803cba7 100644
-> --- a/arch/x86/boot/compressed/Makefile
-> +++ b/arch/x86/boot/compressed/Makefile
-> @@ -133,7 +133,7 @@ vmlinux.bin.all-y := $(obj)/vmlinux.bin
->  vmlinux.bin.all-$(CONFIG_X86_NEED_RELOCS) += $(obj)/vmlinux.relocs
->  
->  $(obj)/vmlinux.bin.gz: $(vmlinux.bin.all-y) FORCE
-> -	$(call if_changed,gzip)
-> +	+$(call if_changed,gzip)
->  $(obj)/vmlinux.bin.bz2: $(vmlinux.bin.all-y) FORCE
->  	$(call if_changed,bzip2_with_size)
->  $(obj)/vmlinux.bin.lzma: $(vmlinux.bin.all-y) FORCE
-> diff --git a/arch/xtensa/boot/Makefile b/arch/xtensa/boot/Makefile
-> index d8b0fadf429a..934f9015b15f 100644
-> --- a/arch/xtensa/boot/Makefile
-> +++ b/arch/xtensa/boot/Makefile
-> @@ -36,7 +36,7 @@ $(obj)/vmlinux.bin: vmlinux FORCE
->  	$(call if_changed,objcopy)
->  
->  $(obj)/vmlinux.bin.gz: $(obj)/vmlinux.bin FORCE
-> -	$(call if_changed,gzip)
-> +	+$(call if_changed,gzip)
->  
->  boot-elf: $(obj)/vmlinux.bin
->  boot-redboot: $(obj)/vmlinux.bin.gz
-> -- 
-> 2.55.0
-> 
+>  	if (id_aa64pfr0_32bit_el0(info->reg_id_aa64pfr0))
+>  		__cpuinfo_store_cpu_32bit(&info->aarch32);
+
+For completeness shouldn't read_cpuid(SMIDR_EL1) change to
+read_cpuid_with_overrides(SMIDR_EL1)?
+
+Thanks,
+
+Ben
+
+
