@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEA6542A165;
-	Fri,  9 Oct 2026 06:10:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D5FC4279FE;
+	Fri,  9 Oct 2026 06:10:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791526250; cv=none; b=BQtkiOgK/w24afC5H949yFMuaXp5BHwSOEHuVd3lzB5tnWGHxYMeZ5A+gDdt/Sjn2paS1EDuyQuVLum8jnnmEzDgWvecsp+pOi9bYVF6sMJA7QzrwTDje0wLI8sSumt2F5bag8ps8AKk52XLyKATLNtsrbTRBnc6ZLt2QeeWois=
+	t=1791526253; cv=none; b=uPfsAeo49sJxjOUW/i4z97p3iTBRF1tsPiiW7Fpb+hMBBEgDRl2GPhPVxhtc/VqbiHugjYnqIGbZuEGaJGq6+DWMJOXCTq0FFhZr+VQKStU8wAXck9A576uMuEvixNEPnPRC4UiyGeMdQrRjKCFbAIye45cwYPzlvDD+duyxec4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791526250; c=relaxed/simple;
-	bh=uZZSYAOjuJMOd9IMpZoWRtC11rV4plwn/pRAjV9rM/g=;
+	s=arc-20240116; t=1791526253; c=relaxed/simple;
+	bh=JsKn0W6V7DyjIbmw/qt1dkI3v6Snv+d4FND9/dAuNAA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OFOZTw0jCwuTowz8W755eGGEzGHV3+WDlbFPEjcKQigFNgBeTTtj4yapwEK/7Ti6d4xcMxYGnCEo6jqgurRLXWUfoOPxySeo76PJiA8l2sQUFDRfrXg4vwmh6XsfH726dDBZGN6PbzUEUx4WM0UpU3fw/MAl/RrIqkNiscUoXa8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Th2wQWgL; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ied1V6tJW1jdkYhFbl+JVVBcDUR/w75FQ+BbtsBkmak9wX7fa9wD9NqsyE0PNhPrW1fxbsq2or97rjCQM2UcTLhczMQi60jAUJDjGeeWS/SfKYWdAx9H1h9RywWUW/gc2SynCJzFUSAHoTWJpdil/NGCTvLiGQctDppx5O3hf8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mEFPiUoo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Th2wQWgL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08E2D1F000FF;
-	Fri,  9 Oct 2026 06:10:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mEFPiUoo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23D211F00898;
+	Fri,  9 Oct 2026 06:10:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791526248;
-	bh=iSvppU/VIwgUjLgHLY+2yfkmaTPGx2jQBRc2qY3PfdY=;
+	s=k20260515; t=1791526251;
+	bh=jeMjLgvkM8NXuE64fpizt11DP2l7PUI8HIjgpZhg86c=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Th2wQWgLkUIUbUa9P7OdQoa+4jOz/4lruJgGs8eKOTUwAeX7Q9+hbqCzQSvLztDDJ
-	 958bwpn1zjnZQl3RZiLRve68iqMIuohYfMaCj+N9XHF4KT/jGrCi/3A8PH8MWAzHaB
-	 0Y7ljKhBHznW/ueF+DDrvJe+lJ1Fi/vlh+4/937ypk0egOiy9yWWuhSXW7F+f3bjKa
-	 mTLyQ8yzTOJ5Xw7xUmH73s35FgaspvHsmD/hucDSrVVrv2EoUBv6QcPZmVcPsMLQRN
-	 FdrOkdL8/K7MnrsR7/nEaoXiOPrGpzI02QO8+QswkCBovCYp7eFx3enG3qKTg2GBVW
-	 rfXgho+3vjqFg==
-Date: Fri, 9 Oct 2026 08:10:46 +0200
+	b=mEFPiUoo0HDXDa8cjlKiaenJJUkobMyYTGISHLrH6r7jvPzzRa5i+C4BD1c79aJU/
+	 lG6N7tEk/EoFuaqiH2eGAxzK51KptjifgrAUjuQXnfnDYTto0IhooUACaMb01GSU3I
+	 NXZhluNGAUJw25+CIC/TRVYehWaRtSITKOD285Tzlt//exz7c/wVWT6Vc9+e4Ti+z6
+	 FUh3HWs8jRFjd2zxtPZR0UqeiM7/SP5Lr8+s+mLePkdkGSMC/3M87YYYK24vdQSB2J
+	 Qfvy3OwUG7uSUjkKPZsUFVHtTL11FVAytDFacsKNY6jfepRCKL4FiOp4NSOeiekxRO
+	 UJoqveA5k272g==
+Date: Fri, 9 Oct 2026 08:10:49 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Haotian Zhang <vulab@iscas.ac.cn>
-Cc: Vignesh Raghavendra <vigneshr@ti.com>, 
-	Richard Weinberger <richard@nod.at>, linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Miquel Raynal <miquel.raynal@bootlin.com>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	linux-tegra@vger.kernel.org, Boris Brezillon <bbrezillon@kernel.org>, 
-	Dmitry Osipenko <digetx@gmail.com>, Lucas Stach <dev@lynxeye.de>, 
-	Thierry Reding <thierry.reding@kernel.org>, Stefan Agner <stefan@agner.ch>
-Subject: Re: [PATCH] mtd: rawnand: tegra: fix OF node leak in
- tegra_nand_chips_init()
-Message-ID: <20261009-zippy-prompt-ringtail-e8fc6c@quoll>
-References: <20261008182442.2770036-1-vulab@iscas.ac.cn>
+Cc: David Daney <david.daney@cavium.com>, Paolo Abeni <pabeni@redhat.com>, 
+	Andrew Lunn <andrew@lunn.ch>, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+	Eric Dumazet <edumazet@google.com>, Heiner Kallweit <hkallweit1@gmail.com>, 
+	Russell King <linux@armlinux.org.uk>, Jakub Kicinski <kuba@kernel.org>, 
+	"David S. Miller" <davem@davemloft.net>
+Subject: Re: [PATCH] net: mdio: mdio-mux: fix device_node reference leak on
+ success
+Message-ID: <20261009-narwhal-of-unnatural-shopping-7dfa7c@quoll>
+References: <20261008175612.2748920-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,27 +46,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261008182442.2770036-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261008175612.2748920-1-vulab@iscas.ac.cn>
 
 
-On Fri, 09 Oct 2026 02:24:42 +0800, Haotian Zhang wrote:
-> tegra_nand_chips_init() takes an extra reference on the child NAND node
-> with of_get_next_child() and passes it to nand_set_flash_node(), which
-> only stores the pointer in mtd->dev.of_node. None of the return paths,
-> including the successful one, drop that reference, so the device node is
-> leaked. The get/put pair performed by the MTD core in add_mtd_device()
-> and mtd_release() is balanced and cannot compensate for it.
+On Fri, 09 Oct 2026 01:56:12 +0800, Haotian Zhang wrote:
+> mdio_mux_init() obtains a reference to the parent bus device_node with
+> of_parse_phandle() when no mux_bus is passed in. All error paths release
+> it through err_parent_bus, but the success path at the end of the
+> function returns without calling of_node_put(). of_mdio_find_bus() only
+> takes a reference to the embedded struct device, so the device_node
+> reference is leaked for every multiplexer that probes successfully.
 > 
-> Release the reference with of_node_put() right after the node has been
-> stored, and route the earlier error paths through an err_put_node label
-> so that they release it as well.
+> Release parent_bus_node before returning from the success path.
 > 
-> Fixes: d7d9f8ec77fe ("mtd: rawnand: add NVIDIA Tegra NAND Flash controller driver")
+> Fixes: 0ca2997d1452 ("netdev/of/phy: Add MDIO bus multiplexer support.")
 > Assisted-by: DeepSeek-V4.1-Flash
 > Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
 > ---
->  drivers/mtd/nand/raw/tegra_nand.c | 19 ++++++++++++++-----
->  1 file changed, 14 insertions(+), 5 deletions(-)
+>  drivers/net/mdio/mdio-mux.c | 1 +
+>  1 file changed, 1 insertion(+)
 > 
 
 
